@@ -98,36 +98,36 @@ def lock_response(char, args, target):
 		if target.item.hastag('locked') and int(target.item.gettag('locked')) != 0:
 			locked = 1
 
-		text = '<basefont color="#FECECE"><h3>Manage Lock</h3><br><basefont color="#FEFEFE">This dialog will help you to manage the lock and status of this item.'
+		text = tr('<basefont color="#FECECE"><h3>Manage Lock</h3><br><basefont color="#FEFEFE">This dialog will help you to manage the lock and status of this item.')
 		gump.addHtmlGump(x=20, y=20, width=410, height=90, html=text)
 
 		# InputField for the key id
-		gump.addText(x=20, y=90, text='The id for this lock:', hue=0x835)
+		gump.addText(x=20, y=90, text=tr('The id for this lock:'), hue=0x835)
 		gump.addResizeGump(x=20, y=113, id=0xBB8, width=160, height=25)
 		gump.addInputField(x=25, y=115, width=150, height=20, hue=0x834, id=1, starttext=lock)
 
 		# "Locked? Unlocked?"
 		gump.addCheckbox(x=20, y=164, off=0x25f8, on=0x25fb, id=1, checked=locked)
-		gump.addText(x=55, y=168, text='Locked', hue=0x835)
+		gump.addText(x=55, y=168, text=tr('Locked'), hue=0x835)
 
 		# Add Button
-		gump.addText(x=50, y=212, text='Modify lock', hue=0x835)
+		gump.addText(x=50, y=212, text=tr('Modify lock'), hue=0x835)
 		gump.addButton(x=20, y=212, up=0x26af, down=0x26b1, returncode=2)
 
-		gump.addText(x=50, y=242, text='Cancel', hue=0x835)
+		gump.addText(x=50, y=242, text=tr('Cancel'), hue=0x835)
 		gump.addButton(x=20, y=242, up=0x26af, down=0x26b1, returncode=0)
 
-		gump.addText(x=250, y=212, text='Remove lock', hue=0x835)
+		gump.addText(x=250, y=212, text=tr('Remove lock'), hue=0x835)
 		gump.addButton(x=220, y=212, up=0x26af, down=0x26b1, returncode=3)
 
-		gump.addText(x=250, y=242, text='Create key', hue=0x835)
+		gump.addText(x=250, y=242, text=tr('Create key'), hue=0x835)
 		gump.addButton(x=220, y=242, up=0x26af, down=0x26b1, returncode=4)
 
 	# The targetted item is unlocked
 	else:
 		gump.addBackground(id=0x2436, width=425, height=285)
 
-		text = '<basefont color="#FECECE"><h3>Add Lock</h3><br><basefont color="#FEFEFE">This dialog will help you to add a lock to this item.Please enter a unique identifier for this lock. The lock has to share the same identifier with any key that is supposed to fit.'
+		text = tr('<basefont color="#FECECE"><h3>Add Lock</h3><br><basefont color="#FEFEFE">This dialog will help you to add a lock to this item.Please enter a unique identifier for this lock. The lock has to share the same identifier with any key that is supposed to fit.')
 		gump.addHtmlGump(x=20, y=20, width=390, height=200, html=text)
 
 		# Create a random key id (several characters are excluded that can be easily mistaken for something else)
@@ -138,19 +138,19 @@ def lock_response(char, args, target):
 			rkeyid += random.choice(parts)
 
 		# InputField for the key id
-		gump.addText(x=20, y=105, text='Please enter an id for this lock:', hue=0x835)
+		gump.addText(x=20, y=105, text=tr('Please enter an id for this lock:'), hue=0x835)
 		gump.addResizeGump(x=20, y=128, id=0xBB8, width=160, height=25)
 		gump.addInputField(x=25, y=130, width=150, height=20, hue=0x834, id=1, starttext=rkeyid)
 
 		# "Create a key in my backpack"
 		gump.addCheckbox(x=20, y=167, off=0x25f8, on=0x25fb, id=1)
-		gump.addText(x=55, y=171, text='Create a key in my backpack', hue=0x835)
+		gump.addText(x=55, y=171, text=tr('Create a key in my backpack'), hue=0x835)
 
 		# Add Button
-		gump.addText( x=50, y=212, text='Add lock', hue=0x835 )
+		gump.addText( x=50, y=212, text=tr('Add lock'), hue=0x835 )
 		gump.addButton( x=20, y=212, up=0x26af, down=0x26b1, returncode=1 )
 
-		gump.addText( x=50, y=242, text='Cancel', hue=0x835 )
+		gump.addText( x=50, y=242, text=tr('Cancel'), hue=0x835 )
 		gump.addButton( x=20, y=242, up=0x26af, down=0x26b1, returncode=0 )
 
 	gump.send(char)
