@@ -74,6 +74,17 @@ def processSpawns(process):
 				except:
 					maxinterval = 10
 	
+			# Normalize min and maxinterval (min. is 1)
+			if mininterval < 1:
+				mininterval = 1
+			if maxinterval < 1:
+				maxinterval = 1
+			
+			if mininterval > maxinterval:
+				temp = maxinterval
+				maxinterval = mininterval
+				mininterval = temp
+				
 			# Currently / Maximimum spawned by this gem
 			current = 0
 			if item.hastag('current'):
@@ -107,7 +118,8 @@ def processSpawns(process):
 			if nextspawn == 0 and current < maximum:
 				delay = random.randint(mininterval, maxinterval) * 60 * 1000
 				item.settag('nextspawn', currenttime + delay)
-				console.log(LOG_MESSAGE, "Set spawntime for spawngem 0x%x to %u miliseconds in the future.\n" % (item.serial, delay))
+				if DEBUG_SPAWNS == 1:
+					console.log(LOG_MESSAGE, "Set spawntime for spawngem 0x%x to %u miliseconds in the future.\n" % (item.serial, delay))
 				continue
 	
 			elif current >= maximum:
