@@ -2080,10 +2080,10 @@ P_ITEM GetOutmostCont(P_ITEM pItem, short rec)
 {
 	if ( rec<0								// too many recursions
 		|| !pItem							// bad parm
-		|| isCharSerial(pItem->contserial)	// a character
+		|| ( pItem->container() && isCharSerial(pItem->container()->serial) )	// a character
 		|| pItem->isInWorld() )				// in the world
 		return pItem;
-	P_ITEM pOut=FindItemBySerial(pItem->contserial);	// up one level
+	P_ITEM pOut = dynamic_cast<P_ITEM>(pItem->container());	// up one level
 	if (!pOut)
 	{
 		LogErrorVar("container of item %i not found",pItem->serial);
@@ -2094,10 +2094,10 @@ P_ITEM GetOutmostCont(P_ITEM pItem, short rec)
 
 P_CHAR GetPackOwner(P_ITEM pItem, short rec)
 {
-	P_ITEM pio=GetOutmostCont(pItem,--rec);
-	if (!pio || pio->isInWorld())
-		return NULL;
-	return FindCharBySerial(pio->contserial);
+	P_ITEM pio = GetOutmostCont(pItem,--rec);
+	if ( !pio || pio->isInWorld() )
+		return 0;
+	return dynamic_cast<P_CHAR>(pio->container());
 }
 
 void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall )

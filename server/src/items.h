@@ -45,6 +45,7 @@ class cUOSocket;
 
 class cItem : public cUObject
 {
+	friend class cChar; // temporary
 public:
 	typedef QValueVector<cItem*> ContainerContent;
 protected:

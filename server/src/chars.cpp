@@ -3727,11 +3727,19 @@ void cChar::addItem( cChar::enLayer layer, cItem* pi )
 		
 	}
 	content_.insert( (ushort)(layer), pi );
+	pi->contserial = this->serial;
+	pi->container_ = this;
 }
 
 void cChar::removeItem( cChar::enLayer layer)
 {
-	content_.remove((ushort)(layer));
+	P_ITEM pi = atLayer(layer);
+	if ( pi )
+	{
+		pi->contserial = INVALID_SERIAL;
+		pi->container_ = 0;
+		content_.remove((ushort)(layer));
+	}
 }
 
 cChar::ContainerContent cChar::content() const

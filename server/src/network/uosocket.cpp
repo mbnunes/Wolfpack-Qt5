@@ -1368,9 +1368,9 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	// Add all items to the container
 	cUOTxItemContent itemContent;
 
-	cChar::ContainerContent container = _player->content();
-	cChar::ContainerContent::const_iterator it(container.begin());
-	cChar::ContainerContent::const_iterator end(container.end());
+	cItem::ContainerContent container = pCont->content();
+	cItem::ContainerContent::const_iterator it(container.begin());
+	cItem::ContainerContent::const_iterator end(container.end());
 	for( ; it != end; ++it )
 	{
 		P_ITEM pItem = *it;

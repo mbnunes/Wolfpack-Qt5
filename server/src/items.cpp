@@ -2672,6 +2672,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight )
 	if ( handleWeight )
 		setTotalweight( this->totalweight() + pItem->totalweight() );
 	pItem->container_ = this;
+	pItem->contserial = this->serial;
 }
 
 void cItem::removeItem( cItem* pItem, bool handleWeight )
@@ -2684,6 +2685,7 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 			setTotalweight(	this->totalweight() - pItem->totalweight() );
 	}
 	pItem->container_ = this;
+	pItem->contserial = INVALID_SERIAL;
 }
 
 cItem::ContainerContent cItem::content() const
