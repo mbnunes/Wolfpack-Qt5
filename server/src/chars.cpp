@@ -217,14 +217,7 @@ cChar::cChar( const P_CHAR mob )
 	this->st_ = mob->st();
 	this->st2_ = mob->st2();
 	this->may_levitate_ = mob->may_levitate();
-	this->pathnum_ = mob->pathnum();
 	
-	unsigned int i;
-	for( i=0; i<PATHNUM; i++)
-	{
-		this->path_[ i ].x = mob->path( i ).x;
-		this->path_[ i ].y = mob->path( i ).y;
-	}
 	this->dispz_ = mob->dispz();
 	this->dir_ = mob->dir();
 	this->xid_ = mob->xid();
@@ -395,7 +388,6 @@ void cChar::Init( bool createSerial )
 	this->robe_ = -1; // Serial number of generated death robe (If char is a ghost)
 	this->karma_ = 0;
 	this->fame_ = 0;
-	this->pathnum_=PATHNUM;
 	this->kills_ = 0; // PvP Kills
 	this->deaths_ = 0;
 	this->dead_ = false; // Is character dead
@@ -465,7 +457,7 @@ void cChar::Init( bool createSerial )
 	this->setGuildfealty(INVALID_SERIAL);		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
 	this->GuildTraitor=false; 
 	//this->flag=0x04; //1=red 2=grey 4=Blue 8=green 10=Orange
-	this->criminal(); //flags = 0x2; 1=red 2=grey 4=Blue 8=green 10=Orange // grey as default - AntiChrist
+	setcharflag( this );
 	this->setTempflagtime(0);
 	// End of Guild Related Character information
 	this->setMurderrate(0); //# of ticks till murder decays.
@@ -4005,7 +3997,6 @@ void cChar::criminal()
 			 this->socket()->sysMessage( tr( "You are now a criminal!" ) );
 
 		 // Update the highlight flag.
-		 setcharflag( this );
 		 changed( SAVE );
 	}
 }
@@ -4627,3 +4618,265 @@ bool cChar::online() const
 		return true;
 	return false;
 }
+
+Coord_cl cChar::nextMove()
+{
+	Coord_cl ret;
+	if( !path_.empty() )
+	{
+		ret = path_.front();
+	}
+	else
+		ret = Coord_cl( 0xFFFF, 0xFFFF, 0xFF, 0 );
+
+	return ret;
+}
+
+void cChar::pushMove( UI16 x, UI16 y, SI08 z )
+{
+	path_.push_back( Coord_cl( x, y, z, 0 ) );
+}
+
+void cChar::pushMove( const Coord_cl &move )
+{
+	path_.push_back( move );
+}
+
+void cChar::popMove( void )
+{
+	path_.pop_front();
+}
+
+void cChar::clearPath( void )
+{
+	path_.clear();
+}
+
+bool cChar::hasPath( void )
+{
+	return !path_.empty();
+}
+
+Coord_cl cChar::pathDestination( void ) const
+{
+	if( path_.empty() )
+		return Coord_cl( 0xFFFF, 0xFFFF, 0xFF, 0 );
+	else
+		return path_.back();
+}
+
+/*!
+	A* pathfinding algorithm implementation. consult me (sereg) for changes!
+	I've used this paper as a base: http://www.wpdev.org/
+	A*>>
+*/
+
+/*!
+	We'll need to build a list of pathnodes. Each pathnode contains
+	coordinates, iteration step, cost and a pointer to its predecessor.
+*/
+class pathnode_cl 
+{
+public:
+	pathnode_cl( UI16 x_, UI16 y_, SI08 z_, UI16 step_, float cost_ ) : prev( NULL ), x( x_ ), y( y_ ), z( z_ ), step( step_ ), cost( cost_ ) {}
+	pathnode_cl() : prev( NULL ) {}
+	UI16	x;
+	UI16	y;
+	SI08	z;
+	UI16	step;
+	float	cost;
+
+	pathnode_cl *prev;
+};
+
+/*!
+	Compare predicate for pathnodes using cost and step
+*/
+struct pathnode_comparePredicate : public std::binary_function<pathnode_cl, pathnode_cl, bool>
+{
+	bool operator()(const pathnode_cl *a, const pathnode_cl *b)
+	{
+		return (a->step + 2 * a->cost) > (b->step + 2 * b->cost);
+	}
+};
+
+/*!
+	Compare predicate for pathnodes using coordinates
+*/
+struct pathnode_coordComparePredicate : public std::binary_function<pathnode_cl, pathnode_cl, bool>
+{
+	bool operator()(const pathnode_cl *a, const pathnode_cl *b)
+	{
+		return ( a->x * a->x + a->y * a->y + a->z * a->z ) <
+				( b->x * b->x + b->y * b->y + b->z * b->z );
+	}
+};
+
+/*!
+	Heuristic function for A*
+	We use simple 3-dim. euclid distance: d = sqrt( |x1-x2|² + |y1-y2|² + |z1-z2|² )
+	Two times because we need more weight for the costs.
+*/
+float cChar::pathHeuristic( const Coord_cl &source, const Coord_cl &destination )
+{
+	return (float)( sqrt( pow( abs(source.x - destination.x), 2 ) + pow( abs(source.y - destination.y), 2 ) + pow( abs(source.z - destination.z) / 5, 2 ) ) );
+}
+
+/*!
+	The algorithm..
+	currently works in x,y,z direction. no idea how to implement map jumping yet.
+*/
+void cChar::findPath( const Coord_cl &goal, float sufficient_cost = 0.0f )
+{
+	if( path_.size() > 0 )
+		path_.clear();
+
+	if( pos_.map != goal.map )
+		return;
+
+	/*
+		For A* we use a priority queue to store the unexamined path nodes 
+		in a way, that the node with lowest cost lies always at the beginning.
+		I'll use std::vector combined with the stl heap functions for it.
+	*/
+	std::vector< pathnode_cl* >	unvisited_nodes;
+	std::vector< pathnode_cl* >	visited_nodes;
+	std::make_heap( unvisited_nodes.begin(), unvisited_nodes.end(), pathnode_comparePredicate() );
+
+	/*
+		We also need a vector for the calculated list.
+		And a temporary vector of neighbours.
+	*/
+	std::vector< pathnode_cl* >	allnodes;
+	std::vector< Coord_cl >		neighbours;
+	std::vector< pathnode_cl* >::iterator	pit;
+	std::vector< Coord_cl >::iterator		nit;
+
+	/*
+		So let's start :)
+		The initial thing we'll have to do is to push the current char position
+		into the priority queue.
+	*/
+	pathnode_cl *baseNode = new pathnode_cl( pos_.x, pos_.y, pos_.z, 0, pathHeuristic( pos_, goal ) );
+	unvisited_nodes.push_back( baseNode );
+	// pushing the heap isnt needed here..
+	allnodes.push_back( baseNode );
+
+	/*
+		Each iteration of the following loop will take the first element
+		out of the priority queue and calculate the neighbour nodes 
+		(sourrounding coordinates). The first element is pushed into
+		the current path vector. When pushing we must check, if we ran
+		into a dead end before. If we did so, we must pop the current path
+		vector till we are at the right step position.
+
+		All neighbours that are reachable will be pushed into the priority
+		queue.
+
+		If no neighbour is reachable we ran into a dead end. Nothing will
+		be done in this iteration, because we check for dead ends at
+		the beginning of this loop.
+	*/
+
+	pathnode_cl *currentNode = NULL;
+	pathnode_cl *newNode = NULL;
+	pathnode_cl *prevNode = NULL;
+	while( !unvisited_nodes.empty() )
+	{
+		// get the first element of the queue
+		bool visited;
+		do
+		{
+			visited = false;
+			currentNode = *unvisited_nodes.begin();
+
+			// remove it from the queue
+			std::pop_heap( unvisited_nodes.begin(), unvisited_nodes.end(), pathnode_comparePredicate() );
+			unvisited_nodes.pop_back();
+
+			// dont calculate loops !
+
+			visited = std::binary_search( visited_nodes.begin(), visited_nodes.end(), currentNode, pathnode_coordComparePredicate() );
+
+			// steps > step depth 
+		} while( ( visited || currentNode->step > PATHFIND_MAXSTEPS ) && !unvisited_nodes.empty() );
+
+		if( currentNode->step > PATHFIND_MAXSTEPS )
+		{
+			// lets set the pointer invalid if we have an invalid path
+			currentNode = NULL;
+			break;
+		}
+
+		// we reached the goal
+		if( currentNode->cost <= sufficient_cost )
+			break;
+
+		// the neighbours can be all surrounding x-y-coordinates
+		neighbours.clear();
+		int i = 0;
+		int j = 0;
+		Coord_cl pos;
+		for( i = -1; i <= 1; ++i )
+		{
+			for( j = -1; j <= 1; ++j )
+			{
+				if( i != 0 || j != 0 )
+					neighbours.push_back( Coord_cl( currentNode->x + i, currentNode->y + j, currentNode->z, pos_.map ) );
+			}
+		}
+
+		// check walkability and set z offsets for neighbours
+		nit = neighbours.begin();
+		while( nit != neighbours.end() )
+		{
+			pos = *nit;
+			// this should change z coordinates also if there are stairs
+			if( mayWalk( this, pos ) )
+			{
+				// push a path node into the priority queue
+				newNode = new pathnode_cl( pos.x, pos.y, pos.z, currentNode->step + 1, pathHeuristic( pos, goal ) );
+				newNode->prev = currentNode;
+				unvisited_nodes.push_back( newNode );
+				allnodes.push_back( newNode );
+				std::push_heap( unvisited_nodes.begin(), unvisited_nodes.end(), pathnode_comparePredicate() );
+			}
+			++nit;
+		}
+
+		visited_nodes.push_back( currentNode );
+		std::sort( visited_nodes.begin(), visited_nodes.end(), pathnode_coordComparePredicate() );
+	}
+
+	// finally lets set the char's path
+	if( currentNode )
+	{
+		path_.clear();
+		while( currentNode->prev )
+		{
+			path_.push_front( Coord_cl( currentNode->x, currentNode->y, currentNode->z, pos_.map ) );
+			currentNode = currentNode->prev;
+		}
+	}
+
+	/* debug...
+	std::deque< Coord_cl >::const_iterator it = path_.begin();
+	while( it != path_.end() )
+	{
+		clConsole.send( QString( "%1,%2\n" ).arg( (*it).x ).arg( (*it).y ) );
+		++it;
+	}
+	*/
+
+	// lets free the memory assigned to the nodes...
+	pit = allnodes.begin();
+	while( pit != allnodes.end() )
+	{
+		delete *pit;
+		++pit;
+	}
+}
+
+/*!
+	<<A*
+*/

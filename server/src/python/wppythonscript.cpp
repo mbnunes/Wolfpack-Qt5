@@ -71,6 +71,7 @@ void WPPythonScript::load( const QDomElement &Data )
 {
 	// Initialize it
 	codeModule = NULL;
+	catchAllSpeech_ = false;
 
 	QString moduleName = Data.attribute( "module" );
 
@@ -108,7 +109,6 @@ void WPPythonScript::load( const QDomElement &Data )
 	}
 
 	handleSpeech_ = PyObject_HasAttr( codeModule, PyString_FromString( "onSpeech" ) );
-	catchAllSpeech_ = false;
 }
 
 //========================== OVERRIDDEN DEFAULT EVENTS

@@ -50,6 +50,7 @@
 #include <qmap.h>
 #include <qptrlist.h>
 #include <qvaluevector.h>
+#include <deque>
 
 // Forward class declaration
 class QString;
@@ -226,8 +227,6 @@ protected:
 	signed short			st_; // Strength
 	signed short			st2_; // Reserved for calculation
 	bool					may_levitate_;
-	unsigned char			pathnum_;
-	path_st					path_[PATHNUM];
 	signed char				dispz_;   
 	unsigned char			dir_; //&0F=Direction
 	unsigned short			xid_; // Backup of body type for ghosts
@@ -289,6 +288,8 @@ protected:
 	QMap< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 	unsigned int			food_;
 
+	std::deque< Coord_cl >	path_;	// A* calculated path to walk for NPCs, dont save this ! (sereg)
+
 	// Public Methods
 public:
 	cChar();
@@ -317,6 +318,8 @@ public:
 	QString fullName( void );
 	UINT16 bestSkill();
 	QString reputationTitle();
+
+	Coord_cl nextMove( void );
 
 	// Getters
 	short					guildType() const;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
@@ -422,10 +425,6 @@ public:
 	signed short			st() const { return st_; }
 	signed short			st2() const { return st2_; }
 	bool					may_levitate() const { return may_levitate_; }
-	unsigned char			pathnum() const { return pathnum_; }
-	path_st					path( int val ) const { return path_[val]; }
-	unsigned short			pathX( int val ) const { return path_[val].x; }
-	unsigned short			pathY( int val ) const { return path_[val].y; }
 	signed char				dispz() const { return dispz_; }   
 	unsigned char			dir() const { return dir_; }
 	unsigned short			xid() const { return xid_; }
@@ -595,10 +594,6 @@ public:
 	void					setSt( signed short d ) { st_ = d; changed( SAVE );}
 	void					setSt2( signed short d ) { st2_ = d; changed( SAVE );}
 	void					setMay_Levitate( bool d ) { may_levitate_ = d; changed( SAVE );}
-	void					setPathNum( unsigned char d ) { pathnum_ = d; changed( SAVE );}
-	void					setPath( int p, path_st val ){ path_[p] = val; changed( SAVE );}
-	void					setPathX( int p, unsigned short xValue ) { path_[p].x = xValue; changed( SAVE );}
-	void					setPathY( int p, unsigned short yValue ) { path_[p].y = yValue; changed( SAVE );}
 	void					setDispz( signed char d ) { dispz_ = d; changed( SAVE );}
 	void					setDir( unsigned char d ) { dir_ = d; changed( SAVE );}
 	void					setXid( unsigned short d ) { xid_ = d; changed( SAVE );}
@@ -665,6 +660,15 @@ public:
 	void					setSkillValue( UINT16 skill, UINT16 value );
 	void					setSkillCap( UINT16 skill, UINT16 cap );
 	void					setSkillLock( UINT16 skill, UINT8 lock );
+
+	void					pushMove( const Coord_cl &move );
+	void					pushMove( UI16 x, UI16 y, SI08 z );
+	void					popMove( void );
+	void					clearPath( void );
+	bool					hasPath( void );
+	Coord_cl				pathDestination( void ) const;
+	float					pathHeuristic( const Coord_cl &source, const Coord_cl &destination );
+	void					findPath( const Coord_cl &goal, float sufficient_cost );
 
 	UINT8 notority( P_CHAR pChar ); // Gets the notority toward another char
 	void kill();

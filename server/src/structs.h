@@ -63,12 +63,6 @@ struct sound_st
 	int effect[2];
 };
 
-struct path_st 
-{
-	unsigned short x;
-	unsigned short y;
-};
-
 struct creat_st
 {
 	int basesound;

@@ -62,7 +62,6 @@ extern long int oldtime, newtime;
 #define MAXPAGES 75 // Maximum number of pages in the GM queue
 #define VISRANGE 18 // Visibility for normal items
 #define BUILDRANGE 31 // Visibility for castles and keeps
-#define PATHNUM 2
 
 #define XYMAX 256 // Maximum items Wolfpack can handle on one X/Y square
 //#define MAXEFFECTS MAXCHARS/10
@@ -236,6 +235,12 @@ enum enDirection
 
 #define CONN_MAIN 1
 #define CONN_SECOND 2
+
+// Maximum Search Steps: Iterations to calculate
+#define PATHFIND_MAXSTEPS			15
+#define PATHFIND_FOLLOW_MINCOST		1.5f
+#define PATHFIND_FOLLOW_RADIUS		10
+#define	PATHFIND_FLEE_RADIUS		15
 
 #endif
 ///////////////////////  End Defines

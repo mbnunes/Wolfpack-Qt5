@@ -79,18 +79,6 @@ unitile_st xyblock[XYMAX];
 #define P_C_IS_NPC			0x40
 #define P_C_IS_FISH			0x80
 
-// Maximum Search Depth: Iterations to calculate
-#define P_PF_MSD		5
-// Maximum Return Value: Number of steps to return (Replaces PATHNUM)
-// NOTE: P_PF_MRV CANNOT EXCEED THE VALUE OF PATHNUM FOR THE TIME BEING
-#define P_PF_MRV		2
-// Maximum Influence Range: Tiles to left/right of path to account for
-#define P_PF_MIR		5
-// Maximum Blocked Range: MIR to use if character is stuck
-#define P_PF_MBR		10
-// Minimum Flee Distance: MFD
-#define P_PF_MFD		15
-
 // Ok, I played with this some, and in some places in T2A, the max height that I should be allowed
 // to climb is actually around 14. So, I'm gonna use a different var up here, and if you
 // don't agree with me, just give it the value MaxZstep [9] (defined in typedefs.h)
@@ -483,12 +471,11 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	if( pChar->onWalk( dir, sequence ) )
 		return;
 
-	if( !isValidDirection( dir ) )
+/*	if( !isValidDirection( dir ) )
 	{
-		//pChar->pathnum += PATHNUM;
 		pChar->setPathNum( pChar->pathnum() + PATHNUM );
 		return;
-	}
+	}*/
 
 	cUOSocket *socket = pChar->socket();
 
@@ -544,7 +531,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 				socket->denyMove( sequence );
 			else if( pChar->isNpc() )
 //				pChar->pathnum += P_PF_MRV;
-				pChar->setPathNum( pChar->pathnum() + P_PF_MRV);
+//				pChar->setPathNum( pChar->pathnum() + P_PF_MRV);
 
 			return;
 		}
@@ -553,7 +540,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		if( pChar->isNpc() && CheckForCharacterAtXYZ( pChar, newCoord ) )
 		{
 //			pChar->pathnum += P_PF_MRV;
-			pChar->setPathNum( pChar->pathnum() + P_PF_MRV);
+//			pChar->setPathNum( pChar->pathnum() + P_PF_MRV);
 			return;
 		}
 
@@ -1264,75 +1251,6 @@ void cMovement::randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type )
 	Walking( pChar, dir&0x07, 0xFF );
 }
 
-// Ok, I'm going to babble here, but here's my thinking process...
-// Max Heuristic is 5 (for now) and I'm not concerned about walls... I'll add that later
-// Easiest way I think would be for recursive call for now... Will change later if need be
-// pathfind will call itself with new stuff... as long as the distance get's shorter
-// We have to take into consideration if the NPC is going to a point or to a character
-// if we don't want NPCs to walk over each other, this has to be known, because the NPC
-// that's walking will never reach destination if it's another character.
-// We must pass, that way if we get chardist=1 then we're ok.  We are basically searching
-// for the shortest path, which is always a diagonal line, followed by lateral to target
-// (barring obstacles) On calculation, for the FIRST step, we need to know if a character
-// is there or not, then after that no biggie because if so we can just recalc the path if
-// something is blocking. If we don't check on that first step, NPCs will get stuck behind horses
-// and stuff... Kinda exploitable if I'm on a horse attacking, then step off and behind to hide
-// while I heal. The first thing we need to do when walking is determine if i'm blocked... then
-// if I'm an NPC, recalculate my path and step... I'm also gonna take out the path structure
-// in chars_st... all we need is to hold the directions, not the x and y... Hopefully this will
-// save memory.
-void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
-{
-	// Make sure this is a valid character before proceeding
-	if ( !pc )
-		return;
-
-	// Make sure the character has taken used all of their previously saved steps
-	if ( pc->pathnum() < P_PF_MRV ) 
-		return;
-
-	path_st newpath[P_PF_MIR];
-	pc->setPathNum(0);
-
-	for ( int pn = 0 ; pn < P_PF_MRV ; pn++ )
-	{
-		newpath[pn].x = newpath[pn].y = 0;
-		int pf_neg = ( ( rand() % 2 ) ? 1 : -1 );
-		int pf_dir = Direction( pc->pos().x, pc->pos().y, gx, gy );
-		for ( int i = 0 ; i < 8 ; i++ )
-		{
-			pf_neg *= -1;
-			pf_dir += ( i * pf_neg );
-			Coord_cl newCoord = pc->pos();
-
-			if( mayWalk( pc, newCoord ) )
-			{
-				if ( ( pn < P_PF_MRV ) && CheckForCharacterAtXYZ( pc, newCoord ) )
-					continue;
-
-				newpath[pn].x = newCoord.x;
-				newpath[pn].y = newCoord.y;
-				break;
-			}
-		}
-		if ( ( newpath[pn].x == 0 ) && ( newpath[pn].y == 0 ) )
-		{
-			pc->setPathNum(P_PF_MRV);
-			break;
-		}
-	}
-
-	for ( int i = 0 ; i < P_PF_MRV ; i++ )
-	{
-//		pc->path[i].x = newpath[i].x;
-		pc->setPathX(i, newpath[i].x);
-
-//		pc->path[i].y = newpath[i].y;
-		pc->setPathY(i, newpath[i].y);
-
-	}
-}
-
 // This processes a NPC movement poll
 void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 {
@@ -1387,16 +1305,30 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 
 		    if( pc_target->socket() || pc_target->isNpc() )
 			{
-				UINT8 dir = pc_target->dist( pc_i );
-				if ( dir > 1 )
+				if( pc_i->dist( pc_target ) <= PATHFIND_FOLLOW_RADIUS && pc_i->pathHeuristic( pc_i->pos(), pc_target->pos() ) > PATHFIND_FOLLOW_MINCOST )
 				{
-					//PathFind( pc_i, pc_target->pos().x, pc_target->pos().y );
-	                //UINT8 dir = chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
-					//UINT8 dir = chardirxyz(pc_i, pc_i->pathX( pc_i->pathnum() ), pc_i->pathY(pc_i->pathnum()) );
-					//pc_i->pathnum++;
-					//pc_i->setPathNum( pc_i->pathnum() + 1 );
-					// Disabled Path finding until a good algorythm is found
-			        Walking( pc_i, dir, 0xFF );
+					Coord_cl nextmove = pc_i->nextMove();
+					// check if we already have calculated a path
+					// and if the destination still is within cost range.
+					if( !pc_i->hasPath() ||
+						pc_i->pathHeuristic( pc_i->pathDestination(), pc_target->pos() ) > PATHFIND_FOLLOW_MINCOST ||
+						!mayWalk( pc_i, nextmove ) )
+					{
+						pc_i->findPath( pc_target->pos(), PATHFIND_FOLLOW_MINCOST );
+						nextmove = pc_i->nextMove();
+					}
+
+					if( nextmove.x != 0xFFFF )
+					{
+						int dir = chardirxyz( pc_i, nextmove.x, nextmove.y );
+						if( pc_i->dir() == dir )
+						{
+							// only delete the move if the dirs are equal,
+							// because walking checks this !
+							pc_i->popMove();
+						}
+						Walking( pc_i, dir, 0xFF );
+					}
 				}
 
 				// Has the Escortee reached the destination ??
@@ -1430,13 +1362,22 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
         break;
     case 5: // Flee
 		{
-			P_CHAR pc_k = FindCharBySerial(pc_i->targ());
-			if (pc_k == NULL) return;
-			
-			if ( pc_k->dist(pc_i) < P_PF_MFD )
+			Coord_cl nextmove = pc_i->nextMove();
+			if( pc_i->hasPath() && mayWalk( pc_i, nextmove ) )
+			{
+				pc_i->popMove();
+				Walking( pc_i, chardirxyz( pc_i, nextmove.x, nextmove.y ), 0xFF );
+				break;
+			}
+
+			P_CHAR pc_k = FindCharBySerial( pc_i->targ() );
+			if( !pc_k ) 
+				return;
+
+			if ( pc_k->dist(pc_i) < PATHFIND_FLEE_RADIUS )
 			{
 				// calculate a x,y to flee towards
-				int mydist = P_PF_MFD - pc_k->dist( pc_i ) + 1;
+				int mydist = PATHFIND_FLEE_RADIUS - pc_k->dist( pc_i ) + 1;
 				j = chardirxyz( pc_i, pc_k->pos().x, pc_k->pos().y );
 				Coord_cl fleeCoord = calcCoordFromDir( j, pc_i->pos() );
 
@@ -1459,12 +1400,17 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 					fleeCoord.y += ( yfactor * mydist );
 				}
 			
-				PathFind( pc_i, fleeCoord.x, fleeCoord.y );
-//				j = chardirxyz(pc_i, pc_i->path[ pc_i->pathnum ].x, pc_i->path[ pc_i->pathnum ].y);
-				j = chardirxyz(pc_i, pc_i->pathX( pc_i->pathnum() ), pc_i->pathY( pc_i->pathnum() ) );
-//				pc_i->pathnum++;
-				pc_i->setPathNum( pc_i->pathnum() + 1 );
-				Walking( pc_i, j, 256 );
+				fleeCoord.z = Map->mapAverageElevation( fleeCoord );
+				pc_i->findPath( fleeCoord, 2 );
+				Coord_cl nextmove = pc_i->nextMove();
+				int dir = chardirxyz( pc_i, nextmove.x, nextmove.y );
+				if( pc_i->dir() == dir )
+				{
+					// only delete the move if the dirs are equal,
+					// because walking checks this !
+					pc_i->popMove();
+				}
+				Walking( pc_i, dir, 0xFF );
 			}
 			else
 			{ // wander freely... don't just stop because I'm out of range.

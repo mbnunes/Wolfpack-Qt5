@@ -64,15 +64,18 @@
 // Library Includes
 #include <list>
 
+// UNCOMMENT THIS IF YOU WANT TO USE A HASHMAP 
+//#define WP_USE_HASH_MAP
+
 // Important compile switch
-#if defined(WP_DONT_USE_HASH_MAP)
-#include <map>
-typedef std::map< SERIAL, P_ITEM > ItemMap;
-typedef std::map< SERIAL, P_CHAR > CharMap;
-#else
+#if defined(WP_USE_HASH_MAP)
 #include <hash_map>
 typedef std::hash_map< SERIAL, P_ITEM > ItemMap;
 typedef std::hash_map< SERIAL, P_CHAR > CharMap;
+#else
+#include <map>
+typedef std::map< SERIAL, P_ITEM > ItemMap;
+typedef std::map< SERIAL, P_CHAR > CharMap;
 #endif
 
 /*****************************************************************************
@@ -505,8 +508,8 @@ void cWorld::saveSql()
 	// Flush old items
 	persistentBroker->flushDeleteQueue();
 	
-	try
-	{
+//	try
+//	{
 		cItemIterator iItems;
 		for( P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next() )
 			persistentBroker->saveObject( pItem );
@@ -514,7 +517,7 @@ void cWorld::saveSql()
 		cCharIterator iChars;
 		for( P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next() )
 			persistentBroker->saveObject( pChar );
-	}
+/*	}
 	catch( QString& error )
 	{
 		clConsole.log( LOG_ERROR, error );
@@ -526,7 +529,7 @@ void cWorld::saveSql()
 		clConsole.ChangeColor( WPC_NORMAL );
 		clConsole.send( ": Unhandled Exception\n" );
 	}
-
+*/
 	p->purgePendingObjects();
 
 	ISerialization *archive = cPluginFactory::serializationArchiver( "xml" );
