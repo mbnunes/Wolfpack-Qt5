@@ -1179,9 +1179,9 @@ void deathstuff(P_CHAR pc_player)
 			if (pi_j->type==1 && pi_j->layer!=0x1A && pi_j->layer!=0x1B &&
 				pi_j->layer!=0x1C && pi_j->layer!=0x1D)
 			{//if this is a pack but it's not a VendorContainer(like the buy container) or a bankbox
-				int ci1=0;
+				unsigned int ci1;
 				vector<SERIAL> vecContainer = contsp.getData(pi_j->serial);
-				for ( ci1 = 0; ci1 < vecContainer.size(); ci1++)
+				for ( ci1 = 0; ci1 < vecContainer.size(); ++ci1)
 				{
 					P_ITEM pi_k = FindItemBySerial(vecContainer[ci1]);
 					if ( (!(pi_k->priv&0x02)) && (pi_k->type!=9))//Morrolan spellbook disappearance fix
@@ -1288,8 +1288,8 @@ int GetBankCount( P_CHAR pc, unsigned short itemid, unsigned short color )
 	unsigned char cid2 = (char)(color%256);
 	SERIAL serial = pc->serial;
 	long int goldCount = 0;
-	int counter2 = 0;
-	int ci;
+//	int counter2 = 0;
+	unsigned int ci;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
 	for( ci = 0; ci < vecOwn.size(); ci++ )
 	{
@@ -1298,6 +1298,7 @@ int GetBankCount( P_CHAR pc, unsigned short itemid, unsigned short color )
 		{
 			if( pj->ownserial == serial && pj->type == 1 && pj->morex == 1 )
 			{
+				unsigned int counter2;
 				vector<SERIAL> vecContainer = contsp.getData(pj->serial);
 				for( counter2 = 0; counter2 < vecContainer.size(); counter2++ )
 				{
@@ -1328,7 +1329,7 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 	unsigned char cid1 = (char)(color>>8);
 	unsigned char cid2 = (char)(color%256);
 	SERIAL serial = pc->serial;
-	int counter2 = 0;
+	//int counter2 = 0;
 	int total = amt;
 	unsigned int ci;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
@@ -1339,6 +1340,7 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 		{
 			if( pj->ownserial == serial && pj->type == 1 && pj->morex == 1 )
 			{
+				unsigned int counter2;
 				vector<SERIAL> vecContainer = contsp.getData(pj->serial);
 				for( counter2 = 0; counter2 < vecContainer.size() && total > 0; counter2++ )
 				{
@@ -1732,7 +1734,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			if(hf<0 && (House[h]->OwnerAccount!=pc_currchar->account))
 				return;
 			if (SrvParms->housedecay_secs!=0)
-				 ds=((House[h]->TimeUnused)*100)/(SrvParms->housedecay_secs);
+				 ds = static_cast<float>((House[h]->TimeUnused)*100) / (SrvParms->housedecay_secs);
 			else ds=-1;	
 			if (ds>=50) // sysmessage iff decay status >=50%
 			{
@@ -3548,8 +3550,7 @@ void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
 		{
 		 if (inrange1p(currchar[i], pc_target)&&perm[i])
 		 {
-			  pc_target->emotecolor1=0x00;
-			  pc_target->emotecolor2=0x26;
+			  pc_target->emotecolor = 0x0026;
 			  npcemote(i, pc_target2, (char*)temp,1);
 		 }
 	}

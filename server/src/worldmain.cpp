@@ -120,9 +120,7 @@ void loadchar(int x) // Load a character from WSC
 		case 'e':
 			if (!strcmp((char*)script1, "EMOTE"))
 			{
-				i=str2num(script2);
-				pc->emotecolor1=i>>8;
-				pc->emotecolor2=i%256;
+				pc->emotecolor = str2num(script2);
 			}
 		break;
 
@@ -137,9 +135,6 @@ void loadchar(int x) // Load a character from WSC
 			else if (!strcmp((char*)script1, "FZ1"))			  pc->fz1=str2num(script2);
 			else if (!strcmp((char*)script1, "FX2"))			  pc->fx2=str2num(script2);
 			else if (!strcmp((char*)script1, "FY2"))			  pc->fy2=str2num(script2);
-			else if (!strcmp((char*)script1, "FOODX"))			  pc->foodlocx=str2num(script2);
-			else if (!strcmp((char*)script1, "FOODY"))			  pc->foodlocy=str2num(script2);
-			else if (!strcmp((char*)script1, "FOODZ"))			  pc->foodlocz=str2num(script2);
 		break;
 
 		case 'G': 
@@ -182,9 +177,6 @@ void loadchar(int x) // Load a character from WSC
 			else if (!strcmp((char*)script1, "HIDDEN"))			  pc->hidden=str2num(script2);
 			else if (!strcmp((char*)script1, "HUNGER"))			  pc->hunger=str2num(script2);
 			else if (!strcmp((char*)script1, "HOLDGOLD"))		  pc->holdg=str2num(script2);
-			else if (!strcmp((char*)script1, "HOMEX"))			  pc->homelocx=str2num(script2); 
-			else if (!strcmp((char*)script1, "HOMEY"))			  pc->homelocy=str2num(script2); 
-			else if (!strcmp((char*)script1, "HOMEZ"))			  pc->homelocz=str2num(script2); 
 		break;
 
 		case 'I':
@@ -351,9 +343,6 @@ void loadchar(int x) // Load a character from WSC
 		case 'W':
 		case 'w':
 			if (!strcmp((char*)script1, "WAR"))					  pc->war=str2num(script2);
-			else if (!strcmp((char*)script1, "WORKX"))			{ pc->worklocx=str2num(script2);}
-			else if (!strcmp((char*)script1, "WORKY"))			{ pc->worklocy=str2num(script2);}
-			else if (!strcmp((char*)script1, "WORKZ"))			{ pc->worklocz=str2num(script2);}
 		break;
 
 		case 'Y':
@@ -506,8 +495,8 @@ void loaditem (int x) // Load an item from WSC
 				} 
 				if (!b)
 				{
-					pi->color1=i>>8;
-					pi->color2=i%256;
+					pi->color1 = static_cast<unsigned char>(i>>8);
+					pi->color2 = static_cast<unsigned char>(i%256);
 				} else
 				{
 					pi->color1=0; // bugged color found, leave it undyed
@@ -546,8 +535,8 @@ void loaditem (int x) // Load an item from WSC
 			else if (!(strcmp((char*)script1, "GLOWBC")))
 			{
 				i=str2num(script2);
-				pi->glow_c1=i>>8;
-				pi->glow_c2=i%256;
+				pi->glow_c1 = static_cast<unsigned char>(i>>8);
+				pi->glow_c2 = static_cast<unsigned char>(i%256);
 			}
 			else if (!(strcmp((char*)script1, "GLOWTYPE"))) { pi->glow_effect=str2num(script2);  }
 			break;
@@ -565,8 +554,8 @@ void loaditem (int x) // Load an item from WSC
 			else if (!(strcmp((char*)script1, "ITEMHAND"))) { pi->itmhand=str2num(script2); }
 			else if (!(strcmp((char*)script1, "ID")))
 			{
-				i=str2num(script2);
-				pi->setId(i);
+				i = str2num(script2);
+				pi->setId(static_cast<unsigned short>(i));
 				if (i>=0x4000)
 				{
 					SI32 length;
@@ -1214,8 +1203,8 @@ void CWorldMain::SaveChar( P_CHAR pc )
 				fprintf(cWsc, "FONT %i\n", pc->fonttype);
 			if (pc->saycolor != pc_reference->saycolor)
 				fprintf(cWsc, "SAY %i\n", pc->saycolor);
-			if ((pc->emotecolor1<<8)+pc->emotecolor2 != (pc_reference->emotecolor1<<8) + pc_reference->emotecolor2)
-				fprintf(cWsc, "EMOTE %i\n", (pc->emotecolor1<<8)+pc->emotecolor2);
+			if (pc->emotecolor != pc_reference->emotecolor)
+				fprintf(cWsc, "EMOTE %i\n", pc->emotecolor);
 			if (pc->st != pc_reference->st)
 				fprintf(cWsc, "STRENGTH %i\n", pc->st);
 			if (pc->st2 != pc_reference->st2)
@@ -1355,24 +1344,6 @@ void CWorldMain::SaveChar( P_CHAR pc )
 				fprintf(cWsc, "MURDERRATE %i\n",pc->murderrate);
 			if (pc->menupriv != pc_reference->menupriv)
 				fprintf(cWsc, "MENUPRIV %i\n", pc->menupriv);  
-			if (pc->homelocx != pc_reference->homelocx)
-				fprintf(cWsc, "HOMEX %i\n", pc->homelocx); 
-			if (pc->homelocy != pc_reference->homelocy)
-				fprintf(cWsc, "HOMEY %i\n", pc->homelocy); 
-			if (pc->homelocz != pc_reference->homelocz)
-				fprintf(cWsc, "HOMEZ %i\n", pc->homelocz); 
-			if (pc->worklocx != pc_reference->worklocx)
-				fprintf(cWsc, "WORKX %i\n", pc->worklocx); 
-			if (pc->worklocy != pc_reference->worklocy)
-				fprintf(cWsc, "WORKY %i\n", pc->worklocy); 
-			if (pc->worklocz != pc_reference->worklocz)
-				fprintf(cWsc, "WORKZ %i\n", pc->worklocz);
-			if (pc->foodlocx != pc_reference->foodlocx)
-				fprintf(cWsc, "FOODX %i\n", pc->foodlocx); 
-			if (pc->foodlocy != pc_reference->foodlocy)
-				fprintf(cWsc, "FOODY %i\n", pc->foodlocy); 
-			if (pc->foodlocz != pc_reference->foodlocz)
-				fprintf(cWsc, "FOODZ %i\n", pc->foodlocz); 
 			// Dupois - Escort quests
 			if (pc->questType != pc_reference->questType)
 				fprintf(cWsc, "QUESTTYPE %i\n", pc->questType);  
@@ -1611,11 +1582,12 @@ void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 //o--------------------------------------------------------------------------
 bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 { 
-	int serial, ci;
+	int serial;
 	P_CHAR pc = FindCharBySerial(charserial);
 	if (pc == NULL) return false;
  	serial= pc->serial;
  	bool foundMatch = false;
+	unsigned int ci;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for (ci=0;ci<vecContainer.size();ci++)
  	{

@@ -3331,41 +3331,14 @@ void cTargets::ShowAccountCommentTarget(int s)
 
 void cTargets::SetHome(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if(serial == INVALID_SERIAL ) return;
-	P_CHAR pc = FindCharBySerial(serial);
-	if(pc!=NULL)
-	{
-		pc->homelocx=addx[s];
-		pc->homelocy=addy[s];
-		pc->homelocz=addz[s];
-	}
 }
 
 void cTargets::SetWork(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if( serial == INVALID_SERIAL ) return;
-	P_CHAR pc = FindCharBySerial(serial);
-	if(pc != NULL)
-	{
-		pc->worklocx=addx[s];
-		pc->worklocy=addy[s];
-		pc->worklocz=addz[s];
-	}
 }
 
 void cTargets::SetFood(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if( serial == INVALID_SERIAL ) return;
-	P_CHAR pc = FindCharBySerial(serial);
-	if(pc != NULL)
-	{
-		pc->foodlocx=addx[s];
-		pc->foodlocy=addy[s];
-		pc->foodlocz=addz[s];
-	}
 }
 
 static void ItemTarget(P_CLIENT ps, PKGx6C *pt)
@@ -3578,8 +3551,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 				if ( pi != NULL )
 				{
 					Trig->triggerwitem(s, pi, 0);
-					pc_currchar->envokeid1=0x00;
-					pc_currchar->envokeid2=0x00;
+					pc_currchar->envokeid = 0x00;
 					return;
 				}
 				// Checking if target is an NPC	--- By Magius(CHE) §
@@ -3587,14 +3559,12 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 				if(pc_i != NULL)
 				{
 					Trig->triggernpc(s, pc_i, 0);
-					pc_currchar->envokeid1=0x00;
-					pc_currchar->envokeid2=0x00;
+					pc_currchar->envokeid = 0x00;
 					return;
 				}
 				// End Addons by Magius(CHE) §
 				Trig->triggerwitem(s, NULL, 0);
-				pc_currchar->envokeid1=0x00;
-				pc_currchar->envokeid2=0x00;
+				pc_currchar->envokeid = 0x00;
 				return;
 			}
 		case 25: Targ->CloseTarget(s); break;

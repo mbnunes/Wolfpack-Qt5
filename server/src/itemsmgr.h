@@ -93,11 +93,25 @@ public:
 		return iterItems->second;
 	}
 	bool atEnd()									{ return (iterItems == cItemsManager::getInstance()->end()); }
-	AllItemsIterator& operator++(int)				{ iterItems++; return *this;				}
-	AllItemsIterator& operator--(int)				{ iterItems--; return *this;				}
-	void operator++()								{ ++iterItems;								}
-	void operator--()								{ --iterItems;								}
+	const AllItemsIterator operator++(int);
+	const AllItemsIterator operator--(int);
+	AllItemsIterator& operator++()								{ ++iterItems; return *this;				}
+	AllItemsIterator& operator--()								{ --iterItems; return *this;				}
 	
 };
+
+inline const AllItemsIterator AllItemsIterator::operator++(int)
+{
+	AllItemsIterator returnValue(*this);	// fetch
+	++iterItems;							// increment
+	return returnValue;						// return what was fetched
+}
+
+inline const AllItemsIterator AllItemsIterator::operator--(int)
+{
+	AllItemsIterator returnValue(*this);	// fetch
+	--iterItems;							// increment
+	return returnValue;						// return what was fetched
+}
 
 #endif // __ITEMSMGR_H__

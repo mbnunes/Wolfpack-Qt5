@@ -575,8 +575,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			case 'e':
 
 			if (!(strcmp("EMOTECOLOR",(char*)script1))) {
-				pc_c->emotecolor1=(hex2num(script2))>>8;
-				pc_c->emotecolor2=(hex2num(script2))%256;
+				pc_c->emotecolor = (hex2num(script2));
 			}
 			else if (!strcmp("ENTICEMENT",(char*)script1)) pc_c->baseskill[ENTICEMENT] = getstatskillvalue((char*)script2);
 			else if (!strcmp("EVALUATINGINTEL",(char*)script1)) pc_c->baseskill[EVALUATINGINTEL] = getstatskillvalue((char*)script2);

@@ -26,7 +26,7 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.sf.net/
+//	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
 #ifndef __CHARS_H
@@ -55,272 +55,244 @@ class cChar : public cUObject
 public:
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	//  Chaos/Order Guild Stuff for Ripper
-	short     GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
-	bool      GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
-	RACE race; // -Fraz- Race AddOn
+	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
+	bool					GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
+	RACE					race; // -Fraz- Race AddOn
 	// Skyfire's NPC advancments.
-	int worklocx;
-	int worklocy;
-	int worklocz;
-	int homelocx;
-	int homelocy;
-	int homelocz;
-	int foodlocx;
-	int foodlocy;
-	int foodlocz;
-	bool may_levitate;
+	bool					may_levitate;
 	//Skyfire - End NPC's home/work/food vars'
-	unsigned char pathnum;
-	path_st path[PATHNUM];
+	unsigned char			pathnum;
+	path_st					path[PATHNUM];
 	unsigned char			ser1; // Character serial number
 	unsigned char			ser2;
 	unsigned char			ser3;
 	unsigned char			ser4;
 
-	string			orgname;//original name - for Incognito
-	string			title;
-	bool			unicode; // This is set to 1 if the player uses unicode speech, 0 if not
-	int				account; // changed to signed, lb
-	//	int				x;
-	//	int				y;
-	//	signed char z;
-	signed char	dispz; // Z that the char is SHOWN at. Server needs other coordinates for real movement calculations.
+	string					orgname;//original name - for Incognito
+	string					title;
+	bool					unicode; // This is set to 1 if the player uses unicode speech, 0 if not
+	int						account; // changed to signed, lb
+	signed char				dispz;   // Z that the char is SHOWN at. Server needs other coordinates for real movement calculations.
 	// changed from unsigned to signed, LB
-	
-	//	Coord_cl		oldpos;
-	//	unsigned int	oldx; // fix for jail bug
-	//	unsigned int	oldy; // fix for jail bug
-	
-	//	signed char 	oldz;
 	
 	unsigned char			dir; //&0F=Direction
 	unsigned char			id1; // Character body type
 	unsigned char			id2; // Character body type
-//	unsigned char			xid1; // Backup of body type for ghosts
 	unsigned short			xid; // Backup of body type for ghosts
-	bool			incognito;// AntiChrist - true if under incognito effect
-	bool			polymorph;// AntiChrist - true if under polymorph effect
-	//char			orgid1; // Backup of body type for Polymorph and incognito spell
-	//char			orgid2; // Backup of body type for Polymorph and incognito spell
-	int				haircolor1;// backup of hair/beard for incognito spell
-	int				haircolor2;
-	int				hairstyle1;
-	int				hairstyle2;
-	int				beardcolor1;
-	int				beardcolor2;
-	int				beardstyle1;
-	int				beardstyle2;
-	UI16			skin; // Skin color
-	unsigned char	orgskin1;	// skin color backup for incognito spell
-	unsigned char	orgskin2;
-	int             keynumb;  // for renaming keys 
-	UI16			xskin; // Backup of skin color
-	unsigned int	creationday ;	// Day since EPOCH this character was created on
-	unsigned char	gmrestrict;	// for restricting GMs to certain regions
-	unsigned char	priv2;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
+	bool					incognito;// AntiChrist - true if under incognito effect
+	bool					polymorph;// AntiChrist - true if under polymorph effect
+	unsigned short			haircolor; // backup of hair/beard for incognito spell
+	unsigned short			hairstyle;
+	unsigned short			beardcolor;
+	unsigned short			beardstyle;
+	UI16					skin; // Skin color
+	unsigned short			orgskin;	// skin color backup for incognito spell
+	int						keynumb;  // for renaming keys 
+	UI16					xskin; // Backup of skin color
+	unsigned int			creationday;	// Day since EPOCH this character was created on
+	unsigned char			gmrestrict;	// for restricting GMs to certain regions
+	unsigned char			priv2;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
 	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
 	int			            priv3[7];  // needed for Lord binarys meta-gm stuff
 	unsigned char			fonttype; // Speech font to use
 	UI16					saycolor; // Color for say messages
-	unsigned char			emotecolor1; // Color for emote messages
-	unsigned char			emotecolor2; // Color for emote messages
-	int				st; // Strength
-	int				st2; // Reserved for calculation
-	int in; // Intelligence
-	int in2; // Reserved for calculation
-	int hp; // Hitpoints
-	int stm; // Stamina
-	int mn; // Mana
-	int mn2; // Reserved for calculation
-	int hidamage; //NPC Damage
-	int lodamage; //NPC Damage
-	unsigned short int baseskill[ALLSKILLS+1]; // Base skills without stat modifiers
-	unsigned short int skill[ALLSKILLS+1]; // List of skills (with stat modifiers)
-	bool npc; // 1=Character is an NPC
-	bool shop; //1=npc shopkeeper
-	unsigned char cell; // Reserved for jailing players
-	unsigned int jailtimer; // Blackwind - Timer used for crystall ball and jail time.
-	int			 jailsecs;	//             Tweak this value by using command tweak before jailing person 
+	unsigned short			emotecolor; // Color for emote messages
+	signed short			st; // Strength
+	signed short			st2; // Reserved for calculation
+	signed short			in; // Intelligence
+	signed short			in2; // Reserved for calculation
+	signed short			hp; // Hitpoints
+	signed short			stm; // Stamina
+	signed short			mn; // Mana
+	signed short			mn2; // Reserved for calculation
+	int						hidamage; //NPC Damage
+	int						lodamage; //NPC Damage
+	unsigned short int		baseskill[ALLSKILLS+1]; // Base skills without stat modifiers
+	unsigned short int		skill[ALLSKILLS+1]; // List of skills (with stat modifiers)
+	bool					npc;	// true = Character is an NPC
+	bool					shop;	// true = npc shopkeeper
+	unsigned char			cell; // Reserved for jailing players
+	unsigned int			jailtimer; // Blackwind - Timer used for crystall ball and jail time.
+	int						jailsecs;	//             Tweak this value by using command tweak before jailing person 
 	//			   or he will be jailed 1 day ( in realtime )
 	
-	int ownserial; // If Char is an NPC, this sets its owner
-	int robe; // Serial number of generated death robe (If char is a ghost)
-	int karma;
-	signed int fame;
-	unsigned int kills; //PvP Kills
-	unsigned int deaths;
-	bool dead; // Is character dead
-	SERIAL packitem; // Only used during character creation
-	unsigned char fixedlight; // Fixed lighting level (For chars in dungeons, where they dont see the night)
-	unsigned char speech; // For NPCs: Number of the assigned speech block
-	int weight; //Total weight
-	unsigned int att; // Intrinsic attack (For monsters that cant carry weapons)
-	unsigned int def; // Intrinsic defense
-	bool war; // War Mode
-	SERIAL targ; // Current combat target
-	unsigned int timeout; // Combat timeout (For hitting)
-	unsigned int timeout2; // memory of last shot timeout
-	unsigned int regen, regen2, regen3;//Regeneration times for mana, stamin, and str
-	enInputMode inputmode;	// Used for entering text; 0= none, 4=rename rune
-	int inputitem;		// serial of item the text is referring to
-	SERIAL attacker; // Character's serial who attacked this character
-	unsigned int npcmovetime; // Next time npc will walk
-	unsigned char npcWander; // NPC Wander Mode
-	unsigned char oldnpcWander; // Used for fleeing npcs
-	SERIAL ftarg; // NPC Follow Target
-	int fx1; //NPC Wander Point 1 x
-	int fx2; //NPC Wander Point 2 x
-	int fy1; //NPC Wander Point 1 y
-	int fy2; //NPC Wander Point 2 y
-	signed char fz1; //NPC Wander Point 1 z
-	int spawnserial; // Spawned by
-	unsigned char hidden; // 0 = not hidden, 1 = hidden, 2 = invisible spell
-	unsigned int invistimeout;
-	char attackfirst; // 0 = defending, 1 = attacked first
-	bool onhorse; // On a horse?
-	int hunger;  // Level of hungerness, 6 = full, 0 = "empty"
-	unsigned int hungertime; // Timer used for hunger, one point is dropped every 20 min
-	SERIAL smeltitem;
-	SERIAL tailitem;
-	int npcaitype; // NPC ai
-	int callnum; //GM Paging
-	int playercallnum; //GM Paging
+	int						ownserial; // If Char is an NPC, this sets its owner
+	int						robe; // Serial number of generated death robe (If char is a ghost)
+	int						karma;
+	signed int				fame;
+	unsigned int			kills; //PvP Kills
+	unsigned int			deaths;
+	bool					dead; // Is character dead
+	SERIAL					packitem; // Serial of backpack
+	unsigned char			fixedlight; // Fixed lighting level (For chars in dungeons, where they dont see the night)
+	unsigned char			speech; // For NPCs: Number of the assigned speech block
+	int						weight; //Total weight
+	unsigned int			att; // Intrinsic attack (For monsters that cant carry weapons)
+	unsigned int			def; // Intrinsic defense
+	bool					war; // War Mode
+	SERIAL					targ; // Current combat target
+	unsigned int			timeout; // Combat timeout (For hitting)
+	unsigned int			timeout2; // memory of last shot timeout
+	unsigned int			regen, regen2, regen3;//Regeneration times for mana, stamin, and str
+	enInputMode				inputmode;	// Used for entering text; 0= none, 4=rename rune
+	SERIAL					inputitem;		// serial of item the text is referring to
+	SERIAL					attacker; // Character's serial who attacked this character
+	unsigned int			npcmovetime; // Next time npc will walk
+	unsigned char			npcWander; // NPC Wander Mode
+	unsigned char			oldnpcWander; // Used for fleeing npcs
+	SERIAL					ftarg; // NPC Follow Target
+	int						fx1; //NPC Wander Point 1 x
+	int						fx2; //NPC Wander Point 2 x
+	int						fy1; //NPC Wander Point 1 y
+	int						fy2; //NPC Wander Point 2 y
+	signed char				fz1; //NPC Wander Point 1 z
+	SERIAL					spawnserial; // Spawned by
+	unsigned char			hidden; // 0 = not hidden, 1 = hidden, 2 = invisible spell
+	unsigned int			invistimeout;
+	bool					attackfirst; // 0 = defending, 1 = attacked first
+	bool					onhorse; // On a horse?
+	int						hunger;  // Level of hungerness, 6 = full, 0 = "empty"
+	unsigned int			hungertime; // Timer used for hunger, one point is dropped every 20 min
+	SERIAL					smeltitem;
+	SERIAL					tailitem;
+	int						npcaitype; // NPC ai
+	int						callnum; //GM Paging
+	int						playercallnum; //GM Paging
 	//int pagegm; //GM Paging
 	//char region;
-	unsigned char region;
-	unsigned long skilldelay;
-	unsigned long objectdelay;
-	int combathitmessage;
-	int making; // skill number of skill using to make item, 0 if not making anything.
-	SERIAL lastTarget;
-	char blocked;
-	char dir2;
-	unsigned long spiritspeaktimer; // Timer used for duration of spirit speak
-	int spattack;
-	int spadelay;
-	unsigned int spatimer;
-	int taming; //Skill level required for taming
-	unsigned int summontimer; //Timer for summoned creatures.
-	unsigned long trackingtimer; // Timer used for the duration of tracking
-	SERIAL trackingtarget; // Tracking target ID
-	SERIAL trackingtargets[MAXTRACKINGTARGETS];
-	unsigned int fishingtimer; // Timer used to delay the catching of fish
+	unsigned char			region;
+	unsigned long			skilldelay;
+	unsigned long			objectdelay;
+	int						combathitmessage;
+	int						making; // skill number of skill using to make item, 0 if not making anything.
+	SERIAL					lastTarget;
+	char					blocked;
+	char					dir2;
+	unsigned long			spiritspeaktimer; // Timer used for duration of spirit speak
+	int						spattack;
+	int						spadelay;
+	unsigned int			spatimer;
+	int						taming; //Skill level required for taming
+	unsigned int			summontimer; //Timer for summoned creatures.
+	unsigned long			trackingtimer; // Timer used for the duration of tracking
+	SERIAL					trackingtarget; // Tracking target ID
+	SERIAL					trackingtargets[MAXTRACKINGTARGETS];
+	unsigned int			fishingtimer; // Timer used to delay the catching of fish
 	
-	int advobj; //Has used advance gate?
+	int						advobj; //Has used advance gate?
 	
-	int poison; // used for poison skill 
-	unsigned int poisoned; // type of poison
-	unsigned int poisontime; // poison damage timer
-	unsigned int poisontxt; // poision text timer
-	unsigned int poisonwearofftime; // LB, makes poision wear off ...
+	int						poison; // used for poison skill 
+	unsigned int			poisoned; // type of poison
+	unsigned int			poisontime; // poison damage timer
+	unsigned int			poisontxt; // poision text timer
+	unsigned int			poisonwearofftime; // LB, makes poision wear off ...
 	
-	short fleeat;
-	short reattackat;
-	int trigger; //Trigger number that character activates
-	string trigword; //Word that character triggers on.
-	unsigned int disabled; //Character is disabled, cant trigger.
-	string disabledmsg; //Character is disabled, so dysplay this message. -- added by Magius(CHE) §
-	char envokeid1; //ID1 of item user envoked
-	char envokeid2; //ID2 of item user envoked
-	SERIAL envokeitem;
-	int split;
-	int splitchnc;
-	int targtrig; //Stores the number of the trigger the character for targeting
-	char ra;  // Reactive Armor spell
-	int trainer; // Serial of the NPC training the char, -1 if none.
-	char trainingplayerin; // Index in skillname of the skill the NPC is training the player in
-	bool cantrain;
+	short					fleeat;
+	short					reattackat;
+	int						trigger; //Trigger number that character activates
+	string					trigword; //Word that character triggers on.
+	unsigned int			disabled; //Character is disabled, cant trigger.
+	string					disabledmsg; //Character is disabled, so dysplay this message. -- added by Magius(CHE) §
+	unsigned short			envokeid;  //ID1 of item user envoked
+	SERIAL					envokeitem;
+	int						split;
+	int						splitchnc;
+	int						targtrig; //Stores the number of the trigger the character for targeting
+	char					ra;  // Reactive Armor spell
+	int						trainer; // Serial of the NPC training the char, -1 if none.
+	char					trainingplayerin; // Index in skillname of the skill the NPC is training the player in
+	bool					cantrain;
 	// Begin of Guild Related Character information (DasRaetsel)
-	int guildtoggle;		// Toggle for Guildtitle								(DasRaetsel)
-	string guildtitle;	// Title Guildmaster granted player						(DasRaetsel)
-	int	guildfealty;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
-	int	guildnumber;		// Number of guild player is in (0=no guild)			(DasRaetsel)
-	char flag; //1=red 2=grey 4=Blue 8=green 10=Orange
+	int						guildtoggle;		// Toggle for Guildtitle								(DasRaetsel)
+	string					guildtitle;	// Title Guildmaster granted player						(DasRaetsel)
+	int						guildfealty;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
+	int						guildnumber;		// Number of guild player is in (0=no guild)			(DasRaetsel)
+	char					flag; //1=red 2=grey 4=Blue 8=green 10=Orange
 	//char tempflag; //Zippy -- Not Used
-	unsigned int tempflagtime;
+	unsigned int			tempflagtime;
 	// End of Guild Related Character information
-	unsigned int murderrate; //#of ticks until one murder decays //REPSYS 
-	long int crimflag; //Time when No longer criminal -1=Not Criminal
-	int casting; // 0/1 is the cast casting a spell?
-	unsigned int spelltime; //Time when they are done casting....
-	int spell; //current spell they are casting....
-	int spellaction; //Action of the current spell....
-	int nextact; //time to next spell action....
-	int poisonserial; //AntiChrist -- poisoning skill
+	unsigned int			murderrate; //#of ticks until one murder decays //REPSYS 
+	long int				crimflag; //Time when No longer criminal -1=Not Criminal
+	int						casting; // 0/1 is the cast casting a spell?
+	unsigned int			spelltime; //Time when they are done casting....
+	int						spell; //current spell they are casting....
+	int						spellaction; //Action of the current spell....
+	int						nextact; //time to next spell action....
+	SERIAL					poisonserial; //AntiChrist -- poisoning skill
 	
-	int squelched; // zippy  - squelching
-	int mutetime; //Time till they are UN-Squelched.
-	int med; // 0=not meditating, 1=meditating //Morrolan - Meditation 
+	int						squelched; // zippy  - squelching
+	int						mutetime; //Time till they are UN-Squelched.
+	int						med; // 0=not meditating, 1=meditating //Morrolan - Meditation 
 	//int statuse[3]; //Morrolan - stat/skill cap STR/INT/DEX in that order
 	//int skilluse[TRUESKILLS][1]; //Morrolan - stat/skill cap
-	unsigned char lockSkill[ALLSKILLS+1]; // LB, client 1.26.2b skill managment
-	int stealth; //AntiChrist - stealth ( steps already done, -1=not using )
-	unsigned int running; //AntiChrist - Stamina Loose while running
-	signed long int logout; //unsigned int logout;//Time till logout for this char -1 means in the world or already logged out //Instalog
-	unsigned long int clientidletime; // LB
+	unsigned char			lockSkill[ALLSKILLS+1]; // LB, client 1.26.2b skill managment
+	int						stealth; //AntiChrist - stealth ( steps already done, -1=not using )
+	unsigned int			running; //AntiChrist - Stamina Loose while running
+	signed long int			logout; //unsigned int logout;//Time till logout for this char -1 means in the world or already logged out //Instalog
+	unsigned long int		clientidletime; // LB
     //unsigned long int swing;
-	int swingtarg; //Tagret they are going to hit after they swing
+	int						swingtarg; //Tagret they are going to hit after they swing
 	
-	unsigned int holdg; // Gold a player vendor is holding for Owner
+	unsigned int			holdg; // Gold a player vendor is holding for Owner
 	//int weather;//Weather!
-	char fly_steps; // number of step the creatures flies if it can fly
-	unsigned long int trackingdisplaytimer;
-	int menupriv; // needed fro LB's menu priv system
+	char					fly_steps; // number of step the creatures flies if it can fly
+	unsigned long int		trackingdisplaytimer;
+	int						menupriv; // needed fro LB's menu priv system
 	//taken from 6904t2(5/10/99) - AntiChrist
-	bool tamed;
+	bool					tamed;
 	//taken from 6904t2(5/10/99) - AntiChrist
-	bool guarded;							// (Abaddon) if guarded
-    unsigned int smoketimer; // LB
-	unsigned int smokedisplaytimer;
+	bool					guarded;							// (Abaddon) if guarded
+    unsigned int			smoketimer; // LB
+	unsigned int			smokedisplaytimer;
 	
-	unsigned int antispamtimer;//LB - anti spam
+	unsigned int			antispamtimer;//LB - anti spam
 	
-	unsigned int antiguardstimer;//AntiChrist - anti "GUARDS" spawn
+	unsigned int			antiguardstimer;//AntiChrist - anti "GUARDS" spawn
 	
-	int carve; //AntiChrist - for new carve system
+	int						carve; //AntiChrist - for new carve system
 	
-	int	hairserial;//there are needed for incognito stuff
-	int	beardserial;
+	int						hairserial;//there are needed for incognito stuff
+	int						beardserial;
 	
-	unsigned long int begging_timer;
-	int postType;
-	int questType;
-	int questDestRegion;
-	int questOrigRegion;
-	int questBountyReward;      // The current reward amount for the return of this chars head
-	int questBountyPostSerial;  // The global posting serial number of the bounty message
-	int murdererSer;            // Serial number of last person that murdered this char
-	int				prevX; // fix for looping gate travel bug (bounce back problem)
-	int				prevY;
-	signed char 	prevZ;
+	unsigned long int		begging_timer;
+	int						postType;
+	int						questType;
+	int						questDestRegion;
+	int						questOrigRegion;
+	int						questBountyReward;      // The current reward amount for the return of this chars head
+	int						questBountyPostSerial;  // The global posting serial number of the bounty message
+	SERIAL					murdererSer;            // Serial number of last person that murdered this char
+	int						prevX; // fix for looping gate travel bug (bounce back problem)
+	int						prevY;
+	signed char 			prevZ;
 	
-	unsigned char commandLevel;             // 0 = player, 1 = counselor, 2 = GM
+	unsigned char			commandLevel;             // 0 = player, 1 = counselor, 2 = GM
 	
-	int spawnregion; 
+	unsigned int			spawnregion; 
 	
-	int stablemaster_serial; 
-	unsigned char npc_type;		// currently only used for stabling, (type==1 -> stablemaster)
+	SERIAL					stablemaster_serial; 
+	unsigned char			npc_type;		// currently only used for stabling, (type==1 -> stablemaster)
 	// can be used for other npc types too of course
 	
-	unsigned int time_unused;     
-	unsigned int timeused_last;
+	unsigned int			time_unused;     
+	unsigned int			timeused_last;
 	// The bit for setting what effect gm movement 
     // commands shows 
     // 0 = off 
     // 1 = FlameStrike 
     // 2-6 = Sparkles
-    int gmMoveEff;
+    int						gmMoveEff;
 
 	// Protected Data Members	
 protected:
-	unsigned char	priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
+	unsigned char			priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
 	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
 	void	day(unsigned long day) ; // set the day it was created
 	unsigned long day() ;	// Retrieve the day it was created
 	// a temporary (quick&dirty) encapsulation for Dexterity. (Duke, 21.8.2001)
-	short dx;		// Dexterity
-	short dx2;		// holds the 3 digits behind the decimal point. Reserved for calculation
-	short tmpDex;	// holds all temporary effects on Dex, eg. plate, spells, potions
+	signed short			dx;		// Dexterity
+	signed short			dx2;		// holds the 3 digits behind the decimal point. Reserved for calculation
+	signed short			tmpDex;	// holds all temporary effects on Dex, eg. plate, spells, potions
 
 	// Public Methods
 public:
@@ -329,41 +301,41 @@ public:
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
 	short realDex()				{return dx;}	// returns the true Dexterity
 	short decDex()				{return dx2;}	// returns the 3 digits behind the decimal point
-	void  setDex(short val)		{dx = val;}		// set the true Dex
-	void  setDecDex(short val)	{dx2 = val;}	// set the 3 digits
-	void  chgDex(short val)		{tmpDex += val;}// intended for temporary changes of Dex
+	void  setDex(signed short val)		{dx = val;}		// set the true Dex
+	void  setDecDex(signed short val)	{dx2 = val;}	// set the 3 digits
+	void  chgDex(signed short val)		{tmpDex += val;}// intended for temporary changes of Dex
 	void  chgRealDex(short val) {dx += val;if(dx<1) dx=1;if(dx>100) dx=100;}	// intended for permanent changes of Dex
 	bool  incDecDex(short val)	{dx2 += val;
 	if (dx2>1000) {dx2-=1000;chgRealDex(1);return true;}
 	else return false;}
 	
 	
-	short id()				{return (short)((id1<<8)+id2);}
-	void setId(short id)	{id1=id>>8;	id2=id&0x00FF;}
-	bool  isPlayer()        {return (this->npc==0);}
-	bool  isNpc()           {return (this->npc==1);}
-	bool  isHuman()			{return (this->id()==0x190 || this->id()==0x191);} 
-	bool  isTrueGM()		{return (priv&0x01);} 
-	bool  isGM()			{return (priv&0x01 && (!gmrestrict || region==gmrestrict)) || account == 0;} 
-	bool  isCounselor()		{return (priv&0x80 ?true:false);} 
-	bool  isGMorCounselor()	{return (priv&0x81 ?true:false);} 
-	bool  isInvul()			{return (priv&0x04 ?true:false);}
-	bool  canSnoop()		{return (priv&0x40 ?true:false);}
-	bool  canBroadcast()	{return (priv&0x02 ?true:false);}
-	bool  canSeeSerials()	{return (priv&0x08 ?true:false);}
-	bool  isInnocent()		{return (flag&0x04 ?true:false);}
-	bool  isMurderer()		{return (flag&0x01 ?true:false);}
-	bool  isCriminal()		{return (flag&0x02 ?true:false);}
-	unsigned char getPriv()		{return priv;}
-	void setPriv(unsigned char p)	{this->priv=p;}
-	void makeInvulnerable()		{priv|=4;}
-	void makeVulnerable()		{priv &= (0xFF-4);}
-	void setMurderer()		{flag=0x01;}
-	void setInnocent()		{flag=0x04;}
-	void setCriminal()		{flag=0x02;}
+	unsigned short id() const				{return static_cast<unsigned short>((id1<<8)+id2);}
+	void setId(unsigned short id)			{id1 = id>>8;	id2 = id&0x00FF;}
+	bool  isPlayer() const;
+	bool  isNpc() const;
+	bool  isHuman()	const;
+	bool  isTrueGM() const;	
+	bool  isGM() const;
+	bool  isCounselor()	const;
+	bool  isGMorCounselor()	const; 
+	bool  isInvul() const;
+	bool  canSnoop()const;
+	bool  canBroadcast() const;
+	bool  canSeeSerials() const;
+	bool  isInnocent()	const;
+	bool  isMurderer()	const;
+	bool  isCriminal()	const;
+	unsigned char getPriv();
+	void setPriv(unsigned char p);
+	void makeInvulnerable();
+	void makeVulnerable();
+	void setMurderer();
+	void setInnocent();
+	void setCriminal();
 	
-	void setAttackFirst()		{this->attackfirst=1;}
-	void resetAttackFirst()		{this->attackfirst=0;}
+	void setAttackFirst()		{this->attackfirst = true;}
+	void resetAttackFirst()		{this->attackfirst = false;}
 	void fight(cChar* pOpponent);
 	void setNextMoveTime(short tamediv=1);
 	void disturbMed(UOXSOCKET s=-1);
@@ -393,7 +365,7 @@ public:
 	bool Owns(P_CHAR pc)	{return (serial==pc->ownserial);}
 	bool Owns(P_ITEM pi);
 	bool Wears(P_ITEM pi);
-	int getSkillSum();
+	unsigned int getSkillSum();
 	int getTeachingDelta(cChar* pPlayer, int skill, int sum);
 	void removeItemBonus(cItem* pi);
 	void Init(bool ser = true);
@@ -439,6 +411,30 @@ public:
 		void OpenBank(UOXSOCKET c);
 	};
 };
+
+
+// Inline Member functions
+inline bool  cChar::isPlayer() const		{return (this->npc);}
+inline bool  cChar::isNpc()	const			{return (this->npc);}
+inline bool  cChar::isHuman() const			{return (this->id() == 0x190 || this->id() == 0x191);} 
+inline bool  cChar::isTrueGM() const		{return (priv&0x01);} 
+inline bool  cChar::isGM() const			{return (priv&0x01 && (!gmrestrict || region==gmrestrict)) || account == 0;} 
+inline bool  cChar::isCounselor() const		{return (priv&0x80 ? true : false);} 
+inline bool  cChar::isGMorCounselor() const	{return (priv&0x81 ?true:false);} 
+inline bool  cChar::isInvul() const			{return (priv&0x04 ?true:false);}
+inline bool  cChar::canSnoop() const		{return (priv&0x40 ?true:false);}
+inline bool  cChar::canBroadcast() const	{return (priv&0x02 ?true:false);}
+inline bool  cChar::canSeeSerials() const 	{return (priv&0x08 ?true:false);}
+inline bool  cChar::isInnocent() const		{return (flag&0x04 ?true:false);}
+inline bool  cChar::isMurderer() const		{return (flag&0x01 ?true:false);}
+inline bool  cChar::isCriminal() const		{return (flag&0x02 ?true:false);}
+inline unsigned char cChar::getPriv()	{return priv;}
+inline void cChar::setPriv(unsigned char p)	{this->priv=p;}
+inline void cChar::makeInvulnerable()	{priv |= 4;}
+inline void cChar::makeVulnerable()		{priv &= 0xFB;}
+inline void cChar::setMurderer()		{flag = 0x01;}
+inline void cChar::setInnocent()		{flag = 0x04;}
+inline void cChar::setCriminal()		{flag=0x02;}
 
 
 #endif

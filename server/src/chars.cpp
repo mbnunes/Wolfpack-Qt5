@@ -111,8 +111,7 @@ void cChar::Init(bool ser)
 		this->priv3[i]=0;  // needed for Lord bianrys meta-gm stuff
 	this->fonttype=3; // Speech font to use
 	this->saycolor=0x1700; // Color for say messages
-	this->emotecolor1=0x00; // Color for emote messages
-	this->emotecolor2=0x23; // Color for emote messages
+	this->emotecolor = 0x0023; // Color for emote messages
 	this->st=50; // Strength
 	this->st2=0; // Reserved for calculation
 	this->dx=50; // Dexterity
@@ -223,8 +222,7 @@ void cChar::Init(bool ser)
 	this->trigword = "";
 	this->disabled=0; //Character is disabled for n cicles, cant trigger.
 	this->disabledmsg = ""; //Character disabled message. -- by Magius(CHE) §
-	this->envokeid1=0x00; //ID1 of item user envoked
-	this->envokeid2=0x00; //ID2 of item user envoked
+	this->envokeid = 0x00; //ID of item user envoked
 	this->envokeitem = INVALID_SERIAL;
 	this->split=0;
 	this->splitchnc=0;
@@ -642,9 +640,9 @@ void cChar::MoveTo(short newx, short newy, signed char newz)
 	mapRegions->Add(this);
 }
 
-int cChar::getSkillSum()
+unsigned int cChar::getSkillSum()
 {
-	int sum=0,a;
+	register unsigned int sum = 0, a;
 	for (a=0;a<ALLSKILLS;a++)
 	{
 		sum+=this->baseskill[a];
@@ -754,7 +752,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("allmove",			priv2);
 		archive.read("font",			fonttype);
 		archive.read("say",				saycolor);
-		archive.read("emote",			uiShort); emotecolor1 = static_cast<unsigned char>(uiShort<<8); emotecolor2 = static_cast<unsigned char>(uiShort & 0x00FF);
+		archive.read("emote",			emotecolor);
 		archive.read("strength",		st);
 		archive.read("strength2",		st2);
 		archive.read("dexterity",		dx);
@@ -901,7 +899,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("allmove",		priv2);
 		archive.write("font",			fonttype);
 		archive.write("say",			saycolor);
-		archive.write("emote", static_cast<unsigned short>((emotecolor1<<8)+emotecolor2));
+		archive.write("emote",			emotecolor);
 		archive.write("strength",		st);
 		archive.write("strength2",		st2);
 		archive.write("dexterity",		dx);

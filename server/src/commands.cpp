@@ -1075,7 +1075,7 @@ void cCommands::Wipe(int s)
 
 void cCommands::Possess(int s) 
 {
-	P_CHAR pPos = FindCharBySerPtr(buffer[s]+7);	// char to posess
+/*	P_CHAR pPos = FindCharBySerPtr(buffer[s]+7);	// char to posess
 	if (!pPos) return;
 	
 	if (pPos->shop)
@@ -1152,4 +1152,6 @@ void cCommands::Possess(int s)
 	}
 	else
 		sysmessage( s, "Possession error %s." );
+*/
+	sysmessage(s, "This command has been temporary disabled");
 }

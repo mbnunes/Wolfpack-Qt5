@@ -2159,8 +2159,7 @@ void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam) // NPC speech
 		talk[7]=pc_npc->id1;
 		talk[8]=pc_npc->id2;
 		talk[9]=2; // Type
-		talk[10]=pc_npc->emotecolor1=0x00;
-		talk[11]=pc_npc->emotecolor2=0x26;
+		ShortToCharPtr(pc_npc->emotecolor, &talk[10]);
 		talk[12]=0;
 		talk[13]=pc_currchar->fonttype;
 		Xsend(s, talk, 14);

@@ -1330,7 +1330,7 @@ bool cMovement::IsGMBody(P_CHAR pc)
 
 void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
 {
-    for (unsigned int i=0;i<now;i++)
+    for (int i=0;i<now;i++)
     {
 		// moved perm[i] first since its much faster
         if ((perm[i]) && (inrange1p(pc, currchar[i])))

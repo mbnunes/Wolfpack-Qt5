@@ -26,7 +26,7 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.sf.net/
+//	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
 #if !defined(__CHARSMGR_H__)
@@ -92,11 +92,25 @@ public:
 		iterChars++;
 		return iterChars->second;
 	}
-	bool atEnd()									{ return (iterChars == cCharsManager::getInstance()->end()); }
-	AllCharsIterator& operator++(int)				{ iterChars++; return *this; }
-	AllCharsIterator& operator--(int)				{ iterChars--; return *this; }
-	void operator++()								{ ++iterChars;				 }
-	void operator--()								{ --iterChars;				 }
+	bool atEnd()										{ return (iterChars == cCharsManager::getInstance()->end()); }
+	const AllCharsIterator operator++(int);
+	const AllCharsIterator operator--(int);
+	AllCharsIterator& operator++()						{ ++iterChars; return *this;	 }
+	AllCharsIterator& operator--()						{ --iterChars; return *this;	 }
 };
+
+inline const AllCharsIterator AllCharsIterator::operator++(int)
+{
+	AllCharsIterator returnValue(*this);	// fetch
+	++iterChars;							// increment
+	return returnValue;						// return what was fetched
+}
+
+inline const AllCharsIterator AllCharsIterator::operator--(int)
+{
+	AllCharsIterator returnValue(*this);
+	--iterChars;
+	return returnValue;
+}
 
 #endif // __CHARSMGR_H__

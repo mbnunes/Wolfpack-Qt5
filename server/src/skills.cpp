@@ -167,13 +167,13 @@ class cMMT				// MakeMenuTarget
 {
 protected:
 	char* failtext;
-	short badsnd1;
-	short badsnd2;
+	unsigned char badsnd1;
+	unsigned char badsnd2;
 public:
 	cMMT(short badsnd=0, char *failmsg="You fail to create the item.")
 	{
-		badsnd1=badsnd>>8;
-		badsnd2=badsnd&0x00FF;
+		badsnd1 = static_cast<unsigned char>(badsnd>>8);
+		badsnd2 = static_cast<unsigned char>(badsnd&0x00FF);
 		failtext=failmsg;
 	}
 	virtual void deletematerial(SOCK s, int amount)
@@ -1254,7 +1254,7 @@ static int calcStatIncrement(int sk, int i, int stat)
 	return wpadvance[i].success;			// gather small increases
 }
 
-static int AdvanceOneStat(int sk, int i, int *stat, int *stat2, bool *update, bool aGM)
+static int AdvanceOneStat(int sk, int i, signed short *stat, signed short *stat2, bool *update, bool aGM)
 {
 	*stat2 += calcStatIncrement(sk,i,*stat);// gather small increases
 	if (*stat2>1000)						// until they reach 1000
@@ -1652,7 +1652,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 	int gmid[MAXTRACKINGTARGETS]; // crashfix, LB
 	//int gmnumber;
 	int id;
-	int d;
+	//int d;
 	int id1=62; // default tracking animals
 	int id2=399;
 	int icon=8404; 
@@ -1699,7 +1699,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 		P_CHAR mapchar = ri.GetData();
 		if (mapchar != NULL)
 		{
-			d = chardist( mapchar, currchar[s] );
+			unsigned int d = chardist( mapchar, currchar[s] );
 			
 			id = mapchar->id();
 			if((d<=distance)&&(!mapchar->dead)&&(id>=id1&&id<=id2)&&calcSocketFromChar(mapchar) != s&&(online(mapchar)||mapchar->isNpc()))
@@ -2531,8 +2531,7 @@ void cSkills::Persecute (UOXSOCKET s) //AntiChrist - persecute stuff
 			{
 				if((inrange1(s, j) && perm[j]) && (s!=j))
 				{
-					pc_currchar->emotecolor1=0x00;
-					pc_currchar->emotecolor2=0x26;
+					pc_currchar->emotecolor = 0x0026;
 					npcemote(j, target, (char*)temp, 1);
 				}
 			}

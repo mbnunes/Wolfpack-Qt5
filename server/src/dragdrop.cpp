@@ -596,8 +596,7 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		if(pi->name == "#") 
 			pi->getName(temp2);
 		sprintf((char*)temp,"* You see %s eating %s *",pc_target->name.c_str(),temp2);
-		pc_target->emotecolor1=0x00;
-		pc_target->emotecolor2=0x26;
+		pc_target->emotecolor = 0x0026;
 		npcemoteall(pc_target,(char*)temp,1);
 		pc_target->hunger++;
 	} 

@@ -153,8 +153,7 @@ void RcvAttack(P_CLIENT ps)
 			{
 				if((inrange1(s, j) && perm[j]) && (s!=j))
 				{
-					pc_i->emotecolor1=0x00;
-					pc_i->emotecolor2=0x26;
+					pc_i->emotecolor = 0x0026;
 					npcemote(j, pc_currchar, (char*)temp,1);
 				}
 			}

@@ -581,7 +581,7 @@ bool TrainerSpeech(cChar* pTrainer, char* comm, cChar* pPlayer, UOXSOCKET s)
 			}
 			else
 			{
-				int sum = pPlayer->getSkillSum();
+				unsigned int sum = pPlayer->getSkillSum();
 				if (sum >= SrvParms->skillcap * 10)
 					strcat(temp, " I can teach thee no more. Thou already knowest too much!");
 				else

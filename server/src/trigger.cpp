@@ -625,7 +625,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 					else if (!(strcmp("EMT", (char*)script1)))  // Player says something when trigger is activated
 					{
 						strcpy(sect, script2);
-						for (i = 0; i < now; i++)
+						for (int i = 0; i < now; i++)
 						{
 							if (inrange1p(currchar[ts], currchar[i]) && perm[i])
 							{
@@ -990,7 +990,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							cline = &script2[0];
 							splitline();
 							j = makenumber(1);
-							sprintf(sect, "x%x%x", pc_ts->envokeid1, pc_ts->envokeid2);
+							sprintf(sect, "x%x", pc_ts->envokeid);
 							if (strstr((char*)comm[0], sect))
 							{
 								// IEnvoked item found in IFREQ --> Jump Trigger
@@ -1636,7 +1636,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							unsigned int uiChance = makenumber(1);
 							unsigned int InBackpack = makenumber(2);
 							
-							if (uiChance >=((rand()%100) + 1))
+							if (uiChance >= static_cast<unsigned int>(RandomNum(1, 100)))
 							{
 								strcpy((char*)script1, "IADD");
 								sprintf((char*)script2, "%i %i", uiItemNum, InBackpack);
@@ -1794,7 +1794,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						}
 						else if (!(strcmp("REQ", (char*)script1)))  // Check if envoked by certain item.
 						{
-							sprintf(sect, "x%x%x", pc_ts->envokeid1, pc_ts->envokeid2);
+							sprintf(sect, "x%x", pc_ts->envokeid);
 							if (!strstr((char*)script2, sect))
 							{
 								sysmessage(ts, "That didn't seem to work.");
@@ -2432,7 +2432,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							cline = &script2[0];
 							splitline();
 							j = makenumber(1);
-							sprintf(sect, "x%x%x", pc_ts->envokeid1, pc_ts->envokeid2);
+							sprintf(sect, "x%x", pc_ts->envokeid);
 							if (strstr((char*)comm[0], sect))
 							{
 								// IEnvoked item found in IFREQ --> Jump Trigger
@@ -2996,7 +2996,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						}
 						else if (!(strcmp("REQ", (char*)script1)))  // Check if envoked by certain item. Added By Magius(CHE) to fix Targ trigger
 						{
-							sprintf(sect, "x%x%x", pc_ts->envokeid1, pc_ts->envokeid2);
+							sprintf(sect, "x%x", pc_ts->envokeid);
 							if (!strstr((char*)script2, sect))
 							{
 								sysmessage(ts, "That didn't seem to work.");

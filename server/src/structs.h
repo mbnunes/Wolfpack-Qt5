@@ -72,7 +72,7 @@ struct path_st
 struct repsys_st
 {
 	long int		murderdecay;
-	int				maxkills;
+	unsigned int	maxkills;
 	int				crimtime;
 };
 

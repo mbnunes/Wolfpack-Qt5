@@ -274,8 +274,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		else if (Trig->checkenvoke(pi->id1, pi->id2))
 		{
 			pc_currchar->envokeitem = pi->serial;
-			pc_currchar->envokeid1 = pi->id1;
-			pc_currchar->envokeid2 = pi->id2;
+			pc_currchar->envokeid = pi->id();
 			target(s, 0, 1, 0, 24, "What will you use this on?");
 			return;
 		}

@@ -521,8 +521,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
 						sprintf(t,"* %s looks a bit nauseous *", pc->name.c_str());
-						pc->emotecolor1=0x00;//buffer[s][4];
-						pc->emotecolor2=0x26;//buffer[s][5];
+						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
 				 
@@ -536,8 +535,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
 						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name.c_str());
-						pc->emotecolor1=0x00;//buffer[s][4];
-						pc->emotecolor2=0x26;//buffer[s][5];
+						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
 					
@@ -551,8 +549,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					{
 						pc->poisontxt = currenttime+(10*MY_CLOCKS_PER_SEC);
 						sprintf(t,"* %s is in severe pain! *", pc->name.c_str());
-						pc->emotecolor1=0x00;//buffer[s][4];
-						pc->emotecolor2=0x26;//buffer[s][5];
+						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
 					x=RandomNum(1,3);
@@ -569,8 +566,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
 						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *", pc->name.c_str());
-						pc->emotecolor1=0x00;//buffer[s][4];
-						pc->emotecolor2=0x26;//buffer[s][5];
+						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
 
@@ -707,8 +703,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
 						sprintf(t,"* %s looks a bit nauseous *",pc->name.c_str());
-						pc->emotecolor1=0x00;//buffer[s][4];
-						pc->emotecolor2=0x26;//buffer[s][5];
+						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
 					pc->hp -= RandomNum(1,2);
@@ -720,8 +715,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
 						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name.c_str());
-						pc->emotecolor1=0x00;//buffer[s][4];
-						pc->emotecolor2=0x26;//buffer[s][5];
+						pc->emotecolor = 0x0026; //buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
 
@@ -735,8 +729,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
 						sprintf(t,"* %s is in severe pain! *",pc->name.c_str());
-						pc->emotecolor1=0x00;//buffer[s][4];
-						pc->emotecolor2=0x26;//buffer[s][5];
+						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
 					pcalc=( ( pc->hp * RandomNum(5,10) ) / 100 ) + RandomNum(1,3); // damage: 5..10% of hp's+ 1..2 constant
@@ -749,8 +742,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
 						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *",pc->name.c_str());
-						pc->emotecolor1=0x00;//buffer[s][4];
-						pc->emotecolor2=0x26;//buffer[s][5];
+						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
 
@@ -820,8 +812,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 
 			if(strlen(t))
 			{//display message ( if there's one
-				pc->emotecolor1=0x00;//buffer[s][4];
-				pc->emotecolor2=0x26;//buffer[s][5];
+				pc->emotecolor = 0x0026;//buffer[s][4];
 				npcemoteall(pc,t,1);
 			}
 		}//if tamed

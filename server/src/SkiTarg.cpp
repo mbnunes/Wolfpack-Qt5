@@ -2609,16 +2609,16 @@ class cTinkerCombine	// Combining tinkering items
 {
 protected:
 	char* failtext;
-	short badsnd1;
-	short badsnd2;
+	unsigned char badsnd1;
+	unsigned char badsnd2;
 	short itembits;
 	short minskill;
 	short id2;
 public:
 	cTinkerCombine(short badsnd=0x51, char *failmsg="You break one of the parts.")
 	{
-		badsnd1=badsnd>>8;
-		badsnd2=badsnd&0x00FF;
+		badsnd1 = static_cast<unsigned char>(badsnd>>8);
+		badsnd2 = static_cast<unsigned char>(badsnd&0x00FF);
 		failtext=failmsg;
 		itembits=0;
 		minskill=100;
