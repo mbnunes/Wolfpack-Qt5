@@ -52,9 +52,11 @@ public:
 	void				setBaseType( WPDEF_TYPE newType )	{ basetype = newType;};
 
 	bool				prepareParsing( QString Section );
+
 	void				applyNodes( P_ITEM Item, QDomElement* Node = NULL );
 	void				applyNodes( P_CHAR Char, QDomElement* Node = NULL );
 
+	QString				processNode( QDomElement &Node );
 	void				processItemContainerNode( P_ITEM contItem, QDomElement &Node );
 	void				processScriptItemNode( P_ITEM madeItem, QDomElement &Node );
 

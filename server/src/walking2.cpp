@@ -1913,6 +1913,9 @@ bool cMovement::CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z)
 			                                 // if it doesn't help, it doesn't hurt either.
 			signed char nItemTop = thisblock->basez + thisblock->height; // Calculate the items total height
 
+			if ( thisblock->flag2 & 4 ) 
+				nItemTop -= thisblock->height/2; 
+
 	    // check if the creature is floating on a static (keeping Z or falling)
 			if ( ( nItemTop >= nNewZ ) &&
 				 ( ( ( nItemTop <= oldZ ) && ( abs(oldZ - nItemTop) <= P_M_MAX_Z_FALL ) ) ||
