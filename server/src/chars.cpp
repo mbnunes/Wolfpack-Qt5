@@ -2643,8 +2643,8 @@ void cChar::mount( P_CHAR pMount )
 			case 0x1f: pMountItem->setId(0x3EBE); break; // armor dragon
 		}
 		
-		pMountItem->setLayer( 0x19 );
 		this->addItem( cChar::Mount, pMountItem );
+
 		Coord_cl npos( pos );
 		npos.x = pMount->fx1();
 		npos.y = pMount->fy1();
@@ -2666,9 +2666,8 @@ void cChar::mount( P_CHAR pMount )
 		pMountItem->poisoned = pMount->poisoned();
 		if (pMount->summontimer() != 0)
 			pMountItem->decaytime = pMount->summontimer();
-	
-		// Sends update.
-		wear( pMountItem );
+
+		pMountItem->update();
 
 		// if this is a gm lets tame the animal in the process
 		if( isGM() )
