@@ -2830,10 +2830,10 @@ void cChar::resurrect()
 	resend( false );
 }
 
-void cChar::turnTo( cUObject *object )
+void cChar::turnTo( const Coord_cl &pos )
 {
-	INT16 xdif = (INT16)( object->pos().x - pos().x );
-	INT16 ydif = (INT16)( object->pos().y - pos().y );
+	INT16 xdif = (INT16)( pos.x - this->pos().x );
+	INT16 ydif = (INT16)( pos.y - this->pos().y );
 	UINT8 nDir;
 
 	if( xdif == 0 && ydif < 0 ) 
@@ -2870,6 +2870,11 @@ void cChar::turnTo( cUObject *object )
 			socket_->send( &forceWalk );
 		}
 	}
+}
+
+void cChar::turnTo( cUObject *object )
+{
+	turnTo( object->pos() );
 }
 
 UINT32 cChar::takeGold( UINT32 amount, bool useBank )

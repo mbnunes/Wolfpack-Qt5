@@ -838,6 +838,13 @@ PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
+	if( checkArgCoord( 0 ) )
+	{
+		Coord_cl pos = getArgCoord( 0 );
+		self->pChar->turnTo( pos );
+		return PyTrue;
+	}
+
 	if( !checkArgObject( 0 ) )
 	{
 		PyErr_BadArgument();

@@ -676,6 +676,7 @@ public:
 	void playDeathSound();
 	void resurrect();
 	void turnTo( cUObject *object );
+	void turnTo( const Coord_cl &pos );
 	P_CHAR unmount();
 	void mount( P_CHAR pMount );
 	bool	canMoveAll( void ) { return priv2_&0x01; }
