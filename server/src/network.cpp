@@ -1236,20 +1236,19 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 				case 0x04:
 					// Expermintal for God clent
-                    //if (pc_currchar->isGM()) 
+                    if (pc_currchar->isGM()) 
 					{ 
 						char packet[] = "\x2B\x01"; 
 						Xsend(s, packet, 2);
-						break;
                         //clConsole.send("%s connected in with God Client!\n", pc_currchar->name); 
                     } 
-					/*else 
+					else 
 					{ 
 						sysmessage(s, "Access Denied!!!"); 
                         Disconnect(s); 
 						clConsole.send("%s tried connecting in with God Client but has no priviledges!\n", pc_currchar->name); 
-                    } */
-				//	break;
+                    } 
+					break;
 
 				case 0x01:// Main Menu on the character select screen 
 				// remark LB : no longer send :( 

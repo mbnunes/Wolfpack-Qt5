@@ -583,8 +583,8 @@ int cHouseManager::CheckDecayStatus()
    int decayed_houses=0;
    unsigned long int timediff;
    unsigned long int ct=getNormalizedTime();
-   
-   for(int h=0;h!=House.size();h++)
+   int housesize=House.size();
+   for(int h=0;h!=housesize;)
    {
 	    if(House[h]->TimeUnused>SrvParms->housedecay_secs)
 		{
@@ -605,6 +605,7 @@ int cHouseManager::CheckDecayStatus()
 									// it (Duke, 16.2.2001)
 		}	
 		houses++; 
+		h++;
    }
    return decayed_houses;
 }
@@ -768,6 +769,10 @@ void cHouseManager::SaveHouses()
 			fprintf(HouseFile, "OWNERSERIAL %i\n", House[h]->OwnerSerial);
 		if(House[h]->OwnerAccount>=0)
 			fprintf(HouseFile, "OWNERACCOUNT %i\n", House[h]->OwnerAccount);
+		if(House[h]->TimeUnused>=0)
+			fprintf(HouseFile, "TIMEUNUSED %i\n", House[h]->TimeUnused);
+		if(House[h]->LastUsed>=0)
+			fprintf(HouseFile, "LASTUSED %i\n", House[h]->LastUsed);
 		for(int f=0;f!=House[h]->FriendList.size();f++)
 			fprintf(HouseFile, "FRIEND %i\n",House[h]->FriendList[f]);
 		for(int b=0;b!=House[h]->BanList.size();b++)
@@ -802,20 +807,12 @@ void cHouseManager::LoadHouses()
 			case 'B':
 			case 'b':
 				if (!strcmp((char*)script1, "BANNED"))	
-				{
-					bancount=House[housecount]->BanList.size();
-					House[housecount]->BanList[bancount]=str2num(script2);
-					House[housecount]->BanList.resize(House[housecount]->BanList.size()+1);
-				}
+					House[housecount]->BanList.push_back(str2num(script2));
 				break;
 			case 'F':
 			case 'f':
 				if (!strcmp((char*)script1, "FRIEND"))	
-				{
-					friendcount=House[housecount]->FriendList.size();
-					House[housecount]->FriendList[friendcount]=str2num(script2);
-					House[housecount]->FriendList.resize(House[housecount]->FriendList.size()+1);
-				}
+					House[housecount]->FriendList.push_back(str2num(script2));
 				break;
 			case 'I':
 			case 'i':
@@ -830,6 +827,8 @@ void cHouseManager::LoadHouses()
 					House[housecount]->LockAmount=str2num(script2);
 				if(!strcmp((char*)script1, "LOCKTOTAL"))
 					House[housecount]->LockTotal=str2num(script2);
+				if(!strcmp((char*)script1, "LASTUSED"))
+					House[housecount]->LastUsed=str2num(script2);
 				break;
 			case 'O':
 			case 'o':
@@ -846,6 +845,11 @@ void cHouseManager::LoadHouses()
 					House[housecount]->SecureAmount=str2num(script2);
 				if(!strcmp((char*)script1, "SECURETOTAL"))
 					House[housecount]->SecureTotal=str2num(script2);
+				break;
+			case 'T':
+			case 't':
+				if(!strcmp((char*)script1, "TIMEUNUSED"))
+					House[housecount]->TimeUnused=str2num(script2);
 				break;
 			case 'X':
 			case 'x':
@@ -943,16 +947,24 @@ bool cHouse::RemoveFriend(P_CHAR pc)
 {
 	int i=FindFriend(pc);
 	if(i>-1)
-		FriendList.erase((int*)FriendList[i]);
-	return 0;
+	{
+		FriendList.erase(FriendList.begin() + i);
+		return 1;
+	}
+	else
+		return 0;
 }
 
 bool cHouse::RemoveBan(P_CHAR pc)
 {
 	int i=FindBan(pc);
 	if(i>-1)
-		BanList.erase((int*)BanList[i]);
-	return 0;
+	{
+		BanList.erase(BanList.begin()+i);
+		return 1;
+	}
+	else
+		return 0;
 }
 
 

@@ -42,6 +42,8 @@ public:
 		serial=0;
 		OwnerAccount=0;
 		OwnerSerial=0;
+		LastUsed=0;
+		TimeUnused=0;
 		FriendList.resize(0);
 		BanList.resize(0);
 	};
@@ -56,6 +58,8 @@ public:
 		serial=0;
 		OwnerAccount=0;
 		OwnerSerial=0;
+		LastUsed=0;
+		TimeUnused=0;
 		FriendList.clear();
 		BanList.clear();
 	};
