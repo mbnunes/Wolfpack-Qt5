@@ -47,7 +47,7 @@ int RandomNum(int nLowNum, int nHighNum)
 
 int str2num( string s, int base)
 {
-	return str2num(s.c_str(),base) ;
+	return str2num((char*)s.c_str(),base) ;
 }
 
 int str2num(char *s, int base) // Convert string to integer
