@@ -8,9 +8,10 @@
 -->
 <definitions>
 
-	<!-- Lizardman Base -->
-	<npc id="lizardman_base"  inherit="monster_base">
+	<!-- Lizardman -->
+	<npc id="lizardman"  inherit="monster_base">
 		<name><random list="NAMES_LIZARDMAN" /></name>
+		<id><random list="NPCIDS_LIZARDMAN" /></id>
 		<karma>-1500</karma>
 		<fame>1500</fame>
 		<!-- Stats -->
@@ -32,22 +33,23 @@
 		<!-- Misc. -->
 		<desc>These reptilian creatures are savage, but very Intelligent - perhaps equal in intellect to humanity, though without the moderating influences of civilization. They love gold, and will play the brigandon parties that are insufficiently protected.</desc>
 		<carve>carve_lizard_man_medium</carve>
+		<category>Monsters\Lizardmen\Lizardman (Random)</category>
 	</npc>
 
-<!-- a lizard man 1-->
-	<npc id="lizardman_1" inherit="lizardman_base">
+	<!-- a lizard man 1-->
+	<npc id="lizardman_1" inherit="lizardman">
 		<id>33</id>
 		<category>Monsters\Lizardmen\Lizardman 1</category>
 	</npc>
 
 	<!-- Lizardman 2 -->
-	<npc id="lizardman_2" inherit="lizardman_base">
+	<npc id="lizardman_2" inherit="lizardman">
 		<id>35</id>
 		<category>Monsters\Lizardmen\Lizardman 2</category>
 	</npc>
 
 	<!-- Lizardman 3 -->
-	<npc id="lizardman_3" inherit="lizardman_base">
+	<npc id="lizardman_3" inherit="lizardman">
 		<id>36</id>
 		<category>Monsters\Lizardmen\Lizardman 3</category>
 	</npc>

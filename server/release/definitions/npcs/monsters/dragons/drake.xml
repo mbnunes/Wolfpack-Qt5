@@ -11,7 +11,7 @@
 	<!-- a drake (gray) -->
 	<npc id="drake_gray" inherit="monster_base">
 		<name>drake</name>
-		<id>60</id>
+		<id><random list="NPCIDS_DRAKE" /></id>
 		<karma>-5500</karma>
 		<fame>5500</fame>
 		<!-- Stats -->
@@ -34,12 +34,18 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
 		<totame>843</totame>
-		<carve>carve_drake_gray</carve>
+		<category>Monsters\Dragons\Drake (Random)</category>
+	</npc>
+
+	<!-- a drake (gray) -->
+	<npc id="drake_gray" inherit="drake">
+		<id>60</id>
 		<category>Monsters\Dragons\Drake (Gray)</category>
+		<carve>carve_drake_red</carve>
 	</npc>
 
 	<!-- a drake (red) -->
-	<npc id="drake_red" inherit="drake_gray">
+	<npc id="drake_red" inherit="drake">
 		<id>61</id>
 		<category>Monsters\Dragons\Drake (Red)</category>
 		<carve>carve_drake_red</carve>

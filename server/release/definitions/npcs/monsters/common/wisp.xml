@@ -25,8 +25,8 @@
 		<tactics>800</tactics>
 		<wrestling>800</wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="17" type="int" />
-		<tag name="maxdamage" value="18" type="int" />
+		<mindamage>17</mindamage>
+		<maxdamage>18</maxdamage>
 		<tag name="dmg_energy" value="50" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,30" type="int" />

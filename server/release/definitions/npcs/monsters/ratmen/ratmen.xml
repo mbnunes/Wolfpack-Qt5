@@ -9,8 +9,9 @@
 <definitions>
 
 	<!-- Ratman Base -->
-	<npc id="ratmen_base" inherit="monster_base">
+	<npc id="ratman" inherit="monster_base">
 		<name><random list="NAMES_RATMAN" /></name>
+		<id><radom list="NPCIDS_RATMAN" /></id>
 		<karma>-1500</karma>
 		<fame>1500</fame>
 		<!-- Stats -->
@@ -32,22 +33,23 @@
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
 		<desc>Surely the product of some foul sorcery, the rat man truly has the features of a rat, but walks about like a man. Rat men wear garments, wield weapons and give every sign of possessing intelligence. They arevicious, thieving creatures, and cowards if pressed in battle.</desc>
+		<category>Monsters\Ratmen\Ratman (Random)</category>
 	</npc>
 
 	<!-- a ratman -->
-	<npc id="ratman_1" inherit="ratmen_base">
+	<npc id="ratman_1" inherit="ratman">
 		<id>45</id>
 		<category>Monsters\Ratmen\Ratman 1</category>
 	</npc>
 
 	<!-- a ratman -->
-	<npc id="ratman_2" inherit="ratmen_base">
+	<npc id="ratman_2" inherit="ratman">
 		<id>42</id>
 		<category>Monsters\Ratmen\Ratman 2</category>
 	</npc>
 
 	<!-- a ratman -->
-	<npc id="ratman_3" inherit="ratmen_base">
+	<npc id="ratman_3" inherit="ratman">
 		<id>44</id>
 		<category>Monsters\Ratmen\Ratman 3</category>
 	</npc>

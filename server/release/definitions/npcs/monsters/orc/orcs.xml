@@ -8,8 +8,9 @@
 -->
 <definitions>
 
-	<npc id="orc_base" inherit="monster_base">
+	<npc id="orc" inherit="monster_base">
 		<name><random list="NAMES_ORC" /></name>
+		<id><random list="NPCIDS_ORC" /></id>
 		<karma>-1500</karma>
 		<fame>1500</fame>
 		<!-- Stats -->
@@ -32,15 +33,16 @@
 		<!-- Misc. -->
 		<desc>Orcs are the oldest and fiercest foes of humanity, but these days havebeen largely driven into Underground refuges. They have a face somewhat like a pig and a muscular, man-like body. It has long been said that they eat the flesh of man, but I believe they harass man for his gold, not for his meat. They are a cruel and rapacious lot, and the surface is better for their absence, but there are those who say that we may expect a great resurgence of orcish aggression in the near future.</desc>
 		<carve>carve_orc</carve>
+		<category>Monsters\Orcs\Orc (Random)</category>
 	</npc>
 
 	<!-- a orc -->
-	<npc id="orc_1" inherit="orc_base">
+	<npc id="orc_1" inherit="orc">
 		<id>17</id>
 		<category>Monsters\Orcs\Orc 1</category>
 	</npc>
 
-	<npc id="orc_2" inherit="orc_base">
+	<npc id="orc_2" inherit="orc">
 		<id>41</id>
 		<category>Monsters\Orcs\Orc 2</category>
 	</npc>

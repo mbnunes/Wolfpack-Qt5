@@ -14,7 +14,6 @@
 		<id>780</id>
 		<karma>-8000</karma>
 		<fame>8000</fame>
-		<gold><random min="50" max="100"/></gold>
 		<!-- Stats -->
 		<str><random min="801" max="900"/></str>
 		<dex><random min="46" max="65"/></dex>

@@ -9,9 +9,9 @@
 <definitions>
 
 	<!-- white wyrm hazy white -->
-	<npc id="white_wyrm_1" inherit="monster_base">
+	<npc id="white_wyrm" inherit="monster_base">
 		<name>white wyrm</name>
-		<id>49</id>
+		<id><random list="NPCIDS_WHITEWYRM" /></id>
 		<karma>-18000</karma>
 		<fame>18000</fame>
 		<!-- Stats -->
@@ -37,12 +37,17 @@
 		<!-- Misc. -->
 		<desc>Unlikely as it may seem, some dragons do not hold to the strict canons of their society. Though a drake criminal is rare, punishment must exist for such malcontents. Wyrms are forbidden from killing one another, and thus no death sentence exists, even for the most evil oftheir kind. It was once believed by the Elder Wyrms that the frozen wastes would either kill or forever weaken those draconians banished there. The contrary was, of course, the result. Known among their kind as Anflaustrailious, or the dispossessed that lack warmth, the dragons that now reside in the regions of cold are those, or descended from those, who were banished for crimes among their kind. The Draconians of the Frost are a cruel and savage branch of their race. They blame all creatures for their torment and seek out revenge on any in their path. Such is the terror inspired by these foul drakes that the Elder Wyrms have forever stricken banishment to the ice regions from their doctrine. What becomes of draconian criminals now is known only to dragon kind, and they are loath to share their secrets.</desc>
 		<totame>963</totame>
-		<category>Monsters\Dragons\White Wyrm (Hazy)</category>
+		<category>Monsters\Dragons\White Wyrm (Random)</category>
+	</npc>
+
+	<!-- white wyrm (Plain) -->
+	<npc id="white_wyrm_1" inherit="white_wyrm">
+		<id>49</id>
+		<category>Monsters\Dragons\White Wyrm (Pure)</category>
 	</npc>
 
 	<!-- white wyrm (Pure) -->
-	<npc id="white_wyrm_2">
-		<inherit id="white_wyrm_1" />
+	<npc id="white_wyrm_2" inherit="white_wyrm">
 		<id>180</id>
 		<category>Monsters\Dragons\White Wyrm (Pure)</category>
 	</npc>
