@@ -38,6 +38,7 @@
 #include "../itemid.h"
 #include "../spellbook.h"
 #include "../multis.h"
+#include "../network/uotxpackets.h"
 
 extern cAllItems *Items;
 
@@ -96,6 +97,45 @@ PyObject* wpMulti_update( wpMulti* self, PyObject* args )
 		return PyFalse;
 
 	self->pMulti->update();
+
+	return PyTrue;
+}
+
+/*!
+	Sends custom house to client
+*/
+PyObject* wpMulti_sendcustomhouse( wpMulti* self, PyObject* args )
+{
+	Q_UNUSED(args);	
+	if( !self->pMulti || self->pMulti->free || !self->pMulti->ishouse() )
+		return PyFalse;
+	
+	if( PyTuple_Size( args ) < 1 || !checkArgChar( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+	P_CHAR player = getArgChar( 0 );
+
+	cUOTxCustomHouse customhouse;
+	P_MULTI pMulti = self->pMulti;
+	
+	Coord_cl multicoord = pMulti->pos();
+
+	QValueList< SERIAL > items = pMulti->items();
+	QValueList< SERIAL >::iterator it = items.begin();
+	customhouse.setSerial( pMulti->serial() );
+	customhouse.setCompression( 0 );	
+	customhouse.setRevision( pMulti->revision() );
+	
+	while( it != items.end() )
+	{
+		P_ITEM pItem = FindItemBySerial( *it );
+		if( pItem )
+			customhouse.addTile( pItem->id(), multicoord - pItem->pos() );
+		it ++;
+	}
+	player->socket()->send( &customhouse );
 
 	return PyTrue;
 }

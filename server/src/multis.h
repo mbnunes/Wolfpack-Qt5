@@ -106,6 +106,7 @@ public:
 
 	virtual bool	ishouse()	{ return false; }
 	virtual bool	isboat()		{ return false; }
+	virtual UINT32	revision() { return 0; }
 
 protected:
 	virtual void processNode( const QDomElement &Tag );

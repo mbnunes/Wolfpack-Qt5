@@ -115,6 +115,11 @@ Coord_cl Coord_cl::operator+ (const Coord_cl& src) const
 	return Coord_cl(this->x + src.x, this->y + src.y, this->z + src.z);
 }
 
+Coord_cl Coord_cl::operator- (const Coord_cl& src) const
+{
+	return Coord_cl(this->x - src.x, this->y - src.y, this->z - src.z);
+}
+
 void Coord_cl::lightning( UINT8 speed, UINT8 duration, UINT16 hue, UINT16 renderMode )
 {
 	cUOTxEffect effect;

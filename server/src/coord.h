@@ -55,6 +55,7 @@ public:
 	bool operator==(const Coord_cl&) const;
 	bool operator!=(const Coord_cl&) const;
 	Coord_cl operator+(const Coord_cl& src) const;
+	Coord_cl operator-(const Coord_cl& src) const;
 	UI32 distance( const Coord_cl &src) const;
 	static UI32 distance ( const Coord_cl &a, const Coord_cl &b );
 

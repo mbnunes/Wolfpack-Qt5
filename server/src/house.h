@@ -52,14 +52,15 @@ public:
 
 	unsigned int last_used;
 
-	cHouse() 
+	cHouse( bool cserial = false) 
 	{
-		cItem::Init( false );
+		cItem::Init( cserial );
 
 //		contserial = INVALID_SERIAL;
 		deedsection_ = QString::null;
 		nokey_ = false;
 		charpos_.x = charpos_.y = charpos_.z = 0;
+		revision_ = 0;
 	}
 	virtual ~cHouse() {}
 
@@ -80,6 +81,7 @@ public:
 
 	bool	ishouse() { return true; }
 	bool	isboat() { return false; }
+	UINT32	revision() { return revision_; }
 
 protected:
 	virtual void processNode( const QDomElement &Tag );
@@ -93,7 +95,7 @@ protected:
 		int y;
 		int z;
 	};
-
+	UINT32 revision_;
 	posxyz_st	charpos_;
 };
 

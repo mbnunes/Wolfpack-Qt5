@@ -1282,14 +1282,16 @@ public:
 
 class cUOTxCustomHouse : public cUOPacket
 {
+public:
 	cUOTxCustomHouse(): cUOPacket( 0xD8, 0x11 )
 	{
 		setShort( 1, 0x11 );
 	}
 	void setCompression( UINT8 data ) { (*this)[3] = data; }
 	void setSerial( UINT32 data ) { setInt( 5, data ); }
-	void setId( UINT32 data ) { setInt( 9, data ); }
+	void setRevision( UINT32 data ) { setInt( 9, data ); }
 	void addTile( UINT16 id, UINT8 x, UINT8 y, UINT8 z );
+	void addTile( UINT16 id, Coord_cl coords ) { addTile( id, coords.x, coords.y, coords.z ); }
 };
 
 // 0xBF 0x11 - Begin house customization

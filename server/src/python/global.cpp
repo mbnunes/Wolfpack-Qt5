@@ -51,6 +51,8 @@
 #include "../chars.h"
 #include "../network.h"
 #include "../multis.h"
+#include "../house.h"
+#include "../boats.h"
 
 #include "utilities.h"
 #include "tempeffect.h"
@@ -825,6 +827,36 @@ PyObject *wpCoord( PyObject* self, PyObject* args )
 }
 
 /*!
+	Multi object creation
+*/
+PyObject *wpMulti( PyObject* self, PyObject* args )
+{
+	Q_UNUSED( self);
+
+	if( !checkArgInt( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+	UINT type = getArgInt( 0 );
+	P_MULTI pMulti = NULL;
+
+	switch( type )
+	{
+		case CUSTOMHOUSE: pMulti = dynamic_cast< cMulti* >( new cHouse( true ) );  // Custom house have serial for caching purposes
+			break;
+		case HOUSE: pMulti = dynamic_cast< cMulti* >( new cHouse() );  // Common house
+			break;
+		case BOAT: pMulti = dynamic_cast< cMulti* >( new cBoat() );
+			break;
+		default:
+			break;
+	}
+
+	return PyGetMultiObject( pMulti );
+}
+
+/*!
 	Returns uptime of server in seconds
 */
 PyObject* wpServerUptime( PyObject* self, PyObject* args )
@@ -931,6 +963,7 @@ static PyMethodDef wpGlobal[] =
 	{ "allitemsserials",	wpAllItemsSerials,	METH_VARARGS, "Returns a list of all items serials" },
 	{ "tiledata",			wpTiledata,			METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
 	{ "coord",				wpCoord,			METH_VARARGS, "Creates a coordinate object from the given parameters (x,y,z,map)." },
+	{ "multi",				wpMulti,			METH_VARARGS, "Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT." },
 	{ "spell",				wpSpell,			METH_VARARGS, "Returns information about a certain spell." },
 	{ "list",				wpList,				METH_VARARGS, "Returns a list defined in the definitions as a Python List" },
 	{ "registerglobal",		wpRegisterGlobal,	METH_VARARGS, "Registers a global script hook." },

@@ -238,6 +238,10 @@ enum enDirection
 #define CONN_MAIN 1
 #define CONN_SECOND 2
 
+#define HOUSE 0
+#define BOAT 1
+#define CUSTOMHOUSE 2
+
 // Maximum Search Steps: Iterations to calculate
 #endif
 ///////////////////////  End Defines
