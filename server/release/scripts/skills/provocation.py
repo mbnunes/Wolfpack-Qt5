@@ -16,12 +16,12 @@ def provocation( char, skill ):
 	if skill != PROVOCATION:
 		return
 
-	if not char.hastag( "instrument" ):
-		char.socket.clilocmessage( 0x7A74E, "", 0x3b2, 3 ) # What instrument shall I play music on?
+	if not char.socket.hastag( 'instrument' ):
+		char.socket.clilocmessage( 0x7A74E, '', 0x3b2, 3 ) # What instrument shall I play music on?
 		char.socket.attachtarget( "skills.provocation.findinstrument" )
 		return 1
 
-	instserial = char.gettag( "instrument" )
+	instserial = char.socket.gettag( 'instrument' )
 	instrument = wolfpack.finditem( instserial )
 	backpack = char.getbackpack()
 	
@@ -151,7 +151,7 @@ def findinstrument( char, args, target ):
 		char.socket.clilocmessage( 0x7A752, "", 0x3b2, 3 ) # That isn't a musical instrument.
 		return
 	
-	char.settag( "instrument", serial )
+	char.socket.settag( 'instrument', serial )
 	char.socket.clilocmessage( 0x7A753, "", 0x3b2, 3, )
 	char.socket.attachtarget( "skills.provocation.response1", [target.item] )
 

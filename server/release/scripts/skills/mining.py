@@ -51,14 +51,14 @@ oretable = \
 
 def mining( char, pos, tool ):
 	wolfpack.addtimer( 1300, "skills.mining.domining", [ char, SOUND_MINING, tool, pos ] )
-	char.settag( 'is_mining', str( servertime() + miningdelay ) )
+	char.socket.settag( 'is_mining', ( servertime() + miningdelay ) )
 	char.turnto( pos )
 	char.action( ANIM_ATTACK3 )
 	return OK
 
 def createoregem( pos ):
 	gem = wolfpack.additem( 'ore_gem' )
-	gem.settag( 'resourcecount', str( orespawnamount ) ) # 10 - 34 ore
+	gem.settag( 'resourcecount', orespawnamount ) # 10 - 34 ore
 	gem.settag( 'resname', 'iron' ) # All veins should default to iron ore.
 	# This will give it a chance to be a random ore type, this can change later.
 	colorchance = randrange( 0, 100 )
@@ -94,7 +94,7 @@ def getvein( socket, pos ):
 	gems = wolfpack.items( pos.x, pos.y, pos.map, 4 )
 	for gem in gems:
 		if wolfpack.finditem( gem.serial ):
-			if gem.hastag('resource') and gem.gettag('resource') == 'ore' and gem.hastag('resname') and gem.id == hex2dec(0x1ea7):
+			if gem.hastag( 'resource' ) and gem.gettag( 'resource' ) == 'ore' and gem.hastag( 'resname' ) and gem.id == hex2dec( 0x1ea7 ):
 				return gem
 				break
 	if not gems:
@@ -156,21 +156,21 @@ def domining( time, args ):
 	pos = args[3]
 	socket = char.socket
 
-	if char.hastag( 'ore_gem' ):
-		veingem = wolfpack.finditem( char.gettag( 'ore_gem' ) )
+	if char.socket.hastag( 'ore_gem' ):
+		veingem = wolfpack.finditem( char.socket.gettag( 'ore_gem' ) )
 		if not veingem:
 			veingem = getvein( socket, pos )
 			if not veingem:
-				char.deltag( 'ore_gem' )
+				char.socket.deltag( 'ore_gem' )
 				veingem = createoregem( pos )
-				char.settag( 'ore_gem', str( veingem.serial ) )
+				char.socket.settag( 'ore_gem', veingem.serial )
 	else:
 		veingem = getvein( socket, pos )
 		if not veingem:
 			veingem = createoregem( pos )
-			char.settag( 'ore_gem', str( veingem.serial ) )
+			char.socket.settag( 'ore_gem', veingem.serial )
 		else:
-			char.settag( 'ore_gem', str( veingem.serial ) )
+			char.socket.settag( 'ore_gem', veingem.serial )
 	
 	if char.distanceto( veingem ) > MINING_MAX_DISTANCE:
 		veingem = getvein( socket, pos )
@@ -191,7 +191,7 @@ def domining( time, args ):
 	elif not veingem.hastag( 'resname2' ) and veingem.hastag( 'resname' ):
 		resname = veingem.gettag( 'resname' )
 
-	resourcecount = int( veingem.gettag( 'resourcecount' ) )
+	resourcecount = veingem.gettag( 'resourcecount' )
 	reqskill = oretable[ resname ][ REQSKILL ]
 
 	success = 0
@@ -216,24 +216,24 @@ def domining( time, args ):
 			elif resourcecount == 1 or resourcecount == 2: # Smallest ore only
 				successmining( char, veingem, oretable, resname, 1, oredefs[0] )
 			# tool durability drain
-			if not tool.hastag('remaining_uses'):
-				tool.settag( 'remaining_uses', str(tool.health) )
+			if not tool.hastag( 'remaining_uses' ):
+				tool.settag( 'remaining_uses', tool.health )
 			else:
-				if int( tool.gettag('remaining_uses') ) > 1:
-					tool.settag( 'remaining_uses', str( int(tool.gettag('remaining_uses')) - 1 ) )
+				if tool.gettag( 'remaining_uses' ) > 1:
+					tool.settag( 'remaining_uses', ( tool.gettag( 'remaining_uses' ) - 1 ) )
 					tool.resendtooltip()
-				elif int(tool.gettag('remaining_uses')) == 1:
+				elif tool.gettag( 'remaining_uses' ) == 1:
 					tool.delete()
 					# You have worn out your tool!
 					socket.clilocmessage( 1044038, '', GRAY ) 
-				char.deltag('ore_gem') # To save memory, we don't really need this.
+				char.socket.deltag( 'ore_gem' ) # To save memory, we don't really need this.
 			success = 1
 	
 	elif resourcecount == 0:
 		socket.sysmessage( "There is no metal here to mine.", GRAY )
 		if not veingem.hastag( 'resource_empty' ):
 			wolfpack.addtimer( orerespawndelay, "skills.mining.respawnvein", [ veingem ], 1 )
-			veingem.settag( 'resource_empty', 'true')
+			veingem.settag( 'resource_empty', 'true' )
 		# veingem
 		success = 1
 	
@@ -241,7 +241,7 @@ def domining( time, args ):
 		# You loosen some rocks but fail to find any usable ore.
 		socket.clilocmessage( 501869, "", GRAY ) 
 	
-	char.deltag('is_mining')
+	char.socket.deltag( 'is_mining' )
 	
 	return OK
 
@@ -259,15 +259,15 @@ def successmining( char, gem, table, resname, amount, ore ):
 		resourceitem.amount = amount * 2
 	else:
 		resourceitem.amount = amount
-	resourceitem.settag( 'resname', str( resname ) ) # Used when smelting
+	resourceitem.settag( 'resname', resname ) # Used when smelting
 	
 	if not gem.hastag('resourcecount'):
 		return OOPS
 		
-	gem.settag( 'resourcecount', str( int( gem.gettag( 'resourcecount' ) ) - amount ) )
+	gem.settag( 'resourcecount', ( gem.gettag( 'resourcecount' ) - amount ) )
 	
-	if int( gem.gettag( 'resourcecount' ) ) == 0:
-		if not gem.hastag ('resource_empty') and int( gem.gettag( 'resourcecount' ) ) == 0:
+	if gem.gettag( 'resourcecount' ) == 0:
+		if not gem.hastag ( 'resource_empty' ) and gem.gettag( 'resourcecount' ) == 0:
 			gem.settag( 'resource_empty', 'true' )
 			wolfpack.addtimer( orerespawndelay, "skills.mining.respawnvein", [ gem ], 1 )
 	
@@ -284,7 +284,7 @@ def successmining( char, gem, table, resname, amount, ore ):
 
 def respawnvein( time, args ):
 	vein = args[0]
-	if vein.hastag ('resource_empty') and int( vein.gettag( 'resourcecount' ) ) == 0:
-		vein.settag( 'resourcecount', str( orespawnamount ) )
-		vein.deltag('resource_empty')
+	if vein.hastag( 'resource_empty' ) and vein.gettag( 'resourcecount' ) == 0:
+		vein.settag( 'resourcecount', orespawnamount )
+		vein.deltag( 'resource_empty' )
 	return OK

@@ -114,7 +114,7 @@ def response( char, args, target ):
 			char.socket.clilocmessage( 501986, '', GRAY )
 			return OOPS
 		# Largest Ore Pile
-		if item.id == oreids[3] and item.color == targetitem.color and item.gettag('resname') == targetitem.gettag('resname'):
+		if item.id == oreids[3] and item.color == targetitem.color and item.gettag( 'resname' ) == targetitem.gettag( 'resname' ):
 			if targetitem.getoutmostchar() != char:
 				if char.pos.distance( target.pos ) > 2:
 					# The ore is too far away.
@@ -164,7 +164,7 @@ def response( char, args, target ):
 				return OK
 		
 		# Second Largest Ore
-		elif item.id == oreids[2] and item.color == targetitem.color and item.gettag('resname') == targetitem.gettag('resname'):
+		elif item.id == oreids[2] and item.color == targetitem.color and item.gettag( 'resname' ) == targetitem.gettag( 'resname' ):
 			if targetitem.getoutmostchar() != char:
 				if char.pos.distance( target.pos ) > 2:
 					# The ore is too far away.
@@ -202,7 +202,7 @@ def response( char, args, target ):
 				return OK
 		
 		# Second Smallest
-		elif item.id == oreids[1] and item.color == targetitem.color and item.gettag('resname') == targetitem.gettag('resname'):
+		elif item.id == oreids[1] and item.color == targetitem.color and item.gettag( 'resname' ) == targetitem.gettag( 'resname' ):
 			if targetitem.getoutmostchar() != char:
 				if char.pos.distance( target.pos ) > 2:
 					char.socket.clilocmessage( 0x7A258 ) # You can't reach...
@@ -238,7 +238,7 @@ def response( char, args, target ):
 				return OK
 		
 		# Smallest
-		elif item.id == oreids[0] and item.color == targetitem.color and item.gettag('resname') == targetitem.gettag('resname'):
+		elif item.id == oreids[0] and item.color == targetitem.color and item.gettag( 'resname' ) == targetitem.gettag( 'resname' ):
 			if targetitem.getoutmostchar() != char:
 				if char.pos.distance( target.pos ) > 2:
 					# The ore is too far away.
@@ -332,7 +332,7 @@ def successsmelt( char, table, resname, amount, ingotdef ):
 	resourceitem.name = str( table[ resname ][ NAME ] )
 	resourceitem.color = table[ resname ][ COLORID ]
 	resourceitem.amount = amount
-	resourceitem.settag( 'resname', str( resname ) ) # Used when smelting
+	resourceitem.settag( 'resname', resname ) # Used when smelting
 	
 	if not wolfpack.utilities.tocontainer( resourceitem, char.getbackpack() ):
 		resourceitem.update()

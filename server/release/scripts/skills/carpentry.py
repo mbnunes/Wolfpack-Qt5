@@ -42,264 +42,264 @@ def makesmallbeds( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Small Bed(S)" )
-	char.settag( 'carpentry_type', "small_bed_s" )
-	char.settag( 'skills', "small_bed" )
+	char.socket.settag( 'carpentry_name', "Small Bed(S)" )
+	char.socket.settag( 'carpentry_type', "small_bed_s" )
+	char.socket.settag( 'skills', "small_bed" )
 	makedeed( char )
 
 def makesmallbede( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Small Bed(E)" )
-	char.settag( 'carpentry_type', "small_bed_e" )
-	char.settag( 'skills', "small_bed" )
+	char.socket.settag( 'carpentry_name', "Small Bed(E)" )
+	char.socket.settag( 'carpentry_type', "small_bed_e" )
+	char.socket.settag( 'skills', "small_bed" )
 	makedeed( char )
 
 def makelargebeds( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Large Bed(S)" )
-	char.settag( 'carpentry_type', "large_bed_s" )
-	char.settag( 'skills', "large_bed" )
+	char.socket.settag( 'carpentry_name', "Large Bed(S)" )
+	char.socket.settag( 'carpentry_type', "large_bed_s" )
+	char.socket.settag( 'skills', "large_bed" )
 	makedeed( char )
 
 def makelargebede( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Large Bed(E)" )
-	char.settag( 'carpentry_type', "large_bed_e" )
-	char.settag( 'skills', "large_bed" )
+	char.socket.settag( 'carpentry_name', "Large Bed(E)" )
+	char.socket.settag( 'carpentry_type', "large_bed_e" )
+	char.socket.settag( 'skills', "large_bed" )
 	makedeed( char )
 
 def makedartboards( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Dart Board(S)" )
-	char.settag( 'carpentry_type', "dart_board_s" )
-	char.settag( 'skills', "dart_board" )
+	char.socket.settag( 'carpentry_name', "Dart Board(S)" )
+	char.socket.settag( 'carpentry_type', "dart_board_s" )
+	char.socket.settag( 'skills', "dart_board" )
 	makedeed( char )
 
 def makedartboarde( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Dart Board(E)" )
-	char.settag( 'carpentry_type', "dart_board_e" )
-	char.settag( 'skills', "dart_board" )
+	char.socket.settag( 'carpentry_name', "Dart Board(E)" )
+	char.socket.settag( 'carpentry_type', "dart_board_e" )
+	char.socket.settag( 'skills', "dart_board" )
 	makedeed( char )
 
 def makeballotbox( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Ballot Box" )
-	char.settag( 'carpentry_type', "ballot_box" )
-	char.settag( 'skills', "ballot_box" )
+	char.socket.settag( 'carpentry_name', "Ballot Box" )
+	char.socket.settag( 'carpentry_type', "ballot_box" )
+	char.socket.settag( 'skills', "ballot_box" )
 	makedeed( char )
 
 def makepentagram( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Pentagram" )
-	char.settag( 'carpentry_type', "pentagram" )
-	char.settag( 'skills', "pentagram" )
+	char.socket.settag( 'carpentry_name', "Pentagram" )
+	char.socket.settag( 'carpentry_type', "pentagram" )
+	char.socket.settag( 'skills', "pentagram" )
 	makedeed( char )
 
 def makeabbatoir( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Abbatoir" )
-	char.settag( 'carpentry_type', "abbatoir" )
-	char.settag( 'skills', "abbatoir" )
+	char.socket.settag( 'carpentry_name', "Abbatoir" )
+	char.socket.settag( 'carpentry_type', "abbatoir" )
+	char.socket.settag( 'skills', "abbatoir" )
 	makedeed( char )
 
 def makesmallforge( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Small Forge" )
-	char.settag( 'carpentry_type', "small_forge" )
-	char.settag( 'skills', "small_forge" )
+	char.socket.settag( 'carpentry_name', "Small Forge" )
+	char.socket.settag( 'carpentry_type', "small_forge" )
+	char.socket.settag( 'skills', "small_forge" )
 	makedeed( char )
 
 def makelargeforgee( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Large Forge(E)" )
-	char.settag( 'carpentry_type', "large_forge_e" )
-	char.settag( 'skills', "large_forge" )
+	char.socket.settag( 'carpentry_name', "Large Forge(E)" )
+	char.socket.settag( 'carpentry_type', "large_forge_e" )
+	char.socket.settag( 'skills', "large_forge" )
 	makedeed( char )
 
 def makelargeforges( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Large Forge(S)" )
-	char.settag( 'carpentry_type', "large_forge_s" )
-	char.settag( 'skills', "large_forge" )
+	char.socket.settag( 'carpentry_name', "Large Forge(S)" )
+	char.socket.settag( 'carpentry_type', "large_forge_s" )
+	char.socket.settag( 'skills', "large_forge" )
 	makedeed( char )
 
 def makeanvile( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Anvil(E)" )
-	char.settag( 'carpentry_type', "anvil_e" )
-	char.settag( 'skills', "anvil" )
+	char.socket.settag( 'carpentry_name', "Anvil(E)" )
+	char.socket.settag( 'carpentry_type', "anvil_e" )
+	char.socket.settag( 'skills', "anvil" )
 	makedeed( char )
 
 def makeanvils( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Anvil(S)" )
-	char.settag( 'carpentry_type', "anvil_s" )
-	char.settag( 'skills', "anvil" )
+	char.socket.settag( 'carpentry_name', "Anvil(S)" )
+	char.socket.settag( 'carpentry_type', "anvil_s" )
+	char.socket.settag( 'skills', "anvil" )
 	makedeed( char )
 
 def maketrainingdummye( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Training Dummy(E)" )
-	char.settag( 'carpentry_type', "training_dummy_e" )
-	char.settag( 'skills', "training_dummy" )
+	char.socket.settag( 'carpentry_name', "Training Dummy(E)" )
+	char.socket.settag( 'carpentry_type', "training_dummy_e" )
+	char.socket.settag( 'skills', "training_dummy" )
 	makedeed( char )
 
 def maketrainingdummys( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Training Dummy(S)" )
-	char.settag( 'carpentry_type', "training_dummy_s" )
-	char.settag( 'skills', "training_dummy" )
+	char.socket.settag( 'carpentry_name', "Training Dummy(S)" )
+	char.socket.settag( 'carpentry_type', "training_dummy_s" )
+	char.socket.settag( 'skills', "training_dummy" )
 	makedeed( char )
 
 def makepickpocketsdipe( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Pickpocket Dip(E)" )
-	char.settag( 'carpentry_type', "pickpocket_dip_e" )
-	char.settag( 'skills', "pickpocket_dip" )
+	char.socket.settag( 'carpentry_name', "Pickpocket Dip(E)" )
+	char.socket.settag( 'carpentry_type', "pickpocket_dip_e" )
+	char.socket.settag( 'skills', "pickpocket_dip" )
 	makedeed( char )
 	
 def makepickpocketsdips( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Pickpocket Dip(S)" )
-	char.settag( 'carpentry_type', "pickpocket_dip_s" )
-	char.settag( 'skills', "pickpocket_dip" )
+	char.socket.settag( 'carpentry_name', "Pickpocket Dip(S)" )
+	char.socket.settag( 'carpentry_type', "pickpocket_dip_s" )
+	char.socket.settag( 'skills', "pickpocket_dip" )
 	makedeed( char )
 
 def makespinningwheele( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Spinning Wheel(E)" )
-	char.settag( 'carpentry_type', "spinning_wheel_e" )
-	char.settag( 'skills', "spinning_wheel" )
+	char.socket.settag( 'carpentry_name', "Spinning Wheel(E)" )
+	char.socket.settag( 'carpentry_type', "spinning_wheel_e" )
+	char.socket.settag( 'skills', "spinning_wheel" )
 	makedeed( char )
 
 def makespinningwheels( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Spinning Wheel(S)" )
-	char.settag( 'carpentry_type', "spinning_wheel_s" )
-	char.settag( 'skills', "spinning_wheel" )
+	char.socket.settag( 'carpentry_name', "Spinning Wheel(S)" )
+	char.socket.settag( 'carpentry_type', "spinning_wheel_s" )
+	char.socket.settag( 'skills', "spinning_wheel" )
 	makedeed( char )
 
 def makeloome( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Loom(E)" )
-	char.settag( 'carpentry_type', "loom_e" )
-	char.settag( 'skills', "loom" )
+	char.socket.settag( 'carpentry_name', "Loom(E)" )
+	char.socket.settag( 'carpentry_type', "loom_e" )
+	char.socket.settag( 'skills', "loom" )
 	makedeed( char )
 
 def makelooms( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Loom(S)" )
-	char.settag( 'carpentry_type', "loom_s" )
-	char.settag( 'skills', "loom" )
+	char.socket.settag( 'carpentry_name', "Loom(S)" )
+	char.socket.settag( 'carpentry_type', "loom_s" )
+	char.socket.settag( 'skills', "loom" )
 	makedeed( char )
 
 def makestoneovene( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Stone Oven(E)" )
-	char.settag( 'carpentry_type', "stone_oven_e" )
-	char.settag( 'skills', "stone_oven" )
+	char.socket.settag( 'carpentry_name', "Stone Oven(E)" )
+	char.socket.settag( 'carpentry_type', "stone_oven_e" )
+	char.socket.settag( 'skills', "stone_oven" )
 	makedeed( char )
 
 def makestoneovens( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Stone Oven(S)" )
-	char.settag( 'carpentry_type', "stone_oven_s" )
-	char.settag( 'skills', "stone_oven" )
+	char.socket.settag( 'carpentry_name', "Stone Oven(S)" )
+	char.socket.settag( 'carpentry_type', "stone_oven_s" )
+	char.socket.settag( 'skills', "stone_oven" )
 	makedeed( char )
 
 def makeflourmille( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Flour Mill(E)" )
-	char.settag( 'carpentry_type', "flour_mill_e" )
-	char.settag( 'skills', "flour_mill" )
+	char.socket.settag( 'carpentry_name', "Flour Mill(E)" )
+	char.socket.settag( 'carpentry_type', "flour_mill_e" )
+	char.socket.settag( 'skills', "flour_mill" )
 	makedeed( char )
 
 def makeflourmills( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Flour Mill(S)" )
-	char.settag( 'carpentry_type', "flour_mill_s" )
-	char.settag( 'skills', "flour_mill" )
+	char.socket.settag( 'carpentry_name', "Flour Mill(S)" )
+	char.socket.settag( 'carpentry_type', "flour_mill_s" )
+	char.socket.settag( 'skills', "flour_mill" )
 	makedeed( char )
 
 def makewatertroughe( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Water Trough(E)" )
-	char.settag( 'carpentry_type', "water_trough_e" )
-	char.settag( 'skills', "water_trough" )
+	char.socket.settag( 'carpentry_name', "Water Trough(E)" )
+	char.socket.settag( 'carpentry_type', "water_trough_e" )
+	char.socket.settag( 'skills', "water_trough" )
 	makedeed( char )
 
 def makewatertroughs( char ):
 	if not char:
 		return
 	rmcarpentrytags( char )
-	char.settag( 'carpentry_name', "Water Trough(S)" )
-	char.settag( 'carpentry_type', "water_trough_s" )
-	char.settag( 'skills', "water_trough" )
+	char.socket.settag( 'carpentry_name', "Water Trough(S)" )
+	char.socket.settag( 'carpentry_type', "water_trough_s" )
+	char.socket.settag( 'skills', "water_trough" )
 	makedeed( char )
 
 def rmcarpentrytags( char ):
-	if char.hastag( 'carpentry_name' ):
-		char.deltag( 'carpentry_name' )
-	if char.hastag( 'carpentry_type' ):
-		char.deltag( 'carpentry_type' )
-	if char.hastag( 'skills' ):
-		char.deltag( 'skills' )
+	if char.socket.hastag( 'carpentry_name' ):
+		char.socket.deltag( 'carpentry_name' )
+	if char.socket.hastag( 'carpentry_type' ):
+		char.socket.deltag( 'carpentry_type' )
+	if char.socket.hastag( 'skills' ):
+		char.socket.deltag( 'skills' )
 
 def makedeed( char ):
-	if not char.hastag( 'carpentry_name' ) or not char.hastag( 'carpentry_type') or not char.hastag( 'skills' ):
+	if not char.socket.hastag( 'carpentry_name' ) or not char.socket.hastag( 'carpentry_type') or not char.socket.hastag( 'skills' ):
 		rmcarpentrytags( char )
 		return
 	backpack = char.getbackpack()
@@ -307,7 +307,7 @@ def makedeed( char ):
 		return
 
 	# interpret the skill/resource data
-	item_name = char.gettag( 'skills' )
+	item_name = char.socket.gettag( 'skills' )
 	if not skills.has_key( item_name ):
 		return
 	use_skills = skills[ item_name ][ 0 ].keys()
@@ -349,8 +349,8 @@ def makedeed( char ):
 	deed = wolfpack.additem( "14ef" )
 	if not deed:
 		return
-	deed.name = char.gettag( 'carpentry_name' )
-	deed.settag( 'carpentry_type', char.gettag( 'carpentry_type' ) )
+	deed.name = char.socket.gettag( 'carpentry_name' )
+	deed.settag( 'carpentry_type', char.socket.gettag( 'carpentry_type' ) )
 	deed.events = "carpentry_deed"
 	backpack.additem( deed )
 	deed.update()

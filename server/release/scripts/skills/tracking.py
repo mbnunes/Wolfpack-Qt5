@@ -20,13 +20,13 @@ def tracking( char, skill ):
 	if skill != TRACKING:
 		return 0
 
-	if char.hastag( 'skill_delay' ):
+	if char.socket.hastag( 'skill_delay' ):
 		cur_time = servertime()
-		if cur_time < char.gettag( 'skill_delay' ):
+		if cur_time < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
 		else:
-			char.deltag( 'skill_delay' )
+			char.socket.deltag( 'skill_delay' )
 
 	char.socket.cloclocmessage( 1011350 ) # What do you wish to track?
 	char.socket.closegump( 0x87651592 ) # What to track
@@ -56,7 +56,7 @@ def tracking( char, skill ):
 	gump.send( char )
 
 	cur_time = servertime()
-	char.settag( 'skill_delay', cur_time + STEALTH_DELAY )
+	char.socket.settag( 'skill_delay', ( cur_time + STEALTH_DELAY ) )
 
 	return 1
 

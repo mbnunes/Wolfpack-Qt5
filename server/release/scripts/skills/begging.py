@@ -18,7 +18,6 @@ import skills
 # 4. You can continue to beg from the same NPC until he or she runs out of gold. (editors note: or until he or she has 9 or less gold) 
 # 5. If your karma gets too low, there is a chance the NPC will refuse to give you any gold at all. Where "low" means negative karma. All karma my GM Beggar had was the little he could acquire from wrestling rats in town.
 
-GOLD_COIN_ID = 0x0eed
 GOLD_COIN = "eed"
 GOLD_COIN1 = "eee"
 GOLD_COIN2 = "eef"
@@ -30,13 +29,13 @@ def begging( char, skill ):
 	if skill != BEGGING:
 		return 0
 
-	if char.hastag( 'skill_delay' ):
+	if char.socket.hastag( 'skill_delay' ):
 		cur_time = servertime()
-		if cur_time < char.gettag( 'skill_delay' ):
+		if cur_time < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
 		else:
-			char.deltag( 'skill_delay' )
+			char.socket.deltag( 'skill_delay' )
 
 	char.socket.clilocmessage( 500397, "", 0x3b2, 3 )
 
@@ -75,7 +74,7 @@ def response( char, args, target ):
 
 	success = char.checkskill( BEGGING, 0, 1200 )
 	cur_time = servertime()
-	char.settag( 'skill_delay', cur_time + BEGGING_DELAY )
+	char.socket.settag( 'skill_delay', cur_time + BEGGING_DELAY )
 
 	# npc who has more than 100gp will give you 10gp
 	if gold < 100:

@@ -21,13 +21,13 @@ def anatomy( char, skill ):
 
 	socket = char.socket
 
-	if char.hastag( 'skill_delay' ):
+	if socket.hastag( 'skill_delay' ):
 		cur_time = servertime()
-		if cur_time < char.gettag( 'skill_delay' ):
+		if cur_time < socket.gettag( 'skill_delay' ):
 			socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
 		else:
-			char.deltag( 'skill_delay' )
+			socket.deltag( 'skill_delay' )
 
 	# Assign the target request
 	socket.clilocmessage( 0x7A261, "", 0x3b2, 3 ) # Whom shall I examine?
@@ -62,7 +62,7 @@ def response( char, args, target ):
 		return
 
 	cur_time = servertime()
-	char.settag( 'skill_delay', cur_time + ANATOMY_DELAY )
+	char.socket.settag( 'skill_delay', cur_time + ANATOMY_DELAY )
 
 	# Make a skillcheck and display the fail or success message above the targets head
 	if not char.checkskill( ANATOMY, 0, 1000 ):

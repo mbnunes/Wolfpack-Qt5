@@ -18,13 +18,13 @@ def armslore( char, skill ):
 	if skill != ARMSLORE:
 		return 0
 
-	if char.hastag( 'skill_delay' ):
+	if char.socket.hastag( 'skill_delay' ):
 		cur_time = servertime()
-		if cur_time < char.gettag( 'skill_delay' ):
+		if cur_time < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
 		else:
-			char.deltag( 'skill_delay' )
+			char.socket.deltag( 'skill_delay' )
 
 	char.socket.clilocmessage( 0x7A27D, "", 0x3b2, 3 )
 	char.socket.attachtarget( "skills.armslore.response" )
@@ -48,7 +48,7 @@ def response( char, args, target ):
 
 		if isweapon( item ) or isarmor( item ) or isshield( item ):	
 			cur_time = servertime()
-			char.settag( 'skill_delay', cur_time + ARMSLORE_DELAY )
+			char.socket.settag( 'skill_delay', cur_time + ARMSLORE_DELAY )
 			if not char.checkskill( ARMSLORE, 0, 1000 ):
 				char.socket.clilocmessage( 0x7A281, "", 0x3b2, 3 )
 				return 0

@@ -17,13 +17,13 @@ def peacemaking( char, skill ):
 	if skill != PEACEMAKING:
 		return 0
 
-	if char.hastag( 'skill_delay' ):
+	if char.socket.hastag( 'skill_delay' ):
 		cur_time = servertime()
-		if cur_time < char.gettag( 'skill_delay' ):
+		if cur_time < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
 		else:
-			char.deltag( 'skill_delay' )
+			char.socket.deltag( 'skill_delay' )
 
 	# check instrument in backpack
 	backpack = char.getbackpack()
@@ -54,24 +54,24 @@ def peacemaking( char, skill ):
 	else:
 		instrument = items[ 0 ]
 	
-	char.settag( 'peacemaking_instrument', instrument.serial )
+	char.socket.settag( 'peacemaking_instrument', instrument.serial )
 	char.socket.clilocmessage( 1049525, "", 0x3b2, 3 )
 	char.socket.attachtarget( "skills.peacemaking.response" )
 	return 1
 
 def response( char, args, target ):
-	if not char.hastag( 'peacemaking_instrument' ):
+	if not char.socket.hastag( 'peacemaking_instrument' ):
 		return 0
 	# you can only target chars
 	if not target.char:
 		return 1
-	instrument = wolfpack.finditem( char.gettag( 'peacemaking_instrument' ) )
+	instrument = wolfpack.finditem( char.socket.gettag( 'peacemaking_instrument' ) )
 	if not instrument:
 		return 0
 
-	char.deltag( 'peacemaking_instrument' )
+	char.socket.deltag( 'peacemaking_instrument' )
 	cur_time = servertime()
-	char.settag( 'skill_delay', cur_time + PEACE_DELAY )
+	char.socket.settag( 'skill_delay', ( cur_time + PEACE_DELAY ) )
 
 	# if target him/her self : standard (regional) mode
 	# anyone including npcs can re-target and start fight
@@ -124,8 +124,8 @@ def response( char, args, target ):
 	return 1
 
 def release( char, args ):
-	if char.hastag( 'peacemaking' ):
-		char.deltag( 'peacemaking' )
+	if char.socket.hastag( 'peacemaking' ):
+		char.socket.deltag( 'peacemaking' )
 
 def onLoad():
 	skills.register( PEACEMAKING, peacemaking )

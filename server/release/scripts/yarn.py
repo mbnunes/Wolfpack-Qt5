@@ -52,10 +52,10 @@ def response( char, args, target ):
 
 		# Make sure it has a tag, if not, set and default to 0 ammount.
 		if target.item.hastag( 'amount' ):
-			amount = int( target.item.gettag( 'amount' ) )
+			amount = target.item.gettag( 'amount' )
 		else:
-			target.item.settag( 'amount', '0' )
-			amount = int( target.item.gettag( 'amount' ) )
+			target.item.settag( 'amount', 0 )
+			amount = target.item.gettag( 'amount' )
 
 		amount += 1
 		
@@ -72,10 +72,10 @@ def response( char, args, target ):
 			elif amount == 4:
 				#The bolt of cloth is almost finished.
 				char.socket.clilocmessage( 1010004, '', GRAY )
-			target.item.settag( 'amount', str(amount) )
+			target.item.settag( 'amount', amount )
 		
 		elif amount == 5:
-			target.item.settag( 'amount', '0' )
+			target.item.settag( 'amount', 0 )
 			item_new = wolfpack.additem( "f9a" ) # Adds a bolt of cloth.
 			item_new.color = color
 			if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):

@@ -9,7 +9,8 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 import wolfpack
 
-gems = { 0xf0f:'star sapphire', 0xf10:'emerald', 0xf11:'sapphire',
+gems = { 
+	0xf0f:'star sapphire', 0xf10:'emerald', 0xf11:'sapphire',
 	0xf12:'sapphire', 0xf13:'ruby', 0xf14:'ruby', 0xf15:'citrine',
 	0xf16:'amethyst', 0xf17:'amethyst', 0xf18:'tourmaline', 0xf19:'sapphire',
 	0xf1a:'ruby', 0xf1b:'star sapphire', 0xf1c:'rubby', 0xf1d:'ruby',
@@ -18,7 +19,8 @@ gems = { 0xf0f:'star sapphire', 0xf10:'emerald', 0xf11:'sapphire',
 	0xf24:'citrine', 0xf25:'amber', 0xf26:'diamond', 0xf27:'diamond',
 	0xf28:'diamond', 0xf29:'diamond', 0xf2a:'ruby', 0xf2b:'ruby',
 	0xf2c:'citrine', 0xf2d:'tourmaline', 0xf2e:'amethyst', 0xf2f:'emerald',
-	0xf30:'diamond' }
+	0xf30:'diamond' 
+	}
 
 #def onLoad():
 #	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.tinkering" )
@@ -35,8 +37,8 @@ def makering( char ):
 	if not char:
 		return
 	cleartinkertags( char )
-	char.settag( 'tinkering', "ring" )
-	char.settag( 'tinkeritem', "108a" )
+	char.socket.settag( 'tinkering', 'ring' )
+	char.socket.settag( 'tinkeritem', '108a' )
 	sendgemtarget( char.socket )
 
 #def makesilvernecklace( char ):
@@ -47,24 +49,24 @@ def makenecklace( char ):
 	if not char:
 		return
 	cleartinkertags( char )
-	char.settag( 'tinkering', "necklace" )
-	char.settag( 'tinkeritem', "1089" )
+	char.socket.settag( 'tinkering', "necklace" )
+	char.socket.settag( 'tinkeritem', "1089" )
 	sendgemtarget( char.socket )
 
 def makeearring( char ):
 	if not char:
 		return
 	cleartinkertags( char )
-	char.settag( 'tinkering', "ear ring" )
-	char.settag( 'tinkeritem', "1087" )
+	char.socket.settag( 'tinkering', "ear ring" )
+	char.socket.settag( 'tinkeritem', "1087" )
 	sendgemtarget( char.socket )
 
 def makebracelet( char ):
 	if not char:
 		return
 	cleartinkertags( char )
-	char.settag( 'tinkering', "bracelet" )
-	char.settag( 'tinkeritem', "1086" )
+	char.socket.settag( 'tinkering', "bracelet" )
+	char.socket.settag( 'tinkeritem', "1086" )
 	sendgemtarget( char.socket )
 
 def sendgemtarget( socket ):
@@ -72,13 +74,13 @@ def sendgemtarget( socket ):
 	socket.attachtarget( 'skills.tinkering.response' )
 
 def cleartinkertags( char ):
-	if char.hastag( 'tinkering' ):
-		char.deltag( 'tinkering' )
-	if char.hastag( 'tinkeritem' ):
-		char.deltag( 'tinkeritem' )
+	if char.socket.hastag( 'tinkering' ):
+		char.socket.deltag( 'tinkering' )
+	if char.socket.hastag( 'tinkeritem' ):
+		char.socket.deltag( 'tinkeritem' )
 
 def response( char, args, target ):
-	if not char.hastag( 'tinkering' ) or not char.hastag( 'tinkeritem' ):
+	if not char.socket.hastag( 'tinkering' ) or not char.socket.hastag( 'tinkeritem' ):
 		return
 	backpack = char.getbackpack()
 	if not backpack:
@@ -103,10 +105,10 @@ def response( char, args, target ):
 	success = char.checkskill( TINKERING, 40, 50 )
 	if not success:
 		return
-	item = char.gettag( 'tinkeritem' )
+	item = char.socket.gettag( 'tinkeritem' )
 	# make item, name it, add in the backpack
 	jewelry = wolfpack.additem( item )
-	jewelry.name = "a %s %s" % ( gems[ gem.id], char.gettag( 'tinkering' ) )
+	jewelry.name = "a %s %s" % ( gems[ gem.id], char.socket.gettag( 'tinkering' ) )
 	backpack.additem( jewelry )
 	jewelry.update()
 	cleartinkertags( char )

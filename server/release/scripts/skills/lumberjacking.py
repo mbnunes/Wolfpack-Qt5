@@ -37,7 +37,7 @@ def response( args ):
 	if not socket:
 		return OOPS
 		
-	if char.hastag('is_lumberjacking') and ( int( char.gettag( 'is_lumberjacking' ) ) < servertime() ):
+	if char.socket.hastag('is_lumberjacking') and ( char.socket.gettag( 'is_lumberjacking' ) < servertime() ):
 		char.socket.clilocmessage( 500119, "", GRAY )
 		return OOPS
 	
@@ -54,21 +54,21 @@ def response( args ):
 		return OOPS
 	
 	##########
-	if char.hastag( 'wood_gem' ):
-		veingem = wolfpack.finditem( char.gettag( 'wood_gem' ) )
+	if char.socket.hastag( 'wood_gem' ):
+		veingem = wolfpack.finditem( char.socket.gettag( 'wood_gem' ) )
 		if not veingem:
 			veingem = getvein( socket, pos, target )
 			if not veingem:
-				char.deltag( 'wood_gem' )
+				char.socket.deltag( 'wood_gem' )
 				veingem = createwoodgem( target, pos )
-				char.settag( 'wood_gem', str( veingem.serial ) )
+				char.socket.settag( 'wood_gem', veingem.serial )
 	else:
 		veingem = getvein( socket, pos, target )
 		# OK, we still don't have a veingem to get our wood, lets create it here.
 		if not veingem:
 			veingem = createwoodgem( target, pos )
 		else:
-			char.settag( 'wood_gem', str( veingem.serial ) )
+			char.socket.settag( 'wood_gem', veingem.serial )
 
 	if not veingem:
 		veingem = createwoodgem( target, pos )
@@ -79,14 +79,14 @@ def response( args ):
 	elif veingem.hastag( 'resname' ):
 		resname = veingem.gettag( 'resname' )
 
-	char.settag( 'is_lumberjacking', str( servertime() + nextchopdelay ) )
+	char.socket.settag( 'is_lumberjacking', servertime() + nextchopdelay )
 	hack_logs( char, target, tool, veingem )
 
 	return OK
 
 def createwoodgem( target, pos ):
 	gem = wolfpack.additem( 'wood_gem' )
-	gem.settag( 'resourcecount', str( woodspawnamount ) ) # 10 - 34 ore
+	gem.settag( 'resourcecount', woodspawnamount ) # 10 - 34 ore
 	if ( target.model in yewtree ) or (target.id in yewtree):
 		resource.settag( 'resname', 'yewwood' )
 	else:
@@ -101,7 +101,7 @@ def getvein( socket, pos, target ):
 	gems = wolfpack.items( pos.x, pos.y, pos.map, 4 )
 	for gem in gems:
 		if wolfpack.finditem( gem.serial ):
-			if gem.hastag('resource') and gem.gettag('resource') == 'wood' and gem.hastag('resname') and gem.id == hex2dec(0x1ea7):
+			if gem.hastag('resource') and gem.gettag('resource') == 'wood' and gem.hastag('resname') and gem.id == hex2dec( 0x1ea7 ):
 				return gem
 				break
 	if not gems:
@@ -115,7 +115,7 @@ def chop_tree( time, args ):
 	pos = args[1]
 	
 	if char.pos.map != pos.map or char.pos.distance( pos ) > chopdistance:
-		char.deltag('is_lumberjacking')
+		char.socket.deltag( 'is_lumberjacking' )
 		return OOPS
 		
 	# Turn to our lumberjacking position
@@ -135,12 +135,12 @@ def hack_logs( char, target, tool, resource ):
 	pos = target.pos
 	
 	resname = resource.gettag( 'resname' )
-	amount = int( resource.gettag( 'resourcecount' ) )
+	amount = resource.gettag( 'resourcecount' )
 
-	resourcecount = int( resource.gettag( 'resourcecount' ) )
+	resourcecount = resource.gettag( 'resourcecount' )
 
 	# No resource left to harvest?
-	if int(resource.gettag('resourcecount')) <= 0:
+	if resourcecount <= 0:
 		char.socket.clilocmessage( 500488, '', GRAY )
 		return OOPS
 
@@ -193,7 +193,7 @@ def successlumberjacking( time, args ):
 	# Player can reach that ?
 	if char.pos.map != pos.map or char.pos.distance( pos ) > chopdistance:
 		char.socket.sysmessage("You have moved too far away to gather any wood.")
-		char.deltag('is_lumberjacking')
+		char.socket.deltag( 'is_lumberjacking' )
 		return OOPS
 	
 	socket = char.socket
@@ -205,16 +205,16 @@ def successlumberjacking( time, args ):
 	resourceitem = wolfpack.additem( "1bdd" )
 	resourceitem.name = str( table[ resname ][ RESOURCENAME ] )
 	resourceitem.color = table[ resname ][ COLORID ]
-	if (FELUCIA2XRESGAIN == TRUE) and (char.pos.map  == 0):
+	if ( FELUCIA2XRESGAIN == TRUE ) and ( char.pos.map  == 0 ):
 		resourceitem.amount = 20
 	else:
 		resourceitem.amount = 10
-	resourceitem.settag( 'resname', str( resname ) ) # Used when crafting
+	resourceitem.settag( 'resname', resname ) # Used when crafting
 	
-	if not resource.hastag('resourcecount'):
+	if not resource.hastag( 'resourcecount' ):
 		return OOPS
 	
-	if int(resource.gettag('resourcecount')) <= 0:
+	if resource.gettag( 'resourcecount' ) <= 0:
 		char.socket.clilocmessage( 500488, '', GRAY )
 		return OOPS
 		
@@ -226,21 +226,21 @@ def successlumberjacking( time, args ):
 		if not wolfpack.utilities.tobackpack( resourceitem, char ):
 			resourceitem.update()
 		char.socket.clilocmessage( 500498 ) # You put some logs into your backpack
-		if int( tool.gettag('remaining_uses') ) > 1:
-			tool.settag( 'remaining_uses', str( int(tool.gettag('remaining_uses')) - 1 ) )
+		if tool.gettag( 'remaining_uses' ) > 1:
+			tool.settag( 'remaining_uses', ( tool.gettag( 'remaining_uses' ) - 1 ) )
 			tool.resendtooltip()
-		elif int(tool.gettag('remaining_uses')) == 1:
+		elif tool.gettag( 'remaining_uses' ) == 1:
 			tool.delete()
 			# You broke your axe!
 			socket.clilocmessage( 500499, '', GRAY ) 
-		char.deltag('wood_gem')
-		char.deltag('is_lumberjacking')
+		char.socket.deltag( 'wood_gem' )
+		char.socket.deltag( 'is_lumberjacking' )
 
-	if int( resource.gettag('resourcecount')) >= 1:
-		resource.settag( 'resourcecount', amount - 1 )
+	if resource.gettag( 'resourcecount' ) >= 1:
+		resource.settag( 'resourcecount', ( amount - 1 ) )
 		
-	elif int( resource.gettag( 'resourcecount' ) ) == 0:
-		if not resource.hastag ('resource_empty') and int( resource.gettag( 'resourcecount' ) ) == 0:
+	elif resource.gettag( 'resourcecount' ) == 0:
+		if not resource.hastag ('resource_empty') and resource.gettag( 'resourcecount' ) == 0:
 			resource.settag( 'resource_empty', 'true' )
 			wolfpack.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", [ resource ], 1 )
 
@@ -248,9 +248,9 @@ def successlumberjacking( time, args ):
 
 def respawnvein( time, args ):
 	vein = args[0]
-	if vein.hastag ('resource_empty') and int( vein.gettag( 'resourcecount' ) ) == 0:
-		vein.settag( 'resourcecount', str( woodspawnamount ) )
-		vein.deltag('resource_empty')
+	if vein.hastag ('resource_empty') and vein.gettag( 'resourcecount' ) == 0:
+		vein.settag( 'resourcecount', woodspawnamount )
+		vein.deltag( 'resource_empty' )
 		return OK
 	else:
 		return OOPS

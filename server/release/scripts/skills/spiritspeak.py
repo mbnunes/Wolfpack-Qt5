@@ -20,22 +20,22 @@ def spiritspeak( char, skill ):
 
 	socket = char.socket
 
-	if char.hastag( 'skill_delay' ):
+	if char.socket.hastag( 'skill_delay' ):
 		cur_time = servertime()
-		if cur_time < char.gettag( 'skill_delay' ):
+		if cur_time < char.socket.gettag( 'skill_delay' ):
 			socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
 		else:
-			char.deltag( 'skill_delay' )
+			char.socket.deltag( 'skill_delay' )
 
 	socket.clilocmessage( 0x1034BA, "", 0x3b2, 3, char )
 	char.action( 0x11 )
-	char.addtimer( 1000, "skills.spiritspeak.effect", [skill] )
+	char.addtimer( 1000, "skills.spiritspeak.effect", [ skill ] )
 
 def effect( char, args ):
 
 	cur_time = servertime()
-	char.settag( 'skill_delay', cur_time + SPSPEAK_DELAY )
+	char.socket.settag( 'skill_delay', ( cur_time + SPSPEAK_DELAY ) )
 
 	if not char.checkskill( SPIRITSPEAK, 0, 1000 ):
 		char.socket.clilocmessage( 0x7AAAB, "", 0x3b2, 3 )
@@ -50,7 +50,7 @@ def effect( char, args ):
 	corpses = []
 	for item in items:
 		if item.id == 0x2006:
-			if not item.hastag( "drained" ):
+			if not item.hastag( 'drained' ):
 				corpses.append( item )
 
 	if len(corpses) > 0:
@@ -64,7 +64,7 @@ def effect( char, args ):
 		char.action( 0x11 )
 		char.effect( 0x375a )
 		char.socket.clilocmessage( 0x1031A7, "", 0x3b2, 3 )
-		corpse.settag( "drained", 1 )
+		corpse.settag( 'drained', 1 )
 		corpse.update()
 		return 1
 	else:

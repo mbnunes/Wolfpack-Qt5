@@ -17,13 +17,13 @@ def itemid( char, skill ):
 	if skill != ITEMID:
 		return 0
 
-	if char.hastag( 'skill_delay' ):
+	if char.socket.hastag( 'skill_delay' ):
 		cur_time = servertime()
-		if cur_time < char.gettag( 'skill_delay' ):
+		if cur_time < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
 		else:
-			char.deltag( 'skill_delay' )
+			char.socket.deltag( 'skill_delay' )
 
 	char.socket.clilocmessage( 0x7A277, "", 0x3b2, 3 )
 	char.socket.attachtarget( "skills.itemid.response" )
@@ -42,7 +42,7 @@ def response( char, args, target ):
 				return 0
 
 		cur_time = servertime()
-		char.settag( 'skill_delay', cur_time + ITEMID_DELAY )
+		char.socket.settag( 'skill_delay', cur_time + ITEMID_DELAY )
 
 		if not char.checkskill( ITEMID, 0, 1000 ):
 			char.socket.clilocmessage( 0xFE3C8, "", 0x3b2, 3, char )
