@@ -160,7 +160,7 @@ class TinkeringMenu(MakeMenu):
 	def __init__(self, id, parent, title):
 		MakeMenu.__init__(self, id, parent, title)
 		self.allowmark = True
-		#self.allowrepair = 1
+		self.allowrepair = True
 		self.submaterials1 = blacksmithing.METALS
 		self.submaterials2 = GEMS
 		self.submaterial1missing = 1044037
