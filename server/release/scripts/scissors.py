@@ -61,14 +61,14 @@ def response( char, args, target ):
 		char.socket.clilocmessage( 502440 ) # Scissors cannot be used on that to produce anything.
 		return
 
-	if target.item.id in ids_rawleather:
+	if target.item.id in ids_rawleather and target.item.hastag('resname'):
+		resname = str(target.item.gettag('resname'))
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "1067" )
+		item_new = wolfpack.additem( "%s_leather_cut" % resname )
 		item_new.amount = target.item.amount
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
-
 
 	elif target.item.id in ids_clothes_2:
 		char.soundeffect( 0x248 )

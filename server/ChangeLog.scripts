@@ -19,6 +19,8 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed bug #0000328. (adddecor command not able to place jungle trees)
 		- Fixed bug #0000331. (archery butte broken)
 		- Fixed bug #0000330. (carpentry deeds broken)
+		- Fixed statgain.
+		- Fixed cutting up leather.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
