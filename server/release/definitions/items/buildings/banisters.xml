@@ -12,273 +12,273 @@
 
 	<!-- Wooden Rail -->
 	<item id="87e">
-		<id>0x087e</id>
+		<id>0x87e</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Rail\Rail (W/E) 1</category>
 	</item>
 
 	<item id="87f">
-		<id>0x087f</id>
+		<id>0x87f</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Rail\Rail (W/E) 2</category>
 	</item>
 
 	<item id="880">
-		<id>0x0880</id>
+		<id>0x880</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Rail\Rail (W/E) 3</category>
 	</item>
 
 	<item id="881">
-		<id>0x0881</id>
+		<id>0x881</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Rail\Rail (W/E) 4</category>
 	</item>
 
 	<item id="882">
-		<id>0x0882</id>
+		<id>0x882</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Rail\Rail (W/E) 5</category>
 	</item>
 
 	<item id="883">
-		<id>0x0883</id>
+		<id>0x883</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Rail\Rail (W/E) 6</category>
 	</item>
 
 	<item id="884">
-		<id>0x0884</id>
+		<id>0x884</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Rail\Rail (N/S) 1</category>
 	</item>
 
 	<item id="885">
-		<id>0x0885</id>
+		<id>0x885</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Rail\Rail (N/S) 2</category>
 	</item>
 
 	<item id="886">
-		<id>0x0886</id>
+		<id>0x886</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Rail\Rail (N/S) 3</category>
 	</item>
 
 	<item id="887">
-		<id>0x0887</id>
+		<id>0x887</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Rail\Rail (N/S) 4</category>
 	</item>
 
 	<item id="888">
-		<id>0x0888</id>
+		<id>0x888</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Rail\Rail (N/S) 5</category>
 	</item>
 
 	<item id="889">
-		<id>0x0889</id>
+		<id>0x889</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Rail\Rail (N/S) 6</category>
 	</item>
 
 	<!-- Wooden Banister -->
 	<item id="8ae">
-		<id>0x08ae</id>
+		<id>0x8ae</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 1</category>
 	</item>
 
 	<item id="8af">
-		<id>0x08af</id>
+		<id>0x8af</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 2</category>
 	</item>
 
 	<item id="8b0">
-		<id>0x08b0</id>
+		<id>0x8b0</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 3</category>
 	</item>
 
 	<item id="8b1">
-		<id>0x08b1</id>
+		<id>0x8b1</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 4</category>
 	</item>
 
 	<item id="8b2">
-		<id>0x08b2</id>
+		<id>0x8b2</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 5</category>
 	</item>
 
 	<item id="8b3">
-		<id>0x08b3</id>
+		<id>0x8b3</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 6</category>
 	</item>
 
 	<item id="8b4">
-		<id>0x08b4</id>
+		<id>0x8b4</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 7</category>
 	</item>
 
 	<item id="8b5">
-		<id>0x08b5</id>
+		<id>0x8b5</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 8</category>
 	</item>
 
 	<item id="8b6">
-		<id>0x08b6</id>
+		<id>0x8b6</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 9</category>
 	</item>
 
 	<item id="8b7">
-		<id>0x08b7</id>
+		<id>0x8b7</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 10</category>
 	</item>
 
 	<item id="8b8">
-		<id>0x08b8</id>
+		<id>0x8b8</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 11</category>
 	</item>
 
 	<item id="8b9">
-		<id>0x08b9</id>
+		<id>0x8b9</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 12</category>
 	</item>
 
 	<item id="8ba">
-		<id>0x08ba</id>
+		<id>0x8ba</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 13</category>
 	</item>
 
 	<item id="8bb">
-		<id>0x08bb</id>
+		<id>0x8bb</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 14</category>
 	</item>
 
 	<item id="8bc">
-		<id>0x08bc</id>
+		<id>0x8bc</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 15</category>
 	</item>
 
 	<item id="8bd">
-		<id>0x08bd</id>
+		<id>0x8bd</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 16</category>
 	</item>
 
 	<item id="8be">
-		<id>0x08be</id>
+		<id>0x8be</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 17</category>
 	</item>
 
 	<item id="8bf">
-		<id>0x08bf</id>
+		<id>0x8bf</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 18</category>
 	</item>
 
 	<item id="8c0">
-		<id>0x08c0</id>
+		<id>0x8c0</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 19</category>
 	</item>
 
 	<item id="8c1">
-		<id>0x08c1</id>
+		<id>0x8c1</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 20</category>
 	</item>
 
 	<item id="8c2">
-		<id>0x08c2</id>
+		<id>0x8c2</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 21</category>
 	</item>
 
 	<item id="8c3">
-		<id>0x08c3</id>
+		<id>0x8c3</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 22</category>
 	</item>
 
 	<item id="8c4">
-		<id>0x08c4</id>
+		<id>0x8c4</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 23</category>
 	</item>
 
 	<item id="8c5">
-		<id>0x08c5</id>
+		<id>0x8c5</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 24</category>
 	</item>
 
 	<item id="8c6">
-		<id>0x08c6</id>
+		<id>0x8c6</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 25</category>
 	</item>
 
 	<item id="8c7">
-		<id>0x08c7</id>
+		<id>0x8c7</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 26</category>
 	</item>
 
 	<item id="8c8">
-		<id>0x08c8</id>
+		<id>0x8c8</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 27</category>
 	</item>
 
 	<item id="8c9">
-		<id>0x08c9</id>
+		<id>0x8c9</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 28</category>
 	</item>
 
 	<item id="8ca">
-		<id>0x08ca</id>
+		<id>0x8ca</id>
 		<nodecay />
 		<category>Buildings\Banisters\Wooden Banister\Banister 29</category>
 	</item>
 
 	<!-- Edging -->
 	<item id="8cb">
-		<id>0x08cb</id>
+		<id>0x8cb</id>
 		<nodecay />
 		<category>Buildings\Banisters\Edging\Edging 1</category>
 	</item>
 
 	<item id="8cc">
-		<id>0x08cc</id>
+		<id>0x8cc</id>
 		<nodecay />
 		<category>Buildings\Banisters\Edging\Edging 2</category>
 	</item>
 
 	<item id="8cd">
-		<id>0x08cd</id>
+		<id>0x8cd</id>
 		<nodecay />
 		<category>Buildings\Banisters\Edging\Edging 3</category>
 	</item>
 
 	<item id="8ce">
-		<id>0x08ce</id>
+		<id>0x8ce</id>
 		<nodecay />
 		<category>Buildings\Banisters\Edging\Edging 4</category>
 	</item>
