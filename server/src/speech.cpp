@@ -277,8 +277,10 @@ void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech
 	if ( !isNormalColor( color ) )
 		color = 0x2;
 
-	if ( type == 0 || type == 2 )
+	if ( type == 0 )
 		pChar->setSaycolor( color );
+	else if ( type == 2 )
+		pChar->setEmoteColor( color );
 
 	if ( pChar->onTalk( type, color, font, speech, lang ) )
 		return;

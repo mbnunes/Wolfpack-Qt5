@@ -529,6 +529,14 @@ It's triggered for the item, then for the npc and then for the global hook.
 */
 "onGetSellPrice",
 
+/*
+\event onShowVirtueGump
+\param player The player who pressed the button.
+\param target The owner of the paperdoll the button was on.
+\condition Triggered when a player presses the virtue gump button on his or another characters paperdoll.
+*/
+"onShowVirtueGump",
+
 0
 };
 

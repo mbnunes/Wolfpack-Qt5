@@ -67,6 +67,7 @@
 #include <stdlib.h>
 #include <qhostaddress.h>
 
+#include <vector>
 #include <qvaluelist.h>
 #include <functional>
 
@@ -2533,6 +2534,25 @@ void cUOSocket::handleAction( cUORxAction* packet )
 
 void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 {
+	// There is special handling for the virtue gump button
+	// on the paperdoll.
+	if (packet->type() == 461) {
+		P_CHAR target = World::instance()->findChar(packet->serial());
+		std::vector<unsigned int> switches = packet->choice().switches;
+
+		if (!target && switches.size() != 0) {
+			target = World::instance()->findChar(switches[0]);
+		}
+
+		if (target) {
+			PyObject *args = Py_BuildValue("(NN)", target->getPyObject(), _player->getPyObject());
+			target->callEventHandler(EVENT_SHOWVIRTUEGUMP, args);
+			Py_DECREF(args);
+		}
+
+		return;
+	}
+
 	QMap<SERIAL, cGump*>::iterator it( gumps.find( packet->serial() ) );
 
 	if ( it == gumps.end() )
