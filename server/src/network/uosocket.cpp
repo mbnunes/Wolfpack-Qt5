@@ -250,6 +250,24 @@ void cUOSocket::recieve()
 	// Switch to encrypted mode if one of the advanced packets is recieved
 	if (packetId == 0x91)
 		_state = LoggedIn;
+		
+	// Check for a list of packets that may be sent while no player has been selected
+	if (!_player) {
+		if (packetId != 0 
+			&& packetId != 0x5D 
+			&& packetId != 0x73 
+			&& packetId != 0x80 
+			&& packetId != 0x83 
+			&& packetId != 0x91 
+			&& packetId != 0xA0 
+			&& packetId != 0xA4 
+			&& packetId != 0xBD 
+			&& packetId != 0xBF
+			&& packetId != 0xC8
+			&& packetId != 0xD9) {
+			return;
+		}
+	}
 
 	if (handlers[packetId]) {
 		PyObject *args = Py_BuildValue("(NN)", PyGetSocketObject(this), CreatePyPacket(packet));
@@ -269,8 +287,7 @@ void cUOSocket::recieve()
 	}
 
 	// Relay it to the handler functions
-	switch( packetId )
-	{
+	switch (packetId) {
 	case 0x00:
 		handleCreateChar( dynamic_cast< cUORxCreateChar* >( packet ) ); break;
 	case 0x01: // Disconnect Notification recieved, should NEVER happen as it's unused now
