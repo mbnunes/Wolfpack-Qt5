@@ -2904,7 +2904,8 @@ P_CHAR cChar::unmount()
 			pMount->setFy1( pi->pos().y );
 			pMount->setFz1( pi->pos().z );
 			pMount->setId( pi->morey() );
-			pMount->setNpcWander( 0 ); // Stay where you are
+			pMount->setNpcWander( 0 ); // Stay where you are & turn where we are facing
+			pMount->setDir( dir_ );
 			pMount->setSt( pi->moreb2() );
 			pMount->setDex( pi->moreb3() );
 			pMount->setIn( pi->moreb4() );
