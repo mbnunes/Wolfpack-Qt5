@@ -65,7 +65,7 @@ void cWeight::NewCalc(int p)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->id() == 0x1E5E)	// trade window ?
+		if (pi == NULL || (pi != NULL && pi->id() == 0x1E5E))	// trade window ?
 			continue;
 		if ((pi->layer!=0x0B) && (pi->layer!=0x10) && //no weight for hair/beard
 			(pi->layer!=0x1D) && (pi->layer!=0x19))   //no weight for steed/bank box

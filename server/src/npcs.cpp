@@ -1734,7 +1734,7 @@ void cChar::day(unsigned long CreateDay)
 P_ITEM cChar::GetItemOnLayer(unsigned char layer)
 {
 	P_ITEM pi;
-	int ci=0,loopexit=0;
+	int ci;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
@@ -1982,7 +1982,7 @@ P_ITEM Packitem(P_CHAR pc) // Find packitem
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer==0x15)
+		if (pi != NULL && pi->layer==0x15)
 		{
 			pc->packitem = pi->serial;	//Record it for next time
 			return (pi);

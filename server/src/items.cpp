@@ -78,7 +78,7 @@ void cItem::setContSerialOnly(long contser)
 
 void cItem::SetContSerial(long contser)
 {
-	if (contserial!=-1)
+	if (contserial != INVALID_SERIAL)
 		contsp.remove(contserial, this->serial);
 
 	setContSerialOnly(contser);

@@ -907,7 +907,7 @@ void wornitems(UOXSOCKET s, CHARACTER j) // Send worn items of player j
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->free==0)
+		if (pi != NULL && pi->free == 0)
 		{
 			if (pi->layer==0x19) chars[j].onhorse=true;
 			wearIt(s,pi);
