@@ -664,7 +664,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				// too long without every having its quest accepted by a player so we have to remove
 				// its posting from the message board before icing the NPC
 				// Only need to remove the post if the NPC does not have a follow target set
-				if ( (pc->questType==ESCORTQUEST) && (pc->ftarg==-1) )
+				if ( (pc->questType==ESCORTQUEST) && (pc->ftarg == INVALID_SERIAL) )
 				{
 					MsgBoardQuestEscortRemovePost( DEREF_P_CHAR(pc) );
 					MsgBoardQuestEscortDelete( DEREF_P_CHAR(pc) );
@@ -809,7 +809,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				//pet release code here
 				if(pc->tamed)
 				{
-					pc->ftarg=-1;
+					pc->ftarg = INVALID_SERIAL;
 					pc->npcWander=2;
 					if(pc->ownserial!=-1) 
 						pc->SetOwnSerial(-1);

@@ -467,13 +467,13 @@ bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, si
 			vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
 			for ( unsigned int k = 0; k < vecEntries.size(); k++)
 			{
-				CHARACTER i = calcCharFromSer(vecEntries[k]);
-				if (i != -1)
+				P_CHAR pc_i = FindCharBySerial(vecEntries[k]);
+				if (pc_i != NULL)
 				{
-					if (i!=DEREF_P_CHAR(pc) && (online(i) || chars[i].isNpc()))
+					if (pc_i != pc && (online(DEREF_P_CHAR(pc_i)) || pc_i->isNpc()))
 					{
 						// x=x,y=y, and distance btw z's <= MAX STEP
-						if ((chars[i].pos.x==cx) && (chars[i].pos.y==cy) && (abs(chars[i].pos.z-cz) <= P_M_MAX_Z_CLIMB))
+						if ((pc_i->pos.x == cx) && (pc_i->pos.y == cy) && (abs(pc_i->pos.z-cz) <= P_M_MAX_Z_CLIMB))
 						{
 							return true;
 						}
@@ -983,7 +983,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				ShortToCharPtr(pc->skin, &extmove[13]);
 				if( pc->isNpc() /*&& pc->runs*/ && pc->war ) // Ripper 10-2-99 makes npcs run in war mode or follow :) (Ab mod, scriptable)
 					extmove[12]=dir|0x80;
-				if( pc->isNpc() && (pc->ftarg>0))
+				if( pc->isNpc() && (pc->ftarg != INVALID_SERIAL))
 					extmove[12]=dir|0x80;
 				if (pc->war) extmove[15]=0x40; else extmove[15]=0x00;
 				if (pc->hidden) extmove[15]=extmove[15]|0x80;
@@ -1612,7 +1612,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
                 break;
             case 1: // Follow the follow target
 				{
-					P_CHAR pc_target = MAKE_CHAR_REF(pc_i->ftarg);
+					P_CHAR pc_target = FindCharBySerial(pc_i->ftarg);
 	                if (pc_target == NULL) return;
 		            if ( online(DEREF_P_CHAR(pc_target)) || pc_target->isNpc() )
 			        {

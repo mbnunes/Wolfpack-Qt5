@@ -453,9 +453,9 @@ bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
 		// If this is a request for hire
 		if ( response1 )
 		{
-			if ( pEscortee->ftarg==-1 )
+			if ( pEscortee->ftarg == INVALID_SERIAL )
 			{
-				pEscortee->ftarg = DEREF_P_CHAR(currchar[s]);		// Set the NPC to follow the PC
+				pEscortee->ftarg = currchar[s]->serial;		// Set the NPC to follow the PC
 				pEscortee->npcWander = 1;			// Set the NPC to wander freely
 				pEscortee->npcaitype = 0;           // Set AI to 0
 				// Set the expire time if nobody excepts the quest
@@ -476,12 +476,12 @@ bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
 		// If this is a request to find out where a NPC wants to go and the PC is within range of the NPC and the NPC is waiting for an ESCORT
 		if (response2)
 		{
-			if ( pEscortee->ftarg == DEREF_P_CHAR(currchar[s]) )
+			if ( pEscortee->ftarg == currchar[s]->serial )
 			{
 				// Send out the rant about accepting the escort
 				sprintf(temp, "Lead on to %s. I shall pay thee when we arrive.", region[pEscortee->questDestRegion].name);
 			}
-			else if ( pEscortee->ftarg == -1 )  // If nobody has been accepted for the quest yet
+			else if ( pEscortee->ftarg == INVALID_SERIAL )  // If nobody has been accepted for the quest yet
 			{
 				// Send out the rant about accepting the escort
 				sprintf(temp, "I am seeking an escort to %s. Wilt thou take me there?", region[pEscortee->questDestRegion].name);
@@ -489,7 +489,8 @@ bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
 			else // The must be enroute
 			{
 				// Send out a message saying we are already being escorted
-				sprintf(temp, "I am already being escorted to %s by %s.", region[pEscortee->questDestRegion].name, chars[pEscortee->ftarg].name );
+				P_CHAR pPlayer = FindCharBySerial(pEscortee->ftarg);
+				sprintf(temp, "I am already being escorted to %s by %s.", region[pEscortee->questDestRegion].name, pPlayer->name );
 			}
 			npctalkall(pEscortee,temp, 0);
 			return 1;	// Return success ( we handled the message )
@@ -620,7 +621,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		pPlayer->guarded = false;
 		if (strstr( comm, " ME"))	//if me is in
 		{
-			pPet->ftarg = DEREF_P_CHAR(currchar[s]);
+			pPet->ftarg = currchar[s]->serial;
 			pPet->npcWander=1;
 			playmonstersound(k, pPet->id1, pPet->id2, SND_STARTATTACK);
 		}
@@ -656,7 +657,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (strstr( comm, " COME"))
 	{
 		pPlayer->guarded = false;
-		pPet->ftarg = DEREF_P_CHAR(currchar[s]);
+		pPet->ftarg = currchar[s]->serial;
 		pPet->npcWander=1;
 		sysmessage(s, "Your pet begins following you.");
 		return 1;
@@ -676,7 +677,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (strstr( comm, " STOP")||strstr( comm, " STAY"))
 	{
 		pPlayer->guarded = false;
-		pPet->ftarg=-1;
+		pPet->ftarg = INVALID_SERIAL;
 		pPet->targ = INVALID_SERIAL;
 		if (pPet->war) npcToggleCombat(k);
 		pPet->npcWander=0;
@@ -698,7 +699,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		{
 			pPet->summontimer=uiCurrentTime;
 		}
-		pPet->ftarg=-1;
+		pPet->ftarg = INVALID_SERIAL;
 		pPet->npcWander=2;
 		pPet->SetOwnSerial(-1);
 		pPet->tamed = false;

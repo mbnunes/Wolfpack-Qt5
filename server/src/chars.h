@@ -189,7 +189,7 @@ public:
 	unsigned int npcmovetime; // Next time npc will walk
 	char npcWander; // NPC Wander Mode
 	char oldnpcWander; // Used for fleeing npcs
-	int ftarg; // NPC Follow Target
+	SERIAL ftarg; // NPC Follow Target
 	int fx1; //NPC Wander Point 1 x
 	int fx2; //NPC Wander Point 2 x
 	int fy1; //NPC Wander Point 1 y

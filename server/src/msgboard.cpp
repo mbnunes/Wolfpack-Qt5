@@ -2260,10 +2260,10 @@ void MsgBoardQuestEscortArrive( int npcIndex, int pcIndex )
 	sysmessage( k, (char*)temp );
 	
 	// Take the NPC out of quest mode
-	pc_npc->npcWander = 2;         // Wander freely
-	pc_npc->ftarg = -1;            // Reset follow target
-	pc_npc->questType = 0;         // Reset quest type
-	pc_npc->questDestRegion = 0;   // Reset quest destination region
+	pc_npc->npcWander = 2;						// Wander freely
+	pc_npc->ftarg = INVALID_SERIAL;				// Reset follow target
+	pc_npc->questType = 0;						// Reset quest type
+	pc_npc->questDestRegion = 0;				// Reset quest destination region
 	
 	// Set a timer to automatically delete the NPC
 	pc_npc->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParms->escortdoneexpire ) );
@@ -2692,7 +2692,7 @@ void MsgBoardMaintenance( void )
 										if ( (pc_z->questType==ESCORTQUEST) )
 										{
 											// And it doesn't have a player escorting it yet
-											if ( pc_z->ftarg==-1 )
+											if ( pc_z->ftarg == INVALID_SERIAL )
 											{
 												// Lets reset the summontimer to the escortinit
 												pc_z->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParms->escortinitexpire ) );

@@ -329,7 +329,7 @@ void cChar::Init(bool ser)
 	this->npcmovetime=0; // Next time npc will walk
 	this->npcWander=0; // NPC Wander Mode
 	this->oldnpcWander=0; // Used for fleeing npcs
-	this->ftarg=-1; // NPC Follow Target
+	this->ftarg = INVALID_SERIAL; // NPC Follow Target
 	this->fx1=-1; //NPC Wander Point 1 x or Deed's Serial
 	this->fx2=-1; //NPC Wander Point 2 x
 	this->fy1=-1; //NPC Wander Point 1 y
@@ -1706,7 +1706,7 @@ void cCharStuff::Split(int k) // For NPCs That Split during combat
 	pc_c->ser3=serial>>8;
 	pc_c->ser4=serial%256;
 	pc_c->serial=serial;
-	pc_c->ftarg=-1;
+	pc_c->ftarg = INVALID_SERIAL;
 	pc_c->MoveTo(pc_k->pos.x+1, pc_k->pos.y, pc_k->pos.z);
 	pc_c->kills=0;
 	pc_c->hp=pc_k->st;

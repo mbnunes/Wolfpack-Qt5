@@ -864,10 +864,10 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 		if (isCharSerial(pi->contserial))
 		{
 			serial=pi->contserial;
-			if(serial==-1) return;
-			j=calcCharFromSer(serial);
-			if (j!=-1)
-				if (chars[j].serial==serial) pack=0;
+			P_CHAR pc = FindCharBySerial(serial);
+			if ( pc == NULL ) return;
+			if ( pc->serial == serial ) 
+				pack = 0;
 		}
 		if (pack)
 		{
@@ -3153,12 +3153,11 @@ void playmidi(int s, char num1, char num2)
 void sendtradestatus(P_ITEM cont1, P_ITEM cont2)
 {
 	unsigned char msg[30];
-	int p1, p2, s1, s2;
 
-	p1=calcCharFromSer(cont1->contserial);
-	p2=calcCharFromSer(cont2->contserial);
-	s1=calcSocketFromChar(p1);
-	s2=calcSocketFromChar(p2);
+	P_CHAR p1 = FindCharBySerial(cont1->contserial);
+	P_CHAR p2 = FindCharBySerial(cont2->contserial);
+	UOXSOCKET s1 = calcSocketFromChar(DEREF_P_CHAR(p1));
+	UOXSOCKET s2 = calcSocketFromChar(DEREF_P_CHAR(p2));
 
 	if ( ( s1 == -1 ) || ( s2 == -1 ) ) return; 
 

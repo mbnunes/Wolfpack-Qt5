@@ -797,21 +797,21 @@ void item_char_test()
 
 	// check for stabled pets that dont have a stablemaster anymore
 	P_CHAR p_pet;
-	int stablemaster_serial,j;
+	int stablemaster_serial;
 	AllCharsIterator iter_char;
 	for ( iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
 	{
 		p_pet = iter_char.GetData();
 		if (p_pet != NULL)
 		{
-			 stablemaster_serial=p_pet->stablemaster_serial;
-			 if (stablemaster_serial>0) // stabled ?
+			 stablemaster_serial = p_pet->stablemaster_serial;
+			 if (stablemaster_serial != NULL) // stabled ?
 			 {
-				j=calcCharFromSer(stablemaster_serial);
-				if (j==-1)
+				P_CHAR pc_j = FindCharBySerial(stablemaster_serial);
+				if (pc_j != NULL)
 				{
 					stablesp.remove(stablemaster_serial, p_pet->serial);
-					p_pet->stablemaster_serial=0;
+					p_pet->stablemaster_serial = INVALID_SERIAL;
 					p_pet->timeused_last=getNormalizedTime();
 					p_pet->time_unused=0;
 					mapRegions->Add(p_pet);
@@ -3304,10 +3304,10 @@ int ishuman(int p)
 
 void npcact(int s)
 {
-	int i=calcCharFromPtr(buffer[s]+7);
-	if (i!=-1)
+	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
+	if (pc != NULL)
 	{
-		npcaction(i,addid1[s]);
+		npcaction(DEREF_P_CHAR(pc),addid1[s]);
 	}
 }
 

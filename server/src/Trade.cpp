@@ -51,7 +51,6 @@ void cTrade::buyaction(int s)
 	int playergoldtotal;
 	int goldtotal;
 	int itemtotal;
-	int npc;
 	int soldout;
 	int tmpvalue=0; // Fixed for adv trade system -- Magius(CHE) §
 //	CHARACTER cc=currchar[s];
@@ -59,7 +58,7 @@ void cTrade::buyaction(int s)
 	P_ITEM pi_pack = Packitem(pc_currchar);
 	if (pi_pack == NULL) 
 		return; //LB no player-pack - no buy action possible - and no crash too ;-)
-	npc=calcCharFromSer(buffer[s][3], buffer[s][4], buffer[s][5], buffer[s][6]);
+	P_CHAR npc = FindCharBySerial(calcserial(buffer[s][3], buffer[s][4], buffer[s][5], buffer[s][6]));
 
 	if (npc <= 0) return;
 
@@ -134,8 +133,8 @@ void cTrade::buyaction(int s)
 				    goldsfx(s, goldtotal);	// Dupois, SFX for gold movement. Added Oct 08, 1998
 				}
 			}
-			npctalkall(npc, (char*)temp,0);
-			npcaction(npc,0x20);		// bow (Duke, 17.3.2001)
+			npctalkall(npc, (char*)temp, 0);
+			npcaction(DEREF_P_CHAR(npc), 0x20);		// bow (Duke, 17.3.2001)
 
 			clear = 1;
 			if( !(pc_currchar->isGM() ) ) 

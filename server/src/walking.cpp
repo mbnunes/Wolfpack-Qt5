@@ -1615,7 +1615,7 @@ void npcMovement2(unsigned int currenttime, int i)//Lag fix
 
 				// Dupois - Added April 4, 1999
 				// Has the Escortee reached the destination ??
-				if ( (pc_i->ftarg!=-1) && (!chars[k].dead) && (pc_i->questDestRegion==pc_i->region) )
+				if ( (pc_i->ftarg != INVALID_SERIAL) && (!chars[k].dead) && (pc_i->questDestRegion==pc_i->region) )
 				{
 					// Pay the Escortee and free the NPC
 					MsgBoardQuestEscortArrive( DEREF_P_CHAR(pc_i), calcSocketFromChar( k ) );

@@ -295,7 +295,7 @@ char cMagic::GateCollision(PLAYER s)
 						for ( unsigned int index = 0; index < charcount; index++ )
 						{
 							// That is following this player character
-							if ( (chars[index].isNpc()) && (chars[index].ftarg==s) )
+							if ( (chars[index].isNpc()) && (chars[index].ftarg == pc_player->serial) )
 							{
 								// If the NPC that is following this player character is within 5 paces
 								if ( chardist(s, index)<=4 )

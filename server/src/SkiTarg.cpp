@@ -1328,12 +1328,9 @@ void cSkills::DetectHidden(UOXSOCKET s)
 
 void cSkills::ProvocationTarget1(UOXSOCKET s)
 {
-	//taken from 6904t2(5/10/99) - AntiChrist
-	CHARACTER c = calcCharFromPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
 
-	if( c == -1 ) return;
-
-	P_CHAR pc = MAKE_CHARREF_LR(c);
+	if( pc == NULL ) return;
 
 	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
@@ -1372,11 +1369,8 @@ void cSkills::ProvocationTarget1(UOXSOCKET s)
 
 void cSkills::EnticementTarget1(UOXSOCKET s)
 {
-	//taken from 6904t2(5/10/99) - AntiChrist
-	CHARACTER c = calcCharFromPtr(buffer[s]+7);
-	if( c == -1 ) return;
-
-	P_CHAR pc = MAKE_CHARREF_LR(c);
+	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
+	if( pc == NULL ) return;
 
 	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
@@ -1415,9 +1409,8 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 
 void cSkills::EnticementTarget2(UOXSOCKET s)
 {
-	CHARACTER ftarg = calcCharFromPtr(buffer[s]+7);
-	if( ftarg == -1 ) return;
-	P_CHAR pc = MAKE_CHARREF_LR(ftarg);
+	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
+	if( pc == NULL ) return;
 	P_CHAR pc_currchar = currchar[s];
 	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
@@ -1429,9 +1422,9 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 	int res2 = CheckSkill(DEREF_P_CHAR(pc_currchar), MUSICIANSHIP, 0, 1000);
 	if (res1 && res2)
 	{
-		CHARACTER target = calcCharFromSer(addid1[s], addid2[s], addid3[s], addid4[s]);
-		P_CHAR pc_target = MAKE_CHARREF_LR(target);
-		pc_target->ftarg = DEREF_P_CHAR(pc);
+		P_CHAR pc_target = FindCharBySerial(calcserial(addid1[s], addid2[s], addid3[s], addid4[s]));
+		if ( pc_target == NULL ) return;
+		pc_target->ftarg = pc->serial;
 		pc_target->npcWander = 1;
 		sysmessage(s, "You play your hypnotic music, luring them near your target.");
 		PlayInstrumentWell(s, inst);
@@ -1451,8 +1444,8 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 
 	P_CHAR Player = currchar[s];
 
-	int target=calcCharFromSer(addid1[s], addid2[s], addid3[s], addid4[s]);
-	P_CHAR Victim1 = MAKE_CHARREF_LR(target);
+	P_CHAR Victim1 = FindCharBySerial(calcserial(addid1[s], addid2[s], addid3[s], addid4[s]));
+	//P_CHAR Victim1 = MAKE_CHARREF_LR(target);
 
 	if (Victim2->inGuardedArea())
 	{
@@ -1496,7 +1489,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 		unsigned int i;
 		for (i=0;i<now;i++)
 		{
-			if (inrange1p(currchar[i], target)&&perm[i])
+			if (inrange1p(currchar[i], DEREF_P_CHAR(Victim1))&&perm[i])
 			{
 				itemmessage(i, temp, Victim1->serial);
 			}
@@ -2037,17 +2030,17 @@ void cSkills::TameTarget(int s)
 {
 	int tamed=0;
 	
-	CHARACTER i=calcCharFromPtr(buffer[s]+7);
-	if(i<0) return;
-	P_CHAR pc = MAKE_CHARREF_LR(i);
+	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
+	if ( pc == NULL ) return;
+//	P_CHAR pc = MAKE_CHARREF_LR(i);
 	P_CHAR pc_currchar = currchar[s];
 
 	if(line_of_sight(-1, pc_currchar->pos, pc->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)==0)
 	return;
 
 	if(buffer[s][7]==0xFF) return;
-	if (i!=-1)
-		if ((pc->isNpc() && (chardist(DEREF_P_CHAR(pc_currchar), i) <= 3))) //Ripper
+	if (pc != NULL)
+		if ((pc->isNpc() && (chardist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc)) <= 3))) //Ripper
 		{
 			if (pc->taming>1000||pc->taming==0)//Morrolan default is now no tame
 			{
@@ -2220,14 +2213,14 @@ void cSkills::BeggingTarget(int s)
 	addid3[s]=buffer[s][9];
 	addid4[s]=buffer[s][10];
 	SERIAL serial = calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
+	P_CHAR pc = FindCharBySerial( serial );
 
-	if(calcSocketFromChar(calcCharFromSer(addid1[s], addid2[s], addid3[s], addid4[s]))!=-1)
+	if(online(DEREF_P_CHAR(pc)))
 	{
 		sysmessage(s,"Maybe you should just ask.");
 		return;
 	}
 
-	P_CHAR pc = FindCharBySerial( serial );
 	if (pc != NULL)
 	{
 		if(chardist(DEREF_P_CHAR(pc),DEREF_P_CHAR(pc_currchar))>=5)

@@ -1896,7 +1896,7 @@ void cTargets::NpcTarget2(int s)
 		P_CHAR pc = MAKE_CHARREF_LR(i);
 		if (pc->isNpc())
 		{
-			pc->ftarg=calcCharFromSer(addid1[s], addid2[s], addid3[s], addid4[s]);
+			pc->ftarg = calcserial(addid1[s], addid2[s], addid3[s], addid4[s]);
 			pc->npcWander=1;
 		}
 	}
@@ -2167,14 +2167,12 @@ void cTargets::AttackTarget(int s)
 
 void cTargets::FollowTarget(int s)
 {
-	int char1, char2;
 
-	char1=calcCharFromSer(addx[s]);
-	char2=calcCharFromSer(buffer[s][7], buffer[s][8], buffer[s][9], buffer[s][10]);
-	P_CHAR pc = MAKE_CHARREF_LR(char1);
+	P_CHAR char1 = FindCharBySerial(addx[s]);
+	P_CHAR char2 = FindCharBySerial(calcserial(buffer[s][7], buffer[s][8], buffer[s][9], buffer[s][10]));
 
-	pc->ftarg=char2;
-	pc->npcWander=1;
+	char1->ftarg = char2->serial;
+	char1->npcWander = 1;
 }
 
 void cTargets::TransferTarget(int s)
@@ -2195,7 +2193,7 @@ void cTargets::TransferTarget(int s)
 	pc1->SetOwnSerial(pc2->serial);
 	pc1->npcWander=1;
 
-	pc1->ftarg=-1;
+	pc1->ftarg = INVALID_SERIAL;
 	pc1->npcWander=0;
 }
 
@@ -3623,10 +3621,10 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 					return;
 				}
 				// Checking if target is an NPC	--- By Magius(CHE) §
-				CHARACTER i = calcCharFromSer(serial);
-				if(i!=-1)
+				P_CHAR pc_i = FindCharBySerial(serial);
+				if(pc_i != NULL)
 				{
-					Trig->triggernpc(s,i,0);
+					Trig->triggernpc(s,DEREF_P_CHAR(pc_i),0);
 					pc_currchar->envokeid1=0x00;
 					pc_currchar->envokeid2=0x00;
 					return;
