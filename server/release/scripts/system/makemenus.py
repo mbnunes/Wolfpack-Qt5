@@ -1091,7 +1091,7 @@ class MakeMenu:
 	# Enhance an item.
 	#
 	def enhance(self, player, arguments, target):
-		if self.requiretool and not self.checktool(player, wolfpack.finditem(args[0])):
+		if self.requiretool and not self.checktool(player, wolfpack.finditem(arguments[0])):
 			return		
 		
 		if not target.item:
