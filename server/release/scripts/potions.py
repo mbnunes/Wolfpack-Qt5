@@ -81,9 +81,11 @@ def potioncountdown( time, args ):
 	char = args[0]
 	potion = args[1]
 	counter = args[2]
-	if counter > 0:
-		potion.say("%s" % str(counter) )
-		potionexplosion([ char, potion, int(counter - 1) ])
+	if counter >= 0:
+		if counter > 0:
+			potion.say("%s" % str(counter) )
+			counter -= 1
+		potionexplosion([ char, potion, counter ])
 	return
 
 def potionregion( args ):
@@ -118,7 +120,7 @@ def potionregion( args ):
 		if chainbomb.baseid in [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]:
 			if not chainbomb.hastag('exploding'):
 				chainbomb.settag('exploding', 'true')
-				wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char, chainbomb, 1] )
+				wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char, chainbomb, 0] )
 				chainbomb = chainregion.next
 			else:
 				chainbomb = chainregion.next
@@ -128,7 +130,6 @@ def potionregion( args ):
 	return
 
 def potiondamage( char, target, potion ):
-	target.say("Ouch!")
 	if potion.gettag('potiontype') == 11:
 		damage = randint(1, 5)
 	elif potion.gettag('potiontype') == 12:
@@ -137,7 +138,15 @@ def potiondamage( char, target, potion ):
 		damage = randint(11, 20)
 	else:
 		damage = randint(1, 20)
-	energydamage(target, char, damage, fire=100)
+	if char.skill[ALCHEMY] == 1200:
+		bonus = 10
+	elif char.skill[ALCHEMY] >= 1100:
+		bonus = randint(8,9)
+	elif char.skill[ALCHEMY] >= 1000:
+		bonus = randint(6,7)
+	else:
+		bonus = randint(0,5)
+	energydamage(target, char, (damage + bonus), fire=100)
 	return
 
 # Check what kind of potion we use, drink or throw
