@@ -571,7 +571,7 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 			}
 		}
 		Items->DeleItem(pHouse);
-//		killkeys( pHouse->serial );
+		killkeys( pHouse->serial );
 		sysmessage(s, "All house items and keys removed.");
 		
 		pc->pos.z = pc->dispz = Map->MapElevation(pc->pos);
@@ -741,4 +741,22 @@ void cHouse::Serialize(ISerialization &archive)
 inline string cHouse::objectID()
 {
 	return string("HOUSE");
+}
+
+// This function is horrible.
+void killkeys( SERIAL serial )
+{
+	if (serial == INVALID_SERIAL)
+		return;
+	AllItemsIterator iter_items;
+	for (iter_items.Begin(); !iter_items.atEnd(); ++iter_items)
+	{
+		P_ITEM pi = iter_items.GetData();
+		if (pi->type == 7 && calcserial(pi->more1, pi->more2, pi->more3, pi->more4) == serial)
+		{
+			--iter_items;
+			Items->DeleItem(pi);
+		}
+	}
+	return;
 }
