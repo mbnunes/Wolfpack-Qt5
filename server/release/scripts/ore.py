@@ -26,15 +26,15 @@ forgeids = [ 0xfb1, 0x197a, 0x197b, 0x197c, 0x197d, 0x197e, 0x197f, 0x1980,
 # Name, reqSkill, minSkill, color, item name
 ingottable = \
 {
-	'iron':			[ 0, 0, 0x0, 'iron ingot' ],
-	'dullcopper':	[ 650, 0, 0x973, 'dull copper ingot' ],
-	'shadowiron':	[ 700, 0, 0x966, 'shadow iron ingot' ],
-	'copper':		[ 750, 0, 0x96d, 'copper ingot' ],
-	'bronze':		[ 800, 80, 0x972, 'bronze ingot' ],
-	'gold':			[ 850, 170, 0x8a5, 'gold ingot' ],
-	'agapite':		[ 900, 270, 0x979, 'agapite ingot' ],
-	'verite':			[ 950, 380, 0x89f, 'verite ingot' ],
-	'valorite':		[ 990, 475, 0x8ab, 'valorite ingot' ]
+	'iron':			[ 0, -250, 0x0, 'iron ingot' ],
+	'dullcopper':	[ 650, 325, 0x973, 'dull copper ingot' ],
+	'shadowiron':	[ 700, 350, 0x966, 'shadow iron ingot' ],
+	'copper':		[ 750, 375, 0x96d, 'copper ingot' ],
+	'bronze':		[ 800, 400, 0x972, 'bronze ingot' ],
+	'gold':			[ 850, 425, 0x8a5, 'gold ingot' ],
+	'agapite':		[ 900, 450, 0x979, 'agapite ingot' ],
+	'verite':			[ 950, 475, 0x89f, 'verite ingot' ],
+	'valorite':		[ 990, 495, 0x8ab, 'valorite ingot' ]
 }
 
 REQSKILL = 0

@@ -34,15 +34,15 @@ RESOURCENAME = 4
 # resname, reqSkill, minSkill, successClilocId, color, 'ore name'
 oretable = \
 {
-	'iron':			[ 0, 0, 1007072, 0x0, 'iron ore' ],
-	'dullcopper':	[ 650, 0, 1007073, 0x973, 'dull copper ore' ],
-	'shadowiron':	[ 700, 0, 1007074, 0x966, 'shadow iron ore' ],
-	'copper':		[ 750, 0, 1007075, 0x96d, 'copper ore' ],
-	'bronze':		[ 800, 80, 1007076, 0x972, 'bronze ore' ],
-	'gold':			[ 850, 170, 1007077, 0x8a5, 'gold ore' ],
-	'agapite':		[ 900, 270, 1007078, 0x979, 'agapite ore' ],
-	'verite':			[ 950, 380, 1007079, 0x89f, 'verite ore' ],
-	'valorite':		[ 990, 475, 1007080, 0x8ab, 'valorite ore' ]
+	'iron':			[ 0, -250, 1007072, 0x0, 'iron ore' ],
+	'dullcopper':	[ 650, 325, 1007073, 0x973, 'dull copper ore' ],
+	'shadowiron':	[ 700, 350, 1007074, 0x966, 'shadow iron ore' ],
+	'copper':		[ 750, 375, 1007075, 0x96d, 'copper ore' ],
+	'bronze':		[ 800, 400, 1007076, 0x972, 'bronze ore' ],
+	'gold':			[ 850, 425, 1007077, 0x8a5, 'gold ore' ],
+	'agapite':		[ 900, 450, 1007078, 0x979, 'agapite ore' ],
+	'verite':			[ 950, 475, 1007079, 0x89f, 'verite ore' ],
+	'valorite':		[ 990, 495, 1007080, 0x8ab, 'valorite ore' ]
 }
 
 def mining( char, pos, tool ):
