@@ -246,7 +246,32 @@
 		   	<snowchance><random min="1" max="10" /></snowchance>
 		   	<rainchance><random min="55" max="70" /></rainchance> 
 			<rectangle x1="5159" y1="3908" x2="5315" y2="4079" map="0" />
-        	</region> 
+        	</region>
+
+		<!-- Fire Dungeon -->
+		<region id="Fire Dungeon">
+			<rectangle x1="5627" y1="1282" x2="5887" y2="1491" map="0" />
+			<rectangle x1="5726" y1="1489" x2="5887" y2="1521" map="0" />
+			<rectangle x1="5756" y1="2906" x2="5760" y2="2911" map="0" />
+			<region id="Fire Dungeon Entrance">
+				<rectangle x1="5756" y1="2906" x2="5760" y2="2911" map="0" />
+				<teleport source="5757,2907,15,0" destination="5789,1415,42,0" />
+				<teleport source="5757,2908,15,0" destination="5789,1416,39,0" />
+				<teleport source="5757,2909,15,0" destination="5789,1417,38,0" />
+			</region>
+			<region id="Fire Dungeon Level 1">
+				<rectangle x1="5663" y1="1402" x2="5884" y2="1488" map="0" />
+				<rectangle x1="5727" y1="1480" x2="5884" y2="1519" map="0" />
+				<rectangle x1="5764" y1="1284" x2="5884" y2="1408" map="0" />
+				<teleport source="5790,1415,39,0" destination="5758,2907,15,0" />
+				<teleport source="5790,1416,40,0" destination="5758,2908,15,0" />
+				<teleport source="5790,1417,38,0" destination="5758,2909,15,0" />
+			</region>
+			<region id="Fire Dungeon Level 2">
+				<rectangle x1="5630" y1="1284" x2="5763" y2="1401" map="0" />
+				<rectangle x1="5630" y1="1397" x2="5662" y2="1456" map="0" />
+			</region>
+		</region> 
 	</region>
 	
 	<!-- Map 1 -->
