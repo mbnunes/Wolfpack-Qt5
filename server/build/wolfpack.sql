@@ -122,7 +122,7 @@ CREATE TABLE `items` (
 	`amount` smallint(5) NOT NULL default '0',
 	`hp` smallint(6) NOT NULL default '0',
 	`maxhp` smallint(6) NOT NULL default '0',
-	`magic` tinyint(3) NOT NULL default '0',
+	`movable` tinyint(3) NOT NULL default '0',
 	`owner` int(10) unsigned NOT NULL default '0',
 	`visible` tinyint(3) NOT NULL default '0',
 	`priv` tinyint(3) NOT NULL default '0',
