@@ -8,7 +8,7 @@
 import wolfpack
 from wolfpack.consts import *
 from wolfpack.utilities import *
-from wolfpack.time import *
+import wolfpack.time
 import skills
 
 PEACE_DELAY = 5000
@@ -18,8 +18,7 @@ def peacemaking( char, skill ):
 		return 0
 
 	if char.socket.hastag( 'skill_delay' ):
-		cur_time = servertime()
-		if cur_time < char.socket.gettag( 'skill_delay' ):
+		if wolfpack.time.currenttime() < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
 		else:
@@ -70,8 +69,7 @@ def response( char, args, target ):
 		return 0
 
 	char.socket.deltag( 'peacemaking_instrument' )
-	cur_time = servertime()
-	char.socket.settag( 'skill_delay', ( cur_time + PEACE_DELAY ) )
+	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + PEACE_DELAY ) )
 
 	# if target him/her self : standard (regional) mode
 	# anyone including npcs can re-target and start fight

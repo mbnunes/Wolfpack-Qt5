@@ -1,5 +1,6 @@
 
 import wolfpack
+import wolfpack.time
 from wolfpack.consts import *
 import combat.aos
 from wolfpack import properties
@@ -43,7 +44,7 @@ def onSwing(attacker, defender, time):
 			# Ranged weapons need shooting first
 			if weapon and (weapon.type == 1007 or weapon.type == 1006):
 				# We have to be standing for >= 1000 ms, otherwise try again later
-				if attacker.lastmovement + 1000 > wolfpack.currenttime():
+				if attacker.lastmovement + 1000 > wolfpack.time.currenttime():
 					attacker.nextswing = attacker.lastmovement + 1000
 					return
 

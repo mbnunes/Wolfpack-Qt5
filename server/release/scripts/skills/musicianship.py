@@ -7,7 +7,7 @@
 
 from wolfpack.consts import *
 import wolfpack
-from wolfpack.time import *
+import wolfpack.time
 import wolfpack.utilities
 
 # GGS : skill can be gained every 15 min
@@ -29,20 +29,19 @@ def onUse( char, item ):
 
 	# first introduction of GGS
 	success = 0
-	cur_time = servertime()
 	if not char.socket.hastag( 'musicianship_gain_time' ):
 		success = char.checkskill( MUSICIANSHIP, 0, 1000 )
 		if success:
-			char.socket.settag( 'musicianship_gain_time', cur_time )
+			char.socket.settag( 'musicianship_gain_time', wolfpack.time.currenttime() )
 	else:
 		success = 0
 		last_gain = char.socket.gettag( 'musicianship_gain_time' )
-		if cur_time - last_gain >= MUSICIANSHIP_GAIN_DELAY:
+		if wolfpack.time.currenttime() - last_gain >= MUSICIANSHIP_GAIN_DELAY:
 			success = char.checkskill( MUSICIANSHIP, 0, 1000 )
 			if not success:
 				char.skill[ MUSICIANSHIP ] += 1
 			success = 1
-			char.socket.settag( 'musicianship_gain_time', cur_time )
+			char.socket.settag( 'musicianship_gain_time', wolfpack.time.currenttime() )
 
 	# item wear out - will be added
 
@@ -57,8 +56,7 @@ def play_instrument( char, item, success ):
 	# when we use bard skill, if we have more than one instrument,
 	# the 'last used' item will be used
 	# set last use item for musicianship
-	cur_time = servertime()
-	item.settag( 'last_musicianship_use', cur_time )
+	item.settag( 'last_musicianship_use', wolfpack.time.currenttime() )
 	char.socket.settag( 'instrument', item.serial )
 	if success:
 		sound = sounds[ item.id ]

@@ -31,9 +31,8 @@
 import wolfpack
 import string
 import wolfpack.gumps
-from wolfpack.gumps import *
+from wolfpack.gumps import cGump
 from wolfpack.utilities import *
-from wolfpack import *
 
 def getBoundingBox( socket, callback ) :
 	socket.attachtarget( "commands.wipe.getBoundingBoxResponse", [0, callback] )

@@ -9,7 +9,7 @@ import wolfpack
 from wolfpack.consts import *
 from math import floor
 import skills
-from wolfpack.time import currenttime
+import wolfpack.time
 
 EVALINTDELAY = 1000
 
@@ -19,8 +19,7 @@ def evaluatingintel( char, skill ):
 		return False
 
 	if char.socket.hastag( 'skill_delay' ):
-		cur_time = currenttime()
-		if cur_time < char.socket.gettag( 'skill_delay' ):
+		if wolfpack.time.currenttime() < char.socket.gettag( 'skill_delay' ):
 			socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return True
 		else:
@@ -49,8 +48,7 @@ def response( char, args, target ):
 		char.socket.clilocmessage( 0x7A4AE, "", 0x3b2, 3, target.char )
 		return False
 
-	cur_time = servertime()
-	char.socket.settag( 'skill_delay', cur_time + EVALINTDELAY )
+	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + EVALINTDELAY ) )
 
 	if not char.checkskill( EVALUATINGINTEL, 0, 1000 ):
 		char.socket.clilocmessage( 0xFD756, "", 0x3b2, 3, target.char )

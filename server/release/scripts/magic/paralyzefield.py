@@ -1,6 +1,6 @@
 
 import wolfpack
-from wolfpack.consts import *
+from wolfpack.consts import MAGICRESISTANCE
 
 #
 # Attach a tag to the character to note that he entered a poisonfield.

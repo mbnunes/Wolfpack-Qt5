@@ -6,8 +6,8 @@
 #################################################################
 
 from wolfpack.consts import *
-from wolfpack.time import *
 import wolfpack
+import wolfpack.time
 from math import floor
 import random
 import skills
@@ -22,8 +22,7 @@ def spiritspeak(char, skill):
 		return 1
 
 	if socket.hastag('skill_delay'):
-		cur_time = servertime()
-		if cur_time < socket.gettag( 'skill_delay' ):
+		if wolfpack.time.currenttime() < socket.gettag( 'skill_delay' ):
 			socket.clilocmessage(500118)
 			return 1
 		else:
@@ -45,10 +44,10 @@ def effect(char, args):
 	# skill delay for this client.
 	socket = char.socket
 	socket.deltag('spiritspeaking')
-	socket.settag('skill_delay', servertime() + SPSPEAK_DELAY)
+	socket.settag('skill_delay', int( wolfpack.time.currenttime() + SPSPEAK_DELAY ) )
 
 	# Check for skill usage success
-	if not char.checkskill(SPIRITSPEAK, 0, 1000):
+	if not char.checkskill( SPIRITSPEAK, 0, 1000 ):
 		char.socket.clilocmessage(502443)
 		return
 
@@ -58,7 +57,7 @@ def effect(char, args):
 	items = wolfpack.items(pos.x, pos.y, pos.map, 3)
 	corpses = []
 	for item in items:
-		if item.id == 0x2006 and not item.hastag('drained'):
+		if item.baseid == '2006' and not item.hastag('drained'):
 			corpses.append(item)
 
 	# There was an undrained corpse near the player using

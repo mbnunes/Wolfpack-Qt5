@@ -5,10 +5,10 @@
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
-from wolfpack.consts import *
 import wolfpack
+import wolfpack.time
 import skills
-from wolfpack.time import *
+from wolfpack.consts import ANATOMY
 from math import floor
 
 ANATOMY_DELAY = 1000
@@ -22,8 +22,7 @@ def anatomy( char, skill ):
 	socket = char.socket
 
 	if socket.hastag( 'skill_delay' ):
-		cur_time = servertime()
-		if cur_time < socket.gettag( 'skill_delay' ):
+		if wolfpack.time.currenttime() < socket.gettag( 'skill_delay' ):
 			socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return True
 		else:
@@ -36,9 +35,7 @@ def anatomy( char, skill ):
 	return True
 
 def response( char, args, target ):
-
 	socket = char.socket
-
 	# Check for a valid target
 	if not target.char:
 		socket.clilocmessage( 0x7A263, "", 0x3b2, 3, char ) # Only living things have anatomies
@@ -61,8 +58,7 @@ def response( char, args, target ):
 		socket.clilocmessage( 0x7A266, "", 0x3b2, 3, target.char ) # That cannot be inspected.
 		return
 
-	cur_time = servertime()
-	char.socket.settag( 'skill_delay', cur_time + ANATOMY_DELAY )
+	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + ANATOMY_DELAY ) )
 
 	# Make a skillcheck and display the fail or success message above the targets head
 	if not char.checkskill( ANATOMY, 0, 1000 ):

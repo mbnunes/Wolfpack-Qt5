@@ -1,8 +1,9 @@
+
 import wolfpack
-from random import randint, random
-from wolfpack import time
-from wolfpack.utilities import hex2dec, throwobject, energydamage, checkLoS
+import wolfpack.time
 import math
+from random import randint, random
+from wolfpack.utilities import hex2dec, throwobject, energydamage, checkLoS
 from system import poison
 from wolfpack.consts import RED, ALCHEMY, STRENGTH_TIME, ANIM_FIDGET3, \
 	SOUND_DRINK1, SOUND_AGILITY_UP, AGILITY_TIME, POTION_GREATERHEAL_RANGE, \
@@ -409,15 +410,15 @@ def healPotion( char, potion, healtype ):
 		return False
 
 	if not char.hastag( "heal_pot_timer" ):
-		char.settag( "heal_pot_timer", (time.servertime() + HEAL_POT_DELAY) )
+		char.settag( "heal_pot_timer", (wolfpack.time.currenttime() + HEAL_POT_DELAY) )
 
 	# Compare
 	elapsed = int( char.gettag( "heal_pot_timer" ) )
-	if elapsed > time.servertime():
+	if elapsed > wolfpack.time.currenttime():
 		socket.clilocmessage( 500235, '', GRAY ) # You must wait 10 seconds before using another healing potion.
 		return False
 	else:
-		char.settag( "heal_pot_timer", (time.servertime() + HEAL_POT_DELAY) )
+		char.settag( "heal_pot_timer", (wolfpack.time.currenttime() + HEAL_POT_DELAY) )
 
 	amount = 0
 
@@ -505,15 +506,15 @@ def agilityPotion( char, potion, agilitytype ):
 		return False
 
 	if not char.hastag( "dex_pot_timer" ):
-		char.settag( "dex_pot_timer", (time.servertime() + AGILITY_TIME) )
+		char.settag( "dex_pot_timer", (wolfpack.time.currenttime() + AGILITY_TIME) )
 
 	# Compare
 	elapsed = int( char.gettag( "dex_pot_timer" ) )
-	if elapsed > time.servertime():
+	if elapsed > wolfpack.time.currenttime():
 		socket.clilocmessage(502173) # You are already under a similar effect.
 		return False
 	else:
-		char.settag( 'dex_pot_timer', (time.servertime() + AGILITY_TIME) )
+		char.settag( 'dex_pot_timer', (wolfpack.time.currenttime() + AGILITY_TIME) )
 
 	if char.dexterity + bonus < 1:
 		bonus = -(char.strength - 1)
@@ -552,15 +553,15 @@ def strengthPotion( char, potion, strengthtype ):
 		return False
 
 	if not char.hastag( "str_pot_timer" ):
-		char.settag( "str_pot_timer", (time.servertime() + STRENGTH_TIME) )
+		char.settag( "str_pot_timer", (wolfpack.time.currenttime() + STRENGTH_TIME) )
 
 	# Compare
 	elapsed = int( char.gettag( "str_pot_timer" ) )
-	if elapsed > time.servertime():
+	if elapsed > wolfpack.time.currenttime():
 		socket.clilocmessage(502173) # You are already  under a similar effect
 		return False
 	else:
-		char.settag( 'str_pot_timer', (time.servertime() + STRENGTH_TIME) )
+		char.settag( 'str_pot_timer', (wolfpack.time.currenttime() + STRENGTH_TIME) )
 
 	if char.strength + bonus < 1:
 		bonus = -(char.strength - 1)

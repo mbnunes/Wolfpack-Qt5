@@ -99,18 +99,16 @@ def response( char, args, target ):
 def res_char( char, resto, healing, anatomy ):
 	# res chance : 25% at 80/80 skill, max 75% at 100/100
 	chance = 250 + ( healing - RES_HEALING ) + ( anatomy - RES_ANATOMY )
-	start_time = wolfpack.time.servertime()
-	end_time = start_time + RES_DELAY
+	end_time = wolfpack.time.currenttime() + RES_DELAY
 	char.addtimer( CHECK_DELAY, "skills.healing.delay_check", [ resto.serial, chance, start_time, end_time, 0 ] )
 
 def cure_char( char, cureto, healing, anatomy ):
 	# 80% at skill 60/60, 100% over skill 80/80
 	chance = min( 800 + ( healing - CURE_HEALING ) / 2 + ( anatomy - CURE_ANATOMY ) / 2, 1000 )
-	start_time = wolfpack.time.servertime()
 	if char == cureto:
-		end_time = start_time + 8400 + 60 * ( 120 - char.dexterity )
+		end_time = wolfpack.time.currenttime() + 8400 + 60 * ( 120 - char.dexterity )
 	else:
-		end_time = start_time + CURE_OTHER_DELAY
+		end_time = wolfpack.time.currenttime() + CURE_OTHER_DELAY
 	char.addtimer( CHECK_DELAY, "skills.healing.delay_check", [ cureto.serial, chance, start_time, end_time, 1 ] )
 
 def delay_check( char, args ):
@@ -141,12 +139,11 @@ def delay_check( char, args ):
 	start_time = args[ 2 ]
 	end_time = args[ 3 ]
 	heal_type = args[ 4 ]
-	current_time = wolfpack.time.servertime()
 
 	# useup one bandage
 	char.useresource( 1, 0x0e21 )
 
-	if current_time >= end_time:
+	if wolfpack.time.currenttime() >= end_time:
 		# resurrect
 		if heal_type == 0:
 			if chance >= whrandom.randint( 0, 1000 ):
@@ -186,6 +183,6 @@ def delay_check( char, args ):
 
 	# go loop
 	delay = CHECK_DELAY
-	if ( current_time + CHECK_DELAY ) > end_time:
+	if ( wolfpack.time.currenttime() + CHECK_DELAY ) > end_time:
 		delay = end_time - current_time
 	char.addtimer( delay, "skills.healing.delay_check", [ healto.serial, chance, start_time, end_time, heal_type ] )

@@ -21,7 +21,6 @@ newguild = _wolfpack.newguild
 findguild = _wolfpack.findguild
 queueaction = _wolfpack.queueaction
 registerpackethook = _wolfpack.registerpackethook
-currenttime = _wolfpack.currenttime
 charcount = _wolfpack.charcount
 itemcount = _wolfpack.itemcount
 getdefinition = _wolfpack.getdefinition
@@ -70,7 +69,7 @@ setoption = _wolfpack.setoption
 	\function wolfpack.findobject
 	\param serial The serial number of the object.
 	\return An <object id="item">item</object>, <object id="char">char</object>, or None object.
-	\description This function tries to find an item or character with the given serial and 
+	\description This function tries to find an item or character with the given serial and
 	returns an object if either is found. Otherwise it returns None.
 """
 def findobject(serial):

@@ -7,8 +7,8 @@
 
 from wolfpack.consts import *
 from wolfpack.utilities import *
-from wolfpack.time import *
 import wolfpack
+import wolfpack.time
 import skills
 from math import ceil
 
@@ -18,8 +18,7 @@ MIN_HIDING = 800
 
 def stealth( char, skill ):
 	if char.socket.hastag( 'skill_delay' ):
-		cur_time = servertime()
-		if cur_time < char.socket.gettag( 'skill_delay' ):
+		if wolfpack.time.currenttime() < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
 		else:
@@ -50,8 +49,7 @@ def stealth( char, skill ):
 		char.hidden = 0
 		char.update()
 
-	cur_time = servertime()
-	char.socket.settag( 'skill_delay', ( cur_time + STEALTH_DELAY ) )
+	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + STEALTH_DELAY ) )
 
 	return 1
 

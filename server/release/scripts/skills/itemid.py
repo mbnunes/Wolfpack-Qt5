@@ -17,7 +17,7 @@ def itemid(char, skill):
 	socket = char.socket
 
 	if socket.hastag('skill_delay'):
-		if servertime() < socket.gettag('skill_delay'):
+		if wolfpack.time.currenttime() < socket.gettag('skill_delay'):
 			socket.clilocmessage(500118)
 			return 1
 		else:
@@ -30,7 +30,7 @@ def itemid(char, skill):
 def response(char, args, target):
 	socket = char.socket
 
-	socket.settag('skill_delay', servertime() + ITEMID_DELAY)
+	socket.settag('skill_delay', int( wolfpack.time.currenttime() + ITEMID_DELAY ) )
 
 	# Identify an item and send the buy and sellprice.
 	if target.item:

@@ -5,11 +5,12 @@
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
-from wolfpack.consts import *
-from wolfpack.time import *
+
+import wolfpack.time
 import skills
 import wolfpack
 import whrandom
+from wolfpack.consts import *
 
 # max number an animal can be tamed
 MAXTAME = 5
@@ -27,8 +28,7 @@ TAMING_DELAY = 10000
 # Button for AnimalTaming pressed on skill gump
 def animaltaming( char, skill ):
 	if char.socket.hastag( 'skill_delay' ):
-		cur_time = servertime()
-		if cur_time < char.socket.gettag( 'skill_delay' ):
+		if wolfpack.time.currenttime() < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return True
 		else:
@@ -120,8 +120,7 @@ def dotame(char, totame):
 	# start taming
 	socket.clilocmessage( 1010598, "", 0x3b2, 3, totame )
 
-	cur_time = servertime()
-	char.socket.settag('skill_delay', cur_time + TAMING_DELAY)
+	char.socket.settag('skill_delay', wolfpack.time.currenttime() + TAMING_DELAY)
 
 	# set timer
 	char.addtimer( TAMING_DURATION, "skills.animaltaming.callback", [ havetamed, totame.serial, 0 ] )

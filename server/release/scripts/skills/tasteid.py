@@ -7,8 +7,8 @@
 
 from wolfpack.consts import *
 from wolfpack.utilities import *
-from wolfpack.time import *
 import wolfpack
+import wolfpack.time
 import skills
 
 TASTEID_DELAY = 1000
@@ -17,7 +17,7 @@ def tasteid(char, skill):
 	socket = char.socket
 
 	if socket.hastag('skill_delay'):
-		if servertime() < socket.gettag('skill_delay'):
+		if wolfpack.time.currenttime() < socket.gettag('skill_delay'):
 			socket.clilocmessage(500118)
 			return 1
 		else:
@@ -30,7 +30,7 @@ def tasteid(char, skill):
 def response(char, args, target):
 	socket = char.socket
 
-	socket.settag('skill_delay', servertime() + TASTEID_DELAY)
+	socket.settag('skill_delay', int( wolfpack.time.currenttime() + TASTEID_DELAY ) )
 
 	if target.item:
 		if not char.canreach(target.item, 2):

@@ -6,10 +6,10 @@
 #################################################################
 
 from wolfpack.consts import *
-from wolfpack.time import *
 from wolfpack.utilities import tobackpack
 import skills
 import wolfpack
+import wolfpack.time
 import random
 from system import poison
 
@@ -158,6 +158,6 @@ def wearoff( item ):
 		item.deltag( 'poisoning_skill' )
 	if item.hastag( 'poisoning_char' ):
 		item.deltag( 'poisoning_char' )
-		
+
 def onLoad():
 	skills.register( POISONING, poisoning )

@@ -47,6 +47,6 @@ class AnimateDead(NecroSpell):
         #animate = wolfpack.addnpc(target.bodyid, target.pos)
         #animate.controlslots = 1
         #animate.owner = char
-        #animate.summontime = wolfpack.time.servertime() + 120000
+        #animate.summontime = wolfpack.time.currenttime() + 120000
         #animate.summoned = 1
         #item.remove()

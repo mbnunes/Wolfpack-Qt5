@@ -8,7 +8,6 @@ import whrandom
 import wolfpack.utilities
 from wolfpack.consts import GRAY, MINING, SOUND_HAMMER_1
 from skills import mining
-from wolfpack.time import *
 from random import randrange, randint
 from system.lootlists import DEF_ORES # Gets BaseIDs
 

@@ -1,12 +1,13 @@
 
-from wolfpack import console
-from wolfpack.consts import *
-from wolfpack import properties
-import math
 import wolfpack
+import math
+import random
+from wolfpack import console
+from wolfpack.consts import ALCHEMY, LOG_ERROR, WPDT_MENU, WPDT_ITEM, skillnamesids
+from wolfpack import properties
 from system.makemenus import CraftItemAction, MakeMenu, findmenu
 from wolfpack.utilities import hex2dec, tobackpack, createlockandkey
-import random
+
 
 #
 # Check if the character is using the right tool
@@ -73,7 +74,7 @@ class BrewItemAction(CraftItemAction):
 		# Re-create the empty bottle in the users backpack
 		if lostmaterials:
 			bottle = wolfpack.additem('f0e')
-			if not tobackpack(bottle, player):
+			if not wolfpack.utilities.tobackpack(bottle, player):
 				bottle.update()
 
 	#

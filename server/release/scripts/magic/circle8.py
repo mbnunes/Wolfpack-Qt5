@@ -73,7 +73,7 @@ class EnergyVortex(Spell):
 			return
 
 		ev = wolfpack.addnpc('summoned_energy_vortex', target)
-		ev.summontime = wolfpack.time.servertime() + 120000
+		ev.summontime = wolfpack.time.currenttime() + 120000
 		ev.summoned = 1
 		ev.soundeffect(0x212)
 
@@ -124,7 +124,7 @@ class SummonElementBase(Spell):
 		creature.controlslots = self.controlslots
 		creature.addevent('speech.pets')
 		creature.owner = char
-		creature.summontime = wolfpack.time.servertime() + 120000
+		creature.summontime = wolfpack.time.currenttime() + 120000
 		creature.summoned = 1
 		creature.soundeffect(0x217)
 

@@ -45,7 +45,7 @@ ORES = {
 
 def mining( char, pos, tool ):
 	wolfpack.addtimer( 1300, "skills.mining.domining", [ char, SOUND_MINING, tool, pos ] )
-	char.socket.settag( 'is_mining', ( servertime() + miningdelay ) )
+	char.socket.settag( 'is_mining', ( wolfpack.time.currenttime() + miningdelay ) )
 	char.turnto( pos )
 	char.action( ANIM_ATTACK3 )
 	return True
@@ -200,11 +200,11 @@ def domining(time, args):
 
 	# Remaining Tool Uses
 	if not tool.hastag('remaining_uses'):
-		tool.settag('remaining_uses', tool.health)
+		tool.settag('remaining_uses', tool.health )
 	else:
 		remaining_uses = int(tool.gettag('remaining_uses'))
 		if remaining_uses > 1:
-			tool.settag('remaining_uses', remaining_uses - 1)
+			tool.settag('remaining_uses', remaining_uses - 1 )
 			tool.resendtooltip()
 		else:
 			tool.delete()
@@ -254,6 +254,6 @@ def successmining(char, gem, resname, size):
 def respawnvein( time, args ):
 	vein = args[0]
 	if vein and vein.hastag('resource_empty') and vein.gettag('resourcecount') == 0:
-		vein.settag('resourcecount', random.randint(MINING_ORE[0], MINING_ORE[1]))
+		vein.settag('resourcecount', random.randint( MINING_ORE[0], MINING_ORE[1] ) )
 		vein.deltag('resource_empty')
 	return True

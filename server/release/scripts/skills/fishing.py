@@ -38,7 +38,7 @@ def onUse( char, item ):
 		return True
 
 	# Are we already fishing?
-	if socket.hastag( 'is_fishing' ) and socket.gettag( 'is_fishing' ) > wolfpack.time.servertime():
+	if socket.hastag( 'is_fishing' ) and socket.gettag( 'is_fishing' ) > wolfpack.time.currenttime():
 		socket.clilocmessage( 0x7A4EC, "", 0x3b2, 3 ) # You are already fishing.
 		return True
 
@@ -129,7 +129,7 @@ def response( char, args, target ):
 	# If the targetted tile is below map height check that as well
 	mapZ = mapTile[ "z" ]
 	if not blockedspot and pos.z < mapZ:
-		if pos.z > mapZ - FISHING_BLOCK_RANGE:
+		if pos.z > ( mapZ - FISHING_BLOCK_RANGE ):
 			blockedspot = 1
 
 	if blockedspot:
@@ -146,7 +146,7 @@ def response( char, args, target ):
 	# ID: 0x7AD86 (0)
 	# You broke your fishing pole.
 
-	socket.settag( 'is_fishing', wolfpack.time.servertime() + 5000 ) # Times out after 5000ms
+	socket.settag( 'is_fishing', int( wolfpack.time.currenttime() + 5000 ) ) # Times out after 5000ms
 	char.addtimer( 2500, "skills.fishing.effecttimer", [ pos, deepwater ] )
 	char.addtimer( 5000, "skills.fishing.itemtimer", [ pos, deepwater ] )
 
@@ -169,8 +169,9 @@ def getFish( fishSkill, deepwater ):
 	itemid = None
 	itemname = None
 	possibleitems = []
-	maxvalue = 0		# We calculate a random value from 0 to this value and
-						# then check the array above for matching items
+	maxvalue = 0
+	# We calculate a random value from 0 to this value and
+	# then check the array above for matching items
 
 	# Fill items and name with real values
 	for fishItem in fishingItems:

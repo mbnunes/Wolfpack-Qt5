@@ -2,7 +2,7 @@
 # like plants and oters
 
 import wolfpack
-import time
+import wolfpack.time
 import random
 from wolfpack.consts import COTTONPLANTS_REGROW, ANIM_ATTACK5, TINKERING, \
 	MUSICIANSHIP, LAYER_HAIR, LAYER_BEARD
@@ -12,12 +12,11 @@ from math import floor
 
 
 def cotton( char, item ):
-	currenttime = int( time.time() )
 
 	if item.hastag( 'lastpick' ):
 		lastpick = item.gettag( 'lastpick' )
 
-		if lastpick + COTTONPLANTS_REGROW > currenttime:
+		if lastpick + COTTONPLANTS_REGROW > wolfpack.time.currenttime():
 			char.message( "You can't pick cotton here yet." )
 			return 1
 
@@ -32,7 +31,7 @@ def cotton( char, item ):
 	char.message( "You reach down and pick some cotton." )
 
 	# Set a timer for the cotton plant
-	item.settag( 'lastpick', currenttime )
+	item.settag( 'lastpick', wolfpack.time.currenttime() )
 	return 1
 
 def sextant_parts( char, item ):

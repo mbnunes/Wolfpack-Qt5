@@ -7,9 +7,9 @@
 
 from wolfpack.consts import *
 from wolfpack.utilities import *
-from wolfpack.time import *
 from wolfpack.properties import *
 import wolfpack
+import wolfpack.time
 import skills
 from wolfpack import weaponinfo
 from wolfpack import armorinfo
@@ -22,8 +22,7 @@ def armslore( char, skill ):
 		return False
 
 	if char.socket.hastag( 'skill_delay' ):
-		cur_time = servertime()
-		if cur_time < char.socket.gettag( 'skill_delay' ):
+		if wolfpack.time.currenttime() < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return True
 		else:
@@ -50,14 +49,13 @@ def response( char, args, target ):
 				return False
 
 		if isweapon( item ) or isarmor( item ) or isshield( item ):
-			cur_time = servertime()
-			char.socket.settag( 'skill_delay', cur_time + ARMSLORE_DELAY )
+			char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + ARMSLORE_DELAY ) )
 			if not char.checkskill( ARMSLORE, 0, 1000 ):
 				char.socket.clilocmessage( 0x7A281, "", 0x3b2, 3 )
 				return False
 
 			char.socket.clilocmessage( 0x103319, "", 0x3b2, 3 )
-			condi = 10 * item.health / item.maxhealth
+			condi = ( 10 * ( item.health / item.maxhealth ) )
 			if condi < 0:
 				condi = 0
 			elif condi > 9:

@@ -1,6 +1,5 @@
 
 import wolfpack
-import wolfpack.time
 import wolfpack.utilities
 # Imports the potion table.
 from potions import POTIONS, POT_RETURN_BOTTLE, POT_AGGRESSIVE, \

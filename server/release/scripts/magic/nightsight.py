@@ -1,5 +1,5 @@
 
-from wolfpack import time
+import wolfpack
 
 #
 # Remove the nightsight event and bonus

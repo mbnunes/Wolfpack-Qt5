@@ -5,12 +5,12 @@
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
-from wolfpack.consts import *
-from wolfpack.utilities import *
-from wolfpack.time import *
-from wolfpack.gumps import *
 import wolfpack
+import wolfpack.time
 import skills
+from wolfpack.consts import TRACKING
+from wolfpack.gumps import cGump
+
 
 STEALTH_DELAY = 5000
 # the hiding skill before you can use the stealth skill
@@ -21,8 +21,7 @@ def tracking( char, skill ):
 		return 0
 
 	if char.socket.hastag( 'skill_delay' ):
-		cur_time = servertime()
-		if cur_time < char.socket.gettag( 'skill_delay' ):
+		if wolfpack.time.currenttime() < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
 		else:
@@ -55,8 +54,7 @@ def tracking( char, skill ):
 
 	gump.send( char )
 
-	cur_time = servertime()
-	char.socket.settag( 'skill_delay', ( cur_time + STEALTH_DELAY ) )
+	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + STEALTH_DELAY ) )
 
 	return 1
 

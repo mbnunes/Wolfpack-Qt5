@@ -6,16 +6,15 @@
 #################################################################
 
 import wolfpack
+import wolfpack.time
 import skills
 import whrandom
 import wolfpack.utilities
 from wolfpack.consts import GRAY, LAYER_MOUNT
-from wolfpack.time import *
-
 
 def onUse( char, tool ):
 	#Already digging ?
-	if char.socket.hastag( 'is_mining' ) and ( char.socket.gettag( 'is_mining' ) > servertime() ):
+	if char.socket.hastag( 'is_mining' ) and ( char.socket.gettag( 'is_mining' ) > wolfpack.time.currenttime() ):
 		# You are already digging.
 		char.socket.clilocmessage( 503029, "", GRAY )
 		return True

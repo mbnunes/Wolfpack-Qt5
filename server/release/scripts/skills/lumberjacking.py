@@ -1,9 +1,9 @@
 
 import wolfpack
+import wolfpack.time
 import whrandom
 import skills
 from wolfpack.consts import *
-from wolfpack.time import *
 from wolfpack.utilities import *
 from random import randint
 #import weapons.blades
@@ -21,7 +21,7 @@ RESOURCENAME = 3
 # resname, reqSkill, maxSkill, color
 woodtable = \
 {
-	'plainwood':		[ 0, 10, 0x0 ]
+	'plainwood': [ 0, 10, 0x0 ]
 }
 yewtree = [ 4789, 4790, 4791, 4792, 4793, 4794, 4795, 4796, 4797 ]
 
@@ -35,7 +35,7 @@ def response( args ):
 	if not socket:
 		return False
 
-	if socket.hastag('is_lumberjacking') and ( socket.gettag( 'is_lumberjacking' ) > servertime() ):
+	if socket.hastag('is_lumberjacking') and ( socket.gettag( 'is_lumberjacking' ) > wolfpack.time.currenttime() ):
 		socket.clilocmessage( 500119, "", GRAY )
 		return False
 	else:
@@ -79,7 +79,7 @@ def response( args ):
 	elif veingem.hastag( 'resname' ):
 		resname = veingem.gettag( 'resname' )
 
-	socket.settag( 'is_lumberjacking', int( servertime() + nextchopdelay ) )
+	socket.settag( 'is_lumberjacking', int( wolfpack.time.currenttime() + nextchopdelay ) )
 	hack_logs( char, target, tool, veingem )
 
 	return True

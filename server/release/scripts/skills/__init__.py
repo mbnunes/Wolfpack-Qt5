@@ -1,9 +1,7 @@
-import time
 import wolfpack
 import random
 import wolfpack.settings
 from wolfpack.consts import *
-from random import randrange
 
 STRGAIN = 0
 DEXGAIN = 1
@@ -112,7 +110,7 @@ def antimacrocheck( char, skillid, object ):
 	tagname = "AMC_" + str( char.serial ) + " " + str( skillid )
 	if object.hastag( tagname ):
 		count = object.gettag( tagname )
-		object.settag( tagname, str( int( count + 1 ) ) )
+		object.settag( tagname, int( count + 1 ) )
 		if count <= ANTIMACROALLOWANCE:
 			return True
 		elif count > ANTIMACROALLOWANCE + 1:

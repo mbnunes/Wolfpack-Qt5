@@ -42,7 +42,7 @@ supporteddrivers = ['mysql','sqlite']
 
 def onLoad():
 	if accountsdriver in supporteddrivers or worlddriver in supporteddrivers:
-		wolfpack.addtimer( time, "system.mysql_optimize_db.timer", [ wolfpack.currenttime() ] )
+		wolfpack.addtimer( time, "system.mysql_optimize_db.timer", [ wolfpack.time.currenttime() ] )
 		wolfpack.registercommand( "optimizedb", cmdoptimizedb )
 	return
 
@@ -57,7 +57,7 @@ def cmdoptimizedb( socket, command, arguments ):
 	return
 
 def timer( timer, args ):
-	if args[0] + time <= wolfpack.currenttime():
+	if int( args[0] + time ) <= wolfpack.time.currenttime():
 		if accountsdriver in supporteddrivers or worlddriver in supporteddrivers:
 			# Optimize and restart timer
 			optimize_db()
