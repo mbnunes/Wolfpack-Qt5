@@ -205,9 +205,7 @@ SOURCES         = \
 		  spellbook.cpp
 
 # Twofish Module
-HEADERS		+= twofish/aes.h
-
-SOURCES		+= twofish/twofish.c
+SOURCES		+= twofish/twofish2.c
 
 # Network Module
 # THIS IS IMPORTANT FOR MOCING!

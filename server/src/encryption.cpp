@@ -131,7 +131,6 @@ void cLoginEncryption::clientDecrypt( char *buffer, unsigned int length )
 */
 void cGameEncryption::init( unsigned int seed )
 {	
-#if defined( REFERENCE_TWOFISH )
     makeKey( &ki, DIR_DECRYPT, 0x80, NULL );
     cipherInit( &ci, MODE_ECB, NULL );
 
@@ -141,11 +140,6 @@ void cGameEncryption::init( unsigned int seed )
 	unsigned char tmpBuffer[256];
 	blockEncrypt( &ci, &ki, cipherTable, 256*8, tmpBuffer );
     memcpy( cipherTable, tmpBuffer, 256 );
-#else
-	memset( key, 0xFF, 16 );
-	keySched( key, 128, &S, K, &k );
-	fullKey( S, k, QF );
-#endif
 	
 	for( unsigned int i = 0; i < 256; ++i )
 		cipherTable[i] = i;
@@ -162,30 +156,9 @@ void cGameEncryption::decryptByte( unsigned char &byte )
 	// Recalculate table
 	if( recvPos >= 256 )
 	{
-#if defined( REFERENCE_TWOFISH )
 		unsigned char tmpBuffer[256];
 		blockEncrypt( &ci, &ki, cipherTable, 256*8, tmpBuffer );
 		memcpy( cipherTable, tmpBuffer, 256 );
-#else		
-		// just for little speedup I don't use for loop
-		encrypt( K, QF, &cipherTable [0]  );  // 1 
-		encrypt( K, QF, &cipherTable[16]  );  // 2
-		encrypt( K, QF, &cipherTable[32]  );  // 3
-		encrypt( K, QF, &cipherTable[48]  );  // 4
-		encrypt( K, QF, &cipherTable[64]  );  // 5
-		encrypt( K, QF, &cipherTable[80]  );  // 6
-		encrypt( K, QF, &cipherTable[96]  );  // 7
-		encrypt( K, QF, &cipherTable[112] );  // 8
-		encrypt( K, QF, &cipherTable[128] );  // 9
-		encrypt( K, QF, &cipherTable[144] );  // 10
-		encrypt( K, QF, &cipherTable[160] );  // 11
-		encrypt( K, QF, &cipherTable[176] );  // 12
-		encrypt( K, QF, &cipherTable[192] );  // 13
-		encrypt( K, QF, &cipherTable[208] );  // 14
-		encrypt( K, QF, &cipherTable[224] );  // 15
-		encrypt( K, QF, &cipherTable[240] );  // 16 
-#endif
-
 		recvPos = 0;
 	}
 
