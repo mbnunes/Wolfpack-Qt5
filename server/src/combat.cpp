@@ -270,6 +270,27 @@ namespace Combat
 			return;
 		}
 
+		if( pDefender->dead() )
+		{
+			pAttacker->setSwingTarg( INVALID_SERIAL );
+			pAttacker->setTarg( INVALID_SERIAL );
+			pAttacker->setTimeOut( 0 );
+			pAttacker->resetAttackFirst();
+			
+			// Reset the target
+			if( pAttacker->socket() )
+			{
+				cUOTxAttackResponse aResponse;
+				aResponse.setSerial( INVALID_SERIAL );
+				pAttacker->socket()->send( &aResponse );
+			}
+
+			return;
+		}
+
+		if( pDefender->hidden() )
+			return;
+
 		// Can we see our target. 
 		// I don't know what the +z 13 means...
 		bool los = lineOfSight( pAttacker->pos + Coord_cl( 0, 0, 13 ), pDefender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING );
@@ -792,7 +813,7 @@ namespace Combat
 		P_CHAR pDefender = FindCharBySerial( pAttacker->targ() );
 
 		// Check our Target
-		if( !pDefender || pDefender->free || ( pDefender->isPlayer() && !pDefender->socket() ) || pDefender->isHidden() )
+		if( !pDefender || pDefender->free || ( pDefender->isPlayer() && !pDefender->socket() ) || pDefender->isHidden() || pDefender->dead() )
 		{
 			pAttacker->setTimeOut(0);
 			if( pDefender )

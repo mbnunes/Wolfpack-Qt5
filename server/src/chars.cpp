@@ -2032,6 +2032,10 @@ void cChar::kill()
 	if( dead_ || npcaitype() == 17 || isInvul() )
 		return;
 
+	// Do this in the beginning
+	dead_ = true; // Dead
+	hp_ = 0; // With no hp left
+
 	if( polymorph() )
 	{
 		setId( xid_ );
@@ -2044,7 +2048,6 @@ void cChar::kill()
 	setMurdererSer( INVALID_SERIAL ); // Reset previous murderer serial # to zero
 
 	QString murderer( "" );
-
 
 	P_CHAR pAttacker = FindCharBySerial( attacker_ );
 	if( pAttacker )
@@ -2066,7 +2069,7 @@ void cChar::kill()
 	for( iter_char.Begin(); !iter_char.atEnd(); iter_char++ )
 	{
 		P_CHAR pc_t = iter_char.GetData();
-		if( pc_t->targ() == serial && !pc_t->free )
+		if( ( pc_t->swingtarg() == serial || pc_t->targ() == serial ) && !pc_t->free )
 		{
 			if( pc_t->npcaitype() == 4 )
 			{
@@ -2078,6 +2081,7 @@ void cChar::kill()
 
 			pc_t->setTarg( INVALID_SERIAL );
 			pc_t->setTimeOut(0);
+			pc_t->setSwingTarg( INVALID_SERIAL );
 
 			if( pc_t->attacker() != INVALID_SERIAL )
 			{
@@ -2153,8 +2157,6 @@ void cChar::kill()
 	PlayDeathSound( this );
 
 	setSkin( 0x0000 ); // Undyed
-	dead_ = true; // Dead
-	hp_ = 0; // With no hp left
 	
 	// Reset poison
 	setPoisoned(0);
@@ -2282,7 +2284,7 @@ void cChar::kill()
 
 					// put the item in the corpse only of we're sure it's not a newbie item or a spellbook
 					if( !pi_k->newbie() && ( pi_k->type() != 9 ) )
-					{
+					{					
 						corpse->addItem( pi_k );
 						
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
@@ -2300,6 +2302,7 @@ void cChar::kill()
 			{
 				if( pi_j != pi_backpack )
 				{
+					pi_j->removeFromView();
 					corpse->addEquipment( pi_j->layer(), pi_j->serial );
 					corpse->addItem( pi_j );					
 				}
@@ -2307,6 +2310,7 @@ void cChar::kill()
 			else if( ( pi_j != pi_backpack ) && ( pi_j->layer() != 0x1D ) )
 			{	
 				// else if the item is newbie put it into char's backpack
+				pi_j->removeFromView();
 				pi_backpack->addItem( pi_j );
 			}
 
@@ -2340,8 +2344,6 @@ void cChar::kill()
 		if( pItem )
 		{
 			robe_ = pItem->serial;
-//			pItem->setContSerial( serial );
-//			pItem->setLayer( 0x16 );
 			this->addItem( cChar::OuterTorso, pItem );
 			pItem->update();
 		}
@@ -2366,8 +2368,6 @@ void cChar::kill()
 //		corpse->corpse=0;
 //	}
 
-	// St00pid -> spawned chars shoudl become invis so they keep their stats
-	// and information
 	if( isNpc() )
 		cCharStuff::DeleteChar( this );
 
