@@ -25,7 +25,7 @@ class GreaterHeal (CharEffectSpell):
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_GINSENG: 1, REAGENT_SPIDERSILK: 1}
 		self.mantra = 'In Vas Mani'
 
-	def affectchar(self, char, mode, target):
+	def affectchar(self, char, mode, target, args=[]):
 		if target.poison != -1:
 			if target == char:
 				char.message(1005000)
@@ -107,7 +107,7 @@ class Recall (Spell):
 		self.mantra = 'Kal Ort Por'
 		self.validtarget = TARGET_ITEM
 		
-	def cast(self, char, mode):
+	def cast(self, char, mode, args=[]):
 		if not char.gm:
 			if char.iscriminal():
 				if char.socket:
@@ -121,7 +121,7 @@ class Recall (Spell):
 
 		return Spell.cast(self, char, mode)
 
-	def target(self, char, mode, targettype, target):	
+	def target(self, char, mode, targettype, target, args=[]):	
 		char.turnto(target)
 		
 		# We can only recall from recall runes
@@ -176,7 +176,7 @@ class FireField(Spell):
 		self.harmful = 1
 		self.resistable = 1
 		
-	def target(self, char, mode, targettype, target):
+	def target(self, char, mode, targettype, target, args=[]):
 		char.turnto(target)
 		
 		if not char.canreach(target, 10):
@@ -210,6 +210,7 @@ class FireField(Spell):
 		for pos in positions:
 			newitem = wolfpack.newitem(1)
 			newitem.id = itemid
+			newitem.direction = 29
 			newitem.moveto(pos)
 			newitem.decay = 0 # Dont decay. TempEffect will take care of them
 			newitem.settag('dispellable_field', 1)
@@ -234,7 +235,7 @@ class ArchCure (Spell):
 		self.mantra = 'Vas An Nox'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target):	
+	def target(self, char, mode, targettype, target, args=[]):	
 		if not self.consumerequirements(char, mode):
 			return
 
@@ -267,7 +268,7 @@ class ArchProtection (Spell):
 		self.mantra = 'Vas Uus Sanct'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target):	
+	def target(self, char, mode, targettype, target, args=[]):	
 		if not self.consumerequirements(char, mode):
 			return
 

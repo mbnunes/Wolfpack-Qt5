@@ -13,14 +13,14 @@ class BladeSpirits (Spell):
 		self.mantra = 'In Jux Hur Ylem'
 		self.validtarget = TARGET_GROUND
 	
-	def cast(self, char, mode):
+	def cast(self, char, mode, args=[]):
 		if char.player and char.controlslots >= 5:
 			char.socket.clilocmessage(1049645)
 			return
 		else:
 			return Spell.cast(self, char, mode)
 	
-	def target(self, char, mode, targettype, target):
+	def target(self, char, mode, targettype, target, args=[]):
 		char.turnto(target)
 		
 		if char.player and char.controlslots >= 5:
@@ -44,7 +44,7 @@ class DispelField (Spell):
 		self.mantra = 'An Grav'
 		self.validtarget = TARGET_ITEM
 		
-	def target(self, char, mode, targettype, target):
+	def target(self, char, mode, targettype, target, args=[]):
 		char.turnto(target)
 
 		# Dispellable?
@@ -100,7 +100,7 @@ class Incognito (Spell):
 		self.reagents = {REAGENT_NIGHTSHADE: 1, REAGENT_BLOODMOSS: 1, REAGENT_GARLIC: 1}
 		self.mantra = 'Kal In Ex'
 
-	def cast(self, char, mode):
+	def cast(self, char, mode, args=[]):
 		if char.incognito or char.polymorph:
 			char.socket.clilocmessage(1005559)
 			return
@@ -176,7 +176,7 @@ class MagicReflect(Spell):
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1}
 		self.mantra = 'In Jux Sanct'
 
-	def cast(self, char, mode):
+	def cast(self, char, mode, args=[]):
 		if not self.consumerequirements(char, mode):
 			return
 
@@ -220,7 +220,7 @@ class Paralyze (CharEffectSpell):
 		self.harmful = 1
 		self.reflectable = 1
 		
-	def affectchar(self, char, mode, target):
+	def affectchar(self, char, mode, target, args=[]):
 		if target.frozen:
 			if char.socket:
 				char.socket.clilocmessage(1061923)
@@ -255,7 +255,7 @@ class PoisonField(Spell):
 		self.mantra = 'In Nox Grav'
 		self.validtarget = TARGET_GROUND
 		
-	def target(self, char, mode, targettype, target):
+	def target(self, char, mode, targettype, target, args=[]):
 		char.turnto(target)
 			
 		if not self.consumerequirements(char, mode):
@@ -319,14 +319,14 @@ class SummonCreature (Spell):
 		self.mantra = 'Kal Xen'
 		self.validtarget = TARGET_GROUND
 		
-	def cast(self, char, mode):
+	def cast(self, char, mode, args=[]):
 		if char.player and char.controlslots + 2 > 5:
 			if char.socket:
 				char.socket.clilocmessage(1049645)
 			return
 		return Spell.cast(self, char, mode)
 		
-	def target(self, char, mode, targettype, target):
+	def target(self, char, mode, targettype, target, args=[]):
 		char.turnto(target)
 		
 		if char.player and char.controlslots + 2 > 5:

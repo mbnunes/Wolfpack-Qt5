@@ -7,20 +7,20 @@ import random
 from combat import properties
 
 # Recursive Function for counting reagents
-def countReagents( item, items ):
+def countReagents(item, items):
 	for key in items.keys():
 		if key == item.id and item.color == 0:
-			items[ key ] = max( 0, items[ key ] - item.amount )
+			items[ key ] = max(0, items[ key ] - item.amount)
 			return items # Reagents normally dont have content
 			
 	for subitem in item.content:
-		items = countReagents( subitem, items )
+		items = countReagents(subitem, items)
 		
 	return items
 	
 # Recursive Function for removing reagents
-def consumeReagents( item, items ):
-	for ( key, value ) in items.items():
+def consumeReagents(item, items):
+	for (key, value) in items.items():
 		if key == item.id and item.color == 0:
 			if item.amount <= value:
 				items[ key ] -= item.amount
@@ -33,21 +33,21 @@ def consumeReagents( item, items ):
 			return items # Reagents normally dont have content
 
 	for subitem in item.content:
-		items = consumeReagents( subitem, items )
+		items = consumeReagents(subitem, items)
 		
 	return items
 
 # Basic Spell Class
 class Spell:
 	# We affect another character
-	def affectchar(self, char, mode, target):
+	def affectchar(self, char, mode, target, args=[]):
 		return 1
 	
-	def register( self, id ):
-		self.spellid = id		
-		magic.registerspell( self.spellid, self )
+	def register(self, id):
+		self.spellid = id
+		magic.registerspell(self.spellid, self)
 	
-	def __init__( self, circle ):
+	def __init__(self, circle):
 		# Set Mana
 		self.mana = 0
 		self.reagents = {}
@@ -65,10 +65,10 @@ class Spell:
 		mana_table = [ 4, 6, 9, 11, 14, 20, 40, 50 ]
 		self.mana = mana_table[ self.circle - 1 ]
 
-	def calcdelay( self ):
-		return 250 + ( 250 * self.circle )
+	def calcdelay(self):
+		return 250 + (250 * self.circle)
 	
-	def checkrequirements( self, char, mode ):
+	def checkrequirements(self, char, mode, args=[]):
 		if char.dead:
 			return 0
 
@@ -79,7 +79,7 @@ class Spell:
 				return 0
 
 			# Check for Reagents	
-			if len( self.reagents ) > 0:
+			if len(self.reagents) > 0:
 				items = countReagents(char.getbackpack(), self.reagents.copy())
 	
 				for item in items.keys():
@@ -89,7 +89,7 @@ class Spell:
 	
 		return 1
 
-	def consumerequirements( self, char, mode ):
+	def consumerequirements(self, char, mode, args=[]):
 		# Check Basic Requirements before proceeding (Includes Death of Caster etc.)
 		if not self.checkrequirements(char, mode):
 			fizzle(char)
@@ -102,8 +102,8 @@ class Spell:
 				char.updatemana()
 	
 			# Consume Reagents
-			if len( self.reagents ) > 0:
-				consumeReagents( char.getbackpack(), self.reagents.copy() )
+			if len(self.reagents) > 0:
+				consumeReagents(char.getbackpack(), self.reagents.copy())
 				
 		# Check Skill
 		minskill = max(0, int((1000 / 7) * self.circle - 200))
@@ -117,7 +117,7 @@ class Spell:
 		return 1
 		
 	# Not implemented yet
-	def checkreflect( self, char, mode, targettype, target ):
+	def checkreflect(self, char, mode, targettype, target):
 		return 0
 	
 	#
@@ -173,16 +173,16 @@ class Spell:
 			
 		return chance >= random.random()
 
-	def cast( self, char, mode ):
+	def cast(self, char, mode, args=[]):
 		if char.socket:	
-			char.socket.settag( 'cast_target', 1 )
-			char.socket.attachtarget( 'magic.target_response', [ self.spellid, mode ], 'magic.target_cancel', 'magic.target_timeout', 8000 ) # Don't forget the timeout later on
+			char.socket.settag('cast_target', 1)
+			char.socket.attachtarget('magic.target_response', [ self.spellid, mode, args ], 'magic.target_cancel', 'magic.target_timeout', 8000) # Don't forget the timeout later on
 		else:
 			# Callback to the NPC AI ??
-			wolfpack.console.log( LOG_ERROR, "A NPC is trying to cast a spell." )
+			wolfpack.console.log(LOG_ERROR, "A NPC is trying to cast a spell.")
 
-	def target( self, char, mode, targettype, target ):
-		raise Exception, "Spell without target method: " + str( self.__class__.__name__ )
+	def target(self, char, mode, targettype, target, args=[]):
+		raise Exception, "Spell without target method: " + str(self.__class__.__name__)
 		
 	#
 	# Call this if you harm another character directly
@@ -190,16 +190,16 @@ class Spell:
 	def harmchar(self, char, victim):
 		pass
 		
-class CharEffectSpell ( Spell ):
-	def __init__( self, circle ):
-		Spell.__init__( self, circle )
+class CharEffectSpell (Spell):
+	def __init__(self, circle):
+		Spell.__init__(self, circle)
 		self.validtarget = TARGET_CHAR
 		self.resistable = 1 # Most of them are resistable
 
-	def effect( self, char, target ):
-		raise Exception, "CharEffectSpell with unimplemented effect method: " + str( self.__clas__.__name__ )
+	def effect(self, char, target):
+		raise Exception, "CharEffectSpell with unimplemented effect method: " + str(self.__clas__.__name__)
 
-	def target(self, char, mode, targettype, target):
+	def target(self, char, mode, targettype, target, args=[]):
 		if not self.consumerequirements(char, mode):
 			return
 
@@ -220,39 +220,39 @@ class CharEffectSpell ( Spell ):
 # A damage spell. It can be delayed but doesnt need
 # to be.
 #
-class DelayedDamageSpell( CharEffectSpell ):
-	def __init__( self, circle ):
-		CharEffectSpell.__init__( self, circle )
+class DelayedDamageSpell(CharEffectSpell):
+	def __init__(self, circle):
+		CharEffectSpell.__init__(self, circle)
 		self.validtarget = TARGET_CHAR
 		self.harmful = 1 # All of them are harmful
 		self.missile = None # If set, a missile will be shot [ id, fixed-direction, explode, speed ]
 		self.delay = 1000 # Default Delay
 		self.sound = None
 		
-	def effect( self, char, target ):
+	def effect(self, char, target):
 		# Shoot a missile?
 		if self.missile:
-			char.movingeffect( self.missile[0], target, self.missile[1], self.missile[2], self.missile[3] )
+			char.movingeffect(self.missile[0], target, self.missile[1], self.missile[2], self.missile[3])
 	
 		if self.sound:
-			char.soundeffect( self.sound )
+			char.soundeffect(self.sound)
 	
 		# The damage will be dealt in one second
 		if not self.delay:
 			self.damage(char, target)
 		else:
-			target.addtimer( 1000, 'magic.spell.damage_callback', [ self.spellid, char.serial ], 0, 0 )
+			target.addtimer(1000, 'magic.spell.damage_callback', [ self.spellid, char.serial ], 0, 0)
 
 #
 # Callback for delayed damage spells
 #
-def damage_callback( target, args ):
+def damage_callback(target, args):
 	spell = magic.spells[ args[0] ]
-	char = wolfpack.findchar( args[1] )
+	char = wolfpack.findchar(args[1])
 	
 	# Something went out of scope
 	if not char or not spell:
-		wolfpack.console.log( LOG_WARNING, "Either Caster or Spell went out of scope in damage_callback.\n" )
+		wolfpack.console.log(LOG_WARNING, "Either Caster or Spell went out of scope in damage_callback.\n")
 		return
 
 	spell.damage(char, target)

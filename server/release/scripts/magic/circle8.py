@@ -5,7 +5,5 @@ import random
 import wolfpack
 from wolfpack.utilities import tobackpack
 
-
-
 def onLoad():
 	pass

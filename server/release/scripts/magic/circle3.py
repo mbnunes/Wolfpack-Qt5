@@ -40,7 +40,7 @@ class WallOfStone(Spell):
 		self.mantra = 'In Sanct Ylem'
 		self.validtarget = TARGET_GROUND
 		
-	def target(self, char, mode, targettype, target):	
+	def target(self, char, mode, targettype, target, args=[]):	
 		char.turnto(target)
 
 		if not self.consumerequirements(char, mode):
@@ -80,7 +80,7 @@ class Teleport(Spell):
 		self.validtarget = TARGET_GROUND
 		self.range = 12
 		
-	def target(self, char, mode, targettype, target):	
+	def target(self, char, mode, targettype, target, args=[]):	
 		char.turnto(target)
 		
 		# Line of Sight (touch!! or else we can teleport trough windows)
@@ -118,7 +118,7 @@ class MagicLock(Spell):
 		self.mantra = 'An Por'
 		self.validtarget = TARGET_ITEM
 		
-	def target(self, char, mode, targettype, target):	
+	def target(self, char, mode, targettype, target, args=[]):	
 		char.turnto(target)
 		
 		# We can only lock unlocked chests
@@ -151,7 +151,7 @@ class Unlock(Spell):
 		self.mantra = 'Ex Por'
 		self.validtarget = TARGET_ITEM
 		
-	def target(self, char, mode, targettype, target):	
+	def target(self, char, mode, targettype, target, args=[]):	
 		char.turnto(target)
 		
 		# We can only lock unlocked chests
@@ -182,7 +182,7 @@ class Telekinesis(Spell):
 		self.mantra = 'Ort Por Ylem'
 		self.validtarget = TARGET_ITEM
 		
-	def target(self, char, mode, targettype, target):			
+	def target(self, char, mode, targettype, target, args=[]):			
 		char.turnto(target)
 		
 		events = target.events

@@ -52,8 +52,6 @@ def sendresponse2(player, arguments, target):
 	object.removefromview()
 	object.moveto(pos)
 	object.update()
-	if object.ischar() and object.socket:
-		object.socket.resendworld()
 
 def sendresponse(player, arguments, target):
 	if target.item:
@@ -88,8 +86,6 @@ def sendresponse(player, arguments, target):
 			object.removefromview()
 			object.moveto(pos)
 			object.update()
-			if object.ischar() and object.socket:
-				object.socket.resendworld()
 			return
 		except:
 			pass
@@ -104,8 +100,6 @@ def sendresponse(player, arguments, target):
 			object.removefromview()
 			object.moveto(pos)
 			object.update()
-			if object.ischar() and object.socket:
-				object.socket.resendworld()
 		else:
 			socket.sysmessage('Usage: send <x, y, z, map>|<location>')		
 
@@ -150,7 +144,6 @@ def go(socket, command, arguments):
 			player.removefromview()
 			player.moveto(pos)
 			player.update()
-			player.socket.resendworld()
 			return
 		except:
 			pass
@@ -165,7 +158,6 @@ def go(socket, command, arguments):
 		player.removefromview()
 		player.moveto(pos)
 		player.update()
-		player.socket.resendworld()
 	else:
 		socket.sysmessage('Usage: <x, y, z, map>|<location>')
 
@@ -189,7 +181,6 @@ class GoAction(MakeAction):
 		player.removefromview()
 		player.moveto(self.pos)
 		player.update()
-		player.socket.resendworld()
 
 #
 # Generate a menu structure out of the

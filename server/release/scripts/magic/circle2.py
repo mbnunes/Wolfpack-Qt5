@@ -70,7 +70,7 @@ class MagicTrap (Spell):
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1}
 		self.mantra = 'In Jux'
 		
-	def target(self, char, mode, targettype, target):
+	def target(self, char, mode, targettype, target, args=[]):
 		char.turnto(target)
 	
 		# Only containers are trappable
@@ -101,7 +101,7 @@ class RemoveTrap (Spell):
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_SULFURASH: 1}
 		self.mantra = 'An Jux'
 		
-	def target(self, char, mode, targettype, target):
+	def target(self, char, mode, targettype, target, args=[]):
 		char.turnto(target)
 	
 		if not self.consumerequirements(char, mode):
@@ -129,7 +129,7 @@ class Protection(Spell):
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_GINSENG: 1, REAGENT_SULFURASH: 1}
 		self.mantra = 'Uus Sanct'
 
-	def cast(self, char, mode):
+	def cast(self, char, mode, args=[]):
 		if not self.consumerequirements(char, mode):
 			return
 

@@ -171,7 +171,7 @@ def gainskill(char, skill, totalskill, totalcap):
 def onSkillGain(char, skill, lower, higher, success):
   # See if we can gain at all
   # GMs don't gain skills
-  if char.dead or char.gm:
+  if char.dead or char.gm or char.polymorph:
     return
 
   if not SKILLS.has_key(skill):

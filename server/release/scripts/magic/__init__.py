@@ -69,7 +69,7 @@ def castSpell( char, spell, mode = 0, args = [] ):
 	# Are the requirements met?
 	spell = spells[ spell ]
 	
-	if not spell.checkrequirements( char, mode ):
+	if not spell.checkrequirements(char, mode, args):
 		return
 	
 	# Unhide the Caster
@@ -83,7 +83,7 @@ def castSpell( char, spell, mode = 0, args = [] ):
 	# Precasting
 	char.events = ['magic'] + eventlist
 	char.action(ANIM_CASTAREA)	
-	char.addtimer(spell.calcdelay(), 'magic.callback', [spell.spellid, mode], 0, 0, "cast_delay")
+	char.addtimer(spell.calcdelay(), 'magic.callback', [spell.spellid, mode, args], 0, 0, "cast_delay")
 
 def callback( char, args ):
 	eventlist = char.events
@@ -91,7 +91,7 @@ def callback( char, args ):
 	char.events = eventlist
 
 	spell = spells[args[0]]
-	spell.cast(char, args[1])
+	spell.cast(char, args[1], args[2])
 
 # Target Cancel
 def target_cancel(char):

@@ -59,7 +59,7 @@ class CreateFood(Spell):
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_GINSENG: 1, REAGENT_MANDRAKE: 1}
 		self.mantra = 'In Mani Ylem'
 
-	def cast(self, char, mode):
+	def cast(self, char, mode, args=[]):
 		if not self.consumerequirements(char, mode):
 			return
 		 
@@ -84,7 +84,7 @@ class Heal (CharEffectSpell):
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_GINSENG: 1, REAGENT_SPIDERSILK: 1}
 		self.mantra = 'In Mani'
 
-	def affectchar(self, char, mode, target):
+	def affectchar(self, char, mode, target, args=[]):
 		if target.poison != -1:
 			if target == char:
 				char.message(1005000)
@@ -111,7 +111,7 @@ class NightSight (CharEffectSpell):
 		self.mantra = 'In Lor'
 		self.range = 10
 	
-	def affectchar(self, char, mode, target):
+	def affectchar(self, char, mode, target, args=[]):
 		if not target.player:
 			if char.socket:
 				char.socket.sysmessage('This spell only works on players.')
@@ -166,7 +166,7 @@ class ReactiveArmor(Spell):
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1}
 		self.mantra = 'Flam Sanct'
 
-	def cast(self, char, mode):
+	def cast(self, char, mode, args=[]):
 		if not self.consumerequirements(char, mode):
 			return
 

@@ -88,6 +88,7 @@
 	<!-- Magic -->
 	<script>magic</script>
 	<script>magic.spellbook</script>
+	<script>magic.gate</script>
 	<script>magic.nightsight</script>
 	<script>magic.rune</script>
 	<script>magic.runebook</script>

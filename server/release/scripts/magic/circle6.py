@@ -15,7 +15,7 @@ class Dispel (CharEffectSpell):
 		self.mantra = 'An Ort'
 		self.harmful = 1
 
-	def affectchar(self, char, mode, target):
+	def affectchar(self, char, mode, target, args=[]):
 		if not Spell.affectchar(self, char, mode, target):
 			return 0
 		
@@ -54,11 +54,11 @@ class Explosion (DelayedDamageSpell):
 		DelayedDamageSpell.__init__(self, 6)
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1}
 		self.mantra = 'Vas Ort Flam'
-		self.sound = 0x307
 		self.reflectable = 1
 		self.delay = 3000
 		
 	def damage(self, char, target):
+		target.soundeffect(0x307)
 		target.effect(0x36BD, 20, 10)
 		damage = self.scaledamage(char, target, 38, 1, 5)
 		energydamage(target, char, damage, fire=100)
@@ -94,7 +94,7 @@ class Mark (Spell):
 		self.mantra = 'Kal Por Ylem'
 		self.validtarget = TARGET_ITEM
 
-	def cast(self, char, mode):
+	def cast(self, char, mode, args=[]):
 		# No Mark Region
 		if not char.region or char.region.nomark:
 			if char.socket:
@@ -103,7 +103,7 @@ class Mark (Spell):
 
 		return Spell.cast(self, char, mode)
 
-	def target(self, char, mode, targettype, target):	
+	def target(self, char, mode, targettype, target, args=[]):	
 		char.turnto(target)
 		
 		if not char.region or char.region.nomark:
@@ -140,7 +140,7 @@ class MassCurse (Spell):
 		self.mantra = 'Vas Des Sanct'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target):	
+	def target(self, char, mode, targettype, target, args=[]):	
 		if not self.consumerequirements(char, mode):
 			return
 
@@ -182,7 +182,7 @@ class ParalyzeField(Spell):
 		self.harmful = 1
 		self.resistable = 1
 		
-	def target(self, char, mode, targettype, target):
+	def target(self, char, mode, targettype, target, args=[]):
 		char.turnto(target)
 			
 		if not self.consumerequirements(char, mode):
@@ -217,6 +217,7 @@ class ParalyzeField(Spell):
 			newitem.settag('dispellable_field', 1)
 			newitem.settag('strength', char.skill[self.damageskill])
 			newitem.events = ['magic.paralyzefield']
+			newitem.direction = 29
 			newitem.update()
 			serials.append(newitem.serial)
 			wolfpack.effect(0x376A, newitem.pos, 9, 10)
@@ -237,7 +238,7 @@ class Reveal (Spell):
 		self.mantra = 'Wis Quas'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target):	
+	def target(self, char, mode, targettype, target, args=[]):	
 		if not self.consumerequirements(char, mode):
 			return
 

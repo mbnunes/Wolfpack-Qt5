@@ -24,7 +24,6 @@ def onUse(player, item):
   menu = findmenu('BOWCRAFT')
   if menu:
     menu.send(player, [item.serial])
-
   return 1
 
 #
@@ -144,7 +143,7 @@ class FletchItemAction(CraftItemAction):
 #
 # The bowcraft menu.
 #
-class TailoringMenu(MakeMenu):
+class BowcraftMenu(MakeMenu):
   def __init__(self, id, parent, title):
     MakeMenu.__init__(self, id, parent, title)
     self.allowmark = 1
@@ -230,7 +229,7 @@ def loadMenu(id, parent = None):
     return
 
   name = definition.getattribute('name', '')
-  menu = TailoringMenu(id, parent, name)
+  menu = BowcraftMenu(id, parent, name)
 
   # See if we have any submenus
   for i in range(0, definition.childcount):

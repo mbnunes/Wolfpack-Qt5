@@ -519,6 +519,7 @@ class MakeMenu:
     self.subactions = []
     self.title = title
     self.gumptype = 0
+    self.name_makelast = "Make Last"
 
     # Display a repair item button on the makemenu
     self.allowrepair = 0
@@ -710,7 +711,7 @@ class MakeMenu:
 
     # MAKE LAST button , return value: 2
     gump.addButton(15, 330, 4005, 4007, 2)
-    gump.addText(50, 333, "Make Last", 0x480)
+    gump.addText(50, 333, self.name_makelast, 0x480)
 
     # PREVIOUS MENU button, return value: 3
     # Or: if we're on one of the subpages for settings
