@@ -64,12 +64,6 @@
 		<category>Vegetation\Crystals\Giant Crystal 9</category>
 	</item>
 
-	<item id="220f">
-		<id>0x220f</id>
-		<nodecay />
-		<category>Vegetation\Crystals\Giant Crystal 10</category>
-	</item>
-
 	<item id="2210">
 		<id>0x2210</id>
 		<nodecay />
@@ -122,12 +116,6 @@
 		<id>0x2218</id>
 		<nodecay />
 		<category>Vegetation\Crystals\Giant Crystal 19</category>
-	</item>
-
-	<item id="2219">
-		<id>0x2219</id>
-		<nodecay />
-		<category>Vegetation\Crystals\Giant Crystal 20</category>
 	</item>
 
 	<item id="221a">
@@ -184,12 +172,6 @@
 		<category>Vegetation\Crystals\Giant Crystal 29</category>
 	</item>
 
-	<item id="2223">
-		<id>0x2223</id>
-		<nodecay />
-		<category>Vegetation\Crystals\Giant Crystal 30</category>
-	</item>
-
 	<item id="2224">
 		<id>0x2224</id>
 		<nodecay />
@@ -243,5 +225,101 @@
 		<nodecay />
 		<category>Vegetation\Crystals\Giant Crystal 39</category>
 	</item>
+	
+	<item id="223a">
+		<id>0x223a</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 1</category>
+	</item>
+	
+	<item id="223b">
+		<id>0x223b</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 2</category>
+	</item>
+	
+	<item id="223c">
+		<id>0x223c</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 3</category>
+	</item>
+	
+	<item id="223d">
+		<id>0x223d</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 4</category>
+	</item>
+
+	<item id="223e">
+		<id>0x223e</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 5</category>
+	</item>
+	
+	<item id="223f">
+		<id>0x223f</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 6</category>
+	</item>
+	
+	<item id="2240">
+		<id>0x2240</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 7</category>
+	</item>
+	
+	<item id="2241">
+		<id>0x2241</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 8</category>
+	</item>
+	
+	<item id="2242">
+		<id>0x2242</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 9</category>
+	</item>
+	
+	<item id="2243">
+		<id>0x2243</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 10</category>
+	</item>
+	
+	<item id="2244">
+		<id>0x2244</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 11</category>
+	</item>
+	
+	<item id="2245">
+		<id>0x2245</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 12</category>
+	</item>
+	
+	<item id="2246">
+		<id>0x2246</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 13</category>
+	</item>
+	
+	<item id="2247">
+		<id>0x2247</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 14</category>
+	</item>
+	
+	<item id="2248">
+		<id>0x2248</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 15</category>
+	</item>
+	
+	<item id="2249">
+		<id>0x2249</id>
+		<nodecay />
+		<category>Vegetation\Crystals\Broken Crystals 16</category>
+	</item>														
 
 </definitions>
