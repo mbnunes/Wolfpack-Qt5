@@ -34,6 +34,7 @@
 #include "tilecache.h"
 #include "wpconsole.h"
 #include "globals.h"
+#include "exceptions.h"
 
 #include <qfile.h>
 #include <qdatastream.h>
@@ -66,8 +67,6 @@ bool tile_st::isRoofOrFloorTile() const
 
 bool cTileCache::load( const QString &nPath )
 {
-	clConsole.PrepareProgress( "Loading tile cache" );
-
 	path = nPath;
 
 	// Null out our placeholder tiles first
@@ -77,11 +76,7 @@ bool cTileCache::load( const QString &nPath )
 	QFile input( path + "tiledata.mul" );
 
 	if( !input.open( IO_ReadOnly ) )
-	{
-		clConsole.ProgressFail();
-		clConsole.send( QString("Couldn't open tiledata.mul, attempted with %1").arg( path + "tiledata.mul" ) );
-		return false;
-	}
+		throw wpException( QString( "Error opening file %1 for reading." ).arg( nPath + "tiledata.mul" ) );
 
 	// Begin reading in the Land-Tiles
 	UINT32 i, j;
@@ -188,9 +183,6 @@ bool cTileCache::load( const QString &nPath )
 		}
 	}
 	input.close();
-
-	clConsole.ProgressDone();
-
 	return true;
 }
 

@@ -154,7 +154,6 @@ cMagic			*Magic;
 cSpeech	        *Speech;
 cTrade	        *Trade;
 cBounty         *Bounty;
-cMultisCache	*MultisCache;
 WPScriptManager	*ScriptManager;
 WPDefManager    *DefManager;
 PersistentBroker* persistentBroker;

@@ -170,7 +170,6 @@ class cSpeech;
 class cTrade;
 class cBounty;
 class cAccounts;
-class cMultisCache;
 class PersistentBroker;
 
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
@@ -185,7 +184,6 @@ extern cMagic					*Magic;
 extern cSpeech					*Speech;
 extern cTrade					*Trade;
 extern cBounty					*Bounty;
-extern cMultisCache				*MultisCache;
 extern WPScriptManager			*ScriptManager;
 extern WPDefManager				*DefManager;
 extern PersistentBroker			*persistentBroker;

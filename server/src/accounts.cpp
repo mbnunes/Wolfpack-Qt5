@@ -38,6 +38,7 @@
 #include "commands.h"
 #include "chars.h"
 #include "network.h"
+#include "exceptions.h"
 
 
 // ===== AccountRecord Methods ===== //
@@ -224,8 +225,6 @@ void cAccounts::save()
 
 void cAccounts::load()
 {
-	clConsole.PrepareProgress( "Loading Accounts" );
-
 	ISerialization* archive = cPluginFactory::serializationArchiver( SrvParams->accountsArchiver());
 	archive->prepareReading("accounts");
 	for (uint i = 0; i < archive->size(); ++i)
@@ -239,15 +238,10 @@ void cAccounts::load()
 			accounts.insert( d->login(), d );
 		}
 		else
-		{
-			clConsole.ProgressFail();
-			qFatal("Error parsing account records");
-			return;
-		}
+			throw wpException( "Error parsing account records." );
 	}
 	archive->close();
 	delete archive;
-	clConsole.ProgressDone();
 }
 
 void cAccounts::reload()

@@ -105,7 +105,7 @@ public:
 	cPythonTarget( QString _responsefunc, QString _timeoutfunc, QString _cancelfunc, PyObject *_args ):
 	  responsefunc( _responsefunc ), timeoutfunc( _timeoutfunc ), cancelfunc( _cancelfunc ), args( _args )
 	  {
-		  tuple_incref( args );
+		  Py_INCREF( args );
 	  }
 
 	bool responsed( cUOSocket *socket, cUORxTarget *target )
@@ -140,7 +140,7 @@ public:
 			}
 		}
 
-		tuple_decref( args );
+		Py_DECREF( args );
 		return true;
 	}
 
@@ -172,7 +172,7 @@ public:
 			}
 		}
 
-		tuple_decref( args );
+		Py_DECREF( args );
 	}
 
 	void canceled( cUOSocket *socket )
@@ -203,7 +203,7 @@ public:
 			}
 		}
 
-		tuple_decref( args );
+		Py_DECREF( args );
 	}
 };
 

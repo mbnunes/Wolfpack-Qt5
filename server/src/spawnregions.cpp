@@ -231,7 +231,8 @@ bool cSpawnRegion::findValidSpot( Coord_cl &pos )
 			return true;
 		i++;
 	}
-	clConsole.send( QString("WOLFPACK: A problem has occured in spawnregion %1. Couldn't find valid spot!\n").arg(this->name_) );
+
+	clConsole.log( LOG_WARNING, QString( "A problem has occured in spawnregion %1. Couldn't find valid spot." ).arg( this->name_ ) );
 	return false;
 }
 	
@@ -389,7 +390,6 @@ void cAllSpawnRegions::load( void )
 	this->clear(); // clear the std::map
 
 	QStringList DefSections = DefManager->getSections( WPDT_SPAWNREGION );
-	clConsole.PrepareProgress( "Loading spawn regions" );
 
 	QStringList::iterator it = DefSections.begin();
 	while( it != DefSections.end() )
@@ -400,7 +400,7 @@ void cAllSpawnRegions::load( void )
 		this->insert( make_pair(*it, toinsert_) );
 		if ( toinsert_->cBaseRegion::rectangles().empty() )
 		{
-			clConsole.send( tr("Warning: Top level spawnregion %1 lacks rectangle tag, ignoring region").arg(toinsert_->name()) );
+			clConsole.log( LOG_WARNING, QString( "Top level spawnregion %1 lacks rectangle tag, ignoring region." ).arg( toinsert_->name() ) );
 			delete toinsert_;
 		}
 		else
@@ -410,30 +410,6 @@ void cAllSpawnRegions::load( void )
 
 		++it;
 	}
-
-	AllCharsIterator iter_char;
-	for( iter_char.Begin(); !iter_char.atEnd(); iter_char++ )
-	{
-		P_CHAR pc = iter_char.GetData();
-		
-		iterator iter_spreg = this->find( pc->spawnregion() );
-		if( iter_spreg != this->end() )
-			iter_spreg->second->add( pc->serial() );
-	}
-
-	AllItemsIterator iter_item;
-	for( iter_item.Begin(); !iter_item.atEnd(); iter_item++ )
-	{
-		P_ITEM pi = iter_item.GetData();
-		
-		iterator iter_spreg = this->find( pi->spawnregion() );
-		if( iter_spreg != this->end() )
-			iter_spreg->second->add( pi->serial() );
-	}
-
-	UI32 endtime = getNormalizedTime();
-	clConsole.ProgressDone();
-	clConsole.send( QString( "Loaded %1 spawnregions in %2 sec.\n" ).arg( DefSections.size() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ) );
 }
 
 void cAllSpawnRegions::check( void )

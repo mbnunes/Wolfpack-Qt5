@@ -194,8 +194,6 @@ void cSpell::cast( P_CHAR character, UI08 source )
 // Magic "container" class
 void cMagic::load( void )
 {
-	clConsole.PrepareProgress( "Loading spells" );
-
 	QStringList sections = DefManager->getSections( WPDT_SPELL );
 
 	for( UI08 i = 0; i < sections.count(); i++ )
@@ -211,8 +209,6 @@ void cMagic::load( void )
 		loadedSpells[ spellID ] = new cSpell;
 		loadedSpells[ spellID ]->load( *DefSection );
 	}
-
-	clConsole.ProgressDone();
 }
 
 void cMagic::reload( void )

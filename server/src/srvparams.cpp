@@ -41,6 +41,7 @@
 // Library Includes
 #include <qstring.h>
 #include <qstringlist.h>
+#include <qdir.h>
 #include <qhostaddress.h>
 #include <qdatetime.h>
 
@@ -214,7 +215,7 @@ void cSrvParams::readData()
 	heartBeat_				= getBool("General", "HeartBeat", false, true);
 	defaultpriv1_			= getNumber("General", "DefaultPrivileage1", 0, true);
 	defaultpriv2_			= getNumber("General", "DefaultPrivileage2", 0, true);
-	mulPath_				= getString("General", "MulPath", "./", true);
+	mulPath_				= QDir::convertSeparators( getString("General", "MulPath", "./", true) );
 
 	// Network
 	loginPort_				= getNumber( "Network",		"Loginserver Port", 2593, true );

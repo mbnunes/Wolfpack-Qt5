@@ -180,7 +180,7 @@ bool cMulti::inMulti( const Coord_cl &srcpos )
 bool cMulti::inMulti( const Coord_cl &srcpos, const Coord_cl &multipos, UI16 id )
 {
 
-	MultiDefinition* def = MultisCache->getMulti( id - 0x4000 );
+	MultiDefinition* def = MultiCache::instance()->getMulti( id - 0x4000 );
 	if ( !def )
 		return false;
 	return def->inMulti( srcpos.x - multipos.x, srcpos.y - multipos.y );

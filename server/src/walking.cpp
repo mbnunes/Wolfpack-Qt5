@@ -217,7 +217,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 
 		if( pItem->id() >= 0x4000 )
 		{
-			MultiDefinition* def = MultisCache->getMulti( pItem->id() - 0x4000 );
+			MultiDefinition* def = MultiCache::instance()->getMulti( pItem->id() - 0x4000 );
 			if ( !def )
 				continue;
 			QValueVector<multiItem_st> multi = def->getEntries();
@@ -893,7 +893,7 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 				(abs(mapitem->pos().y - position.y)<=BUILDRANGE)
 				)
 			{
-				MultiDefinition* def = MultisCache->getMulti( mapitem->id() - 0x4000 );
+				MultiDefinition* def = MultiCache::instance()->getMulti( mapitem->id() - 0x4000 );
 				if ( !def )
 					continue;
 				QValueVector<multiItem_st> multi = def->getEntries();
@@ -1661,7 +1661,7 @@ UINT16 DynTile( const Coord_cl &pos )
 		{
 			if( mapitem->isMulti() )
 			{
-				MultiDefinition* def = MultisCache->getMulti( mapitem->id() - 0x4000 );
+				MultiDefinition* def = MultiCache::instance()->getMulti( mapitem->id() - 0x4000 );
 				if ( !def )
 					return 0;
 				QValueVector<multiItem_st> multi = def->getEntries();

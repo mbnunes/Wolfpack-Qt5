@@ -42,7 +42,6 @@
 #include "verinfo.h"
 #include "speech.h"
 #include "territories.h"
-#include "remadmin.h"
 #include "worldmain.h"
 #include "books.h"
 #include "TmpEff.h"
@@ -51,6 +50,7 @@
 #include "mapobjects.h"
 #include "srvparams.h"
 #include "network.h"
+#include "exceptions.h"
 #include "classes.h"
 #include "gumps.h"
 #include "commands.h"
@@ -182,58 +182,6 @@ bool online(P_CHAR pc) // Is the player owning the character c online
 		return true;
 	return false;
 }
-
-static void item_char_test()
-{
-	LogMessage( "Starting item consistancy check" );
-	
-	AllItemsIterator iterItems;
-	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
-	{
-		P_ITEM pi = iterItems.GetData();
-
-		if( pi->serial() == pi->ownSerial() )
-		{
-			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous owner value\n" ).arg( pi->name() ).arg( pi->serial() ) );
-			pi->SetOwnSerial( -1 );
-		}
-
-		if( pi->serial() == pi->spawnserial )
-		{
-			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous spawn value\n" ).arg( pi->name() ).arg( pi->serial() ) );
-			pi->SetSpawnSerial( -1 );
-		}
-	}
-
-	// check for stabled pets that dont have a stablemaster anymore
-	P_CHAR p_pet;
-	int stablemaster_serial;
-	AllCharsIterator iter_char;
-	for ( iter_char.Begin(); !iter_char.atEnd(); iter_char++)
-	{
-		p_pet = iter_char.GetData();
-		if (p_pet != NULL)
-		{
-			 stablemaster_serial = p_pet->stablemaster_serial();
-			 if (stablemaster_serial != INVALID_SERIAL) // stabled ?
-			 {
-				P_CHAR pc_j = FindCharBySerial(stablemaster_serial);
-				if (pc_j == NULL)
-				{
-					stablesp.remove(stablemaster_serial, p_pet->serial());
-					p_pet->setStablemaster_serial(INVALID_SERIAL);
-					p_pet->setTimeused_last(getNormalizedTime());
-					p_pet->setTime_unused(0);
-					MapObjects::instance()->add(p_pet);
-					LogMessage("Stabled animal got freed because stablemaster died");
-					clConsole.send("stabled animal got freed because stablemaster died");
-				}
-			 }
-		}
-	}
-}
-
-
 
 void savelog(const char *msg, char *logfile)
 {
@@ -853,10 +801,11 @@ void interpretCommand( const QString &command )
 	}
 }
 
-static void checkparm( const QString &param )
+static void parseParameter( const QString &param )
 {
 	// Add what ever paramters you want
 	// Right now we don't have any parameters
+	Q_UNUSED( param );
 }
 
 static void quickdelete( P_ITEM pi )
@@ -894,10 +843,60 @@ static void quickdelete( P_ITEM pi )
 	ItemsManager::instance()->unregisterItem( pi );
 }
 
+/*!
+	Initializes global objects.
+*/
+static void startClasses()
+{
+	cwmWorldState	 = 0;
+	Items			 = 0;
+	Map				 = 0;
+	Skills			 = 0;
+	Weight			 = 0;
+	Magic			 = 0;
+	ScriptManager	 = 0;
+	DefManager		 = 0;
+	SrvParams		 = 0;
+	NewMagic		 = 0;
+	persistentBroker = 0;
+
+	SrvParams		 = new cSrvParams( "wolfpack.xml", "Wolfpack", "1.0" );
+	cwmWorldState	 = new CWorldMain;
+	Items			 = new cAllItems;
+	Map				 = new Maps ( SrvParams->mulPath() );
+	Skills			 = new cSkills;
+	Weight			 = new cWeight;
+	Magic			 = new cMagic;
+	ScriptManager	 = new WPScriptManager;
+	DefManager		 = new WPDefManager;
+	NewMagic		 = new cNewMagic;
+	persistentBroker = new PersistentBroker;
+}
+
+/*!
+	Deletes global objects.
+*/
+static void freeClasses( void )
+{
+	delete SrvParams;
+	delete cwmWorldState;
+	delete Items;
+	delete Map;
+	delete Skills;
+	delete Weight;
+	delete Magic;
+	delete ScriptManager;
+	delete DefManager;
+	delete NewMagic;
+}
+
 #if defined(_DEBUG)
 //#include <crash.h>
 #endif
 
+/*!
+	Main server procedure.
+*/
 int main( int argc, char *argv[] )
 {
 #if defined(_DEBUG)
@@ -908,11 +907,10 @@ int main( int argc, char *argv[] )
 
 	QApplication app( argc, argv, false ); // we need one instance
 
-	// Parse our arguments
 	unsigned int i;
 
 	for( i = 1; i <= argc; ++i )
-		checkparm( QString( argv[ i ] ) );
+		parseParameter( QString( argv[ i ] ) );
 	
 	// Unix Signal Handling
 	#if defined( __unix__ )	
@@ -923,99 +921,142 @@ int main( int argc, char *argv[] )
 	signal( SIGPIPE, SIG_IGN );			// Ignore SIGPIPE
 	#endif	
 
-	#define CIAO_IF_ERROR if (error==1) { cNetwork::instance()->shutdown(); DeleteClasses(); exit(-1); }
+	#define CIAO_IF_ERROR if (error==1) { cNetwork::instance()->shutdown(); exit( -1 ); }
 
 	unsigned long tempSecs;
 	unsigned long loopSecs;
 	unsigned long tempTime;
-	int r;
 	uiCurrentTime = serverstarttime = getNormalizedTime();
 
 	// Print a seperator somehow
 	clConsole.send( QString( "\n%1 %2 %3 \n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ) );
 
 	clConsole.send( "Copyright (C) 1997, 98 Marcus Rating (Cironian)\n");
-	clConsole.send( "This program is free software; you can redistribute it and/or modify\n");
-	clConsole.send( "it under the terms of the GNU General Public License as published by\n");
-	clConsole.send( "the Free Software Foundation; either version 2 of the License, or\n");
-	clConsole.send( "(at your option) any later version.\n\n");
+	clConsole.send( "By using this software you agree to the license accompanying this release.\n");
 	clConsole.send( "Compiled on %s (%s %s)\n",__DATE__,__TIME__, wp_version.timezonestring.c_str() );
-	clConsole.send( "Programmed by: %s\n", wp_version.codersstring.c_str() );
 	clConsole.send( "\n" );
-
 	
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() );
 	clConsole.setConsoleTitle( consoleTitle );
 
-	StartClasses();
-
-	QTranslator translator(0); // must be valid thru app life.
-	QString languageFile = SrvParams->getString("General", "Language File", "", true);
-	if ( !languageFile.isEmpty() )
+	// Startup normal Classes
+	try
 	{
-		translator.load( languageFile, "." );
-		app.installTranslator( &translator );
+		atexit( freeClasses );
+		startClasses();
+	}
+	catch( ... )
+	{
+		clConsole.log( LOG_FATAL, "Couldn't start up classes." );
+		exit( -1 );
 	}
 
-	DefManager->load();
+	// Startup Translator
+	try
+	{
+		QTranslator translator( 0 ); // must be valid thru app life.
+		QString languageFile = SrvParams->getString( "General", "Language File", "", true );
+		if ( !languageFile.isEmpty() )
+		{
+			translator.load( languageFile, "." );
+			app.installTranslator( &translator );
+		}
+	}
+	catch( ... )
+	{
+		clConsole.log( LOG_FATAL, "Couldn't load translator." );
+		exit( -1 );
+	}
 
-	startPython( argc, argv );
-	ScriptManager->load();
+	// Try to start up python
+	try
+	{
+		startPython( argc, argv );
+	}
+	catch( ... )
+	{
+		clConsole.log( LOG_FATAL, "Couldn't start up python." );
+		exit( -1 );
+	}
 
-	clConsole.send( "\n" );
+	// Try to load several data files
+	try
+	{
+		// Load data
+		DefManager->load();
+		clConsole.send( "\n" );
 
-	//Now lets load the custom scripts, if they have them defined...
-	i=0;
+		ScriptManager->load();
+		clConsole.send( "\n" );
+
+		clConsole.send( "Loading skills...\n" );
+		Skills->load();
+
+		clConsole.send( "Loading accounts...\n" );
+		Accounts::instance()->load();
+
+		clConsole.send( "Loading spells...\n" );
+		Magic->load();
+		NewMagic->load();
+
+		clConsole.send( "Loading ip blocking rules...\n" );
+		cNetwork::instance()->load();
+
+		clConsole.send( "Loading regions...\n" );
+		cAllTerritories::getInstance()->load();
+
+		clConsole.send( "Loading spawn regions...\n" );
+		SpawnRegions::instance()->load();
+
+		clConsole.send( "Loading resources...\n" );
+		Resources::instance()->load();
+
+		clConsole.send( "Loading makemenus...\n" );
+		MakeMenus::instance()->load();
+
+		clConsole.send( "Loading contextmenus...\n" );
+		ContextMenus::instance()->reload();
+
+		// Load some MUL Data
+		clConsole.send( "Loading muls...\n" );
+		TileCache::instance()->load( SrvParams->mulPath() );
+		MultiCache::instance()->load( SrvParams->mulPath() );
+
+		Map->registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
+		Map->registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
+		Map->registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");	
+
+		clConsole.send( "\n" );
+	}
+	catch( wpException &exception )
+	{
+		clConsole.log( LOG_FATAL, exception.error() );
+		exit( -1 );
+	}
+	catch( ... )
+	{
+		clConsole.log( LOG_FATAL, "Unknown error while loading data files." );
+		exit( -1 );
+	}
+
 
 	SetGlobalVars();
-
-	Skills->load();
-	Accounts::instance()->load();
-
 	keeprun = 1;
-	//keeprun = cNetwork::instance()->kr; //LB. for some technical reasons global varaibles CANT be changed in constructors in c++.
-	//error = cNetwork::instance()->faul; // i hope i can find a cleaner solution for that, but this works !!!
-	// has to here and not at the cal cause it would get overriten later
 
-	CIAO_IF_ERROR;
-
-	// Try to cache the tiledata.mul
-	if( !TileCache::instance()->load( SrvParams->mulPath() ) )
-	{
-		error = 1;
-		CIAO_IF_ERROR;
-	}
-
-	// Try to load the multi data
-	MultisCache->load();
-
-	cAllTerritories::getInstance()->load();
-
-	CIAO_IF_ERROR;
-
-	// Hardcoded for now.
-	Map->registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
-	Map->registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
-	Map->registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
-
-	if (keeprun==0) { DeleteClasses(); exit(-1); }
-		
-	srand(uiCurrentTime); // initial randomization call
-
+	// initial randomization call
+	srand( uiCurrentTime );
 	serverstarttime = getNormalizedTime();
 
 	// Try to open our driver
 	if( !persistentBroker->openDriver( "mysql" ) )
 	{
-		DeleteClasses();
-		exit(-1);
+		exit( -1 );
 	}
 
 	// Establish the connection to our database (persistent!)
 	if( !persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() ) )
 	{
-		DeleteClasses();
-		exit(-1);
+		exit( -1 );
 	}
 
 	// Registers our Built-in types into factory.
@@ -1035,8 +1076,12 @@ int main( int argc, char *argv[] )
 	catch( QString error )
 	{
 		clConsole.log( LOG_FATAL, error );
-		DeleteClasses();
-		exit(-1);
+		exit( -1 );
+	}
+	catch( ... )
+	{
+		clConsole.log( LOG_FATAL, "Error while loading world." );
+		exit( -1 );
 	}
 
 	clConsole.PrepareProgress( "Postprocessing" );
@@ -1183,7 +1228,7 @@ int main( int argc, char *argv[] )
 
 	clConsole.ProgressDone();
 
-	clConsole.PrepareProgress( tr("Deleting lost items") );
+	clConsole.PrepareProgress( "Deleting lost items" );
 
 	// Do we have to delete items?
 	for( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
@@ -1197,39 +1242,18 @@ int main( int argc, char *argv[] )
 		deleteItems.clear();
 	}
 
-	SpawnRegions::instance()->load();
-	Resources::instance()->load();
-	MakeMenus::instance()->load();
-	ContextMenus::instance()->reload();
-
-	clConsole.PrepareProgress( tr("Resetting all Trade windows") ); // Should automatically be done whenever a char disconnects
-	Trade->clearalltrades();
-	clConsole.ProgressDone();
-
-	clConsole.PrepareProgress( tr("Initializing Multis") );
+	clConsole.PrepareProgress( "Initializing Multis" );
 	InitMultis();
 	clConsole.ProgressDone();
 
-	starttime=uiCurrentTime;
-	endtime=0;
-	lclock=0;
+	starttime = uiCurrentTime;
+	endtime = 0;
+	lclock = 0;
 
-	clConsole.PrepareProgress( tr("Initializing GM Pages") );
-	clConsole.ProgressDone();
-
-	cwmWorldState->announce(SrvParams->announceWorldSaves());
+	cwmWorldState->announce( SrvParams->announceWorldSaves() );
 
 	init_creatures(); // This initializes *fixed* data that should DEFINETLY be swaped out to the scripts !!!
-
-	Magic->load(); // Load the new magic system
-	NewMagic->load();
-
-	clConsole.PrepareProgress( tr("Loading IP Blocking rules") );
-	cNetwork::instance()->load();
-	clConsole.ProgressDone();
-
-	item_char_test(); //LB
-
+	
 	if( SrvParams->serverLog() )
 		savelog( "Server startup", "server.log" );
 
@@ -1377,51 +1401,20 @@ int main( int argc, char *argv[] )
 
 	cNetwork::instance()->broadcast( tr( "The server is shutting down." ) );
 
-//	if ( SrvParams->EnableRA() )
-//		RemoteAdmin::stop();
-
-	if (SrvParams->html()>0)
-	{
-		clConsole.send("Writing offline HTML page...");
-		offlinehtml();//HTML	// lb, the if prevents a crash on shutdown if html deactivated ...
-		clConsole.send(" Done.\n");
-	}
-
-	// No need for progress bar
-	Magic->unload();
-	NewMagic->unload();
-
-	clConsole.PrepareProgress( tr("Shutting down network") );
+	clConsole.PrepareProgress( tr( "Shutting down network" ) );
 	cNetwork::shutdown();
 	clConsole.ProgressDone();
-		
+
+	// Simply emptying of containers, no progressbar needed
+	Magic->unload();
+	NewMagic->unload();
 	DefManager->unload();
 
-	clConsole.PrepareProgress( tr("Saving configuration") );
 	SrvParams->flush();
-	clConsole.ProgressDone();
-	clConsole.send("\n");
-	clConsole.send("Done!\n");
 
-	if (NewErrorsLogged())
-		clConsole.send("New ERRORS have been logged. Please send the error*.log and critical*.log files to the dev team !\n");
+	if( SrvParams->serverLog() ) 
+		savelog( "Server shutdown","server.log" );
 
-	if (NewWarningsLogged())
-		clConsole.send("New WARNINGS have been logged. Probably scripting errors. See the warnings*.log for details !\n");
-
-	if (error) {
-		clConsole.send("ERROR: Server terminated by error!\n");
-
-		if( SrvParams->serverLog() ) 
-			savelog("Server terminated by error","server.log");
-	} else {
-		clConsole.send("WOLFPACK: Server shutdown complete!\n");
-		
-		if( SrvParams->serverLog() ) 
-			savelog("Server shutdown","server.log");
-	}
-
-	DeleteClasses();
 	stopPython();
 	return 0;
 }
@@ -3261,60 +3254,6 @@ void InitMultis()
 			pMulti->checkItems();
 		}
 	}
-}
-
-void StartClasses(void)
-{
-	clConsole.PrepareProgress( "Initializing classes" );
-
-// NULL Classes out first....
-	cwmWorldState	= NULL;
-	Items			= NULL;
-	Map				= NULL;
-	Skills			= NULL;
-	Weight			= NULL;
-	Magic			= NULL;
-	ScriptManager	= NULL;
-	DefManager		= NULL;
-	SrvParams		= NULL;
-	NewMagic		= NULL;
-	MultisCache		= NULL;
-	persistentBroker = 0;
-
-	// Classes nulled now, lets get them set up :)
-	SrvParams		= new cSrvParams("wolfpack.xml", "Wolfpack", "1.0");
-	cwmWorldState	= new CWorldMain;
-	Items			= new cAllItems;
-	Map				= new Maps ( SrvParams->mulPath() );
-	Skills			= new cSkills;
-	Weight			= new cWeight;
-	Magic			= new cMagic;
-	MultisCache		= new cMultisCache( SrvParams->mulPath() );
-	//Weather = new cWeather;
-	// Sky's AI Stuff
-
-	// DarkStorm's ScriptManager
-	ScriptManager	= new WPScriptManager;
-	DefManager		= new WPDefManager;
-	NewMagic		= new cNewMagic;
-	persistentBroker = new PersistentBroker;
-	
-	clConsole.ProgressDone();
-}
-
-void DeleteClasses()
-{
-	delete SrvParams;
-	delete cwmWorldState;
-	delete Items;
-	delete Map;
-	delete Skills;
-	delete Weight;
-	delete Magic;
-	delete ScriptManager;
-	delete DefManager;
-	delete NewMagic;
-	//delete Weather;
 }
 
 int check_house_decay()

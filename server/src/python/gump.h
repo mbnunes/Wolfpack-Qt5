@@ -110,7 +110,7 @@ public:
 		callback( _callback ), args( _args )
 	{
 		// Increase ref-count for argument list
-		tuple_incref( args );
+		Py_INCREF( args );
 	}
 	
 	void handleResponse( cUOSocket* socket, gumpChoice_st choice )
@@ -146,7 +146,7 @@ public:
 			}
 		}
 
-		tuple_decref( args );
+		Py_DECREF( args );
 	}
 };
 

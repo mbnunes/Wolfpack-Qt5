@@ -33,6 +33,7 @@
 #include "multiscache.h"
 #include "defines.h"
 #include "classes.h" // only because of illegal_z
+#include "exceptions.h"
 
 // Library Includes
 #include <qvaluevector.h>
@@ -114,13 +115,13 @@ QValueVector<multiItem_st> MultiDefinition::getEntries() const
 }
 
 /*****************************************************************************
-  MultisCache member functions
+  MultiCache member functions
  *****************************************************************************/
 
 /*!
-	\class cMultisCache multiscache.h
+	\class cMultiCache multiscache.h
 
-	\brief cMultisCache is responsable for loading and parsing multi definitions
+	\brief cMultiCache is responsable for loading and parsing multi definitions
 	stored into "multi.idx" and "multi.mul" files.
 
 	This class is prepared for BigEndian/LittleEndian portability.
@@ -131,30 +132,33 @@ QValueVector<multiItem_st> MultiDefinition::getEntries() const
 
 
 /*!
-	Constructs a cMultisCache object
+	Constructs a cMultiCache object
 */
-cMultisCache::cMultisCache( const QString& path ) : basePath(path)
+cMultiCache::~cMultiCache()
 {
+	// Clear existing definitions
+	while( multis.begin() != multis.end() )
+	{
+		delete multis.begin().data();
+		multis.erase( multis.begin() );
+	}
 }
 
 /*!
 	Parses and loads multi definitions
 */
-void cMultisCache::load()
+void cMultiCache::load( const QString &basePath )
 {
-	QFile indexFile( basePath + QDir::separator() + "multi.idx" );
-	if ( !indexFile.open( IO_ReadOnly ) )
-	{
-		qFatal(QString("Error openning file %1 for read").arg( basePath + QDir::separator() + "multi.idx") );
-	}
+	QFile indexFile( basePath + "multi.idx" );
+	if( !indexFile.open( IO_ReadOnly ) )
+		throw wpException( QString( "Error opening file %1 for reading." ).arg( basePath + "multi.idx" ) );
+
 	QDataStream indexStream( &indexFile );
 	indexStream.setByteOrder( QDataStream::LittleEndian );
 
-	QFile multiFile( basePath + QDir::separator() + "multi.mul" );
+	QFile multiFile( basePath + "multi.mul" );
 	if ( !multiFile.open( IO_ReadOnly ) )
-	{
-		qFatal(QString("Error openning file %1 for read").arg( basePath + QDir::separator() + "multi.mul") );
-	}
+		throw wpException( QString( "Error opening file %1 for reading." ).arg( basePath + "multi.mul" ) );
 
 	struct
 	{
@@ -210,7 +214,7 @@ void cMultisCache::load()
 /*!
 	Retrieves the multi's definition of a given ID.
 */
-MultiDefinition* cMultisCache::getMulti( ushort id )
+MultiDefinition* cMultiCache::getMulti( ushort id )
 {
 	QMap<ushort, MultiDefinition*>::const_iterator it = multis.find(id);
 	if ( it != multis.end() )

@@ -403,7 +403,7 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 	UI32 multiid = this->multiids_[ boatdir / 2 ] - 0x4000;
 
 	int j;
-	MultiDefinition* def = MultisCache->getMulti( multiid );
+	MultiDefinition* def = MultiCache::instance()->getMulti( multiid );
 	if ( !def )
 		return false;
 	QValueVector<multiItem_st> multi = def->getEntries();

@@ -37,19 +37,32 @@
 // System Includes
 #include <exception>
 #include <string>
+#include "qstring.h"
+
+class wpException : public std::exception
+{
+private:
+	QString mError;
+public:
+	wpException( QString sError ) throw() : mError( sError ) {};
+	~wpException() throw() {};
+
+	const QString &error() const throw()
+	{
+		return mError;
+	}
+};
 
 namespace wp_exceptions
 {
 	// Exceptions trown by ItemManager:
-//##ModelId=3C5D92F5009E
 	class wpbad_ptr : public std::exception
 	{
 	private:
 		std::string m_Error;
 	public:
-	//##ModelId=3C5D92F500E4
 		wpbad_ptr(std::string sError) throw() : m_Error(sError) {};
-	//##ModelId=3C5D92F500F8
+
 		virtual const char *what() const throw()
 		{
 			return m_Error.c_str();

@@ -244,7 +244,7 @@ signed char Maps::dynamicElevation(const Coord_cl& pos) const
 		{
 			if(mapitem->isMulti())
 			{
-				MultiDefinition* def = MultisCache->getMulti( mapitem->id() - 0x4000 );
+				MultiDefinition* def = MultiCache::instance()->getMulti( mapitem->id() - 0x4000 );
 				if ( def )
 				{
 					z = def->multiHeight( pos.x, pos.y, pos.z );

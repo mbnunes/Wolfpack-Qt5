@@ -34,6 +34,7 @@
 
 #include <qvaluevector.h>
 #include <qmap.h>
+#include "singleton.h"
 
 struct multiItem_st
 {
@@ -59,17 +60,17 @@ public:
 	QValueVector<multiItem_st> getEntries() const;
 };
 
-class cMultisCache
+class cMultiCache
 {
-	QString basePath;
 	QMap< ushort, MultiDefinition* > multis;
 public:
-
-	cMultisCache( const QString& basePath );
-
-	void load();
+	cMultiCache() {}
+	virtual ~cMultiCache();
+	
+	void load( const QString& basePath );
 	MultiDefinition* getMulti( ushort id );
 };
 
+typedef SingletonHolder< cMultiCache > MultiCache;
 
 #endif // __MULTISCACHE_H__

@@ -267,7 +267,7 @@ the line of sight.
 		P_ITEM pi;
 		while( pi = mit.current() )
 		{
-			MultiDefinition* def = MultisCache->getMulti( pi->id() - 0x4000 );
+			MultiDefinition* def = MultiCache::instance()->getMulti( pi->id() - 0x4000 );
 			if ( !def )
 				continue;
 			QValueVector<multiItem_st> multi = def->getEntries();

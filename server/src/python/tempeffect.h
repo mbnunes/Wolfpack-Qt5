@@ -46,7 +46,7 @@ public:
 		functionName( _functionName ), args( _args ) 
 		{
 			objectid = "cPythonEffect"; 
-			tuple_incref( args );
+			Py_INCREF( args );
 		}
 	
 	virtual ~cPythonEffect() {;}
@@ -105,7 +105,7 @@ public:
 			}
 		}
 
-		tuple_decref( args );
+		Py_DECREF( args );
 	}
 
 	void Expire()
@@ -144,7 +144,7 @@ public:
 			}
 		}
 
-		tuple_decref( args );
+		Py_DECREF( args );
 	}
 
 	void Serialize( ISerialization &archive )
@@ -181,8 +181,6 @@ public:
 					PyTuple_SetItem( args, i, obj );
 				}
 			}		
-
-			tuple_incref( args );
 		}
 		else if( archive.isWritting() )
 		{

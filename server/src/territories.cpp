@@ -37,6 +37,7 @@
 #include "utilsys.h"
 #include "srvparams.h"
 #include "network.h"
+#include "exceptions.h"
 
 #include "globals.h" // needed for object SrvParams
 
@@ -274,15 +275,9 @@ void cAllTerritories::load( void )
 {
 	UI32 starttime = getNormalizedTime();
 	QStringList DefSections = DefManager->getSections( WPDT_REGION );
-	clConsole.PrepareProgress( "Loading regions" );
 
 	if( DefSections.isEmpty() )
-	{
-		clConsole.ProgressFail();
-		clConsole.error( "no regions defined! you need one region at least!" );
-		error = 1;
-		return;
-	}
+		throw wpException( "You need to define at least one region." );
 	
 	QStringList::iterator it( DefSections.begin() );
 	while( it != DefSections.end() )
@@ -300,11 +295,6 @@ void cAllTerritories::load( void )
 		}
 		++it;
 	}
-
-	UI32 endtime = getNormalizedTime();
-	clConsole.ProgressDone();
-
-	clConsole.send( tr( "Loaded %1 regions in %2 sec.\n" ).arg( this->count() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ) );
 }
 
 void cAllTerritories::check( P_CHAR pc )

@@ -1015,23 +1015,3 @@ void init_wolfpack_globals()
 	PyObject *mTime = Py_InitModule( "_wolfpack.time", wpTime );
     PyObject_SetAttrString( wpNamespace, "time", mTime );
 }
-
-void tuple_incref( PyObject *object )
-{
-	Py_INCREF( object );
-	if( PyTuple_Check( object ) )
-	{
-		for( int i = 0; i < PyTuple_Size( object ); ++i )
-			tuple_incref( PyTuple_GetItem( object, i ) );
-	}
-}
-
-void tuple_decref( PyObject *object )
-{	
-	if( PyTuple_Check( object ) )
-	{
-		for( int i = 0; i < PyTuple_Size( object ); ++i )
-			tuple_decref( PyTuple_GetItem( object, i ) );
-	}
-	Py_DECREF( object );
-}
