@@ -268,10 +268,6 @@ SOURCE=.\pointer.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\PyExtensions.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\qsf.cpp
 # End Source File
 # Begin Source File
@@ -577,10 +573,6 @@ SOURCE=.\platform.h
 # Begin Source File
 
 SOURCE=.\prototypes.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\PyExtensions.h
 # End Source File
 # Begin Source File
 
