@@ -160,7 +160,7 @@ void signal_handler(int signal)
 		break ;
 		
 	case SIGUSR1:
-		Accounts->reload();
+		Accounts::instance()->reload();
 		break ;
 	case SIGUSR2:
 //		cwmWorldState->savenewworld(SrvParams->worldSaveModule());
@@ -178,7 +178,7 @@ void signal_handler(int signal)
 // Initialize deamon
 void init_deamon()
 {
-
+/*
 #if defined(__unix__)
 	
 	int i ;
@@ -204,6 +204,7 @@ void init_deamon()
 
 	
 #endif
+*/
 }
 
 
@@ -1033,7 +1034,7 @@ void callguards( P_CHAR pc_player )
 }
 
 
-
+/*
 void endScrn()
 {
 #ifdef __unix__
@@ -1049,6 +1050,7 @@ void endScrn()
 
 #endif
 }
+*/
 #if !defined(__unix__)
 //////////////////
 // Name:	checkkey()
