@@ -742,11 +742,132 @@ def smokepuff(char, position):
 		char.soundeffect(0x1fe)
 
 """
-	\function wolfpack.utilities.countitems
-	\param baseids A list of baseids.
-	\return An integer value.
-	\description This function counts all items directly within the container matching the given baseid.
-	Please note that this function does not search containers recursively.
+	Check if the given chars are allies.
 """
-def countitems(baseids):
-	pass
+def checkAllies(char1, char2):
+	# For NPCs, check for the owner instead
+	if char1.npc:
+		if char1.owner:
+			char1 = char1.owner
+		else:
+			return False # Unowned NPCs are never allied with anyone
+	
+	# For NPCs, check the owner instead
+	if char2.npc:
+		if char2.owner:
+			char2 = char2.owner
+		else:
+			return False # Unowned NPCs are never allied with anyone
+	
+	# Check if they're the same first.
+	if char1 == char2:
+		return True
+
+	# Then check for their Party
+	party = char1.party
+	if party and char2.party == party:
+		return True # Same Party -> Allies
+		
+	# Then check for their guilds
+	guild = char1.guild
+	if guild and char2.guild == guild:
+		return True
+
+	# TODO: Check for allied guilds
+
+	return False
+
+"""
+	Check if the given chars are enemies
+"""
+def checkEnemies(char1, char2):
+	if char1 == char2:
+		return False
+
+	# Check the attacktarget first (quick)
+	if char1.attacktarget == char2 or char2.attacktarget == char1:
+		return True
+		
+	# Check the list of opponents (for char1, makes no sense otherwise)
+	opponents = char1.getopponents()
+	if char2 in opponents:
+		return True	
+
+	# Do the same check for the owner of char1, if char1 is a npc.
+	if char1.npc and char1.owner and checkEnemies(char1.owner, char2):
+		return True
+		
+	# Do the same check for the owner of char2 if char2 is a npc.
+	if char2.npc and char2.owner and checkEnemies(char1, char2.owner):
+		return True
+
+	# Everyone being a murderer, a criminal or a npc with red karma 
+	# is an enemy.
+	if char2.ismurderer() or char2.iscriminal() or (char2.npc and char2.notoriety(char1) in [4, 5, 6] ):
+		return True
+
+	return False
+
+#
+# Checks if the given character may be harmed by the given player
+# using an area effect
+#
+def mayAreaHarm(player, char, excludeself = True, includeinnocents = False):
+	# If we shouldn't be included, skip us ahead
+	if char == player and excludeself:
+		return False
+		
+	# Invulnerable, Invisible and Hidden creatures aren't affected
+	if char.invulnerable or not player.cansee(char):
+		return False
+		
+	# If we're allied with the given character, Return right away
+	if checkAllies(player, char):
+		return False
+	
+	# If we're enemies, always include
+	if checkEnemies(player, char):
+		return True
+		
+	# If we're neutral, it depends on the excludeneutrals flag
+	return includeinnocents
+	
+#
+# Checks if the given character may benefit from the given players
+# area effect
+#
+def mayAreaBenefit(player, char, excludeself = False, includeinnocents = False):
+	# If we shouldn't be included, skip us ahead
+	if char == player and excludeself:
+		return False
+		
+	# Invulnerable, Invisible and Hidden creatures aren't affected
+	if char.invulnerable or not player.cansee(char):
+		return False
+		
+	# If we're allied with the given character, Return right away
+	if checkAllies(player, char):
+		return True
+	
+	# If we're enemies, always include
+	if checkEnemies(player, char):
+		return False
+		
+	# If we're neutral, it depends on the excludeneutrals flag
+	return includeinnocents	
+
+def testenemy(socket, c, a):
+	pos = socket.player.pos
+	it = wolfpack.charregion(pos.x - 12, pos.y - 12, pos.x + 12, pos.y + 12, pos.map)
+	char = it.first
+	while char:
+		if mayAreaBenefit(socket.player, char):
+			char.say('MAY BENEFIT')
+
+		if mayAreaHarm(socket.player, char):
+			char.say('MAY HARM')
+
+		char = it.next
+
+def onLoad():
+	wolfpack.registercommand('testenemy', testenemy)

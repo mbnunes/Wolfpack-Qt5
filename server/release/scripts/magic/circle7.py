@@ -3,7 +3,7 @@ from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from magic.utilities import *
 import random
 import wolfpack
-from wolfpack.utilities import tobackpack, energydamage
+from wolfpack.utilities import tobackpack, energydamage, mayAreaHarm
 from math import ceil
 from magic import polymorph
 
@@ -20,28 +20,14 @@ class ChainLightning (Spell):
 
 		char.turnto(target)
 
-		if char.player:
-			party = char.party
-			guild = char.guild
-		else:
-			party = None
-			guild = None
-
 		targets = []
 		damage = self.scaledamage(char, None, 48, 1, 5)
 
 		# Enumerate chars
 		chars = wolfpack.chars(target.x, target.y, char.pos.map, 2)
 		for target in chars:
-			if target == char:
-				continue
-
-			# We also ignore people from the same guild or party.
-			# Or targets who are innocent.
-			if (guild and target.guild == guild) or (party and target.party == party):
-				continue
-
-			targets.append(target)
+			if mayAreaHarm(char, target):
+				targets.append(target)
 
 		# Re-scale the damage
 		if len(targets) > 1:
@@ -260,18 +246,14 @@ class MassDispel (Spell):
 
 		char.turnto(target)
 
-		if char.player:
-			party = char.party
-			guild = char.guild
-		else:
-			party = None
-			guild = None
-
 		# Enumerate chars
 		chars = wolfpack.chars(target.x, target.y, char.pos.map, 8)
 		items = wolfpack.items(target.x, target.y, char.pos.map, 8)
 		for target in chars:
 			if char == target or not target.npc or target.summontimer == 0:
+				continue
+
+			if not mayAreaHarm(char, target):
 				continue
 
 			if self.checkresist(char, target):
@@ -300,29 +282,14 @@ class MeteorSwarm (Spell):
 			return
 
 		char.turnto(target)
-
-		if char.player:
-			party = char.party
-			guild = char.guild
-		else:
-			party = None
-			guild = None
-
 		targets = []
 		damage = self.scaledamage(char, None, 48, 1, 5)
 
 		# Enumerate chars
 		chars = wolfpack.chars(target.x, target.y, char.pos.map, 2)
 		for target in chars:
-			if target == char:
-				continue
-
-			# We also ignore people from the same guild or party.
-			# Or targets who are innocent.
-			if (guild and target.guild == guild) or (party and target.party == party):
-				continue
-
-			targets.append(target)
+			if mayAreaHarm(char, target):
+				targets.append(target)
 
 		# Re-scale the damage
 		if len(targets) > 1:

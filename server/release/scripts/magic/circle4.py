@@ -3,7 +3,7 @@ from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from magic.utilities import *
 import random
 import wolfpack
-from wolfpack.utilities import tobackpack, energydamage
+from wolfpack.utilities import tobackpack, energydamage, mayAreaBenefit
 from system import poison
 from combat.specialmoves import ismortallywounded
 
@@ -264,6 +264,10 @@ class ArchCure (Spell):
 		# Enumerate chars
 		chars = wolfpack.chars(target.x, target.y, char.pos.map, 3)
 		for target in chars:
+			# Check if we should affect the char
+			if not mayAreaBenefit(char, target, includeinnocents = True):
+				continue
+		
 			target.effect(0x373a, 10, 15)
 			target.soundeffect(0x1e0)
 
@@ -275,9 +279,8 @@ class ArchCure (Spell):
 					if target.socket:
 						target.socket.clilocmessage(1010059)
 
-		if cured > 0:
-			if char.socket:
-				char.socket.clilocmessage(1010058)
+		if cured > 0 and char.socket:
+			char.socket.clilocmessage(1010058)
 
 class ArchProtection (Spell):
 	def __init__(self):
@@ -292,53 +295,48 @@ class ArchProtection (Spell):
 
 		char.turnto(target)
 		char.soundeffect(0x299)
-		cured = 0
-
-		if char.player:
-			party = char.party
-			guild = char.guild
-		else:
-			party = None
-			guild = None
 
 		# Enumerate chars
 		chars = wolfpack.chars(target.x, target.y, char.pos.map, 3)
 		for target in chars:
 			if not target.player:
 				continue
+				
+			# Check if we should affect the char
+			if not mayAreaBenefit(char, target):
+				continue
 
-			if target == char or (guild and target.guild == guild) or (party and target.party == party):
-				# Toggle Protection
-				if target.propertyflags & 0x20000:
-					target.propertyflags &= ~ 0x20000
-					target.effect(0x375a, 9, 20)
-					target.soundeffect(0x1ed)
+			# Toggle Protection
+			if target.propertyflags & 0x20000:
+				target.propertyflags &= ~ 0x20000
+				target.effect(0x375a, 9, 20)
+				target.soundeffect(0x1ed)
 
-					try:
-						if target.hastag('protection_skill'):
-							skill = int(target.gettag('protection_skill'))
-							if target.skill[MAGICRESISTANCE] + skill > target.skillcap[MAGICRESISTANCE]:
-								target.skill[MAGICRESISTANCE] = target.skillcap[MAGICRESISTANCE]
-							else:
-								target.skill[MAGICRESISTANCE] += skill
-					except:
-						pass
-					target.deltag('protection_skill')
-				else:
-					target.propertyflags |= 0x20000
-					target.effect(0x375a, 9, 20)
-					target.soundeffect(0x1e9)
+				try:
+					if target.hastag('protection_skill'):
+						skill = int(target.gettag('protection_skill'))
+						if target.skill[MAGICRESISTANCE] + skill > target.skillcap[MAGICRESISTANCE]:
+							target.skill[MAGICRESISTANCE] = target.skillcap[MAGICRESISTANCE]
+						else:
+							target.skill[MAGICRESISTANCE] += skill
+				except:
+					pass
+				target.deltag('protection_skill')
+			else:
+				target.propertyflags |= 0x20000
+				target.effect(0x375a, 9, 20)
+				target.soundeffect(0x1e9)
 
-					# Remove Magic Resistance Skill
-					amount = 35 - int(target.skill[INSCRIPTION] / 200)
-					if target.skill[MAGICRESISTANCE] - amount < 0:
-						amount = target.skill[MAGICRESISTANCE]
+				# Remove Magic Resistance Skill
+				amount = 35 - int(target.skill[INSCRIPTION] / 200)
+				if target.skill[MAGICRESISTANCE] - amount < 0:
+					amount = target.skill[MAGICRESISTANCE]
 
-					target.settag('protection_skill', amount)
-					target.skill[MAGICRESISTANCE] -= amount
+				target.settag('protection_skill', amount)
+				target.skill[MAGICRESISTANCE] -= amount
 
-				if target.socket:
-					target.socket.resendstatus()
+			if target.socket:
+				target.socket.resendstatus()
 
 def onLoad():
 	ArchCure().register(25)

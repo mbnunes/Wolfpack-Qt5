@@ -3,7 +3,7 @@ from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from magic.utilities import *
 import random
 import wolfpack
-from wolfpack.utilities import tobackpack, energydamage
+from wolfpack.utilities import tobackpack, energydamage, mayAreaHarm
 
 def onLoad():
 	Earthquake().register(57)
@@ -24,23 +24,13 @@ class Earthquake(Spell):
 	def cast(self, char, mode, args=[], target=None, item=None):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
-
-		if char.player:
-			party = char.party
-			guild = char.guild
-		else:
-			party = None
-			guild = None
-
+		
 		targets = []
 
 		spellrange = 1 + int(char.skill[MAGERY] / 150.0)
 		chars = wolfpack.chars(char.pos.x, char.pos.y, char.pos.map, spellrange)
 		for target in chars:
-			if target == char:
-				continue
-
-			if (guild and target.guild == guild) or (party and target.party == party):
+			if not mayAreaHarm(char, target):
 				continue
 
 			if not char.canreach(target, spellrange):
