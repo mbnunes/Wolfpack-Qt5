@@ -24,7 +24,7 @@ def getdelay(attacker, weapon):
 
 	# Scale value according to bonus
 	# value += bonus * value / 100
-	
+
 	if value <= 0:
 		value = 1
 
@@ -50,7 +50,7 @@ PROPERTIES = {
 	DAMAGE_COLD: ['dmg_cold', 0, 0],
 	DAMAGE_POISON: ['dmg_poison', 0, 0],
 	DAMAGE_ENERGY: ['dmg_energy', 0, 0],
-	
+
 	# Flags (Weapons):
 	SPELLCHANNELING: ['spellchanneling', 0, 0],
 
@@ -63,9 +63,9 @@ PROPERTIES = {
 	SPELLDAMAGEBONUS: ['spelldamagebonus', 0, 1],
 
 	# Requirements
-	REQSTR: ['req_str', 0, 0],
-	REQDEX: ['req_dex', 0, 0],
-	REQINT: ['req_int', 0, 0],
+	REQSTR: ['req_strength', 0, 0],
+	REQDEX: ['req_dexterity', 0, 0],
+	REQINT: ['req_intelligence', 0, 0],
 
 	# Regular Combat Properties
 	MINDAMAGE: ['mindamage', 1, 0],
