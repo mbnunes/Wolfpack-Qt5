@@ -12,7 +12,7 @@
 ** This file contains routines used for analyzing expressions and
 ** for generating VDBE code that evaluates expressions in SQLite.
 **
-** $Id: expr.c,v 1.1 2003/08/26 15:02:44 dark-storm Exp $
+** $Id: expr.c,v 1.2 2003/12/18 13:20:23 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 #include <ctype.h>
@@ -265,10 +265,10 @@ ExprList *sqliteExprListAppend(ExprList *pList, Expr *pExpr, Token *pName){
     }
     pList->a = a;
   }
-  if( pExpr || pName ){
+  if( pList->a && (pExpr || pName) ){
     i = pList->nExpr++;
+    memset(&pList->a[i], 0, sizeof(pList->a[i]));
     pList->a[i].pExpr = pExpr;
-    pList->a[i].zName = 0;
     if( pName ){
       sqliteSetNString(&pList->a[i].zName, pName->z, pName->n, 0);
       sqliteDequote(pList->a[i].zName);
@@ -310,6 +310,7 @@ int sqliteExprIsConstant(Expr *p){
     case TK_STRING:
     case TK_INTEGER:
     case TK_FLOAT:
+    case TK_VARIABLE:
       return 1;
     default: {
       if( p->pLeft && !sqliteExprIsConstant(p->pLeft) ) return 0;
@@ -914,6 +915,7 @@ int sqliteExprType(Expr *p){
     case TK_STRING:
     case TK_NULL:
     case TK_CONCAT:
+    case TK_VARIABLE:
       return SQLITE_SO_TEXT;
 
     case TK_LT:
@@ -1041,6 +1043,10 @@ void sqliteExprCode(Parse *pParse, Expr *pExpr){
     }
     case TK_NULL: {
       sqliteVdbeAddOp(v, OP_String, 0, 0);
+      break;
+    }
+    case TK_VARIABLE: {
+      sqliteVdbeAddOp(v, OP_Variable, pExpr->iTable, 0);
       break;
     }
     case TK_LT:

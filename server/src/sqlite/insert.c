@@ -12,7 +12,7 @@
 ** This file contains C code routines that are called by the parser
 ** to handle INSERT statements in SQLite.
 **
-** $Id: insert.c,v 1.1 2003/08/26 15:02:44 dark-storm Exp $
+** $Id: insert.c,v 1.2 2003/12/18 13:20:23 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 
@@ -688,7 +688,7 @@ void sqliteGenerateConstraintChecks(
         char *zMsg = 0;
         sqliteVdbeAddOp(v, OP_Halt, SQLITE_CONSTRAINT, onError);
         sqliteSetString(&zMsg, pTab->zName, ".", pTab->aCol[i].zName,
-                        " may not be NULL", 0);
+                        " may not be NULL", (char*)0);
         sqliteVdbeChangeP3(v, -1, zMsg, P3_DYNAMIC);
         break;
       }

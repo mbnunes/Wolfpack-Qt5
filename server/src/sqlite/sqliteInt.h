@@ -11,7 +11,7 @@
 *************************************************************************
 ** Internal interface definitions for SQLite.
 **
-** @(#) $Id: sqliteInt.h,v 1.1 2003/08/26 15:02:44 dark-storm Exp $
+** @(#) $Id: sqliteInt.h,v 1.2 2003/12/18 13:20:24 thiagocorrea Exp $
 */
 #include "config.h"
 #include "sqlite.h"
@@ -87,7 +87,8 @@
 /* #define SQLITE_OMIT_AUTHORIZATION  1 */
 /* #define SQLITE_OMIT_INMEMORYDB     1 */
 /* #define SQLITE_OMIT_VACUUM         1 */
-/* #define SQLITE_OMIT_TIMEDATE_FUNCS 1 */
+/* #define SQLITE_OMIT_DATETIME_FUNCS 1 */
+/* #define SQLITE_OMIT_PROGRESS_CALLBACK 1 */
 
 /*
 ** Integers of known sizes.  These typedefs might change for architectures
@@ -326,6 +327,11 @@ struct sqlite {
                                 /* Access authorization function */
   void *pAuthArg;               /* 1st argument to the access auth function */
 #endif
+#ifndef SQLITE_OMIT_PROGRESS_CALLBACK
+  int (*xProgress)(void *);     /* The progress callback */
+  void *pProgressArg;           /* Argument to the progress callback */
+  int nProgressOps;             /* Number of opcodes for progress callback */
+#endif
 };
 
 /*
@@ -384,7 +390,7 @@ struct Column {
   char *zDflt;     /* Default value of this column */
   char *zType;     /* Data type for this column */
   u8 notNull;      /* True if there is a NOT NULL constraint */
-  u8 isPrimKey;    /* True if this column is an INTEGER PRIMARY KEY */
+  u8 isPrimKey;    /* True if this column is part of the PRIMARY KEY */
   u8 sortOrder;    /* Some combination of SQLITE_SO_... values */
 };
 
@@ -604,7 +610,9 @@ struct Token {
 ** it can be accessed after all aggregates are computed.
 **
 ** If the expression is a function, the Expr.iTable is an integer code
-** representing which function.
+** representing which function.  If the expression is an unbound variable
+** marker (a question mark character '?' in the original SQL) then the
+** Expr.iTable holds the index number for that variable.
 **
 ** The Expr.pSelect field points to a SELECT statement.  The SELECT might
 ** be the right operand of an IN operator.  Or, if a scalar SELECT appears
@@ -633,7 +641,6 @@ struct Expr {
 ** The following are the meanings of bits in the Expr.flags field.
 */
 #define EP_FromJoin     0x0001  /* Originated in ON or USING clause of a join */
-#define EP_Oracle8Join  0x0002  /* Carries the Oracle8 "(+)" join operator */
 
 /*
 ** These macros can be used to test, set, or clear bits in the 
@@ -866,6 +873,7 @@ struct Parse {
   int nMem;            /* Number of memory cells used so far */
   int nSet;            /* Number of sets used so far */
   int nAgg;            /* Number of aggregate expressions */
+  int nVar;            /* Number of '?' variables seen in the SQL so far */
   AggExpr *aAgg;       /* An array of aggregate expressions */
   const char *zAuthContext; /* The 6th parameter to db->xAuth callbacks */
   Trigger *pNewTrigger;     /* Trigger under construct by a CREATE TRIGGER */
@@ -1093,7 +1101,7 @@ void sqliteSrcListAddAlias(SrcList*, Token*);
 void sqliteSrcListAssignCursors(Parse*, SrcList*);
 void sqliteIdListDelete(IdList*);
 void sqliteSrcListDelete(SrcList*);
-void sqliteCreateIndex(Parse*,Token*,SrcList*,IdList*,int,int,Token*,Token*);
+void sqliteCreateIndex(Parse*,Token*,SrcList*,IdList*,int,Token*,Token*);
 void sqliteDropIndex(Parse*, SrcList*);
 void sqliteAddKeyType(Vdbe*, ExprList*);
 void sqliteAddIdxKeyType(Vdbe*, Index*);
@@ -1117,6 +1125,7 @@ Index *sqliteFindIndex(sqlite*,const char*, const char*);
 void sqliteUnlinkAndDeleteIndex(sqlite*,Index*);
 void sqliteCopy(Parse*, SrcList*, Token*, Token*, int);
 void sqliteVacuum(Parse*, Token*);
+int sqliteRunVacuum(char**, sqlite*);
 int sqliteGlobCompare(const unsigned char*,const unsigned char*);
 int sqliteLikeCompare(const unsigned char*,const unsigned char*);
 char *sqliteTableNameFromToken(Token*);
@@ -1151,6 +1160,7 @@ IdList *sqliteIdListDup(IdList*);
 Select *sqliteSelectDup(Select*);
 FuncDef *sqliteFindFunction(sqlite*,const char*,int,int,int);
 void sqliteRegisterBuiltinFunctions(sqlite*);
+void sqliteRegisterDateTimeFunctions(sqlite*);
 int sqliteSafetyOn(sqlite*);
 int sqliteSafetyOff(sqlite*);
 int sqliteSafetyCheck(sqlite*);

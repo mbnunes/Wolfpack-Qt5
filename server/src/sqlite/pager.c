@@ -18,7 +18,7 @@
 ** file simultaneously, or one process from reading the database while
 ** another is writing.
 **
-** @(#) $Id: pager.c,v 1.1 2003/08/26 15:02:44 dark-storm Exp $
+** @(#) $Id: pager.c,v 1.2 2003/12/18 13:20:23 thiagocorrea Exp $
 */
 #include "os.h"         /* Must be first to enable large file support */
 #include "sqliteInt.h"
@@ -316,7 +316,7 @@ static int write32bits(OsFile *fd, u32 val){
 */
 static void store32bits(u32 val, PgHdr *p, int offset){
   unsigned char *ac;
-  ac = &((char*)PGHDR_TO_DATA(p))[offset];
+  ac = &((unsigned char*)PGHDR_TO_DATA(p))[offset];
   if( journal_format<=1 ){
     memcpy(ac, &val, 4);
   }else{
@@ -426,6 +426,10 @@ static void pager_reset(Pager *pPager){
 ** a write lock on the database.  This routine releases the database
 ** write lock and acquires a read lock in its place.  The journal file
 ** is deleted and closed.
+**
+** TODO: Consider keeping the journal file open for temporary databases.
+** This might give a performance improvement on windows where opening
+** a file is an expensive operation.
 */
 static int pager_unwritelock(Pager *pPager){
   int rc;
@@ -516,19 +520,13 @@ static int pager_playback_one_page(Pager *pPager, OsFile *jfd, int format){
   sqliteOsSeek(&pPager->fd, (pgRec.pgno-1)*(off_t)SQLITE_PAGE_SIZE);
   rc = sqliteOsWrite(&pPager->fd, pgRec.aData, SQLITE_PAGE_SIZE);
   if( pPg ){
-    if( pPg->nRef==0 ||
-        memcmp(PGHDR_TO_DATA(pPg), pgRec.aData, SQLITE_PAGE_SIZE)==0
-    ){
-      /* Do not update the data on this page if the page is in use
-      ** and the page has never been modified.  This avoids resetting
-      ** the "extra" data.  That in turn avoids invalidating BTree cursors
-      ** in trees that have never been modified.  The end result is that
-      ** you can have a SELECT going on in one table and ROLLBACK changes
-      ** to a different table and the SELECT is unaffected by the ROLLBACK.
-      */
-      memcpy(PGHDR_TO_DATA(pPg), pgRec.aData, SQLITE_PAGE_SIZE);
-      memset(PGHDR_TO_EXTRA(pPg), 0, pPager->nExtra);
-    }
+    /* No page should ever be rolled back that is in use, except for page
+    ** 1 which is held in use in order to keep the lock on the database
+    ** active.
+    */
+    assert( pPg->nRef==0 || pPg->pgno==1 );
+    memcpy(PGHDR_TO_DATA(pPg), pgRec.aData, SQLITE_PAGE_SIZE);
+    memset(PGHDR_TO_EXTRA(pPg), 0, pPager->nExtra);
     pPg->dirty = 0;
     pPg->needSync = 0;
   }
@@ -838,7 +836,7 @@ int sqlitepager_open(
   if( sqlite_malloc_failed ){
     return SQLITE_NOMEM;
   }
-  if( zFilename ){
+  if( zFilename && zFilename[0] ){
     zFullPathname = sqliteOsFullPathname(zFilename);
     rc = sqliteOsOpenReadWrite(zFullPathname, &fd, &readOnly);
     tempFile = 0;

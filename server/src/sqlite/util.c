@@ -14,7 +14,7 @@
 ** This file contains functions for allocating memory, comparing
 ** strings, and stuff like that.
 **
-** $Id: util.c,v 1.1 2003/08/26 15:02:44 dark-storm Exp $
+** $Id: util.c,v 1.2 2003/12/18 13:20:24 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 #include <stdarg.h>
@@ -160,14 +160,15 @@ void *sqliteRealloc_(void *oldP, int n, char *zFile, int line){
   oldPi = oldP;
   oldPi -= N_GUARD+1;
   if( oldPi[0]!=0xdead1122 ){
-    fprintf(stderr,"Low-end memory corruption in realloc at 0x%x\n", (int)p);
+    fprintf(stderr,"Low-end memory corruption in realloc at 0x%x\n", (int)oldP);
     return 0;
   }
   oldN = oldPi[N_GUARD];
   oldK = (oldN+sizeof(int)-1)/sizeof(int);
   for(i=0; i<N_GUARD; i++){
     if( oldPi[oldK+N_GUARD+1+i]!=0xdead3344 ){
-      fprintf(stderr,"High-end memory corruption in realloc at 0x%x\n", (int)p);
+      fprintf(stderr,"High-end memory corruption in realloc at 0x%x\n",
+              (int)oldP);
       return 0;
     }
   }
@@ -250,13 +251,11 @@ char *sqliteStrNDup_(const char *z, int n, char *zFile, int line){
 */
 void *sqliteMalloc(int n){
   void *p;
-  if( n==0 ) return 0;
-  p = malloc(n);
-  if( p==0 ){
+  if( (p = malloc(n))==0 ){
     sqlite_malloc_failed++;
-    return 0;
+  }else{
+    memset(p, 0, n);
   }
-  memset(p, 0, n);
   return p;
 }
 
@@ -266,11 +265,8 @@ void *sqliteMalloc(int n){
 */
 void *sqliteMallocRaw(int n){
   void *p;
-  if( n==0 ) return 0;
-  p = malloc(n);
-  if( p==0 ){
+  if( (p = malloc(n))==0 ){
     sqlite_malloc_failed++;
-    return 0;
   }
   return p;
 }

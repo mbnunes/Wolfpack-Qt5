@@ -9,7 +9,7 @@
 **    May you share freely, never taking more than you give.
 **
 *************************************************************************
-** $Id: btree.c,v 1.1 2003/08/26 15:02:43 dark-storm Exp $
+** $Id: btree.c,v 1.2 2003/12/18 13:20:23 thiagocorrea Exp $
 **
 ** This file implements a external (disk-based) database using BTrees.
 ** For a detailed discussion of BTrees, refer to
@@ -1402,7 +1402,9 @@ static int moveToChild(BtCursor *pCur, int newPgno){
   sqlitepager_unref(pCur->pPage);
   pCur->pPage = pNewPage;
   pCur->idx = 0;
-  if( pNewPage->nCell<1 ) return SQLITE_CORRUPT;
+  if( pNewPage->nCell<1 ){
+    return SQLITE_CORRUPT;
+  }
   return SQLITE_OK;
 }
 
@@ -3169,10 +3171,10 @@ static void checkAppendMsg(IntegrityCk *pCheck, char *zMsg1, char *zMsg2){
   if( pCheck->zErrMsg ){
     char *zOld = pCheck->zErrMsg;
     pCheck->zErrMsg = 0;
-    sqliteSetString(&pCheck->zErrMsg, zOld, "\n", zMsg1, zMsg2, 0);
+    sqliteSetString(&pCheck->zErrMsg, zOld, "\n", zMsg1, zMsg2, (char*)0);
     sqliteFree(zOld);
   }else{
-    sqliteSetString(&pCheck->zErrMsg, zMsg1, zMsg2, 0);
+    sqliteSetString(&pCheck->zErrMsg, zMsg1, zMsg2, (char*)0);
   }
 }
 

@@ -15,7 +15,7 @@
 ** individual tokens and sends those tokens one-by-one over to the
 ** parser for analysis.
 **
-** $Id: tokenize.c,v 1.1 2003/08/26 15:02:44 dark-storm Exp $
+** $Id: tokenize.c,v 1.2 2003/12/18 13:20:24 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 #include "os.h"
@@ -29,8 +29,8 @@
 typedef struct Keyword Keyword;
 struct Keyword {
   char *zName;             /* The keyword name */
-  int len;                 /* Number of characters in the keyword */
-  int tokenType;           /* The token value for this keyword */
+  u16 len;                 /* Number of characters in the keyword */
+  u16 tokenType;           /* The token value for this keyword */
   Keyword *pNext;          /* Next keyword with the same hash */
 };
 
@@ -214,9 +214,8 @@ static const char isIdChar[] = {
 
 
 /*
-** Return the length of the token that begins at z[0].  Return
-** -1 if the token is (or might be) incomplete.  Store the token
-** type in *tokenType before returning.
+** Return the length of the token that begins at z[0]. 
+** Store the token type in *tokenType before returning.
 */
 static int sqliteGetToken(const unsigned char *z, int *tokenType){
   int i;
@@ -227,7 +226,6 @@ static int sqliteGetToken(const unsigned char *z, int *tokenType){
       return i;
     }
     case '-': {
-      if( z[1]==0 ) return -1;
       if( z[1]=='-' ){
         for(i=2; z[i] && z[i]!='\n'; i++){}
         *tokenType = TK_COMMENT;
@@ -237,13 +235,8 @@ static int sqliteGetToken(const unsigned char *z, int *tokenType){
       return 1;
     }
     case '(': {
-      if( z[1]=='+' && z[2]==')' ){
-        *tokenType = TK_ORACLE_OUTER_JOIN;
-        return 3;
-      }else{
-        *tokenType = TK_LP;
-        return 1;
-      }
+      *tokenType = TK_LP;
+      return 1;
     }
     case ')': {
       *tokenType = TK_RP;
@@ -380,6 +373,10 @@ static int sqliteGetToken(const unsigned char *z, int *tokenType){
       *tokenType = TK_ID;
       return i;
     }
+    case '?': {
+      *tokenType = TK_VARIABLE;
+      return 1;
+    }
     default: {
       if( !isIdChar[*z] ){
         break;
@@ -416,13 +413,12 @@ int sqliteRunParser(Parse *pParse, const char *zSql, char **pzErrMsg){
   i = 0;
   pEngine = sqliteParserAlloc((void*(*)(int))malloc);
   if( pEngine==0 ){
-    sqliteSetString(pzErrMsg, "out of memory", 0);
+    sqliteSetString(pzErrMsg, "out of memory", (char*)0);
     return 1;
   }
   pParse->sLastToken.dyn = 0;
   pParse->zTail = zSql;
   while( sqlite_malloc_failed==0 && zSql[i]!=0 ){
-    
     assert( i>=0 );
     pParse->sLastToken.z = &zSql[i];
     assert( pParse->sLastToken.dyn==0 );
@@ -433,7 +429,7 @@ int sqliteRunParser(Parse *pParse, const char *zSql, char **pzErrMsg){
       case TK_COMMENT: {
         if( (db->flags & SQLITE_Interrupt)!=0 ){
           pParse->rc = SQLITE_INTERRUPT;
-          sqliteSetString(pzErrMsg, "interrupt", 0);
+          sqliteSetString(pzErrMsg, "interrupt", (char*)0);
           goto abort_parse;
         }
         break;
@@ -468,7 +464,8 @@ abort_parse:
   }
   sqliteParserFree(pEngine, free);
   if( pParse->rc!=SQLITE_OK && pParse->rc!=SQLITE_DONE && pParse->zErrMsg==0 ){
-    sqliteSetString(&pParse->zErrMsg, sqlite_error_string(pParse->rc), 0);
+    sqliteSetString(&pParse->zErrMsg, sqlite_error_string(pParse->rc),
+                    (char*)0);
   }
   if( pParse->zErrMsg ){
     if( pzErrMsg && *pzErrMsg==0 ){
