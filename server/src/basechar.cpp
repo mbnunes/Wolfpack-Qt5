@@ -2058,3 +2058,4 @@ bool cBaseChar::onStatGain( unsigned char stat )
 
 	return result;
 }
+

@@ -638,6 +638,15 @@ static PyObject* wpItem_lightning( wpItem *self, PyObject *args )
 	return PyTrue;
 }
 
+static PyObject* wpItem_resendtooltip( wpItem *self, PyObject *args )
+{
+	if (!self->pItem->free) {
+		self->pItem->resendTooltip();
+	}
+
+	return PyTrue;
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
 	{ "additem",			(getattrofunc)wpItem_additem, METH_VARARGS, "Adds an item to this container." },
@@ -656,6 +665,7 @@ static PyMethodDef wpItemMethods[] =
 	{ "getname",			(getattrofunc)wpItem_getname, METH_VARARGS, "Get item name." },
 	{ "multi",				(getattrofunc)wpItem_multi,	METH_VARARGS, 0 },
 	{ "lightning",			(getattrofunc)wpItem_lightning, METH_VARARGS, 0 },
+	{ "resendtooltip",		(getattrofunc)wpItem_resendtooltip, METH_VARARGS, 0 },
 
 	// Effects
 	{ "movingeffect",		(getattrofunc)wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },

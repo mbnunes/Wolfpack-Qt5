@@ -1610,6 +1610,15 @@ static PyObject* wpChar_lightning( wpChar *self, PyObject *args )
 	return PyTrue;
 }
 
+static PyObject* wpChar_resendtooltip( wpChar *self, PyObject *args )
+{
+	if( self->pChar->free )
+		return PyFalse;
+
+	self->pChar->resendTooltip();
+	return PyTrue;
+}
+
 static PyObject* wpChar_additem( wpChar *self, PyObject *args )
 {
 	if( self->pChar->free )
@@ -1648,6 +1657,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "kill",			(getattrofunc)wpChar_kill,				METH_VARARGS, "This kills the character." },
 	{ "damage",			(getattrofunc)wpChar_damage,			METH_VARARGS, "This damages the current character." },
     { "update",			(getattrofunc)wpChar_update,			METH_VARARGS, "Resends the char to all clients in range." },
+	{ "resendtooltip",	(getattrofunc)wpChar_resendtooltip,		METH_VARARGS, "Resends the tooltip for this character." },
 	{ "updateflags",	(getattrofunc)wpChar_updateflags,		METH_VARARGS, "Resends the character if flags have changed (take care, this might look like a move)." },
 	{ "removefromview", (getattrofunc)wpChar_removefromview,	METH_VARARGS, "Removes the char from all surrounding clients." },
 	{ "message",		(getattrofunc)wpChar_message,			METH_VARARGS, "Displays a message above the characters head - only visible for the player." },

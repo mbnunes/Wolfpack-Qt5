@@ -473,12 +473,29 @@ void cUObject::removeFromView( bool clean )
 }
 
 // Checks if the specified object is in range
-bool cUObject::inRange( const cUObject *object, UINT32 range ) const
+bool cUObject::inRange( cUObject *object, UINT32 range ) const
 {
 	if( !object ) 
 		return false;
 
-	return ( pos_.distance( object->pos_ ) <= range );
+	Coord_cl pos = object->pos_;
+
+	if (object->isItem()) {
+		P_ITEM pItem = dynamic_cast<P_ITEM>(object);
+
+		if (pItem) {
+			P_ITEM pCont = pItem->getOutmostItem();
+			P_CHAR pEquipped = pItem->getOutmostChar();
+
+			if (pEquipped) {
+				pos = pEquipped->pos();
+			} else if (pCont) {
+				pos = pCont->pos();
+			}
+		}
+	}
+
+	return pos_.distance(pos) <= range;
 }
 
 void cUObject::lightning( unsigned short hue )
@@ -713,6 +730,27 @@ void cUObject::removeTag( const QString& key )
 QStringList cUObject::getTags() const
 {
 	return tags_.getKeys();
+}
+
+void cUObject::resendTooltip() {
+	tooltip_ = World::instance()->getUnusedTooltip(); 
+	setTooltip(tooltip_);
+
+	cUOTxAttachTooltip tooltip;
+
+	tooltip.setId( tooltip_ );
+	tooltip.setSerial( serial() );
+
+	cUOTxAttachTooltip attach;
+	attach.setId(tooltip_);
+	attach.setSerial(serial_);
+
+	for (cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next()) {
+		if (s->player() && s->player()->inRange(this, s->player()->visualRange())) {
+			s->addTooltip(tooltip_);
+			s->send(&attach);
+		}
+	}
 }
 
 /****************************

@@ -107,11 +107,11 @@ public:
 	virtual void log( eLogLevel, const QString &string ) = 0;
 	virtual void log( const QString &string ) = 0;
 	unsigned int damage( eDamageType type, unsigned int amount, cUObject *source = 0 );
-
+	
 	// other public methods
 	// Simple Property setting and getting for script engines.
-	virtual stError *setProperty( const QString &name, const cVariant &value );
-	virtual stError *getProperty( const QString &name, cVariant &value ) const;
+	stError *setProperty( const QString &name, const cVariant &value );
+	stError *getProperty( const QString &name, cVariant &value ) const;	
 	void updateHealth( void );
 	void action( uchar id ); // Do an action
 	P_ITEM getWeapon() const;

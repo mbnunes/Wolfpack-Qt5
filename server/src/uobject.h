@@ -122,7 +122,7 @@ public:
 	void save();
 	bool del();
 
-	bool inRange( const cUObject *object, UINT32 range ) const;
+	bool inRange( cUObject *object, UINT32 range ) const;
 	void removeFromView( bool clean = true );
 
 	// Multiple quick-effect methods
@@ -171,6 +171,7 @@ public:
 	virtual stError *setProperty( const QString &name, const cVariant &value );
 	virtual stError *getProperty( const QString &name, cVariant &value ) const;
 	virtual void flagUnchanged() { changed_ = false; }
+	void resendTooltip();
 
 	char direction( cUObject* ) const;
 
