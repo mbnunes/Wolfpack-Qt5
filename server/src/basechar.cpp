@@ -954,7 +954,7 @@ bool cBaseChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 	//    max = 1200;
 
 	// How far is the players skill above the required minimum.
-	int charrange = skillValue( skill ) - min;
+	int charrange = abs(skillValue(skill) - min);
 
 	if( charrange < 0 )
 		charrange = 0;
@@ -964,7 +964,7 @@ bool cBaseChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 		max += 1;
 
 	// +100 means: *allways* a minimum of 10% for success
-	float chance = ( ( (float) charrange * 890.0f ) / (float)( max - min ) ) + 100.0f;
+	float chance = ( ( (float) charrange * 890.0f ) / (float)(abs(max - min)) ) + 100.0f;
 
 	if( chance > 990 )
 		chance = 990;	// *allways* a 1% chance of failure

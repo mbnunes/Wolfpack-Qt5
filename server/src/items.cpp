@@ -1829,9 +1829,10 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property item.magic The movable permission for the object.
 		Values:
-		<code>0 - Anyone
-		1 - Owner
-		2 - Nobody
+		<code>0 - Tiledata default
+		1 - Movable by anyone
+		2 - Owner
+		3 - Nobody
 		</code>
 	*/
 	else SET_INT_PROPERTY( "magic", magic_ )
@@ -1937,16 +1938,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else if( name == "dye" )
 	{
 		setDye( value.toInt() != 0 ? true : false );
-	}
-	/*
-		\property item.corpse The corpse's serial id to which this object is contained.
-	*/
-	else if( name == "corpse" )
-	{
-		if( value.toInt() )
-			priv_ |= 0x40;
-		else
-			priv_ &= ~0x40;
 		return 0;
 	}
 
@@ -2000,7 +1991,10 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "secured", priv_ & 0x08 ? 1 : 0 )
 	else GET_PROPERTY( "allowmeditation", priv_ & 0x10 ? 1 : 0 )
 	else GET_PROPERTY( "twohanded", priv_ & 0x20 ? 1 : 0 )
-	else GET_PROPERTY( "corpse", priv_ & 0x40 ? 1 : 0 )
+	/*
+		\rproperty item.corpse Specifies whether this item is a corpse or not.
+	*/
+	else GET_PROPERTY( "corpse", corpse() )
 	else GET_PROPERTY( "visible", visible() )
 	else return cUObject::getProperty( name, value );
 }

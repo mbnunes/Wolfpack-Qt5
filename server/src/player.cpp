@@ -599,6 +599,10 @@ bool cPlayer::canPickUp( cItem* pi )
 	if( account_ && account_->isAllMove() )
 		return true;
 
+	if (pi->isAllMovable()) {
+		return true;
+	}
+
 	if( ( pi->isOwnerMovable() || pi->isLockedDown() ) && !this->Owns( pi ) )	// owner movable or locked down ?
 		return false;
 

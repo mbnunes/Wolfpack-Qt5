@@ -276,7 +276,7 @@ protected:
 	//===================
 	//   0 |  01 | NoDecay
 	//   1 |  02 | Newbie
-	//   2 |  04 | Dispellable
+	//   2 |  04 | 
 	//   3 |  08 | Secured (Chests)
 	//   4 |  10 | Allow meditation
 	//   5 |  20 | Twohanded

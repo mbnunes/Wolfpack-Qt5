@@ -71,7 +71,7 @@ protected:
 	Coord_cl pos_;
 	SERIAL serial_;
 	SERIAL multis_;	
-	uchar dir_:3;
+	uchar dir_;
 
 	// Things for building the SQL string
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
