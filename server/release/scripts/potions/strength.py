@@ -1,12 +1,14 @@
 
 import wolfpack
+import time
+import random
 from wolfpack.consts import ANIM_FIDGET3, SOUND_DRINK1, SOUND_STRENGTH_UP, \
 	MAGERY, ALCHEMY, STRENGTH_TIME
-from potions import *
+from potions.consts import *
 from potions.utilities import consumePotion, canUsePotion
 
 # Strength Potion
-def strengthPotion( char, potion, strengthtype ):
+def potion( char, potion, strengthtype ):
 	socket = char.socket
 	if not canUsePotion( char, potion ):
 		return False

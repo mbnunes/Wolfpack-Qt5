@@ -1,7 +1,8 @@
 
 import wolfpack
+import math
 from wolfpack.consts import ANIM_FIDGET3, MAGERY, ALCHEMY
-from potions import *
+from potions.consts import *
 from potions.utilities import consumePotion, canUsePotion
 
 def potion( char, potion ):

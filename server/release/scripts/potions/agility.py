@@ -1,8 +1,10 @@
 
 import wolfpack
+import time
+import random
 from wolfpack.consts import ANIM_FIDGET3, SOUND_DRINK1, SOUND_AGILITY_UP, \
 	MAGERY, ALCHEMY, AGILITY_TIME
-from potions import *
+from potions.consts import *
 from potions.utilities import consumePotion, canUsePotion
 
 # Agility Potion

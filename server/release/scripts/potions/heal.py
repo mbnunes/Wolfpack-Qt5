@@ -1,9 +1,11 @@
 
 import wolfpack
+import time
+import random
 from wolfpack.consts import ANIM_FIDGET3, MAGERY, ALCHEMY, HEAL_POT_DELAY, \
 	POTION_LESSERHEAL_RANGE, POTION_HEAL_RANGE, POTION_GREATERHEAL_RANGE, \
 	SOUND_DRINK1
-from potions import *
+from potions.consts import *
 from potions.utilities import consumePotion, canUsePotion
 
 # Heal Potions
@@ -39,13 +41,13 @@ def potion( char, potion, healtype ):
 
 	# Lesser Heal
 	if healtype == 1:
-		amount = randint( POTION_LESSERHEAL_RANGE[0], POTION_LESSERHEAL_RANGE[1] )
+		amount = random.randint( POTION_LESSERHEAL_RANGE[0], POTION_LESSERHEAL_RANGE[1] )
 	# Heal
 	elif healtype == 2:
-		amount = randint( POTION_HEAL_RANGE[0], POTION_HEAL_RANGE[1] )
+		amount = random.randint( POTION_HEAL_RANGE[0], POTION_HEAL_RANGE[1] )
 	# Greater Heal
 	elif healtype == 3:
-		amount = randint( POTION_GREATERHEAL_RANGE[0], POTION_GREATERHEAL_RANGE[1] )
+		amount = random.randint( POTION_GREATERHEAL_RANGE[0], POTION_GREATERHEAL_RANGE[1] )
 
 	char.hitpoints = min( char.hitpoints + amount, char.maxhitpoints ) # We don't heal over our maximum health
 

@@ -2,9 +2,7 @@
 import wolfpack
 import wolfpack.utilities
 from potions.utilities import consumePotion
-# Imports the potion table.
-from potions import POTIONS, POT_RETURN_BOTTLE, POT_AGGRESSIVE, \
-	 POT_TARGET, POT_NAME, KEG_NAME, POT_DEF
+from potions.consts import *
 
 ### Filling the keg ###
 def onDropOnItem( potionkeg, potion ):
@@ -151,3 +149,4 @@ def kegfillmessage( char, kegfill ):
 	else:
 		socket.clilocmessage( 502259 ) # The keg is damaged.
 	return
+
