@@ -16,8 +16,8 @@
 	<!--  Alchemy -->
 	<skill id="0">
 		<str>0</str>
-		<dex>50</dex>
-		<int>50</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>ALCHEMY</defname>
 		<name>Alchemy</name>
 		<title>Alchemist</title>
@@ -37,9 +37,9 @@
 
 	<!--  Anatomy -->
 	<skill id="1">
-		<str>10</str>
-		<dex>10</dex>
-		<int>80</int>
+		<str>125</str>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>ANATOMY</defname>
 		<name>Anatomy</name>
 		<title>Physician</title>
@@ -60,8 +60,8 @@
 	<!--  Animal Lore -->
 	<skill id="2">
 		<str>0</str>
-		<dex>0</dex>
-		<int>100</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>ANIMALLORE</defname>
 		<name>Animal Lore</name>
 		<title>Beast Master</title>
@@ -83,7 +83,7 @@
 	<skill id="3">
 		<str>0</str>
 		<dex>0</dex>
-		<int>100</int>
+		<int>125</int>
 		<defname>ITEMIDENTIFICATION</defname>
 		<name>Item Identification</name>
 		<title>Artificer</title>
@@ -103,9 +103,9 @@
 
 	<!--  Arms Lore -->
 	<skill id="4">
-		<str>80</str>
-		<dex>10</dex>
-		<int>10</int>
+		<str>125</str>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>ARMSLORE</defname>
 		<name>Arms Lore</name>
 		<title>Appraiser</title>
@@ -125,8 +125,8 @@
 
 	<!--  Parrying -->
 	<skill id="5">
-		<str>75</str>
-		<dex>25</dex>
+		<str>125</str>
+		<dex>125</dex>
 		<int>0</int>
 		<defname>PARRYING</defname>
 		<name>Parrying</name>
@@ -148,7 +148,7 @@
 	<!--  Begging -->
 	<skill id="6">
 		<str>0</str>
-		<dex>0</dex>
+		<dex>125</dex>
 		<int>0</int>
 		<defname>BEGGING</defname>
 		<name>Begging</name>
@@ -169,7 +169,7 @@
 
 	<!--  Blacksmithing -->
 	<skill id="7">
-		<str>120</str>
+		<str>125</str>
 		<dex>0</dex>
 		<int>0</int>
 		<defname>BLACKSMITHING</defname>
@@ -191,8 +191,8 @@
 
 	<!--  BowcraftFletching -->
 	<skill id="8">
-		<str>60</str>
-		<dex>80</dex>
+		<str>125</str>
+		<dex>125</dex>
 		<int>0</int>
 		<defname>BOWCRAFTING</defname>
 		<name>Bowcrafting</name>
@@ -214,8 +214,8 @@
 	<!--  Peacemaking -->
 	<skill id="9">
 		<str>0</str>
-		<dex>50</dex>
-		<int>50</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>PEACEMAKING</defname>
 		<name>Peacemaking</name>
 		<title>Minstrel</title>
@@ -235,9 +235,9 @@
 
 	<!--  Camping -->
 	<skill id="10">
-		<str>60</str>
-		<dex>20</dex>
-		<int>20</int>
+		<str>125</str>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>CAMPING</defname>
 		<name>Camping</name>
 		<title>Woodsman</title>
@@ -257,8 +257,8 @@
 
 	<!--  Carpentry -->
 	<skill id="11">
-		<str>75</str>
-		<dex>25</dex>
+		<str>125</str>
+		<dex>125</dex>
 		<int>0</int>
 		<defname>CARPENTRY</defname>
 		<name>Carpentry</name>
@@ -280,10 +280,10 @@
 	<!--  Cartography -->
 	<skill id="12">
 		<str>0</str>
-		<dex>50</dex>
-		<int>50</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>CARTOGRAPHY</defname>
-		<name>Cartography</name>	
+		<name>Cartography</name>
 		<title>Explorer</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
@@ -302,8 +302,8 @@
 	<!--  Cooking -->
 	<skill id="13">
 		<str>0</str>
-		<dex>40</dex>
-		<int>60</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>COOKING</defname>
 		<name>Cooking</name>
 		<title>Cook</title>
@@ -324,8 +324,8 @@
 	<!--  Detecting Hidden -->
 	<skill id="14">
 		<str>0</str>
-		<dex>40</dex>
-		<int>60</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>DETECTHIDDEN</defname>
 		<name>Detect Hidden</name>
 		<title>Scout</title>
@@ -346,8 +346,8 @@
 	<!--  Discordance -->
 	<skill id="15">
 		<str>0</str>
-		<dex>50</dex>
-		<int>50</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>DISCORDANCE</defname>
 		<name>Discordance</name>
 		<title>Bard</title>
@@ -369,7 +369,7 @@
 	<skill id="16">
 		<str>0</str>
 		<dex>0</dex>
-		<int>120</int>
+		<int>125</int>
 		<defname>EVALUATINGINTELLIGENCE</defname>
 		<name>Evaluating Inteligence</name>
 		<title>Mystic</title>
@@ -389,9 +389,9 @@
 
 	<!--  Healing -->
 	<skill id="17">
-		<str>35</str>
-		<dex>40</dex>
-		<int>25</int>
+		<str>125</str>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>HEALING</defname>
 		<name>Healing</name>
 		<title>Healer</title>
@@ -411,8 +411,8 @@
 
 	<!--  Fishing -->
 	<skill id="18">
-		<str>50</str>
-		<dex>50</dex>
+		<str>125</str>
+		<dex>125</dex>
 		<int>0</int>
 		<defname>FISHING</defname>
 		<name>Fishing</name>
@@ -434,8 +434,8 @@
 	<!--  Forensic Evaluation -->
 	<skill id="19">
 		<str>0</str>
-		<dex>20</dex>
-		<int>80</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>FORENSICS</defname>
 		<name>Forensics</name>
 		<title>Coroner</title>
@@ -455,9 +455,9 @@
 
 	<!--  Herding -->
 	<skill id="20">
-		<str>10</str>
-		<dex>50</dex>
-		<int>40</int>
+		<str>125</str>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>HERDING</defname>
 		<name>Herding</name>
 		<title>Sheperd</title>
@@ -478,8 +478,8 @@
 	<!--  Hiding -->
 	<skill id="21">
 		<str>0</str>
-		<dex>80</dex>
-		<int>20</int>
+		<dex>125</dex>
+		<int>0</int>
 		<defname>HIDING</defname>
 		<name>Hiding</name>
 		<title>Ninja</title>
@@ -500,8 +500,8 @@
 	<!--  Provocation -->
 	<skill id="22">
 		<str>0</str>
-		<dex>75</dex>
-		<int>25</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>PROVOCATION</defname>
 		<name>Provocation</name>
 		<title>Bard</title>
@@ -522,8 +522,8 @@
 	<!--  Inscription -->
 	<skill id="23">
 		<str>0</str>
-		<dex>20</dex>
-		<int>80</int>
+		<dex>0</dex>
+		<int>125</int>
 		<defname>INSCRIPTION</defname>
 		<name>Inscription</name>
 		<title>Scribe</title>
@@ -543,9 +543,9 @@
 
 	<!--  Lockpicking -->
 	<skill id="24">
-		<str>20</str>
-		<dex>40</dex>
-		<int>40</int>
+		<str>0</str>
+		<dex>125</dex>
+		<int>0</int>
 		<defname>LOCKPICKING</defname>
 		<name>Lockpicking</name>
 		<title>Locksmith</title>
@@ -567,7 +567,7 @@
 	<skill id="25">
 		<str>0</str>
 		<dex>0</dex>
-		<int>120</int>
+		<int>125</int>
 		<defname>MAGERY</defname>
 		<name>Magery</name>
 		<title>Magus</title>
@@ -587,9 +587,9 @@
 
 	<!--  Resisting Spells -->
 	<skill id="26">
-		<str>25</str>
-		<dex>25</dex>
-		<int>50</int>
+		<str>0</str>
+		<dex>0</dex>
+		<int>0</int>
 		<defname>MAGICRESIST</defname>
 		<name>Magic Resist</name>
 		<title>Sorceror</title>
@@ -614,7 +614,7 @@
 		<int>0</int>
 		<defname>TACTICS</defname>
 		<name>Tactics</name>
-		<title>Soldier</title>
+		<title>Warrior</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -632,7 +632,7 @@
 	<!--  Snooping -->
 	<skill id="28">
 		<str>0</str>
-		<dex>120</dex>
+		<dex>125</dex>
 		<int>0</int>
 		<defname>SNOOPING</defname>
 		<name>Snooping</name>
@@ -654,8 +654,8 @@
 	<!--  Musicianship -->
 	<skill id="29">
 		<str>0</str>
-		<dex>80</dex>
-		<int>20</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>MUSICIANSHIP</defname>
 		<name>Musicianship</name>
 		<title>Bard</title>
@@ -676,8 +676,8 @@
 	<!--  Poisoning -->
 	<skill id="30">
 		<str>0</str>
-		<dex>40</dex>
-		<int>60</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>POISONING</defname>
 		<name>Poisoning</name>
 		<title>Assassin</title>
@@ -697,8 +697,8 @@
 
 	<!--  Archery -->
 	<skill id="31">
-		<str>75</str>
-		<dex>120</dex>
+		<str>125</str>
+		<dex>125</dex>
 		<int>0</int>
 		<defname>ARCHERY</defname>
 		<name>Archery</name>
@@ -721,7 +721,7 @@
 	<skill id="32">
 		<str>0</str>
 		<dex>0</dex>
-		<int>120</int>
+		<int>125</int>
 		<defname>SPIRITSPEAK</defname>
 		<name>Spirit Speak</name>
 		<title>Medium</title>
@@ -742,7 +742,7 @@
 	<!--  Stealing -->
 	<skill id="33">
 		<str>0</str>
-		<dex>120</dex>
+		<dex>125</dex>
 		<int>0</int>
 		<defname>STEALING</defname>
 		<name>Stealing</name>
@@ -763,9 +763,9 @@
 
 	<!--  Tailoring -->
 	<skill id="34">
-		<str>10</str>
-		<dex>60</dex>
-		<int>30</int>
+		<str>125</str>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>TAILORING</defname>
 		<name>Tailoring</name>
 		<title>Tailor</title>
@@ -785,9 +785,9 @@
 
 	<!--  Animal Taming -->
 	<skill id="35">
-		<str>40</str>
-		<dex>20</dex>
-		<int>40</int>
+		<str>125</str>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>ANIMALTAMING</defname>
 		<name>Animal Taming</name>
 		<title>Animal Tamer</title>
@@ -807,9 +807,9 @@
 
 	<!--  Taste Identification -->
 	<skill id="36">
-		<str>20</str>
+		<str>125</str>
 		<dex>0</dex>
-		<int>80</int>
+		<int>125</int>
 		<defname>TASTEIDENTIFICATION</defname>
 		<name>Taste Identification</name>
 		<title>Food Taster</title>
@@ -829,9 +829,9 @@
 
 	<!--  Tinkering -->
 	<skill id="37">
-		<str>40</str>
-		<dex>20</dex>
-		<int>40</int>
+		<str>125</str>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>TINKERING</defname>
 		<name>Tinkering</name>
 		<title>Tinker</title>
@@ -852,8 +852,8 @@
 	<!--  Tracking -->
 	<skill id="38">
 		<str>0</str>
-		<dex>50</dex>
-		<int>50</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>TRACKING</defname>
 		<name>Tracking</name>
 		<title>Ranger</title>
@@ -873,9 +873,9 @@
 
 	<!--  Veterinary -->
 	<skill id="39">
-		<str>80</str>
-		<dex>10</dex>
-		<int>10</int>
+		<str>125</str>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>VETERINARY</defname>
 		<name>Veterinary</name>
 		<title>Veterinarian</title>
@@ -895,8 +895,8 @@
 
 	<!--  Swordsmanship -->
 	<skill id="40">
-		<str>120</str>
-		<dex>75</dex>
+		<str>125</str>
+		<dex>125</dex>
 		<int>0</int>
 		<defname>SWORDSMANSHIP</defname>
 		<name>Swordsmanship</name>
@@ -917,8 +917,8 @@
 
 	<!--  Mace  Fighting -->
 	<skill id="41">
-		<str>120</str>
-		<dex>55</dex>
+		<str>125</str>
+		<dex>125</dex>
 		<int>0</int>
 		<defname>MACEFIGHTING</defname>
 		<name>Mace Fighting</name>
@@ -939,8 +939,8 @@
 
 	<!--  Fencing -->
 	<skill id="42">
-		<str>85</str>
-		<dex>85</dex>
+		<str>125</str>
+		<dex>125</dex>
 		<int>0</int>
 		<defname>FENCING</defname>
 		<name>Fencing</name>
@@ -961,8 +961,8 @@
 
 	<!--  Wrestling -->
 	<skill id="43">
-		<str>120</str>
-		<dex>75</dex>
+		<str>125</str>
+		<dex>0</dex>
 		<int>0</int>
 		<defname>WRESTLING</defname>
 		<name>Wrestling</name>
@@ -983,7 +983,7 @@
 
 	<!--  Lumberjacking -->
 	<skill id="44">
-		<str>120</str>
+		<str>125</str>
 		<dex>0</dex>
 		<int>0</int>
 		<defname>LUMBERJACKING</defname>
@@ -1005,7 +1005,7 @@
 
 	<!--  Mining -->
 	<skill id="45">
-		<str>120</str>
+		<str>125</str>
 		<dex>0</dex>
 		<int>0</int>
 		<defname>MINING</defname>
@@ -1029,7 +1029,7 @@
 	<skill id="46">
 		<str>0</str>
 		<dex>0</dex>
-		<int>120</int>
+		<int>125</int>
 		<defname>MEDITATION</defname>
 		<name>Meditation</name>
 		<title>Medium</title>
@@ -1050,7 +1050,7 @@
 	<!--  STEALTH -->
 	<skill id="47">
 		<str>0</str>
-		<dex>120</dex>
+		<dex>125</dex>
 		<int>0</int>
 		<defname>STEALTH</defname>
 		<name>Stealth</name>
@@ -1072,8 +1072,8 @@
 	<!--  REMOVE TRAPS -->
 	<skill id="48">
 		<str>0</str>
-		<dex>0</dex>
-		<int>120</int>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>REMOVETRAPS</defname>
 		<name>Remove Traps</name>
 		<advancement base="0" failure="50" success="75" />
@@ -1094,7 +1094,7 @@
 	<skill id="49">
 		<str>0</str>
 		<dex>0</dex>
-		<int>120</int>
+		<int>125</int>
 		<defname>NECROMANCY</defname>
 		<name>Necromancy</name>
 		<title>Necromancer</title>
@@ -1114,9 +1114,9 @@
 
 	<!-- Focus -->
 	<skill id="50">
-		<str>0</str>
-		<dex>0</dex>
-		<int>120</int>
+		<str>125</str>
+		<dex>125</dex>
+		<int>125</int>
 		<defname>FOCUS</defname>
 		<name>Focus</name>
 		<advancement base="0" failure="50" success="75" />
@@ -1137,7 +1137,7 @@
 	<skill id="51">
 		<str>0</str>
 		<dex>0</dex>
-		<int>120</int>
+		<int>125</int>
 		<defname>CHIVALRY</defname>
 		<name>Chivalry</name>
 		<title>Paladin</title>
@@ -1191,7 +1191,7 @@
 	<!--
 		This list represents the "rank" of a player in a
 		specific skill. It's ordered from the lowest to the
-		highest rank. If you don't want them, simply make the 
+		highest rank. If you don't want them, simply make the
 		list empty.
 	-->
 	<list id="SKILL_RANKS">
