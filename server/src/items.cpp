@@ -1438,7 +1438,7 @@ P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Ad
 	P_ITEM backpack = Packitem(pc_currchar);
 	
 	P_ITEM pi = CreateScriptItem(s, nItem, 1);
-	if (pi == NULL)
+	if (pi == NULL || backpack == NULL)
 		return NULL;
 
 	if(nDigging) 
