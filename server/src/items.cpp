@@ -2039,8 +2039,8 @@ void cItem::update( cUOSocket *mSock )
 
 			// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
 		
-			sendTooltip( mSock );
 			mSock->send( sendItem );
+			sendTooltip( mSock );
 		}
 		else
 		{
@@ -2074,8 +2074,8 @@ void cItem::update( cUOSocket *mSock )
 	
 				// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
 				
-				sendTooltip( mSock );
 				mSock->send( &sockSendItem );
+				sendTooltip( mSock );
 			}
 			delete sendItem;
 		}

@@ -93,11 +93,11 @@ using namespace std;
 */
 cUOSocket::cUOSocket( QSocketDevice *sDevice ): 
 		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
-		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ), 
-		tooltipscache_(0)
+		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice )
 {
 	_socket->resetStatus();
 	_ip = _socket->peerAddress().toString();
+	tooltipscache_ = new QBitArray;
 }
 
 /*!
@@ -1180,6 +1180,7 @@ void cUOSocket::resendPlayer( bool quick )
 
 		cUOTxCharEquipment equipment;
 		equipment.fromItem( pItem );
+		pItem->sendTooltip( this );
 		send( &equipment );
 	}
 
@@ -1572,6 +1573,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 			continue;
 
 		itemContent.addItem( pItem );
+		pItem->sendTooltip( this );
 		++count;
 	}
 
@@ -2467,8 +2469,6 @@ void cUOSocket::closeGump( UINT32 type, UINT32 returnCode )
 
 void cUOSocket::addTooltip( UINT32 data )
 {
-	if( tooltipscache_ == NULL )
-		tooltipscache_ = new QBitArray;
 
 	if( data >= tooltipscache_->size() )
 		tooltipscache_->resize( data+2 );

@@ -680,7 +680,7 @@ void cUObject::sendTooltip( cUOSocket* mSock )
 	tooltip->setId( tooltip_ );
 	tooltip->setSerial( serial() );
 
-	if( mSock->toolTips() == NULL || tooltip_ >= mSock->toolTips()->size() || !mSock->haveTooltip( tooltip_ ) )
+	if( tooltip_ >= mSock->toolTips()->size() || !mSock->haveTooltip( tooltip_ ) )
 	{
 		mSock->addTooltip( tooltip_ );
 		mSock->send( tooltip );
