@@ -706,6 +706,9 @@ static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 
 	P_ITEM pItem = getArgItem( 0 );
 
+	if (pItem->free)
+		Py_RETURN_FALSE;
+
 	// Secondary Parameters
 	bool randomPos = true;
 	bool handleWeight = true;

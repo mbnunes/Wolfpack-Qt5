@@ -2241,7 +2241,7 @@ static PyObject* wpChar_additem( wpChar* self, PyObject* args )
 	P_ITEM pItem = getArgItem( 1 );
 
 	if ( pItem )
-		self->pChar->addItem( ( cBaseChar::enLayer ) layer, pItem, handleWeight, noRemove );
+		self->pChar->addItem( ( cBaseChar::enLayer ) layer, pItem, handleWeight, false );
 
 	Py_RETURN_NONE;
 }

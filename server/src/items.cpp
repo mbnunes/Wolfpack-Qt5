@@ -347,6 +347,10 @@ int cItem::deleteAmount( int amount, unsigned short _id, unsigned short _color )
 
 void cItem::save( cBufferedWriter& writer, unsigned int version )
 {
+	if (free || (container_ && container_->free)) {
+		Console::instance()->log(LOG_ERROR, tr("Saving item 0x%1 although it's already freed.\n").arg(serial_, 0, 16));
+	}
+
 	cUObject::save( writer, version );
 
 	writer.writeShort( id_ );
@@ -374,7 +378,8 @@ void cItem::load( cBufferedReader& reader, unsigned int version )
 	id_ = reader.readShort();
 	color_ = reader.readShort();
 	// Here we assume that containers are always before us in the save
-	cUObject* container = World::instance()->findObject( reader.readInt() );
+	SERIAL containerSerial = reader.readInt();
+	cUObject* container = World::instance()->findObject( containerSerial );
 	layer_ = reader.readByte();
 	amount_ = reader.readShort();
 	hp_ = reader.readShort();
@@ -392,7 +397,7 @@ void cItem::load( cBufferedReader& reader, unsigned int version )
 		P_ITEM iContainer = dynamic_cast<P_ITEM>( container );
 		if ( iContainer )
 		{
-			iContainer->addItem( this, false, true, true );
+			iContainer->addItem( this, false, true, false );
 		}
 		else
 		{
@@ -401,6 +406,10 @@ void cItem::load( cBufferedReader& reader, unsigned int version )
 			{
 				cContainer->addItem( ( cBaseChar::enLayer ) layer(), this, true, true );
 			}
+		}
+	} else {
+		if (containerSerial != INVALID_SERIAL) { // Indicate an error
+			reader.setError(tr("Deleting item 0x%1 because of invalid container 0x%2.\n").arg(serial_, 0, 16).arg(containerSerial, 0, 16));
 		}
 	}
 }
@@ -479,8 +488,15 @@ QString cItem::getName( bool shortName )
 
 void cItem::setSerial( const SERIAL ser )
 {
-	if ( ser == INVALID_SERIAL )
+	if ( ser == INVALID_SERIAL || ser == serial_ )
 		return;
+
+	// is the new serial already occupied?
+	P_ITEM other = World::instance()->findItem(ser);
+	if (other && other != this) {
+		Console::instance()->log(LOG_ERROR, tr("Trying to change the serial of item 0x%1 to the already occupied serial 0x%2.\n").arg(serial_, 0, 16).arg(ser, 0, 16));
+		return;
+	}
 
 	if ( serial() != INVALID_SERIAL )
 		World::instance()->unregisterObject( this );
@@ -1082,7 +1098,7 @@ P_ITEM cItem::dupe()
 			P_ITEM item = dynamic_cast<P_ITEM>( container_ );
 
 			if ( item )
-				item->addItem( nItem, false, true, true );
+				item->addItem( nItem, false, true, false );
 		}
 	}
 	else

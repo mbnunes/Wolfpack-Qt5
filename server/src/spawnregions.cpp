@@ -917,6 +917,13 @@ void cAllSpawnRegions::reload()
 			{
 				object->setSpawnregion( region );
 			}
+		} else {
+			cUObject *object;
+			QPtrList<cUObject> &list = it.data();
+			for ( object = list.first(); object; object = list.next() )
+			{
+				object->remove();
+			}
 		}
 	}
 }

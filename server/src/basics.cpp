@@ -353,6 +353,7 @@ public:
 
 cBufferedReader::cBufferedReader( const QCString& magic, unsigned int version )
 {
+	error_ = QString::null;
 	d = new cBufferedReaderPrivate;	
 	d->buffer.resize( 4096 );
 	d->bufferpos = 0;

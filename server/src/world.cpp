@@ -450,7 +450,38 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 					if (object) {
 						try {
 							object->load( reader );
-							objects.append(object);
+
+							if (reader.hasError()) {
+								Console::instance()->log(LOG_ERROR, reader.error());
+								reader.setError(QString::null);
+
+								cUObject *obj = dynamic_cast<cUObject*>(object);
+								if (obj) {
+									obj->setSpawnregion(0);
+									SectorMaps::instance()->remove(obj);
+									unregisterObject(obj);
+
+									if (obj->multi()) {
+										obj->multi()->removeObject(obj);
+										obj->setMulti(0);
+									}
+								}
+
+								P_ITEM item = dynamic_cast<P_ITEM>(object);
+								if (item) {
+                                    item->removeFromCont();
+									item->setOwner(0);
+								}
+
+								P_NPC npc = dynamic_cast<P_NPC>(object);
+								if (npc) {
+									npc->setOwner(0);
+									npc->setAI(0);
+								}
+								delete object;
+							} else {
+								objects.append(object);
+							}
 						} catch (wpException& e) {
 							Console::instance()->log( LOG_WARNING, e.error() + "\n" );
 						}
@@ -1186,8 +1217,10 @@ void cWorld::unregisterObject( SERIAL serial )
 		p->items.erase( it );
 		_itemCount--;
 
+		/*
+		This isn't good...
 		if ( _lastItemSerial == serial )
-			_lastItemSerial--;
+			_lastItemSerial--;*/
 	}
 	else if ( isCharSerial( serial ) )
 	{
@@ -1212,8 +1245,10 @@ void cWorld::unregisterObject( SERIAL serial )
 		p->chars.erase( it );
 		_charCount--;
 
+		/*
+		This sometimes kills stuff...
 		if ( _lastCharSerial == serial )
-			_lastCharSerial--;
+			_lastCharSerial--;*/
 	}
 	else
 	{

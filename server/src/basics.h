@@ -143,6 +143,7 @@ class cBufferedReader
 {
 private:
 	class cBufferedReaderPrivate *d;
+	QString error_;
 
 public:
 	cBufferedReader( const QCString& magic, unsigned int version );
@@ -166,6 +167,18 @@ public:
 	unsigned int getSkipSize( unsigned char type );
 
 	unsigned int objectCount();
+
+	inline void setError(const QString &error) {
+		error_ = error;
+	}
+
+	inline bool hasError() {
+		return !error_.isNull();
+	}
+
+	inline const QString &error() {
+		return error_;
+	}
 };
 
 inline void cBufferedWriter::writeInt( unsigned int data, bool unbuffered )

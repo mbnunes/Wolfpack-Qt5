@@ -1057,8 +1057,15 @@ P_ITEM cBaseChar::getBackpack()
 void cBaseChar::setSerial( const SERIAL ser )
 {
 	// This is not allowed
-	if ( ser == INVALID_SERIAL )
+	if ( ser == INVALID_SERIAL || ser == serial_ )
 		return;
+
+	// is the new serial already occupied?
+	P_CHAR other = World::instance()->findChar(ser);
+	if (other && other != this) {
+		Console::instance()->log(LOG_ERROR, tr("Trying to change the serial of char 0x%1 to the already occupied serial 0x%2.\n").arg(serial_, 0, 16).arg(ser, 0, 16));
+		return;
+	}
 
 	if ( this->serial() != INVALID_SERIAL )
 		World::instance()->unregisterObject( this->serial() );
@@ -3534,6 +3541,7 @@ void cBaseChar::remove()
 
 		pItem->remove();
 	}
+	content_.clear(); // Clear the content
 
 	if ( multi_ )
 	{
