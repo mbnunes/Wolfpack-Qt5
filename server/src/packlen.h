@@ -29,7 +29,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if !defined(__PACKLEN_H__
+#if !defined(__PACKLEN_H__)
 #define __PACKLEN_H__
 
 class packlen_cl
