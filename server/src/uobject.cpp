@@ -395,7 +395,6 @@ void cUObject::removeEvent( const QString& name )
 
 		if ( count == 1 )
 		{
-			event = scriptChain[1];
 			clearEvents();
 		}
 		else
