@@ -1821,7 +1821,7 @@ static PyObject* wpAccountsFind( PyObject* self, PyObject* args )
 	\return A list of strings.
 	\description This function generates a list of all account names and returns it.
 */
-satic PyObject* wpAccountsList( PyObject* self, PyObject* args )
+static PyObject* wpAccountsList( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	Q_UNUSED( args );
@@ -2352,9 +2352,6 @@ void init_wolfpack_globals()
 
 	PyObject* mSettings = Py_InitModule( "_wolfpack.settings", wpSettings );
 	PyObject_SetAttrString( wpNamespace, "settings", mSettings );
-
-	PyObject* mOptions = Py_InitModule( "_wolfpack.options", wpOptions );
-	PyObject_SetAttrString( wpNamespace, "options", mOptions );
 
 	PyObject* mDatabase = Py_InitModule( "_wolfpack.database", wpDatabase );
 	PyObject_SetAttrString( wpNamespace, "database", mDatabase );
