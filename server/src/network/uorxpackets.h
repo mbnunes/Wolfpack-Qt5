@@ -29,12 +29,15 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#ifndef __UO_RXPACKETS__
+#if !defined(__UO_RXPACKETS__)
 #define __UO_RXPACKETS__
 
 #include "uopacket.h"
 #include "qcstring.h"
 #include "qstring.h"
+
+// Wolfpack Includes
+#include "../typedefs.h"
 
 cUOPacket *getUOPacket( const QByteArray &data );
 
@@ -187,15 +190,6 @@ public:
 	Q_UINT32 serial( void ) { return getInt( 1 ); }
 };
 
-// 0x06 Request Use
-class cUORxRequestUse: public cUOPacket
-{
-public:
-	cUORxRequestUse( const QByteArray &data ): cUOPacket( data ) {}
-
-	Q_UINT32 serial( void ) { return getInt( 1 ); }
-};
-
 // 0x09 Request Look
 class cUORxRequestLook: public cUOPacket
 {
@@ -280,6 +274,25 @@ public:
 	UINT16 keywordCount() { return getShort( 12 ) >> 4; }
 	QString language()	{ return &rawPacket.data()[12]; }
 	QString message();
+};
+
+//0x06 Double Click
+class cUORxDoubleClick : public cUOPacket
+{
+public:
+	cUORxDoubleClick( const QByteArray& data ) : cUOPacket( data )	{}
+	SERIAL serial()		{ return getInt(1)&0x7FFFFFFF; }
+	bool   keyboard()   { return (*this)[1] & 0x80; }
+};
+
+//0xA7 Get Tip
+class cUORxGetTip : public cUOPacket
+{
+public:
+	cUORxGetTip( const QByteArray& data ) : cUOPacket( data ) {}
+	UINT16 lastTipe()	{ return getShort(1);		}
+	bool   isTip()		{ return (*this)[3] == 0;	}
+	bool   isNotice()	{ return (*this)[3] == 1;	}
 };
 
 #endif

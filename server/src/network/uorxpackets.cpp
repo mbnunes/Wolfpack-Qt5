@@ -31,7 +31,6 @@
 
 #include "uorxpackets.h"
 #include "uopacket.h"
-#include <iostream>
 #include <math.h>
 
 cUOPacket *getUOPacket( const QByteArray &data )
@@ -41,51 +40,31 @@ cUOPacket *getUOPacket( const QByteArray &data )
 
 	Q_UINT8 packetId = data[0];
 
+	// Please keep this in order.
 	switch( packetId )
 	{
-	case 0x00:
-		return new cUORxCreateChar( data );
-	case 0x01:
-		return new cUORxNotifyDisconnect( data );
-	case 0x02:
-		return new cUORxWalkRequest( data );
-	case 0x80:
-		return new cUORxLoginRequest( data );
-	case 0xA4:
-		return new cUORxHardwareInfo( data );
-	case 0xA0:
-		return new cUORxSelectShard( data );
-	case 0x91:
-		return new cUORxServerAttach( data );
-	case 0x73:
-		return new cUORxPing( data );
-	case 0x83:
-		return new cUORxDeleteCharacter( data );
-	case 0x5D:
-		return new cUORxPlayCharacter( data );
-	case 0x2C:
-		return new cUORxResurrectionMenu( data );
-	case 0xC8:
-		return new cUORxUpdateRange( data );
-	case 0x34:
-		return new cUORxQuery( data );
-	case 0x06:
-		return new cUORxRequestUse( data );
-	case 0x09:
-		return new cUORxRequestLook( data );
-	case 0x05:
-		return new cUORxRequestAttack( data );
-	case 0xBF:
-		return new cUORxMultiPurpose( data );
-	case 0xBD:
-		return new cUORxSetVersion( data );
-	case 0xAD:
-		return new cUORxSpeechRequest( data );
-	default:
-		return new cUOPacket( data );
+	case 0x00:		return new cUORxCreateChar( data );
+	case 0x01:		return new cUORxNotifyDisconnect( data );
+	case 0x02:		return new cUORxWalkRequest( data );
+	case 0x05:		return new cUORxRequestAttack( data );
+	case 0x06:		return new cUORxDoubleClick( data );
+	case 0x09:		return new cUORxRequestLook( data );
+	case 0x2C:		return new cUORxResurrectionMenu( data );
+	case 0x34:		return new cUORxQuery( data );
+	case 0x5D:		return new cUORxPlayCharacter( data );
+	case 0x73:		return new cUORxPing( data );
+	case 0x80:		return new cUORxLoginRequest( data );
+	case 0x83:		return new cUORxDeleteCharacter( data );
+	case 0x91:		return new cUORxServerAttach( data );
+	case 0xA0:		return new cUORxSelectShard( data );
+	case 0xA4:		return new cUORxHardwareInfo( data );
+	case 0xA7:		return new cUORxGetTip( data );
+	case 0xAD:		return new cUORxSpeechRequest( data );
+	case 0xBF:		return new cUORxMultiPurpose( data );
+	case 0xBD:		return new cUORxSetVersion( data );
+	case 0xC8:		return new cUORxUpdateRange( data );
+	default:		return new cUOPacket( data );
 	};	
-
-	cout << "Packet built was: " << QString::number(packetId, 16).latin1() << endl;
 }
 
 cUOPacket *cUORxMultiPurpose::packet( void )

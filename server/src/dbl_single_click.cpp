@@ -42,6 +42,7 @@
 #include "gumps.h"
 #include "targetrequests.h"
 #include "wpdefmanager.h"
+#include "network/uosocket.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
@@ -197,37 +198,26 @@ void slotmachine(UOXSOCKET s, P_ITEM pi)
 	soundeffect(s, 0x00, 0x57);	// my stupid spin sound hehe.
 }
 
-void doubleclick(int s) // Completely redone by Morrolan 07.20.99
+void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 {
-	int i, w = 0, serial;
-	unsigned char a1, a2, a3, a4;
 	//	unsigned char map1[20] = "\x90\x40\x01\x02\x03\x13\x9D\x00\x00\x00\x00\x13\xFF\x0F\xA0\x01\x90\x01\x90";
 	unsigned char map1[20] = "\x90\x40\x01\x02\x03\x13\x9D\x00\x00\x00\x00\x13\xFF\x0F\xFF\x01\x90\x01\x90";
 	// By Polygon: Lower map border is 4095, not 4000, no more needed with new system anyway ;)
 	unsigned char map2[12] = "\x56\x40\x01\x02\x03\x05\x00\x00\x00\x00\x00";
 	// By Polygon: This one is needed to show the location on treasure maps
 	unsigned char map3[12] = "\x56\x40\x01\x02\x03\x01\x00\x00\x00\x00\x00";
-	int los = 0;
-	bool t2a;
-	int itype;
-	
-	a1 = buffer[s][1]&0x7F;
-	a2 = buffer[s][2];
-	a3 = buffer[s][3];
-	a4 = buffer[s][4];
-	serial = calcserial(a1, a2, a3, a4);
-	
-	if (isCharSerial(serial))
-	{
-		dbl_click_character(s, serial);
-		return;
-	}
 
-	P_CHAR pc_currchar = currchar[s];
+	
+	SERIAL serial = target_serial;
+	P_CHAR pc_currchar = socket->player();
+
+	UOXSOCKET s = calcSocketFromChar( socket->player() ); // for Legacy code
+
+	int w = 0;
 	
 	if (pc_currchar->objectdelay != 0 && !pc_currchar->isGM() && pc_currchar->objectdelay > 10 && pc_currchar->objectdelay >= uiCurrentTime || overflow)
 	{
-		sysmessage(s, "You must wait to perform another action.");
+		socket->sysMessage(tr("You must wait to perform another action."));
 		return;
 	}
 	else
@@ -267,7 +257,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	}
 	
 	// Begin Items/Guildstones Section 
-	itype = pi->type();
+	int itype = pi->type();
 
 	// Criminal for looting an innocent corpse & unhidden if not owner..Ripper
 	if( pi->corpse() )
@@ -292,7 +282,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		{
 			if (!(pc_currchar->isGM()))
 			{
-				sysmessage(s, "That is a secured chest!");
+				socket->sysMessage(tr("That is a secured chest!"));
 				return;
 			}
 		}
@@ -300,14 +290,14 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	
 	if (pc_currchar->dead && itype != 16) // if you are dead and it's not an ankh, FORGET IT!
 	{
-		sysmessage(s, "You may not do that as a ghost.");
+		socket->sysMessage(tr("You may not do that as a ghost."));
 		return;
 	}
 	else if (!pc_currchar->isGM() && pi->layer() != 0 && !pc_currchar->Wears(pi))
 	{// can't use other people's things!
 		if (!(pi->layer() == 0x15  && SrvParams->stealingEnabled())) // bugfix for snooping not working, LB
 		{
-			sysmessage(s, "You cannot use items equipped by other players.");
+			socket->sysMessage(tr("You cannot use items equipped by other players."));
 			return;
 		}
 	}
@@ -318,7 +308,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 
 		if( owner != pc_currchar )
 		{
-			sysmessage( s, "The scroll must be in your backpack to envoke its magic." );
+			socket->sysMessage(tr("The scroll must be in your backpack to envoke its magic." ));
 		}
 
 		UI16 model = Magic->calcSpellId( pi->id() );
@@ -345,15 +335,15 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				else 
 				{
 					if (!pi->disabledmsg.empty()) 
-						sysmessage(s, (char*)pi->disabledmsg.c_str()); // Added by Magius(CHE) §
+						socket->sysMessage((char*)pi->disabledmsg.c_str()); // Added by Magius(CHE) §
 					else 
-						sysmessage(s, "That doesnt seem to work right now.");
+						socket->sysMessage(tr("That doesnt seem to work right now."));
 					return;
 				}
 			}
 			else 
 			{
-				sysmessage(s, "You are not close enough to use that.");
+				socket->sysMessage(tr("You are not close enough to use that."));
 				return;
 			}
 		}
@@ -378,12 +368,12 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		if (pc_currchar->dead)
 		{
 			Targ->NpcResurrectTarget(pc_currchar);
-			sysmessage(s, "You have been resurrected.");
+			socket->sysMessage(tr("You have been resurrected."));
 			return;
 		} 
 		else 
 		{
-			sysmessage(s, "You are already living!");
+			socket->sysMessage(tr("You are already living!"));
 			return;
 		}
 		
@@ -400,10 +390,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					pBoat->handlePlankClick( s, pi );
 				}
 				else 
-					sysmessage(s, "That is locked.");
+					socket->sysMessage(tr("That is locked."));
 			}
 			else 
-				sysmessage(s, "You can't reach that!");
+				socket->sysMessage(tr("You can't reach that!"));
 		}
 		// End Boats --^
 		return;
@@ -451,7 +441,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			}
 			else
 			{
-				sysmessage(s, "You are too far away!");
+				socket->sysMessage(tr("You are too far away!"));
 			}
 		}
 		return;
@@ -589,14 +579,14 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						if (((pj->more1 == pi->more1) &&(pj->more2 == pi->more2)&&
 							(pj->more3 == pi->more3) &&(pj->more4 == pi->more4)))
 						{
-							sysmessage(s, "You quickly unlock, use, and then relock the door.");
+							socket->sysMessage(tr("You quickly unlock, use, and then relock the door."));
 							pc_currchar->objectdelay = 0;
 							dooruse(s, pi);
 							return;
 						}// if
 				}// for
 			} // end if p!=-1
-			sysmessage(s, "This door is locked.");
+			socket->sysMessage(tr("This door is locked."));
 			return;// case 13 (locked door)
 		}
 	case 14: // For eating food
@@ -606,38 +596,38 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		
 		if (pc_currchar->hunger() >= 6)
 		{
-			sysmessage(s, "You are simply too full to eat any more!");
+			socket->sysMessage(tr("You are simply too full to eat any more!"));
 			return;
 		}
 		else
 		{
 			switch (RandomNum(0, 2))
 			{
-			case 0: soundeffect2(currchar[s], 0x003A);		break;
-			case 1: soundeffect2(currchar[s], 0x003B);		break;
-			case 2: soundeffect2(currchar[s], 0x003C);		break;
+			case 0: soundeffect2(pc_currchar, 0x003A);		break;
+			case 1: soundeffect2(pc_currchar, 0x003B);		break;
+			case 2: soundeffect2(pc_currchar, 0x003C);		break;
 			}// switch(foodsnd)
 			
 			switch (pc_currchar->hunger())
 			{
-			case 0:  sysmessage(s, "You eat the food, but are still extremely hungry.");	break;
-			case 1:  sysmessage(s, "You eat the food, but are still extremely hungry.");	break;
-			case 2:  sysmessage(s, "After eating the food, you feel much less hungry.");	break;
-			case 3:  sysmessage(s, "You eat the food, and begin to feel more satiated.");	break;
-			case 4:  sysmessage(s, "You feel quite full after consuming the food.");		break;
-			case 5:  sysmessage(s, "You are nearly stuffed, but manage to eat the food.");	break;
-			case 6:  sysmessage(s, "You are simply too full to eat any more!");				break;
-			default: sysmessage(s, "You are simply too full to eat any more!");				break;
+			case 0:  socket->sysMessage(tr("You eat the food, but are still extremely hungry."));		break;
+			case 1:  socket->sysMessage(tr("You eat the food, but are still extremely hungry."));		break;
+			case 2:  socket->sysMessage(tr("After eating the food, you feel much less hungry."));		break;
+			case 3:  socket->sysMessage(tr("You eat the food, and begin to feel more satiated."));		break;
+			case 4:  socket->sysMessage(tr("You feel quite full after consuming the food."));			break;
+			case 5:  socket->sysMessage(tr("You are nearly stuffed, but manage to eat the food."));		break;
+			case 6:  
+			default: socket->sysMessage(tr("You are simply too full to eat any more!"));				break;
 			}// switch(pc_currchar->hunger)
 			
 			if ((pi->poisoned) &&(pc_currchar->poisoned() < pi->poisoned)) 
 			{
-				sysmessage(s, "You have been poisoned!");
-				soundeffect2(currchar[s], 0x0246); // poison sound - SpaceDog
+				socket->sysMessage(tr("You have been poisoned!"));
+				soundeffect2(pc_currchar, 0x0246); // poison sound - SpaceDog
 				pc_currchar->setPoisoned( pi->poisoned );
 				pc_currchar->setPoisontime( uiCurrentTime +(MY_CLOCKS_PER_SEC*(40/pc_currchar->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 				pc_currchar->setPoisonwearofftime( pc_currchar->poisontime() +(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()) ); // wear off starts after poison takes effect - AntiChrist
-				impowncreate(s, currchar[s], 1); // Lb, sends the green bar ! 
+				impowncreate(s, pc_currchar, 1); // Lb, sends the green bar ! 
 			}
 			
 			pi->ReduceAmount(1);	// Remove a food item
@@ -671,7 +661,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		case 50: // rune
 			if (pi->morex == 0 && pi->morey == 0 && pi->morez == 0)
 			{
-				sysmessage(s, "That rune is not yet marked!");
+				socket->sysMessage(tr("That rune is not yet marked!"));
 			}
 			else
 			{
@@ -685,12 +675,12 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			int wx, wy, wi;
 			if (pi->morex <= 0)
 			{
-				sysmessage(s,  "That is out of charges.");
+				socket->sysMessage(tr("That is out of charges."));
 				return;
 			}
 			pi->morex--;
 			sprintf((char*)temp, "Your wand now has %i charges left", pi->morex);
-			sysmessage(s, (char*) temp);
+			socket->sysMessage((char*) temp);
 			
 			for (wi = 0; wi <(rand()%4 + 1); wi++)
 			{
@@ -762,10 +752,9 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			}
 			return; // case 100
 		case 101: //??
-			i = pi->morex;
-			pc_currchar->id1 = i >> 8; 
-			pc_currchar->id2 = i%256; 
-			teleport((currchar[s]));
+			pc_currchar->id1 = pi->morex >> 8; 
+			pc_currchar->id2 = pi->morex %  256; 
+			teleport(currchar[s]);
 			pi->setType( 102 );
 			return; // case 101
 		case 102: //??
@@ -779,7 +768,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			return; // case 103 (army enlistment object)
 		case 104: // Teleport object
 			pc_currchar->MoveTo(pi->morex,pi->morey,pi->morez);
-			teleport((currchar[s]));
+			teleport(currchar[s]);
 			return; // case 104 (teleport object (again?))
 		case 105:  // For drinking
 			switch (RandomNum(0, 1))
@@ -834,7 +823,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			{	
 				if (pi->isLockedDown())
 				{
-					sysmessage(s, "That item is locked down.");
+					socket->sysMessage(tr("That item is locked down."));
 					return; 
 				} // added by ripper, bugfixed by LB
 				P_ITEM pi_multi = findmulti(pc_currchar->pos); // boats are also multis zippy, btw !!!		
@@ -842,6 +831,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				{	
 					if (!IsHouse(pi_multi->id()))
 						return; // LB
+					int los = 0;
 					const P_ITEM pi_p = Packitem(pc_currchar);
 					if (pi_p != NULL)
 					{
@@ -886,10 +876,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						teleport(pc_vendor);
 					}
 					else 
-						sysmessage(s, "You must be close to a house and have a key in your pack to place that.");
+						socket->sysMessage(tr("You must be close to a house and have a key in your pack to place that."));
 				}
 				else if (pi_multi == NULL)
-					sysmessage(s, "You must be close to a house and have a key in your pack to place that.");
+					socket->sysMessage(tr("You must be close to a house and have a key in your pack to place that."));
 				
 				return;
 			}
@@ -947,20 +937,20 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			} 
             else 
 			{ 
-	             sysmessage(s, "Crystall ball shatters.."); 
+	             socket->sysMessage(tr("Crystall ball shatters..")); 
 	             pi->ReduceAmount(1);
 				 RefreshItem(pi);
 			}
             return;// End jailball
 	    case 402: // Blackwinds Reputation ball 
 			{ 
-                 soundeffect2(currchar[s], 0x01ec); // Play sound effect for player 
-                 sysmessage(s,"Your karma is %i",pc_currchar->karma); 
-                 sysmessage(s,"Your fame is %i",pc_currchar->fame); 
-                 sysmessage(s,"Your Kill count is %i ",pc_currchar->kills); 
-                 sysmessage(s,"You died %i times.",pc_currchar->deaths);
+                 soundeffect2(pc_currchar, 0x01ec); // Play sound effect for player 
+                 socket->sysMessage(tr("Your karma is %1").arg(pc_currchar->karma)); 
+                 socket->sysMessage(tr("Your fame is %1").arg(pc_currchar->fame)); 
+                 socket->sysMessage(tr("Your Kill count is %1 ").arg(pc_currchar->kills)); 
+                 socket->sysMessage(tr("You died %1 times.").arg(pc_currchar->deaths));
 				 staticeffect(pc_currchar, 0x37, 0x2A, 0x09, 0x06 );
-				 sysmessage(s,"*The crystal ball seems to have vanished*");
+				 socket->sysMessage(tr("*The crystal ball seems to have vanished*"));
                  pi->ReduceAmount(1); 
                  return; 
 			}
@@ -978,19 +968,19 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						}
 						pi->morex--;
 						sprintf((char*)temp, "Your wand now has %i charges left", pi->morex);
-						sysmessage(s, (char*) temp);
+						socket->sysMessage((char*) temp);
 						target(s, 0, 1, 0, 75, "What do you wish to identify?");
 					}
 					else
 					{
-						sysmessage(s, "If you wish to use this, it must be equipped or in your backpack.");
+						socket->sysMessage(tr("If you wish to use this, it must be equipped or in your backpack."));
 					}
 				}
 				return;
 			}
 		case 1000: // Ripper...bank checks
 			{
-				sysmessage(s, "To cash this, you need to drop it on a banker.");
+				socket->sysMessage(tr("To cash this, you need to drop it on a banker."));
 				return;
 			}
 		default:						
@@ -1011,7 +1001,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x0FB0: // Anvils
 					if (!iteminrange(s, pi, 3))
 					{
-						sysmessage(s, "Must be closer to use this!");
+						socket->sysMessage(tr("Must be closer to use this!"));
 						return;
 					}
 					target(s, 0, 1, 0, 236, "Select item to be repaired.");
@@ -1025,7 +1015,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x198E: // partial lg forge
 					if (!iteminrange(s, pi, 3))
 					{
-						sysmessage(s, "Must be closer to use this!");
+						socket->sysMessage(tr("Must be closer to use this!"));
 						return;
 					}
 					target(s, 0, 1, 0, 237, "What item would you like to Smelt?");
@@ -1160,7 +1150,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 							target(s, 0, 1, 0, 186, "What do you want to fill the vial with?");
 						}
 						else 
-							sysmessage(s, "The vial is not in your pack");
+							socket->sysMessage(tr("The vial is not in your pack"));
 						return;
 					}
 				case 0x0DF9: 
@@ -1276,7 +1266,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					}
 					else
 					{
-						sysmessage(s, "You failed to use this statue.");
+						socket->sysMessage(tr("You failed to use this statue."));
 					}
 					return;
 				case 0x1509:
@@ -1288,7 +1278,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					}
 					else
 					{
-						sysmessage(s, "You failed to use this statue.");
+						socket->sysMessage(tr("You failed to use this statue."));
 					}
 					return;
 				case 0x1230:
@@ -1301,7 +1291,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					}
 					else
 					{
-						sysmessage(s, "You failed to use this.");
+						socket->sysMessage(tr("You failed to use this."));
 					}  
 					return;
 				case 0x1245: // Guillotine stop animation
@@ -1313,7 +1303,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					}
 					else
 					{
-						sysmessage(s, "You failed to use this.");
+						socket->sysMessage(tr("You failed to use this."));
 					}
 					return;
 				case 0x1039:  // closed flour sack
@@ -1384,10 +1374,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x1057:
 				case 0x1058: // sextants
 					
-					// dont know how if thats an accourate way to find out t2a-ness
-					t2a = (pc_currchar->pos.x >= 5121);					    
-					
-					getSextantCords(pc_currchar->pos.x, pc_currchar->pos.y, t2a, temp2);
+					getSextantCords(pc_currchar->pos.x, pc_currchar->pos.y, socket->isT2A(), temp2);
 					sprintf((char*)temp, "You are at: %s", temp2);
 					sysmessage(s, (char*)temp);
 					return;
@@ -1479,21 +1466,21 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x105A:// tinker sextant
 					if (Skills->CheckSkill(currchar[s], TINKERING, 500, 1000))
 					{
-						sysmessage(s, "You create the sextant.");
+						socket->sysMessage(tr("You create the sextant."));
 						P_ITEM pi_sextant = Items->SpawnItem(s, currchar[s], 1, "a sextant", 0, 0x10, 0x57, 0, 1, 1);
 						if (pi_sextant != NULL)
 							pi_sextant->priv |= 0x01;
 						pi->ReduceAmount(1);
 					}
 					else 
-						sysmessage(s, "you fail to create the sextant.");
+						socket->sysMessage(tr("you fail to create the sextant."));
 					return;
 				case 0x1070:
 				case 0x1074: // training dummies
 					if (iteminrange(s, pi, 1))
 						Skills->TDummy(s);
 					else 
-						sysmessage(s, "You need to be closer to use that.");
+						socket->sysMessage(tr("You need to be closer to use that."));
 					return;
 				case 0x1071:
 				case 0x1073:
@@ -1510,19 +1497,18 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			}// switch (itemids)
 		}
 		// END Check items by ID
-		sysmessage(s, "You can't think of a way to use that item.");
+		socket->sysMessage(tr("You can't think of a way to use that item."));
 }
 
 //Handles Double clicks over PC/NPCs
-void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
+void dbl_click_character(cUOSocket* socket, SERIAL target_serial, bool keyboard)
 {
-	int keyboard;
 	unsigned char pdoll[256]="\x88\x00\x05\xA8\x90\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-	P_CHAR pc_currchar = currchar[s];
-	keyboard=buffer[s][1]&0x80;
+	P_CHAR pc_currchar = socket->player();
 	
 	P_CHAR target = FindCharBySerial( target_serial );
 
+	UOXSOCKET s = calcSocketFromChar(socket->player()); // for Legacy :(
 
 	if (target == NULL)
 		return;
@@ -1567,20 +1553,21 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 			//AntiChrist - cannot ride animals under polymorph effect
 			if (pc_currchar->polymorph())
 			{
-				sysmessage(s, "You cannot ride anything under polymorph effect.");
+				socket->sysMessage(tr("You cannot ride anything under polymorph effect."));
 				return;
 			}
 			if (pc_currchar->dead)
 			{
-				sysmessage(s,"You are dead and cannot do that.");
+				socket->sysMessage(tr("You are dead and cannot do that."));
 				return;
 			}
 			if (target->war)
-				sysmessage(s,"Your pet is in battle right now!");
+				socket->sysMessage(tr("Your pet is in battle right now!"));
 			else
 				mounthorse(s, target);
 		}
-		else sysmessage(s, "You need to get closer.");
+		else 
+			socket->sysMessage(tr("You need to get closer."));
 		return; 
 	}//if mount
 	else if ((target->isNpc())&&((target->id1!=0x01)||(target->id2<0x90)||(target->id2>0x93)))
@@ -1600,13 +1587,13 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 			}
 			else
 			{
-				sysmessage(s, "That is not your beast of burden!");
+				socket->sysMessage(tr("That is not your beast of burden!"));
 			}
 			return;
 		}
 		else
 		{
-			sysmessage(s, "You cannot open monsters paperdolls.");
+			socket->sysMessage(tr("You cannot open monsters paperdolls."));
 		}
 		return; 
 	}//if monster

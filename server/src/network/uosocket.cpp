@@ -106,6 +106,9 @@ void cUOSocket::recieve()
 	case 0x02: // just want to walk a little.
 		handleWalkRequest( dynamic_cast< cUORxWalkRequest* >( packet ) );
 		break;
+	case 0x06:
+		handleDoubleClick( dynamic_cast< cUORxDoubleClick*>( packet ) );
+		break;
 	case 0x80:
 		handleLoginRequest( dynamic_cast< cUORxLoginRequest* >( packet ) ); break;
 	case 0xA4:
@@ -671,11 +674,8 @@ void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
 
 		if( !pItem )
 			return;
+		pItem->showName( this );
 	}
-}
-
-void cUOSocket::handleRequestUse( cUORxRequestUse *packet )
-{
 }
 
 void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
@@ -837,4 +837,24 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 		clConsole.send( QString( "Command: %1\n" ).arg( speech ) );
 	else
 		clConsole.send( QString( "Speech: %1\n" ).arg( speech ) );
+}
+
+void cUOSocket::handleDoubleClick( cUORxDoubleClick* packet )
+{
+	if ( isCharSerial(packet->serial() ) )
+	{
+		dbl_click_character(this, packet->serial(), packet->keyboard() );
+	}
+	else
+	{
+		dbl_click_item(this, packet->serial() );
+	}
+}
+
+void cUOSocket::handleGetTip( cUORxGetTip* packet )
+{
+	if ( packet->isTip() )
+	{
+		tips( this, packet->lastTipe() );
+	}
 }

@@ -307,3 +307,13 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	setDirection( pChar->dir );
 	//void setFlags( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
 }
+
+
+void cUOTxTipWindow::setMessage( QString m )
+{
+	ushort length = m.length();
+	rawPacket.resize( length + 10 );
+	setShort(1, length + 10 );
+	setShort(8, length );
+	setAsciiString(10, m.latin1(), length);
+}

@@ -586,4 +586,15 @@ public:
 	void setSerial( Q_UINT32 data ) { setInt( 1, data ); }
 };
 
+// 0xA6 Tip/Notice Window
+class cUOTxTipWindow : public cUOPacket
+{
+public:
+	enum WindowType { Tip = 0, Notice };
+	cUOTxTipWindow() : cUOPacket( 0xA6, 10 ) {}
+	void setType( WindowType t )	{ (*this)[3] = t;	}
+	void setNumber( ushort n )		{ setShort(6, n);	}
+	void setMessage(QString m);
+};
+
 #endif

@@ -287,6 +287,11 @@ void cUOPacket::setUnicodeString( uint pos, QString& data, uint maxlen )
 	}
 }
 
+void cUOPacket::setAsciiString( uint pos, const char* data, uint maxlen )
+{
+	qstrncpy( rawPacket.data() + pos, data, maxlen );
+}
+
 char& cUOPacket::operator[] ( unsigned int index )
 {
 	return rawPacket.at( index );

@@ -40,6 +40,7 @@
 // Forward class declarations
 
 class QString;
+class cUOSocket;
 
 
 // Function Declarations
@@ -64,13 +65,12 @@ extern void init_creatures(void);
 
 void TellScroll( char *menu_name, int player, long item_param );
 
-void doubleclick(int s);
-void dbl_click_character(UOXSOCKET s, SERIAL target_serial);
+void dbl_click_item(cUOSocket* socket, SERIAL target_serial);
+void dbl_click_character(cUOSocket* socket, SERIAL target_serial, bool keyboard);
 
 //void walking(int s, int dir, int sequence);
 void teleporters(P_CHAR pc_s);
 void read_in_teleport(void);
-void npcwalk(CHARACTER i, int j, int type);
 //void walking2(CHARACTER s);
 void all_items(int s);
 void savelog(const char *msg, char *logfile);
@@ -81,7 +81,7 @@ void monstergate(P_CHAR pc_s, int x);
 void Karma(P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma);
 void npctalkall_runic(P_CHAR npc, const char *txt,char antispam);
 void Fame(P_CHAR pc_toChange, int nFame);
-void charstartup(int s);
+//void charstartup(int s);
 void checkdumpdata(unsigned int currenttime); // This dumps data for Ridcully's UOXBot 0.02 (jluebbe@hannover.aball.de)
 void killall(int s, int percent, char* sysmsg);
 
@@ -247,8 +247,8 @@ int chardirxyz(P_CHAR pc, int x, int y);	// direction from character a to char b
 
 
 void batchcheck(int s);
-void readw2();
-void readw3();
+//void readw2();
+//void readw3();
 
 
 //void selectspell2cast(int s, int num); //Socket, Spell Number

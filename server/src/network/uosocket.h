@@ -63,8 +63,8 @@ private:
 	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
 
 public:
-	Q_UINT8 walkSequence( void ) { return _walkSequence; }
-	void setWalkSequence( Q_UINT8 data ) { _walkSequence = data; }
+	Q_UINT8 walkSequence( void )			{ return _walkSequence; }
+	void setWalkSequence( Q_UINT8 data )	{ _walkSequence = data; }
 
 	cUOSocket( QSocketDevice *sDevice ): 
 		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
@@ -77,14 +77,14 @@ public:
 	eSocketState state( void ) { return _state; }
 	void setState( eSocketState data ) { _state = data; }
 
-	QString version( void ) { return _version; }
-	QString lang( void ) { return _lang; }
+	QString version( void )		{ return _version; }
+	QString lang( void )		{ return _lang; }
 
-	P_CHAR player( void ) { return _player; }
+	P_CHAR player( void )		{ return _player; }
 
-	Q_UINT32 rxBytes( void ) { return _rxBytes; }
-	Q_UINT32 txBytes( void ) { return _txBytes; }
-	Q_UINT8 viewRange( void ) { return _viewRange; }
+	Q_UINT32 rxBytes( void )	{ return _rxBytes; }
+	Q_UINT32 txBytes( void )	{ return _txBytes; }
+	Q_UINT8 viewRange( void )	{ return _viewRange; }
 	void setRxBytes( Q_UINT32 data ) { _rxBytes = data; }
 	void setTxBytes( Q_UINT32 data ) { _txBytes = data; }
 
@@ -104,12 +104,13 @@ public:
 	void handleUpdateRange( cUORxUpdateRange *packet );
 	void handleQuery( cUORxQuery *packet );
 	void handleRequestLook( cUORxRequestLook *packet );
-	void handleRequestUse( cUORxRequestUse *packet );
 	void handleMultiPurpose( cUORxMultiPurpose *packet );
 	void handleContextMenuRequest( cUORxContextMenuRequest *packet );
 	void handleWalkRequest( cUORxWalkRequest* packet );
 	void handleSetLanguage( cUORxSetLanguage* packet );
 	void handleSpeechRequest( cUORxSpeechRequest* packet );
+	void handleDoubleClick( cUORxDoubleClick* packet );
+	void handleGetTip( cUORxGetTip* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );
@@ -121,6 +122,7 @@ public:
 	void updateCharList();
 	void disconnect( void ); // Call this whenever the socket should disconnect
 	void playChar( P_CHAR player ); // Play a character
+	bool isT2A()	{ return true; } // ???
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );

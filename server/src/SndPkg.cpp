@@ -51,6 +51,9 @@
 #include "territories.h"
 #include "wpdefmanager.h"
 
+#include "network/uotxpackets.h"
+#include "network/uosocket.h"
+
 #undef  DBGFILE
 #define DBGFILE "SndPkg.cpp"
 
@@ -1675,7 +1678,7 @@ void updates(UOXSOCKET s) // Update Window
 	Xsend(s, (char*)motdText.latin1(), motdText.length() );
 }
 
-void tips(int s, int tip) // Tip of the day window
+void tips(cUOSocket* socket, int tip) // Tip of the day window
 {
 	UI32 y = 10;
 
@@ -1691,18 +1694,11 @@ void tips(int s, int tip) // Tip of the day window
 		tip = tipList.size();
 
 	QString tipText = DefManager->getText( tipList[ tip-1 ] );
-	y = tipText.length()+10;
-
-	updscroll[1]=y>>8;
-	updscroll[2]=y%256;
-	updscroll[3]=0;
-	updscroll[7]=tip;
-	updscroll[8]=(y-10)>>8;
-	updscroll[9]=(y-10)%256;
-
-	Xsend(s, updscroll, 10);
-
-	Xsend( s, (char*)tipText.latin1(), tipText.length() );
+	cUOTxTipWindow packet;
+	packet.setType( cUOTxTipWindow::Tip );
+	packet.setNumber( tip );
+	packet.setMessage( tipText );
+	socket->send( &packet );
 }
 
 void weblaunch(int s, char *txt) // Direct client to a web page

@@ -64,6 +64,7 @@ public:
 	void  setInt( uint, uint );
 	void  setShort( uint, ushort );
 	void  setUnicodeString( uint, QString&, uint );
+	void  setAsciiString( uint, const char*, uint );
 	static QString dump( const QByteArray& );
 
 	virtual void print( ostream* );

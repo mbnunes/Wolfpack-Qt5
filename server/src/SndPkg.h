@@ -163,7 +163,7 @@ void skillwindow(int s); // Opens the skills list, updated for client 1.26.2b by
 void updatestats(P_CHAR pc, char x);
 void statwindow(int s, P_CHAR pc); // Opens the status window
 void updates(UOXSOCKET s); // Update Window
-void tips(int s, int i); // Tip of the day window
+void tips(cUOSocket* socket, int i); // Tip of the day window
 void weblaunch(int s, char *txt); // Direct client to a web page
 void broadcast(int s); // GM Broadcast (Done if a GM yells something);
 void itemtalk(int s, P_ITEM pi, char *txt); // Item "speech"

@@ -1833,61 +1833,56 @@ void cItem::processContainerNode( const QDomElement &Tag )
 void cItem::showName( cUOSocket *socket )
 {
 	// End chars/npcs section
-	/*P_ITEM pi = FindItemBySerial(serial);
-	if (pi == NULL)
-	{
-		clConsole.send( "WOLFPACK.CPP: singleclick couldn't find item serial: %x\n", serial );
-		return;
-	}
 	
-    if( pi->onShowItemName( pc_currchar ) )
+    if( onShowItemName( socket->player() ) )
         return;        
 	
-	pi->getName(itemname);
+	name_ = getName();
+	UOXSOCKET s = calcSocketFromChar( socket->player() ); // for Legacy code
 
-	if (pi->type() == 9)
+	if (type() == 9)
 	{
-		int spellcount=Magic->SpellsInBook(pi);
+		int spellcount=Magic->SpellsInBook(this);
 		sprintf((char*)temp, "%i spells", spellcount);
 		itemmessage(s, (char*)temp, serial,0x0481);
 	}
 
-	if (pi->type() == 1000) // Ripper...used for bank checks.
+	if (type() == 1000) // Ripper...used for bank checks.
 	{
-		sprintf((char*)temp, "value : %i", pi->value);
+		sprintf((char*)temp, "value : %i", value);
 		itemmessage(s, (char*)temp, serial,0x0481);
 	}
 
-	if (pi->type() == 187) // Ripper...used for slotmachine.
+	if (type() == 187) // Ripper...used for slotmachine.
 	{
 		sprintf((char*)temp, "[%i gold Slot]", SrvParams->slotAmount());
 		itemmessage(s, (char*)temp, serial,0x0481);
 	}
 	
-	if (pc_currchar->getPriv()&8)
+	if (socket->player()->getPriv()&8)
 	{
-		if (pi->amount() > 1)
-			sprintf((char*)temp, "%s [%x]: %i", itemname, pi->serial, pi->amount());
+		if (amount() > 1)
+			sprintf((char*)temp, "%s [%x]: %i", name_, serial, amount());
 		else
-			sprintf((char*)temp, "%s [%x]", itemname, pi->serial);
+			sprintf((char*)temp, "%s [%x]", name_, serial);
 		itemmessage(s, (char*)temp, serial);
 		return;
 	}
 	
 	// Click in a Player Vendor item, show description, price and return
-	if (!pi->isInWorld() && isItemSerial(pi->contserial))
+	if (!isInWorld() && isItemSerial(contserial))
 	{
-		P_CHAR pc_j = GetPackOwner(FindItemBySerial(pi->contserial));
+		P_CHAR pc_j = GetPackOwner(FindItemBySerial(contserial));
 		if (pc_j != NULL)
 		{
 			if (pc_j->npcaitype() == 17)
 			{
-				if (pi->creator.size() > 0 && pi->madewith>0)
-					sprintf((char*)temp2, "%s %s by %s", pi->desc.c_str(), skill[pi->madewith - 1].madeword, pi->creator.c_str()); 
+				if (creator.size() > 0 && madewith>0)
+					sprintf((char*)temp2, "%s %s by %s", desc.c_str(), skill[madewith - 1].madeword, creator.c_str()); 
 				else
-					strcpy((char*)temp2, pi->desc.c_str()); // LB bugfix
+					strcpy((char*)temp2, desc.c_str()); // LB bugfix
 				
-				sprintf((char*)temp, "%s at %igp", temp2, pi->value); // Changed by Magius(CHE)				
+				sprintf((char*)temp, "%s at %igp", temp2, value); // Changed by Magius(CHE)				
 				itemmessage(s, (char*)temp, serial);
 				return;
 			}
@@ -1896,61 +1891,62 @@ void cItem::showName( cUOSocket *socket )
 	
 	// From now on, we will build the message into temp, and let itemname with just the name info
 	// Add amount info.
-	if (!pi->isPileable() || pi->amount() == 1)
-		strncpy((char*)temp, itemname, 100);
+	if (!isPileable() || amount() == 1)
+		strncpy((char*)temp, name_.latin1(), 100);
 	else 
-		if (itemname[strlen(itemname) - 1] != 's') // avoid iron ingotss : x
-			sprintf((char*)temp, "%ss : %i", itemname, pi->amount());
+		if (name_.right(1) != "s") // avoid iron ingotss : x
+			sprintf((char*)temp, "%ss : %i", name_.latin1(), amount());
 		else
-			sprintf((char*)temp, "%s : %i", itemname, pi->amount());
+			sprintf((char*)temp, "%s : %i", name_.latin1(), amount());
 		
 	// Add creator's mark (if any)			
-	if (pi->creator.size() > 0 && pi->madewith > 0)
-		sprintf((char*)temp, "%s %s by %s", temp, skill[pi->madewith - 1].madeword, pi->creator.c_str());
+	if (creator.size() > 0 && madewith > 0)
+		sprintf((char*)temp, "%s %s by %s", temp, skill[madewith - 1].madeword, creator.c_str());
 	
-	if (pi->type() == 15) // Fraz
+	if (type() == 15) // Fraz
 	{
-		if (pi->name2() == pi->name())
+		if (name2() == name())
 		{
-			sprintf((char*)temp, "%s %i charge", temp, pi->morez);
-			if (pi->morez != 1)
+			sprintf((char*)temp, "%s %i charge", temp, morez);
+			if (morez != 1)
 			strcat(temp, "s");
 		}
 	}
-	else if (pi->type() == 404 || pi->type() == 181)
+	else if (type() == 404 || type() == 181)
 	{
-			if (pi->name2() == pi->name())
-			{
-			sprintf((char*)temp, "%s %i charge", temp, pi->morex);
-			if (pi->morex != 1)
-			strcat(temp, "s");
-			}
+		if (name2() == name())
+		{
+			sprintf((char*)temp, "%s %i charge", temp, morex);
+			if (morex != 1)
+				strcat(temp, "s");
+		}
 	}	
 	// Corpse highlighting...Ripper
-	if( pi->corpse() == 1 )
+	if( corpse() == 1 )
 	{
-		if( pi->more2 == 1 )
+		if( more2 == 1 )
 		    itemmessage(s,"[Innocent]",serial, 0x005A);
-		else if( pi->more2 == 2 )
+		else if( more2 == 2 )
 			itemmessage(s,"[Criminal]",serial, 0x03B2);
-		else if( pi->more2 == 3 )
+		else if( more2 == 3 )
 			itemmessage(s,"[Murderer]",serial, 0x0026);
 	}  // end highlighting
 	// Let's handle secure/locked down stuff.
-	if (pi->isLockedDown() && pi->type() != 12 && pi->type() != 13 && pi->type() != 203)
+	if (isLockedDown() && type() != 12 && type() != 13 && type() != 203)
 	{
-		if ( !pi->secured() )
+		if ( !secured() )
 			itemmessage(s, "[locked down]", serial, 0x0481);
-		if ( pi->secured() && pi->isLockedDown())
+		if ( secured() && isLockedDown())
 			itemmessage(s, "[locked down & secure]", serial, 0x0481);				
 	}
 	
 	itemmessage(s, (char*)temp, serial);
 	
 	// Send the item/weight as the last line in case of containers
-	if (pi->type() == 1 || pi->type() == 63 || pi->type() == 65 || pi->type() == 87)
+	if (type() == 1 || type() == 63 || type() == 65 || type() == 87)
 	{
-		wgt = (int) Weight->LockeddownWeight(pi, &amt, 0); // get stones and item #, LB	
+		int amt = 0;
+		int wgt = (int) Weight->LockeddownWeight(this, &amt, 0); // get stones and item #, LB	
 		if (amt>0)
 		{
 			sprintf((char*)temp2, "[%i items, %i stones]", amt, wgt);
@@ -1958,5 +1954,5 @@ void cItem::showName( cUOSocket *socket )
 		}
 		else
 			itemmessage(s, "[0 items, 0 stones]", serial);
-	}*/
+	}
 }
