@@ -37,6 +37,7 @@
 #include "targeting.h"
 #include "trigger.h"
 #include "guildstones.h"
+#include "regions.h"
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"

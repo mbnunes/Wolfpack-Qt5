@@ -38,6 +38,8 @@
 #include "SndPkg.h"
 #include "trigger.h"
 #include "guildstones.h"
+#include "combat.h"
+#include "regions.h"
 
 #undef DBGFILE
 #define DBGFILE "skiTarg.cpp"

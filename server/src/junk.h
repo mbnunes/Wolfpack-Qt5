@@ -60,6 +60,7 @@ struct statcap_st
 #include "dragdrop.h"
 #include "Trade.h"
 #include "bounty.h"
+//#include "regions.h"
 
 #undef  DBGFILE
 #define DBGFILE "junk.h"
@@ -89,6 +90,7 @@ class cTrigger;
 class cDragdrop;
 class cTrade;
 class cBounty;
+class cRegion;
 
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cBoat			*Boats;
@@ -115,6 +117,7 @@ extern cTrigger	        *Trig;
 extern cDragdrop        *Drag;
 extern cTrade	        *Trade;
 extern cBounty          *Bounty;
+extern cRegion			*mapRegions; //setup map regions Tauriel
 // Skys AI 
 extern cCharStuff::cDragonAI	*DragonAI;
 extern cCharStuff::cBankerAI	*BankerAI;
@@ -150,8 +153,6 @@ P_CHAR FindCharBySerial(int serial);
 P_CHAR FindCharBySerPtr(unsigned char *p);
 P_ITEM Packitem(P_CHAR pc); // Find packitem
 
-#include "regions.h"
-extern cRegion			*mapRegions; //setup map regions Tauriel
 
 P_ITEM GetOutmostCont(P_ITEM pItem, short rec = 10);
 P_CHAR GetPackOwner(P_ITEM pItem, short rec = 10);

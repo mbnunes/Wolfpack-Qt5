@@ -40,6 +40,7 @@
 #include "debug.h"
 #include "utilsys.h"
 #include "walking2.h"
+#include "regions.h"
 
 #include <string>
 

@@ -45,6 +45,8 @@
 #include "itemid.h"
 #include "oem.h"
 #include "guildstones.h"
+#include "combat.h"
+#include "regions.h"
 
 #undef  DBGFILE
 #define DBGFILE "SndPkg.cpp"

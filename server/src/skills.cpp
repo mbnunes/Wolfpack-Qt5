@@ -39,6 +39,8 @@
 #include "im.h"
 #include "SndPkg.h"
 #include "guildstones.h"
+#include "combat.h"
+#include "regions.h"
 
 #undef DBGFILE
 #define DBGFILE "skills.cpp"
@@ -2272,7 +2274,6 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 }
 
 // Calculate the skill of this character based on the characters baseskill and stats
-//##ModelId=3C5D930500E7
 void cSkills::updateSkillLevel(P_CHAR pc, int s)
 {
 	int temp = (((skill[s].st * pc->st) / 100 +
@@ -2284,7 +2285,6 @@ void cSkills::updateSkillLevel(P_CHAR pc, int s)
 	pc->skill[s] = max(static_cast<unsigned int>(pc->baseskill[s]), static_cast<unsigned int>(temp));
 }
 
-//##ModelId=3C5D9305017D
 void cSkills::TDummy(int s)
 {
 	//unsigned int i;

@@ -36,6 +36,9 @@
 #include "worldmain.h"
 #include "walking2.h"
 #include "TmpEff.h"
+#include "combat.h"
+#include "regions.h"
+
 #undef  DBGFILE
 #define DBGFILE "Timing.cpp"
 
@@ -1021,7 +1024,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 									(mapchar->logout<=currenttime || (overflow)))
 								{										
 									Accounts->SetOffline(mapchar->account);
-									mapchar->logout=-1;
+									mapchar->logout = 0;
 									updatechar(mapchar);
 								}
 							}

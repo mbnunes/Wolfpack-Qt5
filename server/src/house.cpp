@@ -34,6 +34,7 @@
 //#include "wolfpack.h"
 #include "house.h"
 #include "iserialization.h"
+#include "regions.h"
 //#include "SndPkg.h"
 //#include "debug.h"
 //#include "utilsys.h"

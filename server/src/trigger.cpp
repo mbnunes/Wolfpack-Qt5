@@ -54,6 +54,7 @@
 
 
 #include "trigger.h"
+#include "regions.h"
 
 #undef  DBGFILE
 #define DBGFILE "trigger.cpp"

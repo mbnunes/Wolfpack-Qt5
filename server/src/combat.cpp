@@ -40,10 +40,12 @@
 #include "trigger.h"
 #include "utilsys.h"
 #include "guildstones.h"
+#include "combat.h"
 
 #include "debug.h"
 #undef  DBGFILE
 #define DBGFILE "combat.cpp"
+
 #define SWINGAT (unsigned int)1.75 * MY_CLOCKS_PER_SEC // changed from signed to unsigned, LB
 
 int cCombat::GetBowType(P_CHAR pc)

@@ -39,6 +39,7 @@
 #include "itemsmgr.h"
 #include "TmpEff.h"
 #include "guildstones.h"
+#include "regions.h"
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"

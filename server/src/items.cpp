@@ -41,6 +41,7 @@
 #include "items.h"
 #include "trigger.h"
 #include "books.h"
+#include "regions.h"
 
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
@@ -216,7 +217,6 @@ void cItem::SetSpawnSerial(long spawnser)
 		spawnsp.insert(spawnserial, this->serial);
 }
 
-//##ModelId=3C5D92EB020C
 void cItem::SetMultiSerial(long mulser)
 {
 	if (this->multis != INVALID_SERIAL)	// if it was set, remove the old one
@@ -228,7 +228,6 @@ void cItem::SetMultiSerial(long mulser)
 		imultisp.insert(this->multis, this->serial);
 }
 
-//##ModelId=3C5D92EC004B
 void cItem::MoveTo(int newx, int newy, signed char newz)
 {
 	mapRegions->Remove(this);

@@ -44,6 +44,7 @@
 #include "itemid.h"
 #include "debug.h"
 #include "guildstones.h"
+#include "regions.h"
 
 #undef DBGFILE
 #define DBGFILE "magic.cpp"

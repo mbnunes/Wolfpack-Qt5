@@ -37,6 +37,7 @@
 #include "worldmain.h"
 #include "trigger.h"
 #include "guildstones.h"
+#include "regions.h"
 
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"

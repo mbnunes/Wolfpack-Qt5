@@ -55,26 +55,6 @@ public:
 	short int port;
 };
 */
-class cCombat
-{
-private:
-	void ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi);
-	int TimerOk(P_CHAR pc);
-	void ItemSpell(cChar* Attacker, cChar* Defender);
-	void doSoundEffect(P_CHAR pc, int fightskill, P_ITEM pWeapon);//AntiChrist
-	void doMissedSoundEffect(P_CHAR pc);//AntiChrist
-	void DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fightskill, int bowtype, int los);
-public:
-	int GetBowType(P_CHAR pc);
-	int CalcAtt(P_CHAR pc);
-	int CalcDef(P_CHAR pc, int x);
-	void CombatOnHorse(P_CHAR pc);
-	void CombatOnFoot(P_CHAR pc);
-	void CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime);
-	void CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int currenttime, short los);
-	void DoCombat(P_CHAR pc_attacker, unsigned int currenttime);
-	void SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, signed char z);
-};
 
 class cCommands
 {

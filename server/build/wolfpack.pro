@@ -48,6 +48,7 @@ HEADERS         = Client.h \
 		  classes.h \
 		  cmdtable.h \
 		  coord.h \
+		  combat.h \
 		  cweather.h \
 		  dbl_single_click.h \
 		  debug.h \

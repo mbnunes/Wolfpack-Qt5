@@ -51,6 +51,7 @@
 #include "SndPkg.h"
 #include "worldmain.h"
 #include "debug.h"
+#include "regions.h"
 
 #undef  DBGFILE
 #define DBGFILE "cmdtable.cpp"

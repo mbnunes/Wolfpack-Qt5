@@ -33,6 +33,8 @@
 
 #include "wolfpack.h"
 #include "debug.h"
+#include "regions.h"
+
 #include <assert.h>
 
 #undef  DBGFILE

@@ -58,6 +58,8 @@
 #include "books.h"
 #include "TmpEff.h"
 #include "guildstones.h"
+#include "combat.h"
+#include "regions.h"
 
 #undef DBGFILE
 #define DBGFILE "wolfpack.cpp"

@@ -34,7 +34,7 @@
 // Mapregion stuff + boat-blocking corrected/touched by LB 7/24/99
 
 #include "boats.h"
-
+#include "regions.h"
 
 #undef DBGFILE
 #define DBGFILE "boats.cpp" 

@@ -37,6 +37,7 @@
 //
 
 #include "telport.h"
+#include "regions.h"
 
 #undef  DBGFILE
 #define DBGFILE "teleport.cpp"

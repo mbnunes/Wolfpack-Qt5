@@ -45,6 +45,7 @@
 #include "globals.h"
 #include "wolfpack.h"
 #include "iserialization.h"
+#include "regions.h"
 
 // Inline members
 

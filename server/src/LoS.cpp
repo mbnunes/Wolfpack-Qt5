@@ -37,6 +37,7 @@
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "debug.h"
+#include "regions.h"
 
 #undef  DBGFILE
 #define DBGFILE "LoS.cpp"

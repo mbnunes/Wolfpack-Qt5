@@ -32,11 +32,11 @@
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "debug.h"
+#include "regions.h"
 
 #undef  DBGFILE
 #define DBGFILE "p_ai.cpp"
 
-//##ModelId=3C5D932A00FF
 void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zippy
 {
 	int d, onl;

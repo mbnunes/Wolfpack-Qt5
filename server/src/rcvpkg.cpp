@@ -32,6 +32,7 @@
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "guildstones.h"
+#include "combat.h"
 
 #undef DBGFILE
 #define DBGFILE "rcvpkg.cpp"
