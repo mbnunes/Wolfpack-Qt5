@@ -6,14 +6,18 @@
 #===============================================================#
 """
 	\command fix
-	\description Resend the player information.
+	\description Resend the player and the surrounding objects.
 """
-
+"""
+	\command resend
+	\description Resend the player and the surrounding objects.
+"""
 import wolfpack
 
 # Loads the command
 def onLoad():
 	wolfpack.registercommand( 'fix', commandFix )
+	wolfpack.registercommand( 'resend' commandFix )
 	return
 
 def commandFix( socket, cmd, args ):
