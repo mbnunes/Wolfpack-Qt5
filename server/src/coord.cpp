@@ -84,7 +84,7 @@ UI32 Coord_cl::distance(Coord_cl &src)
 	{
 		RF64 rfResult = sqrt(static_cast<RF64>((x - src.x)*(x - src.x) + (y - src.y)*(y - src.y) + (z - src.z)*(z - src.z)));
 		//		RF64 rfResult = sqrt(static_cast<RF64>((x * src.x + y * src.y + z * src.z)));
-		uiResult = static_cast<UI32>(ceil(rfResult)); // truncate
+		uiResult = static_cast<UI32>(/*ceil*/floor(rfResult)); // truncate
 	}
 	return uiResult;
 }

@@ -608,7 +608,7 @@ bool cCharStuff::cBankerAI::DoAI(int c, int i, char *comm)
 	}
 	else if (response4 &&(!(pc_currchar->dead)))
 	{
-		return Check(c, i, comm);
+		return BankCheck(c, i, comm);
 	}
 	return true;
 }
@@ -659,7 +659,7 @@ bool cCharStuff::cBankerAI::Withdraw(int c, int i, char *comm)
 	return true;
 }
 
-bool cCharStuff::cBankerAI::Check(int c, int i, char *comm)
+bool cCharStuff::cBankerAI::BankCheck(int c, int i, char *comm)
 {
 	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c], false);
 	int a = 0;
