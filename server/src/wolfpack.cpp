@@ -1263,17 +1263,11 @@ int main( int argc, char *argv[] )
 	// So we will use SIGHUP to reload our scripts (kinda a standard for sighup to be reload)
 	// We will use a SIGUSR2 to be world save
 	// and SIGUSR1 for an Account reload
-	signal(SIGUSR2,&signal_handler) ;
-	signal(SIGHUP,&signal_handler) ;
-	signal(SIGUSR1,&signal_handler) ;
-	signal(SIGTERM,&signal_handler) ;
-
-	// we have this here, because convient, but should be set regardless of deamon or not.
-	// Keeps a disconnected socket from terminating the server.	
-	#if !defined(__linux__)
-		signal(SIGPIPE,&signal_handler) ;
-	#endif
-
+	signal( SIGUSR2,&signal_handler );
+	signal( SIGHUP,&signal_handler );
+	signal( SIGUSR1,&signal_handler );
+	signal( SIGTERM,&signal_handler );
+	signal( SIGPIPE, SIG_IGN );
 	#endif	
 
 	#define CIAO_IF_ERROR if (error==1) { cNetwork::instance()->shutdown(); DeleteClasses(); exit(-1); }
