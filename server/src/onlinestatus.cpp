@@ -40,3 +40,13 @@ void cOnlineStatus::reload()
 	tUptime_.restart();
 }
 
+QString cOnlineStatus::getUptime()
+{
+	QString tmpUptime;
+	int		tmpElapsed;
+	tmpElapsed = tUptime_.elapsed();
+
+	return QString( "%4:%3:%2.%1" ).arg( tmpElapsed % 1000 ).arg( tmpElapsed / 1000 ).arg( tmpElapsed / 60000 ).arg( tmpElapsed / 3600000 );
+	
+}
+

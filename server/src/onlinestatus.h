@@ -45,6 +45,7 @@ class cOnlineStatus {
 public:
 				cOnlineStatus() { tUptime_.start(); }
 		void	reload();
+		QString	getUptime();
 	
 	
 private:
