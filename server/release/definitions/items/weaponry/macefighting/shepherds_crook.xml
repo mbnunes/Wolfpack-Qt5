@@ -11,7 +11,6 @@
 		<durability><random min="30" max="50" /></durability>
 		<weight>2.0</weight>
 		<tag name="req_str" value="20" type="int" />
-		<tag name="resname" value="plainwood" />
 		<events>equipment</events>
 		<type>1003</type>
 		<twohanded />
