@@ -344,7 +344,14 @@ PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 	cVariant value = self->pItem->tags.get( key );
 
 	if( value.type() == cVariant::String )
-		return PyString_FromString( value.asString().latin1() );
+	{
+		QString strValue = value.asString();
+
+		if( !strValue.isNull() )
+			return PyString_FromString( strValue.latin1() );
+		else
+			return PyString_FromString( "" );
+	}
 	else if( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
 
@@ -662,7 +669,10 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 				obj = PyInt_FromLong( result.toInt() );
 				break;
 			case cVariant::String:
-				obj = PyString_FromString( result.toString() );
+				if( result.toString().isNull() )
+					obj = PyString_FromString( "" );
+				else
+					obj = PyString_FromString( result.toString().latin1() );
 				break;
 			case cVariant::Double:
 				obj = PyFloat_FromDouble( result.toDouble() );

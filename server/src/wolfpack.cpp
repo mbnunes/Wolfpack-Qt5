@@ -90,6 +90,8 @@
 #define DBGFILE "wolfpack.cpp"
 #include "debug.h"
 
+#include "crash.h"
+
 ///////////
 // Name:	inVisRange
 // Purpose:	checks if position 1 and 2 are in visual range
@@ -1185,8 +1187,8 @@ static void quickdelete( P_ITEM pi )
 int main( int argc, char *argv[] )
 {
 #if defined(_DEBUG)
-//	InstallCrashHandler( HANDLER_CONSOLE, GSTSO_PARAMS | GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE );
-//	SetCustomMessage("A crash occurred. Please send this bug report to developers\n");
+	InstallCrashHandler( HANDLER_CONSOLE, GSTSO_PARAMS | GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE );
+	SetCustomMessage("A crash occurred. Please send this bug report to developers\n");
 #endif
 
 	QApplication app( argc, argv, false ); // we need one instance

@@ -558,7 +558,7 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 stError *cUObject::getProperty( const QString &name, cVariant &value ) const
 {
 	GET_PROPERTY( "bindmenu", bindmenu_ )
-	else GET_PROPERTY( "serial", "0x" + QString::number( serial, 16 ) )
+	else GET_PROPERTY( "serial", serial )
 	else GET_PROPERTY( "multi", FindItemBySerial( multis ) )
 	else GET_PROPERTY( "free", free ? 1 : 0 )
 	else GET_PROPERTY( "name", this->name )

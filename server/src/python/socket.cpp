@@ -149,7 +149,15 @@ PyObject* wpSocket_clilocmessage( wpSocket* self, PyObject* args )
 	if( checkArgInt( 5 ) )
 		font = getArgInt( 5 );
 
-	self->pSock->clilocMessage( type, file, message, params, color, font );
+	// Object
+	cUObject *object = 0;
+
+	if( checkArgChar( 6 ) )
+		object = getArgChar( 6 );
+	else if( checkArgItem( 6 ) )
+		object = getArgItem( 6 );
+
+	self->pSock->clilocMessage( type, file, message, params, color, font, object );
 
 	return PyTrue;
 }

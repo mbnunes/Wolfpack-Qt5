@@ -1467,7 +1467,10 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 				obj = PyInt_FromLong( result.toInt() );
 				break;
 			case cVariant::String:
-				obj = PyString_FromString( result.toString() );
+				if( result.toString().isNull() )
+					obj = PyString_FromString( "" );
+				else
+					obj = PyString_FromString( result.toString().latin1() );
 				break;
 			case cVariant::Double:
 				obj = PyFloat_FromDouble( result.toDouble() );
