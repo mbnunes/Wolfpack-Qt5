@@ -1,4 +1,11 @@
-
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by:                                      |
+|   )).-' {{ ;'`   | Revised by:                                      |
+|  ( (  ;._ \\ ctr | Last Modification:                               |
+=================================================================
+-->
 <definitions>
 
 	<!-- Bascinet Helmet North-South -->
@@ -9,12 +16,13 @@
 		<nodye />
 		<defense>7</defense>
 		<durability><random min="40" max="50" /></durability>
-		<requires type='str'>40</requires>
+		<tag name="req_str" value="40" type="int" />
 		<restock>10</restock>
 		<smelt>12</smelt>
 		<weight>5.0</weight>
 		<buyprice>127</buyprice>
 		<sellprice>63</sellprice>
+		<events>equipment</events>
 		<category>Armor\Helmets\Bascinet (N/S)</category>
 	</item>
 
