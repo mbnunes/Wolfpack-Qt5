@@ -698,7 +698,7 @@ static PyObject* wpChar_say( wpChar* self, PyObject* args, PyObject *keywds )
 
 		static char *kwlist[] = { "clilocid", "args", "affix", "prepend", "color", "socket", NULL};
 
-		if( !PyArg_ParseTupleAndKeywords( args, keywds, "i|ssbiO&:char.say( clilocid, [args], [affix], [prepend], [color], [socket] )", kwlist, &id, &clilocargs, &affix, &prepend, &color, PyConvertSocket, &socket ) )
+		if( !PyArg_ParseTupleAndKeywords( args, keywds, "i|ssbiO&:char.say( clilocid, [args], [affix], [prepend], [color], [socket] )", kwlist, &id, &clilocargs, &affix, &prepend, &color, &PyConvertSocket, &socket ) )
 			return 0;
 
 		npc->talk( id, clilocargs, affix, prepend, color, socket );

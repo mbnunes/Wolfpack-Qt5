@@ -159,42 +159,28 @@ static PyObject* wpItem_delete( wpItem* self, PyObject* args )
 	\param map Defaults to the current map the item is on.
 	The new map coordinate of this item.
 */
-static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
-{
-	if( !self->pItem || self->pItem->free )
-		return PyFalse();
-
+static PyObject* wpItem_moveto( wpItem* self, PyObject* args ) {
 	// Gather parameters
 	Coord_cl pos = self->pItem->pos();
 	char noRemove = 0;
 
-	if( PyTuple_Size( args ) == 1 )
-	{
-		if( !PyArg_ParseTuple( args, "O&|b:item.moveto( coord )", &PyConvertCoord, &pos, &noRemove ) )
+	if (PyTuple_Size(args) == 1) {
+		if (!PyArg_ParseTuple( args, "O&|b:item.moveto(coord, [noremove=0])", &PyConvertCoord, &pos, &noRemove)) {
 			return 0;
+		}
 
-		self->pItem->moveTo( pos, noRemove ? true : false );
-	}
-	else
-	{
-		int x,y;
-		int z = self->pItem->pos().z;
-		int map = self->pItem->pos().map;
-
-		if( !PyArg_ParseTuple( args, "ii|iib:item.moveto( x, y, [z], [map] )", &x, &y, &z, &map,  &noRemove ) )
+		self->pItem->moveTo(pos, noRemove ? true : false);
+	} else {
+		if (!PyArg_ParseTuple(args, "HH|bBB:item.moveto(x, y, [z], [map])", &pos.x, &pos.y, &pos.z, &pos.map, &noRemove)) {
 			return 0;
-
-		self->pItem->moveTo( Coord_cl( (unsigned short)x, (unsigned short)y, (char)z, (unsigned char)map ), noRemove ? true : false );
+		}
+		self->pItem->moveTo(pos, noRemove ? true : false);
 	}
 
-	Py_INCREF( Py_None );
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
-
-/*!
-	Removes the item from all clients in range
-*/
 /*
 	\method item.removefromview
 	\description Remove the item from all clients who can currently see it.
@@ -969,6 +955,59 @@ static PyObject *wpItem_hasevent(wpItem *self, PyObject *args) {
 }
 
 /*
+	\method item.say
+	\description Let the item say a text visible for everyone in range.
+	\param text The text the item should say.
+	\param color Defaults to 0x3b2.
+	The color for the text.
+*/
+/*
+	\method item.say
+	\description Let the item say a localized text message.
+	\param clilocid The id of the localizd message the item should say.
+	\param params Defaults to an empty string.
+	The parameters that should be parsed into the localized message.
+	\param affix Defaults to an empty string.
+	Text that should be appended or prepended (see the prepend parameter) to the
+	localized message.
+	\param prepend Defaults to false.
+	If this boolean parameter is set to true, the affix is prepended rather than
+	appended.
+	\param color Defaults to 0x3b2.
+	The color of the message.
+	\param socket Defaults to None.
+	If a socket object is given here, the message will only be seen by the given socket.
+*/
+static PyObject* wpItem_say(wpItem* self, PyObject* args, PyObject *keywds ) {
+	if (!checkArgStr(0)) {
+		uint id;
+		char *clilocargs = 0;
+		char *affix = 0;
+		char prepend;
+		uint color = 0x3b2;
+		cUOSocket* socket = 0;
+
+		static char *kwlist[] = {"clilocid", "args", "affix", "prepend", "color", "socket", NULL};
+
+		if( !PyArg_ParseTupleAndKeywords( args, keywds, "i|ssbiO&:char.say( clilocid, [args], [affix], [prepend], [color], [socket] )", kwlist, &id, &clilocargs, &affix, &prepend, &color, &PyConvertSocket, &socket ) )
+			return 0;
+
+		
+		//npc->talk( id, clilocargs, affix, prepend, color, socket );
+	} else {
+		ushort color = 0x3b2;
+
+		if( checkArgInt( 1 ) )
+			color = getArgInt( 1 );
+
+		//self->pChar->talk( getArgStr( 0 ), color );
+	}
+
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+/*
 	\method item.callevent
 	\description Call a python event chain for this object. Ignore global hooks.
 	\param event The id of the event you want to call. See <library id="wolfpack.consts">wolfpack.consts</library> for constants.
@@ -996,6 +1035,39 @@ static PyObject *wpItem_callevent(wpItem *self, PyObject *args) {
 	return Py_False;
 }
 
+/*
+	\method item.effect
+	\description Show an effect that moves along with the item.
+	\param id The effect item id.
+	\param speed Defaults to 5.
+	This is the animation speed of the effect.
+	\param duration Defaults to 10.
+	This is how long the effect should be visible.
+	\param hue Defaults to 0.
+	This is the color for the effect.
+	\param rendermode Defaults to 0.
+	This is a special rendermode for the effect.
+	Valid values are unknown.
+*/
+static PyObject* wpItem_effect(wpItem* self, PyObject* args) {
+	UINT16 id;
+	// Optional Arguments
+	UINT8 speed = 5;
+	UINT8 duration = 10;
+	UINT16 hue = 0;
+	UINT16 renderMode = 0;
+
+	if (!PyArg_ParseTuple(args, "H|BBHH:char.effect(id, [speed], [duration], [hue], [rendermode])",
+		&id, &speed, &duration, &hue, &renderMode)) {
+		return 0;
+	}
+
+	self->pItem->effect(id, speed, duration, hue, renderMode);
+
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
 static PyMethodDef wpItemMethods[] =
 {
 	{ "additem",			(getattrofunc)wpItem_additem, METH_VARARGS, "Adds an item to this container." },
@@ -1020,6 +1092,8 @@ static PyMethodDef wpItemMethods[] =
 	{ "lightning",			(getattrofunc)wpItem_lightning, METH_VARARGS, 0 },
 	{ "resendtooltip",		(getattrofunc)wpItem_resendtooltip, METH_VARARGS, 0 },
 	{ "dupe",				(getattrofunc)wpItem_dupe, METH_VARARGS, 0 },
+	{ "say",				(getattrofunc)wpItem_say, METH_VARARGS|METH_KEYWORDS, 0 },
+	{ "effect",				(getattrofunc)wpItem_effect, METH_VARARGS, 0 },
 
 	// Event handling
 	{ "callevent",			(getattrofunc)wpItem_callevent, METH_VARARGS, 0 },

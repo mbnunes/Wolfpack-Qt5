@@ -1252,55 +1252,73 @@ void cItem::setTotalweight(float data) {
 	}
 }
 
-void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
-{
-	QString lang;
-
-	if( socket )
-		lang = socket->lang();
+void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket) {
+	if (color == 0xFFFF) {
+		color = 0x3b2;
+	}
 
 	cUOTxUnicodeSpeech::eSpeechType speechType;
 
 	switch( type )
 	{
-	case 0x01:
-		speechType = cUOTxUnicodeSpeech::Broadcast;
-	case 0x06:
-		speechType = cUOTxUnicodeSpeech::System;
-	case 0x09:
-		speechType = cUOTxUnicodeSpeech::Yell;
-	case 0x02:
-		speechType = cUOTxUnicodeSpeech::Emote;
-	case 0x08:
-		speechType = cUOTxUnicodeSpeech::Whisper;
-	default:
-		speechType = cUOTxUnicodeSpeech::Regular;
+	case 0x01:		speechType = cUOTxUnicodeSpeech::Broadcast;		break;
+	case 0x06:		speechType = cUOTxUnicodeSpeech::System;		break;
+	case 0x09:		speechType = cUOTxUnicodeSpeech::Yell;			break;
+	case 0x02:		speechType = cUOTxUnicodeSpeech::Emote;			break;
+	case 0x08:		speechType = cUOTxUnicodeSpeech::Whisper;		break;
+	case 0x0A:		speechType = cUOTxUnicodeSpeech::Spell;			break;
+	default:		speechType = cUOTxUnicodeSpeech::Regular;		break;
 	};
 
-	cUOTxUnicodeSpeech textSpeech;
-	textSpeech.setSource( serial() );
-	textSpeech.setModel( id() );
-	textSpeech.setFont( 3 ); // Default Font
-	textSpeech.setType( speechType );
-	textSpeech.setLanguage( lang );
-	textSpeech.setName( name_ );
-	textSpeech.setColor( color );
-	textSpeech.setText( message );
-	textSpeech.setText( message );
+	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
+	textSpeech->setSource( serial() );
+	textSpeech->setModel( 0 );
+	textSpeech->setFont( 3 ); // Default Font
+	textSpeech->setType( speechType );
+	textSpeech->setLanguage( "" );
+	textSpeech->setName( name() );
+	textSpeech->setColor( color );
+	textSpeech->setText( message );
 
 	if( socket )
 	{
-		socket->send( &textSpeech );
+		socket->send( textSpeech );
 	}
 	else
 	{
 		// Send to all clients in range
 		for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
-				if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
-				{
-					mSock->send( &textSpeech );
-				}
+			if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
+			{
+				mSock->send( new cUOTxUnicodeSpeech( *textSpeech ) );
+			}
+		}
+		delete textSpeech;
+	}
+}
+
+void cItem::talk(const UINT32 MsgID, const QString& params, const QString& affix, bool prepend, UI16 color, cUOSocket* socket) {
+	if (color == 0xFFFF)
+		color = 0x3b2;
+
+	if (socket)
+	{
+		if (affix.isEmpty())
+			socket->clilocMessage(MsgID, params, color, 3, this);
+		else
+			socket->clilocMessageAffix(MsgID, params, affix, color, 3, this, false, prepend);
+	} else {
+		// Send to all clients in range
+		for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+		{
+			if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
+			{
+				if ( affix.isEmpty() )
+					mSock->clilocMessage( MsgID, params, color, 3, this );
+				else
+					mSock->clilocMessageAffix( MsgID, params, affix, color, 3, this, false, prepend );
+			}
 		}
 	}
 }
