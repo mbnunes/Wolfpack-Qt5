@@ -830,12 +830,21 @@ static PyMethodDef wpSocketMethods[] =
 // Getters & Setters
 static PyObject* wpSocket_getAttr( wpSocket* self, char* name )
 {
+	/*
+		\rproperty socket.player The <object id="CHAR">char</object> object for the player played by this socket. May be None.
+	*/
 	if ( !strcmp( name, "player" ) )
 		return PyGetCharObject( self->pSock->player() );
+	/*
+		\rproperty socket.screenwidth The width of the game window in pixels as sent by the client.
+	*/		
 	else if ( !strcmp( name, "screenwidth" ) )
 	{
 		return PyInt_FromLong( self->pSock->screenWidth() );
 	}
+	/*
+		\rproperty socket.screenheight The height of the game window in pixels as sent by the client.
+	*/		
 	else if ( !strcmp( name, "screenheight" ) )
 	{
 		return PyInt_FromLong( self->pSock->screenHeight() );
@@ -844,12 +853,19 @@ static PyObject* wpSocket_getAttr( wpSocket* self, char* name )
 	{
 		return PyInt_FromLong( self->pSock->walkSequence() );
 	}
+	/*
+		\rproperty socket.account An <object id="account">account</object> object for the account used by this socket. Should not be None.
+	*/		
 	else if ( !strcmp( name, "account" ) )
 	{
 		return PyGetAccountObject( self->pSock->account() );
 	}
-	else
-	{
+	/*
+		\rproperty socket.address A string containing the IP address this socket is connected to.
+	*/
+	else if (!strcmp(name, "address")) {
+		return QString2Python(self->pSock->ip());
+	} else {
 		return Py_FindMethod( wpSocketMethods, ( PyObject * ) self, name );
 	}
 }
