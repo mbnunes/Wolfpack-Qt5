@@ -40,37 +40,6 @@
 #undef  DBGFILE
 #define DBGFILE "pointer.cpp"
 
-//
-// - Sets an item into the array, reallocating space if needed
-//   Usage: setptr(&itemsp[serial%256], item#);
-//          setptr(&charsp[serial%256], char#);
-//   NOTE: can be used to set other pointer arrays too (like regions)
-void setptr(lookuptr_st &ptr, int serial, int item) //set item in pointer array
-{
-	ptr.insert(make_pair(serial, item));
-}
-
-// - Find a specific item/char by serial number.
-//   Usage: item=findbyserial(&itemsp[serial%HASHMAX], serial, 0);
-//          char=findbyserial(&charsp[serial%HASHMAX], serial, 1);
-//          if (item==-1) clConsole.send("Couldn't find by serial: %d\n", serial);
-int findbyserial(lookuptr_st &ptr, SERIAL nSerial, int nType)
-{ 
-  if (nSerial < 0) return -1;  //prevent errors from some clients being slower than the server clicking on nolonger valid items
-
-  lookuptr_st::iterator it = ptr.find(nSerial);
-  if (it != ptr.end())
-	  return it->second;
-  else
-	  return INVALID_SERIAL;
-}
-
-// - Remove an item/char from a pointer array
-//   (Ok, just mark it as a free slot ;P )
-void removefromptr(lookuptr_st &ptr, SERIAL nSerial)
-{
-	ptr.erase(nSerial);
-}
 
 /* Deprecated stuff
 void setserial(int nChild, int nParent, int nType)
@@ -192,14 +161,16 @@ P_CHAR FindCharBySerial(int serial)
 {
 	if (!isCharSerial(serial))
 		return NULL;
-	int i = findbyserial(charsp, serial, 1);
-	if (i==-1) return NULL;		// legal rc from findbyserial, don't log
-	else return MAKE_CHARREF_LRV(i,NULL);
+	cCharsManager::iterator iterChars = cCharsManager::getCharsManager().find( serial );
+	if ( iterChars == cCharsManager::getCharsManager().end())
+		return NULL;
+	else 
+		return iterChars->second;
 }
 
 P_CHAR FindCharBySerPtr(unsigned char *p)
 {
-	int serial=LongFromCharPtr(p);
+	int serial = LongFromCharPtr(p);
 	if(serial == INVALID_SERIAL) return NULL;
 	return FindCharBySerial(serial);
 }

@@ -35,13 +35,6 @@
 #undef  DBGFILE
 #define DBGFILE "inlines.h"
 
-inline int calcCharFromPtr(unsigned char *p)
-{
-	int serial;
-	if((serial=LongFromCharPtr(p)) == INVALID_SERIAL) return -1;
-	return findbyserial(charsp, serial, 1);
-}
-
 inline UOXSOCKET calcSocketFromChar(P_CHAR pc)
 {
 	int j;

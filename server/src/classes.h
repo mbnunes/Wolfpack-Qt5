@@ -283,7 +283,6 @@ public:
 	void NPCHeal(P_CHAR pc);
 	void NPCCure(P_CHAR pc);
 	void NPCDispel(P_CHAR pc_s, P_CHAR pc_i);
-	void NPCCannonTarget(int s, int t);
 	char CheckParry(P_CHAR pc_player, int circle);
 	void MagicArrow(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
 	void ClumsySpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
@@ -309,7 +308,7 @@ public:
     void Heal(UOXSOCKET s);
 
 	void BuildCannon(int s);
-	bool CheckMagicReflect(CHARACTER i);
+	bool CheckMagicReflect(P_CHAR pc);
 	P_CHAR CheckMagicReflect(P_CHAR &attacker, P_CHAR &defender);
 	void MagicDamage(P_CHAR pc, int amount);
 	void SpellFail(int s);

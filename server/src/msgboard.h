@@ -77,7 +77,7 @@ void    MsgBoardEvent( int nSerial );
 void    MsgBoardSetPostType( int nSerial, int nPostType );
 void    MsgBoardGetPostType( int nSerial );
 int     MsgBoardPostQuest( int nSerial, int nQuestType );
-void    MsgBoardQuestEscortCreate( int nSerial );
+void    MsgBoardQuestEscortCreate( P_CHAR pc_npc );
 void    MsgBoardQuestEscortArrive( P_CHAR pc_npc, int nPCIndex );
 void    MsgBoardQuestEscortDelete( P_CHAR pc_npc );
 void    MsgBoardQuestEscortRemovePost( P_CHAR pc_npc );

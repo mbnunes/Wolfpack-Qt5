@@ -127,7 +127,8 @@ void CheckPoisoning(UOXSOCKET sd, P_CHAR pc_attacker, P_CHAR pc_defender)
 // This checks LineOfSight before calling CombatHit (Duke, 10.7.2001)
 void cCombat::CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime)
 {
-	P_CHAR pDefender = MAKE_CHARREF_LR(pAttacker->swingtarg);
+	P_CHAR pDefender = FindCharBySerial(pAttacker->swingtarg);
+	if ( pDefender == NULL ) return;
 	UOXSOCKET s1=calcSocketFromChar(pAttacker);
 
 	unsigned short los=line_of_sight(s1,pAttacker->pos, pDefender->pos,	WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING);

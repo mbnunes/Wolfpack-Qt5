@@ -663,7 +663,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					{
 						pos = ftell(scpfile);
 						closescript();
-						tmp = addrandomcolor(so, (char*)script2);
+						tmp = addrandomcolor(currchar[so], (char*)script2);
 						{
 							pi->color1 = tmp >> 8;
 							pi->color2 = tmp%256;

@@ -32,19 +32,26 @@
 #ifndef __CHARS_H
 #define __CHARS_H
 
+// Platform Include
+#include "platform.h"
+
+
 // just temporary
 #undef  DBGFILE
 #define DBGFILE "chars.h"
 #include "debug.h"
-#include "char_array.h" 
 
 #include "coord.h"
+#include "typedefs.h"
+#include "structs.h"
+#include "defines.h"
+#include "SrvParms.h"
 
 //typedef struct char_st_
 class cChar
 {
 public:
-        enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
+    enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	//  Chaos/Order Guild Stuff for Ripper
 	short     GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
 	bool      GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
@@ -376,6 +383,7 @@ public:
 	long GetOwnSerial()	{return ownserial;}
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
+	void setSerial(SERIAL ser);
 	// The bit for setting what effect gm movement 
     // commands shows 
     // 0 = off 
@@ -384,37 +392,26 @@ public:
     int gmMoveEff;
 	void MoveTo(short newx, short newy, signed char newz);
 	void MoveToXY(short newx, short newy);
-	bool Owns(cChar* pc)	{return (serial==pc->ownserial);}
-	bool Owns(P_ITEM pi)	{return (serial==pi->ownserial);}
-	bool Wears(P_ITEM pi)	{return (serial==pi->contserial);}
+	bool Owns(P_CHAR pc)	{return (serial==pc->ownserial);}
+	bool Owns(P_ITEM pi);
+	bool Wears(P_ITEM pi);
 	int getSkillSum();
 	int getTeachingDelta(cChar* pPlayer, int skill, int sum);
 	void removeItemBonus(cItem* pi);
 	void Init(bool ser = true);
 	bool isSameAs(cChar* pc) {if (!pc || pc->serial != serial) return false; else return true;}
-	bool inGuardedArea()	{return ::region[this->region].priv&1;}
+	bool inGuardedArea();
 	bool canPickUp(cItem* pi);
-	unsigned dist(cChar* pc)	{return pos.distance(pc->pos);}
-	unsigned dist(cItem* pi)	{return pos.distance(pi->pos);}
+	unsigned int dist(cChar* pc);
+	unsigned int dist(cItem* pi);
 	int MyHome();
 };
 
-#include "CharWrap.h"
-#include "char_array.h"
-
 class cCharStuff
 {
-private:
-	bool moreCharMemoryRequested;
-	bool ResizeMemory();
-	void CollectReusableSlots();
-	int  GetReusableSlot();
-	
 public:
 	void DeleteChar(P_CHAR pc_k);
-	void CheckMemoryRequest();
-	bool AllocateMemory(int NumberOfChars);
-	int MemCharFree();
+	P_CHAR MemCharFree();
 	P_ITEM AddRandomLoot(P_ITEM pBackpack, char * lootlist);
 	P_CHAR AddRandomNPC(int s, char *npclist, int spawnpoint);
 	P_CHAR AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed char z1);
@@ -443,21 +440,6 @@ public:
 		bool Balance(int c, P_CHAR pBanker);
 		void OpenBank(UOXSOCKET c);
 	};
-};
-
-class AllCharsIterator
-{
-protected:
-	unsigned int pos;
-public:
-	AllCharsIterator()							{ pos = 0; }
-	~AllCharsIterator()							{ }
-	P_CHAR Begin()								{ pos = 0; return pos < charcount ? &chars[pos] : NULL;}
-	P_CHAR Next()								{ return pos++ < charcount ? &chars[pos] : NULL; }
-	bool atEnd()								{ return GetData() == NULL; }
-	P_CHAR GetData(void)						{ return pos < charcount ? &chars[pos] : NULL; }
-	AllCharsIterator& operator++(int/* inc*/)	{ pos++; return *this; }
-	
 };
 
 

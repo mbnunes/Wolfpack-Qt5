@@ -66,9 +66,9 @@ void loadchar(int x) // Load a character from WSC
 	int i ;
 	int j,a=0, loops=0;
 
-	x=Npcs->MemCharFree();
-	if (x == -1) return;
-	P_CHAR pc = MAKE_CHARREF_LR(x);
+	P_CHAR pc = Npcs->MemCharFree();
+	if ( pc == NULL )
+		return;
 	pc->Init(false);
 
 	pc->hungertime=uiCurrentTime+(SrvParms->hungerrate*MY_CLOCKS_PER_SEC/2);	// avoid loss of one hungerpoint for each restart (Duke, 6.6.2001)
@@ -277,13 +277,7 @@ void loadchar(int x) // Load a character from WSC
 			if (!strcmp((char*)script1, "SERIAL"))
 			{
 				unsigned int i = str2num(script2);
-				if (charcount2<=i) charcount2=i+1;
-				pc->ser1=i>>24;
-				pc->ser2=i>>16;
-				pc->ser3=i>>8;
-				pc->ser4=i%256;
-				pc->serial=i;
-				setptr(charsp, i, DEREF_P_CHAR(pc)); //Load into charsp array
+				pc->setSerial(i);
 			}
 			else if (!strcmp((char*)script1, "SAY"))				pc->saycolor = static_cast<UI16>(str2num(script2));
 			else if (!strcmp((char*)script1, "STRENGTH"))			pc->st=str2num(script2);
@@ -291,7 +285,7 @@ void loadchar(int x) // Load a character from WSC
 			else if (!strcmp((char*)script1, "STAMINA"))			pc->stm=str2num(script2);
 			else if (!strcmp((char*)script1, "SUMMONREMAININGSECONDS"))
 			{//AntiChrist - let's restore remaining seconds!
-				i=str2num(script2);
+				i = str2num(script2);
 				pc->summontimer=uiCurrentTime+(i*MY_CLOCKS_PER_SEC);
 			}
 			else if (!strcmp((char*)script1, "SHOP"))			  pc->shop=str2num(script2);
@@ -784,18 +778,14 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 	if(!wscfile)
 	{
 		clConsole.send("WARNING: wppcs.wsc not found. Defaulting to wolfpack.wsc\n");
-		if (! Npcs->AllocateMemory(100))
-			return;
 	}
 	else
 	{
 		//Get number for initial character memory needed ->
 		int cnum=0;
 		readw3();
-		if (!(strcmp((char*)script1, "INITMEM"))) cnum=str2num(script2)+C_W_O_1 + 5000; // large initial memory as a q&d workaround for realloc prob (Duke)
+		if (!(strcmp((char*)script1, "INITMEM"))) cnum = str2num(script2);
 		maxm=cnum; // Magius(CHE) (1)
-		if (! Npcs->AllocateMemory(cnum))
-			return;
 
 		// check if the map-mode (ilshenar or britannia) and wordfiles match , LB
 		
@@ -871,7 +861,7 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 			//Get number for initial character memory needed ->
 			int inum=0;
 			readw3();
-			if (!(strcmp((char*)script1, "INITMEM"))) inum=str2num(script2)+C_W_O_1 + 5000; // large initial memory as a q&d workaround for realloc prob (Duke)
+			if (!(strcmp((char*)script1, "INITMEM"))) inum=str2num(script2);
 
 			clConsole.send("Loading items ");	// AntiChrist - sorry magius, but it's better to see in this way i think
 			a=0; // Magius(CHE) (2)

@@ -97,7 +97,7 @@ void RcvAttack(P_CLIENT ps)
 		pc_currchar->setAttackFirst();
 		pc_currchar->attacker = pc_i->serial;
  
-		pc_currchar->dir = chardir(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_i));	// turn to attacker, LB (& Duke)
+		pc_currchar->dir = chardir(pc_currchar, pc_i);	// turn to attacker, LB (& Duke)
 
 		updatechar(pc_currchar);
 

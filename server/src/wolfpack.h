@@ -84,6 +84,7 @@ using namespace std;
 
 #include "globals.h"
 #include "itemsmgr.h"
+#include "charsmgr.h"
 
 #include "prototypes.h"
 

@@ -1175,13 +1175,15 @@ void cGuilds::ChangeTitle(int s, char *text)
 	int guildnumber=Guilds->SearchByStone(s);
 	if (guildnumber==-1) return;
 
-	int member=guilds[guildnumber].priv;
+	P_CHAR member = FindCharBySerial(guilds[guildnumber].priv);
 
-	if (member==0) member=s;
-	guilds[guildnumber].priv=0;
-	strcpy(chars[member].guildtitle,(char*)text);
-	if (member==s) sysmessage(s,"You changed your own title.");
-	else sysmessage(s,"You changed the title.");
+	if (member == NULL) member = currchar[s];
+	guilds[guildnumber].priv = INVALID_SERIAL;
+	strcpy(member->guildtitle,(char*)text);
+	if (member==currchar[s]) 
+		sysmessage(s,"You changed your own title.");
+	else 
+		sysmessage(s,"You changed the title.");
 	Guilds->Menu(s,2);
 }
 

@@ -29,66 +29,66 @@
 //	Wolfpack Homepage: http://www.wpdev.sf.net/
 //========================================================================================
 
-#if !defined(__ITEMSMGR_H__)
-#define __ITEMSMGR_H__
+#if !defined(__CHARSMGR_H__)
+#define __CHARSMGR_H__
 // Platform specifics
 #include "platform.h"
 
 // Wolfpack specific
 #include "wolfpack.h"
-#include "items.h"
+#include "chars.h"
 #include "exceptions.h"
 
 // System Includes
 #include <map>
 
 // Singleton Class to manage Items.
-class cItemsManager : public std::map<SERIAL, cItem*>
+class cCharsManager : public std::map<SERIAL, cChar*>
 {
 protected:
-	cItemsManager() {} // Unallow anyone to instantiate.
-	cItemsManager(cItemsManager& _it) {} // Unallow copy constructor
-	cItemsManager& operator=(cItemsManager& _it) { return *this; } // Unallow Assignment
+	cCharsManager() {} // Unallow anyone to instantiate.
+	cCharsManager(cCharsManager& _it) {} // Unallow copy constructor
+	cCharsManager& operator=(cCharsManager& _it) { return *this; } // Unallow Assignment
 public:
-	void registerItem( cItem* ) throw(wp_exceptions::bad_ptr);
-	void unregisterItem( cItem* ) throw (wp_exceptions::bad_ptr);
+	void registerChar( cChar* ) throw(wp_exceptions::bad_ptr);
+	void unregisterChar( cChar* ) throw (wp_exceptions::bad_ptr);
 	SERIAL getUnusedSerial() const;
 
-	static cItemsManager& getItemsManager()
+	static cCharsManager& getCharsManager()
 	{
-		static cItemsManager theItemsManager;
-		return theItemsManager; 
+		static cCharsManager theCharsManager;
+		return theCharsManager; 
 	}
 };
 
-class AllItemsIterator
+class AllCharsIterator
 {
 protected:
-	cItemsManager::iterator iterItems;
+	cCharsManager::iterator iterChars;
 	
 public:
-	AllItemsIterator()							
+	AllCharsIterator()							
 	{ 
-		iterItems = cItemsManager::getItemsManager().begin(); 
+		iterChars = cCharsManager::getCharsManager().begin(); 
 	}
 
-	virtual ~AllItemsIterator()					{ }
-	P_ITEM GetData(void)						{ return iterItems->second; }
-	P_ITEM First()								{ return cItemsManager::getItemsManager().begin()->second; }
-	P_ITEM Begin()								
+	virtual ~AllCharsIterator()					{ }
+	P_CHAR GetData(void)						{ return iterChars->second; }
+	P_CHAR First()								{ return cCharsManager::getCharsManager().begin()->second; }
+	P_CHAR Begin()								
 	{
-		iterItems = cItemsManager::getItemsManager().begin();
+		iterChars = cCharsManager::getCharsManager().begin();
 		return GetData();
 	}
-	P_ITEM Next()
+	P_CHAR Next()
 	{
-		iterItems++;
-		return iterItems->second;
+		iterChars++;
+		return iterChars->second;
 	}
-	bool atEnd()									{ return (iterItems == cItemsManager::getItemsManager().end()); }
-	AllItemsIterator& operator++(int)				{ iterItems++; return *this; }
-	AllItemsIterator& operator--(int)				{ iterItems--; return *this;			   }
+	bool atEnd()									{ return (iterChars == cCharsManager::getCharsManager().end()); }
+	AllCharsIterator& operator++(int)				{ iterChars++; return *this; }
+	AllCharsIterator& operator--(int)				{ iterChars--; return *this; }
 	
 };
 
-#endif // __ITEMSMGR_H__
+#endif // __CHARSMGR_H__

@@ -2155,11 +2155,11 @@ int MsgBoardPostQuest( int serial, int questType )
 //
 // RETURNS:     void
 //////////////////////////////////////////////////////////////////////////////
-void MsgBoardQuestEscortCreate( int npcIndex )
+void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 {
 	// Choose a random region as a destination for the escort quest (except for the same region as the NPC was spawned in)
 	unsigned long loopexit=0;
-	P_CHAR pc_npc = MAKE_CHARREF_LR(npcIndex);
+	if ( pc_npc == NULL ) return;
 	do 
 	{
 		if ( escortRegions )

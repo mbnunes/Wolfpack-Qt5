@@ -95,7 +95,6 @@ int SpawnFishingItem(int nCharID,int nInPack, char* cScript, char* cList, char* 
 int check_house_decay();
 bool ishouse(P_ITEM);
 void cleanup(int s);
-P_ITEM packitem(int p);
 void titletarget(int s);
 int ishuman(P_CHAR pc);
 void npcact(int s);
@@ -109,7 +108,7 @@ void InitMultis();
 void InitServerSettings();
 void DeleteClasses();
 void npcToggleCombat(P_CHAR pc);
-int chardir(int a, int b);
+int chardir(P_CHAR a, P_CHAR b);
 int checkBoundingBox(int xPos, int yPos, int fx1, int fy1, int fz1, int fx2, int fy2);
 int checkBoundingCircle(int xPos, int yPos, int fx1, int fy1, int fz1, int radius);
 int unmounthorse(UOXSOCKET s);
@@ -220,7 +219,7 @@ int del_hlist(int c, int h);
 void house_speech(int s, char *talk);
 void mtarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt);
 
-int addrandomcolor(int s, char *colorlist);
+int addrandomcolor(P_CHAR pc_s, char *colorlist);
 
 
 void lockpick(int s);
@@ -258,12 +257,6 @@ void triggerwitem(UOXSOCKET ts, P_ITEM pi, int ttype);  // trigger.cpp
 int checkenvoke(char eid1, char eid2);  //trigger.scp
 
 inline int calcserial(unsigned char a1,unsigned char a2,unsigned char a3,unsigned char a4) {return (static_cast<int>((a1<<24))|static_cast<int>((a2<<16)) | static_cast<int>((a3<<8)) | static_cast<int>(a4));}
-
-// Pointer.cpp functions
-// - set item in pointer array
-void setptr(lookuptr_st &ptr, SERIAL nSerial, int item);
-void removefromptr(lookuptr_st &ptr, SERIAL nSerial);// - remove item from pointer array
-int findbyserial(lookuptr_st &ptr, int nSerial, int nType);// - find item in a pointer array
 
 //void possess(int s); //Not done
 int line_of_sight(int s, Coord_cl&, Coord_cl&, int checkfor);

@@ -409,7 +409,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x03e2: // Dupre The Hero
 		soundeffect(s, 0x02, 0x46);
-		pc_monster = MAKE_CHAR_REF(Npcs->MemCharFree ());
+		pc_monster = Npcs->MemCharFree ();
 		pc_monster->Init();
 		pc_monster->def=50;
 		pc_monster->lodamage=50;
@@ -430,7 +430,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x000B: // Black Night
 		soundeffect(s, 0x02, 0x16);
-		pc_monster = MAKE_CHAR_REF(Npcs->MemCharFree ());
+		pc_monster = Npcs->MemCharFree ();
 		pc_monster->Init();
 		pc_monster->def=50;
 		pc_monster->lodamage=50;
@@ -449,7 +449,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x0190: // Death Knight
 		soundeffect(s, 0x02, 0x46);
-		pc_monster = MAKE_CHAR_REF(Npcs->MemCharFree ());
+		pc_monster = Npcs->MemCharFree ();
 		pc_monster->Init();
 		pc_monster->def=20;
 		pc_monster->lodamage=10;
@@ -629,9 +629,8 @@ char cMagic::SubtractMana(P_CHAR pc, int mana)
 // Purpose:	Check if character is protected by MagicReflect;
 //			if yes, remove the protection and do visual effect.
 //
-bool cMagic::CheckMagicReflect(CHARACTER i)
+bool cMagic::CheckMagicReflect(P_CHAR pc)
 {
-	P_CHAR pc = MAKE_CHAR_REF(i);
 	if (pc->priv2&0x40)
 	{
 		pc->priv2 &= 0xBF;
@@ -1109,44 +1108,6 @@ void cMagic::EnergyBoltSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool useman
 	{
 		MagicDamage(pc_target, (pc_attacker->skill[MAGERY]+1*(pc_attacker->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));
 		//MagicDamage(t, (8+(rand()%5)+4)*(pc_currchar->skill[MAGERY]/750+1));
-	}
-	return;
-}
-
-///////////////////
-// Name:	NPCCannonTarget
-// History:	Unknown
-// Purpose:	Used for NPC; cast a cannon spell.
-//
-void cMagic::NPCCannonTarget(CHARACTER s, CHARACTER t)
-{
-
-	if (CheckMagicReflect(t)) t=s;
-
-	P_CHAR pc_target = MAKE_CHAR_REF(t);
-	staticeffect(pc_target, 0x36, 0xB0, 0x09, 0x09);
-	soundeffect2(pc_target, 0x0207);
-
-	//Char mapRegions
-
-	cRegion::RegionIterator4Chars ri(chars[s].pos);
-	for (ri.Begin(); ri.End() != ri.GetData(); ri++)
-	{
-		P_CHAR mapchar = ri.GetData();
-		if (mapchar != NULL)
-		{
-			if (mapchar->pos.x==chars[t].pos.x && mapchar->pos.y==chars[t].pos.y && mapchar->pos.z==chars[t].pos.z)
-			{
-				if (CheckParry(mapchar, 6))
-				{
-					MagicDamage(mapchar, chars[s].skill[TACTICS]/50);
-				}
-				else
-				{
-					MagicDamage(mapchar, chars[s].skill[TACTICS]/25);
-				}
-			}
-		}//if mapitem
 	}
 	return;
 }
@@ -1705,7 +1666,6 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					if ((pi->type==50))
 					{
 						playSound( pc_currchar, curSpell );
-						//doMoveEffect( curSpell, DEREF_P_ITEM(pi), DEREF_P_CHAR(pc_currchar) );
 						doStaticEffect( pc_currchar, curSpell );
 						switch( curSpell )
 						{
@@ -2484,7 +2444,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										soundeffect2(pc_currchar, 0x0029); //Homey fix for chainlightning sound
 										
 										P_CHAR pc_defender = NULL, pc_attacker = NULL, pc_ii = NULL;
-										if(CheckMagicReflect(DEREF_P_CHAR(mapchar)))//AntiChrist
+										if(CheckMagicReflect(mapchar))//AntiChrist
 										{
 											pc_defender = pc_currchar;
 											pc_attacker = pc_ii = mapchar;
@@ -2541,7 +2501,6 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							P_CHAR mapchar = ri.GetData();
 							if (mapchar != NULL)
 							{
-								//ii = DEREF_P_CHAR(mapchar);
 								if ((online(mapchar)||(mapchar->isNpc())) && (mapchar->priv2&0x20)&&
 									(mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
 									(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&

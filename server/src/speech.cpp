@@ -178,7 +178,6 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	
 	// remove it from screen!
 
-	//int pet=DEREF_P_CHAR(p_pet);
 	int xx=p_pet->pos.x;
 	int yy=p_pet->pos.y;
 	short id=p_pet->id(); 

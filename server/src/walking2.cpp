@@ -2129,11 +2129,11 @@ int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int
 
 // knox, reinserted it since some other files access it,
 //       100% sure this is wrong, however the smaller ill.
-int cMovement::validNPCMove( short int x, short int y, signed char z, CHARACTER s )
+int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_s )
 {
 	const int getcell=mapRegions->GetCell(x,y);
 
-	P_CHAR pc_s = MAKE_CHARREF_LRV(s, 0);
+	if ( pc_s == NULL ) return 0;
 
     pc_s->blocked++;
 	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);

@@ -54,7 +54,6 @@ struct statcap_st
 #include "walking2.h"
 #include "mapstuff.h"
 
-extern cCharArray *CharArray;
 #include "books.h"
 #include "speech.h"
 #include "trigger.h"

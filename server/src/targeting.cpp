@@ -133,7 +133,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	if (s == -1) 
 		return;
 	int v = addx[s];
-	P_CHAR pc = MAKE_CHARREF_LR(v);
+	P_CHAR pc = FindCharBySerial(v);
 	if (pc->free) return;
 	P_CHAR pc_currchar = currchar[s];
 
@@ -1026,8 +1026,9 @@ void cTargets::DvatTarget(int s)
 static void AddNpcTarget(int s, PKGx6C *pp)
 {
 	if(pp->TxLoc==-1 || pp->TyLoc==-1) return;
-	int c=Npcs->MemCharFree ();
-	P_CHAR pc = MAKE_CHARREF_LR(c);
+	P_CHAR pc = Npcs->MemCharFree ();
+	if ( pc == NULL )
+		return;
 	pc->Init();
 	strcpy(pc->name, "Dummy");
 	pc->id1=addid1[s];

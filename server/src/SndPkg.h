@@ -64,8 +64,8 @@ void SndRemoveitem(int serial);
 void SndShopgumpopen(UOXSOCKET s, int serial);
 
 void soundeffect(int s, unsigned char a, unsigned char b); // Play sound effect for player
-void soundeffect2(PC_CHAR pc, short sound);
-void soundeffect2(CHARACTER p, unsigned char a, unsigned char b);
+void soundeffect2(P_CHAR pc, short sound);
+void soundeffect2(P_CHAR pc, unsigned char a, unsigned char b);
 void soundeffect3(P_ITEM pi, short sound);
 void soundeffect4(P_ITEM pi, UOXSOCKET s, unsigned char a, unsigned char b);
 void soundeffect5(UOXSOCKET s, unsigned char a, unsigned char b);
@@ -86,7 +86,7 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2);
 void chardel (UOXSOCKET s); // Deletion of character
 void textflags (UOXSOCKET s, P_CHAR pc, char *name);
 void teleport(P_CHAR pc); // Teleports character to its current set coordinates
-void teleport2(CHARACTER s); // used for /RESEND only - Morrolan, so people can find their corpses
+void teleport2(P_CHAR pc); // used for /RESEND only - Morrolan, so people can find their corpses
 void updatechar(P_CHAR pc); // If character status has been changed (Polymorph);, resend him
 void target(UOXSOCKET s, int a1, int a2, int a3, int a4, char *txt); // Send targetting cursor to client
 void skillwindow(int s); // Opens the skills list, updated for client 1.26.2b by LB
@@ -94,13 +94,12 @@ void updatestats(P_CHAR pc, char x);
 void statwindow(int s, P_CHAR pc); // Opens the status window
 void updates(UOXSOCKET s); // Update Window
 void tips(int s, int i); // Tip of the day window
-void deny(UOXSOCKET k, CHARACTER s, int sequence);
 void weblaunch(int s, char *txt); // Direct client to a web page
 void broadcast(int s); // GM Broadcast (Done if a GM yells something);
 void itemtalk(int s, P_ITEM pi, char *txt); // Item "speech"
 void npctalk(int s, cChar* pNpc, char *txt,char antispam); // NPC speech
 void npctalkall(cChar* pNpc, char *txt,char antispam); // NPC speech to all in range.
-void npctalk_runic(int s, int npc, char *txt,char antispam); // NPC speech
+void npctalk_runic(int s, P_CHAR pc_npc, char *txt,char antispam); // NPC speech
 void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam); // NPC speech
 
 
@@ -122,7 +121,7 @@ void itemeffectUO3D(P_ITEM pi, stat_st *sta);
 
 void dolight(int s, char level);
 void updateskill(int s, int skillnum); // updated for client 1.26.2b by LB
-void deathaction(int s, P_ITEM pi_x); // Character does a certain action
+void deathaction(P_CHAR pc, P_ITEM pi_x); // Character does a certain action
 void deathmenu(int s); // Character sees death menu
 void impowncreate(int s, P_CHAR pc, int z); //socket, player to send
 void sendshopinfo(int s, P_CHAR pc, P_ITEM pi);

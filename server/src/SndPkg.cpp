@@ -108,7 +108,7 @@ void soundeffect(int s, unsigned char a, unsigned char b) // Play sound effect f
 		}
 }
 
-void soundeffect2(PC_CHAR pc, short sound)
+void soundeffect2(P_CHAR pc, short sound)
 {
 	int i;
 
@@ -124,11 +124,12 @@ void soundeffect2(PC_CHAR pc, short sound)
 		}
 }
 
-void soundeffect2(CHARACTER p, unsigned char a, unsigned char b)
+void soundeffect2(P_CHAR pc, unsigned char a, unsigned char b)
 {
 	int i;
 
-	P_CHAR pc = MAKE_CHARREF_LR(p);
+	if (pc == NULL)
+		return;
 	sfx[2]=a;
 	sfx[3]=b;
 	sfx[6]=pc->pos.x>>8;
@@ -1512,11 +1513,10 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 	checkregion(pc);
 }
 
-void teleport2(CHARACTER s) // used for /RESEND only - Morrolan, so people can find their corpses
+void teleport2(P_CHAR pc) // used for /RESEND only - Morrolan, so people can find their corpses
 {
 	int i;
-	P_CHAR pc = MAKE_CHARREF_LR(s)
-		UOXSOCKET k = calcSocketFromChar(pc);
+	UOXSOCKET k = calcSocketFromChar(pc);
 	
 	for (i=0;i<now;i++)
 	{
@@ -1920,24 +1920,6 @@ void tips(int s, int i) // Tip of the day window
 	closescript();
 }
 
-
-void deny(UOXSOCKET k, CHARACTER s, int sequence)
-{
-	unsigned char walkdeny[9]="\x21\x00\x01\x02\x01\x02\x00\x01";
-
-	P_CHAR pc = MAKE_CHARREF_LR(s)
-
-	walkdeny[1]=sequence;
-	walkdeny[2]=pc->pos.x>>8;
-	walkdeny[3]=pc->pos.x%256;
-	walkdeny[4]=pc->pos.y>>8;
-	walkdeny[5]=pc->pos.y%256;
-	walkdeny[6]=pc->dir;
-	walkdeny[7]=pc->dispz;
-	Xsend(k, walkdeny, 8);
-	walksequence[k]=-1;
-}
-
 void weblaunch(int s, char *txt) // Direct client to a web page
 {
 	int l;
@@ -2105,13 +2087,12 @@ void npctalkall(P_CHAR npc, char *txt,char antispam) // NPC speech to all in ran
 			npctalk(i, npc, txt,antispam);
 }
 
-void npctalk_runic(int s, int npc, char *txt,char antispam) // NPC speech
+void npctalk_runic(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 {
 	int tl;
 	char machwas;
 
-	if (npc==-1 || s==-1) return; //lb
-	P_CHAR pc_npc = MAKE_CHARREF_LR(npc);
+	if (pc_npc == NULL || s==-1) return; //lb
 
 	if (antispam)
 	{
@@ -2802,13 +2783,12 @@ void updateskill(int s, int skillnum) // updated for client 1.26.2b by LB
 	Xsend(s, update, 11);
 }
 
-void deathaction(int s, P_ITEM pi_x) // Character does a certain action
+void deathaction(P_CHAR pc, P_ITEM pi_x) // Character does a certain action
 {
 	int i;
 	unsigned char deathact[14]="\xAF\x01\x02\x03\x04\x01\x02\x00\x05\x00\x00\x00\x00";
-	P_CHAR pc = MAKE_CHARREF_LR(s);
 
-	if (pi_x == NULL)
+	if (pi_x == NULL || pc == NULL)
 		return;
 
 	deathact[1]=pc->ser1;

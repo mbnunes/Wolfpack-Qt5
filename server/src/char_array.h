@@ -46,10 +46,10 @@ typedef const cChar *PC_CHAR;
 #define LOG_INVALID_C_REF(err,meSSage) if(err=CharArray->GetError()) { strcpy(schei___, meSSage); strcat(schei___," errorcode:%i\n"); LogCritical(schei___ _ err); } // strcpy stuff to prevent const string crashes 
 #define GET_C_ERROR(err) err=CharArray->GetError()
 
-#define MAKE_CHARREF_LOGGED(i,err)  CharArray->MakeCharref(i); err=CharArray->GetError(); if (err) { strcpy(schei___, "invalid char index "); strcat(schei___," errorcode:%i\n"); LogCritical(schei___ _ err); } 
-#define MAKE_CHARREF_C(i)			CharArray->MakeCharref(i); int err=CharArray->GetError(); if (err) { continue;}
-#define MAKE_CHARREF_LR(i)			CharArray->MakeCharref(i); {int err=CharArray->GetError(); if (err) { strcpy(schei___, "invalid char index <%i>\n"); LogCritical(schei___ _ i); return;} }
-#define MAKE_CHARREF_LRV(i,retval)	CharArray->MakeCharref(i); {int err=CharArray->GetError(); if (err) { strcpy(schei___, "invalid char index <%i>\n"); LogCritical(schei___ _ i); return retval;} }
+//#define MAKE_CHARREF_LOGGED(i,err)  CharArray->MakeCharref(i); err=CharArray->GetError(); if (err) { strcpy(schei___, "invalid char index "); strcat(schei___," errorcode:%i\n"); LogCritical(schei___ _ err); } 
+//#define MAKE_CHARREF_C(i)			CharArray->MakeCharref(i); int err=CharArray->GetError(); if (err) { continue;}
+//#define MAKE_CHARREF_LR(i)			CharArray->MakeCharref(i); {int err=CharArray->GetError(); if (err) { strcpy(schei___, "invalid char index <%i>\n"); LogCritical(schei___ _ i); return;} }
+//#define MAKE_CHARREF_LRV(i,retval)	CharArray->MakeCharref(i); {int err=CharArray->GetError(); if (err) { strcpy(schei___, "invalid char index <%i>\n"); LogCritical(schei___ _ i); return retval;} }
 
 #define DEREF_P_CHAR(pc) ((pc-realchars)-C_W_O_1)
 // class definiton

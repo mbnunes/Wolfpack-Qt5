@@ -310,13 +310,6 @@ cRaces			Races;
 cCharStuff::cDragonAI	*DragonAI;
 cCharStuff::cBankerAI	*BankerAI;	
 
-cCharArray *CharArray;
-
-//char_st *chars;
-cChar *realchars;
-cCharWrap cwrap;
-
-
 //////////////////// ARRAYS that didnt get initialized above ////////////////////
 
 /////////////////////////////////////////////
@@ -391,7 +384,6 @@ char firstpacket[MAXCLIENT+1];
 
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
- lookuptr_st charsp;
 
 Container_cl stablesp, imultisp, cmultisp, contsp, ownsp, cspawnsp, spawnsp, glowsp, cownsp;
 

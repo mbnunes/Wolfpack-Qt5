@@ -883,15 +883,6 @@ int hexnumber(int countx) // Converts hex string comm[count] to int
 	return i;
 }
 
-
-P_ITEM packitem(int p) // Find packitem (old interface)
-{
-	if(p<=-1) return NULL;
-	P_CHAR pc=MAKE_CHARREF_LRV(p,NULL);
-	P_ITEM pi=Packitem(pc);
-	return pi;
-}
-
 void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 {
 	pc->onhorse = false;
@@ -1257,7 +1248,8 @@ void deathstuff(P_CHAR pc_player)
 		pi_c->layer=0x16;
 		pi_c->def=1;
 	}
-	if (SrvParms->showdeathanim) deathaction(DEREF_P_CHAR(pc_player), pi_c);
+	if (SrvParms->showdeathanim) 
+		deathaction(pc_player, pi_c);
 	if (pc_player->account!=-1) // LB
 	{
 		
@@ -1799,9 +1791,9 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	unsigned int i ;
 	signed int ii ;
 	int totalstats,totalskills;
-	unsigned int c;
-	c=Npcs->MemCharFree();
-	P_CHAR pc = MAKE_CHARREF_LR(c);
+	P_CHAR pc = Npcs->MemCharFree();
+	if ( pc == NULL )
+		return;
 
 	pc->Init();
 
@@ -2377,7 +2369,7 @@ void npctalkall_runic(P_CHAR npc, char *txt,char antispam)
 
 	for (i=0;i<now;i++)
 		if (inrange1p(npc, currchar[i])&&perm[i])
-			npctalk_runic(i, DEREF_P_CHAR(npc), txt,antispam);
+			npctalk_runic(i, npc, txt,antispam);
 }
 
 void npcemoteall(P_CHAR npc, char *txt,unsigned char antispam) // NPC speech to all in range.
@@ -3172,8 +3164,6 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 		tempSecs = getNormalizedTime() ;
 
-		Npcs->CheckMemoryRequest();		// reallocate character memory if neccessary
-
 		if(Respawn->AreWeRespawning())	// pseudo-respawn-thread (Duke)
 			Respawn->Continue();
 
@@ -3442,12 +3432,12 @@ void impaction(int s, int act)
 	action(s, act);
 }
 
-int chardir(int a, int b)	// direction from character a to char b
+int chardir(P_CHAR a, P_CHAR b)	// direction from character a to char b
 {
 	int dir,xdif,ydif;
 
-	xdif = chars[b].pos.x-chars[a].pos.x;
-	ydif = chars[b].pos.y-chars[a].pos.y;
+	xdif = b->pos.x - a->pos.x;
+	ydif = b->pos.y - a->pos.y;
 
 	if ((xdif==0)&&(ydif<0)) dir=0;
 	else if ((xdif>0)&&(ydif<0)) dir=1;
@@ -5002,8 +4992,6 @@ void bgsound(P_CHAR pc)
 void Karma(P_CHAR pc_toChange,P_CHAR pc_Killed, int nKarma)
 {	// nEffect = 1 positive karma effect
 	int nCurKarma=0, nChange=0, nEffect=0;
-//	P_CHAR pc_toChange = MAKE_CHAR_REF(nCharID);
-//	P_CHAR pc_Killed = MAKE_CHAR_REF(nKilledID);
 
 	nCurKarma = pc_toChange->karma;
 
@@ -5570,7 +5558,6 @@ void StartClasses(void)
 	Network=NULL;
 	Magic=NULL;
 	Books=NULL;
-	CharArray=NULL;
 	Respawn=NULL;
 	Movement = NULL;
 	Weather=NULL;
@@ -5596,7 +5583,6 @@ void StartClasses(void)
 	Network = new cNetworkStuff;
 	Magic = new cMagic;
 	Books = new cBooks;
-	CharArray = new cCharArray;
 	Respawn = new cRespawn;
 	AllTmpEff = new cAllTmpEff;
 	Movement = new cMovement;
@@ -5631,7 +5617,6 @@ void DeleteClasses(void)
 	delete Network;
 	delete Magic;
 	delete Books;
-	delete CharArray;
 	delete Respawn;
 	delete Movement;
 	delete DragonAI;

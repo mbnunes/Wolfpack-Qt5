@@ -53,7 +53,7 @@ public:
 	void NpcMovement( unsigned int currenttime, P_CHAR pc_i );
 //	int validNPCMove(P_CHAR pc, short int x, short int y, signed char &z, int dir);
 
-	int validNPCMove( short int x, short int y, signed char z, CHARACTER s );
+	int validNPCMove( short int x, short int y, signed char z, P_CHAR pc_s );
 	
 	int  calc_walk( P_CHAR pc, unsigned int x, unsigned int y, unsigned int oldx, unsigned int oldy, bool justask );
 	bool calc_move( P_CHAR pc, short int x, short int y, signed char &z, int dir );
