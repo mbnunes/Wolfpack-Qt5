@@ -27,7 +27,6 @@ def getbuffer():
 
 """
 	\function wolfpack.console.reloadScripts
-	\return None
 	\description Tells the console to reload scripts.
 """
 def reloadScripts():
