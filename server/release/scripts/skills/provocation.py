@@ -66,7 +66,7 @@ def response( char, args, target ):
 		return 1
 	provo_range = musicianship.bard_range( char )
 	# too far away
-	if char.distanceto( target.char ) > provo_range ):
+	if char.distanceto( target.char ) > provo_range:
 		char.socket.clilocmessage( 501584, "", 0x3b2, 3 )
 		clear_tags( char )
 		return 1
