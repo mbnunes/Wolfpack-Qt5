@@ -2017,8 +2017,8 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn new horse) 
 { 
-//	CHARACTER cc = currchar[s]; 
 	unsigned int ci = 0;
+	int ch;
 	P_ITEM pi; 
 	const P_CHAR p_petowner = currchar[s];
 
@@ -2026,22 +2026,18 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer == 0x19 && !pi->free) 
-		{ 
-			////////////////////////////////////// 
-			// Lets 'unstable' the mount. 
-			// Unmount the horse and take him out of 
-			// stable 0. 
-			// 
-			// 
+		if (pi->layer == 0x19 && !pi->free)
+		{
+			//////////////////////////////////////
+			// Lets 'unstable' the mount.
+			// Unmount the horse and take him out of
+			// stable 0.
 			
-			// CHARACTER c; 
+			bool found = false;
+			int stablemaster_serial = p_petowner->serial;
+			P_CHAR  p_pet = NULL;
 			
-			bool found = false; 
-			int stablemaster_serial = p_petowner->serial; 
-			P_CHAR  p_pet = NULL; 
-			
-			p_petowner->onhorse = false; 
+			p_petowner->onhorse = false;
 			
 			vector<SERIAL> pets = stablesp.getData(stablemaster_serial);
 			unsigned int i;
@@ -2050,7 +2046,6 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 				p_pet = FindCharBySerial(pets[i]);
 				if (p_pet != NULL) 
 				{ 
-					// clConsole.send("%d = %d ... %d = %d\n", p_pet->ownserial, p_petowner->serial, p_pet->stablemaster_serial,stablemaster_serial); 
 					if ( p_petowner->Owns(p_pet) && p_pet->stablemaster_serial == stablemaster_serial) // already stabled and owned by claimer ? 
 					{ 
 						found = true; 
@@ -2060,9 +2055,7 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 			} 
 			
 			if (found) 
-			{ 
-				// clConsole.send("Pet found loop\n"); 
-				// remove from hash table 
+			{
 				stablesp.remove(stablemaster_serial, p_pet->serial);
 				
 				p_pet->stablemaster_serial = INVALID_SERIAL; // actual unstabling 
@@ -2076,132 +2069,12 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 				mapRegions->Remove(p_pet); 
 				mapRegions->Add(p_pet); 
 				
-				for (int ch = 0; ch < now; ch++) 
+				for (ch = 0; ch < now; ch++) 
 				{ 
 					if (perm[ch])
 						impowncreate(ch, p_pet, 0); 
 				} 
 			} 
-			// cant find horse in stable 
-			// make them a new one 
-			else
-			{ 
-				clConsole.send("Makeing a new horse cause the other somehow got out/lost :(\n"); 
-				P_CHAR pc_pet = NULL;
-				switch (pi->id2) 
-				{ 
-					case 0xA0:  
-						pc_pet = Npcs->AddNPCxyz(s, 8, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break; 
-					case 0xA1:  
-						pc_pet = Npcs->AddNPCxyz(s, 9, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break; 
-					case 0xA2:  
-						pc_pet = Npcs->AddNPCxyz(s, 10, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break; 
-					case 0xA3:  
-						pc_pet = Npcs->AddNPCxyz(s, 429, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break; 
-					case 0xA4: 
-						pc_pet = Npcs->AddNPCxyz(s, 427, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break; 
-					case 0xA5:  
-						pc_pet = Npcs->AddNPCxyz(s, 428, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break; 
-					case 0xA6:  
-						pc_pet = Npcs->AddNPCxyz(s, 54, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xA7:  
-						pc_pet = Npcs->AddNPCxyz(s, 5001, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xA8:  
-						pc_pet = Npcs->AddNPCxyz(s, 5002, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xA9:  
-						pc_pet = Npcs->AddNPCxyz(s, 5003, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xB0:  
-						pc_pet = Npcs->AddNPCxyz(s, 5004, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xB1:  
-						pc_pet = Npcs->AddNPCxyz(s, 5005, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xB2:  
-						pc_pet = Npcs->AddNPCxyz(s, 5006, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xB3:  
-						pc_pet = Npcs->AddNPCxyz(s, 5007, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xB4:  
-						pc_pet = Npcs->AddNPCxyz(s, 5008, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xB5:  
-						pc_pet = Npcs->AddNPCxyz(s, 5009, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xB6:  
-						pc_pet = Npcs->AddNPCxyz(s, 5010, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xB7:  
-						pc_pet = Npcs->AddNPCxyz(s, 5011, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xB8:  
-						pc_pet = Npcs->AddNPCxyz(s, 5012, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xB9:  
-						pc_pet = Npcs->AddNPCxyz(s, 5013, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xC0:  
-						pc_pet = Npcs->AddNPCxyz(s, 5014, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xC1:  
-						pc_pet = Npcs->AddNPCxyz(s, 5015, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xC2:  
-						pc_pet = Npcs->AddNPCxyz(s, 5016, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xC3:  
-						pc_pet = Npcs->AddNPCxyz(s, 5017, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xC4:  
-						pc_pet = Npcs->AddNPCxyz(s, 5018, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xC5:  
-						pc_pet = Npcs->AddNPCxyz(s, 5019, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xC6:  
-						pc_pet = Npcs->AddNPCxyz(s, 5020, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0xC7:  
-						pc_pet = Npcs->AddNPCxyz(s, 5021, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break;
-					case 0x9F:
-							pc_pet = Npcs->AddNPCxyz(s, 7, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z); 
-						break; 
-					default: 
-						LogCritical("No horse type in unmounthorse(), avoiding crash"); 
-						return -1; 
-						break; 
-				} 
-				if ( pc_pet == NULL ) return -1;
-				pc_pet->name = pi->name; 
-				pc_pet->xid = pc_pet->id(); 
-				pc_pet->skin = pc_pet->xskin = pi->color(); 
-				pc_pet->dispz = pc_pet->pos.z = p_petowner->pos.z; 
-				pc_pet->dir = p_petowner->dir; 
-				pc_pet->SetOwnSerial( p_petowner->serial ); 
-				pc_pet->npcWander = pi->moreb1; 
-				// pc_s->hp=pi->hp; 
-				pc_pet->poisoned = pi->poisoned; 
-				if (pi->decaytime != 0) 
-					pc_pet->summontimer = pi->decaytime; 
-				pc_pet->npcaitype = 0; 
-				updatechar(pc_pet); 
-			} 
-			
-			// 
-			// 
-			// Aldur 
-			////////////////////////////////////// 
 			Items->DeleItem(pi); 
 			return 0; 
 		} 
@@ -2496,96 +2369,37 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		const P_ITEM pi = Items->SpawnItem(pc_currchar, 1, (char*)temp, 0, 0x0915, pc_mount->skin, 0); 
 		if(!pi) return;
 		
-		pi->id1 = 0x3E; 
 		switch (pc_mount->id2) 
-		{ 
-			case 0xC8: 
-				pi->id2 = (unsigned char)'\x9F'; //works
-				break; // Horse
-			case 0xE2: 
-				pi->id2 = (unsigned char)'\xA0'; //works
-				break; // Horse 
-			case 0xE4: 
-				pi->id2 = (unsigned char)'\xA1'; //works
-				break; // Horse 
-			case 0xCC: 
-				pi->id2 = (unsigned char)'\xA2'; //works
-				break; // Horse 
-			case 0xD2: 
-				pi->id2 = (unsigned char)'\xA3'; //works
-				break; // Desert Ostard 
-			case 0xDA: 
-				pi->id2 = (unsigned char)'\xA4'; //works
-				break; // Frenzied Ostard 
-			case 0xDB: 
-				pi->id2 = (unsigned char)'\xA5'; //works
-				break; // Forest Ostard 
-			case 0xDC: 
-				pi->id2 = (unsigned char)'\xA6'; //works
-				break; // llama 
-			case 0x34: 
-				pi->id2 = (unsigned char)'\x9F'; //works
-				break; // brown
-			case 0x4E: 
-				pi->id2 = (unsigned char)'\xA0'; //works
-				break; // grey
-			case 0x38: 
-				pi->id2 = (unsigned char)'\xA2'; //works
-				break; // dark brown
-			case 0x50: 
-				pi->id2 = (unsigned char)'\xA1'; //works
-				break; // tan
-			case 0x74: 
-				pi->id2 = (unsigned char)'\xB5'; //works
-				break; // nightmare
-			case 0x75: 
-				pi->id2 = (unsigned char)'\xA8'; //works
-				break; // silver steed
-			case 0x72: 
-				pi->id2 = (unsigned char)'\xA9'; //works
-				break; // dark steed
-			case 0x7A: 
-				pi->id2 = (unsigned char)'\xB4'; //works
-				break; // unicorn
-			case 0x84: 
-				pi->id2 = (unsigned char)'\xAD'; //works
-				break; // kirin
-			case 0x73: 
-				pi->id2 = (unsigned char)'\xAA'; //works
-				break; // etheral
-			case 0x76: 
-				pi->id2 = (unsigned char)'\xB2'; //works
-				break; // war horse-brit
-			case 0x77: 
-				pi->id2 = (unsigned char)'\xB1'; //works
-				break; // war horse-mage council
-			case 0x78: 
-				pi->id2 = (unsigned char)'\xAF'; //works
-				break; // war horse-minax
-			case 0x79: 
-				pi->id2 = (unsigned char)'\xB0'; //works
-				break; // war horse-shadowlord
-			case 0xAA: 
-				pi->id2 = (unsigned char)'\xAB'; //works
-				break; // etheral llama
-			case 0x3A: 
-				pi->id2 = (unsigned char)'\xA4'; //works
-				break; // forest ostard
-			case 0x39: 
-				pi->id2 = (unsigned char)'\xA3'; //works
-				break; // desert ostard
-			case 0x3B: 
-				pi->id2 = (unsigned char)'\xA5'; //works
-				break; // frenzied ostard
-			case 0x90: 
-				pi->id2 = (unsigned char)'\xB3'; //works
-				break; // seahorse
-			case 0xAB: 
-				pi->id2 = (unsigned char)'\xAC'; //works
-				break; // etheral ostard
-			case 0xBB: 
-				pi->id2 = (unsigned char)'\xB8'; //works
-				break; // ridgeback
+		{
+			case 0xC8: pi->setId(0x3E9F); break; // Horse
+			case 0xE2: pi->setId(0x3EA0); break; // Horse 
+			case 0xE4: pi->setId(0x3EA1); break; // Horse 
+			case 0xCC: pi->setId(0x3EA2); break; // Horse
+			case 0xD2: pi->setId(0x3EA3); break; // Desert Ostard
+			case 0xDA: pi->setId(0x3EA4); break; // Frenzied Ostard 
+			case 0xDB: pi->setId(0x3EA5); break; // Forest Ostard
+			case 0xDC: pi->setId(0x3EA6); break; // LLama
+			case 0x34: pi->setId(0x3E9F); break; // Brown Horse
+			case 0x4E: pi->setId(0x3EA0); break; // Grey Horse
+			case 0x38: pi->setId(0x3EA2); break; // Dark Brown Horse
+			case 0x50: pi->setId(0x3EA1); break; // Tan Horse
+			case 0x74: pi->setId(0x3EB5); break; // Nightmare
+			case 0x75: pi->setId(0x3EA8); break; // Silver Steed
+			case 0x72: pi->setId(0x3EA9); break; // Dark Steed
+			case 0x7A: pi->setId(0x3EB4); break; // Unicorn
+			case 0x84: pi->setId(0x3EAD); break; // Kirin
+			case 0x73: pi->setId(0x3EAA); break; // Etheral
+			case 0x76: pi->setId(0x3EB2); break; // War Horse-Brit
+			case 0x77: pi->setId(0x3EB1); break; // War Horse-Mage Council
+			case 0x78: pi->setId(0x3EAF); break; // War Horse-Minax
+			case 0x79: pi->setId(0x3EB0); break; // War Horse-Shadowlord
+			case 0xAA: pi->setId(0x3EAB); break; // Etheral LLama
+			case 0x3A: pi->setId(0x3EA4); break; // Forest Ostard
+			case 0x39: pi->setId(0x3EA3); break; // Desert Ostard
+			case 0x3B: pi->setId(0x3EA5); break; // Frenzied Ostard
+			case 0x90: pi->setId(0x3EB3); break; // Seahorse
+			case 0xAB: pi->setId(0x3EAC); break; // Etheral Ostard
+			case 0xBB: pi->setId(0x3EB8); break; // Ridgeback
 		}
 		
 		pi->SetContSerial(pc_currchar->serial); 
