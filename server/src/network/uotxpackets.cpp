@@ -108,11 +108,16 @@ void cUOTxCharTownList::compile( void )
 		setAsciiString( offset + 32, towns[t].area.left( 29 ).latin1(), 30 );
 		offset += 63;
 	}
+	
+	unsigned int flags = 0xA8; // Samurai Empire + Context Menus + AOS
+	
+	if (charLimit == 6) {
+		flags |= 0x40;
+	} else if (charLimit == 1) {
+		flags |= 0x14;
+	}
 
-	if ( charLimit >= 0 )
-		setInt( offset, ( charLimit << 4 ) | flags | 0x4 );
-	else
-		setInt( offset, flags );
+    setInt( offset, flags );
 
 	// New Packet Size
 	setShort( 1, count() );
@@ -588,34 +593,17 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 		}
 	}
 
-	setFlag( 0 );
+	unsigned char flags = 0;
 
-	if ( pChar->isAtWar() )
-		setFlag( 0x40 );
-
-	/*
-	if (pChar->isInvulnerable())
-	{
-		setFlag(flag() | 0x08);
+	if (pChar->isAtWar()) {
+		flags |= 0x01;
 	}
-	*/
-
-	/*
-	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
-	if ( player && !player->socket() && !player->logoutTime() )
-	{
-		setFlag( flag() | 0x80 );
+	P_PLAYER origin = dynamic_cast<P_PLAYER>(pOrigin);
+	if (origin && origin->isGM()) {
+		flags |= 0x02; // May Equip...
 	}
-	*/
 
-	if ( pChar->isHidden() || pChar->isInvisible() )
-		setFlag( flag() | 0x80 );
-
-	if ( pChar->isDead() && !pChar->isAtWar() )
-		setFlag( flag() | 0x80 );
-
-	if ( pChar->poison() >= 0 )
-		setFlag( flag() | 0x04 );
+	setFlag(flags);
 }
 
 void cUOTxCorpseEquipment::addItem( unsigned char layer, unsigned int serial )

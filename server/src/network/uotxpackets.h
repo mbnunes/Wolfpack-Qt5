@@ -126,7 +126,7 @@ protected:
 	unsigned int flags;
 	short charLimit;
 public:
-	cUOTxCharTownList() : cUOPacket( 9 ), flags( 0x48 ), charLimit( -1 )
+	cUOTxCharTownList() : cUOPacket( 9 ), flags( 0xA8 ), charLimit( -1 )
 	{
 	}
 
@@ -137,31 +137,6 @@ public:
 		charLimit = limit;
 	}
 	virtual void compile();
-
-	void setAgeOfShadows( bool data )
-	{
-		data ? flags |= 0x20 : flags &= ~0x20;
-	}
-
-	void setLimitCharacters( bool data )
-	{
-		data ? flags |= 0x4 : flags &= ~0x4;
-	}
-
-	void setContextMenus( bool data )
-	{
-		data ? flags |= 0x8 : flags &= ~0x8;
-	}
-
-	void setOneCharacter( bool data )
-	{
-		data ? flags |= 0x10 : flags &= ~0x10;
-	}
-
-	void setEnableSixthSlot( bool data )
-	{
-		data ? flags |= 0x40 : flags &= ~0x40;
-	}
 };
 
 enum eCharChangeResult

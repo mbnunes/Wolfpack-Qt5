@@ -618,17 +618,16 @@ void cUOSocket::sendCharList()
 	// AoS needs it most likely for account creation
 	const uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
 	cUOTxClientFeatures clientFeatures;
-	clientFeatures.setLbr( true );
-	clientFeatures.setT2a( true );
-	clientFeatures.setAos( true );
-	clientFeatures.setAllowPaladinNecromancer( true );
-	if ( maxChars == 6 )
-		clientFeatures.setSixthCharacterSlot( true );
-	//clientFeatures.setShort( 1, 0xFFFF ); // AoS TEST
-	clientFeatures.setShort( 1, 0x80FF );
+	unsigned short flags = 0x3 | 0x40 | 0x801c;
+	if (maxChars == 6) {
+		flags |= 0x8020;
+		flags &= ~ 0x4;
+	}	
+	clientFeatures.setShort( 1, flags );
 	send( &clientFeatures );
 
 	cUOTxCharTownList charList;
+	charList.setCharLimit(maxChars);
 	QValueVector<P_PLAYER> characters = _account->caracterList();
 
 	// Add the characters
@@ -640,13 +639,6 @@ void cUOSocket::sendCharList()
 	vector<StartLocation_st> startLocations = Config::instance()->startLocation();
 	for ( i = 0; i < startLocations.size(); ++i )
 		charList.addTown( i, startLocations[i].name, startLocations[i].name );
-
-	charList.setAgeOfShadows( true ); // Activates Heaven city
-	charList.setContextMenus( true );
-	if ( maxChars == 1 )
-		charList.setOneCharacter( true );
-	else if ( maxChars == 6 )
-		charList.setEnableSixthSlot( true );
 
 	charList.compile();
 	send( &charList );

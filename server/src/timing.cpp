@@ -104,7 +104,7 @@ void cTiming::poll()
 		for ( sit = toRemove.begin(); sit != toRemove.end(); ++sit )
 		{
 			P_ITEM item = FindItemBySerial( *sit );
-			if ( item && item->isInWorld() && !item->nodecay() )
+			if ( item && item->isInWorld() && !item->nodecay() && ( corpse() || !multi_ ) && !isLockedDown() )
 			{
 				item->remove(); // Auto removes from the decaylist
 			}
