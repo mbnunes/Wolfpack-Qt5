@@ -1162,9 +1162,13 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 }
 
 void cMovement::HandleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
-{	
+{
 	cTerritory* territory = pc->region();
-	if ( pc->pos() != oldpos )
+
+	if( !territory )
+		cAllTerritories::getInstance()->check( pc );
+
+	if( territory && pc->pos() != oldpos )
 	{
 		if ( territory->haveTeleporters() )
 		{
