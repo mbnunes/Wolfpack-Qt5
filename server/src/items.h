@@ -518,7 +518,8 @@ public:
 	////
 	virtual void flagUnchanged()
 	{
-		cItem::changed_ = false; cUObject::flagUnchanged();
+		changed_ = false;
+		cUObject::flagUnchanged();
 	}
 
 	static P_ITEM createFromScript( const QString& section );
