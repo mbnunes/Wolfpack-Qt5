@@ -2225,7 +2225,15 @@ void cUOSocket::handleRename( cUORxRename* packet )
 		P_CHAR pChar = FindCharBySerial( packet->serial() );
 
 		if( pChar && pChar->owner() == _player && !pChar->isHuman() )
+		{
 			pChar->name = packet->name();
+
+			if( pChar->name.length() > 29 )
+			{
+				pChar->name = pChar->name.left( 29 );
+				sysMessage( tr( "This name was too long, i truncated it to 29 characters." ) );
+			}
+		}
 		else
 			sysMessage( tr( "You can't rename this." ) );
 	}
