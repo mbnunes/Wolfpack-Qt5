@@ -17,18 +17,26 @@ def onLoad():
 	wolfpack.registerpackethook( 0x12, managePacket )
 
 def managePacket( socket, packet ):
+	# Leave this in, used for packet sniffing.
+	#socket.sysmessage( "%i, %x" % ( packet.size, packet.getbyte(3) ) )
+
+	# Open Doors
 	if packet.size == 5 and packet.getbyte(3) == int( 0x58 ):
 		if not socket.player:
 			return False
 		else:
 			openDoor( socket )
 			return True
-	elif ( packet.size == 11 or packet.size == 8 ) and packet.getbyte(3) == int( 0xC7 ):
+	# Actions, Salute and Bow
+	elif packet.size in [ 8, 11 ] and packet.getbyte(3) == int( 0xC7 ):
 		if not socket.player:
 			return False
 		else:
 			performAction( socket, packet )
 			return True
+	# Invoke Virtues
+	elif packet.size == 6 and packet.getbyte(3) == int( 0xf4 ):
+		return False
 
 def performAction( socket, packet ):
 	char = socket.player
