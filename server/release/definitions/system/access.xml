@@ -24,6 +24,30 @@
 			<action name="May Block Staff Accounts" permit="true" />
 		</group>
 	</acl>
+	
+	<acl id="coadmin" rank="99">
+		<group name="command">
+			<action name="any" permit="true" />
+			<action name="RELOAD" permit="false" />
+			<action name="IMPORT" permit="false" />			
+			<action name="EXPORT" permit="false" />
+			<action name="ACCOUNT" permit="false" />
+			<action name="SHUTDOWN" permit="false" />
+			<action name="DECORATION" permit="false" />
+			<action name="DOORGEN" permit="false" />
+			<action name="EVAL" permit="false" />
+		</group>
+		<group name="multi">
+			<action name="any" permit="true" />
+		</group>
+		<group name="RemoteAccess">
+			<action name="any" permit="false" />
+		</group>
+		<group name="Misc">
+			<action name="Unlimited Tile" permit="true" />
+			<action name="May Block Staff Accounts" permit="true" />
+		</group>
+	</acl>	
 
 	<!-- GameMaster privs -->
 	<acl id="gm" rank="75">
@@ -38,7 +62,6 @@
 			<action name="EXPORT" permit="false" />
 			<action name="IMPORT" permit="false" />
 			<action name="OPTIMIZEDB" permit="false" />
-			<action name="SEASON" permit="false" />
 			<action name="SHUTDOWN" permit="false" />
 		</group>
 		<group name="multi">
@@ -68,7 +91,6 @@
 			<action name="INVUL" permit="false" />
 			<action name="OPTIMIZEDB" permit="false" />
 			<action name="SAVE" permit="false" />
-			<action name="SEASON" permit="false" />
 			<action name="SET" permit="false" />
 			<action name="SHUTDOWN" permit="false" />
 		</group>
