@@ -732,7 +732,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 			pc_dest->polymorph=false;
 			teleport(DEREF_P_CHAR(pc_dest));
 		}
-		int j,i,ci;
+		int j,ci;
 
 		//first: let's search for beard and hair serial
 		//(we could use alredy saved serials...but it's better

@@ -167,7 +167,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 	P_ITEM pVial = MAKE_ITEMREF_LR(addx[nSocket]);
 	if (!pVial) return; // should never happen
 	
-	int nTargetID=-1,nDagger=-1,nDist=0,item,serhash,i,dag,ci;
+	int nTargetID=-1,nDagger=-1,nDist=0,item,i,dag,ci;
 	
 	int serial=calcserial(buffer[nSocket][7],buffer[nSocket][8],buffer[nSocket][9],buffer[nSocket][10]);
 	int nItemID = calcCharFromSer( serial ); // targeted a living creature ?

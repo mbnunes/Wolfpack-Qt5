@@ -1541,8 +1541,6 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 {
     register int k;
     
-    int l;
-    
 	int j = rand() % 40;
 
     int dnpctime=0;

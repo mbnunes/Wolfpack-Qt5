@@ -740,7 +740,6 @@ void cSkills::Stealth(int s)//AntiChrist
 
 void cSkills::PeaceMaking(int s)
 {
-	unsigned int i;
 	int inst, res1, res2, j;
 	inst=Skills->GetInstrument(s);
 	if (inst==-1) 
