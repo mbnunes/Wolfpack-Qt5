@@ -140,7 +140,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 
 bool cBuildMultiTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
-	if( target->x() == 0xFFFF || target->y() == 0xFFFF || target->z() == 0xFF )
+	if( target->x() & 0xFFFF || target->y() & 0xFFFF || target->z() & 0xFF )
 		return true;
 	
 	const QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, multisection_ );

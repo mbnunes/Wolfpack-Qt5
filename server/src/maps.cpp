@@ -72,10 +72,12 @@ public:
 MapsPrivate::MapsPrivate( QString index, QString map, QString statics )
 {
 	idxfile.setName( index );
-	idxfile.open( IO_ReadOnly );
+	if ( !idxfile.open( IO_ReadOnly ) )
+		qFatal( QString("Couldn't open file %1").arg( statics ) );
 
 	mapfile.setName( map );
-	mapfile.open( IO_ReadOnly );
+	if ( !mapfile.open( IO_ReadOnly ) )
+		qFatal( QString("Couldn't open file %1").arg( map ) );
 	
 	staticsfile.setName( statics );
 	if ( !staticsfile.open( IO_ReadOnly ) )

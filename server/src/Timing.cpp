@@ -802,7 +802,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		else
 			level = SrvParams->worldBrightLevel();
 
-		if( level == -1)
+		if( level == 0xFFFF )
 		{
 			level = ( ( ( 60 * ( uoTime.time().hour() - 4 ) ) + uoTime.time().minute()) * (SrvParams->worldDarkLevel()-SrvParams->worldBrightLevel())) / 360;
 
