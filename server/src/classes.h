@@ -79,7 +79,7 @@ private:
 	void RandomSteal(int s);	
 	void TellScroll(char *menu_name, int player, long item_param);
 	void CollectAmmo(int s, int a, int b);
-	void Meditation(int s);
+	void Meditation(cUOSocket* s);
 	void ApplyRank(int s, P_ITEM pi,int rank); // by Magius(CHE)
 	void Zero_Itemmake(int s); // by Magius(CHE)
 public:

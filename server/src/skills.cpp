@@ -268,7 +268,7 @@ public:
 				else if ( pItem->def > 4 ) status = tr( "offers some protection against blows" );
 				else if ( pItem->def > 2 ) status = tr( "provides very little protection" );
 				else if ( pItem->def > 0 ) status = tr( "provides almost no protection" );
-				else                  status = tr( "offers no defense against attackers" );
+				else					   status = tr( "offers no defense against attackers" );
 
 				mParts.push_back( status );
 			}
@@ -367,6 +367,95 @@ public:
 			socket->sysMessage( tr( "You didn't find anything hidden" ) );
 	}
 };
+
+// Item Identification
+class cSkItemID: public cTargetRequest
+{
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		P_CHAR pc_currchar = socket->player();
+		const P_ITEM pi = FindItemBySerial( target->serial() );
+		if ( !pi )
+		{
+			socket->sysMessage( tr("Unable to identify that.") );
+			return;
+		}
+
+		if ( !pi->isLockedDown() ) // Ripper
+		{
+			if (!Skills->CheckSkill(pc_currchar, ITEMID, 0, 250))
+			{
+				socket->sysMessage( tr("You can't quite tell what this item is...") );
+			}
+			else
+			{
+				if( pi->corpse() )
+				{
+					socket->sysMessage( tr("You have to use your forensics evalutation skill to know more on this corpse.") );
+					return;
+				}
+				
+				// Identify Item by Antichrist // Changed by MagiusCHE)
+				if ( Skills->CheckSkill(pc_currchar, ITEMID, 250, 500) )
+				{
+					if (pi->name2() == "#") 
+						pi->setName( pi->name2() );
+					
+					socket->sysMessage( tr("You found that this item appears to be called: %1").arg(pi->name()) );
+					
+					// Show Creator by Magius(CHE)
+					if (Skills->CheckSkill(pc_currchar, ITEMID, 250, 500))
+					{
+						if (pi->creator.size()>0)
+						{
+							if (pi->madewith>0) 
+								socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator.c_str()) ); // Magius(CHE)
+							else if (pi->madewith<0) 
+								socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator.c_str()) ); // Magius(CHE)
+							else 
+								socket->sysMessage( tr("It is made by %1").arg(pi->creator.c_str()) ); // Magius(CHE)
+						} else 
+							socket->sysMessage( tr("You don't know its creator!") );
+					} else 
+						socket->sysMessage( tr("You can't know its creator!") );
+					// End Show creator
+					
+					if (!Skills->CheckSkill(pc_currchar, ITEMID, 250, 500))
+					{
+						socket->sysMessage( tr("You can't tell if it is magical or not.") );
+					}
+					else
+					{
+						if(pi->type()!=15)
+						{
+							socket->sysMessage( tr("This item has no hidden magical properties.") );
+						}
+						else
+						{
+							if (!Skills->CheckSkill(pc_currchar, ITEMID, 500, 1000))
+							{
+								socket->sysMessage( tr("This item is enchanted with a spell, but you cannot determine which") );
+							}
+							else
+							{
+								if (!Skills->CheckSkill(pc_currchar, ITEMID, 750, 1100))
+								{
+									socket->sysMessage( tr("It is enchanted with the spell %1, but you cannot determine how many charges remain.").arg(spellname[(8*(pi->morex-1))+pi->morey-1]) );
+								}
+								else
+								{
+									socket->sysMessage( tr("It is enchanted with the spell %1, and has %2 charges remaining.").arg(spellname[(8*(pi->morex-1))+pi->morey-1]).arg(pi->morez) );
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+
 
 //////////////////////////
 // Function:	CalcRank
@@ -1764,7 +1853,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		break;
 	case ITEMID:
 		message = "What do you wish to appraise and identify?";
-		//target(s, 0, 1, 0, 40, );
+		targetRequest = new cSkItemID;
 		break;
 	case EVALUATINGINTEL:
 		message = "What would you like to evaluate?";
@@ -1844,7 +1933,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 			return;
 		}
         
-		Skills->Meditation( s );
+		Skills->Meditation( socket );
 		break;
 	case CARTOGRAPHY:
 		Skills->Cartography(s);
@@ -2782,44 +2871,44 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 	if ((v1>1)&&(v1<5)||(v1>8)) sysmessage(s1, "You cant use that from here.");
 }
 
-void cSkills::Meditation(UOXSOCKET s) // Morrolan - meditation(int socket)
+void cSkills::Meditation( cUOSocket *socket )
 {
-	P_CHAR pc_currchar = currchar[s];
-	// blackwind warmode fix.
+	P_CHAR pc_currchar = socket->player();
+
 	if (pc_currchar->war)
 	{
-		sysmessage(s, "Your mind is too busy with the war thoughts.");
+		socket->sysMessage( tr("Your mind is too busy with the war thoughts.") );
 		return;
 	}
 	if (Skills->GetAntiMagicalArmorDefence(pc_currchar)>15) // blackwind armor affect fix
 	{
-		sysmessage(s, tr("Regenerative forces cannot penetrate your armor."));
+		socket->sysMessage( tr("Regenerative forces cannot penetrate your armor."));
 		pc_currchar->setMed(false);
 		return;
 	}
 	else if (pc_currchar->getWeapon() || pc_currchar->getShield())
 	{
-		sysmessage(s, tr("You cannot meditate with a weapon or shield equipped!"));
+		socket->sysMessage( tr("You cannot meditate with a weapon or shield equipped!"));
 		pc_currchar->setMed( false );
 		return;
 	}
 	else if ((pc_currchar->mn) == (pc_currchar->in))
 	{
-		sysmessage(s, tr("You are at peace."));
+		socket->sysMessage( tr("You are at peace."));
 		pc_currchar->setMed( false );
 		return;
 	}
 	else if (!Skills->CheckSkill(pc_currchar, MEDITATION, 0, 1000))
 	{
-		sysmessage(s, tr("You cannot focus your concentration."));
+		socket->sysMessage( tr("You cannot focus your concentration."));
 		pc_currchar->setMed( false );
 		return;
 	}
 	else
 	{
-		sysmessage(s, tr("You enter a meditative trance."));
+		socket->sysMessage( tr("You enter a meditative trance."));
 		pc_currchar->setMed( true );
-		soundeffect(s, 0x00, 0xf9);
+		soundeffect(toOldSocket(socket), 0x00, 0xf9);
 		return;
 	}
 }
@@ -3047,7 +3136,6 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 
 void cSkills::Cartography(int s)
 {
-//	int cc=currchar[s];	// Get the current char of the client
 	if (HasEmptyMap(currchar[s]))
 	{
 		itemmake[s].has = 1;
