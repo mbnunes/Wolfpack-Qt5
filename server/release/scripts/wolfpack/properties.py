@@ -12,7 +12,7 @@ from wolfpack.consts import RESISTANCE_PHYSICAL, RESISTANCE_ENERGY, \
 	DURABILITYBONUS, WEIGHTBONUS, \
 	MAGICRESISTANCE, INSCRIPTION, LAYER_RIGHTHAND, LAYER_MOUNT, \
 	ITEM_ARMOR, ITEM_WEAPON, ITEM_SHIELD, ITEM_MELEE, ITEM_RANGED, \
-	ITEM_PIERCING, ITEM_SLASHING, ITEM_BASHING
+	ITEM_PIERCING, ITEM_SLASHING, ITEM_BASHING, SPELLCHANNELING
 
 #
 # Get the delay for the next swing from this attacker and his weapon.
@@ -50,6 +50,9 @@ PROPERTIES = {
 	DAMAGE_COLD: ['dmg_cold', 0, 0],
 	DAMAGE_POISON: ['dmg_poison', 0, 0],
 	DAMAGE_ENERGY: ['dmg_energy', 0, 0],
+	
+	# Flags (Weapons):
+	SPELLCHANNELING: ['spellchanneling', 0, 0],
 
 	# % Boni
 	LOWERREQS: ['lower_reqs', 0, 1],

@@ -162,6 +162,11 @@ def onShowTooltip(viewer, object, tooltip):
 
 		if energy:
 			tooltip.add(1060407, str(energy))
+			
+		# Spell Channeling
+		spellchanneling = properties.fromitem(object, SPELLCHANNELING)
+		if spellchanneling != 0:
+			tooltip.add(1060482, "")
 
 	fire = properties.fromitem(object, RESISTANCE_FIRE)
 	cold = properties.fromitem(object, RESISTANCE_COLD)

@@ -5,7 +5,7 @@ import wolfpack.console
 from wolfpack import properties
 from magic.utilities import *
 from wolfpack.consts import MAGICRESISTANCE, EVALUATINGINTEL, INSCRIPTION, \
-	MAGERY, ANIM_CASTDIRECTED, SPELLDAMAGEBONUS, LOG_WARNING
+	MAGERY, ANIM_CASTDIRECTED, SPELLDAMAGEBONUS, LOG_WARNING, SPELLCHANNELING
 
 # Recursive Function for counting reagents
 def countReagents(item, items):
@@ -164,12 +164,31 @@ class Spell:
 
 	def calcdelay(self):
 		return self.casttime
+		
+	def checkweapon(self, char):
+		weapon = char.itemonlayer(LAYER_RIGHTHAND)
+		
+		if not weapon or not properties.itemcheck(weapon, ITEM_WEAPON):
+			weapon = char.itemonlayer(LAYER_LEFTHAND)
+			
+		if not weapon:
+			return True
+			
+		# Check if the spellchanneling property is true for this item
+		if properties.fromitem(weapon, SPELLCHANNELING) == 0:
+			return False
+		else:
+			return True						
 
 	def checkrequirements(self, char, mode, args=[], target=None, item=None):
 		if char.dead:
 			return 0
 
 		if mode == MODE_BOOK:
+			if not self.checkweapon(char):
+				char.message(502626)
+				return 0
+		
 			# Check for Mana
 			if char.mana < self.mana:
 				char.message(502625)
@@ -185,6 +204,10 @@ class Spell:
 						return 0
 
 		elif mode == MODE_SCROLL:
+			if not self.checkweapon(char):
+				char.message(502626)
+				return 0
+
 			# Check if the scroll is allright
 			if not item or item.getoutmostchar() != char:
 				char.message(501625)
