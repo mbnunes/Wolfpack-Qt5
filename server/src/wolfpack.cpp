@@ -1259,64 +1259,6 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 	}
 }
 
-int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item)
-{
-	unsigned int ci = 0;
-	int ch;
-	P_ITEM pi;
-	const P_CHAR p_petowner = currchar[s];
-
-	vector<SERIAL> vecContainer = contsp.getData(p_petowner->serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
-	{
-		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer() == 0x19 && !pi->free)
-		{
-			//////////////////////////////////////
-			// Lets 'unstable' the mount.
-			// Unmount the horse and take him out of
-			// stable 0.
-			
-			bool found = false;
-			int stablemaster_serial = p_petowner->serial;
-			P_CHAR  p_pet = NULL;
-			
-			p_petowner->setOnHorse( false );
-			
-			vector<SERIAL> pets = stablesp.getData(stablemaster_serial);
-			unsigned int i;
-			for (i = 0; i < pets.size(); i++)
-			{
-				p_pet = FindCharBySerial(pets[i]);
-				if (p_pet != NULL)
-				{
-					if ( p_petowner->Owns(p_pet) && p_pet->stablemaster_serial() == stablemaster_serial) // already stabled and owned by claimer ?
-					{
-						found = true;
-						break;
-					}
-				}
-			}
-			
-			if( found )
-			{
-				stablesp.remove(stablemaster_serial, p_pet->serial);
-				
-				p_pet->setStablemaster_serial( INVALID_SERIAL ); // actual unstabling
-				p_pet->setTimeused_last( getNormalizedTime() );
-				p_pet->setTime_unused( 0 );
-				p_pet->moveTo( p_petowner->pos );
-				p_pet->npcWander = 0;
-			}
-
-			Items->DeleItem( pi );
-			p_pet->resend( false );
-			return 0;
-		}
-	}
-	return -1;
-}
-
 void endmessage(int x) // If shutdown is initialized
 {
 	x = 0;
@@ -1388,147 +1330,6 @@ void callguards( P_CHAR pc_player )
 			}
 		}
 	}
-}
-
-void mounthorse(cUOSocket* socket, P_CHAR pc_mount) // Remove horse char and give player a horse item
-{
-	int j;
-	if ( pc_mount == NULL ) return;
-	P_CHAR pc_currchar = socket->player();
-	
-	if( pc_currchar->inRange( pc_mount, 2 ) && !pc_currchar->isGM() )
-		return;
-
-	if (pc_currchar->Owns(pc_mount) || pc_currchar->isGM())
-	{
-		if (pc_currchar->onHorse())
-		{
-			socket->sysMessage( tr("You are already on a mount.") );
-			return;
-		}
-		strcpy((char*)temp, pc_mount->name.c_str());
-		pc_currchar->setOnHorse( true );
-		const P_ITEM pi = Items->SpawnItem(pc_currchar, 1, (char*)temp, 0, 0x0915, pc_mount->skin(), 0);
-		if(!pi) return;
-		
-		switch (static_cast<ushort>(pc_mount->id()&0x00FF))
-		{
-			case 0xC8: pi->setId(0x3E9F); break; // Horse
-			case 0xE2: pi->setId(0x3EA0); break; // Horse
-			case 0xE4: pi->setId(0x3EA1); break; // Horse
-			case 0xCC: pi->setId(0x3EA2); break; // Horse
-			case 0xD2: pi->setId(0x3EA3); break; // Desert Ostard
-			case 0xDA: pi->setId(0x3EA4); break; // Frenzied Ostard
-			case 0xDB: pi->setId(0x3EA5); break; // Forest Ostard
-			case 0xDC: pi->setId(0x3EA6); break; // LLama
-			case 0x34: pi->setId(0x3E9F); break; // Brown Horse
-			case 0x4E: pi->setId(0x3EA0); break; // Grey Horse
-			case 0x50: pi->setId(0x3EA1); break; // Tan Horse
-			case 0x74: pi->setId(0x3EB5); break; // Nightmare
-			case 0x75: pi->setId(0x3EA8); break; // Silver Steed
-			case 0x72: pi->setId(0x3EA9); break; // Dark Steed
-			case 0x7A: pi->setId(0x3EB4); break; // Unicorn
-			case 0x84: pi->setId(0x3EAD); break; // Kirin
-			case 0x73: pi->setId(0x3EAA); break; // Etheral
-			case 0x76: pi->setId(0x3EB2); break; // War Horse-Brit
-			case 0x77: pi->setId(0x3EB1); break; // War Horse-Mage Council
-			case 0x78: pi->setId(0x3EAF); break; // War Horse-Minax
-			case 0x79: pi->setId(0x3EB0); break; // War Horse-Shadowlord
-			case 0xAA: pi->setId(0x3EAB); break; // Etheral LLama
-			case 0x3A: pi->setId(0x3EA4); break; // Forest Ostard
-			case 0x39: pi->setId(0x3EA3); break; // Desert Ostard
-			case 0x3B: pi->setId(0x3EA5); break; // Frenzied Ostard
-			case 0x90: pi->setId(0x3EB3); break; // Seahorse
-			case 0xAB: pi->setId(0x3EAC); break; // Etheral Ostard
-			case 0xBB: pi->setId(0x3EB8); break; // Ridgeback
-			case 0x17: pi->setId(0x3EBC); break; // giant beetle
-			case 0x19: pi->setId(0x3EBB); break; // skeletal mount
-			case 0x1a: pi->setId(0x3EBD); break;// swamp dragon
-			case 0x1f: pi->setId(0x3EBE); break;// armor dragon
-		}
-		
-		pi->setContSerial(pc_currchar->serial);
-		pi->setLayer( 0x19 );
-		Coord_cl pos(pc_currchar->pos);
-		pos.x = pc_mount->fx1;
-		pos.y = pc_mount->fy1;
-		pos.z = pc_mount->fz1;
-		pi->moveTo(pos);
-		
-		pi->setMoreb1( pc_mount->npcWander );
-		pi->att = pc_mount->fx2;
-		pi->def = pc_mount->fy2;
-		
-		// AntiChrist bugfixes - 11/10/99
-		pi->setMoreb2( pc_mount->st() );
-		pi->setMoreb3( pc_mount->realDex() );
-		pi->setMoreb4( pc_mount->in() );
-		pi->setHp( pc_mount->hp() );
-		pi->setLodamage( pc_mount->fame() );
-		pi->setHidamage( pc_mount->karma() );
-		pi->poisoned = pc_mount->poisoned();
-		if (pc_mount->summontimer != 0)
-			pi->decaytime = pc_mount->summontimer;
-	
-		// Sends update.
-		pc_currchar->wear( pi );
-
-		//////////////////////////////////
-		// Gonna stable instead of delete a mount.
-		// This will keep their original and earned
-		// stats and will allow more roboust
-		// mount code.
-		//
-		//
-		//
-		// Gonna stable instead of delete so
-		// comment this out
-		// Npcs->DeleteChar(x);
-		int stablemaster_serial = pc_currchar->serial;
-		
-		// if this is a gm lets tame the animal in the process
-		if (pc_currchar->isGM())
-		{
-			pc_mount->SetOwnSerial( pc_currchar->serial );
-			pc_mount->setNpcAIType( 0 );
-		}
-		
-		// set stablesp && pets stablemaster serial
-		// remove it from screen!
-		int xx = pc_mount->pos.x;
-		int yy = pc_mount->pos.y;
-		signed char zz = pc_mount->pos.z;
-		unsigned short id = pc_mount->id();
-		pc_mount->setId(0);
-		pc_mount->pos = Coord_cl(0, 0, 0);
-		
-		for (int ch = 0; ch < now; ch++)
-		{
-			if (perm[ch])
-				impowncreate(ch, pc_mount, 0);
-		}
-		
-		pc_mount->setId(id);
-		pc_mount->war = false;
-		pc_mount->attacker = INVALID_SERIAL;
-		pc_mount->pos = Coord_cl(xx, yy, zz);
-		
-		cMapObjects::getInstance()->remove(pc_mount);
-		
-		pc_mount->setStablemaster_serial( stablemaster_serial );
-		
-		// set timer
-		pc_mount->setTime_unused( 0 );
-		pc_mount->setTimeused_last( getNormalizedTime() );
-		
-		stablesp.insert(stablemaster_serial, pc_mount->serial);
-		//
-		//
-		// Aldur
-		//////////////////////////////////
-	}
-	else
-		socket->sysMessage( tr("You dont own that creature.") );
 }
 
 void endScrn()
@@ -2335,7 +2136,12 @@ void npcattacktarget( P_CHAR attacker, P_CHAR defender )
 	if (defender->pos.z > (attacker->pos.z +10)) return;//FRAZAI
 	if (defender->pos.z < (attacker->pos.z -10)) return;//FRAZAI
 
-	if( !lineOfSight( attacker->pos, defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
+	Coord_cl attpos( attacker->pos );
+	Coord_cl defpos( defender->pos );
+
+	attpos.z += 13; // eye height of attacker
+
+	if( !lineOfSight( attpos, defpos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
 		return;
 
 	playmonstersound( defender, defender->id(), SND_STARTATTACK );

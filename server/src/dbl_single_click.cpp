@@ -1396,7 +1396,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 			if( pTarget->war )
 				socket->sysMessage( tr("Your pet is in battle right now!" ) );
 			else
-				mounthorse( socket, pTarget );
+				pChar->mount( pTarget );
 		}
 		else
 			socket->sysMessage( tr( "This is too far away" ) );

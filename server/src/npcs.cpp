@@ -287,7 +287,6 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	nChar->region = cAllTerritories::getInstance()->region( nChar->pos.x, nChar->pos.y );
 
 	nChar->applyDefinition( *DefSection );
-	cMapObjects::getInstance()->add( nChar );
 	nChar->resend( false );
 
 	return nChar;

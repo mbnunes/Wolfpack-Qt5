@@ -137,7 +137,7 @@ the line of sight.
 		}
 	else
 	{
-		for( i = 0; (n >= m) && (i < (sgn_x * n)); i++ )
+		for( i = 0; (sgn_x * n >= sgn_y * m) && (i < (sgn_x * n)); i++ )
 		{
 			SI32 gridx = source.x + (sgn_x * i);
 			if( ( ( n == 0 ) && ( gridx == 0 ) ) ||
@@ -163,7 +163,7 @@ the line of sight.
 			}
 		}
 	
-		for( i = 0; (m > n) && (i < (sgn_y * m)); i++ )
+		for( i = 0; (sgn_y * m > sgn_x * n) && (i < (sgn_y * m)); i++ )
 		{
 			SI32 gridy = source.y + (sgn_y * i);
 			if( ( ( m == 0 ) && ( gridy == 0 ) ) ||
@@ -242,8 +242,8 @@ the line of sight.
 		while( stat )
 		{
 			msi.GetTile( &tile );
-			if(	( (*pit).z >= stat->zoff && (*pit).z <= ( stat->zoff + tile.height ) ) ||
-				( tile.height <= 2 && abs( (*pit).z - stat->zoff ) <= abs( dz ) ) )
+			if(	( (*pit).z >= stat->zoff && (*pit).z <= ( stat->zoff + tile.height ) ) )
+//				||	( tile.height <= 2 && abs( (*pit).z - stat->zoff ) <= abs( dz ) ) )
 				itemids.insert( stat->itemid );
 
 			stat = msi.Next();

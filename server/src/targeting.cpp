@@ -458,7 +458,7 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	UOXSOCKET targSocket = calcSocketFromChar(pc);
 	if ( targSocket == -1 )
 		return;
-	unmounthorse(targSocket);	//AntiChrist bugfix
+	pc->unmount();
 	
 	pc->setId(0x03DB);
 	pc->setSkin(0x8021);

@@ -1404,7 +1404,9 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
                 
 				// This is a temporary fix. 
 				UINT8 dir = chardir( pc_i, pc_attacker );
-                Walking( pc_i, dir, 0xFF );
+				Coord_cl newCoord = calcCoordFromDir( dir, pc_i->pos );
+				if( mayWalk( pc_i, newCoord ) )
+					Walking( pc_i, dir, 0xFF );
             }
 			else
 			{   

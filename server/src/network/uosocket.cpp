@@ -733,7 +733,23 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem = pChar->getBackpack();
 	
 	pChar->setAccount( _account );
-	pChar->giveNewbieItems();
+
+	UI08 skillid = 0xFF;
+	if( packet->skillValue1() > packet->skillValue2() )
+	{
+		if( packet->skillValue1() > packet->skillValue3() )
+			skillid = packet->skillId1();
+		else
+			skillid = packet->skillId3();
+	}
+	else
+	{
+		if( packet->skillValue2() > packet->skillValue3() )
+			skillid = packet->skillId2();
+		else
+			skillid = packet->skillId3();
+	}
+	pChar->giveNewbieItems( skillid );
 	
 	Weight->NewCalc( pChar );
 

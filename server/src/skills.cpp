@@ -769,7 +769,7 @@ public:
 		
 		if (isCharSerial(target->serial()))
 		{
-			cSkills::RandomSteal(socket, target->serial());
+			Skills->RandomSteal(socket, target->serial());
 			return true;
 		}
 		
@@ -1938,41 +1938,36 @@ void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds +
 	SetTimerSec(&currchar[s]->spiritspeaktimer,SrvParams->spiritspeaktimer()+currchar[s]->in);*/
 }
 
-int cSkills::GetCombatSkill(P_CHAR pc)
+int cSkills::GetCombatSkill( P_CHAR pc )
 {
-	int skillused = WRESTLING;
-	
-	unsigned int ci=0;
 	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	std::vector< SERIAL > vecContainer = contsp.getData( pc->serial );
+	std::vector< SERIAL >::iterator it = vecContainer.begin();
+	while( it != vecContainer.end() )
 	{
-		pi = FindItemBySerial(vecContainer[ci]);
-		if( pi->layer() == 1 || pi->layer() == 2 )
+		pi = FindItemBySerial( *it );
+		if( pi && ( pi->layer() == 1 || pi->layer() == 2 ) )
 		{
 			if (IsSwordType(pi->id()) )
 			{
-				skillused = SWORDSMANSHIP;
-				break;
+				return SWORDSMANSHIP;
 			}
 			if (IsMaceType(pi->id()) )
 			{
-				skillused = MACEFIGHTING;
-				break;
+				return MACEFIGHTING;
 			}
 			if (IsFencingType(pi->id()) )
 			{
-				skillused = FENCING;
-				break;
+				return FENCING;
 			}
 			if (IsBowType(pi->id()) )
 			{
-				skillused = ARCHERY;
-				break;
+				return ARCHERY;
 			}
 		}
+		++it;
 	}
-	return(skillused);
+	return WRESTLING;
 }
 
 void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the skill list

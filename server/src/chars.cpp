@@ -2651,11 +2651,156 @@ void cChar::wear( P_ITEM pi )
 // Needs implementation
 P_CHAR cChar::unmount()
 {
+	std::vector< SERIAL > vecContainer = contsp.getData( serial );
+	std::vector< SERIAL >::iterator it = vecContainer.begin();
+	while( it != vecContainer.end() )
+	{
+		P_ITEM pi = FindItemBySerial( *it );
+		if( pi && pi->layer() == 0x19 && !pi->free)
+		{
+			setOnHorse( false );
+
+			P_CHAR pMount = FindCharBySerial( pi->morex );
+			if( pMount )
+			{
+				pMount->fx1 = pi->pos.x;
+				pMount->fy1 = pi->pos.y;
+				pMount->fz1 = pi->pos.z;
+				pMount->setId( pi->morey );
+				pMount->npcWander = pi->moreb1();
+				pMount->setSt( pi->moreb2() );
+				pMount->setDex( pi->moreb3() );
+				pMount->setIn( pi->moreb4() );
+				pMount->fx2 = pi->att;
+				pMount->fy2 = pi->def;
+				pMount->setHp( pi->hp() );
+				pMount->setFame( pi->lodamage() );
+				pMount->setKarma( pi->hidamage() );
+				pMount->setPoisoned( pi->poisoned );
+				pMount->summontimer = pi->decaytime;
+
+				pMount->moveTo( pos );
+				pMount->resend( false );
+			}
+			
+			Items->DeleItem( pi );
+			resend( false );
+			return pMount;
+		}
+		++it;
+	}
 	return NULL;
 }
 
 void cChar::mount( P_CHAR pMount )
-{
+{	
+	if( !pMount )
+		return;
+
+	cUOSocket* socket = this->socket();
+	if( !inRange( pMount, 2 ) && !isGM() )
+	{
+		if( socket )
+			socket->sysMessage( tr("You are too far away to mount!") );
+		return;
+	}
+
+	if( Owns( pMount ) || isGM() )
+	{
+		if( onHorse() )
+			unmount();
+
+		setOnHorse( true );
+		P_ITEM pMountItem = Items->SpawnItem( this, 1, pMount->name.c_str(), 0, 0x0915, pMount->skin(), 0 );
+		if( !pMountItem )
+			return;
+
+		switch( static_cast< unsigned short >(pMount->id() & 0x00FF) )
+		{
+			case 0xC8: pMountItem->setId(0x3E9F); break; // Horse
+			case 0xE2: pMountItem->setId(0x3EA0); break; // Horse
+			case 0xE4: pMountItem->setId(0x3EA1); break; // Horse
+			case 0xCC: pMountItem->setId(0x3EA2); break; // Horse
+			case 0xD2: pMountItem->setId(0x3EA3); break; // Desert Ostard
+			case 0xDA: pMountItem->setId(0x3EA4); break; // Frenzied Ostard
+			case 0xDB: pMountItem->setId(0x3EA5); break; // Forest Ostard
+			case 0xDC: pMountItem->setId(0x3EA6); break; // LLama
+			case 0x34: pMountItem->setId(0x3E9F); break; // Brown Horse
+			case 0x4E: pMountItem->setId(0x3EA0); break; // Grey Horse
+			case 0x50: pMountItem->setId(0x3EA1); break; // Tan Horse
+			case 0x74: pMountItem->setId(0x3EB5); break; // Nightmare
+			case 0x75: pMountItem->setId(0x3EA8); break; // Silver Steed
+			case 0x72: pMountItem->setId(0x3EA9); break; // Dark Steed
+			case 0x7A: pMountItem->setId(0x3EB4); break; // Unicorn
+			case 0x84: pMountItem->setId(0x3EAD); break; // Kirin
+			case 0x73: pMountItem->setId(0x3EAA); break; // Etheral
+			case 0x76: pMountItem->setId(0x3EB2); break; // War Horse-Brit
+			case 0x77: pMountItem->setId(0x3EB1); break; // War Horse-Mage Council
+			case 0x78: pMountItem->setId(0x3EAF); break; // War Horse-Minax
+			case 0x79: pMountItem->setId(0x3EB0); break; // War Horse-Shadowlord
+			case 0xAA: pMountItem->setId(0x3EAB); break; // Etheral LLama
+			case 0x3A: pMountItem->setId(0x3EA4); break; // Forest Ostard
+			case 0x39: pMountItem->setId(0x3EA3); break; // Desert Ostard
+			case 0x3B: pMountItem->setId(0x3EA5); break; // Frenzied Ostard
+			case 0x90: pMountItem->setId(0x3EB3); break; // Seahorse
+			case 0xAB: pMountItem->setId(0x3EAC); break; // Etheral Ostard
+			case 0xBB: pMountItem->setId(0x3EB8); break; // Ridgeback
+			case 0x17: pMountItem->setId(0x3EBC); break; // giant beetle
+			case 0x19: pMountItem->setId(0x3EBB); break; // skeletal mount
+			case 0x1a: pMountItem->setId(0x3EBD); break;// swamp dragon
+			case 0x1f: pMountItem->setId(0x3EBE); break;// armor dragon
+		}
+		
+		pMountItem->setContSerial( serial );
+		pMountItem->setLayer( 0x19 );
+		Coord_cl npos( pos );
+		npos.x = pMount->fx1;
+		npos.y = pMount->fy1;
+		npos.z = pMount->fz1;
+		pMountItem->moveTo(npos);
+		
+		pMountItem->morex = pMount->serial;
+		pMountItem->morey = pMount->id();
+
+		pMountItem->setMoreb1( pMount->npcWander );
+		pMountItem->setMoreb2( pMount->st() );
+		pMountItem->setMoreb3( pMount->realDex() );
+		pMountItem->setMoreb4( pMount->in() );
+		pMountItem->att = pMount->fx2;
+		pMountItem->def = pMount->fy2;
+		pMountItem->setHp( pMount->hp() );
+		pMountItem->setLodamage( pMount->fame() );
+		pMountItem->setHidamage( pMount->karma() );
+		pMountItem->poisoned = pMount->poisoned();
+		if (pMount->summontimer != 0)
+			pMountItem->decaytime = pMount->summontimer;
+	
+		// Sends update.
+		wear( pMountItem );
+
+/*		// if this is a gm lets tame the animal in the process
+		if( isGM() )
+		{
+			pMount->SetOwnSerial( serial );
+			pMount->setNpcAIType( 0 );
+		}*/
+		
+		// remove it from screen!
+		pMount->setId(0);
+		cMapObjects::getInstance()->remove( pMount );
+		pMount->pos = Coord_cl(0, 0, 0);
+		
+		pMount->resend( true );
+		
+		pMount->war = false;
+		pMount->attacker = INVALID_SERIAL;
+		
+		// set timer
+		pMount->setTime_unused( 0 );
+		pMount->setTimeused_last( getNormalizedTime() );
+	}
+	else
+		socket->sysMessage( tr("You dont own that creature.") );
 }
 
 void cChar::giveNewbieItems( Q_UINT8 skill ) 
@@ -2663,8 +2808,12 @@ void cChar::giveNewbieItems( Q_UINT8 skill )
 	QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : QString::number( skill ) );
 
 	// No Items defined
-	if( !startItems )
-		return;
+	if( !startItems || startItems->isNull() )
+	{
+		startItems = DefManager->getSection( WPDT_STARTITEMS, "default" );
+		if( !startItems || startItems->isNull() )
+			return;
+	}
 
 	// Just one type of node: item
 	QDomElement node = startItems->firstChild().toElement();

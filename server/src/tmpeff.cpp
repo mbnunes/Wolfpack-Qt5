@@ -954,8 +954,10 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		int c1,b,k;
 		//Grey flag when polymorphed - AntiChrist (9/99)
 		pc_dest->setCrimflag((polyduration*MY_CLOCKS_PER_SEC)+uiCurrentTime);
-		if(pc_dest->onHorse()) 
-			k = unmounthorse(calcSocketFromChar(pc_dest));
+//		if(pc_dest->onHorse()) 
+//			k = unmounthorse(calcSocketFromChar(pc_dest));
+		if( pc_dest->onHorse() )
+			pc_dest->unmount();
 		k=(more1<<8)+more2;
 
 		pc_dest->setXid(pc_dest->id());//let's backup previous id
