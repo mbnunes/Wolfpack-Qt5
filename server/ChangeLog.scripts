@@ -8,6 +8,7 @@ Wolfpack 12.9.8 Beta (CVS)
 	* Definition Changes:
 	* Python Script Changes:
 		- New Command: taginfo
+		- New Function: wolfpack.findobject(serial)
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
