@@ -87,6 +87,7 @@ protected:
 	unsigned int corpseDecayTime_;
 	int niceLevel_;
 	unsigned short loginPort_;
+	unsigned int logMask_;
 	bool enableLogin_;
 	unsigned short gamePort_;
 	bool enableGame_;
@@ -223,6 +224,7 @@ public:
 	bool cacheMulFiles() const;
 	unsigned int spawnRegionCheckTime() const;
 	unsigned int secondsPerUOMinute() const;
+	unsigned int logMask() const;
 	void setSecondsPerUOMinute( unsigned int );
 	int saveInterval() const;
 	bool heartBeat() const;
@@ -323,6 +325,10 @@ inline unsigned int cSrvParams::skillcap() const
 inline unsigned int cSrvParams::statcap() const
 {
 	return statcap_;
+}
+
+inline unsigned int cSrvParams::logMask() const {
+	return logMask_;
 }
 
 inline QString cSrvParams::commandPrefix() const

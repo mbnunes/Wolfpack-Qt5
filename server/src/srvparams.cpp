@@ -32,6 +32,7 @@
 #include "globals.h"
 #include "verinfo.h"
 #include "preferences.h"
+#include "log.h"
 
 // Library Includes
 #include <qstring.h>
@@ -167,6 +168,7 @@ void cSrvParams::readData() {
 	cacheMulFiles_			= getBool  ("General",  "Cache Mul Files", true, true);
 	categoryTagAddMenu_		= getBool  ("General",	"Build AddMenu by Category Tags", true, true);
 	showNpcTitles_			= getNumber("General",  "Show Npc Titles", 1, true);
+	logMask_				= getNumber("General",  "Logging Mask", LOG_ALL, true);
 	
 	saveInterval_			= getNumber("General", "Save Interval", 900, true);
 	mulPath_				= QDir::convertSeparators( getString("General", "MulPath", "./muls/", true) );

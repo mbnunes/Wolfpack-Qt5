@@ -40,10 +40,14 @@
 #include <qdatetime.h>
 #include <qdir.h>
 
+cLog::cLog() {
+}
+
 cLog::~cLog()
 {
-	if( logfile.isOpen() )
+	if (logfile.isOpen()) {
 		logfile.close();
+	}
 }
 
 bool cLog::checkLogFile()
@@ -95,8 +99,9 @@ bool cLog::checkLogFile()
  */
 void cLog::log( eLogLevel loglevel, cUOSocket *sock, const QString &string, bool timestamp )
 {
-	if( loglevel > this->loglevel )
+	if (!(SrvParams->logMask() & loglevel)) {
 		return;
+	}
 
 	if( !checkLogFile() )
 		return;

@@ -28,10 +28,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-/* 
-*  WOLFPACK Skills
-*/
-
 #include "wpdefmanager.h"
 #include "basics.h"
 #include "itemid.h"
@@ -514,7 +510,7 @@ QString cSkills::getSkillTitle(P_CHAR pChar) const {
 			}
 		}
 		
-		unsigned char title = std::max(1, ((int)pChar->skillValue(skill) - 300) / 100);
+		unsigned char title = QMAX(1, ((int)pChar->skillValue(skill) - 300) / 100);
 
 		if (title >= skillRanks.size()) {
 			pChar->log(LOG_ERROR, "Invalid skill rank information.\n");

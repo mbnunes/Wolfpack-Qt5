@@ -50,6 +50,7 @@ class cContextMenu;
 
 // Too many Forward Declarations
 #include "uorxpackets.h"
+#include "../log.h"
 #include "../typedefs.h"
 #include "../python/engine.h"
 #include "../wptargetrequests.h"

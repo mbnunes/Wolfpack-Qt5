@@ -57,10 +57,13 @@ def gainstat(char, stat):
         if char.npc:
           char.maxhitpoints -= 1
         char.updatehealth()
+        char.log(LOG_TRACE, 'Character [%x] lost one point of strength [%u].\n' % (char.serial, char.strength))
       elif lower == 1:
         char.dexterity -= 1
+        char.log(LOG_TRACE, 'Character [%x] lost one point of dexterity [%u].\n' % (char.serial, char.dexterity))
       elif lower == 2:
         char.intelligence -= 1
+        char.log(LOG_TRACE, 'Character [%x] lost one point of intelligence [%u].\n' % (char.serial, char.intelligence))
       totalstats -= 1
       resendstats = 1
     
@@ -73,11 +76,14 @@ def gainstat(char, stat):
       # Players are accounted for automatically
       if char.npc:
         char.maxhitpoints += 1
+      char.log(LOG_TRACE, 'Character [%x] gained one point of strength [%u].\n' % (char.serial, char.strength))
     elif stat == 1:
       char.dexterity += 1
+      char.log(LOG_TRACE, 'Character [%x] gained one point of dexterity [%u].\n' % (char.serial, char.dexterity))
     elif stat == 2:
       char.intelligence += 1
-    resendstats = 1
+      char.log(LOG_TRACE, 'Character [%x] gained one point of intelligence [%u].\n' % (char.serial, char.intelligence))
+    resendstats = 1    
 
   if resendstats and char.socket:
     char.socket.resendstatus()
@@ -91,6 +97,7 @@ def gainskill(char, skill, totalskill, totalcap):
   value = char.skill[skill] / 10.0
   lock = char.skilllock[skill]
   cap = char.skillcap[skill] / 10.0
+  info = SKILLS[skill]
 
   if lock == 0 and value < cap:
     # Skills lower than 10.0% will gain 0.1% - 0.5% at once
@@ -104,9 +111,11 @@ def gainskill(char, skill, totalskill, totalcap):
     # are lowered even if we are below the skillcap
     if totalskill / totalcap >= random():
       for i in range(0, ALLSKILLS):
-        if i != skill and char.skilllock[skill] == 1 and char.skill[skill] / 10.0 >= points:
+        if i != skill and char.skilllock[i] == 1 and char.skill[i] / 10.0 >= points:
           char.skill[i] -= int(points * 10)
           totalskill -= points
+
+          char.log(LOG_TRACE, 'Character [%x] lost %0.01f%% of %s [%02.01f%%].\n' % (char.serial, points, SKILLS[i][SKILL_NAME], char.skill[i] / 10.0))
           
           if char.socket:
             char.socket.updateskill(i)
@@ -118,13 +127,14 @@ def gainskill(char, skill, totalskill, totalcap):
     if totalskill + points <= totalcap:
       char.skill[skill] += int(points * 10)
       totalskill += points
+      char.log(LOG_TRACE, 'Character [%x] gained %0.01f%% of %s [%02.01f%%].\n' % (char.serial, points, info[SKILL_NAME], char.skill[skill] / 10.0))
+
       if char.socket:
         char.socket.updateskill(skill)
 
   # It's not important that we actually gained the skill
   # in order to gain stats by using it.
-  if lock == 0:
-    info = SKILLS[skill]
+  if lock == 0:    
     strchance = info[SKILL_STRCHANCE]
     dexchance = info[SKILL_DEXCHANCE]
     intchance = info[SKILL_INTCHANCE]

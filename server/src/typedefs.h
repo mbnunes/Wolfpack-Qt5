@@ -111,17 +111,5 @@ enum eDamageType
 
 enum enServerState { STARTUP = 0, RUNNING, SCRIPTRELOAD, SHUTDOWN };
 
-// Log Levels
-enum eLogLevel
-{
-	LOG_MESSAGE = 0,
-	LOG_ERROR,
-	LOG_PYTHON,
-	LOG_WARNING,
-	LOG_NOTICE,
-	LOG_TRACE,
-	LOG_DEBUG
-};
-
 #endif
 

@@ -31,6 +31,7 @@
 #include "../srvparams.h"
 #include "../globals.h"
 #include "../console.h"
+#include "../log.h"
 
 // Qt Includes
 #include <qdir.h>

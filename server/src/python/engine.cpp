@@ -33,6 +33,7 @@
 #include "../srvparams.h"
 #include "../console.h"
 #include "../globals.h"
+#include "../log.h"
 
 // Library includes
 #include <qdom.h>
