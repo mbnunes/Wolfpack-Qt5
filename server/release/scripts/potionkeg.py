@@ -31,7 +31,7 @@ def onUse( char, potionkeg ):
 	if potionkeg.hastag( 'potiontype' ):
 		kegtype = int( potionkeg.gettag( 'potiontype' ) )
 
-	if not kegtype:
+	if not kegtype and not kegtype == 0:
 		socket.clilocmessage( 502222 )
 		return True
 
@@ -154,7 +154,7 @@ def onDropOnItem( keg, potion ):
 			return True
 
 		if keg.baseid in [ 'potion_keg' ]:
-			if kegtype:
+			if kegtype >= 0:
 				if potiontype == kegtype:
 					if kegfill < 100 and kegfill >= 0:
 						kegfill += 1
@@ -176,7 +176,7 @@ def onDropOnItem( keg, potion ):
 					return True
 			else:
 				kegtype = getPotionType( potion )
-				if kegtype:
+				if kegtype >= 0:
 					keg.settag( 'potiontype', kegtype )
 					keg.settag( 'kegfill', 1 )
 					keg.name = POTIONS[ kegtype ][ KEG_NAME ]
