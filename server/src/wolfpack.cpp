@@ -2137,9 +2137,6 @@ int main( int argc, char *argv[] )
 	SrvParams->flush();
 	clConsole.ProgressDone();
 	clConsole.send("\n");
-	clConsole.send("Deleting Classes...");
-	DeleteClasses();
-	// Notice, from this point down no global class is valid!!
 	clConsole.send("Done!\n");
 	if (NewErrorsLogged())
 		clConsole.send("New ERRORS have been logged. Please send the error*.log and critical*.log files to the dev team !\n");
@@ -2159,6 +2156,7 @@ int main( int argc, char *argv[] )
 	}
 
 	clConsole.PrepareProgress( "Deleting Classes" );
+	// Notice, from this point down no global class is valid!!
 	DeleteClasses();
 	clConsole.ProgressDone();
 
