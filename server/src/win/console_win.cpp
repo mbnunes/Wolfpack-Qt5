@@ -35,8 +35,8 @@
 #include "../accounts.h"
 #include "../console.h"
 #include "../resource.h"
-
-#include "../network.h"
+#include "../python/engine.h"
+#include "../network/network.h"
 #include "../player.h"
 #include "../server.h"
 
@@ -178,16 +178,67 @@ LRESULT CALLBACK AboutDialog(HWND hwnd, unsigned int msg, WPARAM wparam, LPARAM 
 
 				const char *data = (const char*)LockResource(rData);
 				QStringList creditList = QStringList::split(",", data);
-				QString credits = "This is an unsorted not neccesarily complete list of people who contributed to Wolfpack:\n\n";
+				UnlockResource(rData);
+				FreeResource(rData);
 
+				CHARRANGE cr;
+				CHARFORMAT2 cf;
+				ZeroMemory(&cf, sizeof(cf));
+				cf.cbSize = sizeof(cf);
+
+				// Add a version information header (just like the console)
+				QString version = QString("%1 %2 %3\n").arg(productString(), productBeta(), productVersion());
+
+				cf.dwMask = CFM_COLOR|CFM_WEIGHT|CFM_SIZE;
+				cf.yHeight = 20 * 14;
+				cf.wWeight = FW_BOLD;
+				cf.crTextColor = RGB(60, 140, 70);
+				SendMessage(richtext, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf);
+				SendMessage(richtext, EM_REPLACESEL, FALSE, (LPARAM)version.latin1());
+				cf.dwMask = CFM_COLOR|CFM_WEIGHT|CFM_SIZE;
+				cf.yHeight = 20 * 8;
+				cf.wWeight = FW_NORMAL;
+				cf.crTextColor = RGB(0, 0, 0);
+
+				QString credits;
+				credits += "Compiled: " __DATE__ " " __TIME__ "\n";
+				credits += QString("QT: %1 %2 (Compiled: %3)\n").arg(qVersion()).arg(qSharedBuild() ? "Shared" : "Static").arg(QT_VERSION_STR);
+
+				QString pythonBuild = Py_GetVersion();
+				pythonBuild = pythonBuild.left(pythonBuild.find(' '));
+
+				#if defined(Py_ENABLE_SHARED)
+				credits += QString("Python: %1 Shared (Compiled: %2)\n").arg(pythonBuild).arg(PY_VERSION);
+				#else
+				credits += QString("Python: %1 Static (Compiled: %2)\n").arg(pythonBuild).arg(PY_VERSION);
+				#endif
+
+				cr.cpMin = GetWindowTextLength(richtext);
+				cr.cpMax = cr.cpMin;
+				SendMessage(richtext, EM_EXSETSEL, 0, (LPARAM)&cr);
+				SendMessage(richtext, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf);
+				SendMessage(richtext, EM_REPLACESEL, FALSE, (LPARAM)credits.latin1());
+
+				credits = "\nThis is an unsorted and not neccesarily complete list of people who contributed to Wolfpack:\n\n";
+
+				cr.cpMin = GetWindowTextLength(richtext);
+				cr.cpMax = cr.cpMin;
+				cf.wWeight = FW_BOLD;
+				SendMessage(richtext, EM_EXSETSEL, 0, (LPARAM)&cr);
+				SendMessage(richtext, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf);
+				SendMessage(richtext, EM_REPLACESEL, FALSE, (LPARAM)credits.latin1());
+				cf.wWeight = FW_NORMAL;
+
+				credits = "";
 				for (unsigned int i = 0; i < creditList.size(); ++i) {
 					credits.append(creditList[i]);
 				}
 
-				SetWindowText(richtext, credits.latin1());
-
-				UnlockResource(rData);
-				FreeResource(rData);
+				cr.cpMin = GetWindowTextLength(richtext);
+				cr.cpMax = cr.cpMin;
+				SendMessage(richtext, EM_EXSETSEL, 0, (LPARAM)&cr);
+				SendMessage(richtext, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf);
+				SendMessage(richtext, EM_REPLACESEL, FALSE, (LPARAM)credits.latin1());
 			}
 	}
 
