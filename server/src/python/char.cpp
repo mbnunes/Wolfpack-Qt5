@@ -1995,6 +1995,8 @@ static PyObject* wpChar_notoriety( wpChar* self, PyObject* args )
 	coordinate or a target object.
 	\param range The range the character needs to be within. If this is -1 the target needs to be in the
 	characters posessions.
+	\param model Defaults to zero. If target is a coordinate object, this should be an item-id if the targetted
+	object was a static item.
 	\return True if the character can reach the given object, false otherwise.
 */
 static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
