@@ -33,6 +33,7 @@
 
 #include <qobject.h>
 #include <qstring.h>
+#include <qstringlist.h>
 
 class PersistentObject //: public QObject
 {
@@ -45,6 +46,8 @@ public:
 	virtual void save( const QString& = QString::null );
 	virtual void load( const QString& = QString::null );
 	virtual bool del( const QString& = QString::null);
+
+	virtual void save( QStringList *tables = 0, QStringList *fields = 0, QStringList *conditions = 0 );
 };
 
 

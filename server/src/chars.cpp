@@ -61,9 +61,6 @@
 #include "persistentbroker.h"
 #include "territories.h"
 #include "dbdriver.h"
-#include "worldmain.h"
-
-#include <qsqlcursor.h>
 
 #undef  DBGFILE
 #define DBGFILE "chars.cpp"
@@ -781,22 +778,23 @@ void cChar::load( char **result, UINT16 &offset )
 	// Query the Skills for this character
 	QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial ) + "'";
 
-	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
-		throw mysql_error( cwmWorldState->mysql );
-
-	MYSQL_RES *mResult = mysql_use_result( cwmWorldState->mysql );
+	cDBDriver query;
+	if( !query.query( sql ) )
+		throw query.error().latin1();
 
 	// Fetch row-by-row
-	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+	while( query.fetchrow() )
 	{
 		// row[0] = skill
 		// row[1] = value
 		// row[2] = locktype
 		// row[3] = cap (unused!)
-		UINT16 i = atoi( row[0] );
-		baseSkill_[i] = atoi( row[1] );
-		lockSkill_[i] = atoi( row[2] );
+		UINT16 i = query.getInt( 0 );
+		baseSkill_[i] = query.getInt( 1 );
+		lockSkill_[i] = query.getInt( 2 );
 	}
+
+	query.free();
 }
 
 void cChar::save( const QString &s  )

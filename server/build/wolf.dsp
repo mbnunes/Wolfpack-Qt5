@@ -149,6 +149,10 @@ SOURCE=.\customtags.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\dbdriver.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\dbl_single_click.cpp
 # End Source File
 # Begin Source File

@@ -29,6 +29,7 @@
 //========================================================================================
 
 #include "persistentobject.h"
+#include "dbdriver.h"
 
 PersistentObject::PersistentObject() : isPersistent(false)
 {
@@ -49,3 +50,31 @@ bool PersistentObject::del( const QString& /* = QString::null */ )
 	isPersistent = false;
 	return true;
 }
+
+void PersistentObject::save( QStringList *tables, QStringList *fields, QStringList *conditions )
+{
+	if( !fields || !conditions )
+		return;
+
+	// Otherwise check if we are updating or inserting
+	if( isPersistent )
+	{
+		// Update
+		QString sql( "UPDATE " + tables->join(",") + " SET " + fields->join( "," ) + " WHERE " + conditions->join( "," ) );
+		cDBDriver query;
+		if( !query.execute( sql ) )
+			throw query.error().latin1();
+	}
+	else
+	{
+		// Insert
+		QString sql( "INSERT INTO " + tables->join(",") + " SET " + fields->join( "," ) );
+		cDBDriver query;
+		if( !query.execute( sql ) )
+			throw query.error().latin1();
+	}
+
+	delete fields;
+	delete conditions;
+}
+
