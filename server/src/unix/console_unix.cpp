@@ -226,6 +226,10 @@ void cConsole::changeColor( enConsoleColors Color )
 // Send a message to the console
 void cConsole::send( const QString& sMessage )
 {
+	if (sMessage.isNull() || sMessage.isEmpty()) {
+		return;
+	}
+	
 	// If a progress message is waiting, remove it.
 	if ( !progress.isEmpty() )
 	{

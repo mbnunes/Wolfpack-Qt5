@@ -71,6 +71,7 @@ Wolfpack 12.9.9 Beta (CVS)
 		- Fix for bug #0000263 (casting with weapon allowed although weapon is not spell channeling)
 		- Fix for bug #0000260 (.tile now caps at 250 items if the acl doesn't allow unlimited items)
 		- Fix for bug #0000266 (summoned npcs had loot)
+		- Fix for bug #0000256 (Not checking for second submaterial in craftmenus)
 	* Misc. Changes:
 		- Experimental Mac OSX Support
 	* Known Issues, Bugs, and Missing Features:

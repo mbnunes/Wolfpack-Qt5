@@ -42,6 +42,7 @@ Wolfpack 12.9.9 Beta (CVS)
 	- Fixed bug #0000268 (coord.validspawnspot() now corrects the z value of coordinates)
 	- Made startup more fault tolerant.
 	- Fixed a bug where the skin hue of mobiles was not being sent to clients in range.
+	- Fix for the unix console crashing if a QString::null was sent.
 
 Wolfpack 12.9.8 Beta (19. August 2004)
 	- Save fixes
