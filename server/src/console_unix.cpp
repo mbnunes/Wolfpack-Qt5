@@ -176,6 +176,8 @@ QString cb = "\e[0m";
 			break;
 		case WPC_WHITE:	cb = "\e[1;37m";
 			break;
+		case WPC_BROWN: cb = "\e[0;33m";
+			break
 		default: cb = "\e[0m";
 
 		}
@@ -225,6 +227,7 @@ void cConsole::send(const QString &sMessage)
 	{
 #if defined(Q_OS_UNIX) && 0 
 		sMessage.replace("\e[0m", "");
+		sMessage.replace("\e[1;32m", "");
 	  	sMessage.replace("\e[1;32m", "");
 		sMessage.replace("\e[1;31m", "");
 		sMessage.replace("\e[1;33m", "");

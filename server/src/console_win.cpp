@@ -477,6 +477,10 @@ void cConsole::ChangeColor( WPC_ColorKeys color )
 		cf.crTextColor = RGB( 0x00,0xFF,0xFF );
 		break;
 
+	case WPC_BROWN:
+		cf.crTextColor = RGB( 204, 204, 153 );
+		break;
+
 	case WPC_NORMAL:
         cf.crTextColor = RGB( 0xAF,0xAF,0xAF );
 		break;

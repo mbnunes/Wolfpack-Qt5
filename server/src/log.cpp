@@ -182,7 +182,7 @@ void cLog::print( eLogLevel loglevel, cUOSocket *sock, const QString &string, bo
 		break;
 
 	case LOG_PYTHON:
-		Console::instance()->setAttributes( false, false, false, 204, 204, 153, 0, FONT_FIXEDWIDTH );
+		Console::instance()->ChangeColor( WPC_BROWN );
 		break;
 
 	default:

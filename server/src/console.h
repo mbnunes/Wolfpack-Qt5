@@ -60,6 +60,7 @@ enum WPC_ColorKeys
 	WPC_GREEN,
 	WPC_YELLOW,
 	WPC_WHITE,
+	WPC_BROWN
 };
 
 enum eFontType
