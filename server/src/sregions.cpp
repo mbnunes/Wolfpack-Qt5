@@ -89,7 +89,9 @@ bool doregionspawn(int r)//Regionspawns
 //		for( counter = 0; counter < spawnregion[r].totalnpclists; counter++ )
 		counter = rand()%spawnregion[r].totalnpclists;
 		{
-			if (FindSpotForItem(r, Coord_cl(x, y, z)))
+			Coord_cl pos;
+			if (FindSpotForItem(r, pos))
+			//if (FindSpotForItem(r, Coord_cl(x, y, z)))
 			{
 				P_CHAR npc = Npcs->AddNPCxyz( -1, spawnregion[r].npclists[counter], 0,x,y,z );
 				if (npc != NULL)

@@ -80,7 +80,7 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	html_			        = getNumber("General",  "Html", -1, true);
 	cutScrollReq_			= getNumber("General",  "Cut Scroll Requirements.", 1, true);
 	persecute_              = getNumber("General",  "Persecution", 1, true);
-	tamedDisappear_         = getNumber("General",  "Tamed Disappear", 1, true);
+	tamedDisappear_         = getNumber("General",  "Tamed Disappear", 0, true);
 	houseInTown_            = getNumber("General",  "House In Town", 0, true);
 	shopRestock_            = getNumber("General",  "Shop Restock", 1, true);
 	badNpcsRed_             = getNumber("General",  "Bad Npcs Red", 1, true);
