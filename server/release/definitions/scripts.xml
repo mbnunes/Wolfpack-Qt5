@@ -74,6 +74,7 @@
 	<script>wolfpack.commands.go</script>
 	<script>wolfpack.commands.import</script>
 	<script>wolfpack.commands.info</script>
+	<script>wolfpack.commands.invul</script>
 	<script>wolfpack.commands.where</script>
 	<script>wolfpack.commands.wipe</script>
 	<script>wolfpack.commands.skill</script>
