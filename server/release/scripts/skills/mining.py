@@ -232,6 +232,9 @@ def successmining(char, gem, resname, size):
 
 	if not tobackpack(item, char):
 		item.update()
+		
+	# Resend weight
+	char.socket.resendstatus()
 
 	resourcecount = max( 1, int( gem.gettag('resourcecount') ) )
 	gem.settag('resourcecount', resourcecount - 1)

@@ -82,6 +82,9 @@ def response( char, args, target ):
 
 			if not utilities.tobackpack(wool, char):
 				wool.update()
+				
+			# Resend weight
+			char.socket.resendstatus()
 
 			char.socket.clilocmessage( 0x7A2E4 ) # You place the gathered wool into your backpack.
 

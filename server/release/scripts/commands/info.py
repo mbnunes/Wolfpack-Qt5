@@ -1306,7 +1306,7 @@ def iteminfo_response( player, args, choice ):
 		elif key == 10:
 			item.health = int( hex2dec( textentries[ key ] ) )
 		elif key == 11:
-			item.decay = int( hex2dec( textentries[ key ] ) )
+			item.decay = str2bool( textentries[ key ] )
 		elif key == 12:
 			item.newbie = int( hex2dec( textentries[ key ] ) )
 		elif key == 13:

@@ -9,6 +9,8 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Added bloodcolor for undeads.
 		- Made leather containers dyable.
 		- Fixed categories for curtains.
+		- Defined all teleporters thanks to bugging and work from DrkCodeman.
+		- Added teleporter stairs to ilshenar decoration.
 		- Added index.xml files to armor categories.
 		- Began to add new Samurai armor and weapons (not complete).
 	* Python Script Changes:
@@ -33,6 +35,10 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Carving now takes bloodcolor into account.
 		- Import now imports multis from WSC files and makes all items non movable.
 		- Fixed bug #0000311. (Hiding and invisibility in combat)
+		- Static tile color now included in .info.
+		- Allowed decorating only one facet using .decoration <map>.
+		- The character info page now logs every changed property.
+		- The characters weight is now being resent on lumberjacking and other skills.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
@@ -40,11 +46,7 @@ Wolfpack 12.9.12 Beta (CVS)
 			We welcome donated OSI-like spawn scripts!
 		- Town/World regions are incomplete.
 			We welcome donated OSI-like region scripts!
-		- Teleport Scripts are incomplete.
-			We welcome donated OSI-like teleport scripts!
 		- Possible that a few monsters are missing and/or incomplete.
-		- Reloading Python too many times can crash the server.
-		- There are still some memory leaks.
 		- Multis (Houses/Boats) are not currently supported.
 
 Wolfpack 12.9.11 Beta (26. September 2004)

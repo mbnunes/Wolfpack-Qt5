@@ -163,6 +163,9 @@ def hack_kindling( char, pos ):
 	item = wolfpack.additem( "de1" )
 	if not wolfpack.utilities.tobackpack( item, char ):
 		item.update()
+		
+	# Resend weight
+	char.socket.resendstatus()		
 
 	# Let him hack
 	char.action( 0x9 )
@@ -234,6 +237,9 @@ def successlumberjacking( char, args ):
 		resourceitem.settag( 'resname', resname ) # Used when crafting
 		if not wolfpack.utilities.tobackpack( resourceitem, char ):
 			resourceitem.update()
+			
+		# Resend weight
+		char.socket.resendstatus()
 
 		if resource.gettag( 'resourcecount' ) >= 1:
 			resource.settag( 'resourcecount', int( amount - 1 ) )
