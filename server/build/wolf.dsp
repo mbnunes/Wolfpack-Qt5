@@ -187,6 +187,10 @@ SOURCE=.\globals.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\guilds.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\gumps.cpp
 # End Source File
 # Begin Source File
@@ -455,6 +459,10 @@ SOURCE=.\factory.h
 # Begin Source File
 
 SOURCE=.\globals.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\guilds.h
 # End Source File
 # Begin Source File
 

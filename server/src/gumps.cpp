@@ -454,10 +454,11 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 			}
 			else if( mChar )
 			{
+				UI08 map = mChar->pos().map;
 				mChar->removeFromView( false );
 				mChar->moveTo( pChar->pos() );
-				mChar->resend( true );
-				socket->resendPlayer();
+				mChar->resend( false, true );
+				socket->resendPlayer( map == pChar->pos().map );
 				socket->resendWorld();
 			}
 			break;
@@ -469,11 +470,12 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 			}
 			else if( mChar )
 			{
+				UI08 map = pChar->pos().map;
 				pChar->removeFromView( false );
 				pChar->moveTo( mChar->pos() );
-				pChar->resend( true );
-				socket_->resendPlayer();
-				socket_->resendWorld();
+				pChar->resend( false, true );
+				socket->resendPlayer( map == pChar->pos().map );
+				socket->resendWorld();
 			}
 			break;
 		case 3:
