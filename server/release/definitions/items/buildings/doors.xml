@@ -5,6 +5,8 @@
 |   )).-' {{ ;'`   | Revised by:                                |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
+| 22.12.2002 DarkStorm | Finished defining doors                |
+=================================================================
 -->
 <definitions>
 	<!-- Metal Door 1-->
@@ -56,53 +58,53 @@
 		<category>Buildings\Doors\Metal Door 1\Metal Door (W/NW)</category>
 	</item>
 		
-	<!-- Barred Metal Door -->
+	<!-- Barred Metal Door 1 -->
 	<item id="685">
 		<id>0x685</id>
 		<type>12</type>
-		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (S/SW)</category>
+		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (S/SW)</category>
 	</item>
 
 	<item id="687">
 		<id>0x687</id>
 		<type>12</type>
-		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (S/SE)</category>
+		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (S/SE)</category>
 	</item>
 
 	<item id="689">
 		<id>0x689</id>
 		<type>12</type>
-		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (S/NW)</category>
+		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (S/NW)</category>
 	</item>
 
 	<item id="68b">
 		<id>0x68b</id>
 		<type>12</type>
-		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (S/NE)</category>
+		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (S/NE)</category>
 	</item>
 
 	<item id="68d">
 		<id>0x68d</id>
 		<type>12</type>
-		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (W/SE)</category>
+		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (W/SE)</category>
 	</item>
 
 	<item id="68f">
 		<id>0x68f</id>
 		<type>12</type>
-		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (W/NE)</category>
+		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (W/NE)</category>
 	</item>
 
 	<item id="691">
 		<id>0x691</id>
 		<type>12</type>
-		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (W/SW)</category>
+		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (W/SW)</category>
 	</item>
 
 	<item id="693">
 		<id>0x693</id>
 		<type>12</type>
-		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (W/NW)</category>
+		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (W/NW)</category>
 	</item>
 
 	<!-- Rattan Door -->
@@ -409,4 +411,226 @@
 		<id>0x6f6</id>
 		<category>Buildings\Doors\Portcullis (W/E)</category>
 	</item>
+
+	<!-- Light Wooden Gate -->
+	<item id="839">
+		<id>0x0839</id>
+		<type>12</type>
+		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (S/SW)</category>
+	</item>
+
+	<item id="83b">
+		<id>0x083b</id>
+		<type>12</type>
+		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (S/SE)</category>
+	</item>
+
+	<item id="83d">
+		<type>12</type>
+		<id>0x083d</id>
+		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (S/NW)</category>
+	</item>
+
+	<item id="83f">
+		<type>12</type>
+		<id>0x083f</id>
+		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (S/NE)</category>
+	</item>
+
+	<item id="841">
+		<type>12</type>
+		<id>0x0841</id>
+		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (W/SW)</category>
+	</item>
+
+	<item id="843">
+		<type>12</type>
+		<id>0x0843</id>
+		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (W/NW)</category>
+	</item>
+
+	<item id="845">
+		<type>12</type>
+		<id>0x0845</id>
+		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (W/SE)</category>
+	</item>
+
+	<item id="847">
+		<id>0x0847</id>
+		<type>12</type>
+		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (W/NE)</category>
+	</item>
+
+	<!-- Dark Wooden Gate -->
+	<item id="866">
+		<id>0x0866</id>
+		<type>12</type>
+		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (S/SW)</category>
+	</item>
+
+	<item id="868">
+		<id>0x0868</id>
+		<type>12</type>
+		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (S/SE)</category>
+	</item>
+
+	<item id="86a">
+		<id>0x086a</id>
+		<type>12</type>
+		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (S/NW)</category>
+	</item>
+
+	<item id="86c">
+		<id>0x086c</id>
+		<type>12</type>
+		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (S/NE)</category>
+	</item>
+
+	<item id="86e">
+		<id>0x086e</id>
+		<type>12</type>
+		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (W/SW)</category>
+	</item>
+
+	<item id="870">
+		<id>0x0870</id>
+		<type>12</type>
+		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (W/NW)</category>
+	</item>
+
+	<item id="872">
+		<id>0x0872</id>
+		<type>12</type>
+		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (W/SE)</category>
+	</item>
+
+	<item id="874">
+		<id>0x0874</id>
+		<type>12</type>
+		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (W/NE)</category>
+	</item>
+
+	<!-- Iron Gate 1 -->
+	<item id="824">
+		<id>0x0824</id>
+		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (S/SW)</category>
+	</item>
+
+	<item id="826">
+		<id>0x0826</id>
+		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (S/SE)</category>
+	</item>
+
+	<item id="828">
+		<id>0x0828</id>
+		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (S/NW)</category>
+	</item>
+
+	<item id="82a">
+		<id>0x082a</id>
+		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (S/NE)</category>
+	</item>
+
+	<item id="82c">
+		<id>0x082c</id>
+		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (W/SE)</category>
+	</item>
+
+	<item id="82e">
+		<id>0x082e</id>
+		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (W/NE)</category>
+	</item>
+
+	<item id="830">
+		<id>0x0830</id>
+		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (W/SW)</category>
+	</item>
+
+	<item id="832">
+		<id>0x0832</id>
+		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (W/NW)</category>
+	</item>
+
+	<!-- Iron Gate 2 -->
+	<item id="84c">
+		<id>0x084c</id>
+		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (S/SW)</category>
+	</item>
+
+	<item id="84e">
+		<id>0x084e</id>
+		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (S/SE)</category>
+	</item>
+
+	<item id="850">
+		<id>0x0850</id>
+		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (S/NW)</category>
+	</item>
+
+	<item id="852">
+		<id>0x0852</id>
+		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (S/NE)</category>
+	</item>
+
+	<item id="854">
+		<id>0x0854</id>
+		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (W/SE)</category>
+	</item>
+
+	<item id="856">
+		<id>0x0856</id>
+		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (W/NE)</category>
+	</item>
+
+	<item id="858">
+		<id>0x0858</id>
+		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (W/SW)</category>
+	</item>
+
+	<item id="85a">
+		<id>0x085a</id>
+		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (W/NW)</category>
+	</item>
+
+	<!-- Barred Metal Door 2 -->
+	<item id="1fed">
+		<id>0x1fed</id>
+		<category>Buildings\Doors\Barred Metal Door 2 (S/SW)</category>
+	</item>
+
+	<item id="1fef">
+		<id>0x1fef</id>
+		<category>Buildings\Doors\Barred Metal Door 2 (S/SE)</category>
+	</item>
+
+	<item id="1ff1">
+		<id>0x1ff1</id>
+		<category>Buildings\Doors\Barred Metal Door 2 (S/NW)</category>
+	</item>
+
+	<item id="1ff3">
+		<id>0x1ff3</id>
+		<category>Buildings\Doors\Barred Metal Door 2 (S/NE)</category>
+	</item>
+
+	<item id="1ff5">
+		<id>0x1ff5</id>
+		<category>Buildings\Doors\Barred Metal Door 2 (W/SE)</category>
+	</item>
+
+	<item id="1ff7">
+		<id>0x1ff7</id>
+		<category>Buildings\Doors\Barred Metal Door 2 (W/NE)</category>
+	</item>
+
+	<item id="1ff9">
+		<id>0x1ff9</id>
+		<category>Buildings\Doors\Barred Metal Door 2 (W/SW)</category>
+	</item>
+
+	<item id="1ffb">
+		<id>0x1ffb</id>
+		<category>Buildings\Doors\Barred Metal Door 2 (W/NW)</category>
+	</item>
+
 </definitions>
