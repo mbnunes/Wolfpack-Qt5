@@ -98,21 +98,21 @@ class Spell:
 
 		# Change this to 0 for AoS behaviour
 		self.castrecovery = 1 * circle
-		
+
 	#
 	# Show the cast action
 	#
 	def docastaction(self, char, mode):
 		if char.bodytype == BODY_HUMAN and not char.itemonlayer( LAYER_MOUNT ):
-			char.action(self.castaction)		
-		
+			char.action(self.castaction)
+
 	#
 	# Say the mantra
 	#
 	def saymantra(self, char, mode):
 		if char.npc and char.bodytype != BODY_HUMAN:
 			return
-		
+
 		if self.mantra and mode in [MODE_BOOK, MODE_SCROLL]:
 			char.say(self.mantra)
 
@@ -194,7 +194,7 @@ class Spell:
 			target = target.serial
 		elif target and type(target).__name__ == 'wpchar':
 			target = target.serial
-			
+
 		char.addtimer(self.calcdelay(char, mode), 'magic.spell.callback', [self, mode, args, target, item], 0, 0, "cast_delay")
 		return 1
 
@@ -204,7 +204,7 @@ class Spell:
 	def scalemana(self, char, mode, mana):
 		if mode == MODE_SCROLL:
 			mana = (mana + 1) / 2
-		
+
 		percent = properties.fromchar(char, LOWERMANACOST) / 100.0
 		return max(0, mana - int(percent * float(mana)))
 
@@ -326,7 +326,7 @@ class Spell:
 		if not self.checkrequirements(char, mode, args, target, item):
 			fizzle(char)
 			return 0
-			
+
 		# Check Skill
 		if self.skill != None:
 			if mode == MODE_BOOK:
@@ -351,8 +351,8 @@ class Spell:
 			# Consume Reagents
 			if not char.npc and len(self.reagents) > 0:
 				lowerreagentcost = properties.fromchar(char, LOWERREAGENTCOST)
-				
-				if lowerreagentcost == 0 or lowerreagentcost > random.randint(0, 99):								
+
+				if lowerreagentcost == 0 or lowerreagentcost > random.randint(0, 99):
 					consumeReagents(char.getbackpack(), self.reagents.copy())
 
 		# Reduced Skill, Reduced Mana, No Reagents
@@ -390,12 +390,12 @@ class Spell:
 	def scaledamage(self, char, target, bonus, dice, sides):
 		damage = rolldice(dice, sides, bonus) * 100.0
 
-		bonus = char.skill[INSCRIPTION] / 100.0	
+		bonus = char.skill[INSCRIPTION] / 100.0
 		bonus += char.intelligence / 10.0
 		bonus += properties.fromchar(char, SPELLDAMAGEBONUS)
 
 		damage *= 1.0 + bonus / 100.0
-		
+
 		char.checkskill(self.damageskill, 0, 1200)
 		damage *= (30 + (9 * char.skill[self.damageskill]) / 100.0) / 100.0
 
@@ -531,7 +531,7 @@ class DelayedDamageSpell(CharEffectSpell):
 		if not self.delay:
 			self.damage(char, target)
 		else:
-			target.addtimer(1000, 'magic.spell.damage_callback', [ self.spellid, char.serial ], 0, 0)
+			target.addtimer(self.delay, 'magic.spell.damage_callback', [ self.spellid, char.serial ], 0, 0)
 
 #
 # Callback for delayed damage spells
