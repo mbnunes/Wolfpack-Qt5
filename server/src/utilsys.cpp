@@ -93,10 +93,9 @@ bool makeDirectory(string sDirectory)
 	
 	if(!isDirectory(sDirectory))
 	{
-		// Define our mode variable
 		mode_t mMode = 0777 ;
-	
-		if ((siCode = _mkdir(sDirectory.c_str(), mMode))==0)
+		siCode = _mkdir(sDirectory.c_str(), mode);
+        if (siCode == 0)
 		{	// we made it
 			bStatus = true ;
 		}

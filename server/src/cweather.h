@@ -41,7 +41,8 @@ class cWeather : public Thread
 public:
 	cWeather()
 	{
-		for(int x=0;x<256;x++);
+                int x;
+                for(x=0;x<256;x++);
 		{
 			Type[x]=0;
 			RainChance[x]=0;

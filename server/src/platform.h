@@ -68,10 +68,11 @@ enum enByteOrder{ littleEndian, bigEndian };
 #define max(x,y) _MAX(x,y)
 #endif
 */
+#endif
 #if !defined(vsnprintf)
 #define vsnprintf _vsnprintf
 #endif
-#endif
+
 #define PACK
 #define OBSOLETETIME
 
@@ -81,11 +82,18 @@ enum enByteOrder{ littleEndian, bigEndian };
 /// GCC
 #if defined(__GNUG__)
 
+#if defined(WIN32) // mingw needs these
+#define OBSOLETETIME
+#if !defined(vsnprintf)
+#define vsnprintf _vsnprintf
+#endif
+#endif
+
 #define PACK __attribute__((packed))
-#if __GNUC__ > 2 
+#if __GNUC__ > 2 && !defined(WIN32) 
 #undef OBSOLETESTREAM
 #else
-#ifdef __GNUC_MINOR__ < 95
+#if __GNUC_MINOR__ < 95
 #define in_addr_t UI32
 #endif
 #define OLDGCC

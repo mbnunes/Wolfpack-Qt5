@@ -58,12 +58,11 @@
 #elif defined(WIN32)
 #include <direct.h>
 #include <io.h>
-#if defined(_MSC_VER)
+//#if defined(_MSC_VER)
 #define S_ISDIR(m) m&_S_IFDIR
-
 #define _mkdir(a,b) _mkdir(a)
 #define mode_t int
-#endif
+//#endif
 #if defined(__borland__)
 #define _mkdir(a,b) _mkdir(a)
 #define mode_t int

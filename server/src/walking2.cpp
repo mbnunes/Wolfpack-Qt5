@@ -646,7 +646,7 @@ bool cMovement::CanBirdWalk(unitile_st xyb)
 
 // if we have a valid socket, see if we need to deny the movement request because of
 // something to do with the walk sequence being out of sync.
-bool cMovement::VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence)
+bool cMovement::VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence) throw()
 {
     if (socket != INVALID_UOXSOCKET)
     {

@@ -144,7 +144,7 @@ void cWeather::CTimer()
 	}
 }
 
-void cWeather::run()
+void cWeather::run() throw()
 { 
 	while ( keeprun )
 	{
@@ -160,7 +160,7 @@ void cWeather::run()
 	}
 }
 
-void cWeather::kill()
+void cWeather::kill() throw()
 {
 	keeprun = false;
 	Thread::kill();

@@ -1,4 +1,6 @@
+INCLUDEPATH = ZThread/include
 win32-msvc:DEFINES  = WIN32 NDEBUG _CONSOLE _MBCS
+win32-g++:DEFINES = WIN32
 unix:DEFINES   =
 unix:TMAKE_CXXFLAGS = -funsigned-char
 win32-g++:TMAKE_CXXFLAGS = -funsigned-char
@@ -56,7 +58,8 @@ HEADERS		= CharWrap.h \
 		  oem.h \
 		  platform.h \
 		  prototypes.h \
-		  rcvpkg.h \
+                  races.h \
+                  rcvpkg.h \
 		  regions.h \
 		  remadmin.h \
 		  resource.h \
@@ -133,7 +136,8 @@ SOURCES		= CharWrap.cpp \
 		  p_ai.cpp \
 		  pointer.cpp \
 		  qsf.cpp \
-		  rcvpkg.cpp \
+                  races.cpp \
+                  rcvpkg.cpp \
 		  regions.cpp \
 		  remadmin.cpp \
 		  scriptc.cpp \
