@@ -92,7 +92,7 @@ cBaseChar::cBaseChar()
 	flag_				= 0x02;
 	emoteColor_			= 0x23;
 	creationDate_		= QDateTime::currentDateTime();
-	stealthedSteps_		= -1;
+	stealthedSteps_		= 0;
 	runningSteps_		= 0;
 	murdererTime_		= 0;
 	criminalTime_		= 0;
@@ -777,12 +777,12 @@ void cBaseChar::wear( P_ITEM pi )
 
 void cBaseChar::unhide()
 {
-	//if hidden but not permanently
-	if( isHidden() && !isInvisible() )
-	{
-		setStealthedSteps( -1 );
-		setHidden( false );
+	setStealthedSteps(0);
+
+	if (isHidden() && !isInvisible()) {		
+		setHidden(false);
 		resend(false); // They cant see us anyway
+		sysmessage(500814);
 	}
 }
 

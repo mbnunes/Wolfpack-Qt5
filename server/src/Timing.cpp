@@ -45,6 +45,7 @@
 #include "skills.h"
 #include "typedefs.h"
 #include "itemid.h"
+#include "items.h"
 #include "basechar.h"
 #include "npc.h"
 #include "player.h"
@@ -88,6 +89,25 @@ void cTiming::poll() {
 	if (nextSpawnRegionCheck <= time) {
 		SpawnRegions::instance()->check();
 		nextSpawnRegionCheck = time + SrvParams->spawnRegionCheckTime() * MY_CLOCKS_PER_SEC;
+	}
+	
+	// Check for decay items
+	if (nextItemCheck <= time) {
+		QPtrList<cItem> toRemove;
+
+		cItemIterator iter;
+		cItem *item;
+		for (item = iter.first(); item; item = iter.next()) {
+			if (item->isInWorld() && item->decaytime() <= time && !item->multi()) {
+				toRemove.append(item);
+			}
+		}
+
+		for (item = toRemove.first(); item; item = toRemove.next()) {
+			item->remove();
+		}
+
+		nextItemCheck = time + SrvParams->checkItemTime() * MY_CLOCKS_PER_SEC;
 	}
 
 	// Check for an automated worldsave

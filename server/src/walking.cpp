@@ -582,17 +582,6 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 {
 	signed short tempshort;
 	
-	// Running automatically stops stealthing
-	if( pChar->stealthedSteps() != -1 ) 
-	{
-		// Simply update the statistics for us
-        bool update = pChar->isHidden();
-
-		pChar->setStealthedSteps(-1);
-		pChar->setHidden(false);
-		pChar->resend(false);
-	}
-
 	// Don't regenerate stamina while running
 	pChar->setRegenStaminaTime(uiCurrentTime + floor(pChar->getStaminaRate() * 1000));
 	pChar->setRunningSteps(pChar->runningSteps() + 1);
@@ -611,24 +600,12 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 
 void cMovement::checkStealth( P_CHAR pChar )
 {
-	if( pChar->isHidden() && !pChar->isInvisible() )
-	{
-		if( pChar->stealthedSteps() != -1 )
-		{
-			pChar->setStealthedSteps( pChar->stealthedSteps() + 1 );
-			if( pChar->stealthedSteps() > ( ( SrvParams->maxStealthSteps() * pChar->skillValue( STEALTH ) ) / 1000 ) )
-			{
-				pChar->setStealthedSteps(-1);
-				pChar->setHidden(false);
-				pChar->resend(false);
-				pChar->sysmessage( tr( "You have been revealed." ) );
-			}
-		}
-		else
-		{
-			pChar->setHidden(false);
-			pChar->resend(false);
-			pChar->sysmessage( tr( "You have been revealed." ) );
+	if (pChar->isHidden() && !pChar->isInvisible()) {
+		// We have not enough steps left
+		if (pChar->stealthedSteps() <= 0) {
+			pChar->unhide();
+		} else {
+			pChar->setStealthedSteps(pChar->stealthedSteps() - 1);
 		}
 	}
 }
