@@ -247,7 +247,7 @@ def addtree(socket, command, arguments):
 		if item == 'random':
 			randomtrees = [ randint(0,2), randint(0,12), randint(2,12), randint(0,20), randint(13,15), randint(16,20) ]
 			item = treeindex[ randomtrees[ randint( 0, 5 ) ] ]
-			if trees[ item ]:
+			if item in trees:
 				if wolfpack.getdefinition( WPDT_ITEM, trees[item][TREE] ) and wolfpack.getdefinition( WPDT_ITEM, trees[item][LEAVES] ):
 					socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES ]) )
 					socket.attachtarget( 'commands.addtree.createtree', [ item ] )
@@ -256,11 +256,11 @@ def addtree(socket, command, arguments):
 			socket.sysmessage( "Where do you want to place the yew tree?" )
 			socket.attachitemtarget( 'commands.addtree.createyewtree', yewindex, 0, 0, 0, [] )
 			return
-		elif trees[item] and ( item not in jungletreeindex ):
+		elif item in trees and not item in jungletreeindex:
 			if wolfpack.getdefinition( WPDT_ITEM, trees[item][TREE] ) and wolfpack.getdefinition( WPDT_ITEM, trees[item][LEAVES] ):
 				socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES]) )
 				socket.attachtarget( 'commands.addtree.createtree', [ item ] )
-		elif item in jungletreeindex and jungleindex[item]:
+		elif item in jungletreeindex and item in jungleindex:
 			socket.sysmessage( "Where do you want to place the jungle tree [%s]?" %( item ) )
 			socket.attachtarget(  'commands.addtree.createjungletree', [ item ] )
 			return
