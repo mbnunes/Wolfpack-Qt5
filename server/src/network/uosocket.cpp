@@ -1090,47 +1090,14 @@ void cUOSocket::handleCustomHouseRequest( cUORxCustomHouseRequest *packet )
 	pMulti->sendCH( this );
 }
 
-void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )
+void cUOSocket::handleToolTip(cUORxRequestToolTip *packet)
 {
-	P_CHAR pChar;
-	P_ITEM pItem;
-	cUOTxTooltipList tooltips;
-	bool result;
+	cUOTxTooltipList tooltip;
+	cUObject *object = World::instance()->findObject(packet->serial());
 	
-	pItem = FindItemBySerial( packet->serial() );
-	if( pItem )
-	{
-		tooltips.setSerial(pItem->serial());
-		tooltips.setId(pItem->getTooltip());
-
-		if(!pItem->onShowTooltip(this->player(),&tooltips)) // just for test if object haven't tooltip
-		{
-			if( pItem->name().isNull() || pItem->name().isEmpty() )
-			{
-				if( pItem->amount() > 1 )
-					tooltips.addLine( 0x1005bd, " \t#" + QString::number( 0xF9060 + pItem->id() ) + "\t: " + QString::number( pItem->amount() ) );
-				else
-					tooltips.addLine( 0xF9060 + pItem->id(), "" );
-			}
-			else
-				tooltips.addLine( 0x1005bd, " \t" + pItem->name() + "\t " );
-
-			this->send( &tooltips );
-		}
-	}
-	else
-	{
-		pChar = FindCharBySerial( packet->serial() );
-		if( !pChar ) 
-			return;
-
-		tooltips.setSerial( pChar->serial() );
-		tooltips.setId( pChar->getTooltip() );
-		if( !pChar->onShowTooltip( this->player(), &tooltips ) )
-		{
-			tooltips.addLine( 0x1005bd, " \t" + pChar->name() + "\t " );
-			this->send( &tooltips );
-		}
+	if (object && player()) {
+		object->createTooltip(tooltip, player());
+		send(&tooltip);
 	}
 }
 

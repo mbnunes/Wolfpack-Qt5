@@ -107,6 +107,7 @@ public:
 	virtual void log( eLogLevel, const QString &string ) = 0;
 	virtual void log( const QString &string ) = 0;
 	unsigned int damage( eDamageType type, unsigned int amount, cUObject *source = 0 );
+	void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
 	
 	// other public methods
 	// Simple Property setting and getting for script engines.

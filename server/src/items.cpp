@@ -2364,3 +2364,19 @@ P_ITEM cItem::createFromId( unsigned short id )
 
 	return pItem;
 }
+
+void cItem::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
+	cUObject::createTooltip(tooltip, player);
+
+	if (!onShowTooltip(player, &tooltip)) {
+		if (name_.isNull() || name_.isEmpty()) {
+			if (amount_ > 1) {
+				tooltip.addLine(0x1005bd, " \t#" + QString::number( 0xF9060 + id_ ) + "\t: " + QString::number(amount_));
+			} else {
+				tooltip.addLine(0xF9060 + id_, "");
+			}
+		}
+		else
+			tooltip.addLine( 0x1005bd, " \t" + name_ + "\t " );
+	}
+}

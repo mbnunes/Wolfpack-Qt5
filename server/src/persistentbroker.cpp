@@ -32,6 +32,7 @@
 #include "persistentbroker.h"
 #include "persistentobject.h"
 
+#include "exceptions.h"
 #include "dbdriver.h"
 #include "console.h"
 #include "globals.h"
@@ -88,7 +89,7 @@ bool PersistentBroker::openDriver( const QString& driver )
 		d->connection = new cMySQLDriver;
 		d->sqlite = false;
 #else
-		throw QString( "Sorry, you have to define MYSQL_DRIVER to make wolfpack work with MySQL.\n" );
+		throw wpException( "Sorry, you have to define MYSQL_DRIVER to make wolfpack work with MySQL.\n" );
 #endif
 	}
 

@@ -245,6 +245,7 @@ public:
 	P_ITEM getOutmostItem();
 	P_CHAR getOutmostChar();
 
+	void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
 	virtual stError *setProperty( const QString &name, const cVariant &value );
 	virtual stError *getProperty( const QString &name, cVariant &value ) const;
 

@@ -55,6 +55,7 @@ class cPythonScript;
 class cUOSocket;
 class QSqlQuery;
 class cItem;
+class cUOTxTooltipList;
 
 struct stError;
 
@@ -133,6 +134,7 @@ public:
 
 	// Events
 	virtual bool onCreate( const QString &definition );
+	virtual void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
 	
 	bool free;
 

@@ -749,7 +749,14 @@ void cUObject::resendTooltip() {
 			}
 		}
 	} else {
-		// TODO: Tooltip implementation sucks... redo...
+		cUOTxTooltipList tooltip;		
+
+		for (cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next()) {
+			if (s->player() && s->player()->inRange(this, s->player()->visualRange())) {
+				createTooltip(tooltip, s->player());
+				s->send(&tooltip);
+			}
+		}
 	}
 }
 
@@ -776,4 +783,10 @@ bool cUObject::onCreate( const QString &definition )
 	}
 
 	return result;
+}
+
+void cUObject::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
+	tooltip.resize(19); // Resize to the original size
+	tooltip.setSerial(serial_);
+	tooltip.setId(tooltip_);
 }
