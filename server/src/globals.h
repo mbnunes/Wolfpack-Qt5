@@ -113,13 +113,6 @@ extern unsigned long initialserversec;
 extern unsigned long initialservermill ;
 
 
-/////////////////////////////////////////////
-///             MAXCLIENT arrays          ///
-/////////////////////////////////////////////
-// maximum too cause maxclient = maximum +1
-
-extern P_CHAR currchar[MAXCLIENT];
-
 
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial

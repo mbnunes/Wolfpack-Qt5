@@ -49,6 +49,7 @@
 #include "wpdefmanager.h"
 #include "network/uosocket.h"
 #include "skills.h"
+#include "mapobjects.h"
 
 #include <algorithm>
 #include <typeinfo>
@@ -56,6 +57,109 @@
 
 #undef  DBGFILE
 #define DBGFILE "tmpeff.cpp"
+
+
+void explodeitem(cUOSocket* s, P_ITEM pi)
+{
+	unsigned int dmg=0,len=0;
+	unsigned int dx,dy,dz;
+	signed short tempshort;
+//	int cc=currchar[s];
+
+	if (pi == NULL)
+		return;
+	P_CHAR pc_currchar = s->player();
+
+	// - send the effect (visual and sound)
+	if (!pi->isInWorld()) //bugfix LB
+	{
+		pi->moveTo( pc_currchar->pos() );
+		pc_currchar->action( 0x15 );
+		pc_currchar->soundEffect( 0x0207 );
+	}
+	else
+	{
+		pi->effect( 0x36B0, 0x10, 0x80 );
+		pi->soundEffect( 0x207 );
+	}
+
+	len=pi->morex()/250; //4 square max damage at 100 alchemy
+	switch (pi->morez())
+	{
+	case 1:dmg=RandomNum( 5,10) ;break;
+	case 2:dmg=RandomNum(10,20) ;break;
+	case 3:dmg=RandomNum(20,40) ;break;
+	default:
+		clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, explodeitem()\n"); //Morrolan
+		dmg=RandomNum(5,10);
+	}
+
+	if (dmg<5) dmg=RandomNum(5,10);	// 5 points minimum damage
+	if (len<2) len=2;	// 2 square min damage range
+
+	unsigned long loopexit=0;
+	RegionIterator4Chars ri(pi->pos());
+	for (ri.Begin(); !ri.atEnd(); ri++)
+	{
+		P_CHAR pc = ri.GetData();
+		if (pc != NULL)
+		{
+			if (pc->isInvul() || pc->npcaitype()==17)		// don't affect vendors
+				continue;
+			if(pc->isGM() || (pc->isPlayer() && !online(pc)))
+				continue;
+			dx=abs(pc->pos().x-pi->pos().x);
+			dy=abs(pc->pos().y-pi->pos().y);
+			dz=abs(pc->pos().z-pi->pos().z);
+			if ((dx<=len)&&(dy<=len)&&(dz<=len))
+			{
+//				pc->hp-=dmg+(2-QMIN(dx,dy));
+				tempshort = pc->hp();
+				tempshort -= dmg+(2-QMIN(dx,dy));
+				pc->setHp( tempshort );
+				pc->updateHealth();
+				if (pc->hp()<=0)
+				{
+					pc->kill();
+				}
+				else
+				{
+					pc->attackTarget( pc_currchar );
+					pc->resend(false);
+				}
+			}
+		}
+	}
+
+	int chain=0;
+	loopexit=0;
+
+	RegionIterator4Items rj( pi->pos() );
+	for( rj.Begin(); !rj.atEnd(); rj++ )
+	{
+		P_ITEM piMap = rj.GetData();
+		if (piMap != NULL)
+		{
+			if( piMap->id() == 0x0F0D && piMap->type() == 19 ) // check for expl-potions
+			{
+				dx=abs(pi->pos().x - piMap->pos().x);
+				dy=abs(pi->pos().y - piMap->pos().y);
+				dz=abs(pi->pos().z - piMap->pos().z);
+
+				if (dx<=2 && dy<=2 && dz<=2 && chain==0) // only trigger if in 2*2*2 cube
+				{
+					if (!(dx==0 && dy==0 && dz==0))
+					{
+						//chain=1; // maximum: one additional trigerred per check ..
+						if (rand()%2==1) chain=1; // LB - more aggressive - :)
+						tempeffect2(pc_currchar, piMap, 17, 0, 1, 0); // trigger ...
+					}
+				}
+			}
+		}
+	}
+	Items->DeleItem(pi);
+}
 
 
 int cTempEffect::getDest()
@@ -403,11 +507,11 @@ void cTmpEff::Expire()
 	case 16: // Explosion potions
 		// TODO: Let the item itself talk here...
 		if( socket )
-			socket->sysMessage( QString( "%1" ).arg( more3 ) );
+			socket->sysMessage( QString::number( more3 ) );
 		break;
 	case 17: //Explosion potion explosion
 		pc_s = FindCharBySerial( getSour() );
-		explodeitem( calcSocketFromChar( pc_s ), FindItemBySerial( getDest() ) ); //explode this item
+		explodeitem( pc_s->socket(), FindItemBySerial( getDest() ) ); //explode this item
 		break;
 	case 18: //Polymorph spell wearoff
 		if( pc_s->polymorph() )//let's ensure it's under polymorph effect!

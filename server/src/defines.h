@@ -76,8 +76,8 @@ extern long int oldtime, newtime;
 //#endif
 
 #define MAX_GUILDTYPE 2	// Code to support the Chaos/order system
-#define MAXIMUM 128 // Maximum open connections to server
-#define MAXCLIENT MAXIMUM+1
+//#define MAXIMUM 128 // Maximum open connections to server
+//#define MAXCLIENT MAXIMUM+1
 #define MAXSERV 5 // Maximum servers in login listing
 //#define MAXSTART 15 // Maximum starting locations
 

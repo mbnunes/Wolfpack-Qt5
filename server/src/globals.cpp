@@ -157,19 +157,6 @@ WPScriptManager	*ScriptManager;
 WPDefManager    *DefManager;
 PersistentBroker* persistentBroker;
 
-//////////////////// ARRAYS that didnt get initialized above ////////////////////
-
-/////////////////////////////////////////////
-///             MAXCLIENT arrays          ///
-/////////////////////////////////////////////
-// maximum too cause maxclient = maximum +1
-
- P_CHAR currchar[MAXCLIENT];
-
-/////////////////////////////////////////////
-///             hasmax                   ///
-/////////////////////////////////////////////
-
 
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial

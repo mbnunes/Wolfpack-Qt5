@@ -121,7 +121,6 @@ public:
 	void TinkerAwg(int s);
 	void TinkerClock(int s);
 	void Track(P_CHAR pc_i);
-	void DoPotion(int s, int type, int sub, P_ITEM mortar);
 	void CookOnFire(int s, short id1, short id2, char* matname);
 	void BottleTarget(int s);
 	void PotionToBottle(P_CHAR pc, P_ITEM pi_mortar);

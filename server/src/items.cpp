@@ -876,34 +876,6 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 	qWarning("cAllItems::GetScriptItemSettings is empty!");
 }
 
-P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging) // Added by Genesis 11-5-98
-{
-	P_CHAR pc_currchar = currchar[s];
-	P_ITEM backpack = pc_currchar->getBackpack();
-	
-	P_ITEM pi = createScriptItem(nItem);
-	if (pi == NULL || backpack == NULL)
-		return NULL;
-
-	if(nDigging) 
-	{
-		if(pi->hp()!=0) 
-			pi->setHp( 1 + ( rand() % pi->hp() ) );
-		
-		if(pi->maxhp() != 0)
-		{
-			pi->setMaxhp( 1 + ( rand() % pi->maxhp() ) ); 
-			pi->setHp( 1 + ( rand() % pi->maxhp() ) );
-		}
-	}
-
-	GetScriptItemSetting(pi);
-
-	backpack->addItem(pi);
-	pi->update();
-	return pi;
-}
-
 char cAllItems::isFieldSpellItem(P_ITEM pi) //LB
 {
 	int a=0;

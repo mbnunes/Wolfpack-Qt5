@@ -547,7 +547,6 @@ public:
 	char isFieldSpellItem(P_ITEM pi);
 	P_ITEM SpawnItem(P_CHAR pc_ch,int nAmount, const char* cName, bool pileable, short id, short color, bool bPack);
 	P_ITEM SpawnItemBank(P_CHAR pc_ch, QString nItem);
-	P_ITEM  SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging);
 	void DecayItem(uint currenttime, P_ITEM pi);
 	void RespawnItem(uint Currenttime, P_ITEM pi);
 	void AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem);

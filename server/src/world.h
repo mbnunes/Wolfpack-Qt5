@@ -29,25 +29,12 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-/*
-	Definition of the cWorld class which acts as a World Loader and Saver
-	and keeps track of Items which should be deleted from the World 
-	(for persistance) and on top of that keeps the registers for Serial->Object
-	mapping.
-*/
-
 #if !defined( __WORLD_H__ )
 #define __WORLD_H__
-
-// Library Includes
-#include "qstring.h"
 
 // Wolfpack Includes
 #include "typedefs.h"
 #include "singleton.h"
-
-inline bool isItemSerial( SERIAL serial ) { return ( serial > 0x40000000 ) && ( serial < 0xFFFFFFFF ); };
-inline bool isCharSerial( SERIAL serial ) { return ( serial > 0x00000000 ) && ( serial < 0x40000000 ); };
 
 class cCharIterator
 {
@@ -130,6 +117,9 @@ typedef SingletonHolder< cWorld > World;
 
 #define FindCharBySerial( serial ) World::instance()->findChar( serial )
 #define FindItemBySerial( serial ) World::instance()->findItem( serial )
+inline bool isItemSerial( SERIAL serial ) { return ( serial > 0x40000000 ) && ( serial < 0xFFFFFFFF ); };
+inline bool isCharSerial( SERIAL serial ) { return ( serial > 0x00000000 ) && ( serial < 0x40000000 ); };
+
 
 #endif
 

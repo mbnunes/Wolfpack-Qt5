@@ -52,7 +52,6 @@ extern void init_creatures(void);
 void dbl_click_item(cUOSocket* socket, SERIAL target_serial);
 void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey );
 void savelog(const char *msg, char *logfile);
-void explodeitem(int s, P_ITEM pi);
 void Karma(P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma);
 void Fame(P_CHAR pc_toChange, int nFame);
 

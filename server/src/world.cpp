@@ -109,7 +109,7 @@ public:
 
   cWorld is responsible for maintaining all Ultima Online objects, retrievable
   by their serial number. It also provides loading and saving services to those
-  objects. cWorld is a Singleton, accessible thru World::instance().
+  objects. cWorld is a Singleton, accessible thru the symbol World::instance().
 */
 
 /*!
@@ -300,7 +300,10 @@ void cWorld::saveSql()
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_ERROR, "Unhandled Exception" );
+		clConsole.ChangeColor( WPC_RED );
+		clConsole.send( "\nERROR" );
+		clConsole.ChangeColor( WPC_NORMAL );
+		clConsole.send( ": Unhandled Exception\n" );
 	}
 
 	p->purgePendingObjects();

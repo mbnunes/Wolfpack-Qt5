@@ -224,77 +224,12 @@ P_ITEM cSkills::GetInstrument(cUOSocket* socket)
 	return 0;
 }
 
-//////////////////////////////
-// name:	DoOnePotion
-// history: Duke,20.04.2000
-// Purpose:	helper function for DoPotion
-//			checks if player has enough regs for selected potion and deletes them
-//
-static bool DoOnePotion(int s,short regid, int regamount, char* regname)
-{
-	bool success=false;
-
-	if (getamount(currchar[s], regid) >= regamount)
-	{
-		success=true;
-		currchar[s]->emote( tr("*%s starts grinding some %s in the mortar.*").arg(currchar[s]->name()).arg(regname) ); // LB, the 1 stops stupid alchemy spam
-		delequan(currchar[s],regid,regamount);
-	}
-//	else
-//		sysmessage(s, tr("You do not have enough reagents for that potion."));
-	
-	return success;
-}
-
 ///////////////////////////
 // name:	DoPotion
 // history: unknown, revamped by Duke,21.04.2000
 // Purpose:	determines regs and quantity, creates working sound and
 //			indirectly calls CreatePotion on success
 //
-void cSkills::DoPotion(int s, int type, int sub, P_ITEM mortar)
-{
-	if (sub == 0)	// user cancelled second alchemy menu 
-		return;
-	bool success=false;
-	
-	switch((type*10)+sub)
-	{
-	case 11: success=DoOnePotion(s,0x0F7B, 1,"blood moss");		break;//agility
-	case 12: success=DoOnePotion(s,0x0F7B, 3,"blood moss");		break;//greater agility
-	case 21: success=DoOnePotion(s,0x0F84, 1,"garlic");			break;//lesser cure
-	case 22: success=DoOnePotion(s,0x0F84, 3,"garlic");			break;//cure
-	case 23: success=DoOnePotion(s,0x0F84, 6,"garlic");			break;//greater cure
-	case 31: success=DoOnePotion(s,0x0F8C, 3,"sulfurous ash");	break;//lesser explosion
-	case 32: success=DoOnePotion(s,0x0F8C, 5,"sulfurous ash");	break;//explosion
-	case 33: success=DoOnePotion(s,0x0F8C,10,"sulfurous ash");	break;//greater explosion
-	case 41: success=DoOnePotion(s,0x0F85, 1,"ginseng");		break;//lesser heal
-	case 42: success=DoOnePotion(s,0x0F85, 3,"ginseng");		break;//heal
-	case 43: success=DoOnePotion(s,0x0F85, 7,"ginseng");		break;//greater heal
-	case 51: success=DoOnePotion(s,0x0F8D, 1,"spider's silk");	break;//night sight
-	case 61: success=DoOnePotion(s,0x0F88, 1,"nightshade");		break;//lesser poison
-	case 62: success=DoOnePotion(s,0x0F88, 2,"nightshade");		break;//poison
-	case 63: success=DoOnePotion(s,0x0F88, 4,"nightshade");		break;//greater poison
-	case 64: success=DoOnePotion(s,0x0F88, 8,"nightshade");		break;//deadly poison
-	case 71: success=DoOnePotion(s,0x0F7A, 1,"black pearl");	break;//refresh
-	case 72: success=DoOnePotion(s,0x0F7A, 5,"black pearl");	break;//total refreshment
-	case 81: success=DoOnePotion(s,0x0F86, 2,"mandrake");		break;//strength
-	case 82: success=DoOnePotion(s,0x0F86, 5,"mandrake");		break;//greater strength
-	default:
-		LogErrorVar("switch reached default for <%i>",(type*10)+sub);
-		return;
-	}
-	if (success)
-	{
-		P_CHAR pc_currchar = currchar[s];
-		tempeffect(pc_currchar, pc_currchar, 9, 0, 0, 0);	// make grinding sound for a while
-		tempeffect(pc_currchar, pc_currchar, 9, 0, 3, 0);
-		tempeffect(pc_currchar, pc_currchar, 9, 0, 6, 0);
-		tempeffect(pc_currchar, pc_currchar, 9, 0, 9, 0);
-		tempeffect2(pc_currchar, mortar, 10, type, sub, 0);	// this will indirectly call CreatePotion()
-	}
-}
-
 ///////////////////////////
 // name:	CreatePotion
 // history: unknown, revamped by Duke,21.04.2000
@@ -774,24 +709,6 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		}
 		
 	} 
-}
-
-// Redone by LB on dec 28'th 1999
-// Thx goes to Ripper for the design 
-///////////////////////
-// name:	CheckThreeSkills
-// history:	by Duke, 8 April 2000
-// Purpose:	little helper function for TellScroll()
-//			checks the 3 skills required for engraving and cumulates
-//			the returnvalues i.e. only a part==3 means success!
-//
-static int CheckThreeSkills(int s, int low, int high)
-{
-	int part=0;
-	part += currchar[s]->checkSkill( INSCRIPTION,  low, high);
-	part += currchar[s]->checkSkill( MAGERY,		low, high);
-	part += currchar[s]->checkSkill( TINKERING,	low, high);
-	return part;
 }
 
 ///////////////////////

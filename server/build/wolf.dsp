@@ -67,7 +67,7 @@ LINK32=xilink6.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /Gm /GR /GX /Zi /Od /I "lib/Python/PC" /I "lib/Python/include" /I "lib\bugreport" /I "lib\ZThread\include" /I "$(QTDIR)\include" /I "c:\mysql\include" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /D "PY_NOSOCKETS" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /D "WP_DONT_USE_HASH_MAP" /FR /FD /GZ /c
+# ADD CPP /nologo /MDd /Gm /GR /GX /ZI /Od /I "lib/Python/PC" /I "lib/Python/include" /I "lib\bugreport" /I "lib\ZThread\include" /I "$(QTDIR)\include" /I "c:\mysql\include" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /D "PY_NOSOCKETS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /D "WP_DONT_USE_HASH_MAP" /FR /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -574,6 +574,35 @@ SOURCE=.\coord.h
 # Begin Source File
 
 SOURCE=.\corpse.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing corpse.h...
+InputDir=.
+InputPath=.\corpse.h
+InputName=corpse
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing corpse.h...
+InputDir=.
+InputPath=.\corpse.h
+InputName=corpse
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -660,6 +689,35 @@ InputName=gumps
 # Begin Source File
 
 SOURCE=.\house.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing house.h...
+InputDir=.
+InputPath=.\house.h
+InputName=house
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing house.h...
+InputDir=.
+InputPath=.\house.h
+InputName=house
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -1453,7 +1511,15 @@ SOURCE=.\moc_commands.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\moc_corpse.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\moc_gumps.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_house.cpp
 # End Source File
 # Begin Source File
 
