@@ -106,7 +106,7 @@ def gainskill(char, skill, totalskill, totalcap):
 	lock = char.skilllock[skill]
 	cap = char.skillcap[skill] / 10.0
 	info = SKILLS[skill]
-
+	
 	if lock == 0 and value < cap:
 		# Skills lower than 10.0% will gain 0.1% - 0.5% at once
 		if value < 10.0:
@@ -120,6 +120,17 @@ def gainskill(char, skill, totalskill, totalcap):
 		if totalskill / totalcap >= random():
 			for i in range(0, ALLSKILLS):
 				if i != skill and char.skilllock[i] == 1 and char.skill[i] / 10.0 >= points:
+					# See if there is a bonus for this skill and reducing further would go below the bonus
+					try:
+						if char.hastag('skillbonus_%u' % i):
+							value = int(char.gettag('skillbonus_%u' % i))
+							
+							# Skip this skill if reducing it wouldn't work
+							if char.skill[i] - int(points * 10) < value:
+								continue
+					except:
+						pass
+				
 					char.skill[i] -= int(points * 10)
 					totalskill -= points
 
@@ -211,7 +222,16 @@ def onSkillGain(char, skill, lower, higher, success):
 
 	totalskills = 0.0
 	for i in range(0, ALLSKILLS):
+		# See if there is a modifier for the skill
+		tagname = 'skillbonus_%u' % i
 		totalskills += skills[i] / 10.0
+
+		if char.hastag(tagname):
+			try:
+				value = int(char.gettag(tagname))
+				totalskills -= value / 10.0
+			except:
+				pass
 
 	# Calculate the GainChance
 	# (RunUO has a nice approach. Doing it similar)

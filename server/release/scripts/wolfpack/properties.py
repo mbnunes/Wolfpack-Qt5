@@ -457,7 +457,7 @@ SHIELD_PROPERTIES = {
 	SPELLCHANNELING: [1, 1, 1, False],
 	DEFENSEBONUS: [1, 15, 1, True],
 	HITBONUS: [1, 15, 1, True],
-	CASTSPEEDBONUS: [1, 1, True],
+	CASTSPEEDBONUS: [1, 1, 1, True],
 	LOWERREQS: [10, 100, 10, True],
 	SELFREPAIR: [1, 5, 1, False],
 	DURABILITYBONUS: [10, 100, 10, True],
@@ -499,6 +499,13 @@ def applyShieldRandom(item, props, minintensity, maxintensity, luckchance):
 
 	item.resendtooltip()
 
+# Those are no real properties
+SKILLBONUS1 = 1000
+SKILLBONUS2 = 1001
+SKILLBONUS3 = 1002
+SKILLBONUS4 = 1003
+SKILLBONUS5 = 1004
+
 # List of allowed properties
 JUWEL_PROPERTIES = {
 	# PROPERT KEY, min value, max value, factor, accumulate
@@ -520,20 +527,36 @@ JUWEL_PROPERTIES = {
 	LOWERREAGENTCOST: [1, 20, 1, False],
 	LUCK: [1, 100, 1, False],
 	SPELLDAMAGEBONUS: [1, 12, 1, False],
-	#SKILLBONUS1: [1, 15, 1, False],
-	#SKILLBONUS1: [1, 15, 1, False],
-	#SKILLBONUS1: [1, 15, 1, False],
-	#SKILLBONUS1: [1, 15, 1, False],
-	#SKILLBONUS1: [1, 15, 1, False],
+	SKILLBONUS1: [1, 15, 1, False],
+	SKILLBONUS2: [1, 15, 1, False],
+	SKILLBONUS3: [1, 15, 1, False],
+	SKILLBONUS4: [1, 15, 1, False],
+	SKILLBONUS5: [1, 15, 1, False],
 }
 
 def applyJuwelRandom(item, props, minintensity, maxintensity, luckchance):
 	properties = JUWEL_PROPERTIES.keys()
+	
+	# Possible bonus skills
+	skills = [SWORDSMANSHIP, FENCING, MACEFIGHTING, ARCHERY, WRESTLING, PARRYING, TACTICS, ANATOMY, HEALING, MAGERY, MEDITATION, EVALUATINGINTEL,
+				MAGICRESISTANCE, TAMING, ANIMALLORE, VETERINARY, MUSICIANSHIP, PROVOCATION, ENTICEMENT, PEACEMAKING, CHIVALRY, FOCUS, NECROMANCY,
+				STEALING, STEALTH, SPIRITSPEAK]
 
 	# Select unique properties
 	for i in range(0, props):
 		property = random.choice(properties)
 		properties.remove(property)
+		
+		if property in [SKILLBONUS1, SKILLBONUS2, SKILLBONUS3, SKILLBONUS4, SKILLBONUS5]:
+			# Apply a random skillbonus
+			info = JUWEL_PROPERTIES[property]
+			value = scaleValue(minintensity, maxintensity, info[0], info[1], info[2], luckchance)
+			
+			skill = random.choice(skills)
+			skills.remove(skill)
+			
+			item.settag('skillbonus_%u' % (property - 1000), '%u,%u' % (skill, value * 10))
+			continue
 		
 		if not PROPERTIES.has_key(property):
 			continue

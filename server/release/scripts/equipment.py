@@ -327,6 +327,22 @@ def onShowTooltip(viewer, object, tooltip):
 		req_str = int(ceil(req_str) * (1.0 - lower))
 	if req_str:
 		tooltip.add(1061170, str(req_str))
+		
+	# Skill Boni (1-5)
+	for i in range(0, 5):
+		if object.hastag('skillbonus_%u' % i):
+			try:
+				(skill, bonus) = object.gettag('skillbonus_%u' % i).split(',')
+				(skill, bonus) = (int(skill), int(bonus))
+
+				if bonus == 0 or skill < 0 or skill >= ALLSKILLS:					
+					continue
+					
+				# Add a Bonus for the skill
+				tooltip.add(1060451 + i, "#%u\t%0.01f%%" % (1044060 + skill, bonus / 10.0))
+			except:
+				object.deltag('skillbonus_%u' % i)
+				continue
 
 #
 # Check for certain equipment requirements
@@ -433,6 +449,39 @@ def onEquip(char, item, layer):
 	else:
 		item.deltag('real_intelligence_bonus')
 
+	# Skill Boni (1-5)
+	for i in range(0, 5):
+		if item.hastag('skillbonus_%u' % i):
+			try:
+				(skill, bonus) = item.gettag('skillbonus_%u' % i).split(',')
+				(skill, bonus) = (int(skill), int(bonus))
+
+				if bonus == 0 or skill < 0 or skill >= ALLSKILLS:
+					item.deltag('real_skillbonus_%u' % i)
+					continue
+					
+				# Add a Bonus for the skill
+				if char.skill[skill] + bonus > char.skillcap[skill]:
+					bonus = max(0, char.skillcap[skill] - char.skill[skill])
+				if char.skill[skill] + bonus < 0:
+					bonus = - char.skill[skill]
+					
+				item.settag('real_skillbonus_%u' % i, '%u,%u' % (skill, bonus))
+				char.skill[skill] += bonus
+			except:
+				item.deltag('skillbonus_%u' % i)
+				continue
+			
+			# Update the bonus tag for the character
+			tagname = 'skillbonus_%u' % skill
+			if char.hastag(tagname):
+				value = int(char.gettag(tagname)) + bonus
+			else:
+				value = bonus
+			char.settag(tagname, value)
+		else:
+			item.deltag('real_skillbonus_%u' % i)
+
 	# Bonus Hitpoints
 	bonushitpoints = properties.fromitem(item, BONUSHITPOINTS)
 	if bonushitpoints != 0:
@@ -508,6 +557,40 @@ def onUnequip(char, item, layer):
 		char.intelligence2 -= value
 		changed = True
 		item.deltag('real_intelligence_bonus')
+
+	# Skill Boni (1-5)
+	for i in range(0, 5):
+		if item.hastag('real_skillbonus_%u' % i):
+			try:
+				(skill, bonus) = item.gettag('real_skillbonus_%u' % i).split(',')
+				(skill, bonus) = (int(skill), int(bonus))
+
+				if bonus == 0 or skill < 0 or skill >= ALLSKILLS:
+					item.deltag('real_skillbonus_%u' % i)
+					continue
+					
+				# If the bonus would add over the skill limit,
+				# make sure it doesnt
+				if bonus < 0 and char.skill[skill] - bonus > char.skillcap[skill]:
+					bonus = - (char.skillcap[skill] - char.skill[skill])
+				if char.skill[skill] - bonus < 0:
+					bonus = char.skill[skill]
+					
+				item.deltag('real_skillbonus_%u' % i, bonus)
+				char.skill[skill] -= bonus
+				
+				# Update the bonus tag for the character
+				tagname = 'skillbonus_%u' % skill
+				if char.hastag(tagname):
+					value = int(char.gettag(tagname)) - bonus
+					
+					if value != 0:
+						char.settag(tagname, value)
+					else:
+						char.deltag(tagname)
+			except:
+				item.deltag('real_skillbonus_%u' % i)
+				continue				
 
 	# Bonus Hitpoints
 	bonushitpoints = properties.fromitem(item, BONUSHITPOINTS)
