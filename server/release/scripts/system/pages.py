@@ -153,7 +153,7 @@ class Page:
 		gump.addText( 200, 140, time.strftime(FORMAT_DATETIME, time.localtime(self.created)), hue )
 		
 		gump.addText( 50, 160, "Message:", hue )
-		html = "<body text=\"#0000FF\" leftmargin=\"0\" topmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">%s</body>" % "<br>".join(self.message)
+		html = u"<body text=\"#0000FF\" leftmargin=\"0\" topmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">%s</body>" % u"<br>".join(unicode(self.message))
 		gump.addResizeGump( 45, 180, 0xBB8, 345, 84 )
 		gump.addHtmlGump( 50, 180, 340, 80, unicode(html) )
 
