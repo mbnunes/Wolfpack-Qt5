@@ -139,10 +139,11 @@
 
 	<item id="eff">
 		<id>0xeff</id>
-		<name>hair dye</name>
+		<name>#1041060</name>
 		<category>Professions\Alchemist\Hair Dye 2</category>
 		<basescripts>environment</basescripts>
-		<buyprice>60</buyprice>
+		<buyprice>37</buyprice>
+		<sellprice>19</sellprice>
 		<weight>1.0</weight>
 	</item>
 

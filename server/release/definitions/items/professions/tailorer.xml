@@ -242,6 +242,7 @@
 		<id>0x1a9c</id>
 		<category>Professions\Tailorer\Resources\Flax</category>
 		<buyprice>102</buyprice>
+		<sellprice>51</sellprice>
 		<weight>1.0</weight>
 	</item>
 
@@ -250,6 +251,7 @@
 		<id>0xdf9</id>
 		<category>Professions\Tailorer\Resources\Raw Cotton 2</category>
 		<buyprice>102</buyprice>
+		<sellprice>51</sellprice>
 		<weight>3.0</weight>
 	</item>
 
@@ -259,6 +261,7 @@
 		<category>Professions\Tailorer\Resources\Pile of Wool 1</category>
 		<basescripts>wool</basescripts>
 		<buyprice>62</buyprice>
+		<sellprice>31</sellprice>
 		<weight>3.0</weight>
 	</item>
 
@@ -291,6 +294,7 @@
 		<id>0xf95</id>
 		<category>Professions\Tailorer\Bolt of Cloth 1</category>
 		<buyprice>120</buyprice>
+		<sellprice>60</sellprice>
 		<weight>5.0</weight>
 	</item>
 
@@ -335,6 +339,7 @@
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>skills.tailoring,equipment</basescripts>
 		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<weight>2.0</weight>
 	</item>
 
@@ -343,6 +348,7 @@
 		<category>Professions\Tailorer\Scissors (N/S)</category>
 		<basescripts>scissors</basescripts>
 		<buyprice>13</buyprice>
+		<sellprice>6</sellprice>
 		<weight>1.0</weight>
 	</item>
 
@@ -356,6 +362,7 @@
 		<category>Professions\Tailorer\Resources\Spool of Thread (N/S)</category>
 		<basescripts>yarn</basescripts>
 		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
 		<weight>1.0</weight>
 	</item>
 
@@ -370,6 +377,7 @@
 		<tag name="remaining_uses" type="int" value="10" />
 		<basescripts>dyes</basescripts>
 		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
 		<weight>3.0</weight>
 	</item>
 
@@ -378,6 +386,7 @@
 		<category>Professions\Tailorer\Dying Tub</category>
 		<basescripts>environment</basescripts>
 		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<weight>10.0</weight>
 	</item>
 

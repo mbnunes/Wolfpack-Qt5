@@ -106,6 +106,8 @@
 		<category>Equipment\Potions\Cure (lesser)</category>
 		<tag name="potiontype" value="4" type="int" />
 		<!-- Pricing information -->
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<item id="potion_keg_lessercure" inherit="potion_keg_empty">
@@ -154,6 +156,8 @@
 		<category>Equipment\Potions\Agility</category>
 		<tag name="potiontype" value="7" type="int" />
 		<!-- Pricing information -->
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<item id="potion_keg_agility" inherit="potion_keg_empty">
@@ -186,6 +190,8 @@
 		<category>Equipment\Potions\Strength</category>
 		<tag name="potiontype" value="9" type="int" />
 		<!-- Pricing information -->
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<item id="potion_keg_strength" inherit="potion_keg_empty">
@@ -218,6 +224,8 @@
 		<category>Equipment\Potions\Explosion (lesser)</category>
 		<tag name="potiontype" value="11" type="int" />
 		<!-- Pricing information -->
+		<buyprice>21</buyprice>
+		<sellprice>10</sellprice>		
 	</item>
 
 	<item id="potion_keg_lesserexplosion" inherit="potion_keg_empty">
@@ -332,6 +340,8 @@
 		<category>Equipment\Potions\Refresh</category>
 		<tag name="potiontype" value="18" type="int" />
 		<!-- Pricing information -->
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<item id="potion_keg_refresh" inherit="potion_keg_empty">

@@ -51,6 +51,46 @@
 				<item id="df9"><amount>20</amount></item> <!-- Cotton -->
 				<item id="df8"><amount>20</amount></item> <!-- Wool -->
 			</restockable>
+			<sellable>
+				<item id="f9e"></item> <!-- Scissors -->
+				<item id="f9d"></item> <!-- Sewing Kit -->
+				<item id="fa9"></item> <!-- Dyes -->
+				<item id="fab"></item> <!-- Dye Tub  -->
+				<item id="f95"></item> <!-- Bolt Of Cloth -->
+				
+				<item id="1efd"></item> <!-- Fancy Shirt -->
+				<item id="1517"></item> <!-- Shirt -->
+				<item id="152e"></item> <!-- Short Pants -->
+				<item id="15e9"></item> <!-- Long Pants -->
+				<item id="1515"></item> <!-- Cloak -->
+				<item id="1eff"></item> <!-- Fancy Dress -->
+				<item id="1f03"></item> <!-- Robe -->
+				<item id="1516"></item> <!-- Skirt -->
+				<item id="1537"></item> <!-- Kilt -->
+				<item id="153d"></item> <!-- Full Apron -->
+				<item id="153b"></item> <!-- Half Apron -->
+				<item id="1f7b"></item> <!-- Doublet -->
+				<item id="1fa1"></item> <!-- Tunic -->
+				<item id="1f9f"></item> <!-- Jester Suit -->
+				
+				<item id="171c"></item> <!-- Jester Hat -->
+				<item id="1713"></item> <!-- Floppy Hat -->
+				<item id="1714"></item> <!-- Wide Brim Hat -->
+				<item id="1715"></item> <!-- Cap -->
+				<item id="1543"></item> <!-- Skull Cap -->
+				<item id="153f"></item> <!-- Bandana -->
+				<item id="1716"></item> <!-- Tall Straw Hat -->
+				<item id="1717"></item> <!-- Straw Hat -->
+				<item id="1718"></item> <!-- Wizards Hat -->
+				<item id="1719"></item> <!-- Bonnet -->
+				<item id="171a"></item> <!-- Feathered Hat -->
+				<item id="171b"></item> <!-- Tricorne Hat -->
+				
+				<item id="fa0"></item> <!-- Spool Of Thread -->
+				<item id="1a9c"></item> <!-- Flax -->
+				<item id="df9"></item> <!-- Cotton -->
+				<item id="df8"></item> <!-- Wool -->
+			</sellable>
 		</shopkeeper>
 	</npc>
 
