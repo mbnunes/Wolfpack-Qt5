@@ -68,7 +68,7 @@ bool cRegion::Remove(UI32 cell, SERIAL serial)
 }
 
 // - Adds the item to a cell
-bool cRegion::Add(P_ITEM pi) 
+bool cRegion::Add(cUObject* pi) 
 {
 	unsigned int uiCell;
 	if (pi == NULL) 
@@ -82,58 +82,20 @@ bool cRegion::Add(P_ITEM pi)
 	} else return false;
 }
 
-bool cRegion::Add(P_CHAR pc) 
-{
-	unsigned int uiCell;
-	if (pc == NULL) 
-		return false;
-	uiCell = GetCell(pc->pos);
-
-    if (uiCell <= 32999) 
-	{
-		Add(uiCell, pc->serial); //set item in pointer array
-		return true;
-	} 
-	else 
-		return false;
-}
-
 // - Removes the item from a cell
-bool cRegion::Remove(P_ITEM pi)
+bool cRegion::Remove(cUObject* pi)
 {
-	unsigned int uiCell;
 	if (pi == NULL)
 		return false;
-	uiCell = GetCell(pi->pos);
+	unsigned int uiCell = GetCell(pi->pos);
 
 	if(uiCell <= 32999)
-	{
-		// clConsole.send("item# %i removed from mapcell %i [%i,%i,%i]\n", nItem, uiCell, items[nItem].x, items[nItem].y, items[nItem].z);
 		Remove(uiCell, pi->serial);
-	} else 
+	else 
 		return false;
 
 	return true;
 }
-
-// - Removes the item from a cell
-bool cRegion::Remove(P_CHAR pc)
-{
-	unsigned int uiCell;
-	if (pc == NULL)
-		return false;
-	uiCell = GetCell(pc->pos);
-
-	if(uiCell <= 32999)
-	{
-		// clConsole.send("item# %i removed from mapcell %i [%i,%i,%i]\n", nItem, uiCell, items[nItem].x, items[nItem].y, items[nItem].z);
-		Remove(uiCell, pc->serial);
-	} else
-		return false;
-
-	return true;
-}
-
 
 //- Returns the cell the character/item is in
 unsigned int cRegion::GetCell(const Coord_cl& pos)

@@ -428,7 +428,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				else
 				{
 					jails[pc->cell].occupied = false;
-					pc->MoveTo(jails[pc->cell].oldpos.x, jails[pc->cell].oldpos.y, jails[pc->cell].oldpos.z);
+					pc->moveTo(jails[pc->cell].oldpos);
 					pc->cell=0;
 					pc->jailsecs=0;
 					pc->jailtimer=0;

@@ -838,7 +838,7 @@ static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	if (pi->id1>=0x40) // crashfix , prevents putting multi-objects ni your backback
 	{
 		sysmessage(s,"Hey, putting houses in your pack crashes your back and client !");
-		pi->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		pi->moveTo(pc_currchar->pos);
 		RefreshItem(pi);//AntiChrist
 		return true;
 	}
@@ -852,7 +852,7 @@ static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	P_ITEM pack = Packitem(pc_currchar); // LB ...
 	if (pack == NULL) // if player has no pack, put it at its feet
 	{
-		pi->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		pi->moveTo(pc_currchar->pos);
 		RefreshItem(pi);//AntiChrist
 	}
 	else
@@ -980,7 +980,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 					else	// Even GM has no pack?
 					{
 						// Drop it to it's feet
-						pi->MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
+						pi->moveTo(pc_currchar->pos);
 						RefreshItem(pi);
 					}
 				}
@@ -1162,7 +1162,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				sysmessage(s,"You can only put golds in this bank box!");
 
 				pItem->SetContSerial(-1);
-				pItem->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+				pItem->moveTo(pc_currchar->pos);
 				RefreshItem(pItem);//AntiChrist
 				itemsfx(s,pItem->id());
 				return;

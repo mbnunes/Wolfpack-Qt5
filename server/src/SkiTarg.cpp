@@ -2443,7 +2443,7 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		pPoi->SetSerial(kser);
 		pPoi->setId(0x0F0E);
 		pPoi->pileable=true;
-		pPoi->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
+		pPoi->moveTo(pc->pos);
 		pPoi->priv|=0x01;
 		RefreshItem(pPoi);
 	}

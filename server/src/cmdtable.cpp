@@ -885,7 +885,7 @@ void command_gochar(UOXSOCKET s)
 					// 
 					doGmMoveEff(s); 
 					
-					pc_cs->MoveTo(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z); 
+					pc_cs->moveTo(pc_i->pos); 
 					teleport((currchar[s])); 
 					
 					doGmMoveEff(s); 
@@ -909,7 +909,7 @@ void command_gochar(UOXSOCKET s)
 					// 
 					doGmMoveEff(s); 
 					
-					pc_cs->MoveTo(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z); 
+					pc_cs->moveTo(pc_i->pos); 
 					teleport((currchar[s])); 
 					
 					doGmMoveEff(s); 
@@ -2263,7 +2263,7 @@ void command_gotocur(UOXSOCKET s)
 		P_CHAR pc_i = FindCharBySerial( serial );
 		if(pc_i != NULL)
 		{
-			pc_currchar->MoveTo(pc_i->pos.x, pc_i->pos.y, pc_i->pos.z);
+			pc_currchar->moveTo(pc_i->pos);
 			sysmessage(s,"Transporting to your current call.");
 			teleport((currchar[s]));
 			x++;
@@ -2275,7 +2275,7 @@ void command_gotocur(UOXSOCKET s)
 			if(pc_i != NULL)
 				
 			{
-				pc_currchar->MoveTo(pc_i->pos.x, pc_i->pos.y, pc_i->pos.z);
+				pc_currchar->moveTo(pc_i->pos);
 				sysmessage(s,"Transporting to your current call.");
 				teleport((currchar[s]));
 			}

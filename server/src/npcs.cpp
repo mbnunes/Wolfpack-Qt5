@@ -1141,20 +1141,18 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 
 	if ( pc_k == NULL ) return;
 	
-	P_CHAR pc_c = Npcs->MemCharFree();
+	P_CHAR pc_c = new cChar(*pc_k);
 	if ( pc_c == NULL ) return;
-	pc_c->Init();
-	serial=pc_c->serial;
-	memcpy(pc_c, pc_k, sizeof(cChar));
-	pc_c->setSerial(serial);
+//	pc_c->Init();
+	pc_c->setSerial(cCharsManager::getInstance()->getUnusedSerial());
 	pc_c->ftarg = INVALID_SERIAL;
-	pc_c->MoveTo(pc_k->pos.x+1, pc_k->pos.y, pc_k->pos.z);
-	pc_c->kills=0;
-	pc_c->hp=pc_k->st;
-	pc_c->stm=pc_k->realDex();
-	pc_c->mn=pc_k->in;
+	pc_c->moveTo(pc_k->pos + Coord_cl(1, 0, 0) );
+	pc_c->kills = 0;
+	pc_c->hp = pc_k->st;
+	pc_c->stm = pc_k->realDex();
+	pc_c->mn = pc_k->in;
 	z=rand()%35;
-	if (z==5) pc_c->split=1; else pc_c->split=0;	
+	if (z == 5) pc_c->split=1; else pc_c->split=0;	
 	updatechar(pc_c);
 }
 

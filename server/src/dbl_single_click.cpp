@@ -1179,9 +1179,9 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 							pFire->type = 45;
 							pFire->dir = 2;
 							if (pi->isInWorld())
-								pFire->MoveTo(pi->pos.x,pi->pos.y,pi->pos.z);
+								pFire->moveTo(pi->pos);
 							else
-								pFire->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+								pFire->moveTo(pc_currchar->pos);
 
 							pFire->priv |= 1;
 //							pFire->decaytime = (uiCurrentTime +(SrvParms->decaytimer*MY_CLOCKS_PER_SEC));							

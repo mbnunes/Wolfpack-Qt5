@@ -347,7 +347,7 @@ void cCommands::NextCall(int s, int type)
 					sprintf((char*)temp, "Paged at %s.", gmpages[i].timeofcall);
 					sysmessage(s, (char*)temp);
 					gmpages[i].handled = 1;
-					pc_currchar->MoveTo(pc_player->pos.x, pc_player->pos.y, pc_player->pos.z);
+					pc_currchar->moveTo(pc_player->pos);
 					pc_currchar->callnum = i;
 					teleport((pc_currchar));
 					x++;
@@ -380,7 +380,7 @@ void cCommands::NextCall(int s, int type)
 					sprintf((char*)temp, "Paged at %s.", counspages[i].timeofcall);
 					sysmessage(s, (char*)temp);
 					gmpages[i].handled = 1;
-					pc_currchar->MoveTo(pc_player->pos.x, pc_player->pos.y, pc_player->pos.z);
+					pc_currchar->moveTo(pc_player->pos);
 					pc_currchar->callnum = i;
 					teleport((pc_currchar));
 					x++;
@@ -762,8 +762,9 @@ void cCommands::AddHere(int s, char z)
 	if(pi)
 	{
 		P_CHAR pc_currchar = currchar[s];
-	
-		pi->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,z);
+		Coord_cl pos(pc_currchar->pos);
+		pos.z = z;
+		pi->moveTo(pos);
 		pi->doordir=0;
 		pi->priv=0;		
 

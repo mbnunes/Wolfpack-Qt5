@@ -397,96 +397,100 @@ void loadchar(int x) // Load a character from WSC
 		break;
 		}
 		loops++;
- }
- while (strcmp((char*)script1, "}") && loops<=200);
- if (pc->isNpc() && pc->war) pc->war=false;
-
-
- ////////////////////////////////////////////////////////////////////
-
- // LB autocorrect for same faulty previous code
- int zeta;
- for (zeta = 0;zeta<ALLSKILLS;zeta++) if (pc->lockSkill[zeta]!=0 && pc->lockSkill[zeta]!=1 && pc->lockSkill[zeta]!=2) pc->lockSkill[zeta]=0;
-
- //AntiChrist bugfix for hiding
- pc->priv2 &= 0xf7; // unhide - AntiChrist
- pc->hidden = 0;
- pc->stealth = -1;
-
- //AntiChrist bugfix for magic reflect
- pc->priv2=pc->priv2&0xBF;
-
-
- pc->region = calcRegionFromXY(pc->pos.x, pc->pos.y); //LB bugfix
-
- pc->antispamtimer=0;//LB - AntiSpam -
- pc->antiguardstimer=0; //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn
- // lord binarys body/skin autocorrection code
- k = pc->id();
- if (k<=0x3e1)
- {
-			c1 = pc->skin;
-			b = c1&0x4000;
-			if ((b==16384 && (k >=0x0190 && k<=0x03e1)) || c1==0x8000)
-			{
-				if (c1!=0xf000)
-				{
-					pc->skin = pc->xskin = 0xF000;
-					clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name.c_str(),pc->serial);
-				}
-			}
- } else	// client crashing body --> delete if non player esle put onl”x a warning on server screen
-	 // we dont want to delete that char, dont we ?
- {
-	if (pc->account==-1)
-	{
-		Npcs->DeleteChar(pc);
-	} else
-	{
-		pc->id1 = 0x01;
-		pc->id2 = 0x90;
-		clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name.c_str());
 	}
- }
+	while (strcmp((char*)script1, "}") && loops<=200);
+	if (pc->isNpc() && pc->war) pc->war=false;
+	
+	
+	////////////////////////////////////////////////////////////////////
+	
+	// LB autocorrect for same faulty previous code
+	int zeta;
+	for (zeta = 0;zeta<ALLSKILLS;zeta++) if (pc->lockSkill[zeta]!=0 && pc->lockSkill[zeta]!=1 && pc->lockSkill[zeta]!=2) pc->lockSkill[zeta]=0;
+	
+	//AntiChrist bugfix for hiding
+	pc->priv2 &= 0xf7; // unhide - AntiChrist
+	pc->hidden = 0;
+	pc->stealth = -1;
+	
+	//AntiChrist bugfix for magic reflect
+	pc->priv2=pc->priv2&0xBF;
+	
+	
+	pc->region = calcRegionFromXY(pc->pos.x, pc->pos.y); //LB bugfix
+	
+	pc->antispamtimer=0;//LB - AntiSpam -
+	pc->antiguardstimer=0; //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn
+	// lord binarys body/skin autocorrection code
+	k = pc->id();
+	if (k<=0x3e1)
+	{
+		c1 = pc->skin;
+		b = c1&0x4000;
+		if ((b==16384 && (k >=0x0190 && k<=0x03e1)) || c1==0x8000)
+		{
+			if (c1!=0xf000)
+			{
+				pc->skin = pc->xskin = 0xF000;
+				clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name.c_str(),pc->serial);
+			}
+		}
+	} else	// client crashing body --> delete if non player esle put onl”x a warning on server screen
+		// we dont want to delete that char, dont we ?
+	{
+		if (pc->account==-1)
+		{
+			Npcs->DeleteChar(pc);
+		} else
+		{
+			pc->id1 = 0x01;
+			pc->id2 = 0x90;
+			clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name.c_str());
+		}
+	}
 
- //a = mapRegions->AddItem(x+CharacterOffset);
- if(pc->stablemaster_serial == INVALID_SERIAL)
- { 
-    mapRegions->Add(pc); 
- } 
-
- // begin of meta gm stuff
-
- for (int u=0;u<7;u++)
- {
-	 if (pc->isPlayer())
-	 {
-		 if (pc->priv3[u]==0) // dont overwrite alreday saved settings
-		 {
-			 if (!pc->isGMorCounselor()) pc->priv3[u]=metagm[2][u]; //normal player defaults
-			 if (pc->isCounselor()) pc->priv3[u]=metagm[1][u]; // couscelor defaults
-			 if (pc->isGM()) pc->priv3[u]=metagm[0][u]; // gm defaults
+	//a = mapRegions->AddItem(x+CharacterOffset);
+	if(pc->stablemaster_serial == INVALID_SERIAL)
+	{ 
+		mapRegions->Add(pc); 
+	} 
+	
+	// begin of meta gm stuff
+	
+	for (int u=0;u<7;u++)
+	{
+		if (pc->isPlayer())
+		{
+			if (pc->priv3[u]==0) // dont overwrite alreday saved settings
+			{
+				if (!pc->isGMorCounselor()) pc->priv3[u]=metagm[2][u]; //normal player defaults
+				if (pc->isCounselor()) pc->priv3[u]=metagm[1][u]; // couscelor defaults
+				if (pc->isGM()) pc->priv3[u]=metagm[0][u]; // gm defaults
 				if (pc->account==0) pc->priv3[u]=0xffffffff;
-		 }
-	 }
- }
-
- if (pc->isPlayer() && pc->account==0) pc->menupriv=-1;
-
-
- int max_x = cMapStuff::mapTileWidth(pc->pos)  * 8;
- int max_y = cMapStuff::mapTileHeight(pc->pos) * 8;
-   if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account == -1))
-// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
- {
-	 Npcs->DeleteChar(pc); //character in an invalid location
- }
-if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account != -1) || (( pc->pos.x>max_x || pc->pos.y>max_y ) && pc->account !=-1))
-// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account !=-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account!=-1))
- {
-	 pc->MoveTo(900,300,30); //player in an invalid location
- }
- setcharflag(pc);//AntiChrist
+			}
+		}
+	}
+	
+	if (pc->isPlayer() && pc->account==0) pc->menupriv=-1;
+	
+	
+	int max_x = cMapStuff::mapTileWidth(pc->pos)  * 8;
+	int max_y = cMapStuff::mapTileHeight(pc->pos) * 8;
+	if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account == -1))
+		// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
+	{
+		Npcs->DeleteChar(pc); //character in an invalid location
+	}
+	if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account != -1) || (( pc->pos.x>max_x || pc->pos.y>max_y ) && pc->account !=-1))
+		// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account !=-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account!=-1))
+	{
+		Coord_cl pos(pc->pos);
+		pos.x = 900;
+		pos.y = 300;
+		pos.z = 30;
+		pc->moveTo(pos); //player in an invalid location
+	}
+	setcharflag(pc);//AntiChrist
 }
 
 void loaditem (int x) // Load an item from WSC
@@ -935,8 +939,8 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		if (pc->isPlayer() && pc->account==0) pc->menupriv=-1;
 
 
-		int max_x = MapTileWidth  * 8;
-		int max_y = MapTileHeight * 8;
+		int max_x = cMapStuff::mapTileWidth(pc->pos) * 8;
+		int max_y = cMapStuff::mapTileHeight(pc->pos) * 8;
 		if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account == -1))
 		// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
 		{
@@ -945,7 +949,11 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account != -1) || (( pc->pos.x>max_x || pc->pos.y>max_y ) && pc->account !=-1))
 		// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account !=-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account!=-1))
 		{
-			pc->MoveTo(900,300,30); //player in an invalid location
+			Coord_cl pos(pc->pos);
+			pos.x = 900;
+			pos.y = 300;
+			pos.z = 30;
+			pc->moveTo(pos); //player in an invalid location
 		}
 		setcharflag(pc);//AntiChrist
 	}
@@ -1374,7 +1382,7 @@ static void decay1(P_ITEM pi, P_ITEM pItem)
 					(pi_j->layer!=0x0B)&&(pi_j->layer!=0x10))
 				{
 					pi_j->SetContSerial(-1);
-					pi_j->MoveTo(pi->pos.x, pi->pos.y, pi->pos.z);
+					pi_j->moveTo(pi->pos);
 					Items->DeleItem(pi_j);
 				}
 /*				if ((pi_j->contserial==pi->serial) &&

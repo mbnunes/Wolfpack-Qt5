@@ -36,6 +36,9 @@
 #include "coord.h"
 #include "uobject.h"
 #include "iserialization.h"
+#include "globals.h"
+#include "regions.h"
+#include "junk.h"
 #include "defines.h"
 
 // Debug includes and defines
@@ -66,6 +69,18 @@ void cUObject::init()
 	this->free = false;
 }
 
+void cUObject::moveTo( const Coord_cl& newpos )
+{
+	bool regionChanged = false;
+	if ( cRegion::GetCell(pos) != cRegion::GetCell(newpos) )
+	{
+		mapRegions->Remove( this );
+		regionChanged = true;
+	}
+	pos = newpos;
+	if ( regionChanged )
+		mapRegions->Add( this );
+}
 
 /*!
  * Provides persistence for instances of UOBject
@@ -74,7 +89,6 @@ void cUObject::init()
  *
  * @return void  : none.
  */
-
 void cUObject::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())

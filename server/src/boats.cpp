@@ -155,7 +155,7 @@ void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, do
 		// we need to get the boat again after beaming the character to the boat's plank
 		// otherweise only -1's will be added to the boat hash-table 
         
-		pc_cs->MoveTo(pi_plank->pos.x,pi_plank->pos.y,pi_plank->pos.z+5);
+		pc_cs->moveTo(pi_plank->pos + Coord_cl(0,0,5));
 
 		pc_cs->multis=-3; // we have to trick getboat to start the search !!!
 		                              // will be corrected automatically by setserial...
@@ -174,9 +174,9 @@ void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, do
 			{
 			   if (pc_b->isNpc() && pc_cs->Owns(pc_b))
 			   {
-				  pc_b->MoveTo(boat2->pos.x+1, boat2->pos.y+1, boat2->pos.z+2);
+				  pc_b->moveTo(boat2->pos + Coord_cl(1, 1, 2));
                   pc_b->SetMultiSerial(boat2->serial);
-				  teleport((pc_b));
+				  teleport(pc_b);
 			   }
 			}
 		}
@@ -186,7 +186,7 @@ void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, do
 
 		if (boat2 != NULL) // now set the char coords to the boat !!!
 		{
-			pc_cs->MoveTo(boat2->pos.x+1,boat2->pos.y+1,boat2->pos.z+2);
+			pc_cs->moveTo(boat2->pos + Coord_cl(1, 1, 2));
 		}
 
 		sysmessage(s,"you entered a boat");
@@ -194,7 +194,7 @@ void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, do
 	} else {
 		LeaveBoat(s, pi_plank);//They are on a boat, get off
 	}
-	teleport((pc_cs));//Show them they moved.
+	teleport(pc_cs);//Show them they moved.
 }
 
 
@@ -251,9 +251,7 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 					}
 				}
 				
-                if( pBoat->serial != INVALID_SERIAL ) 
-					cmultisp.remove(pBoat->serial, pc_cs->serial);
-				pc_cs->multis=-1;
+				pc_cs->SetMultiSerial( INVALID_SERIAL );
 				
 				if (typ) 
 					pc_cs->MoveTo(x, y, sz); 
@@ -691,11 +689,12 @@ void cBoat::Move(UOXSOCKET s, int dir, P_ITEM pBoat)
 	}
 
 	//Move all the special items
-	pBoat->MoveTo(pBoat->pos.x+tx,pBoat->pos.y+ty,pBoat->pos.z);
-	pTiller->MoveTo(pTiller->pos.x+tx, pTiller->pos.y+ty, pTiller->pos.z);
-	pi_p1->MoveTo(pi_p1->pos.x+tx, pi_p1->pos.y+ty, pi_p1->pos.z);
-	pi_p2->MoveTo(pi_p2->pos.x+tx, pi_p2->pos.y+ty, pi_p2->pos.z);
-	pHold->MoveTo(pHold->pos.x+tx, pHold->pos.y+ty, pHold->pos.z);
+	Coord_cl desloc(tx, ty, 0);
+	pBoat->moveTo(pBoat->pos + desloc);
+	pTiller->moveTo(pTiller->pos + desloc);
+	pi_p1->moveTo(pi_p1->pos + desloc);
+	pi_p2->moveTo(pi_p2->pos + desloc);
+	pHold->moveTo(pHold->pos + desloc);
 
     serial = pBoat->serial;
 	
@@ -718,7 +717,7 @@ void cBoat::Move(UOXSOCKET s, int dir, P_ITEM pBoat)
 		P_CHAR pc_c = FindCharBySerial(vecEntries[a]);
 		if (pc_c != NULL)
 		{
-			pc_c->MoveTo(pc_c->pos.x+=tx, pc_c->pos.y+=ty, pc_c->pos.z);
+			pc_c->moveTo(pc_c->pos + desloc);
 			teleport((pc_c));
 		}
 	}
@@ -783,7 +782,7 @@ void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the p
 	int a,dir, d=0;
 	
 	
-	for (a = 0; a < now; a++)
+	for (a = 0; a < now; ++a)
 	{
 		if (iteminrange(a, pBoat, BUILDRANGE) && perm[a])
 		{
@@ -869,46 +868,48 @@ void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the p
 	//set it's Z to 0,0 inside the boat
 	
 	pi_p1->MoveTo(pBoat->pos.x,pBoat->pos.y,pi_p1->pos.z);
-	pi_p1->id2=cShipItems[dir][PORT_P_C];//change the ID
+	pi_p1->id2 = cShipItems[dir][PORT_P_C];//change the ID
 	
 	pi_p2->MoveTo(pBoat->pos.x,pBoat->pos.y,pi_p2->pos.z);
 	pi_p2->id2=cShipItems[dir][STAR_P_C];
 	
-	pTiller->MoveTo(pBoat->pos.x,pBoat->pos.y,pTiller->pos.z);
+	pTiller->MoveTo(pBoat->pos.x,pBoat->pos.y, pTiller->pos.z);
 	pTiller->id2=cShipItems[dir][TILLERID];
 	
-	pi_hold->MoveTo(pBoat->pos.x,pBoat->pos.y,pi_hold->pos.z);
+	pi_hold->MoveTo(pBoat->pos.x,pBoat->pos.y, pi_hold->pos.z);
 	pi_hold->id2=cShipItems[dir][HOLDID];
 	
 	switch(pBoat->more1)//Now set what size boat it is and move the specail items
 	{
 	case 0x00:
 	case 0x04:
-		pi_p1->MoveTo(pi_p1->pos.x + iSmallShipOffsets[dir][PORT_PLANK][X], pi_p1->pos.y + iSmallShipOffsets[dir][PORT_PLANK][Y], pi_p1->pos.z);
-		pi_p2->MoveTo(pi_p2->pos.x + iSmallShipOffsets[dir][STARB_PLANK][X], pi_p2->pos.y + iSmallShipOffsets[dir][STARB_PLANK][Y], pi_p2->pos.z);
-		pTiller->MoveTo(pTiller->pos.x + iSmallShipOffsets[dir][TILLER][X], pTiller->pos.y + iSmallShipOffsets[dir][TILLER][Y], pTiller->pos.z);
-		pi_hold->MoveTo(pi_hold->pos.x + iSmallShipOffsets[dir][HOLD][X], pi_hold->pos.y + iSmallShipOffsets[dir][HOLD][Y], pi_hold->pos.z);
+		pi_p1->moveTo(pi_p1->pos + Coord_cl(iSmallShipOffsets[dir][PORT_PLANK][X], iSmallShipOffsets[dir][PORT_PLANK][Y], 0));
+		pi_p2->moveTo(pi_p2->pos + Coord_cl(iSmallShipOffsets[dir][STARB_PLANK][X], iSmallShipOffsets[dir][STARB_PLANK][Y], 0));
+		pTiller->moveTo(pTiller->pos + Coord_cl(iSmallShipOffsets[dir][TILLER][X], iSmallShipOffsets[dir][TILLER][Y], 0));
+		pi_hold->moveTo(pi_hold->pos + Coord_cl(iSmallShipOffsets[dir][HOLD][X], iSmallShipOffsets[dir][HOLD][Y], 0));
 		break;
 	case 0x08:
 	case 0x0C:
-		pi_p1->MoveTo(pi_p1->pos.x + iMediumShipOffsets[dir][PORT_PLANK][X], pi_p1->pos.y + iMediumShipOffsets[dir][PORT_PLANK][Y], pi_p1->pos.z );
-		pi_p2->MoveTo(pi_p2->pos.x + iMediumShipOffsets[dir][STARB_PLANK][X], pi_p2->pos.y + iMediumShipOffsets[dir][STARB_PLANK][Y], pi_p2->pos.z);
-		pTiller->MoveTo(pTiller->pos.x + iMediumShipOffsets[dir][TILLER][X], pTiller->pos.y + iMediumShipOffsets[dir][TILLER][Y], pTiller->pos.z);
-		pi_hold->MoveTo(pi_hold->pos.x + iMediumShipOffsets[dir][HOLD][X], pi_hold->pos.y + iMediumShipOffsets[dir][HOLD][Y], pi_hold->pos.z);
+		pi_p1->moveTo(pi_p1->pos + Coord_cl(iMediumShipOffsets[dir][PORT_PLANK][X], iMediumShipOffsets[dir][PORT_PLANK][Y], 0) );
+		pi_p2->moveTo(pi_p2->pos + Coord_cl(iMediumShipOffsets[dir][STARB_PLANK][X], iMediumShipOffsets[dir][STARB_PLANK][Y], 0) );
+		pTiller->moveTo(pTiller->pos + Coord_cl(iMediumShipOffsets[dir][TILLER][X], iMediumShipOffsets[dir][TILLER][Y], 0) );
+		pi_hold->moveTo(pi_hold->pos + Coord_cl(iMediumShipOffsets[dir][HOLD][X], iMediumShipOffsets[dir][HOLD][Y], 0) );
 		
 		break;
 	case 0x10:
 	case 0x14:
-		pi_p1->MoveTo(pi_p1->pos.x + iLargeShipOffsets[dir][PORT_PLANK][X], pi_p1->pos.y + iLargeShipOffsets[dir][PORT_PLANK][Y], pi_p1->pos.z);
-        pi_p2->MoveTo(pi_p2->pos.x + iLargeShipOffsets[dir][STARB_PLANK][X], pi_p2->pos.y + iLargeShipOffsets[dir][STARB_PLANK][Y], pi_p2->pos.z);
-		pTiller->MoveTo(pTiller->pos.x + iLargeShipOffsets[dir][TILLER][X], pTiller->pos.y + iLargeShipOffsets[dir][TILLER][Y], pTiller->pos.z);
-		pi_hold->MoveTo(pi_hold->pos.x + iLargeShipOffsets[dir][HOLD][X], pi_hold->pos.y + iLargeShipOffsets[dir][HOLD][Y], pi_hold->pos.z);
+		pi_p1->moveTo(pi_p1->pos + Coord_cl(iLargeShipOffsets[dir][PORT_PLANK][X], iLargeShipOffsets[dir][PORT_PLANK][Y], 0) );
+        pi_p2->moveTo(pi_p2->pos + Coord_cl(iLargeShipOffsets[dir][STARB_PLANK][X], iLargeShipOffsets[dir][STARB_PLANK][Y], 0 ) );
+		pTiller->moveTo(pTiller->pos + Coord_cl(iLargeShipOffsets[dir][TILLER][X], iLargeShipOffsets[dir][TILLER][Y], 0 ) );
+		pi_hold->moveTo(pi_hold->pos + Coord_cl(iLargeShipOffsets[dir][HOLD][X], iLargeShipOffsets[dir][HOLD][Y], 0 ) );
 		
 		break;
 		
-	default: { sprintf((char*)temp,"Turnboatstuff() more1 error! more1 = %c not found!\n",pBoat->more1); 
-		LogWarning((char*)temp);
-			 }  
+	default: 
+		{ 
+			sprintf((char*)temp,"Turnboatstuff() more1 error! more1 = %c not found!\n",pBoat->more1); 
+			LogWarning((char*)temp);
+		}  
 	}
 	
 	sendinrange(pi_p1);
@@ -916,7 +917,7 @@ void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the p
 	sendinrange(pi_hold);
 	sendinrange(pTiller);
 	
-	for (a=0;a<d;a++) 
+	for (a = 0; a < d; ++a) 
 	{ 
 		Xsend(Send[a],restart,2);
 	}

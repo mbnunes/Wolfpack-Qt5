@@ -438,7 +438,7 @@ void cTargets::XTeleport(int s, int x)
 		case 3:
 			{
 				UOXSOCKET s = pc_currchar->making;
-				currchar[s]->MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
+				currchar[s]->moveTo(pc_currchar->pos);
 				teleport(currchar[s]);
 			}
 			return;
@@ -450,14 +450,14 @@ void cTargets::XTeleport(int s, int x)
 	
 	if (pc != NULL)
 	{
-		pc->MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
+		pc->moveTo(pc_currchar->pos);
 		updatechar(pc);
 		return;// Zippy
 	}
 	P_ITEM pi = FindItemBySerial(serial);
 	if (pi != NULL)
 	{
-		pi->MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
+		pi->moveTo(pc_currchar->pos);
 		RefreshItem(pi);
 	}
 }
@@ -468,7 +468,11 @@ void XgoTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		pc->MoveTo(addx[s],addy[s],addz[s]);
+		Coord_cl pos(pc->pos);
+		pos.x = addx[s];
+		pos.y = addy[s];
+		pos.z = addz[s];
+		pc->moveTo(pos);
 		updatechar(pc);
 	}
 }
@@ -1311,28 +1315,28 @@ void cTargets::Wiping(int s) // Clicking the corners of wiping calls this functi
 
 static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it (unmovable) at that spot
 {
-	int x, y, z;
 	if(pp->TxLoc==-1 || pp->TyLoc==-1) return;
-	x=pp->TxLoc;
-	y=pp->TyLoc;
-	z=pp->TzLoc;
 	P_CHAR pc_currchar = currchar[s];
 
 	// ANTICHRIST -- CHECKS LINE OF SIGHT!
-	Coord_cl clTemp4(x,y,z);
+	Coord_cl clTemp4(pc_currchar->pos);
+	clTemp4.x = pp->TxLoc;
+	clTemp4.y = pp->TyLoc;
+	clTemp4.z = pp->TzLoc;
 	if(line_of_sight(s, pc_currchar->pos, clTemp4, WALLS_CHIMNEYS + DOORS + ROOFING_SLANTED))
 	{
 		P_ITEM pi = FindItemBySerial(calcserial(addid1[s],addid2[s],addid3[s],addid4[s]));
 		if (pi != NULL) // crashfix LB
 		{
-			pi->MoveTo(x, y, z);
-			pi->SetContSerial(-1);
+			pi->moveTo( clTemp4 );
+			pi->SetContSerial(INVALID_SERIAL);
 			pi->setGMMovable(); //make item unmovable once thrown
 			movingeffect2(pc_currchar, pi, 0x0F, 0x0D, 0x11, 0x00, 0x00);
 			RefreshItem(pi);
 		}
 	}
-	else sysmessage(s,"You cannot throw the potion there!");
+	else 
+		sysmessage(s,"You cannot throw the potion there!");
 }
 
 static void Priv3Target(UOXSOCKET s, P_CHAR pc)
@@ -1509,7 +1513,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 	if (pi3 == NULL)
 		return;
 	if(!pi1) return;
-	pi1->MoveTo(pi2->pos.x,pi2->pos.y,pi2->pos.z);
+	pi1->moveTo(pi2->pos);
 	pi1->setGMMovable();//AntiChrist - makes the item unmovable
 	pi1->startDecay();
 	RefreshItem(pi1);
@@ -1641,7 +1645,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		{
 			pj = FindItemBySerial(vecContainer[ci]);
 			pj->SetContSerial(-1);
-			pj->MoveTo(pi3->pos.x,pi3->pos.y,pi3->pos.z);
+			pj->moveTo(pi3->pos);
 			pj->startDecay();
 			RefreshItem(pj);
 		}
@@ -2442,7 +2446,7 @@ void cTargets::SwordTarget(const P_CLIENT pC, PKGx6C *pp)
 		P_ITEM pi = Items->SpawnItem(pc,1,"#",1,0x0DE1,0,0); //Kindling
 		if(!pi)
 			return;
-		pi->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
+		pi->moveTo(pc->pos);
 		RefreshItem(pi);
 		sysmessage(s, "You hack at the tree and produce some kindling.");
 	}
@@ -2598,7 +2602,7 @@ void cTargets::ReleaseTarget(int s, int c)
 		else 
 		{ 
 			jails[pc->cell].occupied = false; 
-			pc->MoveTo(jails[pc->cell].oldpos.x, jails[pc->cell].oldpos.y, jails[pc->cell].oldpos.z);
+			pc->moveTo(jails[pc->cell].oldpos);
 			pc->cell = 0; 
 			pc->priv2 = 0; 
 			pc->jailsecs = 0; 
@@ -2703,7 +2707,7 @@ void cTargets::JailTarget(int s, int c)
 		if (!jails[i].occupied) 
 		{ 
 			jails[i].oldpos = pc->pos;
-			pc->MoveTo(jails[i].pos.x, jails[i].pos.y, jails[i].pos.z); 
+			pc->moveTo(jails[i].pos); 
 			pc->cell = i; 
 			pc->priv2 = 2; // freeze them  Ripper 
 			
@@ -3108,7 +3112,9 @@ void cTargets::NewXTarget(int s) // Notice a high similarity to th function abov
 		P_ITEM pi = FindItemBySerial(serial);
 		if (pi == NULL)
 			return;
-		pi->MoveTo(addx[s],pi->pos.y,pi->pos.z);
+		Coord_cl pos(pi->pos);
+		pos.x = addx[s];
+		pi->moveTo(pos);
 		RefreshItem(pi);
 	}
 	else if (isCharSerial(serial))
@@ -3116,7 +3122,9 @@ void cTargets::NewXTarget(int s) // Notice a high similarity to th function abov
 		P_CHAR pc = FindCharBySerial(serial);
 		if (pc == NULL)
 			return;
-		pc->MoveTo(addx[s],pc->pos.y,pc->pos.z);
+		Coord_cl pos(pc->pos);
+		pos.x = addx[s];
+		pc->moveTo(pos);
 		teleport(pc);
 	}
 }
@@ -3129,7 +3137,9 @@ void cTargets::NewYTarget(int s)
 		P_ITEM pi = FindItemBySerial(serial);
 		if (pi == NULL)
 			return;
-		pi->MoveTo(pi->pos.x,addx[s],pi->pos.z);
+		Coord_cl pos(pi->pos);
+		pos.y = addx[s];
+		pi->moveTo(pos);
 		RefreshItem(pi);
 	}
 	else if (isCharSerial(serial))
@@ -3137,7 +3147,9 @@ void cTargets::NewYTarget(int s)
 		P_CHAR pc = FindCharBySerial(serial);
 		if (pc == NULL)
 			return;
-		pc->MoveTo(pc->pos.x,addx[s],pc->pos.z);
+		Coord_cl pos(pc->pos);
+		pos.y = addx[s];
+		pc->moveTo(pos);
 		teleport(pc);
 	}
 }
@@ -3151,7 +3163,9 @@ void cTargets::IncXTarget(int s)
 		P_ITEM pi = FindItemBySerial(serial);
 		if (pi == NULL)
 			return;
-		pi->MoveTo(pi->pos.x + addx[s], pi->pos.y, pi->pos.z);
+		Coord_cl pos(pi->pos);
+		pos.x += addx[s];
+		pi->moveTo(pos);
 		RefreshItem(pi);
 	}
 	else if (isCharSerial(serial))
@@ -3159,7 +3173,9 @@ void cTargets::IncXTarget(int s)
 		P_CHAR pc = FindCharBySerial(serial);
 		if (pc == NULL)
 			return;
-		pc->MoveTo(pc->pos.x + addx[s],pc->pos.y,pc->pos.z);
+		Coord_cl pos(pc->pos);
+		pos.x += addx[s];
+		pc->moveTo(pos);
 		teleport(pc);
 	}
 }
@@ -3173,7 +3189,9 @@ void cTargets::IncYTarget(int s)
 		P_ITEM pi = FindItemBySerial(serial);
 		if (pi == NULL)
 			return;
-		pi->MoveTo(pi->pos.x, pi->pos.y + addx[s], pi->pos.z);
+		Coord_cl pos(pi->pos);
+		pos.y += addx[s];
+		pi->moveTo(pos);
 		RefreshItem(pi);
 	}
 	else if (isCharSerial(serial))
@@ -3181,7 +3199,9 @@ void cTargets::IncYTarget(int s)
 		P_CHAR pc = FindCharBySerial(serial);
 		if (pc == NULL)
 			return;
-		pc->MoveTo(pc->pos.x, pc->pos.y + addx[s], pc->pos.z);
+		Coord_cl pos(pc->pos);
+		pos.y += addx[s];
+		pc->moveTo(pos);
 		teleport(pc);
 	}
 }
@@ -3280,7 +3300,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	{
 		pi3 = Items->SpawnItem(pc, 1, "a house key", 0, 0x100F,0,0);//gold key for everything else
 		if(!pi3) return;
-		pi3->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
+		pi3->moveTo(pc->pos);
 		RefreshItem(pi3);
 	}
 	pi3->more1 = static_cast<unsigned char>((pHouse->serial&0xFF000000)>>24);
@@ -3318,7 +3338,10 @@ void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out
 		}
 		if(pc->pos.x>=sx&&pc->pos.y>=sy&&pc->pos.x<=ex&&pc->pos.y<=ey)
 		{
-			pc->MoveTo(ex,ey,pc->pos.z);
+			Coord_cl pos(pc->pos);
+			pos.x = ex;
+			pos.y = ey;
+			pc->moveTo( pos );
 			teleport(pc);
 			sysmessage(s, "Player ejected.");
 		}

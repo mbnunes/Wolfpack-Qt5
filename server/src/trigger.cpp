@@ -1590,7 +1590,11 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							cline = &script2[0];
 							splitline();
 							
-							pc_ts->MoveTo(makenumber(0),makenumber(1),makenumber(2));
+							Coord_cl position(pc_ts->pos);
+							position.x = makenumber(0);
+							position.y = makenumber(1);
+							position.z = makenumber(2);
+							pc_ts->moveTo(position);
 
 							pos = ftell(scpfile);	// teleport might open scripts
 							closescript();

@@ -93,7 +93,7 @@ void StonePlacement(UOXSOCKET s)
 		pStone->charter = DEFAULTCHARTER;
 		pStone->addMember( pc );
 		pStone->guildType = cGuildStone::standard;
-		pStone->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
+		pStone->moveTo(pc->pos);
 		pStone->type = 202;
 		pStone->priv = 0;
 		pStone->setLockedDown();

@@ -1132,7 +1132,7 @@ void deathstuff(P_CHAR pc_player)
 	pi_c->name2 = pc_player->name;
 
 	pi_c->type=1;
-	pi_c->MoveTo(pc_player->pos.x,pc_player->pos.y,pc_player->pos.z);
+	pi_c->moveTo(pc_player->pos);
 
 	pi_c->more1=nType;
 	pi_c->dir=pc_player->dir;
@@ -2240,7 +2240,11 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 		Commands->MakePlace (s, tmp);
 		if (addx[s]!=0)
 		{
-			pc_currchar->MoveTo(addx[s],addy[s],addz[s]);
+			Coord_cl pos(pc_currchar->pos);
+			pos.x = addx[s];
+			pos.y = addy[s];
+			pos.z = addz[s];
+			pc_currchar->moveTo(pos);
 			teleport(pc_currchar);
 		}
 		return;
@@ -2391,7 +2395,11 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		
 		pi->SetContSerial(pc_currchar->serial);
 		pi->layer = 0x19;
-		pi->MoveTo(pc_mount->fx1, pc_mount->fy1, pc_mount->fz1);
+		Coord_cl pos(pc_currchar->pos);
+		pos.x = pc_mount->fx1;
+		pos.y = pc_mount->fy1;
+		pos.z = pc_mount->fz1;
+		pi->moveTo(pos);
 		
 		pi->moreb1 = pc_mount->npcWander;
 		pi->att = pc_mount->fx2;
@@ -4226,7 +4234,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 			pi->setId(0x183d);
 		}
 		pi->pileable = true;
-		pi->MoveTo(pc_p->pos.x,pc_p->pos.y,pc_p->pos.z);
+		pi->moveTo(pc_p->pos);
 		pi->priv|=0x01;
 	}
 	else

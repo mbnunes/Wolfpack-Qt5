@@ -44,6 +44,7 @@ using namespace std;
 
 // Forward class definition
 
+class cUObject;
 
 // wolfpack includes
 #include "typedefs.h"
@@ -117,10 +118,8 @@ public:
 	static int myGridx(unsigned int x) throw() {return x/GridSize;};
 	static int myGridy(unsigned int y) throw() {return y/GridSize;};
 
-	bool Add(P_ITEM);
-	bool Add(P_CHAR);
-	bool Remove(P_ITEM);
-	bool Remove(P_CHAR);
+	bool Add(cUObject*);
+	bool Remove(cUObject*);
 	vector<SERIAL> GetCellEntries(UI32 cell, enDomain type = enAll);
 	static unsigned int GetColSize() {return ColSize;};
 

@@ -119,7 +119,7 @@ bool isLavaWater(int id)
 		return false;
 }
 
-int line_of_sight(int s, Coord_cl &source, Coord_cl &target, int checkfor)
+int line_of_sight(int s, const Coord_cl &source, const Coord_cl &target, int checkfor)
 {
 /*
 Char (source.x, source.y, source.z) is the char(pc/npc), Target (target.x, target.y, target.z) is the target.

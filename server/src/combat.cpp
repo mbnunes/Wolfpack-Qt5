@@ -205,7 +205,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 				P_ITEM pAmmo=Items->SpawnItem(pc_deffender,1,"#",1,id,0,0);
 				if(pAmmo)
 				{
-					pAmmo->MoveTo(pc_deffender->pos.x,pc_deffender->pos.y,pc_deffender->pos.z);
+					pAmmo->moveTo(pc_deffender->pos);
 					pAmmo->priv=1;
 					RefreshItem(pAmmo);
 				}
@@ -496,7 +496,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 				   P_ITEM pBlood = Items->SpawnItem(pc_deffender, 1, "#", 0, id, 0, 0);
 				   if (pBlood)
 				   {
-					  pBlood->MoveTo(pc_deffender->pos.x, pc_deffender->pos.y, pc_deffender->pos.z);
+					  pBlood->moveTo(pc_deffender->pos);
 					  pBlood->priv = 1;
 					  pBlood->setGMMovable(); //Moveable by GM
 					  RefreshItem(pBlood);
@@ -767,7 +767,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 			{
 				if (pc_attacker->npcaitype==4 && pc_attacker->inGuardedArea()) // changed from 0x40 to 4, LB
 				{
-					pc_attacker->MoveTo(pc_defender->pos.x,pc_defender->pos.y,pc_defender->pos.z);
+					pc_attacker->moveTo(pc_defender->pos);
 					
 					teleport(pc_attacker);
 					soundeffect2(pc_attacker, 0x01FE); // crashfix, LB

@@ -148,13 +148,13 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 			case 200://gochar 
 				doGmMoveEff(s); 	// have a flamestrike at origin and at player destination point 	//Aldur
 				
-				pc_currchar->MoveTo(pc_c->pos.x,pc_c->pos.y,pc_c->pos.z); 
+				pc_currchar->moveTo(pc_c->pos); 
 				teleport((currchar[s])); 
 				
 				doGmMoveEff(s); 
 				break;
 			case 201://xtele
-				pc_c->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+				pc_c->moveTo(pc_currchar->pos);
 				teleport((pc_c));
 				
 				break;

@@ -123,7 +123,7 @@ void loadQitem(FILE *fp,char *fn)
 	if (item_scp_no > 0 && pos.x > 0 && pos.y > 0)	// seems to be a valid entry :)
 	{
 		P_ITEM pi=Items->CreateFromScript(-1,item_scp_no);
-		pi->MoveTo(pos.x,pos.y,pos.z);
+		pi->moveTo(pos);
 	}
 }
 

@@ -56,7 +56,7 @@ void teleporters(P_CHAR pc_s)
 		{
 			if((iter_tele_locations->second.origem.z == illegal_z)||(pc_s->pos.z == iter_tele_locations->second.origem.z))
 			{
-				pc_s->MoveTo(iter_tele_locations->second.destination.x, iter_tele_locations->second.destination.y, iter_tele_locations->second.destination.z);
+				pc_s->moveTo(iter_tele_locations->second.destination);
 				teleport(pc_s);
 				return;
 			}
@@ -792,7 +792,11 @@ void objTeleporters(P_CHAR pc_s)
 					{
 						if ((pmi->type == 60) && (pmi->morex + pmi->morey + pmi->morez >0))
 						{
-							pc_s->MoveTo(pmi->morex,pmi->morey,pmi->morez);
+							Coord_cl pos(pc_s->pos);
+							pos.x = pmi->morex;
+							pos.y = pmi->morey;
+							pos.z = pmi->morez;
+							pc_s->moveTo(pos);
 							teleport(pc_s);
 						}
 						
