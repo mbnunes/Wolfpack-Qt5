@@ -269,7 +269,7 @@
 		<tinker definition="1057" name="Sextant">
 			<material id="1059;105a" amount="1" name="Sextant Parts" /> <!-- Sextant Parts -->
 		</tinker>
-		<tinker definition="potionkeg" name="Potion Keg">
+		<tinker definition="potion_keg_empty" name="Potion Keg">
 			<tinkering min="750" max="1000" />
 			<material id="e7f" amount="1" name="Keg" /> <!-- Keg -->
 			<material id="1004" amount="1" name="Barrel Tap" /> <!-- Barrel Tap -->
