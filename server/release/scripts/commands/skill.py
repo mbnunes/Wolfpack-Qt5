@@ -25,11 +25,10 @@
 
 import wolfpack
 import string
-from wolfpack.consts import YELLOW, NORMAL, skillnamesids, SKILLNAMES
+from wolfpack.consts import YELLOW, NORMAL, skillnamesids, SKILLNAMES, ALLSKILLS
 
 usage =   'Usage: skill <skill-name> <value*10>'
 example = 'Example: skill mining 1000'
-
 
 def onLoad():
 	wolfpack.registercommand( "skill", skill )
@@ -91,7 +90,7 @@ def allskills( socket, command, args ):
 	try:
 		if len( args ) > 0:
 			value = int( args )
-			for skillid in range( 0, 52 ):
+			for skillid in range( 0, ALLSKILLS ):
 				char.skill[ skillid ] = value
 			char.update()
 			return True
