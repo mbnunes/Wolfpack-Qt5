@@ -308,7 +308,7 @@ def makedeed( char ):
 
 	# interpret the skill/resource data
 	item_name = char.gettag( 'skills' )
-	if not skills.haskey( item_name ):
+	if not skills.has_key( item_name ):
 		return
 	use_skills = skills[ item_name ][ 0 ].keys()
 	use_items = skills[ item_name ][ 1 ].keys()
