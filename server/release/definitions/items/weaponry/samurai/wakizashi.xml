@@ -8,6 +8,7 @@
 -->
 <definitions>
 
+	<!-- Swordsmanship -->
 	<!-- Wakizashi -->
 	<item id="27a4">
 		<id>0x27a4</id>
@@ -23,10 +24,10 @@
 		<category>Weapons\Samurai\Wakizashi</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
-		<intproperty name="req_strength" value="35" />
-		<intproperty name="speed" value="37" />
-		<intproperty name="mindamage" value="14" />
-		<intproperty name="maxdamage" value="16" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="speed" value="44" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="13" />
 	</item>
 
 	<item id="27ef" inherit="27a4">

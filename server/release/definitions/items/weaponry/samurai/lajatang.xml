@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!-- Guessing Fencing -->
+	<!-- Fencing -->
 	<!-- Lajatang -->
 	<item id="27a7">
 		<id>0x27a7</id>
@@ -24,10 +24,10 @@
 		<category>Weapons\Samurai\Lajatang</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
-		<intproperty name="req_strength" value="35" />
-		<intproperty name="speed" value="37" />
-		<intproperty name="mindamage" value="14" />
-		<intproperty name="maxdamage" value="16" />
+		<intproperty name="req_strength" value="65" />
+		<intproperty name="speed" value="32" />
+		<intproperty name="mindamage" value="16" />
+		<intproperty name="maxdamage" value="18" />
 	</item>
 
 	<item id="27f2" inherit="27a7">

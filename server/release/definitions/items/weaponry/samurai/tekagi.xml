@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!-- Guessing Wrestling -->
+	<!-- Fencing -->
 	<!-- Tekagi -->
 	<item id="27ab">
 		<id>0x27ab</id>
@@ -20,14 +20,14 @@
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
-		<type>1000</type>
+		<type>1005</type>
 		<category>Weapons\Samurai\Tekagi</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
-		<intproperty name="req_strength" value="35" />
-		<intproperty name="speed" value="37" />
-		<intproperty name="mindamage" value="14" />
-		<intproperty name="maxdamage" value="16" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="53" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="12" />
 	</item>
 
 	<item id="27f6" inherit="27ab">

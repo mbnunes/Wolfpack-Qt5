@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!-- Guessing Swordsmanship -->
+	<!-- Swordsmanship -->
 	<!-- Daisho -->
 	<item id="27a9">
 		<id>0x27a9</id>
@@ -24,10 +24,10 @@
 		<category>Weapons\Samurai\Daisho</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
-		<intproperty name="req_strength" value="35" />
-		<intproperty name="speed" value="37" />
-		<intproperty name="mindamage" value="14" />
-		<intproperty name="maxdamage" value="16" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="speed" value="40" />
+		<intproperty name="mindamage" value="13" />
+		<intproperty name="maxdamage" value="15" />
 	</item>
 
 	<item id="27f4" inherit="27a9">

@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!-- Guessing fencing -->
+	<!-- Fencing -->
 	<!-- Kama -->
 	<item id="27ad">
 		<id>0x27ad</id>
@@ -24,10 +24,10 @@
 		<category>Weapons\Samurai\Kama</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
-		<intproperty name="req_strength" value="35" />
-		<intproperty name="speed" value="37" />
-		<intproperty name="mindamage" value="14" />
-		<intproperty name="maxdamage" value="16" />
+		<intproperty name="req_strength" value="15" />
+		<intproperty name="speed" value="55" />
+		<intproperty name="mindamage" value="9" />
+		<intproperty name="maxdamage" value="11" />
 	</item>
 
 	<item id="27f8" inherit="27ad">
