@@ -801,10 +801,6 @@ SOURCE=.\whitespace.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\win_registry.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\wolfpack.h
 # End Source File
 # Begin Source File

@@ -149,7 +149,7 @@ void serXmlFile::prepareReading(std::string ident, int bLevel)
 	if ( bLevel >= backuplevel )
 		return; // nothing more can be done.
 
-	QString fileName( QString( "%1%2" ).arg( SrvParams->getString( "General", "SavePath", "./" ) ).arg( ident.c_str() ) );
+	QString fileName( QString( "%1%2" ).arg( SrvParams->getString( "General", "SavePath", "./", true ) ).arg( ident.c_str() ) );
 
 	if ( bLevel != 0 )
 		fileName += QString("-%1").arg(bLevel);
@@ -193,7 +193,7 @@ void serXmlFile::prepareReading(std::string ident, int bLevel)
 
 void serXmlFile::prepareWritting(std::string ident)
 {
-	QString fileName( QString( "%1%2" ).arg( SrvParams->getString( "General", "SavePath", "./" ) ).arg( ident.c_str() ) );
+	QString fileName( QString( "%1%2" ).arg( SrvParams->getString( "General", "SavePath", "./", true ) ).arg( ident.c_str() ) );
 
 	// perform backups
 	unsigned int i;

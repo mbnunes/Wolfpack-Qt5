@@ -57,7 +57,7 @@ struct StartLocation_st
 };
 
 // Constants
-const unsigned int FIRST_YEAR = 1753;
+const unsigned int FIRST_YEAR = 1970;
 
 class cSrvParams : public Preferences
 {

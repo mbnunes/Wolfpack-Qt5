@@ -1400,6 +1400,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
     
 	else pGetInt( "dir", dir() )
 	else pGetInt( "tamed", tamed() ? 1 : 0 )
+	else pGetInt( "gm", isGM() ? 1 : 0 )
 
 	// Flags
 	else pGetInt( "allmove", canMoveAll() ? 1 : 0 )

@@ -208,13 +208,16 @@ void cSrvParams::readData()
 	cacheMulFiles_			= getBool  ("General",  "Cache Mul Files", true, true);
 	beggingRange_           = getNumber("General",  "Begging Range", 3, true);
 	clientsAllowed_			= QStringList::split(",", getString("General", "Allowed Clients", "SERVER_DEFAULT", true).upper());
-	uoTime.fromString( QString::number(FIRST_YEAR) + "-" + getString("General", "Initial Date/Time", "01-18T01:00:00", true), Qt::ISODate);
+	
+	// We're saving the elapsed seconds since server-start (INGAME SECONDS!)
+	// fromString( QString::number(FIRST_YEAR) + "-" + getString("General", "Initial Date/Time", "01-18T01:00:00", true), Qt::ISODate);
+	uoTime.setTime_t( getNumber( "General", "UO Time", 0, true ) );
+	
 	saveInterval_			= getNumber("General", "Save Interval", 900, true);
 	heartBeat_				= getBool("General", "HeartBeat", false, true);
 	defaultpriv1_			= getNumber("General", "DefaultPrivileage1", 0, true);
 	defaultpriv2_			= getNumber("General", "DefaultPrivileage2", 0, true);
 	mulPath_				= getString("General", "MulPath", "./", true);
-
 
 	// Combat
 	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );
