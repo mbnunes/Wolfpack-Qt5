@@ -107,6 +107,10 @@ void WPDefManager::ProcessNode( QDomElement Node )
 		UseItems.insert( NodeID, Node );
 	else if( NodeName == "skillcheck" )
 		SkillChecks.insert( NodeID, Node );
+	else if( NodeName == "define" )
+		Defines.insert( NodeID, Node );
+	else if( NodeName == "resource" )
+		Resources.insert( NodeID, Node );
 }
 
 // Recursive Function for Importing Script Sections
@@ -198,6 +202,8 @@ void WPDefManager::unload( void )
 	clearNodes( MakeItems );
 	clearNodes( UseItems );
 	clearNodes( SkillChecks );
+	clearNodes( Defines );
+	clearNodes( Resources );
 }
 
 void WPDefManager::reload( void )
@@ -302,6 +308,10 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 		ListPointer = &Defines;
 		break;
 
+	case WPDT_RESOURCE:
+		ListPointer = &Resources;
+		break;
+
 	default:
 		return 0;
 	};
@@ -396,6 +406,10 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 
 	case WPDT_DEFINE:
 		ListPointer = &Defines;
+		break;
+
+	case WPDT_RESOURCE:
+		ListPointer = &Resources;
 		break;
 
 	default:

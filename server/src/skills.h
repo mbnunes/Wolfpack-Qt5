@@ -66,7 +66,7 @@ public:
 	void CollectAmmo(int s, int a, int b);
 	void Meditation(cUOSocket* s);
 public:
-	// skills with crafting menu
+	// skills using crafting menus
 	void Blacksmithing( cUOSocket* socket );
 	void Carpentry( cUOSocket* socket );
 	void Cartography( cUOSocket* socket );
@@ -74,7 +74,6 @@ public:
 	void Tailoring( cUOSocket* socket );
 	void Tinkering( cUOSocket* socket );
 
-	
 	static void RandomSteal( cUOSocket*, SERIAL );	
 	void RepairTarget(UOXSOCKET s); // Ripper
 	void SmeltItemTarget(UOXSOCKET s); // Ripper
@@ -90,7 +89,6 @@ public:
 	void MakePizza(int s);
 	void Track(P_CHAR pc_i);
 	void DoPotion(int s, int type, int sub, P_ITEM mortar);
-	void Mine(int s);
 	void GraveDig(int s);
 	void SmeltOre(int s);
 	void Wheel(int s, int mat);

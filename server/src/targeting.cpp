@@ -4068,7 +4068,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 48: Targ->ShowAccountCommentTarget(s); break;
 		case 49: Skills->CookOnFire(s,0x09,0x7B,"fish steaks"); break;
 //		case 50: Skills->Smith(s); break;
-		case 51: Skills->Mine(s); break;
+//		case 51: Skills->Mine(s); break;
 		case 52: Skills->SmeltOre(s); break;
 		case 53: npcact(s); break;
 		case 54: Skills->CookOnFire(s,0x09,0xB7,"bird"); break;

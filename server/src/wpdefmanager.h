@@ -61,7 +61,8 @@ enum WPDEF_TYPE
 	WPDT_MAKEITEM,
 	WPDT_USEITEM,
 	WPDT_SKILLCHECK,
-	WPDT_DEFINE
+	WPDT_DEFINE,
+	WPDT_RESOURCE
 };
 
 class WPDefManager  
@@ -88,6 +89,7 @@ private:
 	DefSections UseItems;
 	DefSections SkillChecks;
 	DefSections Defines;
+	DefSections Resources;
 
 	bool ImportSections( const QString& FileName );
 	void ProcessNode( QDomElement Node );

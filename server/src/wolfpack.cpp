@@ -67,6 +67,7 @@
 #include "accounts.h"
 #include "makemenus.h"
 #include "skills.h"
+#include "resources.h"
 
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
@@ -216,6 +217,7 @@ void signal_handler(int signal)
 		DefManager->reload();
 		cAllSpawnRegions::getInstance()->reload();
 		cAllTerritories::getInstance()->reload();
+		cAllResources::getInstance()->reload();
 		cAllMakeMenus::getInstance()->reload();
 		cCommands::instance()->loadACLs();
 		ScriptManager->reload();
@@ -1659,6 +1661,7 @@ void checkkey ()
 				DefManager->reload(); //Reload Definitions
 				cAllSpawnRegions::getInstance()->reload();
 				cAllTerritories::getInstance()->reload();
+				cAllResources::getInstance()->reload();
 				cAllMakeMenus::getInstance()->reload();
 				cCommands::instance()->loadACLs();
 
@@ -1893,7 +1896,8 @@ int main( int argc, char *argv[] )
 	CIAO_IF_ERROR; // LB prevents file corruption
 
 	cAllSpawnRegions::getInstance()->load();
-	cAllMakeMenus::getInstance()->reload();
+	cAllResources::getInstance()->load();
+	cAllMakeMenus::getInstance()->load();
 
 	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
 	P_ITEM pi;

@@ -70,7 +70,9 @@ void CWorldMain::cItemsSaver::run() throw()
 		AllItemsIterator iterItems;
 		for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
 		{
-			archive->writeObject( iterItems.GetData() );
+			P_ITEM pi = iterItems.GetData();
+			if( pi && pi->objectID() != "RESOURCE" )
+				archive->writeObject( pi );
 		}
 		archive->close();
 		delete archive;

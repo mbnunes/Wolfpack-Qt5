@@ -44,6 +44,7 @@
 #include "targetrequests.h"
 #include "wpdefmanager.h"
 #include "network/uosocket.h"
+#include "resources.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
@@ -1107,8 +1108,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x0F3A:
 					if (!Item_ToolWearOut(s, pi))
 					{
-						addmitem[s] = pi->serial; // save the item number, AntiChrist
-						target(s, 0, 1, 0, 51, "Where do you want to dig?");
+						socket->sysMessage( tr("Where do you want to dig?") );
+						socket->attachTarget( new cFindResource( "RESOURCE_ORE" ) );
 					}
 					return; // mining
 				case 0x0E24: // empty vial

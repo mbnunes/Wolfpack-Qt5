@@ -47,6 +47,7 @@
 #include "wpdefmanager.h"
 #include "pagesystem.h"
 #include "makemenus.h"
+#include "resources.h"
 
 // System Includes
 #include <functional>
@@ -1650,6 +1651,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		DefManager->reload(); //Reload Definitions
 		cAllSpawnRegions::getInstance()->reload();
 		cAllTerritories::getInstance()->reload();
+		cAllResources::getInstance()->reload();
 		cAllMakeMenus::getInstance()->reload();
 		cCommands::instance()->loadACLs();
 
@@ -1667,6 +1669,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		DefManager->reload(); //Reload Definitions
 		cAllSpawnRegions::getInstance()->reload();
 		cAllTerritories::getInstance()->reload();
+		cAllResources::getInstance()->reload();
 		cAllMakeMenus::getInstance()->reload();
 		cCommands::instance()->loadACLs();
 
