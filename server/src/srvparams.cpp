@@ -33,6 +33,10 @@
 #include "winsock.h"
 #endif
 
+#ifndef INADDR_NONE
+#define INADDR_NONE (-1)
+#endif
+
 #include "srvparams.h"
 #include "globals.h"
 
@@ -51,10 +55,10 @@ Q_INT32 resolveName( const QString& data )
 		return INADDR_NONE;
 //	we do a dns lookup on this
 
-	Q_INT32 uiValue = inet_addr(data.latin1()) ;
+	Q_INT32 uiValue = inet_addr((char*)data.latin1()) ;
 	if (uiValue == INADDR_NONE)
 	{
-		hostent* ptrHost = gethostbyname(data.latin1());
+		hostent* ptrHost = gethostbyname((char*)data.latin1());
  		if(ptrHost != 0)
 		{
 	        char** ptrPtr = ptrHost->h_addr_list;
