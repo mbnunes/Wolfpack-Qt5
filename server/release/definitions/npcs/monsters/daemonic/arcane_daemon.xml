@@ -41,7 +41,7 @@
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Loot Packs -->
 		<!-- Missing:  -->
-		<lootpacks>lootpack_average</lootpacks>
+		<lootpacks>gold_good;gold_good</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Arcane Daemon</category>
 		<strproperty name="slayer_group" value="daemons" />
