@@ -530,7 +530,7 @@ bool BankerSpeech(cChar* pBanker, char* comm, cChar* pPlayer, UOXSOCKET s)
 	{
 		return 0;
 	}
-	if (pPlayer->dist(pBanker) > 6)
+	if (pPlayer->dist(pBanker) > 12)
 	{
 		return 0;
 	}

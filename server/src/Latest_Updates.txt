@@ -49,4 +49,6 @@ will highlight red. (Ripper)
 41) Fixed: 'makegm & 'makecns should work correctly again. (Ripper)
 42) Added: Check # to banker AI. say Check # to any banker to get a check for # amount. To
 cash check, just drop on any banker :) (Ripper)
+43) Changed: Bankers to hear at 12 tiles, instead of 6 tiles. This gives you allmost a
+screen away to open bank. helps to open from outsidebank. (Ripper)
 
