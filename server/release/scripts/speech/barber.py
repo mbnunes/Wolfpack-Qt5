@@ -43,7 +43,7 @@ def onSpeech( listener, speaker, text, keywords ):
 		return 0
 
 	if speaker.id != 0x190 and speaker.id != 0x191:
-		listener.say( "I can't cat your hair!",5 )
+		listener.say( "I can't cut your hair!",5 )
 		return 1
 
 	# We only have one keyword
