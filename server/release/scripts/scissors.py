@@ -29,10 +29,10 @@ ids_clothes = [ 0x1765, 0x1766, 0x1767, 0x1768 ]
 def onUse( char, item ):
 	# Needs to be on ourself
 	if item.getoutmostchar() != char:
-		char.socket.clilocmessage( 0, 500, 312 ) # You can't reach...
+		char.socket.clilocmessage( 0x7A258 ) # You can't reach...
 		return 1
 
-	char.socket.clilocmessage( 0, 500, 2434 ) # What do you want to use this scissors on?
+	char.socket.clilocmessage( 0x7AAA2 ) # What do you want to use this scissors on?
 	char.socket.attachtarget( "scissors.response", [ item.serial ] )
 	return 1
 
@@ -44,20 +44,20 @@ def response( char, args, target ):
 	item = wolfpack.finditem( args[0] )
 
 	if not item: 
-		char.socket.clilocmessage( 0, 500, 312 ) # You can't reach...
+		char.socket.clilocmessage( 0x7A258 ) # You can't reach...
 		return
 	
 	if not ( item.getoutmostchar() == char):
-		char.socket.clilocmessage( 0, 500, 312 ) # You can't reach...
+		char.socket.clilocmessage( 0x7AAA5 ) # You can't reach...
 		return 
 
 	# Check target (only item targets valid)
 	if not target.item:
-		char.socket.clilocmessage( 0, 500, 2440, "", 0x3b2, 3, char ) # Scissors can not be used on that to produce anything
+		char.socket.clilocmessage( 0x7AAA8, "", 0x3b2, 3, char ) # Scissors can not be used on that to produce anything
 		return
     
 	if not target.item.getoutmostchar() == char:
-		char.socket.clilocmessage( 0, 500, 312 )
+		char.socket.clilocmessage( 0x7A4FC )
 		return 
 
 	if target.item.id in ids_rawleather:
@@ -198,6 +198,5 @@ def response( char, args, target ):
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 	else:
-		char.socket.clilocmessage( 0, 500, 2440, "", 0x3b2, 3, char ) # Scissors can not be used on that to produce anything
+		char.socket.clilocmessage( 0x7AAA8, "", 0x3b2, 3, char ) # Scissors can not be used on that to produce anything
 		return
-	

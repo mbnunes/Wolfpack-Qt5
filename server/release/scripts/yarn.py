@@ -11,15 +11,13 @@ import wolfpack.utilities
 
 ids = [ 0x1063, 0x1066, 0x105f, 0x1061 ]
 
-
-
 def onUse( char, item ):
 	# Needs to be on ourself
 	if item.getoutmostchar() != char:
-		char.socket.clilocmessage( 0, 500, 312 ) # You can't reach...
+		char.socket.clilocmessage( 0x7A258 ) # You can't reach...
 		return 1
 
-	char.socket.sysmessage( "What do you want to use this ball oy yarn on?" )
+	char.socket.clilocmessage( 0x7A28E ) # Select a loom to use that on.
 	char.socket.attachtarget( "yarn.response", [ item.serial ] )
 	return 1
 
@@ -32,16 +30,16 @@ def response( char, args, target ):
 	item = wolfpack.finditem( args[0] )
 	
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
-		char.socket.clilocmessage( 0, 500, 295 )
+		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
 		return 1
 		
 	if abs( char.pos.z - target.pos.z ) > 5:
-		char.socket.clilocmessage( 0, 500, 295 )
+		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
 		return 1
 	
 	# Check target (only item targets valid)
 	if not target.item:
-		char.socket.sysmessage( "The ball of yarn can not be used on that to produce anything." )
+		char.socket.clilocmessage( 0x7A28F ) # Try using that on a loom.
 		return 1
 	
 	if target.item.id in ids:
@@ -58,13 +56,14 @@ def response( char, args, target ):
 	
 		if ( target.item.more1 < 5 ):
 			target.item.more1 = target.item.more1 + 1
-		
+
 		else:
 			target.item.more1 = 0
 			item_new = wolfpack.additem( "f9a" )
 			if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 				item_new.update()
+			char.socket.clilocmessage( 0x7A290 ) # You create some cloth and put it in your backpack.
 
 	else:
-		char.socket.sysmessage( "Whool can not be used on that to produce anything." )
+		char.socket.clilocmessage( 0x7A28F ) # Try using that on a loom.
 		return

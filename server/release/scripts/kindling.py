@@ -25,18 +25,18 @@ def onUse( char, item ):
 	owner = item.getoutmostchar()
 
 	if owner and owner != char:
-		char.socket.clilocmessage( 0, 500, 1694, "", 0x3b2, 0x3, item ) # You can't ignite that, it belongs to someone else
+		char.socket.clilocmessage( 0x7A7BE, "", 0x3b2, 0x3, item ) # You can't ignite that, it belongs to someone else
 		return 1
 
 	cont = item.getoutmostitem()
 
 	if not owner:
 		if( char.distanceto( cont ) > 5 ):
-			char.socket.clilocmessage( 0, 500, 491, "", 0x3b2, 0x3, item ) # You cannot reach that
+			char.socket.clilocmessage( 0x7A258, "", 0x3b2, 0x3, item ) # You cannot reach that
 			return 1
 
 	if not char.checkskill( CAMPING, 0, 500 ):
-		char.socket.clilocmessage( 0, 500, 1696, "", 0x3b2, 0x3, item ) # You fail to ignite the campfire
+		char.socket.clilocmessage( 0x7A7C0, "", 0x3b2, 0x3, item ) # You fail to ignite the campfire
 		return 1
 
 	# Get the position we want to have
