@@ -118,7 +118,7 @@ void cChar::Init(bool ser)
 	this->name = "Mr. noname";
 	this->setOrgname("Mr. noname");
 	this->title_ = "";
-
+	this->socket_ = 0;
 	this->setAntispamtimer(0);//LB - anti spam
 
 	this->setUnicode(true); // This is set to 1 if the player uses unicode speech, 0 if not
