@@ -15,14 +15,14 @@ class Clumsy (CharEffectSpell):
 		self.mantra = 'Uus Jux'
 		self.harmful = 1
 		self.reflectable = 1
-		
+
 	def effect(self, char, target):
 		statmodifier(char, target, 1, 1)
 
 		target.effect(0x3779, 10, 15)
 		target.soundeffect(0x1df)
 		target.disturb()
-		
+
 class Feeblemind (CharEffectSpell):
 	def __init__(self):
 		CharEffectSpell.__init__(self, 1)
@@ -30,14 +30,14 @@ class Feeblemind (CharEffectSpell):
 		self.mantra = 'Rel Wis'
 		self.harmful = 1
 		self.reflectable = 1
-		
+
 	def effect(self, char, target):
 		statmodifier(char, target, 2, 1)
-				
+
 		target.effect(0x3779, 10, 15)
 		target.soundeffect(0x1e5)
 		target.disturb()
-				
+
 class Weaken (CharEffectSpell):
 	def __init__(self):
 		CharEffectSpell.__init__(self, 1)
@@ -45,10 +45,10 @@ class Weaken (CharEffectSpell):
 		self.mantra = 'Des Mani'
 		self.harmful = 1
 		self.reflectable = 1
-		
+
 	def effect(self, char, target):
 		statmodifier(char, target, 0, 1)
-				
+
 		target.effect(0x3779, 10, 15)
 		target.soundeffect(0x1e6)
 		target.disturb()
@@ -62,13 +62,13 @@ class CreateFood(Spell):
 	def cast(self, char, mode, args=[]):
 		if not self.consumerequirements(char, mode):
 			return
-		 
+
 		# Randomly select one id of food
-		foodinfo = [["9d1", "a grape bunch"], ["9d2", "a peach"], ["9c9", "a ham"], ["97c", "a wedge of cheese"], 
+		foodinfo = [["9d1", "a grape bunch"], ["9d2", "a peach"], ["9c9", "a ham"], ["97c", "a wedge of cheese"],
 								["9eb", "muffins"], ["9f2", "cut of ribs"], ["97b", "a fish steak"], ["9b7", "a cooked bird"]]
-		
+
 		food = random.choice(foodinfo)
-		
+
 		item = wolfpack.additem(food[0])
 		foodname = " " + food[1]
 		if not tobackpack(item, char):
@@ -97,10 +97,10 @@ class Heal (CharEffectSpell):
 		# 10% of Magery + 1-5
 		#amount = int(0.01 * char.skill[MAGERY]) + random.randint(1, 5)
 		amount = int(char.skill[MAGERY] / 100) + random.randint(1, 3)
-		
+
 		target.hitpoints = min(target.maxhitpoints, target.hitpoints + amount)
 		target.updatehealth()
-				
+
 		target.effect(0x376A, 9, 32)
 		target.soundeffect(0x1f2)
 
@@ -110,7 +110,7 @@ class NightSight (CharEffectSpell):
 		self.reagents = {REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1}
 		self.mantra = 'In Lor'
 		self.range = 10
-	
+
 	def affectchar(self, char, mode, target, args=[]):
 		if not target.player:
 			if char.socket:
@@ -139,7 +139,7 @@ class NightSight (CharEffectSpell):
 		target.settag("nightsight", bonus)
 		target.settag("nightsight_start", time.minutes())
 		target.lightbonus += bonus
-		
+
 		if target.socket:
 			target.socket.updatelightlevel()
 
@@ -155,7 +155,7 @@ class MagicArrow (DelayedDamageSpell):
 		self.reflectable = 1
 		self.sound = 0x1e5
 		self.delay = 0
-		
+
 	def damage(self, char, target):
 		damage = self.scaledamage(char, target, 10, 1, 4)
 		energydamage(target, char, damage, fire=100)
@@ -179,10 +179,10 @@ class ReactiveArmor(Spell):
 			char.propertyflags |= 0x10000
 			char.effect(0x376a, 9, 32)
 			char.soundeffect(0x1e9)
-		
+
 		if char.socket:
 			char.socket.resendstatus()
-		
+
 # Register the spells in this module (magic.circle1)
 def onLoad():
 	Clumsy().register(1)

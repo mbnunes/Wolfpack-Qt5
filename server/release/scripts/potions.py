@@ -43,6 +43,9 @@ POT_NAME = 3
 KEG_NAME = 4
 POT_DEF = 5
 
+explosions = [ 0x36b0, 0x36bd, 0x36cb]
+explodables = [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]
+
 # Use the potion
 def onUse( char, item ):
 	socket = char.socket
@@ -160,7 +163,7 @@ def potionexplosion(args):
 		return
 	else:
 		potion.soundeffect(0x307) # Boom!
-		potion.effect(0x36BD, 20, 10)
+		potion.effect( explosions[randint(0,2)], 20, 10)
 		potionregion( [char, potion, bonus] )
 		potion.delete()
 		return
@@ -186,7 +189,6 @@ def potionregion( args ):
 	char = args[0]
 	potion = args[1]
 	bonus = args[2]
-	explodables = [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]
 	if potion.gettag('potiontype') == 11:
 		outradius = 1
 	elif potion.gettag('potiontype') == 12:
@@ -315,7 +317,7 @@ def potiondamage( char, target, potion, dmgbonus ):
 	# Flamestrike effect
 	if damage >= (target.maxhitpoints / 2):
 		target.effect(0x3709, 10, 30)
-	target.effect(0x36BD, 20, 10)
+	target.effect( explosions[randint(0,2)], 20, 10)
 	energydamage(target, char, damage, fire=100)
 	return
 

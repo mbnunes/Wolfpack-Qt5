@@ -31,7 +31,7 @@ class Earthquake(Spell):
 		else:
 			party = None
 			guild = None
-			
+
 		targets = []
 
 		damage = self.scaledamage(char, None, 48, 45, 5)
@@ -68,7 +68,7 @@ class EnergyVortex(Spell):
 		ev.summontime = wolfpack.time.servertime() + 120000
 		ev.summoned = 1
 		ev.soundeffect(0x212)
-		
+
 class Resurrection(Spell):
 	def __init__(self):
 		Spell.__init__(self, 8)
@@ -99,6 +99,7 @@ class SummonElementBase(Spell):
 		self.elementid = ''
 		self.validtarget = TARGET_GROUND
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1}
+		self.casttime = 6000
 
 	def target(self, char, mode, targettype, target, args=[]):
 		char.turnto(target)
@@ -122,12 +123,14 @@ class SummonAirElement(SummonElementBase):
 		SummonElementBase.__init__(self)
 		self.mantra = 'Kal Vas Xen Hur'
 		self.elementid = 'air_elemental'
+		self.casttime = 6000
 
 class SummonEarthElement(SummonElementBase):
 	def __init__(self):
 		SummonElementBase.__init__(self)
 		self.mantra = 'Kal Vas Xen Ylem'
 		self.elementid = 'earth_elemental'
+		self.casttime = 6000
 
 class SummonFireElement(SummonElementBase):
 	def __init__(self):
@@ -135,12 +138,14 @@ class SummonFireElement(SummonElementBase):
 		self.mantra = 'Kal Vas Xen Flam'
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1}
 		self.elementid = 'fire_elemental'
+		self.casttime = 6000
 
 class SummonWaterElement(SummonElementBase):
 	def __init__(self):
 		SummonElementBase.__init__(self)
 		self.mantra = 'Kal Vas Xen An Flam'
 		self.elementid = 'water_elemental'
+		self.casttime = 6000
 
 class SummonDaemon(SummonElementBase):
 	def __init__(self):
@@ -148,3 +153,4 @@ class SummonDaemon(SummonElementBase):
 		self.mantra = 'Kal Vas Xen Corp'
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1}
 		self.elementid = 'daemon'
+		self.casttime = 6000
