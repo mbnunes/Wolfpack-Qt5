@@ -47,6 +47,7 @@
 #include "../srvparams.h"
 #include "../wpdefmanager.h"
 #include "../walking2.h"
+#include "../speech.h"
 
 //#include <conio.h>
 #include <iostream>

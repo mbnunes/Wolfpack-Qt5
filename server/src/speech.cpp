@@ -115,36 +115,40 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 
 	// Paging a GM
 	case cChar::enPageGM:
-		gmpages[ pChar->playercallnum() ].reason = speech;
-		notification = tr( "GM Page from %1: %2" ).arg( pChar->name.c_str() ).arg( speech );
-
-		for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
-			if( mSock->player() && mSock->player()->isGM() )
-				mSock->sysMessage( notification );
-
-		if( cNetwork::instance()->count() > 0 )
-			socket->sysMessage( tr( "Available Game Masters have been notified of your request." ) );
-		else
-			socket->sysMessage( tr( "There was no Game Master available, page queued." ) );
-
-		pChar->inputmode = cChar::enNone;
+		{
+			gmpages[ pChar->playercallnum() ].reason = speech;
+			notification = tr( "GM Page from %1: %2" ).arg( pChar->name.c_str() ).arg( speech );
+			
+			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
+				if( mSock->player() && mSock->player()->isGM() )
+					mSock->sysMessage( notification );
+				
+				if( cNetwork::instance()->count() > 0 )
+					socket->sysMessage( tr( "Available Game Masters have been notified of your request." ) );
+				else
+					socket->sysMessage( tr( "There was no Game Master available, page queued." ) );
+				
+				pChar->inputmode = cChar::enNone;
+		}
 		break;
 		
 	// Paging a Counselor
 	case cChar::enPageCouns:
-		counspages[ pChar->playercallnum() ].reason = speech;
-		notification = tr( "Counselor Page from %1: %2" ).arg( pChar->name.c_str() ).arg( speech );
-
-		for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
-			if( mSock->player() && socket->player()->isCounselor() )
-				mSock->sysMessage( notification );
-
-		if( cNetwork::instance()->count() > 0 )
-			socket->sysMessage( tr( "Available Counselors have been notified of your request." ) );
-		else
-			socket->sysMessage( tr( "There was no Counselor available, page queued." ) );
-	
-		pChar->inputmode = cChar::enNone;
+		{
+			counspages[ pChar->playercallnum() ].reason = speech;
+			notification = tr( "Counselor Page from %1: %2" ).arg( pChar->name.c_str() ).arg( speech );
+			
+			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
+				if( mSock->player() && socket->player()->isCounselor() )
+					mSock->sysMessage( notification );
+				
+				if( cNetwork::instance()->count() > 0 )
+					socket->sysMessage( tr( "Available Counselors have been notified of your request." ) );
+				else
+					socket->sysMessage( tr( "There was no Counselor available, page queued." ) );
+				
+				pChar->inputmode = cChar::enNone;
+		}
 		break;
 
 	default:

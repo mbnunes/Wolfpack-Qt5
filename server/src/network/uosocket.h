@@ -63,35 +63,35 @@ private:
 
 public:
 	// Temporary stuff, should be replaced by a tag-like system later
-	void setTempInt( UINT32 data ) { _tempInt = data; }
-	UINT32 tempInt() { return _tempInt; }
+	void setTempInt( UINT32 data );
+	UINT32 tempInt() const;
 
-	Q_UINT8 walkSequence( void )			{ return _walkSequence; }
-	void setWalkSequence( Q_UINT8 data )	{ _walkSequence = data; }
+	Q_UINT8 walkSequence( void ) const;
+	void setWalkSequence( Q_UINT8 data );
 
 	cUOSocket( QSocketDevice *sDevice ): 
 		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
 		_account(-1), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) {}
 	virtual ~cUOSocket( void ) { delete _socket; }
 
-	QSocketDevice *socket( void ) { return _socket; }
-	void setSocket( QSocketDevice *data ) { _socket = data; }
+	QSocketDevice *socket( void ) const;
+	void setSocket( QSocketDevice *data );
 
-	eSocketState state( void ) { return _state; }
-	void setState( eSocketState data ) { _state = data; }
+	eSocketState state( void ) const;
+	void setState( eSocketState data );
 
-	QString version( void )		{ return _version; }
-	QString lang( void )		{ return _lang; }
+	QString version( void ) const;
+	QString lang( void ) const;
 
-	P_CHAR player( void )		{ return _player; }
+	P_CHAR player( void ) const;
 
-	Q_UINT32 rxBytes( void )	{ return _rxBytes; }
-	Q_UINT32 txBytes( void )	{ return _txBytes; }
-	Q_UINT8 viewRange( void )	{ return _viewRange; }
-	void setRxBytes( Q_UINT32 data ) { _rxBytes = data; }
-	void setTxBytes( Q_UINT32 data ) { _txBytes = data; }
+	Q_UINT32 rxBytes( void ) const;
+	Q_UINT32 txBytes( void ) const;
+	Q_UINT8 viewRange( void ) const;
+	void setRxBytes( Q_UINT32 data );
+	void setTxBytes( Q_UINT32 data );
 
-	Q_UINT32 uniqueId( void ) { return _uniqueId; }
+	Q_UINT32 uniqueId( void ) const;
 
 	void recieve(); // Tries to recieve one packet and process it
 	void send( cUOPacket *packet );
@@ -135,5 +135,92 @@ public:
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );
 };
+
+// Inline members
+inline void cUOSocket::setTempInt( UINT32 data ) 
+{
+	_tempInt = data; 
+}
+
+inline UINT32 cUOSocket::tempInt() const
+{ 
+	return _tempInt; 
+}
+
+inline Q_UINT8 cUOSocket::walkSequence( void ) const
+{ 
+	return _walkSequence; 
+}
+
+inline void cUOSocket::setWalkSequence( Q_UINT8 data )	
+{ 
+	_walkSequence = data; 
+}
+
+inline QSocketDevice* cUOSocket::socket( void ) const
+{ 
+	return _socket; 
+}
+
+void inline cUOSocket::setSocket( QSocketDevice *data ) 
+{ 
+	_socket = data; 
+}
+
+inline cUOSocket::eSocketState cUOSocket::state( void ) const
+{ 
+	return _state; 
+}
+
+inline void cUOSocket::setState( cUOSocket::eSocketState data ) 
+{ 
+	_state = data; 
+}
+
+inline QString cUOSocket::version( void ) const
+{ 
+	return _version; 
+}
+
+inline QString cUOSocket::lang( void ) const
+{ 
+	return _lang; 
+}
+
+inline P_CHAR cUOSocket::player( void ) const
+{ 
+	return _player; 
+}
+
+inline Q_UINT32 cUOSocket::rxBytes( void ) const
+{ 
+	return _rxBytes; 
+}
+
+inline Q_UINT32 cUOSocket::txBytes( void ) const
+{ 
+	return _txBytes; 
+}
+
+inline Q_UINT8 cUOSocket::viewRange( void ) const
+{ 
+	return _viewRange; 
+}
+
+inline void cUOSocket::setRxBytes( Q_UINT32 data ) 
+{ 
+	_rxBytes = data;
+}
+
+inline void cUOSocket::setTxBytes( Q_UINT32 data )
+{ 
+	_txBytes = data; 
+}
+
+inline Q_UINT32 cUOSocket::uniqueId( void ) const
+{ 
+	return _uniqueId; 
+}
+
 
 #endif
