@@ -63,6 +63,8 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Withdraw now updates the gold put into the players backpack.
 		- Allowed translation of the base makemenu.
 		- Added tilecolor command.
+		- Making runebooks now allows to use all 4 types of runes.
+		- Implemented item enhancement via tailoring and blacksmithing.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
