@@ -29,11 +29,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-// dragdrop.h: interface for the dragdrop class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#ifndef __DRAGDROP_H__
+#if !defined(__DRAGDROP_H__)
 #define __DRAGDROP_H__
 
 class cUOSocket;
@@ -72,4 +68,4 @@ public:
 
 void equipItem( P_CHAR wearer, P_ITEM item );
 
-#endif
+#endif // __DRAGDROP_H__
