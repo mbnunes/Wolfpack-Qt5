@@ -431,7 +431,9 @@ static PyObject* wpChar_soundeffect( wpChar* self, PyObject* args )
 static PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 {
 	if ( !self->pChar || self->pChar->free )
-		return PyInt_FromLong( -1 );
+		return PyInt_FromLong(PyInt_GetMax());
+
+	int distance = PyInt_GetMax();
 
 	// Probably an object
 	if ( PyTuple_Size( args ) == 1 )
@@ -439,28 +441,52 @@ static PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 		PyObject* pObj = PyTuple_GetItem( args, 0 );
 
 		if ( checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
-			return PyInt_FromLong( self->pChar->pos().distance( getWpCoord( pObj ) ) );
+		{
+			distance = self->pChar->pos().distance( getWpCoord( pObj ) );
+			if (distance < 0) {
+				return PyInt_FromLong( PyInt_GetMax() );
+			} else {
+				return PyInt_FromLong( distance );
+			}
+		}
 
 		// Item
 		P_ITEM pItem = getWpItem( pObj );
-		if ( pItem )
-			return PyInt_FromLong( pItem->dist( self->pChar ) );
+		if ( pItem ) {
+			distance = pItem->dist( self->pChar );
+			if (distance < 0) {
+				return PyInt_FromLong( PyInt_GetMax() );
+			} else {
+				return PyInt_FromLong( distance );
+			}
+		}
 
 		P_CHAR pChar = getWpChar( pObj );
-		if ( pChar )
-			return PyInt_FromLong( pChar->dist( self->pChar ) );
+		if ( pChar ) {
+			distance = pChar->dist( self->pChar );
+			if (distance < 0) {
+				return PyInt_FromLong( PyInt_GetMax() );
+			} else {
+				return PyInt_FromLong( distance );
+			}
+		}
 	}
 	else if ( PyTuple_Size( args ) >= 2 ) // Min 2
 	{
 		Coord pos = self->pChar->pos();
 
 		if ( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
-			return PyInt_FromLong( -1 );
+			return PyInt_FromLong( PyInt_GetMax() );
 
 		pos.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
 		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
 
-		return PyInt_FromLong( self->pChar->pos().distance( pos ) );
+		distance = self->pChar->pos().distance( pos );
+		if (distance < 0) {
+			return PyInt_FromLong( PyInt_GetMax() );
+		} else {
+			return PyInt_FromLong( distance );
+		}
 	}
 
 	PyErr_BadArgument();
