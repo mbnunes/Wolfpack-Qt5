@@ -78,8 +78,9 @@ cUObject::cUObject( cUObject &src )
 	this->multis_ = src.multis_;
 	this->name_ = src.name_;
 	this->free = src.free;
-	this->changed( SAVE|TOOLTIP );
+	this->changed( TOOLTIP );
 	tooltip_ = src.tooltip_;
+	changed_ = true;
 }
 
 void cUObject::init()
@@ -95,7 +96,7 @@ void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 
 	MapObjects::instance()->add( this );
 
-	changed( SAVE );
+	changed_ = true;
 }
 
 unsigned int cUObject::dist(cUObject* d) const
@@ -181,8 +182,7 @@ void cUObject::save()
 
 
 	PersistentObject::save();
-	changed_ = false;
-
+	flagUnchanged(); // This is the botton of the chain, now go up and flag everyone unchanged.
 }
 
 /*!
@@ -199,7 +199,7 @@ bool cUObject::del()
 	if( tags_.size() > 0 )
 		tags_.del( serial_ );
 
-	changed( SAVE );
+	changed_ = true;
 
 	return PersistentObject::del();
 }
@@ -222,7 +222,7 @@ void cUObject::clearEvents()
 {
 	scriptChain.clear();
 	eventList_ = QString::null;
-	changed( SAVE );
+	changed_ = true;
 }
 
 // Method for setting a list of cPythonScripts
@@ -246,7 +246,7 @@ void cUObject::setEvents( std::vector< cPythonScript* > List )
 			else 
 				eventList_.append( "," + List[ i ]->name() );
 		}
-	changed( SAVE );
+	changed_ = true;
 }
 
 // Gets a vector of all assigned events
@@ -275,7 +275,7 @@ void cUObject::addEvent( cPythonScript *Event )
 	else
 		eventList_.append( "," + Event->name() );
 
-	changed( SAVE );
+	changed_ = true;
 }
 
 void cUObject::removeEvent( const QString& Name )
@@ -299,7 +299,7 @@ void cUObject::removeEvent( const QString& Name )
 	if( eventList_.isEmpty() )
 		eventList_ = QString::null;
 
-	changed( SAVE );
+	changed_ = true;
 }
 
 /****************************
@@ -682,7 +682,8 @@ void cUObject::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT1
 // Simple setting and getting of properties for scripts and the set command.
 stError *cUObject::setProperty( const QString &name, const cVariant &value )
 {
-	changed( SAVE|TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 	SET_STR_PROPERTY( "bindmenu", bindmenu_ )
 	else SET_INT_PROPERTY( "serial", serial_ )
 	else SET_INT_PROPERTY( "multi", multis_ )
@@ -754,7 +755,7 @@ void cUObject::sendTooltip( cUOSocket* mSock )
 
 void cUObject::changed( uint state )
 {
-	if( state & SAVE ) changed_ = true;
+//	if( state & SAVE ) changed_ = true;
 	if( state & TOOLTIP ) tooltip_ = 0xFFFFFFFF;
 }
 

@@ -74,7 +74,8 @@ cBook::cBook()
 	this->author_ = QString::null;
 	this->section_ = QString::null;
 	this->pages_ = 16;
-	this->changed( SAVE|TOOLTIP );
+	this->changed( TOOLTIP );
+	changed_ = true;
 }
 
 void cBook::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
@@ -253,7 +254,7 @@ bool cBook::del()
 
 	persistentBroker->addToDeleteQueue( "books", QString( "serial = '%1'" ).arg( serial() ) );
 	persistentBroker->addToDeleteQueue( "bookpages", QString( "serial = '%1'" ).arg( serial() ) );
-	changed( SAVE );
+	changed_ = true;
 	return cItem::del();
 }
 
@@ -412,7 +413,7 @@ void cBook::processNode( const cElement *Tag )
 
 	else
 		cItem::processNode( Tag );
-	changed( SAVE );
+	changed_ = true;
 }
 
 void cBook::refresh( void )
@@ -504,7 +505,8 @@ void cBook::readPage( cUOSocket *socket, UINT32 page )
 
 stError *cBook::setProperty( const QString &name, const cVariant &value )
 {
-	changed( SAVE|TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 	SET_BOOL_PROPERTY( "readonly", readonly_ )
 	else SET_BOOL_PROPERTY( "predefined", predefined_ )
 	else SET_STR_PROPERTY( "section", section_ )

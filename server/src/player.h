@@ -77,6 +77,7 @@ public:
 	virtual void soundEffect( UI16 soundId, bool hearAll = true );
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
+	virtual void flagUnchanged();
 
 	// other public methods
 	virtual stError *setProperty( const QString &name, const cVariant &value );
@@ -164,6 +165,9 @@ public:
 	void addPet( P_NPC pPet, bool noOwnerChange = false );	
 	void removePet( P_NPC pPet, bool noOwnerChange = false );
 
+private:
+	bool changed_;
+
 protected:
 	// interface implementation
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
@@ -246,7 +250,14 @@ inline void cPlayer::setAccount(AccountRecord* data, bool moveFromAccToAcc)
 
 	if( account_ != 0 )
 		account_->addCharacter( this );
-	changed( SAVE|TOOLTIP );
+	changed_ = true;
+	changed( TOOLTIP );
+}
+
+inline void cPlayer::flagUnchanged()
+{
+	changed_ = true;
+	cBaseChar::flagUnchanged();
 }
 
 inline UINT32 cPlayer::additionalFlags() const
@@ -257,7 +268,7 @@ inline UINT32 cPlayer::additionalFlags() const
 inline void cPlayer::setAdditionalFlags(UINT32 data)
 {
     additionalFlags_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline UINT32 cPlayer::clientIdleTime() const
@@ -268,7 +279,7 @@ inline UINT32 cPlayer::clientIdleTime() const
 inline void cPlayer::setClientIdleTime(UINT32 data)
 {
     clientIdleTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline UINT32 cPlayer::logoutTime() const
@@ -279,7 +290,7 @@ inline UINT32 cPlayer::logoutTime() const
 inline void cPlayer::setLogoutTime(UINT32 data)
 {
     logoutTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline UINT32 cPlayer::muteTime() const
@@ -290,7 +301,7 @@ inline UINT32 cPlayer::muteTime() const
 inline void cPlayer::setMuteTime(UINT32 data)
 {
     muteTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline UINT32 cPlayer::objectDelay() const
@@ -321,7 +332,7 @@ inline cUOSocket* cPlayer::socket() const
 inline void cPlayer::setSocket(cUOSocket* data)
 {
     socket_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline SERIAL cPlayer::inputItem() const
@@ -342,7 +353,7 @@ inline UINT8 cPlayer::visualRange() const
 inline void cPlayer::setVisualRange(UINT8 data)
 {
     visualRange_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline QString cPlayer::profile() const
@@ -353,7 +364,7 @@ inline QString cPlayer::profile() const
 inline void cPlayer::setProfile(const QString &data)
 {
     profile_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline UINT8 cPlayer::fixedLightLevel() const
@@ -364,7 +375,7 @@ inline UINT8 cPlayer::fixedLightLevel() const
 inline void cPlayer::setFixedLightLevel(UINT8 data)
 {
     fixedLightLevel_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline bool cPlayer::isMuted() const
@@ -390,25 +401,25 @@ inline bool cPlayer::showSerials() const
 inline void cPlayer::setMuted(bool data)
 {
 	if( data ) additionalFlags_ |= 0x0001; else additionalFlags_ &= ~0x0001; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cPlayer::setMaySnoop(bool data)
 {
 	if( data ) additionalFlags_ |= 0x0002; else additionalFlags_ &= ~0x0002; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cPlayer::setMayBroadcast(bool data)
 {
 	if( data ) additionalFlags_ |= 0x0004; else additionalFlags_ &= ~0x0004; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cPlayer::setShowSerials(bool data)
 {
 	if( data ) additionalFlags_ |= 0x0008; else additionalFlags_ &= ~0x0008; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline enCharTypes cPlayer::objectType()

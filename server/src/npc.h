@@ -98,8 +98,8 @@ public:
 	virtual void soundEffect( UI16 soundId, bool hearAll = true );
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
-
 	virtual void applyDefinition( const cElement* );
+	virtual void flagUnchanged() { changed_ = false; cBaseChar::flagUnchanged();	}
 
 	// other public methods
 	virtual stError *setProperty( const QString &name, const cVariant &value );
@@ -187,6 +187,9 @@ public:
 	void setWanderRadius(UINT16 data);
 	void setWanderFollowTarget(P_CHAR data );
 	void setWanderDestination(const Coord_cl &data );
+
+private:
+	bool changed_;
 
 protected:
 	// interface implementation
@@ -283,7 +286,7 @@ inline UINT32 cNPC::additionalFlags() const
 inline void cNPC::setAdditionalFlags(UINT32 data)
 {
     additionalFlags_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline UINT16 cNPC::maxDamage() const
@@ -294,7 +297,7 @@ inline UINT16 cNPC::maxDamage() const
 inline void cNPC::setMaxDamage(UINT16 data)
 {
     maxDamage_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline UINT16 cNPC::minDamage() const
@@ -305,7 +308,7 @@ inline UINT16 cNPC::minDamage() const
 inline void cNPC::setMinDamage(UINT16 data)
 {
     minDamage_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline UINT32 cNPC::nextBeggingTime() const
@@ -316,7 +319,7 @@ inline UINT32 cNPC::nextBeggingTime() const
 inline void cNPC::setNextBeggingTime(UINT32 data)
 {
     nextBeggingTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline UINT32 cNPC::nextGuardCallTime() const
@@ -327,7 +330,7 @@ inline UINT32 cNPC::nextGuardCallTime() const
 inline void cNPC::setNextGuardCallTime(UINT32 data)
 {
     nextGuardCallTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline UINT32 cNPC::nextMoveTime() const
@@ -358,7 +361,7 @@ inline UINT32 cNPC::summonTime() const
 inline void cNPC::setSummonTime(UINT32 data)
 {
     summonTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline INT16 cNPC::tamingMinSkill() const
@@ -369,7 +372,7 @@ inline INT16 cNPC::tamingMinSkill() const
 inline void cNPC::setTamingMinSkill(INT16 data)
 {
     tamingMinSkill_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline P_PLAYER cNPC::owner() const
@@ -385,7 +388,7 @@ inline QString cNPC::carve() const
 inline void cNPC::setCarve(const QString &data)
 {
 	carve_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline QString cNPC::spawnregion() const
@@ -396,7 +399,7 @@ inline QString cNPC::spawnregion() const
 inline void cNPC::setSpawnregion(const QString &data)
 {
 	spawnregion_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline SERIAL cNPC::stablemasterSerial() const
@@ -407,7 +410,7 @@ inline SERIAL cNPC::stablemasterSerial() const
 inline void cNPC::setStablemasterSerial(SERIAL data)
 {
 	stablemasterSerial_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline QString cNPC::lootList() const
@@ -418,7 +421,7 @@ inline QString cNPC::lootList() const
 inline void cNPC::setLootList(const QString &data)
 {
 	lootList_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline AbstractAI* cNPC::ai() const
@@ -429,7 +432,7 @@ inline AbstractAI* cNPC::ai() const
 inline void cNPC::setAI( AbstractAI* ai )
 {
 	ai_ = ai;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline UINT32 cNPC::aiCheckTime() const
@@ -450,7 +453,7 @@ inline UINT16 cNPC::aiCheckInterval() const
 inline void cNPC::setAICheckInterval( UINT16 data )
 {
 	aiCheckInterval_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline bool cNPC::hasSpell( UINT8 spell ) const
@@ -479,7 +482,7 @@ inline void cNPC::setSpell( UINT8 spell, bool data )
 		else if( spell >= 32 && spell < 64 )
 			spellsHigh_ &= ~( 1 << (spell-32) );
 	}
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline UINT8 cNPC::criticalHealth() const
@@ -490,7 +493,7 @@ inline UINT8 cNPC::criticalHealth() const
 inline void cNPC::setCriticalHealth( UINT8 data )
 {
 	criticalHealth_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline enCharTypes cNPC::objectType()

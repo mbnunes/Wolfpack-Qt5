@@ -60,6 +60,8 @@ public:
 	void save();
 	bool del();
 
+	virtual void flagUnchanged() { changed_ = false; cItem::flagUnchanged();	}
+
 	// FlatStore
 	void save( FlatStore::OutputFile*, bool first = false ) throw();
 	bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* ) throw();
@@ -121,11 +123,11 @@ inline bool cBook::readonly( void )			const	{ return readonly_; }
 inline bool cBook::writeable( void )		const	{ return !predefined_ && !readonly_; }
 inline QString cBook::section( void )		const	{ return section_; }
 
-inline void cBook::setAuthor( const QString& data )			{ this->author_ = data; changed( SAVE+TOOLTIP ); }
-inline void cBook::setTitle( const QString& data )			{ this->title_ = data; changed( SAVE+TOOLTIP );  }
-inline void cBook::setContent( const QStringList& data )	{ this->content_ = data; changed( SAVE ); }
-inline void cBook::setPredefined( bool data )				{ this->predefined_ = data; changed( SAVE ); } 
-inline void cBook::setSection( const QString& data )		{ this->section_ = data; changed( SAVE ); }
-inline void cBook::setPages( UINT16 data )					{ this->pages_ = data; changed( SAVE+TOOLTIP ); }
+inline void cBook::setAuthor( const QString& data )			{ this->author_ = data; changed_ = true; changed( TOOLTIP ); }
+inline void cBook::setTitle( const QString& data )			{ this->title_ = data; changed_ = true; changed( TOOLTIP );  }
+inline void cBook::setContent( const QStringList& data )	{ this->content_ = data; changed_ = true; }
+inline void cBook::setPredefined( bool data )				{ this->predefined_ = data; changed_ = true; } 
+inline void cBook::setSection( const QString& data )		{ this->section_ = data; changed_ = true; }
+inline void cBook::setPages( UINT16 data )					{ this->pages_ = data; changed_ = true; changed( TOOLTIP ); }
 
 #endif

@@ -92,6 +92,9 @@ class cItem : public cUObject
 	Q_PROPERTY ( int		rndvaluerate READ rndvaluerate	WRITE setRndValueRate	)
 	Q_PROPERTY ( uchar		madewith	READ madewith		WRITE setMadeWith		)
 
+private:
+	bool changed_;
+
 public:
 	typedef QValueVector<cItem*> ContainerContent;
 
@@ -201,34 +204,34 @@ public:
 //------------------[ END OF ADVANCED PROPERTIES GETTERS ]---------------
 
 	// Setters
-	void	setId( ushort nValue ) { id_ = nValue; changed( SAVE );};
-	void	setColor( ushort nValue ) { color_ = nValue; changed( SAVE );};
+	void	setId( ushort nValue ) { id_ = nValue; changed_ = true;};
+	void	setColor( ushort nValue ) { color_ = nValue; changed_ = true;};
 	void	setAmount( ushort nValue );
-	void	setRestock( ushort nValue ) { restock_ = nValue; changed( SAVE );}
-	void	setName2( const QString& nValue ) { name2_ = nValue; changed( SAVE+TOOLTIP );};
-	void	setLayer( uchar nValue ) { layer_ = nValue; changed( SAVE );};
-	void	setTwohanded( bool nValue ) { nValue ? priv_ &= 0x20 : priv_ |= 0xDF; changed( SAVE+TOOLTIP );};
-	void	setType( UI32 nValue ) { type_ = nValue; changed( SAVE );};
-	void	setType2( UI32 nValue ) { type2_ = nValue; changed( SAVE );};	
-	void	setOffspell( uchar nValue ) { offspell_ = nValue; changed( SAVE );};
-	void	setSecured( bool nValue ) { ( nValue ) ? priv_ &= 0x08 : priv_ |= 0xF7; changed( SAVE+TOOLTIP );};
-	void	setSpeed( SI16 nValue ) { speed_ = nValue; changed( SAVE+TOOLTIP );};
-	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; changed( SAVE+TOOLTIP );};
-	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; changed( SAVE+TOOLTIP );};
-	void	setWipe( bool nValue ) { ( nValue ) ? priv_ &= 0x10 : priv_ |= 0xEF; changed( SAVE );};
-	void	setNoDecay( bool nValue ) { ( nValue ) ? priv_ &= 0x01 : priv_ |= 0xFE; changed( SAVE ); };
+	void	setRestock( ushort nValue ) { restock_ = nValue; changed_ = true;}
+	void	setName2( const QString& nValue ) { name2_ = nValue; changed_ = true; changed( TOOLTIP );};
+	void	setLayer( uchar nValue ) { layer_ = nValue; changed_ = true;};
+	void	setTwohanded( bool nValue ) { nValue ? priv_ &= 0x20 : priv_ |= 0xDF; changed_ = true; changed( TOOLTIP );};
+	void	setType( UI32 nValue ) { type_ = nValue; changed_ = true;};
+	void	setType2( UI32 nValue ) { type2_ = nValue; changed_ = true;};	
+	void	setOffspell( uchar nValue ) { offspell_ = nValue; changed_ = true;};
+	void	setSecured( bool nValue ) { ( nValue ) ? priv_ &= 0x08 : priv_ |= 0xF7; changed_ = true; changed( TOOLTIP );};
+	void	setSpeed( SI16 nValue ) { speed_ = nValue; changed_ = true; changed( TOOLTIP );};
+	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; changed_ = true; changed( TOOLTIP );};
+	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; changed_ = true; changed( TOOLTIP );};
+	void	setWipe( bool nValue ) { ( nValue ) ? priv_ &= 0x10 : priv_ |= 0xEF; changed_ = true;};
+	void	setNoDecay( bool nValue ) { ( nValue ) ? priv_ &= 0x01 : priv_ |= 0xFE; changed_ = true; };
 	void	setWeight( SI16 nValue );
-	void	setHp( SI16 nValue ) { hp_ = nValue; changed( SAVE+TOOLTIP );};
-	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; changed( SAVE+TOOLTIP );};
-	void	setSpawnRegion( const QString& nValue ) { spawnregion_ = nValue; changed( SAVE );};
-	void	setCorpse( bool nValue ) { ( nValue ) ? priv_ |= 0x40 : priv_ &= 0xBF; changed( SAVE+TOOLTIP );}
-	void	setNewbie( bool nValue ) { ( nValue ) ? priv_ |= 0x02 : priv_ &= 0xFD; changed( SAVE+TOOLTIP );}
+	void	setHp( SI16 nValue ) { hp_ = nValue; changed_ = true; changed( TOOLTIP );};
+	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; changed_ = true; changed( TOOLTIP );};
+	void	setSpawnRegion( const QString& nValue ) { spawnregion_ = nValue; changed_ = true;};
+	void	setCorpse( bool nValue ) { ( nValue ) ? priv_ |= 0x40 : priv_ &= 0xBF; changed_ = true; changed( TOOLTIP );}
+	void	setNewbie( bool nValue ) { ( nValue ) ? priv_ |= 0x02 : priv_ &= 0xFD; changed_ = true; changed( TOOLTIP );}
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( int data );
-	void	setAntispamtimer ( uint data ) { antispamtimer_ = data; changed( SAVE );}
-	void	setAccuracy( ushort data ) { accuracy_ = data; changed( SAVE );}
-	void	setDescription( const QString& d ) { desc_ = d; changed( SAVE+TOOLTIP );}
-	void	setCreator( const QString& d )	{ creator_ = d;	changed( SAVE+TOOLTIP );}
+	void	setAntispamtimer ( uint data ) { antispamtimer_ = data; changed_ = true;}
+	void	setAccuracy( ushort data ) { accuracy_ = data; changed_ = true;}
+	void	setDescription( const QString& d ) { desc_ = d; changed_ = true; changed( TOOLTIP );}
+	void	setCreator( const QString& d )	{ creator_ = d;	changed_ = true; changed( TOOLTIP );}
 
 	cItem();
 	cItem( const cItem& src); // Copy constructor
@@ -239,40 +242,40 @@ public:
 	void	showName( cUOSocket *socket );
 	void	applyRank( uchar rank );
 //*****************************************ADDED SETTERS ***************
-	void	setMore1( uchar data ) { more1_ = data; changed( SAVE );}
-	void	setMore2( uchar data ) { more2_ = data; changed( SAVE );}
-	void	setMore3( uchar data ) { more3_ = data; changed( SAVE );}
-	void	setMore4( uchar data ) { more4_ = data; changed( SAVE );}
-	void	setMoreX( uint data ) { morex_ = data; changed( SAVE );}
-	void	setMoreY( uint data ) { morey_ = data; changed( SAVE );}
-	void	setMoreZ( uint data ) { morez_ = data; changed( SAVE );}
-	void	setDoorDir( uchar data ) { doordir_ = data; changed( SAVE );}
-	void	setDoorOpen( uchar data ) { dooropen_ = data; changed( SAVE );}
-	void	setDye( uchar data ) { dye_ = data; changed( SAVE );}
-	void	setAtt(	uint data ) { att_ = data; changed( SAVE );}
-	void	setDef( uint data ) { def_ = data; changed( SAVE+TOOLTIP );}
-	void	setStrengthReq( short data ) { st_ = data; changed( SAVE+TOOLTIP );}
-	void	setStrengthMod( short data ) { st2_ = data; changed( SAVE+TOOLTIP );}
-	void	setDexterityReq( short data ) { dx_ = data; changed( SAVE+TOOLTIP );}
-	void	setDexterityMod( short data ) { dx2_ = data; changed( SAVE+TOOLTIP );}
-	void	setIntelligenceReq( short data ) { in_ = data; changed( SAVE+TOOLTIP );}
-	void	setIntelligenceMod( short data ) { in2_ = data; changed( SAVE+TOOLTIP );}
-	void	setMagic( uchar data ) { magic_ = data; changed( SAVE+TOOLTIP );}
-	void	setGateTime( uint data ) { gatetime_ = data; changed( SAVE );}
-	void	setGateNumber( int data ) { gatenumber_ = data; changed( SAVE );}
-	void	setDecayTime( uint data ) { decaytime_ = data; changed( SAVE );}
-	void	setBuyprice( int data ) { buyprice_ = data; changed( SAVE+TOOLTIP );}
-	void	setSellprice( int data ) { sellprice_ = data; changed( SAVE+TOOLTIP );}
+	void	setMore1( uchar data ) { more1_ = data; changed_ = true;}
+	void	setMore2( uchar data ) { more2_ = data; changed_ = true;}
+	void	setMore3( uchar data ) { more3_ = data; changed_ = true;}
+	void	setMore4( uchar data ) { more4_ = data; changed_ = true;}
+	void	setMoreX( uint data ) { morex_ = data; changed_ = true;}
+	void	setMoreY( uint data ) { morey_ = data; changed_ = true;}
+	void	setMoreZ( uint data ) { morez_ = data; changed_ = true;}
+	void	setDoorDir( uchar data ) { doordir_ = data; changed_ = true;}
+	void	setDoorOpen( uchar data ) { dooropen_ = data; changed_ = true;}
+	void	setDye( uchar data ) { dye_ = data; changed_ = true;}
+	void	setAtt(	uint data ) { att_ = data; changed_ = true;}
+	void	setDef( uint data ) { def_ = data; 	changed_ = true; changed( TOOLTIP );}
+	void	setStrengthReq( short data ) { st_ = data; changed_ = true; changed( TOOLTIP );}
+	void	setStrengthMod( short data ) { st2_ = data; changed_ = true; changed( TOOLTIP );}
+	void	setDexterityReq( short data ) { dx_ = data; changed_ = true; changed( TOOLTIP );}
+	void	setDexterityMod( short data ) { dx2_ = data; changed_ = true; changed( TOOLTIP );}
+	void	setIntelligenceReq( short data ) { in_ = data; changed_ = true; changed( TOOLTIP );}
+	void	setIntelligenceMod( short data ) { in2_ = data; changed_ = true; changed( TOOLTIP );}
+	void	setMagic( uchar data ) { magic_ = data; changed_ = true; changed( TOOLTIP );}
+	void	setGateTime( uint data ) { gatetime_ = data; changed_ = true;}
+	void	setGateNumber( int data ) { gatenumber_ = data; changed_ = true;}
+	void	setDecayTime( uint data ) { decaytime_ = data; changed_ = true;}
+	void	setBuyprice( int data ) { buyprice_ = data; changed_ = true; changed( TOOLTIP );}
+	void	setSellprice( int data ) { sellprice_ = data; changed_ = true; changed( TOOLTIP );}
 
-	void	setDisabled(uint data) { disabled_ = data; changed( SAVE );}
-	void	setPoisoned(uint data) { poisoned_ = data; changed( SAVE );}
-	void	setRank(int data) { rank_ = data; changed( SAVE );} 
-	void	setVisible( uchar d ) { visible_ = d; changed( SAVE );}
-	void	setPriv( uchar d ) { priv_ = d; changed( SAVE+TOOLTIP );}
-	void	setGood( int d ) { good_ = d;	changed( SAVE );}
-	void	setRndValueRate( int d ) { rndvaluerate_ = d; changed( SAVE );}
-	void	setMadeWith( int d )	{ madewith_ = d; changed( SAVE+TOOLTIP );}
-	void	setContainer( cUObject* d ) { container_ = d; changed( SAVE ); }
+	void	setDisabled(uint data) { disabled_ = data; changed_ = true;}
+	void	setPoisoned(uint data) { poisoned_ = data; changed_ = true;}
+	void	setRank(int data) { rank_ = data; changed_ = true;} 
+	void	setVisible( uchar d ) { visible_ = d; changed_ = true;}
+	void	setPriv( uchar d ) { priv_ = d; changed_ = true; changed( TOOLTIP );}
+	void	setGood( int d ) { good_ = d;	changed_ = true;}
+	void	setRndValueRate( int d ) { rndvaluerate_ = d; changed_ = true;}
+	void	setMadeWith( int d )	{ madewith_ = d; changed_ = true; changed( TOOLTIP );}
+	void	setContainer( cUObject* d ) { container_ = d; changed_ = true; }
 
 //*******************************************END ADDED SETTERS**********
 
@@ -336,13 +339,13 @@ public:
 	int  DeleteAmount(int amount, ushort _id, ushort _color = 0);
 	QString getName( bool shortName = false );
 	void startDecay();
-	void setAllMovable()		{this->magic_=1; changed( SAVE );} // set it all movable..
+	void setAllMovable()		{this->magic_=1; changed_ = true;} // set it all movable..
 	bool isAllMovable()         {return (magic_==1);}
-	void setGMMovable()		    {this->magic_=2; changed( SAVE );} // set it GM movable.
+	void setGMMovable()		    {this->magic_=2; changed_ = true;} // set it GM movable.
 	bool isGMMovable()          {return (magic_==2);}
-	void setOwnerMovable()		{this->magic_=3; changed( SAVE );} // set it owner movable.
+	void setOwnerMovable()		{this->magic_=3; changed_ = true;} // set it owner movable.
 	bool isOwnerMovable()       {return (magic_==3);}
-	void setLockedDown()        {this->magic_=4; changed( SAVE );} // set it locked down.
+	void setLockedDown()        {this->magic_=4; changed_ = true;} // set it locked down.
 	bool isLockedDown()			{return (magic_==4);}
 
 	// Public event wrappers added by darkstorm

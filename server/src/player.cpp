@@ -130,7 +130,6 @@ void cPlayer::save()
 		saveFields;
 	}
 	cBaseChar::save();
-	changed_ = false;
 }
 
 bool cPlayer::del()
@@ -139,7 +138,7 @@ bool cPlayer::del()
 		return false; // We didn't need to delete the object
 
 	persistentBroker->addToDeleteQueue( "players", QString( "serial = '%1'" ).arg( serial() ) );
-	changed( SAVE );
+	changed_ = true;
 	return cBaseChar::del();
 }
 
@@ -365,7 +364,8 @@ UINT8 cPlayer::notority( P_CHAR pChar ) // Gets the notority toward another char
 
 void cPlayer::kill()
 {
-	changed( SAVE|TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 	int ele;
 	int nType=0;
 
@@ -922,7 +922,7 @@ void cPlayer::makeCriminal()
 		 if( socket_ )
 			 socket_->sysMessage( tr( "You are now a criminal!" ) );
 
-		 changed( SAVE );
+		 changed_ = true;
 	}
 }
 
@@ -1495,7 +1495,8 @@ void cPlayer::setStamina( INT16 data, bool notify /* = true */ )
 // Simple setting and getting of properties for scripts and the set command.
 stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 {
-	changed( SAVE|TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 	if( name == "account" )
 	{
 		setAccount( Accounts::instance()->getRecord( value.toString() ) );

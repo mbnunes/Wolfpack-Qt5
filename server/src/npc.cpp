@@ -177,7 +177,6 @@ void cNPC::save()
 		saveFields;
 	}
 	cBaseChar::save();
-	changed_ = false;
 }
 
 bool cNPC::del()
@@ -186,7 +185,7 @@ bool cNPC::del()
 		return false; // We didn't need to delete the object
 
 	persistentBroker->addToDeleteQueue( "npcs", QString( "serial = '%1'" ).arg( serial() ) );
-	changed( SAVE );
+	changed_ = true;
 	return cBaseChar::del();
 }
 
@@ -213,7 +212,8 @@ void cNPC::setOwner(P_PLAYER data, bool nochecks)
 	}
 
 	owner_ = data;
-	changed( SAVE|TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 
 	if( !nochecks && owner_ )
 	{
@@ -386,7 +386,8 @@ UINT8 cNPC::notority( P_CHAR pChar ) // Gets the notority toward another char
 
 void cNPC::kill()
 {
-	changed( SAVE|TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 	int ele;
 	int nType=0;
 
@@ -912,7 +913,7 @@ void cNPC::toggleCombat()
 
 void cNPC::processNode( const cElement *Tag )
 {
-	changed( SAVE );
+	changed_ = true;
 	QString TagName = Tag->name();
 	QString Value = Tag->getValue();
 	QDomNodeList ChildTags;
@@ -1022,7 +1023,8 @@ void cNPC::processNode( const cElement *Tag )
 // Simple setting and getting of properties for scripts and the set command.
 stError *cNPC::setProperty( const QString &name, const cVariant &value )
 {
-	changed( SAVE|TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 	SET_INT_PROPERTY( "nextmsgtime", nextMsgTime_ )
 	else SET_INT_PROPERTY( "antispamtimer", nextMsgTime_ )
 	else SET_INT_PROPERTY( "nextguardcalltime", nextGuardCallTime_ )

@@ -326,6 +326,9 @@ public:
 	void addItem( enLayer layer, cItem*, bool handleWeight = true, bool noRemove = false );
 	void removeItem( enLayer layer, bool handleWeight = true );
 
+private:
+	bool changed_;
+
 protected:
 	// type definitions
 	struct stSkillValue
@@ -569,7 +572,8 @@ inline void cBaseChar::setGuarding(P_CHAR data)
 		guarding_->removeGuard( this );
 
 	guarding_ = data;
-	changed( SAVE|TOOLTIP );
+	changed_ = true;
+	changed( TOOLTIP );
 
 	if( guarding_ )
 		guarding_->addGuard( this );		
@@ -583,7 +587,7 @@ inline ushort cBaseChar::bodyArmor() const
 inline void cBaseChar::setBodyArmor(ushort data)
 {
     bodyArmor_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline ushort cBaseChar::bodyID() const
@@ -594,7 +598,7 @@ inline ushort cBaseChar::bodyID() const
 inline void cBaseChar::setBodyID(ushort data)
 {
     bodyID_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline QDateTime cBaseChar::creationDate() const
@@ -605,7 +609,7 @@ inline QDateTime cBaseChar::creationDate() const
 inline void cBaseChar::setCreationDate(const QDateTime &data)
 {
     creationDate_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::criminalTime() const
@@ -616,7 +620,7 @@ inline uint cBaseChar::criminalTime() const
 inline void cBaseChar::setCriminalTime(uint data)
 {
     criminalTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline ushort cBaseChar::deaths() const
@@ -627,7 +631,7 @@ inline ushort cBaseChar::deaths() const
 inline void cBaseChar::setDeaths(ushort data)
 {
     deaths_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline short cBaseChar::dexterityMod() const
@@ -638,7 +642,7 @@ inline short cBaseChar::dexterityMod() const
 inline void cBaseChar::setDexterityMod(short data)
 {
     dexterityMod_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline short cBaseChar::dexterity() const
@@ -649,7 +653,7 @@ inline short cBaseChar::dexterity() const
 inline void cBaseChar::setDexterity(short data)
 {
     dexterity_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline ushort cBaseChar::emoteColor() const
@@ -660,7 +664,7 @@ inline ushort cBaseChar::emoteColor() const
 inline void cBaseChar::setEmoteColor(ushort data)
 {
     emoteColor_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline short cBaseChar::fame() const
@@ -671,7 +675,7 @@ inline short cBaseChar::fame() const
 inline void cBaseChar::setFame(short data)
 {
     fame_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uchar cBaseChar::flag() const
@@ -682,7 +686,7 @@ inline uchar cBaseChar::flag() const
 inline void cBaseChar::setFlag(uchar data)
 {
     flag_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline bool cBaseChar::gender() const
@@ -693,7 +697,7 @@ inline bool cBaseChar::gender() const
 inline void cBaseChar::setGender(bool data)
 {
     gender_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline short cBaseChar::hitpoints() const
@@ -704,7 +708,7 @@ inline short cBaseChar::hitpoints() const
 inline void cBaseChar::setHitpoints(short data)
 {
     hitpoints_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline int cBaseChar::hunger() const
@@ -715,7 +719,7 @@ inline int cBaseChar::hunger() const
 inline void cBaseChar::setHunger(int data)
 {
     hunger_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::hungerTime() const
@@ -726,7 +730,7 @@ inline uint cBaseChar::hungerTime() const
 inline void cBaseChar::setHungerTime(uint data)
 {
     hungerTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline short cBaseChar::intelligence() const
@@ -737,7 +741,7 @@ inline short cBaseChar::intelligence() const
 inline void cBaseChar::setIntelligence(short data)
 {
     intelligence_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline short cBaseChar::intelligenceMod() const
@@ -748,7 +752,7 @@ inline short cBaseChar::intelligenceMod() const
 inline void cBaseChar::setIntelligenceMod(short data)
 {
     intelligenceMod_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline short cBaseChar::karma() const
@@ -759,7 +763,7 @@ inline short cBaseChar::karma() const
 inline void cBaseChar::setKarma(short data)
 {
     karma_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline ushort cBaseChar::kills() const
@@ -770,7 +774,7 @@ inline ushort cBaseChar::kills() const
 inline void cBaseChar::setKills(ushort data)
 {
     kills_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline short cBaseChar::mana() const
@@ -781,7 +785,7 @@ inline short cBaseChar::mana() const
 inline void cBaseChar::setMana(short data)
 {
     mana_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline ushort cBaseChar::maxHitpoints() const
@@ -792,7 +796,7 @@ inline ushort cBaseChar::maxHitpoints() const
 inline void cBaseChar::setMaxHitpoints(ushort data)
 {
     maxHitpoints_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline ushort cBaseChar::maxMana() const
@@ -803,7 +807,7 @@ inline ushort cBaseChar::maxMana() const
 inline void cBaseChar::setMaxMana(ushort data)
 {
     maxMana_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline ushort cBaseChar::maxStamina() const
@@ -814,7 +818,7 @@ inline ushort cBaseChar::maxStamina() const
 inline void cBaseChar::setMaxStamina(ushort data)
 {
     maxStamina_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::murdererTime() const
@@ -825,7 +829,7 @@ inline uint cBaseChar::murdererTime() const
 inline void cBaseChar::setMurdererTime(uint data)
 {
     murdererTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::nextHitTime() const
@@ -836,7 +840,7 @@ inline uint cBaseChar::nextHitTime() const
 inline void cBaseChar::setNextHitTime(uint data)
 {
     nextHitTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::nutriment() const
@@ -847,7 +851,7 @@ inline uint cBaseChar::nutriment() const
 inline void cBaseChar::setNutriment(uint data)
 {
     nutriment_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline short cBaseChar::orgBodyID() const
@@ -858,7 +862,7 @@ inline short cBaseChar::orgBodyID() const
 inline void cBaseChar::setOrgBodyID(short data)
 {
     orgBodyID_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline ushort cBaseChar::orgSkin() const
@@ -869,7 +873,7 @@ inline ushort cBaseChar::orgSkin() const
 inline void cBaseChar::setOrgSkin(ushort data)
 {
     orgSkin_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline int cBaseChar::poison() const
@@ -880,7 +884,7 @@ inline int cBaseChar::poison() const
 inline void cBaseChar::setPoison(int data)
 {
     poison_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::poisoned() const
@@ -891,7 +895,7 @@ inline uint cBaseChar::poisoned() const
 inline void cBaseChar::setPoisoned(uint data)
 {
     poisoned_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::poisonTime() const
@@ -902,7 +906,7 @@ inline uint cBaseChar::poisonTime() const
 inline void cBaseChar::setPoisonTime(uint data)
 {
     poisonTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::poisonWearOffTime() const
@@ -913,7 +917,7 @@ inline uint cBaseChar::poisonWearOffTime() const
 inline void cBaseChar::setPoisonWearOffTime(uint data)
 {
     poisonWearOffTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::propertyFlags() const
@@ -924,7 +928,7 @@ inline uint cBaseChar::propertyFlags() const
 inline void cBaseChar::setPropertyFlags(uint data)
 {
     propertyFlags_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::runningSteps() const
@@ -960,7 +964,7 @@ inline int cBaseChar::stealthedSteps() const
 inline void cBaseChar::setStealthedSteps(int data)
 {
     stealthedSteps_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline short cBaseChar::strength() const
@@ -971,7 +975,7 @@ inline short cBaseChar::strength() const
 inline void cBaseChar::setStrength(short data)
 {
     strength_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline short cBaseChar::strengthMod() const
@@ -982,7 +986,7 @@ inline short cBaseChar::strengthMod() const
 inline void cBaseChar::setStrengthMod(short data)
 {
     strengthMod_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline ushort cBaseChar::weight() const
@@ -993,7 +997,7 @@ inline ushort cBaseChar::weight() const
 inline void cBaseChar::setWeight(ushort data)
 {
     weight_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline SERIAL cBaseChar::attackerSerial() const
@@ -1004,7 +1008,7 @@ inline SERIAL cBaseChar::attackerSerial() const
 inline void cBaseChar::setAttackerSerial(SERIAL data)
 {
     attackerSerial_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline SERIAL cBaseChar::combatTarget() const
@@ -1015,7 +1019,7 @@ inline SERIAL cBaseChar::combatTarget() const
 inline void cBaseChar::setCombatTarget(SERIAL data)
 {
     combatTarget_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline SERIAL cBaseChar::murdererSerial() const
@@ -1026,7 +1030,7 @@ inline SERIAL cBaseChar::murdererSerial() const
 inline void cBaseChar::setMurdererSerial(SERIAL data)
 {
     murdererSerial_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline QString cBaseChar::orgName() const
@@ -1037,7 +1041,7 @@ inline QString cBaseChar::orgName() const
 inline void cBaseChar::setOrgName(const QString &data)
 {
     orgName_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline cTerritory* cBaseChar::region() const
@@ -1058,7 +1062,7 @@ inline ushort cBaseChar::saycolor() const
 inline void cBaseChar::setSaycolor(ushort data)
 {
     saycolor_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline ushort cBaseChar::skin() const
@@ -1069,7 +1073,7 @@ inline ushort cBaseChar::skin() const
 inline void cBaseChar::setSkin(ushort data)
 {
     skin_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline SERIAL cBaseChar::swingTarget() const
@@ -1090,7 +1094,7 @@ inline QString cBaseChar::title() const
 inline void cBaseChar::setTitle(const QString &data)
 {
     title_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::regenHitpointsTime() const
@@ -1101,7 +1105,7 @@ inline uint cBaseChar::regenHitpointsTime() const
 inline void cBaseChar::setRegenHitpointsTime(uint data)
 {
     regenHitpointsTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::regenStaminaTime() const
@@ -1112,7 +1116,7 @@ inline uint cBaseChar::regenStaminaTime() const
 inline void cBaseChar::setRegenStaminaTime(uint data)
 {
     regenStaminaTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline uint cBaseChar::regenManaTime() const
@@ -1123,7 +1127,7 @@ inline uint cBaseChar::regenManaTime() const
 inline void cBaseChar::setRegenManaTime(uint data)
 {
     regenManaTime_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline bool cBaseChar::isIncognito() const
@@ -1199,85 +1203,85 @@ inline bool cBaseChar::attackFirst() const
 inline void cBaseChar::setIncognito(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0001; else propertyFlags_ &= ~0x0001; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setPolymorphed(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0002; else propertyFlags_ &= ~0x0002; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setTamed(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0004; else propertyFlags_ &= ~0x0004; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setCasting(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0008; else propertyFlags_ &= ~0x0008; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setHidden(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0010; else propertyFlags_ &= ~0x0010; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setInvisible(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0020; else propertyFlags_ &= ~0x0020; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setReactiveArmor(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0040; else propertyFlags_ &= ~0x0040; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setMeditating(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0080; else propertyFlags_ &= ~0x0080; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setFrozen(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0100; else propertyFlags_ &= ~0x0100; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setShowSkillTitles(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0200; else propertyFlags_ &= ~0x0200; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setDead(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0400; else propertyFlags_ &= ~0x0400; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setAtWar(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0800; else propertyFlags_ &= ~0x0800; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setInvulnerable(bool data)
 {
 	if( data ) propertyFlags_ |= 0x1000; else propertyFlags_ &= ~0x1000; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline void cBaseChar::setAttackFirst(bool data)
 {
 	if( data ) propertyFlags_ |= 0x2000; else propertyFlags_ &= ~0x2000; 
-	changed( SAVE );
+	changed_ = true;
 }
 
 inline cBaseChar::CharContainer cBaseChar::guardedby() const

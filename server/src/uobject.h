@@ -70,6 +70,9 @@ class cUObject : public PersistentObject, public cDefinable
 	Q_PROPERTY( QString bindmenu READ bindmenu WRITE setBindmenu )
 	Q_PROPERTY( QString name READ name WRITE setName )
 // Data Members
+private:
+	uchar changed_:1;
+
 protected:
 	QString bindmenu_;
 	uint tooltip_;
@@ -77,7 +80,6 @@ protected:
 	Coord_cl pos_;
 	SERIAL serial_;
 	SERIAL multis_;
-	uchar changed_:1;
 	cCustomTags tags_;
 	uchar dir_:3;
 
@@ -88,7 +90,7 @@ protected:
 	
 	enum eChanged // Each bit controls different state
 	{
-		SAVE = 1,
+//		SAVE = 1,
 		TOOLTIP = 2,
 		UNUSED = 4,
 		UNUSED2 = 8
@@ -145,14 +147,14 @@ public:
 	UINT32			getTooltip()	const { return tooltip_; }
 	uchar			direction()		const { return dir_;  }
 
-	void setBindmenu( const QString& d )	{ bindmenu_ = d; changed( SAVE );	}
-	void setName( const QString& d )		{ name_ = d; changed( SAVE+TOOLTIP );		}	
-	void setPos( const Coord_cl& d )		{ pos_ = d;	changed( SAVE );		}
-	void setMultis( const SERIAL d )		{ multis_ = d; changed( SAVE );		}
-	void setTags( const cCustomTags& d )	{ tags_ = d; changed( SAVE+TOOLTIP );		}
-	virtual void setSerial( SERIAL d )		{ serial_ = d; changed( SAVE );	}
+	void setBindmenu( const QString& d )	{ bindmenu_ = d; changed_ = true;	}
+	void setName( const QString& d )		{ name_ = d; changed_ = true; changed( TOOLTIP );		}	
+	void setPos( const Coord_cl& d )		{ pos_ = d;	changed_ = true;		}
+	void setMultis( const SERIAL d )		{ multis_ = d; changed_ = true;		}
+	void setTags( const cCustomTags& d )	{ tags_ = d; changed_ = true; changed( TOOLTIP );		}
+	virtual void setSerial( SERIAL d )		{ serial_ = d; changed_ = true;	}
 	void setTooltip( const UINT32 d )		{ tooltip_ = d; }
-	void	setDirection( uchar d )			{ dir_ = d; changed( SAVE );}
+	void	setDirection( uchar d )			{ dir_ = d; changed_ = true;}
 
 	virtual void sendTooltip( cUOSocket* mSock );
 

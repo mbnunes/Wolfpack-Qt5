@@ -57,6 +57,7 @@ private:
 	UINT16 beardStyle_; // Beardstyle
 	UINT16 beardColor_; // Color of the beard
 	uint   murdertime_; // When the people has been killed
+	bool   changed_;
 
 	QString carve_;
 	QString murderer_;
@@ -89,6 +90,7 @@ public:
 	void addEquipment( UINT8 layer, SERIAL serial );
 
 	virtual QString objectID( void ) const { return "cCorpse"; }
+	virtual void flagUnchanged() { changed_ = false; cItem::flagUnchanged();	}
 
 	// DB Serialization
 	static void registerInFactory();
@@ -109,42 +111,42 @@ public:
 // Inline members
 inline void cCorpse::setBodyId( UINT16 data ) 
 { 
-	bodyId_ = data; changed( SAVE );
+	bodyId_ = data; changed_ = true;
 }
 
 inline void cCorpse::setHairStyle( UINT16 data ) 
 { 
-	hairStyle_ = data; changed( SAVE );
+	hairStyle_ = data; changed_ = true;
 }
 
 inline void cCorpse::setHairColor( UINT16 data ) 
 { 
-	hairColor_ = data; changed( SAVE );
+	hairColor_ = data; changed_ = true;
 }
 
 inline void cCorpse::setBeardStyle( UINT16 data ) 
 { 
-	beardStyle_ = data; changed( SAVE );
+	beardStyle_ = data; changed_ = true;
 }
 
 inline void cCorpse::setBeardColor( UINT16 data ) 
 { 
-	beardColor_ = data; changed( SAVE );
+	beardColor_ = data; changed_ = true;
 }
 
 inline void cCorpse::setMurderer( const QString& data ) 
 { 
-	murderer_ = data; changed( SAVE );
+	murderer_ = data; changed_ = true;
 }
 
 inline void cCorpse::setMurderTime( uint data ) 
 { 
-	murdertime_ = data; changed( SAVE );
+	murdertime_ = data; changed_ = true;
 }
 
 inline void cCorpse::setCarve( const QString& data ) 
 { 
-	carve_ = data; changed( SAVE );
+	carve_ = data; changed_ = true;
 }
 
 inline UINT16 cCorpse::bodyId() const

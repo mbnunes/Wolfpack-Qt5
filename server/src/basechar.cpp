@@ -307,7 +307,6 @@ void cBaseChar::save()
 		persistentBroker->unlockTable("skills");
 	}
 	cUObject::save();
-	changed_ = false;
 }
 
 bool cBaseChar::del()
@@ -317,7 +316,7 @@ bool cBaseChar::del()
 
 	persistentBroker->addToDeleteQueue( "characters", QString( "serial = '%1'" ).arg( serial() ) );
 	persistentBroker->addToDeleteQueue( "skills", QString( "serial = '%1'" ).arg( serial() ) );
-	changed( SAVE );
+	changed_ = true;
 	return cUObject::del();
 }
 
@@ -441,7 +440,7 @@ P_ITEM cBaseChar::getShield() const
 
 void cBaseChar::setHairColor( UINT16 d)	
 { 
-	changed( SAVE );
+	changed_ = true;
 	cItem* pHair = GetItemOnLayer( 11 );
 	if( pHair )
 		pHair->setColor( d );
@@ -453,7 +452,7 @@ void cBaseChar::setHairStyle( UINT16 d)
 { 
 	if( !isHair( d ) )
 		return;
-	changed( SAVE );
+	changed_ = true;
 	cItem* pHair = GetItemOnLayer( 11 );
 	if( pHair )
 	{
@@ -475,7 +474,7 @@ void cBaseChar::setHairStyle( UINT16 d)
 
 void cBaseChar::setBeardColor( UINT16 d)	
 { 
-	changed( SAVE );
+	changed_ = true;
 	cItem* pBeard = GetItemOnLayer( 16 );
 	if( pBeard )
 		pBeard->setColor( d );
@@ -487,7 +486,7 @@ void cBaseChar::setBeardStyle( UINT16 d)
 { 
 	if( !isBeard( d ) )
 		return;
-	changed( SAVE );
+	changed_ = true;
 	cItem* pBeard = GetItemOnLayer( 16 );
 	if( pBeard )
 		pBeard->setId( d );
@@ -544,7 +543,8 @@ void cBaseChar::resurrect()
 	if ( !isDead() )
 		return;
 
-	changed( SAVE|TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 	Fame( this, 0 );
 	soundEffect( 0x0214 );
 	setBodyID( orgBodyID_ );
@@ -605,7 +605,7 @@ void cBaseChar::turnTo( const Coord_cl &pos )
 
 	if( nDir != direction() )
 	{
-		changed( SAVE );
+		changed_ = true;
 		setDirection( nDir );
 		update();
 	}
@@ -757,7 +757,8 @@ unsigned int cBaseChar::getSkillSum() const
 
 void cBaseChar::removeItemBonus(cItem* pi)
 {
-	changed( SAVE|TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 	strength_ -= pi->strengthMod();
 	dexterity_ -= pi->dexterityMod();
 	intelligence_ -= pi->intelligenceMod();
@@ -765,7 +766,8 @@ void cBaseChar::removeItemBonus(cItem* pi)
 
 void cBaseChar::giveItemBonus(cItem* pi)
 {
-	changed( SAVE|TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 	strength_ += pi->strengthMod();
 	dexterity_ += pi->dexterityMod();
 	intelligence_ += pi->intelligenceMod();
@@ -773,7 +775,8 @@ void cBaseChar::giveItemBonus(cItem* pi)
 
 void cBaseChar::Init( bool createSerial )
 {
-	changed( SAVE|TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 	cUObject::setSerial( INVALID_SERIAL );
 
 	if( createSerial )
@@ -1188,7 +1191,7 @@ bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 
 void cBaseChar::processNode( const cElement *Tag )
 {
-	changed( SAVE );
+	changed_ = true;
 	QString TagName = Tag->name();
 	QString Value = Tag->getValue();
 	QDomNodeList ChildTags;
@@ -1439,7 +1442,8 @@ void cBaseChar::removeItem( cBaseChar::enLayer layer, bool handleWeight )
 // Simple setting and getting of properties for scripts and the set command.
 stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 {
-	changed( SAVE|TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 	SET_STR_PROPERTY( "orgname", orgName_ )
 	else SET_STR_PROPERTY( "title", title_ )
 	else if( name == "incognito" )
@@ -1711,7 +1715,8 @@ void cBaseChar::setSkillValue( UINT16 skill, UINT16 value )
 //	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
 //		skills_.remove( skill );
 
-	changed( SAVE | TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 }
 
 void cBaseChar::setSkillCap( UINT16 skill, UINT16 cap )
@@ -1724,7 +1729,8 @@ void cBaseChar::setSkillCap( UINT16 skill, UINT16 cap )
 //	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
 //		skills_.remove( skill );
 
-	changed( SAVE | TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 }
 
 void cBaseChar::setSkillLock( UINT16 skill, UINT8 lock )
@@ -1740,7 +1746,8 @@ void cBaseChar::setSkillLock( UINT16 skill, UINT8 lock )
 //	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
 //		skills_.remove( skill );
 
-	changed( SAVE | TOOLTIP );
+	changed( TOOLTIP );
+	changed_ = true;
 }
 
 UINT16 cBaseChar::skillValue( UINT16 skill ) const
@@ -1770,7 +1777,7 @@ UINT8 cBaseChar::skillLock( UINT16 skill ) const
 void cBaseChar::setStamina(INT16 data, bool notify /* = true */ )
 {
     stamina_ = data;
-	changed( SAVE );
+	changed_ = true;
 }
 
 void cBaseChar::callGuards()
