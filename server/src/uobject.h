@@ -72,8 +72,8 @@ public:
 	bool inRange( cUObject *object, UINT32 range );
 
 	// Events
-	bool onUse( cUObject *Target );
-	bool onCollide( cUObject* Obstacle ); // This is called for the walking character first, then for the item walked on
+	virtual bool onUse( cUObject *Target );
+	virtual bool onCollide( cUObject* Obstacle ); // This is called for the walking character first, then for the item walked on
 	
 	SERIAL serial;
 	SERIAL multis;

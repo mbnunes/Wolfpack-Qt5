@@ -53,8 +53,8 @@ public:
 	// Normal Events
 	virtual bool onUse( P_CHAR User, P_ITEM Used );
 
-	virtual bool onShowItemName( P_ITEM Item, P_CHAR Viewer );
-	virtual bool onShowCharName( P_CHAR Character, P_CHAR Viewer );
+	virtual bool onSingleClick( P_ITEM Item, P_CHAR Viewer );
+	virtual bool onSingleClick( P_CHAR Character, P_CHAR Viewer );
 
 	virtual bool onCollideItem( P_CHAR Character, P_ITEM Obstacle );
 	virtual bool onCollideChar( P_CHAR Character, P_CHAR Obstacle );

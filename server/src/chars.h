@@ -778,17 +778,17 @@ public:
 	void message( const QString &message, UI16 color = 0x3B2 );
 
 	// Wrapper events! - darkstorm
-	bool onShowCharName( P_CHAR Viewer ); // Shows the name of a character to someone else
-	bool onWalk( UI08 Direction, UI08 Sequence ); // Walks in a specific Direction
+	virtual bool onSingleClick( P_CHAR Viewer ); // Shows the name of a character to someone else
+	virtual bool onWalk( UI08 Direction, UI08 Sequence ); // Walks in a specific Direction
 
-	bool onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ); // The character says something
-	bool onTalkToNPC( P_CHAR Talker, const QString &Text ); // Someone talks to the NPC
-	bool onWarModeToggle( bool War ); // The character switches warmode
-	bool onEnterWorld( void ); // The character enters the world
-	bool onHelp( void ); // The character wants help
-	bool onChat( void ); // The character wants to chat
-	bool onSkillUse( UI08 Skill ); // The character uses %Skill
-	bool onCollideChar( P_CHAR Obstacle ); // This is called for the walking character first, then for the character walked on
+	virtual bool onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ); // The character says something
+	virtual bool onTalkToNPC( P_CHAR Talker, const QString &Text ); // Someone talks to the NPC
+	virtual bool onWarModeToggle( bool War ); // The character switches warmode
+	virtual bool onEnterWorld( void ); // The character enters the world
+	virtual bool onHelp( void ); // The character wants help
+	virtual bool onChat( void ); // The character wants to chat
+	virtual bool onSkillUse( UI08 Skill ); // The character uses %Skill
+	virtual bool onCollideChar( P_CHAR Obstacle ); // This is called for the walking character first, then for the character walked on
 
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	void giveNewbieItems( Q_UINT8 skill = 0xFF );

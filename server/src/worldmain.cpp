@@ -51,6 +51,7 @@
 #include "accounts.h"
 #include "books.h"
 #include "multis.h"
+#include "spellbook.h"
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
@@ -257,6 +258,10 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		else if( objectID == "CORPSE" )
 		{
 			pi = dynamic_cast<P_ITEM>(new cCorpse);
+		}
+		else if( objectID == "SPELLBOOK" )
+		{
+			pi = dynamic_cast<P_ITEM>(new cSpellBook);
 		}
 		else // somethine went wrong and we have a NULL pointer.
 			continue; 

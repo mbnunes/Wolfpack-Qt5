@@ -1005,14 +1005,14 @@ void cChar::Serialize(ISerialization &archive)
 //========== WRAPPER EVENTS
 
 // Shows the name of a character to someone else
-bool cChar::onShowCharName( P_CHAR Viewer ) 
+bool cChar::onSingleClick( P_CHAR Viewer ) 
 {
 	if( scriptChain.empty() )
 		return false;
  
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onShowCharName( (P_CHAR)this, (P_CHAR)Viewer ) )
+		if( scriptChain[ i ]->onSingleClick( (P_CHAR)this, (P_CHAR)Viewer ) )
 			return true;
 
 	return false;
@@ -1774,7 +1774,7 @@ void cChar::showName( cUOSocket *socket )
 	if( !socket->player() )
 		return;
 
-	if( onShowCharName( socket->player() ) )
+	if( onSingleClick( socket->player() ) )
 		return;
 
 	QString charName = name.c_str();

@@ -73,7 +73,7 @@ struct stReagents
 struct stNewSpell
 {
 	QString name, mantra, target;
-	UINT16 booklow, bookhigh, scrolllow, scrollhigh, actiondelay, delay;
+	UINT16 booklow, bookhigh, scrolllow, scrollhigh, actiondelay, delay, scroll;
 	UINT8 action, targets, flags, mana;
 	stReagents reagents;
 };
@@ -107,12 +107,23 @@ public:
 	stNewSpell	*findSpell( UINT8 id );
 
     void failSpell( P_CHAR pMage, bool fizzle = true );
+	
 	bool useMana( P_CHAR pMage, UINT8 spell );
+	bool checkMana( P_CHAR pMage, UINT8 spell );
+
 	bool useReagents( P_CHAR pMage, UINT8 spell );
+	bool checkReagents( P_CHAR pMage, UINT8 spell );
+
 	bool checkSkill( P_CHAR pMage, UINT8 spell, bool scroll = false );
 
 	// Spell stubs
 	static void spellClumsy( P_CHAR pMage, Coord_cl tPos, UINT16 model, SERIAL tSerial = INVALID_SERIAL, INT32 magery = -1 );	
+
+	// Calculate the Spell ID out of a Scroll-id
+	INT8 calcSpellId( UINT16 scroll );
+
+	// Calculate the Scroll-id out of a Spell ID
+	UINT16 calcScrollId( UINT8 spell );
 };
 
 extern cNewMagic *NewMagic;

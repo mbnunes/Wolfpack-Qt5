@@ -286,8 +286,8 @@ public:
 	bool isLockedDown()			{return (magic==4);}
 
 	// Public event wrappers added by darkstorm
-	bool onShowItemName( P_CHAR Viewer );
-	bool onTalkToItem( P_CHAR Talker, const QString &Text );
+	virtual bool onSingleClick( P_CHAR Viewer );
+	virtual bool onTalkToItem( P_CHAR Talker, const QString &Text );
 	
 	QPtrList< cItem > getContainment();
 };

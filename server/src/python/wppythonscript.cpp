@@ -131,26 +131,26 @@ bool WPPythonScript::onUse( P_CHAR User, P_ITEM Used )
 	PyEvalMethod( "onUse" )
 }
 
-bool WPPythonScript::onShowItemName( P_ITEM Item, P_CHAR Viewer )
+bool WPPythonScript::onSingleClick( P_ITEM Item, P_CHAR Viewer )
 {
-	PyHasMethod( "onShowItemName" )
+	PyHasMethod( "onSingleClick" )
 	
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetItemObject( Item ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Viewer ) );
 
-	PyEvalMethod( "onShowItemName" )
+	PyEvalMethod( "onSingleClick" )
 }
 
-bool WPPythonScript::onShowCharName( P_CHAR Character, P_CHAR Viewer )
+bool WPPythonScript::onSingleClick( P_CHAR Character, P_CHAR Viewer )
 {
-	PyHasMethod( "onShowCharName" )
+	PyHasMethod( "onSingleClick" )
 
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Viewer ) );
 	
-	PyEvalMethod( "onShowCharName" )
+	PyEvalMethod( "onSingleClick" )
 }
 
 bool WPPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )

@@ -50,6 +50,7 @@
 #include "network.h"
 #include "classes.h"
 #include "multis.h"
+#include "spellbook.h"
 
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
@@ -1506,6 +1507,16 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 
 			nItem = nBook;
 		}
+		else if( DefSection->attribute( "type" ) == "spellbook" )
+		{
+			cSpellBook *spellBook = new cSpellBook();
+			spellBook->Init( true );
+			cItemsManager::getInstance()->registerItem( spellBook );
+
+			spellBook->applyDefinition( *DefSection );
+			
+			nItem = spellBook;
+		}
 	}
 	else
 	{
@@ -1527,14 +1538,14 @@ P_ITEM cAllItems::createListItem( QString Section )
 }
 
 // Added by DarkStorm
-bool cItem::onShowItemName( P_CHAR Viewer )
+bool cItem::onSingleClick( P_CHAR Viewer )
 {
 	if( scriptChain.empty() )
 		return false;
  
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onShowItemName( this, Viewer ) )
+		if( scriptChain[ i ]->onSingleClick( this, Viewer ) )
 			return true;
 
 	return false;
@@ -2066,7 +2077,7 @@ void cItem::showName( cUOSocket *socket )
 {
 	// End chars/npcs section
 	
-    if( onShowItemName( socket->player() ) )
+    if( onSingleClick( socket->player() ) )
         return;        
 	
 	name_ = getName();

@@ -1750,154 +1750,353 @@
 
 	<item id="175">
 		<id>0x0175</id>
+		<category>Buildings\Walls\Sandstone Wall\Pillar 1</category>
 	</item>
 
 	<item id="176">
 		<id>0x0176</id>
+		<category>Buildings\Walls\Sandstone Wall\Pillar 2</category>		
 	</item>
 
 	<item id="177">
 		<id>0x0177</id>
+		<category>Buildings\Walls\Sandstone Wall\Pillar 3</category>
 	</item>
 
 	<item id="178">
 		<id>0x0178</id>
+		<category>Buildings\Walls\Sandstone Wall\Pillar 4</category>		
 	</item>
 
 	<item id="179">
 		<id>0x0179</id>
+		<category>Buildings\Walls\Sandstone Wall\Battlement 2</category>		
 	</item>
 
 	<item id="17a">
 		<id>0x017a</id>
+		<category>Buildings\Walls\Sandstone Wall\Battlement 3</category>
 	</item>
 
 	<item id="17b">
 		<id>0x017b</id>
+		<category>Buildings\Walls\Sandstone Wall\Battlement 4</category>
 	</item>
 
 	<item id="17c">
 		<id>0x017c</id>
+		<category>Buildings\Walls\Sandstone Wall\Battlement 5</category>
 	</item>
 
 	<item id="17d">
 		<id>0x017d</id>
+		<category>Buildings\Walls\Sandstone Wall\Battlement 6</category>
 	</item>
 
 	<item id="17e">
 		<id>0x017e</id>
+		<category>Buildings\Walls\Sandstone Wall\Edge 1</category>
 	</item>
 
 	<item id="17f">
 		<id>0x017f</id>
+		<category>Buildings\Walls\Sandstone Wall\Edge 2</category>
 	</item>
 
 	<item id="180">
 		<id>0x0180</id>
+		<category>Buildings\Walls\Sandstone Wall\Edge 3</category>
 	</item>
 
 	<item id="181">
 		<id>0x0181</id>
+		<category>Buildings\Walls\Sandstone Wall\Edge 4</category>
 	</item>
 
 	<item id="182">
 		<id>0x0182</id>
+		<category>Buildings\Walls\Sandstone Wall\Small Wall 5</category>
 	</item>
 
 	<item id="183">
 		<id>0x0183</id>
+		<category>Buildings\Walls\Sandstone Wall\Small Wall 6</category>
 	</item>
 
 	<item id="184">
 		<id>0x0184</id>
+		<category>Buildings\Walls\Sandstone Wall\Small Wall 7</category>
 	</item>
 
 	<item id="185">
 		<id>0x0185</id>
+		<category>Buildings\Walls\Sandstone Wall\Small Wall 8</category>
 	</item>
 
 	<item id="186">
 		<id>0x0186</id>
+		<category>Buildings\Walls\Sandstone Wall\Edge 5</category>
 	</item>
 
 	<item id="187">
 		<id>0x0187</id>
+		<category>Buildings\Walls\Sandstone Wall\Edge 6</category>
 	</item>
 
 	<item id="188">
 		<id>0x0188</id>
+		<category>Buildings\Walls\Sandstone Wall\Edge 7</category>
 	</item>
 
 	<item id="189">
 		<id>0x0189</id>
+		<category>Buildings\Walls\Sandstone Wall\Edge 8</category>
 	</item>
 
 	<item id="18a">
 		<id>0x018a</id>
+		<category>Buildings\Walls\Sandstone Wall\Patterned\Arch 1</category>
 	</item>
 
 	<item id="18b">
 		<id>0x018b</id>
+		<category>Buildings\Walls\Sandstone Wall\Patterned\Arch 2</category>
 	</item>
 
 	<item id="18c">
 		<id>0x018c</id>
+		<category>Buildings\Walls\Sandstone Wall\Patterned\Arch 3</category>
 	</item>
 
 	<item id="18d">
 		<id>0x018d</id>
+		<category>Buildings\Walls\Sandstone Wall\Patterned\Arch 4</category>
 	</item>
 
 	<item id="18e">
 		<id>0x018e</id>
+		<category>Buildings\Walls\Sandstone Wall\Patterned\Arch 5</category>
 	</item>
 
 	<item id="18f">
 		<id>0x018f</id>
+		<category>Buildings\Walls\Sandstone Wall\Patterned\Arch 6</category>
 	</item>
 
 	<item id="190">
 		<id>0x0190</id>
+		<category>Buildings\Walls\Sandstone Wall\Arch 6</category>
 	</item>
 
 	<item id="191">
 		<id>0x0191</id>
+		<category>Buildings\Walls\Sandstone Wall\Arch 7</category>
 	</item>
 
 	<item id="192">
 		<id>0x0192</id>
+		<category>Buildings\Walls\Sandstone Wall\Arch 8</category>
 	</item>
 
 	<item id="193">
 		<id>0x0193</id>
+		<category>Buildings\Walls\Sandstone Wall\Arch 9</category>
 	</item>
 
 	<item id="194">
 		<id>0x0194</id>
+		<category>Buildings\Walls\Sandstone Wall\Column 1</category>
 	</item>
 
 	<item id="195">
 		<id>0x0195</id>
+		<category>Buildings\Walls\Sandstone Wall\Column 2</category>
 	</item>
 
 	<item id="196">
 		<id>0x0196</id>
+		<category>Buildings\Walls\Sandstone Wall\Column 3</category>
 	</item>
 
 	<item id="197">
 		<id>0x0197</id>
+		<category>Buildings\Walls\Sandstone Wall\Tiny Wall 1</category>
 	</item>
 
 	<item id="198">
 		<id>0x0198</id>
+		<category>Buildings\Walls\Sandstone Wall\Tiny Wall 2</category>
 	</item>
 
 	<item id="199">
 		<id>0x0199</id>
+		<category>Buildings\Walls\Sandstone Wall\Tiny Wall 3</category>
 	</item>
 
 	<item id="19a">
 		<id>0x019a</id>
+		<category>Buildings\Walls\Sandstone Wall\Tiny Wall 4</category>
+	</item>
+	
+	<item id="1b1">
+		<id>0x01b1</id>
+		<category>Buildings\Walls\Sandstone Wall\Tiny Wall 5</category>
+	</item>
+
+	<item id="1b2">
+		<id>0x01b2</id>
+		<category>Buildings\Walls\Sandstone Wall\Tiny Wall 6</category>
+	</item>
+
+	<item id="1b3">
+		<id>0x01b3</id>
+		<category>Buildings\Walls\Sandstone Wall\Tiny Wall 7</category>
+	</item>
+
+	<item id="1b4">
+		<id>0x01b4</id>
+		<category>Buildings\Walls\Sandstone Wall\Tiny Wall 8</category>
 	</item>	
 	
+	<item id="1ca">
+		<id>0x01ca</id>
+		<category>Buildings\Walls\Sandstone Wall\Small Wall 9</category>
+	</item>
+	
+	<item id="1ec">
+		<id>0x01ec</id>
+		<category>Buildings\Walls\Sandstone Wall\Tiny Wall 9</category>
+	</item>
+
+	<item id="1ed">
+		<id>0x01ed</id>
+		<category>Buildings\Walls\Sandstone Wall\Tiny Wall 10</category>
+	</item>
+
+	<item id="1ee">
+		<id>0x01ee</id>
+		<category>Buildings\Walls\Sandstone Wall\Tiny Wall 11</category>
+	</item>
+
+	<item id="1ef">
+		<id>0x01ef</id>
+		<category>Buildings\Walls\Sandstone Wall\Tiny Wall 12</category>
+	</item>
+	
+	<item id="1a4">
+		<id>0x01a4</id>
+		<category>Buildings\Walls\Sandstone Wall\Battlement 7</category>
+	</item>	
+	
+	<!-- Rattan Wall -->
+	<item id="19b">
+		<id>0x019b</id>
+		<category>Buildings\Walls\Rattan Wall\Post 1</category>
+	</item>
+
+	<item id="19c">
+		<id>0x019c</id>
+		<category>Buildings\Walls\Rattan Wall\Supports 1</category>
+	</item>
+
+	<item id="19d">
+		<id>0x019d</id>
+		<category>Buildings\Walls\Rattan Wall\Supports 2</category>
+	</item>
+
+	<item id="19e">
+		<id>0x019e</id>
+		<category>Buildings\Walls\Rattan Wall\Supports 3</category>
+	</item>
+
+	<item id="19f">
+		<id>0x019f</id>
+		<category>Buildings\Walls\Rattan Wall\Supports 4</category>
+	</item>
+
+	<item id="1a0">
+		<id>0x01a0</id>
+		<category>Buildings\Walls\Rattan Wall\Supports 5</category>
+	</item>
+
+	<item id="1a1">
+		<id>0x01a1</id>
+		<category>Buildings\Walls\Rattan Wall\Supports 6</category>
+	</item>
+
+	<item id="1a2">
+		<id>0x01a2</id>
+		<category>Buildings\Walls\Rattan Wall\Supports 7</category>
+	</item>
+
+	<item id="1a3">
+		<id>0x01a3</id>
+		<category>Buildings\Walls\Rattan Wall\Post 2</category>
+	</item>
+
+	<item id="1a5">
+		<id>0x01a5</id>
+		<category>Buildings\Walls\Rattan Wall\Wall 1</category>
+	</item>
+
+	<item id="1a6">
+		<id>0x01a6</id>
+		<category>Buildings\Walls\Rattan Wall\Wall 2</category>
+	</item>
+
+	<item id="1a7">
+		<id>0x01a7</id>
+		<category>Buildings\Walls\Rattan Wall\Wall 3</category>
+	</item>
+
+	<item id="1a8">
+		<id>0x01a8</id>
+		<category>Buildings\Walls\Rattan Wall\Post 3</category>
+	</item>
+
+	<item id="1a9">
+		<id>0x01a9</id>
+		<category>Buildings\Walls\Rattan Wall\Wall 4</category>
+	</item>
+
+	<item id="1aa">
+		<id>0x01aa</id>
+		<category>Buildings\Walls\Rattan Wall\Wall 5</category>
+	</item>
+
+	<item id="1ab">
+		<id>0x01ab</id>
+		<category>Buildings\Walls\Rattan Wall\Wall 6</category>
+	</item>
+
+	<item id="1ac">
+		<id>0x01ac</id>
+		<category>Buildings\Walls\Rattan Wall\Wall 7</category>
+	</item>
+
+	<item id="1ad">
+		<id>0x01ad</id>
+		<category>Buildings\Walls\Rattan Wall\Window 1</category>
+	</item>
+
+	<item id="1ae">
+		<id>0x01ae</id>
+		<category>Buildings\Walls\Rattan Wall\Window 2</category>
+	</item>
+
+	<item id="1af">
+		<id>0x01af</id>
+		<category>Buildings\Walls\Rattan Wall\Window 3</category>
+	</item>
+
+	<item id="1b0">
+		<id>0x01b0</id>
+		<category>Buildings\Walls\Rattan Wall\Window 4</category>
+	</item>	
+	
+	<item id="1b5">
+		<id>0x01b5</id>
+		<category>Buildings\Walls\Rattan Wall\Post 4</category>
+	</item>	
+		
 </definitions>

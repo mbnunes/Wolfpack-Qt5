@@ -1,0 +1,598 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- Spellbook -->
+	<item id="efa" type="spellbook">
+		<id>0xefa</id>
+		<type>9</type> <!-- Keep this for now -->
+		<twohanded />
+		<decay/>
+		<value>30</value>
+		<category>Skill Items\Magery\Spellbook</category>
+	</item>
+	
+	<!-- Scrolls -->
+	
+	<!-- Clumsy Scroll -->
+	<item id="1f2e">
+		<id>0x1f2e</id>
+		<decay/>
+		<value>15</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Clumsy</category>
+	</item>
+	
+	<!-- Create Food Scroll -->
+	<item id="1f2f">
+		<id>0x1f2f</id>
+		<decay/>
+		<value>15</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Create Food</category>
+	</item>
+	
+	<!-- Feeblemind Scroll -->
+	<item id="1f30">
+		<id>0x1f30</id>
+		<decay/>
+		<value>15</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Feeblemind</category>
+	</item>
+	
+	<!-- Heal Scroll -->
+	<item id="1f31">
+		<id>0x1f31</id>
+		<decay/>
+		<value>15</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Heal</category>		
+	</item>
+	
+	<!-- Magic Arrow Scroll -->
+	<item id="1f32">
+		<id>0x1f32</id>
+		<decay/>
+		<value>15</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Magic Arrow</category>
+	</item>
+	
+	<!-- Night Site Scroll -->
+	<item id="1f33">
+		<id>0x1f33</id>
+		<decay/>
+		<value>15</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Night Sight</category>
+	</item>
+	
+	<!-- Reactive Armor Scroll -->
+	<item id="1f2d">
+		<id>0x1f2d</id>
+		<decay/>
+		<value>15</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Reactive Armor</category>
+	</item>
+	
+	<!-- Weaken Scroll -->
+	<item id="1f34">
+		<id>0x1f34</id>
+		<decay/>
+		<value>15</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Weaken</category>
+	</item>
+	
+	<!-- Agility Scroll -->
+	<item id="1f35">
+		<id>0x1f35</id>
+		<decay/>
+		<value>30</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Agility</category>
+	</item>
+	
+	<!-- Cunning Scroll -->
+	<item id="1f36">
+		<id>0x1f36</id>
+		<decay/>
+		<value>30</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Cunning</category>
+	</item>
+	
+	<!-- Cure Scroll -->
+	<item id="1f37">
+		<id>0x1f37</id>
+		<decay/>
+		<value>30</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Cure</category>
+	</item>
+	
+	<!-- Harm Scroll -->
+	<item id="1f38">
+		<id>0x1f38</id>
+		<decay/>
+		<value>30</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Harm</category>		
+	</item>
+	
+	<!-- Magic Trap Scroll -->
+	<item id="1f39">
+		<id>0x1f39</id>
+		<decay/>
+		<value>30</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Magic Trap</category>
+	</item>
+	
+	<!-- Magic Untrap Scroll -->
+	<item id="1f3a">
+		<id>0x1f3a</id>
+		<decay/>
+		<value>30</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Magic Untrap</category>
+	</item>
+	
+	<!-- Protection Scroll -->
+	<item id="1f3b">
+		<id>0x1f3b</id>
+		<decay/>
+		<value>30</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Protection</category>
+	</item>
+	
+	<!-- Strength Scroll -->
+	<item id="1f3c">
+		<id>0x1f3c</id>
+		<decay/>
+		<value>30</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Strength</category>
+	</item>
+	
+	<!-- Bless Scroll -->
+	<item id="1f3d">
+		<id>0x1f3d</id>
+		<decay/>
+		<value>45</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Bless</category>
+	</item>
+	
+	<!-- Fireball Scroll -->
+	<item id="1f3e">
+		<id>0x1f3e</id>
+		<decay/>
+		<value>45</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Fireball</category>
+	</item>
+	
+	<!-- Magic Lock Scroll -->
+	<item id="1f3f">
+		<id>0x1f3f</id>
+		<decay/>
+		<value>45</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Magic Lock</category>
+	</item>
+	
+	<!-- Poison Scroll -->
+	<item id="1f40">
+		<id>0x1f40</id>
+		<decay/>
+		<value>45</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Poison</category>
+	</item>
+	
+	<!-- Telekinesis Scroll -->
+	<item id="1f41">
+		<id>0x1f41</id>
+		<decay/>
+		<value>45</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Telekinesis</category>
+	</item>
+	
+	<!-- Teleport Scroll -->
+	<item id="1f42">
+		<id>0x1f42</id>
+		<decay/>
+		<value>45</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Teleport</category>
+	</item>
+	
+	<!-- Unlock Scroll -->
+	<item id="1f43">
+		<id>0x1f43</id>
+		<decay/>
+		<value>45</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Unlock</category>
+	</item>
+	
+	<!-- Wall of Stone Scroll -->
+	<item id="1f44">
+		<id>0x1f44</id>
+		<decay/>
+		<value>45</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Wall of Stone</category>
+	</item>
+	
+	<!-- Archcure Scroll -->
+	<item id="1f45">
+		<id>0x1f45</id>
+		<decay/>
+		<value>60</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Arch Cure</category>
+	</item>
+	
+	<!-- Arch Protection Scroll -->
+	<item id="1f46">
+		<id>0x1f46</id>
+		<decay/>
+		<value>60</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Arch Protection</category>
+	</item>
+	
+	<!-- Curse Scroll -->
+	<item id="1f47">
+		<id>0x1f47</id>
+		<decay/>
+		<value>60</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Curse</category>
+	</item>
+	
+	<!-- Fire Field Scroll -->
+	<item id="1f48">
+		<id>0x1f48</id>
+		<decay/>
+		<value>60</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Fire Field</category>
+	</item>
+	
+	<!-- Greater Heal Scroll -->
+	<item id="1f49">
+		<id>0x1f49</id>
+		<decay/>
+		<value>60</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Greater Heal</category>
+	</item>
+	
+	<!-- Lightning Scroll -->
+	<item id="1f4a">
+		<id>0x1f4a</id>
+		<decay/>
+		<value>60</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Lightning</category>
+	</item>
+	
+	<!-- Mana Drain Scroll -->
+	<item id="1f4b">
+		<id>0x1f4b</id>
+		<decay/>
+		<value>60</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Mana Drain</category>
+	</item>
+	
+	<!-- Recall Scroll -->
+	<item id="1f4c">
+		<id>0x1f4c</id>
+		<decay/>
+		<value>60</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Recall</category>
+	</item>
+	
+	<!-- Blade Spirits Scroll -->
+	<item id="1f4d">
+		<id>0x1f4d</id>
+		<decay/>
+		<value>75</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Blade Spirits</category>
+	</item>
+	
+	<!-- Dispel Field Scroll -->
+	<item id="1f4e">
+		<id>0x1f4e</id>
+		<decay/>
+		<value>75</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Dispel Field</category>
+	</item>
+	
+	<!-- Incognito Scroll -->
+	<item id="1f4f">
+		<id>0x1f4f</id>
+		<decay/>
+		<value>75</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Incognito</category>
+	</item>
+	
+	<!-- Magic Reflection Scroll -->
+	<item id="1f50">
+		<id>0x1f50</id>
+		<decay/>
+		<value>75</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Magic Reflection</category>
+	</item>
+	
+	<!-- Mind Blast Scroll -->
+	<item id="1f51">
+		<id>0x1f51</id>
+		<decay/>
+		<value>75</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Mind Blast</category>
+	</item>
+	
+	<!-- Paralyze Scroll -->
+	<item id="1f52">
+		<id>0x1f52</id>
+		<decay/>
+		<value>75</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Paralyze</category>
+	</item>
+	
+	<!-- Poison Field Scroll -->
+	<item id="1f53">
+		<id>0x1f53</id>
+		<decay/>
+		<value>75</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Poison Field</category>
+	</item>
+	
+	<!-- Summon Creature Scroll -->
+	<item id="1f54">
+		<id>0x1f54</id>
+		<decay/>
+		<value>75</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Summon Creature</category>
+	</item>
+	
+	<!-- Dispel Scroll -->
+	<item id="1f55">
+		<id>0x1f55</id>
+		<decay/>
+		<value>90</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Dispel Scroll</category>
+	</item>
+	
+	<!-- Energy Bolt Scroll -->
+	<item id="1f56">
+		<id>0x1f56</id>
+		<decay/>
+		<value>90</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Energy Bolt</category>
+	</item>
+	
+	<!-- Explosion Scroll -->
+	<item id="1f57">
+		<id>0x1f57</id>
+		<decay/>
+		<value>90</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Explosion</category>
+	</item>
+	
+	<!-- Invisibility Scroll -->
+	<item id="1f58">
+		<id>0x1f58</id>
+		<decay/>
+		<value>90</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Invisibility</category>
+	</item>
+	
+	<!-- Mark Scroll -->
+	<item id="1f59">
+		<id>0x1f59</id>
+		<decay/>
+		<value>90</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Mark</category>
+	</item>
+	
+	<!-- Mass Curse Scroll -->
+	<item id="1f5a">
+		<id>0x1f5a</id>
+		<decay/>
+		<value>90</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Mass Curse</category>
+	</item>
+	
+	<!-- Paralyze Field Scroll -->
+	<item id="1f5b">
+		<id>0x1f5b</id>
+		<decay/>
+		<value>90</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Paralyze Field</category>
+	</item>
+	
+	<!-- Reveal Scroll -->
+	<item id="1f5c">
+		<id>0x1f5c</id>
+		<decay/>
+		<value>90</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Reveal</category>
+	</item>
+	
+	<!-- Chain Lightning Scroll -->
+	<item id="1f5d">
+		<id>0x1f5d</id>
+		<decay/>
+		<value>105</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Chain Lightning</category>
+	</item>
+	
+	<!-- Energy Field Scroll -->
+	<item id="1f5e">
+		<id>0x1f5e</id>
+		<decay/>
+		<value>105</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Energy Field</category>
+	</item>
+	
+	<!-- Flamestrike Scroll -->
+	<item id="1f5f">
+		<id>0x1f5f</id>
+		<decay/>
+		<value>105</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Flamestrike</category>
+	</item>
+	
+	<!-- Gate Travel Scroll -->
+	<item id="1f60">
+		<id>0x1f60</id>
+		<decay/>
+		<value>105</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Gate Travel</category>
+	</item>
+	
+	<!-- Mana Vampire Scroll -->
+	<item id="1f61">
+		<id>0x1f61</id>
+		<decay/>
+		<value>105</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Mana Vampire</category>
+	</item>
+	
+	<!-- Mass Dispel Scroll -->
+	<item id="1f62">
+		<id>0x1f62</id>
+		<decay/>
+		<value>105</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Mass Dispel</category>
+	</item>
+	
+	<!-- Meteor Swarm Scroll -->
+	<item id="1f63">
+		<id>0x1f63</id>
+		<decay/>
+		<value>105</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Meteor Swarm</category>
+	</item>
+	
+	<!-- Polymorph Scroll -->
+	<item id="1f64">
+		<id>0x1f64</id>
+		<decay/>
+		<value>105</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Polymorph</category>
+	</item>
+	
+	<!-- Earthquake Scroll -->
+	<item id="1f65">
+		<id>0x1f65</id>
+		<decay/>
+		<value>120</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Earthquake</category>
+	</item>
+	
+	<!-- Energy Vortex Scroll -->
+	<item id="1f66">
+		<id>0x1f66</id>
+		<decay/>
+		<value>120</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Energy Vortex</category>
+	</item>
+	
+	<!-- Resurrection Scroll -->
+	<item id="1f67">
+		<id>0x1f67</id>
+		<decay/>
+		<value>120</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Resurrection</category>
+	</item>
+	
+	<!-- Summon Air Elemental Scroll -->
+	<item id="1f68">
+		<id>0x1f68</id>
+		<decay/>
+		<value>120</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Summon Air Elemental</category>
+	</item>
+	
+	<!-- Summon Daemon Scroll -->
+	<item id="1f69">
+		<id>0x1f69</id>
+		<decay/>
+		<value>120</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Summon Daemon</category>
+	</item>
+	
+	<!-- Summon Earth Elemental Scroll -->
+	<item id="1f6a">
+		<id>0x1f6a</id>
+		<decay/>
+		<value>120</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Summon Earth Elemental</category>
+	</item>
+	
+	<!-- Summon Fire Elemental Scroll -->
+	<item id="1f6b">
+		<id>0x1f6b</id>
+		<decay/>
+		<value>120</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Summon Fire Elemental</category>
+	</item>
+	
+	<!-- Summon Water Elemental Scroll -->
+	<item id="1f6c">
+		<id>0x1f6c</id>
+		<decay/>
+		<value>120</value>
+		<weight>.02</weight>
+		<category>Skill Items\Magery\Scrolls\Summon Water Elemental</category>
+	</item>
+	
+</definitions>

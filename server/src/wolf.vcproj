@@ -297,6 +297,9 @@
 				RelativePath=".\speech.cpp">
 			</File>
 			<File
+				RelativePath="spellbook.cpp">
+			</File>
+			<File
 				RelativePath=".\srvparams.cpp">
 			</File>
 			<File
@@ -503,6 +506,9 @@
 				RelativePath=".\network.h">
 			</File>
 			<File
+				RelativePath="newmagic.h">
+			</File>
+			<File
 				RelativePath=".\packlen.h">
 			</File>
 			<File
@@ -540,6 +546,9 @@
 			</File>
 			<File
 				RelativePath=".\speech.h">
+			</File>
+			<File
+				RelativePath="spellbook.h">
 			</File>
 			<File
 				RelativePath=".\srvparams.h">

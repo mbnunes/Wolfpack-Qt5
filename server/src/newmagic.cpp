@@ -11,6 +11,7 @@
 #include "srvparams.h"
 #include "TmpEff.h"
 #include "wpdefmanager.h"
+#include "tilecache.h"
 
 class cSpellTarget;
 class cEndCasting;
@@ -98,6 +99,8 @@ void cNewMagic::load()
 			}
 			else if( node.nodeName() == "mana" )
 				spells[id].mana = node.text().toInt();
+			else if( node.nodeName() == "scroll" )
+				spells[id].scroll = hex2dec( node.text() ).toLong();
 
 			QDomNode tmp = node.nextSibling();
 			if( !tmp.isNull() )
@@ -110,6 +113,28 @@ void cNewMagic::load()
 
 void cNewMagic::unload()
 {
+}
+
+/*!
+	Calculates the Spell ID for a given Scroll Item id
+*/
+INT8 cNewMagic::calcSpellId( UINT16 scroll )
+{
+	tile_st tile = cTileCache::instance()->getTile( scroll );
+
+	if( tile.unknown1 == 0 )
+		return -1;
+	else
+		return tile.unknown1;
+}
+
+/*!
+	Calculates the Scroll Item ID for the specified 
+	spell id.
+*/
+UINT16 cNewMagic::calcScrollId( UINT8 spell )
+{
+	return 0;
 }
 
 /*!
@@ -357,12 +382,22 @@ bool cNewMagic::useMana( P_CHAR pMage, UINT8 spell )
 
 	if( pMage->mn() < sInfo->mana )
 	{
-		if( pMage->socket() )
-			pMage->socket()->sysMessage( tr( "You don't have enough mana to cast this spell." ) );
+		pMage->message( tr( "You don't have enough mana to cast this spell." ) );
 		return false;
 	}
 
 	pMage->setMn( pMage->mn() - sInfo->mana );
+	return true;
+}
+
+/*!
+	This function is used to check for the required 
+	mana to cast a specific spell. If the character
+	does not have enough mana, a message is displayed
+	above the characters head and it returns false.
+*/
+bool cNewMagic::checkMana( P_CHAR pMage, UINT8 spell )
+{
 	return true;
 }
 
@@ -376,6 +411,19 @@ bool cNewMagic::useReagents( P_CHAR pMage, UINT8 spell )
 {
 	return true;
 }
+
+/*!
+	Just like useReagents this function is checking 
+	for required reagents on a characater to cast a 
+	spell. But unlike useReagents it wont really 
+	consume the reagents but just return false if 
+	the required reagents are not present.
+*/
+bool cNewMagic::checkReagents( P_CHAR pMage, UINT8 spell )
+{
+	return true;
+}
+
 
 /*!
 	This checks the needed skill to cast the specified 
@@ -429,47 +477,51 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 		return;
 	}
 
-	// If we are not precasting and the spell requires a target,
-	// show the targetting cursor before casting
-	if( !SrvParams->precasting() && sInfo->targets )
-	{
-		pMage->socket()->sysMessage( tr( sInfo->target ) );
-		pMage->socket()->attachTarget( new cSpellTarget( spell ) );
-	}
-	// spells without a target or precasted spells dont need that
-	else
-	{
-		if( !useMana( pMage, spell ) || !useReagents( pMage, spell ) )
-			return;		
+	// Check for required mana and required reagents, if not present: cancel casting
+	if( !checkMana( pMage, spell ) || !checkReagents( pMage, spell ) )
+		return;
 
-		cUOTxUnicodeSpeech speech;
-		speech.setSource( pMage->serial );
-		speech.setFont( 3 );
-		speech.setLanguage( "ENG" ); // These are always ENG
-		speech.setModel( pMage->id() );
-		speech.setName( pMage->name.c_str() );
-		speech.setText( sInfo->mantra );
-		speech.setType( cUOTxUnicodeSpeech::Spell );
+	cUOTxUnicodeSpeech speech;
+	speech.setSource( pMage->serial );
+	speech.setFont( 3 );
+	speech.setLanguage( "ENG" ); // These are always ENG
+	speech.setModel( pMage->id() );
+	speech.setName( pMage->name.c_str() );
+	speech.setText( sInfo->mantra );
+	speech.setType( cUOTxUnicodeSpeech::Spell );
 
-		// Send it to all Sockets in Range
-		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-			if( mSock && mSock->player() && mSock->player()->inRange( pMage, mSock->player()->VisRange ) )
-				mSock->send( &speech );
+	// This is a very interesting move of OSI 
+	// They send all action-packets the character has to perform in a row. 
+	// But they use the action 0xE9 instead of 0x10, maybe it's a bitmask 
+	// of 0xD9 but i am unsure. 
+	cUOTxAction action;
+	action.setAction( 0xE9 );
+	action.setDirection( pMage->dir() );
+	action.setSerial( pMage->serial );
+	action.setRepeat( 1 ); // Has to be repeated once (dont ask me what this means..., it was in the packet dump)
 
-		pMage->action( sInfo->action ); // Non Directed Cast
-		
-		if( !checkSkill( pMage, spell ) )
-			return;
+	// Send it to all surrounding players twice( for testing )
+	// Send it to all Sockets in Range
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		if( mSock && mSock->player() && mSock->player()->inRange( pMage, mSock->player()->VisRange ) )
+		{
+			mSock->send( &speech );
+			mSock->send( &action );
+			mSock->send( &action );
+		}
 
-		// This is the place where we start casting
-		pMage->setCasting( true );
+	// Now we have to do the following: 
+	// We show the target cursor after a given amount of time (set in the scripts)
+	// So what we are adding here is cEndCasting() supplying the Serial of our Mage 
+	// And the ID of our Spell.
 
-		// Only repeat the animation if walking disturbs casting
-		if( SrvParams->walkDisturbsCast() )
-			cTempEffects::getInstance()->insert( new cAnimationRepeat( pMage->serial, sInfo->action, sInfo->actiondelay ) );
 
-		cTempEffects::getInstance()->insert( new cEndCasting( pMage->serial, sInfo->delay, spell, pMage->pos, pMage->id(), pMage->serial ) );
-	}
+	// This is the place where we start casting
+	/*pMage->setCasting( true );
+
+	// Only repeat the animation if walking disturbs casting
+	cTempEffects::getInstance()->insert( new cAnimationRepeat( pMage->serial, sInfo->action, sInfo->actiondelay ) );
+	cTempEffects::getInstance()->insert( new cEndCasting( pMage->serial, sInfo->delay, spell, pMage->pos, pMage->id(), pMage->serial ) );*/
 }
 
 void cNewMagic::useWand( P_CHAR pMage, P_ITEM pWand )
@@ -659,4 +711,3 @@ void cNewMagic::spellClumsy( P_CHAR pMage, Coord_cl tPos, UINT16 model, SERIAL t
 	dMod->setExpiretime_s( RandomNum( 60, 120 ) );
 	cTempEffects::getInstance()->insert( dMod );
 }
-

@@ -68,8 +68,8 @@ public:
 	// That way you can add special behaviour
 	virtual bool onUse( P_CHAR User, P_ITEM Used ) { return false; }
 
-	virtual bool onShowItemName( P_ITEM Item, P_CHAR Viewer ) { return false; }
-	virtual bool onShowCharName( P_CHAR Character, P_CHAR Viewer ) { return false; }
+	virtual bool onSingleClick( P_ITEM Item, P_CHAR Viewer ) { return false; }
+	virtual bool onSingleClick( P_CHAR Character, P_CHAR Viewer ) { return false; }
 
 	virtual bool onCollideItem( P_CHAR Character, P_ITEM Obstacle ) { return false; }
 	virtual bool onCollideChar( P_CHAR Character, P_CHAR Obstacle ) { return false; }
