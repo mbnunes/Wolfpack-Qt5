@@ -63,10 +63,10 @@ static PyObject *wpContent_get( wpContent *self, int id )
 		P_CHAR pc = FindCharBySerial( self->contserial );
 		if (!pc)
 			return Py_None;
-		cChar::ContainerContent container = pc->content();
+		cBaseChar::ItemContainer container = pc->content();
 		if ( id >= container.size() || id < 0 )
 			return Py_None;
-		cChar::ContainerContent::const_iterator it(container.begin());
+		cBaseChar::ItemContainer::const_iterator it(container.begin());
 		for ( uint i = 0; i < id && it != container.end(); ++i )	// Ask Correa before trying 
 			++it;													// to 'optimize' this, there 
 																	// isn't much standard complient options here

@@ -545,12 +545,13 @@ void cBoat::turn( SI08 turn )
 			}
 			pc->MoveTo( newx, newy, pos().z );
 
-			AllTerritories::instance()->check( pc );
-
 			cUOTxDrawChar drawChar;
 			drawChar.fromChar( pc );
 
 			P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
+
+			if ( pp )
+				AllTerritories::instance()->check( pp );
 
 			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 			while( iter_sock.current() )
@@ -771,11 +772,12 @@ bool cBoat::move( void )
 		{
 			pc->MoveTo( pc->pos().x + dx, pc->pos().y + dy, pc->pos().z );
 
-			AllTerritories::instance()->check( pc );
-
 			cUOTxDrawChar drawChar;
 			drawChar.fromChar( pc );
 			P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
+
+			if ( pp )
+				AllTerritories::instance()->check( pp );
 
 			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 			while( iter_sock.current() )

@@ -53,6 +53,10 @@
 #include "../house.h"
 #include "../boats.h"
 #include "../srvparams.h"
+#include "../chars.h"
+#include "../basechar.h"
+#include "../player.h"
+#include "../npc.h"
 
 #include "utilities.h"
 #include "tempeffect.h"
@@ -585,7 +589,7 @@ PyObject *wpEffect( PyObject* self, PyObject* args )
 	cUOSocket *mSock;
 	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		if( mSock->player() && mSock->player()->pos().distance( displaypos ) <= mSock->player()->VisRange() )
+		if( mSock->player() && mSock->player()->pos().distance( displaypos ) <= mSock->player()->visualRange() )
 			mSock->send( &effect );
 	}
 

@@ -40,6 +40,7 @@
 #include "inlines.h"
 #include "srvparams.h"
 #include "typedefs.h"
+#include "basechar.h"
 #include "network.h"
 #include "network/uorxpackets.h"
 #include "network/uotxpackets.h"

@@ -38,7 +38,7 @@
 
 class cUOSocket;
 class cItem;
-class cChar;
+class cBaseChar;
 class Coord_cl;
 class AccountRecord;
 class cTerritory;

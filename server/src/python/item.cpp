@@ -38,6 +38,7 @@
 #include "../itemid.h"
 #include "../spellbook.h"
 #include "../books.h"
+#include "../basechar.h"
 
 extern cAllItems *Items;
 
@@ -821,7 +822,7 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 
 			switch( result.type() )
 			{
-			case cVariant::Char:
+			case cVariant::BaseChar:
 				obj = PyGetCharObject( result.toChar() );
 				break;
 			case cVariant::Item:
@@ -899,9 +900,9 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 				tile_st tile = TileCache::instance()->getTile( self->pItem->id() );
 				if( tile.layer )
 				{
-					if( pCont->atLayer( (cChar::enLayer)tile.layer ) )
-						pCont->atLayer( (cChar::enLayer)tile.layer )->toBackpack( pCont );
-					pCont->addItem( (cChar::enLayer)tile.layer, self->pItem );
+					if( pCont->atLayer( (cBaseChar::enLayer)tile.layer ) )
+						pCont->atLayer( (cBaseChar::enLayer)tile.layer )->toBackpack( pCont );
+					pCont->addItem( (cBaseChar::enLayer)tile.layer, self->pItem );
 				}
 			}
 		}

@@ -2805,7 +2805,7 @@ void Fame( P_CHAR pc_toChange, int nFame )
 		return;
 
 	// Loose Fame when we died
-	if( pc_toChange->dead() )
+	if( pc_toChange->isDead() )
 	{
 		// Fame / 25 is our loss
 		nChange = nCurFame / 25;

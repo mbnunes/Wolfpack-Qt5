@@ -39,6 +39,8 @@
 #include "basics.h"
 #include "wpconsole.h"
 #include "exceptions.h"
+#include "basechar.h"
+#include "player.h"
 
 #include "globals.h" // needed for object SrvParams
 
@@ -298,7 +300,7 @@ void cAllTerritories::load( void )
 	}
 }
 
-void cAllTerritories::check( P_CHAR pc )
+void cAllTerritories::check( P_PLAYER pc )
 {
 	cUOSocket *socket = pc->socket();
 	cTerritory* currRegion = this->region( pc->pos().x, pc->pos().y, pc->pos().map );

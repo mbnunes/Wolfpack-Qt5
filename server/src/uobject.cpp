@@ -48,6 +48,8 @@
 #include "wpdefmanager.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
+#include "basechar.h"
+#include "player.h"
 
 // Library Includes
 
@@ -524,7 +526,7 @@ void cUObject::removeFromView( bool clean )
 	}
 
 	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
-		if( clean || ( socket->player() && ( socket->player()->pos().distance( mPos ) <= socket->player()->VisRange() ) ) )
+		if( clean || ( socket->player() && ( socket->player()->pos().distance( mPos ) <= socket->player()->visualRange() ) ) )
 			socket->removeObject( this );
 }
 
@@ -565,7 +567,7 @@ void cUObject::effect( UINT16 id, cUObject *target, bool fixedDirection, bool ex
 			continue;
 
 		// The Socket has to be either in range of Source or Target
-		if( mSock->player()->inRange( this, mSock->player()->VisRange() ) || mSock->player()->inRange( target, mSock->player()->VisRange() ) )
+		if( mSock->player()->inRange( this, mSock->player()->visualRange() ) || mSock->player()->inRange( target, mSock->player()->visualRange() ) )
 			mSock->send( &effect );
 	}
 }
@@ -594,7 +596,7 @@ void cUObject::effect( UINT16 id, const Coord_cl &target, bool fixedDirection, b
 			continue;
 
 		// The Socket has to be either in range of Source or Target
-		if( mSock->player()->inRange( this, mSock->player()->VisRange() ) || ( mSock->player()->pos().distance( target ) <= mSock->player()->VisRange() ) )
+		if( mSock->player()->inRange( this, mSock->player()->visualRange() ) || ( mSock->player()->pos().distance( target ) <= mSock->player()->visualRange() ) )
 			mSock->send( &effect );
 	}
 }
@@ -619,7 +621,7 @@ void cUObject::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT1
 	cUOSocket *mSock = 0;
 	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange() ) )
+		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			mSock->send( &effect );
 	}
 }

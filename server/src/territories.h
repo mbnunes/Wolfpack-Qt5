@@ -125,7 +125,7 @@ class cAllTerritories : public QObject, public cAllBaseRegions
 public:
 
 	void		load( void );
-	void		check( P_CHAR pc );
+	void		check( P_PLAYER pc );
 
 	cTerritory* region( const QString& regName ) const
 	{
