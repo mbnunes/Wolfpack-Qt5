@@ -3,106 +3,134 @@ import wolfpack
 from wolfpack.consts import *
 from wolfpack import console, utilities
 import random
-from types import *
+from system.lootlists import *
 
 # Indices
 PACK_CHANCE = 0
 PACK_ITEM = 1
 PACK_AMOUNT = 2
 PACK_STACKABLE = 3
-PACK_PROPERTIES = 4
-PACK_MINSTRENGTH = 5
-PACK_MAXSTRENGTH = 6
 
-#
-# Loot Definitions
-#
-INSTRUMENTS = ['e9c', 'eb2', 'eb1', 'eb3', 'e9d', 'e9e']
-
-#
-# Get the real bonus property value based on
-# the luck value for a given character and the
-# maximum properties for the given item
-#
-def bonusproperties(char, maximum):
-	if maximum == 0:
-		return 0
-
-	maximum = max(1, min(5, maximum)) # 1 to 5 properties
-	chances = [0, 0, 0, 0, 0, 0] # 0 to 5 properties
-	if maximum == 1:
-		chances[0:2] = [3, 1]
-	elif maximum == 2:
-		chances[0:3] = [6, 3, 1]
-	elif maximum == 3:
-		chances[0:4] = [10, 6, 3, 1]
-	elif maximum == 4:
-		chances[0:5] = [16, 12, 6, 5, 1]
-	elif maximum == 5:
-		chances[0:6] = [30, 25, 20, 15, 9, 1]
-
-	chance = random.randint(1, sum(chances))
-	for i in range(0, len(chances)):
-		if chance <= chances[i]:
-			return i
-		else:
-			chance -= chances[i]
-
-	return 0
-
-#
-# Function for creating random magic items.
-#
-def magicitem(char, killer, corpse, item):
-	if len(item) != PACK_MAXSTRENGTH + 1:
-		return
-
-	properties = bonusproperties(killer, item[PACK_PROPERTIES])
-
-	killer.message('Creating a magic item with %u/%u properties ranging from %f to %f' % \
-		(properties, item[PACK_PROPERTIES], item[PACK_MINSTRENGTH], item[PACK_MAXSTRENGTH]))
-	return
-
-#
 # Lootpacks
-# [Chance (of 1.0), Item/Item List/Callback, Amount, Stackable]
+# [Chance (of 1.0), Item/Item List, Amount, Stackable]
 # Make sure you don't accidently mix stackable items with non stackable items if you
 # use a list of item ids instead of just a single id.
-# For magic items the last three values are: the number of properties, 
-#	the min. strength of each property (fraction of 1.0),
-# the max. strength of each property (fraction of 1.0)
 #
 PACKS = {
+	# Gold Packs
+	'verypoor': [
+		[0.9, 'eed', '1d10', 1] # 1 - 10
+	]
 	'poor': [
-		[1.0, 'eed', '1d10+10', 1], # Gold
-		#[0.0002, INSTRUMENTS, 1, 0] # Instruments
-		[0.5, INSTRUMENTS, 1, 0],
-		[1.0, magicitem, 1, 0, 1, 0.5, 0.75],
+		[1.0, 'eed', '1d10+10', 1]
 	],
-
 	'meager': [
 		[1.0, 'eed', '3d10+20', 1]
 	],
-
 	'average': [
 		[1.0, 'eed', '5d10+50', 1]
 	],
-
 	'rich': [
 		[1.0, 'eed', '10d10+150', 1]
 	],
-
 	'filthyrich': [
 		[1.0, 'eed', '2d100+200', 1]
 	],
-
 	'ultrarich': [
 		[1.0, 'eed', '5d100+500', 1]
 	],
-
 	'superboss': [
 		[1.0, 'eed', '5d100+500', 1]
 	],
+	# Instrument Packs
+	'instrument_spoor': [
+		[0.25, DEF_INSTRUMENTS, 1, 0]
+	],
+	'instrument_average': [
+		[0.5, DEF_INSTRUMENTS, 1, 0]
+	],
+	'instruments_high': [
+		[0.75, DEF_INSTRUMENTS, 1, 0]
+	],
+	'instruments_always': [
+		[1.0, DEF_INSTRUMENTS, 1, 0]
+	],
+	# Weapons Packs
+	'weapons_all': [
+		[1.0, DEF_ALLWEAPONS, 1, 0]
+	],
+	'weapons_swords': [
+		[1.0, DEF_WEAPONS_SWORDS, 1, 0]
+	],
+	'weapons_axes': [
+		[1.0, DEF_WEAPONS_AXES, 1, 0]
+	],
+	'weapons_maces': [
+		[1.0, DEF_WEAPONS_MACES, 1, 0]
+	],
+	'weapons_fencing': [
+		[1.0, DEF_WEAPONS_FENCING, 1, 0]
+	],
+	'weapons_bows': [
+		[1.0, DEF_WEAPONS_BOWS, 1, 0]
+	],
+	'weapons_high_all': [
+		[0.75, DEF_ALLWEAPONS, 1, 0]
+	],
+	'weapons_high_swords': [
+		[0.75, DEF_WEAPONS_SWORDS, 1, 0]
+	],
+	'weapons_high_axes': [
+		[0.75, DEF_WEAPONS_AXES, 1, 0]
+	],
+	'weapons_high_maces': [
+		[0.75, DEF_WEAPONS_MACES, 1, 0]
+	],
+	'weapons_high_fencing': [
+		[0.75, DEF_WEAPONS_FENCING, 1, 0]
+	],
+	'weapons_high_bows': [
+		[0.75, DEF_WEAPONS_BOWS, 1, 0]
+	],
+	'weapons_med_all': [
+		[0.5, DEF_ALLWEAPONS, 1, 0]
+	],
+	'weapons_med_swords': [
+		[0.5, DEF_WEAPONS_SWORDS, 1, 0]
+	],
+	'weapons_med_axes': [
+		[0.5, DEF_WEAPONS_AXES, 1, 0]
+	],
+	'weapons_med_maces': [
+		[0.5, DEF_WEAPONS_MACES, 1, 0]
+	],
+	'weapons_med_fencing': [
+		[0.5, DEF_WEAPONS_FENCING, 1, 0]
+	],
+	'weapons_med_bows': [
+		[0.5, DEF_WEAPONS_BOWS, 1, 0]
+	],
+	'weapons_low_all': [
+		[0.25, DEF_ALLWEAPONS, 1, 0]
+	],
+	'weapons_low_swords': [
+		[0.25, DEF_WEAPONS_SWORDS, 1, 0]
+	],
+	'weapons_low_axes': [
+		[0.25, DEF_WEAPONS_AXES, 1, 0]
+	],
+	'weapons_low_maces': [
+		[0.25, DEF_WEAPONS_MACES, 1, 0]
+	],
+	'weapons_low_fencing': [
+		[0.25, DEF_WEAPONS_FENCING, 1, 0]
+	],
+	'weapons_low_bows': [
+		[0.25, DEF_WEAPONS_BOWS, 1, 0]
+	],
+	# Armor Packs
+
+	# Reagent Packs
 }
 
 #
@@ -134,17 +162,14 @@ def createpack(char, killer, corpse, pack):
 	# A pack is actually a list of lists
 	for item in pack:
 		if item[PACK_CHANCE] >= random.random():
-			if type(item[PACK_AMOUNT]) == StringType:
+			if type(item[PACK_AMOUNT]) == str:
 				amount = utilities.rolldice(item[PACK_AMOUNT])
 			else:
 				amount = int(item[PACK_AMOUNT])
 
 			if item[PACK_STACKABLE]:
-				if type(item[PACK_ITEM]) == ListType:
+				if type(item[PACK_ITEM]) == list:
 					itemid = random.choice(item[PACK_ITEM])
-				elif type(item[PACK_ITEM]) == FunctionType:
-					item[PACK_ITEM](char, killer, corpse, item)
-					continue
 				else:
 					itemid = str(item[PACK_ITEM])
 
@@ -153,11 +178,8 @@ def createpack(char, killer, corpse, pack):
 				dropitem(item, char, corpse)
 			else:
 				for i in range(0, amount):
-					if type(item[PACK_ITEM]) == ListType:
+					if type(item[PACK_ITEM]) == list:
 						itemid = random.choice(item[PACK_ITEM])
-					elif type(item[PACK_ITEM]) == FunctionType:
-						item[PACK_ITEM](char, killer, corpse, item)
-						continue
 					else:
 						itemid = str(item[PACK_ITEM])
 
