@@ -85,7 +85,7 @@ def lock_response(char, args, target):
 		return
 
 	# Build the lock gump
-	gump = cGump(x=100, y=100, callback="lock.gump_response")
+	gump = cGump(x=100, y=100, callback=gump_response)
 	gump.setArgs([target.item.serial])
 
 	# Check if the item already has a lock
