@@ -448,7 +448,7 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 			continue;
 
 		// Check for item collisions here.
-		if( ( pChar->pos.x == pItem->pos.x ) && ( pChar->pos.y == pItem->pos.y ) && ( pItem->pos.z > pChar->pos.z ) && ( pItem->pos.z <= pChar->pos.z + 5 ) )
+		if( ( pChar->pos.x == pItem->pos.x ) && ( pChar->pos.y == pItem->pos.y ) && ( pItem->pos.z >= pChar->pos.z ) && ( pItem->pos.z <= pChar->pos.z + 5 ) )
 		{
 			if( handleItemCollision( pChar, pItem ) );
 			break;
