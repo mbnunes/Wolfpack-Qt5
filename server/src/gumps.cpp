@@ -3,7 +3,6 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
 //  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -31,6 +30,7 @@
 
 
 #include "wolfpack.h"
+#include "accounts.h"
 #include "prototypes.h"
 #include "globals.h"
 #include "gumps.h"
@@ -43,7 +43,8 @@
 #include "accounts.h"
 #include "pagesystem.h"
 #include "territories.h"
-
+#include "basechar.h"
+#include "player.h"
 #include "debug.h"
 
 // System Includes
@@ -205,7 +206,7 @@ void cSpawnRegionInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choi
 	}
 }
 
-cCharInfoGump::cCharInfoGump( cChar* pChar )
+cCharInfoGump::cCharInfoGump( cBaseChar* pChar )
 {
 	char_ = pChar;
 
@@ -218,7 +219,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addResizeGump( 0, 40, 0xA28, 450, 350 ); //Background
 		addGump( 105, 18, 0x58B ); // Fancy top-bar
 		addGump( 182, 0, 0x589 ); // "Button" like gump
-		addTilePic( 202, 23, creatures[ char_->id() ].icon ); // Type of info menu
+		addTilePic( 202, 23, creatures[ char_->bodyID() ].icon ); // Type of info menu
 		addText( 178, 90, tr( "Char Properties" ), 0x530 );
 
 		// Apply button
@@ -247,21 +248,21 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 140, tr( "Title:" ), 0x834 );
 		addInputField( 200, 140, 200, 16,  2, QString( "%1" ).arg( pChar->title() ), 0x834 );
 		addText( 50, 160, tr( "Body:" ), 0x834 );
-		addInputField( 200, 160, 200, 16,  3, QString( "0x%1" ).arg( QString::number( pChar->id(), 16 ) ), 0x834 );
+		addInputField( 200, 160, 200, 16,  3, QString( "0x%1" ).arg( QString::number( pChar->bodyID(), 16 ) ), 0x834 );
 		addText( 50, 180, tr( "Skin:" ), 0x834 );
 		addInputField( 200, 180, 200, 16,  4, QString( "0x%1" ).arg( QString::number( pChar->skin(), 16 ) ), 0x834 );
 		addText( 50, 200, tr( "Strength:" ), 0x834 );
-		addInputField( 200, 200, 200, 16,  5, QString( "%1" ).arg( pChar->st() ), 0x834 );
+		addInputField( 200, 200, 200, 16,  5, QString( "%1" ).arg( pChar->strength() ), 0x834 );
 		addText( 50, 220, tr( "Dexterity:" ), 0x834 );
-		addInputField( 200, 220, 200, 16,  6, QString( "%1" ).arg( pChar->realDex() ), 0x834 );
+		addInputField( 200, 220, 200, 16,  6, QString( "%1" ).arg( pChar->dexterity() ), 0x834 );
 		addText( 50, 240, tr( "Intelligence:" ), 0x834 );
-		addInputField( 200, 240, 200, 16,  7, QString( "%1" ).arg( pChar->in() ), 0x834 );
+		addInputField( 200, 240, 200, 16,  7, QString( "%1" ).arg( pChar->intelligence() ), 0x834 );
 		addText( 50, 260, tr( "Hitpoints:" ), 0x834 );
-		addInputField( 200, 260, 200, 16,  8, QString( "%1" ).arg( pChar->hp() ), 0x834 );
+		addInputField( 200, 260, 200, 16,  8, QString( "%1" ).arg( pChar->hitpoints() ), 0x834 );
 		addText( 50, 280, tr( "Stamina:" ), 0x834 );
-		addInputField( 200, 280, 200, 16,  9, QString( "%1" ).arg( pChar->stm() ), 0x834 );
+		addInputField( 200, 280, 200, 16,  9, QString( "%1" ).arg( pChar->stamina() ), 0x834 );
 		addText( 50, 300, tr( "Mana:" ), 0x834 );
-		addInputField( 200, 300, 200, 16, 10, QString( "%1" ).arg( pChar->mn() ), 0x834 );
+		addInputField( 200, 300, 200, 16, 10, QString( "%1" ).arg( pChar->mana() ), 0x834 );
 
 		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		// next page
@@ -294,7 +295,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 220, tr( "Defense:" ), 0x834 );
 		addInputField( 200, 220, 200, 16, 16, QString( "%1" ).arg( pChar->def() ), 0x834 );
 		addText( 50, 240, tr( "Dead:" ), 0x834 );
-		addInputField( 200, 240, 200, 16, 17, QString( "%1" ).arg( pChar->dead() ), 0x834 );
+		addInputField( 200, 240, 200, 16, 17, QString( "%1" ).arg( pChar->isDead() ), 0x834 );
 		addText( 50, 260, tr( "Position (x,y,z,map):" ), 0x834 );
 		addInputField( 200, 260, 200, 16, 18, QString("%1,%2,%3,%4").arg( pChar->pos().x ).arg( pChar->pos().y ).arg( pChar->pos().z ).arg( pChar->pos().map ), 0x834 );
 		addText( 50, 280, tr( "Serial:" ), 0x834 );
@@ -335,13 +336,13 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 220, tr( "fz:" ), 0x834 );
 		addInputField( 200, 220, 200, 16, 26, QString( "%1" ).arg( pChar->fz1() ), 0x834 );
 		addText( 50, 240, tr( "Direction:" ), 0x834 );
-		addInputField( 200, 240, 200, 16, 27, QString( "%1" ).arg( pChar->dir() ), 0x834 );
+		addInputField( 200, 240, 200, 16, 27, QString( "%1" ).arg( pChar->direction() ), 0x834 );
 		addText( 50, 260, tr( "Strength modifier:" ), 0x834 );
-		addInputField( 200, 260, 200, 16, 28, QString( "%1" ).arg( pChar->st2() ), 0x834 );
+		addInputField( 200, 260, 200, 16, 28, QString( "%1" ).arg( pChar->strengthMod() ), 0x834 );
 		addText( 50, 280, tr( "Dexterity modifier:" ), 0x834 );
-		addInputField( 200, 280, 200, 16, 29, QString( "%1" ).arg( pChar->decDex() ), 0x834 );
+		addInputField( 200, 280, 200, 16, 29, QString( "%1" ).arg( pChar->dexterityMod() ), 0x834 );
 		addText( 50, 300, tr( "Intelligence modifier:" ), 0x834 );
-		addInputField( 200, 300, 200, 16, 30, QString( "%1" ).arg( pChar->in2() ), 0x834 );
+		addInputField( 200, 300, 200, 16, 30, QString( "%1" ).arg( pChar->intelligenceMod() ), 0x834 );
 
 		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		// prev page
@@ -367,7 +368,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 200, tr( "Loot:" ), 0x834 );
 		addInputField( 200, 280, 200, 16, 35, QString( "%1" ).arg( pChar->lootList() ), 0x834 );
 		addText( 50, 220, tr( "Gender:" ), 0x834 );
-		addInputField( 200, 280, 220, 16, 36, QString( "%1" ).arg( ( pChar->sex() ? tr("female") : tr("male") ) ), 0x834 );
+		addInputField( 200, 280, 220, 16, 36, QString( "%1" ).arg( ( pChar->gender() ? tr("female") : tr("male") ) ), 0x834 );
 
 		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		// prev page
@@ -394,28 +395,28 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setTitle( it->second );
 				break;
 			case 3:
-				char_->setId( hex2dec( it->second ).toUShort() );
+				char_->setBodyID( hex2dec( it->second ).toUShort() );
 				break;
 			case 4:
 				char_->setSkin( hex2dec( it->second ).toUShort() );
 				break;
 			case 5:
-				char_->setSt( hex2dec( it->second ).toShort() );
+				char_->setStrength( hex2dec( it->second ).toShort() );
 				break;
 			case 6:
-				char_->setDex( hex2dec( it->second ).toShort() );
+				char_->setDexterity( hex2dec( it->second ).toShort() );
 				break;
 			case 7:
-				char_->setIn( hex2dec( it->second ).toShort() );
+				char_->setIntelligence( hex2dec( it->second ).toShort() );
 				break;
 			case 8:
-				char_->setHp( hex2dec( it->second ).toShort() );
+				char_->setHitpoints( hex2dec( it->second ).toShort() );
 				break;
 			case 9:
-				char_->setStm( hex2dec( it->second ).toShort() );
+				char_->setStamina( hex2dec( it->second ).toShort() );
 				break;
 			case 10:
-				char_->setMn( hex2dec( it->second ).toShort() );
+				char_->setMana( hex2dec( it->second ).toShort() );
 				break;
 			case 11:
 				char_->setSpawnregion( it->second );
@@ -488,16 +489,16 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setFz1( hex2dec( it->second ).toInt() );
 				break;
 			case 27:
-				char_->setDir( hex2dec( it->second ).toUShort() );
+				char_->setDirection( hex2dec( it->second ).toUShort() );
 				break;
 			case 28:
-				char_->setSt2( hex2dec( it->second ).toShort() );
+				char_->setStrengthMod( hex2dec( it->second ).toShort() );
 				break;
 //			case 29:
 //				char_->setDecDex( hex2dec( it->second ).toShort() );
 //				break;
 			case 30:
-				char_->setIn2( hex2dec( it->second ).toShort() );
+				char_->setIntelligenceMod( hex2dec( it->second ).toShort() );
 				break;
 			case 31:
 				char_->setSayColor( hex2dec( it->second ).toUShort() );
@@ -514,10 +515,10 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setLootList( it->second );
 				break;
 			case 46:
-				char_->setSex( it->second == tr("female") );
+				char_->setGender( it->second == tr("female") );
 				break;
 			}
-			it++;
+			++it;
 		}
 
 		if( choice.button == 0 )
@@ -1017,7 +1018,7 @@ cWhoMenuGump::cWhoMenuGump( UINT32 page )
 
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		cChar* pChar = mSock->player();
+		P_PLAYER pChar = mSock->player();
 		if( pChar )
 		{
 			charNames.push_back( pChar->name() );
@@ -1101,7 +1102,7 @@ cSocketInfoGump::cSocketInfoGump( cUOSocket* socket )
 		return;
 
 	socket_ = socket;
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 
 	bool contains = false;
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
@@ -1172,8 +1173,8 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		return;
 	else if( contains && socket_->player() )
 	{
-		cChar* pChar = socket_->player();
-		cChar* mChar = socket->player();
+		P_PLAYER pChar = socket_->player();
+		P_PLAYER mChar = socket->player();
 		switch( choice.button )
 		{
 		case 1:
@@ -1264,7 +1265,7 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 	cPagesManager::iterator it = cPagesManager::getInstance()->begin();
 	while( it != cPagesManager::getInstance()->end() )
 	{
-		cChar* pChar = FindCharBySerial( (*it)->charSerial() );
+		P_CHAR pChar = FindCharBySerial( (*it)->charSerial() );
 		if( pChar && ptype <= (*it)->pageType() )
 		{
 			charNames.push_back( pChar->name() );
@@ -1352,7 +1353,9 @@ cPageInfoGump::cPageInfoGump( cPage* page )
 
 	if( cPagesManager::getInstance()->contains( page ) )
 	{
-		cChar* pChar = FindCharBySerial( page->charSerial() );
+		P_PLAYER pChar = dynamic_cast<P_PLAYER>(FindCharBySerial( page->charSerial() ));
+		if ( !pChar )
+			return;
 		startPage();
 		
 		addBackground( 0xE10, 440, 440 ); //Background
@@ -1424,13 +1427,17 @@ void cPageInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		return;
 	else if( page_ && cPagesManager::getInstance()->contains( page_ ) )
 	{
-		cChar* pChar = FindCharBySerial( page_->charSerial() );
-		cUOSocket* socket_ = pChar->socket();
+		P_PLAYER pChar = dynamic_cast<P_PLAYER>( FindCharBySerial( page_->charSerial() ) );
 		
-		if( !pChar || !socket_ )
+		if ( !pChar )
 			return;
 
-		cChar* mChar = socket->player();
+		cUOSocket* socket_ = pChar->socket();
+		
+		if( !socket_ )
+			return;
+
+		P_PLAYER mChar = socket->player();
 		switch( choice.button )
 		{
 		case 1:
@@ -1619,7 +1626,7 @@ void cHelpGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	}
 	else
 	{
-		P_CHAR pChar = FindCharBySerial( char_ );
+		P_PLAYER pChar = dynamic_cast<P_PLAYER>(FindCharBySerial( char_ ));
 		if( !pChar )
 			return;
 

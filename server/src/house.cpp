@@ -3,7 +3,6 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
 //  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -43,7 +42,10 @@
 #include "network.h"
 #include "network/uosocket.h"
 #include "multiscache.h"
-
+#include "basechar.h"
+#include "player.h"
+#include "npc.h"
+#include "chars.h"
 #include "customtags.h"
 #include "territories.h"
 
@@ -86,7 +88,7 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 			// <pack />
 			if( TagName == "pack" && pOwner )
 			{
-				P_ITEM pBackpack = pOwner->atLayer( cChar::Backpack );
+				P_ITEM pBackpack = pOwner->atLayer( cBaseChar::Backpack );
 				if( pBackpack )
 					pBackpack->addItem( nItem );
 			}
@@ -204,7 +206,9 @@ void cHouse::processNode( const QDomElement &Tag )
 
 void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial )
 {
-	P_CHAR pc_currchar = FindCharBySerial( senderserial );
+	P_PLAYER pc_currchar = dynamic_cast<P_PLAYER>(FindCharBySerial( senderserial ));
+	if ( !pc_currchar )
+		return;
 	cUOSocket* socket = pc_currchar->socket();
 
 	this->setSerial( World::instance()->findItemSerial() );
@@ -250,7 +254,10 @@ void cHouse::remove( void )
 	RegionIterator4Chars ri(this->pos());
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
-		P_CHAR pc = ri.GetData();
+		P_NPC pc = dynamic_cast<P_NPC>(ri.GetData());
+		if ( !pc )
+			continue;
+
 		if(pc->npcaitype() == 17 && pc->multis() == this->serial())
 			cCharStuff::DeleteChar(pc);
 	}
@@ -273,7 +280,9 @@ void cHouse::toDeed( cUOSocket* socket )
 	RegionIterator4Chars ri(this->pos());
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
-		P_CHAR pc = ri.GetData();
+		P_NPC pc = dynamic_cast<P_NPC>(ri.GetData());
+		if ( !pc )
+			continue;
 		if( pBackpack && pc->npcaitype() == 17 && pc->multis() == this->serial() )
 		{
 			P_ITEM pPvDeed = Items->createScriptItem( "14f0" );
