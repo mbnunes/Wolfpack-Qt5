@@ -100,13 +100,14 @@ def response( char, args, target ):
 			return False
 
 	else:
-		if not char.canreach( target.char, 4 ):
-			char.socket.clilocmessage( 0x7A27F, "", 0x3b2, 3 )
-			return False
+		if target.char:
+			if not char.canreach( target.char, 4 ):
+				char.socket.clilocmessage( 0x7A27F, "", 0x3b2, 3 )
+				return False
 
-		if not char.distanceto ( target.char ) < 5:
-			char.socket.clilocmessage( 0x7A27E, "", 0x3b2, 3 )
-			return False
+			if not char.distanceto ( target.char ) < 5:
+				char.socket.clilocmessage( 0x7A27E, "", 0x3b2, 3 )
+				return False
 
 		char.socket.clilocmessage( 0x7A280, "", 0x3b2, 3 )
 		return False
