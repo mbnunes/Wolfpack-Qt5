@@ -2236,6 +2236,8 @@ void cChar::kill()
 		while( it != lootItemSections.end() )
 		{
 			P_ITEM pi_loot = Items->createScriptItem( (*it) );
+			if( pi_loot )
+				corpse->addItem( pi_loot );
 //			if( pi_loot )
 //				pi_loot->setContSerial( corpse->serial );
 // Restructuring

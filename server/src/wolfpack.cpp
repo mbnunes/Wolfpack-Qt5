@@ -81,7 +81,9 @@
 #include <qstring.h>
 #include <qlibrary.h>
 #include <qdatetime.h>
-
+#include <zthread/Thread.h>
+#include <zthread/FastMutex.h>
+#include <conio.h>
 #include <fstream>
 
 #undef DBGFILE
@@ -969,21 +971,46 @@ void endScrn()
 #endif
 }
 */
-#if !defined(__unix__)
-//////////////////
-// Name:	checkkey()
-// Purpose:	Facilitate console control. SysOp keys, and localhost controls.
-//
-#include <conio.h>
 
-void checkkey ()
+ZThread::FastMutex commandMutex;
+QStringList commandQueue;
+
+class cConsoleThread: public ZThread::Thread
+{
+public:
+	virtual void run() throw()
+	{
+		// Check for a new key constantly and put it into the command-queue
+		char key = 0;
+
+		try
+		{
+			while( keeprun )
+			{
+				key = getch();
+
+				if( key != 0 )
+				{
+					commandMutex.acquire();
+					commandQueue.push_back( QString( "%1" ).arg( key ) );
+					commandMutex.release();
+				}
+			}
+		}
+		catch( ... )
+		{
+			commandMutex.release();
+		}
+	}
+};
+
+// This function is used to interpret a command
+// sent by the console.
+void interpretCommand( const QString &command )
 {
 	cUOSocket *mSock;
 	int i,j=0;
-	char c=0;
-
-	if (kbhit())
-		c=getch();
+	char c = command.latin1()[0];
 
 	if (c != 0)
 	{
@@ -1111,7 +1138,6 @@ void checkkey ()
 		}
 	}
 }
-#endif
 
 #if defined(__unix__)
 	bool bDeamon = false; //true ;
@@ -1545,14 +1571,15 @@ int main( int argc, char *argv[] )
 
 	PyThreadState *_save;
 
+	// Start the Console Input thread
+	cConsoleThread consoleThread;
+
+	if( !bDeamon )
+		consoleThread.start();
+
 	// This is our main loop
 	while( keeprun )
-	{
-		// Uncomment by Dupois July 18, 2000! see note above about InitKbThread()
-		#if !defined(__unix__)
-		checkkey();
-		#endif
-
+	{		
 		// Python threading - start
 		_save = PyEval_SaveThread();
 
@@ -1569,6 +1596,20 @@ int main( int argc, char *argv[] )
 
 		// Python threading - end
 		PyEval_RestoreThread(_save);
+
+		// It's more likely that we have a new key-press now
+		// Checking every 25 loops should be enough.
+		if( !bDeamon && loopTimeCount % 25 == 0 )
+		{
+			commandMutex.acquire();
+			if( commandQueue.count() > 0 )
+			{				
+				// Interpret Command
+				interpretCommand( commandQueue[0] );
+				commandQueue.erase( commandQueue.begin() );
+			}
+			commandMutex.release();
+		}
 
 		if( loopTimeCount >= 1000 )
 		{
@@ -1646,6 +1687,9 @@ int main( int argc, char *argv[] )
 		
 		qApp->processEvents( 40 );
 	}
+
+	if( !bDeamon )
+		consoleThread.interrupt();
 
 	sysbroadcast("The server is shutting down.");
 
