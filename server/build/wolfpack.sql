@@ -166,9 +166,6 @@ CREATE TABLE `multis_friends` (
 
 CREATE TABLE `npcs` (
 	`serial` int(11) NOT NULL default '0',
-	`mindamage` smallint(6)  NOT NULL default '0',
-	`maxdamage` smallint(6)  NOT NULL default '0',
-	`tamingminskill` smallint(6)  NOT NULL default '0',
 	`summontime` int(11)  NOT NULL default '0',
 	`additionalflags` int(11)  NOT NULL default '0',
 	`owner` int(11) NOT NULL default '-1',
