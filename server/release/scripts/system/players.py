@@ -12,7 +12,7 @@ def onLogin( player ):
 
 def onLogout( player ):
 	socket = player.socket
-	player.hidden = 1
 	player.removefromview()
+	player.hidden = 1
 	player.update()
 	return True
