@@ -43,6 +43,7 @@ Wolfpack 12.9.10 Beta (CVS)
 	- Added <basescript>a</basescript> which will prepend the script a to the basescripts list of
 	  a basedefinition.
 	- Moved several methods to a common baseclass for char and item base definitions.
+	- Added support for a separate file to define properties for certain bodies. (Sounds, Flags, Figurines)
 
 Wolfpack 12.9.9 Beta (4. September 2004)
 	- Allowed viewing and setting account properties via .set and .show.

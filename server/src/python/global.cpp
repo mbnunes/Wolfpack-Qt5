@@ -1764,7 +1764,6 @@ static PyObject* wpCharBase( PyObject* /*self*/, PyObject* args )
 	PyObject *dict = PyDict_New();
 	PyDict_SetItemString( dict, "basesound", PyInt_FromLong( basedef->basesound() ) );
 	PyDict_SetItemString( dict, "soundmode", PyInt_FromLong( basedef->soundmode() ) );
-	PyDict_SetItemString( dict, "flags", PyInt_FromLong( basedef->flags() ) );
 	PyDict_SetItemString( dict, "figurine", PyInt_FromLong( basedef->figurine() ) );
 	PyDict_SetItemString( dict, "mindamage", PyInt_FromLong( basedef->minDamage() ) );
 	PyDict_SetItemString( dict, "maxdamage", PyInt_FromLong( basedef->maxDamage() ) );

@@ -30,6 +30,7 @@
 #include "verinfo.h"
 #include "preferences.h"
 #include "log.h"
+#include "basedef.h"
 
 // Library Includes
 #include <qstring.h>
@@ -223,6 +224,10 @@ void cConfig::load()
 		setDefaultServerList();
 
 	flush(); // if any key created, save it.
+
+	// Reload Body Info
+	CharBaseDefs::instance()->loadBodyInfo();
+
 	cComponent::load();
 }
 

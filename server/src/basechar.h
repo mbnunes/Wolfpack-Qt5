@@ -534,7 +534,11 @@ public:
 	// Base Definition Getters
 	inline unsigned short basesound()
 	{
-		return basedef_ ? basedef_->basesound() : 0;
+		unsigned short result = basedef_ ? basedef_->basesound() : 0;
+		if (!result) {
+			result = CharBaseDefs::instance()->getBodyInfo(body()).basesound;
+		}
+		return result;
 	}
 
 	virtual QCString bindmenu()
@@ -544,12 +548,20 @@ public:
 
 	inline unsigned char soundmode()
 	{
-		return basedef_ ? basedef_->soundmode() : 0;
+		unsigned char result = basedef_ ? basedef_->soundmode() : 0;
+		if (!result) {
+			result = CharBaseDefs::instance()->getBodyInfo(body()).soundmode;
+		}
+		return result;
 	}
 
 	inline unsigned short figurine()
 	{
-		return basedef_ ? basedef_->figurine() : 0;
+		unsigned short result = basedef_ ? basedef_->figurine() : 0;
+		if (!result) {
+			result = CharBaseDefs::instance()->getBodyInfo(body()).figurine;
+		}
+		return result;
 	}
 
 	inline unsigned short minDamage()
@@ -589,17 +601,17 @@ public:
 
 	inline bool isCanFly()
 	{
-		return basedef_ ? basedef_->canFly() : false;
+		return (CharBaseDefs::instance()->getBodyInfo(body()).flags & 0x01) != 0;
 	}
 
 	inline bool isAntiBlink()
 	{
-		return basedef_ ? basedef_->antiBlink() : false;
+		return (CharBaseDefs::instance()->getBodyInfo(body()).flags & 0x02) != 0;
 	}
 
 	inline bool isNoCorpse()
 	{
-		return basedef_ ? basedef_->noCorpse() : false;
+		return (CharBaseDefs::instance()->getBodyInfo(body()).flags & 0x04) != 0;
 	}
 private:
 	bool changed_;

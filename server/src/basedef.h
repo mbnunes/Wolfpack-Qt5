@@ -114,7 +114,6 @@ protected:
 	// Sounds
 	unsigned short basesound_;
 	unsigned char soundmode_;
-	unsigned int flags_;
 	unsigned char type_;
 	unsigned short figurine_;
 	unsigned short minDamage_;
@@ -123,11 +122,11 @@ protected:
 	QCString carve_;
 	QCString lootPacks_;
 	unsigned char controlSlots_;
-	unsigned char criticalHealth_;
+	unsigned char criticalHealth_;	
 
 	// Misc Properties
 	void load();
-	void reset();	
+	void reset();
 public:
 	cCharBaseDef( const QCString& id );
 	~cCharBaseDef();
@@ -164,30 +163,6 @@ public:
 		return figurine_;
 	}
 
-	inline unsigned int flags()
-	{
-		load();
-		return flags_;
-	}
-
-	inline bool canFly()
-	{
-		load();
-		return ( flags_ & 0x01 ) != 0;
-	}
-
-	inline bool antiBlink()
-	{
-		load();
-		return ( flags_ & 0x02 ) != 0;
-	}
-
-	inline bool noCorpse()
-	{
-		load();
-		return ( flags_ & 0x04 ) != 0;
-	}
-
 	inline unsigned short maxDamage()
 	{
 		load();
@@ -219,12 +194,24 @@ public:
 	}
 };
 
+struct stBodyInfo {
+	unsigned short body;
+	unsigned short basesound;
+	unsigned short figurine;
+	unsigned char flags;
+	unsigned char soundmode;
+};
+
 class cCharBaseDefs
 {
+friend class cCharBaseDef;
+
 protected:
 	typedef QMap<QCString, cCharBaseDef*> Container;
 	typedef Container::iterator Iterator;
 	Container definitions;
+	stBodyInfo bodyinfo[0x400];
+
 public:
 	cCharBaseDefs();
 	~cCharBaseDefs();
@@ -233,9 +220,18 @@ public:
 	// This is guaranteed to return a basedef. Even if uninitialized.
 	cCharBaseDef* get( const QCString& id );
 
+	inline const stBodyInfo &getBodyInfo(unsigned short body) {
+		if (body < 0x400) {
+			return bodyinfo[body];
+		} else {
+			return bodyinfo[0];
+		}
+	}
+
 	// When reset is called, all loaded basedefs are unflagged.
 	void reset();
 	void refreshScripts();
+	void loadBodyInfo();
 };
 
 typedef SingletonHolder<cCharBaseDefs> CharBaseDefs;

@@ -30,8 +30,10 @@
 #include "basedef.h"
 #include "definitions.h"
 #include "scriptmanager.h"
+#include "serverconfig.h"
 #include "basics.h"
 #include <string.h>
+#include <qdom.h>
 
 void cBaseDef::processNode( const cElement* node ) {
 	if (node->name() == "intproperty") {
@@ -117,7 +119,6 @@ void cCharBaseDef::reset()
 	cBaseDef::reset();
 	basesound_ = 0;
 	soundmode_ = 0;
-	flags_ = 0;
 	figurine_ = 0;
 	minDamage_ = 0;
 	maxDamage_ = 0;
@@ -168,18 +169,6 @@ void cCharBaseDef::processNode( const cElement* node )
 	{
 		lootPacks_ = node->text();
 	}
-	else if ( node->name() == "canfly" )
-	{
-		flags_ |= 0x01;
-	}
-	else if ( node->name() == "antiblink" )
-	{
-		flags_ |= 0x02;
-	}
-	else if ( node->name() == "nocorpse" )
-	{
-		flags_ |= 0x04;
-	}
 	else
 	{
 		cBaseDef::processNode(node);
@@ -202,7 +191,7 @@ void cCharBaseDef::load()
 			return;
 		}
 
-		applyDefinition( element );
+		applyDefinition(element);
 	}
 }
 
@@ -217,6 +206,96 @@ cCharBaseDef* cCharBaseDefs::get( const QCString& id )
 	}
 
 	return it.data();
+}
+
+void cCharBaseDefs::loadBodyInfo() {
+	// Null the existing one
+	memset(bodyinfo, 0, sizeof(bodyinfo));
+
+	QString filename = Config::instance()->getString("General", "Bodyinfo File", "definitions/system/bodyinfo.xml", true);
+	QFile file(filename);
+
+	if (!file.open(IO_ReadOnly)) {
+		Console::instance()->log(LOG_WARNING, QString("Unable to load body information from %1.\n").arg(filename));
+	}
+
+	QDomDocument document;
+	document.setContent(&file);
+
+	QDomNode parent = document.namedItem("bodyinfo");
+	if (parent.isElement()) {
+		for (int i = 0; i < parent.childNodes().count(); ++i) {
+			QDomElement element = parent.childNodes().item(i).toElement();
+
+			if (!element.isNull()) {
+				QString id = hex2dec(element.attribute("id"));
+				bool ok = false;
+				
+				stBodyInfo bodyinfo;
+
+				// The body id (mandatory)
+				bodyinfo.body = id.toUShort(&ok);
+				if (!ok) {
+					Console::instance()->log(LOG_WARNING, QString("Invalid body id in bodyinfo file: %1.\n").arg(id));
+					continue;
+				}
+
+				// The offset for sounds this creature is using
+				QString basesound = hex2dec(element.attribute("basesound"));
+				if (!basesound.isNull()) {
+					bodyinfo.basesound = basesound.toUShort(&ok);
+					if (!ok) {
+						Console::instance()->log(LOG_WARNING, QString("Invalid basesound in bodyinfo file: %1.\n").arg(basesound));
+						continue;
+					}
+				} else {
+					bodyinfo.basesound = 0;
+				}
+
+				// Load the figurine for shrinking (this is just a display id)
+				QString figurine = hex2dec(element.attribute("figurine"));
+				if (!figurine.isNull()) {
+					bodyinfo.figurine = figurine.toUShort(&ok);
+					if (!ok) {
+						Console::instance()->log(LOG_WARNING, QString("Invalid figurine in bodyinfo file: %1.\n").arg(figurine));
+						continue;
+					}
+				} else {
+					bodyinfo.figurine = 0;
+				}
+
+				// Soundmode for skipping non existing sounds
+				QString soundmode = hex2dec(element.attribute("soundmode"));
+				if (!soundmode.isNull()) {
+					bodyinfo.soundmode = soundmode.toUShort(&ok);
+					if (!ok) {
+						Console::instance()->log(LOG_WARNING, QString("Invalid soundmode in bodyinfo file: %1.\n").arg(soundmode));
+						continue;
+					}
+				} else {
+					bodyinfo.soundmode = 0;
+				}
+
+				// Flags for this creature (noblink, canfly, nocorpse)
+				QString flags = hex2dec(element.attribute("flags"));
+				if (!flags.isNull()) {
+					bodyinfo.flags = flags.toUShort(&ok);
+					if (!ok) {
+						Console::instance()->log(LOG_WARNING, QString("Invalid flags in bodyinfo file: %1.\n").arg(flags));
+						continue;
+					}
+				} else {
+					bodyinfo.flags = 0;
+				}
+
+				if (bodyinfo.body < 0x400) {
+					this->bodyinfo[bodyinfo.body] = bodyinfo;
+				}
+			}
+		}
+	}
+
+	document.clear();
 }
 
 cCharBaseDefs::cCharBaseDefs()
