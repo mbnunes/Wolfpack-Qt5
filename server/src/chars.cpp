@@ -61,6 +61,7 @@ void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 
 	// Cancel any ongoing fight.
 	QPtrList<cFightInfo> fights = pc_k->fights();
+	fights.setAutoDelete(false);
 	for (cFightInfo *info = fights.first(); info; info = fights.next()) {
 		delete info;
 	}

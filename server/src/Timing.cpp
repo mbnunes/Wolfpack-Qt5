@@ -153,7 +153,9 @@ void cTiming::poll() {
 		
 		// Check for timed out fights
 		QPtrList<cFightInfo> fights = Combat::instance()->fights();
+		fights.setAutoDelete(false);
 		QPtrList<cFightInfo> todelete;
+		todelete.setAutoDelete(true);
 		cFightInfo *info;
 		for (info = fights.first(); info; info = fights.next()) {
 			// 60 Seconds without melee contact and 
@@ -172,10 +174,6 @@ void cTiming::poll() {
 					info->victim()->poll(time, cBaseChar::EventCombat);
 				}
 			}
-		}
-
-		for (info = todelete.first(); info; info = todelete.next()) {
-			delete info;
 		}
 	}
 
