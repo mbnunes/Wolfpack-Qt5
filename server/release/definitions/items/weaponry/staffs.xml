@@ -7,11 +7,63 @@
 =================================================================
 -->
 <definitions>
-	<item id="13f9">
-		<name>gnarled staff</name>
-		<id>0x13F9</id>
-		<attack min="15" max="30" />
-		<rank>10</rank>
-		<durability>10</durability>
+	<!-- Black Staff -->
+	<item id="df0">
+		<id>0x0df0</id>
+		<twohanded />
+		<attack min="8" max="33" />
+		<durability>30</durability>
+		<decay />
+		<value>85</value>
+		<speed>35</speed>
+		<weight>3.0</weight>
+		<requires type="str">35</requires>
+		<category>Weapons\Staffs\Black Staff W/E</category>
 	</item>
+
+	<item id="df1">
+		<inherit id="df0" />
+		<id>0x0df1</id>
+		<category>Weapons\Staffs\Black Staff N/S</category>
+	</item>
+	
+	<!-- Quarter Staff -->
+	<item id="e89">
+		<id>0x0e89</id>
+		<twohanded />
+		<attack min="8" max="28" />
+		<durability>45</durability>
+		<decay />
+		<value>70</value>
+		<requires type="str">30</requires>
+		<speed>48</speed>
+		<weight>3.0</weight>
+		<category>Weapons\Staffs\Quarter Staff N/S</category>
+	</item>
+
+	<item id="e8a">
+		<inherit id="e89" />
+		<id>0x0e8a</id>
+		<category>Weapons\Staffs\Quarter Staff W/E</category>
+	</item>
+
+	<!-- Gnarled Staff -->
+	<item id="13f8">
+		<twohanded />
+		<id>0x13F8</id>
+		<attack min="10" max="30" />
+		<durability>30</durability>
+		<decay />
+		<value>65</value>
+		<requires type="str">20</requires>
+		<speed>33</speed>
+		<weight>3.00</weight>
+		<category>Weapons\Staffs\Gnarled Staff N/S</category>
+	</item>
+	
+	<item id="13f9">
+		<inherit id="13f8" />
+		<id>0x13f9</id>
+		<category>Weapons\Staffs\Gnarled Staff W/E</category>
+	</item>	
 </definitions>
