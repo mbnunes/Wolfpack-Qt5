@@ -59,7 +59,7 @@ ids = {
 def onUse( char, item ):
 	# Needs to be on ourself
 	if item.getoutmostchar() != char:
-		char.socket.clilocmessage( 0x7A258 ) # You can't reach...
+		char.socket.clilocmessage( 0x7A258 ) # That doesnt belong to you
 		return 1
 	
 	if ids.has_key( item.id ):
@@ -79,8 +79,9 @@ def response( char, args, target ):
 	item = wolfpack.finditem( args[0] ) # What we want to cook
 	id = item.id
 
-	if not item or item.getoutmostchar():
+	if not item or item.getoutmostchar() != char:
 		char.socket.clilocmessage( 0x7ACA2 ) # That belongs to someone else.
+		return 1
 
 	# Are we too far away from the target ?
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
@@ -117,7 +118,7 @@ def response( char, args, target ):
 
 		if burned_id != "":
 			burned = wolfpack.additem( burned_id )
-			if not wolfpack.utilities.tobackpack( burned, char )
+			if not wolfpack.utilities.tobackpack( burned, char ):
 				burned.update()
 
 		char.socket.clilocmessage( 0x7A3CE ) # You burn the food to a crisp! It's ruined.
