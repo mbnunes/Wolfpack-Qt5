@@ -291,6 +291,12 @@
 				RelativePath=".\win\console_win.cpp">
 			</File>
 			<File
+				RelativePath=".\content.cpp">
+			</File>
+			<File
+				RelativePath=".\content.h">
+			</File>
+			<File
 				RelativePath=".\contextmenu.cpp">
 			</File>
 			<File
@@ -664,9 +670,6 @@
 				RelativePath=".\python\char.cpp">
 			</File>
 			<File
-				RelativePath=".\python\content.h">
-			</File>
-			<File
 				RelativePath=".\python\engine.cpp">
 			</File>
 			<File
@@ -695,6 +698,9 @@
 			</File>
 			<File
 				RelativePath=".\python\pyai.cpp">
+			</File>
+			<File
+				RelativePath=".\python\pycontent.h">
 			</File>
 			<File
 				RelativePath=".\python\pycoord.cpp">

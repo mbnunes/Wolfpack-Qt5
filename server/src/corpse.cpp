@@ -193,9 +193,6 @@ void cCorpse::processNode( const cElement* Tag )
 // override update
 void cCorpse::update( cUOSocket* mSock )
 {
-	// Do not send a normal item update here but something else instead
-	cItem::ContainerContent content = cItem::content();
-
 	cUOTxCorpseEquipment corpseEquip;
 	cUOTxItemContent corpseContent;
 	cUOTxSendItem sendItem;

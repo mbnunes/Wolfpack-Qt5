@@ -31,9 +31,10 @@
 #include "../basechar.h"
 #include "../player.h"
 #include "../singleton.h"
+#include "../items.h"
 
 #include "utilities.h"
-#include "content.h"
+#include "pycontent.h"
 #include "tempeffect.h"
 #include "objectcache.h"
 

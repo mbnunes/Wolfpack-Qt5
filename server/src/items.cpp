@@ -279,10 +279,7 @@ bool cItem::pileItem( cItem* pItem )
 */
 bool cItem::containerPileItem( cItem* pItem )
 {
-	cItem::ContainerContent::const_iterator it( content_.begin() );
-	cItem::ContainerContent::const_iterator end( content_.end() );
-	for ( ; it != end; ++it )
-	{
+	for (ContainerIterator it(this); !it.atEnd(); ++it) {
 		if ( ( *it )->pileItem( pItem ) )
 			return true;
 	}
@@ -329,11 +326,7 @@ int cItem::deleteAmount( int amount, unsigned short _id, unsigned short _color )
 {
 	unsigned int rest = amount;
 	P_ITEM pi;
-	cItem::ContainerContent container( this->content() );
-	cItem::ContainerContent::const_iterator it( container.begin() );
-	cItem::ContainerContent::const_iterator end( container.end() );
-	for ( ; it != end; ++it )
-	{
+	for (ContainerCopyIterator it(this); !it.atEnd(); ++it) {
 		pi = *it;
 		if ( pi->type() == 1 )
 			rest = pi->deleteAmount( rest, _id, _color );
@@ -583,9 +576,7 @@ void cItem::remove()
 	}
 
 	// Create a copy of the content so we don't accidently change our working copy
-	ContainerContent container( content() );
-	ContainerContent::const_iterator it2;
-	for ( it2 = container.begin(); it2 != container.end(); ++it2 )
+	for (ContainerCopyIterator it2(this); !it2.atEnd(); ++it2)
 		( *it2 )->remove();
 
 	cUObject::remove();
@@ -1083,6 +1074,7 @@ P_ITEM cItem::dupe()
 {
 	P_ITEM nItem = new cItem( *this );
 	nItem->setSerial( World::instance()->findItemSerial() );
+	nItem->container_ = 0;
 
 	if ( container_ )
 	{
@@ -1090,15 +1082,15 @@ P_ITEM cItem::dupe()
 
 		if ( pchar )
 		{
-			nItem->container_ = 0;
 			nItem->moveTo( pchar->pos(), true );
 		}
 		else
 		{
 			P_ITEM item = dynamic_cast<P_ITEM>( container_ );
 
-			if ( item )
-				item->addItem( nItem, false, true, false );
+			if ( item ) {
+				item->addItem( nItem, false, true, false, false );
+			}
 		}
 	}
 	else
@@ -1273,12 +1265,9 @@ bool cItem::wearOut()
 
 QPtrList< cItem > cItem::getContainment() const
 {
-	ContainerContent containment = content();
-	ContainerContent::iterator it = containment.begin();
 	QPtrList<cItem> itemlist;
 
-	while ( it != containment.end() )
-	{
+	for (ContainerIterator it(content_); !it.atEnd(); ++it) {
 		P_ITEM pItem = *it;
 
 		// we'v got a container
@@ -1298,8 +1287,6 @@ QPtrList< cItem > cItem::getContainment() const
 		// Or just put it into our list
 		else
 			itemlist.append( pItem );
-
-		++it;
 	}
 
 	return itemlist;
@@ -1406,15 +1393,15 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 		}
 	}
 
-	content_.push_back( pItem );
-	pItem->layer_ = 0;
-	pItem->container_ = this;
-
-	if ( handleWeight )
+	if ( !content_.contains(pItem) && handleWeight )
 	{
 		// Increase the totalweight upward recursively
 		setTotalweight( totalweight() + pItem->totalweight() );
 	}
+
+	content_.add( pItem );
+	pItem->layer_ = 0;
+	pItem->container_ = this;
 
 	// If the Server is running and this happens, resend the tooltip of us and
 	// all our parent containers.
@@ -1431,20 +1418,12 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 
 void cItem::removeItem( cItem* pItem, bool handleWeight )
 {
-	//ContainerContent::iterator it = std::find(content_.begin(), content_.end(), pItem);
-	ContainerContent::iterator it = content_.begin();
-	while ( it != content_.end() )
-	{
-		if ( ( *it ) == pItem )
-		{
-			content_.erase( it );
-			if ( handleWeight )
-			{
-				setTotalweight( this->totalweight() - pItem->totalweight() );
-			}
-			break;
+	// only do this if it's really in the container
+	if (content_.contains(pItem)) {
+		content_.remove(pItem);
+		if ( handleWeight ) {
+			setTotalweight( this->totalweight() - pItem->totalweight() );
 		}
-		++it;
 	}
 
 	pItem->container_ = 0;
@@ -1465,15 +1444,14 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 	}
 }
 
-cItem::ContainerContent cItem::content() const
+const ContainerContent &cItem::content() const
 {
 	return content_;
 }
 
 bool cItem::contains( const cItem* pItem ) const
 {
-	ContainerContent::const_iterator it = std::find( content_.begin(), content_.end(), pItem );
-	return it != content_.end();
+	return content_.contains(pItem);
 }
 
 
@@ -2031,7 +2009,7 @@ void cItem::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	// For containers (hardcoded type), add count of items and total weight.
 	if ( type() == 1 )
 	{
-		unsigned int count = content_.size();
+		unsigned int count = content_.count();
 		unsigned int weight = ( unsigned int ) floor( totalweight_ );
 		tooltip.addLine( 1050044, QString( "%1\t%2" ).arg( count ).arg( weight ) );
 	}
@@ -2094,10 +2072,7 @@ unsigned int cItem::countItems( const QStringList& baseids ) const
 		count += amount();
 	}
 
-	ContainerContent::const_iterator it(content_.begin());
-	ContainerContent::const_iterator end(content_.end());
-	for ( ; it != end; ++it )
-	{
+	for (ContainerIterator it(this); !it.atEnd(); ++it) {
 		count += ( *it )->countItems( baseids );
 	}
 	return count;
@@ -2144,15 +2119,8 @@ unsigned int cItem::removeItems( const QStringList& baseids, unsigned int amount
 		}
 	}
 
-	if ( content().size() > 0 )
-	{
-		ContainerContent content( this->content() );
-		ContainerContent::iterator it = content.begin();
-		while ( amount > 0 && it != content.end() )
-		{
-			amount = ( *it )->removeItems( baseids, amount );
-			++it;
-		}
+	for (ContainerCopyIterator it(this); !it.atEnd(); ++it) {
+		amount = ( *it )->removeItems( baseids, amount );
 	}
 
 	return amount;
@@ -2237,9 +2205,8 @@ void cItem::save( cBufferedWriter& writer )
 {
 	cUObject::save(writer);
 
-	// Save container content
-	ContainerContent::iterator it = content_.begin();
-	for (; it != content_.end(); ++it) {
+	// Save container content	
+	for (ContainerIterator it(this); !it.atEnd(); ++it) {
 		(*it)->save(writer);
 	}
 }

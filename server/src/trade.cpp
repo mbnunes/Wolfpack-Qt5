@@ -99,16 +99,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 	}
 
 	P_ITEM pStock = pVendor->getItemOnLayer( 0x1A );
-	cItem::ContainerContent sContent;
-
-	if ( pStock )
-		sContent = pStock->content();
-
 	P_ITEM pBought = pVendor->getItemOnLayer( 0x1B );
-	cItem::ContainerContent bContent;
-
-	if ( pBought )
-		bContent = pBought->content();
 
 	Q_UINT32 totalValue = 0;
 	Q_UINT32 i;
@@ -129,31 +120,12 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		Q_UINT8 layer = pItem->getOutmostItem()->layer();
 
 		// First check: is the item on the vendor in the specified layer
-		if ( layer == 0x1A )
-		{
-			if ( find_if( sContent.begin(), sContent.end(), bind2nd( MatchItemAndSerial(), pItem->serial() ) ) == sContent.end() )
-			{
-				socket->sysMessage( tr( "Invalid item bought." ) );
-				socket->send( &clearBuy );
-				return;
-			}
-
+		if (layer == cBaseChar::BuyRestockContainer) {
 			amount = QMIN(pItem->restock(), amount);
-		}
-		else if ( layer == 0x1B )
-		{
-			if ( find_if( bContent.begin(), bContent.end(), bind2nd( MatchItemAndSerial(), pItem->serial() ) ) == bContent.end() )
-			{
-				socket->sysMessage( tr( "Invalid item bought." ) );
-				socket->send( &clearBuy );
-				return;
-			}
-
+		} else if (layer == cBaseChar::BuyNoRestockContainer) {
 			// Not enough of that item is left
 			amount = QMIN(pItem->amount(), amount);
-		}
-		else
-		{
+		} else {
 			socket->sysMessage( tr( "Invalid item bought." ) );
 			socket->send( &clearBuy );
 			return;
@@ -291,8 +263,6 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 		socket->send( &clearBuy );
 		return;
 	}
-	cItem::ContainerContent sContent;
-	cItem::ContainerContent::const_iterator it;
 
 	Q_UINT32 totalValue = 0;
 	Q_UINT32 i;
@@ -312,10 +282,8 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 		Q_UINT16 amount = packet->iAmount( i );
 
 		// First an equal item with higher amount must be in the vendors sell container!
-		sContent = pPurchase->content();
-
 		bool found = false;
-		for ( it = sContent.begin(); it != sContent.end(); ++it )
+		for (ContainerIterator it(pPurchase); !it.atEnd(); ++it)
 		{
 			if ( !( *it ) )
 				continue;
@@ -399,7 +367,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 				}
 			}*/
 
-			if ( pItem->isPileable() )
+			if ( pItem->isPileable() && amount < pItem->amount() )
 			{
 				P_ITEM pSold = pItem->dupe();
 				pSold->removeTag( "restock" );
@@ -407,6 +375,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 				pSold->setTag("buy_time", Server::instance()->time());
 				pBought->addItem( pSold );
 				pSold->update();
+
 				if ( pItem->amount() <= amount ) {
 					pItem->remove();
 				} else {
@@ -416,7 +385,6 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 			}
 			else
 			{
-				pPack->removeItem( pItem );
 				pBought->addItem( pItem );
 				pItem->update();
 			}

@@ -378,11 +378,8 @@ static void quickdelete( P_ITEM pi ) throw()
 	PersistentBroker::instance()->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( pi->serial() ) );
 
 	// Also delete all items inside if it's a container.
-	cItem::ContainerContent container( pi->content() );
-	cItem::ContainerContent::const_iterator it( container.begin() );
-	cItem::ContainerContent::const_iterator end( container.end() );
-	for ( ; it != end; ++it )
-		quickdelete( *it );
+	for (ContainerIterator it(pi); !it.atEnd(); ++it)
+		quickdelete(*it);
 
 	// if it is within a multi, delete it from the multis vector
 	if ( pi->multi() )

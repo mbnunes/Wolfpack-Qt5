@@ -2030,14 +2030,9 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	cUOTxItemContent itemContent;
 	Q_INT32 count = 0;
 
-	cItem::ContainerContent container = pCont->content();
-	cItem::ContainerContent::const_iterator it( container.begin() );
-	cItem::ContainerContent::const_iterator end( container.end() );
 	QPtrList<cItem> tooltipItems;
-	tooltipItems.setAutoDelete( false );
-
-	for ( ; it != end; ++it )
-	{
+	
+	for (ContainerIterator it(pCont); !it.atEnd(); ++it) {
 		P_ITEM pItem = *it;
 
 		if ( !pItem || !canSee( pItem ) )
@@ -2633,13 +2628,8 @@ void cUOSocket::sendVendorCont( P_ITEM pItem ) {
 	QValueList<buyitem_st>::const_iterator bit;
 	QPtrList<cItem> items;
 
-	cItem::ContainerContent container = pItem->content();
-	cItem::ContainerContent::const_iterator it( container.begin() );
-	cItem::ContainerContent::const_iterator end( container.end() );
-
 	SortedSerialList sortedList;
-	for ( ; it != end; ++it )
-	{
+	for ( ContainerIterator it(pItem); !it.atEnd(); ++it) {
 		sortedList.append( *it );
 	}
 	sortedList.sort();
@@ -2703,9 +2693,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor ) {
 	if (lastRestockTime + restockInterval < Server::instance()->time() || lastRestockTime > Server::instance()->time()) {
 		pStock->setTag("last_restock_time", Server::instance()->time()); // Set the last restock time
 
-		cItem::ContainerContent::iterator it;
-		cItem::ContainerContent pStockContent = pStock->content(); // We need a copy since we are modifying the array
-		for (it = pStockContent.begin(); it != pStockContent.end(); ++it) {
+		for ( ContainerIterator it(pStock); !it.atEnd(); ++it) {
 			P_ITEM pItem = *it;
 
 			// This increases the maximum amount of this item by a factor of 2 if
@@ -2731,11 +2719,9 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor ) {
 
 	// Build the list of items to be sent.
 	SortedSerialList itemList;
-	cItem::ContainerContent::iterator it;
-	cItem::ContainerContent pStockContent = pStock->content(); // We need a copy since we are modifying the array
 	
 	// Process all items for sale first
-	for (it = pStockContent.begin(); it != pStockContent.end(); ++it) {
+	for ( ContainerIterator it(pStock); !it.atEnd(); ++it) {
 		if (itemList.count() >= 250) {
 			break; // Only 250 items fit into the buy packet
 		}
@@ -2748,8 +2734,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor ) {
 	}
 
 	// Now process all items that have been bought by the vendor
-	cItem::ContainerContent pBoughtContent = pBought->content(); // We need a copy since we are modifying the array
-	for (it = pBoughtContent.begin(); it != pBoughtContent.end(); ++it) {
+	for (ContainerCopyIterator it(pBought); !it.atEnd(); ++it) {
 		// Check all bought items if they decayed (one hour)
 		int buy_time = (*it)->getTag("buy_time").toInt();
 
@@ -2837,24 +2822,16 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor ) {
 }
 
 static void walkSellItems(P_ITEM pCont, P_ITEM pPurchase, QPtrList<cItem> &items) {
-	cItem::ContainerContent container = pPurchase->content();
-	cItem::ContainerContent::const_iterator it( container.begin() );
-	cItem::ContainerContent::const_iterator end( container.end() );
-
-	cItem::ContainerContent packcont = pCont->content();
-	cItem::ContainerContent::const_iterator pit;
-
 	// For every pack item search for an equivalent sellitem
-	pit = packcont.begin();
-	while ( pit != packcont.end() ) {
+	for ( ContainerIterator pit(pCont); !pit.atEnd(); ++pit) {
 		P_ITEM pItem = *pit;
 
 		// Containers with content are walked and _not_ sold
-		if (pItem->type() == 1 && pItem->content().size() > 0) {
+		if (pItem->type() == 1 && pItem->content().count() > 0) {
 			walkSellItems(pItem, pPurchase, items);
 		} else {
 			// Search all sellable items
-			for (it = container.begin(); it != container.end(); ++it) {
+			for ( ContainerIterator it(pPurchase); !it.atEnd(); ++it) {
 				P_ITEM mItem = *it;
 				if ( pItem->baseid() == mItem->baseid() && pItem->scriptList() == mItem->scriptList() ) {
 					items.append(pItem);
@@ -2862,8 +2839,6 @@ static void walkSellItems(P_ITEM pCont, P_ITEM pPurchase, QPtrList<cItem> &items
 				}
 			}
 		}
-
-		++pit;
 	}
 }
 

@@ -35,6 +35,7 @@
 #include "network/uotxpackets.h"
 #include "singleton.h"
 #include "objectdef.h"
+#include "content.h"
 
 // Library Includes
 #include <qvaluevector.h>
@@ -83,8 +84,6 @@ public:
 	{
 		return cItem::classid;
 	}
-
-	typedef QValueVector<cItem*> ContainerContent;
 
 	inline const char* objectID() const
 	{
@@ -370,7 +369,7 @@ public:
 	void addItem( cItem* pItem, bool randomPos = true, bool handleWeight = true, bool noRemove = false, bool autoStack = true ); // Add Item to container
 	void removeItem( cItem*, bool handleWeight = true );
 	void removeFromCont( bool handleWeight = true );
-	ContainerContent content() const;
+	const ContainerContent &content() const; // Return a reference to the container content object
 	bool contains( const cItem* ) const;
 	unsigned int countItems( const QStringList& baseids ) const;
 	unsigned int countItems( short ID, short col = -1 ) const;

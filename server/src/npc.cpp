@@ -1357,7 +1357,7 @@ void cNPC::vendorSell( P_PLAYER player )
 {
 	P_ITEM pContC = getItemOnLayer( cBaseChar::SellContainer );
 
-	if ( !pContC || pContC->content().size() == 0 )
+	if ( !pContC || pContC->content().count() == 0 )
 	{
 		talk( 501550, 0, 0, false, saycolor_, player->socket() );
 		return;

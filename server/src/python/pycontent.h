@@ -30,6 +30,7 @@
 
 #include "../defines.h"
 
+#include "../content.h"
 #include "../items.h"
 #include "../world.h"
 #include "../basechar.h"
@@ -45,7 +46,7 @@ static int wpContent_length( wpContent* self )
 {
 	P_ITEM pi = FindItemBySerial( self->contserial );
 	if ( pi )
-		return pi->content().size();
+		return pi->content().count();
 	else
 	{
 		P_CHAR pc = FindCharBySerial( self->contserial );
@@ -83,19 +84,14 @@ static PyObject* wpContent_get( wpContent* self, int id )
 		P_ITEM pi = FindItemBySerial( self->contserial );
 		if ( !pi )
 			goto error;
-		cItem::ContainerContent container = pi->content();
-		if ( id < 0 || static_cast<uint>( id ) >= container.size() )
+		const ContainerContent &container = pi->content();
+		if ( id < 0 || static_cast<uint>( id ) >= container.count() )
 			goto error;
-		cItem::ContainerContent::const_iterator it( container.begin() );
-		/*
-			 * Ask Correa before trying to `optimize` this,
-			 * there isn't much standard complient options here.
-			 */
-		for ( int i = 0; i < id && it != container.end(); ++i )
-			++it;
 
-		if ( it != container.end() )
-			return PyGetItemObject( *it );
+		ContainerIterator it(container);
+
+		if (!it.atEnd())
+			return (*it)->getPyObject();
 		else
 			goto error;
 	}

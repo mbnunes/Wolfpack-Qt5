@@ -35,7 +35,7 @@
 #include "../singleton.h"
 
 #include "utilities.h"
-#include "content.h"
+#include "pycontent.h"
 #include "tempeffect.h"
 #include "objectcache.h"
 
@@ -745,7 +745,7 @@ static PyObject* wpItem_countItem( wpItem* self, PyObject* args )
 		return 0;
 	}
 
-	return PyInt_FromLong( self->pItem->content().size() );
+	return PyInt_FromLong( self->pItem->content().count() );
 }
 
 /*
@@ -1237,10 +1237,11 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 	*/
 	if ( !strcmp( "content", name ) )
 	{
-		cItem::ContainerContent content = self->pItem->content();
-		PyObject* list = PyList_New( content.size() );
-		for ( uint i = 0; i < content.size(); ++i )
-			PyList_SetItem( list, i, PyGetItemObject( content[i] ) );
+		const ContainerContent &content = self->pItem->content();
+		PyObject* list = PyList_New( content.count() );
+		unsigned int i = 0;
+		for (ContainerIterator it(content); !it.atEnd(); ++it)
+			PyList_SetItem( list, i++, PyGetItemObject( *it ) );
 		return list;
 	}
 	/*

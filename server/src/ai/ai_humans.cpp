@@ -112,46 +112,35 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 		{
 			P_ITEM pPack = m_npc->getBankbox();
 			
-			cItem::ContainerContent stableitems;
+			QPtrList<cItem> stableitems;
 			if ( pPack )
-			{
-				cItem::ContainerContent content = pPack->content();
-				cItem::ContainerContent::const_iterator it( content.begin() );
-				while ( it != content.end() )
-				{
+			{				
+				for (ContainerIterator it(pPack); !it.atEnd(); ++it) {
 					if ( !( *it )->hasTag( "player" ) || !( *it )->hasTag( "pet" ) )
 						continue;
 
 					if ( ( *it ) && ( uint )( *it )->getTag( "player" ).toInt() == pTalker->serial() )
-						stableitems.push_back( ( *it ) );
-					++it;
+						stableitems.append( ( *it ) );
 				}
 			}
 
-			if ( !stableitems.empty() )
+			if ( !stableitems.isEmpty() )
 			{
-				cItem::ContainerContent::const_iterator it( stableitems.begin() );
-				while ( it != stableitems.end() )
-				{
-					if ( ( *it ) )
-					{
-						P_NPC pPet = dynamic_cast<P_NPC>( World::instance()->findChar( ( *it )->getTag( "pet" ).toInt() ) );
-						if ( pPet )
-						{
-							if (pTalker->pets().count() + pPet->controlSlots() > pTalker->maxControlSlots()) {
-								m_npc->talk(1049612, pPet->name());
-							} else {
-								pPet->free = false;
-								// we need this for db saves
-								pPet->setStablemasterSerial( INVALID_SERIAL );
-								pPet->setOwner( pTalker ); // This is important...
-								pPet->moveTo( m_npc->pos() );
-								pPet->resend();
-							}
+				for (P_ITEM pItem = stableitems.first(); pItem; pItem = stableitems.next()) {
+					P_NPC pPet = dynamic_cast<P_NPC>( World::instance()->findChar( pItem->getTag( "pet" ).toInt() ) );
+					if ( pPet ) {
+						if (pTalker->pets().count() + pPet->controlSlots() > pTalker->maxControlSlots()) {
+							m_npc->talk(1049612, pPet->name());
+						} else {
+							pPet->free = false;
+							// we need this for db saves
+							pPet->setStablemasterSerial( INVALID_SERIAL );
+							pPet->setOwner( pTalker ); // This is important...
+							pPet->moveTo( m_npc->pos() );
+							pPet->resend();
 						}
-						( *it )->remove();
 					}
-					++it;
+					pItem->remove();
 				}
 
 				pPack->update();

@@ -79,6 +79,8 @@
 #include <signal.h>
 #endif
 
+#include "content.h"
+
 cComponent::cComponent()
 {
 	this->loaded = false;
@@ -263,7 +265,7 @@ bool cServer::getSecure()
 }
 
 bool cServer::run( int argc, char** argv )
-{
+{	
 	// If have no idea where i should put this otherwise
 #if defined(Q_OS_UNIX)
 	signal(SIGPIPE, SIG_IGN);
@@ -274,6 +276,33 @@ bool cServer::run( int argc, char** argv )
 	setState( STARTUP );
 
 	d->app = new QApplication ( argc, argv, false );
+
+/*	cItem *item1 = (cItem*)0;
+	cItem *item2 = (cItem*)1;
+	cItem *item3 = (cItem*)2;
+
+	ContainerContent content;
+	for (int i = 0; i < 18; ++i) {
+		content.add((cItem*)i);
+	}
+
+	content.remove((cItem*)16);
+	content.remove((cItem*)15);
+	content.remove((cItem*)16);
+	content.remove((cItem*)17);
+
+	Console::instance()->send(content.dump());
+
+	ContainerIterator it(content);
+	while (!it.atEnd()) {
+		Console::instance()->send(QString::number(reinterpret_cast<size_t>(*it)) + "\n");
+		if ((*it) == item3) {
+			content.remove(item3);
+		}
+		++it;
+	}
+
+	return false;*/
 
 	// Load wolfpack.xml
 	Config::instance()->load();
