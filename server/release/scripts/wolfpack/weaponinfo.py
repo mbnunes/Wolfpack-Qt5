@@ -104,40 +104,30 @@ WEAPONINFO = {
 
 	# Bow
 	'13b1': {
-		PROJECTILE: 0xf42,
-		AMMUNITION: 'f3f',
 		SWING: [ 0x12 ],
 		HITSOUND: [ 0x234 ],
 		MISSSOUND: [ 0x238 ]
 	},
 	# Crossbow
 	'f4f': {
-		PROJECTILE: 0x1bfe,
-		AMMUNITION: '1bfb',
 		SWING: [ 0x13 ],
 		HITSOUND: [ 0x234 ],
 		MISSSOUND: [ 0x238 ]
 	},
 	# Heavy Crossbow
 	'13fd': {
-		PROJECTILE: 0x1bfe,
-		AMMUNITION: '1bfb',
 		SWING: [ 0x13 ],
 		HITSOUND: [ 0x234 ],
 		MISSSOUND: [ 0x238 ]
 	},
 	# Composite Bow
 	'26c2': {
-		PROJECTILE: 0xf42,
-		AMMUNITION: 'f3f',
 		SWING: [ 0x12 ],
 		HITSOUND: [ 0x234 ],
 		MISSSOUND: [ 0x238 ]
 	},
 	# Repeating Crossbow
 	'26cd': {
-		PROJECTILE: 0x1bfe,
-		AMMUNITION: '1bfb',
 		SWING: [ 0x13 ],
 		HITSOUND: [ 0x234 ],
 		MISSSOUND: [ 0x238 ]
