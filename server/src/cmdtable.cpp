@@ -428,20 +428,20 @@ void command_bounty(UOXSOCKET s)
 	
 	if( !SrvParms->bountysactive )
 	{
-		sysmessage(s, "The bounty system is not active.");
+		sysmessage(s, tr("The bounty system is not active."));
 		return;
 	}
 	
 	if( !pc_cs->dead )
 	{
-		sysmessage(s, "You can only place a bounty while you are a ghost.");
+		sysmessage(s, tr("You can only place a bounty while you are a ghost."));
 		pc_cs->murdererSer = 0;
 		return;
 	}
 	
 	if( pc_cs->murdererSer == 0 )
 	{
-		sysmessage(s, "You can only place a bounty once after someone has murdered you.");
+		sysmessage(s, tr("You can only place a bounty once after someone has murdered you."));
 		return;
 	}
 	
@@ -452,24 +452,21 @@ void command_bounty(UOXSOCKET s)
 		{
 			if( Bounty->BountyCreate( pc_cs->murdererSer, nAmount ) )
 			{
-				sprintf((char*) temp,
-					"You have placed a bounty of %d gold coins on %s.",
-					nAmount, FindCharBySerial(pc_cs->murdererSer)->name.c_str() );
-				sysmessage( s, (char*)temp );
+				sysmessage( s, tr("You have placed a bounty of %1 gold coins on %2.").arg(nAmount).arg(FindCharBySerial(pc_cs->murdererSer)->name.c_str() ));
 			}
 			else
-				sysmessage( s, "You were not able to place a bounty (System Error)" );
+				sysmessage( s, tr("You were not able to place a bounty (System Error)") );
 			
 			// Set murdererSer to 0 after a bounty has been 
 			// placed so it can only be done once
 			pc_cs->murdererSer = 0;
 		}
 		else
-			sysmessage( s, "You do not have enough gold to cover the bounty.");
+			sysmessage( s, tr("You do not have enough gold to cover the bounty."));
 		
 	}
 	else
-		sysmessage(s, "To place a bounty on a murderer, use BOUNTY <amount>");	
+		sysmessage(s, tr("To place a bounty on a murderer, use BOUNTY <amount>"));	
 	
 	return;
 }
@@ -502,7 +499,7 @@ void command_serversleep(UOXSOCKET s)
 		}
 		
 	}
-	else sysmessage(s,"invalid number of arguments");
+	else sysmessage(s, tr("invalid number of arguments"));
 	
 }
 
@@ -520,7 +517,7 @@ void command_reloadcachedscripts(UOXSOCKET s)
 	read_in_teleport(); // hope i've cought all  ...
 	Network->LoadHosts_deny();
 	
-	sysmessage(s,"Cached scripts reloaded");
+	sysmessage(s, tr("Cached scripts reloaded"));
 }
 
 // Returns the current bulletin board posting mode for the player
@@ -529,28 +526,25 @@ void command_post(UOXSOCKET s)
 	P_CHAR pc_cs = currchar[s];
 	if (pc_cs) return;
 	
-	strcpy( (char*)temp, "You are currently posting " );
-	
 	switch( pc_cs->postType )
 	{
 	case LOCALPOST:
-		strcat( (char*)temp, "a message to a single board [LOCAL]." );
+		sysmessage( s, tr("You are currently posting a message to a single board [LOCAL].") );
 		break;
 		
 	case REGIONALPOST:
-		strcat( (char*)temp, "a message to all boards in this area [REGIONAL]." );
+		sysmessage( s, tr("You are currently posting a message to all boards in this area [REGIONAL].") );
 		break;
 		
 	case GLOBALPOST:
-		strcat( (char*)temp, "a message to all boards in the world [GLOBAL]." );
+		sysmessage( s, tr("You are currently posting a message to all boards in the world [GLOBAL].") );
 		break;
 		
 	default:
-		strcat( (char*)temp, "an unknown message type. Setting to normal [LOCAL]." );
+		sysmessage( s, tr("You are currently posting an unknown message type. Setting to normal [LOCAL].") );
 		pc_cs->postType = LOCALPOST;
 	}
 	
-	sysmessage( s, (char*)temp );
 	return;
 }
 
@@ -562,7 +556,7 @@ void command_gpost(UOXSOCKET s)
 	if (pc_cs == NULL) return;
 	
 	pc_cs->postType = GLOBALPOST;
-	sysmessage( s, "Now posting GLOBAL messages." );
+	sysmessage( s, tr("Now posting GLOBAL messages.") );
 	return;
 }
 
@@ -576,7 +570,7 @@ void command_rpost(UOXSOCKET s)
 	if (pc_cs == NULL) return;
 	
 	pc_cs->postType = REGIONALPOST;
-	sysmessage( s, "Now posting REGIONAL messages." );
+	sysmessage( s, tr("Now posting REGIONAL messages.") );
 	return;
 }
 
@@ -588,7 +582,7 @@ void command_lpost(UOXSOCKET s)
 	if (pc_cs == NULL) return;
 	
 	pc_cs->postType = REGIONALPOST;
-	sysmessage( s, "Now posting LOCAL messages." );
+	sysmessage( s, tr("Now posting LOCAL messages.") );
 	return;
 }
 
@@ -643,15 +637,13 @@ void command_letusin(UOXSOCKET s)
 		}
 	}
 	
-	sprintf((char*)temp,"command successfull, cleared %i poor souls",x);
-	sysmessage(s, (char*)temp);
-	
+	sysmessage(s, tr("command successfull, cleared %1 poor souls").arg(x));
 }
 
 void command_readaccounts(UOXSOCKET s)
 {
 	Accounts->LoadAccounts();
-	sysmessage(s,"Accounts reloaded...attention, if you changed exisiting(!) account numbers you should use the letusin command afterwards ");
+	sysmessage(s,tr("Accounts reloaded...attention, if you changed exisiting(!) account numbers you should use the letusin command afterwards "));
 }
 
 void command_showp(UOXSOCKET s)
@@ -664,8 +656,7 @@ void command_showp(UOXSOCKET s)
 	
 	for (i=0;i<7;i++) 
 	{
-		sprintf((char*)temp,"priv3%c : %X ", ch[i],pcc_cs->priv3[i]);
-		sysmessage(s,(char*)temp);
+		sysmessage(s, tr("priv3%1 : %2 ").arg(ch[i]).arg(pcc_cs->priv3[i]));
 	}
 }
 
@@ -714,7 +705,7 @@ void command_setpriv3(UOXSOCKET s)
 		if(y>255)
 		{
 			LogError("setpriv3-command: avoiding crash. argument was >255!\n");
-			sysmessage(s,"Setpriv3-command argument has to be between 0 and 255.");
+			sysmessage(s, tr("Setpriv3-command argument has to be between 0 and 255."));
 			return;
 		}
 		priv3a[s]=metagm[y][0];
@@ -739,9 +730,9 @@ void command_setpriv3(UOXSOCKET s)
 				i++;
 			}
 			if(z==-1) {
-				sysmessage(s, "That command doesn't exist.");
+				sysmessage(s, tr("That command doesn't exist."));
 			} else if(command_table[z].cmd_priv_m==255) {
-				sysmessage(s, "No special permissions are neccessary to use that command.");
+				sysmessage(s, tr("No special permissions are neccessary to use that command."));
 			} else {
 				addx[s]=z;
 				addy[s]=y;
@@ -749,11 +740,11 @@ void command_setpriv3(UOXSOCKET s)
 				target(s, 0, 1, 0, 225, (char*)temp);
 			}
 		} else {
-			sysmessage(s, "2-Argument Usage: /SETPRIV3 +/- COMMAND");
+			sysmessage(s, tr("2-Argument Usage: /SETPRIV3 +/- COMMAND"));
 		}
 		break;
 	default:
-		sysmessage(s, "This command takes 1, 2, 6, or 7 arguments.");
+		sysmessage(s, tr("This command takes 1, 2, 6, or 7 arguments."));
 		break;
 	}
 	return;
@@ -783,7 +774,7 @@ void command_where(UOXSOCKET s)
 	
 	if (strlen(region[pcc_cs->region].name)>0)
 		sprintf((char*)temp, "You are at: %s",region[pcc_cs->region].name); 
-	else strcpy((char*)temp,"You are at: unknown area");
+	else strcpy((char*)temp, "You are at: unknown area");
 	sysmessage(s,(char*)temp);
 	
 	sprintf((char*)temp, "%i %i (%i)",pcc_cs->pos.x,pcc_cs->pos.y,pcc_cs->pos.z); 

@@ -113,7 +113,7 @@ void cCombat::ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi)//S=Socket c=Char 
 	
 	pi->morez--;
 	if(pi->morez==0)//JUST lost it's charge....
-		sysmessage(s, "This item is out of charges.");
+		sysmessage(s, tr("This item is out of charges."));
 }
 
 void CheckPoisoning(UOXSOCKET sd, P_CHAR pc_attacker, P_CHAR pc_defender)
@@ -128,7 +128,7 @@ void CheckPoisoning(UOXSOCKET sd, P_CHAR pc_attacker, P_CHAR pc_defender)
 			if (sd != -1) 
 			{
 				impowncreate(sd, pc_defender, 1); //Lb, sends the green bar ! 
-				sysmessage(sd,"You have been poisoned!");//AntiChrist 
+				sysmessage(sd, tr("You have been poisoned!"));//AntiChrist 
 			}
 		}
 	}
@@ -171,7 +171,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 		pWeapon->hp--; //Take off a hit point
 		if(pWeapon->hp<=0)
 		{
-			sysmessage(s1,"Your weapon has been destroyed");
+			sysmessage(s1, tr("Your weapon has been destroyed"));
 			if ((pWeapon->trigon==1) && (pWeapon->layer>0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
 				Trig->triggerwitem(s1, pWeapon, 1); // trigger is fired when item destroyed
@@ -257,7 +257,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 						basedamage *=2;
 							if(pc_deffender->isPlayer())
 							{
-								sysmessage(s2,"You sceam in agony from being hit by the accursed metal!");
+								sysmessage(s2, tr("You scream in agony from being hit by the accursed metal!"));
 								if (pc_deffender->xid == 0x0191) soundeffect2(pc_deffender,0x0152);
 								else if (pc_deffender->xid==0x0190) soundeffect2(pc_deffender,0x0157);
 							}// can add a possible effect below here for npc's being hit
@@ -289,7 +289,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					if(rand()%2) pShield->hp--; //Take off a hit point
 					if(pShield->hp<=0)
 					{
-						sysmessage(s2,"Your shield has been destroyed");
+						sysmessage(s2, tr("Your shield has been destroyed"));
 						if ((pShield->trigon==1) && (pShield->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 						{
 							Trig->triggerwitem(s2, pShield, 1); // trigger is fired when item destroyed
@@ -385,13 +385,13 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					switch (hitin)
 					{
 					case 1:
-						if (damage > 1) strcpy(temp, "hits you in Left Hand!");
+						if (damage > 1) strcpy(temp, tr("hits you in Left Hand!").latin1());
 						break;
 					case 2:
-						if (damage > 1) strcpy(temp, "hits you in Right Hand!");
+						if (damage > 1) strcpy(temp, tr("hits you in Right Hand!").latin1());
 						break;
 					default:
-						if (damage > 1) strcpy(temp, "hits you in Right Hand!");
+						if (damage > 1) strcpy(temp, tr("hits you in Right Hand!").latin1());
 					}
 				}
 
@@ -477,7 +477,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					if ((fightskill==FENCING) && (IsFencing2H(pWeapon->id())) && (pc_deffender->isPlayer()))// Paralyzing -Fraz-
 					{ 
 						tempeffect(pc_attacker, pc_deffender, 44, 0, 0, 0);
-						sysmessage(s1,"You delivered a paralyzing blow");
+						sysmessage(s1, tr("You delivered a paralyzing blow"));
 											}
 					if ((fightskill==SWORDSMANSHIP) && (IsAxe(pWeapon->id())) && (pc_deffender->isPlayer()))// Concussion Hit -Fraz-
 					{ 
@@ -830,7 +830,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 						{
 							if((SrvParms->attackstamina<0)&&(pc_attacker->stm<abs(SrvParms->attackstamina)))
 							{
-								sysmessage(s1,"You are too tired to attack.");
+								sysmessage(s1, tr("You are too tired to attack."));
 								SetWeaponTimeout(pc_attacker, pWeapon);
 								return;
 							}
@@ -890,12 +890,12 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 				{
 					if(pc_defender->isInnocent() && GuildCompare(pc_attacker, pc_defender )==0 && Races.CheckRelation(pc_attacker,pc_defender)!=2)
 					{
-						pc_attacker->kills++;
-						sprintf((char*)temp, "You have killed %i innocent people.", pc_attacker->kills);
-						sysmessage(calcSocketFromChar(pc_attacker),(char*)temp);
+						++pc_attacker->kills;
+						UOXSOCKET attacker_socket = calcSocketFromChar(pc_attacker);
+						sysmessage(attacker_socket, tr("You have killed %1 innocent people.").arg(pc_attacker->kills));
 						//clConsole.send("DEBUG %s's kills are now -> %i\n",pc_attacker->name,pc_attacker->kills);
 						if (pc_attacker->kills==repsys.maxkills+1)
-							sysmessage(calcSocketFromChar(pc_attacker),"You are now a murderer!");
+							sysmessage(attacker_socket, tr("You are now a murderer!"));
 					}
 					
 					if (SrvParams->pvpLog())
@@ -1068,14 +1068,13 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 				pj->hp--; //Take off a hit point 
 			if(pj->hp<=0) 
 			{ 
-				sprintf((char*)temp,"Your %s has been destroyed", pj->getName().c_str());
+				sysmessage(k, "Your %1 has been destroyed").arg(pj->getName().c_str()));
 				pc->removeItemBonus(pj);	// remove BONUS STATS given by equipped special items
 				//-Frazurbluu-  need to have tactics bonus removed also
 				if ((pj->trigon==1) && (pj->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 				{
 					Trig->triggerwitem(k, pj, 1); // trigger is fired when item destroyed
 				}
-				sysmessage(k,(char*)temp);
 				Items->DeleItem(pj);		 
 			}
 			statwindow(k, currchar[k]);

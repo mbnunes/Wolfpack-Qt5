@@ -35,103 +35,13 @@
 #undef  DBGFILE
 #define DBGFILE "storage.cpp"
 
-template<class T> Storage_cl<T>::Storage_cl()
-{
-}
-
-template<class T> Storage_cl<T>::~Storage_cl()
-{
-	//We need to delete the items we contain as well
-	
-	for (iterData=mapData.begin(); iterData != mapData.end(); iterData++)
-	{
-		delete iterData->second ;
-	}
-	mapData.clear() ;
-}
-
-template<class T> int Storage_cl<T>::Count(void)
-{
-	return mapData.size();
-}
-
-template<class T> bool Storage_cl<T>::insert(T& cData, int serial) 
-{
-	indices.push_back(serial);
-	return mapData.insert(make_pair(serial,&cData));
-}
-
-template<class T> bool Storage_cl<T>::insert(T* ptrData, int serial) 
-{
-	indices.push_back(serial);
-	return mapData.insert(make_pair(serial,ptrData)) ;
-}
-
-template<class T> T* Storage_cl<T>::getPtr(int serial)
-{
-
-	iterData = mapData.find(serial) ;
-	T* ptrData = NULL ;
-	if (iterData != mapData.end())
-		ptrData = iterData->second ;
-	return ptrData ;
-}
-
-template<class T> void Storage_cl<T>::remove(int serial) 
-{
-	// First find the ptr
-	iterData = mapData.find(serial) ;
-	if (iterData != mapData.end())
-	{
-		// Delete the actual object
-		delete iterData->second ;
-		// Erase it out of the map
-		mapData.erase(iterData) ;
-	}
-}
-
-template<class T> T* Storage_cl<T>::Next(int &offset)
-{
-	iterData = mapData.begin();
-	advance(iterData, offset);
-	if (iterData != mapData.end())
-	{
-		offset++;
-		T* ptrData = NULL;
-		ptrData = iterData->second;
-		return ptrData;
-	}
-	else
-		return NULL;
-}
-
-template<class T> T* Storage_cl<T>::operator[](long index)
-{
-	iterData = mapData.begin();
-	T* ptrData = iterData->second;
-	if(index < 0 || index >=indices.size())
-	{
-		LogError("Error in chars[] index!\n");
-		return ptrData;
-	}
-	
-	iterData = mapData.find(indices[index]);
-	if (iterData == mapData.end())
-	{
-		LogError("Error in chars[] index!\n");
-		return ptrData;
-	}
-	ptrData = iterData->second;
-	return ptrData;
-}
-
 Container_cl::Container_cl() 
 {
 }
 
 Container_cl::~Container_cl() 
 {
-	mapData.clear() ;
+	mapData.clear();
 }
 
 bool Container_cl::insert(SERIAL serContainer, SERIAL serObject) 
@@ -188,7 +98,7 @@ vector<SERIAL> Container_cl::getData(SERIAL serContainer)
 	pair<iterSerial, iterSerial> iterRange = mapData.equal_range(serContainer);
 
 	bool debug = iterRange.first == mapData.end();
-	debug = iterRange.second == mapData.end();
+	vecValue.reserve( distance(iterRange.first, iterRange.second) );
 
 	for (iterData = iterRange.first; iterData != iterRange.second; ++iterData)
 	{

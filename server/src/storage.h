@@ -51,26 +51,6 @@ using namespace std;
 #include "typedefs.h"
 
 // Class definition
-
-template<class T> class Storage_cl
-{
-public:
-	Storage_cl();
-	~Storage_cl();
-	bool insert(T& cData, int serial);
-	bool insert(T* ptrData, int serial);
-	int Count(void);
-	T* getPtr(int serial);
-	T* Next(int &offset);
-	void remove(int serial);
-	T* operator[](long index);
-	
-private:
-	map<int, T*> mapData;
-	map<int, T*>::iterator iterData;
-	vector<int> indices;
-};
-
 class Container_cl
 {
 public:
