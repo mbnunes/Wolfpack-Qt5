@@ -32,6 +32,23 @@
 		<category>Vendors\Banker (Female)</category>
 	</npc>
 
+	<!-- Barber (no real vendor) -->
+	<npc id="barber_male">
+		<inherit>base_male</inherit>
+		<title>the Barber</title>
+		<events>speech_barber</events>
+		
+		<fencing><random min="150" max="380" /></fencing>
+		<parrying><random min="450" max="680" /></parrying>
+		<swordsmanship><random min="150" max="380" /></swordsmanship>
+		<wrestling><random min="150" max="380" /></wrestling>
+		<macefighting><random min="150" max="380" /></macefighting>
+		<magicresistance><random min="450" max="680" /></magicresistance>
+		<tactics><random min="450" max="680" /></tactics>
+
+		<category>Vendors\Barber (Male)</category>
+	</npc>
+
 	<!-- A tanner vendor -->
 	<npc id="tanner">
 		<inherit>base_male</inherit>
