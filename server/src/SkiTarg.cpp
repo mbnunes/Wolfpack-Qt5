@@ -1362,7 +1362,12 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
 	}
-	if ( pc->isInvul() || pc->shop==1 )
+	if ( pc->isInvul() || pc->shop==1 || // invul or shopkeeper
+		pc->npcaitype==0x01 || // healer
+		pc->npcaitype==0x04 || // tele guard
+		pc->npcaitype==0x06 || // chaos guard
+		pc->npcaitype==0x07 || // order guard
+		pc->npcaitype==0x09)   // city guard
 	{
 		sysmessage(s," You cant entice that npc!");
 		return;
