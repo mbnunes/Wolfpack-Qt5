@@ -27,6 +27,7 @@
 	<include file="definitions/spawnregions/trammel/wind.xml" />
 	<include file="definitions/spawnregions/trammel/yew.xml" />
 	<!-- Dungeon Spawns -->
+	<include file="definitions/spawnregions/trammel/britain_graveyard.xml" />
 	<include file="definitions/spawnregions/trammel/britain_passage.xml" />
 	<include file="definitions/spawnregions/trammel/covetous.xml" />
 	<include file="definitions/spawnregions/trammel/deceit.xml" />

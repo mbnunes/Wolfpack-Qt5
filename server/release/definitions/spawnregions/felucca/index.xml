@@ -27,6 +27,7 @@
 	<include file="definitions/spawnregions/felucca/wind.xml" />
 	<include file="definitions/spawnregions/felucca/yew.xml" />
 	<!-- Dungeon Spawns -->
+	<include file="definitions/spawnregions/felucca/britain_graveyard.xml" />
 	<include file="definitions/spawnregions/felucca/britain_passage.xml" />
 	<include file="definitions/spawnregions/felucca/covetous.xml" />
 	<include file="definitions/spawnregions/felucca/deceit.xml" />

@@ -1,4 +1,59 @@
-
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
 <definitions>
+
+	<spawnregion id="trammel_trinsic_bank_1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>banker_male</npc>
+			<npc>banker_female</npc>
+		</npcs>
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1811" x2="1816" y1="2820" y2="2823" map="1" />
+	</spawnregion>
+
+	<spawnregion id="trammel_trinsic_bank_2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>banker_male</npc>
+			<npc>banker_female</npc>
+		</npcs>
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1813" x2="1815" y1="2825" y2="2826" map="1" />
+	</spawnregion>
+
+	<spawnregion id="trammel_trinsic_bank_3">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>banker_male</npc>
+			<npc>banker_female</npc>
+		</npcs>
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1884" x2="1886" y1="2689" y2="2693" map="1" />
+	</spawnregion>
+
+	<spawnregion id="trammel_trinsic_bank_4">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>banker_male</npc>
+			<npc>banker_female</npc>
+		</npcs>
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1893" x2="1895" y1="2689" y2="2692" map="1" />
+	</spawnregion>
 
 </definitions>

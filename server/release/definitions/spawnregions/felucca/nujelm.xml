@@ -1,4 +1,23 @@
-
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
 <definitions>
+
+	<spawnregion id="felucca_nujelm_bank">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>banker_male</npc>
+			<npc>banker_female</npc>
+		</npcs>
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="3762" x2="3765" y1="1313" y2="1316" map="0" />
+	</spawnregion>
 
 </definitions>
