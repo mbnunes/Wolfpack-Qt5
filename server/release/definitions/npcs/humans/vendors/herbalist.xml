@@ -1,0 +1,104 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A herbalist vendor -->
+	<npc id="herbalist_male">
+		<inherit>base_male</inherit>
+		<title>the Herbalist</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="f7a">
+					<amount>50</amount>
+				</item>
+				<item id="f7b">
+					<amount>50</amount>
+				</item>
+				<item id="f84">
+					<amount>50</amount>
+				</item>
+				<item id="f85">
+					<amount>50</amount>
+				</item>
+				<item id="f86">
+					<amount>50</amount>
+				</item>
+				<item id="f88">
+					<amount>50</amount>
+				</item>
+				<item id="f8c">
+					<amount>50</amount>
+				</item>
+				<item id="f8d">
+					<amount>50</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="f7a"/>
+				<item id="f7b"/>
+				<item id="f84"/>
+				<item id="f85"/>
+				<item id="f86"/>
+				<item id="f88"/>
+				<item id="f8c"/>
+				<item id="f8d"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Herbalist (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="herbalist_female">
+		<inherit>base_female</inherit>
+		<title>the Herbalist</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="f7a">
+					<amount>50</amount>
+				</item>
+				<item id="f7b">
+					<amount>50</amount>
+				</item>
+				<item id="f84">
+					<amount>50</amount>
+				</item>
+				<item id="f85">
+					<amount>50</amount>
+				</item>
+				<item id="f86">
+					<amount>50</amount>
+				</item>
+				<item id="f88">
+					<amount>50</amount>
+				</item>
+				<item id="f8c">
+					<amount>50</amount>
+				</item>
+				<item id="f8d">
+					<amount>50</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="f7a"/>
+				<item id="f7b"/>
+				<item id="f84"/>
+				<item id="f85"/>
+				<item id="f86"/>
+				<item id="f88"/>
+				<item id="f8c"/>
+				<item id="f8d"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Herbalist (Female)</category>
+		<invulnerable />
+	</npc>
+
+</definitions>

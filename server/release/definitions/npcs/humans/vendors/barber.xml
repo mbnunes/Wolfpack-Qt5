@@ -1,0 +1,27 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+	<!-- Barber (no real vendor) -->
+	<npc id="barber_male">
+		<inherit>base_male</inherit>
+		<title>the Barber</title>
+		<events>speech_barber</events>
+		<category>Vendors\Barber (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="barber_female">
+		<inherit>base_female</inherit>
+		<title>the Barber</title>
+		<events>speech_barber</events>
+		<category>Vendors\Barber (Female)</category>
+		<invulnerable />
+	</npc>
+	
+</definitions>

@@ -1,0 +1,360 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A jeweler vendor -->
+	<npc id="jeweler_male">
+		<inherit>base_male</inherit>
+		<title>the Jeweler</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="f1b">
+					<amount>10</amount>
+				</item>
+				<item id="f0f">
+					<amount>10</amount>
+				</item>
+				<item id="f21">
+					<amount>10</amount>
+				</item>
+				<item id="f10">
+					<amount>10</amount>
+				</item>
+				<item id="f2f">
+					<amount>10</amount>
+				</item>
+				<item id="f11">
+					<amount>10</amount>
+				</item>
+				<item id="f12">
+					<amount>10</amount>
+				</item>
+				<item id="f19">
+					<amount>10</amount>
+				</item>
+				<item id="f1f">
+					<amount>10</amount>
+				</item>
+				<item id="f1a">
+					<amount>10</amount>
+				</item>
+				<item id="f1c">
+					<amount>10</amount>
+				</item>
+				<item id="f1d">
+					<amount>10</amount>
+				</item>
+				<item id="f2a">
+					<amount>10</amount>
+				</item>
+				<item id="f2b">
+					<amount>10</amount>
+				</item>
+				<item id="f13">
+					<amount>10</amount>
+				</item>
+				<item id="f14">
+					<amount>10</amount>
+				</item>
+				<item id="f15">
+					<amount>10</amount>
+				</item>
+				<item id="f2c">
+					<amount>10</amount>
+				</item>
+				<item id="f23">
+					<amount>10</amount>
+				</item>
+				<item id="f24">
+					<amount>10</amount>
+				</item>
+				<item id="f16">
+					<amount>10</amount>
+				</item>
+				<item id="f17">
+					<amount>10</amount>
+				</item>
+				<item id="f2e">
+					<amount>10</amount>
+				</item>
+				<item id="f22">
+					<amount>10</amount>
+				</item>
+				<item id="f1e">
+					<amount>10</amount>
+				</item>
+				<item id="f20">
+					<amount>10</amount>
+				</item>
+				<item id="f18">
+					<amount>10</amount>
+				</item>
+				<item id="f2d">
+					<amount>10</amount>
+				</item>
+				<item id="f26">
+					<amount>10</amount>
+				</item>
+				<item id="f27">
+					<amount>10</amount>
+				</item>
+				<item id="f28">
+					<amount>10</amount>
+				</item>
+				<item id="f29">
+					<amount>10</amount>
+				</item>
+				<item id="f30">
+					<amount>10</amount>
+				</item>
+				<item id="f25">
+					<amount>10</amount>
+				</item>
+				<item id="1f05">
+					<amount>10</amount>
+				</item>
+				<item id="1f06">
+					<amount>10</amount>
+				</item>
+				<item id="1f07">
+					<amount>10</amount>
+				</item>
+				<item id="1f08">
+					<amount>10</amount>
+				</item>
+				<item id="1f09">
+					<amount>10</amount>
+				</item>
+				<item id="1f0a">
+					<amount>10</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="f1b"/>
+				<item id="f0f"/>
+				<item id="f21"/>
+				<item id="f10"/>
+				<item id="f2f"/>
+				<item id="f11"/>
+				<item id="f12"/>
+				<item id="f19"/>
+				<item id="f1f"/>
+				<item id="f1a"/>
+				<item id="f1c"/>
+				<item id="f1d"/>
+				<item id="f2a"/>
+				<item id="f2b"/>
+				<item id="f13"/>
+				<item id="f14"/>
+				<item id="f15"/>
+				<item id="f2c"/>
+				<item id="f23"/>
+				<item id="f24"/>
+				<item id="f16"/>
+				<item id="f17"/>
+				<item id="f2e"/>
+				<item id="f22"/>
+				<item id="f1e"/>
+				<item id="f20"/>
+				<item id="f18"/>
+				<item id="f2d"/>
+				<item id="f26"/>
+				<item id="f27"/>
+				<item id="f28"/>
+				<item id="f29"/>
+				<item id="f30"/>
+				<item id="f25"/>
+				<item id="1f05"/>
+				<item id="1f06"/>
+				<item id="1f07"/>
+				<item id="1f08"/>
+				<item id="1f09"/>
+				<item id="1f0a"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Jeweler (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="jeweler_female">
+		<inherit>base_female</inherit>
+		<title>the Jeweler</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="f1b">
+					<amount>10</amount>
+				</item>
+				<item id="f0f">
+					<amount>10</amount>
+				</item>
+				<item id="f21">
+					<amount>10</amount>
+				</item>
+				<item id="f10">
+					<amount>10</amount>
+				</item>
+				<item id="f2f">
+					<amount>10</amount>
+				</item>
+				<item id="f11">
+					<amount>10</amount>
+				</item>
+				<item id="f12">
+					<amount>10</amount>
+				</item>
+				<item id="f19">
+					<amount>10</amount>
+				</item>
+				<item id="f1f">
+					<amount>10</amount>
+				</item>
+				<item id="f1a">
+					<amount>10</amount>
+				</item>
+				<item id="f1c">
+					<amount>10</amount>
+				</item>
+				<item id="f1d">
+					<amount>10</amount>
+				</item>
+				<item id="f2a">
+					<amount>10</amount>
+				</item>
+				<item id="f2b">
+					<amount>10</amount>
+				</item>
+				<item id="f13">
+					<amount>10</amount>
+				</item>
+				<item id="f14">
+					<amount>10</amount>
+				</item>
+				<item id="f15">
+					<amount>10</amount>
+				</item>
+				<item id="f2c">
+					<amount>10</amount>
+				</item>
+				<item id="f23">
+					<amount>10</amount>
+				</item>
+				<item id="f24">
+					<amount>10</amount>
+				</item>
+				<item id="f16">
+					<amount>10</amount>
+				</item>
+				<item id="f17">
+					<amount>10</amount>
+				</item>
+				<item id="f2e">
+					<amount>10</amount>
+				</item>
+				<item id="f22">
+					<amount>10</amount>
+				</item>
+				<item id="f1e">
+					<amount>10</amount>
+				</item>
+				<item id="f20">
+					<amount>10</amount>
+				</item>
+				<item id="f18">
+					<amount>10</amount>
+				</item>
+				<item id="f2d">
+					<amount>10</amount>
+				</item>
+				<item id="f26">
+					<amount>10</amount>
+				</item>
+				<item id="f27">
+					<amount>10</amount>
+				</item>
+				<item id="f28">
+					<amount>10</amount>
+				</item>
+				<item id="f29">
+					<amount>10</amount>
+				</item>
+				<item id="f30">
+					<amount>10</amount>
+				</item>
+				<item id="f25">
+					<amount>10</amount>
+				</item>
+				<item id="1f05">
+					<amount>10</amount>
+				</item>
+				<item id="1f06">
+					<amount>10</amount>
+				</item>
+				<item id="1f07">
+					<amount>10</amount>
+				</item>
+				<item id="1f08">
+					<amount>10</amount>
+				</item>
+				<item id="1f09">
+					<amount>10</amount>
+				</item>
+				<item id="1f0a">
+					<amount>10</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="f1b"/>
+				<item id="f0f"/>
+				<item id="f21"/>
+				<item id="f10"/>
+				<item id="f2f"/>
+				<item id="f11"/>
+				<item id="f12"/>
+				<item id="f19"/>
+				<item id="f1f"/>
+				<item id="f1a"/>
+				<item id="f1c"/>
+				<item id="f1d"/>
+				<item id="f2a"/>
+				<item id="f2b"/>
+				<item id="f13"/>
+				<item id="f14"/>
+				<item id="f15"/>
+				<item id="f2c"/>
+				<item id="f23"/>
+				<item id="f24"/>
+				<item id="f16"/>
+				<item id="f17"/>
+				<item id="f2e"/>
+				<item id="f22"/>
+				<item id="f1e"/>
+				<item id="f20"/>
+				<item id="f18"/>
+				<item id="f2d"/>
+				<item id="f26"/>
+				<item id="f27"/>
+				<item id="f28"/>
+				<item id="f29"/>
+				<item id="f30"/>
+				<item id="f25"/>
+				<item id="1f05"/>
+				<item id="1f06"/>
+				<item id="1f07"/>
+				<item id="1f08"/>
+				<item id="1f09"/>
+				<item id="1f0a"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Jeweler (Femele)</category>
+		<invulnerable />
+	</npc>
+
+</definitions>

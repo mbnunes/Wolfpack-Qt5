@@ -1,0 +1,34 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A cook vendor -->
+	<npc id="cook_male">
+		<inherit>base_male</inherit>
+		<title>the Cook</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable/>
+		</shopkeeper>
+		<category>Vendors\Cook (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="cook_female">
+		<inherit>base_female</inherit>
+		<title>the Cook</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable/>
+		</shopkeeper>
+		<category>Vendors\Cook (Female)</category>
+		<invulnerable />
+	</npc>
+
+</definitions>

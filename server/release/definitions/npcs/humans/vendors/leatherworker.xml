@@ -1,0 +1,40 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A leatherworker vendor -->
+	<npc id="leatherworker_male">
+		<inherit>base_male</inherit>
+		<title>the Leatherworker</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Leatherworker (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="leatherworker_female">
+		<inherit>base_female</inherit>
+		<title>the Leatherworker</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Leatherworker (Female)</category>
+		<invulnerable />
+	</npc>
+
+</definitions>

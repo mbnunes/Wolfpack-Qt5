@@ -1,0 +1,100 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A Healer vendor -->
+	<npc id="healer_male">
+		<inherit>base_male</inherit>
+		<bindmenu>healer_menu</bindmenu>
+		<title>the Healer</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="e21">
+					<amount>10</amount>
+				</item>
+				<item id="f07">
+					<amount>10</amount>
+				</item>
+				<item id="f0c">
+					<amount>10</amount>
+				</item>
+				<item id="f84">
+					<amount>10</amount>
+				</item>
+				<item id="f85">
+					<amount>10</amount>
+				</item>
+				<item id="f8d">
+					<amount>10</amount>
+				</item>
+				<item id="f9e">
+					<amount>10</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="e21"/>
+				<item id="f07"/>
+				<item id="f0c"/>
+				<item id="f84"/>
+				<item id="f85"/>
+				<item id="f8d"/>
+				<item id="f9e"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Healer (Male)</category>
+		<invulnerable />
+		<events>npc.healer</events>
+	</npc>
+	
+	<npc id="healer_female">
+		<inherit>base_female</inherit>
+		<title>the Healer</title>
+		<ai>Human_Vendor</ai>
+		<bindmenu>healer_menu</bindmenu>
+		<shopkeeper>
+			<restockable>
+				<item id="e21">
+					<amount>10</amount>
+				</item>
+				<item id="f07">
+					<amount>10</amount>
+				</item>
+				<item id="f0c">
+					<amount>10</amount>
+				</item>
+				<item id="f84">
+					<amount>10</amount>
+				</item>
+				<item id="f85">
+					<amount>10</amount>
+				</item>
+				<item id="f8d">
+					<amount>10</amount>
+				</item>
+				<item id="f9e">
+					<amount>10</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="e21"/>
+				<item id="f07"/>
+				<item id="f0c"/>
+				<item id="f84"/>
+				<item id="f85"/>
+				<item id="f8d"/>
+				<item id="f9e"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Healer (Female)</category>
+		<invulnerable />
+		<events>npc.healer</events>
+	</npc>
+
+</definitions>

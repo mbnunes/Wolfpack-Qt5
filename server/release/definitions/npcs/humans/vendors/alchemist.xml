@@ -1,0 +1,504 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A alchemist vendor -->
+	<npc id="alchemist_male">
+		<inherit>base_male</inherit>
+		<title>the Alchemist</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="e24">
+					<amount>10</amount>
+				</item>
+				<item id="e25">
+					<amount>10</amount>
+				</item>
+				<item id="efd">
+					<amount>10</amount>
+				</item>
+				<item id="e26">
+					<amount>10</amount>
+				</item>
+				<item id="efe">
+					<amount>10</amount>
+				</item>
+				<item id="e27">
+					<amount>10</amount>
+				</item>
+				<item id="eff">
+					<amount>10</amount>
+				</item>
+				<item id="e28">
+					<amount>10</amount>
+				</item>
+				<item id="f00">
+					<amount>10</amount>
+				</item>
+				<item id="e29">
+					<amount>10</amount>
+				</item>
+				<item id="f01">
+					<amount>10</amount>
+				</item>
+				<item id="e2a">
+					<amount>10</amount>
+				</item>
+				<item id="f02">
+					<amount>10</amount>
+				</item>
+				<item id="e2b">
+					<amount>10</amount>
+				</item>
+				<item id="f03">
+					<amount>10</amount>
+				</item>
+				<item id="e2c">
+					<amount>10</amount>
+				</item>
+				<item id="f04">
+					<amount>10</amount>
+				</item>
+				<item id="efb">
+					<amount>10</amount>
+				</item>
+				<item id="efc">
+					<amount>10</amount>
+				</item>
+				<item id="1847">
+					<amount>10</amount>
+				</item>
+				<item id="1848">
+					<amount>10</amount>
+				</item>
+				<item id="1c18">
+					<amount>10</amount>
+				</item>
+				<item id="e9b">
+					<amount>10</amount>
+				</item>
+				<item id="f0e">
+					<amount>10</amount>
+				</item>
+				<item id="f06">
+					<amount>10</amount>
+				</item>
+				<item id="f07">
+					<amount>10</amount>
+				</item>
+				<item id="f08">
+					<amount>10</amount>
+				</item>
+				<item id="f09">
+					<amount>10</amount>
+				</item>
+				<item id="f0a">
+					<amount>10</amount>
+				</item>
+				<item id="f0b">
+					<amount>10</amount>
+				</item>
+				<item id="f0c">
+					<amount>10</amount>
+				</item>
+				<item id="f0d">
+					<amount>10</amount>
+				</item>
+				<item id="f78">
+					<amount>10</amount>
+				</item>
+				<item id="f79">
+					<amount>10</amount>
+				</item>
+				<item id="f7a">
+					<amount>10</amount>
+				</item>
+				<item id="f7b">
+					<amount>10</amount>
+				</item>
+				<item id="f7c">
+					<amount>10</amount>
+				</item>
+				<item id="f7d">
+					<amount>10</amount>
+				</item>
+				<item id="f7e">
+					<amount>10</amount>
+				</item>
+				<item id="f7f">
+					<amount>10</amount>
+				</item>
+				<item id="f80">
+					<amount>10</amount>
+				</item>
+				<item id="f81">
+					<amount>10</amount>
+				</item>
+				<item id="f82">
+					<amount>10</amount>
+				</item>
+				<item id="f83">
+					<amount>10</amount>
+				</item>
+				<item id="f84">
+					<amount>10</amount>
+				</item>
+				<item id="f85">
+					<amount>10</amount>
+				</item>
+				<item id="f86">
+					<amount>10</amount>
+				</item>
+				<item id="f87">
+					<amount>10</amount>
+				</item>
+				<item id="f88">
+					<amount>10</amount>
+				</item>
+				<item id="f89">
+					<amount>10</amount>
+				</item>
+				<item id="f8a">
+					<amount>10</amount>
+				</item>
+				<item id="f8b">
+					<amount>10</amount>
+				</item>
+				<item id="f8c">
+					<amount>10</amount>
+				</item>
+				<item id="f8d">
+					<amount>10</amount>
+				</item>
+				<item id="f8e">
+					<amount>10</amount>
+				</item>
+				<item id="f8f">
+					<amount>10</amount>
+				</item>
+				<item id="f90">
+					<amount>10</amount>
+				</item>
+				<item id="f91">
+					<amount>10</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="e24"/>
+				<item id="e25"/>
+				<item id="efd"/>
+				<item id="e26"/>
+				<item id="efe"/>
+				<item id="e27"/>
+				<item id="eff"/>
+				<item id="e28"/>
+				<item id="f00"/>
+				<item id="e29"/>
+				<item id="f01"/>
+				<item id="e2a"/>
+				<item id="f02"/>
+				<item id="e2b"/>
+				<item id="f03"/>
+				<item id="e2c"/>
+				<item id="f04"/>
+				<item id="efb"/>
+				<item id="efc"/>
+				<item id="1847"/>
+				<item id="1848"/>
+				<item id="1c18"/>
+				<item id="e9b"/>
+				<item id="f0e"/>
+				<item id="f06"/>
+				<item id="f07"/>
+				<item id="f08"/>
+				<item id="f09"/>
+				<item id="f0a"/>
+				<item id="f0b"/>
+				<item id="f0c"/>
+				<item id="f0d"/>
+				<item id="f78"/>
+				<item id="f79"/>
+				<item id="f7a"/>
+				<item id="f7b"/>
+				<item id="f7c"/>
+				<item id="f7d"/>
+				<item id="f7e"/>
+				<item id="f7f"/>
+				<item id="f80"/>
+				<item id="f81"/>
+				<item id="f82"/>
+				<item id="f83"/>
+				<item id="f84"/>
+				<item id="f85"/>
+				<item id="f86"/>
+				<item id="f87"/>
+				<item id="f88"/>
+				<item id="f89"/>
+				<item id="f8a"/>
+				<item id="f8b"/>
+				<item id="f8c"/>
+				<item id="f8d"/>
+				<item id="f8e"/>
+				<item id="f8f"/>
+				<item id="f90"/>
+				<item id="f91"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Alchemist (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="alchemist_female">
+		<inherit>base_female</inherit>
+		<title>the Alchemist</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="e24">
+					<amount>10</amount>
+				</item>
+				<item id="e25">
+					<amount>10</amount>
+				</item>
+				<item id="efd">
+					<amount>10</amount>
+				</item>
+				<item id="e26">
+					<amount>10</amount>
+				</item>
+				<item id="efe">
+					<amount>10</amount>
+				</item>
+				<item id="e27">
+					<amount>10</amount>
+				</item>
+				<item id="eff">
+					<amount>10</amount>
+				</item>
+				<item id="e28">
+					<amount>10</amount>
+				</item>
+				<item id="f00">
+					<amount>10</amount>
+				</item>
+				<item id="e29">
+					<amount>10</amount>
+				</item>
+				<item id="f01">
+					<amount>10</amount>
+				</item>
+				<item id="e2a">
+					<amount>10</amount>
+				</item>
+				<item id="f02">
+					<amount>10</amount>
+				</item>
+				<item id="e2b">
+					<amount>10</amount>
+				</item>
+				<item id="f03">
+					<amount>10</amount>
+				</item>
+				<item id="e2c">
+					<amount>10</amount>
+				</item>
+				<item id="f04">
+					<amount>10</amount>
+				</item>
+				<item id="efb">
+					<amount>10</amount>
+				</item>
+				<item id="efc">
+					<amount>10</amount>
+				</item>
+				<item id="1847">
+					<amount>10</amount>
+				</item>
+				<item id="1848">
+					<amount>10</amount>
+				</item>
+				<item id="1c18">
+					<amount>10</amount>
+				</item>
+				<item id="e9b">
+					<amount>10</amount>
+				</item>
+				<item id="f0e">
+					<amount>10</amount>
+				</item>
+				<item id="f06">
+					<amount>10</amount>
+				</item>
+				<item id="f07">
+					<amount>10</amount>
+				</item>
+				<item id="f08">
+					<amount>10</amount>
+				</item>
+				<item id="f09">
+					<amount>10</amount>
+				</item>
+				<item id="f0a">
+					<amount>10</amount>
+				</item>
+				<item id="f0b">
+					<amount>10</amount>
+				</item>
+				<item id="f0c">
+					<amount>10</amount>
+				</item>
+				<item id="f0d">
+					<amount>10</amount>
+				</item>
+				<item id="f78">
+					<amount>10</amount>
+				</item>
+				<item id="f79">
+					<amount>10</amount>
+				</item>
+				<item id="f7a">
+					<amount>10</amount>
+				</item>
+				<item id="f7b">
+					<amount>10</amount>
+				</item>
+				<item id="f7c">
+					<amount>10</amount>
+				</item>
+				<item id="f7d">
+					<amount>10</amount>
+				</item>
+				<item id="f7e">
+					<amount>10</amount>
+				</item>
+				<item id="f7f">
+					<amount>10</amount>
+				</item>
+				<item id="f80">
+					<amount>10</amount>
+				</item>
+				<item id="f81">
+					<amount>10</amount>
+				</item>
+				<item id="f82">
+					<amount>10</amount>
+				</item>
+				<item id="f83">
+					<amount>10</amount>
+				</item>
+				<item id="f84">
+					<amount>10</amount>
+				</item>
+				<item id="f85">
+					<amount>10</amount>
+				</item>
+				<item id="f86">
+					<amount>10</amount>
+				</item>
+				<item id="f87">
+					<amount>10</amount>
+				</item>
+				<item id="f88">
+					<amount>10</amount>
+				</item>
+				<item id="f89">
+					<amount>10</amount>
+				</item>
+				<item id="f8a">
+					<amount>10</amount>
+				</item>
+				<item id="f8b">
+					<amount>10</amount>
+				</item>
+				<item id="f8c">
+					<amount>10</amount>
+				</item>
+				<item id="f8d">
+					<amount>10</amount>
+				</item>
+				<item id="f8e">
+					<amount>10</amount>
+				</item>
+				<item id="f8f">
+					<amount>10</amount>
+				</item>
+				<item id="f90">
+					<amount>10</amount>
+				</item>
+				<item id="f91">
+					<amount>10</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="e24"/>
+				<item id="e25"/>
+				<item id="efd"/>
+				<item id="e26"/>
+				<item id="efe"/>
+				<item id="e27"/>
+				<item id="eff"/>
+				<item id="e28"/>
+				<item id="f00"/>
+				<item id="e29"/>
+				<item id="f01"/>
+				<item id="e2a"/>
+				<item id="f02"/>
+				<item id="e2b"/>
+				<item id="f03"/>
+				<item id="e2c"/>
+				<item id="f04"/>
+				<item id="efb"/>
+				<item id="efc"/>
+				<item id="1847"/>
+				<item id="1848"/>
+				<item id="1c18"/>
+				<item id="e9b"/>
+				<item id="f0e"/>
+				<item id="f06"/>
+				<item id="f07"/>
+				<item id="f08"/>
+				<item id="f09"/>
+				<item id="f0a"/>
+				<item id="f0b"/>
+				<item id="f0c"/>
+				<item id="f0d"/>
+				<item id="f78"/>
+				<item id="f79"/>
+				<item id="f7a"/>
+				<item id="f7b"/>
+				<item id="f7c"/>
+				<item id="f7d"/>
+				<item id="f7e"/>
+				<item id="f7f"/>
+				<item id="f80"/>
+				<item id="f81"/>
+				<item id="f82"/>
+				<item id="f83"/>
+				<item id="f84"/>
+				<item id="f85"/>
+				<item id="f86"/>
+				<item id="f87"/>
+				<item id="f88"/>
+				<item id="f89"/>
+				<item id="f8a"/>
+				<item id="f8b"/>
+				<item id="f8c"/>
+				<item id="f8d"/>
+				<item id="f8e"/>
+				<item id="f8f"/>
+				<item id="f90"/>
+				<item id="f91"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Alchemist (Female)</category>
+		<invulnerable />
+	</npc>
+
+</definitions>

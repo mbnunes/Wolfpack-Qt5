@@ -1,0 +1,56 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A tanner vendor -->
+	<npc id="tanner_male">
+		<inherit>base_male</inherit>
+		<title>the Tanner</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="1711">
+					<amount>10</amount>
+				</item>
+				<item id="170f">
+					<amount>10</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="1711"/>
+				<item id="170f"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Tanner (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="tanner_female">
+		<inherit>base_female</inherit>
+		<title>the Tanner</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="1711">
+					<amount>10</amount>
+				</item>
+				<item id="170f">
+					<amount>10</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="1711"/>
+				<item id="170f"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Tanner (Female)</category>
+		<invulnerable />
+	</npc>
+
+</definitions>

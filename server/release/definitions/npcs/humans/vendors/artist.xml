@@ -1,0 +1,28 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A artist -->
+	<npc id="artist_male">
+		<inherit>base_male</inherit>
+		<title>the Artist</title>
+		<ai>Human_Vendor</ai>
+		<category>Vendors\Artist (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="artist_female">
+		<inherit>base_female</inherit>
+		<title>the Artist</title>
+		<ai>Human_Vendor</ai>
+		<category>Vendors\Artist (Female)</category>
+		<invulnerable />
+	</npc>
+
+</definitions>

@@ -1,0 +1,40 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A weaponsmith vendor -->
+	<npc id="weaponsmith_male">
+		<inherit>base_male</inherit>
+		<title>the Weaponsmith</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Weaponsmith (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="weaponsmith_female">
+		<inherit>base_female</inherit>
+		<title>the Weaponsmith</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Weaponsmith (Female)</category>
+		<invulnerable />
+	</npc>
+
+</definitions>

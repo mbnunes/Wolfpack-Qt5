@@ -1,0 +1,70 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- Stablemaster (no real vendor) -->
+	<npc id="stablemaster_male">
+		<inherit>base_male</inherit>
+		<title>the Stablemaster</title>
+		<ai>Human_Stablemaster</ai>
+		<fencing>
+			<random min="150" max="380"/>
+		</fencing>
+		<parrying>
+			<random min="450" max="680"/>
+		</parrying>
+		<swordsmanship>
+			<random min="150" max="380"/>
+		</swordsmanship>
+		<wrestling>
+			<random min="150" max="380"/>
+		</wrestling>
+		<macefighting>
+			<random min="150" max="380"/>
+		</macefighting>
+		<magicresistance>
+			<random min="450" max="680"/>
+		</magicresistance>
+		<tactics>
+			<random min="450" max="680"/>
+		</tactics>
+		<category>Vendors\Stablemaster (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="stablemaster_female">
+		<inherit>base_female</inherit>
+		<title>the Stablemaster</title>
+		<ai>Human_Stablemaster</ai>
+		<fencing>
+			<random min="150" max="380"/>
+		</fencing>
+		<parrying>
+			<random min="450" max="680"/>
+		</parrying>
+		<swordsmanship>
+			<random min="150" max="380"/>
+		</swordsmanship>
+		<wrestling>
+			<random min="150" max="380"/>
+		</wrestling>
+		<macefighting>
+			<random min="150" max="380"/>
+		</macefighting>
+		<magicresistance>
+			<random min="450" max="680"/>
+		</magicresistance>
+		<tactics>
+			<random min="450" max="680"/>
+		</tactics>
+		<category>Vendors\Stablemaster (Female)</category>
+		<invulnerable />
+	</npc>
+
+</definitions>

@@ -1,0 +1,248 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A mage vendor -->
+	<npc id="mage_male">
+		<inherit>base_male</inherit>
+		<title>the Mage</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="efa">
+					<amount>10</amount>
+				</item>
+				<item id="1f14">
+					<amount>10</amount>
+				</item>
+				<item id="1f15">
+					<amount>10</amount>
+				</item>
+				<item id="1f16">
+					<amount>10</amount>
+				</item>
+				<item id="1f17">
+					<amount>10</amount>
+				</item>
+				<item id="1f2e">
+					<amount>10</amount>
+				</item>
+				<item id="1f2f">
+					<amount>10</amount>
+				</item>
+				<item id="1f30">
+					<amount>10</amount>
+				</item>
+				<item id="1f31">
+					<amount>10</amount>
+				</item>
+				<item id="1f32">
+					<amount>10</amount>
+				</item>
+				<item id="1f33">
+					<amount>10</amount>
+				</item>
+				<item id="1f2d">
+					<amount>10</amount>
+				</item>
+				<item id="1f34">
+					<amount>10</amount>
+				</item>
+				<item id="1f35">
+					<amount>10</amount>
+				</item>
+				<item id="1f36">
+					<amount>10</amount>
+				</item>
+				<item id="1f37">
+					<amount>10</amount>
+				</item>
+				<item id="1f38">
+					<amount>10</amount>
+				</item>
+				<item id="f7a">
+					<amount>50</amount>
+				</item>
+				<item id="f7b">
+					<amount>50</amount>
+				</item>
+				<item id="f84">
+					<amount>50</amount>
+				</item>
+				<item id="f85">
+					<amount>50</amount>
+				</item>
+				<item id="f86">
+					<amount>50</amount>
+				</item>
+				<item id="f88">
+					<amount>50</amount>
+				</item>
+				<item id="f8c">
+					<amount>50</amount>
+				</item>
+				<item id="f8d">
+					<amount>50</amount>
+				</item>
+				<item id="e34">
+					<amount>10</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="efa"/>
+				<item id="1f14"/>
+				<item id="1f15"/>
+				<item id="1f16"/>
+				<item id="1f17"/>
+				<item id="1f2e"/>
+				<item id="1f2f"/>
+				<item id="1f30"/>
+				<item id="1f31"/>
+				<item id="1f32"/>
+				<item id="1f33"/>
+				<item id="1f2d"/>
+				<item id="1f34"/>
+				<item id="1f35"/>
+				<item id="1f36"/>
+				<item id="1f37"/>
+				<item id="1f38"/>
+				<item id="f7a"/>
+				<item id="f7b"/>
+				<item id="f84"/>
+				<item id="f85"/>
+				<item id="f86"/>
+				<item id="f88"/>
+				<item id="f8c"/>
+				<item id="f8d"/>
+				<item id="e34"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Mage (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="mage_female">
+		<inherit>base_female</inherit>
+		<title>the Mage</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="efa">
+					<amount>10</amount>
+				</item>
+				<item id="1f14">
+					<amount>10</amount>
+				</item>
+				<item id="1f15">
+					<amount>10</amount>
+				</item>
+				<item id="1f16">
+					<amount>10</amount>
+				</item>
+				<item id="1f17">
+					<amount>10</amount>
+				</item>
+				<item id="1f2e">
+					<amount>10</amount>
+				</item>
+				<item id="1f2f">
+					<amount>10</amount>
+				</item>
+				<item id="1f30">
+					<amount>10</amount>
+				</item>
+				<item id="1f31">
+					<amount>10</amount>
+				</item>
+				<item id="1f32">
+					<amount>10</amount>
+				</item>
+				<item id="1f33">
+					<amount>10</amount>
+				</item>
+				<item id="1f2d">
+					<amount>10</amount>
+				</item>
+				<item id="1f34">
+					<amount>10</amount>
+				</item>
+				<item id="1f35">
+					<amount>10</amount>
+				</item>
+				<item id="1f36">
+					<amount>10</amount>
+				</item>
+				<item id="1f37">
+					<amount>10</amount>
+				</item>
+				<item id="1f38">
+					<amount>10</amount>
+				</item>
+				<item id="f7a">
+					<amount>50</amount>
+				</item>
+				<item id="f7b">
+					<amount>50</amount>
+				</item>
+				<item id="f84">
+					<amount>50</amount>
+				</item>
+				<item id="f85">
+					<amount>50</amount>
+				</item>
+				<item id="f86">
+					<amount>50</amount>
+				</item>
+				<item id="f88">
+					<amount>50</amount>
+				</item>
+				<item id="f8c">
+					<amount>50</amount>
+				</item>
+				<item id="f8d">
+					<amount>50</amount>
+				</item>
+				<item id="e34">
+					<amount>10</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="efa"/>
+				<item id="1f14"/>
+				<item id="1f15"/>
+				<item id="1f16"/>
+				<item id="1f17"/>
+				<item id="1f2e"/>
+				<item id="1f2f"/>
+				<item id="1f30"/>
+				<item id="1f31"/>
+				<item id="1f32"/>
+				<item id="1f33"/>
+				<item id="1f2d"/>
+				<item id="1f34"/>
+				<item id="1f35"/>
+				<item id="1f36"/>
+				<item id="1f37"/>
+				<item id="1f38"/>
+				<item id="f7a"/>
+				<item id="f7b"/>
+				<item id="f84"/>
+				<item id="f85"/>
+				<item id="f86"/>
+				<item id="f88"/>
+				<item id="f8c"/>
+				<item id="f8d"/>
+				<item id="e34"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Mage (Female)</category>
+		<invulnerable />
+	</npc>
+
+</definitions>

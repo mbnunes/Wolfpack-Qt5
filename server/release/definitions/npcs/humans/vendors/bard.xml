@@ -1,0 +1,40 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A bard vendor -->
+	<npc id="bard_male">
+		<inherit>base_male</inherit>
+		<title>the Bard</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Bard (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="bard_female">
+		<inherit>base_female</inherit>
+		<title>the Bard</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Bard (Female)</category>
+		<invulnerable />
+	</npc>
+
+</definitions>

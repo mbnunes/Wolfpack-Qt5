@@ -1,0 +1,66 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A Tailor vendor -->
+	<npc id="tailor_male">
+		<inherit>base_male</inherit>
+		<title>the Tailor</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="153f">
+					<amount>10</amount>
+				</item>
+				<item id="1515">
+					<amount>10</amount>
+				</item>
+				<item id="108b">
+					<amount>10</amount>
+				</item>
+				<item id="1516">
+					<amount>10</amount>
+				</item>
+				<item id="1517">
+					<amount>10</amount>
+				</item>
+			</restockable>
+		</shopkeeper>
+		<category>Vendors\Tailor (Male)</category>
+		<invulnerable />
+	</npc>
+	
+	<npc id="tailor_female">
+		<inherit>base_female</inherit>
+		<title>the Tailor</title>
+		<ai>Human_Vendor</ai>
+		<shopkeeper>
+			<restockable>
+				<item id="153f">
+					<amount>10</amount>
+				</item>
+				<item id="1515">
+					<amount>10</amount>
+				</item>
+				<item id="108b">
+					<amount>10</amount>
+				</item>
+				<item id="1516">
+					<amount>10</amount>
+				</item>
+				<item id="1517">
+					<amount>10</amount>
+				</item>
+			</restockable>
+		</shopkeeper>
+		<category>Vendors\Tailor (Female)</category>
+		<invulnerable />
+	</npc>
+
+</definitions>
