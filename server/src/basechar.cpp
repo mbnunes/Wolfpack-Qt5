@@ -1220,7 +1220,11 @@ bool cBaseChar::onDeath()
 
 	return false;
 }
-
+bool cBaseChar::onCHLevelChange( SERIAL multi_serial )
+{
+	cMulti* multi = dynamic_cast< cMulti* >( FindItemBySerial( multi_serial ) );
+	return false;
+}
 bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
 	if( scriptChain )

@@ -117,13 +117,17 @@ cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data )
 
 cUOPacket *cUORxAosMultiPurpose::packet( const QByteArray& data )
 {
+#pragma message(__FILE__ Reminder "Add CH packets creation for all commands")
+
 	cUOPacket temp( data );
-	
+
 	switch( temp.getShort( 7 ) )
 	{
+	case CHLevel:
+		return new cUORxCHLevel( data ); break;
 	default:
 		{
-			//qWarning("Unknown cUORxMultiPurpose subcommand");
+			//qWarning("Unknown cUORxAosMultiPurpose subcommand");
 			//qWarning( cUOPacket::dump( data ) );
 			return new cUOPacket( data );
 		}

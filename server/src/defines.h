@@ -32,6 +32,11 @@
 #if !defined(__DEFINES_H__)
 #define __DEFINES_H__
 
+#define _ST_( L ) #L
+#define _MST_( M, L ) M(L)
+#define $LINE _MST_(_ST_, __LINE__)
+#define Reminder  "("$LINE"):Remind: "
+
 #define MAXLOOPS 250000
 #define MaxZstep 5
 

@@ -167,6 +167,18 @@ public:
 	void handleDye( cUORxDye* packet );
 	void handleProfile( cUORxProfile* packet );
 	void handleRename( cUORxRename* packet );
+	void handleAosMultiPurpose( cUORxAosMultiPurpose *packet );
+	void handleCHBackup( cUORxAosMultiPurpose *packet );
+	void handleCHRestore( cUORxAosMultiPurpose *packet );
+	void handleCHCommit( cUORxAosMultiPurpose *packet );
+	void handleCHDelete( cUORxCHDelete *packet );
+	void handleCHAddElement( cUORxCHAddElement *packet );
+	void handleCHClose( cUORxAosMultiPurpose *packet );
+	void handleCHStairs( cUORxCHStairs *packet );
+	void handleCHSync( cUORxAosMultiPurpose *packet );
+	void handleCHClear( cUORxAosMultiPurpose *packet );
+	void handleCHLevel( cUORxCHLevel *packet );
+	void handleCHRevert( cUORxAosMultiPurpose *packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );

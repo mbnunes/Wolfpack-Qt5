@@ -34,6 +34,7 @@
 // Wolfpack Includes
 #include "../typedefs.h"
 #include "uopacket.h"
+#include "../defines.h"
 
 // Qt Includes
 #include <qcstring.h>
@@ -581,11 +582,12 @@ public:
 	uint y() const { return getInt( 20 ); }
 	uint z() const { return getInt( 25 ); }
 };
+
 // 0xD7 0x06 Build wall or other element when customizing house
-class cUORxCHBuild : public cUORxAosMultiPurpose
+class cUORxCHAddElement : public cUORxAosMultiPurpose
 {
 public:
-	cUORxCHBuild( const QByteArray &data ): cUORxAosMultiPurpose( data ) {}
+	cUORxCHAddElement( const QByteArray &data ): cUORxAosMultiPurpose( data ) {}
 	uint elementId() const { return getInt( 10 ); }
 	uint x() const { return getInt( 15 ); }
 	uint y() const { return getInt( 20 ); }

@@ -286,6 +286,8 @@ void cUOSocket::recieve()
 		handleMultiPurpose( dynamic_cast< cUORxMultiPurpose* >( packet ) ); break;
 	case 0xC8:
 		handleUpdateRange( dynamic_cast< cUORxUpdateRange* >( packet ) ); break;
+	case 0xD7:
+		handleAosMultiPurpose( dynamic_cast< cUORxAosMultiPurpose* >( packet ) ); break;
 	case 0x95:
 		handleDye( dynamic_cast< cUORxDye* >( packet ) ); break;
 	case 0xD4:
@@ -968,6 +970,82 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 		Console::instance()->log( LOG_WARNING, packet->dump( packet->uncompressed() ) );	
 	}; 
 } 
+
+/*!
+  This method handles cUORxAosMultiPurpose packet types.
+  \sa cUORxAosMultiPurpose
+*/
+void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose *packet ) 
+{ 
+	if ( !packet ) // Happens if it's not inherited from cUORxAosMultiPurpose
+		return;
+
+	switch( packet->subCommand() ) 
+	{ 
+		case cUORxAosMultiPurpose::CHBackup:
+			handleCHBackup( packet ); break;
+		case cUORxAosMultiPurpose::CHRestore:
+			handleCHRestore( packet ); break;
+		case cUORxAosMultiPurpose::CHCommit:	
+			handleCHCommit( packet ); break;
+		case cUORxAosMultiPurpose::CHDelete:	
+			handleCHDelete( dynamic_cast< cUORxCHDelete* >( packet ) ); break;
+		case cUORxAosMultiPurpose::CHAddElement:
+			handleCHAddElement( dynamic_cast< cUORxCHAddElement* >( packet ) ); break;
+		case cUORxAosMultiPurpose::CHClose:
+			handleCHClose( packet ); break;
+		case cUORxAosMultiPurpose::CHStairs:
+			handleCHStairs( dynamic_cast< cUORxCHStairs* >( packet ) ); break;
+		case cUORxAosMultiPurpose::CHSync:	
+			handleCHSync( packet ); break;
+		case cUORxAosMultiPurpose::CHClear:
+			handleCHClear( packet ); break;
+		case cUORxAosMultiPurpose::CHLevel:
+			handleCHLevel( dynamic_cast< cUORxCHLevel* >( packet ) ); break;
+		case cUORxAosMultiPurpose::CHRevert:
+			handleCHRevert( packet ); break;
+/*		case cUORxAosMultiPurpose::AbilitySelect:
+			handleAbilitySelect( dynamic_cast< */
+		default:
+			Console::instance()->log( LOG_WARNING, packet->dump( packet->uncompressed() ) );	
+	}; 
+} 
+#pragma message(__FILE__ Reminder "Implement Custom House subcommands here")
+void cUOSocket::handleCHBackup( cUORxAosMultiPurpose *packet )
+{
+}
+void cUOSocket::handleCHRestore( cUORxAosMultiPurpose *packet )
+{
+}
+void cUOSocket::handleCHCommit( cUORxAosMultiPurpose *packet )
+{
+}
+void cUOSocket::handleCHDelete( cUORxCHDelete *packet )
+{
+}
+void cUOSocket::handleCHAddElement( cUORxCHAddElement *packet )
+{
+}
+void cUOSocket::handleCHClose( cUORxAosMultiPurpose *packet )
+{
+}
+void cUOSocket::handleCHStairs( cUORxCHStairs *packet )
+{
+}
+void cUOSocket::handleCHSync( cUORxAosMultiPurpose *packet )
+{
+}
+void cUOSocket::handleCHClear( cUORxAosMultiPurpose *packet )
+{
+}
+void cUOSocket::handleCHLevel( cUORxCHLevel *packet )
+{
+	player()->onCHLevelChange( packet->serial() );
+}
+void cUOSocket::handleCHRevert( cUORxAosMultiPurpose *packet )
+{
+}
+
 
 void cUOSocket::handleCastSpell( cUORxCastSpell *packet )
 {

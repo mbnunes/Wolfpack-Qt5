@@ -77,6 +77,7 @@ class QString;
 #define EVENT_SHOWSKILLGUMP			31
 #define EVENT_STATGAIN				32
 #define EVENT_CASTSPELL				33
+#define EVENT_CHLEVELCHANGE			34
 
 class cScriptManager  
 {

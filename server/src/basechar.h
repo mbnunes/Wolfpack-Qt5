@@ -45,9 +45,10 @@
 #include "TmpEff.h"
 #include "territories.h"
 #include "log.h"
+#include "multis.h"
 
+class cMulti;
 class cUOTxTooltipList;
-
 
 
 // This class is the base interface for all char objects. 
@@ -168,6 +169,7 @@ public:
 	bool onDropOnChar( P_ITEM pItem );
 	QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
 	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
+	virtual bool onCHLevelChange( SERIAL multi_serial ); // Fired when player moving trough levels
 	bool onSkillGain( UI08 Skill, SI32 min, SI32 max, bool success );
 	bool onStatGain( UI08 stat, SI08 amount );
 
