@@ -1829,8 +1829,6 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 			pc->priv3[i] = metagm[2][i]; // player defaults is 2
 	}
 
-	}
-
 	pc->MoveTo(str2num(start[buffer[s][0x5B]][2]), str2num(start[buffer[s][0x5B]][3]), str2num(start[buffer[s][0x5B]][4]));
 
 	pc->dir=4;
