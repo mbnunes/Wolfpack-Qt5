@@ -1152,8 +1152,13 @@ void cAllTmpEff::Insert(cTempEffects* pTE)
 
 void cAllTmpEff::Serialize(ISerialization &archive)
 {
-	for( register int i = 0; i < teffects.size(); i++ )
-		archive.writeObject( teffects[i] );
+	std::vector< cTempEffects* >::iterator it = teffects.begin();
+	while( it != teffects.end() )
+	{
+		if( (*it)->isSerializable() )
+			archive.writeObject( (*it) );
+		it++;
+	}
 }
 
 void cAllTmpEff::Dispel( P_CHAR pc_dest )

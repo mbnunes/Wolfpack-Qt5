@@ -60,11 +60,12 @@ protected:
 	SERIAL		sourSer;
 	SERIAL		destSer;
 	std::string objectid;
+	bool		serializable;
 public:
 	unsigned int expiretime;
 	unsigned char dispellable;
 public:
-				cTempEffects() {};
+				cTempEffects() { serializable = true; };
 	virtual		~cTempEffects() {}
 	void		setExpiretime_s(int seconds);
 	void		setExpiretime_ms(float milliseconds);
@@ -77,6 +78,8 @@ public:
 	virtual void Expire() = 0;
 	virtual void		Serialize(ISerialization &archive);
 	virtual std::string objectID() { return objectid;}
+	bool		isSerializable( void ) { return serializable; }
+	void		setSerializable( bool data ) { serializable = data; }
 };
 
 class cTmpEff : public cTempEffects 

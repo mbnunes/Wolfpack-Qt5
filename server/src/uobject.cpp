@@ -318,7 +318,7 @@ QString cUObject::getNodeValue( const QDomElement &Tag )
 				QString selectedName;
 				QDomElement* DefSection = DefManager->getSection( WPDT_NAMELIST, childTag.nodeValue() );
 				if( DefSection->isNull() )
-					selectedName = Tag.text();
+					selectedName = childTag.text();
 				else
 					selectedName = childTag.childNodes().item( RandomNum( 0, childTag.childNodes().count()-1 ) ).nodeName();
 				Value += selectedName;
