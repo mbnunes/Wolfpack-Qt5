@@ -84,6 +84,7 @@ Wolfpack 12.9.13 Beta (SVN)
   - Implemented a "karmalock" property to player objects. If it's True, the player will not
     gain any positive karma anymore.
   - Added Commoner AI.
+  - Fixed mul path detection on windows in release builds.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheep.

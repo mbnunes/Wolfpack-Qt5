@@ -53,7 +53,7 @@ static QString getUOPath()
 	{
 		0,
 	};
-	unsigned long pathLen;
+	unsigned long pathLen = MAX_PATH;
 
 	HKEY tempKey;
 
@@ -71,6 +71,8 @@ static QString getUOPath()
 		}
 		RegCloseKey( tempKey );
 	}
+
+	pathLen = MAX_PATH;
 
 	// Look for 2D Client Path
 	if ( RegOpenKeyExA( HKEY_LOCAL_MACHINE, Registry2d, 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
