@@ -63,6 +63,7 @@ Wolfpack 12.9.13 Beta (CVS)
     between maps.
   - Fixed a walking bug that caused monsters to walk trough certain objects.
   - type="3" in bodyinfo.xml is now correctly interpreted by the core.
+  - Exploit bugfix for locked containers.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.
