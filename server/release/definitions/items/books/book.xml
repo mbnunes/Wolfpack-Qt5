@@ -6,7 +6,7 @@
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
-<definition>
+<definitions>
 	<item id="first_book" type="book">
 		<value>1000</value>
 		<name>a book</name>
@@ -150,4 +150,4 @@ stranger.</page>
 		</content>
 	</item>
 
-</definition>
+</definitions>

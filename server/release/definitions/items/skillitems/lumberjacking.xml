@@ -1,0 +1,23 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg	                        |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- hatchet -->
+	<item id="f43">
+		<id>0xf43</id>
+		<itemhand>2</itemhand>
+		<attack min="2" max="17" />
+		<durability>50</durability>
+		<decay />
+		<value>35</value>
+		<requires type="str">15</requires>
+		<speed>15</speed>
+		<weight>4.0</weight>
+		<type>3</type>
+	</item>
+</definitions>

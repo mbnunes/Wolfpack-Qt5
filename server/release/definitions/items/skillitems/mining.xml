@@ -1,0 +1,26 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg	                        |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- pickaxe -->
+	<item id="e85">
+		<id>0x0E85</id>
+		<hitpoints>20</hitpoints>
+	</item>
+	
+	<!-- ingot -->
+	<item id="1bf2">
+		<id>0x1BF2</id>
+	</item>
+	
+	<!-- forge -->
+	<item id="fb1">
+		<id>0x0FB1</id>
+		<nodecay />
+	</item>
+</definitions>

@@ -83,28 +83,43 @@
 	<menu id="ADD_skillitems">
 		<name>Skill Items</name>
 		
+		<menu inherit="ADD_SKILLITEMS_blacksmithing" />
 		<menu inherit="ADD_SKILLITEMS_carpentry" />
+		<menu inherit="ADD_SKILLITEMS_lumberjacking" />
+		<menu inherit="ADD_SKILLITEMS_mining" />
+	</menu>
+
+	<menu id="ADD_SKILLITEMS_blacksmithing">
+		<name>Blacksmithing Skill Items</name>
+		
+		<menu inherit="ADD_SKILLITEMS_BLACKSMITHING_resources" />
+		<menu inherit="ADD_SKILLITEMS_BLACKSMITHING_tools" />
+	</menu>
+	
+	<menu id="ADD_SKILLITEMS_BLACKSMITHING_resources">
+		<name>Blacksmithing Resources</name>
+		<action type="resource">
+			<name>Ingots</name>
+			<model>0x1BF2</model>
+			<description>Ingots of different kind for blacksmithing</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="RESOURCE_INGOT" amount="1" />
+			</make>
+		</action>
+	</menu>
+
+	<menu id="ADD_SKILLITEMS_BLACKSMITHING_tools">
+		<name>Blacksmithing Tools</name>
 	</menu>
 
 	<menu id="ADD_SKILLITEMS_carpentry">
 		<name>Carpentry Skill Items</name>
 		
-		<menu inherit="ADD_SKILLITEMS_CARPENTRY_tools" />
 		<menu inherit="ADD_SKILLITEMS_CARPENTRY_resources" />
+		<menu inherit="ADD_SKILLITEMS_CARPENTRY_tools" />
 	</menu>
 	
-	<menu id="ADD_SKILLITEMS_CARPENTRY_tools">
-		<name>Carpentry Tools</name>
-		<action>
-			<name>Saw</name>
-			<model>0x1034</model>
-			<description>A standard saw for carpentry</description>
-			<make>
-				<makeitem section="1034" amount="1" />
-			</make>
-		</action>
-	</menu>	
-
 	<menu id="ADD_SKILLITEMS_CARPENTRY_resources">
 		<name>Carpentry Resources</name>
 		<action type="amount">
@@ -117,90 +132,87 @@
 		</action>
 	</menu>	
 
-	<menu id="BLACKSMITHING_swords">
-		<name>Blacksmithing - Swords</name>
-		
+	<menu id="ADD_SKILLITEMS_CARPENTRY_tools">
+		<name>Carpentry Tools</name>
 		<action>
-			<name>Broad sword</name>
-			<model>0x0F5E</model>
-			<description>Craft a broad sword with this option. You can select different materials for this item if you are skilled enough and have the necessary resources!</description>
-			<make name="iron">
-				<useitem itemid="0x1BF2" name="iron ingots" amount="5" />
-				<makeitem section="WEAPONS_IRON_SWORDS_broad" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
-			<make name="bronze">
-				<useitem itemid="0x1BF2" name="bronze ingots" amount="7" />
-				<makeitem section="WEAPONS_BRONZE_SWORDS_broad" amount="1" />
-				<skillcheck skillid="7" min="400" max="950" />
-				<skillcheck skillid="4" min="260" max="600" />
-			</make>
-			<make name="silver">
-				<useitem itemid="0x1BF2" name="silver ingots" amount="8" />
-				<makeitem section="WEAPONS_SILVER_SWORDS_broad" amount="1" />
-				<skillcheck skillid="7" min="470" max="955" />
-				<skillcheck skillid="4" min="280" max="640" />
-			</make>
-			<make name="gold">
-				<useitem itemid="0x1BF2" name="gold ingots" amount="8" />
-				<makeitem section="WEAPONS_GOLD_SWORDS_broad" amount="1" />
-				<skillcheck skillid="7" min="500" max="955" />
-				<skillcheck skillid="4" min="300" max="640" />
-			</make>
-			<make name="agapit">
-				<useitem itemid="0x1BF2" name="agapit ingots" amount="8" />
-				<makeitem section="WEAPONS_AGAPIT_SWORDS_broad" amount="1" />
-				<skillcheck skillid="7" min="520" max="955" />
-				<skillcheck skillid="4" min="320" max="640" />
-			</make>
-			<make  name="shadow">
-				<useitem itemid="0x1BF2" name="shadow ingots" amount="8" />
-				<makeitem section="WEAPONS_SHADOW_SWORDS_broad" amount="1" />
-				<skillcheck skillid="7" min="570" max="955" />
-				<skillcheck skillid="4" min="310" max="640" />
+			<name>Saw</name>
+			<model>0x1034</model>
+			<description>A standard saw for carpentry</description>
+			<make>
+				<makeitem section="1034" amount="1" />
 			</make>
 		</action>
-		<action>
-			<name>Viking sword</name>
-			<model>0x13B9</model>
-			<description>Craft a viking sword with this option.</description>
-			<make>
-				<useitem itemid="0x1BF2" name="iron ingots" amount="6" />
-				<makeitem section="WEAPONS_IRON_SWORDS_viking" amount="1" name="iron viking sword" />
-				<skillcheck skillid="7" min="400" max="850" />
-				<skillcheck skillid="4" min="200" max="500" />
-			</make>
-			<make>
-				<useitem itemid="0x1BF2" name="bronze ingots" amount="8" />
-				<makeitem section="WEAPONS_BRONZE_SWORDS_viking" amount="1" name="bronze viking sword" />
-				<skillcheck skillid="7" min="450" max="950" />
-				<skillcheck skillid="4" min="280" max="600" />
-			</make>
-			<make>
-				<useitem itemid="0x1BF2" name="silver ingots" amount="9" />
-				<makeitem section="WEAPONS_SILVER_SWORDS_viking" amount="1" name="silver viking sword" />
-				<skillcheck skillid="7" min="520" max="955" />
-				<skillcheck skillid="4" min="300" max="640" />
-			</make>
-			<make>
-				<useitem itemid="0x1BF2" name="gold ingots" amount="9" />
-				<makeitem section="WEAPONS_GOLD_SWORDS_viking" amount="1" name="gold viking sword" />
-				<skillcheck skillid="7" min="550" max="955" />
-				<skillcheck skillid="4" min="320" max="640" />
-			</make>
-			<make>
-				<useitem itemid="0x1BF2" name="agapit ingots" amount="9" />
-				<makeitem section="WEAPONS_AGAPIT_SWORDS_viking" amount="1" name="agapit viking sword" />
-				<skillcheck skillid="7" min="590" max="955" />
-				<skillcheck skillid="4" min="340" max="640" />
-			</make>
-			<make>
-				<useitem itemid="0x1BF2" name="shadow ingots" amount="9" />
-				<makeitem section="WEAPONS_SHADOW_SWORDS_viking" amount="1" name="shadow viking sword" />
-				<skillcheck skillid="7" min="620" max="955" />
-				<skillcheck skillid="4" min="330" max="640" />
+	</menu>	
+	
+	<menu id="ADD_SKILLITEMS_lumberjacking">
+		<name>Lumberjacking Skill Items</name>
+		
+		<menu inherit="ADD_SKILLITEMS_LUMBERJACKING_resources" />
+		<menu inherit="ADD_SKILLITEMS_LUMBERJACKING_tools" />
+	</menu>
+	
+	<menu id="ADD_SKILLITEMS_LUMBERJACKING_resources">
+		<name>Lumberjacking Resources</name>
+		<action type="resource">
+			<name>Logs</name>
+			<model>0x1BE0</model>
+			<description>Logs from lumberjacking</description>
+			<make resource="RESOURCE_LOG">
+				<useitem amount="0" />
+				<makeitem section="RESOURCE_LOG" amount="1" />
 			</make>
 		</action>
 	</menu>
+
+	<menu id="ADD_SKILLITEMS_LUMBERJACKING_tools">
+		<name>Lumberjacking Tools</name>
+		<action>
+			<name>Hatchet</name>
+			<model>0xF43</model>
+			<description>A standard hatchet for lumberjacking</description>
+			<make>
+				<makeitem section="f43" amount="1" />
+			</make>
+		</action>
+	</menu>
+	
+	<menu id="ADD_SKILLITEMS_mining">
+		<name>Mining Skill Items</name>
+		
+		<menu inherit="ADD_SKILLITEMS_MINING_resources" />
+		<menu inherit="ADD_SKILLITEMS_MINING_tools" />
+	</menu>
+	
+	<menu id="ADD_SKILLITEMS_MINING_resources">
+		<name>Mining Resources</name>
+		<action type="resource">
+			<name>Ores</name>
+			<model>0x1BE0</model>
+			<description>Ores from mining</description>
+			<make resource="RESOURCE_ORE">
+				<useitem amount="0" />
+				<makeitem section="RESOURCE_ORE" amount="1" />
+			</make>
+		</action>
+	</menu>
+
+	<menu id="ADD_SKILLITEMS_MINING_tools">
+		<name>Mining Tools</name>
+		<action>
+			<name>Pickaxe</name>
+			<model>0xE85</model>
+			<description>A standard pickaxe for mining</description>
+			<make>
+				<makeitem section="e85" amount="1" />
+			</make>
+		</action>
+		<action>
+			<name>Forge</name>
+			<model>0xFB1</model>
+			<description>A standard forge for mining/smelting</description>
+			<make>
+				<makeitem section="fb1" amount="1" />
+			</make>
+		</action>
+	</menu>	
 </definitions>

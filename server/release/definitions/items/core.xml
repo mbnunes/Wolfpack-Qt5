@@ -28,28 +28,6 @@
 		<requires type="str">20</requires>
 	</item>
 
-	<!-- pickaxe -->
-	<item id="0e85">
-		<id>0x0E85</id>
-	</item>
-	
-	<item id="1bf2">
-		<id>0x1BF2</id>
-	</item>
-	
-	<item id="1034">
-		<id>0x1034</id>
-	</item>
-	
-	<item id="1bd7">
-		<id>0x1BD7</id>
-	</item>
-	
-	<!-- forge -->
-	<item id="fb1">
-		<id>0x0FB1</id>
-	</item>
-
 	<!-- longsword -->
 	<item id="13b8">
 		<id>0x13B8</id>
@@ -77,20 +55,6 @@
 		<weight>3.0</weight>
 	</item>
 
-	<!-- hatchet -->
-	<item id="f43">
-		<id>0xf43</id>
-		<itemhand>2</itemhand>
-		<attack min="2" max="17" />
-		<durability>50</durability>
-		<decay />
-		<value>35</value>
-		<requires type="str">15</requires>
-		<speed>15</speed>
-		<weight>4.0</weight>
-		<type>3</type>
-	</item>
-	
 	<!-- Gold -->
 	<item id="eed">
 		<id>0xeed</id>
