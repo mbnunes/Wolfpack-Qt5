@@ -71,10 +71,13 @@ void cScriptManager::reload()
 	cItemIterator iter_items;
 	cCharIterator iter_chars;
 
-	for ( P_ITEM pItem = iter_items.first(); pItem; pItem = iter_items.next() )
+	P_ITEM pItem;
+	P_CHAR pChar;
+
+	for ( pItem = iter_items.first(); pItem; pItem = iter_items.next() )
 		pItem->freezeScriptChain();
 
-	for ( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
+	for ( pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
 		pChar->freezeScriptChain();
 
 	// First unload, then reload
@@ -86,10 +89,10 @@ void cScriptManager::reload()
 
 	load();
 
-	for ( P_ITEM pItem = iter_items.first(); pItem; pItem = iter_items.next() )
+	for ( pItem = iter_items.first(); pItem; pItem = iter_items.next() )
 		pItem->unfreezeScriptChain();
 
-	for ( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
+	for ( pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
 		pChar->unfreezeScriptChain();
 }
 
