@@ -11,7 +11,7 @@
 		<module name="archery_butte" />
 	</script>
 	
-	<script id="wand_clock" type="python">
-		<module name="wand_clock" />
+	<script id="wall_clock" type="python">
+		<module name="wall_clock" />
 	</script>	
 </definitions>
