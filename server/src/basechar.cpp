@@ -120,7 +120,7 @@ cBaseChar::cBaseChar()
 	regenManaTime_ = 0;
 }
 
-cBaseChar::cBaseChar( const cBaseChar& right )
+cBaseChar::cBaseChar( const cBaseChar& right ) : cUObject(right)
 {
 }
 
@@ -128,7 +128,7 @@ cBaseChar::~cBaseChar()
 {
 }
 
-cBaseChar& cBaseChar::operator=( const cBaseChar& right )
+cBaseChar& cBaseChar::operator=( const cBaseChar& /*right*/ )
 {
 	return *this;
 }
@@ -226,7 +226,7 @@ void cBaseChar::load( cBufferedReader& reader, unsigned int version )
 	}
 }
 
-void cBaseChar::postload( unsigned int version )
+void cBaseChar::postload( unsigned int /*version*/ )
 {
 	// Resolve the guarding_ value.
 	SERIAL guarding = ( SERIAL ) guarding_;

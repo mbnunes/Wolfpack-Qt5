@@ -791,7 +791,7 @@ static void processNpc( QMap<QCString, QString> &item, const cElement *node, Equ
 		}
 		else if ( child->name() == "equipped" )
 		{
-			int j;
+			uint j;
 			for ( j = 0; j < child->childCount(); ++j )
 			{
 				const cElement *subchild = child->getChild(j);
@@ -850,8 +850,10 @@ static void ensureCategory( QMap<QString, unsigned int> &categories, unsigned in
 	\notes This command will export the definitions used by the WPGM utility to
 	a file called categories.db in your wolfpack directory.
 */
-void commandExportDefinitions( cUOSocket *socket, const QString &command, const QStringList &args) throw() {
-	if ( QFile::exists( "categories.db" ) && !QFile::remove( "categories.db" ) ) {
+void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/) throw() 
+{
+	if ( QFile::exists( "categories.db" ) && !QFile::remove( "categories.db" ) ) 
+	{
 		socket->sysMessage( "Unable to remove existing categories.db." );
 		return;
 	}

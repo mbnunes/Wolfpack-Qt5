@@ -130,7 +130,7 @@ public:
 		return true;
 	}
 
-	bool startElement( const QString& namespaceURI, const QString& localName, const QString& qName, const QXmlAttributes& atts )
+	bool startElement( const QString& /*namespaceURI*/, const QString& localName, const QString& qName, const QXmlAttributes& atts )
 	{
 		// Some Parent Elements have special meanings
 		if ( stack.isEmpty() )
@@ -163,7 +163,7 @@ public:
 		return true;
 	}
 
-	bool endElement( const QString& namespaceURI, const QString& localName, const QString& qName )
+	bool endElement( const QString& /*namespaceURI*/, const QString& /*localName*/, const QString& /*qName*/ )
 	{
 		if ( stack.isEmpty() )
 		{

@@ -97,10 +97,10 @@ class cBufferedWriter
 {
 private:
 	class cBufferedWriterPrivate *d;
-	const static int buffersize = 4096;
+	QT_STATIC_CONST int buffersize = 4096;
 
 public:
-	cBufferedWriter( const QCString& magic, unsigned int version );
+	Q_EXPLICIT cBufferedWriter( const QCString& magic, unsigned int version );
 	~cBufferedWriter();
 
 	void open( const QString& filename );

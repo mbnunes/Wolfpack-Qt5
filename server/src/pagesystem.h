@@ -130,13 +130,9 @@ protected:
 	cPagesManager()
 	{
 	}
-	cPagesManager( cPagesManager& )
-	{
-	} // Unallow copy constructor
-	cPagesManager& operator=( cPagesManager& )
-	{
-		return *this;
-	} // Unallow Assignment
+private:
+	cPagesManager( cPagesManager& );
+	cPagesManager& operator=( cPagesManager& );
 public:
 	void save()
 	{
