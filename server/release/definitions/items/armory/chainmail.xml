@@ -1,57 +1,59 @@
 <!-- =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Kosh	                        |
-|   )).-' {{ ;'`   | Revised by: sereg, Viper                   |
-|  ( (  ;._ \\ ctr | Last Modification:                         |
+|   )).-' {{ ;'`   | Revised by: sereg, Viper, Dreoth           |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 ================================================================= --> 
 <definitions>
-<!--  chainmail coif --> 
-  <item id="13bb">
-  <name>chainmail coif</name> 
-  <decay /> 
-  <nodye />   
-  <requires type="str">20</requires> 
-  <defense>3.8</defense> 
-  <durability>40</durability> 
-  <id>0x13BB</id> 
-  <restock>10</restock> 
-  <smelt>8</smelt> 
-  <weight>7.0</weight> 
-  <buyprice>130</buyprice>
-  <sellprice>65</sellprice> 
-  <category>Armor\Chainmail\Coif</category>
-  </item>
-<!--  chainmail leggings --> 
-  <item id="13be">
-  <name>chainmail leggings</name>
-  <decay /> 
-  <nodye />
-  <modifier type="dex">-3</modifier>
-  <requires type="str">20</requires> 
-  <defense>6.2</defense>
-  <durability>52</durability> 
-  <id>0x13BE</id>   
-  <restock>10</restock> 
-  <smelt>14</smelt> 
-  <weight>7.0</weight> 
-  <buyprice>166</buyprice>
-  <sellprice>83</sellprice> 
-  <category>Armor\Chainmail\Leggings</category>
-  </item>
-<!--  chainmail tunic --> 
-  <item id="13bf">
-  <name>chainmail tunic</name>
-  <decay /> 
-  <nodye />
-  <modifier type="dex">-5</modifier>  
-  <requires type="str">20</requires> 
-  <defense>10.0</defense> 
-  <durability>52</durability>  
-  <id>0x13bf</id>  
-  <restock>10</restock> 
-  <smelt>14</smelt> 
-  <weight>7.0</weight> 
-  <buyprice>103</buyprice>
-  <category>Armor\Chainmail\Tunic</category> 
-  </item>
-  </definitions>
+
+	<!--  Chainmail Coif -->
+	<item id="13bb">
+		<name>chainmail coif</name>
+		<decay />
+		<nodye />
+		<requires type="str">60</requires>
+		<defense>4</defense>
+		<durability><random min="45" max="60" /></durability>
+		<id>0x13BB</id>
+		<restock>10</restock> 
+		<smelt>8</smelt>
+		<weight>7.0</weight>
+		<buyprice>130</buyprice>
+		<sellprice>65</sellprice>
+		<category>Armor\Chainmail\Coif</category>
+	</item>
+
+	<!--  Chainmail Leggings -->
+	<item id="13be">
+		<name>chainmail leggings</name>
+		<decay />
+		<nodye />
+		<requires type="str">60</requires>
+		<defense>4</defense>
+		<durability><random min="45" max="60" /></durability>
+		<id>0x13BE</id>
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>7.0</weight>
+		<buyprice>166</buyprice>
+		<sellprice>83</sellprice>
+		<category>Armor\Chainmail\Leggings</category>
+	</item>
+
+	<!--  Chainmail Tunic -->
+	<item id="13bf">
+		<name>chainmail tunic</name>
+		<decay />
+		<nodye />
+		<requires type="str">60</requires>
+		<defense>4</defense>
+		<durability><random min="45" max="60" /></durability>
+		<id>0x13bf</id>
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>7.0</weight>
+		<buyprice>103</buyprice>
+		<category>Armor\Chainmail\Tunic</category>
+	</item>
+
+</definitions>

@@ -7,15 +7,16 @@
 =================================================================
 -->
 <definitions>
-	<!-- bascinet helmet -->
+
+	<!-- Bascinet Helmet -->
 	<item id="140c">
 		<name>bascinet</name>
 		<decay />
 		<nodye />
-		<defense>2.4</defense>
-		<durability>108</durability>
+		<defense>7</defense>
+		<durability><random min="40" max="50" /></durability>
 		<id>0x140c</id>
-		<requires type='str'>10</requires> 
+		<requires type='str'>40</requires>
 		<restock>10</restock>
 		<smelt>12</smelt>
 		<weight>5.0</weight>
@@ -24,15 +25,15 @@
 		<category>Armor\Helmets\Bascinet</category>
 	</item>
 
-	<!-- nose helmet -->
+	<!-- Nose Helmet -->
 	<item id="140e">
 		<name>nose helmet</name>
 		<decay />
 		<nodye />
-		<defense>4.1</defense>
-		<durability>52</durability>
+		<defense>4</defense>
+		<durability><random min="45" max="60" /></durability>
 		<id>0x140e</id>
-		<requires type='str'>40</requires> 
+		<requires type='str'>55</requires>
 		<restock>10</restock>
 		<smelt>12</smelt>
 		<weight>5.0</weight>
@@ -41,15 +42,15 @@
 		<category>Armor\Helmets\Nose Helm</category>
 	</item>
 
-	<!-- normal helmet -->
+	<!-- Helmet -->
 	<item id="140a">
 		<name>helmet</name>
 		<decay />
 		<nodye />
-		<defense>4.1</defense>
-		<durability>52</durability>
+		<defense>2</defense>
+		<durability><random min="45" max="60" /></durability>
 		<id>0x140A</id>
-		<requires type='str'>40</requires> 
+		<requires type='str'>45</requires>
 		<restock>10</restock>
 		<smelt>12</smelt>
 		<weight>5.0</weight>
@@ -58,15 +59,15 @@
 		<category>Armor\Helmets\Normal Helm</category>
 	</item>
 
-	<!-- close helmet -->
+	<!-- Close Helmet -->
 	<item id="1408">
 		<name>close helmet</name>
 		<decay />
 		<nodye />
-		<defense>4.1</defense>
-		<durability>52</durability>
+		<defense>3</defense>
+		<durability><random min="45" max="60" /></durability>
 		<id>0x1408</id>
-		<requires type='str'>40</requires> 
+		<requires type='str'>55</requires>
 		<restock>10</restock>
 		<smelt>12</smelt>
 		<weight>5.0</weight>
@@ -74,5 +75,32 @@
 		<sellprice>72</sellprice>
 		<category>Armor\Helmets\Close Helm</category>
 	</item>
+
+	<!-- Orc Helmet -->
+	<item id="1f0b">
+		<name>orc helm</name>
+		<decay />
+		<nodye />
+		<defense>3</defense>
+		<durability><random min="30" max="50" /></durability>
+		<id>0x1f0b</id>
+		<requires type='str'>30</requires>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>5.0</weight>
+		<buyprice>127</buyprice>
+		<sellprice>63</sellprice>
+		<category>Armor\Helmets\Orc Helm (N/S)</category>
+		<category>Clothes\Headwear\Orc Helm (N/S)</category>
+	</item>
+
+	<!-- Orc Helm 2 -->
+	<item id="1f0c">
+		<inherit id="140b" />
+		<id>0x1f0c</id>
+		<category>Armor\Helmets\Orc Helm (W/E)</category>
+		<category>Clothes\Headwear\Orc Helm (W/E)</category>
+	</item>
+
 </definitions>
 

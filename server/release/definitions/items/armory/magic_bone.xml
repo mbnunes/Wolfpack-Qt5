@@ -9,315 +9,315 @@
 
 <definitions>
 	<item id="def_bone_arms">
-			<inherit id="1453" />
-			<defense_arms_head_legs />
-			<category>Armor\Magical\Bone\AR Modified Only\Defense\Bone Arms</category>
-		</item>
+		<inherit id="1453" />
+		<defense_arms_head_legs />
+		<category>Armor\Magical\Bone\AR Modified Only\Defense\Bone Arms</category>
+	</item>
 
-		<item id="guard_bone_arms">
-			<inherit id="1453" />
-			<guarding_arms_head_legs />
-			<category>Armor\Magical\Bone\AR Modified Only\Guarding\Bone Arms</category>
-		</item>
+	<item id="guard_bone_arms">
+		<inherit id="1453" />
+		<guarding_arms_head_legs />
+		<category>Armor\Magical\Bone\AR Modified Only\Guarding\Bone Arms</category>
+	</item>
 
-		<item id="hard_bone_arms">
-			<inherit id="1453" />
-			<hardening_arms_head_legs />
-			<category>Armor\Magical\Bone\AR Modified Only\Hardening\Bone Arms</category>
-		</item>
+	<item id="hard_bone_arms">
+		<inherit id="1453" />
+		<hardening_arms_head_legs />
+		<category>Armor\Magical\Bone\AR Modified Only\Hardening\Bone Arms</category>
+	</item>
 
-		<item id="fort_bone_arms">
-			<inherit id="1453" />
-			<fortification_arms_head_legs />
-			<category>Armor\Magical\Bone\AR Modified Only\Fortification\Bone Arms</category>
-		</item>
+	<item id="fort_bone_arms">
+		<inherit id="1453" />
+		<fortification_arms_head_legs />
+		<category>Armor\Magical\Bone\AR Modified Only\Fortification\Bone Arms</category>
+	</item>
 
-		<item id="invul_bone_arms">
-			<inherit id="1453" />
-			<invulnerability_arms_head_legs />
-			<category>Armor\Magical\Bone\AR Modified Only\Invulnerability\Bone Arms</category>
-		</item>
+	<item id="invul_bone_arms">
+		<inherit id="1453" />
+		<invulnerability_arms_head_legs />
+		<category>Armor\Magical\Bone\AR Modified Only\Invulnerability\Bone Arms</category>
+	</item>
 
-		<item id="durable_bone_arms">
-			<inherit id="1453" />
-			<durable />
-			<category>Armor\Magical\Bone\Durability Modified Only\Durable\Bone Arms</category>
-		</item>
+	<item id="durable_bone_arms">
+		<inherit id="1453" />
+		<durable />
+		<category>Armor\Magical\Bone\Durability Modified Only\Durable\Bone Arms</category>
+	</item>
 
-		<item id="dur_def_bone_arms">
-			<inherit id="1453" />
-			<durable />
-			<defense_arms_head_legs />
-			<category>Armor\Magical\Bone\Durable\Defense\Bone Arms</category>
-		</item>
+	<item id="dur_def_bone_arms">
+		<inherit id="1453" />
+		<durable />
+		<defense_arms_head_legs />
+		<category>Armor\Magical\Bone\Durable\Defense\Bone Arms</category>
+	</item>
 
-		<item id="dur_guard_bone_arms">
-			<inherit id="1453" />
-			<durable />
-			<guarding_arms_head_legs />
-			<category>Armor\Magical\Bone\Durable\Guarding\Bone Arms</category>
-		</item>
+	<item id="dur_guard_bone_arms">
+		<inherit id="1453" />
+		<durable />
+		<guarding_arms_head_legs />
+		<category>Armor\Magical\Bone\Durable\Guarding\Bone Arms</category>
+	</item>
 
-		<item id="dur_hard_bone_arms">
-			<inherit id="1453" />
-			<durable />
-			<hardening_arms_head_legs />
-			<category>Armor\Magical\Bone\Durable\Hardening\Bone Arms</category>
-		</item>
+	<item id="dur_hard_bone_arms">
+		<inherit id="1453" />
+		<durable />
+		<hardening_arms_head_legs />
+		<category>Armor\Magical\Bone\Durable\Hardening\Bone Arms</category>
+	</item>
 
-		<item id="dur_fort_bone_arms">
-			<inherit id="1453" />
-			<durable />
-			<fortification_arms_head_legs />
-			<category>Armor\Magical\Bone\Durable\Fortification\Bone Arms</category>
-		</item>
+	<item id="dur_fort_bone_arms">
+		<inherit id="1453" />
+		<durable />
+		<fortification_arms_head_legs />
+		<category>Armor\Magical\Bone\Durable\Fortification\Bone Arms</category>
+	</item>
 
-		<item id="dur_invul_bone_arms">
-			<inherit id="1453" />
-			<durable />
-			<invulnerability_arms_head_legs />
-			<category>Armor\Magical\Bone\Durable\Invulnerability\Bone Arms</category>
-		</item>
+	<item id="dur_invul_bone_arms">
+		<inherit id="1453" />
+		<durable />
+		<invulnerability_arms_head_legs />
+		<category>Armor\Magical\Bone\Durable\Invulnerability\Bone Arms</category>
+	</item>
 
-		<!-- Substantial -->
-		<item id="substantial_bone_arms">
-			<inherit id="1453" />
-			<substantial />
-			<category>Armor\Magical\Bone\Durability Modified Only\Substantial\Bone Arms</category>
-		</item>
+	<!-- Substantial -->
+	<item id="substantial_bone_arms">
+		<inherit id="1453" />
+		<substantial />
+		<category>Armor\Magical\Bone\Durability Modified Only\Substantial\Bone Arms</category>
+	</item>
 
-		<item id="sub_def_bone_arms">
-			<inherit id="1453" />
-			<substantial />
-			<defense_arms_head_legs />
-			<category>Armor\Magical\Bone\Substantial\Defense\Bone Arms</category>
-		</item>
+	<item id="sub_def_bone_arms">
+		<inherit id="1453" />
+		<substantial />
+		<defense_arms_head_legs />
+		<category>Armor\Magical\Bone\Substantial\Defense\Bone Arms</category>
+	</item>
 
-		<item id="sub_guard_bone_arms">
-			<inherit id="1453" />
-			<substantial />
-			<guarding_arms_head_legs />
-			<category>Armor\Magical\Bone\Substantial\Guarding\Bone Arms</category>
-		</item>
+	<item id="sub_guard_bone_arms">
+		<inherit id="1453" />
+		<substantial />
+		<guarding_arms_head_legs />
+		<category>Armor\Magical\Bone\Substantial\Guarding\Bone Arms</category>
+	</item>
 
-		<item id="sub_hard_bone_arms">
-			<inherit id="1453" />
-			<substantial />
-			<hardening_arms_head_legs />
-			<category>Armor\Magical\Bone\Substantial\Hardening\Bone Arms</category>
-		</item>
+	<item id="sub_hard_bone_arms">
+		<inherit id="1453" />
+		<substantial />
+		<hardening_arms_head_legs />
+		<category>Armor\Magical\Bone\Substantial\Hardening\Bone Arms</category>
+	</item>
 
-		<item id="sub_fort_bone_arms">
-			<inherit id="1453" />
-			<substantial />
-			<fortification_arms_head_legs />
-			<category>Armor\Magical\Bone\Substantial\Fortification\Bone Arms</category>
-		</item>
+	<item id="sub_fort_bone_arms">
+		<inherit id="1453" />
+		<substantial />
+		<fortification_arms_head_legs />
+		<category>Armor\Magical\Bone\Substantial\Fortification\Bone Arms</category>
+	</item>
 
-		<item id="sub_invul_bone_arms">
-			<inherit id="1453" />
-			<substantial />
-			<invulnerability_arms_head_legs />
-			<category>Armor\Magical\Bone\Substantial\Invulnerability\Bone Arms</category>
-		</item>
+	<item id="sub_invul_bone_arms">
+		<inherit id="1453" />
+		<substantial />
+		<invulnerability_arms_head_legs />
+		<category>Armor\Magical\Bone\Substantial\Invulnerability\Bone Arms</category>
+	</item>
 
-		<!-- Massive -->
-		<item id="massive_bone_arms">
-			<inherit id="1453" />
-			<massive />
-			<category>Armor\Magical\Bone\Durability Modified Only\Massive\Bone Arms</category>
-		</item>
+	<!-- Massive -->
+	<item id="massive_bone_arms">
+		<inherit id="1453" />
+		<massive />
+		<category>Armor\Magical\Bone\Durability Modified Only\Massive\Bone Arms</category>
+	</item>
 
-		<item id="mass_def_bone_arms">
-			<inherit id="1453" />
-			<massive />
-			<defense_arms_head_legs />
-			<category>Armor\Magical\Bone\Massive\Defense\Bone Arms</category>
-		</item>
+	<item id="mass_def_bone_arms">
+		<inherit id="1453" />
+		<massive />
+		<defense_arms_head_legs />
+		<category>Armor\Magical\Bone\Massive\Defense\Bone Arms</category>
+	</item>
 
-		<item id="mass_guard_bone_arms">
-			<inherit id="1453" />
-			<massive />
-			<guarding_arms_head_legs />
-			<category>Armor\Magical\Bone\Massive\Guarding\Bone Arms</category>
-		</item>
+	<item id="mass_guard_bone_arms">
+		<inherit id="1453" />
+		<massive />
+		<guarding_arms_head_legs />
+		<category>Armor\Magical\Bone\Massive\Guarding\Bone Arms</category>
+	</item>
 
-		<item id="mass_hard_bone_arms">
-			<inherit id="1453" />
-			<massive />
-			<hardening_arms_head_legs />
-			<category>Armor\Magical\Bone\Massive\Hardening\Bone Arms</category>
-		</item>
+	<item id="mass_hard_bone_arms">
+		<inherit id="1453" />
+		<massive />
+		<hardening_arms_head_legs />
+		<category>Armor\Magical\Bone\Massive\Hardening\Bone Arms</category>
+	</item>
 
 
-		<item id="mass_fort_bone_arms">
-			<inherit id="1453" />
-			<massive />
-			<fortification_arms_head_legs />
-			<category>Armor\Magical\Bone\Massive\Fortification\Bone Arms</category>
-		</item>
+	<item id="mass_fort_bone_arms">
+		<inherit id="1453" />
+		<massive />
+		<fortification_arms_head_legs />
+		<category>Armor\Magical\Bone\Massive\Fortification\Bone Arms</category>
+	</item>
 
-		<item id="mass_invul_bone_arms">
-			<inherit id="1453" />
-			<massive />
-			<invulnerability_arms_head_legs />
-			<category>Armor\Magical\Bone\Massive\Invulnerability\Bone Arms</category>
-		</item>
+	<item id="mass_invul_bone_arms">
+		<inherit id="1453" />
+		<massive />
+		<invulnerability_arms_head_legs />
+		<category>Armor\Magical\Bone\Massive\Invulnerability\Bone Arms</category>
+	</item>
 
-		<!-- Fortified -->
-		<item id="fortified_bone_arms">
-			<inherit id="1453" />
-			<fortified />
-			<category>Armor\Magical\Bone\Durability Modified Only\Fortified\Bone Arms</category>
-		</item>
+	<!-- Fortified -->
+	<item id="fortified_bone_arms">
+		<inherit id="1453" />
+		<fortified />
+		<category>Armor\Magical\Bone\Durability Modified Only\Fortified\Bone Arms</category>
+	</item>
 
-		<item id="fort_def_bone_arms">
-			<inherit id="1453" />
-			<fortified />
-			<defense_arms_head_legs />
-			<category>Armor\Magical\Bone\Fortified\Defense\Bone Arms</category>
-		</item>
+	<item id="fort_def_bone_arms">
+		<inherit id="1453" />
+		<fortified />
+		<defense_arms_head_legs />
+		<category>Armor\Magical\Bone\Fortified\Defense\Bone Arms</category>
+	</item>
 
-		<item id="fort_guard_bone_arms">
-			<inherit id="1453" />
-			<fortified />
-			<guarding_arms_head_legs />
-			<category>Armor\Magical\Bone\Fortified\Guarding\Bone Arms</category>
-		</item>
+	<item id="fort_guard_bone_arms">
+		<inherit id="1453" />
+		<fortified />
+		<guarding_arms_head_legs />
+		<category>Armor\Magical\Bone\Fortified\Guarding\Bone Arms</category>
+	</item>
 
-		<item id="fort_hard_bone_arms">
-			<inherit id="1453" />
-			<fortified />
-			<hardening_arms_head_legs />
-			<category>Armor\Magical\Bone\Fortified\Hardening\Bone Arms</category>
-		</item>
+	<item id="fort_hard_bone_arms">
+		<inherit id="1453" />
+		<fortified />
+		<hardening_arms_head_legs />
+		<category>Armor\Magical\Bone\Fortified\Hardening\Bone Arms</category>
+	</item>
 
-		<item id="fort_fort_bone_arms">
-			<inherit id="1453" />
-			<fortified />
-			<fortification_arms_head_legs />
-			<category>Armor\Magical\Bone\Fortified\Fortification\Bone Arms</category>
-		</item>
+	<item id="fort_fort_bone_arms">
+		<inherit id="1453" />
+		<fortified />
+		<fortification_arms_head_legs />
+		<category>Armor\Magical\Bone\Fortified\Fortification\Bone Arms</category>
+	</item>
 
-		<item id="fort_invul_bone_arms">
-			<inherit id="1453" />
-			<fortified />
-			<invulnerability_arms_head_legs />
-			<category>Armor\Magical\Bone\Fortified\Invulnerability\Bone Arms</category>
-		</item>
+	<item id="fort_invul_bone_arms">
+		<inherit id="1453" />
+		<fortified />
+		<invulnerability_arms_head_legs />
+		<category>Armor\Magical\Bone\Fortified\Invulnerability\Bone Arms</category>
+	</item>
 
-		<!-- Indestructible -->
-		<item id="indestructible_bone_arms">
-			<inherit id="1453" />
-			<indestructible />
-			<category>Armor\Magical\Bone\Durability Modified Only\Indestructible\Bone Arms</category>
-		</item>
+	<!-- Indestructible -->
+	<item id="indestructible_bone_arms">
+		<inherit id="1453" />
+		<indestructible />
+		<category>Armor\Magical\Bone\Durability Modified Only\Indestructible\Bone Arms</category>
+	</item>
 
-		<item id="indes_def_bone_arms">
-			<inherit id="1453" />
-			<indestructible />
-			<defense_arms_head_legs />
-			<category>Armor\Magical\Bone\Indestructible\Defense\Bone Arms</category>
-		</item>
+	<item id="indes_def_bone_arms">
+		<inherit id="1453" />
+		<indestructible />
+		<defense_arms_head_legs />
+		<category>Armor\Magical\Bone\Indestructible\Defense\Bone Arms</category>
+	</item>
 
-		<item id="indes_guard_bone_arms">
-			<inherit id="1453" />
-			<indestructible />
-			<guarding_arms_head_legs />
-			<category>Armor\Magical\Bone\Indestructible\Guarding\Bone Arms</category>
-		</item>
+	<item id="indes_guard_bone_arms">
+		<inherit id="1453" />
+		<indestructible />
+		<guarding_arms_head_legs />
+		<category>Armor\Magical\Bone\Indestructible\Guarding\Bone Arms</category>
+	</item>
 
-		<item id="indes_hard_bone_arms">
-			<inherit id="1453" />
-			<indestructible />
-			<hardening_arms_head_legs />
-			<category>Armor\Magical\Bone\Indestructible\Hardening\Bone Arms</category>
-		</item>
+	<item id="indes_hard_bone_arms">
+		<inherit id="1453" />
+		<indestructible />
+		<hardening_arms_head_legs />
+		<category>Armor\Magical\Bone\Indestructible\Hardening\Bone Arms</category>
+	</item>
 
-		<item id="indes_fort_bone_arms">
-			<inherit id="1453" />
-			<indestructible />
-			<fortification_arms_head_legs />
-			<category>Armor\Magical\Bone\Indestructible\Fortification\Bone Arms</category>
-		</item>
+	<item id="indes_fort_bone_arms">
+		<inherit id="1453" />
+		<indestructible />
+		<fortification_arms_head_legs />
+		<category>Armor\Magical\Bone\Indestructible\Fortification\Bone Arms</category>
+	</item>
 
-		<item id="indes_invul_bone_arms">
-			<inherit id="1453" />
-			<indestructible />
-			<invulnerability_arms_head_legs />
-			<category>Armor\Magical\Bone\Indestructible\Invulnerability\Bone Arms</category>
-		</item>
+	<item id="indes_invul_bone_arms">
+		<inherit id="1453" />
+		<indestructible />
+		<invulnerability_arms_head_legs />
+		<category>Armor\Magical\Bone\Indestructible\Invulnerability\Bone Arms</category>
+	</item>
 
 	<item id="def_bone_armor">
-			<inherit id="144f" />
-			<defense_body />
-			<category>Armor\Magical\Bone\AR Modified Only\Defense\Bone Armor</category>
-		</item>
+		<inherit id="144f" />
+		<defense_body />
+		<category>Armor\Magical\Bone\AR Modified Only\Defense\Bone Armor</category>
+	</item>
 
-		<item id="guard_bone_armor">
-			<inherit id="144f" />
-			<guarding_body />
-			<category>Armor\Magical\Bone\AR Modified Only\Guarding\Bone Armor</category>
-		</item>
+	<item id="guard_bone_armor">
+		<inherit id="144f" />
+		<guarding_body />
+		<category>Armor\Magical\Bone\AR Modified Only\Guarding\Bone Armor</category>
+	</item>
 
-		<item id="hard_bone_armor">
-			<inherit id="144f" />
-			<hardening_body />
-			<category>Armor\Magical\Bone\AR Modified Only\Hardening\Bone Armor</category>
-		</item>
+	<item id="hard_bone_armor">
+		<inherit id="144f" />
+		<hardening_body />
+		<category>Armor\Magical\Bone\AR Modified Only\Hardening\Bone Armor</category>
+	</item>
 
-		<item id="fort_bone_armor">
-			<inherit id="144f" />
-			<fortification_body />
-			<category>Armor\Magical\Bone\AR Modified Only\Fortification\Bone Armor</category>
-		</item>
+	<item id="fort_bone_armor">
+		<inherit id="144f" />
+		<fortification_body />
+		<category>Armor\Magical\Bone\AR Modified Only\Fortification\Bone Armor</category>
+	</item>
 
-		<item id="invul_bone_armor">
-			<inherit id="144f" />
-			<invulnerability_body />
-			<category>Armor\Magical\Bone\AR Modified Only\Invulnerability\Bone Armor</category>
-		</item>
+	<item id="invul_bone_armor">
+		<inherit id="144f" />
+		<invulnerability_body />
+		<category>Armor\Magical\Bone\AR Modified Only\Invulnerability\Bone Armor</category>
+	</item>
 
-		<item id="durable_bone_armor">
-			<inherit id="144f" />
-			<durable />
-			<category>Armor\Magical\Bone\Durability Modified Only\Durable\Bone Armor</category>
-		</item>
+	<item id="durable_bone_armor">
+		<inherit id="144f" />
+		<durable />
+		<category>Armor\Magical\Bone\Durability Modified Only\Durable\Bone Armor</category>
+	</item>
 
-		<item id="dur_def_bone_armor">
-			<inherit id="144f" />
-			<durable />
-			<defense_body />
-			<category>Armor\Magical\Bone\Durable\Defense\Bone Armor</category>
-		</item>
+	<item id="dur_def_bone_armor">
+		<inherit id="144f" />
+		<durable />
+		<defense_body />
+		<category>Armor\Magical\Bone\Durable\Defense\Bone Armor</category>
+	</item>
 
-		<item id="dur_guard_bone_armor">
-			<inherit id="144f" />
-			<durable />
-			<guarding_body />
-			<category>Armor\Magical\Bone\Durable\Guarding\Bone Armor</category>
-		</item>
+	<item id="dur_guard_bone_armor">
+		<inherit id="144f" />
+		<durable />
+		<guarding_body />
+		<category>Armor\Magical\Bone\Durable\Guarding\Bone Armor</category>
+	</item>
 
-		<item id="dur_hard_bone_armor">
-			<inherit id="144f" />
-			<durable />
-			<hardening_body />
-			<category>Armor\Magical\Bone\Durable\Hardening\Bone Armor</category>
-		</item>
+	<item id="dur_hard_bone_armor">
+		<inherit id="144f" />
+		<durable />
+		<hardening_body />
+		<category>Armor\Magical\Bone\Durable\Hardening\Bone Armor</category>
+	</item>
 
-		<item id="dur_fort_bone_armor">
-			<inherit id="144f" />
-			<durable />
-			<fortification_body />
-			<category>Armor\Magical\Bone\Durable\Fortification\Bone Armor</category>
-		</item>
+	<item id="dur_fort_bone_armor">
+		<inherit id="144f" />
+		<durable />
+		<fortification_body />
+		<category>Armor\Magical\Bone\Durable\Fortification\Bone Armor</category>
+	</item>
 
-		<item id="dur_invul_bone_armor">
-			<inherit id="144f" />
-			<durable />
-			<invulnerability_body />
-			<category>Armor\Magical\Bone\Durable\Invulnerability\Bone Armor</category>
-		</item>
+	<item id="dur_invul_bone_armor">
+		<inherit id="144f" />
+		<durable />
+		<invulnerability_body />
+		<category>Armor\Magical\Bone\Durable\Invulnerability\Bone Armor</category>
+	</item>
 
 		<!-- Substantial -->
 		<item id="substantial_bone_armor">

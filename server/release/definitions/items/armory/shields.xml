@@ -2,8 +2,8 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Kosh	                        |
-|   )).-' {{ ;'`   | Revised by: sereg, Viper                   |
-|  ( (  ;._ \\ ctr | Last Modification: item corrections        |
+|   )).-' {{ ;'`   | Revised by: sereg, Viper, Dreoth           |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 =================================================================
 -->
 <definitions>
@@ -13,10 +13,10 @@
 		<name>buckler</name>
 		<decay />
 		<nodye />
-		<defense>1.1</defense>
-		<durability>28</durability>
+		<defense>0</defense>
+		<durability><random min="40" max="50" /></durability>
 		<id>0x1B73</id>
-		<requires type='str'>15</requires> 
+		<requires type='str'>20</requires>
 		<restock>10</restock>
 		<smelt>8</smelt>
 		<weight>5</weight>
@@ -30,10 +30,10 @@
 		<name>wooden shield</name>
 		<decay />
 		<nodye />
-		<defense>1.2</defense>
-		<durability>22</durability>
+		<defense>0</defense>
+		<durability><random min="20" max="25" /></durability>
 		<id>0x1B7A</id>
-		<requires type='str'>5</requires> 
+		<requires type='str'>20</requires>
 		<restock>10</restock>
 		<weight>5</weight>
 		<buyprice>64</buyprice>
@@ -46,8 +46,8 @@
 		<name>metal shield</name>
 		<decay />
 		<nodye />
-		<defense>1.3</defense>
-		<durability>40</durability>
+		<defense>0</defense>
+		<durability><random min="50" max="65" /></durability>
 		<id>0x1B7B</id>
 		<requires type='str'>20</requires> 
 		<restock>10</restock>
@@ -63,10 +63,10 @@
 		<name>bronze shield</name>
 		<decay />
 		<nodye />
-		<defense>1.4</defense>
-		<durability>28</durability>
+		<defense>0</defense>
+		<durability><random min="25" max="30" /></durability>
 		<id>0x1B72</id>
-		<requires type='str'>20</requires> 
+		<requires type='str'>35</requires>
 		<restock>10</restock>
 		<smelt>4</smelt>
 		<weight>27</weight>
@@ -80,10 +80,10 @@
 		<name>kite shield</name>
 		<decay />
 		<nodye />
-		<defense>1.6</defense>
-		<durability>52</durability>
+		<defense>0</defense>
+		<durability><random min="50" max="65" /></durability>
 		<id>0x1B78</id>
-		<requires type='str'>15</requires> 
+		<requires type='str'>20</requires>
 		<restock>10</restock>
 		<smelt>6</smelt>
 		<weight>7</weight>
@@ -97,10 +97,10 @@
 		<name>kite shield</name>
 		<decay />
 		<dye />
-		<defense>1.8</defense>
-		<durability>108</durability>
+		<defense>0</defense>
+		<durability><random min="45" max="60" /></durability>
 		<id>0x1B74</id>
-		<requires type='str'>30</requires> 
+		<requires type='str'>45</requires>
 		<restock>10</restock>
 		<smelt>13</smelt>
 		<weight>5</weight>
@@ -114,10 +114,10 @@
 		<name>heater shield</name>
 		<decay />
 		<nodye />
-		<defense>2.0</defense>
-		<durability>34</durability>
+		<defense>0</defense>
+		<durability><random min="50" max="65" /></durability>
 		<id>0x1B76</id>
-		<requires type='str'>30</requires> 
+		<requires type='str'>90</requires>
 		<restock>10</restock>
 		<smelt>14</smelt>
 		<weight>8</weight>
@@ -131,10 +131,10 @@
 		<name>order shield</name>
 		<decay />
 		<nodye />
-		<defense>2.2</defense>
-		<durability>108</durability>
+		<defense>1</defense>
+		<durability><random min="100" max="125" /></durability>
 		<id>0x1BC4</id>
-		<requires type='str'>95</requires> 
+		<requires type='str'>95</requires>
 		<restock>0</restock>
 		<weight>5</weight>
 		<buyprice>0</buyprice>
@@ -147,8 +147,8 @@
 		<name>order shield</name>
 		<decay />
 		<nodye />
-		<defense>2.4</defense>
-		<durability>108</durability>
+		<defense>1</defense>
+		<durability><random min="100" max="125" /></durability>
 		<id>0x1BC3</id>
 		<requires type='str'>95</requires> 
 		<restock>0</restock>
@@ -157,4 +157,5 @@
 		<sellprice>0</sellprice>
 		<category>Armor\Shields\chaos shield</category>
 	</item>
+	
 </definitions>

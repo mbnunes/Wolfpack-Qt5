@@ -15,63 +15,63 @@
 	<define id="dull_copper_armor">
 		<name>dull copper %1</name>
 		<color>0x0973</color>
-		<defense>1.1</defense>
+		<defense>+6</defense>
 		<value>1.1</value>		
 	</define>
 
 	<define id="shadow_armor">
 		<name>shadow %1</name>
 		<color>0x0966</color>
-		<defense>1.2</defense> <!-- this means 110 percent of original defense -->
+		<defense>+2</defense> <!-- this means 110 percent of original defense -->
 		<value>1.2</value>
 	</define>
 	
 	<define id="copper_armor">
 		<name>copper %1</name>
 		<color>0x096e</color>
-		<defense>1.3</defense>
-		<value>1.3</value>		
+		<defense>+1</defense>
+		<value>1.3</value>
 	</define>
 	
 	<define id="bronze_armor">
 		<name>bronze %1</name>
 		<color>0x08a9</color>
-		<defense>1.4</defense>
-		<value>1.4</value>		
+		<defense>+3</defense>
+		<value>1.4</value>
 	</define>
 	
 	<define id="golden_armor">
 		<name>gold %1</name>
 		<color>0x08a5</color>
-		<defense>1.5</defense>
+		<defense>+1</defense>
 		<value>1.5</value>		
 	</define>
 	
 	<define id="agapite_armor">
 		<name>agapite %1</name>
 		<color>0x0979</color>
-		<defense>1.6</defense>
+		<defense>+2</defense>
 		<value>1.6</value>		
 	</define>
 	
 	<define id="verite_armor">
 		<name>verite %1</name>
 		<color>0x089f</color>
-		<defense>1.7</defense>
+		<defense>+3</defense>
 		<value>1.7</value>		
 	</define>
 	
 	<define id="valorite_armor">
 		<name>valorite %1</name>
 		<color>0x08ab</color>
-		<defense>1.8</defense>
+		<defense>+4</defense>
 		<value>1.8</value>		
 	</define>
 	
 	<define id="merkite_armor">
 		<name>merkite %1</name>
 		<color>0x02C3</color>
-		<defense>1.2</defense>
+		<defense>+5</defense>
 		<value>1.6</value>		
 	</define>
 
