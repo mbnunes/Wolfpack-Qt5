@@ -144,20 +144,6 @@ void cUOTxSendSkills::addSkill( Q_UINT16 skillId, Q_UINT16 skill, Q_UINT16 realS
 	setShort( offset+9, 0 ); // Terminator
 }
 
-void cUOTxDrawChar::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color )
-{
-	// Overwrite the last 4 bytes (terminator) and readd them later
-	Q_INT32 offset = count() - 4;
-	resize( count() + 9 );
-	setShort( 1, count() );
-
-	setInt( offset, serial );
-	setShort( offset+4, model|0x8000 );
-	(*this)[offset+6] = layer;
-	setShort( offset+7, color );
-	setInt( offset+9, 0 ); // Terminator
-}
-
 void cUOTxUnicodeSpeech::setText( const QString &data )
 {
 	resize( 50 + (data.length()*2) );
@@ -266,9 +252,14 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	setSerial( pChar->serial() );
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
-	setZ( pChar->pos().z );
-	setHue( pChar->skin() );
-	setBody( pChar->bodyID() );
+	setZ( pChar->pos().z );	
+	setBody(pChar->bodyID());
+
+	if (pChar->isHuman()) {
+		setHue(pChar->skin() | 0x8000);
+	} else {
+		setHue(pChar->skin());
+	}
 	
 	// If he's runningSteps we need to take that into account here
 	// ->runningSteps() is greater than zero in that case
@@ -287,6 +278,21 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 		setFlag( flag() | 0x04 );
 }
 
+
+void cUOTxDrawChar::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color )
+{
+	// Overwrite the last 4 bytes (terminator) and readd them later
+	Q_INT32 offset = count() - 4;
+	resize( count() + 9 );
+	setShort( 1, count() );
+
+	setInt( offset, serial );
+	setShort( offset+4, model|0x8000 );
+	(*this)[offset+6] = layer;
+	setShort( offset+7, color );
+	setInt( offset+9, 0 ); // Terminator
+}
+
 void cUOTxDrawChar::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial() );
@@ -295,7 +301,12 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
 	setDirection( pChar->direction() );
-	setColor( pChar->skin() );
+
+	if (pChar->isHuman()) {
+		setColor(pChar->skin()|0x8000);
+	} else {
+		setColor( pChar->skin() );
+	}
 
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
@@ -354,7 +365,12 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial() );
 	setBody( pChar->bodyID() );
-	setSkin( pChar->skin() );
+	
+	if (pChar->isHuman()) {
+		setSkin(pChar->skin() | 0x8000);
+	} else {
+		setSkin(pChar->skin());
+	}
 	
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );

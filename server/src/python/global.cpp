@@ -720,7 +720,7 @@ static PyObject *wpTiledata( PyObject* self, PyObject* args )
 	{
 		PyDict_SetItemString( dict, "name", PyString_FromString( tile.name ) );
 		PyDict_SetItemString( dict, "height", PyInt_FromLong( tile.height ) );
-		PyDict_SetItemString( dict, "weight", PyFloat_FromDouble( tile.weight ) );
+		PyDict_SetItemString( dict, "weight", PyInt_FromLong( tile.weight ) );
 		PyDict_SetItemString( dict, "layer", PyInt_FromLong( tile.layer ) );
 		PyDict_SetItemString( dict, "animation", PyInt_FromLong( tile.animation ) );
 		PyDict_SetItemString( dict, "quantity", PyInt_FromLong( tile.quantity ) );
