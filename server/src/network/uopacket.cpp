@@ -588,7 +588,7 @@ QCString cUOPacket::dump( const QByteArray &data )
 		{
 			if( actLine * 16 + actRow < length )
 			{
-				QCString number = QString::number( static_cast<uint>(static_cast<Q_UINT8>(data[actLine*16 + actRow])), 16 ) + " ";
+				QCString number = QString::number( static_cast<uint>(static_cast<Q_UINT8>(data[actLine*16 + actRow])), 16 ).latin1() + QCString(" ");
 				//line += QString().sprintf( "%02x ", (unsigned int)((unsigned char)data[actLine * 16 + actRow]) );
 				if ( number.length() < 3 )
 					number.prepend( "0" );
