@@ -81,62 +81,60 @@ INCLUDE IMPLEMENTATION SPECIFIC INFORMATION.
 typedef DWORD fullSbox[4][256];
 
 /* The structure for key information */
-typedef struct 
-	{
+typedef struct
+{
 	BYTE direction;					/* Key used for encrypting or decrypting? */
 #if ALIGN32
 	BYTE dummyAlign[3];				/* keep 32-bit alignment */
 #endif
-	int  keyLen;					/* Length of the key */
-	char keyMaterial[MAX_KEY_SIZE+4];/* Raw key data in ASCII */
+	int keyLen;					/* Length of the key */
+	char keyMaterial[MAX_KEY_SIZE + 4];/* Raw key data in ASCII */
 
 	/* Twofish-specific parameters: */
 	DWORD keySig;					/* set to VALID_SIG by makeKey() */
-	int	  numRounds;				/* number of rounds in cipher */
-	DWORD key32[MAX_KEY_BITS/32];	/* actual key bits, in dwords */
-	DWORD sboxKeys[MAX_KEY_BITS/64];/* key bits used for S-boxes */
+	int numRounds;				/* number of rounds in cipher */
+	DWORD key32[MAX_KEY_BITS / 32];	/* actual key bits, in dwords */
+	DWORD sboxKeys[MAX_KEY_BITS / 64];/* key bits used for S-boxes */
 	DWORD subKeys[TOTAL_SUBKEYS];	/* round subkeys, input/output whitening bits */
 #if REENTRANT
 	fullSbox sBox8x32;				/* fully expanded S-box */
-  #if defined(COMPILE_KEY) && defined(USE_ASM)
+#if defined(COMPILE_KEY) && defined(USE_ASM)
 #undef	VALID_SIG
 #define	VALID_SIG	 0x504D4F43		/* 'COMP':  C is compiled with -DCOMPILE_KEY */
 	DWORD cSig1;					/* set after first "compile" (zero at "init") */
-	void *encryptFuncPtr;			/* ptr to asm encrypt function */
-	void *decryptFuncPtr;			/* ptr to asm decrypt function */
+	void* encryptFuncPtr;			/* ptr to asm encrypt function */
+	void* decryptFuncPtr;			/* ptr to asm decrypt function */
 	DWORD codeSize;					/* size of compiledCode */
 	DWORD cSig2;					/* set after first "compile" */
-	BYTE  compiledCode[5000];		/* make room for the code itself */
-  #endif
+	BYTE compiledCode[5000];		/* make room for the code itself */
 #endif
-	} keyInstance;
+#endif
+} keyInstance;
 
 /* The structure for cipher information */
-typedef struct 
-	{
-	BYTE  mode;						/* MODE_ECB, MODE_CBC, or MODE_CFB1 */
+typedef struct
+{
+	BYTE mode;						/* MODE_ECB, MODE_CBC, or MODE_CFB1 */
 #if ALIGN32
 	BYTE dummyAlign[3];				/* keep 32-bit alignment */
 #endif
-	BYTE  IV[MAX_IV_SIZE];			/* CFB1 iv bytes  (CBC uses iv32) */
+	BYTE IV[MAX_IV_SIZE];			/* CFB1 iv bytes  (CBC uses iv32) */
 
 	/* Twofish-specific parameters: */
 	DWORD cipherSig;				/* set to VALID_SIG by cipherInit() */
-	DWORD iv32[BLOCK_SIZE/32];		/* CBC IV bytes arranged as dwords */
-	} cipherInstance;
+	DWORD iv32[BLOCK_SIZE / 32];		/* CBC IV bytes arranged as dwords */
+} cipherInstance;
 
 /* Function protoypes */
-int makeKey(keyInstance *key, BYTE direction, int keyLen, char *keyMaterial);
+int makeKey( keyInstance* key, BYTE direction, int keyLen, char* keyMaterial );
 
-int cipherInit(cipherInstance *cipher, BYTE mode, char *IV);
+int cipherInit( cipherInstance* cipher, BYTE mode, char* IV );
 
-int blockEncrypt(cipherInstance *cipher, keyInstance *key, BYTE *input,
-				int inputLen, BYTE *outBuffer);
+int blockEncrypt( cipherInstance* cipher, keyInstance* key, BYTE* input, int inputLen, BYTE* outBuffer );
 
-int blockDecrypt(cipherInstance *cipher, keyInstance *key, BYTE *input,
-				int inputLen, BYTE *outBuffer);
+int blockDecrypt( cipherInstance* cipher, keyInstance* key, BYTE* input, int inputLen, BYTE* outBuffer );
 
-int	reKey(keyInstance *key);	/* do key schedule using modified key.keyDwords */
+int reKey( keyInstance* key );	/* do key schedule using modified key.keyDwords */
 
 /* API to check table usage, for use in ECB_TBL KAT */
 #define		TAB_DISABLE			0
@@ -144,7 +142,7 @@ int	reKey(keyInstance *key);	/* do key schedule using modified key.keyDwords */
 #define		TAB_RESET			2
 #define		TAB_QUERY			3
 #define		TAB_MIN_QUERY		50
-int TableOp(int op);
+int TableOp( int op );
 
 #ifndef CONST // warning C4005: 'CONST' : macro redefinition \microsoft visual studio\vc98\include\windef.h(138) : see previous definition of 'CONST'
 #define		CONST				/* helpful C++ syntax sugar, NOP for ANSI C */
@@ -199,71 +197,76 @@ to run the test on the pedagogical code.
 #include <string.h>
 
 #define MAX_BLK_CNT		4		/* max # blocks per call in TestTwofish */
-int TestTwofish(int mode,int keySize) /* keySize must be 128, 192, or 256 */
-	{							/* return 0 iff test passes */
-	keyInstance    ki;			/* key information, including tables */
+int TestTwofish( int mode, int keySize ) /* keySize must be 128, 192, or 256 */
+{
+	/* return 0 iff test passes */
+	keyInstance ki;			/* key information, including tables */
 	cipherInstance ci;			/* keeps mode (ECB, CBC) and IV */
-	BYTE  plainText[MAX_BLK_CNT*(BLOCK_SIZE/8)];
-	BYTE cipherText[MAX_BLK_CNT*(BLOCK_SIZE/8)];
-	BYTE decryptOut[MAX_BLK_CNT*(BLOCK_SIZE/8)];
-	BYTE iv[BLOCK_SIZE/8];
-	int  i,byteCnt;
+	BYTE plainText[MAX_BLK_CNT*( BLOCK_SIZE / 8 )];
+	BYTE cipherText[MAX_BLK_CNT*( BLOCK_SIZE / 8 )];
+	BYTE decryptOut[MAX_BLK_CNT*( BLOCK_SIZE / 8 )];
+	BYTE iv[BLOCK_SIZE / 8];
+	int i, byteCnt;
 
-	if (makeKey(&ki,DIR_ENCRYPT,keySize,NULL) != TRUE)
+	if ( makeKey( &ki, DIR_ENCRYPT, keySize, NULL ) != TRUE )
 		return 1;				/* 'dummy' setup for a 128-bit key */
-	if (cipherInit(&ci,mode,NULL) != TRUE)
+	if ( cipherInit( &ci, mode, NULL ) != TRUE )
 		return 1;				/* 'dummy' setup for cipher */
-	
-	for (i=0;i<keySize/32;i++)	/* select key bits */
-		ki.key32[i]=0x10003 * rand();
-	reKey(&ki);					/* run the key schedule */
 
-	if (mode != MODE_ECB)		/* set up random iv (if needed)*/
-		{
-		for (i=0;i<sizeof(iv);i++)
-			iv[i]=(BYTE) rand();
-		memcpy(ci.iv32,iv,sizeof(ci.iv32));	/* copy the IV to ci */
-		}
+	for ( i = 0; i < keySize / 32; i++ )	/* select key bits */
+		ki.key32[i] = 0x10003 * rand();
+	reKey( &ki );					/* run the key schedule */
+
+	if ( mode != MODE_ECB )		/* set up random iv (if needed)*/
+	{
+		for ( i = 0; i < sizeof( iv ); i++ )
+			iv[i] = ( BYTE ) rand();
+		memcpy( ci.iv32, iv, sizeof( ci.iv32 ) );	/* copy the IV to ci */
+	}
 
 	/* select number of bytes to encrypt (multiple of block) */
 	/* e.g., byteCnt = 16, 32, 48, 64 */
-	byteCnt = (BLOCK_SIZE/8) * (1 + (rand() % MAX_BLK_CNT));
+	byteCnt = ( BLOCK_SIZE / 8 ) * ( 1 + ( rand() % MAX_BLK_CNT ) );
 
-	for (i=0;i<byteCnt;i++)		/* generate test data */
-		plainText[i]=(BYTE) rand();
-	
+	for ( i = 0; i < byteCnt; i++ )		/* generate test data */
+		plainText[i] = ( BYTE ) rand();
+
 	/* encrypt the bytes */
-	if (blockEncrypt(&ci,&ki, plainText,byteCnt*8,cipherText) != byteCnt*8)
+	if ( blockEncrypt( &ci, &ki, plainText, byteCnt * 8, cipherText ) != byteCnt * 8 )
 		return 1;
 
 	/* decrypt the bytes */
-	if (mode != MODE_ECB)		/* first re-init the IV (if needed) */
-		memcpy(ci.iv32,iv,sizeof(ci.iv32));
+	if ( mode != MODE_ECB )		/* first re-init the IV (if needed) */
+		memcpy( ci.iv32, iv, sizeof( ci.iv32 ) );
 
-	if (blockDecrypt(&ci,&ki,cipherText,byteCnt*8,decryptOut) != byteCnt*8)
+	if ( blockDecrypt( &ci, &ki, cipherText, byteCnt * 8, decryptOut ) != byteCnt * 8 )
 		return 1;				
-	
+
 	/* make sure the decrypt output matches original plaintext */
-	if (memcmp(plainText,decryptOut,byteCnt))
+	if ( memcmp( plainText, decryptOut, byteCnt ) )
 		return 1;		
 
 	return 0;					/* tests passed! */
-	}
+}
 
-void main(void)
-	{
-	int testCnt,keySize;
+void main( void )
+{
+	int testCnt, keySize;
 
-	srand((unsigned) time(NULL));	/* randomize */
+	srand( ( unsigned ) time( NULL ) );	/* randomize */
 
-	for (keySize=128;keySize<=256;keySize+=64)
-		for (testCnt=0;testCnt<10;testCnt++)
+	for ( keySize = 128; keySize <= 256; keySize += 64 )
+		for ( testCnt = 0; testCnt < 10; testCnt++ )
+		{
+			if ( TestTwofish( MODE_ECB, keySize ) )
 			{
-			if (TestTwofish(MODE_ECB,keySize))
-				{ printf("ECB Failure at keySize=%d",keySize); return; }
-			if (TestTwofish(MODE_CBC,keySize))
-				{ printf("CBC Failure at keySize=%d",keySize); return; }
+				printf( "ECB Failure at keySize=%d", keySize ); return;
 			}
-	printf("Tests passed");
-	}
+			if ( TestTwofish( MODE_CBC, keySize ) )
+			{
+				printf( "CBC Failure at keySize=%d", keySize ); return;
+			}
+		}
+	printf( "Tests passed" );
+}
 #endif /* TEST_2FISH */
