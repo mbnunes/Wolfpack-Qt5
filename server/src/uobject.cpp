@@ -451,6 +451,8 @@ void cUObject::load( char **result, UINT16 &offset )
 	pos.map = atoi(result[offset++]);
 	eventList_ = QStringList::split( ",", result[offset++] );
 	bindmenu_ = result[offset++];
+
+	PersistentObject::load( result, offset );
 }
 
 void cUObject::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
