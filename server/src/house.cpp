@@ -203,7 +203,7 @@ void buildhouse(int s, int i)
 		}
 		
 		
-		/*
+		
 		if (ishouse(id1, id2)) // strict checking only for houses ! LB
 		{
 			if(!(CheckBuildSite(x,y,z,sx,sy)))
@@ -211,17 +211,17 @@ void buildhouse(int s, int i)
 				sysmessage(s,"Can not build a house at that location (CBS)!");
 				return;
 			}
-		}*/
+		}
 		
-		for (k=-sx;k<sx;k++)//check the SPACEX and SPACEY to make sure they are valid locations....
+		/*for (k=-sx;k<sx;k++)//check the SPACEX and SPACEY to make sure they are valid locations....
 		{
 			for (l=-sy;l<sy;l++)
 			{
 				if ( ( !Movement->CanCharWalk( pc_currchar, x+k, y+l, z ) )&&
 					((pc_currchar->pos.x!=x+k)&&(pc_currchar->pos.y!=y+l)))
-					/*This will take the char making the house out of the space check, be careful 
+					This will take the char making the house out of the space check, be careful 
 					you don't build a house on top of your self..... this had to be done So you 
-					could extra space around houses, (12+) and they would still be buildable.*/
+					could extra space around houses, (12+) and they would still be buildable.
 				{
 					sysmessage(s, "You cannot build your stucture there.");
 					return;
@@ -235,7 +235,7 @@ void buildhouse(int s, int i)
 					return;
 				}
 			}
-		}
+		}*/
 		
 		//Boats ->
 		if(id2>=18) sprintf((char*)temp,"%s's house",pc_currchar->name);//This will make the little deed item you see when you have showhs on say the person's name, thought it might be helpful for GMs.
@@ -840,7 +840,7 @@ bool CheckBuildSite(int x, int y, int z, int sx, int sy)
 		for (checky=y-(sy/2);checky<(y+(sy/2));checky++)
 		{
 			checkz=Map->MapElevation(checkx,checky);
-			if ((checkz>(z-2))&&(checkz<(z+2)))
+			if ((checkz>(z-7))&&(checkz<(z+7)))
 			{
 				ycount++;
 			}
