@@ -159,7 +159,7 @@ SOURCES += \
 	../src/md5.cpp \
 	../src/multi.cpp \
 	../src/npc.cpp \
-	../src/party.cpp
+	../src/party.cpp \
 	../src/pathfinding.cpp \
 	../src/persistentbroker.cpp \
 	../src/persistentobject.cpp \
