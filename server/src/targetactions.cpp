@@ -8,6 +8,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	
 	signed short tempshort;
+	
 
 	P_ITEM pib = FindItemBySerial( bandageSerial );	// item index of bandage
 	
@@ -151,7 +152,9 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				socket->sysMessage( tr("You apply the bandages and the creature looks a bit healthier.") );
 			}
 		}
-		SetTimerSec(&ph->objectdelay,SrvParams->objectDelay() + SrvParams->bandageDelay());
+
+
+		ph->setObjectDelay( SetTimerSec(ph->objectdelay(),SrvParams->objectDelay() + SrvParams->bandageDelay()) );
 		pib->ReduceAmount(1);
 	}
 	return true;

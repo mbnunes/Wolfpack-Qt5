@@ -1268,7 +1268,7 @@ namespace Combat
 		if( pOffender->dead() || pCaller->dead())
 			return;
 
-		cTerritory* pRegion = pCaller->region;
+		cTerritory* pRegion = pCaller->region();
 
 		if( pRegion == NULL )
 			return;

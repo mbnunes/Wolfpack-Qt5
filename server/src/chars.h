@@ -70,13 +70,7 @@ public:
 	
 	
 	
-	//int pagegm; //GM Paging
-	//char region;
-	cTerritory*				region;
-	unsigned int			skilldelay;
-	unsigned int			objectdelay;
-	int						making; // skill number of skill using to make item, 0 if not making anything.
-	SERIAL					lastTarget;
+	
 	char					blocked;
 	char					dir2;
 	unsigned int			spiritspeaktimer; // Timer used for duration of spirit speak
@@ -289,6 +283,14 @@ protected:
 	int						fy1_; //NPC Wander Point 1 y
 	int						fy2_; //NPC Wander Point 2 y
 	signed char				fz1_; //NPC Wander Point 1 z
+
+	//int pagegm; //GM Paging
+	//char region;
+	cTerritory*				region_;
+	unsigned int			skilldelay_;
+	unsigned int			objectdelay_;
+	int						making_; // skill number of skill using to make item, 0 if not making anything.
+	SERIAL					lastTarget_;
 //END ADDED FROM PUBLIC ******************************************
 	QMap< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 
@@ -484,6 +486,13 @@ public:
 	int						fy1() const { return fy1_; }
 	int						fy2() const { return fy2_; }
 	signed char				fz1() const { return fz1_; }
+
+	
+	cTerritory*				region() const { return region_; }
+	unsigned int			skilldelay() const { return skilldelay_; }
+	unsigned int			objectdelay() const { return objectdelay_; }
+	int						making() const { return making_; }
+	SERIAL					lastTarget() const { return lastTarget_; }
 //END ADDED GETTERS***********************************************
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu );
 	cMakeSection*			lastSection( cMakeMenu* basemenu );
@@ -662,6 +671,12 @@ public:
 	void					setFy1( int data ) { fy1_ = data; }
 	void					setFy2( int data ) { fy2_ = data; }
 	void					setFz1( signed char data ) { fz1_ = data; }
+	
+	void					setRegion( cTerritory* data ) { region_ = data; }
+	void					setSkillDelay( unsigned int data ) { skilldelay_ = data; }
+	void					setObjectDelay( unsigned int data ) { objectdelay_ = data; }
+	void					setMaking( int data ) { making_ = data; }
+	void					setLastTarget( SERIAL data ) { lastTarget_ = data; }
 	//END SETTERS********************************************************
 
 	void					clearLastSelections( void );

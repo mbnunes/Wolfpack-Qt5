@@ -41,9 +41,15 @@
 // Wolfpack includes
 #include "globals.h" // uiCurrentTime
 
-inline void SetTimerSec(unsigned int *timer, const short seconds)
+//inline void SetTimerSec(unsigned int *timer, const short seconds)
+//{
+//	*timer=seconds * MY_CLOCKS_PER_SEC + uiCurrentTime;
+//}
+
+inline unsigned int SetTimerSec(unsigned int timer, const short seconds)
 {
-	*timer=seconds * MY_CLOCKS_PER_SEC + uiCurrentTime;
+	return timer = seconds * MY_CLOCKS_PER_SEC + uiCurrentTime;
+
 }
 
 inline QString tr( const char* text, const char* comment = 0, const char* context = "@default" )

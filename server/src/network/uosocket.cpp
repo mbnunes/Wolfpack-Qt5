@@ -379,7 +379,7 @@ void cUOSocket::disconnect( void )
 
 	if( _player )
 	{
-		if( _player->region && _player->region->isGuarded() )
+		if( _player->region() && _player->region()->isGuarded() )
 			_player->setHidden( 1 );
 		else
 		{
@@ -1246,7 +1246,7 @@ void cUOSocket::playMusic()
 	if( !_player );
 		return;
 
-	cTerritory* Region = _player->region;
+	cTerritory* Region = _player->region();
 	UINT32 midi = 0;
 
 	if( _player->war() )

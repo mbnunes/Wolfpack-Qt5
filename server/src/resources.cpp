@@ -1221,7 +1221,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	pos.y = target->y();
 	pos.z = target->z();
 
-	if( pc->skilldelay > uiCurrentTime && !pc->isGM() )
+	if( pc->skilldelay() > uiCurrentTime && !pc->isGM() )
 	{
 		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
 		return true;
@@ -1271,7 +1271,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 			else
 				socket->sysMessage( tr("You cannot find anything here!") );
 
-			pc->skilldelay = uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC;
+			pc->setSkillDelay( uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC );
 			return true;
 		}
 		else if( target->model() )
@@ -1289,7 +1289,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 			else
 				socket->sysMessage( tr("You cannot find anything here!") );
 
-			pc->skilldelay = uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC;
+			pc->setSkillDelay( uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC );
 			return true;
 		}
 		return false;
@@ -1319,7 +1319,7 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	pos.y = target->y();
 	pos.z = target->z();
 
-	if( pc->skilldelay > uiCurrentTime && !pc->isGM() )
+	if( pc->skilldelay() > uiCurrentTime && !pc->isGM() )
 	{
 		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
 		return true;
@@ -1369,7 +1369,7 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 			else
 				socket->sysMessage( tr("You cannot use this here!") );
 
-			pc->skilldelay = uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC;
+			pc->setSkillDelay( uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC );
 			return true;
 		}
 		else if( target->model() )
@@ -1381,7 +1381,7 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 			else
 				socket->sysMessage( tr("You cannot use this here!") );
 
-			pc->skilldelay = uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC;
+			pc->setSkillDelay( uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC );
 			return true;
 		}
 		return false;

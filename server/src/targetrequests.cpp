@@ -119,8 +119,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	newPos.z = target->z() + cTileCache::instance()->tileHeight( target->model() ); // Model Could be a NPC as well i dont like the idea...
 	pChar->moveTo( newPos );
 
-	pChar->region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
-
+	pChar->setRegion( cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y ) );
 	if( node )
 	{
 		pChar->applyDefinition( (*node ) );

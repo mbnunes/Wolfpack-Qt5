@@ -1155,7 +1155,7 @@ cSocketInfoGump::cSocketInfoGump( cUOSocket* socket )
 		addText( 50, 100, tr( "Position:" ), 0x834 );
 		addText( 250, 100, QString("%1,%2,%3 map %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.map ), 0x834 );
 		addText( 50, 120, tr( "Region:" ), 0x834 );
-		addText( 250, 120, QString( "%1" ).arg( pChar->region ? pChar->region->name() : QString("") ), 0x834 );
+		addText( 250, 120, QString( "%1" ).arg( pChar->region() ? pChar->region()->name() : QString("") ), 0x834 );
 		addText( 50, 140, tr( "Account / ACL:" ), 0x834 );
 		addText( 250, 140, QString( "%1 / %2" ).arg( pChar->account()->login() ).arg( pChar->account()->acl() ), 0x834 );
 

@@ -54,7 +54,7 @@
 // Shows the Spellbook gump when using a spellbook
 void useSpellBook( cUOSocket *socket, P_CHAR mage, P_ITEM spellbook )
 {
-	mage->objectdelay = 0;
+	mage->setObjectDelay( 0 );
 
 	if( ( spellbook->contserial != mage->serial ) && ( GetPackOwner( spellbook, 10 ) != mage  ) )
 	{
@@ -113,13 +113,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 	int w = 0;
 	
-	if( !pc_currchar->isGM() && pc_currchar->objectdelay > 10 && pc_currchar->objectdelay >= uiCurrentTime )
+	if( !pc_currchar->isGM() && pc_currchar->objectdelay() > 10 && pc_currchar->objectdelay() >= uiCurrentTime )
 	{
 		socket->sysMessage(tr("You must wait to perform another action."));
 		return;
 	}
 	else
-		pc_currchar->objectdelay = SrvParams->objectDelay() * MY_CLOCKS_PER_SEC + uiCurrentTime;
+		pc_currchar->setObjectDelay( SrvParams->objectDelay() * MY_CLOCKS_PER_SEC + uiCurrentTime );
 	
 	
 	P_ITEM pi = FindItemBySerial( serial );
@@ -282,7 +282,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	case 65: // nodecay item spawner..Ripper
 	case 66: // decaying item spawner..Ripper
 		{
-			pc_currchar->objectdelay = 0;	// no delay for opening containers
+			pc_currchar->setObjectDelay( 0 );	// no delay for opening containers
 			
 			SERIAL contser = pi->contserial;
 			if ( ( contser == INVALID_SERIAL && pc_currchar->inRange( pi, 2 ) ) ||  // Backpack in world - free access to everyone
@@ -296,7 +296,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					pc_currchar->emote( tr( "*%1 loots the body of %2*" ).arg( pc_currchar->name.c_str() ).arg( pi->name2() ), 0x26 );
 				}
 
-				pc_currchar->objectdelay = 0;
+				pc_currchar->setObjectDelay( 0 );
 				socket->sendContainer( pi );
 				return;
 			}
@@ -401,7 +401,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	case 8: // locked item spawner
 	case 64: // locked container //Morrolan traps?
 		// Added traps effects by AntiChrist
-		pc_currchar->objectdelay = 0;
+		pc_currchar->setObjectDelay( 0 );
 		if (pi->moreb1())
 			Magic->MagicTrap(pc_currchar, pi);
 		sysmessage(s, "This item is locked.");
@@ -446,13 +446,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		cBook* pBook = dynamic_cast< cBook* >(pi);
 		if( pBook )
 		{
-			pc_currchar->objectdelay = 0;
+			pc_currchar->setObjectDelay( 0 );
 			pBook->open( socket );
 		}
 		return;
 	}	
 	case 12: // door(unlocked)
-		pc_currchar->objectdelay = 0;
+		pc_currchar->setObjectDelay( 0 );
 		dooruse( socket, pi );
 		return;
 	case 13: // locked door
@@ -465,7 +465,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					if( pMulti->authorized( pc_currchar ) )
 					{
 						socket->sysMessage( tr( "You quickly unlock, use, and then relock the door." ) );
-						pc_currchar->objectdelay = 0;
+						pc_currchar->setObjectDelay( 0 );
 						dooruse( socket, pi );
 						return;
 					}
@@ -484,7 +484,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 							pj->tags.get( "linkserial" ).isValid() && pj->tags.get( "linkserial" ).toUInt() == pi->serial )
 						{
 							socket->sysMessage( tr( "You quickly unlock, use, and then relock the door." ) );
-							pc_currchar->objectdelay = 0;
+							pc_currchar->setObjectDelay( 0 );
 							dooruse( socket, pi );
 							return;
 						}
@@ -498,7 +498,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 	// Food, OSI style
 	case 14:
-		pc_currchar->objectdelay = 0;
+		pc_currchar->setObjectDelay( 0 );
 		if( pi->isLockedDown() )
 			return; // Ripper..cant eat locked down food :)
 		

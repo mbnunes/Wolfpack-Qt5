@@ -263,7 +263,7 @@ void cAllTerritories::load( void )
 	{
 		P_CHAR pc = iterChars.GetData();
 		if( pc )
-			pc->region = region( pc->pos.x, pc->pos.y );
+			pc->setRegion( region( pc->pos.x, pc->pos.y ) );
 	}
 
 	clConsole.send( QString( "Loaded %1 regions in %2 sec.\n" ).arg( this->count() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ) );
@@ -273,14 +273,14 @@ void cAllTerritories::check( P_CHAR pc )
 {
 	cUOSocket *socket = pc->socket();
 	cTerritory* currRegion = this->region( pc->pos.x, pc->pos.y );
-	cTerritory* lastRegion = pc->region;
+	cTerritory* lastRegion = pc->region();
 
 	if( !currRegion )
 		return;
 
 	if( !lastRegion )
 	{
-		pc->region = currRegion;
+		pc->setRegion( currRegion );
 		return;
 	}
 
@@ -315,7 +315,7 @@ void cAllTerritories::check( P_CHAR pc )
 			}
 		}
 
-		pc->region = currRegion;
+		pc->setRegion( currRegion );
 
 		if( socket )
 			socket->playMusic();

@@ -262,7 +262,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 				sysmessage(s, tr("You apply the bandages and the creature looks a bit healthier.") );
 			}
 		}
-		SetTimerSec(&ph->objectdelay,SrvParams->objectDelay() + SrvParams->bandageDelay());
+		ph->setObjectDelay( SetTimerSec(ph->objectdelay,SrvParams->objectDelay() + SrvParams->bandageDelay()) );
 		pib->ReduceAmount(1);
 	}
 }

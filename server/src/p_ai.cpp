@@ -285,7 +285,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						}
 						else if (pc->isPlayer() && pc->isInnocent() && d <= 3)
 						{
-							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg( pc->name.c_str() ).arg( pc->region->name() ), -1, 0, true );
+							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg( pc->name.c_str() ).arg( pc->region()->name() ), -1, 0, true );
 							pc_i->setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*30 );
 						}
 						else if (d <= SrvParams->attack_distance() &&(
@@ -374,7 +374,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						}
 						else if (pc->isPlayer() && pc->isInnocent() && d <= 3)
 						{
-							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg(pc->name.c_str()).arg(pc->region->name()), -1, 0, true );
+							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg(pc->name.c_str()).arg(pc->region()->name()), -1, 0, true );
 							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
 						else if (d <= SrvParams->attack_distance() &&(

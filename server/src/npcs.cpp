@@ -143,7 +143,7 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 
 	pChar->moveTo( pos );
 
-	pChar->region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+	pChar->setRegion( cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y ) );
 
 	pChar->applyDefinition( *DefSection );
 	pChar->resend( false );
@@ -277,7 +277,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 		break;
 	} // no default coz we tested on entry to function
    
-	nChar->region = cAllTerritories::getInstance()->region( nChar->pos.x, nChar->pos.y );
+	nChar->setRegion( cAllTerritories::getInstance()->region( nChar->pos.x, nChar->pos.y ) );
 
 	nChar->applyDefinition( *DefSection );
 	nChar->resend( false );

@@ -1880,7 +1880,7 @@ void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds +
 	impaction(s,0x11);			// I heard there is no action...but I decided to add one
 	soundeffect(s,0x02,0x4A);	// only get the sound if you are successful
 	sysmessage(s,"You establish a connection to the netherworld.");
-	SetTimerSec(&currchar[s]->spiritspeaktimer,SrvParams->spiritspeaktimer()+currchar[s]->in);*/
+	currchar->setSpritSpeakTimer( SetTimerSec(currchar[s]->spiritspeaktimer,SrvParams->spiritspeaktimer()+currchar[s]->in) );*/
 }
 
 void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the skill list
@@ -1912,7 +1912,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		return;
 	}
 
-	if( pChar->skilldelay > uiCurrentTime && !pChar->isGM() )
+	if( pChar->skilldelay() > uiCurrentTime && !pChar->isGM() )
 	{
 		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
 		return;
@@ -2674,7 +2674,7 @@ void cSkills::Persecute ( cUOSocket* socket )
 
 	int decrease = ( pc_currchar->in() / 10 ) + 3;
 
-	if((pc_currchar->skilldelay<=uiCurrentTime) || pc_currchar->isGM())
+	if((pc_currchar->skilldelay()<=uiCurrentTime) || pc_currchar->isGM())
 	{
 		if(((rand()%20)+pc_currchar->in())>45) //not always
 		{
@@ -2851,7 +2851,7 @@ int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 void cSkills::Snooping( P_CHAR player, P_ITEM container )
 {
 	cUOSocket *socket = player->socket();
-
+	
 	if( !socket )
 		return;
 
@@ -2878,7 +2878,11 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 			pc_owner->message( tr( "You notice %1 trying to peek into your pack!" ).arg( player->name.c_str() ) );
 	}
 
-	SetTimerSec(&player->objectdelay, SrvParams->objectDelay()+SrvParams->snoopdelay());
+	
+
+//	SetTimerSec(player->objectdelay(), SrvParams->objectDelay()+SrvParams->snoopdelay());
+	player->setObjectDelay( SetTimerSec(player->objectdelay(), SrvParams->objectDelay()+SrvParams->snoopdelay()) );
+
 }
 
 void cSkills::Cartography( cUOSocket* socket )
@@ -2996,7 +3000,7 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 		else
 			sysmessage(s, "You fail to decipher the map");		// Nope :P
 		// Set the skill delay, no matter if it was a success or not
-		SetTimerSec(&pc_currchar->skilldelay, SrvParams->skillDelay());
+		pc_currchar->setSkillDelay( SetTimerSec(pc_currchar->skilldelay, SrvParams->skillDelay()) );
 		soundeffect(s, 0x02, 0x49);	// Do some inscription sound regardless of success or failure
 		sysmessage(s, "You put the deciphered tresure map in your pack");	// YAY
 	}

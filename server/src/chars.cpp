@@ -220,10 +220,10 @@ void cChar::Init(bool ser)
 	this->setNpcAIType(0); // NPC ai
 	this->setCallNum(-1); //GM Paging
 	this->setPlayerCallNum(-1); //GM Paging
-	this->region=NULL;
-	this->skilldelay=0;
-	this->objectdelay=0;
-	this->making=-1; // skill number of skill using to make item, 0 if not making anything.
+	this->region_= NULL;
+	this->skilldelay_ = 0;
+	this->objectdelay_ = 0;
+	this->making_ = -1; // skill number of skill using to make item, 0 if not making anything.
 	this->blocked=0;
 	this->dir2=0;
 	this->spiritspeaktimer=0; // Timer used for duration of spirit speak
@@ -3298,6 +3298,6 @@ bool cChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 
 void cChar::setSkillDelay() 
 { 	
-	SetTimerSec(&skilldelay,SrvParams->skillDelay());
+	this->setSkillDelay( SetTimerSec(skilldelay_, SrvParams->skillDelay() ) );
 }
 
