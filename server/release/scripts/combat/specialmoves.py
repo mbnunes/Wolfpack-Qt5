@@ -246,6 +246,9 @@ class ArmorIgnore(BaseAbility):
 			
 		self.use(attacker)
 		
+		if defender.dead or defender.pos.map == 0xFF:
+			return # Out of reach		
+		
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060076)
 		if defender.socket:
@@ -273,6 +276,9 @@ class BleedAttack(BaseAbility):
 
 		self.use(attacker)
 		
+		if defender.dead or defender.pos.map == 0xFF:
+			return # Out of reach		
+		
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060159) # Your target is bleeding
 		if defender.socket:
@@ -299,6 +305,9 @@ class ConcussionBlow(BaseAbility):
 			return
 
 		self.use(attacker)
+		
+		if defender.dead or defender.pos.map == 0xFF:
+			return # Out of reach
 		
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060165) # You have delivered a concussion!
@@ -361,6 +370,9 @@ class CrushingBlow(BaseAbility):
 
 		self.use(attacker)
 		
+		if defender.dead or defender.pos.map == 0xFF:
+			return # Out of reach		
+		
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060090) # You have delivered a crushing blow!
 		if defender.socket:
@@ -396,6 +408,9 @@ class Disarm (BaseAbility):
 
 		# Clear Ability, then check if it really can be used
 		clearability(attacker)
+		
+		if defender.dead or defender.pos.map == 0xFF:
+			return # Out of reach		
 		
 		weapon = defender.getweapon()
 		
@@ -469,6 +484,9 @@ class Dismount (BaseAbility):
 		# Clear Ability, then check if it really can be used
 		clearability(attacker)
 		
+		if defender.dead or defender.pos.map == 0xFF:
+			return # Out of reach		
+		
 		if not defender.socket or not defender.itemonlayer(LAYER_MOUNT):
 			if attacker.socket:
 				attacker.socket.clilocmessage(1060848)
@@ -515,6 +533,9 @@ class DoubleStrike(BaseAbility):
 			return
 
 		self.use(attacker)
+		
+		if defender.dead or defender.pos.map == 0xFF:
+			return # Out of reach		
 		
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060084) # You attack with lightning speed!
@@ -577,6 +598,9 @@ class InfectiousStrike(BaseAbility):
 
 		self.use(attacker)
 		
+		if defender.dead or defender.pos.map == 0xFF:
+			return # Out of reach		
+		
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060090) # You have delivered a crushing blow!
 		if defender.socket:
@@ -626,6 +650,9 @@ class MortalStrike(BaseAbility):
 		if not self.checkuse(attacker):
 			return
 		self.use(attacker)
+		
+		if defender.dead or defender.pos.map == 0xFF:
+			return # Out of reach		
 
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060086) # You deliver a mortal wound!
@@ -693,7 +720,7 @@ class MovingShot(BaseAbility):
 			attacker.socket.clilocmessage(1060089)
 		
 	def hit(self, attacker, defender, damage):
-		self.use(attacker)
+		self.use(attacker)	
 		
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060216)
@@ -714,6 +741,9 @@ class ParalyzeBlow(BaseAbility):
 			return
 
 		self.use(attacker)
+		
+		if defender.dead or defender.pos.map == 0xFF:
+			return # Out of reach		
 		
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060163) # You deliver a paralyzing blow!
@@ -764,6 +794,9 @@ class ShadowStrike(BaseAbility):
 
 		self.use(attacker)
 		
+		if defender.dead or defender.pos.map == 0xFF:
+			return # Out of reach		
+		
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060078) # You strike and hide in the shadows!
 		if defender.socket:
@@ -799,6 +832,9 @@ class WhirlwindAttack(BaseAbility):
 			return
 
 		self.use(attacker)
+		
+		if defender.dead or defender.pos.map == 0xFF:
+			return # Out of reach		
 
 		attacker.effect(0x3728, 10, 15)
 		attacker.soundeffect(0x2a1)

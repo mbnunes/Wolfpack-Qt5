@@ -39,6 +39,9 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed an issue with the magic property generator (splash damage and hit spell effects were happening far too often)
   - Tracking skill now does something. It's not yet OSI compatible. Thanks to Surcouf.
   - Implemented smove command to move yourself relatively to your current position without interrupting the current target.
+  - Fixed an encoding issue in bulletin boards.
+  - Fixed an issue with pets and gate travel gates.
+  - Fixed an issue with special moves on already killed characters. (Spamming the log)
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

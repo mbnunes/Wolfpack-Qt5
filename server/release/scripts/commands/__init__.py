@@ -153,13 +153,24 @@ def goname(socket, command, arguments):
 
 	if len(found) == 0:
 		socket.sysmessage('A character with the given name was not found.')
-	else:
-		socket.sysmessage("Going to character '%s' [Serial: 0x%x]." % (found[i].name, found[i].serial))
+	else:		
 		pos = found[i].pos
-		socket.player.removefromview()
-		socket.player.moveto(pos)
-		socket.player.update()
-		socket.resendworld()
+		if pos.map == 0xFF:
+			if found[i].npc:
+				stablemaster = wolfpack.findobject(found[i].stablemaster)
+			else:
+				stablemaster = None
+				
+			if not stablemaster:
+				socket.sysmessage("Not going to character '%s' [Serial: 0x%x]. They are on the internal map." % (found[i].name, found[i].serial))
+			else:
+				socket.sysmessage("Character '%s' [Serial: 0x%x] is stabled in object 0x%x." % (found[i].name, found[i].serial, stablemaster.serial))
+		else:
+			socket.sysmessage("Going to character '%s' [Serial: 0x%x]." % (found[i].name, found[i].serial))
+			socket.player.removefromview()
+			socket.player.moveto(pos)
+			socket.player.update()
+			socket.resendworld()
 
 """
 	\command goitem

@@ -1,5 +1,6 @@
 
 import magic.spellbook
+import wolfpack
 from wolfpack.utilities import *
 from wolfpack import properties
 from wolfpack.consts import EVALUATINGINTEL, MAGICRESISTANCE \

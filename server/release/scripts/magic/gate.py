@@ -28,9 +28,9 @@ def onCollide(player, item):
 	# Move his pets if he has any
 	if player.player:
 		for follower in player.followers:
-			if follower.wandertype == 4 and follower.distanceto(player) < 5:
+			if follower.wandertype == 4 and follower.distanceto(player) in range(0, 6):
 				follower.removefromview()
-				follower.moveto(location)
+				follower.moveto(pos)
 				follower.update(0)
 
 	player.removefromview()

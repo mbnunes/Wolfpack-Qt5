@@ -185,7 +185,7 @@ def bulletinboard(socket, packet):
 					linelen = len(line.encode('utf-8')) + 1
 
 					packet.setbyte(offset, linelen)
-					packet.setascii(offset + 1, line)
+					packet.setascii(offset + 1, line.encode('utf-8'))
 					offset += linelen + 1
 
 				packet.send(char.socket)
