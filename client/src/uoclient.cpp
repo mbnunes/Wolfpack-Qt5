@@ -350,7 +350,7 @@ void cUoClient::run(const QStringList &arguments) {
 		return;
 	}
 
-	//LoginDialog->show(PAGE_LOGIN); // Set up the login screen
+	LoginDialog->show(PAGE_LOGIN); // Set up the login screen
 	//World->changeFacet(ILSHENAR);
 	World->moveCenter(1245, 1758, 0, true);
 	//World->moveCenter(1715, 301, -7, true);
@@ -360,7 +360,8 @@ void cUoClient::run(const QStringList &arguments) {
 
 	// add the world view
 	WorldView = new cWorldView(800, 600);
-	Gui->addControl(WorldView);
+	WorldView->setVisible(false);
+	Gui->addControl(WorldView);	
 
 	while (running()) {
 		lock();
@@ -374,14 +375,16 @@ void cUoClient::run(const QStringList &arguments) {
 		glClear(GL_COLOR_BUFFER_BIT); // Clear both. Background and Z Buffer.
 		glLoadIdentity(); // Return to the identity matrix
 
-		// Process the WorldView move tick
-		WorldView->moveTick();
-
-		// Draw the world first
-		int x, y, width, height;
-		WorldView->getWorldRect(x, y, width, height);
-
-		World->draw(x, y, width, height);
+		// Only bother drawing the world if it's visible
+		if (WorldView->isVisible()) {
+			// Process the WorldView move tick
+			WorldView->moveTick();
+	
+			// Draw the world first
+			int x, y, width, height;
+			WorldView->getWorldRect(x, y, width, height);
+			World->draw(x, y, width, height);
+		}
 
 		Gui->draw(); // Draw the GUI controls
 		Cursor->draw(); // Draw the cursor overlay
