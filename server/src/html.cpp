@@ -213,10 +213,13 @@ void updatehtml()//HTML
 		{
 			if(gm==0)
 			{
-				for(a=0;a<now;a++)
+				register int a;
+				for(a = 0; a < now; ++a)
 				{
-					if(currchar[a]->isGM() && perm[a]) gm++;
-					else if(currchar[a]->isCounselor() && perm[a]) cns++; //bugfix LB
+					if ( !currchar[a] )
+						continue;
+					if( perm[a] && currchar[a]->isGM() ) gm++;
+					else if( perm[a] && currchar[a]->isCounselor() ) cns++; //bugfix LB
 				}
 			}
 			fprintf(html,"%i",gm);
