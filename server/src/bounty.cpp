@@ -29,6 +29,12 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
+/*
+	THIS FILE IS TO BE REMOVED
+	- DarkStorm
+ */
+
+
 #include "bounty.h"
 
 void cBounty::BountyAskVictim( int nVictimSerial, int nMurdererSerial )
