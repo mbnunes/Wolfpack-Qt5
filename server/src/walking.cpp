@@ -433,6 +433,27 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 	}
 }
 
+/*
+ * - SEND OUR OWN STEP TO PLAYERS AROUND US
+ * Two possibilities:
+ * a) send a 0x78 packet to people we came in range
+ * b) send a 0x77 packet to people who see us already
+ */
+void cMovement::sendWalkToOther( P_PLAYER pChar, P_CHAR pWalker, const Coord_cl& oldpos )
+{
+	if( !pWalker || !pChar || !pChar->socket() )
+		return;
+
+	if( pChar->pos().distance( pWalker->pos() ) > pChar->visualRange() )
+		return; // We got out of his visual range.
+	
+	if( pChar->pos().distance( oldpos ) > pChar->visualRange() )
+		pChar->socket()->sendChar( pWalker ); // Previously we were out of range 
+	else
+		pChar->socket()->updateChar( pWalker ); // Previously we were already known
+}
+
+
 /*!
 	This handles if a character actually tries to walk (NPC & Player)
 */
@@ -537,8 +558,6 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 		handleItems( pChar, oldpos );
 		HandleTeleporters( pChar, oldpos );
-		/*HandleWeatherChanges(pChar, socket);
-		HandleItemCollision(pChar, socket, amTurning);*/
 	}
 
 	// do all of the following regardless of whether turning or moving i guess
@@ -554,15 +573,29 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		RegionIterator4Chars ri( player->pos() );
 		for( ri.Begin(); !ri.atEnd(); ri++ )
 		{
-			P_PLAYER pChar_vis = dynamic_cast<P_PLAYER>(ri.GetData());
+			P_NPC pNpc = dynamic_cast< P_NPC >( ri.GetData() );
 
-			if( !pChar_vis )
-				continue;
+			if( pNpc )
+			{
+				if( pNpc->pos().distance( player->pos() ) <= player->visualRange() )
+				{
+					// Is it a *new* character?
+					if( pNpc->pos().distance( oldpos ) > player->visualRange() )
+						player->socket()->sendChar( pNpc );
+				}
+			}
+			else
+			{
+				P_PLAYER pChar_vis = dynamic_cast<P_PLAYER>( ri.GetData() );
 
-			if( ( pChar_vis != player ) &&
-				( !player->isDead() || player->isAtWar() || player->isGM() ) && 
-				( !player->isHidden() || player->isGM() ) )
-				sendWalkToOther( pChar_vis, player, oldpos );
+				if( !pChar_vis )
+					continue;
+
+				if( ( pChar_vis != player ) &&
+					( !player->isDead() || player->isAtWar() || player->isGM() ) && 
+					( !player->isHidden() || player->isGM() ) )
+					sendWalkToOther( pChar_vis, player, oldpos );
+			}
 		}
 	}
 	else
@@ -585,16 +618,6 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// moved or not we can optimize things some
 }
 
-// Thyme 07/28/00
-// Here's how I'm going to use it for now.  Movement Type may be used for races, that's why
-// I put it as an integer.  Here are the values I'm going to use:
-// GM Body  0x01
-// Player   0x02
-// Bird     0x20 (basically, a fish and an NPC, so I could use 0xc0, but I don't wanna)
-// NPC      0x40
-// Fish     0x80 (So they can swim!)
-// I left a gap between Player and NPC because someone may want to implement race
-// restrictions...
 short int cMovement::CheckMovementType(P_CHAR pc)
 {
 	if( pc->objectType() == enPlayer )
@@ -907,54 +930,6 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 		}
 	}
 } //- end of itemcount for loop
-
-void cMovement::sendWalkToOther( P_PLAYER pChar, P_CHAR pWalker, const Coord_cl& oldpos )
-{
-	// What we need to decide here is if we
-	// Need to UPDATE the player (so it's walking on the screen)
-	// Or if we need to CREATE the player if it was not in 
-	// The visibility range of our Viewer
-	if( !pWalker || !pChar )
-		return;
-
-
-	P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pWalker);
-	cUOSocket *socket = NULL;
-	if( pPlayer )
-		socket = pPlayer->socket();
-	cUOSocket *visSocket = pChar->socket();
-
-	// If both are not connected it's useless to send updates
-	if( !visSocket )
-		return;
-
-	// We can see the target and didn't see it before
-	Q_UINT32 newDistance = pChar->pos().distance( pWalker->pos() );
-	Q_UINT32 oldDistance = pChar->pos().distance( oldpos );
-	
-	// We dont see him, he doesn't see us
-	if( pPlayer && ( newDistance > pChar->visualRange() ) && ( newDistance > pPlayer->visualRange() ) )
-		return;
-	else if( !pPlayer && ( newDistance > pChar->visualRange() ) )
-		return;
-
-	// Someone got into our range
-	if( socket && ( newDistance <= pPlayer->visualRange() ) && ( oldDistance > pPlayer->visualRange() ) )
-		socket->sendChar( pChar );
-
-	// This guy is already known to us
-	// So we dont need to send anything as HE didn't walk
-	//if( socket && ( newDistance <= pWalker->VisRange ) && ( oldDistance <= pWalker->VisRange ) )
-	//	socket->updateChar( pChar );
-
-	// We got into somone elses Range
-	if( visSocket && ( newDistance <= pChar->visualRange() ) && ( oldDistance > pChar->visualRange() ) )
-		visSocket->sendChar( pWalker );
-
-	// We are already known to this guy
-	if( visSocket && ( newDistance <= pChar->visualRange() ) && ( oldDistance <= pChar->visualRange() ) )
-		visSocket->updateChar( pWalker );
-}
 
 // This is called whenever a char *HAS* already moved
 // It will handle Collisions with items and sending them as well
