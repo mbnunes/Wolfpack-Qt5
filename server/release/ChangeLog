@@ -2,6 +2,7 @@ Wolfpack 12.9.14 Beta (SVN)
  * Core Changes:
  * Definition Changes:
  * Python Script Changes:
+ 	- Added a follow command.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
