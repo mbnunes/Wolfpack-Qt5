@@ -56,6 +56,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added a bankself command.
   - Rewrite the inscription menu.
   - Finished a conversion of the plant system from RunUO.
+  - Fixed bug #0000382 (pets stayed after released) 
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
