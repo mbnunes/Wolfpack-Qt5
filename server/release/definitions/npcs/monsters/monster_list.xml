@@ -18,7 +18,7 @@
 	<include file="definitions/npcs/monsters/clockwork/index.xml" />
 
 	<!-- Champions -->
-	<include file="definitions/npcs/monsters/champions/index.xml" />
+	<!--<include file="definitions/npcs/monsters/champions/index.xml" />-->
 
 	<!-- Common -->
 	<include file="definitions/npcs/monsters/common/index.xml" />

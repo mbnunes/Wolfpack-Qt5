@@ -8,17 +8,18 @@
 -->
 <definitions>
 
-	<!--  -->
-	<npc id="" inherit="monster_base">
-		<name></name>
+	<!-- Neira -->
+	<npc id="neira" inherit="monster_base">
+		<name>Neira</name>
+		<title>The Necromancer</title>
 		<id></id>
 		<karma></karma>
 		<fame></fame>
 		<!-- Stats -->
-		<maxhitpoints><random min="" max=""/></maxhitpoints>
 		<str><random min="" max=""/></str>
 		<dex><random min="" max=""/></dex>
 		<int><random min="" max=""/></int>
+		<maxhitpoints><random min="" max=""/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="" max=""/></magicresistance>
 		<tactics><random min="" max=""/></tactics>
@@ -42,7 +43,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
-		<category>Monsters\AoS\</category>
+		<category>Monsters\Champions\</category>
 	</npc>
 
 </definitions>

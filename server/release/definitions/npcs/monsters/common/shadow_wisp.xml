@@ -17,22 +17,24 @@
 		<!-- Stats -->
 		<str><random min="16" max="40"/></str>
 		<dex><random min="16" max="45"/></dex>
-		<int>400</int>
+		<int><random min="11" max="25"/></int>
+		<maxhitpoints><random min="10" max="24"/></maxhitpoints>
 		<!-- Skills -->
 		<evaluatingintel>400</evaluatingintel>
 		<magery>500</magery>
 		<meditation>400</meditation>
 		<magicresistance>100</magicresistance>
-		<tactics><random min="01" max="150"/></tactics>
+		<tactics><random min="1" max="150"/></tactics>
 		<wrestling><random min="251" max="400"/></wrestling>
+		<anatomy>0</anatomy>
 		<!-- Damage -->
 		<tag name="mindamage" value="5" type="int" />
 		<tag name="maxdamage" value="10" type="int" />
 		<!-- Resists -->
-		<tag name="res_energy" value="15,20" type="int" />
-		<tag name="res_fire" value="5,10" type="int" />
 		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
+		<tag name="res_energy" value="15,20" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Common\Shadow Wisp</category>
 	</npc>
