@@ -835,6 +835,10 @@ WPDT_AI = 22
 """
 LOCALE_EN = 0
 LOCALE_DE = 1
+"""
+	\end
+"""
+
 # Define your system locale here.
 SYSLOCALE = LOCALE_EN
 
@@ -844,3 +848,5 @@ BODY_MONSTER = 1
 BODY_SEA = 2
 BODY_ANIMAL = 3
 BODY_HUMAN = 4
+
+MAX_TITHING_POINTS = 100000 # Maximum amount of tithing points
