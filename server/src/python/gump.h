@@ -36,6 +36,65 @@
 #include "../gumps.h"
 
 /*!
+	Response object. 
+	This object is used to represent the users choice.
+*/
+typedef struct {
+    PyObject_HEAD;
+	gumpChoice_st response;
+} wpGumpResponse;
+
+PyObject *wpGumpResponse_getAttr( wpGumpResponse *self, char *name )
+{	
+	if( !strcmp( name, "button" ) )
+		return PyInt_FromLong( self->response.button );
+	else if( !strcmp( name, "text" ) )
+	{
+		// Create a dictionary
+		PyObject *dict = PyDict_New();
+
+		std::map< unsigned short, QString >::iterator iter = self->response.textentries.begin();
+		for( ; iter != self->response.textentries.end(); ++iter )
+			PyDict_SetItem( dict, PyInt_FromLong( iter->first ), PyString_FromString( iter->second.latin1() ) );
+
+		return dict;
+	}
+	else if( !strcmp( name, "switches" ) )
+	{
+		// Create a list
+		PyObject *list = PyList_New( self->response.switches.size() );
+		for( INT32 i = 0; i < self->response.switches.size(); ++i )
+			PyList_SetItem( list, i, PyInt_FromLong( self->response.switches[ i ] ) );
+		return list;
+	}
+
+	return PyFalse;
+}
+
+static PyTypeObject wpGumpResponseType = {
+    PyObject_HEAD_INIT(&PyType_Type)
+    0,
+    "wpGumpResponse",
+    sizeof(wpGumpResponseType),
+    0,
+	wpDealloc,
+    0,
+    (getattrfunc)wpGumpResponse_getAttr,
+    0,
+    0,
+    0,
+    0,
+    0,
+};
+
+PyObject *PyGetGumpResponse( gumpChoice_st response )
+{
+	wpGumpResponse *returnVal = PyObject_New( wpGumpResponse, &wpGumpResponseType );
+	returnVal->response = response;
+	return (PyObject*)returnVal;
+}
+
+/*!
 	Internally used class for Python based Gumps
 */
 class cPythonGump: public cGump
@@ -71,119 +130,10 @@ public:
 				if( pFunc && PyCallable_Check( pFunc ) )
 				{
 					// Create our Argument list
-					PyObject *p_args = PyTuple_New( 2 );
-					PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
-					PyTuple_SetItem( p_args, 1, args );
-					//PyTuple_SetItem( p_args, 2, PyGetTarget( target, socket->player()->pos.map ) );
-
-					PyEval_CallObject( pFunc, p_args );
-
-					if( PyErr_Occurred() )
-						PyErr_Print();
-				}
-			}
-		}
-
-		tuple_decref( args );
-	}
-};
-
-/*
-typedef struct {
-    PyObject_HEAD;
-	Coord_cl pos;
-	UINT16 model;
-	SERIAL object;
-} wpTarget;
-
-PyObject *wpTarget_getAttr( wpTarget *self, char *name )
-{	
-	if( !strcmp( name, "pos" ) )
-		return PyGetCoordObject( self->pos );
-	else if( !strcmp( name, "model" ) )
-		return PyInt_FromLong( self->model );
-	else if( !strcmp( name, "object" ) )
-	{
-		if( isItemSerial( self->object ) )
-			return PyGetItemObject( FindItemBySerial( self->object ) );
-		else if( isCharSerial( self->object ) )
-			return PyGetCharObject( FindCharBySerial( self->object ) );
-	}
-
-	return PyFalse;
-}
-
-static PyTypeObject wpTargetType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "wpTarget",
-    sizeof(wpTargetType),
-    0,
-	wpDealloc,
-    0,
-    (getattrfunc)wpTarget_getAttr,
-    0,
-    0,
-    0,
-    0,
-    0,
-};
-
-PyObject *PyGetTarget( cUORxTarget *target, UINT8 map )
-{
-	if( !target )
-		return Py_None;
-
-	wpTarget *returnVal = PyObject_New( wpTarget, &wpTargetType );
-	
-	Coord_cl pos;
-	pos.x = target->x();
-	pos.y = target->y();
-	pos.z = target->z();
-	pos.map = map;
-
-	returnVal->pos = pos;
-	returnVal->object = target->serial();
-	returnVal->model = target->model();
-
-	return (PyObject*)returnVal;
-}
-
-class cPythonTarget: public cTargetRequest
-{
-private:
-	QString responsefunc, timeoutfunc, cancelfunc;
-	PyObject *args;
-public:
-	cPythonTarget( QString _responsefunc, QString _timeoutfunc, QString _cancelfunc, PyObject *_args ):
-	  responsefunc( _responsefunc ), timeoutfunc( _timeoutfunc ), cancelfunc( _cancelfunc ), args( _args )
-	  {
-		  tuple_incref( args );
-	  }
-
-	bool responsed( cUOSocket *socket, cUORxTarget *target )
-	{
-		// Try to call the python function
-		// Get everything before the last dot
-		if( responsefunc.contains( "." ) )
-		{
-			// Find the last dot
-			INT32 position = responsefunc.findRev( "." );
-			QString sModule = responsefunc.left( position );
-			QString sFunction = responsefunc.right( responsefunc.length() - (position+1) );
-
-			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
-
-			if( pModule )
-			{
-				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
-				if( pFunc && PyCallable_Check( pFunc ) )
-				{
-					// Create our Argument list
 					PyObject *p_args = PyTuple_New( 3 );
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
 					PyTuple_SetItem( p_args, 1, args );
-					PyTuple_SetItem( p_args, 2, PyGetTarget( target, socket->player()->pos.map ) );
+					PyTuple_SetItem( p_args, 2, PyGetGumpResponse( choice ) );
 
 					PyEval_CallObject( pFunc, p_args );
 
@@ -194,71 +144,7 @@ public:
 		}
 
 		tuple_decref( args );
-		return true;
-	}
-
-	void timedout( cUOSocket *socket )
-	{
-		if( !timeoutfunc.isNull() && !timeoutfunc.isEmpty() && timeoutfunc.contains( "." ) )
-		{
-			// Find the last dot
-			INT32 position = timeoutfunc.findRev( "." );
-			QString sModule = timeoutfunc.left( position );
-			QString sFunction = timeoutfunc.right( timeoutfunc.length() - (position+1) );
-
-			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
-
-			if( pModule )
-			{
-				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
-				if( pFunc && PyCallable_Check( pFunc ) )
-				{
-					// Create our Argument list
-					PyObject *args = PyTuple_New( 1 );
-					PyTuple_SetItem( args, 0, PyGetCharObject( socket->player() ) );
-
-					PyEval_CallObject( pFunc, args );
-
-					if( PyErr_Occurred() )
-						PyErr_Print();
-				}
-			}
-		}
-
-		tuple_decref( args );
-	}
-
-	void canceled( cUOSocket *socket )
-	{
-		if( !cancelfunc.isNull() && !cancelfunc.isEmpty() && cancelfunc.contains( "." ) )
-		{
-			// Find the last dot
-			INT32 position = cancelfunc.findRev( "." );
-			QString sModule = cancelfunc.left( position );
-			QString sFunction = cancelfunc.right( cancelfunc.length() - (position+1) );
-
-			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
-
-			if( pModule )
-			{
-				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
-				if( pFunc && PyCallable_Check( pFunc ) )
-				{
-					// Create our Argument list
-					PyObject *args = PyTuple_New( 1 );
-					PyTuple_SetItem( args, 0, PyGetCharObject( socket->player() ) );
-
-					PyEval_CallObject( pFunc, args );
-
-					if( PyErr_Occurred() )
-						PyErr_Print();
-				}
-			}
-		}
-
-		tuple_decref( args );
 	}
 };
-*/
 
 #endif
