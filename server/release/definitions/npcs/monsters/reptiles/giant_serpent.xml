@@ -8,8 +8,8 @@
 -->
 <definitions>
 
-	<!-- a serpent (gaint) -->
-	<npc id="serpent_gaint" inherit="monster_base">
+	<!-- a serpent (giant) -->
+	<npc id="serpent_giant" inherit="monster_base">
 		<name>giant serpent</name>
 		<id>21</id>
 		<skin><random list="SKINS_SNAKE" /></skin>
@@ -46,7 +46,7 @@
 
 		<!-- Missing: Body Parts -->
 		<lootpacks>lootpack_average;bodypart</lootpacks>
-		<category>Monsters\Reptiles\Gaint Serpent</category>
+		<category>Monsters\Reptiles\Giant Serpent</category>
 		<strproperty name="slayer_group" value="snakes" />
 		
 		<!-- Carve -->
