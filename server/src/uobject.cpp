@@ -79,7 +79,8 @@ cUObject::cUObject( cUObject &src )
 	this->pos_  = src.pos_;
 	this->free = src.free;
 	this->changed( TOOLTIP );
-	tooltip_ = src.tooltip_;
+	this->tooltip_ = src.tooltip_;
+	this->tags_ = src.tags_;
 	changed_ = true;
 }
 
