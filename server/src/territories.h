@@ -63,9 +63,9 @@ public:
 	bool		allowsMark( void )		{ return flags_ & 0x02; }
 	bool		allowsGate( void )		{ return flags_ & 0x04; }
 	bool		allowsRecall( void )	{ return flags_ & 0x08; }
-	bool		allowsMagicDamage()		{ return flags_ & 0x40; }
-	bool		isValidEscortRegion()	{ return flags_ & 0x80; }
-	bool		allowsMagic( void )		{ return flags_ & 0x100; }
+	bool		allowsMagicDamage()		{ return flags_ & 0x10; }
+	bool		isValidEscortRegion()	{ return flags_ & 0x20; }
+	bool		allowsMagic( void )		{ return flags_ & 0x40; }
 	QString		guardOwner( void )		{ return guardowner_; }
 	UI08		snowChance( void )		{ return snowchance_; }
 	UI08		rainChance( void )		{ return rainchance_; }
