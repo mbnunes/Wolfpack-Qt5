@@ -10,13 +10,15 @@
 
 	<!-- Chest of Drawers 1 -->
 	<item id="a2c">
-		<id>0xa2c</id><nodecay />
+		<id>0xa2c</id>
+		<nodecay />
 		<type>1</type>
 		<category>Decoration\Furniture\Chest of Drawers (N/S) 1</category>
 	</item>
 
 	<item id="a2d">
-		<id>0xa2d</id><nodecay />
+		<id>0xa2d</id>
+		<nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (N/S) 2</category>
 	</item>
 
@@ -211,48 +213,56 @@
 		<id>0xa4c</id>
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (N/S) (Open)</category>
+		<type>1</type>
 	</item>
 
 	<item id="a4d">
 		<id>0xa4d</id>
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (N/S) (Closed)</category>
+		<type>1</type>
 	</item>
 
 	<item id="a4e">
 		<id>0xa4e</id>
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (N/S) (Open)</category>
+		<type>1</type>
 	</item>
 
 	<item id="a4f">
 		<id>0xa4f</id>
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (N/S) (Closed)</category>
+		<type>1</type>
 	</item>
 
 	<item id="a50">
 		<id>0xa50</id>
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (W/E) (Open)</category>
+		<type>1</type>
 	</item>
 
 	<item id="a51">
 		<id>0xa51</id>
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (W/E) (Closed)</category>
+		<type>1</type>
 	</item>
 
 	<item id="a52">
 		<id>0xa52</id>
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (W/E) (Open)</category>
+		<type>1</type>
 	</item>
 
 	<item id="a53">
 		<id>0xa53</id>
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (W/E) (Closed)</category>
+		<type>1</type>
 	</item>
 
 	<!-- Decoration / Bedroom -->

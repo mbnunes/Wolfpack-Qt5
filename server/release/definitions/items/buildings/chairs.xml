@@ -102,7 +102,6 @@
 
 	<item id="b33">
 		<id>0x0b33</id>
-
 		<nodecay />
 		<buyprice>58</buyprice>
 		<sellprice>24</sellprice>
@@ -183,7 +182,7 @@
 	</item>
 
 	<item id="b59">
-		<id>0x0b59</id> 
+		<id>0x0b59</id>
 		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Plain Wooden Chair 4</category>
 	</item>
