@@ -70,6 +70,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - Added ranged weapons + ammo to orc scout, ratmen archer, meer captain and juka lord.
   - Added colored samurai armor.
   - Reorganized base armor categories.
+  - New folder for defines: definitions/defines/
+  - Applied the index.xml branches to colored armor.
  * Python Script Changes:
   - Fixed bug #0000369. (Equip possible although item.movable = 3)
   - Fixed bug #0000361. (Pets don't follow trough gate)
