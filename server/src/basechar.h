@@ -75,7 +75,6 @@ public:
 	bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* ) throw();
 	bool postload() throw();
 	bool del();
-	virtual void processNode( const QDomElement &Tag );
 
 	// interface methods
 	// object type specific methods
@@ -110,6 +109,8 @@ public:
 	void turnTo( const Coord_cl &pos );
 	void wear( P_ITEM );
 	bool isHuman() const;
+	bool isMurderer() const;
+	bool isCriminal() const;
 	bool isInnocent() const;
 	void unhide();
 	int  CountItems(short ID, short col= -1);
@@ -125,7 +126,7 @@ public:
 	void removeItemBonus(cItem* pi);
 	void giveItemBonus(cItem* pi);
 	void Init(bool ser = true);
-	bool isSameAs(cChar* pc);
+	bool isSameAs(P_CHAR pc);
 	bool inGuardedArea();
 	void emote( const QString &emote, UI16 color = 0xFFFF );
 	UI16 calcDefense( enBodyParts bodypart, bool wearout = false );
@@ -321,6 +322,8 @@ protected:
 	};
 
 	// other protected methods
+	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+	virtual void processNode( const QDomElement &Tag );
 
     // The body ID for this character. cOldChar::id_
     UINT16 bodyID_;
@@ -1265,7 +1268,7 @@ inline void cBaseChar::setInvulnerable(bool data)
 
 inline bool cBaseChar::isHuman() const 
 { 
-	return (this->id() == 0x190 || this->id() == 0x191); 
+	return (bodyID_ == 0x190 || bodyID_ == 0x191); 
 }
 
 inline bool cBaseChar::isInnocent() const

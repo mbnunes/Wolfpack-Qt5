@@ -41,6 +41,9 @@
 #include "makemenus.h"
 #include "accounts.h"
 
+// forward declarations
+class cUOTxTooltipList;
+
 // Class for player characters. Implements cBaseChar.
 class cPlayer : public cBaseChar
 {
@@ -64,7 +67,6 @@ public:
 	bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* ) throw();
 	bool postload() throw();
 	bool del();
-	virtual void processNode( const QDomElement &Tag );
 
 	virtual enCharTypes objectType();
 	virtual void update( bool excludeself = false ); 
@@ -160,6 +162,7 @@ public:
 
 protected:
 	// interface implementation
+	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 	virtual void processNode( const QDomElement& Tag );
 
 	// other protected methods

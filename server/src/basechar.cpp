@@ -31,6 +31,10 @@
 // wolfpack includes
 #include "basechar.h"
 #include "player.h"
+#include "globals.h"
+#include "world.h"
+#include "persistentbroker.h"
+#include "dbdriver.h"
 
 cBaseChar::cBaseChar()
 {
@@ -86,7 +90,7 @@ cBaseChar::cBaseChar()
     swingTarget_		= INVALID_SERIAL;
     murdererSerial_		= INVALID_SERIAL;
 	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );
-	skills.resize( ALLSKILLS );
+	skills_.resize( ALLSKILLS );
 }
 
 cBaseChar::cBaseChar(const cBaseChar& right)
@@ -134,14 +138,14 @@ void cBaseChar::load( char **result, UINT16 &offset )
 
 	orgName_ = result[offset++];
 	title_ = result[offset++];
-	creationDate_ = QDateTime::fromString( atoi( result[offset++] ) );
+	creationDate_ = QDateTime::fromString( result[offset++] );
 	direction_ = atoi( result[offset++] );
 	bodyID_ = atoi( result[offset++] );
 	orgBodyID_ = atoi( result[offset++] );
 	skin_ = atoi( result[offset++] );
 	orgSkin_ = atoi( result[offset++] );
 	saycolor_ = atoi( result[offset++] );
-	emotecolor_ = atoi( result[offset++] );
+	emoteColor_ = atoi( result[offset++] );
 	strength_ = atoi( result[offset++] );
 	strengthMod_ = atoi( result[offset++] );
 	dexterity_ = atoi( result[offset++] );
@@ -199,7 +203,7 @@ void cBaseChar::load( char **result, UINT16 &offset )
 		skValue.lock = lockType;
 		skValue.cap = cap;
 
-		skills[ skill ] = skValue;
+		skills_[ skill ] = skValue;
 	}
 
 	res.free();
@@ -216,86 +220,51 @@ void cBaseChar::save()
 		setTable( "characters" );
 		
 		addField( "serial", serial() );
-		addStrField( "name", incognito() ? name() : orgname() );	
-		addStrField( "title", title() );
-		
-		if( account_ )
-			addStrField( "account", account_->login() );
-		
-		addField( "creationday", creationday_ );
-		addField( "dir", dir_ );
-		
-		addField( "body", (incognito() || polymorph()) ? xid_ : id_ );
-		addField( "xbody", xid_ );
-		addField( "skin", incognito() ? xskin_ : skin_ );
-		addField( "xskin", xskin_ );
-		addField( "priv", priv );
-		addField( "stablemaster", stablemaster_serial_ );
-		
-		addField( "allmove", priv2_);
-		addField( "say", saycolor_);
-		addField( "emote", emotecolor_);
-		addField( "strength", st_);
-		addField( "strength2", st2_);
-		addField( "dexterity", dx);
-		addField( "dexterity2", dx2);
-		addField( "intelligence", in_);
-		addField( "intelligence2", in2_);
-		addField( "hitpoints", hp_);
-		addField( "spawnregion", spawnregion_);
-		addField( "stamina", stm_);
-		addField( "mana", mn_);
-		addField( "npc", npc_);
-		addField( "shop", shop_);
-		
-		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
-		
+		addStrField( "name", orgName_ );	
+		addStrField( "title", title_ );
+		addField( "creationdate", creationDate_.toString() );
+		addField( "dir", direction_ );
+		addField( "body", bodyID_ );
+		addField( "orgbody", orgBodyID_ );
+		addField( "skin", skin_ );
+		addField( "orgskin", orgSkin_ );
+		addField( "saycolor", saycolor_);
+		addField( "emotecolor", emoteColor_);
+		addField( "strength", strength_);
+		addField( "strengthmod", strengthMod_);
+		addField( "dexterity", dexterity_);
+		addField( "dexteritymod", dexterityMod_);
+		addField( "intelligence", intelligence_);
+		addField( "intelligencemod", intelligenceMod_);
+		addField( "maxhitpoints", maxHitpoints_);
+		addField( "hitpoints", hitpoints_);
+		addField( "maxstamina", maxStamina_);
+		addField( "stamina", stamina_);
+		addField( "maxmana", maxMana_);
+		addField( "mana", mana_);
 		addField( "karma", karma_);
 		addField( "fame", fame_);
 		addField( "kills", kills_);
 		addField( "deaths", deaths_);
-		addField( "dead", dead_);
-		addField( "fixedlight", fixedlight_);
-		addField( "cantrain", cantrain_);
-		addField( "def", def_);
-		addField( "lodamage", lodamage_);
-		addField( "hidamage", hidamage_);
-		addField( "war", war_);
-		addField( "npcwander", npcWander_);
-		addField( "oldnpcwander", oldnpcWander_);
-		addStrField( "carve", carve_);
-		addField( "fx1", fx1_);
-		addField( "fy1", fy1_);
-		addField( "fz1", fz1_);
-		addField( "fx2", fx2_);
-		addField( "fy2", fy2_);
-		addField( "hidden", hidden_);
+		addField( "def", bodyArmor_);
 		addField( "hunger", hunger_);
-		addField( "npcaitype", npcaitype_);
-		addField( "taming", taming_);
-		unsigned int summtimer = summontimer_ - uiCurrentTime;
-		addField( "summonremainingseconds", summtimer);
 		addField( "poison", poison_);
 		addField( "poisoned", poisoned_);
-		addField( "fleeat", fleeat_);
-		addField( "reattackat", reattackat_);
-		addField( "split", split_);
-		addField( "splitchance",	splitchnc_);
-		addField( "murderrate", murderrate_);
-		addStrField( "lootlist", lootlist_);
-		addField( "food", food_);
-		addStrField( "profile", profile_ );
-		addField( "guarding", guarding_ ? guarding_->serial() : INVALID_SERIAL );
-		addStrField( "destination", QString( "%1,%2,%3,%4" ).arg( ptarg_.x ).arg( ptarg_.y ).arg( ptarg_.z ).arg( ptarg_.map ) );
-		addField( "sex", sex_ );
-		
+		addField( "murderertime", murdererTime_);
+		addField( "criminaltime", criminalTime_);
+		addField( "nutriment", nutriment_);
+		addField( "gender", gender_ );
+		addField( "propertyflags", propertyFlags_ );
+		addField( "attacker", attackerSerial_ );
+		addField( "combattarget", combatTarget_ );
+		addField( "murderer", murdererSerial_ );
 		addCondition( "serial", serial() );
 		saveFields;
 		
 		QValueVector< stSkillValue >::const_iterator it;
 		int i = 0;
 		persistentBroker->lockTable("skills");
-		for( it = skills.begin(); it != skills.end(); ++it )
+		for( it = skills_.begin(); it != skills_.end(); ++it )
 		{
 			clearFields;
 			setTable( "skills" );
@@ -329,19 +298,11 @@ bool cBaseChar::del()
 static void characterRegisterAfterLoading( P_CHAR pc )
 {
 	World::instance()->registerObject( pc );
-	pc->setPriv2(pc->priv2() & 0xBF); // ???
-
-	pc->setHidden( 0 );
-	pc->setStealth( -1 );
-	
 	pc->setRegion( AllTerritories::instance()->region( pc->pos().x, pc->pos().y, pc->pos().map ) );
 	
-	pc->setAntispamtimer( 0 );   //LB - AntiSpam -
-	pc->setAntiguardstimer( 0 ); //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn
-	
-	if (pc->id() <= 0x3e1)
+	if (pc->bodyID() <= 0x3e1)
 	{
-		unsigned short k = pc->id();
+		unsigned short k = pc->bodyID();
 		unsigned short c1 = pc->skin();
 		unsigned short b = c1&0x4000;
 		if ((b == 16384 && (k >=0x0190 && k<=0x03e1)) || c1==0x8000)
@@ -349,32 +310,11 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 			if (c1!=0xf000)
 			{
 				pc->setSkin( 0xF000 );
-				pc->setXSkin( 0xF000 );
+				pc->setOrgSkin( 0xF000 );
 				clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name().latin1(),pc->serial());
 			}
 		}
 	} 
-	else	// client crashing body --> delete if non player esle put only a warning on server screen
-	{	// we dont want to delete that char, dont we ?
-	
-		if (pc->account() == 0)
-		{
-			cCharStuff::DeleteChar(pc);
-			return;
-		} 
-		else
-		{
-			pc->setId(0x0190);
-			clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name().latin1());
-		}
-	}
-	
-	if( pc->stablemaster_serial() == INVALID_SERIAL )
-	{ 
-		MapObjects::instance()->add(pc); 
-	} 
-	else
-		stablesp.insert(pc->stablemaster_serial(), pc->serial());
 	
 	UINT16 max_x = Map->mapTileWidth(pc->pos().map) * 8;
 	UINT16 max_y = Map->mapTileHeight(pc->pos().map) * 8;
@@ -385,6 +325,16 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 		cCharStuff::DeleteChar( pc );
 		return;
 	}	
+}
+
+bool cBaseChar::isMurderer() const
+{
+	return murdererTime_ > uiCurrentTime;
+}
+
+bool cBaseChar::isCriminal() const
+{
+	return criminalTime_ > uiCurrentTime;
 }
 
 // Send the changed health-bar to all sockets in range

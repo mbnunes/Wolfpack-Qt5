@@ -82,7 +82,7 @@ void cNPC::buildSqlString( QStringList &fields, QStringList &tables, QStringList
 	conditions.push_back( "uobjectmap.serial = npcs.serial" );
 }
 
-static void characterRegisterAfterLoading( P_CHAR pc );
+static void npcRegisterAfterLoading( P_CHAR pc );
 
 void cNPC::load( char **result, UINT16 &offset )
 {
@@ -105,7 +105,7 @@ void cNPC::load( char **result, UINT16 &offset )
 	ser = atoi( result[offset++] );
 	guarding_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
 
-	characterRegisterAfterLoading( this );
+	npcRegisterAfterLoading( this );
 	changed_ = false;
 }
 
@@ -114,103 +114,23 @@ void cNPC::save()
 	if ( changed_ )
 	{
 		initSave;
-		setTable( "characters" );
+		setTable( "npcs" );
 		
 		addField( "serial", serial() );
-		addStrField( "name", incognito() ? name() : orgname() );	
-		addStrField( "title", title() );
-		
-		if( account_ )
-			addStrField( "account", account_->login() );
-		
-		addField( "creationday", creationday_ );
-		addField( "dir", dir_ );
-		
-		addField( "body", (incognito() || polymorph()) ? xid_ : id_ );
-		addField( "xbody", xid_ );
-		addField( "skin", incognito() ? xskin_ : skin_ );
-		addField( "xskin", xskin_ );
-		addField( "priv", priv );
-		addField( "stablemaster", stablemaster_serial_ );
-		
-		addField( "allmove", priv2_);
-		addField( "say", saycolor_);
-		addField( "emote", emotecolor_);
-		addField( "strength", st_);
-		addField( "strength2", st2_);
-		addField( "dexterity", dx);
-		addField( "dexterity2", dx2);
-		addField( "intelligence", in_);
-		addField( "intelligence2", in2_);
-		addField( "hitpoints", hp_);
-		addField( "spawnregion", spawnregion_);
-		addField( "stamina", stm_);
-		addField( "mana", mn_);
-		addField( "npc", npc_);
-		addField( "shop", shop_);
-		
+		addField( "mindamage", minDamage_);
+		addField( "maxdamage", maxDamage_);
+		addField( "tamingminskill", tamingMinSkill_);
+		addField( "summontime", summonTime_ - uiCurrentTime );
+		addField( "additionalflags", additionalFlags_ );
 		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
-		
-		addField( "karma", karma_);
-		addField( "fame", fame_);
-		addField( "kills", kills_);
-		addField( "deaths", deaths_);
-		addField( "dead", dead_);
-		addField( "fixedlight", fixedlight_);
-		addField( "cantrain", cantrain_);
-		addField( "def", def_);
-		addField( "lodamage", lodamage_);
-		addField( "hidamage", hidamage_);
-		addField( "war", war_);
-		addField( "npcwander", npcWander_);
-		addField( "oldnpcwander", oldnpcWander_);
 		addStrField( "carve", carve_);
-		addField( "fx1", fx1_);
-		addField( "fy1", fy1_);
-		addField( "fz1", fz1_);
-		addField( "fx2", fx2_);
-		addField( "fy2", fy2_);
-		addField( "hidden", hidden_);
-		addField( "hunger", hunger_);
-		addField( "npcaitype", npcaitype_);
-		addField( "taming", taming_);
-		unsigned int summtimer = summontimer_ - uiCurrentTime;
-		addField( "summonremainingseconds", summtimer);
-		addField( "poison", poison_);
-		addField( "poisoned", poisoned_);
-		addField( "fleeat", fleeat_);
-		addField( "reattackat", reattackat_);
-		addField( "split", split_);
-		addField( "splitchance",	splitchnc_);
-		addField( "murderrate", murderrate_);
-		addStrField( "lootlist", loot_);
-		addField( "food", food_);
-		addStrField( "profile", profile_ );
+		addStrField( "spawnregion", spawnregion_);
+		addField( "stablemaster", stablemasterSerial_ );
+		addStrField( "lootlist", lootList_);
 		addField( "guarding", guarding_ ? guarding_->serial() : INVALID_SERIAL );
-		addStrField( "destination", QString( "%1,%2,%3,%4" ).arg( ptarg_.x ).arg( ptarg_.y ).arg( ptarg_.z ).arg( ptarg_.map ) );
-		addField( "sex", sex_ );
 		
 		addCondition( "serial", serial() );
 		saveFields;
-		
-		QValueVector< stSkillValue >::const_iterator it;
-		int i = 0;
-		persistentBroker->lockTable("skills");
-		for( it = skills.begin(); it != skills.end(); ++it )
-		{
-			clearFields;
-			setTable( "skills" );
-			addField( "serial", serial() );
-			addField( "skill", i );
-			addField( "value", (*it).value );
-			addField( "locktype", (*it).lock );
-			addField( "cap", (*it).cap );
-			addCondition( "serial", serial() );
-			addCondition( "skill", i );
-			saveFields;
-			++i;
-		}
-		persistentBroker->unlockTable("skills");
 	}
 	cBaseChar::save();
 	changed_ = false;
@@ -221,71 +141,19 @@ bool cNPC::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "characters", QString( "serial = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "skills", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "npcs", QString( "serial = '%1'" ).arg( serial() ) );
 	changed( SAVE );
 	return cBaseChar::del();
 }
 
-static void characterRegisterAfterLoading( P_CHAR pc )
+static void npcRegisterAfterLoading( P_CHAR pc )
 {
-	World::instance()->registerObject( pc );
-	pc->setPriv2(pc->priv2() & 0xBF); // ???
-
-	pc->setHidden( 0 );
-	pc->setStealth( -1 );
-	
-	pc->setRegion( AllTerritories::instance()->region( pc->pos().x, pc->pos().y, pc->pos().map ) );
-	
-	pc->setAntispamtimer( 0 );   //LB - AntiSpam -
-	pc->setAntiguardstimer( 0 ); //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn
-	
-	if (pc->id() <= 0x3e1)
-	{
-		unsigned short k = pc->id();
-		unsigned short c1 = pc->skin();
-		unsigned short b = c1&0x4000;
-		if ((b == 16384 && (k >=0x0190 && k<=0x03e1)) || c1==0x8000)
-		{
-			if (c1!=0xf000)
-			{
-				pc->setSkin( 0xF000 );
-				pc->setXSkin( 0xF000 );
-				clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name().latin1(),pc->serial());
-			}
-		}
-	} 
-	else	// client crashing body --> delete if non player esle put only a warning on server screen
-	{	// we dont want to delete that char, dont we ?
-	
-		if (pc->account() == 0)
-		{
-			cCharStuff::DeleteChar(pc);
-			return;
-		} 
-		else
-		{
-			pc->setId(0x0190);
-			clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name().latin1());
-		}
-	}
-	
-	if( pc->stablemaster_serial() == INVALID_SERIAL )
+	if( pc->stablemasterSerial() == INVALID_SERIAL )
 	{ 
 		MapObjects::instance()->add(pc); 
 	} 
 	else
-		stablesp.insert(pc->stablemaster_serial(), pc->serial());
-	
-	UINT16 max_x = Map->mapTileWidth(pc->pos().map) * 8;
-	UINT16 max_y = Map->mapTileHeight(pc->pos().map) * 8;
-
-	// only > max_x and > max_y are invalid
-	if( pc->pos().x >= max_x || pc->pos().y >= max_y )
-	{
-		cCharStuff::DeleteChar( pc );
-		return;
-	}	
+		stablesp.insert(pc->stablemasterSerial(), pc->serial());
 }
 
 // Update flags etc.
