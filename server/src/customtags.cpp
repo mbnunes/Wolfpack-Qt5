@@ -864,11 +864,11 @@ void cCustomTags::load( SERIAL key )
 		if ( !tags_ )
 			tags_ = new QMap<QString, cVariant>;
 
-		if ( type == "StringType" )
+		if ( type == "String" )
 			tags_->insert( name, cVariant( value ) );
-		else if ( type == "IntType" )
+		else if ( type == "Int" )
 			tags_->insert( name, cVariant( value.toInt() ) );
-		else if ( type == "DoubleType" )
+		else if ( type == "Double" )
 			tags_->insert( name, cVariant( value.toDouble() ) );
 	}
 
