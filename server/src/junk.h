@@ -58,6 +58,7 @@ extern cCharArray *CharArray;
 #include "books.h"
 #include "speech.h"
 #include "trigger.h"
+#include "dragdrop.h"
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cBoat			*Boats;
 extern CWorldMain		*cwmWorldState;
@@ -81,6 +82,7 @@ extern cAllTmpEff       *AllTmpEff;
 extern cMovement		*Movement;
 extern cSpeech	        *Speech;
 extern cTrigger	        *Trig;
+extern cDragdrop        *Drag;
 // Skys AI 
 extern cCharStuff::cDragonAI	*DragonAI;
 extern cCharStuff::cBankerAI	*BankerAI;

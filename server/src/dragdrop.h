@@ -39,9 +39,16 @@
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
+class cDragdrop;
 
-void get_item(P_CLIENT ps);			// Client grabs an item
-void wear_item(P_CLIENT ps);			// Item is dropped on paperdoll
-void drop_item(P_CLIENT ps);	// Item is dropped on ground, char or item
+class cDragdrop
+{
+public:
+	void get_item(P_CLIENT ps);			// Client grabs an item
+    void wear_item(P_CLIENT ps);			// Item is dropped on paperdoll
+    void drop_item(P_CLIENT ps);	// Item is dropped on ground, char or item
+};
+
+extern cDragdrop    *Drag;
 
 #endif // !defined(AFX_DRAGDROP_H__AB350791_EF80_4406_ADE8_FF309B0849AD__INCLUDED_)

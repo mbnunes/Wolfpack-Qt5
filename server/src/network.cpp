@@ -1401,15 +1401,15 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 
 				case 0x13:// Equip Item
-					wear_item(ps);
+					Drag->wear_item(ps);
 					break;
 
 				case 0x07:// Get Item		
-					get_item(ps);
+					Drag->get_item(ps);
 					break;
 
 				case 0x08:// Drop Item
-					drop_item(ps);
+					Drag->drop_item(ps);
 					break;
 
 				case 0x72:// Combat Mode			
