@@ -58,8 +58,8 @@ protected:
 	int niceLevel_;
 public:
     cSrvParams( const QString& filename, const QString& format, const QString& version );
-	std::vector<ServerList_st>& const serverList(); // read-only
-	std::vector<StartLocation_st>& const startLocation();
+	std::vector<ServerList_st>& serverList(); // read-only
+	std::vector<StartLocation_st>& startLocation();
 
 	// gets
 	unsigned int skillcap() const;

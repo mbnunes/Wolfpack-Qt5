@@ -1257,7 +1257,7 @@ void chardel (UOXSOCKET s) // Deletion of character
 		}
 
 		{
-			vector<StartLocation_st>& start = SrvParams->startLocation();
+                        const vector<StartLocation_st>& start = SrvParams->startLocation();
 			tlen=4+(5*60)+1+(start.size()*63);
 
 			login04a[1]=tlen>>8;
