@@ -11,272 +11,272 @@
 <definitions>
 	<!-- Sandstone Fireplace -->
 	<item id="45d">
-		<id>0x045d</id>
+		<id>0x045d</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Sandstone Fireplace (W/E) (1/2)</category>
 	</item>
 
 	<item id="45e">
-		<id>0x045e</id>
+		<id>0x045e</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Sandstone Fireplace (W/E) (2/2)</category>
 	</item>
 
 	<item id="45f">
-		<id>0x045f</id>
+		<id>0x045f</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Sandstone Fireplace (N/S) (1/2)</category>
 	</item>
 
 	<item id="460">
-		<id>0x0460</id>
+		<id>0x0460</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Sandstone Fireplace (N/S) (2/2)</category>
 	</item>
 
 	<!-- Sandstone Oven -->
 	<item id="461">
-		<id>0x0461</id>
+		<id>0x0461</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Oven (W/E) (1/2)</category>
 	</item>
 
 	<item id="462">
-		<id>0x0462</id>
+		<id>0x0462</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Oven (W/E) (2/2)</category>
 	</item>
 
 	<item id="46a">
-		<id>0x046a</id>
+		<id>0x046a</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Oven (N/S) (1/2)</category>
 	</item>
 
 	<item id="46f">
-		<id>0x046f</id>
+		<id>0x046f</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Oven (N/S) (2/2)</category>
 	</item>
 
 	<item id="475">
-		<id>0x0475</id>
+		<id>0x0475</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Fireplace (W/E) (1/2)</category>
 	</item>
 
 	<item id="47b">
-		<id>0x047b</id>
+		<id>0x047b</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Fireplace (N/S) (1/2)</category>
 	</item>
 
 	<item id="482">
-		<id>0x0482</id>
+		<id>0x0482</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Fireplace (N/S) (2/2)</category>
 	</item>
 
 	<item id="489">
-		<id>0x0489</id>
+		<id>0x0489</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Fireplace (W/E) (2/2)</category>
 	</item>
 
 	<!-- Stone Fireplace -->
 	<item id="8cf">
-		<id>0x08cf</id>
+		<id>0x08cf</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 1 (W/E) (1/2)</category>
 	</item>
 
 	<item id="8d0">
-		<id>0x08d0</id>
+		<id>0x08d0</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 1 (W/E) (2/2)</category>
 	</item>
 
 	<!-- Stone Chimney -->
 	<item id="8d1">
-		<id>0x08d1</id>
+		<id>0x08d1</id> <nodecay />
 		<category>Decoration\Chimneys\Stone Chimney 1 (N/S) (1/2)</category>
 	</item>
 
 	<item id="8d2">
-		<id>0x08d2</id>
+		<id>0x08d2</id> <nodecay />
 		<category>Decoration\Chimneys\Stone Chimney 1 (N/S) (2/2)</category>
 	</item>
 
 	<!-- Empty Stone Fireplace -->
 	<item id="8d3">
-		<id>0x08d3</id>
+		<id>0x08d3</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 1 (N/S) (1/2)</category>
 	</item>
 
 	<item id="8d4">
-		<id>0x08d4</id>
+		<id>0x08d4</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 1 (N/S) (2/2)</category>
 	</item>
 
 	<!-- Stone Chimney -->
 	<item id="8d5">
-		<id>0x08d5</id>
+		<id>0x08d5</id> <nodecay />
 		<category>Decoration\Chimneys\Stone Chimney 1 (W/E) (1/2)</category>
 	</item>
 
 	<item id="8d6">
-		<id>0x08d6</id>
+		<id>0x08d6</id> <nodecay />
 		<category>Decoration\Chimneys\Stone Chimney 1 (W/E) (2/2)</category>
 	</item>
 
 	<item id="8d8">
-		<id>0x08d8</id>
+		<id>0x08d8</id> <nodecay />
 		<category>Decoration\Chimneys\Stone Chimney 2 (W/E) (1/2)</category>
 	</item>
 
 	<item id="8d9">
-		<id>0x08d9</id>
+		<id>0x08d9</id> <nodecay />
 		<category>Decoration\Chimneys\Stone Chimney 2 (W/E) (2/2)</category>
 	</item>
 
 	<!-- Empty Stone Fireplace 2 -->
 	<item id="8da">
-		<id>0x08da</id>
+		<id>0x08da</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 2 (W/E) (1/2)</category>
 	</item>
 
 	<item id="8db">
-		<id>0x08db</id>
+		<id>0x08db</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 2 (W/E) (2/2)</category>
 	</item>
 
 	<!-- Stone Chimney 2 -->
 	<item id="8dc">
-		<id>0x08dc</id>
+		<id>0x08dc</id> <nodecay />
 		<category>Decoration\Chimneys\Stone Chimney 2 (N/S) (1/2)</category>
 	</item>
 
 	<item id="8dd">
-		<id>0x08dd</id>
+		<id>0x08dd</id> <nodecay />
 		<category>Decoration\Chimneys\Stone Chimney 2 (N/S) (2/2)</category>
 	</item>
 
 	<!-- Empty Stone Fireplace 2 -->
 	<item id="8de">
-		<id>0x08de</id>
+		<id>0x08de</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 2 (N/S) (1/2)</category>
 	</item>
 
 	<item id="8df">
-		<id>0x08df</id>
+		<id>0x08df</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 2 (N/S) (2/2)</category>
 	</item>
 
 	<!-- Stone Oven 1 -->
 	<item id="92b">
-		<id>0x092b</id>
+		<id>0x092b</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Oven 1 (W/E) (1/2)</category>
 	</item>
 
 	<item id="92c">
-		<id>0x092c</id>
+		<id>0x092c</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Oven 1 (W/E) (2/2)</category>
 	</item>
 
 	<item id="930">
-		<id>0x0930</id>
+		<id>0x0930</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Oven 1 (N/S) (1/2)</category>
 	</item>
 
 	<item id="931">
-		<id>0x0931</id>
+		<id>0x0931</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Oven 1 (N/S) (2/2)</category>
 	</item>
 
 	<item id="935">
-		<id>0x0935</id>
+		<id>0x0935</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 3 (W/E) (1/2)</category>
 	</item>
 
 	<item id="936">
-		<id>0x0936</id>
+		<id>0x0936</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 3 (W/E) (2/2)</category>
 	</item>
 
 	<item id="937">
-		<id>0x0937</id>
+		<id>0x0937</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 1 (W/E) (1/2)</category>
 	</item>
 
 	<item id="93d">
-		<id>0x093d</id>
+		<id>0x093d</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 1 (W/E) (2/2)</category>
 	</item>
 
 	<item id="943">
-		<id>0x0943</id>
+		<id>0x0943</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 3 (N/S) (1/2)</category>
 	</item>
 
 	<item id="944">
-		<id>0x0944</id>
+		<id>0x0944</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 3 (N/S) (2/2)</category>
 	</item>
 
 	<item id="945">
-		<id>0x0945</id>
+		<id>0x0945</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 1 (N/S) (1/2)</category>
 	</item>
 
 	<item id="94b">
-		<id>0x094b</id>
+		<id>0x094b</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 1 (N/S) (2/2)</category>
 	</item>
 
 	<item id="951">
-		<id>0x0951</id>
+		<id>0x0951</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 4 (W/E) (1/2)</category>
 	</item>
 
 	<item id="952">
-		<id>0x0952</id>
+		<id>0x0952</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 4 (W/E) (2/2)</category>
 	</item>
 
 	<item id="953">
-		<id>0x0953</id>
+		<id>0x0953</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 2 (W/E) (1/2)</category>
 	</item>
 
 	<item id="959">
-		<id>0x0959</id>
+		<id>0x0959</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 2 (W/E) (2/2)</category>
 	</item>
 
 	<item id="95f">
-		<id>0x095f</id>
+		<id>0x095f</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 4 (N/S) (1/2)</category>
 	</item>
 
 	<item id="960">
-		<id>0x0960</id>
+		<id>0x0960</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 4 (N/S) (2/2)</category>
 	</item>
 
 	<item id="961">
-		<id>0x0961</id>
+		<id>0x0961</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 2 (N/S) (1/2)</category>
 	</item>
 
 	<item id="967">
-		<id>0x0967</id>
+		<id>0x0967</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 2 (N/S) (2/2)</category>
 	</item>
 	
 	<!-- Small Stone Fireplace -->
 	<item id="11ec">
-		<id>0x11ec</id>
+		<id>0x11ec</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Small Stone Fireplace (W/E) (1/2)</category>
 	</item>
 
 	<item id="11ed">
-		<id>0x11ed</id>
+		<id>0x11ed</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Small Stone Fireplace (W/E) (2/2)</category>
 	</item>
 
 	<item id="11ee">
-		<id>0x11ee</id>
+		<id>0x11ee</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Small Stone Fireplace (N/S) (1/2)</category>
 	</item>
 
 	<item id="11ef">
-		<id>0x11ef</id>
+		<id>0x11ef</id> <nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Small Stone Fireplace (N/S) (2/2)</category>
 	</item>
 </definitions>

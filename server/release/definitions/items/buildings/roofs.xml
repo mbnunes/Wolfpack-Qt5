@@ -11,1652 +11,1652 @@
 <definitions>
         <!-- Beige Stone Roof -->
         <item id="550">
-                <id>0x0550</id>
+                <id>0x0550</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 1</category>
         </item>
 
         <item id="558">
-                <id>0x0558</id>
+                <id>0x0558</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 2</category>
         </item>
 
         <item id="559">
-                <id>0x0559</id>
+                <id>0x0559</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 3</category>
         </item>
 
         <item id="55a">
-                <id>0x055a</id>
+                <id>0x055a</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 4</category>
         </item>
 
         <item id="55b">
-                <id>0x055b</id>
+                <id>0x055b</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 5</category>
         </item>
 
         <item id="56b">
-                <id>0x056b</id>
+                <id>0x056b</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 6</category>
         </item>
 
         <item id="56c">
-                <id>0x056c</id>
+                <id>0x056c</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 7</category>
         </item>
 
         <item id="56d">
-                <id>0x056d</id>
+                <id>0x056d</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 8</category>
         </item>
 
         <item id="56e">
-                <id>0x056e</id>
+                <id>0x056e</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 9</category>
         </item>
 
         <item id="56f">
-                <id>0x056f</id>
+                <id>0x056f</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 10</category>
         </item>
 
         <item id="570">
-                <id>0x0570</id>
+                <id>0x0570</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 11</category>
         </item>
 
         <item id="571">
-                <id>0x0571</id>
+                <id>0x0571</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 12</category>
         </item>
 
         <item id="572">
-                <id>0x0572</id>
+                <id>0x0572</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 13</category>
         </item>
 
         <item id="573">
-                <id>0x0573</id>
+                <id>0x0573</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 14</category>
         </item>
 
         <item id="574">
-                <id>0x0574</id>
+                <id>0x0574</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 15</category>
         </item>
 
         <item id="575">
-                <id>0x0575</id>
+                <id>0x0575</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 16</category>
         </item>
 
         <item id="576">
-                <id>0x0576</id>
+                <id>0x0576</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 17</category>
         </item>
 
         <item id="577">
-                <id>0x0577</id>
+                <id>0x0577</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 18</category>
         </item>
 
         <item id="578">
-                <id>0x0578</id>
+                <id>0x0578</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 19</category>
         </item>
 
         <item id="5ef">
-                <id>0x05ef</id>
+                <id>0x05ef</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 20</category>
         </item>
 
         <item id="62b">
-                <id>0x062b</id>
+                <id>0x062b</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 21</category>
         </item>
 
         <item id="62c">
-                <id>0x062c</id>
+                <id>0x062c</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 22</category>
         </item>
 
         <item id="62d">
-                <id>0x062d</id>
+                <id>0x062d</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 23</category>
         </item>
 
         <item id="62e">
-                <id>0x062e</id>
+                <id>0x062e</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 24</category>
         </item>
 
         <item id="65c">
-                <id>0x065c</id>
+                <id>0x065c</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 25</category>
         </item>
 
         <item id="65d">
-                <id>0x065d</id>
+                <id>0x065d</id> <nodecay/>
                 <category>Buildings\Roofs\Beige Stone Roof\Roof 26</category>
         </item>
 
         <!-- Red Stone Roof -->
         <item id="554">
-                <id>0x0554</id>
+                <id>0x0554</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 1</category>
         </item>
 
         <item id="555">
-                <id>0x0555</id>
+                <id>0x0555</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 2</category>
         </item>
 
         <item id="556">
-                <id>0x0556</id>
+                <id>0x0556</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 3</category>
         </item>
 
         <item id="557">
-                <id>0x0557</id>
+                <id>0x0557</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 4</category>
         </item>
 
         <item id="55c">
-                <id>0x055c</id>
+                <id>0x055c</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 5</category>
         </item>
 
         <item id="55d">
-                <id>0x055d</id>
+                <id>0x055d</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 7</category>
         </item>
 
         <item id="55e">
-                <id>0x055e</id>
+                <id>0x055e</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 8</category>
         </item>
 
         <item id="55f">
-                <id>0x055f</id>
+                <id>0x055f</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 9</category>
         </item>
 
         <item id="560">
-                <id>0x0560</id>
+                <id>0x0560</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 10</category>
         </item>
 
         <item id="561">
-                <id>0x0561</id>
+                <id>0x0561</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 11</category>
         </item>
 
         <item id="562">
-                <id>0x0562</id>
+                <id>0x0562</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 12</category>
         </item>
 
         <item id="563">
-                <id>0x0563</id>
+                <id>0x0563</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 13</category>
         </item>
 
         <item id="564">
-                <id>0x0564</id>
+                <id>0x0564</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 14</category>
         </item>
 
         <item id="565">
-                <id>0x0565</id>
+                <id>0x0565</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 15</category>
         </item>
 
         <item id="566">
-                <id>0x0566</id>
+                <id>0x0566</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 16</category>
         </item>
 
         <item id="567">
-                <id>0x0567</id>
+                <id>0x0567</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 17</category>
         </item>
 
         <item id="568">
-                <id>0x0568</id>
+                <id>0x0568</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 18</category>
         </item>
 
         <item id="569">
-                <id>0x0569</id>
+                <id>0x0569</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 19</category>
         </item>
 
         <item id="62f">
-                <id>0x062f</id>
+                <id>0x062f</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 20</category>
         </item>
 
         <item id="630">
-                <id>0x0630</id>
+                <id>0x0630</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 21</category>
         </item>
 
         <item id="631">
-                <id>0x0631</id>
+                <id>0x0631</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 22</category>
         </item>
 
         <item id="632">
-                <id>0x0632</id>
+                <id>0x0632</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 23</category>
         </item>
 
         <item id="656">
-                <id>0x0656</id>
+                <id>0x0656</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 24</category>
         </item>
 
         <item id="657">
-                <id>0x0657</id>
+                <id>0x0657</id> <nodecay/>
                 <category>Buildings\Roofs\Red Stone Roof\Roof 25</category>
         </item>
 
         <!-- Brown Stone Roof -->
         <item id="579">
-                <id>0x0579</id>
+                <id>0x0579</id> <nodecay/>
                 <category>Buildings\Roofs\Brown Stone Roof\Roof 1</category>
         </item>
 
         <item id="57a">
-                <id>0x057a</id>
+                <id>0x057a</id> <nodecay/>
                 <category>Buildings\Roofs\Brown Stone Roof\Roof 2</category>
         </item>
 
         <item id="57b">
-                <id>0x057b</id>
+                <id>0x057b</id> <nodecay/>
                 <category>Buildings\Roofs\Brown Stone Roof\Roof 3</category>
         </item>
 
         <item id="57c">
-                <id>0x057c</id>
+                <id>0x057c</id> <nodecay/>
                 <category>Buildings\Roofs\Brown Stone Roof\Roof 4</category>
         </item>
 
         <item id="57d">
-                <id>0x057d</id>
+                <id>0x057d</id> <nodecay/>
                 <category>Buildings\Roofs\Brown Stone Roof\Roof 5</category>
         </item>
 
         <item id="57e">
-                <id>0x057e</id>
+                <id>0x057e</id> <nodecay/>
                 <category>Buildings\Roofs\Brown Stone Roof\Roof 6</category>
         </item>
 
         <item id="654">
-                <id>0x0654</id>
+                <id>0x0654</id> <nodecay/>
                 <category>Buildings\Roofs\Brown Stone Roof\Roof 7</category>
         </item>
 
         <item id="655">
-                <id>0x0655</id>
+                <id>0x0655</id> <nodecay/>
                 <category>Buildings\Roofs\Brown Stone Roof\Roof 8</category>
         </item>
 
         <!-- Marble Roof 1 -->
         <item id="637">
-                <id>0x0637</id>
+                <id>0x0637</id> <nodecay/>
                 <category>Buildings\Roofs\Marble Roof 1\Roof 1</category>
         </item>
 
         <item id="638">
-                <id>0x0638</id>
+                <id>0x0638</id> <nodecay/>
                 <category>Buildings\Roofs\Marble Roof 1\Roof 2</category>
         </item>
 
         <item id="639">
-                <id>0x0639</id>
+                <id>0x0639</id> <nodecay/>
                 <category>Buildings\Roofs\Marble Roof 1\Roof 3</category>
         </item>
 
         <item id="63a">
-                <id>0x063a</id>
+                <id>0x063a</id> <nodecay/>
                 <category>Buildings\Roofs\Marble Roof 1\Roof 4</category>
         </item>
 
         <item id="65a">
-                <id>0x065a</id>
+                <id>0x065a</id> <nodecay/>
                 <category>Buildings\Roofs\Marble Roof 1\Roof 5</category>
         </item>
 
         <item id="65b">
-                <id>0x065b</id>
+                <id>0x065b</id> <nodecay/>
                 <category>Buildings\Roofs\Marble Roof 1\Roof 6</category>
         </item>
 
         <!-- Marble Roof 2 -->
         <item id="63b">
-                <id>0x063b</id>
+                <id>0x063b</id> <nodecay/>
                 <category>Buildings\Roofs\Marble Roof 2\Roof 1</category>
         </item>
 
         <item id="63c">
-                <id>0x063c</id>
+                <id>0x063c</id> <nodecay/>
                 <category>Buildings\Roofs\Marble Roof 2\Roof 2</category>
         </item>
 
         <item id="63d">
-                <id>0x063d</id>
+                <id>0x063d</id> <nodecay/>
                 <category>Buildings\Roofs\Marble Roof 2\Roof 3</category>
         </item>
 
         <item id="63e">
-                <id>0x063e</id>
+                <id>0x063e</id> <nodecay/>
                 <category>Buildings\Roofs\Marble Roof 2\Roof 4</category>
         </item>
 
         <item id="652">
-                <id>0x0652</id>
+                <id>0x0652</id> <nodecay/>
                 <category>Buildings\Roofs\Marble Roof 2\Roof 5</category>
         </item>
 
         <item id="653">
-                <id>0x0653</id>
+                <id>0x0653</id> <nodecay/>
                 <category>Buildings\Roofs\Marble Roof 2\Roof 6</category>
         </item>
 
         <!-- Slate Roof 1 -->
         <item id="57f">
-                <id>0x057f</id>
+                <id>0x057f</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 1\Roof 1</category>
         </item>
 
         <item id="580">
-                <id>0x0580</id>
+                <id>0x0580</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 1\Roof 2</category>
         </item>
 
         <item id="581">
-                <id>0x0581</id>
+                <id>0x0581</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 1\Roof 3</category>
         </item>
 
         <item id="582">
-                <id>0x0582</id>
+                <id>0x0582</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 1\Roof 4</category>
         </item>
 
         <item id="583">
-                <id>0x0583</id>
+                <id>0x0583</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 1\Roof 5</category>
         </item>
 
         <item id="584">
-                <id>0x0584</id>
+                <id>0x0584</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 1\Roof 6</category>
         </item>
 
         <item id="585">
-                <id>0x0585</id>
+                <id>0x0585</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 1\Roof 7</category>
         </item>
 
         <item id="658">
-                <id>0x0658</id>
+                <id>0x0658</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 1\Roof 8</category>
         </item>
 
         <item id="659">
-                <id>0x0659</id>
+                <id>0x0659</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 1\Roof 9</category>
         </item>
 
         <!-- Palm Frond Roof -->
         <item id="586">
-                <id>0x0586</id>
+                <id>0x0586</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 1</category>
         </item>
 
         <item id="587">
-                <id>0x0587</id>
+                <id>0x0587</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 2</category>
         </item>
 
         <item id="588">
-                <id>0x0588</id>
+                <id>0x0588</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 3</category>
         </item>
 
         <item id="589">
-                <id>0x0589</id>
+                <id>0x0589</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 4</category>
         </item>
 
         <item id="58a">
-                <id>0x058a</id>
+                <id>0x058a</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 5</category>
         </item>
 
         <item id="58b">
-                <id>0x058b</id>
+                <id>0x058b</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 6</category>
         </item>
 
         <item id="58c">
-                <id>0x058c</id>
+                <id>0x058c</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 7</category>
         </item>
 
         <item id="58d">
-                <id>0x058d</id>
+                <id>0x058d</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 8</category>
         </item>
 
         <item id="58e">
-                <id>0x058e</id>
+                <id>0x058e</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 9</category>
         </item>
 
         <item id="58f">
-                <id>0x058f</id>
+                <id>0x058f</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 10</category>
         </item>
 
         <item id="590">
-                <id>0x0590</id>
+                <id>0x0590</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 11</category>
         </item>
 
         <item id="591">
-                <id>0x0591</id>
+                <id>0x0591</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 12</category>
         </item>
 
         <item id="592">
-                <id>0x0592</id>
+                <id>0x0592</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 13</category>
         </item>
 
         <item id="593">
-                <id>0x0593</id>
+                <id>0x0593</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 14</category>
         </item>
 
         <item id="594">
-                <id>0x0594</id>
+                <id>0x0594</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 15</category>
         </item>
 
         <item id="5d1">
-                <id>0x05d1</id>
+                <id>0x05d1</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 16</category>
         </item>
 
         <item id="5d2">
-                <id>0x05d2</id>
+                <id>0x05d2</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 17</category>
         </item>
 
         <item id="5d3">
-                <id>0x05d3</id>
+                <id>0x05d3</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 18</category>
         </item>
 
         <item id="5d4">
-                <id>0x05d4</id>
+                <id>0x05d4</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 19</category>
         </item>
 
         <item id="5d6">
-                <id>0x05d6</id>
+                <id>0x05d6</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 20</category>
         </item>
 
         <item id="5d7">
-                <id>0x05d7</id>
+                <id>0x05d7</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 21</category>
         </item>
 
         <item id="5d8">
-                <id>0x05d8</id>
+                <id>0x05d8</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 22</category>
         </item>
 
         <item id="5d9">
-                <id>0x05d9</id>
+                <id>0x05d9</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 23</category>
         </item>
 
         <item id="5da">
-                <id>0x05da</id>
+                <id>0x05da</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 24</category>
         </item>
 
         <item id="5db">
-                <id>0x05db</id>
+                <id>0x05db</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 25</category>
         </item>
 
         <item id="5dc">
-                <id>0x05dc</id>
+                <id>0x05dc</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 26</category>
         </item>
 
         <item id="5dd">
-                <id>0x05dd</id>
+                <id>0x05dd</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 27</category>
         </item>
 
         <item id="5de">
-                <id>0x05de</id>
+                <id>0x05de</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 28</category>
         </item>
 
         <item id="5df">
-                <id>0x05df</id>
+                <id>0x05df</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 29</category>
         </item>
 
         <item id="5e0">
-                <id>0x05e0</id>
+                <id>0x05e0</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 30</category>
         </item>
 
         <item id="5e1">
-                <id>0x05e1</id>
+                <id>0x05e1</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 31</category>
         </item>
 
         <item id="5e2">
-                <id>0x05e2</id>
+                <id>0x05e2</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 32</category>
         </item>
 
         <item id="5e3">
-                <id>0x05e3</id>
+                <id>0x05e3</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 33</category>
         </item>
 
         <item id="5e4">
-                <id>0x05e4</id>
+                <id>0x05e4</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 34</category>
         </item>
 
         <item id="5e5">
-                <id>0x05e5</id>
+                <id>0x05e5</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 35</category>
         </item>
 
         <item id="5e6">
-                <id>0x05e6</id>
+                <id>0x05e6</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 36</category>
         </item>
 
         <item id="5e7">
-                <id>0x05e7</id>
+                <id>0x05e7</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 37</category>
         </item>
 
         <item id="5e8">
-                <id>0x05e8</id>
+                <id>0x05e8</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 38</category>
         </item>
 
         <item id="5e9">
-                <id>0x05e9</id>
+                <id>0x05e9</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 39</category>
         </item>
 
         <item id="5ea">
-                <id>0x05ea</id>
+                <id>0x05ea</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 40</category>
         </item>
 
         <item id="5eb">
-                <id>0x05eb</id>
+                <id>0x05eb</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 41</category>
         </item>
 
         <item id="5ec">
-                <id>0x05ec</id>
+                <id>0x05ec</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 42</category>
         </item>
 
 	<item id="2180">
-		<id>0x2180</id>
+		<id>0x2180</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 43</category>
 	</item>
 
 	<item id="2181">
-		<id>0x2181</id>
+		<id>0x2181</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 44</category>
 	</item>
 
 	<item id="2182">
-		<id>0x2182</id>
+		<id>0x2182</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 45</category>
 	</item>
 
 	<item id="2183">
-		<id>0x2183</id>
+		<id>0x2183</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 46</category>
 	</item>
 
 	<item id="2184">
-		<id>0x2184</id>
+		<id>0x2184</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 47</category>
 	</item>
 
 	<item id="2185">
-		<id>0x2185</id>
+		<id>0x2185</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 48</category>
 	</item>
 
 	<item id="2186">
-		<id>0x2186</id>
+		<id>0x2186</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 49</category>
 	</item>
 
 	<item id="2187">
-		<id>0x2187</id>
+		<id>0x2187</id> <nodecay/>
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 50</category>
 	</item>
 
         <!-- Slate Roof 2 -->
         <item id="595">
-                <id>0x0595</id>
+                <id>0x0595</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 1</category>
         </item>
 
         <item id="596">
-                <id>0x0596</id>
+                <id>0x0596</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 2</category>
         </item>
 
         <item id="597">
-                <id>0x0597</id>
+                <id>0x0597</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 3</category>
         </item>
 
         <item id="598">
-                <id>0x0598</id>
+                <id>0x0598</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 4</category>
         </item>
 
         <item id="599">
-                <id>0x0599</id>
+                <id>0x0599</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 5</category>
         </item>
 
         <item id="59a">
-                <id>0x059a</id>
+                <id>0x059a</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 6</category>
         </item>
 
         <item id="59b">
-                <id>0x059b</id>
+                <id>0x059b</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 7</category>
         </item>
 
         <item id="59c">
-                <id>0x059c</id>
+                <id>0x059c</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 8</category>
         </item>
 
         <item id="59d">
-                <id>0x059d</id>
+                <id>0x059d</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 9</category>
         </item>
 
         <item id="59e">
-                <id>0x059e</id>
+                <id>0x059e</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 10</category>
         </item>
 
         <item id="59f">
-                <id>0x059f</id>
+                <id>0x059f</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 11</category>
         </item>
 
         <item id="5a0">
-                <id>0x05a0</id>
+                <id>0x05a0</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 12</category>
         </item>
 
         <item id="5a1">
-                <id>0x05a1</id>
+                <id>0x05a1</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 13</category>
         </item>
 
         <item id="5a2">
-                <id>0x05a2</id>
+                <id>0x05a2</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 14</category>
         </item>
 
         <item id="5a3">
-                <id>0x05a3</id>
+                <id>0x05a3</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 15</category>
         </item>
 
 	<item id="2178">
-		<id>0x2178</id>
+		<id>0x2178</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 16</category>
 	</item>
 
 	<item id="2179">
-		<id>0x2179</id>
+		<id>0x2179</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 17</category>
 	</item>
 
 	<item id="217a">
-		<id>0x217a</id>
+		<id>0x217a</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 18</category>
 	</item>
 
 	<item id="217b">
-		<id>0x217b</id>
+		<id>0x217b</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 19</category>
 	</item>
 
 	<item id="217c">
-		<id>0x217c</id>
+		<id>0x217c</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 20</category>
 	</item>
 
 	<item id="217d">
-		<id>0x217d</id>
+		<id>0x217d</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 21</category>
 	</item>
 
 	<item id="217e">
-		<id>0x217e</id>
+		<id>0x217e</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 22</category>
 	</item>
 
 	<item id="217f">
-		<id>0x217f</id>
+		<id>0x217f</id> <nodecay/>
                 <category>Buildings\Roofs\Slate Roof 2\Roof 23</category>
 	</item>
 
         <!-- Thatch Roof -->
         <item id="5a4">
-                <id>0x05a4</id>
+                <id>0x05a4</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 1</category>
         </item>
 
         <item id="5a5">
-                <id>0x05a5</id>
+                <id>0x05a5</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 2</category>
         </item>
 
         <item id="5a6">
-                <id>0x05a6</id>
+                <id>0x05a6</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 3</category>
         </item>
 
         <item id="5a7">
-                <id>0x05a7</id>
+                <id>0x05a7</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 4</category>
         </item>
 
         <item id="5a8">
-                <id>0x05a8</id>
+                <id>0x05a8</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 5</category>
         </item>
 
         <item id="5a9">
-                <id>0x05a9</id>
+                <id>0x05a9</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 6</category>
         </item>
 
         <item id="5aa">
-                <id>0x05aa</id>
+                <id>0x05aa</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 7</category>
         </item>
 
         <item id="5ab">
-                <id>0x05ab</id>
+                <id>0x05ab</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 8</category>
         </item>
 
         <item id="5ac">
-                <id>0x05ac</id>
+                <id>0x05ac</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 9</category>
         </item>
 
         <item id="5ad">
-                <id>0x05ad</id>
+                <id>0x05ad</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 10</category>
         </item>
 
         <item id="5ae">
-                <id>0x05ae</id>
+                <id>0x05ae</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 11</category>
         </item>
 
         <item id="5af">
-                <id>0x05af</id>
+                <id>0x05af</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 12</category>
         </item>
 
         <item id="5b0">
-                <id>0x05b0</id>
+                <id>0x05b0</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 13</category>
         </item>
 
         <item id="5b1">
-                <id>0x05b1</id>
+                <id>0x05b1</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 14</category>
         </item>
 
         <item id="5b2">
-                <id>0x05b2</id>
+                <id>0x05b2</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 15</category>
         </item>
 
 	<item id="2148">
-		<id>0x2148</id>
+		<id>0x2148</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 16</category>
 	</item>
 
 	<item id="2149">
-		<id>0x2149</id>
+		<id>0x2149</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 17</category>
 	</item>
 
 	<item id="214a">
-		<id>0x214a</id>
+		<id>0x214a</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 18</category>
 	</item>
 
 	<item id="214b">
-		<id>0x214b</id>
+		<id>0x214b</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 19</category>
 	</item>
 
 	<item id="214c">
-		<id>0x214c</id>
+		<id>0x214c</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 20</category>
 	</item>
 
 	<item id="214d">
-		<id>0x214d</id>
+		<id>0x214d</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 21</category>
 	</item>
 
 	<item id="214e">
-		<id>0x214e</id>
+		<id>0x214e</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 22</category>
 	</item>
 
 	<item id="214f">
-		<id>0x214f</id>
+		<id>0x214f</id> <nodecay/>
                 <category>Buildings\Roofs\Thatch Roof\Roof 23</category>
 	</item>
 
         <!-- Tile Roof -->
         <item id="5b3">
-                <id>0x05b3</id>
+                <id>0x05b3</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 1</category>
         </item>
 
         <item id="5b4">
-                <id>0x05b4</id>
+                <id>0x05b4</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 2</category>
         </item>
 
         <item id="5b5">
-                <id>0x05b5</id>
+                <id>0x05b5</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 3</category>
         </item>
 
         <item id="5b6">
-                <id>0x05b6</id>
+                <id>0x05b6</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 4</category>
         </item>
 
         <item id="5b7">
-                <id>0x05b7</id>
+                <id>0x05b7</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 5</category>
         </item>
 
         <item id="5b8">
-                <id>0x05b8</id>
+                <id>0x05b8</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 6</category>
         </item>
 
         <item id="5b9">
-                <id>0x05b9</id>
+                <id>0x05b9</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 7</category>
         </item>
 
         <item id="5ba">
-                <id>0x05ba</id>
+                <id>0x05ba</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 8</category>
         </item>
 
         <item id="5bb">
-                <id>0x05bb</id>
+                <id>0x05bb</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 9</category>
         </item>
 
         <item id="5bc">
-                <id>0x05bc</id>
+                <id>0x05bc</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 10</category>
         </item>
 
         <item id="5bd">
-                <id>0x05bd</id>
+                <id>0x05bd</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 11</category>
         </item>
 
         <item id="5be">
-                <id>0x05be</id>
+                <id>0x05be</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 12</category>
         </item>
 
         <item id="5bf">
-                <id>0x05bf</id>
+                <id>0x05bf</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 13</category>
         </item>
 
         <item id="5c0">
-                <id>0x05c0</id>
+                <id>0x05c0</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 14</category>
         </item>
 
         <item id="5c1">
-                <id>0x05c1</id>
+                <id>0x05c1</id> <nodecay/>
                 <category>Buildings\Roofs\Tile Roof\Roof 15</category>
         </item>
 
 		<item id="6fd">
-			<id>0x06fd</id>
+			<id>0x06fd</id> <nodecay/>
 			<category>Buildings\Roofs\Tile Roof\Roof 16</category>
 		</item>
 	
 		<item id="6fe">
-			<id>0x06fe</id>
+			<id>0x06fe</id> <nodecay/>
 			<category>Buildings\Roofs\Tile Roof\Roof 17</category>
 		</item>
 	
 		<item id="6ff">
-			<id>0x06ff</id>
+			<id>0x06ff</id> <nodecay/>
 			<category>Buildings\Roofs\Tile Roof\Roof 18</category>
 		</item>
 	
 		<item id="700">
-			<id>0x0700</id>
+			<id>0x0700</id> <nodecay/>
 			<category>Buildings\Roofs\Tile Roof\Roof 19</category>
 		</item>
 
 	<item id="21e9">
-		<id>0x21e9</id>
+		<id>0x21e9</id> <nodecay/>
 			<category>Buildings\Roofs\Tile Roof\Roof 20</category>
 	</item>
 
 	<item id="21ea">
-		<id>0x21ea</id>
+		<id>0x21ea</id> <nodecay/>
 			<category>Buildings\Roofs\Tile Roof\Roof 21</category>
 	</item>
 
 	<item id="21eb">
-		<id>0x21eb</id>
+		<id>0x21eb</id> <nodecay/>
 			<category>Buildings\Roofs\Tile Roof\Roof 22</category>
 	</item>
 
 	<item id="21ec">
-		<id>0x21ec</id>
+		<id>0x21ec</id> <nodecay/>
 			<category>Buildings\Roofs\Tile Roof\Roof 23</category>
 	</item>
 
 	<item id="21ed">
-		<id>0x21ed</id>
+		<id>0x21ed</id> <nodecay/>
 			<category>Buildings\Roofs\Tile Roof\Roof 24</category>
 	</item>
 
 	<item id="21ee">
-		<id>0x21ee</id>
+		<id>0x21ee</id> <nodecay/>
 			<category>Buildings\Roofs\Tile Roof\Roof 25</category>
 	</item>
 
 	<item id="21ef">
-		<id>0x21ef</id>
+		<id>0x21ef</id> <nodecay/>
 			<category>Buildings\Roofs\Tile Roof\Roof 26</category>
 	</item>
 
 	<item id="21f0">
-		<id>0x21f0</id>
+		<id>0x21f0</id> <nodecay/>
 			<category>Buildings\Roofs\Tile Roof\Roof 27</category>
 	</item>
 
         <!-- Wooden Shingle -->
         <item id="5c2">
-                <id>0x05c2</id>
+                <id>0x05c2</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 1</category>
         </item>
 
         <item id="5c3">
-                <id>0x05c3</id>
+                <id>0x05c3</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 2</category>
         </item>
 
         <item id="5c4">
-                <id>0x05c4</id>
+                <id>0x05c4</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 3</category>
         </item>
 
         <item id="5c5">
-                <id>0x05c5</id>
+                <id>0x05c5</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 4</category>
         </item>
 
         <item id="5c6">
-                <id>0x05c6</id>
+                <id>0x05c6</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 5</category>
         </item>
 
         <item id="5c7">
-                <id>0x05c7</id>
+                <id>0x05c7</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 6</category>
         </item>
 
         <item id="5c8">
-                <id>0x05c8</id>
+                <id>0x05c8</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 7</category>
         </item>
 
         <item id="5c9">
-                <id>0x05c9</id>
+                <id>0x05c9</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 8</category>
         </item>
 
         <item id="5ca">
-                <id>0x05ca</id>
+                <id>0x05ca</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 9</category>
         </item>
 
         <item id="5cb">
-                <id>0x05cb</id>
+                <id>0x05cb</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 10</category>
         </item>
 
         <item id="5cc">
-                <id>0x05cc</id>
+                <id>0x05cc</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 11</category>
         </item>
 
         <item id="5cd">
-                <id>0x05cd</id>
+                <id>0x05cd</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 12</category>
         </item>
 
         <item id="5ce">
-                <id>0x05ce</id>
+                <id>0x05ce</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 13</category>
         </item>
 
         <item id="5cf">
-                <id>0x05cf</id>
+                <id>0x05cf</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 14</category>
         </item>
 
         <item id="5d0">
-                <id>0x05d0</id>
+                <id>0x05d0</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 15</category>
         </item>
 
 	<item id="2170">
-		<id>0x2170</id>
+		<id>0x2170</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 16</category>
 	</item>
 
 	<item id="2171">
-		<id>0x2171</id>
+		<id>0x2171</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 17</category>
 	</item>
 
 	<item id="2172">
-		<id>0x2172</id>
+		<id>0x2172</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 18</category>
 	</item>
 
 	<item id="2173">
-		<id>0x2173</id>
+		<id>0x2173</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 19</category>
 	</item>
 
 	<item id="2174">
-		<id>0x2174</id>
+		<id>0x2174</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 20</category>
 	</item>
 
 	<item id="2175">
-		<id>0x2175</id>
+		<id>0x2175</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 21</category>
 	</item>
 
 	<item id="2176">
-		<id>0x2176</id>
+		<id>0x2176</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 22</category>
 	</item>
 
 	<item id="2177">
-		<id>0x2177</id>
+		<id>0x2177</id> <nodecay/>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 23</category>
 	</item>
 
         <!-- Log Roof -->
         <item id="5f0">
-                <id>0x05f0</id>
+                <id>0x05f0</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 1</category>
         </item>
 
         <item id="5f1">
-                <id>0x05f1</id>
+                <id>0x05f1</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 2</category>
         </item>
 
         <item id="5f2">
-                <id>0x05f2</id>
+                <id>0x05f2</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 3</category>
         </item>
 
         <item id="5f3">
-                <id>0x05f3</id>
+                <id>0x05f3</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 4</category>
         </item>
 
         <item id="5f4">
-                <id>0x05f4</id>
+                <id>0x05f4</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 5</category>
         </item>
 
         <item id="5f5">
-                <id>0x05f5</id>
+                <id>0x05f5</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 6</category>
         </item>
 
         <item id="5f6">
-                <id>0x05f6</id>
+                <id>0x05f6</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 7</category>
         </item>
 
         <item id="5f7">
-                <id>0x05f7</id>
+                <id>0x05f7</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 8</category>
         </item>
 
         <item id="5f8">
-                <id>0x05f8</id>
+                <id>0x05f8</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 9</category>
         </item>
 
         <item id="5f9">
-                <id>0x05f9</id>
+                <id>0x05f9</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 10</category>
         </item>
 
         <item id="5fa">
-                <id>0x05fa</id>
+                <id>0x05fa</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 11</category>
         </item>
 
         <item id="5fb">
-                <id>0x05fb</id>
+                <id>0x05fb</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 12</category>
         </item>
 
         <item id="5fc">
-                <id>0x05fc</id>
+                <id>0x05fc</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 13</category>
         </item>
 
         <item id="5fd">
-                <id>0x05fd</id>
+                <id>0x05fd</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 14</category>
         </item>
 
         <item id="5fe">
-                <id>0x05fe</id>
+                <id>0x05fe</id> <nodecay/>
                 <category>Buildings\Roofs\Log Roof\Roof 15</category>
         </item>
 
         <!-- Blue Tent Roof -->
         <item id="5ff">
-                <id>0x05ff</id>
+                <id>0x05ff</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 1</category>
         </item>
 
         <item id="600">
-                <id>0x0600</id>
+                <id>0x0600</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 2</category>
         </item>
 
         <item id="601">
-                <id>0x0601</id>
+                <id>0x0601</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 3</category>
         </item>
 
         <item id="602">
-                <id>0x0602</id>
+                <id>0x0602</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 4</category>
         </item>
 
         <item id="603">
-                <id>0x0603</id>
+                <id>0x0603</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 5</category>
         </item>
 
         <item id="604">
-                <id>0x0604</id>
+                <id>0x0604</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 6</category>
         </item>
 
         <item id="605">
-                <id>0x0605</id>
+                <id>0x0605</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 7</category>
         </item>
 
         <item id="606">
-                <id>0x0606</id>
+                <id>0x0606</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 8</category>
         </item>
 
         <item id="607">
-                <id>0x0607</id>
+                <id>0x0607</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 9</category>
         </item>
 
         <item id="608">
-                <id>0x0608</id>
+                <id>0x0608</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 10</category>
         </item>
 
         <item id="609">
-                <id>0x0609</id>
+                <id>0x0609</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 11</category>
         </item>
 
         <item id="60a">
-                <id>0x060a</id>
+                <id>0x060a</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 12</category>
         </item>
 
         <item id="60b">
-                <id>0x060b</id>
+                <id>0x060b</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 13</category>
         </item>
 
         <item id="60c">
-                <id>0x060c</id>
+                <id>0x060c</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 14</category>
         </item>
 
         <item id="60d">
-                <id>0x060d</id>
+                <id>0x060d</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 15</category>
         </item>
 
         <item id="60e">
-                <id>0x060e</id>
+                <id>0x060e</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 16</category>
         </item>
 
         <item id="60f">
-                <id>0x060f</id>
+                <id>0x060f</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 17</category>
         </item>
 
         <item id="610">
-                <id>0x0610</id>
+                <id>0x0610</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 18</category>
         </item>
 
         <item id="611">
-                <id>0x0611</id>
+                <id>0x0611</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 19</category>
         </item>
 
         <item id="612">
-                <id>0x0612</id>
+                <id>0x0612</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 20</category>
         </item>
 
         <item id="613">
-                <id>0x0613</id>
+                <id>0x0613</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 21</category>
         </item>
 
         <item id="614">
-                <id>0x0614</id>
+                <id>0x0614</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 22</category>
         </item>
 
         <item id="633">
-                <id>0x0633</id>
+                <id>0x0633</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 23</category>
         </item>
 
         <item id="634">
-                <id>0x0634</id>
+                <id>0x0634</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 24</category>
         </item>
 
         <item id="64c">
-                <id>0x064c</id>
+                <id>0x064c</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 25</category>
         </item>
 
         <item id="64d">
-                <id>0x064d</id>
+                <id>0x064d</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 26</category>
         </item>
 
         <item id="64e">
-                <id>0x064e</id>
+                <id>0x064e</id> <nodecay/>
                 <category>Buildings\Roofs\Blue Tent Roof\Roof 27</category>
         </item>
 
         <!-- Green Tent Roof -->
         <item id="615">
-                <id>0x0615</id>
+                <id>0x0615</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 1</category>
         </item>
 
         <item id="616">
-                <id>0x0616</id>
+                <id>0x0616</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 2</category>
         </item>
 
         <item id="617">
-                <id>0x0617</id>
+                <id>0x0617</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 3</category>
         </item>
 
         <item id="618">
-                <id>0x0618</id>
+                <id>0x0618</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 4</category>
         </item>
 
         <item id="619">
-                <id>0x0619</id>
+                <id>0x0619</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 5</category>
         </item>
 
         <item id="61a">
-                <id>0x061a</id>
+                <id>0x061a</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 6</category>
         </item>
 
         <item id="61b">
-                <id>0x061b</id>
+                <id>0x061b</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 7</category>
         </item>
 
         <item id="61c">
-                <id>0x061c</id>
+                <id>0x061c</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 8</category>
         </item>
 
         <item id="61d">
-                <id>0x061d</id>
+                <id>0x061d</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 9</category>
         </item>
 
         <item id="61e">
-                <id>0x061e</id>
+                <id>0x061e</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 10</category>
         </item>
 
         <item id="61f">
-                <id>0x061f</id>
+                <id>0x061f</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 11</category>
         </item>
 
         <item id="620">
-                <id>0x0620</id>
+                <id>0x0620</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 12</category>
         </item>
 
         <item id="621">
-                <id>0x0621</id>
+                <id>0x0621</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 13</category>
         </item>
 
         <item id="622">
-                <id>0x0622</id>
+                <id>0x0622</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 14</category>
         </item>
 
         <item id="623">
-                <id>0x0623</id>
+                <id>0x0623</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 15</category>
         </item>
 
         <item id="624">
-                <id>0x0624</id>
+                <id>0x0624</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 16</category>
         </item>
 
         <item id="625">
-                <id>0x0625</id>
+                <id>0x0625</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 17</category>
         </item>
 
         <item id="626">
-                <id>0x0626</id>
+                <id>0x0626</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 18</category>
         </item>
 
         <item id="627">
-                <id>0x0627</id>
+                <id>0x0627</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 19</category>
         </item>
 
         <item id="628">
-                <id>0x0628</id>
+                <id>0x0628</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 20</category>
         </item>
 
         <item id="629">
-                <id>0x0629</id>
+                <id>0x0629</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 21</category>
         </item>
 
         <item id="62a">
-                <id>0x062a</id>
+                <id>0x062a</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 22</category>
         </item>
 
         <item id="635">
-                <id>0x0635</id>
+                <id>0x0635</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 23</category>
         </item>
 
         <item id="636">
-                <id>0x0636</id>
+                <id>0x0636</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 24</category>
         </item>
 
         <item id="64f">
-                <id>0x064f</id>
+                <id>0x064f</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 25</category>
         </item>
 
         <item id="650">
-                <id>0x0650</id>
+                <id>0x0650</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 26</category>
         </item>
 
         <item id="651">
-                <id>0x0651</id>
+                <id>0x0651</id> <nodecay/>
                 <category>Buildings\Roofs\Green Tent Roof\Roof 27</category>
         </item>
 
         <!-- Gray Tent Roof -->
         <item id="648">
-                <id>0x0648</id>
+                <id>0x0648</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 1</category>
         </item>
 
         <item id="649">
-                <id>0x0649</id>
+                <id>0x0649</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 2</category>
         </item>
 
         <item id="64a">
-                <id>0x064a</id>
+                <id>0x064a</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 3</category>
         </item>
 
         <item id="64b">
-                <id>0x064b</id>
+                <id>0x064b</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 4</category>
         </item>
 
         <item id="65e">
-                <id>0x065e</id>
+                <id>0x065e</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 5</category>
         </item>
 
         <item id="65f">
-                <id>0x065f</id>
+                <id>0x065f</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 6</category>
         </item>
 
         <item id="660">
-                <id>0x0660</id>
+                <id>0x0660</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 7</category>
         </item>
 
         <item id="661">
-                <id>0x0661</id>
+                <id>0x0661</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 8</category>
         </item>
 
         <item id="662">
-                <id>0x0662</id>
+                <id>0x0662</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 9</category>
         </item>
 
         <item id="663">
-                <id>0x0663</id>
+                <id>0x0663</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 10</category>
         </item>
 
         <item id="664">
-                <id>0x0664</id>
+                <id>0x0664</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 11</category>
         </item>
 
         <item id="665">
-                <id>0x0665</id>
+                <id>0x0665</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 12</category>
         </item>
 
         <item id="666">
-                <id>0x0666</id>
+                <id>0x0666</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 13</category>
         </item>
 
         <item id="667">
-                <id>0x0667</id>
+                <id>0x0667</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 14</category>
         </item>
 
         <item id="668">
-                <id>0x0668</id>
+                <id>0x0668</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 15</category>
         </item>
 
         <item id="669">
-                <id>0x0669</id>
+                <id>0x0669</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 16</category>
         </item>
 
         <item id="66a">
-                <id>0x066a</id>
+                <id>0x066a</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 17</category>
         </item>
 
         <item id="66b">
-                <id>0x066b</id>
+                <id>0x066b</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 18</category>
         </item>
 
         <item id="66c">
-                <id>0x066c</id>
+                <id>0x066c</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 19</category>
         </item>
 
         <item id="66d">
-                <id>0x066d</id>
+                <id>0x066d</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 20</category>
         </item>
 
         <item id="66e">
-                <id>0x066e</id>
+                <id>0x066e</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 21</category>
         </item>
 
         <item id="66f">
-                <id>0x066f</id>
+                <id>0x066f</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 22</category>
         </item>
 
         <item id="670">
-                <id>0x0670</id>
+                <id>0x0670</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 23</category>
         </item>
 
         <item id="671">
-                <id>0x0671</id>
+                <id>0x0671</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 24</category>
         </item>
 
         <item id="672">
-                <id>0x0672</id>
+                <id>0x0672</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 25</category>
         </item>
 
         <item id="673">
-                <id>0x0673</id>
+                <id>0x0673</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 26</category>
         </item>
 
         <item id="674">
-                <id>0x0674</id>
+                <id>0x0674</id> <nodecay/>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 27</category>
         </item>
 
 	<!-- Stone Tile Roof -->
 	<item id="1939">
-		<id>0x1939</id>
+		<id>0x1939</id> <nodecay/>
         <category>Buildings\Roofs\Stone Tile Roof\Roof 1</category>
 	</item>
 
 	<item id="193a">
-		<id>0x193a</id>
+		<id>0x193a</id> <nodecay/>
         <category>Buildings\Roofs\Stone Tile Roof\Roof 2</category>
 	</item>
 
 	<item id="193b">
-		<id>0x193b</id>
+		<id>0x193b</id> <nodecay/>
         <category>Buildings\Roofs\Stone Tile Roof\Roof 3</category>
 	</item>
 
 	<item id="193c">
-		<id>0x193c</id>
+		<id>0x193c</id> <nodecay/>
         <category>Buildings\Roofs\Stone Tile Roof\Roof 4</category>
 	</item>
 
 	<item id="193d">
-		<id>0x193d</id>
+		<id>0x193d</id> <nodecay/>
         <category>Buildings\Roofs\Stone Tile Roof\Roof 5</category>
 	</item>
 
 	<item id="193e">
-		<id>0x193e</id>
+		<id>0x193e</id> <nodecay/>
         <category>Buildings\Roofs\Stone Tile Roof\Roof 6</category>
 	</item>
 </definitions>

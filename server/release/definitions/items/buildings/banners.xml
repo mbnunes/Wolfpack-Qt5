@@ -11,733 +11,733 @@
 <definitions>
         <!-- Banners -->
         <item id="1586">
-                <id>0x1586</id>
+                <id>0x1586</id> <nodecay />
                 <category>Decoration\Banners\Banner 1 (W/E) 1</category>
         </item>
 
         <item id="1587">
-                <id>0x1587</id>
+                <id>0x1587</id> <nodecay />
                 <category>Decoration\Banners\Banner 1 (W/E) 2</category>
         </item>
 
         <item id="1588">
-                <id>0x1588</id>
+                <id>0x1588</id> <nodecay />
                 <category>Decoration\Banners\Banner 1 (W/E) 3</category>
         </item>
 
         <item id="161d">
-                <id>0x161d</id>
+                <id>0x161d</id> <nodecay />
                 <category>Decoration\Banners\Banner 1 (N/S) 1</category>
         </item>
 
         <item id="161e">
-                <id>0x161e</id>
+                <id>0x161e</id> <nodecay />
                 <category>Decoration\Banners\Banner 1 (N/S) 2</category>
         </item>
 
         <item id="161f">
-                <id>0x161f</id>
+                <id>0x161f</id> <nodecay />
                 <category>Decoration\Banners\Banner 1 (N/S) 3</category>
         </item>
 
         <item id="1589">
-                <id>0x1589</id>
+                <id>0x1589</id> <nodecay />
                 <category>Decoration\Banners\Banner 2 (W/E) 1</category>
         </item>
 
         <item id="158a">
-                <id>0x158a</id>
+                <id>0x158a</id> <nodecay />
                 <category>Decoration\Banners\Banner 2 (W/E) 2</category>
         </item>
 
         <item id="158b">
-                <id>0x158b</id>
+                <id>0x158b</id> <nodecay />
                 <category>Decoration\Banners\Banner 2 (W/E) 3</category>
         </item>
 
         <item id="1620">
-                <id>0x1620</id>
+                <id>0x1620</id> <nodecay />
                 <category>Decoration\Banners\Banner 2 (N/S) 1</category>
         </item>
 
         <item id="1621">
-                <id>0x1621</id>
+                <id>0x1621</id> <nodecay />
                 <category>Decoration\Banners\Banner 2 (N/S) 2</category>
         </item>
 
         <item id="1622">
-                <id>0x1622</id>
+                <id>0x1622</id> <nodecay />
                 <category>Decoration\Banners\Banner 2 (N/S) 3</category>
         </item>
 
         <item id="158c">
-                <id>0x158c</id>
+                <id>0x158c</id> <nodecay />
                 <category>Decoration\Banners\Banner 3 (W/E) 1</category>
         </item>
 
         <item id="158d">
-                <id>0x158d</id>
+                <id>0x158d</id> <nodecay />
                 <category>Decoration\Banners\Banner 3 (W/E) 2</category>
         </item>
 
         <item id="158e">
-                <id>0x158e</id>
+                <id>0x158e</id> <nodecay />
                 <category>Decoration\Banners\Banner 3 (W/E) 3</category>
         </item>
 
         <item id="1623">
-                <id>0x1623</id>
+                <id>0x1623</id> <nodecay />
                 <category>Decoration\Banners\Banner 3 (N/S) 1</category>
         </item>
 
         <item id="1624">
-                <id>0x1624</id>
+                <id>0x1624</id> <nodecay />
                 <category>Decoration\Banners\Banner 3 (N/S) 2</category>
         </item>
 
         <item id="1625">
-                <id>0x1625</id>
+                <id>0x1625</id> <nodecay />
                 <category>Decoration\Banners\Banner 3 (N/S) 3</category>
         </item>
 
         <item id="1590">
-                <id>0x1590</id>
+                <id>0x1590</id> <nodecay />
                 <category>Decoration\Banners\Banner 4 (W/E) 1</category>
         </item>
 
         <item id="1591">
-                <id>0x1591</id>
+                <id>0x1591</id> <nodecay />
                 <category>Decoration\Banners\Banner 4 (W/E) 2</category>
         </item>
 
         <item id="1627">
-                <id>0x1627</id>
+                <id>0x1627</id> <nodecay />
                 <category>Decoration\Banners\Banner 4 (N/S) 1</category>
         </item>
 
         <item id="1628">
-                <id>0x1628</id>
+                <id>0x1628</id> <nodecay />
                 <category>Decoration\Banners\Banner 4 (N/S) 2</category>
         </item>
 
         <item id="1592">
-                <id>0x1592</id>
+                <id>0x1592</id> <nodecay />
                 <category>Decoration\Banners\Banner 5 (W/E) 1</category>
         </item>
 
         <item id="1593">
-                <id>0x1593</id>
+                <id>0x1593</id> <nodecay />
                 <category>Decoration\Banners\Banner 5 (W/E) 2</category>
         </item>
 
         <item id="1629">
-                <id>0x1629</id>
+                <id>0x1629</id> <nodecay />
                 <category>Decoration\Banners\Banner 5 (N/S) 1</category>
         </item>
 
         <item id="162a">
-                <id>0x162a</id>
+                <id>0x162a</id> <nodecay />
                 <category>Decoration\Banners\Banner 5 (N/S) 2</category>
         </item>
 
         <item id="1594">
-                <id>0x1594</id>
+                <id>0x1594</id> <nodecay />
                 <category>Decoration\Banners\Banner 6 (W/E) 1</category>
         </item>
 
         <item id="1595">
-                <id>0x1595</id>
+                <id>0x1595</id> <nodecay />
                 <category>Decoration\Banners\Banner 6 (W/E) 2</category>
         </item>
 
         <item id="1596">
-                <id>0x1596</id>
+                <id>0x1596</id> <nodecay />
                 <category>Decoration\Banners\Banner 6 (W/E) 3</category>
         </item>
 
         <item id="162b">
-                <id>0x162b</id>
+                <id>0x162b</id> <nodecay />
                 <category>Decoration\Banners\Banner 6 (N/S) 1</category>
         </item>
 
         <item id="162c">
-                <id>0x162c</id>
+                <id>0x162c</id> <nodecay />
                 <category>Decoration\Banners\Banner 6 (N/S) 2</category>
         </item>
 
         <item id="162d">
-                <id>0x162d</id>
+                <id>0x162d</id> <nodecay />
                 <category>Decoration\Banners\Banner 6 (N/S) 3</category>
         </item>
 
         <item id="1598">
-                <id>0x1598</id>
+                <id>0x1598</id> <nodecay />
                 <category>Decoration\Banners\Banner 7 (W/E) 1</category>
         </item>
 
         <item id="159b">
-                <id>0x159b</id>
+                <id>0x159b</id> <nodecay />
                 <category>Decoration\Banners\Banner 7 (W/E) 2</category>
         </item>
 
         <item id="159c">
-                <id>0x159c</id>
+                <id>0x159c</id> <nodecay />
                 <category>Decoration\Banners\Banner 7 (W/E) 3</category>
         </item>
 
         <item id="162e">
-                <id>0x162e</id>
+                <id>0x162e</id> <nodecay />
                 <category>Decoration\Banners\Banner 7 (N/S) 1</category>
         </item>
 
         <item id="1631">
-                <id>0x1631</id>
+                <id>0x1631</id> <nodecay />
                 <category>Decoration\Banners\Banner 7 (N/S) 2</category>
         </item>
 
         <item id="1632">
-                <id>0x1632</id>
+                <id>0x1632</id> <nodecay />
                 <category>Decoration\Banners\Banner 7 (N/S) 3</category>
         </item>
 
         <item id="1599">
-                <id>0x1599</id>
+                <id>0x1599</id> <nodecay />
                 <category>Decoration\Banners\Banner 8 (W/E) 1</category>
         </item>
 
         <item id="159a">
-                <id>0x159a</id>
+                <id>0x159a</id> <nodecay />
                 <category>Decoration\Banners\Banner 8 (W/E) 2</category>
         </item>
 
         <item id="159d">
-                <id>0x159d</id>
+                <id>0x159d</id> <nodecay />
                 <category>Decoration\Banners\Banner 8 (W/E) 3</category>
         </item>
 
         <item id="162f">
-                <id>0x162f</id>
+                <id>0x162f</id> <nodecay />
                 <category>Decoration\Banners\Banner 8 (N/S) 1</category>
         </item>
 
         <item id="1630">
-                <id>0x1630</id>
+                <id>0x1630</id> <nodecay />
                 <category>Decoration\Banners\Banner 8 (N/S) 2</category>
         </item>
 
         <item id="1633">
-                <id>0x1633</id>
+                <id>0x1633</id> <nodecay />
                 <category>Decoration\Banners\Banner 8 (N/S) 3</category>
         </item>
 
         <item id="15a0">
-                <id>0x15a0</id>
+                <id>0x15a0</id> <nodecay />
                 <category>Decoration\Banners\Banner 9 (W/E) 1</category>
         </item>
 
         <item id="15a1">
-                <id>0x15a1</id>
+                <id>0x15a1</id> <nodecay />
                 <category>Decoration\Banners\Banner 9 (W/E) 2</category>
         </item>
 
         <item id="160f">
-                <id>0x160f</id>
+                <id>0x160f</id> <nodecay />
                 <category>Decoration\Banners\Banner 9 (N/S) 1</category>
         </item>
 
         <item id="1610">
-                <id>0x1610</id>
+                <id>0x1610</id> <nodecay />
                 <category>Decoration\Banners\Banner 9 (N/S) 2</category>
         </item>
 
         <item id="15a2">
-                <id>0x15a2</id>
+                <id>0x15a2</id> <nodecay />
                 <category>Decoration\Banners\Banner 10 (W/E) 1</category>
         </item>
 
         <item id="15a3">
-                <id>0x15a3</id>
+                <id>0x15a3</id> <nodecay />
                 <category>Decoration\Banners\Banner 10 (W/E) 2</category>
         </item>
 
         <item id="1611">
-                <id>0x1611</id>
+                <id>0x1611</id> <nodecay />
                 <category>Decoration\Banners\Banner 10 (N/S) 1</category>
         </item>
 
         <item id="1612">
-                <id>0x1612</id>
+                <id>0x1612</id> <nodecay />
                 <category>Decoration\Banners\Banner 10 (N/S) 2</category>
         </item>
 
         <item id="15a4">
-                <id>0x15a4</id>
+                <id>0x15a4</id> <nodecay />
                 <category>Decoration\Banners\Banner 11 (W/E) 1</category>
         </item>
 
         <item id="15a5">
-                <id>0x15a5</id>
+                <id>0x15a5</id> <nodecay />
                 <category>Decoration\Banners\Banner 11 (W/E) 2</category>
         </item>
 
         <item id="1613">
-                <id>0x1613</id>
+                <id>0x1613</id> <nodecay />
                 <category>Decoration\Banners\Banner 11 (N/S) 1</category>
         </item>
 
         <item id="1614">
-                <id>0x1614</id>
+                <id>0x1614</id> <nodecay />
                 <category>Decoration\Banners\Banner 11 (N/S) 2</category>
         </item>
 
         <item id="15a6">
-                <id>0x15a6</id>
+                <id>0x15a6</id> <nodecay />
                 <category>Decoration\Banners\Banner 12 (W/E) 1</category>
         </item>
 
         <item id="15a7">
-                <id>0x15a7</id>
+                <id>0x15a7</id> <nodecay />
                 <category>Decoration\Banners\Banner 12 (W/E) 2</category>
         </item>
 
         <item id="1615">
-                <id>0x1615</id>
+                <id>0x1615</id> <nodecay />
                 <category>Decoration\Banners\Banner 12 (N/S) 1</category>
         </item>
 
         <item id="1616">
-                <id>0x1616</id>
+                <id>0x1616</id> <nodecay />
                 <category>Decoration\Banners\Banner 12 (N/S) 2</category>
         </item>
 
         <item id="15a8">
-                <id>0x15a8</id>
+                <id>0x15a8</id> <nodecay />
                 <category>Decoration\Banners\Banner 13 (W/E) 1</category>
         </item>
 
         <item id="15a9">
-                <id>0x15a9</id>
+                <id>0x15a9</id> <nodecay />
                 <category>Decoration\Banners\Banner 13 (W/E) 2</category>
         </item>
 
         <item id="1617">
-                <id>0x1617</id>
+                <id>0x1617</id> <nodecay />
                 <category>Decoration\Banners\Banner 13 (N/S) 1</category>
         </item>
 
         <item id="1618">
-                <id>0x1618</id>
+                <id>0x1618</id> <nodecay />
                 <category>Decoration\Banners\Banner 13 (N/S) 2</category>
         </item>
 
         <item id="15aa">
-                <id>0x15aa</id>
+                <id>0x15aa</id> <nodecay />
                 <category>Decoration\Banners\Banner 14 (W/E) 1</category>
         </item>
 
         <item id="15ab">
-                <id>0x15ab</id>
+                <id>0x15ab</id> <nodecay />
                 <category>Decoration\Banners\Banner 14 (W/E) 2</category>
         </item>
 
         <item id="1619">
-                <id>0x1619</id>
+                <id>0x1619</id> <nodecay />
                 <category>Decoration\Banners\Banner 14 (N/S) 1</category>
         </item>
 
         <item id="161a">
-                <id>0x161a</id>
+                <id>0x161a</id> <nodecay />
                 <category>Decoration\Banners\Banner 14 (N/S) 2</category>
         </item>
 
         <item id="15ac">
-                <id>0x15ac</id>
+                <id>0x15ac</id> <nodecay />
                 <category>Decoration\Banners\Banner 15 (W/E) 1</category>
         </item>
 
         <item id="15ad">
-                <id>0x15ad</id>
+                <id>0x15ad</id> <nodecay />
                 <category>Decoration\Banners\Banner 15 (W/E) 2</category>
         </item>
 
         <item id="161b">
-                <id>0x161b</id>
+                <id>0x161b</id> <nodecay />
                 <category>Decoration\Banners\Banner 15 (N/S) 1</category>
         </item>
 
         <item id="161c">
-                <id>0x161c</id>
+                <id>0x161c</id> <nodecay />
                 <category>Decoration\Banners\Banner 15 (N/S) 2</category>
         </item>
 
         <item id="15ae">
-                <id>0x15ae</id>
+                <id>0x15ae</id> <nodecay />
                 <category>Decoration\Banners\Banner 16 (W/E)</category>
         </item>
 
         <item id="15af">
-                <id>0x15af</id>
+                <id>0x15af</id> <nodecay />
                 <category>Decoration\Banners\Banner 16 (N/S)</category>
         </item>
 
         <item id="15b0">
-                <id>0x15b0</id>
+                <id>0x15b0</id> <nodecay />
                 <category>Decoration\Banners\Banner 17 (W/E)</category>
         </item>
 
         <item id="15b1">
-                <id>0x15b1</id>
+                <id>0x15b1</id> <nodecay />
                 <category>Decoration\Banners\Banner 17 (N/S)</category>
         </item>
 
         <item id="15b2">
-                <id>0x15b2</id>
+                <id>0x15b2</id> <nodecay />
                 <category>Decoration\Banners\Banner 18 (W/E)</category>
         </item>
 
         <item id="15b3">
-                <id>0x15b3</id>
+                <id>0x15b3</id> <nodecay />
                 <category>Decoration\Banners\Banner 18 (N/S)</category>
         </item>
 
         <item id="15b4">
-                <id>0x15b4</id>
+                <id>0x15b4</id> <nodecay />
                 <category>Decoration\Banners\Banner 19 (W/E)</category>
         </item>
 
         <item id="15b5">
-                <id>0x15b5</id>
+                <id>0x15b5</id> <nodecay />
                 <category>Decoration\Banners\Banner 19 (N/S)</category>
         </item>
 
         <item id="15b6">
-                <id>0x15b6</id>
+                <id>0x15b6</id> <nodecay />
                 <category>Decoration\Banners\Banner 20 (W/E)</category>
         </item>
 
         <item id="15b7">
-                <id>0x15b7</id>
+                <id>0x15b7</id> <nodecay />
                 <category>Decoration\Banners\Banner 20 (N/S)</category>
         </item>
 
         <item id="15b8">
-                <id>0x15b8</id>
+                <id>0x15b8</id> <nodecay />
                 <category>Decoration\Banners\Banner 21 (W/E)</category>
         </item>
 
         <item id="15b9">
-                <id>0x15b9</id>
+                <id>0x15b9</id> <nodecay />
                 <category>Decoration\Banners\Banner 21 (N/S)</category>
         </item>
 
         <item id="15ba">
-                <id>0x15ba</id>
+                <id>0x15ba</id> <nodecay />
                 <category>Decoration\Banners\Banner 22 (W/E)</category>
         </item>
 
         <item id="15bb">
-                <id>0x15bb</id>
+                <id>0x15bb</id> <nodecay />
                 <category>Decoration\Banners\Banner 22 (N/S)</category>
         </item>
 
         <item id="15bc">
-                <id>0x15bc</id>
+                <id>0x15bc</id> <nodecay />
                 <category>Decoration\Banners\Banner 23 (W/E)</category>
         </item>
 
         <item id="15bd">
-                <id>0x15bd</id>
+                <id>0x15bd</id> <nodecay />
                 <category>Decoration\Banners\Banner 23 (N/S)</category>
         </item>
 
         <item id="15be">
-                <id>0x15be</id>
+                <id>0x15be</id> <nodecay />
                 <category>Decoration\Banners\Banner 24 (W/E)</category>
         </item>
 
         <item id="15bf">
-                <id>0x15bf</id>
+                <id>0x15bf</id> <nodecay />
                 <category>Decoration\Banners\Banner 24 (N/S)</category>
         </item>
 
         <item id="15c0">
-                <id>0x15c0</id>
+                <id>0x15c0</id> <nodecay />
                 <category>Decoration\Banners\Banner 25 (W/E)</category>
         </item>
 
         <item id="15c1">
-                <id>0x15c1</id>
+                <id>0x15c1</id> <nodecay />
                 <category>Decoration\Banners\Banner 25 (N/S)</category>
         </item>
 
         <item id="15c2">
-                <id>0x15c2</id>
+                <id>0x15c2</id> <nodecay />
                 <category>Decoration\Banners\Banner 26 (W/E)</category>
         </item>
 
         <item id="15c3">
-                <id>0x15c3</id>
+                <id>0x15c3</id> <nodecay />
                 <category>Decoration\Banners\Banner 26 (N/S)</category>
         </item>
 
         <item id="15c4">
-                <id>0x15c4</id>
+                <id>0x15c4</id> <nodecay />
                 <category>Decoration\Banners\Banner 27 (W/E)</category>
         </item>
 
         <item id="15c5">
-                <id>0x15c5</id>
+                <id>0x15c5</id> <nodecay />
                 <category>Decoration\Banners\Banner 27 (N/S)</category>
         </item>
 
         <item id="15c6">
-                <id>0x15c6</id>
+                <id>0x15c6</id> <nodecay />
                 <category>Decoration\Banners\Banner 28 (W/E)</category>
         </item>
 
         <item id="15c7">
-                <id>0x15c7</id>
+                <id>0x15c7</id> <nodecay />
                 <category>Decoration\Banners\Banner 28 (N/S)</category>
         </item>
 
         <item id="15c8">
-                <id>0x15c8</id>
+                <id>0x15c8</id> <nodecay />
                 <category>Decoration\Banners\Banner 29 (W/E)</category>
         </item>
 
         <item id="15c9">
-                <id>0x15c9</id>
+                <id>0x15c9</id> <nodecay />
                 <category>Decoration\Banners\Banner 29 (N/S)</category>
         </item>
 
         <item id="15ca">
-                <id>0x15ca</id>
+                <id>0x15ca</id> <nodecay />
                 <category>Decoration\Banners\Banner 30 (W/E)</category>
         </item>
 
         <item id="15cb">
-                <id>0x15cb</id>
+                <id>0x15cb</id> <nodecay />
                 <category>Decoration\Banners\Banner 30 (N/S)</category>
         </item>
 
         <item id="15cc">
-                <id>0x15cc</id>
+                <id>0x15cc</id> <nodecay />
                 <category>Decoration\Banners\Banner 31 (W/E)</category>
         </item>
 
         <item id="15cd">
-                <id>0x15cd</id>
+                <id>0x15cd</id> <nodecay />
                 <category>Decoration\Banners\Banner 31 (N/S)</category>
         </item>
 
         <item id="15ce">
-                <id>0x15ce</id>
+                <id>0x15ce</id> <nodecay />
                 <category>Decoration\Banners\Banner 32 (W/E)</category>
         </item>
 
         <item id="15cf">
-                <id>0x15cf</id>
+                <id>0x15cf</id> <nodecay />
                 <category>Decoration\Banners\Banner 32 (N/S)</category>
         </item>
 
         <item id="15d0">
-                <id>0x15d0</id>
+                <id>0x15d0</id> <nodecay />
                 <category>Decoration\Banners\Banner 33 (W/E)</category>
         </item>
 
         <item id="15d1">
-                <id>0x15d1</id>
+                <id>0x15d1</id> <nodecay />
                 <category>Decoration\Banners\Banner 33 (N/S)</category>
         </item>
 
         <item id="15d2">
-                <id>0x15d2</id>
+                <id>0x15d2</id> <nodecay />
                 <category>Decoration\Banners\Banner 34 (W/E)</category>
         </item>
 
         <item id="15d3">
-                <id>0x15d3</id>
+                <id>0x15d3</id> <nodecay />
                 <category>Decoration\Banners\Banner 34 (N/S)</category>
         </item>
 
         <item id="15d4">
-                <id>0x15d4</id>
+                <id>0x15d4</id> <nodecay />
                 <category>Decoration\Banners\Banner 35 (W/E)</category>
         </item>
 
         <item id="15d5">
-                <id>0x15d5</id>
+                <id>0x15d5</id> <nodecay />
                 <category>Decoration\Banners\Banner 35 (N/S)</category>
         </item>
 
         <item id="15d6">
-                <id>0x15d6</id>
+                <id>0x15d6</id> <nodecay />
                 <category>Decoration\Banners\Banner 36 (W/E)</category>
         </item>
 
         <item id="15d7">
-                <id>0x15d7</id>
+                <id>0x15d7</id> <nodecay />
                 <category>Decoration\Banners\Banner 36 (N/S)</category>
         </item>
 
         <item id="15d8">
-                <id>0x15d8</id>
+                <id>0x15d8</id> <nodecay />
                 <category>Decoration\Banners\Banner 37 (W/E)</category>
         </item>
 
         <item id="15d9">
-                <id>0x15d9</id>
+                <id>0x15d9</id> <nodecay />
                 <category>Decoration\Banners\Banner 37 (N/S)</category>
         </item>
 
         <item id="15da">
-                <id>0x15da</id>
+                <id>0x15da</id> <nodecay />
                 <category>Decoration\Banners\Banner 38 (W/E)</category>
         </item>
 
         <item id="15db">
-                <id>0x15db</id>
+                <id>0x15db</id> <nodecay />
                 <category>Decoration\Banners\Banner 38 (N/S)</category>
         </item>
 
         <item id="15dc">
-                <id>0x15dc</id>
+                <id>0x15dc</id> <nodecay />
                 <category>Decoration\Banners\Banner 39 (W/E)</category>
         </item>
 
         <item id="15dd">
-                <id>0x15dd</id>
+                <id>0x15dd</id> <nodecay />
                 <category>Decoration\Banners\Banner 39 (N/S)</category>
         </item>
 
         <item id="15de">
-                <id>0x15de</id>
+                <id>0x15de</id> <nodecay />
                 <category>Decoration\Banners\Banner 40 (W/E)</category>
         </item>
 
         <item id="15df">
-                <id>0x15df</id>
+                <id>0x15df</id> <nodecay />
                 <category>Decoration\Banners\Banner 40 (N/S)</category>
         </item>
 
         <item id="15e0">
-                <id>0x15e0</id>
+                <id>0x15e0</id> <nodecay />
                 <category>Decoration\Banners\Banner 41 (W/E)</category>
         </item>
 
         <item id="15e1">
-                <id>0x15e1</id>
+                <id>0x15e1</id> <nodecay />
                 <category>Decoration\Banners\Banner 41 (N/S)</category>
         </item>
 
         <item id="15e2">
-                <id>0x15e2</id>
+                <id>0x15e2</id> <nodecay />
                 <category>Decoration\Banners\Banner 42 (W/E)</category>
         </item>
 
         <item id="15e3">
-                <id>0x15e3</id>
+                <id>0x15e3</id> <nodecay />
                 <category>Decoration\Banners\Banner 42 (N/S)</category>
         </item>
 
         <item id="15e4">
-                <id>0x15e4</id>
+                <id>0x15e4</id> <nodecay />
                 <category>Decoration\Banners\Banner 43 (W/E)</category>
         </item>
 
         <item id="15e5">
-                <id>0x15e5</id>
+                <id>0x15e5</id> <nodecay />
                 <category>Decoration\Banners\Banner 43 (N/S)</category>
         </item>
 
         <item id="15e6">
-                <id>0x15e6</id>
+                <id>0x15e6</id> <nodecay />
                 <category>Decoration\Banners\Banner 44 (W/E)</category>
         </item>
 
         <item id="15e7">
-                <id>0x15e7</id>
+                <id>0x15e7</id> <nodecay />
                 <category>Decoration\Banners\Banner 44 (N/S)</category>
         </item>
 
         <item id="15e8">
-                <id>0x15e8</id>
+                <id>0x15e8</id> <nodecay />
                 <category>Decoration\Banners\Banner 45 (W/E)</category>
         </item>
 
         <item id="15e9">
-                <id>0x15e9</id>
+                <id>0x15e9</id> <nodecay />
                 <category>Decoration\Banners\Banner 45 (N/S)</category>
         </item>
 
         <item id="15ea">
-                <id>0x15ea</id>
+                <id>0x15ea</id> <nodecay />
                 <category>Decoration\Banners\Banner 46 (W/E)</category>
         </item>
 
         <item id="15eb">
-                <id>0x15eb</id>
+                <id>0x15eb</id> <nodecay />
                 <category>Decoration\Banners\Banner 46 (N/S)</category>
         </item>
 
         <item id="15ec">
-                <id>0x15ec</id>
+                <id>0x15ec</id> <nodecay />
                 <category>Decoration\Banners\Banner 47 (W/E)</category>
         </item>
 
         <item id="15ed">
-                <id>0x15ed</id>
+                <id>0x15ed</id> <nodecay />
                 <category>Decoration\Banners\Banner 47 (N/S)</category>
         </item>
 
         <item id="15ee">
-                <id>0x15ee</id>
+                <id>0x15ee</id> <nodecay />
                 <category>Decoration\Banners\Banner 48 (W/E)</category>
         </item>
 
         <item id="15ef">
-                <id>0x15ef</id>
+                <id>0x15ef</id> <nodecay />
                 <category>Decoration\Banners\Banner 48 (N/S)</category>
         </item>
 
         <item id="15f0">
-                <id>0x15f0</id>
+                <id>0x15f0</id> <nodecay />
                 <category>Decoration\Banners\Banner 49 (W/E)</category>
         </item>
 
         <item id="15f1">
-                <id>0x15f1</id>
+                <id>0x15f1</id> <nodecay />
                 <category>Decoration\Banners\Banner 49 (N/S)</category>
         </item>
 
         <item id="15f2">
-                <id>0x15f2</id>
+                <id>0x15f2</id> <nodecay />
                 <category>Decoration\Banners\Banner 50 (W/E)</category>
         </item>
 
         <item id="15f3">
-                <id>0x15f3</id>
+                <id>0x15f3</id> <nodecay />
                 <category>Decoration\Banners\Banner 50 (N/S)</category>
         </item>
 
         <item id="15f4">
-                <id>0x15f4</id>
+                <id>0x15f4</id> <nodecay />
                 <category>Decoration\Banners\Banner 51 (W/E)</category>
         </item>
 
         <item id="15f5">
-                <id>0x15f5</id>
+                <id>0x15f5</id> <nodecay />
                 <category>Decoration\Banners\Banner 51 (N/S)</category>
         </item>
 
         <!-- Banner Hanger -->
         <item id="158f">
-                <id>0x158f</id>
+                <id>0x158f</id> <nodecay />
                 <category>Decoration\Banners\Banner Hanger (W/E)</category>
         </item>
 
         <item id="1626">
-                <id>0x1626</id>
+                <id>0x1626</id> <nodecay />
                 <category>Decoration\Banners\Banner Hanger (N/S)</category>
         </item>
 </definitions>

@@ -10,349 +10,349 @@
 	<!-- Honesty -->
 	<item id="149f">
 		<category>Decoration\Shrines\Honesty (W/E)\Part 1</category>
-		<id>0x149f</id>
+		<id>0x149f</id> <nodecay/>
 	</item>
 
 	<item id="14a0">
 		<category>Decoration\Shrines\Honesty (W/E)\Part 2</category>
-		<id>0x14a0</id>
+		<id>0x14a0</id> <nodecay/>
 	</item>
 
 	<item id="14a1">
 		<category>Decoration\Shrines\Honesty (W/E)\Part 3</category>
-		<id>0x14a1</id>
+		<id>0x14a1</id> <nodecay/>
 	</item>
 
 	<item id="14a2">
 		<category>Decoration\Shrines\Honesty (W/E)\Part 4</category>
-		<id>0x14a2</id>
+		<id>0x14a2</id> <nodecay/>
 	</item>
 
 	
 	<item id="14a3">
 		<category>Decoration\Shrines\Honesty (N/S)\Part 1</category>
-		<id>0x14a3</id>
+		<id>0x14a3</id> <nodecay/>
 	</item>
 
 	<item id="14a4">
 		<category>Decoration\Shrines\Honesty (N/S)\Part 2</category>
-		<id>0x14a4</id>
+		<id>0x14a4</id> <nodecay/>
 	</item>
 
 	<item id="14a5">
 		<category>Decoration\Shrines\Honesty (N/S)\Part 3</category>
-		<id>0x14a5</id>
+		<id>0x14a5</id> <nodecay/>
 	</item>
 
 	<item id="14a6">
 		<category>Decoration\Shrines\Honesty (N/S)\Part 4</category>
-		<id>0x14a6</id>
+		<id>0x14a6</id> <nodecay/>
 	</item>
 
 	<!-- Compassion -->
 	<item id="14a7">
 		<category>Decoration\Shrines\Compassion (W/E)\Part 1</category>
-		<id>0x14a7</id>
+		<id>0x14a7</id> <nodecay/>
 	</item>
 
 	<item id="14a8">
 		<category>Decoration\Shrines\Compassion (W/E)\Part 2</category>
-		<id>0x14a8</id>
+		<id>0x14a8</id> <nodecay/>
 	</item>
 
 	<item id="14a9">
 		<category>Decoration\Shrines\Compassion (W/E)\Part 3</category>
-		<id>0x14a9</id>
+		<id>0x14a9</id> <nodecay/>
 	</item>
 
 	<item id="14aa">
 		<category>Decoration\Shrines\Compassion (W/E)\Part 4</category>
-		<id>0x14aa</id>
+		<id>0x14aa</id> <nodecay/>
 	</item>
 
 	<item id="14ab">
 		<category>Decoration\Shrines\Compassion (N/S)\Part 1</category>
-		<id>0x14ab</id>
+		<id>0x14ab</id> <nodecay/>
 	</item>
 
 	<item id="14ac">
 		<category>Decoration\Shrines\Compassion (N/S)\Part 2</category>
-		<id>0x14ac</id>
+		<id>0x14ac</id> <nodecay/>
 	</item>
 
 	<item id="14ad">
 		<category>Decoration\Shrines\Compassion (N/S)\Part 3</category>
-		<id>0x14ad</id>
+		<id>0x14ad</id> <nodecay/>
 	</item>
 
 	<item id="14ae">
 		<category>Decoration\Shrines\Compassion (N/S)\Part 4</category>
-		<id>0x14ae</id>
+		<id>0x14ae</id> <nodecay/>
 	</item>
 
 	<!-- Justice -->
 	<item id="14af">
 		<category>Decoration\Shrines\Justice (W/E)\Part 1</category>
-		<id>0x14af</id>
+		<id>0x14af</id> <nodecay/>
 	</item>
 
 	<item id="14b0">
 		<category>Decoration\Shrines\Justice (W/E)\Part 2</category>
-		<id>0x14b0</id>
+		<id>0x14b0</id> <nodecay/>
 	</item>
 
 	<item id="14b1">
 		<category>Decoration\Shrines\Justice (W/E)\Part 3</category>
-		<id>0x14b1</id>
+		<id>0x14b1</id> <nodecay/>
 	</item>
 
 	<item id="14b2">
 		<category>Decoration\Shrines\Justice (W/E)\Part 4</category>
-		<id>0x14b2</id>
+		<id>0x14b2</id> <nodecay/>
 	</item>
 
 	<item id="14b3">
 		<category>Decoration\Shrines\Justice (N/S)\Part 1</category>
-		<id>0x14b3</id>
+		<id>0x14b3</id> <nodecay/>
 	</item>
 
 	<item id="14b4">
 		<category>Decoration\Shrines\Justice (N/S)\Part 2</category>
-		<id>0x14b4</id>
+		<id>0x14b4</id> <nodecay/>
 	</item>
 
 	<item id="14b5">
 		<category>Decoration\Shrines\Justice (N/S)\Part 3</category>
-		<id>0x14b5</id>
+		<id>0x14b5</id> <nodecay/>
 	</item>
 
 	<item id="14b6">
 		<category>Decoration\Shrines\Justice (N/S)\Part 4</category>
-		<id>0x14b6</id>
+		<id>0x14b6</id> <nodecay/>
 	</item>
 
 	<!-- Valor -->
 	<item id="14b7">
 		<category>Decoration\Shrines\Valor (W/E)\Part 1</category>
-		<id>0x14b7</id>
+		<id>0x14b7</id> <nodecay/>
 	</item>
 
 	<item id="14b8">
 		<category>Decoration\Shrines\Valor (W/E)\Part 2</category>
-		<id>0x14b8</id>
+		<id>0x14b8</id> <nodecay/>
 	</item>
 
 	<item id="14b9">
 		<category>Decoration\Shrines\Valor (W/E)\Part 3</category>
-		<id>0x14b9</id>
+		<id>0x14b9</id> <nodecay/>
 	</item>
 
 	<item id="14ba">
 		<category>Decoration\Shrines\Valor (W/E)\Part 4</category>
-		<id>0x14ba</id>
+		<id>0x14ba</id> <nodecay/>
 	</item>
 
 	<item id="14bb">
 		<category>Decoration\Shrines\Valor (N/S)\Part 1</category>
-		<id>0x14bb</id>
+		<id>0x14bb</id> <nodecay/>
 	</item>
 
 	<item id="14bc">
 		<category>Decoration\Shrines\Valor (N/S)\Part 2</category>
-		<id>0x14bc</id>
+		<id>0x14bc</id> <nodecay/>
 	</item>
 
 	<item id="14bd">
 		<category>Decoration\Shrines\Valor (N/S)\Part 3</category>
-		<id>0x14bd</id>
+		<id>0x14bd</id> <nodecay/>
 	</item>
 
 	<item id="14be">
 		<category>Decoration\Shrines\Valor (N/S)\Part 4</category>
-		<id>0x14be</id>
+		<id>0x14be</id> <nodecay/>
 	</item>
 
 	<!-- Spirituality -->
 	<item id="14bf">
 		<category>Decoration\Shrines\Spirituality (W/E)\Part 1</category>
-		<id>0x14bf</id>
+		<id>0x14bf</id> <nodecay/>
 	</item>
 
 	<item id="14c0">
 		<category>Decoration\Shrines\Spirituality (W/E)\Part 2</category>
-		<id>0x14c0</id>
+		<id>0x14c0</id> <nodecay/>
 	</item>
 
 	<item id="14c1">
 		<category>Decoration\Shrines\Spirituality (W/E)\Part 3</category>
-		<id>0x14c1</id>
+		<id>0x14c1</id> <nodecay/>
 	</item>
 
 	<item id="14c2">
 		<category>Decoration\Shrines\Spirituality (W/E)\Part 4</category>
-		<id>0x14c2</id>
+		<id>0x14c2</id> <nodecay/>
 	</item>
 
 	<item id="14c3">
 		<category>Decoration\Shrines\Spirituality (N/S)\Part 1</category>
-		<id>0x14c3</id>
+		<id>0x14c3</id> <nodecay/>
 	</item>
 
 	<item id="14c4">
 		<category>Decoration\Shrines\Spirituality (N/S)\Part 2</category>
-		<id>0x14c4</id>
+		<id>0x14c4</id> <nodecay/>
 	</item>
 
 	<item id="14c5">
 		<category>Decoration\Shrines\Spirituality (N/S)\Part 3</category>
-		<id>0x14c5</id>
+		<id>0x14c5</id> <nodecay/>
 	</item>
 
 	<item id="14c6">
 		<category>Decoration\Shrines\Spirituality (N/S)\Part 4</category>
-		<id>0x14c6</id>
+		<id>0x14c6</id> <nodecay/>
 	</item>
 
 	<!-- Honor -->
 	<item id="14c7">
-		<id>0x14c7</id>
+		<id>0x14c7</id> <nodecay/>
 		<category>Decoration\Shrines\Honor (W/E)\Part 1</category>
 	</item>
 
 	<item id="14c8">
-		<id>0x14c8</id>
+		<id>0x14c8</id> <nodecay/>
 		<category>Decoration\Shrines\Honor (W/E)\Part 2</category>
 	</item>
 
 	<item id="14c9">
-		<id>0x14c9</id>
+		<id>0x14c9</id> <nodecay/>
 		<category>Decoration\Shrines\Honor (W/E)\Part 3</category>
 	</item>
 
 	<item id="14ca">
-		<id>0x14ca</id>
+		<id>0x14ca</id> <nodecay/>
 		<category>Decoration\Shrines\Honor (W/E)\Part 4</category>
 	</item>
 
 	<item id="14cb">
-		<id>0x14cb</id>
+		<id>0x14cb</id> <nodecay/>
 		<category>Decoration\Shrines\Honor (N/S)\Part 1</category>
 	</item>
 
 	<item id="14cc">
-		<id>0x14cc</id>
+		<id>0x14cc</id> <nodecay/>
 		<category>Decoration\Shrines\Honor (N/S)\Part 2</category>
 	</item>
 
 	<item id="14cd">
-		<id>0x14cd</id>
+		<id>0x14cd</id> <nodecay/>
 		<category>Decoration\Shrines\Honor (N/S)\Part 3</category>
 	</item>
 
 	<item id="14ce">
-		<id>0x14ce</id>
+		<id>0x14ce</id> <nodecay/>
 		<category>Decoration\Shrines\Honor (N/S)\Part 4</category>
 	</item>
 
 	<!-- Humility -->
 	<item id="14cf">
-		<id>0x14cf</id>
+		<id>0x14cf</id> <nodecay/>
 		<category>Decoration\Shrines\Humility (W/E)\Part 1</category>
 	</item>
 
 	<item id="14d0">
-		<id>0x14d0</id>
+		<id>0x14d0</id> <nodecay/>
 		<category>Decoration\Shrines\Humility (W/E)\Part 2</category>
 	</item>
 
 	<item id="14d1">
-		<id>0x14d1</id>
+		<id>0x14d1</id> <nodecay/>
 		<category>Decoration\Shrines\Humility (W/E)\Part 3</category>
 	</item>
 
 	<item id="14d2">
-		<id>0x14d2</id>
+		<id>0x14d2</id> <nodecay/>
 		<category>Decoration\Shrines\Humility (W/E)\Part 4</category>
 	</item>
 
 	<item id="14d3">
-		<id>0x14d3</id>
+		<id>0x14d3</id> <nodecay/>
 		<category>Decoration\Shrines\Humility (N/S)\Part 1</category>
 	</item>
 
 	<item id="14d4">
-		<id>0x14d4</id>
+		<id>0x14d4</id> <nodecay/>
 		<category>Decoration\Shrines\Humility (N/S)\Part 2</category>
 	</item>
 
 	<item id="14d5">
-		<id>0x14d5</id>
+		<id>0x14d5</id> <nodecay/>
 		<category>Decoration\Shrines\Humility (N/S)\Part 3</category>
 	</item>
 
 	<item id="14d6">
-		<id>0x14d6</id>
+		<id>0x14d6</id> <nodecay/>
 		<category>Decoration\Shrines\Humility (N/S)\Part 4</category>
 	</item>
 	
 	<!-- Chaos -->
 	<item id="14e3">
-		<id>0x14e3</id>
+		<id>0x14e3</id> <nodecay/>
 		<category>Decoration\Shrines\Chaos\Part 1</category>
 	</item>
 
 	<item id="14e4">
-		<id>0x14e4</id>
+		<id>0x14e4</id> <nodecay/>
 		<category>Decoration\Shrines\Chaos\Part 2</category>
 	</item>
 
 	<item id="14e5">
-		<id>0x14e5</id>
+		<id>0x14e5</id> <nodecay/>
 		<category>Decoration\Shrines\Chaos\Part 3</category>
 	</item>
 
 	<item id="14e6">
-		<id>0x14e6</id>
+		<id>0x14e6</id> <nodecay/>
 		<category>Decoration\Shrines\Chaos\Part 4</category>
 	</item>	
 
 	<item id="150a">
-		<id>0x150a</id>
+		<id>0x150a</id> <nodecay/>
 		<category>Decoration\Shrines\Sacrifice (W/E)\Part 1</category>
 	</item>
 
 	<item id="150b">
-		<id>0x150b</id>
+		<id>0x150b</id> <nodecay/>
 		<category>Decoration\Shrines\Sacrifice (W/E)\Part 2</category>
 	</item>
 
 	<item id="150c">
-		<id>0x150c</id>
+		<id>0x150c</id> <nodecay/>
 		<category>Decoration\Shrines\Sacrifice (W/E)\Part 3</category>
 	</item>
 
 	<item id="150d">
-		<id>0x150d</id>
+		<id>0x150d</id> <nodecay/>
 		<category>Decoration\Shrines\Sacrifice (W/E)\Part 4</category>
 	</item>
 
 	<item id="150e">
-		<id>0x150e</id>
+		<id>0x150e</id> <nodecay/>
 		<category>Decoration\Shrines\Sacrifice (N/S)\Part 1</category>
 	</item>
 
 	<item id="150f">
-		<id>0x150f</id>
+		<id>0x150f</id> <nodecay/>
 		<category>Decoration\Shrines\Sacrifice (N/S)\Part 2</category>
 	</item>
 
 	<item id="1510">
-		<id>0x1510</id>
+		<id>0x1510</id> <nodecay/>
 		<category>Decoration\Shrines\Sacrifice (N/S)\Part 3</category>
 	</item>
 
 	<item id="1511">
-		<id>0x1511</id>
+		<id>0x1511</id> <nodecay/>
 		<category>Decoration\Shrines\Sacrifice (N/S)\Part 4</category>
 	</item>
 </definitions>

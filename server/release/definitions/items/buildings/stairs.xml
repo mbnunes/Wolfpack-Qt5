@@ -11,1239 +11,1239 @@
 <definitions>
 	<!-- Marble -->
 	<item id="709">
-		<id>0x0709</id>
+		<id>0x0709</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 1</category>
 	</item>
 
 	<item id="70a">
-		<id>0x070a</id>
+		<id>0x070a</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 2</category>
 	</item>
 
 	<item id="70b">
-		<id>0x070b</id>
+		<id>0x070b</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 3</category>
 	</item>
 
 	<item id="70c">
-		<id>0x070c</id>
+		<id>0x070c</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 4</category>
 	</item>
 
 	<item id="70d">
-		<id>0x070d</id>
+		<id>0x070d</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 5</category>
 	</item>
 
 	<item id="70e">
-		<id>0x070e</id>
+		<id>0x070e</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 6</category>
 	</item>
 
 	<item id="70f">
-		<id>0x070f</id>
+		<id>0x070f</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 7</category>
 	</item>
 
 	<item id="710">
-		<id>0x0710</id>
+		<id>0x0710</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 8</category>
 	</item>
 
 	<item id="711">
-		<id>0x0711</id>
+		<id>0x0711</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 9</category>
 	</item>
 
 	<item id="712">
-		<id>0x0712</id>
+		<id>0x0712</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 10</category>
 	</item>
 
 	<item id="713">
-		<id>0x0713</id>
+		<id>0x0713</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 11</category>
 	</item>
 
 	<item id="714">
-		<id>0x0714</id>
+		<id>0x0714</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 12</category>
 	</item>
 
 	<item id="715">
-		<id>0x0715</id>
+		<id>0x0715</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 13</category>
 	</item>
 
 	<item id="716">
-		<id>0x0716</id>
+		<id>0x0716</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 14</category>
 	</item>
 
 	<item id="717">
-		<id>0x0717</id>
+		<id>0x0717</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 15</category>
 	</item>
 
 	<item id="718">
-		<id>0x0718</id>
+		<id>0x0718</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 16</category>
 	</item>
 
 	<item id="719">
-		<id>0x0719</id>
+		<id>0x0719</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 17</category>
 	</item>
 
 	<item id="71a">
-		<id>0x071a</id>
+		<id>0x071a</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 18</category>
 	</item>
 
 	<item id="71b">
-		<id>0x071b</id>
+		<id>0x071b</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 19</category>
 	</item>
 
 	<item id="71c">
-		<id>0x071c</id>
+		<id>0x071c</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 20</category>
 	</item>
 
 	<item id="71d">
-		<id>0x071d</id>
+		<id>0x071d</id> <nodecay/>
 		<category>Buildings\Stairs\Marble\Marble Stairs 21</category>
 	</item>
 
 	<!-- Light Wood -->
 	<item id="720">
-		<id>0x0720</id>
+		<id>0x0720</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 1</category>
 	</item>
 
 	<item id="721">
-		<id>0x0721</id>
+		<id>0x0721</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 2</category>
 	</item>
 
 	<item id="722">
-		<id>0x0722</id>
+		<id>0x0722</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 3</category>
 	</item>
 
 	<item id="723">
-		<id>0x0723</id>
+		<id>0x0723</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 4</category>
 	</item>
 
 	<item id="724">
-		<id>0x0724</id>
+		<id>0x0724</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 5</category>
 	</item>
 
 	<item id="725">
-		<id>0x0725</id>
+		<id>0x0725</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 6</category>
 	</item>
 
 	<item id="726">
-		<id>0x0726</id>
+		<id>0x0726</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 7</category>
 	</item>
 
 	<item id="727">
-		<id>0x0727</id>
+		<id>0x0727</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 8</category>
 	</item>
 
 	<item id="728">
-		<id>0x0728</id>
+		<id>0x0728</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 9</category>
 	</item>
 
 	<item id="729">
-		<id>0x0729</id>
+		<id>0x0729</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 10</category>
 	</item>
 
 	<item id="72a">
-		<id>0x072a</id>
+		<id>0x072a</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 11</category>
 	</item>
 
 	<item id="72b">
-		<id>0x072b</id>
+		<id>0x072b</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 12</category>
 	</item>
 
 	<item id="72c">
-		<id>0x072c</id>
+		<id>0x072c</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 13</category>
 	</item>
 
 	<item id="72d">
-		<id>0x072d</id>
+		<id>0x072d</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 14</category>
 	</item>
 
 	<item id="72e">
-		<id>0x072e</id>
+		<id>0x072e</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 15</category>
 	</item>
 
 	<item id="72f">
-		<id>0x072f</id>
+		<id>0x072f</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 16</category>
 	</item>
 
 	<item id="730">
-		<id>0x0730</id>
+		<id>0x0730</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 17</category>
 	</item>
 
 	<item id="731">
-		<id>0x0731</id>
+		<id>0x0731</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 18</category>
 	</item>
 
 	<item id="732">
-		<id>0x0732</id>
+		<id>0x0732</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 19</category>
 	</item>
 
 	<item id="733">
-		<id>0x0733</id>
+		<id>0x0733</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 20</category>
 	</item>
 
 	<item id="734">
-		<id>0x0734</id>
+		<id>0x0734</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 21</category>
 	</item>
 
 	<item id="735">
-		<id>0x0735</id>
+		<id>0x0735</id> <nodecay/>
 		<category>Buildings\Stairs\Light Wood\Light Wood Stairs 22</category>
 	</item>
 
 	<!-- Dark Wood -->
 	<item id="738">
-		<id>0x0738</id>
+		<id>0x0738</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 1</category>
 	</item>
 
 	<item id="739">
-		<id>0x0739</id>
+		<id>0x0739</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 2</category>
 	</item>
 
 	<item id="73a">
-		<id>0x073a</id>
+		<id>0x073a</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 3</category>
 	</item>
 
 	<item id="73b">
-		<id>0x073b</id>
+		<id>0x073b</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 4</category>
 	</item>
 
 	<item id="73c">
-		<id>0x073c</id>
+		<id>0x073c</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 5</category>
 	</item>
 
 	<item id="73d">
-		<id>0x073d</id>
+		<id>0x073d</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 6</category>
 	</item>
 
 	<item id="73e">
-		<id>0x073e</id>
+		<id>0x073e</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 7</category>
 	</item>
 
 	<item id="73f">
-		<id>0x073f</id>
+		<id>0x073f</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 8</category>
 	</item>
 
 	<item id="740">
-		<id>0x0740</id>
+		<id>0x0740</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 9</category>
 	</item>
 
 	<item id="741">
-		<id>0x0741</id>
+		<id>0x0741</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 10</category>
 	</item>
 
 	<item id="742">
-		<id>0x0742</id>
+		<id>0x0742</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 11</category>
 	</item>
 
 	<item id="743">
-		<id>0x0743</id>
+		<id>0x0743</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 12</category>
 	</item>
 
 	<item id="744">
-		<id>0x0744</id>
+		<id>0x0744</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 13</category>
 	</item>
 
 	<item id="745">
-		<id>0x0745</id>
+		<id>0x0745</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 14</category>
 	</item>
 
 	<item id="746">
-		<id>0x0746</id>
+		<id>0x0746</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 15</category>
 	</item>
 
 	<item id="747">
-		<id>0x0747</id>
+		<id>0x0747</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 16</category>
 	</item>
 
 	<item id="748">
-		<id>0x0748</id>
+		<id>0x0748</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 17</category>
 	</item>
 
 	<item id="7b3">
-		<id>0x07b3</id>
+		<id>0x07b3</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 18</category>
 	</item>
 
 	<item id="7b4">
-		<id>0x07b4</id>
+		<id>0x07b4</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 19</category>
 	</item>
 
 	<item id="7b5">
-		<id>0x07b5</id>
+		<id>0x07b5</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 20</category>
 	</item>
 
 	<item id="7b6">
-		<id>0x07b6</id>
+		<id>0x07b6</id> <nodecay/>
 		<category>Buildings\Stairs\Dark Wood\Dark Wood Stairs 21</category>
 	</item>
 	
 	<!-- Stone 1 -->
 	<item id="750">
-		<id>0x0750</id>
+		<id>0x0750</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 1</category>
 	</item>
 
 	<item id="751">
-		<id>0x0751</id>
+		<id>0x0751</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 2</category>
 	</item>
 
 	<item id="752">
-		<id>0x0752</id>
+		<id>0x0752</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 3</category>
 	</item>
 
 	<item id="753">
-		<id>0x0753</id>
+		<id>0x0753</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 4</category>
 	</item>
 
 	<item id="754">
-		<id>0x0754</id>
+		<id>0x0754</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 5</category>
 	</item>
 
 	<item id="755">
-		<id>0x0755</id>
+		<id>0x0755</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 6</category>
 	</item>
 
 	<item id="756">
-		<id>0x0756</id>
+		<id>0x0756</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 7</category>
 	</item>
 
 	<item id="757">
-		<id>0x0757</id>
+		<id>0x0757</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 8</category>
 	</item>
 
 	<item id="758">
-		<id>0x0758</id>
+		<id>0x0758</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 9</category>
 	</item>
 
 	<item id="759">
-		<id>0x0759</id>
+		<id>0x0759</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 10</category>
 	</item>
 
 	<item id="75a">
-		<id>0x075a</id>
+		<id>0x075a</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 11</category>
 	</item>
 
 	<item id="75b">
-		<id>0x075b</id>
+		<id>0x075b</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 12</category>
 	</item>
 
 	<item id="75c">
-		<id>0x075c</id>
+		<id>0x075c</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 13</category>
 	</item>
 
 	<item id="75d">
-		<id>0x075d</id>
+		<id>0x075d</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 14</category>
 	</item>
 
 	<item id="75e">
-		<id>0x075e</id>
+		<id>0x075e</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 15</category>
 	</item>
 
 	<item id="75f">
-		<id>0x075f</id>
+		<id>0x075f</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 16</category>
 	</item>
 
 	<item id="760">
-		<id>0x0760</id>
+		<id>0x0760</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 17</category>
 	</item>
 
 	<item id="761">
-		<id>0x0761</id>
+		<id>0x0761</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 18</category>
 	</item>
 
 	<item id="762">
-		<id>0x0762</id>
+		<id>0x0762</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 19</category>
 	</item>
 
 	<item id="763">
-		<id>0x0763</id>
+		<id>0x0763</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 20</category>
 	</item>
 
 	<item id="764">
-		<id>0x0764</id>
+		<id>0x0764</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 21</category>
 	</item>
 
 	<item id="765">
-		<id>0x0765</id>
+		<id>0x0765</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 22</category>
 	</item>
 
 	<item id="766">
-		<id>0x0766</id>
+		<id>0x0766</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 23</category>
 	</item>
 
 	<item id="767">
-		<id>0x0767</id>
+		<id>0x0767</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 24</category>
 	</item>
 
 	<item id="768">
-		<id>0x0768</id>
+		<id>0x0768</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 1\Stone 1 Stairs 25</category>
 	</item>
 	
 	<!-- Sandstone Stairs -->
 	<item id="769">
-		<id>0x0769</id>
+		<id>0x0769</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 1</category>
 	</item>
 
 	<item id="76a">
-		<id>0x076a</id>
+		<id>0x076a</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 2</category>
 	</item>
 
 	<item id="76b">
-		<id>0x076b</id>
+		<id>0x076b</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 3</category>
 	</item>
 
 	<item id="76c">
-		<id>0x076c</id>
+		<id>0x076c</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 4</category>
 	</item>
 
 	<item id="76d">
-		<id>0x076d</id>
+		<id>0x076d</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 5</category>
 	</item>
 
 	<item id="76e">
-		<id>0x076e</id>
+		<id>0x076e</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 6</category>
 	</item>
 
 	<item id="76f">
-		<id>0x076f</id>
+		<id>0x076f</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 7</category>
 	</item>
 
 	<item id="770">
-		<id>0x0770</id>
+		<id>0x0770</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 8</category>
 	</item>
 
 	<item id="771">
-		<id>0x0771</id>
+		<id>0x0771</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 9</category>
 	</item>
 
 	<item id="772">
-		<id>0x0772</id>
+		<id>0x0772</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 10</category>
 	</item>
 
 	<item id="773">
-		<id>0x0773</id>
+		<id>0x0773</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 11</category>
 	</item>
 
 	<item id="774">
-		<id>0x0774</id>
+		<id>0x0774</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 12</category>
 	</item>
 
 	<item id="775">
-		<id>0x0775</id>
+		<id>0x0775</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 13</category>
 	</item>
 
 	<item id="776">
-		<id>0x0776</id>
+		<id>0x0776</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 14</category>
 	</item>
 
 	<item id="777">
-		<id>0x0777</id>
+		<id>0x0777</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 15</category>
 	</item>
 
 	<item id="778">
-		<id>0x0778</id>
+		<id>0x0778</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 16</category>
 	</item>
 
 	<item id="779">
-		<id>0x0779</id>
+		<id>0x0779</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 17</category>
 	</item>
 
 	<item id="77a">
-		<id>0x077a</id>
+		<id>0x077a</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 18</category>
 	</item>
 
 	<item id="77b">
-		<id>0x077b</id>
+		<id>0x077b</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 19</category>
 	</item>
 
 	<item id="77c">
-		<id>0x077c</id>
+		<id>0x077c</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 20</category>
 	</item>
 
 	<item id="77d">
-		<id>0x077d</id>
+		<id>0x077d</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 21</category>
 	</item>
 
 	<item id="77e">
-		<id>0x077e</id>
+		<id>0x077e</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 22</category>
 	</item>
 
 	<item id="77f">
-		<id>0x077f</id>
+		<id>0x077f</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 23</category>
 	</item>
 
 	<item id="780">
-		<id>0x0780</id>
+		<id>0x0780</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 24</category>
 	</item>
 
 	<item id="781">
-		<id>0x0781</id>
+		<id>0x0781</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 1\Sandstone Stairs 25</category>
 	</item>
 
 	<!-- Stone 2 -->
 	<item id="784">
-		<id>0x0784</id>
+		<id>0x0784</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 1</category>
 	</item>
 
 	<item id="785">
-		<id>0x0785</id>
+		<id>0x0785</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 2</category>
 	</item>
 
 	<item id="786">
-		<id>0x0786</id>
+		<id>0x0786</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 3</category>
 	</item>
 
 	<item id="787">
-		<id>0x0787</id>
+		<id>0x0787</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 4</category>
 	</item>
 
 	<item id="788">
-		<id>0x0788</id>
+		<id>0x0788</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 5</category>
 	</item>
 
 	<item id="789">
-		<id>0x0789</id>
+		<id>0x0789</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 6</category>
 	</item>
 
 	<item id="78a">
-		<id>0x078a</id>
+		<id>0x078a</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 7</category>
 	</item>
 
 	<item id="78b">
-		<id>0x078b</id>
+		<id>0x078b</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 8</category>
 	</item>
 
 	<item id="78c">
-		<id>0x078c</id>
+		<id>0x078c</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 9</category>
 	</item>
 
 	<item id="78d">
-		<id>0x078d</id>
+		<id>0x078d</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 10</category>
 	</item>
 
 	<item id="78e">
-		<id>0x078e</id>
+		<id>0x078e</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 11</category>
 	</item>
 
 	<item id="78f">
-		<id>0x078f</id>
+		<id>0x078f</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 12</category>
 	</item>
 
 	<item id="790">
-		<id>0x0790</id>
+		<id>0x0790</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 13</category>
 	</item>
 
 	<item id="791">
-		<id>0x0791</id>
+		<id>0x0791</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 14</category>
 	</item>
 
 	<item id="792">
-		<id>0x0792</id>
+		<id>0x0792</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 15</category>
 	</item>
 
 	<item id="793">
-		<id>0x0793</id>
+		<id>0x0793</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 16</category>
 	</item>
 
 	<item id="794">
-		<id>0x0794</id>
+		<id>0x0794</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 17</category>
 	</item>
 
 	<item id="795">
-		<id>0x0795</id>
+		<id>0x0795</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 18</category>
 	</item>
 
 	<item id="796">
-		<id>0x0796</id>
+		<id>0x0796</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 19</category>
 	</item>
 
 	<item id="797">
-		<id>0x0797</id>
+		<id>0x0797</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 20</category>
 	</item>
 
 	<item id="798">
-		<id>0x0798</id>
+		<id>0x0798</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 21</category>
 	</item>
 
 	<item id="799">
-		<id>0x0799</id>
+		<id>0x0799</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 22</category>
 	</item>
 
 	<item id="79a">
-		<id>0x079a</id>
+		<id>0x079a</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 23</category>
 	</item>
 
 	<item id="79b">
-		<id>0x079b</id>
+		<id>0x079b</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 24</category>
 	</item>
 
 	<item id="79c">
-		<id>0x079c</id>
+		<id>0x079c</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 2\Stone 2 Stairs 25</category>
 	</item>
 
 	<!-- Cave -->
 	<item id="79d">
-		<id>0x079d</id>
+		<id>0x079d</id> <nodecay/>
 		<category>Buildings\Stairs\Cave\Cave Steps 1</category>
 	</item>
 
 	<item id="79e">
-		<id>0x079e</id>
+		<id>0x079e</id> <nodecay/>
 		<category>Buildings\Stairs\Cave\Cave Steps 2</category>
 	</item>
 
 	<item id="79f">
-		<id>0x079f</id>
+		<id>0x079f</id> <nodecay/>
 		<category>Buildings\Stairs\Cave\Cave Steps 3</category>
 	</item>
 
 	<item id="7b0">
-		<id>0x07b0</id>
+		<id>0x07b0</id> <nodecay/>
 		<category>Buildings\Stairs\Cave\Cave Steps 4</category>
 	</item>
 
 	<item id="7b1">
-		<id>0x07b1</id>
+		<id>0x07b1</id> <nodecay/>
 		<category>Buildings\Stairs\Cave\Cave Steps 5</category>
 	</item>
 
 	<item id="7b2">
-		<id>0x07b2</id>
+		<id>0x07b2</id> <nodecay/>
 		<category>Buildings\Stairs\Cave\Cave Steps 6</category>
 	</item>
 
 	<item id="7b7">
-		<id>0x07b7</id>
+		<id>0x07b7</id> <nodecay/>
 		<category>Buildings\Stairs\Cave\Cave Steps 7</category>
 	</item>
 
 	<item id="7b8">
-		<id>0x07b8</id>
+		<id>0x07b8</id> <nodecay/>
 		<category>Buildings\Stairs\Cave\Cave Steps 8</category>
 	</item>
 
 	<item id="7b9">
-		<id>0x07b9</id>
+		<id>0x07b9</id> <nodecay/>
 		<category>Buildings\Stairs\Cave\Cave Steps 9</category>
 	</item>
 
 	<!-- Dungeon -->
 	<item id="7a3">
-		<id>0x07a3</id>
+		<id>0x07a3</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 1</category>
 	</item>
 
 	<item id="7a4">
-		<id>0x07a4</id>
+		<id>0x07a4</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 2</category>
 	</item>
 
 	<item id="7a5">
-		<id>0x07a5</id>
+		<id>0x07a5</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 3</category>
 	</item>
 
 	<item id="7a6">
-		<id>0x07a6</id>
+		<id>0x07a6</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 4</category>
 	</item>
 
 	<item id="7a7">
-		<id>0x07a7</id>
+		<id>0x07a7</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 5</category>
 	</item>
 
 	<item id="7a8">
-		<id>0x07a8</id>
+		<id>0x07a8</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 6</category>
 	</item>
 
 	<item id="7a9">
-		<id>0x07a9</id>
+		<id>0x07a9</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 7</category>
 	</item>
 
 	<item id="7aa">
-		<id>0x07aa</id>
+		<id>0x07aa</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 8</category>
 	</item>
 
 	<item id="7ab">
-		<id>0x07ab</id>
+		<id>0x07ab</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 9</category>
 	</item>
 
 	<item id="7ac">
-		<id>0x07ac</id>
+		<id>0x07ac</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 10</category>
 	</item>
 
 	<item id="7ad">
-		<id>0x07ad</id>
+		<id>0x07ad</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 11</category>
 	</item>
 
 	<item id="7ae">
-		<id>0x07ae</id>
+		<id>0x07ae</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 12</category>
 	</item>
 
 	<item id="7af">
-		<id>0x07af</id>
+		<id>0x07af</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon\Dungeon Stairs 13</category>
 	</item>
 
 	<!-- Stone 3 -->
 	<item id="71e">
-		<id>0x071e</id>
+		<id>0x071e</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 1</category>
 	</item>
 
 	<item id="71f">
-		<id>0x071f</id>
+		<id>0x071f</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 2</category>
 	</item>
 
 	<item id="736">
-		<id>0x0736</id>
+		<id>0x0736</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 3</category>
 	</item>
 
 	<item id="737">
-		<id>0x0737</id>
+		<id>0x0737</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 4</category>
 	</item>
 
 	<item id="749">
-		<id>0x0749</id>
+		<id>0x0749</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 5</category>
 	</item>
 
 	<item id="74a">
-		<id>0x074a</id>
+		<id>0x074a</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 6</category>
 	</item>
 
 	<item id="74b">
-		<id>0x074b</id>
+		<id>0x074b</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 7</category>
 	</item>
 
 	<item id="74c">
-		<id>0x074c</id>
+		<id>0x074c</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 8</category>
 	</item>
 
 	<item id="74d">
-		<id>0x074d</id>
+		<id>0x074d</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 9</category>
 	</item>
 
 	<item id="74e">
-		<id>0x074e</id>
+		<id>0x074e</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 10</category>
 	</item>
 
 	<item id="74f">
-		<id>0x074f</id>
+		<id>0x074f</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 11</category>
 	</item>
 
 	<item id="782">
-		<id>0x0782</id>
+		<id>0x0782</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 12</category>
 	</item>
 
 	<item id="783">
-		<id>0x0783</id>
+		<id>0x0783</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 13</category>
 	</item>
 
 	<item id="7a0">
-		<id>0x07a0</id>
+		<id>0x07a0</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 14</category>
 	</item>
 
 	<item id="7a1">
-		<id>0x07a1</id>
+		<id>0x07a1</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 15</category>
 	</item>
 
 	<item id="7a2">
-		<id>0x07a2</id>
+		<id>0x07a2</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 16</category>
 	</item>
 
 	<item id="7da">
-		<id>0x07da</id>
+		<id>0x07da</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 17</category>
 	</item>
 
 	<item id="7df">
-		<id>0x07df</id>
+		<id>0x07df</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 18</category>
 	</item>
 
 	<item id="7e0">
-		<id>0x07e0</id>
+		<id>0x07e0</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 19</category>
 	</item>
 
 	<item id="834">
-		<id>0x0834</id>
+		<id>0x0834</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 20</category>
 	</item>
 
 	<item id="876">
-		<id>0x0876</id>
+		<id>0x0876</id> <nodecay/>
 		<category>Buildings\Stairs\Stone 3\Stone 3 Stairs 21</category>
 	</item>
 
 	<!-- Carpeted Rostrum -->
 	<item id="7ba">
-		<id>0x07ba</id>
+		<id>0x07ba</id> <nodecay/>
 		<category>Buildings\Stairs\Carpeted Rostrum\Carpeted Rostrum 1</category>
 	</item>
 
 	<item id="7bb">
-		<id>0x07bb</id>
+		<id>0x07bb</id> <nodecay/>
 		<category>Buildings\Stairs\Carpeted Rostrum\Carpeted Rostrum 2</category>
 	</item>
 
 	<item id="7bc">
-		<id>0x07bc</id>
+		<id>0x07bc</id> <nodecay/>
 		<category>Buildings\Stairs\Carpeted Rostrum\Carpeted Rostrum 3</category>
 	</item>
 
 	<item id="7c7">
-		<id>0x07c7</id>
+		<id>0x07c7</id> <nodecay/>
 		<category>Buildings\Stairs\Carpeted Rostrum\Carpeted Rostrum 4</category>
 	</item>
 
 	<item id="7c8">
-		<id>0x07c8</id>
+		<id>0x07c8</id> <nodecay/>
 		<category>Buildings\Stairs\Carpeted Rostrum\Carpeted Rostrum 5</category>
 	</item>
 
 	<!-- Wooden Ramp -->
 	<item id="87a">
-		<id>0x087a</id>
+		<id>0x087a</id> <nodecay/>
 		<category>Buildings\Stairs\Wooden Ramp\Wooden Ramp 1</category>
 	</item>
 
 	<item id="87b">
-		<id>0x087b</id>
+		<id>0x087b</id> <nodecay/>
 		<category>Buildings\Stairs\Wooden Ramp\Wooden Ramp 2</category>
 	</item>
 
 	<item id="87c">
-		<id>0x087c</id>
+		<id>0x087c</id> <nodecay/>
 		<category>Buildings\Stairs\Wooden Ramp\Wooden Ramp 3</category>
 	</item>
 
 	<item id="87d">
-		<id>0x087d</id>
+		<id>0x087d</id> <nodecay/>
 		<category>Buildings\Stairs\Wooden Ramp\Wooden Ramp 4</category>
 	</item>
 
 	<!-- Rattan Ladder -->
 	<item id="899">
-		<id>0x0899</id>
+		<id>0x0899</id> <nodecay/>
 		<category>Buildings\Stairs\Rattan Ladder\Rattan Ladder (W/E) 1</category>
 	</item>
 
 	<item id="89a">
-		<id>0x089a</id>
+		<id>0x089a</id> <nodecay/>
 		<category>Buildings\Stairs\Rattan Ladder\Rattan Ladder (W/E) 2</category>
 	</item>
 
 	<item id="89b">
-		<id>0x089b</id>
+		<id>0x089b</id> <nodecay/>
 		<category>Buildings\Stairs\Rattan Ladder\Rattan Ladder (N/S) 1</category>
 	</item>
 
 	<item id="89c">
-		<id>0x089c</id>
+		<id>0x089c</id> <nodecay/>
 		<category>Buildings\Stairs\Rattan Ladder\Rattan Ladder (N/S) 2</category>
 	</item>
 
 	<item id="89d">
-		<id>0x089d</id>
+		<id>0x089d</id> <nodecay/>
 		<category>Buildings\Stairs\Rattan Ladder\Rattan Ladder (N/S) 3</category>
 	</item>
 
 	<item id="89e">
-		<id>0x089e</id>
+		<id>0x089e</id> <nodecay/>
 		<category>Buildings\Stairs\Rattan Ladder\Rattan Ladder (W/E) 3</category>
 	</item>
 
 	<!-- Wooden Ladder -->
 	<item id="89f">
-		<id>0x089f</id>
+		<id>0x089f</id> <nodecay/>
 		<category>Buildings\Stairs\Wooden Ladder\Wooden Ladder (W/E) 1</category>
 	</item>
 
 	<item id="8a0">
-		<id>0x08a0</id>
+		<id>0x08a0</id> <nodecay/>
 		<category>Buildings\Stairs\Wooden Ladder\Wooden Ladder (W/E) 2</category>
 	</item>
 
 	<item id="8a1">
-		<id>0x08a1</id>
+		<id>0x08a1</id> <nodecay/>
 		<category>Buildings\Stairs\Wooden Ladder\Wooden Ladder (W/E) 3</category>
 	</item>
 
 	<item id="8a2">
-		<id>0x08a2</id>
+		<id>0x08a2</id> <nodecay/>
 		<category>Buildings\Stairs\Wooden Ladder\Wooden Ladder (N/S) 1</category>
 	</item>
 
 	<item id="8a3">
-		<id>0x08a3</id>
+		<id>0x08a3</id> <nodecay/>
 		<category>Buildings\Stairs\Wooden Ladder\Wooden Ladder (N/S) 2</category>
 	</item>
 
 	<item id="8a4">
-		<id>0x08a4</id>
+		<id>0x08a4</id> <nodecay/>
 		<category>Buildings\Stairs\Wooden Ladder\Wooden Ladder (N/S) 3</category>
 	</item>
 
 	<!-- Rope Ladder -->
 	<item id="8a5">
-		<id>0x08a5</id>
+		<id>0x08a5</id> <nodecay/>
 		<category>Buildings\Stairs\Rope Ladder\Rope Ladder (W/E)</category>
 	</item>
 
 	<item id="8a6">
-		<id>0x08a6</id>
+		<id>0x08a6</id> <nodecay/>
 		<category>Buildings\Stairs\Rope Ladder\Rope Ladder (N/S)</category>
 	</item>
 
 	<!-- Sandstone 2 -->
 	<item id="3ee">
-		<id>0x03ee</id>
+		<id>0x03ee</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 1</category>
 	</item>
 
 	<item id="3ef">
-		<id>0x03ef</id>
+		<id>0x03ef</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 2</category>
 	</item>
 
 	<item id="3f0">
-		<id>0x03f0</id>
+		<id>0x03f0</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 3</category>
 	</item>
 
 	<item id="3f1">
-		<id>0x03f1</id>
+		<id>0x03f1</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 4</category>
 	</item>
 
 	<item id="3f2">
-		<id>0x03f2</id>
+		<id>0x03f2</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 5</category>
 	</item>
 
 	<item id="3f3">
-		<id>0x03f3</id>
+		<id>0x03f3</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 6</category>
 	</item>
 
 	<item id="3f4">
-		<id>0x03f4</id>
+		<id>0x03f4</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 7</category>
 	</item>
 
 	<item id="3f5">
-		<id>0x03f5</id>
+		<id>0x03f5</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 8</category>
 	</item>
 
 	<item id="3f6">
-		<id>0x03f6</id>
+		<id>0x03f6</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 9</category>
 	</item>
 
 	<item id="3f7">
-		<id>0x03f7</id>
+		<id>0x03f7</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 10</category>
 	</item>
 
 	<item id="3f8">
-		<id>0x03f8</id>
+		<id>0x03f8</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 11</category>
 	</item>
 
 	<item id="3f9">
-		<id>0x03f9</id>
+		<id>0x03f9</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 12</category>
 	</item>
 
 	<item id="3fa">
-		<id>0x03fa</id>
+		<id>0x03fa</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 13</category>
 	</item>
 
 	<item id="3fb">
-		<id>0x03fb</id>
+		<id>0x03fb</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 14</category>
 	</item>
 
 	<item id="3fc">
-		<id>0x03fc</id>
+		<id>0x03fc</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 15</category>
 	</item>
 
 	<item id="3fd">
-		<id>0x03fd</id>
+		<id>0x03fd</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 16</category>
 	</item>
 
 	<item id="3fe">
-		<id>0x03fe</id>
+		<id>0x03fe</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 17</category>
 	</item>
 
 	<item id="3ff">
-		<id>0x03ff</id>
+		<id>0x03ff</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 18</category>
 	</item>
 
 	<item id="400">
-		<id>0x0400</id>
+		<id>0x0400</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 19</category>
 	</item>
 
 	<item id="401">
-		<id>0x0401</id>
+		<id>0x0401</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 20</category>
 	</item>
 
 	<item id="402">
-		<id>0x0402</id>
+		<id>0x0402</id> <nodecay/>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 21</category>
 	</item>
 
 	<!-- Platform -->
 	<item id="7bd">
-		<id>0x07bd</id>
+		<id>0x07bd</id> <nodecay/>
 		<category>Buildings\Stairs\Platform\Platform 1</category>
 	</item>
 
 	<item id="7be">
-		<id>0x07be</id>
+		<id>0x07be</id> <nodecay/>
 		<category>Buildings\Stairs\Platform\Platform 2</category>
 	</item>
 
 	<item id="7bf">
-		<id>0x07bf</id>
+		<id>0x07bf</id> <nodecay/>
 		<category>Buildings\Stairs\Platform\Platform 3</category>
 	</item>
 
 	<item id="7c0">
-		<id>0x07c0</id>
+		<id>0x07c0</id> <nodecay/>
 		<category>Buildings\Stairs\Platform\Platform 4</category>
 	</item>
 
 	<item id="7c1">
-		<id>0x07c1</id>
+		<id>0x07c1</id> <nodecay/>
 		<category>Buildings\Stairs\Platform\Platform 5</category>
 	</item>
 
 	<item id="7c2">
-		<id>0x07c2</id>
+		<id>0x07c2</id> <nodecay/>
 		<category>Buildings\Stairs\Platform\Platform 6</category>
 	</item>
 
 	<item id="7c3">
-		<id>0x07c3</id>
+		<id>0x07c3</id> <nodecay/>
 		<category>Buildings\Stairs\Platform\Platform 7</category>
 	</item>
 
 	<item id="7c4">
-		<id>0x07c4</id>
+		<id>0x07c4</id> <nodecay/>
 		<category>Buildings\Stairs\Platform\Platform 8</category>
 	</item>
 
 	<item id="7c5">
-		<id>0x07c5</id>
+		<id>0x07c5</id> <nodecay/>
 		<category>Buildings\Stairs\Platform\Platform 9</category>
 	</item>
 
 	<item id="7c6">
-		<id>0x07c6</id>
+		<id>0x07c6</id> <nodecay/>
 		<category>Buildings\Stairs\Platform\Platform 10</category>
 	</item>
 
 	<!-- Stone Step -->
 	<item id="915">
-		<id>0x0915</id>
+		<id>0x0915</id> <nodecay/>
 		<category>Buildings\Stairs\Stone Step\Stone Step 1</category>
 	</item>
 
 	<item id="916">
-		<id>0x0916</id>
+		<id>0x0916</id> <nodecay/>
 		<category>Buildings\Stairs\Stone Step\Stone Step 2</category>
 	</item>
 
 	<item id="917">
-		<id>0x0917</id>
+		<id>0x0917</id> <nodecay/>
 		<category>Buildings\Stairs\Stone Step\Stone Step 3</category>
 	</item>
 
 	<item id="918">
-		<id>0x0918</id>
+		<id>0x0918</id> <nodecay/>
 		<category>Buildings\Stairs\Stone Step\Stone Step 4</category>
 	</item>
 
 	<!-- Dungeon Ramp -->
 	<item id="11bc">
-		<id>0x11bc</id>
+		<id>0x11bc</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon Ramp\Dungeon Ramp (W/E)</category>
 	</item>
 
 	<item id="11bd">
-		<id>0x11bd</id>
+		<id>0x11bd</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon Ramp\Dungeon Ramp (N/S)</category>
 	</item>
 
 	<item id="11be">
-		<id>0x11be</id>
+		<id>0x11be</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon Ramp\Dungeon Ramp (E/W)</category>
 	</item>
 
 	<item id="11bf">
-		<id>0x11bf</id>
+		<id>0x11bf</id> <nodecay/>
 		<category>Buildings\Stairs\Dungeon Ramp\Dungeon Ramp (S/N)</category>
 	</item>
 </definitions>
