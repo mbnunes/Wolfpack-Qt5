@@ -38,21 +38,12 @@
 
 //System Includes
 
-#include <fstream>
-
-using namespace std ;
-
+#include <cstdio>
 
 //Forward Class Declaration
 class cAdmin;
 
 //Wolfpack Includes
-#include "wolfpack.h"
-#undef DBGFILE
-#define DBGFILE "admin.cpp"
-
-//#include "netsys.h"
-#include "debug.h"
 
 class cAdmin
 {

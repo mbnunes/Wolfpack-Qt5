@@ -31,6 +31,13 @@
 
 #include "admin.h"
 
+#include "wolfpack.h"
+
+#undef DBGFILE
+#define DBGFILE "admin.cpp"
+
+#include "debug.h"
+
 cAdmin::cAdmin()
 {
 

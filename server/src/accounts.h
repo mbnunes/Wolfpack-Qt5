@@ -31,6 +31,7 @@
 
 #ifndef __ACCOUNTS_H__
 #define __ACCOUNTS_H__
+
 //Platform specifics
 #include "platform.h"
 
@@ -40,6 +41,7 @@
 #include <fstream>
 #include <string>
 #include <map>
+#include <vector>
 #include <sys/stat.h>
 
 using namespace std;
@@ -53,7 +55,7 @@ class cAccount;
 
 // Wolfpack Includes
 
-#include "wolfpack.h"
+#include "typedefs.h"
 #include "debug.h"
 
 
@@ -100,7 +102,7 @@ public:
 	void SetSaveRatio ( int );
 	bool IsOnline( int );
 	SERIAL GetInWorld( int );
-	void SetOnline( int, CHARACTER );
+	void SetOnline( int, SERIAL );
 	void SetOffline( int acctnum );
 	void LoadAccounts( void );
 	void SaveAccounts( void );

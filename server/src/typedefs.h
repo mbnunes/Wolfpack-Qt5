@@ -58,7 +58,6 @@ typedef unsigned char		SECONDS;
 typedef int					ITEM;
 //##ModelId=3C5D92B003A2
 typedef int					SERIAL;
-//##ModelId=3C5D92B003CA
 typedef unsigned int		RACE;
 
 //##ModelId=3C5D92B1000A

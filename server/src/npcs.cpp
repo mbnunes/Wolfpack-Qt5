@@ -1137,7 +1137,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 
 void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 {
-	int serial,z;
+	int z;
 
 	if ( pc_k == NULL ) return;
 	
