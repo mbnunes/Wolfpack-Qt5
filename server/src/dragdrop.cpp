@@ -603,7 +603,7 @@ void DragAndDrop::dropOnGround( cUOSocket* socket, P_ITEM pItem, const Coord& po
 	P_PLAYER pChar = socket->player();
 
 	// Check if the destination is in line of sight
-	if ( !pChar->lineOfSight( pos.losItemPoint( pItem->id() ) ) )
+	if ( !pChar->isGM() && !pChar->lineOfSight( pos.losItemPoint( pItem->id() ) ) )
 	{
 		socket->bounceItem( pItem, BR_OUT_OF_SIGHT );
 		return;
