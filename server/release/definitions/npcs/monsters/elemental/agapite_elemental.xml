@@ -17,15 +17,14 @@
 		<tactics><random min="601" max="1000"/></tactics>
 		<magicresistance><random min="501" max="950"/></magicresistance>
 		<!-- Damage -->
-		<tag name="mindamage" value="28" />
-		<tag name="maxdamage" value="28" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="28" type="int" />
+		<tag name="maxdamage" value="29" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="40,50" />
-		<tag name="res_energy" value="10,20" />
-		<tag name="res_fire" value="40,50" />
-		<tag name="res_physical" value="30,40" />
-		<tag name="res_poison" value="30,40" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<tag name="res_fire" value="40,50" type="int" />
+		<tag name="res_physical" value="30,40" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Agapite Elemental</category>
 	</npc>

@@ -20,15 +20,14 @@
 		<tactics><random min="601" max="800"/></tactics>
 		<wrestling><random min="401" max="500"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="13" />
-		<tag name="maxdamage" value="16" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="13" type="int" />
+		<tag name="maxdamage" value="16" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="25,35" />
-		<tag name="res_energy" value="30,40" />
-		<tag name="res_fire" value="30,40" />
-		<tag name="res_physical" value="35,45" />
-		<tag name="res_poison" value="30,40" />
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_physical" value="35,45" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>Titans are the progenitors of the Cyclopsian race. They are immortal and cannot be killed permanently; though it is rumored they can befelled in combat. Adventurers foolish enough to face a Titan willl earn what an eternity of experience can grant. There is no weapon a Titan cannot wield, and no magic they do not know. It is believed that a Titan does not tire in battle nor do their spells require mana. Indeed, they lift their magic from the heart of the world and call it down on their opponents.</desc>
 		<carve>carve_titan</carve>

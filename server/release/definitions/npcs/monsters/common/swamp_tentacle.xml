@@ -18,16 +18,15 @@
 		<tactics><random min="651" max="800"/></tactics>
 		<wrestling><random min="651" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="6" />
-		<tag name="maxdamage" value="12" />
-		<tag name="dmg_physical" value="40" />
-		<tag name="dmg_poison" value="60" />
+		<tag name="mindamage" value="6" type="int" />
+		<tag name="maxdamage" value="12" type="int" />
+		<tag name="dmg_poison" value="60" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="10,20" />
-		<tag name="res_energy" value="10,20" />
-		<tag name="res_fire" value="10,20" />
-		<tag name="res_physical" value="25,35" />
-		<tag name="res_poison" value="60,80" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_physical" value="25,35" type="int" />
+		<tag name="res_poison" value="60,80" type="int" />
 		<!-- Misc. -->
 		<desc>A faint gurgling of the murk is the only warning before the swift attack of a swamp tentacle. The tentacles of the swamp will attack even full-grown lizardmen. Thus, many of the lizardman rituals of sacrifice revolve around swamp tentacles. It is said that the touch ofthe swamp tentacle is excruciatingly painful and death will follow, though not soon.</desc>
 		<category>Monsters\Common\Swamp Tentacle</category>

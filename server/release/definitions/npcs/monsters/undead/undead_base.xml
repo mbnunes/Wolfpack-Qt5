@@ -4,7 +4,7 @@
 	<!-- undead_base-->
 	<npc id="undead_base">
 		<ai>Monster_Aggressive_L1</ai>
-		<wandertype>"circle" radius="20"</wandertype>
+		<wandertype>1</wandertype>
 		<totame>1100</totame>
 	</npc>
 

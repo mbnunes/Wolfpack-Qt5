@@ -19,11 +19,10 @@
 		<wrestling><random min="51" max="100"/></wrestling>
 		<totame>771</totame>
 		<!-- Damage -->
-		<tag name="mindamage" value="1" />
-		<tag name="maxdamage" value="3" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="1" type="int" />
+		<tag name="maxdamage" value="3" type="int" />
 		<!-- Resists -->
-		<tag name="res_physical" value="5,10" />
+		<tag name="res_physical" value="5,10" type="int" />
 		<!-- Misc. -->
 		<desc>Like the harpies and the headless, the mongbat is a bestial perversionof the human form, being shaped like a bat with a monkey's head.Mongbats are cowardly creatures, of no great threat individually, butthey are masters of the underground ambush, attacking in flocks fromout of the concealing dark.</desc>
 		<carve>carve_mong_bat</carve>

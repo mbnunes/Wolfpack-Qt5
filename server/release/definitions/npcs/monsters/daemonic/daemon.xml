@@ -20,17 +20,16 @@
 		<tactics><random min="701" max="800"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="7" />
-		<tag name="maxdamage" value="14" />
-		<tag name="dmg_physical" value="50" />
-		<tag name="dmg_energy" value="25" />
-		<tag name="dmg_fire" value="25" />
+		<tag name="mindamage" value="7" type="int" />
+		<tag name="maxdamage" value="14" type="int" />
+		<tag name="dmg_energy" value="25" type="int" />
+		<tag name="dmg_fire" value="25" type="int" />
 		<!-- Resists -->
-		<tag name="res_physical" value="45,60" />
-		<tag name="res_fire" value="50,60" />
-		<tag name="res_cold" value="30,40" />
-		<tag name="res_poison" value="20,30" />
-		<tag name="res_energy" value="30,40" />
+		<tag name="res_physical" value="45,60" type="int" />
+		<tag name="res_fire" value="50,60" type="int" />
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Misc -->
 		<desc>No purer manifestation of primal evil exists than the hideous daemon,a denizen of the dark and infernal planes brought to these shores bythe most vile wizardries. Only the greatest of heroes have evervanquished a daemon in single combat, and even a group of valiantwarriors must be mighty indeed to survive an encounter with such afiend.</desc>
 		<carve>carve_demon</carve>

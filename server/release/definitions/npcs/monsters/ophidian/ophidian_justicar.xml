@@ -20,15 +20,14 @@
 		<tactics><random min="650" max="875"/></tactics>
 		<wrestling><random min="202" max="600"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" />
-		<tag name="maxdamage" value="10" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="5" type="int" />
+		<tag name="maxdamage" value="10" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="25,35" />
-		<tag name="res_energy" value="25,35" />
-		<tag name="res_fire" value="20,30" />
-		<tag name="res_physical" value="40,45" />
-		<tag name="res_poison" value="35,40" />
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<tag name="res_fire" value="20,30" type="int" />
+		<tag name="res_physical" value="40,45" type="int" />
+		<tag name="res_poison" value="35,40" type="int" />
 		<!-- Misc. -->
 		<desc>Magi who ascend to the top of their order may one day become ArchMage. An Ophidian Arch Mage has access to the rarest of spells, andwill use them freely in battle. Arch Magi are 12 warrior mages whoseek out intruders into the land of the Ophidian. An Ophidian ArchMage attacks on sight, and gives no warning. It is said that a chillin the air is the only thing that heralds such an attack, and fewenough have lived to tell such tales.</desc>
 		<category>Monsters\Ophidians\Ophidian Justicar</category>

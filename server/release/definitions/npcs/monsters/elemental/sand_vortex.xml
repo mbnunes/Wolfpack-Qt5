@@ -17,16 +17,15 @@
 		<tactics>700</tactics>
 		<wrestling>800</wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="3" />
-		<tag name="maxdamage" value="16" />
-		<tag name="dmg_physical" value="90" />
-		<tag name="dmg_fire" value="10" />
+		<tag name="mindamage" value="3" type="int" />
+		<tag name="maxdamage" value="16" type="int" />
+		<tag name="dmg_fire" value="10" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="60,70" />
-		<tag name="res_energy" value="60,70" />
-		<tag name="res_fire" value="60,70" />
-		<tag name="res_physical" value="80,90" />
-		<tag name="res_poison" value="60,70" />
+		<tag name="res_cold" value="60,70" type="int" />
+		<tag name="res_energy" value="60,70" type="int" />
+		<tag name="res_fire" value="60,70" type="int" />
+		<tag name="res_physical" value="80,90" type="int" />
+		<tag name="res_poison" value="60,70" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Sand Vortex</category>
 	</npc>

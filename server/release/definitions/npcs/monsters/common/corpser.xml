@@ -18,15 +18,14 @@
 		<tactics><random min="451" max="600"/></tactics>
 		<wrestling><random min="451" max="600"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="10" />
-		<tag name="maxdamage" value="23" />
-		<tag name="dmg_physical" value="60" />
-		<tag name="dmg_poison" value="40" />
+		<tag name="mindamage" value="10" type="int" />
+		<tag name="maxdamage" value="23" type="int" />
+		<tag name="dmg_poison" value="40" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="10,20" />
-		<tag name="res_fire" value="15,25" />
-		<tag name="res_physical" value="15,20" />
-		<tag name="res_poison" value="20,30" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_fire" value="15,25" type="int" />
+		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
 		<desc>These fearsome beasts of the jungle, swamp, and forest dwell beneath the earth. It is unlikely that any human has ever beheld the full measure of a corpser, as they move through the concealing earth aseasily as a fish does through water or a bird does through air. When these ravenous predators perceive the footsteps of a large creature moving on the surface above them, they thrust mighty tentacles upward, through the crust, to seize their prey. Unwitting creatures and unfortunate humans who do not wrest themselves free of the tentacles grasp, find themselves rent to bits and dragged below the surface to feed the creatures unsavory appetites. Combatants take heed! The way of the bow, staff, or sword is not always that to take with these vile creatures. Although weapons rarely damage a corpser, its kind might bebrought down by the judicious use of fire.</desc>
 		<category>Monsters\Common\Corpser</category>

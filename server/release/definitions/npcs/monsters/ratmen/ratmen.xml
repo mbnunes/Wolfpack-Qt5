@@ -16,15 +16,14 @@
 		<tactics><random min="501" max="750"/></tactics>
 		<wrestling><random min="501" max="750"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="4" />
-		<tag name="maxdamage" value="5" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="4" type="int" />
+		<tag name="maxdamage" value="5" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="10,20" />
-		<tag name="res_energy" value="10,20" />
-		<tag name="res_fire" value="10,20" />
-		<tag name="res_physical" value="25,30" />
-		<tag name="res_poison" value="10,20" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_physical" value="25,30" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
 		<desc>Surely the product of some foul sorcery, the rat man truly has thefeatures of a rat, but walks about like a man. Rat men wear garments,wield weapons and give every sign of possessing intelligence. They arevicious, thieving creatures, and cowards if pressed in battle.</desc>
 	</npc>

@@ -19,12 +19,11 @@
 		<tactics><random min="193" max="340"/></tactics>
 		<wrestling><random min="193" max="340"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="1" />
-		<tag name="maxdamage" value="5" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="1" type="int" />
+		<tag name="maxdamage" value="5" type="int" />
 		<!-- Resists -->
-		<tag name="res_physical" value="5,10" />
-		<tag name="res_poison" value="10,20" />
+		<tag name="res_physical" value="5,10" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
 		<desc>Slimes are creatures of pure instinct, lacking even the intelligence of a fish or tiny vermin. They live by dissolving anything that comes into contact with them, living or dead. Gold is one of the few things their acids cannot touch, and they are often found in its presence. Perhaps over the centuries they have come to dimly recognize that gold will lure their prey to them.</desc>
 		<totame>231</totame>

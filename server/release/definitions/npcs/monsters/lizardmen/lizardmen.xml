@@ -17,14 +17,13 @@
 		<tactics><random min="551" max="800"/></tactics>
 		<wrestling><random min="501" max="700"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" />
-		<tag name="maxdamage" value="7" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="5" type="int" />
+		<tag name="maxdamage" value="7" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="5,10" />
-		<tag name="res_fire" value="5,10" />
-		<tag name="res_physical" value="25,30" />
-		<tag name="res_poison" value="10,20" />
+		<tag name="res_cold" value="5,10" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_physical" value="25,30" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
 		<desc>These reptilian creatures are savage, but very Intelligent - perhaps equal in intellect to humanity, though without the moderating influences of civilization. They love gold, and will play the brigandon parties that are insufficiently protected.</desc>
 		<carve>carve_lizard_man_medium</carve>

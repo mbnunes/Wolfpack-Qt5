@@ -19,17 +19,15 @@
 		<tactics><random min="603" max="750"/></tactics>
 		<wrestling><random min="503" max="650"/></wrestling>
 		<!-- Damage -->
-		<lodamage>5</lodamage>
-		<hidamage>10</hidamage>
-		<tag name="physicaldamage" value="60" />
-		<tag name="poisondamage" value="40" />
+		<tag name="mindamage" value="5" type="int" />
+		<tag name="maxdamage" value="10" type="int" />
+		<tag name="dmg_poison" value="40" type="int" />
 		<!-- Resists -->
-		<defense><random min="20" max="25"/></defense>
-		<tag name="coldresist" value="20,25" />
-		<tag name="energyresist" value="10,15" />
-		<tag name="fireresist" value="10,15" />
-		<tag name="physicalresist" value="20,25" />
-		<tag name="poisonresist" value="40,50" />
+		<tag name="res_cold" value="20,25" type="int" />
+		<tag name="res_energy" value="10,15" type="int" />
+		<tag name="res_fire" value="10,15" type="int" />
+		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_poison" value="40,50" type="int" />
 		<!-- Misc. -->
 		<desc>These are the most horrid of all the giant vermin, for the venom in their great stingers is potent enough to slay a strong man with a single strike. Gold is often found in their nests, but this seems to be more due to the scavenger's love for shiny objects than to any sentience.</desc>
 		<carve>carve_scorpion_gaint</carve>

@@ -18,16 +18,15 @@
 		<tactics><random min="651" max="900"/></tactics>
 		<wrestling><random min="651" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="11" />
-		<tag name="maxdamage" value="17" />
-		<tag name="dmg_physical" value="80" />
-		<tag name="dmg_fire" value="20" />
+		<tag name="mindamage" value="11" type="int" />
+		<tag name="maxdamage" value="17" type="int" />
+		<tag name="dmg_fire" value="20" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="40,50" />
-		<tag name="res_energy" value="30,40" />
-		<tag name="res_fire" value="50,60" />
-		<tag name="res_physical" value="45,50" />
-		<tag name="res_poison" value="20,30" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<tag name="res_fire" value="50,60" type="int" />
+		<tag name="res_physical" value="45,50" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
 		<totame>843</totame>
 		<carve>carve_drake_gray</carve>

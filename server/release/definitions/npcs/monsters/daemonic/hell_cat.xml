@@ -5,7 +5,6 @@
 	<npc id="hellcat">
 		<name>a hell cat</name>
 		<id>0xc9</id>
-
 		<inherit id="monster_base"/>
 		<karma>-1000</karma>
 		<fame>1000</fame>
@@ -19,14 +18,13 @@
 		<wrestling><random min="301" max="400"/></wrestling>
 		<totame>711</totame>
 		<!-- Damage -->
-		<tag name="mindamage" value="6" />
-		<tag name="maxdamage" value="12" />
-		<tag name="dmg_physical" value="40" />
-		<tag name="dmg_fire" value="60" />
+		<tag name="mindamage" value="6" type="int" />
+		<tag name="maxdamage" value="12" type="int" />
+		<tag name="dmg_fire" value="60" type="int" />
 		<!-- Resists -->
-		<tag name="res_physical" value="25,35" />
-		<tag name="res_fire" value="80,90" />
-		<tag name="res_energy" value="15,20" />
+		<tag name="res_physical" value="25,35" type="int" />
+		<tag name="res_fire" value="80,90" type="int" />
+		<tag name="res_energy" value="15,20" type="int" />
 		<!-- Misc. -->
 		<desc>These cats hail from another plane. Why they were brought to ours is amystery. The hellcat does not make a good pet, as they are likely toimmolate at inopportune times. Balls of yarn are nothing more than awaiting fuse.</desc>
 		<carve>carve_hellcat</carve>

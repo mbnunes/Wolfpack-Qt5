@@ -16,15 +16,14 @@
 		<tactics><random min="551" max="800"/></tactics>
 		<wrestling><random min="501" max="700"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" />
-		<tag name="maxdamage" value="7" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="5" type="int" />
+		<tag name="maxdamage" value="7" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="10,20" />
-		<tag name="res_energy" value="20,30" />
-		<tag name="res_fire" value="20,30" />
-		<tag name="res_physical" value="25,30" />
-		<tag name="res_poison" value="10,20" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_energy" value="20,30" type="int" />
+		<tag name="res_fire" value="20,30" type="int" />
+		<tag name="res_physical" value="25,30" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
 		<desc>Orcs are the oldest and fiercest foes of humanity, but these days havebeen largely driven into Underground refuges. They have a facesomewhat like a pig and a muscular, man-like body. It has long beensaid that they eat the flesh of man, but I believe they harass man forhis gold, not for his meat. They are a cruel and rapacious lot, andthe surface is better for their absence, but there are those who saythat we may expect a great resurgence of orcish aggression in the nearfuture.</desc>
 		<carve>carve_orc</carve>

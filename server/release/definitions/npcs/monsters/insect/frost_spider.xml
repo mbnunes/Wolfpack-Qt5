@@ -17,17 +17,15 @@
 		<tactics><random min="351" max="500"/></tactics>
 		<wrestling><random min="501" max="650"/></wrestling>
 		<!-- Damage -->
-		<lodamage>6</lodamage>
-		<hidamage>16</hidamage>
-		<tag name="firedamage" value="80" />
-		<tag name="physicaldamage" value="20" />
+		<tag name="mindamage" value="6" type="int" />
+		<tag name="maxdamage" value="16" type="int" />
+		<tag name="dmg_fire" value="80" type="int" />
 		<!-- Resists -->
-		<defense><random min="25" max="30" /></defense>
-		<tag name="coldresist" value="40,50" />
-		<tag name="energyresist" value="10,20" />
-		<tag name="fireresist" value="5,10" />
-		<tag name="physicalresist" value="25,30" />
-		<tag name="poisonresist" value="20,30" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_physical" value="25,30" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
 		<desc>The giant spider of the tundra hunts by burrowing into the snow and waiting to trap passers by. Unfortunate creatures caught by the spider are often paralyzed by its venom. The spider then envelops the victimin a cocoon of silk. Victims are then used over time to feed the spider. When the victim is used up, only the desiccated husk and their possessions remain.</desc>
 		<totame>747</totame>

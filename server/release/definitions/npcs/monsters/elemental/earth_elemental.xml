@@ -17,15 +17,14 @@
 		<tactics><random min="601" max="1000"/></tactics>
 		<wrestling><random min="601" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="9" />
-		<tag name="maxdamage" value="16" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="9" type="int" />
+		<tag name="maxdamage" value="16" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="10,20" />
-		<tag name="res_energy" value="15,25" />
-		<tag name="res_fire" value="10,20" />
-		<tag name="res_physical" value="30,35" />
-		<tag name="res_poison" value="15,25" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_energy" value="15,25" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_physical" value="30,35" type="int" />
+		<tag name="res_poison" value="15,25" type="int" />
 		<!-- Misc. -->
 		<desc>These beings embody the element of Earth, and as the Air Elementalsdwell naturally on a plane devoid of solidity, the Earth Elementalsare native to a world devoid of air. They are mighty engines of destruction indeed, possessing both the crushing power of the avalanche and the steadfast endurance of the mountain. Furthermore, they command magicks allowing them to twist the earth to their will.</desc>
 		<category>Monsters\Elementals\Earth Elemental</category>

@@ -18,16 +18,15 @@
 		<tactics><random min="901" max="1000"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="20" />
-		<tag name="maxdamage" value="25" />
-		<tag name="dmg_physical" value="30" />
-		<tag name="dmg_cold" value="70" />
+		<tag name="mindamage" value="20" type="int" />
+		<tag name="maxdamage" value="25" type="int" />
+		<tag name="dmg_cold" value="70" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="60,70" />
-		<tag name="res_energy" value="40,50" />
-		<tag name="res_fire" value="-10,0" />
-		<tag name="res_physical" value="45,55" />
-		<tag name="res_poison" value="100" />
+		<tag name="res_cold" value="60,70" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<tag name="res_fire" value="-10,0" type="int" />
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_poison" value="100" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Giants\Arctic Ogre Lord</category>
 	</npc>

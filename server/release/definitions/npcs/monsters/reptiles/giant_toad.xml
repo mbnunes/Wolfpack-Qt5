@@ -17,13 +17,12 @@
 		<tactics><random min="401" max="600"/></tactics>
 		<wrestling><random min="401" max="600"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" />
-		<tag name="maxdamage" value="17" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="5" type="int" />
+		<tag name="maxdamage" value="17" type="int" />
 		<!-- Resists -->
-		<tag name="res_energy" value="5,10" />
-		<tag name="res_fire" value="5,10" />
-		<tag name="res_physical" value="20,25" />
+		<tag name="res_energy" value="5,10" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_physical" value="20,25" type="int" />
 		<!-- Misc. -->
 		<desc>These toads are nine feet in length and they are very aggressive. Ableto secrete a lethal poison, these toads can kill a healthy adult.Normally they do not attack such a large opponent, but they willdefend if attacked.</desc>
 		<carve>carve_gaint_toad</carve>

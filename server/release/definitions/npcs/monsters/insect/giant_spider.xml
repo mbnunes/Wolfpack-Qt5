@@ -19,12 +19,11 @@
 		<tactics><random min="351" max="500"/></tactics>
 		<wrestling><random min="501" max="650"/></wrestling>
 		<!-- Damage -->
-		<lodamage>5</lodamage>
-		<hidamage>13</hidamage>
+		<tag name="mindamage" value="5" type="int" />
+		<tag name="maxdamage" value="13" type="int" />
 		<!-- Resists -->
-		<defense><random min="15" max="20"/></defense>
-		<tag name="physicalresist" value="15,20" />
-		<tag name="poisonresist" value="25,35" />
+		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Misc. -->
 		<desc>Nearly the size of a man, the great spiders are nearly as clever as man as well. I do not know what may pass among them as language, but they lay their traps and defenses with great cunning. As well they might, for the silk of their webs is necessary for the casting of certain spells, and despite their formidable nature, they are earnestly sought for their silk.</desc>
 		<carve>carve_spider_gaint</carve>

@@ -19,15 +19,14 @@
 		<tactics><random min="501" max="650"/></tactics>
 		<wrestling><random min="401" max="500"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="4" />
-		<tag name="maxdamage" value="14" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="4" type="int" />
+		<tag name="maxdamage" value="14" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="20,30" />
-		<tag name="res_energy" value="30,40" />
-		<tag name="res_fire" value="30,40" />
-		<tag name="res_physical" value="25,35" />
-		<tag name="res_poison" value="30,40" />
+		<tag name="res_cold" value="20,30" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_physical" value="25,35" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>An orcish mage is an abomination to those who study the arcane. Likeall things orcish, they leave a taint on all things they touch. Orcsobey no rules but their own, and as such force magic to obey theirwhims. The energies released by the orcish mage are almost alwaysoffensive in nature. It should be the sworn duty of all mages to seekout and eradicate the orcish mage.</desc>
 		<category>Monsters\Orcs\Orc Mage</category>

@@ -17,15 +17,14 @@
 		<tactics><random min="601" max="700"/></tactics>
 		<wrestling><random min="601" max="700"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" />
-		<tag name="maxdamage" value="14" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="5" type="int" />
+		<tag name="maxdamage" value="14" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="40,50" />
-		<tag name="res_energy" value="15,20" />
-		<tag name="res_fire" value="70,80" />
-		<tag name="res_physical" value="30,40" />
-		<tag name="res_poison" value="30,40" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_energy" value="15,20" type="int" />
+		<tag name="res_fire" value="70,80" type="int" />
+		<tag name="res_physical" value="30,40" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Sea Monsters\Deep Sea Serpent</category>
 	</npc>

@@ -18,16 +18,15 @@
 		<tactics><random min="751" max="900"/></tactics>
 		<wrestling><random min="601" max="850"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="1" />
-		<tag name="maxdamage" value="18" />
-		<tag name="dmg_physical" value="75" />
-		<tag name="dmg_fire" value="25" />
+		<tag name="mindamage" value="1" type="int" />
+		<tag name="maxdamage" value="18" type="int" />
+		<tag name="dmg_fire" value="25" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="15,25" />
-		<tag name="res_energy" value="25,30" />
-		<tag name="res_fire" value="30,40" />
-		<tag name="res_physical" value="25,35" />
-		<tag name="res_poison" value="15,20" />
+		<tag name="res_cold" value="15,25" type="int" />
+		<tag name="res_energy" value="25,30" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_physical" value="25,35" type="int" />
+		<tag name="res_poison" value="15,20" type="int" />
 		<!-- Misc. -->
 		<desc>These industrious orcs have mastered the fine art of tinkering, andhave shown themselves to be both clever and aggressive. Watchcarefully when near an orc bomber, for they give little warning beforehurling powerful explosives into the midst of unwary adventurers.</desc>
 		<category>Monsters\Orcs\Orc Bomber</category>

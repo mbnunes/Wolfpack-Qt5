@@ -21,17 +21,15 @@
 		<tactics><random min="901" max="1000"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
 		<!-- Damage -->
-		<lodamage>18</lodamage>
-		<hidamage>22</hidamage>
-		<tag name="physicaldamage" value="50" />
-		<tag name="poisondamage" value="50" />
+		<tag name="mindamage" value="18" type="int" />
+		<tag name="maxdamage" value="22" type="int" />
+		<tag name="dmg_poison" value="50" type="int" />
 		<!-- Resists -->
-		<defense><random min="40" max="50" /></defense>
-		<tag name="coldresist" value="35,45" />
-		<tag name="energyresist" value="35,45" />
-		<tag name="fireresist" value="30,40" />
-		<tag name="physicalresist" value="40,50" />
-		<tag name="poisonresist" value="90,100" />
+		<tag name="res_cold" value="35,45" type="int" />
+		<tag name="res_energy" value="35,45" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_physical" value="40,50" type="int" />
+		<tag name="res_poison" value="90,100" type="int" />
 		<!-- Misc. -->
 		<desc>The harbinger of vengeance among the Terathans. Their very touchpoisons the body as well as the mind. The Avengers are unleashed bythe Matriarch only on the deepest infiltrators of their homeland. Itis said Avengers possess the most arcane of weapons, but those are wononly by removing them from the hands of a dead Avenger.</desc>
 		<category>Monsters\Terathan\Terathan Avenger</category>

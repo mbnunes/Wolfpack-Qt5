@@ -17,17 +17,16 @@
 		<tactics>900</tactics>
 		<wrestling>900</wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="10" />
-		<tag name="maxdamage" value="18" />
-		<tag name="dmg_physical" value="60" />
-		<tag name="dmg_energy" value="20" />
-		<tag name="dmg_poison" value="20" />
+		<tag name="mindamage" value="10" type="int" />
+		<tag name="maxdamage" value="18" type="int" />
+		<tag name="dmg_energy" value="20" type="int" />
+		<tag name="dmg_poison" value="20" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="30,40" />
-		<tag name="res_energy" value="20,30" />
-		<tag name="res_fire" value="40,50" />
-		<tag name="res_physical" value="30,40" />
-		<tag name="res_poison" value="100" />
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_energy" value="20,30" type="int" />
+		<tag name="res_fire" value="40,50" type="int" />
+		<tag name="res_physical" value="30,40" type="int" />
+		<tag name="res_poison" value="100" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Summoned\Blade Spirit</category>
 	</npc>

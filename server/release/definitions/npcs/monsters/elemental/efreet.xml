@@ -19,15 +19,15 @@
 		<tactics><random min="601" max="800"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="11" />
-		<tag name="maxdamage" value="13" />
-		<tag name="dmg_energy" value="50" />
-		<tag name="dmg_fire" value="50" />
+		<tag name="mindamage" value="11" type="int" />
+		<tag name="maxdamage" value="13" type="int" />
+		<tag name="dmg_energy" value="50" type="int" />
+		<tag name="dmg_fire" value="50" type="int" />
 		<!-- Resists -->
-		<tag name="res_energy" value="40,50" />
-		<tag name="res_fire" value="60,70" />
-		<tag name="res_physical" value="50,60" />
-		<tag name="res_poison" value="30,40" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<tag name="res_fire" value="60,70" type="int" />
+		<tag name="res_physical" value="50,60" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>Legends say that the Efreet will grant a wish to those who retrieve them from their home of flames. This is the truth only if the wish is a wish for death. The Efreet has a heart of flame and a countenance to match. An Efreet will attack with flame and magic, and few can stand against them. There is an ancient tome that tells of an Efreet Overlord who leads an army of the Efreeti. If the overlord exists still, none have seen him and returned.</desc>
 		<category>Monsters\Elementals\Efreet</category>

@@ -21,15 +21,14 @@
 		<tactics><random min="501" max="700"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="11" />
-		<tag name="maxdamage" value="13" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="11" type="int" />
+		<tag name="maxdamage" value="13" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="35,45" />
-		<tag name="res_energy" value="35,45" />
-		<tag name="res_fire" value="30,40" />
-		<tag name="res_physical" value="45,55" />
-		<tag name="res_poison" value="40,50" />
+		<tag name="res_cold" value="35,45" type="int" />
+		<tag name="res_energy" value="35,45" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_poison" value="40,50" type="int" />
 		<!-- Misc. -->
 		<desc>The Ophidian monarch is rumored to be a fair and just ruler to all ofher subjects. She alone holds the secret of the Ophidians, and it isshe that passes it to her successors. With all the abilities of anarch mage, the queen of the Ophidians is an able keeper of herpeople*s secret.</desc>
 		<carve>carve_ophidian_queen_medium</carve>

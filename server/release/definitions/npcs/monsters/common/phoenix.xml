@@ -21,15 +21,14 @@
 		<tactics><random min="801" max="900"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="24" />
-		<tag name="maxdamage" value="25" />
-		<tag name="dmg_physical" value="50" />
-		<tag name="dmg_fire" value="50" />
+		<tag name="mindamage" value="24" type="int" />
+		<tag name="maxdamage" value="25" type="int" />
+		<tag name="dmg_fire" value="50" type="int" />
 		<!-- Resists -->
-		<tag name="dmg_energy" value="40,50" />
-		<tag name="dmg_fire" value="60,70" />
-		<tag name="dmg_physical" value="45,55" />
-		<tag name="dmg_poison" value="25,35" />
+		<tag name="dmg_energy" value="40,50" type="int" />
+		<tag name="dmg_fire" value="60,70" type="int" />
+		<tag name="dmg_physical" value="45,55" type="int" />
+		<tag name="dmg_poison" value="25,35" type="int" />
 		<!-- Misc. -->
 		<desc>For aeons the phoenix has been a symbol of hope. Looking much like the majestic eagle, the phoenix has wings of flame. Those foolish enough to hope to kill a phoenix for the feathers will find the phoenix is noeasy target. Talons of the phoenix are harder than steel and can rend even plate armor. Few can best the phoenix in one-on-one battle.</desc>
 		<category>Monsters\Common\Phoenix</category>

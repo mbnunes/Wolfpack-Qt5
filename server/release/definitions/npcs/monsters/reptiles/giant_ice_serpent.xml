@@ -17,17 +17,16 @@
 		<tactics><random min="393" max="540"/></tactics>
 		<wrestling><random min="393" max="540"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="4" />
-		<tag name="maxdamage" value="12" />
-		<tag name="dmg_physical" value="25" />
-		<tag name="dmg_cold" value="25" />
-		<tag name="dmg_poison" value="50" />
+		<tag name="mindamage" value="4" type="int" />
+		<tag name="maxdamage" value="12" type="int" />
+		<tag name="dmg_cold" value="25" type="int" />
+		<tag name="dmg_poison" value="50" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="80,90" />
-		<tag name="res_energy" value="30,40" />
-		<tag name="res_fire" value="-10,0" />
-		<tag name="res_physical" value="20,25" />
-		<tag name="res_poison" value="60,70" />
+		<tag name="res_cold" value="80,90" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<tag name="res_fire" value="-10,0" type="int" />
+		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_poison" value="60,70" type="int" />
 		<!-- Misc. -->
 		<desc>The Ice Serpent is a terrifying beast. Their bite injects a poisoninto the recipient that slowly drains them of all warmth. This warmthis magically transferred to the Ice Serpent. In this way, thecold-blooded serpents have been able to survive the frozen tundra. Itis rumored that Ice Fiends have been known to adopt Ice Serpents aspets.</desc>
 		<category>Monsters\Reptiles\Giant Ice Serpent</category>

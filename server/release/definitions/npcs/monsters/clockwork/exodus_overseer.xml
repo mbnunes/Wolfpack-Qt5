@@ -17,16 +17,15 @@
 		<tactics><random min="802" max="980"/></tactics>
 		<wrestling><random min="802" max="980"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="13" />
-		<tag name="maxdamage" value="19" />
-		<tag name="dmg_energy" value="50" />
-		<tag name="dmg_physical" value="50" />
+		<tag name="mindamage" value="13" type="int" />
+		<tag name="maxdamage" value="19" type="int" />
+		<tag name="dmg_energy" value="50" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="25,35" />
-		<tag name="res_energy" value="25,35" />
-		<tag name="res_fire" value="40,60" />
-		<tag name="res_physical" value="45,55" />
-		<tag name="res_poison" value="25,35" />
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<tag name="res_fire" value="40,60" type="int" />
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Clockwork\Exodus Overseer</category>
 	</npc>

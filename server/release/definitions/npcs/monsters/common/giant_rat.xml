@@ -17,13 +17,12 @@
 		<tactics><random min="293" max="440"/></tactics>
 		<wrestling><random min="293" max="440"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="4" />
-		<tag name="maxdamage" value="8" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="4" type="int" />
+		<tag name="maxdamage" value="8" type="int" />
 		<!-- Resists -->
-		<tag name="res_fire" value="5,10" />
-		<tag name="res_physical" value="15,20" />
-		<tag name="res_poison" value="25,35" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Misc. -->
 		<desc>Giant rats are, as their name implies, simply vermin increased to the size of a panther. They tend to congregate in the foulest, most eldritch regions of the dungeons they inhabit.</desc>
 		<carve>carve_ret_giant</carve>

@@ -17,11 +17,10 @@
 		<tactics><random min="251" max="400"/></tactics>
 		<wrestling><random min="251" max="400"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" />
-		<tag name="maxdamage" value="10" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="5" type="int" />
+		<tag name="maxdamage" value="10" type="int" />
 		<!-- Resists -->
-		<tag name="res_physical" value="15,20" />
+		<tag name="res_physical" value="15,20" type="int" />
 		<!-- Misc. -->
 		<desc>The Headless are so called for they have the appearance of a hairy manwith no head. Therefore many believe them to be spectres, but oncloser examination they are revealed as corporeal creatures with theirsensory apparatus in their chest cavities. Despite their lust for goldand their appearance of deformed humanity, most suspect they are nomore than clever beasts.</desc>
 		<carve>carve_headless</carve>

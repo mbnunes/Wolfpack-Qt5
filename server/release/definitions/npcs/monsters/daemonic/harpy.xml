@@ -18,15 +18,14 @@
 		<tactics><random min="701" max="1000"/></tactics>
 		<wrestling><random min="601" max="900"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" />
-		<tag name="maxdamage" value="7" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="5" type="int" />
+		<tag name="maxdamage" value="7" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="10,30" />
-		<tag name="res_energy" value="10,20" />
-		<tag name="res_fire" value="10,20" />
-		<tag name="res_physical" value="25,30" />
-		<tag name="res_poison" value="20,30" />
+		<tag name="res_cold" value="10,30" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_physical" value="25,30" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
 		<desc>These foul beasts have the head of a woman and the body of a bird.Despite their human features, it is not believed they are intelligent.They attack in small flocks from the air, wheeling above their preyand rending them with claws and beaks. They love gold like a raven ormagpie loves all shiny things. There are those who seek to fletchtheir arrows with the harpy's feather, thinking it will convey virtueon the shafts, but those who have made a study of such things assurethat this is merely a false and extremely dangerous conceit.</desc>
 		<category>Monsters\Daemonic\Harpy</category>

@@ -19,15 +19,14 @@
 		<wrestling><random min="501" max="750"/></wrestling>
 		<archery><random min="801" max="900"/></archery>
 		<!-- Damage -->
-		<tag name="mindamage" value="4" />
-		<tag name="maxdamage" value="10" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="4" type="int" />
+		<tag name="maxdamage" value="10" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="10,20" />
-		<tag name="res_energy" value="10,20" />
-		<tag name="res_fire" value="10,20" />
-		<tag name="res_physical" value="40,55" />
-		<tag name="res_poison" value="10,20" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_physical" value="40,55" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Ratmen\Ratman Archer</category>
 	</npc>

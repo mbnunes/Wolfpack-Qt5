@@ -18,15 +18,14 @@
 		<tactics><random min="601" max="700"/></tactics>
 		<wrestling><random min="701" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="9" />
-		<tag name="maxdamage" value="11" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="9" type="int" />
+		<tag name="maxdamage" value="11" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="15,25" />
-		<tag name="res_energy" value="25" />
-		<tag name="res_fire" value="15,25" />
-		<tag name="res_physical" value="30,35" />
-		<tag name="res_poison" value="15,25" />
+		<tag name="res_cold" value="15,25" type="int" />
+		<tag name="res_energy" value="25" type="int" />
+		<tag name="res_fire" value="15,25" type="int" />
+		<tag name="res_physical" value="30,35" type="int" />
+		<tag name="res_poison" value="15,25" type="int" />
 		<!-- Misc. -->
 		<desc>These brutes are akin to orcs, but larger. They are fiercely stupid, but do possess some faculty of reason. Like all the intelligent races, they have a great greed for gold. Ogres are bullies, but also cowards, and will run if a fight turns against them.</desc>
 		<carve>carve_ogre</carve>

@@ -17,13 +17,12 @@
 		<tactics><random min="351" max="500"/></tactics>
 		<wrestling><random min="351" max="500"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="3" />
-		<tag name="maxdamage" value="7" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="3" type="int" />
+		<tag name="maxdamage" value="7" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" value="20,30" />
-		<tag name="res_physical" value="15,20" />
-		<tag name="res_poison" value="5,10" />
+		<tag name="res_cold" value="20,30" type="int" />
+		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_poison" value="5,10" type="int" />
 		<!-- Misc. -->
 		<desc>Zombies are naught but rotting corpses, restored to a mockery of lifethrough vile sorcery. Utterly devoid of any will save that whichcreated them, they do share with the other undead an unnaturalappetite for the gold and the flesh of the living. Shambling, slowcreatures, they are easily destroyed or evaded by an experiencedwarrior, unless encountered in overwhelming number.</desc>
 		<category>Monsters\Undead\Zombie</category>
