@@ -287,7 +287,7 @@
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
 		<npcs>
-			<npc>carpenter</npc>
+			<npc>carpenter_male</npc>
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
@@ -298,7 +298,7 @@
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
 		<npcs>
-			<npc>architect</npc>
+			<npc>architect_female</npc>
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
@@ -353,7 +353,7 @@
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
 		<npcs>
-			<npc>tinker</npc>
+			<npc>tinker_male</npc>
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
@@ -364,7 +364,7 @@
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
 		<npcs>
-			<npc>butcher</npc>
+			<npc>butcher_male</npc>
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
@@ -463,10 +463,43 @@
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
 		<npcs>
-			<npc>cook</npc>
+			<npc>cook_male</npc>
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
 		<rectangle x1="1610" x2="1612" y1="1584" y2="1586" map="0" />
+	</spawnregion>
+	<spawnregion id="fel_cook2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>cook_female</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1487" x2="1491" y1="1687" y2="1690" map="0" />
+	</spawnregion>
+	<spawnregion id="fel_shipwright1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>shipwright_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1413" x2="1419" y1="1746" y2="1755" map="0" />
+	</spawnregion>
+	<spawnregion id="fel_shipwright2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>shipwright_female</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1472" x2="1478" y1="1737" y2="1749" map="0" />
 	</spawnregion>
 </definitions>
