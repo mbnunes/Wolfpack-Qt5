@@ -3600,7 +3600,7 @@ void cChar::addItem( cChar::enLayer layer, cItem* pi, bool handleWeight, bool no
 	if ( atLayer( layer ) != 0 )
 	{
 		clConsole.send( "WARNING: Trying to put an item on layer %i which is already occupied\n", layer );
-		pi->container_ = 0;
+		pi->setContainer(0);
 		return;
 	}
 
@@ -3609,7 +3609,7 @@ void cChar::addItem( cChar::enLayer layer, cItem* pi, bool handleWeight, bool no
 
 	content_.insert( (ushort)(layer), pi );
 	pi->setLayer( layer );
-	pi->container_ = this;
+	pi->setContainer(this);
 
 	if( handleWeight )
 		weight_ += pi->totalweight();
@@ -3620,7 +3620,7 @@ void cChar::removeItem( cChar::enLayer layer, bool handleWeight )
 	P_ITEM pi = atLayer(layer);
 	if ( pi )
 	{
-		pi->container_ = 0;
+		pi->setContainer(0);
 		pi->setLayer( 0 );
 		content_.remove((ushort)(layer));
 

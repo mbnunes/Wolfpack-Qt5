@@ -965,13 +965,10 @@ void interpretCommand( const QString &command )
 				endmessage(0);
 				break;
 			case '#':
-				if ( !cwmWorldState->Saving() )
-				{
-					clConsole.send( "Saving worldfile...");
-					cwmWorldState->savenewworld( SrvParams->getString( "General", "SaveModule", "xml" ) );
-					SrvParams->flush();
-					clConsole.send( "Done!\n");
-				}
+				clConsole.send( "Saving worldfile...");
+				cwmWorldState->savenewworld( SrvParams->getString( "General", "SaveModule", "xml" ) );
+				SrvParams->flush();
+				clConsole.send( "Done!\n");
 				break;
 			case 'D':	// Disconnect account 0 (useful when client crashes)
 			case 'd':	

@@ -53,18 +53,32 @@
 #include "dbdriver.h"
 #include "pagesystem.h"
 
-#include "Python.h"
 #include "python/utilities.h"
 #include "python/tempeffect.h"
 
 // Library Includes
 #include <qcstring.h>
 
+#include <zthread/Thread.h>
+#include <zthread/FastMutex.h>
+
+
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
 
+class cItemsSaver : public ZThread::Thread
+{
+private:
+	ZThread::FastMutex waitMutex;
+public:
+	virtual ~cItemsSaver() throw() {}
+	virtual void run() throw();
+	void wait();
+};
+
+
 // Items Saver thread
-void CWorldMain::cItemsSaver::run() throw()
+void cItemsSaver::run() throw()
 {
 	try
 	{
@@ -84,7 +98,7 @@ void CWorldMain::cItemsSaver::run() throw()
 	}
 }
 
-void CWorldMain::cItemsSaver::wait()
+void cItemsSaver::wait()
 {
 	try
 	{
@@ -100,7 +114,6 @@ void CWorldMain::cItemsSaver::wait()
 CWorldMain::CWorldMain()
 {
 	announce(false);
-	isSaving = false;
 }
 
 void CWorldMain::loadnewworld( QString module ) // Load world
@@ -215,20 +228,15 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 //o---------------------------------------------------------------------------o
 void CWorldMain::savenewworld(QString module)
 {
-	static unsigned long ocCount, oiCount;
 	UI32 savestarttime = getNormalizedTime();
 
-	if ( !Saving() )
+	if ( announce() )
 	{
-		if ( announce() )
-		{
-			cNetwork::instance()->broadcast( tr( "World data saving..." ) );
-			clConsole.send("Worldsave Started!\n" );
-			clConsole.send("items  : %i\n", ItemsManager::instance()->size());
-			clConsole.send("chars  : %i\n", CharsManager::instance()->size());
-			clConsole.send("effects: %i\n", TempEffects::instance()->size());
-		}
-		isSaving = true;
+		cNetwork::instance()->broadcast( tr( "World data saving..." ) );
+		clConsole.send("Worldsave Started!\n" );
+		clConsole.send("items  : %i\n", ItemsManager::instance()->size());
+		clConsole.send("chars  : %i\n", CharsManager::instance()->size());
+		clConsole.send("effects: %i\n", TempEffects::instance()->size());
 	}
 
 	SrvParams->flush();
@@ -243,13 +251,18 @@ void CWorldMain::savenewworld(QString module)
 
 	try
 	{
-		AllItemsIterator iterItems;
-		for( iterItems.Begin(); !iterItems.atEnd(); ++iterItems )
-			persistentBroker->saveObject( iterItems.GetData() );
+		cItemsSaver* itemsSaver = new cItemsSaver;
+		itemsSaver->start();
+//		AllItemsIterator iterItems;
+//		for( iterItems.Begin(); !iterItems.atEnd(); ++iterItems )
+//			persistentBroker->saveObject( iterItems.GetData() );
 
 		AllCharsIterator iterChars;
 		for( iterChars.Begin(); !iterChars.atEnd(); ++iterChars )
 			persistentBroker->saveObject( iterChars.GetData() );
+		itemsSaver->wait();
+		itemsSaver->join();
+		delete itemsSaver;
 	}
 	catch( QString error )
 	{
@@ -289,8 +302,6 @@ void CWorldMain::savenewworld(QString module)
 		clConsole.ProgressDone();
 	}
 
-	isSaving = false;
-
 	uiCurrentTime = getNormalizedTime();
 
 	driver.garbageCollect();
@@ -307,11 +318,6 @@ void CWorldMain::announce(int choice)
 		DisplayWorldSaves=0;
 	else
 		DisplayWorldSaves=1;
-}
-
-bool CWorldMain::Saving( void )
-{
-	return isSaving;
 }
 
 static void decay1(P_ITEM pi, P_ITEM pItem)

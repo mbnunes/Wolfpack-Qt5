@@ -78,7 +78,7 @@ void cItem::registerInFactory()
 // constructor
 cItem::cItem(): 
 container_(0), totalweight_(0), incognito(false),
-rndvaluerate_(0), dooropen_(0),gatetime_(0),gatenumber_(-1),disabledmsg_(""),murdertime_(0),
+rndvaluerate_(0), dooropen_(0),gatetime_(0),gatenumber_(-1),murdertime_(0),
 timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), price_( 0 ), restock_( 1 ), changed_(true) {};
 
 cItem::cItem( const cItem &src )
@@ -146,7 +146,6 @@ cItem::cItem( const cItem &src )
 	this->sellprice_ = src.sellprice_;
 	this->restock_ = src.restock_;
 	this->disabled_ = src.disabled_;
-	this->disabledmsg_ = src.disabledmsg_;
 	this->poisoned_ = src.poisoned_;
 	this->murderer_ = src.murderer_;
  	this->murdertime_ = src.murdertime_;
@@ -644,7 +643,7 @@ void cItem::Init( bool mkser )
 
 	this->container_ = 0;
 	this->name_ = "#";
-	this->name2_ = "#";
+	this->name2_ = this->name_;
 	this->incognito=false;//AntiChrist - incognito
 	this->madewith_=0; // Added by Magius(CHE)
 	this->rank_ = 0; // Magius(CHE)
@@ -654,7 +653,6 @@ void cItem::Init( bool mkser )
 	this->setMultis( INVALID_SERIAL );//Multi serial
 	this->free = false;
 	this->setId(0x0001); // Item visuals as stored in the client
-	// this->name2[0]=0x00; Removed by Magius(CHE)
 	this->setPos( Coord_cl(100, 100, 0) );
 	this->color_ = 0x00; // Hue
 	this->layer_ = 0; // Layer if equipped on paperdoll
@@ -703,7 +701,6 @@ void cItem::Init( bool mkser )
 	// Everything decays by default.
 	this->priv_=1; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
 	this->disabled_ = 0; //Item is disabled, cant trigger.
-	this->disabledmsg_ = ""; //Item disabled message. -- by Magius(CHE) §
 	this->poisoned_ = 0; //AntiChrist -- for poisoning skill
  	this->murdertime_ = 0; //AntiChrist -- for corpse -- when the people has been killed
 	this->time_unused = 0;
@@ -2783,7 +2780,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "price", price_ )
 	else SET_INT_PROPERTY( "restock", restock_ )
 	else SET_INT_PROPERTY( "disabled", disabled_ )
-	else SET_STR_PROPERTY( "disabledmsg", disabledmsg_ )
 	else SET_INT_PROPERTY( "poisoned", poisoned_ )
 	else SET_INT_PROPERTY( "murdertime", murdertime_ )
 	else SET_INT_PROPERTY( "rank", rank_ )
@@ -2936,7 +2932,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "price", price_ )
 	else GET_PROPERTY( "restock", restock_ )
 	else GET_PROPERTY( "disabled", (int)disabled_ )
-	else GET_PROPERTY( "disabledmsg", disabledmsg_ )
 	else GET_PROPERTY( "poisoned", (int)poisoned_ )
 	else GET_PROPERTY( "murdertime", (int)murdertime_ )
 	else GET_PROPERTY( "rank", rank_ )

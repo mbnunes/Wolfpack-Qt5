@@ -87,7 +87,6 @@ class cItem : public cUObject
 	Q_PROPERTY ( int		gatenumber	READ gatenumber		WRITE setGateNumber		)
 	Q_PROPERTY ( uint		decaytime	READ decaytime		WRITE setDecayTime		)
 	Q_PROPERTY ( uint		disabled	READ disabled		WRITE setDisabled		)
-	Q_PROPERTY ( QString	disabledmsg	READ disabledmsg	WRITE setDisabledMsg	)
 	Q_PROPERTY ( uint		poisoned	READ poisoned		WRITE setPoisoned		)
 	Q_PROPERTY ( uint		murdertime	READ murdertime		WRITE setMurderTime		)
 	Q_PROPERTY ( int		rank		READ rank			WRITE setRank			)
@@ -101,96 +100,9 @@ class cItem : public cUObject
 	Q_PROPERTY ( int		rndvaluerate READ rndvaluerate	WRITE setRndValueRate	)
 	Q_PROPERTY ( uchar		madewith	READ madewith		WRITE setMadeWith		)
 
-	friend class cChar; // temporary
-	bool changed_;
+//	friend class cChar; // temporary
 public:
 	typedef QValueVector<cItem*> ContainerContent;
-protected:
-	ushort		id_;
-	ushort		color_;
-	ushort		amount_; 
-	ushort		restock_;
-	ushort		amount2_; 
-	QString		name_;
-	QString		name2_;
-	uchar		layer_;
-	QString		murderer_;
-	SI16		lodamage_; 
-	SI16		hidamage_; 
-	ushort		type_;
-	ushort		type2_;
-	uchar		offspell_; // Whats that for ?!
-	SI16		speed_;
-	SI16		weight_;
-	SI16		hp_;
-	SI16		maxhp_;
-	QString		spawnregion_;
-	int			totalweight_;
-	QString		carve_;
-	uint	antispamtimer_;
-	ushort		accuracy_;	// for weapons, could be used for certain tools too.
-	int		sellprice_;
-	int		buyprice_;
-	int		price_; // This price is only used for player vendor items
-
-	// More values
-	uchar moreb1_;
-	uchar moreb2_;
-	uchar moreb3_;
-	uchar moreb4_;
-	ContainerContent content_;
-	cUObject *container_;
-
-//******************** ADDED FROM PUBLIC *******************
-	
-
-	uchar more1_; // For various stuff
-	uchar more2_;
-	uchar more3_;
-	uchar more4_;
-	uint morex_;
-	uint morey_;
-	uint morez_;
-	uchar doordir_; // Reserved for doors
-	uchar dooropen_;
-	uchar dye_; // Reserved: Can item be dyed by dye kit
-	uint att_; // Item attack
-	uint def_; // Item defense
-	short st_; // The strength needed to equip the item
-	short st2_; // The strength the item gives
-	short dx_; // The dexterity needed to equip the item
-	short dx2_; // The dexterity the item gives
-	short in_; // The intelligence needed to equip the item
-	short in2_; // The intelligence the item gives
-	uchar magic_; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
-	uint gatetime_;
-	int gatenumber_;
-	uint decaytime_;
-	uint disabled_; //Item is disabled, cant trigger.
-	QString disabledmsg_; //Item is disabled, so display this message. -- added by Magius(CHE) §
-	uint poisoned_; //AntiChrist -- for poisoning skill
-	uint murdertime_; //AntiChrist -- for corpse -- when the people has been killed
-	int rank_; //Magius(CHE) --- for rank system, this value is the LEVEL of the item from 1 to 10. Simply multiply the rank*10 and calculate the MALUS this item has from the original.
-	// for example: RANK 5 ---> 5*10=50% of malus
-	//   this item has same values decreased by 50%..
-	// RANK 1 ---> 1*10=10% this item has 90% of malus!
-	// RANK 10 --> 10*10=100% this item has no malus! RANK 10 is automatically setted if you select RANKSYSTEM 0.
-	// Vars: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
-	uchar dir_;
-	QString desc_;
-	QString creator_; // Store the name of the player made this item
-	SERIAL ownserial_;
-	uchar visible_; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
-	uchar priv_;
-	int good_; // Store type of GOODs to trade system! (Plz not set as UNSIGNED)  --- Magius(CHE)
-	int rndvaluerate_; // Store the value calculated base on RANDOMVALUE in region.scp. ---- MAgius(CHE) (2)
-	uchar madewith_; // Store the skills used to make this item -- Magius(CHE)
-
-
-//********************END ADDED FROM PUBLIC *************
-
-	virtual void	processNode( const QDomElement &Tag );
-	void	processModifierNode( const QDomElement &Tag );
 public:
 
 	virtual void	talk( const QString &message, ushort color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
@@ -210,7 +122,7 @@ public:
 	ushort			restock()		const { return restock_; }		// Amount of items a vendor will respawn this item to.
 	ushort			amount2()		const { return amount2_; }		// Used to track things like number of yards left in a roll of cloth
 	const QString	&name2()		const { return name2_; }		// The identified name of the item
-	const QString	&name()			const { return name_; }		// The identified name of the item
+	const QString	&name()			const { return name_; }			// The identified name of the item
 	uchar			layer()			const { return layer_; }		// Layer if equipped on paperdoll
 	bool			twohanded()		const { return priv_&0x20; }		// Is the weapon twohanded ?
 	const QString	&murderer()		const { return murderer_; }		// If it's a corpse, this holds the name of the murderer
@@ -234,41 +146,40 @@ public:
 	bool			corpse()		const { return priv_&0x40; }		// Is the item a corpse
 	bool			newbie()		const { return priv_&0x02; }		// Is the Item Newbie
 	P_CHAR			owner() const;
-	int			totalweight()	const { return totalweight_; }
+	int				totalweight()	const { return totalweight_; }
 	QString			carve()			const { return carve_; }
-	uint	antispamtimer() const { return antispamtimer_;}
+	uint			antispamtimer() const { return antispamtimer_;}
 	ushort			accuracy()		const { return accuracy_; }		// for weapons, could be used for certain tools too.
 	cUObject		*container()    const { return container_; }
-	int			sellprice()		const { return sellprice_; } // Price this item is being bought at by normal vendors
-	int			buyprice()		const { return buyprice_; } // Price this item is being sold at by normal vendors
-	int			price()			const { return price_; } // Price this item is being sold at by player vendors
+	int				sellprice()		const { return sellprice_; } // Price this item is being bought at by normal vendors
+	int				buyprice()		const { return buyprice_; } // Price this item is being sold at by normal vendors
+	int				price()			const { return price_; } // Price this item is being sold at by player vendors
 
-	uchar	more1()			const { return more1_; }
-	uchar	more2()			const { return more2_; }
-	uchar	more3()			const { return more3_; }
-	uchar	more4()			const { return more4_; }
-	uint	morex()			const { return morex_; }
-	uint	morey()			const { return morey_; }
-	uint	morez()			const { return morez_; }	
-	uchar	doordir()		const { return doordir_; }
-	uchar	dooropen()		const { return dooropen_; }
-	uchar	dye()			const { return dye_; }
-	uint	att()			const { return att_; }
-	uint	def()			const { return def_; }
-	short	st()			const { return st_; }
-	short	st2()			const { return st2_; }
-	short	dx()			const { return dx_; }
-	short	dx2()			const { return dx2_; }
-	short	in()			const { return in_; }
-	short	in2()			const { return in2_; }
-	uchar	magic()			const { return magic_; }
-	uint	gatetime()		const { return gatetime_; }
+	uchar			more1()			const { return more1_; }
+	uchar			more2()			const { return more2_; }
+	uchar			more3()			const { return more3_; }
+	uchar			more4()			const { return more4_; }
+	uint			morex()			const { return morex_; }
+	uint			morey()			const { return morey_; }
+	uint			morez()			const { return morez_; }	
+	uchar			doordir()		const { return doordir_; }
+	uchar			dooropen()		const { return dooropen_; }
+	uchar			dye()			const { return dye_; }
+	uint			att()			const { return att_; }
+	uint			def()			const { return def_; }
+	short			st()			const { return st_; }
+	short			st2()			const { return st2_; }
+	short			dx()			const { return dx_; }
+	short			dx2()			const { return dx2_; }
+	short			in()			const { return in_; }
+	short			in2()			const { return in2_; }
+	uchar			magic()			const { return magic_; }
+	uint			gatetime()		const { return gatetime_; }
 	int				gatenumber()	const { return gatenumber_; }
-	uint	decaytime()		const { return decaytime_; }
-	uint	disabled()		const { return disabled_; } 
-	QString			disabledmsg()	const { return disabledmsg_; } 
-	uint	poisoned()		const { return poisoned_; }
-	uint		murdertime()	const { return murdertime_; } 
+	uint			decaytime()		const { return decaytime_; }
+	uint			disabled()		const { return disabled_; } 
+	uint			poisoned()		const { return poisoned_; }
+	uint			murdertime()	const { return murdertime_; } 
 	int				rank()			const { return rank_; } 
 	uchar			direction()		const { return dir_;  }
 	QString			description()	const { return desc_; }
@@ -357,7 +268,6 @@ public:
 	void	setSellprice( int data ) { sellprice_ = data; changed_ = true;}
 
 	void	setDisabled(uint data) { disabled_ = data; changed_ = true;}
-	void	setDisabledMsg(QString data) { disabledmsg_ = data; changed_ = true;}
 	void	setPoisoned(uint data) { poisoned_ = data; changed_ = true;}
 	void	setMurderTime(uint data) { murdertime_ = data; changed_ = true;}
 	void	setRank(int data) { rank_ = data; changed_ = true;} 
@@ -382,19 +292,6 @@ public:
 	//   5 |  20 | Twohanded
 	//   6 |  40 | Corpse
 	//   7 |  80 | <unused>
-	
-	// Note by Magius: Value range to -ALLSKILLS-1 to ALLSKILLS+1
-	//    To calculate skill used to made this item:
-	//       if is a positive value, substract 1 it.
-	//          Ex) madewith=34 , 34-1=33 , 33=STEALING
-	//       if is a negative value, add 1 from it and invert value.
-	//          Ex) madewith=-34 , -34+1=-33 , Abs(-33)=33=STEALING.
-	//       0 = NULL
-	//    So... a positive value is used when the item is made by a
-	//       player with 95.0+ at that skill. Infact in this way when
-	//       you click on the item appear its name and the name of the
-	//       creator. A Negative value if the player is not enought
-	//       skilled!
 	
 	bool incognito; //AntiChrist - for items under incognito effect
 	// ^^ NUTS !! - move that to priv
@@ -461,7 +358,88 @@ public:
 	void flagUnchanged() { changed_ = false; cUObject::flagUnchanged(); }
 
 protected:
+	// Methods
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+	virtual void	processNode( const QDomElement &Tag );
+	void	processModifierNode( const QDomElement &Tag );
+
+	// Data
+	ushort		id_;
+	ushort		color_;
+	ushort		amount_; 
+	ushort		restock_;
+	ushort		amount2_; 
+	QString		name_;
+	QString		name2_;
+	uchar		layer_;
+	QString		murderer_;
+	SI16		lodamage_; 
+	SI16		hidamage_; 
+	ushort		type_;
+	ushort		type2_;
+	uchar		offspell_; // Whats that for ?!
+	SI16		speed_;
+	SI16		weight_;
+	SI16		hp_;
+	SI16		maxhp_;
+	QString		spawnregion_;
+	int			totalweight_;
+	QString		carve_;
+	uint		antispamtimer_;
+	ushort		accuracy_;	// for weapons, could be used for certain tools too.
+	int			sellprice_;
+	int			buyprice_;
+	int			price_; // This price is only used for player vendor items
+
+	// More values
+	uchar		moreb1_;
+	uchar		moreb2_;
+	uchar		moreb3_;
+	uchar		moreb4_;
+	ContainerContent content_;
+	cUObject*	container_;
+	uchar		more1_; // For various stuff
+	uchar		more2_;
+	uchar		more3_;
+	uchar		more4_;
+	uint		morex_;
+	uint		morey_;
+	uint		morez_;
+	uchar		doordir_; // Reserved for doors
+	uchar		dooropen_;
+	uchar		dye_; // Reserved: Can item be dyed by dye kit
+	uint		att_; // Item attack
+	uint		def_; // Item defense
+	short		st_; // The strength needed to equip the item
+	short		st2_; // The strength the item gives
+	short		dx_; // The dexterity needed to equip the item
+	short		dx2_; // The dexterity the item gives
+	short		in_; // The intelligence needed to equip the item
+	short		in2_; // The intelligence the item gives
+	uchar		magic_; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
+	uint		gatetime_;
+	int			gatenumber_;
+	uint		decaytime_;
+	uint		disabled_; //Item is disabled, cant trigger.
+	uint		poisoned_; //AntiChrist -- for poisoning skill
+	uint		murdertime_; //AntiChrist -- for corpse -- when the people has been killed
+	int			rank_; //Magius(CHE) --- for rank system, this value is the LEVEL of the item from 1 to 10. Simply multiply the rank*10 and calculate the MALUS this item has from the original.
+	// for example: RANK 5 ---> 5*10=50% of malus
+	//   this item has same values decreased by 50%..
+	// RANK 1 ---> 1*10=10% this item has 90% of malus!
+	// RANK 10 --> 10*10=100% this item has no malus! RANK 10 is automatically setted if you select RANKSYSTEM 0.
+	// Vars: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
+	uchar		dir_;
+	QString		desc_;
+	QString		creator_; // Store the name of the player made this item
+	SERIAL		ownserial_;
+	uchar		visible_; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
+	uchar		priv_;
+	int			good_; // Store type of GOODs to trade system! (Plz not set as UNSIGNED)  --- Magius(CHE)
+	int			rndvaluerate_; // Store the value calculated base on RANDOMVALUE in region.scp. ---- MAgius(CHE) (2)
+	uchar		madewith_; // Store the skills used to make this item -- Magius(CHE)
+private:
+	bool changed_;
 };
 
 

@@ -754,7 +754,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			dosavewarning = 0;
 		}
 
-		if (difftime(newtime, oldtime)>=SrvParams->saveInterval() || cwmWorldState->Saving() )
+		if (difftime(newtime, oldtime)>=SrvParams->saveInterval() )
 		{
 			autosaved = 0;
 			cwmWorldState->savenewworld(0);

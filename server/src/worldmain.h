@@ -52,37 +52,21 @@ class CWorldMain ;
 #include "typedefs.h"
 #include "debug.h"
 
-#include <zthread/Thread.h>
-#include <zthread/FastMutex.h>
-#include <zthread/LockedQueue.h>
 #include <qstring.h>
 
 class CWorldMain  
 {
 public:
-	virtual int announce();
-	virtual void announce(int choice);
-	virtual void loadnewworld( QString module );
-	virtual void savenewworld( QString module );
+	int announce();
+	void announce(int choice);
+	void loadnewworld( QString module );
+	void savenewworld( QString module );
 	CWorldMain();
 
-	bool Saving( void );
 	bool RemoveItemsFromCharBody(int charserial, int type1, int type2);
-private:
-	bool isSaving;
-	int DisplayWorldSaves;
 
-	class cItemsSaver : public ZThread::Thread
-	{
-	private:
-		ZThread::FastMutex waitMutex;
-		QString module;
-	public:
-		cItemsSaver(QString mod) : module(mod) {}
-		virtual ~cItemsSaver() throw() {}
-		virtual void run() throw();
-		void wait();
-	};
+private:
+	int DisplayWorldSaves;
 };
 
 #endif 
