@@ -138,6 +138,16 @@ bool cAccount::authorized( const QString& group, const QString& value ) const
 
 void cAccount::remove()
 {
+	QValueVector<P_PLAYER>::iterator it;
+	for (it = characters_.begin(); it != characters_.end(); ++it) {
+		(*it)->setAccount(0, false);
+		if ((*it)->socket()) {
+			(*it)->socket()->setAccount(0);
+		}
+		(*it)->remove();
+	}
+	characters_.clear();
+
 	Accounts::instance()->remove( this );
 }
 

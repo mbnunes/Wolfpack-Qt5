@@ -92,10 +92,6 @@ static PyObject* wpAccount_delete( wpAccount* self, PyObject* args )
 	if ( self->account == 0 )
 		Py_RETURN_FALSE;
 
-	QValueVector<P_PLAYER> chars = self->account->caracterList();
-	for ( uint i = 0; i < chars.size(); ++i )
-		chars[i]->remove();
-
 	self->account->remove();
 	self->account = 0;
 

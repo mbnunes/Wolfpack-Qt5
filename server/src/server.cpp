@@ -363,9 +363,9 @@ bool cServer::run( int argc, char** argv )
 	} catch (wpException &exception) {
 		Console::instance()->log(LOG_ERROR, exception.error() + "\n" );
 		error = true;
-	} catch (...) {
+	} /*catch (...) {
 		error = true;
-	}
+	}*/
 
 	setState( SHUTDOWN );
 	Console::instance()->stop();

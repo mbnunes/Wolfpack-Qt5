@@ -476,7 +476,6 @@ void cUOSocket::disconnect( void )
 	{
 		_player->onLogout();
 		_player->setSocket( NULL );
-		_player->account()->setInUse( false );
 
 		// Remove the player from it's party
 		if ( _player->party() )
