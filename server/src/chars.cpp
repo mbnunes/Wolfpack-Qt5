@@ -883,7 +883,7 @@ void cChar::Serialize(ISerialization &archive)
 		else
 			archive.write( "account", QString( "" ) );
 		archive.write("creationday",	creationday_);
-		archive.write("gmmoveeff",		gmMoveEff);
+		archive.write("gmmoveeff",		gmMoveEff_);
 		archive.write("guildtype",		GuildType);
 		archive.write("guildtraitor",	GuildTraitor);
 		archive.write("dispz",			dispz_);
