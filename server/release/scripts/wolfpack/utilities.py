@@ -602,12 +602,12 @@ def createlockandkey( container ):
 	\param object
 	\param pos The target position.
 	\param sendobject
+	\param movable To change the item.magic value
 	\param speed
 	\param fixeddir
 	\param explodes
 	\param hue
 	\param rendermode
-	\param
 	\return none
 	\description Animates a character's throwing of an object at a given target.
 """
@@ -625,6 +625,60 @@ def throwobject(char, object, pos, sendobject=0, movable=-1, speed=10, fixeddir=
 	char.action(0x9)
 	char.movingeffect(object.id, pos, fixeddir, explodes, speed, hue, rendermode)
 	return
+
+"""
+	\function wolfpack.utilities.checkLoS
+	\param object1 First object, char/item
+	\param object2 Second object, char/item
+	\param rangecheck Default 10.
+	\return boolean
+	\description Checks the line of sight between two objects and returns true or false if in sight.
+"""
+#
+def checkLoS( object1, object2, rangecheck=10 ):
+	# Char -> Char Check
+	if ( object1.ischar() and object2.ischar() ):
+		char1 = wolfpack.findchar(object1.serial)
+		char2 = wolfpack.findchar(object2.serial)
+		if not char1.cansee(char2):
+			return 0
+		if char1.distanceto(char2) > rangecheck:
+			return 0
+		if not char1.canreach(char2, rangecheck):
+			return 0
+		return 1
+	# Item -> Item Check
+	elif ( object1.isitem() and object2.isitem() ):
+		item1 = wolfpack.finditem(object1.serial)
+		item2 = wolfpack.finditem(object2.serial)
+		if item1.distanceto(item2) > rangecheck:
+			return 0
+		return 1
+	# Char -> Item Check
+	elif ( object1.ischar() and object2.isitem() ):
+		char = wolfpack.findchar(object1.serial)
+		item = wolfpack.finditem(object2.serial)
+		if not char.cansee(item):
+			return 0
+		if char.distanceto(item) > rangecheck:
+			return 0
+		if not char.canreach(item, rangecheck):
+			return 0
+		return 1
+	# Item -> Char Check
+	elif ( object1.isitem() and object2.ischar() ):
+		item = wolfpack.finditem(object1.serial)
+		char = wolfpack.findchar(object2.serial)
+		if not char.cansee(item):
+			return 0
+		if (item.distanceto(char) > rangecheck) or (char.distanceto(item) > rangecheck):
+			return 0
+		if not char.canreach(item, rangecheck):
+			return 0
+		return 1
+	# Failed Object Check
+	else:
+		return 0
 
 # Class for Wrapping Chars or Items in Argument Lists
 class ObjectWrapper:
