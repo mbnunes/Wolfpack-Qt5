@@ -24,11 +24,11 @@
 		<!-- Properties -->
 		<intproperty name="projectile" value="0xf42" />
 		<strproperty name="ammunition" value="f3f" />
-		<intproperty name="req_strength" value="30" />
+		<intproperty name="req_strength" value="35" />
 		<intproperty name="range" value="12" />
 		<intproperty name="speed" value="25" />
-		<intproperty name="mindamage" value="16" />
-		<intproperty name="maxdamage" value="18" />
+		<intproperty name="mindamage" value="18" />
+		<intproperty name="maxdamage" value="20" />
 	</item>
 
 	<item id="27f0" inherit="27a5">

@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!-- Guessing Macefighting -->
+	<!-- Macefighting -->
 	<!-- Nunchaku -->
 	<item id="27ae">
 		<id>0x27ae</id>
@@ -24,10 +24,10 @@
 		<category>Weapons\Samurai\Nunchaku</category>
 		<!-- Properties -->
 		<!--<tag name="resname" value="iron" />-->
-		<intproperty name="req_strength" value="35" />
-		<intproperty name="speed" value="37" />
-		<intproperty name="mindamage" value="14" />
-		<intproperty name="maxdamage" value="16" />
+		<intproperty name="req_strength" value="15" />
+		<intproperty name="speed" value="47" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="13" />
 	</item>
 
 	<item id="27f9" inherit="27ae">

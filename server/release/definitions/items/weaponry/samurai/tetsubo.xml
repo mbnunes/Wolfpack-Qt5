@@ -8,9 +8,11 @@
 -->
 <definitions>
 
+	<!-- Macefighting -->
 	<!-- Tetsubo -->
 	<item id="27a6">
 		<id>0x27a6</id>
+		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>120</sellprice>
@@ -23,9 +25,9 @@
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="35" />
-		<intproperty name="speed" value="37" />
-		<intproperty name="mindamage" value="14" />
-		<intproperty name="maxdamage" value="16" />
+		<intproperty name="speed" value="45" />
+		<intproperty name="mindamage" value="12" />
+		<intproperty name="maxdamage" value="14" />
 	</item>
 
 	<item id="27f1" inherit="27a6">
