@@ -36,77 +36,66 @@ class cBaseChar;
 #include "../player.h"
 #include "utilities.h"
 
-typedef struct {
-    PyObject_HEAD;
+typedef struct
+{
+	PyObject_HEAD;
 	P_CHAR pChar;
 	UINT8 type; // 0: Value; 1: Cap; 2: Lock
 } wpSkills;
 
-int wpSkills_length( wpSkills *self )
+int wpSkills_length( wpSkills* self )
 {
-	Q_UNUSED(self);
+	Q_UNUSED( self );
 	return ALLSKILLS;
 }
 
-PyObject *wpSkills_get( wpSkills *self, int skill )
+PyObject* wpSkills_get( wpSkills* self, int skill )
 {
-	if( !self->pChar || self->pChar->free || skill >= ALLSKILLS )
-		return PyInt_FromLong(-1);
+	if ( !self->pChar || self->pChar->free || skill >= ALLSKILLS )
+		return PyInt_FromLong( -1 );
 
-	if (self->type == 0)
-		return PyInt_FromLong(self->pChar->skillValue(skill));
-	else if (self->type == 1)
-		return PyInt_FromLong(self->pChar->skillCap(skill));
+	if ( self->type == 0 )
+		return PyInt_FromLong( self->pChar->skillValue( skill ) );
+	else if ( self->type == 1 )
+		return PyInt_FromLong( self->pChar->skillCap( skill ) );
 	else
-		return PyInt_FromLong(self->pChar->skillLock(skill));
+		return PyInt_FromLong( self->pChar->skillLock( skill ) );
 }
 
-PyObject *wpSkills_set( wpSkills *self, int skill, PyObject *pValue )
+PyObject* wpSkills_set( wpSkills* self, int skill, PyObject* pValue )
 {
-	if (!self->pChar || self->pChar->free || skill >= ALLSKILLS || !PyInt_Check(pValue)) {
+	if ( !self->pChar || self->pChar->free || skill >= ALLSKILLS || !PyInt_Check( pValue ) )
+	{
 		PyErr_BadArgument();
 		return 0;
 	}
 
 	UINT16 value = PyInt_AsLong( pValue );
 
-	if( self->type == 0 )
-		self->pChar->setSkillValue(skill, value);
-	else if( self->type == 1 )
-		self->pChar->setSkillCap(skill, value);
-	else if( self->type == 2 )
-		self->pChar->setSkillLock(skill, value);
+	if ( self->type == 0 )
+		self->pChar->setSkillValue( skill, value );
+	else if ( self->type == 1 )
+		self->pChar->setSkillCap( skill, value );
+	else if ( self->type == 2 )
+		self->pChar->setSkillLock( skill, value );
 
-	P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(self->pChar);
+	P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( self->pChar );
 
-	if (pPlayer && pPlayer->socket()) {
-		pPlayer->socket()->sendSkill(skill);
+	if ( pPlayer && pPlayer->socket() )
+	{
+		pPlayer->socket()->sendSkill( skill );
 	}
 
 	return 0;
 }
 
-static PySequenceMethods wpSkillsSequence = {
-	(inquiry)wpSkills_length,
-	0,
-	0,
-	(intargfunc)wpSkills_get,
-	0,
-	(intobjargproc)wpSkills_set,
+static PySequenceMethods wpSkillsSequence =
+{
+	( inquiry ) wpSkills_length, 0, 0, ( intargfunc ) wpSkills_get, 0, ( intobjargproc ) wpSkills_set, 
 };
 
-static PyTypeObject wpSkillsType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "WPSkills",
-    sizeof(wpSkillsType),
-    0,
-	wpDealloc,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    &wpSkillsSequence,
+static PyTypeObject wpSkillsType =
+{
+	PyObject_HEAD_INIT( NULL )
+	0, "WPSkills", sizeof( wpSkillsType ), 0, wpDealloc, 0, 0, 0, 0, 0, 0, & wpSkillsSequence, 
 };

@@ -13,7 +13,7 @@
 		<name>a giant beetle</name>
 		<id>791</id>
 		<category>Animals\Mounts\Giant Beetle</category>
-		<bindmenu>tame_menu</bindmenu>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<karma>-4000</karma>
 		<fame>4000</fame>
 		<!-- Damage -->

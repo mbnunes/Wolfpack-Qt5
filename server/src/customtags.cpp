@@ -38,31 +38,31 @@
 #include <qstring.h>
 
 /*!
-    \class cVariant customtags.h
-    \brief The cVariant class acts like a union for the most common Wolfpack data types.
+	\class cVariant customtags.h
+	\brief The cVariant class acts like a union for the most common Wolfpack data types.
 
-    \ingroup objectmodel
-    \ingroup misc
-    \mainclass
+	\ingroup objectmodel
+	\ingroup misc
+	\mainclass
 
-    Because C++ forbids unions from including types that have
-    non-default constructors or destructors, most interesting Wolfpack
-    classes cannot be used in unions. Without cVariant, this would be
-    a problem for Python properties, Custom tags, etc.
+	Because C++ forbids unions from including types that have
+	non-default constructors or destructors, most interesting Wolfpack
+	classes cannot be used in unions. Without cVariant, this would be
+	a problem for Python properties, Custom tags, etc.
 
-    The methods named toT() (for any supported T, see the \c Type
-    documentation for a list) are const. If you ask for the stored
-    type, they return a copy of the stored object. If you ask for a
-    type that can be generated from the stored type, toT() copies and
-    converts and leaves the object itself unchanged. If you ask for a
-    type that cannot be generated from the stored type, the result
-    depends on the type (see the function documentation for details).
+	The methods named toT() (for any supported T, see the \c Type
+	documentation for a list) are const. If you ask for the stored
+	type, they return a copy of the stored object. If you ask for a
+	type that can be generated from the stored type, toT() copies and
+	converts and leaves the object itself unchanged. If you ask for a
+	type that cannot be generated from the stored type, the result
+	depends on the type (see the function documentation for details).
 
-    The asT() functions are not const. They do conversion like the
-    toT() methods, set the variant to hold the converted value, and
-    return a reference to the new contents of the variant.
+	The asT() functions are not const. They do conversion like the
+	toT() methods, set the variant to hold the converted value, and
+	return a reference to the new contents of the variant.
 
-    Here is some example code to demonstrate the use of cVariant:
+	Here is some example code to demonstrate the use of cVariant:
 
 	\code
 		cVariant val;
@@ -91,7 +91,7 @@ cVariant::cVariant()
 	typ = cVariant::Invalid;
 }
 
-cVariant::cVariant( const cVariant &v )
+cVariant::cVariant( const cVariant& v )
 {
 	*this = v;
 }
@@ -132,7 +132,7 @@ cVariant::cVariant( long int val )
 /*!
   Constructs a new variant with a cBaseChar* value, \a val.
 */
-cVariant::cVariant( cBaseChar *val )
+cVariant::cVariant( cBaseChar* val )
 {
 	typ = BaseChar;
 	value.ptr = val;
@@ -141,7 +141,7 @@ cVariant::cVariant( cBaseChar *val )
 /*!
   Constructs a new variant with a cItem* value, \a val.
 */
-cVariant::cVariant( cItem *val )
+cVariant::cVariant( cItem* val )
 {
 	typ = Item;
 	value.ptr = val;
@@ -173,19 +173,19 @@ cVariant::~cVariant()
 	Assigns the value of the variant \a variant to this variant.
 	This is a deep copy of the variant.
 */
-cVariant& cVariant::operator= ( const cVariant &v )
+cVariant& cVariant::operator=( const cVariant& v )
 {
 	typ = v.typ;
 
 	// For non pointer types we can simply use the union
-	switch( typ )
+	switch ( typ )
 	{
 	case cVariant::String:
-	    value.ptr = new QString( v.toString() );
-	    break;
+		value.ptr = new QString( v.toString() );
+		break;
 	case cVariant::Coord:
 		value.ptr = new Coord_cl( v.toCoord() );
-	    break;
+		break;
 	default:
 		memcpy( &value, &v.value, sizeof( value ) );
 		break;
@@ -198,17 +198,17 @@ cVariant& cVariant::operator= ( const cVariant &v )
 	Compares this QVariant with \a v and returns TRUE if they are
 	equal; otherwise returns FALSE.
 */
-bool cVariant::operator==( const cVariant &v ) const
+bool cVariant::operator==( const cVariant& v ) const
 {
-	if( typ == v.typ )
+	if ( typ == v.typ )
 	{
-		switch( typ )
+		switch ( typ )
 		{
 		case cVariant::String:
-			return *(QString*)value.ptr == *(QString*)v.value.ptr;
+			return *( QString * ) value.ptr == *( QString * ) v.value.ptr;
 
 		case cVariant::Coord:
-			return *(Coord_cl*)value.ptr == *(Coord_cl*)v.value.ptr;
+			return *( Coord_cl * ) value.ptr == *( Coord_cl * ) v.value.ptr;
 
 		case Int:
 			return value.i == v.value.i;
@@ -228,9 +228,9 @@ bool cVariant::operator==( const cVariant &v ) const
 	Compares this QVariant with \a v and returns TRUE if they are not
 	equal; otherwise returns FALSE.
 */
-bool cVariant::operator!=( const cVariant &v ) const
+bool cVariant::operator!=( const cVariant& v ) const
 {
-	return !operator==( v );
+	return !operator == ( v );
 }
 
 /*!
@@ -241,7 +241,7 @@ bool cVariant::operator!=( const cVariant &v ) const
 */
 const char* cVariant::typeName() const
 {
-    return typeToName( typ );
+	return typeToName( typ );
 }
 
 /*!
@@ -249,15 +249,16 @@ const char* cVariant::typeName() const
 */
 void cVariant::clear()
 {
-	switch( typ )
+	switch ( typ )
 	{
 	case cVariant::String:
-		delete (QString*)value.ptr;
+		delete ( QString * ) value.ptr;
 		break;
 	case cVariant::Coord:
-		delete (Coord_cl*)value.ptr;
+		delete ( Coord_cl * ) value.ptr;
 		break;
-	default: break;
+	default:
+		break;
 	}
 
 	typ = cVariant::Invalid;
@@ -266,13 +267,7 @@ void cVariant::clear()
 static const int ntypes = 7;
 static const char* const type_map[ntypes] =
 {
-	0,
-	"String",
-	"Int",
-	"Double",
-	"BaseChar",
-	"Item",
-	"Coord"
+	0, "String", "Int", "Double", "BaseChar", "Item", "Coord"
 };
 
 /*!
@@ -282,7 +277,7 @@ static const char* const type_map[ntypes] =
 const char* cVariant::typeToName( Type typ )
 {
 	if ( typ >= ntypes )
-	return 0;
+		return 0;
 	return type_map[typ];
 }
 
@@ -299,7 +294,7 @@ cVariant::Type cVariant::nameToType( const char* name )
 	for ( int i = 0; i < ntypes; i++ )
 	{
 		if ( !qstrcmp( type_map[i], name ) )
-			return (Type) i;
+			return ( Type ) i;
 	}
 	return Invalid;
 }
@@ -337,32 +332,32 @@ const QString cVariant::toString() const
 
 	if ( typ == BaseChar )
 	{
-		P_CHAR pChar = static_cast< P_CHAR >( value.ptr );
-		if( pChar )
-			return "0x" + QString::number( (unsigned int)pChar->serial(), 16 );
+		P_CHAR pChar = static_cast<P_CHAR>( value.ptr );
+		if ( pChar )
+			return "0x" + QString::number( ( unsigned int ) pChar->serial(), 16 );
 		else
-			return "0x" + QString::number( (unsigned int)INVALID_SERIAL, 16 );
+			return "0x" + QString::number( ( unsigned int ) INVALID_SERIAL, 16 );
 	}
 
 	if ( typ == Item )
 	{
-		P_ITEM pItem = static_cast< P_ITEM >( value.ptr );
-		if( pItem )
-			return "0x" + QString::number( (unsigned int)pItem->serial(), 16 );
+		P_ITEM pItem = static_cast<P_ITEM>( value.ptr );
+		if ( pItem )
+			return "0x" + QString::number( ( unsigned int ) pItem->serial(), 16 );
 		else
-			return "0x" + QString::number( (unsigned int)INVALID_SERIAL, 16 );
+			return "0x" + QString::number( ( unsigned int ) INVALID_SERIAL, 16 );
 	}
 
 	if ( typ == Coord )
 	{
-		Coord_cl *pos = static_cast< Coord_cl* >( value.ptr );
+		Coord_cl* pos = static_cast<Coord_cl*>( value.ptr );
 		return QString( "%1,%2,%3,%4" ).arg( pos->x ).arg( pos->y ).arg( pos->z ).arg( pos->map );
 	}
 
 	if ( typ != String )
 		return QString::null;
 
-	return *((QString*)value.ptr);
+	return *( ( QString * ) value.ptr );
 }
 
 /*!
@@ -374,32 +369,32 @@ const QString cVariant::toString() const
 
 	\sa asInt() canCast()
 */
-int cVariant::toInt( bool * ok ) const
+int cVariant::toInt( bool* ok ) const
 {
-	if( typ == String )
-		return hex2dec( *( (QString*)value.ptr ) ).toInt( ok );
+	if ( typ == String )
+		return hex2dec( *( ( QString * ) value.ptr ) ).toInt( ok );
 
 	if ( ok )
 		*ok = canCast( Int );
 
-	if( typ == Int )
+	if ( typ == Int )
 		return value.i;
 
-	if( typ == Long )
+	if ( typ == Long )
 		return value.d;
 
 	if ( typ == Double )
-		return (int)value.d;
+		return ( int ) value.d;
 
 	if ( typ == BaseChar )
 	{
-		P_CHAR pChar = static_cast< P_CHAR >( value.ptr );
+		P_CHAR pChar = static_cast<P_CHAR>( value.ptr );
 		return pChar ? pChar->serial() : INVALID_SERIAL;
 	}
 
 	if ( typ == Item )
 	{
-		P_ITEM pItem = static_cast< P_ITEM >( value.ptr );
+		P_ITEM pItem = static_cast<P_ITEM>( value.ptr );
 		return pItem ? pItem->serial() : INVALID_SERIAL;
 	}
 
@@ -415,10 +410,10 @@ int cVariant::toInt( bool * ok ) const
 
 	\sa asDouble()
 */
-double cVariant::toDouble( bool * ok ) const
+double cVariant::toDouble( bool* ok ) const
 {
-	if( typ == String )
-		return ((QString*)value.ptr)->toDouble( ok );
+	if ( typ == String )
+		return ( ( QString * ) value.ptr )->toDouble( ok );
 
 	if ( ok )
 		*ok = canCast( Double );
@@ -427,21 +422,21 @@ double cVariant::toDouble( bool * ok ) const
 		return value.d;
 
 	if ( typ == Int )
-		return (double)value.i;
+		return ( double ) value.i;
 
 	if ( typ == Long )
-		return (double)value.d;
+		return ( double ) value.d;
 
 	if ( typ == BaseChar )
 	{
-		P_CHAR pChar = static_cast< P_CHAR >( value.ptr );
-		return pChar ? (double)pChar->serial() : (double)INVALID_SERIAL;
+		P_CHAR pChar = static_cast<P_CHAR>( value.ptr );
+		return pChar ? ( double ) pChar->serial() : ( double ) INVALID_SERIAL;
 	}
 
 	if ( typ == Item )
 	{
-		P_ITEM pItem = static_cast< P_ITEM >( value.ptr );
-		return pItem ? (double)pItem->serial() : (double)INVALID_SERIAL;
+		P_ITEM pItem = static_cast<P_ITEM>( value.ptr );
+		return pItem ? ( double ) pItem->serial() : ( double ) INVALID_SERIAL;
 	}
 
 	return 0.0;
@@ -453,21 +448,21 @@ double cVariant::toDouble( bool * ok ) const
 
 	\sa toChar()
 */
-cBaseChar *cVariant::toChar() const
+cBaseChar* cVariant::toChar() const
 {
-	if( typ == BaseChar )
-		return (P_CHAR)value.ptr;
+	if ( typ == BaseChar )
+		return ( P_CHAR ) value.ptr;
 
-	if( typ == String )
-		return FindCharBySerial( hex2dec( *( (QString*)value.ptr ) ).toUInt() );
+	if ( typ == String )
+		return FindCharBySerial( hex2dec( *( ( QString * ) value.ptr ) ).toUInt() );
 
-	if( typ == Int )
+	if ( typ == Int )
 		return FindCharBySerial( value.i );
 
-	if( typ == Long )
+	if ( typ == Long )
 		return FindCharBySerial( value.d );
 
-	if( typ == Double )
+	if ( typ == Double )
 		return FindCharBySerial( floor( value.d ) );
 
 	return 0;
@@ -477,21 +472,21 @@ cBaseChar *cVariant::toChar() const
 	Returns the variant as an Item if the variant has type()
 	String, Double, Int; or NULL otherwise.
 */
-cItem *cVariant::toItem() const
+cItem* cVariant::toItem() const
 {
-	if( typ == Item )
-		return (P_ITEM)value.ptr;
+	if ( typ == Item )
+		return ( P_ITEM ) value.ptr;
 
-	if( typ == String )
-		return FindItemBySerial( hex2dec( *( (QString*)value.ptr ) ).toUInt() );
+	if ( typ == String )
+		return FindItemBySerial( hex2dec( *( ( QString * ) value.ptr ) ).toUInt() );
 
-	if( typ == Int )
+	if ( typ == Int )
 		return FindItemBySerial( value.i );
 
-	if( typ == Long )
+	if ( typ == Long )
 		return FindItemBySerial( value.d );
 
-	if( typ == Double )
+	if ( typ == Double )
 		return FindItemBySerial( floor( value.d ) );
 
 	return 0;
@@ -503,14 +498,14 @@ cItem *cVariant::toItem() const
 */
 Coord_cl cVariant::toCoord() const
 {
-	if( typ == Coord )
-		return *( (Coord_cl*)value.ptr );
+	if ( typ == Coord )
+		return *( ( Coord_cl * ) value.ptr );
 
 	// Parse Coord
-	if( typ == String )
+	if ( typ == String )
 	{
 		Coord_cl pos;
-		if( parseCoordinates( *( (QString*)value.ptr ), pos ) )
+		if ( parseCoordinates( *( ( QString * ) value.ptr ), pos ) )
 			return pos;
 	}
 
@@ -530,7 +525,7 @@ QString& cVariant::asString()
 {
 	if ( typ != String )
 		*this = cVariant( toString() );
-	return *((QString*)value.ptr);
+	return *( ( QString * ) value.ptr );
 }
 
 /*!
@@ -538,7 +533,8 @@ QString& cVariant::asString()
 */
 int& cVariant::asInt()
 {
-	if ( typ != Int ) {
+	if ( typ != Int )
+	{
 		int i = toInt();
 		clear();
 		value.i = i;
@@ -552,7 +548,8 @@ int& cVariant::asInt()
 */
 double& cVariant::asDouble()
 {
-	if ( typ != Double ) {
+	if ( typ != Double )
+	{
 		double dbl = toDouble();
 		clear();
 		value.d = dbl;
@@ -606,19 +603,20 @@ bool cVariant::canCast( Type t ) const
 
 bool cVariant::cast( Type t )
 {
-	switch( t ) {
-		case cVariant::String:
-			asString();
-			break;
-		case cVariant::Int:
-			asInt();
-			break;
-		case cVariant::Double:
-			asDouble();
-			break;
-		default:
-		case cVariant::Invalid:
-			(*this) = cVariant();
+	switch ( t )
+	{
+	case cVariant::String:
+		asString();
+		break;
+	case cVariant::Int:
+		asInt();
+		break;
+	case cVariant::Double:
+		asDouble();
+		break;
+	default:
+	case cVariant::Invalid:
+		( *this ) = cVariant();
 	}
 	return canCast( t );
 }
@@ -634,8 +632,8 @@ const cVariant cVariant::null;
 */
 cCustomTags::cCustomTags( const cCustomTags& d )
 {
-	if( d.tags_ )
-		tags_ = new QMap< QString, cVariant >( *d.tags_ );
+	if ( d.tags_ )
+		tags_ = new QMap<QString, cVariant>( *d.tags_ );
 	else
 		tags_ = 0;
 
@@ -647,7 +645,7 @@ cCustomTags::cCustomTags( const cCustomTags& d )
 */
 cCustomTags::~cCustomTags()
 {
-	if( tags_ )
+	if ( tags_ )
 		delete tags_;
 }
 
@@ -657,8 +655,8 @@ cCustomTags::~cCustomTags()
 cCustomTags& cCustomTags::operator=( const cCustomTags& d )
 {
 	changed = true;
-	if( d.tags_ )
-		tags_ = new QMap< QString, cVariant >( *d.tags_ );
+	if ( d.tags_ )
+		tags_ = new QMap<QString, cVariant>( *d.tags_ );
 	else
 		tags_ = 0;
 
@@ -680,23 +678,23 @@ void cCustomTags::del( SERIAL key )
 */
 void cCustomTags::save( SERIAL key )
 {
-	if( !changed )
+	if ( !changed )
 		return;
 
 	PersistentBroker::instance()->executeQuery( QString( "DELETE FROM tags WHERE serial = '%1'" ).arg( key ) );
 
-	if( !tags_ )
+	if ( !tags_ )
 	{
 		changed = false;
 		return;
 	}
 
-	QMap< QString, cVariant >::const_iterator it( tags_->begin() );
+	QMap<QString, cVariant>::const_iterator it( tags_->begin() );
 
-	for( ; it != tags_->end(); ++it )
+	for ( ; it != tags_->end(); ++it )
 	{
 		// Erase invalid tags.
-		if( !it.data().isValid() )
+		if ( !it.data().isValid() )
 		{
 			continue;
 		}
@@ -717,25 +715,25 @@ void cCustomTags::save( SERIAL key )
 */
 void cCustomTags::load( SERIAL key )
 {
-	if( tags_ )
+	if ( tags_ )
 		tags_->clear();
 
 	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT name,type,value FROM tags WHERE serial = '%1'" ).arg( key ) );
 
-	while( result.fetchrow() )
+	while ( result.fetchrow() )
 	{
 		QString name = result.getString( 0 );
 		QString type = result.getString( 1 );
 		QString value = result.getString( 2 );
 
-		if( !tags_ )
-			tags_ = new QMap< QString, cVariant >;
+		if ( !tags_ )
+			tags_ = new QMap<QString, cVariant>;
 
-		if( type == "String" )
+		if ( type == "String" )
 			tags_->insert( name, cVariant( value ) );
-		else if( type == "Int" )
+		else if ( type == "Int" )
 			tags_->insert( name, cVariant( value.toInt() ) );
-		else if( type == "Double" )
+		else if ( type == "Double" )
 			tags_->insert( name, cVariant( value.toDouble() ) );
 	}
 
@@ -747,11 +745,11 @@ void cCustomTags::load( SERIAL key )
 /*!
 	Tests if the \a key tag exists
 */
-bool cCustomTags::has( const QString &key ) const
+bool cCustomTags::has( const QString& key ) const
 {
-	if( tags_ )
+	if ( tags_ )
 	{
-		if( tags_->find( key ) != tags_->end() )
+		if ( tags_->find( key ) != tags_->end() )
 			return true;
 	}
 
@@ -762,12 +760,12 @@ bool cCustomTags::has( const QString &key ) const
 	Retrieves the value of the given \a key tag
 	\sa cVariant
 */
-const cVariant &cCustomTags::get( const QString& key ) const
+const cVariant& cCustomTags::get( const QString& key ) const
 {
-	if( tags_ )
+	if ( tags_ )
 	{
-		QMap< QString, cVariant >::iterator it = tags_->find( key );
-		if( it != tags_->end() )
+		QMap<QString, cVariant>::iterator it = tags_->find( key );
+		if ( it != tags_->end() )
 			return it.data();
 	}
 
@@ -777,14 +775,14 @@ const cVariant &cCustomTags::get( const QString& key ) const
 
 void cCustomTags::set( const QString& key, const cVariant& value )
 {
-	if( !tags_ )
-		tags_ = new QMap< QString, cVariant >;
+	if ( !tags_ )
+		tags_ = new QMap<QString, cVariant>;
 
-	QMap< QString, cVariant >::iterator iter = tags_->find( key );
+	QMap<QString, cVariant>::iterator iter = tags_->find( key );
 
-	if( iter != tags_->end() )
+	if ( iter != tags_->end() )
 	{
-		if( !value.isValid() )
+		if ( !value.isValid() )
 		{
 			tags_->erase( iter );
 			changed = true;
@@ -804,17 +802,17 @@ void cCustomTags::set( const QString& key, const cVariant& value )
 
 void cCustomTags::remove( const QString& key )
 {
-	if( tags_ )
+	if ( tags_ )
 	{
-		QMap< QString, cVariant >::iterator iter( tags_->find( key ) );
+		QMap<QString, cVariant>::iterator iter( tags_->find( key ) );
 
-		if( iter != tags_->end() )
+		if ( iter != tags_->end() )
 		{
 			tags_->erase( iter );
 			changed = true;
 		}
 
-		if( tags_->count() == 0 )
+		if ( tags_->count() == 0 )
 		{
 			delete tags_;
 			tags_ = 0;
@@ -824,7 +822,7 @@ void cCustomTags::remove( const QString& key )
 
 QStringList cCustomTags::getKeys( void ) const
 {
-	if( tags_ )
+	if ( tags_ )
 	{
 		return tags_->keys();
 	}
@@ -834,48 +832,57 @@ QStringList cCustomTags::getKeys( void ) const
 
 QValueList< cVariant > cCustomTags::getValues( void )
 {
-	if( tags_ )
+	if ( tags_ )
 	{
 		return tags_->values();
 	}
 
-	return QValueList< cVariant >();
+	return QValueList<cVariant>();
 }
 
-bool cCustomTags::operator==( const cCustomTags &cmp ) const {
-	if (!tags_ && !cmp.tags_) {
+bool cCustomTags::operator==( const cCustomTags& cmp ) const
+{
+	if ( !tags_ && !cmp.tags_ )
+	{
 		return true;
 	}
 
 	// if either is null, they differ.
-	if (!tags_ || !cmp.tags_) {
+	if ( !tags_ || !cmp.tags_ )
+	{
 		return false;
 	}
 
 	// Check if all keys of Map1 are in Map2.
 	QMap<QString, cVariant>::const_iterator it;
 	QMap<QString, cVariant>::const_iterator cit;
-	for (it = tags_->begin(); it != tags_->end(); ++it) {
-		cit = cmp.tags_->find(it.key());
+	for ( it = tags_->begin(); it != tags_->end(); ++it )
+	{
+		cit = cmp.tags_->find( it.key() );
 
-		if (cit == cmp.tags_->end()) {
+		if ( cit == cmp.tags_->end() )
+		{
 			return false;
 		}
 
-		if (cit.data() != it.data()) {
+		if ( cit.data() != it.data() )
+		{
 			return false;
 		}
 	}
 
 	// Maybe the comparee has some tags we don't have.
-	for (it = cmp.tags_->begin(); it != cmp.tags_->end(); ++it) {
-		cit = tags_->find(it.key());
+	for ( it = cmp.tags_->begin(); it != cmp.tags_->end(); ++it )
+	{
+		cit = tags_->find( it.key() );
 
-		if (cit == tags_->end()) {
+		if ( cit == tags_->end() )
+		{
 			return false;
 		}
 
-		if (cit.data() != it.data()) {
+		if ( cit.data() != it.data() )
+		{
 			return false;
 		}
 	}
@@ -883,6 +890,7 @@ bool cCustomTags::operator==( const cCustomTags &cmp ) const {
 	return true;
 }
 
-bool cCustomTags::operator!=( const cCustomTags &cmp ) const {
-	return !(this->operator==(cmp));
+bool cCustomTags::operator!=( const cCustomTags& cmp ) const
+{
+	return !( this->operator == ( cmp ) );
 }

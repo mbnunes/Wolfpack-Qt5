@@ -124,6 +124,7 @@
 		<weight>5.0</weight>
 	</item>
 
+	<!-- This is also the bankbox (!) -->
 	<item id="9ab">
 		<id>0x9ab</id>
 		<category>Equipment\Containers\Metal Chest (N/S)</category>

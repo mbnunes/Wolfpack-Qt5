@@ -43,54 +43,64 @@
 #include "ai/ai.h"
 
 // Stealing
-class cSkStealing: public cTargetRequest
+class cSkStealing : public cTargetRequest
 {
-
 public:
-	bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target );
+	bool cSkStealing::responsed( cUOSocket* socket, cUORxTarget* target );
 };
 
 
 // Forensics Evaluation
-class cSkForensics: public cTargetRequest
+class cSkForensics : public cTargetRequest
 {
-
 public:
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
 		int curtim = Server::instance()->time();
-		P_ITEM pi = FindItemBySerial(target->serial());
+		P_ITEM pi = FindItemBySerial( target->serial() );
 		P_PLAYER pc_currchar = socket->player();
 
-		if( !pi || !pi->corpse() )
+		if ( !pi || !pi->corpse() )
 		{
 			socket->sysMessage( tr( "That does not appear to be a corpse." ) );
 			return true;
 		}
 
-		cCorpse* corpse = dynamic_cast<cCorpse*>(pi);
+		cCorpse* corpse = dynamic_cast<cCorpse*>( pi );
 		if ( !corpse )
 			return true;
 
-		if(pc_currchar->isGM())
+		unsigned int currentTime = QDateTime::currentDateTime().toTime_t();
+		unsigned int age = currentTime - corpse->murderTime();
+		P_CHAR murderer = FindCharBySerial(corpse->murderer());
+		QString murderername = QString::null;
+
+		if (murderer) {
+			murderername = murderer->name();
+		}
+
+		if ( pc_currchar->isGM() )
 		{
-			socket->sysMessage( tr("The %1 is %2 seconds old and the killer was %3.").arg(corpse->name()).arg((curtim-corpse->murdertime())/MY_CLOCKS_PER_SEC).arg( corpse->murderer() ) );
+			socket->sysMessage( tr( "The %1 is %2 seconds old and the killer was %3." ).arg( corpse->name() ).arg( age ).arg( murderername ) );
 		}
 		else
 		{
-			if (!pc_currchar->checkSkill( FORENSICS, 0, 500))
-				socket->sysMessage( tr("You are not certain about the corpse."));
+			if ( !pc_currchar->checkSkill( FORENSICS, 0, 500 ) )
+				socket->sysMessage( tr( "You are not certain about the corpse." ) );
 			else
 			{
-				if(((curtim-corpse->murdertime())/MY_CLOCKS_PER_SEC)>180) socket->sysMessage( tr("The %1 is many many seconds old.").arg(corpse->name()));
-				else if(((curtim-corpse->murdertime())/MY_CLOCKS_PER_SEC)>60) socket->sysMessage( tr("The %1 is many seconds old.").arg(corpse->name()) );
-				else if(((curtim-corpse->murdertime())/MY_CLOCKS_PER_SEC)<=60) socket->sysMessage( tr("The %1 is few seconds old.").arg(corpse->name()) );
+				if ( age > 180 )
+					socket->sysMessage( tr( "The %1 is many many seconds old." ).arg( corpse->name() ) );
+				else if ( age > 60 )
+					socket->sysMessage( tr( "The %1 is many seconds old." ).arg( corpse->name() ) );
+				else if ( age <= 60 )
+					socket->sysMessage( tr( "The %1 is few seconds old." ).arg( corpse->name() ) );
 
-				if ( !pc_currchar->checkSkill( FORENSICS, 500, 1000, false ) || corpse->murderer().isNull() )
-					socket->sysMessage( tr("You can't say who was the killer.") );
+				if ( !pc_currchar->checkSkill( FORENSICS, 500, 1000, false ) || murderername.isEmpty() )
+					socket->sysMessage( tr( "You can't say who was the killer." ) );
 				else
 				{
-					socket->sysMessage( tr("The killer was %1.").arg( corpse->murderer() ) );
+					socket->sysMessage( tr( "The killer was %1." ).arg( murderername ) );
 				}
 			}
 		}
@@ -100,20 +110,21 @@ public:
 
 
 // Poisoning
-class cSkPoisoning: public cTargetRequest
+class cSkPoisoning : public cTargetRequest
 {
-
 	bool poisonSelected;
 	P_ITEM pPoison;
 public:
-	cSkPoisoning() : poisonSelected(false), pPoison(0) {}
+	cSkPoisoning() : poisonSelected( false ), pPoison( 0 )
+	{
+	}
 
 	bool selectPoison( cUOSocket* socket, cUORxTarget* target )
 	{
 		pPoison = FindItemBySerial( target->serial() );
 		if ( !pPoison || pPoison->type() != 19 || pPoison->type() != 6 )
 		{
-			socket->sysMessage( tr("That is not a valid poison") );
+			socket->sysMessage( tr( "That is not a valid poison" ) );
 			return true;
 		}
 		poisonSelected = true;
@@ -122,12 +133,12 @@ public:
 
 	bool poisonItem( cUOSocket* socket, cUORxTarget* target )
 	{
-		Q_UNUSED(socket);
-		Q_UNUSED(target);
+		Q_UNUSED( socket );
+		Q_UNUSED( target );
 		return true;
 	}
 
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
 		if ( poisonSelected )
 			return poisonItem( socket, target );
@@ -136,15 +147,14 @@ public:
 	}
 };
 
-class cResurectTarget: public cTargetRequest
+class cResurectTarget : public cTargetRequest
 {
-
 public:
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
 		P_CHAR pChar = FindCharBySerial( target->serial() );
 
-		if( !pChar )
+		if ( !pChar )
 		{
 			socket->sysMessage( tr( "This is not a living being." ) );
 			return true;
@@ -156,29 +166,28 @@ public:
 };
 
 
-class cKillTarget: public cTargetRequest
+class cKillTarget : public cTargetRequest
 {
-
 public:
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
-		if( !socket->player() )
+		if ( !socket->player() )
 			return true;
 
 		P_CHAR pChar = FindCharBySerial( target->serial() );
 
 		// check for rank
-		if( pChar && pChar->objectType() == enPlayer)
+		if ( pChar && pChar->objectType() == enPlayer )
 		{
 			P_PLAYER pp = dynamic_cast<P_PLAYER>( pChar );
-			if( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
+			if ( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
 			{
 				socket->sysMessage( tr( "You want to suicide?" ) );
 				return true;
 			}
 		}
 
-		if( !pChar )
+		if ( !pChar )
 		{
 			socket->sysMessage( tr( "You need to target a living being" ) );
 			return true;
@@ -190,31 +199,30 @@ public:
 	}
 };
 
-class cSetTarget: public cTargetRequest
+class cSetTarget : public cTargetRequest
 {
-
-	QString key,value;
+	QString key, value;
 public:
-	cSetTarget( const QString& nKey, const QString& nValue ) : key(nKey), value(nValue) {}
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
+	cSetTarget( const QString& nKey, const QString& nValue ) : key( nKey ), value( nValue )
+	{
+	}
+	bool responsed( cUOSocket* socket, cUORxTarget* target );
 };
 
-class cRemoveTarget: public cTargetRequest
+class cRemoveTarget : public cTargetRequest
 {
-
 public:
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
+	bool responsed( cUOSocket* socket, cUORxTarget* target );
 };
 
-class cTeleTarget: public cTargetRequest
+class cTeleTarget : public cTargetRequest
 {
-
 public:
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
 		// This is a GM command so we do not check anything but send the
 		// char where he wants to move
-		if( !socket->player() )
+		if ( !socket->player() )
 			return true;
 
 		socket->player()->removeFromView( false );
@@ -231,19 +239,20 @@ public:
 	}
 };
 
-class cShowTarget: public cTargetRequest
+class cShowTarget : public cTargetRequest
 {
-
 private:
 	QString key;
 public:
-	cShowTarget( const QString _key ) { key = _key; }
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
+	cShowTarget( const QString _key )
+	{
+		key = _key;
+	}
+	bool responsed( cUOSocket* socket, cUORxTarget* target );
 };
 
-class cSetTagTarget: public cTargetRequest
+class cSetTagTarget : public cTargetRequest
 {
-
 private:
 	UINT8 type_;
 	QString key_;
@@ -256,39 +265,39 @@ public:
 		value_ = value;
 	}
 
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
-		Q_UNUSED(socket);
-		if( isCharSerial( target->serial() ) )
+		Q_UNUSED( socket );
+		if ( isCharSerial( target->serial() ) )
 		{
 			P_CHAR pChar = FindCharBySerial( target->serial() );
 
-			if( pChar )
+			if ( pChar )
 			{
 				// check for rank
-				if( pChar->objectType() == enPlayer)
+				if ( pChar->objectType() == enPlayer )
 				{
 					P_PLAYER pp = dynamic_cast<P_PLAYER>( pChar );
-					if( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
+					if ( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
 					{
 						socket->sysMessage( tr( "Better do not try that!" ) );
 						return true;
 					}
 				}
 
-				if( type_ )
+				if ( type_ )
 					pChar->setTag( key_, cVariant( value_.toInt() ) );
 				else
 					pChar->setTag( key_, cVariant( value_ ) );
 			}
 			return true;
 		}
-		else if( isItemSerial( target->serial() ) )
+		else if ( isItemSerial( target->serial() ) )
 		{
 			P_ITEM pItem = FindItemBySerial( target->serial() );
-			if( pItem )
+			if ( pItem )
 			{
-				if( type_ )
+				if ( type_ )
 					pItem->setTag( key_, cVariant( value_.toInt() ) );
 				else
 					pItem->setTag( key_, cVariant( value_ ) );
@@ -299,34 +308,33 @@ public:
 	}
 };
 
-class cGetTagTarget: public cTargetRequest
+class cGetTagTarget : public cTargetRequest
 {
-
 private:
 	QString key_;
 public:
 	cGetTagTarget( QString key )
 	{
-		key_	= key;
+		key_ = key;
 	}
 
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
-		if( isCharSerial( target->serial() ) )
+		if ( isCharSerial( target->serial() ) )
 		{
 			P_CHAR pChar = FindCharBySerial( target->serial() );
-			if( pChar )
+			if ( pChar )
 			{
-				socket->sysMessage( tr("Tag \"%1\" has value \"%2\".").arg( key_ ).arg( pChar->getTag( key_ ).toString() ) );
+				socket->sysMessage( tr( "Tag \"%1\" has value \"%2\"." ).arg( key_ ).arg( pChar->getTag( key_ ).toString() ) );
 			}
 			return true;
 		}
-		else if( isItemSerial( target->serial() ) )
+		else if ( isItemSerial( target->serial() ) )
 		{
 			P_ITEM pItem = FindItemBySerial( target->serial() );
-			if( pItem )
+			if ( pItem )
 			{
-				socket->sysMessage( tr("Tag \"%1\" has value \"%2\".").arg( key_ ).arg( pItem->getTag( key_ ).toString() ) );
+				socket->sysMessage( tr( "Tag \"%1\" has value \"%2\"." ).arg( key_ ).arg( pItem->getTag( key_ ).toString() ) );
 			}
 			return true;
 		}
@@ -334,9 +342,8 @@ public:
 	}
 };
 
-class cRemoveTagTarget: public cTargetRequest
+class cRemoveTagTarget : public cTargetRequest
 {
-
 private:
 	QString key_;
 public:
@@ -345,63 +352,63 @@ public:
 		key_ = key;
 	}
 
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
-		if( isCharSerial( target->serial() ) )
+		if ( isCharSerial( target->serial() ) )
 		{
 			P_CHAR pChar = FindCharBySerial( target->serial() );
-			if( pChar )
+			if ( pChar )
 			{
 				// check for rank
-				if( pChar->objectType() == enPlayer)
+				if ( pChar->objectType() == enPlayer )
 				{
 					P_PLAYER pp = dynamic_cast<P_PLAYER>( pChar );
-					if( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
+					if ( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
 					{
 						socket->sysMessage( tr( "Better do not try that!" ) );
 						return true;
 					}
 				}
 
-				if( key_.lower() == "all" )
+				if ( key_.lower() == "all" )
 				{
 					QStringList keys = pChar->getTags();
 					QStringList::const_iterator it = keys.begin();
-					while( it != keys.end() )
+					while ( it != keys.end() )
 					{
-						pChar->removeTag( (*it) );
+						pChar->removeTag( ( *it ) );
 						it++;
 					}
-					socket->sysMessage( tr("All tags removed.") );
+					socket->sysMessage( tr( "All tags removed." ) );
 				}
 				else
 				{
 					pChar->removeTag( key_ );
-					socket->sysMessage( tr("Tag \"%1\" removed.").arg( key_ ) );
+					socket->sysMessage( tr( "Tag \"%1\" removed." ).arg( key_ ) );
 				}
 			}
 			return true;
 		}
-		else if( isItemSerial( target->serial() ) )
+		else if ( isItemSerial( target->serial() ) )
 		{
 			P_ITEM pItem = FindItemBySerial( target->serial() );
-			if( pItem )
+			if ( pItem )
 			{
-				if( key_.lower() == "all" )
+				if ( key_.lower() == "all" )
 				{
 					QStringList keys = pItem->getTags();
 					QStringList::const_iterator it = keys.begin();
-					while( it != keys.end() )
+					while ( it != keys.end() )
 					{
-						pItem->removeTag( (*it) );
+						pItem->removeTag( ( *it ) );
 						it++;
 					}
-					socket->sysMessage( tr("All tags removed.") );
+					socket->sysMessage( tr( "All tags removed." ) );
 				}
 				else
 				{
 					pItem->removeTag( key_ );
-					socket->sysMessage( tr("Tag \"%1\" removed.").arg( key_ ) );
+					socket->sysMessage( tr( "Tag \"%1\" removed." ).arg( key_ ) );
 				}
 			}
 			return true;
@@ -410,28 +417,29 @@ public:
 	}
 };
 
-class cTagsInfoTarget: public cTargetRequest
+class cTagsInfoTarget : public cTargetRequest
 {
-
 public:
-	cTagsInfoTarget() {}
-
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	cTagsInfoTarget()
 	{
-		if( isCharSerial( target->serial() ) )
+	}
+
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
+	{
+		if ( isCharSerial( target->serial() ) )
 		{
 			P_CHAR pChar = FindCharBySerial( target->serial() );
-			if( pChar )
+			if ( pChar )
 			{
 				cTagsInfoGump* pGump = new cTagsInfoGump( pChar );
 				socket->send( pGump );
 			}
 			return true;
 		}
-		else if( isItemSerial( target->serial() ) )
+		else if ( isItemSerial( target->serial() ) )
 		{
 			P_ITEM pItem = FindItemBySerial( target->serial() );
-			if( pItem )
+			if ( pItem )
 			{
 				cTagsInfoGump* pGump = new cTagsInfoGump( pItem );
 				socket->send( pGump );
@@ -442,43 +450,45 @@ public:
 	}
 };
 
-class cAddEventTarget: public cTargetRequest
+class cAddEventTarget : public cTargetRequest
 {
-
 private:
 	QString _event;
 public:
-	cAddEventTarget( const QString &event ): _event( event ) {}
+	cAddEventTarget( const QString& event ) : _event( event )
+	{
+	}
 
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
+	bool responsed( cUOSocket* socket, cUORxTarget* target );
 };
 
-class cRemoveEventTarget: public cTargetRequest
+class cRemoveEventTarget : public cTargetRequest
 {
-
 private:
 	QString _event;
 public:
-	cRemoveEventTarget( const QString &event ): _event( event ) {}
-
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	cRemoveEventTarget( const QString& event ) : _event( event )
 	{
-		cUObject *pObject = 0;
+	}
 
-		if( isCharSerial( target->serial() ) )
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
+	{
+		cUObject* pObject = 0;
+
+		if ( isCharSerial( target->serial() ) )
 			pObject = FindCharBySerial( target->serial() );
-		else if( isItemSerial( target->serial() ) )
+		else if ( isItemSerial( target->serial() ) )
 			pObject = FindItemBySerial( target->serial() );
 
 		// We have to have a valid target
-		if( !pObject )
+		if ( !pObject )
 		{
 			socket->sysMessage( tr( "You have to target a character or an item." ) );
 			return true;
 		}
 
 		// Check if we already have the event
-		if( !pObject->hasEvent( _event ) )
+		if ( !pObject->hasEvent( _event ) )
 		{
 			socket->sysMessage( tr( "This object doesn't have the event '%1'" ).arg( _event ) );
 			return true;
@@ -489,36 +499,37 @@ public:
 	}
 };
 
-class cMoveTarget: public cTargetRequest
+class cMoveTarget : public cTargetRequest
 {
-
 private:
-	INT16 x,y,z;
+	INT16 x, y, z;
 public:
-	cMoveTarget( INT16 _x, INT16 _y, INT8 _z ): x( _x ), y( _y ), z( _z ) {}
-
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	cMoveTarget( INT16 _x, INT16 _y, INT8 _z ) : x( _x ), y( _y ), z( _z )
 	{
-		cUObject *pObject = 0;
+	}
 
-		if( isCharSerial( target->serial() ) )
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
+	{
+		cUObject* pObject = 0;
+
+		if ( isCharSerial( target->serial() ) )
 			pObject = FindCharBySerial( target->serial() );
-		else if( isItemSerial( target->serial() ) )
+		else if ( isItemSerial( target->serial() ) )
 			pObject = FindItemBySerial( target->serial() );
 
 		// We have to have a valid target
-		if( !pObject )
+		if ( !pObject )
 		{
 			socket->sysMessage( tr( "You have to target a character or an item." ) );
 			return true;
 		}
 
 		// check for rank
-		P_CHAR pChar = dynamic_cast< P_CHAR >( pObject );
-		if( pChar && pChar->objectType() == enPlayer)
+		P_CHAR pChar = dynamic_cast<P_CHAR>( pObject );
+		if ( pChar && pChar->objectType() == enPlayer )
 		{
 			P_PLAYER pp = dynamic_cast<P_PLAYER>( pChar );
-			if( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
+			if ( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
 			{
 				socket->sysMessage( tr( "Better do not try that!" ) );
 				return true;
@@ -529,17 +540,17 @@ public:
 		Coord_cl newPos = pObject->pos() + Coord_cl( x, y, z );
 		pObject->moveTo( newPos );
 
-		if( pObject->isChar() )
+		if ( pObject->isChar() )
 		{
-			P_CHAR pChar = dynamic_cast< P_CHAR >( pObject );
+			P_CHAR pChar = dynamic_cast<P_CHAR>( pObject );
 
-			if( pChar )
+			if ( pChar )
 				pChar->resend();
 		}
-		else if( pObject->isItem() )
+		else if ( pObject->isItem() )
 		{
-			P_ITEM pItem = dynamic_cast< P_ITEM >( pObject );
-			if( pItem )
+			P_ITEM pItem = dynamic_cast<P_ITEM>( pObject );
+			if ( pItem )
 				pItem->update();
 		}
 
@@ -547,17 +558,16 @@ public:
 	}
 };
 
-class cRestockTarget: public cTargetRequest
+class cRestockTarget : public cTargetRequest
 {
-
 public:
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
 		P_CHAR pChar = FindCharBySerial( target->serial() );
 
-		if( pChar )
+		if ( pChar )
 		{
-//			pChar->restock();
+			//			pChar->restock();
 			socket->sysMessage( tr( "This vendor's inventar has been restocked." ) );
 		}
 		else
@@ -569,19 +579,20 @@ public:
 	}
 };
 
-class cStableTarget: public cTargetRequest
+class cStableTarget : public cTargetRequest
 {
-
 private:
 	P_NPC m_npc;
 public:
-	cStableTarget( P_NPC npc ) : m_npc( npc ) {}
-
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	cStableTarget( P_NPC npc ) : m_npc( npc )
 	{
-		if( m_npc )
+	}
+
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
+	{
+		if ( m_npc )
 		{
-			Human_Stablemaster* ai = dynamic_cast< Human_Stablemaster* >(m_npc->ai());
+			Human_Stablemaster* ai = dynamic_cast<Human_Stablemaster*>( m_npc->ai() );
 			ai->handleTargetInput( socket->player(), target );
 		}
 		return true;
@@ -590,18 +601,19 @@ public:
 
 class cFollowTarget : public cTargetRequest
 {
-
 private:
 	P_NPC m_npc;
 public:
-	cFollowTarget( P_NPC npc ) : m_npc( npc ) {}
+	cFollowTarget( P_NPC npc ) : m_npc( npc )
+	{
+	}
 
 	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
-		if( m_npc )
+		if ( m_npc )
 		{
 			P_CHAR pTarget = World::instance()->findChar( target->serial() );
-			if( pTarget )
+			if ( pTarget )
 			{
 				m_npc->setWanderFollowTarget( pTarget );
 				m_npc->setWanderType( enFollowTarget );

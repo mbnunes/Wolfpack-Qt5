@@ -44,7 +44,7 @@ static AbstractAI* productCreator_AW()
 
 void Animal_Wild::registerInFactory()
 {
-	AIFactory::instance()->registerType("Animal_Wild", productCreator_AW);
+	AIFactory::instance()->registerType( "Animal_Wild", productCreator_AW );
 }
 
 static AbstractAI* productCreator_AD()
@@ -54,10 +54,11 @@ static AbstractAI* productCreator_AD()
 
 void Animal_Domestic::registerInFactory()
 {
-	AIFactory::instance()->registerType("Animal_Domestic", productCreator_AD);
+	AIFactory::instance()->registerType( "Animal_Domestic", productCreator_AD );
 }
 
-void AnimalAI::onSpeechInput(P_PLAYER pTalker, const QString &comm) {
+void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString& comm )
+{
 	return;
 }
 
@@ -71,22 +72,21 @@ float Animal_Wild_Flee::preCondition()
 	 *
 	 */
 
-	if( m_npc->attackTarget() )
+	if ( m_npc->attackTarget() )
 		return 0.0f;
 
 	RegionIterator4Chars ri( m_npc->pos(), Config::instance()->animalWildFleeRange() );
-	for(ri.Begin(); !ri.atEnd(); ri++)
+	for ( ri.Begin(); !ri.atEnd(); ri++ )
 	{
-		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(ri.GetData());
-		if( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
+		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( ri.GetData() );
+		if ( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
 		{
 			pFleeFrom = pPlayer;
 		}
-		if( pPlayer && m_npc->owner() == pPlayer )
+		if ( pPlayer && m_npc->owner() == pPlayer )
 			return 0.0f;
-
 	}
-	if( pFleeFrom )
+	if ( pFleeFrom )
 		return 1.0f;
 
 	return 0.0f;
@@ -102,22 +102,22 @@ float Animal_Wild_Flee::postCondition()
 	 *
 	 */
 
-	if( m_npc->attackTarget() )
+	if ( m_npc->attackTarget() )
 		return 1.0f;
 
 	RegionIterator4Chars ri( m_npc->pos(), Config::instance()->animalWildFleeRange() );
 	bool found = false;
-	for(ri.Begin(); !ri.atEnd(); ri++)
+	for ( ri.Begin(); !ri.atEnd(); ri++ )
 	{
-		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(ri.GetData());
-		if( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
+		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( ri.GetData() );
+		if ( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
 			found = true;
 
-		if( pPlayer && m_npc->owner() == pPlayer )
+		if ( pPlayer && m_npc->owner() == pPlayer )
 			return 1.0f;
 	}
 
-	if( found )
+	if ( found )
 		return 0.0f;
 
 	return 1.0f;

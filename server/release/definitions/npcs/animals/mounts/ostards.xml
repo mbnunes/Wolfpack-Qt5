@@ -64,7 +64,7 @@
 		<id>219</id>
 		<skin><random list="SKINS_BIRD" /></skin>
 		<category>Animals\Mounts\Frenzied Ostard (Weak)</category>
-		<bindmenu>tame_menu</bindmenu>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<karma>-1500</karma>
 		<fame>1500</fame>
 		<!-- Damage -->

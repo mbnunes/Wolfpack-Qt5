@@ -43,24 +43,40 @@ class cPythonEffect : public cTimer
 protected:
 	QString functionName;
 	QString dispelId_, dispelFunc_;
-	PyObject *args;
+	PyObject* args;
 public:
-	cPythonEffect() { objectid = "cPythonEffect"; }
+	cPythonEffect()
+	{
+		objectid = "cPythonEffect";
+	}
 
-	cPythonEffect( const QString &_functionName, PyObject *_args ):
-		functionName( _functionName ), args( _args )
-		{
-			objectid = "cPythonEffect";
-			Py_INCREF( args );
-		}
+	cPythonEffect( const QString& _functionName, PyObject* _args ) : functionName( _functionName ), args( _args )
+	{
+		objectid = "cPythonEffect";
+		Py_INCREF( args );
+	}
 
-	virtual ~cPythonEffect() {;}
+	virtual ~cPythonEffect()
+	{
+		;}
 
-	void setDispelId( const QString &data ) { dispelId_ = data; }
-	QString dispelId() { return dispelId_; }
+	void setDispelId( const QString& data )
+	{
+		dispelId_ = data;
+	}
+	QString dispelId()
+	{
+		return dispelId_;
+	}
 
-	void setDispelFunc( const QString &data ) { dispelFunc_ = data; }
-	QString dispelFunc() { return dispelFunc_; }
+	void setDispelFunc( const QString& data )
+	{
+		dispelFunc_ = data;
+	}
+	QString dispelFunc()
+	{
+		return dispelFunc_;
+	}
 
 	void Dispel( P_CHAR pSource, bool silent )
 	{
@@ -69,42 +85,43 @@ public:
 	}
 
 	// Dispel args: char, [args], source, [args] (while the last one is optional)
-	void Dispel( P_CHAR pSource, PyObject *disp_args )
+	void Dispel( P_CHAR pSource, PyObject* disp_args )
 	{
-		if( dispelFunc_.isNull() )
+		if ( dispelFunc_.isNull() )
 			return;
 
 		// Get everything before the last dot
-		if( dispelFunc_.contains( "." ) )
+		if ( dispelFunc_.contains( "." ) )
 		{
 			// Find the last dot
 			INT32 position = dispelFunc_.findRev( "." );
 			QString sModule = dispelFunc_.left( position );
-			QString sFunction = dispelFunc_.right( dispelFunc_.length() - (position+1) );
+			QString sFunction = dispelFunc_.right( dispelFunc_.length() - ( position + 1 ) );
 
-			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
 
-			if( pModule )
+			if ( pModule )
 			{
-				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
-				if( pFunc && PyCallable_Check( pFunc ) )
+				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
+				if ( pFunc && PyCallable_Check( pFunc ) )
 				{
 					// Create our Argument list
-					PyObject *p_args = PyTuple_New( 4 );
-					if( isItemSerial( destSer ) )
+					PyObject* p_args = PyTuple_New( 4 );
+					if ( isItemSerial( destSer ) )
 						PyTuple_SetItem( p_args, 0, PyGetItemObject( FindItemBySerial( destSer ) ) );
-					else if( isCharSerial( destSer ) )
+					else if ( isCharSerial( destSer ) )
 						PyTuple_SetItem( p_args, 0, PyGetCharObject( FindCharBySerial( destSer ) ) );
-					else {
-						Py_INCREF(Py_None);
-						PyTuple_SetItem(p_args, 0, Py_None);
+					else
+					{
+						Py_INCREF( Py_None );
+						PyTuple_SetItem( p_args, 0, Py_None );
 					}
 
 					PyTuple_SetItem( p_args, 1, args );
 					PyTuple_SetItem( p_args, 2, PyGetCharObject( pSource ) );
 					PyTuple_SetItem( p_args, 3, disp_args );
 
-					PyObject *result = PyEval_CallObject( pFunc, p_args );
+					PyObject* result = PyEval_CallObject( pFunc, p_args );
 					Py_XDECREF( result );
 
 					reportPythonError( sModule );
@@ -122,32 +139,32 @@ public:
 	void Expire()
 	{
 		// Get everything before the last dot
-		if( functionName.contains( "." ) )
+		if ( functionName.contains( "." ) )
 		{
 			// Find the last dot
 			INT32 position = functionName.findRev( "." );
 			QString sModule = functionName.left( position );
-			QString sFunction = functionName.right( functionName.length() - (position+1) );
+			QString sFunction = functionName.right( functionName.length() - ( position + 1 ) );
 
-			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
 
-			if( pModule )
+			if ( pModule )
 			{
-				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
-				if( pFunc && PyCallable_Check( pFunc ) )
+				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
+				if ( pFunc && PyCallable_Check( pFunc ) )
 				{
 					// Create our Argument list
-					PyObject *p_args = PyTuple_New( 2 );
-					if( isItemSerial( destSer ) )
+					PyObject* p_args = PyTuple_New( 2 );
+					if ( isItemSerial( destSer ) )
 						PyTuple_SetItem( p_args, 0, PyGetItemObject( FindItemBySerial( destSer ) ) );
-					else if( isCharSerial( destSer ) )
+					else if ( isCharSerial( destSer ) )
 						PyTuple_SetItem( p_args, 0, PyGetCharObject( FindCharBySerial( destSer ) ) );
 					else
 						PyTuple_SetItem( p_args, 0, PyFalse() );
 
 					PyTuple_SetItem( p_args, 1, args );
 
-					PyObject *result = PyEval_CallObject( pFunc, p_args );
+					PyObject* result = PyEval_CallObject( pFunc, p_args );
 					Py_XDECREF( result );
 					reportPythonError( sModule );
 
@@ -169,27 +186,36 @@ public:
 		saveInt( id, "pycount", PyTuple_Size( args ) );
 
 		// Serialize the py object
-		for( int i = 0; i < PyTuple_Size( args ); ++i )
+		for ( int i = 0; i < PyTuple_Size( args ); ++i )
 		{
-			PyObject *object = PyTuple_GetItem(args, i);
-			QString name = "pyarg_" + QString::number(i);
-			if (PyInt_Check(object)) {
-				saveInt(id, name, (int)PyInt_AsLong(object));
-			} else if(PyString_Check(object)) {
-				saveString(id, name, PyString_AsString(object));
-			} else if(PyFloat_Check(object)) {
-				saveFloat( id, name, PyFloat_AsDouble(object));
-			} else if (checkWpChar(object)) {
-				saveChar(id, name, getWpChar(object));
-			} else if (checkWpItem(object)) {
-				saveItem(id, name, getWpItem(object));
+			PyObject* object = PyTuple_GetItem( args, i );
+			QString name = "pyarg_" + QString::number( i );
+			if ( PyInt_Check( object ) )
+			{
+				saveInt( id, name, ( int ) PyInt_AsLong( object ) );
+			}
+			else if ( PyString_Check( object ) )
+			{
+				saveString( id, name, PyString_AsString( object ) );
+			}
+			else if ( PyFloat_Check( object ) )
+			{
+				saveFloat( id, name, PyFloat_AsDouble( object ) );
+			}
+			else if ( checkWpChar( object ) )
+			{
+				saveChar( id, name, getWpChar( object ) );
+			}
+			else if ( checkWpItem( object ) )
+			{
+				saveItem( id, name, getWpItem( object ) );
 			}
 		}
 
 		cTimer::save( id );
 	}
 
-	void load( unsigned int id, const char **result )
+	void load( unsigned int id, const char** result )
 	{
 		// Load the Base Properties and then Select
 		loadString( id, "functionname", functionName );
@@ -203,7 +229,7 @@ public:
 
 		cDBResult res = PersistentBroker::instance()->query( QString( "SELECT keyname,type,value FROM effects_properties WHERE id = %1 AND keyname LIKE 'pyarg_%'" ).arg( id ) );
 
-		while( res.fetchrow() )
+		while ( res.fetchrow() )
 		{
 			QString key = res.getString( 0 );
 			QString type = res.getString( 1 );
@@ -211,19 +237,22 @@ public:
 
 			int id = key.right( key.length() - 6 ).toInt();
 
-			if( id >= count )
+			if ( id >= count )
 				continue;
 
-			if( type == "string" )
-				PyTuple_SetItem(args, id, PyString_FromString(value.latin1()));
-			else if( type == "int" )
-				PyTuple_SetItem(args, id, PyInt_FromLong(value.toInt()));
-			else if( type == "float" )
-				PyTuple_SetItem(args, id, PyFloat_FromDouble(value.toFloat()));
-			else if (type == "char") {
-				PyTuple_SetItem(args, id, PyGetCharObject(World::instance()->findChar(value.toInt())));
-			} else if (type == "item") {
-				PyTuple_SetItem(args, id, PyGetItemObject(World::instance()->findItem(value.toInt())));
+			if ( type == "string" )
+				PyTuple_SetItem( args, id, PyString_FromString( value.latin1() ) );
+			else if ( type == "int" )
+				PyTuple_SetItem( args, id, PyInt_FromLong( value.toInt() ) );
+			else if ( type == "float" )
+				PyTuple_SetItem( args, id, PyFloat_FromDouble( value.toFloat() ) );
+			else if ( type == "char" )
+			{
+				PyTuple_SetItem( args, id, PyGetCharObject( World::instance()->findChar( value.toInt() ) ) );
+			}
+			else if ( type == "item" )
+			{
+				PyTuple_SetItem( args, id, PyGetItemObject( World::instance()->findItem( value.toInt() ) ) );
 			}
 		}
 

@@ -46,91 +46,154 @@ class cDBDriver
 {
 	friend class cDBResult;
 protected:
-	void *connection;
+	void* connection;
 
 	QString _host, _dbname, _username, _password;
 	QString lasterror_;
 
-	void setLastError( const QString& d ) { lasterror_ = d; }
+	void setLastError( const QString& d )
+	{
+		lasterror_ = d;
+	}
 
 public:
-	cDBDriver() : connection(0) {}
-	virtual ~cDBDriver() {};
+	cDBDriver() : connection( 0 )
+	{
+	}
+	virtual ~cDBDriver()
+	{
+	};
 
-	virtual const char *name() const { return NULL; }
+	virtual const char* name() const
+	{
+		return NULL;
+	}
 
 	virtual bool open( int id = CONN_MAIN ) = 0;
 	virtual void close() = 0;
-	virtual bool exec( const QString &query ); // Just execute some SQL code, no return!
-	virtual cDBResult query( const QString &query ) = 0; // Executes a query
+	virtual bool exec( const QString& query ); // Just execute some SQL code, no return!
+	virtual cDBResult query( const QString& query ) = 0; // Executes a query
 	virtual void lockTable( const QString& table );
 	virtual void unlockTable( const QString& table );
 	virtual QString error(); // Returns an error (if there is one), uses the current connection
-	virtual bool tableExists( const QString &table ) = 0;
+	virtual bool tableExists( const QString& table ) = 0;
 
 	// Setters + Getters
 	virtual void setActiveConnection( int id = CONN_MAIN );
-	void setUserName( const QString &data ) { _username = data; }
-	void setPassword( const QString &data ) { _password = data; }
-	void setHostName( const QString &data ) { _host = data; }
-	void setDatabaseName( const QString &data ) { _dbname = data; }
-	QString host() const { return _host; }
-	QString databaseName() const { return _dbname; }
-	QString userName() const { return _username; }
-	QString password() const { return _password; }
+	void setUserName( const QString& data )
+	{
+		_username = data;
+	}
+	void setPassword( const QString& data )
+	{
+		_password = data;
+	}
+	void setHostName( const QString& data )
+	{
+		_host = data;
+	}
+	void setDatabaseName( const QString& data )
+	{
+		_dbname = data;
+	}
+	QString host() const
+	{
+		return _host;
+	}
+	QString databaseName() const
+	{
+		return _dbname;
+	}
+	QString userName() const
+	{
+		return _username;
+	}
+	QString password() const
+	{
+		return _password;
+	}
 };
 
 class cSQLiteDriver : public cDBDriver
 {
 public:
-	const char *name() const { return "sqlite"; }
+	const char* name() const
+	{
+		return "sqlite";
+	}
 
-	cSQLiteDriver() {}
-	virtual ~cSQLiteDriver() {}
+	cSQLiteDriver()
+	{
+	}
+	virtual ~cSQLiteDriver()
+	{
+	}
 
 	bool open( int id = CONN_MAIN );
 	void close();
 
-	void lockTable( const QString &table ) {}
-	void unlockTable( const QString &table ) {}
-	bool tableExists( const QString &table );
-	QString error() { return QString::null; }
+	void lockTable( const QString& table )
+	{
+	}
+	void unlockTable( const QString& table )
+	{
+	}
+	bool tableExists( const QString& table );
+	QString error()
+	{
+		return QString::null;
+	}
 
-	bool exec( const QString &query );
-	cDBResult query( const QString &query );
+	bool exec( const QString& query );
+	cDBResult query( const QString& query );
 };
 
 class cMySQLDriver : public cDBDriver
 {
-	std::map< int, st_mysql* > connections;
+	std::map<int, st_mysql*> connections;
 public:
-	const char *name() const { return "mysql"; }
+	const char* name() const
+	{
+		return "mysql";
+	}
 
-	cMySQLDriver() {}
-	virtual ~cMySQLDriver() {}
+	cMySQLDriver()
+	{
+	}
+	virtual ~cMySQLDriver()
+	{
+	}
 
 	bool open( int id = CONN_MAIN );
 	void close();
 
 	void lockTable( const QString& table );
 	void unlockTable( const QString& table );
-	bool tableExists( const QString &table );
+	bool tableExists( const QString& table );
 	QString error();
 	void setActiveConnection( int id );
-	bool exec( const QString &query );
-	cDBResult query( const QString &query );
+	bool exec( const QString& query );
+	cDBResult query( const QString& query );
 };
 
-class cDBResult : cPythonScriptable {
+class cDBResult : cPythonScriptable
+{
 public:
-	char **_row;
-	void *_result;
-	void *_connection; // Connection occupied by this query
+	char** _row;
+	void* _result;
+	void* _connection; // Connection occupied by this query
 	bool mysql_type;
 public:
-	cDBResult(): _row( 0 ), _result( 0 ), _connection( 0 ), mysql_type( true ) {} // Standard Constructor
-	cDBResult( void *result, void *connection, bool mysql_type = true ): _row( 0 ), _result( result ), _connection( connection ) { this->mysql_type = mysql_type; }; // MySQL Constructor
-	virtual ~cDBResult() {}
+	cDBResult() : _row( 0 ), _result( 0 ), _connection( 0 ), mysql_type( true )
+	{
+	} // Standard Constructor
+	cDBResult( void* result, void* connection, bool mysql_type = true ) : _row( 0 ), _result( result ), _connection( connection )
+	{
+		this->mysql_type = mysql_type;
+	}; // MySQL Constructor
+	virtual ~cDBResult()
+	{
+	}
 
 	void free(); // Call this to free the query
 	char** data() const; // Get the data for the current row
@@ -138,11 +201,14 @@ public:
 	INT32 getInt( UINT32 offset ) const; // Get an integer with a specific offset
 	QString getString( UINT32 offset ) const; // Get a string with a specific offset
 
-	bool isValid() const { return ( _result != 0 ); }
+	bool isValid() const
+	{
+		return ( _result != 0 );
+	}
 
-	PyObject *getPyObject();
-	bool implements(const QString &name);
-	const char *className() const;
+	PyObject* getPyObject();
+	bool implements( const QString& name );
+	const char* className() const;
 };
 
 #undef MYSQL_RES

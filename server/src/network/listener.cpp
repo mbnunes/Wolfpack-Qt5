@@ -55,8 +55,7 @@
   Constructs a listener binded to \a port.
 */
 
-cListener::cListener( Q_UINT16 port )
-	: _port(port), _canceled(false)
+cListener::cListener( Q_UINT16 port ) : _port( port ), _canceled( false )
 {
 }
 
@@ -68,7 +67,7 @@ cListener::~cListener() throw()
 void cListener::run() throw()
 {
 	listenningSocket.setAddressReusable( true );
-	listenningSocket.bind( static_cast<Q_UINT32>(0), _port );
+	listenningSocket.bind( static_cast<Q_UINT32>( 0 ), _port );
 	listenningSocket.listen( 20 );
 	listenningSocket.setBlocking( false ); // or else it would take a while to join()
 
@@ -77,14 +76,14 @@ void cListener::run() throw()
 		int fd = listenningSocket.accept();
 		if ( fd != -1 )
 		{
-			QSocketDevice* socket = new QSocketDevice(fd, QSocketDevice::Stream);
+			QSocketDevice* socket = new QSocketDevice( fd, QSocketDevice::Stream );
 			socket->setBlocking( false );
-			QMutexLocker lock(&readyConnectionsMutex);
+			QMutexLocker lock( &readyConnectionsMutex );
 			readyConnections.push_back( socket );
 		}
 		else
 		{
-			waitCondition.wait(100); // if nothing interesting happen take a nap
+			waitCondition.wait( 100 ); // if nothing interesting happen take a nap
 		}
 	}
 
@@ -96,7 +95,7 @@ void cListener::run() throw()
 */
 QSocketDevice* cListener::getNewConnection()
 {
-	QMutexLocker lock(&readyConnectionsMutex);
+	QMutexLocker lock( &readyConnectionsMutex );
 	QSocketDevice* s = readyConnections.front();
 	readyConnections.pop_front();
 	return s;
@@ -108,7 +107,7 @@ QSocketDevice* cListener::getNewConnection()
 */
 bool cListener::haveNewConnection()
 {
-	QMutexLocker lock(&readyConnectionsMutex);
+	QMutexLocker lock( &readyConnectionsMutex );
 	return !readyConnections.empty();
 }
 

@@ -82,13 +82,13 @@
 
 	<contextmenu id="tame_menu">
 		<events>contextmenus.tamemenu</events>
-		<option tag="1" msgid="6130" />
+		<option tag="1" msgid="6130" checkvisible="true" />
 	</contextmenu>
 
 	<contextmenu id="pet_menu">
 		<events>contextmenus.petmenu</events>
-		<option tag="1" msgid="6111" />
-		<option tag="2" msgid="6108" />
+		<option tag="1" msgid="6111" checkvisible="true" />
+		<option tag="2" msgid="6108" checkvisible="true" />
 		<!--
 			Guarding not implemented yet.
 			<option tag="3" msgid="6107" />
@@ -97,13 +97,13 @@
 			Stop and Stay do the same for us now.
 		<option tag="4" msgid="6112" />
 		-->
-		<option tag="5" msgid="6114" />
+		<option tag="5" msgid="6114" checkvisible="true" />
 		<!--
 			no pet friends yet
 		<option tag="6" msgid="6110" />
 		-->
-		<option tag="7" msgid="6113" />
-		<option tag="8" msgid="6118" />
+		<option tag="7" msgid="6113" checkvisible="true" />
+		<option tag="8" msgid="6118" checkvisible="true" />
 	</contextmenu>
 
 	<contextmenu id="ITEM_MENU">

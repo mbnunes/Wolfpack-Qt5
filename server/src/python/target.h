@@ -32,56 +32,47 @@
 #include "utilities.h"
 #include "../targetrequests.h"
 
-typedef struct {
-    PyObject_HEAD;
+typedef struct
+{
+	PyObject_HEAD;
 	Coord_cl pos;
 	UINT16 model;
 	SERIAL object;
 } wpTarget;
 
-static PyObject *wpTarget_getAttr( wpTarget *self, char *name )
+static PyObject* wpTarget_getAttr( wpTarget* self, char* name )
 {
-	if( !strcmp( name, "pos" ) )
+	if ( !strcmp( name, "pos" ) )
 		return PyGetCoordObject( self->pos );
-	else if( !strcmp( name, "model" ) )
+	else if ( !strcmp( name, "model" ) )
 		return PyInt_FromLong( self->model );
-	else if( !strcmp( name, "item" ) )
+	else if ( !strcmp( name, "item" ) )
 	{
-		if( isItemSerial( self->object ) )
+		if ( isItemSerial( self->object ) )
 			return PyGetItemObject( FindItemBySerial( self->object ) );
 	}
-	else if( !strcmp( name, "char" ) )
-		if( isCharSerial( self->object ) )
+	else if ( !strcmp( name, "char" ) )
+		if ( isCharSerial( self->object ) )
 			return PyGetCharObject( FindCharBySerial( self->object ) );
 
 	return PyFalse();
 }
 
-static PyTypeObject wpTargetType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "wpTarget",
-    sizeof(wpTargetType),
-    0,
-	wpDealloc,
-    0,
-    (getattrfunc)wpTarget_getAttr,
-    0,
-    0,
-    0,
-    0,
-    0,
+static PyTypeObject wpTargetType =
+{
+	PyObject_HEAD_INIT( NULL )
+	0, "wpTarget", sizeof( wpTargetType ), 0, wpDealloc, 0, ( getattrfunc ) wpTarget_getAttr, 0, 0, 0, 0, 0, 
 };
 
-static PyObject *PyGetTarget( cUORxTarget *target, UINT8 map )
+static PyObject* PyGetTarget( cUORxTarget* target, UINT8 map )
 {
-	if( !target )
+	if ( !target )
 	{
 		Py_INCREF( Py_None );
 		return Py_None;
 	}
 
-	wpTarget *returnVal = PyObject_New( wpTarget, &wpTargetType );
+	wpTarget* returnVal = PyObject_New( wpTarget, &wpTargetType );
 
 	Coord_cl pos;
 	pos.x = target->x();
@@ -93,47 +84,46 @@ static PyObject *PyGetTarget( cUORxTarget *target, UINT8 map )
 	returnVal->object = target->serial();
 	returnVal->model = target->model();
 
-	return (PyObject*)returnVal;
+	return ( PyObject * ) returnVal;
 }
 
-class cPythonTarget: public cTargetRequest
+class cPythonTarget : public cTargetRequest
 {
 private:
 	QString responsefunc, timeoutfunc, cancelfunc;
-	PyObject *args;
+	PyObject* args;
 public:
-	cPythonTarget( QString _responsefunc, QString _timeoutfunc, QString _cancelfunc, PyObject *_args ):
-	  responsefunc( _responsefunc ), timeoutfunc( _timeoutfunc ), cancelfunc( _cancelfunc ), args( _args )
-	  {
-		  Py_INCREF( args );
-	  }
+	cPythonTarget( QString _responsefunc, QString _timeoutfunc, QString _cancelfunc, PyObject* _args ) : responsefunc( _responsefunc ), timeoutfunc( _timeoutfunc ), cancelfunc( _cancelfunc ), args( _args )
+	{
+		Py_INCREF( args );
+	}
 
-	bool responsed( cUOSocket *socket, cUORxTarget *target )
+	bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
 		// Try to call the python function
 		// Get everything before the last dot
-		if( responsefunc.contains( "." ) )
+		if ( responsefunc.contains( "." ) )
 		{
 			// Find the last dot
 			INT32 position = responsefunc.findRev( "." );
 			QString sModule = responsefunc.left( position );
-			QString sFunction = responsefunc.right( responsefunc.length() - (position+1) );
+			QString sFunction = responsefunc.right( responsefunc.length() - ( position + 1 ) );
 
-			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
 
-			if( pModule )
+			if ( pModule )
 			{
-				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
 
-				if( pFunc && PyCallable_Check( pFunc ) )
+				if ( pFunc && PyCallable_Check( pFunc ) )
 				{
 					// Create our Argument list
-					PyObject *p_args = PyTuple_New( 3 );
+					PyObject* p_args = PyTuple_New( 3 );
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
 					PyTuple_SetItem( p_args, 1, args );
 					PyTuple_SetItem( p_args, 2, PyGetTarget( target, socket->player()->pos().map ) );
 
-					PyObject *result = PyEval_CallObject( pFunc, p_args );
+					PyObject* result = PyEval_CallObject( pFunc, p_args );
 					Py_XDECREF( result );
 					reportPythonError( sModule );
 				}
@@ -148,28 +138,28 @@ public:
 		return true;
 	}
 
-	void timedout( cUOSocket *socket )
+	void timedout( cUOSocket* socket )
 	{
-		if( !timeoutfunc.isNull() && !timeoutfunc.isEmpty() && timeoutfunc.contains( "." ) )
+		if ( !timeoutfunc.isNull() && !timeoutfunc.isEmpty() && timeoutfunc.contains( "." ) )
 		{
 			// Find the last dot
 			INT32 position = timeoutfunc.findRev( "." );
 			QString sModule = timeoutfunc.left( position );
-			QString sFunction = timeoutfunc.right( timeoutfunc.length() - (position+1) );
+			QString sFunction = timeoutfunc.right( timeoutfunc.length() - ( position + 1 ) );
 
-			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
 
-			if( pModule )
+			if ( pModule )
 			{
-				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
 
-				if( pFunc && PyCallable_Check( pFunc ) )
+				if ( pFunc && PyCallable_Check( pFunc ) )
 				{
 					// Create our Argument list
-					PyObject *args = PyTuple_New( 1 );
+					PyObject* args = PyTuple_New( 1 );
 					PyTuple_SetItem( args, 0, PyGetCharObject( socket->player() ) );
 
-					PyObject *result = PyEval_CallObject( pFunc, args );
+					PyObject* result = PyEval_CallObject( pFunc, args );
 					Py_XDECREF( result );
 					reportPythonError( sModule );
 				}
@@ -183,28 +173,28 @@ public:
 		Py_DECREF( args );
 	}
 
-	void canceled( cUOSocket *socket )
+	void canceled( cUOSocket* socket )
 	{
-		if( !cancelfunc.isNull() && !cancelfunc.isEmpty() && cancelfunc.contains( "." ) )
+		if ( !cancelfunc.isNull() && !cancelfunc.isEmpty() && cancelfunc.contains( "." ) )
 		{
 			// Find the last dot
 			INT32 position = cancelfunc.findRev( "." );
 			QString sModule = cancelfunc.left( position );
-			QString sFunction = cancelfunc.right( cancelfunc.length() - (position+1) );
+			QString sFunction = cancelfunc.right( cancelfunc.length() - ( position + 1 ) );
 
-			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
 
-			if( pModule )
+			if ( pModule )
 			{
-				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
 
-				if( pFunc && PyCallable_Check( pFunc ) )
+				if ( pFunc && PyCallable_Check( pFunc ) )
 				{
 					// Create our Argument list
-					PyObject *args = PyTuple_New( 1 );
+					PyObject* args = PyTuple_New( 1 );
 					PyTuple_SetItem( args, 0, PyGetCharObject( socket->player() ) );
 
-					PyObject *result = PyEval_CallObject( pFunc, args );
+					PyObject* result = PyEval_CallObject( pFunc, args );
 					Py_XDECREF( result );
 
 					reportPythonError( sModule );

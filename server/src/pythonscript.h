@@ -40,7 +40,7 @@
 // Script Based Events
 enum ePythonEvent
 {
-	EVENT_USE = 0,
+	EVENT_USE					= 0,
 	EVENT_SINGLECLICK,
 	EVENT_COLLIDE,
 	EVENT_WALK,
@@ -81,6 +81,8 @@ enum ePythonEvent
 	EVENT_TIMECHANGE,
 	EVENT_DISPEL,
 	EVENT_TELEKINESIS,
+	EVENT_CONTEXTCHECKVISIBLE,
+	EVENT_CONTEXTCHECKENABLED,
 	EVENT_COUNT,
 };
 
@@ -91,41 +93,48 @@ class cPythonScript
 protected:
 	QString name_; // Important!
 	bool loaded;
-	PyObject *codeModule; // This object stores the compiled Python Module
-	PyObject *events[EVENT_COUNT];
+	PyObject* codeModule; // This object stores the compiled Python Module
+	PyObject* events[EVENT_COUNT];
 
 public:
 	cPythonScript();
 	~cPythonScript();
 
 	// We need an identification value for the scripts
-	void setName( const QString &value ) { name_ = value; }
-	QString name() const { return name_; }
+	void setName( const QString& value )
+	{
+		name_ = value;
+	}
+	QString name() const
+	{
+		return name_;
+	}
 
-	bool load(const QString &name);
+	bool load( const QString& name );
 	void unload( void );
 	bool isLoaded() const;
 
-	static bool canChainHandleEvent( ePythonEvent event, cPythonScript **chain );
-	static bool callChainedEventHandler( ePythonEvent, cPythonScript **chain, PyObject *args = 0 );
-	static PyObject *callChainedEvent( ePythonEvent, cPythonScript **chain, PyObject *args = 0 );
+	static bool canChainHandleEvent( ePythonEvent event, cPythonScript** chain );
+	static bool callChainedEventHandler( ePythonEvent, cPythonScript** chain, PyObject* args = 0 );
+	static PyObject* callChainedEvent( ePythonEvent, cPythonScript** chain, PyObject* args = 0 );
 
-	PyObject *callEvent( ePythonEvent, PyObject *args = 0, bool ignoreErrors = false );
-	PyObject *callEvent( const QString &event, PyObject *args = 0, bool ignoreErrors = false );
-	bool callEventHandler( ePythonEvent, PyObject *args = 0, bool ignoreErrors = false );
-	bool callEventHandler( const QString &event, PyObject *args = 0, bool ignoreErrors = false );
+	PyObject* callEvent( ePythonEvent, PyObject* args = 0, bool ignoreErrors = false );
+	PyObject* callEvent( const QString& event, PyObject* args = 0, bool ignoreErrors = false );
+	bool callEventHandler( ePythonEvent, PyObject* args = 0, bool ignoreErrors = false );
+	bool callEventHandler( const QString& event, PyObject* args = 0, bool ignoreErrors = false );
 
-	bool canHandleEvent(const QString &event);
+	bool canHandleEvent( const QString& event );
 	bool canHandleEvent( ePythonEvent event )
 	{
-		if( event >= EVENT_COUNT )
+		if ( event >= EVENT_COUNT )
 			return false;
 
 		return events[event] != 0;
 	}
 };
 
-struct stError {
+struct stError
+{
 	unsigned char code;
 	QString text;
 };
@@ -187,29 +196,32 @@ struct stError {
 	This class provides comfortable methods to create python objects out of
 	objects.
 */
-class cPythonScriptable {
+class cPythonScriptable
+{
 public:
 
-	virtual ~cPythonScriptable() {}
+	virtual ~cPythonScriptable()
+	{
+	}
 
 	/*!
 		\brief Used to identify a specific object type.
 		\returns A pointer to the name of this class.
 	*/
-	virtual const char *className() const;
+	virtual const char* className() const;
 
 	/*!
 		\brief Does this class implement a given interface?
 		\param name The name of the interface.
 		\returns True if this class implements the interface, otherwise false.
 	*/
-	virtual bool implements(const QString &name) const;
+	virtual bool implements( const QString& name ) const;
 
 	/*!
 		\brief Create and return a python wrapper object for this object.
 		\returns A python object representing this object.
 	*/
-	virtual PyObject *getPyObject() = 0;
+	virtual PyObject* getPyObject() = 0;
 
 	/*!
 		\brief Sets a property for this object.
@@ -220,7 +232,7 @@ public:
 		\returns If an error occured it returns a pointer to an error structure. The callee is responsible
 			for freeing this structure, otherwise a null pointer is returned.
 	*/
-	virtual stError *setProperty( const QString &name, const cVariant &value );
+	virtual stError* setProperty( const QString& name, const cVariant& value );
 
 	/*!
 		\brief Gets a property of this object.
@@ -230,7 +242,7 @@ public:
 		\returns If an error occured it returns a pointer to an error structure. The callee is responsible
 			for freeing this structure, otherwise a null pointer is returned.
 	*/
-	virtual stError *getProperty( const QString &name, cVariant &value );
+	virtual stError* getProperty( const QString& name, cVariant& value );
 };
 
 #endif

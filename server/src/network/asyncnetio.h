@@ -41,8 +41,8 @@ class cAsyncNetIO : public QThread
 {
 	QMap<QSocketDevice*, cAsyncNetIOPrivate*> buffers;
 
-	typedef QMap<QSocketDevice*, cAsyncNetIOPrivate*>::iterator			iterator;
-	typedef QMap<QSocketDevice*, cAsyncNetIOPrivate*>::const_iterator	const_iterator;
+	typedef QMap<QSocketDevice*, cAsyncNetIOPrivate*>::iterator iterator;
+	typedef QMap<QSocketDevice*, cAsyncNetIOPrivate*>::const_iterator const_iterator;
 
 	QMutex mapsMutex;
 	QWaitCondition waitCondition;
@@ -50,19 +50,27 @@ class cAsyncNetIO : public QThread
 	bool volatile canceled_;
 
 public:
-	cAsyncNetIO() : canceled_(false) {}
+	cAsyncNetIO() : canceled_( false )
+	{
+	}
 	~cAsyncNetIO() throw();
 
-	bool registerSocket(QSocketDevice*, bool loginSocket);
-	bool unregisterSocket(QSocketDevice*);
-	Q_ULONG	bytesAvailable(QSocketDevice*) const;
+	bool registerSocket( QSocketDevice*, bool loginSocket );
+	bool unregisterSocket( QSocketDevice* );
+	Q_ULONG bytesAvailable( QSocketDevice* ) const;
 
 	cUOPacket* recvPacket( QSocketDevice* );
-	void sendPacket(QSocketDevice*, cUOPacket*, bool);
+	void sendPacket( QSocketDevice*, cUOPacket*, bool );
 
 	void flush( QSocketDevice* );
-	bool canceled() const { return canceled_;	}
-	void cancel() {	canceled_ = true; waitCondition.wakeAll(); }
+	bool canceled() const
+	{
+		return canceled_;
+	}
+	void cancel()
+	{
+		canceled_ = true; waitCondition.wakeAll();
+	}
 
 protected:
 	virtual void run() throw();

@@ -118,7 +118,7 @@ inline bool tile_st::isBlocking() const
 
 inline bool tile_st::isRoofOrFloorTile() const
 {
-	return (( flag1 & 0x1 ) && ( flag2 % 0x2));
+	return ( ( flag1 & 0x1 ) && ( flag2 % 0x2 ) );
 }
 
 inline bool tile_st::isTransparent() const
@@ -136,26 +136,35 @@ struct land_st
 	char unknown2;
 	char name[20];
 
-	bool isBlocking() const	{ return flag1 & 0x40; }
-	bool isWet() const { return flag1 & 0x80; }
-	bool isRoofOrFloorTile() const { return flag1 & 0x01; }
+	bool isBlocking() const
+	{
+		return flag1 & 0x40;
+	}
+	bool isWet() const
+	{
+		return flag1 & 0x80;
+	}
+	bool isRoofOrFloorTile() const
+	{
+		return flag1 & 0x01;
+	}
 };
 
 class cTileCache : public cComponent
 {
 private:
 	QString path;
-	std::map< UINT16, tile_st > staticTiles;
+	std::map<UINT16, tile_st> staticTiles;
 	tile_st emptyStaticTile;
 
-	std::map< UINT16, land_st > landTiles;
+	std::map<UINT16, land_st> landTiles;
 	land_st emptyLandTile;
 public:
 
 	land_st getLand( UINT16 tileId );
 	tile_st getTile( UINT16 tileId );
 	signed char tileHeight( ushort tileId );
-	static signed char tileHeight( const tile_st & );
+	static signed char tileHeight( const tile_st& );
 
 	void load();
 	void unload();

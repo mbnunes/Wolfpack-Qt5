@@ -56,46 +56,75 @@ class cContextMenuEntry
 public:
 
 
-	cContextMenuEntry( ushort cliloc, ushort scriptTag, ushort color = 0, bool checkvisible = false, bool checkenabled = false ) :
-	cliloc_( cliloc ), flags_ ( 0 ), color_(0), scriptTag_(scriptTag), checkvisible_(checkvisible_), checkenabled_(checkenabled)
+	cContextMenuEntry( ushort cliloc, ushort scriptTag, ushort color = 0, bool checkvisible = false, bool checkenabled = false ) : cliloc_( cliloc ), flags_( 0 ), color_( 0 ), scriptTag_( scriptTag ), checkvisible_( checkvisible_ ), checkenabled_( checkenabled )
 	{
 		flags_ |= ( color_ & 0xFFFF ) ? 32 : 0;
 	}
 
-	bool isEnabled() const	{ return !(flags_ & 0x0001); }
+	bool isEnabled() const
+	{
+		return !( flags_ & 0x0001 );
+	}
 	void setEnabled( bool enable )
 	{
 		flags_ = enable ? flags_ & ~0x0001 : flags_ | 0x0001;
 	}
 
-	ushort color() const {	return color_; }
-	ushort flags() const {	return flags_; }
-	ushort scriptTag() const { return scriptTag_; }
-	ushort cliloc() const { return cliloc_;	}
-	bool   checkVisible() const { return checkvisible_;	}
-	bool   checkEnabled() const { return checkenabled_;	}
+	ushort color() const
+	{
+		return color_;
+	}
+	ushort flags() const
+	{
+		return flags_;
+	}
+	ushort scriptTag() const
+	{
+		return scriptTag_;
+	}
+	ushort cliloc() const
+	{
+		return cliloc_;
+	}
+	bool checkVisible() const
+	{
+		return checkvisible_;
+	}
+	bool checkEnabled() const
+	{
+		return checkenabled_;
+	}
 };
 
 class cContextMenu : public cDefinable
 {
 public:
-	typedef QValueVector< cContextMenuEntry* > Entries;
+	typedef QValueVector<cContextMenuEntry*> Entries;
 	typedef Entries::const_iterator const_iterator;
 	typedef Entries::iterator iterator;
 
-	const_iterator	begin() const	{ return entries_.begin(); }
-	const_iterator  end()   const	{ return entries_.end();   }
+	const_iterator begin() const
+	{
+		return entries_.begin();
+	}
+	const_iterator end()   const
+	{
+		return entries_.end();
+	}
 
-	uint			count() const   { return entries_.count(); }
-	void			processNode( const cElement *Tag );
-	void			onContextEntry( cPlayer* from, cUObject* target, ushort entry );
-	bool			onCheckVisible( cPlayer* from, cUObject* target, ushort entry );
-	bool			onCheckEnabled( cPlayer* from, cUObject* target, ushort entry );
-	void			recreateEvents();
-	void			disposeEntries();
+	uint count() const
+	{
+		return entries_.count();
+	}
+	void processNode( const cElement* Tag );
+	void onContextEntry( cPlayer* from, cUObject* target, ushort entry );
+	bool onCheckVisible( cPlayer* from, cUObject* target, ushort entry );
+	bool onCheckEnabled( cPlayer* from, cUObject* target, ushort entry );
+	void recreateEvents();
+	void disposeEntries();
 
 private:
-	Entries	entries_;
+	Entries entries_;
 	QPtrList<cPythonScript> scriptChain_;
 	QString scripts_;
 };
@@ -104,14 +133,14 @@ class cAllContextMenus : public cComponent
 {
 public:
 
-	bool			menuExists( const QString& bindmenu ) const;
-	void			load();
-	void			unload();
-	void			reload();
+	bool menuExists( const QString& bindmenu ) const;
+	void load();
+	void unload();
+	void reload();
 
-	cContextMenu*	getMenu( const QString& ) const;
+	cContextMenu* getMenu( const QString& ) const;
 private:
-	typedef QMap< QString, cContextMenu* > Menus;
+	typedef QMap<QString, cContextMenu*> Menus;
 	typedef Menus::const_iterator const_iterator;
 	Menus menus_;
 };

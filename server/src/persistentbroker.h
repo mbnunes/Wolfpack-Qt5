@@ -52,7 +52,7 @@ public:
 	cDBResult query( const QString& query );
 	void flushDeleteQueue();
 	void clearDeleteQueue();
-	void addToDeleteQueue( const QString &tables, const QString &conditions );
+	void addToDeleteQueue( const QString& tables, const QString& conditions );
 
 	QString quoteString( QString d );
 

@@ -38,7 +38,7 @@
 class cSpawnRegion : public cBaseRegion
 {
 public:
-	cSpawnRegion( const cElement *Tag )
+	cSpawnRegion( const cElement* Tag )
 	{
 		this->init();
 		this->name_ = Tag->getAttribute( "id" );
@@ -55,33 +55,48 @@ public:
 	void checkForDeleted( void );
 	void checkTimer( void );
 
-	bool findValidSpot( Coord_cl &pos );
+	bool findValidSpot( Coord_cl& pos );
 
 	// Getters
-	QString name( void ) { return name_; }
-	UI16 npcs( void ) { return npcSerials_.size(); }
-	UI16 items( void ) { return itemSerials_.size(); }
-	UI16 maxNpcs( void ) { return maxNpcAmt_; }
-	UI16 maxItems( void ) { return maxItemAmt_; }
+	QString name( void )
+	{
+		return name_;
+	}
+	UI16 npcs( void )
+	{
+		return npcSerials_.size();
+	}
+	UI16 items( void )
+	{
+		return itemSerials_.size();
+	}
+	UI16 maxNpcs( void )
+	{
+		return maxNpcAmt_;
+	}
+	UI16 maxItems( void )
+	{
+		return maxItemAmt_;
+	}
 
-	QStringList	rectangles( void )
+	QStringList rectangles( void )
 	{
 		QStringList rectList;
-		QValueVector< rect_st >::iterator it = this->rectangles_.begin();
-		while( it != this->rectangles_.end() )
+		QValueVector<rect_st>::iterator it = this->rectangles_.begin();
+		while ( it != this->rectangles_.end() )
 		{
-			QString rect = QString( "%1,%2->%3,%4" ).arg( (*it).x1 ).arg( (*it).y1 ).arg( (*it).x2 ).arg( (*it).y2 );
+			QString rect = QString( "%1,%2->%3,%4" ).arg( ( *it ).x1 ).arg( ( *it ).y1 ).arg( ( *it ).x2 ).arg( ( *it ).y2 );
 			rectList.push_back( rect );
 			++it;
 		}
 		return rectList;
 	}
 private:
-	virtual void processNode( const cElement *Tag );
+	virtual void processNode( const cElement* Tag );
 
 private:
-	std::vector< SERIAL > npcSerials_; // serials of chars spawned by this area
-	std::vector< SERIAL > itemSerials_; // serials of items spawned by this area
+	std::vector<SERIAL> npcSerials_; // serials of chars spawned by this area
+	std::vector<SERIAL> itemSerials_; // serials of items spawned by this area
 
 	QStringList npcSections_; // list of npc's sections
 	QStringList itemSections_; // list of item's sections
@@ -96,10 +111,10 @@ private:
 	UI32 maxTime_; // Maximum spawn time in sec
 	UI32 nextTime_; // Next time for this region to spawn
 
-	std::vector< UI08 > z_; // Height, if not specified, z will be chosen
+	std::vector<UI08> z_; // Height, if not specified, z will be chosen
 };
 
-class cAllSpawnRegions : public cAllBaseRegions, public std::map< QString, cSpawnRegion* >, public cComponent
+class cAllSpawnRegions : public std::map<QString, cSpawnRegion*>, public cComponent
 {
 public:
 
@@ -108,8 +123,7 @@ public:
 	void check( void );
 	void reload();
 
-	cSpawnRegion*	region( const QString& regName );
-	cSpawnRegion*	region( UI16 posx, UI16 posy, UI08 map );
+	cSpawnRegion* region( const QString& regName );
 
 	void reSpawn( void );
 	void reSpawnToMax( void );
@@ -118,8 +132,8 @@ public:
 	UI16 npcs( void )
 	{
 		UI16 numNpcs = 0;
-		std::map< QString, cSpawnRegion* >::iterator it = this->begin();
-		while( it != this->end() )
+		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
+		while ( it != this->end() )
 		{
 			numNpcs += it->second->npcs();
 			++it;
@@ -130,8 +144,8 @@ public:
 	UI16 items( void )
 	{
 		UI16 numItems = 0;
-		std::map< QString, cSpawnRegion* >::iterator it = this->begin();
-		while( it != this->end() )
+		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
+		while ( it != this->end() )
 		{
 			numItems += it->second->items();
 			++it;
@@ -142,8 +156,8 @@ public:
 	UI16 maxNpcs( void )
 	{
 		UI16 numNpcs = 0;
-		std::map< QString, cSpawnRegion* >::iterator it = this->begin();
-		while( it != this->end() )
+		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
+		while ( it != this->end() )
 		{
 			numNpcs += it->second->maxNpcs();
 			++it;
@@ -154,8 +168,8 @@ public:
 	UI16 maxItems( void )
 	{
 		UI16 numItems = 0;
-		std::map< QString, cSpawnRegion* >::iterator it = this->begin();
-		while( it != this->end() )
+		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
+		while ( it != this->end() )
 		{
 			numItems += it->second->maxItems();
 			++it;

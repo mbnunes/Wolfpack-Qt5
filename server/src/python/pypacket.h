@@ -32,7 +32,7 @@
 
 class cUOPacket;
 
-PyObject *CreatePyPacket( unsigned char id, unsigned short size );
-PyObject *CreatePyPacket(cUOPacket *packet);
+PyObject* CreatePyPacket( unsigned char id, unsigned short size );
+PyObject* CreatePyPacket( cUOPacket* packet );
 
 #endif

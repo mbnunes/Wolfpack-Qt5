@@ -37,24 +37,24 @@
 /*!
 	Builds a context menu out of the definition scripts
 */
-void cContextMenu::processNode( const cElement *Tag )
+void cContextMenu::processNode( const cElement* Tag )
 {
 	QString TagName = Tag->name();
 
-	if( TagName == "events" )
+	if ( TagName == "events" )
 	{
 		scripts_ = Tag->value();
 	}
 	else if ( TagName == "option" )
 	{
 		bool ok;
-		ushort msgid = Tag->getAttribute("msgid").toUShort();
-		ushort tag   = Tag->getAttribute("tag").toUShort();
-		ushort color = Tag->getAttribute("color").toUShort(&ok);
+		ushort msgid = Tag->getAttribute( "msgid" ).toUShort();
+		ushort tag = Tag->getAttribute( "tag" ).toUShort();
+		ushort color = Tag->getAttribute( "color" ).toUShort( &ok );
 		if ( !ok )
 			color = 0x7FE0; // Default
-		bool checkenabled = Tag->getAttribute("checkenabled", "false").lower() == "true";
-		bool checkvisible = Tag->getAttribute("checkvisible", "false").lower() == "true";
+		bool checkenabled = Tag->getAttribute( "checkenabled", "false" ).lower() == "true";
+		bool checkvisible = Tag->getAttribute( "checkvisible", "false" ).lower() == "true";
 		entries_.push_back( new cContextMenuEntry( msgid, tag, color, checkvisible, checkenabled ) );
 	}
 }
@@ -64,9 +64,9 @@ void cContextMenu::processNode( const cElement *Tag )
 */
 void cContextMenu::disposeEntries()
 {
-	const_iterator it ( entries_.begin() );
+	const_iterator it( entries_.begin() );
 	for ( ; it != entries_.end(); ++it )
-		delete *it;
+		delete * it;
 }
 
 /*!
@@ -78,8 +78,8 @@ void cContextMenu::onContextEntry( cPlayer* from, cUObject* target, ushort entry
 	if ( scriptChain_.isEmpty() || entries_.size() <= entry )
 		return;
 
-	PyObject *args = Py_BuildValue( "O&O&h", PyGetCharObject, from, PyGetObjectObject, target, entries_[entry]->scriptTag() );
-	for ( cPythonScript* script = scriptChain_.first(); script; script = scriptChain_.next() )
+	PyObject* args = Py_BuildValue( "O&O&h", PyGetCharObject, from, PyGetObjectObject, target, entries_[entry]->scriptTag() );
+	for ( cPythonScript*script = scriptChain_.first(); script; script = scriptChain_.next() )
 	{
 		script->callEventHandler( EVENT_CONTEXTENTRY, args );
 	}
@@ -95,18 +95,18 @@ bool cContextMenu::onCheckVisible( cPlayer* from, cUObject* target, ushort entry
 		return true;
 
 	bool returnValue = true;
-	PyObject *args = Py_BuildValue("NNH", from->getPyObject(), target->getPyObject(), entries_[entry]->scriptTag());
-	for (cPythonScript* script = scriptChain_.first(); script; script = scriptChain_.next())
+	PyObject* args = Py_BuildValue( "NNH", from->getPyObject(), target->getPyObject(), entries_[entry]->scriptTag() );
+	for ( cPythonScript*script = scriptChain_.first(); script; script = scriptChain_.next() )
 	{
-		PyObject* obj = script->callEvent("onContextMenuCheckVisible", args);
-		if (obj)
+		PyObject* obj = script->callEvent(EVENT_CONTEXTCHECKVISIBLE, args );
+		if ( obj )
 		{
-			if (!PyObject_IsTrue(obj))
+			if ( !PyObject_IsTrue( obj ) )
 				returnValue = false;
-			Py_DECREF(obj);
+			Py_DECREF( obj );
 		}
 
-		if (!returnValue)
+		if ( !returnValue )
 			return false;
 	}
 	return true;
@@ -122,10 +122,10 @@ bool cContextMenu::onCheckEnabled( cPlayer* from, cUObject* target, ushort entry
 		return true;
 
 	bool returnValue = true;
-	PyObject *args = Py_BuildValue( "O&O&h", PyGetCharObject, from, PyGetObjectObject, target, entries_[entry]->scriptTag() );
-	for ( cPythonScript* script = scriptChain_.first(); script; script = scriptChain_.next() )
+	PyObject* args = Py_BuildValue( "O&O&h", PyGetCharObject, from, PyGetObjectObject, target, entries_[entry]->scriptTag() );
+	for ( cPythonScript*script = scriptChain_.first(); script; script = scriptChain_.next() )
 	{
-		PyObject* obj = script->callEvent( "onContextMenuCheckEnabled", args );
+		PyObject* obj = script->callEvent(EVENT_CONTEXTCHECKENABLED, args );
 		if ( obj )
 		{
 			if ( !PyObject_IsTrue( obj ) )
@@ -146,14 +146,14 @@ void cContextMenu::recreateEvents()
 {
 	scriptChain_.clear();
 	// Walk the eventList and recreate
-	QStringList eventList = QStringList::split(",", scripts_);
+	QStringList eventList = QStringList::split( ",", scripts_ );
 	QStringList::const_iterator myIter( eventList.begin() );
-	for( ; myIter != eventList.end(); ++myIter )
+	for ( ; myIter != eventList.end(); ++myIter )
 	{
-		cPythonScript *myScript = ScriptManager::instance()->find( (*myIter).latin1() );
+		cPythonScript* myScript = ScriptManager::instance()->find( ( *myIter ).latin1() );
 
 		// Script not found
-		if( myScript == NULL )
+		if ( myScript == NULL )
 			continue;
 
 		scriptChain_.append( myScript );
@@ -169,14 +169,14 @@ void cAllContextMenus::load( void )
 	QStringList::const_iterator it = sections.begin();
 	for ( ; it != sections.end(); ++it )
 	{
-		const cElement* section = Definitions::instance()->getDefinition( WPDT_CONTEXTMENU, (*it) );
+		const cElement* section = Definitions::instance()->getDefinition( WPDT_CONTEXTMENU, ( *it ) );
 
-		if( section )
+		if ( section )
 		{
 			cContextMenu* menu = new cContextMenu;
 			menu->applyDefinition( section );
 			menu->recreateEvents();
-			menus_.insert( (*it), menu );
+			menus_.insert( ( *it ), menu );
 		}
 	}
 	cComponent::load();

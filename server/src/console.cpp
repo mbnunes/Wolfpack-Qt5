@@ -65,78 +65,82 @@ cConsole::~cConsole()
 	// Clean up any terminal settings
 }
 
-void cConsole::log( UINT8 logLevel, const QString &message, bool timestamp )
+void cConsole::log( UINT8 logLevel, const QString& message, bool timestamp )
 {
 	// Legacy Code
 	QString msg = message;
 
-	if( msg.endsWith( "\n" ) )
+	if ( msg.endsWith( "\n" ) )
 		msg = msg.left( msg.length() - 1 );
 
-	Log::instance()->print( (eLogLevel)logLevel, msg + "\n", timestamp );
+	Log::instance()->print( ( eLogLevel ) logLevel, msg + "\n", timestamp );
 }
 
 // Prepare a "progess" line
-void cConsole::sendProgress(const QString &sMessage) {
-	send(sMessage + "... ");
-	changeColor(WPC_NORMAL);
+void cConsole::sendProgress( const QString& sMessage )
+{
+	send( sMessage + "... " );
+	changeColor( WPC_NORMAL );
 	progress = sMessage;
 }
 
 // Print Progress Done
-void cConsole::sendDone() {
+void cConsole::sendDone()
+{
 	progress = QString::null;
-	changeColor(WPC_GREEN);
-	send("Done\n");
-	changeColor(WPC_NORMAL);
+	changeColor( WPC_GREEN );
+	send( "Done\n" );
+	changeColor( WPC_NORMAL );
 }
 
 // Print "Fail"
-void cConsole::sendFail() {
+void cConsole::sendFail()
+{
 	progress = QString::null;
-	changeColor(WPC_RED);
-	send("Failed\n");
-	changeColor(WPC_NORMAL);
+	changeColor( WPC_RED );
+	send( "Failed\n" );
+	changeColor( WPC_NORMAL );
 }
 
 // Print "Skip" (maps etc.)
-void cConsole::sendSkip() {
+void cConsole::sendSkip()
+{
 	progress = QString::null;
-	changeColor(WPC_YELLOW);
-	send("Skipped\n");
-	changeColor(WPC_NORMAL);
+	changeColor( WPC_YELLOW );
+	send( "Skipped\n" );
+	changeColor( WPC_NORMAL );
 }
 
-bool cConsole::handleCommand( const QString &command, bool silentFail )
+bool cConsole::handleCommand( const QString& command, bool silentFail )
 {
-	cUOSocket *mSock;
+	cUOSocket* mSock;
 	int i;
 	char c = command.latin1()[0];
-	c = toupper(c);
+	c = toupper( c );
 
-	if( c == 'S' )
+	if ( c == 'S' )
 	{
-		Server::instance()->setSecure(!Server::instance()->getSecure());
+		Server::instance()->setSecure( !Server::instance()->getSecure() );
 
-		if(!Server::instance()->getSecure())
-			Console::instance()->send("WOLFPACK: Secure mode disabled. Press ? for a commands list.\n");
+		if ( !Server::instance()->getSecure() )
+			Console::instance()->send( "WOLFPACK: Secure mode disabled. Press ? for a commands list.\n" );
 		else
-			Console::instance()->send("WOLFPACK: Secure mode re-enabled.\n");
+			Console::instance()->send( "WOLFPACK: Secure mode re-enabled.\n" );
 
 		return true;
 	}
 
 	// Allow Help in Secure Mode
-	if( Server::instance()->getSecure() && c != '?' )
+	if ( Server::instance()->getSecure() && c != '?' )
 	{
 		Console::instance()->send( "WOLFPACK: Secure mode prevents keyboard commands! Press 'S' to disable.\n" );
 		return false;
 	}
 
-	switch( c )
+	switch ( c )
 	{
 	case 'Q':
-		Console::instance()->send("WOLFPACK: Immediate Shutdown initialized!\n");
+		Console::instance()->send( "WOLFPACK: Immediate Shutdown initialized!\n" );
 		Server::instance()->cancel();
 		break;
 
@@ -151,29 +155,30 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 		mSock = Network::instance()->first();
 		i = 0;
 
-		for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+		for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
-			if( mSock->player() )
-				Console::instance()->send( QString("%1) %2 [%3]\n").arg(++i).arg(mSock->player()->name()).arg(QString::number( mSock->player()->serial(), 16) ) );
+			if ( mSock->player() )
+				Console::instance()->send( QString( "%1) %2 [%3]\n" ).arg( ++i ).arg( mSock->player()->name() ).arg( QString::number( mSock->player()->serial(), 16 ) ) );
 		}
 
-		Console::instance()->send( tr("Total Users Online: %1\n").arg(Network::instance()->count()) );
+		Console::instance()->send( tr( "Total Users Online: %1\n" ).arg( Network::instance()->count() ) );
 		break;
-	case 'A': //reload the accounts file
+	case 'A':
+		//reload the accounts file
 		Server::instance()->queueAction( RELOAD_ACCOUNTS );
 		break;
 	case 'R':
 		Server::instance()->queueAction( RELOAD_SCRIPTS );
 		break;
 	case '?':
-		Console::instance()->send("Console commands:\n");
-		Console::instance()->send("	Q: Shutdown the server.\n");
-		Console::instance()->send("	# - Save world\n" );
-		Console::instance()->send("	W - Display logged in characters\n" );
-		Console::instance()->send("	A - Reload accounts\n" );
-		Console::instance()->send("	R - Reload scripts\n" );
-		Console::instance()->send("	S - Toggle Secure mode " );
-		if( Server::instance()->getSecure() )
+		Console::instance()->send( "Console commands:\n" );
+		Console::instance()->send( "	Q: Shutdown the server.\n" );
+		Console::instance()->send( "	# - Save world\n" );
+		Console::instance()->send( "	W - Display logged in characters\n" );
+		Console::instance()->send( "	A - Reload accounts\n" );
+		Console::instance()->send( "	R - Reload scripts\n" );
+		Console::instance()->send( "	S - Toggle Secure mode " );
+		if ( Server::instance()->getSecure() )
 			Console::instance()->send( "[enabled]\n" );
 		else
 			Console::instance()->send( "[disabled]\n" );
@@ -187,9 +192,9 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 	return true;
 }
 
-void cConsole::queueCommand( const QString &command )
+void cConsole::queueCommand( const QString& command )
 {
-	QMutexLocker lock(&commandMutex);
+	QMutexLocker lock( &commandMutex );
 	commandQueue.push_back( command );
 }
 

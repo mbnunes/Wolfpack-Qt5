@@ -46,7 +46,7 @@ class cDefManagerPrivate;
 
 enum eDefCategory
 {
-	WPDT_ITEM = 0,
+	WPDT_ITEM			= 0,
 	WPDT_SCRIPT,
 	WPDT_NPC,
 	WPDT_LIST,
@@ -67,12 +67,13 @@ enum eDefCategory
 	WPDT_SKILLCHECK,
 	WPDT_DEFINE,
 	WPDT_RESOURCE,
- 	WPDT_CONTEXTMENU,
+	WPDT_CONTEXTMENU,
 	WPDT_AI,
 	WPDT_COUNT
 };
 
-class cElement : public cPythonScriptable {
+class cElement : public cPythonScriptable
+{
 private:
 	struct stAttribute
 	{
@@ -83,13 +84,13 @@ private:
 	QCString name_; // Tag Name spell for <spell i.e.
 	QString text_; // This is not really a well implemented approach. this is subject to change
 
-	cElement *parent_;
+	cElement* parent_;
 
 	unsigned int childCount_;
-	cElement **children; // Array of Childs
+	cElement** children; // Array of Childs
 
 	unsigned int attrCount_;
-	stAttribute **attributes; // Attributes
+	stAttribute** attributes; // Attributes
 
 	void freeAttributes();
 	void freeChildren();
@@ -98,37 +99,38 @@ public:
 	cElement();
 	virtual ~cElement();
 
-	void copyAttributes( const QXmlAttributes &attributes );
-	void addChild( cElement *element );
+	void copyAttributes( const QXmlAttributes& attributes );
+	void addChild( cElement* element );
 
-	void removeChild( cElement *element );
-	const cElement *findChild( const QString &name ) const;
-	const cElement *getChild( unsigned int index ) const;
+	void removeChild( cElement* element );
+	const cElement* findChild( const QString& name ) const;
+	const cElement* getChild( unsigned int index ) const;
 	unsigned int childCount() const;
-	bool hasAttribute( const QCString &name ) const;
-	const QString &getAttribute( const QCString &name, const QString &def = QString::null ) const;
+	bool hasAttribute( const QCString& name ) const;
+	const QString& getAttribute( const QCString& name, const QString& def = QString::null ) const;
 
-	void setName( const QCString &data );
-	const QCString &name() const;
+	void setName( const QCString& data );
+	const QCString& name() const;
 
-	void setText( const QString &data );
-	const QString &text() const;
+	void setText( const QString& data );
+	const QString& text() const;
 
-	void setParent( cElement *parent );
-	const cElement *parent() const;
+	void setParent( cElement* parent );
+	const cElement* parent() const;
 
 	QString value() const;
 
-	const cElement *getTopmostParent() const;
+	const cElement* getTopmostParent() const;
 
-	PyObject *getPyObject();
-	const char *className() const;
-	bool implements(const QString &name) const;
+	PyObject* getPyObject();
+	const char* className() const;
+	bool implements( const QString& name ) const;
 };
 
-class cDefinitions : public cComponent {
+class cDefinitions : public cComponent
+{
 private:
-	cDefManagerPrivate *impl;
+	cDefManagerPrivate* impl;
 
 public:
 	cDefinitions();
@@ -140,7 +142,7 @@ public:
 
 	bool ImportSections( const QString& FileName );
 	const cElement* getDefinition( eDefCategory Type, const QString& id ) const;
-	const QValueVector< cElement* > &getDefinitions( eDefCategory Type ) const;
+	const QValueVector<cElement*>& getDefinitions( eDefCategory Type ) const;
 
 	QStringList getSections( eDefCategory Type ) const;
 	QString getRandomListEntry( const QString& ListSection );
@@ -148,7 +150,7 @@ public:
 	QString getText( const QString& TextSection ) const;
 
 protected:
-	QMap< QString, QStringList >	listcache_;
+	QMap<QString, QStringList> listcache_;
 };
 
 typedef SingletonHolder<cDefinitions> Definitions;

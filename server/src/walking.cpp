@@ -61,7 +61,7 @@ using namespace std;
 // These are defines that I'll use. I have a history of working with properties, so that's why
 // I'm using custom definitions here versus what may be defined in the other includes.
 // NOTE: P = Property, P_C = Property for Characters, P_PF = Property for Pathfinding
-//       P_M = Property for Movement
+//  	 P_M = Property for Movement
 
 #define P_C_PRIV_GM			0x01	// GM Privilege Bit
 #define P_C_PRIV_COUNSELOR	0x80	// Counselor Privilege Bit
@@ -95,10 +95,10 @@ using namespace std;
 // This is my attempt to rewriting the walking code. I'm going to take the code and documentation
 // that others before me have used and incorporate my little (big?) fixes and comments.
 // Many thanks to all of the previous contributors, and I hope these changes help out.
-// fur            : 1999.10.27 - rewrite of walking.cpp with documentation!
-//                : 1999.10.27 - ripped apart walking into smaller functions
-// Tauriel        : 1999.03.06 - For all of the region stuff
-// knoxos         : 2000.08.?? - For finally making use of the flags, and height blocking
+// fur  		  : 1999.10.27 - rewrite of walking.cpp with documentation!
+//  			  : 1999.10.27 - ripped apart walking into smaller functions
+// Tauriel  	  : 1999.03.06 - For all of the region stuff
+// knoxos   	  : 2000.08.?? - For finally making use of the flags, and height blocking
 // DarkStorm	  : 2002.06.19 - Cleaning up the mess
 
 // To clear things up, we only need to care about
@@ -111,7 +111,9 @@ struct stBlockItem
 	UINT8 height;
 	bool walkable;
 
-	stBlockItem(): walkable( false ), height( 0 ), z( -128 ) {}
+	stBlockItem() : walkable( false ), height( 0 ), z( -128 )
+	{
+	}
 };
 
 // Keep in mind that this only get's called when
@@ -123,17 +125,17 @@ bool checkWalkable( P_CHAR pChar, UINT16 tileId )
 
 struct compareTiles : public std::binary_function<stBlockItem, stBlockItem, bool>
 {
-	bool operator()(stBlockItem a, stBlockItem b)
+	bool operator()( stBlockItem a, stBlockItem b )
 	{
-		return ( (a.height+a.z) > (b.height+b.z) );
+		return ( ( a.height + a.z ) > ( b.height + b.z ) );
 	}
 };
 
 // The highest items will be @ the beginning
 // While walking we always will try the highest first.
-vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
+vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 {
-	vector< stBlockItem > blockList;
+	vector<stBlockItem> blockList;
 	make_heap( blockList.begin(), blockList.end(), compareTiles() );
 
 	// Process the map at that position
@@ -147,26 +149,27 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 	land_st mapTile = TileCache::instance()->getLand( mapCell.id );
 
 	// If it's not impassable it's automatically walkable
-	if (!(mapTile.flag1 & 0x40))
+	if ( !( mapTile.flag1 & 0x40 ) )
 		mapBlock.walkable = true;
 	else
 		mapBlock.walkable = checkWalkable( pChar, mapCell.id );
 
-	if (mapCell.id != 0x02) {
+	if ( mapCell.id != 0x02 )
+	{
 		blockList.push_back( mapBlock );
 		push_heap( blockList.begin(), blockList.end(), compareTiles() );
 	}
 
-    // Now for the static-items
+	// Now for the static-items
 	StaticsIterator staIter = Maps::instance()->staticsIterator( pos, true );
-	for( ; !staIter.atEnd(); ++staIter )
+	for ( ; !staIter.atEnd(); ++staIter )
 	{
 		tile_st tTile = TileCache::instance()->getTile( staIter->itemid );
 
 		// Here is decided if the tile is needed
 		// It's uninteresting if it's NOT blocking
 		// And NOT a bridge/surface
-		if( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
+		if ( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
 			continue;
 
 		stBlockItem staticBlock;
@@ -174,14 +177,14 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 
 		// If we are a surface we can always walk here, otherwise check if
 		// we are special
-		if( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
+		if ( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
 			staticBlock.walkable = true;
 		else
 			staticBlock.walkable = checkWalkable( pChar, staIter->itemid );
 
 		// If we are a stair only the half height counts
-		if( tTile.flag2 & 0x04 )
-			staticBlock.height = (UINT8)( tTile.height / 2 );
+		if ( tTile.flag2 & 0x04 )
+			staticBlock.height = ( UINT8 ) ( tTile.height / 2 );
 		else
 			staticBlock.height = tTile.height;
 
@@ -190,33 +193,33 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 	}
 
 	RegionIterator4Items iIter( pos );
-	for( iIter.Begin(); !iIter.atEnd(); iIter++ )
+	for ( iIter.Begin(); !iIter.atEnd(); iIter++ )
 	{
 		P_ITEM pItem = iIter.GetData();
 
-		if( !pItem )
+		if ( !pItem )
 			continue;
 
-		if( pItem->id() >= 0x4000 )
+		if ( pItem->id() >= 0x4000 )
 		{
 			MultiDefinition* def = MultiCache::instance()->getMulti( pItem->id() - 0x4000 );
 			if ( !def )
 				continue;
 			QValueVector<multiItem_st> multi = def->getEntries();
 			unsigned int j;
-			for ( j = 0; j < multi.size(); ++j)
+			for ( j = 0; j < multi.size(); ++j )
 			{
-				if ( multi[j].visible && ( pItem->pos().x + multi[j].x == pos.x) && ( pItem->pos().y + multi[j].y == pos.y ) )
+				if ( multi[j].visible && ( pItem->pos().x + multi[j].x == pos.x ) && ( pItem->pos().y + multi[j].y == pos.y ) )
 				{
 					tile_st tTile = TileCache::instance()->getTile( multi[j].tile );
-					if( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
+					if ( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
 						continue;
 
 					stBlockItem blockItem;
 					blockItem.height = tTile.height;
 					blockItem.z = pItem->pos().z + multi[j].z;
 
-					if( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
+					if ( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
 						blockItem.walkable = true;
 					else
 						blockItem.walkable = checkWalkable( pChar, pItem->id() );
@@ -226,21 +229,24 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 				}
 			}
 			continue;
-		} else if (pChar->isDead()) {
+		}
+		else if ( pChar->isDead() )
+		{
 			// Doors can be passed by ghosts
-			if (pItem->hasEvent("door")) {
+			if ( pItem->hasEvent( "door" ) )
+			{
 				continue;
 			}
 		}
 
 		// They need to be at the same x,y,plane coords
-		if( ( pItem->pos().x != pos.x ) || ( pItem->pos().y != pos.y ) || ( pItem->pos().map != pos.map ) )
+		if ( ( pItem->pos().x != pos.x ) || ( pItem->pos().y != pos.y ) || ( pItem->pos().map != pos.map ) )
 			continue;
 
 		tile_st tTile = TileCache::instance()->getTile( pItem->id() );
 
 		// Se above for what the flags mean
-		if( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
+		if ( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
 			continue;
 
 		stBlockItem blockItem;
@@ -248,7 +254,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 		blockItem.z = pItem->pos().z;
 
 		// Once again: see above for a description of this part
-		if( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
+		if ( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
 			blockItem.walkable = true;
 		else
 			blockItem.walkable = checkWalkable( pChar, pItem->id() );
@@ -266,20 +272,20 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 
 // May a character walk here ?
 // If yes we auto. set the new z value for pos
-bool mayWalk( P_CHAR pChar, Coord_cl &pos )
+bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 {
 	// Go trough the array top-to-bottom and check
 	// If we find a tile to walk on
-	vector< stBlockItem > blockList = getBlockingItems( pChar, pos );
+	vector<stBlockItem> blockList = getBlockingItems( pChar, pos );
 	bool found = false;
 	UINT32 i;
 	bool priviledged = false;
 
-	P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
+	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
 
 	priviledged = player && player->isGM();
 
-	for( i = 0; i < blockList.size(); ++i )
+	for ( i = 0; i < blockList.size(); ++i )
 	{
 		stBlockItem item = blockList[i];
 		INT8 itemTop = ( item.z + item.height );
@@ -287,7 +293,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 		// If we encounter any object with itemTop <= pos.z which is NOT walkable
 		// Then we can as well just return false as while falling we would be
 		// blocked by that object
-		if( !item.walkable && !priviledged && itemTop < pos.z)
+		if ( !item.walkable && !priviledged && itemTop < pos.z )
 			return false;
 
 		// If the top of the item is within our max-climb reach
@@ -295,7 +301,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 		// check if the "bottom" of the item is reachable
 		// I would say 2 is a good "reach" value for the bottom
 		// of any item
-		if( (item.walkable || priviledged) && ( itemTop <= pos.z + P_M_MAX_Z_CLIMB ) && ( itemTop >= pos.z - P_M_MAX_Z_FALL ) /*&& ( item.z <= pos.z + 2 )*/ )
+		if ( ( item.walkable || priviledged ) && ( itemTop <= pos.z + P_M_MAX_Z_CLIMB ) && ( itemTop >= pos.z - P_M_MAX_Z_FALL ) /*&& ( item.z <= pos.z + 2 )*/ )
 		{
 			pos.z = itemTop;
 			found = true;
@@ -303,18 +309,18 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 		}
 	}
 
-	if (priviledged)
+	if ( priviledged )
 	{
 		return true;
 	}
 
 	// If we're still at the same position
 	// We didn't find anything to step on
-	if( !found )
+	if ( !found )
 		return false;
 
 	// Another loop *IS* needed here (at least that's what i think)
-	for( i = 0; i < blockList.size(); ++i )
+	for ( i = 0; i < blockList.size(); ++i )
 	{
 		// So we know about the new Z position we are moving to
 		// Lets check if there is enough space ABOVE that position (at least 15 z units)
@@ -324,20 +330,20 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 
 		// Does the top of the item looms into our space
 		// Like before 15 is the assumed height of ourself
-		if( ( itemTop > pos.z ) && ( itemTop < pos.z + P_M_MAX_Z_BLOCKS ) )
+		if ( ( itemTop > pos.z ) && ( itemTop < pos.z + P_M_MAX_Z_BLOCKS ) )
 			return false;
 
 		// Or the bottom ?
-		if( ( item.z > pos.z ) && ( item.z < pos.z + P_M_MAX_Z_BLOCKS ) )
+		if ( ( item.z > pos.z ) && ( item.z < pos.z + P_M_MAX_Z_BLOCKS ) )
 			return false;
 
 		// Or does it spread the whole range ?
-		if( ( item.z <= pos.z ) && ( itemTop >= pos.z + P_M_MAX_Z_BLOCKS ) )
+		if ( ( item.z <= pos.z ) && ( itemTop >= pos.z + P_M_MAX_Z_BLOCKS ) )
 			return false;
 
 		// If the Item Tops are already below our current position exit the
 		// loop, we're sorted by those !
-		if( itemTop <= pos.z )
+		if ( itemTop <= pos.z )
 			break;
 	}
 
@@ -354,7 +360,7 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 {
 	Coord_cl dPos = pChar->pos();
 
-	if( pItem->onCollide( pChar ) )
+	if ( pItem->onCollide( pChar ) )
 		return true;
 
 	return false;
@@ -365,34 +371,44 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 	handles collisions with teleporters
 	or damaging items.
 */
-void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
+void handleItems( P_CHAR pChar, const Coord_cl& oldpos )
 {
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
 
-	cItemSectorIterator *iter = SectorMaps::instance()->findItems(pChar->pos(), BUILDRANGE);
-	for (cItem *pItem = iter->first(); pItem; pItem = iter->next()) {
+	cItemSectorIterator* iter = SectorMaps::instance()->findItems( pChar->pos(), BUILDRANGE );
+	for ( cItem*pItem = iter->first(); pItem; pItem = iter->next() )
+	{
 		// Check for item collisions here.
-		if (pChar->pos().x == pItem->pos().x && pChar->pos().y == pItem->pos().y) {
-			if (pItem->pos().z >= pChar->pos().z - 15 && pItem->pos().z <= pChar->pos().z + 15) {
-				if (handleItemCollision(pChar, pItem)) {
+		if ( pChar->pos().x == pItem->pos().x && pChar->pos().y == pItem->pos().y )
+		{
+			if ( pItem->pos().z >= pChar->pos().z - 15 && pItem->pos().z <= pChar->pos().z + 15 )
+			{
+				if ( handleItemCollision( pChar, pItem ) )
+				{
 					break;
 				}
 			}
 		}
 
 		// If we are a connected player then send new items
-		if (player && player->socket()) {
+		if ( player && player->socket() )
+		{
 			UI32 oldDist = oldpos.distance( pItem->pos() );
 			UI32 newDist = pChar->pos().distance( pItem->pos() );
 
 			// Was out of range before and now is in range
-			if (pItem->isMulti()) {
-				if ((oldDist >= BUILDRANGE) && (newDist < BUILDRANGE)) {
-					pItem->update(player->socket());
+			if ( pItem->isMulti() )
+			{
+				if ( ( oldDist >= BUILDRANGE ) && ( newDist < BUILDRANGE ) )
+				{
+					pItem->update( player->socket() );
 				}
-			} else {
-				if ((oldDist >= player->visualRange()) && (newDist < player->visualRange())) {
-					pItem->update(player->socket());
+			}
+			else
+			{
+				if ( ( oldDist >= player->visualRange() ) && ( newDist < player->visualRange() ) )
+				{
+					pItem->update( player->socket() );
 				}
 			}
 		}
@@ -404,29 +420,29 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 */
 void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 {
-	if( !pChar )
+	if ( !pChar )
 		return;
 
 	// Scripting
-	if( pChar->onWalk( dir, sequence ) )
+	if ( pChar->onWalk( dir, sequence ) )
 		return;
 
-/*	if( !isValidDirection( dir ) )
-	{
-		pChar->setPathNum( pChar->pathnum() + PATHNUM );
-		return;
-	}*/
+	/*	if( !isValidDirection( dir ) )
+		{
+			pChar->setPathNum( pChar->pathnum() + PATHNUM );
+			return;
+		}*/
 
-	P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
+	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
 
 	// Is the sequence in order ?
-	if( player && player->socket() && !verifySequence( player->socket(), sequence ) )
+	if ( player && player->socket() && !verifySequence( player->socket(), sequence ) )
 		return;
 
 	// If checking for weight is more expensive, shouldn't we check for frozen first?
-	if( pChar->isFrozen() )
+	if ( pChar->isFrozen() )
 	{
-		if( player && player->socket() )
+		if ( player && player->socket() )
 			player->socket()->denyMove( sequence );
 		return;
 	}
@@ -444,40 +460,43 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	bool turning = dir != pChar->direction();
 
 	// This happens if we're moving
-	if (!turning) {
+	if ( !turning )
+	{
 		// Note: Do NOT use the copy constructor as it'll create a reference
 		Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos() );
 
 		// Check if the stamina parameters
-		if( player && !consumeStamina( player, running ) )
+		if ( player && !consumeStamina( player, running ) )
 		{
-			if( player->socket() )
+			if ( player->socket() )
 				player->socket()->denyMove( sequence );
 			return;
 		}
 
 		// Check for Characters in our way
-		if( !checkObstacles( pChar, newCoord, running ) )
+		if ( !checkObstacles( pChar, newCoord, running ) )
 		{
-			if( player && player->socket() )
+			if ( player && player->socket() )
 				player->socket()->denyMove( sequence );
 			return;
 		}
 
 		// Check if the char can move to those new coordinates
 		// It is going to automatically calculate the new coords (!)
-		if (!mayWalk(pChar, newCoord))
+		if ( !mayWalk( pChar, newCoord ) )
 		{
-			if( player && player->socket() )
+			if ( player && player->socket() )
 				player->socket()->denyMove( sequence );
 			return;
-		} else {
-			if (player && player->socket())
-				player->socket()->allowMove(sequence);
+		}
+		else
+		{
+			if ( player && player->socket() )
+				player->socket()->allowMove( sequence );
 		}
 
 		// Check if we're going to collide with characters
-		if( !player && CheckForCharacterAtXYZ( pChar, newCoord ) )
+		if ( !player && CheckForCharacterAtXYZ( pChar, newCoord ) )
 		{
 			P_NPC npc = dynamic_cast<P_NPC>( pChar );
 			if ( npc )
@@ -488,66 +507,77 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		}
 
 		// We moved so let's update our location
-		pChar->moveTo(newCoord);
-		pChar->setLastMovement(Server::instance()->time());
+		pChar->moveTo( newCoord );
+		pChar->setLastMovement( Server::instance()->time() );
 		checkStealth( pChar ); // Reveals the user if neccesary
-	} else {
-		if( player && player->socket() )
+	}
+	else
+	{
+		if ( player && player->socket() )
 			player->socket()->allowMove( sequence );
 	}
 
 	// do all of the following regardless of whether turning or moving i guess
 	// set the player direction to contain only the cardinal direction bits
-	pChar->setDirection(dir);
+	pChar->setDirection( dir );
 
 	RegionIterator4Chars ri( pChar->pos() );
-	for( ri.Begin(); !ri.atEnd(); ri++ ) {
+	for ( ri.Begin(); !ri.atEnd(); ri++ )
+	{
 		P_CHAR observer = ri.GetData();
 
-		if (observer == pChar) {
+		if ( observer == pChar )
+		{
 			continue;
 		}
 
-		unsigned int distance = observer->pos().distance(oldpos);
+		unsigned int distance = observer->pos().distance( oldpos );
 
 		// If we are a player, send us new characters
-		if (player && player->socket()) {
-			if (distance > player->visualRange()) {
-				player->socket()->sendChar(observer); // We were previously out of range.
+		if ( player && player->socket() )
+		{
+			if ( distance > player->visualRange() )
+			{
+				player->socket()->sendChar( observer ); // We were previously out of range.
 			}
 		}
 
 		// Send our movement to the observer
-		P_PLAYER otherplayer = dynamic_cast<P_PLAYER>(observer);
+		P_PLAYER otherplayer = dynamic_cast<P_PLAYER>( observer );
 
-		if (otherplayer && otherplayer->socket()) {
-			if (distance > otherplayer->visualRange()) {
-				otherplayer->socket()->sendChar(pChar); // Previously we were out of range
-			} else {
-				otherplayer->socket()->updateChar(pChar); // Previously we were already known
+		if ( otherplayer && otherplayer->socket() )
+		{
+			if ( distance > otherplayer->visualRange() )
+			{
+				otherplayer->socket()->sendChar( pChar ); // Previously we were out of range
+			}
+			else
+			{
+				otherplayer->socket()->updateChar( pChar ); // Previously we were already known
 			}
 		}
 	}
 
 	// If we really moved handle teleporters and new items
-	if (!turning) {
-		handleItems(pChar, oldpos);
-		handleTeleporters(pChar, oldpos);
+	if ( !turning )
+	{
+		handleItems( pChar, oldpos );
+		handleTeleporters( pChar, oldpos );
 	}
 }
 
-bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos )
+bool cMovement::CheckForCharacterAtXYZ( P_CHAR pc, const Coord_cl& pos )
 {
 	RegionIterator4Chars ri( pos );
-	for( ri.Begin(); !ri.atEnd(); ri++ )
+	for ( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR pc_i = ri.GetData();
-		if( pc_i != NULL )
+		if ( pc_i != NULL )
 		{
-			if( pc_i != pc && !pc_i->isHidden() && !pc_i->isInvisible() )
+			if ( pc_i != pc && !pc_i->isHidden() && !pc_i->isInvisible() )
 			{
 				// x=x,y=y, and distance btw z's <= MAX STEP
-				if ((pc_i->pos().x == pos.x) && (pc_i->pos().y == pos.y) && (abs(pc_i->pos().z-pos.z) <= P_M_MAX_Z_CLIMB))
+				if ( ( pc_i->pos().x == pos.x ) && ( pc_i->pos().y == pos.y ) && ( abs( pc_i->pos().z - pos.z ) <= P_M_MAX_Z_CLIMB ) )
 				{
 					return true;
 				}
@@ -559,15 +589,18 @@ bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos )
 
 // if we have a valid socket, see if we need to deny the movement request because of
 // something to do with the walk sequence being out of sync.
-bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw() {
-	if ((socket->walkSequence() == 0 && sequence != 0)) {
+bool cMovement::verifySequence( cUOSocket* socket, Q_UINT8 sequence ) throw()
+{
+	if ( ( socket->walkSequence() == 0 && sequence != 0 ) )
+	{
 		return false;
 	}
 
 	// Simply ignore this packet.
 	// It's out of sync
-	if (socket->walkSequence() != sequence) {
-		socket->denyMove(sequence);
+	if ( socket->walkSequence() != sequence )
+	{
+		socket->denyMove( sequence );
 		return false;
 	}
 
@@ -575,17 +608,17 @@ bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw() {
 }
 
 // This only gets called when running
-void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
+void cMovement::checkRunning( cUOSocket* socket, P_CHAR pChar, Q_UINT8 dir )
 {
 	signed short tempshort;
 
 	// Don't regenerate stamina while running
-	pChar->setRegenStaminaTime(Server::instance()->time() + floor(pChar->getStaminaRate() * 1000));
-	pChar->setRunningSteps(pChar->runningSteps() + 1);
+	pChar->setRegenStaminaTime( Server::instance()->time() + floor( pChar->getStaminaRate() * 1000 ) );
+	pChar->setRunningSteps( pChar->runningSteps() + 1 );
 
 	// If we're running on our feet, check for stamina loss
 	// Crap
-	if( !pChar->isDead() && !pChar->atLayer( cBaseChar::Mount ) && pChar->runningSteps() > ( Config::instance()->runningStamSteps() ) * 2 )
+	if ( !pChar->isDead() && !pChar->atLayer( cBaseChar::Mount ) && pChar->runningSteps() > ( Config::instance()->runningStamSteps() ) * 2 )
 	{
 		// The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
 		// ^^ WTF?
@@ -597,24 +630,28 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 
 void cMovement::checkStealth( P_CHAR pChar )
 {
-	if (pChar->isHidden() && !pChar->isInvisible()) {
+	if ( pChar->isHidden() && !pChar->isInvisible() )
+	{
 		// We have not enough steps left
-		if (pChar->stealthedSteps() <= 0) {
+		if ( pChar->stealthedSteps() <= 0 )
+		{
 			pChar->unhide();
-		} else {
-			pChar->setStealthedSteps(pChar->stealthedSteps() - 1);
+		}
+		else
+		{
+			pChar->setStealthedSteps( pChar->stealthedSteps() - 1 );
 		}
 	}
 }
 
-void cMovement::handleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
+void cMovement::handleTeleporters( P_CHAR pc, const Coord_cl& oldpos )
 {
 	cTerritory* territory = pc->region();
 
-	if( !territory )
+	if ( !territory )
 		Territories::instance()->check( pc );
 
-	if( territory && pc->pos() != oldpos )
+	if ( territory && pc->pos() != oldpos )
 	{
 		if ( territory->haveTeleporters() )
 		{
@@ -622,12 +659,13 @@ void cMovement::handleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
 			if ( territory->findTeleporterSpot( destination ) )
 			{
 				bool quick = pc->pos().map != destination.map;
-				pc->removeFromView(false);
-				pc->moveTo(destination);
-				pc->resend(false);
-				P_PLAYER player = dynamic_cast<P_PLAYER>(pc);
-				if (player && player->socket()) {
-					player->socket()->resendPlayer(quick);
+				pc->removeFromView( false );
+				pc->moveTo( destination );
+				pc->resend( false );
+				P_PLAYER player = dynamic_cast<P_PLAYER>( pc );
+				if ( player && player->socket() )
+				{
+					player->socket()->resendPlayer( quick );
 					player->socket()->resendWorld();
 				}
 			}
@@ -641,19 +679,27 @@ void cMovement::handleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
 */
 Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords )
 {
-	Coord_cl newCoords(oldCoords);
+	Coord_cl newCoords( oldCoords );
 
 	// We're not switching the running flag
-	switch( dir&0x07 )
+	switch ( dir & 0x07 )
 	{
-		case 0x00: newCoords.y--; break;
-		case 0x01: newCoords.y--; newCoords.x++; break;
-		case 0x02: newCoords.x++; break;
-		case 0x03: newCoords.y++; newCoords.x++; break;
-		case 0x04: newCoords.y++; break;
-		case 0x05: newCoords.y++; newCoords.x--; break;
-		case 0x06: newCoords.x--; break;
-		case 0x07: newCoords.y--; newCoords.x--; break;
+	case 0x00:
+		newCoords.y--; break;
+	case 0x01:
+		newCoords.y--; newCoords.x++; break;
+	case 0x02:
+		newCoords.x++; break;
+	case 0x03:
+		newCoords.y++; newCoords.x++; break;
+	case 0x04:
+		newCoords.y++; break;
+	case 0x05:
+		newCoords.y++; newCoords.x--; break;
+	case 0x06:
+		newCoords.x--; break;
+	case 0x07:
+		newCoords.y--; newCoords.x--; break;
 	};
 
 	return newCoords;
@@ -666,17 +712,17 @@ Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords )
 bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 {
 	// TODO: Stamina loss is disabled for now -- Weight system needs to be rediscussed
-//	return true;
+	//	return true;
 
 	// Weight percent
 	float allowedWeight = ( pChar->strength() * WEIGHT_PER_STR ) + 30;
-	float load = ceilf( ( pChar->weight() / allowedWeight ) * 100) / 100;
+	float load = ceilf( ( pChar->weight() / allowedWeight ) * 100 ) / 100;
 
-	if( running )
+	if ( running )
 		load = ceilf( load * 200 ) / 100;
 
 	// 200% load is too much
-	if( load >= 200 )
+	if ( load >= 200 )
 	{
 		pChar->socket()->sysMessage( tr( "You are too overloaded to move." ) );
 		return false;
@@ -686,12 +732,12 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 	float overweight = load - 100;
 
 	// We're not overloaded so we dont need additional stamina
-	if( overweight < 0 )
+	if ( overweight < 0 )
 		return true;
 
-	float requiredStamina = ceilf( (float)((double)( (double)overweight * 0.10f ) * (double)pChar->weight()) * 100 ) / 100;
+	float requiredStamina = ceilf( ( float ) ( ( double ) ( ( double ) overweight * 0.10f ) * ( double ) pChar->weight() ) * 100 ) / 100;
 
-	if( pChar->stamina() < requiredStamina )
+	if ( pChar->stamina() < requiredStamina )
 	{
 		pChar->sysmessage( tr( "You are too exhausted to move" ) );
 		return false;
@@ -704,30 +750,29 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 	This checks the new tile we're moving to
 	for Character we could eventually bump into.
 */
-bool cMovement::checkObstacles( P_CHAR pChar, const Coord_cl &newPos, bool running )
+bool cMovement::checkObstacles( P_CHAR pChar, const Coord_cl& newPos, bool running )
 {
 	// TODO: insert code here
 	return true;
 }
 
-UINT16 DynTile( const Coord_cl &pos )
+UINT16 DynTile( const Coord_cl& pos )
 {
 	RegionIterator4Items ri( pos );
-	for( ri.Begin(); !ri.atEnd(); ri++ )
+	for ( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_ITEM mapitem = ri.GetData();
-		if( mapitem )
+		if ( mapitem )
 		{
-			if( mapitem->isMulti() )
+			if ( mapitem->isMulti() )
 			{
 				MultiDefinition* def = MultiCache::instance()->getMulti( mapitem->id() - 0x4000 );
 				if ( !def )
 					return 0;
 				QValueVector<multiItem_st> multi = def->getEntries();
-				for( UINT32 j = 0; j < multi.size(); ++j )
+				for ( UINT32 j = 0; j < multi.size(); ++j )
 				{
-					if( ( multi[j].visible && ( mapitem->pos().x + multi[j].x == pos.x ) && ( mapitem->pos().y + multi[j].y == pos.y )
-						&& ( abs( mapitem->pos().z + multi[j].z - pos.z ) <= 1 ) ) )
+					if ( ( multi[j].visible && ( mapitem->pos().x + multi[j].x == pos.x ) && ( mapitem->pos().y + multi[j].y == pos.y ) && ( abs( mapitem->pos().z + multi[j].z - pos.z ) <= 1 ) ) )
 					{
 						return multi[j].tile;
 					}
@@ -736,20 +781,19 @@ UINT16 DynTile( const Coord_cl &pos )
 			else if ( mapitem->pos() == pos )
 				return mapitem->id();
 		}
-
 	}
-	return (UINT16)-1;
+	return ( UINT16 ) - 1;
 }
 
 bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 {
-	if( pos.x >= ( Maps::instance()->mapTileWidth(pos.map) * 8 ) || pos.y >= ( Maps::instance()->mapTileHeight(pos.map) * 8 ) )
+	if ( pos.x >= ( Maps::instance()->mapTileWidth( pos.map ) * 8 ) || pos.y >= ( Maps::instance()->mapTileHeight( pos.map ) * 8 ) )
 		return false;
 
 	const signed char elev = Maps::instance()->mapElevation( pos );
 	Coord_cl target = pos;
 	target.z = elev;
-	if (ILLEGAL_Z == elev)
+	if ( ILLEGAL_Z == elev )
 		return false;
 
 	// get the tile id of any dynamic tiles at this spot
@@ -761,32 +805,34 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 	// if it does block, might as well INT16-circuit and return right away
 	if ( dt >= 0 )
 	{
-		tile_st tile = TileCache::instance()->getTile(dt);
+		tile_st tile = TileCache::instance()->getTile( dt );
 		if ( tile.isBlocking() || tile.isWet() )
 			return false;
 	}
 
 	// if there's a static block here in our way, return false
 	StaticsIterator msi = Maps::instance()->staticsIterator( pos );
-	while (!msi.atEnd()) {
+	while ( !msi.atEnd() )
+	{
 		tile_st tile = TileCache::instance()->getTile( msi->itemid );
-		const INT32 elev = msi->zoff + cTileCache::tileHeight(tile);
-		if( (elev >= pos.z) && (msi->zoff <= pos.z ) )
+		const INT32 elev = msi->zoff + cTileCache::tileHeight( tile );
+		if ( ( elev >= pos.z ) && ( msi->zoff <= pos.z ) )
 		{
-			if (tile.isBlocking() || tile.isWet())
+			if ( tile.isBlocking() || tile.isWet() )
 				return false;
 		}
 		msi++;
 	}
 
-	RegionIterator4Items items(pos, 0);
-	for (items.Begin(); !items.atEnd(); items++) {
+	RegionIterator4Items items( pos, 0 );
+	for ( items.Begin(); !items.atEnd(); items++ )
+	{
 		P_ITEM item = items.GetData();
-		tile_st tile = TileCache::instance()->getTile(item->id());
-		const INT32 elev = item->pos().z + cTileCache::tileHeight(tile);
-		if( (elev >= pos.z) && (item->pos().z  <= pos.z ) )
+		tile_st tile = TileCache::instance()->getTile( item->id() );
+		const INT32 elev = item->pos().z + cTileCache::tileHeight( tile );
+		if ( ( elev >= pos.z ) && ( item->pos().z <= pos.z ) )
 		{
-			if (tile.isBlocking() || tile.isWet())
+			if ( tile.isBlocking() || tile.isWet() )
 				return false;
 		}
 	}

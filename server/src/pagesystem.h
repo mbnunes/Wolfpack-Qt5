@@ -61,32 +61,82 @@ public:
 		pagecateg_ = 0;
 	}
 
-	cPage() {}
+	cPage()
+	{
+	}
 
-	~cPage() {}
+	~cPage()
+	{
+	}
 
-	SERIAL charSerial() const { return charserial_; }
-	WPPAGE_TYPE pageType() const { return pagetype_; }
-	QString pageTime() const { return pagetime_; }
-	Coord_cl pagePos() const { return pagepos_; }
-	QString content() const { return content_; }
-	UINT32 pageCategory() const { return pagecateg_; }
+	SERIAL charSerial() const
+	{
+		return charserial_;
+	}
+	WPPAGE_TYPE pageType() const
+	{
+		return pagetype_;
+	}
+	QString pageTime() const
+	{
+		return pagetime_;
+	}
+	Coord_cl pagePos() const
+	{
+		return pagepos_;
+	}
+	QString content() const
+	{
+		return content_;
+	}
+	UINT32 pageCategory() const
+	{
+		return pagecateg_;
+	}
 
-	void setCharSerial( SERIAL data ) { charserial_ = data; }
-	void setPageType( WPPAGE_TYPE data ) { pagetype_ = data; }
-	void setPagePos( Coord_cl data ) { pagepos_ = data; }
-	void setPageTime( void ) { pagetime_ = QDateTime::currentDateTime().toString(); }
-	void setPageTime( QString data ) { pagetime_ = data; }
-	void setContent( QString data ) { content_ = data; }
-	void setPageCategory( UINT32 data ) { pagecateg_ = data; }
+	void setCharSerial( SERIAL data )
+	{
+		charserial_ = data;
+	}
+	void setPageType( WPPAGE_TYPE data )
+	{
+		pagetype_ = data;
+	}
+	void setPagePos( Coord_cl data )
+	{
+		pagepos_ = data;
+	}
+	void setPageTime( void )
+	{
+		pagetime_ = QDateTime::currentDateTime().toString();
+	}
+	void setPageTime( QString data )
+	{
+		pagetime_ = data;
+	}
+	void setContent( QString data )
+	{
+		content_ = data;
+	}
+	void setPageCategory( UINT32 data )
+	{
+		pagecateg_ = data;
+	}
 };
 
-class cPagesManager : public std::deque< cPage* >
+class cPagesManager : public std::deque<cPage*>
 {
 protected:
-	cPagesManager() {}
-	cPagesManager(cPagesManager&) {} // Unallow copy constructor
-	cPagesManager& operator=(cPagesManager&) { return *this; } // Unallow Assignment
+	cPagesManager()
+	{
+	}
+	cPagesManager( cPagesManager& )
+	{
+	} // Unallow copy constructor
+	cPagesManager& operator=( cPagesManager& )
+	{
+		return *this;
+	} // Unallow Assignment
 public:
 	void save()
 	{
@@ -94,9 +144,9 @@ public:
 
 		int i = 0;
 		cPagesManager::const_iterator it = begin();
-		while( it != end() )
+		while ( it != end() )
 		{
-			cPage *page = *it;
+			cPage* page = *it;
 
 			QString sql( "REPLACE INTO pages SET charserial = '%1', pagetype = '%2', pagetime = '%3', pagepos = '%4', content = '%5', category = '%6', pageorder = '%7'" );
 			sql = sql.arg( page->charSerial() ).arg( page->pageType() ).arg( PersistentBroker::instance()->quoteString( page->pageTime() ) ).arg( QString( "%1,%2,%3,%4" ).arg( page->pagePos().x ).arg( page->pagePos().y ).arg( page->pagePos().z ).arg( page->pagePos().map ) ).arg( PersistentBroker::instance()->quoteString( page->content() ) ).arg( page->pageCategory() ).arg( i++ );
@@ -109,12 +159,12 @@ public:
 	void load()
 	{
 		cDBResult result = PersistentBroker::instance()->query( "SELECT charserial,pagetype,pagetime,pagepos,content,category,pageorder FROM pages ORDER BY pageorder ASC" );
-		while( result.fetchrow() )
+		while ( result.fetchrow() )
 		{
-			char **row = result.data();
-			cPage *page = new cPage;
+			char** row = result.data();
+			cPage* page = new cPage;
 			page->setCharSerial( atoi( row[0] ) );
-			page->setPageType( (WPPAGE_TYPE)atoi( row[1] ) );
+			page->setPageType( ( WPPAGE_TYPE ) atoi( row[1] ) );
 			page->setPageTime( row[2] );
 			Coord_cl pos;
 			parseCoordinates( row[3], pos );
@@ -129,9 +179,9 @@ public:
 	~cPagesManager()
 	{
 		cPagesManager::iterator it = begin();
-		while( it != end() )
+		while ( it != end() )
 		{
-			delete (*it);
+			delete ( *it );
 			++it;
 		}
 	}
@@ -142,29 +192,29 @@ public:
 		return &thePagesManager;
 	}
 
-/*	void insert( cPage* page )
-	{
-		bool stillexists = false;
-		cPagesManager::iterator it = begin();
-		while( it != end() )
+	/*	void insert( cPage* page )
 		{
-			if( (*it)->charSerial() == page->charSerial() )
+			bool stillexists = false;
+			cPagesManager::iterator it = begin();
+			while( it != end() )
 			{
-				stillexists = true;
-				(*it) = page;
+				if( (*it)->charSerial() == page->charSerial() )
+				{
+					stillexists = true;
+					(*it) = page;
+				}
+				it++;
 			}
-			it++;
-		}
-		if( !stillexists )
-			push_back( page );
-	}*/
+			if( !stillexists )
+				push_back( page );
+		}*/
 
 	bool contains( const cPage* page ) const
 	{
 		cPagesManager::const_iterator it = begin();
-		while( it != end() )
+		while ( it != end() )
 		{
-			if( (*it) == page )
+			if ( ( *it ) == page )
 				return true;
 			++it;
 		}
@@ -174,9 +224,9 @@ public:
 	void moveOnTop( cPage* page )
 	{
 		cPagesManager::iterator it = begin();
-		while( it != end() )
+		while ( it != end() )
 		{
-			if( (*it) == page )
+			if ( ( *it ) == page )
 			{
 				erase( it );
 				break;
@@ -189,9 +239,9 @@ public:
 	void remove( cPage* page )
 	{
 		cPagesManager::iterator it = begin();
-		while( it != end() )
+		while ( it != end() )
 		{
-			if( (*it) == page )
+			if ( ( *it ) == page )
 			{
 				erase( it );
 				break;
@@ -204,10 +254,10 @@ public:
 	cPage* find( SERIAL charserial ) const
 	{
 		cPagesManager::const_iterator it = begin();
-		while( it != end() )
+		while ( it != end() )
 		{
-			if( (*it)->charSerial() == charserial )
-				return (*it);
+			if ( ( *it )->charSerial() == charserial )
+				return ( *it );
 			++it;
 		}
 		return NULL;
@@ -216,7 +266,7 @@ public:
 	QStringList categories( void )
 	{
 		QStringList categories = Definitions::instance()->getList( "PAGE_CATEGORIES" );
-		if( categories.count() == 0 )
+		if ( categories.count() == 0 )
 			categories.push_back( "none" );
 		return categories;
 	}

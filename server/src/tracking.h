@@ -27,4 +27,4 @@
 
 class cUOSocket;
 
-void trackingMenu( cUOSocket *socket );
+void trackingMenu( cUOSocket* socket );

@@ -39,50 +39,63 @@ private:
 	T* elements[MAXSIZE];
 	int numElements;
 
-    FixedSizePtrStack (const FixedSizePtrStack& src);	// disable copy
-    FixedSizePtrStack& operator = (const FixedSizePtrStack& src);	// disable assignment
+	FixedSizePtrStack( const FixedSizePtrStack& src );	// disable copy
+	FixedSizePtrStack& operator =( const FixedSizePtrStack& src );	// disable assignment
 
 public:
 
-	FixedSizePtrStack() : numElements(0)
+	FixedSizePtrStack() : numElements( 0 )
 	{
 	}
 
-    bool isEmpty()	const { return (numElements == 0); }		// check if stack is emptied
-    bool isFull()	const { return (numElements == MAXSIZE); } 	// check if stack reached limit
-    int size()		const { return numElements; }				// current number of elements
+	bool isEmpty()	const
+	{
+		return ( numElements == 0 );
+	}		// check if stack is emptied
+	bool isFull()	const
+	{
+		return ( numElements == MAXSIZE );
+	} 	// check if stack reached limit
+	int size()		const
+	{
+		return numElements;
+	}				// current number of elements
 
-    void push (T* x)			// push object ( Note, this is exception safe, don't change)
-    {
+	void push( T* x )			// push object ( Note, this is exception safe, don't change)
+	{
 		if ( numElements == MAXSIZE )
-			throw std::out_of_range(std::string("FixedSizePtrStack<>::push(): stack is full"));
+			throw std::out_of_range( std::string( "FixedSizePtrStack<>::push(): stack is full" ) );
 		elements[numElements] = x; // Append
 		++numElements;			   // Increase number.
-    }
+	}
 
-    T* pop()	// pop object ( Note, this is exception safe, don't change )
-    {
-        if ( numElements <= 0 ) return 0;
+	T* pop()	// pop object ( Note, this is exception safe, don't change )
+	{
+		if ( numElements <= 0 )
+			return 0;
 		T* ret = elements[numElements - 1];
 		--numElements;
 		return ret;
-    }
-
+	}
 };
 
-template<class T, unsigned int MAXSIZE>
-class cObjectCache {
+template <class T, unsigned int MAXSIZE>
+class cObjectCache
+{
 private:
 	QPtrList<PyObject> objects;
 
 	// Search for an object for which only we
 	// hold a reference count. The reference count
 	// is increased for the object.
-	PyObject *findFreeObject() {
-        PyObject *obj;
-		for (obj = objects.first(); obj; obj = objects.next()) {
-			if (obj->ob_refcnt == 1) {
-				Py_INCREF(obj);
+	PyObject* findFreeObject()
+	{
+		PyObject* obj;
+		for ( obj = objects.first(); obj; obj = objects.next() )
+		{
+			if ( obj->ob_refcnt == 1 )
+			{
+				Py_INCREF( obj );
 				return obj;
 			}
 		}
@@ -90,30 +103,37 @@ private:
 	}
 
 public:
-	virtual ~cObjectCache() {
+	virtual ~cObjectCache()
+	{
 		clear();
 	}
 
-	void clear() {
-		PyObject *obj;
-		for (obj = objects.first(); obj; obj = objects.next()) {
-			Py_DECREF(obj);
+	void clear()
+	{
+		PyObject* obj;
+		for ( obj = objects.first(); obj; obj = objects.next() )
+		{
+			Py_DECREF( obj );
 		}
 		objects.clear();
 	}
 
-	cObjectCache() {
-		objects.setAutoDelete(false);
+	cObjectCache()
+	{
+		objects.setAutoDelete( false );
 	}
 
-	T *allocObj(PyTypeObject *type) {
-		T *obj = (T*)findFreeObject();
+	T* allocObj( PyTypeObject* type )
+	{
+		T* obj = ( T* ) findFreeObject();
 
-		if (!obj) {
-			obj = PyObject_New(T, type);
-			if (objects.count() < MAXSIZE) {
-				Py_INCREF(obj);
-				objects.append((PyObject*)obj);
+		if ( !obj )
+		{
+			obj = PyObject_New( T, type );
+			if ( objects.count() < MAXSIZE )
+			{
+				Py_INCREF( obj );
+				objects.append( ( PyObject * ) obj );
 			}
 		}
 

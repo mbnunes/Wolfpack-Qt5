@@ -19,7 +19,7 @@
 		SHRINK:
 			Item id for the animal in shrinked form (numeric!)
 	-->
-
+<!--
 	<charbase id="0x1" basesound="0x1ab" shrink="0x20df" />
 	<charbase id="0x2" basesound="0x16f" shrink="0x20d8" />
 	<charbase id="0x3" basesound="0x1d7" shrink="0x20ec" />
@@ -293,4 +293,5 @@
 	<charbase id="0x34e" basesound="0xa8" shrink="0x2599" type="2" />
 	<charbase id="0x350" basesound="0xa8" shrink="0x259e" type="2" />
 	<charbase id="0x3e6" basesound="0xa8" shrink="0x25a0" type="2" />
+-->
 </definitions>

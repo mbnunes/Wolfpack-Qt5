@@ -38,7 +38,7 @@
 
 #include <algorithm>
 
-MultiDefinition::MultiDefinition() : width(0), height(0)
+MultiDefinition::MultiDefinition() : width( 0 ), height( 0 )
 {
 }
 
@@ -49,7 +49,7 @@ void MultiDefinition::setItems( QValueVector<multiItem_st> items )
 		return;
 	unsigned int i = 0;
 	int max_X = 0, max_Y = 0, min_X = 0, min_Y = 0;
-	for (; i < items.size(); ++i)
+	for ( ; i < items.size(); ++i )
 	{
 		if ( items[max_X].x < items[i].x )
 			max_X = i;
@@ -62,8 +62,8 @@ void MultiDefinition::setItems( QValueVector<multiItem_st> items )
 	}
 
 	// by now we have the dimensions.
-	this->width  = items[max_X].x + abs(items[min_X].x);
-	this->height = items[max_Y].y + abs(items[min_Y].y);
+	this->width = items[max_X].x + abs( items[min_X].x );
+	this->height = items[max_Y].y + abs( items[min_Y].y );
 	entries = items;
 }
 
@@ -74,10 +74,10 @@ void MultiDefinition::setItems( QValueVector<multiItem_st> items )
 */
 bool MultiDefinition::inMulti( short x, short y )
 {
-	if ( abs(x) > this->width || abs(y) > this->height )
-	for ( unsigned int i = 0; i < entries.size(); ++i )
-		if ( entries[i].x == x && entries[i].y == y )
-			return true;
+	if ( abs( x ) > this->width || abs( y ) > this->height )
+		for ( unsigned int i = 0; i < entries.size(); ++i )
+			if ( entries[i].x == x && entries[i].y == y )
+				return true;
 	return false;
 }
 
@@ -88,7 +88,7 @@ signed char MultiDefinition::multiHeight( short x, short y, short z ) const
 		if ( entries[j].visible && ( x + entries[j].x == x ) && ( y + entries[j].y == y ) )
 		{
 			const int tmpTop = z + entries[j].z;
-			if ( tmpTop <= z + MaxZstep && tmpTop >= z-1 )
+			if ( tmpTop <= z + MaxZstep && tmpTop >= z - 1 )
 			{
 				return entries[j].z;
 			}
@@ -129,20 +129,24 @@ QValueVector<multiItem_st> MultiDefinition::getEntries() const
 /*!
 	Constructs a cMultiCache object
 */
-cMultiCache::~cMultiCache() {
+cMultiCache::~cMultiCache()
+{
 }
 
-void cMultiCache::unload() {
+void cMultiCache::unload()
+{
 	// Clear existing definitions
-	while (multis.begin() != multis.end()) {
+	while ( multis.begin() != multis.end() )
+	{
 		delete multis.begin().data();
-		multis.erase(multis.begin());
+		multis.erase( multis.begin() );
 	}
 
 	cComponent::unload();
 }
 
-void cMultiCache::reload() {
+void cMultiCache::reload()
+{
 	unload();
 	load();
 }
@@ -150,11 +154,12 @@ void cMultiCache::reload() {
 /*!
 	Parses and loads multi definitions
 */
-void cMultiCache::load() {
+void cMultiCache::load()
+{
 	QString basePath = Config::instance()->mulPath();
 
 	QFile indexFile( basePath + "multi.idx" );
-	if( !indexFile.open( IO_ReadOnly ) )
+	if ( !indexFile.open( IO_ReadOnly ) )
 		throw wpException( QString( "Error opening file %1 for reading." ).arg( basePath + "multi.idx" ) );
 
 	QDataStream indexStream( &indexFile );
@@ -192,21 +197,21 @@ void cMultiCache::load() {
 		QDataStream multiStream( &multiFile );
 		multiStream.setByteOrder( QDataStream::LittleEndian );
 
-		for (; i < indexData.length / 12; ++i )
+		for ( ; i < indexData.length / 12; ++i )
 		{
 			multiItem_st item;
 			multiStream >> item.tile;
 			multiStream >> item.x;
 			multiStream >> item.y;
 			multiStream >> item.z;
-			Q_UINT8  empty;
+			Q_UINT8 empty;
 			multiStream >> empty; // ????
 			Q_UINT32 isVisible = 0;
 			multiStream >> isVisible;
 			item.visible = isVisible > 0 ? true : false;
 
 			if ( item.visible ) // we ignore invisible items (?)
-				items.push_back(item);
+				items.push_back( item );
 		}
 		MultiDefinition* multi = new MultiDefinition;
 		multi->setItems( items );
@@ -222,7 +227,7 @@ void cMultiCache::load() {
 */
 MultiDefinition* cMultiCache::getMulti( ushort id )
 {
-	QMap<ushort, MultiDefinition*>::const_iterator it = multis.find(id);
+	QMap<ushort, MultiDefinition*>::const_iterator it = multis.find( id );
 	if ( it != multis.end() )
 		return it.data();
 	else

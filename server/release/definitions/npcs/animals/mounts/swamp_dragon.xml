@@ -13,7 +13,7 @@
 		<name>a swamp dragon</name>
 		<id>794</id>
 		<category>Animals\Mounts\Swamp Dragon</category>
-		<bindmenu>tame_menu</bindmenu>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<karma>-2000</karma>
 		<fame>2000</fame>
 		<!-- Damage -->

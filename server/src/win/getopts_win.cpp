@@ -40,20 +40,20 @@ cGetopts::~cGetopts()
 }
 
 // get user's options
-void cGetopts::parse_options( int argc, char **argv )
+void cGetopts::parse_options( int argc, char** argv )
 {
 	unsigned int i;
 
-	for( i = 1; i < argc; i++ )
+	for ( i = 1; i < argc; i++ )
 	{
-		if( argv[i][0] == '-' )
+		if ( argv[i][0] == '-' )
 		{
-			switch( argv[i][1] )
+			switch ( argv[i][1] )
 			{
-				case 'h':
-					fprintf( stderr, "Usage: %s [-h]\n", argv[0] );
-					fputs( "  -h\tprint this help.\n", stderr );
-					exit( 1 );
+			case 'h':
+				fprintf( stderr, "Usage: %s [-h]\n", argv[0] );
+				fputs( "  -h\tprint this help.\n", stderr );
+				exit( 1 );
 			}
 		}
 	}

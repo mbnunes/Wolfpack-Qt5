@@ -46,10 +46,10 @@
   Returns a random number between \a nLowNum
   and \a nHighNum.
 */
-int RandomNum(int nLowNum, int nHighNum)
+int RandomNum( int nLowNum, int nHighNum )
 {
-	if (nHighNum - nLowNum + 1)
-		return ((rand() % (nHighNum - nLowNum + 1)) + nLowNum);
+	if ( nHighNum - nLowNum + 1 )
+		return ( ( rand() % ( nHighNum - nLowNum + 1 ) ) + nLowNum );
 	else
 		return nLowNum;
 }
@@ -58,13 +58,13 @@ int RandomNum(int nLowNum, int nHighNum)
 	Returns a random number between \a nLowNum
 	and \a nHighNum.
 */
-float RandomFloatNum(float nLowNum, float nHighNum)
+float RandomFloatNum( float nLowNum, float nHighNum )
 {
-	if (nHighNum - nLowNum + 1)
+	if ( nHighNum - nLowNum + 1 )
 	{
 		float number = nLowNum;
-		number += rand() % static_cast<int>( ceil(nHighNum) - ceil(nLowNum) + 1 ); // Integer part
-		number += (float) rand() / (float) 0x7FFFFFFF;
+		number += rand() % static_cast<int>( ceil( nHighNum ) - ceil( nLowNum ) + 1 ); // Integer part
+		number += ( float ) rand() / ( float ) 0x7FFFFFFF;
 		return number;
 	}
 	else
@@ -83,42 +83,42 @@ int rollDice( const QString& dicePattern ) // roll dices d&d style
 	// dicePattern looks like "xdy+z"
 	// which equals RandomNum(x,y)+z
 
-	int doffset = dicePattern.find("d"), poffset = dicePattern.find("+");
+	int doffset = dicePattern. find( "d" ), poffset = dicePattern.find( "+" );
 	int x = dicePattern.left( doffset ).toInt();
-	int z = dicePattern.right( dicePattern.length()-1 - poffset ).toInt();
-	int y = dicePattern.mid( doffset+1, poffset-doffset-1 ).toInt();
+	int z = dicePattern.right( dicePattern.length() - 1 - poffset ).toInt();
+	int y = dicePattern.mid( doffset + 1, poffset - doffset - 1 ).toInt();
 
-	return RandomNum(x,x*y)+z;
+	return RandomNum( x, x * y ) + z;
 }
 
-bool parseCoordinates( const QString &input, Coord_cl &coord )
+bool parseCoordinates( const QString& input, Coord_cl& coord )
 {
 	QStringList coords = QStringList::split( ",", input );
 
 	// We at least need x, y, z
-	if( coords.size() < 3 )
+	if ( coords.size() < 3 )
 		return false;
 
 	bool ok = false;
 
 	UINT16 x = coords[0].toULong( &ok );
-	if( !ok )
+	if ( !ok )
 		return false;
 
 	UINT16 y = coords[1].toULong( &ok );
-	if( !ok )
+	if ( !ok )
 		return false;
 
 	INT8 z = coords[2].toShort( &ok );
-	if( !ok )
+	if ( !ok )
 		return false;
 
 	UINT8 map = coord.map; // Current by default
-	if( coords.size() > 3 )
+	if ( coords.size() > 3 )
 	{
 		map = coords[3].toUShort( &ok );
 
-		if( !ok )
+		if ( !ok )
 			return false;
 	}
 
@@ -136,8 +136,8 @@ bool parseCoordinates( const QString &input, Coord_cl &coord )
 QString hex2dec( const QString& value )
 {
 	bool ok;
-	if( (value.left( 2 ) == "0x" || value.left( 2 ) == "0X") )
-		return QString::number(value.right( value.length()-2 ).toUInt( &ok, 16 ));
+	if ( ( value.left( 2 ) == "0x" || value.left( 2 ) == "0X" ) )
+		return QString::number( value.right( value.length() - 2 ).toUInt( &ok, 16 ) );
 	else
 		return value;
 }
@@ -162,7 +162,7 @@ static unsigned int getPlatformTime()
 	// Error handling wouldn't have much sense here.
 	gettimeofday( &tTime, NULL );
 
-	return ( tTime.tv_sec * 1000 ) + (unsigned int)( tTime.tv_usec / 1000 );
+	return ( tTime.tv_sec * 1000 ) + ( unsigned int ) ( tTime.tv_usec / 1000 );
 }
 
 #endif
@@ -171,7 +171,7 @@ unsigned int getNormalizedTime()
 {
 	static unsigned int startTime = 0;
 
-	if( !startTime )
+	if ( !startTime )
 	{
 		startTime = getPlatformTime();
 		return 0;

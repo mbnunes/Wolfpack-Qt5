@@ -7,6 +7,14 @@
 
 from speech.pets import *
 
+def onContextCheckVisible(player, object, tag):
+	# All entries are invisible if we're not the owner of this NPC
+	# In Addition Transfer is invisible if the target is untamed
+	if tag == 7 and (object.summoned or not object.tamed):
+		return 0
+	
+	return object.owner == player
+
 def onContextEntry(char, target, tag):
 	if not "speech.pets" in target.events:
 		return 0

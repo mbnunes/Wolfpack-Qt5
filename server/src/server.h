@@ -33,12 +33,17 @@
 #include <qvaluevector.h>
 #include "singleton.h"
 
-enum enServerState {
-	STARTUP = 0, RUNNING, SCRIPTRELOAD, SHUTDOWN
+enum enServerState
+{
+	STARTUP			= 0,
+	RUNNING,
+	SCRIPTRELOAD,
+	SHUTDOWN
 };
 
-enum enActionType {
-	RELOAD_SCRIPTS = 0,
+enum enActionType
+{
+	RELOAD_SCRIPTS			= 0,
 	RELOAD_PYTHON,
 	RELOAD_ACCOUNTS,
 	RELOAD_CONFIGURATION,
@@ -49,7 +54,8 @@ enum enActionType {
 /*!
 	\brief A server component.
 */
-class cComponent {
+class cComponent
+{
 private:
 	QString depends;
 	QString name;
@@ -65,56 +71,68 @@ public:
 	virtual void unload();
 	virtual void reload();
 
-	inline const QString &getName() const {
+	inline const QString& getName() const
+	{
 		return name;
 	}
 
-	inline void setName(const QString &name) {
+	inline void setName( const QString& name )
+	{
 		this->name = name;
 	}
 
-	inline const QString &getDepends() const {
+	inline const QString& getDepends() const
+	{
 		return depends;
 	}
 
-	inline void setDepends(const QString &depends) {
+	inline void setDepends( const QString& depends )
+	{
 		this->depends = depends;
 	}
 
-	inline bool isReloadable() const {
+	inline bool isReloadable() const
+	{
 		return reloadable;
 	}
 
-	inline void setRelodable(bool reloadable) {
+	inline void setRelodable( bool reloadable )
+	{
 		this->reloadable = reloadable;
 	}
 
-	inline bool isSilent() const {
+	inline bool isSilent() const
+	{
 		return silent;
 	}
 
-	inline void setSilent(bool silent) {
+	inline void setSilent( bool silent )
+	{
 		this->silent = silent;
 	}
 
-	inline bool isLoaded() const {
+	inline bool isLoaded() const
+	{
 		return loaded;
 	}
 };
 
-class cServer {
+class cServer
+{
 private:
 	class Private;
-	Private *d;
+	Private* d;
 
 	// Disallow copy constructor
-	cServer(const cServer&) {}
+	cServer( const cServer& )
+	{
+	}
 
 	// Load a specific component
-	void load(const QString &name);
+	void load( const QString& name );
 
 	// Unload a specific component
-	void unload(const QString &name);
+	void unload( const QString& name );
 
 	// Load all components
 	void load();
@@ -129,11 +147,11 @@ public:
 	cServer();
 	~cServer();
 
-	void queueAction(enActionType type);
-	void setState(enServerState state);
+	void queueAction( enActionType type );
+	void setState( enServerState state );
 	enServerState getState();
 
-	void setSecure(bool secure);
+	void setSecure( bool secure );
 	bool getSecure();
 
 	bool isRunning();
@@ -146,14 +164,14 @@ public:
 	void refreshTime();
 
 	// Returns false if an error occured
-	bool run(int argc, char **argv);
+	bool run( int argc, char** argv );
 
 	// Reload a specific component
-	void reload(const QString &name);
+	void reload( const QString& name );
 
 	// Component registry
-	cComponent *findComponent(const QString &name);
-	void registerComponent(cComponent *component, const QString &name, bool reloadable = true, bool silent = false, const QString &depends = QString::null);
+	cComponent* findComponent( const QString& name );
+	void registerComponent( cComponent* component, const QString& name, bool reloadable = true, bool silent = false, const QString& depends = QString::null );
 };
 
 typedef SingletonHolder<cServer> Server;

@@ -59,98 +59,98 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"
 
-bool InputSpeech( cUOSocket *socket, P_PLAYER pChar, const QString &speech )
+bool InputSpeech( cUOSocket* socket, P_PLAYER pChar, const QString& speech )
 {
-	if( pChar->inputMode() == cPlayer::enNone )
+	if ( pChar->inputMode() == cPlayer::enNone )
 		return false;
 
 	P_ITEM pItem = FindItemBySerial( pChar->inputItem() );
 
-	if( !pItem )
+	if ( !pItem )
 		return false;
 
 	bool ok;
 	INT32 num = speech.toInt( &ok ); // Generally try to convert it
 	QString notification;
 
-	switch (pChar->inputMode())
+	switch ( pChar->inputMode() )
 	{
-	// Pricing an item - PlayerVendors
+		// Pricing an item - PlayerVendors
 	case cPlayer::enPricing:
-		if (ok)
+		if ( ok )
 		{
-//			pItem->setPrice( num );
-//			socket->sysMessage( tr( "This item's price has been set to %1." ).arg( num ) );
+			//			pItem->setPrice( num );
+			//			socket->sysMessage( tr( "This item's price has been set to %1." ).arg( num ) );
 			socket->sysMessage( "Ops, sorry not implemented" );
 		}
 		else
 			socket->sysMessage( tr( "You have to enter a numeric price" ) );
 
-		pChar->setInputMode(cPlayer::enDescription);
+		pChar->setInputMode( cPlayer::enDescription );
 		socket->sysMessage( tr( "Enter a description for this item." ) );
 		break;
 
-	// Describing an item
+		// Describing an item
 	case cPlayer::enDescription:
 		socket->sysMessage( "Description is not used anywhere :( not implemented right now" );
 		socket->sysMessage( tr( "This item is now described as %1." ).arg( speech ) );
-		pChar->setInputMode(cPlayer::enNone);
-		pChar->setInputItem(INVALID_SERIAL);
+		pChar->setInputMode( cPlayer::enNone );
+		pChar->setInputItem( INVALID_SERIAL );
 		break;
 
-	// Renaming ourself
+		// Renaming ourself
 	case cPlayer::enNameDeed:
 		pChar->setName( speech );
 		socket->sysMessage( tr( "Your new name is: %1" ).arg( speech ) );
-		pChar->setInputMode(cPlayer::enNone);
-		pChar->setInputItem(INVALID_SERIAL);
+		pChar->setInputMode( cPlayer::enNone );
+		pChar->setInputItem( INVALID_SERIAL );
 		break;
 
-	// Renaming a house sign
+		// Renaming a house sign
 	case cPlayer::enHouseSign:
 		pItem->setName( speech );
 		socket->sysMessage( tr( "Your house has been renamed to: %1" ).arg( speech ) );
-		pChar->setInputMode(cPlayer::enNone);
-		pChar->setInputItem(INVALID_SERIAL);
+		pChar->setInputMode( cPlayer::enNone );
+		pChar->setInputItem( INVALID_SERIAL );
 		break;
 
-	// Paging a GM
+		// Paging a GM
 	case cPlayer::enPageGM:
 		{
 			cPage* pPage = new cPage( pChar->serial(), PT_GM, speech, pChar->pos() );
 			cPagesManager::getInstance()->push_back( pPage );
 			notification = tr( "GM Page from %1: %2" ).arg( pChar->name() ).arg( speech );
 
-			for ( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next())
-				if( mSock->player() && mSock->player()->isGM() )
+			for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+				if ( mSock->player() && mSock->player()->isGM() )
 					mSock->sysMessage( notification );
 
-				if( Network::instance()->count() > 0 )
-					socket->sysMessage( tr( "Available Game Masters have been notified of your request." ) );
-				else
-					socket->sysMessage( tr( "There was no Game Master available, page queued." ) );
+			if ( Network::instance()->count() > 0 )
+				socket->sysMessage( tr( "Available Game Masters have been notified of your request." ) );
+			else
+				socket->sysMessage( tr( "There was no Game Master available, page queued." ) );
 
-				pChar->setInputMode(cPlayer::enNone);
+			pChar->setInputMode( cPlayer::enNone );
 		}
 		break;
 
-	// Paging a Counselor
+		// Paging a Counselor
 	case cPlayer::enPageCouns:
 		{
 			cPage* pPage = new cPage( pChar->serial(), PT_COUNSELOR, speech, pChar->pos() );
 			cPagesManager::getInstance()->push_back( pPage );
 			notification = tr( "Counselor Page from %1: %2" ).arg( pChar->name() ).arg( speech );
 
-			for ( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next())
-				if( mSock->player() && (socket->player()->isCounselor() || socket->player()->isGM()) )
+			for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+				if ( mSock->player() && ( socket->player()->isCounselor() || socket->player()->isGM() ) )
 					mSock->sysMessage( notification );
 
-				if( Network::instance()->count() > 0 )
-					socket->sysMessage( tr( "Available Counselors have been notified of your request." ) );
-				else
-					socket->sysMessage( tr( "There was no Counselor available, page queued." ) );
+			if ( Network::instance()->count() > 0 )
+				socket->sysMessage( tr( "Available Counselors have been notified of your request." ) );
+			else
+				socket->sysMessage( tr( "There was no Counselor available, page queued." ) );
 
-				pChar->setInputMode(cPlayer::enNone);
+			pChar->setInputMode( cPlayer::enNone );
 		}
 		break;
 
@@ -161,236 +161,236 @@ bool InputSpeech( cUOSocket *socket, P_PLAYER pChar, const QString &speech )
 	return true;
 }
 
-bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QString &speech )
+bool StableSpeech( cUOSocket* socket, P_CHAR pPlayer, P_CHAR pMaster, const QString& speech )
 {
-/* redo with python..
-	// is it a stablemaster ?
-	if( pMaster->npc_type() != 1 )
-		return false;
+	/* redo with python..
+		// is it a stablemaster ?
+		if( pMaster->npc_type() != 1 )
+			return false;
 
-	if( !speech.contains( "STABLE" ) )
-		return false;
+		if( !speech.contains( "STABLE" ) )
+			return false;
 
-	/////////////////////////////////////////////////////////////////////
-	//// so far we have a stablemaster! lets see if the caller has a pet
-	//// if so check if the pets name is in the commandstring
-	//// if not return
-    ///////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////
+		//// so far we have a stablemaster! lets see if the caller has a pet
+		//// if so check if the pets name is in the commandstring
+		//// if not return
+		///////////////////////////////////////////////////////////////////
 
-	bool found = false;
-	P_CHAR p_pet = NULL;
-	RegionIterator4Chars ri( pPlayer->pos() );
-	for (ri.Begin(); !ri.atEnd(); ri++)
-	{
-		p_pet = ri.GetData();
-		if (pPlayer->dist(p_pet) <= 8)
+		bool found = false;
+		P_CHAR p_pet = NULL;
+		RegionIterator4Chars ri( pPlayer->pos() );
+		for (ri.Begin(); !ri.atEnd(); ri++)
 		{
-			if (p_pet->owner() == pPlayer && p_pet->stablemaster_serial()==INVALID_SERIAL) //owner of the pet ? and not already stabled ?
+			p_pet = ri.GetData();
+			if (pPlayer->dist(p_pet) <= 8)
 			{
-				QString pntmp = p_pet->name();
-				if (speech.contains(pntmp, false))
+				if (p_pet->owner() == pPlayer && p_pet->stablemaster_serial()==INVALID_SERIAL) //owner of the pet ? and not already stabled ?
 				{
-					found=true;
-					break;
+					QString pntmp = p_pet->name();
+					if (speech.contains(pntmp, false))
+					{
+						found=true;
+						break;
+					}
 				}
 			}
 		}
-	}
 
-	if (!found)
-	{
-		pMaster->talk( tr( "Which pet?" ) );
-		return 1;
-	}
+		if (!found)
+		{
+			pMaster->talk( tr( "Which pet?" ) );
+			return 1;
+		}
 
-	/////////////////////////////////////////////////////////////
-	/// now we have a pet and stablemaster -> time to STABLE :-)
-    ////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////
+		/// now we have a pet and stablemaster -> time to STABLE :-)
+		////////////////////////////////////////////////////////////
 
-    // set stablesp && pets stablemaster serial
-	// remove it from screen!
-	p_pet->removeFromView(); // Remove it from view of all sockets
-	p_pet->setWar(false);
-	p_pet->setAttacker(INVALID_SERIAL);
+		// set stablesp && pets stablemaster serial
+		// remove it from screen!
+		p_pet->removeFromView(); // Remove it from view of all sockets
+		p_pet->setWar(false);
+		p_pet->setAttacker(INVALID_SERIAL);
 
-	pPlayer->setWar(false);
-	pPlayer->setTarg( INVALID_SERIAL );
+		pPlayer->setWar(false);
+		pPlayer->setTarg( INVALID_SERIAL );
 
-	MapObjects::instance()->remove( p_pet );
-	p_pet->setStablemaster_serial( pMaster->serial() );
+		MapObjects::instance()->remove( p_pet );
+		p_pet->setStablemaster_serial( pMaster->serial() );
 
-	// set timer for fee calculation
-    p_pet->setTime_unused(0);
-	p_pet->setTimeused_last( getNormalizedTime() );
+		// set timer for fee calculation
+		p_pet->setTime_unused(0);
+		p_pet->setTimeused_last( getNormalizedTime() );
 
-	stablesp.insert( pMaster->serial(), p_pet->serial() );
+		stablesp.insert( pMaster->serial(), p_pet->serial() );
 
-	pMaster->talk( tr( "Your pet is now stabled, say retrieve or claim %1 to claim your pet" ).arg( p_pet->name() ) );
+		pMaster->talk( tr( "Your pet is now stabled, say retrieve or claim %1 to claim your pet" ).arg( p_pet->name() ) );
+		*/
+	return false;
+}
+
+bool UnStableSpeech( cUOSocket* socket, P_CHAR pPlayer, P_CHAR pMaster, const QString& comm )
+{
+	/* redo with python
+		// is it a stablemaster ?
+		if( pMaster->npc_type() != 1 )
+			return false;
+
+		if( !comm.contains( "CLAIM" ) && !comm.contains( "RETRIEVE" ) )
+
+			return false;
+
+		/////////////////////////////////////////////////////////////////////
+		//// so far we have a stablemaster! lets see if the stablemaster has a pet
+		//// stabled the petowner owns
+		//// if not return
+		///////////////////////////////////////////////////////////////////
+		P_CHAR pPet = NULL;
+		vector<SERIAL> pets = stablesp.getData(pMaster->serial());
+
+		for( UINT32 i = 0; i < pets.size(); ++i )
+		{
+			pPet = FindCharBySerial( pets[i] );
+
+			if( pPet )
+			{
+				if( pPet->owner() != pPlayer || !comm.contains( pPet->name(), false ) )
+					pPet = NULL;
+				else
+					break;
+			}
+		}
+
+		if( !pPet )
+		{
+			pMaster->talk( tr( "Sorry, I can't return that pet." ) );
+			return true;
+		}
+
+		/////////////////////////////////////////////////////////////
+		/// now we have the claimed pet and stablemaster -> time to UNSTABLE :-)
+		////////////////////////////////////////////////////////////
+
+		/// calc fee
+		// (fee per 10 minutes) * number of 10 minute blocks
+		float f_fee = ( ( pPet->time_unused() ) / 600.0f ) * Config::instance()->stablingFee();
+		int fee = ( (int) f_fee ) + 5; // 5 basefee
+
+		pMaster->talk( tr( "That's %1 gold pieces" ).arg( fee ) );
+
+		/////////// check if customer can pay ! ///////////////
+		if( pPlayer->CountGold() < fee )
+		{
+			pMaster->talk( tr( "You can't afford the fee to claim your pet. Come back when you have enough gold." ) );
+			return true;
+		}
+
+		delequan( pPlayer, 0x0EED, fee, NULL );
+
+		// remove from hash table
+		stablesp.remove( pMaster->serial(), pPet->serial() );
+		pPet->setStablemaster_serial( INVALID_SERIAL ); // actual unstabling
+		pPet->setTimeused_last(getNormalizedTime());
+		pPet->setTime_unused(0);
+
+		MapObjects::instance()->remove( pPet );
+		MapObjects::instance()->add( pPet );
+		pPet->resend( false ); // Resend
+
+		pMaster->talk( tr( "Here's your pet. Treat it well." ) );
 	*/
 	return false;
 }
 
-bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QString &comm )
+bool ShieldSpeech( cUOSocket* socket, P_CHAR pPlayer, P_CHAR pGuard, const QString& comm )
 {
-/* redo with python
-	// is it a stablemaster ?
-	if( pMaster->npc_type() != 1 )
-		return false;
+	/*	// lets be close to talk :)
+		if( pPlayer->dist( pGuard ) > 3 )
+			return false;
 
-	if( !comm.contains( "CLAIM" ) && !comm.contains( "RETRIEVE" ) )
+		cGuildStone *pStone = pPlayer->getGuildstone();
 
-		return false;
-
-	/////////////////////////////////////////////////////////////////////
-	//// so far we have a stablemaster! lets see if the stablemaster has a pet
-	//// stabled the petowner owns
-	//// if not return
-    ///////////////////////////////////////////////////////////////////
-	P_CHAR pPet = NULL;
-	vector<SERIAL> pets = stablesp.getData(pMaster->serial());
-
-	for( UINT32 i = 0; i < pets.size(); ++i )
-	{
-		pPet = FindCharBySerial( pets[i] );
-
-		if( pPet )
+		// if they say chaos shield
+		if( ( pGuard->npcaitype() == 6 ) && ( comm.contains( "CHAOS SHIELD" ) ) )
 		{
-			if( pPet->owner() != pPlayer || !comm.contains( pPet->name(), false ) )
-				pPet = NULL;
-			else
-				break;
-		}
-	}
+			// The user needs to be in a chaos guild in order to get a shield
+			if( !pStone || ( pStone->guildType != cGuildStone::chaos ) )
+			{
+				pGuard->talk( tr( "You must be in a chaos guild to get a shield!" ) );
+				return true;
+			}
 
-	if( !pPet )
-	{
-		pMaster->talk( tr( "Sorry, I can't return that pet." ) );
-		return true;
-	}
+			// We will only give out once shield per player
+			if( pPlayer->CountItems( 0x1BC3 ) > 0 )
+			{
+				pGuard->talk( "You already possess a shield!" );
+				return true;
+			}
 
-	/////////////////////////////////////////////////////////////
-	/// now we have the claimed pet and stablemaster -> time to UNSTABLE :-)
-    ////////////////////////////////////////////////////////////
+			// lets give them a new chaos shield.
+			P_ITEM pShield = cItem::createFromScript( "28" );
+			pPlayer->getBackpack()->addItem( pShield );
 
-	/// calc fee
-	// (fee per 10 minutes) * number of 10 minute blocks
-	float f_fee = ( ( pPet->time_unused() ) / 600.0f ) * Config::instance()->stablingFee();
-	int fee = ( (int) f_fee ) + 5; // 5 basefee
-
-	pMaster->talk( tr( "That's %1 gold pieces" ).arg( fee ) );
-
-	/////////// check if customer can pay ! ///////////////
-	if( pPlayer->CountGold() < fee )
-	{
-		pMaster->talk( tr( "You can't afford the fee to claim your pet. Come back when you have enough gold." ) );
-		return true;
-	}
-
-	delequan( pPlayer, 0x0EED, fee, NULL );
-
-	// remove from hash table
-	stablesp.remove( pMaster->serial(), pPet->serial() );
-	pPet->setStablemaster_serial( INVALID_SERIAL ); // actual unstabling
-	pPet->setTimeused_last(getNormalizedTime());
-	pPet->setTime_unused(0);
-
-	MapObjects::instance()->remove( pPet );
-	MapObjects::instance()->add( pPet );
-	pPet->resend( false ); // Resend
-
-	pMaster->talk( tr( "Here's your pet. Treat it well." ) );
-*/
-	return false;
-}
-
-bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QString& comm )
-{
-/*	// lets be close to talk :)
-	if( pPlayer->dist( pGuard ) > 3 )
-		return false;
-
-	cGuildStone *pStone = pPlayer->getGuildstone();
-
-	// if they say chaos shield
-	if( ( pGuard->npcaitype() == 6 ) && ( comm.contains( "CHAOS SHIELD" ) ) )
-	{
-		// The user needs to be in a chaos guild in order to get a shield
-		if( !pStone || ( pStone->guildType != cGuildStone::chaos ) )
-		{
-			pGuard->talk( tr( "You must be in a chaos guild to get a shield!" ) );
+			socket->sysMessage( tr( "You put the chaos shield into your backpack" ) );
+			pGuard->talk( tr( "Hi fellow guild member, here is your new chaos shield." ) );
 			return true;
 		}
-
-		// We will only give out once shield per player
-		if( pPlayer->CountItems( 0x1BC3 ) > 0 )
+		// He wants an order shield
+		else if( ( pGuard->npcaitype() == 7 ) && ( comm.contains( "ORDER SHIELD" ) ) )
 		{
-			pGuard->talk( "You already possess a shield!" );
+			// The user needs to be in a order guild in order to get a shield
+			if( !pStone || ( pStone->guildType != cGuildStone::order ) )
+			{
+				pGuard->talk( tr( "You must be in an order guild to get a shield!" ) );
+				return true;
+			}
+
+			// We will only give out once shield per player
+			// BAD: Player may have stored his shield in his bankbox
+			if( pPlayer->CountItems( 0x1BC4 ) > 0 )
+			{
+				pGuard->talk( "You already possess a shield!" );
+				return true;
+			}
+
+			// lets give them a new order shield.
+			P_ITEM pShield = cItem::createFromScript( "29" );
+			pPlayer->getBackpack()->addItem( pShield );
+
+			socket->sysMessage( tr( "You put the order shield into your backpack" ) );
+			pGuard->talk( tr( "Hi fellow guild member, here is your new order shield." ) );
 			return true;
 		}
-
-		// lets give them a new chaos shield.
-		P_ITEM pShield = cItem::createFromScript( "28" );
-		pPlayer->getBackpack()->addItem( pShield );
-
-		socket->sysMessage( tr( "You put the chaos shield into your backpack" ) );
-		pGuard->talk( tr( "Hi fellow guild member, here is your new chaos shield." ) );
-		return true;
-	}
-	// He wants an order shield
-	else if( ( pGuard->npcaitype() == 7 ) && ( comm.contains( "ORDER SHIELD" ) ) )
-	{
-		// The user needs to be in a order guild in order to get a shield
-		if( !pStone || ( pStone->guildType != cGuildStone::order ) )
-		{
-			pGuard->talk( tr( "You must be in an order guild to get a shield!" ) );
-			return true;
-		}
-
-		// We will only give out once shield per player
-		// BAD: Player may have stored his shield in his bankbox
-		if( pPlayer->CountItems( 0x1BC4 ) > 0 )
-		{
-			pGuard->talk( "You already possess a shield!" );
-			return true;
-		}
-
-		// lets give them a new order shield.
-		P_ITEM pShield = cItem::createFromScript( "29" );
-		pPlayer->getBackpack()->addItem( pShield );
-
-		socket->sysMessage( tr( "You put the order shield into your backpack" ) );
-		pGuard->talk( tr( "Hi fellow guild member, here is your new order shield." ) );
-		return true;
-	}
-*/
+	*/
 	return false;
 }
 
 // All this Stuff should be scripted
-bool QuestionSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pChar, const QString& comm )
+bool QuestionSpeech( cUOSocket* socket, P_PLAYER pPlayer, P_NPC pChar, const QString& comm )
 {
-	if( !pChar->isHuman() || pPlayer->dist( pChar ) > 3 )
+	if ( !pChar->isHuman() || pPlayer->dist( pChar ) > 3 )
 		return false;
 
 	// Tell the questioner our name
-	if( comm.contains( "NAME" ) )
+	if ( comm.contains( "NAME" ) )
 	{
 		pChar->talk( tr( "Hello, my name is %1." ).arg( pChar->name() ) );
 		return true;
 	}
 
-    // say time and the npChar gives the time.
-	if( comm.contains( "TIME" ) )
+	// say time and the npChar gives the time.
+	if ( comm.contains( "TIME" ) )
 	{
-		pChar->talk( tr( "It is now %1 hours and %2 minutes.").arg(UoTime::instance()->hour()).arg(UoTime::instance()->minute()));
+		pChar->talk( tr( "It is now %1 hours and %2 minutes." ).arg( UoTime::instance()->hour() ).arg( UoTime::instance()->minute() ) );
 		return true;
 	}
 
-	if( comm.contains( "LOCATION" ) )
+	if ( comm.contains( "LOCATION" ) )
 	{
 		cTerritory* Region = pPlayer->region();
 
-		if( Region )
+		if ( Region )
 			pChar->talk( tr( "You are in %1" ).arg( Region->name() ) );
 		else
 			pChar->talk( tr( "You are in the wilderness" ) );
@@ -402,159 +402,159 @@ bool QuestionSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pChar, const QSt
 	return false;
 }
 
-bool BankerSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pBanker, const QString& comm )
+bool BankerSpeech( cUOSocket* socket, P_PLAYER pPlayer, P_NPC pBanker, const QString& comm )
 {
 	// Needs to be a banker
-/*	if( pBanker->npcaitype() != 8 )
-		return false;*/
+	/*	if( pBanker->npcaitype() != 8 )
+			return false;*/
 
-	if ( !pBanker->ai() || pBanker->ai()->name() != "Banker")
+	if ( !pBanker->ai() || pBanker->ai()->name() != "Banker" )
 		return false;
 
-	if( pPlayer->dist(pBanker) > 6 )
+	if ( pPlayer->dist( pBanker ) > 6 )
 		return false;
 
-	if( comm.contains( "BANK" ) )
+	if ( comm.contains( "BANK" ) )
 	{
 		pBanker->turnTo( pPlayer );
 		socket->sendContainer( pPlayer->getBankbox() );
 		return true;
 	}
 
-	if( ( comm.contains( "BALANCE" ) ) | ( comm.contains( "WITHDRAW" ) ) || ( comm.contains( "CHECK" ) ) )
+	if ( ( comm.contains( "BALANCE" ) ) | ( comm.contains( "WITHDRAW" ) ) || ( comm.contains( "CHECK" ) ) )
 	{
-	    //BankerAI->DoAI( s, pBanker, comm );
-	    return true;
-	}
-
-    return false;
-}
-
-bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pTrainer, const QString& comm )
-{
-/*	if( pPlayer->dist( pTrainer ) > 3 || !pTrainer->isHuman() )
-		return false;
-
-	if( !comm.contains( "TRAIN" ) && !comm.contains( "TEACH" ) && !comm.contains( "LEARN" ) )
-		return false;
-
-	if( !pTrainer->cantrain() )
-	{
-		pTrainer->talk( tr( "I am sorry, but I have nothing to teach thee" ) );
+		//BankerAI->DoAI( s, pBanker, comm );
 		return true;
 	}
 
-	INT32 i, skill = -1;
+	return false;
+}
 
-	// this is to prevent errors when a player says "train <skill>" then don't pay the npc
-	pPlayer->setTrainer( INVALID_SERIAL );
+bool TrainerSpeech( cUOSocket* socket, P_CHAR pPlayer, P_NPC pTrainer, const QString& comm )
+{
+	/*	if( pPlayer->dist( pTrainer ) > 3 || !pTrainer->isHuman() )
+			return false;
 
-	for( i = 0; i < ALLSKILLS; ++i )
-		if( comm.contains( Skills::instance()->getSkillName( i ), false ) )
+		if( !comm.contains( "TRAIN" ) && !comm.contains( "TEACH" ) && !comm.contains( "LEARN" ) )
+			return false;
+
+		if( !pTrainer->cantrain() )
 		{
-			skill = i;
-			break;
-		}
-
-	if( skill != -1 )
-	{
-		if( pTrainer->skillValue( skill ) <= 10 || !pTrainer->cantrain() )
-		{
-			pTrainer->talk( "I am sorry but I cannot train thee in that skill." );
+			pTrainer->talk( tr( "I am sorry, but I have nothing to teach thee" ) );
 			return true;
 		}
 
-		QString skillName = Skills::instance()->getSkillName( skill );
-		skillName = skillName.lower();
+		INT32 i, skill = -1;
 
-		QString message = tr( "Thou wishest to learn of %1" ).arg( skillName );
+		// this is to prevent errors when a player says "train <skill>" then don't pay the npc
+		pPlayer->setTrainer( INVALID_SERIAL );
 
-		// This should be configureable
-		if( pPlayer->skillValue(skill) >= 250 )
-			message.append( tr( " I can teach thee no more than thou already knowest!" ) );
-		else
+		for( i = 0; i < ALLSKILLS; ++i )
+			if( comm.contains( Skills::instance()->getSkillName( i ), false ) )
+			{
+				skill = i;
+				break;
+			}
+
+		if( skill != -1 )
 		{
-			UINT32 sum = pPlayer->getSkillSum();
+			if( pTrainer->skillValue( skill ) <= 10 || !pTrainer->cantrain() )
+			{
+				pTrainer->talk( "I am sorry but I cannot train thee in that skill." );
+				return true;
+			}
 
-			// The user knows too much
-			if( sum >= Config::instance()->skillcap() * 10 )
-				message.append( tr( " I can teach thee no more. Thou already knowest too much!" ) );
+			QString skillName = Skills::instance()->getSkillName( skill );
+			skillName = skillName.lower();
 
+			QString message = tr( "Thou wishest to learn of %1" ).arg( skillName );
+
+			// This should be configureable
+			if( pPlayer->skillValue(skill) >= 250 )
+				message.append( tr( " I can teach thee no more than thou already knowest!" ) );
 			else
 			{
-				int delta = pTrainer->getTeachingDelta( pPlayer, skill, sum );
-				int perc = ( pPlayer->skillValue( skill ) + delta ) / 10;
+				UINT32 sum = pPlayer->getSkillSum();
 
-				message.append( tr( " Very well I, can train thee up to the level of %i percent for %i gold. Pay for less and I shall teach thee less." ).arg( perc ).arg( delta ) );
+				// The user knows too much
+				if( sum >= Config::instance()->skillcap() * 10 )
+					message.append( tr( " I can teach thee no more. Thou already knowest too much!" ) );
 
-				pPlayer->setTrainer( pTrainer->serial() );
-				pTrainer->setTrainingplayerin( skill );
+				else
+				{
+					int delta = pTrainer->getTeachingDelta( pPlayer, skill, sum );
+					int perc = ( pPlayer->skillValue( skill ) + delta ) / 10;
+
+					message.append( tr( " Very well I, can train thee up to the level of %i percent for %i gold. Pay for less and I shall teach thee less." ).arg( perc ).arg( delta ) );
+
+					pPlayer->setTrainer( pTrainer->serial() );
+					pTrainer->setTrainingplayerin( skill );
+				}
+			}
+
+			pTrainer->talk( message );
+			return true;
+		}
+
+		// Didn't ask to be trained in a specific skill
+		pTrainer->setTrainingplayerin( 0xFF );
+		QStringList skillList;
+
+		for( i = 0; i < ALLSKILLS; ++i )
+		{
+			if( pTrainer->skillValue( i ) >= 10 && pPlayer->skillValue( i ) < 250 )
+			{
+				QString skillName = Skills::instance()->getSkillName( i );
+				skillList.push_back( skillName );
 			}
 		}
 
-		pTrainer->talk( message );
-		return true;
-	}
-
-	// Didn't ask to be trained in a specific skill
-	pTrainer->setTrainingplayerin( 0xFF );
-	QStringList skillList;
-
-	for( i = 0; i < ALLSKILLS; ++i )
-	{
-		if( pTrainer->skillValue( i ) >= 10 && pPlayer->skillValue( i ) < 250 )
-		{
-			QString skillName = Skills::instance()->getSkillName( i );
-			skillList.push_back( skillName );
-		}
-	}
-
-	// skills and a trainer ?
-	if( skillList.count() > 0 )
-		pTrainer->talk( tr( "I can teach thee the following skills: %1." ).arg( skillList.join( ", " ) ) );
-	else
-		pTrainer->talk( tr( "I am sorry, but I have nothing to teach thee" ) );
-*/
+		// skills and a trainer ?
+		if( skillList.count() > 0 )
+			pTrainer->talk( tr( "I can teach thee the following skills: %1." ).arg( skillList.join( ", " ) ) );
+		else
+			pTrainer->talk( tr( "I am sorry, but I have nothing to teach thee" ) );
+	*/
 	return false;
 }
 
 //PlayerVendors
-void PlVGetgold( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor )
+void PlVGetgold( cUOSocket* socket, P_CHAR pPlayer, P_CHAR pVendor )
 {
-/*
-	if( pVendor->owner() != pPlayer )
-	{
-		pVendor->talk( tr( "I don't work for you!" ) );
-		return;
-	}
+	/*
+		if( pVendor->owner() != pPlayer )
+		{
+			pVendor->talk( tr( "I don't work for you!" ) );
+			return;
+		}
 
-	if( pVendor->holdg() <= 0 )
-	{
-		pVendor->talk( tr( "I have no gold waiting for you." ) );
+		if( pVendor->holdg() <= 0 )
+		{
+			pVendor->talk( tr( "I have no gold waiting for you." ) );
+			pVendor->setHoldg( 0 );
+			return;
+		}
+
+		// He keeps 10% of all earnings
+		UINT32 goldKeeping = pVendor->holdg();
+		UINT32 goldSalary = (UINT32)( 0.1 * goldKeeping );
+		goldKeeping -= goldSalary;
+
+		// Hand him the gold
+		if( goldKeeping > 0 )
+			pPlayer->giveGold( goldKeeping );
+
+		pVendor->talk( tr( "Today's purchases total %1 gold. I am keeping %2 gold for my self. Here is the remaining %3 gold. Have a nice day." ).arg( goldKeeping + goldSalary ).arg( goldSalary ).arg( goldKeeping ) );
 		pVendor->setHoldg( 0 );
-		return;
-	}
-
-	// He keeps 10% of all earnings
-	UINT32 goldKeeping = pVendor->holdg();
-	UINT32 goldSalary = (UINT32)( 0.1 * goldKeeping );
-	goldKeeping -= goldSalary;
-
-	// Hand him the gold
-	if( goldKeeping > 0 )
-		pPlayer->giveGold( goldKeeping );
-
-	pVendor->talk( tr( "Today's purchases total %1 gold. I am keeping %2 gold for my self. Here is the remaining %3 gold. Have a nice day." ).arg( goldKeeping + goldSalary ).arg( goldSalary ).arg( goldKeeping ) );
-	pVendor->setHoldg( 0 );
-*/
+	*/
 }
 
 bool VendorChkName( P_CHAR pVendor, const QString& comm )
 {
-	if( ( comm.contains( "VENDOR" ) ) || ( comm.contains( "SHOPKEEPER" ) ) )
+	if ( ( comm.contains( "VENDOR" ) ) || ( comm.contains( "SHOPKEEPER" ) ) )
 		return true;
 
-	if( comm.contains( pVendor->name(), false ) )
+	if ( comm.contains( pVendor->name(), false ) )
 		return true;
 	else
 		return false;
@@ -568,135 +568,137 @@ bool VendorChkName( P_CHAR pVendor, const QString& comm )
 //			what kind of npcs are standing around and then checking only those keywords
 //			that they might be interested in.
 //			This is especially usefull in crowded places.
-bool Speech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm, QValueVector< UINT16 > &keywords )
+bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm, QValueVector<UINT16>& keywords )
 {
-	if (!pPlayer->socket() || pPlayer->isDead()) {
+	if ( !pPlayer->socket() || pPlayer->isDead() )
+	{
 		return false;
 	}
 
 	QString speechUpr = comm.upper();
 
 	RegionIterator4Chars ri( pPlayer->pos() );
-	for( ri.Begin(); !ri.atEnd(); ri++ )
+	for ( ri.Begin(); !ri.atEnd(); ri++ )
 	{
-		P_NPC pNpc = dynamic_cast<P_NPC>(ri.GetData());
+		P_NPC pNpc = dynamic_cast<P_NPC>( ri.GetData() );
 
 		// We will only process NPCs here
-		if( !pNpc )
+		if ( !pNpc )
 			continue;
 
 		// at least they should be on the screen
-		if( pPlayer->dist( pNpc ) > 16 )
+		if ( pPlayer->dist( pNpc ) > 16 )
 			continue;
 
-		cPythonScript **events = pNpc->getEvents();
+		cPythonScript** events = pNpc->getEvents();
 
-		if (events) {
-			PyObject *pkeywords = PyList_New(keywords.size());
+		if ( events )
+		{
+			PyObject* pkeywords = PyList_New( keywords.size() );
 
 			// Set Items
-			for( unsigned int i = 0; i < keywords.size(); ++i )
+			for ( unsigned int i = 0; i < keywords.size(); ++i )
 				PyList_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
 
-			PyObject *args = Py_BuildValue("(O&O&uO)", PyGetCharObject, pNpc, PyGetCharObject, pPlayer, comm.ucs2(), pkeywords);
+			PyObject* args = Py_BuildValue( "(O&O&uO)", PyGetCharObject, pNpc, PyGetCharObject, pPlayer, comm.ucs2(), pkeywords );
 
-			bool result = cPythonScript::callChainedEventHandler(EVENT_SPEECH, events, args);
+			bool result = cPythonScript::callChainedEventHandler( EVENT_SPEECH, events, args );
 
 			Py_DECREF( args );
 			Py_DECREF( pkeywords );
 
-			if( result )
+			if ( result )
 				return true;
 		}
 
-		if( pNpc->ai() )
+		if ( pNpc->ai() )
 		{
 			pNpc->ai()->onSpeechInput( pPlayer, speechUpr );
 		}
 
-		if( BankerSpeech( socket, pPlayer, pNpc, speechUpr ) )
+		if ( BankerSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 
-		if( StableSpeech( socket, pPlayer, pNpc, speechUpr ) )
+		if ( StableSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 
-		if( UnStableSpeech( socket, pPlayer, pNpc, speechUpr ) )
+		if ( UnStableSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 
-		if( ShieldSpeech( socket, pPlayer, pNpc, speechUpr ) )
+		if ( ShieldSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 
-		if( QuestionSpeech( socket, pPlayer, pNpc, speechUpr ) )
+		if ( QuestionSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 
-		if( TrainerSpeech( socket, pPlayer, pNpc, speechUpr ) )
+		if ( TrainerSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 	}
 
 	return false;
 }
 
-void Speech::talking( P_PLAYER pChar, const QString &lang, const QString &speech, QValueVector< UINT16 > &keywords, UINT16 color, UINT16 font, UINT8 type ) // PC speech
+void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech, QValueVector<UINT16>& keywords, UINT16 color, UINT16 font, UINT8 type ) // PC speech
 {
 	// handle things like renaming or describing an item
-	if( !pChar->socket() )
+	if ( !pChar->socket() )
 		return;
 
-	cUOSocket *socket = pChar->socket();
+	cUOSocket* socket = pChar->socket();
 
-	if (InputSpeech(socket, pChar, speech))
+	if ( InputSpeech( socket, pChar, speech ) )
 		return;
 
 	pChar->unhide();
 
 	// Check for Bogus Color
-	if (!isNormalColor(color))
+	if ( !isNormalColor( color ) )
 		color = 0x2;
 
-	if (type == 0 || type == 2)
+	if ( type == 0 || type == 2 )
 		pChar->setSaycolor( color );
 
-	if (pChar->onTalk( type, color, font, speech, lang))
+	if ( pChar->onTalk( type, color, font, speech, lang ) )
 		return;
 
-	if ((type == 0x09) && (pChar->mayBroadcast()))
+	if ( ( type == 0x09 ) && ( pChar->mayBroadcast() ) )
 	{
 		pChar->talk( speech, color, type );
 		return;
 	}
 
-	pChar->talk(speech, color, type);
+	pChar->talk( speech, color, type );
 
 	QString speechUpr = speech.upper();
-	if( response( socket, pChar, speech, keywords ) )
+	if ( response( socket, pChar, speech, keywords ) )
 		return;  // Vendor responded already
 
 	// 0x0007 -> Speech-id for "Guards"
-	for( QValueVector< UINT16 >::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
+	for ( QValueVector<UINT16>::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
 	{
 		UINT16 keyword = *iter;
 
-		if( keyword == 0x07 )
+		if ( keyword == 0x07 )
 			pChar->callGuards();
 	}
 
 	// this makes it so npcs do not respond to isDead people - HEALERS ??
-	if( pChar->isDead() )
+	if ( pChar->isDead() )
 		return;
 
-/*	P_CHAR pc = NULL; ???
-	P_CHAR pNpc = NULL;
-	RegionIterator4Chars ri( pChar->pos() );
-	for( ri.Begin(); !ri.atEnd(); ri++ )
-	{
-		pc = ri.GetData();
-		if (!pc->isSameAs( pChar )
-			&& pc->isNpc()
-			&& pc->dist( pChar ) <= 2)
+	/*	P_CHAR pc = NULL; ???
+		P_CHAR pNpc = NULL;
+		RegionIterator4Chars ri( pChar->pos() );
+		for( ri.Begin(); !ri.atEnd(); ri++ )
 		{
-			pNpc = pc;
-			break;
+			pc = ri.GetData();
+			if (!pc->isSameAs( pChar )
+				&& pc->isNpc()
+				&& pc->dist( pChar ) <= 2)
+			{
+				pNpc = pc;
+				break;
+			}
 		}
-	}
-	*/
+		*/
 }

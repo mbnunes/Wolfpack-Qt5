@@ -36,12 +36,14 @@
 #include <qdatetime.h>
 #include <qdir.h>
 
-cLog::cLog() {
+cLog::cLog()
+{
 }
 
 cLog::~cLog()
 {
-	if (logfile.isOpen()) {
+	if ( logfile.isOpen() )
+	{
 		logfile.close();
 	}
 }
@@ -54,33 +56,32 @@ bool cLog::checkLogFile()
 		Try to open the logfile for today if:
 		a) Our filedescriptor is invalid
 		b) We don't have today anymore
-
 		EXCEPT if the user sets LogRotate to false
 	*/
-	if( !logfile.isOpen() || currentday != today.day() )
+	if ( !logfile.isOpen() || currentday != today.day() )
 	{
 		logfile.close(); // Just to be sure
 
 		QString path = Config::instance()->logPath();
 
-		if( !path.endsWith( QChar( QDir::separator() ) ) )
+		if ( !path.endsWith( QChar( QDir::separator() ) ) )
 			path.append( QDir::separator() );
 
 		QDir d;
-		if ( !d.exists(path) )
+		if ( !d.exists( path ) )
 		{
 			d.mkdir( path );
 		}
 
 		QString filename;
-		if( Config::instance()->logRotate() )
+		if ( Config::instance()->logRotate() )
 			filename.sprintf( "wolfpack-%04u-%02u-%02u.log", today.year(), today.month(), today.day() );
 		else
 			filename = QString( "wolfpack.log" );
 
 		logfile.setName( path + filename );
 
-		if( !logfile.open( IO_WriteOnly | IO_Append | IO_Translate ) )
+		if ( !logfile.open( IO_WriteOnly | IO_Append | IO_Translate ) )
 		{
 			Console::instance()->send( QString( "Couldn't open logfile '%1'\n" ).arg( path + filename ) );
 			return false;
@@ -93,13 +94,14 @@ bool cLog::checkLogFile()
 /*
 	Log to the logfile only.
  */
-void cLog::log( eLogLevel loglevel, cUOSocket *sock, const QString &string, bool timestamp )
+void cLog::log( eLogLevel loglevel, cUOSocket* sock, const QString& string, bool timestamp )
 {
-	if (!(Config::instance()->logMask() & loglevel)) {
+	if ( !( Config::instance()->logMask() & loglevel ) )
+	{
 		return;
 	}
 
-	if( !checkLogFile() )
+	if ( !checkLogFile() )
 		return;
 
 	// Timestamp the data
@@ -108,16 +110,16 @@ void cLog::log( eLogLevel loglevel, cUOSocket *sock, const QString &string, bool
 	QCString utfdata = string.utf8();
 	QCString prelude;
 
-	if( timestamp || loglevel == LOG_PYTHON )
+	if ( timestamp || loglevel == LOG_PYTHON )
 	{
 		prelude.sprintf( "%02u:%02u:", now.hour(), now.minute() );
 
-		if( sock )
+		if ( sock )
 			prelude.append( QString( "%1:" ).arg( sock->uniqueId(), 0, 16 ) );
 	}
 
 	// LogLevel
-	switch( loglevel )
+	switch ( loglevel )
 	{
 	case LOG_ERROR:
 		prelude.append( "ERROR: " );
@@ -142,13 +144,13 @@ void cLog::log( eLogLevel loglevel, cUOSocket *sock, const QString &string, bool
 }
 
 // Sends to the console and logs too
-void cLog::print( eLogLevel loglevel, const QString &string, bool timestamp )
+void cLog::print( eLogLevel loglevel, const QString& string, bool timestamp )
 {
 	// Send to the Console too
 	print( loglevel, 0, string, timestamp );
 }
 
-void cLog::print( eLogLevel loglevel, cUOSocket *sock, const QString &string, bool timestamp )
+void cLog::print( eLogLevel loglevel, cUOSocket* sock, const QString& string, bool timestamp )
 {
 	// send to the logfile
 	log( loglevel, sock, string, timestamp );
@@ -158,7 +160,7 @@ void cLog::print( eLogLevel loglevel, cUOSocket *sock, const QString &string, bo
 
 	QCString prelude;
 
-	if( timestamp )
+	if ( timestamp )
 	{
 		prelude.sprintf( "%02u:%02u:", now.hour(), now.minute() );
 
@@ -166,12 +168,12 @@ void cLog::print( eLogLevel loglevel, cUOSocket *sock, const QString &string, bo
 		Console::instance()->send( prelude );
 		Console::instance()->changeColor( WPC_NORMAL );
 
-		if( sock )
+		if ( sock )
 			Console::instance()->send( QString( "%1:" ).arg( sock->uniqueId(), 0, 16 ) );
 	}
 
 	// LogLevel
-	switch( loglevel )
+	switch ( loglevel )
 	{
 	case LOG_ERROR:
 		Console::instance()->changeColor( WPC_RED );
@@ -190,13 +192,13 @@ void cLog::print( eLogLevel loglevel, cUOSocket *sock, const QString &string, bo
 		break;
 
 	default:
-		if( !prelude.isEmpty() )
+		if ( !prelude.isEmpty() )
 			Console::instance()->send( " " );
 	}
 
 	Console::instance()->send( string );
 
-	if( loglevel == LOG_PYTHON )
+	if ( loglevel == LOG_PYTHON )
 	{
 		Console::instance()->changeColor( WPC_NORMAL );
 	}

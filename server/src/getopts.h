@@ -46,7 +46,8 @@ public:
 
 	void parse_options( int, char** );
 
-	inline bool isDaemon() const {
+	inline bool isDaemon() const
+	{
 		return isDaemon_;
 	}
 private:
@@ -55,6 +56,6 @@ private:
 	bool usePidfile_;
 };
 
-typedef SingletonHolder< cGetopts > Getopts;
+typedef SingletonHolder<cGetopts> Getopts;
 
 #endif

@@ -51,13 +51,15 @@ typedef cMulti* P_MULTI;
 	Things commonly used in other python-definition
 	source-files.
 */
-inline PyObject *PyFalse() {
-	Py_INCREF(Py_False);
+inline PyObject* PyFalse()
+{
+	Py_INCREF( Py_False );
 	return Py_False;
 }
 
-inline PyObject *PyTrue() {
-	Py_INCREF(Py_True);
+inline PyObject* PyTrue()
+{
+	Py_INCREF( Py_True );
 	return Py_True;
 }
 
@@ -69,48 +71,48 @@ inline PyObject *PyTrue() {
 #define getIntProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyInt_FromLong( self->property );
 #define getStrProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyString_FromString( self->property );
 
-void wpDealloc(PyObject* self);
+void wpDealloc( PyObject* self );
 
-PyObject *PyGetTooltipObject( cUOTxTooltipList* );
+PyObject* PyGetTooltipObject( cUOTxTooltipList* );
 
-int PyConvertObject(PyObject *object, cUObject **uobject);
+int PyConvertObject( PyObject* object, cUObject** uobject );
 
-bool checkWpSocket( PyObject *object );
-PyObject *PyGetSocketObject( cUOSocket* );
-cUOSocket *getWpSocket( PyObject* object );
-int PyConvertSocket( PyObject *object, cUOSocket** sock );
+bool checkWpSocket( PyObject* object );
+PyObject* PyGetSocketObject( cUOSocket* );
+cUOSocket* getWpSocket( PyObject* object );
+int PyConvertSocket( PyObject* object, cUOSocket** sock );
 
-bool checkWpCoord( PyObject *object );
-int PyConvertCoord( PyObject *object, Coord_cl* pos );
-PyObject *PyGetCoordObject( const Coord_cl& coord );
+bool checkWpCoord( PyObject* object );
+int PyConvertCoord( PyObject* object, Coord_cl* pos );
+PyObject* PyGetCoordObject( const Coord_cl& coord );
 Coord_cl getWpCoord( PyObject* object );
 
-bool checkWpItem( PyObject *object );
+bool checkWpItem( PyObject* object );
 PyObject* PyGetItemObject( P_ITEM );
 P_ITEM getWpItem( PyObject* );
-int PyConvertItem(PyObject*, P_ITEM *item);
+int PyConvertItem( PyObject*, P_ITEM* item );
 
-PyObject *PyGetObjectObject( cUObject* );
+PyObject* PyGetObjectObject( cUObject* );
 
-bool checkWpChar( PyObject *object );
+bool checkWpChar( PyObject* object );
 PyObject* PyGetCharObject( P_CHAR );
 P_CHAR getWpChar( PyObject* );
-int PyConvertChar( PyObject *object, P_CHAR* character);
-int PyConvertPlayer( PyObject *object, P_PLAYER* player);
+int PyConvertChar( PyObject* object, P_CHAR* character );
+int PyConvertPlayer( PyObject* object, P_PLAYER* player );
 
-bool checkWpAccount( PyObject *object );
+bool checkWpAccount( PyObject* object );
 PyObject* PyGetAccountObject( cAccount* );
 cAccount* getWpAccount( PyObject* );
 
-bool checkWpRegion( PyObject *object );
+bool checkWpRegion( PyObject* object );
 PyObject* PyGetRegionObject( cTerritory* );
 cTerritory* getWpRegion( PyObject* );
 
-bool checkWpMulti( PyObject *object );
+bool checkWpMulti( PyObject* object );
 PyObject* PyGetMultiObject( P_MULTI );
 P_MULTI getWpMulti( PyObject* );
 
-bool checkWpAI( PyObject *object );
+bool checkWpAI( PyObject* object );
 PyObject* PyGetAIObject( AbstractAI* );
 AbstractAI* getWpAI( PyObject* );
 
@@ -136,24 +138,38 @@ AbstractAI* getWpAI( PyObject* );
 #define checkArgMulti( id ) ( PyTuple_Size( args ) > id && checkWpMulti( PyTuple_GetItem( args, id ) ) )
 #define getArgMulti( id ) getWpMulti( PyTuple_GetItem( args, id ) )
 
-inline PyObject* QString2Python(const QString &string) {
-	if (string.isEmpty()) {
-		return PyUnicode_FromWideChar(L"", 0);
-	} else {
-		return PyUnicode_FromUnicode((Py_UNICODE*)string.ucs2(), string.length());
+inline PyObject* QString2Python( const QString& string )
+{
+	if ( string.isEmpty() )
+	{
+		return PyUnicode_FromWideChar( L"", 0 );
+	}
+	else
+	{
+		return PyUnicode_FromUnicode( ( Py_UNICODE * ) string.ucs2(), string.length() );
 	}
 }
 
-inline QString Python2QString(PyObject *object) {
-	if (PyUnicode_Check(object)) {
-		return QString::fromUcs2((ushort*)PyUnicode_AS_UNICODE(object));
-	} else if (PyString_Check(object)) {
-		return QString::fromLocal8Bit(PyString_AsString(object));
-	} else if (PyInt_Check(object)) {
-		return QString::number(PyInt_AsLong(object));
-	} else if (PyFloat_Check(object)) {
-		return QString::number(PyFloat_AsDouble(object));
-	} else {
+inline QString Python2QString( PyObject* object )
+{
+	if ( PyUnicode_Check( object ) )
+	{
+		return QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( object ) );
+	}
+	else if ( PyString_Check( object ) )
+	{
+		return QString::fromLocal8Bit( PyString_AsString( object ) );
+	}
+	else if ( PyInt_Check( object ) )
+	{
+		return QString::number( PyInt_AsLong( object ) );
+	}
+	else if ( PyFloat_Check( object ) )
+	{
+		return QString::number( PyFloat_AsDouble( object ) );
+	}
+	else
+	{
 		return QString::null;
 	}
 }

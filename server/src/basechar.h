@@ -55,30 +55,59 @@ class cUOTxTooltipList;
 class cBaseChar : public cUObject
 {
 public:
-	const char *objectID() const
+	const char* objectID() const
 	{
 		return "cBaseChar";
 	}
 
 	// con-/destructors
 	cBaseChar();
-	cBaseChar(const cBaseChar& right);
+	cBaseChar( const cBaseChar& right );
 	virtual ~cBaseChar();
 
 	// operators
-    cBaseChar& operator=(const cBaseChar& right);
+	cBaseChar& operator=( const cBaseChar& right );
 
 	// type definitions
 	typedef QMap<ushort, cItem*> ItemContainer;
-	typedef QValueVector< cBaseChar* > CharContainer;
-	typedef QValueVector< cTimer* > TimerContainer;
-	enum enLayer { TradeWindow = 0, SingleHandedWeapon, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
-	Ring, Neck = 0xA, Hair, Waist, InnerTorso, Bracelet, FacialHair = 0x10,  MiddleTorso,
-	Earrings, Arms, Back, Backpack, OuterTorso, OuterLegs, InnerLegs, Mount, BuyRestockContainer,
-	BuyNoRestockContainer, SellContainer, BankBox, Dragging };
+	typedef QValueVector<cBaseChar*> CharContainer;
+	typedef QValueVector<cTimer*> TimerContainer;
+	enum enLayer
+	{
+		TradeWindow					= 0,
+		SingleHandedWeapon,
+		DualHandedWeapon,
+		Shoes,
+		Pants,
+		Shirt,
+		Hat,
+		Gloves,
+		Ring,
+		Neck						= 0xA,
+		Hair,
+		Waist,
+		InnerTorso,
+		Bracelet,
+		FacialHair					= 0x10,
+		MiddleTorso,
+		Earrings,
+		Arms,
+		Back,
+		Backpack,
+		OuterTorso,
+		OuterLegs,
+		InnerLegs,
+		Mount,
+		BuyRestockContainer,
+		BuyNoRestockContainer,
+		SellContainer,
+		BankBox,
+		Dragging
+	};
 
-	enum enBark {
-		Bark_Attacking= 0,
+	enum enBark
+	{
+		Bark_Attacking		= 0,
 		Bark_Idle,
 		Bark_Hit,
 		Bark_GetHit,
@@ -86,7 +115,7 @@ public:
 	};
 
 	// implementation of interfaces
-	void load( char **, ushort& );
+	void load( char**, ushort& );
 	void save();
 	bool del();
 
@@ -95,26 +124,27 @@ public:
 	virtual enCharTypes objectType() = 0;
 	// network related methods
 	virtual void update( bool excludeself = false ) = 0;
-	virtual void resend(bool clean = true) = 0;
+	virtual void resend( bool clean = true ) = 0;
 	// other methods
 	virtual uchar notoriety( P_CHAR pChar ) = 0; // Gets the notoriety towards another char
 
-	bool canSee(cUObject *object);
-	virtual bool canSeeChar(P_CHAR character);
-	virtual bool canSeeItem(P_ITEM item);
-	virtual void moveTo(const Coord_cl &pos, bool noremove = false);
-	bool lineOfSight(P_ITEM item, bool touch = false);
-	bool lineOfSight(Coord_cl position, bool touch = false);
-	bool lineOfSight(P_CHAR character, bool touch = false);
+	bool canSee( cUObject* object );
+	virtual bool canSeeChar( P_CHAR character );
+	virtual bool canSeeItem( P_ITEM item );
+	virtual void moveTo( const Coord_cl& pos, bool noremove = false );
+	bool lineOfSight( P_ITEM item, bool touch = false );
+	bool lineOfSight( Coord_cl position, bool touch = false );
+	bool lineOfSight( P_CHAR character, bool touch = false );
 
 	/*!
 		\brief This enumeration contains values that specify what events should be processed
 			for the given character.
 	*/
-	enum TimingEvents {
-		EventCombat = 0x01,
-		EventLight = 0x02,
-		EventTime = 0x04,
+	enum TimingEvents
+	{
+		EventCombat		= 0x01,
+		EventLight		= 0x02,
+		EventTime		= 0x04,
 	};
 
 	/*!
@@ -122,26 +152,27 @@ public:
 		\param time The current servertime.
 		\param events A bitfield of \a TimingEvents values to determine what exactly should be checked.
 	*/
-	virtual void poll(unsigned int time, unsigned int events);
+	virtual void poll( unsigned int time, unsigned int events );
 
 	/*!
 		\brief Kills the character.
 		\returns True if the character was really killed and false if nothing changed.
 	*/
-	virtual bool kill(cUObject *source);
+	virtual bool kill( cUObject* source );
 
 	/*!
 		\brief This method tries to find an ongoing fight between this character and another.
 		\param enemy The other character who participates in the fight.
 		\returns A pointer to a fight object if found, a null pointer otherwise.
 	*/
-	cFightInfo *findFight(P_CHAR enemy);
+	cFightInfo* findFight( P_CHAR enemy );
 
 	/*!
 		\brief Enumeration of fight status codes that are returned by the fight functions.
 	*/
-	enum FightStatus {
-		FightDenied = 0x00,
+	enum FightStatus
+	{
+		FightDenied			= 0x00,
 		FightStarted,
 		FightContinued
 	};
@@ -151,7 +182,7 @@ public:
 		\param enemy The enemy this creature should fight. May be null to cancel a fight.
 		\returns A returncode of the \a eFightStatus enumeration.
 	*/
-	virtual FightStatus fight(P_CHAR enemy);
+	virtual FightStatus fight( P_CHAR enemy );
 
 	/*!
 		\brief Sends a system message to this character. The message is only sent to logged
@@ -161,7 +192,7 @@ public:
 		\param font The font for the sysmessage. The default is 0x03.
 		\returns True if the message was really sent. False otherwise.
 	*/
-	bool sysmessage(const QString &message, unsigned short color = 0x3b2, unsigned short font = 0x03);
+	bool sysmessage( const QString& message, unsigned short color = 0x3b2, unsigned short font = 0x03 );
 
 	/*!
 		\brief Sends a localized system message to this character. The message is only sent to logged
@@ -173,7 +204,7 @@ public:
 		\param font The font for the sysmessage. The default is 0x03.
 		\returns True if the message was really sent. False otherwise.
 	*/
-	bool sysmessage(unsigned int message, const QString &params = QString::null, unsigned short color = 0x3b2, unsigned short font = 0x03);
+	bool sysmessage( unsigned int message, const QString& params = QString::null, unsigned short color = 0x3b2, unsigned short font = 0x03 );
 
 	/*!
 		\brief Send this character an overhead message. This does nothing for logged out characters
@@ -185,11 +216,7 @@ public:
 		\param mode The speech mode of the message. 0x00 is default and means regular speech.
 		\returns True if the message was sent or False otherwise.
 	*/
-	bool message(const QString &message,
-				 unsigned short color = 0x3b2,
-				 cUObject *source = 0,
-				 unsigned short font = 0x03,
-				 unsigned char mode = 0x00);
+	bool message( const QString& message, unsigned short color = 0x3b2, cUObject* source = 0, unsigned short font = 0x03, unsigned char mode = 0x00 );
 
 	/*!
 		\brief Sends this character a packet if he is a player and logged in.
@@ -197,7 +224,7 @@ public:
 		\param packet The packet you want to send to this character.
 		\returns True if the packet was sent, False otherwise.
 	*/
-	virtual bool send(cUOPacket *packet);
+	virtual bool send( cUOPacket* packet );
 
 	/*!
 		\brief Checks if the character is available in world to take action.
@@ -205,58 +232,58 @@ public:
 	*/
 	virtual bool inWorld() = 0;
 
-	virtual void showName( cUOSocket *socket ) = 0;
+	virtual void showName( cUOSocket* socket ) = 0;
 	virtual void soundEffect( UI16 soundId, bool hearAll = true ) = 0;
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false ) = 0;
 	virtual uint takeGold( uint amount, bool useBank = false ) = 0;
-	virtual void log( eLogLevel, const QString &string ) = 0;
-	virtual void log( const QString &string ) = 0;
-	unsigned int damage(eDamageType type, unsigned int amount, cUObject *source = 0);
+	virtual void log( eLogLevel, const QString& string ) = 0;
+	virtual void log( const QString& string ) = 0;
+	unsigned int damage( eDamageType type, unsigned int amount, cUObject* source = 0 );
 
 	// other public methods
 	// Simple Property setting and getting for script engines.
-	stError *setProperty( const QString &name, const cVariant &value );
-	stError *getProperty( const QString &name, cVariant &value );
+	stError* setProperty( const QString& name, const cVariant& value );
+	stError* getProperty( const QString& name, cVariant& value );
 	void updateHealth( void );
-	void action(uchar id, uchar speed = 1, bool reverse = false); // Do an action
+	void action( uchar id, uchar speed = 1, bool reverse = false ); // Do an action
 	P_ITEM getWeapon() const;
 	P_ITEM getShield() const;
-	void setHairColor( ushort d);
-	void setHairStyle( ushort d);
-	void setBeardColor( ushort d);
-	void setBeardStyle( ushort d);
+	void setHairColor( ushort d );
+	void setHairStyle( ushort d );
+	void setBeardColor( ushort d );
+	void setBeardStyle( ushort d );
 	void playDeathSound();
 	double getHitpointRate();
 	double getStaminaRate();
 	double getManaRate();
 	void resurrect();
-	
-	void turnTo( cUObject *object );
-	void turnTo( const Coord_cl &pos );
+
+	void turnTo( cUObject* object );
+	void turnTo( const Coord_cl& pos );
 	void wear( P_ITEM );
 	bool isHuman() const;
 	bool isMurderer() const;
 	bool isCriminal() const;
 	virtual bool isInnocent();
 	void unhide();
-	int  CountItems(short ID, short col= -1);
-	int  CountGold();
-	P_ITEM GetItemOnLayer(unsigned char layer);
+	int CountItems( short ID, short col = -1 );
+	int CountGold();
+	P_ITEM GetItemOnLayer( unsigned char layer );
 	P_ITEM getBackpack();
 	P_ITEM getBankbox();
-	void setSerial(SERIAL ser);
-	void MoveTo(short newx, short newy, signed char newz);
-	bool Wears(P_ITEM pi);
+	void setSerial( SERIAL ser );
+	void MoveTo( short newx, short newy, signed char newz );
+	bool Wears( P_ITEM pi );
 	unsigned int getSkillSum() const;
-	void Init(bool ser = true);
-	bool isSameAs(P_CHAR pc);
+	void Init( bool ser = true );
+	bool isSameAs( P_CHAR pc );
 	bool inGuardedArea();
-	void emote( const QString &emote, UI16 color = 0xFFFF );
+	void emote( const QString& emote, UI16 color = 0xFFFF );
 	P_ITEM rightHandItem() const;
 	P_ITEM leftHandItem() const;
 	void bark( enBark );	// Play a body dependant sound
 	void goldSound( unsigned short amount, bool hearall = true ); // Play a sound for dropping goldcoins depending on the amount
-	void showPaperdoll( cUOSocket *source, bool hotkey );
+	void showPaperdoll( cUOSocket* source, bool hotkey );
 	virtual bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true );
 	cItem* atLayer( enLayer layer ) const;
 	bool Owns( P_ITEM pi ) const;
@@ -267,41 +294,48 @@ public:
 
 	// Wrapper events
 	virtual bool onWalk( unsigned char dir, unsigned char sequence ); // Walks in a specific Direction
-	virtual bool onTalk( unsigned char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ); // The character says something
+	virtual bool onTalk( unsigned char speechType, UI16 speechColor, UI16 speechFont, const QString& Text, const QString& Lang ); // The character says something
 	virtual bool onWarModeToggle( bool War ); // The character switches warmode
 	virtual bool onShowPaperdoll( P_CHAR pOrigin ); // The paperdoll of this character is requested, there is no vice-versa call
 	virtual bool onShowSkillGump(); //Show Skillgump
 	virtual bool onSkillUse( UI08 Skill ); // The character uses %Skill
-	virtual bool onDeath(cUObject *source, P_ITEM corpse);
+	virtual bool onDeath( cUObject* source, P_ITEM corpse );
 	virtual bool onDropOnChar( P_ITEM pItem );
 	virtual QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
-//	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
+	//	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	virtual bool onCHLevelChange( uint level ); // Fired when player moving trough levels
 	virtual bool onSkillGain( unsigned char skill, unsigned short min, unsigned short max, bool success );
 
 	// Combat
-	inline P_CHAR attackTarget() const {
+	inline P_CHAR attackTarget() const
+	{
 		return attackTarget_;
 	}
 
-	inline void setAttackTarget(P_CHAR target) {
+	inline void setAttackTarget( P_CHAR target )
+	{
 		attackTarget_ = target;
 	}
 
-	inline unsigned int nextSwing() const {
+	inline unsigned int nextSwing() const
+	{
 		return nextSwing_;
 	}
 
-	inline void setNextSwing(unsigned int data) {
+	inline void setNextSwing( unsigned int data )
+	{
 		nextSwing_ = data;
 	}
 
-	inline QCString baseid() const {
+	inline QCString baseid() const
+	{
 		return basedef_ ? basedef_->id() : 0;
 	}
 
-    inline void setBaseid(const QCString &id) {
-		basedef_ = CharBaseDefs::instance()->get(id);
+	inline void setBaseid( const QCString& id )
+	{
+		basedef_ = CharBaseDefs::instance()->get( id );
+		changed_ = true;
 	}
 
 	void refreshMaximumValues();
@@ -367,6 +401,8 @@ public:
 	bool isDead() const;
 	bool isAtWar() const;
 	bool isInvulnerable() const;
+	unsigned char direction() const;
+
 	// advanced getters for data structures
 	// skills
 	ushort skillValue( ushort skill ) const;
@@ -374,85 +410,86 @@ public:
 	uchar skillLock( ushort skill ) const;
 
 	// effects
-	TimerContainer	timers() const;
+	TimerContainer timers() const;
 	// guards
-	CharContainer	guardedby() const;
+	CharContainer guardedby() const;
 	// content
-	ItemContainer	content() const;
+	ItemContainer content() const;
 
 	void remove();
 
 	// setters
-	void setBody(ushort data);
-	void setCreationDate(const QDateTime &data);
-	void setCriminalTime(uint data);
-	void setDeaths(ushort data);
-	void setDexterityMod(short data);
-	void setDexterity(short data);
-	void setEmoteColor(ushort data);
-	void setFame(short data);
-	void setFlag(uchar data);
-	void setGender(bool data);
-	void setGuarding(P_CHAR data);
-	void setHitpoints(short data);
-	void setHunger(int data);
-	void setHungerTime(uint data);
-	void setIntelligence(short data);
-	void setIntelligenceMod(short data);
-	void setKarma(short data);
-	void setKills(ushort data);
-	void setMana(short data);
-	void setMaxHitpoints(ushort data);
-	void setMaxMana(ushort data);
-	void setMaxStamina(ushort data);
-	void setMurdererSerial(SERIAL data);
-	void setMurdererTime(uint data);
-	void setOrgBody(short data);
-	void setOrgName(const QString &data);
-	void setOrgSkin(ushort data);
-	void setLastMovement(unsigned int data);
-	void setPoison(signed char data);
-	void setPropertyFlags(uint data);
-	void setRegenHitpointsTime(uint data);
-	void setRegenStaminaTime(uint data);
-	void setRegenManaTime(uint data);
-	void setRegion(cTerritory* data);
-	void setRunningSteps(uint data);
-	void setSaycolor(ushort data);
-	void setSkillDelay(uint data);
-	void setSkin(ushort data);
-	virtual void setStamina(short data, bool notify = true );
-	void setStealthedSteps(int data);
-	void setStrength(short data);
-	void setStrengthMod(short data);
-	void setTitle(const QString &data);
-	void setWeight(float data);
+	void setBody( ushort data );
+	void setDirection( unsigned char d );
+	void setCreationDate( const QDateTime& data );
+	void setCriminalTime( uint data );
+	void setDeaths( ushort data );
+	void setDexterityMod( short data );
+	void setDexterity( short data );
+	void setEmoteColor( ushort data );
+	void setFame( short data );
+	void setFlag( uchar data );
+	void setGender( bool data );
+	void setGuarding( P_CHAR data );
+	void setHitpoints( short data );
+	void setHunger( int data );
+	void setHungerTime( uint data );
+	void setIntelligence( short data );
+	void setIntelligenceMod( short data );
+	void setKarma( short data );
+	void setKills( ushort data );
+	void setMana( short data );
+	void setMaxHitpoints( ushort data );
+	void setMaxMana( ushort data );
+	void setMaxStamina( ushort data );
+	void setMurdererSerial( SERIAL data );
+	void setMurdererTime( uint data );
+	void setOrgBody( short data );
+	void setOrgName( const QString& data );
+	void setOrgSkin( ushort data );
+	void setLastMovement( unsigned int data );
+	void setPoison( signed char data );
+	void setPropertyFlags( uint data );
+	void setRegenHitpointsTime( uint data );
+	void setRegenStaminaTime( uint data );
+	void setRegenManaTime( uint data );
+	void setRegion( cTerritory* data );
+	void setRunningSteps( uint data );
+	void setSaycolor( ushort data );
+	void setSkillDelay( uint data );
+	void setSkin( ushort data );
+	virtual void setStamina( short data, bool notify = true );
+	void setStealthedSteps( int data );
+	void setStrength( short data );
+	void setStrengthMod( short data );
+	void setTitle( const QString& data );
+	void setWeight( float data );
 	// bit flag setters
-	void setIncognito(bool data);
-	void setPolymorphed(bool data);
-	void setTamed(bool data);
-	void setCasting(bool data);
-	void setHidden(bool data);
-	void setInvisible(bool data);
-	void setMeditating(bool data);
-	void setFrozen(bool data);
-	void setShowSkillTitles(bool data);
-	void setDead(bool data);
-	void setAtWar(bool data);
-	void setInvulnerable(bool data);
-	void setHitpointsBonus(short data);
-	void setStaminaBonus(short data);
-	void setManaBonus(short data);
-	unsigned char			statCap() const;
-	void setStatCap(unsigned char data);
+	void setIncognito( bool data );
+	void setPolymorphed( bool data );
+	void setTamed( bool data );
+	void setCasting( bool data );
+	void setHidden( bool data );
+	void setInvisible( bool data );
+	void setMeditating( bool data );
+	void setFrozen( bool data );
+	void setShowSkillTitles( bool data );
+	void setDead( bool data );
+	void setAtWar( bool data );
+	void setInvulnerable( bool data );
+	void setHitpointsBonus( short data );
+	void setStaminaBonus( short data );
+	void setManaBonus( short data );
+	unsigned char statCap() const;
+	void setStatCap( unsigned char data );
 
 	unsigned char strengthCap() const;
 	unsigned char dexterityCap() const;
 	unsigned char intelligenceCap() const;
-	void setStrengthCap(unsigned char data);
-	void setDexterityCap(unsigned char data);
-	void setIntelligenceCap(unsigned char data);
-	
+	void setStrengthCap( unsigned char data );
+	void setDexterityCap( unsigned char data );
+	void setIntelligenceCap( unsigned char data );
+
 	// advanced setters for data structures
 	// skills
 	void setSkillValue( ushort skill, ushort value );
@@ -460,8 +497,8 @@ public:
 	void setSkillLock( ushort skill, uchar lock );
 
 	// Timers
-	void addTimer(cTimer *timer);
-	void removeTimer(cTimer *timer);
+	void addTimer( cTimer* timer );
+	void removeTimer( cTimer* timer );
 	// guards
 	void addGuard( P_CHAR pPet, bool noGuardingChange = false );
 	void removeGuard( P_CHAR pPet, bool noGuardingChange = false );
@@ -472,60 +509,79 @@ public:
 	/*!
 		Return a reference to the list of ongoing fights.
 	*/
-	QPtrList<cFightInfo> &fights() {
+	QPtrList<cFightInfo>& fights()
+	{
 		return fights_;
 	}
 
 	// Base Definition Getters
-	inline unsigned short basesound() {
+	inline unsigned short basesound()
+	{
 		return basedef_ ? basedef_->basesound() : 0;
 	}
 
-	inline unsigned char soundmode() {
+	virtual QCString bindmenu()
+	{
+		return basedef_ ? basedef_->bindmenu() : 0;
+	}
+
+	inline unsigned char soundmode()
+	{
 		return basedef_ ? basedef_->soundmode() : 0;
 	}
 
-	inline unsigned short figurine() {
+	inline unsigned short figurine()
+	{
 		return basedef_ ? basedef_->figurine() : 0;
 	}
 
-	inline unsigned short minDamage() {
+	inline unsigned short minDamage()
+	{
 		return basedef_ ? basedef_->minDamage() : 0;
 	}
 
-	inline unsigned short maxDamage() {
+	inline unsigned short maxDamage()
+	{
 		return basedef_ ? basedef_->maxDamage() : 0;
 	}
 
-	inline short minTaming() {
+	inline short minTaming()
+	{
 		return basedef_ ? basedef_->minTaming() : 0;
 	}
 
-	inline QCString carve() {
+	inline QCString carve()
+	{
 		return basedef_ ? basedef_->carve() : 0;
 	}
 
-	inline QCString lootPacks() {
+	inline QCString lootPacks()
+	{
 		return basedef_ ? basedef_->lootPacks() : 0;
 	}
 
-	inline unsigned char controlSlots() {
+	inline unsigned char controlSlots()
+	{
 		return basedef_ ? basedef_->controlSlots() : 0;
 	}
 
-	inline unsigned char criticalHealth() {
+	inline unsigned char criticalHealth()
+	{
 		return basedef_ ? basedef_->criticalHealth() : 0;
 	}
 
-	inline bool isCanFly() {
+	inline bool isCanFly()
+	{
 		return basedef_ ? basedef_->canFly() : false;
 	}
 
-	inline bool isAntiBlink() {
+	inline bool isAntiBlink()
+	{
 		return basedef_ ? basedef_->antiBlink() : false;
 	}
 
-	inline bool isNoCorpse() {
+	inline bool isNoCorpse()
+	{
 		return basedef_ ? basedef_->noCorpse() : false;
 	}
 private:
@@ -536,9 +592,10 @@ protected:
 	unsigned char strengthCap_;
 	unsigned char dexterityCap_;
 	unsigned char intelligenceCap_;
+	unsigned char direction_;
 
 	// other protected methods
-	cCharBaseDef *basedef_;
+	cCharBaseDef* basedef_;
 
 	/*!
 		\brief The target we are currently attacking.
@@ -563,12 +620,14 @@ protected:
 		ushort cap; // Special Cap Value (Default: 1000)
 		uchar lock; // 0: Up, 1: Down, 2: Locked (Default: 0)
 
-		stSkillValue(): value(0), cap(1000), lock(0), changed(false) {}
+		stSkillValue() : value( 0 ), cap( 1000 ), lock( 0 ), changed( false )
+		{
+		}
 	};
 
 	// other protected methods
-	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
-	virtual void processNode( const cElement *Tag );
+	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
+	virtual void processNode( const cElement* Tag );
 
 	// The body ID for this character. cOldChar::id_
 	ushort body_;
@@ -733,7 +792,7 @@ protected:
 	ItemContainer content_;
 
 	// Skill properties of this char.
-	QValueVector< stSkillValue > skills_;
+	QValueVector<stSkillValue> skills_;
 
 	// Region the char is in.
 	cTerritory* region_;
@@ -775,19 +834,19 @@ inline P_CHAR cBaseChar::guarding() const
 	return guarding_;
 }
 
-inline void cBaseChar::setGuarding(P_CHAR data)
+inline void cBaseChar::setGuarding( P_CHAR data )
 {
-	if( data == guarding_ )
+	if ( data == guarding_ )
 		return;
 
-	if( guarding_ )
+	if ( guarding_ )
 		guarding_->removeGuard( this );
 
 	guarding_ = data;
 	changed_ = true;
 	changed( TOOLTIP );
 
-	if( guarding_ )
+	if ( guarding_ )
 		guarding_->addGuard( this );
 }
 
@@ -796,13 +855,16 @@ inline ushort cBaseChar::body() const
 	return body_;
 }
 
-inline void cBaseChar::setBody(ushort data)
+inline void cBaseChar::setBody( ushort data )
 {
 	body_ = data;
 
-	if (data == 0x190) {
+	if ( data == 0x190 )
+	{
 		gender_ = 0;
-	} else if (data == 0x191) {
+	}
+	else if ( data == 0x191 )
+	{
 		gender_ = 1;
 	}
 
@@ -814,7 +876,7 @@ inline QDateTime cBaseChar::creationDate() const
 	return creationDate_;
 }
 
-inline void cBaseChar::setCreationDate(const QDateTime &data)
+inline void cBaseChar::setCreationDate( const QDateTime& data )
 {
 	creationDate_ = data;
 	changed_ = true;
@@ -825,7 +887,7 @@ inline uint cBaseChar::criminalTime() const
 	return criminalTime_;
 }
 
-inline void cBaseChar::setCriminalTime(uint data)
+inline void cBaseChar::setCriminalTime( uint data )
 {
 	criminalTime_ = data;
 	changed_ = true;
@@ -836,7 +898,7 @@ inline ushort cBaseChar::deaths() const
 	return deaths_;
 }
 
-inline void cBaseChar::setDeaths(ushort data)
+inline void cBaseChar::setDeaths( ushort data )
 {
 	deaths_ = data;
 	changed_ = true;
@@ -847,7 +909,7 @@ inline short cBaseChar::dexterityMod() const
 	return dexterityMod_;
 }
 
-inline void cBaseChar::setDexterityMod(short data)
+inline void cBaseChar::setDexterityMod( short data )
 {
 	dexterityMod_ = data;
 	changed_ = true;
@@ -859,7 +921,7 @@ inline short cBaseChar::dexterity() const
 	return dexterity_;
 }
 
-inline void cBaseChar::setDexterity(short data)
+inline void cBaseChar::setDexterity( short data )
 {
 	dexterity_ = data;
 	changed_ = true;
@@ -871,7 +933,7 @@ inline ushort cBaseChar::emoteColor() const
 	return emoteColor_;
 }
 
-inline void cBaseChar::setEmoteColor(ushort data)
+inline void cBaseChar::setEmoteColor( ushort data )
 {
 	emoteColor_ = data;
 	changed_ = true;
@@ -882,7 +944,7 @@ inline short cBaseChar::fame() const
 	return fame_;
 }
 
-inline void cBaseChar::setFame(short data)
+inline void cBaseChar::setFame( short data )
 {
 	fame_ = data;
 	changed_ = true;
@@ -893,7 +955,7 @@ inline uchar cBaseChar::flag() const
 	return flag_;
 }
 
-inline void cBaseChar::setFlag(uchar data)
+inline void cBaseChar::setFlag( uchar data )
 {
 	flag_ = data;
 	changed_ = true;
@@ -904,7 +966,7 @@ inline bool cBaseChar::gender() const
 	return gender_;
 }
 
-inline void cBaseChar::setGender(bool data)
+inline void cBaseChar::setGender( bool data )
 {
 	gender_ = data;
 	changed_ = true;
@@ -915,7 +977,7 @@ inline short cBaseChar::hitpoints() const
 	return hitpoints_;
 }
 
-inline void cBaseChar::setHitpoints(short data)
+inline void cBaseChar::setHitpoints( short data )
 {
 	hitpoints_ = data;
 	changed_ = true;
@@ -926,7 +988,7 @@ inline int cBaseChar::hunger() const
 	return hunger_;
 }
 
-inline void cBaseChar::setHunger(int data)
+inline void cBaseChar::setHunger( int data )
 {
 	hunger_ = data;
 	changed_ = true;
@@ -937,7 +999,7 @@ inline uint cBaseChar::hungerTime() const
 	return hungerTime_;
 }
 
-inline void cBaseChar::setHungerTime(uint data)
+inline void cBaseChar::setHungerTime( uint data )
 {
 	hungerTime_ = data;
 }
@@ -947,7 +1009,7 @@ inline short cBaseChar::intelligence() const
 	return intelligence_;
 }
 
-inline void cBaseChar::setIntelligence(short data)
+inline void cBaseChar::setIntelligence( short data )
 {
 	intelligence_ = data;
 	changed_ = true;
@@ -959,7 +1021,7 @@ inline short cBaseChar::intelligenceMod() const
 	return intelligenceMod_;
 }
 
-inline void cBaseChar::setIntelligenceMod(short data)
+inline void cBaseChar::setIntelligenceMod( short data )
 {
 	intelligenceMod_ = data;
 	changed_ = true;
@@ -971,7 +1033,7 @@ inline short cBaseChar::karma() const
 	return karma_;
 }
 
-inline void cBaseChar::setKarma(short data)
+inline void cBaseChar::setKarma( short data )
 {
 	karma_ = data;
 	changed_ = true;
@@ -982,7 +1044,7 @@ inline ushort cBaseChar::kills() const
 	return kills_;
 }
 
-inline void cBaseChar::setKills(ushort data)
+inline void cBaseChar::setKills( ushort data )
 {
 	kills_ = data;
 	changed_ = true;
@@ -993,7 +1055,7 @@ inline short cBaseChar::mana() const
 	return mana_;
 }
 
-inline void cBaseChar::setMana(short data)
+inline void cBaseChar::setMana( short data )
 {
 	mana_ = data;
 	changed_ = true;
@@ -1004,7 +1066,7 @@ inline ushort cBaseChar::maxHitpoints() const
 	return maxHitpoints_;
 }
 
-inline void cBaseChar::setMaxHitpoints(ushort data)
+inline void cBaseChar::setMaxHitpoints( ushort data )
 {
 	maxHitpoints_ = data;
 	changed_ = true;
@@ -1015,7 +1077,7 @@ inline ushort cBaseChar::maxMana() const
 	return maxMana_;
 }
 
-inline void cBaseChar::setMaxMana(ushort data)
+inline void cBaseChar::setMaxMana( ushort data )
 {
 	maxMana_ = data;
 	changed_ = true;
@@ -1026,7 +1088,7 @@ inline ushort cBaseChar::maxStamina() const
 	return maxStamina_;
 }
 
-inline void cBaseChar::setMaxStamina(ushort data)
+inline void cBaseChar::setMaxStamina( ushort data )
 {
 	maxStamina_ = data;
 	changed_ = true;
@@ -1037,7 +1099,7 @@ inline uint cBaseChar::murdererTime() const
 	return murdererTime_;
 }
 
-inline void cBaseChar::setMurdererTime(uint data)
+inline void cBaseChar::setMurdererTime( uint data )
 {
 	murdererTime_ = data;
 	changed_ = true;
@@ -1048,7 +1110,7 @@ inline short cBaseChar::orgBody() const
 	return orgBody_;
 }
 
-inline void cBaseChar::setOrgBody(short data)
+inline void cBaseChar::setOrgBody( short data )
 {
 	orgBody_ = data;
 	changed_ = true;
@@ -1059,7 +1121,7 @@ inline ushort cBaseChar::orgSkin() const
 	return orgSkin_;
 }
 
-inline void cBaseChar::setOrgSkin(ushort data)
+inline void cBaseChar::setOrgSkin( ushort data )
 {
 	orgSkin_ = data;
 	changed_ = true;
@@ -1070,7 +1132,7 @@ inline signed char cBaseChar::poison() const
 	return poison_;
 }
 
-inline void cBaseChar::setPoison(signed char data)
+inline void cBaseChar::setPoison( signed char data )
 {
 	poison_ = data;
 	changed_ = true;
@@ -1081,7 +1143,7 @@ inline uint cBaseChar::propertyFlags() const
 	return propertyFlags_;
 }
 
-inline void cBaseChar::setPropertyFlags(uint data)
+inline void cBaseChar::setPropertyFlags( uint data )
 {
 	propertyFlags_ = data;
 	changed_ = true;
@@ -1092,7 +1154,7 @@ inline uint cBaseChar::runningSteps() const
 	return runningSteps_;
 }
 
-inline void cBaseChar::setRunningSteps(uint data)
+inline void cBaseChar::setRunningSteps( uint data )
 {
 	runningSteps_ = data;
 }
@@ -1102,7 +1164,7 @@ inline uint cBaseChar::skillDelay() const
 	return skillDelay_;
 }
 
-inline void cBaseChar::setSkillDelay(uint data)
+inline void cBaseChar::setSkillDelay( uint data )
 {
 	skillDelay_ = data;
 }
@@ -1117,7 +1179,7 @@ inline int cBaseChar::stealthedSteps() const
 	return stealthedSteps_;
 }
 
-inline void cBaseChar::setStealthedSteps(int data)
+inline void cBaseChar::setStealthedSteps( int data )
 {
 	stealthedSteps_ = data;
 }
@@ -1127,7 +1189,7 @@ inline short cBaseChar::strength() const
 	return strength_;
 }
 
-inline void cBaseChar::setStrength(short data)
+inline void cBaseChar::setStrength( short data )
 {
 	strength_ = data;
 	changed_ = true;
@@ -1139,7 +1201,7 @@ inline short cBaseChar::strengthMod() const
 	return strengthMod_;
 }
 
-inline void cBaseChar::setStrengthMod(short data)
+inline void cBaseChar::setStrengthMod( short data )
 {
 	strengthMod_ = data;
 	changed_ = true;
@@ -1151,7 +1213,7 @@ inline float cBaseChar::weight() const
 	return ( ceilf( weight_ * 100 ) / 100 );
 }
 
-inline void cBaseChar::setWeight(float data)
+inline void cBaseChar::setWeight( float data )
 {
 	weight_ = ceilf( data * 100 ) / 100;
 }
@@ -1161,7 +1223,7 @@ inline SERIAL cBaseChar::murdererSerial() const
 	return murdererSerial_;
 }
 
-inline void cBaseChar::setMurdererSerial(SERIAL data)
+inline void cBaseChar::setMurdererSerial( SERIAL data )
 {
 	murdererSerial_ = data;
 	changed_ = true;
@@ -1172,7 +1234,7 @@ inline QString cBaseChar::orgName() const
 	return orgName_;
 }
 
-inline void cBaseChar::setOrgName(const QString &data)
+inline void cBaseChar::setOrgName( const QString& data )
 {
 	orgName_ = data;
 	changed_ = true;
@@ -1183,17 +1245,17 @@ inline cTerritory* cBaseChar::region() const
 	return region_;
 }
 
-inline void cBaseChar::setRegion(cTerritory* data)
+inline void cBaseChar::setRegion( cTerritory* data )
 {
 	region_ = data;
 }
 
 inline ushort cBaseChar::saycolor() const
 {
-    return saycolor_;
+	return saycolor_;
 }
 
-inline void cBaseChar::setSaycolor(ushort data)
+inline void cBaseChar::setSaycolor( ushort data )
 {
 	saycolor_ = data;
 	changed_ = true;
@@ -1204,7 +1266,7 @@ inline ushort cBaseChar::skin() const
 	return skin_;
 }
 
-inline void cBaseChar::setSkin(ushort data)
+inline void cBaseChar::setSkin( ushort data )
 {
 	skin_ = data;
 	changed_ = true;
@@ -1215,7 +1277,7 @@ inline QString cBaseChar::title() const
 	return title_;
 }
 
-inline void cBaseChar::setTitle(const QString &data)
+inline void cBaseChar::setTitle( const QString& data )
 {
 	title_ = data;
 	changed_ = true;
@@ -1226,7 +1288,7 @@ inline uint cBaseChar::regenHitpointsTime() const
 	return regenHitpointsTime_;
 }
 
-inline void cBaseChar::setRegenHitpointsTime(uint data)
+inline void cBaseChar::setRegenHitpointsTime( uint data )
 {
 	regenHitpointsTime_ = data;
 }
@@ -1236,7 +1298,7 @@ inline uint cBaseChar::regenStaminaTime() const
 	return regenStaminaTime_;
 }
 
-inline void cBaseChar::setRegenStaminaTime(uint data)
+inline void cBaseChar::setRegenStaminaTime( uint data )
 {
 	regenStaminaTime_ = data;
 }
@@ -1246,7 +1308,7 @@ inline uint cBaseChar::regenManaTime() const
 	return regenManaTime_;
 }
 
-inline void cBaseChar::setRegenManaTime(uint data)
+inline void cBaseChar::setRegenManaTime( uint data )
 {
 	regenManaTime_ = data;
 }
@@ -1311,75 +1373,111 @@ inline bool cBaseChar::isInvulnerable() const
 	return propertyFlags_ & 0x1000;
 }
 
-inline void cBaseChar::setIncognito(bool data)
+inline void cBaseChar::setIncognito( bool data )
 {
-	if( data ) propertyFlags_ |= 0x0001; else propertyFlags_ &= ~0x0001;
+	if ( data )
+		propertyFlags_ |= 0x0001;
+	else
+		propertyFlags_ &= ~0x0001;
 	changed_ = true;
 }
 
-inline void cBaseChar::setPolymorphed(bool data)
+inline void cBaseChar::setPolymorphed( bool data )
 {
-	if( data ) propertyFlags_ |= 0x0002; else propertyFlags_ &= ~0x0002;
+	if ( data )
+		propertyFlags_ |= 0x0002;
+	else
+		propertyFlags_ &= ~0x0002;
 	changed_ = true;
 }
 
-inline void cBaseChar::setTamed(bool data)
+inline void cBaseChar::setTamed( bool data )
 {
-	if( data ) propertyFlags_ |= 0x0004; else propertyFlags_ &= ~0x0004;
+	if ( data )
+		propertyFlags_ |= 0x0004;
+	else
+		propertyFlags_ &= ~0x0004;
 	changed_ = true;
 }
 
-inline void cBaseChar::setCasting(bool data)
+inline void cBaseChar::setCasting( bool data )
 {
-	if( data ) propertyFlags_ |= 0x0008; else propertyFlags_ &= ~0x0008;
+	if ( data )
+		propertyFlags_ |= 0x0008;
+	else
+		propertyFlags_ &= ~0x0008;
 	changed_ = true;
 }
 
-inline void cBaseChar::setHidden(bool data)
+inline void cBaseChar::setHidden( bool data )
 {
-	if( data ) propertyFlags_ |= 0x0010; else propertyFlags_ &= ~0x0010;
+	if ( data )
+		propertyFlags_ |= 0x0010;
+	else
+		propertyFlags_ &= ~0x0010;
 	changed_ = true;
 }
 
-inline void cBaseChar::setInvisible(bool data)
+inline void cBaseChar::setInvisible( bool data )
 {
-	if( data ) propertyFlags_ |= 0x0020; else propertyFlags_ &= ~0x0020;
+	if ( data )
+		propertyFlags_ |= 0x0020;
+	else
+		propertyFlags_ &= ~0x0020;
 	changed_ = true;
 }
 
-inline void cBaseChar::setMeditating(bool data)
+inline void cBaseChar::setMeditating( bool data )
 {
-	if( data ) propertyFlags_ |= 0x0080; else propertyFlags_ &= ~0x0080;
+	if ( data )
+		propertyFlags_ |= 0x0080;
+	else
+		propertyFlags_ &= ~0x0080;
 	changed_ = true;
 }
 
-inline void cBaseChar::setFrozen(bool data)
+inline void cBaseChar::setFrozen( bool data )
 {
-	if( data ) propertyFlags_ |= 0x0100; else propertyFlags_ &= ~0x0100;
+	if ( data )
+		propertyFlags_ |= 0x0100;
+	else
+		propertyFlags_ &= ~0x0100;
 	changed_ = true;
 }
 
-inline void cBaseChar::setShowSkillTitles(bool data)
+inline void cBaseChar::setShowSkillTitles( bool data )
 {
-	if( data ) propertyFlags_ |= 0x0200; else propertyFlags_ &= ~0x0200;
+	if ( data )
+		propertyFlags_ |= 0x0200;
+	else
+		propertyFlags_ &= ~0x0200;
 	changed_ = true;
 }
 
-inline void cBaseChar::setDead(bool data)
+inline void cBaseChar::setDead( bool data )
 {
-	if( data ) propertyFlags_ |= 0x0400; else propertyFlags_ &= ~0x0400;
+	if ( data )
+		propertyFlags_ |= 0x0400;
+	else
+		propertyFlags_ &= ~0x0400;
 	changed_ = true;
 }
 
-inline void cBaseChar::setAtWar(bool data)
+inline void cBaseChar::setAtWar( bool data )
 {
-	if( data ) propertyFlags_ |= 0x0800; else propertyFlags_ &= ~0x0800;
+	if ( data )
+		propertyFlags_ |= 0x0800;
+	else
+		propertyFlags_ &= ~0x0800;
 	changed_ = true;
 }
 
-inline void cBaseChar::setInvulnerable(bool data)
+inline void cBaseChar::setInvulnerable( bool data )
 {
-	if( data ) propertyFlags_ |= 0x1000; else propertyFlags_ &= ~0x1000;
+	if ( data )
+		propertyFlags_ |= 0x1000;
+	else
+		propertyFlags_ &= ~0x1000;
 	changed_ = true;
 }
 
@@ -1395,7 +1493,7 @@ inline cBaseChar::ItemContainer cBaseChar::content() const
 
 inline bool cBaseChar::isHuman() const
 {
-	return (body_ == 0x190 || body_ == 0x191);
+	return ( body_ == 0x190 || body_ == 0x191 );
 }
 
 inline bool cBaseChar::isInnocent()
@@ -1403,7 +1501,7 @@ inline bool cBaseChar::isInnocent()
 	return !isMurderer() && !isCriminal();
 }
 
-inline bool cBaseChar::isSameAs(P_CHAR pc)
+inline bool cBaseChar::isSameAs( P_CHAR pc )
 {
 	return ( pc && pc->serial() == serial() );
 }
@@ -1423,78 +1521,105 @@ inline cBaseChar::TimerContainer cBaseChar::timers() const
 	return timers_;
 }
 
-inline unsigned int cBaseChar::lastMovement() const {
+inline unsigned int cBaseChar::lastMovement() const
+{
 	return lastMovement_;
 }
 
-inline void cBaseChar::setLastMovement(unsigned int data) {
+inline void cBaseChar::setLastMovement( unsigned int data )
+{
 	lastMovement_ = data;
 }
 
-inline short cBaseChar::hitpointsBonus() const {
+inline short cBaseChar::hitpointsBonus() const
+{
 	return hitpointsBonus_;
 }
 
-inline short cBaseChar::manaBonus() const {
+inline short cBaseChar::manaBonus() const
+{
 	return manaBonus_;
 }
 
-inline short cBaseChar::staminaBonus() const {
+inline short cBaseChar::staminaBonus() const
+{
 	return staminaBonus_;
 }
 
-inline void cBaseChar::setHitpointsBonus(short data) {
+inline void cBaseChar::setHitpointsBonus( short data )
+{
 	hitpointsBonus_ = data;
 	refreshMaximumValues();
 	changed_ = true;
 }
 
-inline void cBaseChar::setManaBonus(short data) {
+inline void cBaseChar::setManaBonus( short data )
+{
 	manaBonus_ = data;
 	refreshMaximumValues();
 	changed_ = true;
 }
 
-inline void cBaseChar::setStaminaBonus(short data) {
+inline void cBaseChar::setStaminaBonus( short data )
+{
 	staminaBonus_ = data;
 	refreshMaximumValues();
 	changed_ = true;
 }
 
-inline unsigned char cBaseChar::strengthCap() const {
+inline unsigned char cBaseChar::strengthCap() const
+{
 	return strengthCap_;
 }
 
-inline unsigned char cBaseChar::dexterityCap() const {
+inline unsigned char cBaseChar::dexterityCap() const
+{
 	return dexterityCap_;
 }
 
-inline unsigned char cBaseChar::intelligenceCap() const {
+inline unsigned char cBaseChar::intelligenceCap() const
+{
 	return intelligenceCap_;
 }
 
-inline void cBaseChar::setStrengthCap(unsigned char data) {
+inline void cBaseChar::setStrengthCap( unsigned char data )
+{
 	strengthCap_ = data;
 	changed_ = true;
 }
 
-inline void cBaseChar::setDexterityCap(unsigned char data) {
+inline void cBaseChar::setDexterityCap( unsigned char data )
+{
 	dexterityCap_ = data;
 	changed_ = true;
 }
 
-inline void cBaseChar::setIntelligenceCap(unsigned char data) {
+inline void cBaseChar::setIntelligenceCap( unsigned char data )
+{
 	intelligenceCap_ = data;
 	changed_ = true;
 }
 
-inline void cBaseChar::setStatCap(unsigned char data) {
+inline void cBaseChar::setStatCap( unsigned char data )
+{
 	statCap_ = data;
 	changed_ = true;
 }
 
-inline unsigned char cBaseChar::statCap() const {
+inline unsigned char cBaseChar::statCap() const
+{
 	return statCap_;
+}
+
+inline unsigned char cBaseChar::direction() const
+{
+	return direction_;
+}
+
+inline void cBaseChar::setDirection( unsigned char data )
+{
+	direction_ = data;
+	changed_ = true;
 }
 
 #endif /* CBASECHAR_H_HEADER_INCLUDED */

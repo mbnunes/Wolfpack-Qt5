@@ -25,7 +25,11 @@
 #ifndef IN_PLATFORM_H
 #define IN_PLATFORM_H
 //========================================================================
-enum enByteOrder{ littleEndian, bigEndian };
+enum enByteOrder
+{
+	littleEndian,
+	bigEndian
+};
 #define BYTEORDER littleEndian
 // We have to worry about Intel's compilier as well
 

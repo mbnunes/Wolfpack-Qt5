@@ -56,51 +56,44 @@ class cItem;
 class cUOTxTooltipList;
 class cMulti;
 
-/*
-	Notes for further memory footprint reduction:
-    
-	a) Make bindmenu() a pure virtual function and have the
-	basedef system of cBaseChar and cItem handle the property.
-
-	b) Move direction to cBaseChar and cItem where it should be called lightsource 
-	and should be a basedef property.
-*/
-class cUObject : public PersistentObject, public cDefinable, public cPythonScriptable {
+#pragma pack(1)
+class cUObject : public PersistentObject, public cDefinable, public cPythonScriptable
+{
 private:
-	uchar changed_:1;
+	uchar changed_ : 1;
 
 protected:
-	QString bindmenu_;
 	cCustomTags tags_;
 	uint tooltip_;
 	QString name_;
 	Coord_cl pos_;
 	SERIAL serial_;
-	cMulti *multi_; // If we're in a Multi
-	uchar dir_;
-	cPythonScript **scriptChain; // NULL Terminated Array
+	cMulti* multi_; // If we're in a Multi	
+	cPythonScript** scriptChain; // NULL Terminated Array
 
 	// Things for building the SQL string
-	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
 	void init();
 
-	enum eChanged {
-//		SAVE = 1,
-		TOOLTIP = 2,
-		UNUSED = 4,
-		UNUSED2 = 8
+	enum eChanged
+	{
+		//		SAVE = 1,
+		TOOLTIP				= 2,
+		UNUSED				= 4,
+		UNUSED2				= 8
 	};
-	void changed(uint);
+	void changed( uint );
 public:
 	// Indicates whether the object was deleted already.
-	bool free;
+	bool free : 1;
 
-	const char *objectID() const {
+	const char* objectID() const
+	{
 		return "cUObject";
 	}
 
 	// Tag Management Methods
-	const cVariant &getTag(const QString& key) const;
+	const cVariant& getTag( const QString& key ) const;
 	bool hasTag( const QString& key ) const;
 	void setTag( const QString& key, const cVariant& value );
 	void removeTag( const QString& key );
@@ -109,95 +102,129 @@ public:
 
 	// Event Management Methods
 	void clearEvents();
-	void addEvent( cPythonScript *Event );
+	void addEvent( cPythonScript* Event );
 	void removeEvent( const QString& Name );
 	bool hasEvent( const QString& Name ) const;
 	void freezeScriptChain();
 	void unfreezeScriptChain();
 	bool isScriptChainFrozen();
-	void setEventList(const QString &events);
+	void setEventList( const QString& events );
 	QString eventList() const;
-	inline cPythonScript **getEvents() {
+	inline cPythonScript** getEvents()
+	{
 		return scriptChain;
 	}	
 
 	// Serialization Methods
-	void load( char **, UINT16& );
+	void load( char**, UINT16& );
 	void save();
 	bool del();
 
 	// Utility Methods
 	void effect( UINT16 id, UINT8 speed = 10, UINT8 duration = 5, UINT16 hue = 0, UINT16 renderMode = 0 ); // Moving with this character
-	void effect( UINT16 id, cUObject *target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
-	void effect( UINT16 id, const Coord_cl &target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
+	void effect( UINT16 id, cUObject* target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
+	void effect( UINT16 id, const Coord_cl& target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
 	void lightning( unsigned short hue = 0 );
-	bool inRange( cUObject *object, UINT32 range ) const;
+	bool inRange( cUObject* object, UINT32 range ) const;
 	void removeFromView( bool clean = true );
 	virtual void sendTooltip( cUOSocket* mSock );
-	bool isItem() const { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000); }
-	bool isChar() const { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ <  0x40000000); }
-	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
-	virtual void flagUnchanged() { changed_ = false; }
+	bool isItem() const
+	{
+		return ( serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000 );
+	}
+	bool isChar() const
+	{
+		return ( serial_ != INVALID_SERIAL && serial_ > 0 && serial_ < 0x40000000 );
+	}
+	virtual void talk( const QString& message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
+	virtual void flagUnchanged()
+	{
+		changed_ = false;
+	}
 	void resendTooltip();
-	char direction(cUObject*) const;
+	unsigned char direction(cUObject*);
 	virtual void remove();
 	virtual void moveTo( const Coord_cl&, bool noRemove = false );
-	unsigned int dist(cUObject* d) const;
+	unsigned int dist( cUObject* d ) const;
 
 	// Event Methods
-	virtual bool onCreate( const QString &definition );
+	virtual bool onCreate( const QString& definition );
 	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
-	virtual void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
+	virtual void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 
 	// Constructors And Destructors
 	cUObject();
-	cUObject(const cUObject&);
+	cUObject( const cUObject& );
 	virtual ~cUObject();
 
 	// Getter Methods
-	QString bindmenu() const { return bindmenu_; }
-	QString name() const { return name_;		}
-	Coord_cl pos() const { return pos_;		}
-	SERIAL serial() const { return serial_;	}
-	UINT32 getTooltip() const { return tooltip_; }
-	uchar direction() const { return dir_;  }
-	inline cMulti *multi() const {
+	virtual QCString bindmenu() = 0;
+
+	QString name() const
+	{
+		return name_;
+	}
+	Coord_cl pos() const
+	{
+		return pos_;
+	}
+	SERIAL serial() const
+	{
+		return serial_;
+	}
+	UINT32 getTooltip() const
+	{
+		return tooltip_;
+	}
+	inline cMulti* multi() const
+	{
 		return multi_;
 	}
 
 	// Setter Methods
-	void setBindmenu( const QString& d ) { bindmenu_ = d; changed_ = true;	 }
-	void setName( const QString& d ) { name_ = d; changed_ = true; changed( TOOLTIP ); }
-	void setPos( const Coord_cl& d ) { pos_ = d;	changed_ = true; }
-	virtual void setSerial( SERIAL d ) { serial_ = d; changed_ = true; }
-	void setTooltip( const UINT32 d ) { tooltip_ = d; }
-	void setDirection( uchar d ) { dir_ = d; changed_ = true; }
-	inline void setMulti(cMulti *multi) {
+	void setName( const QString& d )
+	{
+		name_ = d; changed_ = true; changed( TOOLTIP );
+	}
+	void setPos( const Coord_cl& d )
+	{
+		pos_ = d;	changed_ = true;
+	}
+	virtual void setSerial( SERIAL d )
+	{
+		serial_ = d; changed_ = true;
+	}
+	void setTooltip( const UINT32 d )
+	{
+		tooltip_ = d;
+	}
+	inline void setMulti( cMulti* multi )
+	{
 		changed_ = true;
 		multi_ = multi;
 	}
 
 	// Definable Methods
-	void processNode( const cElement *Tag );
-	stError *setProperty( const QString &name, const cVariant &value );
-	stError *getProperty( const QString &name, cVariant &value );
+	void processNode( const cElement* Tag );
+	stError* setProperty( const QString& name, const cVariant& value );
+	stError* getProperty( const QString& name, cVariant& value );
 };
-
+#pragma pack()
 
 class cUObjectFactory : public Factory<cUObject, QString>
 {
 public:
-	void registerSqlQuery( const QString &type, const QString &query )
+	void registerSqlQuery( const QString& type, const QString& query )
 	{
 		sql_queries.insert( std::make_pair( type, query ) );
 		sql_keys.push_back( type );
 	}
 
-	QString findSqlQuery( const QString &type ) const
+	QString findSqlQuery( const QString& type ) const
 	{
-		std::map< QString, QString >::const_iterator iter = sql_queries.find( type );
+		std::map<QString, QString>::const_iterator iter = sql_queries.find( type );
 
-		if( iter == sql_queries.end() )
+		if ( iter == sql_queries.end() )
 			return QString::null;
 		else
 			return iter->second;
@@ -209,10 +236,10 @@ public:
 	}
 
 private:
-	std::map< QString, QString > sql_queries;
+	std::map<QString, QString> sql_queries;
 	QStringList sql_keys;
 };
 
-typedef SingletonHolder< cUObjectFactory > UObjectFactory;
+typedef SingletonHolder<cUObjectFactory> UObjectFactory;
 
 #endif // __UOBJECT_H__

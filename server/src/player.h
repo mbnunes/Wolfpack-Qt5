@@ -43,52 +43,62 @@ class cGuild;
 class cPlayer : public cBaseChar
 {
 public:
-	const char *objectID() const
+	const char* objectID() const
 	{
-	return "cPlayer";
+		return "cPlayer";
 	}
 
 	// con-/destructors
 	cPlayer();
-	cPlayer(const cPlayer& right);
+	cPlayer( const cPlayer& right );
 	virtual ~cPlayer();
 
 	// operators
-	cPlayer& operator=(const cPlayer& right);
+	cPlayer& operator=( const cPlayer& right );
 
 	// type definitions
-	enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
+	enum enInputMode
+	{
+		enNone,
+		enRenameRune,
+		enPricing,
+		enDescription,
+		enNameDeed,
+		enHouseSign,
+		enPageGM,
+		enPageCouns
+	};
 
 	// implementation of interfaces
 	static void registerInFactory();
-	void load( char **, UINT16& );
+	void load( char**, UINT16& );
 	void save();
 	bool del();
 
-	virtual bool send(cUOPacket *packet);
+	virtual bool send( cUOPacket* packet );
 	virtual enCharTypes objectType();
 	virtual void update( bool excludeself = false );
-	virtual void resend(bool clean = true);
-	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
+	virtual void resend( bool clean = true );
+	virtual void talk( const QString& message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	virtual UINT8 notoriety( P_CHAR pChar );
-	virtual void showName( cUOSocket *socket );
+	virtual void showName( cUOSocket* socket );
 	virtual void soundEffect( UI16 soundId, bool hearAll = true );
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
 	virtual void flagUnchanged();
-	virtual bool message(const QString &message, unsigned short color = 0x3b2, cUObject *source = 0, unsigned short font = 0x03, unsigned char mode = 0x00);
-	virtual bool sysmessage(const QString &message, unsigned short color = 0x3b2, unsigned short font = 0x03);
-	virtual bool sysmessage(unsigned int message, const QString &params = QString::null, unsigned short color = 0x3b2, unsigned short font = 0x03);
-	virtual FightStatus fight(P_CHAR enemy);
-	void log( eLogLevel, const QString &string );
-	void log( const QString &string );
+	virtual bool message( const QString& message, unsigned short color = 0x3b2, cUObject* source = 0, unsigned short font = 0x03, unsigned char mode = 0x00 );
+	virtual bool sysmessage( const QString& message, unsigned short color = 0x3b2, unsigned short font = 0x03 );
+	virtual bool sysmessage( unsigned int message, const QString& params = QString::null, unsigned short color = 0x3b2, unsigned short font = 0x03 );
+	virtual FightStatus fight( P_CHAR enemy );
+	void log( eLogLevel, const QString& string );
+	void log( const QString& string );
 	void awardFame( short amount );
 	void awardKarma( P_CHAR pKilled, short amount );
 
 	// other public methods
-	virtual stError *setProperty( const QString &name, const cVariant &value );
-	virtual stError *getProperty( const QString &name, cVariant &value );
-	void turnTo( cUObject *object ); // override
+	virtual stError* setProperty( const QString& name, const cVariant& value );
+	virtual stError* getProperty( const QString& name, cVariant& value );
+	void turnTo( cUObject* object ); // override
 	void turnTo( const Coord_cl& data ); // override
 	P_NPC unmount();
 	void mount( P_NPC pMount );
@@ -97,12 +107,12 @@ public:
 	bool isGMorCounselor() const;
 	void makeCriminal();
 	void disturbMed();
-	int  CountBankGold();
-	bool canPickUp(cItem* pi);
+	int CountBankGold();
+	bool canPickUp( cItem* pi );
 	virtual bool inWorld();
 	void giveNewbieItems( Q_UINT8 skill = 0xFF );
 	bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true ); // override
-	void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
+	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 	unsigned char controlslots() const;
 
 	// Wrapper events
@@ -111,24 +121,27 @@ public:
 	virtual bool onHelp( void ); // The character wants help
 	virtual bool onChat( void ); // The character wants to chat
 	virtual bool onCastSpell( unsigned int spell );
-	void poll(unsigned int time, unsigned int events);
+	void poll( unsigned int time, unsigned int events );
 	bool onUse( P_ITEM pItem );
 	bool onPickup( P_ITEM pItem );
 	bool onTrade( unsigned int type, unsigned int buttonstate, SERIAL itemserial );
 	bool onTradeStart( P_PLAYER partner, P_ITEM firstitem );
 
 	// getters
-    cAccount* account() const;
-    UINT32 additionalFlags() const;
-    UINT32 logoutTime() const;
-    UINT32 objectDelay() const;
+	cAccount* account() const;
+	UINT32 additionalFlags() const;
+	UINT32 logoutTime() const;
+	UINT32 objectDelay() const;
 	UINT32 trackingTime() const;
 	cUOSocket* socket() const;
-	enInputMode inputMode() const { return inputMode_; }
+	enInputMode inputMode() const
+	{
+		return inputMode_;
+	}
 	SERIAL inputItem() const;
 	UINT8 visualRange() const;
 	QString profile() const;
-    UINT8 fixedLightLevel() const;
+	UINT8 fixedLightLevel() const;
 
 	// bit flag getters
 	bool maySnoop() const;
@@ -141,31 +154,34 @@ public:
 	cGuild* guild() const;
 
 	// setters
-	void setAccount(cAccount* data, bool moveFromAccToAcc = true);
-	void setAdditionalFlags(UINT32 data);
-	void setLogoutTime(UINT32 data);
-	void setObjectDelay(UINT32 data);
-	void setTrackingTime(UINT32 data);
-	void setSocket(cUOSocket* data);
-	void setInputMode(enInputMode data) { inputMode_ = data; }
-	void setInputItem(SERIAL data);
-	void setVisualRange(UINT8 data);
-	void setProfile(const QString &data);
-	void setFixedLightLevel(UINT8 data);
+	void setAccount( cAccount* data, bool moveFromAccToAcc = true );
+	void setAdditionalFlags( UINT32 data );
+	void setLogoutTime( UINT32 data );
+	void setObjectDelay( UINT32 data );
+	void setTrackingTime( UINT32 data );
+	void setSocket( cUOSocket* data );
+	void setInputMode( enInputMode data )
+	{
+		inputMode_ = data;
+	}
+	void setInputItem( SERIAL data );
+	void setVisualRange( UINT8 data );
+	void setProfile( const QString& data );
+	void setFixedLightLevel( UINT8 data );
 	// bit flag setters
-	void setMaySnoop(bool data);
-	void setMayBroadcast(bool data);
-	void setShowSerials(bool data);
-	void setParty(cParty *data);
-	void setGuild(cGuild *data);
+	void setMaySnoop( bool data );
+	void setMayBroadcast( bool data );
+	void setShowSerials( bool data );
+	void setParty( cParty* data );
+	void setGuild( cGuild* data );
 
 	unsigned char strengthLock() const;
 	unsigned char dexterityLock() const;
 	unsigned char intelligenceLock() const;
 
-	void setStrengthLock(unsigned char data);
-	void setDexterityLock(unsigned char data);
-	void setIntelligenceLock(unsigned char data);
+	void setStrengthLock( unsigned char data );
+	void setDexterityLock( unsigned char data );
+	void setIntelligenceLock( unsigned char data );
 
 	virtual void setStamina( INT16 data, bool notify = true );
 
@@ -175,30 +191,30 @@ public:
 	// pets
 	void addPet( P_NPC pPet, bool noOwnerChange = false );
 	void removePet( P_NPC pPet, bool noOwnerChange = false );
-	bool canSeeChar(P_CHAR character);
-	bool canSeeItem(P_ITEM item);
-	virtual void moveTo(const Coord_cl &pos, bool noremove = false);
+	bool canSeeChar( P_CHAR character );
+	bool canSeeItem( P_ITEM item );
+	virtual void moveTo( const Coord_cl& pos, bool noremove = false );
 
 	// cPythonScriptable inherited methods
-	PyObject *getPyObject();
-	const char *className() const;
+	PyObject* getPyObject();
+	const char* className() const;
 
 private:
 	bool changed_;
 
 protected:
 	// interface implementation
-	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
-	virtual void processNode( const cElement *Tag );
+	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
+	virtual void processNode( const cElement* Tag );
 
 	// Reference to a guild this character is in
-	cGuild *guild_;
+	cGuild* guild_;
 
 	// other protected methods
-	void applyStartItemDefinition( const cElement *Tag );
+	void applyStartItemDefinition( const cElement* Tag );
 
 	// The party this player belongs to
-	cParty *party_;
+	cParty* party_;
 
 	// The account object including this char.
 	// cOldChar::account_
@@ -217,7 +233,7 @@ protected:
 	// 02 - may snoop, cOldChar::priv Bit 7
 	// 03 - may broadcast, cOldChar::priv Bit 2
 	// 04 - show serials, cOldChar::priv Bit 4
-    UINT32 additionalFlags_;
+	UINT32 additionalFlags_;
 
 	// The pets that follow the char.
 	CharContainer pets_;
@@ -256,14 +272,14 @@ inline cAccount* cPlayer::account() const
 	return account_;
 }
 
-inline void cPlayer::setAccount(cAccount* data, bool moveFromAccToAcc)
+inline void cPlayer::setAccount( cAccount* data, bool moveFromAccToAcc )
 {
-	if( moveFromAccToAcc && account_ != 0 )
+	if ( moveFromAccToAcc && account_ != 0 )
 		account_->removeCharacter( this );
 
 	account_ = data;
 
-	if( account_ != 0 )
+	if ( account_ != 0 )
 		account_->addCharacter( this );
 	changed_ = true;
 	changed( TOOLTIP );
@@ -280,7 +296,7 @@ inline UINT32 cPlayer::additionalFlags() const
 	return additionalFlags_;
 }
 
-inline void cPlayer::setAdditionalFlags(UINT32 data)
+inline void cPlayer::setAdditionalFlags( UINT32 data )
 {
 	additionalFlags_ = data;
 	changed_ = true;
@@ -291,7 +307,7 @@ inline UINT32 cPlayer::logoutTime() const
 	return logoutTime_;
 }
 
-inline void cPlayer::setLogoutTime(UINT32 data)
+inline void cPlayer::setLogoutTime( UINT32 data )
 {
 	logoutTime_ = data;
 	changed_ = true;
@@ -302,7 +318,7 @@ inline UINT32 cPlayer::objectDelay() const
 	return objectDelay_;
 }
 
-inline void cPlayer::setObjectDelay(UINT32 data)
+inline void cPlayer::setObjectDelay( UINT32 data )
 {
 	objectDelay_ = data;
 }
@@ -312,7 +328,7 @@ inline UINT32 cPlayer::trackingTime() const
 	return trackingTime_;
 }
 
-inline void cPlayer::setTrackingTime(UINT32 data)
+inline void cPlayer::setTrackingTime( UINT32 data )
 {
 	trackingTime_ = data;
 }
@@ -322,7 +338,7 @@ inline cUOSocket* cPlayer::socket() const
 	return socket_;
 }
 
-inline void cPlayer::setSocket(cUOSocket* data)
+inline void cPlayer::setSocket( cUOSocket* data )
 {
 	socket_ = data;
 	changed_ = true;
@@ -333,7 +349,7 @@ inline SERIAL cPlayer::inputItem() const
 	return inputItem_;
 }
 
-inline void cPlayer::setInputItem(SERIAL data)
+inline void cPlayer::setInputItem( SERIAL data )
 {
 	inputItem_ = data;
 }
@@ -343,7 +359,7 @@ inline UINT8 cPlayer::visualRange() const
 	return visualRange_;
 }
 
-inline void cPlayer::setVisualRange(UINT8 data)
+inline void cPlayer::setVisualRange( UINT8 data )
 {
 	visualRange_ = data;
 	changed_ = true;
@@ -354,7 +370,7 @@ inline QString cPlayer::profile() const
 	return profile_;
 }
 
-inline void cPlayer::setProfile(const QString &data)
+inline void cPlayer::setProfile( const QString& data )
 {
 	profile_ = data;
 	changed_ = true;
@@ -365,7 +381,7 @@ inline UINT8 cPlayer::fixedLightLevel() const
 	return fixedLightLevel_;
 }
 
-inline void cPlayer::setFixedLightLevel(UINT8 data)
+inline void cPlayer::setFixedLightLevel( UINT8 data )
 {
 	fixedLightLevel_ = data;
 	changed_ = true;
@@ -386,21 +402,30 @@ inline bool cPlayer::showSerials() const
 	return additionalFlags_ & 0x0008;
 }
 
-inline void cPlayer::setMaySnoop(bool data)
+inline void cPlayer::setMaySnoop( bool data )
 {
-	if( data ) additionalFlags_ |= 0x0002; else additionalFlags_ &= ~0x0002;
+	if ( data )
+		additionalFlags_ |= 0x0002;
+	else
+		additionalFlags_ &= ~0x0002;
 	changed_ = true;
 }
 
-inline void cPlayer::setMayBroadcast(bool data)
+inline void cPlayer::setMayBroadcast( bool data )
 {
-	if( data ) additionalFlags_ |= 0x0004; else additionalFlags_ &= ~0x0004;
+	if ( data )
+		additionalFlags_ |= 0x0004;
+	else
+		additionalFlags_ &= ~0x0004;
 	changed_ = true;
 }
 
-inline void cPlayer::setShowSerials(bool data)
+inline void cPlayer::setShowSerials( bool data )
 {
-	if( data ) additionalFlags_ |= 0x0008; else additionalFlags_ &= ~0x0008;
+	if ( data )
+		additionalFlags_ |= 0x0008;
+	else
+		additionalFlags_ &= ~0x0008;
 	changed_ = true;
 }
 
@@ -414,45 +439,55 @@ inline cBaseChar::CharContainer cPlayer::pets() const
 	return pets_;
 }
 
-inline cParty *cPlayer::party() const {
+inline cParty* cPlayer::party() const
+{
 	return party_;
 }
 
-inline void cPlayer::setParty(cParty *data) {
+inline void cPlayer::setParty( cParty* data )
+{
 	party_ = data;
 }
 
-inline void cPlayer::setGuild(cGuild *data) {
+inline void cPlayer::setGuild( cGuild* data )
+{
 	guild_ = data;
 }
 
-inline cGuild *cPlayer::guild() const {
+inline cGuild* cPlayer::guild() const
+{
 	return guild_;
 }
 
-inline unsigned char cPlayer::strengthLock() const {
+inline unsigned char cPlayer::strengthLock() const
+{
 	return strengthLock_;
 }
 
-inline unsigned char cPlayer::dexterityLock() const {
+inline unsigned char cPlayer::dexterityLock() const
+{
 	return dexterityLock_;
 }
 
-inline unsigned char cPlayer::intelligenceLock() const {
+inline unsigned char cPlayer::intelligenceLock() const
+{
 	return intelligenceLock_;
 }
 
-inline void cPlayer::setStrengthLock(unsigned char data) {
+inline void cPlayer::setStrengthLock( unsigned char data )
+{
 	strengthLock_ = data;
 	changed_ = true;
 }
 
-inline void cPlayer::setDexterityLock(unsigned char data) {
+inline void cPlayer::setDexterityLock( unsigned char data )
+{
 	dexterityLock_ = data;
 	changed_ = true;
 }
 
-inline void cPlayer::setIntelligenceLock(unsigned char data) {
+inline void cPlayer::setIntelligenceLock( unsigned char data )
+{
 	intelligenceLock_ = data;
 	changed_ = true;
 }

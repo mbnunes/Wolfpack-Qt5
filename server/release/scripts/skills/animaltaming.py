@@ -180,11 +180,6 @@ def callback( char, args ):
 				num_tamed = totame.gettag( 'num_tamed' ) + 1
 			totame.settag( 'num_tamed', num_tamed )
 			# remove "Tame" context menu
-
-			bindmenus = totame.bindmenu.split(",")
-			bindmenus.remove('tame_menu')
-			bindmenus.append('pet_menu')
-			totame.bindmenu = ", ".join(bindmenus)
 			totame.addevent('speech.pets')
 
 			# success msg : 502799

@@ -23,6 +23,7 @@
 	<!-- Corpse -->
 	<item id="2006">
 		<id>0x2006</id>
+		<type>1</type> <!-- Absolutly Neccesary -->
 	</item>
 
 	<!-- Spawngem -->

@@ -39,7 +39,7 @@
 #include "md5.h"
 
 // DB AutoCreation
-const char *createSql = "CREATE TABLE accounts (\
+const char* createSql = "CREATE TABLE accounts (\
 	login varchar(16) NOT NULL default '',\
 	password varchar(32) NOT NULL default '',\
 	flags int NOT NULL default '0',\
@@ -53,21 +53,25 @@ const char *createSql = "CREATE TABLE accounts (\
   cAccount member functions
  *****************************************************************************/
 
-cAccount::cAccount() : acl_(0), flags_(0), attempts_(0), inUse_(false)
+cAccount::cAccount() : acl_( 0 ), flags_( 0 ), attempts_( 0 ), inUse_( false )
 {
 }
 
-void cAccount::setPassword(const QString &password) {
-	if (Config::instance()->hashAccountPasswords()) {
-		password_ = cMd5::fastDigest(password);
-	} else {
+void cAccount::setPassword( const QString& password )
+{
+	if ( Config::instance()->hashAccountPasswords() )
+	{
+		password_ = cMd5::fastDigest( password );
+	}
+	else
+	{
 		password_ = password;
 	}
 }
 
 bool cAccount::isBlocked() const
 {
-	if ( (blockUntil.isValid() && blockUntil < QDateTime::currentDateTime()) || flags_&0x00000001 )
+	if ( ( blockUntil.isValid() && blockUntil < QDateTime::currentDateTime() ) || flags_ & 0x00000001 )
 		return true;
 	else
 		return false;
@@ -84,9 +88,9 @@ uint cAccount::secsToUnblock() const
 
 bool cAccount::addCharacter( P_PLAYER d )
 {
-	if( qFind( characters_.begin(), characters_.end(), d ) == characters_.end() )
+	if ( qFind( characters_.begin(), characters_.end(), d ) == characters_.end() )
 	{
-		characters_.push_back(d);
+		characters_.push_back( d );
 		return true;
 	}
 	return false;
@@ -97,7 +101,7 @@ bool cAccount::removeCharacter( P_PLAYER d )
 	QValueVector<P_PLAYER>::iterator it = qFind( characters_.begin(), characters_.end(), d );
 	if ( it != characters_.end() )
 	{
-		characters_.erase(it);
+		characters_.erase( it );
 		return true;
 	}
 	return false;
@@ -110,23 +114,23 @@ bool cAccount::removeCharacter( P_PLAYER d )
 bool cAccount::authorized( const QString& group, const QString& value ) const
 {
 	// No Valid ACL specified
-	if( !acl_ )
+	if ( !acl_ )
 		return false; // Since refreshAcl have already tried to get one, just give up.
 
 	// No group? No Access!
-	QMap< QString, QMap< QString, bool > >::const_iterator groupIter = acl_->groups.find( group );
-	if( groupIter == acl_->groups.end() )
+	QMap<QString, QMap<QString, bool> >::const_iterator groupIter = acl_->groups.find( group );
+	if ( groupIter == acl_->groups.end() )
 		return false;
 
 	// Group
-	QMap< QString, bool > aGroup = groupIter.data();
+	QMap<QString, bool> aGroup = groupIter.data();
 
 	// Check if we have a rule for the specified command, if not check for any
-	if(	aGroup.find( value ) != aGroup.end() )
-		return aGroup[ value ];
+	if ( aGroup.find( value ) != aGroup.end() )
+		return aGroup[value];
 
-	if( aGroup.find( "any" ) != aGroup.end() )
-		return aGroup[ "any" ];
+	if ( aGroup.find( "any" ) != aGroup.end() )
+		return aGroup["any"];
 
 	return false;
 }
@@ -149,45 +153,49 @@ void cAccount::refreshAcl()
 
 bool cAccount::isAllMove() const
 {
-	return flags_&0x00000002;
+	return flags_ & 0x00000002;
 }
 
 bool cAccount::isAllShow() const
 {
-	return flags_&0x00000004;
+	return flags_ & 0x00000004;
 }
 
 bool cAccount::isMultiGems() const
 {
-	return flags_&0x00000040;
+	return flags_ & 0x00000040;
 }
 
-void cAccount::setMultiGems(bool data) {
-	if (data) {
+void cAccount::setMultiGems( bool data )
+{
+	if ( data )
+	{
 		flags_ |= 0x40;
-	} else {
-		flags_ &= ~ 0x40;
+	}
+	else
+	{
+		flags_ &= ~0x40;
 	}
 }
 
 bool cAccount::isShowSerials() const
 {
-	return flags_&0x00000008;
+	return flags_ & 0x00000008;
 }
 
 bool cAccount::isPageNotify() const
 {
-	return flags_&0x00000010;
+	return flags_ & 0x00000010;
 }
 
 bool cAccount::isStaff() const
 {
-	return flags_&0x00000020;
+	return flags_ & 0x00000020;
 }
 
 void cAccount::setBlocked( bool data )
 {
-	if( data )
+	if ( data )
 		flags_ |= 0x00000001;
 	else
 		flags_ &= 0xFFFFFFFE;
@@ -195,7 +203,7 @@ void cAccount::setBlocked( bool data )
 
 void cAccount::setAllMove( bool data )
 {
-	if( data )
+	if ( data )
 		flags_ |= 0x00000002;
 	else
 		flags_ &= 0xFFFFFFFD;
@@ -203,7 +211,7 @@ void cAccount::setAllMove( bool data )
 
 void cAccount::setAllShow( bool data )
 {
-	if( data )
+	if ( data )
 		flags_ |= 0x00000004;
 	else
 		flags_ &= 0xFFFFFFFB;
@@ -211,7 +219,7 @@ void cAccount::setAllShow( bool data )
 
 void cAccount::setShowSerials( bool data )
 {
-	if( data )
+	if ( data )
 		flags_ |= 0x00000008;
 	else
 		flags_ &= 0xFFFFFFF7;
@@ -219,7 +227,7 @@ void cAccount::setShowSerials( bool data )
 
 void cAccount::setPageNotify( bool data )
 {
-	if( data )
+	if ( data )
 		flags_ |= 0x00000010;
 	else
 		flags_ &= 0xFFFFFFEF;
@@ -227,7 +235,7 @@ void cAccount::setPageNotify( bool data )
 
 void cAccount::setStaff( bool data )
 {
-	if( data )
+	if ( data )
 		flags_ |= 0x00000020;
 	else
 		flags_ &= 0xFFFFFFDF;
@@ -235,7 +243,7 @@ void cAccount::setStaff( bool data )
 
 unsigned int cAccount::rank() const
 {
-	if (acl_)
+	if ( acl_ )
 		return acl_->rank;
 	else
 		return 1;
@@ -245,37 +253,38 @@ unsigned int cAccount::rank() const
   cAccounts member functions
  *****************************************************************************/
 
-cAccounts::~cAccounts() {
+cAccounts::~cAccounts()
+{
 }
 
 void cAccounts::unload()
 {
 	iterator it = accounts.begin();
-	for (; it != accounts.end(); ++it)
+	for ( ; it != accounts.end(); ++it )
 		delete it.data();
 	accounts.clear();
 
 	cComponent::unload();
 }
 
-cAccount* cAccounts::authenticate(const QString& login, const QString& password, enErrorCode* error) const
+cAccount* cAccounts::authenticate( const QString& login, const QString& password, enErrorCode* error ) const
 {
-	const_iterator it = accounts.find(login.lower()); // make sure it's case insensitive
-	if( error )
+	const_iterator it = accounts.find( login.lower() ); // make sure it's case insensitive
+	if ( error )
 		*error = NoError;
 	if ( it != accounts.end() )
 	{
 		// First we check for blocked account.
 		if ( it.data()->isBlocked() )
 		{
-			if( error )
+			if ( error )
 				*error = Banned;
 			return 0;
 		}
 
-		if( it.data()->inUse() )
+		if ( it.data()->inUse() )
 		{
-			if( error )
+			if ( error )
 				*error = AlreadyInUse;
 			return 0;
 		}
@@ -283,21 +292,25 @@ cAccount* cAccounts::authenticate(const QString& login, const QString& password,
 		bool authorized = false;
 
 		// Regard hashed passwords
-		if (Config::instance()->hashAccountPasswords()) {
-			authorized = it.data()->password() == cMd5::fastDigest(password);
-		} else {
+		if ( Config::instance()->hashAccountPasswords() )
+		{
+			authorized = it.data()->password() == cMd5::fastDigest( password );
+		}
+		else
+		{
 			authorized = it.data()->password() == password;
 		}
 
 		// Ok, lets continue.
-		if(authorized) {
+		if ( authorized )
+		{
 			it.data()->setLastLogin( QDateTime::currentDateTime() );
 			it.data()->resetLoginAttempts();
 			return it.data();
 		}
 		else
 		{
-			if( error )
+			if ( error )
 				*error = BadPassword;
 
 			return 0;
@@ -305,7 +318,8 @@ cAccount* cAccounts::authenticate(const QString& login, const QString& password,
 	}
 	else
 	{
-		if (error) {
+		if ( error )
+		{
 			*error = LoginNotFound;
 		}
 
@@ -316,9 +330,9 @@ cAccount* cAccounts::authenticate(const QString& login, const QString& password,
 void cAccounts::save()
 {
 	// Open the Account Driver
-	if( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
+	if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml").arg( Config::instance()->accountsDriver() ) );
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
 		return;
 	}
 
@@ -329,25 +343,25 @@ void cAccounts::save()
 		PersistentBroker::instance()->connect( Config::instance()->accountsHost(), Config::instance()->accountsName(), Config::instance()->accountsUsername(), Config::instance()->accountsPassword() );
 		connected = true;
 
-		if( !PersistentBroker::instance()->tableExists( "accounts" ) )
+		if ( !PersistentBroker::instance()->tableExists( "accounts" ) )
 		{
-			Console::instance()->send("Accounts database didn't exist! Creating one\n");
+			Console::instance()->send( "Accounts database didn't exist! Creating one\n" );
 			PersistentBroker::instance()->executeQuery( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
 			account->setAcl( "admin" );
-			Console::instance()->send("Created default admin account: Login = admin, Password = admin\n");
+			Console::instance()->send( "Created default admin account: Login = admin, Password = admin\n" );
 		}
 
 		// Lock the table
-		PersistentBroker::instance()->lockTable("accounts");
-		PersistentBroker::instance()->executeQuery("BEGIN;");
-		PersistentBroker::instance()->executeQuery("DELETE FROM accounts;");
+		PersistentBroker::instance()->lockTable( "accounts" );
+		PersistentBroker::instance()->executeQuery( "BEGIN;" );
+		PersistentBroker::instance()->executeQuery( "DELETE FROM accounts;" );
 
 		iterator it = accounts.begin();
-		for (; it != accounts.end(); ++it)
+		for ( ; it != accounts.end(); ++it )
 		{
 			// INSERT
-			cAccount *account = it.data();
+			cAccount* account = it.data();
 
 			QString sql( "REPLACE INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6 );" );
 
@@ -356,18 +370,18 @@ void cAccounts::save()
 			PersistentBroker::instance()->executeQuery( sql );
 		}
 
-		PersistentBroker::instance()->executeQuery("COMMIT;");
-		PersistentBroker::instance()->unlockTable("accounts");
+		PersistentBroker::instance()->executeQuery( "COMMIT;" );
+		PersistentBroker::instance()->unlockTable( "accounts" );
 	}
-	catch( QString &error )
+	catch ( QString& error )
 	{
-		if( connected )
+		if ( connected )
 			PersistentBroker::instance()->executeQuery( "ROLLBACK;" );
 		Console::instance()->log( LOG_ERROR, QString( "Error while saving Accounts: %1." ).arg( error ) );
 	}
-	catch( ... )
+	catch ( ... )
 	{
-		if( connected )
+		if ( connected )
 			PersistentBroker::instance()->executeQuery( "ROLLBACK;" );
 		Console::instance()->log( LOG_ERROR, "Unknown error while saving Accounts." );
 	}
@@ -376,9 +390,9 @@ void cAccounts::save()
 void cAccounts::load()
 {
 	// Open the Account Driver
-	if( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
+	if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml").arg( Config::instance()->accountsDriver() ) );
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
 		return;
 	}
 
@@ -387,44 +401,48 @@ void cAccounts::load()
 	{
 		PersistentBroker::instance()->connect( Config::instance()->accountsHost(), Config::instance()->accountsName(), Config::instance()->accountsUsername(), Config::instance()->accountsPassword() );
 
-		if( !PersistentBroker::instance()->tableExists( "accounts" ) )
+		if ( !PersistentBroker::instance()->tableExists( "accounts" ) )
 		{
-			Console::instance()->send("Accounts database didn't exist! Creating one\n");
+			Console::instance()->send( "Accounts database didn't exist! Creating one\n" );
 			PersistentBroker::instance()->executeQuery( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
 			account->setAcl( "admin" );
-			Console::instance()->send("Created default admin account: Login = admin, Password = admin\n");
+			Console::instance()->send( "Created default admin account: Login = admin, Password = admin\n" );
 		}
 
-		PersistentBroker::instance()->lockTable("accounts");
+		PersistentBroker::instance()->lockTable( "accounts" );
 		cDBResult result = PersistentBroker::instance()->query( "SELECT login,password,flags,acl,lastlogin,blockuntil FROM accounts;" );
 
 		// Clear Accounts HERE
 		// Here we can be pretty sure that we have a valid datasource for accounts
 		unload();
 
-		while( result.fetchrow() )
+		while ( result.fetchrow() )
 		{
-			cAccount *account = new cAccount;
+			cAccount* account = new cAccount;
 			account->login_ = result.getString( 0 ).lower();
 			account->password_ = result.getString( 1 );
 			account->flags_ = result.getInt( 2 );
 			account->aclName_ = result.getString( 3 );
 			account->refreshAcl();
-			if( result.getInt( 4 ) != 0 )
+			if ( result.getInt( 4 ) != 0 )
 				account->lastLogin_.setTime_t( result.getInt( 4 ) );
 
-			if( result.getInt( 5 ) != 0 )
-				account->blockUntil.setTime_t( result.getInt( 5  ) );
+			if ( result.getInt( 5 ) != 0 )
+				account->blockUntil.setTime_t( result.getInt( 5 ) );
 
 			// See if the password can and should be hashed,
 			// Md5 hashes are 32 characters long.
-			if (Config::instance()->hashAccountPasswords() && account->password_.length() != 32) {
-				if (Config::instance()->convertUnhashedPasswords()) {
-					account->password_ = cMd5::fastDigest(account->password_);
-					Console::instance()->log(LOG_NOTICE, QString("Hashed account password for '%1'.\n").arg(account->login_));
-				} else {
-					Console::instance()->log(LOG_NOTICE, QString("Account '%1' has an unhashed password.\n").arg(account->login_));
+			if ( Config::instance()->hashAccountPasswords() && account->password_.length() != 32 )
+			{
+				if ( Config::instance()->convertUnhashedPasswords() )
+				{
+					account->password_ = cMd5::fastDigest( account->password_ );
+					Console::instance()->log( LOG_NOTICE, QString( "Hashed account password for '%1'.\n" ).arg( account->login_ ) );
+				}
+				else
+				{
+					Console::instance()->log( LOG_NOTICE, QString( "Account '%1' has an unhashed password.\n" ).arg( account->login_ ) );
 				}
 			}
 
@@ -432,13 +450,13 @@ void cAccounts::load()
 		}
 
 		result.free();
-		PersistentBroker::instance()->unlockTable("accounts");
+		PersistentBroker::instance()->unlockTable( "accounts" );
 	}
-	catch( QString &error )
+	catch ( QString& error )
 	{
 		Console::instance()->log( LOG_ERROR, QString( "Error while loading Accounts: %1" ).arg( error ) );
 	}
-	catch( ... )
+	catch ( ... )
 	{
 		Console::instance()->log( LOG_ERROR, "Unknown error while loading Accounts" );
 	}
@@ -451,24 +469,24 @@ void cAccounts::load()
 */
 void cAccounts::reload()
 {
-	QMap< SERIAL, QString > characcnames;
+	QMap<SERIAL, QString> characcnames;
 	QStringList sockaccnames;
 
 	cCharIterator iterChars;
 	P_CHAR pc;
-	for( pc = iterChars.first(); pc; pc = iterChars.next() )
+	for ( pc = iterChars.first(); pc; pc = iterChars.next() )
 	{
-		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
-		if( pp && pp->account() )
+		P_PLAYER pp = dynamic_cast<P_PLAYER>( pc );
+		if ( pp && pp->account() )
 		{
 			characcnames.insert( pp->serial(), pp->account()->login() );
 		}
 	}
 
 	cUOSocket* mSock = NULL;
-	for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
-		if( mSock->account() )
+		if ( mSock->account() )
 			sockaccnames.push_back( mSock->account()->login() );
 		else
 			sockaccnames.push_back( QString() );
@@ -476,20 +494,20 @@ void cAccounts::reload()
 
 	load();
 
-	QMap< SERIAL, QString >::Iterator it = characcnames.begin();
-	while( it != characcnames.end() )
+	QMap<SERIAL, QString>::Iterator it = characcnames.begin();
+	while ( it != characcnames.end() )
 	{
-		P_PLAYER pp = dynamic_cast<P_PLAYER>(FindCharBySerial( it.key() ));
-		if( pp )
+		P_PLAYER pp = dynamic_cast<P_PLAYER>( FindCharBySerial( it.key() ) );
+		if ( pp )
 			pp->setAccount( getRecord( it.data() ), false );
 		++it;
 	}
 
 	QStringList::iterator sit = sockaccnames.begin();
-	for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
-		if( !(*sit).isNull() )
-			mSock->setAccount( getRecord( (*sit) ) );
+		if ( !( *sit ).isNull() )
+			mSock->setAccount( getRecord( ( *sit ) ) );
 		++sit;
 	}
 }
@@ -503,8 +521,8 @@ cAccount* cAccounts::createAccount( const QString& login, const QString& passwor
 {
 	cAccount* d = new cAccount;
 	d->login_ = login.lower();
-	d->setPassword(password);
-	accounts.insert(d->login(), d);
+	d->setPassword( password );
+	accounts.insert( d->login(), d );
 	if ( accounts.count() == 1 ) // first account, it must be admin!
 		d->setAcl( "admin" );
 	d->refreshAcl();
@@ -515,9 +533,9 @@ cAccount* cAccounts::createAccount( const QString& login, const QString& passwor
 /*!
 	Removes \a record account from the system
 */
-void cAccounts::remove( cAccount *record )
+void cAccounts::remove( cAccount* record )
 {
-	if( accounts.contains( record->login() ) )
+	if ( accounts.contains( record->login() ) )
 		accounts.remove( record->login() );
 	delete record;
 }
@@ -543,11 +561,13 @@ cAccount* cAccounts::getRecord( const QString& login )
 		return it.data();
 }
 
-void cAccounts::clearAcls() {
+void cAccounts::clearAcls()
+{
 	iterator it = accounts.begin();
 
-	while (it != accounts.end()) {
-    it.data()->refreshAcl();
+	while ( it != accounts.end() )
+	{
+		it.data()->refreshAcl();
 		++it;
 	}
 }

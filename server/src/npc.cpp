@@ -54,7 +54,8 @@
 #include "basics.h"
 #include "basedef.h"
 
-cNPC::cNPC() {
+cNPC::cNPC()
+{
 	nextMsgTime_ = 0;
 	nextGuardCallTime_ = 0;
 	nextBeggingTime_ = 0;
@@ -66,11 +67,11 @@ cNPC::cNPC() {
 	wanderType_ = stWanderType();
 	aiid_ = "Monster_Aggressive_L1";
 	ai_ = new Monster_Aggressive_L1( this );
-	aiCheckInterval_ = (UINT16)floor(Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC);
+	aiCheckInterval_ = ( UINT16 ) floor( Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC );
 	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_;
 }
 
-cNPC::cNPC(const cNPC& right)
+cNPC::cNPC( const cNPC& right )
 {
 }
 
@@ -79,7 +80,7 @@ cNPC::~cNPC()
 	delete ai_;
 }
 
-cNPC& cNPC::operator=(const cNPC& right)
+cNPC& cNPC::operator=( const cNPC& right )
 {
 	return *this;
 }
@@ -98,35 +99,35 @@ void cNPC::registerInFactory()
 	UObjectFactory::instance()->registerSqlQuery( "cNPC", sqlString );
 }
 
-void cNPC::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
+void cNPC::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	cBaseChar::buildSqlString( fields, tables, conditions );
 	fields.push_back( "npcs.summontime,npcs.additionalflags,npcs.owner" );
 	fields.push_back( "npcs.spawnregion,npcs.stablemaster" );
 	fields.push_back( "npcs.ai,npcs.wandertype" );
 	fields.push_back( "npcs.wanderx1,npcs.wanderx2,npcs.wandery1,npcs.wandery2" );
-	fields.push_back( "npcs.wanderradius");
+	fields.push_back( "npcs.wanderradius" );
 	tables.push_back( "npcs" );
 	conditions.push_back( "uobjectmap.serial = npcs.serial" );
 }
 
 static void npcRegisterAfterLoading( P_NPC pc );
 
-void cNPC::load( char **result, UINT16 &offset )
+void cNPC::load( char** result, UINT16& offset )
 {
 	cBaseChar::load( result, offset );
 	SERIAL ser;
 
 	summonTime_ = atoi( result[offset++] ) + Server::instance()->time();
-	if( summonTime_ )
+	if ( summonTime_ )
 		summonTime_ += Server::instance()->time();
 	additionalFlags_ = atoi( result[offset++] );
 	ser = atoi( result[offset++] );
-	owner_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
+	owner_ = dynamic_cast<P_PLAYER>( FindCharBySerial( ser ) );
 	spawnregion_ = result[offset++];
 	stablemasterSerial_ = atoi( result[offset++] );
 	setAI( result[offset++] );
-	setWanderType( (enWanderTypes)atoi( result[offset++] ) );
+	setWanderType( ( enWanderTypes ) atoi( result[offset++] ) );
 	setWanderX1( atoi( result[offset++] ) );
 	setWanderX2( atoi( result[offset++] ) );
 	setWanderY1( atoi( result[offset++] ) );
@@ -136,11 +137,15 @@ void cNPC::load( char **result, UINT16 &offset )
 	npcRegisterAfterLoading( this );
 	changed_ = false;
 
-	if (!spawnregion_.isEmpty()) {
-		cSpawnRegion *region = SpawnRegions::instance()->region(spawnregion_);
-		if (region) {
-			region->add(serial_);
-		} else {
+	if ( !spawnregion_.isEmpty() )
+	{
+		cSpawnRegion* region = SpawnRegions::instance()->region( spawnregion_ );
+		if ( region )
+		{
+			region->add( serial_ );
+		}
+		else
+		{
 			spawnregion_ = QString::null;
 		}
 	}
@@ -157,10 +162,10 @@ void cNPC::save()
 		addField( "summontime", summonTime_ ? summonTime_ - Server::instance()->time() : 0 );
 		addField( "additionalflags", additionalFlags_ );
 		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
-		addStrField( "spawnregion", spawnregion_);
+		addStrField( "spawnregion", spawnregion_ );
 		addField( "stablemaster", stablemasterSerial_ );
 		addStrField( "ai", aiid_ );
-		addField( "wandertype", (UINT8)wanderType() );
+		addField( "wandertype", ( UINT8 ) wanderType() );
 		addField( "wanderx1", wanderX1() );
 		addField( "wanderx2", wanderX2() );
 		addField( "wandery1", wanderY1() );
@@ -175,7 +180,7 @@ void cNPC::save()
 
 bool cNPC::del()
 {
-	if( !isPersistent )
+	if ( !isPersistent )
 		return false; // We didn't need to delete the object
 
 	PersistentBroker::instance()->addToDeleteQueue( "npcs", QString( "serial = '%1'" ).arg( serial() ) );
@@ -185,29 +190,30 @@ bool cNPC::del()
 
 static void npcRegisterAfterLoading( P_NPC pc )
 {
-	if (pc->stablemasterSerial() == INVALID_SERIAL) {
-		MapObjects::instance()->add(pc);
+	if ( pc->stablemasterSerial() == INVALID_SERIAL )
+	{
+		MapObjects::instance()->add( pc );
 	}
 }
 
-void cNPC::setOwner(P_PLAYER data, bool nochecks)
+void cNPC::setOwner( P_PLAYER data, bool nochecks )
 {
 	// We CANT be our own owner
-	if( data && ( data->serial() == this->serial() ) )
+	if ( data && ( data->serial() == this->serial() ) )
 		return;
 
-	if( !nochecks && owner_ )
+	if ( !nochecks && owner_ )
 	{
-		owner_->removePet(this, true);
+		owner_->removePet( this, true );
 	}
 
 	owner_ = data;
 	changed( TOOLTIP );
 	changed_ = true;
 
-	if( !nochecks && owner_ )
+	if ( !nochecks && owner_ )
 	{
-		owner_->addPet(this, true);
+		owner_->addPet( this, true );
 	}
 }
 
@@ -215,86 +221,104 @@ void cNPC::setNextMoveTime()
 {
 	unsigned int interval;
 
-	if (isTamed()) {
+	if ( isTamed() )
+	{
 		interval = Config::instance()->tamedNpcMoveTime() * MY_CLOCKS_PER_SEC;
-	} else {
+	}
+	else
+	{
 		interval = Config::instance()->npcMoveTime() * MY_CLOCKS_PER_SEC;
 	}
 
 	// Wander slowly if wandering freely.
-	if (wanderType() == enFreely || wanderType() == enCircle || wanderType() == enRectangle) {
+	if ( wanderType() == enFreely || wanderType() == enCircle || wanderType() == enRectangle )
+	{
 		interval *= 3;
 	}
 
-	setNextMoveTime(Server::instance()->time() + interval);
+	setNextMoveTime( Server::instance()->time() + interval );
 }
 
 // Update flags etc.
 void cNPC::update( bool excludeself )
 {
 	cUOTxUpdatePlayer update;
-	update.fromChar(this);
+	update.fromChar( this );
 
-	for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next()) {
-		if (socket->canSee(this)) {
-			update.setHighlight(notoriety(socket->player()));
-			socket->send(&update);
+	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+	{
+		if ( socket->canSee( this ) )
+		{
+			update.setHighlight( notoriety( socket->player() ) );
+			socket->send( &update );
 		}
 	}
 }
 
 // Resend the char to all sockets in range
-void cNPC::resend( bool clean)
+void cNPC::resend( bool clean )
 {
 	// We are stabled and therefore we arent visible to others
-	if( stablemasterSerial() != INVALID_SERIAL )
+	if ( stablemasterSerial() != INVALID_SERIAL )
 		return;
 
 	cUOTxRemoveObject remove;
-	remove.setSerial(serial_);
+	remove.setSerial( serial_ );
 
-	for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next()) {
-		if (socket->canSee(this)) {
+	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+	{
+		if ( socket->canSee( this ) )
+		{
 			cUOTxDrawChar drawChar;
-			drawChar.fromChar(this);
-			drawChar.setHighlight(notoriety(socket->player()));
-			socket->send(&drawChar);
+			drawChar.fromChar( this );
+			drawChar.setHighlight( notoriety( socket->player() ) );
+			socket->send( &drawChar );
 
-			sendTooltip(socket);
+			sendTooltip( socket );
 
-			for (ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it) {
-				it.data()->sendTooltip(socket);
+			for ( ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it )
+			{
+				it.data()->sendTooltip( socket );
 			}
-		} else if (clean) {
-			socket->send(&remove);
+		}
+		else if ( clean )
+		{
+			socket->send( &remove );
 		}
 	}
 }
 
-void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
+void cNPC::talk( const QString& message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
 {
-	if( autospam )
+	if ( autospam )
 	{
-		if( nextMsgTime_ < Server::instance()->time() )
-			nextMsgTime_ = Server::instance()->time() + MY_CLOCKS_PER_SEC*10;
+		if ( nextMsgTime_ < Server::instance()->time() )
+			nextMsgTime_ = Server::instance()->time() + MY_CLOCKS_PER_SEC * 10;
 		else
 			return;
 	}
 
-	if( color == 0xFFFF )
+	if ( color == 0xFFFF )
 		color = saycolor_;
 
 	cUOTxUnicodeSpeech::eSpeechType speechType;
 
-	switch( type )
+	switch ( type )
 	{
-		case 0x01: speechType = cUOTxUnicodeSpeech::Broadcast; break;
-		case 0x06: speechType = cUOTxUnicodeSpeech::System; break;
-		case 0x09: speechType = cUOTxUnicodeSpeech::Yell; break;
-		case 0x02: speechType = cUOTxUnicodeSpeech::Emote; break;
-		case 0x08: speechType = cUOTxUnicodeSpeech::Whisper; break;
-		case 0x0A: speechType = cUOTxUnicodeSpeech::Spell; break;
-		default: speechType = cUOTxUnicodeSpeech::Regular; break;
+	case 0x01:
+		speechType = cUOTxUnicodeSpeech::Broadcast; break;
+	case 0x06:
+		speechType = cUOTxUnicodeSpeech::System; break;
+	case 0x09:
+		speechType = cUOTxUnicodeSpeech::Yell; break;
+	case 0x02:
+		speechType = cUOTxUnicodeSpeech::Emote; break;
+	case 0x08:
+		speechType = cUOTxUnicodeSpeech::Whisper; break;
+	case 0x0A:
+		speechType = cUOTxUnicodeSpeech::Spell; break;
+	default:
+		speechType = cUOTxUnicodeSpeech::Regular; break;
 	};
 
 	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
@@ -307,16 +331,16 @@ void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, 
 	textSpeech->setColor( color );
 	textSpeech->setText( message );
 
-	if( socket )
+	if ( socket )
 	{
 		socket->send( textSpeech );
 	}
 	else
 	{
 		// Send to all clients in range
-		for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+		for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
-			if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
+			if ( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 			{
 				mSock->send( new cUOTxUnicodeSpeech( *textSpeech ) );
 			}
@@ -340,9 +364,9 @@ void cNPC::talk( const UINT32 MsgID, const QString& params /*= 0*/, const QStrin
 	else
 	{
 		// Send to all clients in range
-		for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+		for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
-			if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
+			if ( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 			{
 				if ( affix.isEmpty() )
 					mSock->clilocMessage( MsgID, params, color, 3, this );
@@ -355,7 +379,8 @@ void cNPC::talk( const UINT32 MsgID, const QString& params /*= 0*/, const QStrin
 
 UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 {
-	if (isIncognito()) {
+	if ( isIncognito() )
+	{
 		return 0x03;
 	}
 
@@ -373,40 +398,41 @@ UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 	*/
 	UINT8 result;
 
-	if (isInvulnerable()) {
+	if ( isInvulnerable() )
+	{
 		return 7;
 	}
 
 	// Check for Guild status + Highlight
-//	UINT8 guildStatus = GuildCompare( this, pChar );
+	//	UINT8 guildStatus = GuildCompare( this, pChar );
 
-//	if( npcaitype() == 0x02 )
-//		return 0x06; // 6 = Red -> Monster
+	//	if( npcaitype() == 0x02 )
+	//		return 0x06; // 6 = Red -> Monster
 
-	if( ai_ && ai_->notorietyOverride() )
+	if ( ai_ && ai_->notorietyOverride() )
 		return ai_->notorietyOverride();
 
-	if( !pChar )
+	if ( !pChar )
 		return 3;
 
-	if( pChar->kills() > Config::instance()->maxkills() )
+	if ( pChar->kills() > Config::instance()->maxkills() )
 		result = 0x06; // 6 = Red -> Murderer
 
-//	else if( guildStatus == 1 )
-//		result = 0x02; // 2 = Green -> Same Guild
+	//	else if( guildStatus == 1 )
+	//		result = 0x02; // 2 = Green -> Same Guild
 
-//	else if( guildStatus == 2 )
-//		result = 0x05; // 5 = Orange -> Enemy Guild
+	//	else if( guildStatus == 2 )
+	//		result = 0x05; // 5 = Orange -> Enemy Guild
 
 	else
 	{
 		// Monsters are always bad
-//		if( npcaitype_ == 4 )
-//			return 0x01;
+		//		if( npcaitype_ == 4 )
+		//			return 0x01;
 
-		if( isHuman() )
+		if ( isHuman() )
 		{
-			if( karma_ >= 0 )
+			if ( karma_ >= 0 )
 				result = 0x01;
 			else
 				result = 0x06;
@@ -428,16 +454,17 @@ UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 */
 void cNPC::callGuards()
 {
-	if( nextGuardCallTime() < Server::instance()->time() )
+	if ( nextGuardCallTime() < Server::instance()->time() )
 	{
-		setNextGuardCallTime( Server::instance()->time() + (MY_CLOCKS_PER_SEC*10) );
-	} else
+		setNextGuardCallTime( Server::instance()->time() + ( MY_CLOCKS_PER_SEC * 10 ) );
+	}
+	else
 		return;
 
 	cBaseChar::callGuards();
 }
 
-void cNPC::applyDefinition( const cElement *sectionNode )
+void cNPC::applyDefinition( const cElement* sectionNode )
 {
 	cBaseChar::applyDefinition( sectionNode );
 
@@ -450,47 +477,54 @@ void cNPC::applyDefinition( const cElement *sectionNode )
 	}
 }
 
-void cNPC::showName( cUOSocket *socket )
+void cNPC::showName( cUOSocket* socket )
 {
-	if( !socket->player() )
+	if ( !socket->player() )
 		return;
 
 	QString charName = name();
 
 	// apply titles
-	if( Config::instance()->showNpcTitles() && !title_.isEmpty() )
+	if ( Config::instance()->showNpcTitles() && !title_.isEmpty() )
 		charName.append( ", " + title_ );
 
 	// Append serial for GMs
-	if( socket->player()->showSerials() )
+	if ( socket->player()->showSerials() )
 		charName.append( QString( " [0x%1]" ).arg( serial(), 4, 16 ) );
 
 	// Frozen
-	if (isFrozen())
-		charName.append( tr(" [frozen]") );
+	if ( isFrozen() )
+		charName.append( tr( " [frozen]" ) );
 
 	// Guarded
-	if( guardedby_.size() > 0 )
-		charName.append( tr(" [guarded]") );
+	if ( guardedby_.size() > 0 )
+		charName.append( tr( " [guarded]" ) );
 
 	// Guarding
-	if( isTamed() && guarding_ )
-		charName.append( tr(" [guarding]") );
+	if ( isTamed() && guarding_ )
+		charName.append( tr( " [guarding]" ) );
 
 	Q_UINT16 speechColor;
 
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
-	switch( notoriety( socket->player() ) )
+	switch ( notoriety( socket->player() ) )
 	{
-		case 0x01: speechColor = 0x59; break; //blue
-		case 0x02: speechColor = 0x3F; break; //green
-		case 0x03: speechColor = 0x3B2; break; //grey
-		case 0x05: speechColor = 0x90; break; //orange
-		case 0x06: speechColor = 0x22; break; //red
-		default: speechColor = 0x3B2; break; // grey
+	case 0x01:
+		speechColor = 0x59; break; //blue
+	case 0x02:
+		speechColor = 0x3F; break; //green
+	case 0x03:
+		speechColor = 0x3B2; break; //grey
+	case 0x05:
+		speechColor = 0x90; break; //orange
+	case 0x06:
+		speechColor = 0x22; break; //red
+	default:
+		speechColor = 0x3B2; break; // grey
 	}
 
-	if (isInvulnerable()) {
+	if ( isInvulnerable() )
+	{
 		speechColor = 0x35;
 	}
 
@@ -500,7 +534,7 @@ void cNPC::showName( cUOSocket *socket )
 
 void cNPC::soundEffect( UI16 soundId, bool hearAll )
 {
-	if( !hearAll )
+	if ( !hearAll )
 		return;
 
 	cUOTxSoundEffect pSoundEffect;
@@ -508,8 +542,8 @@ void cNPC::soundEffect( UI16 soundId, bool hearAll )
 	pSoundEffect.setCoord( pos() );
 
 	// Send the sound to all sockets in range
-	for( cUOSocket *s = Network::instance()->first(); s; s = Network::instance()->next() )
-		if( s->player() && s->player()->inRange( this, s->player()->visualRange() ) )
+	for ( cUOSocket*s = Network::instance()->first(); s; s = Network::instance()->next() )
+		if ( s->player() && s->player()->inRange( this, s->player()->visualRange() ) )
 			s->send( &pSoundEffect );
 }
 
@@ -517,16 +551,16 @@ void cNPC::giveGold( Q_UINT32 amount, bool inBank )
 {
 	P_ITEM pCont = getBackpack();
 
-	if( !pCont )
+	if ( !pCont )
 		return;
 
 	// Begin Spawning
 	Q_UINT32 total = amount;
 
-	while( total > 0 )
+	while ( total > 0 )
 	{
 		P_ITEM pile = cItem::createFromScript( "eed" );
-		pile->setAmount( QMIN( total, static_cast<Q_UINT32>(65535) ) );
+		pile->setAmount( QMIN( total, static_cast<Q_UINT32>( 65535 ) ) );
 		pCont->addItem( pile );
 		total -= pile->amount();
 	}
@@ -538,13 +572,13 @@ UINT32 cNPC::takeGold( UINT32 amount, bool useBank )
 
 	UINT32 dAmount = 0;
 
-	if( pPack )
+	if ( pPack )
 		dAmount = pPack->DeleteAmount( amount, 0xEED, 0 );
 
 	return dAmount;
 }
 
-void cNPC::processNode( const cElement *Tag )
+void cNPC::processNode( const cElement* Tag )
 {
 	changed_ = true;
 	QString TagName = Tag->name();
@@ -557,32 +591,26 @@ void cNPC::processNode( const cElement *Tag )
 	//<......... type="2" ... />
 	//<......... type="free" (or "1") />
 	//<......... type="none" (or "0") />
-	if( TagName == "npcwander" )
+	if ( TagName == "npcwander" )
 	{
-		if( Tag->hasAttribute("type") )
+		if ( Tag->hasAttribute( "type" ) )
 		{
-			QString wanderType = Tag->getAttribute("type");
-			if( wanderType == "rectangle" || wanderType == "rect" || wanderType == "3" )
-				if( Tag->hasAttribute("x1") &&
-					Tag->hasAttribute("x2") &&
-					Tag->hasAttribute("y1") &&
-					Tag->hasAttribute("y2") )
+			QString wanderType = Tag->getAttribute( "type" );
+			if ( wanderType == "rectangle" || wanderType == "rect" || wanderType == "3" )
+				if ( Tag->hasAttribute( "x1" ) && Tag->hasAttribute( "x2" ) && Tag->hasAttribute( "y1" ) && Tag->hasAttribute( "y2" ) )
 				{
-					wanderType_ = stWanderType( pos().x + Tag->getAttribute("x1").toInt(),
-						pos().x + Tag->getAttribute("x2").toInt(),
-						pos().y + Tag->getAttribute("y1").toInt(),
-						pos().y + Tag->getAttribute("y2").toInt() );
+					wanderType_ = stWanderType( pos().x + Tag->getAttribute( "x1" ).toInt(), pos().x + Tag->getAttribute( "x2" ).toInt(), pos().y + Tag->getAttribute( "y1" ).toInt(), pos().y + Tag->getAttribute( "y2" ).toInt() );
 				}
-			else if( wanderType == "circle" || wanderType == "4" )
-			{
-				wanderType_ = stWanderType( pos().x, pos().y, 5 );
-				if( Tag->hasAttribute("radius") )
-					setWanderRadius( Tag->getAttribute("radius").toInt() );
-			}
-			else if( wanderType == "free" || wanderType == "2" )
-				wanderType_ = stWanderType( enFreely );
-			else
-				wanderType_ = stWanderType();
+				else if ( wanderType == "circle" || wanderType == "4" )
+				{
+					wanderType_ = stWanderType( pos().x, pos().y, 5 );
+					if ( Tag->hasAttribute( "radius" ) )
+						setWanderRadius( Tag->getAttribute( "radius" ).toInt() );
+				}
+				else if ( wanderType == "free" || wanderType == "2" )
+					wanderType_ = stWanderType( enFreely );
+				else
+					wanderType_ = stWanderType();
 		}
 	}
 
@@ -591,53 +619,50 @@ void cNPC::processNode( const cElement *Tag )
 	//	<buyable>...see above...</buyable>
 	//	<restockable>...see above...</restockable>
 	//</shopkeeper>
-	else if( TagName == "shopkeeper" )
+	else if ( TagName == "shopkeeper" )
 	{
 		makeShop();
 
-		for( unsigned int i = 0; i < Tag->childCount(); ++i )
+		for ( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			const cElement *currNode = Tag->getChild( i );
+			const cElement* currNode = Tag->getChild( i );
 
-			if( !currNode->childCount() )
+			if ( !currNode->childCount() )
 				continue;
 
 			unsigned char contlayer = 0;
-			if( currNode->name() == "restockable" )
+			if ( currNode->name() == "restockable" )
 				contlayer = BuyRestockContainer;
-			else if( currNode->name() == "buyable" )
+			else if ( currNode->name() == "buyable" )
 				contlayer = BuyNoRestockContainer;
-			else if( currNode->name() == "sellable" )
+			else if ( currNode->name() == "sellable" )
 				contlayer = SellContainer;
 			else
 				continue;
 
 			P_ITEM contItem = this->GetItemOnLayer( contlayer );
-			if( contItem != NULL )
+			if ( contItem != NULL )
 				contItem->processContainerNode( currNode );
 		}
 	}
-
-	else if( TagName == "inherit" )
+	else if ( TagName == "inherit" )
 	{
 		QString inheritID;
-		if( Tag->hasAttribute( "id" ) )
+		if ( Tag->hasAttribute( "id" ) )
 			inheritID = Tag->getAttribute( "id" );
 		else
 			inheritID = Value;
 
-		const cElement *element = Definitions::instance()->getDefinition( WPDT_NPC, inheritID );
-		if( element )
+		const cElement* element = Definitions::instance()->getDefinition( WPDT_NPC, inheritID );
+		if ( element )
 			applyDefinition( element );
 	}
-
 	else
 		cBaseChar::processNode( Tag );
-
 }
 
 // Simple setting and getting of properties for scripts and the set command.
-stError *cNPC::setProperty( const QString &name, const cVariant &value )
+stError* cNPC::setProperty( const QString& name, const cVariant& value )
 {
 	changed( TOOLTIP );
 	changed_ = true;
@@ -648,23 +673,26 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	SET_INT_PROPERTY( "nextmsgtime", nextMsgTime_ )
 
 	/*
-		\property char.nextguardcalltime This integer value is the next time the npc will call for a guard.
-		This property is exclusive to NPC objects.
+	\property char.nextguardcalltime This integer value is the next time the npc will call for a guard.
+	This property is exclusive to NPC objects.
 	*/
-	else SET_INT_PROPERTY( "nextguardcalltime", nextGuardCallTime_ )
-	/*
+	else
+		SET_INT_PROPERTY( "nextguardcalltime", nextGuardCallTime_ )
+		/*
 		\property char.spawnregion This string property is the id of the spawnregion this NPC was spawned by.
 		This property is exclusive to NPC objects.
-	*/
-	else SET_STR_PROPERTY( "spawnregion", spawnregion_ )
-	/*
+		*/
+	else
+		SET_STR_PROPERTY( "spawnregion", spawnregion_ )
+		/*
 		\property char.stablemaster If this integer property is not -1, the NPC won't be visible. Is is something like a container
 		value for NPCs. Item and character serials are valid here. If you set the stablemaster serial, the NPC will be automatically
 		removed from the map.
 		This property is exclusive to NPC objects.
-	*/
-	else if (name == "stablemaster") {
-		setStablemasterSerial(value.toInt());
+		*/
+	else if ( name == "stablemaster" )
+	{
+		setStablemasterSerial( value.toInt() );
 		return 0;
 	}
 
@@ -672,28 +700,31 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		\property char.nextmovetime This integer is the time the npc will move next.
 		This property is exclusive to NPC objects.
 	*/
-	else SET_INT_PROPERTY( "nextmovetime", nextMoveTime_ )
+	else
+		SET_INT_PROPERTY( "nextmovetime", nextMoveTime_ )
 
-	/*
+		/*
 		\property char.summoned This boolean flag indicates whether the NPC was summoned and doesn't leave a corpse behind.
 		This property is exclusive to NPC objects.
-	*/
-	else if (name == "summoned") {
-		setSummoned(value.toInt() == 1);
+		*/
+	else if ( name == "summoned" )
+	{
+		setSummoned( value.toInt() == 1 );
 		return 0;
 
-	/*
-		\property char.wandertype This integer is the type of wander algorithm used for this character. One of the following values is possible:
-		<code>0x00 Standing
-		0x01 Rectangle
-		0x02 Circle
-		0x03 FollowTarget
-		0x04 Destination</code>
-		This property is exclusive to NPC objects.
-	*/
-	} else if( name == "wandertype" )
+		/*
+			\property char.wandertype This integer is the type of wander algorithm used for this character. One of the following values is possible:
+			<code>0x00 Standing
+			0x01 Rectangle
+			0x02 Circle
+			0x03 FollowTarget
+			0x04 Destination</code>
+			This property is exclusive to NPC objects.
+		*/
+	}
+	else if ( name == "wandertype" )
 	{
-		setWanderType( (enWanderTypes)value.toInt() );
+		setWanderType( ( enWanderTypes ) value.toInt() );
 		return 0;
 	}
 
@@ -701,7 +732,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		\property char.wanderx1 This integer property is either the x component of the upper left corner of the wander rectangle or the x component of the coordinate used by the Circle wandertype.
 		This property is exclusive to NPC objects.
 	*/
-	else if( name == "fx1" || name == "wanderx1" )
+	else if ( name == "fx1" || name == "wanderx1" )
 	{
 		setWanderX1( value.toInt() );
 		return 0;
@@ -710,7 +741,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		\property char.wanderx2 This integer property is the x component of the lower right corner of the wander rectangle.
 		This property is exclusive to NPC objects.
 	*/
-	else if( name == "fx2" || name == "wanderx2" )
+	else if ( name == "fx2" || name == "wanderx2" )
 	{
 		setWanderX2( value.toInt() );
 		return 0;
@@ -719,7 +750,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		\property char.wandery1 This integer property is either the y component of the upper left corner of the wander rectangle or the y component of the coordinate used by the Circle wandertype.
 		This property is exclusive to NPC objects.
 	*/
-	else if( name == "fy1" || name == "wandery1" )
+	else if ( name == "fy1" || name == "wandery1" )
 	{
 		setWanderY1( value.toInt() );
 		return 0;
@@ -728,7 +759,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		\property char.wandery2 This integer property is the y component of the lower right corner of the wander rectangle.
 		This property is exclusive to NPC objects.
 	*/
-	else if( name == "fy2" || name == "wandery2" )
+	else if ( name == "fy2" || name == "wandery2" )
 	{
 		setWanderY2( value.toInt() );
 		return 0;
@@ -737,7 +768,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		\property char.wanderradius This integer property is the radius of the circle used by the Circle wandertype.
 		This property is exclusive to NPC objects.
 	*/
-	else if( name == "fz1" || name == "wanderradius" )
+	else if ( name == "fz1" || name == "wanderradius" )
 	{
 		setWanderRadius( value.toInt() );
 		return 0;
@@ -747,26 +778,27 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		If this integer value is 0, the NPC will never disappear.
 		This property is exclusive to NPC objects.
 	*/
-	else SET_INT_PROPERTY( "summontime", summonTime_)
-	/*
+	else
+		SET_INT_PROPERTY( "summontime", summonTime_ )
+		/*
 		\property char.owner This is the owner of this NPC. It returns a character object or None.
 		Please note that you automatically tame the NPC by setting a new owner.
 		This property is exclusive to NPC objects.
-	*/
-	else if( name == "owner" )
+		*/
+	else if ( name == "owner" )
 	{
-		P_PLAYER pOwner = dynamic_cast<P_PLAYER>(value.toChar());
+		P_PLAYER pOwner = dynamic_cast<P_PLAYER>( value.toChar() );
 		setOwner( pOwner );
 		return 0;
 	}
 
 	// skill.
-	else if( name.left( 6 ) == "skill." )
+	else if ( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
 		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
-		if( skillId != -1 )
+		if ( skillId != -1 )
 		{
 			setSkillValue( skillId, value.toInt() );
 			return 0;
@@ -776,25 +808,30 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		\property char.ai This string property is the name of the AI used by this NPC.
 		This property is exclusive to NPC objects.
 	*/
-	else if( name == "ai" )
+	else if ( name == "ai" )
 	{
 		setAI( value.toString() );
 		return 0;
-	// skillcap.
-	} else if( name.left( 9 ) == "skillcap." ) {
+		// skillcap.
+	}
+	else if ( name.left( 9 ) == "skillcap." )
+	{
 		QString skill = name.right( name.length() - 9 );
 		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
-		if( skillId != -1 )
+		if ( skillId != -1 )
 		{
-			setSkillCap(skillId, value.toInt());
+			setSkillCap( skillId, value.toInt() );
 			return 0;
 		}
-	} else {
-		INT16 skillId = Skills::instance()->findSkillByDef(name);
+	}
+	else
+	{
+		INT16 skillId = Skills::instance()->findSkillByDef( name );
 
-		if (skillId != -1) {
-			setSkillValue(skillId, value.toInt());
+		if ( skillId != -1 )
+		{
+			setSkillValue( skillId, value.toInt() );
 			return 0;
 		}
 	}
@@ -802,33 +839,57 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	return cBaseChar::setProperty( name, value );
 }
 
-stError *cNPC::getProperty( const QString &name, cVariant &value )
+stError* cNPC::getProperty( const QString& name, cVariant& value )
 {
-	GET_PROPERTY( "nextmsgtime", (int)nextMsgTime_ )
-	else GET_PROPERTY( "antispamtimer", (int)nextMsgTime_ )
-	else GET_PROPERTY( "nextguardcalltime", (int)nextGuardCallTime_ )
-	else GET_PROPERTY( "antiguardstimer", (int)nextGuardCallTime_ )
-	else GET_PROPERTY( "spawnregion", spawnregion_ )
-	else GET_PROPERTY( "stablemaster", stablemasterSerial_ )
-	else GET_PROPERTY( "npc", true )
-	else GET_PROPERTY( "nextmovetime", (int)nextMoveTime_ )
-	else GET_PROPERTY( "npcmovetime", (int)nextMoveTime_ )
-	else GET_PROPERTY( "wandertype", (int)wanderType() )
-	else GET_PROPERTY( "wanderx1", wanderX1() )
-	else GET_PROPERTY( "fx1", wanderX1() )
-	else GET_PROPERTY( "wanderx2", wanderX2() )
-	else GET_PROPERTY( "fx2", wanderX2() )
-	else GET_PROPERTY( "wandery1", wanderY1() )
-	else GET_PROPERTY( "fy1", wanderY1() )
-	else GET_PROPERTY( "wandery2", wanderY2() )
-	else GET_PROPERTY( "fy2", wanderY2() )
-	else GET_PROPERTY( "wanderradius", wanderRadius() )
-	else GET_PROPERTY( "fz1", wanderRadius() )
-	else GET_PROPERTY( "summontime", (int)summonTime_)
-	else GET_PROPERTY( "summontimer", (int)summonTime_)
-	else GET_PROPERTY( "owner", owner_ )
-	else GET_PROPERTY( "ai", aiid_ )
-	else GET_PROPERTY( "summoned", (int)(summoned() ? 1 : 0))
+	GET_PROPERTY( "nextmsgtime", ( int ) nextMsgTime_ )
+	else
+		GET_PROPERTY( "antispamtimer", ( int ) nextMsgTime_ )
+	else
+		GET_PROPERTY( "nextguardcalltime", ( int ) nextGuardCallTime_ )
+	else
+		GET_PROPERTY( "antiguardstimer", ( int ) nextGuardCallTime_ )
+	else
+		GET_PROPERTY( "spawnregion", spawnregion_ )
+	else
+		GET_PROPERTY( "stablemaster", stablemasterSerial_ )
+	else
+		GET_PROPERTY( "npc", true )
+	else
+		GET_PROPERTY( "nextmovetime", ( int ) nextMoveTime_ )
+	else
+		GET_PROPERTY( "npcmovetime", ( int ) nextMoveTime_ )
+	else
+		GET_PROPERTY( "wandertype", ( int ) wanderType() )
+	else
+		GET_PROPERTY( "wanderx1", wanderX1() )
+	else
+		GET_PROPERTY( "fx1", wanderX1() )
+	else
+		GET_PROPERTY( "wanderx2", wanderX2() )
+	else
+		GET_PROPERTY( "fx2", wanderX2() )
+	else
+		GET_PROPERTY( "wandery1", wanderY1() )
+	else
+		GET_PROPERTY( "fy1", wanderY1() )
+	else
+		GET_PROPERTY( "wandery2", wanderY2() )
+	else
+		GET_PROPERTY( "fy2", wanderY2() )
+	else
+		GET_PROPERTY( "wanderradius", wanderRadius() )
+	else
+		GET_PROPERTY( "fz1", wanderRadius() )
+	else
+		GET_PROPERTY( "summontime", ( int ) summonTime_ )
+	else
+		GET_PROPERTY( "summontimer", ( int ) summonTime_ )
+	else
+		GET_PROPERTY( "owner", owner_ )
+	else
+		GET_PROPERTY( "ai", aiid_ )
+	else
+		GET_PROPERTY( "summoned", ( int ) ( summoned() ? 1 : 0 ) )
 
 	return cBaseChar::getProperty( name, value );
 }
@@ -836,7 +897,7 @@ stError *cNPC::getProperty( const QString &name, cVariant &value )
 Coord_cl cNPC::nextMove()
 {
 	Coord_cl ret;
-	if( !path_.empty() )
+	if ( !path_.empty() )
 	{
 		ret = path_.front();
 	}
@@ -851,7 +912,7 @@ void cNPC::pushMove( UI16 x, UI16 y, SI08 z )
 	path_.push_back( Coord_cl( x, y, z, 0 ) );
 }
 
-void cNPC::pushMove( const Coord_cl &move )
+void cNPC::pushMove( const Coord_cl& move )
 {
 	path_.push_back( move );
 }
@@ -873,7 +934,7 @@ bool cNPC::hasPath( void )
 
 Coord_cl cNPC::pathDestination( void ) const
 {
-	if( path_.empty() )
+	if ( path_.empty() )
 		return Coord_cl( 0xFFFF, 0xFFFF, 0xFF, 0 );
 	else
 		return path_.back();
@@ -892,15 +953,19 @@ Coord_cl cNPC::pathDestination( void ) const
 class pathnode_cl
 {
 public:
-	pathnode_cl( UI16 x_, UI16 y_, SI08 z_, UI16 step_, float cost_ ) : prev( NULL ), x( x_ ), y( y_ ), z( z_ ), step( step_ ), cost( cost_ ) {}
-	pathnode_cl() : prev( NULL ) {}
+	pathnode_cl( UI16 x_, UI16 y_, SI08 z_, UI16 step_, float cost_ ) : prev( NULL ), x( x_ ), y( y_ ), z( z_ ), step( step_ ), cost( cost_ )
+	{
+	}
+	pathnode_cl() : prev( NULL )
+	{
+	}
 	UI16 x;
 	UI16 y;
 	SI08 z;
 	UI16 step;
 	float cost;
 
-	pathnode_cl *prev;
+	pathnode_cl* prev;
 };
 
 /*!
@@ -909,9 +974,9 @@ public:
 */
 struct pathnode_comparePredicate : public std::binary_function<pathnode_cl, pathnode_cl, bool>
 {
-	bool operator()(const pathnode_cl *a, const pathnode_cl *b)
+	bool operator()( const pathnode_cl* a, const pathnode_cl* b )
 	{
-		return (a->step + 2 * a->cost) > (b->step + 2 * b->cost);
+		return ( a->step + 2 * a->cost ) > ( b->step + 2 * b->cost );
 	}
 };
 
@@ -920,10 +985,9 @@ struct pathnode_comparePredicate : public std::binary_function<pathnode_cl, path
 */
 struct pathnode_coordComparePredicate : public std::binary_function<pathnode_cl, pathnode_cl, bool>
 {
-	bool operator()(const pathnode_cl *a, const pathnode_cl *b)
+	bool operator()( const pathnode_cl* a, const pathnode_cl* b )
 	{
-		return ( a->x * a->x + a->y * a->y + a->z * a->z ) <
-				( b->x * b->x + b->y * b->y + b->z * b->z );
+		return ( a->x * a->x + a->y * a->y + a->z * a->z ) < ( b->x * b->x + b->y * b->y + b->z * b->z );
 	}
 };
 
@@ -931,21 +995,21 @@ struct pathnode_coordComparePredicate : public std::binary_function<pathnode_cl,
 	Heuristic function for A*
 	We use simple 3-dim. euclid distance: d = sqrt( (x1-x2) + (y1-y2) + (z1-z2) )
 */
-float cNPC::pathHeuristic( const Coord_cl &source, const Coord_cl &destination )
+float cNPC::pathHeuristic( const Coord_cl& source, const Coord_cl& destination )
 {
-	return (float)( sqrt( pow( source.x - destination.x, 2 ) + pow( source.y - destination.y, 2 ) + pow( (source.z - destination.z) / 5.0f, 2 ) ) );
+	return ( float ) ( sqrt( pow( source.x - destination.x, 2 ) + pow( source.y - destination.y, 2 ) + pow( ( source.z - destination.z ) / 5.0f, 2 ) ) );
 }
 
 /*!
 	The algorithm..
 	currently works in x,y,z direction. no idea how to implement map jumping yet.
 */
-void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
+void cNPC::findPath( const Coord_cl& goal, float sufficient_cost /* = 0.0f */ )
 {
-	if( path_.size() > 0 )
+	if ( path_.size() > 0 )
 		path_.clear();
 
-	if( pos_.map != goal.map )
+	if ( pos_.map != goal.map )
 		return;
 
 	/*
@@ -953,25 +1017,25 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 		in a way, that the node with lowest cost lies always at the beginning.
 		I'll use std::vector combined with the stl heap functions for it.
 	*/
-	std::vector< pathnode_cl* > unvisited_nodes;
-	std::vector< pathnode_cl* > visited_nodes;
+	std::vector<pathnode_cl*> unvisited_nodes;
+	std::vector<pathnode_cl*> visited_nodes;
 	std::make_heap( unvisited_nodes.begin(), unvisited_nodes.end(), pathnode_comparePredicate() );
 
 	/*
 		We also need a vector for the calculated list.
 		And a temporary vector of neighbours.
 	*/
-	std::vector< pathnode_cl* > allnodes;
-	std::vector< Coord_cl > neighbours;
-	std::vector< pathnode_cl* >::iterator pit;
-	std::vector< Coord_cl >::iterator nit;
+	std::vector<pathnode_cl*> allnodes;
+	std::vector<Coord_cl> neighbours;
+	std::vector<pathnode_cl*>::iterator pit;
+	std::vector<Coord_cl>::iterator nit;
 
 	/*
 		So let's start :)
 		The initial thing we'll have to do is to push the current char position
 		into the priority queue.
 	*/
-	pathnode_cl *baseNode = new pathnode_cl( pos_.x, pos_.y, pos_.z, 0, pathHeuristic( pos_, goal ) );
+	pathnode_cl* baseNode = new pathnode_cl( pos_.x, pos_.y, pos_.z, 0, pathHeuristic( pos_, goal ) );
 	unvisited_nodes.push_back( baseNode );
 	// pushing the heap isnt needed here..
 	allnodes.push_back( baseNode );
@@ -981,20 +1045,18 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 		out of the priority queue and calculate the neighbour nodes
 		(sourrounding coordinates). The nodes have prev pointers which let
 		us get the whole path in the end.
-
 		All neighbours that are reachable will be pushed into the priority
 		queue.
-
 		If no neighbour is reachable we ran into a dead end. Nothing will
 		be done in this iteration, because we'll get a better node out of the
 		priority queue next iteration.
 	*/
 
-	pathnode_cl *currentNode = NULL;
-	pathnode_cl *newNode = NULL;
-	pathnode_cl *prevNode = NULL;
+	pathnode_cl* currentNode = NULL;
+	pathnode_cl* newNode = NULL;
+	pathnode_cl* prevNode = NULL;
 	int iterations = 0;
-	while( !unvisited_nodes.empty() )
+	while ( !unvisited_nodes.empty() )
 	{
 		// get the first element of the queue
 		bool visited;
@@ -1012,9 +1074,10 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 			visited = std::binary_search( visited_nodes.begin(), visited_nodes.end(), currentNode, pathnode_coordComparePredicate() );
 
 			// steps > step depth
-		} while( ( visited || currentNode->step > Config::instance()->pathfindMaxSteps() ) && !unvisited_nodes.empty() );
+		}
+		while ( ( visited || currentNode->step > Config::instance()->pathfindMaxSteps() ) && !unvisited_nodes.empty() );
 
-		if( iterations > Config::instance()->pathfindMaxIterations() || currentNode->step > Config::instance()->pathfindMaxSteps() )
+		if ( iterations > Config::instance()->pathfindMaxIterations() || currentNode->step > Config::instance()->pathfindMaxSteps() )
 		{
 			// lets set the pointer invalid if we have an invalid path
 			currentNode = NULL;
@@ -1022,7 +1085,7 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 		}
 
 		// we reached the goal
-		if( currentNode->cost <= sufficient_cost )
+		if ( currentNode->cost <= sufficient_cost )
 			break;
 
 		// the neighbours can be all surrounding x-y-coordinates
@@ -1030,22 +1093,22 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 		int i = 0;
 		int j = 0;
 		Coord_cl pos;
-		for( i = -1; i <= 1; ++i )
+		for ( i = -1; i <= 1; ++i )
 		{
-			for( j = -1; j <= 1; ++j )
+			for ( j = -1; j <= 1; ++j )
 			{
-				if( i != 0 || j != 0 )
+				if ( i != 0 || j != 0 )
 					neighbours.push_back( Coord_cl( currentNode->x + i, currentNode->y + j, currentNode->z, pos_.map ) );
 			}
 		}
 
 		// check walkability and set z offsets for neighbours
 		nit = neighbours.begin();
-		while( nit != neighbours.end() )
+		while ( nit != neighbours.end() )
 		{
 			pos = *nit;
 			// this should change z coordinates also if there are stairs
-			if( mayWalk( this, pos ) && !Movement::instance()->CheckForCharacterAtXYZ( this, pos ) )
+			if ( mayWalk( this, pos ) && !Movement::instance()->CheckForCharacterAtXYZ( this, pos ) )
 			{
 				// push a path node into the priority queue
 				newNode = new pathnode_cl( pos.x, pos.y, pos.z, currentNode->step + 1, pathHeuristic( pos, goal ) );
@@ -1063,10 +1126,10 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 	}
 
 	// finally lets set the char's path
-	if( currentNode )
+	if ( currentNode )
 	{
 		path_.clear();
-		while( currentNode->prev )
+		while ( currentNode->prev )
 		{
 			path_.push_front( Coord_cl( currentNode->x, currentNode->y, currentNode->z, pos_.map ) );
 			currentNode = currentNode->prev;
@@ -1085,9 +1148,9 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 
 	// lets free the memory assigned to the nodes...
 	pit = allnodes.begin();
-	while( pit != allnodes.end() )
+	while ( pit != allnodes.end() )
 	{
-		delete *pit;
+		delete * pit;
 		++pit;
 	}
 }
@@ -1096,22 +1159,22 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 	<<A*
 */
 
-void cNPC::setAI( const QString &data )
+void cNPC::setAI( const QString& data )
 {
 	QString tmp = QStringList::split( ",", data )[0];
 	aiid_ = tmp;
 
-	if( ai_ )
+	if ( ai_ )
 		delete ai_;
 
 	ai_ = NULL;
 
 	AbstractAI* ai = AIFactory::instance()->createObject( tmp );
-	if( !ai )
+	if ( !ai )
 		return;
 
-	ScriptAI* sai = dynamic_cast< ScriptAI* >( ai );
-	if( sai )
+	ScriptAI* sai = dynamic_cast<ScriptAI*>( ai );
+	if ( sai )
 	{
 		sai->setName( tmp );
 	}
@@ -1123,7 +1186,7 @@ void cNPC::setAI( const QString &data )
 void cNPC::makeShop()
 {
 	P_ITEM currCont = GetItemOnLayer( BuyRestockContainer );
-	if( !currCont )
+	if ( !currCont )
 	{
 		currCont = cItem::createFromScript( "e75" );
 		currCont->setOwner( this );
@@ -1132,7 +1195,7 @@ void cNPC::makeShop()
 	}
 
 	currCont = GetItemOnLayer( BuyNoRestockContainer );
-	if( !currCont )
+	if ( !currCont )
 	{
 		currCont = cItem::createFromScript( "e75" );
 		currCont->setOwner( this );
@@ -1141,7 +1204,7 @@ void cNPC::makeShop()
 	}
 
 	currCont = GetItemOnLayer( SellContainer );
-	if( !currCont )
+	if ( !currCont )
 	{
 		currCont = cItem::createFromScript( "e75" );
 		currCont->setOwner( this );
@@ -1156,47 +1219,47 @@ void cNPC::awardKarma( P_CHAR pKilled, short amount )
 
 	nCurKarma = karma();
 
-	if( nCurKarma < amount && amount > 0 )
+	if ( nCurKarma <amount && amount> 0 )
 	{
-		nChange=((amount-nCurKarma)/75);
-		setKarma(nCurKarma+nChange);
-		nEffect=1;
+		nChange = ( ( amount - nCurKarma ) / 75 );
+		setKarma( nCurKarma + nChange );
+		nEffect = 1;
 	}
 
-	if( ( nCurKarma > amount ) && ( !pKilled ) )
+	if ( ( nCurKarma > amount ) && ( !pKilled ) )
 	{
 		nChange = ( ( nCurKarma - amount ) / 50 );
 		setKarma( nCurKarma - nChange );
 		nEffect = 0;
 	}
-	else if( ( nCurKarma > amount ) && ( pKilled->karma() > 0 ) )
+	else if ( ( nCurKarma > amount ) && ( pKilled->karma() > 0 ) )
 	{
-		nChange= ( ( nCurKarma - amount ) / 50 );
+		nChange = ( ( nCurKarma - amount ) / 50 );
 		setKarma( nCurKarma - nChange );
-		nEffect=0;
+		nEffect = 0;
 	}
 
 	// Cap at 10000 or -10000
-	if( karma_ > 10000 )
+	if ( karma_ > 10000 )
 		karma_ = 10000;
-	else if( karma_ < -10000 )
+	else if ( karma_ < -10000 )
 		karma_ = -10000;
 }
 
 void cNPC::awardFame( short amount )
 {
-	int nCurFame, nChange=0;
+	int nCurFame, nChange = 0;
 
 	setFame( QMIN( 10000, fame() ) );
 
 	nCurFame = fame();
 
 	// We already have more than that.
-	if( nCurFame > amount )
+	if ( nCurFame > amount )
 		return;
 
 	// Loose Fame when we died
-	if( isDead() )
+	if ( isDead() )
 	{
 		// Fame / 25 is our loss
 		nChange = nCurFame / 25;
@@ -1206,7 +1269,7 @@ void cNPC::awardFame( short amount )
 	else
 	{
 		nChange = ( amount - nCurFame ) / 75;
-		setFame( nCurFame+nChange );
+		setFame( nCurFame + nChange );
 	}
 }
 
@@ -1218,7 +1281,7 @@ void cNPC::vendorBuy( P_PLAYER player )
 	if ( player->isDead() )
 		return;
 
-	if( !pContA && !pContB )
+	if ( !pContA && !pContB )
 	{
 		talk( tr( "Sorry but i have no goods to sell" ) );
 		return;
@@ -1232,80 +1295,96 @@ void cNPC::vendorSell( P_PLAYER player )
 {
 	P_ITEM pContC = GetItemOnLayer( cBaseChar::SellContainer );
 
-	if (!pContC || pContC->content().size() == 0) {
-		talk(501550, 0, 0, false, saycolor_, player->socket());
+	if ( !pContC || pContC->content().size() == 0 )
+	{
+		talk( 501550, 0, 0, false, saycolor_, player->socket() );
 		return;
 	}
 
 	player->socket()->sendSellWindow( this, player );
 }
 
-void cNPC::log( eLogLevel loglevel, const QString &string )
+void cNPC::log( eLogLevel loglevel, const QString& string )
 {
 	// NPC's usually don't have sockets
 	Log::instance()->print( loglevel, string );
 }
 
-void cNPC::log( const QString &string )
+void cNPC::log( const QString& string )
 {
 	log( LOG_NOTICE, string );
 }
 
-PyObject *cNPC::getPyObject() {
-	return PyGetCharObject(this);
+PyObject* cNPC::getPyObject()
+{
+	return PyGetCharObject( this );
 }
 
-const char *cNPC::className() const {
+const char* cNPC::className() const
+{
 	return "npc";
 }
 
-bool cNPC::inWorld() {
+bool cNPC::inWorld()
+{
 	return stablemasterSerial() == INVALID_SERIAL;
 }
 
-void cNPC::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
-	cUObject::createTooltip(tooltip, player);
+void cNPC::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
+{
+	cUObject::createTooltip( tooltip, player );
 
 	QString affix;
 
-	if (!title_.isEmpty()) {
+	if ( !title_.isEmpty() )
+	{
 		affix = " " + title_;
-	} else {
+	}
+	else
+	{
 		affix = " ";
 	}
 
 	// Append the (frozen) tag
-	if (isFrozen()) {
-		if (affix.endsWith(" ")) {
-			affix.append(tr("(frozen)"));
-		} else {
-			affix.append(tr(" (frozen)"));
+	if ( isFrozen() )
+	{
+		if ( affix.endsWith( " " ) )
+		{
+			affix.append( tr( "(frozen)" ) );
+		}
+		else
+		{
+			affix.append( tr( " (frozen)" ) );
 		}
 	}
 
-	tooltip.addLine(1050045, QString(" \t%1\t%2").arg(name_).arg(affix));
-	onShowTooltip(player, &tooltip);
+	tooltip.addLine( 1050045, QString( " \t%1\t%2" ).arg( name_ ).arg( affix ) );
+	onShowTooltip( player, &tooltip );
 }
 
-void cNPC::setStablemasterSerial(SERIAL data)
+void cNPC::setStablemasterSerial( SERIAL data )
 {
 	stablemasterSerial_ = data;
 	changed_ = true;
 
-	if (data == INVALID_SERIAL) {
-		MapObjects::instance()->add(this);
-	} else {
-		MapObjects::instance()->remove(this);
+	if ( data == INVALID_SERIAL )
+	{
+		MapObjects::instance()->add( this );
+	}
+	else
+	{
+		MapObjects::instance()->remove( this );
 	}
 }
 
-cNPC *cNPC::createFromScript(const QString &section, const Coord_cl &pos) {
-	if( section.isNull() || section.isEmpty() )
+cNPC* cNPC::createFromScript( const QString& section, const Coord_cl& pos )
+{
+	if ( section.isNull() || section.isEmpty() )
 		return NULL;
 
 	const cElement* DefSection = Definitions::instance()->getDefinition( WPDT_NPC, section );
 
-	if( !DefSection )
+	if ( !DefSection )
 	{
 		Console::instance()->log( LOG_ERROR, QString( "Unable to create unscripted npc: %1\n" ).arg( section ) );
 		return NULL;
@@ -1313,33 +1392,37 @@ cNPC *cNPC::createFromScript(const QString &section, const Coord_cl &pos) {
 
 	P_NPC pChar = new cNPC;
 	pChar->Init();
-	pChar->basedef_ = CharBaseDefs::instance()->get(section.latin1());
+	pChar->basedef_ = CharBaseDefs::instance()->get( section.latin1() );
 	pChar->moveTo( pos );
-	pChar->applyDefinition(DefSection);
+	pChar->applyDefinition( DefSection );
 
 	// OrgBody and OrgSkin are often not set in the scripts
-	pChar->setOrgBody(pChar->body());
-	pChar->setOrgSkin(pChar->skin());
+	pChar->setOrgBody( pChar->body() );
+	pChar->setOrgSkin( pChar->skin() );
 
 	// Now we call onCreate
-	pChar->onCreate(section);
-	pChar->resend(false);
+	pChar->onCreate( section );
+	pChar->resend( false );
 	return pChar;
 }
 
-void cNPC::remove() {
+void cNPC::remove()
+{
 	// If a player is mounted on us, unmount him.
-	if (stablemasterSerial_ != INVALID_SERIAL) {
-		P_PLAYER player = dynamic_cast<P_PLAYER>(World::instance()->findChar(stablemasterSerial_));
-		if (player) {
-			P_ITEM mount = player->atLayer(cBaseChar::Mount);
+	if ( stablemasterSerial_ != INVALID_SERIAL )
+	{
+		P_PLAYER player = dynamic_cast<P_PLAYER>( World::instance()->findChar( stablemasterSerial_ ) );
+		if ( player )
+		{
+			P_ITEM mount = player->atLayer( cBaseChar::Mount );
 
-			if (mount && mount->getTag("pet").toInt() == serial_) {
+			if ( mount && mount->getTag( "pet" ).toInt() == serial_ )
+			{
 				mount->remove();
 			}
 		}
 	}
 
-	setOwner(0);
+	setOwner( 0 );
 	cBaseChar::remove();
 }

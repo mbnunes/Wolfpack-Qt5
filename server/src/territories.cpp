@@ -41,23 +41,28 @@
 #include "inlines.h"
 #include "muls/maps.h"
 
- // needed for object Config
+// needed for object Config
 #include "pythonscript.h"
 
 // cTerritories
 
-cTerritory::cTerritory(const cElement *Tag, cBaseRegion *parent) {
+cTerritory::cTerritory( const cElement* Tag, cBaseRegion* parent )
+{
 	this->init();
-	if (Tag->hasAttribute("id")) {
-		this->name_ = Tag->getAttribute("id");
-	} else if (Tag->hasAttribute("name")) {
-		this->name_ = Tag->getAttribute("name");
+	if ( Tag->hasAttribute( "id" ) )
+	{
+		this->name_ = Tag->getAttribute( "id" );
+	}
+	else if ( Tag->hasAttribute( "name" ) )
+	{
+		this->name_ = Tag->getAttribute( "name" );
 	}
 	this->applyDefinition( Tag );
 	this->parent_ = parent;
 }
 
-cTerritory::cTerritory() {
+cTerritory::cTerritory()
+{
 	this->init();
 	this->name_ = QString::null;
 	this->parent_ = 0;
@@ -72,10 +77,10 @@ void cTerritory::init( void )
 	snowchance_ = 50;
 	rainchance_ = 50;
 	guardSections_ = QStringList();
-//	guardSections_.push_back( "standard_guard" );
+	//	guardSections_.push_back( "standard_guard" );
 }
 
-void cTerritory::processNode( const cElement *Tag )
+void cTerritory::processNode( const cElement* Tag )
 {
 	QString TagName = Tag->name();
 	QString Value = Tag->value();
@@ -85,26 +90,26 @@ void cTerritory::processNode( const cElement *Tag )
 	//	<npc><random list="npcsectionlist" /></npc>
 	//  <list id="npcsectionlist" />
 	//</guards>
-	if( TagName == "guards" )
+	if ( TagName == "guards" )
 	{
-		for( unsigned int i = 0; i < Tag->childCount(); ++i )
+		for ( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			const cElement *childNode = Tag->getChild( i );
+			const cElement* childNode = Tag->getChild( i );
 
-			if( childNode->name() == "npc" )
+			if ( childNode->name() == "npc" )
 			{
 				UI32 mult = childNode->getAttribute( "mult" ).toInt();
-				if( mult < 1 )
+				if ( mult < 1 )
 					mult = 1;
 
-				for( UI32 i = 0; i < mult; i++ )
+				for ( UI32 i = 0; i < mult; i++ )
 					this->guardSections_.push_back( childNode->value() );
 			}
-			else if( childNode->name() == "list" && childNode->hasAttribute( "id" ) )
+			else if ( childNode->name() == "list" && childNode->hasAttribute( "id" ) )
 			{
 				QStringList NpcList = Definitions::instance()->getList( childNode->getAttribute( "id" ) );
 				QStringList::iterator it = NpcList.begin();
-				while( it != NpcList.end() )
+				while ( it != NpcList.end() )
 				{
 					this->guardSections_.push_back( *it );
 					it++;
@@ -114,52 +119,51 @@ void cTerritory::processNode( const cElement *Tag )
 	}
 
 	// <guardowner>text</guardowner>
-	else if( TagName == "guardowner" )
+	else if ( TagName == "guardowner" )
 		this->guardowner_ = Value;
 
 	// <midilist>MIDI_COMBAT</midilist>
-	else if( TagName == "midilist" )
+	else if ( TagName == "midilist" )
 		this->midilist_ = Value;
-
-	else if( TagName == "flags" )
+	else if ( TagName == "flags" )
 	{
 		flags_ = 0;
 
-		for( unsigned int i = 0; i < Tag->childCount(); ++i )
+		for ( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			const cElement *childNode = Tag->getChild( i );
+			const cElement* childNode = Tag->getChild( i );
 
-			if( childNode->name() == "guarded" )
+			if ( childNode->name() == "guarded" )
 				setGuarded( true );
-			else if( childNode->name() == "nomark" )
+			else if ( childNode->name() == "nomark" )
 				setNoMark( true );
-			else if( childNode->name() == "nogate" )
+			else if ( childNode->name() == "nogate" )
 				setNoGate( true );
-			else if( childNode->name() == "norecallout" )
+			else if ( childNode->name() == "norecallout" )
 				setNoRecallOut( true );
-			else if( childNode->name() == "norecallin" )
+			else if ( childNode->name() == "norecallin" )
 				setNoRecallIn( true );
-			else if( childNode->name() == "recallshield" )
+			else if ( childNode->name() == "recallshield" )
 				setRecallShield( true );
-			else if( childNode->name() == "noagressivemagic" )
+			else if ( childNode->name() == "noagressivemagic" )
 				setNoAgressiveMagic( true );
-			else if( childNode->name() == "antimagic" )
+			else if ( childNode->name() == "antimagic" )
 				setAntiMagic( true );
-			else if( childNode->name() == "escortregion" )
+			else if ( childNode->name() == "escortregion" )
 				setValidEscortRegion( true );
-			else if( childNode->name() == "cave" )
+			else if ( childNode->name() == "cave" )
 				setCave( true );
-			else if( childNode->name() == "nomusic" )
+			else if ( childNode->name() == "nomusic" )
 				setNoMusic( true );
 		}
 	}
 
 	// <snowchance>50</snowchance>
-	else if( TagName == "snowchance" )
+	else if ( TagName == "snowchance" )
 		this->snowchance_ = Value.toUShort();
 
 	// <rainchance>50</rainchance>
-	else if( TagName == "rainchance" )
+	else if ( TagName == "rainchance" )
 		this->rainchance_ = Value.toUShort();
 
 	// <tradesystem>
@@ -172,11 +176,11 @@ void cTerritory::processNode( const cElement *Tag )
 	//		...
 	//		</good>
 	// </tradesystem>
-	else if( TagName == "tradesystem" )
+	else if ( TagName == "tradesystem" )
 	{
-		for( unsigned int i = 0; i < Tag->childCount(); ++i )
+		for ( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			const cElement *childNode = Tag->getChild( i );
+			const cElement* childNode = Tag->getChild( i );
 
 			good_st goods;
 			goods.buyable = 0;
@@ -185,22 +189,22 @@ void cTerritory::processNode( const cElement *Tag )
 			goods.rndmax = 0;
 			UI32 num = 0xFFFFFFFF;
 
-			if( childNode->name() == "good" )
+			if ( childNode->name() == "good" )
 			{
-				if( childNode->hasAttribute( "num" ) )
+				if ( childNode->hasAttribute( "num" ) )
 					num = childNode->getAttribute( "num" ).toInt();
 
-				for( unsigned int j = 0; j < childNode->childCount(); ++j )
+				for ( unsigned int j = 0; j < childNode->childCount(); ++j )
 				{
-					const cElement *chchildNode = childNode->getChild( j );
+					const cElement* chchildNode = childNode->getChild( j );
 
 					QString childValue = chchildNode->value();
 
-					if( chchildNode->name() == "buyable" )
+					if ( chchildNode->name() == "buyable" )
 						goods.buyable = childValue.toInt();
-					else if( chchildNode->name() == "sellable" )
+					else if ( chchildNode->name() == "sellable" )
 						goods.sellable = childValue.toInt();
-					else if( chchildNode->name() == "randomvalue" )
+					else if ( chchildNode->name() == "randomvalue" )
 					{
 						goods.rndmin = chchildNode->getAttribute( "min" ).toInt();
 						goods.rndmax = chchildNode->getAttribute( "max" ).toInt();
@@ -208,7 +212,7 @@ void cTerritory::processNode( const cElement *Tag )
 				}
 			}
 
-			if( num != 0xFFFFFFFF )
+			if ( num != 0xFFFFFFFF )
 				this->tradesystem_[num] = goods;
 		}
 	}
@@ -216,36 +220,36 @@ void cTerritory::processNode( const cElement *Tag )
 	// <region id="Cove Market Place">
 	//		...region nodes...
 	// </region>
-	else if (TagName == "region")
+	else if ( TagName == "region" )
 	{
-		cTerritory* toinsert_ = new cTerritory(Tag, this);
-		this->subregions_.push_back(toinsert_);
+		cTerritory* toinsert_ = new cTerritory( Tag, this );
+		this->subregions_.push_back( toinsert_ );
 	}
 	else if ( TagName == "teleport" )
 	{
-		if ( !Tag->hasAttribute("source") )
+		if ( !Tag->hasAttribute( "source" ) )
 		{
-			qWarning("ERROR: processing teleport tag, missing source attribute");
+			qWarning( "ERROR: processing teleport tag, missing source attribute" );
 			return;
 		}
 
-		if ( !Tag->hasAttribute("destination") )
+		if ( !Tag->hasAttribute( "destination" ) )
 		{
-			qWarning("ERROR: processing teleport tag, missing destination attribute");
+			qWarning( "ERROR: processing teleport tag, missing destination attribute" );
 			return;
 		}
 		Coord_cl source, destination;
 		if ( !parseCoordinates( Tag->getAttribute( "source" ), source ) )
 		{
-			qWarning("ERROR: parsing source attribute, not a valid coordinate vector");
+			qWarning( "ERROR: parsing source attribute, not a valid coordinate vector" );
 			return;
 		}
 		if ( !parseCoordinates( Tag->getAttribute( "destination" ), destination ) )
 		{
-			qWarning("ERROR: parsing destination attribute, not a valid coordinate vector");
+			qWarning( "ERROR: parsing destination attribute, not a valid coordinate vector" );
 			return;
 		}
-		bool bothways = Tag->hasAttribute("bothways");
+		bool bothways = Tag->hasAttribute( "bothways" );
 		teleporters_st teleporter;
 		teleporter.source = source;
 		teleporter.destination = destination;
@@ -263,10 +267,10 @@ void cTerritory::processNode( const cElement *Tag )
 
 QString cTerritory::getGuardSect( void ) const
 {
-	if( guardSections_.count() > 0 )
-		return this->guardSections_[ RandomNum( 0, this->guardSections_.size()-1 ) ];
+	if ( guardSections_.count() > 0 )
+		return this->guardSections_[RandomNum( 0, this->guardSections_.size() - 1 )];
 	else
-		return (char*)0;
+		return ( char * ) 0;
 }
 
 bool cTerritory::haveTeleporters() const
@@ -276,13 +280,13 @@ bool cTerritory::haveTeleporters() const
 
 bool cTerritory::findTeleporterSpot( Coord_cl& d ) const
 {
-	QValueList< teleporters_st >::const_iterator it(teleporters.begin());
-	QValueList< teleporters_st >::const_iterator end(teleporters.end());
+	QValueList<teleporters_st>::const_iterator it( teleporters.begin() );
+	QValueList<teleporters_st>::const_iterator end( teleporters.end() );
 	for ( ; it != end; ++it )
 	{
-		if ( d == (*it).source )
+		if ( d == ( *it ).source )
 		{
-			d = (*it).destination;
+			d = ( *it ).destination;
 			break;
 		}
 	}
@@ -291,7 +295,8 @@ bool cTerritory::findTeleporterSpot( Coord_cl& d ) const
 
 // cTerritories
 
-void cTerritories::unload() {
+void cTerritories::unload()
+{
 	topregions.clear();
 	cComponent::unload();
 }
@@ -300,37 +305,44 @@ void cTerritories::load()
 {
 	// Make sure that there is one top level region for each map
 	// Insert it at the beginning (last overrides first).
-	for (unsigned char i = 0; i <= 3; ++i) {
-		if (Maps::instance()->hasMap(i)) {
-			cTerritory *territory = new cTerritory();
+	for ( unsigned char i = 0; i <= 3; ++i )
+	{
+		if ( Maps::instance()->hasMap( i ) )
+		{
+			cTerritory* territory = new cTerritory();
 			cBaseRegion::rect_st rect;
 			rect.map = i;
 			rect.x1 = 0;
 			rect.y1 = 0;
-			rect.x2 = Maps::instance()->mapTileWidth(i) * 8;
-			rect.y2 = Maps::instance()->mapTileHeight(i) * 8;
-			territory->rectangles().append(rect);
-			topregions[i].append(territory);
+			rect.x2 = Maps::instance()->mapTileWidth( i ) * 8;
+			rect.y2 = Maps::instance()->mapTileHeight( i ) * 8;
+			territory->rectangles().append( rect );
+			topregions[i].append( territory );
 		}
 	}
 
-	const QValueVector<cElement*> &elements = Definitions::instance()->getDefinitions(WPDT_REGION);
+	const QValueVector<cElement*>& elements = Definitions::instance()->getDefinitions( WPDT_REGION );
 
-	QValueVector<cElement*>::const_iterator it(elements.begin());
-	while (it != elements.end()) {
-		cTerritory* territory = new cTerritory(*it, 0);
+	QValueVector<cElement*>::const_iterator it( elements.begin() );
+	while ( it != elements.end() )
+	{
+		cTerritory* territory = new cTerritory( *it, 0 );
 
-		if (territory->rectangles().empty()) {
-			Console::instance()->send( tr("Warning: Top level region %1 lacks rectangle tag, ignoring region").arg(territory->name()) );
+		if ( territory->rectangles().empty() )
+		{
+			Console::instance()->send( tr( "Warning: Top level region %1 lacks rectangle tag, ignoring region" ).arg( territory->name() ) );
 			delete territory;
-		} else {
+		}
+		else
+		{
 			unsigned char map = territory->rectangles()[0].map;
 
-			if (!topregions.contains(map)) {
-				topregions[map].setAutoDelete(true);
+			if ( !topregions.contains( map ) )
+			{
+				topregions[map].setAutoDelete( true );
 			}
 
-			topregions[map].append(territory);
+			topregions[map].append( territory );
 		}
 		++it;
 	}
@@ -340,75 +352,80 @@ void cTerritories::load()
 
 void cTerritories::check( P_CHAR pc )
 {
-	cUOSocket *socket = NULL;
-	if( pc->objectType() == enPlayer )
-		socket = dynamic_cast<P_PLAYER>(pc)->socket();
+	cUOSocket* socket = NULL;
+	if ( pc->objectType() == enPlayer )
+		socket = dynamic_cast<P_PLAYER>( pc )->socket();
 	cTerritory* currRegion = this->region( pc->pos().x, pc->pos().y, pc->pos().map );
 	cTerritory* lastRegion = pc->region();
 
-	if( !currRegion )
+	if ( !currRegion )
 		return;
 
-	if (!lastRegion) {
-		pc->setRegion(currRegion);
+	if ( !lastRegion )
+	{
+		pc->setRegion( currRegion );
 		return;
 	}
 
-	if (currRegion != lastRegion) {
-		pc->setRegion(currRegion);
+	if ( currRegion != lastRegion )
+	{
+		pc->setRegion( currRegion );
 
-		if (socket) {
+		if ( socket )
+		{
 			// If the last region was a cave or if the new region is a cave,
 			// update the lightlevel.
-			if ((currRegion->isCave() && !lastRegion->isCave()) ||
-				(!currRegion->isCave() && lastRegion->isCave())) {
-					socket->updateLightLevel();
-				}
+			if ( ( currRegion->isCave() && !lastRegion->isCave() ) || ( !currRegion->isCave() && lastRegion->isCave() ) )
+			{
+				socket->updateLightLevel();
+			}
 
 			socket->playMusic();
 		}
 
-		PyObject *args = Py_BuildValue("(NNN)", PyGetCharObject(pc), PyGetRegionObject(lastRegion), PyGetRegionObject(currRegion));
-		if (!cPythonScript::callChainedEventHandler(EVENT_CHANGEREGION, pc->getEvents(), args) && socket) {
-			if (lastRegion && !lastRegion->name().isEmpty())
-				socket->sysMessage(tr("You have left %1.").arg(lastRegion->name()));
+		PyObject* args = Py_BuildValue( "(NNN)", PyGetCharObject( pc ), PyGetRegionObject( lastRegion ), PyGetRegionObject( currRegion ) );
+		if ( !cPythonScript::callChainedEventHandler( EVENT_CHANGEREGION, pc->getEvents(), args ) && socket )
+		{
+			if ( lastRegion && !lastRegion->name().isEmpty() )
+				socket->sysMessage( tr( "You have left %1." ).arg( lastRegion->name() ) );
 
-			if (currRegion && !currRegion->name().isEmpty())
-				socket->sysMessage(tr("You have entered %1.").arg(currRegion->name()));
+			if ( currRegion && !currRegion->name().isEmpty() )
+				socket->sysMessage( tr( "You have entered %1." ).arg( currRegion->name() ) );
 
-			if( (currRegion->isGuarded() != lastRegion->isGuarded()) ||
-				(currRegion->isGuarded() && (currRegion->guardOwner() != lastRegion->guardOwner())))
+			if ( ( currRegion->isGuarded() != lastRegion->isGuarded() ) || ( currRegion->isGuarded() && ( currRegion->guardOwner() != lastRegion->guardOwner() ) ) )
 			{
-				if (currRegion->isGuarded())
+				if ( currRegion->isGuarded() )
 				{
-					if(currRegion->guardOwner().isEmpty())
-						socket->clilocMessage(500112); // You are now under the protection of the town guards
+					if ( currRegion->guardOwner().isEmpty() )
+						socket->clilocMessage( 500112 ); // You are now under the protection of the town guards
 					else
-						socket->sysMessage(currRegion->guardOwner());
+						socket->sysMessage( currRegion->guardOwner() );
 				}
 				else
 				{
-					if(lastRegion->guardOwner().isEmpty())
-						socket->clilocMessage(500113); // You have left the protection of the town guards.
+					if ( lastRegion->guardOwner().isEmpty() )
+						socket->clilocMessage( 500113 ); // You have left the protection of the town guards.
 					else
-						socket->sysMessage(lastRegion->guardOwner());
+						socket->sysMessage( lastRegion->guardOwner() );
 				}
 			}
 		}
-		Py_DECREF(args);
+		Py_DECREF( args );
 	}
 }
 
 cTerritory* cTerritories::region( const QString& regName )
 {
-	cTerritory *result = 0;
+	cTerritory* result = 0;
 	QMap<uint, QPtrList<cTerritory> >::iterator it( topregions.begin() );
 	for ( ; it != topregions.end(); ++it )
 	{
 		// search all topregions of that map
-		for (cTerritory *region = it.data().first(); region; region = it.data().next()) {
-			region = dynamic_cast<cTerritory*>(region->region(regName));
-			if (region) {
+		for ( cTerritory*region = it.data().first(); region; region = it.data().next() )
+		{
+			region = dynamic_cast<cTerritory*>( region->region( regName ) );
+			if ( region )
+			{
 				result = region;
 			}
 		}
@@ -418,14 +435,17 @@ cTerritory* cTerritories::region( const QString& regName )
 
 cTerritory* cTerritories::region( UI16 posx, UI16 posy, UI08 map )
 {
-	QMap<uint, QPtrList<cTerritory> >::iterator it(topregions.find(map));
-	cTerritory *result = 0;
+	QMap<uint, QPtrList<cTerritory> >::iterator it( topregions.find( map ) );
+	cTerritory* result = 0;
 
-	if (it != topregions.end()) {
+	if ( it != topregions.end() )
+	{
 		// search all topregions of that map
-		for (cTerritory *region = it.data().first(); region; region = it.data().next()) {
-			region = dynamic_cast<cTerritory*>(region->region(posx, posy, map));
-			if (region) {
+		for ( cTerritory*region = it.data().first(); region; region = it.data().next() )
+		{
+			region = dynamic_cast<cTerritory*>( region->region( posx, posy, map ) );
+			if ( region )
+			{
 				result = region;
 			}
 		}
@@ -434,14 +454,16 @@ cTerritory* cTerritories::region( UI16 posx, UI16 posy, UI08 map )
 	return result;
 }
 
-void cTerritories::reload() {
+void cTerritories::reload()
+{
 	unload();
 	load();
 
 	// Update the Regions
 	cCharIterator iter;
-	for (P_CHAR pChar = iter.first(); pChar; pChar = iter.next()) {
-		cTerritory *region = this->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+	for ( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
+	{
+		cTerritory* region = this->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 		pChar->setRegion( region );
 	}
 }

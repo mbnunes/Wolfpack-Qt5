@@ -169,22 +169,22 @@
 		<category>Professions\Jeweler\Diamond 1</category>
 	</item>
 
-	<item id="f27" inherit="f27">
+	<item id="f27" inherit="f26">
 		<id>0xf27</id>
 		<category>Professions\Jeweler\Diamond 2</category>
 	</item>
 
-	<item id="f28" inherit="f27">
+	<item id="f28" inherit="f26">
 		<id>0xf28</id>
 		<category>Professions\Jeweler\Diamond 3</category>
 	</item>
 
-	<item id="f29" inherit="f27">
+	<item id="f29" inherit="f26">
 		<id>0xf29</id>
 		<category>Professions\Jeweler\Diamond 4</category>
 	</item>
 
-	<item id="f30" inherit="f27">
+	<item id="f30" inherit="f26">
 		<id>0xf30</id>
 		<category>Professions\Jeweler\Diamond 5</category>
 	</item>

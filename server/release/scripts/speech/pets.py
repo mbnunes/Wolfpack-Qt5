@@ -150,12 +150,6 @@ def release(char, pet):
 	pet.sound(SND_ATTACK)
 
 	pet.removeevent('speech.pets')
-	menu = pet.bindmenu.split(',')
-	if 'pet_menu' in menu:
-		menu.remove('pet_menu')
-	if not 'tame_menu' in menu:
-		menu.append('tame_menu')
-	pet.bindmenu = ','.join(menu)
 
 def onSpeech(pet, char, text, keywords):
 	if not char.socket:

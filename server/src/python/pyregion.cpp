@@ -34,64 +34,59 @@
 /*!
 	The object for Wolfpack Python items
 */
-typedef struct {
-    PyObject_HEAD;
-	cTerritory *pRegion;
+typedef struct
+{
+	PyObject_HEAD;
+	cTerritory* pRegion;
 	bool frozen; // unused yet
 	Coord_cl pos; // unused yet
 } wpRegion;
 
 // Forward Declarations
-static PyObject *wpRegion_getAttr( wpRegion *self, char *name );
-static int wpRegion_setAttr( wpRegion *self, char *name, PyObject *value );
+static PyObject* wpRegion_getAttr( wpRegion* self, char* name );
+static int wpRegion_setAttr( wpRegion* self, char* name, PyObject* value );
 
 /*!
 	The typedef for Wolfpack Python items
 */
-static PyTypeObject wpRegionType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "wpregion",
-    sizeof(wpRegionType),
-    0,
-    wpDealloc,
-    0,
-    (getattrfunc)wpRegion_getAttr,
-    (setattrfunc)wpRegion_setAttr,
+static PyTypeObject wpRegionType =
+{
+	PyObject_HEAD_INIT( NULL )
+	0, "wpregion", sizeof( wpRegionType ), 0, wpDealloc, 0, ( getattrfunc ) wpRegion_getAttr, ( setattrfunc ) wpRegion_setAttr, 
 };
 
 static PyMethodDef wpRegionMethods[] =
 {
-    { NULL, NULL, 0, NULL }
+	{ NULL, NULL, 0, NULL }
 };
 
-static PyObject *wpRegion_getAttr( wpRegion *self, char *name )
+static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 {
-	if( !strcmp( name, "parent" ) )
+	if ( !strcmp( name, "parent" ) )
 	{
 		// Check if valid region
-		cTerritory *pRegion = dynamic_cast< cTerritory* >( self->pRegion->parent() );
+		cTerritory* pRegion = dynamic_cast<cTerritory*>( self->pRegion->parent() );
 		return PyGetRegionObject( pRegion );
 	}
-	else if( !strcmp( name, "children" ) )
+	else if ( !strcmp( name, "children" ) )
 	{
-		QValueVector< cBaseRegion* > children = self->pRegion->children();
-		PyObject *tuple = PyTuple_New( children.size() );
-		for( uint i = 0; i < children.size(); ++i )
+		QValueVector<cBaseRegion*> children = self->pRegion->children();
+		PyObject* tuple = PyTuple_New( children.size() );
+		for ( uint i = 0; i < children.size(); ++i )
 		{
-			cTerritory *pRegion = dynamic_cast< cTerritory* >( children[i] );
+			cTerritory* pRegion = dynamic_cast<cTerritory*>( children[i] );
 			PyTuple_SetItem( tuple, i, PyGetRegionObject( pRegion ) );
 		}
 		return tuple;
 	}
 	// Return a Tuple of Tuples
-	else if( !strcmp( name, "rectangles" ) )
+	else if ( !strcmp( name, "rectangles" ) )
 	{
-		QValueVector< cBaseRegion::rect_st > rectangles = self->pRegion->rectangles();
-		PyObject *tuple = PyTuple_New( rectangles.size() );
-		for( uint i = 0; i < rectangles.size(); ++i )
+		QValueVector<cBaseRegion::rect_st> rectangles = self->pRegion->rectangles();
+		PyObject* tuple = PyTuple_New( rectangles.size() );
+		for ( uint i = 0; i < rectangles.size(); ++i )
 		{
-			PyObject *subtuple = PyTuple_New( 4 );
+			PyObject* subtuple = PyTuple_New( 4 );
 			PyTuple_SetItem( subtuple, 0, PyInt_FromLong( rectangles[i].x1 ) );
 			PyTuple_SetItem( subtuple, 1, PyInt_FromLong( rectangles[i].y1 ) );
 			PyTuple_SetItem( subtuple, 2, PyInt_FromLong( rectangles[i].x2 ) );
@@ -101,75 +96,75 @@ static PyObject *wpRegion_getAttr( wpRegion *self, char *name )
 		}
 		return tuple;
 	}
-	else if( !strcmp( name, "name" ) )
-		return QString2Python(self->pRegion->name());
-	else if( !strcmp( name, "midilist" ) )
-		return QString2Python(self->pRegion->midilist());
-	else if( !strcmp( name, "guardowner" ) )
-		return QString2Python(self->pRegion->guardOwner());
-	else if( !strcmp( name, "rainchance" ) )
+	else if ( !strcmp( name, "name" ) )
+		return QString2Python( self->pRegion->name() );
+	else if ( !strcmp( name, "midilist" ) )
+		return QString2Python( self->pRegion->midilist() );
+	else if ( !strcmp( name, "guardowner" ) )
+		return QString2Python( self->pRegion->guardOwner() );
+	else if ( !strcmp( name, "rainchance" ) )
 		return PyInt_FromLong( self->pRegion->rainChance() );
-	else if( !strcmp( name, "snowchance" ) )
+	else if ( !strcmp( name, "snowchance" ) )
 		return PyInt_FromLong( self->pRegion->snowChance() );
 
 	// Flags
-	else if( !strcmp( name, "guarded" ) )
+	else if ( !strcmp( name, "guarded" ) )
 		return PyInt_FromLong( self->pRegion->isGuarded() ? 1 : 0 );
-	else if( !strcmp( name, "nomark" ) )
+	else if ( !strcmp( name, "nomark" ) )
 		return PyInt_FromLong( self->pRegion->isNoMark() ? 1 : 0 );
-	else if( !strcmp( name, "nogate" ) )
+	else if ( !strcmp( name, "nogate" ) )
 		return PyInt_FromLong( self->pRegion->isNoGate() ? 1 : 0 );
-	else if( !strcmp( name, "norecallout" ) )
+	else if ( !strcmp( name, "norecallout" ) )
 		return PyInt_FromLong( self->pRegion->isNoRecallOut() ? 1 : 0 );
-	else if( !strcmp( name, "norecallin" ) )
+	else if ( !strcmp( name, "norecallin" ) )
 		return PyInt_FromLong( self->pRegion->isNoRecallIn() ? 1 : 0 );
-	else if( !strcmp( name, "recallshield" ) )
+	else if ( !strcmp( name, "recallshield" ) )
 		return PyInt_FromLong( self->pRegion->isRecallShield() ? 1 : 0 );
-	else if( !strcmp( name, "noagressivemagic" ) )
+	else if ( !strcmp( name, "noagressivemagic" ) )
 		return PyInt_FromLong( self->pRegion->isNoAgressiveMagic() ? 1 : 0 );
-	else if( !strcmp( name, "antimagic" ) )
+	else if ( !strcmp( name, "antimagic" ) )
 		return PyInt_FromLong( self->pRegion->isAntiMagic() ? 1 : 0 );
-	else if( !strcmp( name, "validescortregion" ) )
+	else if ( !strcmp( name, "validescortregion" ) )
 		return PyInt_FromLong( self->pRegion->isValidEscortRegion() ? 1 : 0 );
-	else if( !strcmp( name, "cave" ) )
+	else if ( !strcmp( name, "cave" ) )
 		return PyInt_FromLong( self->pRegion->isCave() ? 1 : 0 );
-	else if( !strcmp( name, "nomusic" ) )
+	else if ( !strcmp( name, "nomusic" ) )
 		return PyInt_FromLong( self->pRegion->isNoMusic() ? 1 : 0 );
 
-	return Py_FindMethod( wpRegionMethods, (PyObject*)self, name );
+	return Py_FindMethod( wpRegionMethods, ( PyObject * ) self, name );
 }
 
-static int wpRegion_setAttr( wpRegion *self, char *name, PyObject *value )
+static int wpRegion_setAttr( wpRegion* self, char* name, PyObject* value )
 {
-	Q_UNUSED(self);
-	Q_UNUSED(name);
-	Q_UNUSED(value);
+	Q_UNUSED( self );
+	Q_UNUSED( name );
+	Q_UNUSED( value );
 	// Regions have no changeable attributes yet
 	return 0;
 }
 
-bool checkWpRegion( PyObject *object )
+bool checkWpRegion( PyObject* object )
 {
 	return ( object->ob_type == &wpRegionType );
 }
 
-PyObject* PyGetRegionObject( cTerritory *pRegion )
+PyObject* PyGetRegionObject( cTerritory* pRegion )
 {
-	if( !pRegion )
+	if ( !pRegion )
 	{
 		Py_INCREF( Py_None );
 		return Py_None;
 	}
 
-	wpRegion *returnVal = PyObject_New( wpRegion, &wpRegionType );
+	wpRegion* returnVal = PyObject_New( wpRegion, &wpRegionType );
 	returnVal->pRegion = pRegion;
-	return (PyObject*)returnVal;
+	return ( PyObject * ) returnVal;
 }
 
-cTerritory* getWpRegion( PyObject *pObj )
+cTerritory* getWpRegion( PyObject* pObj )
 {
-	if( pObj->ob_type != &wpRegionType )
+	if ( pObj->ob_type != &wpRegionType )
 		return NULL;
 
-	return ((wpRegion*)pObj)->pRegion;
+	return ( ( wpRegion * ) pObj )->pRegion;
 }

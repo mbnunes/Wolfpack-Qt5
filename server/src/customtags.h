@@ -53,7 +53,7 @@ public:
 
 	enum Type
 	{
-		Invalid = 0,
+		Invalid			= 0,
 		String,
 		Int,
 		Long,
@@ -66,7 +66,7 @@ public:
 	cVariant();
 	~cVariant();
 
-	cVariant( const cVariant &v );
+	cVariant( const cVariant& v );
 	cVariant( const QString& );
 	cVariant( int );
 	cVariant( cBaseChar* );
@@ -86,13 +86,13 @@ public:
 	void clear();
 
 	const QString toString() const;
-	int toInt( bool * ok=0 ) const;
-	double toDouble( bool * ok=0 ) const;
-	cBaseChar *toChar() const;
-	cItem *toItem() const;
+	int toInt( bool* ok = 0 ) const;
+	double toDouble( bool* ok = 0 ) const;
+	cBaseChar* toChar() const;
+	cItem* toItem() const;
 	Coord_cl toCoord() const;
 
-	cVariant& operator= ( const cVariant& );
+	cVariant& operator=( const cVariant& );
 	bool operator==( const cVariant& ) const;
 	bool operator!=( const cVariant& ) const;
 
@@ -107,10 +107,11 @@ public:
 private:
 	Type typ;
 
-	union {
+	union
+	{
 		int i;
 		double d;
-		void *ptr;
+		void* ptr;
 	} value;
 };
 
@@ -122,13 +123,15 @@ inline cVariant::Type cVariant::type() const
 
 inline bool cVariant::isValid() const
 {
-	return (typ != Invalid);
+	return ( typ != Invalid );
 }
 
 class cCustomTags
 {
 public:
-	cCustomTags(): tags_( 0 ), changed( false ) {}
+	cCustomTags() : tags_( 0 ), changed( false )
+	{
+	}
 	cCustomTags( const cCustomTags& );
 	virtual ~cCustomTags();
 
@@ -136,18 +139,21 @@ public:
 	void save( SERIAL key );
 	void load( SERIAL key );
 
-	const cVariant	&get( const QString& key ) const;
-	bool		has( const QString& key ) const;
-	void		set( const QString& key, const cVariant& value );
-	void		remove( const QString& key );
+	const cVariant& get( const QString& key ) const;
+	bool has( const QString& key ) const;
+	void set( const QString& key, const cVariant& value );
+	void remove( const QString& key );
 
-	UI32		size( void ) { return tags_ ? this->tags_->size() : 0; }
+	UI32 size()
+	{
+		return tags_ ? this->tags_->size() : 0;
+	}
 
-	QStringList getKeys( void ) const;
+	QStringList getKeys() const;
 
-	QValueList< cVariant > getValues( void );
+	QValueList<cVariant> getValues();
 
-	bool getChanged( void ) const
+	bool getChanged() const
 	{
 		return changed;
 	}
@@ -161,10 +167,9 @@ public:
 	bool operator==( const cCustomTags& ) const;
 	bool operator!=( const cCustomTags& ) const;
 
-
 private:
-	QMap< QString, cVariant > *tags_;
-	bool changed;
+	QMap<QString, cVariant>* tags_;
+	bool changed : 1;
 };
 
 #endif

@@ -35,31 +35,26 @@
 
 #include <map>
 
-template <
-	class product,
-	typename keyType,
-	typename productCreator = product* (*)()
->
-
+template <class product, typename keyType, typename productCreator = product* ( * ) ()>
 class Factory
 {
 public:
-	bool registerType(const keyType& id, productCreator creator)
+	bool registerType( const keyType& id, productCreator creator )
 	{
 		return associations_.insert( std::make_pair( id, creator ) ).second;
 	}
 
-	bool unregisterType(const keyType& id)
+	bool unregisterType( const keyType& id )
 	{
-		return associations_.erase(id) == 1;
+		return associations_.erase( id ) == 1;
 	}
 
-    product* createObject(const keyType& id) const
-    {
-		typename mapTypes::const_iterator it = associations_.find(id);
+	product* createObject( const keyType& id ) const
+	{
+		typename mapTypes::const_iterator it = associations_.find( id );
 		if ( it != associations_.end() )
 		{
-			return (it->second)();
+			return ( it->second ) ();
 		}
 		return 0;
 	}

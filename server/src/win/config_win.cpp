@@ -49,20 +49,23 @@ static QString getUOPath()
 	// Search for T3D preferably
 	const char* Registry3d = "Software\\Origin Worlds Online\\Ultima Online Third Dawn\\1.0";
 	const char* Registry2d = "Software\\Origin Worlds Online\\Ultima Online\\1.0";
-	unsigned char exePath[MAX_PATH] = {0,};
+	unsigned char exePath[MAX_PATH] =
+	{
+		0,
+	};
 	unsigned long pathLen;
 
 	HKEY tempKey;
 
 	// Look for 3D Client Path
-	if( RegOpenKeyExA( HKEY_LOCAL_MACHINE, Registry3d, 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
+	if ( RegOpenKeyExA( HKEY_LOCAL_MACHINE, Registry3d, 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
 	{
-		if( RegQueryValueExA( tempKey, "ExePath", 0, 0, &exePath[0], &pathLen ) == ERROR_SUCCESS )
+		if ( RegQueryValueExA( tempKey, "ExePath", 0, 0, &exePath[0], &pathLen ) == ERROR_SUCCESS )
 		{
 			// We found a valid registry key
 			RegCloseKey( tempKey );
 
-			QString path((char*)&exePath);
+			QString path( ( char* ) &exePath );
 			path = path.left( path.findRev( "\\" ) + 1 );
 			return path;
 		}
@@ -70,14 +73,14 @@ static QString getUOPath()
 	}
 
 	// Look for 2D Client Path
-	if( RegOpenKeyExA( HKEY_LOCAL_MACHINE, Registry2d, 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
+	if ( RegOpenKeyExA( HKEY_LOCAL_MACHINE, Registry2d, 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
 	{
-		if( RegQueryValueExA( tempKey, "ExePath", 0, 0, &exePath[0], &pathLen ) == ERROR_SUCCESS )
+		if ( RegQueryValueExA( tempKey, "ExePath", 0, 0, &exePath[0], &pathLen ) == ERROR_SUCCESS )
 		{
 			// We found a valid registry key
 			RegCloseKey( tempKey );
 
-			QString path((char*)&exePath);
+			QString path( ( char* ) &exePath );
 			path = path.left( path.findRev( "\\" ) + 1 );
 			return path;
 		}
@@ -96,18 +99,18 @@ static QString getUOPath()
 QString cConfig::mulPath() const
 {
 	QDir thePath( mulPath_ );
-	if( !thePath.exists() || thePath.entryList("*.mul").isEmpty() )
+	if ( !thePath.exists() || thePath.entryList( "*.mul" ).isEmpty() )
 	{
-		Console::instance()->log( LOG_WARNING, QString("UO Mul files not found at '%1', trying to locate...\n").arg(mulPath_));
-		QString uoPath(getUOPath());
-		if( !uoPath.isEmpty() )
+		Console::instance()->log( LOG_WARNING, QString( "UO Mul files not found at '%1', trying to locate...\n" ).arg( mulPath_ ) );
+		QString uoPath( getUOPath() );
+		if ( !uoPath.isEmpty() )
 		{
 			//mulPath_ = uoPath;
-			cConfig* that = const_cast<cConfig*>(this); // perhaps not so const ;)
+			cConfig* that = const_cast<cConfig*>( this ); // perhaps not so const ;)
 			that->setMulPath( uoPath );
 		}
 		else
-			Console::instance()->log( LOG_ERROR, "Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"");
+			Console::instance()->log( LOG_ERROR, "Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"" );
 	}
 	return mulPath_;
 }
@@ -122,64 +125,60 @@ std::vector<ServerList_st>& cConfig::serverList()
 		unsigned int i = 1;
 		do
 		{
-			QString tmp = getString("LoginServer", QString("Shard %1").arg(i++), QString::null, false).simplifyWhiteSpace();
+			QString tmp = getString( "LoginServer", QString( "Shard %1" ).arg( i++ ), QString::null, false ).simplifyWhiteSpace();
 			bKeepLooping = !tmp.isEmpty();
 			if ( bKeepLooping ) // valid data.
 			{
-				QStringList strList = QStringList::split("=", tmp);
+				QStringList strList = QStringList::split( "=", tmp );
 				if ( strList.size() == 2 )
 				{
 					ServerList_st server;
 					server.sServer = strList[0];
-					QStringList strList2 = QStringList::split(",", strList[1].stripWhiteSpace());
+					QStringList strList2 = QStringList::split( ",", strList[1].stripWhiteSpace() );
 					QHostAddress host;
 					host.setAddress( strList2[0] );
 					server.sIP = strList2[0];
 					server.ip = resolveName( server.sIP );
 
 					bool ok = false;
-					server.uiPort = strList2[1].toUShort(&ok);
+					server.uiPort = strList2[1].toUShort( &ok );
 					if ( !ok )
 						server.uiPort = 2593; // Unspecified defaults to 2593
 
 					// This code will retrieve the first
 					// valid Internet IP it finds
 					// and replace a 0.0.0.0 with it
-					if( ( ( server.ip == 0 ) && ( lastIpCheck <= Server::instance()->time() ) ) )
+					if ( ( ( server.ip == 0 ) && ( lastIpCheck <= Server::instance()->time() ) ) )
 					{
 						dynamicIP = true;
-						hostent *hostinfo;
+						hostent* hostinfo;
 						char name[256];
 
 						// We check for a new IP max. every 30 minutes
 						// So we have a max. of 30 minutes downtime
-						lastIpCheck = Server::instance()->time() + (MY_CLOCKS_PER_SEC*30*60);
+						lastIpCheck = Server::instance()->time() + ( MY_CLOCKS_PER_SEC * 30 * 60 );
 
 						// WSA Is needed for this :/
-						if( !gethostname( name, sizeof( name ) ) )
+						if ( !gethostname( name, sizeof( name ) ) )
 						{
 							hostinfo = gethostbyname( name );
 
-							if( hostinfo )
+							if ( hostinfo )
 							{
 								Q_UINT32 i = 0;
 
-								while( hostinfo->h_addr_list[i] )
+								while ( hostinfo->h_addr_list[i] )
 								{
 									// Check if it's an INTERNET ADDRESS
-									char *hIp = inet_ntoa( *(struct in_addr *)hostinfo->h_addr_list[i++] );
+									char* hIp = inet_ntoa( *( struct in_addr* ) hostinfo->h_addr_list[i++] );
 									host.setAddress( hIp );
 									Q_UINT32 ip = host.ip4Addr();
 									Q_UINT8 part1 = ( ip & 0xFF000000 ) >> 24;
 									Q_UINT8 part2 = ( ip & 0x00FF0000 ) >> 16;
 
-									if	(
-										( part1 == 127 ) || //this one is class A too.
-										( part1 == 10 ) ||
-										( ( part1 == 192 ) && ( part2 == 168 ) ) ||
-										( ( part1 == 172 ) && ( part2 >= 16 ) && ( part2 <= 31 ) )  ||
-										( ( part1 == 169 ) && ( part2 == 254 ) ) // DHCP Space Stuff
-										)
+									if ( ( part1 == 127 ) ||  //this one is class A too.
+										( part1 == 10 ) || ( ( part1 == 192 ) && ( part2 == 168 ) ) || ( ( part1 == 172 ) && ( part2 >= 16 ) && ( part2 <= 31 ) ) || ( ( part1 == 169 ) && ( part2 == 254 ) ) // DHCP Space Stuff
+									   )
 									{
 										continue;
 									}
@@ -192,13 +191,14 @@ std::vector<ServerList_st>& cConfig::serverList()
 						}
 
 						// Fall back to localhost
-						if( !server.sIP )
+						if ( !server.sIP )
 							server.sIP = 0x7F000001;
 					}
-					serverList_.push_back(server);
+					serverList_.push_back( server );
 				}
 			}
-		} while ( bKeepLooping );
+		}
+		while ( bKeepLooping );
 	}
 	return serverList_;
 }

@@ -38,17 +38,18 @@
 #include "singleton.h"
 #include "server.h"
 
-class cScriptManager : public cComponent {
+class cScriptManager : public cComponent
+{
 protected:
-	QMap< QCString, cPythonScript* > scripts;
-	cPythonScript *hooks[EVENT_COUNT];
-	QMap< QCString, PyObject* > commandhooks;
+	QMap<QCString, cPythonScript*> scripts;
+	cPythonScript* hooks[EVENT_COUNT];
+	QMap<QCString, PyObject*> commandhooks;
 
 	// These are for internal use only
 	void clearGlobalHooks();
 	void clearCommandHooks();
 public:
-	typedef QMap< QCString, cPythonScript* >::iterator iterator;
+	typedef QMap<QCString, cPythonScript*>::iterator iterator;
 
 	cScriptManager();
 	virtual ~cScriptManager();
@@ -62,13 +63,13 @@ public:
 	void onServerStart(); // Call the onServerStart Event for all registered scripts
 	void onServerStop(); // Call the onServerEnd Event for all registered scripts
 
-	void setCommandHook( const QCString &command, PyObject *object );
-	void setGlobalHook( ePythonEvent event, cPythonScript *script );
+	void setCommandHook( const QCString& command, PyObject* object );
+	void setGlobalHook( ePythonEvent event, cPythonScript* script );
 
-	PyObject *getCommandHook( const QCString &command );
-	cPythonScript *getGlobalHook( ePythonEvent event );
+	PyObject* getCommandHook( const QCString& command );
+	cPythonScript* getGlobalHook( ePythonEvent event );
 };
 
-typedef SingletonHolder< cScriptManager > ScriptManager;
+typedef SingletonHolder<cScriptManager> ScriptManager;
 
 #endif

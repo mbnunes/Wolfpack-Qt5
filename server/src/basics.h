@@ -48,38 +48,46 @@ class QString;
 //			serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
 //			serial=LongFromCharPtr(buffer[s]+7);
 
-inline long LongFromCharPtr(const unsigned char *p){return (*p<<24) | (*(p+1)<<16) | (*(p+2)<<8) | *(p+3);}
-inline SI16 ShortFromCharPtr(const unsigned char *p){return static_cast<SI16>((*p<<8) | *(p+1));}
+inline long LongFromCharPtr( const unsigned char* p )
+{
+	return ( *p << 24 ) | ( *( p + 1 ) << 16 ) | ( *( p + 2 ) << 8 ) | *( p + 3 );
+}
+inline SI16 ShortFromCharPtr( const unsigned char* p )
+{
+	return static_cast<SI16>( ( *p << 8 ) | *( p + 1 ) );
+}
 
 //////////////////////////////////////////////////////////////////////
 // Name: LongToCharPtr, ShortToCharPtr
 // Purpose: stores a long int into 4 subsequent bytes pointed to by 'p',
 //		assuming 'normal' byte order (NOT intel style)
 // History: init Duke, 13.8.2000
-inline void LongToCharPtr(const unsigned long i, unsigned char *p)
+inline void LongToCharPtr( const unsigned long i, unsigned char* p )
 {
-	*p = static_cast<UI08>(i>>24); *(p+1) = static_cast<UI08>(i>>16); *(p+2) = static_cast<UI08>(i>>8); *(p+3) = static_cast<UI08>(i);
+	*p = static_cast<UI08>( i >> 24 ); *( p + 1 ) = static_cast<UI08>( i >> 16 ); *( p + 2 ) = static_cast<UI08>( i >> 8 ); *( p + 3 ) = static_cast<UI08>( i );
 }
 
-inline void ShortToCharPtr(const unsigned short i, unsigned char *p)
+inline void ShortToCharPtr( const unsigned short i, unsigned char* p )
 {
-	*p = static_cast<UI08>(i>>8); *(p+1) = static_cast<UI08>(i);	// no %256 for 2nd byte, truncation will occur anyway
+	*p = static_cast<UI08>( i >> 8 ); *( p + 1 ) = static_cast<UI08>( i );	// no %256 for 2nd byte, truncation will occur anyway
 }
 
 // sereg : roll dices d&d style
 int rollDice( const QString& dicePattern );
 
-bool parseCoordinates( const QString &input, Coord_cl &coord );
+bool parseCoordinates( const QString& input, Coord_cl& coord );
 
-int RandomNum(int nLowNum, int nHighNum);
+int RandomNum( int nLowNum, int nHighNum );
 
 QString hex2dec( const QString& value );
 
-float RandomFloatNum(float nLowNum, float nHighNum);
+float RandomFloatNum( float nLowNum, float nHighNum );
 unsigned int getNormalizedTime();
 
-template<class T> struct destroy_obj : std::unary_function<T, void> {
-	void operator()(T& d) const
+template <class T>
+struct destroy_obj : std::unary_function<T, void>
+{
+	void operator()( T& d ) const
 	{
 		delete d;
 		d = 0;

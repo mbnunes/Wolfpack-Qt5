@@ -63,10 +63,20 @@
 */
 
 /* dummy functions */
-bool cDBDriver::exec( const QString &query ) { return true; }
-void cDBDriver::lockTable( const QString& table ) {}
-void cDBDriver::unlockTable( const QString& table ) {}
-QString cDBDriver::error() { return QString::null; }
+bool cDBDriver::exec( const QString& query )
+{
+	return true;
+}
+void cDBDriver::lockTable( const QString& table )
+{
+}
+void cDBDriver::unlockTable( const QString& table )
+{
+}
+QString cDBDriver::error()
+{
+	return QString::null;
+}
 void cDBDriver::setActiveConnection( int id )
 {
 }
@@ -78,22 +88,22 @@ void cDBDriver::setActiveConnection( int id )
 // Fetchs a new row, returns false if there is no new row
 bool cDBResult::fetchrow()
 {
-	if( !_result )
+	if ( !_result )
 		return false;
 
-	if( mysql_type )
+	if ( mysql_type )
 	{
 #ifdef MYSQL_DRIVER
-		_row = mysql_fetch_row( (st_mysql_res*)_result );
+		_row = mysql_fetch_row( ( st_mysql_res * ) _result );
 		return ( _row != 0 );
 #endif
 	}
 	else
 	{
 		int count;
-		const char **columns;
+		const char** columns;
 
-		return ( sqlite_step( (sqlite_vm*)_result, &count, (const char***)&_row, &columns ) == SQLITE_ROW );
+		return ( sqlite_step( ( sqlite_vm * ) _result, &count, ( const char * ** ) &_row, &columns ) == SQLITE_ROW );
 	}
 	return false;
 }
@@ -101,18 +111,18 @@ bool cDBResult::fetchrow()
 // Call this to free the query
 void cDBResult::free()
 {
-	if( mysql_type )
+	if ( mysql_type )
 	{
 #ifdef MYSQL_DRIVER
-		mysql_free_result( (st_mysql_res*)_result );
+		mysql_free_result( ( st_mysql_res * ) _result );
 #endif
 	}
 	else
 	{
-		char *error;
-		if( sqlite_finalize( (sqlite_vm*)_result, &error ) != SQLITE_OK )
+		char* error;
+		if ( sqlite_finalize( ( sqlite_vm * ) _result, &error ) != SQLITE_OK )
 		{
-			if( error )
+			if ( error )
 			{
 				QString err( error );
 				sqlite_freemem( error );
@@ -139,7 +149,7 @@ char** cDBResult::data() const
 // Get an integer with a specific offset
 INT32 cDBResult::getInt( UINT32 offset ) const
 {
-	if( !_row )
+	if ( !_row )
 		throw QString( "Trying to access a non valid result!" );
 
 	return atoi( _row[offset] );
@@ -148,101 +158,106 @@ INT32 cDBResult::getInt( UINT32 offset ) const
 // Get a string with a specific offset
 QString cDBResult::getString( UINT32 offset ) const
 {
-	if( !_row )
+	if ( !_row )
 		throw QString( "Trying to access a non valid result!" );
 
-	return QString::fromUtf8(_row[offset]);
+	return QString::fromUtf8( _row[offset] );
 }
 
-struct wpDbResult {
-    PyObject_HEAD;
-	cDBResult *result;
-};
-
-static void wpDeallocDbResult(PyObject *object) {
-	wpDbResult *result = (wpDbResult*)object;
-	delete result->result;
-	PyObject_Del(object);
-}
-
-static PyObject *wpDbResult_getAttr(wpDbResult *self, char *name);
-
-PyTypeObject wpDbResultType = {
-	PyObject_HEAD_INIT(NULL)
-	0,
-	"dbresult",
-	sizeof(wpDbResultType),
-	0,
-	wpDeallocDbResult,
-	0,
-	(getattrfunc)wpDbResult_getAttr
-};
-
-static PyObject *wpDbResult_free(wpDbResult *self, PyObject *args)
+struct wpDbResult
 {
-	Q_UNUSED(args);
+	PyObject_HEAD;
+	cDBResult* result;
+};
+
+static void wpDeallocDbResult( PyObject* object )
+{
+	wpDbResult* result = ( wpDbResult* ) object;
+	delete result->result;
+	PyObject_Del( object );
+}
+
+static PyObject* wpDbResult_getAttr( wpDbResult* self, char* name );
+
+PyTypeObject wpDbResultType =
+{
+	PyObject_HEAD_INIT( NULL )
+	0, "dbresult", sizeof( wpDbResultType ), 0, wpDeallocDbResult, 0, ( getattrfunc ) wpDbResult_getAttr
+};
+
+static PyObject* wpDbResult_free( wpDbResult* self, PyObject* args )
+{
+	Q_UNUSED( args );
 	self->result->free();
-	Py_INCREF(Py_None);
+	Py_INCREF( Py_None );
 	return Py_None;
 }
 
-static PyObject *wpDbResult_fetchrow(wpDbResult *self, PyObject *args)
+static PyObject* wpDbResult_fetchrow( wpDbResult* self, PyObject* args )
 {
-	Q_UNUSED(args);
+	Q_UNUSED( args );
 	bool result = self->result->fetchrow();
 
-	if (result)
+	if ( result )
 		return PyTrue();
 	else
 		return PyFalse();
 }
 
-static PyObject *wpDbResult_getint(wpDbResult *self, PyObject *args) {
+static PyObject* wpDbResult_getint( wpDbResult* self, PyObject* args )
+{
 	unsigned int pos;
-	if (!PyArg_ParseTuple(args, "I:dbresult.getint(position)", &pos)) {
+	if ( !PyArg_ParseTuple( args, "I:dbresult.getint(position)", &pos ) )
+	{
 		return 0;
 	}
-	return PyInt_FromLong(self->result->getInt(pos));
+	return PyInt_FromLong( self->result->getInt( pos ) );
 }
 
-static PyObject *wpDbResult_getstring(wpDbResult *self, PyObject *args) {
+static PyObject* wpDbResult_getstring( wpDbResult* self, PyObject* args )
+{
 	unsigned int pos;
-	if (!PyArg_ParseTuple(args, "I:dbresult.getstring(position)", &pos)) {
+	if ( !PyArg_ParseTuple( args, "I:dbresult.getstring(position)", &pos ) )
+	{
 		return 0;
 	}
 
-	QString value = self->result->getString(pos);
+	QString value = self->result->getString( pos );
 
-	return PyUnicode_FromUnicode((Py_UNICODE*)value.ucs2(), value.length());
+	return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.ucs2(), value.length() );
 }
 
-static PyMethodDef wpDbResultMethods[] = {
-	{"free", (getattrofunc)wpDbResult_free, METH_VARARGS, 0},
-	{"fetchrow", (getattrofunc)wpDbResult_fetchrow, METH_VARARGS, 0},
-	{"getint", (getattrofunc)wpDbResult_getint, METH_VARARGS, 0},
-	{"getstring", (getattrofunc)wpDbResult_getstring, METH_VARARGS, 0},
-	{0, 0, 0, 0}
+static PyMethodDef wpDbResultMethods[] =
+{
+	{"free", ( getattrofunc ) wpDbResult_free, METH_VARARGS, 0}, {"fetchrow", ( getattrofunc ) wpDbResult_fetchrow, METH_VARARGS, 0}, {"getint", ( getattrofunc ) wpDbResult_getint, METH_VARARGS, 0}, {"getstring", ( getattrofunc ) wpDbResult_getstring, METH_VARARGS, 0}, {0, 0, 0, 0}
 };
 
-static PyObject *wpDbResult_getAttr(wpDbResult *self, char *name) {
-	return Py_FindMethod(wpDbResultMethods, (PyObject*)self, name);
+static PyObject* wpDbResult_getAttr( wpDbResult* self, char* name )
+{
+	return Py_FindMethod( wpDbResultMethods, ( PyObject * ) self, name );
 }
 
-PyObject *cDBResult::getPyObject() {
-	wpDbResult *returnVal = PyObject_New(wpDbResult, &wpDbResultType);
+PyObject* cDBResult::getPyObject()
+{
+	wpDbResult* returnVal = PyObject_New( wpDbResult, &wpDbResultType );
 	returnVal->result = this;
-	return (PyObject*)returnVal;
+	return ( PyObject * ) returnVal;
 }
 
-bool cDBResult::implements(const QString &name) {
-	if (name == "dbresult") {
+bool cDBResult::implements( const QString& name )
+{
+	if ( name == "dbresult" )
+	{
 		return true;
-	} else {
-		return cPythonScriptable::implements(name);
+	}
+	else
+	{
+		return cPythonScriptable::implements( name );
 	}
 }
 
-const char *cDBResult::className() const {
+const char* cDBResult::className() const
+{
 	return "dbresult";
 }
 
@@ -252,15 +267,15 @@ const char *cDBResult::className() const {
 
 bool cSQLiteDriver::open( int id )
 {
-	char *error = NULL;
+	char* error = NULL;
 
 	close();
 
 	connection = sqlite_open( _dbname.latin1(), 0, &error );
 
-	if( !connection )
+	if ( !connection )
 	{
-		if( error )
+		if ( error )
 		{
 			QString err( error );
 			sqlite_freemem( error );
@@ -283,23 +298,23 @@ bool cSQLiteDriver::open( int id )
 
 void cSQLiteDriver::close()
 {
-	if( connection != 0 )
+	if ( connection != 0 )
 	{
-		sqlite_close( (sqlite*)connection );
+		sqlite_close( ( sqlite * ) connection );
 		connection = 0;
 	}
 }
 
-bool cSQLiteDriver::exec( const QString &query )
+bool cSQLiteDriver::exec( const QString& query )
 {
-	char *error;
+	char* error;
 
-	if( sqlite_exec( (sqlite*)connection, query.latin1(), NULL, NULL, &error ) != SQLITE_OK )
+	if ( sqlite_exec( ( sqlite * ) connection, query.latin1(), NULL, NULL, &error ) != SQLITE_OK )
 	{
-		if( error )
+		if ( error )
 		{
-			QString err( QString(error) + " (" + query + ")" );
-			sqlite_freemem(error);
+			QString err( QString( error ) + " (" + query + ")" );
+			sqlite_freemem( error );
 			throw err;
 		}
 		else
@@ -311,15 +326,15 @@ bool cSQLiteDriver::exec( const QString &query )
 	return true;
 }
 
-cDBResult cSQLiteDriver::query( const QString &query )
+cDBResult cSQLiteDriver::query( const QString& query )
 {
-	char *error = NULL;
-	sqlite_vm *result;
+	char* error = NULL;
+	sqlite_vm* result;
 
 	// Compile a VM and pass it to cSQLiteResult
-	if( sqlite_compile( (sqlite*)connection, query.latin1(), NULL, &result, &error ) != SQLITE_OK )
+	if ( sqlite_compile( ( sqlite * ) connection, query.latin1(), NULL, &result, &error ) != SQLITE_OK )
 	{
-		if( error )
+		if ( error )
 		{
 			QString err( QString( error ) + " (" + query + ")" );
 			sqlite_freemem( error );
@@ -334,7 +349,7 @@ cDBResult cSQLiteDriver::query( const QString &query )
 	return cDBResult( result, connection, false );
 }
 
-bool cSQLiteDriver::tableExists( const QString &table )
+bool cSQLiteDriver::tableExists( const QString& table )
 {
 	cDBResult result = query( QString( "PRAGMA table_info('%1');" ).arg( table ) );
 
@@ -358,67 +373,68 @@ bool cMySQLDriver::open( int id )
 
 	connection = mysql_init( 0 );
 	if ( !connection )
-		throw QString("mysql_init(): insufficient memory to allocate a new object");
+		throw QString( "mysql_init(): insufficient memory to allocate a new object" );
 
-	( (MYSQL*)connection )->reconnect = 1;
+	( ( MYSQL * ) connection )->reconnect = 1;
 
-	if ( !mysql_real_connect((MYSQL*)connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
-	{ // Named pipes are acctually slower :(
-		throw QString( "Connection to DB failed: %1" ).arg( mysql_error( (MYSQL*)connection ) );
+	if ( !mysql_real_connect( ( MYSQL * ) connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
+	{
+		// Named pipes are acctually slower :(
+		throw QString( "Connection to DB failed: %1" ).arg( mysql_error( ( MYSQL * ) connection ) );
 	}
-	connections[ id ] = (MYSQL*)connection;
+	connections[id] = ( MYSQL * ) connection;
 
 	return true;
 }
 
 void cMySQLDriver::close()
 {
-	mysql_close( (MYSQL*)connection );
+	mysql_close( ( MYSQL * ) connection );
 	connection = 0;
 }
 
-cDBResult cMySQLDriver::query( const QString &query )
+cDBResult cMySQLDriver::query( const QString& query )
 {
-	MYSQL *mysql = (MYSQL*)connection;
+	MYSQL* mysql = ( MYSQL* ) connection;
 
-	if( !mysql )
+	if ( !mysql )
 		throw QString( "Not connected to mysql server. Unable to execute query." );
 
-	if( mysql_query( mysql, query.latin1() ) )
+	if ( mysql_query( mysql, query.latin1() ) )
 	{
 		return cDBResult(); // Return invalid result
 	}
 
-	MYSQL_RES *result = mysql_use_result( mysql );
+	MYSQL_RES* result = mysql_use_result( mysql );
 	return cDBResult( result, mysql );
 }
 
-bool cMySQLDriver::exec( const QString &query )
+bool cMySQLDriver::exec( const QString& query )
 {
-	if( !connection )
+	if ( !connection )
 		throw QString( "Not connected to mysql server. Unable to execute query." );
 
-	bool ok = !mysql_query( (MYSQL*)connection, query.latin1() );
+	bool ok = !mysql_query( ( MYSQL* ) connection, query.latin1() );
 	return ok;
 }
 
 void cMySQLDriver::lockTable( const QString& table )
 {
-	exec( QString("LOCK TABLES %1 WRITE;").arg(table) );
+	exec( QString( "LOCK TABLES %1 WRITE;" ).arg( table ) );
 }
 
 void cMySQLDriver::unlockTable( const QString& table )
 {
-	exec( QString("UNLOCK TABLES;") );
+	exec( QString( "UNLOCK TABLES;" ) );
 }
 
 QString cMySQLDriver::error()
 {
-	const char *error = mysql_error( (MYSQL*)connection );
+	const char* error = mysql_error( ( MYSQL* ) connection );
 
-	if( error != 0 )
+	if ( error != 0 )
 	{
-		return QString(error);
+		return QString( error );
 	}
 	else
 	{
@@ -428,21 +444,21 @@ QString cMySQLDriver::error()
 
 void cMySQLDriver::setActiveConnection( int id )
 {
-	if( connections.find( id ) == connections.end() )
+	if ( connections.find( id ) == connections.end() )
 	{
 		connection = NULL;
 		open( id );
 	}
 	else
 	{
-		connection = connections[ id ];
+		connection = connections[id];
 	}
 }
 
 /*!
 	No checking done for MySQL yet.
  */
-bool cMySQLDriver::tableExists( const QString &table )
+bool cMySQLDriver::tableExists( const QString& table )
 {
 	return true;
 }

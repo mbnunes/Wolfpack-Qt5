@@ -41,10 +41,14 @@ class wpException : public std::exception
 private:
 	QString mError;
 public:
-	wpException( const QString& sError ) throw() : mError( sError ) {};
-	~wpException() throw() {};
+	wpException( const QString& sError ) throw() : mError( sError )
+	{
+	};
+	~wpException() throw()
+	{
+	};
 
-	const QString &error() const throw()
+	const QString& error() const throw()
 	{
 		return mError;
 	}
@@ -53,26 +57,31 @@ public:
 class wpFileNotFoundException : public wpException
 {
 public:
-	wpFileNotFoundException( const QString& sError ) throw() : wpException(sError) {};
+	wpFileNotFoundException( const QString& sError ) throw() : wpException( sError )
+	{
+	};
 };
 
 namespace wp_exceptions
 {
-	// Exceptions trown by ItemManager:
-	class wpbad_ptr : public std::exception
+// Exceptions trown by ItemManager:
+class wpbad_ptr : public std::exception
+{
+private:
+	QString m_Error;
+public:
+	wpbad_ptr( const QString& sError ) throw() : m_Error( sError )
 	{
-	private:
-		QString m_Error;
-	public:
-		wpbad_ptr(const QString& sError) throw() : m_Error(sError) {};
-
-		virtual const char *what() const throw()
-		{
-			return m_Error.latin1();
-		}
-		~wpbad_ptr() throw(){} ;
 	};
 
+	virtual const char* what() const throw()
+	{
+		return m_Error.latin1();
+	}
+	~wpbad_ptr() throw()
+	{
+	} ;
+};
 };
 
 #endif // __EXCEPTIONS_H__

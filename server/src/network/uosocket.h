@@ -65,31 +65,37 @@ struct stTargetItem
 class cUOSocket
 {
 public:
-	enum eSocketState	{ Connecting = 0, LoggingIn, LoggedIn, InGame	};
+	enum eSocketState
+	{
+		Connecting		= 0,
+		LoggingIn,
+		LoggedIn,
+		InGame
+	};
 
 private:
-	QSocketDevice *_socket;
+	QSocketDevice* _socket;
 	unsigned int _rxBytes, _txBytes, _uniqueId, _lastActivity;
 	cAccount* _account;
 	P_PLAYER _player;
 	eSocketState _state;
 	UINT8 lastPacket, _viewRange, _walkSequence;
-	cTargetRequest *targetRequest;
-	QString _lang,_version;
+	cTargetRequest* targetRequest;
+	QString _lang, _version;
 	cCustomTags tags_;
 	QString _ip; // IP used to connect
-	QBitArray *tooltipscache_;
+	QBitArray* tooltipscache_;
 	QPtrList<cContextMenu> contextMenu_;
-	QMap< SERIAL, cGump* > gumps;
+	QMap<SERIAL, cGump*> gumps;
 	unsigned short _screenWidth, _screenHeight;
 
-	bool authenticate( const QString &username, const QString &password );
+	bool authenticate( const QString& username, const QString& password );
 
 	/*!
 		\brief This array contains all registered packet handlers known
 		to all sockets.
 	*/
-	static PyObject *handlers[255];
+	static PyObject* handlers[255];
 
 public:
 	/*!
@@ -98,7 +104,7 @@ public:
 		\param packet The id of the packet to handle.
 		\param handler The python function for handling the packet.
 	*/
-    static void registerPacketHandler(unsigned char packet, PyObject *handler);
+	static void registerPacketHandler( unsigned char packet, PyObject* handler );
 
 	/*!
 		\brief This function clears all installed packet handlers.
@@ -108,29 +114,50 @@ public:
 	/*!
 		\brief Let this socket use a given item.
 	*/
-	bool useItem(P_ITEM item);
+	bool useItem( P_ITEM item );
 
-	inline unsigned short screenWidth() const {		return _screenWidth;	}
+	inline unsigned short screenWidth() const
+	{
+		return _screenWidth;
+	}
 
-	inline unsigned short screenHeight() const {	return _screenHeight;	}
+	inline unsigned short screenHeight() const
+	{
+		return _screenHeight;
+	}
 
-	cCustomTags tags() const	{ return tags_;		}
-	cCustomTags& tags()			{ return tags_;		}
+	cCustomTags tags() const
+	{
+		return tags_;
+	}
+	cCustomTags& tags()
+	{
+		return tags_;
+	}
 
-	QBitArray* toolTips() const { return tooltipscache_; }
-	bool haveTooltip( UINT32 data ) const { return tooltipscache_->testBit( data ); }
-	void delTooltip( UINT32 data ) { tooltipscache_->setBit( data, false ); }
+	QBitArray* toolTips() const
+	{
+		return tooltipscache_;
+	}
+	bool haveTooltip( UINT32 data ) const
+	{
+		return tooltipscache_->testBit( data );
+	}
+	void delTooltip( UINT32 data )
+	{
+		tooltipscache_->setBit( data, false );
+	}
 	void addTooltip( UINT32 );
 
-	cUOSocket( QSocketDevice *sDevice );
+	cUOSocket( QSocketDevice* sDevice );
 	virtual ~cUOSocket( void );
 
 	Q_UINT8 walkSequence( void ) const;
 	void setWalkSequence( Q_UINT8 data );
 
 
-	QSocketDevice *socket( void ) const;
-	void setSocket( QSocketDevice *data );
+	QSocketDevice* socket( void ) const;
+	void setSocket( QSocketDevice* data );
 
 	eSocketState state( void ) const;
 	void setState( eSocketState data );
@@ -141,8 +168,14 @@ public:
 
 	P_PLAYER player( void ) const;
 	P_ITEM dragging() const;
-	cAccount* account( void ) const { return _account; }
-	void setAccount( cAccount* data ) { _account = data; }
+	cAccount* account( void ) const
+	{
+		return _account;
+	}
+	void setAccount( cAccount* data )
+	{
+		_account = data;
+	}
 
 
 	unsigned int lastActivity() const;
@@ -155,36 +188,36 @@ public:
 	Q_UINT32 uniqueId( void ) const;
 
 	void recieve(); // Tries to recieve one packet and process it
-	void send( cUOPacket *packet ) const;
-	void send( cGump	 *gump );
+	void send( cUOPacket* packet ) const;
+	void send( cGump* gump );
 
 	// Handler
 	void handleSecureTrading( cUORxSecureTrading* packet );
-	void handleLoginRequest( cUORxLoginRequest *packet );
-	void handleHardwareInfo( cUORxHardwareInfo *packet );
-	void handleSelectShard( cUORxSelectShard *packet );
-	void handleServerAttach( cUORxServerAttach *packet );
-	void handleDeleteCharacter( cUORxDeleteCharacter *packet );
-	void handlePlayCharacter( cUORxPlayCharacter *packet );
-	void handleCreateChar( cUORxCreateChar *packet );
-	void handleUpdateRange( cUORxUpdateRange *packet );
-	void handleQuery( cUORxQuery *packet );
-	void handleRequestLook( cUORxRequestLook *packet );
-	void handleMultiPurpose( cUORxMultiPurpose *packet );
-	void handleCastSpell( cUORxCastSpell *packet );
-	void handleContextMenuRequest( cUORxContextMenuRequest *packet );
- 	void handleContextMenuSelection( cUORxContextMenuSelection *packet );
- 	void handleToolTip( cUORxRequestToolTip *packet );
-	void handleCustomHouseRequest( cUORxCustomHouseRequest *packet );
+	void handleLoginRequest( cUORxLoginRequest* packet );
+	void handleHardwareInfo( cUORxHardwareInfo* packet );
+	void handleSelectShard( cUORxSelectShard* packet );
+	void handleServerAttach( cUORxServerAttach* packet );
+	void handleDeleteCharacter( cUORxDeleteCharacter* packet );
+	void handlePlayCharacter( cUORxPlayCharacter* packet );
+	void handleCreateChar( cUORxCreateChar* packet );
+	void handleUpdateRange( cUORxUpdateRange* packet );
+	void handleQuery( cUORxQuery* packet );
+	void handleRequestLook( cUORxRequestLook* packet );
+	void handleMultiPurpose( cUORxMultiPurpose* packet );
+	void handleCastSpell( cUORxCastSpell* packet );
+	void handleContextMenuRequest( cUORxContextMenuRequest* packet );
+	void handleContextMenuSelection( cUORxContextMenuSelection* packet );
+	void handleToolTip( cUORxRequestToolTip* packet );
+	void handleCustomHouseRequest( cUORxCustomHouseRequest* packet );
 	void handleWalkRequest( cUORxWalkRequest* packet );
 	void handleSetLanguage( cUORxSetLanguage* packet );
 	void handleSpeechRequest( cUORxSpeechRequest* packet );
 	void handleDoubleClick( cUORxDoubleClick* packet );
 	void handleGetTip( cUORxGetTip* packet );
 	void handleChangeWarmode( cUORxChangeWarmode* packet );
-	void handleTarget( cUORxTarget *packet );
+	void handleTarget( cUORxTarget* packet );
 	void handleRequestAttack( cUORxRequestAttack* packet );
-	void handleExtendedStats( cUORxExtendedStats* packet);
+	void handleExtendedStats( cUORxExtendedStats* packet );
 	void handleAction( cUORxAction* packet );
 	void handleGumpResponse( cUORxGumpResponse* packet );
 	void handleHelpRequest( cUORxHelpRequest* packet );
@@ -193,31 +226,34 @@ public:
 	void handleSell( cUORxSell* packet );
 	void handleProfile( cUORxProfile* packet );
 	void handleRename( cUORxRename* packet );
-	void handleAosMultiPurpose( cUORxAosMultiPurpose *packet );
-	void handleCHBackup( cUORxAosMultiPurpose *packet );
-	void handleCHRestore( cUORxAosMultiPurpose *packet );
-	void handleCHCommit( cUORxAosMultiPurpose *packet );
-	void handleCHDelete( cUORxCHDelete *packet );
-	void handleCHAddElement( cUORxCHAddElement *packet );
-	void handleCHClose( cUORxAosMultiPurpose *packet );
-	void handleCHStairs( cUORxCHStairs *packet );
-	void handleCHSync( cUORxAosMultiPurpose *packet );
-	void handleCHClear( cUORxAosMultiPurpose *packet );
-	void handleCHLevel( cUORxCHLevel *packet );
-	void handleCHRevert( cUORxAosMultiPurpose *packet );
-	void handleParty( cUOPacket *packet );
-	void handleChat(cUOPacket *packet);
+	void handleAosMultiPurpose( cUORxAosMultiPurpose* packet );
+	void handleCHBackup( cUORxAosMultiPurpose* packet );
+	void handleCHRestore( cUORxAosMultiPurpose* packet );
+	void handleCHCommit( cUORxAosMultiPurpose* packet );
+	void handleCHDelete( cUORxCHDelete* packet );
+	void handleCHAddElement( cUORxCHAddElement* packet );
+	void handleCHClose( cUORxAosMultiPurpose* packet );
+	void handleCHStairs( cUORxCHStairs* packet );
+	void handleCHSync( cUORxAosMultiPurpose* packet );
+	void handleCHClear( cUORxAosMultiPurpose* packet );
+	void handleCHLevel( cUORxCHLevel* packet );
+	void handleCHRevert( cUORxAosMultiPurpose* packet );
+	void handleParty( cUOPacket* packet );
+	void handleChat( cUOPacket* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );
 	void sendChar( P_CHAR pChar );
-	void showSpeech( const cUObject *object, const QString &message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, UINT8 speechType = 0x00 ) const;
-	void sysMessage( const QString &message, Q_UINT16 color = 0x3b2, UINT16 font = 3 ) const;
+	void showSpeech( const cUObject* object, const QString& message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, UINT8 speechType = 0x00 ) const;
+	void sysMessage( const QString& message, Q_UINT16 color = 0x3b2, UINT16 font = 3 ) const;
 	void sendCharList();
-	void removeObject( cUObject *object );
+	void removeObject( cUObject* object );
 	void setPlayer( P_PLAYER pChar = NULL ); // Updates the current player
 	void disconnect( void ); // Call this whenever the socket should disconnect
-	bool isT2A()	{ return true; } // ???
+	bool isT2A()
+	{
+		return true;
+	} // ???
 	void sendPaperdoll( P_CHAR pChar );
 	void playMusic( void );
 	void sendContainer( P_ITEM pCont );
@@ -225,10 +261,10 @@ public:
 	void updatePlayer();
 	void resendPlayer( bool quick = true );
 	void poll();
-	void soundEffect( UINT16 soundId, cUObject *source = NULL );
-	void attachTarget( cTargetRequest *request );
-	void attachTarget( cTargetRequest *request, UINT16 multiid );
-	void attachTarget( cTargetRequest *request, std::vector< stTargetItem > items, INT16 xOffset = 0, INT16 yOffset = 0, INT16 zOffset = 0 );
+	void soundEffect( UINT16 soundId, cUObject* source = NULL );
+	void attachTarget( cTargetRequest* request );
+	void attachTarget( cTargetRequest* request, UINT16 multiid );
+	void attachTarget( cTargetRequest* request, std::vector<stTargetItem> items, INT16 xOffset = 0, INT16 yOffset = 0, INT16 zOffset = 0 );
 	void cancelTarget();
 	void resendWorld( bool clean = true );
 	void resync();
@@ -241,18 +277,18 @@ public:
 	void sendBuyWindow( P_NPC pVendor );
 	void sendSellWindow( P_NPC pVendor, P_CHAR pSeller );
 	void sendVendorCont( P_ITEM pItem );
-	void clilocMessage( const UINT32 MsgID, const QString &params = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject *object = 0, bool system = false );
-	void clilocMessageAffix( const UINT32 MsgID, const QString &params = 0, const QString &affix = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject *object = 0, bool dontMove = false, bool prepend = false, bool system = false );
+	void clilocMessage( const UINT32 MsgID, const QString& params = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool system = false );
+	void clilocMessageAffix( const UINT32 MsgID, const QString& params = 0, const QString& affix = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool dontMove = false, bool prepend = false, bool system = false );
 	void updateLightLevel();
 	void sendQuestArrow( bool show, UINT16 x, UINT16 y );
 	void closeGump( UINT32 type, UINT32 returnCode );
-	void log( eLogLevel loglevel, const QString &message );
-	void log( const QString &message );
+	void log( eLogLevel loglevel, const QString& message );
+	void log( const QString& message );
 
-	bool canSee(cUOSocket *socket);
-	bool canSee(P_ITEM item);
-	bool canSee(P_CHAR character);
-	bool canSee(cUObject *object);
+	bool canSee( cUOSocket* socket );
+	bool canSee( P_ITEM item );
+	bool canSee( P_CHAR character );
+	bool canSee( cUObject* object );
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );
@@ -278,7 +314,7 @@ inline QSocketDevice* cUOSocket::socket( void ) const
 	return _socket;
 }
 
-inline void cUOSocket::setSocket( QSocketDevice *data )
+inline void cUOSocket::setSocket( QSocketDevice* data )
 {
 	_socket = data;
 }

@@ -46,7 +46,7 @@ struct unitile_st
 	unsigned char weight;
 }/* PACK*/;
 
-bool mayWalk( P_CHAR pChar, Coord_cl &pos );
+bool mayWalk( P_CHAR pChar, Coord_cl& pos );
 
 class cMovement
 {
@@ -58,18 +58,18 @@ public:
 	void CombatWalk( P_CHAR pc );
 	void NpcMovement( unsigned int currenttime, P_NPC pc_i );
 	bool canLandMonsterMoveHere( const Coord_cl& ) const;
-	bool CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos );
+	bool CheckForCharacterAtXYZ( P_CHAR pc, const Coord_cl& pos );
 	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords );
 private:
 	bool consumeStamina( P_PLAYER pChar, bool running );
-	bool checkObstacles( P_CHAR pChar, const Coord_cl &newPos, bool running );
-	bool verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw();
+	bool checkObstacles( P_CHAR pChar, const Coord_cl& newPos, bool running );
+	bool verifySequence( cUOSocket* socket, Q_UINT8 sequence ) throw();
 	void checkRunning( cUOSocket*, P_CHAR, Q_UINT8 );
 	void checkStealth( P_CHAR );
 	void sendWalkToOther( P_PLAYER pChar, P_CHAR pWalker, const Coord_cl& oldpos );
 
 	void handleItemCollision( P_CHAR pChar );
-	void handleTeleporters(P_CHAR pc, const Coord_cl &oldpos);
+	void handleTeleporters( P_CHAR pc, const Coord_cl& oldpos );
 };
 
 typedef SingletonHolder<cMovement> Movement;

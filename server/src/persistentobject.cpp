@@ -28,7 +28,7 @@
 #include "persistentobject.h"
 #include "dbdriver.h"
 
-PersistentObject::PersistentObject() : isPersistent(false)
+PersistentObject::PersistentObject() : isPersistent( false )
 {
 }
 
@@ -38,10 +38,10 @@ bool PersistentObject::del()
 	return true;
 }
 
-void PersistentObject::load( char **result, UINT16 &offset )
+void PersistentObject::load( char** result, UINT16& offset )
 {
-	Q_UNUSED(result);
-	Q_UNUSED(offset);
+	Q_UNUSED( result );
+	Q_UNUSED( offset );
 	isPersistent = true;
 }
 

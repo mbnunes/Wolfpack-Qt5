@@ -45,9 +45,9 @@
 	Seed is the DWORD sent by the client in the beginning of each connection.
 	Buffer/Length should be the first 62 bytes received by the client.
 */
-bool cLoginEncryption::init( unsigned int seed, const char *buffer, unsigned int length )
+bool cLoginEncryption::init( unsigned int seed, const char* buffer, unsigned int length )
 {
-	if( length < 62 )
+	if ( length < 62 )
 		return false;
 
 	// Try to find a valid key
@@ -57,11 +57,11 @@ bool cLoginEncryption::init( unsigned int seed, const char *buffer, unsigned int
 	unsigned int orgTable1 = ( ( ( ~seed ) ^ 0x00001357 ) << 16 ) | ( ( seed ^ 0xffffaaaa ) & 0x0000ffff );
 	unsigned int orgTable2 = ( ( seed ^ 0x43210000 ) >> 16 ) | ( ( ( ~seed ) ^ 0xabcdffff ) & 0xffff0000 );
 
-	for( unsigned int i = 0; i < KeyManager::instance()->size(); ++i )
+	for ( unsigned int i = 0; i < KeyManager::instance()->size(); ++i )
 	{
-		stLoginKey *key = KeyManager::instance()->key( i );
+		stLoginKey* key = KeyManager::instance()->key( i );
 
-		if( !key )
+		if ( !key )
 			break;
 
 		// Check if this key works on this packet
@@ -74,7 +74,7 @@ bool cLoginEncryption::init( unsigned int seed, const char *buffer, unsigned int
 		clientDecrypt( &packet[0], 62 );
 
 		// Check if it decrypted correctly
-		if( packet[0] == '\x80' && packet[30] == '\x00' && packet[60] == '\x00' )
+		if ( packet[0] == '\x80' && packet[30] == '\x00' && packet[60] == '\x00' )
 		{
 			// Reestablish our current state
 			table1 = orgTable1;
@@ -92,10 +92,10 @@ bool cLoginEncryption::init( unsigned int seed, const char *buffer, unsigned int
 	Encrypts the given buffer for sending it to the client.
 	The encryption method used is "LoginCrypt".
 */
-void cLoginEncryption::serverEncrypt( char *buffer, unsigned int length )
+void cLoginEncryption::serverEncrypt( char* buffer, unsigned int length )
 {
-	Q_UNUSED(buffer);
-	Q_UNUSED(length);
+	Q_UNUSED( buffer );
+	Q_UNUSED( length );
 	return; // No Server->Client Encryption done sever-side
 }
 
@@ -103,12 +103,12 @@ void cLoginEncryption::serverEncrypt( char *buffer, unsigned int length )
 	Decrypts the given buffer received from the client.
 	The decryption method used is "LoginCrypt".
 */
-void cLoginEncryption::clientDecrypt( char *buffer, unsigned int length )
+void cLoginEncryption::clientDecrypt( char* buffer, unsigned int length )
 {
 	register UINT32 eax, ecx, edx, esi;
-	for( UINT32 i = 0; i < length; ++i )
+	for ( UINT32 i = 0; i < length; ++i )
 	{
-		buffer[i] = buffer[i] ^ (UINT8)( table1 & 0xFF );
+		buffer[i] = buffer[i] ^ ( UINT8 ) ( table1 & 0xFF );
 		edx = table2;
 		esi = table1 << 31;
 		eax = table2 >> 1;
@@ -137,7 +137,7 @@ void cGameEncryption::init( unsigned int seed )
 	ki.key32[0] = ki.key32[1] = ki.key32[2] = ki.key32[3] = seed;
 	reKey( &ki );
 
-	for( unsigned int i = 0; i < 256; ++i )
+	for ( unsigned int i = 0; i < 256; ++i )
 		cipherTable[i] = i;
 
 	recvPos = 0x100;
@@ -147,10 +147,10 @@ void cGameEncryption::init( unsigned int seed )
 /*!
 	Decrypts a single byte sent by the client.
 */
-void cGameEncryption::decryptByte( unsigned char &byte )
+void cGameEncryption::decryptByte( unsigned char& byte )
 {
 	// Recalculate table
-	if( recvPos >= 0x100 )
+	if ( recvPos >= 0x100 )
 	{
 		unsigned char tmpBuffer[0x100];
 		blockEncrypt( &ci, &ki, &cipherTable[0], 0x800, &tmpBuffer[0] );
@@ -159,7 +159,7 @@ void cGameEncryption::decryptByte( unsigned char &byte )
 	}
 
 	// Simple XOR operation
-	byte ^= cipherTable[ recvPos++ ];
+	byte ^= cipherTable[recvPos++];
 }
 
 /*!
@@ -168,17 +168,17 @@ void cGameEncryption::decryptByte( unsigned char &byte )
 */
 void cGameEncryption::clientDecrypt( char* buffer, unsigned int length )
 {
-	for( unsigned int i = 0; i < length; ++i )
-		decryptByte( (unsigned char&)buffer[i] );
+	for ( unsigned int i = 0; i < length; ++i )
+		decryptByte( ( unsigned char & ) buffer[i] );
 }
 
 /*!
 	Encrypts a buffer before sending it to the client.
 	Encryption used is a table-based XOR encryption.
 */
-void cGameEncryption::serverEncrypt( char *buffer, unsigned int length )
+void cGameEncryption::serverEncrypt( char* buffer, unsigned int length )
 {
-   	static const UINT8 xorData[0x10] =
+	static const UINT8 xorData[0x10] =
 	{
 		// Seed: 7F000001
 		//0x05, 0x92, 0x66, 0x23, 0x67, 0x14, 0xE3, 0x62, 0xDC, 0x60, 0x8C, 0xD6, 0xFE, 0x7C, 0x25, 0x69
@@ -187,9 +187,9 @@ void cGameEncryption::serverEncrypt( char *buffer, unsigned int length )
 		0xa9, 0xd5, 0x7d, 0xa4, 0x3e, 0x0c, 0x22, 0xda, 0xde, 0x15, 0xe9, 0x92, 0xdd, 0x99, 0x98, 0x4d
 	};
 
-	for( unsigned int i = 0; i < length; ++i )
+	for ( unsigned int i = 0; i < length; ++i )
 	{
-		buffer[i] ^= xorData[ sendPos++ ];
+		buffer[i] ^= xorData[sendPos++];
 		sendPos &= 0x0F; // Maximum Value is 0xF = 15, then 0xF + 1 = 0 again
 	}
 }
@@ -212,11 +212,11 @@ void cKeyManager::load()
 	QStringList list = Definitions::instance()->getList( "ENCRYPTION" );
 
 	QStringList::const_iterator it;
-	for( it = list.begin(); it != list.end(); ++it )
+	for ( it = list.begin(); it != list.end(); ++it )
 	{
 		QStringList elements = QStringList::split( ";", *it, false );
 
-		if( elements.size() < 3 )
+		if ( elements.size() < 3 )
 		{
 			Log::instance()->print( LOG_WARNING, QString( "Invalid encryption key: %1" ).arg( *it ) );
 			continue;
@@ -228,7 +228,7 @@ void cKeyManager::load()
 
 		key.key1 = hex2dec( elements[1].stripWhiteSpace() ).toUInt( &ok );
 
-		if( !ok )
+		if ( !ok )
 		{
 			Log::instance()->print( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[1].stripWhiteSpace() ) );
 			continue;
@@ -236,7 +236,7 @@ void cKeyManager::load()
 
 		key.key2 = hex2dec( elements[2].stripWhiteSpace() ).toUInt( &ok );
 
-		if( !ok )
+		if ( !ok )
 		{
 			Log::instance()->print( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[2].stripWhiteSpace() ) );
 			continue;

@@ -39,7 +39,7 @@
 #include "world.h"
 #include "inlines.h"
 
-class cRefreshTracking: public cTimer
+class cRefreshTracking : public cTimer
 {
 private:
 	SERIAL tracker_;
@@ -57,15 +57,15 @@ public:
 	// Until our target expires
 	virtual void Expire()
 	{
-		P_PLAYER pChar = dynamic_cast<P_PLAYER>(FindCharBySerial( tracker_ ));
+		P_PLAYER pChar = dynamic_cast<P_PLAYER>( FindCharBySerial( tracker_ ) );
 
-		if( !pChar || !pChar->socket() )
+		if ( !pChar || !pChar->socket() )
 			return;
 
 		P_CHAR pTarget = FindCharBySerial( target_ );
 
 		// Disable the quest-arrow
-		if( !pTarget || pChar->trackingTime() <= Server::instance()->time() )
+		if ( !pTarget || pChar->trackingTime() <= Server::instance()->time() )
 		{
 			pChar->socket()->sendQuestArrow( false, 0, 0 );
 			return;
@@ -76,19 +76,19 @@ public:
 	}
 };
 
-class cTrackingList: public cGump
+class cTrackingList : public cGump
 {
 public:
-	virtual void handleResponse( cUOSocket *socket, const gumpChoice_st& choice )
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 	{
 		P_PLAYER player = socket->player();
 
-		if( !player )
+		if ( !player )
 			return;
 
 		P_CHAR pChar = FindCharBySerial( choice.button );
 
-		if( !pChar || pChar->dist( player ) > 32 )
+		if ( !pChar || pChar->dist( player ) > 32 )
 			return;
 
 		// Start the refresh-timer
@@ -113,40 +113,40 @@ public:
 		// 2: Monsters
 		// 3: Humans
 		// 4: Players
-		cCharSectorIterator *iter = SectorMaps::instance()->findChars( player->pos(), 18 );
+		cCharSectorIterator* iter = SectorMaps::instance()->findChars( player->pos(), 18 );
 
-		for( P_CHAR pChar = iter->first(); pChar; pChar = iter->next() )
+		for ( P_CHAR pChar = iter->first(); pChar; pChar = iter->next() )
 		{
 			// Do the neccesary checks
 			bool passed = true;
 
-			switch( type )
+			switch ( type )
 			{
-			// Animals
+				// Animals
 			case 1:
 				passed = !( pChar->objectType() != enNPC || pChar->body() == 0x190 || pChar->body() == 0x191 ); //|| pChar->npcaitype() == 2 );
 				break;
-			// Monsters
+				// Monsters
 			case 2:
 				passed = !( pChar->objectType() != enNPC || pChar->body() == 0x190 || pChar->body() == 0x191 ); //|| pChar->npcaitype() != 2 );
 				break;
-			// Human
+				// Human
 			case 3:
 				passed = !( pChar->objectType() != enNPC || ( pChar->body() != 0x190 && pChar->body() != 0x191 ) );
 				break;
 			case 4:
-				passed = ( pChar->objectType() == enPlayer && dynamic_cast<P_PLAYER>(pChar)->socket() );
+				passed = ( pChar->objectType() == enPlayer && dynamic_cast<P_PLAYER>( pChar )->socket() );
 				break;
 			};
 
-			if( !passed )
+			if ( !passed )
 				continue;
 
 			// Checks passed, add the character
-			if( pAmount == 0 ) // Start new page
+			if ( pAmount == 0 ) // Start new page
 			{
 				// Add a button on the old page
-				if( pCount > 0 )
+				if ( pCount > 0 )
 				{
 					addPageButton( 395, 137, 0x26af, 0x26b1, pCount );
 				}
@@ -154,17 +154,19 @@ public:
 				startPage( ++pCount );
 
 				// Add a button on the new page
-				if (pCount > 1) {
-					addPageButton( 365, 137, 0x26b5, 0x26b7, pCount-1 );
+				if ( pCount > 1 )
+				{
+					addPageButton( 365, 137, 0x26b5, 0x26b7, pCount - 1 );
 				}
 			}
 
-			if (pChar->figurine() != 0) {
-				addTilePic((pAmount*100)+20, 20, pChar->figurine());
+			if ( pChar->figurine() != 0 )
+			{
+				addTilePic( ( pAmount * 100 ) + 20, 20, pChar->figurine() );
 			}
 
-			addButton( (pAmount*100)+20, 110, 0xFA5, 0xFA7, pChar->serial() );
-			addCroppedText( (pAmount*100)+20, 90, 100, 40, pChar->name() );
+			addButton( ( pAmount * 100 ) + 20, 110, 0xFA5, 0xFA7, pChar->serial() );
+			addCroppedText( ( pAmount * 100 ) + 20, 90, 100, 40, pChar->name() );
 
 			++pAmount;
 		}
@@ -173,7 +175,7 @@ public:
 	}
 };
 
-class cTrackingMenu: public cGump
+class cTrackingMenu : public cGump
 {
 public:
 	cTrackingMenu()
@@ -205,36 +207,36 @@ public:
 		addXmfHtmlGump( 320, 90, 100, 20, 0xF88EA );
 	}
 
-	virtual void handleResponse( cUOSocket *socket, const gumpChoice_st& choice )
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 	{
-		if( choice.button > 4 || choice.button < 1 )
+		if ( choice.button > 4 || choice.button < 1 )
 			return;
 
-		if( !socket->player() )
+		if ( !socket->player() )
 			return;
 
-		cTrackingList *list = new cTrackingList( socket->player(), choice.button );
+		cTrackingList* list = new cTrackingList( socket->player(), choice.button );
 		socket->send( list );
 	}
 };
 
 // Creates the tracking menu (Creature type)
-void trackingMenu( cUOSocket *socket )
+void trackingMenu( cUOSocket* socket )
 {
 	P_CHAR pChar = socket->player();
 
-	if( !pChar )
+	if ( !pChar )
 		return;
 
 	socket->closeGump( 0xFE12ACDE, 0 );
 
 	// If we fail a simple check we dont get the menu
-	if( !pChar->checkSkill( TRACKING, 0, 250 ) )
+	if ( !pChar->checkSkill( TRACKING, 0, 250 ) )
 	{
 		socket->sysMessage( tr( "You seem to be unable to track the traces of creatures who have been here." ) );
 		return;
 	}
 
-	cTrackingMenu *gump = new cTrackingMenu;
+	cTrackingMenu* gump = new cTrackingMenu;
 	socket->send( gump );
 }

@@ -38,25 +38,26 @@
 	generic dialog (gump). It contains the switches and texts the
 	client sent along with the id of the pressed button.
 */
-typedef struct {
-    PyObject_HEAD;
-	gumpChoice_st *response;
+typedef struct
+{
+	PyObject_HEAD;
+	gumpChoice_st* response;
 } wpGumpResponse;
 
-PyObject *wpGumpResponse_getAttr( wpGumpResponse *self, char *name )
+PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 {
-	if( !strcmp( name, "button" ) )
+	if ( !strcmp( name, "button" ) )
 		return PyInt_FromLong( self->response->button );
-	else if( !strcmp( name, "text" ) )
+	else if ( !strcmp( name, "text" ) )
 	{
 		// Create a dictionary
-		PyObject *dict = PyDict_New();
+		PyObject* dict = PyDict_New();
 
-		std::map< unsigned short, QString > textentries = self->response->textentries;
-		std::map< unsigned short, QString >::iterator iter = textentries.begin();
-		for( ; iter != textentries.end(); ++iter )
+		std::map<unsigned short, QString> textentries = self->response->textentries;
+		std::map<unsigned short, QString>::iterator iter = textentries.begin();
+		for ( ; iter != textentries.end(); ++iter )
 		{
-			if( !iter->second.isEmpty() )
+			if ( !iter->second.isEmpty() )
 				PyDict_SetItem( dict, PyInt_FromLong( iter->first ), PyString_FromString( iter->second.latin1() ) );
 			else
 				PyDict_SetItem( dict, PyInt_FromLong( iter->first ), PyString_FromString( "" ) );
@@ -64,56 +65,45 @@ PyObject *wpGumpResponse_getAttr( wpGumpResponse *self, char *name )
 
 		return dict;
 	}
-	else if( !strcmp( name, "switches" ) )
+	else if ( !strcmp( name, "switches" ) )
 	{
 		// Create a list
-		PyObject *list = PyList_New( self->response->switches.size() );
-		for( uint i = 0; i < self->response->switches.size(); ++i )
-			PyList_SetItem( list, i, PyInt_FromLong( self->response->switches[ i ] ) );
+		PyObject* list = PyList_New( self->response->switches.size() );
+		for ( uint i = 0; i < self->response->switches.size(); ++i )
+			PyList_SetItem( list, i, PyInt_FromLong( self->response->switches[i] ) );
 		return list;
 	}
 
 	return PyFalse();
 }
 
-static PyTypeObject wpGumpResponseType = {
-    PyObject_HEAD_INIT(&PyType_Type)
-    0,
-    "wpGumpResponse",
-    sizeof(wpGumpResponseType),
-    0,
-	wpDealloc,
-    0,
-    (getattrfunc)wpGumpResponse_getAttr,
-    0,
-    0,
-    0,
-    0,
-    0,
+static PyTypeObject wpGumpResponseType =
+{
+	PyObject_HEAD_INIT( &PyType_Type )
+	0, "wpGumpResponse", sizeof( wpGumpResponseType ), 0, wpDealloc, 0, ( getattrfunc ) wpGumpResponse_getAttr, 0, 0, 0, 0, 0, 
 };
 
-PyObject *PyGetGumpResponse( const gumpChoice_st &response )
+PyObject* PyGetGumpResponse( const gumpChoice_st& response )
 {
-	wpGumpResponse *returnVal = PyObject_New( wpGumpResponse, &wpGumpResponseType );
+	wpGumpResponse* returnVal = PyObject_New( wpGumpResponse, &wpGumpResponseType );
 	returnVal->response = new gumpChoice_st;
 	returnVal->response->button = response.button;
 	returnVal->response->switches = response.switches;
 	returnVal->response->textentries = response.textentries;
 
-	return (PyObject*)returnVal;
+	return ( PyObject * ) returnVal;
 }
 
 /*!
 	Internally used class for Python based Gumps
 */
-class cPythonGump: public cGump
+class cPythonGump : public cGump
 {
 private:
 	QString callback;
-	PyObject *args;
+	PyObject* args;
 public:
-	cPythonGump( const QString &_callback, PyObject *_args ):
-		callback( _callback ), args( _args )
+	cPythonGump( const QString& _callback, PyObject* _args ) : callback( _callback ), args( _args )
 	{
 		// Increase ref-count for argument list
 		Py_INCREF( args );
@@ -124,28 +114,32 @@ public:
 		// Call the response function (and pass it a response-object)
 		// Try to call the python function
 		// Get everything before the last dot
-		if( !callback.isNull() && !callback.isEmpty() && callback.contains( "." ) )
+		if ( !callback.isNull() && !callback.isEmpty() && callback.contains( "." ) )
 		{
 			// Find the last dot
 			INT32 position = callback.findRev( "." );
 			QString sModule = callback.left( position );
-			QString sFunction = callback.right( callback.length() - (position+1) );
+			QString sFunction = callback.right( callback.length() - ( position + 1 ) );
 
-			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
 
-			if (pModule) {
-				PyObject *pFunc = PyObject_GetAttrString(pModule, const_cast<char*>(sFunction.latin1()));
-				if (pFunc && PyCallable_Check(pFunc)) {
+			if ( pModule )
+			{
+				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
+				if ( pFunc && PyCallable_Check( pFunc ) )
+				{
 					// Create our Argument list
-					PyObject *p_args = PyTuple_New( 3 );
-					PyTuple_SetItem(p_args, 0, PyGetCharObject(socket->player()));
-					PyTuple_SetItem(p_args, 1, args);
-					PyTuple_SetItem(p_args, 2, PyGetGumpResponse(choice));
-					PyEval_CallObject(pFunc, p_args);
-					reportPythonError(sModule);
+					PyObject* p_args = PyTuple_New( 3 );
+					PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
+					PyTuple_SetItem( p_args, 1, args );
+					PyTuple_SetItem( p_args, 2, PyGetGumpResponse( choice ) );
+					PyEval_CallObject( pFunc, p_args );
+					reportPythonError( sModule );
 				}
-			} else {
-				Console::instance()->log(LOG_ERROR, QString("Couldn't find code module %s for a gump callback.").arg(sModule));
+			}
+			else
+			{
+				Console::instance()->log( LOG_ERROR, QString( "Couldn't find code module %s for a gump callback." ).arg( sModule ) );
 			}
 		}
 

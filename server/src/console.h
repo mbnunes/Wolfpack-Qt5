@@ -42,8 +42,9 @@
 /*!
 	\brief This is an enumeration
 */
-enum enConsoleColors {
-	WPC_NORMAL = 0,
+enum enConsoleColors
+{
+	WPC_NORMAL		= 0,
 	WPC_RED,
 	WPC_GREEN,
 	WPC_YELLOW,
@@ -55,8 +56,9 @@ enum enConsoleColors {
 	\brief This is an enumeration of possible font
 		types for console output.
 */
-enum enFontType {
-	FONT_SERIF = 0,
+enum enFontType
+{
+	FONT_SERIF			= 0,
 	FONT_NOSERIF,
 	FONT_FIXEDWIDTH
 };
@@ -64,8 +66,8 @@ enum enFontType {
 /*!
 	\brief This class encapsulates all access to server console features.
 */
-class cConsole {
-
+class cConsole
+{
 private:
 	QStringList linebuffer_;
 	QString incompleteLine_;
@@ -78,7 +80,7 @@ private:
 		\params command The command to execute.
 		\params silent Should the command fail silently.
 	*/
-	bool handleCommand(const QString &command, bool silent = false);
+	bool handleCommand( const QString& command, bool silent = false );
 
 public:
 
@@ -95,7 +97,7 @@ public:
 	~cConsole();
 
 	// Send a message to the console
-	void send(const QString &sMessage);
+	void send( const QString& sMessage );
 
 	/*!
 		\brief Send a message to the console and to the logfile as well.
@@ -103,7 +105,7 @@ public:
 		\params message The message you want to log.
 		\params timestamp Should the message be timestamped.
 	*/
-	void log(UINT8 logLevel, const QString &message, bool timestamp = true);
+	void log( UINT8 logLevel, const QString& message, bool timestamp = true );
 
 	/*!
 		\brief Give the console time to start.
@@ -126,7 +128,7 @@ public:
 			\s sendFail or \s sendSkip.
 		\params title The title of the progress line.
 	*/
-	void sendProgress(const QString &title);
+	void sendProgress( const QString& title );
 
 	/*!
 		\brief End a progress line and indicate success.
@@ -149,25 +151,26 @@ public:
 			text output.
 		\params color The new textcolor.
 	*/
-	void changeColor(enConsoleColors color);
+	void changeColor( enConsoleColors color );
 
 	/*!
 		\brief Changes the console window title.
 		\params title The new console title.
 	*/
-	void setConsoleTitle(const QString &title);
+	void setConsoleTitle( const QString& title );
 
 	/*!
 		\brief Notify the console of a server state change.
 		\params newstate The new serverstate.
 	*/
-	void notifyServerState(enServerState newstate);
+	void notifyServerState( enServerState newstate );
 
 	/*!
 		\brief Returns a reference to the linebuffer
 			storing all lines sent to the console.
 	*/
-	const QStringList &linebuffer() const {
+	const QStringList& linebuffer() const
+	{
 		return linebuffer_;
 	}
 
@@ -175,7 +178,7 @@ public:
 		\brief Queue a command to the console. This is thread-safe.
 		\params command The command you want to queue.
 	*/
-	void queueCommand(const QString &command);
+	void queueCommand( const QString& command );
 
 	/*!
 		\brief This function sets the text attribute for advanced
@@ -189,7 +192,7 @@ public:
 		\params size The size of the text.
 		\params font The font used to draw the text.
 	*/
-	void setAttributes(bool bold, bool italic, bool underlined, unsigned char r, unsigned char g, unsigned char b, unsigned char size, enFontType font);
+	void setAttributes( bool bold, bool italic, bool underlined, unsigned char r, unsigned char g, unsigned char b, unsigned char size, enFontType font );
 };
 
 typedef SingletonHolder<cConsole> Console;

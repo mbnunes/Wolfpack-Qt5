@@ -41,11 +41,13 @@
 // Forward Declaration
 class cUOSocket;
 
-struct stSkill {
+struct stSkill
+{
 	QString name, defname, title;
 };
 
-class cSkills {
+class cSkills
+{
 private:
 	QStringList skillRanks;
 	QValueVector<stSkill> skills;
@@ -53,19 +55,22 @@ public:
 	// Skill management methods
 	void load();
 	void unload();
-	void reload() { unload(); load(); }
+	void reload()
+	{
+		unload(); load();
+	}
 	QString getSkillTitle( P_CHAR pChar ) const;
-	const QString &getSkillName( UINT16 skill ) const;
-	const QString &getSkillDef( UINT16 skill ) const;
-	INT16 findSkillByDef( const QString &defname ) const; // -1 = Not Found
+	const QString& getSkillName( UINT16 skill ) const;
+	const QString& getSkillDef( UINT16 skill ) const;
+	INT16 findSkillByDef( const QString& defname ) const; // -1 = Not Found
 
 	// Skill Usage methods
-	void Meditation(cUOSocket* s);
+	void Meditation( cUOSocket* s );
 
 	static void RandomSteal( cUOSocket*, SERIAL );
-	void Track(P_CHAR pc_i);
+	void Track( P_CHAR pc_i );
 	void SkillUse( cUOSocket*, UINT16 );
-	void Snooping(P_PLAYER, P_ITEM);
+	void Snooping( P_PLAYER, P_ITEM );
 };
 
 typedef SingletonHolder<cSkills> Skills;

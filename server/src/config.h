@@ -63,10 +63,11 @@ struct ServerList_st
 // Constants
 const unsigned int FIRST_YEAR = 1970;
 
-class cConfig : public Preferences, public cComponent {
+class cConfig : public Preferences, public cComponent
+{
 protected:
-	QString getGroupDoc(const QString &group);
-	QString getEntryDoc(const QString &group, const QString &entry);
+	QString getGroupDoc( const QString& group );
+	QString getEntryDoc( const QString& group, const QString& entry );
 
 	std::vector<ServerList_st> serverList_;
 	std::vector<StartLocation_st> startLocation_;
@@ -88,7 +89,6 @@ protected:
 	bool guardsActive_;
 	bool saveSpawns_;
 	bool autoAccountCreate_;
-	float checkItemTime_;
 	float checkNPCTime_;
 	float checkFollowTime_;
 	float checkTamedTime_;
@@ -196,11 +196,10 @@ public:
 	unsigned int statsAdvanceModifier() const;
 	bool stealingEnabled() const;
 	bool guardsActive() const;
-	void guardsActive(bool);
+	void guardsActive( bool );
 	unsigned short objectDelay() const;
 	bool autoAccountCreate() const;
 	bool saveSpawns() const;
-	float checkItemTime() const;
 	float checkNPCTime() const;
 	float checkAITime() const;
 	unsigned int animalWildFleeRange() const;
@@ -380,11 +379,6 @@ inline bool cConfig::autoAccountCreate() const
 inline bool cConfig::saveSpawns() const
 {
 	return saveSpawns_;
-}
-
-inline float cConfig::checkItemTime() const
-{
-	return checkItemTime_;
 }
 
 inline float cConfig::checkNPCTime() const
@@ -707,15 +701,18 @@ inline unsigned int cConfig::guardDispelTime() const
 	return guardDispelTime_;
 }
 
-inline bool cConfig::hashAccountPasswords() const {
+inline bool cConfig::hashAccountPasswords() const
+{
 	return hashAccountPasswords_;
 }
 
-inline bool cConfig::convertUnhashedPasswords() const {
+inline bool cConfig::convertUnhashedPasswords() const
+{
 	return convertUnhashedPasswords_;
 }
 
-inline bool cConfig::overwriteDefinitions() const {
+inline bool cConfig::overwriteDefinitions() const
+{
 	return overwriteDefinitions_;
 }
 

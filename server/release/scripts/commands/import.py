@@ -316,7 +316,6 @@ def parseWsc( file, map ):
 			newitem.color = color
 			newitem.id = id
 			newitem.amount = amount
-			newitem.type = type
 			if name != "#":
 				newitem.name = name
 			newposition = "%i,%i,%i,%i" % (x, y, z, map)

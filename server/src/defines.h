@@ -70,8 +70,9 @@
 #define VERFILE_ANIMDATA 0x1F
 
 // List of skill numbers (For later implementation)
-enum eSkills {
-	ALCHEMY = 0,
+enum eSkills
+{
+	ALCHEMY				= 0,
 	ANATOMY,
 	ANIMALLORE,
 	ITEMID,

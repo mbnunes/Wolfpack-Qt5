@@ -26,10 +26,11 @@
  */
 
 // Library Includes
-#include "qstring.h"
+#include <qstring.h>
 
 // Wolfpack Includes
 #include "sectors.h"
+#include "timing.h"
 #include "uobject.h"
 #include "console.h"
 
@@ -57,18 +58,23 @@ cSectorMap::cSectorMap()
 	gridWidth_ = 0;
 }
 
-cSectorMap::~cSectorMap() {
-	for (unsigned int i = 0; i < gridHeight_ * gridWidth_; ++i) {
-		if (grid[i]) {
-			if (grid[i]->data) {
-				free(grid[i]->data);
+cSectorMap::~cSectorMap()
+{
+	for ( unsigned int i = 0; i < gridHeight_*gridWidth_; ++i )
+	{
+		if ( grid[i] )
+		{
+			if ( grid[i]->data )
+			{
+				free( grid[i]->data );
 			}
 			delete grid[i];
 		}
 	}
 
-	if (grid) {
-		free(grid);
+	if ( grid )
+	{
+		free( grid );
 	}
 }
 
@@ -89,26 +95,26 @@ unsigned int cSectorMap::calcBlockId( unsigned int x, unsigned int y )
 
 bool cSectorMap::init( unsigned int width, unsigned int height )
 {
-	if( width == 0 || height == 0 )
+	if ( width == 0 || height == 0 )
 	{
 		Console::instance()->log( LOG_ERROR, QString( "Invalid Sectormap boundaries (Width: %1, Height: %2)." ).arg( width ).arg( height ) );
 		return false;
 	}
 
-	gridHeight_ = (unsigned int)ceil( (double)height / (double)SECTOR_SIZE );
-	gridWidth_ = (unsigned int)ceil( (double)width / (double)SECTOR_SIZE );
+	gridHeight_ = ( unsigned int ) ceil( ( double ) height / ( double ) SECTOR_SIZE );
+	gridWidth_ = ( unsigned int ) ceil( ( double ) width / ( double ) SECTOR_SIZE );
 
-	grid = (stSector**)malloc( gridHeight_ * gridWidth_ * sizeof( stSector* ) );
-	memset( grid, 0, sizeof( stSector* ) * gridHeight_ * gridWidth_ );
+	grid = ( stSector * * ) malloc( gridHeight_ * gridWidth_ * sizeof( stSector * ) );
+	memset( grid, 0, sizeof( stSector * ) * gridHeight_ * gridWidth_ );
 	return true;
 }
 
-bool cSectorMap::addItem( cUObject *object )
+bool cSectorMap::addItem( cUObject* object )
 {
 	unsigned short x = object->pos().x;
 	unsigned short y = object->pos().y;
 
-	if( x >= gridWidth_ * SECTOR_SIZE || y >= gridHeight_ * SECTOR_SIZE )
+	if ( x >= gridWidth_ * SECTOR_SIZE || y >= gridHeight_ * SECTOR_SIZE )
 	{
 		error_ = "X or Y is out of the grid boundaries.";
 		return false;
@@ -117,36 +123,36 @@ bool cSectorMap::addItem( cUObject *object )
 	// Calculate the block id
 	unsigned int block = calcBlockId( x, y );
 
-	if( !grid[block] )
+	if ( !grid[block] )
 	{
 		grid[block] = new stSector;
 		grid[block]->count = 1;
-		grid[block]->data = (cUObject**)malloc( sizeof( cUObject* ) );
+		grid[block]->data = ( cUObject * * ) malloc( sizeof( cUObject * ) );
 		grid[block]->data[0] = object;
 	}
 	else
 	{
 		// Check if the item is already inside of our array
 		unsigned int i;
-		for( i = 0; i < grid[block]->count; ++i )
-			if( grid[block]->data[i] == object )
+		for ( i = 0; i < grid[block]->count; ++i )
+			if ( grid[block]->data[i] == object )
 				return true;
 
 		// Append our item to the array
 		grid[block]->count++;
-		grid[block]->data = (cUObject**)realloc( grid[block]->data, grid[block]->count * sizeof( cUObject* ) );
-		grid[block]->data[ grid[block]->count - 1 ] = object;
+		grid[block]->data = ( cUObject * * ) realloc( grid[block]->data, grid[block]->count * sizeof( cUObject * ) );
+		grid[block]->data[grid[block]->count - 1] = object;
 	}
 
 	return true;
 }
 
-bool cSectorMap::removeItem( cUObject *object )
+bool cSectorMap::removeItem( cUObject* object )
 {
 	unsigned short x = object->pos().x;
 	unsigned short y = object->pos().y;
 
-	if( x >= gridWidth_ * SECTOR_SIZE || y >= gridHeight_ * SECTOR_SIZE )
+	if ( x >= gridWidth_ * SECTOR_SIZE || y >= gridHeight_ * SECTOR_SIZE )
 	{
 		error_ = "X or Y is out of the grid boundaries.";
 		return false;
@@ -155,33 +161,33 @@ bool cSectorMap::removeItem( cUObject *object )
 	unsigned int block = calcBlockId( x, y );
 
 	// Seems like the item is already gone
-	if( !grid[block] )
+	if ( !grid[block] )
 		return true;
 
 
 	// Remove the Item from the array (most complicated part of the code)
-	for( unsigned int i = 0; i < grid[block]->count; ++i )
+	for ( unsigned int i = 0; i < grid[block]->count; ++i )
 	{
-		if( grid[block]->data[i] == object )
+		if ( grid[block]->data[i] == object )
 		{
 			// We found our object. Create a new array and copy the rest over
-			cUObject **newData = (cUObject**)malloc( ( grid[block]->count - 1 ) * sizeof( cUObject* ) );
+			cUObject** newData = ( cUObject** ) malloc( ( grid[block]->count - 1 ) * sizeof( cUObject* ) );
 
 			unsigned int offset = 0;
 			unsigned int j;
 
 			// MemCpy is nice 'n all but we're too stupid to use it
 			// Copy the old elements over
-			for( j = 0; j < grid[block]->count; ++j )
+			for ( j = 0; j < grid[block]->count; ++j )
 			{
-				if( j == i )
+				if ( j == i )
 					continue;
 
 				newData[offset++] = grid[block]->data[j];
 			}
 
 			/*memcpy( newData, grid[block]->data, sizeof( cUObject* ) * i );
-			memcpy( newData + ( i * sizeof( cUObject* ) ), grid[block]->data + sizeof( cUObject* ) * ( i + 1 ), QMAX( 0, sizeof( cUObject* ) * ( grid[block]->count - ( i + 1 ) ) ) );*/
+					memcpy( newData + ( i * sizeof( cUObject* ) ), grid[block]->data + sizeof( cUObject* ) * ( i + 1 ), QMAX( 0, sizeof( cUObject* ) * ( grid[block]->count - ( i + 1 ) ) ) );*/
 
 			free( grid[block]->data );
 			grid[block]->data = newData;
@@ -191,7 +197,7 @@ bool cSectorMap::removeItem( cUObject *object )
 	}
 
 	// Check if the block can be freed
-	if( !grid[block]->count )
+	if ( !grid[block]->count )
 	{
 		free( grid[block]->data );
 		delete grid[block];
@@ -204,26 +210,26 @@ bool cSectorMap::removeItem( cUObject *object )
 unsigned int cSectorMap::countItems( unsigned int block )
 {
 	// Not in our reach
-	if( block >= gridWidth_ * gridHeight_ )
+	if ( block >= gridWidth_ * gridHeight_ )
 		return 0;
 
 	// The block could've been empty
-	if( !grid[block] )
+	if ( !grid[block] )
 		return 0;
 	else
 		return grid[block]->count;
 }
 
-unsigned int cSectorMap::getItems( unsigned int block, cUObject **items )
+unsigned int cSectorMap::getItems( unsigned int block, cUObject** items )
 {
 	// Not in our reach
-	if( block >= gridWidth_ * gridHeight_ )
+	if ( block >= gridWidth_ * gridHeight_ )
 		return 0;
 
 	// Only copy items over if there *are* any items*
-	if( grid[block] )
+	if ( grid[block] )
 	{
-		memcpy( items, grid[block]->data, sizeof( cUObject* ) * grid[block]->count );
+		memcpy( items, grid[block]->data, sizeof( cUObject * ) * grid[block]->count );
 		return grid[block]->count;
 	}
 
@@ -234,7 +240,7 @@ unsigned int cSectorMap::getItems( unsigned int block, cUObject **items )
  * cSectorIterator
  */
 
-cSectorIterator::cSectorIterator( unsigned int count, cUObject **items )
+cSectorIterator::cSectorIterator( unsigned int count, cUObject** items )
 {
 	this->items = items;
 	this->count = count;
@@ -257,10 +263,10 @@ P_ITEM cItemSectorIterator::first()
 
 P_ITEM cItemSectorIterator::next()
 {
-	if( this->pos >= this->count )
+	if ( this->pos >= this->count )
 		return 0;
 
-	return static_cast< cItem* >( this->items[ this->pos++ ] );
+	return static_cast<cItem*>( this->items[this->pos++] );
 }
 
 /*
@@ -274,10 +280,10 @@ P_CHAR cCharSectorIterator::first()
 
 P_CHAR cCharSectorIterator::next()
 {
-	if( this->pos >= this->count )
+	if ( this->pos >= this->count )
 		return 0;
 
-	return static_cast< cBaseChar* >( this->items[ this->pos++ ] );
+	return static_cast<cBaseChar*>( this->items[this->pos++] );
 }
 
 /*
@@ -288,48 +294,55 @@ cSectorMaps::cSectorMaps()
 {
 }
 
-cSectorMaps::~cSectorMaps() {
+cSectorMaps::~cSectorMaps()
+{
 }
 
-void cSectorMaps::load() {
+void cSectorMaps::load()
+{
 	addMap( 0, 6144, 4096 );
 	addMap( 1, 6144, 4096 );
 	addMap( 2, 2304, 1600 );
 	addMap( 3, 2560, 2048 );
-	
+
 	cComponent::load();
 }
 
-void cSectorMaps::unload() {
+void cSectorMaps::unload()
+{
 	std::map<unsigned char, cSectorMap*>::iterator it;
 
-	for (it = itemmaps.begin(); it != itemmaps.end(); ++it) {
+	for ( it = itemmaps.begin(); it != itemmaps.end(); ++it )
+	{
 		delete it->second;
 	}
 
-	for (it = charmaps.begin(); it != charmaps.end(); ++it) {
+	for ( it = charmaps.begin(); it != charmaps.end(); ++it )
+	{
 		delete it->second;
 	}
 
 	cComponent::unload();
 }
 
-void cSectorMaps::reload() {
+void cSectorMaps::reload()
+{
 }
 
-void cSectorMaps::addMap(unsigned char map, unsigned int width, unsigned int height) {
+void cSectorMaps::addMap( unsigned char map, unsigned int width, unsigned int height )
+{
 	// Create a map in the Char and in the Item map
-	cSectorMap *itemmap = new cSectorMap;
+	cSectorMap* itemmap = new cSectorMap;
 
-	if( !itemmap->init( width, height ) )
+	if ( !itemmap->init( width, height ) )
 	{
 		delete itemmap;
 		throw wpException( QString( itemmap->error() ) );
 	}
 
-	cSectorMap *charmap = new cSectorMap;
+	cSectorMap* charmap = new cSectorMap;
 
-	if( !charmap->init( width, height ) )
+	if ( !charmap->init( width, height ) )
 	{
 		delete charmap;
 		delete itemmap;
@@ -340,111 +353,113 @@ void cSectorMaps::addMap(unsigned char map, unsigned int width, unsigned int hei
 	itemmaps.insert( std::make_pair( map, itemmap ) );
 }
 
-void cSectorMaps::add( cUObject *object )
+void cSectorMaps::add( cUObject* object )
 {
 	// Very powerful statement. It completely
 	// annihilates the need to check for
 	// nullpointers in our object-map
-	if( !object )
+	if ( !object )
 		return;
 
-	if( isItemSerial( object->serial() ) )
+	if ( isItemSerial( object->serial() ) )
 	{
-		P_ITEM pItem = dynamic_cast< P_ITEM >( object );
-		if( pItem )
+		P_ITEM pItem = dynamic_cast<P_ITEM>( object );
+		if ( pItem )
 		{
 			Coord_cl pos = pItem->pos();
 
-			std::map< unsigned char, cSectorMap* >::const_iterator it = itemmaps.find( pos.map );
+			std::map<unsigned char, cSectorMap*>::const_iterator it = itemmaps.find( pos.map );
 
-			if( it == itemmaps.end() )
+			if ( it == itemmaps.end() )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
 
-			it->second->addItem((cUObject*)pItem);
+			it->second->addItem( ( cUObject * ) pItem );
 
-			pItem->startDecay();
+			Timing::instance()->addDecayItem(pItem);
 		}
 	}
-	else if( isCharSerial( object->serial() ) )
+	else if ( isCharSerial( object->serial() ) )
 	{
 		// This is a safety check to make sure that
 		// stabled pets don't appear on our sectormap
-		P_NPC npc = dynamic_cast<P_NPC>(object);
+		P_NPC npc = dynamic_cast<P_NPC>( object );
 
-		if (npc && npc->stablemasterSerial() != INVALID_SERIAL) {
-            return;
-		}
-
-		// The same check for players
-		P_PLAYER player = dynamic_cast<P_PLAYER>(object);
-
-		if (player && !player->socket() && !player->logoutTime()) {
+		if ( npc && npc->stablemasterSerial() != INVALID_SERIAL )
+		{
 			return;
 		}
 
-		P_CHAR pChar = dynamic_cast< P_CHAR >( object );
-		if( pChar )
+		// The same check for players
+		P_PLAYER player = dynamic_cast<P_PLAYER>( object );
+
+		if ( player && !player->socket() && !player->logoutTime() )
+		{
+			return;
+		}
+
+		P_CHAR pChar = dynamic_cast<P_CHAR>( object );
+		if ( pChar )
 		{
 			Coord_cl pos = pChar->pos();
 
-			std::map< unsigned char, cSectorMap* >::const_iterator it = charmaps.find( pos.map );
+			std::map<unsigned char, cSectorMap*>::const_iterator it = charmaps.find( pos.map );
 
-			if( it == charmaps.end() )
+			if ( it == charmaps.end() )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
 
-			it->second->addItem((cUObject*)pChar);
+			it->second->addItem( ( cUObject * ) pChar );
 		}
 	}
 }
 
-void cSectorMaps::remove( cUObject *object )
+void cSectorMaps::remove( cUObject* object )
 {
 	// Very powerful statement. It completely
 	// annihilates the need to check for
 	// nullpointers in our object-map
-	if( !object )
+	if ( !object )
 		return;
 
-	if( isItemSerial( object->serial() ) )
+	if ( isItemSerial( object->serial() ) )
 	{
-		P_ITEM pItem = dynamic_cast< P_ITEM >( object );
+		P_ITEM pItem = dynamic_cast<P_ITEM>( object );
 
-		if( pItem )
+		if ( pItem )
 		{
 			Coord_cl pos = pItem->pos();
 
-			std::map< unsigned char, cSectorMap* >::const_iterator it = itemmaps.find( pos.map );
+			std::map<unsigned char, cSectorMap*>::const_iterator it = itemmaps.find( pos.map );
 
-			if( it == itemmaps.end() )
+			if ( it == itemmaps.end() )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
 
-			it->second->removeItem( (cUObject*)pItem );
-			pItem->setDecayTime( 0 ); // Reset Decay Time
+			it->second->removeItem( ( cUObject * ) pItem );
+			Timing::instance()->removeDecayItem(pItem);
 		}
 	}
-	else if( isCharSerial( object->serial() ) )
+	else if ( isCharSerial( object->serial() ) )
 	{
-		P_CHAR pChar = dynamic_cast< P_CHAR >( object );
-		if( pChar )
+		P_CHAR pChar = dynamic_cast<P_CHAR>( object );
+		if ( pChar )
 		{
 			Coord_cl pos = pChar->pos();
 
-			std::map< unsigned char, cSectorMap* >::const_iterator it = charmaps.find( pos.map );
+			std::map<unsigned char, cSectorMap*>::const_iterator it = charmaps.find( pos.map );
 
-			if( it == charmaps.end() )
+			if ( it == charmaps.end() )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
 
-			it->second->removeItem( (cUObject*)pChar );
+			it->second->removeItem( ( cUObject * ) pChar );
 		}
 	}
 }
 
-cSectorIterator *cSectorMaps::findObjects( MapType type, cSectorMap *sector, int x1, int y1, int x2, int y2 )
+cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, int x1, int y1, int x2, int y2 )
 {
-	x1 = QMAX(0, x1);
-	x2 = QMAX(0, x2);
-	y1 = QMAX(0, y1);
-	y2 = QMAX(0, y2);
+	x1 = QMAX( 0, x1 );
+	x2 = QMAX( 0, x2 );
+	y1 = QMAX( 0, y1 );
+	y2 = QMAX( 0, y2 );
 
 	// First step: count how many items we are going to hold
 	unsigned int count = 0;
@@ -453,36 +468,36 @@ cSectorIterator *cSectorMaps::findObjects( MapType type, cSectorMap *sector, int
 
 	if ( x1 > x2 )
 	{
-		std::swap(x1, x2);
-		std::swap(y1, y2);
+		std::swap( x1, x2 );
+		std::swap( y1, y2 );
 	}
 
 
-	for( xBlock = x1 / SECTOR_SIZE; xBlock <= x2 / SECTOR_SIZE; xBlock++ )
-		for( yBlock = y1 / SECTOR_SIZE; yBlock <= y2 / SECTOR_SIZE; yBlock++ )
+	for ( xBlock = x1 / SECTOR_SIZE; xBlock <= x2 / SECTOR_SIZE; xBlock++ )
+		for ( yBlock = y1 / SECTOR_SIZE; yBlock <= y2 / SECTOR_SIZE; yBlock++ )
 			count += sector->countItems( ( xBlock * sector->gridHeight() ) + yBlock );
 
 	// Second step: actually "compile" our list of items
-	cUObject **items = (cUObject**)malloc( count * sizeof( cUObject* ) );
+	cUObject** items = ( cUObject** ) malloc( count * sizeof( cUObject* ) );
 	unsigned int offset = 0;
 
-	for( xBlock = x1 / SECTOR_SIZE; xBlock <= x2 / SECTOR_SIZE; xBlock++ )
-		for( yBlock = y1 / SECTOR_SIZE; yBlock <= y2 / SECTOR_SIZE; yBlock++ )
+	for ( xBlock = x1 / SECTOR_SIZE; xBlock <= x2 / SECTOR_SIZE; xBlock++ )
+		for ( yBlock = y1 / SECTOR_SIZE; yBlock <= y2 / SECTOR_SIZE; yBlock++ )
 		{
 			// We *do* know that we allocated more memory than we need, but the effect is minimal!
 			unsigned int block = ( xBlock * sector->gridHeight() ) + yBlock;
 
-			if( block >= sector->gridWidth() * sector->gridHeight() )
-					continue;
+			if ( block >= sector->gridWidth() * sector->gridHeight() )
+				continue;
 
-			if( sector->grid[ block ] )
+			if ( sector->grid[block] )
 			{
-				for( unsigned int i = 0; i < sector->grid[ block ]->count; ++i )
+				for ( unsigned int i = 0; i < sector->grid[block]->count; ++i )
 				{
-					cUObject *object = sector->grid[ block ]->data[ i ];
+					cUObject* object = sector->grid[block]->data[i];
 
-					if( object->pos().x >= x1 && object->pos().y >= y1 && object->pos().x <= x2 && object->pos().y <= y2 )
-						items[ offset++ ] = object;
+					if ( object->pos().x >= x1 && object->pos().y >= y1 && object->pos().x <= x2 && object->pos().y <= y2 )
+						items[offset++] = object;
 				}
 			}
 		}
@@ -494,7 +509,7 @@ cSectorIterator *cSectorMaps::findObjects( MapType type, cSectorMap *sector, int
 		for the list.
 	*/
 
-	switch( type )
+	switch ( type )
 	{
 	case MT_ITEMS:
 		return new cItemSectorIterator( offset, items );
@@ -508,21 +523,21 @@ cSectorIterator *cSectorMaps::findObjects( MapType type, cSectorMap *sector, int
 }
 
 // Find items in a specific block
-cSectorIterator *cSectorMaps::findObjects( MapType type, cSectorMap *sector, int x, int y )
+cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, int x, int y )
 {
-	x = QMAX(0, x);
-	y = QMAX(0, y);
+	x = QMAX( 0, x );
+	y = QMAX( 0, y );
 
 	unsigned int block = sector->calcBlockId( x, y );
 	unsigned int count = sector->countItems( block );
 
-	if( !count )
+	if ( !count )
 		return new cSectorIterator( 0, 0 );
 
-	cUObject **items = (cUObject**)malloc( sizeof( cUObject* ) * count );
+	cUObject** items = ( cUObject** ) malloc( sizeof( cUObject* ) * count );
 	count = sector->getItems( block, items );
 
-	switch( type )
+	switch ( type )
 	{
 	case MT_ITEMS:
 		return new cItemSectorIterator( count, items );
@@ -536,88 +551,92 @@ cSectorIterator *cSectorMaps::findObjects( MapType type, cSectorMap *sector, int
 }
 
 // Object specific find methods
-cItemSectorIterator *cSectorMaps::findItems( const Coord_cl &center, unsigned char distance )
+cItemSectorIterator* cSectorMaps::findItems( const Coord_cl& center, unsigned char distance )
 {
-	return findItems( center.map, (int)center.x - (int)distance, (int)center.y - (int)distance, (int)center.x + distance, (int)center.y + distance);
+	return findItems( center.map, ( int ) center.x - ( int ) distance, ( int ) center.y - ( int ) distance, ( int ) center.x + distance, ( int ) center.y + distance );
 }
 
-cCharSectorIterator *cSectorMaps::findChars( const Coord_cl &center, unsigned char distance )
+cCharSectorIterator* cSectorMaps::findChars( const Coord_cl& center, unsigned char distance )
 {
-	return findChars( center.map, (int)center.x - distance, (int)center.y - distance, center.x + distance, center.y + distance );
+	return findChars( center.map, ( int ) center.x - distance, ( int ) center.y - distance, center.x + distance, center.y + distance );
 }
 
-cItemSectorIterator *cSectorMaps::findItems( unsigned char map, int x, int y )
+cItemSectorIterator* cSectorMaps::findItems( unsigned char map, int x, int y )
 {
-	x = QMAX(0, x);
-	y = QMAX(0, y);
+	x = QMAX( 0, x );
+	y = QMAX( 0, y );
 
-	std::map< unsigned char, cSectorMap* >::const_iterator it = itemmaps.find( map );
+	std::map<unsigned char, cSectorMap*>::const_iterator it = itemmaps.find( map );
 
-	if( it == itemmaps.end() )
+	if ( it == itemmaps.end() )
 	{
 		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findItems)" ).arg( map ) );
 		return new cItemSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
-	return static_cast< cItemSectorIterator* >( findObjects( MT_ITEMS, it->second, x, y ) );
+	return static_cast<cItemSectorIterator*>( findObjects( MT_ITEMS, it->second, x, y ) );
 }
 
-cCharSectorIterator *cSectorMaps::findChars( unsigned char map, int x, int y )
+cCharSectorIterator* cSectorMaps::findChars( unsigned char map, int x, int y )
 {
-	x = QMAX(0, x);
-	y = QMAX(0, y);
+	x = QMAX( 0, x );
+	y = QMAX( 0, y );
 
-	std::map< unsigned char, cSectorMap* >::const_iterator it = charmaps.find( map );
+	std::map<unsigned char, cSectorMap*>::const_iterator it = charmaps.find( map );
 
-	if( it == charmaps.end() )
+	if ( it == charmaps.end() )
 	{
 		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findChars)" ).arg( map ) );
 		return new cCharSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
-	return static_cast< cCharSectorIterator* >( findObjects( MT_CHARS, it->second, x, y ) );
+	return static_cast<cCharSectorIterator*>( findObjects( MT_CHARS, it->second, x, y ) );
 }
 
-cItemSectorIterator *cSectorMaps::findItems( unsigned char map, int x1, int y1, int x2, int y2 )
+cItemSectorIterator* cSectorMaps::findItems( unsigned char map, int x1, int y1, int x2, int y2 )
 {
-	x1 = QMAX(0, x1);
-	y1 = QMAX(0, y1);
-	x2 = QMAX(0, x2);
-	y2 = QMAX(0, y2);
+	x1 = QMAX( 0, x1 );
+	y1 = QMAX( 0, y1 );
+	x2 = QMAX( 0, x2 );
+	y2 = QMAX( 0, y2 );
 
-	std::map< unsigned char, cSectorMap* >::const_iterator it = itemmaps.find( map );
+	std::map<unsigned char, cSectorMap*>::const_iterator it = itemmaps.find( map );
 
-	if( it == itemmaps.end() )
+	if ( it == itemmaps.end() )
 	{
 		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findItems)" ).arg( map ) );
 		return new cItemSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
-	return static_cast< cItemSectorIterator* >( findObjects( MT_ITEMS, it->second, x1, y1, x2, y2 ) );
+	return static_cast<cItemSectorIterator*>( findObjects( MT_ITEMS, it->second, x1, y1, x2, y2 ) );
 }
 
-cCharSectorIterator *cSectorMaps::findChars( unsigned char map, int x1, int y1, int x2, int y2 )
+cCharSectorIterator* cSectorMaps::findChars( unsigned char map, int x1, int y1, int x2, int y2 )
 {
-	x1 = QMAX(0, x1);
-	y1 = QMAX(0, y1);
-	x2 = QMAX(0, x2);
-	y2 = QMAX(0, y2);
+	x1 = QMAX( 0, x1 );
+	y1 = QMAX( 0, y1 );
+	x2 = QMAX( 0, x2 );
+	y2 = QMAX( 0, y2 );
 
-	std::map< unsigned char, cSectorMap* >::const_iterator it = charmaps.find( map );
+	std::map<unsigned char, cSectorMap*>::const_iterator it = charmaps.find( map );
 
-	if( it == charmaps.end() )
+	if ( it == charmaps.end() )
 	{
 		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findChars)" ).arg( map ) );
 		return new cCharSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
-	return static_cast< cCharSectorIterator* >( findObjects( MT_CHARS, it->second, x1, y1, x2, y2 ) );
+	return static_cast<cCharSectorIterator*>( findObjects( MT_CHARS, it->second, x1, y1, x2, y2 ) );
 }
 
-bool cSectorMaps::validMap(unsigned char map) {
-	if (charmaps.find(map) != charmaps.end() && itemmaps.find(map) != itemmaps.end()) {
+bool cSectorMaps::validMap( unsigned char map )
+{
+	if ( charmaps.find( map ) != charmaps.end() && itemmaps.find( map ) != itemmaps.end() )
+	{
 		return true;
-	} else {
+	}
+	else
+	{
 		return false;
 	}
 }
@@ -625,7 +644,7 @@ bool cSectorMaps::validMap(unsigned char map) {
 /*
  * Old Region Iterators
  */
-RegionIterator4Chars::RegionIterator4Chars( const Coord_cl &pos, unsigned int distance )
+RegionIterator4Chars::RegionIterator4Chars( const Coord_cl& pos, unsigned int distance )
 {
 	iter = SectorMaps::instance()->findChars( pos, distance );
 }
@@ -647,10 +666,10 @@ bool RegionIterator4Chars::atEnd( void ) const
 
 P_CHAR RegionIterator4Chars::GetData( void )
 {
-	if( iter->pos >= iter->count )
+	if ( iter->pos >= iter->count )
 		return 0;
 	else
-		return static_cast< cBaseChar* >( iter->items[ iter->pos ] );
+		return static_cast<cBaseChar*>( iter->items[iter->pos] );
 }
 
 RegionIterator4Chars& RegionIterator4Chars::operator ++( int )
@@ -663,7 +682,7 @@ RegionIterator4Chars& RegionIterator4Chars::operator ++( int )
  *	RegionIterator4Items
  *  A wrapper class around the new implementation.
  */
-RegionIterator4Items::RegionIterator4Items( const Coord_cl &pos, unsigned int distance )
+RegionIterator4Items::RegionIterator4Items( const Coord_cl& pos, unsigned int distance )
 {
 	iter = SectorMaps::instance()->findItems( pos, distance );
 }
@@ -685,10 +704,10 @@ bool RegionIterator4Items::atEnd( void ) const
 
 P_ITEM RegionIterator4Items::GetData( void )
 {
-	if( iter->pos >= iter->count )
+	if ( iter->pos >= iter->count )
 		return 0;
 	else
-		return static_cast< cItem* >( iter->items[ iter->pos ] );
+		return static_cast<cItem*>( iter->items[iter->pos] );
 }
 
 RegionIterator4Items& RegionIterator4Items::operator++( int )

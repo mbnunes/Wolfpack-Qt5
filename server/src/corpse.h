@@ -40,74 +40,83 @@
 // Forward declarations
 class cUOSocket;
 
-class cCorpse: public cItem
+class cCorpse : public cItem
 {
 private:
-	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
+	bool changed_;
 
-private:
+protected:
 	UINT16 bodyId_; // Body id of the corpse
 	UINT16 hairStyle_; // Style of the hair
 	UINT16 hairColor_; // Color of the hair
 	UINT16 beardStyle_; // Beardstyle
 	UINT16 beardColor_; // Color of the beard
+	unsigned char direction_; // Direction the corpse is facing.
 	uint murdertime_; // When the people has been killed
-	bool changed_;
+	SERIAL murderer_; // Who was the murderer	
+	QCString charbaseid_;
 
-	QString carve_;
-	QString murderer_;
-	std::map< UINT8, SERIAL > equipment_; // Serials of the old equipment
+	std::map<UINT8, SERIAL> equipment_; // Serials of the old equipment
 	// The meaning of this is that even if the items are inside of the corpse
 	// they're displayed as equipment
 public:
-	cCorpse( bool init = false );
+	cCorpse(bool init = false);
+	void setBodyId(UINT16 data);
+	void setHairStyle(UINT16 data);
+	void setHairColor(UINT16 data);
+	void setBeardStyle(UINT16 data);
+	void setBeardColor(UINT16 data);
+	void setMurderer(SERIAL data);
+	void setMurderTime(uint data);
 
-	void setBodyId( UINT16 data );
-	void setHairStyle( UINT16 data );
-	void setHairColor( UINT16 data );
-	void setBeardStyle( UINT16 data );
-	void setBeardColor( UINT16 data );
-	void setMurderer( const QString& data );
-	void setMurderTime( uint data );
-	void setCarve( const QString& data );
-	bool corpse() const { return true; }
+	void setDirection(unsigned char data);
+	void setCharBaseid(const QCString &data);
+	bool corpse() const
+	{
+		return true;
+	}
+
+	unsigned int decayDelay();
 
 	UINT16 bodyId() const;
 	UINT16 hairStyle() const;
 	UINT16 hairColor() const;
 	UINT16 beardStyle() const;
 	UINT16 beardColor() const;
-	QString carve() const { return carve_; }
-	// If it's a corpse, this holds the name of the murderer
-	QString murderer() const { return murderer_; }
-	uint murdertime() const { return murdertime_; }
-
-
+	unsigned char direction() const;
+	const QCString &charBaseid() const;
+	SERIAL murderer() const;
+	unsigned int murderTime() const;
+    
 	void addEquipment( UINT8 layer, SERIAL serial );
-	SERIAL getEquipment(UINT8 layer);
+	SERIAL getEquipment( UINT8 layer );
 
-	const char *objectID() const
+	const char* objectID() const
 	{
 		return "cCorpse";
 	}
 
-	virtual void flagUnchanged() { cCorpse::changed_ = false; cItem::flagUnchanged();	}
+	virtual void flagUnchanged()
+	{
+		cCorpse::changed_ = false; cItem::flagUnchanged();
+	}
 
 	// DB Serialization
 	static void registerInFactory();
-	void load( char **, UINT16& );
+	void load( char**, UINT16& );
 	void save();
 	bool del();
 
 	// abstract cDefinable
-	virtual void processNode( const cElement *Tag );
+	virtual void processNode( const cElement* Tag );
 
 	// override update
-	virtual void update( cUOSocket *mSock = 0 );
+	virtual void update( cUOSocket* mSock = 0 );
 
-	virtual stError *setProperty( const QString &name, const cVariant &value );
-	virtual stError *getProperty( const QString &name, cVariant &value );
-	void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
+	virtual stError* setProperty( const QString& name, const cVariant& value );
+	virtual stError* getProperty( const QString& name, cVariant& value );
+	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 };
 
 // Inline members
@@ -136,7 +145,7 @@ inline void cCorpse::setBeardColor( UINT16 data )
 	beardColor_ = data; changed_ = true;
 }
 
-inline void cCorpse::setMurderer( const QString& data )
+inline void cCorpse::setMurderer( SERIAL data )
 {
 	murderer_ = data; changed_ = true;
 }
@@ -146,9 +155,14 @@ inline void cCorpse::setMurderTime( uint data )
 	murdertime_ = data; changed_ = true;
 }
 
-inline void cCorpse::setCarve( const QString& data )
+inline void cCorpse::setDirection(unsigned char data)
 {
-	carve_ = data; changed_ = true;
+	direction_ = data;
+}
+
+inline void cCorpse::setCharBaseid(const QCString &baseid)
+{
+	charbaseid_ = baseid;
 }
 
 inline UINT16 cCorpse::bodyId() const
@@ -174,6 +188,26 @@ inline UINT16 cCorpse::beardStyle() const
 inline UINT16 cCorpse::beardColor() const
 {
 	return beardColor_;
+}
+
+inline const QCString &cCorpse::charBaseid() const 
+{
+	return charbaseid_;
+}
+
+inline unsigned char cCorpse::direction() const
+{
+	return direction_;
+}
+
+inline SERIAL cCorpse::murderer() const
+{
+	return murderer_;
+}
+
+inline unsigned int cCorpse::murderTime() const
+{
+	return murdertime_;
 }
 
 #endif // __CORPSE_H__

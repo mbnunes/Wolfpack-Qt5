@@ -44,34 +44,36 @@ void daemonize()
 
 	pid = fork();
 
-	switch( pid )
+	switch ( pid )
 	{
-		case 0: // child
-			setsid();
+	case 0:
+		// child
+		setsid();
 
-			if( ( fd = open( "/dev/null", O_RDWR ) ) != -1 )
-			{
-				dup2( fd, 0 );
-				dup2( fd, 1 );
-				close( fd );
-			}
+		if ( ( fd = open( "/dev/null", O_RDWR ) ) != -1 )
+		{
+			dup2( fd, 0 );
+			dup2( fd, 1 );
+			close( fd );
+		}
 
-			break;
+		break;
 
-		case -1:
-			perror( "fork" );
-			break;
+	case -1:
+		perror( "fork" );
+		break;
 
-		default: // we forked, so silently exit the parent
-			exit( 0 );
+	default:
+		// we forked, so silently exit the parent
+		exit( 0 );
 	}
 }
 
 void pidfile_add( QString pidfile )
 {
-	FILE *pf;
+	FILE* pf;
 
-	if( ( pf = fopen( pidfile, "w+" ) ) != NULL )
+	if ( ( pf = fopen( pidfile, "w+" ) ) != NULL )
 	{
 		fprintf( pf, "%i", getpid() );
 		fclose( pf );
@@ -84,51 +86,51 @@ void pidfile_add( QString pidfile )
 
 void pidfile_del( QString pidfile )
 {
-	if( unlink( pidfile ) == -1 )
+	if ( unlink( pidfile ) == -1 )
 		perror( "unlink" );
 }
 
-cGetopts::cGetopts() : isDaemon_(false), usePidfile_(false)
+cGetopts::cGetopts() : isDaemon_( false ), usePidfile_( false )
 {
 }
 
 cGetopts::~cGetopts()
 {
 	// cleanup
-	if( usePidfile_ == true )
+	if ( usePidfile_ == true )
 		pidfile_del( pidfile_ );
 }
 
 // get user's options
-void cGetopts::parse_options( int argc, char **argv )
+void cGetopts::parse_options( int argc, char** argv )
 {
 	unsigned int i;
 
-	for( i = 1; i < argc; i++ )
+	for ( i = 1; i < argc; i++ )
 	{
-		if( argv[i][0] == '-' )
+		if ( argv[i][0] == '-' )
 		{
-			switch( argv[i][1] )
+			switch ( argv[i][1] )
 			{
-				case 'h':
-					fprintf( stderr, "Usage: %s [-d [-p file]]\n", argv[0] );
-					fputs( "  -d\trun as daemon.\n", stderr );
-					fputs( "  -p\tuse file as PID file.\n", stderr );
-					exit( 1 );
+			case 'h':
+				fprintf( stderr, "Usage: %s [-d [-p file]]\n", argv[0] );
+				fputs( "  -d\trun as daemon.\n", stderr );
+				fputs( "  -p\tuse file as PID file.\n", stderr );
+				exit( 1 );
 
-				case 'd':
-					isDaemon_ = true;
-					daemonize();
-					break;
+			case 'd':
+				isDaemon_ = true;
+				daemonize();
+				break;
 
-				case 'p':
-					if( isDaemon_ == true && usePidfile_ == false )
-					{
-						usePidfile_ = true;
-						pidfile_ = argv[i+1];
-						pidfile_add( pidfile_ );
-					}
-					break;
+			case 'p':
+				if ( isDaemon_ == true && usePidfile_ == false )
+				{
+					usePidfile_ = true;
+					pidfile_ = argv[i + 1];
+					pidfile_add( pidfile_ );
+				}
+				break;
 			}
 		}
 	}

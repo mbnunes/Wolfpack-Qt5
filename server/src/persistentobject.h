@@ -30,23 +30,26 @@
 
 #include <qobject.h>
 
+#pragma pack(1)
 class PersistentObject
 {
 protected:
-	bool isPersistent;
+	bool isPersistent : 1;
 public:
 	PersistentObject();
-	virtual ~PersistentObject() {}
+	virtual ~PersistentObject()
+	{
+	}
 	virtual bool del();
 
-	virtual void load( char **, UINT16& );
+	virtual void load( char**, UINT16& );
 	virtual void save();
 
-	virtual const char *objectID() const
+	virtual const char* objectID() const
 	{
 		return "PersistentObject";
 	}
-
 };
+#pragma pack()
 
 #endif // __PERSISTENTOBJECT_H__

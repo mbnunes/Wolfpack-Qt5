@@ -47,7 +47,7 @@ using namespace std;
 
 cScriptManager::cScriptManager()
 {
-	for( unsigned int i = 0; i < EVENT_COUNT; ++i )
+	for ( unsigned int i = 0; i < EVENT_COUNT; ++i )
 		hooks[i] = 0;
 }
 
@@ -56,7 +56,7 @@ cScriptManager::~cScriptManager()
 	unload();
 }
 
-cPythonScript* cScriptManager::find( const QCString &name )
+cPythonScript* cScriptManager::find( const QCString& name )
 {
 	cScriptManager::iterator it = scripts.find( name );
 
@@ -66,14 +66,15 @@ cPythonScript* cScriptManager::find( const QCString &name )
 		return 0;
 }
 
-void cScriptManager::reload() {
+void cScriptManager::reload()
+{
 	cItemIterator iter_items;
 	cCharIterator iter_chars;
 
-	for( P_ITEM pItem = iter_items.first(); pItem; pItem = iter_items.next() )
+	for ( P_ITEM pItem = iter_items.first(); pItem; pItem = iter_items.next() )
 		pItem->freezeScriptChain();
 
-	for( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
+	for ( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
 		pChar->freezeScriptChain();
 
 	// First unload, then reload
@@ -81,38 +82,42 @@ void cScriptManager::reload() {
 
 	// Stop + Restart Python
 	stopPython();
-	startPython(qApp->argc(), qApp->argv());
+	startPython( qApp->argc(), qApp->argv() );
 
 	load();
 
-	for( P_ITEM pItem = iter_items.first(); pItem; pItem = iter_items.next() )
+	for ( P_ITEM pItem = iter_items.first(); pItem; pItem = iter_items.next() )
 		pItem->unfreezeScriptChain();
 
-	for( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
+	for ( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
 		pChar->unfreezeScriptChain();
 }
 
 // Unload all scripts
-void cScriptManager::unload() {
+void cScriptManager::unload()
+{
 	// Clear all packet handlers.
 	cUOSocket::clearPacketHandlers();
 
 	cScriptManager::iterator it;
 
-	for (it = scripts.begin(); it != scripts.end(); ++it) {
+	for ( it = scripts.begin(); it != scripts.end(); ++it )
+	{
 		it.data()->unload();
 		delete it.data();
 	}
 
 	scripts.clear();
 
-	for (unsigned int i = 0; i < EVENT_COUNT; ++i) {
+	for ( unsigned int i = 0; i < EVENT_COUNT; ++i )
+	{
 		hooks[i] = 0;
 	}
 
-	QMap< QCString, PyObject* >::iterator itc;
+	QMap<QCString, PyObject*>::iterator itc;
 
-	for (itc = commandhooks.begin(); itc != commandhooks.end(); ++itc) {
+	for ( itc = commandhooks.begin(); itc != commandhooks.end(); ++itc )
+	{
 		Py_XDECREF( itc.data() );
 	}
 
@@ -120,24 +125,27 @@ void cScriptManager::unload() {
 	cComponent::unload();
 }
 
-void cScriptManager::load() {
+void cScriptManager::load()
+{
 	// Each Section is a Script identifier
-	const QValueVector<cElement*> &sections = Definitions::instance()->getDefinitions(WPDT_SCRIPT);
+	const QValueVector<cElement*>& sections = Definitions::instance()->getDefinitions( WPDT_SCRIPT );
 
 	unsigned int loaded = 0;
 	unsigned int i;
 
-	for (i = 0; i < sections.size(); ++i) {
-		const cElement *element = sections[i];
+	for ( i = 0; i < sections.size(); ++i )
+	{
+		const cElement* element = sections[i];
 
-		if (scripts.contains(element->text().latin1())) {
-			Console::instance()->log(LOG_WARNING, QString("Duplicate Script: %1").arg(element->text()));
+		if ( scripts.contains( element->text().latin1() ) )
+		{
+			Console::instance()->log( LOG_WARNING, QString( "Duplicate Script: %1" ).arg( element->text() ) );
 			continue;
 		}
 
-		cPythonScript *script = new cPythonScript;
-		scripts.replace(element->text().utf8(), script);
-		script->load(element->text());
+		cPythonScript* script = new cPythonScript;
+		scripts.replace( element->text().utf8(), script );
+		script->load( element->text() );
 		++loaded;
 	}
 	cComponent::load();
@@ -147,7 +155,7 @@ void cScriptManager::onServerStart()
 {
 	cScriptManager::iterator it;
 
-	for( it = scripts.begin(); it != scripts.end(); ++it )
+	for ( it = scripts.begin(); it != scripts.end(); ++it )
 	{
 		it.data()->callEventHandler( "onServerStart" );
 	}
@@ -157,48 +165,48 @@ void cScriptManager::onServerStop()
 {
 	cScriptManager::iterator it;
 
-	for( it = scripts.begin(); it != scripts.end(); ++it )
+	for ( it = scripts.begin(); it != scripts.end(); ++it )
 	{
 		it.data()->callEventHandler( "onServerStop" );
 	}
 }
 
-PyObject *cScriptManager::getCommandHook( const QCString &command )
+PyObject* cScriptManager::getCommandHook( const QCString& command )
 {
-	PyObject *result = 0;
+	PyObject* result = 0;
 
-	if( commandhooks.contains( command.lower() ) )
+	if ( commandhooks.contains( command.lower() ) )
 	{
-		result = commandhooks[ command.lower() ];
+		result = commandhooks[command.lower()];
 	}
 
 	return result;
 }
 
-cPythonScript *cScriptManager::getGlobalHook( ePythonEvent event )
+cPythonScript* cScriptManager::getGlobalHook( ePythonEvent event )
 {
-	cPythonScript *result = 0;
+	cPythonScript* result = 0;
 
-	if( event < EVENT_COUNT )
+	if ( event < EVENT_COUNT )
 	{
-		result = hooks[ event ];
+		result = hooks[event];
 	}
 
 	return result;
 }
 
-void cScriptManager::setCommandHook( const QCString &command, PyObject *object )
+void cScriptManager::setCommandHook( const QCString& command, PyObject* object )
 {
-	if( commandhooks.contains( command.lower() ) )
+	if ( commandhooks.contains( command.lower() ) )
 	{
-		Py_DECREF( commandhooks[ command.lower() ] );
+		Py_DECREF( commandhooks[command.lower()] );
 	}
 
 	commandhooks.replace( command.lower(), object );
 }
 
-void cScriptManager::setGlobalHook( ePythonEvent event, cPythonScript *script )
+void cScriptManager::setGlobalHook( ePythonEvent event, cPythonScript* script )
 {
-	if( event < EVENT_COUNT )
+	if ( event < EVENT_COUNT )
 		hooks[event] = script;
 }

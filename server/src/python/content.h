@@ -35,40 +35,41 @@
 #include "../basechar.h"
 #include "utilities.h"
 
-typedef struct {
+typedef struct
+{
 	PyObject_HEAD;
 	SERIAL contserial;
 } wpContent;
 
-static int wpContent_length( wpContent *self )
+static int wpContent_length( wpContent* self )
 {
-	P_ITEM pi = FindItemBySerial(self->contserial);
+	P_ITEM pi = FindItemBySerial( self->contserial );
 	if ( pi )
 		return pi->content().size();
 	else
 	{
-		P_CHAR pc = FindCharBySerial(self->contserial);
+		P_CHAR pc = FindCharBySerial( self->contserial );
 		if ( pc )
 			return pc->content().size();
 	}
 	return 0;
 }
 
-static PyObject *wpContent_get( wpContent *self, int id )
+static PyObject* wpContent_get( wpContent* self, int id )
 {
-	if ( isCharSerial(self->contserial) )
+	if ( isCharSerial( self->contserial ) )
 	{
 		P_CHAR pc = FindCharBySerial( self->contserial );
-		if (!pc)
+		if ( !pc )
 			goto error;
 		cBaseChar::ItemContainer container = pc->content();
 		if ( id >= container.size() || id < 0 )
 			goto error;
-		cBaseChar::ItemContainer::const_iterator it(container.begin());
+		cBaseChar::ItemContainer::const_iterator it( container.begin() );
 		/*
-		 * Ask Correa before trying to `optimize` this,
-		 * there isn't much standard complient options here.
-		 */
+			 * Ask Correa before trying to `optimize` this,
+			 * there isn't much standard complient options here.
+			 */
 		for ( int i = 0; i < id && it != container.end(); ++i )
 			++it;
 
@@ -76,21 +77,20 @@ static PyObject *wpContent_get( wpContent *self, int id )
 			return PyGetItemObject( *it );
 		else
 			goto error;
-
 	}
 	else
 	{
 		P_ITEM pi = FindItemBySerial( self->contserial );
-		if (!pi)
+		if ( !pi )
 			goto error;
 		cItem::ContainerContent container = pi->content();
 		if ( id >= container.size() || id < 0 )
 			goto error;
-		cItem::ContainerContent::const_iterator it(container.begin());
+		cItem::ContainerContent::const_iterator it( container.begin() );
 		/*
-		 * Ask Correa before trying to `optimize` this,
-		 * there isn't much standard complient options here.
-		 */
+			 * Ask Correa before trying to `optimize` this,
+			 * there isn't much standard complient options here.
+			 */
 		for ( int i = 0; i < id && it != container.end(); ++i )
 			++it;
 
@@ -99,34 +99,20 @@ static PyObject *wpContent_get( wpContent *self, int id )
 		else
 			goto error;
 	}
-error:
+	error:
 	Py_INCREF( Py_None );
 	return Py_None;
 }
 
-static PySequenceMethods wpContentSequence = {
-	(inquiry)wpContent_length,
-	0,
-	0,
-	(intargfunc)wpContent_get,
-	0,
-	0,
+static PySequenceMethods wpContentSequence =
+{
+	( inquiry ) wpContent_length, 0, 0, ( intargfunc ) wpContent_get, 0, 0, 
 };
 
-static PyTypeObject wpContentType = {
-	PyObject_HEAD_INIT(NULL)
-	0,
-	"wpContent",
-	sizeof(wpContentType),
-	0,
-	wpDealloc,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	&wpContentSequence,
+static PyTypeObject wpContentType =
+{
+	PyObject_HEAD_INIT( NULL )
+	0, "wpContent", sizeof( wpContentType ), 0, wpDealloc, 0, 0, 0, 0, 0, 0, & wpContentSequence, 
 };
 
 #endif

@@ -43,20 +43,20 @@ class Coord_cl;
 class Coord_cl
 {
 public:
-	Coord_cl(void);
-	Coord_cl(const Coord_cl& clCoord);
-	Coord_cl(UI16, UI16, SI08 = 0, UI08 uiMap = 0, UI08 uiPlane = 0);
+	Coord_cl( void );
+	Coord_cl( const Coord_cl& clCoord );
+	Coord_cl( UI16, UI16, SI08 = 0, UI08 uiMap = 0, UI08 uiPlane = 0 );
 	// Operators
-	Coord_cl& operator= (const Coord_cl& clCoord);
-	bool operator==(const Coord_cl&) const;
-	bool operator!=(const Coord_cl&) const;
-	Coord_cl operator+(const Coord_cl& src) const;
-	Coord_cl operator-(const Coord_cl& src) const;
-	unsigned int distance( const Coord_cl &src) const;
-	unsigned char direction( const Coord_cl &dest ) const;
-	bool lineOfSight( const Coord_cl &target, bool touch = false );
-	bool lineOfSight( const Coord_cl &target, UI16 targethight, bool touch = false );
-	static UI32 distance ( const Coord_cl &a, const Coord_cl &b );
+	Coord_cl& operator=( const Coord_cl& clCoord );
+	bool operator==( const Coord_cl& ) const;
+	bool operator!=( const Coord_cl& ) const;
+	Coord_cl operator+( const Coord_cl& src ) const;
+	Coord_cl operator-( const Coord_cl& src ) const;
+	unsigned int distance( const Coord_cl& src ) const;
+	unsigned char direction( const Coord_cl& dest ) const;
+	bool lineOfSight( const Coord_cl& target, bool touch = false );
+	bool lineOfSight( const Coord_cl& target, UI16 targethight, bool touch = false );
+	static UI32 distance( const Coord_cl& a, const Coord_cl& b );
 
 	/*!
 		Displays an effect staying at this position.

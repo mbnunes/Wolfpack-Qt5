@@ -805,9 +805,9 @@ def iteminfo( socket, item ):
 	gump.addResizeGump( 280, 280, 0xBB8, 215, 20 )
 	gump.addInputField( 284, 280, 200, 16, 0x834, 7, unicode( item.layer ) )
 	# 8
-	gump.addText( 113, 300, "Type:", 0x834 )
-	gump.addResizeGump( 280, 300, 0xBB8, 215, 20 )
-	gump.addInputField( 284, 300, 200, 16, 0x834, 8, unicode( item.type ) )
+	#gump.addText( 113, 300, "Type:", 0x834 )
+	#gump.addResizeGump( 280, 300, 0xBB8, 215, 20 )
+	#gump.addInputField( 284, 300, 200, 16, 0x834, 8, unicode( item.type ) )
 	# 9
 	gump.addText( 113, 320, "Max. hitpoints:", 0x834 )
 	gump.addResizeGump( 280, 320, 0xBB8, 215, 20 )
@@ -849,9 +849,9 @@ def iteminfo( socket, item ):
 	else:
 		gump.addInputField( 284, 180, 200, 16, 0x834, 15, '')
 	# 16
-	gump.addText( 113, 200, "Restock:", 0x834 )
-	gump.addResizeGump( 280, 200, 0xBB8, 215, 20 )
-	gump.addInputField( 284, 200, 200, 16, 0x834, 16, unicode( item.restock ) )
+	#gump.addText( 113, 200, "Restock:", 0x834 )
+	#gump.addResizeGump( 280, 200, 0xBB8, 215, 20 )
+	#gump.addInputField( 284, 200, 200, 16, 0x834, 16, unicode( item.restock ) )
 	# 17
 	gump.addText( 113, 220, "Time unused:", 0x834 )
 	gump.addResizeGump( 280, 220, 0xBB8, 215, 20 )
@@ -1080,8 +1080,8 @@ def iteminfo_response( player, args, choice ):
 			item.weight = float( textentries[ key ] )
 		elif key == 7:
 			item.layer = int( hex2dec( textentries[ key ] ) )
-		elif key == 8:
-			item.type = int( hex2dec( textentries[ key ] ) )
+		#elif key == 8:
+		#	item.type = int( hex2dec( textentries[ key ] ) )
 		elif key == 9:
 			item.maxhealth = int( hex2dec( textentries[ key ] ) )
 		elif key == 10:
@@ -1101,8 +1101,8 @@ def iteminfo_response( player, args, choice ):
 					item.deltag('price')
 			else:
 				item.settag( 'price', int( hex2dec( textentries[ key ] ) ) )
-		elif key == 16:
-			item.restock = int( hex2dec( textentries[ key ] ) )
+		#elif key == 16:
+		#	item.restock = int( hex2dec( textentries[ key ] ) )
 		elif key == 17:
 			if ( textentries[ key ] == '' ):
 				if ( item.hastag('timeunused') ):

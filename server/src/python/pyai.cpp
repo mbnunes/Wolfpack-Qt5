@@ -42,65 +42,54 @@
 */
 struct wpAI
 {
-    PyObject_HEAD;
+	PyObject_HEAD;
 	AbstractAI* pAI;
 };
 
 // Forward Declarations
-static PyObject *wpAI_getAttr( wpAI *self, char *name );
-static int wpAI_setAttr( wpAI *self, char *name, PyObject *value );
-int wpAI_compare( PyObject *a, PyObject *b );
+static PyObject* wpAI_getAttr( wpAI* self, char* name );
+static int wpAI_setAttr( wpAI* self, char* name, PyObject* value );
+int wpAI_compare( PyObject* a, PyObject* b );
 
 /*!
 	The typedef for Wolfpack Python items
 */
-static PyTypeObject wpAIType = {
-    PyObject_HEAD_INIT(&PyType_Type)
-    0,
-    "wpai",
-    sizeof(wpAIType),
-    0,
-    //FreeItemObject,
-	wpDealloc,
-    0,
-    (getattrfunc)wpAI_getAttr,
-    (setattrfunc)wpAI_setAttr,
-	wpAI_compare,
-	0,
-	0,
-	0,
-	0,
-	0
+static PyTypeObject wpAIType =
+{
+	PyObject_HEAD_INIT( &PyType_Type )
+	0, "wpai", sizeof( wpAIType ), 0,
+	//FreeItemObject,
+	wpDealloc, 0, ( getattrfunc ) wpAI_getAttr, ( setattrfunc ) wpAI_setAttr, wpAI_compare, 0, 0, 0, 0, 0
 };
 
 PyObject* PyGetAIObject( AbstractAI* ai )
 {
-	if( !ai )
+	if ( !ai )
 	{
 		Py_INCREF( Py_None );
 		return Py_None;
 	}
 
-	wpAI *returnVal = PyObject_New( wpAI, &wpAIType );
+	wpAI* returnVal = PyObject_New( wpAI, &wpAIType );
 	returnVal->pAI = ai;
-	return (PyObject*)returnVal;
+	return ( PyObject * ) returnVal;
 }
 
 // Method declarations
 
-static PyObject* wpAI_onSpeechInput( wpAI *self, PyObject *args )
+static PyObject* wpAI_onSpeechInput( wpAI* self, PyObject* args )
 {
-	if ( !checkArgChar(0) )
+	if ( !checkArgChar( 0 ) )
 		return 0;
-	if ( !checkArgStr(1) )
+	if ( !checkArgStr( 1 ) )
 		return 0;
-	P_CHAR pc = getArgChar(0);
+	P_CHAR pc = getArgChar( 0 );
 
-	P_PLAYER player = dynamic_cast<P_PLAYER>(pc);
+	P_PLAYER player = dynamic_cast<P_PLAYER>( pc );
 	if ( !player )
 		return PyFalse();
 
-	QString str = getArgStr(1);
+	QString str = getArgStr( 1 );
 	self->pAI->onSpeechInput( player, str.upper() );
 
 	return PyTrue();
@@ -108,47 +97,46 @@ static PyObject* wpAI_onSpeechInput( wpAI *self, PyObject *args )
 
 static PyMethodDef wpAIMethods[] =
 {
-	{ "onSpeechInput",			(getattrofunc)wpAI_onSpeechInput, METH_VARARGS, "Executes the onSpeechInput event" },
-    { NULL, NULL, 0, NULL }
+	{ "onSpeechInput",			( getattrofunc ) wpAI_onSpeechInput, METH_VARARGS, "Executes the onSpeechInput event" }, { NULL, NULL, 0, NULL }
 };
 
 // Getters + Setters
 
-static PyObject *wpAI_getAttr( wpAI *self, char *name )
+static PyObject* wpAI_getAttr( wpAI* self, char* name )
 {
 	// Special Python things
 
-	return Py_FindMethod( wpAIMethods, (PyObject*)self, name );
+	return Py_FindMethod( wpAIMethods, ( PyObject * ) self, name );
 }
 
-static int wpAI_setAttr( wpAI *self, char *name, PyObject *value )
+static int wpAI_setAttr( wpAI* self, char* name, PyObject* value )
 {
 	// Special Python things.
 
 	return 0;
 }
 
-AbstractAI* getWpAI( PyObject *pObj )
+AbstractAI* getWpAI( PyObject* pObj )
 {
-	if( pObj->ob_type != &wpAIType )
+	if ( pObj->ob_type != &wpAIType )
 		return 0;
 
-	wpAI *item = (wpAI*)( pObj );
+	wpAI* item = ( wpAI* ) ( pObj );
 	return item->pAI;
 }
 
-bool checkWpAI( PyObject *pObj )
+bool checkWpAI( PyObject* pObj )
 {
-	if( pObj->ob_type != &wpAIType )
+	if ( pObj->ob_type != &wpAIType )
 		return false;
 	else
 		return true;
 }
 
-int wpAI_compare( PyObject *a, PyObject *b )
+int wpAI_compare( PyObject* a, PyObject* b )
 {
 	// Both have to be characters
-	if( a->ob_type != &wpAIType || b->ob_type != &wpAIType )
+	if ( a->ob_type != &wpAIType || b->ob_type != &wpAIType )
 		return -1;
 
 	AbstractAI* pA = getWpAI( a );

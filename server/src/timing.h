@@ -31,7 +31,11 @@
 #include "singleton.h"
 #include "typedefs.h"
 
-class cTiming {
+#include <qpair.h>
+#include <qvaluelist.h>
+
+class cTiming
+{
 private:
 	unsigned int nextSpawnRegionCheck;
 	unsigned int nextLightCheck;
@@ -45,10 +49,15 @@ private:
 
 protected:
 	unsigned int lastWorldsave_;
-	void checkRegeneration(P_CHAR character, unsigned int time);
-	void checkPlayer(P_PLAYER player, unsigned int time);
-	void checkNpc(P_NPC npc, unsigned int time);
+	void checkRegeneration( P_CHAR character, unsigned int time );
+	void checkPlayer( P_PLAYER player, unsigned int time );
+	void checkNpc( P_NPC npc, unsigned int time );
+	
+	typedef QPair<unsigned int, SERIAL> DecayPair;
+	typedef QValueList<DecayPair> DecayContainer;
+	typedef DecayContainer::iterator DecayIterator;
 
+	DecayContainer decayitems;
 public:
 	cTiming();
 
@@ -60,7 +69,8 @@ public:
 	/*!
 		\returns The time the world was saved last.
 	*/
-	inline unsigned int lastWorldsave() {
+	inline unsigned int lastWorldsave()
+	{
 		return lastWorldsave_;
 	}
 
@@ -68,9 +78,15 @@ public:
 		\brief Sets the time the world was saved last.
 		\param data The new time.
 	*/
-	inline void setLastWorldsave(unsigned int data) {
+	inline void setLastWorldsave( unsigned int data )
+	{
 		lastWorldsave_ = data;
 	}
+
+	// Let an item decay
+	void addDecayItem(P_ITEM item);
+	void removeDecayItem(P_ITEM item);
+	void removeDecaySerial(SERIAL item);
 };
 
 typedef SingletonHolder<cTiming> Timing;

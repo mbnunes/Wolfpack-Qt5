@@ -12,16 +12,14 @@ from wolfpack.consts import *
 MAX_TEACHING = 300
 MIN_TEACHING = 20
 
-#	  onContextMenuCheckVisible
-def onContextMenuCheckVisible( char, target, tag ):
+#	  onContextCheckVisible
+def onContextCheckVisible( char, target, tag ):
 	if (target.skill[tag - 1] >= 300):
-		target.say("Visible Tag: %u" % tag)
 		return 1 # visible
 
-	target.say("InVisible Tag: %u" % tag)
 	return 0 # not visible
 
-def onContextMenuCheckEnabled( char, target, tag ):
+def onContextCheckEnabled( char, target, tag ):
 	skill = tag - 1
 	if ( skill == STEALTH and char.skill[ HIDING ] < 800 ):
 		return 0 # disabled

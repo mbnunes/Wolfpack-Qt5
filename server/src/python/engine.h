@@ -48,14 +48,16 @@
 #define slots
 
 #include "../server.h"
-typedef void (*fnCleanupHandler)();
+typedef void ( *fnCleanupHandler )();
 
-class CleanupAutoRegister{
+class CleanupAutoRegister
+{
 public:
-	CleanupAutoRegister(fnCleanupHandler);
+	CleanupAutoRegister( fnCleanupHandler );
 };
 
-class cPythonEngine : public cComponent {
+class cPythonEngine : public cComponent
+{
 public:
 	cPythonEngine();
 	virtual ~cPythonEngine();
@@ -66,10 +68,10 @@ public:
 
 typedef SingletonHolder<cPythonEngine> PythonEngine;
 
-void registerCleanupHandler(fnCleanupHandler);
+void registerCleanupHandler( fnCleanupHandler );
 void reloadPython();
 void stopPython();
-void startPython(int argc, char* argv[]);
-void reportPythonError(QString moduleName = QString::null);
+void startPython( int argc, char* argv[] );
+void reportPythonError( QString moduleName = QString::null );
 
 #endif // __PYTHON_ENGINE_H__

@@ -51,7 +51,7 @@ class cAccount
 private:
 	QString login_;
 	QString password_;
-	cAcl *acl_;
+	cAcl* acl_;
 	QString aclName_;
 	QValueVector<P_PLAYER> characters_;
 	QDateTime lastLogin_;
@@ -81,22 +81,34 @@ public:
 	bool addCharacter( P_PLAYER );
 	bool removeCharacter( P_PLAYER );
 	bool inUse() const;
-	void resetLoginAttempts() { attempts_ = 0; };
-	void loginAttemped() { ++attempts_; }
-	int loginAttempts() { return attempts_; }
+	void resetLoginAttempts()
+	{
+		attempts_ = 0;
+	};
+	void loginAttemped()
+	{
+		++attempts_;
+	}
+	int loginAttempts()
+	{
+		return attempts_;
+	}
 	void block( int seconds );
 	uint secsToUnblock() const;
-	void setAcl( const QString &nAcl );
+	void setAcl( const QString& nAcl );
 	QString acl() const;
 	QDateTime lastLogin() const;
 	void setLastLogin( const QDateTime& );
-	void setBlockUntil( const QDateTime &d );
+	void setBlockUntil( const QDateTime& d );
 	void refreshAcl();
 	void setInUse( bool data );
 	void setFlags( UINT32 data );
-	void setPassword(const QString&);
+	void setPassword( const QString& );
 	UINT32 flags() const;
-	QDateTime blockedUntil() const { return blockUntil; }
+	QDateTime blockedUntil() const
+	{
+		return blockUntil;
+	}
 
 	// Flag Setters/Getters
 	bool isBlocked() const;
@@ -113,25 +125,34 @@ public:
 	void setShowSerials( bool data );
 	void setPageNotify( bool data );
 	void setStaff( bool data );
-	void setMultiGems(bool data);
+	void setMultiGems( bool data );
 };
 
 
-class cAccounts : public cComponent {
+class cAccounts : public cComponent
+{
 private:
 	QMap<QString, cAccount*> accounts;
 	typedef QMap<QString, cAccount*>::iterator iterator;
 public:
-	enum enErrorCode {LoginNotFound, BadPassword, Banned, Wipped, AlreadyInUse, NoError};
+	enum enErrorCode
+	{
+		LoginNotFound,
+		BadPassword,
+		Banned,
+		Wipped,
+		AlreadyInUse,
+		NoError
+	};
 
 public:
 	~cAccounts();
-	cAccount* authenticate(const QString& login, const QString& password, enErrorCode* = 0) const;
+	cAccount* authenticate( const QString& login, const QString& password, enErrorCode* = 0 ) const;
 	cAccount* getRecord( const QString& );
 	cAccount* createAccount( const QString& login, const QString& password );
 
 	uint count();
-	void remove( cAccount *record );
+	void remove( cAccount* record );
 
 	void save();
 	void load();
@@ -140,8 +161,14 @@ public:
 	void clearAcls();
 
 	typedef QMap<QString, cAccount*>::const_iterator const_iterator;
-	const_iterator begin() const { return accounts.begin(); }
-	const_iterator end() const { return accounts.end(); }
+	const_iterator begin() const
+	{
+		return accounts.begin();
+	}
+	const_iterator end() const
+	{
+		return accounts.end();
+	}
 };
 
 // inline members
@@ -165,7 +192,7 @@ inline QValueVector<P_PLAYER> cAccount::caracterList() const
 	return characters_;
 }
 
-inline void cAccount::setAcl( const QString &d )
+inline void cAccount::setAcl( const QString& d )
 {
 	aclName_ = d;
 }
@@ -200,7 +227,7 @@ inline void cAccount::setInUse( bool data )
 	inUse_ = data;
 }
 
-inline void cAccount::setBlockUntil( const QDateTime &d )
+inline void cAccount::setBlockUntil( const QDateTime& d )
 {
 	blockUntil = d;
 }

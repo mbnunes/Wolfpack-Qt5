@@ -41,8 +41,8 @@ class cUOSocket;
 
 struct stCommand
 {
-	const char *name;
-	void (*command)( cUOSocket*, const QString&, const QStringList& );
+	const char* name;
+	void ( *command )( cUOSocket*, const QString&, const QStringList& );
 };
 
 class cAcl
@@ -50,7 +50,7 @@ class cAcl
 public:
 	QString name;
 	unsigned int rank;
-	QMap< QString, QMap< QString, bool > > groups;
+	QMap<QString, QMap<QString, bool> > groups;
 };
 
 // ACL:
@@ -59,32 +59,38 @@ public:
 class cCommands
 {
 private:
-	QMap< QString, cAcl* > _acls;
+	QMap<QString, cAcl*> _acls;
 	static stCommand commands[];
 public:
 	// Command processing system
-	void process( cUOSocket *socket, const QString &command );
-	bool dispatch( cUOSocket *socket, const QString &command, const QStringList &arguments );
+	void process( cUOSocket* socket, const QString& command );
+	bool dispatch( cUOSocket* socket, const QString& command, const QStringList& arguments );
 
-	QMap< QString, cAcl* >::const_iterator aclbegin() const { return _acls.begin(); }
-	QMap< QString, cAcl* >::const_iterator aclend() const { return _acls.end(); }
+	QMap< QString, cAcl* >::const_iterator aclbegin() const
+	{
+		return _acls.begin();
+	}
+	QMap< QString, cAcl* >::const_iterator aclend() const
+	{
+		return _acls.end();
+	}
 
 	// Privlevel System
 	void loadACLs( void );
-	cAcl *getACL( const QString& ) const;
+	cAcl* getACL( const QString& ) const;
 };
 
-inline cAcl *cCommands::getACL( const QString& key ) const
+inline cAcl* cCommands::getACL( const QString& key ) const
 {
-	QMap< QString, cAcl* >::const_iterator it = _acls.find( key );
+	QMap<QString, cAcl*>::const_iterator it = _acls.find( key );
 
-	if( it != _acls.end() )
+	if ( it != _acls.end() )
 		return it.data();
 	else
 		return 0;
 }
 
-typedef SingletonHolder< cCommands > Commands;
+typedef SingletonHolder<cCommands> Commands;
 
 #endif
 

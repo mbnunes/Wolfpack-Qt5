@@ -45,8 +45,8 @@ class cSpawnRegion;
 struct gumpChoice_st
 {
 	signed int button;
-	std::vector< unsigned int > switches;
-	std::map< unsigned short, QString > textentries;
+	std::vector<unsigned int> switches;
+	std::map<unsigned short, QString> textentries;
 };
 
 
@@ -58,12 +58,14 @@ class cGump
 {
 protected:
 	SERIAL serial_, type_;
-	int x_,y_;
+	int x_, y_;
 	QStringList layout_, text_;
 	bool noMove_, noClose_, noDispose_;
 public:
 	cGump();
-	virtual ~cGump() {}
+	virtual ~cGump()
+	{
+	}
 
 	SERIAL serial( void ) const;
 	SERIAL type( void ) const;
@@ -84,18 +86,36 @@ public:
 	void setNoClose( bool data );
 	void setNoDispose( bool data );
 
-	void addRawLayout( const QString &data ) { layout_.push_back( data ); }
-	Q_UINT32 addRawText( const QString &data );
+	void addRawLayout( const QString& data )
+	{
+		layout_.push_back( data );
+	}
+	Q_UINT32 addRawText( const QString& data );
 
 	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 
 	// Comfort Setters
-	void startPage( Q_UINT32 pageId = 0 ) { layout_.push_back( QString( "{page %1}" ).arg( pageId ) ); }
-	void startGroup( Q_UINT32 groupId = 0 ) { layout_.push_back( QString( "{group %1}" ).arg( groupId ) ); }
-	void addText( Q_INT32 textX, Q_INT32 textY, const QString &data, Q_UINT16 hue = 0 ) { layout_.push_back( QString( "{text %1 %2 %3 %4}" ).arg( textX ).arg( textY ).arg( hue ).arg( addRawText( data ) ) ); }
-	void addBackground( Q_UINT16 gumpId, Q_UINT32 width, Q_UINT32 height ) { layout_.push_back( QString( "{resizepic 0 0 %1 %2 %3}" ).arg( gumpId ).arg( width ).arg( height ) ); }
-	void addResizeGump( Q_INT16 gumpX, Q_INT16 gumpY, Q_UINT16 gumpId, Q_UINT32 width, Q_UINT32 height ) { layout_.push_back( QString( "{resizepic %1 %2 %3 %4 %5}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ) ); }
-	void addCroppedText( Q_INT32 textX, Q_INT32 textY, Q_UINT32 width, Q_UINT32 height, const QString &data, Q_UINT16 hue = 0 );
+	void startPage( Q_UINT32 pageId = 0 )
+	{
+		layout_.push_back( QString( "{page %1}" ).arg( pageId ) );
+	}
+	void startGroup( Q_UINT32 groupId = 0 )
+	{
+		layout_.push_back( QString( "{group %1}" ).arg( groupId ) );
+	}
+	void addText( Q_INT32 textX, Q_INT32 textY, const QString& data, Q_UINT16 hue = 0 )
+	{
+		layout_.push_back( QString( "{text %1 %2 %3 %4}" ).arg( textX ).arg( textY ).arg( hue ).arg( addRawText( data ) ) );
+	}
+	void addBackground( Q_UINT16 gumpId, Q_UINT32 width, Q_UINT32 height )
+	{
+		layout_.push_back( QString( "{resizepic 0 0 %1 %2 %3}" ).arg( gumpId ).arg( width ).arg( height ) );
+	}
+	void addResizeGump( Q_INT16 gumpX, Q_INT16 gumpY, Q_UINT16 gumpId, Q_UINT32 width, Q_UINT32 height )
+	{
+		layout_.push_back( QString( "{resizepic %1 %2 %3 %4 %5}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ) );
+	}
+	void addCroppedText( Q_INT32 textX, Q_INT32 textY, Q_UINT32 width, Q_UINT32 height, const QString& data, Q_UINT16 hue = 0 );
 
 	// Buttons
 	// TODO: IMPLEMENTATION
@@ -107,16 +127,28 @@ public:
 	void addTiledGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_INT32 width, Q_INT32 height, Q_UINT16 gumpId, Q_INT16 hue );
 
 	// Art-tile pictures
-	void addTilePic( Q_INT32 tileX, Q_INT32 tileY, Q_UINT16 tileId, Q_INT16 hue = 0 ) { layout_.push_back( QString( "{tilepic %1 %2 %3 %4}" ).arg( tileX ).arg( tileY ).arg( tileId ).arg( hue ) ); }
+	void addTilePic( Q_INT32 tileX, Q_INT32 tileY, Q_UINT16 tileId, Q_INT16 hue = 0 )
+	{
+		layout_.push_back( QString( "{tilepic %1 %2 %3 %4}" ).arg( tileX ).arg( tileY ).arg( tileId ).arg( hue ) );
+	}
 
 	// Form-fields
 	// 7 = x,y,widthpix,widthchars,wHue,TEXTID,startstringindex
-	void addInputField( Q_INT32 textX, Q_INT32 textY, Q_UINT32 width, Q_UINT32 height, Q_INT32 textId, const QString &data, Q_INT16 hue = 0 ) { layout_.push_back( QString( "{textentry %1 %2 %3 %4 %5 %6 %7}" ).arg( textX ).arg( textY ).arg( width ).arg( height ).arg( hue ).arg( textId ).arg( addRawText( data ) ) ); }
-	void addCheckbox( Q_INT32 checkX, Q_INT32 checkY, Q_UINT16 gumpOff, Q_UINT16 gumpOn, Q_INT32 returnVal, bool checked = false  ) { layout_.push_back( QString( "{checkbox %1 %2 %3 %4 %5 %6}" ).arg( checkX ).arg( checkY ).arg( gumpOff ).arg( gumpOn ).arg( checked ? 1 : 0 ).arg( returnVal ) ); }
-	void addRadioButton( Q_INT32 radioX, Q_INT32 radioY, Q_UINT16 gumpOff, Q_UINT16 gumpOn, Q_INT32 returnVal, bool checked = false  ) { layout_.push_back( QString( "{radio %1 %2 %3 %4 %5 %6}" ).arg( radioX ).arg( radioY ).arg( gumpOff ).arg( gumpOn ).arg( checked ? 1 : 0 ).arg( returnVal ) ); }
+	void addInputField( Q_INT32 textX, Q_INT32 textY, Q_UINT32 width, Q_UINT32 height, Q_INT32 textId, const QString& data, Q_INT16 hue = 0 )
+	{
+		layout_.push_back( QString( "{textentry %1 %2 %3 %4 %5 %6 %7}" ).arg( textX ).arg( textY ).arg( width ).arg( height ).arg( hue ).arg( textId ).arg( addRawText( data ) ) );
+	}
+	void addCheckbox( Q_INT32 checkX, Q_INT32 checkY, Q_UINT16 gumpOff, Q_UINT16 gumpOn, Q_INT32 returnVal, bool checked = false )
+	{
+		layout_.push_back( QString( "{checkbox %1 %2 %3 %4 %5 %6}" ).arg( checkX ).arg( checkY ).arg( gumpOff ).arg( gumpOn ).arg( checked ? 1 : 0 ).arg( returnVal ) );
+	}
+	void addRadioButton( Q_INT32 radioX, Q_INT32 radioY, Q_UINT16 gumpOff, Q_UINT16 gumpOn, Q_INT32 returnVal, bool checked = false )
+	{
+		layout_.push_back( QString( "{radio %1 %2 %3 %4 %5 %6}" ).arg( radioX ).arg( radioY ).arg( gumpOff ).arg( gumpOn ).arg( checked ? 1 : 0 ).arg( returnVal ) );
+	}
 
 	// HTML Stuff
-	void addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString &html, bool hasBack = false, bool canScroll = false );
+	void addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString& html, bool hasBack = false, bool canScroll = false );
 	void addXmfHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, UINT32 clilocid, bool hasBack = false, bool canScroll = false );
 	// void addXmfHtmlColorGump( );
 
@@ -234,7 +266,7 @@ class cWhoMenuGump : public cGump
 {
 private:
 	UINT32 page_;
-	std::vector< cUOSocket* > sockets_;
+	std::vector<cUOSocket*> sockets_;
 
 public:
 	cWhoMenuGump( UINT32 page );
@@ -259,7 +291,7 @@ private:
 	UINT32 page_;
 	WPPAGE_TYPE ptype_;
 
-	std::vector< cPage* > pagequeue_;
+	std::vector<cPage*> pagequeue_;
 
 public:
 	cPagesGump( UINT32 page, WPPAGE_TYPE ptype );
@@ -270,7 +302,7 @@ public:
 class cPageInfoGump : public cGump
 {
 private:
-	cPage*	page_;
+	cPage* page_;
 
 public:
 	cPageInfoGump( cPage* page_ );

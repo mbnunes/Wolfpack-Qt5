@@ -48,7 +48,7 @@ public:
 	/*!
 		\brief Create a new party.
 	*/
-	cParty(P_PLAYER leader);
+	cParty( P_PLAYER leader );
 
 	/*!
 		\brief Disband the party.
@@ -58,48 +58,52 @@ public:
 	/*!
 		\brief Add the \a player to this party and remove him from his old.
 	*/
-	void addMember(P_PLAYER player, bool update = true);
+	void addMember( P_PLAYER player, bool update = true );
 
 	/*!
 		\brief Remove the \a player from this party.
 	*/
-	void removeMember(P_PLAYER player, bool update = true);
+	void removeMember( P_PLAYER player, bool update = true );
 
 	/*!
 		\brief Adds a player to the list of canidates for this party.
 	*/
-	void addCanidate(P_PLAYER player);
+	void addCanidate( P_PLAYER player );
 
 	/*!
 		\brief Removes a player from the list of canidates for this party.
 	*/
-	void removeCanidate(P_PLAYER player);
+	void removeCanidate( P_PLAYER player );
 
 	/*!
 		\returns The leader of this party.
 	*/
-	inline P_PLAYER leader() const {
+	inline P_PLAYER leader() const
+	{
 		return leader_;
 	}
 
 	/*!
 		\returns The members of this party.
 	*/
-	inline QPtrList<cPlayer> members() const {
+	inline QPtrList<cPlayer> members() const
+	{
 		return members_;
 	}
 
 	/*!
 		\returns The canidates for this party.
 	*/
-	inline QPtrList<cPlayer> canidates() const {
+	inline QPtrList<cPlayer> canidates() const
+	{
 		return canidates_;
 	}
 
 	/*!
 		\returns A list of players whose corpses may be looted.
 	*/
-	inline QPtrList<cPlayer> lootingAllowed() const {
+	inline QPtrList<cPlayer> lootingAllowed() const
+	{
 		return lootingAllowed_;
 	}
 
@@ -108,7 +112,7 @@ public:
 		\param player The affected player.
 		\param allowed Whether looting the corpse is allowed or not.
 	*/
-	void setLootingAllowed(P_PLAYER player, bool allowed);
+	void setLootingAllowed( P_PLAYER player, bool allowed );
 
 	/*!
 		\brief Sends an updated list of party members to all members.
@@ -118,19 +122,19 @@ public:
 	/*!
 		\brief Sends a packet to all party members.
 	*/
-	void send(cUOPacket *packet);
+	void send( cUOPacket* packet );
 
 	/*!
 		\brief Sends a localized message to all party members.
 	*/
-	void send(unsigned int message, const QString &params = QString::null, const QString &affix = QString::null, bool prepend = false);
+	void send( unsigned int message, const QString& params = QString::null, const QString& affix = QString::null, bool prepend = false );
 
 	/*!
 		\brief Sends a public message to the party.
 		\param from The source of the message.
 		\param message The text of the message.
 	*/
-	void send(P_PLAYER from, const QString &message);
+	void send( P_PLAYER from, const QString& message );
 
 	/*!
 		\brief Sends a private message to a party member.
@@ -138,19 +142,19 @@ public:
 		\param to The target of this message.
 		\param message The text of this message.
 	*/
-	void send(P_PLAYER from, P_PLAYER target, const QString &message);
+	void send( P_PLAYER from, P_PLAYER target, const QString& message );
 
 	/*!
 		\brief Processes a party packet sent by the specified player.
 		\param socket The socket this packet came from.
 		\param packet The packet that was sent.
 	*/
-	static void handlePacket(cUOSocket *socket, cUOPacket *packet);
+	static void handlePacket( cUOSocket* socket, cUOPacket* packet );
 
 	// Inherited methods from cPythonScriptable
-	const char *className() const;
-	PyObject *getPyObject();
-	bool implements(const QString &name) const;
+	const char* className() const;
+	PyObject* getPyObject();
+	bool implements( const QString& name ) const;
 };
 
 #endif

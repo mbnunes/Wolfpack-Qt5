@@ -40,7 +40,7 @@ Q_INT32 resolveName( const QString& data ); // declared in srvparams.cpp
 QString cConfig::mulPath() const
 {
 	QDir thePath( mulPath_ );
-	if( !thePath.exists() || thePath.entryList("*.mul").isEmpty() )
+	if ( !thePath.exists() || thePath.entryList( "*.mul" ).isEmpty() )
 	{
 		// Can't detect under *nix, so just warn the user :(
 		qWarning( "Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"" );
@@ -56,30 +56,31 @@ std::vector<ServerList_st>& cConfig::serverList()
 		unsigned int i = 1;
 		do
 		{
-			QString tmp = getString("LoginServer", QString("Shard %1").arg(i++), "", false).simplifyWhiteSpace();
+			QString tmp = getString( "LoginServer", QString( "Shard %1" ).arg( i++ ), "", false ).simplifyWhiteSpace();
 			bKeepLooping = ( tmp != "" );
 			if ( bKeepLooping ) // valid data.
 			{
-				QStringList strList = QStringList::split("=", tmp);
+				QStringList strList = QStringList::split( "=", tmp );
 				if ( strList.size() == 2 )
 				{
 					ServerList_st server;
 					server.sServer = strList[0];
-					QStringList strList2 = QStringList::split(",", strList[1].stripWhiteSpace());
+					QStringList strList2 = QStringList::split( ",", strList[1].stripWhiteSpace() );
 					QHostAddress host;
 					host.setAddress( strList2[0] );
 					server.sIP = strList2[0];
 					server.ip = resolveName( server.sIP );
 
 					bool ok = false;
-					server.uiPort = strList2[1].toUShort(&ok);
+					server.uiPort = strList2[1].toUShort( &ok );
 					if ( !ok )
 						server.uiPort = 2593; // Unspecified defaults to 2593
 
-					serverList_.push_back(server);
+					serverList_.push_back( server );
 				}
 			}
-		} while ( bKeepLooping );
+		}
+		while ( bKeepLooping );
 	}
 	return serverList_;
 }

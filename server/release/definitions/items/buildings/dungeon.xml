@@ -380,17 +380,17 @@
 		<health>100</health>
 	</item>
 
-	<item id="ee4" inherit="ee4">
+	<item id="ee4" inherit="ee3">
 		<id>0xEE4</id>
 		<category>Dungeon\Spiderwebs\Spiderweb 2</category>
 	</item>
 
-	<item id="ee5" inherit="ee5">
+	<item id="ee5" inherit="ee3">
 		<id>0xEE5</id>
 		<category>Dungeon\Spiderwebs\Spiderweb 3</category>
 	</item>
 
-	<item id="ee6" inherit="ee6">
+	<item id="ee6" inherit="ee3">
 		<id>0xEE6</id>
 		<category>Dungeon\Spiderwebs\Spiderweb 4</category>
 	</item>
@@ -1555,36 +1555,42 @@
 		<id>0x122A</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 1</category>
+		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="122b">
 		<id>0x122B</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 2</category>
+		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="122c">
 		<id>0x122C</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 3</category>
+		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="122d">
 		<id>0x122D</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 4</category>
+		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="122e">
 		<id>0x122E</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 5</category>
+		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="122f">
 		<id>0x122F</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 6</category>
+		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="1cc7">
@@ -1729,6 +1735,7 @@
 		<id>0x1645</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 30</category>
+		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="1d92">

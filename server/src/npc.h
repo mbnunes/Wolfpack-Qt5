@@ -43,28 +43,34 @@ class AbstractAI;
 class cNPC : public cBaseChar
 {
 public:
-	const char *objectID() const
+	const char* objectID() const
 	{
 		return "cNPC";
 	}
 
 	// con-/destructors
 	cNPC();
-	cNPC(const cNPC& right);
+	cNPC( const cNPC& right );
 	virtual ~cNPC();
 	// operators
-	cNPC& operator=(const cNPC& right);
+	cNPC& operator=( const cNPC& right );
 
 	// type definitions
 	struct stWanderType
 	{
 		// constructors
-		stWanderType() : type( enHalt ) {}
-		stWanderType( enWanderTypes type_ ) : type( type_ ) {}
-		stWanderType( UINT16 x1_, UINT16 x2_, UINT16 y1_, UINT16 y2_ ) :
-			type( enRectangle ), x1( x1_ ), x2( x2_ ), y1( y1_ ), y2( y2_ ) {}
-		stWanderType( UINT16 x_, UINT16 y_, UINT16 radius_ ) :
-			type( enCircle ), x1( x_ ), y1( y_ ), radius( radius_ ) {}
+		stWanderType() : type( enHalt )
+		{
+		}
+		stWanderType( enWanderTypes type_ ) : type( type_ )
+		{
+		}
+		stWanderType( UINT16 x1_, UINT16 x2_, UINT16 y1_, UINT16 y2_ ) : type( enRectangle ), x1( x1_ ), x2( x2_ ), y1( y1_ ), y2( y2_ )
+		{
+		}
+		stWanderType( UINT16 x_, UINT16 y_, UINT16 radius_ ) : type( enCircle ), x1( x_ ), y1( y_ ), radius( radius_ )
+		{
+		}
 
 		// attributes
 		enWanderTypes type;
@@ -75,43 +81,46 @@ public:
 		UINT16 y2;
 		UINT16 radius;
 
-		P_CHAR		followTarget;
-		Coord_cl	destination;
+		P_CHAR followTarget;
+		Coord_cl destination;
 	};
 
 	// implementation of interfaces
 	static void registerInFactory();
-	void load( char **, UINT16& );
+	void load( char**, UINT16& );
 	void save();
 	bool del();
 
 	virtual enCharTypes objectType();
 	virtual void update( bool excludeself = false );
-	virtual void resend( bool clean = true);
-	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
-			void talk( const UINT32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
+	virtual void resend( bool clean = true );
+	virtual void talk( const QString& message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
+	void talk( const UINT32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
 	virtual UINT8 notoriety( P_CHAR pChar = NULL );
-	virtual void showName( cUOSocket *socket );
+	virtual void showName( cUOSocket* socket );
 	virtual void soundEffect( UI16 soundId, bool hearAll = true );
 	virtual bool inWorld();
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
 	virtual void applyDefinition( const cElement* );
-	virtual void flagUnchanged() { cNPC::changed_ = false; cBaseChar::flagUnchanged();	}
-	void log( eLogLevel, const QString &string );
-	void log( const QString &string );
+	virtual void flagUnchanged()
+	{
+		cNPC::changed_ = false; cBaseChar::flagUnchanged();
+	}
+	void log( eLogLevel, const QString& string );
+	void log( const QString& string );
 	void awardFame( short amount );
 	void awardKarma( P_CHAR pKilled, short amount );
 	void vendorBuy( P_PLAYER player );
-	static cNPC *createFromScript(const QString &id, const Coord_cl &pos);
+	static cNPC* createFromScript( const QString& id, const Coord_cl& pos );
 	void remove();
 	void vendorSell( P_PLAYER player );
 	virtual bool isInnocent();
-	void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
+	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 
 	// other public methods
-	virtual stError *setProperty( const QString &name, const cVariant &value );
-	virtual stError *getProperty( const QString &name, cVariant &value );
+	virtual stError* setProperty( const QString& name, const cVariant& value );
+	virtual stError* getProperty( const QString& name, cVariant& value );
 	void setNextMoveTime( void );
 	virtual void callGuards(); // overriding
 	void makeShop();
@@ -135,7 +144,7 @@ public:
 	bool hasPath( void );
 	Coord_cl nextMove();
 	Coord_cl pathDestination( void ) const;
-	float pathHeuristic( const Coord_cl &source, const Coord_cl &destination );
+	float pathHeuristic( const Coord_cl& source, const Coord_cl& destination );
 	// wander type
 	enWanderTypes wanderType() const;
 	UINT16 wanderX1() const;
@@ -147,51 +156,51 @@ public:
 	Coord_cl wanderDestination() const;
 
 	// setters
-	void setAdditionalFlags(UINT32 data);
-	void setNextBeggingTime(UINT32 data);
-	void setNextGuardCallTime(UINT32 data);
-	void setNextMoveTime(UINT32 data);
-	void setNextMsgTime(UINT32 data);
-	void setSummonTime(UINT32 data);
-	void setOwner(P_PLAYER data, bool nochecks = false);
-	void setSummoned(bool data);
-	void setSpawnregion(const QString &data);
-	void setStablemasterSerial(SERIAL data);
-	void setGuarding(P_PLAYER data);
+	void setAdditionalFlags( UINT32 data );
+	void setNextBeggingTime( UINT32 data );
+	void setNextGuardCallTime( UINT32 data );
+	void setNextMoveTime( UINT32 data );
+	void setNextMsgTime( UINT32 data );
+	void setSummonTime( UINT32 data );
+	void setOwner( P_PLAYER data, bool nochecks = false );
+	void setSummoned( bool data );
+	void setSpawnregion( const QString& data );
+	void setStablemasterSerial( SERIAL data );
+	void setGuarding( P_PLAYER data );
 	void setAI( AbstractAI* ai );
 	void setAICheckTime( UINT32 data );
 	void setAICheckInterval( UINT16 data );
 
 	// advanced setters for data structures
 	// AI
-	void setAI( const QString &data );
+	void setAI( const QString& data );
 	// path finding
-	void pushMove( const Coord_cl &move );
+	void pushMove( const Coord_cl& move );
 	void pushMove( UI16 x, UI16 y, SI08 z );
 	void popMove( void );
 	void clearPath( void );
-	void findPath( const Coord_cl &goal, float sufficient_cost = 0.0f );
+	void findPath( const Coord_cl& goal, float sufficient_cost = 0.0f );
 	// wander type
-	void setWanderType(enWanderTypes data);
-	void setWanderX1(UINT16 data);
-	void setWanderX2(UINT16 data);
-	void setWanderY1(UINT16 data);
-	void setWanderY2(UINT16 data);
-	void setWanderRadius(UINT16 data);
-	void setWanderFollowTarget(P_CHAR data );
-	void setWanderDestination(const Coord_cl &data );
+	void setWanderType( enWanderTypes data );
+	void setWanderX1( UINT16 data );
+	void setWanderX2( UINT16 data );
+	void setWanderY1( UINT16 data );
+	void setWanderY2( UINT16 data );
+	void setWanderRadius( UINT16 data );
+	void setWanderFollowTarget( P_CHAR data );
+	void setWanderDestination( const Coord_cl& data );
 
 	// cPythonScriptable inherited methods
-	PyObject *getPyObject();
-	const char *className() const;
+	PyObject* getPyObject();
+	const char* className() const;
 
 private:
 	bool changed_;
 
 protected:
 	// interface implementation
-	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
-	virtual void processNode( const cElement *Tag );
+	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
+	virtual void processNode( const cElement* Tag );
 
 	// Time till NPC talks again.
 	// cOldChar::antispamtimer_
@@ -236,7 +245,7 @@ protected:
 	SERIAL stablemasterSerial_;
 
 	// A* calculated path which the NPC walks on.
-	std::deque< Coord_cl > path_;
+	std::deque<Coord_cl> path_;
 
 	// NPC AI interface
 	AbstractAI* ai_;
@@ -245,10 +254,10 @@ protected:
 	QString aiid_;
 
 	// NPC AI check timer
-	UINT32	aiCheckTime_;
+	UINT32 aiCheckTime_;
 
 	// NPC AI check time intervall in msec
-	UINT16	aiCheckInterval_;
+	UINT16 aiCheckInterval_;
 };
 
 inline UINT32 cNPC::additionalFlags() const
@@ -256,7 +265,7 @@ inline UINT32 cNPC::additionalFlags() const
 	return additionalFlags_;
 }
 
-inline void cNPC::setAdditionalFlags(UINT32 data)
+inline void cNPC::setAdditionalFlags( UINT32 data )
 {
 	additionalFlags_ = data;
 	changed_ = true;
@@ -267,7 +276,7 @@ inline UINT32 cNPC::nextBeggingTime() const
 	return nextBeggingTime_;
 }
 
-inline void cNPC::setNextBeggingTime(UINT32 data)
+inline void cNPC::setNextBeggingTime( UINT32 data )
 {
 	nextBeggingTime_ = data;
 	changed_ = true;
@@ -278,7 +287,7 @@ inline UINT32 cNPC::nextGuardCallTime() const
 	return nextGuardCallTime_;
 }
 
-inline void cNPC::setNextGuardCallTime(UINT32 data)
+inline void cNPC::setNextGuardCallTime( UINT32 data )
 {
 	nextGuardCallTime_ = data;
 	changed_ = true;
@@ -289,7 +298,7 @@ inline UINT32 cNPC::nextMoveTime() const
 	return nextMoveTime_;
 }
 
-inline void cNPC::setNextMoveTime(UINT32 data)
+inline void cNPC::setNextMoveTime( UINT32 data )
 {
 	nextMoveTime_ = data;
 }
@@ -299,7 +308,7 @@ inline UINT32 cNPC::nextMsgTime() const
 	return nextMsgTime_;
 }
 
-inline void cNPC::setNextMsgTime(UINT32 data)
+inline void cNPC::setNextMsgTime( UINT32 data )
 {
 	nextMsgTime_ = data;
 }
@@ -309,7 +318,7 @@ inline UINT32 cNPC::summonTime() const
 	return summonTime_;
 }
 
-inline void cNPC::setSummonTime(UINT32 data)
+inline void cNPC::setSummonTime( UINT32 data )
 {
 	summonTime_ = data;
 	changed_ = true;
@@ -325,7 +334,7 @@ inline QString cNPC::spawnregion() const
 	return spawnregion_;
 }
 
-inline void cNPC::setSpawnregion(const QString &data)
+inline void cNPC::setSpawnregion( const QString& data )
 {
 	spawnregion_ = data;
 	changed_ = true;
@@ -413,42 +422,42 @@ inline Coord_cl cNPC::wanderDestination() const
 	return wanderType_.destination;
 }
 
-inline void cNPC::setWanderType(enWanderTypes data)
+inline void cNPC::setWanderType( enWanderTypes data )
 {
 	wanderType_.type = data;
 }
 
-inline void cNPC::setWanderX1(UINT16 data)
+inline void cNPC::setWanderX1( UINT16 data )
 {
 	wanderType_.x1 = data;
 }
 
-inline void cNPC::setWanderX2(UINT16 data)
+inline void cNPC::setWanderX2( UINT16 data )
 {
 	wanderType_.x2 = data;
 }
 
-inline void cNPC::setWanderY1(UINT16 data)
+inline void cNPC::setWanderY1( UINT16 data )
 {
 	wanderType_.y1 = data;
 }
 
-inline void cNPC::setWanderY2(UINT16 data)
+inline void cNPC::setWanderY2( UINT16 data )
 {
 	wanderType_.y2 = data;
 }
 
-inline void cNPC::setWanderRadius(UINT16 data)
+inline void cNPC::setWanderRadius( UINT16 data )
 {
 	wanderType_.radius = data;
 }
 
-inline void cNPC::setWanderFollowTarget(P_CHAR data)
+inline void cNPC::setWanderFollowTarget( P_CHAR data )
 {
 	wanderType_.followTarget = data;
 }
 
-inline void cNPC::setWanderDestination(const Coord_cl &data)
+inline void cNPC::setWanderDestination( const Coord_cl& data )
 {
 	wanderType_.destination = data;
 }
@@ -463,9 +472,9 @@ inline bool cNPC::summoned() const
 	return ( additionalFlags_ & 0x01 ) != 0;
 }
 
-inline void cNPC::setSummoned(bool data)
+inline void cNPC::setSummoned( bool data )
 {
-	if (data)
+	if ( data )
 		additionalFlags_ |= 0x01;
 	else
 		additionalFlags_ &= ~0x01;

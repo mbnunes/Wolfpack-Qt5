@@ -11,7 +11,7 @@
 	<!-- animal_base -->
 	<npc id="animal_base">
 		<name>an unknown animal</name>
-		<bindmenu>tame_menu</bindmenu>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="18" /></direction>
 		<tag name="mindamage" value="1" type="int" />

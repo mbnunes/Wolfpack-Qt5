@@ -41,16 +41,18 @@
 
 struct NoDestroy
 {
-	template < class T >
-	static void scheduleDestruction(T*, void(*)()) {}
+	template <class T>
+	static void scheduleDestruction( T*, void( * ) () )
+	{
+	}
 };
 
 struct DefaultLifeTime
 {
-	template <class T >
-	static void scheduleDestruction(T*, void(*pFun)())
+	template <class T>
+	static void scheduleDestruction( T*, void( *pFun ) () )
 	{
-		atexit(pFun);
+		atexit( pFun );
 	}
 };
 
@@ -59,11 +61,7 @@ struct DefaultLifeTime
 	This templated class provides an unified interface and handling of uniqueness of
 	a Singleton.
 */
-template
-<
-	typename T,
-	class LifetimePolicy = DefaultLifeTime
->
+template <typename T, class LifetimePolicy = DefaultLifeTime>
 class SingletonHolder
 {
 private:
@@ -89,21 +87,17 @@ public:
 
 
 // Singleton Holder Data
-template<typename T,class L>
-typename SingletonHolder<T, L>::ptrInstanceType SingletonHolder<T,L>::ptrInstance = 0;
-template<typename T,class L>
-bool SingletonHolder<T,L>::destroyed_ = false;
+template <typename T, class L>
+typename SingletonHolder<T, L>::ptrInstanceType SingletonHolder<T, L> ::ptrInstance = 0;
+template <typename T, class L>
+bool SingletonHolder<T, L> ::destroyed_ = false;
 
 // Singleton Members
 #if defined(_DEBUG)
 #include <typeinfo>
 #endif
 
-template
-<
-	typename T,
-	class L
->
+template <typename T, class L>
 inline T* SingletonHolder<T, L>::instance()
 {
 	if ( !ptrInstance )
@@ -113,26 +107,18 @@ inline T* SingletonHolder<T, L>::instance()
 	return ptrInstance;
 }
 
-template
-<
-	typename T,
-	typename LifetimePolicy
->
+template <typename T, typename LifetimePolicy>
 void SingletonHolder<T, LifetimePolicy>::makeInstance()
 {
 	if ( !ptrInstance )
 	{
 		ptrInstance = new T();
-		LifetimePolicy::scheduleDestruction(ptrInstance, &destroySingleton);
+		LifetimePolicy::scheduleDestruction( ptrInstance, &destroySingleton );
 		destroyed_ = false;
 	}
 }
 
-template
-<
-	typename T,
-	class LifetimePolicy
->
+template <typename T, class LifetimePolicy>
 void SingletonHolder<T, LifetimePolicy>::destroySingleton()
 {
 	delete ptrInstance;

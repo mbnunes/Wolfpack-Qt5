@@ -74,26 +74,25 @@ public:
 	*/
 	void saveFloat( unsigned int id, QString key, double value );
 	void saveInt( unsigned int id, QString key, int value );
-	void saveString( unsigned int id, QString key, const QString &value );
-	void saveChar(unsigned int id, QString key, P_CHAR character );
-	void saveItem(unsigned int id, QString key, P_ITEM item );
-	bool loadFloat( unsigned int id, QString key, double &value );
-	bool loadInt( unsigned int id, QString key, int &value );
-	bool loadString( unsigned int id, QString key, QString &value );
-	bool loadChar(unsigned int id, QString key, P_CHAR &character );
-	bool loadItem(unsigned int id, QString key, P_ITEM &item );
+	void saveString( unsigned int id, QString key, const QString& value );
+	void saveChar( unsigned int id, QString key, P_CHAR character );
+	void saveItem( unsigned int id, QString key, P_ITEM item );
+	bool loadFloat( unsigned int id, QString key, double& value );
+	bool loadInt( unsigned int id, QString key, int& value );
+	bool loadString( unsigned int id, QString key, QString& value );
+	bool loadChar( unsigned int id, QString key, P_CHAR& character );
+	bool loadItem( unsigned int id, QString key, P_ITEM& item );
 
 public:
-//	cTimer() { serializable = true; }
-	cTimer( cTimer* left_ = NULL, cTimer* right_ = NULL, cTimer* father_ = NULL,
-				cTimer* son_ = NULL, int rank_ = 0, bool marker_ = false )
+	//	cTimer() { serializable = true; }
+	cTimer( cTimer* left_ = NULL, cTimer* right_ = NULL, cTimer* father_ = NULL, cTimer* son_ = NULL, int rank_ = 0, bool marker_ = false )
 	{
 		serializable = true;
 		left = left_;
 		right = right_;
-		if( !left )
+		if ( !left )
 			left = this;
-		if( !right )
+		if ( !right )
 			right = this;
 		father = father_;
 		son = son_;
@@ -102,27 +101,47 @@ public:
 		dispellable = false;	// Most Effects are NOT dispellable by default
 	}
 
-	bool operator<( const cTimer &a ) const
+	bool operator<( const cTimer& a ) const
 	{
 		return expiretime < a.expiretime;
 	}
 
-	virtual ~cTimer() {}
-	void setExpiretime_s(int seconds);
-	void setExpiretime_ms(float milliseconds);
-	void setDest(int ser);
+	virtual ~cTimer()
+	{
+	}
+	void setExpiretime_s( int seconds );
+	void setExpiretime_ms( float milliseconds );
+	void setDest( int ser );
 	int getDest();
-	void setSour(int ser);
+	void setSour( int ser );
 	int getSour();
-	void On(P_CHAR pc) { Q_UNUSED(pc); }
-	void Off(P_CHAR pc) { Q_UNUSED(pc); }
+	void On( P_CHAR pc )
+	{
+		Q_UNUSED( pc );
+	}
+	void Off( P_CHAR pc )
+	{
+		Q_UNUSED( pc );
+	}
 	virtual void Expire() = 0;
-	virtual void Dispel( P_CHAR pSource, bool silent = false ) { Q_UNUSED(pSource); Q_UNUSED(silent); }
-	virtual QString objectID() const  { return objectid;}
-	bool isSerializable( void ) { return serializable; }
-	void setSerializable( bool data ) { serializable = data; }
+	virtual void Dispel( P_CHAR pSource, bool silent = false )
+	{
+		Q_UNUSED( pSource ); Q_UNUSED( silent );
+	}
+	virtual QString objectID() const
+	{
+		return objectid;
+	}
+	bool isSerializable( void )
+	{
+		return serializable;
+	}
+	void setSerializable( bool data )
+	{
+		serializable = data;
+	}
 
-	virtual void load( unsigned int id, const char **result );
+	virtual void load( unsigned int id, const char** result );
 	virtual void save( unsigned int id );
 
 	std::vector< cTimer* > asVector();
@@ -134,7 +153,10 @@ public:
 	cDelayedHideChar( SERIAL serial );
 	cDelayedHideChar();
 	void Expire();
-	QString objectID() const  { return "cDelayedHideChar"; }
+	QString objectID() const
+	{
+		return "cDelayedHideChar";
+	}
 };
 
 class cTimers
@@ -143,7 +165,7 @@ private:
 
 	struct ComparePredicate : public std::binary_function<cTimer*, cTimer*, bool>
 	{
-		bool operator()(const cTimer *a, const cTimer *b)
+		bool operator()( const cTimer* a, const cTimer* b )
 		{
 			return a->expiretime > b->expiretime;
 		}
@@ -151,19 +173,19 @@ private:
 
 public:
 	cTimers();
-	std::vector< cTimer* > teffects;
+	std::vector<cTimer*> teffects;
 
 	void load();
 	void save();
 
 	void check();
 	void dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent = false );
-	void dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent = false, bool onlyDispellable = true );
+	void dispel( P_CHAR pc_dest, P_CHAR pSource, const QString& type, bool silent = false, bool onlyDispellable = true );
 
 	void insert( cTimer* pT );
 	void erase( cTimer* pT );
 
-	int	 size()
+	int size()
 	{
 		return teffects.size();
 	}

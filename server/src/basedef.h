@@ -34,8 +34,9 @@
 
 class cElement;
 
-class cCharBaseDef : public cDefinable {
-friend class cCharBaseDefs;
+class cCharBaseDef : public cDefinable
+{
+	friend class cCharBaseDefs;
 protected:
 	// Our id
 	QCString id_;
@@ -51,6 +52,7 @@ protected:
 	short minTaming_;
 	QCString carve_;
 	QCString lootPacks_;
+	QCString bindmenu_;
 	unsigned char controlSlots_;
 	unsigned char criticalHealth_;
 
@@ -59,87 +61,109 @@ protected:
 	void load();
 	void reset();
 public:	
-	cCharBaseDef(const QCString &id);
+	cCharBaseDef( const QCString& id );
 	~cCharBaseDef();
 
-	void processNode(const cElement *node);
+	void processNode( const cElement* node );
 
-	inline unsigned char controlSlots() {
+	inline unsigned char controlSlots()
+	{
 		load();
 		return controlSlots_;
 	}
 
-	inline unsigned char criticalHealth() {
+	inline unsigned char criticalHealth()
+	{
 		load();
 		return criticalHealth_;
 	}
 
-	inline const QCString &id() const {
+	inline const QCString& id() const
+	{
 		return id_;
 	}
 
-	inline unsigned short basesound() {
+	inline unsigned short basesound()
+	{
 		load();
 		return basesound_;
 	}
 
-	inline unsigned char soundmode() {
+	inline unsigned char soundmode()
+	{
 		load();
 		return soundmode_;
 	}
 
-	inline unsigned short figurine() {
+	inline unsigned short figurine()
+	{
 		load();
 		return figurine_;
 	}
 
-	inline unsigned int flags() {
+	inline unsigned int flags()
+	{
 		load();
 		return flags_;
 	}
 
-	inline bool canFly() {
+	inline bool canFly()
+	{
 		load();
-		return (flags_ & 0x01) != 0;
+		return ( flags_ & 0x01 ) != 0;
 	}
 
-	inline bool antiBlink() {
+	inline bool antiBlink()
+	{
 		load();
-		return (flags_ & 0x02) != 0;
+		return ( flags_ & 0x02 ) != 0;
 	}
 
-	inline bool noCorpse() {
+	inline bool noCorpse()
+	{
 		load();
-		return (flags_ & 0x04) != 0;
+		return ( flags_ & 0x04 ) != 0;
 	}
 
-	inline unsigned short maxDamage() {
+	inline unsigned short maxDamage()
+	{
 		load();
 		return maxDamage_;
 	}
 
-	inline unsigned short minDamage() {
+	inline unsigned short minDamage()
+	{
 		load();
 		return minDamage_;
 	}
 
-	inline short minTaming() {
+	inline short minTaming()
+	{
 		load();
 		return minTaming_;
 	}
 
-	inline const QCString &carve() {
+	inline const QCString& carve()
+	{
 		load();
 		return carve_;
 	}
 
-	inline const QCString &lootPacks() {
+	inline const QCString& lootPacks()
+	{
 		load();
 		return lootPacks_;
 	}
+
+	inline const QCString &bindmenu()
+	{
+		load();
+		return bindmenu_;
+	}
 };
 
-class cCharBaseDefs {
+class cCharBaseDefs
+{
 protected:
 	typedef QMap<QCString, cCharBaseDef*> Container;
 	typedef Container::iterator Iterator;
@@ -150,8 +174,8 @@ public:
 
 	// Get a base definition
 	// This is guaranteed to return a basedef. Even if uninitialized.
-	cCharBaseDef *get(const QCString &id);
-    
+	cCharBaseDef* get( const QCString& id );
+
 	// When reset is called, all loaded basedefs are unflagged.
 	void reset();
 };

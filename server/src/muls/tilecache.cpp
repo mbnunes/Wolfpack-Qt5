@@ -61,18 +61,21 @@ using namespace std;
 	return false;
 }*/
 
-void cTileCache::unload() {
+void cTileCache::unload()
+{
 	staticTiles.clear();
 	landTiles.clear();
 	cComponent::unload();
 }
 
-void cTileCache::reload() {
+void cTileCache::reload()
+{
 	unload();
 	load();
 }
 
-void cTileCache::load() {
+void cTileCache::load()
+{
 	path = Config::instance()->mulPath();
 
 	// Null out our placeholder tiles first
@@ -81,28 +84,28 @@ void cTileCache::load() {
 
 	QFile input( path + "tiledata.mul" );
 
-	if( !input.open( IO_ReadOnly ) )
+	if ( !input.open( IO_ReadOnly ) )
 		throw wpException( QString( "Error opening file %1 for reading." ).arg( path + "tiledata.mul" ) );
 
 	// Begin reading in the Land-Tiles
 	UINT32 i, j;
 
-	for( i = 0; i < 512; ++i )
+	for ( i = 0; i < 512; ++i )
 	{
 		// Skip the header (Use unknown)
 		input.at( ( i * ( 4 + ( 32 * 26 ) ) ) + 4 );
 
 		// Read all 32 blocks
-		for( j = 0; j < 32; ++j )
+		for ( j = 0; j < 32; ++j )
 		{
 			UINT16 tileId = ( i * 32 ) + j;
 			land_st landTile;
-			input.readBlock( (char*)&landTile, 26 );
+			input.readBlock( ( char * ) &landTile, 26 );
 
 			// It's not an empty tile, so let's save it
 			// We only compare until the first char of the name as
 			// the junk behind the 00 doesnt interest us
-			if( memcmp( &emptyLandTile, &landTile, ( 26 - 19 ) ) )
+			if ( memcmp( &emptyLandTile, &landTile, ( 26 - 19 ) ) )
 				landTiles.insert( make_pair( tileId, landTile ) );
 		}
 	}
@@ -110,24 +113,24 @@ void cTileCache::load() {
 	// Repeat the same procedure for static tiles
 	// NOTE: We are only interested in the REAL static tiles, nothing of
 	// that ALHPA crap above it
-	UINT32 skipLand = 512 * ( 4 + ( 32 * 26	 ) );
+	UINT32 skipLand = 512 * ( 4 + ( 32 * 26 ) );
 
-	for( i = 0; i < 512; ++i )
+	for ( i = 0; i < 512; ++i )
 	{
 		// Skip the header (Use unknown)
 		input.at( skipLand + ( i * ( 4 + ( 32 * 37 ) ) ) + 4 );
 
 		// Read all 32 blocks
-		for( j = 0; j < 32; ++j )
+		for ( j = 0; j < 32; ++j )
 		{
 			UINT16 tileId = ( i * 32 ) + j;
 			tile_st staticTile;
-			input.readBlock( (char*)&staticTile, 37 ); // Length of one record: 37
+			input.readBlock( ( char * ) &staticTile, 37 ); // Length of one record: 37
 
 			// It's not an empty tile, so let's save it
 			// We only compare until the first char of the name as
 			// the junk behind the 00 doesnt interest us
-			if( memcmp( &emptyStaticTile, &staticTile, 18 ) )
+			if ( memcmp( &emptyStaticTile, &staticTile, 18 ) )
 				staticTiles.insert( make_pair( tileId, staticTile ) );
 		}
 	}
@@ -135,7 +138,7 @@ void cTileCache::load() {
 
 	// Now we got to check for verdata blocks
 	input.setName( path + "verdata.mul" );
-	if( input.open( IO_ReadOnly ) )
+	if ( input.open( IO_ReadOnly ) )
 	{
 		UINT32 patches;
 		QDataStream verdata( &input );
@@ -144,7 +147,7 @@ void cTileCache::load() {
 		verdata >> patches;
 
 		// Seek trough all patches
-		for( UINT32 patchId = 0; patchId < patches; ++patchId )
+		for ( UINT32 patchId = 0; patchId < patches; ++patchId )
 		{
 			verdata.device()->at( 4 + ( patchId * 21 ) );
 
@@ -152,21 +155,21 @@ void cTileCache::load() {
 			UINT32 fileId, blockId, offset, length, extra;
 			verdata >> fileId >> blockId >> offset >> length >> extra;
 
-			if( fileId != VERFILE_TILEDATA )
+			if ( fileId != VERFILE_TILEDATA )
 				continue;
 
 			verdata.device()->at( offset + 4 ); // Skip the 4 byte header
 
-			if( blockId >= 512 )
+			if ( blockId >= 512 )
 			{
 				blockId -= 512;
-				for( i = 0; i < 32; ++i )
+				for ( i = 0; i < 32; ++i )
 				{
 					UINT16 tileId = ( blockId * 32 ) + i;
 					tile_st tile;
-					verdata.device()->readBlock( (char*)&tile, sizeof( tile_st ) );
+					verdata.device()->readBlock( ( char * ) &tile, sizeof( tile_st ) );
 
-					if( staticTiles.find( tileId ) != staticTiles.end() )
+					if ( staticTiles.find( tileId ) != staticTiles.end() )
 						staticTiles.erase( staticTiles.find( tileId ) );
 
 					staticTiles.insert( make_pair( tileId, tile ) );
@@ -174,13 +177,13 @@ void cTileCache::load() {
 			}
 			else
 			{
-				for( i = 0; i < 32; ++i )
+				for ( i = 0; i < 32; ++i )
 				{
 					UINT16 tileId = ( blockId * 32 ) + i;
 					land_st tile;
-					verdata.device()->readBlock( (char*)&tile, sizeof( land_st ) );
+					verdata.device()->readBlock( ( char * ) &tile, sizeof( land_st ) );
 
-					if( landTiles.find( tileId ) != landTiles.end() )
+					if ( landTiles.find( tileId ) != landTiles.end() )
 						landTiles.erase( landTiles.find( tileId ) );
 
 					landTiles.insert( make_pair( tileId, tile ) );
@@ -196,7 +199,7 @@ void cTileCache::load() {
 // Get's a land-tile out of the cache
 land_st cTileCache::getLand( UINT16 tileId )
 {
-	if( landTiles.find( tileId ) == landTiles.end() )
+	if ( landTiles.find( tileId ) == landTiles.end() )
 		return emptyLandTile;
 	else
 		return landTiles.find( tileId )->second;
@@ -205,22 +208,22 @@ land_st cTileCache::getLand( UINT16 tileId )
 // The same for static-tiles
 tile_st cTileCache::getTile( UINT16 tileId )
 {
-	if( staticTiles.find( tileId ) == staticTiles.end() )
+	if ( staticTiles.find( tileId ) == staticTiles.end() )
 		return emptyStaticTile;
 	else
 		return staticTiles.find( tileId )->second;
 }
 
-signed char cTileCache::tileHeight( const tile_st & t )
+signed char cTileCache::tileHeight( const tile_st& t )
 {
-	if (t.flag2 & 4)
-		return (signed char)(t.height/2);	// hey, lets just RETURN half!
-	return (t.height);
+	if ( t.flag2 & 4 )
+		return ( signed char ) ( t.height / 2 );	// hey, lets just RETURN half!
+	return ( t.height );
 }
 
 signed char cTileCache::tileHeight( ushort tileId )
 {
 	tile_st tile = getTile( tileId );
 	// For Stairs+Ladders
-	return tileHeight(tile);
+	return tileHeight( tile );
 }

@@ -44,16 +44,18 @@ class wpException;
 
 // Structures
 #pragma pack (1)
-struct map_st {
+struct map_st
+{
 	unsigned short id;
 	signed char z;
 };
 
-struct staticrecord {
+struct staticrecord
+{
 	Q_UINT16 itemid;
-	Q_UINT8  xoff;
-	Q_UINT8  yoff;
-	Q_INT8   zoff;
+	Q_UINT8 xoff;
+	Q_UINT8 yoff;
+	Q_INT8 zoff;
 };
 #pragma pack()
 
@@ -63,8 +65,8 @@ public:
 	/*
 	* Typedefs, STL conformance.
 	*/
-	typedef std::bidirectional_iterator_tag  iterator_category;
-	typedef ptrdiff_t  difference_type;
+	typedef std::bidirectional_iterator_tag iterator_category;
+	typedef ptrdiff_t difference_type;
 
 private:
 	QValueVector<staticrecord> staticArray;
@@ -78,8 +80,10 @@ private:
 	StaticsIterator();
 
 public:
-	StaticsIterator(ushort x, ushort y, MapsPrivate* d, bool exact = true);
-	~StaticsIterator() { };
+	StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact = true );
+	~StaticsIterator()
+	{
+	};
 
 	bool atEnd() const;
 	void reset();
@@ -89,14 +93,14 @@ public:
 	StaticsIterator& operator++();
 	StaticsIterator& operator--();
 	// postfix Operators
-	StaticsIterator operator++(int);
-	StaticsIterator operator--(int);
-	const staticrecord*   operator->() const;
-	const staticrecord&   operator*() const;
-
+	StaticsIterator operator++( int );
+	StaticsIterator operator--( int );
+	const staticrecord* operator->() const;
+	const staticrecord& operator*() const;
 };
 
-class cMaps : public cComponent {
+class cMaps : public cComponent
+{
 	QMap<uint, MapsPrivate*> d;
 	QString basePath;
 
@@ -113,18 +117,18 @@ public:
 
 	bool registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx );
 
-	unsigned int mapPatches(unsigned int id);
-	unsigned int staticPatches(unsigned int id);
+	unsigned int mapPatches( unsigned int id );
+	unsigned int staticPatches( unsigned int id );
 	map_st seekMap( uint id, ushort x, ushort y ) const;
 	map_st seekMap( const Coord_cl& ) const;
 	bool hasMap( uint id ) const;
 	signed char mapElevation( const Coord_cl& p ) const;
 	signed char mapAverageElevation( const Coord_cl& p, int* top = 0, int* botton = 0 ) const;
-	signed char dynamicElevation(const Coord_cl& pos) const;
-	signed char height(const Coord_cl& pos);
+	signed char dynamicElevation( const Coord_cl& pos ) const;
+	signed char height( const Coord_cl& pos );
 	uint mapTileWidth( uint ) const;
 	uint mapTileHeight( uint ) const;
-	signed char staticTop(const Coord_cl& pos) const;
+	signed char staticTop( const Coord_cl& pos ) const;
 	bool canFit( int x, int y, int z, int map, int height ) const;
 	StaticsIterator staticsIterator( uint id, ushort x, ushort y, bool exact = true ) const throw( wpException );
 	StaticsIterator staticsIterator( const Coord_cl&, bool exact = true ) const throw( wpException );
@@ -133,7 +137,7 @@ public:
 // Inline member functions
 inline const staticrecord& StaticsIterator::data() const
 {
-	return staticArray.at(pos);
+	return staticArray.at( pos );
 }
 
 inline bool StaticsIterator::atEnd() const
@@ -158,14 +162,14 @@ inline StaticsIterator& StaticsIterator::operator--()
 	return *this;
 }
 
-inline StaticsIterator StaticsIterator::operator--(int)
+inline StaticsIterator StaticsIterator::operator--( int )
 {
 	StaticsIterator tmp = *this;
 	dec();
 	return tmp;
 }
 
-inline StaticsIterator StaticsIterator::operator++(int)
+inline StaticsIterator StaticsIterator::operator++( int )
 {
 	StaticsIterator tmp = *this;
 	inc();

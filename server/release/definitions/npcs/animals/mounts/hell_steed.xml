@@ -13,7 +13,7 @@
 		<name>a hellsteed</name>
 		<id>0x319</id>
 		<category>Animals\Mounts\Hellsteed</category>
-		<bindmenu>tame_menu</bindmenu>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<karma>0</karma>
 		<fame>0</fame>
 		<!-- Damage -->

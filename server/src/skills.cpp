@@ -47,73 +47,73 @@
 // System Includes
 #include <math.h>
 
-void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the skill list
+void cSkills::SkillUse( cUOSocket* socket, UINT16 id ) // Skill is clicked on the skill list
 {
 	P_PLAYER pChar = socket->player();
 
 	// No Char no Skill use
-	if( !pChar )
+	if ( !pChar )
 		return;
 
-/* TODO: reimplementation of jail system
-	if( pChar->cell() > 0 )
-	{
-		socket->sysMessage( tr( "You are in jail and cant use skills here!" ) );
-		return;
-	}
-*/
+	/* TODO: reimplementation of jail system
+		if( pChar->cell() > 0 )
+		{
+			socket->sysMessage( tr( "You are in jail and cant use skills here!" ) );
+			return;
+		}
+	*/
 
-	if( pChar->isDead() )
+	if ( pChar->isDead() )
 	{
 		socket->sysMessage( tr( "You cannot do that as a ghost." ) );
 		return;
 	}
 
-	if( id != STEALTH )
+	if ( id != STEALTH )
 		pChar->unhide(); // Don't unhide if we're trying to stealth
 
 	pChar->disturbMed(); // Disturb meditation if we're using a skill
 
-	if( pChar->isCasting() )
+	if ( pChar->isCasting() )
 	{
 		socket->sysMessage( tr( "You can't do that while you are casting." ) );
 		return;
 	}
 
-	if( pChar->skillDelay() > Server::instance()->time() && !pChar->isGM() )
+	if ( pChar->skillDelay() > Server::instance()->time() && !pChar->isGM() )
 	{
 		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
 		return;
 	}
 
-	if( pChar->onSkillUse( id ) )
+	if ( pChar->onSkillUse( id ) )
 		return;
 
-	cTargetRequest *targetRequest = NULL;
+	cTargetRequest* targetRequest = NULL;
 	QString message;
 	int s = -1;
 
-	switch( id )
+	switch ( id )
 	{
 	case STEALING:
-		if( !Config::instance()->stealingEnabled() )
+		if ( !Config::instance()->stealingEnabled() )
 		{
 			socket->sysMessage( tr( "That skill has been disabled." ) );
 			return;
 		}
 
-		message = tr("What do you wish to steal?");
+		message = tr( "What do you wish to steal?" );
 		targetRequest = new cSkStealing;
 		break;
 	case TRACKING:
 		trackingMenu( socket );
 		break;
 	case FORENSICS:
-		message = tr("What corpse do you want to examine?");
+		message = tr( "What corpse do you want to examine?" );
 		targetRequest = new cSkForensics;
 		break;
 	case POISONING:
-		message = tr("What poison do you want to apply?");
+		message = tr( "What poison do you want to apply?" );
 		targetRequest = new cSkPoisoning;
 		break;
 	case MEDITATION:
@@ -124,10 +124,10 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		return;
 	}
 
-	if( targetRequest )
+	if ( targetRequest )
 		socket->attachTarget( targetRequest );
 
-	if( message )
+	if ( message )
 		pChar->message( message );
 
 	pChar->setSkillDelay( Server::instance()->time() + Config::instance()->skillDelay() * MY_CLOCKS_PER_SEC );
@@ -138,30 +138,30 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 	P_PLAYER pChar = socket->player();
 	P_CHAR pVictim = FindCharBySerial( victim );
 
-	if( !pVictim || !pChar )
+	if ( !pVictim || !pChar )
 		return;
 
-	if( pVictim->serial() == pChar->serial() )
+	if ( pVictim->serial() == pChar->serial() )
 	{
 		socket->sysMessage( tr( "Why don't you simply take it?" ) );
 		return;
 	}
 
-/*	if( pVictim->npcaitype() == 17 )
+	/*	if( pVictim->npcaitype() == 17 )
+		{
+			socket->sysMessage( tr( "You cannot steal from Playervendors." ) );
+			return;
+		}
+	*/
+	if ( pVictim->objectType() == enPlayer )
 	{
-		socket->sysMessage( tr( "You cannot steal from Playervendors." ) );
-		return;
-	}
-*/
-	if( pVictim->objectType() == enPlayer )
-	{
-		P_PLAYER pp = dynamic_cast<P_PLAYER>(pVictim);
-		if( pp->isGMorCounselor() )
+		P_PLAYER pp = dynamic_cast<P_PLAYER>( pVictim );
+		if ( pp->isGMorCounselor() )
 			socket->sysMessage( tr( "You can't steal from game masters." ) );
 		return;
 	}
 
-	if( !pChar->inRange( pVictim, 1 ) )
+	if ( !pChar->inRange( pVictim, 1 ) )
 	{
 		socket->sysMessage( tr( "You are too far away to steal from that person." ) );
 		return;
@@ -169,43 +169,43 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 
 	P_ITEM pBackpack = pVictim->getBackpack();
 
-	if( !pBackpack )
+	if ( !pBackpack )
 	{
 		socket->sysMessage( tr( "Bad luck, your victim doesn't have a backpack." ) );
 		return;
 	}
 
-	float maxWeight = (float)QMIN( 1, pChar->skillValue( STEALING ) ); // We can steal max. 10 Stones when we are a GM
+	float maxWeight = ( float ) QMIN( 1, pChar->skillValue( STEALING ) ); // We can steal max. 10 Stones when we are a GM
 	// 1000 Skill == 100 Weight == 10 Stones
 
-	QPtrList< cItem > containment = pBackpack->getContainment();
+	QPtrList<cItem> containment = pBackpack->getContainment();
 	UINT32 chance = containment.count();
 
 	P_ITEM pItem = containment.first();
 	P_ITEM pToSteal = 0;
 	bool sawOkItem = false;
 
-	while( !pToSteal )
+	while ( !pToSteal )
 	{
 		// We have nothing that could be stolen?
-		if( !pItem && !sawOkItem )
+		if ( !pItem && !sawOkItem )
 		{
 			socket->sysMessage( tr( "Your victim posesses nothing you could steal." ) );
 			return;
 		}
 		// Jump back to the beginning
-		else if( !pItem && sawOkItem )
+		else if ( !pItem && sawOkItem )
 		{
 			pItem = containment.first();
 		}
 
 		// Check if our chance becomes true (no spellbooks!)
-		if( pItem->totalweight() <= maxWeight && !pItem->isLockedDown() && !pItem->newbie() && pItem->type() != 9 )
+		if ( pItem->totalweight() <= maxWeight && !pItem->isLockedDown() && !pItem->newbie() && pItem->type() != 9 )
 		{
 			sawOkItem = true; // We have items that could be stolen (just in case we reach the end of our list)
 
 			// We have the chance of 1/chance that we reached our desired item
-			if( RandomNum( 1, chance ) == chance )
+			if ( RandomNum( 1, chance ) == chance )
 			{
 				pToSteal = pItem;
 				break;
@@ -221,13 +221,13 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 	bool success = pChar->checkSkill( STEALING, 0, pToSteal->weight() );
 	bool caught = false;
 
-	if( success )
+	if ( success )
 	{
 		socket->sysMessage( tr( "You successfully steal %1." ).arg( pToSteal->getName() ) );
 		P_ITEM pPack = pChar->getBackpack();
 		pPack->addItem( pToSteal );
 		// Update item onyl if still existent
-		if( !pToSteal->free )
+		if ( !pToSteal->free )
 			pToSteal->update();
 
 		caught = pChar->skillValue( STEALING ) < rand() % 1001;
@@ -241,77 +241,86 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 	}
 
 	// Did we get caught?
-	if( caught )
+	if ( caught )
 	{
 		socket->sysMessage( tr( "You have been cought!" ) );
 
 		// Human non red NPCs need special handling
-		if( pVictim->objectType() == enNPC && pVictim->isInnocent() && pVictim->isHuman() )
+		if ( pVictim->objectType() == enNPC && pVictim->isInnocent() && pVictim->isHuman() )
 		{
-			P_NPC pn = dynamic_cast<P_NPC>(pVictim);
+			P_NPC pn = dynamic_cast<P_NPC>( pVictim );
 			pVictim->talk( tr( "Guards! A thief is amoung us!" ), -1, 0x09 );
-			if( pVictim->region() && pVictim->region()->isGuarded() )
+			if ( pVictim->region() && pVictim->region()->isGuarded() )
 				pn->callGuards();
 		}
 
-		if (pVictim->notoriety(pChar) == 0x01)
+		if ( pVictim->notoriety( pChar ) == 0x01 )
 			pChar->makeCriminal();
 
 		// Our Victim always notices it.
-		if (pVictim->objectType() == enPlayer)
+		if ( pVictim->objectType() == enPlayer )
 		{
-			P_PLAYER pp = dynamic_cast<P_PLAYER>(pVictim);
-			if( pp->socket() )
+			P_PLAYER pp = dynamic_cast<P_PLAYER>( pVictim );
+			if ( pp->socket() )
 				pp->socket()->showSpeech( pChar, tr( "You notice %1 trying to steal %2 from you." ).arg( pChar->name() ).arg( pToSteal->getName( true ) ) );
 		}
 
 		QString message = tr( "You notice %1 trying to steal %2 from %3." ).arg( pChar->name() ).arg( pItem->getName() ).arg( pVictim->name() );
 
-		for ( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next())
+		for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
 			// Everyone within 7 Tiles notices us
-			if( mSock != socket && mSock->player() && mSock->player()->serial() != pVictim->serial() && mSock->player()->inRange( pChar, 7 ) )
+			if ( mSock != socket && mSock->player() && mSock->player()->serial() != pVictim->serial() && mSock->player()->inRange( pChar, 7 ) )
 				mSock->showSpeech( pChar, message );
 		}
-
 	}
 }
 
-void cSkills::Meditation(cUOSocket *socket) {
+void cSkills::Meditation( cUOSocket* socket )
+{
 	P_CHAR pc_currchar = socket->player();
 
-	if (pc_currchar->attackTarget()) {
-		socket->clilocMessage(501845);
-	} else if (pc_currchar->getWeapon() || pc_currchar->getShield()) {
-		socket->clilocMessage(502626);
-	} else if (pc_currchar->mana() >= pc_currchar->intelligence()) {
-		socket->clilocMessage(501846);
-	} else if (!pc_currchar->checkSkill(MEDITATION, 0, 1200)) {
-		socket->clilocMessage(501850);
-	} else {
-		socket->clilocMessage(501851);
-		pc_currchar->setMeditating(true);
-		pc_currchar->soundEffect(0xf9);
+	if ( pc_currchar->attackTarget() )
+	{
+		socket->clilocMessage( 501845 );
+	}
+	else if ( pc_currchar->getWeapon() || pc_currchar->getShield() )
+	{
+		socket->clilocMessage( 502626 );
+	}
+	else if ( pc_currchar->mana() >= pc_currchar->intelligence() )
+	{
+		socket->clilocMessage( 501846 );
+	}
+	else if ( !pc_currchar->checkSkill( MEDITATION, 0, 1200 ) )
+	{
+		socket->clilocMessage( 501850 );
+	}
+	else
+	{
+		socket->clilocMessage( 501851 );
+		pc_currchar->setMeditating( true );
+		pc_currchar->soundEffect( 0xf9 );
 	}
 }
 
 void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 {
-	cUOSocket *socket = player->socket();
+	cUOSocket* socket = player->socket();
 
-	if( !socket )
+	if ( !socket )
 		return;
 
 	P_CHAR pc_owner = container->getOutmostChar();
-	P_PLAYER pp_owner = dynamic_cast<P_PLAYER>(pc_owner);
+	P_PLAYER pp_owner = dynamic_cast<P_PLAYER>( pc_owner );
 
-	if( pp_owner && pp_owner->isGMorCounselor() )
+	if ( pp_owner && pp_owner->isGMorCounselor() )
 	{
 		pp_owner->message( tr( "%1 is trying to snoop in your pack" ).arg( player->name() ) );
 		socket->sysMessage( tr( "You can't peek into that container or you'll be jailed." ) );
 		return;
 	}
-	else if( player->checkSkill( SNOOPING, 0, 1000 ) )
+	else if ( player->checkSkill( SNOOPING, 0, 1000 ) )
 	{
 		socket->sendContainer( container );
 		socket->sysMessage( tr( "You successfully peek into that container." ) );
@@ -320,7 +329,7 @@ void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 	{
 		socket->sysMessage( tr( "You failed to peek into that container." ) );
 
-		if( !pp_owner ) // is NPC ?
+		if ( !pp_owner ) // is NPC ?
 			pc_owner->talk( tr( "Art thou attempting to disturb my privacy?" ) );
 		else
 			pp_owner->message( tr( "You notice %1 trying to peek into your pack!" ).arg( player->name() ) );
@@ -328,8 +337,8 @@ void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 
 
 
-//	SetTimerSec(player->objectdelay(), Config::instance()->objectDelay()+Config::instance()->snoopdelay());
-	player->setObjectDelay(Server::instance()->time() + (Config::instance()->objectDelay() + Config::instance()->snoopdelay()) * MY_CLOCKS_PER_SEC);
+	//	SetTimerSec(player->objectdelay(), Config::instance()->objectDelay()+Config::instance()->snoopdelay());
+	player->setObjectDelay( Server::instance()->time() + ( Config::instance()->objectDelay() + Config::instance()->snoopdelay() ) * MY_CLOCKS_PER_SEC );
 }
 
 void cSkills::load()
@@ -340,23 +349,23 @@ void cSkills::load()
 	// Try to get all skills first
 	UINT32 i;
 
-	for (i = 0; i < ALLSKILLS; ++i)
+	for ( i = 0; i < ALLSKILLS; ++i )
 	{
-		const cElement *skill = Definitions::instance()->getDefinition(WPDT_SKILL, QString::number(i));
+		const cElement* skill = Definitions::instance()->getDefinition( WPDT_SKILL, QString::number( i ) );
 
-		if (!skill)
+		if ( !skill )
 			continue;
 
 		stSkill nSkill;
 
-		for (unsigned int j = 0; j < skill->childCount(); ++j)
+		for ( unsigned int j = 0; j < skill->childCount(); ++j )
 		{
-			const cElement *node = skill->getChild( j );
-			if( node->name() == "name" )
+			const cElement* node = skill->getChild( j );
+			if ( node->name() == "name" )
 				nSkill.name = node->text();
-			else if( node->name() == "defname" )
+			else if ( node->name() == "defname" )
 				nSkill.defname = node->text();
-			else if( node->name() == "title" )
+			else if ( node->name() == "title" )
 				nSkill.title = node->text();
 		}
 
@@ -364,11 +373,11 @@ void cSkills::load()
 	}
 
 	// Load Skill Ranks
-	skillRanks = Definitions::instance()->getList("SKILL_RANKS");
+	skillRanks = Definitions::instance()->getList( "SKILL_RANKS" );
 
 	// Fill it up to 10 Ranks
-	while (skillRanks.count() < 10)
-		skillRanks.push_back("");
+	while ( skillRanks.count() < 10 )
+		skillRanks.push_back( "" );
 }
 
 void cSkills::unload()
@@ -377,49 +386,49 @@ void cSkills::unload()
 }
 
 // For the Paperdoll
-QString cSkills::getSkillTitle(P_CHAR pChar) const
+QString cSkills::getSkillTitle( P_CHAR pChar ) const
 {
 	QString skillTitle;
-	P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
+	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
 
-	if (Config::instance()->showSkillTitles() && player && !player->isGM())
+	if ( Config::instance()->showSkillTitles() && player && !player->isGM() )
 	{
 		unsigned short skill = 0;
 		unsigned short skillValue = 0;
 
-		for (int i = 0; i < ALLSKILLS; ++i)
+		for ( int i = 0; i < ALLSKILLS; ++i )
 		{
-			if (pChar->skillValue(i) > skillValue)
+			if ( pChar->skillValue( i ) > skillValue )
 			{
-                skill = i;
-				skillValue = pChar->skillValue(i);
+				skill = i;
+				skillValue = pChar->skillValue( i );
 			}
 		}
 
-		unsigned char title = QMAX(1, ((int)pChar->skillValue(skill) - 300) / 100);
+		unsigned char title = QMAX( 1, ( ( int ) pChar->skillValue( skill ) - 300 ) / 100 );
 
-		if (title >= skillRanks.size())
+		if ( title >= skillRanks.size() )
 		{
-			pChar->log(LOG_ERROR, "Invalid skill rank information.\n");
+			pChar->log( LOG_ERROR, "Invalid skill rank information.\n" );
 			return skillTitle;
 		}
 
 		// Skill not found
-		if (skill >= skills.size())
+		if ( skill >= skills.size() )
 		{
-			pChar->log(LOG_ERROR, QString("Skill id out of range: %u.\n").arg(skill));
+			pChar->log( LOG_ERROR, QString( "Skill id out of range: %u.\n" ).arg( skill ) );
 			return skillTitle;
 		}
 
-		skillTitle = QString("%1 %2").arg(skillRanks[title]).arg(skills[skill].title);
+		skillTitle = QString( "%1 %2" ).arg( skillRanks[title] ).arg( skills[skill].title );
 	}
 
 	return skillTitle;
 }
 
-const QString &cSkills::getSkillName( UINT16 skill ) const
+const QString& cSkills::getSkillName( UINT16 skill ) const
 {
-	if( skill >= skills.size() )
+	if ( skill >= skills.size() )
 	{
 		Console::instance()->log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
 		return QString::null;
@@ -428,22 +437,22 @@ const QString &cSkills::getSkillName( UINT16 skill ) const
 	return skills[skill].name;
 }
 
-INT16 cSkills::findSkillByDef( const QString &defname ) const
+INT16 cSkills::findSkillByDef( const QString& defname ) const
 {
 	QString defName = defname.upper();
 
 	unsigned int i;
-	for( i = 0; i < skills.size(); ++i )
+	for ( i = 0; i < skills.size(); ++i )
 	{
-		if( skills[i].defname == defName )
+		if ( skills[i].defname == defName )
 			return i;
 	}
 	return -1;
 }
 
-const QString &cSkills::getSkillDef( UINT16 skill ) const
+const QString& cSkills::getSkillDef( UINT16 skill ) const
 {
-	if( skill >= skills.size() )
+	if ( skill >= skills.size() )
 	{
 		Console::instance()->log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
 		return QString::null;

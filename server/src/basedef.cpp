@@ -32,15 +32,18 @@
 #include "basics.h"
 #include <string.h>
 
-cCharBaseDef::cCharBaseDef(const QCString &id) {
+cCharBaseDef::cCharBaseDef( const QCString& id )
+{
 	id_ = id;
 	reset();
 }
 
-cCharBaseDef::~cCharBaseDef() {
+cCharBaseDef::~cCharBaseDef()
+{
 }
 
-void cCharBaseDef::reset() {
+void cCharBaseDef::reset()
+{
 	loaded = false;
 	basesound_ = 0;
 	soundmode_ = 0;
@@ -53,76 +56,116 @@ void cCharBaseDef::reset() {
 	criticalHealth_ = 0;
 }
 
-void cCharBaseDef::processNode(const cElement *node) {
-	if (node->name() == "basesound") {
+void cCharBaseDef::processNode( const cElement* node )
+{
+	if ( node->name() == "basesound" )
+	{
 		basesound_ = node->value().toInt();
-	} else if (node->name() == "soundmode") {
+	}
+	else if ( node->name() == "soundmode" )
+	{
 		soundmode_ = node->value().toInt();
-	} else if (node->name() == "figurine") {
+	}
+	else if ( node->name() == "figurine" )
+	{
 		figurine_ = node->value().toInt();
-	} else if (node->name() == "mindamage") {
+	}
+	else if ( node->name() == "mindamage" )
+	{
 		minDamage_ = node->value().toInt();
-	} else if (node->name() == "maxdamage") {
+	}
+	else if ( node->name() == "maxdamage" )
+	{
 		maxDamage_ = node->value().toInt();
-	} else if (node->name() == "mintaming") {
+	}
+	else if ( node->name() == "mintaming" )
+	{
 		minTaming_ = node->value().toInt();
-	} else if (node->name() == "controlslots") {
+	}
+	else if ( node->name() == "controlslots" )
+	{
 		controlSlots_ = node->value().toInt();
-	} else if (node->name() == "criticalhealth") {
+	}
+	else if ( node->name() == "criticalhealth" )
+	{
 		criticalHealth_ = node->value().toInt();
-	} else if (node->name() == "carve") {
+	}
+	else if ( node->name() == "carve" )
+	{
 		carve_ = node->text();
-	} else if (node->name() == "lootpacks") {
+	}
+	else if ( node->name() == "lootpacks" )
+	{
 		lootPacks_ = node->text();
-	} else if (node->name() == "canfly") {
+	}
+	else if ( node->name() == "canfly" )
+	{
 		flags_ |= 0x01;
-	} else if (node->name() == "antiblink") {
+	}
+	else if ( node->name() == "antiblink" )
+	{
 		flags_ |= 0x02;
-	} else if (node->name() == "nocorpse") {
+	}
+	else if ( node->name() == "nocorpse" )
+	{
 		flags_ |= 0x04;
+	}
+	else if ( node->name() == "bindmenu" )
+	{
+		bindmenu_ = node->text();
 	}
 }
 
 // Load this definition from the scripts.
-void cCharBaseDef::load() {
-	if (!loaded) {
+void cCharBaseDef::load()
+{
+	if ( !loaded )
+	{
 		loaded = true;
-		const cElement *element = Definitions::instance()->getDefinition(WPDT_NPC, id_);
+		const cElement* element = Definitions::instance()->getDefinition( WPDT_NPC, id_ );
 
-		if (!element) {
-			Console::instance()->log(LOG_WARNING, QString("Missing npc definition '%1'.\n").arg(id_));
+		if ( !element )
+		{
+			Console::instance()->log( LOG_WARNING, QString( "Missing npc definition '%1'.\n" ).arg( id_ ) );
 			return;
 		}
 
-		applyDefinition(element);
+		applyDefinition( element );
 	}
 }
 
-cCharBaseDef *cCharBaseDefs::get(const QCString &id) {
-	Iterator it = definitions.find(id);
+cCharBaseDef* cCharBaseDefs::get( const QCString& id )
+{
+	Iterator it = definitions.find( id );
 
-	if (it == definitions.end()) {
-		cCharBaseDef *def = new cCharBaseDef(id);
-		it = definitions.insert(id, def);
+	if ( it == definitions.end() )
+	{
+		cCharBaseDef* def = new cCharBaseDef( id );
+		it = definitions.insert( id, def );
 	}
 
 	return it.data();
 }
 
-cCharBaseDefs::cCharBaseDefs() {
+cCharBaseDefs::cCharBaseDefs()
+{
 }
 
-cCharBaseDefs::~cCharBaseDefs() {
+cCharBaseDefs::~cCharBaseDefs()
+{
 	Iterator it;
-	for (it = definitions.begin(); it != definitions.end(); ++it) {
+	for ( it = definitions.begin(); it != definitions.end(); ++it )
+	{
 		delete it.data();
 	}
 	definitions.clear();
 }
 
-void cCharBaseDefs::reset() {
+void cCharBaseDefs::reset()
+{
 	Iterator it;
-	for (it = definitions.begin(); it != definitions.end(); ++it) {
+	for ( it = definitions.begin(); it != definitions.end(); ++it )
+	{
 		it.data()->reset();
 	}
 }

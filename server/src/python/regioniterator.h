@@ -32,112 +32,94 @@
 #include "utilities.h"
 #include "../sectors.h"
 
-typedef struct {
-    PyObject_HEAD;
-	cItemSectorIterator *iter;
+typedef struct
+{
+	PyObject_HEAD;
+	cItemSectorIterator* iter;
 } wpRegionIteratorItems;
 
 static void wpItemIteratorDealloc( PyObject* self )
 {
-	delete ((wpRegionIteratorItems*)self)->iter;
-    PyObject_Del( self );
+	delete ( ( wpRegionIteratorItems * ) self )->iter;
+	PyObject_Del( self );
 }
 
-static PyObject *wpRegionIteratorItems_getAttr( wpRegionIteratorItems *self, char *name )
+static PyObject* wpRegionIteratorItems_getAttr( wpRegionIteratorItems* self, char* name )
 {
-	if( !strcmp( name, "first" ) )
+	if ( !strcmp( name, "first" ) )
 		return PyGetItemObject( self->iter->first() );
-	else if( !strcmp( name, "next" ) )
+	else if ( !strcmp( name, "next" ) )
 		return PyGetItemObject( self->iter->next() );
 
 	return PyFalse();
 }
 
-static PyTypeObject wpRegionIteratorItemsType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "wpRegionIteratorItems",
-    sizeof(wpRegionIteratorItemsType),
-    0,
-	wpItemIteratorDealloc,
-    0,
-    (getattrfunc)wpRegionIteratorItems_getAttr,
-    0,
-    0,
-    0,
-    0,
-    0,
+static PyTypeObject wpRegionIteratorItemsType =
+{
+	PyObject_HEAD_INIT( NULL )
+	0, "wpRegionIteratorItems", sizeof( wpRegionIteratorItemsType ), 0, wpItemIteratorDealloc, 0, ( getattrfunc ) wpRegionIteratorItems_getAttr, 0, 0, 0, 0, 0, 
 };
 
-static PyObject *PyGetItemRegionIterator( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map )
+static PyObject* PyGetItemRegionIterator( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map )
 {
-	wpRegionIteratorItems *returnVal = PyObject_New( wpRegionIteratorItems, &wpRegionIteratorItemsType );
+	wpRegionIteratorItems* returnVal = PyObject_New( wpRegionIteratorItems, &wpRegionIteratorItemsType );
 	returnVal->iter = SectorMaps::instance()->findItems( map, x1, y1, x2, y2 );
 
-	return (PyObject*)returnVal;
+	return ( PyObject * ) returnVal;
 }
 
-static PyObject *PyGetItemRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map )
+static PyObject* PyGetItemRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map )
 {
-	wpRegionIteratorItems *returnVal = PyObject_New( wpRegionIteratorItems, &wpRegionIteratorItemsType );
+	wpRegionIteratorItems* returnVal = PyObject_New( wpRegionIteratorItems, &wpRegionIteratorItemsType );
 	returnVal->iter = SectorMaps::instance()->findItems( map, xBlock * 8, yBlock * 8 );
-	return (PyObject*)returnVal;
+	return ( PyObject * ) returnVal;
 }
 
 /*
  *	Character Region Iterator
  */
 
-typedef struct {
-    PyObject_HEAD;
-	cCharSectorIterator *iter;
+typedef struct
+{
+	PyObject_HEAD;
+	cCharSectorIterator* iter;
 } wpRegionIteratorChars;
 
 static void wpCharIteratorDealloc( PyObject* self )
 {
-	delete ((wpRegionIteratorChars*)self)->iter;
-    PyObject_Del( self );
+	delete ( ( wpRegionIteratorChars * ) self )->iter;
+	PyObject_Del( self );
 }
 
-static PyObject *wpRegionIteratorChars_getAttr( wpRegionIteratorChars *self, char *name )
+static PyObject* wpRegionIteratorChars_getAttr( wpRegionIteratorChars* self, char* name )
 {
-	if( !strcmp( name, "first" ) )
+	if ( !strcmp( name, "first" ) )
 		return PyGetCharObject( self->iter->first() );
-	else if( !strcmp( name, "next" ) )
+	else if ( !strcmp( name, "next" ) )
 		return PyGetCharObject( self->iter->next() );
 
 	return PyFalse();
 }
 
-static PyTypeObject wpRegionIteratorCharsType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "wpRegionIteratorChars",
-    sizeof(wpRegionIteratorCharsType),
-    0,
-	wpCharIteratorDealloc,
-    0,
-    (getattrfunc)wpRegionIteratorChars_getAttr,
-    0,
-    0,
-    0,
-    0,
-    0,
+static PyTypeObject wpRegionIteratorCharsType =
+{
+	PyObject_HEAD_INIT( NULL )
+	0, "wpRegionIteratorChars", sizeof( wpRegionIteratorCharsType ), 0, wpCharIteratorDealloc, 0, ( getattrfunc ) wpRegionIteratorChars_getAttr, 0, 0, 0, 0, 0, 
 };
 
-static PyObject *PyGetCharRegionIterator( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map )
+static PyObject* PyGetCharRegionIterator( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map )
 {
-	wpRegionIteratorChars *returnVal = PyObject_New( wpRegionIteratorChars, &wpRegionIteratorCharsType );
+	wpRegionIteratorChars* returnVal = PyObject_New( wpRegionIteratorChars, &wpRegionIteratorCharsType );
 	returnVal->iter = SectorMaps::instance()->findChars( map, x1, y1, x2, y2 );
 
-	return (PyObject*)returnVal;
+	return ( PyObject * ) returnVal;
 }
 
-static PyObject *PyGetCharRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map )
+static PyObject* PyGetCharRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map )
 {
-	wpRegionIteratorChars *returnVal = PyObject_New( wpRegionIteratorChars, &wpRegionIteratorCharsType );
+	wpRegionIteratorChars* returnVal = PyObject_New( wpRegionIteratorChars, &wpRegionIteratorCharsType );
 	returnVal->iter = SectorMaps::instance()->findChars( map, xBlock * 8, yBlock * 8 );
-	return (PyObject*)returnVal;
+	return ( PyObject * ) returnVal;
 }
 
 #endif

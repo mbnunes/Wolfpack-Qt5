@@ -28,33 +28,40 @@
 #if !defined(__UOTIME_H__)
 #define __UOTIME_H__
 
-class cUoTime {
+class cUoTime
+{
 private:
 	// How many minutes have elapsed
 	unsigned int minutes;
 
 public:
-	cUoTime() {
+	cUoTime()
+	{
 		minutes = 0;
 	}
 
-	inline void setMinutes(unsigned int data) {
+	inline void setMinutes( unsigned int data )
+	{
 		minutes = data;
 	}
 
-	inline unsigned int getMinutes() {
+	inline unsigned int getMinutes()
+	{
 		return minutes;
 	}
 
-	inline unsigned char minute() {
+	inline unsigned char minute()
+	{
 		return minutes % 60;
 	}
 
-	inline unsigned char hour() {
-		return (minutes / 60) % 24;
+	inline unsigned char hour()
+	{
+		return ( minutes / 60 ) % 24;
 	}
 
-	inline unsigned char days() {
+	inline unsigned char days()
+	{
 		return minutes / 1440;
 	}
 };

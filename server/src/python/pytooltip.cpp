@@ -34,97 +34,101 @@
 #include "../basechar.h"
 #include "../player.h"
 
-typedef struct {
-    PyObject_HEAD;
-	cUOTxTooltipList *list;
+typedef struct
+{
+	PyObject_HEAD;
+	cUOTxTooltipList* list;
 } wpTooltip;
 
 // Note: Must be of a different type to cause more then 1 template instanciation
-class cTooltipCache : public cObjectCache<wpTooltip, 50> {
+class cTooltipCache : public cObjectCache<wpTooltip, 50>
+{
 } tooltipCache;
 
-static void clearTooltipCache() {
+static void clearTooltipCache()
+{
 	tooltipCache.clear();
 }
 
-static CleanupAutoRegister reg(&clearTooltipCache);
+static CleanupAutoRegister reg( &clearTooltipCache );
 
 // Forward Declarations
-static PyObject *wpTooltip_getAttr( wpTooltip *self, char *name );
-static int wpTooltip_setAttr( wpTooltip *self, char *name, PyObject *value );
+static PyObject* wpTooltip_getAttr( wpTooltip* self, char* name );
+static int wpTooltip_setAttr( wpTooltip* self, char* name, PyObject* value );
 
 /*!
 	The typedef for Wolfpack Python items
 */
-static PyTypeObject wpTooltipType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "wpTooltip",
-    sizeof(wpTooltipType),
-    0,
-    wpDealloc,
-    0,
-    (getattrfunc)wpTooltip_getAttr,
-    (setattrfunc)wpTooltip_setAttr,
+static PyTypeObject wpTooltipType =
+{
+	PyObject_HEAD_INIT( NULL )
+	0, "wpTooltip", sizeof( wpTooltipType ), 0, wpDealloc, 0, ( getattrfunc ) wpTooltip_getAttr, ( setattrfunc ) wpTooltip_setAttr, 
 };
 
-static PyObject *wpTooltip_add(wpTooltip *self, PyObject *args) {
-	char *params;
+static PyObject* wpTooltip_add( wpTooltip* self, PyObject* args )
+{
+	char* params;
 	unsigned int id;
 
-	if (!PyArg_ParseTuple(args, "Ies:tooltip.add(id, params)", &id, "utf-8", &params)) {
+	if ( !PyArg_ParseTuple( args, "Ies:tooltip.add(id, params)", &id, "utf-8", &params ) )
+	{
 		return 0;
 	}
 
-	self->list->addLine(id, QString::fromUtf8(params));
-	PyMem_Free(params);
+	self->list->addLine( id, QString::fromUtf8( params ) );
+	PyMem_Free( params );
 	return PyTrue();
 }
 
-static PyObject *wpTooltip_reset(wpTooltip *self, PyObject *args) {
-	self->list->resize(19);
-	self->list->setShort(1, 19);
+static PyObject* wpTooltip_reset( wpTooltip* self, PyObject* args )
+{
+	self->list->resize( 19 );
+	self->list->setShort( 1, 19 );
 	return PyTrue();
 }
 
 static PyMethodDef wpTooltipMethods[] =
 {
-	{"reset", (getattrofunc)wpTooltip_reset, METH_VARARGS, "Resets the tooltip packet."},
-	{"add", (getattrofunc)wpTooltip_add, METH_VARARGS, "Adds new line to tooltip packet."},
-    { NULL, NULL, 0, NULL }
+	{"reset", ( getattrofunc ) wpTooltip_reset, METH_VARARGS, "Resets the tooltip packet."}, {"add", ( getattrofunc ) wpTooltip_add, METH_VARARGS, "Adds new line to tooltip packet."}, { NULL, NULL, 0, NULL }
 };
 
-PyObject* PyGetTooltipObject( cUOTxTooltipList *tooltip )
+PyObject* PyGetTooltipObject( cUOTxTooltipList* tooltip )
 {
-	if (!tooltip) {
-		Py_INCREF(Py_None);
+	if ( !tooltip )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
 	}
 
-	wpTooltip *object = tooltipCache.allocObj(&wpTooltipType);
+	wpTooltip* object = tooltipCache.allocObj( &wpTooltipType );
 	object->list = tooltip;
-    return (PyObject*)object;
+	return ( PyObject * ) object;
 }
 
-static PyObject *wpTooltip_getAttr( wpTooltip *self, char *name )
+static PyObject* wpTooltip_getAttr( wpTooltip* self, char* name )
 {
-	if (!strcmp(name, "id"))
+	if ( !strcmp( name, "id" ) )
 		return PyInt_FromLong( self->list->getInt( 11 ) );
-	else if(!strcmp(name, "serial"))
+	else if ( !strcmp( name, "serial" ) )
 		return PyInt_FromLong( self->list->getInt( 5 ) );
 	else
-		return Py_FindMethod( wpTooltipMethods, (PyObject*)self, name );
+		return Py_FindMethod( wpTooltipMethods, ( PyObject * ) self, name );
 }
 
-static int wpTooltip_setAttr(wpTooltip *self, char *name, PyObject *value) {
-	if(!PyInt_Check(value)) {
+static int wpTooltip_setAttr( wpTooltip* self, char* name, PyObject* value )
+{
+	if ( !PyInt_Check( value ) )
+	{
 		return 1;
 	}
 
-	if (!strcmp(name, "id")) {
+	if ( !strcmp( name, "id" ) )
+	{
 		self->list->setInt( 11, PyInt_AsLong( value ) );
-	} else if(!strcmp(name, "serial")) {
-		self->list->setInt(5, PyInt_AsLong(value));
+	}
+	else if ( !strcmp( name, "serial" ) )
+	{
+		self->list->setInt( 5, PyInt_AsLong( value ) );
 	}
 
 	return 0;

@@ -57,70 +57,70 @@
 
 cBaseChar::cBaseChar()
 {
-	fights_.setAutoDelete(false);
-	basedef_			= 0;
-	lastMovement_		= 0;
-	attackTarget_		= 0;
-	nextSwing_			= 0;
-	body_				= 0x190;
-	orgBody_			= 0x190;
-	gender_				= 0;
-	orgSkin_			= 0;
-	propertyFlags_		= 0;
-	weight_				= 0;
-	dexterity_			= 0;
-	dexterityMod_		= 0;
-	maxStamina_			= 0;
-	stamina_			= 0;
-	strength_			= 0;
-	strengthMod_		= 0;
-	maxHitpoints_		= 0;
-	hitpoints_			= 0;
-	intelligence_		= 0;
-	intelligenceMod_	= 0;
-	maxMana_			= 0;
-	mana_				= 0;
-	karma_				= 0;
-	fame_				= 0;
-	kills_				= 0;
-	deaths_				= 0;
-	hunger_				= 6;
-	hungerTime_			= 0;
-	flag_				= 0x02;
-	emoteColor_			= 0x23;
-	creationDate_		= QDateTime::currentDateTime();
-	stealthedSteps_		= 0;
-	runningSteps_		= 0;
-	murdererTime_		= 0;
-	criminalTime_		= 0;
-	skillDelay_			= 0;
-	poison_				= -1;
-    title_				= "";
-	cUObject::name_		= "Man";
-    orgName_			= "Man";
-    skin_				= 0;
-    region_				= NULL;
-    saycolor_			= 0x1700;
-    murdererSerial_		= INVALID_SERIAL;
-    guarding_			= NULL;
-	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );
-	setDead(false);  // we want to live ;)
+	fights_.setAutoDelete( false );
+	basedef_ = 0;
+	lastMovement_ = 0;
+	attackTarget_ = 0;
+	nextSwing_ = 0;
+	body_ = 0x190;
+	orgBody_ = 0x190;
+	gender_ = 0;
+	orgSkin_ = 0;
+	propertyFlags_ = 0;
+	weight_ = 0;
+	dexterity_ = 0;
+	dexterityMod_ = 0;
+	maxStamina_ = 0;
+	stamina_ = 0;
+	strength_ = 0;
+	strengthMod_ = 0;
+	maxHitpoints_ = 0;
+	hitpoints_ = 0;
+	intelligence_ = 0;
+	intelligenceMod_ = 0;
+	maxMana_ = 0;
+	mana_ = 0;
+	karma_ = 0;
+	fame_ = 0;
+	kills_ = 0;
+	deaths_ = 0;
+	hunger_ = 6;
+	hungerTime_ = 0;
+	flag_ = 0x02;
+	emoteColor_ = 0x23;
+	creationDate_ = QDateTime::currentDateTime();
+	stealthedSteps_ = 0;
+	runningSteps_ = 0;
+	murdererTime_ = 0;
+	criminalTime_ = 0;
+	skillDelay_ = 0;
+	poison_ = -1;
+	title_ = "";
+	cUObject::name_ = "Man";
+	orgName_ = "Man";
+	skin_ = 0;
+	region_ = NULL;
+	saycolor_ = 0x1700;
+	murdererSerial_ = INVALID_SERIAL;
+	guarding_ = NULL;
+	cUObject::pos_ = Coord_cl( 100, 100, 0, 0 );
+	setDead( false );  // we want to live ;)
 
-	saycolor_			= 600;
-	hitpointsBonus_		= 0;
-	staminaBonus_		= 0;
-	manaBonus_			= 0;
-	strengthCap_		= 125;
-	dexterityCap_		= 125;
-	intelligenceCap_	= 125;
-	statCap_			= Config::instance()->statcap();
-	skills_.resize(ALLSKILLS);
-	regenHitpointsTime_	= 0;
-	regenStaminaTime_	= 0;
-	regenManaTime_		= 0;
+	saycolor_ = 600;
+	hitpointsBonus_ = 0;
+	staminaBonus_ = 0;
+	manaBonus_ = 0;
+	strengthCap_ = 125;
+	dexterityCap_ = 125;
+	intelligenceCap_ = 125;
+	statCap_ = Config::instance()->statcap();
+	skills_.resize( ALLSKILLS );
+	regenHitpointsTime_ = 0;
+	regenStaminaTime_ = 0;
+	regenManaTime_ = 0;
 }
 
-cBaseChar::cBaseChar(const cBaseChar& right)
+cBaseChar::cBaseChar( const cBaseChar& right )
 {
 }
 
@@ -128,12 +128,12 @@ cBaseChar::~cBaseChar()
 {
 }
 
-cBaseChar& cBaseChar::operator=(const cBaseChar& right)
+cBaseChar& cBaseChar::operator=( const cBaseChar& right )
 {
 	return *this;
 }
 
-void cBaseChar::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
+void cBaseChar::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
 	fields.push_back( "characters.name,characters.title,characters.creationdate" );
@@ -151,21 +151,21 @@ void cBaseChar::buildSqlString( QStringList &fields, QStringList &tables, QStrin
 	fields.push_back( "characters.gender,characters.propertyflags" );
 	fields.push_back( "characters.murderer" );
 	fields.push_back( "characters.guarding" );
-	fields.push_back( "characters.hitpointsbonus,characters.staminabonus,characters.manabonus");
+	fields.push_back( "characters.hitpointsbonus,characters.staminabonus,characters.manabonus" );
 	fields.push_back( "characters.strcap,characters.dexcap,characters.intcap,characters.statcap" );
-	fields.push_back( "characters.baseid" );
+	fields.push_back( "characters.baseid,characters.direction" );
 	tables.push_back( "characters" );
 	conditions.push_back( "uobjectmap.serial = characters.serial" );
 }
 
 static void characterRegisterAfterLoading( P_CHAR pc );
 
-void cBaseChar::load( char **result, UINT16 &offset )
+void cBaseChar::load( char** result, UINT16& offset )
 {
 	cUObject::load( result, offset );
 
 	// Broken Serial?
-	if( !isCharSerial( serial() ) )
+	if ( !isCharSerial( serial() ) )
 		throw QString( "Character has invalid char serial: 0x%1" ).arg( serial(), 0, 16 );
 
 	SERIAL ser;
@@ -196,32 +196,33 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	kills_ = atoi( result[offset++] );
 	deaths_ = atoi( result[offset++] );
 	hunger_ = atoi( result[offset++] );
-	poison_ = (char)atoi( result[offset++] );
+	poison_ = ( char ) atoi( result[offset++] );
 	murdererTime_ = atoi( result[offset++] ) + Server::instance()->time();
 	criminalTime_ = atoi( result[offset++] ) + Server::instance()->time();
 	gender_ = atoi( result[offset++] );
 	propertyFlags_ = atoi( result[offset++] );
 	murdererSerial_ = atoi( result[offset++] );
 	ser = atoi( result[offset++] );
-	guarding_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
-	hitpointsBonus_ = atoi(result[offset++]);
-	staminaBonus_ = atoi(result[offset++]);
-	manaBonus_ = atoi(result[offset++]);
-	strengthCap_ = atoi(result[offset++]);
-	dexterityCap_ = atoi(result[offset++]);
-	intelligenceCap_ = atoi(result[offset++]);
-	statCap_ = atoi(result[offset++]);
-	basedef_ = CharBaseDefs::instance()->get(result[offset++]);
+	guarding_ = dynamic_cast<P_PLAYER>( FindCharBySerial( ser ) );
+	hitpointsBonus_ = atoi( result[offset++] );
+	staminaBonus_ = atoi( result[offset++] );
+	manaBonus_ = atoi( result[offset++] );
+	strengthCap_ = atoi( result[offset++] );
+	dexterityCap_ = atoi( result[offset++] );
+	intelligenceCap_ = atoi( result[offset++] );
+	statCap_ = atoi( result[offset++] );
+	basedef_ = CharBaseDefs::instance()->get( result[offset++] );
+	direction_ = atoi( result[offset++] );
 
 	// Query the Skills for this character
 	QString sql = "SELECT skill,value,locktype,cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'";
 
 	cDBResult res = PersistentBroker::instance()->query( sql );
-	if( !res.isValid() )
+	if ( !res.isValid() )
 		throw PersistentBroker::instance()->lastError();
 
 	// Fetch row-by-row
-	while( res.fetchrow() )
+	while ( res.fetchrow() )
 	{
 		// row[0] = skill
 		// row[1] = value
@@ -232,7 +233,7 @@ void cBaseChar::load( char **result, UINT16 &offset )
 		UINT8 lockType = res.getInt( 2 );
 		UINT16 cap = res.getInt( 3 );
 
-		if( lockType > 2 )
+		if ( lockType > 2 )
 			lockType = 0;
 
 		stSkillValue skValue;
@@ -241,7 +242,7 @@ void cBaseChar::load( char **result, UINT16 &offset )
 		skValue.cap = cap;
 		skValue.changed = false;
 
-		skills_[ skill ] = skValue;
+		skills_[skill] = skValue;
 	}
 
 	res.free();
@@ -253,39 +254,40 @@ void cBaseChar::load( char **result, UINT16 &offset )
 void cBaseChar::save()
 {
 	initSave;
-	if (changed_) {
+	if ( changed_ )
+	{
 		setTable( "characters" );
 
 		addField( "serial", serial() );
 		addStrField( "name", orgName_ );
 		addStrField( "title", title_ );
-		addStrField( "creationdate", creationDate_.toString(Qt::ISODate) );
+		addStrField( "creationdate", creationDate_.toString( Qt::ISODate ) );
 		addField( "body", body_ );
 		addField( "orgbody", orgBody_ );
 		addField( "skin", skin_ );
 		addField( "orgskin", orgSkin_ );
-		addField( "saycolor", saycolor_);
-		addField( "emotecolor", emoteColor_);
-		addField( "strength", strength_);
-		addField( "strengthmod", strengthMod_);
-		addField( "dexterity", dexterity_);
-		addField( "dexteritymod", dexterityMod_);
-		addField( "intelligence", intelligence_);
-		addField( "intelligencemod", intelligenceMod_);
-		addField( "maxhitpoints", maxHitpoints_);
-		addField( "hitpoints", hitpoints_);
-		addField( "maxstamina", maxStamina_);
-		addField( "stamina", stamina_);
-		addField( "maxmana", maxMana_);
-		addField( "mana", mana_);
-		addField( "karma", karma_);
-		addField( "fame", fame_);
-		addField( "kills", kills_);
-		addField( "deaths", deaths_);
-		addField( "hunger", hunger_);
-		addField( "poison", poison_);
-		addField( "murderertime", murdererTime_ ? murdererTime_ - Server::instance()->time() : 0);
-		addField( "criminaltime", criminalTime_ ? criminalTime_ - Server::instance()->time() : 0);
+		addField( "saycolor", saycolor_ );
+		addField( "emotecolor", emoteColor_ );
+		addField( "strength", strength_ );
+		addField( "strengthmod", strengthMod_ );
+		addField( "dexterity", dexterity_ );
+		addField( "dexteritymod", dexterityMod_ );
+		addField( "intelligence", intelligence_ );
+		addField( "intelligencemod", intelligenceMod_ );
+		addField( "maxhitpoints", maxHitpoints_ );
+		addField( "hitpoints", hitpoints_ );
+		addField( "maxstamina", maxStamina_ );
+		addField( "stamina", stamina_ );
+		addField( "maxmana", maxMana_ );
+		addField( "mana", mana_ );
+		addField( "karma", karma_ );
+		addField( "fame", fame_ );
+		addField( "kills", kills_ );
+		addField( "deaths", deaths_ );
+		addField( "hunger", hunger_ );
+		addField( "poison", poison_ );
+		addField( "murderertime", murdererTime_ ? murdererTime_ - Server::instance()->time() : 0 );
+		addField( "criminaltime", criminalTime_ ? criminalTime_ - Server::instance()->time() : 0 );
 		addField( "gender", gender_ );
 		addField( "propertyflags", propertyFlags_ );
 		addField( "murderer", murdererSerial_ );
@@ -298,30 +300,32 @@ void cBaseChar::save()
 		addField( "intcap", intelligenceCap_ );
 		addField( "statcap", statCap_ );
 		addStrField( "baseid", baseid() );
+		addField( "direction", direction_ );
 		addCondition( "serial", serial() );
 		saveFields;
 	}
 
 	QValueVector<stSkillValue>::iterator it;
-	PersistentBroker::instance()->lockTable("skills");
+	PersistentBroker::instance()->lockTable( "skills" );
 	int i = 0;
-	QCString query(256); // 256 byte should be enough
-	for (it = skills_.begin(); it != skills_.end(); ++it, ++i) {
-		if ((*it).changed) {
-			query.sprintf("REPLACE INTO skills VALUES(%u,%u,%u,%u,%u);",
-				serial_, i, (*it).value, (*it).lock, (*it).cap);
-			PersistentBroker::instance()->executeQuery(query.data());
-			(*it).changed = false;
+	QCString query( 256 ); // 256 byte should be enough
+	for ( it = skills_.begin(); it != skills_.end(); ++it, ++i )
+	{
+		if ( ( *it ).changed )
+		{
+			query.sprintf( "REPLACE INTO skills VALUES(%u,%u,%u,%u,%u);", serial_, i, ( *it ).value, ( *it ).lock, ( *it ).cap );
+			PersistentBroker::instance()->executeQuery( query.data() );
+			( *it ).changed = false;
 		}
 	}
-	PersistentBroker::instance()->unlockTable("skills");
+	PersistentBroker::instance()->unlockTable( "skills" );
 
 	cUObject::save();
 }
 
 bool cBaseChar::del()
 {
-	if( !isPersistent )
+	if ( !isPersistent )
 		return false; // We didn't need to delete the object
 
 	PersistentBroker::instance()->addToDeleteQueue( "characters", QString( "serial = '%1'" ).arg( serial() ) );
@@ -330,8 +334,9 @@ bool cBaseChar::del()
 	return cUObject::del();
 }
 
-static void characterRegisterAfterLoading(P_CHAR pc) {
-	World::instance()->registerObject(pc);
+static void characterRegisterAfterLoading( P_CHAR pc )
+{
+	World::instance()->registerObject( pc );
 }
 
 bool cBaseChar::isMurderer() const
@@ -348,25 +353,27 @@ bool cBaseChar::isCriminal() const
 void cBaseChar::updateHealth( void )
 {
 	RegionIterator4Chars cIter( pos() );
-	for( cIter.Begin(); !cIter.atEnd(); cIter++ )
+	for ( cIter.Begin(); !cIter.atEnd(); cIter++ )
 	{
-		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(cIter.GetData());
+		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( cIter.GetData() );
 
 		// Send only if target can see us
-		if( !pPlayer || !pPlayer->socket() || !pPlayer->inRange( this, pPlayer->visualRange() ) || ( isHidden() && !pPlayer->isGM() && this != pPlayer ) )
+		if ( !pPlayer || !pPlayer->socket() || !pPlayer->inRange( this, pPlayer->visualRange() ) || ( isHidden() && !pPlayer->isGM() && this != pPlayer ) )
 			continue;
 
 		pPlayer->socket()->updateHealth( this );
 	}
 }
 
-void cBaseChar::action(unsigned char id, unsigned char speed, bool reverse)
+void cBaseChar::action( unsigned char id, unsigned char speed, bool reverse )
 {
 	bool mounted = atLayer( Mount ) != 0;
 
 	// Bow + Area Cast
-	if (mounted) {
-		switch (id) {
+	if ( mounted )
+	{
+		switch ( id )
+		{
 		case ANIM_WALK_UNARM:
 		case ANIM_WALK_ARM:
 		case ANIM_WALK_WAR:
@@ -411,9 +418,11 @@ void cBaseChar::action(unsigned char id, unsigned char speed, bool reverse)
 		}
 	}
 
-	if (body_ < 0x190 && body_ >= 0xc8) {
+	if ( body_ < 0x190 && body_ >= 0xc8 )
+	{
 		// Animal specific translation
-		switch (id) {
+		switch ( id )
+		{
 		case ANIM_WALK_UNARM:
 		case ANIM_WALK_ARM:
 		case ANIM_WALK_WAR:
@@ -453,7 +462,8 @@ void cBaseChar::action(unsigned char id, unsigned char speed, bool reverse)
 		case ANIM_ATTACK_BOW:
 		case ANIM_ATTACK_XBOW:
 		case ANIM_ATTACK_UNARM:
-			switch(RandomNum(0, 1)) {
+			switch ( RandomNum( 0, 1 ) )
+			{
 			case 0:
 				id = ANIM_ANI_ATTACK1;
 				break;
@@ -485,27 +495,29 @@ void cBaseChar::action(unsigned char id, unsigned char speed, bool reverse)
 	action.setDirection( direction() );
 	action.setRepeat( 1 );
 	action.setRepeatFlag( 0 );
-	action.setSpeed(speed);
-	if (reverse) {
-		action.setBackwards(1);
+	action.setSpeed( speed );
+	if ( reverse )
+	{
+		action.setBackwards( 1 );
 	}
 
-	for( cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
 	{
-		if( socket->player() && socket->player()->inRange( this, socket->player()->visualRange() ) && ( !isHidden() || socket->player()->isGM() ) )
+		if ( socket->player() && socket->player()->inRange( this, socket->player()->visualRange() ) && ( !isHidden() || socket->player()->isGM() ) )
 			socket->send( &action );
 	}
 }
 
-P_ITEM cBaseChar::getWeapon() const {
+P_ITEM cBaseChar::getWeapon() const
+{
 	// Check if we have something on our right hand
 	P_ITEM rightHand = rightHandItem();
-	if (rightHand && rightHand->type() >= 1001 && rightHand->type() <= 1007)
+	if ( rightHand && rightHand->type() >= 1001 && rightHand->type() <= 1007 )
 		return rightHand;
 
 	// Check for two-handed weapons
 	P_ITEM leftHand = leftHandItem();
-	if (leftHand && leftHand->type() >= 1001 && leftHand->type() <= 1007)
+	if ( leftHand && leftHand->type() >= 1001 && leftHand->type() <= 1007 )
 		return leftHand;
 
 	return 0;
@@ -514,27 +526,27 @@ P_ITEM cBaseChar::getWeapon() const {
 P_ITEM cBaseChar::getShield() const
 {
 	P_ITEM leftHand = leftHandItem();
-	if( leftHand && leftHand->isShield() )
+	if ( leftHand && leftHand->isShield() )
 		return leftHand;
 	return NULL;
 }
 
-void cBaseChar::setHairColor( UINT16 d)
+void cBaseChar::setHairColor( UINT16 d )
 {
 	changed_ = true;
 	cItem* pHair = GetItemOnLayer( 11 );
-	if( pHair )
+	if ( pHair )
 		pHair->setColor( d );
 	pHair->update();
 }
 
-void cBaseChar::setHairStyle( UINT16 d)
+void cBaseChar::setHairStyle( UINT16 d )
 {
-	if( !isHair( d ) )
+	if ( !isHair( d ) )
 		return;
 	changed_ = true;
 	cItem* pHair = GetItemOnLayer( 11 );
-	if( pHair )
+	if ( pHair )
 	{
 		pHair->setId( d );
 	}
@@ -543,7 +555,7 @@ void cBaseChar::setHairStyle( UINT16 d)
 		pHair = new cItem;
 		pHair->Init();
 
-		pHair->setDye(1);
+		pHair->setDye( 1 );
 		pHair->setNewbie( true );
 		pHair->setId( d );
 		addItem( cBaseChar::Hair, pHair );
@@ -551,29 +563,29 @@ void cBaseChar::setHairStyle( UINT16 d)
 	pHair->update();
 }
 
-void cBaseChar::setBeardColor( UINT16 d)
+void cBaseChar::setBeardColor( UINT16 d )
 {
 	changed_ = true;
 	cItem* pBeard = GetItemOnLayer( 16 );
-	if( pBeard )
+	if ( pBeard )
 		pBeard->setColor( d );
 	pBeard->update();
 }
 
-void cBaseChar::setBeardStyle( UINT16 d)
+void cBaseChar::setBeardStyle( UINT16 d )
 {
-	if( !isBeard( d ) )
+	if ( !isBeard( d ) )
 		return;
 	changed_ = true;
 	cItem* pBeard = GetItemOnLayer( 16 );
-	if( pBeard )
+	if ( pBeard )
 		pBeard->setId( d );
 	else
 	{
 		pBeard = new cItem;
 		pBeard->Init();
 
-		pBeard->setDye(1);
+		pBeard->setDye( 1 );
 		pBeard->setNewbie( true );
 		pBeard->setId( d );
 		addItem( cBaseChar::FacialHair, pBeard );
@@ -583,162 +595,192 @@ void cBaseChar::setBeardStyle( UINT16 d)
 
 void cBaseChar::playDeathSound()
 {
-	if( orgBody_ == 0x0191 )
+	if ( orgBody_ == 0x0191 )
 	{
-		switch( RandomNum(0, 3) )
+		switch ( RandomNum( 0, 3 ) )
 		{
-		case 0:		soundEffect( 0x0150 );	break;// Female Death
-		case 1:		soundEffect( 0x0151 );	break;// Female Death
-		case 2:		soundEffect( 0x0152 );	break;// Female Death
-		case 3:		soundEffect( 0x0153 );	break;// Female Death
+		case 0:
+			soundEffect( 0x0150 );	break;// Female Death
+		case 1:
+			soundEffect( 0x0151 );	break;// Female Death
+		case 2:
+			soundEffect( 0x0152 );	break;// Female Death
+		case 3:
+			soundEffect( 0x0153 );	break;// Female Death
 		}
-	} else if( orgBody_ == 0x0190 ) {
-		switch( RandomNum(0, 3) )
+	}
+	else if ( orgBody_ == 0x0190 )
+	{
+		switch ( RandomNum( 0, 3 ) )
 		{
-		case 0:		soundEffect( 0x015A );	break;// Male Death
-		case 1:		soundEffect( 0x015B );	break;// Male Death
-		case 2:		soundEffect( 0x015C );	break;// Male Death
-		case 3:		soundEffect( 0x015D );	break;// Male Death
+		case 0:
+			soundEffect( 0x015A );	break;// Male Death
+		case 1:
+			soundEffect( 0x015B );	break;// Male Death
+		case 2:
+			soundEffect( 0x015C );	break;// Male Death
+		case 3:
+			soundEffect( 0x015D );	break;// Male Death
 		}
-	} else {
-		bark(Bark_Death);
+	}
+	else
+	{
+		bark( Bark_Death );
 	}
 }
 
 // This should check soon if we are standing above our
 // corpse and if so, merge with our corpse instead of
 // just resurrecting
-void cBaseChar::resurrect() {
+void cBaseChar::resurrect()
+{
 	if ( !isDead() )
 		return;
 
-	cCorpse *corpse = 0;
+	cCorpse* corpse = 0;
 
 	// See if there's his corpse at his feet
-	cItemSectorIterator *iter = SectorMaps::instance()->findItems(pos(), 0);
-	for (P_ITEM item = iter->first(); item; item = iter->next()) {
-		corpse = dynamic_cast<cCorpse*>(item);
+	cItemSectorIterator* iter = SectorMaps::instance()->findItems( pos(), 0 );
+	for ( P_ITEM item = iter->first(); item; item = iter->next() )
+	{
+		corpse = dynamic_cast<cCorpse*>( item );
 
-		if (!corpse || corpse->owner() != this) {
+		if ( !corpse || corpse->owner() != this )
+		{
 			corpse = 0;
-		} else {
+		}
+		else
+		{
 			break;
 		}
 	}
 	delete iter;
 
-	if (corpse && corpse->direction() != direction()) {
-		setDirection(corpse->direction());
+	if ( corpse && corpse->direction() != direction() )
+	{
+		setDirection( corpse->direction() );
 		update();
 	}
 
 	changed( TOOLTIP );
 	changed_ = true;
-	awardFame(0);
-	soundEffect(0x0214);
-	setBody(orgBody_);
-	setSkin(orgSkin_);
-	setDead(false);
-	hitpoints_ = QMAX(1, (UINT16)(0.1 * maxHitpoints_));
-	stamina_ = (UINT16)(0.1 * maxStamina_);
-	mana_ = (UINT16)(0.1 * maxMana_);
-	fight(0);
+	awardFame( 0 );
+	soundEffect( 0x0214 );
+	setBody( orgBody_ );
+	setSkin( orgSkin_ );
+	setDead( false );
+	hitpoints_ = QMAX( 1, ( UINT16 ) ( 0.1 * maxHitpoints_ ) );
+	stamina_ = ( UINT16 ) ( 0.1 * maxStamina_ );
+	mana_ = ( UINT16 ) ( 0.1 * maxMana_ );
+	fight( 0 );
 	P_ITEM backpack = getBackpack(); // Make sure he has a backpack
 
 	// Delete what the user wears on layer 0x16 (Should be death shroud)
-	P_ITEM pRobe = atLayer(OuterTorso);
+	P_ITEM pRobe = atLayer( OuterTorso );
 
-	if (pRobe) {
+	if ( pRobe )
+	{
 		pRobe->remove();
 	}
 
-	if (!corpse) {
-		pRobe = cItem::createFromScript("1f03");
+	if ( !corpse )
+	{
+		pRobe = cItem::createFromScript( "1f03" );
 
-		if (pRobe) {
-			pRobe->setColor(0);
-			pRobe->setHp(1);
-			pRobe->setMaxhp(1);
-			this->addItem(cBaseChar::OuterTorso, pRobe);
+		if ( pRobe )
+		{
+			pRobe->setColor( 0 );
+			pRobe->setHp( 1 );
+			pRobe->setMaxhp( 1 );
+			this->addItem( cBaseChar::OuterTorso, pRobe );
 			pRobe->update();
 		}
 
-		resend(false);
-	} else {
+		resend( false );
+	}
+	else
+	{
 		// Move all items from the corpse to the backpack and then look for
 		// previous equipment
 		cItem::ContainerContent content = corpse->content();
 		cItem::ContainerContent::iterator it;
-		for (it = content.begin(); it != content.end(); ++it) {
-			backpack->addItem(*it, false);
-			(*it)->update();
+		for ( it = content.begin(); it != content.end(); ++it )
+		{
+			backpack->addItem( *it, false );
+			( *it )->update();
 		}
 
-		for (unsigned char layer = SingleHandedWeapon; layer < Mount; layer++) {
-			if (layer != Backpack && layer != Hair && layer != FacialHair) {
-				P_ITEM item = atLayer((enLayer)layer);
+		for ( unsigned char layer = SingleHandedWeapon; layer < Mount; layer++ )
+		{
+			if ( layer != Backpack && layer != Hair && layer != FacialHair )
+			{
+				P_ITEM item = atLayer( ( enLayer ) layer );
 
-				if (item) {
-					backpack->addItem(item);
+				if ( item )
+				{
+					backpack->addItem( item );
 					item->update();
 				}
 
-				SERIAL equipment = corpse->getEquipment(layer);
-				item = World::instance()->findItem(equipment);
+				SERIAL equipment = corpse->getEquipment( layer );
+				item = World::instance()->findItem( equipment );
 
-				if (item && item->container() == backpack) {
-					addItem((enLayer)layer, item);
+				if ( item && item->container() == backpack )
+				{
+					addItem( ( enLayer ) layer, item );
 					item->update();
 				}
 			}
 		}
 
 		unsigned char action = 0x15;
-		if (corpse->direction() & 0x80) {
+		if ( corpse->direction() & 0x80 )
+		{
 			action = 0x16;
 		}
 
 		corpse->remove();
 
-		resend(false);
+		resend( false );
 
 		// Let him "stand up"
-		this->action(action, 2, true);
+		this->action( action, 2, true );
 	}
 }
 
-void cBaseChar::turnTo( const Coord_cl &pos )
+void cBaseChar::turnTo( const Coord_cl& pos )
 {
-	INT16 xdif = (INT16)( pos.x - this->pos().x );
-	INT16 ydif = (INT16)( pos.y - this->pos().y );
+	INT16 xdif = ( INT16 ) ( pos.x - this->pos().x );
+	INT16 ydif = ( INT16 ) ( pos.y - this->pos().y );
 	UINT8 nDir;
 
-	if( xdif == 0 && ydif < 0 )
+	if ( xdif == 0 && ydif < 0 )
 		nDir = 0;
-	else if( xdif > 0 && ydif < 0 )
+	else if ( xdif > 0 && ydif < 0 )
 		nDir = 1;
-	else if( xdif > 0 && ydif ==0 )
+	else if ( xdif > 0 && ydif == 0 )
 		nDir = 2;
-	else if( xdif > 0 && ydif > 0 )
+	else if ( xdif > 0 && ydif > 0 )
 		nDir = 3;
-	else if( xdif ==0 && ydif > 0 )
+	else if ( xdif == 0 && ydif > 0 )
 		nDir = 4;
-	else if( xdif < 0 && ydif > 0 )
+	else if ( xdif <0 && ydif> 0 )
 		nDir = 5;
-	else if( xdif < 0 && ydif ==0 )
+	else if ( xdif < 0 && ydif == 0 )
 		nDir = 6;
-	else if( xdif < 0 && ydif < 0 )
+	else if ( xdif < 0 && ydif < 0 )
 		nDir = 7;
 	else
 		return;
 
-	if (nDir != direction()) {
-		setDirection(nDir);
+	if ( nDir != direction() )
+	{
+		setDirection( nDir );
 		update();
 	}
 }
 
-void cBaseChar::turnTo( cUObject *object )
+void cBaseChar::turnTo( cUObject* object )
 {
 	turnTo( object->pos() );
 }
@@ -750,38 +792,39 @@ void cBaseChar::wear( P_ITEM pi )
 {
 	UINT8 layer = pi->layer();
 
-	if( !pi->container() )
+	if ( !pi->container() )
 	{
 		pi->setLayer( 0 );
-		if( !layer )
+		if ( !layer )
 		{
 			tile_st tile = TileCache::instance()->getTile( pi->id() );
 			layer = tile.layer;
 		}
 	}
 
-	if( !layer )
+	if ( !layer )
 		return;
 
-	this->addItem( static_cast<cBaseChar::enLayer>(layer), pi );
+	this->addItem( static_cast<cBaseChar::enLayer>( layer ), pi );
 
 	cUOTxCharEquipment packet;
 	packet.setWearer( this->serial() );
 	packet.setSerial( pi->serial() );
 	packet.fromItem( pi );
-	for ( cUOSocket* socket = Network::instance()->first(); socket != 0; socket = Network::instance()->next() )
-		if( socket->player() && socket->player()->inRange( this, socket->player()->visualRange() ) )
+	for ( cUOSocket*socket = Network::instance()->first(); socket != 0; socket = Network::instance()->next() )
+		if ( socket->player() && socket->player()->inRange( this, socket->player()->visualRange() ) )
 			socket->send( &packet );
 }
 
 void cBaseChar::unhide()
 {
-	setStealthedSteps(0);
+	setStealthedSteps( 0 );
 
-	if (isHidden() && !isInvisible()) {
-		setHidden(false);
-		resend(false); // They cant see us anyway
-		sysmessage(500814);
+	if ( isHidden() && !isInvisible() )
+	{
+		setHidden( false );
+		resend( false ); // They cant see us anyway
+		sysmessage( 500814 );
 	}
 }
 
@@ -790,46 +833,46 @@ int cBaseChar::CountItems( short ID, short col )
 	// Dont you think it's better to search the char's equipment as well?
 	UINT32 number = 0;
 	ItemContainer container = content_;
-	ItemContainer::const_iterator it  = container.begin();
+	ItemContainer::const_iterator it = container.begin();
 	ItemContainer::const_iterator end = container.end();
 
-	for( ; it != end; ++it )
+	for ( ; it != end; ++it )
 	{
 		P_ITEM pItem = *it;
 
-		if( !pItem )
+		if ( !pItem )
 			continue;
 
-		if( ( pItem->id() == ID ) && ( pItem->color() == col ) )
+		if ( ( pItem->id() == ID ) && ( pItem->color() == col ) )
 			++number;
 	}
 
 	P_ITEM pi = getBackpack();
 
-	if( pi )
+	if ( pi )
 		number = pi->CountItems( ID, col );
 	return number;
 }
 
 int cBaseChar::CountGold()
 {
-	return CountItems(0x0EED);
+	return CountItems( 0x0EED );
 }
 
-P_ITEM cBaseChar::GetItemOnLayer(unsigned char layer)
+P_ITEM cBaseChar::GetItemOnLayer( unsigned char layer )
 {
-	return atLayer( static_cast<enLayer>(layer) );
+	return atLayer( static_cast<enLayer>( layer ) );
 }
 
 P_ITEM cBaseChar::getBankbox()
 {
-	P_ITEM pi = atLayer(BankBox);
+	P_ITEM pi = atLayer( BankBox );
 
-	if (!pi) {
-		pi = cItem::createFromScript("9ab");
-		pi->setOwner(this);
-		pi->setType(1);
-		addItem(BankBox, pi, true, false);
+	if ( !pi )
+	{
+		pi = cItem::createFromScript( "9ab" );
+		pi->setOwner( this );
+		addItem( BankBox, pi, true, false );
 	}
 
 	return pi;
@@ -840,10 +883,11 @@ P_ITEM cBaseChar::getBackpack()
 	P_ITEM backpack = atLayer( Backpack );
 
 	// None found so create one
-	if (!backpack) {
-		backpack = cItem::createFromScript("e75");
-		backpack->setOwner(this);
-		addItem(Backpack, backpack);
+	if ( !backpack )
+	{
+		backpack = cItem::createFromScript( "e75" );
+		backpack->setOwner( this );
+		addItem( Backpack, backpack );
 		backpack->update();
 	}
 
@@ -853,10 +897,10 @@ P_ITEM cBaseChar::getBackpack()
 void cBaseChar::setSerial( const SERIAL ser )
 {
 	// This is not allowed
-	if( ser == INVALID_SERIAL )
+	if ( ser == INVALID_SERIAL )
 		return;
 
-	if( this->serial() != INVALID_SERIAL )
+	if ( this->serial() != INVALID_SERIAL )
 		World::instance()->unregisterObject( this->serial() );
 
 	cUObject::setSerial( ser );
@@ -864,22 +908,23 @@ void cBaseChar::setSerial( const SERIAL ser )
 	World::instance()->registerObject( this );
 }
 
-void cBaseChar::MoveTo(short newx, short newy, signed char newz) {
-	cUObject::moveTo( Coord_cl(newx, newy, newz, pos().map) );
+void cBaseChar::MoveTo( short newx, short newy, signed char newz )
+{
+	cUObject::moveTo( Coord_cl( newx, newy, newz, pos().map ) );
 }
 
-bool cBaseChar::Wears(P_ITEM pi)
+bool cBaseChar::Wears( P_ITEM pi )
 {
-	return (this == pi->container());
+	return ( this == pi->container() );
 }
 
 unsigned int cBaseChar::getSkillSum() const
 {
 	unsigned int sum = 0;
 
-	QValueVector< stSkillValue >::const_iterator it = skills_.begin();
-	for( ; it != skills_.end(); ++it )
-		sum += (*it).value;
+	QValueVector<stSkillValue>::const_iterator it = skills_.begin();
+	for ( ; it != skills_.end(); ++it )
+		sum += ( *it ).value;
 
 	return sum;		// this *includes* the decimal digit ie. xxx.y
 }
@@ -890,22 +935,22 @@ void cBaseChar::Init( bool createSerial )
 	changed_ = true;
 	cUObject::setSerial( INVALID_SERIAL );
 
-	if( createSerial )
+	if ( createSerial )
 		this->setSerial( World::instance()->findCharSerial() );
 }
 
 bool cBaseChar::inGuardedArea()
 {
 	cTerritory* Region = Territories::instance()->region( this->pos().x, this->pos().y, this->pos().map );
-	if( Region )
+	if ( Region )
 		return Region->isGuarded();
 	else
 		return false;
 }
 
-void cBaseChar::emote( const QString &emote, UI16 color )
+void cBaseChar::emote( const QString& emote, UI16 color )
 {
-	if( color == 0xFFFF )
+	if ( color == 0xFFFF )
 		color = emoteColor_;
 
 	cUOTxUnicodeSpeech textSpeech;
@@ -917,8 +962,8 @@ void cBaseChar::emote( const QString &emote, UI16 color )
 	textSpeech.setColor( color );
 	textSpeech.setText( emote );
 
-	for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
-		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
+	for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+		if ( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			mSock->send( &textSpeech );
 }
 
@@ -932,27 +977,28 @@ bool cBaseChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 	//    max = 1200;
 
 	// How far is the players skill above the required minimum.
-	int charrange = abs(skillValue(skill) - min);
+	int charrange = abs( skillValue( skill ) - min );
 
-	if( charrange < 0 )
+	if ( charrange < 0 )
 		charrange = 0;
 
 	// To avoid division by zero
-	if( min == max )
+	if ( min == max )
 		max += 1;
 
 	// +100 means: *allways* a minimum of 10% for success
-	float chance = ( ( (float) charrange * 890.0f ) / (float)(abs(max - min)) ) + 100.0f;
+	float chance = ( ( ( float ) charrange * 890.0f ) / ( float ) ( abs( max - min ) ) ) + 100.0f;
 
-	if( chance > 990 )
+	if ( chance > 990 )
 		chance = 990;	// *allways* a 1% chance of failure
 
-	if( chance >= RandomNum( 0, 1000 ) )
+	if ( chance >= RandomNum( 0, 1000 ) )
 		success = true;
 
 	// We can only advance when doing things which aren't below our ability
-	if (advance && skillValue(skill) < max) {
-	  	onSkillGain(skill, min, max, success);
+	if ( advance && skillValue( skill ) < max )
+	{
+		onSkillGain( skill, min, max, success );
 	}
 
 	return success;
@@ -960,7 +1006,7 @@ bool cBaseChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 
 cItem* cBaseChar::atLayer( cBaseChar::enLayer layer ) const
 {
-	ItemContainer::const_iterator it = content_.find(layer);
+	ItemContainer::const_iterator it = content_.find( layer );
 	if ( it != content_.end() )
 		return it.data();
 	return 0;
@@ -968,7 +1014,7 @@ cItem* cBaseChar::atLayer( cBaseChar::enLayer layer ) const
 
 bool cBaseChar::Owns( P_ITEM pItem ) const
 {
-	if( !pItem )
+	if ( !pItem )
 		return false;
 
 	return ( pItem->owner() == this );
@@ -977,13 +1023,13 @@ bool cBaseChar::Owns( P_ITEM pItem ) const
 void cBaseChar::addGuard( P_CHAR pPet, bool noGuardingChange )
 {
 	// Check if already existing in the guard list
-	for( CharContainer::iterator iter = guardedby_.begin(); iter != guardedby_.end(); ++iter )
-		if( *iter == pPet )
+	for ( CharContainer::iterator iter = guardedby_.begin(); iter != guardedby_.end(); ++iter )
+		if ( *iter == pPet )
 			return;
 
-	if( !noGuardingChange )
+	if ( !noGuardingChange )
 	{
-		if( pPet->guarding() )
+		if ( pPet->guarding() )
 			pPet->guarding()->removeGuard( pPet );
 
 		pPet->setGuarding( this );
@@ -994,28 +1040,28 @@ void cBaseChar::addGuard( P_CHAR pPet, bool noGuardingChange )
 
 void cBaseChar::removeGuard( P_CHAR pPet, bool noGuardingChange )
 {
-	for( CharContainer::iterator iter = guardedby_.begin(); iter != guardedby_.end(); ++iter )
-		if( *iter == pPet )
+	for ( CharContainer::iterator iter = guardedby_.begin(); iter != guardedby_.end(); ++iter )
+		if ( *iter == pPet )
 		{
 			guardedby_.erase( iter );
 			break;
 		}
 
-	if( !noGuardingChange )
+	if ( !noGuardingChange )
 		pPet->setGuarding( 0 );
 }
 
-void cBaseChar::addTimer( cTimer *timer )
+void cBaseChar::addTimer( cTimer* timer )
 {
-	timers_.push_back(timer);
+	timers_.push_back( timer );
 }
 
-void cBaseChar::removeTimer(cTimer *timer)
+void cBaseChar::removeTimer( cTimer* timer )
 {
 	TimerContainer::iterator iter = timers_.begin();
-	while( iter != timers_.end() )
+	while ( iter != timers_.end() )
 	{
-		if( (*iter) == timer)
+		if ( ( *iter ) == timer )
 		{
 			timers_.erase( iter );
 			break;
@@ -1024,22 +1070,10 @@ void cBaseChar::removeTimer(cTimer *timer)
 	}
 }
 
-void cBaseChar::processNode( const cElement *Tag )
-{
+void cBaseChar::processNode(const cElement* Tag) {
 	changed_ = true;
 	QString TagName = Tag->name();
 	QString Value = Tag->value();
-
-	// <bindmenu>contextmenu</bindmenu>
-	// <bindmenu id="contextmenu />
-	if( TagName == "bindmenu" )
-	{
-		QString bindmenu = this->bindmenu();
-		if( !Tag->getAttribute( "id" ).isNull() )
-			this->setBindmenu( bindmenu.isEmpty() ? Tag->getAttribute( "id" ) : bindmenu + "," + Tag->getAttribute( "id" ) );
-		else
-			setBindmenu( bindmenu.isEmpty() ? Value : bindmenu + "," + Value );
-	}
 
 	//<backpack>
 	//	<color>0x132</color>
@@ -1047,52 +1081,52 @@ void cBaseChar::processNode( const cElement *Tag )
 	//	...
 	//	<item id="z">
 	//</backpack>
-	else if( TagName == "backpack" )
+	if ( TagName == "backpack" )
 	{
 		P_ITEM pBackpack = getBackpack(); // This autocreates a backpack
 
-		if( Tag->childCount() )
+		if ( Tag->childCount() )
 			pBackpack->applyDefinition( Tag );
 	}
 
 	//<stat type="str">100</stats>
-	else if( TagName == "stat" )
+	else if ( TagName == "stat" )
 	{
-		if( Tag->hasAttribute( "type" ) )
+		if ( Tag->hasAttribute( "type" ) )
 		{
 			QString statType = Tag->getAttribute( "type" );
-			if( statType == "str" )
+			if ( statType == "str" )
 			{
 				strength_ = Value.toLong();
-				if( maxHitpoints_ == 0 )
+				if ( maxHitpoints_ == 0 )
 					maxHitpoints_ = strength_;
 				hitpoints_ = maxHitpoints_;
 			}
-			else if( statType == "dex" )
+			else if ( statType == "dex" )
 			{
 				dexterity_ = Value.toLong();
-				if( maxStamina_ == 0 )
+				if ( maxStamina_ == 0 )
 					maxStamina_ = dexterity_;
 				stamina_ = maxStamina_;
 			}
-			else if( statType == "int" )
+			else if ( statType == "int" )
 			{
 				intelligence_ = Value.toLong();
-				if( maxMana_ == 0 )
+				if ( maxMana_ == 0 )
 					maxMana_ = intelligence_;
 				mana_ = maxMana_;
 			}
-			else if( statType == "maxhp" || statType == "maxhitpoints" )
+			else if ( statType == "maxhp" || statType == "maxhitpoints" )
 			{
 				maxHitpoints_ = Value.toLong();
 				hitpoints_ = maxHitpoints_;
 			}
-			else if( statType == "maxstm" || statType == "maxstamina" )
+			else if ( statType == "maxstm" || statType == "maxstamina" )
 			{
 				maxStamina_ = Value.toLong();
 				stamina_ = maxStamina_;
 			}
-			else if( statType == "maxmn" || statType == "maxmana" )
+			else if ( statType == "maxmn" || statType == "maxmana" )
 			{
 				maxMana_ = Value.toLong();
 				mana_ = maxMana_;
@@ -1101,60 +1135,54 @@ void cBaseChar::processNode( const cElement *Tag )
 	}
 
 	// Aliasses <str <dex <int <maxhp <maxstm <maxmn <maxhitpoints <maxstamina <maxmana
-	else if( TagName == "str" )
+	else if ( TagName == "str" )
 	{
 		strength_ = Value.toLong();
-		if( maxHitpoints_ == 0 )
+		if ( maxHitpoints_ == 0 )
 			maxHitpoints_ = strength_;
 		hitpoints_ = maxHitpoints_;
 	}
-
-	else if( TagName == "dex" )
+	else if ( TagName == "dex" )
 	{
 		dexterity_ = Value.toLong();
-		if( maxStamina_ == 0 )
+		if ( maxStamina_ == 0 )
 			maxStamina_ = dexterity_;
 		stamina_ = maxStamina_;
 	}
-
-	else if( TagName == "int" )
+	else if ( TagName == "int" )
 	{
 		intelligence_ = Value.toLong();
-		if( maxMana_ == 0 )
+		if ( maxMana_ == 0 )
 			maxMana_ = intelligence_;
 		mana_ = maxMana_;
 	}
-
-	else if( TagName == "maxhp" || TagName == "maxhitpoints" )
+	else if ( TagName == "maxhp" || TagName == "maxhitpoints" )
 	{
 		maxHitpoints_ = Value.toLong();
 		hitpoints_ = maxHitpoints_;
 	}
-
-	else if( TagName == "maxstm" || TagName == "maxstamina" )
+	else if ( TagName == "maxstm" || TagName == "maxstamina" )
 	{
 		maxStamina_ = Value.toLong();
 		stamina_ = maxStamina_;
 	}
-
-	else if( TagName == "maxmn" || TagName == "maxmana" )
+	else if ( TagName == "maxmn" || TagName == "maxmana" )
 	{
 		maxMana_ = Value.toLong();
 		mana_ = maxMana_;
 	}
 
 	//<gold>100</gold>
-	else if( TagName == "gold" )
+	else if ( TagName == "gold" )
 	{
 		giveGold( Value.toInt(), false );
 	}
 
 	//<skill type="alchemy">100</skill>
 	//<skill type="1">100</skill>
-	else if( TagName == "skill" && Tag->hasAttribute("type") )
+	else if ( TagName == "skill" && Tag->hasAttribute( "type" ) )
 	{
-		if( Tag->getAttribute("type").toInt() > 0 &&
-			Tag->getAttribute("type").toInt() <= ALLSKILLS )
+		if ( Tag->getAttribute( "type" ).toInt() > 0 && Tag->getAttribute( "type" ).toInt() <= ALLSKILLS )
 			setSkillValue( ( Tag->getAttribute( "type" ).toInt() - 1 ), Value.toInt() );
 		else
 		{
@@ -1168,33 +1196,33 @@ void cBaseChar::processNode( const cElement *Tag )
 	//	<item id="b" />
 	//	...
 	//</epuipped>
-	else if( TagName == "equipped" )
+	else if ( TagName == "equipped" )
 	{
-		for( unsigned int i = 0; i < Tag->childCount(); ++i )
+		for ( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			const cElement *element = Tag->getChild( i );
+			const cElement* element = Tag->getChild( i );
 
-			if( element->name() == "item" )
+			if ( element->name() == "item" )
 			{
 				P_ITEM pItem = 0;
 
-				const QString &id = element->getAttribute( "id" );
+				const QString& id = element->getAttribute( "id" );
 
-				if( id != QString::null )
+				if ( id != QString::null )
 				{
 					pItem = cItem::createFromScript( id );
 				}
 				else
 				{
-					const QString &list = element->getAttribute( "list" );
+					const QString& list = element->getAttribute( "list" );
 
-					if( list != QString::null )
+					if ( list != QString::null )
 					{
 						pItem = cItem::createFromList( list );
 					}
 				}
 
-				if( pItem )
+				if ( pItem )
 				{
 					pItem->applyDefinition( element );
 
@@ -1202,23 +1230,23 @@ void cBaseChar::processNode( const cElement *Tag )
 					pItem->setLayer( 0 );
 
 					// Instead of deleting try to get a valid layer instead
-					if( !mLayer )
+					if ( !mLayer )
 					{
 						tile_st tInfo = TileCache::instance()->getTile( pItem->id() );
-						if( tInfo.layer > 0 )
+						if ( tInfo.layer > 0 )
 							mLayer = tInfo.layer;
 					}
 
-					if( !mLayer )
+					if ( !mLayer )
 						pItem->remove();
 					else
 					{
 						// Check if there is sth there already.
 						// Could happen due to inherit.
-						P_ITEM existing = atLayer(static_cast<cBaseChar::enLayer>(mLayer));
+						P_ITEM existing = atLayer( static_cast<cBaseChar::enLayer>( mLayer ) );
 						if ( existing )
 							existing->remove();
-						addItem( static_cast<cBaseChar::enLayer>(mLayer), pItem );
+						addItem( static_cast<cBaseChar::enLayer>( mLayer ), pItem );
 					}
 				}
 				else
@@ -1236,7 +1264,7 @@ void cBaseChar::processNode( const cElement *Tag )
 	else if ( TagName == "saycolor" )
 	{
 		bool ok;
-		ushort color = Value.toUShort(&ok);
+		ushort color = Value.toUShort( &ok );
 		if ( ok )
 			this->setSaycolor( color );
 	}
@@ -1244,79 +1272,87 @@ void cBaseChar::processNode( const cElement *Tag )
 	{
 		INT16 skillId = Skills::instance()->findSkillByDef( TagName );
 
-		if( skillId == -1 )
+		if ( skillId == -1 )
 			cUObject::processNode( Tag );
 		else
 			setSkillValue( skillId, Value.toInt() );
 	}
-
 }
 
 void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight, bool noRemove )
 {
-	if (pi->multi()) {
+	if ( pi->multi() )
+	{
 		// Ignore the pseudo-pointer if uninitialized
-		if (!pi->unprocessed()) {
-			pi->multi()->removeObject(pi);
+		if ( !pi->unprocessed() )
+		{
+			pi->multi()->removeObject( pi );
 		}
-		pi->setMulti(0);
+		pi->setMulti( 0 );
 	}
 
-	if (atLayer(layer) != 0) {
-		log(LOG_ERROR, QString("Trying to put item 0x%1 on layer %2 which is already occupied.\n").arg(pi->serial(), 0, 16).arg(layer));
+	if ( atLayer( layer ) != 0 )
+	{
+		log( LOG_ERROR, QString( "Trying to put item 0x%1 on layer %2 which is already occupied.\n" ).arg( pi->serial(), 0, 16 ).arg( layer ) );
 		pi->container_ = 0;
-		pi->moveTo(pos_, true);
+		pi->moveTo( pos_, true );
 		return;
 	}
 
-	if( !noRemove )
+	if ( !noRemove )
 	{
 		pi->removeFromCont();
 	}
 
-	content_.insert( (ushort)(layer), pi );
+	content_.insert( ( ushort ) ( layer ), pi );
 
-	if (pi->layer() != layer) {
-		pi->setLayer(layer);
+	if ( pi->layer() != layer )
+	{
+		pi->setLayer( layer );
 	}
 
-	if (Server::instance()->getState() != STARTUP) {
-		pi->setContainer(this);
-	} else {
+	if ( Server::instance()->getState() != STARTUP )
+	{
+		pi->setContainer( this );
+	}
+	else
+	{
 		pi->container_ = this; // Avoid a flagChanged()
 	}
 
-	if (handleWeight && (pi->layer() < 0x1A || pi->layer() == 0x1E)) {
+	if ( handleWeight && ( pi->layer() < 0x1A || pi->layer() == 0x1E ) )
+	{
 		weight_ += pi->totalweight();
 	}
 
-	if (!noRemove) {
+	if ( !noRemove )
+	{
 		// Dragging doesnt count as Equipping
-		if( layer != Dragging )
+		if ( layer != Dragging )
 			pi->onEquip( this, layer );
 	}
 }
 
 void cBaseChar::removeItem( cBaseChar::enLayer layer, bool handleWeight )
 {
-	P_ITEM pi = atLayer(layer);
+	P_ITEM pi = atLayer( layer );
 	if ( pi )
 	{
-		pi->setContainer(0);
+		pi->setContainer( 0 );
 		pi->setLayer( 0 );
-		content_.remove((ushort)(layer));
+		content_.remove( ( ushort ) ( layer ) );
 
-		if( handleWeight )
+		if ( handleWeight )
 			weight_ -= pi->totalweight();
 
 		// Dragging doesnt count as Equipping
-		if( layer != Dragging )
+		if ( layer != Dragging )
 			pi->onUnequip( this, layer );
 	}
 }
 
 // Simple setting and getting of properties for scripts and the set command.
-stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
+stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 {
 	changed( TOOLTIP );
 	changed_ = true;
@@ -1325,13 +1361,14 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	*/
 	SET_STR_PROPERTY( "orgname", orgName_ )
 	/*
-		\property char.title This string property contains the title of the character.
+	\property char.title This string property contains the title of the character.
 	*/
-	else SET_STR_PROPERTY( "title", title_ )
-	/*
+	else
+		SET_STR_PROPERTY( "title", title_ )
+		/*
 		\property char.incognito This boolean property indicates whether the character is incognito.
-	*/
-	else if( name == "incognito" )
+		*/
+	else if ( name == "incognito" )
 	{
 		setIncognito( value.toInt() );
 		return 0;
@@ -1339,7 +1376,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.polymorph This boolean property indicates whether the character is polymorphed.
 	*/
-	else if( name == "polymorph" )
+	else if ( name == "polymorph" )
 	{
 		setPolymorphed( value.toInt() );
 		return 0;
@@ -1347,7 +1384,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.dead This boolean property indicates whether the character is dead.
 	*/
-	else if( name == "dead" )
+	else if ( name == "dead" )
 	{
 		setDead( value.toInt() );
 		return 0;
@@ -1356,91 +1393,101 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		\property char.haircolor This integer property sets the haircolor of the character.
 		This property is write only.
 	*/
-	else if( name == "haircolor" )
+	else if ( name == "haircolor" )
 	{
 		bool ok;
 		INT32 data = value.toInt( &ok );
-		if( !ok )
+		if ( !ok )
 			PROPERTY_ERROR( -2, "Integer expected" )
-		setHairColor( data );
+			setHairColor( data );
 		return 0;
 	}
 	/*
 		\property char.hairstyle This integer property sets the hairstyle of the character.
 		This property is write only.
 	*/
-	else if( name == "hairstyle" )
+	else if ( name == "hairstyle" )
 	{
 		bool ok;
 		INT32 data = value.toInt( &ok );
-		if( !ok )
+		if ( !ok )
 			PROPERTY_ERROR( -2, "Integer expected" )
-		setHairStyle( data );
+			setHairStyle( data );
 		return 0;
 	}
 	/*
 		\property char.beardcolor This integer property sets the beardcolor of the character.
 		This property is write only.
 	*/
-	else if( name == "beardcolor" )
+	else if ( name == "beardcolor" )
 	{
 		bool ok;
 		INT32 data = value.toInt( &ok );
-		if( !ok )
+		if ( !ok )
 			PROPERTY_ERROR( -2, "Integer expected" )
-		setBeardColor( data );
+			setBeardColor( data );
 		return 0;
 	}
 	/*
 		\property char.beardstyle This integer property sets the beardstyle of the character.
 		This property is write only.
 	*/
-	else if( name == "beardstyle" )
+	else if ( name == "beardstyle" )
 	{
 		bool ok;
 		INT32 data = value.toInt( &ok );
-		if( !ok )
+		if ( !ok )
 			PROPERTY_ERROR( -2, "Integer expected" )
-		setBeardStyle( data );
+			setBeardStyle( data );
 		return 0;
 	}
 	/*
 		\property char.skin This integer property contains the skin color of the character.
 	*/
-	else SET_INT_PROPERTY( "skin", skin_ )
+	else
+		SET_INT_PROPERTY( "skin", skin_ )
 
-	/*
+	// \property char.direction This is the direction this character is facing.
+	else
+		SET_INT_PROPERTY( "direction", direction_ )
+
+		/*
 		\property char.maxhitpoints This integer property contains the maximum hitpoints for the character.
 		Please note that the maximum hitpoints are constantly recalculated. Please see hitpointsbonus for
 		a better way to increase the maximum hitponts of a character.
-	*/
-	else SET_INT_PROPERTY( "maxhitpoints", maxHitpoints_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "maxhitpoints", maxHitpoints_ )
+		/*
 		\property char.maxstamina This integer property contains the maximum stamina for the character.
 		Please note that the maximum stamina are constantly recalculated. Please see staminabonus for
 		a better way to increase the maximum stamina of a character.
-	*/
-	else SET_INT_PROPERTY( "maxstamina", maxStamina_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "maxstamina", maxStamina_ )
+		/*
 		\property char.maxmana This integer property contains the maximum mana for the character.
 		Please note that the maximum mana are constantly recalculated. Please see manabonus for
 		a better way to increase the maximum mana of a character.
-	*/
-	else SET_INT_PROPERTY( "maxmana", maxMana_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "maxmana", maxMana_ )
+		/*
 		\property char.lastmovement This integer property indicates the servertime of the last movement
 		of this character.
-	*/
-	else SET_INT_PROPERTY( "lastmovement", lastMovement_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "lastmovement", lastMovement_ )
+		/*
 		\property char.orgskin This integer property indicates the original skin of the character that is restored when he dies or
 		a spell that changed the skin wears off.
-	*/
-	else SET_INT_PROPERTY( "orgskin", orgSkin_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "orgskin", orgSkin_ )
+		/*
 		\property char.creationdate This string property indicates the date and time the character was created.
-	*/
-	else if( name == "creationdate" )
+		*/
+	else if ( name == "creationdate" )
 	{
 		creationDate_ = QDateTime::fromString( value.toString() );
 		return 0;
@@ -1448,15 +1495,17 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.stealthedsteps This integer property indicates how many steps the character walked when stealthed already.
 	*/
-	else SET_INT_PROPERTY( "stealthedsteps", stealthedSteps_ )
-	/*
+	else
+		SET_INT_PROPERTY( "stealthedsteps", stealthedSteps_ )
+		/*
 		\property char.runningsteps This integer property indicates how many steps the character is running so far.
-	*/
-	else SET_INT_PROPERTY( "runningsteps", runningSteps_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "runningsteps", runningSteps_ )
+		/*
 		\property char.tamed This boolean property indicates whether the character is tamed or not.
-	*/
-	else if( name == "tamed" )
+		*/
+	else if ( name == "tamed" )
 	{
 		setTamed( value.toInt() );
 		return 0;
@@ -1464,15 +1513,17 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.guarding This character property is the character that is currently guarded by this character.
 	*/
-	else SET_CHAR_PROPERTY( "guarding", guarding_ )
-	/*
+	else
+		SET_CHAR_PROPERTY( "guarding", guarding_ )
+		/*
 		\property char.murderer This integer property indicates the serial of the character who killed this character last.
-	*/
-	else SET_INT_PROPERTY( "murderer", murdererSerial_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "murderer", murdererSerial_ )
+		/*
 		\property char.casting This boolean property indicates whether the character is currently casting a spell.
-	*/
-	else if( name == "casting" )
+		*/
+	else if ( name == "casting" )
 	{
 		setCasting( value.toInt() );
 		return 0;
@@ -1480,7 +1531,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.hidden This boolean property indicates whether the character is currently hidden.
 	*/
-	else if( name == "hidden" )
+	else if ( name == "hidden" )
 	{
 		setHidden( value.toInt() );
 		return 0;
@@ -1489,42 +1540,49 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.hunger This integer property indicates the food level of the character. 0 is the lowest food level, 6 the highest.
 	*/
-	else SET_INT_PROPERTY( "hunger", hunger_ )
+	else
+		SET_INT_PROPERTY( "hunger", hunger_ )
 
-	/*
+		/*
 		\property char.hungertime This integer property is the next servertime the foodlevel of this character will be reduced.
-	*/
-	else SET_INT_PROPERTY( "hungertime", hungerTime_ )
+		*/
+	else
+		SET_INT_PROPERTY( "hungertime", hungerTime_ )
 
-	/*
+		/*
 		\property char.poison The strength of the poison applied to this character.
 		A value of -1 means that no poision is applied to this character.
-	*/
-	else SET_INT_PROPERTY("poison", poison_)
+		*/
+	else
+		SET_INT_PROPERTY( "poison", poison_ )
 
-	/*
+		/*
 		\property char.flag The ingame notoriety for this character.
-	*/
-	else SET_INT_PROPERTY("flag", flag_)
+		*/
+	else
+		SET_INT_PROPERTY( "flag", flag_ )
 
-	/*
+		/*
 		\property propertyflags The bitfield (32 bit) with basechar properties. You can use the
 		upper 8 bits for custom properties.
-	*/
-	else SET_INT_PROPERTY("propertyflags", propertyFlags_)
+		*/
+	else
+		SET_INT_PROPERTY( "propertyflags", propertyFlags_ )
 
-	/*
+		/*
 		\property char.murderertime This integer property indicates when the next kill of the murder count will be removed.
-	*/
-	else SET_INT_PROPERTY( "murderertime", murdererTime_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "murderertime", murdererTime_ )
+		/*
 		\property char.criminaltime This integer property indicates the servertime when the criminal flag of this character will wear off.
-	*/
-	else SET_INT_PROPERTY( "criminaltime", criminalTime_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "criminaltime", criminalTime_ )
+		/*
 		\property char.meditating This boolean property indicates whether this character is currently meditating.
-	*/
-	else if( name == "meditating" )
+		*/
+	else if ( name == "meditating" )
 	{
 		setMeditating( value.toInt() );
 		return 0;
@@ -1532,97 +1590,120 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.weight This float property indicates the total weight of this character.
 	*/
-	else SET_FLOAT_PROPERTY( "weight", weight_ )
-	/*
+	else
+		SET_FLOAT_PROPERTY( "weight", weight_ )
+		/*
 		\property char.saycolor This integer property is the saycolor of this character.
-	*/
-	else SET_INT_PROPERTY( "saycolor", saycolor_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "saycolor", saycolor_ )
+		/*
 		\property char.emotecolor This integer property is the emote color of this character.
-	*/
-	else SET_INT_PROPERTY( "emotecolor", emoteColor_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "emotecolor", emoteColor_ )
+		/*
 		\property char.strength This integer property is the strength of this character.
-	*/
-	else if (name == "strength") {
-		setStrength(value.toInt());
+		*/
+	else if ( name == "strength" )
+	{
+		setStrength( value.toInt() );
 		return 0;
-	/*
-		\property char.dexterity This integer property is the dexterity of this character.
-	*/
-	} else if (name == "dexterity") {
-		setDexterity(value.toInt());
+		/*
+			\property char.dexterity This integer property is the dexterity of this character.
+		*/
+	}
+	else if ( name == "dexterity" )
+	{
+		setDexterity( value.toInt() );
 		return 0;
-	/*
-		\property char.intelligence This integer property is the intelligence of this character.
-	*/
-	} else if (name == "intelligence") {
-		setIntelligence(value.toInt());
+		/*
+			\property char.intelligence This integer property is the intelligence of this character.
+		*/
+	}
+	else if ( name == "intelligence" )
+	{
+		setIntelligence( value.toInt() );
 		return 0;
-	/*
-		\property char.strength2 This integer property contains a modification value applied to strength. This is used to
-		determine the real strength of the character if needed.
-	*/
-	} else if (name == "strength2") {
-		setStrengthMod(value.toInt());
+		/*
+			\property char.strength2 This integer property contains a modification value applied to strength. This is used to
+			determine the real strength of the character if needed.
+		*/
+	}
+	else if ( name == "strength2" )
+	{
+		setStrengthMod( value.toInt() );
 		return 0;
-	/*
-		\property char.dexterity2 This integer property contains a modification value applied to dexterity. This is used to
-		determine the real dexterity of the character if needed.
-	*/
-	} else if (name == "dexterity2") {
-		setDexterityMod(value.toInt());
+		/*
+			\property char.dexterity2 This integer property contains a modification value applied to dexterity. This is used to
+			determine the real dexterity of the character if needed.
+		*/
+	}
+	else if ( name == "dexterity2" )
+	{
+		setDexterityMod( value.toInt() );
 		return 0;
-	/*
-		\property char.intelligence2 This integer property contains a modification value applied to intelligence. This is used to
-		determine the real intelligence of the character if needed.
-	*/
-	} else if (name == "intelligence2") {
-		setIntelligenceMod(value.toInt());
+		/*
+			\property char.intelligence2 This integer property contains a modification value applied to intelligence. This is used to
+			determine the real intelligence of the character if needed.
+		*/
+	}
+	else if ( name == "intelligence2" )
+	{
+		setIntelligenceMod( value.toInt() );
 		return 0;
 	}
 	/*
 		\property char.orgid This is the original body id of the character that is restored when he dies or any spell affecting it
 		expires.
 	*/
-	else SET_INT_PROPERTY( "orgid", orgBody_ )
-	/*
+	else
+		SET_INT_PROPERTY( "orgid", orgBody_ )
+		/*
 		\property char.hitpoints The current hitpoints of this character.
-	*/
-	else SET_INT_PROPERTY( "hitpoints", hitpoints_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "hitpoints", hitpoints_ )
+		/*
 		\property char.health The current hitpoints of this character.
-	*/
-	else SET_INT_PROPERTY( "health", hitpoints_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "health", hitpoints_ )
+		/*
 		\property char.stamina The current stamina of this character.
-	*/
-	else SET_INT_PROPERTY( "stamina", stamina_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "stamina", stamina_ )
+		/*
 		\property char.mana The current mana of this character.
-	*/
-	else SET_INT_PROPERTY( "mana", mana_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "mana", mana_ )
+		/*
 		\property char.karma The current karma of this character.
-	*/
-	else SET_INT_PROPERTY( "karma", karma_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "karma", karma_ )
+		/*
 		\property char.fame The current fame of this character.
-	*/
-	else SET_INT_PROPERTY( "fame", fame_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "fame", fame_ )
+		/*
 		\property char.kills The current kills of this character.
 		This is used to determine the murderer status.
-	*/
-	else SET_INT_PROPERTY( "kills", kills_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "kills", kills_ )
+		/*
 		\property char.deaths The current deaths of this character.
-	*/
-	else SET_INT_PROPERTY( "deaths", deaths_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "deaths", deaths_ )
+		/*
 		\property char.war This boolean property indicates whether the character is in warmode or not.
-	*/
-	else if( name == "war" )
+		*/
+	else if ( name == "war" )
 	{
 		setAtWar( value.toInt() );
 		return 0;
@@ -1630,57 +1711,71 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.attacktarget The attack target of this character.
 	*/
-	else SET_CHAR_PROPERTY( "attacktarget", attackTarget_ )
-	/*
+	else
+		SET_CHAR_PROPERTY( "attacktarget", attackTarget_ )
+		/*
 		\property char.nextswing The servertime the character will be able to swing (attack) next.
-	*/
-	else SET_INT_PROPERTY( "nextswing", nextSwing_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "nextswing", nextSwing_ )
+		/*
 		\property char.regenhealth The next servertime the character will try to regenerate hitpoints.
-	*/
-	else SET_INT_PROPERTY( "regenhealth", regenHitpointsTime_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "regenhealth", regenHitpointsTime_ )
+		/*
 		\property char.regenstamina The next servertime the character will try to regenerate stamina.
-	*/
-	else SET_INT_PROPERTY( "regenstamina", regenStaminaTime_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "regenstamina", regenStaminaTime_ )
+		/*
 		\property char.regenmana The next servertime the character will try to regenerate mana.
-	*/
-	else SET_INT_PROPERTY( "regenmana", regenManaTime_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "regenmana", regenManaTime_ )
+		/*
 		\property char.skilldelay The servertime the character will be able to use another active skill again.
-	*/
-	else SET_INT_PROPERTY( "skilldelay", skillDelay_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "skilldelay", skillDelay_ )
+		/*
 		\property char.gender The gender of this character. False means male, true female.
-	*/
-	else SET_INT_PROPERTY( "gender", gender_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "gender", gender_ )
+		/*
 		\property char.id The body id of this character.
-	*/
-	else SET_INT_PROPERTY( "id", body_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "id", body_ )
+		/*
 		\property char.hitpointsbonus The integer bonus awarded to the maximum hitpoints of this character.
-	*/
-	else if (name == "hitpointsbonus") {
-		setHitpointsBonus(value.toInt());
+		*/
+	else if ( name == "hitpointsbonus" )
+	{
+		setHitpointsBonus( value.toInt() );
 		return 0;
-	/*
-		\property char.staminabonus The integer bonus awarded to the maximum stamina of this character.
-	*/
-	} else if (name == "staminabonus") {
-		setStaminaBonus(value.toInt());
+		/*
+			\property char.staminabonus The integer bonus awarded to the maximum stamina of this character.
+		*/
+	}
+	else if ( name == "staminabonus" )
+	{
+		setStaminaBonus( value.toInt() );
 		return 0;
-	/*
-		\property char.manabonus The integer bonus awarded to the maximum mana of this character.
-	*/
-	} else if (name == "manabonus") {
-		setManaBonus(value.toInt());
+		/*
+			\property char.manabonus The integer bonus awarded to the maximum mana of this character.
+		*/
+	}
+	else if ( name == "manabonus" )
+	{
+		setManaBonus( value.toInt() );
 		return 0;
-	/*
-		\property char.invulnerable Indicates whether the character is invulnerable or not.
-	*/
-	} else if( name == "invulnerable" )
+		/*
+			\property char.invulnerable Indicates whether the character is invulnerable or not.
+		*/
+	}
+	else if ( name == "invulnerable" )
 	{
 		setInvulnerable( value.toInt() );
 		return 0;
@@ -1688,7 +1783,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.invisible Indicates whether the character is invisible or not.
 	*/
-	else if( name == "invisible" )
+	else if ( name == "invisible" )
 	{
 		setInvisible( value.toInt() );
 		return 0;
@@ -1696,7 +1791,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.frozen Indicates whether the character is frozen or not.
 	*/
-	else if( name == "frozen" )
+	else if ( name == "frozen" )
 	{
 		setFrozen( value.toInt() );
 		return 0;
@@ -1704,232 +1799,321 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.strengthcap The individual strength cap for this character.
 	*/
-	else SET_INT_PROPERTY( "strengthcap", strengthCap_ )
-	/*
+	else
+		SET_INT_PROPERTY( "strengthcap", strengthCap_ )
+		/*
 		\property char.dexteritycap The individual dexterity cap for this character.
-	*/
-	else SET_INT_PROPERTY( "dexteritycap", dexterityCap_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "dexteritycap", dexterityCap_ )
+		/*
 		\property char.intelligencecap The individual intelligence cap for this character.
-	*/
-	else SET_INT_PROPERTY( "intelligencecap", intelligenceCap_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "intelligencecap", intelligenceCap_ )
+		/*
 		\property char.statcap The individual total stat cap for this character.
-	*/
-	else SET_INT_PROPERTY( "statcap", statCap_ )
-	/*
+		*/
+	else
+		SET_INT_PROPERTY( "statcap", statCap_ )
+		/*
 		\property char.baseid The name of the definition this character was created from. 
 		This property is used to link the character to the definitions even after he 
 		was created.
-	*/
-	else if (name == "baseid") {
-		setBaseid(value.toString().latin1());
+		*/
+	else if ( name == "baseid" )
+	{
+		setBaseid( value.toString().latin1() );
 		return 0;
 	}
 
 	return cUObject::setProperty( name, value );
 }
 
-stError *cBaseChar::getProperty( const QString &name, cVariant &value )
+stError* cBaseChar::getProperty( const QString& name, cVariant& value )
 {
 	GET_PROPERTY( "orgname", orgName_ )
-	else GET_PROPERTY( "baseid", baseid() )
-	else GET_PROPERTY( "lastmovement", (int)lastMovement_ )
-	else GET_PROPERTY( "title", title_ )
-	else GET_PROPERTY( "incognito", isIncognito() )
-	else GET_PROPERTY( "polymorph", isPolymorphed() )
-	else GET_PROPERTY( "skin", skin_ )
-	else GET_PROPERTY( "orgskin", orgSkin_ )
-	else GET_PROPERTY( "creationdate", creationDate_.toString() )
-	else GET_PROPERTY( "stealthedsteps", stealthedSteps_ )
-	else GET_PROPERTY( "runningsteps", (int)runningSteps_ )
-	else GET_PROPERTY( "tamed", isTamed() )
-	else GET_PROPERTY( "guarding", guarding_ )
-	else GET_PROPERTY( "murderer", FindCharBySerial( murdererSerial_ ) )
-	else GET_PROPERTY( "casting", isCasting() )
-	else GET_PROPERTY( "hidden", isHidden() )
-	else GET_PROPERTY( "hunger", hunger_ )
-	else GET_PROPERTY( "hungertime", (int)hungerTime_ )
-	else GET_PROPERTY( "poison", poison_ )
-	else GET_PROPERTY( "flag", flag_ )
-	else GET_PROPERTY( "propertyflags", (int)propertyFlags_ )
-	else GET_PROPERTY( "murderertime", (int)murdererTime_ )
-	else GET_PROPERTY( "criminaltime", (int)criminalTime_ )
-	else GET_PROPERTY( "meditating", isMeditating() )
-	else GET_PROPERTY( "weight", weight_ )
-	else GET_PROPERTY( "saycolor", saycolor_ )
-	else GET_PROPERTY( "emotecolor", emoteColor_ )
-	else GET_PROPERTY( "strength", strength_ )
-	else GET_PROPERTY( "dexterity", dexterity_ )
-	else GET_PROPERTY( "intelligence", intelligence_ )
-	else GET_PROPERTY( "strength2", strengthMod_ )
-	else GET_PROPERTY( "dexterity2", dexterityMod_ )
-	else GET_PROPERTY( "intelligence2", intelligenceMod_ )
-	else GET_PROPERTY( "orgid", orgBody_ )
-	else GET_PROPERTY( "maxhitpoints", maxHitpoints_ )
-	else GET_PROPERTY( "hitpoints", hitpoints_ )
-	else GET_PROPERTY( "strengthcap", strengthCap_ )
-	else GET_PROPERTY( "dexteritycap", dexterityCap_ )
-	else GET_PROPERTY( "intelligencecap", intelligenceCap_ )
-	else GET_PROPERTY( "statcap", statCap_ )
-	else GET_PROPERTY( "health", hitpoints_ )
-	else GET_PROPERTY( "maxstamina", maxStamina_ )
-	else GET_PROPERTY( "stamina", stamina_ )
-	else GET_PROPERTY( "maxmana", maxMana_ )
-	else GET_PROPERTY( "mana", mana_ )
-	else GET_PROPERTY( "karma", karma_ )
-	else GET_PROPERTY( "fame", fame_ )
-	else GET_PROPERTY( "kills", (int)kills_ )
-	else GET_PROPERTY( "deaths", (int)deaths_ )
-	else GET_PROPERTY( "dead", isDead() )
-	else GET_PROPERTY( "war", isAtWar() )
-	else GET_PROPERTY( "attacktarget", attackTarget_ )
-	else GET_PROPERTY( "nextswing", (int)nextSwing_ )
-	else GET_PROPERTY( "regenhealth", (int)regenHitpointsTime_ )
-	else GET_PROPERTY( "regenstamina", (int)regenStaminaTime_ )
-	else GET_PROPERTY( "regenmana", (int)regenManaTime_ )
-	else GET_PROPERTY( "region", ( region_ != 0 ) ? region_->name() : QString( "" ) )
-	else GET_PROPERTY( "skilldelay", (int)skillDelay_ )
-	else GET_PROPERTY( "gender", gender_ )
-	else GET_PROPERTY( "id", body_ )
-	else GET_PROPERTY( "invulnerable", isInvulnerable() )
-	else GET_PROPERTY( "invisible", isInvisible() )
-	else GET_PROPERTY( "frozen", isFrozen() )
-	else GET_PROPERTY( "hitpointsbonus", hitpointsBonus_ )
-	else GET_PROPERTY( "staminabonus", staminaBonus_ )
-	else GET_PROPERTY( "manabonus", manaBonus_ )
-	
-	// Base Properties
+	else
+		GET_PROPERTY( "direction", direction_ )
+	else
+		GET_PROPERTY( "baseid", baseid() )
+	else
+		GET_PROPERTY( "lastmovement", ( int ) lastMovement_ )
+	else
+		GET_PROPERTY( "title", title_ )
+	else
+		GET_PROPERTY( "incognito", isIncognito() )
+	else
+		GET_PROPERTY( "polymorph", isPolymorphed() )
+	else
+		GET_PROPERTY( "skin", skin_ )
+	else
+		GET_PROPERTY( "orgskin", orgSkin_ )
+	else
+		GET_PROPERTY( "creationdate", creationDate_.toString() )
+	else
+		GET_PROPERTY( "stealthedsteps", stealthedSteps_ )
+	else
+		GET_PROPERTY( "runningsteps", ( int ) runningSteps_ )
+	else
+		GET_PROPERTY( "tamed", isTamed() )
+	else
+		GET_PROPERTY( "guarding", guarding_ )
+	else
+		GET_PROPERTY( "murderer", FindCharBySerial( murdererSerial_ ) )
+	else
+		GET_PROPERTY( "casting", isCasting() )
+	else
+		GET_PROPERTY( "hidden", isHidden() )
+	else
+		GET_PROPERTY( "hunger", hunger_ )
+	else
+		GET_PROPERTY( "hungertime", ( int ) hungerTime_ )
+	else
+		GET_PROPERTY( "poison", poison_ )
+	else
+		GET_PROPERTY( "flag", flag_ )
+	else
+		GET_PROPERTY( "propertyflags", ( int ) propertyFlags_ )
+	else
+		GET_PROPERTY( "murderertime", ( int ) murdererTime_ )
+	else
+		GET_PROPERTY( "criminaltime", ( int ) criminalTime_ )
+	else
+		GET_PROPERTY( "meditating", isMeditating() )
+	else
+		GET_PROPERTY( "weight", weight_ )
+	else
+		GET_PROPERTY( "saycolor", saycolor_ )
+	else
+		GET_PROPERTY( "emotecolor", emoteColor_ )
+	else
+		GET_PROPERTY( "strength", strength_ )
+	else
+		GET_PROPERTY( "dexterity", dexterity_ )
+	else
+		GET_PROPERTY( "intelligence", intelligence_ )
+	else
+		GET_PROPERTY( "strength2", strengthMod_ )
+	else
+		GET_PROPERTY( "dexterity2", dexterityMod_ )
+	else
+		GET_PROPERTY( "intelligence2", intelligenceMod_ )
+	else
+		GET_PROPERTY( "orgid", orgBody_ )
+	else
+		GET_PROPERTY( "maxhitpoints", maxHitpoints_ )
+	else
+		GET_PROPERTY( "hitpoints", hitpoints_ )
+	else
+		GET_PROPERTY( "strengthcap", strengthCap_ )
+	else
+		GET_PROPERTY( "dexteritycap", dexterityCap_ )
+	else
+		GET_PROPERTY( "intelligencecap", intelligenceCap_ )
+	else
+		GET_PROPERTY( "statcap", statCap_ )
+	else
+		GET_PROPERTY( "health", hitpoints_ )
+	else
+		GET_PROPERTY( "maxstamina", maxStamina_ )
+	else
+		GET_PROPERTY( "stamina", stamina_ )
+	else
+		GET_PROPERTY( "maxmana", maxMana_ )
+	else
+		GET_PROPERTY( "mana", mana_ )
+	else
+		GET_PROPERTY( "karma", karma_ )
+	else
+		GET_PROPERTY( "fame", fame_ )
+	else
+		GET_PROPERTY( "kills", ( int ) kills_ )
+	else
+		GET_PROPERTY( "deaths", ( int ) deaths_ )
+	else
+		GET_PROPERTY( "dead", isDead() )
+	else
+		GET_PROPERTY( "war", isAtWar() )
+	else
+		GET_PROPERTY( "attacktarget", attackTarget_ )
+	else
+		GET_PROPERTY( "nextswing", ( int ) nextSwing_ )
+	else
+		GET_PROPERTY( "regenhealth", ( int ) regenHitpointsTime_ )
+	else
+		GET_PROPERTY( "regenstamina", ( int ) regenStaminaTime_ )
+	else
+		GET_PROPERTY( "regenmana", ( int ) regenManaTime_ )
+	else
+		GET_PROPERTY( "region", ( region_ != 0 ) ? region_->name() : QString( "" ) )
+	else
+		GET_PROPERTY( "skilldelay", ( int ) skillDelay_ )
+	else
+		GET_PROPERTY( "gender", gender_ )
+	else
+		GET_PROPERTY( "id", body_ )
+	else
+		GET_PROPERTY( "invulnerable", isInvulnerable() )
+	else
+		GET_PROPERTY( "invisible", isInvisible() )
+	else
+		GET_PROPERTY( "frozen", isFrozen() )
+	else
+		GET_PROPERTY( "hitpointsbonus", hitpointsBonus_ )
+	else
+		GET_PROPERTY( "staminabonus", staminaBonus_ )
+	else
+		GET_PROPERTY( "manabonus", manaBonus_ )
 
-	/*
+		// Base Properties
+
+		/*
 		\rproperty char.basesound The base sound id for this creature. Not used for humans.
 
 		This property is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("basesound", basesound())
+		*/
+	else
+		GET_PROPERTY( "basesound", basesound() )
 
-	/* \rproperty char.soundmode Which sounds are available for this creature. See basesound for the offset.
-	Possible values:
-	<code>0: normal, 5 sounds (attack-started, idle, attack, defence, dying)
-	1: birds .. only one "bird-shape" and zillions of sounds ...
-	2: only 3 sounds -> (attack,defence,dying)
-	3: only 4 sounds ->	(attack-started,attack,defense,dying)
-	4: only 1 sound</code>
+		/* \rproperty char.soundmode Which sounds are available for this creature. See basesound for the offset.
+		Possible values:
+		<code>0: normal, 5 sounds (attack-started, idle, attack, defence, dying)
+		1: birds .. only one "bird-shape" and zillions of sounds ...
+		2: only 3 sounds -> (attack,defence,dying)
+		3: only 4 sounds ->	(attack-started,attack,defense,dying)
+		4: only 1 sound</code>
 
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("soundmode", soundmode())
+		This property is inherited from the definition referenced by the baseid property.
+		*/
+	else
+		GET_PROPERTY( "soundmode", soundmode() )
 
-	/*
+		/*
 		\rproperty char.canfly Indicates whether the creature can fly.
 
 		This property is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("canfly", isCanFly())
+		*/
+	else
+		GET_PROPERTY( "canfly", isCanFly() )
 
-	/*
+		/*
 		\rproperty char.antiblink Indicates whether the creature has the anti blink bit set for animations.
 
 		This property is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("antiblink", isAntiBlink())
+		*/
+	else
+		GET_PROPERTY( "antiblink", isAntiBlink() )
 
-	/*
+		/*
 		\rproperty char.nocorpse Indicates whether the creature leaves a corpse or not.
 
 		This property is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("nocorpse", isNoCorpse())
+		*/
+	else
+		GET_PROPERTY( "nocorpse", isNoCorpse() )
 
-	/*
+		/*
 		\rproperty figurine The itemid of the figurine thats created when the creature is shrunk.
 
 		This property is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("figurine", figurine())
+		*/
+	else
+		GET_PROPERTY( "figurine", figurine() )
 
-	/*
+		/*
 		\rproperty char.mindamage The minimum damage this character type
 
 		This property is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("antiblink", isAntiBlink())
+		*/
+	else
+		GET_PROPERTY( "antiblink", isAntiBlink() )
 
-	/*
+		/*
 		\rproperty char.mindamage This is the minimum damage dealt by the creature when unarmed.
 
 		This property is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("mindamage", minDamage())
+		*/
+	else
+		GET_PROPERTY( "mindamage", minDamage() )
 
-	/*
+		/*
 		\rproperty char.maxdamage This is the maximum damage dealt by the creature when unarmed.
 
 		This property is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("maxdamage", maxDamage())
+		*/
+	else
+		GET_PROPERTY( "maxdamage", maxDamage() )
 
-	/*
+		/*
 		\rproperty char.mintaming This is the minimum taming skill required to tame this creature.
 		This has no meaning for player characters.	
 
 		This property is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("mintaming", minTaming())
+		*/
+	else
+		GET_PROPERTY( "mintaming", minTaming() )
 
-	/*
+		/*
 		\rproperty char.carve This is the name of the list of items created when a dagger is
 		used on the corpse of this creature.
 
 		This property is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("carve", carve())
+		*/
+	else
+		GET_PROPERTY( "carve", carve() )
 
-	/*
+		/*
 		\rproperty char.lootpacks This is a semicolon separated list of lootpacks that are created
 		in the corpse of this creature.
 		This has no meaning for player characters.
 
 		This property is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("lootpacks", lootPacks())
+		*/
+	else
+		GET_PROPERTY( "lootpacks", lootPacks() )
 
-	/*
+		/*
 		\rproperty char.controlslots The amount of follower slots this npc will consume when owned
 		by a player.
 
 		This property is exclusive to npcs and is inherited from the definition referenced by the baseid property.
-	*/
-	else GET_PROPERTY("controlslots", controlSlots())
+		*/
+	else
+		GET_PROPERTY( "controlslots", controlSlots() )
 
-	// skill.
-	else if( name.left( 6 ) == "skill." )
+		// skill.
+	else if ( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
 		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
-		if( skillId != -1 )
+		if ( skillId != -1 )
 		{
 			value = cVariant( this->skillValue( skillId ) );
 			return 0;
 		}
-	// skillcap.
-	} else if( name.left( 9 ) == "skillcap." ) {
+		// skillcap.
+	}
+	else if ( name.left( 9 ) == "skillcap." )
+	{
 		QString skill = name.right( name.length() - 9 );
 		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
-		if( skillId != -1 )
+		if ( skillId != -1 )
 		{
 			value = cVariant( this->skillCap( skillId ) );
 			return 0;
 		}
-
-	} else {
+	}
+	else
+	{
 		// See if there's a skill by that name
-		INT16 skillId = Skills::instance()->findSkillByDef(name);
+		INT16 skillId = Skills::instance()->findSkillByDef( name );
 
-		if (skillId != -1) {
-			value = cVariant(skillValue(skillId));
+		if ( skillId != -1 )
+		{
+			value = cVariant( skillValue( skillId ) );
 			return 0;
 		}
 	}
@@ -1952,7 +2136,7 @@ void cBaseChar::setSkillCap( UINT16 skill, UINT16 cap )
 
 void cBaseChar::setSkillLock( UINT16 skill, UINT8 lock )
 {
-	if( lock > 2 )
+	if ( lock > 2 )
 		lock = 0;
 
 	skills_[skill].lock = lock;
@@ -1961,38 +2145,38 @@ void cBaseChar::setSkillLock( UINT16 skill, UINT8 lock )
 
 UINT16 cBaseChar::skillValue( UINT16 skill ) const
 {
-	return skills_[ skill ].value;
+	return skills_[skill].value;
 }
 
 UINT16 cBaseChar::skillCap( UINT16 skill ) const
 {
-	return skills_[ skill ].cap;
+	return skills_[skill].cap;
 }
 
 UINT8 cBaseChar::skillLock( UINT16 skill ) const
 {
-	return skills_[ skill ].lock;
+	return skills_[skill].lock;
 }
 
-void cBaseChar::setStamina(INT16 data, bool notify /* = true */ )
+void cBaseChar::setStamina( INT16 data, bool notify /* = true */ )
 {
-    stamina_ = data;
+	stamina_ = data;
 	changed_ = true;
 }
 
 void cBaseChar::callGuards()
 {
-	if (!inGuardedArea() || !Config::instance()->guardsActive() )
+	if ( !inGuardedArea() || !Config::instance()->guardsActive() )
 		return;
 
 	// Is there a criminal around?
-	RegionIterator4Chars ri(pos());
-	for( ri.Begin(); !ri.atEnd(); ri++ )
+	RegionIterator4Chars ri( pos() );
+	for ( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR pc = ri.GetData();
-		if( pc )
+		if ( pc )
 		{
-			if( !pc->isDead() && !pc->isInnocent() && inRange( pc, 14 ) )
+			if ( !pc->isDead() && !pc->isInnocent() && inRange( pc, 14 ) )
 			{
 				Combat::instance()->spawnGuard( pc, pc, pc->pos() );
 			}
@@ -2000,10 +2184,11 @@ void cBaseChar::callGuards()
 	}
 }
 
-unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject *source )
+unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject* source )
 {
-	if (isFrozen()) {
-		setFrozen(false);
+	if ( isFrozen() )
+	{
+		setFrozen( false );
 		resendTooltip();
 	}
 
@@ -2011,21 +2196,21 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 	// First of all, call onDamage with the damage-type, amount and source
 	// to modify the damage if needed
 	//
-	if( scriptChain )
+	if ( scriptChain )
 	{
-		PyObject *args = 0;
-		if( dynamic_cast< P_CHAR >( source ) != 0 )
-			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, (unsigned int)type, amount, PyGetCharObject, source );
-		else if( dynamic_cast< P_ITEM >( source ) )
-			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, (unsigned int)type, amount, PyGetItemObject, source );
+		PyObject* args = 0;
+		if ( dynamic_cast<P_CHAR>( source ) != 0 )
+			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, ( unsigned int ) type, amount, PyGetCharObject, source );
+		else if ( dynamic_cast<P_ITEM>( source ) )
+			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, ( unsigned int ) type, amount, PyGetItemObject, source );
 		else
-			args = Py_BuildValue( "O&iiO", PyGetCharObject, this, (unsigned int)type, amount, Py_None );
+			args = Py_BuildValue( "O&iiO", PyGetCharObject, this, ( unsigned int ) type, amount, Py_None );
 
-		PyObject *result = cPythonScript::callChainedEvent( EVENT_DAMAGE, scriptChain, args );
+		PyObject* result = cPythonScript::callChainedEvent( EVENT_DAMAGE, scriptChain, args );
 
-		if( result )
+		if ( result )
 		{
-			if( PyInt_Check( result ) )
+			if ( PyInt_Check( result ) )
 				amount = PyInt_AsLong( result );
 
 			Py_DECREF( result );
@@ -2036,76 +2221,91 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 
 	// The damage has been resisted or scripts have taken care of the damage otherwise
 	// Invulnerable Targets don't take any damage at all
-	if (amount == 0 || isInvulnerable()) {
+	if ( amount == 0 || isInvulnerable() )
+	{
 		return 0;
 	}
 
-	P_PLAYER player = dynamic_cast<P_PLAYER>(source);
+	P_PLAYER player = dynamic_cast<P_PLAYER>( source );
 
-	if (!player) {
-		P_ITEM tool = dynamic_cast<P_ITEM>(source);
-		if (tool && tool->owner()) {
-			player = dynamic_cast<P_PLAYER>(tool->owner());
+	if ( !player )
+	{
+		P_ITEM tool = dynamic_cast<P_ITEM>( source );
+		if ( tool && tool->owner() )
+		{
+			player = dynamic_cast<P_PLAYER>( tool->owner() );
 		}
 	}
 
 	// Show the amount of damage dealt over the head of the victim
-	if (player && player->socket()) {
+	if ( player && player->socket() )
+	{
 		cUOTxDamage damage;
-		damage.setUnknown1(1);
-		damage.setDamage(amount);
-		damage.setSerial(serial_);
-		player->socket()->send(&damage);
+		damage.setUnknown1( 1 );
+		damage.setDamage( amount );
+		damage.setSerial( serial_ );
+		player->socket()->send( &damage );
 	}
 
 	// There is a 33% chance that blood is created on hit by phsical means
-	if (type == DAMAGE_PHYSICAL && !RandomNum(0,2)) {
+	if ( type == DAMAGE_PHYSICAL && !RandomNum( 0, 2 ) )
+	{
 		P_ITEM blood = 0;
 
 		// If more than 50% of the maximum healthpoints has been dealt as damage
 		// we display a big puddle of blood
-		if (amount >= maxHitpoints_ * 0.50) {
-			blood = cItem::createFromList("BIG_BLOOD_PUDDLES");
+		if ( amount >= maxHitpoints_ * 0.50 )
+		{
+			blood = cItem::createFromList( "BIG_BLOOD_PUDDLES" );
 
-		// Otherwise we display a medium puddle of blood if the damage is greater
-		// than 25% of the maximum healthpoints
-		} else if (amount >= maxHitpoints_ * 0.35) {
-			blood = cItem::createFromList("MEDIUM_BLOOD_PUDDLES");
+			// Otherwise we display a medium puddle of blood if the damage is greater
+			// than 25% of the maximum healthpoints
+		}
+		else if ( amount >= maxHitpoints_ * 0.35 )
+		{
+			blood = cItem::createFromList( "MEDIUM_BLOOD_PUDDLES" );
 
-		// at last we only display a small stain of blood if the damage has been
-		// greater than 10% of the maximum hitpoints
-		} else if (amount >= maxHitpoints_ * 0.20) {
-			blood = cItem::createFromList("SMALL_BLOOD_PUDDLES");
+			// at last we only display a small stain of blood if the damage has been
+			// greater than 10% of the maximum hitpoints
+		}
+		else if ( amount >= maxHitpoints_ * 0.20 )
+		{
+			blood = cItem::createFromList( "SMALL_BLOOD_PUDDLES" );
 		}
 
-		if (blood) {
-			blood->moveTo(pos_); // Move it to the feet of the victim
-			blood->setNoDecay(false); // Override the nodecay tag in the definitions
-			blood->setDecayTime(Server::instance()->time() + 20 * MY_CLOCKS_PER_SEC); // Let it decay in 20 seconds from now
+		if ( blood )
+		{
+			blood->moveTo( pos_ ); // Move it to the feet of the victim
+			blood->setNoDecay( false ); // Override the nodecay tag in the definitions
 			blood->update(); // Send it to all sockets in range
 		}
 	}
 
 	// Would we die?
-	if( amount >= hitpoints_ ) {
-		kill(source);
-	} else {
+	if ( amount >= hitpoints_ )
+	{
+		kill( source );
+	}
+	else
+	{
 		hitpoints_ -= amount;
 		updateHealth();
-		Combat::instance()->playGetHitSoundEffect(this);
-		Combat::instance()->playGetHitAnimation(this);
+		Combat::instance()->playGetHitSoundEffect( this );
+		Combat::instance()->playGetHitAnimation( this );
 	}
 
 	return amount;
 }
 
-void cBaseChar::bark(enBark type) {
-	if (body() == 0x190 || body() == 0x192) {
-		if( type == Bark_GetHit )
+void cBaseChar::bark( enBark type )
+{
+	if ( body() == 0x190 || body() == 0x192 )
+	{
+		if ( type == Bark_GetHit )
 		{
 			unsigned short sound = hex2dec( Definitions::instance()->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
 
-			if( sound > 0 )
+			if ( sound > 0 )
 				soundEffect( sound );
 			else
 				soundEffect( 0x156 );
@@ -2113,50 +2313,51 @@ void cBaseChar::bark(enBark type) {
 			return;
 		}
 	}
-	else if( body() == 0x191 || body() == 0x193 )
+	else if ( body() == 0x191 || body() == 0x193 )
 	{
 		unsigned short sound = hex2dec( Definitions::instance()->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
-		if( sound > 0 )
+		if ( sound > 0 )
 			soundEffect( sound );
 		else
 			soundEffect( 0x14b );
 	}
 
-	if (!basesound())	// Nothing known about this creature
+	if ( !basesound() )	// Nothing known about this creature
 		return;
 
-	switch (soundmode()) {
-	// Only Attack, Hit and Death sounds available (Falltrough!)
+	switch ( soundmode() )
+	{
+		// Only Attack, Hit and Death sounds available (Falltrough!)
 	case 2:
-		if( type == Bark_GetHit )
+		if ( type == Bark_GetHit )
 			return;
 
-	// Only Attack, Hit, GetHit and Death
+		// Only Attack, Hit, GetHit and Death
 	case 3:
-		if( type == Bark_Idle )
+		if ( type == Bark_Idle )
 			return;
 
 		break;
 
-	// Only the first sound is available
+		// Only the first sound is available
 	case 4:
-		if( type != Bark_Attacking )
+		if ( type != Bark_Attacking )
 			return;
 
 	default:
 		break;
 	}
 
-	soundEffect( basesound() + (unsigned char)type );
+	soundEffect( basesound() + ( unsigned char ) type );
 }
 
 void cBaseChar::goldSound( unsigned short amount, bool hearall )
 {
 	unsigned short sound;
 
-	if( amount == 1 )
+	if ( amount == 1 )
 		sound = 0x35;
-	else if( amount > 1 && amount < 6 )
+	else if ( amount > 1 && amount < 6 )
 		sound = 0x36;
 	else
 		sound = 0x37;
@@ -2164,28 +2365,29 @@ void cBaseChar::goldSound( unsigned short amount, bool hearall )
 	soundEffect( sound, hearall );
 }
 
-void cBaseChar::showPaperdoll(cUOSocket *source, bool hotkey) {
-	if( !source )
+void cBaseChar::showPaperdoll( cUOSocket* source, bool hotkey )
+{
+	if ( !source )
 		return;
 
 	P_PLAYER pChar = source->player();
 
-	if( !pChar || onShowPaperdoll( pChar ) )
+	if ( !pChar || onShowPaperdoll( pChar ) )
 		return;
 
 	// For players we'll always show the Paperdoll
-	if (isHuman() || objectType() != enNPC) {
-
+	if ( isHuman() || objectType() != enNPC )
+	{
 		// If we're mounted (item on layer 25) and *not* using a hotkey
 		// We're trying to unmount
-		if (!hotkey && (this == pChar) && pChar->unmount())
+		if ( !hotkey && ( this == pChar ) && pChar->unmount() )
 			return; // We have been unmounted
 
-		source->sendPaperdoll(this);
+		source->sendPaperdoll( this );
 	}
 
 	// Is that faster ??
-	switch( body_ )
+	switch ( body_ )
 	{
 	case 0x004E:
 	case 0x0050:
@@ -2219,31 +2421,35 @@ void cBaseChar::showPaperdoll(cUOSocket *source, bool hotkey) {
 	case 0x031A:
 	case 0x031F:
 		// Try to mount the rideable animal
-		if( dist( pChar ) <  2 || pChar->isGM() )
+		if ( dist( pChar ) < 2 || pChar->isGM() )
 		{
-			if (!pChar->isHuman()) {
-				source->clilocMessage(1061628); // You can't do that while polymorphed
+			if ( !pChar->isHuman() )
+			{
+				source->clilocMessage( 1061628 ); // You can't do that while polymorphed
 				return;
 			}
 
-			if (pChar->isDead()) {
-				source->clilocMessage(500949);
+			if ( pChar->isDead() )
+			{
+				source->clilocMessage( 500949 );
 				return;
 			}
 
-			if( isAtWar() )
+			if ( isAtWar() )
 				source->sysMessage( tr( "Your pet is in battle right now!" ) );
 			else
 				pChar->mount( dynamic_cast<P_NPC>( this ) );
-		} else {
-			source->clilocMessage(500206);
+		}
+		else
+		{
+			source->clilocMessage( 500206 );
 		}
 
 		break;
 	case 0x123:
 	case 0x124:
-		if( objectType() == enNPC && dynamic_cast<P_NPC>(this)->owner() == pChar )
-				source->sendContainer( getBackpack() );
+		if ( objectType() == enNPC && dynamic_cast<P_NPC>( this )->owner() == pChar )
+			source->sendContainer( getBackpack() );
 	};
 }
 
@@ -2255,9 +2461,9 @@ bool cBaseChar::onWalk( unsigned char direction, unsigned char sequence )
 {
 	bool result = false;
 
-	if( scriptChain )
+	if ( scriptChain )
 	{
-		PyObject *args = Py_BuildValue( "O&bb", PyGetCharObject, this, direction, sequence );
+		PyObject* args = Py_BuildValue( "O&bb", PyGetCharObject, this, direction, sequence );
 		result = cPythonScript::callChainedEventHandler( EVENT_WALK, scriptChain, args );
 		Py_DECREF( args );
 	}
@@ -2265,13 +2471,13 @@ bool cBaseChar::onWalk( unsigned char direction, unsigned char sequence )
 	return result;
 }
 
-bool cBaseChar::onTalk( unsigned char type, unsigned short color, unsigned short font, const QString &text, const QString &lang )
+bool cBaseChar::onTalk( unsigned char type, unsigned short color, unsigned short font, const QString& text, const QString& lang )
 {
 	bool result = false;
 
-	if( scriptChain )
+	if ( scriptChain )
 	{
-		PyObject *args = Py_BuildValue( "O&bhhuu", PyGetCharObject, this, type, color, font, text.ucs2(), lang.ucs2() );
+		PyObject* args = Py_BuildValue( "O&bhhuu", PyGetCharObject, this, type, color, font, text.ucs2(), lang.ucs2() );
 		result = cPythonScript::callChainedEventHandler( EVENT_TALK, scriptChain, args );
 		Py_DECREF( args );
 	}
@@ -2283,9 +2489,9 @@ bool cBaseChar::onWarModeToggle( bool war )
 {
 	bool result = false;
 
-	if( scriptChain )
+	if ( scriptChain )
 	{
-		PyObject *args = Py_BuildValue( "O&i", PyGetCharObject, this, war ? 1 : 0 );
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, war ? 1 : 0 );
 		result = cPythonScript::callChainedEventHandler( EVENT_WARMODETOGGLE, scriptChain, args );
 		Py_DECREF( args );
 	}
@@ -2297,9 +2503,9 @@ bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
 {
 	bool result = false;
 
-	if( scriptChain )
+	if ( scriptChain )
 	{
-		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pOrigin );
+		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pOrigin );
 		result = cPythonScript::callChainedEventHandler( EVENT_SHOWPAPERDOLL, scriptChain, args );
 		Py_DECREF( args );
 	}
@@ -2309,24 +2515,24 @@ bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
 
 bool cBaseChar::onShowSkillGump()
 {
-	PyObject *args = Py_BuildValue("(N)", getPyObject());
-	bool result = cPythonScript::callChainedEventHandler(EVENT_SHOWSKILLGUMP, scriptChain);
-	Py_DECREF(args);
+	PyObject* args = Py_BuildValue( "(N)", getPyObject() );
+	bool result = cPythonScript::callChainedEventHandler( EVENT_SHOWSKILLGUMP, scriptChain );
+	Py_DECREF( args );
 	return result;
 }
 
 bool cBaseChar::onSkillUse( unsigned char skill )
 {
-	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SKILLUSE );
+	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_SKILLUSE );
 	bool result = false;
 
-	if( scriptChain || global )
+	if ( scriptChain || global )
 	{
-		PyObject *args = Py_BuildValue( "O&b", PyGetCharObject, this, skill );
+		PyObject* args = Py_BuildValue( "O&b", PyGetCharObject, this, skill );
 
 		result = cPythonScript::callChainedEventHandler( EVENT_SKILLUSE, scriptChain, args );
 
-		if( !result && global )
+		if ( !result && global )
 			result = global->callEventHandler( EVENT_SKILLUSE, args );
 
 		Py_DECREF( args );
@@ -2339,9 +2545,9 @@ bool cBaseChar::onDropOnChar( P_ITEM pItem )
 {
 	bool result = false;
 
-	if( scriptChain )
+	if ( scriptChain )
 	{
-		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
+		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
 		result = cPythonScript::callChainedEventHandler( EVENT_DROPONCHAR, scriptChain, args );
 		Py_DECREF( args );
 	}
@@ -2354,19 +2560,22 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 	// I hate this event by the way (DarkStorm)
 	QString name = QString::null;
 
-	if( scriptChain )
+	if ( scriptChain )
 	{
-		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pOrigin );
+		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pOrigin );
 
-		PyObject *result = cPythonScript::callChainedEvent( EVENT_SHOWPAPERDOLLNAME, scriptChain, args );
+		PyObject* result = cPythonScript::callChainedEvent( EVENT_SHOWPAPERDOLLNAME, scriptChain, args );
 
-		if( result )
+		if ( result )
 		{
 			// Strings and Unicode Objects gladly accepted
-			if (PyString_Check(result)) {
-				name = PyString_AsString(result);
-			} else if (PyUnicode_Check(result)) {
-				name = QString::fromUcs2((ushort*)PyUnicode_AS_UNICODE(result));
+			if ( PyString_Check( result ) )
+			{
+				name = PyString_AsString( result );
+			}
+			else if ( PyUnicode_Check( result ) )
+			{
+				name = QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( result ) );
 			}
 		}
 
@@ -2377,20 +2586,23 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 	return name;
 }
 
-bool cBaseChar::onDeath(cUObject *source, P_ITEM corpse)
+bool cBaseChar::onDeath( cUObject* source, P_ITEM corpse )
 {
 	bool result = false;
-	cPythonScript *global= ScriptManager::instance()->getGlobalHook(EVENT_DEATH);
+	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_DEATH );
 
-	if (scriptChain || global) {
-		PyObject *args = Py_BuildValue("(O&O&O&)", PyGetCharObject, this, PyGetObjectObject, source, PyGetItemObject, corpse);
-		if (global) {
-			global->callEventHandler(EVENT_DEATH, args);
+	if ( scriptChain || global )
+	{
+		PyObject* args = Py_BuildValue( "(O&O&O&)", PyGetCharObject, this, PyGetObjectObject, source, PyGetItemObject, corpse );
+		if ( global )
+		{
+			global->callEventHandler( EVENT_DEATH, args );
 		}
-		if (scriptChain) {
-			cPythonScript::callChainedEventHandler(EVENT_DEATH, scriptChain, args);
+		if ( scriptChain )
+		{
+			cPythonScript::callChainedEventHandler( EVENT_DEATH, scriptChain, args );
 		}
-		Py_DECREF(args);
+		Py_DECREF( args );
 	}
 
 	return true;
@@ -2398,16 +2610,16 @@ bool cBaseChar::onDeath(cUObject *source, P_ITEM corpse)
 
 bool cBaseChar::onCHLevelChange( unsigned int level )
 {
-	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CHLEVELCHANGE );
+	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_CHLEVELCHANGE );
 	bool result = false;
 
-	if( scriptChain || global )
+	if ( scriptChain || global )
 	{
-		PyObject *args = Py_BuildValue( "O&i", PyGetCharObject, this, level );
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, level );
 
 		result = cPythonScript::callChainedEventHandler( EVENT_CHLEVELCHANGE, scriptChain, args );
 
-		if( !result && global )
+		if ( !result && global )
 			result = global->callEventHandler( EVENT_CHLEVELCHANGE, args );
 
 		Py_DECREF( args );
@@ -2418,16 +2630,16 @@ bool cBaseChar::onCHLevelChange( unsigned int level )
 
 bool cBaseChar::onSkillGain( unsigned char skill, unsigned short min, unsigned short max, bool success )
 {
-	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SKILLGAIN );
+	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_SKILLGAIN );
 	bool result = false;
 
-	if( scriptChain || global )
+	if ( scriptChain || global )
 	{
-		PyObject *args = Py_BuildValue( "O&bhhi", PyGetCharObject, this, skill, min, max, success ? 1 : 0 );
+		PyObject* args = Py_BuildValue( "O&bhhi", PyGetCharObject, this, skill, min, max, success ? 1 : 0 );
 
 		result = cPythonScript::callChainedEventHandler( EVENT_SKILLGAIN, scriptChain, args );
 
-		if( !result && global )
+		if ( !result && global )
 			result = global->callEventHandler( EVENT_SKILLGAIN, args );
 
 		Py_DECREF( args );
@@ -2436,94 +2648,98 @@ bool cBaseChar::onSkillGain( unsigned char skill, unsigned short min, unsigned s
 	return result;
 }
 
-bool cBaseChar::kill(cUObject *source) {
-	if (free || isDead())
+bool cBaseChar::kill( cUObject* source )
+{
+	if ( free || isDead() )
 		return false;
 
-	changed(TOOLTIP);
+	changed( TOOLTIP );
 	changed_ = true;
 	hitpoints_ = 0;
 	updateHealth();
-	setDead(true);
-	setPoison(-1);
+	setDead( true );
+	setPoison( -1 );
 
-	if (isIncognito()) {
-		setBody(orgBody());
-		setSkin(orgSkin());
-		setName(orgName());
-	} else if (isPolymorphed()) {
-		setBody(orgBody());
-		setSkin(orgSkin());
+	if ( isIncognito() )
+	{
+		setBody( orgBody() );
+		setSkin( orgSkin() );
+		setName( orgName() );
+	}
+	else if ( isPolymorphed() )
+	{
+		setBody( orgBody() );
+		setSkin( orgSkin() );
 	}
 
-	setIncognito(false);
-	setPolymorphed(false);
+	setIncognito( false );
+	setPolymorphed( false );
 
-	P_CHAR pKiller = dynamic_cast<P_CHAR>(source);
+	P_CHAR pKiller = dynamic_cast<P_CHAR>( source );
 	P_ITEM pTool = 0;
 
 	// Were we killed by some sort of item?
-	if (source && !pKiller)
+	if ( source && !pKiller )
 	{
-		pTool = dynamic_cast<P_ITEM>(source);
+		pTool = dynamic_cast<P_ITEM>( source );
 
 		// If we were killed by some sort of tool (explosion potions)
 		// the owner is responsible for the murder
-		if (pTool && pTool->owner())
+		if ( pTool && pTool->owner() )
 			pKiller = pTool->owner();
 	}
 
 	// Only trigger the reputation system if we can find someone responsible
 	// for the murder
-	if (pKiller && pKiller != this)
+	if ( pKiller && pKiller != this )
 	{
 		// Only award karma and fame in unguarded areas
-		if (!pKiller->inGuardedArea())
+		if ( !pKiller->inGuardedArea() )
 		{
-			pKiller->awardFame(fame_);
-			pKiller->awardKarma(this, 0 - karma_);
+			pKiller->awardFame( fame_ );
+			pKiller->awardKarma( this, 0 - karma_ );
 		}
 
-		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pKiller);
+		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( pKiller );
 
 		// Only players can become criminal
-		if (pPlayer)
+		if ( pPlayer )
 		{
 			// Award fame and karma to the party members of this player if they can see the victim
-			if (pPlayer->party())
+			if ( pPlayer->party() )
 			{
 				QPtrList<cPlayer> members = pPlayer->party()->members();
 
-				for (P_PLAYER member = members.first(); member; member = members.next())
+				for ( P_PLAYER member = members.first(); member; member = members.next() )
 				{
-					if (member != pPlayer && member->canSeeChar(this))
+					if ( member != pPlayer && member->canSeeChar( this ) )
 					{
-						if (!member->inGuardedArea())
+						if ( !member->inGuardedArea() )
 						{
-							member->awardFame(fame_);
-							member->awardKarma(this, 0 - karma_);
+							member->awardFame( fame_ );
+							member->awardKarma( this, 0 - karma_ );
 						}
 					}
 				}
 			}
 
-			if (isInnocent())
+			if ( isInnocent() )
 			{
 				pPlayer->makeCriminal();
-				pPlayer->setKills(pPlayer->kills() + 1);
-				setMurdererSerial(pPlayer->serial());
+				pPlayer->setKills( pPlayer->kills() + 1 );
+				setMurdererSerial( pPlayer->serial() );
 
 				// Report the number of slain people to the player
-				if (pPlayer->socket())
-					pPlayer->socket()->sysMessage(tr("You have killed %1 innocent people.").arg(pPlayer->kills()));
+				if ( pPlayer->socket() )
+					pPlayer->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pPlayer->kills() ) );
 
 				// The player became a murderer
-				if (pPlayer->kills() >= Config::instance()->maxkills())
+				if ( pPlayer->kills() >= Config::instance()->maxkills() )
 				{
-					pPlayer->setMurdererTime(getNormalizedTime() + Config::instance()->murderdecay() * MY_CLOCKS_PER_SEC);
+					pPlayer->setMurdererTime( getNormalizedTime() + Config::instance()->murderdecay() * MY_CLOCKS_PER_SEC );
 
-					if (pPlayer->socket())
-						pPlayer->socket()->clilocMessage(502134);
+					if ( pPlayer->socket() )
+						pPlayer->socket()->clilocMessage( 502134 );
 				}
 			}
 		}
@@ -2533,86 +2749,83 @@ bool cBaseChar::kill(cUObject *source) {
 	fame_ *= 0.90;
 
 	// Create the corpse
-	cCorpse *corpse = 0;
+	cCorpse* corpse = 0;
 	P_ITEM backpack = getBackpack();
-	P_NPC npc = dynamic_cast<P_NPC>(this);
-	P_PLAYER player = dynamic_cast<P_PLAYER>(this);
+	P_NPC npc = dynamic_cast<P_NPC>( this );
+	P_PLAYER player = dynamic_cast<P_PLAYER>( this );
 
 	bool summoned = npc && npc->summoned();
 
-	if (player)
+	if ( player )
 		player->unmount();
 
 	// If we are a creature type with a corpse and if we are not summoned
 	// we create a corpse
-	if (!summoned && !isNoCorpse()) {
-		corpse = new cCorpse(true);
+	if ( !summoned && !isNoCorpse() )
+	{
+		corpse = new cCorpse( true );
 
-		const cElement *elem = Definitions::instance()->getDefinition(WPDT_ITEM, "2006");
-		if (elem)
-			corpse->applyDefinition(elem);
+		const cElement* elem = Definitions::instance()->getDefinition( WPDT_ITEM, "2006" );
+		if ( elem )
+			corpse->applyDefinition( elem );
 
-		corpse->setName(name_);
-		corpse->setColor(skin_);
-		corpse->setBodyId(body_);
-		corpse->setTag("human", cVariant(isHuman() ? 1 : 0 ));
-		corpse->setTag("name", cVariant(name_));
+		corpse->setName( name_ );
+		corpse->setColor( skin_ );
+		corpse->setBodyId( body_ );
+		corpse->setTag( "human", cVariant( isHuman() ? 1 : 0 ) );
+		corpse->setTag( "name", cVariant( name_ ) );
 
 		// Storing the player's notoriety
 		// So a singleclick on the corpse
 		// Will display the right color
-		corpse->setTag("notoriety", cVariant(notoriety(this)));
-
-		if (npc)
-			corpse->setCarve(npc->carve());
-
-        corpse->setOwner(this);
-		corpse->moveTo(pos_);
-		corpse->setDirection(direction());
+		corpse->setTag( "notoriety", cVariant( notoriety( this ) ) );
+		corpse->setCharBaseid(baseid());
+		corpse->setOwner( this );
+		corpse->moveTo( pos_, true );
+		corpse->setDirection( direction() );
+		corpse->setMurderTime( QDateTime::currentDateTime().toTime_t() );
 
 		// stores the time and the murderer's name
-		if (pKiller)
-		{
-			corpse->setMurderer(pKiller->name());
-			corpse->setMurderTime(Server::instance()->time());
+		if ( pKiller ) {
+			corpse->setMurderer( pKiller->serial() );			
 		}
 
 		// Move possible equipment to the corpse
-		for (unsigned char layer = SingleHandedWeapon; layer <= InnerLegs; ++layer)
+		for ( unsigned char layer = SingleHandedWeapon; layer <= InnerLegs; ++layer )
 		{
-			P_ITEM item = GetItemOnLayer(layer);
+			P_ITEM item = GetItemOnLayer( layer );
 
-			if (item)
+			if ( item )
 			{
-				if (layer != Backpack && layer != Hair && layer != FacialHair) {
+				if ( layer != Backpack && layer != Hair && layer != FacialHair )
+				{
 					// Put into the backpack
-					if (item->newbie())
+					if ( item->newbie() )
 					{
-						backpack->addItem(item);
+						backpack->addItem( item );
 
-						if (player && player->socket())
-							item->update(player->socket());
+						if ( player && player->socket() )
+							item->update( player->socket() );
 					}
 					else
 					{
-						corpse->addItem(item);
-						corpse->addEquipment(layer, item->serial());
+						corpse->addItem( item );
+						corpse->addEquipment( layer, item->serial() );
 					}
 				}
-				else if (layer == Hair)
+				else if ( layer == Hair )
 				{
-					corpse->setHairStyle(item->id());
-					corpse->setHairColor(item->color());
+					corpse->setHairStyle( item->id() );
+					corpse->setHairColor( item->color() );
 				}
-				else if (layer == FacialHair)
+				else if ( layer == FacialHair )
 				{
-					corpse->setBeardStyle(item->id());
-					corpse->setBeardColor(item->color());
+					corpse->setBeardStyle( item->id() );
+					corpse->setBeardColor( item->color() );
 				}
 			}
 		}
 
-		corpse->setDecayTime(Server::instance()->time() + Config::instance()->corpseDecayTime() * MY_CLOCKS_PER_SEC);
 		corpse->update();
 	}
 
@@ -2620,27 +2833,28 @@ bool cBaseChar::kill(cUObject *source) {
 	cItem::ContainerContent content = backpack->content();
 	cItem::ContainerContent::iterator it;
 
-	for (it = content.begin(); it != content.end(); ++it) {
+	for ( it = content.begin(); it != content.end(); ++it )
+	{
 		P_ITEM item = *it;
-		if (!item->newbie())
+		if ( !item->newbie() )
 		{
-			if (corpse)
-				corpse->addItem(item);
+			if ( corpse )
+				corpse->addItem( item );
 			else
 			{
-				item->moveTo(pos_);
+				item->moveTo( pos_ );
 				item->update();
 			}
 		}
 	}
 
 	// Summoned monsters simply disappear
-	if (summoned)
+	if ( summoned )
 	{
-		soundEffect(0x1fe);
-		pos_.effect(0x3735, 10, 30);
+		soundEffect( 0x1fe );
+		pos_.effect( 0x3735, 10, 30 );
 
-		onDeath(source, 0);
+		onDeath( source, 0 );
 		remove();
 		return true;
 	}
@@ -2648,116 +2862,119 @@ bool cBaseChar::kill(cUObject *source) {
 	playDeathSound();
 
 	cUOTxDeathAction dAction;
-	dAction.setSerial(serial_);
+	dAction.setSerial( serial_ );
 
-	if (corpse)
-		dAction.setCorpse(corpse->serial());
+	if ( corpse )
+		dAction.setCorpse( corpse->serial() );
 
 	cUOTxRemoveObject rObject;
-	rObject.setSerial(serial_);
+	rObject.setSerial( serial_ );
 
-	for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
-		if (mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange()))
+		if ( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 		{
-			if (mSock->player() != this)
+			if ( mSock->player() != this )
 			{
-				mSock->send(&dAction);
-				mSock->send(&rObject);
+				mSock->send( &dAction );
+				mSock->send( &rObject );
 			}
 		}
 	}
 
-	onDeath(source, corpse);
+	onDeath( source, corpse );
 
-	if (npc) {
+	if ( npc )
+	{
 		remove();
 	}
 
-	if (player)
+	if ( player )
 	{
 		// Create a death shroud for the player
-		P_ITEM shroud = cItem::createFromScript("204e");
-		if (shroud)
+		P_ITEM shroud = cItem::createFromScript( "204e" );
+		if ( shroud )
 		{
-			addItem(OuterTorso, shroud);
+			addItem( OuterTorso, shroud );
 			shroud->update();
 		}
 
-		player->resend(false);
+		player->resend( false );
 
-		if (player->socket())
+		if ( player->socket() )
 		{
 			// Notify the player of his death
 			cUOTxCharDeath death;
-			player->socket()->send(&death);
+			player->socket()->send( &death );
 		}
 
 		// Notify the party that we died.
-		if (player->party())
+		if ( player->party() )
 		{
 			QString message;
 
-			if (source == player)
-				message = tr("I comitted suicide.");
-			else if (pKiller)
-				message = tr("I was killed by %1.").arg(pKiller->name());
+			if ( source == player )
+				message = tr( "I comitted suicide." );
+			else if ( pKiller )
+				message = tr( "I was killed by %1." ).arg( pKiller->name() );
 			else
-				message = tr("I was killed.");
+				message = tr( "I was killed." );
 
-			player->party()->send(player, message);
+			player->party()->send( player, message );
 		}
 	}
 
 	return true;
 }
 
-bool cBaseChar::canSee(cUObject *object)
+bool cBaseChar::canSee( cUObject* object )
 {
-	P_ITEM item = dynamic_cast<P_ITEM>(object);
+	P_ITEM item = dynamic_cast<P_ITEM>( object );
 
-	if (item)
-		return canSeeItem(item);
+	if ( item )
+		return canSeeItem( item );
 
-	P_CHAR character = dynamic_cast<P_CHAR>(object);
+	P_CHAR character = dynamic_cast<P_CHAR>( object );
 
-	if (character)
-		return canSeeChar(character);
+	if ( character )
+		return canSeeChar( character );
 
 	return false;
 }
 
-bool cBaseChar::canSeeChar(P_CHAR character)
+bool cBaseChar::canSeeChar( P_CHAR character )
 {
-	if (character != this)
+	if ( character != this )
 	{
-		if (!character || character->free)
+		if ( !character || character->free )
 			return false;
 
-		if (character->isInvisible() || character->isHidden())
+		if ( character->isInvisible() || character->isHidden() )
 			return false;
 
-		if (character->isDead())
+		if ( character->isDead() )
 		{
 			// Only NPCs with spiritspeak >= 1000 can see dead people
 			// or if the AI overrides it
-			if (!character->isAtWar() && skillValue(SPIRITSPEAK) < 1000)
+			if ( !character->isAtWar() && skillValue( SPIRITSPEAK ) < 1000 )
 				return false;
 		}
 
 		// Check distance
-		if (pos_.distance(character->pos()) > VISRANGE)
+		if ( pos_.distance( character->pos() ) > VISRANGE )
 			return false;
 
 		// Check if the target is a npc and currently stabled
-		P_NPC npc = dynamic_cast<P_NPC>(character);
-		if (npc && npc->stablemasterSerial() != INVALID_SERIAL) {
+		P_NPC npc = dynamic_cast<P_NPC>( character );
+		if ( npc && npc->stablemasterSerial() != INVALID_SERIAL )
+		{
 			return false;
 		}
 
 		// If it's a player see if it's logged out
-		P_PLAYER player = dynamic_cast<P_PLAYER>(character);
-		if (player && !player->socket() && !player->logoutTime()) {
+		P_PLAYER player = dynamic_cast<P_PLAYER>( character );
+		if ( player && !player->socket() && !player->logoutTime() )
+		{
 			return false;
 		}
 	}
@@ -2765,28 +2982,31 @@ bool cBaseChar::canSeeChar(P_CHAR character)
 	return true;
 }
 
-bool cBaseChar::canSeeItem(P_ITEM item)
+bool cBaseChar::canSeeItem( P_ITEM item )
 {
-	if (!item)
+	if ( !item )
 		return false;
 
-	if (item->visible() == 2)
+	if ( item->visible() == 2 )
 		return false;
-	else if (item->visible() == 1 && item->owner() != this)
+	else if ( item->visible() == 1 && item->owner() != this )
 		return false;
 
 	// Check for container
-	if (item->container())
-		return canSee(item->container());
+	if ( item->container() )
+		return canSee( item->container() );
 	else
 	{
-		cMulti *multi = dynamic_cast<cMulti*>(item);
+		cMulti* multi = dynamic_cast<cMulti*>( item );
 
-		if (multi) {
-			if (pos_.distance(item->pos()) > BUILDRANGE)
+		if ( multi )
+		{
+			if ( pos_.distance( item->pos() ) > BUILDRANGE )
 				return false;
-		} else {
-			if (pos_.distance(item->pos()) > VISRANGE)
+		}
+		else
+		{
+			if ( pos_.distance( item->pos() ) > VISRANGE )
 				return false;
 		}
 	}
@@ -2794,14 +3014,15 @@ bool cBaseChar::canSeeItem(P_ITEM item)
 	return true;
 }
 
-cFightInfo *cBaseChar::findFight(P_CHAR enemy)
+cFightInfo* cBaseChar::findFight( P_CHAR enemy )
 {
-	if (enemy) {
-		for (cFightInfo *fight = fights_.first(); fight; fight = fights_.next())
+	if ( enemy )
+	{
+		for ( cFightInfo*fight = fights_.first(); fight; fight = fights_.next() )
 		{
 			// We are only searching the fights we participate in, thats why we only
 			// have to check for our enemy
-			if (fight->attacker() == enemy || fight->victim() == enemy)
+			if ( fight->attacker() == enemy || fight->victim() == enemy )
 				return fight;
 		}
 	}
@@ -2809,61 +3030,64 @@ cFightInfo *cBaseChar::findFight(P_CHAR enemy)
 	return 0;
 }
 
-cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
+cBaseChar::FightStatus cBaseChar::fight( P_CHAR enemy )
 {
 	FightStatus result = FightDenied;
 
-	if (!inWorld()) {
+	if ( !inWorld() )
+	{
 		return result;
 	}
 
 	// Ghosts can't fight
-	if (isDead()) {
-		sysmessage(500949);
+	if ( isDead() )
+	{
+		sysmessage( 500949 );
 		return result;
 	}
 
 	// If we dont set any serial the attack is rejected
 	cUOTxAttackResponse attack;
-	attack.setSerial(INVALID_SERIAL);
+	attack.setSerial( INVALID_SERIAL );
 
-	if (enemy)
+	if ( enemy )
 	{
 		// Invisible or hidden creatures cannot be fought
-		if (!canSeeChar(enemy))
+		if ( !canSeeChar( enemy ) )
 		{
-			sysmessage(500950);
+			sysmessage( 500950 );
 			enemy = 0;
 		}
-		else if (enemy->isDead())
+		else if ( enemy->isDead() )
 		{
-			sysmessage("You cannot fight dead creatures.");
+			sysmessage( "You cannot fight dead creatures." );
 			enemy = 0;
 		}
-		else if (enemy->isInvulnerable())
+		else if ( enemy->isInvulnerable() )
 		{
-			sysmessage(1061621);
+			sysmessage( 1061621 );
 			enemy = 0;
 		}
 	}
 
 	// If we are fighting someone and our target is null,
 	// stop fighting.
-	if (!enemy)
+	if ( !enemy )
 	{
 		// Update only if neccesary
-		if (attackTarget_) {
+		if ( attackTarget_ )
+		{
 			attackTarget_ = 0;
-			send(&attack);
+			send( &attack );
 		}
 		return result;
 	}
 
 	// If there already is an ongoing fight with our target,
 	// simply return. Otherwise create the structure and fill it.
-	cFightInfo *fight = findFight(enemy);
+	cFightInfo* fight = findFight( enemy );
 
-	if (fight)
+	if ( fight )
 	{
 		// There certainly is a reason to renew this fight
 		fight->refresh();
@@ -2872,15 +3096,15 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 	else
 	{
 		// Check if it is legitimate to attack the enemy
-		bool legitimate = enemy->notoriety(this) != 0x01;
-		fight = new cFightInfo(this, enemy, legitimate);
+		bool legitimate = enemy->notoriety( this ) != 0x01;
+		fight = new cFightInfo( this, enemy, legitimate );
 
 		// Display a message to the victim if our target changed to him
-		if (attackTarget() != enemy)
+		if ( attackTarget() != enemy )
 		{
-			P_PLAYER player = dynamic_cast<P_PLAYER>(enemy);
-			if (player && player->socket())
-				player->socket()->showSpeech(this, tr("*You see %1 attacking you.*").arg(name()), 0x26, 3, cUOTxUnicodeSpeech::Emote);
+			P_PLAYER player = dynamic_cast<P_PLAYER>( enemy );
+			if ( player && player->socket() )
+				player->socket()->showSpeech( this, tr( "*You see %1 attacking you.*" ).arg( name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
 		}
 		result = FightStarted;
 	}
@@ -2890,55 +3114,57 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 	unhide();
 
 	// Accept the attack
-	attack.setSerial(enemy->serial());
-	send(&attack);
+	attack.setSerial( enemy->serial() );
+	send( &attack );
 
 	// Turn to our enemy
-	turnTo(enemy);
+	turnTo( enemy );
 
 	// See if we need to change our warmode status
-	if (!isAtWar()) {
+	if ( !isAtWar() )
+	{
 		cUOTxWarmode warmode;
-		warmode.setStatus(1);
-		send(&warmode);
-		setAtWar(true);
+		warmode.setStatus( 1 );
+		send( &warmode );
+		setAtWar( true );
 		update();
 	}
 
 	return result;
 }
 
-bool cBaseChar::sysmessage(const QString &message, unsigned short color, unsigned short font)
+bool cBaseChar::sysmessage( const QString& message, unsigned short color, unsigned short font )
 {
 	return false;
 }
 
-bool cBaseChar::sysmessage(unsigned int message, const QString &params, unsigned short color, unsigned short font)
+bool cBaseChar::sysmessage( unsigned int message, const QString& params, unsigned short color, unsigned short font )
 {
 	return false;
 }
 
-bool cBaseChar::message(const QString &message, unsigned short color, cUObject *source, unsigned short font, unsigned char mode)
+bool cBaseChar::message( const QString& message, unsigned short color, cUObject* source, unsigned short font, unsigned char mode )
 {
 	return false;
 }
 
-bool cBaseChar::send(cUOPacket *packet)
+bool cBaseChar::send( cUOPacket* packet )
 {
 	return false;
 }
 
-void cBaseChar::poll(unsigned int time, unsigned int events)
+void cBaseChar::poll( unsigned int time, unsigned int events )
 {
-	if (events & EventCombat)
+	if ( events & EventCombat )
 	{
-		if (attackTarget_ && nextSwing_ <= time)
+		if ( attackTarget_ && nextSwing_ <= time )
 		{
 			P_CHAR target = attackTarget_;
 
 			// Invulnerable or Dead target. Stop fighting.
-			if (isDead() || target->isInvulnerable() || target->isDead()) {
-				fight(0);
+			if ( isDead() || target->isInvulnerable() || target->isDead() )
+			{
+				fight( 0 );
 				return;
 			}
 
@@ -2946,33 +3172,37 @@ void cBaseChar::poll(unsigned int time, unsigned int events)
 			unsigned char range = 1;
 			P_ITEM weapon = getWeapon();
 
-			if (weapon && weapon->hasTag("range"))
-				range = weapon->getTag("range").toInt();
+			if ( weapon && weapon->hasTag( "range" ) )
+				range = weapon->getTag( "range" ).toInt();
 
 			// We are out of range
-			if (pos().distance(target->pos()) > range)
+			if ( pos().distance( target->pos() ) > range )
 				return;
 
 			// Can we see our target?
-			if (!canSee(attackTarget_))
+			if ( !canSee( attackTarget_ ) )
 				return;
 
 			// Ranged weapons don't need a touch, all other weapons need it.
-			if (weapon && (weapon->type() == 1006 || weapon->type() == 1007)) {
-				if (!lineOfSight(attackTarget_, false)) {
+			if ( weapon && ( weapon->type() == 1006 || weapon->type() == 1007 ) )
+			{
+				if ( !lineOfSight( attackTarget_, false ) )
+				{
 					return;
 				}
-			} else if (!lineOfSight(attackTarget_, true)) {
+			}
+			else if ( !lineOfSight( attackTarget_, true ) )
+			{
 				return;
 			}
 
-			cPythonScript *global = ScriptManager::instance()->getGlobalHook(EVENT_SWING);
+			cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_SWING );
 
-			if (global)
+			if ( global )
 			{
-				PyObject *args = Py_BuildValue("O&O&i", PyGetCharObject, this, PyGetCharObject, attackTarget_, time);
-				global->callEvent(EVENT_SWING, args);
-				Py_DECREF(args);
+				PyObject* args = Py_BuildValue( "O&O&i", PyGetCharObject, this, PyGetCharObject, attackTarget_, time );
+				global->callEvent( EVENT_SWING, args );
+				Py_DECREF( args );
 			}
 		}
 	}
@@ -2980,148 +3210,163 @@ void cBaseChar::poll(unsigned int time, unsigned int events)
 
 void cBaseChar::refreshMaximumValues()
 {
-	if (objectType() == enPlayer)
-		maxHitpoints_ = QMAX(1, ((strength_) / 2) + hitpointsBonus_ + 50);
+	if ( objectType() == enPlayer )
+		maxHitpoints_ = QMAX( 1, ( ( strength_ ) / 2 ) + hitpointsBonus_ + 50 );
 
-	maxStamina_ = (int)QMAX(1, dexterity_ + staminaBonus_);
-	maxMana_ = (int)QMAX(1, intelligence_ + manaBonus_);
+	maxStamina_ = ( int ) QMAX( 1, dexterity_ + staminaBonus_ );
+	maxMana_ = ( int ) QMAX( 1, intelligence_ + manaBonus_ );
 }
 
-bool cBaseChar::lineOfSight(P_CHAR target, bool touch)
+bool cBaseChar::lineOfSight( P_CHAR target, bool touch )
 {
-	if (target == this)
+	if ( target == this )
 	{
 		return true;
 	}
 
 	Coord_cl eyes = pos_ + Coord_cl( 0, 0, 15 );
-	return eyes.lineOfSight(target->pos(), 15, touch);
+	return eyes.lineOfSight( target->pos(), 15, touch );
 }
 
-bool cBaseChar::lineOfSight(P_ITEM target, bool touch)
+bool cBaseChar::lineOfSight( P_ITEM target, bool touch )
 {
 	tile_st tile = TileCache::instance()->getTile( target->id() );
-	Coord_cl eyes = pos_ + Coord_cl(0, 0, 15);
+	Coord_cl eyes = pos_ + Coord_cl( 0, 0, 15 );
 
-	return eyes.lineOfSight(target->pos(), tile.height, touch);
+	return eyes.lineOfSight( target->pos(), tile.height, touch );
 }
 
-bool cBaseChar::lineOfSight(Coord_cl target, bool touch)
+bool cBaseChar::lineOfSight( Coord_cl target, bool touch )
 {
-	Coord_cl eyes = pos_ + Coord_cl(0, 0, 15);
+	Coord_cl eyes = pos_ + Coord_cl( 0, 0, 15 );
 
-	return eyes.lineOfSight(target, 0, touch);
+	return eyes.lineOfSight( target, 0, touch );
 }
 
-double cBaseChar::getHitpointRate() {
+double cBaseChar::getHitpointRate()
+{
 	// Do the math
 	int points = 0;
 
-	if (hasTag("regenhitpoints")) {
-		points = QMAX(0, getTag("regenhitpoints").toInt());
+	if ( hasTag( "regenhitpoints" ) )
+	{
+		points = QMAX( 0, getTag( "regenhitpoints" ).toInt() );
 	}
 
-	return 1.0 / (0.1 * (1 + points));
+	return 1.0 / ( 0.1 * ( 1 + points ) );
 }
 
-double cBaseChar::getStaminaRate() {
-	if (!isDead()) {
-		double chance = (double)stamina() / maxStamina();
-		double value = sqrt(skillValue(FOCUS) * 0.0005);
-		chance *= (1.0 - value);
+double cBaseChar::getStaminaRate()
+{
+	if ( !isDead() )
+	{
+		double chance = ( double ) stamina() / maxStamina();
+		double value = sqrt( skillValue( FOCUS ) * 0.0005 );
+		chance *= ( 1.0 - value );
 		chance += value;
-		checkSkill(FOCUS, floor((1.0 - chance) * 1200), 1200);
+		checkSkill( FOCUS, floor( ( 1.0 - chance ) * 1200 ), 1200 );
 	}
 
 	int points = 0;
 
-	if (hasTag("regenstamina")) {
-		points = getTag("regenstamina").toInt();
+	if ( hasTag( "regenstamina" ) )
+	{
+		points = getTag( "regenstamina" ).toInt();
 	}
 
-	points += (int)(skillValue(FOCUS) * 0.01);
-	points = QMAX(-1, points);
+	points += ( int ) ( skillValue( FOCUS ) * 0.01 );
+	points = QMAX( -1, points );
 
-	return 1.0 / (0.1 * (2 + points));
+	return 1.0 / ( 0.1 * ( 2 + points ) );
 }
 
-double cBaseChar::getManaRate() {
-	if (!isDead()) {
-		double chance = (double)mana() / maxMana();
-		double value = sqrt(skillValue(FOCUS) * 0.0005);
-		chance *= (1.0 - value);
+double cBaseChar::getManaRate()
+{
+	if ( !isDead() )
+	{
+		double chance = ( double ) mana() / maxMana();
+		double value = sqrt( skillValue( FOCUS ) * 0.0005 );
+		chance *= ( 1.0 - value );
 		chance += value;
-		checkSkill(FOCUS, floor((1.0 - chance) * 1200), 1200);
+		checkSkill( FOCUS, floor( ( 1.0 - chance ) * 1200 ), 1200 );
 	}
 
-	double medPoints = QMIN(13.0, (intelligence() + skillValue(MEDITATION) * 0.03) * (skillValue(MEDITATION) < 1000 ? 0.025 : 0.0275));
-	double focusPoints = skillValue(FOCUS) * 0.005;
+	double medPoints = QMIN( 13.0, ( intelligence() + skillValue( MEDITATION ) * 0.03 ) * ( skillValue( MEDITATION ) < 1000 ? 0.025 : 0.0275 ) );
+	double focusPoints = skillValue( FOCUS ) * 0.005;
 
 	// Wearing type 1009 items without the 'magearmor': 1 or 'spellchanneling': 1 flags
 	// eliminates the meditation bonus
-	for (unsigned char layer = SingleHandedWeapon; layer < Mount; ++layer) {
-		P_ITEM item = atLayer((enLayer)layer);
-		if (item && (item->type() == 1009 || item->type() == 1008)) {
-			if (!item->allowMeditation() && !item->hasTag("magearmor")) {
+	for ( unsigned char layer = SingleHandedWeapon; layer < Mount; ++layer )
+	{
+		P_ITEM item = atLayer( ( enLayer ) layer );
+		if ( item && ( item->type() == 1009 || item->type() == 1008 ) )
+		{
+			if ( !item->allowMeditation() && !item->hasTag( "magearmor" ) )
+			{
 				medPoints = 0;
 				break;
 			}
 		}
 	}
 
-	int points = 2 + (int)(focusPoints + medPoints + (isMeditating() ? medPoints : 0.0));
+	int points = 2 + ( int ) ( focusPoints + medPoints + ( isMeditating() ? medPoints : 0.0 ) );
 
 	// Grant a bonus for the char if present
-	if (hasTag("regenmana")) {
-		points = getTag("regenmana").toInt();
+	if ( hasTag( "regenmana" ) )
+	{
+		points = getTag( "regenmana" ).toInt();
 	}
 
-	return 1.0 / (0.1 * points);
+	return 1.0 / ( 0.1 * points );
 }
 
 // Light and Region checks
-void cBaseChar::moveTo(const Coord_cl &pos, bool noremove) {
-	cUObject::moveTo(pos, noremove);
-	Territories::instance()->check(this);
+void cBaseChar::moveTo( const Coord_cl& pos, bool noremove )
+{
+	cUObject::moveTo( pos, noremove );
+	Territories::instance()->check( this );
 }
 
-void cBaseChar::remove() {
+void cBaseChar::remove()
+{
 	// Cancel any ongoing fight.
-	QPtrList<cFightInfo> fights(this->fights());
-	fights.setAutoDelete(false);
-	for (cFightInfo *info = fights.first(); info; info = fights.next()) {
+	QPtrList<cFightInfo> fights( this->fights() );
+	fights.setAutoDelete( false );
+	for ( cFightInfo*info = fights.first(); info; info = fights.next() )
+	{
 		info->clear(); // Queue this structure to be deleted
 	}
 
 	// Call the onDelete event.
-	PyObject *args = Py_BuildValue("(N)", getPyObject());
-	cPythonScript::callChainedEventHandler(EVENT_DELETE, scriptChain, args);
-	Py_DECREF(args);
+	PyObject* args = Py_BuildValue( "(N)", getPyObject() );
+	cPythonScript::callChainedEventHandler( EVENT_DELETE, scriptChain, args );
+	Py_DECREF( args );
 
-	removeFromView(false);
+	removeFromView( false );
 
 	free = true;
 
-	setGuarding(0);
+	setGuarding( 0 );
 
 	// We need to remove the equipment here.
-	cBaseChar::ItemContainer container(content());
-	cBaseChar::ItemContainer::const_iterator it (container.begin());
-	cBaseChar::ItemContainer::const_iterator end(container.end());
-	for (; it != end; ++it )
+	cBaseChar::ItemContainer container( content() );
+	cBaseChar::ItemContainer::const_iterator it( container.begin() );
+	cBaseChar::ItemContainer::const_iterator end( container.end() );
+	for ( ; it != end; ++it )
 	{
 		P_ITEM pItem = *it;
-		if( !pItem )
+		if ( !pItem )
 			continue;
 
 		pItem->remove();
 	}
 
-	if (multi_) {
-		multi_->removeObject(this);
+	if ( multi_ )
+	{
+		multi_->removeObject( this );
 		multi_ = 0;
 	}
 
-	MapObjects::instance()->remove(this);
+	MapObjects::instance()->remove( this );
 	cUObject::remove();
 }

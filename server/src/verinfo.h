@@ -28,15 +28,18 @@
 #if !defined(__VERINFO_H__)
 #define __VERINFO_H__
 
-inline const char *productString() {
-    return "Wolfpack";
+inline const char* productString()
+{
+	return "Wolfpack";
 }
 
-inline const char *productVersion() {
+inline const char* productVersion()
+{
 	return "12.9.7";
 }
 
-inline const char *productBeta() {
+inline const char* productBeta()
+{
 	return "Beta";
 }
 

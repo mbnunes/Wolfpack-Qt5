@@ -53,8 +53,7 @@ public:
   Preferences member functions
  *****************************************************************************/
 
-Preferences::Preferences(const QString& filename, const QString& format, const QString& version)
-: d( new PreferencesPrivate )
+Preferences::Preferences( const QString& filename, const QString& format, const QString& version ) : d( new PreferencesPrivate )
 {
 	d->dirty_ = false;
 	d->file_ = filename;
@@ -74,16 +73,16 @@ Preferences::~Preferences()
 /*!
 	Get a boolean value
 */
-bool Preferences::getBool( const QString& group, const QString& key, bool def, bool create)
+bool Preferences::getBool( const QString& group, const QString& key, bool def, bool create )
 {
-	QString buffer_ = getString(group, key, def ? "true" : "false", create);
+	QString buffer_ = getString( group, key, def ? "true" : "false", create );
 	if ( buffer_.isEmpty() )
 	{
 		if ( create )
 			setBool( group, key, def );
 		return def;
 	}
-	if ( buffer_.contains("true", false) )
+	if ( buffer_.contains( "true", false ) )
 		return true;
 	else
 		return false;
@@ -101,23 +100,23 @@ void Preferences::setBool( const QString& group, const QString& key, bool value 
 /*!
 	Get a number value
 */
-long Preferences::getNumber(const QString& group, const QString& key, long def, bool create)
+long Preferences::getNumber( const QString& group, const QString& key, long def, bool create )
 {
-	QString buffer_ = getString(group, key, QString::number(def), create);
+	QString buffer_ = getString( group, key, QString::number( def ), create );
 	if ( buffer_.isEmpty() )
 	{
 		return def;
 	}
 
 	bool ok = false;
-	long num = buffer_.toLong(&ok);
+	long num = buffer_.toLong( &ok );
 	return ok ? num : def;
 }
 
 /*!
 	Set a number value
 */
-void Preferences::setNumber( const QString& group, const QString& key, long value)
+void Preferences::setNumber( const QString& group, const QString& key, long value )
 {
 	d->groups_[group][key] = QString::number( value );
 	d->dirty_ = true;
@@ -126,25 +125,25 @@ void Preferences::setNumber( const QString& group, const QString& key, long valu
 /*!
 	Get a double value
 */
-double Preferences::getDouble( const QString& group, const QString& key, double def, bool create)
+double Preferences::getDouble( const QString& group, const QString& key, double def, bool create )
 {
-	QString buffer_ = getString(group, key, QString::number(def), create);
+	QString buffer_ = getString( group, key, QString::number( def ), create );
 	if ( buffer_.isEmpty() )
 	{
 		return def;
 	}
 
 	bool ok = false;
-	double num = buffer_.toDouble(&ok);
+	double num = buffer_.toDouble( &ok );
 	return ok ? num : def;
 }
 
 /*!
 	Set a double value
 */
-void Preferences::setDouble(const QString& group, const QString& key, double value)
+void Preferences::setDouble( const QString& group, const QString& key, double value )
 {
-	d->groups_[group][key] = QString::number(value);
+	d->groups_[group][key] = QString::number( value );
 	d->dirty_ = true;
 }
 
@@ -170,7 +169,7 @@ QString Preferences::getString( const QString& group, const QString& key, const 
 /*!
 	Set a string value
 */
-void Preferences::setString(const QString& group, const QString& key, const QString& value)
+void Preferences::setString( const QString& group, const QString& key, const QString& value )
 {
 	d->groups_[group][key] = value;
 	d->dirty_ = true;
@@ -183,18 +182,18 @@ bool Preferences::containGroup( const QString& group ) const
 
 bool Preferences::containKey( const QString& group, const QString& key ) const
 {
-	if (!containGroup(group))
+	if ( !containGroup( group ) )
 		return false;
-	return d->groups_[group].contains(key);
+	return d->groups_[group].contains( key );
 }
 
 /*!
 	Remove a value from the preferences
 */
-void Preferences::removeKey(const QString& group, const QString& key)
+void Preferences::removeKey( const QString& group, const QString& key )
 {
-	if ( containGroup(group) )
-		d->groups_[group].remove(key);
+	if ( containGroup( group ) )
+		d->groups_[group].remove( key );
 }
 
 /*!
@@ -202,7 +201,7 @@ void Preferences::removeKey(const QString& group, const QString& key)
 */
 void Preferences::removeGroup( const QString& group )
 {
-	d->groups_.remove(group);
+	d->groups_.remove( group );
 }
 
 /*!
@@ -229,11 +228,11 @@ void Preferences::clear()
 void Preferences::readData()
 {
 	// open file
-	QFile datafile(d->file_);
-	if (!datafile.open(IO_ReadOnly))
+	QFile datafile( d->file_ );
+	if ( !datafile.open( IO_ReadOnly ) )
 	{
 		// error opening file
-		qWarning("Error: cannot open preferences file " + d->file_);
+		qWarning( "Error: cannot open preferences file " + d->file_ );
 		datafile.close();
 		d->filestate_ = false;
 		return;
@@ -241,10 +240,10 @@ void Preferences::readData()
 	d->filestate_ = true;
 
 	// open dom document
-	QDomDocument doc("preferences");
-	if (!doc.setContent(&datafile))
+	QDomDocument doc( "preferences" );
+	if ( !doc.setContent( &datafile ) )
 	{
-		qWarning("Error: " + d->file_ + " is not a proper preferences file");
+		qWarning( "Error: " + d->file_ + " is not a proper preferences file" );
 		datafile.close();
 		d->formatstate_ = false;
 		return;
@@ -252,50 +251,52 @@ void Preferences::readData()
 	datafile.close();
 
 	// check the doc type and stuff
-	if (doc.doctype().name() != "preferences")
+	if ( doc.doctype().name() != "preferences" )
 	{
 		// wrong file type
-		qWarning("Error: " + d->file_ + " is not a valid preferences file");
+		qWarning( "Error: " + d->file_ + " is not a valid preferences file" );
 		d->formatstate_ = false;
 		return;
 	}
 	QDomElement root = doc.documentElement();
-	if (root.attribute("application") != d->format_)
+	if ( root.attribute( "application" ) != d->format_ )
 	{
 		// right file type, wrong application
-		qWarning("Error: " + d->file_ + " is not a preferences file for " + d->format_);
+		qWarning( "Error: " + d->file_ + " is not a preferences file for " + d->format_ );
 		d->formatstate_ = false;
 		return;
 	}
 	// We don't care about application version...
 
 	// get list of groups
-	QDomNodeList nodes = root.elementsByTagName("group");
+	QDomNodeList nodes = root.elementsByTagName( "group" );
 
 	// iterate through the groups
 	QDomNodeList options;
-	for ( uint n = 0; n < nodes.count(); ++n ) {
-		if ( nodes.item(n).isElement() && !nodes.item(n).isComment() ) {
-			processGroup( nodes.item(n).toElement() );
+	for ( uint n = 0; n < nodes.count(); ++n )
+	{
+		if ( nodes.item( n ).isElement() && !nodes.item( n ).isComment() )
+		{
+			processGroup( nodes.item( n ).toElement() );
 		}
 	}
 	d->formatstate_ = true;
 }
 
-void Preferences::processGroup( const QDomElement& group)
+void Preferences::processGroup( const QDomElement& group )
 {
 	QDomElement elem;
 	QDomNodeList options;
-	QString currentgroup_ = group.attribute("name", "Default");
-	options = group.elementsByTagName("option");
-	for (unsigned n=0; n<options.count(); ++n)
+	QString currentgroup_ = group.attribute( "name", "Default" );
+	options = group.elementsByTagName( "option" );
+	for ( unsigned n = 0; n < options.count(); ++n )
 	{
-		if (options.item(n).isElement())
+		if ( options.item( n ).isElement() )
 		{
-			if (!options.item(n).isComment())
+			if ( !options.item( n ).isComment() )
 			{
-				elem = options.item(n).toElement();
-				setString(currentgroup_, elem.attribute("key"), elem.attribute("value"));
+				elem = options.item( n ).toElement();
+				setString( currentgroup_, elem.attribute( "key" ), elem.attribute( "value" ) );
 			}
 		}
 	}
@@ -306,83 +307,97 @@ void Preferences::processGroup( const QDomElement& group)
 */
 void Preferences::writeData()
 {
-	QDomDocument doc("preferences");
+	QDomDocument doc( "preferences" );
 
 	// create the root element
-	QDomElement root = doc.createElement(doc.doctype().name());
-	root.setAttribute("version", d->version_);
-	root.setAttribute("application", d->format_);
+	QDomElement root = doc.createElement( doc.doctype().name() );
+	root.setAttribute( "version", d->version_ );
+	root.setAttribute( "application", d->format_ );
 
 	// now do our options group by group
 	QMap<QString, PreferencesPrivate::PrefMap>::Iterator git;
 	PreferencesPrivate::PrefMap::Iterator pit;
 	QDomElement group, option;
-	for (git = d->groups_.begin(); git != d->groups_.end(); ++git) {
+	for ( git = d->groups_.begin(); git != d->groups_.end(); ++git )
+	{
 		// comment the group
-		QString commentText = getGroupDoc(git.key());
+		QString commentText = getGroupDoc( git.key() );
 
-		if (commentText != QString::null)
+		if ( commentText != QString::null )
 		{
-			root.appendChild(doc.createTextNode("\n\n  "));
-			root.appendChild(doc.createComment("\n  " + commentText.replace("\n", "\n  ") + "\n  "));
-			root.appendChild(doc.createTextNode("\n  "));
+			root.appendChild( doc.createTextNode( "\n\n  " ) );
+			root.appendChild( doc.createComment( "\n  " + commentText.replace( "\n", "\n  " ) + "\n  " ) );
+			root.appendChild( doc.createTextNode( "\n  " ) );
 		}
 
 		// create a group element
-		group = doc.createElement("group");
-		group.setAttribute("name", git.key());
+		group = doc.createElement( "group" );
+		group.setAttribute( "name", git.key() );
 		// add in options
-		for (pit = (*git).begin(); pit != (*git).end(); ++pit)
+		for ( pit = ( *git ).begin(); pit != ( *git ).end(); ++pit )
 		{
-			QString commentText = getEntryDoc(git.key(), pit.key());
+			QString commentText = getEntryDoc( git.key(), pit.key() );
 
-			if (commentText != QString::null)
+			if ( commentText != QString::null )
 			{
-				group.appendChild(doc.createTextNode("\n\n	"));
-				group.appendChild(doc.createComment(" " + commentText.replace("\n", "\n	  ") + " "));
-				group.appendChild(doc.createTextNode("\n	"));
+				group.appendChild( doc.createTextNode( "\n\n	" ) );
+				group.appendChild( doc.createComment( " " + commentText.replace( "\n", "\n	  " ) + " " ) );
+				group.appendChild( doc.createTextNode( "\n	" ) );
 			}
 
-			option = doc.createElement("option");
-			option.setAttribute("key", pit.key());
-			option.setAttribute("value", pit.data());
-			group.appendChild(option);
+			option = doc.createElement( "option" );
+			option.setAttribute( "key", pit.key() );
+			option.setAttribute( "value", pit.data() );
+			group.appendChild( option );
 		}
-		root.appendChild(group);
+		root.appendChild( group );
 	}
-	doc.appendChild(root);
+	doc.appendChild( root );
 
 	// open file
-	QFile datafile(d->file_);
-	if (!datafile.open(IO_WriteOnly)) {
+	QFile datafile( d->file_ );
+	if ( !datafile.open( IO_WriteOnly ) )
+	{
 		// error opening file
-		qWarning("Error: Cannot open preferences file " + d->file_);
+		qWarning( "Error: Cannot open preferences file " + d->file_ );
 		d->filestate_ = false;
 		return;
 	}
 	d->filestate_ = true;
 
 	// write it out
-	QTextStream textstream(&datafile);
-	doc.save(textstream, 2);
+	QTextStream textstream( &datafile );
+	doc.save( textstream, 2 );
 	datafile.close();
 	d->formatstate_ = true;
 }
 
-const QString& Preferences::file() { return d->file_; };
+const QString& Preferences::file()
+{
+	return d->file_;
+};
 
-const QString& Preferences::format() { return d->format_; }
+const QString& Preferences::format()
+{
+	return d->format_;
+}
 
-bool Preferences::fileState() { return d->filestate_; }
+bool Preferences::fileState()
+{
+	return d->filestate_;
+}
 
-bool Preferences::formatState() { return d->formatstate_; }
+bool Preferences::formatState()
+{
+	return d->formatstate_;
+}
 
-QString Preferences::getGroupDoc(const QString &group)
+QString Preferences::getGroupDoc( const QString& group )
 {
 	return QString::null;
 }
 
-QString Preferences::getEntryDoc(const QString &group, const QString &entry)
+QString Preferences::getEntryDoc( const QString& group, const QString& entry )
 {
 	return QString::null;
 }

@@ -44,12 +44,13 @@ class cAsyncNetIO;
 class cListener;
 class QHostAddress;
 
-class cNetwork : public cComponent {
-	QPtrList< cUOSocket > uoSockets;
-	QPtrList< cUOSocket > loginSockets;
-	cAsyncNetIO *netIo_;
-	cListener *loginServer_;
-	cListener *gameServer_;
+class cNetwork : public cComponent
+{
+	QPtrList<cUOSocket> uoSockets;
+	QPtrList<cUOSocket> loginSockets;
+	cAsyncNetIO* netIo_;
+	cListener* loginServer_;
+	cListener* gameServer_;
 	QMutex mutex;
 
 public:
@@ -67,15 +68,36 @@ public:
 
 	void poll( void ); // called by the main loop
 
-	void lock() { mutex.lock(); }
-	void unlock() { mutex.unlock(); }
-	cAsyncNetIO *netIo() { return netIo_; }
-	cUOSocket *first() { return uoSockets.first(); }
-	cUOSocket *next() { return uoSockets.next(); }
-	UINT32 count() { return uoSockets.count(); }
-	QPtrListIterator<cUOSocket> getIterator() { return QPtrListIterator<cUOSocket>(uoSockets); }
+	void lock()
+	{
+		mutex.lock();
+	}
+	void unlock()
+	{
+		mutex.unlock();
+	}
+	cAsyncNetIO* netIo()
+	{
+		return netIo_;
+	}
+	cUOSocket* first()
+	{
+		return uoSockets.first();
+	}
+	cUOSocket* next()
+	{
+		return uoSockets.next();
+	}
+	UINT32 count()
+	{
+		return uoSockets.count();
+	}
+	QPtrListIterator<cUOSocket> getIterator()
+	{
+		return QPtrListIterator<cUOSocket>( uoSockets );
+	}
 
-	void	broadcast( const QString &message, UINT16 color = 0x84d, UINT16 font = 0 );
+	void broadcast( const QString& message, UINT16 color = 0x84d, UINT16 font = 0 );
 };
 
 typedef SingletonHolder<cNetwork> Network;

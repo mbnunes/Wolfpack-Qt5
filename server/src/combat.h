@@ -38,7 +38,8 @@ class cUOSocket;
 /*!
 	\brief This structure contains information about an ongoing fight.
 */
-class cFightInfo {
+class cFightInfo
+{
 protected:
 	/*!
 		\brief A pointer to the character who attacked first.
@@ -60,7 +61,7 @@ protected:
 		\brief The amount of damage the attacker dealt in this fight.
 		This value is used for looting rights.
 	*/
-    unsigned int attackerDamage_;
+	unsigned int attackerDamage_;
 
 	/*!
 		\brief The amount of damage the victim dealt in this fight.
@@ -83,42 +84,48 @@ public:
 	/*!
 		\returns The attacker of this fight.
 	*/
-	inline P_CHAR attacker() {
+	inline P_CHAR attacker()
+	{
 		return attacker_;
 	}
 
 	/*!
 		\returns The victim of this fight.
 	*/
-	inline P_CHAR victim() {
+	inline P_CHAR victim()
+	{
 		return victim_;
 	}
 
 	/*!
 		\returns If the attacker committed a crime when attacking.
 	*/
-	inline bool legitimate() {
+	inline bool legitimate()
+	{
 		return legitimate_;
 	}
 
 	/*!
 		\returns The damage dealt to the attacker of this fight.
 	*/
-	inline unsigned int attackerDamage() {
+	inline unsigned int attackerDamage()
+	{
 		return attackerDamage_;
 	}
 
 	/*!
 		\returns The damage dealt to the victim of this fight.
 	*/
-	inline unsigned int victimDamage() {
+	inline unsigned int victimDamage()
+	{
 		return victimDamage_;
 	}
 
 	/*!
 		\returns The time of the last action in this fight.
 	*/
-	inline unsigned int lastaction() {
+	inline unsigned int lastaction()
+	{
 		return lastaction_;
 	}
 
@@ -129,7 +136,7 @@ public:
 		\param victim The victim of this fight.
 		\param legitimate If the fight was legitimate or not.
 	*/
-	cFightInfo(P_CHAR attacker, P_CHAR victim, bool legitimate);
+	cFightInfo( P_CHAR attacker, P_CHAR victim, bool legitimate );
 
 	/*!
 		\brief Refresh this fights lastaction value.
@@ -146,7 +153,8 @@ public:
 /*!
 	\brief This class encapsulates all combat related information and methods.
 */
-class cCombat {
+class cCombat
+{
 protected:
 	/*!
 		\brief This member saves all ongoing fights and is used to time out fights.
@@ -157,14 +165,15 @@ public:
 	/*!
 		\returns A reference to the list containing all ongoing fights.
 	*/
-	inline QPtrList<cFightInfo> &fights() {
+	inline QPtrList<cFightInfo>& fights()
+	{
 		return fights_;
 	}
 
 	// Sounds + Animations
 	void playGetHitSoundEffect( P_CHAR pChar );
 	void playGetHitAnimation( P_CHAR pChar );
-	void spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl &pos );
+	void spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl& pos );
 };
 
 typedef SingletonHolder<cCombat> Combat;

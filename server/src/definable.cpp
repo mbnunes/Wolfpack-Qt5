@@ -27,10 +27,9 @@
 
 #include "definable.h"
 #include "definitions.h"
-
+#include "log.h"
+#include "console.h"
 #include "basics.h"
-
-//#include "console.h"
 
 // Qt Includes
 #include <qstringlist.h>
@@ -39,38 +38,44 @@ void cDefinable::applyDefinition( const cElement* sectionNode )
 {
 	//unsigned int starttime = getNormalizedTime();
 
-	if( sectionNode->hasAttribute( "inherit" ) )
+	if ( sectionNode->hasAttribute( "inherit" ) )
 	{
 		eDefCategory wpType = WPDT_ITEM;
 
-		if( sectionNode->name() == "npc" )
+		if ( sectionNode->name() == "npc" )
 			wpType = WPDT_NPC;
-		else if( sectionNode->name() == "region" )
+		else if ( sectionNode->name() == "region" )
 			wpType = WPDT_REGION;
 
-		const cElement *tInherit = Definitions::instance()->getDefinition( wpType, sectionNode->getAttribute( "inherit", "" ) );
+		const cElement* tInherit = Definitions::instance()->getDefinition( wpType, sectionNode->getAttribute( "inherit", "" ) );
 
-		if( tInherit )
+		if ( tInherit == sectionNode )
+		{
+			Console::instance()->log( LOG_ERROR, QString( "Circulary inheriting %1.\n" ).arg( sectionNode->getAttribute( "inherit", "" ) ) );
+			return;
+		}
+
+		if ( tInherit )
 			applyDefinition( tInherit );
 	}
 
 	// Check for random-inherit
-	if( sectionNode->hasAttribute( "inheritlist" ) )
+	if ( sectionNode->hasAttribute( "inheritlist" ) )
 	{
 		eDefCategory wpType = WPDT_ITEM;
 
-		if( sectionNode->name() == "npc" )
+		if ( sectionNode->name() == "npc" )
 			wpType = WPDT_NPC;
 
 		QString iSection = Definitions::instance()->getRandomListEntry( sectionNode->getAttribute( "inheritlist", "" ) );
 
-		const cElement *tInherit = Definitions::instance()->getDefinition( wpType, iSection );
+		const cElement* tInherit = Definitions::instance()->getDefinition( wpType, iSection );
 
-		if( tInherit )
+		if ( tInherit )
 			applyDefinition( tInherit );
 	}
 
-	for( unsigned int i = 0; i < sectionNode->childCount(); ++i )
+	for ( unsigned int i = 0; i < sectionNode->childCount(); ++i )
 		processNode( sectionNode->getChild( i ) );
 
 	//unsigned int endtime = getNormalizedTime();
@@ -78,7 +83,7 @@ void cDefinable::applyDefinition( const cElement* sectionNode )
 	//Console::instance()->send( QString( "applyDefinition took %1 ms\n" ).arg( (float)(endtime - starttime) / MY_CLOCKS_PER_SEC * 1000.0f ) );
 }
 
-void cDefinable::processModifierNode( const cElement *Tag )
+void cDefinable::processModifierNode( const cElement* Tag )
 {
-	Q_UNUSED(Tag);
+	Q_UNUSED( Tag );
 };

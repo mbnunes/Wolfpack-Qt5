@@ -38,7 +38,7 @@ struct multiItem_st
 	Q_INT16 tile;
 	Q_INT16 x;
 	Q_INT16 y;
-	Q_INT8  z;
+	Q_INT8 z;
 	bool visible;
 };
 
@@ -59,9 +59,11 @@ public:
 
 class cMultiCache : public cComponent
 {
-	QMap< ushort, MultiDefinition* > multis;
+	QMap<ushort, MultiDefinition*> multis;
 public:
-	cMultiCache() {}
+	cMultiCache()
+	{
+	}
 	virtual ~cMultiCache();
 
 	void load();
@@ -70,6 +72,6 @@ public:
 	MultiDefinition* getMulti( ushort id );
 };
 
-typedef SingletonHolder< cMultiCache > MultiCache;
+typedef SingletonHolder<cMultiCache> MultiCache;
 
 #endif // __MULTISCACHE_H__

@@ -71,7 +71,7 @@ public:
 	uint width;
 	uint height;
 	QIntCache<mapblock> mapCache;
-	QIntCache< QValueVector<staticrecord> > staticsCache;
+	QIntCache<QValueVector<staticrecord> > staticsCache;
 
 	QFile mapfile;
 	QFile idxfile;
@@ -83,9 +83,9 @@ public:
 	/*
 		Try to load the Map- and Stadiff files.
 	*/
-	void loadDiffs(const QString& basepath, unsigned int id);
+	void loadDiffs( const QString& basepath, unsigned int id );
 
-	MapsPrivate( const QString& index, const QString& map, const QString& statics) throw(wpFileNotFoundException);
+	MapsPrivate( const QString& index, const QString& map, const QString& statics ) throw( wpFileNotFoundException );
 	map_st seekMap( ushort x, ushort y );
 };
 
@@ -93,31 +93,32 @@ public:
   MapsPrivate member functions
  *****************************************************************************/
 
-MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QString& statics ) throw(wpFileNotFoundException)
+MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QString& statics ) throw( wpFileNotFoundException )
 {
 	idxfile.setName( index );
 	if ( !idxfile.open( IO_ReadOnly ) )
-		throw wpFileNotFoundException( QString("Couldn't open file %1").arg( index ) );
+		throw wpFileNotFoundException( QString( "Couldn't open file %1" ).arg( index ) );
 
 	mapfile.setName( map );
 	if ( !mapfile.open( IO_ReadOnly ) )
-		throw wpFileNotFoundException( QString("Couldn't open file %1").arg( map ) );
+		throw wpFileNotFoundException( QString( "Couldn't open file %1" ).arg( map ) );
 
 	staticsfile.setName( statics );
 	if ( !staticsfile.open( IO_ReadOnly ) )
-		throw wpFileNotFoundException( QString("Couldn't open file %1").arg( statics ) );
+		throw wpFileNotFoundException( QString( "Couldn't open file %1" ).arg( statics ) );
 	staticsCache.setAutoDelete( true );
 	mapCache.setAutoDelete( true );
 }
 
-void MapsPrivate::loadDiffs(const QString& basepath, unsigned int id) {
+void MapsPrivate::loadDiffs( const QString& basepath, unsigned int id )
+{
 	// Try to read the index
-	QFile mapdiflist(basepath + QString("mapdifl%1.mul").arg(id));
-	mapdifdata.setName(basepath + QString("mapdif%1.mul").arg(id));
-	mapdifdata.open(IO_ReadOnly);
+	QFile mapdiflist( basepath + QString( "mapdifl%1.mul" ).arg( id ) );
+	mapdifdata.setName( basepath + QString( "mapdif%1.mul" ).arg( id ) );
+	mapdifdata.open( IO_ReadOnly );
 
 	// Try to read a list of ids
-	if (mapdifdata.isOpen() && mapdiflist.open( IO_ReadOnly ) )
+	if ( mapdifdata.isOpen() && mapdiflist.open( IO_ReadOnly ) )
 	{
 		QDataStream listinput( &mapdiflist );
 		listinput.setByteOrder( QDataStream::LittleEndian );
@@ -132,13 +133,13 @@ void MapsPrivate::loadDiffs(const QString& basepath, unsigned int id) {
 		mapdiflist.close();
 	}
 
-	QFile stadiflist( basepath + QString("stadifl%1.mul").arg( id ) );
-	stadifdata.setName( basepath + QString("stadif%1.mul").arg( id ) );
+	QFile stadiflist( basepath + QString( "stadifl%1.mul" ).arg( id ) );
+	stadifdata.setName( basepath + QString( "stadif%1.mul" ).arg( id ) );
 	stadifdata.open( IO_ReadOnly );
-	stadifindex.setName(basepath + QString("stadifi%1.mul").arg(id));
-	stadifindex.open(IO_ReadOnly);
+	stadifindex.setName( basepath + QString( "stadifi%1.mul" ).arg( id ) );
+	stadifindex.open( IO_ReadOnly );
 
-	if (stadifdata.isOpen() && stadifindex.isOpen() && stadiflist.open( IO_ReadOnly ) )
+	if ( stadifdata.isOpen() && stadifindex.isOpen() && stadiflist.open( IO_ReadOnly ) )
 	{
 		QDataStream listinput( &stadiflist );
 		listinput.setByteOrder( QDataStream::LittleEndian );
@@ -154,33 +155,33 @@ void MapsPrivate::loadDiffs(const QString& basepath, unsigned int id) {
 	}
 }
 
-map_st MapsPrivate::seekMap(ushort x, ushort y)
+map_st MapsPrivate::seekMap( ushort x, ushort y )
 {
 	// The blockid our cell is in
 	unsigned int blockid = x / 8 * height + y / 8;
 
 	// See if the block has been cached
-    mapblock* result = mapCache.find(blockid);
+	mapblock* result = mapCache.find( blockid );
 	bool borrowed = true;
 
-	if (!result)
+	if ( !result )
 	{
 		result = new mapblock;
 
 		// See if the block has been patched
-		if (mappatches.contains(blockid))
+		if ( mappatches.contains( blockid ) )
 		{
 			unsigned int offset = mappatches[blockid];
-			mapdifdata.at(offset);
-			mapdifdata.readBlock((char*)result, sizeof(mapblock));
+			mapdifdata.at( offset );
+			mapdifdata.readBlock( ( char * ) result, sizeof( mapblock ) );
 		}
 		else
 		{
-			mapfile.at(blockid * sizeof(mapblock));
-			mapfile.readBlock((char*)result, sizeof(mapblock));
+			mapfile.at( blockid * sizeof( mapblock ) );
+			mapfile.readBlock( ( char * ) result, sizeof( mapblock ) );
 		}
 
-		borrowed = mapCache.insert(blockid, result);
+		borrowed = mapCache.insert( blockid, result );
 	}
 
 	// Convert to in-block values.
@@ -188,7 +189,7 @@ map_st MapsPrivate::seekMap(ushort x, ushort y)
 	x %= 8;
 	map_st cell = result->cells[y * 8 + x];
 
-	if (!borrowed)
+	if ( !borrowed )
 		delete result;
 
 	return cell;
@@ -212,25 +213,28 @@ map_st MapsPrivate::seekMap(ushort x, ushort y)
 	Constructs a cMaps class.
 	\sa registerMap
 */
-cMaps::cMaps() {
+cMaps::cMaps()
+{
 }
 
 /*!
 	Destroy the cMaps instance and frees allocated memory
 */
-cMaps::~cMaps() {
+cMaps::~cMaps()
+{
 }
 
 /*!
 	Register known maps.
 */
-void cMaps::load() {
+void cMaps::load()
+{
 	basePath = Config::instance()->mulPath();
 
-	registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
-	registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
-	registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
-	registerMap(3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul");
+	registerMap( 0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul" );
+	registerMap( 1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul" );
+	registerMap( 2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul" );
+	registerMap( 3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul" );
 
 	cComponent::load();
 }
@@ -238,8 +242,10 @@ void cMaps::load() {
 /*!
 	Unregister known maps and clear the map caches.
 */
-void cMaps::unload() {
-	for (iterator it = d.begin(); it != d.end(); ++it) {
+void cMaps::unload()
+{
+	for ( iterator it = d.begin(); it != d.end(); ++it )
+	{
 		delete it.data();
 	}
 	d.clear();
@@ -250,7 +256,8 @@ void cMaps::unload() {
 /*!
 	Reload the maps.
 */
-void cMaps::reload() {
+void cMaps::reload()
+{
 	unload();
 	load();
 }
@@ -270,18 +277,18 @@ bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint ma
 		QString staticsIdxName, mapFileName, staticsFileName;
 		for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
 		{
-			if ( (*it).lower() == staticsidx.lower() )
+			if ( ( *it ).lower() == staticsidx.lower() )
 				staticsIdxName = *it;
-			if ( (*it).lower() == mapfile.lower() )
+			if ( ( *it ).lower() == mapfile.lower() )
 				mapFileName = *it;
-			if ( (*it).lower() == staticsfile.lower() )
+			if ( ( *it ).lower() == staticsfile.lower() )
 				staticsFileName = *it;
 		}
 
 		MapsPrivate* p = new MapsPrivate( basePath + staticsIdxName, basePath + mapFileName, basePath + staticsFileName );
 		p->height = mapheight;
-		p->width  = mapwidth;
-		p->loadDiffs(basePath, id);
+		p->width = mapwidth;
+		p->loadDiffs( basePath, id );
 		d.insert( id, p );
 		return true;
 	}
@@ -332,8 +339,7 @@ signed char cMaps::mapElevation( const Coord_cl& p ) const
 {
 	map_st map = seekMap( p );
 	// make sure nothing can move into black areas
-	if (430 == map.id || 475 == map.id || 580 == map.id || 610 == map.id ||
-		611 == map.id || 612 == map.id || 613 == map.id)
+	if ( 430 == map.id || 475 == map.id || 580 == map.id || 610 == map.id || 611 == map.id || 612 == map.id || 613 == map.id )
 		return ILLEGAL_Z;
 	/*!
 	\internal
@@ -373,13 +379,13 @@ uint cMaps::mapTileWidth( uint id ) const
 	The optional parameters \a top and \a botton are respectively the highest
 	and lowerst values that composes the average
 */
-signed char cMaps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, int* botton /* = 0 */  ) const
+signed char cMaps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, int* botton /* = 0 */ ) const
 {
 	// first thing is to get the map where we are standing
 	map_st map1 = seekMap( p );
 	//id = map1.id;
 	// if this appears to be a valid land id, <= 2 is invalid
-	if (map1.id > 2 && ILLEGAL_Z != mapElevation(p))
+	if ( map1.id > 2 && ILLEGAL_Z != mapElevation( p ) )
 	{
 		// get three other nearby titles to decide on an average z?
 		INT8 map2z = mapElevation( p + Coord_cl( 1, 0, 0 ) );
@@ -387,19 +393,19 @@ signed char cMaps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, i
 		INT8 map4z = mapElevation( p + Coord_cl( 1, 1, 0 ) );
 
 		INT8 testz = 0;
-		if (abs(map1.z - map4z) <= abs(map2z - map3z))
+		if ( abs( map1.z - map4z ) <= abs( map2z - map3z ) )
 		{
-			if (ILLEGAL_Z == map4z)
+			if ( ILLEGAL_Z == map4z )
 				testz = map1.z;
 			else // round down.
-				testz = (signed char)( floor( ( map1.z + map4z ) / 2.0 ) );
+				testz = ( signed char ) ( floor( ( map1.z + map4z ) / 2.0 ) );
 		}
 		else
 		{
-			if (ILLEGAL_Z == map2z || ILLEGAL_Z == map3z)
+			if ( ILLEGAL_Z == map2z || ILLEGAL_Z == map3z )
 				testz = map1.z;
 			else // round down
-				testz = (signed char)( floor( ( map2z + map3z ) / 2.0 ) );
+				testz = ( signed char ) ( floor( ( map2z + map3z ) / 2.0 ) );
 		}
 		if ( top )
 		{
@@ -428,7 +434,7 @@ signed char cMaps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, i
 
 bool cMaps::canFit( int x, int y, int z, int map, int height ) const
 {
-	if ( x < 0 || y < 0 || x >= mapTileWidth(map) * 8 || y >= mapTileHeight(map) * 8 )
+	if ( x < 0 || y < 0 || x >= mapTileWidth( map ) * 8 || y >= mapTileHeight( map ) * 8 )
 		return false;
 
 	map_st map1 = seekMap( map, x, y );
@@ -440,7 +446,7 @@ bool cMaps::canFit( int x, int y, int z, int map, int height ) const
 	StaticsIterator StaticTiles = staticsIterator( Coord_cl( x, y, z, map ) );
 	for ( ; !StaticTiles.atEnd(); ++StaticTiles )
 	{
-		tile_st tile = TileCache::instance()->getTile(StaticTiles->itemid);
+		tile_st tile = TileCache::instance()->getTile( StaticTiles->itemid );
 		if ( ( tile.isBlocking() ) && StaticTiles->zoff + tile.height > z )
 			return false;
 	}
@@ -448,47 +454,47 @@ bool cMaps::canFit( int x, int y, int z, int map, int height ) const
 	return true;
 }
 
-unsigned int cMaps::mapPatches(unsigned int id)
+unsigned int cMaps::mapPatches( unsigned int id )
 {
-	if (d.find(id) == d.end())
-		throw wpException(QString("[cMaps::mapPatches line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
+	if ( d.find( id ) == d.end() )
+		throw wpException( QString( "[cMaps::mapPatches line %1] map id(%2) not registered!" ).arg( __LINE__ ).arg( id ) );
 
-	return d.find(id).data()->mappatches.size();
+	return d.find( id ).data()->mappatches.size();
 }
 
-unsigned int cMaps::staticPatches(unsigned int id)
+unsigned int cMaps::staticPatches( unsigned int id )
 {
-	if (d.find(id) == d.end())
-		throw wpException(QString("[cMaps::staticPatches line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
+	if ( d.find( id ) == d.end() )
+		throw wpException( QString( "[cMaps::staticPatches line %1] map id(%2) not registered!" ).arg( __LINE__ ).arg( id ) );
 
-	return d.find(id).data()->staticpatches.size();
+	return d.find( id ).data()->staticpatches.size();
 }
 
-signed char cMaps::dynamicElevation(const Coord_cl& pos) const
+signed char cMaps::dynamicElevation( const Coord_cl& pos ) const
 {
 	//int z = ILLEGAL_Z;
 	signed char z = ILLEGAL_Z;
 	RegionIterator4Items ri( pos );
-	for( ri.Begin(); !ri.atEnd(); ri++ )
+	for ( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_ITEM mapitem = ri.GetData();
-		if (mapitem != NULL)
+		if ( mapitem != NULL )
 		{
-			if(mapitem->isMulti())
+			if ( mapitem->isMulti() )
 			{
 				MultiDefinition* def = MultiCache::instance()->getMulti( mapitem->id() - 0x4000 );
 				if ( def )
 				{
 					z = def->multiHeight( pos.x, pos.y, pos.z );
 					z += mapitem->pos().z + 1;
-				// this used to do a z++, but that doesn't take INT32o account the fact that
-				// the itemp[] the multi was based on has its own elevation
+					// this used to do a z++, but that doesn't take INT32o account the fact that
+					// the itemp[] the multi was based on has its own elevation
 				}
 			}
 			if ( ( mapitem->pos().x == pos.x ) && ( mapitem->pos().y == pos.y ) && ( !mapitem->isMulti() ) )
 			{
 				const INT8 ztemp = mapitem->pos().z + TileCache::instance()->tileHeight( mapitem->id() );
-				if ((ztemp <= pos.z + MaxZstep) && (ztemp > z))
+				if ( ( ztemp <= pos.z + MaxZstep ) && ( ztemp > z ) )
 				{
 					z = ztemp;
 				}
@@ -498,15 +504,15 @@ signed char cMaps::dynamicElevation(const Coord_cl& pos) const
 	return z;
 }
 
-signed char cMaps::staticTop(const Coord_cl& pos) const
+signed char cMaps::staticTop( const Coord_cl& pos ) const
 {
 	signed char top = ILLEGAL_Z;
 
-	StaticsIterator msi = this->staticsIterator(pos);
+	StaticsIterator msi = this->staticsIterator( pos );
 	while ( !msi.atEnd() )
 	{
-		signed char tempTop = msi->zoff + TileCache::instance()->tileHeight(msi->itemid);
-		if ( (tempTop <= pos.z + MaxZstep) && (tempTop > top) )
+		signed char tempTop = msi->zoff + TileCache::instance()->tileHeight( msi->itemid );
+		if ( ( tempTop <= pos.z + MaxZstep ) && ( tempTop > top ) )
 		{
 			top = tempTop;
 		}
@@ -516,30 +522,30 @@ signed char cMaps::staticTop(const Coord_cl& pos) const
 }
 
 // Return new height of player who walked to X/Y but from OLDZ
-signed char cMaps::height(const Coord_cl& pos)
+signed char cMaps::height( const Coord_cl& pos )
 {
 	// let's check in this order.. dynamic, static, then the map
-	signed char dynz = dynamicElevation(pos);
-	if (ILLEGAL_Z != dynz)
+	signed char dynz = dynamicElevation( pos );
+	if ( ILLEGAL_Z != dynz )
 		return dynz;
 
-	signed char staticz = staticTop(pos);
-	if (ILLEGAL_Z != staticz)
+	signed char staticz = staticTop( pos );
+	if ( ILLEGAL_Z != staticz )
 		return staticz;
 
-	return mapElevation(pos);
+	return mapElevation( pos );
 }
 
 
-StaticsIterator cMaps::staticsIterator(uint id, ushort x, ushort y, bool exact /* = true */ ) const throw (wpException)
+StaticsIterator cMaps::staticsIterator( uint id, ushort x, ushort y, bool exact /* = true */ ) const throw( wpException )
 {
 	const_iterator it = d.find( id );
 	if ( it == d.end() )
-		throw wpException(QString("[cMaps::staticsIterator line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
+		throw wpException( QString( "[cMaps::staticsIterator line %1] map id(%2) not registered!" ).arg( __LINE__ ).arg( id ) );
 	return StaticsIterator( x, y, it.data(), exact );
 }
 
-StaticsIterator cMaps::staticsIterator( const Coord_cl& p, bool exact /* = true */ ) const throw (wpException)
+StaticsIterator cMaps::staticsIterator( const Coord_cl& p, bool exact /* = true */ ) const throw( wpException )
 {
 	return staticsIterator( p.map, p.x, p.y, exact );
 }
@@ -574,7 +580,7 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 	pos = 0;
 
 	if ( baseX < d->width && baseY < d->height )
-		load(d, x, y, exact);
+		load( d, x, y, exact );
 }
 
 /*!
@@ -584,19 +590,20 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 */
 void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exact )
 {
-	uint indexPos = (baseX * mapRecord->height + baseY ) * 12;
-	assert ( indexPos < 0x8000000 ); // dam, breaks our assumption
+	uint indexPos = ( baseX* mapRecord->height + baseY ) * 12;
+	assert( indexPos < 0x8000000 ); // dam, breaks our assumption
 
 	UINT32 cachePos;
-	if( exact )
+	if ( exact )
 		cachePos = ( x * y ) | 0x80000000;
 	else
 		cachePos = baseX * baseY;
 
-	QValueVector<staticrecord>* p = mapRecord->staticsCache.find(cachePos);
+	QValueVector<staticrecord>* p = mapRecord->staticsCache.find( cachePos );
 
 	if ( !p )
-	{ // Well, unfortunally we will be forced to read the file :(
+	{
+		// Well, unfortunally we will be forced to read the file :(
 #pragma pack (1)
 		struct
 		{
@@ -609,29 +616,29 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 		staticStream.setByteOrder( QDataStream::LittleEndian );
 
 		// See if this particular block is patched.
-		if (mapRecord->staticpatches.contains(indexPos / 12))
+		if ( mapRecord->staticpatches.contains( indexPos / 12 ) )
 		{
 			indexPos = mapRecord->staticpatches[indexPos / 12];
 
-			mapRecord->stadifindex.at(indexPos);
-			mapRecord->stadifindex.readBlock((char*)&indexStructure, sizeof(indexStructure));
+			mapRecord->stadifindex.at( indexPos );
+			mapRecord->stadifindex.readBlock( ( char * ) &indexStructure, sizeof( indexStructure ) );
 
 			if ( indexStructure.offset == 0xFFFFFFFF )
 				return; // No statics for this block
 
-			mapRecord->stadifdata.at(indexStructure.offset);
-			staticStream.setDevice(&mapRecord->stadifdata);
+			mapRecord->stadifdata.at( indexStructure.offset );
+			staticStream.setDevice( &mapRecord->stadifdata );
 		}
 		else
 		{
-			mapRecord->idxfile.at(indexPos);
-			mapRecord->idxfile.readBlock((char*)&indexStructure, sizeof(indexStructure));
+			mapRecord->idxfile.at( indexPos );
+			mapRecord->idxfile.readBlock( ( char * ) &indexStructure, sizeof( indexStructure ) );
 
-			if (indexStructure.offset == 0xFFFFFFFF)
+			if ( indexStructure.offset == 0xFFFFFFFF )
 				return; // No statics for this block
 
 			mapRecord->staticsfile.at( indexStructure.offset );
-			staticStream.setDevice(&mapRecord->staticsfile);
+			staticStream.setDevice( &mapRecord->staticsfile );
 		}
 
 		const uint remainX = x % 8;
@@ -655,7 +662,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 		}
 
 		// update cache;
-		QValueVector<staticrecord>* temp = new QValueVector<staticrecord>(staticArray);
+		QValueVector<staticrecord>* temp = new QValueVector<staticrecord>( staticArray );
 		if ( !mapRecord->staticsCache.insert( cachePos, temp ) )
 			delete temp;
 	}

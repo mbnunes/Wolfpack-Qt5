@@ -34,32 +34,37 @@ class cUOSocket;
 /*!
 	\brief Abstract baseclass for target requests sent to the client.
 */
-class cTargetRequest {
+class cTargetRequest
+{
 protected:
 	unsigned int timeout_; // Timeout in MS
 	unsigned int targetId_; // Target id so no overlapping targets are processed
 public:
-	cTargetRequest() : timeout_(0) {
+	cTargetRequest() : timeout_( 0 )
+	{
 	}
 
-	virtual ~cTargetRequest() {
+	virtual ~cTargetRequest()
+	{
 	}
 
 	/*!
 		The client selected a target.
 	*/
-	virtual bool responsed(cUOSocket *socket, cUORxTarget *target) = 0;
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target ) = 0;
 
 	/*!
 		The target request timed out after the given timeout.
 	*/
-	virtual void timedout(cUOSocket *socket) {
+	virtual void timedout( cUOSocket* socket )
+	{
 	}
 
 	/*!
 		The target request has been canceled by the client.
 	*/
-	virtual void canceled(cUOSocket *socket) {
+	virtual void canceled( cUOSocket* socket )
+	{
 	}
 
 	/*!
@@ -70,7 +75,7 @@ public:
 	/*!
 		Set the unique id for this target.
 	*/
-	void setTargetId(unsigned int data );
+	void setTargetId( unsigned int data );
 
 	/*!
 		Return the timeout value for this target.
@@ -80,23 +85,27 @@ public:
 	/*!
 		Set the timeout value for this target.
 	*/
-	void setTimeout(unsigned int data);
+	void setTimeout( unsigned int data );
 };
 
 // Inline members
-inline unsigned int cTargetRequest::targetId() const {
+inline unsigned int cTargetRequest::targetId() const
+{
 	return targetId_;
 }
 
-inline void cTargetRequest::setTargetId(unsigned int data) {
+inline void cTargetRequest::setTargetId( unsigned int data )
+{
 	targetId_ = data;
 }
 
-inline unsigned int cTargetRequest::timeout() const {
+inline unsigned int cTargetRequest::timeout() const
+{
 	return timeout_;
 }
 
-inline void cTargetRequest::setTimeout(unsigned int data) {
+inline void cTargetRequest::setTimeout( unsigned int data )
+{
 	timeout_ = data;
 }
 

@@ -32,10 +32,11 @@ class QDomElement;
 class QString;
 class PreferencesPrivate;
 
-class Preferences {
+class Preferences
+{
 public:
 	// constructor
-	Preferences(const QString& filename, const QString& format, const QString& version);
+	Preferences( const QString& filename, const QString& format, const QString& version );
 	// destructor
 	virtual ~Preferences();
 
@@ -49,20 +50,20 @@ public:
 	bool formatState();
 
 	// boolean data storage
-	bool getBool(const QString& group, const QString& key, bool def = false, bool create = false);
-	void setBool(const QString& group, const QString& key, bool value);
+	bool getBool( const QString& group, const QString& key, bool def = false, bool create = false );
+	void setBool( const QString& group, const QString& key, bool value );
 	// integer data storage
-	long getNumber(const QString& group, const QString& key, long def, bool create = false);
-	void setNumber( const QString& group, const QString& key, long value);
+	long getNumber( const QString& group, const QString& key, long def, bool create = false );
+	void setNumber( const QString& group, const QString& key, long value );
 	// double data storage
-	double getDouble(const QString& group, const QString& key, double def = 0.0, bool create = false);
-	void setDouble(const QString& group, const QString& key, double value);
+	double getDouble( const QString& group, const QString& key, double def = 0.0, bool create = false );
+	void setDouble( const QString& group, const QString& key, double value );
 	// string data storage
-	QString getString(const QString& group, const QString& key, const QString& def, bool create = false);
-	void setString(const QString& group, const QString& key, const QString& value);
+	QString getString( const QString& group, const QString& key, const QString& def, bool create = false );
+	void setString( const QString& group, const QString& key, const QString& value );
 
 	// remove a key/value from the preferences
-	void removeKey(const QString& group, const QString& key);
+	void removeKey( const QString& group, const QString& key );
 	// remove the current group from the preferences
 	void removeGroup( const QString& group );
 	bool containKey( const QString& group, const QString& key ) const;
@@ -78,8 +79,8 @@ protected:
 	void writeData();
 	void processGroup( const QDomElement& group );
 
-	virtual QString getGroupDoc(const QString &group);
-	virtual QString getEntryDoc(const QString &group, const QString &entry);
+	virtual QString getGroupDoc( const QString& group );
+	virtual QString getEntryDoc( const QString& group, const QString& entry );
 
 private:
 	PreferencesPrivate* d;

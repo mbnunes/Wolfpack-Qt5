@@ -36,26 +36,31 @@
 class cListener : public QThread
 {
 private:
-	QSocketDevice				listenningSocket;
-	std::deque<QSocketDevice*>	readyConnections;
-	QMutex						readyConnectionsMutex;
-	Q_UINT16 					_port;
-	bool volatile				_canceled;
-	QWaitCondition				waitCondition;
+	QSocketDevice listenningSocket;
+	std::deque<QSocketDevice*> readyConnections;
+	QMutex readyConnectionsMutex;
+	Q_UINT16 _port;
+	bool volatile _canceled;
+	QWaitCondition waitCondition;
 
 public:
-	cListener(Q_UINT16 port);
+	cListener( Q_UINT16 port );
 	~cListener() throw();
 
 
 	QSocketDevice* getNewConnection();
 	bool haveNewConnection();
-	bool canceled() const { return _canceled;	}
-	void cancel() { _canceled = true; waitCondition.wakeAll();	}
+	bool canceled() const
+	{
+		return _canceled;
+	}
+	void cancel()
+	{
+		_canceled = true; waitCondition.wakeAll();
+	}
 
 protected:
 	virtual void run() throw();
-
 };
 
 #endif //__LISTENER_H__

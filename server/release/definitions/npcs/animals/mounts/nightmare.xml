@@ -13,7 +13,7 @@
 		<name>a nightmare</name>
 		<id>116</id>
 		<category>Animals\Mounts\Nightmare 1</category>
-		<bindmenu>tame_menu</bindmenu>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<karma>-14000</karma>
 		<fame>14000</fame>
 		<!-- Damage -->

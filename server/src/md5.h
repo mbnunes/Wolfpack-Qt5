@@ -36,7 +36,8 @@
 /*!
   \brief This class implements the Md5 digest context.
 */
-class cMd5 {
+class cMd5
+{
 private:
 	unsigned int buffer[4];
 	unsigned int bits[2];
@@ -65,7 +66,7 @@ public:
 	\param data The data to update the digest width.
 	\param length The length of the data.
 	*/
-	void update(unsigned char *data, unsigned int length);
+	void update( unsigned char* data, unsigned int length );
 
 	/*!
 	\brief Finalize the context to get
@@ -76,18 +77,19 @@ public:
 	\brief Retrieve the digest of this context.
 	\param digest The 33 byte digest we should write to.
 	*/
-	void digest(char *digest);
+	void digest( char* digest );
 
 	/*!
 	\brief This function creates a hash for the given message.
 	\param digest The target digest. Has to be at least 33 bytes long.
 	\param message A null terminated string containing the message.
 	*/
-	inline static void fastDigest(char *digest, const char *message) {
+	inline static void fastDigest( char* digest, const char* message )
+	{
 		cMd5 ctx;
-		ctx.update((unsigned char*)message, strlen(message));
+		ctx.update( ( unsigned char * ) message, strlen( message ) );
 		ctx.finalize();
-		ctx.digest(digest);
+		ctx.digest( digest );
 	}
 
 	/*!
@@ -95,11 +97,12 @@ public:
 	\param text The text that should be hashed. It's converted to UTF-8 before hashing.
 	\returns The hash digest in hex notation.
 	*/
-	inline static QString fastDigest(const QString &text) {
+	inline static QString fastDigest( const QString& text )
+	{
 		QCString data = text.utf8();
-		QCString result(33);
-		fastDigest(result.data(), data.data());
-		return QString(result);
+		QCString result( 33 );
+		fastDigest( result.data(), data.data() );
+		return QString( result );
 	}
 };
 

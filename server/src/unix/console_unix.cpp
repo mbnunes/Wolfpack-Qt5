@@ -42,8 +42,9 @@
 
 using namespace std;
 
-int main(int argc, char **argv) {
-	Server::instance()->run(argc, argv);
+int main( int argc, char** argv )
+{
+	Server::instance()->run( argc, argv );
 	return 0;
 }
 
@@ -51,13 +52,13 @@ void resetNonBlockingIo()
 {
 	termios term_caps;
 
-	if( tcgetattr( STDIN_FILENO, &term_caps ) < 0 )
+	if ( tcgetattr( STDIN_FILENO, &term_caps ) < 0 )
 		return;
 
 	term_caps.c_lflag |= ICANON;
 	term_caps.c_lflag |= ECHO;
 
-	if( tcsetattr( STDIN_FILENO, TCSANOW, &term_caps ) < 0 )
+	if ( tcsetattr( STDIN_FILENO, TCSANOW, &term_caps ) < 0 )
 		return;
 }
 
@@ -65,13 +66,13 @@ void setNonBlockingIo()
 {
 	termios term_caps;
 
-	if( tcgetattr( STDIN_FILENO, &term_caps ) < 0 )
+	if ( tcgetattr( STDIN_FILENO, &term_caps ) < 0 )
 		return;
 
 	term_caps.c_lflag &= ~ICANON;
 	term_caps.c_lflag &= ~ECHO;
 
-	if( tcsetattr( STDIN_FILENO, TCSANOW, &term_caps ) < 0 )
+	if ( tcsetattr( STDIN_FILENO, TCSANOW, &term_caps ) < 0 )
 		return;
 
 	setbuf( stdin, NULL );
@@ -79,24 +80,24 @@ void setNonBlockingIo()
 	atexit( resetNonBlockingIo );
 }
 
-void signal_handler(int signal)
+void signal_handler( int signal )
 {
-	switch (signal)
+	switch ( signal )
 	{
-		case SIGHUP:
-			Server::instance()->queueAction( RELOAD_SCRIPTS );
-			break;
-		case SIGUSR1:
-			Server::instance()->queueAction( RELOAD_ACCOUNTS );
-			break;
-		case SIGUSR2:
-			Server::instance()->queueAction( SAVE_WORLD );
-			break;
-		case SIGTERM:
-			Server::instance()->cancel();
-			break;
-		default:
-			break;
+	case SIGHUP:
+		Server::instance()->queueAction( RELOAD_SCRIPTS );
+		break;
+	case SIGUSR1:
+		Server::instance()->queueAction( RELOAD_ACCOUNTS );
+		break;
+	case SIGUSR2:
+		Server::instance()->queueAction( SAVE_WORLD );
+		break;
+	case SIGTERM:
+		Server::instance()->cancel();
+		break;
+	default:
+		break;
 	}
 }
 
@@ -109,15 +110,15 @@ protected:
 		{
 			setNonBlockingIo();
 
-			signal( SIGHUP,  &signal_handler ); // Reload Scripts
+			signal( SIGHUP, &signal_handler ); // Reload Scripts
 			signal( SIGUSR1, &signal_handler ); // Save World
 			signal( SIGUSR2, &signal_handler ); // Reload Accounts
 			signal( SIGTERM, &signal_handler ); // Terminate Server
 			signal( SIGPIPE, SIG_IGN );			// Ignore SIGPIPE
 
-			if( !Getopts::instance()->isDaemon() )
+			if ( !Getopts::instance()->isDaemon() )
 			{
-				while( Server::instance()->getState() < SHUTDOWN )
+				while ( Server::instance()->getState() < SHUTDOWN )
 				{
 					// Do a select operation on the stdin handle and see
 					// if there is any input waiting.
@@ -129,11 +130,11 @@ protected:
 					tvTimeout.tv_sec = 0;
 					tvTimeout.tv_usec = 1;
 
-					if( select( 1, &consoleFds, 0, 0, &tvTimeout ) > 0 )
+					if ( select( 1, &consoleFds, 0, 0, &tvTimeout ) > 0 )
 					{
 						char c = fgetc( stdin );
 
-						if( c > 0 && Server::instance()->getState() == RUNNING )
+						if ( c > 0 && Server::instance()->getState() == RUNNING )
 						{
 							Console::instance()->queueCommand( QChar( c ) );
 						}
@@ -148,13 +149,13 @@ protected:
 		// If there is any error: Quit.
 		// It's better to have no console input
 		// than a deadlocking server.
-		catch( ... )
+		catch ( ... )
 		{
 		}
 	}
 };
 
-cConsoleThread *thread = 0;
+cConsoleThread* thread = 0;
 
 void cConsole::start()
 {
@@ -170,7 +171,7 @@ void cConsole::poll()
 	commandQueue.clear();
 	commandMutex.unlock();
 
-	while( commands.count() > 0 )
+	while ( commands.count() > 0 )
 	{
 		handleCommand( commands.front() );
 		commands.pop_front();
@@ -193,43 +194,45 @@ void cConsole::setConsoleTitle( const QString& data )
 void cConsole::changeColor( enConsoleColors Color )
 {
 	QString cb = "\e[0m";
-	switch( Color )
+	switch ( Color )
 	{
-		case WPC_GREEN:
-			cb = "\e[1;32m";
-			break;
-		case WPC_RED:
-			cb = "\e[1;31m";
-			break;
-		case WPC_YELLOW:
-			cb = "\e[1;33m";
-			break;
-		case WPC_NORMAL:
-			cb = "\e[0m";
-			break;
-		case WPC_WHITE:
-			cb = "\e[1;37m";
-			break;
-		case WPC_BROWN:
-			cb = "\e[0;33m";
-			break;
-		default:
-			cb = "\e[0m";
-			break;
+	case WPC_GREEN:
+		cb = "\e[1;32m";
+		break;
+	case WPC_RED:
+		cb = "\e[1;31m";
+		break;
+	case WPC_YELLOW:
+		cb = "\e[1;33m";
+		break;
+	case WPC_NORMAL:
+		cb = "\e[0m";
+		break;
+	case WPC_WHITE:
+		cb = "\e[1;37m";
+		break;
+	case WPC_BROWN:
+		cb = "\e[0;33m";
+		break;
+	default:
+		cb = "\e[0m";
+		break;
 	}
 	send( cb );
 }
 
 //========================================================================================
 // Send a message to the console
-void cConsole::send(const QString &sMessage)
+void cConsole::send( const QString& sMessage )
 {
 	// If a progress message is waiting, remove it.
-	if (!progress.isEmpty()) {
+	if ( !progress.isEmpty() )
+	{
 		QString temp = progress;
 		progress = QString::null;
-		for (int i = 0; i < temp.length() + 4; ++i) {
-			fprintf(stdout, "\b");
+		for ( int i = 0; i < temp.length() + 4; ++i )
+		{
+			fprintf( stdout, "\b" );
 		}
 		progress = temp;
 	}
@@ -237,16 +240,16 @@ void cConsole::send(const QString &sMessage)
 	fprintf( stdout, sMessage.latin1() );
 	fflush( stdout );
 
-	if( sMessage.contains( "\n" ) )
+	if ( sMessage.contains( "\n" ) )
 	{
 		incompleteLine_.append( sMessage ); // Split by \n
 		QStringList lines = QStringList::split( "\n", incompleteLine_, true );
 
 		// Insert all except the last element
-		for( uint i = 0; i < lines.count()-1; ++i )
+		for ( uint i = 0; i < lines.count() - 1; ++i )
 			linebuffer_.push_back( lines[i] );
 
-		incompleteLine_ = lines[ lines.count() - 1 ];
+		incompleteLine_ = lines[lines.count() - 1];
 	}
 	else
 	{
@@ -254,10 +257,11 @@ void cConsole::send(const QString &sMessage)
 	}
 
 	// Resend the Progress message if neccesary.
-	if (!progress.isEmpty()) {
+	if ( !progress.isEmpty() )
+	{
 		QString temp = progress;
 		progress = QString::null;
-		sendProgress(temp);
+		sendProgress( temp );
 	}
 }
 
@@ -265,5 +269,6 @@ void cConsole::setAttributes( bool bold, bool italic, bool, unsigned char r, uns
 {
 }
 
-void cConsole::notifyServerState(enServerState newstate) {
+void cConsole::notifyServerState( enServerState newstate )
+{
 }
