@@ -1,0 +1,23 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<item id="1000gold" inherit="EED">
+		<amount>1000</amount>
+	</item>
+
+	<!-- Gold Spawner -->
+	<item id="spawner_gold">
+		<id>0x1F13</id>
+		<type>61</type>
+		<morex>3</morex>
+		<morey>6</morey>
+		<amount>1</amount>
+		<carve>1000gold</carve> <!-- Carve is the item-section -->
+	</item>
+</definitions>

@@ -7,6 +7,27 @@
 =================================================================
 -->
 <definitions>
+	<!-- trade container -->
+	<item id="2af8">
+		<name>Shop container</name>
+		<id>0x2af8</id>
+		<weight>0</weight>
+	</item>
+
+	<!-- Bow -->
+	<item id="13b1">
+		<id>0x13b1</id>
+		<twohanded />
+		<decay />
+		<value>65</value>
+		<attack min="9" max="41" />
+		<durability>35</durability>		
+		<speed>20</speed>
+		<weight>3.0</weight>
+		<requires type="dex">50</requires>
+		<requires type="str">20</requires>
+	</item>
+
 	<!-- pickaxe -->
 	<item id="0e85">
 		<id>0x0E85</id>
