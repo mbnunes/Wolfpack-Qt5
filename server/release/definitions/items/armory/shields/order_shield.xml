@@ -1,19 +1,38 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by:                                      |
+|   )).-' {{ ;'`   | Revised by:                                      |
+|  ( (  ;._ \\ ctr | Last Modification:                               |
+=================================================================
+-->
+<!--
+Age of Shadows Values:
 
+Physical: 1
+Fire: 0
+Cold: 0
+Poison: 0
+Energy: 0
+
+-->
 <definitions>
 
 	<!-- order shield -->
 	<item id="1bc4">
+		<id>0x1bc4</id>
 		<name>Order shield</name>
 		<decay />
 		<nodye />
-		<defense>1</defense>
+		<defense>30</defense>
 		<durability><random min="100" max="125" /></durability>
-		<id>0x1BC4</id>
-		<requires type='str'>95</requires>
+		<tag name="req_str" value="95" type="int" />
 		<restock>0</restock>
-		<weight>5</weight>
+		<weight>7</weight>
 		<buyprice>0</buyprice>
 		<sellprice>0</sellprice>
+		<type>1008</type>
+		<events>equipment</events>
 		<category>Armor\Shields\Order Shield (N/S)</category>
 	</item>
 

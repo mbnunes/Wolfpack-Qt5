@@ -1,4 +1,21 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by:                                      |
+|   )).-' {{ ;'`   | Revised by:                                      |
+|  ( (  ;._ \\ ctr | Last Modification:                               |
+=================================================================
+-->
+<!--
+Age of Shadows Values:
 
+Physical: 4
+Fire: 4
+Cold: 4
+Poison: 1
+Energy: 2
+req_str: 60
+-->
 <definitions>
 
 	<!--  Chainmail Leggings North-South-->
@@ -7,15 +24,15 @@
 		<name>chainmail leggings</name>
 		<decay />
 		<nodye />
-		<tag name="req_str" value="60" type="int" />
-		<events>equipment</events>
 		<defense>4</defense>
 		<durability><random min="45" max="60" /></durability>
+		<tag name="req_str" value="20" type="int" />
 		<restock>10</restock>
 		<smelt>14</smelt>
 		<weight>7.0</weight>
 		<buyprice>166</buyprice>
 		<sellprice>83</sellprice>
+		<events>equipment</events>
 		<category>Armor\Chainmail\Leggings (N/S)</category>
 	</item>
 

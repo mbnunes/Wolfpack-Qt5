@@ -1,4 +1,21 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by:                                      |
+|   )).-' {{ ;'`   | Revised by:                                      |
+|  ( (  ;._ \\ ctr | Last Modification:                               |
+=================================================================
+-->
+<!--
+Age of Shadows Values:
 
+Physical: 2
+Fire: 4
+Cold: 3
+Poison: 3
+Energy: 4
+req_str: 35
+-->
 <definitions>
 
 	<!-- Studded Armor -->
@@ -7,14 +24,14 @@
 		<name>studded armor</name>
 		<decay />
 		<nodye />
-		<tag name="req_str" value="35" type="int" />
-		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="35" max="45" /></durability>
+		<tag name="req_str" value="35" type="int" />
 		<restock>10</restock>
 		<weight>6.0</weight>
 		<buyprice>142</buyprice>
 		<sellprice>71</sellprice>
+		<events>equipment</events>
 		<category>Armor\Studded Leather\Female Armor (N/S)</category>
 	</item>
 

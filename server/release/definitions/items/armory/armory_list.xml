@@ -1,4 +1,11 @@
-
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
 <definitions>
 
 	<!-- Bone Armor -->
@@ -69,6 +76,9 @@
 	<include file="definitions/items/armory/studded/studded_sleeves.xml"/>
 	<include file="definitions/items/armory/studded/studded_tunic.xml"/>
 
+	<!-- Colored Armor -->
 	<include file="definitions/items/armory/colored.xml"/>
+
+	<!-- Magic Amor -->
 
 </definitions>

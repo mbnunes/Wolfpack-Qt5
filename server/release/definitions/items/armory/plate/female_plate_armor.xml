@@ -1,4 +1,21 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by:                                      |
+|   )).-' {{ ;'`   | Revised by:                                      |
+|  ( (  ;._ \\ ctr | Last Modification:                               |
+=================================================================
+-->
+<!--
+Age of Shadows Values:
 
+Physical: 5
+Fire: 3
+Cold: 2
+Poison: 3
+Energy: 2
+req_str: 95
+-->
 <definitions>
 
 <!-- Female Plate Armor -->
@@ -8,13 +25,15 @@
 		<decay />
 		<nodye />
 		<defense>5</defense>
-		<durability><random min="50" max="65" /></durability>
-		<requires type='str'>95</requires>
+		<durability><random min="51" max="65" /></durability>
+		<tag name="req_str" value="45" type="int" />
+		<tag name="boni_dex" value="-5" type="int" />
 		<restock>10</restock>
 		<smelt>16</smelt>
 		<weight>4.0</weight>
 		<buyprice>245</buyprice>
 		<sellprice>122</sellprice>
+		<events>equipment</events>
 		<category>Armor\Platemail\Female Armor (N/S)</category>
 	</item>
 

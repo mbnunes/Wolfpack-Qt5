@@ -1,4 +1,21 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by:                                      |
+|   )).-' {{ ;'`   | Revised by:                                      |
+|  ( (  ;._ \\ ctr | Last Modification:                               |
+=================================================================
+-->
+<!--
+Age of Shadows Values:
 
+Physical: 2
+Fire: 4
+Cold: 3
+Poison: 3
+Energy: 3
+req_str: 25
+-->
 <definitions>
 
 	<!-- Leather Bustier -->
@@ -7,14 +24,14 @@
 		<name>leather bustier</name>
 		<decay />
 		<nodye />
-		<tag name="req_str" value="20" type="int" />
-		<events>equipment</events>
-		<defense>2</defense>
+		<defense>3</defense>
 		<durability><random min="30" max="40" /></durability>
+		<tag name="req_str" value="15" type="int" />
 		<restock>10</restock>
 		<weight>2.0</weight>
 		<buyprice>97</buyprice>
 		<sellprice>48</sellprice>
+		<events>equipment</events>
 		<category>Armor\Leather\Bustier (N/S)</category>
 	</item>
 

@@ -1,4 +1,21 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by:                                      |
+|   )).-' {{ ;'`   | Revised by:                                      |
+|  ( (  ;._ \\ ctr | Last Modification:                               |
+=================================================================
+-->
+<!--
+Age of Shadows Values:
 
+Physical: 0
+Fire: 1
+Cold: 0
+Poison: 0
+Energy: 0
+
+-->
 <definitions>
 
 	<!-- heater -->
@@ -7,14 +24,16 @@
 		<name>heater shield</name>
 		<decay />
 		<nodye />
-		<defense>0</defense>
+		<defense>23</defense>
 		<durability><random min="50" max="65" /></durability>
-		<requires type='str'>90</requires>
+		<tag name="req_str" value="90" type="int" />
 		<restock>10</restock>
 		<smelt>14</smelt>
 		<weight>8</weight>
 		<buyprice>175</buyprice>
 		<sellprice>87</sellprice>
+		<type>1008</type>
+		<events>equipment</events>
 		<category>Armor\Shields\Heater (N/S)</category>
 	</item>
 

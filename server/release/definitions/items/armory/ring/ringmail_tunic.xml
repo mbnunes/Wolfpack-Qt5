@@ -1,4 +1,21 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by:                                      |
+|   )).-' {{ ;'`   | Revised by:                                      |
+|  ( (  ;._ \\ ctr | Last Modification:                               |
+=================================================================
+-->
+<!--
+Age of Shadows Values:
 
+Physical: 3
+Fire: 3
+Cold: 1
+Poison: 5
+Energy: 3
+req_str: 40
+-->
 <definitions>
 
 	<!-- Ring Tunic -->
@@ -7,14 +24,16 @@
 		<name>ringmail tunic</name>
 		<decay />
 		<nodye />
-		<defense>3</defense>
+		<defense>5</defense>
 		<durability><random min="40" max="50" /></durability>
-		<requires type='str'>40</requires>
+		<tag name="req_str" value="20" type="int" />
+		<tag name="boni_dex" value="-2" type="int" />
 		<restock>10</restock>
 		<smelt>11</smelt>
 		<weight>15.0</weight>
 		<buyprice>218</buyprice>
 		<sellprice>109</sellprice>
+		<events>equipment</events>
 		<category>Armor\Ringmail\Tunic (N/S)</category>
 	</item>
 

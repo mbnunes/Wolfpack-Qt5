@@ -1,4 +1,21 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by:                                      |
+|   )).-' {{ ;'`   | Revised by:                                      |
+|  ( (  ;._ \\ ctr | Last Modification:                               |
+=================================================================
+-->
+<!--
+Age of Shadows Values:
 
+Physical: 0
+Fire: 0
+Cold: 0
+Poison: 1
+Energy: 0
+
+-->
 <definitions>
 
 	<!-- Buckler -->
@@ -7,14 +24,16 @@
 		<name>buckler</name>
 		<decay />
 		<nodye />
-		<defense>0</defense>
+		<defense>7</defense>
 		<durability><random min="40" max="50" /></durability>
-		<requires type='str'>20</requires>
+		<tag name="req_str" value="20" type="int" />
 		<restock>10</restock>
 		<smelt>8</smelt>
 		<weight>5</weight>
 		<buyprice>66</buyprice>
 		<sellprice>33</sellprice>
+		<type>1008</type>
+		<events>equipment</events>
 		<category>Armor\Shields\Buckler</category>
 	</item>
 

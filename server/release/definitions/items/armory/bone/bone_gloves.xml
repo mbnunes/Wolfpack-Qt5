@@ -1,4 +1,21 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by:                                      |
+|   )).-' {{ ;'`   | Revised by:                                      |
+|  ( (  ;._ \\ ctr | Last Modification:                               |
+=================================================================
+-->
+<!--
+Age of Shadows Values:
 
+Physical: 3
+Fire: 3
+Cold: 4
+Poison: 2
+Energy: 4
+req_str: 55
+-->
 <definitions>
 
 	<!-- Bone Gloves North-South -->
@@ -7,13 +24,13 @@
 		<name>bone gloves</name>
 		<decay />
 		<nodye />
-		<tag name="req_str" value="55" type="int" />
-		<events>equipment</events>
-		<defense>3</defense>
+		<defense>2</defense>
 		<durability><random min="25" max="30" /></durability>
+		<tag name="req_str" value="40" type="int" />
 		<restock>10</restock>
-		<weight>2.0</weight>
+		<weight>2</weight>
 		<value>0</value>
+		<events>equipment</events>
 		<category>Armor\Bone\Bone Gloves (N/S)</category>
 	</item>
 
