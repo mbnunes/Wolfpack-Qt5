@@ -136,6 +136,7 @@ def response( char, args, target ):
 		else:
 			socket.clilocmessage( 501862, "", GRAY ) # You can't mine there.
 		return OK
+
 	else:
 		return OOPS
 	
@@ -205,13 +206,17 @@ def domining( time, args ):
 			elif resourcecount == 1 or resourcecount == 2: # Smallest ore only
 				successmining( char, veingem, oretable, resname, 1, oredefs[0] )
 			# tool durability drain
-			if tool.health > 1:
-				tool.health -= 1
-				tool.update()
-			elif tool.health == 1:
-				tool.delete()
-				# You have worn out your tool!
-				socket.clilocmessage( 1044038, '', GRAY ) 
+			if not tool.hastag('remaining_uses'):
+				tool.settag( 'remaining_uses', str(tool.health) )
+			else:
+				if int( tool.gettag('remaining_uses') ) > 1:
+					tool.settag( 'remaining_uses', str( int(tool.gettag('remaining_uses')) - 1 ) )
+					tool.resendtooltip()
+				elif int(tool.gettag('remaining_uses')) == 1:
+					tool.delete()
+					# You have worn out your tool!
+					socket.clilocmessage( 1044038, '', GRAY ) 
+				char.deltag('ore_gem') # To save memory, we don't really need this.
 			success = 1
 	
 	elif resourcecount == 0:

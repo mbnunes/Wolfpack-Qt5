@@ -16,6 +16,7 @@
 		<weight>16.0</weight>
 		<tag name="req_str" value="95" type="int" />
 		<tag name="resname" value="iron" />
+		<tag name="remaining_uses" type="int" value="35" />
 		<type>1002</type>
 		<events>equipment,weapons.blades</events>
 		<category>Weapons\Swords\Halberd (N/S)</category>

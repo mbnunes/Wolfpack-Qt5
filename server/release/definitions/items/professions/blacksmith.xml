@@ -43,12 +43,14 @@
 		<id>0x0fbb</id>
 		<type>1100</type>
 		<category>Professions\Blacksmith\Tongs (W/E)</category>
+		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
 	<item id="fbc">
 		<id>0x0fbc</id>
 		<type>1100</type>
 		<category>Professions\Blacksmith\Tongs (N/S)</category>
+		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
 	<item id="13bc">
@@ -166,6 +168,7 @@
 		<id>0x0FB4</id>
 		<type>1100</type>
 		<category>Professions\Blacksmith\Sledge Hammer (W/E)</category>
+		<tag name="remaining_uses" type="int" value="55" />
 	</item>
 	
 	<!-- Sledge Hammer -->
@@ -180,6 +183,7 @@
 		<id>0x13e3</id>
 		<type>1100</type>
 		<category>Professions\Blacksmith\Smith's Hammer (W/E)</category>
+		<tag name="remaining_uses" type="int" value="45" />
 	</item>
 
 	<item id="13e4">

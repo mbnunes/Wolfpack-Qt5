@@ -14,8 +14,9 @@
 		<durability><random min="30" max="55" /></durability>
 		<speed>35</speed>
 		<weight>11.0</weight>
-		<tag name="req_str" value="50" type="int" />
+		<tag name="req_str" type="int" value="50" />
 		<tag name="resname" value="iron" />
+		<tag name="remaining_uses" type="int" value="35" />
 		<type>1001</type>
 		<events>equipment,tools.pickaxe</events>
 		<category>Weapons\Swords\Pickaxe (N/S)</category>

@@ -490,7 +490,9 @@
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
 		<category>Professions\Alchemist\Mortar &amp; Pestle</category>
+		<tag name="remaining_uses" type="int" value="35" />
 		<type>1107</type>
+		<events>skills.alchemy</events>
 	</item>
 
 	<item id="f0e">

@@ -16,6 +16,7 @@
 		<weight>7.0</weight>
 		<tag name="req_str" value="45" type="int" />
 		<tag name="resname" value="iron" />
+		<tag name="remaining_uses" type="int" value="35" />
 		<type>1002</type>
 		<events>equipment,weapons.blades</events>
 		<category>Weapons\Swords\Bardiche (N/S)</category>

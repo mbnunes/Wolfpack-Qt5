@@ -78,6 +78,7 @@
 		<value>25</value>
 		<category>Professions\Musician\Drum</category>
 		<events>environment</events>
+		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 	
 	<!-- Tamberine -->
@@ -87,6 +88,7 @@
 		<value>25</value>
 		<category>Professions\Musician\Tamberine</category>
 		<events>environment</events>
+		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 	
 	<!-- Tamberine with Ribbon -->
@@ -98,6 +100,7 @@
 		<value>25</value>
 		<category>Professions\Musician\Tamberine with Ribbon</category>
 		<events>environment</events>
+		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 	
 	<!-- Standing Harp -->
@@ -109,6 +112,7 @@
 		<value>25</value>
 		<category>Professions\Musician\Standing Harp</category>
 		<events>environment</events>
+		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 	
 	<!-- Harp -->
@@ -120,6 +124,7 @@
 		<value>25</value>
 		<category>Professions\Musician\Harp</category>
 		<events>environment</events>
+		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 	
 	<!-- Lute -->
@@ -131,6 +136,7 @@
 		<value>25</value>
 		<category>Professions\Musician\Lute (N/S)</category>
 		<events>environment</events>
+		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 	
 	<!-- Lute -->
@@ -140,5 +146,6 @@
 		<value>25</value>
 		<category>Professions\Musician\Lute (W/E)</category>
 		<events>environment</events>
+		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 </definitions>

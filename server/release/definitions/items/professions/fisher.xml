@@ -170,11 +170,13 @@
 		<decay />
 		<value>120</value>
 		<category>Professions\Fisher\Fishing Pole (N/S)</category>
+		<tag name="remaining_uses" type="int" value="50" />
 	</item>
 
 	<item id="dc0">
 		<inherit id="dbf" />
 		<id>0x0dc0</id>
 		<category>Professions\Fisher\Fishing Pole (W/E)</category>
+		<tag name="remaining_uses" type="int" value="50" />
 	</item>
 </definitions>

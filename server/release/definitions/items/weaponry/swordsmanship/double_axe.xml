@@ -16,7 +16,8 @@
 		<weight>3.0</weight>
 		<tag name="req_str" value="45" type="int" />
 		<tag name="resname" value="iron" />
-		<events>equipment</events>
+		<tag name="remaining_uses" type="int" value="35" />
+		<events>equipment,weapons.blades</events>
 		<type>1002</type>
 		<category>Weapons\Axes\Double Axe (N/S)</category>
 	</item>

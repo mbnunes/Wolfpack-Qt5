@@ -775,6 +775,7 @@
 		<id>0xf39</id>
 		<type>1104</type>
 		<durability><random min="30" max="55" /></durability>
+		<tag name="remaining_uses" type="int" value="35" />
 		<decay/>
 		<events>tools.pickaxe</events>
 		<category>Professions\Miner\Tools\Shovel (E/W)</category>

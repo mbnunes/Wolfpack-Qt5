@@ -15,10 +15,11 @@
 		<speed>37</speed>
 		<weight>4.0</weight>
 		<tag name="req_str" value="35" type="int" />
-		<events>equipment</events>
+		<tag name="remaining_uses" type="int" value="35" />
+		<tag name="resname" value="iron" />
+		<events>equipment,weapons.blades</events>
 		<type>1002</type>
 		<category>Weapons\Axes\Axe (N/S)</category>
-		<tag name="resname" value="iron" />
 	</item>
 
 	<item id="f4a">
