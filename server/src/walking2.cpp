@@ -2114,7 +2114,7 @@ int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int
 		//}
 // end knoxos code
 #if DEBUG_WALK
-	ConOut("CanCharWalk: %dx %dy %dz\n", x, y, z);
+	clConsole.send("CanCharWalk: %dx %dy %dz\n", x, y, z);
 #endif
 	if( (newz > illegal_z) && (!justask)) {
 		// save information if we have climbed on last move.

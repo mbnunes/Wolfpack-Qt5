@@ -2427,18 +2427,19 @@ void npcemoteall(int npc, char *txt,unsigned char antispam) // NPC speech to all
 //taken from 6904t2(5/10/99) - AntiChrist
 void callguards( int p )
 {
-	if( p == -1 ) return;
+	P_CHAR pc_player = MAKE_CHAR_REF(p);
+	if( pc_player == NULL ) return;
 
 	//AntiChrist - anti "GUARDS" spawn timer
-	if(chars[p].antiguardstimer<uiCurrentTime)
+	if(pc_player->antiguardstimer<uiCurrentTime)
 	{
-		chars[p].antiguardstimer=uiCurrentTime+(MY_CLOCKS_PER_SEC*10);
+		pc_player->antiguardstimer=uiCurrentTime+(MY_CLOCKS_PER_SEC*10);
 	} else return;
 
-	if (!chars[p].inGuardedArea() || !SrvParms->guardsactive )
+	if (!pc_player->inGuardedArea() || !SrvParms->guardsactive )
 		return;
 
-	cRegion::RegionIterator4Chars ri(chars[p].pos);
+	cRegion::RegionIterator4Chars ri(pc_player->pos);
 	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 	{
 		P_CHAR pc = ri.GetData();

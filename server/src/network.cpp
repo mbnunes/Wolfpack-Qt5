@@ -110,8 +110,8 @@ cNetworkStuff::cNetworkStuff() // Initialize sockets
 	m_packetLen[0xB0] = 0x00;	m_packetLen[0xB1] = 0x00;	m_packetLen[0xB2] = 0x00;	m_packetLen[0xB3] = 0x00;	m_packetLen[0xB4] = 0x00;	m_packetLen[0xB5] = 0x40;	m_packetLen[0xB6] = 0x09;	m_packetLen[0xB7] = 0x00;
 	m_packetLen[0xB8] = 0x00;	m_packetLen[0xB9] = 0x03;	m_packetLen[0xBA] = 0x06;	m_packetLen[0xBB] = 0x09;	m_packetLen[0xBC] = 0x03;	m_packetLen[0xBD] = 0x00;	m_packetLen[0xBE] = 0x00;	m_packetLen[0xBF] = 0x00;
 	m_packetLen[0xC0] = 0x24;	m_packetLen[0xC1] = 0x00;   m_packetLen[0xC2] = 0x00;   m_packetLen[0xC3] = 0x00;   m_packetLen[0xC4] = 0x06;   m_packetLen[0xC5] = 0xCB;   m_packetLen[0xC6] = 0x01;   m_packetLen[0xC7] = 0x31;
-    m_packetLen[0xC8] = 0x02;   m_packetLen[0xC9] = 0x06;   m_packetLen[0xCA] = 0x06;   m_packetLen[0xCB] = 0x07;   m_packetLen[0xCC] = 0x00;   m_packetLen[0xCD] = 0x01;   m_packetLen[0xCE] = 0x00;   m_packetLen[0xCF] = 0x00;
-	m_packetLen[0xD0] = 0x00;   m_packetLen[0xD1] = 0x00;   m_packetLen[0xD2] = 0x19;   m_packetLen[0xD3] = 0x00;   m_packetLen[0xD4] = 0x00;
+    m_packetLen[0xC8] = 0x02;   m_packetLen[0xC9] = 0x06;   m_packetLen[0xCA] = 0x06;   m_packetLen[0xCB] = 0x07;   m_packetLen[0xCC] = 0x00;   m_packetLen[0xCD] = 0x01;   m_packetLen[0xCE] = 0x00;   m_packetLen[0xCF] = 0x4E;
+	m_packetLen[0xD0] = 0x00;   m_packetLen[0xD1] = 0x02;   m_packetLen[0xD2] = 0x19;   m_packetLen[0xD3] = 0x00;   m_packetLen[0xD4] = 0x00;
 
 }
 
@@ -931,7 +931,7 @@ void cNetworkStuff::CheckConn() // Check for connection requests
 
 		if (s>0)
 		{	
-			len=sizeof (struct sockaddr_in);
+			len = sizeof(struct sockaddr_in);
 			client[now] = accept(a_socket, (struct sockaddr *)&client_addr, &len); 
 			if ((client[now]<0))
 			{
@@ -1236,10 +1236,18 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 				case 0x04:
 					// Expermintal for God clent
-					int puntparam ;
-					puntparam = static_cast<int>(buffer[s][1]) ;
-					cout << "Packet 4 came in with a value of " <<hex<<puntparam<<dec<<endl;
-					LogMessageVar("Packet 0x04 received with value of %x/n",puntparam) ;
+                    if (pc_currchar->isGM()) 
+					{ 
+						char packet[] = "\x2B\x01"; 
+						Xsend(s, packet, 2); 
+                        clConsole.send("%s connected in with God Client!\n", pc_currchar->name); 
+                    } 
+					else 
+					{ 
+						sysmessage(s, "Access Denied!!!"); 
+                        Disconnect(s); 
+						clConsole.send("%s tried connecting in with God Client but has no priviledges!\n", pc_currchar->name); 
+                    } 
 					break;
 
 				case 0x01:// Main Menu on the character select screen 
