@@ -4797,13 +4797,13 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 	creatures[0x45].basesound=875;                              // gazer 2
 	creatures[0x45].icon=8436;
 
-	creatures[0x46].basesound=1170;                             // terathen warrior
+	creatures[0x46].basesound=590;                             // terathen warrior
 	creatures[0x46].icon=9673;
 
-    creatures[0x47].basesound=1170;                             // terathen drone
+    creatures[0x47].basesound=590;                             // terathen drone
 	creatures[0x47].icon=9674;
 
-	creatures[0x48].basesound=639;                             // terathen queen
+	creatures[0x48].basesound=600;                             // terathen queen
 	creatures[0x48].icon=9675;
 
 	creatures[0x49].basesound=402;                             // stone harpy
@@ -4845,13 +4845,13 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 	creatures[0x54].basesound=427;                            // ogre 3
 	creatures[0x54].icon=8395;
 
-	creatures[0x55].basesound=589;                            // ophedian mage
+	creatures[0x55].basesound=640;                            // ophedian mage
 	creatures[0x55].icon=9643;
 
-	creatures[0x56].basesound=589;                            // ophedian warrior
+	creatures[0x56].basesound=635;                            // ophedian warrior
 	creatures[0x56].icon=9644;
 
-	creatures[0x57].basesound=589;                            // ophedian queen
+	creatures[0x57].basesound=645;                            // ophedian queen
 	creatures[0x57].icon=9645;
 
 	creatures[0x58].basesound=153;                            // mountain goat 2
@@ -5026,10 +5026,10 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 	creatures[0x87].basesound=427;                           // ogre lord artic
 	creatures[0x87].icon=9640;
 
-	creatures[0x88].basesound=644;                           // ophedian archmage
+	creatures[0x88].basesound=640;                           // ophedian archmage
 	creatures[0x88].icon=9641;
 
-	creatures[0x89].basesound=644;                           // ophedian knight
+	creatures[0x89].basesound=635;                           // ophedian knight
 	creatures[0x89].icon=9642;
 
 	creatures[0x8a].basesound=1113;                          // orc lord
