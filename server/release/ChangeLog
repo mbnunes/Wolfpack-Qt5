@@ -18,6 +18,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed the name of sheep.
   - Fixed bug #0000386 (missing tongs sellprice tag)
   - Fixed light radius for certain lightsources.
+  - Removed carve tags (and related files) which are no longer used.
  * Python Script Changes:
   - Added a follow command.
   - Tinkers can now choose a second material.
