@@ -8,27 +8,27 @@ PROJECT         = wolfpack
 TARGET          = wolfpack
 TEMPLATE        = app
 CONFIG          = console debug thread
-INCLUDEPATH     = ../lib/ZThread/include ../lib/wrl/include ../lib/Python/include
+INCLUDEPATH     = lib/ZThread/include lib/wrl/include lib/Python/include
 DEFINES         = REENTRANT ZTHREAD_STATIC NDEBUG
 win32:DEFINES  += WIN32 
 win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES +=  _CONSOLE _MBCS
-win32:INCLUDEPATH += ../lib/Python/PC
-unix:INCLUDEPATH += ../lib/Python
+win32:INCLUDEPATH += lib/Python/PC
+unix:INCLUDEPATH += lib/Python
 
-unix:LIBS       = -L../lib/ZThread/lib -L../lib/wrl/lib -L../lib/Python -ldl -lZThread -lwrl -lpython2.2
+unix:LIBS       = -Llib/ZThread/lib -Llib/wrl/lib -Llib/Python -ldl -lZThread -lwrl -lpython2.2
 
 
 
 unix:TMAKE_CXXFLAGS = -funsigned-char
 win32-g++:TMAKE_CXXFLAGS = -funsigned-char
-win32-g++:LIBS= -L../lib/ZThread/lib/ -L../lib/wrl/lib -lwsock32 -lZThread -lwrl
+win32-g++:LIBS= -Llib/ZThread/lib/ -Llib/wrl/lib -lwsock32 -lZThread -lwrl
 win32-msvc:RC_FILE         = res.rc
 win32-msvc:LIBS      = kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comdlg32.lib ws2_32.lib ZThread.lib wrl.lib
 win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c
 
 win32-borland:TMAKE_CXXFLAGS =  -K -6 -q -x -WM -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
-win32-borland:LIBS = ws2_32.lib ../lib/ZThread/lib/ZThread.lib ../lib/wrl/lib/wrl.lib
+win32-borland:LIBS = ws2_32.lib lib/ZThread/lib/ZThread.lib lib/wrl/lib/wrl.lib
 
 HEADERS         = \
 		  SndPkg.h \
