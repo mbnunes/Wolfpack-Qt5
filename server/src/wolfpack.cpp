@@ -6217,7 +6217,6 @@ void StartClasses(void)
 	cwmWorldState	= NULL;
 	mapRegions		= NULL;
 	Accounts		= NULL;
-	Admin			= NULL;
 	Boats			= NULL;
 	Combat			= NULL;
 	Commands		= NULL;
@@ -6281,7 +6280,6 @@ void DeleteClasses(void)
 	delete cwmWorldState;
 	delete mapRegions;
 	delete Accounts;
-	delete Admin;
 	delete Boats;
 	delete Combat;
 	delete Commands;

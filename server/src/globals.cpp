@@ -260,7 +260,6 @@ unsigned int hungerdamagetimer=0; // For hunger damage
 cSrvParams		*SrvParams;
 CWorldMain		*cwmWorldState;
 cRegion			*mapRegions;
-cAdmin			*Admin;
 cBoat			*Boats;//Boats ! --Zippy
 cCombat			*Combat;
 cCommands		*Commands;

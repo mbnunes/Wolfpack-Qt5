@@ -102,8 +102,8 @@ private:
 	void SendUOX3(UOXSOCKET s, void *point, int length, int test);
 	void SendOSI(UOXSOCKET s, void *point, int length, int test);
 	void SendSMARTWOLF(UOXSOCKET s, void *point, int length, int test);
-	void CountPackets(UOXSOCKET s, int &numpackets, long int & offsetlastfullpacket, bool & dataerror);
-    bool CheckPacket(UOXSOCKET s, unsigned char packetnumber, int length, unsigned long int offset);
+//	void CountPackets(UOXSOCKET s, int &numpackets, long int & offsetlastfullpacket, bool & dataerror);
+//    bool CheckPacket(UOXSOCKET s, unsigned char packetnumber, int length, unsigned long int offset);
 	void SendGoodByeMessageRaw(UOXSOCKET s);
 
 	std::vector<ip_block_st> hosts_deny;

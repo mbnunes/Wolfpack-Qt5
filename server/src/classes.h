@@ -43,18 +43,6 @@ struct ip_block_st
 	unsigned long address;
 	unsigned long mask;
 };
-/*
-class cAdmin 
-{
-private:
-	void ReadString();
-	
-public:
-	cAdmin();
-	void ReadIni();
-	short int port;
-};
-*/
 
 // Foward declarations
 class QString;

@@ -32,7 +32,6 @@
 #if !defined(__JUNK_H__)
 #define __JUNK_H__
 
-#include "admin.h"
 #include "targeting.h"
 /*
 struct statcap_st
@@ -70,7 +69,6 @@ class cSrvParams;
 class CWorldMain;
 class cBoat;
 class cAccount;
-class cAdmin;
 class cCombat;
 class cCommands;
 class cGump;
@@ -98,7 +96,6 @@ extern cSrvParams		*SrvParams;
 extern cBoat			*Boats;
 extern CWorldMain		*cwmWorldState;
 extern cAccount			*Accounts;
-extern cAdmin			*Admin;
 extern cCombat			*Combat;
 extern cCommands		*Commands;
 extern cGump			*Gumps;

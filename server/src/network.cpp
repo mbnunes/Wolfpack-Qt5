@@ -751,7 +751,7 @@ int cNetworkStuff::Receive(int s, int x, int a) // Old socket receive function (
 {
 	int count,loopexit=0;
 	
-	if ( (x+a) >= MAXBUFFER_ASYNCH) return 0;
+	if ( (x+a) >= MAXBUFFER_REAL) return 0;
 
 	do
 	{
@@ -1863,6 +1863,7 @@ void cNetworkStuff::SendSMARTWOLF(UOXSOCKET s, void *point, int length, int test
 
 // LB 1'st Sept 2001
 // Heart of sychrounous-send
+/*
 void cNetworkStuff::CountPackets(UOXSOCKET s, int &numpackets, long int & offsettolastfullpacket, bool & dataerror)
 {
 	int buff_len = boutlength[s];
@@ -1900,7 +1901,7 @@ void cNetworkStuff::CountPackets(UOXSOCKET s, int &numpackets, long int & offset
 		 /// here we have the correct packet length in variable  pl, packet # in packet
          /// now let's see if data is correct
 
-		if (pl>=MAXBUFFER_SYNCH)
+		if (pl>=MAXBUFFER_REAL)
 		{
 			dataerror = true;
 			break;
@@ -1953,7 +1954,7 @@ bool cNetworkStuff::CheckPacket(UOXSOCKET s, unsigned char packetnumber, int len
 
 	return ok;
 }
-
+*/
 // when we have erros in send, i.g synch error, lets try to fire an error message to client before disconnecting
 // of course xsend can't be used, because it's called for erorrs IN xsend.
 void cNetworkStuff::SendGoodByeMessageRaw(UOXSOCKET s)

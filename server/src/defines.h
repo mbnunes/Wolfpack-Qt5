@@ -82,7 +82,7 @@ extern long int oldtime, newtime;
 #define MAXIMUM 128 // Maximum open connections to server
 #define MAXCLIENT MAXIMUM+1
 #define MAXSERV 5 // Maximum servers in login listing
-#define MAXSTART 15 // Maximum starting locations
+//#define MAXSTART 15 // Maximum starting locations
 
 ////////////////////////////////////////////////////////////////
 /// DO NOT TOUCH THIS VALUES !!!!!!!
@@ -101,11 +101,11 @@ extern long int oldtime, newtime;
                                 // didn't use 32kb because too much memory (4MB versus 2MB of 17kb)
                                 // and I've never seen any packet >10kb on OSI servers.
 
-#define MAXBUFFER_SYNCH  512    // Used for synchronous packetSendStyle SMART.
+//#define MAXBUFFER_SYNCH  512    // Used for synchronous packetSendStyle SMART.
                                 // If buffer exceeded this max all FULL packets of the buffer are send.
                                 // keep this small (<1024, >64)
 
-#define MAXPACKETS_SYNCH 10     // Used for synchronous packetSendStyle SMART
+//#define MAXPACKETS_SYNCH 10     // Used for synchronous packetSendStyle SMART
                                 // if packet sin buffer exceed this max all FULL packets of the buffer are send
                                 // usefiull values: 5-25
  
@@ -113,9 +113,9 @@ extern long int oldtime, newtime;
 
 //////////////////////////////////
 
-#define PSS_UOX3      0x0
-#define PSS_OSI       0x1
-#define PSS_SMARTWOLF 0x2
+//#define PSS_UOX3      0x0
+//#define PSS_OSI       0x1
+//#define PSS_SMARTWOLF 0x2
 
 #define MAXPAGES 75 // Maximum number of pages in the GM queue
 #define VISRANGE 18 // Visibility for normal items
