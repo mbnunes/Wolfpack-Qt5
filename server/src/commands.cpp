@@ -198,6 +198,12 @@ void cCommands::loadACLs( void )
 	Accounts::instance()->clearAcls();
 }
 
+/*
+	\command resurrect
+	\description Resurrects a character.
+	\notes If the character is standing on his corpse he will regain
+	all his posessions and equipment.
+*/
 void commandResurrect( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
@@ -206,6 +212,11 @@ void commandResurrect( cUOSocket *socket, const QString &command, const QStringL
 	socket->attachTarget( new cResurectTarget );
 }
 
+/*
+	\command kill
+	\description Kills the selected character.
+	\notes You cannot kill invulnerable characters this way.
+*/
 void commandKill( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
@@ -214,6 +225,10 @@ void commandKill( cUOSocket *socket, const QString &command, const QStringList &
 	socket->attachTarget( new cKillTarget );
 }
 
+/*
+	\command fix
+	\description Resend the player information.
+*/
 void commandFix( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
@@ -222,6 +237,18 @@ void commandFix( cUOSocket *socket, const QString &command, const QStringList &a
 	socket->resendPlayer();
 }
 
+/*
+	\command set
+	\description Change properties of characters and items.
+	\usage - <code>set key value</code>
+	Key is the name of the property you want to set.
+	Value is the new property value.
+	\notes See the object reference for <object id="char">characters</object> 
+	and <object id="item">items</object> for valid property keys. All integer, float, string, 
+	character and item properties can be set using this command as well. In addition to the 
+	properties you find there, you can also set skills by using skill.skillname as the key and 
+	the skill value multiplied by ten as the value (i.e. 100.0% = 1000).
+*/
 void commandSet( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -267,6 +294,10 @@ void commandSet( cUOSocket *socket, const QString &command, const QStringList &a
 	}
 }
 
+/*
+	\command resend
+	\description Resend the player and the surrounding objects.
+*/
 void commandResend( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
@@ -275,7 +306,10 @@ void commandResend( cUOSocket *socket, const QString &command, const QStringList
 	socket->resendWorld();
 }
 
-
+/*
+	\command remove
+	\description Delete an item or character.
+*/
 void commandRemove( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(socket);
@@ -284,6 +318,44 @@ void commandRemove( cUOSocket *socket, const QString &command, const QStringList
 	socket->attachTarget( new cRemoveTarget );
 }
 
+/*
+	\command account
+	\usage - <code>account create username password</code>
+	- <code>account remove username</code>
+	- <code>account set username key value</code>
+	- <code>account show username key</code>
+	Use the create subcommand to create a new account with the given username and password.
+	To remove an account along with all player characters on that account, use the remove 
+	subcommand and pass the username to it.
+	To change properties of a given account, use the set subcommand and pass the username, 
+	the property key and the new property value to it. See the notes for a list of valid property keys.
+	To view properties of an account, use the show subcommand and pass the property key to it.
+
+	\notes The following properties can be set for accounts:
+    <i>password</i>
+	The account password.
+
+	<i>acl</i>
+	The name of the access control list.
+
+	<i>block</i>
+	Block status of the account.
+
+	In addition to the writeable properties, the following properties can be shown:
+
+	<i>loginattempts</i>
+	How many failed login attempts have been made since the last successful login.
+
+	<i>lastlogin</i>
+	When was the last successful login made.
+	
+	<i>chars</i>
+	Prints a list of player characters on this account.
+
+	Valid values for the block property are either on, off or for how long the account should be blocked.
+	
+	If you have enabled MD5 passwords, you can only view the hashed password when showing the password property.
+*/
 void commandAccount( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -471,7 +543,10 @@ void commandAccount( cUOSocket *socket, const QString &command, const QStringLis
 	}
 }
 
-
+/*
+	\command tele
+	\description Transports you directly to the targetted location.
+*/
 void commandTele( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(socket);
@@ -480,6 +555,10 @@ void commandTele( cUOSocket *socket, const QString &command, const QStringList &
 	socket->attachTarget( new cTeleTarget );
 }
 
+/*
+	\command save
+	\description Forces the world to be saved.
+*/
 void commandSave( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
@@ -489,6 +568,10 @@ void commandSave( cUOSocket *socket, const QString &command, const QStringList &
 	World::instance()->save();
 }
 
+/*
+	\command servertime
+	\description Shows the current server uptime in miliseconds.
+*/
 void commandServerTime( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
@@ -496,6 +579,13 @@ void commandServerTime( cUOSocket *socket, const QString &command, const QString
 	socket->sysMessage( tr( "Server time: %1" ).arg( uiCurrentTime ) );
 }
 
+/*
+	\command show
+	\description Show properties of characters and items.
+	\usage - <code>show key</code>
+	Key is the name of the property you want to see.
+	\notes See the <command id="SET">SET</command> command for more information.
+*/
 void commandShow( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -503,6 +593,19 @@ void commandShow( cUOSocket *socket, const QString &command, const QStringList &
 	socket->attachTarget( new cShowTarget( args.join( " " ) ) );
 }
 
+/*
+	\command spawnregion
+	\description Control a spawnregion.
+	\usage - <code>spawnregion respawn id</code>
+	- <code>spawnregion clear id</code>
+	- <code>spawnregion fill id</code>
+	- <code>spawnregion info id</code>
+	The respawn subcommand will initiate a respawn of the given spawnregion.
+	The clear subcommand will delete all objects spawned by the given region.
+	The fill subcommand will initiate a maximal respawn of the given spawnregion.
+	The info subcommand will show a dialog with information about the given spawnregion.
+	\notes The region id can be <i>all</i> in which case all spawnregions will be affected.
+*/
 void commandSpawnRegion( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -648,6 +751,23 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, const QStrin
 	}
 }
 
+/*
+	\command tags
+	\description Manage the tags for an object.
+	\usage - <code>tags set [key] [value]</code>
+	- <code>tags set [key] [value] string</code>
+	- <code>tags set [key] [value] value</code>
+	Key denotes the name of the tag you want to set, remove or view.
+	Value is the value of the new tag. If you specify 'value' as the last
+	parameter, the tag will be evaluated and set as an integer.
+	The set subcommand will attach a new tag or change an existing tag.
+	The get subcommand will show the value of a tag attached to the object.
+	The remove subcommand will remove a tag from the object.
+	The info subcommand will show a dialog with all attached tags.
+
+	\notes The remove subcommand also accepts <i>all</i> as the key which will 
+	remove all attached tags from the object.
+*/
 void commandTags( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -714,6 +834,11 @@ void commandTags( cUOSocket *socket, const QString &command, const QStringList &
 	}
 }
 
+/*
+	\command who
+	\description Manage connected clients.
+	\notes The gump shown will allow you to travel to the client, send messages or bring them directly to you.
+*/
 void commandWho( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
@@ -723,6 +848,10 @@ void commandWho( cUOSocket *socket, const QString &command, const QStringList &a
 	socket->send( pGump );
 }
 
+/*
+	\command pages
+	\description Manage support tickets.
+*/
 void commandPages( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
@@ -742,16 +871,24 @@ void commandPages( cUOSocket *socket, const QString &command, const QStringList 
 	}
 }
 
+/*
+	\command shutdown
+	\description Shutdown the Wolfpack server.
+*/
 void commandShutDown( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(socket);
 	Q_UNUSED(command);
 	// Shutdown
-	// Shutdown x (x in seconds)
 	if( args.count() == 0 )
 		keeprun = 0;
 }
 
+/*
+	\command staff
+	\description Toggle the staff flag for your account.
+	\notes The staff flag controls whether you are treated as a priviledged user or not.
+*/
 void commandStaff( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -767,6 +904,19 @@ void commandStaff( cUOSocket *socket, const QString &command, const QStringList 
 	}
 }
 
+/*
+	\command reload
+	\description Reload certain aspects of the server.
+	\usage - <code>reload accounts</code>
+	- <code>reload scripts</code>
+	- <code>reload python</code>
+	- <code>reload all</code>
+	Reload the given server component.
+	\notes The <i>accounts</i> parameter will reload all accounts from the account database.
+	The <i>python</i> parameter will reload all Python scripts.
+	The <i>scripts</i> parameter will reload all XML definitions and Python scripts.
+	The <i>all</i> parameter will reload all three.	
+*/
 void commandReload( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -852,25 +1002,16 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 	}
 }
 
-void commandMakeMenu( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
-{
-	Q_UNUSED(command);
-	// Makemenu <menusection>
-
-	if( args.count() == 0 )
-	{
-		socket->sysMessage( tr( "Usage: makemenu <menusection>" ) );
-		return;
-	}
-
-	MakeMenus::instance()->callMakeMenu( socket, args[0] );
-}
-
+/*
+	\command addevent
+	\description Attach a script to an object.
+	\usage - <code>addevent [script]</code>
+	Script is the id of the script you want to attach.
+*/
 void commandAddEvent( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
-	if( args.size() < 1 )
-	{
+	if (args.size() < 1) {
 		socket->sysMessage( "Usage: addevent <identifier>" );
 		return;
 	}
@@ -888,6 +1029,12 @@ void commandAddEvent( cUOSocket *socket, const QString &command, const QStringLi
 	socket->attachTarget( new cAddEventTarget( event ) );
 }
 
+/*
+	\command removeevent
+	\description Remove a script from an object.
+	\usage - <code>removeevent [script]</code>
+	Script is the id of the script you want to remove.
+*/
 void commandRemoveEvent( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -903,6 +1050,14 @@ void commandRemoveEvent( cUOSocket *socket, const QString &command, const QStrin
 	socket->attachTarget( new cRemoveEventTarget( event ) );
 }
 
+/*
+	\command move
+	\description Move an object relatively to its current position.
+	\usage - <code>move [x]</code>
+	- <code>move [x],[y]</code>
+	- <code>move [x],[y],[z]</code>
+	X, y and z are the offsets the object should be moved by.
+*/
 void commandMove( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -935,7 +1090,11 @@ void commandMove( cUOSocket *socket, const QString &command, const QStringList &
 	socket->attachTarget( new cMoveTarget( x, y, z ) );
 }
 
-
+/*
+	\command allshow
+	\description Toggles the allshow flag of your account.
+	\notes The allshow flag determines whether you can see logged out characters.
+*/
 void commandAllShow( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -957,6 +1116,11 @@ void commandAllShow( cUOSocket *socket, const QString &command, const QStringLis
 	socket->resendWorld( true );
 }
 
+/*
+	\command allmove
+	\description Toggles the allmove flag of your account.
+	\notes The allmove flag determines whether you can move immovable objects.
+*/
 void commandAllMove( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -979,25 +1143,10 @@ void commandAllMove( cUOSocket *socket, const QString &command, const QStringLis
 	socket->resendWorld( true );
 }
 
-void commandShowSerials( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
-{
-	Q_UNUSED(command);
-	if( !socket->player() || !socket->player()->account() )
-		return;
-
-	// Switch
-	if( !args.count() )
-		socket->player()->account()->setShowSerials( !socket->player()->account()->isShowSerials() );
-	// Set
-	else
-		socket->player()->account()->setShowSerials( args[0].toInt() != 0 );
-
-	if( socket->player()->account()->isShowSerials() )
-		socket->sysMessage( tr( "ShowSerials = '1'" ) );
-	else
-		socket->sysMessage( tr( "ShowSerials = '0'" ) );
-}
-
+/*
+	\command restock
+	\description Restock the items sold by a vendor.
+*/
 void commandRestock( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
@@ -1006,6 +1155,12 @@ void commandRestock( cUOSocket *socket, const QString &command, const QStringLis
 	socket->attachTarget( new cRestockTarget );
 }
 
+/*
+	\command allskills
+	\description Sets all skills of your character.
+	\usage - <code>allskills [value]</code>
+	Value is the value all skills should be set to. It's multiplied by 10 (100.0% = 1000).
+*/
 void commandAllSkills( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -1031,6 +1186,12 @@ void commandAllSkills( cUOSocket *socket, const QString &command, const QStringL
 	}
 }
 
+/*
+	\command broadcast
+	\description Broadcast a message to all connected clients.
+	\usage - <code>broadcast [message]</code>
+	Message is the message you want to broadcast to everyone.
+*/
 void commandBroadcast( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(socket);
@@ -1038,6 +1199,10 @@ void commandBroadcast( cUOSocket *socket, const QString &command, const QStringL
 	cNetwork::instance()->broadcast(args.join( " " ));
 }
 
+/*
+	\command invis
+	\description Toggle invisibility.
+*/
 void commandInvis( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -1056,7 +1221,11 @@ void commandInvis( cUOSocket *socket, const QString &command, const QStringList 
 
 	socket->player()->resend( false, false );
 }
-
+/*
+	\command pagenotify
+	\description Toggle notification about new support tickets.
+	\notes If you opt to turn this flag on, you will be notified about incoming pages.
+*/
 void commandPageNotify( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -1072,7 +1241,13 @@ void commandPageNotify( cUOSocket *socket, const QString &command, const QString
 	}
 }
 
-// Change password for current account
+/*
+	\command password
+	\description Change your current password.
+	\usage - <code>password [value]</code>
+	Value is the new password for your account. Its length is
+	limited to 30 characters.
+*/
 void commandPassword( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -1093,6 +1268,12 @@ void commandPassword( cUOSocket *socket, const QString &command, const QStringLi
 	socket->sysMessage( tr( "Your password has been changed." ) );
 }
 
+/*
+	\command gmtalk
+	\description Broadcast a message to connected gamemasters.
+	\usage - <code>gmtalk [message]</code>
+	Send a message to all other connected gamemasters.
+*/
 void commandGmtalk( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -1112,6 +1293,13 @@ void commandGmtalk( cUOSocket *socket, const QString &command, const QStringList
 	}
 }
 
+/*
+	\command doorgen
+	\description Generate doors in passage ways.
+	\notes This command is not guranteed to work correctly. Please see if 
+	you find any broken doors after you use this command. Don't use this command
+	on custom maps.
+*/
 void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStringList &args ) throw()
 {
 	class DoorGenerator
@@ -1384,7 +1572,6 @@ stCommand cCommands::commands[] =
 	{ "GMTALK", commandGmtalk },
 	{ "INVIS", commandInvis },
 	{ "KILL", commandKill },
-	{ "MAKEMENU", commandMakeMenu },
 	{ "MOVE", commandMove },
 	{ "PAGES", commandPages },
 	{ "PAGENOTIFY", commandPageNotify },
@@ -1399,7 +1586,6 @@ stCommand cCommands::commands[] =
 	{ "SERVERTIME", commandServerTime },
 	{ "SET", commandSet },
 	{ "SHOW", commandShow },
-	{ "SHOWSERIALS", commandShowSerials },
 	{ "SHUTDOWN", commandShutDown },
 	{ "STAFF", commandStaff },
 	{ "SPAWNREGION", commandSpawnRegion },
