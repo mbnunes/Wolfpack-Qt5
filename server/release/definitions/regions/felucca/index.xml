@@ -7,31 +7,43 @@
 	-->
 	<!-- I was looking for a way to do includes inside this region, but until then I'll branch like usual -->
 	<!-- Towns -->
-	<include file="definitions/regions/felucca/britain.xml" />
-	<include file="definitions/regions/felucca/cove.xml" />
-	<include file="definitions/regions/felucca/delucia.xml" />
-	<include file="definitions/regions/felucca/minoc.xml" />
-	<include file="definitions/regions/felucca/moonglow.xml" />
-	<include file="definitions/regions/felucca/papua.xml" />
-	<include file="definitions/regions/felucca/skara_brae.xml" />
-	<include file="definitions/regions/felucca/trinsic.xml" />
-	<include file="definitions/regions/felucca/vesper.xml" />
-	<include file="definitions/regions/felucca/yew.xml" />
+	<include file="definitions/regions/felucca/towns/britain.xml" />
+	<include file="definitions/regions/felucca/towns/buccaneers_den.xml" />
+	<include file="definitions/regions/felucca/towns/cove.xml" />
+	<include file="definitions/regions/felucca/towns/delucia.xml" />
+	<include file="definitions/regions/felucca/towns/jhelom.xml" />
+	<include file="definitions/regions/felucca/towns/magincia.xml" />
+	<include file="definitions/regions/felucca/towns/minoc.xml" />
+	<include file="definitions/regions/felucca/towns/moonglow.xml" />
+	<include file="definitions/regions/felucca/towns/nujelm.xml" />
+	<include file="definitions/regions/felucca/towns/ocllo.xml" />
+	<include file="definitions/regions/felucca/towns/papua.xml" />
+	<include file="definitions/regions/felucca/towns/serpents_hold.xml" />
+	<include file="definitions/regions/felucca/towns/skara_brae.xml" />
+	<include file="definitions/regions/felucca/towns/trinsic.xml" />
+	<include file="definitions/regions/felucca/towns/vesper.xml" />
+	<include file="definitions/regions/felucca/towns/wind.xml" />
+	<include file="definitions/regions/felucca/towns/yew.xml" />
 	<!-- Dungeons -->
-	<!--
-	<include file="definitions/regions/felucca/" />
-	<include file="definitions/regions/felucca/" />
-	<include file="definitions/regions/felucca/" />
-	<include file="definitions/regions/felucca/" />
-	<include file="definitions/regions/felucca/" />
-	<include file="definitions/regions/felucca/" />
-	<include file="definitions/regions/felucca/" />
-	<include file="definitions/regions/felucca/" />
-	<include file="definitions/regions/felucca/" />
-	<include file="definitions/regions/felucca/" />
-	-->
+	<include file="definitions/regions/felucca/dungeons/covetous.xml" />
+	<include file="definitions/regions/felucca/dungeons/deceit.xml" />
+	<include file="definitions/regions/felucca/dungeons/despise.xml" />
+	<include file="definitions/regions/felucca/dungeons/destard.xml" />
+	<include file="definitions/regions/felucca/dungeons/fire_dungeon.xml" />
+	<include file="definitions/regions/felucca/dungeons/hythloth.xml" />
+	<include file="definitions/regions/felucca/dungeons/ice_dungeon.xml" />
+	<include file="definitions/regions/felucca/dungeons/khaldun.xml" />
+	<include file="definitions/regions/felucca/dungeons/ophidian_temple.xml" />
+	<include file="definitions/regions/felucca/dungeons/shame.xml" />
+	<include file="definitions/regions/felucca/dungeons/solen_hives.xml" />
+	<include file="definitions/regions/felucca/dungeons/terathan_keep.xml" />
+	<include file="definitions/regions/felucca/dungeons/wind.xml" />
+	<include file="definitions/regions/felucca/dungeons/wrong.xml" />
 	<!-- Misc. -->
-	<include file="definitions/regions/felucca/britain_graveyard.xml" />
-
+	<include file="definitions/regions/felucca/misc/britain_graveyard.xml" />
+	<include file="definitions/regions/felucca/misc/britain_passage.xml" />
+	<include file="definitions/regions/felucca/misc/orc_forts.xml" />
+	<include file="definitions/regions/felucca/misc/shrines.xml" />
+	<include file="definitions/regions/felucca/misc/trinsic_passage.xml" />
 
 </definitions>

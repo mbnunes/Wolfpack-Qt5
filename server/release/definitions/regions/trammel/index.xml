@@ -7,31 +7,44 @@
 	</region>
 	-->
 
-	<!-- Towns -->
-	<include file="definitions/regions/trammel/britain.xml" />
-	<include file="definitions/regions/trammel/cove.xml" />
-	<include file="definitions/regions/trammel/delucia.xml" />
-	<include file="definitions/regions/trammel/minoc.xml" />
-	<include file="definitions/regions/trammel/moonglow.xml" />
-	<include file="definitions/regions/trammel/papua.xml" />
-	<include file="definitions/regions/trammel/skara_brae.xml" />
-	<include file="definitions/regions/trammel/trinsic.xml" />
-	<include file="definitions/regions/trammel/vesper.xml" />
-	<include file="definitions/regions/trammel/yew.xml" />
+		<!-- Towns -->
+	<include file="definitions/regions/trammel/towns/britain.xml" />
+	<include file="definitions/regions/trammel/towns/buccaneers_den.xml" />
+	<include file="definitions/regions/trammel/towns/cove.xml" />
+	<include file="definitions/regions/trammel/towns/delucia.xml" />
+	<include file="definitions/regions/trammel/towns/haven.xml" />
+	<include file="definitions/regions/trammel/towns/jhelom.xml" />
+	<include file="definitions/regions/trammel/towns/magincia.xml" />
+	<include file="definitions/regions/trammel/towns/minoc.xml" />
+	<include file="definitions/regions/trammel/towns/moonglow.xml" />
+	<include file="definitions/regions/trammel/towns/nujelm.xml" />
+	<include file="definitions/regions/trammel/towns/papua.xml" />
+	<include file="definitions/regions/trammel/towns/serpents_hold.xml" />
+	<include file="definitions/regions/trammel/towns/skara_brae.xml" />
+	<include file="definitions/regions/trammel/towns/trinsic.xml" />
+	<include file="definitions/regions/trammel/towns/vesper.xml" />
+	<include file="definitions/regions/trammel/towns/wind.xml" />
+	<include file="definitions/regions/trammel/towns/yew.xml" />
 	<!-- Dungeons -->
-	<!--
-	<include file="definitions/regions/trammel/" />
-	<include file="definitions/regions/trammel/" />
-	<include file="definitions/regions/trammel/" />
-	<include file="definitions/regions/trammel/" />
-	<include file="definitions/regions/trammel/" />
-	<include file="definitions/regions/trammel/" />
-	<include file="definitions/regions/trammel/" />
-	<include file="definitions/regions/trammel/" />
-	<include file="definitions/regions/trammel/" />
-	<include file="definitions/regions/trammel/" />
-	-->
+	<include file="definitions/regions/trammel/dungeons/covetous.xml" />
+	<include file="definitions/regions/trammel/dungeons/deceit.xml" />
+	<include file="definitions/regions/trammel/dungeons/despise.xml" />
+	<include file="definitions/regions/trammel/dungeons/destard.xml" />
+	<include file="definitions/regions/trammel/dungeons/fire_dungeon.xml" />
+	<include file="definitions/regions/trammel/dungeons/hythloth.xml" />
+	<include file="definitions/regions/trammel/dungeons/ice_dungeon.xml" />
+	<include file="definitions/regions/trammel/dungeons/khaldun.xml" />
+	<include file="definitions/regions/trammel/dungeons/ophidian_temple.xml" />
+	<include file="definitions/regions/trammel/dungeons/shame.xml" />
+	<include file="definitions/regions/trammel/dungeons/solen_hives.xml" />
+	<include file="definitions/regions/trammel/dungeons/terathan_keep.xml" />
+	<include file="definitions/regions/trammel/dungeons/wind.xml" />
+	<include file="definitions/regions/trammel/dungeons/wrong.xml" />
 	<!-- Misc. -->
-	<include file="definitions/regions/trammel/britain_graveyard.xml" />
+	<include file="definitions/regions/trammel/misc/britain_graveyard.xml" />
+	<include file="definitions/regions/trammel/misc/britain_passage.xml" />
+	<include file="definitions/regions/trammel/misc/orc_forts.xml" />
+	<include file="definitions/regions/trammel/misc/shrines.xml" />
+	<include file="definitions/regions/trammel/misc/trinsic_passage.xml" />
 
 </definitions>
