@@ -17,7 +17,7 @@ def onLoad():
 	wolfpack.registerpackethook( 0x12, openDoor )
 
 def openDoor( socket, packet ):
-	if packet.size != 5 and packet.getShort(3) != 0x5800:
+	if packet.size != 5 and packet.getshort(3) != 0x5800:
 		return 0
 
 	if not socket.player:

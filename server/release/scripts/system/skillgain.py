@@ -215,7 +215,7 @@ def onSkillGain(char, skill, lower, higher, success):
 
   # Calculate the GainChance
   # (RunUO has a nice approach. Doing it similar)
-  totalcap = settings.getNumber("General", "SkillCap", 700)
+  totalcap = settings.getnumber("General", "SkillCap", 700)
   gainchance = (totalcap - totalskills) / totalcap # How near are we to our global skill cap
   gainchance += (cap - value) / cap # How near are we to our skill cap
 
