@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Long Sword -->
+	<item id="13b8">
+		<id>0x13b8</id>
+		<name>longsword</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>12</sellprice>
+		<buyprice>25</buyprice>
+		<attack min="15" max="16" />
+		<durability><random min="30" max="53" /></durability>
+		<speed>30</speed>
+		<weight>1.0</weight>
+		<tag name="req_str" value="35" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Long Sword (N/S)</category>
+	</item>
+
+	<item id="13b7">
+		<inherit id="13b8" />
+		<id>0x13b7</id>
+		<category>Weapons\Swords\Long Sword (E/W)</category>
+	</item>
+
+</definitions>

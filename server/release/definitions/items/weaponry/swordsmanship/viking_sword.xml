@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Viking Sword -->
+	<item id="13b9">
+		<id>0x13b9</id>
+		<name>viking sword</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>25</sellprice>
+		<buyprice>51</buyprice>
+		<attack min="15" max="17" />
+		<durability><random min="30" max="56" /></durability>
+		<speed>28</speed>
+		<weight>6.0</weight>
+		<tag name="req_str" value="40" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Viking Sword (N/S)</category>
+	</item>
+
+	<item id="13ba">
+		<inherit id="14b9" />
+		<id>0x13ba</id>
+		<category>Weapons\Swords\Viking Sword (E/W)</category>
+	</item>
+
+</definitions>

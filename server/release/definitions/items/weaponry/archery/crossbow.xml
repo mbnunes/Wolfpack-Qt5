@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- Cross Bow left -->
+	<item id="f4f">
+		<bindmenu id="item_menu"/>
+		<id>0xf4f</id>
+		<name>crossbow</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>23</sellprice>
+		<buyprice>46</buyprice>
+		<attack min="18" max="20" />
+		<durability><random min="30" max="51" /></durability>
+		<speed>24</speed>
+		<weight>7.0</weight>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
+		<type>1007</type>
+		<category>Weapons\Bows\Crossbow (N/S)</category>
+	</item>
+
+	<item id="f50">
+		<inherit id="f4f" />
+		<id>0xf50</id>
+		<category>Weapons\Bows\Crossbow (E/W)</category>
+	</item>
+
+</definitions>

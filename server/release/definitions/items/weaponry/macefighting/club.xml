@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Club -->
+	<item id="13b4">
+		<id>0x13b4</id>
+		<name>club</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>8</sellprice>
+		<buyprice>16</buyprice>
+		<attack min="11" max="13" />
+		<durability><random min="30" max="40" /></durability>
+		<speed>44</speed>
+		<weight>14.0</weight>
+		<tag name="req_str" value="40" type="int" />
+		<events>equipment</events>
+		<type>1004</type>
+		<category>Weapons\Maces\Club (N/S)</category>
+	</item>
+
+	<item id="13b3">
+		<inherit id="13b4" />
+		<id>0x13b3</id>
+		<category>Weapons\Maces\Club (E/W)</category>
+	</item>
+
+</definitions>

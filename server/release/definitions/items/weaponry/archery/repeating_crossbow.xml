@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- Repeating Crossbow -->
+	<item id="26cd">
+		<name>repeating crossbow</name>
+		<bindmenu id="item_menu"/>
+		<id>0x26cd</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>25</sellprice>
+		<buyprice>50</buyprice>
+		<attack min="10" max="12" />
+		<durability><random min="30" max="49" /></durability>
+		<speed>41</speed>
+		<weight>7.0</weight>
+		<tag name="req_str" value="30" type="int" />
+		<events>equipment</events>
+		<type>1007</type>
+		<category>Weapons\Bows\Repeating Crossbow (N/S)</category>
+	</item>
+
+	<item id="26c3">
+		<inherit id="26cd" />
+		<id>0x26c3</id>
+		<category>Weapons\Bows\Repeating Crossbow (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Double Axe -->
+	<item id="f4b">
+		<id>0xf4b</id>
+		<name>double axe</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>28</sellprice>
+		<buyprice>57</buyprice>
+		<attack min="15" max="17" />
+		<durability><random min="50" max="95" /></durability>
+		<speed>33</speed>
+		<weight>3.0</weight>
+		<tag name="req_str" value="45" type="int" />
+		<events>equipment</events>
+		<type>1002</type>
+		<category>Weapons\Axes\Double Axe (N/S)</category>
+	</item>
+
+	<item id="f4c">
+		<inherit id="f4b" />
+		<id>0xf4c</id>
+		<category>Weapons\Axes\Double Axe (E/W)</category>
+	</item>
+
+</definitions>

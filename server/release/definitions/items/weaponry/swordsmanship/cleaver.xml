@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Cleaver -->
+	<item id="ec3">
+		<id>0xec3</id>
+		<name>cleaver</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>8</sellprice>
+		<buyprice>16</buyprice>
+		<attack min="11" max="13" />
+		<durability><random min="30" max="46" /></durability>
+		<speed>46</speed>
+		<weight>1.0</weight>
+		<tag name="req_str" value="10" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Cleaver (N/S)</category>
+	</item>
+
+	<item id="ec2">
+		<inherit id="ec3" />
+		<id>0xec2</id>
+		<category>Weapons\Swords\Cleaver (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- War Fork -->
+	<item id="1405">
+		<id>0x1405</id>
+		<name>war fork</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>13</sellprice>
+		<buyprice>27</buyprice>
+		<attack min="12" max="13" />
+		<durability><random min="30" max="39" /></durability>
+		<speed>43</speed>
+		<weight>1.0</weight>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment,weapons_blades</events>
+		<type>1005</type>
+		<category>Weapons\Fencing\War Fork (N/S)</category>
+	</item>
+
+	<item id="1404">
+		<inherit id="1405" />
+		<id>0x1404</id>
+		<category>Weapons\Fencing\War Fork (E/W)</category>
+	</item>
+
+</definitions>

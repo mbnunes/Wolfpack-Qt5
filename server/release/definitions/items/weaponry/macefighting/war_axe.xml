@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- War Axe -->
+	<item id="13b0">
+		<id>0x13b0</id>
+		<name>war axe</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>15</sellprice>
+		<buyprice>31</buyprice>
+		<attack min="14" max="15" />
+		<durability><random min="30" max="68" /></durability>
+		<speed>33</speed>
+		<weight>3.0</weight>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
+		<type>1004</type>
+		<category>Weapons\Axes\War Axe (N/S)</category>
+	</item>
+
+	<item id="13af">
+		<inherit id="13b0" />
+		<id>0x13af</id>
+		<category>Weapons\Axes\War Axe (E/W)</category>
+	</item>
+
+</definitions>

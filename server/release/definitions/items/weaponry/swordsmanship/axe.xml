@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Axe -->
+	<item id="f49">
+		<id>0x0f49</id>
+		<name>axe</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>120</sellprice>
+		<buyprice>40</buyprice>
+		<attack min="14" max="16" />
+		<durability><random min="30" max="60" /></durability>
+		<speed>37</speed>
+		<weight>4.0</weight>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
+		<type>1002</type>
+		<category>Weapons\Axes\Axe (N/S)</category>
+	</item>
+
+	<item id="f4a">
+		<inherit id="f49" />
+		<id>0xf4a</id>
+		<category>Weapons\Axes\Axe (E/W)</category>
+	</item>
+
+</definitions>

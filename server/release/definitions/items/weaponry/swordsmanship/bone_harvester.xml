@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Bone Harvester -->
+	<item id="26c5">
+		<id>0x26c5</id>
+		<name>bone harvester</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>18</sellprice>
+		<buyprice>36</buyprice>
+		<attack min="13" max="15" />
+		<durability><random min="30" max="53" /></durability>
+		<speed>36</speed>
+		<weight>5.0</weight>
+		<tag name="req_str" value="25" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Bone Harvester (N/S)</category>
+	</item>
+
+	<item id="26bb">
+		<inherit id="26c5" />
+		<id>0x26bb</id>
+		<category>Weapons\Swords\Bone Harvester (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Two Handed Axe -->
+	<item id="1443">
+		<id>0x1443</id>
+		<name>two handed axe</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>15</sellprice>
+		<buyprice>31</buyprice>
+		<attack min="16" max="17" />
+		<durability><random min="30" max="62" /></durability>
+		<speed>31</speed>
+		<weight>8.0</weight>
+		<tag name="req_str" value="40" type="int" />
+		<events>equipment</events>
+		<category>Weapons\Axes\Two Handed Axe (N/S)</category>
+		<type>1002</type>
+	</item>
+
+	<item id="1442">
+		<inherit id="1443" />
+		<id>0x1442</id>
+		<category>Weapons\Axes\Two Handed Axe (E/W)</category>
+	</item>
+
+</definitions>

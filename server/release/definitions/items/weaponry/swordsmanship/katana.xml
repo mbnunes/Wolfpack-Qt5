@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Katana -->
+	<item id="13ff">
+		<id>0x13ff</id>
+		<name>katana</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>16</sellprice>
+		<buyprice>32</buyprice>
+		<attack min="11" max="13" />
+		<durability><random min="30" max="55" /></durability>
+		<speed>46</speed>
+		<weight>6.0</weight>
+		<tag name="req_str" value="25" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Katana (N/S)</category>
+	</item>
+
+	<item id="13fe">
+		<inherit id="13ff" />
+		<id>0x13fe</id>
+		<category>Weapons\Swords\Katana (E/W)</category>
+	</item>
+
+</definitions>

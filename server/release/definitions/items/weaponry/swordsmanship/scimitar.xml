@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Scomitar -->
+	<item id="13b6">
+		<id>0x13b6</id>
+		<name>scimitar</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>18</sellprice>
+		<buyprice>36</buyprice>
+		<attack min="13" max="15" />
+		<durability><random min="30" max="76" /></durability>
+		<speed>37</speed>
+		<weight>6.0</weight>
+		<tag name="req_str" value="25" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Scimitar (N/S)</category>
+	</item>
+
+	<item id="13b5">
+		<inherit id="13b6" />
+		<id>0x13b5</id>
+		<category>Weapons\Swords\Scimitar (E/W)</category>
+	</item>
+
+</definitions>

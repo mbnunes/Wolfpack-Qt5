@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Mace -->
+	<item id="f5c">
+		<id>0x0f5c</id>
+		<name>mace</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>15</sellprice>
+		<buyprice>30</buyprice>
+		<attack min="12" max="14" />
+		<durability><random min="30" max="64" /></durability>
+		<speed>40</speed>
+		<weight>14.0</weight>
+		<tag name="req_str" value="45" type="int" />
+		<events>equipment</events>
+		<type>1004</type>
+		<category>Weapons\Maces\Mace (N/S)</category>
+	</item>
+
+	<item id="f5d">
+		<inherit id="f5c" />
+		<id>0xf5d</id>
+		<category>Weapons\Maces\Mace (E/W)</category>
+	</item>
+
+</definitions>

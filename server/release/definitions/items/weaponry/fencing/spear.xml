@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Spear -->
+	<item id="f62">
+		<id>0xf62</id>
+		<name>spear</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>15</sellprice>
+		<buyprice>31</buyprice>
+		<attack min="13" max="15" />
+		<durability><random min="30" max="47" /></durability>
+		<speed>42</speed>
+		<weight>7.0</weight>
+		<tag name="req_str" value="50" type="int" />
+		<events>equipment,weapons_blades</events>
+		<type>1005</type>
+		<category>Weapons\Fencing\Spear (N/S)</category>
+	</item>
+
+	<item id="f63">
+		<inherit id="f62" />
+		<id>0xf63</id>
+		<category>Weapons\Fencing\Spear (E/W)</category>
+	</item>
+
+</definitions>

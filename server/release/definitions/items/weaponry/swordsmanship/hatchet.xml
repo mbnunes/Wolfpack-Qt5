@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Hatchet -->
+	<item id="f43">
+		<id>0xf43</id>
+		<name>hatchet</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>18</sellprice>
+		<buyprice>36</buyprice>
+		<attack min="13" max="15" />
+		<durability><random min="30" max="46" /></durability>
+		<speed>41</speed>
+		<weight>4.0</weight>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
+		<category>Weapons\Axes\Hatchet (N/S)</category>
+		<type>1002</type>
+	</item>
+
+	<item id="">
+		<inherit id="f43" />
+		<id>0xf44</id>
+		<category>Weapons\Axes\Hatchet (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Short Spear -->
+	<item id="1403">
+		<id>0x1403</id>
+		<name>short spear</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>10</sellprice>
+		<buyprice>21</buyprice>
+		<attack min="10" max="13" />
+		<durability><random min="30" max="40" /></durability>
+		<speed>55</speed>
+		<weight>4.0</weight>
+		<tag name="req_str" value="40" type="int" />
+		<events>equipment,weapons_blades</events>
+		<type>1005</type>
+		<category>Weapons\Fencing\Short Spear (N/S)</category>
+	</item>
+
+	<item id="1402">
+		<inherit id="1403" />
+		<id>0x1402</id>
+		<category>Weapons\Fencing\Short Spear (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Large Battle Axe -->
+	<item id="13fb">
+		<id>0x13fb</id>
+		<name>large battle axe</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>18</sellprice>
+		<buyprice>36</buyprice>
+		<attack min="16" max="17" />
+		<durability><random min="30" max="64" /></durability>
+		<speed>29</speed>
+		<weight>6.0</weight>
+		<tag name="req_str" value="80" type="int" />
+		<events>equipment</events>
+		<category>Weapons\Axes\Large Battle Axe (N/S)</category>
+		<type>1002</type>
+	</item>
+
+	<item id="13fa">
+		<inherit id="13fb" />
+		<id>0x13fa</id>
+		<category>Weapons\Axes\Large Battle Axe (E/W)</category>
+	</item>
+
+</definitions>

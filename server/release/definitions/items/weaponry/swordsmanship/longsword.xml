@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Longsword -->
+	<item id="f61">
+		<id>0xf61</id>
+		<name>longsword</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>26</sellprice>
+		<buyprice>53</buyprice>
+		<attack min="15" max="16" />
+		<durability><random min="30" max="67" /></durability>
+		<speed>30</speed>
+		<weight>7.0</weight>
+		<tag name="req_str" value="35" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Longsword (N/S)</category>
+	</item>
+
+	<item id="f60">
+		<inherit id="f61" />
+		<id>0xf60</id>
+		<category>Weapons\Swords\Longsword (E/W)</category>
+	</item>
+
+</definitions>

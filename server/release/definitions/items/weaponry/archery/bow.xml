@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Bow right -->
+	<item id="13b1">
+		<id>0x13b1</id>
+		<name>bow</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>18</sellprice>
+		<buyprice>36</buyprice>
+		<attack min="16" max="18" />
+		<durability><random min="30" max="50" /></durability>
+		<speed>25</speed>
+		<weight>7.0</weight>
+		<tag name="req_str" value="30" type="int" />
+		<events>equipment</events>
+		<type>1006</type>
+		<category>Weapons\Bows\Bow (N/S)</category>
+	</item>
+
+	<item id="13b2">
+		<inherit id="13b1" />
+		<id>0x13b2</id>
+		<category>Weapons\Bows\Bow (E/W)</category>
+	</item>
+
+ </definitions>

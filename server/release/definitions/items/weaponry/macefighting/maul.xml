@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Maul -->
+	<item id="143b">
+		<id>0x143b</id>
+		<name>maul</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>11</sellprice>
+		<buyprice>22</buyprice>
+		<attack min="14" max="16" />
+		<durability><random min="30" max="58" /></durability>
+		<speed>32</speed>
+		<weight>14.0</weight>
+		<tag name="req_str" value="45" type="int" />
+		<events>equipment</events>
+		<type>1004</type>
+		<category>Weapons\Maces\Maul (N/S)</category>
+	</item>
+
+	<item id="143a">
+		<inherit id="143b" />
+		<id>0x143a</id>
+		<category>Weapons\Maces\Mau (E/W)</category>
+	</item>
+
+</definitions>

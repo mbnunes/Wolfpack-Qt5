@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Bladed Staff -->
+	<item id="26c9">
+		<id>0x26c9</id>
+		<name>double bladed staff</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>23</sellprice>
+		<buyprice>46</buyprice>
+		<attack min="14" max="16" />
+		<durability><random min="50" max="102" /></durability>
+		<speed>37</speed>
+		<weight>12.0</weight>
+		<tag name="req_str" value="40" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Double Bladed Staff (N/S)</category>
+	</item>
+
+	<item id="26bd">
+		<inherit id="26c9" />
+		<id>0x26bd</id>
+		<category>Weapons\Swords\Double Bladed Staff (E/W)</category>
+	</item>
+
+</definitions>

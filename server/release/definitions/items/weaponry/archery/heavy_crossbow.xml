@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- Heavy Cross Bow left -->
+	<item id="13fd">
+		<name>heavy crossbow</name>
+		<bindmenu id="item_menu"/>
+		<id>0x13fd</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>26</sellprice>
+		<buyprice>53</buyprice>
+		<attack min="19" max="20" />
+		<durability><random min="30" max="55" /></durability>
+		<speed>22</speed>
+		<weight>9.0</weight>
+		<tag name="req_str" value="80" type="int" />
+		<events>equipment</events>
+		<type>1007</type>
+		<category>Weapons\Bows\Heavy Crossbow (N/S)</category>
+	</item>
+
+	<item id="13fc">
+		<inherit id="13fd" />
+		<id>0x13fc</id>
+		<category>Weapons\Bows\Heavy Crossbow (E/W)</category>
+	</item>
+
+</definitions>

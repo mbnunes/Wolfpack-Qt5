@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Cutlass -->
+	<item id="1441">
+		<id>0x1441</id>
+		<name>cutlass</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>10</sellprice>
+		<buyprice>21</buyprice>
+		<attack min="11" max="13" />
+		<durability><random min="30" max="70" /></durability>
+		<speed>44</speed>
+		<weight>8.0</weight>
+		<tag name="req_str" value="25" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Cutlass (N/S)</category>
+	</item>
+
+	<item id="1440">
+		<inherit id="1441" />
+		<id>0x1440</id>
+		<category>Weapons\Swords\Cutlass (E/W)</category>
+	</item>
+
+</definitions>

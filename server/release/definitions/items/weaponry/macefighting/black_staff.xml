@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Black Staff -->
+	<item id="df1">
+		<id>0xdf1</id>
+		<name>black staff</name>
+		<decay />
+		<nodye />
+		<sellprice>9</sellprice>
+		<buyprice>18</buyprice>
+		<attack min="13" max="16" />
+		<durability><random min="30" max="39" /></durability>
+		<speed>39</speed>
+		<weight>6.0</weight>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
+		<type>1003</type>
+		<twohanded />
+		<category>Weapons\Staves\Black Staff (N/S)</category>
+	</item>
+
+	<item id="df0">
+		<inherit id="df1" />
+		<id>0xdf0</id>
+		<category>Weapons\Staves\Black Staff (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Bardiche -->
+	<item id="f4d">
+		<id>0xf4d</id>
+		<name>bardiche</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>30</sellprice>
+		<buyprice>60</buyprice>
+		<attack min="17" max="18" />
+		<durability><random min="30" max="79" /></durability>
+		<speed>28</speed>
+		<weight>7.0</weight>
+		<tag name="req_str" value="45" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Bardiche (N/S)</category>
+	</item>
+
+	<item id="f4e">
+		<inherit id="f4d" />
+		<id>0xf4e</id>
+		<category>Weapons\Swords\Bardiche (E/W)</category>
+	</item>
+
+</definitions>

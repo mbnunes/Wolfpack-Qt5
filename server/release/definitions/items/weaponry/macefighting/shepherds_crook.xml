@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Shepherd's Crook -->
+	<item id="13f5">
+		<id>0x13f5</id>
+		<name>shepherd's crook</name>
+		<decay />
+		<nodye />
+		<sellprice>9</sellprice>
+		<buyprice>18</buyprice>
+		<attack min="13" max="15" />
+		<durability><random min="30" max="50" /></durability>
+		<speed>40</speed>
+		<weight>2.0</weight>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
+		<type>1003</type>
+		<twohanded />
+		<category>Weapons\Staves\Crook (N/S)</category>
+	</item>
+
+	<item id="13f4">
+		<inherit id="13f5" />
+		<id>0x13f4</id>
+		<category>Weapons\Staves\Crook (E/W)</category>
+	</item>
+
+</definitions>

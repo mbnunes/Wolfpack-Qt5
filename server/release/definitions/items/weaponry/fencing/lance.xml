@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Lance -->
+	<item id="26ca">
+		<id>0x26ca</id>
+		<name>lance</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>19</sellprice>
+		<buyprice>38</buyprice>
+		<attack min="17" max="18" />
+		<durability><random min="50" max="81" /></durability>
+		<speed>24</speed>
+		<weight>12.0</weight>
+		<tag name="req_str" value="95" type="int" />
+		<events>equipment,weapons_blades</events>
+		<type>1005</type>
+		<category>Weapons\Fencing\Lance (N/S)</category>
+	</item>
+
+	<item id="26c0">
+		<inherit id="26ca" />
+		<id>0x26c0</id>
+		<category>Weapons\Fencing\Lance (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,31 @@
+
+<definitions>
+
+	<!-- Pickaxe -->
+	<item id="e86">
+		<id>0xe86</id>
+		<name>pickaxe</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>11</sellprice>
+		<buyprice>23</buyprice>
+		<attack min="13" max="15" />
+		<durability><random min="30" max="55" /></durability>
+		<speed>35</speed>
+		<weight>11.0</weight>
+		<tag name="req_str" value="50" type="int" />
+		<type>1001</type>
+		<events>equipment,tools.pickaxe</events>
+		<category>Weapons\Swords\Pickaxe (N/S)</category>
+		<category>Professions\Miner\Pickaxe (N/S)</category>
+	</item>
+
+	<item id="e85">
+		<inherit id="e86" />
+		<id>0xe85</id>
+		<category>Weapons\Swords\Pickaxe (E/W)</category>
+		<category>Professions\Miner\Pickaxe (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Scythe -->
+	<item id="26c4">
+		<id>0x26c4</id>
+		<name>scythe</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>21</sellprice>
+		<buyprice>42</buyprice>
+		<attack min="15" max="18" />
+		<durability><random min="30" max="89" /></durability>
+		<speed>32</speed>
+		<weight>10.0</weight>
+		<tag name="req_str" value="45" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Scythe (N/S)</category>
+	</item>
+
+	<item id="26ba">
+		<inherit id="26c4" />
+		<id>0x26ba</id>
+		<category>Weapons\Swords\Scythe (E/W)</category>
+	</item>
+
+</definitions>

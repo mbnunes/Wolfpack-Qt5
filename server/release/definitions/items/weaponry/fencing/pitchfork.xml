@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Pitchfork -->
+	<item id="e87">
+		<id>0xe87</id>
+		<name>pitchfork</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>9</sellprice>
+		<buyprice>18</buyprice>
+		<attack min="13" max="14" />
+		<durability><random min="30" max="41" /></durability>
+		<speed>43</speed>
+		<weight>10.0</weight>
+		<tag name="req_str" value="50" type="int" />
+		<events>equipment,weapons_blades</events>
+		<type>1005</type>
+		<category>Weapons\Fencing\Pitchfork (N/S)</category>
+	</item>
+
+	<item id="e88">
+		<inherit id="e87" />
+		<id>0xe88</id>
+		<category>Weapons\Fencing\Pitchfork (E/W)</category>
+	</item>
+
+</definitions>

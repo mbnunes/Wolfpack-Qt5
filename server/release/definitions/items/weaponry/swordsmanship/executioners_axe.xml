@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Executioners Axe -->
+	<item id="f45">
+		<id>0x0f45</id>
+		<name>executioner's axe</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>16</sellprice>
+		<buyprice>27</buyprice>
+		<attack min="15" max="17" />
+		<durability><random min="30" max="46" /></durability>
+		<speed>33</speed>
+		<weight>3.0</weight>
+		<tag name="req_str" value="40" type="int" />
+		<events>equipment</events>
+		<category>Weapons\Axes\Executioner's Axe (N/S)</category>
+		<type>1002</type>
+	</item>
+
+	<item id="f46">
+		<inherit id="f45" />
+		<id>0xf46</id>
+		<category>Weapons\Axes\Executioner's Axe (E/W)</category>
+	</item>
+
+</definitions>

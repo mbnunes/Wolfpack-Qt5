@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Quarter Staff -->
+	<item id="e89">
+		<id>0xe89</id>
+		<name>quarter staff</name>
+		<decay />
+		<nodye />
+		<sellprice>11</sellprice>
+		<buyprice>22</buyprice>
+		<attack min="11" max="14" />
+		<durability><random min="30" max="60" /></durability>
+		<speed>48</speed>
+		<weight>4.0</weight>
+		<tag name="req_str" value="30" type="int" />
+		<events>equipment</events>
+		<type>1003</type>
+		<twohanded />
+		<category>Weapons\Staves\Quarter Staff (N/S)</category>
+	</item>
+
+	<item id="e8a">
+		<inherit id="e89" />
+		<id>0xe8a</id>
+		<category>Weapons\Staves\Quarter Staff (E/W)</category>
+	</item>
+
+</definitions>

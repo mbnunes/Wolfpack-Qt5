@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Paladin Sword -->
+	<item id="26cf">
+		<id>0x26cf</id>
+		<name>paladin sword</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>15</sellprice>
+		<buyprice>31</buyprice>
+		<attack min="14" max="15" />
+		<durability><random min="50" max="77" /></durability>
+		<speed>33</speed>
+		<weight>6.0</weight>
+		<tag name="req_str" value="30" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Paladin Sword (N/S)</category>
+	</item>
+
+	<item id="26ce">
+		<inherit id="26cf" />
+		<id>0x26ce</id>
+		<category>Weapons\Swords\Paladin Sword (E/W)</category>
+	</item>
+
+</definitions>

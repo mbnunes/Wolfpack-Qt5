@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Skinning Knive -->
+	<item id="ec4">
+		<id>0xec4</id>
+		<name>skinning knife</name>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>6</sellprice>
+		<buyprice>13</buyprice>
+		<attack min="9" max="11" />
+		<durability><random min="30" max="35" /></durability>
+		<speed>49</speed>
+		<weight>1.0</weight>
+		<tag name="req_str" value="5" type="int" />
+		<type>1001</type>
+		<events>equipment,weapons_blades</events>
+		<category>Weapons\Swords\Skinning Knive (N/S)</category>
+	</item>
+
+	<item id="ec5">
+		<inherit id="ec4" />
+		<id>0xec5</id>
+		<category>Weapons\Swords\Skinning Knive (E/W)</category>
+	</item>
+
+</definitions>
