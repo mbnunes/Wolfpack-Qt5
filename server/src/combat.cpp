@@ -973,7 +973,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pi = FindItemBySerial(vecContainer[ci]);
-			if (pi->layer>1 && pi->layer<25) 
+			if (pi != NULL && pi->layer>1 && pi->layer<25) 
 			{ 
 				//blackwinds new stuff 
 				int armordef=0; 

@@ -260,10 +260,12 @@ void loadregions()//New -- Zippy spawn regions
 		noregion=0;
 		for (a=0;a<10;a++)
 		{
+		
 			region[i].guardnum[a]=RandomNum(1000,1001);
 		}
 		for (a=0;a<100;a++)		// added by Magius(CHE)
 		{
+
 			region[i].goodsell[a]=0;
 			region[i].goodbuy[a]=0;
 			region[i].goodrnd1[a]=0;
@@ -353,7 +355,7 @@ void loadregions()//New -- Zippy spawn regions
 					gettokennum(script2, 1);
 					rnd2=str2num(gettokenstr);
 					rnd3=RandomNum(rnd1,rnd2);
-					Weather->SnowChance[i]=rnd3;
+					//Weather->SnowChance[i]=rnd3;
 				}
 				else if (!(strcmp("RAINCHANCE", script1)))
 				{
@@ -362,7 +364,7 @@ void loadregions()//New -- Zippy spawn regions
 					gettokennum(script2, 1);
 					rnd2=str2num(gettokenstr);
 					rnd3=RandomNum(rnd1,rnd2);
-					Weather->RainChance[i]=rnd3;
+					//Weather->RainChance[i]=rnd3;
 				}
 				else if(!(strcmp("WEATHDURATION",script1)))
 				{
@@ -371,7 +373,7 @@ void loadregions()//New -- Zippy spawn regions
 					gettokennum(script2, 1);
 					rnd2=str2num(gettokenstr);
 					rnd3=RandomNum(rnd1,rnd2);
-					Weather->Duration[i]=rnd3*CLOCKS_PER_SEC;
+					//Weather->Duration[i]=rnd3*CLOCKS_PER_SEC;
 				}
 				else if(!(strcmp("WEATHSTART",script1)))
 				{
@@ -382,15 +384,15 @@ void loadregions()//New -- Zippy spawn regions
 						gettokennum(script2, 1);
 						rnd2=str2num(gettokenstr);
 						rnd3=RandomNum(rnd1,rnd2);
-						Weather->Check[i]=rnd3;
-						Weather->StartTime[i]=uiCurrentTime+(rnd3*CLOCKS_PER_SEC);
-						Weather->CurrentRegions++;
+						//Weather->Check[i]=rnd3;
+						//Weather->StartTime[i]=uiCurrentTime+(rnd3*CLOCKS_PER_SEC);
+						//Weather->CurrentRegions++;
 					}
 					else
 					{
-						Weather->Check[i]=0;
-						Weather->StartTime[i]=0;
-						Weather->CurrentRegions++;
+						//Weather->Check[i]=0;
+						//Weather->StartTime[i]=0;
+						//Weather->CurrentRegions++;
 					}
 				}
 				else if (!(strcmp("GOOD", (char*)script1))) // Magius(CHE)

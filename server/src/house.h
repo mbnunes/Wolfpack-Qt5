@@ -9,6 +9,7 @@ public:
 	{
 		printf("House Manager succesfully started!\n");
 		HouseFile=NULL;
+		printf("exiting construcctor \n");	
 	};
 	~cHouseManager()
 	{

@@ -256,6 +256,7 @@ void signal_handler(int signal)
 // Initialize deamon
 void init_deamon()
 {
+/*
 #if defined(__unix__)
 	
 	int i ;
@@ -289,6 +290,7 @@ void init_deamon()
 	signal(SIGTERM,&signal_handler) ;
 	
 #endif
+*/
 }
 
 
@@ -3062,7 +3064,7 @@ int main(int argc, char *argv[])
 	clConsole.send("Loading Races!\n");
 	Races.LoadRaceFile();
 	clConsole.send("Races Loaded!\n");
-	Weather->start();
+	//Weather->run() ;
 	//Network->InitConnThread();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5573,10 +5575,9 @@ void StartClasses(void)
 	Respawn = new cRespawn;
 	AllTmpEff = new cAllTmpEff;
 	Movement = new cMovement;
-	Weather = new cWeather;
+	//Weather = new cWeather;
 	HouseManager=new cHouseManager;
-	House.resize(0);
-
+	House.resize(0); 
 	// Sky's AI Stuff
 	DragonAI=new cCharStuff::cDragonAI;
 	BankerAI=new cCharStuff::cBankerAI;
@@ -5585,7 +5586,7 @@ void StartClasses(void)
 
 void DeleteClasses(void)
 {
-	Weather->kill();
+	//Weather->kill();
 	delete cwmWorldState;
 	delete mapRegions;
 	delete Accounts;
@@ -5608,7 +5609,7 @@ void DeleteClasses(void)
 	delete Movement;
 	delete DragonAI;
 	delete BankerAI;
-	delete Weather;
+	//delete Weather;
 }
 
 // if we can find new effects they can be added here and will be active 

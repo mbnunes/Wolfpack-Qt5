@@ -323,8 +323,11 @@ P_ITEM cChar::GetItemOnLayer(unsigned char layer)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer==layer)
-			return pi;
+		if ( pi != NULL)
+		{
+			if (pi->layer==layer)
+				return pi;
+		}
 	}
 	return NULL;
 }
