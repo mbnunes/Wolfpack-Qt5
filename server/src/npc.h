@@ -120,7 +120,7 @@ public:
 
 	// other public methods
 	virtual stError* setProperty( const QString& name, const cVariant& value );
-	virtual stError* getProperty( const QString& name, cVariant& value );
+	PyObject *getProperty(const QString &name);
 	void setNextMoveTime( void );
 	virtual void callGuards(); // overriding
 	void makeShop();

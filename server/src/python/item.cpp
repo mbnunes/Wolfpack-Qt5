@@ -66,6 +66,11 @@ long wpItem_hash( wpItem* self )
 	return self->pItem->serial();
 }
 
+// Return a string representation for an item object.
+static PyObject *wpItem_str(wpItem *object) {
+	return PyString_FromFormat("0x%x", object->pItem->serial());
+}
+
 /*!
 	The typedef for Wolfpack Python items
 */
@@ -87,6 +92,7 @@ static PyTypeObject wpItemType =
 	0,
 	( hashfunc ) wpItem_hash,
 	0,
+	(reprfunc)wpItem_str
 };
 
 PyObject* PyGetItemObject( P_ITEM item )
@@ -1186,59 +1192,17 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 	/*
 		\rproperty item.events Returns a list of all event names the object has.
 	*/
-	else if ( !strcmp( "events", name ) )
-	{
+	else if ( !strcmp( "events", name ) ) {
 		QStringList events = QStringList::split( ",", self->pItem->eventList() );
 		PyObject* list = PyList_New( events.count() );
 		for ( uint i = 0; i < events.count(); ++i )
 			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
 		return list;
-	}
-	else
-	{
-		cVariant result;
-		stError* error = self->pItem->getProperty( name, result );
-
-		if ( !error )
-		{
-			PyObject* obj = 0;
-
-			switch ( result.type() )
-			{
-			case cVariant::BaseChar:
-				obj = PyGetCharObject( result.toChar() );
-				break;
-			case cVariant::Item:
-				obj = PyGetItemObject( result.toItem() );
-				break;
-			case cVariant::Long:
-			case cVariant::Int:
-				obj = PyInt_FromLong( result.toInt() );
-				break;
-			case cVariant::String:
-				if ( result.toString().isNull() )
-					obj = PyUnicode_FromWideChar( L"", 0 );
-				else
-					obj = PyUnicode_FromUnicode( ( Py_UNICODE * ) result.toString().ucs2(), result.toString().length() );
-				break;
-			case cVariant::Double:
-				obj = PyFloat_FromDouble( result.toDouble() );
-				break;
-			case cVariant::Coord:
-				obj = PyGetCoordObject( result.toCoord() );
-				break;
-			}
-
-			if ( !obj )
-			{
-				PyErr_Format( PyExc_ValueError, "Unsupported Property Type: %s", result.typeName() );
-				return 0;
-			}
-
-			return obj;
+	} else {
+		PyObject* result = self->pItem->getProperty(name);
+		if (result) {
+			return result;
 		}
-		else
-			delete error;
 	}
 
 	return Py_FindMethod( wpItemMethods, ( PyObject * ) self, name );

@@ -818,57 +818,32 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 	return cBaseChar::setProperty( name, value );
 }
 
-stError* cNPC::getProperty( const QString& name, cVariant& value )
-{
-	GET_PROPERTY( "nextmsgtime", ( int ) nextMsgTime_ )
-	else
-		GET_PROPERTY( "antispamtimer", ( int ) nextMsgTime_ )
-	else
-		GET_PROPERTY( "nextguardcalltime", ( int ) nextGuardCallTime_ )
-	else
-		GET_PROPERTY( "antiguardstimer", ( int ) nextGuardCallTime_ )
-	else
-		GET_PROPERTY( "stablemaster", stablemasterSerial_ )
-	else
-		GET_PROPERTY( "npc", true )
-	else
-		GET_PROPERTY( "nextmovetime", ( int ) nextMoveTime_ )
-	else
-		GET_PROPERTY( "npcmovetime", ( int ) nextMoveTime_ )
-	else
-		GET_PROPERTY( "wandertype", ( int ) wanderType() )
-	else
-		GET_PROPERTY( "wanderx1", wanderX1() )
-	else
-		GET_PROPERTY( "fx1", wanderX1() )
-	else
-		GET_PROPERTY( "wanderx2", wanderX2() )
-	else
-		GET_PROPERTY( "fx2", wanderX2() )
-	else
-		GET_PROPERTY( "wandery1", wanderY1() )
-	else
-		GET_PROPERTY( "fy1", wanderY1() )
-	else
-		GET_PROPERTY( "wandery2", wanderY2() )
-	else
-		GET_PROPERTY( "fy2", wanderY2() )
-	else
-		GET_PROPERTY( "wanderradius", wanderRadius() )
-	else
-		GET_PROPERTY( "fz1", wanderRadius() )
-	else
-		GET_PROPERTY( "summontime", ( int ) summonTime_ )
-	else
-		GET_PROPERTY( "summontimer", ( int ) summonTime_ )
-	else
-		GET_PROPERTY( "owner", owner_ )
-	else
-		GET_PROPERTY( "ai", aiid_ )
-	else
-		GET_PROPERTY( "summoned", ( int ) ( summoned() ? 1 : 0 ) )
-
-	return cBaseChar::getProperty( name, value );
+PyObject *cNPC::getProperty(const QString& name) {
+	PY_PROPERTY( "nextmsgtime",  nextMsgTime_ )
+	PY_PROPERTY( "antispamtimer",  nextMsgTime_ )
+	PY_PROPERTY( "nextguardcalltime",  nextGuardCallTime_ )
+	PY_PROPERTY( "antiguardstimer",  nextGuardCallTime_ )
+	PY_PROPERTY( "stablemaster", stablemasterSerial_ )
+	PY_PROPERTY( "npc", true )
+	PY_PROPERTY( "nextmovetime",  nextMoveTime_ )
+	PY_PROPERTY( "npcmovetime",  nextMoveTime_ )
+	PY_PROPERTY( "wandertype",  wanderType() )
+	PY_PROPERTY( "wanderx1", wanderX1() )
+	PY_PROPERTY( "fx1", wanderX1() )
+	PY_PROPERTY( "wanderx2", wanderX2() )
+	PY_PROPERTY( "fx2", wanderX2() )
+	PY_PROPERTY( "wandery1", wanderY1() )
+	PY_PROPERTY( "fy1", wanderY1() )
+	PY_PROPERTY( "wandery2", wanderY2() )
+	PY_PROPERTY( "fy2", wanderY2() )
+	PY_PROPERTY( "wanderradius", wanderRadius() )
+	PY_PROPERTY( "fz1", wanderRadius() )
+	PY_PROPERTY( "summontime",  summonTime_ )
+	PY_PROPERTY( "summontimer",  summonTime_ )
+	PY_PROPERTY( "owner", owner_ )
+	PY_PROPERTY( "ai", aiid_ )
+	PY_PROPERTY( "summoned", summoned() )
+	return cBaseChar::getProperty(name);
 }
 
 Coord_cl cNPC::nextMove()

@@ -243,7 +243,7 @@ public:
 	// other public methods
 	// Simple Property setting and getting for script engines.
 	stError* setProperty( const QString& name, const cVariant& value );
-	stError* getProperty( const QString& name, cVariant& value );
+	PyObject *getProperty(const QString &name);
 	void updateHealth( void );
 	void action( uchar id, uchar speed = 1, bool reverse = false ); // Do an action
 	P_ITEM getWeapon() const;

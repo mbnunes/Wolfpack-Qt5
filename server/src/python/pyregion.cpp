@@ -47,6 +47,10 @@ typedef struct
 static PyObject* wpRegion_getAttr( wpRegion* self, char* name );
 static int wpRegion_setAttr( wpRegion* self, char* name, PyObject* value );
 
+static PyObject *wpRegion_str(wpRegion *self) {
+	return QString2Python(self->pRegion->name());
+}
+
 /*!
 	The typedef for Wolfpack Python items
 */
@@ -62,7 +66,14 @@ static PyTypeObject wpRegionType =
 	( getattrfunc ) wpRegion_getAttr,
 	( setattrfunc ) wpRegion_setAttr,
 	0,
-
+	0,
+	0,
+	0,
+	0,
+	0,
+	0, // Call
+	(reprfunc)wpRegion_str
+	0,
 };
 
 static PyMethodDef wpRegionMethods[] =

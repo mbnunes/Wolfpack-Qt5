@@ -708,37 +708,27 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 	return cPythonScriptable::setProperty( name, value );
 }
 
-stError* cUObject::getProperty( const QString& name, cVariant& value )
-{
+PyObject* cUObject::getProperty(const QString& name) {
 	/*
 		\rproperty object.bindmenu This string property contains a comma separated list of context menu ids for this object.
 	
 		This property is inherited by the baseid property of this object.
 	*/
-	GET_PROPERTY( "bindmenu", bindmenu() )
-
+	PY_PROPERTY( "bindmenu", bindmenu() )
 	/*
 		\rproperty object.spawnregion The name of the spawnregion this object was spawned in. This is an empty string 
 		if the object wasn't spawned or removed from the spawnregion.
 	*/
-	else
-		GET_PROPERTY( "spawnregion", spawnregion_ ? spawnregion_->name() : "" )
+	PY_PROPERTY( "spawnregion", spawnregion_ ? spawnregion_->name() : "" )
+	PY_PROPERTY( "serial", serial_ )
+	PY_PROPERTY( "free", free ? 1 : 0 )
+	PY_PROPERTY( "name", this->name() )
+	PY_PROPERTY( "pos", pos() )
+	PY_PROPERTY( "eventlist", eventList() )
+	// \rproperty object.multi This item property contains the multi this object is contained in.
+	PY_PROPERTY( "multi", multi_ )
 
-	else
-		GET_PROPERTY( "serial", serial_ )
-	else
-		GET_PROPERTY( "free", free ? 1 : 0 )
-	else
-		GET_PROPERTY( "name", this->name() )
-	else
-		GET_PROPERTY( "pos", pos() )
-	else
-		GET_PROPERTY( "eventlist", eventList() )
-		// \rproperty object.multi This item property contains the multi this object is contained in.
-	else
-		GET_PROPERTY( "multi", multi_ )
-
-	return cPythonScriptable::getProperty( name, value );
+	return cPythonScriptable::getProperty(name);
 }
 
 void cUObject::sendTooltip( cUOSocket* mSock )

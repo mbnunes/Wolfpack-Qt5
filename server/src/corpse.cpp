@@ -335,19 +335,17 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 	return cItem::setProperty( name, value );
 }
 
-stError* cCorpse::getProperty( const QString& name, cVariant& value )
-{
-	GET_PROPERTY( "bodyid", bodyId_ )
-	GET_PROPERTY( "hairstyle", hairStyle_ )
-	GET_PROPERTY( "haircolor", hairColor_ )
-	GET_PROPERTY( "beardstyle", beardStyle_ )
-	GET_PROPERTY( "beardcolor", beardColor_ )
-	GET_PROPERTY( "murderer", FindCharBySerial(murderer_) )
-	GET_PROPERTY( "murdertime", (int) murdertime_ )
-	GET_PROPERTY( "direction", (int) direction_ )
-	GET_PROPERTY( "charbaseid", charbaseid_ )
-
-	return cItem::getProperty( name, value );
+PyObject* cCorpse::getProperty(const QString& name) {
+	PY_PROPERTY( "bodyid", bodyId_ )
+	PY_PROPERTY( "hairstyle", hairStyle_ )
+	PY_PROPERTY( "haircolor", hairColor_ )
+	PY_PROPERTY( "beardstyle", beardStyle_ )
+	PY_PROPERTY( "beardcolor", beardColor_ )
+	PY_PROPERTY( "murderer", FindCharBySerial(murderer_) )
+	PY_PROPERTY( "murdertime", murdertime_ )
+	PY_PROPERTY( "direction", direction_ )
+	PY_PROPERTY( "charbaseid", charbaseid_ )
+	return cItem::getProperty(name);
 }
 
 void cCorpse::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )

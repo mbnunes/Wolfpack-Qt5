@@ -1824,296 +1824,200 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	return cUObject::setProperty( name, value );
 }
 
-stError* cBaseChar::getProperty( const QString& name, cVariant& value )
-{
-	GET_PROPERTY( "orgname", orgName_ )
-	else
-		GET_PROPERTY( "direction", direction_ )
-	else
-		GET_PROPERTY( "baseid", baseid() )
-	else
-		GET_PROPERTY( "lastmovement", ( int ) lastMovement_ )
-	else
-		GET_PROPERTY( "title", title_ )
-	else
-		GET_PROPERTY( "incognito", isIncognito() )
-	else
-		GET_PROPERTY( "polymorph", isPolymorphed() )
-	else
-		GET_PROPERTY( "skin", skin_ )
-	else
-		GET_PROPERTY( "orgskin", orgSkin_ )
-	else
-		GET_PROPERTY( "creationdate", creationDate_.toString() )
-	else
-		GET_PROPERTY( "stealthedsteps", stealthedSteps_ )
-	else
-		GET_PROPERTY( "runningsteps", ( int ) runningSteps_ )
-	else
-		GET_PROPERTY( "tamed", isTamed() )
-	else
-		GET_PROPERTY( "guarding", guarding_ )
-	else
-		GET_PROPERTY( "murderer", FindCharBySerial( murdererSerial_ ) )
-	else
-		GET_PROPERTY( "casting", isCasting() )
-	else
-		GET_PROPERTY( "hidden", isHidden() )
-	else
-		GET_PROPERTY( "hunger", hunger_ )
-	else
-		GET_PROPERTY( "hungertime", ( int ) hungerTime_ )
-	else
-		GET_PROPERTY( "poison", poison_ )
-	else
-		GET_PROPERTY( "flag", flag_ )
-	else
-		GET_PROPERTY( "propertyflags", ( int ) propertyFlags_ )
-	else
-		GET_PROPERTY( "murderertime", ( int ) murdererTime_ )
-	else
-		GET_PROPERTY( "criminaltime", ( int ) criminalTime_ )
-	else
-		GET_PROPERTY( "meditating", isMeditating() )
-	else
-		GET_PROPERTY( "weight", weight_ )
-	else
-		GET_PROPERTY( "saycolor", saycolor_ )
-	else
-		GET_PROPERTY( "emotecolor", emoteColor_ )
-	else
-		GET_PROPERTY( "strength", strength_ )
-	else
-		GET_PROPERTY( "dexterity", dexterity_ )
-	else
-		GET_PROPERTY( "intelligence", intelligence_ )
-	else
-		GET_PROPERTY( "strength2", strengthMod_ )
-	else
-		GET_PROPERTY( "dexterity2", dexterityMod_ )
-	else
-		GET_PROPERTY( "intelligence2", intelligenceMod_ )
-	else
-		GET_PROPERTY( "orgid", orgBody_ )
-	else
-		GET_PROPERTY( "maxhitpoints", maxHitpoints_ )
-	else
-		GET_PROPERTY( "hitpoints", hitpoints_ )
-	else
-		GET_PROPERTY( "strengthcap", strengthCap_ )
-	else
-		GET_PROPERTY( "dexteritycap", dexterityCap_ )
-	else
-		GET_PROPERTY( "intelligencecap", intelligenceCap_ )
-	else
-		GET_PROPERTY( "statcap", statCap_ )
-	else
-		GET_PROPERTY( "health", hitpoints_ )
-	else
-		GET_PROPERTY( "maxstamina", maxStamina_ )
-	else
-		GET_PROPERTY( "stamina", stamina_ )
-	else
-		GET_PROPERTY( "maxmana", maxMana_ )
-	else
-		GET_PROPERTY( "mana", mana_ )
-	else
-		GET_PROPERTY( "karma", karma_ )
-	else
-		GET_PROPERTY( "fame", fame_ )
-	else
-		GET_PROPERTY( "kills", ( int ) kills_ )
-	else
-		GET_PROPERTY( "deaths", ( int ) deaths_ )
-	else
-		GET_PROPERTY( "dead", isDead() )
-	else
-		GET_PROPERTY( "war", isAtWar() )
-	else
-		GET_PROPERTY( "attacktarget", attackTarget_ )
-	else
-		GET_PROPERTY( "nextswing", ( int ) nextSwing_ )
-	else
-		GET_PROPERTY( "regenhealth", ( int ) regenHitpointsTime_ )
-	else
-		GET_PROPERTY( "regenstamina", ( int ) regenStaminaTime_ )
-	else
-		GET_PROPERTY( "regenmana", ( int ) regenManaTime_ )
-	else
-		GET_PROPERTY( "region", ( region_ != 0 ) ? region_->name() : QString( "" ) )
-	else
-		GET_PROPERTY( "skilldelay", ( int ) skillDelay_ )
-	else
-		GET_PROPERTY( "gender", gender_ )
-	else
-		GET_PROPERTY( "id", body_ )
-	else
-		GET_PROPERTY( "invulnerable", isInvulnerable() )
-	else
-		GET_PROPERTY( "invisible", isInvisible() )
-	else
-		GET_PROPERTY( "frozen", isFrozen() )
-	else
-		GET_PROPERTY( "hitpointsbonus", hitpointsBonus_ )
-	else
-		GET_PROPERTY( "staminabonus", staminaBonus_ )
-	else
-		GET_PROPERTY( "manabonus", manaBonus_ )
+PyObject *cBaseChar::getProperty(const QString &name) {
+	PY_PROPERTY( "orgname", orgName_ )
+	PY_PROPERTY( "direction", direction_ )
+	PY_PROPERTY( "baseid", baseid() )
+	PY_PROPERTY( "lastmovement",  lastMovement_ )
+	PY_PROPERTY( "title", title_ )
+	PY_PROPERTY( "incognito", isIncognito() )
+	PY_PROPERTY( "polymorph", isPolymorphed() )
+	PY_PROPERTY( "skin", skin_ )
+	PY_PROPERTY( "orgskin", orgSkin_ )
+	PY_PROPERTY( "creationdate", creationDate_.toString() )
+	PY_PROPERTY( "stealthedsteps", stealthedSteps_ )
+	PY_PROPERTY( "runningsteps",  runningSteps_ )
+	PY_PROPERTY( "tamed", isTamed() )
+	PY_PROPERTY( "guarding", guarding_ )
+	PY_PROPERTY( "murderer", FindCharBySerial( murdererSerial_ ) )
+	PY_PROPERTY( "casting", isCasting() )
+	PY_PROPERTY( "hidden", isHidden() )
+	PY_PROPERTY( "hunger", hunger_ )
+	PY_PROPERTY( "hungertime",  hungerTime_ )
+	PY_PROPERTY( "poison", poison_ )
+	PY_PROPERTY( "flag", flag_ )
+	PY_PROPERTY( "propertyflags",  propertyFlags_ )
+	PY_PROPERTY( "murderertime",  murdererTime_ )
+	PY_PROPERTY( "criminaltime",  criminalTime_ )
+	PY_PROPERTY( "meditating", isMeditating() )
+	PY_PROPERTY( "weight", weight_ )
+	PY_PROPERTY( "saycolor", saycolor_ )
+	PY_PROPERTY( "emotecolor", emoteColor_ )
+	PY_PROPERTY( "strength", strength_ )
+	PY_PROPERTY( "dexterity", dexterity_ )
+	PY_PROPERTY( "intelligence", intelligence_ )
+	PY_PROPERTY( "strength2", strengthMod_ )
+	PY_PROPERTY( "dexterity2", dexterityMod_ )
+	PY_PROPERTY( "intelligence2", intelligenceMod_ )
+	PY_PROPERTY( "orgid", orgBody_ )
+	PY_PROPERTY( "maxhitpoints", maxHitpoints_ )
+	PY_PROPERTY( "hitpoints", hitpoints_ )
+	PY_PROPERTY( "strengthcap", strengthCap_ )
+	PY_PROPERTY( "dexteritycap", dexterityCap_ )
+	PY_PROPERTY( "intelligencecap", intelligenceCap_ )
+	PY_PROPERTY( "statcap", statCap_ )
+	PY_PROPERTY( "health", hitpoints_ )
+	PY_PROPERTY( "maxstamina", maxStamina_ )
+	PY_PROPERTY( "stamina", stamina_ )
+	PY_PROPERTY( "maxmana", maxMana_ )
+	PY_PROPERTY( "mana", mana_ )
+	PY_PROPERTY( "karma", karma_ )
+	PY_PROPERTY( "fame", fame_ )
+	PY_PROPERTY( "kills",  kills_ )
+	PY_PROPERTY( "deaths",  deaths_ )
+	PY_PROPERTY( "dead", isDead() )
+	PY_PROPERTY( "war", isAtWar() )
+	PY_PROPERTY( "attacktarget", attackTarget_ )
+	PY_PROPERTY( "nextswing",  nextSwing_ )
+	PY_PROPERTY( "regenhealth",  regenHitpointsTime_ )
+	PY_PROPERTY( "regenstamina",  regenStaminaTime_ )
+	PY_PROPERTY( "regenmana",  regenManaTime_ )
+	PY_PROPERTY( "region", region_ )
+	PY_PROPERTY( "skilldelay",  skillDelay_ )
+	PY_PROPERTY( "gender", gender_ )
+	PY_PROPERTY( "id", body_ )
+	PY_PROPERTY( "invulnerable", isInvulnerable() )
+	PY_PROPERTY( "invisible", isInvisible() )
+	PY_PROPERTY( "frozen", isFrozen() )
+	PY_PROPERTY( "hitpointsbonus", hitpointsBonus_ )
+	PY_PROPERTY( "staminabonus", staminaBonus_ )
+	PY_PROPERTY( "manabonus", manaBonus_ )
 
-		// Base Properties
+	/*
+	\rproperty char.basesound The base sound id for this creature. Not used for humans.
 
-		/*
-		\rproperty char.basesound The base sound id for this creature. Not used for humans.
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "basesound", basesound() )
 
-		This property is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "basesound", basesound() )
+	/* \rproperty char.soundmode Which sounds are available for this creature. See basesound for the offset.
+	Possible values:
+	<code>0: normal, 5 sounds (attack-started, idle, attack, defence, dying)
+	1: birds .. only one "bird-shape" and zillions of sounds ...
+	2: only 3 sounds -> (attack,defence,dying)
+	3: only 4 sounds ->	(attack-started,attack,defense,dying)
+	4: only 1 sound</code>
 
-		/* \rproperty char.soundmode Which sounds are available for this creature. See basesound for the offset.
-		Possible values:
-		<code>0: normal, 5 sounds (attack-started, idle, attack, defence, dying)
-		1: birds .. only one "bird-shape" and zillions of sounds ...
-		2: only 3 sounds -> (attack,defence,dying)
-		3: only 4 sounds ->	(attack-started,attack,defense,dying)
-		4: only 1 sound</code>
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "soundmode", soundmode() )
 
-		This property is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "soundmode", soundmode() )
+	/*
+	\rproperty char.canfly Indicates whether the creature can fly.
 
-		/*
-		\rproperty char.canfly Indicates whether the creature can fly.
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "canfly", isCanFly() )
 
-		This property is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "canfly", isCanFly() )
+	/*
+	\rproperty char.antiblink Indicates whether the creature has the anti blink bit set for animations.
 
-		/*
-		\rproperty char.antiblink Indicates whether the creature has the anti blink bit set for animations.
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "antiblink", isAntiBlink() )
 
-		This property is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "antiblink", isAntiBlink() )
+	/*
+	\rproperty char.nocorpse Indicates whether the creature leaves a corpse or not.
 
-		/*
-		\rproperty char.nocorpse Indicates whether the creature leaves a corpse or not.
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "nocorpse", isNoCorpse() )
 
-		This property is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "nocorpse", isNoCorpse() )
+	/*
+	\rproperty figurine The itemid of the figurine thats created when the creature is shrunk.
 
-		/*
-		\rproperty figurine The itemid of the figurine thats created when the creature is shrunk.
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "figurine", figurine() )
 
-		This property is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "figurine", figurine() )
+	/*
+	\rproperty char.mindamage The minimum damage this character type
 
-		/*
-		\rproperty char.mindamage The minimum damage this character type
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "antiblink", isAntiBlink() )
 
-		This property is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "antiblink", isAntiBlink() )
+	/*
+	\rproperty char.mindamage This is the minimum damage dealt by the creature when unarmed.
 
-		/*
-		\rproperty char.mindamage This is the minimum damage dealt by the creature when unarmed.
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "mindamage", minDamage() )
 
-		This property is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "mindamage", minDamage() )
+	/*
+	\rproperty char.maxdamage This is the maximum damage dealt by the creature when unarmed.
 
-		/*
-		\rproperty char.maxdamage This is the maximum damage dealt by the creature when unarmed.
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "maxdamage", maxDamage() )
 
-		This property is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "maxdamage", maxDamage() )
+	/*
+	\rproperty char.mintaming This is the minimum taming skill required to tame this creature.
+	This has no meaning for player characters.
 
-		/*
-		\rproperty char.mintaming This is the minimum taming skill required to tame this creature.
-		This has no meaning for player characters.
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "mintaming", minTaming() )
 
-		This property is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "mintaming", minTaming() )
+	/*
+	\rproperty char.carve This is the name of the list of items created when a dagger is
+	used on the corpse of this creature.
 
-		/*
-		\rproperty char.carve This is the name of the list of items created when a dagger is
-		used on the corpse of this creature.
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "carve", carve() )
 
-		This property is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "carve", carve() )
+	/*
+	\rproperty char.lootpacks This is a semicolon separated list of lootpacks that are created
+	in the corpse of this creature.
+	This has no meaning for player characters.
 
-		/*
-		\rproperty char.lootpacks This is a semicolon separated list of lootpacks that are created
-		in the corpse of this creature.
-		This has no meaning for player characters.
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "lootpacks", lootPacks() )
 
-		This property is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "lootpacks", lootPacks() )
+	/*
+	\rproperty char.controlslots The amount of follower slots this npc will consume when owned
+	by a player.
 
-		/*
-		\rproperty char.controlslots The amount of follower slots this npc will consume when owned
-		by a player.
+	This property is exclusive to npcs and is inherited from the definition referenced by the baseid property.
+	*/
+	PY_PROPERTY( "controlslots", controlSlots() )
 
-		This property is exclusive to npcs and is inherited from the definition referenced by the baseid property.
-		*/
-	else
-		GET_PROPERTY( "controlslots", controlSlots() )
-
-		// skill.
-	else if ( name.left( 6 ) == "skill." )
-	{
+	if (name.left(6) == "skill.") {
 		QString skill = name.right( name.length() - 6 );
 		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
-		if ( skillId != -1 )
-		{
-			value = cVariant( this->skillValue( skillId ) );
-			return 0;
+		if (skillId != -1) {
+			return createPyObject(skillValue(skillId));
 		}
 		// skillcap.
-	}
-	else if ( name.left( 9 ) == "skillcap." )
-	{
+	} else if (name.left(9) == "skillcap.") {
 		QString skill = name.right( name.length() - 9 );
 		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
-		if ( skillId != -1 )
-		{
-			value = cVariant( this->skillCap( skillId ) );
-			return 0;
+		if (skillId != -1) {
+			return createPyObject(skillCap(skillId));
 		}
-	}
-	else
-	{
+	} else {
 		// See if there's a skill by that name
 		INT16 skillId = Skills::instance()->findSkillByDef( name );
 
-		if ( skillId != -1 )
-		{
-			value = cVariant( skillValue( skillId ) );
-			return 0;
+		if (skillId != -1) {
+			return createPyObject(skillValue(skillId));
 		}
 	}
-
-
-	return cUObject::getProperty( name, value );
+	return cUObject::getProperty(name);
 }
 
 void cBaseChar::setSkillValue( UINT16 skill, UINT16 value )

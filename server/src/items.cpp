@@ -1983,112 +1983,79 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 	return cUObject::setProperty( name, value );
 }
 
-stError* cItem::getProperty( const QString& name, cVariant& value )
-{
-	GET_PROPERTY( "id", id_ )
+PyObject* cItem::getProperty(const QString& name) {
+	PY_PROPERTY( "id", id_ )
 	/*
-	 \rproperty item.lightsource For lightsources this is the type of the light.
-	 This property is inherited from the definition specified in the baseid property.
-	*/
-	else
-		GET_PROPERTY( "lightsource", lightsource() )
+	\rproperty item.lightsource For lightsources this is the type of the light.
 
+	This property is inherited from the definition specified in the baseid property.
+	*/
+	PY_PROPERTY( "lightsource", lightsource() )
 	/*
 	\rproperty item.decaydelay The decay delay for this item in miliseconds.
+
 	This is 0 if the item won't decay.
 	*/
-	else
-		GET_PROPERTY( "decaydelay", (int)decayDelay() )
+	PY_PROPERTY( "decaydelay", (int)decayDelay() )
 
-	else
-		GET_PROPERTY( "baseid", baseid() )
-	else
-		GET_PROPERTY( "color", color_ )
-	else
-		GET_PROPERTY( "amount", amount_ )
-	else
-		GET_PROPERTY( "layer", layer_ )
-		/*
-		\rproperty item.type The type value of an object. Used to group weapons,
-		armor and other equipables, as well as usable objects.
-		This property is inherited from the definition specified in the baseid property.
-		*/
-	else
-		GET_PROPERTY( "type", type() )
-		/*
-		\rproperty item.weight The weight value of the object.
-		This property is inherited from the definition specified in the baseid property.
-		*/
-	else
-		GET_PROPERTY( "weight", weight() )
-		/*
-		\rproperty item.sellprice The value at which this object can be sold to vendors.
-		This property is inherited from the definition specified in the baseid property.
-		*/
-	else
-		GET_PROPERTY( "sellprice", ( int ) sellprice() )
-
-		/*
-		\rproperty item.buyprice The value at which this object is bought from vendors.
-		This property is inherited from the definition specified in the baseid property.
-		*/
-	else
-		GET_PROPERTY( "buyprice", ( int ) buyprice() )
-
-	else
-		GET_PROPERTY( "health", hp_ )
-	else
-		GET_PROPERTY( "maxhealth", maxhp_ )
-	else
-		GET_PROPERTY( "owner", owner() )
-	else
-		GET_PROPERTY( "totalweight", totalweight_ )
-
-		// container
-	else if ( name == "container" )
-	{
-		if ( container_ && container_->isItem() )
-			value = cVariant( dynamic_cast<P_ITEM>( container_ ) );
-		else if ( container_ && container_->isChar() )
-			value = cVariant( dynamic_cast<P_CHAR>( container_ ) );
-		else
-			value = cVariant( ( P_ITEM ) 0 );
-
-		return 0;
-	}
-
-		// Visible
-	else
-		GET_PROPERTY( "visible", visible_ == 0 ? 1 : 0 )
-	else
-		GET_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
-	else
-		GET_PROPERTY( "movable", magic_ )
-
-		// Flags
-	else
-		GET_PROPERTY( "dye", dye() ? 1 : 0 )
-	else
-		GET_PROPERTY( "decay", priv_ & 0x01 ? 0 : 1 )
-	else
-		GET_PROPERTY( "newbie", priv_ & 0x02 ? 1 : 0 )
-	else
-		GET_PROPERTY( "dispellable", priv_ & 0x04 ? 1 : 0 )
-	else
-		GET_PROPERTY( "secured", priv_ & 0x08 ? 1 : 0 )
-	else
-		GET_PROPERTY( "allowmeditation", priv_ & 0x10 ? 1 : 0 )
-	else
-		GET_PROPERTY( "twohanded", priv_ & 0x20 ? 1 : 0 )
+	PY_PROPERTY( "baseid", baseid() )
+	PY_PROPERTY( "color", color_ )
+	PY_PROPERTY( "amount", amount_ )
+	PY_PROPERTY( "layer", layer_ )
 	/*
-		\rproperty item.corpse Specifies whether this item is a corpse or not.
+	\rproperty item.type The type value of an object. Used to group weapons,
+	armor and other equipables, as well as usable objects.
+
+	This property is inherited from the definition specified in the baseid property.
 	*/
-	else
-		GET_PROPERTY( "corpse", corpse() )
-	else
-		GET_PROPERTY( "visible", visible() )
-	else
-		return cUObject::getProperty( name, value );
+	PY_PROPERTY( "type", type() )
+	/*
+	\rproperty item.weight The weight value of the object.
+
+	This property is inherited from the definition specified in the baseid property.
+	*/
+	PY_PROPERTY( "weight", weight() )
+	/*
+	\rproperty item.sellprice The value at which this object can be sold to vendors.
+
+	This property is inherited from the definition specified in the baseid property.
+	*/
+	PY_PROPERTY( "sellprice", ( int ) sellprice() )
+	/*
+	\rproperty item.buyprice The value at which this object is bought from vendors.
+
+	This property is inherited from the definition specified in the baseid property.
+	*/
+	PY_PROPERTY( "buyprice", ( int ) buyprice() )
+
+	PY_PROPERTY( "health", hp_ )
+	PY_PROPERTY( "maxhealth", maxhp_ )
+	PY_PROPERTY( "owner", owner() )
+	PY_PROPERTY( "totalweight", totalweight_ )
+	// container
+	PY_PROPERTY( "container", container_ )
+	// Visible
+	PY_PROPERTY( "visible", visible_ == 0 ? 1 : 0 )
+	PY_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
+	PY_PROPERTY( "magic", magic_ )
+	// Flags
+	PY_PROPERTY( "dye", dye() ? 1 : 0 )
+	PY_PROPERTY( "decay", priv_ & 0x01 ? 0 : 1 )
+	PY_PROPERTY( "newbie", priv_ & 0x02 ? 1 : 0 )
+	PY_PROPERTY( "dispellable", priv_ & 0x04 ? 1 : 0 )
+	PY_PROPERTY( "secured", priv_ & 0x08 ? 1 : 0 )
+	PY_PROPERTY( "allowmeditation", priv_ & 0x10 ? 1 : 0 )
+	PY_PROPERTY( "twohanded", priv_ & 0x20 ? 1 : 0 )
+	/*
+	\rproperty item.corpse Specifies whether this item is a corpse or not.
+	*/
+	PY_PROPERTY( "corpse", corpse() )
+	PY_PROPERTY( "visible", visible() )
+	PY_PROPERTY( "visible", visible_ == 0 ? 1 : 0 )
+	PY_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
+	PY_PROPERTY( "movable", magic_ )
+	
+	return cUObject::getProperty( name );
 }
 
 void cItem::sendTooltip( cUOSocket* mSock )
@@ -2370,3 +2337,4 @@ unsigned int cItem::decayDelay() {
 
 	return Config::instance()->itemDecayTime() * MY_CLOCKS_PER_SEC;
 }
+

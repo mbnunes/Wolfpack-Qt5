@@ -48,6 +48,10 @@ typedef struct
 	cAccount* account;
 } wpAccount;
 
+static PyObject *wpAccount_str(wpAccount *self) {
+	return QString2Python(self->account->login());
+}
+
 // Forward Declarations
 static PyObject* wpAccount_getAttr( wpAccount* self, char* name );
 static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value );
@@ -67,6 +71,13 @@ static PyTypeObject wpAccountType =
 	( getattrfunc ) wpAccount_getAttr,
 	( setattrfunc ) wpAccount_setAttr,
 	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0, // Call
+	(reprfunc)wpAccount_str
 };
 
 /*

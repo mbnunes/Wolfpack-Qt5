@@ -87,6 +87,8 @@ enum ePythonEvent
 };
 
 class cElement;
+class cTerritory;
+class cAccount;
 
 class cPythonScript
 {
@@ -140,11 +142,6 @@ struct stError
 };
 
 #define PROPERTY_ERROR(errno, data) { stError *errRet = new stError; errRet->code = errno; errRet->text = data; return errRet; }
-
-#define GET_PROPERTY(id, getter) if( name == id ) {\
-	value = cVariant(getter); \
-	return 0; \
-}
 
 #define SET_STR_PROPERTY( id, setter ) if( name == id ) {\
 	QString text = value.toString(); \
@@ -238,11 +235,75 @@ public:
 		\brief Gets a property of this object.
 		This method gets a property of this object and stores it's value in \a value.
 		\param name The name of the property.
-		\param value A reference to the variant the value should be stored in.
-		\returns If an error occured it returns a pointer to an error structure. The callee is responsible
-			for freeing this structure, otherwise a null pointer is returned.
+		\returns A python object with the value or None.
 	*/
-	virtual stError* getProperty( const QString& name, cVariant& value );
+	virtual PyObject *getProperty(const QString &name);
+
+	// Functions for creating python representations of objects
+	inline PyObject *createPyObject(cPythonScriptable *object) {
+		if (object) {
+			return object->getPyObject();
+		} else {
+			Py_INCREF(Py_None);
+			return Py_None;
+		}
+	}
+
+	inline PyObject *createPyObject(cTerritory *object) {
+		if (object) {
+			return PyGetRegionObject(object);
+		} else {
+			Py_INCREF(Py_None);
+			return Py_None;
+		}
+	}
+
+	inline PyObject *createPyObject(cAccount *object) {
+		if (object) {
+			return PyGetAccountObject(object);
+		} else {
+			Py_INCREF(Py_None);
+			return Py_None;
+		}
+	}
+
+	inline PyObject *createPyObject(int value) {
+		return PyInt_FromLong(value);
+	}
+
+	inline PyObject *createPyObject(bool value) {
+		if (value) {
+			Py_INCREF(Py_True);
+			return Py_True;
+		} else {
+			Py_INCREF(Py_False);
+			return Py_False;
+		}
+	}
+
+	inline PyObject *createPyObject(const Coord_cl &pos) {
+		return PyGetCoordObject(pos);
+	}
+
+	inline PyObject *createPyObject(unsigned int value) {
+		return PyInt_FromLong(value);
+	}
+
+	inline PyObject *createPyObject(const QCString &value) {
+		return QString2Python(value.data());
+	}
+
+	inline PyObject *createPyObject(const QString &value) {
+		return QString2Python(value);
+	}
+
+	inline PyObject *createPyObject(double value) {
+		return PyFloat_FromDouble(value);
+	}
+
+#define PY_PROPERTY(namestr, getter) if ((namestr == name)) { \
+		return createPyObject((getter)); \
+	}
 };
 
 #endif

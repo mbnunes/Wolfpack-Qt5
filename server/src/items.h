@@ -513,7 +513,7 @@ public:
 
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 	virtual stError* setProperty( const QString& name, const cVariant& value );
-	virtual stError* getProperty( const QString& name, cVariant& value );
+	virtual PyObject* getProperty(const QString& name);
 
 	////
 	virtual void flagUnchanged()

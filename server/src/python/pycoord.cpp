@@ -40,15 +40,22 @@ typedef struct
 	Coord_cl coord;
 } wpCoord;
 
+// Return a string representation for a coord object.
+static PyObject *wpCoord_str(wpCoord *object) {
+	const Coord_cl &pos = object->coord;
+	return PyString_FromFormat("%i,%i,%i,%i", pos.x, pos.y, (int)pos.z, pos.map);
+}
+
+
 // Forward Declarations
 static PyObject* wpCoord_getAttr( wpCoord* self, char* name );
 static int wpCoord_setAttr( wpCoord* self, char* name, PyObject* value );
+static int wpCoord_compare(PyObject *a, PyObject *b);
 
 /*!
 	The typedef for Wolfpack Python items
 */
-PyTypeObject wpCoordType =
-{
+PyTypeObject wpCoordType = {
 	PyObject_HEAD_INIT( NULL )
 	0,
 	"WPCoord",
@@ -58,8 +65,30 @@ PyTypeObject wpCoordType =
 	0,
 	( getattrfunc ) wpCoord_getAttr,
 	( setattrfunc ) wpCoord_setAttr,
+	(cmpfunc)wpCoord_compare,
 	0,
+	0,
+	0,
+	0,
+	0,
+	0, // Call
+	(reprfunc)wpCoord_str
 };
+
+static int wpCoord_compare(PyObject *a, PyObject *b) {
+	// Both have to be coordinates
+	if (a->ob_type != &wpCoordType || b->ob_type != &wpCoordType)
+		return -1;
+
+	const Coord_cl &posa = ((wpCoord*)a)->coord;
+	const Coord_cl &posb = ((wpCoord*)b)->coord;
+	
+	if (posa.x != posb.x || posa.y != posb.y || posa.z != posb.z || posa.map != posb.map) {
+		return -1;
+	} else {
+		return 0;
+	}
+}
 
 /*
 	\method coord.distance

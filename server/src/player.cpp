@@ -1231,35 +1231,24 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 	return cBaseChar::setProperty( name, value );
 }
 
-stError* cPlayer::getProperty( const QString& name, cVariant& value )
-{
-	GET_PROPERTY( "account", ( account_ != 0 ) ? account_->login() : QString( "" ) )
+PyObject *cPlayer::getProperty(const QString& name) {
+	PY_PROPERTY("account", account_)	
 	/*
 	\rproperty controlslots The amount of controlslots currently used for this
 	player.
 	This property is only available for player objects.
 	*/
-	else
-		GET_PROPERTY( "controlslots", ( int ) controlslots() )
-	else
-		GET_PROPERTY( "logouttime", ( int ) logoutTime_ )
-	else
-		GET_PROPERTY( "npc", false )
-	else
-		GET_PROPERTY( "lightbonus", fixedLightLevel_ )
-	else
-		GET_PROPERTY( "objectdelay", ( int ) objectDelay_ )
-	else
-		GET_PROPERTY( "visrange", visualRange_ )
-	else
-		GET_PROPERTY( "profile", profile_ )
-	else
-		GET_PROPERTY( "strengthlock", strengthLock_ )
-	else
-		GET_PROPERTY( "dexteritylock", dexterityLock_ )
-	else
-		GET_PROPERTY( "intelligencelock", intelligenceLock_ )
-	return cBaseChar::getProperty( name, value );
+	PY_PROPERTY( "controlslots",  controlslots() )
+	PY_PROPERTY( "logouttime",  logoutTime_ )
+	PY_PROPERTY( "npc", false )
+	PY_PROPERTY( "lightbonus", fixedLightLevel_ )
+	PY_PROPERTY( "objectdelay",  objectDelay_ )
+	PY_PROPERTY( "visrange", visualRange_ )
+	PY_PROPERTY( "profile", profile_ )
+	PY_PROPERTY( "strengthlock", strengthLock_ )
+	PY_PROPERTY( "dexteritylock", dexterityLock_ )
+	PY_PROPERTY( "intelligencelock", intelligenceLock_ )
+	return cBaseChar::getProperty(name);
 }
 
 void cPlayer::awardFame( short amount )

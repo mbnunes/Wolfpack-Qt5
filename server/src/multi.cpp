@@ -70,9 +70,9 @@ stError* cMulti::setProperty( const QString& name, const cVariant& value )
 	return cItem::setProperty( name, value );
 }
 
-stError* cMulti::getProperty( const QString& name, cVariant& value )
+PyObject* cMulti::getProperty(const QString& name)
 {
-	return cItem::getProperty( name, value );
+	return cItem::getProperty(name);
 }
 
 void cMulti::moveTo( const Coord_cl& pos, bool noRemove )

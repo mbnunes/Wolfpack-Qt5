@@ -234,17 +234,13 @@ bool cShowTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 	else
 		pObject = pItem;
 
+	PyObject *result = pObject->getProperty(key);
 
-	cVariant result;
-	stError* error = pObject->getProperty( key, result );
-
-	if ( error )
-	{
-		socket->sysMessage( error->text );
-		delete error;
-		return true;
+	if (!result) {
+		socket->sysMessage(tr("Unknown property: '%1'").arg(key));
+	} else {
+		socket->sysMessage(tr("'%1' is '%2'").arg(key).arg(PyString_AsString(PyObject_Str(result))));
+		Py_DECREF(result);
 	}
-
-	socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( result.toString() ) );
 	return true;
 }

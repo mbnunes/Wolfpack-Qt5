@@ -219,7 +219,7 @@ public:
 	// Definable Methods
 	void processNode( const cElement* Tag );
 	stError* setProperty( const QString& name, const cVariant& value );
-	stError* getProperty( const QString& name, cVariant& value );
+	PyObject* getProperty(const QString& name);
 };
 #pragma pack()
 

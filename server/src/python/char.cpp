@@ -69,6 +69,11 @@ long wpChar_hash( wpChar* self )
 	return self->pChar->serial();
 }
 
+// Return a string representation for a char object.
+static PyObject *wpChar_str(wpChar *object) {
+	return PyString_FromFormat("0x%x", object->pChar->serial());
+}
+
 /*!
 	The typedef for Wolfpack Python chars
 */
@@ -90,7 +95,8 @@ static PyTypeObject wpCharType =
 	0,
 	0,
 	( hashfunc ) wpChar_hash,
-	0,
+	0, // Call
+	(reprfunc)wpChar_str
 };
 
 PyObject* PyGetCharObject( P_CHAR pChar )
@@ -2569,56 +2575,13 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 				\rproperty char.player True if this character is a player, false otherwise.
 				This property is exclusive to python scripts and overrides normal properties with the same name.
 			*/
-	}
-	else if ( !strcmp( "player", name ) )
-	{
+	} else if ( !strcmp( "player", name ) ) {
 		return self->pChar->objectType() == enPlayer ? PyTrue() : PyFalse();
-	}
-	else
-	{
-		cVariant result;
-		stError* error = self->pChar->getProperty( name, result );
-
-		if ( !error )
-		{
-			PyObject* obj = 0;
-
-			switch ( result.type() )
-			{
-			case cVariant::BaseChar:
-				obj = PyGetCharObject( result.toChar() );
-				break;
-			case cVariant::Item:
-				obj = PyGetItemObject( result.toItem() );
-				break;
-			case cVariant::Long:
-			case cVariant::Int:
-				obj = PyInt_FromLong( result.toInt() );
-				break;
-			case cVariant::String:
-				if ( result.toString().isNull() )
-					obj = PyUnicode_FromWideChar( L"", 0 );
-				else
-					obj = PyUnicode_FromUnicode( ( Py_UNICODE * ) result.toString().ucs2(), result.toString().length() );
-				break;
-			case cVariant::Double:
-				obj = PyFloat_FromDouble( result.toDouble() );
-				break;
-			case cVariant::Coord:
-				obj = PyGetCoordObject( result.toCoord() );
-				break;
-			}
-
-			if ( !obj )
-			{
-				PyErr_Format( PyExc_ValueError, "Unsupported Property Type: %s", result.typeName() );
-				return 0;
-			}
-
-			return obj;
+	} else {
+		PyObject *result = self->pChar->getProperty(name);
+		if (result) {
+			return result;
 		}
-		else
-			delete error;
 	}
 
 	// If no property is found search for a method
@@ -2714,7 +2677,7 @@ int wpChar_compare( PyObject* a, PyObject* b )
 	P_CHAR pA = getWpChar( a );
 	P_CHAR pB = getWpChar( b );
 
-	return !( pA == pB );
+	return !( pA->serial() == pB->serial() );
 }
 
 int PyConvertChar( PyObject* object, P_CHAR* character )
