@@ -29,29 +29,31 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+// Platform Includes
+#include "platform.h"
+
 #include "sertextfile.h"
+
+// System Includes
+#include <stdio.h>
 
 using namespace std;
 
-//##ModelId=3C5D92D00308
 void serTextFile::setVersion(unsigned int __version)
 {
 	_version = __version;
 }
 
-//##ModelId=3C5D92D002F3
 unsigned int serTextFile::getVersion()
 {
 	return _version;
 }
 
-//##ModelId=3C5D92D002FD
 unsigned int serTextFile::size()
 {
 	return _count;
 }
 
-//##ModelId=3C5D92D002B7
 void serTextFile::prepareReading(std::string ident)
 {
 	std::string fileName(ident);

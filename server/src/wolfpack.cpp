@@ -4051,15 +4051,15 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		switch(pi->morez)
 		{
 		case 1:
-			pc_p->hp=min(pc_p->hp+5+RandomNum(1,5)+pc_p->skill[17]/100,pc_p->st);
+			pc_p->hp=min(static_cast<signed short>(pc_p->hp+5+RandomNum(1,5)+pc_p->skill[17]/100), pc_p->st);
 			sysmessage(s, "You feel better!");
 			break;
 		case 2:
-			pc_p->hp=min(pc_p->hp+15+RandomNum(1,10)+pc_p->skill[17]/50, pc_p->st);
+			pc_p->hp=min(static_cast<signed short>(pc_p->hp+15+RandomNum(1,10)+pc_p->skill[17]/50), pc_p->st);
 			sysmessage(s, "You feel more healty!");
 			break;
 		case 3:
-			pc_p->hp=min(pc_p->hp+20+RandomNum(1,20)+pc_p->skill[17]/40, pc_p->st);
+			pc_p->hp=min(static_cast<signed short>(pc_p->hp+20+RandomNum(1,20)+pc_p->skill[17]/40), pc_p->st);
 			sysmessage(s, "You feel much more healty!");
 			break;
 		default:
