@@ -195,15 +195,34 @@ void unlockDataMutex() {
 	dataMutex.unlock();
 }
 
-//#if defined(_DEBUG)
-//#include <crash.h>
-//#endif
+#if defined(CRASHHANDLER)
+#include "bugreport/crashhandler.h"
+
+LONG CALLBACK exceptionCatcher(_EXCEPTION_POINTERS *exception) {
+	QString message = GetFaultReason(exception);
+	message += "\n";
+	message += "Stack Trace:\n";
+
+	DWORD options = GSTSO_PARAMS|GSTSO_MODULE|GSTSO_SYMBOL|GSTSO_SRCLINE;
+	const char* buff = GetFirstStackTraceString(options, exception);
+    do {
+        message.append(buff);
+		message.append("\n");
+        buff = GetNextStackTraceString(options, exception);
+    } while (buff);
+
+	throw wpException(" " + message);
+}
+#endif
 
 /*!
 	Main server entry point.
 */
 int main( int argc, char **argv )
 {
+#if defined(CRASHHANDLER)
+	SetUnhandledExceptionFilter(exceptionCatcher);
+#endif
 /*#if defined(_DEBUG)
 	InstallCrashHandler( HANDLE_HTTPREPORT, GSTSO_PARAMS | GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE );
 	SetCustomMessage("A crash occurred. Please send this bug report to developers\n");
@@ -355,7 +374,7 @@ int main( int argc, char **argv )
 	}
 	catch( wpException &exception )
 	{
-		Console::instance()->log( LOG_ERROR, exception.error() );
+		Console::instance()->log( LOG_ERROR, exception.error() + "\n" );
 		return 1;
 	}
 	catch( ... )
@@ -414,14 +433,11 @@ int main( int argc, char **argv )
 	}
 
 #if !defined(_DEBUG)
-	try
-	{
+	try {
 #endif
 		World::instance()->load();
 #if !defined(_DEBUG)
-	}
-	catch( QString &error )
-	{
+	} catch( QString &error ) {
 		Console::instance()->log( LOG_ERROR, error );
 		return 1;
 	}
@@ -466,30 +482,34 @@ int main( int argc, char **argv )
 		// Update our currenttime
 		uiCurrentTime = getNormalizedTime();
 
-		// Every 10th cycle we sleep for a while and give other threads processing time.
-		if (cycles == 10) {
-			cycles = 0;
+		try {
+			// Every 10th cycle we sleep for a while and give other threads processing time.
+			if (cycles == 10) {
+				cycles = 0;
 
-			// Python threading - start
-			_save = PyEval_SaveThread();
+				// Python threading - start
+				_save = PyEval_SaveThread();
 
-			switch( SrvParams->niceLevel() )
-			{
-				case 0: break;	// very unnice - hog all cpu time
-				case 1: if ( cNetwork::instance()->count() != 0) niceLevel.wait(10); else niceLevel.wait(100); break;
-				case 2: niceLevel.wait(10); break;
-				case 3: niceLevel.wait(40); break;// very nice
-				case 4: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(10); else niceLevel.wait(4000); break; // anti busy waiting
-				case 5: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(40); else niceLevel.wait(5000); break;
-				default: niceLevel.wait(10); break;
+				switch( SrvParams->niceLevel() )
+				{
+					case 0: break;	// very unnice - hog all cpu time
+					case 1: if ( cNetwork::instance()->count() != 0) niceLevel.wait(10); else niceLevel.wait(100); break;
+					case 2: niceLevel.wait(10); break;
+					case 3: niceLevel.wait(40); break;// very nice
+					case 4: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(10); else niceLevel.wait(4000); break; // anti busy waiting
+					case 5: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(40); else niceLevel.wait(5000); break;
+					default: niceLevel.wait(10); break;
+				}
+				qApp->processEvents( 40 );
+
+				// Python threading - end
+				PyEval_RestoreThread( _save );
+
+				// Unlock the main mutex to give the gui time for processing data
 			}
-			qApp->processEvents( 40 );
-
-			// Python threading - end
-			PyEval_RestoreThread( _save );
-
-			// Unlock the main mutex to give the gui time for processing data
-		}      
+		} catch (wpException e) {
+			Console::instance()->log(LOG_PYTHON, e.error() + "\n");
+		}
 
 		// Perform Threadsafe Actions
 		if (!actionQueue.empty()) {
@@ -498,12 +518,15 @@ int main( int argc, char **argv )
 				eActionType type = *(actionQueue.begin());
 				actionQueue.erase( actionQueue.begin() );
 
-				switch( type )
-				{
+				switch (type) {
 				case RELOAD_ACCOUNTS:
 					Console::instance()->sendProgress( "Reloading Accounts" );
 					lockDataMutex();
-					Accounts::instance()->reload();
+					try {
+						Accounts::instance()->reload();
+					} catch(wpException e) {
+						Console::instance()->log(LOG_PYTHON, e.error() + "\n");
+					}
 					unlockDataMutex();
 					Console::instance()->sendDone();
 					break;
@@ -511,21 +534,37 @@ int main( int argc, char **argv )
 				case RELOAD_CONFIGURATION:
 					Console::instance()->sendProgress( "Reloading Configuration" );
 					lockDataMutex();
-					SrvParams->reload();
+					try {
+						SrvParams->reload();
+					} catch(wpException e) {
+						Console::instance()->log(LOG_PYTHON, e.error() + "\n");
+					}
 					unlockDataMutex();
 					Console::instance()->sendDone();
 					break;
 
 				case RELOAD_SCRIPTS:
-					DefManager->reload();
+					try {
+						DefManager->reload();
+					} catch(wpException e) {
+						Console::instance()->log(LOG_PYTHON, e.error() + "\n");
+					}
 
 				case RELOAD_PYTHON:
-					ScriptManager::instance()->reload();
+					try {
+						ScriptManager::instance()->reload();
+					} catch(wpException e) {
+						Console::instance()->log(LOG_PYTHON, e.error() + "\n");
+					}
 					break;
 
 				case SAVE_WORLD:
 					lockDataMutex();
-					World::instance()->save();
+					try {
+						World::instance()->save();
+					} catch(wpException e) {
+						Console::instance()->log(LOG_PYTHON, e.error() + "\n");
+					}
 					unlockDataMutex();
 					break;
 				}
@@ -537,8 +576,19 @@ int main( int argc, char **argv )
 		Console::instance()->poll();
 
 		lockDataMutex();
-		cNetwork::instance()->poll();
-		Timing::instance()->poll();
+
+		try {
+			cNetwork::instance()->poll();
+		} catch(wpException e) {
+			Console::instance()->log(LOG_PYTHON, e.error() + "\n");
+		}
+
+		try {
+			Timing::instance()->poll();
+		} catch(wpException e) {
+			Console::instance()->log(LOG_PYTHON, e.error() + "\n");
+		}
+
 		unlockDataMutex();
 	}
 

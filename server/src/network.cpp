@@ -42,6 +42,7 @@
 #include "network/listener.h"
 #include "basechar.h"
 #include "player.h"
+#include "exceptions.h"
 
 // Library Includes
 #include <qstringlist.h>
@@ -139,10 +140,16 @@ void cNetwork::poll( void )
 			}
 			else
 			{
-				uoSocket->recieve();
+				try {
+					uoSocket->recieve();
 
-				if( uiCurrentTime % 500 == 0 ) // Once every 0.5 Seconds
-					uoSocket->poll();
+					if( uiCurrentTime % 500 == 0 ) // Once every 0.5 Seconds
+						uoSocket->poll();
+				} catch(wpException e) {
+					uoSocket->log(LOG_PYTHON, e.error() + "\n");
+					uoSocket->log(LOG_ERROR, "Disconnecting due to an unhandled exception.\n");
+					uoSocket->disconnect();
+				}
 			}
 		}
 

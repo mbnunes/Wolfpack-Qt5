@@ -18,7 +18,8 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/GR"
+				AdditionalOptions="/GR
+"
 				Optimization="0"
 				AdditionalIncludeDirectories="sqlite"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;QT_DLL;QT_NO_STL;QT_THREAD_SUPPORT"
@@ -66,7 +67,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
+			OutputDirectory="..\"
 			IntermediateDirectory="Release"
 			ConfigurationType="1"
 			CharacterSet="2"
@@ -82,7 +83,7 @@
 				OptimizeForProcessor="0"
 				OptimizeForWindowsApplication="TRUE"
 				AdditionalIncludeDirectories="sqlite;&quot;D:\coding\STLport-5.0-0125\stlport&quot;;D:\coding\msvcrt\include;qt"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS;CRASHHANDLER"
 				StringPooling="TRUE"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="0"
@@ -97,18 +98,22 @@
 				BrowseInformation="1"
 				WarningLevel="0"
 				Detect64BitPortabilityProblems="FALSE"
-				DebugInformationFormat="0"/>
+				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qt-mt322.lib ws2_32.lib comctl32.lib msvcrt.lib python23.lib"
+				AdditionalDependencies="qt-mt322.lib ws2_32.lib comctl32.lib msvcrt.lib python23.lib wininet.lib imagehlp.lib"
 				OutputFile="../wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories=";D:\coding\msvcrt\lib"
 				IgnoreAllDefaultLibraries="TRUE"
-				GenerateDebugInformation="FALSE"
+				GenerateDebugInformation="TRUE"
+				GenerateMapFile="TRUE"
+				MapFileName="$(OUTDIR)\wolfpack.map"
+				MapExports="TRUE"
+				MapLines="TRUE"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -815,6 +820,57 @@
 				RelativePath=".\ai\ai_monsters.cpp">
 			</File>
 		</Filter>
+		<Filter
+			Name="Bug Report"
+			Filter="">
+			<File
+				RelativePath=".\bugreport\crashhandler.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\bugreport\crashhandler.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\bugreport\internal.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\bugreport\nt4processinfo.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\bugreport\util.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ftol2.obj">
 			<FileConfiguration
@@ -823,6 +879,9 @@
 				<Tool
 					Name="VCCustomBuildTool"/>
 			</FileConfiguration>
+		</File>
+		<File
+			RelativePath=".\sehprolg.obj">
 		</File>
 	</Files>
 	<Globals>
