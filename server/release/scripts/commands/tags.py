@@ -94,7 +94,7 @@ def taginfo_response(player, arguments, target):
 		player.socket.sysmessage('You have to target an item or a character.')
 		return
 
-	tags = object.tags
+	tags = list(object.tags)
 
 	dialog = wolfpack.gumps.cGump()
 	dialog.setCallback(taginfo_callback)
