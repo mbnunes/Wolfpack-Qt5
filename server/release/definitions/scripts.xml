@@ -178,8 +178,6 @@
 	<script>npc.healer</script>
 	<script>npc.poison</script>
 	<script>npc.mount</script>
-	<script>npc.vendor</script>
-	<script>npc.vendor.packets</script>
 
 	<!-- Context menu scripts -->
 	<script>contextmenus.bankermenu</script>
