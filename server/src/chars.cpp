@@ -44,6 +44,7 @@
 #include "debug.h"
 #include "globals.h"
 #include "wolfpack.h"
+#include "iserialization.h"
 
 // Inline members
 
@@ -61,7 +62,7 @@ void cChar::setSerial(SERIAL ser)
 	this->ser4 = static_cast<unsigned char>(ser%256);
 	this->serial = ser;
 	if ( this->serial != INVALID_SERIAL)
-		cCharsManager::getCharsManager().registerChar(this);
+		cCharsManager::getInstance()->registerChar(this);
 }
 
 void cChar::Init(bool ser)
@@ -70,7 +71,7 @@ void cChar::Init(bool ser)
 
 	if (ser)
 	{
-		this->setSerial(cCharsManager::getCharsManager().getUnusedSerial());
+		this->setSerial(cCharsManager::getInstance()->getUnusedSerial());
 	}
 	else
 	{
@@ -714,4 +715,14 @@ int cChar::MyHome()
 		if(House[h]->OwnerSerial==this->serial)
 			return h;
 	return -1;
+}
+
+void cChar::Serialize(ISerialization &archive)
+{
+	if (archive.isReading())
+	{
+	}
+	else if ( archive.isWritting())
+	{
+	}
 }

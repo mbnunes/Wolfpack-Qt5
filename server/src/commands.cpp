@@ -972,7 +972,7 @@ void cCommands::DupeItem(int s, P_ITEM pi_target, int amount)
 #pragma note("Replace by a copy constructor before finishing items[]")
 	//memcpy(pi_c, pi_target, sizeof(cItem));
 	P_ITEM pi_c = new cItem(*pi_target);
-	pi_c->SetSerial(cItemsManager::getItemsManager().getUnusedSerial());
+	pi_c->SetSerial(cItemsManager::getInstance()->getUnusedSerial());
 	
 	pi_c->SetContSerial(pPack->serial);
 	pi_c->SetOwnSerial(pi_target->ownserial);

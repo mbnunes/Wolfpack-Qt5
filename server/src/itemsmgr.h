@@ -61,10 +61,10 @@ public:
 	void purge();
 	SERIAL getUnusedSerial() const;
 
-	static cItemsManager& getItemsManager()
+	static cItemsManager* getInstance()
 	{
 		static cItemsManager theItemsManager;
-		return theItemsManager; 
+		return &theItemsManager; 
 	}
 };
 
@@ -76,15 +76,15 @@ protected:
 public:
 	AllItemsIterator()							
 	{ 
-		iterItems = cItemsManager::getItemsManager().begin(); 
+		iterItems = cItemsManager::getInstance()->begin(); 
 	}
 
 	virtual ~AllItemsIterator()					{ }
 	P_ITEM GetData(void)						{ return iterItems->second; }
-	P_ITEM First()								{ return cItemsManager::getItemsManager().begin()->second; }
+	P_ITEM First()								{ return cItemsManager::getInstance()->begin()->second; }
 	P_ITEM Begin()								
 	{
-		iterItems = cItemsManager::getItemsManager().begin();
+		iterItems = cItemsManager::getInstance()->begin();
 		return GetData();
 	}
 	P_ITEM Next()
@@ -92,7 +92,7 @@ public:
 		iterItems++;
 		return iterItems->second;
 	}
-	bool atEnd()									{ return (iterItems == cItemsManager::getItemsManager().end()); }
+	bool atEnd()									{ return (iterItems == cItemsManager::getInstance()->end()); }
 	AllItemsIterator& operator++(int)				{ iterItems++; return *this;				}
 	AllItemsIterator& operator--(int)				{ iterItems--; return *this;				}
 	void operator++()								{ ++iterItems;								}

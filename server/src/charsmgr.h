@@ -61,10 +61,10 @@ public:
 	void deleteChar( cChar* ) throw(wp_exceptions::bad_ptr);
 	void purge();
 
-	static cCharsManager& getCharsManager()
+	static cCharsManager* getInstance()
 	{
 		static cCharsManager theCharsManager;
-		return theCharsManager; 
+		return &theCharsManager; 
 	}
 };
 
@@ -76,15 +76,15 @@ protected:
 public:
 	AllCharsIterator()							
 	{ 
-		iterChars = cCharsManager::getCharsManager().begin(); 
+		iterChars = cCharsManager::getInstance()->begin(); 
 	}
 
 	virtual ~AllCharsIterator()					{ }
 	P_CHAR GetData(void)						{ return iterChars->second; }
-	P_CHAR First()								{ return cCharsManager::getCharsManager().begin()->second; }
+	P_CHAR First()								{ return cCharsManager::getInstance()->begin()->second; }
 	P_CHAR Begin()								
 	{
-		iterChars = cCharsManager::getCharsManager().begin();
+		iterChars = cCharsManager::getInstance()->begin();
 		return GetData();
 	}
 	P_CHAR Next()
@@ -92,7 +92,7 @@ public:
 		iterChars++;
 		return iterChars->second;
 	}
-	bool atEnd()									{ return (iterChars == cCharsManager::getCharsManager().end()); }
+	bool atEnd()									{ return (iterChars == cCharsManager::getInstance()->end()); }
 	AllCharsIterator& operator++(int)				{ iterChars++; return *this; }
 	AllCharsIterator& operator--(int)				{ iterChars--; return *this; }
 	void operator++()								{ ++iterChars;				 }

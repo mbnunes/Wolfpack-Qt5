@@ -137,8 +137,8 @@ P_ITEM FindItemBySerial(int serial)
 {
 	if (!isItemSerial(serial))
 		return NULL;
-	cItemsManager::iterator iterItems = cItemsManager::getItemsManager().find( serial );
-	if (iterItems == cItemsManager::getItemsManager().end()) 
+	cItemsManager::iterator iterItems = cItemsManager::getInstance()->find( serial );
+	if (iterItems == cItemsManager::getInstance()->end()) 
 		return NULL;
 	else 
 		return iterItems->second;
@@ -161,8 +161,8 @@ P_CHAR FindCharBySerial(int serial)
 {
 	if (!isCharSerial(serial))
 		return NULL;
-	cCharsManager::iterator iterChars = cCharsManager::getCharsManager().find( serial );
-	if ( iterChars == cCharsManager::getCharsManager().end())
+	cCharsManager::iterator iterChars = cCharsManager::getInstance()->find( serial );
+	if ( iterChars == cCharsManager::getInstance()->end())
 		return NULL;
 	else 
 		return iterChars->second;

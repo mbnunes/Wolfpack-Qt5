@@ -51,6 +51,7 @@
 //typedef struct char_st_
 class cChar : public cUObject
 {
+// Public Data Members
 public:
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	//  Chaos/Order Guild Stuff for Ripper
@@ -115,13 +116,6 @@ public:
 	int             keynumb;  // for renaming keys 
 	UI16			xskin; // Backup of skin color
 	unsigned int creationday ;	// Day since EPOCH this character was created on
-	
-protected:
-	unsigned char	priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
-	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
-	void	day(unsigned long day) ; // set the day it was created
-	unsigned long day() ;	// Retrieve the day it was created
-public:
 	unsigned char	gmrestrict;	// for restricting GMs to certain regions
 	char			priv2;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
 	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
@@ -132,25 +126,6 @@ public:
 	unsigned char			emotecolor2; // Color for emote messages
 	int				st; // Strength
 	int				st2; // Reserved for calculation
-	
-	// a temporary (quick&dirty) encapsulation for Dexterity. (Duke, 21.8.2001)
-protected:
-	short dx;		// Dexterity
-	short dx2;		// holds the 3 digits behind the decimal point. Reserved for calculation
-	short tmpDex;	// holds all temporary effects on Dex, eg. plate, spells, potions
-public:
-	virtual ~cChar() {}
-	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
-	short realDex()				{return dx;}	// returns the true Dexterity
-	short decDex()				{return dx2;}	// returns the 3 digits behind the decimal point
-	void  setDex(short val)		{dx = val;}		// set the true Dex
-	void  setDecDex(short val)	{dx2 = val;}	// set the 3 digits
-	void  chgDex(short val)		{tmpDex += val;}// intended for temporary changes of Dex
-	void  chgRealDex(short val) {dx += val;if(dx<1) dx=1;if(dx>100) dx=100;}	// intended for permanent changes of Dex
-	bool  incDecDex(short val)	{dx2 += val;
-	if (dx2>1000) {dx2-=1000;chgRealDex(1);return true;}
-	else return false;}
-	
 	int in; // Intelligence
 	int in2; // Reserved for calculation
 	int hp; // Hitpoints
@@ -329,6 +304,39 @@ public:
 	
 	unsigned long int time_unused;     
 	unsigned long int timeused_last;
+	// The bit for setting what effect gm movement 
+    // commands shows 
+    // 0 = off 
+    // 1 = FlameStrike 
+    // 2-6 = Sparkles
+    int gmMoveEff;
+
+	// Protected Data Members	
+protected:
+	unsigned char	priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
+	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
+	void	day(unsigned long day) ; // set the day it was created
+	unsigned long day() ;	// Retrieve the day it was created
+	// a temporary (quick&dirty) encapsulation for Dexterity. (Duke, 21.8.2001)
+	short dx;		// Dexterity
+	short dx2;		// holds the 3 digits behind the decimal point. Reserved for calculation
+	short tmpDex;	// holds all temporary effects on Dex, eg. plate, spells, potions
+
+	// Public Methods
+public:
+	virtual ~cChar() {}
+	virtual void Serialize(ISerialization &archive);
+	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
+	short realDex()				{return dx;}	// returns the true Dexterity
+	short decDex()				{return dx2;}	// returns the 3 digits behind the decimal point
+	void  setDex(short val)		{dx = val;}		// set the true Dex
+	void  setDecDex(short val)	{dx2 = val;}	// set the 3 digits
+	void  chgDex(short val)		{tmpDex += val;}// intended for temporary changes of Dex
+	void  chgRealDex(short val) {dx += val;if(dx<1) dx=1;if(dx>100) dx=100;}	// intended for permanent changes of Dex
+	bool  incDecDex(short val)	{dx2 += val;
+	if (dx2>1000) {dx2-=1000;chgRealDex(1);return true;}
+	else return false;}
+	
 	
 	short id()				{return (short)((id1<<8)+id2);}
 	void setId(short id)	{id1=id>>8;	id2=id&0x00FF;}
@@ -380,12 +388,6 @@ public:
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
 	void setSerial(SERIAL ser);
-	// The bit for setting what effect gm movement 
-    // commands shows 
-    // 0 = off 
-    // 1 = FlameStrike 
-    // 2-6 = Sparkles
-    int gmMoveEff;
 	void MoveTo(short newx, short newy, signed char newz);
 	void MoveToXY(short newx, short newy);
 	bool Owns(P_CHAR pc)	{return (serial==pc->ownserial);}

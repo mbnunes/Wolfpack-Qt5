@@ -624,7 +624,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 {
 	if (pc == NULL)
 		return;
-	if (pc->stablemaster_serial!=0) return;
+	if (pc->stablemaster_serial != INVALID_SERIAL) return;
 
 	int pcalc;
 	char t[120];
@@ -1080,8 +1080,8 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 	if ( freeUnusedMemory <= currenttime )
 	{
-		cItemsManager::getItemsManager().purge();
-		cCharsManager::getCharsManager().purge();
+		cItemsManager::getInstance()->purge();
+		cCharsManager::getInstance()->purge();
 		freeUnusedMemory = currenttime + MY_CLOCKS_PER_SEC*60*40; // check only each 40 minutes
 	}
 

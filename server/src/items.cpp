@@ -509,7 +509,7 @@ void cItem::SetSerial(long ser)
 	this->ser4=(unsigned char) ((ser&0x000000FF));
 	this->serial=ser;
 	if (ser != INVALID_SERIAL)
-		cItemsManager::getItemsManager().registerItem( this );
+		cItemsManager::getInstance()->registerItem( this );
 }
 
 // -- Initialize an Item in the items array
@@ -519,7 +519,7 @@ void cItem::Init(char mkser)
 
 	if (mkser)		// give it a NEW serial #
 	{
-		this->SetSerial(cItemsManager::getItemsManager().getUnusedSerial());
+		this->SetSerial(cItemsManager::getInstance()->getUnusedSerial());
 	}
 	else
 	{
@@ -677,9 +677,9 @@ void cAllItems::DeleItem(P_ITEM pi)
 				DeleItem(pContent);
 		}
 		// Remove from map
-		cItemsManager::getItemsManager().unregisterItem(pi);
+		cItemsManager::getInstance()->unregisterItem(pi);
 		// Queue for later delete.
-		cItemsManager::getItemsManager().deleteItem(pi);
+		cItemsManager::getInstance()->deleteItem(pi);
 	}
 	
 }

@@ -79,6 +79,8 @@ public:
 	virtual void write(std::string Key, std::string &data) = 0;
 	virtual void write(std::string Key, unsigned int data) = 0;
 	virtual void write(std::string Key, signed int data) = 0;
+	virtual void write(std::string Key, signed short data) = 0;
+	virtual void write(std::string Key, unsigned short data) = 0;
 	virtual void write(std::string Key, unsigned char data) = 0;
 	virtual void write(std::string Key, signed char data) = 0;
 	virtual void write(std::string Key, bool data) = 0;
@@ -89,6 +91,8 @@ public:
 	virtual void read(std::string Key, std::string   &data) = 0;
 	virtual void read(std::string Key, unsigned int  &data) = 0;
 	virtual void read(std::string Key, signed   int  &data) = 0;
+	virtual void read(std::string Key, signed short  &data) = 0;
+	virtual void read(std::string Key, unsigned short &data) = 0;
 	virtual void read(std::string Key, unsigned char &data) = 0;
 	virtual void read(std::string Key, signed   char &data) = 0;
 	virtual void read(std::string Key, bool          &data) = 0;

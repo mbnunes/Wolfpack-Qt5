@@ -298,7 +298,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 						//	pi_c->Init(0);
 #pragma note("Works for now, but need to change to prototype pattern later")
 						//memcpy(pi_c, pi, sizeof(cItem));  // Tauriel reduce code faster too
-						pi_c->SetSerial(cItemsManager::getItemsManager().getUnusedSerial());
+						pi_c->SetSerial(cItemsManager::getInstance()->getUnusedSerial());
 
 						pi_c->amount = pi->amount - amount;
 						pi_c->SetContSerial(pi_c->contserial);

@@ -88,6 +88,16 @@ void serTextFile::write(std::string Key, signed int data)
 	file << Key << " " << data << endl;
 }
 
+void serTextFile::write(std::string Key, signed short data)
+{
+	file << Key << " " << data << endl;
+}
+
+void serTextFile::write(std::string Key, unsigned short data)
+{
+	file << Key << " " << data << endl;
+}
+
 void serTextFile::write(std::string Key, unsigned char data)
 {
 	file << Key << " " << data << endl;
@@ -132,6 +142,20 @@ void serTextFile::read(std::string Key, unsigned int  &data)
 }
 
 void serTextFile::read(std::string Key, signed   int  &data)
+{
+	char buffer[256];
+	file.getline(buffer, 255, ' '); // first is key;
+	file >> data;
+}
+
+void serTextFile::read(std::string Key, signed short &data)
+{
+	char buffer[256];
+	file.getline(buffer, 255, ' '); // first is key;
+	file >> data;
+}
+
+void serTextFile::read(std::string Key, unsigned short &data)
 {
 	char buffer[256];
 	file.getline(buffer, 255, ' '); // first is key;

@@ -51,6 +51,13 @@ struct max_serialPred : binary_function<pair<SERIAL, cItem*>, pair<SERIAL, cItem
 	}
 };
 
+/*!
+ * Registers an item into the ItemsManager Instance and enable lookups by serial.
+ *
+ * @param pc : Pointer to item
+ *
+ * @return void  : none
+ */
 void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 {
 	if ( pi != NULL)
@@ -64,6 +71,13 @@ void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 	}
 }
 
+/*!
+ * Unregister from ItemsManager. Searches by serial will not find this item anymore.
+ *
+ * @param pc : Pointer to item. Item itself is unchanged.
+ *
+ * @return void  : none
+ */
 void cItemsManager::unregisterItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 {
 	if ( pi != NULL)
@@ -72,6 +86,13 @@ void cItemsManager::unregisterItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 		throw wp_exceptions::bad_ptr("Invalid argument PI at cItemsManager::unregisterItem");
 }
 
+/*!
+ * Returns an unused, valid Serial number for Items
+ *
+ * @param none
+ *
+ * @return SERIAL  : Valid serial number
+ */
 SERIAL cItemsManager::getUnusedSerial() const
 {
 //	typedef maxKeyPred<SERIAL, cItem*> max_serialPred;
@@ -79,6 +100,14 @@ SERIAL cItemsManager::getUnusedSerial() const
 	return max(0x40000001, lastUsedSerial + 1);
 }
 
+/*!
+ * Item is unregistered and queued for posterior delete. No more references to this
+ * item should be made.
+ *
+ * @param pc : Pointer to item
+ *
+ * @return void  : none
+ */
 void cItemsManager::deleteItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 {
 	if ( pi != NULL)
@@ -90,6 +119,13 @@ void cItemsManager::deleteItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 		throw wp_exceptions::bad_ptr("Invalid argument pi at cItemsManager::deleteItem");
 }
 
+/*!
+ * Free memory of items queued for delete.
+ *
+ * @param none
+ *
+ * @return void  : none
+ */
 void cItemsManager::purge()
 {
 	list<cItem*>::iterator it;

@@ -70,6 +70,8 @@ public:
 	virtual void write(std::string Key, std::string &data);
 	virtual void write(std::string Key, unsigned int data);
 	virtual void write(std::string Key, signed int data);
+	virtual void write(std::string Key, signed short data);
+	virtual void write(std::string Key, unsigned short data);
 	virtual void write(std::string Key, unsigned char data);
 	virtual void write(std::string Key, signed char data);
 	virtual void write(std::string Key, bool data);
@@ -79,12 +81,14 @@ public:
 	// Read Methods
 	virtual void readObjectID(std::string &data);
 
-	virtual void read(std::string Key, std::string   &data);
-	virtual void read(std::string Key, unsigned int  &data);
-	virtual void read(std::string Key, signed   int  &data);
-	virtual void read(std::string Key, unsigned char &data);
-	virtual void read(std::string Key, signed   char &data);
-	virtual void read(std::string Key, bool          &data);
+	virtual void read(std::string Key, std::string    &data);
+	virtual void read(std::string Key, unsigned int   &data);
+	virtual void read(std::string Key, signed   int   &data);
+	virtual void read(std::string Key, unsigned short &data);
+	virtual void read(std::string Key, signed short   &data);
+	virtual void read(std::string Key, unsigned char  &data);
+	virtual void read(std::string Key, signed   char  &data);
+	virtual void read(std::string Key, bool           &data);
 };
 
 #endif // __SERTEXTFILE_H__

@@ -52,6 +52,14 @@ struct max_serialPred : binary_function<pair<SERIAL, cChar*>, pair<SERIAL, cChar
 	}
 };
 
+
+/*!
+ * Registers a character into the CharsManager Instance and enable lookups by serial.
+ *
+ * @param pc : Pointer to character
+ *
+ * @return void  : none
+ */
 void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 {
 	if ( pc != NULL)
@@ -65,6 +73,14 @@ void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 	}
 }
 
+
+/*!
+ * Unregister from CharsManager. Searches by serial will not find this char anymore.
+ *
+ * @param pc : Pointer to character. Character itself is unchanged.
+ *
+ * @return void  : none
+ */
 void cCharsManager::unregisterChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 {
 	if ( pc != NULL)
@@ -73,6 +89,14 @@ void cCharsManager::unregisterChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 		throw wp_exceptions::bad_ptr("Invalid argument pc at cCharsManager::unregisterChar");
 }
 
+
+/*!
+ * Returns an unused, valid Serial number for Characters
+ *
+ * @param none
+ *
+ * @return SERIAL  : Valid serial number
+ */
 SERIAL cCharsManager::getUnusedSerial() const
 {
 //	typedef maxKeyPred<SERIAL, cChar*> max_serialPred;
@@ -80,6 +104,15 @@ SERIAL cCharsManager::getUnusedSerial() const
 	return max(1, lastUsedSerial+1); // no serial 0
 }
 
+
+/*!
+ * Character is unregistered and queued for posterior delete. No more references to this
+ * character should be made.
+ *
+ * @param pc : Pointer to character
+ *
+ * @return void  : none
+ */
 void cCharsManager::deleteChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 {
 	if ( pc != NULL)
@@ -91,6 +124,14 @@ void cCharsManager::deleteChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 		throw wp_exceptions::bad_ptr("Invalid argument pc at cCharsManager::deleteChar");
 }
 
+
+/*!
+ * Free memory of chars queued for delete.
+ *
+ * @param none
+ *
+ * @return void  : none
+ */
 void cCharsManager::purge()
 {
 	list<cChar*>::iterator it;

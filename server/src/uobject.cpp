@@ -66,19 +66,37 @@ void cUObject::init()
 	this->free = false;
 }
 
+
+/*!
+ * Provides persistence for instances of UOBject
+ *
+ * @param &archive : an ISerialization descendent.
+ *
+ * @return void  : none.
+ */
 void cUObject::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
 	{
-	//	archive.read("name", name);
+		archive.read("name", name);
 		archive.read("serial", serial);
 		archive.read("multis", multis);
+		archive.read("pos.x", pos.x);
+		archive.read("pos.y", pos.y);
+		archive.read("pos.z", pos.z);
+		archive.read("pos.map", pos.map);
+		archive.read("pos.plane", pos.plane);
 	}
 	else if (archive.isWritting())
 	{
-	//	archive.write("name", name);
+		archive.write("name", name);
 		archive.write("serial", serial);
 		archive.write("multis", multis);
+		archive.write("pos.x", pos.x);
+		archive.write("pos.y", pos.y);
+		archive.write("pos.z", pos.z);
+		archive.write("pos.map", pos.map);
+		archive.write("pos.plane", pos.plane);
 	}
 	archive.doneWritting();
 }

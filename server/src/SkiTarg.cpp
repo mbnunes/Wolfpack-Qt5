@@ -360,7 +360,7 @@ void cSkills::TasteIDTarget(int s)
 			
 			// Identify Item by Antichrist // Changed by MagiusCHE)
 			if (CheckSkill(pc_currchar, TASTEID, 250, 500))
-				if (pi->name2 == "#")
+				if (pi->name2 != "#")
 					pi->name = pi->name2; // Item identified! -- by Magius(CHE)
 				
 				// ANTICHRIST -- FOR THE "#" BUG -- now you see the real name
