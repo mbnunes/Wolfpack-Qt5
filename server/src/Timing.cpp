@@ -90,7 +90,7 @@ void cTiming::poll() {
 		SpawnRegions::instance()->check();
 		nextSpawnRegionCheck = time + SrvParams->spawnRegionCheckTime() * MY_CLOCKS_PER_SEC;
 	}
-	
+
 	// Check for decay items
 	if (nextItemCheck <= time) {
 		QPtrList<cItem> toRemove;
@@ -98,7 +98,7 @@ void cTiming::poll() {
 		cItemIterator iter;
 		cItem *item;
 		for (item = iter.first(); item; item = iter.next()) {
-			if (item->isInWorld() && item->decaytime() <= time && !item->multi()) {
+			if (item->isInWorld() && ( item->decaytime() > 0 && item->decaytime() <= time ) && !item->multi() ) {
 				toRemove.append(item);
 			}
 		}
@@ -167,7 +167,7 @@ void cTiming::poll() {
 
 	if (nextCombatCheck <= time) {
 		nextCombatCheck = time + 250;
-		
+
 		// Check for timed out fights
 		QPtrList<cFightInfo> fights = Combat::instance()->fights();
 		fights.setAutoDelete(false);
@@ -175,10 +175,10 @@ void cTiming::poll() {
 		todelete.setAutoDelete(true);
 		cFightInfo *info;
 		for (info = fights.first(); info; info = fights.next()) {
-			// 60 Seconds without melee contact and 
+			// 60 Seconds without melee contact and
 			// combatants are out of range...
 			if (info->lastaction() + 60000 <= time) {
-				if (info->victim()->isDead() || info->attacker()->isDead() && 
+				if (info->victim()->isDead() || info->attacker()->isDead() &&
 					!info->attacker()->inRange(info->victim(), SrvParams->attack_distance())) {
 					todelete.append(info);
 				}
@@ -212,7 +212,7 @@ void cTiming::poll() {
 	}
 
 	// Check all other characters
-	if (nextNpcCheck <= time) 
+	if (nextNpcCheck <= time)
 	{
 		cCharIterator chariter;
 		for (P_CHAR character = chariter.first(); character; character = chariter.next()) {
@@ -241,21 +241,21 @@ void cTiming::poll() {
 			}
 		}
 
-		if (nextTamedCheck <= time) 
+		if (nextTamedCheck <= time)
 			nextTamedCheck = time + SrvParams->checkTamedTime() * MY_CLOCKS_PER_SEC;
 
-		if (nextNpcCheck <= time) 
+		if (nextNpcCheck <= time)
 			nextNpcCheck = time + SrvParams->checkNPCTime() * MY_CLOCKS_PER_SEC;
 	}
 
 	// Check the TempEffects
 	TempEffects::instance()->check();
 
-	if (nextHungerCheck <= time) 
+	if (nextHungerCheck <= time)
 		nextHungerCheck = time + SrvParams->hungerDamageRate() * MY_CLOCKS_PER_SEC;
 }
 
-void cTiming::checkRegeneration(P_CHAR character, unsigned int time) 
+void cTiming::checkRegeneration(P_CHAR character, unsigned int time)
 {
 	// Dead characters dont regenerate
 	if (character->isDead()) {
@@ -308,45 +308,45 @@ void cTiming::checkRegeneration(P_CHAR character, unsigned int time)
 	}
 }
 
-void cTiming::checkPlayer(P_PLAYER player, unsigned int time) 
+void cTiming::checkPlayer(P_PLAYER player, unsigned int time)
 {
 	cUOSocket *socket = player->socket();
 
 	// Criminal Flagging
-	if (player->criminalTime() > 0 && player->criminalTime() <= time) 
+	if (player->criminalTime() > 0 && player->criminalTime() <= time)
 	{
 		socket->sysMessage(tr("You are no longer criminal."));
 		player->setCriminalTime(0);
 	}
 
     // Murder Decay
-	if (player->murdererTime() > 0 && player->murdererTime() < time) 
+	if (player->murdererTime() > 0 && player->murdererTime() < time)
 	{
 		if (player->kills() > 0)
 			player->setKills(player->kills() - 1);
 
-		if ( player->kills() <= SrvParams->maxkills() && SrvParams->maxkills() > 0 ) 
+		if ( player->kills() <= SrvParams->maxkills() && SrvParams->maxkills() > 0 )
 			socket->sysMessage( tr( "You are no longer a murderer." ) );
 		else
 			player->setMurdererTime(time + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC);
 	}
 
 	// All food related things are disabled for gms
-	if (player->isGMorCounselor()) 
+	if (player->isGMorCounselor())
 	{
 		// Decrease food level
-		if (SrvParams->hungerRate() > 1 && (player->hungerTime() <= time )) 
+		if (SrvParams->hungerRate() > 1 && (player->hungerTime() <= time ))
 		{
-			if (player->hunger()) 
+			if (player->hunger())
 				player->setHunger(player->hunger() - 1);
-	
+
 			player->setHungerTime(time + SrvParams->hungerRate() * MY_CLOCKS_PER_SEC);
 		}
-	
+
 		// Damage if we are starving
-		if (SrvParams->hungerDamage() && nextHungerCheck <= time) 
+		if (SrvParams->hungerDamage() && nextHungerCheck <= time)
 		{
-			if (player->hitpoints() > 0 && player->hunger() < 2 && !player->isDead()) 
+			if (player->hitpoints() > 0 && player->hunger() < 2 && !player->isDead())
 			{
 				socket->sysMessage(tr("You are starving."));
 				player->damage(DAMAGE_HUNGER, SrvParams->hungerDamage());
@@ -355,7 +355,7 @@ void cTiming::checkPlayer(P_PLAYER player, unsigned int time)
 	}
 }
 
-void cTiming::checkNpc(P_NPC npc, unsigned int time) 
+void cTiming::checkNpc(P_NPC npc, unsigned int time)
 {
 	// Remove summoned npcs
 	if (npc->summoned() && npc->summonTime() <= time) {
@@ -374,16 +374,16 @@ void cTiming::checkNpc(P_NPC npc, unsigned int time)
 
 	// Hunger for npcs
 	// This only applies to tamed creatures
-	if (npc->isTamed() && SrvParams->hungerRate() && npc->hungerTime() <= time) 
+	if (npc->isTamed() && SrvParams->hungerRate() && npc->hungerTime() <= time)
 	{
-		if (npc->hunger()) 
+		if (npc->hunger())
 		{
 			npc->setHunger(npc->hunger() - 1);
 		}
 
 		npc->setHungerTime(time + SrvParams->hungerRate() * MY_CLOCKS_PER_SEC);
 
-		switch(npc->hunger()) 
+		switch(npc->hunger())
 		{
 		case 4:
 			npc->emote( tr("*%1 looks a little hungry*").arg(npc->name()), 0x26);
@@ -404,11 +404,11 @@ void cTiming::checkNpc(P_NPC npc, unsigned int time)
 			if (npc->owner()) {
 				npc->setOwner(0);
 			}
-	
+
 			npc->bark(cBaseChar::Bark_Attacking);
 			npc->talk(1043255, npc->name(), 0, false, 0x26);
 
-			if (SrvParams->tamedDisappear() == 1) 
+			if (SrvParams->tamedDisappear() == 1)
 			{
 				npc->soundEffect(0x1FE);
 				npc->remove();
