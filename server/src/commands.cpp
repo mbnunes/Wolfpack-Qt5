@@ -924,8 +924,7 @@ public:
 			pGump->addText( 50, 195, tr( "Properties: %1" ).arg( flags.join( ", " ) ), 0x834 );
 
 			// OK button
-			pGump->addButton( 90, 240, 0x481, 0x483, 0 ); // Only Exit possible
-			pGump->addText( 130, 240, tr( "Close" ), 0x834 );
+			pGump->addButton( 50, 240, 0xF9, 0xF8, 0 ); // Only Exit possible
 
 			socket->send( pGump );
 		}
@@ -958,8 +957,7 @@ public:
 			pGump->addText( 50, 220, tr( "Properties: %1" ).arg( flags.join( ", " ) ), 0x834 );
 
 			// OK button
-			pGump->addButton( 90, 275, 0x481, 0x483, 0 ); // Only Exit possible
-			pGump->addText( 130, 275, tr( "Close" ), 0x834 );
+			pGump->addButton( 50, 275, 0xF9, 0xF8, 0 ); // Only Exit possible
 
 			// Item Preview
 			pGump->addResizeGump( 300, 120, 0xBB8, 110, 150 );
@@ -1315,8 +1313,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 			pGump->addText( 50, 160, tr( "Items: %1 of %2" ).arg( cAllSpawnRegions::getInstance()->items() ).arg( cAllSpawnRegions::getInstance()->maxItems() ), 0x834 );
 			
 			// OK button
-			pGump->addButton( 90, 200, 0x481, 0x483, 0 ); // Only Exit possible
-			pGump->addText( 130, 200, tr( "Close" ), 0x834 );
+			pGump->addButton( 50, 200, 0xF9, 0xF8, 0 ); // Only Exit possible
 
 			socket->send( pGump );
 		}

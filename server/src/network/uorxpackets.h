@@ -435,4 +435,13 @@ public:
 	UINT16 color() { return getShort( 7 ); }
 };
 
+// 0x9B Help Request - nice one :D
+class cUORxHelpRequest : public cUOPacket
+{
+public:
+	cUORxHelpRequest( const QByteArray &data ) : cUOPacket( data ) {}
+};
+
 #endif
+
+

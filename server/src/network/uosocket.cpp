@@ -240,6 +240,8 @@ void cUOSocket::recieve()
 		handleBookPage( dynamic_cast< cUORxBookPage* >( packet ) ); break;
 	case 0x93:
 		handleUpdateBook( dynamic_cast< cUORxUpdateBook* >( packet ) ); break;
+	case 0x9B:
+		handleHelpRequest( dynamic_cast< cUORxHelpRequest* >( packet ) ); break;
 	case 0x12:
 		handleAction( dynamic_cast< cUORxAction* >( packet ) ); break;
 	case 0xB1:
@@ -1890,4 +1892,10 @@ void cUOSocket::sendBuyWindow( P_CHAR pVendor )
 	drawContainer.setSerial( pVendor->serial );
 	drawContainer.setGump( 0x30 );
 	send( &drawContainer );
+}
+
+void cUOSocket::handleHelpRequest( cUORxHelpRequest* packet )
+{
+	cHelpGump* pGump = new cHelpGump( this->player()->serial );
+	send( pGump );
 }

@@ -131,6 +131,7 @@ public:
 	void handleUpdateBook( cUORxUpdateBook* packet );
 	void handleAction( cUORxAction* packet );
 	void handleGumpResponse( cUORxGumpResponse* packet );
+	void handleHelpRequest( cUORxHelpRequest* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );

@@ -56,6 +56,7 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	case 0x22:		return new cUORxResyncWalk( data );
 	case 0x2C:		return new cUORxResurrectionMenu( data );
 	case 0x34:		return new cUORxQuery( data );
+	case 0x3B:		return new cUORxBuy( data );
 	case 0x5D:		return new cUORxPlayCharacter( data );
 	case 0x66:		return new cUORxBookPage( data );
 	case 0x6C:		return new cUORxTarget( data );
@@ -66,6 +67,8 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	case 0x83:		return new cUORxDeleteCharacter( data );
 	case 0x91:		return new cUORxServerAttach( data );
 	case 0x93:		return new cUORxUpdateBook( data );
+	case 0x95:		return new cUORxDye( data );
+	case 0x9B:		return new cUORxHelpRequest( data );
 	case 0xA0:		return new cUORxSelectShard( data );
 	case 0xA4:		return new cUORxHardwareInfo( data );
 	case 0xA7:		return new cUORxGetTip( data );
@@ -74,8 +77,6 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	case 0xBF:		return new cUORxMultiPurpose( data );
 	case 0xBD:		return new cUORxSetVersion( data );
 	case 0xC8:		return new cUORxUpdateRange( data );
-	case 0x3B:		return new cUORxBuy( data );
-	case 0x95:		return new cUORxDye( data );
 	default:		return new cUOPacket( data );
 	};	
 }
@@ -143,13 +144,13 @@ gumpChoice_st cUORxGumpResponse::choice()
 	{
 		choice.switches.push_back( getInt( 19 + 4 * i ) );
 	}
-	UINT32 numTextEntries = getInt( 19 + numSwitches );
+	UINT32 numTextEntries = getInt( 19 + 4 * numSwitches );
 	UINT32 offset = 0;
 	for( i = 0; i < numTextEntries; i++ )
 	{
-		UINT16 textLength = getShort( 25 + numSwitches + offset );
+		UINT16 textLength = getShort( 25 + 4 * numSwitches + offset );
 		choice.textentries.insert( 
-			make_pair< UINT16, QString >( getShort( 23 + numSwitches + offset ), getUnicodeString( 27 + numSwitches + offset, textLength * 2 ) ) );
+			make_pair< UINT16, QString >( getShort( 23 + 4 * numSwitches + offset ), getUnicodeString( 27 + 4 * numSwitches + offset, textLength * 2 ) ) );
 
 		offset += 4 + textLength * 2;
 	}

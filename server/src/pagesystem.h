@@ -35,9 +35,11 @@
 // Wolfpack includes
 #include "typedefs.h"
 #include "globals.h"
+#include "wpdefmanager.h"
 
 // Library includes
 #include "qstring.h"
+#include "qstringlist.h"
 #include <deque>
 
 enum WPPAGE_TYPE
@@ -54,6 +56,7 @@ private:
 	QString		pagetime_;
 	Coord_cl	pagepos_;
 	QString		content_;
+	UINT32		pagecateg_;
 public:
 	cPage( SERIAL charserial, WPPAGE_TYPE pagetype, QString content, Coord_cl pagepos )
 	{
@@ -62,6 +65,7 @@ public:
 		pagetime_	= QDateTime::currentDateTime().toString();
 		pagepos_	= pagepos;
 		content_	= content;
+		pagecateg_	= 0;
 	}
 
 	~cPage() {}
@@ -71,12 +75,14 @@ public:
 	QString		pageTime()		const { return pagetime_; }
 	Coord_cl	pagePos()		const { return pagepos_; }
 	QString		content()		const { return content_; }
+	UINT32		pageCategory()	const { return pagecateg_; }
 
 	void	setCharSerial( SERIAL data )	{ charserial_	= data; }
 	void	setPageType( WPPAGE_TYPE data ) { pagetype_		= data; }
 	void	setPagePos( Coord_cl data )		{ pagepos_		= data; }
 	void	setPageTime( void )				{ pagetime_		= QDateTime::currentDateTime().toString(); }
 	void	setContent( QString data )		{ content_		= data; }
+	void	setPageCategory( UINT32 data )	{ pagecateg_	= data; }
 };
 
 class cPagesManager : public std::deque< cPage* >
@@ -101,6 +107,23 @@ public:
 		static cPagesManager thePagesManager;
 		return &thePagesManager; 
 	}
+
+/*	void insert( cPage* page )
+	{
+		bool stillexists = false;
+		cPagesManager::iterator it = begin();
+		while( it != end() )
+		{
+			if( (*it)->charSerial() == page->charSerial() )
+			{
+				stillexists = true;
+				(*it) = page;
+			}
+			it++;
+		}
+		if( !stillexists )
+			push_back( page );
+	}*/
 
 	bool contains( cPage* page )
 	{
@@ -142,6 +165,25 @@ public:
 			it++;
 		}
 		delete page;		
+	}
+
+	cPage* find( SERIAL charserial )
+	{
+		cPagesManager::iterator it = begin();
+		while( it != end() )
+		{
+			if( (*it)->charSerial() == charserial )
+				return (*it);
+			it++;
+		}
+		return NULL;
+	}
+
+	QStringList categories( void )
+	{
+		QStringList categories = DefManager->getList( "PAGE_CATEGORIES" );
+		categories.push_front( "none" );
+		return categories;
 	}
 };
 

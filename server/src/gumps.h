@@ -271,13 +271,13 @@ public:
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };
 
-class cWhoChildGump : public cGump
+class cSocketInfoGump : public cGump
 {
 private:
 	cUOSocket* socket_;
 
 public:
-	cWhoChildGump( cUOSocket* socket_ );
+	cSocketInfoGump( cUOSocket* socket_ );
 
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };
@@ -303,6 +303,17 @@ private:
 
 public:
 	cPageInfoGump( cPage* page_ );
+
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+};
+
+class cHelpGump : public cGump
+{
+private:
+	SERIAL char_;
+
+public:
+	cHelpGump( SERIAL charSerial );
 
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };
