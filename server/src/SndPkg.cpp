@@ -2343,11 +2343,9 @@ void endtrade(SERIAL serial)
 				pi->setContSerial(pi_bp2->serial);
 				if (pi->glow != INVALID_SERIAL) 
 					glowsp.insert(pc1->serial, pi->serial);
-				cMapObjects::getInstance()->remove( pi );
 				pi->pos.x=50+(rand()%80);
 				pi->pos.y=50+(rand()%80);
 				pi->pos.z=9;
-				cMapObjects::getInstance()->add( pi );
 				if (s2 != -1)
 					pi->update();
 			}
