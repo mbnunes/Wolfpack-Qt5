@@ -1138,4 +1138,13 @@ public:
 	void setReason( enReason reason ) { (*this)[1] = (Q_UINT8) reason; }
 };
 
+// 0xB8 Profile
+class cUOTxProfile : public cUOPacket
+{
+public:
+	cUOTxProfile(): cUOPacket( 0xB8, 12 ) { setShort( 1, 12 ); }
+	void setSerial( UINT32 data ) { setInt( 3, data ); }
+	void setInfo( const QString &title, QString &staticText, QString &dynamicText );
+};
+
 #endif // __UO_TXPACKETS__

@@ -465,6 +465,17 @@ public:
 	UINT8 lock() const			{ return (*this)[ 5 ]; }
 };
 
+// 0xB8 Profile
+class cUORxProfile: public cUOPacket
+{
+public:
+	cUORxProfile( const QByteArray &data ): cUOPacket( data ) {}
+	UINT8 mode() const			{ return (*this)[ 3 ]; }
+	UINT32 serial() const		{ return getInt( 4 ); }
+	UINT16 command() const		{ return getShort( 8 ); }
+	QString text() const		{ return getUnicodeString( 12, getShort( 10 ) * 2 ); }
+};
+
 #endif
 
 

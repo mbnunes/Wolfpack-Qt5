@@ -269,6 +269,7 @@ protected:
 	unsigned int			summontimer_; //Timer for summoned creatures.
 	unsigned char			lockSkill_[ALLSKILLS+1]; // LB, client 1.26.2b skill managment
 	UINT8					VisRange_;
+	QString					profile_;
 
 	QMap< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 	unsigned int			food_;
@@ -288,7 +289,7 @@ public:
 	// Resend( clean = false )
 	// This saves bandwith and CPU time !
 	void setAnimated( bool data ) { animated = data; }
-	void update( void ); // This is called when flags/name have been changed
+	void update( bool excludeself = false ); // This is called when flags/name have been changed
 	void resend( bool clean = true ); // this is called when the char is being created or anything like that
 	void makeShop( void );
 	void updateHealth( void );
@@ -472,6 +473,7 @@ public:
 	cMakeSection*			lastSection( cMakeMenu* basemenu );
 	unsigned int			food() const { return food_; }
 	P_CHAR					owner() const { return owner_; }
+	QString					profile() const { return profile_; }
 	
 	// Setters
 	void					setGuildType(short data);
@@ -646,6 +648,7 @@ public:
 	void					setSummonTimer( unsigned int data ) { summontimer_ = data; }
 	void					setLockSkill( int index, unsigned char val ) { lockSkill_[index] = val; }
 	void					setVisRange( int data ) { VisRange_ = data; }
+	void					setProfile( const QString &data ) { profile_ = data; }
 	void					clearLastSelections( void );	
 
 	UINT8 notority( P_CHAR pChar ); // Gets the notority toward another char

@@ -471,6 +471,23 @@ public:
 		else if( ( key == "amount" ) && pItem && ( hex2dec( value ).toULong() > 0 ) )
 			pItem->setAmount( hex2dec( value ).toULong() );			
 
+		// LoDamage + HiDamage
+		else if( key == "lodamage" )
+		{
+			if( pItem )
+				pItem->setLodamage( hex2dec( value ).toInt() );
+			else if( pChar )
+				pChar->setLoDamage( hex2dec( value ).toInt() );
+		}
+
+		else if( key == "hidamage" )
+		{
+			if( pItem )
+				pItem->setHidamage( hex2dec( value ).toInt() );
+			else if( pChar )
+				pChar->setHiDamage( hex2dec( value ).toInt() );
+		}
+
 		// Str Dex Int
 		else if( key == "str" )
 			if( pChar )
@@ -501,6 +518,10 @@ public:
 			}
 			else
 				pItem->in = hex2dec( value ).toInt();
+
+		// Type
+		else if( key == "type" && pItem )
+			pItem->setType( hex2dec( value ).toInt() );
 
 		// NPC Wander
 		else if( key == "npcwander" && pChar )
@@ -1165,6 +1186,25 @@ public:
 
 		else if( key == "movable" && pItem )
 			result = QString( "%1" ).arg( pItem->magic );
+
+		else if( key == "type" && pItem )
+			result = QString( "%1" ).arg( pItem->type() );
+
+		else if( key == "lodamage" )
+		{
+			if( pChar )
+				result = QString( "%1" ).arg( pChar->lodamage() );
+			else if( pItem )
+				result = QString( "%1" ).arg( pItem->lodamage() );
+		}
+
+		else if( key == "hidamage" )
+		{
+			if( pChar )
+				result = QString( "%1" ).arg( pChar->hidamage() );
+			else if( pItem )
+				result = QString( "%1" ).arg( pItem->hidamage() );
+		}
 
 		else if( key == "pos" || key == "p" )
 			result = QString( "%1,%2,%3,%4" ).arg( pObject->pos.x ).arg( pObject->pos.y ).arg( pObject->pos.z ).arg( pObject->pos.map );

@@ -848,9 +848,11 @@ namespace Combat
 					if( RandomNum( 1, 4 ) == 1 )
 						pAttacker->talk( tr("Halt, scoundrel!"), -1, 0, true );
 			}
+			// If we are out of close range, get out of warmode and stop fighting
 			else if( pAttacker->npcaitype() != 4 )
 			{
 				pAttacker->setTarg( INVALID_SERIAL );
+				pAttacker->setSwingTarg( INVALID_SERIAL );
 				pAttacker->setTimeOut(0);
 				
 				P_CHAR pc = FindCharBySerial( pAttacker->attacker() );
@@ -864,8 +866,10 @@ namespace Combat
 				pAttacker->setAttacker(INVALID_SERIAL);
 				pAttacker->resetAttackFirst();				
 				
+				// We have been at war for sure, so we can
+				// update without harm
 				pAttacker->setWar( false );
-				pAttacker->resend( false );
+				pAttacker->update();
 
 				return;
 			}
@@ -897,6 +901,12 @@ namespace Combat
 		if( !mayAttack )
 			return;
 
+		// Let the defender fight back now that we are swinging at him.
+		if( pDefender->socket() && pDefender->targ() == INVALID_SERIAL )
+		{
+			pDefender->fight( pAttacker );
+		}
+
 		// Attacking costs a certain amount of stamina
 		if( abs( SrvParams->attackstamina() ) > 0 && !pAttacker->isGM() )
 		{
@@ -926,13 +936,13 @@ namespace Combat
 
 		// If we are no guard, our target should re-attack us.
 		// (DarkStorm): But only if our Target is not fighting someone else
-		if( pAttacker->npcaitype() != 4 && pDefender->targ() == INVALID_SERIAL )
+		/*if( pAttacker->npcaitype() != 4 && pDefender->targ() == INVALID_SERIAL )
 		{
 			pDefender->fight( pAttacker );
 			pDefender->setAttackFirst();
 			pAttacker->fight( pDefender );
 			pAttacker->resetAttackFirst();
-		}
+		}*/
 
 		// A tempeffect is needed here eventually
 		// An Arrow doesnt hit its target immedeately..
@@ -1287,7 +1297,8 @@ namespace Combat
 			pGuard->soundEffect( 0x1FE );
 			staticeffect( pGuard, 0x37, 0x2A, 0x09, 0x06 );
 
-			pGuard->resend( false ); // Update warmode status to other players
+			// Send guard to surrounding Players
+			pGuard->resend( false );
 
 			// 50% talk chance
 			switch( RandomNum( 0, 4 ) )

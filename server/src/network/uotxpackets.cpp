@@ -480,3 +480,19 @@ void cUOTxTrade::setName( const QString &name )
 	//strcpy( &rawPacket.data()[17], name.latin1() );
 }
 
+void cUOTxProfile::setInfo( const QString &title, QString &staticText, QString &dynamicText )
+{
+	// Reset to the correct size
+	UINT16 size = 13 + title.length() + ( staticText.length() * 2 ) + ( dynamicText.length() * 2 );
+	setShort( 1, size );
+	resize( size );
+
+	setAsciiString( 7, title.latin1(), title.length()+1 );
+	(*this)[7+title.length()] = 0; // Null Terminator
+
+	setUnicodeString( 8+title.length(), staticText, staticText.length()*2 );
+	setShort( 8+title.length()+(staticText.length()*2), 0 );
+
+	setUnicodeString( 10+title.length()+(staticText.length()*2), dynamicText, dynamicText.length()*2 );
+	setShort( 10+title.length()+(staticText.length()*2)+(dynamicText.length()*2), 0 );
+}

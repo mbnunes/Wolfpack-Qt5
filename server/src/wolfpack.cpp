@@ -1640,7 +1640,7 @@ int main( int argc, char *argv[] )
 		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		{
 			P_CHAR player = mSock->player();
-			if ( player && !player->isGM() && player->clientidletime() < uiCurrentTime )
+			if ( player && !player->isGM() && player->clientidletime() && player->clientidletime() < uiCurrentTime )
 			{
 				clConsole.send("Player %s disconnected due to inactivity !\n", player->name.latin1());
 				cUOTxMessageWarning packet;
@@ -3632,6 +3632,9 @@ void bgsound(P_CHAR pc)
 	}
 }
 
+/*!
+	Give karma credit for killing someone.
+*/
 void Karma(P_CHAR pc_toChange,P_CHAR pc_Killed, int nKarma)
 {	// nEffect = 1 positive karma effect
 	int nCurKarma=0, nChange=0, nEffect=0;
@@ -3655,168 +3658,136 @@ void Karma(P_CHAR pc_toChange,P_CHAR pc_Killed, int nKarma)
 	//the nKilledID==-1 check and the chars[nKilledID] check were in the same line
 	//That may cause some crash with some compilator caus there's no a defined
 	//order in executing these if checks
-	if((nCurKarma>nKarma)&&(pc_Killed == NULL))
+	if( ( nCurKarma > nKarma ) && ( !pc_Killed ) )
 	{
-		nChange=((nCurKarma-nKarma)/50);
-		pc_toChange->setKarma(nCurKarma-nChange);
-		nEffect=0;
+		nChange = ( ( nCurKarma - nKarma ) / 50 );
+		pc_toChange->setKarma( nCurKarma - nChange );
+		nEffect = 0;
 	}
-	else if((nCurKarma>nKarma)&&(pc_Killed->karma()>0))
+	else if( ( nCurKarma>nKarma ) && ( pc_Killed->karma() > 0 ) )
 	{
 		nChange=((nCurKarma-nKarma)/50);
 		pc_toChange->setKarma(nCurKarma-nChange);
 		nEffect=0;
 	}
 
-	if((nChange==0)||(pc_toChange->isNpc()))
+	// For NPCs we dont need to send a message
+	// If nothing changed we dont need to do that either
+	if( !nChange || !pc_toChange->socket() )
 		return;
-	if(nChange<=25)
-		if(nEffect)
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have gained a little karma.");
-			return;
-		}
+
+	QString message;
+
+	if( nChange <= 25 )
+	{
+		if( nEffect )
+			message = tr( "You have gained a little karma.", 0, "Karma Messages" );
 		else
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have lost a little karma.");
-			return;
-		}
-	if(nChange<=75)
-		if(nEffect)
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have gained some karma.");
-			return;
-		}
+			message = tr( "You have lost a little karma.", 0, "Karma Messages" );
+	}
+	else if( nChange <= 75 )
+	{
+		if( nEffect )
+			message = tr( "You have gained some karma.", 0, "Karma Messages" );
 		else
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have lost some karma.");
-			return;
-		}
-	if(nChange<=100)
-		if(nEffect)
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have gained alot of karma.");
-			return;
-		}
+			message = tr( "You have lost some karma.", 0, "Karma Messages" );
+	}
+	else if( nChange <= 100 )
+	{
+		if( nEffect )
+			message = tr( "You have gained alot of karma.", 0, "Karma Messages" );
 		else
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have lost alot of karma.");
-			return;
-		}
-	if(nChange>100)
-		if(nEffect)
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have gained a huge amount of karma.");
-			return;
-		}
+			message = tr( "You have lost alot of karma.", 0, "Karma Messages" );
+	}
+	else if( nChange > 100 )
+	{
+		if( nEffect )
+			message = tr( "You have gained a huge amount of karma.", 0, "Karma Messages" );
 		else
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have lost a huge amount of karma.");
-			return;
-		}
+			message = tr( "You have lost a huge amount of karma.", 0, "Karma Messages" );
+	}
+
+	pc_toChange->socket()->sysMessage( message );
 }
 
-//added by Genesis 11-8-98
-void Fame(P_CHAR pc_toChange, int nFame)
+/*!
+	Give fame credit for killing someone.
+*/
+void Fame( P_CHAR pc_toChange, int nFame )
 {
-	int nCurFame, nChange=0, nEffect=0;
-	unsigned int tempuint;
+	int nCurFame, nChange=0;
+	bool gain = false;
 
-	if (pc_toChange->isNpc()) //NPCs don't gain fame.
+	// NPCs don't gain fame.
+	if( pc_toChange->isNpc() ) 
 		return;
 
-	nCurFame= pc_toChange->fame();
-	if(nCurFame>nFame) // if player fame greater abort function
-	{
-		if(nCurFame>10000)
-			pc_toChange->setFame(10000);
+	pc_toChange->setFame( QMIN( 10000, pc_toChange->fame() ) );
+
+	nCurFame = pc_toChange->fame();
+
+	// We already have more than that.
+	if( nCurFame > nFame )
 		return;
-	}
-	if(nCurFame<nFame)
+
+	// Loose Fame when we died
+	if( pc_toChange->dead() )
 	{
-		nChange=(nFame-nCurFame)/75;
-		pc_toChange->setFame(nCurFame+nChange);
-		nEffect=1;
+		// Fame / 25 is our loss
+		nChange = nCurFame / 25;
+		pc_toChange->setFame( QMAX( 0, nCurFame - nChange ) );
+		pc_toChange->setDeaths( pc_toChange->deaths() + 1 );
+		gain = false;
 	}
-	if(pc_toChange->dead())
+	else
 	{
-		if(nCurFame<=0)
-			pc_toChange->setFame(0);
-		else
-		{
-			nChange=(nCurFame-0)/25;
-			pc_toChange->setFame(nCurFame-nChange);
-		}
-//		pc_toChange->deaths++;
-		tempuint = pc_toChange->deaths();
-		pc_toChange->setDeaths( ++tempuint );
-		nEffect=0;
+		nChange = ( nFame - nCurFame ) / 75;
+		pc_toChange->setFame( nCurFame+nChange );
+		gain = true;
 	}
-	if((nChange==0)||(pc_toChange->isNpc()))
+
+	// Nothing changed or we can't recieve the message
+	if( !nChange || !pc_toChange->socket() )
 		return;
-	if(nChange<=25)
-		if(nEffect)
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have gained a little fame.");
-			return;
-		}
+
+	QString message;
+
+	if( nChange <= 25 )
+	{
+		if( gain )
+			message = tr( "You have gained a little fame.", 0, "Fame Messages" );
 		else
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have lost a little fame.");
-			return;
-		}
-	if(nChange<=75)
-		if(nEffect)
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have gained some fame.");
-			return;
-		}
+			message = tr( "You have lost a little fame.", 0, "Fame Messages" );
+	}
+	else if( nChange <= 75 )
+	{
+		if( gain )
+			message = tr( "You have gained some fame.", 0, "Fame Messages" );
 		else
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have lost some fame.");
-			return;
-		}
-	if(nChange<=100)
-		if(nEffect)
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have gained alot of fame.");
-			return;
-		}
+			message = tr( "You have lost some fame.", 0, "Fame Messages" );
+	}
+	else if( nChange <= 100 )
+	{
+		if( gain )
+			message = tr( "You have gained alot of fame.", 0, "Fame Messages" );
 		else
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have lost alot of fame.");
-			return;
-		}
-	if(nChange>100)
-		if(nEffect)
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have gained a huge amount of fame.");
-			return;
-		}
+			message = tr( "You have lost alot of fame.", 0, "Fame Messages" );
+	}
+	else if( nChange > 100 )
+	{
+		if( gain )
+			message = tr( "You have gained a huge amount of fame.", 0, "Fame Messages" );
 		else
-		{
-			sysmessage(calcSocketFromChar(pc_toChange),
-				"You have lost a huge amount of fame.");
-			return;
-		}
+			message = tr( "You have lost a huge amount of fame.", 0, "Fame Messages" );
+	}
+
+	pc_toChange->socket()->sysMessage( message );
 }
 
-void criminal(P_CHAR pc) //Repsys
+/*!
+	Make someone criminal.
+*/
+void criminal( P_CHAR pc )
 {
 	if( !pc )
 		return;
@@ -3824,23 +3795,31 @@ void criminal(P_CHAR pc) //Repsys
 	if( pc->isGMorCounselor() )
 		return;
 
+	//Not an npc, not grey, not red	
 	if( pc->isPlayer() && !pc->isCriminal() || pc->isMurderer() )
-	{ //Not an npc, not grey, not red	
+	{ 
 		 pc->setCrimflag((SrvParams->crimtime()*MY_CLOCKS_PER_SEC)+uiCurrentTime);
+
 		 if( pc->socket() )
 			 pc->socket()->sysMessage( tr( "You are now a criminal!" ) );
+
+		 // Update the highlight flag.
 		 setcharflag( pc );
 	}
 }
 
-void setcharflag(P_CHAR pc)// repsys ...Ripper
+/*!
+	Update the flagging of this character based
+	on his reputation.
+*/
+void setcharflag( P_CHAR pc )
 {
-
 	//First, let's see their karma.
-	if (pc->karma() <= -200)
+	if( pc->karma() <= -200 )
 	{
 		pc->setMurderer();
-	}	
+	}
+
 	if (pc->isPlayer())
 	{
 		if (pc->isGMorCounselor())
@@ -3868,7 +3847,7 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 			pc->setCriminal();
 		}
 	}
-	if (pc->isNpc() && ((pc->npcaitype() == 2) || // bad npc
+	else if (pc->isNpc() && ((pc->npcaitype() == 2) || // bad npc
 		(pc->npcaitype() == 3) ||  // bad healer
 		(pc->npcaitype() == 50)))   // EV & BS
 	{

@@ -80,6 +80,7 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	case 0xBF:		return cUORxMultiPurpose::packet( data );
 	case 0xBD:		return new cUORxSetVersion( data );
 	case 0xC8:		return new cUORxUpdateRange( data );
+	case 0xB8:		return new cUORxProfile( data );
 	default:		return new cUOPacket( data );
 	};	
 }
@@ -98,8 +99,8 @@ cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data )
 		return new cUORxContextMenuSelection( data ); break; 
 	default:
 		{
-			qWarning("Unknown cUORxMultiPurpose subcommand");
-			qWarning( cUOPacket::dump( data ) );
+			//qWarning("Unknown cUORxMultiPurpose subcommand");
+			//qWarning( cUOPacket::dump( data ) );
 			return new cUOPacket( data ); 
 		}
 	}; 

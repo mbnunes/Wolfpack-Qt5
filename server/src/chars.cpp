@@ -428,16 +428,37 @@ void cChar::setNextMoveTime(short tamediv)
 //
 void cChar::fight(P_CHAR other)
 {
+	// Store the current Warmode
+	bool oldwar = war_;
+
 	this->targ_ = other->serial;
 	this->unhide();
 	this->disturbMed();	// Meditation
 	this->attacker_ = other->serial;
+	this->setWar( true );
+	
 	if (this->isNpc())
 	{
 		if (!this->war_)
 			toggleCombat();
 
 		this->setNextMoveTime();
+	}
+	else if( socket_ )
+	{
+		// Send warmode status
+		cUOTxWarmode warmode;
+		warmode.setStatus( true );
+		socket_->send( &warmode );
+
+		// Send Attack target
+		cUOTxAttackResponse attack;
+		attack.setSerial( other->serial );
+		socket_->send( &attack );
+
+		// Resend the Character (a changed warmode results in not walking but really just updating)
+		if( oldwar != war_ )
+			update( true );
 	}
 }
 
@@ -665,7 +686,7 @@ void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	fields.push_back( "characters.guildtoggle,characters.guildstone,characters.guildtitle,characters.guildfealty" );
 	fields.push_back( "characters.murderrate,characters.menupriv,characters.questtype,characters.questdestregion" );
 	fields.push_back( "characters.questorigregion,characters.questbountypostserial,characters.questbountyreward,characters.jailtimer" );
-	fields.push_back( "characters.jailsecs,characters.lootlist,characters.food" );
+	fields.push_back( "characters.jailsecs,characters.lootlist,characters.food,characters.profile" );
 	tables.push_back( "characters" );
 	conditions.push_back( "uobjectmap.serial = characters.serial" );
 }
@@ -775,6 +796,7 @@ void cChar::load( char **result, UINT16 &offset )
 	jailsecs_ = atoi( result[offset++] );
 	loot_ = result[offset++];
 	food_ = atoi( result[offset++] );
+	profile_ = result[offset++];
 	
 	SetSpawnSerial( spawnserial_ );
 
@@ -810,7 +832,7 @@ void cChar::save()
 	setTable( "characters" );
 
 	addField( "serial", serial );
-	addStrField( "name", incognito() ? name : orgname() );
+	addStrField( "name", incognito() ? name : orgname() );	
 	addStrField( "title", title_ );
 
 	if( account_ )
@@ -904,6 +926,8 @@ void cChar::save()
 	addField( "jailsecs", jailsecs_); 
 	addStrField( "lootlist", loot_);
 	addField( "food", food_);
+	addStrField( "profile", profile_ );
+
 	addCondition( "serial", serial );
 	saveFields;
 
@@ -1801,19 +1825,22 @@ void cChar::showName( cUOSocket *socket )
 }
 
 // Update flags etc.
-void cChar::update( void )
+void cChar::update( bool excludeself )
 {
 	cUOTxUpdatePlayer* updatePlayer = new cUOTxUpdatePlayer();
 	updatePlayer->fromChar( this );
 
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
+		if( socket_ == mSock && excludeself )
+			continue;
+
 		P_CHAR pChar = mSock->player();
 
 		if( pChar && pChar->socket() && pChar->inRange( this, pChar->VisRange() ) )
 		{
 			updatePlayer->setHighlight( notority( pChar ) );
-			mSock->send( new cUOTxUpdatePlayer( *updatePlayer ) );	
+			mSock->send( new cUOTxUpdatePlayer( *updatePlayer ) );
 		}
 	}
 	delete updatePlayer;
@@ -2918,7 +2945,6 @@ void cChar::attackTarget( P_CHAR defender )
 
 	if( cdist > defender->pos.distance( pos ) )
 	{
-		defender->setTarg( serial );
 		defender->setAttacker(serial);
 		defender->setAttackFirst();
 	}
@@ -3002,6 +3028,8 @@ void cChar::applyPoison( P_CHAR defender )
 	{
 		if( RandomNum( 0, 2 ) == 2 )
 		{
+			bool update = ( defender->poisoned() != 0 );
+
 			defender->setPoisoned( poison() );
 
 			// a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
@@ -3010,7 +3038,10 @@ void cChar::applyPoison( P_CHAR defender )
 			// wear off starts after poison takes effect - AntiChrist
 			defender->setPoisonwearofftime( defender->poisontime() + ( MY_CLOCKS_PER_SEC*SrvParams->poisonTimer() ) ); 
 
-			defender->resend( false );
+			// Only update if flags have changed
+			if( update )
+				defender->update( false );
+
 			if( defender->socket() )
 				defender->socket()->sysMessage( tr("You have been poisoned!" ) );
 		}

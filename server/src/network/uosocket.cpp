@@ -252,6 +252,8 @@ void cUOSocket::recieve()
 		handleChangeWarmode( dynamic_cast< cUORxChangeWarmode* >( packet ) ); break;
 	case 0x73:
 		break; // Pings are handeled
+	case 0x75:
+		handleRename( dynamic_cast< cUORxRename* >( packet ) ); break;
 	case 0x80:
 		handleLoginRequest( dynamic_cast< cUORxLoginRequest* >( packet ) ); break;
 	case 0x83:
@@ -272,6 +274,8 @@ void cUOSocket::recieve()
 		handleSpeechRequest( dynamic_cast< cUORxSpeechRequest* >( packet ) ); break;
 	case 0xB1:
 		handleGumpResponse( dynamic_cast< cUORxGumpResponse* >( packet ) ); break;
+	case 0xB8:
+		handleProfile( dynamic_cast< cUORxProfile* >( packet ) ); break;
 	case 0xBD:
 		_version = dynamic_cast< cUORxSetVersion* >( packet )->version(); break;
 	case 0xBF:
@@ -910,7 +914,8 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 		break;
 	case cUORxMultiPurpose::contextMenuSelection: 
 		handleContextMenuSelection( dynamic_cast< cUORxContextMenuSelection* >( packet ) ); break; 
-	default: 
+	default:
+		return;
 		packet->print( &cout ); // Dump the packet 
 	}; 
 } 
@@ -1207,9 +1212,20 @@ void cUOSocket::sendPaperdoll( P_CHAR pChar )
 */
 void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 {
+	bool update = false;
 
-//	_player->targ = INVALID_SERIAL;  
+	if( packet->warmode() != _player->war() )
+		update = true;
+
 	_player->setWar( packet->warmode() );
+
+	// Stop fighting immedeately
+	if( !_player->war() )
+	{
+		_player->setTarg( INVALID_SERIAL );
+		_player->setSwingTarg( INVALID_SERIAL );
+		_player->setTimeOut( 0 );
+	}
 
 	cUOTxWarmode warmode;
 	warmode.setStatus( packet->warmode() ? 1 : 0 );
@@ -1218,10 +1234,19 @@ void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 	playMusic();
 	_player->disturbMed();
 
-	if( _player->dead() ) 
-		_player->resend( false );
-	else
-		_player->update();
+	// Something changed
+	if( update )
+	{
+		if( _player->dead() && _player->war() ) 
+			_player->resend( false );
+		else if( _player->dead() && !_player->war() )
+		{
+			_player->removeFromView( false );
+			_player->resend( false );
+		}			
+		else
+			_player->update( true );
+	}
 }
 
 void cUOSocket::playMusic()
@@ -1549,7 +1574,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	// Playervendors are invulnerable
 	if( pc_i->npcaitype() == 17 ) 
 	{
-		sysMessage( tr( "%1 cannot be harmed." ).arg( pc_i->name.latin1() ) );
+		sysMessage( tr( "%1 cannot be harmed." ).arg( pc_i->name ) );
 		send( &attack );
 		return;
 	}
@@ -1562,7 +1587,8 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	attack.setSerial( pc_i->serial );
 	send( &attack );
 
-	// NPC already has a target
+	// NPC already has a target 
+	// (And so is already fighting and should've been attacked by someone else)
 	if( pc_i->targ() != INVALID_SERIAL )
 	{
 		pc_i->setAttacker( _player->serial );
@@ -1580,7 +1606,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		for( cIter.Begin(); !cIter.atEnd(); cIter++ )
 		{
 			P_CHAR toCheck = cIter.GetData();
-			if( toCheck->owner() == pc_i && toCheck->npcaitype() == 32 && toCheck->inRange( _player, 10 ) )
+			if( toCheck->owner() == pc_i && toCheck->npcaitype() == 32 && toCheck->inRange( _player, 10 ) && toCheck->targ() == INVALID_SERIAL )
 				toCheck->attackTarget( _player );
 				// This was: npcattacktarget( _player, toCheck );
 		}
@@ -1630,7 +1656,9 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 			else if( pc_i->isNpc() )
 			{
 				criminal( _player );
-				pc_i->attackTarget( _player );
+
+				if( pc_i->targ() == INVALID_SERIAL )
+					pc_i->attackTarget( _player );
 
 				if( !pc_i->tamed() && pc_i->isHuman() )
 					pc_i->talk( tr( "Help! Guards! Tis a murder being commited!" ) );
@@ -1833,7 +1861,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	sendStats.setFullMode( pChar == _player, _version.left(1).toInt() == 3 );
 
 	// Dont allow rename-self
-	sendStats.setAllowRename( ( pChar->owner() == _player || _player->isGM() ) && ( _player != pChar ) );
+	sendStats.setAllowRename( ( ( pChar->owner() == _player && !pChar->isHuman() ) || _player->isGM() ) && ( _player != pChar ) );
 	
 	sendStats.setMaxHp( pChar->st() );
 	sendStats.setHp( pChar->hp() );
@@ -2152,4 +2180,53 @@ void cUOSocket::handleDye( cUORxDye* packet )
 	// Ok, now show the client a target to select the dye-tub we want
 	// to dye.
 	attachTarget( new cDyeTubDyeTarget( packet->color() ) );
+}
+
+void cUOSocket::handleProfile( cUORxProfile *packet )
+{
+	if( !_player )
+		return;
+
+	// Send the requested profile
+	if( packet->size() <= 8 )
+	{
+		P_CHAR pChar = FindCharBySerial( packet->serial() );
+
+		if( pChar )
+		{
+			cUOTxProfile profile;
+			profile.setSerial( packet->serial() );
+			profile.setInfo( pChar->name, pChar->title(), pChar->profile() );
+			send( &profile );
+		}
+	}
+	// Check if it is a update request
+	else if( packet->command() )
+	{
+		// You can only change your own profile
+		if( packet->serial() != _player->serial )
+			sysMessage( tr( "You can only change your own profile" ) );
+		else
+			_player->setProfile( packet->text() );
+	}
+}
+
+void cUOSocket::handleRename( cUORxRename* packet )
+{
+	if( !_player )
+		return;
+
+	// If we are no GM we can only rename characters
+	// we own (only pets here!)
+	if( packet->serial() == _player->serial )
+		sysMessage( tr( "You can't rename yourself" ) );
+	else
+	{
+		P_CHAR pChar = FindCharBySerial( packet->serial() );
+
+		if( pChar && pChar->owner() == _player && !pChar->isHuman() )
+			pChar->name = packet->name();
+		else
+			sysMessage( tr( "You can't rename this." ) );
+	}
 }
