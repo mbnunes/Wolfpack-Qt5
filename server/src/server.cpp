@@ -270,7 +270,12 @@ bool cServer::run( int argc, char** argv )
 	setupConsole();
 
 	// Load all subcomponents
-	load();
+	try {
+		load();
+	} catch(wpException &e) {
+		Console::instance()->log(LOG_ERROR, e.error() + "\n");
+		return false;
+	}
 
 	// Start the QT translator
 	QString languageFile = Config::instance()->getString( "General", "Language File", "", true );

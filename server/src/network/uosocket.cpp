@@ -2429,7 +2429,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setGold( _player->countBankGold() + _player->countGold() );
 		sendStats.setSex( _player->gender() );
 		sendStats.setPets( _player->controlslots() );
-		sendStats.setMaxPets( 5 );
+		sendStats.setMaxPets( _player->maxControlSlots() );
 		sendStats.setStatCap( Config::instance()->statcap() );
 
 		// Call the callback to insert additional aos combat related info

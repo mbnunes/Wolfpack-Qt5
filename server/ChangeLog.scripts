@@ -4,6 +4,10 @@ Wolfpack 12.9.10 Beta (CVS)
 	* Core Changes:
 	* Definition Changes:
 	* Python Script Changes:
+		- Added a script for database structure updates (system/dbupdate.py).
+		- Added an event for database updates (onUpdateDatabase).
+		- The system.trading event is now removed on login from the characters who
+		  have it.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

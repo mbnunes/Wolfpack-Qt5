@@ -43,6 +43,8 @@
 #include "npc.h"
 #include "log.h"
 #include "timing.h"
+#include "scriptmanager.h"
+#include "pythonscript.h"
 #include "basics.h"
 #include <sqlite.h>
 #include <qfileinfo.h>
@@ -82,8 +84,8 @@ typedef std::map<SERIAL, P_CHAR> CharMap;
 // Don't forget to change the version number before changing tableInfo!
 //
 // ONCE AGAIN, DON'T FORGET TO INCREASE THIS VALUE
-#define DATABASE_VERSION 7
-#define WP_DATABASE_VERSION "7"
+#define DATABASE_VERSION 8
+#define WP_DATABASE_VERSION "8"
 
 // This is used for autocreating the tables
 struct
@@ -228,6 +230,7 @@ fixedlight unsigned tinyint(3) NOT NULL default '0',\
 strlock tinyint(4) NOT NULL default '0',\
 dexlock tinyint(4) NOT NULL default '0',\
 intlock tinyint(4) NOT NULL default '0',\
+maxcontrolslots tinyint(4) NOT NULL default '5',\
 PRIMARY KEY (serial)\
 );" },
 { "skills", "CREATE TABLE skills (\
@@ -563,6 +566,36 @@ void cWorld::load()
 			++i;
 		}
 
+		// Load Options
+		QString settingsSql = "SELECT option,value FROM settings;";
+		if (Config::instance()->databaseDriver() == "mysql") {
+			settingsSql = "SELECT `option`,`value` FROM `settings`;";
+		}
+		cDBResult oresult = PersistentBroker::instance()->query(settingsSql);
+		while (oresult.fetchrow()) {
+			setOption(oresult.getString(0), oresult.getString(1));
+		}
+		oresult.free();
+
+		// Get Database Version (Since Version 7 SQL has it)
+		QString db_version;
+		getOption("db_version", db_version, "7");
+		
+		if (db_version.toInt() != DATABASE_VERSION) {
+			cPythonScript *script = ScriptManager::instance()->getGlobalHook(EVENT_UPDATEDATABASE);
+			if (!script || !script->canHandleEvent(EVENT_UPDATEDATABASE)) {
+				throw wpException(QString("Unable to load world database. Version mismatch: %1 != %2.").arg(db_version.toInt()).arg(DATABASE_VERSION));
+			}
+
+			PyObject *args = Py_BuildValue("(ii)", DATABASE_VERSION, db_version.toInt());
+			bool result = script->callEventHandler(EVENT_UPDATEDATABASE, args);
+			Py_DECREF(args);
+			
+			if (!result) {
+				throw wpException(QString("Unable to load world database. Version mismatch: %1 != %2.").arg(db_version.toInt()).arg(DATABASE_VERSION));
+			}
+		}
+
 		QStringList types = PersistentFactory::instance()->objectTypes();
 
 		for ( uint j = 0; j < types.count(); ++j )
@@ -618,13 +651,6 @@ void cWorld::load()
 
 		// Load Temporary Effects
 		Timers::instance()->load();
-
-		// Load Options
-		cDBResult oresult = PersistentBroker::instance()->query("SELECT option,value FROM settings;");
-		while (oresult.fetchrow()) {
-			setOption(oresult.getString(0), oresult.getString(1));
-		}
-		oresult.free();
 
 		// It's not possible to use cItemIterator during postprocessing because it skips lingering items
 		ItemMap::iterator iter;
@@ -806,6 +832,7 @@ void cWorld::save() {
 	Network::instance()->broadcast(tr("Worldsave Initialized"));
 
 	Console::instance()->send( "Saving World..." );
+	setOption("db_version", WP_DATABASE_VERSION); // Make SURE it's saved
 
 	// Send a nice status gump to all sockets if enabled
 	bool fancy = Config::instance()->getBool( "General", "Fancy Worldsave Status", true, true );

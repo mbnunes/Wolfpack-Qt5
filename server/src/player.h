@@ -145,6 +145,7 @@ public:
 	Q_UINT8 visualRange() const;
 	QString profile() const;
 	Q_UINT8 fixedLightLevel() const;
+	Q_UINT8 maxControlSlots() const;
 
 	// bit flag getters
 	bool maySnoop() const;
@@ -157,6 +158,7 @@ public:
 	cGuild* guild() const;
 
 	// setters
+	void setMaxControlSlots(unsigned char data);
 	void setAccount( cAccount* data, bool moveFromAccToAcc = true );
 	void setAdditionalFlags( Q_UINT32 data );
 	void setLogoutTime( Q_UINT32 data );
@@ -232,6 +234,9 @@ protected:
 	// The account object including this char.
 	// cOldChar::account_
 	cAccount* account_;
+
+	// How many pets can this player control
+	unsigned char maxControlSlots_;
 
 	// time till char will be logged out
 	// cOldChar::logout_
@@ -397,6 +402,17 @@ inline Q_UINT8 cPlayer::fixedLightLevel() const
 inline void cPlayer::setFixedLightLevel( Q_UINT8 data )
 {
 	fixedLightLevel_ = data;
+	changed_ = true;
+}
+
+inline Q_UINT8 cPlayer::maxControlSlots() const
+{
+	return maxControlSlots_;
+}
+
+inline void cPlayer::setMaxControlSlots( Q_UINT8 data )
+{
+	maxControlSlots_ = data;
 	changed_ = true;
 }
 

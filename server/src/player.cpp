@@ -69,6 +69,7 @@ cPlayer::cPlayer()
 	strengthLock_ = 0;
 	dexterityLock_ = 0;
 	intelligenceLock_ = 0;
+	maxControlSlots_ = 5;
 }
 
 cPlayer::cPlayer( const cPlayer& right )
@@ -93,7 +94,7 @@ void cPlayer::buildSqlString( const char *objectid, QStringList& fields, QString
 	cBaseChar::buildSqlString( objectid, fields, tables, conditions );
 	fields.push_back( "players.account,players.additionalflags,players.visualrange" );
 	fields.push_back( "players.profile,players.fixedlight" );
-	fields.push_back( "players.strlock,players.dexlock,players.intlock" );
+	fields.push_back( "players.strlock,players.dexlock,players.intlock,players.maxcontrolslots" );
 	tables.push_back( "players" );
 	conditions.push_back( "uobjectmap.serial = players.serial" );
 }
@@ -119,6 +120,9 @@ void cPlayer::load( cBufferedReader& reader, unsigned int version )
 	strengthLock_ = reader.readByte();
 	dexterityLock_ = reader.readByte();
 	intelligenceLock_ = reader.readByte();
+	if (version > 7) {
+		maxControlSlots_ = reader.readByte();
+	}
 }
 
 void cPlayer::save( cBufferedWriter& writer, unsigned int version )
@@ -132,6 +136,9 @@ void cPlayer::save( cBufferedWriter& writer, unsigned int version )
 	writer.writeByte( strengthLock_ );
 	writer.writeByte( dexterityLock_ );
 	writer.writeByte( intelligenceLock_ );
+	if (version > 7) {
+		writer.writeByte(maxControlSlots_);
+	}
 }
 
 void cPlayer::load( char** result, Q_UINT16& offset )
@@ -146,6 +153,7 @@ void cPlayer::load( char** result, Q_UINT16& offset )
 	strengthLock_ = atoi( result[offset++] );
 	dexterityLock_ = atoi( result[offset++] );
 	intelligenceLock_ = atoi( result[offset++] );
+	maxControlSlots_ = atoi( result[offset++] );
 
 	playerRegisterAfterLoading( this );
 	changed_ = false;
@@ -176,6 +184,7 @@ void cPlayer::save()
 		addField( "strlock", strengthLock_ );
 		addField( "dexlock", dexterityLock_ );
 		addField( "intlock", intelligenceLock_ );
+		addField( "maxcontrolslots", maxControlSlots_ );
 
 		addCondition( "serial", serial() );
 		saveFields;
@@ -901,7 +910,7 @@ void cPlayer::addPet( P_NPC pPet, bool noOwnerChange )
 		pPet->owner()->removePet( pPet, true );
 
 	// Only reset the owner if we have slots left
-	if ( pets_.size() + pPet->controlSlots() <= 5 )
+	if ( pets_.size() + pPet->controlSlots() <= maxControlSlots() )
 	{
 		pPet->setOwner( this, true );
 
@@ -1100,10 +1109,18 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 	/*
 		\property char.logouttime This integer property is used when a player disconnects in an unsafe area.
 		This property indicates the time when the character will disappear from the world.
-		This property is exclusive to player objects.
+		This property is exclusive to players.
 	*/
 	else
 		SET_INT_PROPERTY( "logouttime", logoutTime_ )
+
+	/*
+		\property char.maxcontrolslots This property indicates how many control slots this character has.
+		This property is exclusive to players.
+	*/
+	else
+		SET_INT_PROPERTY( "maxcontrolslots", maxControlSlots_ )
+
 		/*
 		\property char.lightbonus This is the lightlevel bonus applied for this player.
 		*/
@@ -1221,6 +1238,7 @@ PyObject* cPlayer::getProperty( const QString& name )
 	PY_PROPERTY( "strengthlock", strengthLock_ )
 	PY_PROPERTY( "dexteritylock", dexterityLock_ )
 	PY_PROPERTY( "intelligencelock", intelligenceLock_ )
+	PY_PROPERTY( "maxcontrolslots", maxControlSlots_ )
 
 	// Forward the property to the account
 	if (name.startsWith("account.") && account_) {

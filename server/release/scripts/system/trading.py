@@ -21,6 +21,11 @@ def onLogout( player ):
 		closetrade( player, partner, box1, box2 )
 
 	return True
+	
+def onLogin( player ):
+	player.deltag('trade_partner')
+	player.deltag('trade_button')
+	player.removescript('system.trading')
 
 #
 # Disallow using items in trade containers

@@ -510,6 +510,14 @@ is requested.
 */
 "onSpawn",
 
+/*
+\event onUpdateDatabase
+\param current The current database version.
+\param version The version of the loaded database.
+\condition Triggered when the version of the loaded database doesn't match the version the server expects.
+*/
+"onUpdateDatabase",
+
 0
 };
 
