@@ -310,7 +310,6 @@ cAllTmpEff		*AllTmpEff;
 cMovement		*Movement;
 cWeather		*Weather;
 cHouseManager   *HouseManager;
-vector<cHouse *> House;
 
 // Sky's AI
 cCharStuff::cDragonAI	*DragonAI;

@@ -240,6 +240,7 @@ static void loadpredefspawnregion(char *name)//Load predefined spawnregion //Reg
 		else if(!(strcmp("MINTIME", (char*)script1))) dummy.mintime=str2num(script2);
 		else if(!(strcmp("MAXTIME", (char*)script1))) dummy.maxtime=str2num(script2);
 		else if(!(strcmp("MAX", (char*)script1))) dummy.max=str2num(script2);
+
 	} while((script1[0]!='}') && (++loopexit < MAXLOOPS) );
 	spawnregion.push_back(dummy);
 	closescript();

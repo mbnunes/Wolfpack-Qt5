@@ -38,6 +38,8 @@
 #undef  DBGFILE
 #define DBGFILE "house.cpp"
 
+vector<cHouse *> House;
+
 void cHouseManager::HomeTarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt)
 {
 	char multitarcrs[27]="\x99\x01\x40\x01\x02\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x02\x00\x00\x00\x00\x00\x00";
@@ -80,6 +82,7 @@ void cHouseManager::AddHome(int s,int i)
 	int boat=0;//Boats
 	int hdeed=0;//deed id #		
 	int norealmulti=0,nokey=0,othername=0;
+	int lockamount=0, secureamount=0;
 	char name[512];
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 
@@ -148,6 +151,14 @@ void cHouseManager::AddHome(int s,int i)
 					strcpy((char*)name,(char*)script2);
 					othername=1;
 				}
+				else if(!(strcmp((char*)script1, "LOCKDOWNAMOUNT")))
+				{
+					lockamount=str2num(script2);
+				}
+				else if(!(strcmp((char*)script1, "SECUREAMOUNT")))
+				{
+					secureamount=str2num(script2);
+				}
 			}
 		}
 		while ( (strcmp((char*)script1,"}")) && (++loopexit < MAXLOOPS) );
@@ -204,7 +215,7 @@ void cHouseManager::AddHome(int s,int i)
 		
 		if (ishouse(id1, id2)) // strict checking only for houses ! LB
 		{
-			if(!(this->HomeBuildSite(x,y,z,sx,sy)))
+			if(false==HomeBuildSite(x,y,z,sx,sy))
 			{
 				sysmessage(s,"Can not build a house at that location (CBS)!");
 				return;
@@ -221,10 +232,7 @@ void cHouseManager::AddHome(int s,int i)
 		
 		P_ITEM pHouse=Items->SpawnItem(DEREF_P_CHAR(pc_currchar), 1,(char*)temp,0,(id1<<8)+id2,0,0);
 		if (!pHouse) return;		
-		
-		
 		pc_currchar->making=0;
-		
 		pHouse->MoveTo(x,y,z);
 		pHouse->priv=0;
 		pHouse->more4 = itemsdecay; // set to 1 to make items in houses decay
@@ -254,6 +262,20 @@ void cHouseManager::AddHome(int s,int i)
 		
 		//Key...
 		
+		int houseSize=House.size();
+		House.resize(House.size()+1);
+		House[houseSize]=new cHouse;
+		House[houseSize]->x1=x-sx;
+		House[houseSize]->x2=x+sx;
+		House[houseSize]->y1=y-sy;
+		House[houseSize]->y2=y+sy;
+		House[houseSize]->z=z;
+		House[houseSize]->id1=id1;
+		House[houseSize]->id2=id2;
+		House[houseSize]->serial=pHouse->serial;
+		House[houseSize]->OwnerSerial=pc_currchar->serial;
+		House[houseSize]->OwnerAccount=pc_currchar->account;
+	
 		if (id2>=112&&id2<=115) key=Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a tent key", 0, 0x10, 0x10,0, 0,1,1);//iron key for tents
 		else if(id2<=0x18) key=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"a ship key",0,0x10,0x13,0,0,1,1);//Boats -Rusty Iron Key
 		else key=Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else;
@@ -815,7 +837,7 @@ bool cHouseManager::HomeBuildSite(int x, int y, int z, int sx, int sy)
 		for (checky=y-(sy/2);checky<(y+(sy/2));checky++)
 		{
 			checkz=Map->MapElevation(checkx,checky);
-			if ((checkz>(z-7))&&(checkz<(z+7)))
+			if ((checkz>(z-10))&&(checkz<(z+10)))
 			{
 				ycount++;
 			}
@@ -829,3 +851,98 @@ bool cHouseManager::HomeBuildSite(int x, int y, int z, int sx, int sy)
 	else
 		return false;
 }
+
+int cHouseManager::GetHouseNum(P_CHAR pc)
+{
+	int i;
+	for(i=0;i!=House.size();i++)
+		if((pc->pos.x>House[i]->x1) && (pc->pos.x<House[i]->x2))
+			if((pc->pos.y>House[i]->y1) && (pc->pos.y<House[i]->y2))
+				return i;
+	return -1;
+}
+
+int cHouse::FindFriend(P_CHAR pc)
+{
+	if(pc->serial==OwnerSerial)
+		return -2;
+	for(int i=0;i!=FriendList.size();i++)
+		if(pc->serial==FriendList[i])
+			return i;
+	return -1;
+}
+
+int cHouse::FindBan(P_CHAR pc)
+{
+	if(pc->serial==OwnerSerial)
+		return -2;
+	for(int i=0;i!=BanList.size();i++)
+		if(pc->serial==BanList[i])
+			return i;
+	return -1;
+}
+
+int cHouse::AddFriend(P_CHAR pc)
+{
+	int i=FindFriend(pc);
+	SOCKET s=calcSocketFromChar(pc);
+	if(i==-1)
+	{
+		FriendList.push_back(pc->serial);
+		sysmessage(s,"You are now a Friend of the house!");
+		return 1;
+	}
+	else if(i==-2)
+	{
+		sysmessage(s, "You are the Owner of this house!");
+		return 3;
+	}
+	else
+	{
+		sysmessage(s,"You are already a Friend of the house!");
+		return 2;
+	}
+	return 3;
+}
+
+int cHouse::AddBan(P_CHAR pc)
+{
+	int i=FindBan(pc);
+	SOCKET s=calcSocketFromChar(pc);
+	if(i==-1)
+	{
+		BanList.push_back(pc->serial);
+		sysmessage(s,"You are now banned from the house!");
+		return 1;
+	}
+	else if(i==-2)
+	{
+		sysmessage(s,"You are the Owner of this house!");
+		return 3;
+	}
+	else
+	{
+		sysmessage(s,"You are already banned from the house!");
+		return 2;
+	}
+	return 3;
+}
+
+bool cHouse::RemoveFriend(P_CHAR pc)
+{
+	int i=FindFriend(pc);
+	if(i>-1)
+		FriendList.erase((int*)FriendList[i]);
+	return 0;
+}
+
+bool cHouse::RemoveBan(P_CHAR pc)
+{
+	int i=FindBan(pc);
+	if(i>-1)
+		BanList.erase((int*)BanList[i]);
+	return 0;
+}
+
+
+

@@ -39,6 +39,21 @@ void cWeather::DoWeather(int s)
 { 
 	char rain[5]="\x65\x01\x46\x00";
 	char snow[5]="\x65\x02\x46\xEC";
+	char dry[5]="\x65\x00\x00\x00";
+	int Region=chars[currchar[s]].region;
+	if(Type[Region]==-1)
+		CalcType(s);
+	else if(Type[Region]==1)
+		Network->xSend(s,rain,4,0);
+	else if(Type[Region]==2)
+		Network->xSend(s,snow,4,0);
+	else
+		Network->xSend(s,dry,4,0);
+	return;
+}
+
+void cWeather::CalcType(int s)
+{
 	int rchance=0;
 	int schance=0;
 	int wchance=0;
@@ -51,13 +66,11 @@ void cWeather::DoWeather(int s)
 	{
 		if(schance>wchance) 
 		{
-			Network->xSend(s,snow,4,0);
 			Type[chars[currchar[s]].region]=2;
 			return;
 		} // if schance>wchance
 		else if(rchance>wchance) // if the rain chance is bigger then the weather chance
 		{
-			Network->xSend(s,rain,4,0);
 			Type[chars[currchar[s]].region]=1;
 			return;
 		} // if rchance>wchance
@@ -71,13 +84,12 @@ void cWeather::DoWeather(int s)
 	{
 		if(rchance>wchance)
 		{
-			Network->xSend(s,rain,4,0);
 			Type[chars[currchar[s]].region]=1;
 			return;
 		}// if rchance>wchance
 		else if(schance>wchance)
 		{
-			Network->xSend(s,snow,4,0);
+			Type[chars[currchar[s]].region]=2;
 			return;
 		} //if schance>wchance
 		else // if it doesnt rain or snow
@@ -100,6 +112,7 @@ void cWeather::WTimer()
 		{
 			Active[x]=false;
 			StartTime[x]=uiCurrentTime+Check[x]*CLOCKS_PER_SEC;
+			Type[x]=-1;
 		}
 		else if(CurTime>StartTime[x] && StartTime[x]>0 && Active[x]==false)
 		{

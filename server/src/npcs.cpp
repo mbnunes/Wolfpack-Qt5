@@ -2122,3 +2122,14 @@ bool cChar::canPickUp(cItem* pi)
 		return false;
 	return true;
 }
+
+int cChar::MyHome()
+{
+	int i;
+	for(i=0;i!=House.size();i++)
+	{
+		if(this->serial==House[i]->OwnerSerial)
+			return i;
+	}
+	return -1;
+}

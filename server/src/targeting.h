@@ -157,7 +157,8 @@ private:
 	void HouseEjectTarget(int s);
 	void HouseBanTarget(int s);
 	void HouseFriendTarget(int s);
-	void HouseUnlistTarget(int s);
+	void HouseUnBanTarget(int s);
+	void HouseUnFriendTarget(int s);
 	void BanTarg(int s);
 	void triggertarget(int ts); // By Magius(CHE)
 	void GlowTarget(int s);

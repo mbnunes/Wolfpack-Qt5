@@ -394,6 +394,7 @@ public:
 	bool canPickUp(cItem* pi);
 	unsigned dist(cChar* pc)	{return pos.distance(pc->pos);}
 	unsigned dist(cItem* pi)	{return pos.distance(pi->pos);}
+	int MyHome();
 };
 
 #include "CharWrap.h"

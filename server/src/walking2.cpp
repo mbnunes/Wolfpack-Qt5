@@ -268,8 +268,17 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 	pc->dir = (dir&0x07);
 	
 	SendWalkToPlayer(pc, socket, sequence);
-	
-	SendWalkToOtherPlayers(pc, dir, oldx, oldy);
+	cRegion::RegionIterator4Chars ri(pc->pos);
+	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	{
+		P_CHAR pc_vis = ri.GetData();
+		if (pc_vis != NULL)
+		{
+			int distance=chardist(DEREF_P_CHAR(pc_vis), DEREF_P_CHAR(pc));
+			if(distance<=VISRANGE)
+				SendWalkToOtherPlayers(pc_vis, dir, oldx, oldy);
+		}
+	}
 	
 	OutputShoveMessage(pc, socket, oldx, oldy);
 	
@@ -717,29 +726,23 @@ bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
 {
     if ( !pc->npc ) // this code is also called from npcs-walking code, so only check for players to cut down lag!
     {
-        // check if player is banned from a house - crackerjack 8/12/99
-        P_ITEM pi = findmulti(pc->pos);
-		int i = DEREF_P_ITEM(pi);
-        if ( i!=-1 ) 
-        {
-			pc->SetMultiSerial(items[i].serial); //Set them inside the multi!
-            int j=on_hlist(i, pc->ser1, pc->ser2, pc->ser3, pc->ser4, NULL);
-            if(j==H_BAN) 
-            {
-                int sx, sy, ex, ey;
-                Map->MultiArea(i,&sx,&sy,&ex,&ey);
-                pc->pos.x = ex;
-                pc->pos.y = ey+1;
+        	walksequence[socket] = -1;
+		int h=HouseManager->GetHouseNum(pc);
+		if(h>=0)
+		{
+			int i=House[h]->FindBan(pc);
+			if(i>=0)
+			{
+				pc->pos.x = House[h]->x2+1;
+                pc->pos.y = House[h]->y2+1;
                 teleport(DEREF_P_CHAR(pc));
                 if (socket!=INVALID_UOXSOCKET)
 				{
 					sysmessage(socket, "You are banned from that location.");
-					// this wasn't resetting walksequence like the others, probably a bug
 					walksequence[socket] = -1;
 				}
-                return false;
-            }
-        }
+			}
+		}
     } 
     return true;
 }

@@ -262,7 +262,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				return;
 			case 6:
 			case 8: // Remove someone from house list
-				target(s, 0, 1, 0, 231, "Select person to remove from house registry.");
+				target(s, 0, 1, 0, 231, "Select person to remove from ban list.");
 				return;
 			case 7: // Make someone a friend
 				target(s, 0, 1, 0, 230, "Select person to make a friend of the house.");

@@ -2792,82 +2792,122 @@ void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out
 	}
 }
 
-void cTargets::HouseBanTarget(int s) // crackerjack 8/12/99 - ban someobdy from the house
+void cTargets::HouseBanTarget(int s) 
 {
 	Targ->HouseEjectTarget(s);	// first, eject the player
 
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
+	P_CHAR pc_home = MAKE_CHAR_REF(currchar[s]);
 	if (!pc)
 		return;
-
-	int serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
-	if(serial == INVALID_SERIAL)
-		return;
-	int h=calcItemFromSer(serial);
+	int h=pc_home->MyHome();
 	if(h!=-1)
 	{
-		if(pc->serial == chars[currchar[s]].serial) return;
-		int r=add_hlist(DEREF_P_CHAR(pc), h, H_BAN);
+		if(pc->serial == pc_home->serial) return;
+		int r=House[h]->AddBan(pc);
 		if(r==1)
 		{
 			sysmessage(s, "%s has been banned from this house.", pc->name);
-		} else if(r==2)
+		} 
+		else if(r==2)
 		{
-			sysmessage(s, "That player is already on a house register.");
-		} else
-			sysmessage(s, "That player is not on the property.");
+			sysmessage(s, "%s is already banned!.", pc->name);
+		} 
+		else
+			sysmessage(s, "House Error!");
 	}
 }
 
 void cTargets::HouseFriendTarget(int s) // crackerjack 8/12/99 - add somebody to friends list
 {
-	cChar* Friend = FindCharBySerPtr(buffer[s]+7);
+	P_CHAR Friend = FindCharBySerPtr(buffer[s]+7);
+	P_CHAR pc_home = MAKE_CHAR_REF(currchar[s]);
 
-	int serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
-	if( serial == INVALID_SERIAL ) return;
-	int h=calcItemFromSer(serial);
+	int h=pc_home->MyHome();
 
 	if(Friend && h!=-1)
 	{
-		if(Friend->serial == chars[currchar[s]].serial)
+		if(Friend->serial == pc_home->serial)
 		{
-			sysmessage(s,"You cant do that!");
+			sysmessage(s,"You are already the owner!");
 			return;
 		}
-		int r=add_hlist(DEREF_P_CHAR(Friend), h, H_FRIEND);
+		int r=House[h]->AddFriend(Friend);
 		if(r==1)
 		{
-			sysmessage(s, "%s has been made a friend of the house.", Friend->name);
-		} else if(r==2)
+			sysmessage(s, "%s has been made a Friend of the house.", Friend->name);
+		} 
+		else if(r==2)
 		{
-			sysmessage(s, "That player is already on a house register.");
-		} else 
+			sysmessage(s, "%s is already a Friend of the house!", Friend->name);
+		} 
+		else 
 		{
-			sysmessage(s, "That player is not on the property.");
+			sysmessage(s, "House Error!");
 		}
 	}
 }
 
-void cTargets::HouseUnlistTarget(int s) // crackerjack 8/12/99 - remove somebody from a list
+void cTargets::HouseUnBanTarget(int s)
 {
-	int c, h;
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if( serial == INVALID_SERIAL ) return;
-	c=calcCharFromSer(serial);
-	serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
-	if( serial == INVALID_SERIAL) return;
-	h=calcItemFromSer(serial);
-	if((c!=-1)&&(h!=-1))
+	P_CHAR pc_banned = FindCharBySerPtr(buffer[s]+7);
+	P_CHAR pc_owner  = MAKE_CHAR_REF(currchar[s]);
+	
+	int h=pc_owner->MyHome();
+
+	if(pc_banned && h!=-1)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(c);
-		int r=del_hlist(c, h);
-		if(r>0)
+		if(pc_banned->serial==pc_owner->serial)
 		{
-			sysmessage(s,(char*) "%s has been removed from the house registry.", pc->name);
+			sysmessage(s,"You are the owner of this home!");
+			return;
+		}
+		bool r=House[h]->RemoveBan(pc_banned);
+		if(true==r)
+		{
+			sysmessage(s,"%s has been UnBanned!",pc_banned->name);
+		}
+		else if(false==r)
+		{
+			sysmessage(s,"%s was never banned!",pc_banned->name);
 		}
 		else
-			sysmessage(s, "That player is not on the house registry.");
+		{
+			sysmessage(s,"House Error!");
+		}
 	}
+	return;
+}
+
+void cTargets::HouseUnFriendTarget(int s)
+{
+	P_CHAR pc_friend = FindCharBySerPtr(buffer[s]+7);
+	P_CHAR pc_owner  = MAKE_CHAR_REF(currchar[s]);
+	
+	int h=pc_owner->MyHome();
+
+	if(pc_friend && h!=-1)
+	{
+		if(pc_friend->serial==pc_owner->serial)
+		{
+			sysmessage(s,"You are the owner of this home!");
+			return;
+		}
+		bool r=House[h]->RemoveFriend(pc_friend);
+		if(true==r)
+		{
+			sysmessage(s,"%s is no longer a Friend of this home!",pc_friend->name);
+		}
+		else if(false==r)
+		{
+			sysmessage(s,"%s was never a Friend of this home!",pc_friend->name);
+		}
+		else
+		{
+			sysmessage(s,"House Error!");
+		}
+	}
+	return;
 }
 
 void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
@@ -3805,7 +3845,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 228: Targ->HouseEjectTarget(s); break; // cj aug11/99
 		case 229: Targ->HouseBanTarget(s); break; // cj aug12/99
 		case 230: Targ->HouseFriendTarget(s); break; // cj aug 12/99
-		case 231: Targ->HouseUnlistTarget(s); break; // cj aug 12/99
+		case 231: Targ->HouseUnBanTarget(s); break; // cj aug 12/99
 		case 232: Targ->HouseLockdown( s ); break; // Abaddon 17th December 1999
 		case 233: Targ->HouseRelease( s ); break; // Abaddon 17th December 1999
 		case 234: Targ->HouseSecureDown( s ); break; // Ripper
@@ -3829,6 +3869,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 256: Targ->SetHome(s); break;
 		case 257: Targ->SetWork(s); break;
 		case 258: Targ->SetFood(s); break;
+		case 259: Targ->HouseUnFriendTarget(s); break;
 
 		default:
 			LogErrorVar("Fallout of switch statement, multitarget(), value=(%i)",pt->Tnum);
