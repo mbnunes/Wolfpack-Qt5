@@ -64,7 +64,7 @@ Wolfpack 12.9.13 Beta (SVN)
   - Fixed a nasty bug in the map sector code which caused objects not
     to be in the map objects when moved between maps.
   - Fixed a walking bug that caused monsters to walk trough certain objects.
-  - type="3" in bodyinfo.XML is now correctly interpreted by the core.
+  - type="3" in bodyinfo.xml is now correctly interpreted by the core.
   - Exploit bugfix for locked containers.
   - The status only shows the gold directly in your backpack now. (performance issues)
   - Fixed a vision range bug with walking.
