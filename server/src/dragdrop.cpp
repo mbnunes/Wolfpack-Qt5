@@ -781,6 +781,13 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 			socket->bounceItem( pItem, BR_NO_REASON );
 			return;
 		}
+
+		if( pItem->amount() > 1 )
+		{
+			socket->sysMessage( tr( "You can only put 1 scroll into a spellbook at a time" ) );
+			socket->bounceItem( pItem, BR_NO_REASON );
+			return;
+		}
 		else
 		{	
 			pBook->addSpell( spellId );
