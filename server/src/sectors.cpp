@@ -100,7 +100,6 @@ bool cSectorMap::addItem( cUObject *object )
 		grid[block]->count = 1;
 		grid[block]->data = (cUObject**)malloc( sizeof( cUObject* ) );
 		grid[block]->data[0] = object;
-		clConsole.send( QString("NERVIGES SCHEISS TEIL ZEIGT AN: neuer sektor gemacht\n") );
 	}
 	else
 	{
@@ -114,7 +113,6 @@ bool cSectorMap::addItem( cUObject *object )
 		grid[block]->count++;
 		grid[block]->data = (cUObject**)realloc( grid[block]->data, grid[block]->count * sizeof( cUObject* ) );
 		grid[block]->data[ grid[block]->count - 1 ] = object;
-		clConsole.send( QString("NERVIGES SCHEISS TEIL ZEIGT AN: item an sektor angefügt, neue länge: %1\n").arg(grid[block]->count) );
 	}
 
 	return true;
@@ -137,7 +135,6 @@ bool cSectorMap::removeItem( cUObject *object )
 	if( !grid[block] )
 		return true;
 
-	clConsole.send( QString("SCHEISS TEIL: for removen, länge %1, data = %2\n").arg( grid[block]->count ).arg( QString::number( (int)grid[block]->data, 16 ) ) );
 
 	// Remove the Item from the array (most complicated part of the code)
 	for( unsigned int i = 0; i < grid[block]->count; ++i )
@@ -169,8 +166,6 @@ bool cSectorMap::removeItem( cUObject *object )
 			break;
 		}
 	}
-
-	clConsole.send( QString("SCHEISS TEIL: item removed, länge %1, data = %2\n").arg( grid[block]->count ).arg( QString::number( (int)grid[block]->data, 16 ) ) );
 
 	// Check if the block can be freed
 	if( !grid[block]->count )

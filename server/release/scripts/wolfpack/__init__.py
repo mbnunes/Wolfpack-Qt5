@@ -44,6 +44,9 @@ def region( x, y, map ):
 
 def itemregion( x1, y1, x2, y2, map ):
 	return _wolfpack.itemregion( x1, y1, x2, y2, map )
+	
+def charregion( x1, y1, x2, y2, map ):
+	return _wolfpack.charregion( x1, y1, x2, y2, map )	
 
 # Statics, Items, Map
 def map( x, y, map ):

@@ -904,6 +904,19 @@ PyObject* wpIsClosing( PyObject* self )
 		return PyFalse;
 }
 
+static PyObject* wpCharRegion( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+
+	unsigned int x1, y1, x2, y2;
+	unsigned char map;
+
+	if( !PyArg_ParseTuple( args, "iiiib:wolfpack.charregion", &x1, &y1, &x2, &y2, &map ) )
+		return 0;
+
+	return PyGetCharRegionIterator( x1, y1, x2, y2, map );
+}
+
 static PyObject* wpItemRegion( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
@@ -914,7 +927,7 @@ static PyObject* wpItemRegion( PyObject* self, PyObject* args )
 	if( !PyArg_ParseTuple( args, "iiiib:wolfpack.itemregion", &x1, &y1, &x2, &y2, &map ) )
 		return 0;
 
-	return PyGetRegionIterator( x1, y1, x2, y2, map );
+	return PyGetItemRegionIterator( x1, y1, x2, y2, map );
 }
 
 static PyObject* wpNewItem( PyObject *self, PyObject *args )
@@ -978,7 +991,8 @@ static PyObject* wpTickcount( PyObject* self )
 */
 static PyMethodDef wpGlobal[] = 
 {
-	{ "itemregion",			wpItemRegion,				METH_VARARGS, NULL },
+	{ "charregion",			wpCharRegion,					METH_VARARGS, NULL },
+	{ "itemregion",			wpItemRegion,					METH_VARARGS, NULL },
 	{ "additem",			wpAdditem,						METH_VARARGS, "Adds an item with the specified script-section" },
 	{ "newnpc",				wpNewNpc,						METH_VARARGS, "Creates an entirely new npc." },
 	{ "newitem",			wpNewItem,						METH_VARARGS, "Creates an entirely new item." },
