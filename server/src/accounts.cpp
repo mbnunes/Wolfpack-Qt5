@@ -109,7 +109,7 @@ bool AccountRecord::removeCharacter( cChar* d )
 
 bool AccountRecord::authorized( const QString& group, const QString& value ) const
 {
-	//return true;
+	return true;
 	// No Valid ACL specified
 	if( !acl_ )
 		return false;
