@@ -4,6 +4,7 @@ Wolfpack 12.9.11 Beta (CVS)
 	* Definition Changes:
 		- Fixed minimum taming for npcs.
 		- Added the shopkeeper inventory for many vendors.
+		- Fixed/added weight values for many items.
 	* Python Script Changes:
 		- Removed weight from the info menu.
 		- The info command now correctly resends the changed players.
