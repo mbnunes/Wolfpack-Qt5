@@ -144,6 +144,7 @@ protected:
 	unsigned int beggingRange_;
 	unsigned int beggingTime_;
 	unsigned char season_;
+	QString databaseDriver_;
 	QString databaseName_;
 	QString databaseUsername_;
 	QString databasePassword_;
@@ -157,10 +158,6 @@ protected:
 	int accountsBlockTime_;
 	QString accountsArchiver_;
 	bool categoryTagAddMenu_;
-	QString saveModule_;
-	QString loadModule_;
-	QString savePath_;
-	QString savePrefix_;
 	double npcMoveTime_;
 	double tamedNpcMoveTime_;
 
@@ -169,10 +166,6 @@ protected:
 	unsigned int stablemasterRefreshTime_;
 	float stablemasterGoldPerRefresh_;
 	unsigned int animalWildFleeRange_;
-
-	// Remote Admin
-	unsigned int ra_port_;
-	bool EnableRA_;
 
 	// Regenerate
 	unsigned int hitpointrate_;
@@ -349,14 +342,11 @@ public:
 	double tamedNpcMoveTime() const;
 
 	// Persistency Module
+	QString databaseDriver() const;
 	QString databaseHost() const;
 	QString databasePassword() const;
 	QString databaseUsername() const;
 	QString databaseName() const;
-
-	// Remote Admin
-	unsigned int ra_port() const;
-	bool EnableRA() const;
 
 	// Regenerate
 	unsigned int hitpointrate() const;
@@ -420,12 +410,6 @@ public:
 	unsigned short gamePort() const;
 	bool enableLogin() const;
 	bool enableGame() const;
-
-	// Worldsave
-	QString savePath() const;
-	QString saveModule() const;
-	QString loadModule() const;
-	QString savePrefix() const;
 
 	// Path Finding
 	int pathfindMaxSteps() const;
@@ -941,16 +925,6 @@ inline unsigned char cSrvParams::showCVCS() const
 	return showCVCS_;
 }
 
-inline unsigned int cSrvParams::ra_port() const
-{
-	return ra_port_;
-}
-
-inline bool cSrvParams::EnableRA() const
-{
-	return EnableRA_;
-}
-
 inline long int cSrvParams::murderdecay() const
 {
 	return murderdecay_;
@@ -1091,6 +1065,11 @@ inline QString cSrvParams::accountsArchiver() const
 	return accountsArchiver_;
 }
 
+inline QString cSrvParams::databaseDriver() const 
+{
+	return databaseDriver_;
+}
+
 inline QString cSrvParams::databaseHost() const 
 {
 	return databaseHost_;
@@ -1139,26 +1118,6 @@ inline unsigned short cSrvParams::loginPort() const
 inline bool cSrvParams::addMenuByCategoryTag() const
 {
 	return categoryTagAddMenu_;
-}
-
-inline QString cSrvParams::saveModule() const
-{
-	return saveModule_;
-}
-
-inline QString cSrvParams::loadModule() const
-{
-	return loadModule_;
-}
-
-inline QString cSrvParams::savePrefix() const
-{
-	return savePrefix_;
-}
-
-inline QString cSrvParams::savePath() const
-{
-	return savePath_;
 }
 
 inline int cSrvParams::pathfindMaxSteps() const

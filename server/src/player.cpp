@@ -86,6 +86,15 @@ static cUObject* productCreator()
 	return new cPlayer;
 }
 
+void cPlayer::registerInFactory()
+{
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT /*! STRAIGHT_JOIN SQL_SMALL_RESULT */ uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cPlayer' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	UObjectFactory::instance()->registerType( "cPlayer", productCreator );
+	UObjectFactory::instance()->registerSqlQuery( "cPlayer", sqlString );
+}
+
 void cPlayer::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cBaseChar::buildSqlString( fields, tables, conditions );

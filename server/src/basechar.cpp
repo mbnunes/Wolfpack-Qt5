@@ -248,7 +248,7 @@ void cBaseChar::save()
 		addField( "serial", serial() );
 		addStrField( "name", orgName_ );	
 		addStrField( "title", title_ );
-		addField( "creationdate", creationDate_.toString() );
+		addStrField( "creationdate", creationDate_.toString() );
 		addField( "body", bodyID_ );
 		addField( "orgbody", orgBodyID_ );
 		addField( "skin", skin_ );

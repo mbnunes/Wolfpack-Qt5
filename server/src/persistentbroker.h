@@ -56,7 +56,10 @@ public:
 	PersistentBroker();
 	~PersistentBroker();
 	bool openDriver( const QString& driver );
+
 	bool connect( const QString& host, const QString& db, const QString& username, const QString& password );
+	void disconnect();
+
 	bool executeQuery( const QString& query );
 	cDBResult query( const QString& query );
 	void flushDeleteQueue();
@@ -77,7 +80,8 @@ public:
 
 inline QString __escapeReservedCharacters( const QString& d )
 {
-	return QString(d).replace( QRegExp("'"), "\\'" );
+	//return QString(d).replace( QRegExp("'"), "\\'" );
+	return QString(d).replace( QRegExp("'"), "''" );
 }
 
 #define savePersistentIntValue(field, value) \
@@ -140,24 +144,20 @@ inline QString __escapeReservedCharacters( const QString& d )
 		property = cursor.field(fieldName)->value().toUInt()
 #endif
 
-#define initSave QStringList conditions; QStringList fields; QString table;
-#define clearFields conditions.clear(); fields.clear();
+#define initSave QStringList conditions, fields, values; QString table;
+#define clearFields conditions.clear(); fields.clear(); values.clear();
 #define setTable( value ) table = value;
 
 // Check here if we are updating or inserting
 // for inserting we use the faster VALUES() method
 
-#define addField( name, value ) fields.push_back( QString( "`%1` = '%2'" ).arg( name ).arg( value ) );
-#define addStrField( name, value ) fields.push_back( QString( "`%1` = '%2'" ).arg( name ).arg( __escapeReservedCharacters( value.isNull() ? QString( "" ) : value ) ) );
+#define addField( name, value ) fields.push_back( name ); values.push_back( QString::number( value ) );
+#define addStrField( name, value ) fields.push_back( name ); values.push_back( "'" + ( value.isNull() ? QString( "" ) : __escapeReservedCharacters( value ) ) + "'" );
 #define addCondition( name, value ) conditions.push_back( QString( "`%1` = '%2'" ).arg( name ).arg( value ) );
 #define saveFields \
 	if( isPersistent ) \
-	{ \
-		persistentBroker->executeQuery( QString( "UPDATE `%1` SET %2 WHERE %3" ).arg( table ).arg( fields.join(", ") ).arg( conditions.join(" AND ") ) ); \
-	} \
+		persistentBroker->executeQuery( QString( "UPDATE %1 (%2) VALUES(%3) WHERE %4" ).arg( table ).arg( fields.join( "," ) ).arg( values.join( "," ) ).arg( conditions.join( " AND " ) ) ); \
 	else \
-	{ \
-		persistentBroker->executeQuery( QString( "INSERT INTO `%1` SET %2" ).arg( table ).arg( fields.join( ", " ) ) ); \
-	}
+		persistentBroker->executeQuery( QString( "INSERT INTO %1 (%2) VALUES(%3)" ).arg( table ).arg( fields.join( "," ) ).arg( values.join( "," ) ) );
 
 #endif // __PERSISTENTBROKER_H__

@@ -74,20 +74,14 @@ private:
 	UINT32 lastTooltip;
 	SERIAL _lastCharSerial, _lastItemSerial;
 
-	void loadFlatstore( const QString &prefix );
-	void loadSql();
-
-	void saveFlatstore( const QString &prefix );
-	void saveSql();
-
 public:
 	// Constructor/Destructor
 	cWorld();
 	virtual ~cWorld();
 	
 	// WorldLoader interface
-	void load( QString basepath = QString::null, QString prefix = QString::null, QString module = QString::null );
-	void save( QString basepath = QString::null, QString prefix = QString::null, QString module = QString::null );
+	void load();
+	void save();
 
 	// Book-keeping functions
 	void registerObject( cUObject *object );

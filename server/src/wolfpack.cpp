@@ -709,23 +709,9 @@ int main( int argc, char *argv[] )
 	serverstarttime = getNormalizedTime();
 
 	// Try to open our driver
-	if( !persistentBroker->openDriver( "mysql" ) )
+	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
 	{
 		exit( -1 );
-	}
-
-	// Don't connect if everything is empty
-	if( !SrvParams->databaseHost().isEmpty() || !SrvParams->databaseName().isEmpty() || !SrvParams->databaseUsername().isEmpty() || !SrvParams->databasePassword().isEmpty() )
-	{
-		try
-		{
-			persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
-		}
-		catch( QString &e )
-		{
-			clConsole.log( LOG_FATAL, QString( "An error occured while connecting to the database: %1\n" ).arg( e ) );
-			exit( -1 );
-		}
 	}
 
 	// Registers our Built-in types into factory.

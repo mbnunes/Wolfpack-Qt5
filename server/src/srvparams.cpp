@@ -118,11 +118,8 @@ void cSrvParams::readData()
 	databasePassword_		= getString("Database", "password", "", true);
 	databaseUsername_		= getString("Database", "username", "", true);
 	databaseHost_			= getString("Database", "host", "", true);
-	databaseName_			= getString("Database", "name", "", true);
-
-	// Remote Admin
-	ra_port_		        = getNumber("Remote Admin",	"Port", 2594, true);
-	EnableRA_			    = getBool("Remote Admin",	"Enable", false, true);
+	databaseHost_			= getString("Database", "driver", "sqlite", true);
+	databaseName_			= getString("Database", "name", "world.db", true);
 
 	// Repsys
 	murderdecay_		    = getNumber("Repsys", "Murder Decay", 28800, true);
@@ -271,12 +268,6 @@ void cSrvParams::readData()
 	cutScrollReq_			= getBool( "Magic", "Cut Scroll Requirements", false, true );
 	walkDisturbsCast_		= getBool( "Magic", "Walking Disturbs Casting", true, true );
 	precasting_				= getBool( "Magic", "Precasting", true, true );
-
-	// Worldsave
-	saveModule_				= getString( "Worldsaves", "Saver", "sql", true );
-	loadModule_				= getString( "Worldsaves", "Loader", "sql", true );
-	savePrefix_				= getString( "Worldsaves", "Prefix", "", true );
-	savePath_				= getString( "Worldsaves", "Path", "", true );
 
 	// Path Finding
 	pathfind4Follow_		= getBool( "Path Finding", "Activate for Following", true, true );

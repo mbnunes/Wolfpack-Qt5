@@ -43,6 +43,7 @@
 #include <mysql.h>
 #include <errmsg.h>
 #include <stdlib.h>
+#include "sqlite/sqlite.h"
 
 /*****************************************************************************
   cDBDriver member functions
@@ -63,7 +64,7 @@
 */
 cDBDriver::~cDBDriver()
 {
-	close();
+	//close();
 }
 
 /*!
@@ -77,13 +78,14 @@ bool cDBDriver::open( int id )
 	connection = mysql_init( 0 );
 	if ( !connection )
 		throw QString("mysql_init(): insufficient memory to allocate a new object");
-	connection->reconnect = 1;
 	
-	if ( !mysql_real_connect(connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
+	( (MYSQL*)connection )->reconnect = 1;
+	
+	if ( !mysql_real_connect((MYSQL*)connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
 	{ // Named pipes are acctually slower :(
-		throw QString( "Connection to DB failed: %1" ).arg( mysql_error( connection ) );
+		throw QString( "Connection to DB failed: %1" ).arg( mysql_error( (MYSQL*)connection ) );
 	}
-	connections[ id ] = connection;
+	connections[ id ] = (MYSQL*)connection;
 
 	return true;
 }
@@ -93,7 +95,7 @@ bool cDBDriver::open( int id )
 */
 void cDBDriver::close()
 {
-	mysql_close( connection );
+	mysql_close( (MYSQL*)connection );
 }
 
 /*!
@@ -102,7 +104,7 @@ void cDBDriver::close()
 */
 cDBResult cDBDriver::query( const QString &query )
 {
-	MYSQL *mysql = connection;
+	MYSQL *mysql = (MYSQL*)connection;
 
 	if( !mysql )
 		throw QString( "Not connected to mysql server. Unable to execute query." );
@@ -120,21 +122,21 @@ cDBResult cDBDriver::query( const QString &query )
 	Executes a SQL command string without returning from the database.
 	Returns true if executed successfully.
 */
-bool cDBDriver::exec( const QString &query ) const
+bool cDBDriver::exec( const QString &query )
 {
 	if( !connection )
 		throw QString( "Not connected to mysql server. Unable to execute query." );
 
-	bool ok = !mysql_query( connection, query.latin1() );
+	bool ok = !mysql_query( (MYSQL*)connection, query.latin1() );
 	return ok;
 }
 
-void cDBDriver::lockTable( const QString& table ) const
+void cDBDriver::lockTable( const QString& table )
 {
 	exec( QString("LOCK TABLES %1 WRITE;").arg(table) );
 }
 
-void cDBDriver::unlockTable( const QString& table ) const
+void cDBDriver::unlockTable( const QString& table )
 {
 	exec( QString("UNLOCK TABLES") );
 }
@@ -142,7 +144,7 @@ void cDBDriver::unlockTable( const QString& table ) const
 // Returns an error (if there is one)
 QString cDBDriver::error()
 {
-	const char *error = mysql_error( connection );
+	const char *error = mysql_error( (MYSQL*)connection );
 
 	if( error != 0 )
 	{
@@ -177,14 +179,45 @@ bool cDBResult::fetchrow()
 	if( !_result )
 		return false;
 
-	_row = mysql_fetch_row( _result );
-	return ( _row != 0 );
+	if( mysql_type )
+	{
+		_row = mysql_fetch_row( (st_mysql_res*)_result );
+		return ( _row != 0 );
+	}
+	else
+	{
+		int count;
+		const char **columns;
+
+		return ( sqlite_step( (sqlite_vm*)_result, &count, (const char***)&_row, &columns ) == SQLITE_ROW );	
+	}	
 }
 
 // Call this to free the query
 void cDBResult::free()
 {
-	mysql_free_result( _result );
+	if( mysql_type )
+	{
+		mysql_free_result( (st_mysql_res*)_result );
+	}
+	else
+	{
+		char *error;
+		if( sqlite_finalize( (sqlite_vm*)_result, &error ) != SQLITE_OK )
+		{
+			if( error )
+			{
+				QString err( error );
+				sqlite_freemem( error );
+				throw err;
+			}
+			else
+			{
+				throw QString( "Unknown SQLite error while finalizing query." );
+			}
+		}	
+	}
+
 	_result = 0;
 	_row = 0;
 	_connection = 0;
@@ -212,4 +245,87 @@ QString cDBResult::getString( UINT32 offset ) const
 		throw QString( "Trying to access a non valid result!" );
 
 	return _row[offset];
+}
+
+/*****************************************************************************
+  cSQLiteDriver member functions
+ *****************************************************************************/
+
+bool cSQLiteDriver::open( int id )
+{
+	char *error = NULL;
+
+	close();
+
+	connection = sqlite_open( _dbname.latin1(), 0, &error );
+
+	if( !connection )
+	{
+		if( error )
+		{
+			QString err( error );
+			sqlite_freemem( error );
+			throw err;
+		}
+		else
+		{
+			throw QString( "Unknown SQLite error while opening database." );
+		}
+	}
+
+	return true;
+}
+
+void cSQLiteDriver::close()
+{
+	if( connection != 0 )
+	{
+		sqlite_close( (sqlite*)connection );
+		connection = 0;
+	}
+}
+
+bool cSQLiteDriver::exec( const QString &query )
+{
+	char *error;
+
+	if( sqlite_exec( (sqlite*)connection, query.latin1(), NULL, NULL, &error ) != SQLITE_OK )
+	{
+		if( error )
+		{
+			QString err( QString( error ) + " (" + query + ")" );
+			sqlite_freemem( error );
+			throw err;
+		}
+		else
+		{
+			throw QString( "Unknown SQLite error while executing: %1" ).arg( query );
+		}
+	}
+
+	return true;
+}
+
+cDBResult cSQLiteDriver::query( const QString &query )
+{
+	char *error = NULL;
+	sqlite_vm *result;
+	
+
+	// Compile a VM and pass it to cSQLiteResult
+	if( sqlite_compile( (sqlite*)connection, query.latin1(), NULL, &result, &error ) != SQLITE_OK )
+	{
+		if( error )
+		{
+			QString err( QString( error ) + " (" + query + ")" );
+			sqlite_freemem( error );
+			throw err;
+		}
+		else
+		{
+			throw QString( "Unknown SQLite error while querying: %1" ).arg( query );
+		}
+	}
+
+	return cDBResult( result, connection, false ); 
 }

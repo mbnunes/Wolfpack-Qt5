@@ -62,11 +62,6 @@ public:
 
 	virtual void flagUnchanged() { cBook::changed_ = false; cItem::flagUnchanged();	}
 
-	// FlatStore
-	void save( FlatStore::OutputFile*, bool first = false ) throw();
-	bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* ) throw();
-	bool postload() throw();
-	
 	// setters/getters
 	QString		title( void )	const;
 	QString		author( void )	const;

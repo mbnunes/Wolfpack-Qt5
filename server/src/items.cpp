@@ -2001,6 +2001,20 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 		pi->setName( QString::null );
 }
 
+static cUObject* productCreator()
+{
+	return new cItem;
+}
+
+void cItem::registerInFactory()
+{
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT /*! STRAIGHT_JOIN SQL_SMALL_RESULT */ uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	UObjectFactory::instance()->registerType("cItem", productCreator);
+	UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
+}
+
 void cItem::load( char **result, UINT16 &offset )
 {
 	cUObject::load( result, offset ); // Load the items we inherit from first

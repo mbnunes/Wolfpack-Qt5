@@ -51,7 +51,18 @@ PersistentBroker::~PersistentBroker()
 
 bool PersistentBroker::openDriver( const QString& driver )
 {
-	connection = new cDBDriver();
+	if( connection != 0 )
+	{
+		connection->close();
+		delete connection;
+		connection = 0;
+	}
+
+	if( driver == "sqlite" )
+		connection = new cSQLiteDriver();
+	else
+		connection = new cDBDriver;
+
 	if ( !connection )
 		return false;
 	return true;
@@ -72,6 +83,12 @@ bool PersistentBroker::connect( const QString& host, const QString& db, const QS
 		return false;
 
 	return true;
+}
+
+void PersistentBroker::disconnect()
+{
+	if( connection )
+		connection->close();
 }
 
 bool PersistentBroker::saveObject( PersistentObject* object )
@@ -108,6 +125,9 @@ bool PersistentBroker::deleteObject( PersistentObject* object )
 
 bool PersistentBroker::executeQuery( const QString& query )
 {
+	if( !connection )
+		throw QString( "PersistentBroker not connected to database." );
+
 	bool result = connection->exec(query);
 	if( !result )
 	{
@@ -128,7 +148,7 @@ cDBDriver* PersistentBroker::driver() const
 cDBResult PersistentBroker::query( const QString& query )
 {
 	if( !connection )
-		return cDBResult( 0, 0 );
+		throw QString( "PersistentBroker not connected to database." );
 
 	return connection->query( query );
 }

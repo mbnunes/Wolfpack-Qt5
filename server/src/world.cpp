@@ -44,6 +44,7 @@
 #include "basechar.h"
 #include "player.h"
 #include "npc.h"
+#include "sqlite/sqlite.h"
 
 // Postprocessing stuff, can be deleted later on
 #include "maps.h"
@@ -58,10 +59,6 @@
 // Python Includes
 #include "python/utilities.h"
 #include "python/tempeffect.h"
-
-// FlatStore Includes
-#include "flatstore_keys.h"
-#include "flatstore/flatstore.h"
 
 // Library Includes
 #include <list>
@@ -106,7 +103,6 @@ public:
 		}
 
 		pendingObjects.clear();
-
 	}
 };
 
@@ -181,11 +177,20 @@ static void quickdelete( P_ITEM pi ) throw()
 	World::instance()->unregisterObject( pi );
 }
 
-/*!
-	Load a World using the SQL database
-*/
-void cWorld::loadSql()
+void cWorld::load()
 {
+	clConsole.send( "Loading World...\n" );
+
+	try
+	{
+		persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
+	}
+	catch( QString &e )
+	{
+		clConsole.log( LOG_FATAL, QString( "An error occured while connecting to the database: %1\n" ).arg( e ) );
+		return;
+	}
+
 	ISerialization* archive = cPluginFactory::serializationArchiver( "xml" );
 
 	QString objectID;
@@ -436,95 +441,8 @@ void cWorld::loadSql()
 		clConsole.send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
 		deleteItems.clear();
 	}
-}
 
-void cWorld::loadFlatstore( const QString &prefix )
-{
-	FlatStore::InputFile input;
-
-	input.startRead( QString( "%1world.fsd" ).arg( prefix ).latin1() );
-
-	unsigned int serial;
-	unsigned short objectType;
-
-	while( input.readObject( objectType, serial ) )
-	{
-		// Create a new object based on the object-type
-		unsigned char group, chunk;
-		cUObject *object = 0;
-
-		// Get an object
-		object = UObjectFactory::instance()->createObject( QString::number( objectType ) );
-
-		if( !object )
-		{
-			clConsole.log( LOG_ERROR, QString( "Invalid object type encountered: %1" ).arg( objectType ) );
-			continue;
-		}
-
-		object->setSerial( serial ); // This autoregisters the object too
-
-		while( input.readChunk( group, chunk ) )
-		{
-			if( !object->load( group, chunk, &input ) )
-			{
-				clConsole.log( LOG_ERROR, QString( "Invalid chunk key found in worldfile: %1 (Group: %2)." ).arg( chunk ).arg( group ) );
-
-				unregisterObject( object );
-				delete object;
-
-				break; // Problem about this is that most likely the whole object is corrupted until we have a world.fsh file
-			}
-		}
-	}
-
-	// Postprocessing (Items first)
-	cItemIterator i_iter;
-	for( P_ITEM pItem = i_iter.first(); pItem; pItem = i_iter.next() )
-	{
-		if( !pItem->postload() )
-			quickdelete( pItem );
-	}
-
-	cCharIterator c_iter;
-
-	for( P_CHAR pChar = c_iter.first(); pChar; pChar = c_iter.next() )
-	{
-		pChar->postload();
-		// I think we could delete characters the normal way here
-		// But it seems like characters never get deleted during postprocess
-	}
-
-	input.finishRead();	
-}
-
-void cWorld::load( QString basepath, QString prefix, QString module )
-{
-	clConsole.send( "Loading World..." );
-
-	if( module == QString::null )
-		module = SrvParams->loadModule();
-
-	if( prefix == QString::null )
-		prefix = SrvParams->savePrefix();
-
-	if( basepath == QString::null )
-		basepath = SrvParams->savePath();
-
-	prefix.prepend( basepath );
-
-	if( module == "sql" )
-		loadSql();
-	else if( module == "flatstore" )
-		loadFlatstore( prefix );
-	else
-	{
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( " Failed\n" );
-		clConsole.ChangeColor( WPC_NORMAL );
-
-		throw QString( "Unknown worldsave module: %1" ).arg( module );
-	}
+	persistentBroker->disconnect();
 
 	clConsole.send("World Loading ");
 	clConsole.ChangeColor( WPC_GREEN );
@@ -532,8 +450,23 @@ void cWorld::load( QString basepath, QString prefix, QString module )
 	clConsole.ChangeColor( WPC_NORMAL );
 }
 
-void cWorld::saveSql()
+void cWorld::save()
 {
+	clConsole.send( "Saving World..." );
+
+	try
+	{
+		persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
+	}
+	catch( QString &e )
+	{
+		clConsole.log( LOG_FATAL, QString( "An error occured while connecting to the database: %1\n" ).arg( e ) );
+		return;
+	}
+
+	unsigned int startTime = getNormalizedTime();
+
+	// Try to Benchmark
 	SrvParams->flush();
 
 	// Flush old items
@@ -576,95 +509,12 @@ void cWorld::saveSql()
 	Accounts::instance()->save();
 
 	uiCurrentTime = getNormalizedTime();
-}
-
-void cWorld::saveFlatstore( const QString &prefix )
-{
-	persistentBroker->clearDeleteQueue(); // prevents us from accidently not freeing memory
-
-	FlatStore::OutputFile output;
-	std::list< cUObject* >::const_iterator delIt;
-
-	output.startOutput( QString( prefix + "world.fsd" ).latin1() );
-
-	// Save Characters
-	CharMap::const_iterator char_it;
-	for( char_it = p->chars.begin(); char_it != p->chars.end(); ++char_it )
-	{
-		P_CHAR pChar = char_it->second;
-		try
-		{			
-			pChar->save( &output, true );
-		}
-		catch( ... )
-		{
-			clConsole.ChangeColor( WPC_RED );
-			clConsole.send( " Failed\n" );
-			clConsole.ChangeColor( WPC_NORMAL );
-
-			clConsole.log( LOG_ERROR, QString( "Couldn't save character: 0x%1" ).arg( pChar->serial(), 0, 16 ) );
-
-			clConsole.send( "Continuing...");
-		}
-	}
-
-	// Save Items
-	ItemMap::const_iterator item_it;
-	for( item_it = p->items.begin(); item_it != p->items.end(); ++item_it )
-	{
-        P_ITEM pItem = item_it->second;
-
-		try
-		{
-			pItem->save( &output, true );
-		}
-		catch( ... )
-		{
-			clConsole.ChangeColor( WPC_RED );
-			clConsole.send( " Failed\n" );
-			clConsole.ChangeColor( WPC_NORMAL );
-
-			clConsole.log( LOG_ERROR, QString( "Couldn't save item: 0x%1" ).arg( pItem->serial(), 0, 16 ) );
-
-			clConsole.send( "Continuing...");
-		}		
-	}
-
-	for( delIt = p->pendingObjects.begin(); delIt != p->pendingObjects.end(); ++delIt )
-		// Now we can finally delete pending objects
-		delete *delIt;
-
-	p->pendingObjects.clear();
-
-	output.finishOutput();
-}
-
-void cWorld::save( QString basepath, QString prefix, QString module )
-{
-	if( module == QString::null )
-		module = SrvParams->saveModule();
-
-	if( prefix == QString::null )
-		prefix = SrvParams->savePrefix();
-
-	if( basepath == QString::null )
-		basepath = SrvParams->savePath();
-
-	prefix.prepend( basepath );
-
-	clConsole.send( "Saving World..." );
-
-	unsigned int startTime = getNormalizedTime();
-
-	// Try to Benchmark
-	if( module == "sql" )
-		saveSql();
-	else if( module == "flatstore" )
-		saveFlatstore( prefix );
-
+	
 	clConsole.ChangeColor( WPC_GREEN );
 	clConsole.send( " Done" );
 	clConsole.ChangeColor( WPC_NORMAL );
+
+	persistentBroker->disconnect();
 
 	clConsole.send( QString( " [%1ms]\n" ).arg( getNormalizedTime() - startTime ) );
 }

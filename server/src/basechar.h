@@ -81,9 +81,6 @@ public:
 	// implementation of interfaces
 	void load( char **, ushort& );
 	void save();
-	void save( FlatStore::OutputFile*, bool first = false ) throw();
-	bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* ) throw();
-	bool postload() throw();
 	bool del();
 
 	// interface methods

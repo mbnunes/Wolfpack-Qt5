@@ -34,19 +34,23 @@
 
 struct st_mysql;
 struct st_mysql_res;
+struct sqlite;
+struct sqlite_vm;
 
 #include <qstring.h>
 #include <map>
 #include "defines.h"
 
 class cDBResult;
+class cSQLiteResult;
 
 class cDBDriver
 {
 	friend class cDBResult;
-private:
+protected:
 	std::map< int, st_mysql* > connections;
-	st_mysql *connection;
+	void *connection;
+
 	QString _host, _dbname, _username, _password;
 	QString lasterror_;
 
@@ -56,13 +60,13 @@ public:
 	cDBDriver() : connection(0) {}
 	virtual ~cDBDriver();
 
-	bool open( int id = CONN_MAIN );
-	void close();
-	bool exec( const QString &query ) const; // Just execute some SQL code, no return!	
-	cDBResult query( const QString &query ); // Executes a query
-	void lockTable( const QString& table ) const;
-	void unlockTable( const QString& table ) const;
-	QString error(); // Returns an error (if there is one), uses the current connection
+	virtual bool open( int id = CONN_MAIN );
+	virtual void close();
+	virtual bool exec( const QString &query ); // Just execute some SQL code, no return!	
+	virtual cDBResult query( const QString &query ); // Executes a query
+	virtual void lockTable( const QString& table );
+	virtual void unlockTable( const QString& table );
+	virtual QString error(); // Returns an error (if there is one), uses the current connection
 	
 	// Setters + Getters
 	void setActiveConnection( int id = CONN_MAIN );
@@ -76,15 +80,33 @@ public:
 	QString password() const { return _password; }
 };
 
+class cSQLiteDriver : public cDBDriver
+{
+public:
+	cSQLiteDriver() {}
+	virtual ~cSQLiteDriver() {}
+
+	bool open( int id = CONN_MAIN );
+	void close();
+
+	void lockTable( const QString &table ) {}
+	void unlockTable( const QString &table ) {}
+	QString error() { return QString::null; }
+
+	bool exec( const QString &query );
+	cDBResult query( const QString &query );
+};
+
 class cDBResult
 {
-private:
-	char **_row;
-	st_mysql_res *_result;
-	st_mysql *_connection; // Connection occupied by this query
 public:
-	cDBResult(): _row( 0 ), _result( 0 ), _connection( 0 ) {} // Standard Constructor
-	cDBResult( st_mysql_res *result, st_mysql *connection ): _row( 0 ), _result( result ), _connection( connection ) {}; // MySQL Constructor
+	char **_row;
+	void *_result;
+	void *_connection; // Connection occupied by this query
+	bool mysql_type;
+public:
+	cDBResult(): _row( 0 ), _result( 0 ), _connection( 0 ), mysql_type( true ) {} // Standard Constructor
+	cDBResult( void *result, void *connection, bool mysql_type = true ): _row( 0 ), _result( result ), _connection( connection ) { this->mysql_type = mysql_type; }; // MySQL Constructor
 	virtual ~cDBResult() {}
 
 	void free(); // Call this to free the query
