@@ -8,6 +8,7 @@
 # yarn
 import wolfpack
 import wolfpack.utilities
+from wolfpack.consts import *
 
 ids = [ 0x1063, 0x1066, 0x105f, 0x1061 ]
 
@@ -28,20 +29,20 @@ def response( char, args, target ):
 		char.direction = direction
 		char.update()
 	item = wolfpack.finditem( args[0] )
-	
+
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
 		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
 		return 1
-		
+
 	if abs( char.pos.z - target.pos.z ) > 5:
 		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
 		return 1
-	
+
 	# Check target (only item targets valid)
 	if not target.item:
 		char.socket.clilocmessage( 500367, '', GRAY ) # Try using that on a loom.
 		return 1
-	
+
 	if target.item.id in ids:
 		color = item.color
 		if ( item.amount > 1 ):
@@ -58,7 +59,7 @@ def response( char, args, target ):
 			amount = target.item.gettag( 'amount' )
 
 		amount += 1
-		
+
 		if amount < 5:
 			if amount == 1:
 				#The bolt of cloth has just been started.
@@ -73,7 +74,7 @@ def response( char, args, target ):
 				#The bolt of cloth is almost finished.
 				char.socket.clilocmessage( 1010004, '', GRAY )
 			target.item.settag( 'amount', amount )
-		
+
 		elif amount == 5:
 			target.item.settag( 'amount', 0 )
 			item_new = wolfpack.additem( "f9a" ) # Adds a bolt of cloth.
