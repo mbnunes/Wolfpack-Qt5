@@ -17,6 +17,7 @@
 	<script id="commoditydeed" type="python" module="commoditydeed" />
 	<script id="clothing_bless_deed" type="python" module="clothing_bless_deed" />
 	<script id="item_bless_deed"	type="python" module="item_bless_deed" />
+	<!--script id="mortar" type="python" module="mortar" /-->
 
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />

@@ -390,5 +390,24 @@
 		<tactics><random min="793" max="949"/></tactics>
 		<magicresistance><random min="553" max="569"/></magicresistance>
 		<anatomy><random min="0" max="0"/></anatomy>
-		</npc>
+	</npc>
+	<npc id="blade_spirit">
+		<name>a blade spirit</name>
+		<id>0x023e</id>
+		<category>Monsters\Elementals\Blade Spirit</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="34" max="34"/></defense>
+		<lodamage>12</lodamage>
+		<hidamage>27</hidamage>
+		<!-- Stats -->
+		<str><random min="242" max="248"/></str>
+		<dex><random min="126" max="140"/></dex>
+		<int><random min="85" max="92"/></int>
+		<!-- Skills -->
+		<swordsmanship><random min="700" max="721"/></swordsmanship>
+		<tactics><random min="793" max="949"/></tactics>
+		<anatomy><random min="0" max="0"/></anatomy>
+	</npc>
 </definitions>

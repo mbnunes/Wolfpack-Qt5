@@ -169,6 +169,7 @@
 		</meditation>
 		<!-- Priv -->
 	</npc>
+
 	<!-- a elemental (air) weak-->
 	<npc id="elemental_air_weak">
 		<name>a elemental (air)</name>

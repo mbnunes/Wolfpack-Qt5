@@ -49,8 +49,9 @@
 			<garlic>1</garlic>
 			<ginseng>1</ginseng>
 		</reagents>
-		<targets>
-		</targets>
+		<!--targets>
+		( does not request target )
+		</targets-->
 		<script>spell_createfood</script>
 	</spell>
 
@@ -130,6 +131,9 @@
 			<reflectable />
 			<agressive />
 		</flags>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_magicarrow</script>
 	</spell>
 	
@@ -229,6 +233,9 @@
 			<mandrake>1</mandrake>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_agility</script>
 	</spell>
 
@@ -250,6 +257,9 @@
 			<mandrake>1</mandrake>
 			<nightshade>1</nightshade>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_cunning</script>
 		<agressive />		
 	</spell>
@@ -271,6 +281,9 @@
 			<garlic>1</garlic>
 			<ginseng>1</ginseng>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_cure</script>
 	</spell>
 
@@ -292,6 +305,9 @@
 			<nightshade>1</nightshade>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_harm</script>
 		<agressive />		
 	</spell>
@@ -314,6 +330,9 @@
 			<garlic>1</garlic>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<item />
+		</targets>
 		<script>spell_magictrap</script>
 		<agressive />		
 	</spell>
@@ -335,6 +354,9 @@
 			<ash>1</ash>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<targets>
+			<item />
+		</targets>
 		<script>spell_magicuntrap</script>
 		<agressive />		
 	</spell>
@@ -357,6 +379,9 @@
 			<garlic>1</garlic>
 			<ginseng>1</ginseng>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_protection</script>
 	</spell>
 
@@ -377,6 +402,9 @@
 			<mandrake>1</mandrake>
 			<nightshade>1</nightshade>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_strength</script>
 	</spell>
 
@@ -399,6 +427,9 @@
 			<mandrake>1</mandrake>
 			<garlic>1</garlic>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_bless</script>
 	</spell>
 
@@ -420,6 +451,9 @@
 			<ash>1</ash>
 			<blackpearl>1</blackpearl>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_fireball</script>
 		<agressive />		
 	</spell>
@@ -442,6 +476,9 @@
 			<garlic>1</garlic>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<targets>
+			<item />
+		</targets>
 		<script>spell_magiclock</script>
 		<agressive />		
 	</spell>
@@ -463,6 +500,9 @@
 			<mana>9</mana>
 			<nightshade>1</nightshade>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_poison</script>
 		<agressive />		
 	</spell>
@@ -485,6 +525,9 @@
 			<mandrake>1</mandrake>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<targets>
+			<item />
+		</targets>
 		<script>spell_telekinesis</script>
 		<agressive />		
 	</spell>
@@ -506,6 +549,9 @@
 			<mandrake>1</mandrake>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_teleport</script>
 	</spell>
 
@@ -526,6 +572,9 @@
 			<ash>1</ash>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<targets>
+			<item />
+		</targets>
 		<script>spell_unlock</script>
 		<agressive />		
 	</spell>
@@ -547,6 +596,9 @@
 			<garlic>1</garlic>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_wallofstone</script>
 		<agressive />		
 	</spell>
@@ -571,6 +623,9 @@
 			<garlic>1</garlic>
 			<ginseng>1</ginseng>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_archcure</script>
 	</spell>
 
@@ -592,6 +647,9 @@
 			<garlic>1</garlic>
 			<ginseng>1</ginseng>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_archprotection</script>
 	</spell>
 
@@ -614,6 +672,9 @@
 			<garlic>1</garlic>
 			<nightshade>1</nightshade>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_curse</script>
 		<agressive />		
 	</spell>
@@ -636,6 +697,9 @@
 			<blackpearl>1</blackpearl>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_firefield</script>
 		<agressive />		
 	</spell>
@@ -659,6 +723,9 @@
 			<ginseng>1</ginseng>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_greaterheal</script>
 	</spell>
 
@@ -681,6 +748,9 @@
 			<mandrake>1</mandrake>
 			<blackpearl>1</blackpearl>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_lightning</script>
 		<agressive />		
 	</spell>
@@ -704,6 +774,9 @@
 			<blackpearl>1</blackpearl>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_manadrain</script>
 		<agressive />		
 	</spell>
@@ -753,6 +826,9 @@
 			<blackpearl>1</blackpearl>
 			<nightshade>1</nightshade>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_bladespirit</script>
 		<agressive />		
 	</spell>
@@ -776,6 +852,9 @@
 			<blackpearl>1</blackpearl>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_dispellfield</script>
 		<agressive />		
 	</spell>
@@ -818,6 +897,9 @@
 			<garlic>1</garlic>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_magicreflect</script>
 	</spell>
 
@@ -841,6 +923,9 @@
 			<blackpearl>1</blackpearl>
 			<nightshade>1</nightshade>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_mindblast</script>
 		<agressive />		
 	</spell>
@@ -864,6 +949,9 @@
 			<garlic>1</garlic>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_paralyze</script>
 		<agressive />		
 	</spell>
@@ -886,6 +974,9 @@
 			<nightshade>1</nightshade>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_poisonfield</script>
 		<agressive />		
 	</spell>
@@ -907,6 +998,9 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_summoncreature</script>
 	</spell>
 
@@ -930,6 +1024,9 @@
 			<mandrake>1</mandrake>
 			<garlic>1</garlic>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_dispell</script>
 		<agressive />		
 	</spell>
@@ -952,6 +1049,9 @@
 			<blackpearl>1</blackpearl>
 			<nightshade>1</nightshade>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_energybolt</script>
 		<agressive />		
 	</spell>
@@ -975,6 +1075,9 @@
 			<mandrake>1</mandrake>
 			<blackpearl>1</blackpearl>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_explosion</script>
 		<agressive />
 	</spell>
@@ -996,6 +1099,9 @@
 			<bloodmoss>1</bloodmoss>
 			<nightshade>1</nightshade>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_invisibility</script>
 	</spell>
 
@@ -1043,6 +1149,9 @@
 			<garlic>1</garlic>
 			<nightshade>1</nightshade>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_masscurse</script>
 		<agressive />		
 	</spell>
@@ -1065,6 +1174,9 @@
 			<blackpearl>1</blackpearl>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_paralyzefield</script>
 		<agressive />		
 	</spell>
@@ -1086,6 +1198,9 @@
 			<ash>1</ash>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_reveal</script>
 	</spell>
 
@@ -1110,6 +1225,9 @@
 			<bloodmoss>1</bloodmoss>
 			<blackpearl>1</blackpearl>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_chainlightning</script>
 		<agressive />		
 	</spell>
@@ -1133,6 +1251,9 @@
 			<blackpearl>1</blackpearl>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_energyfield</script>
 		<agressive />		
 	</spell>
@@ -1155,6 +1276,9 @@
 			<ash>1</ash>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_flamestrike</script>
 		<agressive />		
 	</spell>
@@ -1177,6 +1301,9 @@
 			<mandrake>1</mandrake>
 			<blackpearl>1</blackpearl>
 		</reagents>
+		<targets>
+			<item />
+		</targets>
 		<script>spell_gatetravel</script>
 	</spell>
 
@@ -1200,6 +1327,9 @@
 			<blackpearl>1</blackpearl>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_manavampire</script>
 		<agressive />		
 	</spell>
@@ -1223,6 +1353,10 @@
 			<garlic>1</garlic>
 			<blackpearl>1</blackpearl>
 		</reagents>
+		<targets>
+			<char />
+			<ground />
+		</targets>
 		<script>spell_massdispell</script>
 		<agressive />		
 	</spell>
@@ -1247,6 +1381,10 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<char />
+			<ground />
+		</targets>
 		<script>spell_meteorswarm</script>
 		<agressive />		
 	</spell>
@@ -1314,6 +1452,9 @@
 			<blackpearl>1</blackpearl>
 			<nightshade>1</nightshade>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_energyvortex</script>
 		<agressive />		
 	</spell>
@@ -1336,6 +1477,9 @@
 			<ginseng>1</ginseng>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
 		<script>spell_resurrection</script>
 	</spell>
 
@@ -1356,6 +1500,9 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_airelemental</script>
 	</spell>
 
@@ -1377,6 +1524,9 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_summondaemon</script>
 	</spell>
 
@@ -1397,6 +1547,9 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_earthelemental</script>
 	</spell>
 
@@ -1418,6 +1571,9 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_fireelemental</script>
 	</spell>
 
@@ -1438,6 +1594,9 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
 		<script>spell_waterelemental</script>
 	</spell>
 
