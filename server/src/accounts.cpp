@@ -58,7 +58,10 @@ void AccountRecord::Serialize( ISerialization& archive )
 		archive.read("acl", aclName_);
 		QString temp;
 		archive.read("lastlogin", temp);
-		lastLogin_ = lastLogin_.fromString(temp, Qt::ISODate);
+
+		if( !temp.isNull() && !temp.isEmpty() )
+			lastLogin_ = lastLogin_.fromString( temp, Qt::TextDate );
+
 		refreshAcl(); // Reload our ACL
 	}
 	else // Writting
@@ -67,7 +70,12 @@ void AccountRecord::Serialize( ISerialization& archive )
 		archive.write( "password", password_ );
 		archive.write( "flags", flags_ );
 		archive.write( "acl", aclName_ );
-		QString temp = lastLogin_.toString( Qt::ISODate );
+
+		QString temp( "" );
+
+		if( lastLogin_.isValid() )
+			temp = lastLogin_.toString( Qt::TextDate );
+
 		archive.write( "lastlogin", temp );
 	}
 	cSerializable::Serialize( archive );
@@ -210,6 +218,8 @@ void cAccounts::save()
 
 void cAccounts::load()
 {
+	clConsole.PrepareProgress( "Loading Accounts" );
+
 	ISerialization* archive = cPluginFactory::serializationArchiver( SrvParams->accountsArchiver());
 	archive->prepareReading("accounts");
 	for (uint i = 0; i < archive->size(); ++i)
@@ -224,11 +234,14 @@ void cAccounts::load()
 		}
 		else
 		{
+			clConsole.ProgressFail();
 			qFatal("Error parsing account records");
+			return;
 		}
 	}
 	archive->close();
 	delete archive;
+	clConsole.ProgressDone();
 }
 
 void cAccounts::reload()

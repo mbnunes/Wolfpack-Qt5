@@ -106,7 +106,7 @@ void cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList
 
 void cCommands::loadACLs( void )
 {
-	clConsole.PrepareProgress( "Loading Access Control Lists." );
+	clConsole.PrepareProgress( "Loading Access Control Lists" );
 
 	QStringList ScriptSections = DefManager->getSections( WPDT_PRIVLEVEL );
 	
@@ -922,7 +922,7 @@ void commandSave( cUOSocket *socket, const QString &command, QStringList &args )
 	if( args.count() > 0 )
 		cwmWorldState->savenewworld( args[0] );
 	else
-		cwmWorldState->savenewworld( "binary" );
+		cwmWorldState->savenewworld( SrvParams->getString( "General", "SaveModule", "xml" ) );
 }
 
 #define FLAG_STUB( a, b, c ) if( tile.a & b ) flags.push_back( tr( c ) )

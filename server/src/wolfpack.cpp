@@ -1076,7 +1076,7 @@ void interpretCommand( const QString &command )
 				if ( !cwmWorldState->Saving() )
 				{
 					clConsole.send( "Saving worldfile...");
-					cwmWorldState->savenewworld("binary");
+					cwmWorldState->savenewworld( SrvParams->getString( "General", "SaveModule", "xml" ) );
 					SrvParams->flush();
 					clConsole.send( "Done!\n");
 				}
@@ -1411,7 +1411,7 @@ int main( int argc, char *argv[] )
 
 	try
 	{
-		cwmWorldState->loadnewworld( "binary" );
+		cwmWorldState->loadnewworld( SrvParams->getString( "General", "SaveModule", "xml" ) );
 	}
 	catch( QString error )
 	{
@@ -1765,7 +1765,7 @@ int main( int argc, char *argv[] )
 	if( !bDeamon )
 		consoleThread.interrupt();
 
-	sysbroadcast("The server is shutting down.");
+	sysbroadcast( "The server is shutting down." );
 
 	if ( SrvParams->EnableRA() )
 		RemoteAdmin::stop();
@@ -1780,22 +1780,22 @@ int main( int argc, char *argv[] )
 	// No need for progress bar
 	Magic->unload();
 	NewMagic->unload();
-	
-	cwmWorldState->savenewworld( "binary" );
 
-	clConsole.PrepareProgress( "Closing sockets" );
+	clConsole.PrepareProgress( "Shutting down network" );
 	cNetwork::shutdown();
 	clConsole.ProgressDone();
 		
 	DefManager->unload();
 
-	clConsole.PrepareProgress( "Saving Wolfpack.xml" );
+	clConsole.PrepareProgress( "Saving configuration" );
 	SrvParams->flush();
 	clConsole.ProgressDone();
 	clConsole.send("\n");
 	clConsole.send("Done!\n");
+
 	if (NewErrorsLogged())
 		clConsole.send("New ERRORS have been logged. Please send the error*.log and critical*.log files to the dev team !\n");
+
 	if (NewWarningsLogged())
 		clConsole.send("New WARNINGS have been logged. Probably scripting errors. See the warnings*.log for details !\n");
 
@@ -1811,13 +1811,8 @@ int main( int argc, char *argv[] )
 			savelog("Server shutdown","server.log");
 	}
 
-	clConsole.PrepareProgress( "Deleting Classes" );
-	// Notice, from this point down no global class is valid!!
 	DeleteClasses();
-	clConsole.ProgressDone();
-
 	stopPython();
-
 	return 0;
 }
 
