@@ -37,45 +37,201 @@
 #include "defines.h"
 
 // Library include
-#include <qdom.h>
 #include <map>
 #include <vector>
 #include "qstring.h"
 #include "qstringlist.h"
+#include "qmap.h"
 
 // Forward Declarations
 class cItem;
 class cChar;
+class QString;
+class QCString;
+class QBitArray;
+class cVariant;
+class ISerialization;
+template <class T> class QValueList;
+template <class T> class QValueListConstIterator;
+template <class T> class QValueListNode;
+template <class Key, class T> class QMap;
+template <class Key, class T> class QMapConstIterator;
 
 class cVariant
 {
 public:
-	cVariant() { intvalue_ = 0; strvalue_ = (char*)0; }
-	~cVariant() {;}
+    enum Type {	Invalid,	Map,	List,	String,		StringList,		Int,	UInt,	Bool,
+				Double,		CString,		ByteArray,	BitArray,		Character,		Item
+    };
 
-	bool		isValue( void )		{ return strvalue_.isNull(); }
-	bool		isString( void )	{ return !strvalue_.isNull(); }
-	bool		isChar( void );
-	bool		isItem( void );
-	bool		isSerial( void )	{ return isChar() || isItem(); }
-	bool		isNull( void )		{ return strvalue_.isNull() && intvalue_ == 0; }
+	cVariant();
+	~cVariant();
+	cVariant( const cVariant& p );
+    cVariant( const QString& );
+    cVariant( const QCString& );
+    cVariant( const char* );
+    cVariant( const QStringList& );
+    cVariant( const QByteArray& );
+    cVariant( const QBitArray& );
+    cVariant( const QValueList<cVariant>& );
+    cVariant( const QMap<QString,cVariant>& );
+	cVariant( const P_CHAR );
+	cVariant( const P_ITEM );
 
-	SI32		asInt( void );
-	UI32		asUInt( void );
-	QString		asString( void );
-	P_CHAR		asChar( void );
+    cVariant( int );
+    cVariant( uint );
+    cVariant( bool, int );
+    cVariant( double );
+
+    cVariant& operator= ( const cVariant& );
+    bool operator==( const cVariant& ) const;
+    bool operator!=( const cVariant& ) const;
+
+    Type type() const;
+
+    const char* typeName() const;
+
+    bool canCast( Type ) const;
+    bool cast( Type );
+
+    bool isValid() const;
+
+    void clear();
+
+    const QString toString() const;
+    const QCString toCString() const;
+    const QStringList toStringList() const;
+    const QByteArray toByteArray() const;
+    const QBitArray toBitArray() const;
+    int toInt( bool * ok=0 ) const;
+    uint toUInt( bool * ok=0 ) const;
+    bool toBool() const;
+    double toDouble( bool * ok=0 ) const;
+    const QValueList<cVariant> toList() const;
+    const QMap<QString,cVariant> toMap() const;
+	P_CHAR toCharacter() const;
+	P_ITEM toItem() const;
+
+    QValueListConstIterator<QString> stringListBegin() const;
+    QValueListConstIterator<QString> stringListEnd() const;
+    QValueListConstIterator<cVariant> listBegin() const;
+    QValueListConstIterator<cVariant> listEnd() const;
+    QMapConstIterator<QString,cVariant> mapBegin() const;
+    QMapConstIterator<QString,cVariant> mapEnd() const;
+    QMapConstIterator<QString,cVariant> mapFind( const QString& ) const;
+    QString& asString();
+    QCString& asCString();
+    QStringList& asStringList();
+    QByteArray& asByteArray();
+    QBitArray& asBitArray();
+    int& asInt();
+    uint& asUInt();
+    bool& asBool();
+    double& asDouble();
+    QValueList<cVariant>& asList();
+    QMap<QString,cVariant>& asMap();
+	P_CHAR		asCharacter( void );
 	P_ITEM		asItem( void );
 	SERIAL		asSerial( void );
 
-	cVariant& cVariant::operator=(SI32 data);
-	cVariant& cVariant::operator=(QString data);
-	cVariant& cVariant::operator=(P_CHAR data);
-	cVariant& cVariant::operator=(P_ITEM data);
+    static const char* typeToName( Type typ );
+    static Type nameToType( const char* name );
+
+    void load( ISerialization& );
+    void save( ISerialization& ) const;
+
+	bool		isString( void );
+	bool		isCharacter( void );
+	bool		isItem( void );
+	bool		isSerial( void );
+	bool		isNull( void );
+
 
 private:
-	SI32		intvalue_;
-	QString		strvalue_;
+    void detach();
+
+    class Private : public QShared
+    {
+    public:
+        Private();
+        Private( Private* );
+        ~Private();
+
+        void clear();
+
+        Type typ;
+        union
+        {
+	    uint u;
+	    int i;
+	    bool b;
+	    double d;
+	    void *ptr;
+        } value;
+    };
+
+    Private* d;
 };
+
+// Inline methods
+inline cVariant::Type cVariant::type() const
+{
+    return d->typ;
+}
+
+inline bool cVariant::isValid() const
+{
+    return (d->typ != Invalid);
+}
+
+inline QValueListConstIterator<QString> cVariant::stringListBegin() const
+{
+    if ( d->typ != StringList )
+	return QValueListConstIterator<QString>();
+    return ((const QStringList*)d->value.ptr)->begin();
+}
+
+inline QValueListConstIterator<QString> cVariant::stringListEnd() const
+{
+    if ( d->typ != StringList )
+	return QValueListConstIterator<QString>();
+    return ((const QStringList*)d->value.ptr)->end();
+}
+
+inline QValueListConstIterator<cVariant> cVariant::listBegin() const
+{
+    if ( d->typ != List )
+	return QValueListConstIterator<cVariant>();
+    return ((const QValueList<cVariant>*)d->value.ptr)->begin();
+}
+
+inline QValueListConstIterator<cVariant> cVariant::listEnd() const
+{
+    if ( d->typ != List )
+	return QValueListConstIterator<cVariant>();
+    return ((const QValueList<cVariant>*)d->value.ptr)->end();
+}
+
+inline QMapConstIterator<QString,cVariant> cVariant::mapBegin() const
+{
+    if ( d->typ != Map )
+	return QMapConstIterator<QString,cVariant>();
+    return ((const QMap<QString,cVariant>*)d->value.ptr)->begin();
+}
+
+inline QMapConstIterator<QString,cVariant> cVariant::mapEnd() const
+{
+    if ( d->typ != Map )
+	return QMapConstIterator<QString,cVariant>();
+    return ((const QMap<QString,cVariant>*)d->value.ptr)->end();
+}
+
+inline QMapConstIterator<QString,cVariant> cVariant::mapFind( const QString& key ) const
+{
+    if ( d->typ != Map )
+	return QMapConstIterator<QString,cVariant>();
+    return ((const QMap<QString,cVariant>*)d->value.ptr)->find( key );
+}
 
 class cCustomTags
 {

@@ -975,7 +975,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("jailsecs",		jailsecs); 
 		archive.write("gmrestrict",		gmrestrict_);
 
-		unsigned int tagSize = this->tags->size(), i = 0;
+/*		unsigned int tagSize = this->tags->size(), i = 0;
 		QStringList tagKeys = this->tags->getKeys();
 		std::vector< cVariant > tagValues = this->tags->getValues();
 		QString tagKey, tmpKey;
@@ -998,6 +998,7 @@ void cChar::Serialize(ISerialization &archive)
 			}
 			i++;
 		}
+		*/
 	}
 	cUObject::Serialize(archive);
 }

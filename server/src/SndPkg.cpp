@@ -1554,7 +1554,7 @@ void updatechar(P_CHAR pc) // If character status has been changed (Polymorph), 
 }
 
 
-void target(UOXSOCKET s, int a1, int a2, int a3, int a4, char *txt) // Send targetting cursor to client
+void target(UOXSOCKET s, int a1, int a2, int a3, int a4, const QString& txt) // Send targetting cursor to client
 {
 	unsigned char tarcrs[20]="\x6C\x01\x40\x01\x02\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
 

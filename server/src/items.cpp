@@ -586,7 +586,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("glow_color",	glow_color);
 		archive.write("glowtype",	glow_effect);
 		archive.write("desc",		desc);
-
+/*
 		unsigned int tagSize = this->tags->size(), i = 0;
 		QStringList tagKeys = this->tags->getKeys();
 		std::vector< cVariant > tagValues = this->tags->getValues();
@@ -610,6 +610,7 @@ void cItem::Serialize(ISerialization &archive)
 			}
 			i++;
 		}
+		*/
 	}
 	cUObject::Serialize(archive);
 }
