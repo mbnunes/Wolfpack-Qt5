@@ -1622,8 +1622,9 @@ void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 { 
 	int serial, ci;
-	if (charserial<=-1) return false;
- 	serial=chars[charserial].serial;
+	P_CHAR pc = FindCharBySerial(charserial);
+	if (pc == NULL) return false;
+ 	serial= pc->serial;
  	bool foundMatch = false;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for (ci=0;ci<vecContainer.size();ci++)
