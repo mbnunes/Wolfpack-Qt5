@@ -235,7 +235,7 @@ def gateCallback( char, args, target ):
 	elif( ( button == 16 ) or ( button == 24 ) ):
 		coord = [ 771, 754, 4, numWorld ]
 	elif( ( button == 17 ) or ( button == 25 ) ):
-		coord = [ 771, 754, 4, numWorld ]
+		coord = [ 1499, 3772, 5, numWorld ]
 	elif( button == 26 ):
 		coord = [ 1216, 468, -13, 2 ]
 	elif( button == 27 ):
