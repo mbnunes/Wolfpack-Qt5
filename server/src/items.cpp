@@ -490,7 +490,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("trigger",		trigger);
 		archive.read("trigtype",	trigtype);
 		archive.read("disabled",	disabled);
-		archive.read("spawnregion",	spawnregion());
+		archive.read("spawnregion",	spawnregion_);
 		archive.read("uses",		tuses);
 		archive.read("good",		good);
 		archive.read("smelt",		smelt_);
@@ -558,7 +558,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("trigger",	trigger);
 		archive.write("trigtype",	trigtype);
 		archive.write("disabled",	disabled);
-		archive.write("spawnregion",spawnregion);
+		archive.write("spawnregion",spawnregion_);
 		archive.write("uses",		tuses);
 		archive.write("good",		good);
 		archive.write("smelt",		smelt_);

@@ -278,7 +278,7 @@ void WPPythonScript::load( const QDomElement &Data )
 				if( PyErr_Occurred() )
 					PyErr_Print();
 
-				clConsole.send( QString( "\nError while compiling module [" + moduleName + "]\n" ).ascii() );
+				clConsole.send( QString( "\nError while compiling module [" + moduleName + "]\n" ) );
 				clConsole.PrepareProgress( "Continuing loading" );
 				return;
 			}

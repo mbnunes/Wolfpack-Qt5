@@ -50,7 +50,7 @@ using namespace std;
 
 
 //Forward class declaration
-
+class QString;
 class WPConsole_cl;
 
 //Wolfpack Includes
@@ -82,6 +82,7 @@ public:
 	// Send a message to the console
 	void send(char* szMessage, ...);
 	void send(string sMessage);
+	void send(const QString &sMessage);
 
 
 	// Log a message

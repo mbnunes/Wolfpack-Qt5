@@ -45,16 +45,15 @@
 #include <algorithm>
 
 //Forward class declarations
-class cTempEffects;
+class cTempEffect;
 class cTmpEff;
-class cScriptEff;
-class cAllTmpEff;
+class cTempEffects;
 
 // Wolfpack includes
 #include "typedefs.h"
 #include "iserialization.h"
 
-class cTempEffects : public cSerializable
+class cTempEffect : public cSerializable
 {
 protected:
 	SERIAL		sourSer;
@@ -65,8 +64,8 @@ public:
 	unsigned int expiretime;
 	unsigned char dispellable;
 public:
-				cTempEffects() { serializable = true; };
-	virtual		~cTempEffects() {}
+				cTempEffect() { serializable = true; };
+	virtual		~cTempEffect() {}
 	void		setExpiretime_s(int seconds);
 	void		setExpiretime_ms(float milliseconds);
 	void		setDest(int ser);
@@ -82,7 +81,7 @@ public:
 	void		setSerializable( bool data ) { serializable = data; }
 };
 
-class cTmpEff : public cTempEffects 
+class cTmpEff : public cTempEffect
 {
 public:
 	unsigned char num;
@@ -100,42 +99,63 @@ public:
 	virtual void Serialize(ISerialization &archive);
 };
 
-class cScriptEff : public cTempEffects
+class cTimedAction : public cTempEffect
+{
+private:
+	SERIAL character;
+	UI08 action;
+	unsigned int duration;
+public:
+	cTimedAction( P_CHAR nChar, UI08 nAction, UI32 nDuration );
+	cTimedAction( SERIAL serial, UI08 nAction, UI32 nDuration );
+	cTimedAction() {}
+
+	virtual void Serialize( ISerialization &archive );
+	void Expire();
+};
+
+// Thats on the to-do
+class cScriptEffect : public cTempEffect
 {
 protected:
 	std::string scriptname;
 	std::string functionname;
 public:
-	cScriptEff() { objectid = "ScriptEff"; }
-	virtual ~cScriptEff() {;}
+	cScriptEffect() { objectid = "ScriptEff"; }
+	virtual ~cScriptEffect() {;}
 	void Expire();
 	virtual void Serialize(ISerialization &archive);
 };
 
-class cAllTmpEff  
+class cTempEffects
 {
 private:
 	
-	struct ComparePredicate : public std::binary_function<cTempEffects*, cTempEffects*, bool>
+	struct ComparePredicate : public std::binary_function<cTempEffect*, cTempEffect*, bool>
 	{
-		bool operator()(const cTempEffects *a, const cTempEffects *b)
+		bool operator()(const cTempEffect *a, const cTempEffect *b)
 		{
 			return a->expiretime < b->expiretime;
 		}
 	};
 
-	std::vector<cTempEffects*> teffects;
+	std::vector<cTempEffect*> teffects;
+	static cTempEffects* instance;
+
+protected:
+	cTempEffects()	{}  // No temp effects to start with
 
 public:
-	cAllTmpEff()	{}  // No temp effects to start with
 	void Check();
 	bool Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur);
 	bool Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
-	void Insert(cTempEffects* pTE);
+	void Insert(cTempEffect* pTE);
 	void Serialize(ISerialization &archive);
 	bool Exists( P_CHAR pc_source, P_CHAR pc_dest, int num );
 	void Dispel( P_CHAR pc_dest );
 	unsigned int size( void );
+
+	static cTempEffects *getInstance( void );
 };
 
 #endif

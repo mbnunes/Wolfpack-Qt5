@@ -699,3 +699,13 @@ bool makeItem( UOXSOCKET Socket, QDomElement& Action )
 	return true;
 }
 
+// Sends a sysmessage to the socket including some statistical data
+// About the server
+bool serverStatus( UOXSOCKET Socket, QDomElement& Action )
+{
+	// Clients, Items, Chars, Accounts, MemoryUsage(?)
+	QString message = QString( "Clients: %1, Items: %2, Chars: %3, Accounts: %4" ).arg( now ).arg( cItemsManager::getInstance()->size() ).arg( cCharsManager::getInstance()->size() ).arg( Accounts->Count() );
+	sysmessage( Socket, message );
+	
+	return true;
+}

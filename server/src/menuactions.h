@@ -46,6 +46,7 @@ bool useItem( UOXSOCKET Socket, QDomElement& Action, bool Failed = false );
 bool hasItem( UOXSOCKET Socket, QDomElement& Action );
 bool makeItem( UOXSOCKET Socket, QDomElement& Action );
 bool checkSkill( UOXSOCKET Socket, QDomElement& Action );
+bool serverStatus( UOXSOCKET Socket, QDomElement& Action );
 
 // Utility Function
 void playSkillSound( UOXSOCKET Socket, UI08 Skill, bool Success );

@@ -276,7 +276,6 @@ cNetworkStuff	*Network;
 cMagic			*Magic;
 cBooks          *Books;
 cAccount		*Accounts;
-cAllTmpEff		*AllTmpEff;
 cAllSpawnRegions *AllSpawnRegions;
 cMovement		*Movement;
 cWeather		*Weather;

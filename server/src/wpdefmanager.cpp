@@ -97,7 +97,7 @@ bool WPDefManager::ImportSections( const QString& FileName )
 		clConsole.ProgressFail();
 	
 		clConsole.send( "Unable to open " );
-		clConsole.send( FileName.ascii() );
+		clConsole.send( FileName );
 		clConsole.send( "!\n" );
 		return false;
 	}
@@ -110,7 +110,7 @@ bool WPDefManager::ImportSections( const QString& FileName )
         File.close();
         
 		clConsole.ProgressFail();
-		clConsole.send( QString("Unable to parse file %1\nError:%2(%3:%4)\n").arg(FileName).arg(errorMessage).arg(errorLine).arg(errorColumn).latin1() );
+		clConsole.send( QString("Unable to parse file %1\nError:%2(%3:%4)\n").arg(FileName).arg(errorMessage).arg(errorLine).arg(errorColumn) );
 
 		return false;
 	}

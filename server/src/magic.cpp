@@ -54,6 +54,7 @@
 #include "classes.h"
 #include "mapstuff.h"
 #include "network.h"
+#include "TmpEff.h"
 
 #undef DBGFILE
 #define DBGFILE "magic.cpp"
@@ -486,14 +487,13 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 		caster->priv2 |= 2; // Freezed while casting
 	}
 
-	// I think it's not neccesary to check for scroll-success here as
-	// scrolls have a casting time as well
-	
 	// If we're using a wand don't display effects
 	if( sourceType == 2 )
 		return false;
 
 	// Start our casting action
+	// AllTmpEff->Insert( new cTimedAction( caster, spell->action(), spell->delay() ) );
+
 	impaction( calcSocketFromChar( caster ), spell->action() );
 	cMagic::preParticles( spellId, caster );
 

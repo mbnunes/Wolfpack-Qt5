@@ -422,6 +422,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 
 			//AntiChrist - 26/10/99
 			//when hitten and damage >1, defender fails if casting a spell!
+			// Thats not really good, better make a check versus int+magic
 			if(damage>1 && pc_deffender->isPlayer())//only if damage>1 and against a player
 			{
 				if(pc_deffender->casting() && currentSpellType[s2]==0 )

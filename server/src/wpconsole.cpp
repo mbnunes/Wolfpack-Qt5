@@ -33,6 +33,10 @@
 
 #include "wpconsole.h"
 
+// Library Includes
+
+#include "qstring.h"
+
 #ifndef __unix__
 #include <windows.h>
 #endif
@@ -92,6 +96,16 @@ void WPConsole_cl::send(string sMessage)
 		flush((*outputstrm));
 	}
 }
+
+void WPConsole_cl::send(const QString &sMessage)
+{
+	if( outputstrm != NULL )
+	{
+		(*outputstrm) << sMessage.ascii();
+		flush( *outputstrm );
+	}
+}
+
 //========================================================================================
 // Send a char string to the log
 void WPConsole_cl::log(char* szMessage, ...)

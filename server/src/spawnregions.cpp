@@ -197,7 +197,7 @@ bool cSpawnRegion::findValidSpot( Coord_cl &pos )
 			return true;
 		i++;
 	}
-	clConsole.send( QString("WOLFPACK: A problem has occured in spawnregion %1. Couldn't find valid spot!\n").arg(this->name_).latin1() );
+	clConsole.send( QString("WOLFPACK: A problem has occured in spawnregion %1. Couldn't find valid spot!\n").arg(this->name_) );
 	return false;
 }
 	
@@ -383,7 +383,7 @@ void cAllSpawnRegions::Load( void )
 
 	UI32 endtime = getNormalizedTime();
 	clConsole.ProgressDone();
-	clConsole.send( QString( "Loaded %1 spawnregions in %2 sec.\n" ).arg( DefSections.size() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ).latin1() );
+	clConsole.send( QString( "Loaded %1 spawnregions in %2 sec.\n" ).arg( DefSections.size() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ) );
 }
 
 void cAllSpawnRegions::Check( void )

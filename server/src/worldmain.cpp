@@ -812,70 +812,14 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 {
 
 	ISerialization* archive = cPluginFactory::serializationArchiver(module);
-	archive->prepareReading( "items" ); // Load Items
+
 	string objectID;
 	register unsigned int i;
-	clConsole.send("Loading Items %i...\n", archive->size());
-	progress_display progress(archive->size());
-	for ( i = 0; i < archive->size(); ++progress, ++i)
-	{
-		archive->readObjectID(objectID);
-		P_ITEM pi = NULL;
-		if ( objectID == "ITEM" )
-		{
-			pi = new cItem;
-		} 
-		else if ( objectID == "HOUSE" )
-		{
-			pi = dynamic_cast<P_ITEM>(new cHouse);
-		}
-		else if ( objectID == "GUILDSTONE" )
-		{
-			pi = dynamic_cast<P_ITEM>(new cGuildStone);
-		}
-		else // somethine went wrong and we have a NULL pointer.
-			continue; 
-		pi->Init(false);
-		archive->readObject( pi );
-		cItemsManager::getInstance()->registerItem( pi );
-		if ( objectID == "GUILDSTONE" ) // register as guild as well
-			guilds.push_back(pi->serial);
-		pi->timeused_last = getNormalizedTime();
-		// Set the outside indices
-		pi->SetSpawnSerial(pi->spawnserial);
-		pi->setContSerial(pi->contserial);
-		pi->SetOwnSerial(pi->ownserial);
-
-		//add item weight if item doesn't have it yet
-		if( pi->weight() <= 0 ) // LB, changed from 29 to 0
-		{
-			pi->setWeight( 0 );
-			pi->setWeight( pi->getWeight() );
-		}
-
-		if( pi->maxhp() == 0) 
-			pi->setMaxhp( pi->hp() );
-
-		// Tauriel adding region pointers
-		if (pi->isInWorld())
-		{
-			int max_x = Map->mapTileWidth(pi->pos) * 8;
-			int max_y = Map->mapTileHeight(pi->pos) * 8;
-			if (pi->pos.x>max_x || pi->pos.y>max_y) 
-			{
-				Items->DeleItem(pi);	//these are invalid locations, delete them!
-			}
-			else
-				mapRegions->Add(pi);
-		}
-	}
-	clConsole.send(" Done.\n");
-	archive->close();
 
 	// Load Chars
 	archive->prepareReading( "chars" );
 	clConsole.send("Loading Characters %i...\n", archive->size());
-	progress.restart(archive->size());
+	progress_display progress(archive->size());
 	for ( i = 0; i < archive->size(); ++progress, ++i)
 	{
 		archive->readObjectID(objectID);
@@ -975,6 +919,65 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 	clConsole.send(" Done.\n");
 	archive->close();
 
+	// Load Items
+	archive->prepareReading( "items" ); // Load Items
+	clConsole.send( "Loading Items %i...\n", archive->size() );
+	progress.restart(archive->size());
+	for ( i = 0; i < archive->size(); ++progress, ++i)
+	{
+		archive->readObjectID(objectID);
+		P_ITEM pi = NULL;
+		if ( objectID == "ITEM" )
+		{
+			pi = new cItem;
+		} 
+		else if ( objectID == "HOUSE" )
+		{
+			pi = dynamic_cast<P_ITEM>(new cHouse);
+		}
+		else if ( objectID == "GUILDSTONE" )
+		{
+			pi = dynamic_cast<P_ITEM>(new cGuildStone);
+		}
+		else // somethine went wrong and we have a NULL pointer.
+			continue; 
+		pi->Init(false);
+		archive->readObject( pi );
+		cItemsManager::getInstance()->registerItem( pi );
+		if ( objectID == "GUILDSTONE" ) // register as guild as well
+			guilds.push_back(pi->serial);
+		pi->timeused_last = getNormalizedTime();
+		// Set the outside indices
+		pi->SetSpawnSerial(pi->spawnserial);
+		pi->setContSerial(pi->contserial);
+		pi->SetOwnSerial(pi->ownserial);
+
+		//add item weight if item doesn't have it yet
+		if( pi->weight() <= 0 ) // LB, changed from 29 to 0
+		{
+			pi->setWeight( 0 );
+			pi->setWeight( pi->getWeight() );
+		}
+
+		if( pi->maxhp() == 0) 
+			pi->setMaxhp( pi->hp() );
+
+		// Tauriel adding region pointers
+		if (pi->isInWorld())
+		{
+			int max_x = Map->mapTileWidth(pi->pos) * 8;
+			int max_y = Map->mapTileHeight(pi->pos) * 8;
+			if (pi->pos.x>max_x || pi->pos.y>max_y) 
+			{
+				Items->DeleItem(pi);	//these are invalid locations, delete them!
+			}
+			else
+				mapRegions->Add(pi);
+		}
+	}
+	clConsole.send(" Done.\n");
+	archive->close();
+
 	// Load Temporary Effects
 	archive->prepareReading( "effects" );
 	clConsole.send("Loading Temp. Effects %i...\n", archive->size());
@@ -983,22 +986,23 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 	{
 		archive->readObjectID(objectID);
 
-		cTempEffects* pTE = NULL;
+		cTempEffect* pTE = NULL;
 
 		if( objectID == "TmpEff" )
-		{
 			pTE = new cTmpEff;
-		}
+
 		else if( objectID == "ScriptEff" )
-		{
-			pTE = new cScriptEff;
-		}
-		else
+			pTE = new cScriptEffect;
+
+		else if( objectID == "TimedAction" )
+			pTE = new cTimedAction;
+
+		else		
 			continue; // an error occured..
 
 		archive->readObject( pTE );
 
-		AllTmpEff->Insert( pTE );
+		cTempEffects::getInstance()->Insert( pTE );
 	}
 	clConsole.send(" Done.\n");
 	archive->close();
@@ -1031,7 +1035,7 @@ void CWorldMain::savenewworld(QString module)
 			clConsole.send("Worldsave Started!\n" );
 			clConsole.send("items  : %i\n", cItemsManager::getInstance()->size());
 			clConsole.send("chars  : %i\n", cCharsManager::getInstance()->size());
-			clConsole.send("effects: %i\n", AllTmpEff->size());
+			clConsole.send("effects: %i\n", cTempEffects::getInstance()->size());
 		}
 		isSaving = true;
 	}
@@ -1055,7 +1059,7 @@ void CWorldMain::savenewworld(QString module)
 
 	archive = cPluginFactory::serializationArchiver( module );
 	archive->prepareWritting( "effects" );
-	AllTmpEff->Serialize( *archive );
+	cTempEffects::getInstance()->Serialize( *archive );
 	archive->close();
 	delete archive;
 

@@ -767,25 +767,23 @@ void item_char_test()
 	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 	{
 		P_ITEM pi = iterItems.GetData();
-		char tmp[150];
-		if (pi->serial==pi->contserial)
+
+		if( pi->serial == pi->contserial )
 		{
-			sprintf(tmp,"ALERT ! item %s [serial: %i] has dangerous container value, autocorrecting",pi->name().ascii(),pi->serial);
-			LogWarning(tmp);
-			pi->setContSerial(-1);
+			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous container value, autocorrecting\n" ).arg( pi->name() ).arg( pi->serial ) );
+			pi->setContSerial( -1 );
 		}
 
-		if (pi->serial==pi->GetOwnSerial())
+		if( pi->serial == pi->GetOwnSerial() )
 		{
-			sprintf(tmp,"ALERT ! item %s [serial: %i] has dangerous owner value",pi->name().ascii(),pi->serial);
-			LogWarning(tmp);
-			pi->SetOwnSerial(-1);
+			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous owner value\n" ).arg( pi->name() ).arg( pi->serial ) );
+			pi->SetOwnSerial( -1 );
 		}
 
-		if (pi->serial==pi->spawnserial)
+		if( pi->serial == pi->spawnserial )
 		{
-			clConsole.send("\nALERT ! item %s [serial: %i] has dangerous spawn value\n",pi->name().ascii(),pi->serial);
-			pi->SetSpawnSerial(-1);
+			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous spawn value\n" ).arg( pi->name() ).arg( pi->serial ) );
+			pi->SetSpawnSerial( -1 );
 		}
 	}
 
@@ -3035,16 +3033,6 @@ int main( int argc, char *argv[] )
 //	quite nicely I might add. safer to just use the old checkkey() call in the main's while loop.
 //InitKbThread();
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-#if 1 // Duke, experimental stuff
-void qsfLoad(char *fn, short depth); // Load a quest script file
-	if (argc > 1)
-		if (!strcmp(argv[1],"import") && argc>2)
-			qsfLoad(argv[2],0);
-#endif
-//#if 1 // Duke, experimental stuff
-//	clConsole.send("sizeof cItem: %i\n", sizeof(cItem) );
-//#endif
-
 	clConsole.send("WOLFPACK: Startup Complete.\n\n");
 
 
@@ -3072,9 +3060,9 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 		for (; it != SrvParams->clientsAllowed().end(); ++it)
 		{
 			if ( *it != "SERVER_DEFAULT" )
-				clConsole.send((*it).latin1());
+				clConsole.send( (*it) );
 			else
-				clConsole.send(wp_version.clientsupportedstring.latin1());
+				clConsole.send( wp_version.clientsupportedstring );
 		}
 	}
 	
@@ -5959,7 +5947,7 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 
 	if (pi->contserial==pi->serial)
 	{
-		clConsole.send("\nALERT ! item %s [serial: %i] has dangerous container value, autocorrecting\n",pi->name().ascii(),pi->serial);
+		clConsole.send("\nALERT ! item %s [serial: %i] has dangerous container value, autocorrecting\n", pi->name().ascii(), pi->serial);
 		pi->setContSerial(-1);
 	}
 
@@ -6168,7 +6156,6 @@ void StartClasses(void)
 	Magic			= new cMagic;
 	Books			= new cBooks;
 	AllSpawnRegions	= new cAllSpawnRegions;
-	AllTmpEff		= new cAllTmpEff;
 	Movement		= new cMovement;
 
 	//Weather = new cWeather;

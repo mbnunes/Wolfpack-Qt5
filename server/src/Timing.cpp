@@ -1049,9 +1049,10 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 				}
 			}
 		}
-	}//for i<now
+	}
 
-	AllTmpEff->Check();
+	// Check the TempEffects
+	cTempEffects::getInstance()->Check();
 
 	if ( freeUnusedMemory <= currenttime )
 	{

@@ -119,37 +119,37 @@ static void reverseIncognito(P_CHAR pc)
 	}
 }
 
-int cTempEffects::getDest()
+int cTempEffect::getDest()
 {
 	return destSer;
 }
 
-void cTempEffects::setDest(int ser)
+void cTempEffect::setDest(int ser)
 {
 	destSer=ser;
 }
 
-int cTempEffects::getSour()
+int cTempEffect::getSour()
 {
 	return sourSer;
 }
 
-void cTempEffects::setSour(int ser)
+void cTempEffect::setSour(int ser)
 {
 	sourSer=ser;
 }
 
-void cTempEffects::setExpiretime_s(int seconds)
+void cTempEffect::setExpiretime_s(int seconds)
 {
 	expiretime=uiCurrentTime+(seconds*MY_CLOCKS_PER_SEC);
 }
 
-void cTempEffects::setExpiretime_ms(float milliseconds)
+void cTempEffect::setExpiretime_ms(float milliseconds)
 {
 	expiretime=uiCurrentTime+(int)floor(( milliseconds / 1000 )*MY_CLOCKS_PER_SEC);
 }
 
-void cTempEffects::Serialize(ISerialization &archive)
+void cTempEffect::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
 	{
@@ -520,15 +520,15 @@ void cTmpEff::Serialize(ISerialization &archive)
 		archive.write( "more3",			this->more3 );
 		archive.write( "num",			this->num );
 	}
-	cTempEffects::Serialize(archive);
+	cTempEffect::Serialize(archive);
 }
 
-void cScriptEff::Expire()
+void cScriptEffect::Expire()
 {
 	;// here ya go darkstorm :P
 }
 
-void cScriptEff::Serialize(ISerialization &archive)
+void cScriptEffect::Serialize(ISerialization &archive)
 {
 	if( archive.isReading() )
 	{
@@ -540,11 +540,11 @@ void cScriptEff::Serialize(ISerialization &archive)
 		archive.write( "scriptname",	this->scriptname );
 		archive.write( "functionname",	this->functionname );
 	}
-	cTempEffects::Serialize(archive);
+	cTempEffect::Serialize(archive);
 }
 
 /*
-void cAllTmpEff::Off()
+void cTempEffects::Off()
 {
 	register unsigned int i;
 	for ( i = 0; i < teffects.size(); ++i)
@@ -561,7 +561,7 @@ void cAllTmpEff::Off()
 	}
 }
 
-void cAllTmpEff::On()
+void cTempEffects::On()
 {
 	register unsigned int i;
 	for ( i = 0; i < teffects.size(); ++i)
@@ -579,11 +579,11 @@ void cAllTmpEff::On()
 }
 */
 
-void cAllTmpEff::Check()
+void cTempEffects::Check()
 {
 	if ( !teffects.empty() && (*teffects.begin())->expiretime <= uiCurrentTime )
 	{
-		cTempEffects *pTEs = *teffects.begin();
+		cTempEffect *pTEs = *teffects.begin();
 
 		pTEs->Expire();
 		pop_heap( teffects.begin(), teffects.end(), ComparePredicate() ); // still sorted.
@@ -591,7 +591,7 @@ void cAllTmpEff::Check()
 	}
 }
 
-bool cAllTmpEff::Exists( P_CHAR pc_source, P_CHAR pc_dest, int num )
+bool cTempEffects::Exists( P_CHAR pc_source, P_CHAR pc_dest, int num )
 {
 	cTmpEff *pTE;
 	for( register int i = 0; i < teffects.size(); i++ )
@@ -608,7 +608,7 @@ bool cAllTmpEff::Exists( P_CHAR pc_source, P_CHAR pc_dest, int num )
 	return false;
 }
 
-bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
+bool cTempEffects::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {
 	
 	int color, color1, color2, socket; //used for incognito spell
@@ -616,7 +616,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 	if ( pc_source == NULL || pc_dest == NULL )
 		return false;
 
-	cTempEffects *pTEs;
+	cTempEffect *pTEs;
 	cTmpEff *pTE;
 	register unsigned int i;
 	for ( i = 0; i < teffects.size(); ++i)	// If there is already an effect of the same or similar kind, reverse it first (Duke)
@@ -1093,11 +1093,12 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		LogErrorVar("Fallout of switch! Value (%d)",num);
 		return 0;
 	}
-	AllTmpEff->Insert(pTE);
+
+	cTempEffects::getInstance()->Insert( pTE );
 	return 1;
 }
 
-bool cAllTmpEff::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
+bool cTempEffects::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
 {
 //	if (pc_source == NULL)
 //		return 0;
@@ -1144,15 +1145,15 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char mor
 	return true;
 }
 
-void cAllTmpEff::Insert(cTempEffects* pTE)
+void cTempEffects::Insert(cTempEffect* pTE)
 {
 	teffects.push_back( pTE );
 	push_heap( teffects.begin(), teffects.end(), ComparePredicate() );
 }
 
-void cAllTmpEff::Serialize(ISerialization &archive)
+void cTempEffects::Serialize(ISerialization &archive)
 {
-	std::vector< cTempEffects* >::iterator it = teffects.begin();
+	std::vector< cTempEffect* >::iterator it = teffects.begin();
 	while( it != teffects.end() )
 	{
 		if( (*it)->isSerializable() )
@@ -1161,9 +1162,9 @@ void cAllTmpEff::Serialize(ISerialization &archive)
 	}
 }
 
-void cAllTmpEff::Dispel( P_CHAR pc_dest )
+void cTempEffects::Dispel( P_CHAR pc_dest )
 {
-	vector<cTempEffects *>::iterator i;
+	vector<cTempEffect *>::iterator i;
 	for( i = teffects.begin(); i != teffects.end(); i++ )
 		if( i != NULL && (*i) != NULL && (*i)->dispellable && (*i)->getDest() == pc_dest->serial )
 		{
@@ -1173,18 +1174,68 @@ void cAllTmpEff::Dispel( P_CHAR pc_dest )
 	make_heap( teffects.begin(), teffects.end(), ComparePredicate() );
 }
 
-unsigned int cAllTmpEff::size( void )
+unsigned int cTempEffects::size( void )
 {
 	return teffects.size();
 }
 
 unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {
-	return AllTmpEff->Add(pc_source, pc_dest, num, more1, more2, more3, dur);
+	return cTempEffects::getInstance()->Add(pc_source, pc_dest, num, more1, more2, more3, dur);
 }
 
 unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
 {
-	return AllTmpEff->Add(source, piDest, num, more1, more2, more3);
+	return cTempEffects::getInstance()->Add(source, piDest, num, more1, more2, more3);
 }
 
+// cTimedAction Methods
+cTimedAction::cTimedAction( P_CHAR nChar, UI08 nAction, UI32 nDuration )
+{
+	objectid = "TimedAction";
+	character = nChar->serial;
+	action = nAction;
+	duration = nDuration;
+}
+
+cTimedAction::cTimedAction( SERIAL serial, UI08 nAction, UI32 nDuration )
+{
+	objectid = "TimedAction";
+	character = serial;
+	action = nAction;
+	duration = nDuration;
+}
+
+void cTimedAction::Serialize( ISerialization &archive )
+{
+	if( archive.isReading() )
+	{
+		archive.read( "serial",			character );
+		archive.read( "action",			action );
+		archive.read( "duration",		duration );
+	}
+	else if( archive.isWritting() )
+	{
+		archive.write( "serial",		character );
+		archive.write( "action",		action );
+		archive.write( "duration",		duration );
+	}
+	cTempEffect::Serialize(archive);
+}
+
+// Show the action and create a new action
+// With length - anim-length (thats a mysterium !!)
+void cTimedAction::Expire()
+{
+}
+
+// Singleton implementation
+cTempEffects *cTempEffects::instance = 0;
+
+cTempEffects *cTempEffects::getInstance( void )
+{
+	if( !instance )
+		instance = new cTempEffects;
+
+	return instance;
+}

@@ -168,5 +168,5 @@ void WPScriptManager::load( void )
 	}
 
 	clConsole.ProgressDone();
-	clConsole.send( QString("%1 Script(s) loaded successfully\n").arg(ScriptsLoaded).latin1() );
+	clConsole.send( QString("%1 Script(s) loaded successfully\n").arg(ScriptsLoaded) );
 }

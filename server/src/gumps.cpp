@@ -1358,6 +1358,9 @@ bool DisposeAction( UOXSOCKET Socket, QDomElement Action )
 	else if( Action.nodeName() == "checkskill" )
 		return checkSkill( Socket, Action );
 
+	else if( Action.nodeName() == "serverstatus" )
+		return serverStatus( Socket, Action );
+
 	return true;
 }
 
