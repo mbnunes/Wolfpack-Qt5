@@ -547,7 +547,7 @@ def checkAccess(player, plant):
 		return True
 		
 	# Or locked down (the multi will do the other check)
-	if plant.multi:
+	if plant.multi or plant.lockeddown:
 		return True
 		
 	return False
@@ -563,7 +563,7 @@ def canGrow(plant):
 # That is either the backpack of the user or a multi
 #
 def validGrowthLocation(plant):
-	if not plant.container and plant.lockeddown:
+	if plant.multi or plant.lockeddown:
 		return GROWTHALLOWMULTI
 		
 	cont = plant.getoutmostitem()
