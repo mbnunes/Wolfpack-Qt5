@@ -177,6 +177,21 @@ short cUOPacket::getShort( unsigned int pos )
 	return value;
 }
 
+QString cUOPacket::getUnicodeString( uint pos, uint fieldLength )
+{
+	QString result;
+	if ( pos + fieldLength > rawPacket.size() )
+		qWarning("cUOPacket::getUnicodeString() - field size is bigger than packet");
+	for ( uint i = pos; i < pos + fieldLength; i += 2 )
+	{
+		QChar ch(getShort(pos + i) );
+		result.append(ch);
+		if ( ch.isNull() )
+			break;
+	}
+	return result;
+}
+
 void  cUOPacket::setInt( unsigned int pos, unsigned int value )
 {
 	rawPacket.at(pos++) = static_cast<char>((value >> 24) & 0x000000FF);
@@ -189,6 +204,16 @@ void  cUOPacket::setShort( unsigned int pos, unsigned short value )
 {
 	rawPacket.at(pos++) = static_cast<char>((value >> 8 ) & 0x000000FF);
 	rawPacket.at(pos)   = static_cast<char>((value)       & 0x000000FF);
+}
+
+void cUOPacket::setUnicodeString( uint pos, QString& data, uint maxlen )
+{
+	const QChar* unicodeData = data.unicode();
+	const uint length = data.length() * 2 > maxlen ? maxlen/2 : data.length();
+	for ( uint i = 0; i < length; ++i )
+	{
+		setShort(pos + i * 2, (*(unicodeData + i)).unicode());
+	}
 }
 
 char& cUOPacket::operator[] ( unsigned int index )

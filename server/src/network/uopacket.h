@@ -55,12 +55,14 @@ public:
 
 	virtual QByteArray compressed();
 	virtual QByteArray uncompressed() { return rawPacket; }
-	char& operator [](unsigned int);
+	char& operator []( uint );
 	cUOPacket& operator=( cUOPacket& p );
-	int   getInt( unsigned int );
-	short getShort( unsigned int);
-	void  setInt( unsigned int, unsigned int );
-	void  setShort( unsigned int, unsigned short );
+	int   getInt( uint );
+	short getShort( uint);
+	QString getUnicodeString( uint, uint );
+	void  setInt( uint, uint );
+	void  setShort( uint, ushort );
+	void  setUnicodeString( uint, QString&, uint );
 	static QString dump( const QByteArray& );
 
 	virtual void print( ostream* );
