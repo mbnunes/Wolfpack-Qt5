@@ -667,6 +667,15 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 	else getIntProperty( "madewith", pItem->madewith ) 
 	else getStrProperty( "desc", pItem->desc.latin1() ) 
 	else getStrProperty( "spawnregion", pItem->spawnregion().latin1() )
+	
+	else if( !strcmp( "events", name ) )
+	{
+		QStringList events = QStringList::split( ",", self->pItem->eventList() );
+		PyObject *list = PyList_New( events.count() );
+		for( INT32 i = 0; i < events.count(); ++i )
+			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
+		return list;
+	}
 
 	// If no property is found search for a method
 	return Py_FindMethod( wpItemMethods, (PyObject*)self, name );

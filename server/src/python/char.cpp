@@ -1571,6 +1571,15 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else if( !strcmp( name, "guildstone" ) )
 		return PyGetItemObject( FindItemBySerial( self->pChar->guildstone() ) );
 
+	else if( !strcmp( "events", name ) )
+	{
+		QStringList events = QStringList::split( ",", self->pChar->eventList() );
+		PyObject *list = PyList_New( events.count() );
+		for( INT32 i = 0; i < events.count(); ++i )
+			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
+		return list;
+	}
+
 	// If no property is found search for a method
 	return Py_FindMethod( wpCharMethods, (PyObject*)self, name );
 }
