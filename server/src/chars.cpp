@@ -4667,7 +4667,7 @@ Coord_cl cChar::pathDestination( void ) const
 
 /*!
 	A* pathfinding algorithm implementation. consult me (sereg) for changes!
-	I've used this paper as a base: http://www.wpdev.org/
+	I've used this paper as a base: http://www.wpdev.org/docs/informed-search.pdf
 	A*>>
 */
 
@@ -4691,6 +4691,7 @@ public:
 
 /*!
 	Compare predicate for pathnodes using cost and step
+	Two times because we need more weight for the costs.
 */
 struct pathnode_comparePredicate : public std::binary_function<pathnode_cl, pathnode_cl, bool>
 {
@@ -4715,7 +4716,6 @@ struct pathnode_coordComparePredicate : public std::binary_function<pathnode_cl,
 /*!
 	Heuristic function for A*
 	We use simple 3-dim. euclid distance: d = sqrt( |x1-x2|² + |y1-y2|² + |z1-z2|² )
-	Two times because we need more weight for the costs.
 */
 float cChar::pathHeuristic( const Coord_cl &source, const Coord_cl &destination )
 {
