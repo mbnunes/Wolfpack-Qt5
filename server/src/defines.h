@@ -251,6 +251,15 @@ extern long int oldtime, newtime;
 #define CASTSPEED 6		   // Faster casting
 #define CASTRECOVERY 7	   // Faster cast recovery
 
+#define REGEN 1		//Regenerations
+#define BONUS 2		//Stats bonuses
+#define DAMAGE 3	//Damage ( cold, fire, energy etc )
+#define ENH 4		//Enhancements, for example: Gold increase
+#define HIT 5		//Attack and defence modifiers
+#define REQ 6		//Smaller requirements
+#define RESIST 7	//Resists to various types of damage
+#define REFLECT 8	//Reflecting damage
+ 
 enum enDirection
 {
 	North = 1, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest
