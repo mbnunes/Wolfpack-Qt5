@@ -272,16 +272,19 @@ def parseWsc( file, map ):
 			if not item.has_key( 'X' ) or not item.has_key( 'Y' ):
 				warnings += 'Item (Serial: %s, ID: %x) has no X or Y property. Skipping.<br>' % ( serial, id )
 				continue
-			x = 0
-			y = 0
-			z = 0
+
 			if item.has_key('X'):
 				x = int( item['X'] )
+			else:
+				x = 0
 			if item.has_key('Y'):
 				y = int( item['Y'] )
+			else:
+				y = 0
 			if item.has_key('Z'):
 				z = int( item['Z'] )
-
+			else:
+				z = 0
 			color = 0
 			if item.has_key( 'COLOR' ):
 				color = int( item[ 'COLOR' ] )
@@ -298,6 +301,9 @@ def parseWsc( file, map ):
 			if item.has_key( 'NAME' ):
 				name = item[ 'NAME' ]
 
+			if item.has_key( 'TYPE' ):
+				type = item[ 'TYPE' ]
+
 			#print 'Item %x, Color %x, Pos %i,%i,%i<br>' % ( id, color, x, y, z )
 
 			# REMEMBER: Set them to nodecay!!!
@@ -310,9 +316,12 @@ def parseWsc( file, map ):
 			newitem.color = color
 			newitem.id = id
 			newitem.amount = amount
+			newitem.type = type
 			if name != "#":
 				newitem.name = name
-			newitem.moveto( x, y, z, map )
+			newposition = "%i,%i,%i,%i" % (x, y, z, map)
+			newitem.pos = newposition
+			#newitem.moveto( x, y, z, map )
 			newitem.update()
 
 			count += 1
