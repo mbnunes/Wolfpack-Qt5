@@ -51,4 +51,12 @@ public:
 	bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
+class cDyeTarget : public cTargetRequest
+{
+	int color;
+public:
+	cDyeTarget( int colorID ) : color(colorID) {}
+	bool responsed( cUOSocket* socket, cUORxTarget *target );
+};
+
 #endif // __TARGETACTIONS_H__

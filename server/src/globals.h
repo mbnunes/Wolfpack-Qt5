@@ -183,7 +183,6 @@ extern char noweather[MAXCLIENT+1]; //LB
 //extern int newclient[MAXCLIENT];
 extern unsigned char  buffer[MAXCLIENT][MAXBUFFER_REAL];
 extern char  outbuffer[MAXCLIENT][MAXBUFFER_REAL];
-extern int whomenudata [(MAXCLIENT)*10]; // LB, for improved whomenu, ( is important !!!
 extern short int walksequence[MAXCLIENT];
 extern signed char addid5[MAXCLIENT];
 extern int acctno[MAXCLIENT];
@@ -194,7 +193,6 @@ extern unsigned char addid1[MAXCLIENT];
 extern unsigned char addid2[MAXCLIENT];
 extern unsigned char addid3[MAXCLIENT];
 extern unsigned char addid4[MAXCLIENT];
-extern unsigned char dyeall[MAXCLIENT];
 extern int addx[MAXCLIENT];
 extern int addy[MAXCLIENT];
 extern int addx2[MAXCLIENT];
@@ -272,10 +270,6 @@ extern jail_st jails[11];
 /////////////////////////////////////////
 
 //extern char idname[256];
-extern char script1[512];
-extern char script2[512];
-extern char script3[512];
-extern char script4[512]; // added to use for newbie items
 extern char fametitle[128];
 extern char skilltitle[50];
 extern char prowesstitle[50];
@@ -285,25 +279,16 @@ extern char gettokenstr[256];
 //extern char defaultpriv1str[2];
 //extern char defaultpriv2str[2];
 extern char temp[1024];
-extern char temp2[1024];
-extern char temp3[1024];
-extern char temp4[1024];
 //extern char schei___[512];
 
 //extern char mapname[512], sidxname[512], statname[512], vername[512], tilename[512], multiname[512], midxname[512];
 //extern char saveintervalstr[4];
-extern char scpfilename[32];//AntiChrist
 
 
 ////////////////////////////////
 //  small packet-arrays
 ///////////////////////////////
 
-extern unsigned char login04a[6];
-extern unsigned char login04b[61];
-extern unsigned char login04c[18];
-extern unsigned char login04d[64];
-extern unsigned char login03[12];
 extern unsigned char wppause[3];
 extern unsigned char w_anim[3];
 extern unsigned char restart[3];
@@ -317,9 +302,6 @@ extern unsigned char gmmiddle[5];
 extern unsigned char sfx[13];
 extern unsigned char doact[15];
 extern unsigned char bpitem[20];
-extern unsigned char gump1[22];
-extern unsigned char gump2[4];
-extern unsigned char gump3[3];
 extern unsigned char dyevat[10];
 extern unsigned char updscroll[11];
 extern unsigned char spc[2];

@@ -888,8 +888,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			switch (pi->id())
 			{	
 				case 0x0FA9:// dye
-					dyeall[s] = 0;
-					target(s, 0, 1, 0, 31, "Which dye vat will you use this on?");
+//					dyeall[s] = 0;
+//					target(s, 0, 1, 0, 31, "Which dye vat will you use this on?");
 					return;// dye
 				case 0x0FAF:
 				case 0x0FB0: // Anvils
@@ -1187,8 +1187,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x1057:
 				case 0x1058: // sextants
 					
-					getSextantCords(pc_currchar->pos.x, pc_currchar->pos.y, socket->isT2A(), temp2);
-					sprintf((char*)temp, "You are at: %s", temp2);
+					getSextantCords(pc_currchar->pos.x, pc_currchar->pos.y, socket->isT2A(), temp);
+					sprintf((char*)temp, "You are at: %s", temp);
 					sysmessage(s, (char*)temp);
 					return;
 				case 0x0E27:

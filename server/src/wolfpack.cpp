@@ -1574,7 +1574,6 @@ int main( int argc, char *argv[] )
 	clConsole.send( "\n" );
 
 	openings = 0;
-	scpfilename[0] = 0;
 	
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() );
 	clConsole.setConsoleTitle( consoleTitle );

@@ -91,11 +91,6 @@ char foodname[enNumberOfFood][20]={
 "no food", "raw meat", "raw fish", "eggs", "crops", "fruits", "hay",
 "grain", "cooked meat", "cooked fish", "pastries", "leather", "metal" };
 
-unsigned char login04a[6]="\xA9\x09\x24\x02";
-unsigned char login04b[61]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-unsigned char login04c[18]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-unsigned char login04d[64]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-unsigned char login03[12]="\x8C\x00\x00\x00\x00\x13\x88\x7B\x7B\x7B\x01";
 unsigned char wppause[3]="\x33\x01";
 unsigned char restart[3]="\x33\x00";
 unsigned char goxyz[20]="\x20\x00\x05\xA8\x90\x01\x90\x00\x83\xFF\x00\x06\x08\x06\x49\x00\x00\x02\x00";
@@ -108,9 +103,6 @@ unsigned char gmmiddle[5]="\x00\x00\x00\x00";
 unsigned char sfx[13]="\x54\x01\x12\x34\x00\x00\x06\x40\x05\x9A\x00\x00";
 unsigned char doact[15]="\x6E\x01\x02\x03\x04\x01\x02\x00\x05\x00\x01\x00\x00\x01";
 unsigned char bpitem[20]="\x40\x0D\x98\xF7\x0F\x4F\x00\x00\x09\x00\x30\x00\x52\x40\x0B\x00\x1A\x00\x00";
-unsigned char gump1[22]="\xB0\x04\x0A\x40\x91\x51\xE7\x00\x00\x00\x03\x00\x00\x00\x6E\x00\x00\x00\x46\x02\x3B";
-unsigned char gump2[4]="\x00\x00\x00";
-unsigned char gump3[3]="\x00\x00";
 unsigned char dyevat[10]="\x95\x40\x01\x02\x03\x00\x00\x0F\xAB";
 unsigned char updscroll[11]="\xA6\x01\x02\x02\x00\x00\x00\x00\x01\x02";
 unsigned char spc[2]="\x20";
@@ -249,7 +241,6 @@ cCharStuff::cBankerAI	*BankerAI;
  int newclient[MAXCLIENT];
  char unsigned buffer[MAXCLIENT][MAXBUFFER_REAL];
  char  outbuffer[MAXCLIENT][MAXBUFFER_REAL];
- int whomenudata [(MAXCLIENT)*10]; // LB, for improved whomenu, ( is important !!!
  short int walksequence[MAXCLIENT];
  signed char addid5[MAXCLIENT];
  int acctno[MAXCLIENT];
@@ -260,7 +251,6 @@ cCharStuff::cBankerAI	*BankerAI;
  unsigned char addid2[MAXCLIENT];
  unsigned char addid3[MAXCLIENT];
  unsigned char addid4[MAXCLIENT];
- unsigned char dyeall[MAXCLIENT];
  int addx[MAXCLIENT];
  int addy[MAXCLIENT];
  int addx2[MAXCLIENT];
@@ -269,10 +259,6 @@ cCharStuff::cBankerAI	*BankerAI;
  int addmitem[MAXCLIENT];
  char xtext[MAXCLIENT][31];
  unsigned char perm[MAXCLIENT];
-// unsigned char cryptclient[MAXCLIENT];
-// unsigned char usedfree[MAXCLIENT];
-// int binlength[MAXIMUM+1];
-// int boutlength[MAXIMUM+1];
  std::string SocketStrings[MAXCLIENT];
 
  int clickx[MAXCLIENT];
@@ -280,7 +266,6 @@ cCharStuff::cBankerAI	*BankerAI;
  int currentSpellType[MAXCLIENT]; // 0=spellcast, 1=scrollcast, 2=wand cast
  unsigned char targetok[MAXCLIENT];
  unsigned char clientDimension[MAXCLIENT];
- //int spattackValue[MAXCLIENT];
 
 //////////////////////////////////////////////
 //              MAxBuffer                  //
@@ -332,10 +317,6 @@ list<SERIAL> guilds;
 /////////////////////////////////////////
 
 // char idname[256];
- char script1[512];
- char script2[512];
- char script3[512];
- char script4[512]; // added to use for newbie items
  char fametitle[128];
  char skilltitle[50];
  char prowesstitle[50];
@@ -345,14 +326,10 @@ list<SERIAL> guilds;
 // char defaultpriv1str[2];
 // char defaultpriv2str[2];
  char temp[1024];
- char temp2[1024];
- char temp3[1024];
- char temp4[1024];
 // char schei___[512];
 
 // char mapname[512], sidxname[512], statname[512], vername[512], tilename[512], multiname[512], midxname[512];
 // char saveintervalstr[4];
- char scpfilename[32];//AntiChrist
 
 
 

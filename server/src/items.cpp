@@ -1416,19 +1416,16 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 		pi = FindItemBySerial(vecContainer[ci]);
 		if(pi->st>pc_p->st() )//if strength required > character's strength
 		{
-			if(pi->name() == "#")
-				pi->getName(temp2);
-			else
-				strcpy((char*)temp2, pi->name().ascii() );
-			
-			sprintf((char*)temp, "You are not strong enough to keep %s equipped!", temp2);
-			sysmessage(calcSocketFromChar(pc_p), (char*)temp);
-			itemsfx(calcSocketFromChar(pc_p), pi->id());
+			if ( pc_p->socket() )
+			{
+				pc_p->socket()->sysMessage( tr("You are not strong enough to keep %1 equipped!").arg(pi->name()) );
+				itemsfx(calcSocketFromChar(pc_p), pi->id());
+			}
 			
 			//Subtract stats bonus and poison
 			pc_p->removeItemBonus(pi);
 						
-			pi->setContSerial(-1);
+			pi->setContSerial(INVALID_SERIAL);
 			pi->MoveTo(pc_p->pos.x,pc_p->pos.y,pc_p->pos.z);
 			pi->update();
 			
@@ -2110,6 +2107,7 @@ void cItem::showName( cUOSocket *socket )
 		{
 			if (pc_j->npcaitype() == 17)
 			{
+				char temp2[256];
 				if (creator.size() > 0 && madewith>0)
 					sprintf((char*)temp2, "%s %s by %s", desc.c_str(), skill[madewith - 1].madeword.latin1(), creator.c_str()); 
 				else

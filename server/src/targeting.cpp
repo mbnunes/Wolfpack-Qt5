@@ -385,28 +385,6 @@ void cTargets::VisibleTarget (int s)
 	}
 }
 
-void cTargets::DvatTarget(int s)
-{
-	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && pi->dye==1)//if dyeable
-	{
-		P_CHAR pc = GetPackOwner(pi);
-		if(pc == currchar[s] || pi->isInWorld())
-		{//if on ground or currchar is owning the item - AntiChrist
-			pi->setColor( static_cast<unsigned short>(addid1[s]<<8) + addid2[s] );
-			pi->update();
-			soundeffect(s,0x02,0x3e); // plays the dye sound, LB
-		} else
-		{
-			sysmessage(s,"That is not yours!!");
-		}
-	}
-	else
-	{
-		sysmessage(s, "You can only dye cloth with this.");
-	}
-}
-
 static void AddNpcTarget(int s, PKGx6C *pp)
 {
 	if(pp->TxLoc==-1 || pp->TyLoc==-1) return;
@@ -847,253 +825,6 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		}
 		Items->DeleItem(pi3);	//and then delete the corpse
 	}
-}
-
-
-void cTargets::NpcTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		addid1[s] = static_cast<unsigned char>(pc->serial>>24);
-		addid2[s] = static_cast<unsigned char>(pc->serial>>16);
-		addid3[s] = static_cast<unsigned char>(pc->serial>>8);
-		addid4[s] = static_cast<unsigned char>(pc->serial%256);
-		target(s, 0, 1, 0, 57, "Select NPC to follow this player.");
-	}
-}
-
-void cTargets::NpcTarget2(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		if (pc->isNpc())
-		{
-			pc->ftarg = calcserial(addid1[s], addid2[s], addid3[s], addid4[s]);
-			pc->npcWander=1;
-		}
-	}
-}
-
-void cTargets::NpcRectTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		if ((pc->isNpc()))
-		{
-			pc->fx1=addx[s];
-			pc->fy1=addy[s];
-		    pc->fz1=-1;
-			pc->fx2=addx2[s];
-			pc->fy2=addy2[s];
-			pc->npcWander=3;
-		}
-	}
-}
-
-void cTargets::NpcCircleTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		if ((pc->isNpc()))
-		{
-			pc->fx1=addx[s];
-			pc->fy1=addy[s];
-			pc->fz1=-1;
-			pc->fx2=addx2[s];
-			pc->npcWander=2; // bugfix, LB
-		}
-	}
-}
-
-void cTargets::NpcWanderTarget(int s)
-{
-	int serial=LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		if ((pc->isNpc())) pc->npcWander=npcshape[0];
-	}
-}
-
-//taken from 6904t2(5/10/99) - AntiChrist
-void cTargets::NpcAITarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		pc->setNpcAIType(addx[s]);
-		sysmessage(s, "Npc AI changed.");//AntiChrist
-	}
-}
-
-void cTargets::xBankTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		pc->openBank( s );
-	}
-}
-
-void cTargets::SellStuffTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		sellstuff(s, pc);
-	}
-}
-
-void cTargets::ReleaseTarget(int s, int c) 
-{ 
-
-	/*P_CHAR pc_i = NULL;
-	if (c == INVALID_SERIAL) 
-	{ 
-		SERIAL serial = LongFromCharPtr(buffer[s] + 7); 
-		pc_i = FindCharBySerial(serial); 
-	} 
-	else 
-	{ 
-		pc_i = FindCharBySerial(c); 
-	} 
-	if (pc_i != NULL) 
-	{ 
-		P_CHAR pc = pc_i;
-		if( pc->cell == 0 ) 
-		{ 
-			sysmessage(s, "That player is not in jail!"); 
-		} 
-		else 
-		{ 
-			jails[pc->cell()].occupied = false; 
-			pc->moveTo(jails[pc->cell()].oldpos);
-			pc->setCell(0); 
-			pc->setPriv2(0); 
-			pc->setJailSecs(0); 
-			pc->setJailTimer(0); 
-			teleport(pc);
-			soundeffect(calcSocketFromChar(pc), 0x01, 0xfd); // Play sound effect for player 
-			sysmessage(calcSocketFromChar(pc), "You are released.."); 
-			sysmessage(s, "Player %s released.", pc->name.c_str());
-		} 
-	} */
-}
-
-void cTargets::GmOpenTarget( int s )
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	unsigned int ci=0;
-	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
-	{
-		pi = FindItemBySerial(vecContainer[ci]);
-		if( pi->layer() == addmitem[s] )
-		{
-			if( currchar[s] )
-				currchar[s]->socket()->sendContainer( pi );
-			return;
-		}
-	}
-	sysmessage(s,"No object was found at that layer on that character");
-}
-
-void cTargets::StaminaTarget(int s)
-{
-	SERIAL serial=LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		pc->soundEffect( 0x01F2 );
-		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
-		pc->setStm( pc->effDex() );
-		updatestats(pc, 2);
-		return;
-	}
-	sysmessage(s,"That is not a person.");
-}
-
-void cTargets::ManaTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		pc->soundEffect( 0x01F2 );
-		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
-		pc->setMn( pc->in() );
-		updatestats(pc, 1);
-		return;
-	}
-	sysmessage(s,"That is not a person.");
-}
-
-void cTargets::JailTarget(int s, int c) 
-{ 
-	SERIAL serial; 
-	P_CHAR tmpnum = NULL;
-	
-	int x = 0; 
-	if (c == INVALID_SERIAL) 
-	{ 
-		serial = LongFromCharPtr(buffer[s] + 7); 
-		tmpnum = FindCharBySerial(serial); 
-	} 
-	else 
-	{ 
-		tmpnum = FindCharBySerial(c); 
-	} 
-	if (tmpnum == NULL)
-		return; // lb 
-	P_CHAR pc = tmpnum; 
-	
-	if (pc->cell()>0) 
-	{ 
-		sysmessage(s, "That player is already in jail!"); 
-		return; 
-	} 
-	int i;
-	for (i = 1; i < 11; i++) 
-	{ 
-		if (!jails[i].occupied) 
-		{ 
-			jails[i].oldpos = pc->pos;
-			pc->moveTo(jails[i].pos); 
-			pc->setCell(i); 
-			pc->setPriv2(2); // freeze them  Ripper 
-			
-			
-			// blackwinds jail
-			pc->setJailSecs( addmitem[s] ); // Additem array used for jail time here.. 
-			addmitem[s] = 0; // clear it 
-			pc->setJailTimer( uiCurrentTime +(MY_CLOCKS_PER_SEC*pc->jailsecs()) ); 
-			teleport(tmpnum); 
-			UOXSOCKET prisoner = calcSocketFromChar(tmpnum); 
-			jails[i].occupied = 1; 
-			sysmessage(prisoner, "You are jailed !"); 
-			sysmessage(prisoner, "You notice you just got something new at your backpack.."); 
-			sysmessage(s, "Player %s has been jailed in cell %i.", pc->name.c_str(), i); 
-			Items->SpawnItemBackpack2(prisoner, "50040", 0); // spawn crystall ball of justice to prisoner. 
-			// end blackwinds jail 
-			
-			x++; 
-			break; 
-		} 
-	} 
-	if (x == 0) 
-		sysmessage(s, "All jails are currently full!"); 
 }
 
 void cTargets::AttackTarget(int s)
@@ -2212,7 +1943,7 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 //		case 28: ItemTarget(ps,pt); break;//MovableTarget
 //		case 30: if (Cready) OwnerTarget(ps,pc); else if (Iready) OwnerTarget(ps,pi); break;
 //		case 31: ItemTarget(ps,pt); break;//ColorsTarget
-		case 32: Targ->DvatTarget(s); break;
+//		case 32: Targ->DvatTarget(s); break;
 		case 33: AddNpcTarget(s,pt); break;
 //		case 34: if (Cready) pc->priv2|=2; break;
 		case 34: if (Cready) pc->setPriv2(pc->priv2() | 2); break;
@@ -2229,17 +1960,12 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 		case 47: if (Cready) pc->setTitle( xtext[s] ); break;//TitleTarget
 //		case 48: Targ->ShowAccountCommentTarget(s); break;
 //		case 53: npcact(s); break;
-		case 56: Targ->NpcTarget(s); break;
-		case 57: Targ->NpcTarget2(s); break;
 		case 58: Targ->NpcResurrectTarget(currchar[s]); break;
-		case 59: Targ->NpcCircleTarget(s); break;
-		case 60: Targ->NpcWanderTarget(s); break;
 		case 61: Targ->VisibleTarget(s); break;
 		case 63: //MoreXTarget
 		case 64: //MoreYTarget
 		case 65: //MoreZTarget
 //		case 66: ItemTarget(ps,pt); break;//MoreXYZTarget
-		case 67: Targ->NpcRectTarget(s); break;
 //		case 71: if (Iready) ContainerEmptyTarget1(ps,pi); break;
 //		case 72: if (Iready) ContainerEmptyTarget2(ps,pi); break;
 //		case 75: Targ->TargIdTarget(s); break;
@@ -2255,16 +1981,9 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 //		case 89: ItemTarget(ps,pt); break;//ObjPrivTarget
 
 		case 100: Magic->NewCastSpell( s ); break;	// we now have this as our new spell targeting location
-		case 106: Targ->NpcAITarget(s); break;
-		case 107: Targ->xBankTarget(s); break;
 		case 108: Skills->AlchemyTarget(s); break;
 		case 109: Skills->BottleTarget(s); break;
 //		case 111: ItemTarget(ps,pt); break;//MovableTarget
-		case 112: Targ->SellStuffTarget(s); break;
-		case 113: Targ->ManaTarget(s); break;
-		case 114: Targ->StaminaTarget(s); break;
-		case 115: Targ->GmOpenTarget(s); break;
-		case 117: Targ->FollowTarget(s); break;
 		case 118: Targ->AttackTarget(s); break;
 		case 119: Targ->TransferTarget(s); break;
 		case 120: Targ->GuardTarget( s ); break;
@@ -2273,8 +1992,6 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 //		case 123: ItemTarget(ps,pt); break;//SetRestockTarget
 		case 124: Targ->FetchTarget(s); break;
 
-		case 126: Targ->JailTarget(s,-1); break;
-		case 127: Targ->ReleaseTarget(s,-1); break;
 		case 128: Skills->CreateBandageTarget(s); break;
 //		case 129: ItemTarget(ps,pt); break;//SetAmount2Target
 		case 131: if (currchar[s]->isGM()) Targ->permHideTarget(s); break; /* not used */

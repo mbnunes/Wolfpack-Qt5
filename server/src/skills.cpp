@@ -889,11 +889,10 @@ public:
 				socket->sysMessage( tr("You are not certain about the corpse.")); 
 			else
 			{
-				if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)<=60) strcpy((char*)temp2, tr("few") );
-				if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>60) strcpy((char*)temp2, tr("many") );
-				if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>180) strcpy((char*)temp2, tr("many many"));
-				socket->sysMessage( tr("The %1 is %2 seconds old.").arg(pi->name()).arg(temp2) );
-				
+				if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>180) socket->sysMessage( tr("The %1 is many many seconds old.").arg(pi->name()));
+				else if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>60) socket->sysMessage( tr("The %1 is many seconds old.").arg(pi->name()) );
+				else if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)<=60) socket->sysMessage( tr("The %1 is few seconds old.").arg(pi->name()) );
+								
 				if ( !pc_currchar->checkSkill( FORENSICS, 500, 1000, false ) || pi->murderer() == "" ) 
 					socket->sysMessage( tr("You can't say who was the killer.") ); 
 				else
