@@ -111,7 +111,7 @@ void cConfig::readData()
 	databasePassword_ = getString( "Database", "password", "", true );
 	databaseUsername_ = getString( "Database", "username", "", true );
 	databaseHost_ = getString( "Database", "host", "", true );
-	databaseDriver_ = getString( "Database", "driver", "sqlite", true );
+	databaseDriver_ = getString( "Database", "driver", "binary", true );
 	databaseName_ = getString( "Database", "name", "world.db", true );
 
 	// Repsys

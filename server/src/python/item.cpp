@@ -894,14 +894,7 @@ static PyObject* wpItem_removeitems( wpItem* self, PyObject* args )
 	for ( int i = 0; i < PyList_Size( list ); ++i )
 	{
 		PyObject* item = PyList_GetItem( list, i );
-		if ( PyString_Check( item ) )
-		{
-			baseids.append( PyString_AsString( item ) );
-		}
-		else if ( PyUnicode_Check( item ) )
-		{
-			baseids.append( QString::fromUcs2( ( ushort * ) PyUnicode_AsUnicode( item ) ) );
-		}
+		baseids.append( Python2QString(item) );
 	}
 
 	return PyInt_FromLong( self->pItem->removeItems( baseids, amount ) );
