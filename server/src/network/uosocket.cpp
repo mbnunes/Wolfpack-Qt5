@@ -347,7 +347,7 @@ void cUOSocket::disconnect( void )
 		// CORREA: please check this issue, allcharsiterator is sub-optimal
 		// first i thought it could be a packet from the sysmessage call
 		// but mSock != this excludes this issue :/ - sereg
-		AllCharsIterator iter_chars;
+/*		AllCharsIterator iter_chars;
 		for( iter_chars.Begin(); !iter_chars.atEnd(); iter_chars.Next() )
 		{
 			P_CHAR pc = iter_chars.GetData();
@@ -356,6 +356,16 @@ void cUOSocket::disconnect( void )
 			{
 				pc->socket()->sysMessage( tr("%1 left the world!").arg( _player->name.c_str() ), 0x25 );
 			}
+		}
+*/
+		cUOSocket* mSocket = 0;
+		QPtrListIterator<cUOSocket> it( cNetwork::instance()->getIterator() );
+		while ( ( mSocket = it.current() ) )
+		{
+			++it;
+			if ( mSocket == this || !SrvParams->joinMsg() || !mSocket->player() || !mSocket->player()->isGMorCounselor() )
+				continue;
+			mSocket->sysMessage( tr("%1 left the world!").arg( _player->name.c_str() ), 0x25 );
 		}
 //		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 //			if( mSock != this && SrvParams->joinMsg() && mSock->player() && mSock->player()->isGMorCounselor() )

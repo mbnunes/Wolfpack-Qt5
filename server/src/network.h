@@ -60,6 +60,27 @@ struct ip_block_st
 
 class cNetwork
 {
+private:
+	cNetwork();
+	~cNetwork();
+
+	//typedef gamesocketsIterator QPtrListIterator;
+	//typedef loginsocketsIterator QPtrListIterator;
+
+	static cNetwork *instance_;
+	
+//	std::vector<ip_block_st> hosts_deny;
+	QPtrList< cUOSocket > uoSockets;
+	QPtrList< cUOSocket > loginSockets;
+	cAsyncNetIO *netIo_;
+	cListener *listener_;
+
+	// junk
+	UOXSOCKET getuoSocketsIndex( cUOSocket* );
+	friend UOXSOCKET calcSocketFromChar(P_CHAR);
+	friend UOXSOCKET toOldSocket( cUOSocket* );
+	friend cUOSocket* fromOldSocket(UOXSOCKET);
+
 public:
 
 	void disconnect( UOXSOCKET s );
@@ -81,27 +102,8 @@ public:
 	cUOSocket *first() { return uoSockets.first(); }
 	cUOSocket *next() { return uoSockets.next(); }
 	UINT32 count() { return uoSockets.count(); }
+	QPtrListIterator<cUOSocket> getIterator() { return QPtrListIterator<cUOSocket>(uoSockets); }
 
-private:
-	cNetwork();
-	~cNetwork();
-
-	//typedef gamesocketsIterator QPtrListIterator;
-	//typedef loginsocketsIterator QPtrListIterator;
-
-	static cNetwork *instance_;
-	
-//	std::vector<ip_block_st> hosts_deny;
-	QPtrList< cUOSocket > uoSockets;
-	QPtrList< cUOSocket > loginSockets;
-	cAsyncNetIO *netIo_;
-	cListener *listener_;
-
-	// junk
-	UOXSOCKET getuoSocketsIndex( cUOSocket* );
-	friend UOXSOCKET calcSocketFromChar(P_CHAR);
-	friend UOXSOCKET toOldSocket( cUOSocket* );
-	friend cUOSocket* fromOldSocket(UOXSOCKET);
 };
 
 // Helper Function
