@@ -1,3 +1,11 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
 <definitions>
 	<item id="0">
 		<id>0x0000</id>
@@ -8843,70 +8851,6 @@
 		<id>0x096c</id>
 	</item>
 
-	<item id="970">
-		<id>0x0970</id>
-	</item>
-
-	<item id="971">
-		<id>0x0971</id>
-	</item>
-
-	<item id="972">
-		<id>0x0972</id>
-	</item>
-
-	<item id="973">
-		<id>0x0973</id>
-	</item>
-
-	<item id="974">
-		<id>0x0974</id>
-	</item>
-
-	<item id="975">
-		<id>0x0975</id>
-	</item>
-
-	<item id="976">
-		<id>0x0976</id>
-	</item>
-
-	<item id="977">
-		<id>0x0977</id>
-	</item>
-
-	<item id="978">
-		<id>0x0978</id>
-	</item>
-
-	<item id="979">
-		<id>0x0979</id>
-	</item>
-
-	<item id="97a">
-		<id>0x097a</id>
-	</item>
-
-	<item id="97b">
-		<id>0x097b</id>
-	</item>
-
-	<item id="97c">
-		<id>0x097c</id>
-	</item>
-
-	<item id="97d">
-		<id>0x097d</id>
-	</item>
-
-	<item id="97e">
-		<id>0x097e</id>
-	</item>
-
-	<item id="97f">
-		<id>0x097f</id>
-	</item>
-
 	<item id="980">
 		<id>0x0980</id>
 	</item>
@@ -8955,114 +8899,6 @@
 		<id>0x098b</id>
 	</item>
 
-	<item id="98c">
-		<id>0x098c</id>
-	</item>
-
-	<item id="98d">
-		<id>0x098d</id>
-	</item>
-
-	<item id="98e">
-		<id>0x098e</id>
-	</item>
-
-	<item id="990">
-		<id>0x0990</id>
-	</item>
-
-	<item id="991">
-		<id>0x0991</id>
-	</item>
-
-	<item id="992">
-		<id>0x0992</id>
-	</item>
-
-	<item id="993">
-		<id>0x0993</id>
-	</item>
-
-	<item id="994">
-		<id>0x0994</id>
-	</item>
-
-	<item id="995">
-		<id>0x0995</id>
-	</item>
-
-	<item id="996">
-		<id>0x0996</id>
-	</item>
-
-	<item id="997">
-		<id>0x0997</id>
-	</item>
-
-	<item id="998">
-		<id>0x0998</id>
-	</item>
-
-	<item id="999">
-		<id>0x0999</id>
-	</item>
-
-	<item id="99a">
-		<id>0x099a</id>
-	</item>
-
-	<item id="99b">
-		<id>0x099b</id>
-	</item>
-
-	<item id="99c">
-		<id>0x099c</id>
-	</item>
-
-	<item id="99d">
-		<id>0x099d</id>
-	</item>
-
-	<item id="99e">
-		<id>0x099e</id>
-	</item>
-
-	<item id="99f">
-		<id>0x099f</id>
-	</item>
-
-	<item id="9a0">
-		<id>0x09a0</id>
-	</item>
-
-	<item id="9a1">
-		<id>0x09a1</id>
-	</item>
-
-	<item id="9a2">
-		<id>0x09a2</id>
-	</item>
-
-	<item id="9a3">
-		<id>0x09a3</id>
-	</item>
-
-	<item id="9a4">
-		<id>0x09a4</id>
-	</item>
-
-	<item id="9a5">
-		<id>0x09a5</id>
-	</item>
-
-	<item id="9a6">
-		<id>0x09a6</id>
-	</item>
-
-	<item id="9a7">
-		<id>0x09a7</id>
-	</item>
-
 	<item id="9a8">
 		<id>0x09a8</id>
 	</item>
@@ -9083,18 +8919,6 @@
 		<id>0x09ac</id>
 	</item>
 
-	<item id="9ad">
-		<id>0x09ad</id>
-	</item>
-
-	<item id="9ae">
-		<id>0x09ae</id>
-	</item>
-
-	<item id="9af">
-		<id>0x09af</id>
-	</item>
-
 	<item id="9b0">
 		<id>0x09b0</id>
 	</item>
@@ -9107,292 +8931,8 @@
 		<id>0x09b2</id>
 	</item>
 
-	<item id="9b3">
-		<id>0x09b3</id>
-	</item>
-
-	<item id="9b4">
-		<id>0x09b4</id>
-	</item>
-
-	<item id="9b5">
-		<id>0x09b5</id>
-	</item>
-
-	<item id="9b6">
-		<id>0x09b6</id>
-	</item>
-
-	<item id="9b7">
-		<id>0x09b7</id>
-	</item>
-
-	<item id="9b8">
-		<id>0x09b8</id>
-	</item>
-
-	<item id="9b9">
-		<id>0x09b9</id>
-	</item>
-
-	<item id="9ba">
-		<id>0x09ba</id>
-	</item>
-
-	<item id="9bb">
-		<id>0x09bb</id>
-	</item>
-
-	<item id="9bc">
-		<id>0x09bc</id>
-	</item>
-
-	<item id="9bd">
-		<id>0x09bd</id>
-	</item>
-
-	<item id="9be">
-		<id>0x09be</id>
-	</item>
-
-	<item id="9bf">
-		<id>0x09bf</id>
-	</item>
-
-	<item id="9c0">
-		<id>0x09c0</id>
-	</item>
-
-	<item id="9c1">
-		<id>0x09c1</id>
-	</item>
-
-	<item id="9c2">
-		<id>0x09c2</id>
-	</item>
-
-	<item id="9c3">
-		<id>0x09c3</id>
-	</item>
-
-	<item id="9c4">
-		<id>0x09c4</id>
-	</item>
-
-	<item id="9c5">
-		<id>0x09c5</id>
-	</item>
-
-	<item id="9c6">
-		<id>0x09c6</id>
-	</item>
-
-	<item id="9c7">
-		<id>0x09c7</id>
-	</item>
-
-	<item id="9c8">
-		<id>0x09c8</id>
-	</item>
-
-	<item id="9c9">
-		<id>0x09c9</id>
-	</item>
-
-	<item id="9ca">
-		<id>0x09ca</id>
-	</item>
-
-	<item id="9cb">
-		<id>0x09cb</id>
-	</item>
-
-	<item id="9cc">
-		<id>0x09cc</id>
-	</item>
-
-	<item id="9cd">
-		<id>0x09cd</id>
-	</item>
-
-	<item id="9ce">
-		<id>0x09ce</id>
-	</item>
-
-	<item id="9cf">
-		<id>0x09cf</id>
-	</item>
-
-	<item id="9d0">
-		<id>0x09d0</id>
-	</item>
-
-	<item id="9d1">
-		<id>0x09d1</id>
-	</item>
-
-	<item id="9d2">
-		<id>0x09d2</id>
-	</item>
-
-	<item id="9d3">
-		<id>0x09d3</id>
-	</item>
-
-	<item id="9d4">
-		<id>0x09d4</id>
-	</item>
-
-	<item id="9d5">
-		<id>0x09d5</id>
-	</item>
-
-	<item id="9d6">
-		<id>0x09d6</id>
-	</item>
-
-	<item id="9d7">
-		<id>0x09d7</id>
-	</item>
-
-	<item id="9d8">
-		<id>0x09d8</id>
-	</item>
-
-	<item id="9d9">
-		<id>0x09d9</id>
-	</item>
-
-	<item id="9da">
-		<id>0x09da</id>
-	</item>
-
-	<item id="9db">
-		<id>0x09db</id>
-	</item>
-
-	<item id="9dc">
-		<id>0x09dc</id>
-	</item>
-
-	<item id="9dd">
-		<id>0x09dd</id>
-	</item>
-
-	<item id="9de">
-		<id>0x09de</id>
-	</item>
-
-	<item id="9df">
-		<id>0x09df</id>
-	</item>
-
-	<item id="9e0">
-		<id>0x09e0</id>
-	</item>
-
-	<item id="9e1">
-		<id>0x09e1</id>
-	</item>
-
-	<item id="9e2">
-		<id>0x09e2</id>
-	</item>
-
-	<item id="9e3">
-		<id>0x09e3</id>
-	</item>
-
-	<item id="9e4">
-		<id>0x09e4</id>
-	</item>
-
-	<item id="9e5">
-		<id>0x09e5</id>
-	</item>
-
-	<item id="9e6">
-		<id>0x09e6</id>
-	</item>
-
-	<item id="9e7">
-		<id>0x09e7</id>
-	</item>
-
-	<item id="9e8">
-		<id>0x09e8</id>
-	</item>
-
-	<item id="9e9">
-		<id>0x09e9</id>
-	</item>
-
-	<item id="9ea">
-		<id>0x09ea</id>
-	</item>
-
-	<item id="9eb">
-		<id>0x09eb</id>
-	</item>
-
-	<item id="9ec">
-		<id>0x09ec</id>
-	</item>
-
-	<item id="9ed">
-		<id>0x09ed</id>
-	</item>
-
-	<item id="9ee">
-		<id>0x09ee</id>
-	</item>
-
-	<item id="9ef">
-		<id>0x09ef</id>
-	</item>
-
-	<item id="9f0">
-		<id>0x09f0</id>
-	</item>
-
-	<item id="9f1">
-		<id>0x09f1</id>
-	</item>
-
-	<item id="9f2">
-		<id>0x09f2</id>
-	</item>
-
-	<item id="9f3">
-		<id>0x09f3</id>
-	</item>
-
-	<item id="9f4">
-		<id>0x09f4</id>
-	</item>
-
-	<item id="9f5">
-		<id>0x09f5</id>
-	</item>
-
-	<item id="9f6">
-		<id>0x09f6</id>
-	</item>
-
-	<item id="9f7">
-		<id>0x09f7</id>
-	</item>
-
-	<item id="9f8">
-		<id>0x09f8</id>
-	</item>
-
-	<item id="9f9">
-		<id>0x09f9</id>
-	</item>
-
-	<item id="9fa">
-		<id>0x09fa</id>
+	<item id="990">
+		<id>0x0990</id>
 	</item>
 
 	<item id="9fb">
@@ -15237,30 +14777,6 @@
 
 	<item id="fee">
 		<id>0x0fee</id>
-	</item>
-
-	<item id="fef">
-		<id>0x0fef</id>
-	</item>
-
-	<item id="ff0">
-		<id>0x0ff0</id>
-	</item>
-
-	<item id="ff1">
-		<id>0x0ff1</id>
-	</item>
-
-	<item id="ff2">
-		<id>0x0ff2</id>
-	</item>
-
-	<item id="ff3">
-		<id>0x0ff3</id>
-	</item>
-
-	<item id="ff4">
-		<id>0x0ff4</id>
 	</item>
 
 	<item id="ff6">
@@ -21825,10 +21341,6 @@
 
 	<item id="172d">
 		<id>0x172d</id>
-	</item>
-
-	<item id="172e">
-		<id>0x172e</id>
 	</item>
 
 	<item id="1731">
@@ -28943,38 +28455,6 @@
 		<id>0x1efc</id>
 	</item>
 
-	<item id="1efd">
-		<id>0x1efd</id>
-	</item>
-
-	<item id="1efe">
-		<id>0x1efe</id>
-	</item>
-
-	<item id="1eff">
-		<id>0x1eff</id>
-	</item>
-
-	<item id="1f00">
-		<id>0x1f00</id>
-	</item>
-
-	<item id="1f01">
-		<id>0x1f01</id>
-	</item>
-
-	<item id="1f02">
-		<id>0x1f02</id>
-	</item>
-
-	<item id="1f03">
-		<id>0x1f03</id>
-	</item>
-
-	<item id="1f04">
-		<id>0x1f04</id>
-	</item>
-
 	<item id="1f05">
 		<id>0x1f05</id>
 	</item>
@@ -29439,14 +28919,6 @@
 		<id>0x1f7a</id>
 	</item>
 
-	<item id="1f7b">
-		<id>0x1f7b</id>
-	</item>
-
-	<item id="1f7c">
-		<id>0x1f7c</id>
-	</item>
-
 	<item id="1f7d">
 		<id>0x1f7d</id>
 	</item>
@@ -29581,22 +29053,6 @@
 
 	<item id="1f9e">
 		<id>0x1f9e</id>
-	</item>
-
-	<item id="1f9f">
-		<id>0x1f9f</id>
-	</item>
-
-	<item id="1fa0">
-		<id>0x1fa0</id>
-	</item>
-
-	<item id="1fa1">
-		<id>0x1fa1</id>
-	</item>
-
-	<item id="1fa2">
-		<id>0x1fa2</id>
 	</item>
 
 	<item id="1fa3">
@@ -29935,14 +29391,6 @@
 		<id>0x1ffc</id>
 	</item>
 
-	<item id="1ffd">
-		<id>0x1ffd</id>
-	</item>
-
-	<item id="1ffe">
-		<id>0x1ffe</id>
-	</item>
-
 	<item id="2006">
 		<id>0x2006</id>
 	</item>
@@ -30167,14 +29615,6 @@
 		<id>0x2041</id>
 	</item>
 
-	<item id="2042">
-		<id>0x2042</id>
-	</item>
-
-	<item id="2043">
-		<id>0x2043</id>
-	</item>
-
 	<item id="2044">
 		<id>0x2044</id>
 	</item>
@@ -30213,18 +29653,6 @@
 
 	<item id="204d">
 		<id>0x204d</id>
-	</item>
-
-	<item id="204e">
-		<id>0x204e</id>
-	</item>
-
-	<item id="204f">
-		<id>0x204f</id>
-	</item>
-
-	<item id="2050">
-		<id>0x2050</id>
 	</item>
 
 	<item id="2051">

@@ -1,0 +1,540 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- Stew -->
+	<item id="970">
+		<category>Equipment\Food\Stew</category>
+		<note>Use in conjunction with <ref id="974">cauldron n/s</ref> and <ref id="975">cauldron w/e</ref></note>
+		<id>0x0970</id>
+		<type>14</type> <!-- You can eat stew out of the cauldrons -->
+	</item>
+
+	<!-- Cauldron n/s -->
+	<item id="974">
+		<category>Decoration\Kitchen\Cauldron (N/S)</category>
+		<id>0x0974</id>
+		<note>Use this in conjunction with <ref id="970">stew</ref></note>
+	</item>
+
+	<!-- Cauldron w/e -->
+	<item id="975">
+		<category>Decoration\Kitchen\Cauldron (W/E)</category>
+		<id>0x0975</id>
+		<note>Use this in conjunction with <ref id="970">stew</ref></note>
+	</item>
+
+	<!-- Slab of Bacon n/s -->
+	<item id="976">
+		<category>Equipment\Food\Slab of Bacon (N/S)</category>
+		<id>0x0976</id>
+		<type>14</type>
+		<decay />
+		<value>20</value>
+		<weight>0.1</weight>
+	</item>
+
+	<!-- Slab of Bacon w/e -->
+	<item id="977">
+		<inherit id="976" />
+		<category>Equipment\Food\Slab of Bacon (W/E)</category>
+		<id>0x0977</id>
+	</item>
+
+	<!-- Slice of Bacon n/s -->
+	<item id="978">
+		<category>Equipment\Food\Slice of Bacon (N/S)</category>
+		<id>0x0978</id>
+		<type>14</type>
+		<decay />
+		<value>5</value>
+		<weight>0.1</weight>		
+	</item>
+
+	<!-- Slice of Bacon w/e -->
+	<item id="979">
+		<inherit id="978" />
+		<category>Equipment\Food\Slice of Bacon (W/E)</category>
+		<id>0x0979</id>
+	</item>
+
+	<!-- Raw Fish Steak -->
+	<item id="97a">
+		<category>Equipment\Food\Raw Fish Steak</category>
+		<id>0x097a</id>
+		<value>8</value>
+		<weight>0.2</weight>		
+	</item>
+
+	<!-- Fish Steak -->
+	<item id="97b">
+		<category>Equipment\Food\Fish Steak</category>
+		<id>0x097b</id>
+		<type>14</type>
+		<decay />
+		<value>15</value>
+		<weight>0.1</weight>
+	</item>
+
+	<!-- Wedge of Cheese (small) -->
+	<item id="97c">
+		<category>Equipment\Food\Wedge of Cheese (small)</category>
+		<id>0x097c</id>
+		<type>14</type>
+		<decay />
+		<value>15</value>
+		<weight>0.1</weight>
+	</item>
+
+	<!-- Wedge of Cheese (big) -->
+	<item id="97d">
+		<category>Equipment\Food\Wedge of Cheese (big)</category>
+		<id>0x097d</id>
+		<type>14</type>
+		<decay />
+		<value>15</value>
+		<weight>0.1</weight>
+	</item>
+
+	<!-- Wheel of Cheese -->
+	<item id="97e">
+		<category>Equipment\Food\Wheel of Cheese</category>
+		<id>0x097e</id>
+		<type>14</type>
+		<decay />
+		<value>15</value>
+		<weight>0.1</weight>
+	</item>
+
+	<!-- Frypan -->
+	<item id="97f">
+		<category>Decoration\Kitchen\Frypan</category>
+		<id>0x097f</id>
+	</item>
+
+	<!-- French Bread -->
+	<item id="98c">
+		<id>0x098c</id>
+	</item>
+
+	<!-- Jugs of Cider (3) -->
+	<item id="98d">
+		<id>0x098d</id>
+	</item>
+
+	<!-- Jugs of Cider (2) -->
+	<item id="98e">
+		<id>0x098e</id>
+	</item>
+
+	<!-- Tray n/s -->
+	<item id="991">
+		<id>0x0991</id>
+	</item>
+
+	<!-- Tray w/e -->
+	<item id="992">
+		<id>0x0992</id>
+	</item>
+
+	<!-- Fruit Basket -->
+	<item id="993">
+		<id>0x0993</id>
+	</item>
+
+	<!-- Pear -->
+	<item id="994">
+		<id>0x0994</id>
+	</item>
+
+	<!-- Ceramic Mug 1 -->
+	<item id="995">
+		<id>0x0995</id>
+	</item>
+
+	<!-- Ceramic Mug 2 -->
+	<item id="996">
+		<id>0x0996</id>
+	</item>
+
+	<!-- Ceramic Mug 3 -->
+	<item id="997">
+		<id>0x0997</id>
+	</item>
+
+	<!-- Mug 1 -->
+	<item id="998">
+		<id>0x0998</id>
+	</item>
+
+	<!-- Mug 2 -->
+	<item id="999">
+		<id>0x0999</id>
+	</item>
+
+	<!-- Goblet 1 -->
+	<item id="99a">
+		<id>0x099a</id>
+	</item>
+
+	<!-- Bottle of Liquor -->
+	<item id="99b">
+		<id>0x099b</id>
+	</item>
+
+	<!-- Bottle of Liquor (2) -->
+	<item id="99c">
+		<id>0x099c</id>
+	</item>
+
+	<!-- Bottle of Liquor (3) -->
+	<item id="99d">
+		<id>0x099d</id>
+	</item>
+
+	<!-- Bottle of Liquor (4) -->
+	<item id="99e">
+		<id>0x099e</id>
+	</item>
+
+	<item id="99f">
+		<id>0x099f</id>
+	</item>
+
+	<item id="9a0">
+		<id>0x09a0</id>
+	</item>
+
+	<item id="9a1">
+		<id>0x09a1</id>
+	</item>
+
+	<item id="9a2">
+		<id>0x09a2</id>
+	</item>
+
+	<item id="9a3">
+		<id>0x09a3</id>
+	</item>
+
+	<item id="9a4">
+		<id>0x09a4</id>
+	</item>
+
+	<item id="9a5">
+		<id>0x09a5</id>
+	</item>
+
+	<item id="9a6">
+		<id>0x09a6</id>
+	</item>
+
+	<item id="9a7">
+		<id>0x09a7</id>
+	</item>
+	
+	<item id="9ad">
+		<id>0x09ad</id>
+	</item>
+
+	<item id="9ae">
+		<id>0x09ae</id>
+	</item>
+
+	<item id="9af">
+		<id>0x09af</id>
+	</item>
+	
+	<item id="9b3">
+		<id>0x09b3</id>
+	</item>
+
+	<item id="9b4">
+		<id>0x09b4</id>
+	</item>
+
+	<item id="9b5">
+		<id>0x09b5</id>
+	</item>
+
+	<item id="9b6">
+		<id>0x09b6</id>
+	</item>
+
+	<item id="9b7">
+		<id>0x09b7</id>
+	</item>
+
+	<item id="9b8">
+		<id>0x09b8</id>
+	</item>
+
+	<item id="9b9">
+		<id>0x09b9</id>
+	</item>
+
+	<item id="9ba">
+		<id>0x09ba</id>
+	</item>
+
+	<item id="9bb">
+		<id>0x09bb</id>
+	</item>
+
+	<item id="9bc">
+		<id>0x09bc</id>
+	</item>
+
+	<item id="9bd">
+		<id>0x09bd</id>
+	</item>
+
+	<item id="9be">
+		<id>0x09be</id>
+	</item>
+
+	<item id="9bf">
+		<id>0x09bf</id>
+	</item>
+
+	<item id="9c0">
+		<id>0x09c0</id>
+	</item>
+
+	<item id="9c1">
+		<id>0x09c1</id>
+	</item>
+
+	<item id="9c2">
+		<id>0x09c2</id>
+	</item>
+
+	<item id="9c3">
+		<id>0x09c3</id>
+	</item>
+
+	<item id="9c4">
+		<id>0x09c4</id>
+	</item>
+
+	<item id="9c5">
+		<id>0x09c5</id>
+	</item>
+
+	<item id="9c6">
+		<id>0x09c6</id>
+	</item>
+
+	<item id="9c7">
+		<id>0x09c7</id>
+	</item>
+
+	<item id="9c8">
+		<id>0x09c8</id>
+	</item>
+
+	<item id="9c9">
+		<id>0x09c9</id>
+	</item>
+
+	<item id="9ca">
+		<id>0x09ca</id>
+	</item>
+
+	<item id="9cb">
+		<id>0x09cb</id>
+	</item>
+
+	<item id="9cc">
+		<id>0x09cc</id>
+	</item>
+
+	<item id="9cd">
+		<id>0x09cd</id>
+	</item>
+
+	<item id="9ce">
+		<id>0x09ce</id>
+	</item>
+
+	<item id="9cf">
+		<id>0x09cf</id>
+	</item>
+
+	<item id="9d0">
+		<id>0x09d0</id>
+	</item>
+
+	<item id="9d1">
+		<id>0x09d1</id>
+	</item>
+
+	<item id="9d2">
+		<id>0x09d2</id>
+	</item>
+
+	<item id="9d3">
+		<id>0x09d3</id>
+	</item>
+
+	<item id="9d4">
+		<id>0x09d4</id>
+	</item>
+
+	<item id="9d5">
+		<id>0x09d5</id>
+	</item>
+
+	<item id="9d6">
+		<id>0x09d6</id>
+	</item>
+
+	<item id="9d7">
+		<id>0x09d7</id>
+	</item>
+
+	<item id="9d8">
+		<id>0x09d8</id>
+	</item>
+
+	<item id="9d9">
+		<id>0x09d9</id>
+	</item>
+
+	<item id="9da">
+		<id>0x09da</id>
+	</item>
+
+	<item id="9db">
+		<id>0x09db</id>
+	</item>
+
+	<item id="9dc">
+		<id>0x09dc</id>
+	</item>
+
+	<item id="9dd">
+		<id>0x09dd</id>
+	</item>
+
+	<item id="9de">
+		<id>0x09de</id>
+	</item>
+
+	<item id="9df">
+		<id>0x09df</id>
+	</item>
+
+	<item id="9e0">
+		<id>0x09e0</id>
+	</item>
+
+	<item id="9e1">
+		<id>0x09e1</id>
+	</item>
+
+	<item id="9e2">
+		<id>0x09e2</id>
+	</item>
+
+	<item id="9e3">
+		<id>0x09e3</id>
+	</item>
+
+	<item id="9e4">
+		<id>0x09e4</id>
+	</item>
+
+	<item id="9e5">
+		<id>0x09e5</id>
+	</item>
+
+	<item id="9e6">
+		<id>0x09e6</id>
+	</item>
+
+	<item id="9e7">
+		<id>0x09e7</id>
+	</item>
+
+	<item id="9e8">
+		<id>0x09e8</id>
+	</item>
+
+	<item id="9e9">
+		<id>0x09e9</id>
+	</item>
+
+	<item id="9ea">
+		<id>0x09ea</id>
+	</item>
+
+	<item id="9eb">
+		<id>0x09eb</id>
+	</item>
+
+	<item id="9ec">
+		<id>0x09ec</id>
+	</item>
+
+	<item id="9ed">
+		<id>0x09ed</id>
+	</item>
+
+	<item id="9ee">
+		<id>0x09ee</id>
+	</item>
+
+	<item id="9ef">
+		<id>0x09ef</id>
+	</item>
+
+	<item id="9f0">
+		<id>0x09f0</id>
+	</item>
+
+	<item id="9f1">
+		<id>0x09f1</id>
+	</item>
+
+	<item id="9f2">
+		<id>0x09f2</id>
+	</item>
+
+	<item id="9f3">
+		<id>0x09f3</id>
+	</item>
+
+	<item id="9f4">
+		<id>0x09f4</id>
+	</item>
+
+	<item id="9f5">
+		<id>0x09f5</id>
+	</item>
+
+	<item id="9f6">
+		<id>0x09f6</id>
+	</item>
+
+	<item id="9f7">
+		<id>0x09f7</id>
+	</item>
+
+	<item id="9f8">
+		<id>0x09f8</id>
+	</item>
+
+	<item id="9f9">
+		<id>0x09f9</id>
+	</item>
+
+	<item id="9fa">
+		<id>0x09fa</id>
+	</item>		
+</definitions>

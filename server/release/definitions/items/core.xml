@@ -102,12 +102,6 @@
 		<durability>1</durability>
 	</item>
 
-	<!-- Death Shroud -->
-	<item id="204e">
-		<id>0x204e</id>
-		<defense>1</defense> <!-- needed -->
-	</item>
-
 	<!-- Fancy Shirt -->
 	<item id="1efd">
 		<id>0x1efd</id>

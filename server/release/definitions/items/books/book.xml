@@ -7,16 +7,6 @@
 =================================================================
 -->
 <definition>
-	<item id="book_base" type="book">
-		<value>1000</value>
-		<name>a book</name>
-		<identified>an empty book</identified>
-		<decay />
-		<id>0xFF1</id>
-		<weight>10</weight>
-		<type>11</type>
-		<pages>32</pages>
-	</item>
 	<item id="first_book" type="book">
 		<value>1000</value>
 		<name>a book</name>

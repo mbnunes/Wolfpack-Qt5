@@ -1,3 +1,11 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
 <definitions>
 	<!-- Cloak n/s -->
 	<item id="1515">
@@ -372,7 +380,7 @@
 		<value>15</value>
 	</item>
 
-	<!-- Shoes (w/e)
+	<!-- Shoes (w/e)-->
 	<item id="1710">
 		<inherit id="170f" />
 		<category>Clothes\Footwear\Shoes (W/E)</category>
@@ -440,23 +448,218 @@
 		<value>35</value>
 	</item>
 
+	<!-- Wizard's Hat -->
 	<item id="1718">
+		<category>Clothes\Headwear\Wizard's Hat</category>
 		<id>0x1718</id>
+		<decay />
+		<dye />
+		<value>30</value>
 	</item>
 
+	<!-- Bonnet -->
 	<item id="1719">
+		<category>Clothes\Headwear\Bonnet</category>
 		<id>0x1719</id>
+		<decay />
+		<dye />
+		<value>40</value>
 	</item>
 
+	<!-- Feathered Hat -->
 	<item id="171a">
+		<category>Clothes\Headwear\Feathered Hat</category>
 		<id>0x171a</id>
+		<decay />
+		<dye />
+		<value>35</value>
 	</item>
 
+	<!-- Tricorne Hat -->
 	<item id="171b">
+		<category>Clothes\Headwear\Tricorne Hat</category>
 		<id>0x171b</id>
+		<decay />
+		<dye />
+		<value>35</value>
 	</item>
 
+	<!-- Jester Hat -->
 	<item id="171c">
+		<category>Clothes\Headwear\Jester Hat</category>
 		<id>0x171c</id>
+		<decay />
+		<dye />
+		<value>40</value>
+	</item>
+	
+	<!-- Jester Hat -->
+	<item id="172e">
+		<category>Clothes\Headwear\Jester Hat</category>
+		<id>0x172e</id>
+		<decay />
+		<dye />
+		<value>40</value>
+	</item>	
+	
+	<!-- Fancy Shirt n/s -->
+	<item id="1efd">
+		<id>0x1efd</id>
+		<category>Clothes\Torso\Fancy Shirt (N/S)</category>
+		<decay />
+		<dye />
+		<value>40</value>		
+	</item>
+
+	<!-- Fancy Shirt w/e -->
+	<item id="1efe">
+		<inherit id="1efd" />
+		<category>Clothes\Torso\Fancy Shirt (W/E)</category>
+		<id>0x1efe</id>
+	</item>
+
+	<!-- Fancy Dress w/e -->
+	<item id="1eff">
+		<category>Clothes\Torso\Fancy Dress (W/E)</category>
+		<id>0x1eff</id>
+		<value>70</value>
+		<decay />
+		<dye />
+	</item>
+
+	<!-- Fancy Dress n/s -->
+	<item id="1f00">
+		<inherit id="1eff" />
+		<category>Clothes\Torso\Fancy Dress (N/S)</category>
+		<id>0x1f00</id>
+	</item>
+
+	<!-- Plain Dress n/s -->
+	<item id="1f01">
+		<category>Clothes\Torso\Plain Dress (N/S)</category>
+		<id>0x1f01</id>
+		<value>55</value>
+		<decay />
+		<dye />
+	</item>
+
+	<!-- Plain Dress w/e -->
+	<item id="1f02">		
+		<inherit id="1f01" />
+		<category>Clothes\Torso\Plain Dress (W/E)</category>
+		<id>0x1f02</id>
+	</item>
+
+	<!-- Robe n/s -->
+	<item id="1f03">
+		<category>Clothes\Torso\Robe (N/S)</category>
+		<id>0x1f03</id>
+		<value>35</value>
+		<decay />
+		<dye />		
+	</item>
+	
+	<!-- Robe w/e -->
+	<item id="1f04">
+		<inherit id="1f03" />
+		<category>Clothes\Torso\Robe (W/E)</category>
+		<id>0x1f04</id>
+	</item>
+	
+	<!-- Jester Suit n/s -->
+	<item id="1f9f">
+		<category>Clothes\Torso\Jester Suit (N/S)</category>
+		<id>0x1f9f</id>
+		<value>50</value>
+		<decay />
+		<dye />
+	</item>
+
+	<!-- Jester Suit w/e -->
+	<item id="1fa0">	
+		<inherit id="1f9f" />
+		<category>Clothes\Torso\Jester Suit (W/E)</category>
+		<id>0x1fa0</id>
+	</item>
+
+	<!-- Tunic n/s -->
+	<item id="1fa1">
+		<category>Clothes\Torso\Tunic (N/S)</category>
+		<id>0x1fa1</id>
+		<value>45</value>
+		<decay />
+		<dye />
+	</item>
+
+	<!-- Tunic w/e -->
+	<item id="1fa2">
+		<inherit id="1fa1" />
+		<category>Clothes\Torso\Tunic (W/E)</category>
+		<id>0x1fa2</id>
+	</item>
+
+	<!-- Doublet n/s -->
+	<item id="1f7b">
+		<category>Clothes\Torso\Doublet (N/S)</category>
+		<id>0x1f7b</id>
+		<value>35</value>
+		<decay />
+		<dye />	
+	</item>
+
+	<!-- Doublet w/e -->
+	<item id="1f7c">
+		<inherit id="1f7b" />
+		<category>Clothes\Torso\Doublet (W/E)</category>
+		<id>0x1f7c</id>
+	</item>	
+	
+	<!-- Surcoat n/s -->
+	<item id="1ffd">
+		<category>Clothes\Torso\Surcoat (N/S)</category>
+		<id>0x1ffd</id>
+		<value>45</value>
+		<decay />
+		<dye />			
+	</item>
+
+	<!-- Surcoat w/e -->
+	<item id="1ffe">
+		<inherit id="1ffd" />
+		<category>Clothes\Torso\Surcoat (W/E)</category>
+		<id>0x1ffe</id>
+	</item>
+	
+	<!-- Lord British -->
+	<item id="2042">
+		<category>Clothes\Special\Lord British</category>
+		<id>0x2042</id>		
+	</item>
+
+	<!-- Lord Blackthorne -->
+	<item id="2043">
+		<category>Clothes\Special\Lord Blackthorne</category>
+		<id>0x2043</id>				
+	</item>	
+	
+	<!-- Death Shroud -->
+	<item id="204e">
+		<category>Clothes\Special\Death Shroud</category>
+		<id>0x204e</id>
+		<defense>1</defense>
+	</item>
+
+	<!-- GM Robe -->
+	<item id="204f">
+		<category>Clothes\Special\GM Robe</category>
+		<id>0x204f</id>
+		<durability>50</durability>
+		<defense>500</defense>
+	</item>
+
+	 <!-- Dupre -->
+	<item id="2050">
+		<category>Clothes\Special\Dupre</category>
+		<id>0x2050</id>
 	</item>
 </definitions>
