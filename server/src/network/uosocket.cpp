@@ -938,7 +938,40 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 
 void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet ) 
 { 
+	P_CHAR pChar;
+	P_ITEM pItem;
+	const cConMenu *menu;
+
 	Q_UINT16 Tag = packet->EntryTag();
+	
+	
+	pItem = FindItemBySerial( packet->serial() );
+	if ( pItem )
+	{
+		if ( !ContextMenus::instance()->MenuExist( pItem->bindmenu() ) )
+			return; // may be someone want to inject something ...
+
+		menu = ContextMenus::instance()->getMenu( pItem->bindmenu(), this->player()->account()->acl() );
+		if ( !menu ) 
+			return;
+		menu->onContextEntry( this->player(), pItem, Tag );
+	} 
+	else 
+	{
+		pChar = FindCharBySerial( packet->serial() );
+		if( !pChar )
+			return;
+		if ( !ContextMenus::instance()->MenuExist( pChar->bindmenu() ) )
+			return;
+
+		menu = ContextMenus::instance()->getMenu( pChar->bindmenu(), this->player()->account()->acl() );
+		if ( !menu ) 
+			return;
+		menu->onContextEntry( this->player(), pChar, Tag );
+	}
+	
+		
+
 } 
 
 // Show a context menu
@@ -969,7 +1002,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 	
 	menu.setSerial ( packet->serial() ); 
 	
-	const cConMenuOptions *tOptions = ContextMenus::instance()->getMenu( bindmenu, acl );
+	const cConMenuOptions *tOptions = ContextMenus::instance()->getMenuOptions( bindmenu, acl );
 	
 	if ( !tOptions )
 		return;

@@ -34,6 +34,9 @@
 
 #include "definable.h"
 #include "wpdefmanager.h"
+#include "wpdefaultscript.h"
+#include "wpscriptmanager.h"
+#include "uobject.h"
 #include "globals.h"
 #include "singleton.h"
 
@@ -82,9 +85,15 @@ public:
 							cConMenu( const QDomElement &Tag );
 	void					processNode( const QDomElement &Tag );
 	const cConMenuOptions*	getOptionsByAcl( QString acl ) const;
+    void					recreateEvents( void );
 	
+	bool					onContextEntry( cChar *Caller, cUObject *Target, Q_UINT16 Tag ) const;
+
 private:
 	QMap< QString, cConMenuOptions >	options_;
+	QStringList							eventList_;
+	std::vector<WPDefaultScript*>		scriptChain;
+
 };
 
 class cAllConMenus
@@ -95,7 +104,8 @@ public:
 	bool	MenuExist( QString bindmenu );
 	void	load( void );
 	void	reload( void );
-	const cConMenuOptions* getMenu( QString bindmenu, QString acl ) const;
+	const cConMenuOptions* getMenuOptions( QString bindmenu, QString acl ) const;
+	const cConMenu*		   getMenu( QString bindmenu, QString acl ) const;
 	
 private:
 	QMap< QString, cConMenu >	menus_;

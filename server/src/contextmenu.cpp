@@ -71,12 +71,55 @@ void cConMenu::processNode( const QDomElement &Tag )
 		options_.insert( Tag.attribute( "acl" ), tOptions );
 		tOptions.deleteAll();
 	}
+	else if( TagName == "events" )
+	{
+		eventList_ = QStringList::split( ",", getNodeValue( Tag ) );
+		recreateEvents();
+	}
+
 }
 
+void cConMenu::recreateEvents( void )
+{
+	// Walk the eventList and recreate 
+	QStringList::const_iterator myIter;
 
+	scriptChain.clear();
+
+	for( myIter = eventList_.begin(); myIter != eventList_.end(); ++myIter )
+	{
+		WPDefaultScript *myScript = ScriptManager->find( *myIter );
+
+		// Script not found
+		if( myScript == NULL )
+			continue;
+
+		scriptChain.push_back( myScript );
+	}
+}
+bool cConMenu::onContextEntry( cChar *Caller, cUObject *Target, Q_UINT16 Tag ) const
+{
+	// If we dont have any events assigned just skip processing
+	if( scriptChain.empty() )
+		return false;
+
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+	{
+		bool Handeled = false;
+
+		Handeled = scriptChain[ i ]->onContextEntry( Caller, Target, Tag );
+
+		if( Handeled )
+			return true;
+	}
+
+	return false;
+}
 cConMenu::cConMenu(const QDomElement &Tag)
 {
 	applyDefinition( Tag );
+	recreateEvents();
 }
 
 const cConMenuOptions* cConMenu::getOptionsByAcl( QString acl ) const
@@ -111,11 +154,20 @@ bool cAllConMenus::MenuExist( QString bindmenu )
 		return true;
 	return false;
 }
-const cConMenuOptions* cAllConMenus::getMenu( QString bindmenu, QString acl ) const
+const cConMenuOptions* cAllConMenus::getMenuOptions( QString bindmenu, QString acl ) const
 {
 	QMap< QString, cConMenu >::const_iterator it = menus_.find( bindmenu );
 	if ( it != menus_.end() ) 	
 		return it.data().getOptionsByAcl( acl );
+
+	return 0;
+}
+
+const cConMenu* cAllConMenus::getMenu( QString bindmenu, QString acl ) const
+{
+	QMap< QString, cConMenu >::const_iterator it = menus_.find( bindmenu );
+	if ( it != menus_.end() )
+		return &it.data();
 
 	return 0;
 }
