@@ -91,6 +91,9 @@ def response( char, args, target ):
 	else:
 		resname = item.gettag( 'resname' )
 
+	if target.char:
+		return OOPS
+		
 	targetitem = wolfpack.finditem( target.item.serial )
 
 	# We go onto creating ingots here.
@@ -299,8 +302,11 @@ def dosmelt ( char, args ):
 					ore.amount = 1
 					ore.update()
 				elif ore.amount == 1:
-					successsmelt( char, ingottable, resname, amount, ingotdef )
-					ore.delete()
+					# There is not enough metal-bearing ore in this pile to make an ingot.
+					char.socket.clilocmessage( 501987, '', GRAY ) 
+					return OOPS
+					
+
 			success = 1
 		
 	if success == 0:
