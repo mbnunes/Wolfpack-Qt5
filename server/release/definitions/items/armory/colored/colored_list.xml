@@ -89,4 +89,22 @@
 	<include file="definitions/items/armory/colored/dragon/verite.xml"/>
 	<include file="definitions/items/armory/colored/dragon/valorite.xml"/>
 
+	<!-- Bone Armor -->
+	<include file="definitions/items/armory/colored/bone/leather.xml"/>
+	<include file="definitions/items/armory/colored/bone/spined_leather.xml"/>
+	<include file="definitions/items/armory/colored/bone/horned_leather.xml"/>
+	<include file="definitions/items/armory/colored/bone/barbed_leather.xml"/>
+
+	<!-- Leather Armor -->
+	<include file="definitions/items/armory/colored/leather/leather.xml"/>
+	<include file="definitions/items/armory/colored/leather/spined_leather.xml"/>
+	<include file="definitions/items/armory/colored/leather/horned_leather.xml"/>
+	<include file="definitions/items/armory/colored/leather/barbed_leather.xml"/>
+
+	<!-- Studded Leather Armor -->
+	<include file="definitions/items/armory/colored/studded/leather.xml"/>
+	<include file="definitions/items/armory/colored/studded/spined_leather.xml"/>
+	<include file="definitions/items/armory/colored/studded/horned_leather.xml"/>
+	<include file="definitions/items/armory/colored/studded/barbed_leather.xml"/>
+
 </definitions>

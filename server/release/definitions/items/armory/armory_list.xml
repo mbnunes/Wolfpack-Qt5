@@ -104,6 +104,4 @@
 	<include file="definitions/items/armory/colored/color_defines.xml"/>
 	<include file="definitions/items/armory/colored/colored_list.xml"/>
 
-
-
 </definitions>

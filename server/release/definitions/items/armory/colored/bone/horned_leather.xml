@@ -1,0 +1,64 @@
+
+<definitions>
+
+	<item id="horned_leather_bone_armor" inherit="144f">
+		<baseid>144f</baseid>
+		<horned_leather_armor />
+		<category>Armor\Bone Armor\Horned Leather\Bone Armor</category>
+	</item>
+
+	<item id="horned_leather_bone_armor_2" inherit="horned_leather_bone_armor">
+		<id>0x1454</id>
+		<baseid>1454</baseid>
+		<category>Armor\Bone Armor\Horned Leather\Bone Armor 2</category>
+	</item>
+
+	<item id="horned_leather_bone_arms" inherit="144e">
+		<baseid>144e</baseid>
+		<horned_leather_armor />
+		<category>Armor\Bone Armor\Horned Leather\Bone Arms</category>
+	</item>
+
+	<item id="horned_leather_bone_arms_2" inherit="horned_leather_bone_arms">
+		<id>0x1453</id>
+		<baseid>1453</baseid>
+		<category>Armor\Bone Armor\Horned Leather\Bone Arms 2</category>
+	</item>
+
+	<item id="horned_leather_bone_gloves" inherit="1450">
+		<baseid>1450</baseid>
+		<horned_leather_armor />
+		<category>Armor\Bone Armor\Horned Leather\Bone Gloves</category>
+	</item>
+
+	<item id="horned_leather_bone_gloves_2" inherit="horned_leather_bone_gloves">
+		<id>0x1455</id>
+		<baseid>1455</baseid>
+		<category>Armor\Bone Armor\Horned Leather\Bone Gloves 2</category>
+	</item>
+
+	<item id="horned_leather_bone_helm" inherit="1451">
+		<baseid>1451</baseid>
+		<horned_leather_armor />
+		<category>Armor\Bone Armor\Horned Leather\Bone Helm</category>
+	</item>
+
+	<item id="horned_leather_bone_helm_2" inherit="horned_leather_bone_helm">
+		<id>0x1456</id>
+		<baseid>1456</baseid>
+		<category>Armor\Bone Armor\Horned Leather\Bone Helm 2</category>
+	</item>
+
+	<item id="horned_leather_bone_leggings" inherit="1452">
+		<baseid>1452</baseid>
+		<horned_leather_armor />
+		<category>Armor\Bone Armor\Horned Leather\Bone Leggings</category>
+	</item>
+
+	<item id="horned_leather_bone_leggings_2" inherit="horned_leather_bone_leggings">
+		<id>0x1457</id>
+		<baseid>1457</baseid>
+		<category>Armor\Bone Armor\Horned Leather\Bone Leggings 2</category>
+	</item>
+
+</definitions>

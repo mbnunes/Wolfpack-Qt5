@@ -8,152 +8,67 @@
 -->
 <definitions>
 
-	<!-- the following define sections are for application on all types of armor -->
+	<!-- Metals -->
 	<define id="iron_armor">
 		<tag name="resname" value="iron" />
 	</define>
 
 	<define id="dull_copper_armor">
 		<color>0x973</color>
-		<!--
-		<tag name="res_physical" value="6" type="int" />
-		<tag name="res_fire" value="0" type="int" />
-		<tag name="res_cold" value="0" type="int" />
-		<tag name="res_poison" value="0" type="int" />
-		<tag name="res_energy" value="0" type="int" />
-		<tag name="res_durability" value="50" type="int" />
-		<tag name="aos_lower_requirements" value="20" type="int" />
-		-->
 		<tag name="resname" value="dullcopper" />
 	</define>
 
 	<define id="shadow_armor">
 		<color>0x966</color>
-		<!--
-		<tag name="res_physical" value="2" type="int" />
-		<tag name="res_fire" value="1" type="int" />
-		<tag name="res_cold" value="0" type="int" />
-		<tag name="res_poison" value="0" type="int" />
-		<tag name="res_energy" value="5" type="int" />
-		<tag name="aos_boni_durability" value="100" type="int" />
-		-->
 		<tag name="resname" value="shadowiron" />
 	</define>
 
 	<define id="copper_armor">
 		<color>0x96d</color>
-		<!--
-		<tag name="res_physical" value="1" type="int" />
-		<tag name="res_fire" value="1" type="int" />
-		<tag name="res_cold" value="0" type="int" />
-		<tag name="res_poison" value="5" type="int" />
-		<tag name="res_energy" value="2" type="int" />
-		-->
 		<tag name="resname" value="copper" />
 	</define>
 
 	<define id="bronze_armor">
 		<color>0x972</color>
-		<!--
-		<tag name="res_physical" value="3" type="int" />
-		<tag name="res_fire" value="0" type="int" />
-		<tag name="res_cold" value="5" type="int" />
-		<tag name="res_poison" value="1" type="int" />
-		<tag name="res_energy" value="1" type="int" />
-		-->
 		<tag name="resname" value="bronze" />
 	</define>
 
 	<define id="gold_armor">
 		<color>0x8a5</color>
-		<!--
-		<tag name="res_physical" value="1" type="int" />
-		<tag name="res_fire" value="1" type="int" />
-		<tag name="res_cold" value="2" type="int" />
-		<tag name="res_poison" value="0" type="int" />
-		<tag name="res_energy" value="2" type="int" />
-		<tag name="aos_boni_luck" value="40" type="int" />
-		<tag name="aos_lower_requirements" value="30" type="int" />
-		-->
 		<tag name="resname" value="gold" />
 	</define>
 
 	<define id="silver_armor">
 		<color>0x430</color>
-		<!--
-		<tag name="res_physical" value="1" type="int" />
-		<tag name="res_fire" value="1" type="int" />
-		<tag name="res_cold" value="3" type="int" />
-		<tag name="res_poison" value="1" type="int" />
-		<tag name="res_energy" value="2" type="int" />
-		<tag name="aos_boni_luck" value="40" type="int" />
-		<tag name="aos_lower_requirements" value="30" type="int" />
-		-->
 		<tag name="resname" value="silver" />
 	</define>
 
 	<define id="agapite_armor">
 		<color>0x979</color>
-		<!--
-		<tag name="res_physical" value="2" type="int" />
-		<tag name="res_fire" value="3" type="int" />
-		<tag name="res_cold" value="2" type="int" />
-		<tag name="res_poison" value="2" type="int" />
-		<tag name="res_energy" value="2" type="int" />
-		-->
 		<tag name="resname" value="agapite" />
 	</define>
 
 	<define id="verite_armor">
 		<color>0x89f</color>
-		<!--
-		<tag name="res_physical" value="3" type="int" />
-		<tag name="res_fire" value="3" type="int" />
-		<tag name="res_cold" value="2" type="int" />
-		<tag name="res_poison" value="3" type="int" />
-		<tag name="res_energy" value="1" type="int" />
-		-->
 		<tag name="resname" value="verite" />
 	</define>
 
 	<define id="valorite_armor">
 		<color>0x8ab</color>
-		<!--
-		<tag name="res_physical" value="4" type="int" />
-		<tag name="res_fire" value="0" type="int" />
-		<tag name="res_cold" value="3" type="int" />
-		<tag name="res_poison" value="3" type="int" />
-		<tag name="res_energy" value="3" type="int" />
-		<tag name="aos_boni_durability" value="50" type="int" />
-		-->
 		<tag name="resname" value="valorite" />
 	</define>
 
 	<define id="merkite_armor">
 		<color>0x8b0</color>
-		<!--
-		<tag name="res_physical" value="3" type="int" />
-		<tag name="res_fire" value="3" type="int" />
-		<tag name="res_cold" value="3" type="int" />
-		<tag name="res_poison" value="3" type="int" />
-		<tag name="res_energy" value="3" type="int" />
-		<tag name="aos_boni_durability" value="50" type="int" />
-		-->
 		<tag name="resname" value="merkite" />
 	</define>
 
 	<define id="mythril_armor">
 		<color>0x84c</color>
-		<!--
-		<tag name="res_physical" value="4" type="int" />
-		<tag name="res_fire" value="4" type="int" />
-		<tag name="res_cold" value="4" type="int" />
-		<tag name="res_poison" value="4" type="int" />
-		<tag name="res_energy" value="4" type="int" />
-		<tag name="aos_boni_durability" value="50" type="int" />
-		-->
 		<tag name="resname" value="mythril" />
 	</define>
+
+	<!-- Leathers -->
 
 	<define id="leather_armor">
 		<color>0x0</color>
@@ -162,37 +77,18 @@
 
 	<define id="spined_leather_armor">
 		<color>0x8ad</color>
-		<!--
-		<tag name="res_physical" value="5" type="int" />
-		<tag name="res_fire" value="0" type="int" />
-		<tag name="res_cold" value="0" type="int" />
-		<tag name="res_poison" value="0" type="int" />
-		<tag name="res_energy" value="0" type="int" />
-		-->
 		<tag name="resname" value="spined_leather" />
 	</define>
 
 	<define id="horned_leather_armor">
 		<color>0x846</color>
-		<!--
-		<tag name="res_physical" value="2" type="int" />
-		<tag name="res_fire" value="3" type="int" />
-		<tag name="res_cold" value="2" type="int" />
-		<tag name="res_poison" value="2" type="int" />
-		<tag name="res_energy" value="2" type="int" />
-		-->
 		<tag name="resname" value="horned_leather" />
 	</define>
 
+	<!-- Dragon Scales -->
+
 	<define id="barbed_leather_armor">
 		<color>0x8a4</color>
-		<!--
-		<tag name="res_physical" value="2" type="int" />
-		<tag name="res_fire" value="1" type="int" />
-		<tag name="res_cold" value="2" type="int" />
-		<tag name="res_poison" value="3" type="int" />
-		<tag name="res_energy" value="4" type="int" />
-		-->
 		<tag name="resname" value="barbed_leather" />
 	</define>
 
@@ -224,6 +120,18 @@
 	<define id="blue_scaled_armor">
 		<color>0x8b0</color>
 		<tag name="resname2" value="blue_scales" />
+	</define>
+
+	<!-- Wooden -->
+
+	<define id="wood_armor">
+		<color>0x0</color>
+		<tag name="resname" value="plainwood" />
+	</define>
+
+	<define id="yew_wood_armor">
+		<color>0x0</color>
+		<tag name="resname" value="yewwood" />
 	</define>
 
 </definitions>
