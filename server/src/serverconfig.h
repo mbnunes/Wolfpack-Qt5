@@ -100,6 +100,7 @@ protected:
 	unsigned int corpseDecayTime_;
 	int niceLevel_;
 	unsigned short loginPort_;
+	bool enableFeluccaSeason_;
 	unsigned int logMask_;
 	bool enableLogin_;
 	unsigned short gamePort_;
@@ -194,6 +195,7 @@ public:
 	std::vector<StartLocation_st>& startLocation();
 
 	// gets
+	bool enableFeluccaSeason() const;
 	bool hashAccountPasswords() const;
 	bool convertUnhashedPasswords() const;
 	bool showSkillTitles() const;
@@ -750,6 +752,11 @@ inline bool cConfig::hashAccountPasswords() const
 inline bool cConfig::convertUnhashedPasswords() const
 {
 	return convertUnhashedPasswords_;
+}
+
+inline bool cConfig::enableFeluccaSeason() const
+{
+	return enableFeluccaSeason_;
 }
 
 inline bool cConfig::overwriteDefinitions() const

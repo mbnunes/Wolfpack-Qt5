@@ -322,12 +322,12 @@ class cUOTxChangeSeason : public cUOPacket
 public:
 	cUOTxChangeSeason() : cUOPacket( 0xBC, 3 )
 	{
-		( *this )[1] = 1;
+		( *this )[2] = 1;
 	}
 
 	void setSeason( eSeasonType data )
 	{
-		( *this )[2] = data;
+		( *this )[1] = data;
 	}
 };
 

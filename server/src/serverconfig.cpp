@@ -143,6 +143,7 @@ void cConfig::readData()
 	tamedNpcMoveTime_ = getDouble( "Game Speed", "Tamed NPC Move Time", 0.6, true );
 
 	// General Group
+	enableFeluccaSeason_ = getBool("General", "Enable Felucca Season", true, true);
 	showSkillTitles_ = getBool( "General", "ShowSkillTitles", true, true );
 	skillcap_ = getNumber( "General", "SkillCap", 700, true );
 	statcap_ = getNumber( "General", "StatsCap", 225, true );

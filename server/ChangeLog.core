@@ -11,6 +11,9 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Fixed a memory leak in char.dispel. 
 	- Fixed bug #0000307. (Timers not being deleted with character)
 	- Added socket.removeobject() + socket.sendobject() methods.
+	- Fixed bug #0000273. (Felucca doesnt have the felucca desolation season)
+	- Added the option "Enable Felucca Season" to the "General" group of the wolfpack.xml configuration file.
+	  If enabled the desolation season will be sent to players on the felucca facet.
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.

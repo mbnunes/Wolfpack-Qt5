@@ -707,9 +707,12 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	changeMap.setMap( pChar->pos().map );
 	send( &changeMap );
 
-	// Send the default season
 	cUOTxChangeSeason season;
-	season.setSeason( ST_SPRING );
+	if (Config::instance()->enableFeluccaSeason() && _player->pos().map == 0) {
+		season.setSeason( ST_DESOLATION );
+	} else {
+		season.setSeason( ST_SPRING );
+	}
 	send( &season );
 
 	updatePlayer();
@@ -1541,9 +1544,12 @@ void cUOSocket::resendPlayer( bool quick )
 	changeMap.setMap( pChar->pos().map );
 	send( &changeMap );
 
-	// Send the default season
 	cUOTxChangeSeason season;
-	season.setSeason( ST_SPRING );
+	if (Config::instance()->enableFeluccaSeason() && _player->pos().map == 0) {
+		season.setSeason( ST_DESOLATION );
+	} else {
+		season.setSeason( ST_SPRING );
+	}
 	send( &season );
 
 	updatePlayer();
@@ -1570,6 +1576,7 @@ void cUOSocket::resendPlayer( bool quick )
 	cUOTxWarmode warmode;
 	warmode.setStatus( pChar->isAtWar() );
 	send( &warmode );
+
 	/*	if (!quick) {
 			cUOTxChangeMap changemap;
 			changemap.setMap(pos_.map);
