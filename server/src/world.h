@@ -36,6 +36,9 @@
 #include "typedefs.h"
 #include "singleton.h"
 
+// Library Includes
+#include <qvaluevector.h>
+
 class cCharIterator
 {
 private:
@@ -82,6 +85,10 @@ public:
 	// WorldLoader interface
 	void load();
 	void save();
+
+	// For the "settings" table
+	void getOption( const QString name, QString &value, const QString fallback );
+	void setOption( const QString name, const QString value );
 
 	// Book-keeping functions
 	void registerObject( cUObject *object );

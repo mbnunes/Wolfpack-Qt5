@@ -493,6 +493,7 @@ int main( int argc, char *argv[] )
 
 	uiCurrentTime = getNormalizedTime();
 
+	// network startup
 	Console::instance()->PrepareProgress( "Starting up Network" );
 	cNetwork::startup();
 	Console::instance()->ProgressDone();

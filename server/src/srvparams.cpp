@@ -168,13 +168,6 @@ void cSrvParams::readData()
 	categoryTagAddMenu_		= getBool  ("General",	"Build AddMenu by Category Tags", true, true);
 	showNpcTitles_			= getNumber("General",  "Show Npc Titles", 1, true);
 	
-	// We're saving the elapsed seconds since server-start (INGAME SECONDS!)
-	// fromString( QString::number(FIRST_YEAR) + "-" + getString("General", "Initial Date/Time", "01-18T01:00:00", true), Qt::ISODate);
-	/*
-		NOTE: This SHOULD be saved in the worldsave instead
-	*/
-	uoTime.setTime_t( getNumber( "General", "UO Time", 0, true ) );
-	
 	saveInterval_			= getNumber("General", "Save Interval", 900, true);
 	mulPath_				= QDir::convertSeparators( getString("General", "MulPath", "./muls/", true) );
 	logPath_				= QDir::convertSeparators( getString("General", "LogPath", "./logs/", true ) );

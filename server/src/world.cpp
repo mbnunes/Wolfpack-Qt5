@@ -77,12 +77,21 @@ typedef std::map< SERIAL, P_ITEM > ItemMap;
 typedef std::map< SERIAL, P_CHAR > CharMap;
 #endif
 
+// Don't forget to change the version number before changing tableInfo!
+#define WP_DATABASE_VERSION "1"
+
 // This is used for autocreating the tables
 struct {
 	const char *name;
 	const char *create;
 } tableInfo[] =
 {
+	{ "settings", "CREATE TABLE settings ( \
+  option varchar(255) NOT NULL default NULL, \
+  value varchar(255) NOT NULL default NULL, \
+  PRIMARY KEY (option) \
+);" },
+
 	{ "boats", "CREATE TABLE boats ( \
   serial int(11) NOT NULL default '0', \
   autosail tinyint(1) NOT NULL default '0', \
@@ -197,7 +206,7 @@ struct {
   def int(10)  NOT NULL default '0',\
   hidamage smallint(6) NOT NULL default '0',\
   lodamage smallint(6) NOT NULL default '0',\
-  weight int(11) NOT NULL default '0',\
+  weight float(11) NOT NULL default '0',\
   hp smallint(6) NOT NULL default '0',\
   maxhp smallint(6) NOT NULL default '0',\
   speed int(11) NOT NULL default '0',\
@@ -446,6 +455,12 @@ void cWorld::load()
 		if( !persistentBroker->tableExists( tableInfo[i].name ) )
 		{
 			persistentBroker->executeQuery( tableInfo[i].create );
+
+			// create default settings
+			if( !strcmp( tableInfo[i].name, "settings" ) )
+			{
+				setOption( "db_version", WP_DATABASE_VERSION );
+			}
 		}
 
 		++i;
@@ -459,9 +474,9 @@ void cWorld::load()
 		
 		cDBResult res = persistentBroker->query( QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '%1'" ).arg( type ) );
 
-		// Find out how many objects of this type are available		
+		// Find out how many objects of this type are available
 		if( !res.isValid() )
-			throw persistentBroker->lastError();			
+			throw persistentBroker->lastError();
 
 		res.fetchrow();
 		UINT32 count = res.getInt( 0 );
@@ -654,6 +669,16 @@ void cWorld::load()
 		deleteItems.clear();
 	}
 
+	// load server time from db
+	Console::instance()->PrepareProgress( "Setting Worldtime" );
+	QString db_time;
+	QString default_time = SrvParams->getString( "General", "UO Time", "0", true );
+	getOption( "worldtime", db_time, default_time );
+	uoTime.setTime_t( db_time.toInt() );
+	Console::instance()->ProgressDone();
+
+	Console::instance()->send("Worldtime is " + uoTime.toString() + ".\n" );
+
 	persistentBroker->disconnect();
 
 	Console::instance()->send("World Loading ");
@@ -735,6 +760,9 @@ void cWorld::save()
 		return;
 	}
 
+	// Save the Current Time
+	setOption( "worldtime", QString::number( uoTime.toTime_t() ) );
+
 	// Save the accounts
 	Accounts::instance()->save();
 
@@ -745,6 +773,94 @@ void cWorld::save()
 	Console::instance()->ChangeColor( WPC_NORMAL );
 
 	Console::instance()->send( QString( " [%1ms]\n" ).arg( uiCurrentTime - startTime ) );
+
+	persistentBroker->disconnect();
+}
+
+/*
+ * Gets a value from the settings table and returns the value
+ */
+void cWorld::getOption( const QString name, QString &value, const QString fallback )
+{
+	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
+		return;
+	}
+
+	try
+	{
+		persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
+	}
+	catch( QString &e )
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
+		return;
+	}
+
+	cDBResult res = persistentBroker->query( QString( "SELECT value FROM settings WHERE option = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
+
+	if( !res.isValid() )
+		throw persistentBroker->lastError();
+
+	if( !res.fetchrow() )
+	{
+		res.free();
+		value = fallback;
+		return;
+	}
+
+	value = res.getString( 0 );
+
+	res.free();
+
+	persistentBroker->disconnect();
+}
+
+/*
+ * Sets a value in the settings table.
+ */
+void cWorld::setOption( const QString name, const QString value )
+{
+	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
+		return;
+	}
+
+	try
+	{
+		persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
+	}
+	catch( QString &e )
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
+		return;
+	}
+
+	// check if the option already exists
+	cDBResult res = persistentBroker->query( QString( "SELECT value FROM settings WHERE option = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
+
+	if( !res.isValid() )
+		throw persistentBroker->lastError();
+
+	QString sql;
+
+	if( !res.fetchrow() )
+	{
+		sql = "INSERT INTO settings VALUES('%1','%2')";
+		sql = sql.arg( persistentBroker->quoteString( name ) ).arg( persistentBroker->quoteString( value ) );
+
+	}
+	else
+	{
+		sql = "UPDATE settings SET value='%1' WHERE option='%2'";
+		sql = sql.arg( persistentBroker->quoteString( value ) ).arg( persistentBroker->quoteString( name ) );
+	}
+
+	res.free();
+
+	persistentBroker->executeQuery( sql );
 
 	persistentBroker->disconnect();
 }

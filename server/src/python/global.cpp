@@ -720,7 +720,7 @@ static PyObject *wpTiledata( PyObject* self, PyObject* args )
 	{
 		PyDict_SetItemString( dict, "name", PyString_FromString( tile.name ) );
 		PyDict_SetItemString( dict, "height", PyInt_FromLong( tile.height ) );
-		PyDict_SetItemString( dict, "weight", PyInt_FromLong( tile.weight ) );
+		PyDict_SetItemString( dict, "weight", PyFloat_FromDouble( tile.weight ) );
 		PyDict_SetItemString( dict, "layer", PyInt_FromLong( tile.layer ) );
 		PyDict_SetItemString( dict, "animation", PyInt_FromLong( tile.animation ) );
 		PyDict_SetItemString( dict, "quantity", PyInt_FromLong( tile.quantity ) );
@@ -1488,6 +1488,43 @@ static PyMethodDef wpSettings[] =
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 
+static PyObject* wpOptionsGetOption( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+
+	QString arg_key = getArgStr( 0 );
+	QString arg_def = getArgStr( 1 );
+
+	QString value;
+
+	World::instance()->getOption( arg_key, value, arg_def );
+
+	return PyString_FromString( value );
+}
+
+static PyObject* wpOptionsSetOption( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+
+	QString arg_key = getArgStr( 0 );
+	QString arg_val = getArgStr( 1 );
+
+	World::instance()->setOption( arg_key, arg_val );
+
+	return PyTrue;
+}
+
+/*!
+	wolfpack.options
+	config using the settings table
+*/
+static PyMethodDef wpOptions[] = 
+{
+	{ "getOption",		wpOptionsGetOption,		METH_VARARGS, "Reads a string value from the database." },
+	{ "setOption",		wpOptionsSetOption,		METH_VARARGS, "Sets a string value and a key to the database." },
+	{ NULL, NULL, 0, NULL } // Terminator
+};
+
 
 /*!
 	This initializes the _wolfpack namespace and it's sub extensions
@@ -1510,4 +1547,7 @@ void init_wolfpack_globals()
 
 	PyObject *mSettings = Py_InitModule( "_wolfpack.settings", wpSettings );
 	PyObject_SetAttrString( wpNamespace, "settings", mSettings );
+	
+	PyObject *mOptions = Py_InitModule( "_wolfpack.options", wpOptions );
+	PyObject_SetAttrString( wpNamespace, "options", mOptions );
 }
