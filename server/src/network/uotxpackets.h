@@ -187,24 +187,19 @@ public:
 	void fromChar( P_CHAR pChar );
 };
 
-enum eMapType
-{
-	MT_FELUCCA = 0,
-	MT_TRAMMEL,
-	MT_ILSHENAR
-};
-
 // 0xBF Change Map ( Subcommand: 0x08 )
 class cUOTxChangeMap: public cUOPacket
 {
 public:
+//	enum eMapType	{ Felucca = 0, Trammel, Ilshenar };
+
 	cUOTxChangeMap(): cUOPacket( 0xBF, 6 ) 
 	{
-		setShort( 1, 6 ); // Packet Length
+		setShort( 1, 6 );    // Packet Length
 		setShort( 3, 0x08 ); // Subcommand
 	}
 
-	void setMap( eMapType data ) { rawPacket[5] = data; }
+	void setMap( Q_UINT8 data ) { rawPacket[5] = data; }
 };
 
 enum eSeasonType

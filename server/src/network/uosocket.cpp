@@ -104,7 +104,7 @@ void cUOSocket::recieve()
 		disconnect(); break;
 	case 0x02: // just want to walk a little.
 		{
-			cUOPacket moveOk(3);
+			cUOPacket moveOk(0x22, 3);
 			moveOk[1] = (*packet)[2];
 			send( &moveOk );
 		}
@@ -283,7 +283,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 
 	// Change the map after the client knows about the char
 	cUOTxChangeMap changeMap;
-	changeMap.setMap( MT_FELUCCA );
+	changeMap.setMap( pChar->pos.map );
 	send( &changeMap );
 
 	// Start the game!

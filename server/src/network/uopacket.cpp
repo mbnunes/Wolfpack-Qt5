@@ -48,7 +48,7 @@
   packets.
 
   \ingroup network
-  \mainclass
+  \ingroup mainclass
 */
 
 /*!
@@ -142,6 +142,13 @@ static unsigned int bitTable[257][2] =
 	{0x04, 0x0D}
 };
 
+/*!
+  \fn cUOPacket::compress(void)
+  \internal
+  Compresses rawPacket buffer and stores the result into compressedBuffer.
+  The compression algorithm is a simple Huffman coding using fixed frequency
+  table \sa bitTable.
+*/
 void cUOPacket::compress( void )
 {
 	QByteArray temp( rawPacket.size()*2 ); // worst case scenario for memory size
@@ -192,6 +199,9 @@ void cUOPacket::compress( void )
 	compressedBuffer.duplicate( temp.data(), actByte);
 }
 
+/*!
+  Returns the compressed packet data.
+*/
 QByteArray cUOPacket::compressed()
 {
 	if( compressedBuffer.size() == 0 )
@@ -200,7 +210,10 @@ QByteArray cUOPacket::compressed()
 	return compressedBuffer;
 }
 
-int cUOPacket::getInt( unsigned int pos )
+/*!
+  Reads a 32 bits integer value from the raw data buffer starting at position \a pos
+*/
+int cUOPacket::getInt( uint pos )
 {
 	int value = rawPacket.at(pos+3) & 0x000000FF;
 	value |= rawPacket.at(pos+2) << 8;
@@ -209,13 +222,21 @@ int cUOPacket::getInt( unsigned int pos )
 	return value;
 }
 
-short cUOPacket::getShort( unsigned int pos )
+/*!
+  Reads a 16 bits integer value from the raw data buffer starting at position \a pos
+*/
+short cUOPacket::getShort( uint pos )
 {
 	short value = (Q_INT16)(rawPacket.at(pos+1)) & 0x00FF;
 	value |= ((Q_INT16)(rawPacket.at(pos)) << 8) & 0xFF00;
 	return value;
 }
 
+/*!
+  Reads an unicode string from the raw data buffer starting at position \a pos
+  and with size no longer than \a fieldLength. If the actual string in buffer
+  is longer than the supplied \a fieldLength, it will be truncated.
+*/
 QString cUOPacket::getUnicodeString( uint pos, uint fieldLength )
 {
 	QString result;
@@ -231,6 +252,9 @@ QString cUOPacket::getUnicodeString( uint pos, uint fieldLength )
 	return result;
 }
 
+/*!
+  Writes a 32 bits integer \a value to the raw data buffer starting at position \a pos
+*/
 void  cUOPacket::setInt( unsigned int pos, unsigned int value )
 {
 	rawPacket.at(pos++) = static_cast<char>((value >> 24) & 0x000000FF);
@@ -239,12 +263,20 @@ void  cUOPacket::setInt( unsigned int pos, unsigned int value )
 	rawPacket.at(pos)   = static_cast<char>((value)       & 0x000000FF);
 }
 
+/*!
+  Writes a 16 bits integer \a value to the raw data buffer starting at position \a pos
+*/
 void  cUOPacket::setShort( unsigned int pos, unsigned short value )
 {
 	rawPacket.at(pos++) = static_cast<char>((value >> 8 ) & 0x000000FF);
 	rawPacket.at(pos)   = static_cast<char>((value)       & 0x000000FF);
 }
 
+/*!
+  Writes an unicode string \a data to the raw data buffer starting at position \a pos
+  and with field size \a maxlen. If the actual string \a data is longer than \a maxlen
+  it will be truncated.
+*/
 void cUOPacket::setUnicodeString( uint pos, QString& data, uint maxlen )
 {
 	const QChar* unicodeData = data.unicode();
