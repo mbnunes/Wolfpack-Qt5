@@ -78,7 +78,9 @@ def tileResponse(player, arguments, target):
 	while item:
 		z = item.pos.z
 	
-		if mode == MODE_EQUAL and z == z0:
+		if mode == MODE_NONE:
+			items.append( item )
+		elif mode == MODE_EQUAL and z == z0:
 			items.append( item )
 		elif mode == MODE_NOTEQUAL and z != z0:
 			items.append( item )
