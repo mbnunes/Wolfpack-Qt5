@@ -301,6 +301,8 @@ void cUOSocket::playChar( P_CHAR pChar )
 	pChar->setSocket( this );
 	_player = pChar;
 	_state  = InGame;
+
+	pChar->update();
 }
 
 bool cUOSocket::authenticate( const QString &username, const QString &password )
@@ -761,22 +763,19 @@ void cUOSocket::denyMove( Q_UINT8 sequence )
 
 void cUOSocket::handleWalkRequest( cUORxWalkRequest* packet )
 {
-//	cUOPacket moveOk(0x22, 3);
-	Movement->Walking( this->_player, packet->direction(), packet->key());
-//	moveOk[1] = packet->key();
-//	send( &moveOk );
+	Movement->Walking( _player, packet->direction(), packet->key());
 }
 
 void cUOSocket::updateChar( P_CHAR pChar )
 {
-	//cUOTxUpdatePlayer updatePlayer;
-	//updatePlayer.fromChar( pChar );
-	//send( &updatePlayer );
+	cUOTxUpdatePlayer updatePlayer;
+	updatePlayer.fromChar( pChar );
+	send( &updatePlayer );
 }
 
 void cUOSocket::sendChar( P_CHAR pChar )
 {
-	// cUOTxDrawObject drawObject;
-	// ADD FROM CHAR
-	// send( &drawObject );
+	cUOTxDrawObject drawObject;
+	drawObject.fromChar( pChar );
+	send( &drawObject );
 }

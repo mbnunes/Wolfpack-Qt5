@@ -1768,3 +1768,19 @@ void cChar::showName( cUOSocket *socket )
 	// Show it to the socket
 	socket->showSpeech( this, charName, speechColor, 3, cUOTxUnicodeSpeech::System );
 }
+
+// Resend the char to all sockets in range
+void cChar::update( void )
+{
+	cRegion::RegionIterator4Chars ri( pos );
+
+	for( ri.Begin(); !ri.atEnd(); ri++ )
+	{
+		P_CHAR pChar = ri.GetData();
+
+		if( !pChar || !pChar->socket() || ( pChar == this ) )
+			continue;
+
+		pChar->socket()->sendChar( this );
+	}
+}

@@ -123,6 +123,9 @@
 // This handles if a character actually tries to walk (NPC & Player)
 void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 {
+	if( !pChar )
+		return;
+
 	// Scripting
 	if( pChar->onWalk( dir, sequence ) )
 		return;
@@ -163,7 +166,8 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// If the Direction we're moving to is different from our current direction
 	// We're turning and NOT moving into a specific direction
 	// Clear the running flag here (!)
-	if( dir&0x7F != pChar->dir )
+	// If the direction we're moving is already equal to our current direction
+	if( dir&0x7F == pChar->dir )
 	{
 		checkRunning( pChar, dir ); // Reduces Stamina and does other things related to running
 		checkStealth( pChar ); // Reveals the user if neccesary
@@ -660,7 +664,7 @@ void cMovement::sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& o
 	Q_UINT32 oldDistance = pChar->pos.distance( oldpos );
 	
 	// We dont see him, he doesn't see us
-	if( ( newDistance < pChar->VisRange ) && ( newDistance < pWalker->VisRange ) )
+	if( ( newDistance > pChar->VisRange ) && ( newDistance > pWalker->VisRange ) )
 		return;
 
 	// Someone got into our range

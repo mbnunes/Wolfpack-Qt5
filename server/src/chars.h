@@ -288,6 +288,8 @@ public:
 	virtual void Serialize(ISerialization &archive);
 	virtual QString objectID() const;
 
+	void update( void );
+
 	// Getters
 	short					guildType() const;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
 	bool					guildTraitor() const; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
