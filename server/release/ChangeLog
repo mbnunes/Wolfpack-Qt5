@@ -1,4 +1,18 @@
-Wolfpack 12.9.13 Beta (SVN)
+Wolfpack 12.9.14 Beta (SVN)
+ * Core Changes:
+ * Definition Changes:
+ * Python Script Changes:
+ * Misc. Changes:
+ * Known Issues, Bugs, and Missing Features:
+  - Some skills are still incomplete.
+  - Spawn regions are incomplete.
+    We welcome donated OSI-like spawn scripts!
+  - Town/World regions are incomplete.
+    We welcome donated OSI-like region scripts!
+  - Possible that a few monsters are missing and/or incomplete.
+  - Multis (Houses/Boats) are not currently supported.
+
+Wolfpack 12.9.13 Beta (25. December 2004)
  * Core Changes:
   - Fixed meditation skillcheck in mana regeneration code.
   - Changed GM talk color.
