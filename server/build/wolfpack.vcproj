@@ -242,10 +242,6 @@
 			<File
 				RelativePath=".\dragdrop.h"/>
 			<File
-				RelativePath=".\encryption.cpp"/>
-			<File
-				RelativePath=".\encryption.h"/>
-			<File
 				RelativePath=".\exceptions.h"/>
 			<File
 				RelativePath=".\factory.h"/>
@@ -556,6 +552,10 @@
 		<Filter
 			Name="Encryption"
 			Filter="">
+			<File
+				RelativePath=".\encryption.cpp"/>
+			<File
+				RelativePath=".\encryption.h"/>
 			<File
 				RelativePath=".\twofish\twofish2.c"/>
 		</Filter>

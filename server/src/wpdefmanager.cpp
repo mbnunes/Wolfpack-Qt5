@@ -618,9 +618,19 @@ void cElement::setParent( cElement *parent )
 	parent_ = parent;
 }
 
-cElement *cElement::parent() const
+const cElement *cElement::parent() const
 {
 	return parent_;
+}
+
+const cElement *cElement::getTopmostParent() const
+{
+	if( parent_ )
+	{
+		return parent_->getTopmostParent();
+	}
+
+	return this;
 }
 
 const cElement *cElement::findChild( const QString &name ) const

@@ -290,6 +290,11 @@ void cNPC::resend( bool clean, bool excludeself )
 		
 		sendTooltip( mSock );
 		mSock->send( &drawChar );
+		
+		for( ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it )
+		{
+			it.data()->sendTooltip( mSock );
+		}
 	}
 }
 

@@ -479,6 +479,7 @@ void cItem::save()
 		addField("sellprice",		sellprice_ );
 		addField("buyprice",		buyprice_ );
 		addField("restock",			restock_ );
+		addStrField("baseid",		base ? base->id() : QString("") );
 		
 		addCondition( "serial", serial() );
 		saveFields;
@@ -1335,45 +1336,39 @@ void cItem::processModifierNode( const cElement *Tag )
 		cUObject::processNode( Tag );
 }
 
-void cItem::processContainerNode( const cElement *Tag )
+void cItem::processContainerNode( const cElement *tag )
 {
 	//item containers can be scripted like this:
 	/*
 	<contains>
-		<item><inherit list="myList" /></item>
-		<item><inherit id="myItem1" /><amount><random ... /></amount><color><colorlist><random...></colorlist></color></item>
+		<item list="myList" />
+		<item id="myItem1"><amount><random ... /></amount><color><colorlist><random...></colorlist></color></item>
 		...
 	</contains>
 	*/
-	std::vector< const cElement* > content;
-	unsigned int i;
-
-	for( i = 0; i < Tag->childCount(); ++i )
+	for( unsigned int i = 0; i < tag->childCount(); ++i )
 	{
-		const cElement *childNode = Tag->getChild( i );
+		const cElement *element = tag->getChild( i );
 
-		if( childNode->name() == "item" )
+		if( element->name() == "item" )
 		{
-			content.push_back( childNode );
-		}
-		else if( childNode->name() == "getlist" && childNode->hasAttribute( "id" ) )
-		{
-			QStringList list = DefManager->getList( childNode->getAttribute( "id" ) );
-			
-			for( QStringList::iterator it = list.begin(); it != list.end(); it++ )
+			P_ITEM pItem = 0;
+
+			if( element->hasAttribute( "id" ) )
 			{
-				const cElement *lItem = DefManager->getDefinition( WPDT_ITEM, *it );
-				content.push_back( lItem );
 			}
-		}		
-	}
-		
-	for( i = 0; i < content.size(); i++ )
-	{
-			P_ITEM nItem = new cItem;
-			nItem->Init( true );
-			nItem->applyDefinition( content[ i ] );
-			addItem( nItem );
+			else if( element->hasAttribute( "list" ) )
+			{
+			}
+			else
+			{
+				Console::instance()->log( LOG_ERROR, QString( "Content element lacking id and list attribute in item definition '%1'." ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
+			}
+		}
+		else
+		{
+			Console::instance()->log( LOG_ERROR, QString( "Unknown content element '%1' in item definition '%1'." ).arg( element->name(), element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
+		}
 	}
 }
 
@@ -1875,6 +1870,7 @@ void cItem::load( char **result, UINT16 &offset )
 	sellprice_ = atoi( result[offset++] );
 	buyprice_ = atoi( result[offset++] );
 	restock_ = atoi( result[offset++] );
+	base = ItemBases::instance()->getItemBase( result[offset++] );
 
 	// Their own weight should already be set.
 	totalweight_ = amount_ * weight_;

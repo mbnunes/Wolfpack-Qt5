@@ -65,7 +65,6 @@ void cHouse::processHouseItemNode( const cElement *Tag )
 		return;
 	
 	nItem->Init( true );
-
 	nItem->applyDefinition( Tag );
 
 	if( nItem->type() == 222 )

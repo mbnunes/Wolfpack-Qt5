@@ -231,10 +231,9 @@ void cPlayer::resend( bool clean, bool excludeself )
 		// Don't send such a packet to ourself
 		if( mSock == socket_ )
 		{
-			sendTooltip( mSock );		
+			sendTooltip( mSock );
 			continue;
 		}
-
 
 		P_PLAYER pChar = mSock->player();
 
@@ -259,6 +258,12 @@ void cPlayer::resend( bool clean, bool excludeself )
 		
 		sendTooltip( mSock );
 		mSock->send( &drawChar );
+
+		// Send equipment of other players as well
+		for( ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it )
+		{
+			it.data()->sendTooltip( mSock );
+		}
 	}
 }
 

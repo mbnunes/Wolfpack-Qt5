@@ -55,12 +55,12 @@
 		<title>the guard</title>
 		
 		<equipped>
-		        <item inheritlist="HAIR" />
-		        <item inherit="e75" /> <!-- Backpack -->
-			<item inherit="143f" /> <!-- Halberd -->
-			<item inherit="1f7b" /> <!-- Doublet -->
-			<item inherit="1410" /> <!-- Plate Arms -->
-			<item inherit="1411" /> <!-- Plate Legs -->
+		        <item list="HAIR" />
+		        <item id="e75" /> <!-- Backpack -->
+			<item id="143f" /> <!-- Halberd -->
+			<item id="1f7b" /> <!-- Doublet -->
+			<item id="1410" /> <!-- Plate Arms -->
+			<item id="1411" /> <!-- Plate Legs -->
 		</equipped>
 	</npc>
 	
@@ -88,10 +88,10 @@
 		<title>the guard</title>
 		
 		<equipped>
-		        <item inheritlist="HAIR_FEMALE" />
-		        <item inherit="e75" /> <!-- Backpack -->
-			<item inherit="143f" /> <!-- Halberd -->
-			<item inherit="1c04" /> <!-- Female Plate -->
+		        <item list="HAIR_FEMALE" />
+		        <item id="e75" /> <!-- Backpack -->
+			<item id="143f" /> <!-- Halberd -->
+			<item id="1c04" /> <!-- Female Plate -->
 		</equipped>
 	</npc>
 	

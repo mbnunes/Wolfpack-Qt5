@@ -18,11 +18,11 @@
  
 		<!-- The Equipment of a standard human -->
 		<equipped>
-			<item inherit="e75" /> <!-- Backpack -->
-			<item inheritlist="HAIR" /> <!-- Random Hair -->
-			<item inheritlist="SHIRTS" /> <!-- Random Shirts -->
-			<item inheritlist="PANTS" /> <!-- Random Pants -->
-			<item inheritlist="SHOES" /> <!-- Random Shoes -->
+			<item id="e75" /> <!-- Backpack -->
+			<item list="HAIR" /> <!-- Random Hair -->
+			<item list="SHIRTS" /> <!-- Random Shirts -->
+			<item list="PANTS" /> <!-- Random Pants -->
+			<item list="SHOES" /> <!-- Random Shoes -->
 		</equipped>
 
 		<str><random min="71" max="85" /></str>
@@ -41,11 +41,11 @@
  
 		<!-- The Equipment of a standard human -->
 		<equipped>
-			<item inherit="e75" /> 			<!-- Backpack -->
-			<item inheritlist="HAIR_FEMALE" /> 	<!-- Random Hair -->
-			<item inheritlist="DRESS" /> 		<!-- Random Dress`s -->
-			<item inheritlist="PANTS" /> 		<!-- Random Pants -->
-			<item inheritlist="SHOES" /> 		<!-- Random Shoes -->
+			<item id="e75" /> 			<!-- Backpack -->
+			<item list="HAIR_FEMALE" /> 	<!-- Random Hair -->
+			<item list="DRESS" /> 		<!-- Random Dress`s -->
+			<item list="PANTS" /> 		<!-- Random Pants -->
+			<item list="SHOES" /> 		<!-- Random Shoes -->
 		</equipped>
 
 		<str><random min="71" max="85" /></str>

@@ -120,9 +120,11 @@ public:
 	const QString &text() const;
 
 	void setParent( cElement *parent );
-	cElement *parent() const;
+	const cElement *parent() const;
 
 	QString getValue() const;
+
+	const cElement *getTopmostParent() const;
 };
 
 class WPDefManager  

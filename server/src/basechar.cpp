@@ -1155,60 +1155,59 @@ void cBaseChar::processNode( const cElement *Tag )
 	//</epuipped>
 	else if( TagName == "equipped" )
 	{
-		std::vector< const cElement* > equipment;
-		
-		unsigned int i;
-		for( i = 0; i < Tag->childCount(); ++i )
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			const cElement *childNode = Tag->getChild( i );
+			const cElement *element = Tag->getChild( i );
 
-			if( childNode->name() == "item" )
-				equipment.push_back( childNode );
-			else if( childNode->name() == "getlist" && childNode->hasAttribute( "id" ) )
+			if( element->name() == "item" )
 			{
-				QStringList list = DefManager->getList( childNode->getAttribute( "id" ) );
-				
-				for( QStringList::iterator it = list.begin(); it != list.end(); it++ )
+				P_ITEM pItem = 0;
+
+				const QString &id = element->getAttribute( "id" );
+
+				if( id != QString::null )
 				{
-					const cElement *listNode = DefManager->getDefinition( WPDT_ITEM, *it );
-					
-					if( listNode )
-						equipment.push_back( listNode );
+					pItem = cItem::createFromScript( id );
+				}
+				else
+				{
+					const QString &list = element->getAttribute( "list" );
+
+					if( list != QString::null )
+					{
+						pItem = cItem::createFromList( list );
+					}
+				}
+
+				if( pItem )
+				{
+					pItem->applyDefinition( element );
+
+					unsigned char mLayer = pItem->layer();
+					pItem->setLayer( 0 );
+
+					// Instead of deleting try to get a valid layer instead
+					if( !mLayer )
+					{
+						tile_st tInfo = TileCache::instance()->getTile( pItem->id() );
+						if( tInfo.layer > 0 )
+							mLayer = tInfo.layer;
+					}
+						
+					if( !mLayer )
+						pItem->remove();
+					else
+						addItem( static_cast<cBaseChar::enLayer>(mLayer), pItem );
+				}
+				else
+				{
+					Console::instance()->log( LOG_ERROR, QString( "Invalid equipped element missing id and list attribute in npc definition '%1'." ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
 				}
 			}
-		}
-		
-		std::vector< const cElement* >::iterator iter = equipment.begin();
-		
-		while( iter != equipment.end() )
-		{
-			P_ITEM nItem = new cItem;
-	
-			if( nItem == NULL )
-				continue;
-	
-			nItem->Init( true );
-
-			nItem->applyDefinition( *iter );
-
-			UINT8 mLayer = nItem->layer();
-			nItem->setLayer( 0 );
-
-			// Instead of deleting try to get a valid layer instead
-			if( !mLayer )
-			{
-				tile_st tInfo = TileCache::instance()->getTile( nItem->id() );
-				if( tInfo.layer > 0 )
-					mLayer = tInfo.layer;
-			}
-				
-			// Recheck
-			if( !mLayer )
-				nItem->remove();
 			else
-				this->addItem( static_cast<cBaseChar::enLayer>(mLayer), nItem ); // not sure about this one.
-
-			++iter;
+			{
+				Console::instance()->log( LOG_ERROR, QString( "Invalid equipped element '%1' in npc definition '%2'." ).arg( element->name() ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
+			}
 		}
 	}
 
