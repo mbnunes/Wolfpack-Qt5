@@ -5,7 +5,6 @@
 	other scripts or eventlists).
 -->
 <definitions>
-<definitions>
 	<script>trading</script>
 	<script>npc.healer</script>
 	<script>training_dummy</script>
