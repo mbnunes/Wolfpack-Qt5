@@ -78,6 +78,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - Added bones to bone_magi and body parts to horde minions, zombies and others.
   - Added colored weapons. Note: Only the metalic weapons.
   - Sorted out the samurai weapons by type and fixed properties.
+  - Ranged weapons set to 10 instead of 12.
+	- Price fixes for arrows/bolts.
  * Python Script Changes:
   - Fixed bug #0000369. (Equip possible although item.movable = 3)
   - Fixed bug #0000361. (Pets don't follow trough gate)
