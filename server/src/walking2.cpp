@@ -1053,28 +1053,34 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 				if (oldx == newx && oldy == newy)	// just turning ?
 				continue;						// no multiple shoving
 				if (!(
-					((pc->id1==0x03)&&(pc->id2==0xDB)) ||
-					((pc->id1==0x01)&&(pc->id2==0x92)) ||
-					((pc->id1==0x01)&&(pc->id2==0x93)) ||
-					((pc->isGMorCounselor()			  ))	))
+				pc->id()==0x03DB ||
+				pc->id()==0x0192 ||
+				pc->id()==0x0193 ||
+				pc->isGMorCounselor()
+				))
 				{
 					if (mapchar != pc && (online(DEREF_P_CHAR(mapchar)) || mapchar->npc))
 					{
 						if (mapchar->pos.x == pc->pos.x && mapchar->pos.y == pc->pos.y && mapchar->pos.z == pc->pos.z)
 						{
-							if (!mapchar->hidden)
+							if (mapchar->isHidden() && !mapchar->dead && !mapchar->isInvul() && !mapchar->isGM())
+							{
+								sprintf(temp, "Being perfectly rested, you shoved something invisible out of the way.", mapchar->name);
+								if (socket!=INVALID_UOXSOCKET) sysmessage(socket, temp);
+							    pc->stm = max(pc->stm-4, 0);
+								updatestats(DEREF_P_CHAR(pc), 2);  // arm code
+							}
+						    else if (!mapchar->isHidden() && !mapchar->dead && (!(mapchar->isInvul())) &&(!(mapchar->isGM()))) // ripper..GMs and ghosts dont get shoved.)
 							{
 								sprintf(temp, "Being perfectly rested, you shove %s out of the way.", mapchar->name);
 								if (socket!=INVALID_UOXSOCKET) sysmessage(socket, temp);
 								pc->stm = max(pc->stm-4, 0);
-								// updatestats(currchar[c], 2); // replaced with:
 								updatestats(DEREF_P_CHAR(pc), 2);  // arm code
 							}
-							else if(!mapchar->isGMorCounselor())//A normal player (No priv1(Not a gm))
+						    else if(!mapchar->isGMorCounselor() && !mapchar->isInvul())//A normal player (No priv1(Not a gm))
 							{
 								if (socket != INVALID_UOXSOCKET) sysmessage(socket, "Being perfectly rested, you shove something invisible out of the way.");
 								pc->stm=max(pc->stm-4, 0);
-								// updatestats(currchar[s], 2); // replaced with:
 								updatestats(DEREF_P_CHAR(pc), 2);  // arm code
 							}
 						}
