@@ -6,6 +6,7 @@
 #include "gui/cursor.h"
 #include "game/world.h"
 #include "game/mobile.h"
+#include "uoclient.h"
 #include <math.h>
 
 const unsigned int sysMessageDecay = 10000;
@@ -30,7 +31,9 @@ inline void cSysMessage::setCreated(unsigned int data) {
 }
 
 static Uint32 callback(Uint32 interval, void *param) {
+	Client->lock();
 	WorldView->cleanSysMessages();
+	Client->unlock();
 	return 250;
 }
 

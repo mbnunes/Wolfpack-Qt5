@@ -6,16 +6,21 @@
 
 #include <qapplication.h>
 #include <qstringlist.h>
+#include <qmutex.h>
 
 class cUoClient {
 private:
 	void load();
 	void unload();
 	bool running_; // Indicates whether the client is still running
+	QMutex mutex; // Global client mutex (very dirty)
 
 public:
 	cUoClient();
 	~cUoClient();
+
+	void lock();
+	void unlock();
 
 	void run(const QStringList &arguments);
 	void processSdlEvent(const SDL_Event &event);
@@ -23,6 +28,14 @@ public:
 	bool running() { return running_; }
 	void quit() { running_ = false; }
 };
+
+inline void cUoClient::lock() {
+	mutex.lock();
+}
+
+inline void cUoClient::unlock() {
+	mutex.unlock();
+}
 
 extern cUoClient *Client;
 extern QApplication *App;

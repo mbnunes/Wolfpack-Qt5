@@ -8,11 +8,7 @@
 
 #include <qvaluevector.h>
 
-#if !defined(__WIN__)
-#define STDCALL
-#else
 #define STDCALL __stdcall
-#endif 
 
 class cContextMenuEntry;
 class cContextMenu;

@@ -3,7 +3,7 @@
 #include "engine.h"
 
 cMobile::cMobile(unsigned short x, unsigned short y, signed char z, enFacet facet, unsigned int serial) : cDynamicEntity(x, y, z, facet, serial) {
-	body_ = 0x190;
+	body_ = 1;
 	hue_ = 0;
 	direction_ = 0;
 	partialHue_ = false;
@@ -67,11 +67,11 @@ unsigned int cMobile::getFrameDelay() {
 }
 
 unsigned char cMobile::getIdleAction() {
-	return 4;
+	return 0;
 }
 
 void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightClip, int bottomClip) {
-	return; // Don't draw yet
+	//return; // Don't draw yet
 
 	// See if the current action expired
 	if (currentActionEnd_ != 0 && currentActionEnd_ < SDL_GetTicks()) {

@@ -363,6 +363,7 @@ void cUoClient::run(const QStringList &arguments) {
 	Gui->addControl(WorldView);
 
 	while (running()) {
+		lock();
 		UoSocket->poll();
 
 		SDL_Event event; // An SDL Event
@@ -386,6 +387,8 @@ void cUoClient::run(const QStringList &arguments) {
 		Cursor->draw(); // Draw the cursor overlay
 
 		Engine->poll(); // Swap
+		unlock();
+
 		SDL_Delay(5);
 	}
 
