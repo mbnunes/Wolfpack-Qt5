@@ -87,16 +87,22 @@ def onShowTooltip( sender, target, tooltip ):
     if target.tamed:
       tooltip.add(502006, "")
 
-    # Seems to break it ??
-    #if target.invulnerable and sender.gm:
-    #  tooltip.add(1050045, " \t(invulnerable)\t ")
-    #  tooltip.add(502006, "")
+    additional = []
+
+    if target.invulnerable and sender.gm:
+      additional.append('(invulnerable)')
 
     if target.frozen:
-      tooltip.add(1050045, " \t(frozen)\t ")
-
+      additional.append('(frozen)')
+      
     if target.iscriminal():
-      tooltip.add(1050045, " \t(criminal)\t ")
+      additional.append('(criminal)')
+
+    if target.ismurderer():
+      additional.append('(murderer)')
+
+    if len(additional) > 0:
+      tooltip.add(1042971, "<br>".join(additional))
 
   tooltip.send(sender)
   return 1
