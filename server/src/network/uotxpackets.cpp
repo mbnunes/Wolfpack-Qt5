@@ -480,7 +480,7 @@ void cUOTxTrade::setName( const QString &name )
 	//strcpy( &rawPacket.data()[17], name.latin1() );
 }
 
-void cUOTxProfile::setInfo( const QString &title, QString &staticText, QString &dynamicText )
+void cUOTxProfile::setInfo( QString title, QString staticText, QString dynamicText )
 {
 	// Reset to the correct size
 	UINT16 size = 13 + title.length() + ( staticText.length() * 2 ) + ( dynamicText.length() * 2 );

@@ -1144,7 +1144,7 @@ class cUOTxProfile : public cUOPacket
 public:
 	cUOTxProfile(): cUOPacket( 0xB8, 12 ) { setShort( 1, 12 ); }
 	void setSerial( UINT32 data ) { setInt( 3, data ); }
-	void setInfo( const QString &title, QString &staticText, QString &dynamicText );
+	void setInfo( QString title, QString staticText, QString dynamicText );
 };
 
 #endif // __UO_TXPACKETS__
