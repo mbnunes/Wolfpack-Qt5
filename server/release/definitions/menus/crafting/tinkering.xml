@@ -30,7 +30,7 @@
 			<tinkering min="0" max="500" />
 			<logs amount="4" />
 		</tinker>
-		<tinker definition="104f" name="Clock Frame">
+		<tinker definition="104d" name="Clock Frame">
 			<tinkering min="0" max="500" />
 			<logs amount="6" />
 			<nomark />
