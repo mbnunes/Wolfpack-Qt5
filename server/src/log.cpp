@@ -65,6 +65,14 @@ bool cLog::checkLogFile()
 		if( !path.endsWith( QChar( QDir::separator() ) ) )
 			path.append( QDir::separator() );
 
+		QDir d;
+		if ( !d.exists(path) )
+		{
+			clConsole.send( QString("Warning: log path (%1) doesn't exist, creating\n").arg(path) );
+			QDir d;
+			d.mkdir( path );
+		}
+
 		QString filename;
 		filename.sprintf( "wolfpack-%04u-%02u-%02u.log", today.year(), today.month(), today.day() );
 
