@@ -46,6 +46,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - All geometrical bodies for spawnregions now support the except="true" tag that makes the rectangle, circle or
     point not be included in finding a random position within the region.
   - Fix with spawnregion data. UShort != UInt
+  - Added socket.denymove to send packets to deny movement
+  - Fixed a crashbug with invalid function names passed to .addtimer()
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.
