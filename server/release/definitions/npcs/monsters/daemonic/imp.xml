@@ -23,16 +23,16 @@
 		<!-- Damage -->
 		<lodamage>10</lodamage>
 		<hidamage>14</hidamage>
-		<energydamage>20</energydamage>
-		<firedamage>30</firedamage>
-		<poisondamage>50</poisondamage>
+		<tag name="energydamage" value="20" />
+		<tag name="firedamage" value="30" />
+		<tag name="poisondamage" value="50" />
 		<!-- Resists -->
 		<defense><random min="15" max="25"/></defense>
-		<coldresist><random min="35" max="45"/></coldresist>
-		<energyresist><random min="35" max="45"/></energyresist>
-		<fireresist><random min="35" max="45"/></fireresist>
-		<physicalresist><random min="15" max="25"/></physicalresist>
-		<poisonresist><random min="45" max="55"/></poisonresist>
+		<tag name="coldresist" value="35,45" />
+		<tag name="energyresist" value="35,45" />
+		<tag name="fireresist" value="35,45" />
+		<tag name="physicalresist" value="15,25" />
+		<tag name="poisonresist" value="45,55" />
 		<!-- Misc. -->
 		<desc>Whatever Fate granted the Imp wings was clearly not gifted withforesight. The Imp is quite capable of causing enough mischief on theground; being airborne only doubles the threat. Gifted with smallmagic and a temperament for causing trouble, these annoying beastsprey upon all who cross their path. It is rumored that Imps will stealfrom the strange (you) and give to the familiar (themselves). *Wareyour health and holdings should you cross the path of the Imp.</desc>
 		<carve>carve_imp</carve>

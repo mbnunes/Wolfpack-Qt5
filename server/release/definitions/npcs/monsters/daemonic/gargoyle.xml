@@ -24,11 +24,10 @@
 		<hidamage>14</hidamage>
 		<!-- Resists -->
 		<defense><random min="30" max="35"/></defense>
-		<physicalresist><random min="30" max="35"/></physicalresist>
-		<fireresist><random min="25" max="35"/></fireresist>
-		<coldresist><random min="5" max="10"/></coldresist>
-		<poisonresist><random min="15" max="25"/></poisonresist>
-		<energyresist>0</energyresist>
+		<tag name="physicalresist" value="30,35" />
+		<tag name="fireresist" value="25,35" />
+		<tag name="coldresist" value="5,10" />
+		<tag name="poisonresist" value="15,25" />
 		<!-- Misc. -->
 		<desc>These strange creatures are believed by many to be daemonic in nature,but in truth this is a slander. They are an Intelligent and civilizedrace. They have no love for humanity (nor is their mistrustunjustified) but they are honorable in their own, alien way. Theirways are mysterious, and it may be that they are too different from usto ever live in peace with humanity. If that proves to be so, somewould call it a great tragedy.</desc>
 		<carve>carve_gargoyle</carve>

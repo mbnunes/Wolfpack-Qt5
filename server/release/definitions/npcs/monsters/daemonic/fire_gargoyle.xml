@@ -23,15 +23,15 @@
 		<!-- Damage -->
 		<lodamage>7</lodamage>
 		<hidamage>14</hidamage>
-		<physicaldamage>20</physicaldamage>
-		<firedamage>80</firedamage>
+		<tag name="physicaldamage" value="20" />
+		<tag name="firedamage" value="80" />
 		<!-- Resists -->
 		<defense><random min="30" max="35" /></defense>
-		<physicalresist><random min="30" max="35"/></physicalresist>
-		<fireresist><random min="50" max="60"/></fireresist>
-		<coldresist><random min="-10" max="0"/></coldresist>
-		<poisonresist><random min="20" max="30"/></poisonresist>
-		<energyresist><random min="20" max="30"/></energyresist>
+		<tag name="physicalresist" value="30,35" />
+		<tag name="fireresist" value="50,60" />
+		<tag name="coldresist" value="-10,0" />
+		<tag name="poisonresist" value="20,30" />
+		<tag name="energyresist" value="20,30" />
 		<!-- Misc -->
 		<category>Monsters\Daemonic\Fire Gargoyle</category>
 	</npc>

@@ -21,11 +21,8 @@
 		<hidamage>10</hidamage>
 		<!-- Resists -->
 		<defense><random min="15" max="20" /></defense>
-		<physicalresist><random min="15" max="20"/></physicalresist>
-		<fireresist><random min="5" max="10"/></fireresist>
-		<coldresist>0</coldresist>
-		<poisonresist>0</poisonresist>
-		<energyresist>0</energyresist>
+		<tag name="physicalresist" value="15,20" />
+		<tag name="fireresist" value="5,10" />
 		<!-- Misc. -->
 		<desc>These creatures are only two to three feet tall with extremely largeheads. The lower jaw of the creature is enormous, nearly half the sizeof the entire head, with a small, piggish nose that perches betweentwo bulbous, yellow eyes. Short, sturdy arms and legs sprout from theshaggy torso, but convey surprising speed as it scuttles about.Cowardly as individuals, the Horde Demon will always prefer to runthan to fight. However, in numbers, they gain courage and thrive onthe confusion their appearance creates.</desc>
 		<category>Monsters\Daemonic\Horde Minion</category>

@@ -24,16 +24,16 @@
 		<!-- Damage -->
 		<lodamage>7</lodamage>
 		<hidamage>13</hidamage>
-		<physicaldamage>50</physicaldamage>
-		<firedamage>25</firedamage>
-		<energydamage>25</energydamage>
+		<tag name="physicaldamage" value="50" />
+		<tag name="firedamage" value="25" />
+		<tag name="energydamage" value="25" />
 		<!-- Resists -->
 		<defense><random min="40" max="60" /></defense>
-		<physicalresist><random min="40" max="60"/></physicalresist>
-		<fireresist><random min="50" max="60"/></fireresist>
-		<coldresist><random min="20" max="30"/></coldresist>
-		<poisonresist><random min="25" max="35"/></poisonresist>
-		<energyresist><random min="15" max="25"/></energyresist>
+		<tag name="physicalresist" value="40,60" />
+		<tag name="fireresist" value="50,60" />
+		<tag name="coldresist" value="20,30" />
+		<tag name="poisonresist" value="25,35" />
+		<tag name="energyresist" value="15,25" />
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Gargoyle Enforcer</category>
 	</npc>

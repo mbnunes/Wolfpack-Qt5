@@ -6,20 +6,27 @@
 		<name>a harpy</name>
 		<id>0x1e</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-1250" max="-2499"/></karma>
-		<fame><random min="1250" max="2499"/></fame>
-		<defense><random min="25" max="30"/></defense>
-		<lodamage>9</lodamage>
-		<hidamage>13</hidamage>
+		<karma>-2500</karma>
+		<fame>2500</fame>
 		<gold><random min="50" max="100"/></gold>
 		<!-- Stats -->
 		<str><random min="96" max="120"/></str>
 		<dex><random min="86" max="110"/></dex>
 		<int><random min="51" max="75"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="900"/></wrestling>
-		<tactics><random min="701" max="1000"/></tactics>
 		<magicresistance><random min="501" max="650"/></magicresistance>
+		<tactics><random min="701" max="1000"/></tactics>
+		<wrestling><random min="601" max="900"/></wrestling>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>7</hidamage>
+		<!-- Resists -->
+		<defense><random min="25" max="30"/></defense>
+		<tag name="coldresist" value="10,30" />
+		<tag name="energyresist" value="10,20" />
+		<tag name="fireresist" value="10,20" />
+		<tag name="physicalresist" value="25,30" />
+		<tag name="poisonresist" value="20,30" />
 		<!-- Misc. -->
 		<desc>These foul beasts have the head of a woman and the body of a bird.Despite their human features, it is not believed they are intelligent.They attack in small flocks from the air, wheeling above their preyand rending them with claws and beaks. They love gold like a raven ormagpie loves all shiny things. There are those who seek to fletchtheir arrows with the harpy's feather, thinking it will convey virtueon the shafts, but those who have made a study of such things assurethat this is merely a false and extremely dangerous conceit.</desc>
 		<category>Monsters\Daemonic\Harpy</category>

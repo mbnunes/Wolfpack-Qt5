@@ -21,11 +21,11 @@
 		<hidamage>14</hidamage>
 		<!-- Resists -->
 		<defense><random min="30" max="40" /></defense>
-		<physicalresist><random min="30" max="40"/></physicalresist>
-		<fireresist><random min="50" max="70"/></fireresist>
-		<coldresist><random min="15" max="25"/></coldresist>
-		<poisonresist><random min="25" max="30"/></poisonresist>
-		<energyresist><random min="25" max="30"/></energyresist>
+		<tag name="physicalresist" value="30,40" />
+		<tag name="fireresist" value="50,70" />
+		<tag name="coldresist" value="15,25" />
+		<tag name="poisonresist" value="25,30" />
+		<tag name="energyresist" value="25,30" />
 		<!-- Misc -->
 		<category>Monsters\Daemonic\Enslaved Gargoyle</category>
 	</npc>

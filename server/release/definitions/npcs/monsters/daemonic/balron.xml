@@ -24,16 +24,16 @@
 		<!-- Damage -->
 		<lodamage>22</lodamage>
 		<hidamage>29</hidamage>
-		<energydamage>25</energydamage>
-		<firedamage>25</firedamage>
-		<physicaldamage>50</physicaldamage>
+		<tag name="energydamage" value="25" />
+		<tag name="firedamage" value="25" />
+		<tag name="physicaldamage" value="50" />
 		<!-- Resists -->
 		<defense><random min="65" max="80"/></defense>
-		<coldresist><random min="50" max="60"/></coldresist>
-		<energyresist><random min="40" max="50"/></energyresist>
-		<fireresist><random min="60" max="80"/></fireresist>
-		<physicalresist><random min="65" max="80"/></physicalresist>
-		<poisonresist>100</poisonresist>
+		<tag name="coldresist" value="50,60" />
+		<tag name="energyresist" value="40,50" />
+		<tag name="fireresist" value="60,80" />
+		<tag name="physicalresist" value="65,80" />
+		<tag name="poisonresist" value="100" />
 		<!-- Misc. -->
 		<carve>carve_demon_with_sword</carve>
 		<category>Monsters\Daemonic\Balron</category>

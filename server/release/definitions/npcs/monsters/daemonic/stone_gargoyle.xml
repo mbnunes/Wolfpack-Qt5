@@ -21,11 +21,11 @@
 		<hidamage>17</hidamage>
 		<!-- Resists -->
 		<defense><random min="45" max="55" /></defense>
-		<coldresist><random min="10" max="20"/></coldresist>
-		<energyresist><random min="30" max="40"/></energyresist>
-		<fireresist><random min="20" max="30"/></fireresist>
-		<physicalresist><random min="45" max="55"/></physicalresist>
-		<poisonresist><random min="30" max="40"/></poisonresist>
+		<tag name="coldresist" value="10,20" />
+		<tag name="energyresist" value="30,40" />
+		<tag name="fireresist" value="20,30" />
+		<tag name="physicalresist" value="45,55" />
+		<tag name="poisonresist" value="30,40" />
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Stone Gargoyle</category>
 	</npc>

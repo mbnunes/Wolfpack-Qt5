@@ -21,15 +21,14 @@
 		<!-- Damage -->
 		<lodamage>21</lodamage>
 		<hidamage>31</hidamage>
-		<physicaldamage>20</physicaldamage>
-		<firedamage>80</firedamage>
+		<tag name="physicaldamage" value="20" />
+		<tag name="firedamage" value="80" />
 		<!-- Resists -->
 		<defense><random min="25" max="35"/></defense>
-		<physicalresist><random min="25" max="35"/></physicalresist>
-		<fireresist><random min="30" max="40"/></fireresist>
-		<coldresist>0</coldresist>
-		<poisonresist><random min="10" max="20"/></poisonresist>
-		<energyresist><random min="10" max="20"/></energyresist>
+		<tag name="physicalresist" value="25,35" />
+		<tag name="fireresist" value="30,40" />
+		<tag name="poisonresist" value="10,20" />
+		<tag name="energyresist" value="10,20" />
 		<!-- Misc. -->
 		<desc>Whatsoever raiment a daemon adorns, doubt not that their power remainsbeneath the garb. Truer words could not be spoken of the hounds fromhell. Vicious and hungry, these hounds are pack animals whose soledesire is to relieve wanderers of their mortal coil.</desc>
 		<carve>carve_hell_hound</carve>
