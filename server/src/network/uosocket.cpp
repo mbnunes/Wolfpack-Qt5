@@ -1293,7 +1293,12 @@ void cUOSocket::handleTarget( cUORxTarget *packet )
 	if( !targetRequest )
 		return;
 
-	targetRequest->responsed( this, packet );
+	// Check if there really was a response or if it just was canceled
+	if( !packet->serial() && ( ( packet->x() == 0xFFFF ) || ( packet->y() == 0xFFFF ) || ( packet->z() == 0xFF ) ) )
+		targetRequest->timedout( this );
+	else
+		targetRequest->responsed( this, packet );
+
 	delete targetRequest;
 	targetRequest = 0;
 }

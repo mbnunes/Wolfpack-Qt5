@@ -128,7 +128,7 @@ public:
 	// Utilities
 	void updateChar( P_CHAR pChar );
 	void sendChar( P_CHAR pChar );
-	void showSpeech( cUObject *object, const QString &message, Q_UINT16 color = 0xFFFF, Q_UINT16 font = 0xFFFF, cUOTxUnicodeSpeech::eSpeechType speechType = cUOTxUnicodeSpeech::Regular );
+	void showSpeech( cUObject *object, const QString &message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, cUOTxUnicodeSpeech::eSpeechType speechType = cUOTxUnicodeSpeech::Regular );
 	void sysMessage( const QString &message, Q_UINT16 color = 0x0037, UINT16 font = 3 );
 	void sendCharList();
 	void removeObject( cUObject *object );

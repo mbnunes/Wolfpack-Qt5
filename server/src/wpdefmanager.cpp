@@ -361,6 +361,7 @@ QStringList	WPDefManager::getList( QString ListSection )
 {
 	QDomElement* DefSection = this->getSection( WPDT_LIST, ListSection );
 	QStringList list = QStringList();
+	QString data;
 
 	if( !DefSection->isNull() )
 	{
@@ -369,14 +370,23 @@ QStringList	WPDefManager::getList( QString ListSection )
 		{
 			if( childNode.isElement() )
 			{
+				// Using the nodename is a very very bad habit
+				// if the name of the node is "value" then
+				// use the node value instead
 				QDomElement childTag = childNode.toElement();
+				
+				if( childTag.nodeName() == "value" )
+					data = childTag.text();
+				else
+					data = childTag.nodeName();
+
 				int mult = childTag.attribute( "mult" ).toInt();
 				if( mult <= 0 )
 					mult = 1;
 				int i = 0;
 				while( i < mult )
 				{
-					list.push_back( childTag.nodeName() );
+					list.push_back( data );
 					i++;
 				}
 			}

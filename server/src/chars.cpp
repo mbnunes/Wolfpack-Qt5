@@ -1544,9 +1544,36 @@ void cChar::processNode( const QDomElement &Tag )
 				nItem->Init( true );
 				cItemsManager::getInstance()->registerItem( nItem );
 
-				nItem->applyDefinition( equipment[ i ] );
+				// Check for auto-inherit
+				QDomElement tItem = equipment[ i ];
+				if( tItem.hasAttribute( "inherit" ) )
+				{
+					QDomElement *tInherit = DefManager->getSection( WPDT_ITEM, tItem.attribute( "inherit", "" ) );
+					if( tInherit && !tInherit->isNull() )
+						nItem->applyDefinition( (*tInherit) );
+				}
+				
+				// Check for random-inherit
+				if( tItem.hasAttribute( "inheritlist" ) )
+				{
+					QString iSection = DefManager->getRandomListEntry( tItem.attribute( "inheritlist", "" ) );
+					QDomElement *tInherit = DefManager->getSection( WPDT_ITEM, iSection );
+					if( tInherit && !tInherit->isNull() )
+						nItem->applyDefinition( (*tInherit) );
+				}
 
+				nItem->applyDefinition( tItem );
+
+				// Instead of deleting try to get a valid layer instead
 				if( nItem->layer() == 0 )
+				{
+					tile_st tInfo = cTileCache::instance()->getTile( nItem->id() );
+					if( tInfo.layer > 0 )
+						nItem->setLayer( tInfo.layer );
+				}
+				
+				// Recheck
+				if( !nItem->layer() )
 					Items->DeleItem( nItem );
 				else
 					nItem->setContSerial( this->serial );

@@ -1541,7 +1541,7 @@ void cItem::processNode( const QDomElement& Tag )
 
 	// <color>480</color>
 	else if( TagName == "color" )
-		this->setColor( Value.toUShort( NULL, 16 ) );
+		this->setColor( Value.toUShort() );
 
 	// <events>a,b,c</events>
 	//else if( TagName == "color" )
@@ -1760,7 +1760,15 @@ void cItem::processNode( const QDomElement& Tag )
 	{
 		QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, Tag.attribute( "id" ) );
 		if( !DefSection->isNull() )
-			this->applyDefinition( *DefSection );
+			applyDefinition( *DefSection );
+	}
+
+	else if( TagName == "inherit" )
+	{
+		QString nodeValue = getNodeValue( Tag );
+		QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, nodeValue );
+		if( !DefSection->isNull() )
+			applyDefinition( *DefSection );
 	}
 
 	// <tag type="string"> also type="value"
