@@ -14,10 +14,10 @@ ids = [ 0x1063, 0x1066, 0x105f, 0x1061 ]
 def onUse( char, item ):
 	# Needs to be on ourself
 	if item.getoutmostchar() != char:
-		char.socket.clilocmessage( 0x7A258 ) # You can't reach...
+		char.socket.clilocmessage( 500312, '', GRAY ) # You cannot reach that.
 		return 1
 
-	char.socket.clilocmessage( 0x7A28E ) # Select a loom to use that on.
+	char.socket.clilocmessage( 500366, '', GRAY ) # Select a loom to use that on.
 	char.socket.attachtarget( "yarn.response", [ item.serial ] )
 	return 1
 
@@ -30,16 +30,16 @@ def response( char, args, target ):
 	item = wolfpack.finditem( args[0] )
 	
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
-		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
+		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
 		return 1
 		
 	if abs( char.pos.z - target.pos.z ) > 5:
-		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
+		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
 		return 1
 	
 	# Check target (only item targets valid)
 	if not target.item:
-		char.socket.clilocmessage( 0x7A28F ) # Try using that on a loom.
+		char.socket.clilocmessage( 500367, '', GRAY ) # Try using that on a loom.
 		return 1
 	
 	if target.item.id in ids:
@@ -61,13 +61,17 @@ def response( char, args, target ):
 		
 		if amount < 5:
 			if amount == 1:
-				char.socket.sysmessage( 'You have just started the bolt of cloth.' )
+				#The bolt of cloth has just been started.
+				char.socket.clilocmessage( 1010001, '', GRAY )
 			elif amount == 2:
-				char.socket.sysmessage( 'The bolt of cloth could use quite a bit more.' )
+				#The bolt of cloth needs quite a bit more.
+				char.socket.clilocmessage( 1010002, '', GRAY )
 			elif amount == 3:
-				char.socket.sysmessage( 'The bolt of cloth could use a bit more.' )
+				#The bolt of cloth needs a little more.
+				char.socket.clilocmessage( 1010003, '', GRAY )
 			elif amount == 4:
-				char.socket.sysmessage( 'The bolt of cloth is almost finished.' )
+				#The bolt of cloth is almost finished.
+				char.socket.clilocmessage( 1010004, '', GRAY )
 			target.item.settag( 'amount', str(amount) )
 		
 		elif amount == 5:
@@ -76,4 +80,4 @@ def response( char, args, target ):
 			item_new.color = color
 			if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 				item_new.update()
-			char.socket.clilocmessage( 0x7A290 ) # You create some cloth and put it in your backpack.
+			char.socket.clilocmessage( 500368, '', GRAY ) # You create some cloth and put it in your backpack.

@@ -57,7 +57,7 @@ def onUse( char, ore ):
 					return OK
 				else:
 					# Where do you want to smelt the ore?
-					char.socket.clilocmessage( 501971, '', GRAY, NORMAL )
+					char.socket.clilocmessage( 501971, '', GRAY )
 					char.socket.attachtarget( "ore.response", [ ore.serial ] )
 					return OK
 		else:
@@ -66,7 +66,7 @@ def onUse( char, ore ):
 				return OK
 			else:
 				# Where do you want to smelt the ore?
-				char.socket.clilocmessage( 501971, '', GRAY, NORMAL ) 
+				char.socket.clilocmessage( 501971, '', GRAY ) 
 				char.socket.attachtarget( "ore.response", [ ore.serial ] )
 				return OK
 
@@ -124,19 +124,19 @@ def response( char, args, target ):
 						targetitem.update()
 						item.delete()
 						# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
-						char.socket.clilocmessage( 501971, '', GRAY, NORMAL )
+						char.socket.clilocmessage( 501971, '', GRAY )
 					elif targetitem.id == oreids[0]:
 						targetitem.amount += ( item.amount * 4 )
 						targetitem.update()
 						item.delete()
 						# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
-						char.socket.clilocmessage( 501971, '', GRAY, NORMAL ) 
+						char.socket.clilocmessage( 501971, '', GRAY ) 
 					elif targetitem.id == item.id:
 						targetitem.amount += item.amount
 						targetitem.update()
 						item.delete()
 						# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
-						char.socket.clilocmessage( 501971, '', GRAY, NORMAL ) 
+						char.socket.clilocmessage( 501971, '', GRAY ) 
 					return OK
 			else:
 				# Merge the ore piles
@@ -145,19 +145,19 @@ def response( char, args, target ):
 					targetitem.update()
 					item.delete()
 					# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
-					char.socket.clilocmessage( 501971, '', GRAY, NORMAL ) 
+					char.socket.clilocmessage( 501971, '', GRAY ) 
 				elif targetitem.id == oreids[0]:
 					targetitem.amount += ( item.amount * 4 )
 					targetitem.update()
 					item.delete()
 					# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
-					char.socket.clilocmessage( 501971, '', GRAY, NORMAL ) 
+					char.socket.clilocmessage( 501971, '', GRAY ) 
 				elif targetitem.id == item.id:
 					targetitem.amount += item.amount
 					targetitem.update()
 					item.delete()
 					# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
-					char.socket.clilocmessage( 501971, '', GRAY, NORMAL ) 
+					char.socket.clilocmessage( 501971, '', GRAY ) 
 				return OK
 		
 		# Second Largest Ore

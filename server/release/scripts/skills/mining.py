@@ -257,7 +257,8 @@ def successmining( char, gem, table, resname, amount, ore ):
 		resourceitem.update()
 
 	if resname == 'silver' or resname == 'merkite' or resname == 'mythril':
-		socket.sysmessage( "You dig some " + table[ resname ][ RESOURCENAME ]  + " and put it in your backpack.", GRAY )
+		#You dig some ore and put it in your backpack.
+		socket.clilocmessage( 503044, "", GRAY )
 	else:
 		# You dig some %s and put it in your backpack.
 		socket.clilocmessage( message, "", GRAY )

@@ -16,10 +16,10 @@ animids = [ 0x10a5, 0x1016, 0x101d, 0x101a ]
 def onUse( char, item ):
 	# Needs to be on ourself
 	if item.getoutmostchar() != char:
-		char.socket.clilocmessage( 0x7A258 ) # You can't reach...
+		char.socket.clilocmessage( 500312, '', GRAY ) # You cannot reach that.
 		return OK
 
-	char.socket.clilocmessage( 0x7AB7F ) # What spinning wheel do you wish to spin this on?
+	char.socket.clilocmessage( 502655 ) # What spinning wheel do you wish to spin this on?
 	char.socket.attachtarget( "wool.response", [ item.serial ] )
 	return OK
 
@@ -33,16 +33,16 @@ def response( char, args, target ):
 	item = wolfpack.finditem( args[0] )
 	
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
-		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
+		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
 		return OK
 		
 	if abs( char.pos.z - target.pos.z ) > 5:
-		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
+		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
 		return OK
 	
 	# Check target (only item targets valid)
 	if not target.item:
-		char.socket.clilocmessage( 0x7AB82 ) # Use that on a spinning wheel.
+		char.socket.clilocmessage( 502658, '', GRAY ) # Use that on a spinning wheel.
 		return OK
 	
 	if target.item.id in ids:
@@ -72,11 +72,13 @@ def response( char, args, target ):
 		wolfpack.addtimer( processtime, "wool.ProcessTimer", [char, wheel, color] )
 	
 	elif target.item.id in animids:
-		char.socket.sysmessage( 'This spinning wheel is currently in use.' )
+		# That spinning wheel is being used.
+		char.socket.clilocmessage( 502656, '', GRAY )
 		return OK
 	
 	else:
-		char.socket.clilocmessage( 0x7AB82 ) # Use that on a spinning wheel.
+		# Use that on a spinning wheel.
+		char.socket.clilocmessage( 502658, '', GRAY ) 
 		return OK
 
 def ProcessTimer( time, args ):
@@ -106,5 +108,11 @@ def GetYarn( char, wheel, color ):
 	item_new.color = color
 	if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 		item_new.update()
-	char.socket.sysmessage( 'You put the yarn into your backpack.' )
+	
+	if item_new.amount > 1:
+		# You put the balls of yarn in your backpack.
+		char.socket.clilocmessage( 1010576, '', GRAY )
+	else:
+		# You put a ball of yarn in your backpack.
+		char.socket.clilocmessage( 1010574, '', GRAY )
 	return OK
