@@ -162,7 +162,7 @@ void cConfig::readData()
 	quittime_ = getNumber( "General", "Char Time Out", 300, true );
 	cacheMulFiles_ = getBool( "General", "Cache Mul Files", true, true );
 	categoryTagAddMenu_ = getBool( "General", "Build AddMenu by Category Tags", true, true );
-	showNpcTitles_ = getNumber( "General", "Show Npc Titles", 1, true );
+	showNpcTitles_ = getBool( "General", "Show Npc Titles", true, true );
 	logMask_ = getNumber( "General", "Logging Mask", LOG_ALL, true );
 	overwriteDefinitions_ = getBool( "General", "Overwrite Definitions", false, true );
 	dontStackSpawnedObjects_ = getBool( "General", "Don't Stack Spawned Objects", true, true );

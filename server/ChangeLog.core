@@ -5,6 +5,7 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Fixed a npc title loading problem (UTF-8)
 	- Added an onResurrection event.
 	- Hopefully fixed crashbug for NPC pathfinding.
+	- Fix bug #0000342 ( "Show Npc Titles" treated as numeric value, instead of boolean )
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.
