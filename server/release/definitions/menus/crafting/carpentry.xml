@@ -173,7 +173,7 @@
 			<carpentry min="578" max="1078" />
 			<material id="1eb1" amount="3" name="Barrel Staves" /> <!-- Barrel Staves -->
 			<material id="10e1;10e2" amount="1" name="Barrel Hoops" /> <!-- Barrel Hoops -->
-			<material id="1bd8" amount="1" name="Barrel Lid" /> <!-- Barrel Lid -->
+			<material id="1db8" amount="1" name="Barrel Lid" /> <!-- Barrel Lid -->
 		</craft>
 	</menu>
 
