@@ -9,12 +9,14 @@
 <definitions>
 	<!-- saw -->
 	<item id="1034">
+		<name>saw</name>
 		<id>0x1034</id>
 		<hitpoints>20</hitpoints>
 	</item>
 	
 	<!-- board -->
 	<item id="1bd7">
+		<name>board</name>
 		<id>0x1BD7</id>
 	</item>
 </definitions>

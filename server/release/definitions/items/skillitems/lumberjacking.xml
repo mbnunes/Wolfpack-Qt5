@@ -9,6 +9,7 @@
 <definitions>
 	<!-- hatchet -->
 	<item id="f43">
+		<name>hatchet</name>
 		<id>0xf43</id>
 		<itemhand>2</itemhand>
 		<attack min="2" max="17" />

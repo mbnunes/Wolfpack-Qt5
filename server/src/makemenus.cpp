@@ -111,6 +111,8 @@ cUseItem::cUseItem( const QDomElement &Tag )
 		applyDefinition( *DefSection );
 	}
 	applyDefinition( Tag );
+	if( colors_.size() == 0 )
+		colors_.push_back( 0 );
 }
 
 cUseItem::cUseItem( QString name, QValueVector< UINT16 > ids, QValueVector< UINT16 > colors, UINT16 amount )

@@ -33,6 +33,7 @@
 	
 	<item id="book_bold_stranger" type="book">
 		<id>0xFF1</id>
+		<name>book</name>
 		<identified>The Bold Stranger</identified>
 		<nodecay />
 		<predefined />

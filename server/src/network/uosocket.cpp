@@ -264,6 +264,8 @@ void cUOSocket::recieve()
 		handleSelectShard( dynamic_cast< cUORxSelectShard* >( packet ) ); break;
 	case 0xA4:
 		handleHardwareInfo( dynamic_cast< cUORxHardwareInfo* >( packet ) ); break;
+	case 0xA7:
+		handleGetTip( dynamic_cast< cUORxGetTip* >( packet ) ); break;
 	case 0xAD:
 		handleSpeechRequest( dynamic_cast< cUORxSpeechRequest* >( packet ) ); break;
 	case 0xB1:
@@ -1140,9 +1142,40 @@ void cUOSocket::handleDoubleClick( cUORxDoubleClick* packet )
 */
 void cUOSocket::handleGetTip( cUORxGetTip* packet )
 {
+/*	UI32 y;
+
+	QString motdText = DefManager->getText( "MOTD" );
+	y = motdText.length() + 10;
+	
+	updscroll[1]=y>>8;
+	updscroll[2]=y%256;
+	updscroll[3]=2;
+	updscroll[8]=(y-10)>>8;
+	updscroll[9]=(y-10)%256;
+	Xsend(s, updscroll, 10);
+	
+	Xsend(s, (char*)motdText.latin1(), motdText.length() );*/
+
 	if ( packet->isTip() )
 	{
-		tips( this, packet->lastTip() );
+		UI32 tip = packet->lastTip();
+		UI32 y = 10;
+
+		if( tip == 0 ) 
+			tip = 1; 
+
+		QStringList tipList = DefManager->getList( "TIPS" );
+		if( tipList.size() == 0 )
+			return;
+		else if( tip > tipList.size() )
+			tip = tipList.size();
+
+		QString tipText = DefManager->getText( tipList[ tip-1 ] );
+		cUOTxTipWindow packet;
+		packet.setType( cUOTxTipWindow::Tip );
+		packet.setNumber( tip );
+		packet.setMessage( tipText );
+		send( &packet );	
 	}
 }
 

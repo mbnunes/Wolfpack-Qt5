@@ -9,17 +9,14 @@
 <definitions>
 	<!-- pickaxe -->
 	<item id="e85">
+		<name>pickaxe</name>
 		<id>0x0E85</id>
-		<hitpoints>20</hitpoints>
-	</item>
-	
-	<!-- ingot -->
-	<item id="1bf2">
-		<id>0x1BF2</id>
+		<durability>50</durability>
 	</item>
 	
 	<!-- forge -->
 	<item id="fb1">
+		<name>forge</name>
 		<id>0x0FB1</id>
 		<nodecay />
 	</item>
