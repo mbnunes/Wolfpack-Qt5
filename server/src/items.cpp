@@ -2220,7 +2220,7 @@ unsigned short cItem::restock()
 
 unsigned int cItem::decayDelay()
 {
-	if ( container_ || nodecay() || multi_ )
+	if ( container_ || nodecay() || (!corpse() && multi_) )
 	{
 		return 0;
 	}
