@@ -253,7 +253,7 @@ def successmining( char, gem, table, resname, amount, ore ):
 
 def respawnvein( time, args ):
 	vein = args[0]
-	if vein.hastag ('resource_empty') and int( gem.gettag( 'resourcecount' ) ) == 0:
+	if vein.hastag ('resource_empty') and int( vein.gettag( 'resourcecount' ) ) == 0:
 		vein.settag( 'resourcecount', str( randrange( 10, 34 ) ) )
 		vein.deltag('resource_empty')
 	return OK
