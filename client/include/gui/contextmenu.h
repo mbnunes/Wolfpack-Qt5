@@ -8,6 +8,10 @@
 
 #include <qvaluevector.h>
 
+// This has nothing to do with OS but with the compiler (!)
+#if !defined(Q_OS_WIN32)
+#define __stdcall __attribute__((__stdcall__))
+#endif
 #define STDCALL __stdcall
 
 class cContextMenuEntry;
