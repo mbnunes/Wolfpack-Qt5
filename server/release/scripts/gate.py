@@ -1,4 +1,6 @@
 
+from wolfpack.consts import *
+from wolfpack import console
 import wolfpack
 
 #
@@ -9,7 +11,10 @@ def onCollide(player, item):
     return 0
 
   if not item.hastag('target'):    
-    player.socket.sysmessage('This gate leads nowhere...')
+    if player.socket:
+      player.socket.sysmessage('This gate leads nowhere...')
+    else:
+      console.log(LOG_ERROR, "NPC [%x] using gate [%x] without target.\n" % (player.serial, item.serial))
     return 0
     
   target = item.gettag('target').split(',')
