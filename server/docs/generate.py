@@ -76,7 +76,7 @@ print "DELETE FROM documentation_objects_properties;"
 
 # Time
 print "REPLACE INTO documentation_settings VALUES('generated', %u);" % int(time.time())
-print "REPLACEINTO documentation_settings VALUES('version', '%s');" % (quote(getVersion()))
+print "REPLACE INTO documentation_settings VALUES('version', '%s');" % (quote(getVersion()))
 
 for command in commands:
 	print "REPLACE INTO documentation_commands VALUES('%s', '%s', '%s', '%s');" % (quote(command['name']), quote(command['description']), quote(command['usage']), quote(command['notes']))
