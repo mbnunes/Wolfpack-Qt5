@@ -56,8 +56,9 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 
 	P_CHAR pc_currchar = currchar[s];
 
-	cCommands::command_line = speech;
-	cCommands::params = cCommands::command_line.split(" ");
+	cCommands::command_line = speech.c_str();
+	cCommands::params = QStringList::split( " ", cCommands::command_line );
+	
 	strcpy((char*)nonuni, speech.c_str());
 	strcpy((char*)tbuffer, (char*)nonuni);
 
@@ -256,17 +257,12 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 	sysmessage(s, "BUG: Should never reach end of command() function!");
 }
 
-mstring cCommands::GetAllParams(void)
+QString cCommands::GetAllParams(void)
 {
-	string::size_type pos = 0;
-	mstring dummy;
-	pos = command_line.find_first_of(" ");
-	if (pos != mstring::npos)
-	{
-		dummy = command_line.substr(pos);
-		dummy.trim();
-	}
-	return dummy;
+	if( !command_line.contains( " " ) )
+		return "";
+
+	return command_line.right( command_line.length() - command_line.find( " " ) );
 }
 
 void cCommands::MakeShop(P_CHAR pc_c)
@@ -278,7 +274,7 @@ void cCommands::MakeShop(P_CHAR pc_c)
 		P_ITEM p1A = Items->SpawnItem(pc_c,1,"#",0,0x2AF8,0,0);
 		if(p1A)
 		{
-			p1A->SetContSerial(pc_c->serial);
+			p1A->setContSerial(pc_c->serial);
 			p1A->setLayer( 0x1A );
 			p1A->setType( 1 );
 			p1A->priv |= 0x02;
@@ -290,7 +286,7 @@ void cCommands::MakeShop(P_CHAR pc_c)
 		P_ITEM p1B = Items->SpawnItem(pc_c,1,"#",0,0x2AF8,0,0);
 		if(p1B)
 		{
-			p1B->SetContSerial(pc_c->serial);
+			p1B->setContSerial(pc_c->serial);
 			p1B->setLayer( 0x1B );
 			p1B->setType( 1 );
 			p1B->priv |= 0x02;
@@ -302,7 +298,7 @@ void cCommands::MakeShop(P_CHAR pc_c)
 		P_ITEM p1C=Items->SpawnItem(pc_c,1,"#",0,0x2AF8,0,0);
 		if(p1C)
 		{
-			p1C->SetContSerial(pc_c->serial);
+			p1C->setContSerial(pc_c->serial);
 			p1C->setLayer( 0x1C );
 			p1C->setType( 1 );
 			p1C->priv |= 0x02;
@@ -942,7 +938,7 @@ void cCommands::DupeItem(int s, P_ITEM pi_target, int amount)
 	P_ITEM pi_c = new cItem(*pi_target);
 	pi_c->SetSerial(cItemsManager::getInstance()->getUnusedSerial());
 	
-	pi_c->SetContSerial(pPack->serial);
+	pi_c->setContSerial(pPack->serial);
 	pi_c->SetOwnSerial(pi_target->ownserial);
 	pi_c->SetSpawnSerial(pi_target->spawnserial);
 	pi_c->setLayer( 0 ); // it's created in a backpack

@@ -767,7 +767,7 @@ void item_char_test()
 		{
 			sprintf(tmp,"ALERT ! item %s [serial: %i] has dangerous container value, autocorrecting",pi->name().ascii(),pi->serial);
 			LogWarning(tmp);
-			pi->SetContSerial(-1);
+			pi->setContSerial(-1);
 		}
 
 		if (pi->serial==pi->GetOwnSerial())
@@ -1169,7 +1169,7 @@ void deathstuff(P_CHAR pc_player)
 					if ( (!(pi_k->priv&0x02)) && (pi_k->type()!=9))//Morrolan spellbook disappearance fix
 					{//put the item in the corpse only of we're sure it's not a newbie item or a spellbook
 						pi_k->setLayer( 0 );
-						pi_k->SetContSerial(pi_c->serial);
+						pi_k->setContSerial(pi_c->serial);
 						pi_k->SetRandPosInCont(pi_c);
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
 						if( pi_k->id() == 0x1BC3 || pi_k->id() == 0x1BC4 )
@@ -1197,7 +1197,7 @@ void deathstuff(P_CHAR pc_player)
 			{
 				if (pi_j != pi_backpack)
 				{
-					pi_j->SetContSerial(pi_c->serial);
+					pi_j->setContSerial(pi_c->serial);
 				}
 			}
 			else if(pi_backpack != NULL && pi_j->layer()!=0x1D)
@@ -1205,7 +1205,7 @@ void deathstuff(P_CHAR pc_player)
 				if(pi_j != pi_backpack)
 				{
 					pi_j->setLayer( 0 );
-					pi_j->SetContSerial(pi_backpack->serial);
+					pi_j->setContSerial(pi_backpack->serial);
 				}
 			}
 			if ((pi_j->layer()==0x15)&&(pc_player->shop==0)) 
@@ -1231,7 +1231,7 @@ void deathstuff(P_CHAR pc_player)
 		const P_ITEM pi_c = Items->SpawnItem(z, pc_player, 1, (char*)temp, 0, 0x20, 0x4E, 0, 0, 0);
 		if(pi_c == NULL) return;
 		pc_player->robe = pi_c->serial;
-		pi_c->SetContSerial(pc_player->serial);
+		pi_c->setContSerial(pc_player->serial);
 		pi_c->setLayer( 0x16 );
 		pi_c->def=1;
 	}
@@ -1866,7 +1866,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		{
 			pi->setColor( 0x044E );
 		}
-		pi->SetContSerial(pc->serial);
+		pi->setContSerial(pc->serial);
 		pi->setLayer( 0x0B );
 	}
 
@@ -1878,7 +1878,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		{
 			pi->setColor( 0x044E );
 		}
-		pi->SetContSerial(pc->serial);
+		pi->setContSerial(pc->serial);
 		pi->setLayer( 0x10 );
 	}
 
@@ -1888,7 +1888,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	if (pi == NULL)
 		return;
 	pc->packitem = pi->serial;
-	pi->SetContSerial(pc->serial);
+	pi->setContSerial(pc->serial);
 	pi->setLayer( 0x15 );
 	pi->setType( 1 );
 	pi->dye=1;
@@ -1925,7 +1925,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 	// pant/skirt color -> old client code, random color
 	pi->setColor( static_cast<unsigned short>(buffer[s][102]<<8) + buffer[s][103] );
-	pi->SetContSerial(pc->serial);
+	pi->setContSerial(pc->serial);
 	pi->setType( 0 );
 	pi->dye=1;
 	pi->hp=10;
@@ -1945,7 +1945,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 	pi->setColor( static_cast<unsigned short>(buffer[s][100]<<8) + buffer[s][101] );
 
-	pi->SetContSerial(pc->serial);
+	pi->setContSerial(pc->serial);
 	pi->setLayer( 0x05 );
 	pi->dye=1;
 	pi->hp=10;
@@ -1956,7 +1956,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	{	// limit the scope of pi
 	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x17,0x0F,0x0287,0,0); // shoes
 	if(pi == NULL) return;//AntiChrist to preview crashes
-	pi->SetContSerial(pc->serial);
+	pi->setContSerial(pc->serial);
 	pi->setLayer( 0x03 );
 	pi->dye=1;
 	pi->hp=10;
@@ -1967,7 +1967,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	{	// limit the scope of pi
 	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x0F,0x51,0,0,0); // dagger
 	if(pi == NULL) return;
-	pi->SetContSerial(pc->serial);
+	pi->setContSerial(pc->serial);
 	pi->setLayer( 0x01 );
 	//pi->att=5;
 	pi->hp=10;
@@ -2389,7 +2389,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 			case 0x1f: pi->setId(0x3EBE); break;// armor dragon
 		}
 		
-		pi->SetContSerial(pc_currchar->serial);
+		pi->setContSerial(pc_currchar->serial);
 		pi->setLayer( 0x19 );
 		Coord_cl pos(pc_currchar->pos);
 		pos.x = pc_mount->fx1;
@@ -3712,7 +3712,7 @@ void openbank(int s, P_CHAR pc_i)
 	if ( pic == NULL ) return;
 	pic->setLayer( 0x1d );
 	pic->SetOwnSerial(pc_i->serial);
-	pic->SetContSerial(pc_i->serial);
+	pic->setContSerial(pc_i->serial);
 	pic->morex=1;
 	if(SrvParams->useSpecialBank())//AntiChrist - Special Bank
 		pic->morey=123;//gold only bank
@@ -3768,7 +3768,7 @@ void openspecialbank(int s, P_CHAR pc)
 	if(pic == NULL) return;
 	pic->setLayer( 0x1d );
 	pic->SetOwnSerial(pc->serial);
-	pic->SetContSerial(pc->serial);
+	pic->setContSerial(pc->serial);
 	pic->morex=1;
 	pic->morey=0;//this's a all-items bank
 	pic->morez=pc_currchar->region;//let's store the region
@@ -4216,7 +4216,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		pi->ReduceAmount( 1 );
 	}
 	//empty bottle after drinking - Tauriel
-	pi->SetContSerial(-1);
+	pi->setContSerial(-1);
 	if (pi->morey!=3)
 	{
 		int lsd = pi->morey; // save morey before overwritten
@@ -6090,7 +6090,7 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 	if (pi->contserial==pi->serial)
 	{
 		clConsole.send("\nALERT ! item %s [serial: %i] has dangerous container value, autocorrecting\n",pi->name().ascii(),pi->serial);
-		pi->SetContSerial(-1);
+		pi->setContSerial(-1);
 	}
 
 	//first check: let's check if it's on the ground....

@@ -37,7 +37,6 @@
 #include "assert.h"
 #include "verinfo.h"
 #include <qdom.h>
-#include "mstring.h"
 
 struct ip_block_st
 {
@@ -57,13 +56,17 @@ public:
 };
 */
 
+// Foward declarations
+class QString;
+class QStringList;
+
 class cCommands
 {
 
 public:
-	mstring command_line;
-	vector<mstring> params;
-	mstring GetAllParams(void);
+	QString command_line;
+	QStringList params;
+	QString GetAllParams(void);
 	void NextCall(int s, int type);
 	void KillSpawn(int s, int r);
 	void RegSpawnMax(int s, int r);

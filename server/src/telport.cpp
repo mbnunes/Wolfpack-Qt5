@@ -339,12 +339,12 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 							retitem->pos.z=9;
 							if(retitem->layer()==0x0b || retitem->layer()==0x10)
 							{
-								retitem->SetContSerial(pc_s->serial);
+								retitem->setContSerial(pc_s->serial);
 							}
 							else
 							{
 								if(pPack != NULL) 
-									retitem->SetContSerial(pPack->serial);
+									retitem->setContSerial(pPack->serial);
 							}
 							RefreshItem(retitem);//AntiChrist
 							teleport(pc_s);
@@ -419,7 +419,7 @@ void monstergate(P_CHAR pc_s, int x)
 				pc_s->packitem = pBackpack->serial;
 				pScp->Resume(m);
 				
-				pBackpack->SetContSerial(pc_s->serial);
+				pBackpack->setContSerial(pc_s->serial);
 				pBackpack->setLayer(0x15);
 				pBackpack->setType( 1 );
 				pBackpack->dye=1;
@@ -428,7 +428,7 @@ void monstergate(P_CHAR pc_s, int x)
 			pi->pos.x = RandomNum(50, 130);
 			pi->pos.y = RandomNum(50, 130);
 			pi->pos.z=9;
-			pi->SetContSerial(pBackpack->serial);
+			pi->setContSerial(pBackpack->serial);
 			pi->setLayer(0x00);
 			
 			SndRemoveitem(pi->serial);
@@ -518,7 +518,7 @@ void monstergate(P_CHAR pc_s, int x)
 				pScp->Resume(m);
 				if (pRetitem == NULL)
 				{
-					pRetitem->SetContSerial(pc_s->serial);
+					pRetitem->setContSerial(pc_s->serial);
 					if (pRetitem->layer()==0)
 					{
 						clConsole.send("Warning: Bad NPC Script %d with problem item %d executed!\n", x, storeval);
@@ -535,7 +535,7 @@ void monstergate(P_CHAR pc_s, int x)
 				pScp->Resume(m);
 				if (pRetitem == NULL)
 				{
-					pRetitem->SetContSerial(pBackpack->serial);
+					pRetitem->setContSerial(pBackpack->serial);
 					pRetitem->pos.x=50+(rand()%80);
 					pRetitem->pos.y=50+(rand()%80);
 					pRetitem->pos.z=9;

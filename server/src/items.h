@@ -92,6 +92,7 @@ public:
 	void	setOffspell( UI08 nValue ) { offspell_ = nValue; };
 	void	setSecured( bool nValue ) { ( nValue ) ? priv &= 0x08 : priv |= 0xF7; };
 	void	setSpeed( SI16 nValue ) { speed_ = nValue; };
+	void	setContSerial( UI32 nValue ) { contserial = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
@@ -197,8 +198,6 @@ public:
 	
 	void Init(bool mkser = true);
 	void SetSerial(long ser);
-	
-	void SetContSerial(long contser);
 	bool isInWorld()			{ return (contserial == INVALID_SERIAL); }
 	bool isMulti()				{ return ( id_ >= 0x4000 ); }
 	

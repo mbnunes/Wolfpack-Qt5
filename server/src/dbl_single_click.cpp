@@ -1379,7 +1379,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						P_ITEM p_cotton = Items->SpawnItem(-1, pc_currchar, 1, "#", 1, 0x0D, 0xF9, 0, 1, 1);
 						if ( p_cotton == NULL )
 							return;
-						p_cotton->SetContSerial(Packitem(pc_currchar)->serial);
+						p_cotton->setContSerial(Packitem(pc_currchar)->serial);
 						sysmessage(s, "You reach down and pick some cotton.");
 					}
 					return; // cotton

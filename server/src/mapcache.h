@@ -54,14 +54,9 @@ using namespace std;
 class MapCache;
 
 //Wolfpack Includes
-
-
 #include "wpconsole.h"
-
-#include "mstring.h"
 #include "mulstructs.h"
 #include "tilecache.h"
-
 
 //Any externals we need
 

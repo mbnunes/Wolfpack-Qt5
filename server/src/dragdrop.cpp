@@ -77,7 +77,7 @@ void itemToBackpack( P_CHAR owner, P_ITEM item )
 		// Pack it to the ground
 		if( !backpack )
 		{
-			item->SetContSerial( INVALID_SERIAL );
+			item->setContSerial( INVALID_SERIAL );
 			item->moveTo( owner->pos );
 			//soundeffect3( item, 0x43 );
 			return;
@@ -85,7 +85,7 @@ void itemToBackpack( P_CHAR owner, P_ITEM item )
 		// Or to the backpack
 		else
 		{
-			item->SetContSerial( backpack->serial );
+			item->setContSerial( backpack->serial );
 
 			// Place it at a random position in our backpack
 			item->pos.x=50+(rand()%80);
@@ -133,7 +133,7 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 	}
 
 	// *finally* equip the item
-	item->SetContSerial( wearer->serial );
+	item->setContSerial( wearer->serial );
 
 	// Add the item bonuses
 	wearer->st = (wearer->st + item->st2);
@@ -176,7 +176,7 @@ static void Sndbounce5(UOXSOCKET s)
 // History:	init Duke, 10.8.2000
 static void item_bounce3(const P_ITEM pi)
 {
-	pi->SetContSerial(pi->oldcontserial);
+	pi->setContSerial(pi->oldcontserial);
 	pi->pos = pi->oldpos;
 	pi->setLayer( pi->oldlayer );
 	P_CHAR pc = FindCharBySerial(pi->oldcontserial);
@@ -376,7 +376,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 						pi_c->SetSerial(cItemsManager::getInstance()->getUnusedSerial());
 
 						pi_c->setAmount( pi->amount() - amount );
-						pi_c->SetContSerial(pi_c->contserial);
+						pi_c->setContSerial(pi_c->contserial);
 						pi_c->SetOwnSerial(pi_c->ownserial);
 						pi_c->SetSpawnSerial(pi_c->spawnserial);
 						
@@ -442,7 +442,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 				pi->pos.y = 0;
 				pi->pos.z = 0;
 				
-				pi->SetContSerial(-1);
+				pi->setContSerial(-1);
 			
 			
 			}
@@ -607,7 +607,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 				return;
 			}
 		}
-		pi->SetContSerial(LongFromCharPtr(buffer[s]+6));
+		pi->setContSerial(LongFromCharPtr(buffer[s]+6));
 		pi->setLayer( buffer[s][5] );
 		// AntiChrist - now the STAT BONUS works -
 		pc_currchar->st = (pc_currchar->st + pi->st2);
@@ -1077,7 +1077,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 					cout << "Bad trade start ptr " << endl;
 					return true;
 				}
-				pi->SetContSerial(j->serial);
+				pi->setContSerial(j->serial);
 				pi->pos.x = 30;
 				pi->pos.y = 30;
 				pi->pos.z = 9;
@@ -1136,7 +1136,7 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 		itemsfx( s, pi->id() ); // DS
 
 		pi->MoveTo(pp->TxLoc,pp->TyLoc,pp->TzLoc);
-		pi->SetContSerial(-1);
+		pi->setContSerial(-1);
 		
 		if (pi->glow != INVALID_SERIAL)
 		{
@@ -1246,7 +1246,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			{//if they're not gold..bounce on ground
 				sysmessage(s,"You can only put golds in this bank box!");
 
-				pItem->SetContSerial(-1);
+				pItem->setContSerial(-1);
 				pItem->moveTo(pc_currchar->pos);
 				RefreshItem(pItem);//AntiChrist
 				itemsfx(s,pItem->id());
@@ -1365,7 +1365,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		// - Unlocked item spawner or unlockable item spawner
 		if (pCont->type()==63 || pCont->type()==65 || pCont->type()==66)
 		{
-			pItem->SetContSerial(pp->Tserial);
+			pItem->setContSerial(pp->Tserial);
 
 			// lb bugfix
 			pItem->pos.x=pp->TxLoc;
@@ -1401,8 +1401,8 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				pItem->pos.x=pp->TxLoc;
 				pItem->pos.y=pp->TyLoc;
 				pItem->pos.z=pp->TzLoc;
-//				pItem->SetContSerial(-1);
-				pItem->SetContSerial(pp->Tserial);
+//				pItem->setContSerial(-1);
+				pItem->setContSerial(pp->Tserial);
 				// Tauriel add item to world mapcells
 				mapRegions->Add(pItem); //add this item to a map cell
 				

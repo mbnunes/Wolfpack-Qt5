@@ -67,7 +67,7 @@ cItem::cItem( cItem &src )
 	this->setId(src.id());
 	this->pos = src.pos;
 	this->color_ = src.color_;
-	this->SetContSerial(src.contserial);
+	this->setContSerial(src.contserial);
 	this->oldcontserial=INVALID_SERIAL;
 	this->layer_ = this->oldlayer = src.layer_;
 	this->itemhand_ = src.itemhand_;
@@ -308,7 +308,7 @@ short cItem::GetContGumpType()
 bool cItem::AddItem(cItem* pItem, short xx, short yy)	// Add Item to container
 {
 	if (pItem == NULL) return false;
-	pItem->SetContSerial(this->serial);
+	pItem->setContSerial(this->serial);
 	if (xx!=-1)	// use the given position
 	{
 		pItem->pos.x=xx;
@@ -798,7 +798,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 			mapRegions->Remove(pi);
 		}
 		else
-			pi->SetContSerial(INVALID_SERIAL);
+			pi->setContSerial(INVALID_SERIAL);
 
 
 		if (pi->type()==11 && (pi->morex==666 || pi->morey==999)) Books->delete_bokfile(pi); 
@@ -1352,7 +1352,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 	{
 		if (pPack)
 		{
-			pi->SetContSerial(pPack->serial);
+			pi->setContSerial(pPack->serial);
 			pi->pos.x=(50+rand()%80);
 			pi->pos.y=(50+rand()%80);
 			pi->pos.z=9;
@@ -1690,7 +1690,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 						{
 						   if (pi_j->contserial==pi->serial)// && (items[j].layer!=0x0B)&&(items[j].layer!=0x10))
 						   {
-							pi_j->SetContSerial(-1);
+							pi_j->setContSerial(-1);
 							pi_j->MoveTo(pi->pos.x,pi->pos.y,pi->pos.z);
 
 							pi_j->startDecay();
@@ -1858,7 +1858,7 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, int x, int y)
 	}
 	else
 	{
-		pi->SetContSerial(pItem->serial); //set item in pointer array
+		pi->setContSerial(pItem->serial); //set item in pointer array
 	}
 	pi->SetSpawnSerial(pItem->serial);
 
@@ -1906,7 +1906,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 				Trig->triggerwitem(calcSocketFromChar(pc_p), pi, 1); // trigger is fired when unequipped? sorry this needs checked
 			}
 						
-			pi->SetContSerial(-1);
+			pi->setContSerial(-1);
 			pi->MoveTo(pc_p->pos.x,pc_p->pos.y,pc_p->pos.z);
 			RefreshItem(pi);
 			
@@ -2198,7 +2198,7 @@ void cAllItems::processItemContainerNode( P_ITEM contItem, const QDomElement &No
 		{
 			QString ItemID = Node.childNodes().item( j ).toElement().attributeNode("id").nodeValue();
 			P_ITEM nItem = this->createScriptItem( ItemID );
-			nItem->SetContSerial( contItem->serial );
+			nItem->setContSerial( contItem->serial );
 		}
 }
 

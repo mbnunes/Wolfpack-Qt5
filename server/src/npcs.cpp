@@ -305,7 +305,7 @@ P_ITEM cCharStuff::AddRandomLoot(P_ITEM pBackpack, char * lootlist)
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
-						retitem->SetContSerial(pBackpack->serial);
+						retitem->setContSerial(pBackpack->serial);
 					}
 					break;;    
 				}
@@ -491,7 +491,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 					pBackpack->pos.x=0;
 					pBackpack->pos.y=0;
 					pBackpack->pos.z=0;
-					pBackpack->SetContSerial(pc_c->serial);
+					pBackpack->setContSerial(pc_c->serial);
 					pBackpack->setLayer( 0x15 );
 					pBackpack->setType( 1 );
 					pBackpack->dye=1;
@@ -683,7 +683,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 
 				if ( retitem != NULL )
 				{
-					retitem->SetContSerial(pc_c->serial);
+					retitem->setContSerial(pc_c->serial);
 					if (retitem->layer()==0) {
 						clConsole.send("Warning: Bad NPC Script %d with problem item %d executed!\n", npcNum, storeval);
 					}
@@ -780,7 +780,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 
 					if (retitem != NULL)
 					{
-						retitem->SetContSerial(pBackpack->serial);
+						retitem->setContSerial(pBackpack->serial);
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
@@ -829,7 +829,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 
 					if (retitem != NULL)
 					{
-						retitem->SetContSerial(shoppack1->serial);
+						retitem->setContSerial(shoppack1->serial);
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
@@ -886,7 +886,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 
 					if (retitem != NULL)
 					{
-						retitem->SetContSerial(shoppack3->serial);
+						retitem->setContSerial(shoppack3->serial);
 						retitem->value=retitem->value/2;
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
@@ -928,7 +928,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 
 					if ( retitem != NULL)
 					{
-						retitem->SetContSerial(shoppack2->serial);
+						retitem->setContSerial(shoppack2->serial);
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
@@ -1227,7 +1227,7 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 				pBackpack->pos.x = 0;
 				pBackpack->pos.y = 0;
 				pBackpack->pos.z = 0;
-				pBackpack->SetContSerial(Char->serial);
+				pBackpack->setContSerial(Char->serial);
 				pBackpack->setLayer( 0x15 );
 				pBackpack->setType( 1 );
 				pBackpack->dye=1;

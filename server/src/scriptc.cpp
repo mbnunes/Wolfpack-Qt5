@@ -48,7 +48,6 @@ using namespace std;
 #include <sys/stat.h>
 #include <errno.h>
 
-#include "mstring.h"
 #include "debug.h"
 
 #undef  DBGFILE
@@ -112,8 +111,6 @@ void Script::reload()
 		MakeIndexForFile();
 }
 
-#if 1
-
 void Script::MakeIndexForFile()
 {
 	FILE *fp;
@@ -160,132 +157,6 @@ void Script::MakeIndexForFile()
     fclose(fp);
 }
 
-#elif
-void Script::MakeIndexForFile()
-{
-	fstream myscpfile;
-	mstring sInput;
-	entries.clear();
-	vector<mstring>	vecLine ;
-	myscpfile.open(filename, ios::in);
-	if (myscpfile.is_open())
-	{
-		clConsole.send("Reloading %-15s: ", filename); fflush (stdout);
-		while(getline(myscpfile,sInput)) 
-		{
-			sInput.trim();
-			// Ok, unfortunately, as we have no standard syntax for our SECTIONS, we just want the 
-			// the first string
-			mstring sFirst;
-			SI32 siEnd = 0;
-			siEnd = sInput.find(" ");
-			if ((siEnd != string::npos)&&(siEnd!=0))
-			{
-				sFirst = sInput.substr(0,siEnd);
-				sInput = sInput.substr(siEnd+1);
-			}
-			else
-			{
-				// No first word
-				sFirst = sInput;
-				sInput.erase();
-			}
-			if (!sFirst.empty())
-			{
-
-				if (sFirst == "SECTION")
-				{
-					// We are in a section, need to parse the section name
-					
-					
-					if (sInput.find("x")==0)
-					{
-						vector<mstring> vecEntries ;
-						mstring sEntries ;
-						// strip off the leading x
-						//sEntries = sInput.substr(1) ;
-						vecEntries = sEntries.split("x") ;
-						int i;
-						for (i = 0; i< vecEntries.size(); i++)
-						{
-							
-							ScriptEntry section;
-							section.name = vecEntries[i] ;
-							section.offset = myscpfile.tellg() ;
-							entries.insert(make_pair(section.name,section)) ;
-						}
-						vecEntries.clear() ;
-					}
-					else
-					{
-						ScriptEntry section;
-						section.name = sInput;
-						section.offset = myscpfile.tellg();
-						entries.insert(make_pair(section.name,section)) ;
-					}
-					vecLine.clear() ;
-				}
-			}
-		}
-		clConsole.send("%6d sections found.\n", entries.size()) ;
-		myscpfile.close() ;
-	}
-	else
-	{
-		cerr<< "Cannot open " << filename << ": " << strerror(errno) <<endl;
-		exit(1) ;
-	}
-
-
-
-/*
-	FILE *fp;
-    char buf[1024], section_name[256];
-    int count = 0;
-    
-    entries.clear();
-    
-    if (!(fp = fopen(filename, "r")))
-	{
-        fprintf(stderr, "Cannot open %s: %s", filename, strerror(errno));
-        exit(1);
-    }
-    clConsole.send("Reloading %-15s: ", filename); fflush (stdout);
-
-    // Snarf the part of SECTION... until EOL
-	unsigned long loopexit=0;
-    while( (fgets(buf, sizeof(buf), fp)) && (++loopexit < MAXLOOPS) )
-        if (sscanf(buf, "SECTION %256[^\n]", section_name) == 1)
-		{
-
-			if (section_name[0] == 'x')
-			{
-				mstring sScript1(section_name);
-				sScript1.trim();
-				vector<mstring> Tokens = sScript1.split("x");
-				int i;
-				for (i = 0; i < Tokens.size(); i++)
-				{
-					ScriptEntry section;
-					section.name = Tokens[i];
-					section.offset = ftell(fp);
-					entries.insert(make_pair(section.name, section));
-				}
-			} else {
-				ScriptEntry section;
-				section.name = section_name;
-				section.offset =  ftell(fp);
-				entries.insert(make_pair(section.name, section));
-			}
-        }
-
-    clConsole.send("%6d sections found.\n", entries.size());
-    
-    fclose(fp);
-*/
-}
-#endif
-
 void Script::MakeIndexForMem()
 {
     char section_name[256];
@@ -301,13 +172,13 @@ void Script::MakeIndexForMem()
 			{
 				if (section_name[0] == 'x')
 				{
-					mstring sScript1(section_name);
-					vector<mstring> Tokens = sScript1.split("x");
+					QString sScript1(section_name);
+					QStringList Tokens = QStringList::split( "x", sScript1 );
 					unsigned int i;
 					for (i = 0; i < Tokens.size(); i++)
 					{
 						ScriptEntry section;
-						section.name = Tokens[i];
+						section.name = Tokens[i].latin1();
 						section.offset = (unsigned long) curmempos;
 						entries.insert(make_pair(section.name, section));
 					}

@@ -59,7 +59,6 @@ class TileCache_cl ;
 
 #include "wpconsole.h"
 
-#include "mstring.h"
 #include "mulstructs.h"
 #include "tileflags.h"
 //Any externals we need

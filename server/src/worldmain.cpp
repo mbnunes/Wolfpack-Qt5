@@ -562,7 +562,7 @@ void loaditem (int x) // Load an item from WSC
 			else if (!(strcmp((char*)script1, "CONT")))
 			{
 				i=str2num(script2);
-				pi->SetContSerial(i);
+				pi->setContSerial(i);
 			}
 			else if (!(strcmp((char*)script1, "CORPSE"))) { pi->corpse=str2num(script2); }
 			else if (!(strcmp((char*)script1, "CARVE"))) { pi->carve=str2num(script2); }
@@ -840,7 +840,7 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 		pi->timeused_last = getNormalizedTime();
 		// Set the outside indices
 		pi->SetSpawnSerial(pi->spawnserial);
-		pi->SetContSerial(pi->contserial);
+		pi->setContSerial(pi->contserial);
 		pi->SetOwnSerial(pi->ownserial);
 
 		if (pi->spawnregion < 0)
@@ -1435,7 +1435,7 @@ static void decay1(P_ITEM pi, P_ITEM pItem)
 				if ((pi_j->contserial==pi->serial) &&
 					(pi_j->layer()!=0x0B)&&(pi_j->layer()!=0x10))
 				{
-					pi_j->SetContSerial(-1);
+					pi_j->setContSerial(-1);
 					pi_j->moveTo(pi->pos);
 					Items->DeleItem(pi_j);
 				}

@@ -1136,13 +1136,11 @@ void command_wipe(UOXSOCKET s)
 		clickx[s]=-1;
 		clicky[s]=-1;
 		target(s,0,1,0,199,"Select first corner of wiping box.");  // 199 didn't seem taken...
-	} else if (tnum==2) {
-		mstring dummy = Commands->params[1];
-		dummy.lower();
-		if (!strcmp("all", dummy.c_str())) {
-			// Really should warn that this will wipe ALL objects...
+	} else if( tnum == 2 ) {
+		// Really should warn that this will wipe ALL objects...
+		if( Commands->params[ 1 ].lower().compare( "all" ) )
 			Commands->Wipe(s);
-	}}
+	}
 	else if (tnum==5) { // Wipe according to world coordinates
 		clickx[s]=makenumber(1);
 		clicky[s]=makenumber(2);
@@ -1166,12 +1164,7 @@ void command_iwipe(UOXSOCKET s)
 		clickx[s]=-1;
 		clicky[s]=-1;
 		target(s,0,1,0,199,"Select first corner of inverse wiping box.");  // 199 didn't seem taken...
-	} else if (tnum==2) {
-		mstring dummy = Commands->params[1];
-		dummy.lower();
-		if (!strcmp("all", dummy.c_str())) {
-			sysmessage(s, tr("Well aren't you the funny one!"));
-	}}
+	}
 	else if (tnum==5) { // Wipe according to world coordinates
 		clickx[s]=makenumber(1);
 		clicky[s]=makenumber(2);
@@ -1230,7 +1223,7 @@ void command_rename(UOXSOCKET s)
 {
 	if (tnum>1)
 	{
-		strcpy(xtext[s], Commands->GetAllParams().c_str());
+		strcpy(xtext[s], Commands->GetAllParams().latin1());
 		target(s, 0, 1, 0, 1, "Select item or character to rename.");
 	}
 }
@@ -1240,17 +1233,17 @@ void command_title(UOXSOCKET s)
 {
 	if (tnum>1)
 	{
-		strcpy(xtext[s], Commands->GetAllParams().c_str());
+		strcpy(xtext[s], Commands->GetAllParams().latin1());
 		target(s, 0, 1, 0, 47, "Select character to change the title of.");
 	}
 }
 
 
+// Saves the world (from dr. evil?)
 void command_save(UOXSOCKET s)
-// Saves the current world data into ITEMS.WSC and CHARS.WSC.
 {
-	if ( !Commands->GetAllParams().empty() )
-		cwmWorldState->savenewworld( Commands->GetAllParams().c_str() );
+	if ( !Commands->GetAllParams().isEmpty() )
+		cwmWorldState->savenewworld( Commands->GetAllParams().latin1() );
 	else
 		cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
 	SrvParams->flush();
@@ -1431,7 +1424,7 @@ void command_web(UOXSOCKET s)
 {
 	if (tnum>1)
 	{
-		strcpy(xtext[s], Commands->params[1].c_str());
+		strcpy(xtext[s], Commands->params[1].latin1());
 		weblaunch(s, xtext[s]);
 	}
 	return;
@@ -1450,10 +1443,12 @@ void command_tell(UOXSOCKET s)
 {
 	if (tnum>2) 
 	{ 
-		mstring dummy = Commands->GetAllParams();
-		int m = makenumber(1);
-		if (m<0) sysbroadcast(dummy.c_str()); else
-			tellmessage(s, makenumber(1), (char*) dummy.c_str());
+		QString dummy = Commands->GetAllParams();
+		int m = makenumber( 1 );
+		if( m < 0 ) 
+			sysbroadcast( dummy.latin1() ); 
+		else
+			tellmessage( s, makenumber(1), dummy.latin1() );
 	}
 	return;
 }
@@ -1528,7 +1523,7 @@ void command_additem(UOXSOCKET s)
 	// This sucks so bad *argh*
 	if( tnum == 2 )
 	{
-		strcpy(xtext[s], Commands->GetAllParams().c_str());
+		strcpy(xtext[s], Commands->GetAllParams().latin1());
 		sprintf( (char*)temp, "Select location for item %s", xtext[ s ] );
 		target( s, 0, 1, 0, 26, (char*)temp );
 	}
@@ -1564,9 +1559,9 @@ void command_command(UOXSOCKET s)
 		i=0;
 		script1[0]=0;
 		script2[0]=0;
-		strcpy((char*)script1, Commands->params[1].c_str());
+		strcpy((char*)script1, Commands->params[1].latin1());
 		if (Commands->params.size() > 2)
-			strcpy((char*)script2, Commands->params[2].c_str());
+			strcpy((char*)script2, Commands->params[2].latin1());
 		scriptcommand(s, script1, script2);
 	}
 	return;
@@ -1629,7 +1624,7 @@ void command_set(UOXSOCKET s)
 {
 	// DISABLED BY DARKSTORM FOR EVENT TESTING STUFF
 	// /SET EVENTS +A,-B
-	QString commandLine = Commands->GetAllParams().c_str();
+	QString commandLine = Commands->GetAllParams().latin1();
 
 	SocketStrings[ s ] = commandLine.ascii();
 
@@ -2069,14 +2064,21 @@ void command_killall(UOXSOCKET s)
 {
 	if(tnum>2)
 	{
-		mstring dummy = Commands->GetAllParams();
-		dummy = dummy.substr(dummy.find_first_not_of(" "));
-		if(makenumber(1)<10)
-			Commands->KillAll(s, makenumber(1), dummy.c_str());
-		else if (makenumber(1)<100)
-			Commands->KillAll(s, makenumber(1), dummy.c_str());
+		//QString dummy( Commands->GetAllParams() );
+		//dummy = dummy.substr(dummy.find_first_not_of(" "));
+		QString text = Commands->GetAllParams();
+
+		if( !text.contains( " " ) )
+			text = "";
 		else
-			Commands->KillAll(s, makenumber(1), dummy.c_str());
+			text = text.right( text.length() - text.find( " " ) );
+
+		if(makenumber(1)<10)
+			Commands->KillAll(s, makenumber(1), text.latin1());
+		else if (makenumber(1)<100)
+			Commands->KillAll(s, makenumber(1), text.latin1());
+		else
+			Commands->KillAll(s, makenumber(1), text.latin1());
 	}
 	return;
 	
@@ -2100,7 +2102,7 @@ void command_rename2(UOXSOCKET s)
 	 if (tnum>1)
 	 {
 		 addx[s]=1;
-		 strcpy(xtext[s], Commands->GetAllParams().c_str());
+		 strcpy(xtext[s], Commands->GetAllParams().latin1());
 		 target(s, 0, 1, 0, 1, "Select item or character to rename.");
 	 } 
 	 return;
@@ -2126,7 +2128,7 @@ void command_gy(UOXSOCKET s)
 	short tl;
 	P_CHAR pc_currchar = currchar[s];
 	
-	sprintf(xtext[s], "(GM ONLY): %s", Commands->GetAllParams().c_str());//AntiChrist bugfix - cms_offset+4, not +7
+	sprintf(xtext[s], "(GM ONLY): %s", Commands->GetAllParams().latin1());//AntiChrist bugfix - cms_offset+4, not +7
 	tl=44+strlen(&xtext[s][0])+1;			
 	
 	ShortToCharPtr(tl, &talk[1]);
@@ -2511,7 +2513,7 @@ void command_sysm(UOXSOCKET s)
 		sysmessage(s, tr("There are no other users connected.")); 
 		return; 
 	}	
-	strcpy(xtext[s], Commands->GetAllParams().c_str()); 
+	strcpy(xtext[s], Commands->GetAllParams().latin1()); 
 	sysbroadcast(xtext[s]); 
 } 
 

@@ -189,7 +189,7 @@ void cTrade::buyaction(int s)
 						case 0x1B:
 							if (pi->pileable)
 							{
-								pi->SetContSerial(pi_pack->serial);
+								pi->setContSerial(pi_pack->serial);
 								RefreshItem(buyit[i]);//AntiChrist
 							}
 							else
@@ -198,7 +198,7 @@ void cTrade::buyaction(int s)
 								{
 									Commands->DupeItem(s, buyit[i], 1);
 								}
-								pi->SetContSerial(pi_pack->serial);
+								pi->setContSerial(pi_pack->serial);
 								pi->setAmount( 1 );
 								RefreshItem(buyit[i]);//AntiChrist
 							}
@@ -378,7 +378,7 @@ void cTrade::sellaction(int s)
 			}
 			else
 			{
-				pSell->SetContSerial(pNoRestock->serial);
+				pSell->setContSerial(pNoRestock->serial);
 				SndRemoveitem(pSell->serial);
 				if( pSell->amount() != amt )
 					Commands->DupeItem( s, pSell, pSell->amount() - amt );
@@ -426,7 +426,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	if(pi_ps == NULL)
 		return 0;
 	pi_ps->pos = Coord_cl(26, 0, 0);
-	pi_ps->SetContSerial(pc_currchar->serial);
+	pi_ps->setContSerial(pc_currchar->serial);
 	pi_ps->setLayer( 0 );
 	pi_ps->setType( 1 );
 	pi_ps->dye=0;
@@ -438,7 +438,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	if (pi_pi == NULL)
 		return 0;
 	pi_pi->pos = Coord_cl(26, 0, 0);
-	pi_pi->SetContSerial(pc_i->serial);
+	pi_pi->setContSerial(pc_i->serial);
 	pi_pi->setLayer( 0 );
 	pi_pi->setType( 1 );
 	pi_pi->dye=0;

@@ -173,7 +173,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	pc->setHoldg(pc->holdg() + pi->value); // putting the gold to the vendor's "pocket"
 
 	// sends item to the proud new owner's pack
-	pi->SetContSerial(pBackpack->serial);
+	pi->setContSerial(pBackpack->serial);
 	RefreshItem(pi);
 
 }
@@ -692,7 +692,7 @@ static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 		if (pPack == NULL)
 			return;
 		pc->packitem = pPack->serial; 
-		pPack->SetContSerial(pc_c->serial);
+		pPack->setContSerial(pc_c->serial);
 		pPack->setLayer( 0x15 );
 		pPack->setType( 1 );
 		pPack->dye=1;
@@ -714,7 +714,7 @@ static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 			pi->pos.x=(rand()%80)+50;
 			pi->pos.y=(rand()%80)+50;
 			pi->pos.z=9;
-			pi->SetContSerial(pPack->serial);
+			pi->setContSerial(pPack->serial);
 			pi->setLayer( 0x00 );
 			SndRemoveitem(pi->serial);
 			RefreshItem(pi);
@@ -1381,7 +1381,7 @@ static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it
 		if (pi != NULL) // crashfix LB
 		{
 			pi->moveTo( clTemp4 );
-			pi->SetContSerial(INVALID_SERIAL);
+			pi->setContSerial(INVALID_SERIAL);
 			pi->setGMMovable(); //make item unmovable once thrown
 			movingeffect2(pc_currchar, pi, 0x0F, 0x0D, 0x11, 0x00, 0x00);
 			RefreshItem(pi);
@@ -1580,7 +1580,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		sprintf((char*)temp,"the head of %s",pi3->name2().ascii());
 		P_ITEM pi = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA0,0,0,0);
 		if(pi == NULL) return;
-		pi->SetContSerial(pi3->serial);
+		pi->setContSerial(pi3->serial);
 		pi->setLayer( 0x01 );
 		pi->att=5;
 
@@ -1592,7 +1592,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		sprintf((char*)temp,"the heart of %s",pi3->name2().ascii());
 		P_ITEM pi4 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1C,0xED,0,0,0);
 		if(pi4 == NULL) return;
-		pi4->SetContSerial(pi3->serial);
+		pi4->setContSerial(pi3->serial);
 		pi4->setLayer( 0x01 );
 		pi4->att=5;
 		pi4->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1601,7 +1601,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		sprintf((char*)temp,"the body of %s",pi3->name2().ascii());
 		P_ITEM pi5 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xAD,0,0,0);
 		if(pi5 == NULL) return;
-		pi5->SetContSerial(pi3->serial);
+		pi5->setContSerial(pi3->serial);
 		pi5->setLayer( 0x01 );
 		pi5->att=5;
 		pi5->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1610,7 +1610,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		sprintf((char*)temp,"the left arm of %s",pi3->name2().ascii());
 		P_ITEM pi6 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA1,0,0,0);
 		if(pi6==NULL) return;
-		pi6->SetContSerial(pi3->serial);
+		pi6->setContSerial(pi3->serial);
 		pi6->setLayer( 0x01 );
 		pi6->att=5;
 		pi6->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1619,7 +1619,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		sprintf((char*)temp,"the right arm of %s",pi3->name2().ascii());
 		P_ITEM pi7 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA2,0,0,0);
 		if(pi7==NULL) return;//AntiChrist to preview crashes
-		pi7->SetContSerial(pi3->serial);
+		pi7->setContSerial(pi3->serial);
 		pi7->setLayer( 0x01 );
 		pi7->att=5;
 		pi7->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1628,7 +1628,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		sprintf((char*)temp,"the left leg of %s",pi3->name2().ascii());
 		P_ITEM pi8 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA3,0,0,0);
 		if(pi8 == NULL) return;//AntiChrist to preview crashes
-		pi8->SetContSerial(pi3->serial);
+		pi8->setContSerial(pi3->serial);
 		pi8->setLayer( 0x01 );
 		pi8->att=5;
 		pi8->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1638,7 +1638,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		P_ITEM pi9=Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA4,0,0,0);
 		if(pi9==NULL) return;
 		
-		pi9->SetContSerial(pi3->serial);
+		pi9->setContSerial(pi3->serial);
 		pi9->setLayer( 0x01 );
 		pi9->att=5;
 		pi9->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1670,7 +1670,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 					if (pi10 == NULL)
 						return;
 					pi10->setLayer( 0x00 );
-					pi10->SetContSerial(pi3->serial);
+					pi10->setContSerial(pi3->serial);
 					pi10->pos.x=20+(rand()%50);
 					pi10->pos.y=85+(rand()%75);
 					pi10->pos.z=9;
@@ -1696,7 +1696,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pj = FindItemBySerial(vecContainer[ci]);
-			pj->SetContSerial(-1);
+			pj->setContSerial(-1);
 			pj->moveTo(pi3->pos);
 			pj->startDecay();
 			RefreshItem(pj);
@@ -3139,7 +3139,7 @@ bool cTargets::NpcResurrectTarget(P_CHAR pc)
 
 				P_ITEM pi = Items->SpawnItem(pc, 1, "a robe", 0, 0x1F03, 0, 0);
 				if(!pi) return false;
-				pi->SetContSerial(pc->serial);
+				pi->setContSerial(pc->serial);
 				pi->setLayer( 0x16 );
 				pi->dye=1;
 				break;
@@ -4088,7 +4088,7 @@ void cTargets::MoveToBagTarget(int s)
 	P_ITEM pBackpack = Packitem(pc_currchar);
 	if(pBackpack == NULL) return;
 	
-	pi->SetContSerial(pBackpack->serial);
+	pi->setContSerial(pBackpack->serial);
 	pi->pos.x=50+rand()%80;
 	pi->pos.y=50+rand()%80;
 	pi->pos.z=9;
@@ -4417,44 +4417,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 			LogErrorVar("Fallout of switch statement, multitarget(), value=(%i)",pt->Tnum);
 		}
 	}
-	else if ((buffer[s][2]==0)&&(buffer[s][3]==2)&&(buffer[s][4]==0))
-	{
-		cUObject *TargetObject = NULL;
-
-		if(buffer[s][7]>=0x40) // an item's serial ?
-		{
-			TargetObject = FindItemBySerial(pt->Tserial);
-		}
-		else
-		{
-			TargetObject = FindCharBySerial(pt->Tserial);
-		}
-
-		if( TargetObject == NULL )
-			return;
-
-		vector< mstring > Elements;
-		mstring Command = SocketStrings[ s ];
-		SocketStrings[ s ].resize( 0 );
-
-		Elements = Command.split( " ", 2 );
-
-		if( Elements.size() > 1 )
-			Command = Elements[ 1 ];
-		else
-			return;
-
-		Command.trim();
-
-		switch(pt->Tnum)
-		{
-		// Set Events
-		case 0: 
-			//TargetObject->setEvents( Command );
-		default:
-			LogErrorVar("Fallout of switch statement 2, multitarget(), value=(%i)",pt->Tnum);
-		}
-	}
 }
 
 void cTargets::AddItem( UOXSOCKET s )
@@ -4490,7 +4452,7 @@ void cTargets::AddItem( UOXSOCKET s )
 		return;
 	}
 
-	Item->SetContSerial( -1 );
+	Item->setContSerial( -1 );
 	Item->MoveTo( TargetX, TargetY, TargetZ );
 	RefreshItem( Item );
 }

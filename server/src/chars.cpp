@@ -336,7 +336,7 @@ P_ITEM cChar::GetBankBox( short banktype )
 		return NULL;
 	pi->setLayer( 0x1D );
 	pi->SetOwnSerial(this->serial);
-	pi->SetContSerial(this->serial);
+	pi->setContSerial(this->serial);
 	pi->morex=1;
 	if(SrvParams->useSpecialBank() && banktype == 1)//AntiChrist - Special Bank
 		pi->morey=123;//gold only bank

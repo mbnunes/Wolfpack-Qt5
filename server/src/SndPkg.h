@@ -127,7 +127,7 @@ int sellstuff(UOXSOCKET s, P_CHAR pc);
 void playmidi(int s, char num1, char num2);
 void sendtradestatus(P_ITEM cont1, P_ITEM cont2);
 void endtrade(SERIAL);
-void tellmessage(int i, int s, char *txt);
+void tellmessage(int i, int s, const char *txt);
 void PlayDeathSound( P_CHAR pc );
 void sysmessage(UOXSOCKET s, char *txt, ...); // System message (In lower left corner);
 void sysmessage(UOXSOCKET s, short color, char *txt, ...);

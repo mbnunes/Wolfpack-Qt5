@@ -2172,7 +2172,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 			P_ITEM pi_pack = Packitem(pc_currchar);
 			if (pi_pack == NULL) 
 				return;
-			pi->SetContSerial(pi_pack->serial);
+			pi->setContSerial(pi_pack->serial);
 			sysmessage(s, tr("You successfully steal that item.") );
 			all_items(s);
 		} else sysmessage(s, tr("You failed to steal that item.") );

@@ -520,7 +520,7 @@ PyObject* PyWPItems_add( PyObject* self, PyObject* args )
 			P_ITEM container = ((Py_WPItem*)object)->Item;
 			
 			// Put the item into the container
-			nItem->SetContSerial( container->serial );
+			nItem->setContSerial( container->serial );
 			RefreshItem( nItem );
 		}
 	}

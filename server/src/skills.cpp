@@ -492,7 +492,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			pik->more3 = pi->more3;
 			pik->more4 = pi->more4;
 			pik->creator = pc_currchar->name;	// Store the creator
-			pik->SetContSerial(pi->serial);			// Set the container
+			pik->setContSerial(pi->serial);			// Set the container
 			pik->SetRandPosInCont(pi);				// Put the damn thing in the container
 			RefreshItem(pik);							// Refresh it
 			sysmessage(s, "You create a corresponding key and put it in the chest");
@@ -1639,7 +1639,7 @@ void cSkills::RandomSteal(int s)
 		skill = Skills->CheckSkill(pc_currchar, STEALING, 0, 999);
 		if (skill)
 		{
-			item->SetContSerial(pc_currchar->packitem);
+			item->setContSerial(pc_currchar->packitem);
 			sysmessage(s,"You successfully steal that item.");
 			all_items(s);
 		} else sysmessage(s, "You failed to steal that item.");

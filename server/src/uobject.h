@@ -35,7 +35,6 @@
 #include "platform.h"
 #include "typedefs.h"
 #include "coord.h"
-#include "mstring.h"
 #include "iserialization.h"
 //#include "WPDefaultScript.h"
 

@@ -3056,7 +3056,7 @@ void endtrade(SERIAL serial)
 			{
 				if (pi->glow != INVALID_SERIAL) 
 					glowsp.remove(pc2->serial, pi->serial); // lb, glowing stuff
-				pi->SetContSerial(pi_bp1->serial);
+				pi->setContSerial(pi_bp1->serial);
 				if (pi->glow != INVALID_SERIAL) 
 					glowsp.insert(pc1->serial, pi->serial);
 				pi->pos.x = RandomNum(50, 130);
@@ -3076,7 +3076,7 @@ void endtrade(SERIAL serial)
 			{
 				if (pi->glow != INVALID_SERIAL) 
 					glowsp.remove(pc2->serial, pi->serial); // lb, glowing stuff
-				pi->SetContSerial(pi_bp2->serial);
+				pi->setContSerial(pi_bp2->serial);
 				if (pi->glow != INVALID_SERIAL) 
 					glowsp.insert(pc1->serial, pi->serial);
 				pi->pos.x=50+(rand()%80);
@@ -3090,7 +3090,7 @@ void endtrade(SERIAL serial)
 	Items->DeleItem(pi_cont2);
 }
 
-void tellmessage(int i, int s, char *txt)
+void tellmessage(int i, int s, const char *txt)
 {
 	int tl;
 	P_CHAR pc_currchar = currchar[s];
