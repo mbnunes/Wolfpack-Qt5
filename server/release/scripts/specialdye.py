@@ -3,35 +3,24 @@ import wolfpack.gumps
 import wolfpack
 from wolfpack.consts import *
 from wolfpack import properties
-import system.lootlists
-
-ARMORLIST = system.lootlists.DEF_STUDDED + system.lootlists.DEF_LEATHER
 
 HUES = [
-	# Dull Copper
-	[ 1018332, 2419, 2420, 2421, 2422, 2423, 2424 ],
-	# Shadow Iron
-	[ 1018333, 2406, 2407, 2408, 2409, 2410, 2411, 2412 ],
-	# Copper
-	[ 1018334, 2413, 2414, 2415, 2416, 2417, 2418 ],
-	# Bronze
-	[ 1018335, 2414, 2415, 2416, 2417, 2418 ],
-	# Golden
-	[ 1018336, 2213, 2214, 2215, 2216, 2217, 2218 ],
-	# Agapite
-	[ 1018337, 2425, 2426, 2427, 2428, 2429, 2430 ],
-	# Verite
-	[ 1018338, 2207, 2208, 2209, 2210, 2211, 2212 ],
-	# Valorite
-	[ 1018339, 2219, 2220, 2221, 2222, 2223, 2224 ],
-	# Reds
-	[ 1018340, 2113, 2114, 2115, 2116, 2117, 2118 ],
-	# Blues
-	[ 1018341, 2119, 2120, 2121, 2122, 2123, 2124 ],
-	# Greens
-	[ 1018342, 2126, 2127, 2128, 2129, 2130 ],
-	# Yellows
-	[ 1018343, 2213, 2214, 2215, 2216, 2217, 2218 ],
+	# Violet 
+	[1018345, 1230, 1231, 1232, 1233, 1234, 1235],
+	# Tan 
+	[1018346, 1501, 1502, 1503, 1504, 1505, 1506, 1507, 1508],
+	# Brown 
+	[1018347, 2012, 2013, 2014, 2015, 2016, 2017],
+	# Dark Blue 
+	[1018348, 1303, 1304, 1305, 1306, 1307, 1308],
+	# Forest Green 
+	[1018349, 1420, 1421, 1422, 1423, 1424, 1425, 1426],
+	# Pink 
+	[1018350, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626],
+	# Red 
+	[1018351, 1640, 1641, 1642, 1643, 1644],
+	# Olive 
+	[1018352, 2001, 2002, 2003, 2004, 2005],
 ]
 
 #
@@ -65,7 +54,7 @@ def pickHueCallback(player, arguments, response):
 		player.soundeffect(0x023e)
 
 #
-# Leather Dyetub
+# Special Dyetub
 #
 def pickHue(player, dyetub):
 	dialog = wolfpack.gumps.cGump()
@@ -110,8 +99,8 @@ def target(player, arguments, target):
 		player.socket.clilocmessage(500446)
 		return
 		
-	if not target.item:
-		player.socket.clilocmessage(1042418) # You can only dye leather with this tub.
+	if not target.item or not target.item.dye:
+		player.socket.clilocmessage(1042083) # You can not dye that.
 		return
 
 	if target.item.getoutmostchar() != player:
@@ -122,18 +111,13 @@ def target(player, arguments, target):
 		player.socket.clilocmessage(500861) # Can't Dye clothing that is being worn.
 		return
 		
-	global ARMORLIST
-	if not properties.itemcheck(target.item, ITEM_ARMOR) or target.item.baseid not in ARMORLIST:
-		player.socket.clilocmessage(1042418) # Can only dye leaether
-		return	
-	
 	target.item.color = dyetub.color
 	target.item.update()
 	player.log( LOG_MESSAGE, "Dying item (%x,%x) using tub (%x,%x)\n" % ( target.item.serial, target.item.color, dyetub.serial, dyetub.color ) )
 	player.soundeffect(0x23e)
 
 #
-# Dye a leather item
+# Dye an item
 #
 def onUse(player, item):
 	if not player.canreach(item, 1):
@@ -141,6 +125,6 @@ def onUse(player, item):
 		return True
 		
 	# Show dye target
-	player.socket.clilocmessage(1042416)
-	player.socket.attachtarget("leatherdye.target", [item.serial])
+	player.socket.clilocmessage(500859) # Select the clothing to dye.
+	player.socket.attachtarget("specialdye.target", [item.serial])
 	return True

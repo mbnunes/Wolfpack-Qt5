@@ -378,7 +378,7 @@
 	<item id="fa9">
 		<id>0xfa9</id>
 		<category>Professions\Tailorer\Dyes</category>
-		<tag name="remaining_uses" type="int" value="10" />
+		<tag name="remaining_uses" type="int" value="30" />
 		<basescripts>dyes</basescripts>
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
@@ -400,7 +400,26 @@
 		<category>Professions\Tailorer\Leather Dye Tub</category>
 		<basescripts>leatherdye</basescripts>
 		<weight>10.0</weight>
+		<newbie />
 	</item>
+	
+	<item id="specialdye">
+		<name>#1041285</name>
+		<id>0xfab</id>
+		<category>Professions\Tailorer\Special Dye Tub</category>
+		<basescripts>specialdye</basescripts>
+		<weight>10.0</weight>
+		<newbie />
+	</item>
+	
+	<item id="runedye">
+		<name>#1049740</name>
+		<id>0xfab</id>
+		<category>Professions\Tailorer\Rune Dye Tub</category>
+		<basescripts>runedye</basescripts>
+		<weight>10.0</weight>
+		<newbie />
+	</item>		
 
 	<item id="1015">
 		<id>0x1015</id>

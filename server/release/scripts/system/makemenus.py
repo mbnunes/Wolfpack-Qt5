@@ -231,7 +231,7 @@ class CraftItemAction(MakeItemAction):
 			
 		elif node.name in submaterial2names:		
 			self.submaterial2 = hex2dec(node.getattribute('amount', '0'))
-		
+				
 		# Normal Material
 		elif node.name == 'material':
 			if not node.hasattribute('id'):
@@ -246,7 +246,7 @@ class CraftItemAction(MakeItemAction):
 					console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
 					return
 				self.materials.append([ids, amount, materialname])
-
+				
 		# Skill requirement
 		elif node.name in skillnamesids:
 			skill = skillnamesids[node.name]

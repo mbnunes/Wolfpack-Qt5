@@ -1,6 +1,8 @@
 
 import wolfpack
 import leatherdye
+import specialdye
+import runedye
 
 #
 # Check the dyes
@@ -40,10 +42,10 @@ def target(player, arguments, target):
 	# Needs to in our belongings
 	if target.item.getoutmostchar() != player:
 		player.socket.clilocmessage(500364)
-		return	
+		return
 	
 	# Check the target
-	if not target.item or target.item.baseid not in ['fab', 'leatherdye']:
+	if not target.item or target.item.baseid not in ['fab', 'leatherdye', 'specialdye', 'runedye']:
 		player.socket.clilocmessage(500857)
 		return
 
@@ -56,6 +58,12 @@ def target(player, arguments, target):
 
 	if target.item.baseid == 'leatherdye':
 		leatherdye.pickHue(player, target.item) # Use special dye gump
+		return
+	elif target.item.baseid == 'specialdye':
+		specialdye.pickHue(player, target.item) # Use special dye gump
+		return
+	elif target.item.baseid == 'runedye':
+		runedye.pickHue(player, target.item) # Use special dye gump
 		return
 
 	# Send the dye dialog

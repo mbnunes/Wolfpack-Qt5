@@ -3,9 +3,7 @@ import wolfpack.gumps
 import wolfpack
 from wolfpack.consts import *
 from wolfpack import properties
-import system.lootlists
-
-ARMORLIST = system.lootlists.DEF_STUDDED + system.lootlists.DEF_LEATHER
+import magic.runebook
 
 HUES = [
 	# Dull Copper
@@ -65,7 +63,7 @@ def pickHueCallback(player, arguments, response):
 		player.soundeffect(0x023e)
 
 #
-# Leather Dyetub
+# Runebook Dyetub
 #
 def pickHue(player, dyetub):
 	dialog = wolfpack.gumps.cGump()
@@ -110,30 +108,21 @@ def target(player, arguments, target):
 		player.socket.clilocmessage(500446)
 		return
 		
-	if not target.item:
-		player.socket.clilocmessage(1042418) # You can only dye leather with this tub.
+	if not target.item or (not magic.runebook.isRunebook(target.item) and not target.item.baseid in ['1f14', '1f15', '1f16', '1f17']):
+		player.socket.clilocmessage(1049775) # You can only dye runestones or runebooks with this tub.
 		return
 
 	if target.item.getoutmostchar() != player:
 		player.socket.clilocmessage(500446) # Too far away
 		return
-		
-	if target.item.container == player:
-		player.socket.clilocmessage(500861) # Can't Dye clothing that is being worn.
-		return
-		
-	global ARMORLIST
-	if not properties.itemcheck(target.item, ITEM_ARMOR) or target.item.baseid not in ARMORLIST:
-		player.socket.clilocmessage(1042418) # Can only dye leaether
-		return	
-	
+
 	target.item.color = dyetub.color
 	target.item.update()
 	player.log( LOG_MESSAGE, "Dying item (%x,%x) using tub (%x,%x)\n" % ( target.item.serial, target.item.color, dyetub.serial, dyetub.color ) )
 	player.soundeffect(0x23e)
 
 #
-# Dye a leather item
+# Dye an item
 #
 def onUse(player, item):
 	if not player.canreach(item, 1):
@@ -141,6 +130,6 @@ def onUse(player, item):
 		return True
 		
 	# Show dye target
-	player.socket.clilocmessage(1042416)
-	player.socket.attachtarget("leatherdye.target", [item.serial])
+	player.socket.clilocmessage(1049774) # Target the runebook or runestone to dye
+	player.socket.attachtarget("runedye.target", [item.serial])
 	return True
