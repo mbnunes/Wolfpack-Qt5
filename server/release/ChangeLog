@@ -48,6 +48,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - Fix with spawnregion data. UShort != UInt
   - Added socket.denymove to send packets to deny movement
   - Fixed a crashbug with invalid function names passed to .addtimer()
+  - Added the ability to make yourself visible to other players.
+  - Guildbutton now triggers onGuildButton(player) python event.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.
@@ -79,6 +81,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Implemented telem command.
   - Added onConnect to system.players
   - Fixes for moongate.py
+  - Guild button now opens guildstone menu by default.
  * Misc. Changes:
   - FAQ Updates.
  * Known Issues, Bugs, and Missing Features:
