@@ -2,18 +2,27 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: sereg	                        |
-|   )).-' {{ ;'`   | Revised by:                                |
+|   )).-' {{ ;'`   | Revised by: DarkStorm                      |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
 <definitions>
+	<item id="axe_base">
+		<type>1002</type>
+	</item>
+
 	<!-- Two Handed Axe -->
 	<item id="1442">
-		<durability>50</durability>
-		<twohanded />
-		<type>1002</type>
+		<inherit id="axe_base" />
 		<id>0x1442</id>
 		<category>Weapons\Axes\Two Handed Axe (W/E)</category>
+		<twohanded />
+
+		<!-- Weapon Properties -->
+		<requires type="str">35</requires>
+		<attack min="5" max="39" />
+		<speed>30</speed>
+		<durability><random min="31" max="70" /></durability>
 	</item>
 
 	<item id="1443">
@@ -24,11 +33,16 @@
 
 	<!-- Large Battle Axe -->
 	<item id="13fa">
+		<inherit id="axe_base" />
 		<id>0x13fa</id>
-		<durability>50</durability>
-		<twohanded />
-		<type>1002</type>
 		<category>Weapons\Axes\Large Battle Axe (W/E)</category>
+		<twohanded />
+
+		<!-- Weapon Properties -->
+		<requires type="str">40</requires>
+		<attack min="6" max="38" />
+		<speed>30</speed>
+		<durability><random min="31" max="110" /></durability>
 	</item>
 
 	<item id="13fb">
@@ -37,128 +51,103 @@
 		<category>Weapons\Axes\Large Battle Axe (W/E)</category>
 	</item>
 
-	<!-- War Axe -->
-	<item id="13af">
-		<id>0x13af</id>
-		<durability>50</durability>
-		<twohanded />
-		<type>1002</type>
-		<category>Weapons\Axes\War Axe (N/S)</category>
-	</item>
-
-	<item id="13b0">
-		<inherit id="13af" />
-		<id>0x13b0</id>
-		<category>Weapons\Axes\War Axe (N/S)</category>
-	</item>
-
 	<!-- Hatchet -->
 	<item id="f43">
+		<inherit id="axe_base" />
 		<id>0xf43</id>
+		<category>Weapons\Axes\Hatchet (N/S)</category>
 		<twohanded />
-		<attack min="2" max="17" />
-		<durability>50</durability>
-		<decay />
-		<value>35</value>
+
+		<!-- Weapon Properties -->
 		<requires type="str">15</requires>
-		<speed>15</speed>
-		<weight>4.0</weight>
-		<type>1002</type>
-		<category>Weapons\Axes\Hatchet N/S</category>
+		<attack min="2" max="17" />
+		<speed>40</speed>
+		<durability><random min="31" max="80" /></durability>
 	</item>
 	
 	<item id="f44">
 		<inherit id="f43" />
 		<id>0x0f44</id>
-		<type>1002</type>
-		<category>Weapons\Axes\Hatchet W/E</category>
+		<category>Weapons\Axes\Hatchet (W/E)</category>
 	</item>
 
 	<!-- Executioners Axe -->
 	<item id="f45">
+		<inherit id="axe_base" />
 		<id>0x0f45</id>
+		<category>Weapons\Axes\Executioner's Axe (N/S)</category>
 		<twohanded />
-		<attack min="6" max="33" />
-		<durability>60</durability>
-		<decay />
-		<value>85</value>
+
+		<!-- Weapon Properties -->
 		<requires type="str">35</requires>
+		<attack min="6" max="33" />
 		<speed>37</speed>
-		<weight>8.0</weight>
-		<type>1002</type>
-		<category>Weapons\Axes\Executioner's Axe W/E</category>
+		<durability><random min="31" max="90" /></durability>
 	</item>
 
 	<item id="f46">
 		<inherit id="f45" />
 		<id>0x0f46</id>
-		<type>1002</type>
-		<category>Weapons\Axes\Executioner's Axe W/E</category>
+		<category>Weapons\Axes\Executioner's Axe (W/E)</category>
 	</item>
 	
 	<!-- Battle Axe -->
 	<item id="f47">
+		<inherit id="axe_base" />
 		<id>0x0f47</id>
+		<category>Weapons\Axes\Battle Axe (N/S)</category>
 		<twohanded />
-		<attack min="6" max="38" />
-		<durability>110</durability>
-		<decay />
-		<value>35</value>
+
+		<!-- Weapon Properties -->
 		<requires type="str">40</requires>
+		<attack min="6" max="38" />
 		<speed>30</speed>
-		<weight>2.0</weight>
-		<type>1002</type>
-		<category>Weapons\Axes\Battle Axe N/S</category>
+		<durability><random min="31" max="80" /></durability>
 	</item>
 
 	<item id="f48">
 		<inherit id="f47" />
 		<id>0x0f48</id>
-		<type>1002</type>
-		<category>Weapons\Axes\Battle Axe W/E</category>
+		<category>Weapons\Axes\Battle Axe (W/E)</category>
 	</item>	
 	
 	<!-- Axe -->
 	<item id="f49">
+		<inherit id="axe_base" />
 		<id>0x0f49</id>
+		<category>Weapons\Axes\Axe (N/S)</category>
 		<twohanded />
-		<attack min="6" max="33" />
-		<durability>65</durability>
-		<decay />
-		<value>50</value>
+
+		<!-- Weapon Properties -->
 		<requires type="str">35</requires>
+		<attack min="6" max="33" />
 		<speed>37</speed>
-		<type>1002</type>
-		<category>Weapons\Axes\Axe N/S</category>
-		<weight>4.0</weight>
+		<durability><random min="31" max="100" /></durability>
 	</item>
 
 	<item id="f4a">
 		<inherit id="f49" />
 		<id>0x0f4a</id>
-		<type>1002</type>
-		<category>Weapons\Axes\Axe W/E</category>
+		<category>Weapons\Axes\Axe (W/E)</category>
 	</item>
 
 	<!-- Double Axe -->
 	<item id="f4b">
+		<inherit id="axe_base" />
 		<id>0x0f4b</id>
+		<category>Weapons\Axes\Double Axe (N/S)</category>
 		<twohanded />
-		<attack min="5" max="35" />
-		<durability>70</durability>
-		<decay />
-		<value>70</value>
+
+		<!-- Weapon Properties -->
 		<requires type="str">45</requires>
+		<attack min="5" max="35" />
 		<speed>37</speed>
-		<weight>8.0</weight>
-		<type>1002</type>
-		<category>Weapons\Axes\Double Axe N/S</category>
+		<durability><random min="31" max="110" /></durability>
 	</item>
 
 	<item id="f4c">
 		<inherit id="f4b" />
 		<id>0x0f4c</id>
-		<type>1002</type>
-		<category>Weapons\Axes\Double Axe W/E</category>
+		<category>Weapons\Axes\Double Axe (W/E)</category>
 	</item>
 </definitions>

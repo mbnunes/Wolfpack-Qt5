@@ -2,7 +2,7 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: sereg                          |
-|   )).-' {{ ;'`   | Revised by:                                |
+|   )).-' {{ ;'`   | Revised by: DarkStorm                      |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
@@ -10,71 +10,122 @@
 	<item id="fencing_base">
 		<events>weapons_blades</events>
 		<type>1005</type>
-		<durability><random min="50" max="75" /></durability>
-	</item>
-
-	<!-- Cleaver -->
-	<item id="ec2">
-		<inherit id="fencing_base" />
-		<id>0x0ec2</id>
-		<category>Weapons\Fencing\Cleaver (W/E)</category>
-	</item>
-
-	<item id="ec3">
-		<inherit id="ec2" />
-		<id>0x0ec3</id>
-		<category>Weapons\Fencing\Cleaver (N/S)</category>
-	</item>
-
-	<!-- Skinning Knive -->
-	<item id="ec4">
-		<id>0x0ec4</id>
-		<inherit id="fencing_base" />
-		<category>Weapons\Fencing\Skinning Knive (N/S)</category>
-	</item>
-
-	<item id="ec5">
-		<inherit id="ec4" />
-		<id>0x0ec5</id>
-		<category>Weapons\Fencing\Skinning Knive (W/E)</category>
 	</item>
 
 	<!-- Dagger -->
 	<item id="f51">
 		<id>0x0f51</id>
 		<inherit id="fencing_base" />
-		<category>Weapons\Fencing\Dagger (N/S)</category>
+		<category>Weapons\Knives &amp; Daggers\Dagger (N/S)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">1</requires>
+		<attack min="3" max="15" />
+		<speed>55</speed>
+		<durability><random min="31" max="50" /></durability>
 	</item>
 
 	<item id="f52">
 		<inherit id="f51" />
 		<id>0x0f52</id>
-		<category>Weapons\Fencing\Dagger (W/E)</category>
-	</item>
-
-	<!-- Butcher Knife -->
-	<item id="13f6">
-		<id>0x13f6</id>
-		<inherit id="fencing_base" />
-		<category>Weapons\Fencing\Butcher Knife (N/S)</category>
-	</item>
-
-	<item id="13f7">
-		<inherit id="13f6" />
-		<id>0x13f7</id>
-		<category>Weapons\Fencing\Butcher Knife (W/E)</category>
+		<category>Weapons\Knives &amp; Daggers\Dagger (W/E)</category>
 	</item>
 
 	<!-- Kryss -->
 	<item id="1400">
-		<id>0x1400</id>
 		<inherit id="fencing_base" />
-		<category>Weapons\Fencing\Kryss (W/E)</category>
+		<id>0x1400</id>
+		<category>Weapons\Swords\Kryss (W/E)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">10</requires>
+		<attack min="3" max="28" />
+		<speed>53</speed>
+		<durability><random min="31" max="90" /></durability>
 	</item>
 
 	<item id="1401">
 		<inherit id="1400" />
 		<id>0x1401</id>
-		<category>Weapons\Fencing\Kryss (N/S)</category>
+		<category>Weapons\Swords\Kryss (N/S)</category>
+	</item>
+
+	<!-- Spear -->
+	<item id="f62">
+		<id>0x0f62</id>
+		<inherit id="fencing_base" />
+		<category>Weapons\Spears &amp; Forks\Spear (N/S)</category>
+		<twohanded />
+
+		<!-- Weapon Properties -->
+		<requires type="str">30</requires>
+		<attack min="2" max="36" />
+		<speed>46</speed>
+		<durability><random min="31" max="80" /></durability>
+	</item>
+
+	<item id="f63">
+		<inherit id="f62" />
+		<id>0x0f63</id>
+		<category>Weapons\Spears &amp; Forks\Spear (W/E)</category>
+	</item>
+
+	<!-- Pitchfork -->
+	<item id="e87">
+		<inherit id="fencing_base" />
+		<id>0x0e87</id>
+		<category>Weapons\Spears &amp; Forks\Pitchfork (W/E)</category>
+		<twohanded />
+
+		<!-- Weapon Properties -->
+		<requires type="str">15</requires>
+		<attack min="4" max="16" />
+		<speed>45</speed>
+		<durability><random min="31" max="60" /></durability>
+	</item>
+
+	<item id="e88">
+		<inherit id="e87" />
+		<id>0x0e88</id>
+		<category>Weapons\Spears &amp; Forks\Pitchfork (N/S)</category>
+	</item>
+
+	<!-- Short Spear -->
+	<item id="1402">
+		<id>0x1402</id>
+		<inherit id="fencing_base" />
+		<category>Weapons\Spears &amp; Forks\Short Spear (W/E)</category>
+		<twohanded />
+
+		<!-- Weapon Properties -->
+		<requires type="str">15</requires>
+		<attack min="4" max="32" />
+		<speed>50</speed>
+		<durability><random min="31" max="70" /></durability>
+	</item>
+
+	<item id="1403">
+		<inherit id="1402" />
+		<id>0x1403</id>
+		<category>Weapons\Spears &amp; Forks\Short Spear (N/S)</category>
+	</item>
+
+	<!-- War Fork -->
+	<item id="1404">
+		<id>0x1404</id>
+		<inherit id="fencing_base" />
+		<category>Weapons\Spears &amp; Forks\War Fork (W/E)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">35</requires>
+		<attack min="4" max="32" />
+		<speed>45</speed>
+		<durability><random min="31" max="110" /></durability>
+	</item>
+
+	<item id="1405">
+		<inherit id="1404" />
+		<id>0x1405</id>
+		<category>Weapons\Spears &amp; Forks\War Fork (N/S)</category>
 	</item>
 </definitions>

@@ -8,15 +8,21 @@
 -->
 <definitions>
 	<item id="swords_base">
-		<durability><random min="50" max="75" /></durability>
 		<type>1001</type>
 		<events>weapons_blades</events>
 	</item>
 
+	<!-- Broadsword -->
 	<item id="f5e">
 		<inherit id="swords_base" />
 		<id>0x0f5e</id>
 		<category>Weapons\Swords\Broadsword (N/S)</category>
+
+		<!-- Weapon Properties -->
+		<attack min="5" max="29" />
+		<durability><random min="31" max="100" /></durability>
+		<requires type="str">25</requires>
+		<speed>45</speed>
 	</item>
 
 	<item id="f5f">
@@ -25,10 +31,17 @@
 		<category>Weapons\Swords\Broadsword (W/E)</category>
 	</item>
 
+	<!-- Longsword -->
 	<item id="f60">
 		<id>0x0f60</id>
 		<inherit id="swords_base" />
 		<category>Weapons\Swords\Longsword 1 (W/E)</category>
+		
+		<!-- Weapon Properties -->
+		<attack min="5" max="33" />
+		<durability><random min="31" max="90" /></durability>
+		<requires type="str">25</requires>
+		<speed>35</speed>
 	</item>
 
 	<item id="f61">
@@ -37,22 +50,17 @@
 		<category>Weapons\Swords\Longsword 1 (N/S)</category>
 	</item>
 
-	<item id="f62">
-		<id>0x0f62</id>
-		<inherit id="swords_base" />
-		<category>Weapons\Swords\Spear (N/S)</category>
-	</item>
-
-	<item id="f63">
-		<inherit id="f62" />
-		<id>0x0f63</id>
-		<category>Weapons\Swords\Spear (W/E)</category>
-	</item>
-
+	<!-- Scimitar -->
 	<item id="13b5">
 		<id>0x13b5</id>
 		<inherit id="swords_base" />
 		<category>Weapons\Swords\Scimitar (W/E)</category>
+
+		<!-- Weapon Properties -->
+		<attack min="4" max="30" />
+		<durability><random min="31" max="90" /></durability>
+		<requires type="str">10</requires>
+		<speed>43</speed>
 	</item>
 
 	<item id="13b6">
@@ -61,9 +69,10 @@
 		<category>Weapons\Swords\Scimitar (N/S)</category>
 	</item>
 
+	<!-- Longsword 2 -->
 	<item id="13b7">
+		<inherit id="f60" /> <!-- Same properties as the other longsword -->
 		<id>0x13b7</id>
-		<inherit id="swords_base" />
 		<category>Weapons\Swords\Longsword 2 (W/E)</category>
 	</item>
 
@@ -73,10 +82,17 @@
 		<category>Weapons\Swords\Longsword 2 (N/S)</category>
 	</item>
 
+	<!-- Viking Sword -->
 	<item id="13b9">
 		<id>0x13b9</id>
 		<inherit id="swords_base" />
 		<category>Weapons\Swords\Viking Sword (N/S)</category>
+
+		<!-- Weapon Properties -->
+		<attack min="6" max="34" />
+		<durability><random min="31" max="90" /></durability>
+		<requires type="str">40</requires>
+		<speed>30</speed>
 	</item>
 
 	<item id="13ba">
@@ -85,24 +101,17 @@
 		<category>Weapons\Swords\Viking Sword (W/E)</category>
 	</item>
 
-	<!-- Pitchfork -->
-	<item id="e87">
-		<id>0x0e87</id>
-		<inherit id="swords_base" />
-		<category>Weapons\Swords\Pitchfork (W/E)</category>
-	</item>
-
-	<item id="e88">
-		<inherit id="e87" />
-		<id>0x0e88</id>
-		<category>Weapons\Swords\Pitchfork (N/S)</category>
-	</item>
-
 	<!-- Katana -->
 	<item id="13fe">
 		<id>0x13fe</id>
 		<inherit id="swords_base" />
 		<category>Weapons\Swords\Katana (W/E)</category>
+
+		<!-- Weapon Properties -->
+		<attack min="5" max="26" />
+		<durability><random min="31" max="90" /></durability>
+		<requires type="str">10</requires>
+		<speed>58</speed>
 	</item>
 
 	<item id="13ff">
@@ -110,51 +119,38 @@
 		<id>0x13ff</id>
 		<category>Weapons\Swords\Katana (N/S)</category>
 	</item>
-	
-	<!-- Short Spear -->
-	<item id="1402">
-		<id>0x1402</id>
-		<inherit id="swords_base" />
-		<category>Weapons\Swords\Short Spear (W/E)</category>
-	</item>
-
-	<item id="1403">
-		<inherit id="1402" />
-		<id>0x1403</id>
-		<category>Weapons\Swords\Short Spear (N/S)</category>
-	</item>
-
-	<!-- War Fork -->
-	<item id="1404">
-		<id>0x1404</id>
-		<inherit id="swords_base" />
-		<category>Weapons\Swords\War Fork (W/E)</category>
-	</item>
-
-	<item id="1405">
-		<inherit id="1404" />
-		<id>0x1405</id>
-		<category>Weapons\Swords\War Fork (N/S)</category>
-	</item>
 
 	<!-- Halberd -->
 	<item id="143e">
+		<inherit id="swords_base" />
 		<id>0x143e</id>
-		<events>weapons_bladed</events>
-		<category>Weapons\Swords\Halberd (W/E)</category>
+		<category>Weapons\Pole Arms\Halberd (W/E)</category>
+		<twohanded />
+
+		<!-- Weapon Properties -->
+		<requires type="str">45</requires>
+		<attack min="5" max="49" />
+		<speed>25</speed>
+		<durability><random min="31" max="80" /></durability>
 	</item>
 
 	<item id="143f">
 		<inherit id="143e" />
 		<id>0x143f</id>
-		<category>Weapons\Swords\Halberd (N/S)</category>
+		<category>Weapons\Pole Arms\Halberd (N/S)</category>
 	</item>
 
 	<!-- Cutlass -->
 	<item id="1440">
+		<inherit id="swords_base" />
 		<id>0x1440</id>
-		<events>weapons_bladed</events>
 		<category>Weapons\Swords\Cutlass (W/E)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">10</requires>
+		<attack min="6" max="28" />
+		<speed>45</speed>
+		<durability><random min="31" max="70" /></durability>
 	</item>
 
 	<item id="1441">
@@ -165,14 +161,78 @@
 
 	<!-- Bardiche -->
 	<item id="f4d">
+		<inherit id="swords_base" />
 		<id>0x0f4d</id>
-		<events>weapons_bladed</events>
-		<category>Weapons\Swords\Bardiche (N/S)</category>
+		<category>Weapons\Pole Arms\Bardiche (N/S)</category>
+		<twohanded />
+
+		<!-- Weapon Properties -->
+		<requires type="str">40</requires>
+		<attack min="5" max="43" />
+		<speed>26</speed>
+		<durability><random min="31" max="100" /></durability>
 	</item>
 
 	<item id="f4e">
 		<inherit id="f4d" />
 		<id>0x0f4e</id>
-		<category>Weapons\Swords\Bardiche (W/E)</category>
+		<category>Weapons\Pole Arms\Bardiche (W/E)</category>
+	</item>
+
+	<!-- Butcher Knife -->
+	<item id="13f6">
+		<inherit id="swords_base" />
+		<id>0x13f6</id>
+		<category>Weapons\Knives &amp; Daggers\Butcher Knife (N/S)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">5</requires>
+		<attack min="2" max="14" />
+		<speed>40</speed>
+		<durability><random min="31" max="40" /></durability>
+	</item>
+
+	<item id="13f7">
+		<inherit id="13f6" />
+		<id>0x13f7</id>
+		<category>Weapons\Knives &amp; Daggers\Butcher Knife (W/E)</category>
+	</item>
+
+	<!-- Cleaver -->
+	<item id="ec2">
+		<inherit id="swords_base" />
+		<id>0x0ec2</id>
+		<category>Weapons\Knives &amp; Daggers\Cleaver (W/E)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">10</requires>
+		<attack min="2" max="13" />
+		<speed>40</speed>
+		<durability><random min="31" max="50" /></durability>
+	</item>
+
+	<item id="ec3">
+		<inherit id="ec2" />
+		<id>0x0ec3</id>
+		<category>Weapons\Knives &amp; Daggers\Cleaver (N/S)</category>
+	</item>
+
+	<!-- Skinning Knive -->
+	<item id="ec4">
+		<inherit id="swords_base" />
+		<id>0x0ec4</id>
+		<category>Weapons\Knives &amp; Daggers\Skinning Knive (N/S)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">5</requires>
+		<attack min="1" max="10" />
+		<speed>40</speed>
+		<durability><random min="31" max="40" /></durability>
+	</item>
+
+	<item id="ec5">
+		<inherit id="ec4" />
+		<id>0x0ec5</id>
+		<category>Weapons\Knives &amp; Daggers\Skinning Knive (W/E)</category>
 	</item>
 </definitions>

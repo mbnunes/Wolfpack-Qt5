@@ -7,80 +7,237 @@
 =================================================================
 -->
 <definitions>
+	<item id="mace_base">
+		<type>1004</type>
+	</item>
+
+	<item id="staff_base">
+		<type>1003</type>
+	</item>
+
 	<!-- Mace -->
 	<item id="f5c">
+		<inherit id="mace_base" />
 		<id>0x0f5c</id>
-		<type>1004</type>
-		<category>Weapons\Maces\Mace (W/E)</category>
+		<category>Weapons\Maces &amp; Hammers\Mace (W/E)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">20</requires>
+		<attack min="8" max="32" />
+		<speed>30</speed>
+		<durability><random min="31" max="70" /></durability>
 	</item>
 
 	<item id="f5d">
 		<inherit id="f5c" />
 		<id>0x0f5d</id>
-		<category>Weapons\Maces\Mace (N/S)</category>
+		<category>Weapons\Maces &amp; Hammers\Mace (N/S)</category>
 	</item>
 
 	<!-- Club -->
 	<item id="13b3">
-		<type>1004</type>
+		<inherit id="mace_base" />
 		<id>0x13b3</id>
-		<category>Weapons\Maces\Club (W/E)</category>
+		<category>Weapons\Maces &amp; Hammers\Club (W/E)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">10</requires>
+		<attack min="8" max="24" />
+		<speed>40</speed>
+		<durability><random min="31" max="40" /></durability>
 	</item>
 
 	<item id="13b4">
 		<id>0x13b4</id>
-		<category>Weapons\Maces\Club (N/S)</category>
+		<category>Weapons\Maces &amp; Hammers\Club (N/S)</category>
 	</item>
 
 	<!-- War Mace -->
 	<item id="1406">
-		<type>1004</type>
+		<inherit id="mace_base" />
 		<id>0x1406</id>
-		<category>Weapons\Maces\War Mace (W/E)</category>
+		<category>Weapons\Maces &amp; Hammers\War Mace (W/E)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">30</requires>
+		<attack min="10" max="30" />
+		<speed>32</speed>
+		<durability><random min="31" max="110" /></durability>
 	</item>
 
 	<item id="1407">
 		<inherit id="1406" />
 		<id>0x1407</id>
-		<category>Weapons\Maces\War Mace (N/S)</category>
+		<category>Weapons\Maces &amp; Hammers\War Mace (N/S)</category>
 	</item>
 
 	<!-- War Hammer -->
 	<item id="1438">
-		<type>1004</type>
+		<inherit id="mace_base" />
 		<id>0x1438</id>
-		<category>Weapons\Maces\War Hammer (W/E)</category>
+		<category>Weapons\Maces &amp; Hammers\War Hammer (W/E)</category>
+		<twohanded />
+
+		<!-- Weapon Properties -->
+		<requires type="str">40</requires>
+		<attack min="8" max="36" />
+		<speed>31</speed>
+		<durability><random min="31" max="110" /></durability>
 	</item>
 
 	<item id="1439">
 		<inherit id="1438" />
 		<id>0x1439</id>
-		<category>Weapons\Maces\War Hammer (N/S)</category>
+		<category>Weapons\Maces &amp; Hammers\War Hammer (N/S)</category>
 	</item>
 
 	<!-- Maul -->
 	<item id="143a">
-		<type>1004</type>
+		<inherit id="mace_base" />
 		<id>0x143a</id>
-		<category>Weapons\Maces\Maul (W/E)</category>
+		<category>Weapons\Maces &amp; Hammers\Maul (W/E)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">20</requires>
+		<attack min="10" max="30" />
+		<speed>30</speed>
+		<durability><random min="31" max="70" /></durability>
 	</item>
 
 	<item id="143b">
 		<inherit id="143a" />
 		<id>0x143b</id>
-		<category>Weapons\Maces\Maul (N/S)</category>
+		<category>Weapons\Maces &amp; Hammers\Maul (N/S)</category>
 	</item>
 
 	<!-- Hammer Pick -->
 	<item id="143c">
-		<type>1004</type>
+		<inherit id="mace_base" />
 		<id>0x143c</id>
-		<category>Weapons\Maces\Hammer Pick (W/E)</category>
+		<category>Weapons\Maces &amp; Hammers\Hammer Pick (W/E)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">35</requires>
+		<attack min="6" max="33" />
+		<speed>30</speed>
+		<durability><random min="31" max="70" /></durability>
 	</item>
 
 	<item id="143d">
 		<inherit id="143c" />
 		<id>0x143d</id>
-		<category>Weapons\Maces\Hammer Pick (N/S)</category>
+		<category>Weapons\Maces &amp; Hammers\Hammer Pick (N/S)</category>
+	</item>
+
+	<!-- Black Staff -->
+	<item id="df0">
+		<inherit id="staff_base" />
+		<id>0x0df0</id>
+		<category>Weapons\Staves\Black Staff (W/E)</category>
+		<twohanded />
+
+		<!-- Weapon Properties -->
+		<requires type="str">35</requires>
+		<attack min="8" max="33" />
+		<speed>35</speed>
+		<durability><random min="31" max="70" /></durability>
+	</item>
+
+	<item id="df1">
+		<inherit id="df0" />
+		<id>0x0df1</id>
+		<category>Weapons\Staves\Black Staff (N/S)</category>
+	</item>
+	
+	<!-- Quarter Staff -->
+	<item id="e89">
+		<inherit id="staff_base" />
+		<id>0x0e89</id>
+		<category>Weapons\Staves\Quarter Staff (N/S)</category>
+		<twohanded />
+
+		<!-- Weapon Properties -->
+		<requires type="str">30</requires>
+		<attack min="8" max="28" />
+		<speed>48</speed>
+		<durability><random min="31" max="60" /></durability>
+	</item>
+
+	<item id="e8a">
+		<inherit id="e89" />
+		<id>0x0e8a</id>
+		<category>Weapons\Staves\Quarter Staff (W/E)</category>
+	</item>
+
+	<!-- Gnarled Staff -->
+	<item id="13f8">
+		<inherit id="staff_base" />
+		<id>0x13F8</id>
+		<category>Weapons\Staves\Gnarled Staff (N/S)</category>
+		<twohanded />
+
+		<!-- Weapon Properties -->
+		<requires type="str">20</requires>
+		<attack min="8" max="30" />
+		<speed>33</speed>
+		<durability><random min="31" max="50" /></durability>
+	</item>
+	
+	<item id="13f9">
+		<inherit id="13f8" />
+		<id>0x13f9</id>
+		<category>Weapons\Staves\Gnarled Staff (W/E)</category>
+	</item>
+
+	<!-- Shepherds Crook -->
+	<item id="e81">
+		<inherit id="staff_base" />
+		<id>0x0e81</id>
+		<category>Weapons\Staves\Shepherds Crook (W/E)</category>
+		<twohanded />
+
+		<!-- Weapon Properties -->
+		<requires type="str">10</requires>
+		<attack min="3" max="12" />
+		<speed>30</speed>
+		<durability><random min="31" max="50" /></durability>
+	</item>
+
+	<item id="e82">
+		<inherit id="e81" />
+		<id>0x0e82</id>
+		<category>Weapons\Staves\Shepherds Crook (W/E)</category>
+	</item>
+
+	<!-- Crook -->
+	<item id="13f4">
+		<inherit id="e81" /> <!-- Exactly the same values as the shepherds crook -->
+		<id>0x13f4</id>
+		<category>Weapons\Staves\Crook (W/E)</category>
+	</item>
+
+	<item id="13f5">
+		<inherit id="13f4" />
+		<id>0x13f5</id>
+		<category>Weapons\Staves\Crook (N/S)</category>
+	</item>
+
+	<!-- War Axe -->
+	<item id="13af">
+		<inherit id="mace_base" />
+		<id>0x13af</id>
+		<category>Weapons\Axes\War Axe (N/S)</category>
+
+		<!-- Weapon Properties -->
+		<requires type="str">35</requires>
+		<attack min="9" max="27" />
+		<speed>40</speed>
+		<durability><random min="31" max="80" /></durability>
+	</item>
+
+	<item id="13b0">
+		<inherit id="13af" />
+		<id>0x13b0</id>
+		<category>Weapons\Axes\War Axe (N/S)</category>
 	</item>
 </definitions>

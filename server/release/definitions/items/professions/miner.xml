@@ -184,8 +184,6 @@
 	<item id="e85">
 		<id>0x0e85</id>
 		<durability>50</durability>
-		<value>25</value>
-		<decay/>
 		<type>1104</type>
 		<category>Professions\Miner\Pickaxe (W/E)</category>
 	</item>
@@ -201,7 +199,6 @@
 		<id>0x0f39</id>
 		<type>1104</type>
 		<durability>30</durability>
-		<value>15</value>
 		<decay/>
 		<category>Professions\Miner\Shovel (W/E)</category>
 	</item>
