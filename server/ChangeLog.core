@@ -36,6 +36,8 @@ Wolfpack 12.9.10 Beta (CVS)
 	- Char.settag and item.settag now correctly fail if the type of the value is not supported.
 	- Fixed bug #0000252 (Negative parameters to char.checkskill got casted to unsigned short)
 	- Fixed item names for item.say
+	- The default worldsave driver is now binary.
+	- Improved the Python interface Unicode support.
 
 Wolfpack 12.9.9 Beta (4. September 2004)
 	- Allowed viewing and setting account properties via .set and .show.
