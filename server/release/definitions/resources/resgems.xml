@@ -1,0 +1,24 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<item id="gem">
+		<id>0x1ea7</id>
+		<invisible/>
+		<nodecay/>
+	</item>
+
+	<item id="ore_gem" inherit="gem">
+		<tag name="resource" value="ore" type="string" />
+		<tag name="min" value="10" type="int" />
+		<tag name="max" value="34" type="int" />
+		<name>Ore gem</name>
+		<category>Resources\Resource gems</category>
+	</item>
+
+</definitions>
