@@ -14,7 +14,7 @@
 
 # Calculates the Magic Damage (Base Damage + Base + Source)
 import wolfpack
-from wolfpack import properties 
+from wolfpack import properties
 from wolfpack.consts import *
 import random
 from types import *
@@ -529,7 +529,7 @@ def consumeresources(container, baseid, amount):
 def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, energy=0, noreflect=0, damagetype=DAMAGE_MAGICAL):
 	if not target:
 		raise RuntimeError, "Invalid arguments for energydamage."
-	
+
 	if amount == 0 or physical + fire + cold + poison + energy == 0:
 		raise RuntimeError, "Invalid arguments for energydamage."
 
@@ -539,12 +539,12 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 		physical = amount * (physical / 100.0)
 		resistance = properties.fromchar(target, RESISTANCE_PHYSICAL) / 100.0
 		damage = max(0, physical - (physical * resistance))
-		
+
 		if source and not noreflect and damage > 0:
 			reflectphysical = properties.fromchar(target, REFLECTPHYSICAL)
 			reflect = reflectphysical / 100.0 * damage
-			
-			if reflect > 0:				
+
+			if reflect > 0:
 				energydamage(source, target, reflect, physical=100, noreflect=1)
 				#target.effect(0x22c6, 10, 16)
 				#target.movingeffect(0x22c6, source, 0, 0, 14)
@@ -553,17 +553,17 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 		fire = amount * (fire / 100.0)
 		resistance = properties.fromchar(target, RESISTANCE_FIRE) / 100.0
 		damage += max(0, fire - (fire * resistance))
-		
+
 	if cold > 0:
 		cold = amount * (cold / 100.0)
 		resistance = properties.fromchar(target, RESISTANCE_COLD) / 100.0
 		damage += max(0, cold - (cold * resistance))
-		
+
 	if poison > 0:
 		poison = amount * (poison / 100.0)
 		resistance = properties.fromchar(target, RESISTANCE_POISON) / 100.0
 		damage += max(0, poison - (poison * resistance))
-		
+
 	if energy > 0:
 		energy = amount * (energy / 100.0)
 		resistance = properties.fromchar(target, RESISTANCE_ENERGY) / 100.0
@@ -571,3 +571,25 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 
 	damage = max(1, damage)
 	target.damage(damagetype, damage, source)
+
+"""
+	\function wolfpack.utilities.createlockandkey
+	\param item
+	\description Makes a current container lockable and creates a key.
+"""
+def createlockandkey( container ):
+	if container.type == 1:
+		if not container.hastag('lock'):
+			parts = ['A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9']
+			rkeyid = ''
+			for i in range(1,8):
+				rkeyid += random.choice(parts)
+			key = wolfpack.additem('1010')
+			key.settag('lock', rkeyid)
+			tocontainer( key, container )
+			container.settag( 'lock', rkeyid )
+			if not 'lock' in container.events:
+				events = container.events
+				events[:0] = ['lock']
+				container.events = events
+	return

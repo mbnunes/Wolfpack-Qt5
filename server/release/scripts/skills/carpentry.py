@@ -4,10 +4,9 @@ from wolfpack import properties
 import math
 import wolfpack
 from system.makemenus import CraftItemAction, MakeMenu, findmenu
-from wolfpack.utilities import hex2dec, tobackpack
+from wolfpack.utilities import hex2dec, tobackpack, createlockandkey
 import random
 from skills.blacksmithing import METALS
-
 
 #
 # Check if the character is using the right tool
@@ -69,7 +68,11 @@ class CarpItemAction(CraftItemAction):
 
 		minskill = self.skills[CARPENTRY][0]
 		maxskill = self.skills[CARPENTRY][1]
-		chance = ( (player.skill[CARPENTRY] - minskill) / (maxskill - minskill) ) / 10.0
+		if self.skills.has_key(TINKERING):
+			minskill -= self.skills[TINKERING][0]
+			maxskill -= self.skills[TINKERING][1]
+
+		chance = ( (player.skill[CARPENTRY] - minskill) / (maxskill - minskill) ) / 5.0
 
 		return chance
 
@@ -107,7 +110,9 @@ class CarpItemAction(CraftItemAction):
 				item.settag('aos_boni_damage', bonus)
 
 			# Exceptional Containers get a key
-			#if item.type == 1:
+			if item.type == 1:
+				if item.baseid == '9aa' or item.baseid == '9a9' or item.baseid == 'e3f' or item.baseid == 'e3d' or item.baseid == 'e42' or item.baseid == 'a4d' or item.baseid == 'a4f':
+					createlockandkey( item )
 
 		# Reduce the uses remain count
 		checktool(player, wolfpack.finditem(arguments[0]), 1)
