@@ -127,7 +127,7 @@ struct {
 	serial int(11) NOT NULL default '0',\
 	name varchar(255) default NULL,\
 	title varchar(255) default NULL,\
-	creationdate varchar(255) default NULL,\
+	creationdate varchar(19) default NULL,\
 	body smallint(5)  NOT NULL default '0',\
 	orgbody smallint(5)  NOT NULL default '0',\
 	skin smallint(5)  NOT NULL default '0',\
