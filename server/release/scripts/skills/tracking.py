@@ -113,6 +113,10 @@ def trackWhatResponse( char, args, target ):
 	# filter the list with the player's choice
 	charcible = iterator.first
 	while charcible:
+		# NEVER track invisible staff members
+		if charcible.invisible or charcible.dead:
+			continue
+	
 		if target.button == 4 : #have to exit non-players and exit self
 			if charcible.player and char.serial != charcible.serial :
 				liste.append(charcible)
