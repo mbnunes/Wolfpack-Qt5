@@ -223,7 +223,7 @@ SOURCES		+= python/char.cpp \
 		   python/worlditerator.cpp
 
 HEADERS		+= python/content.h \
-		+= python/worlditerator.h
+		   python/worlditerator.h
 
 # SQLite Sources
 SOURCES 	+=	sqlite/attach.c \
