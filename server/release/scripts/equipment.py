@@ -666,7 +666,7 @@ def onDelete(item):
 
 # Try to equip an item after calling onWearItem for it
 def onUse(player, item):
-	if not char.gm and item.movable == 3:
+	if not player.gm and item.movable == 3:
 		player.objectdelay = 0
 		return True
 		
