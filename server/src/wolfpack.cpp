@@ -1043,16 +1043,3 @@ void savelog(const char *msg, char *logfile)
 	
 	fclose( file );
 }
-
-int DeleBankItem( P_PLAYER pc, unsigned short itemid, unsigned short color, int amt )
-{
-	if( pc == NULL )
-		return amt;
-
-	P_ITEM pBank = pc->getBankBox();
-
-	if( pBank )
-		return pBank->DeleteAmount( amt, itemid, color );
-	else
-		return 0;
-}

@@ -34,7 +34,6 @@
 
 class QString;
 class cUOSocket;
-class Coord_cl;
 
 QString hex2dec( const QString& value );
 void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey );
@@ -42,10 +41,7 @@ void savelog(const char *msg, char *logfile);
 
 void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall );
 
-int getamount(P_CHAR pc, short id);
-void delequan(P_CHAR pc, short id, int amount, int *not_deleted = NULL);
 void playmonstersound(P_CHAR monster, unsigned short id, int sfx);
-int DeleBankItem( P_PLAYER pc, unsigned short itemid, unsigned short color, int amt );
 void reloadScripts();
 
 void setcharflag(P_CHAR pc);
