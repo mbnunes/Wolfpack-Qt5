@@ -21,24 +21,24 @@
 		<smelt>16</smelt>
 		<weight>4</weight>
 		<value>245</value>
-		<category>Armor\Non Magical\Platemail\Female Armor</category>
+		<category>Armor\Platemail\Female Armor</category>
 	</item>
 
 	<!-- male plate armor -->
-	<item id="1416">
+	<item id="1415">
 		<name>platemail</name>
 		<decay />
 		<nodye />
 		<defense>14.8</defense>
 		<durability>58</durability>
-		<id>0x1416</id>
+		<id>0x1415</id>
 		<modifier type='dex'>-8</modifier>
 		<requires type='str'>45</requires> 
 		<restock>10</restock>
 		<smelt>20</smelt>
 		<weight>10</weight>
 		<value>273</value>
-		<category>Armor\Non Magical\Platemail\Male Armor</category>
+		<category>Armor\Platemail\Male Armor</category>
 	</item>
 
 	<!-- plate arms -->
@@ -55,7 +55,7 @@
 		<smelt>14</smelt>
 		<weight>5</weight>
 		<value>181</value>
-		<category>Armor\Non Magical\Platemail\Arms</category>
+		<category>Armor\Platemail\Arms</category>
 	</item>
 
 	<!-- plate gloves -->
@@ -72,7 +72,7 @@
 		<smelt>9</smelt>
 		<weight>2</weight>
 		<value>145</value>
-		<category>Armor\Non Magical\Platemail\gloves</category>
+		<category>Armor\Platemail\gloves</category>
 	</item>
 
 	<!-- plate gorget -->
@@ -83,14 +83,13 @@
 		<defense>2.8</defense>
 		<durability>58</durability>
 		<id>0x1413</id>
-		<layer>7</layer>
 		<modifier type='dex'>-1</modifier>
 		<requires type='str'>30</requires> 
 		<restock>10</restock>
 		<smelt>8</smelt>
 		<weight>2</weight>
 		<value>124</value>
-		<category>Armor\Non Magical\Platemail\gorget</category>
+		<category>Armor\Platemail\gorget</category>
 	</item>
 	
 	<!-- plate helmet -->
@@ -101,30 +100,29 @@
 		<defense>5.4</defense>
 		<durability>52</durability>
 		<id>0x1412</id>
-		<layer>13</layer>
 		<modifier type='dex'>-1</modifier>
 		<requires type='str'>10</requires> 
 		<restock>10</restock>
 		<smelt>12</smelt>
 		<weight>7</weight>
 		<value>170</value>
-		<category>Armor\Non Magical\Platemail\helmet</category>
+		<category>Armor\Platemail\helmet</category>
 	</item>
 
 	<!-- plate leggings -->
-	<item id="141a">
-		<name>plate leggings</name>
+	<item id="1411">
+		<name>platemail legs</name>
 		<decay />
 		<nodye />
 		<defense>8.8</defense>
 		<durability>58</durability>
-		<id>0x141A</id>
+		<id>0x1411</id>
 		<modifier type='dex'>-6</modifier>
 		<requires type='str'>60</requires> 
 		<restock>10</restock>
 		<smelt>16</smelt>
 		<weight>7</weight>
 		<value>218</value>
-		<category>Armor\Non Magical\Platemail\leggings</category>
+		<category>Armor\Platemail\leggings</category>
 	</item>
 </definitions>

@@ -8,42 +8,42 @@
 -->
 <definitions>
 	<!-- ring gloves -->
-	<item id="13f2">
-		<name>ring gloves</name>
+	<item id="13eb">
+		<name>ringmail gloves</name>
 		<decay />
 		<nodye />
 		<defense>1.5</defense>
 		<durability>56</durability>
-		<id>0x13F2</id>
+		<id>0x13eb</id>
 		<modifier type='dex'>-1</modifier>
 		<requires type='str'>20</requires> 
 		<restock>10</restock>
 		<smelt>8</smelt>
 		<weight>2</weight>
 		<value>122</value>
-		<category>Armor\Non Magical\Ringmail\gloves</category>
+		<category>Armor\Ringmail\gloves</category>
 	</item>
 
 	<!-- ring leggings -->
-	<item id="13f1">
-		<name>ring leggings</name>
+	<item id="13f0">
+		<name>ringmail leggings</name>
 		<decay />
 		<nodye />
 		<defense>4.8</defense>
 		<durability>56</durability>
-		<id>0x13F1</id>
+		<id>0x13f0</id>
 		<modifier type='dex'>-1</modifier>
 		<requires type='str'>20</requires> 
 		<restock>10</restock>
 		<smelt>13</smelt>
 		<weight>15</weight>
 		<value>147</value>
-		<category>Armor\Non Magical\Ringmail\leggings</category>
+		<category>Armor\Ringmail\leggings</category>
 	</item>
 
 	<!-- ring sleeves -->
 	<item id="13ef">
-		<name>ring sleeves</name>
+		<name>ringmail sleeves</name>
 		<decay />
 		<nodye />
 		<defense>3.3</defense>
@@ -55,24 +55,24 @@
 		<smelt>11</smelt>
 		<weight>15</weight>
 		<value>127</value>
-		<category>Armor\Non Magical\Ringmail\sleeves</category>
+		<category>Armor\Ringmail\sleeves</category>
 	</item>
 
 	<!-- ring tunic -->
-	<item id="13ed">
-		<name>ring tunic</name>
+	<item id="13ec">
+		<name>ringmail tunic</name>
 		<decay />
 		<nodye />
 		<defense>7.9</defense>
 		<durability>56</durability>
-		<id>0x13ED</id>
+		<id>0x13ec</id>
 		<modifier type='dex'>-2</modifier>
 		<requires type='str'>20</requires> 
 		<restock>10</restock>
 		<smelt>11</smelt>
 		<weight>126</weight>
 		<value>300</value>
-		<category>Armor\Non Magical\Ringmail\tunic</category>
+		<category>Armor\Ringmail\tunic</category>
 	</item>
 </definitions>
 
