@@ -94,6 +94,7 @@ private:
 	QMap<int, QString>	content_;
 
 	UINT16		pages_;
+	bool		changed_;
 };
 
 // Inline methods
@@ -112,11 +113,11 @@ inline bool cBook::readonly( void )			const	{ return readonly_; }
 inline bool cBook::writeable( void )		const	{ return !predefined_ && !readonly_; }
 inline QString cBook::section( void )		const	{ return section_; }
 
-inline void cBook::setAuthor( const QString& data )			{ this->author_ = data; }
-inline void cBook::setTitle( const QString& data )			{ this->title_ = data;	}
-inline void cBook::setContent( const QMap<int, QString>& data )	{ this->content_ = data; }
-inline void cBook::setPredefined( bool data )				{ this->predefined_ = data; } 
-inline void cBook::setSection( const QString& data )		{ this->section_ = data; }
-inline void cBook::setPages( UINT16 data )					{ this->pages_ = data; }
+inline void cBook::setAuthor( const QString& data )			{ this->author_ = data; changed_ = true; }
+inline void cBook::setTitle( const QString& data )			{ this->title_ = data; changed_ = true;  }
+inline void cBook::setContent( const QMap<int, QString>& data )	{ this->content_ = data; changed_ = true; }
+inline void cBook::setPredefined( bool data )				{ this->predefined_ = data; changed_ = true; } 
+inline void cBook::setSection( const QString& data )		{ this->section_ = data; changed_ = true; }
+inline void cBook::setPages( UINT16 data )					{ this->pages_ = data; changed_ = true; }
 
 #endif

@@ -68,6 +68,7 @@ cBook::cBook()
 	this->author_ = QString::null;
 	this->section_ = QString::null;
 	this->pages_ = 0;
+	this->changed_ = true;
 }
 
 void cBook::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
@@ -96,33 +97,37 @@ void cBook::load( char **result, UINT16 &offset )
 		content_.insert( res.getInt( 0 ), res.getString( 1 ) );
 
 	res.free();
+	changed_ = false;
 }
 
 void cBook::save()
 {
-	initSave;
-	setTable( "books" );
+	if ( changed_ )
+	{
+		initSave;
+		setTable( "books" );
 
-	addField( "serial", serial() );
-	addField( "predefined", predefined_ ? 1 : 0 );
-	addField( "readonly", readonly_ ? 1 : 0 );
-	addStrField( "title", title_ );
-	addStrField( "author", author_ );
-	addStrField( "section", section_ );
-	addField( "pages", content_.count() );
-
-	addCondition( "serial", serial() );
-	saveFields;
-
-	// Delete all Pages from the DB and reinsert them
-	// The Amount of pages CAN change!
-	if( isPersistent )
-		persistentBroker->executeQuery( QString( "DELETE FROM bookpages WHERE serial = '%1'" ).arg( serial() ) );
+		addField( "serial", serial() );
+		addField( "predefined", predefined_ ? 1 : 0 );
+		addField( "readonly", readonly_ ? 1 : 0 );
+		addStrField( "title", title_ );
+		addStrField( "author", author_ );
+		addStrField( "section", section_ );
+		addField( "pages", content_.count() );
 	
-	for ( QMap<int, QString>::iterator it = content_.begin(); it != content_.end(); ++it )
-		persistentBroker->executeQuery( QString( "INSERT INTO bookpages SET serial = '%1', page = '%2', text = '%3'" ).arg( serial() ).arg( it.key() ).arg( __escapeReservedCharacters( it.data() ) ) );
+		addCondition( "serial", serial() );
+		saveFields;
 
+		// Delete all Pages from the DB and reinsert them
+		// The Amount of pages CAN change!
+		if( isPersistent )
+			persistentBroker->executeQuery( QString( "DELETE FROM bookpages WHERE serial = '%1'" ).arg( serial() ) );
+	
+		for ( QMap<int, QString>::iterator it = content_.begin(); it != content_.end(); ++it )
+			persistentBroker->executeQuery( QString( "INSERT INTO bookpages SET serial = '%1', page = '%2', text = '%3'" ).arg( serial() ).arg( it.key() ).arg( __escapeReservedCharacters( it.data() ) ) );
+	}
 	cItem::save();
+	changed_ = false;
 }
 
 bool cBook::del()
@@ -132,7 +137,7 @@ bool cBook::del()
 
 	persistentBroker->addToDeleteQueue( "books", QString( "serial = '%1'" ).arg( serial() ) );
 	persistentBroker->addToDeleteQueue( "bookpages", QString( "serial = '%1'" ).arg( serial() ) );
-
+	changed_ = true;
 	return cItem::del();
 }
 
@@ -294,6 +299,7 @@ void cBook::processNode( const QDomElement &Tag )
 
 	else
 		cItem::processNode( Tag );
+	changed_ = true;
 }
 
 void cBook::refresh( void )
@@ -410,8 +416,8 @@ void cBook::open( cUOSocket* socket )
 		while( it != lines.end() )
 		{
 			readBook.setPage( i+1, (*it).size(), (*it) );
-			i++;
-			it++;
+			++i;
+			++it;
 		}
 
 		socket->send( &readBook );

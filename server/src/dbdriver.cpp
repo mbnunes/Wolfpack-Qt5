@@ -59,7 +59,7 @@ void cDBDriver::garbageCollect()
 {
 	while( connections.count() > 1 )
 	{
-		connections.last();
+		mysql_close( connections.last() );
 		connections.remove();
 	}
 }
@@ -78,6 +78,9 @@ st_mysql *cDBDriver::getConnection()
 	}
 
 	MYSQL *mysql = mysql_init( 0 );
+	if ( !mysql )
+		throw QString("mysql_init(): insufficient memory to allocate a new object");
+	mysql->reconnect = 1;
 	
 	if( !mysql_real_connect( mysql, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, NULL, CLIENT_COMPRESS ) )
 		throw QString( "Connection to DB failed: %1" ).arg( mysql_error( mysql ) );
