@@ -209,7 +209,7 @@ public:
 
 	// Public event wrappers added by darkstorm
 	bool onShowItemName( P_CHAR Viewer );
-	void onTalkToItem( P_CHAR Talker, const QString &Text );	
+	bool onTalkToItem( P_CHAR Talker, const QString &Text );	
 };
 
 

@@ -64,7 +64,7 @@ public:
 
 	// Events
 	bool onUse( cUObject *Target );
-	void onCollide( cUObject* Obstacle ); // This is called for the walking character first, then for the item walked on
+	bool onCollide( cUObject* Obstacle ); // This is called for the walking character first, then for the item walked on
 
 	SERIAL serial;
 	SERIAL multis;

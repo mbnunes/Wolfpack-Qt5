@@ -2202,12 +2202,15 @@ bool cItem::onShowItemName( P_CHAR Viewer )
 
 }
 
-void cItem::onTalkToItem( P_CHAR Talker, const QString &Text )
+bool cItem::onTalkToItem( P_CHAR Talker, const QString &Text )
 {
 	if( scriptChain.empty() )
-		return;
+		return false;
  
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		scriptChain[ i ]->onTalkToItem( Talker, this, Text );
+		if( scriptChain[ i ]->onTalkToItem( Talker, this, Text ) )
+			return true;
+
+	return false;
 }

@@ -1161,6 +1161,13 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 					{
 						if (mapchar->pos.x == pc->pos.x && mapchar->pos.y == pc->pos.y && mapchar->pos.z == pc->pos.z)
 						{
+							// Trigger the event for the "stumbled apon" character
+							if( pc->onCollideChar( mapchar ) )
+								continue;
+
+							if( mapchar->onCollideChar( pc ) )
+								continue;
+
 							if (mapchar->isHidden() && !mapchar->dead && !mapchar->isInvul() && !mapchar->isGM())
 							{
 								sprintf(temp, "Being perfectly rested, you shoved something invisible out of the way.");
@@ -1212,7 +1219,6 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 	const short int newy = pc->pos.y;
 	const short int oldx = GetXfromDir(pc->dir + 4, newx);
 	const short int oldy = GetYfromDir(pc->dir + 4, newy);
-
 	
 	// - Tauriel's region stuff 3/6/99
 	const int StartGrid = mapRegions->StartGrid(pc->pos);
@@ -1232,9 +1238,51 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 				mapitem = FindItemBySerial(*it);
 				if (mapitem != NULL)
 				{
-#if DEBUG_WALKING
-				  //printf("Checking against Item %s, ID1:%d, ID2:%d\n", mapitem->name.c_str(), mapitem->id1, mapitem->id2);
-#endif
+					// Send the item if it's "new"
+					// moved that here so we FIRST send the items and THEN handle their
+					// Behaviour
+					if (!amTurning)
+					{
+						// is the item a building on the BUILDRANGE?
+						if ((mapitem->id1==0x40)&&(mapitem->id2>=0x7C)&&(mapitem->id2<=0x7E))
+						{
+							if ((abs(newx-mapitem->pos.x)==BUILDRANGE)||(abs(newy-mapitem->pos.y)==BUILDRANGE))
+							{
+								senditem(socket, mapitem);
+							}
+						}
+						// otherwise if the item has just now become visible, inform the client about it
+						else
+						{
+							// Thyme
+							// Code Addition for Ab
+							// PLUS reduction in senditems for out of range objects!
+							// Stuff commented out is original code between BEGIN and END
+							// Thyme BEGIN
+							signed int oldd = Distance(oldx, oldy, mapitem->pos.x, mapitem->pos.y);
+							signed int newd = Distance(newx, newy, mapitem->pos.x, mapitem->pos.y);
+							
+							//if ((abs(newx-mapitem->pos.x) == visibleRange ) || (abs(newy-mapitem->pos.y) == visibleRange ))
+							if (newd == visibleRange)
+							{
+								if( ( !mapitem->visible ) || ( ( mapitem->visible ) && ( currchar[socket]->isGM() ) ) )// we're a GM, or not hidden
+									senditem(socket, mapitem);
+							}
+							if ( ( oldd == visibleRange ) && ( newd == ( visibleRange + 1 ) ) )
+							{
+								// item out of range for trigger
+							}
+						// Thyme END
+						}
+					}
+
+					// Make our trigger check
+					if( pc->onCollide( mapitem ) )
+						continue;
+
+					if( mapitem->onCollide( pc ) )
+						continue;
+
 					// split out the x,y,z check so we can use else ifs for faster item id checking
 					if ((mapitem->id1==0x39 && (mapitem->id2==0x96 || mapitem->id2==0x8C)))
 					{//Fire Field
@@ -1306,43 +1354,9 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 					}
 
 					// always check for new items if we actually moved
-					if (!amTurning)
-					{
-						// is the item a building on the BUILDRANGE?
-						if ((mapitem->id1==0x40)&&(mapitem->id2>=0x7C)&&(mapitem->id2<=0x7E))
-						{
-							if ((abs(newx-mapitem->pos.x)==BUILDRANGE)||(abs(newy-mapitem->pos.y)==BUILDRANGE))
-							{
-								senditem(socket, mapitem);
-							}
-						}
-						// otherwise if the item has just now become visible, inform the client about it
-						else
-						{
-// Thyme
-// Code Addition for Ab
-// PLUS reduction in senditems for out of range objects!
-// Stuff commented out is original code between BEGIN and END
-// Thyme BEGIN
-							signed int oldd = Distance(oldx, oldy, mapitem->pos.x, mapitem->pos.y);
-							signed int newd = Distance(newx, newy, mapitem->pos.x, mapitem->pos.y);
-							
-//							if ((abs(newx-mapitem->pos.x) == visibleRange ) || (abs(newy-mapitem->pos.y) == visibleRange ))
-							if (newd == visibleRange)
-							{
-								if( ( !mapitem->visible ) || ( ( mapitem->visible ) && ( currchar[socket]->isGM() ) ) )// we're a GM, or not hidden
-									senditem(socket, mapitem);
-							}
-							if ( ( oldd == visibleRange ) && ( newd == ( visibleRange + 1 ) ) )
-							{
-								// item out of range for trigger
-							}
-// Thyme END
-						}
-					}
+					
 				}
-			} // while (mapitem != NULL);
-#pragma note("This while is strange, need some further investigation")
+			}
 		}
 	}
 }

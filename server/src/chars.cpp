@@ -1026,7 +1026,6 @@ bool cChar::onTalk( QString Text )
 	if( scriptChain.empty() )
 		return false;
  
-	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onTalk( (P_CHAR)this, Text ) )
 			return true;
@@ -1035,36 +1034,45 @@ bool cChar::onTalk( QString Text )
 }
 
 // Someone talks to the NPC, this is only triggered for the npc
-void cChar::onTalkToNPC( P_CHAR Talker, const QString &Text )
+bool cChar::onTalkToNPC( P_CHAR Talker, const QString &Text )
 {
 	if( scriptChain.empty() )
-		return;
+		return false;
  
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		scriptChain[ i ]->onTalkToNPC( (P_CHAR)this, Talker, Text );
+		if( scriptChain[ i ]->onTalkToNPC( (P_CHAR)this, Talker, Text ) )
+			return true;
+
+	return false;
 }
 
 // The character switches warmode
-void cChar::onWarModeToggle( bool War )
+bool cChar::onWarModeToggle( bool War )
 {
 	if( scriptChain.empty() )
-		return;
+		return false;
  
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		scriptChain[ i ]->onWarModeToggle( this, War );
+		if( scriptChain[ i ]->onWarModeToggle( this, War ) )
+			return true;
+
+	return false;
 }
 
 // The character enters the world
-void cChar::onEnterWorld( void )
+bool cChar::onEnterWorld( void )
 {
 	if( scriptChain.empty() )
-		return;
+		return false;
  
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		scriptChain[ i ]->onEnterWorld( this );
+		if( scriptChain[ i ]->onEnterWorld( this ) )
+			return true;
+
+	return false;
 }
 
 // The character wants help
@@ -1104,6 +1112,19 @@ bool cChar::onSkillUse( UI08 Skill )
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onSkillUse( this, Skill ) )
+			return true;
+
+	return false;
+}
+
+bool cChar::onCollideChar( P_CHAR Obstacle ) 
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onCollideChar( this, Obstacle ) )
 			return true;
 
 	return false;

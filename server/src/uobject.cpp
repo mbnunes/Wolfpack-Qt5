@@ -213,11 +213,11 @@ bool cUObject::onUse( cUObject *Target )
 	return false;
 }
 
-void cUObject::onCollide( cUObject* Obstacle )
+bool cUObject::onCollide( cUObject* Obstacle )
 {
 	// If we dont have any events assigned just skip processing
 	if( scriptChain.empty() )
-		return;
+		return false;
 
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
@@ -227,8 +227,13 @@ void cUObject::onCollide( cUObject* Obstacle )
 			scriptChain[ i ]->onCollideItem( (P_CHAR)Obstacle, (P_ITEM)this );
 		else
 			if( Obstacle->objectID() == "ITEM" )
-				scriptChain[ i ]->onCollideItem( (P_CHAR)this, (P_ITEM)Obstacle );
+				if( scriptChain[ i ]->onCollideItem( (P_CHAR)this, (P_ITEM)Obstacle ) )
+					return true;
+
 			else // Character, Character
-				scriptChain[ i ]->onCollideChar( (P_CHAR)this, (P_CHAR)Obstacle );
+				if( scriptChain[ i ]->onCollideChar( (P_CHAR)this, (P_CHAR)Obstacle ) )
+					return true;
 	}
+
+	return false;
 }
