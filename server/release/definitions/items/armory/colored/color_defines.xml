@@ -18,6 +18,20 @@
 		<color>0x0973</color>
 		<defense>+6</defense>
 		<value>1.1</value>
+		<tag name="armor_physical" value="6" type="int" />
+		<tag name="armor_fire" value="0" type="int" />
+		<tag name="armor_cold" value="0" type="int" />
+		<tag name="armor_poison" value="0" type="int" />
+		<tag name="armor_energy" value="0" type="int" />
+		<tag name="weapon_physical" value="0" type="int" />
+		<tag name="weapon_fire" value="0" type="int" />
+		<tag name="weapon_cold" value="0" type="int" />
+		<tag name="weapon_poison" value="0" type="int" />
+		<tag name="weapon_energy" value="0" type="int" />
+		<tag name="armor_durability" value="50" type="int" />
+		<tag name="weapon_durability" value="100" type="int" />
+		<tag name="armor_reqs" value="20" type="int" />
+		<tag name="weapon_reqs" value="50" type="int" />
 	</define>
 
 	<define id="shadow_armor">
@@ -25,6 +39,18 @@
 		<color>0x0966</color>
 		<defense>+2</defense> <!-- this means 110 percent of original defense -->
 		<value>1.2</value>
+		<tag name="armor_physical" value="2" type="int" />
+		<tag name="armor_fire" value="1" type="int" />
+		<tag name="armor_cold" value="0" type="int" />
+		<tag name="armor_poison" value="0" type="int" />
+		<tag name="armor_energy" value="5" type="int" />
+		<tag name="weapon_physical" value="-20" type="int" />
+		<tag name="weapon_fire" value="0" type="int" />
+		<tag name="weapon_cold" value="20" type="int" />
+		<tag name="weapon_poison" value="0" type="int" />
+		<tag name="weapon_energy" value="0" type="int" />
+		<tag name="armor_durability" value="100" type="int" />
+		<tag name="weapon_durability" value="50" type="int" />
 	</define>
 
 	<define id="copper_armor">
@@ -32,6 +58,16 @@
 		<color>0x096e</color>
 		<defense>+1</defense>
 		<value>1.3</value>
+		<tag name="armor_physical" value="1" type="int" />
+		<tag name="armor_fire" value="1" type="int" />
+		<tag name="armor_cold" value="0" type="int" />
+		<tag name="armor_poison" value="5" type="int" />
+		<tag name="armor_energy" value="2" type="int" />
+		<tag name="weapon_physical" value="-30" type="int" />
+		<tag name="weapon_fire" value="0" type="int" />
+		<tag name="weapon_cold" value="0" type="int" />
+		<tag name="weapon_poison" value="10" type="int" />
+		<tag name="weapon_energy" value="20" type="int" />
 	</define>
 
 	<define id="bronze_armor">
@@ -39,6 +75,16 @@
 		<color>0x08a9</color>
 		<defense>+3</defense>
 		<value>1.4</value>
+		<tag name="armor_physical" value="3" type="int" />
+		<tag name="armor_fire" value="0" type="int" />
+		<tag name="armor_cold" value="5" type="int" />
+		<tag name="armor_poison" value="1" type="int" />
+		<tag name="armor_energy" value="1" type="int" />
+		<tag name="weapon_physical" value="-40" type="int" />
+		<tag name="weapon_fire" value="40" type="int" />
+		<tag name="weapon_cold" value="0" type="int" />
+		<tag name="weapon_poison" value="0" type="int" />
+		<tag name="weapon_energy" value="0" type="int" />
 	</define>
 
 	<define id="golden_armor">
@@ -46,6 +92,19 @@
 		<color>0x08a5</color>
 		<defense>+1</defense>
 		<value>1.5</value>
+		<tag name="armor_physical" value="1" type="int" />
+		<tag name="armor_fire" value="1" type="int" />
+		<tag name="armor_cold" value="2" type="int" />
+		<tag name="armor_poison" value="0" type="int" />
+		<tag name="armor_energy" value="2" type="int" />
+		<tag name="weapon_physical" value="0" type="int" />
+		<tag name="weapon_fire" value="0" type="int" />
+		<tag name="weapon_cold" value="0" type="int" />
+		<tag name="weapon_poison" value="0" type="int" />
+		<tag name="weapon_energy" value="0" type="int" />
+		<tag name="luck" value="40" type="int" />
+		<tag name="armor_reqs" value="30" type="int" />
+		<tag name="weapon_reqs" value="50" type="int" />
 	</define>
 
 	<define id="agapite_armor">
@@ -53,6 +112,16 @@
 		<color>0x0979</color>
 		<defense>+2</defense>
 		<value>1.6</value>
+		<tag name="armor_physical" value="2" type="int" />
+		<tag name="armor_fire" value="3" type="int" />
+		<tag name="armor_cold" value="2" type="int" />
+		<tag name="armor_poison" value="2" type="int" />
+		<tag name="armor_energy" value="2" type="int" />
+		<tag name="weapon_physical" value="-50" type="int" />
+		<tag name="weapon_fire" value="0" type="int" />
+		<tag name="weapon_cold" value="30" type="int" />
+		<tag name="weapon_poison" value="0" type="int" />
+		<tag name="weapon_energy" value="20" type="int" />
 	</define>
 
 	<define id="verite_armor">
@@ -60,6 +129,16 @@
 		<color>0x089f</color>
 		<defense>+3</defense>
 		<value>1.7</value>
+		<tag name="armor_physical" value="3" type="int" />
+		<tag name="armor_fire" value="3" type="int" />
+		<tag name="armor_cold" value="2" type="int" />
+		<tag name="armor_poison" value="3" type="int" />
+		<tag name="armor_energy" value="1" type="int" />
+		<tag name="weapon_physical" value="-60" type="int" />
+		<tag name="weapon_fire" value="0" type="int" />
+		<tag name="weapon_cold" value="0" type="int" />
+		<tag name="weapon_poison" value="40" type="int" />
+		<tag name="weapon_energy" value="20" type="int" />
 	</define>
 
 	<define id="valorite_armor">
@@ -67,6 +146,18 @@
 		<color>0x08ab</color>
 		<defense>+4</defense>
 		<value>1.8</value>
+		<tag name="armor_physical" value="4" type="int" />
+		<tag name="armor_fire" value="0" type="int" />
+		<tag name="armor_cold" value="3" type="int" />
+		<tag name="armor_poison" value="3" type="int" />
+		<tag name="armor_energy" value="3" type="int" />
+		<tag name="weapon_physical" value="-60" type="int" />
+		<tag name="weapon_fire" value="10" type="int" />
+		<tag name="weapon_cold" value="20" type="int" />
+		<tag name="weapon_poison" value="10" type="int" />
+		<tag name="weapon_energy" value="20" type="int" />
+		<tag name="armor_durability" value="50" type="int" />
+		<tag name="weapon_durability" value="0" type="int" />
 	</define>
 
 	<define id="merkite_armor">
@@ -74,6 +165,18 @@
 		<color>0x02C3</color>
 		<defense>+5</defense>
 		<value>1.6</value>
+		<tag name="armor_physical" value="3" type="int" />
+		<tag name="armor_fire" value="3" type="int" />
+		<tag name="armor_cold" value="3" type="int" />
+		<tag name="armor_poison" value="3" type="int" />
+		<tag name="armor_energy" value="3" type="int" />
+		<tag name="weapon_physical" value="-80" type="int" />
+		<tag name="weapon_fire" value="20" type="int" />
+		<tag name="weapon_cold" value="20" type="int" />
+		<tag name="weapon_poison" value="20" type="int" />
+		<tag name="weapon_energy" value="20" type="int" />
+		<tag name="armor_durability" value="50" type="int" />
+		<tag name="weapon_durability" value="50" type="int" />
 	</define>
 
 </definitions>
