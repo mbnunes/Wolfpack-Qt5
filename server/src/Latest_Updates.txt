@@ -80,3 +80,8 @@ collect,get,look,view,browse and packup. A little code change for them also. (Ri
 67) Fixed: you get message "You don`t have that spell" when you do have the spell.
 Needs more testing.(Ripper)
 68) Added: Escorts will now yell out to players they need help. (Ripper)
+69) Changed & Added: Made Slotmachine cost put in the server.scp SLOTAMOUNT #.
+# = amount it cost to use the slotmachine. Also made it a type 187, so make any
+item type 187 and it will be a slotmachine. On singleclick it will show " 5 gold Slot"
+if amount is set to 5gp. else it shows whatever the slotamount is set to. NOTE:
+Right now it will also showthe items real name.(Ripper)

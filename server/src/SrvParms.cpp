@@ -200,6 +200,7 @@ void loadserverdefaults(void)
 	server_data.showCVCS = 1; // blackwind 
 	server_data.default_jail_time=86400; // 
 	server_data.attack_distance=13; // 
+	server_data.slotamount=5; // Ripper
 
 
 	cwmWorldState->SetLoopSaveAmt(-1);
@@ -499,6 +500,7 @@ void loadserver()
 		else if(!(strcmp((char*)script1,"SHOW_CVCS_INFO_AT_LOGIN"))) server_data.showCVCS=str2num(script2); //blackwind 
 		else if(!(strcmp((char*)script1,"DEFAULT_JAIL_TIME"))) server_data.default_jail_time=str2num(script2);// blackwind 
 		else if(!(strcmp((char*)script1,"BADNPCSRED"))) server_data.BadNpcsRed=str2num(script2); //Ripper
+		else if(!(strcmp((char*)script1,"SLOTAMOUNT"))) server_data.slotamount=str2num(script2); //Ripper
 		else if(!(strcmp((char*)script1,"PORT"))) wp_port = (short) str2num(script2);
 		else if(!(strcmp((char*)script1,"PACKETSENDSTYLE:"))) 
 		{
@@ -782,6 +784,7 @@ void saveserverscript(void)
 	fprintf(file, "SHOW_CVCS_INFO_AT_LOGIN %i\n",server_data.showCVCS); // blackwind 
 	fprintf(file, "DEFAULT_JAIL_TIME %i\n",server_data.default_jail_time);
 	fprintf(file, "BADNPCSRED %i\n",server_data.BadNpcsRed); // Ripper
+	fprintf(file, "SLOTAMOUNT %i\n",server_data.slotamount); // Ripper
 
 	
 	fprintf(file, "}\n\n");

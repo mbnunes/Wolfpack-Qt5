@@ -75,7 +75,6 @@ static bool Item_ToolWearOut(UOXSOCKET s, P_ITEM pi)
 //
 void slotmachine(UOXSOCKET s, P_ITEM pi)
 {
-//	int cc = currchar[s];
 	if (pi == NULL)
 		return;
 	P_CHAR pc_currchar = currchar[s];
@@ -84,17 +83,12 @@ void slotmachine(UOXSOCKET s, P_ITEM pi)
 		sysmessage(s,"ghosts cant do that!");
 		return;
 	}
-	if(itemdist(DEREF_P_CHAR(pc_currchar),pi)>3)	// within 3 to play.
-	{
-		sysmessage(s,"you need to be closer to play!");
-		return;
-	}
-	if(pc_currchar->CountGold() < 5)	// check his gold to see if less than 5gp.
+	if(pc_currchar->CountGold() < server_data.slotamount)	// check his gold to see if has enough.
 	{
 		sysmessage(s,"you dont have enough gold to play!");
 		return;
 	}
-	delequan(DEREF_P_CHAR(pc_currchar), 0x0EED, 5, NULL);	// if 5gp or more lets delete 5gp.
+	delequan(DEREF_P_CHAR(pc_currchar), 0x0EED, server_data.slotamount, NULL);	// lets delete the coins played.
 	int spin=RandomNum( 0,100);	// now lets spin to win :)
 	switch(spin)
 	{
@@ -668,7 +662,17 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			sysmessage(s, "Enter your new name.");
 			Items->DeleItem(pi);
 			return;// rename deed! -- eagle 1/29/00
-			
+		case 187: // Ripper...slotmachine
+            if (iteminrange(s, pi, 1))
+			{ 
+	             slotmachine(s, pi);
+				 return;
+			} 
+            else 
+			{ 
+	             sysmessage(s, "You need to be closer to use that."); 
+			}
+            return;// Ripper
 		case 100:  // type 100?  this ain't in the docs... - Morrolan
 			{
 				AllItemsIterator it;
@@ -1438,9 +1442,6 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x1077:// swinging training dummy
 					sysmessage(s, "You must wait for it to stop swinging !");
 					return;
-				case 0x1EA8: 
-					slotmachine(s, pi);
-					return; // Ripper
 				case 0x1EBC: // tinker's tools
 					target(s, 0, 1, 0, 180, "Select material to use.");
 					return;
@@ -1496,6 +1497,12 @@ void singleclick(UOXSOCKET s)
 	{
 		int goldcount = pi->value;
 		sprintf((char*)temp, "%i gold", goldcount);
+		itemmessage(s, (char*)temp, serial,0x0481);
+	}
+
+	if (pi->type == 187) // Ripper...used for slotmachine.
+	{
+		sprintf((char*)temp, "[%i gold Slot]", server_data.slotamount);
 		itemmessage(s, (char*)temp, serial,0x0481);
 	}
 	
