@@ -164,6 +164,7 @@ SOURCES         = \
 		  npc_flatstore.cpp \
 		  encryption.cpp \
 		  ai.cpp \
+		  ai_animals.cpp \
 		  ai_vendors.cpp \
 		  ai_monsters.cpp \
                   pfactory.cpp \
