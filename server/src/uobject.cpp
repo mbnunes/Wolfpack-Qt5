@@ -462,7 +462,7 @@ void cUObject::processNode( const cElement *Tag )
 	else 
 	{
 		cVariant variant( Value );
-		//setProperty( TagName, variant );
+		setProperty( TagName, variant );
 	}
 }
 
