@@ -2797,7 +2797,7 @@ bool cBaseChar::kill( cUObject* source )
 	}
 
 	// Fame is reduced by 10% upon death
-	fame_ *= 0.90;
+	fame_ = (int)( (float)fame_ * 0.90 );
 
 	// Create the corpse
 	cCorpse* corpse = 0;
