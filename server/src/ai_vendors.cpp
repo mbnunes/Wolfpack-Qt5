@@ -40,6 +40,8 @@
 #include "debug.h"
 #include "player.h"
 #include "network/uosocket.h"
+#include "network/uorxpackets.h"
+#include "trade.h"
 
 #include <math.h>
 
@@ -263,9 +265,9 @@ void Human_Vendor_BuyQuery::registerInFactory()
 	StateFactory::instance()->registerType("Human_Vendor_BuyQuery", productCreator_HV_BuyQuery);
 }
 
-void Human_Vendor_BuyQuery::handleSelection()
+void Human_Vendor_BuyQuery::handleSelection( P_PLAYER pPlayer, cUORxBuy* packet )
 {
-#pragma note( "TODO: do item transaction here" )
+	Trade->buyaction( pPlayer->socket(), packet );
 	nextState = new Human_Vendor_Wander( m_interface, npc );
 }
 
@@ -291,7 +293,7 @@ void Human_Vendor_SellQuery::registerInFactory()
 	StateFactory::instance()->registerType("Human_Vendor_SellQuery", productCreator_HV_SellQuery);
 }
 
-void Human_Vendor_SellQuery::handleSelection()
+void Human_Vendor_SellQuery::handleSelection( P_PLAYER pPlayer, cUORxBuy* packet )
 {
 #pragma note( "TODO: do item transaction here" )
 	nextState = new Human_Vendor_Wander( m_interface, npc );

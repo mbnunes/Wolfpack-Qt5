@@ -66,11 +66,14 @@
 #include "../basechar.h"
 #include "../chars.h"
 #include "../npc.h"
+#include "../ai.h"
 
 //#include <conio.h>
 #include <iostream>
 #include <stdlib.h>
 #include <qhostaddress.h>
+
+#include <qvaluelist.h>
 
 using namespace std;
 
@@ -250,7 +253,7 @@ void cUOSocket::recieve()
 	case 0x3A:
 		handleSkillLock( dynamic_cast< cUORxSkillLock* >( packet ) ); break;
 	case 0x3B:
-		Trade->buyaction( this, dynamic_cast< cUORxBuy* >( packet ) ); break;
+		handleBuy( dynamic_cast< cUORxBuy* >( packet ) ); break;
 	case 0x5D:
 		handlePlayCharacter( dynamic_cast< cUORxPlayCharacter* >( packet ) ); break;
 	case 0x66:
@@ -2225,6 +2228,14 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 	}
 }
 
+struct buyitem_st
+{
+	buyitem_st() : buyprice( 0 ), name( "" ) {}
+	buyitem_st( int bi, QString n ) : buyprice( bi ), name( n ) {}
+	int buyprice;
+	QString name;
+};
+
 void cUOSocket::sendVendorCont( P_ITEM pItem )
 {
 	// Only allowed for pItem's contained by a character
@@ -2232,9 +2243,14 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	cUOTxVendorBuy vendorBuy;
 	vendorBuy.setSerial( pItem->serial() );
 
+	/* dont ask me, but the order of the items for vendorbuy is reversed */
+	QValueList< buyitem_st > buyitems;
+	QValueList< buyitem_st >::const_iterator bit;
+
 	cItem::ContainerContent container = pItem->content();
 	cItem::ContainerContent::const_iterator it( container.begin() );
 	cItem::ContainerContent::const_iterator end( container.end() );
+
 	for( Q_INT32 i = 0; it != end; ++it, ++i )
 	{
 		P_ITEM mItem = *it;
@@ -2246,9 +2262,12 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 				continue;
 
 			itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i, i, ( pItem->layer() == 0x1A ) ? mItem->restock() : mItem->amount(), pItem->serial() );
-			vendorBuy.addItem( mItem->buyprice(), mItem->getName() );
+			buyitems.push_front( buyitem_st( mItem->buyprice(), mItem->getName() ) );
 		}
 	}
+
+	for( bit = buyitems.begin(); bit != buyitems.end(); ++bit )
+		vendorBuy.addItem( (*bit).buyprice, (*bit).name );
 
 	send( &itemContent );
 	send( &vendorBuy );
@@ -2282,6 +2301,21 @@ void cUOSocket::handleHelpRequest( cUORxHelpRequest* packet )
 void cUOSocket::handleSkillLock( cUORxSkillLock* packet )
 {
 	player()->setSkillLock( packet->skill(), packet->lock() );
+}
+
+void cUOSocket::handleBuy( cUORxBuy* packet )
+{
+	P_NPC pVendor = dynamic_cast< P_NPC >(FindCharBySerial( packet->serial() ));
+	if( pVendor && player() )
+	{
+		cNPC_AI* pAI = pVendor->ai();
+		if( pAI && pAI->currState() )
+		{
+			pAI->currState()->handleSelection( player(), packet );
+			pAI->updateState();
+			return;
+		}
+	}
 }
 
 /*

@@ -47,6 +47,7 @@ This class builds a sample state machine for NPC AI
 
 class AbstractState;
 class Coord_cl;
+class cUORxBuy;
 
 class cNPC_AI
 {
@@ -129,7 +130,7 @@ public:
 	virtual void targetCursorInput() {}
 	virtual void pay() {}
 	virtual void foundVictim( P_CHAR pVictim ) {}
-	virtual void handleSelection() {}
+	virtual void handleSelection( P_PLAYER pPlayer, cUORxBuy* packet ) {}
 	virtual void selectionCancelled() {}
 	virtual void selectionTimeOut() {}
 };
@@ -341,7 +342,7 @@ public:
 	static void registerInFactory();
 
 	// events handled
-	virtual void handleSelection();
+	virtual void handleSelection( P_PLAYER pPlayer, cUORxBuy* packet );
 	virtual void selectionCancelled();
 	virtual void selectionTimeOut();
 };
@@ -358,7 +359,7 @@ public:
 	static void registerInFactory();
 
 	// events handled
-	virtual void handleSelection();
+	virtual void handleSelection( P_PLAYER pPlayer, cUORxBuy* packet );
 	virtual void selectionCancelled();
 	virtual void selectionTimeOut();
 };

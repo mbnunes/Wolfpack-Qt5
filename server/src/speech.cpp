@@ -862,7 +862,10 @@ bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm
 
 		cNPC_AI* pAI = pNpc->ai();
 		if( pAI && pAI->currState() )
+		{
 			pAI->currState()->speechInput( pPlayer, speechUpr );
+			pAI->updateState();
+		}
 
 		if( BankerSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
