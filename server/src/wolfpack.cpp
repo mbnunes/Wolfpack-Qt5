@@ -1292,7 +1292,7 @@ int GetBankCount( CHARACTER p, unsigned short itemid, unsigned short color )
 	SERIAL serial = chars[p].serial;
 	long int goldCount = 0;
 	int counter2 = 0;
-	int j, i, ci;
+	int ci;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
 	for( ci = 0; ci < vecOwn.size(); ci++ )
 	{

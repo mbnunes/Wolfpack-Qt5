@@ -3034,7 +3034,7 @@ int sellstuff(int s, int i)
 {
 	char itemname[256];
 	int m1t, pack, z, value;
-	int serial,serhash,ci,serial1,serhash1,ci1;
+	int serial,ci,serial1,ci1;
 	unsigned char m1[2048];
 	unsigned char m2[2];
 	char ciname[256]; // By Magius(CHE)

@@ -285,7 +285,7 @@ void cGump::Input(int s)
 {
 	char type, index ;
 	char *text;
-	int c1,body,b,j,k,serial;
+	int c1,body,b,k,serial;
 	
 	type=buffer[s][7];
 	index=buffer[s][8];
