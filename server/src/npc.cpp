@@ -606,8 +606,12 @@ void cNPC::showName( cUOSocket* socket )
 	QString charName = name();
 
 	// apply titles
-	if ( Config::instance()->showNpcTitles() && !title_.isEmpty() )
-		charName.append( ", " + title_ );
+	if ( Config::instance()->showNpcTitles() && !title_.isEmpty() ) {
+		// There is a flag that hides the titles for NPCs
+		if (!basedef_ || basedef_->getIntProperty("hide_singleclick_title", 0) == 0) {
+			charName.append( ", " + title_ );
+		}
+	}
 
 	// Append serial for GMs
 	if ( socket->player()->showSerials() )
