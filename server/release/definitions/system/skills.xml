@@ -304,6 +304,7 @@
 		<strchance>0.25</strchance>
 		<dexchance>0.25</dexchance>
 		<intchance>0.5</intchance>
+		<gainchance>1.0</gainchance>
 		<defname>MAGICRESIST</defname>
 		<name>MagicResist</name>
 		<title>Mage</title>
