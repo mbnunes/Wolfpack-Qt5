@@ -2282,23 +2282,6 @@ bool cBaseChar::canSeeChar(P_CHAR character, bool lineOfSight)
 		{
 			return false;
 		}
-
-		// Check rank
-		if( character->objectType() == enPlayer )
-		{
-			P_PLAYER own_player = dynamic_cast<P_PLAYER>( this );
-			P_PLAYER other_player = dynamic_cast<P_PLAYER>( character );
-
-			if (other_player->account()->rank() > own_player->account()->rank())
-			{
-				return false;
-			}
-
-			if (!own_player->account()->authorized( "multi", "see_same_rank" ) && (other_player->account()->rank() != own_player->account()->rank()))
-			{
-				return false;
-			}
-		}
 	}
 
 	return true;
