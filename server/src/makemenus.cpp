@@ -3,7 +3,6 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
 //  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -816,7 +815,7 @@ void cDoScriptAction::execute( cUOSocket* const socket )
 {
 	P_CHAR pChar	 = socket->player();
 
-	if( !socket || !pChar || !baseaction_ )
+	if( !pChar || !baseaction_ )
 		return;
 
 	// Get everything before the last dot
@@ -1397,8 +1396,8 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 		addButton( 375, 387, 4005, 4007, (*button) );
 		addHtmlGump( 410, 389, 95, 18, htmlmask.arg( tr("MAKE NOW") ) );
 
-		cMakeCustomSection* pMCS = NULL;
-		if( pMCS = dynamic_cast< cMakeCustomSection* >( *it ) )
+		cMakeCustomSection* pMCS = dynamic_cast<cMakeCustomSection*>( *it );
+		if( pMCS )
 		{
 			content = "";
 			QPtrList< cSkillCheck > skillchecks = pMCS->skillchecks();
@@ -1434,8 +1433,8 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 		startPage( page );
 		addHtmlGump( 245, 39, 270, 20, htmlmask.arg( action->name() ) );
 
-		cMakeCustomSection* pMCS = NULL;
-		if( ( makesections.size() > 0 ) && ( pMCS = dynamic_cast< cMakeCustomSection* >( makesections[0] ) ) )
+		cMakeCustomSection* pMCS = dynamic_cast< cMakeCustomSection* >( makesections[0] );
+		if( ( makesections.size() > 0 ) && ( pMCS ) )
 		{
 			QString content = "";
 			QPtrList< cSkillCheck > skillchecks = pMCS->skillchecks();

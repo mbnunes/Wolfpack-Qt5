@@ -3,7 +3,6 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
 //  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -41,7 +40,7 @@
 
 // Library includes
 #include <qstringlist.h>
-#include <qdom.h>
+//#include <qdom.h>
 #include <qptrlist.h>
 #include <qvaluevector.h>
 
@@ -319,7 +318,7 @@ public:
 	WPACTIONTYPE	type()			const { return type_; }
 
 	// Setters
-	void		setName( QString data )		{ name_ = data; }
+	void		setName( const QString& data )		{ name_ = data; }
 	void		setModel( UINT16 data )		{ model_ = data; }
 	void		appendSection( cMakeSection* pms )	{ makesections_.append( pms ); }
 
@@ -372,11 +371,11 @@ public:
 	virtual void processNode( const QDomElement &Tag );
 
 	// Getters
-	SubMenuContainer	subMenus()		{ return submenus_; }
-	ActionContainer		actions()		{ return actions_; }
-	QString				name()			{ return name_; }
-	QString				link()			{ return link_; }
-	cMakeMenu*			prevMenu()		{ return prev_; }
+	SubMenuContainer	subMenus() const		{ return submenus_; }
+	ActionContainer		actions() const		{ return actions_; }
+	QString				name() const			{ return name_; }
+	QString				link() const			{ return link_; }
+	cMakeMenu*			prevMenu() const		{ return prev_; }
 
 	// Setters
 	void	setName( const QString& data )							{ name_ = data; }
