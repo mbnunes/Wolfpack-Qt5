@@ -42,11 +42,20 @@
 // System Includes
 #include <map>
 
+// Singleton Class to manage Items.
 class cItemsManager : public std::map<SERIAL, cItem*>
 {
+private:
+	cItemsManager() {} // Unallow anyone to instantiate.
 public:
 	void registerItem( cItem* ) throw(wp_exceptions::bad_ptr);
-	SERIAL getUnusedSerial() const; 
+	SERIAL getUnusedSerial() const;
+
+	static cItemsManager& getItemsManager()
+	{
+		static cItemsManager theItemsManager;
+		return theItemsManager; 
+	}
 };
 
 #endif // __ITEMSMGR_H__

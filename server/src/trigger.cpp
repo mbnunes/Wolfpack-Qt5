@@ -1199,7 +1199,8 @@ void triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							
 							if (pi!=NULL)
 							{
-								if (pi->contserial == items[pc_ts->packitem].serial)
+								P_ITEM pBackpack = FindItemBySerial(pc_ts->packitem);
+								if (pi->contserial == pBackpack->serial)
 								{
 									triggerx = pc_ts->pos.x + 1;
 									triggery = pc_ts->pos.y + 1;
@@ -2881,11 +2882,11 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							else 
 							{
 								// Get Temporany Name of the NEED Item - Magius(CHE) §
-								if (items[i].name[0] != '#') // Get Temporany Name of the NEED Item - Magius(CHE) §
-									strcpy(tempname3, items[i].name);
+								if (pi_needitem->name[0] != '#') // Get Temporany Name of the NEED Item - Magius(CHE) §
+									strcpy(tempname3, pi_needitem->name);
 								else 
 								{
-									Map->SeekTile(items[i].id(), &tile);
+									Map->SeekTile(pi_needitem->id(), &tile);
 									strcpy(tempname3, (char*)tile.name);
 								}
 								// End Get Temporany Name of the NEED Item - Magius(CHE) §

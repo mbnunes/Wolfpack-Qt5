@@ -413,9 +413,8 @@ void cHouseManager::AddHome(int s, int i)
 // s = socket of player
 // i = house item # in items[]
 // morex on the house item must be set to deed item # in items.scp.
-void deedhouse(UOXSOCKET s, int i) // Ripper & AB
+void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 {
-	P_ITEM pHouse = MAKE_ITEM_REF(i);
 	int loopexit=0;
 	int x1, y1, x2, y2;
 	unsigned char ser1, ser2, ser3, ser4;

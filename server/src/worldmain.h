@@ -81,7 +81,7 @@ private:
 	long PerLoop;
 
 	void SaveChar( CHARACTER i );
-	void SaveItem( long i, P_ITEM pDefault );
+	void SaveItem( P_ITEM pi, P_ITEM pDefault );
 };
 
 #endif //

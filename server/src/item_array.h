@@ -39,12 +39,12 @@
 
 // macros
 
-#define MAKE_ITEM_REF(i) ItemArray->MakeItemref(i)
+//#define MAKE_ITEM_REF(i) ItemArray->MakeItemref(i)
 #define LOG_INVALID_I_REF(err,meSSage) if(err=ItemArray->GetError()) { strcpy(schei___, meSSage); strcat(schei___," errorcode:%i\n"); LogCritical(schei___ _ err); } // strcpy stuff to prevent const string crashes 
 #define GET_I_ERROR(err) err=ItemArray->GetError()
 
-#define MAKE_ITEMREF_LOGGED(i,err) ItemArray->MakeItemref(i); err=ItemArray->GetError(); if (err) { strcpy(schei___, "invalid item index "); strcat(schei___," errorcode:%i\n"); LogCritical(schei___ _ err); } 
-#define MAKE_ITEMREF_C(i)			ItemArray->MakeItemref(i); int err=ItemArray->GetError(); if (err) { continue;}
+//#define MAKE_ITEMREF_LOGGED(i,err) ItemArray->MakeItemref(i); err=ItemArray->GetError(); if (err) { strcpy(schei___, "invalid item index "); strcat(schei___," errorcode:%i\n"); LogCritical(schei___ _ err); } 
+//#define MAKE_ITEMREF_C(i)			ItemArray->MakeItemref(i); int err=ItemArray->GetError(); if (err) { continue;}
 //#define MAKE_ITEMREF_LR(i)			ItemArray->MakeItemref(i); {int err=ItemArray->GetError(); if (err) { strcpy(schei___, "invalid item index "); strcat(schei___," errorcode:%i\n"); LogCritical(schei___ _ err); return;} }
 //#define MAKE_ITEMREF_LRV(i,retval)	ItemArray->MakeItemref(i); {int err=ItemArray->GetError(); if (err) { strcpy(schei___, "invalid item index "); strcat(schei___," errorcode:%i\n"); LogCritical(schei___ _ err); return retval;} }
 #define MAKE_ITEMREF_LR(i)			ItemArray->MakeItemref(i); {int err=ItemArray->GetError(); if (err) { strcpy(schei___, "invalid item index <%i>\n"); LogCritical(schei___ _ i); return;} }
@@ -54,8 +54,8 @@
 
 // Duke, 21.11.2000: the next defines are intended to replace itemcount loops as follows:
 //		for (P_ITEM pi=pFirstItem;pi < pEndOfItems;pi++)
-#define pFirstItem (&items[0])
-#define pEndOfItems (pFirstItem+itemcount)
+//#define pFirstItem (&items[0])
+//#define pEndOfItems (pFirstItem+itemcount)
 
 // class definiton
 

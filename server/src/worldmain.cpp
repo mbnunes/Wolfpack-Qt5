@@ -1046,34 +1046,38 @@ void CWorldMain::savenewworld(char x)
 	P_ITEM piDefault = new cItem;	// create an item with the default values
 	piDefault->Init(0);
 
-	for ( ; Cur<Max ; Cur++)
+// For now on let's save all at once.
+
+	AllCharsIterator iterChars;
+	for (iterChars.Begin(); iterChars.GetData() != iterChars.End(); iterChars++)
 	{
-		if ( Cur < ocCount )
-			SaveChar( Cur );
-		if ( Cur < oiCount )
-			SaveItem( Cur, piDefault);
-	}	// end for loop
-	if ( Cur == max(oiCount, ocCount) )
-	{ //Done saving
-		if ( announce() )
-		{
-			sysbroadcast("Worldsave Done!\n");
-			clConsole.send("Worldsave Done!\n");
-		}
-
-		fprintf(cWsc,"\nEOF\n\n");
-		fclose(cWsc);
-
-		Guilds->Write( iWsc );
-		fprintf(iWsc, "EOF\n\n");
-		fclose(iWsc);
-
-		Cur = Max = ocCount = oiCount = 0;
-		isSaving = false;
-
-		iWsc = cWsc = NULL;
-
+		SaveChar(DEREF_P_CHAR(iterChars.GetData()));
 	}
+
+	AllItemsIterator iterItems;
+	for (iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)
+	{
+		SaveItem(iterItems.GetData(), piDefault);
+	}
+
+	if ( announce() )
+	{
+		sysbroadcast("Worldsave Done!\n");
+		clConsole.send("Worldsave Done!\n");
+	}
+
+	fprintf(cWsc,"\nEOF\n\n");
+	fclose(cWsc);
+
+	Guilds->Write( iWsc );
+	fprintf(iWsc, "EOF\n\n");
+	fclose(iWsc);
+
+	Cur = Max = ocCount = oiCount = 0;
+	isSaving = false;
+
+	iWsc = cWsc = NULL;
+
 	if( announce() )
 	{
 		sysbroadcast("Saving Houses....");
@@ -1440,11 +1444,10 @@ void CWorldMain::SaveChar( CHARACTER i )
 
 #endif
 
-static void decay1(P_ITEM pi, int i)
+static void decay1(P_ITEM pi, P_ITEM pItem)
 {
 	long serial;
 	int ci;
-	P_ITEM pItem = MAKE_ITEM_REF(i);
 	if (pi->corpse==1)
 	{
 		serial=pi->serial;
@@ -1511,9 +1514,11 @@ void swapDragInfo(P_ITEM pi)
 	pi->oldlayer=tmpLayer;
 }
 
-void CWorldMain::SaveItem( long i, P_ITEM pDefault)
+void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 {
-	P_ITEM pi = MAKE_ITEMREF_LR(i);
+
+	if (pi == NULL)
+		return;
 
 	if (pi->priv&0x01 && pi->isInWorld() && !pi->free)
 	{
@@ -1523,7 +1528,7 @@ void CWorldMain::SaveItem( long i, P_ITEM pDefault)
 		}
 		else if (pi->decaytime<uiCurrentTime)
 		{
-			decay1(pi,i);
+			decay1(pi,pi);
 		}
 	}
 
@@ -1538,7 +1543,7 @@ void CWorldMain::SaveItem( long i, P_ITEM pDefault)
 	if (pi->free==0 && ( !pi->isInWorld() || (pi->pos.x > 200 && pi->pos.x < 6144 && pi->pos.y < 4096 )))
 	{
 		sp=sectbuf;
-		save_int("SECTION WORLDITEM", i);
+		save_txt("SECTION WORLDITEM");
 		save_txt("{");
 		save_int("SERIAL", pi->serial);
 		save_str("NAME", pi->name);

@@ -411,24 +411,6 @@ int cItem::getWeight()
 	return itemweight;
 }
 
-
-
-
-
-void cAllItems::SetOwnSerial(ITEM i, long ownser)
-{
-	const P_ITEM pi = MAKE_ITEMREF_LR(i);
-	pi->setOwnSerialOnly(ownser);
-}
-
-void cAllItems::SetPos(ITEM nItem, short x,short y, signed char z)
-{
-	const P_ITEM pi = MAKE_ITEMREF_LR(nItem);
-	pi->pos.x=x;
-	pi->pos.y=y;
-	pi->pos.z=z;
-}
-
 void cAllItems::CheckMemoryRequest()
 {
 	if (moreItemMemoryRequested)

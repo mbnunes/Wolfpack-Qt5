@@ -224,8 +224,6 @@ private:
 	int  GetReusableSlot();
 public:
 	cAllItems() {moreItemMemoryRequested=false;}
-	void SetOwnSerial(ITEM i, long ownserial);
-	void SetPos(ITEM nItem, short x,short y, signed char z);
 	P_ITEM  MemItemFree();
 	void DeleItem(P_ITEM pi);
 	char isFieldSpellItem(P_ITEM pi);

@@ -766,9 +766,11 @@ void loadmenuprivs()
 void item_char_test()
 {
 	LogMessage("Starting item consistancy check");
-
-	for (P_ITEM pi=pFirstItem;pi < pEndOfItems;pi++)
+	
+	AllItemsIterator iterItems;
+	for (iterItems.Begin(); iterItems.GetData() != iterItems.End();iterItems++)
 	{
+		P_ITEM pi = iterItems.GetData();
 		char tmp[150];
 		if (pi->serial==pi->contserial)
 		{
@@ -903,8 +905,12 @@ void wornitems(UOXSOCKET s, CHARACTER j) // Send worn items of player j
 
 void all_items(int s) // Send ALL items to player
 {
-	for (P_ITEM pi=pFirstItem;pi < pEndOfItems;pi++)
+	AllItemsIterator iterItems;
+	for (iterItems.Begin(); iterItems.GetData() != iterItems.End();iterItems++)
+	{
+		P_ITEM pi = iterItems.GetData();
 		if (!pi->free) senditem(s, pi);
+	}
 }
 
 void showcname (int s, int i, char b) // Singleclick text for a character
@@ -1992,28 +1998,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->priv |= 0x02; // Mark as a newbie item
 	}
 
-#ifdef SPECIAL
-	{	// limit the scope of pi
-	n=Items->SpawnItem(s,1,"#",0,0x09,0x15,0,0,0,0);
-	if(n==-1) return;//AntiChrist to preview crashes
-	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
-
-	switch (RandomNum(0, 6))
-	{
-	case 0:	pi->id1=0x15; pi->id2=0x4b; break;
-	case 1:	pi->id1=0x15; pi->id2=0x45; break;
-	case 2:	pi->id1=0x15; pi->id2=0x47; break;
-	case 3:	pi->id1=0x15; pi->id2=0x49; break;
-	case 4:	pi->id1=0x17; pi->id2=0x1c; break;
-	case 5:	pi->id1=0x1f; pi->id2=0x0b; break;
-	case 6:	pi->id1=0x14; pi->id2=0x51; break;
-	}
-	pi->SetContSerial(pc->serial);
-	pi->layer=0x06;
-	}
-#endif
-
-	currchar[s]=DEREF_P_CHAR(pc);
+	currchar[s] = DEREF_P_CHAR(pc);
 	newbieitems(DEREF_P_CHAR(pc));
 
 	perm[s]=1;
@@ -2254,7 +2239,12 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 		c=0;
 		int totaltotal=0;
 		int cc=0;
-		for (P_ITEM pi=pFirstItem;pi < pEndOfItems;pi++) { if (pi->free==0) total++; totaltotal++; }
+		AllItemsIterator iterItems;
+		for (iterItems.Begin(); iterItems.GetData() != iterItems.End();iterItems++)
+		{ 
+			P_ITEM pi = iterItems.GetData();
+			if (pi->free==0) total++; totaltotal++; 
+		}
 		AllCharsIterator iter_char;
 		for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++) 
 		{ 
@@ -3976,18 +3966,6 @@ P_CHAR GetPackOwner(P_ITEM pItem, short rec)
 	return FindCharBySerial(pio->contserial);
 }
 
-int GetPackOwner(int p)
-{
-	P_ITEM pi = MAKE_ITEM_REF(p);
-	if (pi == NULL)
-		return -1;
-	P_CHAR pc = GetPackOwner(pi, 10);
-	if (pc == NULL)
-		return -1;
-	else
-		return DEREF_P_CHAR(pc);
-}
-
 void goldsfx(int s, int goldtotal)
 {
 	if (goldtotal==1) soundeffect(s, 0x00, 0x35);
@@ -4342,7 +4320,6 @@ int calcGoodValue(int npcnum2, P_ITEM pi, int value,int goodtype)
 	int actreg=calcRegionFromXY(chars[npcnum2].pos.x, chars[npcnum2].pos.y);
 	int regvalue=0;
 	int x;
-	//const P_ITEM pi=MAKE_ITEMREF_LRV(i,value);	// on error return
 	if (pi == NULL)
 		return value;
 

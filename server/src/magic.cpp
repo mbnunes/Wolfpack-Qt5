@@ -1728,9 +1728,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	unsigned int checkgrid;
 	
 	int loskill, hiskill;//AntiChrist moved here
-	//	int cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
-	//	P_ITEM pi = MAKE_ITEMREF_LR(cc)
 	int curSpell = pc_currchar->spell;
 	short xo,yo;
 	signed char zo;
@@ -1779,7 +1777,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					if ((pi->type==50))
 					{
 						playSound( DEREF_P_CHAR(pc_currchar), curSpell );
-						doMoveEffect( curSpell, DEREF_P_ITEM(pi), DEREF_P_CHAR(pc_currchar) );
+						//doMoveEffect( curSpell, DEREF_P_ITEM(pi), DEREF_P_CHAR(pc_currchar) );
 						doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
 						switch( curSpell )
 						{

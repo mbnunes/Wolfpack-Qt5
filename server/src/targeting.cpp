@@ -1283,18 +1283,20 @@ void cTargets::Wiping(int s) // Clicking the corners of wiping calls this functi
 	unsigned int i ;
 	if (addid1[s]==1)
 	{ // addid1[s]==1 means to inverse wipe
-		for ( i=0;i<itemcount;i++)
+		AllItemsIterator iterItems;
+		for (iterItems.Begin(); iterItems.GetData() != iterItems.End();iterItems++)
 		{
-			P_ITEM pi=MAKE_ITEMREF_LR(i);
+			P_ITEM pi=iterItems.GetData();
 			if (!(pi->pos.x>=x1 && pi->pos.x<=x2 && pi->pos.y>=y1 && pi->pos.y<=y2) && pi->isInWorld() && pi->wipe==0)
 				Items->DeleItem(pi);
 		}
 	}
 	else
 	{
-		for (i=0;i<itemcount;i++)
+		AllItemsIterator iterItems;
+		for (iterItems.Begin(); iterItems.GetData() != iterItems.End();iterItems++)
 		{
-			P_ITEM pi=MAKE_ITEMREF_LR(i);
+			P_ITEM pi=iterItems.GetData();
 			if (pi->pos.x>=x1 && pi->pos.x<=x2 && pi->pos.y>=y1 && pi->pos.y<=y2 && pi->isInWorld() && pi->wipe==0)
 				Items->DeleItem(pi);
 		}
@@ -2494,9 +2496,10 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 		pc->resetAttackFirst();
 		pc->war=0;
 
-		for (j=0;j<itemcount;j++)
+		AllItemsIterator iterItems;
+		for (iterItems.Begin(); iterItems.GetData() != iterItems.End();iterItems++)
 		{
-			P_ITEM pj=MAKE_ITEMREF_LRV(j,true);
+			P_ITEM pj = iterItems.GetData();
 			if (pc->Wears(pj) && pj->layer==0x1A)
 			{
 				pj->layer=0x15;
@@ -2504,9 +2507,9 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 				//break;
 			}
 		}
-		for (j=0;j<itemcount;j++)
+		for (iterItems.Begin(); iterItems.GetData() != iterItems.End();iterItems++)
 		{
-			P_ITEM pj = MAKE_ITEMREF_LRV(j,true);
+			P_ITEM pj = iterItems.GetData();
 			if (pj->serial == pc->robe)
 			{
 				Items->DeleItem(pj);

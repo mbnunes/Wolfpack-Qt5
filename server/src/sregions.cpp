@@ -592,9 +592,10 @@ void cRespawn::Continue()
 		return;			// take a break after each region 
 	}
 
-	for( i = currentSpawnItem; i < itemcount; i++)	// Item Spawner
+	AllItemsIterator iterItems;
+	for (iterItems.Begin(); iterItems.GetData() != iterItems.End();iterItems++)
 	{
-		P_ITEM pi = MAKE_ITEMREF_LR(i);
+		P_ITEM pi = iterItems.GetData();
 		int k, serial, ci;
 		if (pi->type==61)
 		{

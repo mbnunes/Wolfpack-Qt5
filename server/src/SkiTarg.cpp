@@ -1615,7 +1615,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 //
 void cSkills::HealingSkillTarget(UOXSOCKET s)
 {
-	P_ITEM pib = MAKE_ITEMREF_LR(addmitem[s]);	// item index of bandage
+	P_ITEM pib = FindItemBySerial(addmitem[s]);	// item index of bandage
 	
 	P_CHAR pp = FindCharBySerPtr(buffer[s]+7); // pointer to patient
 	if (pp != NULL)

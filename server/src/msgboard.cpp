@@ -236,7 +236,6 @@ void MsgBoardOpen(int s)
 	strcpy( fileName1, "global.bbi" );
 	
 	// REGIONAL post file
-	//sprintf( fileName2, "region%s.bbi", region[calcRegionFromXY(items[msgBoardSerial].x, items[msgBoardSerial].y)].name );
 	sprintf( fileName2, "region%d.bbi", calcRegionFromXY(pi_msgBoard->pos.x, pi_msgBoard->pos.y) );
 	
 	// LOCAL post file
