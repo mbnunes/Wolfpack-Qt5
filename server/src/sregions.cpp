@@ -621,11 +621,12 @@ void cRespawn::Continue()
 			k=0;
 			serial=pi->serial;
 			serhash=serial%HASHMAX;
-			for (ci=0;ci<cspawnsp[serhash].max;ci++)
+			vector<SERIAL> vecSpawned = cspawnsp.getData(pi->serial);
+			for (ci = 0; ci < vecSpawned.size(); ci++)
 			{
-				j=cspawnsp[serhash].pointer[ci];
+				P_CHAR pc_j = FindCharBySerial(vecSpawned[ci]);
 				if (j!=-1)
-					if (pi->serial==chars[j].spawnserial)
+					if (pi->serial==pc_j->spawnserial)
 					{
 						k++;
 					}

@@ -1573,8 +1573,8 @@ char cAllItems::isFieldSpellItem(int i) //LB
 //taken from 6904t2(5/10/99) - AntiChrist
 void cAllItems::DecayItem(unsigned int currenttime, int i) 
 {
-	int j,serial,serhash,ci, preservebody;
-	P_ITEM pi=MAKE_ITEMREF_LR(i);
+	int j, serial, serhash, ci, preservebody;
+	P_ITEM pi = MAKE_ITEMREF_LR(i);
 	P_ITEM pi_multi = NULL;
 
 	if(pi->magic==4) {pi->decaytime=0; return;}
@@ -1647,28 +1647,28 @@ void cAllItems::DecayItem(unsigned int currenttime, int i)
 					vector<SERIAL> vecContainer = contsp.getData(serial);
 					for (ci=0;ci<vecContainer.size();ci++)
 					{
-						j=calcItemFromSer(vecContainer[ci]);
-                        if (j!=-1) //lb
+						P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);
+                        if (pi_j != NULL) //lb
 						{
-						   if ((items[j].contserial==pi->serial)/* &&
+						   if ((pi_j->contserial==pi->serial)/* &&
 						    	(items[j].layer!=0x0B)&&(items[j].layer!=0x10)*/)
 						   {
-							items[j].SetContSerial(-1);
-							items[j].MoveTo(pi->pos.x,pi->pos.y,pi->pos.z);
+							pi_j->SetContSerial(-1);
+							pi_j->MoveTo(pi->pos.x,pi->pos.y,pi->pos.z);
 
-							items[j].startDecay();
+							pi_j->startDecay();
 
-							RefreshItem(j);//AntiChrist
+							RefreshItem(pi_j);//AntiChrist
 						   }
 						} // enof of if j!=-1
 					}
-					Items->DeleItem(i);
+					Items->DeleItem(pi);
 				} 
 				else 
 				{
 					if( pi->isInWorld() )
 					{
-						Items->DeleItem(i);
+						Items->DeleItem(pi);
 					}
 					else
 					{
@@ -1689,7 +1689,6 @@ void cAllItems::RespawnItem(unsigned int currenttime, int i)
 	//char ilist[66]="101010100010100101010100001101010000110101010101011010";
 	P_ITEM pi=MAKE_ITEMREF_LR(i);
 	if (pi->free) return;
-	int ii=DEREF_P_ITEM(pi);
 
 	for(c=0;c<pi->amount;c++)
 	{
@@ -1711,7 +1710,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, int i)
 					if (ci > -1) 
 					if(pi->serial==items[ci].spawnserial && (items[ci].free==0))
 					{
-						if (ii!=ci && items[ci].pos.x==pi->pos.x && items[ci].pos.y==pi->pos.y && items[ci].pos.z==pi->pos.z)
+						if (DEREF_P_ITEM(pi)!=ci && items[ci].pos.x==pi->pos.x && items[ci].pos.y==pi->pos.y && items[ci].pos.z==pi->pos.z)
 						{
 							k=1;
 							break;
@@ -1728,28 +1727,24 @@ void cAllItems::RespawnItem(unsigned int currenttime, int i)
 					}
 					if ((pi->gatetime<=currenttime ||(overflow)) && pi->morex!=0)
 					{
-						Items->AddRespawnItem(ii,pi->morex, 0);
+						Items->AddRespawnItem(DEREF_P_ITEM(pi),pi->morex, 0);
 						pi->gatetime=0;
 					}
 				}
 			}
-			if (pi->type==62 || pi->type==69 || pi->type==125)
+			else if (pi->type==62 || pi->type==69 || pi->type==125)
 			{
 				k=0;
-				if (pi->serial==1073763561)
-				{
-					k=0;
-				}
 				serial=pi->serial;
-				serhash=serial%HASHMAX;
-				for (j=0;j<cspawnsp[serhash].max;j++)
+				vector<SERIAL> vecSpawned = cspawnsp.getData(pi->serial);
+				for (j = 0; j < vecSpawned.size(); j++)
 				{
-					ci=cspawnsp[serhash].pointer[j];
-					if (ci > -1)
-					if (chars[ci].spawnserial==serial && !chars[ci].free)
-					{
-						k++;
-					}
+					P_CHAR pc_ci = FindCharBySerial(vecSpawned[j]);
+					if (pc_ci != NULL)
+						if (pc_ci->spawnserial==pi->serial && !pc_ci->free)
+						{
+							k++;
+						}
 				}
 
 				if (k<pi->amount)
@@ -1763,21 +1758,21 @@ void cAllItems::RespawnItem(unsigned int currenttime, int i)
 					}
 					if ((pi->gatetime<=currenttime || (overflow)) && pi->morex!=0)
 					{
-						Npcs->AddRespawnNPC(ii,pi->morex,1);//If you are trying to spawn NPCs you must call an
+						Npcs->AddRespawnNPC(DEREF_P_ITEM(pi),pi->morex,1);//If you are trying to spawn NPCs you must call an
 						pi->gatetime=0;					//NPC spawn not an item spawn. Fixed 9-3-99 Just Michael
 					}
 				}
 			}
-			if ((pi->type==63)||(pi->type==64)||(pi->type==65)||(pi->type==66)||(pi->type==8))
+			else if ((pi->type==63)||(pi->type==64)||(pi->type==65)||(pi->type==66)||(pi->type==8))
 			{
 				serial=pi->serial;
 				serhash=serial%HASHMAX;
-				vector<SERIAL> vecContainer = contsp.getData(serial);
+				vector<SERIAL> vecContainer = contsp.getData(pi->serial);
 				for (j=0;j<vecContainer.size();j++)
 				{
 					ci=calcItemFromSer(vecContainer[j]);
 					if (ci > -1)
-					if (items[ci].contserial==serial && items[ci].free==0)
+					if (items[ci].contserial==pi->serial && items[ci].free==0)
 					{
 						m++;
 					}
@@ -1794,11 +1789,11 @@ void cAllItems::RespawnItem(unsigned int currenttime, int i)
 						if(pi->type==63) pi->type=64; //Lock the container 
 						//numtostr(pi->morex,m); //ilist); //LB, makes chest spawners using random Itemlist items instead of a single type, LB							
 						if(pi->morex)
-							Items->AddRespawnItem(ii,pi->morex,1);//If the item contains an item list then it will randomly choose one from the list, JM
+							Items->AddRespawnItem(DEREF_P_ITEM(pi),pi->morex,1);//If the item contains an item list then it will randomly choose one from the list, JM
 						else
 						{
 							ci=Items->CreateRandomItem("70"); //default itemlist);
-							Items->AddRespawnItem(ii,ci, 1);
+							Items->AddRespawnItem(DEREF_P_ITEM(pi),ci, 1);
 						}
 						pi->gatetime=0;	
 					}

@@ -135,7 +135,7 @@ void advancementobjects(int s, int x, int allways)
 
 	P_CHAR pc_s = MAKE_CHARREF_LR(s);
 
-	int packnum,hairobject=-1, beardobject=-1;
+	int packnum;
 	int pos,i,retitem=-1;
 	if ((pc_s->advobj==0)||(allways==1))
 	{
@@ -225,69 +225,65 @@ void advancementobjects(int s, int x, int allways)
 
 					if ((!(strcmp("DYEHAIR",(char*)script1))))
 					{
-						int serial,serhash,ci;
-						serial=pc_s->serial;
-						serhash=serial%HASHMAX;
-						vector<SERIAL> vecContainer = contsp.getData(serial);
+						unsigned int ci;
+						vector<SERIAL> vecContainer = contsp.getData(pc_s->serial);
+						P_ITEM pi_hair = NULL;
 						for (ci = 0; ci < vecContainer.size(); ci++)
 						{
-							i=calcItemFromSer(vecContainer[ci]);
-							if (i!=-1)
-								if ((items[i].layer==0x0B) && (items[i].contserial==serial))
+							P_ITEM pi_temp = FindItemBySerial(vecContainer[ci]);
+							if (pi_temp != NULL)
+								if (pi_temp->layer == 0x0B)
 								{
-									hairobject=i;
+									pi_hair = pi_temp;
 									break;
 								}
 						}
-						if (hairobject>-1)
+						if (pi_hair != NULL)
 						{
 							x=hex2num(script2);
-							items[hairobject].color1=x>>8;
-							items[hairobject].color2=x%256;
-							RefreshItem(hairobject);//AntiChrist
-							teleport(s);
+							pi_hair->color1=x>>8;
+							pi_hair->color2=x%256;
+							RefreshItem(pi_hair);//AntiChrist
+							teleport(DEREF_P_CHAR(pc_s));
 						}
 					}
 
 					if ((!(strcmp("DYEBEARD",(char*)script1))))
 					{
-						int serial,serhash,ci;
-						serial=pc_s->serial;
-						serhash=serial%HASHMAX;
-						vector<SERIAL> vecContainer = contsp.getData(serial);
+						int ci;
+						P_ITEM pi_beard = NULL;
+						vector<SERIAL> vecContainer = contsp.getData(pc_s->serial);
 						for (ci = 0; ci < vecContainer.size();ci++)
 						{
-							i=calcItemFromSer(vecContainer[ci]);
-							if (i!=-1)
-								if ((items[i].layer==0x10) && (items[i].contserial==serial))
+							P_ITEM pi_temp = FindItemBySerial(vecContainer[ci]);
+							if (pi_temp != NULL)
+								if (pi_temp->layer == 0x10)
 								{
-									beardobject=i;
+									pi_beard = pi_temp;
 									break;
 								}
 						}
-						if (beardobject>-1)
+						if (pi_beard != NULL)
 						{
 							x=hex2num(script2);
-							items[beardobject].color1=x>>8;
-							items[beardobject].color2=x%256;
-							RefreshItem(beardobject);//AntiChrist
-							teleport(s);
+							pi_beard->color1=x>>8;
+							pi_beard->color2=x%256;
+							RefreshItem(pi_beard);//AntiChrist
+							teleport(DEREF_P_CHAR(pc_s));
 						}
 					}
 
 					if (!(strcmp("KILLHAIR",(char*)script1)))
 					{
-						int serial,serhash,ci;
-						serial=pc_s->serial;
-						serhash=serial%HASHMAX;
-						vector<SERIAL> vecContainer = contsp.getData(serial);
+						unsigned int ci;
+						vector<SERIAL> vecContainer = contsp.getData(pc_s->serial);
 						for (ci=0;ci<vecContainer.size();ci++)
 						{
-							i=calcItemFromSer(vecContainer[ci]);
-							if (i!=-1)
-								if ((items[i].layer==0x0B) && (items[i].contserial==serial))
+							P_ITEM pi_temp = FindItemBySerial(vecContainer[ci]);
+							if (pi_temp != NULL)
+								if (pi_temp->layer == 0x0B)
 								{
-									Items->DeleItem(i);
+									Items->DeleItem(pi_temp);
 									break;
 								}
 						}
@@ -295,17 +291,15 @@ void advancementobjects(int s, int x, int allways)
 
 					if (!(strcmp("KILLBEARD",(char*)script1)))
 					{
-						int serial,serhash,ci;
-						serial=pc_s->serial;
-						serhash=serial%HASHMAX;
-						vector<SERIAL> vecContainer = contsp.getData(serial);
+						unsigned int ci;
+						vector<SERIAL> vecContainer = contsp.getData(pc_s->serial);
 						for (ci=0;ci<vecContainer.size();ci++)
 						{
-							i=calcItemFromSer(vecContainer[ci]);
-							if (i!=-1)
-								if ((items[i].layer==0x10) && (items[i].contserial==serial))
+							P_ITEM pi_temp = FindItemBySerial(vecContainer[ci]);
+							if (pi_temp != NULL)
+								if (pi_temp->layer==0x10)
 								{
-									Items->DeleItem(i);
+									Items->DeleItem(pi_temp);
 									break;
 								}
 						}
@@ -313,15 +307,13 @@ void advancementobjects(int s, int x, int allways)
 
 					if (!(strcmp("KILLPACK",(char*)script1)))
 					{
-						int serial,serhash,ci;
-						serial=pc_s->serial;
-						serhash=serial%HASHMAX;
-						vector<SERIAL> vecContainer = contsp.getData(serial);
+						unsigned int ci;
+						vector<SERIAL> vecContainer = contsp.getData(pc_s->serial);
 						for (ci=0;ci<vecContainer.size();ci++)
 						{
 							P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 							if (pi != NULL)
-								if ((pi->layer==0x15) && (pi->contserial==serial))
+								if (pi->layer==0x15)
 								{
 									Items->DeleItem(pi);
 									break;
@@ -333,34 +325,34 @@ void advancementobjects(int s, int x, int allways)
 						x=str2num(script2);
 						pos=ftell(scpfile);
 						closescript();	/* lord binary */
-						retitem=Targ->AddMenuTarget(-1, 0, x);
+						P_ITEM retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, x));
 						openscript("advance.scp");
 						fseek(scpfile, pos, SEEK_SET);
 						strcpy((char*)script1, "DUMMY");
-						packnum=packitem(s);
-						if (retitem>-1)
+						P_ITEM pPack = Packitem(pc_s);
+						if (retitem != NULL)
 						{
-							items[retitem].pos.x=50+(rand()%80);
-							items[retitem].pos.y=50+(rand()%80);
-							items[retitem].pos.z=9;
-							if(items[retitem].layer==0x0b || items[retitem].layer==0x10)
+							retitem->pos.x=50+(rand()%80);
+							retitem->pos.y=50+(rand()%80);
+							retitem->pos.z=9;
+							if(retitem->layer==0x0b || retitem->layer==0x10)
 							{
-								items[retitem].SetContSerial(chars[s].serial);
+								retitem->SetContSerial(pc_s->serial);
 							}
 							else
 							{
-								if(packnum>-1) 
-									items[retitem].SetContSerial(items[packnum].serial);
+								if(pPack != NULL) 
+									retitem->SetContSerial(pPack->serial);
 							}
 							RefreshItem(retitem);//AntiChrist
-							teleport(s);
+							teleport(DEREF_P_CHAR(pc_s));
 						}
 					}
 
 					if (!(strcmp((char*)script1,"SKIN")))
 					{
 						pc_s->skin = pc_s->xskin = static_cast<UI16>(hex2num(script2));
-						teleport(s);
+						teleport(DEREF_P_CHAR(pc_s));
 					}
 
 					if (!(strcmp("POLY",(char*)script1)))
@@ -370,7 +362,7 @@ void advancementobjects(int s, int x, int allways)
 						pc_s->xid1=x>>8;
 						pc_s->id2=x%256;
 						pc_s->xid2=x%256;
-						teleport(s);
+						teleport(DEREF_P_CHAR(pc_s));
 					}
 
 					if (!(strcmp("ADVOBJ",(char*)script1)))
@@ -383,7 +375,7 @@ void advancementobjects(int s, int x, int allways)
 			while ((script1[0]!='}') && (++loopexit < MAXLOOPS) );
 			closescript();
 	}
-	else sysmessage(calcSocketFromChar(s),"You have already used an advancement object with this character.");
+	else sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc_s)),"You have already used an advancement object with this character.");
 }
 
 void monstergate(int s, int x)

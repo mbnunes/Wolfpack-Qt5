@@ -212,7 +212,6 @@ public:
 	void updateSkillLevel(int c, int s);
 	void LockPick(int s);
 	void TDummy(int s);
-	void NewDummy(unsigned int currenttime);
 	void Tinkering(int s);
 	void AButte(int s1, P_ITEM pButte);
 	void Persecute(UOXSOCKET s);//AntiChrist persecute stuff

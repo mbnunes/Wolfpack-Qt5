@@ -329,7 +329,8 @@ void loadchar(int x) // Load a character from WSC
 			else if (!strcmp((char*)script1, "SPAWN"))
 			{
 				pc->spawnserial=str2num(script2);;
-				if (pc->spawnserial!=-1) setptr(&cspawnsp[pc->spawnserial%HASHMAX], DEREF_P_CHAR(pc));
+				if (pc->spawnserial != INVALID_SERIAL) 
+					cspawnsp.insert(pc->spawnserial, pc->serial);
 			}
 			else if (!strcmp((char*)script1, "STABLEMASTER"))
 			{

@@ -59,7 +59,7 @@ public:
 	{
 		bool isBeeingDragged :1;	// true while the item hangs on the mouse cursor
 	} flags;
-
+	
 	char name[50];
 	char name2[50];
 	long contserial;
@@ -68,126 +68,127 @@ public:
 	int itmhand; // ITEMHAND system - AntiChrist
 	unsigned int type; // For things that do special things on doubleclicking
 	unsigned int type2;
-
+	
 	int oldx; //Old x position - used for bouncing bugfix - AntiChrist
 	int oldy; //Old y position - used for bouncing bugfix - AntiChrist
 	signed char oldz; //Old z position - used for bouncing bugfix - AntiChrist
 	long oldcontserial; //Old contserial - used for bouncing bugfix - Antichrist
 	signed char oldlayer; // Old layer - used for bouncing bugfix - AntiChrist
-
+	
 	char offspell;
- int weight;
- unsigned char more1; // For various stuff
- unsigned char more2;
- unsigned char more3;
- unsigned char more4;
- char moreb1;
- char moreb2;
- char moreb3;
- char moreb4;
- unsigned int morex;
- unsigned int morey;
- unsigned int morez;
- char doordir; // Reserved for doors
- char dooropen;
- char pileable; // Can item be piled
- char dye; // Reserved: Can item be dyed by dye kit
- char corpse; // Is item a corpse
- unsigned int att; // Item attack
- unsigned int def; // Item defense
- int lodamage; //Minimum Damage weapon inflicts
- int hidamage; //Maximum damage weapon inflicts
- int racehate; //Race # that weapon does x2 damage to -Fraz-
- int wpsk; //The skill needed to use the item
- int hp; //Number of hit points an item has.
- int maxhp; // Max number of hit points an item can have.
- int st; // The strength needed to equip the item
- int st2; // The strength the item gives
- int dx; // The dexterity needed to equip the item
- int dx2; // The dexterity the item gives
- int in; // The intelligence needed to equip the item
- int in2; // The intelligence the item gives
- int spd; //The speed of the weapon
- int smelt; // for item smelting
- int secureIt; // secured chests
- int wipe; //Should this item be wiped with the /wipe command
- char magic; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
- unsigned int gatetime;
- int gatenumber;
- unsigned int decaytime;
- //signed int destroyTimer; // Ripper for chaos/order shields
- int ownserial;
- char visible; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
- int spawnserial;
- unsigned char dir;
- //char dir; // Direction, or light source type.
- char priv; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
- int value; // Price shopkeeper sells item at.
- int restock; // Number up to which shopkeeper should restock this item
- int trigger; //Trigger number that item activates
- int trigtype; //Type of trigger
- int trigon; //New trigger for items -Frazurbluu-
- unsigned int disabled; //Item is disabled, cant trigger.
- char disabledmsg[128]; //Item is disabled, so display this message. -- added by Magius(CHE) §
- int tuses;    //Number of uses for trigger
- unsigned int poisoned; //AntiChrist -- for poisoning skill
- char murderer[50]; //AntiChrist -- for corpse -- char's name who kille the char (forensic ev.)
- long int murdertime; //AntiChrist -- for corpse -- when the people has been killed
- int rank; //Magius(CHE) --- for rank system, this value is the LEVEL of the item from 1 to 10. Simply multiply the rank*10 and calculate the MALUS this item has from the original.
-		   // for example: RANK 5 ---> 5*10=50% of malus
-		   //   this item has same values decreased by 50%..
-		   // RANK 1 ---> 1*10=10% this item has 90% of malus!
-		   // RANK 10 --> 10*10=100% this item has no malus! RANK 10 is automatically setted if you select RANKSYSTEM 0.
-		   // Vars: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
- char creator[50]; // Store the name of the player made this item -- Magius(CHE)
- int good; // Store type of GOODs to trade system! (Plz not set as UNSIGNED)  --- Magius(CHE)
- int rndvaluerate; // Store the value calculated base on RANDOMVALUE in region.scp. ---- MAgius(CHE) (2)
- int madewith; // Store the skills used to make this item -- Magius(CHE)
-  // Note by Magius: Value range to -ALLSKILLS-1 to ALLSKILLS+1
-  //    To calculate skill used to made this item:
-  //       if is a positive value, substract 1 it.
-  //          Ex) madewith=34 , 34-1=33 , 33=STEALING
-  //       if is a negative value, add 1 from it and invert value.
-  //          Ex) madewith=-34 , -34+1=-33 , Abs(-33)=33=STEALING.
-  //       0 = NULL
-  //    So... a positive value is used when the item is made by a
-  //       player with 95.0+ at that skill. Infact in this way when
-  //       you click on the item appear its name and the name of the
-  //       creator. A Negative value if the player is not enought
-  //       skilled!
- 
- int glow; // LB identifies glowing objects
- char glow_c1; // for backup of old color
- char glow_c2;
- char glow_effect; 
-
- char desc[100];
-
+	int weight;
+	unsigned char more1; // For various stuff
+	unsigned char more2;
+	unsigned char more3;
+	unsigned char more4;
+	char moreb1;
+	char moreb2;
+	char moreb3;
+	char moreb4;
+	unsigned int morex;
+	unsigned int morey;
+	unsigned int morez;
+	char doordir; // Reserved for doors
+	char dooropen;
+	char pileable; // Can item be piled
+	char dye; // Reserved: Can item be dyed by dye kit
+	char corpse; // Is item a corpse
+	unsigned int att; // Item attack
+	unsigned int def; // Item defense
+	int lodamage; //Minimum Damage weapon inflicts
+	int hidamage; //Maximum damage weapon inflicts
+	int racehate; //Race # that weapon does x2 damage to -Fraz-
+	int wpsk; //The skill needed to use the item
+	int hp; //Number of hit points an item has.
+	int maxhp; // Max number of hit points an item can have.
+	int st; // The strength needed to equip the item
+	int st2; // The strength the item gives
+	int dx; // The dexterity needed to equip the item
+	int dx2; // The dexterity the item gives
+	int in; // The intelligence needed to equip the item
+	int in2; // The intelligence the item gives
+	int spd; //The speed of the weapon
+	int smelt; // for item smelting
+	int secureIt; // secured chests
+	int wipe; //Should this item be wiped with the /wipe command
+	char magic; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
+	unsigned int gatetime;
+	int gatenumber;
+	unsigned int decaytime;
+	//signed int destroyTimer; // Ripper for chaos/order shields
+	int ownserial;
+	char visible; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
+	int spawnserial;
+	unsigned char dir;
+	//char dir; // Direction, or light source type.
+	char priv; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
+	int value; // Price shopkeeper sells item at.
+	int restock; // Number up to which shopkeeper should restock this item
+	int trigger; //Trigger number that item activates
+	int trigtype; //Type of trigger
+	int trigon; //New trigger for items -Frazurbluu-
+	unsigned int disabled; //Item is disabled, cant trigger.
+	char disabledmsg[128]; //Item is disabled, so display this message. -- added by Magius(CHE) §
+	int tuses;    //Number of uses for trigger
+	unsigned int poisoned; //AntiChrist -- for poisoning skill
+	char murderer[50]; //AntiChrist -- for corpse -- char's name who kille the char (forensic ev.)
+	long int murdertime; //AntiChrist -- for corpse -- when the people has been killed
+	int rank; //Magius(CHE) --- for rank system, this value is the LEVEL of the item from 1 to 10. Simply multiply the rank*10 and calculate the MALUS this item has from the original.
+	// for example: RANK 5 ---> 5*10=50% of malus
+	//   this item has same values decreased by 50%..
+	// RANK 1 ---> 1*10=10% this item has 90% of malus!
+	// RANK 10 --> 10*10=100% this item has no malus! RANK 10 is automatically setted if you select RANKSYSTEM 0.
+	// Vars: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
+	char creator[50]; // Store the name of the player made this item -- Magius(CHE)
+	int good; // Store type of GOODs to trade system! (Plz not set as UNSIGNED)  --- Magius(CHE)
+	int rndvaluerate; // Store the value calculated base on RANDOMVALUE in region.scp. ---- MAgius(CHE) (2)
+	int madewith; // Store the skills used to make this item -- Magius(CHE)
+	// Note by Magius: Value range to -ALLSKILLS-1 to ALLSKILLS+1
+	//    To calculate skill used to made this item:
+	//       if is a positive value, substract 1 it.
+	//          Ex) madewith=34 , 34-1=33 , 33=STEALING
+	//       if is a negative value, add 1 from it and invert value.
+	//          Ex) madewith=-34 , -34+1=-33 , Abs(-33)=33=STEALING.
+	//       0 = NULL
+	//    So... a positive value is used when the item is made by a
+	//       player with 95.0+ at that skill. Infact in this way when
+	//       you click on the item appear its name and the name of the
+	//       creator. A Negative value if the player is not enought
+	//       skilled!
+	
+	int glow; // LB identifies glowing objects
+	char glow_c1; // for backup of old color
+	char glow_c2;
+	char glow_effect; 
+	
+	char desc[100];
+	
 	int carve; //AntiChrist - for new carve system
 	bool incognito; //AntiChrist - for items under incognito effect
 	unsigned long int time_unused;     // LB -> used for house decay and possibly for more in future, gets saved
 	unsigned long int timeused_last; // helper attribute for time_unused, doesnt get saved
 	int spawnregion;
-
-
+	
+	
 	void Init(char mkser=1);
 	void SetSerial(long ser);
-
+	
 	void setContSerialOnly(long contser);
 	void SetContSerial(long contser);
 	bool isInWorld()			{return (contserial==-1);}
-
+	bool isMulti()				{return (id1>=0x40);	}
+	
 	void setOwnSerialOnly(long ownser);
 	void SetOwnSerial(long ownser);
 	long GetOwnSerial()			{return ownserial;}
-
+	
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
-
+	
 	void setId(short id);
 	void setColor(short color);
 	inline short id()			{return (short)((id1<<8)+id2);}
-
+	
 	inline short color()		{return (short)((color1<<8)+color2);}
 	void MoveTo(int newx, int newy, signed char newz);
 	long ReduceAmount(const short amount);

@@ -2305,27 +2305,6 @@ void cSkills::TDummy(int s)
 		sysmessage(s, "You feel you would gain no more from using that.");   
 }
 
-void cSkills::NewDummy(unsigned int currenttime)
-{
-	unsigned int i;//,j;
-	for (i=0;i<itemcount;i++)
-	{
-		P_ITEM pi = &items[i];
-		if(((pi->id()==0x1071)) && (pi->gatetime<=currenttime)) 
-		{
-			pi->setId(0x1070);
-			pi->gatetime=0;
-			RefreshItem(i);
-		} else
-			if(((pi->id()==0x1075)) && (pi->gatetime<=currenttime)) 
-			{
-				pi->setId(0x1074);
-				pi->gatetime=0;
-				RefreshItem(i);
-			} 
-	}
-}
-
 void CollectAmmo(int s, int a, int b)
 {
 	int c; 

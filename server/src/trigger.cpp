@@ -119,28 +119,28 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype,
 	long pos = ftell(scpfile);
 	closescript();
 	// first create the item on the ground
-	int i = Targ->AddMenuTarget(ts, 1, str2num(script2));
+	P_ITEM pi_i = MAKE_ITEM_REF(Targ->AddMenuTarget(ts, 1, str2num(script2)));
 	triggerx = 0;
-	int pack = packitem(DEREF_P_CHAR(pc_currchar));
+	P_ITEM pPack = Packitem(pc_currchar);
 	
-	if (pack!=-1 && i!=-1)
+	if (pPack != NULL && pi_i != NULL)
 	{
 		// if player has a backpack
 		if (InBackpack)
 		{
 			// and item has to be added in player's backpack
-			items[pack].AddItem(&items[i]);
+			pPack->AddItem(pi_i);
 			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
 			statwindow(ts, DEREF_P_CHAR(pc_currchar));
 		}
 	}// if player has backpack
 	// else leave it where it is (on the ground)
 	// Added colormem token here! by Magius(CHE) §
-	if (i>-1 && coloring>-1)
+	if (pi_i != NULL && coloring>-1)
 	{
-		items[i].color1 = memcolor1;
-		items[i].color2 = memcolor2;
-		RefreshItem(i);
+		pi_i->color1 = memcolor1;
+		pi_i->color2 = memcolor2;
+		RefreshItem(pi_i);
 	}
 	// end addons
 	if (ttype)
@@ -2633,22 +2633,17 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						{
 							cline = &script2[0];
 							splitline();
-							// c=memitemfree();
-							p = packitem(DEREF_P_CHAR(pc_ts));
-							if (p==-1)
-								p = 0;
-							// Antichrist
 							pos = ftell(scpfile);
 							closescript();
-							c = Items->SpawnItem(ts, DEREF_P_CHAR(pc_ts), 1, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1);
-							if (c==-1)
+							P_ITEM pi_c = MAKE_ITEM_REF(Items->SpawnItem(ts, DEREF_P_CHAR(pc_ts), 1, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1));
+							if (pi_c == NULL)
 								return;// AntiChrist to preview crashes
 							// Added colormem token here! by Magius(CHE) §
-							if (c>-1 && coloring>-1)
+							if (coloring>-1)
 							{
-								items[c].color1 = memcolor1;
-								items[c].color2 = memcolor2;
-								RefreshItem(c);
+								pi_c->color1 = memcolor1;
+								pi_c->color2 = memcolor2;
+								RefreshItem(pi_c);
 							}
 							// end addons	
 							if (ttype)

@@ -4070,22 +4070,21 @@ void cMagic::CannonTarget(int s)
 void cMagic::BuildCannon(int s)
 {
 	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return;
-	int k;
 	
 	soundeffect(s, 0x02, 0x45);
 	soundeffect(s, 0x02, 0x46);
 	
-	k=Items->SpawnItem(-1,s,1,"#",0,0x0E,0x91,0,0,0,1);
-	items[k].type=15;
-	items[k].morex=8;
-	items[k].morey=10;
-	items[k].morez=0;
-	items[k].magic=1;
-	items[k].decaytime=0;
-	items[k].pos.x=(buffer[s][11]*256)+buffer[s][12];
-	items[k].pos.y=(buffer[s][13]*256)+buffer[s][14];
-	items[k].pos.z=buffer[s][16];
-	RefreshItem(k);
+	P_ITEM pi_k = MAKE_ITEM_REF(Items->SpawnItem(-1,s,1,"#",0,0x0E,0x91,0,0,0,1));
+	pi_k->type=15;
+	pi_k->morex=8;
+	pi_k->morey=10;
+	pi_k->morez=0;
+	pi_k->magic=1;
+	pi_k->decaytime=0;
+	pi_k->pos.x=(buffer[s][11]*256)+buffer[s][12];
+	pi_k->pos.y=(buffer[s][13]*256)+buffer[s][14];
+	pi_k->pos.z=buffer[s][16];
+	RefreshItem(pi_k);
 }
 
 

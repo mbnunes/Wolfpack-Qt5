@@ -468,7 +468,7 @@ void cCharStuff::DeleteChar (int k) // Delete character
 	removefromptr(&charsp[pc_k->serial%HASHMAX], DEREF_P_CHAR(pc_k));
 	
 	if (pc_k->spawnserial != INVALID_SERIAL) 
-		removefromptr(&cspawnsp[pc_k->spawnserial%HASHMAX], DEREF_P_CHAR(pc_k));
+		cspawnsp.remove(pc_k->spawnserial, pc_k->serial);
 	if (pc_k->ownserial != INVALID_SERIAL) 
 		removefromptr(&cownsp[pc_k->ownserial%HASHMAX], DEREF_P_CHAR(pc_k));
 	
@@ -2020,12 +2020,12 @@ void cChar::SetOwnSerial(long ownser)
 void cChar::SetSpawnSerial(long spawnser)
 {
 	if (spawnserial!=-1)	// if it was set, remove the old one
-		removefromptr(&cspawnsp[spawnserial%HASHMAX], DEREF_P_CHAR(this));
+		cspawnsp.remove(spawnserial, serial);
 
 	spawnserial=spawnser;
 
 	if (spawnser!=-1)		// if there is a spawner, add it
-		setptr(&cspawnsp[spawnserial%HASHMAX], DEREF_P_CHAR(this));
+		cspawnsp.insert(spawnserial, serial);
 }
 
 void cChar::SetMultiSerial(long mulser)

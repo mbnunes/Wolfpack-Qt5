@@ -378,38 +378,8 @@ signed char cMapStuff::DynamicElevation(short int x, short int y, signed char ol
 	//int z = illegal_z;
 	signed char z = illegal_z;
 	signed char tempVal = illegal_z;
-#undef USE_REGION_ITERATOR	
-#ifdef USE_REGION_ITERATOR
-	RegionIterator ri(x, y, ItemsOnly);
-	for (int mapitem = ri.First(); mapitem != -1; mapitem = ri.Next())
-	{
-		if (ri.IsMulti())
-		{
-			z = MultiHeight(mapitem, x ,y, oldz);
-			// this used to do a z++, but that doesn't take into account the fact that
-			// the itemp[] the multi was based on has its own elevation
-			tempVal = z + items[mapitem].pos.z + 1;
-//			z = z + items[mapitem].z + 1;
-			z = tempVal;
-			//z += items[mapitem].z + 1;
-		}
-		else if ((items[mapitem].pos.x == x) && (items[mapitem].pos.y == y))
-		{
-			signed char ztemp = items[mapitem].pos.z + TileHeight( items[mapitem].id() );
-			if ((ztemp <= oldz + MaxZstep) && (ztemp > z))
-			{
-				z=ztemp;
-			}
-		}
-	}
-#else	
-	// - Tauriel's region stuff 3/6/99
-	const int getcell=mapRegions->GetCell(x,y);
-	//unsigned int increment=0;
-	//int mapitem=-1;
-	int mapitemptr=-1;
+	const int getcell = mapRegions->GetCell(x,y);
 	unsigned long loopexit=0;
-	
 	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
 
 	for (unsigned int k = 0; k < vecEntries.size(); k++)
@@ -417,26 +387,24 @@ signed char cMapStuff::DynamicElevation(short int x, short int y, signed char ol
 		P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
 		if (mapitem != NULL)
 		{
-			if(mapitem->id1>=0x40)
+			if(mapitem->isMulti())
 			{
-				z=MultiHeight(DEREF_P_ITEM(mapitem), x ,y, oldz);
+				z = MultiHeight(DEREF_P_ITEM(mapitem), x ,y, oldz);
 				// this used to do a z++, but that doesn't take into account the fact that
 				// the itemp[] the multi was based on has its own elevation
 				z += mapitem->pos.z + 1;
 			}
 			if ((mapitem->pos.x==x)&&(mapitem->pos.y==y)&&(mapitem->id1<0x40))
 			{
-				signed char ztemp = mapitem->pos.z+TileHeight((mapitem->id1*256)
-					+mapitem->id2);
-				if ((ztemp<=oldz+MaxZstep)&&(ztemp>z))
+				signed char ztemp = mapitem->pos.z+TileHeight(mapitem->id());
+				if ((ztemp <= oldz + MaxZstep) && (ztemp > z))
 				{
-					z=ztemp;
+					z = ztemp;
 				}
 				
 			}
 		}
 	}
-#endif
 	return z;
 }
 
@@ -475,23 +443,6 @@ int cMapStuff::MultiTile(int i, short int x, short int y, signed char oldz)
 //int cMapStuff::DynTile(int x, int y, int oldz)
 int cMapStuff::DynTile(short int x, short int y, signed char oldz)
 {
-#ifdef USE_REGION_ITERATOR
-	RegionIterator ri(x, y, ItemsOnly);
-
-	for (int mapitem = ri.First(); mapitem != -1; mapitem = ri.Next())
-	{
-		if (ri.IsMulti())
-		{
-			return MultiTile(mapitem, x ,y, oldz);
-		}
-		else if ((items[mapitem].pos.x == x) && (items[mapitem].pos.y == y))
-		{
-			return items[mapitem].id();
-		}
-	}
-
-#else
-	// - Tauriel's region stuff 3/6/99
 	const int getcell = mapRegions->GetCell(x,y);
 	int mapitemptr=-1;
 	unsigned long loopexit=0;
@@ -501,21 +452,13 @@ int cMapStuff::DynTile(short int x, short int y, signed char oldz)
 		P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
 		if (mapitem != NULL)
 		{
-			if ((mapitem->pos.x==x)&&(mapitem->pos.y==y)&& mapitem->id1<0x40)
-				
+			if(mapitem->isMulti())
+				return MultiTile(DEREF_P_ITEM(mapitem), x ,y, oldz);
+			else if ((mapitem->pos.x == x) && (mapitem->pos.y == y))
 				return mapitem->id();
-			
-			if((mapitem->id1>=0x40))
-            {
-				
-				int tile = MultiTile(DEREF_P_ITEM(mapitem), x ,y, oldz);
-				// clConsole.send("DynTile multi-tile:  %i\n",tile);
-				return tile;
-            }
         }    
 		
     }
-#endif
 	return -1;
 }
 
