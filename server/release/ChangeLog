@@ -50,6 +50,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Fixed a crashbug with invalid function names passed to .addtimer()
   - Added the ability to make yourself visible to other players.
   - Guildbutton now triggers onGuildButton(player) python event.
+  - Fixed bug #0000376. (Stablemasters don't take money from the bank)
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.
@@ -83,6 +84,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Fixes for moongate.py
   - Guild button now opens guildstone menu by default.
   - Fixed resistances for dragon scale armors.
+  - Fixed the open door macro.
   - Fixed bug #0000310. (Invis spell duration too brief, Players will now be able to use stealth 
     if they are hidden by the invisibility spell, even if they don't have 80.0 Hiding )
  * Misc. Changes:
