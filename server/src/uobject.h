@@ -49,6 +49,7 @@
 #include "qstring.h"
 #include "qstringlist.h"
 #include "qdom.h"
+#include "qmap.h"
 
 // Forward class declarations
 //class ISerialization;
@@ -56,6 +57,7 @@ class Coord_cl;
 class WPDefaultScript;
 class cUOSocket;
 class QSqlQuery;
+class cItem;
 
 class cUObject : public PersistentObject, public cDefinable
 {

@@ -1,33 +1,5 @@
 Microsoft Developer Studio Workspace File, Format Version 6.00
-# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
-
-###############################################################################
-
-Project: "ZTHREAD_2_2_9_static"=.\lib\ZThread\ZTHREAD_static.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-    begin source code control
-    ZTHREAD_static
-    .\lib\zthread
-    end source code control
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "pythoncore"=.\lib\Python\PCbuild\pythoncore.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
+# WARNUNG: DIESE ARBEITSBEREICHSDATEI DARF NICHT BEARBEITET ODER GELÖSCHT WERDEN!
 
 ###############################################################################
 
@@ -35,10 +7,6 @@ Project: "wolf"=.\wolf.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    wolf
-    .
-    end source code control
 }}}
 
 Package=<4>

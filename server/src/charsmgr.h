@@ -142,7 +142,7 @@ inline const AllCharsIterator AllCharsIterator::operator--(int)
 
 inline bool isCharSerial(long ser) 
 {
-	return (ser != INVALID_SERIAL && ser >= 0 && ser <  0x40000000);
+	return (ser != INVALID_SERIAL && ser >= 1 && ser <  0x40000000);
 }
 
 

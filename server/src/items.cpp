@@ -52,6 +52,7 @@
 #include "multis.h"
 #include "spellbook.h"
 #include "persistentbroker.h"
+#include "worldmain.h"
 
 #include <qsqlcursor.h>
 
@@ -2479,29 +2480,10 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 
 	// Set the outside indices
 	pi->SetSpawnSerial( pi->spawnserial );
-	/*pi->setContSerial( pi->contserial );*/
-	P_ITEM pCont = dynamic_cast<P_ITEM>( pi->container() );
-
-	if( pCont )
-		pCont->setWeight( pCont->weight() + pi->weight() );
-
 	pi->SetOwnSerial( pi->ownserial );
 
 	if( pi->maxhp() == 0) 
 		pi->setMaxhp( pi->hp() );
-
-	// Tauriel adding region pointers
-	if( pi->isInWorld() )
-	{
-		int max_x = Map->mapTileWidth(pi->pos.map) * 8;
-		int max_y = Map->mapTileHeight(pi->pos.map) * 8;
-		if (pi->pos.x>max_x || pi->pos.y>max_y) 
-		{
-			Items->DeleItem(pi);	//these are invalid locations, delete them!
-		}
-		else
-			cMapObjects::getInstance()->add(pi);
-	}
 }
 
 void cItem::load( char **result, UINT16 &offset )
@@ -2514,7 +2496,13 @@ void cItem::load( char **result, UINT16 &offset )
 	creator = result[offset++];
 	madewith = atoi( result[offset++] );
 	color_ = atoi( result[offset++] );
+	
+	// Deprecated.. (contserial)
 	contserial = atoi( result[offset++] );
+
+	if( contserial != INVALID_SERIAL )
+		container_ = (cUObject*)contserial;
+		
 	layer_ = atoi( result[offset++] );
 	type_ = atoi( result[offset++] );
 	type2_ = atoi( result[offset++] );
@@ -2567,66 +2555,6 @@ void cItem::load( char **result, UINT16 &offset )
 	desc = result[offset++];
 	carve_ = result[offset++];
 	accuracy_ = atoi( result[offset++] );
-
-	/*id_			= result->value( offset++ ).toInt();
-	name_		= result->value( offset++ ).toString();
-	name2_		= result->value( offset++ ).toString();
-	creator		= result->value( offset++ ).toString();
-	madewith	= result->value( offset++ ).toInt();
-	color_		= result->value( offset++ ).toInt();
-	contserial	= result->value( offset++ ).toInt();
-	layer_		= result->value( offset++ ).toInt();
-	type_		= result->value( offset++ ).toInt();
-	type2_		= result->value( offset++ ).toInt();
-	offspell_	= result->value( offset++ ).toInt();
-	more1_		= result->value( offset++ ).toInt();
-	more2_		= result->value( offset++ ).toInt();
-	more3_		= result->value( offset++ ).toInt();
-	more4_		= result->value( offset++ ).toInt();
-	moreb1_		= result->value( offset++ ).toInt();
-	moreb2_		= result->value( offset++ ).toInt();
-	moreb3_		= result->value( offset++ ).toInt();
-	moreb4_		= result->value( offset++ ).toInt();
-	morex		= result->value( offset++ ).toInt();
-	morey		= result->value( offset++ ).toInt();
-	morez		= result->value( offset++ ).toInt();
-	amount_		= result->value( offset++ ).toInt();
-	doordir		= result->value( offset++ ).toInt();
-	dye			= result->value( offset++ ).toInt();
-	decaytime	= result->value( offset++ ).toInt();
-	if( decaytime > 0 )
-		decaytime += uiCurrentTime;
-	att			= result->value( offset++ ).toInt();
-	def			= result->value( offset++ ).toInt();
-	hidamage_	= result->value( offset++ ).toInt();
-	lodamage_	= result->value( offset++ ).toInt();
-	st			= result->value( offset++ ).toInt();
-	time_unused = result->value( offset++ ).toInt();
-	weight_		= result->value( offset++ ).toInt();
-	hp_			= result->value( offset++ ).toInt();
-	maxhp_		= result->value( offset++ ).toInt();
-	rank		= result->value( offset++ ).toInt();
-	st2			= result->value( offset++ ).toInt();
-	dx			= result->value( offset++ ).toInt();
-	dx2			= result->value( offset++ ).toInt();
-	in			= result->value( offset++ ).toInt();
-	in2			= result->value( offset++ ).toInt();
-	speed_		= result->value( offset++ ).toInt();
-	poisoned	= result->value( offset++ ).toUInt();
-	magic		= result->value( offset++ ).toInt();
-	ownserial	= result->value( offset++ ).toInt();
-	visible		= result->value( offset++ ).toInt();
-	spawnserial = result->value( offset++ ).toInt();
-	dir			= result->value( offset++ ).toInt();
-	priv		= result->value( offset++ ).toInt();
-	value		= result->value( offset++ ).toInt();
-	restock		= result->value( offset++ ).toInt();
-	disabled	= result->value( offset++ ).toUInt();
-	spawnregion_ = result->value( offset++ ).toString();
-	good		= result->value( offset++ ).toInt();
-	desc		= result->value( offset++ ).toString();
-	carve_		= result->value( offset++ ).toString();
-	accuracy_	= result->value( offset++ ).toInt();*/
 
 	itemRegisterAfterLoading( this );
 }

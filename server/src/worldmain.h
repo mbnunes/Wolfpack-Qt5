@@ -58,7 +58,13 @@ class CWorldMain ;
 #include <zthread/Thread.h>
 #include <zthread/FastMutex.h>
 #include <qstring.h>
+#include <qmap.h>
 
+struct stContMap
+{
+	SERIAL contserial;
+	P_ITEM item;
+};
 
 class CWorldMain  
 {
@@ -72,6 +78,9 @@ public:
 
 	bool Saving( void );
 	bool RemoveItemsFromCharBody(int charserial, int type1, int type2);
+
+	// Only available while loading (which is single-threaded!)
+	std::vector< stContMap > contmap;
 private:
 	bool isSaving;
 	int DisplayWorldSaves;

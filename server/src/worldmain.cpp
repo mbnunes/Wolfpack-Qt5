@@ -113,7 +113,7 @@ CWorldMain::~CWorldMain()
 }
 
 
-void CWorldMain::loadnewworld(QString module) // Load world
+void CWorldMain::loadnewworld( QString module ) // Load world
 {
 	ISerialization* archive = cPluginFactory::serializationArchiver(module);
 
@@ -121,7 +121,7 @@ void CWorldMain::loadnewworld(QString module) // Load world
 	register unsigned int i = 0;
 
 	// Load cItem
-	clConsole.send( "Loading World... " );
+	clConsole.send( "Loading World...\n" );
 	
 	MYSQL mysql;
 	mysql_init(&mysql);
@@ -133,11 +133,8 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		return;
 	}
 
-	// Error checking
-	mysql_query( &mysql, UObjectFactory::instance()->findSqlQuery( "cItem" ).latin1() );
-	
-	// Did an error occur?
-	if( mysql_error( &mysql ) )
+	// Error Checking
+	if( mysql_query( &mysql, UObjectFactory::instance()->findSqlQuery( "cItem" ).latin1() ) )
 	{
 		QString error = mysql_error( &mysql );
 		clConsole.ChangeColor( WPC_RED );
@@ -161,19 +158,13 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		object = UObjectFactory::instance()->createObject( "cItem" );
 		offset = 2; // Skip the first two fields
 		object->load( row, offset );
-		++i;
 
-		if( i % 1000 == 0 )
+		if( ++i % 50000 == 0 )
 			qWarning( QString::number( i ) );
-
-		if( i % 100000 == 0 )
-			printf( "Took: %i msecs", getNormalizedTime() - sTime );
 	}
 
 	mysql_free_result( result );
 	mysql_close(&mysql);
-
-	printf( "Took: %i msecs", getNormalizedTime() - sTime );
 
 	/*QStringList types = UObjectFactory::instance()->objectTypes();
 
@@ -195,7 +186,7 @@ void CWorldMain::loadnewworld(QString module) // Load world
 
 	}*/
 
-	clConsole.send( "%i loaded\n", i );
+	clConsole.send( "Loaded %i in %i msecs\n", i, getNormalizedTime() - sTime );
 
 	// Load Temporary Effects
 	archive = cPluginFactory::serializationArchiver(module);

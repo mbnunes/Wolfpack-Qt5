@@ -1284,6 +1284,41 @@ void checkparm(QString param)
 	// Add what ever paramters you want
 }
 
+static void quickdelete( P_ITEM pi )
+{
+	// "Compressed" Version of deleting an item
+	// We dont have pointers to that item except here
+	// So queueing it up for deletion is lame
+
+	pi->SetSpawnSerial(-1);
+	pi->SetOwnSerial(-1);
+
+	// Also delete all items inside if it's a container.
+	cItem::ContainerContent container(pi->content());
+	cItem::ContainerContent::const_iterator it ( container.begin() );
+	cItem::ContainerContent::const_iterator end( container.end()   );
+	for ( ; it != end; ++it )
+	{
+		P_ITEM pContent = *it;
+		if (pContent != NULL)
+			quickdelete(pContent);
+	}
+
+	// if it is within a multi, delete it from the multis vector
+	if( pi->multis != INVALID_SERIAL )
+	{
+		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis ) );
+		if( pMulti )
+		{
+			pMulti->removeItem( pi );
+		}
+	}
+
+	//pi->del(); // Remove from database
+	
+	cItemsManager::getInstance()->unregisterItem( pi );
+}
+
 int main( int argc, char *argv[] )
 {
 	QApplication app( argc, argv, false ); // we need one instance
@@ -1463,31 +1498,103 @@ int main( int argc, char *argv[] )
 	cBook::registerInFactory();
 	cSpellBook::registerInFactory();
 
-	cwmWorldState->loadnewworld("binary");
-	CIAO_IF_ERROR; // LB prevents file corruption
+	cwmWorldState->loadnewworld( "binary" );
+	CIAO_IF_ERROR;
+
+	clConsole.PrepareProgress( "Postprocessing" );
+
+	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
+	P_ITEM pi;	
+	QPtrList< cItem > deleteItems;
+
+	AllItemsIterator iter;
+	for( iter.Begin(); !iter.atEnd(); iter++ )
+	//for( iter = cwmWorldState->contmap.begin(); iter != cwmWorldState->contmap.end(); ++iter )
+	{
+		pi = iter.GetData();
+		SERIAL contserial = (SERIAL)pi->container();
+
+		// 1. Handle the Container Value
+		if( isItemSerial( contserial ) )
+		{
+			P_ITEM pCont = FindItemBySerial( contserial );
+
+			if( pCont )
+			{
+				pCont->addItem( pi, false, true );
+			}
+			else
+			{
+				// Queue this item up for deletion
+				deleteItems.append( pi );
+				continue; // Skip further processing
+			}
+		}
+		else if( isCharSerial( contserial ) )
+		{
+			P_CHAR pCont = FindCharBySerial( contserial );
+
+			if( pCont )
+			{
+				pCont->addItem( (cChar::enLayer)pi->layer(), pi );
+			}
+			else
+			{
+				deleteItems.append( pi );
+				continue; // Skip further processing
+			}
+		}
+		// Add to Map Regions
+		else
+		{
+			int max_x = Map->mapTileWidth(pi->pos.map) * 8;
+			int max_y = Map->mapTileHeight(pi->pos.map) * 8;
+			if ( pi->pos.x > max_x || pi->pos.y > max_y ) 
+			{
+				// these are invalid locations, delete them!
+				deleteItems.append( pi );
+			}
+			else
+				cMapObjects::getInstance()->add(pi);
+			continue;
+		}
+
+		// "Store Random value", whatever it does...
+		StoreItemRandomValue(pi, "none");
+
+		// effect on dex ? like plate eg.
+		if( pi->dx2 && pi->container() && pi->container()->isChar() )
+		{
+			P_CHAR pChar = dynamic_cast< P_CHAR >( pi->container() );
+
+			if( pChar )
+				pChar->chgDex( pi->dx2 );
+		}
+	}
+
+	clConsole.ProgressDone();
+
+	clConsole.PrepareProgress( "Deleting lost items" );
+
+	// Do we have to delete items?
+	for( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
+		quickdelete( pItem );
+
+	// Clear our Contmap
+	cwmWorldState->contmap.clear();
+
+	clConsole.ProgressDone();
+
+	if( deleteItems.count() > 0 )
+	{
+		clConsole.send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
+		deleteItems.clear();
+	}
 
 	SpawnRegions::instance()->load();
 	Resources::instance()->load();
 	MakeMenus::instance()->load();
 	ContextMenus::instance()->reload();
-
-	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
-	P_ITEM pi;
-	AllItemsIterator iterItems;
-	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
-	{
-		pi = iterItems.GetData();
-		// 1. this relies on the container the item is in
-		StoreItemRandomValue(pi, "none");
-
-		// 2. needs the char to be loaded
-		if (pi->dx2 && isCharSerial(pi->contserial))	// effect on dex ? like plate eg.
-		{
-			P_CHAR pc = FindCharBySerial(pi->contserial);
-			if (pc)
-				pc->chgDex(pi->dx2);
-		}
-	}
 
 	clConsole.PrepareProgress( "Resetting all Trade windows" ); // Should automatically be done whenever a char disconnects
 	Trade->clearalltrades();
