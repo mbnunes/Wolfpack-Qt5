@@ -4,25 +4,33 @@
 	<!-- Ophidian Knight-Errant -->
 	<npc id="ophidian_knight_errant">
 		<name>an ophidian knight-errant</name>
-		<id>0x89</id>
-		<category>Monsters\Ophidians\Ophidian Knight-Errant</category>
-		<skin>0</skin>
+		<id>0x56</id>
 		<inherit id="monster_base" />
-		<karma><random min="-5000" max="-9999" /></karma>
-		<fame><random min="5000" max="9999" /></fame>
-		<defense><random min="35" max="40" /></defense>
-		<lodamage>49</lodamage>
-		<hidamage>65</hidamage>
+		<karma>-10000</karma>
+		<fame>10000</fame>
 		<gold><random min="390" max="430"/></gold>
 		<!-- Stats -->
-		<str><random min="417" max="595" /></str>
-		<dex><random min="166" max="175" /></dex>
-		<int><random min="46" max="70" /></int>
+		<str><random min="417" max="595"/></str>
+		<dex><random min="166" max="175"/></dex>
+		<int><random min="46" max="70"/></int>
 		<!-- Skills -->
-		<wrestling><random min="901" max="1000" /></wrestling>
-		<tactics><random min="901" max="1000" /></tactics>
-		<magicresistance><random min="651" max="800" /></magicresistance>
-		<poisoning><random min="601" max="800" /></poisoning>
+		<poisoning><random min="601" max="800"/></poisoning>
+		<magicresistance><random min="651" max="800"/></magicresistance>
+		<tactics><random min="901" max="1000"/></tactics>
+		<wrestling><random min="901" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>16</lodamage>
+		<hidamage>19</hidamage>
+		<!-- Resists -->
+		<defense><random min="35" max="40" /></defense>
+		<tag name="coldresist" value="35,45" />
+		<tag name="energyresist" value="35,45" />
+		<tag name="fireresist" value="30,40" />
+		<tag name="physicalresist" value="35,40" />
+		<tag name="poisonresist" value="90,100" />
+		<!-- Misc. -->
+		<desc>The Ophidian knight is the royal protector. Wielding magic weapons,Ophidian knights defend their territory with frightening skill. Themost important thing to remember is that the Ophidian knight ischarged with guarding the secret of the Ophidian race.</desc>
+		<category>Monsters\Ophidians\Ophidian Knight-Errant</category>
 	</npc>
 
 </definitions>

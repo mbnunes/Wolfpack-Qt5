@@ -4,26 +4,33 @@
 	<!-- Ophidian Zealot -->
 	<npc id="ophidian_zealot">
 		<name>an ophidian zealot</name>
-		<id>0x88</id>
-		<category>Monsters\Ophidians\Ophidian Zealot</category>
-		<skin>0</skin>
+		<id>0x55</id>
 		<inherit id="monster_base" />
-		<karma><random min="-5000" max="-9999" /></karma>
-		<fame><random min="5000" max="9999" /></fame>
-		<defense><random min="40" max="45" /></defense>
-		<lodamage>12</lodamage>
-		<hidamage>27</hidamage>
-		<gold><random min="190" max="220"/></gold>
+		<karma>-4000</karma>
+		<fame>4000</fame>
+		<gold><random min="60" max="90"/></gold>
 		<!-- Stats -->
-		<str><random min="281" max="305" /></str>
-		<dex><random min="191" max="215" /></dex>
-		<int><random min="226" max="250" /></int>
+		<str><random min="181" max="205"/></str>
+		<dex><random min="191" max="215"/></dex>
+		<int><random min="851" max="1000"/></int>
 		<!-- Skills -->
-		<wrestling><random min="202" max="600" /></wrestling>
-		<tactics><random min="650" max="875" /></tactics>
-		<magicresistance><random min="750" max="975" /></magicresistance>
-		<magery><random min="951" max="1000" /></magery>
-		<evaluatingint><random min="951" max="1000"/></evaluatingint>
+		<evaluatingintel><random min="851" max="1000"/></evaluatingintel>
+		<magery><random min="851" max="1000"/></magery>
+		<magicresistance><random min="750" max="975"/></magicresistance>
+		<tactics><random min="650" max="875"/></tactics>
+		<wrestling><random min="202" max="600"/></wrestling>
+		<!-- Damage -->
+		<lodamage>4</lodamage>
+		<hidamage>9</hidamage>
+		<!-- Resists -->
+		<defense><random min="25" max="35" /></defense>
+		<tag name="coldresist" value="35,45" />
+		<tag name="energyresist" value="35,45" />
+		<tag name="fireresist" value="30,40" />
+		<tag name="physicalresist" value="25,35" />
+		<tag name="poisonresist" value="40,50" />
+		<!-- Misc. -->
+		<category>Monsters\Ophidians\Ophidian Zealot</category>
 	</npc>
 
 </definitions>

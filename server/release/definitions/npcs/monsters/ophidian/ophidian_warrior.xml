@@ -4,24 +4,33 @@
 	<!-- Ophidian Warrior -->
 	<npc id="ophidian_warrior">
 		<name>an ophidian warrior</name>
-		<id>0x056</id>
-		<category>Monsters\Ophidians\Ophidian Warrior</category>
+		<id>0x56</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="35" max="40"/></defense>
-		<lodamage>11</lodamage>
-		<hidamage>24</hidamage>
+		<karma>-4500</karma>
+		<fame>4500</fame>
 		<gold><random min="100" max="140"/></gold>
 		<!-- Stats -->
 		<str><random min="150" max="320"/></str>
 		<dex><random min="94" max="190"/></dex>
 		<int><random min="64" max="160"/></int>
 		<!-- Skills -->
-		<tactics><random min="751" max="900"/></tactics>
 		<magicresistance><random min="701" max="850"/></magicresistance>
+		<swordsmanship><random min="601" max="850"/></swordsmanship>
+		<tactics><random min="751" max="900"/></tactics>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>11</hidamage>
+		<!-- Resists -->
+		<defense><random min="35" max="40"/></defense>
+		<tag name="coldresist" value="25,35" />
+		<tag name="energyresist" value="25,35" />
+		<tag name="fireresist" value="20,30" />
+		<tag name="physicalresist" value="35,40" />
+		<tag name="poisonresist" value="30,40" />
+		<!-- Misc. -->
+		<desc>It is believed that the Ophidians are a magically created race. Theyare thought to be part snake and part human. This merging has createda race filled with loathing and inner turmoil. It is believed thatthey were aware of how they were created and by whom. This secret isguarded very closely by the Ophidians and is the cause of their warwith the Terrathans. The Terrathans believe the secret of Ophidianorigin will help them determine their own. The Ophidians hold thatthere is no relation.</desc>
 		<carve>carve_ophidian_warrior_medium</carve>
-		<!-- Priv -->
+		<category>Monsters\Ophidians\Ophidian Warrior</category>
 	</npc>
 
 </definitions>
