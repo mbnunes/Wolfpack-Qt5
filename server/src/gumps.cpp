@@ -396,7 +396,7 @@ cSocketInfoGump::cSocketInfoGump( cUOSocket* socket )
 
 		addButton( 20, 180, 0xFA5, 0xFA7, 1 );
 		addText( 50, 180, tr( "Go to position" ), 0x834 );
-		addButton( 20, 200, 0xFA5, 0xFA71, 2 );
+		addButton( 20, 200, 0xFA5, 0xFA7, 2 );
 		addText( 50, 200, tr( "Bring char" ), 0x834 );
 		addButton( 20, 220, 0xFA5, 0xFA7, 3 );
 		addText( 50, 220, tr( "Jail char" ), 0x834 );
