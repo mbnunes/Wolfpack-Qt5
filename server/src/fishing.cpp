@@ -196,13 +196,10 @@ void cFishing::FishTarget(P_CLIENT ps)
 	if (ok)
 	{
 		action(s,0x0b);
-		//if ((buffer[s][1]==1 || buffer[s][1]==0)&&(buffer[s][2]==0)&&(buffer[s][3]==1)&&(buffer[s][4]==0))
-		{
-			if (fishing_data.randomtime!=0)
-				pPlayer->fishingtimer=rand()%fishing_data.randomtime+fishing_data.basetime;
-			else
-				pPlayer->fishingtimer=fishing_data.basetime;
-		}
+		if (fishing_data.randomtime!=0) pPlayer->fishingtimer=rand()%fishing_data.randomtime+fishing_data.basetime;
+		else
+		pPlayer->fishingtimer=fishing_data.basetime;
+		
 		soundeffect(s, 0x02, 0x3F);
 		pPlayer->unhide();
 		Fish(DEREF_P_CHAR(pPlayer));

@@ -451,6 +451,11 @@ void cNetworkStuff::GoodAuth(int s)
 	}
 
 	login04a[3] = accounts_chars.size(); //Number of characters found
+	if (login04a[3]>5)
+	{
+		login04a[3]=5;	
+		LogErrorVar ("more than 5 chars on account# %i\n", acctno[s]);
+	}
 	Xsend(s, login04a, 4);
 
 	j=0;
@@ -462,8 +467,8 @@ void cNetworkStuff::GoodAuth(int s)
 		j++;
 	}
 
-	memset(&login04b[0], 60, sizeof(unsigned char));
-	for(i = 0; i<60;i++)login04b[i] = 0;
+	memset(&login04b[0], 0, 60*sizeof(unsigned char));
+	//for(i = 0; i<60;i++)login04b[i] = 0;
 
 	for (i=j;i<5;i++)
 	{

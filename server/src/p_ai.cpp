@@ -368,9 +368,9 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					{
 						onl = online(DEREF_P_CHAR(pc));
 						d = chardist(i, DEREF_P_CHAR(pc));
-						if (d > 10 || pc->isInvul() || pc->dead || !onl)
+						if (d > 10 || pc->isInvul() || pc->dead)
 							continue;
-						if (pc->npcaitype != 2 || !pc->isCriminal() || !pc->isMurderer())
+						if (!(pc->npcaitype == 2 || pc->isCriminal() || pc->isMurderer()))
 							continue;
 						npcattacktarget(i, DEREF_P_CHAR(pc));
 					}
