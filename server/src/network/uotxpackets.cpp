@@ -398,6 +398,7 @@ void cUOTxCharEquipment::fromItem( P_ITEM pItem )
 	if ( !pItem->container() )
 		return;
 
+	setUnknown1(0); // Sorting (???)
 	setSerial( pItem->serial() );
 	setModel( pItem->id() );
 	setLayer( pItem->layer() );
