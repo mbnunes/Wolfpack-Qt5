@@ -713,8 +713,10 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	cUOTxChangeSeason season;
 	if (Config::instance()->enableFeluccaSeason() && _player->pos().map == 0) {
 		season.setSeason( ST_DESOLATION );
-	} else {
+	} else if (Config::instance()->enableTrammelSeason() && _player->pos().map == 1) {
 		season.setSeason( ST_SPRING );
+	} else {
+		season.setSeason( ST_SUMMER );
 	}
 	send( &season );
 
@@ -1551,8 +1553,10 @@ void cUOSocket::resendPlayer( bool quick )
 	cUOTxChangeSeason season;
 	if (Config::instance()->enableFeluccaSeason() && _player->pos().map == 0) {
 		season.setSeason( ST_DESOLATION );
-	} else {
+	} else if (Config::instance()->enableTrammelSeason() && _player->pos().map == 1) {
 		season.setSeason( ST_SPRING );
+	} else {
+		season.setSeason( ST_SUMMER );
 	}
 	send( &season );
 

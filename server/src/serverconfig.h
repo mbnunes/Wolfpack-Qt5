@@ -101,6 +101,7 @@ protected:
 	int niceLevel_;
 	unsigned short loginPort_;
 	bool enableFeluccaSeason_;
+	bool enableTrammelSeason_;
 	unsigned int logMask_;
 	bool enableLogin_;
 	unsigned short gamePort_;
@@ -196,6 +197,7 @@ public:
 
 	// gets
 	bool enableFeluccaSeason() const;
+	bool enableTrammelSeason() const;
 	bool hashAccountPasswords() const;
 	bool convertUnhashedPasswords() const;
 	bool showSkillTitles() const;
@@ -757,6 +759,11 @@ inline bool cConfig::convertUnhashedPasswords() const
 inline bool cConfig::enableFeluccaSeason() const
 {
 	return enableFeluccaSeason_;
+}
+
+inline bool cConfig::enableTrammelSeason() const
+{
+	return enableTrammelSeason_;
 }
 
 inline bool cConfig::overwriteDefinitions() const

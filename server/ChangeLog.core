@@ -27,6 +27,8 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Guards now run towards their targets.
 	- Fixed bug #0000345.
 	- Python now allows effects and sounds on coords.
+	- Corrected the default season for map 2, 3 and 4.
+	- Made the spring season for the trammel map a configuration option.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

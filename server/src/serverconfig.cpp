@@ -143,6 +143,7 @@ void cConfig::readData()
 
 	// General Group
 	enableFeluccaSeason_ = getBool("General", "Enable Felucca Season", true, true);
+	enableTrammelSeason_ = getBool("General", "Enable Trammel Season", true, true);
 	showSkillTitles_ = getBool( "General", "ShowSkillTitles", true, true );
 	skillcap_ = getNumber( "General", "SkillCap", 700, true );
 	statcap_ = getNumber( "General", "StatsCap", 225, true );
