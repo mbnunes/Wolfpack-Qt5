@@ -51,7 +51,7 @@ unsigned int cSectorMap::gridWidth() const
 
 unsigned int cSectorMap::calcBlockId( unsigned int x, unsigned int y ) throw()
 {
-	return ( ( x / SECTOR_SIZE ) * gridHeight_ ) + ( x / SECTOR_SIZE );
+	return ( ( x / SECTOR_SIZE ) * gridHeight_ ) + ( y / SECTOR_SIZE );
 }
 
 bool cSectorMap::init( unsigned int width, unsigned int height ) throw()
@@ -180,7 +180,7 @@ cSectorIterator::cSectorIterator( unsigned int count, cUObject **items )
 
 cSectorIterator::~cSectorIterator()
 {
-	delete this->items;
+	delete [] this->items;
 }
 
 /*
@@ -514,7 +514,7 @@ P_CHAR RegionIterator4Chars::GetData( void )
 
 RegionIterator4Chars& RegionIterator4Chars::operator ++( int i )
 {
-	iter->pos += i;
+	iter->pos++;
 	return *this;
 }
 
@@ -552,6 +552,6 @@ P_ITEM RegionIterator4Items::GetData( void )
 
 RegionIterator4Items& RegionIterator4Items::operator++( int i )
 {
-	iter->pos += i;
+	iter->pos++;
 	return *this;
 }

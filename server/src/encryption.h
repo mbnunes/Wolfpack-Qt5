@@ -89,7 +89,7 @@ class cGameEncryption : public cClientEncryption
 private:
 	unsigned short recvPos; // Position in our CipherTable (Recv)
 	unsigned char sendPos; // Offset in our XOR Table (Send)
-	unsigned char cipherTable[256];
+	unsigned char cipherTable[0x100];
 
     keyInstance ki;
     cipherInstance ci;

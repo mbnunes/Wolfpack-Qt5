@@ -554,6 +554,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		{
 			if( pOldMulti )
 				pOldMulti->removeChar( pChar );
+
 			if( pNewMulti )
 				pNewMulti->addChar( pChar );
 		}

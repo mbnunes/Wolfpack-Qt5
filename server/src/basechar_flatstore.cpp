@@ -164,7 +164,7 @@ void cBaseChar::save( FlatStore::OutputFile *output, bool first ) throw()
 		output->chunkData( CHAR_DEATHS, (unsigned int)deaths() );
 	
 	if( bodyArmor() )
-		output->chunkData( CHAR_DEFENSE, (unsigned int)bodyArmor() );
+		output->chunkData( CHAR_DEFENSE, (unsigned short )bodyArmor() );
 
 	if( hunger() != 6 )
 		output->chunkData( CHAR_HUNGER, (int)hunger() );

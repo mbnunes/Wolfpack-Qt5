@@ -87,10 +87,10 @@ void cPlayer::save( FlatStore::OutputFile *output, bool first ) throw()
 		output->chunkData( CHAR_PROFILE, (const char*)profile().utf8().data() );
 
 	if( visualRange() )
-		output->chunkData( CHAR_VISRANGE, visualRange() );
+		output->chunkData( CHAR_VISRANGE, (unsigned char)visualRange() );
 
 	if( additionalFlags() )
-		output->chunkData( CHAR_ADDFLAGS, additionalFlags() );
+		output->chunkData( CHAR_ADDFLAGS, (unsigned int)additionalFlags() );
 
 	output->finishChunkGroup();
 

@@ -136,15 +136,11 @@ void cGameEncryption::init( unsigned int seed )
 
 	ki.key32[0] = ki.key32[1] = ki.key32[2] = ki.key32[3] = seed;
 	reKey( &ki );
-
-	unsigned char tmpBuffer[256];
-	blockEncrypt( &ci, &ki, cipherTable, 256*8, tmpBuffer );
-    memcpy( cipherTable, tmpBuffer, 256 );
 	
 	for( unsigned int i = 0; i < 256; ++i )
 		cipherTable[i] = i;
 	
-	recvPos = 256;
+	recvPos = 0x100;
 	sendPos = 0x00;
 }
 
@@ -154,11 +150,11 @@ void cGameEncryption::init( unsigned int seed )
 void cGameEncryption::decryptByte( unsigned char &byte )
 {
 	// Recalculate table
-	if( recvPos >= 256 )
+	if( recvPos >= 0x100 )
 	{
-		unsigned char tmpBuffer[256];
-		blockEncrypt( &ci, &ki, cipherTable, 256*8, tmpBuffer );
-		memcpy( cipherTable, tmpBuffer, 256 );
+		unsigned char tmpBuffer[0x100];
+		blockEncrypt( &ci, &ki, &cipherTable[0], 0x800, &tmpBuffer[0] );
+		memcpy( &cipherTable[0], &tmpBuffer[0], 0x100 );
 		recvPos = 0;
 	}
 

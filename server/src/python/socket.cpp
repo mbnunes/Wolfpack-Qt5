@@ -607,16 +607,26 @@ PyObject* wpSocket_deltag( wpSocket* self, PyObject* args )
 */
 PyObject *wpSocket_resendstatus( wpSocket *self, PyObject *args )
 {
-	if( !self->pSock )
-		return PyFalse;
-
 	self->pSock->sendStatWindow();
+	return PyTrue;
+}
 
+PyObject *wpSocket_questarrow( wpSocket *self, PyObject *args )
+{
+	int show;
+	int x = 0;
+	int y = 0;
+
+	if( !PyArg_ParseTuple( args, "i|ii:socket.questarrow( show, x, y )", &show, &x, &y ) )
+		return 0;
+
+	self->pSock->sendQuestArrow( show, x, y );
 	return PyTrue;
 }
 
 static PyMethodDef wpSocketMethods[] = 
 {
+	{ "questarrow",			(getattrofunc)wpSocket_questarrow, METH_VARARGS, NULL },
     { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
     { "clilocmessage",		(getattrofunc)wpSocket_clilocmessage, METH_VARARGS, "Sends a localized message to the socket." },
 	{ "showspeech",			(getattrofunc)wpSocket_showspeech, METH_VARARGS, "Sends raw speech to the socket." },
@@ -635,7 +645,7 @@ static PyMethodDef wpSocketMethods[] =
 	{ "deltag",				(getattrofunc)wpSocket_deltag,	METH_VARARGS,	"Delete specific tag." },
 	{ "resendstatus",		(getattrofunc)wpSocket_resendstatus, METH_VARARGS,	"Resends the status windows to this client." },
 	{ "resendstatus",		(getattrofunc)wpSocket_resendstatus, METH_VARARGS,	"Resends the status windows to this client." },
-	{ "customize",		(getattrofunc)wpSocket_customize, METH_VARARGS,	"Begin house customization." },
+	{ "customize",			(getattrofunc)wpSocket_customize, METH_VARARGS,	"Begin house customization." },
     { NULL, NULL, 0, NULL }
 };
 

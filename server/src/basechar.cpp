@@ -1169,7 +1169,6 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 
 bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
-
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onShowToolTip( sender, this, tooltip  ) )
 			return true;

@@ -60,7 +60,7 @@ void cBook::registerInFactory()
 	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cBook' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerSqlQuery( "cBook", sqlString );
 
-	UObjectFactory::instance()->registerType("cBook", productCreator);
+	UObjectFactory::instance()->registerType( "cBook", productCreator );
 	UObjectFactory::instance()->registerType( QString::number( CHUNK_BOOK ), productCreator );
 }
 
@@ -111,7 +111,7 @@ void cBook::load( char **result, UINT16 &offset )
 
 enum eChunkTypes
 {
-	BOOK_PREDEFINED = 0x00,	// flag
+	BOOK_PREDEFINED = 0x01,	// flag
 	BOOK_READONLY,			// flag
 	BOOK_TITLE,				// utf8
 	BOOK_AUTHOR,			// author
@@ -121,6 +121,9 @@ enum eChunkTypes
 
 void cBook::save( FlatStore::OutputFile *output, bool first ) throw()
 {
+	cItem::save( output, first );
+	return;
+
 	if( first )
 		output->startObject( serial_, CHUNK_BOOK );
 
@@ -161,9 +164,9 @@ void cBook::save( FlatStore::OutputFile *output, bool first ) throw()
 
 bool cBook::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile *input ) throw()
 {
-	if( chunkGroup != CHUNK_BOOK )
+//	if( chunkGroup != CHUNK_BOOK )
 		return cItem::load( chunkGroup, chunkType, input );
-
+/*
 	unsigned int i;
 
 	switch( chunkType )
@@ -201,7 +204,7 @@ bool cBook::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 		return false;
 	};
 
-	return true;
+	return true;*/
 }
 
 bool cBook::postload() throw()

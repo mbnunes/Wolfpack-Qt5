@@ -12,7 +12,7 @@
 // Keep this Enum private!
 enum eObjectKeys
 {
-	OBJECT_NAME = 0x00,		// String
+	OBJECT_NAME = 0x01,		// String
 	OBJECT_BINDMENU,		// String
 	OBJECT_MULTI,			// 4 Byte Int
 	OBJECT_POS_X,			// 2 Byte Short
