@@ -1,9 +1,13 @@
 <definitions>
-	<script id="test" type="python">
-		<module name="itemTest" />
+	<script id="training_dummy" type="python">
+		<module name="training_dummy" />
 	</script>
 	
-	<script id="pickaxe" type="python">
-		<module name="wolfpack.mining" />
+	<script id="pickpocket_dip" type="python">
+		<module name="pickpocket_dip" />
 	</script>
+	
+	<script id="archery_butte" type="python">
+		<module name="archery_butte" />
+	</script>	
 </definitions>
