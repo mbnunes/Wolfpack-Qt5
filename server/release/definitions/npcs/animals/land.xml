@@ -66,12 +66,12 @@
                 <!-- Stats -->
                 <str><random min="22" max="334" /></str>
                 <dex><random min="16" max="25" /></dex>
-                <int><random min="16" max="25"</int>
+                <int><random min="16" max="25"/></int>
                 <!-- Skills -->
                 <wrestling><random min="193" max="340" /></wrestling>
                 <tactics><random min="193" max="340" /></tactics>
                 <magicresistance><random min="151" max="200" /></magicresistance>
-		<poisoning><random min="501" max="700" /></poisoning
+		<poisoning><random min="501" max="700" /></poisoning>
                 <totame>591</totame>
                 <food>0</food>
                 <carve>carve_snake</carve>
@@ -506,11 +506,7 @@
                 <inherit id="boar" />
                 <name>a boar</name>
                 <id>0xCB</id>
-<<<<<<< land.xml
                 <category>Animals\Land\Boar</category>
-	</npc>
-=======
-                <category>Animals\Land\Pig</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
                 <karma><random min="0" max="-624" /></karma>
@@ -527,11 +523,10 @@
                 <tactics>50</tactics>
                 <magicresistance>50</magicresistance>
                 <parrying><random min="370" max="380" /></parrying>
-				<totame>111</totame>
+		<totame>111</totame>
                 <food>6</food>
                 <carve>carve_pig</carve>
         </npc>
->>>>>>> 1.7
 
         <!-- rat -->
         <npc id="rat">
@@ -548,7 +543,7 @@
                 <!-- Stats -->
                 <str>9</str>
                 <dex>25</dex>
-                <int><random min="6" max="25"</int>
+                <int><random min="6" max="25"/></int>
                 <!-- Skills -->
                 <wrestling>50</wrestling>
                 <tactics>50</tactics>
@@ -848,3 +843,4 @@
                 <food>1</food>
                 <carve></carve>
         </npc>
+        </definitions>
