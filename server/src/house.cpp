@@ -399,10 +399,10 @@ void BuildHouse(UOXSOCKET s, int i)
 						}
 						else if (!(strcmp((char*)script1,"LOCK")))//lock it with the house key
 						{
-							pHouseItem->more1 = static_cast<unsigned char>((pHouseItem->serial&0xFF000000)>>24);
-							pHouseItem->more2 = static_cast<unsigned char>((pHouseItem->serial&0x00FF0000)>>16);
-							pHouseItem->more3 = static_cast<unsigned char>((pHouseItem->serial&0x0000FF00)>>8);
-							pHouseItem->more4 = static_cast<unsigned char>((pHouseItem->serial&0x000000FF));
+							pHouseItem->more1 = static_cast<unsigned char>((pMulti->serial&0xFF000000)>>24);
+							pHouseItem->more2 = static_cast<unsigned char>((pMulti->serial&0x00FF0000)>>16);
+							pHouseItem->more3 = static_cast<unsigned char>((pMulti->serial&0x0000FF00)>>8);
+							pHouseItem->more4 = static_cast<unsigned char>((pMulti->serial&0x000000FF));
 						}
 						else if (!(strcmp((char*)script1,"X")))//offset + or - from the center of the house:
 						{
