@@ -26,6 +26,7 @@
  */
 
 #include "ai.h"
+#include "../combat.h"
 #include "../npc.h"
 #include "../factory.h"
 #include "../sectors.h"
@@ -37,9 +38,111 @@
 // library includes
 #include <math.h>
 
+// Is this an invalid target?
+bool invalidTarget(P_NPC npc, P_CHAR victim, int dist = -1) {
+	if (victim->isInvulnerable() || victim->isDead()) {
+		return true;
+	}
+
+	if (npc->owner() == victim) {
+		return true;
+	}
+
+	if (dist == -1) {
+		dist = npc->dist(victim);
+	}
+
+	if (dist > Config::instance()->attack_distance()) {
+		return true;
+	}
+
+	if (!npc->canSee(victim)) {
+		return true;
+	}
+
+	return false;
+}
+
+// Is this a valid target?
+bool validTarget(P_NPC npc, P_CHAR victim, int dist = -1) {
+	if (invalidTarget(npc, victim, dist)) {
+		return false;
+	}
+
+	if (!npc->lineOfSight(victim, true)) {
+		return false;
+	}
+
+	return true;
+}
+
+// Find the best target for this NPC
+P_CHAR findBestTarget(P_NPC npc) {
+	unsigned int distance = ~0;
+	P_CHAR target = 0;
+
+	// Search for targets in our list of current targets first
+	QPtrList<cFightInfo> fights = npc->fights();
+	for (cFightInfo *info = fights.first(); info; info = fights.next()) {
+		P_CHAR victim = info->victim();
+		if (victim == npc) {
+			victim = info->attacker();
+		}
+
+		// We don't already attack the target, right?
+		if (victim != target) {
+			// See if it's a target we want
+			unsigned int dist = npc->dist(victim);		
+			if (dist < distance && validTarget(npc, victim, dist)) {
+				target = victim;
+				distance = dist;
+			}
+		}
+	}
+
+	// If we're not tamed, we attack other players as well.
+	if (!npc->isTamed()) {	
+		RegionIterator4Chars ri(npc->pos(), VISRANGE);
+		for ( ri.Begin(); !ri.atEnd(); ri++ ) {
+			// We limit ourself to players here
+			P_PLAYER victim= dynamic_cast<P_PLAYER>( ri.GetData() );
+
+			// We don't already attack the target, right?
+			if (victim && victim != target) {
+				// See if it's a target we want
+				unsigned int dist = npc->dist(victim);
+				if (dist < distance && validTarget(npc, victim, dist)) {
+					target = victim;
+					distance = dist;
+				}
+			}
+		}
+	}
+
+	return target;
+}
+
 void Monster_Aggressive::check()
 {
-	selectVictim();
+	if (m_currentVictim && invalidTarget(m_npc, m_currentVictim)) {
+		m_currentVictim = 0;
+		m_npc->fight(0);
+	}
+
+	if (nextVictimCheck < Server::instance()->time()) {
+		// Don't switch if we can hit it...
+		if (!m_currentVictim || m_currentVictim->dist(m_npc) > 1) {
+			P_CHAR target = findBestTarget(m_npc);
+
+			if (target) {
+				m_currentVictim = target;
+				m_npc->fight(target);
+			}
+		}
+
+		nextVictimCheck = Server::instance()->time() + 1500;
+	}
+
 	AbstractAI::check();
 }
 
@@ -55,55 +158,6 @@ void Monster_Aggressive_L0::registerInFactory()
 
 void Monster_Aggressive_L0::selectVictim()
 {
-	// We must make sure, that the npc has a correct target.
-	// If he already has one, we must check if it is still correct.
-	// Else we search a new one.
-
-	// If the npc is tamed, it cant select it's own victim
-	if ( m_npc->isTamed() )
-	{
-		return;
-	}
-
-	// Check if the current target is valid, including:
-	// - Target not dead.
-	// - Target in attack range.
-	if ( m_currentVictim )
-	{
-		if ( m_currentVictim->isDead() )
-		{
-			m_currentVictim = NULL;
-			m_npc->log( QString( "Lost Target because it's dead. [%1]" ).arg( m_npc->serial() ) );
-		}
-		else if ( !m_npc->inRange( m_currentVictim, Config::instance()->attack_distance() ) )
-		{
-			m_currentVictim = NULL;
-			m_npc->log( QString( "Lost Target because it's out of range. [%1]" ).arg( m_npc->serial() ) );
-		}
-	}
-
-	if ( !m_currentVictim )
-	{
-		// Get the first best character and attack it
-		RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
-		for ( ri.Begin(); !ri.atEnd(); ri++ )
-		{
-			// For now we will limit ourselves to Players
-			P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( ri.GetData() );
-			if ( pPlayer && !pPlayer->isInvulnerable() && !pPlayer->isDead() && m_npc->canSee( pPlayer ) )
-			{
-				// Make sure that we can really see our victim
-				if ( m_npc->lineOfSight( pPlayer, true ) )
-				{
-					m_currentVictim = pPlayer;
-					break;
-				}
-			}
-		}
-
-		// If we found a new target, let us attack it
-		m_npc->fight( m_currentVictim );
-	}
 }
 
 static AbstractAI* productCreator_MB()
@@ -118,46 +172,6 @@ void Monster_Berserk::registerInFactory()
 
 void Monster_Berserk::selectVictim()
 {
-	bool victimChanged = false;
-
-	// Clear the current victim if neccesary
-	if ( m_currentVictim )
-	{
-		if ( !m_npc->canSeeChar( m_currentVictim ) || m_currentVictim->isInvulnerable() || m_currentVictim->isDead() )
-		{
-			victimChanged = true;
-			m_currentVictim = 0;
-		}
-	}
-
-	if ( !m_currentVictim || lastVictimChange + 2000 <= Server::instance()->time() )
-	{
-		// Get the first best character and attack it
-		RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
-		for ( ri.Begin(); !ri.atEnd(); ri++ )
-		{
-			P_CHAR victim = ri.GetData();
-
-			// For now we will limit ourselves to Players
-			if ( victim != m_npc && !victim->isInvulnerable() && !victim->isDead() && m_npc->canSee( victim ) )
-			{
-				// Make sure that we can really see our victim
-				if ( m_npc->lineOfSight( victim, true ) )
-				{
-					m_currentVictim = victim;
-					victimChanged = true;
-					break;
-				}
-			}
-		}
-
-		// If we found a new target, let us attack it
-		if ( victimChanged )
-		{
-			m_npc->fight( m_currentVictim );
-		}
-		lastVictimChange = Server::instance()->time() + 2000;
-	}
 }
 
 static AbstractAI* productCreator_MAL1()
@@ -172,71 +186,6 @@ void Monster_Aggressive_L1::registerInFactory()
 
 void Monster_Aggressive_L1::selectVictim()
 {
-	// We must make sure, that the npc has a correct target.
-	// If he already has one, we must check if it is still correct.
-	// Else we search a new one.
-
-	// If the npc is tamed, it cant attack
-	if ( m_npc->isTamed() )
-	{
-		m_currentVictim = NULL;
-		return;
-	}
-
-	if ( m_currentVictim )
-	{
-		// Check if the current target is valid, including:
-		// - Target not dead.
-		// - Target in attack range.
-		if ( m_currentVictim->isDead() )
-			m_currentVictim = NULL;
-		else if ( m_currentVictim->isInvulnerable() )
-			m_currentVictim = NULL;
-		else if ( !m_npc->inRange( m_currentVictim, Config::instance()->attack_distance() ) )
-			m_currentVictim = NULL;
-		else if ( !m_npc->canSee( m_currentVictim ) )
-		{
-			m_currentVictim = NULL;
-		}
-	}
-
-	int currentPriority = -0x00DDDDDD;
-	P_CHAR newVictim = m_currentVictim;
-	// we divide the negative priority of the current victim by two,
-	// so it cant be overwritten that easy.
-	// This shall reduce "target hopping".
-	if ( m_currentVictim )
-		currentPriority = 0 - m_currentVictim->dist( m_npc ) - m_currentVictim->hitpoints();
-
-	// Get the attackable char which has the highest priority.
-	// The priority is calculated by *distance* and *strength*.
-	RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
-	for ( ri.Begin(); !ri.atEnd(); ri++ )
-	{
-		// As long as there is no way to distinguish between
-		// attackable npcs and not attackable npcs i prefer
-		// to attack players only.
-		P_PLAYER pChar = dynamic_cast<P_PLAYER>( ri.GetData() );
-		if ( pChar && !pChar->isInvulnerable() && !pChar->isDead() && m_npc->canSee( pChar ) )
-		{
-			if ( m_npc->lineOfSight( pChar, true ) )
-			{
-				int priority = 0 - pChar->dist( m_npc ) - pChar->hitpoints();
-				if ( priority > currentPriority )
-				{
-					newVictim = pChar;
-					currentPriority = priority;
-				}
-			}
-		}
-	}
-
-	// If we found a new target, let us attack it
-	if ( ( !m_currentVictim && newVictim ) || ( m_currentVictim && m_currentVictim != newVictim ) )
-	{
-		m_currentVictim = newVictim;
-		m_npc->fight( newVictim );
-	}
 }
 
 float Monster_Aggr_Wander::preCondition()

@@ -317,12 +317,14 @@ protected:
 	Monster_Aggressive() : AbstractAI(), m_currentVictim( NULL )
 	{
 		notorietyOverride_ = 3;
+		nextVictimCheck = 0;
 	}
 
 public:
 	Monster_Aggressive( P_NPC npc ) : AbstractAI( npc ), m_currentVictim( NULL )
 	{
 		notorietyOverride_ = 3;
+		nextVictimCheck = 0;
 	}
 
 	virtual void check();
@@ -334,6 +336,7 @@ public:
 protected:
 	virtual void selectVictim() = 0;
 
+	unsigned int nextVictimCheck;
 	P_CHAR m_currentVictim;
 };
 
