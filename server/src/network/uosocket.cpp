@@ -1272,7 +1272,7 @@ void cUOSocket::resendWorld( bool clean )
 	for( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
 	{
 		P_CHAR pChar = chIterator.GetData();
-		if( !pChar )
+		if( !pChar || pChar == _player )
 			continue;
 
 		if( pChar->pos.distance( _player->pos ) > _player->VisRange )

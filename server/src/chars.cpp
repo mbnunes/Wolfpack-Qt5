@@ -773,7 +773,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("title",			title_);
 		QString login;
 		archive.read("account",			login);
-		account_ = Accounts->getRecord( login );
+		setAccount( Accounts->getRecord( login ) );
 		archive.read("creationday",		creationday_);
 		archive.read("gmmoveeff",		gmMoveEff);
 		archive.read("guildtype",		GuildType);
