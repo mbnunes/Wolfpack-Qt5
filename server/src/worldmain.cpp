@@ -841,7 +841,6 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		pc->antispamtimer = 0;   //LB - AntiSpam -
 		pc->antiguardstimer = 0; //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn
 
-//		k = pc->id();
 		if (pc->id() <= 0x3e1)
 		{
 			unsigned short k = pc->id();
@@ -987,13 +986,11 @@ void CWorldMain::savenewworld(char x)
 	uiCurrentTime = getNormalizedTime();
 }
 
-//##ModelId=3C5D92A900A8
 int CWorldMain::announce()
 {
 	return DisplayWorldSaves;
 }
 
-//##ModelId=3C5D92A9010D
 void CWorldMain::announce(int choice)
 {
 	if(choice<1)
@@ -1002,7 +999,6 @@ void CWorldMain::announce(int choice)
 		DisplayWorldSaves=1;
 }
 
-//##ModelId=3C5D92A90171
 void CWorldMain::SetLoopSaveAmt( long toSet )
 {
 	if ( toSet <= 0 )
@@ -1011,19 +1007,16 @@ void CWorldMain::SetLoopSaveAmt( long toSet )
 		PerLoop = toSet;
 }
 
-//##ModelId=3C5D92A90185
 long CWorldMain::LoopSaveAmt( void )
 {
 	return PerLoop;
 }
 
-//##ModelId=3C5D92A90190
 bool CWorldMain::Saving( void )
 {
 	return isSaving;
 }
 
-//##ModelId=3C5D92A90225
 void CWorldMain::SaveChar( P_CHAR pc )
 {
 	char valid=0;
@@ -1395,7 +1388,6 @@ void swapDragInfo(P_ITEM pi)
 	pi->oldlayer=tmpLayer;
 }
 
-//##ModelId=3C5D92A90239
 void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 {
 
@@ -1518,7 +1510,6 @@ void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 //o--------------------------------------------------------------------------
 //|	Returns			-	true if removed, false otherwise
 //o--------------------------------------------------------------------------
-//##ModelId=3C5D92A901A3
 bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 { 
 	int serial;

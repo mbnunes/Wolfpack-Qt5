@@ -580,7 +580,7 @@ void cNetworkStuff::charplay (int s) // After hitting "Play Character" button //
 			if (Accounts->GetInWorld(acctno[s]) == INVALID_SERIAL || pc_selected->isGM())//AntiChrist
 			{
 				Accounts->SetOnline(acctno[s], pc_selected->serial);
-				pc_selected->logout=-1;
+				pc_selected->logout = 0;
 				currchar[s] = pc_selected;
 				startchar(s);
 			} else {
@@ -790,7 +790,7 @@ char cNetworkStuff::LogOut(int s)//Instalog
 	if (valid)//||region[pc_currchar->region].priv&0x17)
 	{
 		Accounts->SetOffline(pc_currchar->account);
-		pc_currchar->logout=-1; // LB bugfix, was timeout
+		pc_currchar->logout = 0; // LB bugfix, was timeout
 	} else {
 		if (perm[s]) 
 		{

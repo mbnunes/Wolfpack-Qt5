@@ -465,7 +465,8 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 	}
 	
 	int total=9+1+lentext+1;
-	for (int i=1;i<=gumpnum;i++)
+	int i;
+	for (i = 1; i <= gumpnum; i++)
 	{
 		total+=4+1+strlen(mygump[i]);
 	}

@@ -13,7 +13,7 @@
 //	This program is distributed in the hope that it will be useful,
 //	but WITHOUT ANY WARRANTY; without even the implied warranty of
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
+//	GNU General Public Li678cense for more details.
 //
 //	You should have received a copy of the GNU General Public License
 //	along with this program; if not, write to the Free Software
@@ -661,44 +661,44 @@ void house_speech(int s, char *msg)	// msg must already be capitalized
 
 int check_house_decay()
 {
-   int houses=0;   
-   int decayed_houses=0;
-   unsigned long int timediff;
-   unsigned long int ct=getNormalizedTime();
-   
-   AllItemsIterator iter_items;
-   for (iter_items.Begin(); !iter_items.atEnd(); iter_items++) 
-   {   
-	 P_ITEM pi = iter_items.GetData(); // there shouldnt be an error here !		 
-	 if (!pi->free && ishouse(pi->id()))
-	 {
-		if (pi->time_unused>SrvParms->housedecay_secs) // not used longer than max_unused time ? delete the house
-		{          
-			decayed_houses++;
-            sprintf((char*)temp,"%s decayed! not refreshed for > %i seconds!\n",pi->name,SrvParms->housedecay_secs);
-			LogMessage((char*)temp);
-			RemoveHouse(pi);
-		}
-		else // house ok -> update unused-time-attribute
-		{
-           timediff=(ct-pi->timeused_last)/MY_CLOCKS_PER_SEC;
-		   pi->time_unused+=timediff; // might be over limit now, but it will be cought next check anyway
-
-		   pi->timeused_last=ct;	// if we don't do that and housedecay is checked every 11 minutes,
-									// it would add 11,22,33,... minutes. So now timeused_last should in fact
-									// be called timeCHECKED_last. but as there is a new timer system coming up
-									// that will make things like this much easier, I'm too lazy now to rename
-									// it (Duke, 16.2.2001)
-		}
+	int houses=0;   
+	int decayed_houses=0;
+	unsigned long int timediff;
+	unsigned long int ct=getNormalizedTime();
 	
-		houses++;
-       
-	 }
-	 
-   }
-  
-   //delete Watch;
-   return decayed_houses;
+	AllItemsIterator iter_items;
+	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++) 
+	{   
+		P_ITEM pi = iter_items.GetData(); // there shouldnt be an error here !		 
+		if (!pi->free && ishouse(pi->id()))
+		{
+			if (pi->time_unused>SrvParms->housedecay_secs) // not used longer than max_unused time ? delete the house
+			{          
+				decayed_houses++;
+				sprintf((char*)temp,"%s decayed! not refreshed for > %i seconds!\n",pi->name.c_str(), SrvParms->housedecay_secs);
+				LogMessage((char*)temp);
+				RemoveHouse(pi);
+			}
+			else // house ok -> update unused-time-attribute
+			{
+				timediff=(ct-pi->timeused_last)/MY_CLOCKS_PER_SEC;
+				pi->time_unused+=timediff; // might be over limit now, but it will be cought next check anyway
+				
+				pi->timeused_last=ct;	// if we don't do that and housedecay is checked every 11 minutes,
+				// it would add 11,22,33,... minutes. So now timeused_last should in fact
+				// be called timeCHECKED_last. but as there is a new timer system coming up
+				// that will make things like this much easier, I'm too lazy now to rename
+				// it (Duke, 16.2.2001)
+			}
+			
+			houses++;
+			
+		}
+		
+	}
+	
+	//delete Watch;
+	return decayed_houses;
 }
 
 void cHouse::Serialize(ISerialization &archive)

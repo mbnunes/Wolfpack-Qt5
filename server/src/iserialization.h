@@ -99,7 +99,6 @@ public:
 	virtual void read(const char* Key, bool          &data) = 0;
 
 protected:
-	//##ModelId=3C5D92F002DB
 	virtual void doneWritting() {};
 };
 
