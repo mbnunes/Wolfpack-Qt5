@@ -224,8 +224,8 @@ void cBook::open( cUOSocket* socket )
 
 	cUOTxBookTitle openBook;
 	openBook.setSerial( this->serial );
-	openBook.setWriteable( !this->readonly_ );
-	if( !this->readonly_ )
+	openBook.setWriteable( writeable() );
+	if( writeable() )
 		openBook.setFlag( 1 );
 	openBook.setPages( pages() );
 	openBook.setTitle( title_ );
@@ -235,7 +235,7 @@ void cBook::open( cUOSocket* socket )
 
 	// for writeable books we have to send the entire book...
 #pragma note("sniff client server communication what readonly/writeable books are handled like")
-	if( true )//if( writeable() ) currently disabled
+	if( writeable() ) 
 	{
 		std::vector< QStringList > lines;
 		UINT32 i, size = 9;
@@ -276,20 +276,28 @@ void cBook::readPage( cUOSocket *socket, UINT32 page )
 	if( this->predefined_ )
 		this->refresh();
 
-	UINT32 size = 13;
+	if( page > content_.size() )
+		return;
+
 	QStringList lines = QStringList::split( "\n", content_[page-1] );
+
+	UINT32 size = 13;
 	QStringList::const_iterator it = lines.begin();
 	while( it != lines.end() )
 	{
 		size += (*it).length()+1; //null terminated lines!
 		it++;
 	}
+
 	cUOTxBookPage readBook( size );
+
 	readBook.setBlockSize( (UINT16)size );
 	readBook.setSerial( this->serial );
 	readBook.setPages( 1 );
 
 	readBook.setPage( page, lines.size(), lines );
+
+	socket->send( &readBook );
 }
 
 /* V1.1
