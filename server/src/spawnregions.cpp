@@ -26,8 +26,8 @@
  */
 
 #include "spawnregions.h"
-#include "definitions.h"
 
+#include "definitions.h"
 #include "items.h"
 #include "defines.h"
 #include "muls/maps.h"
@@ -39,10 +39,15 @@
 #include "console.h"
 #include "sectors.h"
 #include "config.h"
+#include "inlines.h"
+#include "scriptmanager.h"
+#include "python/pyspawnregion.h"
 
 using namespace std;
 
-// cSpawnRegions
+/*****************************************************************************
+	cSpawnRegion member functions
+*****************************************************************************/
 
 void cSpawnRegion::init( void )
 {
@@ -204,7 +209,8 @@ void cSpawnRegion::processNode( const cElement* Tag )
 
 bool cSpawnRegion::findValidSpot(Coord_cl& pos) {
 	// Try up to 100 times.
-	for(unsigned int i = 0; i < 100; ++i) {
+	for(unsigned int i = 0; i < 100; ++i) 
+	{
 		int rndRectNum = RandomNum( 0, this->rectangles_.size() - 1 );
 		pos.x = RandomNum( this->rectangles_[rndRectNum].x1, this->rectangles_[rndRectNum].x2 );
 		pos.y = RandomNum( this->rectangles_[rndRectNum].y1, this->rectangles_[rndRectNum].y2 );
@@ -253,56 +259,72 @@ bool cSpawnRegion::findValidSpot(Coord_cl& pos) {
 		}	
 	}
 
-	Console::instance()->log( LOG_WARNING, QString( "A problem has occured in spawnregion %1. Couldn't find valid spot." ).arg( this->name_ ) );
+	Console::instance()->log( LOG_WARNING, tr( "A problem has occured in spawnregion %1. Couldn't find valid spot." ).arg( this->name_ ) );
 	return false;
+}
+
+void cSpawnRegion::spawnSingleNPC()
+{
+	Coord_cl pos;
+	if (findValidSpot(pos))
+	{
+		QString NpcSect = this->npcSections_[RandomNum( 1, this->npcSections_.size() ) - 1];
+		P_NPC pc = cNPC::createFromScript( NpcSect, pos );
+		if (pc)
+		{
+			pc->setSpawnregion(this);
+			if (pc->wanderType() == enFreely)
+			{
+				pc->setWanderType(enWanderSpawnregion);
+			}
+			pc->update();
+			onSpawn( pc );
+		}
+	}
+}
+
+void cSpawnRegion::spawnSingleItem()
+{
+	Coord_cl pos;
+	if ( findValidSpot( pos ) )
+	{
+		QString ItemSect = this->itemSections_[RandomNum( 1, this->itemSections_.size() ) - 1];
+		P_ITEM pi = cItem::createFromScript( ItemSect );
+		if ( pi )
+		{
+			pi->moveTo(pos, true);
+			pi->setSpawnregion(this);
+			pi->update();
+			onSpawn( pi );
+		}
+	}
+}
+
+void cSpawnRegion::onSpawn(cUObject* obj)
+{
+	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_CREATE );
+
+	if ( global )
+	{
+		PyObject* args = Py_BuildValue( "NN", PyGetSpawnRegionObject(this), PyGetObjectObject(obj) );
+
+		global->callEventHandler( EVENT_SPAWN, args );
+
+		Py_DECREF( args );
+	}
 }
 
 // do one spawn and reset the timer
 void cSpawnRegion::reSpawn( void )
 {
 	unsigned int i = 0;
-	for (i = 0; i < npcsPerCycle_; ++i) {
-		if (npcs() < maxNpcAmt_) {
-			// spawn a random npc
-			// first find a valid position for the npc
-			Coord_cl pos;
-			if (findValidSpot(pos))
-			{
-				QString NpcSect = this->npcSections_[RandomNum( 1, this->npcSections_.size() ) - 1];
-				P_NPC pc = cNPC::createFromScript( NpcSect, pos );
-				if (pc)
-				{
-					pc->setSpawnregion(this);
-					if (pc->wanderType() == enFreely)
-					{
-						pc->setWanderType(enWanderSpawnregion);
-					}
-					pc->update();
-				}
-			}
-		}
-	}
+	for (i = 0; i < npcsPerCycle_; ++i)
+		if (npcs() < maxNpcAmt_)
+			spawnSingleNPC(); // spawn a random npc
 
 	for ( i = 0; i < this->itemsPerCycle_; i++ )
-	{
 		if ( items() < this->maxItemAmt_ )
-		{
-			// spawn a random item
-			// first find a valid position for the item
-			Coord_cl pos;
-			if ( this->findValidSpot( pos ) )
-			{
-				QString ItemSect = this->itemSections_[RandomNum( 1, this->itemSections_.size() ) - 1];
-				P_ITEM pi = cItem::createFromScript( ItemSect );
-				if ( pi != NULL )
-				{
-					pi->moveTo(pos, true);
-					pi->setSpawnregion(this);
-					pi->update();
-				}
-			}
-		}
-	}
+			spawnSingleItem(); // spawn a random item
 
 	this->nextTime_ = Server::instance()->time() + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
 }
@@ -310,43 +332,10 @@ void cSpawnRegion::reSpawn( void )
 void cSpawnRegion::reSpawnToMax( void )
 {
 	while ( npcs() < maxNpcAmt_ )
-	{
-		// spawn a random npc
-		// first find a valid position for the npc
-		Coord_cl pos;
-		if ( findValidSpot( pos ) )
-		{
-			QString NpcSect = npcSections_[RandomNum( 1, static_cast<uint>( this->npcSections_.size() ) ) - 1];
-			P_NPC pc = cNPC::createFromScript( NpcSect, pos );
-			if ( pc != NULL )
-			{
-				pc->setSpawnregion(this);
-				if (pc->wanderType() == enFreely)
-				{
-					pc->setWanderType(enWanderSpawnregion);
-				}
-				pc->update();
-			}
-		}
-	}
+		spawnSingleNPC();
 
 	while (items() < maxItemAmt_)
-	{
-		// spawn a random item
-		// first find a valid position for the item
-		Coord_cl pos;
-		if ( findValidSpot( pos ) )
-		{
-			QString ItemSect = this->itemSections_[RandomNum( 1, this->itemSections_.size() ) - 1];
-			P_ITEM pi = cItem::createFromScript( ItemSect );
-			if ( pi )
-			{
-				pi->moveTo(pos, true);
-				pi->setSpawnregion(this);
-				pi->update();
-			}
-		}
-	}
+		spawnSingleItem();
 
 	this->nextTime_ = Server::instance()->time() + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
 }
@@ -375,6 +364,12 @@ void cSpawnRegion::checkTimer( void )
 	if ( this->nextTime_ <= Server::instance()->time() )
 		this->reSpawn();
 }
+
+
+/*****************************************************************************
+	cAllSpawnRegions member functions
+*****************************************************************************/
+
 
 void cAllSpawnRegions::check( void )
 {

@@ -56,7 +56,7 @@ public:
 
 	cBaseRegion() : parent_( 0 )
 	{
-		;}
+	}
 
 	cBaseRegion( const cElement* tag, cBaseRegion* pParent )
 	{

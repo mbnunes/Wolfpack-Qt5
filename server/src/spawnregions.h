@@ -33,7 +33,6 @@
 #include "server.h"
 
 #include <map>
-#include <vector>
 
 class cSpawnRegion : public cBaseRegion
 {
@@ -61,25 +60,49 @@ public:
 	bool findValidSpot( Coord_cl& pos );
 
 	// Getters
-	QString name( void )
+	QString name( void ) const
 	{
 		return name_;
 	}
-	unsigned int npcs( void )
+
+	unsigned int npcs( void ) const 
 	{
 		return npcs_.count();
 	}
-	unsigned int items( void )
+
+	unsigned int items( void ) const
 	{
 		return items_.count();
 	}
-	UI16 maxNpcs( void )
+
+	UI16 maxNpcs( void ) const
 	{
 		return maxNpcAmt_;
 	}
-	UI16 maxItems( void )
+
+	UI16 maxItems( void ) const
 	{
 		return maxItemAmt_;
+	}
+
+	QStringList npcSections() const
+	{
+		return npcSections_;
+	}
+
+	QStringList itemSections() const
+	{
+		return itemSections_;
+	}
+
+	QPtrList<cUObject> spawnedItems() const
+	{
+		return items_;
+	}
+
+	QPtrList<cUObject> spawnedNpcs() const
+	{
+		return npcs_;
 	}
 
 	QStringList rectangles( void )
@@ -94,8 +117,12 @@ public:
 		}
 		return rectList;
 	}
+
 private:
 	virtual void processNode( const cElement* Tag );
+	void spawnSingleNPC();
+	void spawnSingleItem();
+	void onSpawn(cUObject*);
 
 private:
 	QPtrList<cUObject> items_;

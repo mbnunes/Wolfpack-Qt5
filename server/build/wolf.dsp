@@ -206,7 +206,7 @@ SOURCE=.\log.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\maps\maps.cpp
+SOURCE=.\muls\maps.cpp
 # End Source File
 # Begin Source File
 
@@ -254,10 +254,6 @@ SOURCE=.\pythonscript.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\resources.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\scriptmanager.cpp
 # End Source File
 # Begin Source File
@@ -294,11 +290,11 @@ SOURCE=.\muls\tilecache.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\timing.cpp
+SOURCE=.\timers.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\timers.cpp
+SOURCE=.\timing.cpp
 # End Source File
 # Begin Source File
 
@@ -547,6 +543,11 @@ SOURCE=.\speech.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\targetrequest.h
+# PROP Ignore_Default_Tool 1
+# End Source File
+# Begin Source File
+
 SOURCE=.\targetrequests.h
 # PROP Ignore_Default_Tool 1
 # End Source File
@@ -561,12 +562,12 @@ SOURCE=.\muls\tilecache.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\timing.h
+SOURCE=.\timers.h
+# PROP Ignore_Default_Tool 1
 # End Source File
 # Begin Source File
 
-SOURCE=.\timers.h
-# PROP Ignore_Default_Tool 1
+SOURCE=.\timing.h
 # End Source File
 # Begin Source File
 
@@ -596,11 +597,6 @@ SOURCE=.\walking.h
 # Begin Source File
 
 SOURCE=.\world.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\targetrequest.h
-# PROP Ignore_Default_Tool 1
 # End Source File
 # End Group
 # Begin Group "Resource Files"

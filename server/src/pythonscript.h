@@ -83,6 +83,7 @@ enum ePythonEvent
 	EVENT_TELEKINESIS,
 	EVENT_CONTEXTCHECKVISIBLE,
 	EVENT_CONTEXTCHECKENABLED,
+	EVENT_SPAWN,
 	EVENT_COUNT,
 };
 
@@ -245,8 +246,7 @@ public:
 		if (object) {
 			return object->getPyObject();
 		} else {
-			Py_INCREF(Py_None);
-			return Py_None;
+			Py_RETURN_NONE;
 		}
 	}
 
@@ -254,8 +254,7 @@ public:
 		if (object) {
 			return PyGetRegionObject(object);
 		} else {
-			Py_INCREF(Py_None);
-			return Py_None;
+			Py_RETURN_NONE;
 		}
 	}
 
@@ -263,8 +262,7 @@ public:
 		if (object) {
 			return PyGetAccountObject(object);
 		} else {
-			Py_INCREF(Py_None);
-			return Py_None;
+			Py_RETURN_NONE;
 		}
 	}
 
@@ -274,11 +272,9 @@ public:
 
 	inline PyObject *createPyObject(bool value) {
 		if (value) {
-			Py_INCREF(Py_True);
-			return Py_True;
+			Py_RETURN_TRUE;
 		} else {
-			Py_INCREF(Py_False);
-			return Py_False;
+			Py_RETURN_FALSE;
 		}
 	}
 

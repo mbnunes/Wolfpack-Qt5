@@ -71,13 +71,13 @@ void cCommands::process( cUOSocket* socket, const QString& command )
 	if ( !pChar->account()->authorized( "command", pCommand.latin1() ) )
 	{
 		socket->sysMessage( tr( "Access to command '%1' was denied" ).arg( pCommand.lower() ) );
-		socket->log( QString( "Access to command '%1' was denied\n" ).arg( pCommand.lower() ) );
+		socket->log( tr( "Access to command '%1' was denied\n" ).arg( pCommand.lower() ) );
 		return;
 	}
 
 	// Dispatch the command
 	if ( dispatch( socket, pCommand, pArgs ) )
-		socket->log( QString( "Used command '%1'.\n" ).arg( command ) );
+		socket->log( tr( "Used command '%1'.\n" ).arg( command ) );
 }
 
 // Selects the right command Stub
@@ -210,7 +210,7 @@ void commandSet( cUOSocket* socket, const QString& command, const QStringList& a
 	Q_UNUSED( command );
 	if ( args.size() < 1 )
 	{
-		socket->sysMessage( "Usage: set <key> <value>" );
+		socket->sysMessage( tr("Usage: set <key> <value>") );
 		return;
 	}
 
@@ -535,12 +535,11 @@ void commandReload( cUOSocket* socket, const QString& command, const QStringList
 	{
 		Server::instance()->reload( "accounts" );
 	}
-	if ( subCommand == "python" )
+	else if ( subCommand == "python" )
 	{
 		Server::instance()->reload( "scripts" );
 	}
-
-	if ( subCommand == "scripts" )
+	else if ( subCommand == "scripts" )
 	{
 		Server::instance()->reload( "definitions" );
 	}

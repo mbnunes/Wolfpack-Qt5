@@ -500,6 +500,14 @@ static char* eventNames[] =
 	*/
 	"onContextCheckEnabled",
 
+	/*
+	\event onSpawn
+	\param region The spawn region that generated the object.
+	\param object The object just spawned.
+	\condition Triggered when a spawnregion creates a new object, either NPC or item.
+	*/
+	"onSpawn",
+
 	0
 };
 

@@ -208,6 +208,7 @@ SOURCES += \
 	python/pyai.cpp \
 	python/pycoord.cpp \
 	python/pypacket.cpp \
+	python/pyspawnregion.cpp \
 	python/pyregion.cpp \
 	python/pytooltip.cpp \
 	python/socket.cpp \
