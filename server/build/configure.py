@@ -134,7 +134,8 @@ def main():
 	
 	config.write("LIBS += %s\n" % LIBS)
 	
-	
+	config.write("Generating makefile...")
+	os.execv(qt_qmake, [qt_qmake, "wolfpack.pro"])
 
 	
 if __name__ == "__main__":
