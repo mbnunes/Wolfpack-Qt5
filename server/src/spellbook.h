@@ -54,6 +54,7 @@ public:
 	void addSpell( UINT8 spell );
 	void removeSpell( UINT8 spell );
 	bool hasSpell( UINT8 spell );
+	UINT8 spellCount();
 
 	UINT32 spells1() const;
 	UINT32 spells2() const;

@@ -33,6 +33,7 @@
 #include "prototypes.h"
 #include "chars.h"
 #include "network/uosocket.h"
+#include "newmagic.h"
 
 void cSpellBook::Init( bool mkser )
 {
@@ -137,8 +138,26 @@ bool cSpellBook::onUse( cUObject *Target )
 	// We assume that target is a character here
 	P_CHAR pChar = dynamic_cast< P_CHAR >( Target );
 
-	if( !pChar )
+	if( !pChar || !pChar->socket() )
 		return true;
+
+	SERIAL sSerial = 0xFFFFFFFF;
+
+	// First we send a multi-object-to-container packet and then open the gump
+	cUOTxItemContent content;
+
+	for( UINT8 i = 0; i < 64; ++i )
+	{
+		sSerial--;		
+		content.addItem( sSerial, NewMagic->calcScrollId( i ), 0, 0, 0, 1, serial );
+	}
+
+	pChar->socket()->send( &content );
+	
+	cUOTxDrawContainer drawcont;
+	drawcont.setGump( 0xFFFF );
+	drawcont.setSerial( serial );
+	pChar->socket()->send( &drawcont );
 
 	return true;
 }
@@ -153,7 +172,18 @@ bool cSpellBook::onSingleClick( P_CHAR Viewer )
 	if( !Viewer->socket() )
 		return false;
 
-	Viewer->socket()->showSpeech( this, "Spells: " );
+	Viewer->socket()->showSpeech( this, tr( "%1 spells" ).arg( spellCount() ) );
 
 	return false;
+}
+
+UINT8 cSpellBook::spellCount()
+{
+	UINT8 count = 0;
+
+	for( UINT8 i = 0; i < 64; ++i )
+		if( hasSpell( i ) )
+			++count;
+
+	return count;
 }

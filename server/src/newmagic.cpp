@@ -130,10 +130,37 @@ INT8 cNewMagic::calcSpellId( UINT16 scroll )
 
 /*!
 	Calculates the Scroll Item ID for the specified 
-	spell id.
+	spell id. Take care, these values are basically 
+	hardcoded.
 */
 UINT16 cNewMagic::calcScrollId( UINT8 spell )
 {
+	// There is a small "glitch" in the tiledata for this
+	// So only spells > 7 are normally ordered
+	if( spell >= 8 )
+		return 0x1F35 + ( spell - 8 );
+	
+	// Decided this would be fastest
+	else switch( spell -1 )
+		{
+		case 0:
+			return 0x1F2E;
+		case 1:
+			return 0x1F2F;
+		case 2:
+			return 0x1F30;
+		case 3:
+			return 0x1F31;
+		case 4:
+			return 0x1F32;
+		case 5:
+			return 0x1F33;
+		case 6:
+			return 0x1F2D;
+		case 7:
+			return 0x1F34;
+		}
+	
 	return 0;
 }
 

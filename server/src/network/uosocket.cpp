@@ -1959,6 +1959,12 @@ void cUOSocket::handleAction( cUORxAction *packet )
 				Skills->SkillUse( this, skillParts[0].toInt() );
 		}
 		break;
+	// Cast Spell (out of spellbook)
+	case 0x39:
+		{
+			sysMessage( packet->action() );
+		}
+		break;
 	}
 }
 

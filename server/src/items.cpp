@@ -2083,13 +2083,6 @@ void cItem::showName( cUOSocket *socket )
 	name_ = getName();
 	UOXSOCKET s = calcSocketFromChar( socket->player() ); // for Legacy code
 
-	if (type() == 9)
-	{
-		int spellcount=Magic->SpellsInBook(this);
-		sprintf((char*)temp, "%i spells", spellcount);
-		itemmessage(s, (char*)temp, serial,0x0481);
-	}
-
 	if (type() == 1000) // Ripper...used for bank checks.
 	{
 		sprintf((char*)temp, "value : %i", value);
