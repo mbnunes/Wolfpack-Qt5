@@ -15,7 +15,7 @@
 	<script>check</script>
 	<script>lightsource</script>
 	<script>gate</script>
-	<script>weapons.blades</script>
+	<script>blades</script>
 	<script>scissors</script>
 	<script>dyes</script>
 	<script>cooking</script>
@@ -42,6 +42,7 @@
 	<script>food</script>
 	<script>shrine</script>
 	<script>figurine</script>
+	<script>pickaxe</script>
 
 	<!-- Combat -->
 	<script>combat</script>
@@ -85,33 +86,23 @@
 	<script>wolfpack.commands.restore</script>
 
 	<!-- Magic -->
-	<script>spellbook</script>
-	<script>recall_rune</script>
-	<script>runebook</script>
-	<script>scroll</script>
-	<!--<script>spells</script>-->
-	<script>wolfpack.magic</script>
-	<script>wolfpack.magic.spell</script>
-	<script>wolfpack.magic.circle1</script>
-	<script>wolfpack.magic.circle2</script>
-	<script>wolfpack.magic.circle3</script>
-	<script>wolfpack.magic.circle4</script>
-	<script>wolfpack.magic.circle5</script>
-	<script>wolfpack.magic.circle6</script>
-	<script>wolfpack.magic.circle7</script>
-	<script>wolfpack.magic.circle8</script>
-	<script>wolfpack.magic.firefield</script>
-	<script>wolfpack.magic.reactivearmor</script>
-	<script>wolfpack.magic.trap</script>
-	<!--<script>spells.circle4.firefield</script>
-	<script>spells.circle1</script>
-	<script>spells.circle2</script>
-	<script>spells.circle3</script>
-	<script>spells.circle4</script>
-	<script>spells.circle5</script>
-	<script>spells.circle6</script>
-	<script>spells.circle7</script>
-	<script>spells.circle8</script>-->
+	<script>magic</script>
+	<script>magic.spellbook</script>
+	<script>magic.rune</script>
+	<script>magic.runebook</script>
+	<script>magic.scroll</script>	
+	<script>magic.spell</script>
+	<script>magic.circle1</script>
+	<script>magic.circle2</script>
+	<script>magic.circle3</script>
+	<script>magic.circle4</script>
+	<script>magic.circle5</script>
+	<script>magic.circle6</script>
+	<script>magic.circle7</script>
+	<script>magic.circle8</script>
+	<script>magic.firefield</script>
+	<script>magic.reactivearmor</script>
+	<script>magic.trap</script>
 
 	<!-- Multis -->
 	<script>multideed</script>
@@ -144,9 +135,6 @@
 	<script>system.trading</script>
 	<script>system.uogstatus</script>
 	<script>system.webadmin</script>
-
-	<!-- Tools -->
-	<script>tools.pickaxe</script>
 
 	<!-- Skills -->
 	<script>skills</script>
