@@ -13,6 +13,7 @@
 	<script id="wool" 			type="python" module="wool" />
 	<script id="yarn" 			type="python" module="yarn" />
 	<script id="potions" 		type="python" module="potions" />
+	<script id="shrink" 		type="python" module="shrink" />
 
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />
