@@ -99,6 +99,14 @@ def maptileinfo( socket, map, tile ):
 	return
 
 def statictileinfo( socket, model, pos, tile ):
+	# Find the given static tile
+	statics = wolfpack.statics(pos.x, pos.y, pos.map, True)
+	color = 0
+	
+	for stile in statics:	
+		if stile['id'] == model and stile['z'] == pos.z:
+			color = stile['color']
+	
 	gump = cGump( 0, 0, 0, 0, 40 )
 
 	gump.addResizeGump( 0, 40, 0xA28, 450, 300 ) # Background
@@ -117,6 +125,8 @@ def statictileinfo( socket, model, pos, tile ):
 
 	# Wet ? Impassable ? At least these are the most interesting
 	gump.addCroppedText( 50, 220, 230, 40, "Properties: "+ tile['flagnames'], 0x834 )
+	
+	gump.addText( 50, 240, "Color : 0x%x" % color, 0x834 )
 
 	# OK button
 	gump.addButton( 50, 275, 0xF9, 0xF8, 0 ) # Only Exit possible
