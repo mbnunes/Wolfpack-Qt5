@@ -18,9 +18,8 @@ import skills
 # 4. You can continue to beg from the same NPC until he or she runs out of gold. (editors note: or until he or she has 9 or less gold) 
 # 5. If your karma gets too low, there is a chance the NPC will refuse to give you any gold at all. Where "low" means negative karma. All karma my GM Beggar had was the little he could acquire from wrestling rats in town.
 
-GOLD_COIN = "eed"
-GOLD_COIN1 = "eee"
-GOLD_COIN2 = "eef"
+GOLD_COIN = "0xeed"
+GOLD_COIN1 = "eed"
 BEGGING_RANGE = 3
 
 BEGGING_DELAY = 5000
@@ -66,7 +65,7 @@ def response( char, args, target ):
 		return
 
 	# town cryer : I feel sorry for thee... Thou dost not look trustworthy... no gold for thee today! : 500405 + 500406
-	gold = npc.countresource( GOLD_COIN )
+	gold = npc.countresource( hex2dec(GOLD_COIN) )
 	if not gold or gold < 10:
 		# Thou dost not look trustworthy... no gold for thee today!
 		char.socket.clilocmessage( 500406, "", 0x3b2, 3, npc )
@@ -82,13 +81,6 @@ def response( char, args, target ):
 	else:
 		gold_beg = 10
 
-	if gold_beg == 1:
-		gold_coins = GOLD_COIN
-	elif gold_beg < 6:
-		gold_coins = GOLD_COIN1
-	else:
-		gold_coins = GOLD_COIN2
-
 	# success msg : I feel sorry for thee... here have a gold coin : 500405 + 1010012
 	# fail msg : They seem unwilling to give you any money : 500404
 
@@ -99,11 +91,12 @@ def response( char, args, target ):
 		backpack = char.getbackpack()
 		if not backpack:
 			return
-		coins = wolfpack.additem( gold_coins )
+		coins = wolfpack.additem( GOLD_COIN1 )
 		if not coins:
 			return
 		coins.amount = gold_beg
-		backpack.additem( coins )
+		if not tobackpack(coins, player):
+			item.update()
 		coins.update()
 	else:
 		char.socket.clilocmessage( 500404, "", 0x3b2, 3, npc )
