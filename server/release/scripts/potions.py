@@ -380,7 +380,7 @@ def nightsightPotion( char, potion ):
 
 	char.addscript( 'magic.nightsight' )
 	char.settag( 'nightsight', bonus)
-	char.settag( 'nightsight_start', time.minutes())
+	char.settag( 'nightsight_start', wolfpack.time.minutes())
 	char.lightbonus += bonus
 
 	if char.socket:
