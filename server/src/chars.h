@@ -71,15 +71,6 @@ public:
 
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	//  Chaos/Order Guild Stuff for Ripper
-	RACE					race; // -Fraz- Race AddOn
-	// Skyfire's NPC advancments.
-	bool					may_levitate;
-	//Skyfire - End NPC's home/work/food vars'
-	unsigned char			pathnum;
-	path_st					path[PATHNUM];
-
-	signed char				dispz;   // Z that the char is SHOWN at. Server needs other coordinates for real movement calculations.
-	// changed from unsigned to signed, LB
 	
 	unsigned char			dir; //&0F=Direction
 	unsigned short			xid; // Backup of body type for ghosts
@@ -294,6 +285,16 @@ protected:
 	signed short			st_; // Strength
 	signed short			st2_; // Reserved for calculation
 
+	RACE					race_; // -Fraz- Race AddOn
+	// Skyfire's NPC advancments.
+	bool					may_levitate_;
+	//Skyfire - End NPC's home/work/food vars'
+	unsigned char			pathnum_;
+	path_st					path_[PATHNUM];
+
+	signed char				dispz_;   // Z that the char is SHOWN at. Server needs other coordinates for real movement calculations.
+	// changed from unsigned to signed, LB
+	
 //END ADDED FROM PUBLIC ******************************************
 	std::map< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 
@@ -433,6 +434,14 @@ public:
 	unsigned short			emotecolor() const { return emotecolor_; }
 	signed short			st() const { return st_; }
 	signed short			st2() const { return st2_; }
+	RACE					race() const { return race_; }
+	bool					may_levitate() const { return may_levitate_; }
+	unsigned char			pathnum() const { return pathnum_; }
+	path_st					path( int val ) const { return path_[val]; }
+	unsigned short			pathX( int val ) const { return path_[val].x; }
+	unsigned short			pathY( int val ) const { return path_[val].y; }
+	signed char				dispz() const { return dispz_; }   
+	
 
 //END ADDED GETTERS***********************************************
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu )
@@ -573,7 +582,14 @@ public:
 	void					setEmoteColor( unsigned short data ) { emotecolor_ = data; }
 	void					setSt( signed short data ) { st_ = data; }
 	void					setSt2( signed short data ) { st2_ = data; }
-
+	void					setRace( RACE data ) { race_ = data; }
+	void					setMay_Levitate( bool data ) { may_levitate_ = data; }
+	void					setPathNum( unsigned char data ) { pathnum_ = data; }
+	void					setPath( int p, path_st val ){ path_[p] = val; }
+	void					setPathX( int p, unsigned short xValue ) { path_[p].x = xValue; }
+	void					setPathY( int p, unsigned short yValue ) { path_[p].y = yValue; }
+	void					setDispz( signed char data ) { dispz_ = data; }
+	
 //END SETTERS********************************************************
 	void					setLastSection( cMakeMenu* basemenu, cMakeSection* data )
 	{

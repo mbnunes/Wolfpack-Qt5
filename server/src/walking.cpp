@@ -433,7 +433,8 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 	if( !isValidDirection( dir ) )
 	{
-		pChar->pathnum += PATHNUM;
+		//pChar->pathnum += PATHNUM;
+		pChar->setPathNum( pChar->pathnum() + PATHNUM );
 		return;
 	}
 
@@ -490,7 +491,8 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 			if( socket )
 				socket->denyMove( sequence );
 			else if( pChar->isNpc() )
-				pChar->pathnum += P_PF_MRV;
+//				pChar->pathnum += P_PF_MRV;
+				pChar->setPathNum( pChar->pathnum() + P_PF_MRV);
 
 			return;
 		}
@@ -498,7 +500,8 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		// Check if we're going to collide with characters
 		if( pChar->isNpc() && CheckForCharacterAtXYZ( pChar, newCoord.x, newCoord.y, newCoord.z ) )
 		{
-			pChar->pathnum += P_PF_MRV;
+//			pChar->pathnum += P_PF_MRV;
+			pChar->setPathNum( pChar->pathnum() + P_PF_MRV);
 			return;
 		}
 
@@ -1289,11 +1292,11 @@ void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 		return;
 
 	// Make sure the character has taken used all of their previously saved steps
-	if ( pc->pathnum < P_PF_MRV ) 
+	if ( pc->pathnum() < P_PF_MRV ) 
 		return;
 
 	path_st newpath[P_PF_MIR];
-	pc->pathnum = 0;
+	pc->setPathNum(0);
 
 	for ( int pn = 0 ; pn < P_PF_MRV ; pn++ )
 	{
@@ -1318,15 +1321,19 @@ void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 		}
 		if ( ( newpath[pn].x == 0 ) && ( newpath[pn].y == 0 ) )
 		{
-			pc->pathnum = P_PF_MRV;
+			pc->setPathNum(P_PF_MRV);
 			break;
 		}
 	}
 
 	for ( int i = 0 ; i < P_PF_MRV ; i++ )
 	{
-		pc->path[i].x = newpath[i].x;
-		pc->path[i].y = newpath[i].y;
+//		pc->path[i].x = newpath[i].x;
+		pc->setPathX(i, newpath[i].x);
+
+//		pc->path[i].y = newpath[i].y;
+		pc->setPathY(i, newpath[i].y);
+
 	}
 }
 
@@ -1381,8 +1388,10 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 				if ( chardist( pc_i, pc_target ) > 1 )
 				{
 					PathFind( pc_i, pc_target->pos.x, pc_target->pos.y );
-	                UINT8 dir = chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
-		            pc_i->pathnum++;
+//	                UINT8 dir = chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
+					UINT8 dir = chardirxyz(pc_i, pc_i->pathX( pc_i->pathnum() ), pc_i->pathY(pc_i->pathnum()) );
+//					pc_i->pathnum++;
+					pc_i->setPathNum( pc_i->pathnum() + 1 );
 			        Walking( pc_i, dir, 0xFF );
 				}
 
@@ -1447,8 +1456,10 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 				}
 			
 				PathFind( pc_i, fleeCoord.x, fleeCoord.y );
-				j = chardirxyz(pc_i, pc_i->path[ pc_i->pathnum ].x, pc_i->path[ pc_i->pathnum ].y);
-				pc_i->pathnum++;
+//				j = chardirxyz(pc_i, pc_i->path[ pc_i->pathnum ].x, pc_i->path[ pc_i->pathnum ].y);
+				j = chardirxyz(pc_i, pc_i->pathX( pc_i->pathnum() ), pc_i->pathY( pc_i->pathnum() ) );
+//				pc_i->pathnum++;
+				pc_i->setPathNum( pc_i->pathnum() + 1 );
 				Walking( pc_i, j, 256 );
 			}
 			else

@@ -382,7 +382,7 @@ public:
 	cNewzTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
 	void CharSpecific()
 	{
-		pc->dispz=pc->pos.z=addx[s];
+		pc->setDispz(pc->pos.z=addx[s]);
 		teleport(pc);
 	}
 	void ItemSpecific()
@@ -1029,7 +1029,8 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	pc->setPriv(0x10);
 	pc->pos.x=pp->TxLoc;
 	pc->pos.y=pp->TyLoc;
-	pc->dispz=pc->pos.z=pp->TzLoc+Map->TileHeight(pp->model);
+	pc->pos.z=pp->TzLoc+Map->TileHeight(pp->model);
+	pc->setDispz(pc->pos.z);
 	mapRegions->Add(pc); // add it to da regions ...
 	pc->isNpc();
 	updatechar(pc);

@@ -128,12 +128,11 @@ void cChar::Init(bool ser)
 	this->setUnicode(true); // This is set to 1 if the player uses unicode speech, 0 if not
 	this->pos.x=100;
 	this->pos.y=100;
-	this->pos.z=this->dispz=0;
-	
+	this->dispz_ = this->pos.z = 0;	
 //	this->oldpos.x=0; // fix for jail bug
 //	this->oldpos.y=0; // fix for jail bug
 //	this->oldpos.z=0; // LB, experimental, change back to unsignbed if this give sproblems
-	this->race=0; // -Fraz- Race AddOn
+	this->race_=0; // -Fraz- Race AddOn
 	this->dir=0; //&0F=Direction
 	this->xid = 0x0190;
 	this->setId(0x0190);
@@ -181,7 +180,7 @@ void cChar::Init(bool ser)
 	this->robe = -1; // Serial number of generated death robe (If char is a ghost)
 	this->karma=0;
 	this->fame=0;
-	this->pathnum = PATHNUM;
+	this->pathnum_=PATHNUM;
 	this->kills=0; // PvP Kills
 	this->deaths=0;
 	this->dead = false; // Is character dead
@@ -700,7 +699,8 @@ void cChar::MoveTo(short newx, short newy, signed char newz)
 	mapRegions->Remove(this);
 	pos.x = newx;
 	pos.y = newy;
-	pos.z = dispz=newz;
+	setDispz( newz );
+	pos.z = dispz_;
 	mapRegions->Add(this);
 }
 
@@ -782,10 +782,10 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("gmmoveeff",		gmMoveEff);
 		archive.read("guildtype",		GuildType);
 		archive.read("guildtraitor",	GuildTraitor);
-		archive.read("dispz",			dispz);
+		archive.read("dispz",			dispz_ );
 		archive.read("cell",			cell);
 		archive.read("dir",				dir);
-		archive.read("race",			race);
+		archive.read("race",			race_ );
 		archive.read("body",			xid);	setId(xid);
 		archive.read("xbody",			xid);
 		archive.read("skin",			skin_);	

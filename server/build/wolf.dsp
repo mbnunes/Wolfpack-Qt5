@@ -23,8 +23,8 @@ CFG=wolf - Win32 Debug
 
 # Begin Project
 # PROP AllowPerConfigDependencies 1
-# PROP Scc_ProjName ""
-# PROP Scc_LocalPath ""
+# PROP Scc_ProjName "wolf"
+# PROP Scc_LocalPath "."
 CPP=cl.exe
 RSC=rc.exe
 

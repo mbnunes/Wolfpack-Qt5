@@ -975,7 +975,7 @@ void teleport2( P_CHAR pc ) // used for /RESEND only - Morrolan, so people can f
 		goxyz[13]=pc->pos.y>>8;
 		goxyz[14]=pc->pos.y%256;
 		goxyz[17]=pc->dir|0x80;
-		goxyz[18]=pc->dispz;
+		goxyz[18]=pc->dispz();
 		Xsend(k, goxyz, 19);
 		all_items(k);
 		Weight->NewCalc(pc);	// Ison 2-20-99
@@ -2033,7 +2033,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 	oc[10]=pc->pos.x%256; // Character x position
 	oc[11]=pc->pos.y>>8; // Character y position
 	oc[12]=pc->pos.y%256; // Character y position
-	if (z) oc[13]=pc->dispz; // Character z position
+	if (z) oc[13]=pc->dispz(); // Character z position
 	else oc[13]=pc->pos.z;
 	oc[14]=pc->dir; // Character direction
 	ShortToCharPtr(pc->skin(), &oc[15]); // Character skin color

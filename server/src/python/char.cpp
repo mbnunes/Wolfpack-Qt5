@@ -486,7 +486,8 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else pGetInt( "id", id() )
 	else pGetInt( "xid", xid )
     
-	else pGetInt( "race", race )
+	else if ( !strcmp( name, "race" ) )
+		return PyInt_FromLong( self->pChar->race() );
 	else pGetInt( "dir", dir )
 
 	// Flags
