@@ -30,8 +30,8 @@
 
 #include <qvaluevector.h>
 #include <qmap.h>
-#include "singleton.h"
-#include "server.h"
+#include "../singleton.h"
+#include "../server.h"
 
 struct multiItem_st
 {

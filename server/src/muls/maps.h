@@ -28,9 +28,9 @@
 #if !defined(__MAPS_H__)
 #define __MAPS_H__
 
-#include "server.h"
-#include "exceptions.h"
-#include "singleton.h"
+#include "../server.h"
+#include "../exceptions.h"
+#include "../singleton.h"
 #include <qglobal.h>
 #include <qstring.h>
 #include <qmap.h>

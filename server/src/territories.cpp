@@ -39,7 +39,7 @@
 #include "basechar.h"
 #include "player.h"
 #include "inlines.h"
-#include "maps.h"
+#include "muls/maps.h"
 
  // needed for object Config
 #include "pythonscript.h"

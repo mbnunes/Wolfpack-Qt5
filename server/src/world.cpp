@@ -47,7 +47,7 @@
 #include <sqlite.h>
 
 // Postprocessing stuff, can be deleted later on
-#include "maps.h"
+#include "muls/maps.h"
 #include "sectors.h"
 #include "territories.h"
 #include "spawnregions.h"

@@ -41,7 +41,7 @@
 #include "../territories.h"
 #include "../sectors.h"
 #include "../multi.h"
-#include "../maps.h"
+#include "../muls/maps.h"
 #include "../speech.h"
 #include "../commands.h"
 #include "../config.h"

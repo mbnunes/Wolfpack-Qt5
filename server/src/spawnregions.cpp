@@ -37,7 +37,7 @@ II. make sure to hold the map up to date !
 
 #include "items.h"
 #include "defines.h"
-#include "maps.h"
+#include "muls/maps.h"
 #include "walking.h"
 #include "log.h"
 #include "npc.h"

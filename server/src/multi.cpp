@@ -28,7 +28,7 @@
 #include "multi.h"
 #include "definitions.h"
 
-#include "multiscache.h"
+#include "muls/multiscache.h"
 #include "world.h"
 #include "log.h"
 #include "console.h"

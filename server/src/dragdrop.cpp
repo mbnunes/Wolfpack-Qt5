@@ -26,12 +26,12 @@
  */
 
 #include "basics.h"
-#include "tilecache.h"
+#include "muls/tilecache.h"
 #include "speech.h"
 #include "sectors.h"
 #include "config.h"
 #include "skills.h"
-#include "maps.h"
+#include "muls/maps.h"
 #include "network.h"
 #include "network/uosocket.h"
 #include "network/uorxpackets.h"

@@ -29,17 +29,17 @@
 #define __TILECACHE_H__
 
 // Platform specifics
-#include "platform.h"
-#include "server.h"
+#include "../platform.h"
+#include "../server.h"
 
 // System Includes
-#include "qstring.h"
+#include <qstring.h>
 #include <map>
 
 // Third Party includes
 
 // Wolfpack Includes
-#include "singleton.h"
+#include "../singleton.h"
 
 #define dBACKGROUND 0x1
 #define dWEAPON 0x2

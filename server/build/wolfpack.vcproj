@@ -539,19 +539,19 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 			<File
-				RelativePath=".\AUTHORS.txt">
+				RelativePath=".\data\AUTHORS.txt">
 			</File>
 			<File
-				RelativePath=".\icon2.ico">
+				RelativePath=".\data\icon2.ico">
 			</File>
 			<File
-				RelativePath=".\icon_green.ico">
+				RelativePath=".\data\icon_green.ico">
 			</File>
 			<File
-				RelativePath=".\icon_red.ico">
+				RelativePath=".\data\icon_red.ico">
 			</File>
 			<File
-				RelativePath=".\logo.bmp">
+				RelativePath=".\data\logo.bmp">
 			</File>
 			<File
 				RelativePath=".\res.rc">
@@ -744,47 +744,22 @@
 			Name="MulReading"
 			Filter="">
 			<File
-				RelativePath=".\maps.cpp">
+				RelativePath=".\muls\maps.cpp">
 			</File>
 			<File
-				RelativePath=".\maps.h">
+				RelativePath=".\muls\maps.h">
 			</File>
 			<File
-				RelativePath=".\mulstructs.h">
+				RelativePath=".\muls\multiscache.cpp">
 			</File>
 			<File
-				RelativePath=".\multiscache.cpp">
+				RelativePath=".\muls\multiscache.h">
 			</File>
 			<File
-				RelativePath=".\multiscache.h">
+				RelativePath=".\muls\tilecache.cpp">
 			</File>
 			<File
-				RelativePath=".\tilecache.cpp">
-			</File>
-			<File
-				RelativePath=".\tilecache.h">
-			</File>
-			<File
-				RelativePath=".\tileflags.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="AI"
-			Filter="">
-			<File
-				RelativePath=".\ai\ai.cpp">
-			</File>
-			<File
-				RelativePath=".\ai\ai.h">
-			</File>
-			<File
-				RelativePath=".\ai\ai_animals.cpp">
-			</File>
-			<File
-				RelativePath=".\ai\ai_humans.cpp">
-			</File>
-			<File
-				RelativePath=".\ai\ai_monsters.cpp">
+				RelativePath=".\muls\tilecache.h">
 			</File>
 		</Filter>
 		<Filter
@@ -826,6 +801,25 @@
 						Name="VCCLCompilerTool"
 						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
 				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="AI"
+			Filter="">
+			<File
+				RelativePath=".\ai\ai.cpp">
+			</File>
+			<File
+				RelativePath=".\ai\ai.h">
+			</File>
+			<File
+				RelativePath=".\ai\ai_animals.cpp">
+			</File>
+			<File
+				RelativePath=".\ai\ai_humans.cpp">
+			</File>
+			<File
+				RelativePath=".\ai\ai_monsters.cpp">
 			</File>
 		</Filter>
 		<File

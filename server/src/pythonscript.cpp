@@ -27,7 +27,7 @@
 
 #include "pythonscript.h"
 
-#include "maps.h"
+#include "muls/maps.h"
 #include "network.h"
 #include "console.h"
 

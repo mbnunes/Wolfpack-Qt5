@@ -27,11 +27,11 @@
 
 #include "maps.h"
 #include "tilecache.h"
-#include "sectors.h"
+#include "../sectors.h"
 #include "multiscache.h"
-#include "defines.h"
-#include "items.h"
-#include "config.h"
+#include "../defines.h"
+#include "../items.h"
+#include "../config.h"
 
 // Library Includes
 #include <qstring.h>

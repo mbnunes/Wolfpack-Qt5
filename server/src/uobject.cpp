@@ -40,7 +40,7 @@
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
 #include "definitions.h"
-#include "maps.h"
+#include "muls/maps.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "basechar.h"

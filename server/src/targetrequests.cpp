@@ -27,12 +27,12 @@
 
 // Wolfpack Includes
 #include "targetrequests.h"
-#include "maps.h"
+#include "muls/maps.h"
 #include "sectors.h"
 #include "definitions.h"
 #include "territories.h"
 #include "items.h"
-//#include "tilecache.h"
+//#include "muls/tilecache.h"
 #include "config.h"
 #include "skills.h"
 #include "combat.h"

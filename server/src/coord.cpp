@@ -31,10 +31,10 @@
 #include "network.h"
 #include "sectors.h"
 #include "items.h"
-#include "multiscache.h"
-#include "maps.h"
+#include "muls/multiscache.h"
+#include "muls/maps.h"
 
-#include "tilecache.h"
+#include "muls/tilecache.h"
 #include "network/uotxpackets.h"
 #include "network/uosocket.h"
 #include "console.h"
