@@ -52,6 +52,7 @@
 #include "network.h"
 #include "mapstuff.h"
 #include "classes.h"
+#include "wpdefmanager.h"
 
 // Inline members
 
@@ -1342,9 +1343,9 @@ void cChar::processNode( QDomElement &Tag )
 	}
 
 	//<shopkeeper>
-	//	<sellitems>...handled like item-<contains>-section...</sellitems>
-	//	<shopitems>...see above...</shopitems>
-	//	<rshopitems>...see above...</rshopitems>
+	//	<sellable>...handled like item-<contains>-section...</sellable>
+	//	<buyable>...see above...</buyable>
+	//	<restockable>...see above...</restockable>
 	//</shopkeeper>
 	else if( TagName == "shopkeeper" )
 	{
@@ -1355,17 +1356,23 @@ void cChar::processNode( QDomElement &Tag )
 			QDomElement currNode = childNode.toElement();
 			
 			if( !currNode.hasChildNodes() )
+			{
+				childNode = childNode.nextSibling();
 				continue;
+			}
 
 			unsigned char contlayer = 0;
-			if( currNode.nodeName() == "rshopitems" )
+			if( currNode.nodeName() == "restockable" )
 				contlayer = 0x1A;
-			else if( currNode.nodeName() == "shopitems" )
+			else if( currNode.nodeName() == "buyable" )
 				contlayer = 0x1B;
-			else if( currNode.nodeName() == "sellitems" )
+			else if( currNode.nodeName() == "sellable" )
 				contlayer = 0x1C;
 			else 
+			{
+				childNode = childNode.nextSibling();
 				continue;
+			}
 				
 			P_ITEM contItem = this->GetItemOnLayer( contlayer );
 			if( contItem != NULL )
@@ -1412,7 +1419,7 @@ void cChar::processNode( QDomElement &Tag )
 		this->taming = Value.toInt();
 
 	//<trigger>3</trigger>
-	else if( TagName = "trigger" )
+	else if( TagName == "trigger" )
 		this->setTrigger( Value.toInt() );
 
 	//<trigword>abc</trigword>
@@ -1427,9 +1434,13 @@ void cChar::processNode( QDomElement &Tag )
 			Tag.attributeNode("type").nodeValue().toInt() <= ALLSKILLS )
 			this->setBaseSkill((Tag.attributeNode("type").nodeValue().toInt() - 1), Value.toInt());
 		else
+		{
 			for( UI32 j = 0; j < ALLSKILLS; j++ )
+			{
 				if( Tag.attributeNode("type").nodeValue().contains( QString(skillname[j]), false ) )
 					this->setBaseSkill(j, Value.toInt());
+			}
+		}
 	}
 
 	//<equipped>
@@ -1442,25 +1453,31 @@ void cChar::processNode( QDomElement &Tag )
 		QDomNode childNode = Tag.firstChild();
 		while( !childNode.isNull() )
 		{
-			QDomElement currChild = childNode.toElement();
-			if( currChild.nodeName() == "item" && currChild.attributes().contains("id") )
+			if( childNode.nodeName() == "item" && childNode.attributes().contains("id") )
 			{
-				P_ITEM nItem = Items->createScriptItem( currChild.attributeNode("id").nodeValue() );
-				if( nItem == NULL )
-					continue;
-				else if( nItem->layer() == 0 )
+				P_ITEM nItem = Items->createScriptItem( childNode.toElement().attributeNode("id").nodeValue() );
+				if( nItem != NULL )
 				{
-					Items->DeleItem( nItem );
-					continue;
-				}
-				else
-					nItem->setContSerial( this->serial );
+					if( nItem->layer() == 0 )
+						Items->DeleItem( nItem );
+					else
+					{
+						nItem->setContSerial( this->serial );
 
-				if( currChild.hasChildNodes() )  // color
-					nItem->applyDefinition( currChild.toElement() );
+						if( childNode.hasChildNodes() )  // color
+						nItem->applyDefinition( childNode.toElement() );
+					}
+				}
 			}
 			childNode = childNode.nextSibling();
 		}
+	}
+
+	else if( TagName == "inherit" && Tag.attributes().contains( "id" ) )
+	{
+		QDomElement* DefSection = DefManager->getSection( WPDT_NPC, Tag.attribute( "id" ) );
+		if( !DefSection->isNull() )
+			this->applyDefinition( *DefSection );
 	}
 
 	else

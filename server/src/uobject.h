@@ -81,7 +81,7 @@ public:
 	Coord_cl pos;
 // Methods
 protected:
-	void processNode( QDomElement &Tag );
+	virtual void processNode( QDomElement &Tag ) = 0;
 	QString getNodeValue( QDomNode &Node );
 
 	std::vector< WPDefaultScript* > scriptChain;

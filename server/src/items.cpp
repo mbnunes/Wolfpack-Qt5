@@ -1930,7 +1930,7 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 	QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, Section );
 	
 	if( DefSection->isNull() ) // section not found 
-		clConsole.log( "Unable to create unscripted Item: %s", Section.latin1() );
+		clConsole.log( QString("Unable to create unscripted item: %1\n").arg(Section).latin1() );
 	else
 	{
 		nItem = MemItemFree();
@@ -2219,6 +2219,13 @@ void cItem::processNode( QDomElement& Tag )
 	// <content><item id="a" />...<item id="z" /></contains> (sereg)
 	else if( TagName == "content" && Tag.hasChildNodes() )
 		this->processContainerNode( Tag ); 
+
+	else if( TagName == "inherit" && Tag.attributes().contains( "id" ) )
+	{
+		QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, Tag.attribute( "id" ) );
+		if( !DefSection->isNull() )
+			this->applyDefinition( *DefSection );
+	}
 
 	else
 		cUObject::processNode( Tag );
