@@ -700,9 +700,8 @@ static PyObject* wpAllCharsIterator( PyObject* self, PyObject* args )
 	\param x The x component of the coordinate.
 	\param y The y component of the coordinate.
 	\param map The map to look on.
-	\param range Defaults to 1.
-	This is the range in which the server should search for items. Please remember that this is not
-	a circle.
+	\param range Defaults to 0.
+	The range of the circle to search in
 	\return A list of <object id="item">item</object> objects.
 	\description This function searches for dynamic items (no static items) at the given
 	coordinate and in the given range and returns a list of found item objects.
@@ -714,12 +713,17 @@ static PyObject* wpItems( PyObject* self, PyObject* args )
 	uint x = 0,
 	y = 0,
 	map = 0,
-	range = 1;
+	range = 0;
 	if ( !PyArg_ParseTuple( args, "iii|i:wolfpack.items", &x, &y, &map, &range ) )
 		return 0;
 
 	Coord pos( x, y, 0, map );
-	MapItemsIterator iter = MapObjects::instance()->listItemsInCircle( pos, range );
+	MapItemsIterator iter;
+	if (range > 0) {
+		iter = MapObjects::instance()->listItemsInCircle( pos, range );
+	} else {
+		iter = MapObjects::instance()->listItemsAtCoord(pos); // Suppose this is faster
+	}
 
 	PyObject* list = PyList_New( 0 );
 	for ( P_ITEM pItem = iter.first(); pItem; pItem = iter.next() )

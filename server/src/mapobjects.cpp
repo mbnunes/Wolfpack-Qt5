@@ -775,7 +775,7 @@ inline cUObject * nextObjectInCircle( IteratorState *is )
 			const Coord &pos = object->pos();
 			SI16 dx = ( pos.x - state.x );
 			SI16 dy = ( pos.y - state.y );
-			if( ( ( dx * dx ) + ( dy * dy ) ) < state.radius2 )
+			if( ( ( dx * dx ) + ( dy * dy ) ) <= state.radius2 )
 			{
 				return object;
 			}
