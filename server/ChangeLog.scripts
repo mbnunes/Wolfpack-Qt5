@@ -68,6 +68,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Timer fixes for database scripts.
 		- Fixed recalling to areas outside of a region.
 		- Fixed renaming runes
+		- Made runebooks function again.
 	* Misc. Changes:
 		- New Features:
 			Farm animals will eat spawned crops!
