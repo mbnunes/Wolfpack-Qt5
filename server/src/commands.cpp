@@ -248,26 +248,6 @@ void commandResurrect( cUOSocket *socket, const QString &command, QStringList &a
 	socket->attachTarget( new cResurectTarget );
 }
 
-void commandWhere( cUOSocket *socket, const QString &command, QStringList &args ) throw()
-{
-	Q_UNUSED(args);
-	Q_UNUSED(command);
-	P_PLAYER pChar = socket->player();
-
-	if( !pChar )
-		return;
-
-	cTerritory *mRegion = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-
-	QString message = tr( "You are" );
-
-	if( mRegion )
-		message.append( " " + tr( "in %1" ).arg( mRegion->name() ) );
-
-	message.append( " " + tr( "at %1,%2,%3 on map %4" ).arg( pChar->pos().x ).arg( pChar->pos().y ).arg( pChar->pos().z ).arg( pChar->pos().map ) );
-	pChar->message( message );
-}
-
 void commandKill( cUOSocket *socket, const QString &command, QStringList &args ) throw()
 {
 	Q_UNUSED(args);
@@ -598,39 +578,6 @@ void commandShow( cUOSocket *socket, const QString &command, QStringList &args )
 	Q_UNUSED(command);
 	socket->sysMessage( tr( "Please select a target" ) );
 	socket->attachTarget( new cShowTarget( args.join( " " ) ) );
-}
-
-void commandBank( cUOSocket *socket, const QString &command, QStringList &args ) throw()
-{
-	Q_UNUSED(command);
-	socket->sysMessage( tr( "Please chose the owner of the container you want to open" ) );
-
-	bool ok = false;
-	UINT8 layer = hex2dec( args.join( " " ) ).toUShort( &ok );
-
-	if( !ok || !layer )
-		layer = 0x1D; // Bank layer	
-
-	socket->attachTarget( new cBankTarget( layer ) );
-}
-
-void commandAction( cUOSocket *socket, const QString &command, QStringList &args ) throw()
-{
-	Q_UNUSED(command);
-	bool ok = false;
-	UINT32 action = hex2dec( args.join( " " ) ).toInt( &ok );
-
-	if( ok )
-	{
-		if( socket->player() )
-		{
-			socket->player()->action( action );
-		}
-	}
-	else
-	{
-		socket->sysMessage( tr( "Invalid parameter: '%1'" ).arg( args.join( " " ) ) );
-	}
 }
 
 void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList &args ) throw()
@@ -1270,7 +1217,6 @@ void commandGmtalk( cUOSocket *socket, const QString &command, QStringList &args
 stCommand cCommands::commands[] =
 {
 	{ "ACCOUNT",		commandAccount },
-	{ "ACTION",			commandAction },
 	{ "ADD",			commandAdd },
 	{ "ADDEVENT",		commandAddEvent },
 	{ "ADDITEM",		commandAddItem },
@@ -1278,7 +1224,6 @@ stCommand cCommands::commands[] =
 	{ "ALLMOVE",		commandAllMove },
 	{ "ALLSHOW",		commandAllShow },
 	{ "ALLSKILLS",		commandAllSkills },
-	{ "BANK",			commandBank },
 	{ "BROADCAST",		commandBroadcast },
 	{ "FIX",			commandFix },
 	{ "GO",				commandGo },
@@ -1307,8 +1252,6 @@ stCommand cCommands::commands[] =
 	{ "TAGS",			commandTags },
 	{ "TELE",			commandTele },
 	{ "TILE",			commandTile },	
-	{ "WHERE",			commandWhere },
 	{ "WHO",			commandWho },
 	{ NULL, NULL }
 };
-

@@ -480,36 +480,6 @@ public:
 	bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
-class cBankTarget: public cTargetRequest
-{
-	Q_OBJECT
-private:
-	UINT8 layer;
-public:
-	cBankTarget( UINT8 data ) { layer = data; }
-
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
-	{
-		P_CHAR pChar = FindCharBySerial( target->serial() );
-		if( !pChar )
-		{
-			socket->sysMessage( tr( "This does not appear to be a living being." ) );
-			return true;
-		}
-
-		P_ITEM pItem = pChar->GetItemOnLayer( layer );
-
-		if( !pItem )
-		{
-			socket->sysMessage( tr( "This being does not have a container on layer 0x%1" ).arg( layer, 2, 16 ) );
-			return true;
-		}
-
-		socket->sendContainer( pItem );
-		return true;
-	}
-};
-
 class cSetTagTarget: public cTargetRequest
 {
 	Q_OBJECT
