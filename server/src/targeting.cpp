@@ -2716,7 +2716,11 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	P_ITEM pHouse=MAKE_ITEMREF_LR(house);
 	
 	if (sign ==-1 || house ==-1) return; //lb
-	if(pc->serial == chars[currchar[s]].serial) {sysmessage(s, "you already own this house!"); return;}
+	if(pc->serial == chars[currchar[s]].serial)
+	{
+		sysmessage(s, "you already own this house!");
+		return;
+	}
 	
 	pSign->SetOwnSerial(o_serial);
 	
@@ -2725,7 +2729,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	killkeys(pHouse->serial);
 	
 	os=-1;
-	for(i=0;i<now&&os==-1;i++)
+	for(i=0;i<now && os==-1;i++)
 	{
 		if(chars[currchar[i]].serial==pc->serial && perm[i]) os=i;
 	}
@@ -2762,80 +2766,83 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 
 void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out of house
 {
-	int c, h;
-	int serial=LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
+	if (!pc)
+		return;
+	int serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
 	if(serial == INVALID_SERIAL) return;
-	c=calcCharFromSer(serial);
-	P_CHAR pc = MAKE_CHARREF_LR(c);
-	serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
-	if(serial == INVALID_SERIAL) return;
-	h=calcItemFromSer(serial);
-	if((c!=-1)&&(h!=-1)) {
+	int h=calcItemFromSer(serial);
+	if(h!=-1)
+	{
 		int sx, sy, ex, ey;
 		Map->MultiArea(h, &sx,&sy,&ex,&ey);
-		if(pc->serial == chars[currchar[s]].serial) {sysmessage(s,"Do you really want to do that?!"); return;}
+		if(pc->serial == chars[currchar[s]].serial)
+		{
+			sysmessage(s,"Do you really want to do that?!");
+			return;
+		}
 		if(pc->pos.x>=sx&&pc->pos.y>=sy&&pc->pos.x<=ex&&pc->pos.y<=ey)
 		{
 			pc->MoveTo(ex,ey,pc->pos.z);
-			teleport(c);
+			teleport(DEREF_P_CHAR(pc));
 			sysmessage(s, "Player ejected.");
-		} else {
-			sysmessage(s, "That is not inside the house.");
 		}
+		else
+			sysmessage(s, "That is not inside the house.");
 	}
 }
 
 void cTargets::HouseBanTarget(int s) // crackerjack 8/12/99 - ban someobdy from the house
 {
-	int c, h;
-	// first, eject the player
-	Targ->HouseEjectTarget(s);
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if(serial == INVALID_SERIAL) return;
-	c=calcCharFromSer(serial);
-	P_CHAR pc = MAKE_CHARREF_LR(c);
-	serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
-	if(serial == INVALID_SERIAL) return;
-	h=calcItemFromSer(serial);
-	if((c!=-1)&&(h!=-1)) {
-		int r;
+	Targ->HouseEjectTarget(s);	// first, eject the player
+
+	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
+	if (!pc)
+		return;
+
+	int serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
+	if(serial == INVALID_SERIAL)
+		return;
+	int h=calcItemFromSer(serial);
+	if(h!=-1)
+	{
 		if(pc->serial == chars[currchar[s]].serial) return;
-		r=add_hlist(c, h, H_BAN);
-		if(r==1) {
+		int r=add_hlist(DEREF_P_CHAR(pc), h, H_BAN);
+		if(r==1)
+		{
 			sysmessage(s, "%s has been banned from this house.", pc->name);
-		} else if(r==2) {
+		} else if(r==2)
+		{
 			sysmessage(s, "That player is already on a house register.");
-		} else {
+		} else
 			sysmessage(s, "That player is not on the property.");
-		}
 	}
 }
 
 void cTargets::HouseFriendTarget(int s) // crackerjack 8/12/99 - add somebody to friends list
 {
-	int c, h;
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if(serial == INVALID_SERIAL) return;
-	c=calcCharFromSer(serial);
-	serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
+	cChar* Friend = FindCharBySerPtr(buffer[s]+7);
+
+	int serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
 	if( serial == INVALID_SERIAL ) return;
-	h=calcItemFromSer(serial);
-	if((c!=-1)&&(h!=-1))
+	int h=calcItemFromSer(serial);
+
+	if(Friend && h!=-1)
 	{
-		int r;
-		P_CHAR pc = MAKE_CHARREF_LR(c);
-		if(pc->serial == chars[currchar[s]].serial) {sysmessage(s,"You cant do that!"); return;}
-		r=add_hlist(c, h, H_FRIEND);
+		if(Friend->serial == chars[currchar[s]].serial)
+		{
+			sysmessage(s,"You cant do that!");
+			return;
+		}
+		int r=add_hlist(DEREF_P_CHAR(Friend), h, H_FRIEND);
 		if(r==1)
 		{
-			//for(r=0;r<now;r++) {
-				//if(chars[currchar[r]].serial=chars[c].serial)
-					//sysmessage(r, "You have been made a friend of the house.");
-			//}
-			sysmessage(s, "%s has been made a friend of the house.", pc->name);
-		} else if(r==2) {
+			sysmessage(s, "%s has been made a friend of the house.", Friend->name);
+		} else if(r==2)
+		{
 			sysmessage(s, "That player is already on a house register.");
-		} else {
+		} else 
+		{
 			sysmessage(s, "That player is not on the property.");
 		}
 	}
