@@ -9,7 +9,7 @@
 <definitions>
 	<!-- animal_base -->
 	<npc id="animal_base">
-		<npcwander type="circle" radius="20" />
+		<wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction>
 	</npc>
 </definitions>

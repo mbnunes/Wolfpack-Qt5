@@ -10,7 +10,7 @@
 	<!-- undead_base-->
 	<npc id="undead_base">
 		<ai>2</ai>
-		<npcwander type="circle" radius="20"/>
+		<wandertype>"circle" radius="20"</wandertype>
 		<totame>1100</totame>
 	</npc>
 

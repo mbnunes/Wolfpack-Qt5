@@ -15,15 +15,6 @@
 		<events>speech_banker</events>
 		<bindmenu>banker_menu</bindmenu>
 		<ai>Human_Vendor</ai>
-		<swordsmanship>
-			<random min="150" max="380"/>
-		</swordsmanship>
-		<itemid>
-			<random min="500" max="700"/>
-		</itemid>
-		<tactics>
-			<random min="150" max="380"/>
-		</tactics>
 		<category>Vendors\Banker (Male)</category>
 	</npc>
 	<npc id="banker_female">
@@ -32,15 +23,6 @@
 		<events>speech_banker</events>
 		<bindmenu>banker_menu</bindmenu>
 		<ai>Human_Vendor</ai>
-		<swordsmanship>
-			<random min="150" max="380"/>
-		</swordsmanship>
-		<itemid>
-			<random min="500" max="700"/>
-		</itemid>
-		<tactics>
-			<random min="150" max="380"/>
-		</tactics>
 		<category>Vendors\Banker (Female)</category>
 	</npc>
 	<!-- Barber (no real vendor) -->
@@ -48,54 +30,12 @@
 		<inherit>base_male</inherit>
 		<title>the Barber</title>
 		<events>speech_barber</events>
-		<fencing>
-			<random min="150" max="380"/>
-		</fencing>
-		<parrying>
-			<random min="450" max="680"/>
-		</parrying>
-		<swordsmanship>
-			<random min="150" max="380"/>
-		</swordsmanship>
-		<wrestling>
-			<random min="150" max="380"/>
-		</wrestling>
-		<macefighting>
-			<random min="150" max="380"/>
-		</macefighting>
-		<magicresistance>
-			<random min="450" max="680"/>
-		</magicresistance>
-		<tactics>
-			<random min="450" max="680"/>
-		</tactics>
 		<category>Vendors\Barber (Male)</category>
 	</npc>
 	<npc id="barber_female">
 		<inherit>base_female</inherit>
 		<title>the Barber</title>
 		<events>speech_barber</events>
-		<fencing>
-			<random min="150" max="380"/>
-		</fencing>
-		<parrying>
-			<random min="450" max="680"/>
-		</parrying>
-		<swordsmanship>
-			<random min="150" max="380"/>
-		</swordsmanship>
-		<wrestling>
-			<random min="150" max="380"/>
-		</wrestling>
-		<macefighting>
-			<random min="150" max="380"/>
-		</macefighting>
-		<magicresistance>
-			<random min="450" max="680"/>
-		</magicresistance>
-		<tactics>
-			<random min="450" max="680"/>
-		</tactics>
 		<category>Vendors\Barber (Female)</category>
 	</npc>
 	<!-- A tanner vendor -->

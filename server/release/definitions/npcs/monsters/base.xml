@@ -12,7 +12,7 @@
 	<npc id="monster_base">
 		<ai>Monster_Aggressive_L1</ai>
 		<totame>1100</totame>
-		<npcwander type="circle" radius="20"/>
+		<wandertype>1</wandertype>
 		<direction>
 			<random min="0" max="7"/>
 		</direction>

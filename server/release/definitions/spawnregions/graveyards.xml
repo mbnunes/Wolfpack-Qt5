@@ -24,10 +24,10 @@
 		<maxnpcamount>5</maxnpcamount>
 		<mintime>10</mintime>
 		<maxtime>30</maxtime>
-		<!-- 3/4 headless, 1/4 skeleton -->
+		<!-- 3/4 orc1, 1/4 orc2 -->
 		<npcs>
-			<npc mult="3">orc_weak</npc>
-			<npc mult="1">orc_medium</npc>
+			<npc mult="3">orc_1</npc>
+			<npc mult="1">orc_2</npc>
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>

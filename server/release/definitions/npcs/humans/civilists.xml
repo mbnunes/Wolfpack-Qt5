@@ -13,7 +13,7 @@
 		<ai></ai>
 		<name><random list="NAMES_MALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
-
+		<wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
  
 		<!-- The Equipment of a standard human -->
@@ -36,7 +36,7 @@
 		<ai></ai>
 		<name><random list="NAMES_FEMALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
-
+                <wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
  
 		<!-- The Equipment of a standard human -->
