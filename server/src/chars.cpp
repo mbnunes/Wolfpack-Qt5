@@ -1298,7 +1298,7 @@ bool cChar::onChat( void )
 	QValueVector< WPDefaultScript* > hooks;
 	QValueVector< WPDefaultScript* >::const_iterator it;
 
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_HELP );
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_CHAT );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
 		if( (*it)->onChat( this ) )
 			return true;
@@ -1318,7 +1318,7 @@ bool cChar::onSkillUse( UI08 Skill )
 	QValueVector< WPDefaultScript* > hooks;
 	QValueVector< WPDefaultScript* >::const_iterator it;
 
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_HELP );
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SKILLUSE );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
 		if( (*it)->onSkillUse( this, Skill ) )
 			return true;

@@ -137,7 +137,7 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 					// This code will retrieve the first
 					// valid Internet IP it finds
 					// and replace a 0.0.0.0 with it
-					if( ( server.ip == 0 ) && ( lastIpCheck <= uiCurrentTime ) )
+					if( !inetIp || ( ( server.ip == 0 ) && ( lastIpCheck <= uiCurrentTime ) ) )
 					{
 						hostent *hostinfo;
 						char name[256];
