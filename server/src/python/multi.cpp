@@ -60,25 +60,25 @@ int wpMulti_compare( PyObject *a, PyObject *b );
 	The typedef for Wolfpack Python multis
 */
 static PyTypeObject wpMultiType = {
-    PyObject_HEAD_INIT(&PyType_Type)
-    0,
-    "wpitem",
-    sizeof(wpMultiType),
-    0,
-    wpDealloc,				
-    0,								
-    (getattrfunc)wpMulti_getAttr,
-    (setattrfunc)wpMulti_setAttr,
-	wpMulti_compare
+	PyObject_HEAD_INIT(&PyType_Type)
+	0,
+	"wpmulti",
+	sizeof(wpMultiType),
+	0,
+	wpDealloc,				
+	0,								
+	(getattrfunc)wpMulti_getAttr,
+	(setattrfunc)wpMulti_setAttr,
+	wpMulti_compare,
 };
 
-inline PyObject* PyGetMultiObject( P_MULTI multi )
+PyObject* PyGetMultiObject( P_MULTI pMulti )
 {
-	if( multi == NULL )
+	if( pMulti == NULL )
 		return Py_None;
 
 	wpMulti *returnVal = PyObject_New( wpMulti, &wpMultiType );
-	returnVal->pMulti = multi;
+	returnVal->pMulti = pMulti;
 	return (PyObject*)returnVal;
 }
 

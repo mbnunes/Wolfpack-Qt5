@@ -49,6 +49,7 @@
 #include "../items.h"
 #include "../chars.h"
 #include "../network.h"
+#include "../multis.h"
 
 #include "utilities.h"
 #include "tempeffect.h"
@@ -344,6 +345,22 @@ PyObject* wpFindchar( PyObject* self, PyObject* args )
 
 	SERIAL serial = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
 	return PyGetCharObject( FindCharBySerial( serial ) );
+}
+
+/*
+ * Creates a multi object based on the passed pos
+ */
+PyObject* wpFindmulti( PyObject* self, PyObject* args )
+{
+	Q_UNUSED( self );
+	if( PyTuple_Size( args ) < 1 || !checkArgCoord( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+	Coord_cl pos = getArgCoord( 1 );
+	P_MULTI pMulti = cMulti::findMulti( pos );
+	return PyGetMultiObject( pMulti );
 }
 
 /*!
@@ -906,6 +923,7 @@ static PyMethodDef wpGlobal[] =
 	{ "addnpc",				wpAddnpc,			METH_VARARGS, "Adds a npc with the specified script-section" },
 	{ "finditem",			wpFinditem,			METH_VARARGS, "Tries to find an item based on it's serial" },
 	{ "findchar",			wpFindchar,			METH_VARARGS, "Tries to find a char based on it's serial" },
+	{ "findmulti",			wpFindmulti,		METH_VARARGS, "Tries to find a multi based on it's position" },
 	{ "addtimer",			wpAddtimer,			METH_VARARGS, "Adds a timed effect" },
 	{ "effect",				wpEffect,			METH_VARARGS, "Shows a graphical effect." },
 	{ "region",				wpRegion,			METH_VARARGS, "Gets the region at a specific position" },

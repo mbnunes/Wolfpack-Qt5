@@ -124,5 +124,7 @@ P_MULTI getWpMulti( PyObject* );
 #define checkArgRegion( id ) ( PyTuple_Size( args ) > id && checkWpRegion( PyTuple_GetItem( args, id ) ) )
 #define getArgRegion( id ) getWpRegion( PyTuple_GetItem( args, id ) )
 #define getArgAccount( id ) getWpAccount( PyTuple_GetItem( args, id ) )
+#define checkArgMulti( id ) ( PyTuple_Size( args ) > id && checkWpMulti( PyTuple_GetItem( args, id ) ) )
+#define getArgMulti( id ) getWpMulti( PyTuple_GetItem( args, id ) )
 
 #endif
