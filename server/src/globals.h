@@ -87,10 +87,6 @@ extern unsigned int nextnpcaitime;
 extern unsigned int nextdecaytime;
 
 extern int autosaved, dosavewarning;
-//extern int len_connection_addr;
-//extern struct sockaddr_in connection;
-//extern struct sockaddr_in client_addr;
-//extern struct hostent *he;
 extern int err, error;
 extern int keeprun;
 extern int now;
@@ -141,11 +137,7 @@ extern signed char addz[MAXCLIENT];
 extern int addmitem[MAXCLIENT];
 extern char xtext[MAXCLIENT][31];
 extern unsigned char perm[MAXCLIENT];
-//extern unsigned char cryptclient[MAXCLIENT];
-//extern unsigned char usedfree[MAXCLIENT];
-//extern int binlength[MAXIMUM+1];
-//extern int boutlength[MAXIMUM+1];
-extern unsigned char clientDimension[MAXCLIENT]; // stores if the client is the new 3d or old 2d one
+//extern unsigned char clientDimension[MAXCLIENT]; // stores if the client is the new 3d or old 2d one
 extern std::string SocketStrings[MAXCLIENT];
 
 //extern int spattackValue[MAXCLIENT];
@@ -177,7 +169,7 @@ extern title_st title[ALLSKILLS+1];
 
 extern creat_st creatures[2048]; //LB, stores the base-sound+sound flags of monsters, animals
 extern advance_st wpadvance[1000];
-extern char spellname[71][25];
+//extern char spellname[71][25];
 extern char foodname[enNumberOfFood][20];
 extern int validEscortRegion[256];
 

@@ -675,7 +675,7 @@ spell_st spells[100];
 
 void cMagic::SpellBook(UOXSOCKET s)
 {
-	SpellBook(s,FindItemBySerPtr(buffer[s])) ;
+//	SpellBook(s,FindItemBySerPtr(buffer[s])) ;
 }
 void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 {
@@ -1406,7 +1406,7 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, P_CHAR pc, char timech
 //
 void cMagic::BoxSpell(UOXSOCKET s, int& x1, int& x2, int& y1, int& y2, int& z1, int& z2)
 {
-	int x, y, z, lenght;
+/*	int x, y, z, lenght;
 
 	x=(buffer[s][11]<<8)+buffer[s][12];
 	y=(buffer[s][13]<<8)+buffer[s][14];
@@ -1420,6 +1420,7 @@ void cMagic::BoxSpell(UOXSOCKET s, int& x1, int& x2, int& y1, int& y2, int& z1, 
 	y2=y+lenght;
 	z1=z;
 	z2=z+3;
+*/
 }
 
 ///////////////////
@@ -2048,7 +2049,7 @@ void cMagic::itemParticles(int num, P_ITEM pi)
 void cMagic::NewCastSpell( UOXSOCKET s )
 {
 	// for LocationTarget spell like ArchCure, ArchProtection etc...
-	int	j, x1, x2, y1, y2, z1, z2, range, distx, disty;
+/*	int	j, x1, x2, y1, y2, z1, z2, range, distx, disty;
 	int	StartGrid;
 	int	getcell;
 	int dmg, dmgmod;
@@ -2122,9 +2123,6 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							}
 							else if (!pc_currchar->isGM()) //Morrolan no recall if too heavy, GM's excempt
 							{
-								/*sysmessage(s, "You are too heavy to do that!");
-								sysmessage(s, "You feel drained from the attempt.");
-								statwindow(s, pc_currchar);*/
 								recalled = false;
 							}
 							else
@@ -2662,8 +2660,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if (mapchar != NULL)
 							{
 								if ((online(mapchar) || (mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
-								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
-								(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
+								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2))
 								{
 									if ((lineOfSight( pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
@@ -2695,8 +2692,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if( mapchar != NULL )
 							{
 								if (( online( mapchar ) || ( mapchar->isNpc() )) && ( mapchar->pos.x >= x1 && mapchar->pos.x <= x2 ) &&
-								( mapchar->pos.y >= y1 && mapchar->pos.y <= y2 ) /*&&
-								( chars[ii].pos.z >= z1 && chars[ii].pos.z <= z2 )*/)
+								( mapchar->pos.y >= y1 && mapchar->pos.y <= y2 ) )
 								{
 									if(( lineOfSight( pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										( pc_currchar->isGM() )))
@@ -2786,8 +2782,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if (mapchar != NULL)
 							{
 								if ((online(mapchar)||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
-								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
-								(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
+								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2))
 								{
 									if ((lineOfSight( pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
@@ -2886,8 +2881,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if (mapchar != NULL)
 							{
 								if ((online(mapchar)||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
-								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
-								(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
+								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2))
 								{
 									if ((lineOfSight( pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
@@ -2962,8 +2956,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							{
 								if ((online(mapchar)||(mapchar->isNpc())) && (mapchar->priv2()&0x20)&&
 									(mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
-									(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
-									(mapchar->pos.z>=z1&&mapchar->pos.z<=z2)*/)
+									(mapchar->pos.y>=y1&&mapchar->pos.y<=y2))
 								{
 									if ((lineOfSight( pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
@@ -2998,8 +2991,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if (mapchar != NULL)
 							{
 								if ((online(mapchar)||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
-								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
-								(mapchar->pos.z>=z1&&mapchar->pos.z<=z2)*/)
+								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2))
 								{
 									if ((lineOfSight( pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
@@ -3054,11 +3046,6 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 				{
 					cTerritory* Region = cAllTerritories::getInstance()->region( x, y );
 					if( Region != NULL && !Region->isGuarded() ) // Ripper 11-14-99
-/*						if( !Region->allowsMagic() || !Region->allowsMagicDamage() ) // LB magic region changes !
-						{
-							sysmessage(s, tr(" You cant cast in town!"));
-							return;
-						}*/
 						for( j=0; j<=j2; j++ )
 						{
 							P_ITEM pi=Items->SpawnItem(currchar[s],1,"#",0,(id1<<8)+id2,0,0);
@@ -3341,7 +3328,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		pc_currchar->setSpell( 0 );
 		return;
 	}
-	
+*/	
 }
 
 /*bool cMagic::townTarget( unsigned char num )

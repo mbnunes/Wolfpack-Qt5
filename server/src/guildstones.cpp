@@ -715,8 +715,8 @@ void cGuildStone::Recruit(UOXSOCKET s)
 		return;
 	}
 
-	if(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return; // check if user canceled operation - Morrolan
-	int serial = calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
+//	if(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return; // check if user canceled operation - Morrolan
+//	int serial = calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
 	P_CHAR pc = FindCharBySerial( serial );
 	if(pc != NULL)
 	{

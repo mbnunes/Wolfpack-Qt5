@@ -622,7 +622,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		//soundeffect(s, 0x01, 0xEC);
 		return;// case 18 (crystal ball?)
 		case 19: // potions
-			usepotion(currchar[s], pi);
+			usepotion(socket->player(), pi);
 			return; // case 19 (potions)					
 			
 		case 50: // rune
@@ -654,7 +654,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			{
 				wx = (pc_currchar->pos.x +(rand()%11 - 5));
 				wy = (pc_currchar->pos.y +(rand()%11 - 5));
-				movingeffect3(currchar[s], (unsigned short)(wx), (unsigned short)(wy), pc_currchar->pos.z + 10, (unsigned char)(0x36), (unsigned char)(0xE4), 17, 0, rand()%2);
+				movingeffect3(pc_currchar, (unsigned short)(wx), (unsigned short)(wy), pc_currchar->pos.z + 10, (unsigned char)(0x36), (unsigned char)(0xE4), 17, 0, rand()%2);
 				switch (RandomNum(0, 4))
 				{
 				case 0:	staticeffect3(wx, wy, pc_currchar->pos.z + 10, 0x37, 0x3A, 0x09, 0, 0);	break;
@@ -1154,7 +1154,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 //					target(s, 0, 1, 0, 86, "What would you like to use that on ?");
 					return;
 				case 0x1508: // magic statue?
-					if( currchar[s]->checkSkill( ITEMID, 0, 10))
+					if( pc_currchar->checkSkill( ITEMID, 0, 10))
 					{
 						pi->setId(0x1509);
 						pi->setType( 45 );
@@ -1166,7 +1166,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					}
 					return;
 				case 0x1509:
-					if( currchar[s]->checkSkill( ITEMID, 0, 10))
+					if( pc_currchar->checkSkill( ITEMID, 0, 10))
 					{
 						pi->setId(0x1508);
 						pi->setType( 45 );
@@ -1317,10 +1317,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				case 0x1059:
 				case 0x105A:// tinker sextant
-					if( currchar[s]->checkSkill( TINKERING, 500, 1000))
+					if( pc_currchar->checkSkill( TINKERING, 500, 1000))
 					{
 						socket->sysMessage(tr("You create the sextant."));
-						P_ITEM pi_sextant = Items->SpawnItem(s, currchar[s], 1, "a sextant", 0, 0x10, 0x57, 0, 1, 1);
+						P_ITEM pi_sextant = Items->SpawnItem(s, pc_currchar, 1, "a sextant", 0, 0x10, 0x57, 0, 1, 1);
 						if (pi_sextant != NULL)
 							pi_sextant->priv |= 0x01;
 						pi->ReduceAmount(1);

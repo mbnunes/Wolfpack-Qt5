@@ -147,7 +147,6 @@ private:
 	void FetchTarget( UOXSOCKET s );
 	void SetMurderCount( int s );	// Abaddon 12 Sept 1999
 public:
-	void MultiTarget(cUOSocket*);
 	void Wiping(int s);
 	P_CHAR NpcMenuTarget(int s);
 	bool NpcResurrectTarget(P_CHAR pc);

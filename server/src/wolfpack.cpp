@@ -126,21 +126,6 @@ inline bool inRange(int x1, int y1, int x2, int y2, int range)
 	return (QMAX(abs(x1-x2), abs(y1-y2)) <= range);
 }
 
-int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on socket s
-{
-	
-	P_CHAR pc_currchar = currchar[s];
-	int vr=VISRANGE;
-	if ( !(pi && pc_currchar) )
-		return 0;
-	
-	// Large building ( stupid check )
-	if( pi->id() >= 0x407C && pi->id() <= 0x407F )
-		vr = BUILDRANGE;
-
-	return inRange(pc_currchar->pos.x,pc_currchar->pos.y,pi->pos.x,pi->pos.y,vr);
-}
-
 //================================================================================
 //
 // signal handlers

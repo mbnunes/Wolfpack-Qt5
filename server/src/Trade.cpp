@@ -506,7 +506,7 @@ void cTrade::clearalltrades()
 
 void cTrade::trademsg(int s)
 {
-	P_ITEM cont1, cont2;
+/*	P_ITEM cont1, cont2;
 	cont1 = cont2 = NULL ;
 	switch(buffer[s][3])
 	{
@@ -535,6 +535,7 @@ void cTrade::trademsg(int s)
 	default:
 		clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, trademsg()\n"); //Morrolan
 	}
+*/
 }
 
 void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)

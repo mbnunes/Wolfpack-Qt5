@@ -418,14 +418,14 @@ public:
 							}
 							else
 							{
-								if (!pc_currchar->checkSkill( ITEMID, 750, 1100, false ))
-								{
-									socket->sysMessage( tr("It is enchanted with the spell %1, but you cannot determine how many charges remain.").arg(spellname[(8*(pi->morex()-1))+pi->morey()-1]) );
-								}
-								else
-								{
-									socket->sysMessage( tr("It is enchanted with the spell %1, and has %2 charges remaining.").arg(spellname[(8*(pi->morex()-1))+pi->morey()-1]).arg(pi->morez()) );
-								}
+//								if (!pc_currchar->checkSkill( ITEMID, 750, 1100, false ))
+//								{
+//									socket->sysMessage( tr("It is enchanted with the spell %1, but you cannot determine how many charges remain.").arg(spellname[(8*(pi->morex()-1))+pi->morey()-1]) );
+//								}
+//								else
+//								{
+//									socket->sysMessage( tr("It is enchanted with the spell %1, and has %2 charges remaining.").arg(spellname[(8*(pi->morex()-1))+pi->morey()-1]).arg(pi->morez()) );
+//								}
 							}
 						}
 					}
@@ -2493,146 +2493,6 @@ void CollectAmmo(int s, int a, int b)
 	}
 }
 
-/*void cSkills::AButte(int s1, P_ITEM pButte)
-{
-	int v1,i;
-	int arrowsquant=0;
-	P_CHAR pc_currchar = currchar[s1];
-	int type=Combat->GetBowType(pc_currchar);
-	if(pButte->id()==0x100A)
-	{ // East Facing Butte
-		if ((pButte->pos.x > pc_currchar->pos.x)||(pButte->pos.y != pc_currchar->pos.y))
-			v1=-1;
-		else v1=pc_currchar->pos.x-pButte->pos.x;
-	}
-	else
-	{ // South Facing Butte
-		if ((pButte->pos.y>pc_currchar->pos.y)||(pButte->pos.x!=pc_currchar->pos.x))
-			v1=-1;
-		else v1=pc_currchar->pos.y-pButte->pos.y;
-	}
-	
-	if(v1==1)
-	{
-		if(pButte->more1>0)
-		{
-			P_ITEM pi = Items->SpawnItem(s1, pc_currchar,pButte->more1/2,"#",1,0x0F,0x3F,0,1,0);
-			if(pi == NULL) return;
-			pi->update();
-		}
-		
-		if(pButte->more2>0)
-		{
-			P_ITEM pi = Items->SpawnItem(s1,pc_currchar,pButte->more2/2,"#",1,0x1B,0xFB,0,1,0);
-			if(pi == NULL) return;
-			pi->update();
-		}
-		
-		i=0;
-		if(pButte->more1>0) i++;
-		if(pButte->more2>0) i+=2;
-		
-		switch(i)
-		{
-		case 0:
-			sprintf((char*)temp,"This target is empty");
-			break;
-		case 1:
-			sprintf((char*)temp,"You pull %d arrows from the target",pButte->more1/2);
-			break;
-		case 2:
-			sprintf((char*)temp,"You pull %d bolts from the target",pButte->more2/2);
-			break;
-		case 3:
-			sprintf((char*)temp,"You pull %d arrows and %d bolts from the target",pButte->more1,pButte->more2/2);
-			break;
-		default:
-			LogError("switch reached default");
-			return;
-		}
-		sysmessage(s1,(char*)temp);
-		pButte->more1=0;
-		pButte->more2=0;
-	}
-	
-	if((v1>=5)&&(v1<=8))
-	{
-		if (type == 0)
-		{
-			sysmessage(s1, "You need to equip a bow to use this.");
-			return;
-		} 
-		if ((pButte->more1+pButte->more2)>99)
-		{
-			sysmessage(s1, "You should empty the butte first!");
-			return;
-		}
-		if (type==1) 
-			arrowsquant=getamount(pc_currchar, 0x0F3F);
-		else 
-			arrowsquant=getamount(pc_currchar, 0x1BFB);
-		if (arrowsquant==0) 
-		{
-			sysmessage(s1, "You have nothing to fire!");
-			return;
-		}
-		if (type==1) 
-		{
-			delequan(pc_currchar, 0x0F3F, 1);
-			pButte->more1++;
-			//add moving effect here to item, not character
-		}
-		else
-		{
-			delequan(pc_currchar, 0x1BFB, 1, NULL);
-			pButte->more2++;
-			//add moving effect here to item, not character
-		} 
-		if (pc_currchar->onHorse()) Combat->CombatOnHorse(pc_currchar);
-		else Combat->CombatOnFoot(pc_currchar);
-		
-		if (pc_currchar->skill(ARCHERY) < 350)
-			Skills->CheckSkill(pc_currchar,ARCHERY, 0, 1000);
-		else
-			sysmessage(s1, "You learn nothing from practicing here");
-
-		switch((pc_currchar->skill(ARCHERY)+((rand()%200)-100))/100)
-		{
-		case -1:
-		case 0:
-		case 1:
-			sysmessage(s1, "You miss the target");
-			soundeffect(s1, 0x02, 0x38);
-			break;
-		case 2:
-		case 3:
-			sysmessage(s1, "You hit the outer ring!");
-			soundeffect(s1, 0x02, 0x34);
-			break;
-		case 4:
-		case 5:
-		case 6:
-			sysmessage(s1, "You hit the middle ring!");
-			soundeffect(s1, 0x02, 0x34);
-			break;
-		case 7:
-		case 8:
-		case 9:
-			sysmessage(s1, "You hit the inner ring!");
-			soundeffect(s1, 0x02, 0x34);
-			break;
-		case 10:
-		case 11:
-			sysmessage(s1, "You hit the bullseye!!");
-			soundeffect(s1, 0x02, 0x34);
-			break;
-		default:
-			break;
-		}
-	}
-	if ((v1>1)&&(v1<5)||(v1>8)) sysmessage(s1, "You cant use that from here.");
-}*/
-
 void cSkills::Meditation( cUOSocket *socket )
 {
 	P_CHAR pc_currchar = socket->player();
@@ -2699,7 +2559,6 @@ void cSkills::Persecute ( cUOSocket* socket )
 			if( target->mn() <= decrease )
 				target->setMn(0);
 			else 
-//				target->mn-=decrease;//decrease mana
 				target->setMn(target->mn() - decrease);
 			updatestats(target,1);//update
 			socket->sysMessage(tr("Your spiritual forces disturb the enemy!"));

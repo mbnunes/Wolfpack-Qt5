@@ -82,7 +82,7 @@ public:
 							cConMenu() {};
 							cConMenu( const QDomElement &Tag );
 	void					processNode( const QDomElement &Tag );
-	const cConMenuOptions*	getOptionsByAcl( QString acl ) const;
+	const cConMenuOptions*	getOptionsByAcl( const QString& acl ) const;
     void					recreateEvents( void );
 	
 	bool					onContextEntry( cChar *Caller, cUObject *Target, Q_UINT16 Tag ) const;
@@ -99,11 +99,11 @@ class cAllConMenus
 public:
 	~cAllConMenus()	{ menus_.clear(); }
 
-	bool	MenuExist( QString bindmenu );
+	bool	MenuExist( const QString& bindmenu ) const;
 	void	load( void );
 	void	reload( void );
-	const cConMenuOptions* getMenuOptions( QString bindmenu, QString acl ) const;
-	const cConMenu*		   getMenu( QString bindmenu, QString acl ) const;
+	const cConMenuOptions* getMenuOptions( const QString& bindmenu, const QString& acl ) const;
+	const cConMenu*		   getMenu( const QString& bindmenu, const QString& acl ) const;
 	
 private:
 	QMap< QString, cConMenu >	menus_;

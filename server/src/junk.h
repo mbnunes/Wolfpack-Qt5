@@ -110,7 +110,6 @@ extern int escortRegions;
 
 void srequest(int s);
 
-int inrange2 (UOXSOCKET s, P_ITEM pi);
 bool inrange1p (PC_CHAR pca, P_CHAR pcb);
 bool iteminrange (const UOXSOCKET s, const P_ITEM pi, const int distance);
 void vialtarget(int nSocket);
@@ -139,6 +138,7 @@ inline UOXSOCKET toOldSocket(const cUOSocket* s)
 
 inline cUOSocket* fromOldSocket(UOXSOCKET s)
 {
+//	extern P_CHAR currchar [MAXCLIENT];
 	return currchar[s]->socket();
 }
 
