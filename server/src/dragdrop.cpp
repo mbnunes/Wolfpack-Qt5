@@ -617,6 +617,11 @@ void DragAndDrop::dropOnGround( cUOSocket* socket, P_ITEM pItem, const Coord_cl&
 	pItem->removeFromCont();
 	pItem->moveTo( pos );
 	pItem->update();
+
+	// Play Sounds for non gold items
+	if (pItem->id() != 0xEED) {
+		pItem->soundEffect(0x42);
+	}
 }
 
 inline char calcSpellId( cItem* item )

@@ -14,6 +14,7 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Fixed bug #0000273. (Felucca doesnt have the felucca desolation season)
 	- Added the option "Enable Felucca Season" to the "General" group of the wolfpack.xml configuration file.
 	  If enabled the desolation season will be sent to players on the felucca facet.
+	- Fixed bug #0000253. (Invalid drop sound for items dropped to ground)
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.
