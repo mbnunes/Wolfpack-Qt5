@@ -1,0 +1,14 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification: Created
+=================================================================
+-->
+<definitions>
+	<include file="definitions/teleports/felluca.xml"/>
+	<include file="definitions/teleports/trammel.xml"/>
+	<include file="definitions/teleports/ilshenar.xml"/>
+	<include file="definitions/teleports/malas.xml"/>
+</definitions>
