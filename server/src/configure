@@ -134,8 +134,12 @@ print_usage ()
 
 	        --qt-directory=dir         Base directory of Qt.
 
-	        --enable-debug             Enable debugging.
 	        --static                   Static linking.
+
+	options for developers:
+
+	        --enable-debug             Enable debugging.
+	        --enable-cscriptdebug      Debug into ${0}.
 
 	EOF
 	exit 1;
@@ -182,14 +186,15 @@ do
 	YES_NO="$(echo "$1"|grep -q '^--\(enable-\|[^-]*$\)' && echo 'y' || echo 'n')"
 
 	case "$ITEM" in
-		debug)		_DEBUG="$YES_NO";;
-		mysql)		_MYSQL="$YES_NO";;
-		mysql-inc)	_MYSQL_INC="$CUR_INC";;
-		mysql-lib)	_MYSQL_LIB="$CUR_LIB";;
-		python-inc)	_PYTHON_INC="$CUR_INC";;
-		python-lib)	_PYTHON_LIB="$CUR_LIB";;
-		qt-path)	_QT_PATH="$CUR_PATH";;
-		static)		_STATIC="$YES_NO";;
+		cscriptdebug)		_CONFIGURE_DEBUG="$YES_NO";;
+		debug)			_DEBUG="$YES_NO";;
+		mysql)			_MYSQL="$YES_NO";;
+		mysql-inc)		_MYSQL_INC="$CUR_INC";;
+		mysql-lib)		_MYSQL_LIB="$CUR_LIB";;
+		python-inc)		_PYTHON_INC="$CUR_INC";;
+		python-lib)		_PYTHON_LIB="$CUR_LIB";;
+		qt-path)		_QT_PATH="$CUR_PATH";;
+		static)			_STATIC="$YES_NO";;
 		*)
 			echo "Unknown option \"$1\"!" >&2;
 			print_usage >&2;
@@ -198,6 +203,8 @@ do
 
 	shift;
 done;
+
+[ "${_CONFIGURE_DEBUG}" = "y" ] && set -x;
 
 # first of all, let's assassinate the Makefile ;)
 rm -f Makefile;
