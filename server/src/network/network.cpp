@@ -174,8 +174,14 @@ void cNetwork::load()
 		d->loginServer_ = new cListener( Config::instance()->loginPort() );
 		d->loginServer_->start();
 		Console::instance()->send( tr( "LoginServer running on port %1\n" ).arg( Config::instance()->loginPort() ) );
-		if ( Config::instance()->serverList().size() < 1 )
-			Console::instance()->log( LOG_WARNING, tr( "LoginServer enabled but there no Game server entries found\n Check your wolfpack.xml settings" ) );
+		QValueVector<ServerList_st>& serverList = Config::instance()->serverList();
+		if ( serverList.size() < 1 )
+			Console::instance()->log( LOG_WARNING, tr( "LoginServer enabled but there no Game server entries found\n Check your wolfpack.xml settings\n" ) );
+		else
+		{
+			for ( QValueVector<ServerList_st>::iterator it = serverList.begin(); it != serverList.end(); ++it )
+				Console::instance()->send( tr("\t%1 using address %2\n").arg( (*it).sServer, (*it).address.toString() ) );
+		}
 	}
 
 	if ( Config::instance()->enableGame() )

@@ -471,19 +471,19 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest* packet )
 	// Otherwise build the shard-list
 	cUOTxShardList shardList;
 
-	vector<ServerList_st> shards = Config::instance()->serverList();
+	QValueVector<ServerList_st> shards = Config::instance()->serverList();
 
 	for ( Q_UINT8 i = 0; i < shards.size(); ++i )
 	{
 		ServerList_st server = shards[i];
 		// we are connecting from the same ip, send 127.0.0.1 as the ip
-		if ( server.sIP == ip().latin1() )
+		if ( server.address.toString() == ip().latin1() )
 		{
 			shardList.addServer( i, server.sServer, 0x00, server.uiTime, 0x7F000001 );
 		}
 		else
 		{
-			shardList.addServer( i, server.sServer, 0x00, server.uiTime, server.ip );
+			shardList.addServer( i, server.sServer, 0x00, server.uiTime, server.address.toIPv4Address() );
 		}
 	}
 
@@ -557,7 +557,7 @@ void cUOSocket::disconnect()
 void cUOSocket::handleSelectShard( cUORxSelectShard* packet )
 {
 	// Relay him - save an auth-id so we recog. him when he relays locally
-	vector<ServerList_st> shards = Config::instance()->serverList();
+	QValueVector<ServerList_st> shards = Config::instance()->serverList();
 
 	if ( packet->shardId() >= shards.size() )
 	{
@@ -566,7 +566,7 @@ void cUOSocket::handleSelectShard( cUORxSelectShard* packet )
 	}
 
 	cUOTxRelayServer* relay = new cUOTxRelayServer;
-	relay->setServerIp( shards[packet->shardId()].ip );
+	relay->setServerIp( shards[packet->shardId()].address.toIPv4Address() );
 	relay->setServerPort( shards[packet->shardId()].uiPort );
 	relay->setAuthId( 0xFFFFFFFF ); // This is NO AUTH ID !!!
 	// This is the thing it sends next time it connects to

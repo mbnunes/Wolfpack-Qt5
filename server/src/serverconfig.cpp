@@ -467,7 +467,7 @@ QString cConfig::getEntryDoc( const QString& group, const QString& entry )
 	return Preferences::getEntryDoc( group, entry );
 }
 
-std::vector<ServerList_st>& cConfig::serverList()
+QValueVector<ServerList_st> cConfig::serverList()
 {
 	static unsigned int lastIpCheck = 0;
 	static bool dynamicIP = false;
@@ -491,8 +491,7 @@ std::vector<ServerList_st>& cConfig::serverList()
 					QStringList strList2 = QStringList::split( ",", strList[1].stripWhiteSpace() );
 					QHostAddress host;
 					host.setAddress( strList2[0] );
-					server.sIP = strList2[0];
-					server.ip = resolveName( server.sIP );
+					server.address = resolveName( strList2[0] );
 
 					bool ok = false;
 					server.uiPort = strList2[1].toUShort( &ok );
@@ -502,7 +501,7 @@ std::vector<ServerList_st>& cConfig::serverList()
 					// This code will retrieve the first
 					// valid Internet IP it finds
 					// and replace a 0.0.0.0 with it
-					if ( ( ( server.ip == 0 ) && ( lastIpCheck <= Server::instance()->time() ) ) )
+					if ( ( ( server.address.toIPv4Address() == 0 ) && ( lastIpCheck <= Server::instance()->time() ) ) )
 					{
 						dynamicIP = true;
 
@@ -510,13 +509,12 @@ std::vector<ServerList_st>& cConfig::serverList()
 						// So we have a max. of 30 minutes downtime
 						lastIpCheck = Server::instance()->time() + ( MY_CLOCKS_PER_SEC * 30 * 60 );
 
-						server.ip = internetAddress().toIPv4Address();
+						server.address = internetAddress();
 						
 						// Fall back to localhost
-						if ( !server.ip )
+						if ( !server.address.toIPv4Address() )
 						{
-							server.ip = 0x7F000001;
-							server.sIP = "127.0.0.1";
+							server.address = 0x7F000001;
 						}
 					}
 					serverList_.push_back( server );

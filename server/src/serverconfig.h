@@ -40,6 +40,7 @@
 // Library Headers
 #include <qstring.h>
 #include <qstringlist.h>
+#include <qhostaddress.h>
 
 // Structs
 
@@ -55,8 +56,7 @@ struct ServerList_st
 	QString sServer;
 	Q_UINT8 uiFull;
 	Q_UINT8 uiTime;
-	Q_UINT32 ip;
-	QCString sIP;
+	QHostAddress address;
 	Q_UINT16 uiPort;
 };
 
@@ -70,7 +70,7 @@ protected:
 	QString getGroupDoc( const QString& group );
 	QString getEntryDoc( const QString& group, const QString& entry );
 
-	std::vector<ServerList_st> serverList_;
+	QValueVector<ServerList_st> serverList_;
 	std::vector<StartLocation_st> startLocation_;
 
 	// loaded data
@@ -196,7 +196,7 @@ public:
 	void unload();
 	void reload();
 
-	std::vector<ServerList_st>& serverList(); // read-only
+	QValueVector<ServerList_st> serverList(); // read-only
 	std::vector<StartLocation_st>& startLocation();
 
 	// gets
