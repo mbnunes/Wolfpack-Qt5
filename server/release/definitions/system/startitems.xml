@@ -57,7 +57,7 @@
 		<equipment id="1f03" />
 		<!--Bandages -->
 		<item id="e21">
-			<amount>3" />
+			<amount>3</amount>
 		</item>
 	</startitems>
 
