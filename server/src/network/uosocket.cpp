@@ -168,7 +168,7 @@ void cUOSocket::send( cUOPacket* packet ) const
 
 	// Once send, flush if in Debug mode
 #if defined(_DEBUG)
-	Network::instance()->netIo()->flush( _socket );
+	//Network::instance()->netIo()->flush( _socket );
 #endif
 }
 

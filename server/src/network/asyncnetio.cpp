@@ -111,7 +111,8 @@ public:
 	~cAsyncNetIOPrivate();
 
 	QSocketDevice* socket;			// connection socket
-	QPtrList<QByteArray> rba, wba;		// list of read/write bufs
+	// ewba is the encrypted write buffer
+	QPtrList<QByteArray> rba, wba, ewba;		// list of read/write bufs
 	Q_ULONG rsize, wsize;		// read/write total buf size
 	Q_ULONG rindex, windex;		// read/write index
 	QMutex wmutex;				// write mutex
@@ -138,6 +139,7 @@ cAsyncNetIOPrivate::cAsyncNetIOPrivate() : socket( 0 ), rsize( 0 ), wsize( 0 ), 
 {
 	rba.setAutoDelete( TRUE );
 	wba.setAutoDelete( TRUE );
+	ewba.setAutoDelete( TRUE );
 }
 
 cAsyncNetIOPrivate::~cAsyncNetIOPrivate()
@@ -274,11 +276,11 @@ bool cAsyncNetIOPrivate::consumeWriteBuf( Q_ULONG nbytes )
 	wsize -= nbytes;
 	for ( ; ; )
 	{
-		QByteArray* a = wba.first();
+		QByteArray* a = ewba.first();
 		if ( windex + nbytes >= a->size() )
 		{
 			nbytes -= a->size() - windex;
-			wba.remove();
+			ewba.remove();
 			windex = 0;
 			if ( nbytes == 0 )
 				break;
@@ -670,11 +672,24 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 	if ( !d->socket->isValid() || !d->socket->isWritable() )
 		return;
 
+	// Encrypt new packets
+	QByteArray *p = d->wba.first();
+	while (p) {
+     		// Encrypt the outgoing buffer
+                if ( d->encryption )
+			d->encryption->serverEncrypt( p->data(), p->size() );
+		d->ewba.append(p);
+		p = d->wba.next();
+	}
+	d->wba.setAutoDelete(FALSE);
+	d->wba.clear();
+	d->wba.setAutoDelete(TRUE);
+
 	// Before we continue, we should guarantee no one writes packets to the buffer.
 	QMutexLocker lock( &d->wmutex );
 	while ( !osBufferFull && d->wsize > 0 )
 	{
-		QByteArray* a = d->wba.first();
+		QByteArray* a = d->ewba.first();
 		int nwritten;
 		int i = 0;
 		if ( ( int ) a->size() - d->windex < 1460 )
@@ -696,13 +711,9 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 				memcpy( out.data() + i, a->data() + j, s );
 				j = 0;
 				i += s;
-				a = d->wba.next();
+				a = d->ewba.next();
 				s = a ? a->size() : 0;
 			}
-
-			// Encrypt the outgoing buffer
-			if ( d->encryption )
-				d->encryption->serverEncrypt( out.data(), i );
 
 			nwritten = d->socket->writeBlock( out.data(), i );
 		}
@@ -711,14 +722,10 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 			// Big block, write it immediately
 			i = a->size() - d->windex;
 
-			// Encrypt the outgoing buffer
-			if ( d->encryption )
-				d->encryption->serverEncrypt( a->data() + d->windex, i );
-
 			nwritten = d->socket->writeBlock( a->data() + d->windex, i );
 		}
 
-		if ( nwritten )
+		if ( nwritten > 0 )
 		{
 			if ( d->consumeWriteBuf( nwritten ) )
 				consumed += nwritten;
