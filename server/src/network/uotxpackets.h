@@ -982,4 +982,15 @@ public:
 	void setButton( UINT32 data ) { setInt( 9, data ); }
 };
 
+class cUOTxTrade: public cUOPacket
+{
+public:
+	cUOTxTrade(): cUOPacket( 0x6f, 17 ) { setShort( 1, 17 ); }
+	void setName( const QString &name );
+	void setPartner( SERIAL data ) { setInt( 4, data ); }
+	void setBox1( SERIAL data ) { setInt( 8, data ); }
+	void setBox2( SERIAL data ) { setInt( 12, data ); }
+	void setAction( UINT8 data ) { rawPacket[3] = data; }
+};
+
 #endif

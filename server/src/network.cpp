@@ -109,8 +109,9 @@ void cNetwork::poll( void )
 		// Check for disconnected sockets
 		if ( uoSocket->socket()->error() != QSocketDevice::NoError )
 		{
-			clConsole.send( tr( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->peerAddress().toString() ) );
+			clConsole.send( tr( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->peerAddress().toString() ) );			
 			netIo_->unregisterSocket( uoSocket->socket() );
+			uoSocket->disconnect();
 			uoSockets.remove();
 		}
 		else

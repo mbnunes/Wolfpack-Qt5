@@ -61,6 +61,8 @@ class cUORxBuy;
 class cTrade
 {
 public:
+	P_ITEM startTrade( P_CHAR pPlayer, P_CHAR pChar );
+
 	void buyaction( cUOSocket *socket, cUORxBuy *packet );
 	void sellaction(int s);
 	P_ITEM tradestart(UOXSOCKET s, P_CHAR pc_i);

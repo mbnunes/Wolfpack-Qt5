@@ -480,3 +480,12 @@ void cUOTxGumpDialog::setContent( QString layout, QStringList text )
 	}
 }
 
+void cUOTxTrade::setName( const QString &name )
+{
+	rawPacket[16] = 1;
+	rawPacket.resize( rawPacket.size() + name.length() + 1 );
+	setShort( 1, rawPacket.size() );
+
+	strcpy( &rawPacket.data()[17], name.latin1() );
+}
+

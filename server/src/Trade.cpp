@@ -331,6 +331,55 @@ void cTrade::sellaction(int s)
 	Xsend(s, clearmsg, 8);
 }
 
+P_ITEM cTrade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
+{
+	if( !pChar || !pChar->socket() || !pPlayer || !pPlayer->socket() )
+		return NULL;
+
+	// Create a trade-container for both players
+	// 0x2AF8 on Layer 0x1F
+	SERIAL box1,box2;
+	
+	// One for our player
+	P_ITEM tCont = Items->createScriptItem( "2af8" );
+	tCont->setLayer( 0x1f );
+	tCont->setContSerial( pPlayer->serial );
+	tCont->setOwner( pPlayer );
+	tCont->tags.set( "tradepartner", cVariant( pChar->serial ) );
+	tCont->update( pPlayer->socket() );
+	tCont->update( pChar->socket() );
+	box1 = tCont->serial;
+
+	// One for the tradepartner
+	tCont = tCont->dupe();
+	tCont->setLayer( 0x1f );
+	tCont->setContSerial( pChar->serial );
+	tCont->setOwner( pChar );
+	tCont->tags.set( "tradepartner", cVariant( pPlayer->serial ) );
+	tCont->update( pPlayer->socket() );
+	tCont->update( pChar->socket() );
+	box2 = tCont->serial;
+
+	// Now send the both secure trading packets
+	cUOTxTrade trade;
+	
+	// To us
+	trade.setPartner( pChar->serial );
+	trade.setBox1( box1 );
+	trade.setBox2( box2 );
+	trade.setName( pChar->name.c_str() );
+	pPlayer->socket()->send( &trade );
+
+	// To the other
+	trade.setPartner( pPlayer->serial );
+	trade.setBox1( box2 );
+	trade.setBox2( box1 );
+	trade.setName( pPlayer->name.c_str() );
+	pChar->socket()->send( &trade );
+
+	return FindItemBySerial( box1 );
+}
+
 P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 {
 	P_CHAR pc_currchar = currchar[s];
