@@ -35,10 +35,6 @@
 #include "wolfpack.h"
 #include "items.h"
 #include "multis.h"
-//#include "typedefs.h"
-
-// System Headers
-//#include <vector>
 
 // Forward Class declaration
 class cUOSocket;
@@ -66,7 +62,7 @@ public:
 	void build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );
 	void remove( void );
 
-	P_ITEM toDeed( cUOSocket* socket );
+	virtual void toDeed( cUOSocket* socket );
 
 
 	QString	deedSection( void ) { return deedsection_; }
@@ -76,7 +72,6 @@ protected:
 	virtual void processNode( const QDomElement &Tag );
 	void processHouseItemNode( const QDomElement &Tag );
 
-	QString deedsection_;
 	bool nokey_;
 	
 	struct posxyz_st

@@ -34,6 +34,7 @@
 #include "regions.h"
 #include "tilecache.h"
 #include "mapstuff.h"
+#include "network/uosocket.h"
 
 #undef DBGFILE
 #define DBGFILE "multis.cpp" 
@@ -43,6 +44,7 @@ cMulti::cMulti()
 	cItem::Init( false );
 	deedsection_ = (char*)0;
 	itemsdecay_ = false;
+	coowner_ = INVALID_SERIAL;
 }
 
 void cMulti::Serialize( ISerialization &archive )
@@ -80,6 +82,7 @@ void cMulti::Serialize( ISerialization &archive )
 			archive.read( (char*)QString("multi.friend.%1").arg(i).latin1(), readData );
 			friends_.push_back( readData );
 		}
+		archive.read( "multi.coowner", coowner_ );
 	}
 	else
 	{
@@ -109,6 +112,8 @@ void cMulti::Serialize( ISerialization &archive )
 		archive.write( "multi.friendcount", friends_.size() );
 		for ( i = 0; i < friends_.size(); ++i )
 			archive.write( (char*)QString("multi.friend.%1").arg(i).latin1(), friends_[i] );
+
+		archive.write( "multi.coowner", coowner_ );
 	}
 	cItem::Serialize( archive );
 }
@@ -119,8 +124,8 @@ void cMulti::processNode( const QDomElement &Tag )
 	QString TagName = Tag.nodeName();
 	QString Value = getNodeValue( Tag );
 
-	// <deed>deedsection</deed> (any item section)
-	if( TagName == "deed" )
+	// <deedsection>deedsection</deedsection> (any item section)
+	if( TagName == "deedsection" )
 		this->deedsection_ = Value;
 
 	// <name>balbalab</name>
@@ -298,6 +303,18 @@ void cMulti::removeFriend(P_CHAR pc)
 	friends_.erase(it);
 }
 
+void cMulti::removeBan( SERIAL serial )
+{
+	vector<SERIAL>::iterator it = find(bans_.begin(), bans_.end(), serial);
+	bans_.erase(it);
+}
+
+void cMulti::removeFriend( SERIAL serial )
+{
+	vector<SERIAL>::iterator it = find(friends_.begin(), friends_.end(), serial);
+	friends_.erase(it);
+}
+
 void cMulti::createKeys( P_CHAR pc, const QString &name )
 {
 	if( !pc )
@@ -305,6 +322,9 @@ void cMulti::createKeys( P_CHAR pc, const QString &name )
 
 	P_ITEM pBackpack = FindItemBySerial( pc->packitem );
 	P_ITEM pBankbox = pc->getBankBox();
+
+	if( !pBackpack && !pBankbox )
+		return;
 
 	P_ITEM pKey = Items->createScriptItem( "100f" );
 	if( pKey )
@@ -315,7 +335,7 @@ void cMulti::createKeys( P_CHAR pc, const QString &name )
 		pKey->setName( name );
 		if( pBackpack )
 			pBackpack->AddItem( pKey );
-		else
+		else 
 			pBankbox->AddItem( pKey );
 	}
 
@@ -327,21 +347,31 @@ void cMulti::createKeys( P_CHAR pc, const QString &name )
 		{
 			pKey->tags.set( "linkserial", this->serial );
 			pKey->setType( 7 );
-			pKey->priv = 2;
+//			pKey->priv = 2; dont newbie these 3 bank box keys
 			pKey->setName( name );
-			pBankbox->AddItem( pKey );
+			if( pBankbox )
+				pBankbox->AddItem( pKey );
+			else
+				pBackpack->AddItem( pKey );
 		}
 	}
 }
 
 void cMulti::removeKeys( void )
 {
+	QPtrList< cItem > todelete;
 	AllItemsIterator iter_items;
 	for( iter_items.Begin(); !iter_items.atEnd(); ++iter_items )
 	{
 		P_ITEM pi = iter_items.GetData();
-		if( pi->type() == 7 && pi->tags.get( "linkserial" ).isValid() && pi->tags.get( "linkserial" ).toUInt() == this->serial )
-			Items->DeleItem( pi );
+		if( pi && pi->type() == 7 && pi->tags.get( "linkserial" ).isValid() && pi->tags.get( "linkserial" ).toUInt() == this->serial )
+			todelete.append( pi );
+	}
+	QPtrListIterator< cItem > it( todelete );
+	while( it.current() )
+	{
+		Items->DeleItem( it.current() );
+		++it;
 	}
 }
 
@@ -387,4 +417,331 @@ P_ITEM cMulti::findKey( P_CHAR pc )
 bool cMulti::authorized( P_CHAR pc )
 {
 	return ( pc->isGMorCounselor() || ownserial == pc->serial || findKey( pc ) || isFriend( pc ) );
+}
+
+
+P_CHAR cMulti::coOwner( void )	
+{ 
+	return FindCharBySerial( coowner_ ); 
+}
+
+void cMulti::setCoOwner( P_CHAR pc )
+{ 
+	if( pc ) 
+		coowner_ = pc->serial; 
+}
+
+void cMulti::setName( const QString nValue )
+{
+	this->name_ = nValue;
+	QValueList< SERIAL >::iterator it = items_.begin();
+	while( it != items_.end() )
+	{
+		P_ITEM pi = FindItemBySerial( *it );
+		if( pi && pi->type() == 222 )
+			pi->setName( nValue );
+		++it;
+	}
+}
+
+class cSetMultiOwnerTarget: public cTargetRequest
+{
+private:
+	bool coowner_;
+	SERIAL multi_;
+public:
+	cSetMultiOwnerTarget( SERIAL multiserial, bool coowner = false ) 
+	{ 
+		multi_ = multiserial;
+		coowner_ = coowner; 
+	}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multi_ ) );
+		if( !pMulti || !socket->player() )
+		{
+			socket->sysMessage( tr( "An error occured! Send a bug report to the staff, please!" ) );
+			return true;
+		}
+
+		if( target->x() == 0xFFFF && target->y() == 0xFFFF && target->z() == (INT8)0xFF )
+			return true;
+
+		P_CHAR pc = FindCharBySerial( target->serial() );
+		if( !pc || !pc->socket() )
+		{
+			socket->sysMessage( tr( "This is not a valid target!" ) );
+			return false;
+		}
+		
+		if( coowner_ )
+		{
+			pMulti->setCoOwner( pc );
+			socket->sysMessage( tr("You have made %1 to the new co-owner of %2").arg( pc->name.c_str() ).arg( pMulti->name() ) );
+			pc->socket()->sysMessage( tr("%1 has made you to the new co-owner of %2").arg( socket->player()->name.c_str() ).arg( pMulti->name() ) );
+		}
+		else
+		{
+			pMulti->setOwner( pc );
+			socket->sysMessage( tr("You have made %1 to the new owner of %2").arg( pc->name.c_str() ).arg( pMulti->name() ) );
+			pc->socket()->sysMessage( tr("%1 has made you to the new owner of %2").arg( socket->player()->name.c_str() ).arg( pMulti->name() ) );
+		}
+		return true;
+	}
+};
+
+cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
+{
+	P_CHAR pChar = FindCharBySerial( charSerial );
+	if( !pChar )
+		return;
+
+	cUOSocket* socket = pChar->socket();
+	if( !pChar->socket() || !pChar->account() )
+		return;
+
+	cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multiSerial ) );
+	if( !pMulti )
+		return;
+
+	P_CHAR pOwner = pMulti->owner();
+	QString ownername;
+	if( pOwner )
+		ownername = pOwner->name.c_str();
+
+	P_CHAR pCoOwner = pMulti->coOwner();
+	QString coownername;
+	if( pCoOwner )
+		coownername = pCoOwner->name.c_str();
+
+	char_ = charSerial;
+	multi_ = multiSerial;
+
+	startPage();
+	addResizeGump( 0, 40, 0xA28, 450, 410 ); //Background
+	addGump( 105, 18, 0x58B ); // Fancy top-bar
+	addGump( 182, 0, 0x589 ); // "Button" like gump
+	addGump( 193, 10, 0x15E9 ); // "Button" like gump
+	addText( 190, 90, tr( "Owner menu" ), 0x530 );
+
+	// Apply button
+	addButton( 50, 400, 0xEF, 0xF0, 2 ); 
+	// OK button
+	addButton( 120, 400, 0xF9, 0xF8, 1 ); 
+	// Cancel button
+	addButton( 190, 400, 0xF3, 0xF1, 0 ); 
+
+	bool authban = false;
+	bool authfriend = false;
+
+	friends.clear();
+	bans.clear();
+
+	if( pChar->account()->authorized( "multi", "friendlist" ) )
+	{
+		authfriend = true;
+		std::vector< SERIAL > friendserials = pMulti->friends();
+		std::vector< SERIAL >::iterator it = friendserials.begin();
+		while( it != friendserials.end() )
+		{
+			P_CHAR pc = FindCharBySerial( *it );
+			if( pc )
+			{
+				friends.resize( friends.size()+1 );
+				friends.insert( friends.size()-1, pc );
+			}
+			else
+				pMulti->removeFriend( *it );
+			++it;
+		}
+	}
+
+	if( pChar->account()->authorized( "multi", "banlist" ) )
+	{
+		authban = true;
+		std::vector< SERIAL > banserials = pMulti->bans();
+		std::vector< SERIAL >::iterator it = banserials.begin();
+		while( it != banserials.end() )
+		{
+			P_CHAR pc = FindCharBySerial( *it );
+			if( pc )
+			{
+				bans.resize( bans.size()+1 );
+				bans.insert( bans.size()-1, pc );
+			}
+			else
+				pMulti->removeBan( *it );
+			++it;
+		}
+	}
+
+	UI32 pages = 1;
+	UI32 banpages = (UI32)ceil( (double)friends.count() / 10.0f );
+	UI32 friendpages = (UI32)ceil( (double)bans.count() / 10.0f );
+	if( banpages == 0 && authban )
+		banpages = 1;
+	if( friendpages == 0 && authfriend )
+		friendpages = 1;
+	pages = pages + banpages + friendpages;
+
+	UI32 page_ = 1;
+
+	startPage( 1 );
+
+	addResizeGump( 145, 120, 0xBB8, 265, 20 );
+	addText( 60, 120, tr( "Name" ), 0x834 );
+	addInputField( 150, 120, 250, 16,  1, pMulti->name(), 0x834 );
+
+	addResizeGump( 145, 140, 0xBB8, 265, 20 );
+	addText( 60, 140, tr( "Owner" ), 0x834 );
+	addText( 150, 140, ownername, 0x834 );
+	if( pChar == pOwner || pChar->isGM() )
+		addButton( 20, 140, 0xFA5, 0xFA7, 3 );
+
+	addResizeGump( 145, 160, 0xBB8, 265, 20 );
+	addText( 60, 160, tr( "Co-Owner" ), 0x834 );
+	addText( 150, 160, coownername, 0x834 );
+	if( pChar == pOwner || pChar->isGM() )
+		addButton( 20, 160, 0xFA5, 0xFA7, 4 );
+
+	UI32 y = 200;
+	if( pChar->account()->authorized( "multi", "lockdown" ) )
+	{
+		addText( 60, y, tr("Lock/Unlock item"), 0x834 );
+		addButton( 20, y, 0xFA5, 0xFA7, 5 );
+		y += 20;
+	}
+
+	if( authban )
+	{
+		addText( 60, y, tr( "Ban List" ), 0x834 );
+		addPageButton( 20, y, 0xFA5, 0xFA7, 2);
+		y += 20;
+	}
+
+	if( authfriend )
+	{
+		addText( 60, y, tr( "Friend List" ), 0x834 );
+		addPageButton( 20, y, 0xFA5, 0xFA7, 2+banpages);
+		y += 20;
+	}
+
+	if( pChar->account()->authorized( "multi", "deed" ) )
+	{
+		addText( 60, y, tr("Turn to deed"), 0x834 );
+		addButton( 20, y, 0xFA5, 0xFA7, 6 );
+		y += 20;
+	}
+
+	addText( 310, 400, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+	// prev page
+	if( page_ > 1 )
+		addPageButton( 270, 400, 0x0FC, 0x0FC, page_-1 );
+	// next page
+	if( page_ < pages )
+		addPageButton( 290, 400, 0x0FA, 0x0FA, page_+1 );
+
+	++page_;
+	while( page_ <= pages )
+	{
+		if( page_ <= banpages+1 )
+		{
+			startPage( page_ );
+			register unsigned int i = (page_-2) * 10;
+			while( i < (page_-1) * 10 && i < bans.size() )
+			{
+				UI32 offset = i - (page_-2) * 10;
+				addText( 60, 140+offset*20, QString(bans[ i ]->name.c_str()), 0x834 );
+				addButton( 20, 140+offset*20, 0xFB1, 0xFB3, 10+i ); 
+				++i;
+			}
+			addText( 40, 120, tr("Ban List"), 0x834 );
+			addText( 60, 370, tr("Ban target"), 0x834 );
+			addButton( 20, 370, 0xFA5, 0xFA7, 7 );
+		}
+		else if( page_ <= banpages+friendpages+1 )
+		{
+			startPage( page_ );
+			register unsigned int i = (page_-banpages-2) * 10;
+			while( i < (page_-banpages-1) * 10 && i < friends.size() )
+			{
+				UI32 offset = i - (page_-2) * 10;
+				addText( 60, 140+offset*20, QString(friends[ i ]->name.c_str()), 0x834 );
+				addButton( 20, 140+offset*20, 0xFB1, 0xFB3, 10+i+bans.size() ); 
+				++i;
+			}
+			addText( 40, 120, tr("Friend List"), 0x834 );
+			addText( 60, 370, tr("Add friend"), 0x834 );
+			addButton( 20, 370, 0xFA5, 0xFA7, 8 );
+		}
+		++page_;
+	}
+}
+
+void cMultiGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+{
+	if( choice.button == 0 ) // canceled
+		return;
+
+	P_CHAR pChar = FindCharBySerial( char_ );
+	if( !pChar )
+		return;
+
+	if( !socket || !pChar->account() )
+		return;
+
+	cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multi_ ) );
+	if( !pMulti )
+		return;
+
+	if( choice.button == 1 || choice.button == 2 ) // ok
+	{
+		std::map< UINT16, QString >::iterator it = choice.textentries.begin();
+		while( it != choice.textentries.end() )
+		{
+			switch( it->first )
+			{
+			case 1:
+				pMulti->setName( it->second );
+				break;
+			}
+			++it;
+		}
+
+		if( choice.button == 2 ) // apply
+		{
+			cMultiGump* pGump = new cMultiGump( char_, multi_ );
+			socket->send( pGump );
+		}
+
+		return;
+	}
+	else if( choice.button == 3 || choice.button == 4 )
+	{
+		socket->sysMessage( tr("Select a person to make %1 of this house").arg( choice.button == 3 ? tr("owner") : tr("co-owner") ) );
+		cSetMultiOwnerTarget* pTargetRequest = new cSetMultiOwnerTarget( multi_, choice.button == 4 );
+		socket->attachTarget( pTargetRequest );
+	}	
+	else if( choice.button == 5 )
+	{
+		// call lock/unlock target request cMultiChangeLockRequest
+
+	}
+	else if( choice.button == 6 )
+	{
+		pMulti->toDeed( socket );
+	}
+
+	else if( choice.button >= 10 )
+	{
+		if( choice.button < 10 + bans.size() )
+		{
+			// ban button pressed
+		}
+		else if( choice.button < 10 + bans.size() + friends.size() )
+		{
+			// friends button pressed
+		}
+	}
 }

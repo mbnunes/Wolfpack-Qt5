@@ -261,6 +261,15 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			else 
 				socket->sysMessage(tr("You can't reach that!"));
 		}
+		else if( pi->type2() == 222 )
+		{
+			cMulti* pMulti = dynamic_cast< cMulti* >( pi );
+			if( pMulti && ( pMulti->owner() == pc_currchar || pMulti->coOwner() == pc_currchar || pc_currchar->isGM() ) && socket )
+			{
+				cMultiGump* pGump = new cMultiGump( pc_currchar->serial, pMulti->serial );
+				socket->send( pGump );
+			}
+		}
 		// End Boats --^
 		return;
 		
@@ -751,6 +760,18 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				
 				return;
 			}
+			break;
+
+		case 222:	// player clicks on a house item (sign) to set ban/friendlists, rename
+			{
+				cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis ) );
+				if( pMulti && ( pMulti->owner() == pc_currchar || pMulti->coOwner() == pc_currchar || pc_currchar->isGM() ) && socket )
+				{
+					cMultiGump* pGump = new cMultiGump( pc_currchar->serial, pMulti->serial );
+					socket->send( pGump );
+				}
+			}
+			return;
 		
 		// By Polygon: Clicked on a tattered treasure map, call decipher-function
 		case 301: 

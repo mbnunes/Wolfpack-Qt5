@@ -80,7 +80,7 @@ public:
 
 	char speechInput( cUOSocket* socket, const QString &input );
 
-	void toDeed( cUOSocket* socket );
+	virtual void toDeed( cUOSocket* socket );
 
 	//void setAutoSail( UOXSOCKET s, P_ITEM pMap );
 	bool doesAutoSail( void ) { return autosail_ > 0; }

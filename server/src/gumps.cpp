@@ -77,7 +77,7 @@ void entrygump(int s, SERIAL serial, unsigned char type, char index, short int m
 }
 
 cGump::cGump() : noMove_( false ), noClose_( false ), 
-noDispose_( false ), x_( -1 ), y_( -1 ), serial_( INVALID_SERIAL ), 
+noDispose_( false ), x_( 50 ), y_( 50 ), serial_( INVALID_SERIAL ), 
 type_( 1 ) 
 {
 }

@@ -37,10 +37,11 @@
 
 // Library includes
 #include "qvaluelist.h"
-//#include "qptrlist.h"
+#include "qptrvector.h"
 
 #include "uobject.h"
 #include "items.h"
+#include "gumps.h"
 
 // Forward Declaration
 class cChar;
@@ -53,8 +54,14 @@ public:
 	virtual void Serialize( ISerialization &archive );
 //	virtual QString objectID( void ) const { return "MULTI"; }
 
+	virtual void toDeed( cUOSocket* socket ) = 0;
+
 	QString deedSection( void ) { return deedsection_; }
 	bool	itemsdecay( void ) { return itemsdecay_; }
+	void	setName( const QString nValue );
+
+	P_CHAR	coOwner( void );
+	void	setCoOwner( P_CHAR pc );
 
 	void	addItem( P_ITEM pi );
 	void	removeItem( P_ITEM pi );
@@ -66,9 +73,14 @@ public:
 	bool	isBanned( P_CHAR pc );
 	void	addBan( P_CHAR pc );
 	void	removeBan( P_CHAR pc );
+	void	removeBan( SERIAL serial );
 	bool	isFriend( P_CHAR pc );
 	void	addFriend( P_CHAR pc );
 	void	removeFriend( P_CHAR pc );
+	void	removeFriend( SERIAL serial );
+
+	std::vector<SERIAL>	friends()	const { return friends_; }
+	std::vector<SERIAL>	bans()		const { return bans_; }
 
 	P_ITEM	findKey( P_CHAR pc );
 	void	createKeys( P_CHAR pc, const QString &name );
@@ -87,10 +99,25 @@ protected:
 protected:
 	QString deedsection_;
 	bool	itemsdecay_;
+	SERIAL	coowner_;
 	std::vector<SERIAL>	friends_;
 	std::vector<SERIAL>	bans_;
 	QValueList< SERIAL >	items_;
 	QValueList< SERIAL >	chars_;
+};
+
+class cMultiGump : public cGump
+{
+private:
+	SERIAL char_;
+	SERIAL multi_;
+	QPtrVector< cChar > friends;
+	QPtrVector< cChar > bans;
+
+public:
+	cMultiGump( SERIAL charSerial, SERIAL multiSerial );
+
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };
 
 #endif

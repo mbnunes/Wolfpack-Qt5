@@ -103,6 +103,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	}
 
 	this->type_ = 117;//Boat type
+	this->type2_ = 222;
 	this->name_ = tr("a mast");
 	this->boatdir = 0; // starting with north boatdirection
 
@@ -874,11 +875,11 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 	if( !pc_currchar )
 		return;
 
-	if( !authorized( pc_currchar ) )
+/*	if( !authorized( pc_currchar ) )
 	{
 		socket->sysMessage( tr("You are not allowed to enter this boat!") );
 		return;
-	}
+	}*/
 
 	bool charonboat = false;
 
@@ -1206,40 +1207,44 @@ char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they sa
 }
 
 // khpae - make deed from a boat
-void cBoat::toDeed( cUOSocket* socket ) {
+void cBoat::toDeed( cUOSocket* socket ) 
+{
 	P_CHAR pc = socket->player();
-	if ( !pc ) {
+	if ( !pc ) 
 		return;
-	}
+
 	// if player is in boat
-	if ( inMulti( pc->pos ) ) {
-		socket->sysMessage ( tr("You must leave the boat to deed it.") );
+	if ( inMulti( pc->pos ) ) 
+	{
+		socket->sysMessage ( tr("You must leave the boat to do this.") );
 		return;
 	}
 
 	// check if the player has the boat key
-	P_ITEM pi = findKey( pc );
 
-	if ( !pi ) {
-		socket->sysMessage ( tr("You don't have the boat key.") );
+	if ( !authorized( pc ) ) 
+	{
+		socket->sysMessage ( tr("You are not allowed to do this!") );
 		return;
 	}
-	if (items_.size () > 0) {
-		socket->sysMessage ( tr("You can only deed with empty boat (remove items).") );
+
+	if( items_.size() > 0 || chars_.size() > 0 ) 
+	{
+		socket->sysMessage ( tr("The boat is not empty.") );
 		return;
 	}
-	if (chars_.size () > 0) {
-		socket->sysMessage ( tr("You can only deed with empty boat (remove pc/npcs).") );
-		return;
-	}
+
 	// add deed
-	P_ITEM bdeed = Items->SpawnItemBackpack2 (-1, this->deedsection_, 0);
-	if (bdeed == NULL) {
-		socket->sysMessage ( tr("There's problem with deed boat. Please contact Game Master.") );
-		return;
+	P_ITEM pBackpack = pc->getBackpack();
+	if( pBackpack )
+	{
+		P_ITEM pDeed = Items->createScriptItem( this->deedsection_ );
+
+		if( !pDeed ) 
+			socket->sysMessage ( tr("An error occured. Send a bug report to the staff, please.") );
+		else
+			pBackpack->AddItem( pDeed );
 	}
-	// remove key
-	Items->DeleItem (pi);
 
 	removeKeys();
 
@@ -1261,7 +1266,7 @@ void cBoat::toDeed( cUOSocket* socket ) {
 
 	this->removeChar( pc );
 	Items->DeleItem (this);
-	socket->sysMessage ( tr("You deed the boat.") );
+	socket->sysMessage( tr("You turned the boat into a deed.") );
 }
 
 void cBoat::Serialize( ISerialization &archive )

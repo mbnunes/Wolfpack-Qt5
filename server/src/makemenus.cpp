@@ -874,9 +874,6 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notice
 	action_ = NULL;
 	menu_ = menu;
 
-	setX( 50 );
-	setY( 50 );
-
 	startPage();
 	addResizeGump( 0, 0, 0x13BE, 530, 417 );
 
@@ -984,9 +981,6 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	action_ = action;
 	menu_ = action->baseMenu();
 	prev_ = action->baseMenu();
-
-	setY( 50 );
-	setX( 50 );
 
 	QString htmlmask = "<basefont color=\"#FFFFFF\">%1";
 	QString htmlmaskcenter = "<basefont color=\"#FFFFFF\"><div align=\"center\">%1</div>";

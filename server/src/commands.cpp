@@ -115,8 +115,6 @@ void cCommands::loadACLs( void )
 		return;
 	}
 
-	QString groupName;
-
 	// We are iterating trough a list of ACLs
 	// In each loop we create one acl
 	for( QStringList::iterator it = ScriptSections.begin(); it != ScriptSections.end(); ++it )
@@ -140,29 +138,41 @@ void cCommands::loadACLs( void )
 		stAcl *acl = new stAcl;
 		acl->name = ACLname;
 		QMap< QString, bool > group;
+		QString groupName;
 
-		QDomElement n = Tag->firstChild().toElement();
-		while( !n.isNull() )
+		QDomNode childNode = Tag->firstChild();
+		while( !childNode.isNull() )
 		{
-			if ( n.nodeName() == "group" )
+			if( childNode.isElement() )
 			{
-				groupName = n.attribute("name", QString::null);
-				n = n.firstChild().toElement();
-			} 
-			else if ( n.nodeName() == "action" )
-			{
-				QString name = n.attribute( "name", "any" );
-				bool permit = n.attribute( "permit", "false" ) == "true" ? true : false;
-				group.insert( name, permit );
-				n = n.nextSibling().toElement(); // Process next action
-			}
+				QDomElement childTag = childNode.toElement();
+				if( childTag.nodeName() == "group" )
+				{
+					groupName = childTag.attribute("name", QString::null);
+					QDomNode chchildNode = childTag.firstChild();
+					while( !chchildNode.isNull() )
+					{
+						if( chchildNode.isElement() )
+						{
+							QDomElement chchildTag = chchildNode.toElement();
+							if( chchildTag.nodeName() == "action" )
+							{
+								QString name = chchildTag.attribute( "name", "any" );
+								bool permit = chchildTag.attribute( "permit", "false" ) == "true" ? true : false;
+								group.insert( name, permit );
+							}
+						}
+						chchildNode = chchildNode.nextSibling();
+					}
 
-			if ( n.isNull() && n.parentNode() != *Tag )
-			{
-				n = n.parentNode().nextSibling().toElement();
-				acl->groups.insert( groupName, group );
-				group.clear();
+					if( !group.isEmpty() )
+					{
+						acl->groups.insert( groupName, group );
+						group.clear();
+					}
+				}
 			}
+			childNode = childNode.nextSibling();			
 		}
 
 		_acls.insert( ACLname, acl );	

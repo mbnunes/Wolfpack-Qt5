@@ -67,6 +67,8 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 	cItemsManager::getInstance()->registerItem( nItem );
 
 	nItem->applyDefinition( Tag );
+	if( nItem->type() == 222 )
+		nItem->setName( name() );
 
 	nItem->SetOwnSerial( this->ownserial );
 	addItem( nItem );
@@ -252,6 +254,7 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 
 void cHouse::remove( void )
 {
+	removeKeys();
 	cRegion::RegionIterator4Chars ri(this->pos);
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
@@ -263,17 +266,16 @@ void cHouse::remove( void )
 	for(rii.Begin(); !rii.atEnd(); rii++)
 	{
 		P_ITEM pi = rii.GetData();
-		if(pi->multis == this->serial && pi->type() != 202)
+		if(pi->multis == this->serial && pi->serial != this->serial && pi->type() != 202)
 			Items->DeleItem(pi);
 	}
-	removeKeys();
 }
 
-P_ITEM cHouse::toDeed( cUOSocket* socket )
+void cHouse::toDeed( cUOSocket* socket )
 {
 	P_CHAR pc_currchar = socket->player();
 	if( !pc_currchar )
-		return NULL;
+		return;
 	P_ITEM pBackpack = pc_currchar->getBackpack();
 
 	cRegion::RegionIterator4Chars ri(this->pos);
@@ -294,12 +296,13 @@ P_ITEM cHouse::toDeed( cUOSocket* socket )
 		}
 	}
 
-	this->removeKeys();
 	this->remove();
-
 	
 	if( this->deedsection_.isNull() || this->deedsection_.isEmpty() || !pBackpack )
-		return NULL;
+	{
+		Items->DeleItem( this );
+		return;
+	}
 
 	P_ITEM pDeed = Items->createScriptItem( this->deedsection_ );
 	if( pDeed ) 
@@ -307,8 +310,8 @@ P_ITEM cHouse::toDeed( cUOSocket* socket )
 		pBackpack->AddItem( pDeed );
 		pDeed->update();
 	}
-
-	return pDeed;
+	Items->DeleItem( this );
+	socket->sysMessage( tr("You turned the boat into a deed.") );
 }
 
 void cHouse::Serialize(ISerialization &archive)
@@ -334,4 +337,7 @@ QString cHouse::objectID() const
 {
 	return "HOUSE";
 }
+
+
+
 
