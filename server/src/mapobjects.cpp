@@ -106,7 +106,8 @@ private:
 
 cQuadNode::cQuadNode( UI16 x, UI16 y, cQuadNode* parent ) : x_( x ), y_( y ), parent_( parent )
 {
-	memset(&childs[0], 0, enNumberOfChilds);
+	for( int i = 0; i < enNumberOfChilds; ++i )
+		childs[i] = 0;
 }
 
 cQuadNode::~cQuadNode()
