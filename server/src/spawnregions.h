@@ -34,6 +34,7 @@
 
 #include "definable.h"
 #include "platform.h"
+#include "coord.h"
 
 // Library includes
 #include "qstring.h"
@@ -47,16 +48,18 @@
 class cSpawnRegion : public cDefinable
 {
 public:
-	cSpawnRegion() {;}
 	cSpawnRegion( const QDomElement &Tag );
 	~cSpawnRegion() {;}
 
+	void	Init( void );
 	void	Add( UI32 serial );
 
 	void	reSpawn( void );
 	void	deSpawn( void );
 
 	void	checkTimer( void );
+
+	bool	findValidSpot( Coord_cl &pos );
 private:
 	virtual void processNode( const QDomElement &Tag );
 
@@ -64,11 +67,16 @@ private:
 	std::vector< UI32 >		npcSerials_;	// serials of chars spawned by this area
 	std::vector< UI32 >		itemSerials_;	// serials of items spawned by this area
 
+	QString					name_;			// name of the spawnregion (section's name)
+
 	QStringList				npcSections_;	// list of npc's sections
 	QStringList				itemSections_;	// list of item's sections
 	
 	UI16					maxNpcAmt_;		// Max amount of characters to spawn
 	UI16					maxItemAmt_;	// Max amount of items to spawn
+
+	UI16					npcsPerCycle_;	// amount of characters to spawn per cycle
+	UI16					itemsPerCycle_;	// amount of items to spawn per cycle
 	
 	UI32					minTime_;		// Minimum spawn time in sec
 	UI32					maxTime_;		// Maximum spawn time in sec
@@ -78,6 +86,8 @@ private:
 	UI16					x2_;			// Bottom right x
 	UI16					y1_;			// Top left y
 	UI16					y2_;			// Bottom right y
+
+	UI08					z_;				// Height, if not specified z will be chosen
 };
 
 class cAllSpawnRegions : public std::map< QString, cSpawnRegion* >
