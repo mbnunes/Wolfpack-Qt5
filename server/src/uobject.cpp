@@ -389,6 +389,12 @@ void cUObject::processNode( const QDomElement &Tag )
 				this->tags.set( tkey, cVariant( tvalue ) );
 		}
 	}
+	// <events>a,b,c</events>
+	else if( TagName == "events" )
+	{
+		eventList_ = QStringList::split( ",", Value );
+		recreateEvents();
+	}
 }
 
 // Remove it from all in-range sockets

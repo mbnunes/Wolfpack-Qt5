@@ -3428,7 +3428,7 @@ void cChar::setOwner( P_CHAR data )
 
 	if( owner_ )
 	{
-		owner_->removeFollower( data, true );
+		owner_->removeFollower( this, true );
 		tamed_ = false;
 	}
 
@@ -3436,7 +3436,7 @@ void cChar::setOwner( P_CHAR data )
 
 	if( owner_ )
 	{
-		owner_->addFollower( data, true );
+		owner_->addFollower( this, true );
 		tamed_ = true;
 	}
 }
