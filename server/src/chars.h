@@ -207,7 +207,7 @@ protected:
 		stSkillValue(): value( 0 ), cap( 1000 ), lock( 0 ) {}
 	};
 
-	QMap< UINT16, stSkillValue >	skills; // Skills for this Character
+	QValueVector< stSkillValue >	skills; // Skills for this Character
 
 	cUOSocket*				socket_;
 	unsigned short			weight_;

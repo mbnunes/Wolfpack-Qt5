@@ -289,6 +289,8 @@ cChar::cChar( const P_CHAR mob )
 	this->profile_ = mob->profile();
 	//this->lastselections_ = 
 	this->food_ = mob->food();
+
+	this->skills = mob->skills;
 }
 
 void cChar::giveGold( Q_UINT32 amount, bool inBank )
@@ -508,6 +510,8 @@ void cChar::Init(bool ser)
 	this->questType_ = 0; //??
 	this->GuildType = 0;
 	this->setFood( 0 );
+
+	this->skills.resize( ALLSKILLS );
 }
 
 ///////////////////////
@@ -759,7 +763,7 @@ unsigned int cChar::getSkillSum()
 {
 	unsigned int sum = 0;
 
-	QMap< UINT16, stSkillValue >::const_iterator it = skills.begin();
+	QValueVector< stSkillValue >::const_iterator it = skills.begin();
 	for( ; it != skills.end(); ++it )
 		sum += (*it).value;
 
@@ -994,15 +998,12 @@ void cChar::load( char **result, UINT16 &offset )
 		if( lockType > 2 )
 			lockType = 0;
 
-		if( value != 0 || lockType != 0 || cap != 1000 )
-		{
-			stSkillValue skValue;
-			skValue.value = value;
-			skValue.lock = lockType;
-			skValue.cap = cap;
+		stSkillValue skValue;
+		skValue.value = value;
+		skValue.lock = lockType;
+		skValue.cap = cap;
 
-			skills.insert( skill, skValue );
-		}
+		skills[ skill ] = skValue;
 	}
 
 	res.free();
@@ -1120,19 +1121,21 @@ void cChar::save()
 		addCondition( "serial", serial() );
 		saveFields;
 		
-		QMap< UINT16, stSkillValue >::const_iterator it;
+		QValueVector< stSkillValue >::const_iterator it;
+		int i = 0;
 		for( it = skills.begin(); it != skills.end(); ++it )
 		{
 			clearFields;
 			setTable( "skills" );
 			addField( "serial", serial() );
-			addField( "skill", it.key() );
+			addField( "skill", i );
 			addField( "value", (*it).value );
 			addField( "locktype", (*it).lock );
 			addField( "cap", (*it).cap );
 			addCondition( "serial", serial() );
-			addCondition( "skill", it.key() );
+			addCondition( "skill", i );
 			saveFields;
+			++i;
 		}
 	}
 	cUObject::save();
@@ -4425,8 +4428,10 @@ void cChar::setSkillValue( UINT16 skill, UINT16 value )
 	// Check if we can delete the current skill
 	const stSkillValue &skValue = skills[ skill ];
 
-	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
-		skills.remove( skill );
+//	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
+//		skills.remove( skill );
+
+	changed( SAVE | TOOLTIP );
 }
 
 void cChar::setSkillCap( UINT16 skill, UINT16 cap )
@@ -4436,8 +4441,10 @@ void cChar::setSkillCap( UINT16 skill, UINT16 cap )
 	// Check if we can delete the current skill
 	const stSkillValue &skValue = skills[ skill ];
 
-	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
-		skills.remove( skill );
+//	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
+//		skills.remove( skill );
+
+	changed( SAVE | TOOLTIP );
 }
 
 void cChar::setSkillLock( UINT16 skill, UINT8 lock )
@@ -4450,36 +4457,32 @@ void cChar::setSkillLock( UINT16 skill, UINT8 lock )
 	// Check if we can delete the current skill
 	const stSkillValue &skValue = skills[ skill ];
 
-	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
-		skills.remove( skill );
+//	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
+//		skills.remove( skill );
+
+	changed( SAVE | TOOLTIP );
 }
 
 UINT16 cChar::skillValue( UINT16 skill ) const
 {
-	QMap< UINT16, stSkillValue >::const_iterator skValue = skills.find( skill );
+	return skills[ skill ].value;
 
-	if( skValue == skills.end() )
-		return 0;
-
-	return (*skValue).value;
+//	if( skValue == skills.end() )
+//		return 0;
 }
 
 UINT16 cChar::skillCap( UINT16 skill ) const
 {
-	QMap< UINT16, stSkillValue >::const_iterator skValue = skills.find( skill );
+	return skills[ skill ].cap;
 
-	if( skValue == skills.end() )
-		return 1000;
-
-	return (*skValue).cap;
+//	if( skValue == skills.end() )
+//		return 1000;
 }
 
 UINT8 cChar::skillLock( UINT16 skill ) const
 {
-	QMap< UINT16, stSkillValue >::const_iterator skValue = skills.find( skill );
+	return skills[ skill ].lock;
 
-	if( skValue == skills.end() )
-		return 0;
-
-	return (*skValue).lock;
+//	if( skValue == skills.end() )
+//		return 0;
 }
