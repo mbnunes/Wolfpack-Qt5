@@ -468,10 +468,16 @@ void cMakeSection::execute( cUOSocket* socket )
 	{
 		if( !baseaction_->failMsg().isNull() )
 		socket->sysMessage( baseaction_->failMsg() );
+		if( baseaction_->failSound() > 0 )
+			pChar->soundEffect( baseaction_->failSound() );
 		return;
 	}
 	else if( !baseaction_->succMsg().isNull() )
+	{
 		socket->sysMessage( baseaction_->succMsg() );
+		if( baseaction_->succSound() > 0 )
+			pChar->soundEffect( baseaction_->succSound() );
+	}
 
 	// lets calculate the rank for the item now
 	UINT16 rank;
@@ -527,10 +533,6 @@ void cMakeSection::execute( cUOSocket* socket )
 
 	if( baseaction_->charAction() > 0 )
 		pChar->action( baseaction_->charAction() );
-
-	if( baseaction_->sound() > 0 )
-		pChar->soundEffect( baseaction_->sound() );
-
 
 	if( makeitems_.count() > 0 )
 	{
@@ -619,7 +621,8 @@ cMakeAction::cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu )
 	failmsg_ = (char*)0;
 	succmsg_ = (char*)0;
 	charaction_ = 0;
-	sound_ = 0;
+	succsound_ = 0;
+	failsound_ = 0;
 	type_ = CUSTOM_SECTIONS;
 	if( Tag.hasAttribute( "type" ) )
 	{
@@ -799,7 +802,16 @@ void cMakeAction::processNode( const QDomElement &Tag )
 		name_ = Value;
 
 	else if( TagName == "sound" )
-		sound_ = Value.toUShort();
+	{
+		succsound_ = Value.toUShort();
+		failsound_ = succsound_;
+	}
+	
+	else if( TagName == "succsound" )
+		succsound_ = Value.toUShort();
+
+	else if( TagName == "failsound" )
+		failsound_ = Value.toUShort();
 
 	else if( TagName == "model" )
 		model_ = Value.toUShort();

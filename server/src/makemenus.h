@@ -219,7 +219,8 @@ public:
 	QString			failMsg()		const { return failmsg_; }
 	QString			succMsg()		const { return succmsg_; }
 	UINT8			charAction()	const { return charaction_; }
-	UINT16			sound()			const { return sound_; }
+	UINT16			succSound()		const { return succsound_; }
+	UINT16			failSound()		const { return failsound_; }
 	WPACTIONTYPE	type()			const { return type_; }
 
 	// Setters
@@ -241,7 +242,8 @@ private:
 	QString								failmsg_;
 	QString								succmsg_;
 	UINT8								charaction_;
-	UINT16								sound_;
+	UINT16								succsound_;
+	UINT16								failsound_;
 
 };
 

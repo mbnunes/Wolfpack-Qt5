@@ -477,7 +477,7 @@ public:
 			else if (pc->in() <= 80)	socket->sysMessage( tr("That person looks extraordinarily intelligent.") );
 			else if (pc->in() <= 90)	socket->sysMessage( tr("That person looks like a formidable intellect, well beyond the ordinary.") );
 			else if (pc->in() <= 99)	socket->sysMessage( tr("That person looks like a definite genius.") );
-			else if (pc->in() >=100)  socket->sysMessage( tr("That person looks superhumanly intelligent in a manner you cannot comprehend.") );
+			else if (pc->in() >=100)	socket->sysMessage( tr("That person looks superhumanly intelligent in a manner you cannot comprehend.") );
 		}
 		return true;
 	}
@@ -1245,6 +1245,8 @@ bool cSkRepairItem::responsed( cUOSocket *socket, cUORxTarget *target )
 		pi->setMaxhp( pi->maxhp() - dmg );
 		pi->setHp( pi->maxhp() );
 		socket->sysMessage( tr("* the item has been repaired.*") );
+		if( makesection_ && makesection_->baseAction() )
+			pc->soundEffect( makesection_->baseAction()->succSound() );
 	}
 	else
 	{
@@ -1252,10 +1254,9 @@ bool cSkRepairItem::responsed( cUOSocket *socket, cUORxTarget *target )
 		pi->setMaxhp( pi->maxhp() - 1 );
 		socket->sysMessage( tr("* You fail to repair the item. *") );
 		socket->sysMessage( tr("* You weaken the item.*") );
+		if( makesection_ && makesection_->baseAction() )
+			pc->soundEffect( makesection_->baseAction()->failSound() );
 	}
-
-	if( makesection_ && makesection_->baseAction() )
-		pc->soundEffect( makesection_->baseAction()->sound() );
 
 	return true;
 }
