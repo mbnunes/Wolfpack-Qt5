@@ -992,15 +992,14 @@ static PyObject* wpItem_say(wpItem* self, PyObject* args, PyObject *keywds ) {
 		if( !PyArg_ParseTupleAndKeywords( args, keywds, "i|ssbiO&:char.say( clilocid, [args], [affix], [prepend], [color], [socket] )", kwlist, &id, &clilocargs, &affix, &prepend, &color, &PyConvertSocket, &socket ) )
 			return 0;
 
-		
-		//npc->talk( id, clilocargs, affix, prepend, color, socket );
+		self->pItem->talk(id, clilocargs, affix, prepend, color, socket);
 	} else {
 		ushort color = 0x3b2;
 
 		if( checkArgInt( 1 ) )
 			color = getArgInt( 1 );
 
-		//self->pChar->talk( getArgStr( 0 ), color );
+		self->pItem->talk(getArgStr(0), color);
 	}
 
 	Py_INCREF(Py_None);

@@ -1287,11 +1287,9 @@ void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	else
 	{
 		// Send to all clients in range
-		for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
-		{
-			if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
-			{
-				mSock->send( new cUOTxUnicodeSpeech( *textSpeech ) );
+		for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() ) {
+			if (mSock->canSee(this)) {
+				mSock->send(new cUOTxUnicodeSpeech(*textSpeech));
 			}
 		}
 		delete textSpeech;
@@ -1312,12 +1310,11 @@ void cItem::talk(const UINT32 MsgID, const QString& params, const QString& affix
 		// Send to all clients in range
 		for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
-			if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
-			{
-				if ( affix.isEmpty() )
-					mSock->clilocMessage( MsgID, params, color, 3, this );
+			if (mSock->canSee(this)) {
+				if (affix.isEmpty())
+					mSock->clilocMessage(MsgID, params, color, 3, this);
 				else
-					mSock->clilocMessageAffix( MsgID, params, affix, color, 3, this, false, prepend );
+					mSock->clilocMessageAffix(MsgID, params, affix, color, 3, this, false, prepend);
 			}
 		}
 	}
