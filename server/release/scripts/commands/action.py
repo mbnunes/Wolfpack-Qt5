@@ -9,7 +9,7 @@
 
 import wolfpack
 from wolfpack.utilities import hex2dec
-	
+
 def action(socket, command, arguments):
 	try:
 		action = hex2dec(arguments)
@@ -23,8 +23,8 @@ def onLoad():
 """
 	\command action
 	\description Lets your character perform an animation visible to everyone.
-	\usage - <code>action id</code>	
+	\usage - <code>action id</code>
 	Id is the animation you want your character to perform.
-	The animation will be visible to everyone seeing you. You can also 
+	The animation will be visible to everyone seeing you. You can also
 	specify the animation id as a hexadecimal number (0x0, 0x01, etc.).
 """

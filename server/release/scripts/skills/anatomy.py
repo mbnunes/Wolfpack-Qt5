@@ -55,7 +55,7 @@ def response( char, args, target ):
 
 	# Turn toward the char we want to look at
 	char.turnto( target.char )
-	
+
 	# Invulnerable Characters cannot be examined
 	if target.char.dead:
 		socket.clilocmessage( 0x7A266, "", 0x3b2, 3, target.char ) # That cannot be inspected.
@@ -79,7 +79,7 @@ def response( char, args, target ):
 
 	socket.clilocmessage( msgId, "", 0x3b2, 3, target.char )
 	socket.clilocmessage( msgId2, "", 0x3b2, 3, target.char )
-	
+
 # Register as a global script
 def onLoad():
 	skills.register( ANATOMY, anatomy )

@@ -3,7 +3,6 @@ import wolfpack
 from wolfpack import utilities
 from wolfpack import properties
 
-
 TURNABLES = {
 	# Wooden Chest
 	0xe42: [0xe43],

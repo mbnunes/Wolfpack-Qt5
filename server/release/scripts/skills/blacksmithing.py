@@ -1,4 +1,3 @@
-
 #################################################################
 #	 )			(\_		 # WOLFPACK 13.0.0 Scripts										#
 #	((		_/{	"-;	# Created by: DarkStorm											#
@@ -171,14 +170,14 @@ class SmithItemAction(CraftItemAction):
 			material = self.parent.submaterials2[material]
 			item.color = material[4]
 			item.settag('resname2', material[5])
-			
+
 		# Apply one-time boni
 		healthbonus = fromitem(item, DURABILITYBONUS)
 		if healthbonus != 0:
 			bonus = int(math.ceil(item.maxhealth * (healthbonus / 100.0)))
 			item.maxhealth = max(1, item.maxhealth + bonus)
 			item.health = item.maxhealth
-			
+
 		weightbonus = fromitem(item, WEIGHTBONUS)
 		if weightbonus != 0:
 			bonus = int(math.ceil(item.weight * (weightbonus / 100.0)))

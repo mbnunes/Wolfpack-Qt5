@@ -30,7 +30,7 @@ def guildMemberDetailsResponse(player, arguments, response):
 
   if response.button == 0:
     guildMembers(player, guild)
-  
+
   elif response.button == 1:
     # Edit the permissions
     if checkPermission(player, guild, PERMISSION_GRANT) and player != char and guild.leader != char:
@@ -71,7 +71,7 @@ def guildMemberDetailsResponse(player, arguments, response):
 
     char.resendtooltip()
     guildMembers(player, guild)
-  
+
   # Send a message to char
   elif response.button == 2:
     message = response.text[2]
@@ -94,8 +94,8 @@ def guildMemberDetailsResponse(player, arguments, response):
     if not checkPermission(player, guild, PERMISSION_KICK):
       player.socket.sysmessage('You lack the permission to kick members out of this guild.')
     elif char != player and char != guild.leader:
-      guild.removemember(char) 
-      char.resendtooltip()    
+      guild.removemember(char)
+      char.resendtooltip()
       sendMessage(char, 'You have been removed from your guild by %s.' % player.name)
       for member in guild.members:
         sendMessage(member, '%s has been removed from your guild by %s.' % (char.name, player.name))
@@ -112,7 +112,7 @@ def guildMemberDetailsResponse(player, arguments, response):
 
       # Place a new vote
       if 0x8001 in response.switches and vote != char.serial:
-        # If we previously voted for someone else, tell him he doesnt have 
+        # If we previously voted for someone else, tell him he doesnt have
         # our vote anymore.
         previous = wolfpack.findchar(vote)
         if previous and previous in guild.members:
@@ -186,7 +186,7 @@ def guildMemberDetails(player, guild, char):
   dialog = wolfpack.gumps.cGump()
   dialog.setCallback("guilds.stone.guildMemberDetailsResponse")
   dialog.setArgs([guild.serial, char.serial])
-  
+
   dialog.startPage(0)
   dialog.addResizeGump(64, 34, 9260, 467, 516)
   dialog.addGump(30, 33, 10421, 0)
@@ -201,7 +201,7 @@ def guildMemberDetails(player, guild, char):
   dialog.addButton(103, 511, 247, 248, 1)
   dialog.addButton(178, 511, 242, 241, 0)
   dialog.addGump(14, 324, 10401, 0)
-  
+
   dialog.startPage(1)
   dialog.addText(120, 190, "Member Name: %s" % char.name, 2100)
   dialog.addText(240, 160, "General Information", 380)
@@ -223,14 +223,14 @@ def guildMemberDetails(player, guild, char):
   dialog.addHtmlGump(120, 345, 366, 108, "<basefont color=\"#666666\"><h3><u>Profile Information:</u></h3><basefont color=\"#333333\"><br>%s" % char.profile, 1, 1)
   dialog.addPageButton(459, 468, 9903, 9905, 2)
   dialog.addText(377, 469, "Permissions", 980)
-  
+
   dialog.startPage(2)
   dialog.addText(264, 160, "Permissions", 380)
   dialog.addText(149, 468, "General Information", 905)
   dialog.addPageButton(122, 468, 9909, 9911, 1)
   dialog.addPageButton(459, 468, 9903, 9905, 3)
   dialog.addText(317, 469, "Miscellaneous Actions", 980)
-  
+
   # NOTE: You may NOT modify your own permissions AND you may only grant permissions you have yourself
   color = [2100, 2100, 2100, 2100, 2100, 2100, 2100, 2100]
   permissions = getPermissions(player, guild)
@@ -315,7 +315,7 @@ def guildMemberDetails(player, guild, char):
     else:
       dialog.addGump(116, 411, 9721, 980)
     color[7] = 980
-  
+
   dialog.addText(150, 190, "May edit the guild properties.", color[0])
   dialog.addText(152, 224, "May recruit new canidates for the guild.", color[1])
   dialog.addText(152, 256, "May promote canidates to full member status.", color[2])
@@ -355,11 +355,11 @@ def guildMemberDetails(player, guild, char):
     dialog.addText(127, 298, "Kick this member out of the guild:", 980)
     dialog.addGump(124, 324, 247, 980)
 
-  # If the guild already has a leader, no voting is in progress  
+  # If the guild already has a leader, no voting is in progress
   dialog.addResizeGump(112, 363, 9200, 380, 94)
   if not guild.leader:
     dialog.addText(127, 371, "Vote for a new leader:", 2106)
-    dialog.addButton(124, 425, 247, 248, 4)    
+    dialog.addButton(124, 425, 247, 248, 4)
     dialog.addText(163, 395, "You vote for this member.", 2100)
     dialog.addCheckbox(127, 390, 9721, 9724, 0x8001, getVote(player, guild) == char.serial)
   else:
@@ -367,7 +367,7 @@ def guildMemberDetails(player, guild, char):
     dialog.addGump(124, 425, 247, 980)
     dialog.addGump(127, 390, 9721, 980)
     dialog.addText(163, 395, "You vote for this member.", 980)
-  
+
   dialog.addPageButton(122, 468, 9909, 9911, 2)
   dialog.addText(149, 468, "Permissions", 905)
 
@@ -400,7 +400,7 @@ def guildMembers(player, guild):
   dialog = wolfpack.gumps.cGump()
   dialog.setCallback("guilds.stone.guildMembersResponse")
   dialog.setArgs([guild.serial])
-  
+
   dialog.startPage(0)
   dialog.addResizeGump(64, 34, 9260, 467, 516)
   dialog.addGump(30, 33, 10421, 0)
@@ -417,7 +417,7 @@ def guildMembers(player, guild):
   dialog.addGump(14, 324, 10401, 0)
   dialog.addText(114, 158, "Select a member you wish to see details about:", 2100)
   dialog.startGroup(0)
-  
+
   members = guild.members
   offset = 0
   page = 0
@@ -428,8 +428,8 @@ def guildMembers(player, guild):
       page += 1
       dialog.startPage(page)
 
-      if page > 1:        
-        dialog.addPageButton(112, 468, 9909, 9911, page - 1)        
+      if page > 1:
+        dialog.addPageButton(112, 468, 9909, 9911, page - 1)
         dialog.addText(139, 468, "Previous Page", 905)
 
       if page < pages:
@@ -439,7 +439,7 @@ def guildMembers(player, guild):
     info = guild.getmemberinfo(member)
 
     dialog.addResizeGump(110, 184 + offset, 9350, 384, 64)
-    dialog.addText(154, 195 + offset, member.name, 2100)  
+    dialog.addText(154, 195 + offset, member.name, 2100)
     dialog.addRadioButton(118, 190 + offset, 9721, 9724, member.serial, 0)
     dialog.addText(118, 223 + offset, "Joined: " + strftime(FORMAT_DATE, localtime(info['joined'])), 2100)
 
@@ -452,7 +452,7 @@ def guildMembers(player, guild):
       offset = 0
     else:
       offset += 70
-  
+
   dialog.send(player)
 
 # Simply return to the main menu
@@ -477,7 +477,7 @@ def guildCanidatesOverview(player, guild):
       offline.append(canidate.name)
 
   html = ''
-  
+
   if len(online) > 0:
     html += '<basefont color="#666666"><h3><u>Online:</u></h3><basefont color="#333333"><br>'
     for name in online:
@@ -512,7 +512,7 @@ def guildCanidatesOverview(player, guild):
     html += '<br><br>'
 
   dialog = wolfpack.gumps.cGump()
-  dialog.setCallback("guilds.stone.guildCanidatesOverviewResponse") 
+  dialog.setCallback("guilds.stone.guildCanidatesOverviewResponse")
   dialog.setArgs([guild.serial])
   dialog.startPage(0)
   dialog.addResizeGump(64, 34, 9260, 464, 462)
@@ -528,7 +528,7 @@ def guildCanidatesOverview(player, guild):
   dialog.addButton(102, 450, 247, 248, 0)
   dialog.addText(113, 158, "Canidates", 2100)
   dialog.addHtmlGump(110, 180, 384, 240, html, 1, 1)
-  
+
   dialog.send(player)
 
 def recruitResponse(player, arguments, target):
@@ -558,7 +558,7 @@ def recruitResponse(player, arguments, target):
         target.char.resendtooltip()
         if guild.guildstone:
           guild.guildstone.resendtooltip()
-        guildCanidates(player, guild)        
+        guildCanidates(player, guild)
 
 def guildCanidatesResponse(player, arguments, response):
   guild = wolfpack.findguild(arguments[0])
@@ -601,7 +601,7 @@ def guildCanidatesResponse(player, arguments, response):
             sendMessage(char, "You have been promoted to be a full member of your guild by %s." % player.name)
             for member in guild.members:
               sendMessage(member, "The canidate %s has been promoted to full member status by %s." % (char.name, player.name))
-            guild.addmember(char)            
+            guild.addmember(char)
 
             # Clean voting and or permissions
             char.deltag('vote_' + str(guild.serial))
@@ -646,7 +646,7 @@ def guildCanidates(player, guild):
     dialog = wolfpack.gumps.cGump()
     dialog.setCallback("guilds.stone.guildCanidatesResponse")
     dialog.setArgs([guild.serial])
-    
+
     dialog.startPage(0)
     dialog.addResizeGump(64, 34, 9260, 464, 462)
     dialog.addGump(30, 33, 10421, 0)
@@ -662,7 +662,7 @@ def guildCanidates(player, guild):
     dialog.addButton(177, 450, 242, 241, 0)
     dialog.addResizeGump(100, 394, 9200, 404, 46)
     dialog.startGroup(0)
-    
+
     if checkPermission(player, guild, PERMISSION_RECRUIT):
       dialog.addText(152, 406, "Recruit a new canidate for this guild.", 2100)
       dialog.addRadioButton(114, 401, 9721, 9724, 1, 0)
@@ -679,25 +679,25 @@ def guildCanidates(player, guild):
       if offset == 0:
         page += 1
         dialog.startPage(page)
-  
+
         if page > 1:
           dialog.addPageButton(111, 358, 9909, 9911, page - 1)
           dialog.addText(138, 358, "Previous Page", 905)
-  
+
         if page < pages:
           dialog.addPageButton(469, 358, 9903, 9905, page + 1)
           dialog.addText(388, 358, "Next Page", 905)
 
       dialog.addResizeGump(110, 157 + offset, 9350, 387, 62)
       dialog.addText(118, 162 + offset, canidate.name, 2100)
-      
+
       if checkPermission(player, guild, PERMISSION_EXPEL):
         dialog.addText(151, 189 + offset, "Expel this canidate", 2100)
         dialog.addRadioButton(114, 185 + offset, 9721, 9724, 0x80000000|canidate.serial, 0)
       else:
         dialog.addText(151, 189 + offset, "Expel this canidate", 980)
         dialog.addGump(114, 185 + offset, 9721, 980)
-      
+
       if checkPermission(player, guild, PERMISSION_PROMOTE):
         dialog.addText(338, 189 + offset, "Accept this canidate", 2100)
         dialog.addRadioButton(301, 185 + offset, 9721, 9724, 0x40000000|canidate.serial, 0)
@@ -709,7 +709,7 @@ def guildCanidates(player, guild):
         offset = 0
       else:
         offset += 67
-    
+
     dialog.send(player)
 
   else:
@@ -783,7 +783,7 @@ def guildProperties(player, guild):
   #dialog.setType(YOUR_TYPE_HERE)
   dialog.setCallback("guilds.stone.guildPropertiesResponse")
   dialog.setArgs([guild.serial])
-  
+
   dialog.startPage(0)
   dialog.addResizeGump(64, 34, 9260, 464, 462)
   dialog.addGump(30, 33, 10421, 0)
@@ -795,15 +795,15 @@ def guildProperties(player, guild):
   dialog.addText(160, 113, "General Properties", 2100)
   dialog.addResizeGump(100, 149, 9200, 404, 283)
   dialog.addGump(13, 339, 10402, 0)
-  
+
   dialog.addButton(102, 450, 247, 248, 1)
   dialog.addButton(177, 450, 242, 241, 0)
 
   if not readonly:
     dialog.addText(120, 164, "Guildname", 2100)
-    dialog.addResizeGump(120, 188, 9300, 174, 27)    
+    dialog.addResizeGump(120, 188, 9300, 174, 27)
     dialog.addInputField(124, 193, 160, 16, 2100, 1, guild.name)
-    
+
     dialog.addText(312, 164, "Abbreviation (3 chars max.)", 2100)
     dialog.addResizeGump(312, 188, 9300, 72, 27)
     dialog.addInputField(318, 192, 58, 17, 2100, 2, guild.abbreviation)
@@ -813,12 +813,12 @@ def guildProperties(player, guild):
 
   dialog.addText(120, 232 + offset, "Alignment", 2100)
   if not readonly:
-    dialog.startGroup(1)  
+    dialog.startGroup(1)
     dialog.addText(160, 261, "Good", 2100)
     dialog.addText(286, 261, "Neutral", 2100)
     dialog.addText(420, 261, "Evil", 2100)
-    dialog.addRadioButton(124, 256, 9721, 9724, 1, guild.alignment == 1)  
-    dialog.addRadioButton(248, 256, 9721, 9724, 0, guild.alignment == 0)  
+    dialog.addRadioButton(124, 256, 9721, 9724, 1, guild.alignment == 1)
+    dialog.addRadioButton(248, 256, 9721, 9724, 0, guild.alignment == 0)
     dialog.addRadioButton(384, 256, 9721, 9724, 2, guild.alignment == 2)
 
     dialog.addText(120, 303, "Website", 2100)
@@ -827,7 +827,7 @@ def guildProperties(player, guild):
     dialog.addResizeGump(118, 386, 9300, 360, 27)
     dialog.addInputField(124, 327, 237, 17, 2100, 3, guild.website)
     dialog.addInputField(122, 390, 349, 18, 2100, 4, guild.charta)
-  else:     
+  else:
     if guild.alignment == 1:
       dialog.addText(160, 261 + offset, "Good", 2100)
       dialog.addGump(124, 256 + offset, 9724)
@@ -863,7 +863,7 @@ def guildProperties(player, guild):
 
     dialog.addText(120, 303 + offset, "Additional Information", 2100)
     dialog.addHtmlGump(120, 323 + offset, 350, 165, html, 1, 1)
-  
+
   dialog.send(player)
 
 def guildMembershipResponse(player, arguments, response):
@@ -897,7 +897,7 @@ def guildMembershipResponse(player, arguments, response):
         for member in members:
           if member != player:
             sendMessage(member, "%s has left your guild." % player.name)
-      
+
         player.socket.sysmessage('You have resigned from your guild.')
         player.resendtooltip()
         if guild.guildstone:
@@ -923,11 +923,11 @@ def guildMembership(player, guild):
   abbreviation = ''
   if len(guild.abbreviation) > 0:
     abbreviation = ' [%s]' % guild.abbreviation
-  
+
   dialog = wolfpack.gumps.cGump()
   dialog.setCallback("guilds.stone.guildMembershipResponse")
   dialog.setArgs([guild.serial])
-  
+
   dialog.startPage(0)
   dialog.addResizeGump(64, 34, 9260, 464, 462)
   dialog.addGump(30, 33, 10421, 0)
@@ -940,7 +940,7 @@ def guildMembership(player, guild):
   dialog.addResizeGump(100, 149, 9200, 404, 283)
   dialog.addGump(13, 339, 10402, 0)
   dialog.addButton(102, 450, 247, 248, 1)
-  dialog.addButton(177, 450, 242, 241, 0)  
+  dialog.addButton(177, 450, 242, 241, 0)
   dialog.startGroup(0)
 
   if player in guild.members:
@@ -950,7 +950,7 @@ def guildMembership(player, guild):
       dialog.addText(156, 172, "Disable your guildsign.", 2100)
       dialog.addRadioButton(116, 168, 9721, 9724, 1, 0)
     else:
-      dialog.addText(156, 172, "Enable your guildsign.", 2100)    
+      dialog.addText(156, 172, "Enable your guildsign.", 2100)
       dialog.addRadioButton(116, 168, 9721, 9724, 2, 0)
   else:
     dialog.addText(156, 172, "Enable your guildsign.", 980)
@@ -965,7 +965,7 @@ def guildMembership(player, guild):
 
   if guild.leader == player:
     dialog.addText(156, 252, "Resign from your leadership position.", 2100)
-    dialog.addRadioButton(116, 248, 9721, 9724, 4, 0) 
+    dialog.addRadioButton(116, 248, 9721, 9724, 4, 0)
   else:
     dialog.addText(156, 252, "Resign from your leadership position.", 980)
     dialog.addGump(116, 248, 9721, 980)
@@ -976,9 +976,9 @@ def mainMenuResponse(player, arguments, response):
   if response.button != 0:
     if len(arguments) == 0:
       return
-    
+
     guild = wolfpack.findguild(arguments[0])
-  
+
     if not guild:
       player.socket.sysmessage('The guild you try to manage has already been disbanded.')
       return
@@ -1031,11 +1031,11 @@ def mainMenu(player, guild):
   members = guild.members
   canidates = guild.canidates
 
-  dialog = wolfpack.gumps.cGump() 
-  dialog.setCallback("guilds.stone.mainMenuResponse")  
+  dialog = wolfpack.gumps.cGump()
+  dialog.setCallback("guilds.stone.mainMenuResponse")
   dialog.setArgs([guild.serial])
   #dialog.setType(YOUR_TYPE_HERE)
-  
+
   dialog.startPage(0)
   dialog.addResizeGump(64, 34, 9260, 464, 462)
   dialog.addGump(30, 33, 10421, 0)
@@ -1048,7 +1048,7 @@ def mainMenu(player, guild):
   dialog.addResizeGump(100, 149, 9200, 404, 283)
   dialog.addGump(13, 339, 10402, 0)
   dialog.addButton(102, 450, 247, 248, 1)
-  dialog.addButton(177, 450, 242, 241, 0)  
+  dialog.addButton(177, 450, 242, 241, 0)
   dialog.startGroup(0)
 
   if checkPermission(player, guild, PERMISSION_PROPERTIES):
@@ -1098,9 +1098,9 @@ def mainMenu(player, guild):
   else:
     dialog.addText(156, 372, "Disband this guild.", 980)
     dialog.addGump(116, 368, 9721, 980)
-  
+
   dialog.send(player)
-  return 1  
+  return 1
 
 def onUse(player, stone):
   guild = None
@@ -1132,10 +1132,10 @@ def onShowTooltip(sender, target, tooltip):
         appendix = "%s\n" % guild.name
       else:
         appendix = "%s [%s]\n" % (guild.name, guild.abbreviation)
-    
+
       appendix += "Members: %u\n" % len(guild.members)
       appendix += "Canidates: %u\n" % len(guild.canidates)
-      
+
       if guild.leader:
         appendix += "Leader: " + guild.leader.name + "\n"
       else:

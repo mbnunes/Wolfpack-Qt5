@@ -31,6 +31,6 @@ def onUse( char, item ):
 		npc.npcwander = 0
 		npc.follow(char)
 		item.delete()
-	else: 
+	else:
 		item.delete()
 	return 1

@@ -26,8 +26,8 @@ def animallore( char, skill ):
 			char.socket.deltag( 'skill_delay' )
 
 	char.socket.clilocmessage( 0x7A268, "", 0x3b2, 3 ) # What animal should I look at?
-	char.socket.attachtarget( "skills.animallore.response" )    
-	
+	char.socket.attachtarget( "skills.animallore.response" )
+
 	return 1
 
 def response( char, args, target ):
@@ -41,12 +41,12 @@ def response( char, args, target ):
 
 	if not char.canreach( target.char, 13 ):
 		return # no msg sent when you fail los check on OSI, wonder why...
-	
+
 	if target.char.totame >= 1100 and not target.char.tamed:
 		if char.skill[ ANIMALLORE ] == 1000:
 			char.socket.clilocmessage( 0x10044B, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed or tameable creatures.
 			return
-		
+
 		elif char.skill[ ANIMALLORE ] < 1000:
 			char.socket.clilocmessage( 0x10044A, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed creatures
 			return
@@ -55,11 +55,11 @@ def response( char, args, target ):
 		if char.skill[ ANIMALLORE ] < 1000:
 			char.socket.clilocmessage( 0x10044A, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed creatures.
 			return
-		
+
 	if not char.checkskill( ANIMALLORE, 0, 1000 ):
 		char.socket.clilocmessage( 0x7A26E, "", 0x3b2, 3 ) # You can't think of anything you know offhand.
 		return
-		
+
 	sendGump( char, args, target )
 
 def sendGump( char, args, target ):
@@ -80,10 +80,10 @@ def sendGump( char, args, target ):
 	loreGump.addPageButton( 317, 358, 0x15E3, 0x15E7, 1 )
 
 	loreGump.addHtmlGump( 147, 108, 210, 18, "<div align=center><i>%s</i></div>" %target.char.name, 0, 0 )
-	
+
 	loreGump.addGump( 128,152, 2086 )
 	loreGump.addXmfHtmlGump( 147, 150, 160, 18, 0x1003F9, 0, 0, 200 ) # Attributes
-	
+
 	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003EA, 0, 0, 16000229 ) # Hits
 	loreGump.addHtmlGump( 280, 168, 75, 18, "<div align=right>%i/%i</div>" %( target.char.health, target.char.strength ), 0, 0 )
 
@@ -108,7 +108,7 @@ def sendGump( char, args, target ):
 
 	#loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x1003ED, 0, 0, 16000229 ) # Armor Rating
 	#loreGump.addHtmlGump( 320, 294, 35, 18, "<div align=right>%i</div>" % target.char.defense, 0, 0 )
-	
+
 	#page 2
 	loreGump.startPage( 2 )
 	loreGump.addGump( 100, 100, 2080 )
@@ -171,7 +171,7 @@ def sendGump( char, args, target ):
 
 	loreGump.addHtmlGump( 147, 108, 210, 18, "<div align=center><i>%s</i></center>" %target.char.name, 0, 0 )
 
-	#loreGump.addGump( 128, 152, 2086 )	
+	#loreGump.addGump( 128, 152, 2086 )
 	#loreGump.addXmfHtmlGump( 147, 150, 160, 18, 0x1003DB, 0, 0, 200 ) # Preferred Foods
 	#if target.char.food == 1 or target.char.food == 8:
 	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DC, 0, 0, 16000229 ) # Meat
@@ -192,9 +192,9 @@ def sendGump( char, args, target ):
 	loreGump.addXmfHtmlGump( 153, 204, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
 
 	loreGump.addGump( 128, 224, 2086 )
-	
+
 	loreGump.addXmfHtmlGump( 147, 222, 160, 18, 0x1003FA, 0, 0, 200 ) # Loyalty
-	
+
 	if not target.char.tamed:
 		loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
 	else:
@@ -212,7 +212,7 @@ def sendGump( char, args, target ):
 			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FD, 0, 0, 16000229 ) # Rather Unhappy
 		elif target.char.hunger == 0:
 			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FC, 0, 0, 16000229 ) # Extremely Unhappy
-	
+
 	loreGump.setArgs( [target] )
 	loreGump.setType( 0x10101010 )
 	loreGump.send( char )

@@ -17,7 +17,7 @@ skilltable = \
 {
 ALCHEMY:					[0, 0.5, 0.5, 1, 1000, FALSE],
 ANATOMY:					[0.1, 0.1, 0.8, 1, 1000, FALSE ],
-ANIMALLORE:				[0, 0, 1, 1, 1000, FALSE ], 
+ANIMALLORE:				[0, 0, 1, 1, 1000, FALSE ],
 ITEMID:						[0, 0, 1, 1, 1000, FALSE ],
 ARMSLORE:				[0.8, 0.1, 0.1, 1, 1000, FALSE ],
 PARRYING:				[0.75, 0.25, 0, 1, 1000, FALSE],
@@ -66,7 +66,7 @@ STEALTH:					[0, 0, 0, 1, 1000, FALSE ],
 REMOVETRAPS:			[0, 0, 0, 1, 1000, FALSE ],
 NECROMANCY:			[0, 0, 0, 1, 1000, FALSE ],
 FOCUS:	 					[0, 0, 0, 1, 1000, FALSE],
-CHIVALRY:				[0, 0, 0, 1, 1000, FALSE ]                
+CHIVALRY:				[0, 0, 0, 1, 1000, FALSE ]
 }
 
 skills = {}
@@ -74,17 +74,17 @@ skills = {}
 def register( id, handler ):
 	if skills.has_key( id ):
 		raise Exception, "Duplicate Skill: " + str( id )
-	
+
 	skills[ id ] = handler
 
 def onLoad():
 	wolfpack.registerglobal( EVENT_SKILLUSE, "skills" )
-	
+
 def onSkillUse( char, skill ):
 	if skills.has_key( skill ):
 		skills[ skill ]( char, skill )
 		return 1
-		
+
 	return 0
 
 #

@@ -25,7 +25,7 @@ def onUse( char, item ):
 	# We are only handling runes
 	if not isrune( item ):
 		return 0
-	
+
 	# It needs to be on our body
 	if item.getoutmostchar() != char:
 		char.socket.sysmessage( "The rune needs to be in your posession to rename it." )
@@ -82,7 +82,7 @@ def onShowTooltip(viewer, object, tooltip):
 	marked = 0
 	if object.hastag('marked'):
 		marked = int(object.gettag('marked'))
-	tooltip.reset()		
+	tooltip.reset()
 
 	if marked:
 		tooltip.add(1042971, "a recall rune for %s" % object.name)
@@ -93,7 +93,7 @@ def onSingleClick( item, char ):
 	# We are not a rune
 	if not isrune( item ):
 		return 0
-	
+
 	# We need a socket to show the speech
 	if not char.socket:
 		return 0

@@ -5,7 +5,7 @@ import time
 # from the specified character waiting and return it.
 def getPrivateMessage(recipient, sender):
   tagname = 'privmsg' + str(sender.serial)
-  
+
   if not recipient.hastag(tagname):
     return None
 
@@ -38,7 +38,7 @@ def sendMessage(player, message, color=0x3b2):
     if player.hastag('guildmessages'):
       messagecount = int(player.gettag('guildmessages'))
     name = 'guildmessage' + str(messagecount)
-    
+
     # Save the information
     player.settag(name, message)
     player.settag('guildmessages', messagecount+1)
@@ -86,7 +86,7 @@ def getPermissions(player, guild):
 def setPermissions(player, guild, permissions):
   if player in guild.members:
     tagname = 'permissions_%u' % guild.serial
-    
+
     if player.hastag(tagname) and permissions == 0:
       player.deltag(tagname)
     elif permissions != 0:
@@ -97,7 +97,7 @@ def setPermissions(player, guild, permissions):
 def getVote(player, guild):
   if player in guild.members:
     tagname = 'vote_%u' % guild.serial
-    
+
     if player.hastag(tagname):
       return int(player.gettag(tagname))
 

@@ -5,7 +5,6 @@
 #  ( (  ;._ \\ ctr # Last Modification:                         #
 #################################################################
 
-
 import wolfpack.settings
 import skills
 from wolfpack.consts import *
@@ -30,9 +29,9 @@ def onContextMenuCheckEnabled( char, target, tag ):
 		return 0 # disabled
 	if ( char.skill[ skill ] >= MAX_TEACHING ):
 		return 0 # disabled
-	else: 
+	else:
 		return 1 #enabled
-	
+
 def onContextEntry( char, target, tag  ):
 
 	skill = tag - 1
@@ -77,7 +76,7 @@ def onDropOnChar( char, item ):
 
 		if ( sum >= cap ):
 			return 0
-		
+
 		baseToSet = char.skill[ skill ] / ( 1000 / MAX_TEACHING )
 		if ( baseToSet > MAX_TEACHING ):
 			baseToSet = MAX_TEACHING
@@ -99,9 +98,9 @@ def onDropOnChar( char, item ):
 			item.delete()
 
 		dropper.skill[skill] = dropper.skill[skill] + amount
-		
+
 		char.say( 501539 ) # Let me show thee something of how this is done.
 		return 1
 	return 0
 
-	
+

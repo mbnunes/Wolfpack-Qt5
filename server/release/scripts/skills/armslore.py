@@ -46,7 +46,7 @@ def response( char, args, target ):
 				char.socket.clilocmessage( 0x7A27E, "", 0x3b2, 3 )
 				return 0
 
-		if isweapon( item ) or isarmor( item ) or isshield( item ):	
+		if isweapon( item ) or isarmor( item ) or isshield( item ):
 			cur_time = servertime()
 			char.socket.settag( 'skill_delay', cur_time + ARMSLORE_DELAY )
 			if not char.checkskill( ARMSLORE, 0, 1000 ):

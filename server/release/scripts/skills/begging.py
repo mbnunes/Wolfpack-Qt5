@@ -12,10 +12,10 @@ import wolfpack
 import skills
 
 # from UO Stratics:
-# 1. Initially, your skill affects ONLY your success in begging. Meaning, it determines whether you will be given some money or not. It does NOT determine the amount of gold you receive. If you manage to get beyond 90 skill, shopkeepers will begin to give you gold and things change a bit. 
-# 2. If an NPC has 100 gold or more in its pack, it will give you 10 gold after each successful beg. Note, even if that NPC has more than 200 gold in its pack, it will still give only 10 gold pieces. 
-# 3. If an NPC has 90-99 gold in its pack, it will give 9 gold pieces. 80-89 will yield 8 gold pieces, and so on. 
-# 4. You can continue to beg from the same NPC until he or she runs out of gold. (editors note: or until he or she has 9 or less gold) 
+# 1. Initially, your skill affects ONLY your success in begging. Meaning, it determines whether you will be given some money or not. It does NOT determine the amount of gold you receive. If you manage to get beyond 90 skill, shopkeepers will begin to give you gold and things change a bit.
+# 2. If an NPC has 100 gold or more in its pack, it will give you 10 gold after each successful beg. Note, even if that NPC has more than 200 gold in its pack, it will still give only 10 gold pieces.
+# 3. If an NPC has 90-99 gold in its pack, it will give 9 gold pieces. 80-89 will yield 8 gold pieces, and so on.
+# 4. You can continue to beg from the same NPC until he or she runs out of gold. (editors note: or until he or she has 9 or less gold)
 # 5. If your karma gets too low, there is a chance the NPC will refuse to give you any gold at all. Where "low" means negative karma. All karma my GM Beggar had was the little he could acquire from wrestling rats in town.
 
 GOLD_COIN = "0xeed"

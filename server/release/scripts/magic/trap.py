@@ -22,10 +22,10 @@ def onUse(char, item):
 			events.remove('magic.trap')
 		item.events = events
 		return 0
-		
+
 	item.deltag('trap_type')
 	item.deltag('trap_damage')
-	item.deltag('trap_owner')		
+	item.deltag('trap_owner')
 
 	events = item.events
 	while 'magic.trap' in events:
@@ -33,7 +33,7 @@ def onUse(char, item):
 	item.events = events
 
 	char.message(502999)
-	
+
 	if not item.container:
 		pos = item.pos
 	else:
@@ -47,11 +47,11 @@ def onUse(char, item):
 	wolfpack.effect( 0x36bd, wolfpack.coord( pos.x - 1, pos.y, pos.z, pos.map ), 15, 15 )
 	wolfpack.effect( 0x36bd, wolfpack.coord( pos.x, pos.y + 1, pos.z, pos.map ), 15, 15 )
 	char.soundeffect(0x307)
-	
+
 	# Now Damage the Character
 	if char.distanceto(item) <= 2:
 		energydamage(char, owner, damage, fire=100)
-	
+
 	return 1
 
 def onTelekinesis(char, item):

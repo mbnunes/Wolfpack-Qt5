@@ -1281,4 +1281,3 @@ def iteminfo_response( player, args, choice ):
 		item.update()
 
 	return 1
-

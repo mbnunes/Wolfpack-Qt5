@@ -91,7 +91,7 @@ def sendGump( char, item ):
 	gateGump.addRadioButton(200, 65, 210, 211, 19 )
 	gateGump.addText( 225, 90, "Moonglow" )
 	gateGump.addRadioButton(200, 90, 210, 211, 20 )
-	gateGump.addText( 225, 115, "Skara Brae" ) 
+	gateGump.addText( 225, 115, "Skara Brae" )
 	gateGump.addRadioButton(200, 115, 210, 211, 21 )
 	gateGump.addText( 225, 140, "Trinsic" )
 	gateGump.addRadioButton(200, 140, 210, 211, 22 )

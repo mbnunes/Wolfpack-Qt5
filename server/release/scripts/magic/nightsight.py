@@ -9,17 +9,17 @@ def wearout(player):
 		bonus = 0
 	else:
 		bonus = int(player.gettag('nightsight'))
-	
+
 	player.lightbonus = max(0, player.lightbonus - bonus)
-	
+
 	events = player.events
 	while 'magic.nightsight' in events:
 		events.remove('magic.nightsight')
 	player.events = events
-	
+
 	player.deltag('nightsight')
 	player.deltag('nightsight_start')
-	
+
 	if player.socket:
 		player.socket.updatelightlevel()
 
@@ -43,7 +43,7 @@ def onTimeChange(player):
 		nightsight_start = 0
 	else:
 		nightsight_start = int(player.gettag('nightsight_start'))
-		
+
 	# Nightsight lasts 1440 ingame minutes
 	if nightsight_start + 1440 < time.minutes():
 		if player.socket:

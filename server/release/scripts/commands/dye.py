@@ -8,7 +8,7 @@
 #===============================================================#
 
 """
-	\command dye	
+	\command dye
 	\description Changes the color of the targetted item.
 	\usage - <code>dye color</code>
 	The color can either be passed as a decimal number or in the standard hexadecimal notation.
@@ -37,6 +37,3 @@ def paint( socket, item, args ):
 
 def onLoad():
 	wolfpack.registercommand( "dye", dye )
-
-
-

@@ -32,7 +32,7 @@ def onTradeAdd( player, item ):
 	#Refuse stealing of added items ( tag )
 	#Refuse pet's transfering while trading ( tag )
 	#Refuse trading with someone who dragging something ( tag )
-	
+
 	return OK
 
 def onTradeRemove( player, item ):
@@ -58,9 +58,9 @@ def onTradeStart( player1, player2, firstitem ):
 	if not box2:
 		box2 = wolfpack.additem("e75")
 		box2.owner = player2.serial
-		player2.additem( LAYER_TRADING, box2 )		
+		player2.additem( LAYER_TRADING, box2 )
 		box2.update()
-	
+
 	if not box1 or not box2:
 		return OOPS
 
@@ -69,11 +69,11 @@ def onTradeStart( player1, player2, firstitem ):
 	events1.append( 'system.trading' )
 	events2 = player2.events
 	events2.append( 'system.trading' )
-	
+
 	#We want to know serial of partner in future
 	player1.settag( 'partner', player2.serial )
 	player2.settag( 'partner', player1.serial )
-	
+
 	#We need to store button state of each player
 	player1.settag( 'button', 0 )
 	player2.settag( 'button', 0 )
@@ -92,7 +92,7 @@ def onTradeStart( player1, player2, firstitem ):
 
 	box1.additem( firstitem )
 	firstitem.update()
-	
+
 	return OK
 
 def onTrade( player, type, buttonstate, itemserial ):
@@ -103,7 +103,7 @@ def onTrade( player, type, buttonstate, itemserial ):
 	#type == 1 : user want to close trade
 	#type == 2 : button pressed
 	handler = { 1 : closetrade, 2 : pressbutton }
-	
+
 	#Check if we have a partner
 	if player.hastag( 'partner' ):
 		partner = wolfpack.findchar( player.gettag( 'partner' ) )
@@ -111,7 +111,7 @@ def onTrade( player, type, buttonstate, itemserial ):
 			return OOPS
 	else:
 		return OOPS
-	
+
 	#Get tradecontainers
 	box2 = partner.itemonlayer( LAYER_TRADING )
 	box1 = player.itemonlayer( LAYER_TRADING )
@@ -126,8 +126,8 @@ def onTrade( player, type, buttonstate, itemserial ):
 
 	#Execute handler of specified type
 	handler[type]( player, partner, box1, box2 )
-	
-		
+
+
 	return OK
 
 def closetrade( player, partner, box1, box2 ):
@@ -137,32 +137,32 @@ def closetrade( player, partner, box1, box2 ):
 	for p in [player, partner]:
 		p.deltag( 'partner' )
 		p.deltag( 'button' )
-	
-	if box1:			
+
+	if box1:
 		back1 = player.getbackpack()
 		cont2cont( box1, back1 )
 		sendclosetrade( player.socket, box1.serial )
 		box1.delete()
-	if box2:			
+	if box2:
 		back2 = partner.getbackpack()
 		cont2cont( box2, back2 )
 		sendclosetrade( partner.socket, box2.serial )
 		box2.delete()
-		
-	return OK	
+
+	return OK
 
 def pressbutton( player, partner, box1, box2 ):
 	#Switch buttons on trade gump
 	button1 = player.gettag( 'button' )
 	button2 = partner.gettag( 'button' )
-	sendtradepacket( player.socket, 2, box1.serial, button1, button2, "" ) 
-	sendtradepacket( partner.socket, 2, box2.serial, button2, button1, "" ) 
-	
-	#To far away for trading ? 
+	sendtradepacket( player.socket, 2, box1.serial, button1, button2, "" )
+	sendtradepacket( partner.socket, 2, box2.serial, button2, button1, "" )
+
+	#To far away for trading ?
 	if player.distanceto( partner ) > 2:
 		closetrade( player, partner, box1, box2 )
 		return OK
-		
+
 	if button1 == 1 and button2 == 1:
 		back1 = player.getbackpack()
 		back2 = partner.getbackpack()
@@ -176,13 +176,13 @@ def sendtradepacket( socket, action, partnerserial, box1serial, box2serial, play
 	#Sending 0x6F packet. Length may vary when playername is defined
 	packetlength = 0x10
 	trade = wolfpack.packet( 0x6F, packetlength )
-		
+
 	if playername != "":
 		packetlength += len( playername ) + 2
 		trade.resize( packetlength )
 		trade.setbyte( 16, 1 )
 		trade.setascii( 17, playername )
-	
+
 	trade.setshort( 1, packetlength )
 	trade.setbyte( 3, action )
 	trade.setint( 4, partnerserial )

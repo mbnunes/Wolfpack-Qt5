@@ -69,12 +69,12 @@ class BrewItemAction(CraftItemAction):
 	#
 	def fail(self, player, arguments, lostmaterials):
 		player.socket.clilocmessage(500287)
-		
+
 		# Re-create the empty bottle in the users backpack
 		if lostmaterials:
 			bottle = wolfpack.additem('f0e')
 			if not tobackpack(bottle, player):
-				bottle.update()			
+				bottle.update()
 
 	#
 	# Print a nicer success message
@@ -160,10 +160,10 @@ def loadMenu(id, parent = None):
 							if itemchild:
 								itemid = itemchild.value
 					else:
-						itemid = hex2dec(child.getattribute('itemid', '0'))					
+						itemid = hex2dec(child.getattribute('itemid', '0'))
 				except Exception, e:
 					console.log(LOG_ERROR, "Craft action with invalid item id in menu %s: %s\n" % (menu.id, str(e)))
-					
+
 				action = BrewItemAction(menu, name, int(itemid), itemdef)
 
 				# Process subitems

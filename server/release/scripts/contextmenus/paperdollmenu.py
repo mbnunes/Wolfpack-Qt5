@@ -5,11 +5,8 @@
 #  ( (  ;._ \\ ctr # Last Modification:                         #
 #################################################################
 
-
 def onContextEntry( char, target, tag  ):
-
 	if( tag == 1 ):
 		if ( char.socket ):
 			char.socket.sendpaperdoll( target )
 	return 1
-

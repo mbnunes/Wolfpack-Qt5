@@ -10,7 +10,7 @@ def onCHLevelChange( char, level ):
 	if not char.hastag( 'customizing' ):
 		return
 	multi = wolfpack.findmulti( int( char.gettag( 'customizing' ) ) )
-	
+
 	char.socket.sysmessage( 'multi at: ' + str( multi.pos.z ) )
 	char.socket.sysmessage( 'char at: ' + str( char.pos.z ) )
 	alt = (level-1) * 49
@@ -144,15 +144,15 @@ def gump1( char, callback, item ):
 	mygump.addRawLayout( "{button 10 330 4005 4007 1 0 169}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 330 240 20 1060700 0 0 32767}" )
 	mygump.addRawLayout( "{button 210 130 4005 4007 1 0 199}" )
-	mygump.addRawLayout( "{xmfhtmlgumpcolor 245 130 240 20 1060694 0 0 32767}" )                   
-	mygump.setCallback( callback )   
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 245 130 240 20 1060694 0 0 32767}" )
+	mygump.setCallback( callback )
 	mygump.setArgs( [item] )
 	#Add params
 	for line in gump_params:
 		mygump.addRawText( line )
 	mygump.send( char )
-	
-	
+
+
 def gump2( char, callback, item ):
 	gump_params = [
 	"a house",
@@ -161,7 +161,7 @@ def gump2( char, callback, item ):
 	"425",
 	"212"]
 
-	mygump = cGump()   
+	mygump = cGump()
 	mygump.addRawLayout( "{page 0}" )
 	mygump.addRawLayout( "{resizepic 0 0 5054 420 440}" )
 	mygump.addRawLayout( "{gumppictiled 10 10 400 100 2624}" )
@@ -303,7 +303,7 @@ def gump4( char, callback, item ):
 	#Add params
 	for line in gump_params:
 		mygump.addRawText( line )
-	mygump.send( char )   
+	mygump.send( char )
 
 def customize( char, item ):
 	if not item.hastag( 'house' ):
@@ -325,21 +325,20 @@ def customize( char, item ):
 def switchgump( char, target, args ):
 	item = args[0]
 	gumphandler = {
-	2:gump0,
-	17:gump1,
-	32:gump2,
-	47:gump3,
-	62:gump4 }  
+	2: gump0,
+	17: gump1,
+	32: gump2,
+	47: gump3,
+	62: gump4 }
 	actionhandler = {
-	21:customize }
+	21: customize }
 
 	button = target.button
 	if gumphandler.has_key( button ):
 		gumphandler[ button ]( char, "signpost.gumpcallback", item )
-	else: 
+	else:
 		if actionhandler.has_key( button ):
 			actionhandler[ button ]( char, item )
 		else:
 			char.socket.sysmessage( "Button %i isn't working yet" % button )
 			return 1
-	

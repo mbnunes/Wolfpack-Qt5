@@ -33,7 +33,7 @@ class Earthquake(Spell):
 			guild = None
 
 		targets = []
-		
+
 		spellrange = 1 + int(char.skill[MAGERY] / 150.0)
 		chars = wolfpack.chars(char.pos.x, char.pos.y, char.pos.map, spellrange)
 		for target in chars:
@@ -51,12 +51,12 @@ class Earthquake(Spell):
 		for target in targets:
 			target.soundeffect(0x2F3)
 			self.harmchar(char, target)
-			
+
 			damage = target.hitpoints / 2
 			if target.player:
 				damage += random.randint(0, 15)
-			
-			damage = min(100, max(15, damage))			
+
+			damage = min(100, max(15, damage))
 			energydamage(target, char, damage, physical=100)
 
 class EnergyVortex(Spell):

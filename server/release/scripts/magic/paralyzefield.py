@@ -12,9 +12,9 @@ def onCollide(char, item):
 	strength = 0
 	if item.hastag('strength'):
 		strength = int(item.gettag('strength'))
-		
+
 	duration = int((strength / 10.0 - char.skill[MAGICRESISTANCE] / 10.0) * 300)
-	
+
 	char.disturb()
 	char.frozen = 1
 	char.resendtooltip()

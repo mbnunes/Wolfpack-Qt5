@@ -13,7 +13,7 @@
 	\usage - <code>stat str value</code>
 	- <code>stat dex value</code>
 	- <code>stat int value</code>
-	Changes either the strength (str), dexterity (dex) or 
+	Changes either the strength (str), dexterity (dex) or
 	intelligence(int) of the character to the desired value.
 """
 
@@ -74,9 +74,9 @@ def callback( char, args, target ):
 
 	if stat == 'str':
 		char.strength = value
-	elif stat == 'int': 
+	elif stat == 'int':
 		char.intelligence = value
-	elif stat == 'dex': 
+	elif stat == 'dex':
 		char.dexterity = value
 	else:
 		socket.clilocmessage( 3000380, "", YELLOW, NORMAL ) # I Accept
@@ -84,10 +84,10 @@ def callback( char, args, target ):
 		return OK
 
 	socket.clilocmessage( 1005630, "", YELLOW, NORMAL ) # Your stats have been adjusted.
-	
+
 	char.updatestats()
-		
-	return OK		
+
+	return OK
 
 def onLoad():
 	wolfpack.registercommand( "stat", stat )

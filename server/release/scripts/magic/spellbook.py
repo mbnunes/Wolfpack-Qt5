@@ -10,9 +10,9 @@
 """
 	\command addspell
 	\description Add a spell to a spellbok.
-	\usage - <code>addspell id</code>	
+	\usage - <code>addspell id</code>
 	- <code>addspell all</code>
-	Id is the id of the spell you want to add. 
+	Id is the id of the spell you want to add.
 	If you use 'addspell all', all available spells
 	will be added to the book.
 """
@@ -20,10 +20,10 @@
 """
 	\command removespell
 	\description Remove a spell from a spellbook.
-	\usage - <code>removespell id</code>	
+	\usage - <code>removespell id</code>
 	- <code>removespell all</code>
 	Id is the id of the spell that should be removed
-	from the book. If you use 'removespell all', all 
+	from the book. If you use 'removespell all', all
 	spells will be removed from the book.
 """
 
@@ -40,10 +40,10 @@ def commandAddSpell( socket, command, arguments ):
 		except:
 			socket.sysmessage( 'Usage: addspell <spell> or addspell all' )
 			return
-			
+
 		if spell >= 64:
 			socket.sysmessage( 'Values between 0 and 63 are valid.' )
-			return				
+			return
 	else:
 		spell = 'all'
 
@@ -60,10 +60,10 @@ def commandRemoveSpell( socket, command, arguments ):
 		except:
 			socket.sysmessage( 'Usage: removespell <spell> or removespell all' )
 			return
-			
+
 		if spell >= 64:
 			socket.sysmessage( 'Values between 0 and 63 are valid.' )
-			return				
+			return
 	else:
 		spell = 'all'
 
@@ -74,7 +74,7 @@ def onLoad():
 	# Register .addspell, .removespell, .editspells (?)
 	wolfpack.registercommand( "addspell", commandAddSpell )
 	wolfpack.registercommand( "removespell", commandRemoveSpell )
-		
+
 # Does the Spellbook have a specific spell?
 def hasspell( item, spell ):
 	if item and ( item.hasevent( 'magic.spellbook' ) or item.hasevent( 'magic.necrospellbook' ) ):
@@ -83,13 +83,13 @@ def hasspell( item, spell ):
 
 		circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
 		spell = spell % 8
-		
+
 		if item.hastag( 'circle' + str( circle ) ):
 			spells = int( item.gettag( 'circle' + str( circle ) ) )
-			
-			return spells & ( 0x01 << spell )		
-		
-	return 0	
+
+			return spells & ( 0x01 << spell )
+
+	return 0
 
 # spellcount
 def countspells(item):
@@ -101,7 +101,7 @@ def countspells(item):
 			for j in range(0, 9):
 				if (spells >> j) & 0x01:
 					count += 1
-	return count 
+	return count
 
 # Adds the specified spell to the specified spellbook
 def addspell( item, spell ):
@@ -110,20 +110,20 @@ def addspell( item, spell ):
 
 	circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
 	spell = spell % 8
-	
+
 	spells = 0
-	
+
 	if item.hastag( 'circle' + str( circle ) ):
 		spells = int( item.gettag( 'circle' + str( circle ) ) )
-		
+
 	spells |= 0x01 << spell
-	
+
 	item.settag( 'circle' + str( circle ), spells )
-	
+
 	item.resendtooltip()
 
 	return 1
-	
+
 # Removes the specified spell from the specified spellbook
 def removespell( item, spell ):
 	if not item or not 'magic.spellbook' in item.events:
@@ -132,63 +132,63 @@ def removespell( item, spell ):
 	# Circle
 	circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
 	spell = spell % 8
-	
+
 	if item.hastag( 'circle' + str( circle ) ):
 		spells = int( item.gettag( 'circle' + str( circle ) ) )
 		spells &= ~( 0x01 << spell )
 		item.settag( 'circle' + str( circle ), spells )
 
 	item.resendtooltip()
-	
-	return 1	
+
+	return 1
 
 """
 	Add a spell to a spellbook
-"""		
+"""
 def addspelltarget( char, args, target ):
 	spell = args[0]
 
 	if not target.item or not 'magic.spellbook' in target.item.events:
 		char.socket.sysmessage( 'You need to target a spellbook.' )
 		return
-		
+
 	item = target.item
 
 	if spell == 'all':
 		for i in range( 1, 9 ):
 			item.settag( 'circle' + str( i ), 0xFF )
 
-		item.resendtooltip()			
-		char.socket.sysmessage( 'Added all spells to the spellbook.' )			
+		item.resendtooltip()
+		char.socket.sysmessage( 'Added all spells to the spellbook.' )
 		return
-	
+
 	addspell( item, spell )
-	
+
 	circle = int( floor( spell / 8 ) ) + 1
 	char.socket.sysmessage( 'Added spell %d of circle %d (Id %d) to the spellbook.' % ( spell % 8 + 1, circle, spell ) )
-	
+
 """
 	Remove a spell from a spellbook
-"""		
+"""
 def removespelltarget( char, args, target ):
 	spell = args[0]
 
 	if not target.item or not 'magic.spellbook' in target.item.events:
 		char.socket.sysmessage( 'You need to target a spellbook.' )
 		return
-		
+
 	item = target.item
 
 	if spell == 'all':
 		for i in range( 1, 9 ):
 			item.deltag( 'circle' + str( i ) )
 		item.resendtooltip()
-			
-		char.socket.sysmessage( 'Removed all spells from the spellbook.' )			
+
+		char.socket.sysmessage( 'Removed all spells from the spellbook.' )
 		return
-	
+
 	removespell( item, spell )
-	
+
 	circle = int( floor( spell / 8 ) ) + 1
 	char.socket.sysmessage( 'Removed spell %d of circle %d (Id %d)from the spellbook.' % ( spell % 8 + 1, circle, spell ) )
 
@@ -204,7 +204,7 @@ def onUse( char, item ):
 	packet.setint( 1, item.serial )
 	packet.setshort( 5, 0xffff )
 	packet.send( char.socket )
-			
+
 	packet = wolfpack.packet( 0xbf, 23 )
 	packet.setshort( 1, 23 )	 # Packet length
 	packet.setshort( 3, 0x1b )	 # 0xbf subcommand
@@ -212,7 +212,7 @@ def onUse( char, item ):
 	packet.setint( 7, item.serial ) # Spellbook serial
 	packet.setshort( 11, item.id ) # Item id
 	packet.setshort( 13, 1 ) # Scroll offset (1 = regular, 101 = paladin, 201 = necro)
-			
+
 	for i in range( 0, 8 ):
 		if not item.hastag( 'circle' + str( i + 1 ) ):
 			packet.setbyte( 15 + i, 0 ) # Should be unneccesary

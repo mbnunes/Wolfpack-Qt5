@@ -53,7 +53,7 @@ def peacemaking( char, skill ):
 					instrument = item
 	else:
 		instrument = items[ 0 ]
-	
+
 	char.socket.settag( 'peacemaking_instrument', instrument.serial )
 	char.socket.clilocmessage( 1049525, "", 0x3b2, 3 )
 	char.socket.attachtarget( "skills.peacemaking.response" )

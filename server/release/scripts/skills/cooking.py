@@ -157,7 +157,7 @@ def makebread( char ):
 	backpack = char.getbackpack()
 	if not backpack:
 		return
-	
+
 	# firstly, we check a dough
 	if not backpack.countresource( 0x103d, 0x0 ):
 		return
@@ -184,7 +184,7 @@ def makecookiepan( char ):
 	backpack = char.getbackpack()
 	if not backpack:
 		return
-	
+
 	if not backpack.countresource( 0x103f ):
 		return
 	if not checkfire( char.pos ):
@@ -221,12 +221,12 @@ def makepie( char, name ):
 	backpack = char.getbackpack()
 	if not backpack:
 		return
-	
+
 	if not backpack.countresource( 0x1042 ):
 		return
 	if not checkfire( char.pos ):
 		return
-	
+
 	backpack.useresource( 1, 0x1042 )
 	success = char.checkskill( COOKING, 0, 1000 )
 	if not success:
@@ -252,7 +252,7 @@ def makepizza_( char, name ):
 	backpack = char.getbackpack()
 	if not backpack:
 		return
-	
+
 	if not backpack.countresource( 0x1083 ):
 		return
 

@@ -20,4 +20,3 @@ def next():
 
 def count():
 	return _wolfpack.sockets.count()
-

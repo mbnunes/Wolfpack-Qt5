@@ -30,14 +30,14 @@ def response(player, arguments, response):
 	item = wolfpack.finditem(arguments[0])
 	if not item:
 		return
-		
+
 	# Validate parameters
 	if not 0 in response.switches and not 1 in response.switches:
 		player.socket.sysmessage('You have to choose a spawntype.')
 		return
-	
+
 	spawntype = response.switches[0]
-	
+
 	try:
 		definition = response.text[0]
 		area = int(response.text[1])
@@ -60,25 +60,25 @@ def onUse(player, item):
 	if not player.gm:
 		return 1
 
-	dialog = wolfpack.gumps.cGump()	
+	dialog = wolfpack.gumps.cGump()
 	dialog.setCallback("spawngem.response")
 	dialog.setArgs([item.serial])
-	
+
 	if item.hastag('spawndef'):
 		spawndef = unicode(item.gettag('spawndef'))
 	else:
 		spawndef = ''
-		
+
 	if item.hastag('spawntype'):
 		spawntype = min(1, max(0, int(item.gettag('spawntype'))))
 	else:
 		spawntype = 0
-		
+
 	if item.hastag('maxinterval'):
 		maxinterval = unicode(max(0, item.gettag('maxinterval')))
 	else:
 		maxinterval = 1
-		 
+
 	if item.hastag('mininterval'):
 		mininterval = unicode(max(0, item.gettag('mininterval')))
 	else:
@@ -87,8 +87,8 @@ def onUse(player, item):
 	if item.hastag('area'):
 		area = unicode(max(0, item.gettag('area')))
 	else:
-		area = 0		
-		
+		area = 0
+
 	dialog.startPage(0)
 	dialog.addResizeGump(35, 11, 9260, 460, 504)
 	dialog.addGump(1, 12, 10421, 0)

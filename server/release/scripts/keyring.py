@@ -41,7 +41,7 @@ def onDropOnItem(keyring, key):
 
 def lock_response(char, args, target):
 	if len(args) != 1:
-		return    
+		return
 
 	keyring = wolfpack.finditem(args[0])
 	if not keyring or not char.canreach(keyring,5):
@@ -61,10 +61,10 @@ def lock_response(char, args, target):
 		for key in keyring.content:
 			backpack.additem(key, 1, 1, 0)
 			key.update()
-		
+
 		keyring.id = 0x1011
 		keyring.update()
-	
+
 		char.socket.clilocmessage(501685)
 		return
 

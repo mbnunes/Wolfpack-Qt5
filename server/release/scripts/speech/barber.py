@@ -36,7 +36,7 @@ prices = {
 			0x204B: 10,
 			0x204C: 10,
 			0x204D: 10,
-			
+
 			#Hair dye
 			0x0e27: 50
 		}
@@ -72,7 +72,7 @@ def gump( listener, speaker ):
 
 	gump.addPageButton( 40, 81, 0x4B9, 0x4BA, 0x31 )
 	gump.addHtmlGump( 60, 80, 100, 20, u'<basefont color="#333333"><u>Hair dye</u></basefont>' )
-	
+
 	# Page Switches (only for men)
 	if speaker.id == 0x190:
 		gump.addPageButton( 190, 61, 0x4B9, 0x4BA, 0x21 )
@@ -116,20 +116,20 @@ def gump( listener, speaker ):
 	gump.send( speaker )
 
 	return 1
-	
+
 def addHairfarbePage( char, gump, page, id ):
 	gump.startPage( page )
 	addHairfarbeButtons( gump, page & 0x000F )
 	gump.addResizeGump( 200, 95, 0x2486, 190, 225 )
 
 	gump.addTilePic( 260, 200, 0x0E27 )
-	
+
 	# Ok button for this page
 	gump.addButton( 208, 292, 0x850, 0x851, id | 0x2000 )
 	gump.addHtmlGump( 275, 292, 150, 20, '<basefont color="#336699"><u>Price:</u><basefont color="#333333"> %i goldcoins</basefont></basefont>' % prices[ id ] )
 
-	
-	
+
+
 def addHairPage( char, gump, page, id ):
 	gump.startPage( page )
 	addHairButtons( gump, page & 0x000F )
@@ -159,7 +159,7 @@ def addHairPage( char, gump, page, id ):
 
 		if id != 0:
 			gump.addGump( 200, 60, getHairGump( id )+10000, haircolor )
-	
+
 	# Ok button for this page
 	gump.addButton( 208, 292, 0x850, 0x851, id | 0x4000 ) # 0x4000 = Hair
 	gump.addHtmlGump( 275, 292, 150, 20, '<basefont color="#336699"><u>Price:</u><basefont color="#333333"> %i goldcoins</basefont></basefont>' % prices[ id ] )
@@ -198,7 +198,7 @@ def getHairColor( char ):
 
 	beard = char.itemonlayer( 16 )
 	if beard:
-		return beard.color	
+		return beard.color
 
 	return 0
 
@@ -206,7 +206,7 @@ def getHairColor( char ):
 def getBeardColor( char ):
 	beard = char.itemonlayer( 16 )
 	if beard:
-		return beard.color	
+		return beard.color
 
 	hair = char.itemonlayer( LAYER_HAIR )
 	if hair:
@@ -383,7 +383,7 @@ def gump_callback( char, args, response ):
 
 	# Check if the vendor is ok
 	vendor = wolfpack.findchar( args[0] )
-		
+
 	if not vendor:
 		return
 
@@ -391,14 +391,14 @@ def gump_callback( char, args, response ):
 		vendor.say( "I can't cut your hair from here!" )
 		char.socket.sysmessage( "You can't reach the vendor." )
 		return
-	
+
 	type = response.button & 0xF000
-	
+
 	id = response.button & 0x0FFF
-	
+
 	if (id <> 0x0e27) and not id == 0x0000:
 		id = id | 0x2000
-	
+
 	if not prices.has_key( id ):
 		vendor.say( "I can't cut your hair in this way!" )
 		return
@@ -414,14 +414,14 @@ def gump_callback( char, args, response ):
 	vendor.say( "That makes %i gold coins." % price )
 
 	color = 0
-	
+
 	# Hairfarbe
 	if type == 0x2000:
 		backpack = char.getbackpack()
 		item = wolfpack.additem( "e27" )
 		backpack.additem( item )
 		item.update()
-	
+
 	# Hair
 	if type == 0x6000 or type == 0x4000:
 		# Remove old hair
@@ -441,7 +441,7 @@ def gump_callback( char, args, response ):
 		beard = char.itemonlayer( 16 )
 		if beard:
 			beard.delete()
-			
+
 	else:
 		return
 

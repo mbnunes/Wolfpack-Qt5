@@ -7,7 +7,7 @@
 
 """
 	\command decoration
-	\description Places decoration read from a xml file.	
+	\description Places decoration read from a xml file.
 	\notes The decoration will be read from a XML file called
 	'data\decoration.1.xml'.
 """
@@ -58,7 +58,7 @@ class DecorationHandler( ContentHandler ):
                     elif parts[1] == "int":
                         value = int(parts[2])
                     setattr(item, parts[0], value)
-                
+
             x = int( atts.getValue("x") )
             y = int( atts.getValue("y") )
             z = int( atts.getValue("z") )

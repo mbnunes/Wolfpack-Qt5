@@ -233,7 +233,7 @@ def make_scroll( char, num ):
 		return 0
 	if not 0 <= num < 64:
 		return 0
-	
+
 	# check if we have a spellbook which containing the spell
 	backpack = char.getbackpack()
 	if not backpack:
@@ -292,7 +292,7 @@ def make_scroll( char, num ):
 	success = char.checkskill( INSCRIPTION, ins_skill[ circle ], ins_skill[ circle + 1 ] )
 	if not success:
 		return 0
-	
+
 	# useup mana and make a scroll
 	char.mana -= mana
 	scroll = wolfpack.additem( spell_info[ "scroll" ] )
@@ -353,17 +353,17 @@ def runebook( char ):
 		char.useresource( 8 - snum1, 0xef3 )
 	else:
 		char.useresource( 8, 0xef3 )
-	
+
 	# useup 1 recall rune
 	for i in range( 0, 4 ):
 		if rnum[ i ]:
 			char.useresource( 1, 0x1f14 + i )
 			break
-	
+
 	# useup 1 recall scroll and 1 gate travel scroll
 	char.useresource( 1, 0x1f4c )
 	char.useresource( 1, 0x1f60 )
-	
+
 	# max charge
 	chance = char.skill[ INSCRIPTION ] - INS_RUNEBOOK
 	max = 5 + chance / 100

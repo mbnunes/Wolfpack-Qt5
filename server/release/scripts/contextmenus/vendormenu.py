@@ -5,7 +5,6 @@
 #  ( (  ;._ \\ ctr # Last Modification:                         #
 #################################################################
 
-
 def onContextEntry( char, target, tag  ):
 
 	if ( tag == 1 ):

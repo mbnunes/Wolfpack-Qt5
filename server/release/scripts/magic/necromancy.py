@@ -17,4 +17,3 @@ class NecroSpell(Spell):
         self.skill = NECROMANCY
         self.damageskill = SPIRITSPEAK
         self.mana = 0
-        

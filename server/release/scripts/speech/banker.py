@@ -63,7 +63,7 @@ def onSpeech( listener, speaker, text, keywords ):
             item.amount = min( [ amount, 65535 ] )
             item.container = backpack
 
-            amount -= min( [ amount, 65535 ] )        
+            amount -= min( [ amount, 65535 ] )
 
           speaker.soundeffect( 0x37, 0 )
 
@@ -85,11 +85,11 @@ def onSpeech( listener, speaker, text, keywords ):
       if speaker.dead:
         listener.say(500895) # That sounded spooky.
         return 1
-  
+
       if speaker.iscriminal():
         listener.say(500378) # Thou art a criminal and cannot access thy bank box.
         return 1
-  
+
       bank = speaker.getbankbox()
       listener.turnto(speaker)
       listener.say("Here is your bank box, %s." % speaker.name)
@@ -133,7 +133,7 @@ def onSpeech( listener, speaker, text, keywords ):
           check.container = bank
           check.update()
       break
-      
+
   return 1
 
 # An item has been dropped on us

@@ -18,7 +18,7 @@ def onUse(char, item):
 	packet.setint( 1, item.serial )
 	packet.setshort( 5, 0xffff )
 	packet.send( char.socket )
-			
+
 	packet = wolfpack.packet( 0xbf, 23 )
 	packet.setshort( 1, 23 )	 # Packet length
 	packet.setshort( 3, 0x1b )	 # 0xbf subcommand

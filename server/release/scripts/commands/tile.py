@@ -4,8 +4,8 @@
 	\description Fills a rectangle with items.
 	\usage - <code>tile z ids</code>
 	Z is the height where the items should be created.
-	Ids is a list of definition ids separated by commas. 
-	Every item will be created using an id randomly selected 
+	Ids is a list of definition ids separated by commas.
+	Every item will be created using an id randomly selected
 	from that list.
 """
 
@@ -20,7 +20,7 @@ def tileResponse(player, arguments, target):
     player.socket.sysmessage('Please select the second corner.')
     player.socket.attachtarget("commands.tile.tileResponse", list(arguments) + [target.pos])
     return
-  
+
   x1 = min(arguments[2].x, target.pos.x)
   x2 = max(arguments[2].x, target.pos.x)
   y1 = min(arguments[2].y, target.pos.y)
@@ -50,7 +50,7 @@ def commandTile(socket, command, arguments):
     return
 
   (z, ids) = arguments.split(' ')
-  
+
   ids = ids.split(',')
 
   try:

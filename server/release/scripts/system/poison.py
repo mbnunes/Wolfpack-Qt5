@@ -30,13 +30,13 @@ def stroke(char, arguments):
 			char.settag('poison_strokes', strokes)
 			char.events = ['system.poison'] + char.events
 		return
-	
+
 	if not POISONS.has_key(char.poison):
 		if char.poison != -1:
 			char.poison = -1
 			char.updateflags()
 		return
-		
+
 	poison = POISONS[char.poison]
 
 	# Show a message if the cycle is ok
@@ -48,21 +48,21 @@ def stroke(char, arguments):
 					viewer.socket.clilocmessage(1042858 + char.poison * 2, char.name, 34, 3, char)
 				else:
 					viewer.socket.clilocmessage(1042857 + char.poison * 2, '', 34, 3, char)
-				
+
 	damage = 1 + int(char.hitpoints * poison[3])
-	damage = min(poison[2], max(poison[1], damage))	
+	damage = min(poison[2], max(poison[1], damage))
 	energydamage(char, char, damage, poison=100)
-	
+
 	# See if we should add another timer
 	strokes += 1
 	if strokes == poison[6]:
 		if char.poison != -1:
 			char.poison = -1
-			char.updateflags()	
+			char.updateflags()
 		if char.socket:
 			char.socket.clilocmessage(502136)
 		return
-	
+
 	char.addtimer(poison[5], "system.poison.stroke", [strokes], 0, 0, "poison_timer")
 
 #
@@ -125,7 +125,7 @@ def poison_target(player, arguments, target):
 	if not target.char:
 		player.socket.sysmessage('You have to target a character.')
 		return
-		
+
 	poison(target.char, arguments[0])
 
 """

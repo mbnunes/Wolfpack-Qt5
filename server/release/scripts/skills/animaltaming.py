@@ -116,7 +116,7 @@ def dotame(char, totame):
 
 	# Turn toward the char we want to look at
 	char.turnto( totame )
-	
+
 	# start taming
 	socket.clilocmessage( 1010598, "", 0x3b2, 3, totame )
 
@@ -134,10 +134,10 @@ def callback( char, args ):
 	totame = wolfpack.findchar( args[ 1 ] )
 	if not totame:
 		return
-	
+
 	if not char:
 		return
-	
+
 	# tamer dead : 502796
 	if char.dead:
 		removetags( totame )
@@ -188,7 +188,7 @@ def callback( char, args ):
 			bindmenus.append('pet_menu')
 			totame.bindmenu = ", ".join(bindmenus)
 			totame.addevent('speech.pets')
-			
+
 			# success msg : 502799
 			char.socket.clilocmessage( 502799, "", 0x3b2, 3, totame )
 		else:
@@ -209,10 +209,10 @@ def callback( char, args ):
 			totame.settag( 'angry', m + 1 )
 		else:
 			totame.settag( 'angry', 1 )
-			
+
 #		if totame.ai:
 #			totame.ai.tameattempt()
-			
+
 #		print totame.ai.state
 
 	char.socket.clilocmessage( msgID, "", 0x3b2, 3, char )

@@ -25,5 +25,5 @@ def onContextEntry( char, healer, tag  ):
 		else:
 			char.socket.clilocmessage( 1060197, "", YELLOW, NORMAL ) # You are not dead, and thus cannot be resurrected!
 			return OOPS
-			
+
 		return OK

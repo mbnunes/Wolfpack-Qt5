@@ -256,13 +256,13 @@ def gump_callback( char, args, response ):
 		return
 	if response.button == 0:
 		vendor.say( "Bey!",5 )
-		
+
 		return
 
 	button = int( response.switches[0] )
-	
+
 	id = response.button
-	
+
 	if id == 0:
 		return
 
@@ -343,5 +343,5 @@ def gump_callback( char, args, response ):
 		return
 	else:
 		return
-		
-	
+
+

@@ -1,8 +1,8 @@
 #===============================================================#
-#   )      (\_     | WOLFPACK 13.0.0 Scripts                    
-#  ((    _/{  "-;  | Created by: dreoth                
-#   )).-' {{ ;'`   | Revised by:                                
-#  ( (  ;._ \\ ctr | Last Modification: Created                 
+#   )      (\_     | WOLFPACK 13.0.0 Scripts
+#  ((    _/{  "-;  | Created by: dreoth
+#   )).-' {{ ;'`   | Revised by:
+#  ( (  ;._ \\ ctr | Last Modification: Created
 #===============================================================#
 # .sound Command                                               #
 #===============================================================#
@@ -16,7 +16,7 @@
 
 import wolfpack
 from wolfpack.utilities import *
-	
+
 def sound( socket, command, arguments ):
 	try:
 		sound = hex2dec( str(arguments) )

@@ -16,7 +16,7 @@ def onCreate( item, definition ):
 	item.settag( 'value', 0 )
 
 def onShowToolTip( sender, target, tooltip ):
-	
+
 	tooltip.add( 1041361, "" ) # A Bank Check
 	tooltip.add( 1038021, "" ) # Blessed
 	tooltip.add( 1060738, str( target.gettag( "value") ) )
@@ -34,7 +34,7 @@ def onUse( char, item ):
 			gold.amount = min( [ value, 60000 ] )
 			gold.container = bankbox
 
-			value -= min( [ value, 60000 ] )				
+			value -= min( [ value, 60000 ] )
 		amount = str( value )
 		char.soundeffect( 0x37, 0 )
 		char.socket.sendcontainer( bankbox )

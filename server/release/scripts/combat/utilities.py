@@ -19,48 +19,42 @@ WEAPON_INFORMATION = {
 		TWOHANDED_SWING: [0xc, 0xd],
 		SKILL: SWORDSMANSHIP
 	},
-
 	# 1002: Axe Weapons (Swordsmanship + Lumberjacking)
 	1002: {
 		ONEHANDED_SWING: [0xc, 0xd],
 		TWOHANDED_SWING: [0xc, 0xd],
 		SKILL: SWORDSMANSHIP
 	},
-
 	# 1003: Macefighting (Staffs)
 	1003: {
 		ONEHANDED_SWING: [0xc],
 		TWOHANDED_SWING: [0xc],
 		SKILL: MACEFIGHTING
 	},
-
 	# 1004: Macefighting (Maces/WarHammer)
 	1004: {
 		ONEHANDED_SWING: [0x9],
 		TWOHANDED_SWING: [0xc],
 		SKILL: MACEFIGHTING
 	},
-
 	# 1005: Fencing
 	1005: {
 		ONEHANDED_SWING: [0xa],
 		TWOHANDED_SWING: [0xe],
 		SKILL: FENCING
 	},
-
 	# 1006: Bows
 	1006: {
 		ONEHANDED_SWING: [0x12],
 		TWOHANDED_SWING: [0x12],
 		SKILL: ARCHERY
 	},
-
 	# 1007: Crossbows
 	1007: {
 		ONEHANDED_SWING: [0x13],
 		TWOHANDED_SWING: [0x12],
 		SKILL: ARCHERY
-	},
+	}
 }
 
 def getbestskill(char):

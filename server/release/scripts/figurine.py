@@ -3,24 +3,24 @@ from wolfpack import console
 from wolfpack.consts import *
 
 #
-# Unstable the NPC, re-tame it and 
+# Unstable the NPC, re-tame it and
 # make it visible.
 #
 def onUse(player, item):
 	if not item.getoutmostchar() == player:
 		player.socket.sysmessage('The figurine needs to be in your posession to use it.')
 		return 1
-		
+
 	if not item.hastag('pet'):
 		item.delete()
 		return 1
-		
+
 	try:
 		pet = wolfpack.findchar(int(item.gettag('pet')))
-		
+
 		if not pet:
 			item.deltag('pet')
-			item.delete()			
+			item.delete()
 			return 1
 	except:
 		item.deltag('pet')
@@ -34,12 +34,12 @@ def onUse(player, item):
 	pet.stablemaster = -1
 	pet.moveto(player.pos)
 	pet.update()
-	pet.sound(SND_IDLE)	
+	pet.sound(SND_IDLE)
 	pet.action(ANIM_CASTDIRECTED)
 	return 1
 
 #
-# This event is also applied to figurined npcs so 
+# This event is also applied to figurined npcs so
 # the figurine can be removed along with the npc.
 # Or remove the npc if the figurine is deleted.
 # WARNING: Avoid circular reference.
@@ -56,7 +56,7 @@ def onDelete(object):
 			except:
 				pass
 		return
-	
+
 	char = object
 	if not char.npc:
 		return
@@ -67,7 +67,7 @@ def onDelete(object):
 		figurine.delete()
 
 #
-# This command creates a figurine out of the 
+# This command creates a figurine out of the
 # targetted npc.
 #
 def shrink(socket, command, arguments):
@@ -78,4 +78,3 @@ def shrink(socket, command, arguments):
 #
 def onLoad():
 	wolfpack.registercommand('shrink', shrink)
-	

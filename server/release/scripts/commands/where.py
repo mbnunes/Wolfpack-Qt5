@@ -13,28 +13,28 @@
 """
 
 import wolfpack
-	
+
 def where( socket, command, arguments ):
 	char = socket.player
 	region = char.region
 	pos = char.pos
 	name = None
-	
+
 	while region:
 		if region.name and len( region.name ) > 0:
 			name = region.name
 			break
-			
+
 		region = region.parent
-		
+
 	multi = char.multi
-	
+
 	if multi and len(multi.name) > 0:
 		if not name:
 			name = multi.name
 		else:
 			name += ' (%s)' % multi.name
-		
+
 	if pos.map == 0:
 		map = 'Felucca'
 	elif pos.map == 1:
@@ -45,7 +45,7 @@ def where( socket, command, arguments ):
 		map = 'Malas'
 	else:
 		map = 'Map %d' % pos.map
-		
+
 	if name:
 		char.message( "You are in %s at %d,%d,%d on %s" % ( name, pos.x, pos.y, pos.z, map ) )
 	else:

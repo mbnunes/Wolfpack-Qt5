@@ -28,13 +28,13 @@ def response(char, args, target):
 			elif lock != 'lockpick':
 				char.socket.clilocmessage(502072) # You don't see how that lock can be manipulated.
 			else:
-				if char.checkskill(LOCKPICKING, 0, 1200):   
+				if char.checkskill(LOCKPICKING, 0, 1200):
 					# SUCCESS: Remove lockpick and the lock
 					events = target.item.events
 					while 'lock' in events:
 						events.remove('lock')
 					target.item.events = events
-					
+
 					target.item.deltag('lock')
 					target.item.deltag('locked')
 

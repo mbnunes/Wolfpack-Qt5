@@ -26,34 +26,34 @@ ids = {
 	# raw bird : cooked bird
 	0x9b9 : [ "9b7", "1eb0" ],
 	0x9ba : [ "9b8", "1eb0" ],
-	
+
 	# raw fish : cooked fish
 	0x97a : [ "97b", "1eb0" ],
-	
+
 	# raw rib : cooked rib
 	0x9f1 : [ "9f2", "1eb0" ],
-	
+
 	# dough : bread
 	0x103d : [ "103b", "" ],
-	
+
 	# cookie mix : cookie
 	0x103f : [ "160c", "" ],
-	
+
 	# bowl of flour : cake
 	0xa1e : [ "9e9", "" ],
-	
+
 	# raw chickenleg : cooked chickenleg
 	0x1607 : [ "1608", "1eb0" ],
-	
+
 	# raw lamleg : cooked lamleg
 	0x1609 : [ "160a", "1eb0" ],
-	
+
 	# unbaked pie : baked pie
 	0x1042 : [ "1041", "" ],
-	
+
 	# uncooked pizza : pizza
 	0x1083 : [ "1040", "" ]
-	
+
 	}
 
 def onUse( char, item ):
@@ -61,7 +61,7 @@ def onUse( char, item ):
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage( 0x7A258 ) # That doesnt belong to you
 		return 1
-	
+
 	if ids.has_key( item.id ):
 		char.socket.clilocmessage( 0x7A1FE ) # What should i cook this on
 		char.socket.attachtarget( "cooking.response", [ item.serial ] )
@@ -87,7 +87,7 @@ def response( char, args, target ):
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
 		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
 		return 1
-		
+
 	if abs( char.pos.z - target.pos.z ) > 5:
 		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
 		return 1
@@ -109,10 +109,10 @@ def response( char, args, target ):
 		item = wolfpack.additem( ids[ id ][0] )
 		if not wolfpack.utilities.tobackpack( item, char ):
 			item.update()
-		
+
 		char.socket.clilocmessage( random.choice( [ 0x7A3CF, 0x7A3D0 ] ) ) # Either "Looks delicious." or "Mmmm, smells good."
 		char.socket.clilocmessage( 0x7A3D1 ) # You put the cooked food into your backpack.
-	
+
 	else:
 		burned_id = ids[ id ][1]
 

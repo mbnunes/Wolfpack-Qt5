@@ -17,30 +17,30 @@ from commands.info import iteminfo
 def response(player, arguments, response):
   if response.button == 0:
     return
-    
+
   target = wolfpack.findchar(arguments[0])
-  
+
   if not target:
     return
-    
+
   # Iterate trough all skills and see what changed
-  for skill in range(0, ALLSKILLS):    
+  for skill in range(0, ALLSKILLS):
     try:
       newvalue = int(floor(float(response.text[0x1000 | skill]) * 10))
       newcap = int(floor(float(response.text[0x2000 | skill]) * 10))
     except:
       player.socket.sysmessage('You have entered invalid values for %s.' % skillnames[skill])
       return
-      
+
     oldvalue = target.skill[skill]
     oldcap = target.skillcap[skill]
-    
+
     if oldvalue != newvalue or oldcap != newcap:
       message = "Changed %s for character 0x%x to value %u [%d] and cap %u [%d].\n"
       message = message % (skillnames[skill], target.serial, newvalue, newvalue - oldvalue, newcap, newcap - oldcap)
       player.log(LOG_MESSAGE, message)
       player.socket.sysmessage(message)
-      
+
       target.skill[skill] = newvalue
       target.skillcap[skill] = newcap
 
@@ -54,7 +54,7 @@ def callback(player, arguments, target):
   dialog = wolfpack.gumps.cGump()
   dialog.setCallback("commands.skillinfo.response")
   dialog.setArgs([target.char.serial])
-    
+
   dialog.startPage(0)
   dialog.addResizeGump(35, 12, 9260, 460, 504)
   dialog.addGump(1, 12, 10421, 0)
@@ -75,25 +75,25 @@ def callback(player, arguments, target):
   dialog.addGump(265, 11, 10252, 0)
   dialog.addButton(60, 476, 247, 248, 1)
   dialog.addButton(136, 476, 242, 241, 0)
-  
+
   pages = int(ceil(ALLSKILLS / 5.0))
-  
+
   for page in range(1, pages + 1):
     dialog.startPage(page)
 
     if page > 1:
       dialog.addPageButton(60, 444, 9909, 9911, page - 1)
       dialog.addText(88, 444, "Previous Page", 2100)
-    
+
     if page < pages:
       dialog.addPageButton(448, 444, 9903, 9905, page + 1)
       dialog.addText(376, 448, "Next Page", 2100)
-      
+
     yoffset = 0
 
     for i in range(0, 5):
       skill = (page - 1) * 5 + i
-      
+
       if skill >= ALLSKILLS:
         break
 
@@ -110,9 +110,9 @@ def callback(player, arguments, target):
       dialog.addText(329, 139 + yoffset, "%", 2100)
       dialog.addResizeGump(264, 135 + yoffset, 9300, 63, 26)
       dialog.addInputField(268, 139 + yoffset, 53, 20, 2100, 0x2000 | skill, "%0.01f" % (target.char.skillcap[skill] / 10.0))
-      
+
       yoffset += 65
-  
+
   dialog.send(player)
 
 #

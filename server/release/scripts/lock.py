@@ -90,7 +90,7 @@ def lock_response(char, args, target):
 	# Build the lock gump
 	gump = cGump(x=100, y=100, callback="lock.gump_response")
 	gump.setArgs([target.item.serial])
-	
+
 	# Check if the item already has a lock
 	if 'lock' in target.item.events and target.item.hastag('lock'):
 		gump.addBackground(id=0x2436, width=425, height=285)
@@ -126,7 +126,7 @@ def lock_response(char, args, target):
 		gump.addText(x=250, y=242, text='Create key', hue=0x835)
 		gump.addButton(x=220, y=242, up=0x26af, down=0x26b1, returncode=4)
 
-	# The targetted item is unlocked 
+	# The targetted item is unlocked
 	else:
 		gump.addBackground(id=0x2436, width=425, height=285)
 
@@ -182,7 +182,7 @@ def onUse(char, item):
 	# The item is not locked
 	if not item.hastag('lock'):
 		return 0
-	
+
 	# The magic lock spell has the lock id 'magic'
 	lock = str(item.gettag('lock'))
 	locked = 0
@@ -205,13 +205,13 @@ def onUse(char, item):
 		if searchkey(char.getbackpack(), lock):
 			char.socket.clilocmessage(501282)
 			return 0
-		
+
 		char.socket.clilocmessage(500788)
-	else:  
+	else:
 		char.socket.clilocmessage(501746)
 
 	return 1
-	
+
 def onTelekinesis(char, item):
 	return onUse(char, item)
 
@@ -222,13 +222,13 @@ def onShowTooltip(viewer, object, tooltip):
   # If the character is a gm and the targetted item has a lock, display the lock id
   if viewer.gm:
     lock = 'None'
-  
+
     if object.hastag('lock'):
       lock = str(object.gettag('lock'))
-  
+
     if object.hastag('locked') and int(object.gettag('locked')) != 0:
       suffix = ' (Locked)'
     else:
       suffix = ' (Unlocked)'
-  
+
     tooltip.add(1050045, " \tLock: " + lock + suffix + "\t ")

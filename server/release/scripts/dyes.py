@@ -29,7 +29,7 @@ def checkdyes(char, item, wearout = 0):
     else:
       item.settag('remaining_uses', uses)
       item.resendtooltip()
-    
+
   return 1
 
 #
@@ -40,19 +40,19 @@ def target(player, arguments, target):
   if not target.item or target.item.id != 0xfab:
     player.socket.clilocmessage(500857)
     return
-    
+
   # Needs to in our belongings
   if target.item.getoutmostchar() != player:
     player.socket.clilocmessage()
     return
-  
+
   # Wear out the tools
   dyes = wolfpack.finditem(arguments[0])
   if not checkdyes(player, dyes):
     return
-    
+
   checkdyes(player, dyes, 1) # Wear out
-  
+
   # Dye and play a soundeffect
   target.item.color = arguments[1]
   target.item.update()
@@ -69,7 +69,7 @@ def dyeresponse(socket, packet):
   if color < 2 or color > 0x3e9:
     socket.sysmessage("You selected an invalid color.")
     return 1
-  
+
   # See if the serial is pointing to a valid object.
   dyes = wolfpack.finditem(serial)
   if checkdyes(socket.player, dyes):

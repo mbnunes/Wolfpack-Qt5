@@ -11,9 +11,9 @@
 	\command export
 	\description Export worlditems into three different formats.
 	\notes The following two formats are supported:
-	
+
 	<b>Sphere</b>
-	The sphere format consists of a number of item blocks 
+	The sphere format consists of a number of item blocks
 	which look like the following one:
 
 	<code>[WORLDITEM 0efa]
@@ -24,19 +24,19 @@
 	P=1250,1200,0</code>
 
 	<b>WSC</b>
-	This format is roughly equivalent to the WSC format 
-	exported by sphere and the WSC format used by UOX, NOX and 
+	This format is roughly equivalent to the WSC format
+	exported by sphere and the WSC format used by UOX, NOX and
 	derivates.
-	
+
 	<b>Text</b>
-	Each line in this format represents one item. The line 
+	Each line in this format represents one item. The line
 	has the following format:
 	id x y z color
-	
+
 	Id is the (decimal or hexadecimal) item display id.
 	X, y and z are the coordinates of the item.
 	Color is the item color.
-	
+
 	Example: 0xEED 1351 1200 12 0
 """
 
@@ -47,10 +47,10 @@ def exportcmd( socket, command, arguments ):
 
 	socket.sysmessage( "Target the upper left corner of the area you want to export." )
 	socket.attachtarget( "commands.export.callback", [] )
-		
+
 def onLoad():
 	wolfpack.registercommand( "export", exportcmd )
-		
+
 def callback( char, args, target ):
 	socket = char.socket
 
@@ -67,8 +67,8 @@ def callback( char, args, target ):
 	elif len( args ) == 2:
 		if target.item and target.item.container:
 			socket.sysmessage( "This is an invalid target." )
-			return	
-	
+			return
+
 		# Create a gump to enter the output filename
 		x1 = min( args[0], target.pos.x )
 		x2 = max( args[0], target.pos.x )
@@ -77,12 +77,12 @@ def callback( char, args, target ):
 
 		gump = cGump( x=100, y=100, callback="commands.export.export", args=[ x1, y1, x2, y2 ] )
 
-		gump.addBackground( id=0x2436, width=350, height=300 )	
+		gump.addBackground( id=0x2436, width=350, height=300 )
 		#gump.addCheckerTrans( 15, 15, 320, 270 )
-	
+
 		text = '<basefont color="#FEFEFE"><h3>Export</h3><br><basefont color="#FEFEFE"><u>X1</u>,<u>Y1</u>: %u,%u<br><u>X2</u>,<u>Y2</u>: %u,%u<br><br>Enter the filename for your exported items below. Use the radio buttons to choose the export format.' % ( x1, y1, x2, y2 )
 		gump.addHtmlGump( x=20, y=20, width=310, height=200, html=text )
-		
+
 		# Radiobuttons
 		gump.startGroup( 0 )
 		gump.addRadioButton( x=20, y=160, off=0x25f8, on=0x25fb, id=1 )
@@ -121,10 +121,10 @@ def export( char, args, choice ):
 
 	# Open the output file
 	output = open( filename, "wb" )	# Note that we *force* the output to have lines terminated with \n\r
-		
+
 	iterator = wolfpack.itemregion( args[0], args[1], args[2], args[3], char.pos.map )
 	warnings = ''
-		
+
 	item = iterator.first
 	i = 0
 	while item:
@@ -171,7 +171,7 @@ def export( char, args, choice ):
 		item = iterator.next
 
 	output.close()
-	
+
 	# Show a Report gump
 	gump = cGump( x=100, y=100 )
 
@@ -180,7 +180,7 @@ def export( char, args, choice ):
 
 	text = '<basefont color="#FEFEFE"><h3>Export</h3><br><basefont color="#FEFEFE">%d items have been exported to "%s".<br><br><basefont color="#ff0000"><u>Warnings:</u><br><basefont color="#FEFEFE">%s' % ( i, filename, warnings )
 	gump.addHtmlGump( x=20, y=20, width=310, height=200, html=text, canScroll=1 )
-	
+
 	gump.addText( x=265, y=250, text='Close', hue=0x835 )
 	gump.addButton( x=310, y=250, up=0x26af, down=0x26b1, returncode=0 )
 

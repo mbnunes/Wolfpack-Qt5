@@ -22,33 +22,33 @@ INSTRUMENTS = ['e9c', 'eb2', 'eb1', 'eb3', 'e9d', 'e9e']
 # use a list of item ids instead of just a single id.
 #
 PACKS = {
-	'poor': [		
+	'poor': [
 		[1.0, 'eed', '1d10+10', 1], # Gold
 		#[0.0002, INSTRUMENTS, 1, 0] # Instruments
 		[0.5, INSTRUMENTS, 1, 0],
 		# Magic Items -> Missing
 	],
-		
+
 	'meager': [
 		[1.0, 'eed', '3d10+20', 1]
 	],
-	
+
 	'average': [
 		[1.0, 'eed', '5d10+50', 1]
 	],
-	
+
 	'rich': [
 		[1.0, 'eed', '10d10+150', 1]
 	],
-	
+
 	'filthyrich': [
 		[1.0, 'eed', '2d100+200', 1]
 	],
-	
+
 	'ultrarich': [
 		[1.0, 'eed', '5d100+500', 1]
 	],
-	
+
 	'superboss': [
 		[1.0, 'eed', '5d100+500', 1]
 	],
@@ -62,7 +62,7 @@ def dropitem(item, char, container):
 		if not utilities.tocontainer(item, container):
 			item.update()
 	else:
-		items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 0)		
+		items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 0)
 		for stackable in items:
 			if stackable.pos.z == item.pos.z:
 				if item.canstack(stackable):
@@ -86,8 +86,8 @@ def createpack(char, killer, corpse, pack):
 			if type(item[PACK_AMOUNT]) == str:
 				amount = utilities.rolldice(item[PACK_AMOUNT])
 			else:
-				amount = int(item[PACK_AMOUNT])		
-		
+				amount = int(item[PACK_AMOUNT])
+
 			if item[PACK_STACKABLE]:
 				if type(item[PACK_ITEM]) == list:
 					itemid = random.choice(item[PACK_ITEM])
@@ -103,7 +103,7 @@ def createpack(char, killer, corpse, pack):
 						itemid = random.choice(item[PACK_ITEM])
 					else:
 						itemid = str(item[PACK_ITEM])
-				
+
 					item = wolfpack.additem(itemid)
 					dropitem(item, char, corpse)
 
@@ -115,18 +115,18 @@ def onDeath(char, killer, corpse):
 		return
 
 	lootlist = char.lootlist
-	
+
 	if len(lootlist) == 0:
 		return
 
 	packs = lootlist.split(';')
-	
+
 	# Create the items for each pack
 	for pack in packs:
 		if not PACKS.has_key(pack):
 			console.log(LOG_ERROR, "Trying to create an unknown loot pack %s.\n" % pack)
 			continue
-	
+
 		createpack(char, killer, corpse, PACKS[pack])
 
 #

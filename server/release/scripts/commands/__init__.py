@@ -33,13 +33,13 @@ def nudgetarget(player, arguments, target):
 		target.char.update()
 
 	else:
-		player.socket.sysmessage('You have to target an item or character.')	
+		player.socket.sysmessage('You have to target an item or character.')
 
 """
 	\command nudgedown
 	\usage - <code>nudgedown</code>
 	- <code>nudgedown amount</code>
-	\description Decreases the targetted objects z level. If no amount is given, 
+	\description Decreases the targetted objects z level. If no amount is given,
 	an amount of 1 is assumed.
 """
 
@@ -49,24 +49,24 @@ def nudgedown(socket, command, arguments):
 		amount = int(arguments)
 	except:
 		pass
-		
+
 	socket.attachtarget('commands.nudgetarget', [- amount])
-	
+
 """
 	\command nudgeup
 	\usage - <code>nudgeup</code>
 	- <code>nudgeup amount</code>
-	\description Increases the targetted objects z level. If no amount is given, 
+	\description Increases the targetted objects z level. If no amount is given,
 	an amount of 1 is assumed.
 """
-	
+
 def nudgeup(socket, command, arguments):
 	amount = 1
 	try:
 		amount = int(arguments)
 	except:
 		pass
-		
+
 	socket.attachtarget('commands.nudgetarget', [amount])
 
 def resendtooltiptarget(player, arguments, target):
@@ -81,16 +81,16 @@ def resendtooltiptarget(player, arguments, target):
 	\command resendtooltip
 	\description Resend the tooltip of an object. This is mainly for debugging purposes.
 """
-	
+
 def resendtooltip(socket, command, arguments):
-	socket.sysmessage('Which objects tooltip do you want to resend?')		
+	socket.sysmessage('Which objects tooltip do you want to resend?')
 	socket.attachtarget('commands.resendtooltiptarget', [])
 
 def nightsight(socket, command, arguments):
 	player = socket.player
 	if player.hastag( 'magic.nightsight'):
 		player.removeevent('magic.nightsight')
-	
+
 	if player.hastag('nightsight'):
 		bonus = player.gettag('nightsight')
 		player.lightbonus = max(0, player.lightbonus - bonus)
@@ -99,22 +99,22 @@ def nightsight(socket, command, arguments):
 		player.settag('nightsight', 255)
 		player.lightbonus = 255
 	socket.updatelightlevel()
-	
+
 """
 	\command multigems
-	\description Toggle the multigems flag for the current account. 
-	If this flag is on, multis will be sent as worldgems instead 
+	\description Toggle the multigems flag for the current account.
+	If this flag is on, multis will be sent as worldgems instead
 	of the real multi object.
 """
 def multigems(socket, command, arguments):
 	socket.account.multigems = not socket.account.multigems
 	socket.resendworld(1)
-	
+
 	if socket.account.multigems:
-		socket.sysmessage("'multigems' is now on.")		
+		socket.sysmessage("'multigems' is now on.")
 	else:
 		socket.sysmessage("'multigems' is now off.")
-		
+
 	socket.resendworld()
 
 """
@@ -128,14 +128,14 @@ def gouid(socket, command, arguments):
 	except:
 		socket.symsessage('Usage: gouid <serial>')
 		return
-	
+
 	if uid > 0x40000000:
 		item = wolfpack.finditem(uid)
 		if item:
 			container = item.getoutmostitem()
 			if container.container:
 				container = container.container
-			
+
 			# Going to container
 			socket.sysmessage('Going to item 0x%x [Top: 0x%x].' % (uid, container.serial))
 			pos = container.pos
@@ -144,7 +144,7 @@ def gouid(socket, command, arguments):
 			socket.player.update()
 			socket.resendworld()
 		else:
-			socket.sysmessage('No item with the serial 0x%x could be found.' % uid)		
+			socket.sysmessage('No item with the serial 0x%x could be found.' % uid)
 		return
 	elif uid > 0:
 		char = wolfpack.findchar(uid)
@@ -156,11 +156,11 @@ def gouid(socket, command, arguments):
 			socket.player.update()
 			socket.resendworld()
 		else:
-			socket.sysmessage('No char with the serial 0x%x could be found.' % uid)		
+			socket.sysmessage('No char with the serial 0x%x could be found.' % uid)
 		return
-		
+
 	socket.sysmessage('You specified an invalid serial: 0x%x.' % uid)
-		
+
 """
 	\command followers
 	\description Show the names and serials of the followers of the
@@ -174,7 +174,7 @@ def followers_target(player, arguments, target):
 	for follower in followers:
 		player.socket.sysmessage('Follower: %s [0x%x, %u slot(s)]' % (follower.name, follower.serial, follower.controlslots))
 
-def followers(socket, command, arguments):	
+def followers(socket, command, arguments):
 	socket.sysmessage('Whose followers do you want to see?')
 	socket.attachtarget("commands.followers_target", [])
 
@@ -189,7 +189,7 @@ def onLoad():
 	wolfpack.registercommand("multigems", multigems)
 	wolfpack.registercommand("followers", followers)
 	wolfpack.registercommand("gouid", gouid)
-	
+
 """
 	\command nightsight
 	\description Toggle gamemaster nightsight.
@@ -204,12 +204,12 @@ def onLoad():
 	\command updateplayer
 	\description Resends your character to your socket.
 """
-	
+
 """
 	\command season
 	\description Sends a season change to the current client.
-	\usage - <code>season id</code>	
-	Id is the season you want to change to. 
+	\usage - <code>season id</code>
+	Id is the season you want to change to.
 	Possible values are:
 	0: Spring
 	1: Summer

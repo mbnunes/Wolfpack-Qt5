@@ -2,7 +2,7 @@
 import wolfpack
 
 def onCollide(player, item):
-	if not item.hastag('target'):		
+	if not item.hastag('target'):
 		target = [item.pos.x, item.pos.y, item.pos.z, item.pos.map]
 	else:
 		target = str(item.gettag('target')).split(',')
@@ -18,12 +18,12 @@ def onCollide(player, item):
 	pos.y = target[1]
 	pos.z = target[2]
 	pos.map = target[3]
-	
+
 	if not pos.validspawnspot():
 		if player.socket:
 			player.socket.clilocmessage(501942)
 		return
-	
+
 	player.removefromview()
 	player.moveto(pos)
 	player.update()

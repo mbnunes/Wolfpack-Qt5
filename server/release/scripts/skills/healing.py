@@ -15,7 +15,7 @@ import math
 BANDAGE_RANGE = 2
 # distance the healer must stay in while healing
 HEAL_RANGE = 2
-# distance check delay. this script will check the distance every n msec 
+# distance check delay. this script will check the distance every n msec
 CHECK_DELAY = 2000
 # healing, anatomy required to cure a char
 CURE_HEALING = 600
@@ -53,7 +53,7 @@ def response( char, args, target ):
 	# count bandage
 	if not char.countresource( 0x0e21 ):
 		return 1
-	
+
 	anatomy = char.skill[ ANATOMY ]
 	healing = char.skill[ HEALING ]
 
@@ -75,7 +75,7 @@ def response( char, args, target ):
 			#char.socket.clilocmessage()
 		return 1
 
-	# calc total heal amount : used formula from UOSS 
+	# calc total heal amount : used formula from UOSS
 	heal_min = 3 + ( char.skill[ ANATOMY ] + char.skill[ HEALING ] ) / 50
 	heal_max = 10 + char.skill[ ANATOMY ] / 50 + char.skill[ HEALING ] / 20
 	heal_amount = whrandom.choice( range( heal_min, heal_max ) )
@@ -136,7 +136,7 @@ def delay_check( char, args ):
 	if char.distanceto( healto ) > HEAL_RANGE:
 		char.socket.clilocmessage( 500963, "", 0x3b2, 3 )
 		return
-	
+
 	chance = args[ 1 ]
 	start_time = args[ 2 ]
 	end_time = args[ 3 ]

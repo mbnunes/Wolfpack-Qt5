@@ -315,4 +315,3 @@ def addtree(socket, command, arguments):
 
 def onLoad():
 	wolfpack.registercommand('addtree', addtree)
-

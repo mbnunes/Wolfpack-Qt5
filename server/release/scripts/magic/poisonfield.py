@@ -15,7 +15,7 @@ def onCollide(char, item):
 		level = 0
 		if item.hastag('level'):
 			level = int(item.gettag('level'))
-				
+
 		char.settag('in_poisonfield', 1)
 		if char.poison < level:
 			char.soundeffect(0x474)
@@ -26,19 +26,19 @@ def onCollide(char, item):
 #
 # See if we're still in a poisonfield.
 #
-def expire(char, arguments):	
+def expire(char, arguments):
 	items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 0)
 
-	for item in items:	
+	for item in items:
 		if 'magic.poisonfield' in item.events:
 			level = 0
 			if item.hastag('level'):
-				level = int(item.gettag('level'))				
-		
+				level = int(item.gettag('level'))
+
 			if char.poison < level:
 				char.soundeffect(0x474)
-				poison.poison(char, level)	
-		
+				poison.poison(char, level)
+
 			char.addtimer(350, 'magic.poisonfield.expire', [])
 			return
 

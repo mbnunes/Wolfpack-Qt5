@@ -4,8 +4,8 @@
 	\description Attach tags to objects or change existing ones.
 	\usage - <code>settag name type value</code>
 	- <code>settag name value</code>
-	Type is either int, float or string. If type is not given, 
-	it defaults to string. Name is the name of the tag you 
+	Type is either int, float or string. If type is not given,
+	it defaults to string. Name is the name of the tag you
 	want to change or attach while value is the desired tag value.
 """
 
@@ -73,7 +73,7 @@ def commandSettag(socket, command, arguments):
 			return
 	elif argtype != 'string':
 		socket.sysmessage('Usage: settag name (int|string|float) value...')
-		return	
+		return
 
 	socket.attachtarget("commands.tags.settagResponse", [name, value])
 
@@ -104,7 +104,7 @@ def deltagResponse(player, arguments, target):
 
 	else:
 		player.socket.sysmessage('You need to target a character or an item.')
-		
+
 #
 # Target response
 #
@@ -129,9 +129,9 @@ def gettagResponse(player, arguments, target):
 			value = target.item.gettag(name)
 
 	else:
-		player.socket.sysmessage('You need to target a character or an item.')		
+		player.socket.sysmessage('You need to target a character or an item.')
 		return
-		
+
 	if type(value) == unicode:
 		typename = 'string'
 	elif type(value) == int:
@@ -151,7 +151,7 @@ def commandGettag(socket, command, arguments):
 
 	socket.sysmessage("From which object do you want to get tag '%s'?" % arguments)
 	socket.attachtarget("commands.tags.gettagResponse", [arguments])
-	
+
 #
 # Delete a tag
 #
@@ -161,7 +161,7 @@ def commandDeltag(socket, command, arguments):
 		return
 
 	socket.sysmessage("From which object do you want to remove the tag '%s'?" % arguments)
-	socket.attachtarget("commands.tags.deltagResponse", [arguments])	
+	socket.attachtarget("commands.tags.deltagResponse", [arguments])
 
 #
 # Register the command with the server

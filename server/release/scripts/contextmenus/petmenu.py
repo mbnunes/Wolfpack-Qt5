@@ -10,7 +10,7 @@ from speech.pets import *
 def onContextEntry(char, target, tag):
 	if not "speech.pets" in target.events:
 		return 0
-		
+
 	if target.owner != char or not target.tamed:
 		return 0
 
@@ -24,16 +24,13 @@ def onContextEntry(char, target, tag):
 			transfer(char, target)
 	elif tag == 8: # Release
 			release(char, target)
-			
+
 	# Disabled for now
 	#elif ( tag == 3 ): # Command: Guard
 	#		ai.onSpeechInput( char, target.name + " GUARD" )
 	#elif ( tag == 4 ): # Command: Stop
 	#		ai.onSpeechInput( char, target.name + " STOP" )
 	#elif ( tag == 6 ): # Add Friend
-	#		ai.onSpeechInput( char, target.name + " ADD FRIEND" )				
-			
+	#		ai.onSpeechInput( char, target.name + " ADD FRIEND" )
+
 	return 1
-
-
-			

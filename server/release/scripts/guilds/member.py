@@ -33,7 +33,7 @@ def onLogin(player):
   else:
     # Remove voting tags just in case
     if player.guild.leader:
-      player.deltag('vote_%u' % player.guild.serial)      
+      player.deltag('vote_%u' % player.guild.serial)
 
     members = player.guild.members
     online = []
@@ -60,7 +60,7 @@ def onLogin(player):
           chunks = getPrivateMessage(player, char)
           time_now = localtime()
           time_message = localtime(chunks[0])
-          
+
           # Hide the date if it's from the same day
           if time_now[0] != time_message[0] or time_now[1] != time_message[1] or time_now[2] != time_message[2]:
             player.socket.sysmessage('[%s] %s: %s' % (strftime(FORMAT_DATETIME, time_message), char.name, chunks[2]), chunks[1])
@@ -69,7 +69,7 @@ def onLogin(player):
 
         player.deltag(tag)
 
-# Notify all guild members that this member has been 
+# Notify all guild members that this member has been
 # removed from the guild because he has been deleted
 def onDelete(player):
   guild = player.guild

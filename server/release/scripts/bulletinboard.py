@@ -15,7 +15,7 @@ def bulletinboard(socket, packet):
 		if not board or not char.canreach(board, 3):
 			char.socket.clilocmessage(1019045)
 			return
-		
+
 		# Post a new message
 		if subcommand == 5:
 			replyto = packet.getint(8)
@@ -26,13 +26,13 @@ def bulletinboard(socket, packet):
 				if byte != 0:
 					subject += chr(byte)
 			subject = subject.decode('utf-8')
-			
+
 			lines = []
 			offset = 13 + subjectlen
 
 			numlines = packet.getbyte(offset)
 			offset += 1
-		
+
 			for i in range(0,numlines):
 				linelen = packet.getbyte(offset)
 				offset += 1
@@ -57,13 +57,13 @@ def bulletinboard(socket, packet):
 				message = wolfpack.newitem(1)
 				message.id = 0xeb0 # Deed
 				message.container = replyto
-				
+
 				# Set all necessary tags
 				message.settag('poster_name', char.name)
 				message.settag('poster_serial', char.serial)
 				message.settag('poster_hue', char.skin)
 				message.settag('poster_body', char.id)
-				
+
 				# Store Equipment
 				equipmentcount = 0
 
@@ -83,7 +83,7 @@ def bulletinboard(socket, packet):
 					message.settag('line%u' % i, lines[i])
 
 				message.update()
-		
+
 		# Request the whole message
 		elif subcommand == 3:
 			message = wolfpack.finditem(packet.getint(8))
@@ -100,7 +100,7 @@ def bulletinboard(socket, packet):
 				if message.hastag('subject'):
 					subject = message.gettag('subject')
 					subjectlen = len(subject.encode('utf-8')) + 1
-	
+
 				if message.hastag('poster_name'):
 					poster = message.gettag('poster_name')
 					posterlen = len(poster.encode('utf-8')) + 1
@@ -136,7 +136,7 @@ def bulletinboard(socket, packet):
 					for i in range(0, linecount):
 						if message.hastag('line%u' % i):
 							line = message.gettag('line%u' % i)
-							lines.append(line)              
+							lines.append(line)
 							lineslen += 2 + len(line.encode('utf-8'))
 
 				equipment = []
@@ -167,7 +167,7 @@ def bulletinboard(socket, packet):
 
 				# Skip 5 byte (character data???)
 				offset = 15 + posterlen + subjectlen + timestrlen
-				
+
 				packet.setshort(offset, 0x191) # Poster Body
 				packet.setshort(offset + 2, 0x840a) # Poster Hue
 				packet.setbyte(offset + 4, len(equipment)) # Count of Equipment (Short Id, Short Hue)
@@ -180,7 +180,7 @@ def bulletinboard(socket, packet):
 
 				packet.setbyte(offset, len(lines))
 				offset += 1
-				
+
 				for line in lines:
 					linelen = len(line.encode('utf-8')) + 1
 
@@ -206,9 +206,9 @@ def bulletinboard(socket, packet):
 				timestrlen = len(timestr)+1
 
 				if message.hastag('subject'):
-					subject = message.gettag('subject')          
+					subject = message.gettag('subject')
 					subjectlen = len(subject.encode('utf-8')) + 1
-	
+
 				if message.hastag('poster_name'):
 					poster = message.gettag('poster_name')
 					posterlen = len(poster.encode('utf-8')) + 1

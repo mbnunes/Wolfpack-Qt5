@@ -65,4 +65,4 @@ def trackWhatResponse( char, args, target ):
 
 def onLoad():
 	skills.register( TRACKING, tracking )
-	
+

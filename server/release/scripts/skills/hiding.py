@@ -34,7 +34,7 @@ def hiding( char, skill ):
 		char.update()
 	else:
 		char.socket.clilocmessage( 501237, "", 0x3b2, 4, char )
-	
+
 	cur_time = servertime()
 	char.socket.settag( 'skill_delay', cur_time + HIDING_DELAY )
 

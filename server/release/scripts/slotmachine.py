@@ -10,7 +10,7 @@ from random import randrange, choice
 
 # Define prizes here
 # Format: <message>, <item-def>
-prizes	=	(	( "Single bars, you are a winner!",     "slot_prize_1" ),
+prizes = ( ( "Single bars, you are a winner!",     "slot_prize_1" ),
 			( "Double bars, you are a winner!",     "slot_prize_2" ),
 			( "Triple bars, you are a winner!",     "slot_prize_3" ),
 			( "Any three 7`s, you are a winner!",   "slot_prize_4" ),
@@ -35,19 +35,19 @@ def onUse( char, item ):
 		return 1
 
 	char.useresource( 5, 0xEED ) # Lets use our gold
-		
+
 	# Spinsound (If it sounds awful it's rippers fault!)
 	item.soundeffect( 0x57 )
-		
+
 	# 5% Win chance
 	chance = randrange( 1, 100 )
-	
+
 	# We won!
 	if( chance <= 5 ):
 		# Select a price randomly
 		prize = choice( prizes )
 		char.message( prize[0] )
-		
+
 		item = wolfpack.additem( prize[1] )
 		item.container = char.getbackpack()
 		item.update()
@@ -55,7 +55,7 @@ def onUse( char, item ):
 		# Play a soundeffect
 		char.soundeffect( 0x38 )
 
-	# We Lost	    
+	# We Lost
 	else:
 		char.message( "You lost! Insert coins to try again." )
 

@@ -16,7 +16,7 @@ SPSPEAK_DELAY = 5000
 
 def spiritspeak(char, skill):
 	socket = char.socket
-	
+
 	if socket.hastag('spiritspeaking'):
 		socket.clilocmessage(500118)
 		return 1
@@ -28,14 +28,14 @@ def spiritspeak(char, skill):
 			return 1
 		else:
 			socket.deltag('skill_delay')
-			
+
 	if char.health >= char.maxhitpoints:
 		char.socket.clilocmessage(1061288)
 		return 1
 
 	char.say("Anh Mi Sah Ko")
 	char.soundeffect(0x24a)
-	char.action(ANIM_CASTAREA)	
+	char.action(ANIM_CASTAREA)
 	char.addtimer(1000, "skills.spiritspeak.effect", [skill])
 	socket.settag('spiritspeaking', 1)
 	return 1
@@ -71,13 +71,13 @@ def effect(char, args):
 		corpse.color = 0x835
 		corpse.settag('drained', 1)
 		corpse.update()
-				
+
 		char.socket.clilocmessage(1061287)
 	else:
 		if char.mana < 10:
 			char.socket.clilocmessage(1061285)
 			return
-			
+
 		char.mana -= 10
 		char.updatemana()
 
@@ -85,12 +85,12 @@ def effect(char, args):
 
 	# Show a nice effect.
 	char.effect(0x375a, 1, 15)
-	
+
 	# The amount of damage healed is based on the spirit speaking value.
 	minval = 1 + floor(char.skill[SPIRITSPEAK] * 0.025)
 	maxval = minval + 4
 	char.health = min(char.maxhitpoints, char.health + random.randint(minval, maxval))
-	char.updatehealth()		
+	char.updatehealth()
 
 def onLoad():
 	skills.register(SPIRITSPEAK, spiritspeak)

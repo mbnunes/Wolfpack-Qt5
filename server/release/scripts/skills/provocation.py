@@ -24,7 +24,7 @@ def provocation( char, skill ):
 	instserial = char.socket.gettag( 'instrument' )
 	instrument = wolfpack.finditem( instserial )
 	backpack = char.getbackpack()
-	
+
 	if not instrument or not instrument.getoutmostitem() == backpack:
 		char.socket.clilocmessage( 0x7A74E, "", 0x3b2, 3 ) # What instrument shall I play music on?
 		char.socket.attachtarget( "skills.provocation.findinstrument" )
@@ -42,7 +42,7 @@ def response1( char, args, target ):
 	if target.item:
 		char.socket.clilocmessage( 0x7A755, "", 0x3b2, 3 ) # You can't incite that!
 		return
-	
+
 	if target.char:
 		if target.char.socket:
 			char.socket.clilocmessage( 0x7A754, "", 0x3b2, 3 ) # Verbal taunts might be more effective!
@@ -71,14 +71,14 @@ def response2( char, args, target ):
 
 	if not target.char:
 		return
-	
+
 	creature1 = args[0]
 	tobardtarget1 = args[1]
 	instrument = args[2]
 	tobardtarget2 = tobard( target.char, "provoke" )
 	minimum = int( ( ( tobardtarget1 + tobardtarget2 ) / 2.0 ) - 25.0 )
 	maximum = int( ( ( tobardtarget1 + tobardtarget2 ) / 2.0 ) + 25.0 )
-	
+
 	if target.char.socket or target.char.priv & 0x04:
 		char.socket.clilocmessage( 0xF463A, "", 0x3b2, 3 ) # You cannot perform negative acts on your target.
 		return
@@ -150,7 +150,7 @@ def findinstrument( char, args, target ):
 	if not target.item.id in instruments:
 		char.socket.clilocmessage( 0x7A752, "", 0x3b2, 3 ) # That isn't a musical instrument.
 		return
-	
+
 	char.socket.settag( 'instrument', serial )
 	char.socket.clilocmessage( 0x7A753, "", 0x3b2, 3, )
 	char.socket.attachtarget( "skills.provocation.response1", [target.item] )
@@ -180,7 +180,7 @@ def tobard( char, type ):
 
 	value = skilltotal( char )
 	value +=  char.health + char.stamina + char.mana
-	
+
 	if char.skill[ MAGERY ] > 0:
 		value = value + 100
 
@@ -202,13 +202,13 @@ def tobard( char, type ):
 
 	if type == "peacemaking" or type == "discord":
 		value -= 5.0
-		
+
 	return value
 
 def skilltotal( char ):
 
 	total = 0
-	
+
 	for skill in range( 0, ALLSKILLS ):
 		total += char.skill[ skill ]
 

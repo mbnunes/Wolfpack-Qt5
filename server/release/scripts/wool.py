@@ -31,20 +31,20 @@ def response( char, args, target ):
 		char.direction = direction
 		char.update()
 	item = wolfpack.finditem( args[0] )
-	
+
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
 		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
 		return OK
-		
+
 	if abs( char.pos.z - target.pos.z ) > 5:
 		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
 		return OK
-	
+
 	# Check target (only item targets valid)
 	if not target.item:
 		char.socket.clilocmessage( 502658, '', GRAY ) # Use that on a spinning wheel.
 		return OK
-	
+
 	if target.item.id in ids:
 		color = item.color
 		if ( item.amount > 1 ):
@@ -70,15 +70,15 @@ def response( char, args, target ):
 		wheel = wolfpack.finditem( target.item.serial )
 		processtime = 5000 # 5 Seconds
 		wolfpack.addtimer( processtime, "wool.ProcessTimer", [char, wheel, color] )
-	
+
 	elif target.item.id in animids:
 		# That spinning wheel is being used.
 		char.socket.clilocmessage( 502656, '', GRAY )
 		return OK
-	
+
 	else:
 		# Use that on a spinning wheel.
-		char.socket.clilocmessage( 502658, '', GRAY ) 
+		char.socket.clilocmessage( 502658, '', GRAY )
 		return OK
 
 def ProcessTimer( time, args ):
@@ -108,7 +108,7 @@ def GetYarn( char, wheel, color ):
 	item_new.color = color
 	if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 		item_new.update()
-	
+
 	if item_new.amount > 1:
 		# You put the balls of yarn in your backpack.
 		char.socket.clilocmessage( 1010576, '', GRAY )

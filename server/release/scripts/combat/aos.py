@@ -34,24 +34,24 @@ def fireweapon(attacker, defender, weapon):
 			if attacker.socket:
 				attacker.socket.sysmessage('You are out of ammo.')
 			return 0
-			
-		if random.random() >= 0.50:			
+
+		if random.random() >= 0.50:
 			if defender.player:
 				item = wolfpack.additem(ammo)
 				if not tobackpack(item, defender):
 					item.update()
 			else:
-				# Search for items at the same position				
+				# Search for items at the same position
 				items = wolfpack.items(defender.pos.x, defender.pos.y, defender.pos.map)
 				handled = 0
-				
+
 				for item in items:
 					if item.baseid == ammo:
 						item.amount += 1
 						item.update()
 						handled = 1
 						break
-			
+
 				if not handled:
 					item = wolfpack.additem(ammo)
 					item.moveto(defender.pos)
@@ -76,7 +76,7 @@ def checkhit(attacker, defender, time):
 	defenderWeapon = defender.getweapon()
 	attackerSkill = combat.utilities.weaponskill(attacker, attackerWeapon, 1)
 	defenderSkill = combat.utilities.weaponskill(defender, defenderWeapon)
-	
+
 	combat.utilities.playswinganimation(attacker, defender, attackerWeapon)
 
 	# Retrieve the skill values

@@ -14,10 +14,10 @@ import wolfpack
 def calcSpellId( item ):
 	tile = wolfpack.tiledata( item.id )
 	spell = tile[ "unknown1" ]
-	
+
 	if spell == 0:
-		raise	
-	
+		raise
+
 	return ( spell - 1 )
 
 def onUse( char, item ):
@@ -25,20 +25,20 @@ def onUse( char, item ):
 		char.message( 'Casting spell %d' % calcSpellId( item ) )
 	except:
 		char.socket.sysmessage( 'Broken scroll' )
-		return 0		
-	
+		return 0
+
 	if item.amount > 1:
 		item.amount -= 1
 		item.update()
 	else:
 		item.delete()
-	
+
 	return 1
-	
+
 def onDropOnItem( cont, item ):
 	# Who is dragging us?
 	char = item.container
-	
+
 	if not char.ischar():
 		return 0
 
@@ -47,17 +47,17 @@ def onDropOnItem( cont, item ):
 	except:
 		char.socket.sysmessage( "Error while calculating scroll id." )
 		return 0
-	
+
 	if spell >= 64:
 		char.socket.sysmessage( "Scroll with invalid spell-id: %d" % spell )
 		return 0
-		
+
 	addspell( cont, spell )
-	
+
 	if item.amount > 1:
 		item.amount -= 1
 		return 0
 	else:
 		item.delete() # Consume the scroll
-		
+
 	return 1

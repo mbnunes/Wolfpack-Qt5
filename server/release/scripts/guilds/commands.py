@@ -24,11 +24,11 @@ def commandGuilds(socket, command, arguments):
   dialog.addResizeGump(100, 151, 9200, 404, 283)
   dialog.addGump(13, 339, 10402, 0)
   dialog.addButton(102, 450, 247, 248, 1)
-  dialog.addButton(177, 450, 242, 241, 0) 
+  dialog.addButton(177, 450, 242, 241, 0)
 
   guilds = wolfpack.guilds()
 
-  dialog.startGroup(1)  
+  dialog.startGroup(1)
 
   offset = 0
   first = 1
@@ -72,7 +72,7 @@ def commandGuilds(socket, command, arguments):
       dialog.addRadioButton(113, 176 + offset, 9721, 9724, guild.serial, 1)
       first = 0
     else:
-      dialog.addRadioButton(113, 176 + offset, 9721, 9724, guild.serial, 0)      
+      dialog.addRadioButton(113, 176 + offset, 9721, 9724, guild.serial, 0)
 
     if offset == 160:
       offset = 0
@@ -95,7 +95,7 @@ def overview_response(player, args, response):
 
 #def addGuild(player, command, arguments):
 #  guild = wolfpack.newguild()
-  
+
 
 def onLoad():
   wolfpack.registercommand("guilds", commandGuilds)

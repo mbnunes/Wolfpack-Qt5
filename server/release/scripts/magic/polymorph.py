@@ -48,7 +48,7 @@ PolymorphAction(monster, "Ogre", 0x01)
 PolymorphAction(monster, "Troll", 0x36)
 PolymorphAction(monster, "Ettin", 0x02)
 PolymorphAction(monster, "Daemon", 0x09)
-PolymorphAction(monster, "Human Female", 0x191)				
+PolymorphAction(monster, "Human Female", 0x191)
 monster.sort()
 
 menu.sort()

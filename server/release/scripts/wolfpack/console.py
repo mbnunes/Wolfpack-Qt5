@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# Console                     									#
+# Console
 #===============================================================#
 
 """
@@ -31,5 +31,3 @@ def getbuffer():
 """
 def reloadScripts():
 	return _wolfpack.console.reloadScripts()
-
-

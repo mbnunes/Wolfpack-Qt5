@@ -25,7 +25,7 @@ forgeids = [ 0xfb1, 0x197a, 0x197b, 0x197c, 0x197d, 0x197e, 0x197f, 0x1980,
 
 def onShowTooltip(player, object, tooltip):
 	name = 'Unknown Ore'
-	
+
 	if object.hastag('resname'):
 		resname = str(object.gettag('resname'))
 		if mining.ORES.has_key(resname):
@@ -65,13 +65,13 @@ def response( char, args, target ):
 		return
 
 	char.turnto(target.item)
-	
+
 	if not char.canreach(target.item, 4):
 		char.socket.clilocmessage(500295)
 		return
 
 	item = wolfpack.finditem(args[0])
-	
+
 	if not item:
 		return
 
@@ -79,7 +79,7 @@ def response( char, args, target ):
 		return OOPS
 	else:
 		resname = item.gettag( 'resname' )
-		
+
 	targetitem = wolfpack.finditem( target.item.serial )
 
 	# We go onto creating ingots here.
@@ -255,16 +255,16 @@ def dosmelt(char, args):
 	ore = args[0]
 	forge = args[1]
 	resname = args[2]
-	
+
 	if not mining.ORES.has_key(resname):
 		char.socket.sysmessage('You cannot smelt that kind of ore.')
 		return 0
-	
+
 	success = 0
 	reqskill = mining.ORES[resname][mining.REQSKILL]
 	chance = max(0, char.skill[MINING] - mining.ORES[resname][mining.MINSKILL]) / 1000.0
 
-	if not char.skill[MINING] >= reqskill:		
+	if not char.skill[MINING] >= reqskill:
 		char.socket.clilocmessage(501986, '', GRAY) # You have no idea how to smelt this strange ore!
 		return OOPS
 
@@ -313,9 +313,9 @@ def successsmelt(char, resname, amount):
 	item = wolfpack.additem('1bf2')
 	item.amount = amount
 	item.baseid = '%s_ingot' % resname
-	
+
 	ore = mining.ORES[resname]
-	
+
 	item.color = ore[mining.COLORID]
 	item.settag('resname', resname)
 

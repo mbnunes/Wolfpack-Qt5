@@ -15,31 +15,31 @@ TASTEID_DELAY = 1000
 
 def tasteid(char, skill):
 	socket = char.socket
-	
+
 	if socket.hastag('skill_delay'):
 		if servertime() < socket.gettag('skill_delay'):
 			socket.clilocmessage(500118)
 			return 1
 		else:
 			socket.deltag('skill_delay')
-	
+
 	socket.clilocmessage(502807)
 	socket.attachtarget("skills.tasteid.response")
 	return 1
 
 def response(char, args, target):
 	socket = char.socket
-	
+
 	socket.settag('skill_delay', servertime() + TASTEID_DELAY)
 
 	if target.item:
 		if not char.canreach(target.item, 2):
 			socket.clilocmessage(500312)
-			return	
-	
+			return
+
 		if not 'food' in target.item.events:
 			socket.clilocmessage(502820)
-		else:			
+		else:
 			if not char.checkskill(TASTEID, 0, 1000):
 				socket.clilocmessage(502823)
 			else:
@@ -48,7 +48,7 @@ def response(char, args, target):
 
 	elif target.char:
 		socket.clilocmessage(502816)
-		
+
 	else:
 		socket.clilocmessage(502820)
 

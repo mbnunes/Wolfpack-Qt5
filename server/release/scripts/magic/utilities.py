@@ -47,7 +47,7 @@ MODE_WAND = 2
 #
 # Remove a possible timer/targetrequest
 #
-def fizzle(char):	
+def fizzle(char):
 	char.dispel(char, 1, "cast_delay")
 
 	eventlist = char.events
@@ -71,7 +71,7 @@ def hasSpell(char, spell):
 	for book in char.getbackpack().content:
 		if magic.spellbook.hasspell(book, spell):
 			return 1
-			
+
 	return 0
 
 #
@@ -81,7 +81,7 @@ def hasSpell(char, spell):
 def statmodifier_dispel(char, args, source, dispelargs):
 	stat = args[0]
 	amount = args[1]
-	
+
 	if stat == 0:
 		char.strength2 -= amount
 		if char.strength - amount > 0:
@@ -106,7 +106,7 @@ def statmodifier_dispel(char, args, source, dispelargs):
 			char.intelligence = 1
 		char.mana = min(char.mana, char.maxmana)
 
-	# If we're not dispelling it silently, update 
+	# If we're not dispelling it silently, update
 	# health and stats
 	if not "silent" in dispelargs:
 		if stat == 0:
@@ -119,7 +119,7 @@ def statmodifier_dispel(char, args, source, dispelargs):
 def statmodifier_expire(char, args):
 	stat = args[0]
 	amount = args[1]
-	
+
 	if stat == 0:
 		char.strength2 -= amount
 		if char.strength - amount > 0:
@@ -154,12 +154,12 @@ def statmodifier_raw(target, stat, curse, percent, duration):
 	amount1 = int((target.strength - target.strength2) * percent)
 	amount2 = int((target.dexterity - target.dexterity2) * percent)
 	amount3 = int((target.intelligence - target.intelligence2) * percent)
-	
+
 	# Reverse if it's a curse
 	if curse:
-		amount1 *= -1	
-		amount2 *= -1	
-		amount3 *= -1	
+		amount1 *= -1
+		amount2 *= -1
+		amount3 *= -1
 
 	if stat == 0 or stat == 3:
 		target.dispel(None, 0, "magic_statmodifier_0", ["silent"])
@@ -171,10 +171,10 @@ def statmodifier_raw(target, stat, curse, percent, duration):
 		target.strength += amount1
 		target.hitpoints = min(target.hitpoints, target.maxhitpoints)
 		target.updatehealth()
-		
+
 		target.addtimer(duration, "magic.utilities.statmodifier_expire", [0, amount1], \
 			1, 1, "magic_statmodifier_0", "magic.utilities.statmodifier_dispel")
-		
+
 	if stat == 1 or stat == 3:
 		target.dispel(None, 0, "magic_statmodifier_1", ["silent"])
 
@@ -183,10 +183,10 @@ def statmodifier_raw(target, stat, curse, percent, duration):
 		target.dexterity2 += amount2
 		target.dexterity += amount2
 		target.stamina = min(target.stamina, target.maxstamina)
-		
+
 		target.addtimer(duration, "magic.utilities.statmodifier_expire", [1, amount2], \
 			1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel")
-		
+
 	if stat == 2 or stat == 3:
 		target.dispel(None, 0, "magic_statmodifier_2", ["silent"])
 
@@ -214,9 +214,9 @@ def statmodifier(char, target, stat, curse):
 		percent = 8 + (char.skill[EVALUATINGINTEL] - target.skill[MAGICRESISTANCE]) / 100.0
 	else:
 		percent = 1 + char.skill[EVALUATINGINTEL] / 100.0
-		
+
 	percent = max(0, percent / 100)
-	
+
 	# Calculate the duration
 	duration = (char.skill[EVALUATINGINTEL] / 50 + 1) * 6000
 

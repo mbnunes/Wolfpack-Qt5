@@ -10,13 +10,12 @@ class Option:
 		self.text = name
 		self.value = defvalue
 		self.choices = choices
-		
 
 class ConfigGroup:
 	def __init__(self, parent, y, text, options):
 		self.entries = []
 		self.text = text
-		self.gr = Pmw.Group( parent.interior(), 
+		self.gr = Pmw.Group( parent.interior(),
 		tag_text = text,
 		tag_font = Pmw.logicalfont('Helvetica', 4),
 		)
@@ -36,7 +35,7 @@ class ConfigGroup:
 				self.height += 40
 				self.entries.append( entry )
 			else:
-				entry = Pmw.EntryField(self.gr.interior(), 
+				entry = Pmw.EntryField(self.gr.interior(),
 				labelpos = 'w',
 				value = str(op.value),
 				label_text = op.text,
@@ -47,11 +46,10 @@ class ConfigGroup:
 				self.entries.append( entry )
 
 		parent.create_window(1, y,width=300,height=self.height,anchor='nw',window = self.gr)
-	
 
 	def onSelect(self,text):
 		print text
-				
+
 class XMLConfig:
 	def __init__(self, parent):
 		self.resutl = ''
@@ -64,7 +62,7 @@ class XMLConfig:
 		hull_width = 400,
 		hull_height = 300,
 		)
-	
+
 		try:
 			wolfconfig = parse('../wolfpack.xml')
 			childnodes = wolfconfig.childNodes
@@ -88,16 +86,16 @@ class XMLConfig:
 
 				else:
 					choices = ()
-				
+
 				opts.append( Option( op.getAttribute('key'), value, choices ) )
 			cfg = ConfigGroup( self.sc, y, gr.getAttribute('name'), opts )
 			self.groups.append( cfg )
 			y += cfg.height + 5
 			opts = []
-			
+
 		self.sc.pack(padx = 5, pady = 5, fill = 'both', expand = 1)
 		self.sc.resizescrollregion()
-	
+
 	def writexml(self):
 		self.dialog = Pmw.MessageDialog(self.parent,
 			buttons = ('OK','Cancel'),
@@ -107,7 +105,7 @@ class XMLConfig:
 			command = self.execute)
 		self.dialog.withdraw()
 		self.dialog.activate(geometry = 'centerscreenalways')
-		
+
 		if self.result == 'OK':
 			self.dialog.deactivate(self.result)
 			dom = Document()
@@ -129,7 +127,7 @@ class XMLConfig:
 					xop.setAttribute('key',labeltext)
 					xop.setAttribute('value',value)
 					xgr.appendChild(xop)
-					
+
 				all.appendChild(xgr)
 
 			all.appendChild(xgr)
@@ -138,7 +136,7 @@ class XMLConfig:
 			file.write("<!DOCTYPE preferences>\n")
 			file.write(dom.toprettyxml())
 			file.flush()
-			file.close()                         
+			file.close()
 
 	def execute(self, result):
 		self.result = result
@@ -149,13 +147,11 @@ if __name__ == '__main__':
 	root = Tkinter.Tk()
 	Pmw.initialise(root)
 	root.title('Wolfpack configurator')
-	
+
 	config = XMLConfig(root)
 	saveButton = Tkinter.Button(root, text = 'Save changes', command = config.writexml)
 	saveButton.pack(pady = 5, padx = 5)
 	exitButton = Tkinter.Button(root, text = 'Exit configurator', command = root.destroy)
 	exitButton.pack(pady = 5, padx = 5)
 
-
 	root.mainloop()
-

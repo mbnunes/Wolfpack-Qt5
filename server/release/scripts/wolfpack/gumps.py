@@ -318,4 +318,3 @@ def NoticeGump_onResponse( player, args, choice ):
     return
   if choice.button == 0 or not socket:
     callback( player, state )
-

@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   # Revised by:                                #
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
-	
+
 import wolfpack
 from wolfpack.consts import *
 from math import floor
@@ -25,7 +25,7 @@ def evaluatingintel( char, skill ):
 			return 1
 		else:
 			char.socket.deltag( 'skill_delay' )
-	
+
 	char.socket.clilocmessage( 0x7A4AA, "", 0x3b2, 3 ) # What would you like to evaluate
 	char.socket.attachtarget( "skills.evaluatingintel.response" )
 	return 1
@@ -51,7 +51,7 @@ def response( char, args, target ):
 
 	cur_time = servertime()
 	char.socket.settag( 'skill_delay', cur_time + EVALINTDELAY )
-	
+
 	if not char.checkskill( EVALUATINGINTEL, 0, 1000 ):
 		char.socket.clilocmessage( 0xFD756, "", 0x3b2, 3, target.char )
 		return 0
@@ -59,14 +59,14 @@ def response( char, args, target ):
 	IntRatio = float( 100.0 / target.char.intelligence )
 	ManaId = floor( ( target.char.mana * IntRatio ) / 10 )
 	IntId = min( 10, floor( target.char.intelligence / 10 ) )
-	
+
 	if target.char.id == 0x190:
 		msgId = int( 0xFD759 + IntId )
 	elif target.char.id == 0x191:
 		msgId = int( 0xFD764 + IntId )
 	else:
 		msgId = int( 0xFD76F + IntId )
-		
+
 	msgId2 = int( 0xFD77A + ManaId )
 
 	char.socket.clilocmessage( msgId, "", 0x3b2, 3, target.char )

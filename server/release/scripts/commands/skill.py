@@ -11,7 +11,7 @@
 	\command skill
 	\usage - <code>skill name value</code>
 	Name is the name of the skill you want to set.
-	Value is the desired integer value. Please note that the value 
+	Value is the desired integer value. Please note that the value
 	is the real skill value multiplied by 10 (i.e. 100.0% = 1000).
 	\description Change the skills of a character.
 """
@@ -73,13 +73,13 @@ def callback( char, args, target ):
 	#if target.char.rank >= char.rank and not char == target.char:
 	#	socket.sysmessage( "You are not very skilled, are you?" )
 	#	return OK
-	
+
 
 	( skill, value ) = args
 
 	target.char.skill[ skillnamesids[ skill.lower() ] ] = value
 
-	return OK		
+	return OK
 
 def onLoad():
 	wolfpack.registercommand( "skill", skill )

@@ -40,17 +40,17 @@ def onUse( char, item ):
 
 def response( char, args, target ):
 	# 2440: Scissors can not be used on that to produce anything
-	# 2437: The item you wish to cut must be in your backpack	
+	# 2437: The item you wish to cut must be in your backpack
 
 	item = wolfpack.finditem( args[0] )
 
-	if not item: 
+	if not item:
 		char.socket.clilocmessage( 500312, '', GRAY ) # You cannot reach that.
 		return
-	
+
 	if not ( item.getoutmostchar() == char):
 		char.socket.clilocmessage( 500312, '', GRAY ) # You cannot reach that.
-		return 
+		return
 
 	# Check target (only item targets valid)
 	if not target.item:
@@ -59,7 +59,7 @@ def response( char, args, target ):
 
 	if not target.item.getoutmostchar() == char:
 		char.socket.clilocmessage( 502440 ) # Scissors cannot be used on that to produce anything.
-		return 
+		return
 
 	if target.item.id in ids_rawleather:
 		char.soundeffect( 0x248 )
@@ -207,7 +207,7 @@ def response( char, args, target ):
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
-			
+
 	else:
 		char.socket.clilocmessage( 502440, "", GRAY ) # Scissors can not be used on that to produce anything
 		return

@@ -49,7 +49,7 @@ def stealth( char, skill ):
 		char.socket.clilocmessage( 502731, "", 0x3b2, 3 )
 		char.hidden = 0
 		char.update()
-	
+
 	cur_time = servertime()
 	char.socket.settag( 'skill_delay', ( cur_time + STEALTH_DELAY ) )
 

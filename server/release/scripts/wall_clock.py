@@ -47,12 +47,12 @@ def onUse( char, item ):
 
 	# Stringify hour
 	time += hourStrings[ hour-1 ]
-	
+
 	if( wolfpack.time.hour() == 0 or wolfpack.time.hour() > 12 ):
 		if( hour >= 1 and hour < 6 ):
 			time += " in the afternoon"
 		else:
-			time += " in the evening"		
+			time += " in the evening"
 
 	char.message( time )
 	return 1

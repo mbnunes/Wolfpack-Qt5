@@ -32,7 +32,6 @@ callevent = _wolfpack.callevent
 callnamedevent = _wolfpack.callnamedevent
 #statics = _wolfpack.statics
 
-
 """
 	\function wolfpack.finditem
 	\param serial
@@ -414,4 +413,3 @@ def tickcount():
 """
 def packet( id, size ):
 	return _wolfpack.packet( id, size )
-

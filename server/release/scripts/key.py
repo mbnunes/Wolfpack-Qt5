@@ -28,7 +28,7 @@ def gump_response(char, args, response):
     char.socket.sysmessage('This key now unlocks: ' + new_lock)
   else:
     key.deltag('lock')
-    char.socket.sysmessage('You erase the lock information from the key.')    
+    char.socket.sysmessage('You erase the lock information from the key.')
 
   key.resendtooltip()
 
@@ -57,7 +57,7 @@ def rename_key(char, key):
     lock = ''
     if key.hastag('lock'):
       lock = str(key.gettag('lock'))
-  
+
     gump.addText(x=235, y=65, text='The lock id of this key:', hue=0x835)
     gump.addResizeGump(x=235, y=88, id=0xBB8, width=160, height=25)
     gump.addInputField(x=240, y=90, width=150, height=20, hue=0x834, id=2, starttext=lock)
@@ -72,7 +72,7 @@ def rename_key(char, key):
 
 def lock_response(char, args, target):
   if len(args) != 1:
-    return    
+    return
 
   key = wolfpack.finditem(args[0])
   if not key or not char.canreach(key,5):
@@ -101,7 +101,7 @@ def lock_response(char, args, target):
 
 def copy_response(char, args, target):
   if len(args) != 1:
-    return    
+    return
 
   key = wolfpack.finditem(args[0])
   if not key or not char.canreach(key,5):
@@ -127,7 +127,7 @@ def copy_response(char, args, target):
   if char.checkskill(TINKERING, 150, 300):
     key.settag('lock',target.item.gettag('lock'))
     key.resendtooltip()
-    char.socket.clilocmessage(501676)    
+    char.socket.clilocmessage(501676)
   else:
     char.socket.clilocmessage(501677)
 

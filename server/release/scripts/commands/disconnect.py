@@ -17,6 +17,6 @@ def disconnecttarget( char, args, target ):
 		target.char.socket.disconnect()
 		target.char.update()
 	return 1
-	
+
 def onLoad():
 	wolfpack.registercommand( "disconnect", disconnect )

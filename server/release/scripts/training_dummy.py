@@ -27,7 +27,7 @@ def onUse( char, item ):
 	# Calculates the direction we'll have to look
 	# to focus the dummy
 	direction = char.directionto( item )
-	
+
 	# For a n/s dummy we need to either face north or south
 	if( item.id == 0x1070 and direction != 0 and direction != 4 ):
 		char.message( 'You must be standing in front of or behind the dummy to use it.' )
@@ -37,7 +37,7 @@ def onUse( char, item ):
 	elif( item.id == 0x1074 and direction != 2 and direction != 6 ):
 		char.message( 'You must be standing in front of or behind the dummy to use it.' )
 		return 1
-	
+
 	# Turn to the correct direction
 	char.turnto( item )
 
@@ -48,15 +48,15 @@ def onUse( char, item ):
 	if( skill != FENCING and skill != MACEFIGHTING and skill != SWORDSMANSHIP and skill != WRESTLING ):
 		char.message( "You can't train with this weapon on this dummy." )
 		return 1
-	
+
 	# If we've already learned all we can > cancel.
 	if( char.skill[ skill ] >= 300 ):
 		char.message( "You can learn much from a dummy but you have already learned it all." )
 		return 1
-	
+
 	# This increases the users skill
 	char.checkskill( skill, 0, 1000 )
-	
+
 	# Display the char-action
 	# (combat swing 1handed)
 	char.action( 0x09 )
@@ -69,16 +69,16 @@ def onUse( char, item ):
 	# originating from the dummy
 	item.update()
 	item.soundeffect( 0x33 )
-			
+
 	# Add a timer to reset the id (serializable!)
 	wolfpack.addtimer( random.randint( 2000, 3000 ), "training_dummy.resetid", [ item.serial ], 1 )
-		
+
 	return 1
-	
+
 # Reset the id of a swinging dummy
 def resetid( object, args ):
 	item = wolfpack.finditem( args[0] )
-	
+
 	if( item and ( item.id == 0x1071 or item.id == 0x1075 ) ):
 		item.id -= 1
 		item.update()

@@ -20,14 +20,14 @@ from commands.info import iteminfo
 def response(player, arguments, response):
   if response.button == 0:
     return
-    
+
   command = (response.button >> 28) & 0xC
   item = wolfpack.finditem((response.button & 0x3FFFFFFF) | 0x40000000)
-  
+
   # Delete Item
   if command == 0x04:
     item.delete()
-  
+
   # Bounce Item
   elif command == 0x08:
     if not tobackpack(item, player):
@@ -36,10 +36,10 @@ def response(player, arguments, response):
   # Show Info For Item
   elif command == 0x0C:
     iteminfo(player.socket, item)
-  
+
   else:
     player.socket.sysmessage('Unknown command.')
-  
+
 #
 # Show the edit gump
 #
@@ -49,16 +49,16 @@ def callback(player, arguments, target):
 
   dialog = wolfpack.gumps.cGump()
   dialog.setCallback("commands.edit.response")
-  
+
   items = []
-  
+
   for layer in range(LAYER_RIGHTHAND, LAYER_TRADING+1):
     item = target.char.itemonlayer(layer)
     if item:
       items.append(item)
-      
+
   pages = ceil(len(items) / 4.0)
-  
+
   dialog.startPage(0)
   dialog.addResizeGump(35, 12, 9260, 460, 504)
   dialog.addGump(1, 12, 10421, 0)
@@ -78,55 +78,55 @@ def callback(player, arguments, target):
   dialog.addGump(-15, 408, 10402, 0)
   dialog.addTiledGump(281, 11, 158, 17, 10250, 0)
   dialog.addGump(265, 11, 10252, 0)
-    
+
   for page in range(1, pages + 1):
-    dialog.startPage(page)    
-      
+    dialog.startPage(page)
+
     if page > 1:
       dialog.addPageButton(60, 467, 9909, 9911, page - 1)
       dialog.addText(88, 467, "Previous Page", 2100)
-  
+
     if page < pages:
       dialog.addPageButton(448, 467, 9903, 9905, page + 1)
-      dialog.addText(376, 468, "Next Page", 2100)      
-  
+      dialog.addText(376, 468, "Next Page", 2100)
+
     yoffset = 0
     for i in range(0, 4):
       if (page - 1) * 4 + i >= len(items):
         break
-    
+
       item = items[(page - 1) * 4 + i]
-    
+
       dialog.addResizeGump(64, 108 + yoffset, 9200, 405, 82)
       dialog.addTilePic(92, 127 + yoffset, item.id)
-    
+
       if LAYERNAMES.has_key(item.layer):
         layername = LAYERNAMES[item.layer]
       else:
         layername = 'Unknown'
-    
+
       dialog.addText(164, 118 + yoffset, "Layer: %u (%s)" % (item.layer, layername), 2100)
       dialog.addText(164, 138 + yoffset, "Item Id: 0x%x" % item.id, 2100)
-      
+
       if item.color == 0:
         textcolor = 2100
       else:
         textcolor = item.color - 1
-      
+
       dialog.addText(164, 158 + yoffset, "Item Color: 0x%x" % item.color, textcolor)
-    
+
       itemid = item.serial & 0x3FFFFFFF
-    
+
       dialog.addText(348, 115 + yoffset, "Delete Item", 2100)
       dialog.addButton(428, 114 + yoffset, 9903, 9905, itemid | 0x40000000)
-        
+
       dialog.addText(376, 139 + yoffset, "Bounce", 2100)
       dialog.addButton(428, 138 + yoffset, 9903, 9905, itemid | 0x80000000)
-        
+
       dialog.addText(396, 163 + yoffset, "Info", 2100)
       dialog.addButton(428, 162 + yoffset, 9903, 9905, itemid | 0xC0000000)
       yoffset += 86
-    
+
 
   dialog.send(player)
 

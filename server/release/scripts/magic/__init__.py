@@ -16,14 +16,14 @@ import wolfpack
 
 # Spell Registry
 spells = {}
-		
-# Register spell information in the global registry		
+
+# Register spell information in the global registry
 def registerspell( id, spell ):
 	global spells
-	
+
 	if spells.has_key( id ):
 		return
-	
+
 	spells[ id ] = spell
 
 #
@@ -40,22 +40,22 @@ def onLoad():
 def castSpell( char, spell, mode = 0, args = [] ):
 	if char.dead:
 		return
-		
+
 	socket = char.socket
-	
+
 	if not spells.has_key(spell):
 		if socket:
 			socket.log(LOG_ERROR, "Trying to cast unknown spell: %d\n" % spell)
 			socket.sysmessage('ERROR: Unknown Spell')
-		return	
-	
+		return
+
 	spells[spell].precast(char, mode, args)
 
 # Target Cancel
 def target_cancel(char):
 	if char.socket.hastag('cast_target'):
 		char.socket.deltag('cast_target')
-		
+
 # Target Timeout
 def target_timeout(char):
 	char.socket.deltag('cast_target')
@@ -66,10 +66,10 @@ def target_timeout(char):
 def target_response( char, args, target ):
 	# No more npc saftey from here
 	char.socket.deltag('cast_target')
-	
+
 	spell = args[0]
 	mode = args[1]
-	
+
 	# Char Targets
 	if target.char and (spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_CHAR):
 		if target.char.invulnerable and spell.harmful:
@@ -94,9 +94,9 @@ def target_response( char, args, target ):
 			return
 
 		spell.target(char, mode, TARGET_CHAR, target.char)
-		
+
 	# Item Target
-	elif target.item and ( spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_ITEM ):	
+	elif target.item and ( spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_ITEM ):
 		if not char.cansee(target.item):
 			if char.socket:
 				char.socket.clilocmessage(500237)
@@ -104,10 +104,10 @@ def target_response( char, args, target ):
 		if not char.canreach(target.item, spell.range):
 			if char.socket:
 				char.socket.clilocmessage(500237)
-			return	
+			return
 
 		spell.target(char, mode, TARGET_ITEM, target.item)
-		
+
 	# Ground Target
 	elif (target.item or target.char or target.pos) and (spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_GROUND):
 		pos = target.pos
@@ -119,7 +119,7 @@ def target_response( char, args, target ):
 				pos = item.container.pos
 		elif target.char:
 			pos = target.char.pos
-			
+
 		# See if the target is accesible
 		if char.distanceto(pos) > spell.range:
 			if char.socket:
@@ -143,12 +143,12 @@ def onDamage(char, type, amount, source):
 	# You cannot be disturbed while using protection
 	if char.propertyflags & 0x20000:
 		return amount
-		
+
 	char.socket.clilocmessage(500641)
 	fizzle(char)
 	return amount
 
-def onWalk( char, direction, sequence ):	
+def onWalk( char, direction, sequence ):
 	running = direction & 0x80
 	direction &= 0x7F
 
@@ -158,10 +158,10 @@ def onWalk( char, direction, sequence ):
 
 	char.socket.clilocmessage(500641)
 	fizzle(char)
-	
+
 def onWarModeToggle(char, warmode):
 	char.socket.clilocmessage(500641)
 	fizzle(char)
-	
+
 def onLogin(char):
 	fizzle(char)

@@ -10,7 +10,7 @@ import wolfpack
 def onUse( char, item ):
 	if( not char.socket ):
 		return 0
-	
+
 	if( char.distanceto( item ) > 5 ):
 		char.socket.sysmessage( "You are too far away to use this" )
 		return 1
@@ -25,7 +25,7 @@ def onUse( char, item ):
 		else:
 			char.socket.sysmessage( "Wrong item id" )
 			return 1
-		
-		item.update()		
+
+		item.update()
 
 	return 1

@@ -35,7 +35,7 @@ def gainstat(char, stat):
   resendstats = 0
 
   # Atrohpy
-  # Like the skill atrophy we have a certain chance to 
+  # Like the skill atrophy we have a certain chance to
   # decrease another (lock: down) stat here.
   # Only active for players
   if char.player and totalstats / char.statcap >= random():
@@ -45,7 +45,7 @@ def gainstat(char, stat):
 
     if char.dexteritylock != 1 or stat == 1 or realdex <= 1:
       stats.remove(1)
-  
+
     if char.intelligencelock != 1 or stat == 2 or realint <= 1:
       stats.remove(2)
 
@@ -67,7 +67,7 @@ def gainstat(char, stat):
         char.log(LOG_TRACE, 'Character [%x] lost one point of intelligence [%u].\n' % (char.serial, char.intelligence))
       totalstats -= 1
       resendstats = 1
-    
+
   # Increase the stat if we didn't hit our total
   # statcap yet.
   if totalstats < char.statcap:
@@ -84,7 +84,7 @@ def gainstat(char, stat):
     elif stat == 2:
       char.intelligence += 1
       char.log(LOG_TRACE, 'Character [%x] gained one point of intelligence [%u].\n' % (char.serial, char.intelligence))
-    resendstats = 1    
+    resendstats = 1
 
   if resendstats and char.socket:
     char.socket.resendstatus()
@@ -117,12 +117,12 @@ def gainskill(char, skill, totalskill, totalcap):
           totalskill -= points
 
           char.log(LOG_TRACE, 'Character [%x] lost %0.01f%% of %s [%02.01f%%].\n' % (char.serial, points, SKILLS[i][SKILL_NAME], char.skill[i] / 10.0))
-          
+
           if char.socket:
             char.socket.updateskill(i)
           break
 
-    # We can only gain in this skill if we are still below 
+    # We can only gain in this skill if we are still below
     # the total skill cap. Atrophy has been taken care of
     # in the if before this.
     if totalskill + points <= totalcap:
@@ -135,13 +135,13 @@ def gainskill(char, skill, totalskill, totalcap):
 
   # It's not important that we actually gained the skill
   # in order to gain stats by using it.
-  if lock == 0:    
+  if lock == 0:
     strchance = info[SKILL_STRCHANCE]
     dexchance = info[SKILL_DEXCHANCE]
     intchance = info[SKILL_INTCHANCE]
     realstr = char.strength - char.strength2
     realdex = char.dexterity - char.dexterity2
-    realint = char.intelligence - char.intelligence2    
+    realint = char.intelligence - char.intelligence2
 
     if (char.npc or char.strengthlock == 0) and realstr >= char.strengthcap:
       strchance = 0.0
@@ -184,7 +184,7 @@ def onSkillGain(char, skill, lower, higher, success):
   lower /= 10.0
   higher /= 10.0
 
-  # NPCs only learn by using skills 
+  # NPCs only learn by using skills
   # they already have
   if char.npc and value <= 0.0:
     return
@@ -204,12 +204,12 @@ def onSkillGain(char, skill, lower, higher, success):
   for i in range(0, ALLSKILLS):
     totalskills += skills[i] / 10.0
 
-  # Calculate the GainChance 
+  # Calculate the GainChance
   # (RunUO has a nice approach. Doing it similar)
   totalcap = settings.getNumber("General", "SkillCap", 700)
   gainchance = (totalcap - totalskills) / totalcap # How near are we to our global skill cap
   gainchance += (cap - value) / cap # How near are we to our skill cap
-  
+
   # Use the difficulty to influence the skill gain
   if success:
     gainchance += 0.5 - chance * 0.5
@@ -236,7 +236,7 @@ def onSkillGain(char, skill, lower, higher, success):
 #
 def onLoad():
   wolfpack.registerglobal(EVENT_SKILLGAIN, "system.skillgain")
-  
+
   # Load all the neccesary data from the definitions
   for i in range(0, ALLSKILLS):
     skilldef = wolfpack.getdefinition(WPDT_SKILL, str(i))

@@ -33,6 +33,6 @@ def sureGump( char, item, callback ):
 	okGump.setCallback( callback )
 	# send it
 	okGump.setArgs( [ char, item ] )
-	okGump.send( char )	
+	okGump.send( char )
 
 	return 1

@@ -1,7 +1,6 @@
 
 import wolfpack
 
-
 """
 	\command invul
 	\description Toggle or change your invulnerability flag.
@@ -11,7 +10,7 @@ import wolfpack
 	- <code>invul 1</code>
 	- <code>invul off</code>
 	- <code>invul false</code>
-	- <code>invul 0</code>	
+	- <code>invul 0</code>
 	If no argument is given, the flag is toggled.
 """
 
@@ -23,8 +22,8 @@ def invul(socket, command, arguments):
 		socket.player.invulnerable = 0
 	else:
 		socket.player.invulnerable = not socket.player.invulnerable
-	socket.sysmessage("'invul' is now '%u'" % socket.player.invulnerable)	
+	socket.sysmessage("'invul' is now '%u'" % socket.player.invulnerable)
 	socket.player.resendtooltip()
-	
+
 def onLoad():
 	wolfpack.registercommand('invul', invul)
