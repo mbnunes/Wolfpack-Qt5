@@ -421,3 +421,92 @@ WEAPONINFO = {
 		MISSSOUND: [ 0x23a, 0x239 ]
 	}
 }
+
+SAMURAIWEAPONINFO = {
+	# Bokuto
+	'27a8': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Daisho
+	'27a9': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Fukiya
+	'27aa': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Kama
+	'27ad': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Lajatang
+	'27a7': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# No-Dachi
+	'27a2': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Nunchaku
+	'27ae': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Sai
+	'27af': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Shuriken
+	'27ac': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Tekagi
+	'27ab': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Tessen
+	'27a3': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Tetsubo
+	'27a6': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Wakizashi
+	'27a4': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Yumi
+	'27a5': {
+		SWING: [0x9],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	}
+}
+
+WEAPONINFO.update( SAMURAIWEAPONINFO )

@@ -196,7 +196,9 @@ REMOVETRAPS = 48
 NECROMANCY = 49
 FOCUS = 50
 CHIVALRY = 51
-ALLSKILLS = 52 # skills + 1
+NINJITSU = 52
+BUSHIDO = 53
+ALLSKILLS = 54 # skills + 1
 """
 	\end
 """
@@ -209,7 +211,7 @@ SKILLNAMES = [ 'alchemy', 'anatomy', 'animallore', 'itemid', 'armslore', 'parryi
 	'musicianship', 'poisoning', 'archery', 'spiritspeak', 'stealing', 'tailoring',
 	'taming', 'tasteid', 'tinkering', 'tracking', 'veterinary', 'swordsmanship',
 	'macefighting', 'fencing', 'wrestling', 'lumberjacking', 'mining', 'meditation',
-	'stealth', 'removetraps', 'necromancy', 'focus', 'chivalry' ]
+	'stealth', 'removetraps', 'necromancy', 'focus', 'chivalry', 'ninjitsu', 'bushido' ]
 
 skillnamesids = {
 	'alchemy' : ALCHEMY,
@@ -263,7 +265,9 @@ skillnamesids = {
 	'removetraps' : REMOVETRAPS,
 	'necromancy' : NECROMANCY,
 	'focus' : FOCUS,
-	'chivalry' : CHIVALRY
+	'chivalry' : CHIVALRY,
+	'ninjitsu' : NINJITSU,
+	'bushido' : BUSHIDO
 }
 
 STATNAMES = [ 'str', 'int', 'dex' ]
