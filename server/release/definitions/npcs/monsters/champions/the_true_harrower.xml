@@ -47,7 +47,7 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_super_boss;lootpack_super_boss;lootpack_meager</lootpacks>
 		<!-- Misc. -->
-		<category>Monsters\AoS\The True Harrower</category>
+		<category>Monsters\Champions\The True Harrower</category>
 	</npc>
 
 </definitions>

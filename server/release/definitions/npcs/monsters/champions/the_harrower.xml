@@ -46,7 +46,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
-		<category>Monsters\AoS\The Harrower</category>
+		<category>Monsters\Champions\The Harrower</category>
 	</npc>
 
 </definitions>

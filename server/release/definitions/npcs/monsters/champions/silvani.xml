@@ -48,7 +48,7 @@
 		<!-- Missing: Level 5 Map -->
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
-		<category>Monsters\AoS\Silvani</category>
+		<category>Monsters\Champions\Silvani</category>
 	</npc>
 
 </definitions>

@@ -45,8 +45,8 @@
 		<!-- Missing: Skull of Power -->
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;gems</lootpacks>
 		<!-- Misc. -->
-		<category>Monsters\AoS\Rikktor</category>
-		
+		<category>Monsters\Champions\Rikktor</category>
+
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="20" />
 		<strproperty name="carve_scales_type" value="all" />

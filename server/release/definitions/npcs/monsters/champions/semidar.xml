@@ -48,7 +48,7 @@
 		<!-- Missing: Skull of Pain -->
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;gems;lootpack_filthy_rich</lootpacks>
 		<!-- Misc. -->
-		<category>Monsters\AoS\Semidar</category>
+		<category>Monsters\Champions\Semidar</category>
 	</npc>
 
 </definitions>
