@@ -733,8 +733,9 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 	else if (comm.find(" COME") !=string::npos)
 	{
 		pPlayer->guarded = false;
-		pPet->ftarg = currchar[s]->serial;
+		pPet->ftarg = pPlayer->serial;
 		pPet->npcWander=1;
+		pPet->setNextMoveTime();
 		sysmessage(s, "Your pet begins following you.");
 		bReturn = true;
 	}

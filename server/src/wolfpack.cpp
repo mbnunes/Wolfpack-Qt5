@@ -102,7 +102,7 @@ int GetWindowsVersion()
    {
 	 if(winfo.dwMinorVersion<10)   { return W95; }
 	 else
-	 if(winfo.dwMinorVersion<90) { return W98; }
+	 if(winfo.dwMinorVersion<90)   { return W98; }
 	 else { return WME;	 }
    }
    return W95; // Makes compiler happier.
@@ -2054,9 +2054,7 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 				p_pet->stablemaster_serial = INVALID_SERIAL; // actual unstabling
 				p_pet->timeused_last = getNormalizedTime();
 				p_pet->time_unused = 0;
-				p_pet->pos.x = p_petowner->pos.x;
-				p_pet->pos.y = p_petowner->pos.y;
-				p_pet->pos.z = p_petowner->pos.z;
+				p_pet->pos = p_petowner->pos;
 				p_pet->npcWander = 0;
 				
 				mapRegions->Remove(p_pet);
