@@ -846,17 +846,21 @@ void cAllSpawnRegions::load()
 {
 	this->clear(); // clear the std::map
 
-	QStringList DefSections = Definitions::instance()->getSections( WPDT_SPAWNREGION );
+	// Don't load spawnregions if disabled
+	if (!Config::instance()->getBool("General", "Disable Spawnregions", false, true)) {	
+		QStringList DefSections = Definitions::instance()->getSections( WPDT_SPAWNREGION );
 
-	QStringList::iterator it = DefSections.begin();
-	while ( it != DefSections.end() )
-	{
-		const cElement* DefSection = Definitions::instance()->getDefinition( WPDT_SPAWNREGION, *it );
+		QStringList::iterator it = DefSections.begin();
+		while ( it != DefSections.end() )
+		{
+			const cElement* DefSection = Definitions::instance()->getDefinition( WPDT_SPAWNREGION, *it );
 
-		cSpawnRegion* toinsert_ = new cSpawnRegion( DefSection );
-		this->insert( make_pair( *it, toinsert_ ) );
-		++it;
+			cSpawnRegion* toinsert_ = new cSpawnRegion( DefSection );
+			this->insert( make_pair( *it, toinsert_ ) );
+			++it;
+		}
 	}
+
 	cComponent::load();
 }
 
