@@ -86,6 +86,7 @@ Coord_cl getWpCoord( PyObject* object );
 bool checkWpItem( PyObject *object );
 PyObject* PyGetItemObject( P_ITEM );
 P_ITEM getWpItem( PyObject* );
+int PyConvertItem(PyObject*, P_ITEM *item);
 
 PyObject *PyGetObjectObject( cUObject* );
 

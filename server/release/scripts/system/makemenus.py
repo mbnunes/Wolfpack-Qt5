@@ -5,6 +5,7 @@ from wolfpack.gumps import cGump
 import math
 from wolfpack import console
 from wolfpack.consts import *
+import random
 
 # Known menus
 menus = {}
@@ -19,6 +20,7 @@ def findmenu(id):
 
 # Constants
 whitehtml = '<basefont color="#FFFFFF">%s'
+redhtml = '<basefont color="#FF0000">%s'
 centerhtml = '<basefont color="#FFFFFF"><div align="center">%s</div>'
 
 #
@@ -49,6 +51,13 @@ class MakeAction:
     self.title = title
     self.parent.subactions.append(self)
     self.hasdetails = 0
+
+  #
+  # Checks if this option is visible to 
+  # the given character.
+  #
+  def visible(self, char):
+    return 1
 
   #
   # Default response function (does nothing).
@@ -457,6 +466,27 @@ class MakeMenu:
       self.submenus.sort(comparetitle)
       self.subactions.sort(comparetitle)
 
+    self.gump = gump
+
+  #
+  # Send this menu to a character. If the gump
+  # has not yet been generated. Autogenerate it.
+  # Args are additional arguments you want to have
+  # passed on between gump calls.
+  #
+  def send(self, player, args = []):
+    if not self.gump:
+      self.generate()
+
+    gump = cGump.copy(self.gump)
+
+    # MARK ITEM switch , switch index: 1
+    if player.hastag('markitem'):
+      gump.addCheckbox(270, 362, 4005, 4007, 1, 1)
+    else:
+      gump.addCheckbox(270, 362, 4005, 4007, 1, 0)
+    gump.addHtmlGump(305, 365, 150, 18, whitehtml % "MARK ITEM")
+
     # Calculate how many pages are required
     menupages = math.ceil(len(self.submenus) / 9.0)
     actionpages = math.ceil(len(self.subactions) / 10.0)
@@ -480,10 +510,13 @@ class MakeMenu:
       for j in range(0, 10):
         if menus + j < len(self.subactions):
           yoffset = 60 + 20 * j
-          gump.addButton(220, yoffset, 4005, 4007, 0x40000000 | (menus + j))
-          if self.subactions[menus + j].hasdetails:
-            gump.addButton(480, yoffset, 4011, 4012, 0x20000000 | (menus + j))
-          gump.addHtmlGump(255, yoffset+3, 220, 18, whitehtml % self.subactions[menus + j].title)
+          if self.subactions[menus + j].visible(player, args):
+            gump.addButton(220, yoffset, 4005, 4007, 0x40000000 | (menus + j))
+            if self.subactions[menus + j].hasdetails:
+              gump.addButton(480, yoffset, 4011, 4012, 0x20000000 | (menus + j))
+            gump.addHtmlGump(255, yoffset+3, 220, 18, whitehtml % self.subactions[menus + j].title)
+          else:
+            gump.addHtmlGump(255, yoffset+3, 220, 18, redhtml % self.subactions[menus + j].title)
       menus += 9
 
       # Add a back button
@@ -496,25 +529,116 @@ class MakeMenu:
         gump.addPageButton(270, 342, 4005, 4007, i + 2)
         gump.addHtmlGump(305, 345, 150, 18, whitehtml % "NEXT PAGE")
 
-    self.gump = gump
-
-  #
-  # Send this menu to a character. If the gump
-  # has not yet been generated. Autogenerate it.
-  # Args are additional arguments you want to have
-  # passed on between gump calls.
-  #
-  def send(self, player, args = []):
-    if not self.gump:
-      self.generate()
-
-    gump = cGump.copy(self.gump)
-    # MARK ITEM switch , switch index: 1
-    if player.hastag('markitem'):
-      gump.addCheckbox(270, 362, 4005, 4007, 1, 1)
-    else:
-      gump.addCheckbox(270, 362, 4005, 4007, 1, 0)
-    gump.addHtmlGump(305, 365, 150, 18, whitehtml % "MARK ITEM")
     gump.setArgs([self.id] + args)
     gump.send(player)
 
+
+#
+# Action for crafting an item. 
+# This takes materials and skills into account.
+#
+class CraftItemAction(MakeItemAction):
+  def __init__(self, parent, title, itemid, definition, amount = 1):
+    MakeItemAction.__init__(self, parent, title, itemid, definition, amount)
+    self.skills = {} # SKILL: [min, max]
+    self.materials = [] # [baseids]: [amount]
+    # Sysmessage sent if you don't have enough material. 
+    # Integer or String allowed
+    self.lackmaterial = "You don't have enough material to make that."
+
+  #
+  # Make invisible if we dont have the minimum
+  # skill requirements yet
+  #
+  def visible(self, player, arguments):
+    return self.checkskills(player, arguments, 0)
+
+  #
+  # Returns true if the player has the required material.
+  #
+  def checkmaterial(self, player, arguments):
+    backpack = player.getbackpack()
+    for material in self.materials:
+      (baseids, amount) = material
+      count = backpack.countitems(baseids)
+      if count < amount:
+        return 0
+    return 1
+
+  #
+  # Consume material to make the item.
+  #
+  def consumematerial(self, player, arguments, half = 0):
+    backpack = player.getbackpack()
+    for material in self.materials:
+      (baseids, amount) = material
+      count = backpack.removeitems(baseids, amount)
+      if count != 0:
+        return 0
+    return 1
+
+  #
+  # Sees if the player has all the required skills to make
+  # this item.
+  #
+  def checkskills(self, player, arguments, check = 0):
+    success = 1
+    for (skill, values) in self.skills.items():
+      if player.skill[skill] < values[0]:
+        return 0
+      if check:
+        success = player.checkskill(skill, values[0], values[1])
+    return success
+
+  #
+  # Apply any special properties to the created item.
+  #
+  def applyproperties(self, player, arguments, item):
+    pass
+
+  #
+  # Try to make the item and consume the resources.
+  #
+  def make(self, player, arguments):
+    # See if we have enough skills to attempt
+    if not self.checkskills(player, arguments):     
+      player.socket.clilocmessage(1044153)
+      return
+
+    # See if we have enough material first
+    if not self.checkmaterial(player, arguments):
+      player.socket.sysmessage("You don't have enough material to make this.")
+      self.parent.send(player, arguments)
+      return
+
+    success = 0
+    success = self.checkskills(player, arguments, 1)
+
+    # 50% chance to loose half of the material
+    if not success:
+      if 0.5 >= random.random():
+        self.consumematerial(player, arguments, 1)
+        player.socket.clilocmessage(1044043)
+      else:
+        player.socket.clilocmessage(1044157)
+      self.parent.send(player, arguments)
+    else:
+      self.consumematerial(player, arguments, 0)
+      
+      # Create the item
+      item = wolfpack.additem(self.definition)
+
+      if not item:
+        console.log(LOG_ERROR, "Unknown item definition used in action %u of menu %s.\n" % \
+          (self.parent.subactions.index(self), self.parent.id))
+      else:
+        self.applyproperties(player, arguments, item)
+     
+        if self.amount > 0:
+          item.amount = self.amount
+        if not tobackpack(item, player):
+          item.update()
+        player.socket.sysmessage('You put the new item into your backpack.')
+  
+    # Register in make history  
+    MakeAction.make(self, player, arguments)

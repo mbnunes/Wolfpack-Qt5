@@ -572,7 +572,6 @@ static PyMethodDef wpSocketMethods[] =
 	{ "hastag",				(getattrofunc)wpSocket_hastag,	METH_VARARGS,	"Checks if a socket has a specific tag." },
 	{ "deltag",				(getattrofunc)wpSocket_deltag,	METH_VARARGS,	"Delete specific tag." },
 	{ "resendstatus",		(getattrofunc)wpSocket_resendstatus, METH_VARARGS,	"Resends the status windows to this client." },
-	{ "resendstatus",		(getattrofunc)wpSocket_resendstatus, METH_VARARGS,	"Resends the status windows to this client." },
 	{ "customize",			(getattrofunc)wpSocket_customize, METH_VARARGS,	"Begin house customization." },
 	{ "log",				(getattrofunc)wpSocket_log, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }

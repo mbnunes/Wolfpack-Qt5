@@ -166,11 +166,28 @@ public:
 	void SetRandPosInCont(cItem* pCont);
 	bool PileItem(cItem* pItem);
 	bool ContainerPileItem(cItem* pItem);	// try to find an item in the container to stack with
+	bool canStack(cItem *pItem); // See if this item can stack with another.
 	void addItem(cItem* pItem, bool randomPos = true, bool handleWeight = true, bool noRemove = false ); // Add Item to container
 	void removeItem(cItem*, bool handleWeight = true );
 	void removeFromCont( bool handleWeight = true );
 	ContainerContent content() const;
 	bool contains( const cItem* ) const;
+	/*!
+		\brief Counts the items in this container which match a list of
+				specific \p baseids.
+		\returns The amount of items found.
+	*/
+	unsigned int countItems(const QStringList &baseids);
+
+	/*!
+		\brief Removes a certain amount of items from this container 
+			recursively.
+		\param baseids The list of baseids that a item can have.
+		\param amount The amount of items to remove.
+		\returns The remaining amount of items to be removed.
+	*/
+	unsigned int removeItems(const QStringList &baseids, unsigned int amount);
+
 	int  CountItems(short ID, short col= -1) const;
 	int  DeleteAmount(int amount, ushort _id, ushort _color = 0);
 	QString getName( bool shortName = false );

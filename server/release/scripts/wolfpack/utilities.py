@@ -126,15 +126,7 @@ def evenorodd( value ):
 		return "odd"
 
 def itemsmatch(a, b):
-  if a.id != b.id or a.color != b.color or a.baseid != b.baseid:
-    return
-  
-  # See if its stackable.
-  tiledata = wolfpack.tiledata(a.id)
-  if not tiledata["flag2"] & 0x08:
-    return 0
-  
-  return 1
+  return a.canstack(b)
 
 def tobackpack( item, char ):
 	backpack = char.getbackpack()

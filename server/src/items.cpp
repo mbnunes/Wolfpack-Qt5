@@ -2100,3 +2100,66 @@ const char *cItem::className() const
 {
 	return "item";
 }
+
+bool cItem::canStack(cItem *pItem) {
+	// Do some basic checks and see if the item is a
+	// container (they never stack).
+	if (id() != pItem->id() || color() != pItem->color() 
+		|| type() != pItem->type() || type() == 1) {
+		return false;
+	}
+
+	tile_st tile = TileCache::instance()->getTile(id_);
+
+	if (!(tile.flag2 & 0x08)) {
+		return false;
+	}
+
+	if (baseid() != pItem->baseid()) {
+		return false;
+	}
+
+	return true;
+}
+
+unsigned int cItem::countItems(const QStringList &baseids)
+{
+	unsigned int count = 0;
+	if (baseids.contains(baseid())) {
+		count += amount();
+	}
+
+	ContainerContent::iterator it = content_.begin();
+	while (it != content_.end()) {
+		count += (*it)->countItems(baseids);
+		++it;
+	}
+	return count;
+}
+
+unsigned int cItem::removeItems(const QStringList &baseids, unsigned int amount)
+{
+	// We can statisfy the need by removing from ourself
+	if (baseids.contains(baseid())) {
+		if (this->amount() > amount) {
+			setAmount(this->amount() - amount);
+			update();
+			return 0;
+		} else {
+			amount -= this->amount();
+			remove();
+			return amount;
+		}
+	}
+
+	if (content().size() > 0) {
+		ContainerContent content(this->content());
+		ContainerContent::iterator it = content.begin();
+		while (amount > 0 && it != content.end()) {
+			amount = (*it)->removeItems(baseids, amount);
+			++it;
+		}
+	}
+
+	return amount;
+}

@@ -6,22 +6,21 @@
 #################################################################
 
 import wolfpack
-import wolfpack.utilities
+from system.makemenus import CraftItemAction, MakeMenu, findmenu
 
-def onUse( char, item ):
-	# Needs to be on ourself
-	if item.getoutmostchar() != char:
-		char.socket.clilocmessage( 0x7A258 )
-		return 1
-	# is it in use already ?
-	#if item.gettag( "use" ):
-		#char.socket.clilocmessage( )
-	#	return 1
+#
+# Bring up the blacksmithing menu
+#
+def onUse(char, item):
+  pass
 
-	# blacksmithing menu gump
-	char.sendmakemenu( "CRAFTMENU_BLACKSMITHING" )
+def testmenu(socket, command, arguments):
+  menu = findmenu('BLACKSMITHING')
+  if menu:
+    menu.send(socket.player)
 
-	# set response function
-
-	return 1
-
+def onLoad():
+  menu = MakeMenu('BLACKSMITHING', None, 'Blacksmithing')
+  action = CraftItemAction(menu, 'Test Item', 0, '')
+  action.materials.append([['efa'], 5])
+  wolfpack.registercommand('testmenu', testmenu)

@@ -686,16 +686,65 @@ static PyObject* wpItem_isblessed( wpItem *self, PyObject *args )
 	return self->pItem->newbie() ? PyTrue : PyFalse;
 }
 
+static PyObject* wpItem_canstack(wpItem *self, PyObject *args) {
+	P_ITEM other;
+	if (!PyArg_ParseTuple(args, "O&:item.canstack(other)", &PyConvertItem, &other)) {
+		return 0;
+	}
+
+	return self->pItem->canStack(other) ? PyTrue : PyFalse;
+}
+
+static PyObject* wpItem_countitems(wpItem *self, PyObject *args) {
+	PyObject *list;
+	if (!PyArg_ParseTuple(args, "O!:item.countitems(baseids)", &PyList_Type, &list)) {
+		return 0;
+	}
+
+	QStringList baseids;
+
+	for (int i = 0; i < PyList_Size(list); ++i) {
+		PyObject *item = PyList_GetItem(list, i);
+		if (PyString_Check(item)) {
+			baseids.append(PyString_AsString(item));
+		}
+	}
+
+	return PyInt_FromLong(self->pItem->countItems(baseids));
+}
+
+static PyObject* wpItem_removeitems(wpItem *self, PyObject *args) {
+	PyObject *list;
+	unsigned int amount;
+	if (!PyArg_ParseTuple(args, "O!I:item.removeitems(baseids, amount)", &PyList_Type, &list, &amount)) {
+		return 0;
+	}
+
+	QStringList baseids;
+
+	for (int i = 0; i < PyList_Size(list); ++i) {
+		PyObject *item = PyList_GetItem(list, i);
+		if (PyString_Check(item)) {
+			baseids.append(PyString_AsString(item));
+		}
+	}
+
+	return PyInt_FromLong(self->pItem->removeItems(baseids, amount));
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
 	{ "additem",			(getattrofunc)wpItem_additem, METH_VARARGS, "Adds an item to this container." },
 	{ "countitem",			(getattrofunc)wpItem_countItem, METH_VARARGS, "Counts how many items are inside this container." },
+	{ "countitems",			(getattrofunc)wpItem_countitems, METH_VARARGS, "Counts the items inside of this container based on a list of baseids." },
+	{ "removeitems",		(getattrofunc)wpItem_removeitems, METH_VARARGS, "Removes items inside of this container based on a list of baseids." },
     { "update",				(getattrofunc)wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
 	{ "removefromview",		(getattrofunc)wpItem_removefromview, METH_VARARGS, "Removes the item from the view of all in-range clients." },
 	{ "delete",				(getattrofunc)wpItem_delete, METH_VARARGS, "Deletes the item and the underlying reference." },
 	{ "moveto",				(getattrofunc)wpItem_moveto, METH_VARARGS, "Moves the item to the specified location." },
 	{ "soundeffect",		(getattrofunc)wpItem_soundeffect, METH_VARARGS, "Sends a soundeffect to the surrounding sockets." },
 	{ "distanceto",			(getattrofunc)wpItem_distanceto, METH_VARARGS, "Distance to another object or a given position." },
+	{ "canstack",			(getattrofunc)wpItem_canstack, METH_VARARGS, "Sees if the item can be stacked on another item." },
 	{ "weaponskill",		(getattrofunc)wpItem_weaponskill, METH_VARARGS, "Returns the skill used with this weapon. -1 if it isn't a weapon." },
 	{ "useresource",		(getattrofunc)wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." },
 	{ "countresource",		(getattrofunc)wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." },
@@ -925,4 +974,14 @@ int wpItem_compare( PyObject *a, PyObject *b )
 	P_ITEM pB = getWpItem( b );
 
 	return !( pA == pB );
+}
+
+int PyConvertItem(PyObject *object, P_ITEM *item) {
+	if (object->ob_type != &wpItemType) {
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	*item = ((wpItem*)object)->pItem;
+	return 1;
 }
