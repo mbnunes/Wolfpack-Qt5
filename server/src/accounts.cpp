@@ -243,7 +243,7 @@ void cAccounts::clear()
 
 cAccount* cAccounts::authenticate(const QString& login, const QString& password, enErrorCode* error) const
 {
-	const_iterator it = accounts.find(login);
+	const_iterator it = accounts.find(login.lower()); // make sure it's case insensitive
 	if( error )
 		*error = NoError;
 	if ( it != accounts.end() )
