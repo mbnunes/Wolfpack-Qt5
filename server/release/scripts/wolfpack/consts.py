@@ -82,6 +82,45 @@ MINING = 45
 MEDITATION = 46
 STEALTH = 47
 REMOVETRAPS = 48
+NECROMANCY = 49
+FOCUS = 50
+CHIVALRY = 51
+
+ALLSKILLS = 52 # skills + 1
+
+#Stats
+MANA = 0
+STAMINA = 1
+HITPOINTS = 2
+DEXTERITY = 3
+INTELLIGENCE = 4
+STRENGTH = 5
+
+
+#Requirements
+MANACOST = 0
+REAGENTCONST = 1
+GLB_REQUIREMENT = 2
+
+#Damage by
+SPELL = 0
+COLD = 1
+DISPEL = 2
+ENERGY = 3
+FIRE = 4
+HITCHANCE = 5
+LOWERATTACK = 6
+LOWERDEFENCE = 7	   
+#... here we need to add every spell also
+
+#Enhancements
+GOLD = 0           #Gold increase
+SWINGSPEED = 1	   #Swing speed increase
+POTIONS = 2	   #Enhance potions
+SELFREPAIR = 3	   #Self repair
+DEFENCECHANCE = 4  #Defence chance
+CASTSPEED = 5	   #Faster casting
+CASTRECOVERY = 6   #Faster cast recovery
 
 # Constants for char.sound
 SND_STARTATTACK = 0

@@ -217,50 +217,39 @@ extern long int oldtime, newtime;
 #define WEIGHT_PER_STR 4
 #define MAXGATES 100
 
-enum enStats {
-	Mana = 1,
-	Stamina,
-	HitPoints,
-	Dexterity,
-	Intelligence,
-	Strength
-};
+//Stats
+#define MANA 1
+#define STAMINA 2
+#define HITPOINTS 3
+#define DEXTERITY 4
+#define INTELLIGENCE 5
+#define STRENGTH 6
 
-enum enRequirement {
-	LowManaCost = 1,
-	LowReagentCost,
-	GlobalRequirement
-};
 
-enum enHit {
-	Spell = 1,
-	HitChance,
-	Cold,
-	Dispel,
-	Energy,
-	Fire,
-	Fireball,
-	Harm,
-	LifeLeech,
-	Lighting,
-	LowerAttack,
-	LowerDefence,
-	MagicArrow,
-	ManaLeech,
-	PhysicalArea,
-	PoisonArea,
-	StaminaLeech
-};
+//Requirements
+#define MANACOST 1
+#define REAGENTCONST 2
+#define GLB_REQUIREMENT 3
 
-enum enEnh {
-	Gold = 1,
-	SwingSpeed,
-	Potions,
-	SelfRepair,
-	DefenceChance,
-	CastSpeed,
-	CastRecovery
-};
+//Damage by
+#define SPELL 1
+#define COLD 2
+#define DISPEL 3
+#define ENERGY 4
+#define FIRE 5
+#define HITCHANCE 6
+#define LOWERATTACK 7
+#define LOWERDEFENCE 8	   
+// ... here we need to add every spell also
+
+// Enhancements
+#define GOLD 1             // Gold increase
+#define SWINGSPEED 2	   // Swing speed increase
+#define POTIONS 3		   // Enhance potions
+#define SELFREPAIR 4	   // Self repair
+#define DEFENCECHANCE 5	   // Defence chance
+#define CASTSPEED 6		   // Faster casting
+#define CASTRECOVERY 7	   // Faster cast recovery
 
 enum enDirection
 {
