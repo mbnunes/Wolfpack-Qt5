@@ -38,28 +38,28 @@ Food subtypes:
 	<item id="970">
 		<category>Equipment\Food\Stew</category>
 		<note>Use in conjunction with <ref id="item:974">cauldron n/s</ref> and <ref id="item:975">cauldron w/e</ref></note>
-		<id>0x0970</id>
+		<id>0x970</id>
 		<events>food</events> <!-- You can eat stew out of the cauldrons -->
 	</item>
 
 	<!-- Cauldron n/s -->
 	<item id="974">
 		<category>Decoration\Kitchen\Cauldron (N/S)</category>
-		<id>0x0974</id>
+		<id>0x974</id>
 		<note>Use this in conjunction with <ref id="item:970">stew</ref></note>
 	</item>
 
 	<!-- Cauldron w/e -->
 	<item id="975">
 		<category>Decoration\Kitchen\Cauldron (W/E)</category>
-		<id>0x0975</id>
+		<id>0x975</id>
 		<note>Use this in conjunction with <ref id="item:970">stew</ref></note>
 	</item>
 
 	<!-- Slab of Bacon n/s -->
 	<item id="976">
 		<category>Equipment\Food\Slab of Bacon (N/S)</category>
-		<id>0x0976</id>
+		<id>0x976</id>
 		<events>food</events>
 		<weight>1</weight>
 	</item>
@@ -68,13 +68,13 @@ Food subtypes:
 	<item id="977">
 		<inherit id="976" />
 		<category>Equipment\Food\Slab of Bacon (W/E)</category>
-		<id>0x0977</id>
+		<id>0x977</id>
 	</item>
 
 	<!-- Slice of Bacon n/s -->
 	<item id="978">
 		<category>Equipment\Food\Slice of Bacon (N/S)</category>
-		<id>0x0978</id>
+		<id>0x978</id>
 		<events>food</events>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
@@ -85,13 +85,13 @@ Food subtypes:
 	<item id="979">
 		<inherit id="978" />
 		<category>Equipment\Food\Slice of Bacon (W/E)</category>
-		<id>0x0979</id>
+		<id>0x979</id>
 	</item>
 
 	<!-- Raw Fish Steak -->
 	<item id="97a">
 		<category>Equipment\Food\Raw Fish Steak</category>
-		<id>0x097a</id>
+		<id>0x97a</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>0.1</weight>
@@ -109,7 +109,7 @@ Food subtypes:
 	<!-- Fish Steak -->
 	<item id="97b">
 		<category>Equipment\Food\Fish Steak</category>
-		<id>0x097b</id>
+		<id>0x97b</id>
 		<events>food</events>
 		<weight>0.1</weight>
 
@@ -118,7 +118,7 @@ Food subtypes:
 	<!-- Wedge of Cheese (small) -->
 	<item id="97c">
 		<category>Equipment\Food\Wedge of Cheese (small)</category>
-		<id>0x097c</id>
+		<id>0x97c</id>
 		<events>food</events>
 		<weight>0.1</weight>
 
@@ -127,7 +127,7 @@ Food subtypes:
 	<!-- Wedge of Cheese (big) -->
 	<item id="97d">
 		<category>Equipment\Food\Wedge of Cheese (big)</category>
-		<id>0x097d</id>
+		<id>0x97d</id>
 		<events>food</events>
 		<weight>0.1</weight>
 
@@ -136,7 +136,7 @@ Food subtypes:
 	<!-- Wheel of Cheese -->
 	<item id="97e">
 		<category>Equipment\Food\Wheel of Cheese</category>
-		<id>0x097e</id>
+		<id>0x97e</id>
 		<events>food</events>
 		<buyprice>25</buyprice>
 		<sellprice>12</sellprice>
@@ -147,13 +147,13 @@ Food subtypes:
 	<!-- Frypan -->
 	<item id="97f">
 		<category>Decoration\Kitchen\Frypan 1</category>
-		<id>0x097f</id>
+		<id>0x97f</id>
 	</item>
 
 	<!-- French Bread -->
 	<item id="98c">
 		<category>Equipment\Food\French Bread</category>
-		<id>0x098c</id>
+		<id>0x98c</id>
 		<events>food</events>
 		<buyprice>6</buyprice>
 		<sellprice>3</sellprice>
@@ -165,7 +165,7 @@ Food subtypes:
 	<item id="98d">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Jug of Cider 3</category>
-		<id>0x098d</id>
+		<id>0x98d</id>
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
 		<weight>11</weight>
@@ -175,7 +175,7 @@ Food subtypes:
 	<item id="98e">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Jug of Cider 2</category>
-		<id>0x098e</id>
+		<id>0x98e</id>
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
 		<weight>11</weight>
@@ -184,26 +184,26 @@ Food subtypes:
 	<!-- Tray n/s -->
 	<item id="991">
 		<category>Decoration\Kitchen\Tray (N/S)</category>
-		<id>0x0991</id>
+		<id>0x991</id>
 	</item>
 
 	<!-- Tray w/e -->
 	<item id="992">
 		<category>Decoration\Kitchen\Tray (W/E)</category>
-		<id>0x0992</id>
+		<id>0x992</id>
 	</item>
 
 	<!-- Fruit Basket -->
 	<item id="993">
 		<category>Equipment\Food\Fruit Basket</category>
-		<id>0x0993</id>
+		<id>0x993</id>
 		<weight>5</weight>
 	</item>
 
 	<!-- Pear -->
 	<item id="994">
 		<category>Equipment\Food\Pear 1</category>
-		<id>0x0994</id>
+		<id>0x994</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>11</weight>
@@ -215,44 +215,44 @@ Food subtypes:
 	<!-- Ceramic Mug 1 -->
 	<item id="995">
 		<category>Decoration\Kitchen\Ceramic Mug 1</category>
-		<id>0x0995</id>
+		<id>0x995</id>
 	</item>
 
 	<!-- Ceramic Mug 2 -->
 	<item id="996">
 		<category>Decoration\Kitchen\Ceramic Mug 2</category>
-		<id>0x0996</id>
+		<id>0x996</id>
 	</item>
 
 	<!-- Ceramic Mug 3 -->
 	<item id="997">
 		<category>Decoration\Kitchen\Ceramic Mug 3</category>
-		<id>0x0997</id>
+		<id>0x997</id>
 	</item>
 
 	<!-- Mug 1 -->
 	<item id="998">
 		<category>Decoration\Kitchen\Mug 1</category>
-		<id>0x0998</id>
+		<id>0x998</id>
 	</item>
 
 	<!-- Mug 2 -->
 	<item id="999">
 		<category>Decoration\Kitchen\Mug 2</category>
-		<id>0x0999</id>
+		<id>0x999</id>
 	</item>
 
 	<!-- Goblet 1 -->
 	<item id="99a">
 		<category>Decoration\Kitchen\Goblet 1</category>
-		<id>0x099a</id>
+		<id>0x99a</id>
 	</item>
 
 	<!-- Bottle of Liquor -->
 	<item id="99b">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Bottle of Liquor 1</category>
-		<id>0x099b</id>
+		<id>0x99b</id>
 		<buyprice>4</buyprice>
 		<sellprice>4</sellprice>
 		<weight>1</weight>
@@ -262,7 +262,7 @@ Food subtypes:
 	<item id="99c">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Bottle of Liquor 2</category>
-		<id>0x099c</id>
+		<id>0x99c</id>
 		<weight>1</weight>
 	</item>
 
@@ -270,7 +270,7 @@ Food subtypes:
 	<item id="99d">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Bottle of Liquor 3</category>
-		<id>0x099d</id>
+		<id>0x99d</id>
 		<weight>1</weight>
 	</item>
 
@@ -278,7 +278,7 @@ Food subtypes:
 	<item id="99e">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Bottle of Liquor 4</category>
-		<id>0x099e</id>
+		<id>0x99e</id>
 		<weight>1</weight>
 	</item>
 
@@ -286,7 +286,7 @@ Food subtypes:
 	<item id="99f">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Bottle of Ale 1</category>
-		<id>0x099f</id>
+		<id>0x99f</id>
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
 		<weight>1</weight>
@@ -296,7 +296,7 @@ Food subtypes:
 	<item id="9a0">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Bottle of Ale 2</category>
-		<id>0x09a0</id>
+		<id>0x9a0</id>
 		<weight>1</weight>
 	</item>
 
@@ -304,7 +304,7 @@ Food subtypes:
 	<item id="9a1">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Bottle of Ale 3</category>
-		<id>0x09a1</id>
+		<id>0x9a1</id>
 		<weight>1</weight>
 	</item>
 
@@ -312,38 +312,38 @@ Food subtypes:
 	<item id="9a2">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Bottle of Ale 4</category>
-		<id>0x09a2</id>
+		<id>0x9a2</id>
 		<weight>1</weight>
 	</item>
 
 	<!-- Fork w/e -->
 	<item id="9a3">
 		<category>Decoration\Kitchen\Fork (E/W)</category>
-		<id>0x09a3</id>
+		<id>0x9a3</id>
 	</item>
 
 	<!-- Fork n/s -->
 	<item id="9a4">
 		<category>Decoration\Kitchen\Fork (S/N)</category>
-		<id>0x09a4</id>
+		<id>0x9a4</id>
 	</item>
 
 	<!-- Knife w/e -->
 	<item id="9a5">
 		<category>Decoration\Kitchen\Knife (E/W)</category>
-		<id>0x09a5</id>
+		<id>0x9a5</id>
 	</item>
 
 	<!-- Knife n/s -->
 	<item id="9a6">
 		<category>Decoration\Kitchen\Knife (S/N)</category>
-		<id>0x09a6</id>
+		<id>0x9a6</id>
 	</item>
 
 	<!-- Glass Pitcher -->
 	<item id="9a7">
 		<category>Decoration\Kitchen\Glass Pitcher (empty)</category>
-		<id>0x09a7</id>
+		<id>0x9a7</id>
 	</item>
 
 	<!-- Pitcher of Milk -->
@@ -351,32 +351,32 @@ Food subtypes:
 	<item id="9ad">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Pitcher of Milk 1</category>
-		<id>0x09ad</id>
+		<id>0x9ad</id>
 		<weight>2</weight>
 	</item>
 
 	<!-- Dirty plate -->
 	<item id="9ae">
 		<category>Decoration\Kitchen\Dirty Plate 1</category>
-		<id>0x09ae</id>
+		<id>0x9ae</id>
 	</item>
 
 	<!-- Plate of Food -->
 	<item id="9af">
 		<category>Decoration\Kitchen\Plate of Food 1</category>
-		<id>0x09af</id>
+		<id>0x9af</id>
 	</item>
 
 	<!-- Goblet -->
 	<item id="9b3">
 		<category>Decoration\Kitchen\Goblet 2</category>
-		<id>0x09b3</id>
+		<id>0x9b3</id>
 	</item>
 
 	<!-- Eggshells -->
 	<item id="9b4">
 		<category>Decoration\Kitchen\Eggshells</category>
-		<id>0x09b4</id>
+		<id>0x9b4</id>
 	</item>
 
 	<!-- Eggs -->
@@ -386,7 +386,7 @@ Food subtypes:
 	-->
 	<item id="9b5">
 		<category>Equipment\Food\Eggs</category>
-		<id>0x09b5</id>
+		<id>0x9b5</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<events>food</events>
@@ -397,7 +397,7 @@ Food subtypes:
 	<!-- Fried Eggs -->
 	<item id="9b6">
 		<category>Equipment\Food\Fried Eggs</category>
-		<id>0x09b6</id>
+		<id>0x9b6</id>
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
 		<events>food</events>
@@ -408,7 +408,7 @@ Food subtypes:
 	<!-- Cooked bird w/e -->
 	<item id="9b7">
 		<category>Equipment\Food\Cooked Bird (W/E)</category>
-		<id>0x09b7</id>
+		<id>0x9b7</id>
 		<buyprice>24</buyprice>
 		<sellprice>12</sellprice>
 		<weight>1</weight>
@@ -421,7 +421,7 @@ Food subtypes:
 	<item id="9b8">
 		<category>Equipment\Food\Cooked Bird (N/S)</category>
 		<inherit id="9b7" />
-		<id>0x09b8</id>
+		<id>0x9b8</id>
 		<buyprice>24</buyprice>
 		<sellprice>12</sellprice>
 		<weight>1</weight>
@@ -430,7 +430,7 @@ Food subtypes:
 	<!-- Raw bird w/e -->
 	<item id="9b9">
 		<category>Equipment\Food\Raw Bird (W/E)</category>
-		<id>0x09b9</id>
+		<id>0x9b9</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>1.0</weight>
@@ -441,13 +441,13 @@ Food subtypes:
 	<item id="9ba">
 		<inherit id="9b9" />
 		<category>Equipment\Food\Raw Bird (N/S)</category>
-		<id>0x09ba</id>
+		<id>0x9ba</id>
 	</item>
 
 	<!-- Roast pig w/e -->
 	<item id="9bb">
 		<category>Equipment\Food\Roast Pig (W/E)</category>
-		<id>0x09bb</id>
+		<id>0x9bb</id>
 		<buyprice>128</buyprice>
 		<sellprice>64</sellprice>
 		<events>food</events>
@@ -459,31 +459,31 @@ Food subtypes:
 	<item id="9bc">
 		<inherit id="9bb" />
 		<category>Equipment\Food\Roast Pig (N/S)</category>
-		<id>0x09bc</id>
+		<id>0x9bc</id>
 	</item>
 
 	<!-- Silverware 1 w/e -->
 	<item id="9bd">
 		<category>Decoration\Kitchen\Silverware 1 (W/E)</category>
-		<id>0x09bd</id>
+		<id>0x9bd</id>
 	</item>
 
 	<!-- Silverware 1 n/s -->
 	<item id="9be">
 		<category>Decoration\Kitchen\Silverware 1 (N/S)</category>
-		<id>0x09be</id>
+		<id>0x9be</id>
 	</item>
 
 	<!-- Goblet 3 -->
 	<item id="9bf">
 		<category>Decoration\Kitchen\Goblet 3</category>
-		<id>0x09bf</id>
+		<id>0x9bf</id>
 	</item>
 
 	<!-- Sausage w/e -->
 	<item id="9c0">
 		<category>Equipment\Food\Sausage (W/E)</category>
-		<id>0x09c0</id>
+		<id>0x9c0</id>
 		<buyprice>17</buyprice>
 		<sellprice>8</sellprice>
 		<events>food</events>
@@ -495,26 +495,26 @@ Food subtypes:
 	<item id="9c1">
 		<inherit id="9c0" />
 		<category>Equipment\Food\Sausage (N/S)</category>
-		<id>0x09c1</id>
+		<id>0x9c1</id>
 	</item>
 
 	<!-- Spoon w/e -->
 	<item id="9c2">
 		<category>Decoration\Kitchen\Spoon (E/W)</category>
-		<id>0x09c2</id>
+		<id>0x9c2</id>
 	</item>
 
 	<!-- Spoon n/s -->
 	<item id="9c3">
 		<category>Decoration\Kitchen\Spoon (S/N)</category>
-		<id>0x09c3</id>
+		<id>0x9c3</id>
 	</item>
 
 	<!-- Bottles of Wine (4) -->
 	<item id="9c4">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Bottle of Wine 4</category>
-		<id>0x09c4</id>
+		<id>0x9c4</id>
 		<weight>4</weight>
 	</item>
 
@@ -522,7 +522,7 @@ Food subtypes:
 	<item id="9c5">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Bottle of Wine 3</category>
-		<id>0x09c5</id>
+		<id>0x9c5</id>
 		<weight>1</weight>
 	</item>
 
@@ -530,7 +530,7 @@ Food subtypes:
 	<item id="9c6">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Bottle of Wine 2</category>
-		<id>0x09c6</id>
+		<id>0x9c6</id>
 		<weight>1</weight>
 	</item>
 
@@ -538,7 +538,7 @@ Food subtypes:
 	<item id="9c7">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Bottle of Wine 1</category>
-		<id>0x09c7</id>
+		<id>0x9c7</id>
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
 		<weight>1</weight>
@@ -548,7 +548,7 @@ Food subtypes:
 	<item id="9c8">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Jug of Cider 1</category>
-		<id>0x09c8</id>
+		<id>0x9c8</id>
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
 		<weight>11</weight>
@@ -557,7 +557,7 @@ Food subtypes:
 	<!-- Ham w/e -->
 	<item id="9c9">
 		<category>Equipment\Food\Ham (w/e)</category>
-		<id>0x09c9</id>
+		<id>0x9c9</id>
 		<buyprice>20</buyprice>
 		<sellprice>10</sellprice>
 		<events>food</events>
@@ -568,47 +568,47 @@ Food subtypes:
 	<!-- Ceramic mug 4 -->
 	<item id="9ca">
 		<category>Decoration\Kitchen\Ceramic Mug 4</category>
-		<id>0x09ca</id>
+		<id>0x9ca</id>
 	</item>
 
 	<!-- Goblet -->
 	<item id="9cb">
 		<category>Decoration\Kitchen\Goblet 4</category>
-		<id>0x09cb</id>
+		<id>0x9cb</id>
 	</item>
 
 	<!-- Fish 1 -->
 	<item id="9cc">
 		<category>Equipment\Food\Fish 1</category>
-		<id>0x09cc</id>
+		<id>0x9cc</id>
 		<weight>1</weight>
 	</item>
 
 	<!-- Fish 2 -->
 	<item id="9cd">
 		<category>Equipment\Food\Fish 2</category>
-		<id>0x09cd</id>
+		<id>0x9cd</id>
 		<weight>1</weight>
 	</item>
 
 	<!-- Fish 3 -->
 	<item id="9ce">
 		<category>Equipment\Food\Fish 3</category>
-		<id>0x09ce</id>
+		<id>0x9ce</id>
 		<weight>1</weight>
 	</item>
 
 	<!-- Fish 4 -->
 	<item id="9cf">
 		<category>Equipment\Food\Fish 4</category>
-		<id>0x09cf</id>
+		<id>0x9cf</id>
 		<weight>1</weight>
 	</item>
 
 	<!-- Apple -->
 	<item id="9d0">
 		<category>Equipment\Food\Apple</category>
-		<id>0x09d0</id>
+		<id>0x9d0</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<events>food</events>
@@ -618,7 +618,7 @@ Food subtypes:
 	<!-- Grape bunch -->
 	<item id="9d1">
 		<category>Equipment\Food\Grape Bunch 1</category>
-		<id>0x09d1</id>
+		<id>0x9d1</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>1</weight>
@@ -628,7 +628,7 @@ Food subtypes:
 	<!-- Peach -->
 	<item id="9d2">
 		<category>Equipment\Food\Peach 1</category>
-		<id>0x09d2</id>
+		<id>0x9d2</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<events>food</events>
@@ -640,139 +640,139 @@ Food subtypes:
 	<item id="9d3">
 		<inherit id="9c9" />
 		<category>Equipment\Food\Ham (N/S)</category>
-		<id>0x09d3</id>
+		<id>0x9d3</id>
 	</item>
 
 	<!-- Silverware 2 n/s -->
 	<item id="9d4">
 		<category>Decoration\Kitchen\Silverware 2 (N/S)</category>
-		<id>0x09d4</id>
+		<id>0x9d4</id>
 	</item>
 
 	<!-- Silverware 2 w/e -->
 	<item id="9d5">
 		<category>Decoration\Kitchen\Silverware 2 (W/E)</category>
-		<id>0x09d5</id>
+		<id>0x9d5</id>
 	</item>
 
 	<!-- Pitcher -->
 	<item id="9d6">
 		<category>Decoration\Kitchen\Pitcher</category>
-		<id>0x09d6</id>
+		<id>0x9d6</id>
 	</item>
 
 	<!-- Plate -->
 	<item id="9d7">
 		<category>Decoration\Kitchen\Plate</category>
-		<id>0x09d7</id>
+		<id>0x9d7</id>
 	</item>
 
 	<!-- Plate of Food -->
 	<item id="9d8">
 		<category>Decoration\Kitchen\Plate of Food 2</category>
-		<id>0x09d8</id>
+		<id>0x9d8</id>
 	</item>
 
 	<!-- Plate of Food -->
 	<item id="9d9">
 		<category>Decoration\Kitchen\Plate of Food 3</category>
-		<id>0x09d9</id>
+		<id>0x9d9</id>
 	</item>
 
 	<!-- Dirty Plate -->
 	<item id="9da">
 		<category>Decoration\Kitchen\Dirty Plate 2</category>
-		<id>0x09da</id>
+		<id>0x9da</id>
 	</item>
 
 	<!-- Plate of Food -->
 	<item id="9db">
 		<category>Decoration\Kitchen\Plate of Food 4</category>
-		<id>0x09db</id>
+		<id>0x9db</id>
 	</item>
 
 	<!-- Dirty Pot -->
 	<item id="9dc">
 		<category>Decoration\Kitchen\Dirty Pot 1</category>
-		<id>0x09dc</id>
+		<id>0x9dc</id>
 	</item>
 
 	<!-- Dirty Pot -->
 	<item id="9dd">
 		<category>Decoration\Kitchen\Dirty Pot 2</category>
-		<id>0x09dd</id>
+		<id>0x9dd</id>
 	</item>
 
 	<!-- Dirty Frypan -->
 	<item id="9de">
 		<category>Decoration\Kitchen\Dirty Frypan</category>
-		<id>0x09de</id>
+		<id>0x9de</id>
 	</item>
 
 	<!-- Dirty Pot -->
 	<item id="9df">
 		<category>Decoration\Kitchen\Dirty Pot 3</category>
-		<id>0x09df</id>
+		<id>0x9df</id>
 	</item>
 
 	<!-- Pot -->
 	<item id="9e0">
 		<category>Decoration\Kitchen\Pot 1</category>
-		<id>0x09e0</id>
+		<id>0x9e0</id>
 	</item>
 
 	<!-- Pot -->
 	<item id="9e1">
 		<category>Decoration\Kitchen\Pot 2</category>
-		<id>0x09e1</id>
+		<id>0x9e1</id>
 	</item>
 
 	<!-- Frypan -->
 	<item id="9e2">
 		<category>Decoration\Kitchen\Frypan 2</category>
-		<id>0x09e2</id>
+		<id>0x9e2</id>
 	</item>
 
 	<!-- Pot -->
 	<item id="9e3">
 		<category>Decoration\Kitchen\Pot 3</category>
-		<id>0x09e3</id>
+		<id>0x9e3</id>
 	</item>
 
 	<!-- Pot -->
 	<item id="9e4">
 		<category>Decoration\Kitchen\Pot 4</category>
-		<id>0x09e4</id>
+		<id>0x9e4</id>
 	</item>
 
 	<!-- Pot -->
 	<item id="9e5">
 		<category>Decoration\Kitchen\Pot 5</category>
-		<id>0x09e5</id>
+		<id>0x9e5</id>
 	</item>
 
 	<!-- Dirty Pot -->
 	<item id="9e6">
 		<category>Decoration\Kitchen\Dirty Pot 4</category>
-		<id>0x09e6</id>
+		<id>0x9e6</id>
 	</item>
 
 	<!-- Dirty Pot -->
 	<item id="9e7">
 		<category>Decoration\Kitchen\Dirty Pot 5</category>
-		<id>0x09e7</id>
+		<id>0x9e7</id>
 	</item>
 
 	<!-- Dirty Pan -->
 	<item id="9e8">
 		<category>Decoration\Kitchen\Dirty Pan</category>
-		<id>0x09e8</id>
+		<id>0x9e8</id>
 	</item>
 
 	<!-- Cake -->
 	<item id="9e9">
 		<category>Equipment\Food\Cake</category>
-		<id>0x09e9</id>
+		<id>0x9e9</id>
 		<buyprice>11</buyprice>
 		<sellprice>5</sellprice>
 		<events>food</events>
@@ -783,7 +783,7 @@ Food subtypes:
 	<!-- Muffin -->
 	<item id="9ea">
 		<category>Equipment\Food\Muffin</category>
-		<id>0x09ea</id>
+		<id>0x9ea</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<events>food</events>
@@ -795,13 +795,13 @@ Food subtypes:
 	<item id="9eb">
 		<inherit id="9ea" />
 		<category>Equipment\Food\Muffins 1</category>
-		<id>0x09eb</id>
+		<id>0x9eb</id>
 	</item>
 
 	<!-- Jar of Honey -->
 	<item id="9ec">
 		<category>Equipment\Food\Jar of Honey</category>
-		<id>0x09ec</id>
+		<id>0x9ec</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<events>food</events>
@@ -812,14 +812,14 @@ Food subtypes:
 	<!-- Kettle -->
 	<item id="9ed">
 		<category>Decoration\Kitchen\Kettle</category>
-		<id>0x09ed</id>
+		<id>0x9ed</id>
 	</item>
 
 	<!-- Mug of Ale 1 -->
 	<item id="9ee">
 		<category>Equipment\Food\Mug of Ale 1</category>
 		<inherit id="drinks_base" />
-		<id>0x09ee</id>
+		<id>0x9ee</id>
 		<weight>0.1</weight>
 	</item>
 
@@ -827,7 +827,7 @@ Food subtypes:
 	<item id="9ef">
 		<category>Equipment\Food\Mug of Ale 2</category>
 		<inherit id="drinks_base" />
-		<id>0x09ef</id>
+		<id>0x9ef</id>
 		<weight>0.1</weight>
 	</item>
 
@@ -836,7 +836,7 @@ Food subtypes:
 	<item id="9f0">
 		<inherit id="drinks_base" />
 		<category>Equipment\Drinks\Pitcher of Milk 2</category>
-		<id>0x09f0</id>
+		<id>0x9f0</id>
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
 		<weight>2</weight>
@@ -845,7 +845,7 @@ Food subtypes:
 	<!-- Cut of Raw Rips -->
 	<item id="9f1">
 		<category>Equipment\Food\Cut of Raw Ribs</category>
-		<id>0x09f1</id>
+		<id>0x9f1</id>
 		<buyprice>7</buyprice>
 		<sellprice>3</sellprice>
 		<weight>0.2</weight>
@@ -855,7 +855,7 @@ Food subtypes:
 	<!-- Cut of Rips -->
 	<item id="9f2">
 		<category>Equipment\Food\Cut of Ribs</category>
-		<id>0x09f2</id>
+		<id>0x9f2</id>
 		<events>food</events>
 		<weight>0.1</weight>
 
@@ -864,62 +864,62 @@ Food subtypes:
 	<!-- Pan -->
 	<item id="9f3">
 		<category>Decoration\Kitchen\Pan</category>
-		<id>0x09f3</id>
+		<id>0x9f3</id>
 	</item>
 
 	<!-- Fork n/s -->
 	<item id="9f4">
 		<category>Decoration\Kitchen\Fork (N/S)</category>
-		<id>0x09f4</id>
+		<id>0x9f4</id>
 	</item>
 
 	<!-- Fork w/e -->
 	<item id="9f5">
 		<category>Decoration\Kitchen\Fork (W/E)</category>
-		<id>0x09f5</id>
+		<id>0x9f5</id>
 	</item>
 
 	<!-- Knife n/s -->
 	<item id="9f6">
 		<category>Decoration\Kitchen\Knife (N/S)</category>
-		<id>0x09f6</id>
+		<id>0x9f6</id>
 	</item>
 
 	<!-- Knife w/e -->
 	<item id="9f7">
 		<category>Decoration\Kitchen\Knife (W/E)</category>
-		<id>0x09f7</id>
+		<id>0x9f7</id>
 	</item>
 
 	<!-- Spoon n/s -->
 	<item id="9f8">
 		<category>Decoration\Kitchen\Spoon (N/S)</category>
-		<id>0x09f8</id>
+		<id>0x9f8</id>
 	</item>
 
 	<!-- Spoon w/e -->
 	<item id="9f9">
 		<category>Decoration\Kitchen\Spoon (W/E)</category>
-		<id>0x09f9</id>
+		<id>0x9f9</id>
 	</item>
 
 	<!-- Muffins -->
 	<item id="9fa">
 		<inherit id="9ea" />
 		<category>Equipment\Food\Muffins 1</category>
-		<id>0x09fa</id>
+		<id>0x9fa</id>
 	</item>
 
 	<!-- Dirty Plate 3 -->
 	<item id="a19">
 		<category>Decoration\Kitchen\Dirty Plate 3</category>
-		<id>0x0a19</id>
+		<id>0xa19</id>
 	</item>
 
 	<!-- Bowl of Flour -->
 	<item id="a1e">
 		<category>Equipment\Food\Bowl of Flour</category>
-		<id>0x0a1e</id>
+		<id>0xa1e</id>
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
 		<weight>0.4</weight>
@@ -928,7 +928,7 @@ Food subtypes:
 
 	<!-- Watermelon -->
 	<item id="c5c">
-		<id>0x0c5c</id>
+		<id>0xc5c</id>
 		<category>Equipment\Food\Watermelon 1</category>
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
@@ -938,16 +938,15 @@ Food subtypes:
 	</item>
 
 	<!-- Watermelon -->
-	<item id="c5d">
-		<inherit id="c5c" />
-		<id>0x0c5d</id>
+	<item id="c5d" inherit="c5c">
+		<id>0xc5d</id>
 		<category>Equipment\Food\Watermelon 2</category>
 	</item>
 
 	<!-- Turnips -->
 	<item id="c61">
 		<category>Equipment\Food\Turnip 1</category>
-		<id>0x0c61</id>
+		<id>0xc61</id>
 		<buyprice>7</buyprice>
 		<sellprice>3</sellprice>
 		<events>food</events>
@@ -955,34 +954,32 @@ Food subtypes:
 
 	</item>
 
-	<item id="c62">
-		<inherit id="c61" />
-		<id>0x0c62</id>
+	<item id="c62" inherit="c61">
+		<id>0xc62</id>
 		<category>Equipment\Food\Turnip 2</category>
 	</item>
 
-	<item id="c63">
-		<inherit id="c61" />
-		<id>0x0c63</id>
+	<item id="c63" inherit="c61">
+		<id>0xc63</id>
 		<category>Equipment\Food\Turnip 3</category>
 	</item>
 
 	<item id="d39">
 		<inherit id="c61" />
-		<id>0x0d39</id>
+		<id>0xd39</id>
 		<category>Equipment\Food\Turnip 4</category>
 	</item>
 
 	<item id="d3a">
 		<inherit id="c61" />
-		<id>0x0d3a</id>
+		<id>0xd3a</id>
 		<category>Equipment\Food\Turnip 5</category>
 	</item>
 
 	<!-- Gourds -->
 	<item id="c64">
 		<category>Equipment\Food\Gourd 1</category>
-		<id>0x0c64</id>
+		<id>0xc64</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<events>food</events>
@@ -990,27 +987,24 @@ Food subtypes:
 
 	</item>
 
-	<item id="c65">
-		<inherit id="c64" />
-		<id>0x0c65</id>
+	<item id="c65" inherit="c64">
+		<id>0xc65</id>
 		<category>Equipment\Food\Gourd 2</category>
 	</item>
 
-	<item id="c66">
-		<inherit id="c64" />
-		<id>0x0c66</id>
+	<item id="c66" inherit="c64">
+		<id>0xc66</id>
 		<category>Equipment\Food\Gourd 3</category>
 	</item>
 
-	<item id="c67">
-		<inherit id="c64" />
-		<id>0x0c67</id>
+	<item id="c67" inherit="c64">
+		<id>0xc67</id>
 		<category>Equipment\Food\Gourd 4</category>
 	</item>
 
 	<!-- Pumpkins -->
 	<item id="c6a">
-		<id>0x0c6a</id>
+		<id>0xc6a</id>
 		<buyprice>13</buyprice>
 		<sellprice>6</sellprice>
 		<events>food</events>
@@ -1019,22 +1013,20 @@ Food subtypes:
 
 	</item>
 
-	<item id="c6b">
-		<inherit id="c6a" />
-		<id>0x0c6b</id>
+	<item id="c6b" inherit="c6a">
+		<id>0xc6b</id>
 		<category>Equipment\Food\Pumpkin 2</category>
 	</item>
 
-	<item id="c6c">
-		<inherit id="c6a" />
-		<id>0x0c6c</id>
+	<item id="c6c" inherit="c6a">
+		<id>0xc6c</id>
 		<category>Equipment\Food\Pumpkin 3</category>
 	</item>
 
 	<!-- Onions -->
 	<item id="c6d">
 		<category>Equipment\Food\Onion 1</category>
-		<id>0x0c6d</id>
+		<id>0xc6d</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<events>food</events>
@@ -1042,24 +1034,22 @@ Food subtypes:
 
 	</item>
 
-	<item id="c6e">
-		<inherit id="c6d" />
-		<id>0x0c6e</id>
+	<item id="c6e" inherit="c6d">
+		<id>0xc6e</id>
 		<category>Equipment\Food\Onion 2</category>
 	</item>
 
 	<!-- Lettuce -->
 	<item id="c70">
-		<id>0x0c70</id>
+		<id>0xc70</id>
 		<events>food</events>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Head of Lettuce 1</category>
 
 	</item>
 
-	<item id="c71">
-		<inherit id="c70" />
-		<id>0x0c71</id>
+	<item id="c71" inherit="c70">
+		<id>0xc71</id>
 		<category>Equipment\Food\Head of Lettuce 2</category>
 	</item>
 
@@ -1069,14 +1059,14 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<events>food</events>
 		<weight>1</weight>
-		<id>0x0c72</id>
+		<id>0xc72</id>
 		<category>Equipment\Food\Squash 1</category>
 
 	</item>
 
 	<item id="c73">
 		<inherit id="c72" />
-		<id>0x0c73</id>
+		<id>0xc73</id>
 		<category>Equipment\Food\Squash 2</category>
 	</item>
 
@@ -1086,14 +1076,13 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<events>food</events>
 		<weight>1</weight>
-		<id>0x0c74</id>
+		<id>0xc74</id>
 		<category>Equipment\Food\Honeydew Melon 1</category>
 
 	</item>
 
-	<item id="c75">
-		<inherit id="c74" />
-		<id>0x0c75</id>
+	<item id="c75" inherit="c74">
+		<id>0xc75</id>
 		<category>Equipment\Food\Honeydew Melon 2</category>
 	</item>
 
@@ -1103,14 +1092,13 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<events>food</events>
 		<weight>1</weight>
-		<id>0x0c77</id>
+		<id>0xc77</id>
 		<category>Equipment\Food\Carrots 1</category>
 
 	</item>
 
-	<item id="c78">
-		<inherit id="c77" />
-		<id>0x0c78</id>
+	<item id="c78" inherit="c77">
+		<id>0xc78</id>
 		<category>Equipment\Food\Carrots 2</category>
 	</item>
 
@@ -1120,14 +1108,13 @@ Food subtypes:
 		<sellprice>3</sellprice>
 		<events>food</events>
 		<weight>1</weight>
-		<id>0x0c79</id>
+		<id>0xc79</id>
 		<category>Equipment\Food\Canteloupe 1</category>
 
 	</item>
 
-	<item id="c7a">
-		<inherit id="c79" />
-		<id>0x0c7a</id>
+	<item id="c7a" inherit="c79">
+		<id>0xc7a</id>
 		<category>Equipment\Food\Canteloupe 2</category>
 	</item>
 
@@ -1137,14 +1124,13 @@ Food subtypes:
 		<sellprice>3</sellprice>
 		<events>food</events>
 		<weight>0.1</weight>
-		<id>0x0c7b</id>
+		<id>0xc7b</id>
 		<category>Equipment\Food\Head of Cabbage 1</category>
 
 	</item>
 
-	<item id="c7c">
-		<inherit id="c7b" />
-		<id>0x0c7c</id>
+	<item id="c7c" inherit="c7b">
+		<id>0xc7c</id>
 		<category>Equipment\Food\Head of Cabbage 2</category>
 	</item>
 
@@ -1154,45 +1140,45 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<events>food</events>
 		<weight>0.1</weight>
-		<id>0x0c7f</id>
+		<id>0xc7f</id>
 		<category>Equipment\Food\Ear of Corn 1</category>
 
 	</item>
 
 	<item id="c80">
 		<inherit id="c7f" />
-		<id>0x0c80</id>
+		<id>0xc80</id>
 		<category>Equipment\Food\Ear of Corn 2</category>
 	</item>
 
 	<item id="c81">
 		<inherit id="c7f" />
-		<id>0x0c81</id>
+		<id>0xc81</id>
 		<category>Equipment\Food\Ear of Corn 3</category>
 	</item>
 
 	<item id="c82">
 		<inherit id="c7f" />
-		<id>0x0c82</id>
+		<id>0xc82</id>
 		<category>Equipment\Food\Ear of Corn 4</category>
 	</item>
 
 	<!-- Grape Bunch -->
 	<item id="d1a">
 		<inherit id="9d1" />
-		<id>0x0d1a</id>
+		<id>0xd1a</id>
 		<category>Equipment\Food\Grape Bunch 2</category>
 	</item>
 
 	<!-- Glass Pitcher -->
 	<item id="ff6">
 		<category>Decoration\Bar\Glass Pitcher 1</category>
-		<id>0x0ff6</id>
+		<id>0xff6</id>
 	</item>
 
 	<item id="ff7">
 		<category>Decoration\Bar\Glass Pitcher 2</category>
-		<id>0x0ff7</id>
+		<id>0xff7</id>
 	</item>
 
 	<!-- Pitcher of Water -->
@@ -1202,7 +1188,7 @@ Food subtypes:
 		<buyprice>13</buyprice>
 		<sellprice>6</sellprice>
 		<weight>2</weight>
-		<id>0x0ff8</id>
+		<id>0xff8</id>
 		<category>Equipment\Food\Pitcher of Water 1</category>
 	</item>
 
@@ -1211,42 +1197,42 @@ Food subtypes:
 		<buyprice>13</buyprice>
 		<sellprice>6</sellprice>
 		<weight>2</weight>
-		<id>0x0ff9</id>
+		<id>0xff9</id>
 		<category>Equipment\Food\Pitcher of Water 2</category>
 	</item>
 
 	<!-- Bucket of Water -->
 	<item id="ffa">
 		<inherit id="drinks_base" />
-		<id>0x0ffa</id>
+		<id>0xffa</id>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Bucket of Water</category>
 	</item>
 
 	<!-- Skull Mugs -->
 	<item id="ffb">
-		<id>0x0ffb</id>
+		<id>0xffb</id>
 		<category>Decoration\Bar\Skull Mug 1</category>
 	</item>
 
 	<item id="ffc">
-		<id>0x0ffc</id>
+		<id>0xffc</id>
 		<category>Decoration\Bar\Skull Mug 2</category>
 	</item>
 
 	<item id="ffd">
-		<id>0x0ffd</id>
+		<id>0xffd</id>
 		<category>Decoration\Bar\Skull Mug 3</category>
 	</item>
 
 	<item id="ffe">
-		<id>0x0ffe</id>
+		<id>0xffe</id>
 		<category>Decoration\Bar\Skull Mug 4</category>
 	</item>
 
 	<!-- Pewter Mug -->
 	<item id="fff">
-		<id>0x0fff</id>
+		<id>0xfff</id>
 		<category>Decoration\Bar\Pewter Mug 1</category>
 	</item>
 
