@@ -17,6 +17,8 @@
 		<buyprice>43</buyprice>
 		<sellprice>21</sellprice>
 		<weight>5.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Cloak w/e-->
@@ -25,6 +27,8 @@
 		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Accessories\Cloak (W/E)</category>
 		<id>0x1530</id>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Beads -->
@@ -34,6 +38,8 @@
 		<sellprice>15</sellprice>
 		<weight>1.0</weight>
 		<category>Clothes\Accessories\Beads</category>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Skirt n/s -->
@@ -42,6 +48,8 @@
 		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Legs\Skirt (N/S)</category>
 		<id>0x1516</id>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Plain Shirt n/s -->
@@ -53,6 +61,8 @@
 		<buyprice>37</buyprice>
 		<sellprice>18</sellprice>
 		<weight>2.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Plain Shirt w/e -->
@@ -61,6 +71,8 @@
 		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Torso\Plain Shirt (W/E)</category>
 		<id>0x1518</id>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Short Pants n/s -->
@@ -72,6 +84,8 @@
 		<buyprice>24</buyprice>
 		<sellprice>12</sellprice>
 		<weight>2.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Short Pants w/e -->
@@ -80,6 +94,8 @@
 		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Legs\Short Pants (W/E)</category>
 		<id>0x152f</id>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Skirt w/e -->
@@ -91,6 +107,8 @@
 		<buyprice>33</buyprice>
 		<sellprice>16</sellprice>
 		<weight>4.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Gold Belt n/s -->
@@ -116,6 +134,8 @@
 		<buyprice>31</buyprice>
 		<sellprice>15</sellprice>
 		<weight>2.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Kilt w/e -->
@@ -124,6 +144,8 @@
 		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Legs\Kilt (W/E)</category>
 		<id>0x1538</id>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Long Pants n/s -->
@@ -135,6 +157,8 @@
 		<buyprice>34</buyprice>
 		<sellprice>17</sellprice>
 		<weight>2.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Long Pants w/e -->
@@ -143,6 +167,8 @@
 		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Legs\Long Pants (W/E)</category>
 		<id>0x153a</id>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Half Apron n/s -->
@@ -153,6 +179,8 @@
 		<buyprice>26</buyprice>
 		<sellprice>13</sellprice>
 		<weight>2.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Half Apron w/e -->
@@ -160,6 +188,8 @@
 		<inherit id="153b" />
 		<category>Clothes\Accessories\Half Apron (W/E)</category>
 		<id>0x153c</id>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Full Apron n/s -->
@@ -170,6 +200,8 @@
 		<buyprice>26</buyprice>
 		<sellprice>13</sellprice>
 		<weight>4.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Full Apron w/e -->
@@ -177,28 +209,8 @@
 		<inherit id="153d" />
 		<category>Clothes\Accessories\Full Apron (W/E)</category>
 		<id>0x153e</id>
-	</item>
-
-	<!-- Bandana n/s -->
-	<item id="153f">
-		<category>Clothes\Headwear\Bandana (N/S)</category>
-		<id>0x153f</id>
-		<dye />
-		<color><random list="COLORS_RANDOM" /></color>
-		<defense>0</defense>
-		<requires type='str'>10</requires>
-		<durability><random min="20" max="25" /></durability>
-		<buyprice>14</buyprice>
-		<sellprice>6</sellprice>
-		<weight>1.0</weight>
-	</item>
-
-	<!-- Bandana w/e -->
-	<item id="1540">
-		<inherit id="153f" />
-		<id>0x1540</id>
-		<color><random list="COLORS_RANDOM" /></color>
-		<category>Clothes\Headwear\Bandana (W/E)</category>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Body Sash n/s -->
@@ -207,6 +219,8 @@
 		<id>0x1541</id>
 		<color><random list="COLORS_RANDOM" /></color>
 		<dye />
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Body Sash w/e -->
@@ -215,118 +229,8 @@
 		<category>Clothes\Accessories\Body Sash (W/E)</category>
 		<id>0x1542</id>
 		<color><random list="COLORS_RANDOM" /></color>
-	</item>
-
-	<!-- Skullcap n/s -->
-	<item id="1543">
-		<category>Clothes\Headwear\Skull Cap (N/S)</category>
-		<id>0x1543</id>
-		<dye />
-		<color><random list="COLORS_RANDOM" /></color>
-		<defense>0</defense>
-		<requires type='str'>10</requires>
-		<durability><random min="6" max="10" /></durability>
-		<buyprice>12</buyprice>
-		<sellprice>6</sellprice>
-		<weight>1.0</weight>
-	</item>
-
-	<!-- Skullcap w/e -->
-	<item id="1544">
-		<inherit id="1543" />
-		<category>Clothes\Headwear\Skull Cap (W/E)</category>
-		<id>0x1544</id>
-		<color><random list="COLORS_RANDOM" /></color>
-	</item>
-
-	<!-- Bear Mask n/s -->
-	<item id="1545">
-		<category>Clothes\Headwear\Bear Mask (N/S)</category>
-		<id>0x1545</id>
-		<dye />
-		<defense>5</defense>
-		<requires type='str'>10</requires>
-		<durability><random min="20" max="25" /></durability>
-		<decay />
-		<value>40</value>
-	</item>
-
-	<!-- Bear Mask w/e -->
-	<item id="1546">
-		<category>Clothes\Headwear\Bear Mask (W/E)</category>
-		<id>0x1546</id>
-		<dye />
-		<decay />
-		<value>40</value>
-	</item>
-
-	<!-- Deer Mask n/s -->
-	<item id="1547">
-		<category>Clothes\Headwear\Deer Mask (N/S)</category>
-		<id>0x1547</id>
-		<dye />
-		<defense>2</defense>
-		<requires type='str'>10</requires>
-		<durability><random min="20" max="25" /></durability>
-		<weight>4.0</weight>
-	</item>
-
-	<!-- Deer Mask w/e -->
-	<item id="1548">
-		<inherit id="1547" />
-		<category>Clothes\Headwear\Deer Mask (W/E)</category>
-		<id>0x1548</id>
-	</item>
-
-	<!-- Tribal Mask Horned n/s -->
-	<item id="1549">
-		<defense>6</defense>
-		<requires type='str'>10</requires>
-		<durability><random min="20" max="25" /></durability>
-		<category>Clothes\Headwear\Tribal Mask (N/S)</category>
-		<id>0x1549</id>
-		<weight>4.0</weight>
-	</item>
-
-	<!-- Tribal Mask Horned w/e -->
-	<item id="154a">
-		<inherit id="1549" />
-		<category>Clothes\Headwear\Tribal Mask (W/E)</category>
-		<id>0x154a</id>
-	</item>
-
-	<!-- Tribal Mask Red n/s -->
-	<item id="154b">
-		<defense>3</defense>
-		<requires type='str'>10</requires>
-		<durability><random min="20" max="25" /></durability>
-		<category>Clothes\Headwear\Tribal Mask 2 (N/S)</category>
-		<id>0x154b</id>
-		<weight>4.0</weight>
-	</item>
-
-	<!-- Tribal Mask Red w/e -->
-	<item id="154c">
-		<inherit id="154b" />
-		<category>Clothes\Headwear\Tribal Mask 2 (W/E)</category>
-		<id>0x154c</id>
-	</item>
-
-	<!-- Orc Mask 1 n/s -->
-	<item id="141b">
-		<id>0x141b</id>
-		<defense>1</defense>
-		<requires type='str'>10</requires>
-		<durability><random min="20" max="25" /></durability>
-		<category>Clothes\Headwear\Orc Mask (N/S)</category>
-		<weight>4.0</weight>
-	</item>
-
-	<!-- Orc Mask 1 w/e -->
-	<item id="141c">
-		<inherit id="141b" />
-		<id>0x141c</id>
-		<category>Clothes\Headwear\Orc Mask (W/E)</category>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Necklace 1 -->
@@ -336,6 +240,8 @@
 		<buyprice>38</buyprice>
 		<sellprice>19</sellprice>
 		<weight>1.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Bracelet -->
@@ -345,6 +251,8 @@
 		<buyprice>31</buyprice>
 		<sellprice>15</sellprice>
 		<weight>1</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Earrings -->
@@ -354,6 +262,8 @@
 		<buyprice>38</buyprice>
 		<sellprice>19</sellprice>
 		<weight>1.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Necklace -->
@@ -363,6 +273,8 @@
 		<buyprice>31</buyprice>
 		<sellprice>15</sellprice>
 		<weight>1.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Necklace -->
@@ -372,6 +284,8 @@
 		<buyprice>31</buyprice>
 		<sellprice>15</sellprice>
 		<weight>1.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Ring -->
@@ -381,36 +295,50 @@
 		<buyprice>38</buyprice>
 		<sellprice>19</sellprice>
 		<weight>1.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<item id="1f05">
 		<id>0x1f05</id>
 		<category>Clothes\Accessories\Bead Necklace</category>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<item id="1f06">
 		<id>0x1f06</id>
 		<category>Clothes\Accessories\Bracelet 2</category>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<item id="1f07">
 		<id>0x1f07</id>
 		<category>Clothes\Accessories\Earrings 2</category>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<item id="1f08">
 		<id>0x1f08</id>
 		<category>Clothes\Accessories\Necklace 4</category>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<item id="1f09">
 		<id>0x1f09</id>
 		<category>Clothes\Accessories\Ring 2</category>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<item id="1f0a">
 		<id>0x1f0a</id>
 		<category>Clothes\Accessories\Necklace 5</category>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Boots n/s -->
@@ -421,6 +349,8 @@
 		<buyprice>45</buyprice>
 		<sellprice>22</sellprice>
 		<weight>3.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Boots w/e -->
@@ -428,6 +358,8 @@
 		<inherit id="170b" />
 		<category>Clothes\Footwear\Boots (W/E)</category>
 		<id>0x170c</id>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Sandals n/s -->
@@ -437,6 +369,8 @@
 		<buyprice>24</buyprice>
 		<sellprice>12</sellprice>
 		<weight>1.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Sandals w/e -->
@@ -444,6 +378,8 @@
 		<inherit id="170d" />
 		<category>Clothes\Footwear\Sandals (W/E)</category>
 		<id>0x170e</id>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Shoes n/s -->
@@ -454,6 +390,8 @@
 		<buyprice>27</buyprice>
 		<sellprice>13</sellprice>
 		<weight>2.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Shoes (w/e)-->
@@ -461,6 +399,8 @@
 		<inherit id="170f" />
 		<category>Clothes\Footwear\Shoes (W/E)</category>
 		<id>0x1710</id>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Thigh Boots (n/s) -->
@@ -471,6 +411,8 @@
 		<buyprice>56</buyprice>
 		<sellprice>28</sellprice>
 		<weight>4.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Thigh Boots (w/e) -->
@@ -478,146 +420,8 @@
 		<inherit id="1711" />
 		<category>Clothes\Footwear\Thigh Boots (W/E)</category>
 		<id>0x1712</id>
-	</item>
-
-	<!-- Floppy Hat -->
-	<item id="1713">
-		<category>Clothes\Headwear\Floppy Hat</category>
-		<id>0x1713</id>
-		<dye />
-		<defense>0</defense>
-		<durability><random min="20" max="25" /></durability>
-		<requires type='str'>10</requires>
-		<buyprice>25</buyprice>
-		<sellprice>12</sellprice>
-		<weight>1.0</weight>
-	</item>
-
-	<!-- Wide-brim Hat -->
-	<item id="1714">
-		<category>Clothes\Headwear\Wide-brim Hat</category>
-		<id>0x1714</id>
-		<dye />
-		<defense>0</defense>
-		<durability><random min="20" max="25" /></durability>
-		<requires type='str'>10</requires>
-		<buyprice>26</buyprice>
-		<sellprice>13</sellprice>
-		<weight>1.0</weight>
-	</item>
-
-	<!-- Cap -->
-	<item id="1715">
-		<category>Clothes\Headwear\Cap</category>
-		<id>0x1715</id>
-		<dye />
-		<defense>0</defense>
-		<durability><random min="20" max="25" /></durability>
-		<requires type='str'>10</requires>
-		<buyprice>27</buyprice>
-		<sellprice>13</sellprice>
-		<weight>1.0</weight>
-	</item>
-
-	<!-- Tall Straw Hat -->
-	<item id="1716">
-		<category>Clothes\Headwear\Tall Straw Hat</category>
-		<id>0x1716</id>
-		<dye />
-		<defense>0</defense>
-		<durability><random min="20" max="25" /></durability>
-		<requires type='str'>10</requires>
-		<buyprice>26</buyprice>
-		<sellprice>13</sellprice>
-		<weight>1.0</weight>
-	</item>
-
-	<!-- Straw Hat -->
-	<item id="1717">
-		<category>Clothes\Headwear\Straw Hat</category>
-		<id>0x1717</id>
-		<dye />
-		<defense>0</defense>
-		<durability><random min="20" max="25" /></durability>
-		<requires type='str'>10</requires>
-		<buyprice>25</buyprice>
-		<sellprice>12</sellprice>
-		<weight>1.0</weight>
-	</item>
-
-	<!-- Wizard's Hat -->
-	<item id="1718">
-		<category>Clothes\Headwear\Wizard's Hat</category>
-		<id>0x1718</id>
-		<dye />
-		<defense>0</defense>
-		<durability><random min="20" max="25" /></durability>
-		<requires type='str'>10</requires>
-		<buyprice>30</buyprice>
-		<sellprice>15</sellprice>
-		<weight>1.0</weight>
-	</item>
-
-	<!-- Bonnet -->
-	<item id="1719">
-		<category>Clothes\Headwear\Bonnet</category>
-		<id>0x1719</id>
-		<dye />
-		<defense>0</defense>
-		<durability><random min="20" max="25" /></durability>
-		<requires type='str'>10</requires>
-		<buyprice>26</buyprice>
-		<sellprice>13</sellprice>
-		<weight>1.0</weight>
-	</item>
-
-	<!-- Feathered Hat -->
-	<item id="171a">
-		<category>Clothes\Headwear\Feathered Hat</category>
-		<id>0x171a</id>
-		<dye />
-		<defense>0</defense>
-		<durability><random min="20" max="25" /></durability>
-		<requires type='str'>10</requires>
-		<buyprice>27</buyprice>
-		<sellprice>13</sellprice>
-		<weight>1.0</weight>
-	</item>
-
-	<!-- Tricorne Hat -->
-	<item id="171b">
-		<category>Clothes\Headwear\Tricorne Hat</category>
-		<id>0x171b</id>
-		<dye />
-		<defense>0</defense>
-		<durability><random min="20" max="25" /></durability>
-		<requires type='str'>10</requires>
-		<buyprice>26</buyprice>
-		<sellprice>13</sellprice>
-		<weight>1.0</weight>
-	</item>
-
-	<!-- Jesters Cap -->
-	<item id="171c">
-		<category>Clothes\Headwear\Jesters Cap</category>
-		<id>0x171c</id>
-		<dye />
-		<defense>0</defense>
-		<durability><random min="20" max="25" /></durability>
-		<requires type='str'>10</requires>
-		<buyprice>31</buyprice>
-		<sellprice>15</sellprice>
-		<weight>1.0</weight>
-	</item>
-
-	<!-- Jester Hat -->
-	<item id="172e">
-		<category>Clothes\Headwear\Jester Hat</category>
-		<id>0x172e</id>
-		<dye />
-		<defense>0</defense>
-		<durability><random min="20" max="25" /></durability>
-		<requires type='str'>10</requires>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Fancy Shirt n/s -->
@@ -629,6 +433,8 @@
 		<buyprice>55</buyprice>
 		<sellprice>27</sellprice>
 		<weight>2.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Fancy Shirt w/e -->
@@ -636,7 +442,6 @@
 		<inherit id="1efd" />
 		<category>Clothes\Torso\Fancy Shirt (W/E)</category>
 		<id>0x1efe</id>
-		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Fancy Dress w/e -->
@@ -648,6 +453,8 @@
 		<buyprice>25</buyprice>
 		<sellprice>12</sellprice>
 		<weight>3.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Fancy Dress n/s -->
@@ -655,7 +462,6 @@
 		<inherit id="1eff" />
 		<category>Clothes\Torso\Fancy Dress (N/S)</category>
 		<id>0x1f00</id>
-		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Plain Dress n/s -->
@@ -667,6 +473,8 @@
 		<buyprice>56</buyprice>
 		<sellprice>28</sellprice>
 		<weight>2.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Plain Dress w/e -->
@@ -674,7 +482,6 @@
 		<inherit id="1f01" />
 		<category>Clothes\Torso\Plain Dress (W/E)</category>
 		<id>0x1f02</id>
-		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Robe n/s -->
@@ -686,6 +493,8 @@
 		<buyprice>68</buyprice>
 		<sellprice>34</sellprice>
 		<weight>3.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Robe w/e -->
@@ -693,7 +502,6 @@
 		<inherit id="1f03" />
 		<category>Clothes\Torso\Robe (W/E)</category>
 		<id>0x1f04</id>
-		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Jester Suit n/s -->
@@ -704,6 +512,8 @@
 		<buyprice>51</buyprice>
 		<sellprice>25</sellprice>
 		<weight>4.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Jester Suit w/e -->
@@ -722,6 +532,8 @@
 		<buyprice>33</buyprice>
 		<sellprice>16</sellprice>
 		<weight>5.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Tunic w/e -->
@@ -729,7 +541,6 @@
 		<inherit id="1fa1" />
 		<category>Clothes\Torso\Tunic (W/E)</category>
 		<id>0x1fa2</id>
-		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Doublet n/s -->
@@ -741,6 +552,8 @@
 		<buyprice>25</buyprice>
 		<sellprice>12</sellprice>
 		<weight>2.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Doublet w/e -->
@@ -748,7 +561,6 @@
 		<inherit id="1f7b" />
 		<category>Clothes\Torso\Doublet (W/E)</category>
 		<id>0x1f7c</id>
-		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Surcoat n/s -->
@@ -757,6 +569,8 @@
 		<id>0x1ffd</id>
 		<dye />
 		<color><random list="COLORS_RANDOM" /></color>
+		<type>1009</type>
+		<events>equipment</events>
 	</item>
 
 	<!-- Surcoat w/e -->
@@ -764,7 +578,6 @@
 		<inherit id="1ffd" />
 		<category>Clothes\Torso\Surcoat (W/E)</category>
 		<id>0x1ffe</id>
-		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Lord British -->
