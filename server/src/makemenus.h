@@ -270,6 +270,9 @@ public:
 	virtual void processNode( const QDomElement &Tag );
 
 	virtual void	execute( cUOSocket* const socket );
+
+protected:
+	QString functionName;
 };
 
 class cMakeAction : public cDefinable

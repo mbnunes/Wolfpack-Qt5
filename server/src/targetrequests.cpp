@@ -1008,7 +1008,7 @@ bool cSetTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	cVariant value( this->value );
 	stError *error = pObject->setProperty( key, value );
 
-	if( error )
+ 	if( error )
 	{
 		socket->sysMessage( error->text );
 		delete error;

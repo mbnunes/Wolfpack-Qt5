@@ -38,6 +38,8 @@
 #include "charsmgr.h"
 #include "resources.h"
 #include "srvparams.h"
+#include "Python.h"
+#include "python/utilities.h"
 
 #include "debug.h"
 
@@ -796,6 +798,8 @@ cDoScriptAction::cDoScriptAction( const QString &name, cMakeAction* baseaction )
 
 cDoScriptAction::cDoScriptAction( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
 {
+	if( Tag.hasAttribute( "script" ) )
+		functionName = Tag.attribute( "script" );
 }
 
 void cDoScriptAction::processNode( const QDomElement &Tag )
@@ -803,18 +807,45 @@ void cDoScriptAction::processNode( const QDomElement &Tag )
 	QString TagName = Tag.nodeName();
 	QString Value = getNodeValue( Tag );
 
-	cMakeSection::processNode( Tag );
+	if( TagName == "script" )
+		functionName = Value;
+	else
+		cMakeSection::processNode( Tag );
 }
 
 void cDoScriptAction::execute( cUOSocket* const socket )
 {
 	P_CHAR pChar	 = socket->player();
-	P_ITEM pBackpack = pChar->getBackpack();
 
 	if( !socket || !pChar || !baseaction_ )
 		return;
 
-	// TODO: script call
+	// Get everything before the last dot
+	if( functionName.contains( "." ) )
+	{
+		// Find the last dot
+		INT32 position = functionName.findRev( "." );
+		QString sModule = functionName.left( position );
+		QString sFunction = functionName.right( functionName.length() - (position+1) );
+
+		PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+
+		if( pModule )
+		{
+			PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+			if( pFunc && PyCallable_Check( pFunc ) )
+			{
+				// Create our Argument list
+				PyObject *p_args = PyTuple_New( 1 );
+				PyTuple_SetItem( p_args, 0, PyGetCharObject( pChar ) );
+
+				PyEval_CallObject( pFunc, p_args );
+				
+				if( PyErr_Occurred() )
+					PyErr_Print();
+			}
+		}
+	}
 }
 
 
