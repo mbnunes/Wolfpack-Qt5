@@ -788,6 +788,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 			{	
 				pBook->addSpell( spellId );
 				Items->DeleItem( pItem );
+				pBook->update( socket );
 				return;
 			}
 		}

@@ -2103,6 +2103,7 @@ void cItem::update( cUOSocket *mSock )
 				continue;
 
 			socket->send( &equipItem );
+			sendTooltip( socket );
 		}
 	}
 	// items in containers
@@ -2128,6 +2129,7 @@ void cItem::update( cUOSocket *mSock )
 				continue;
 
 			socket->send( &contItem );
+			sendTooltip( socket );
 		}
 	}
 }

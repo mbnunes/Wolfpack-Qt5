@@ -52,6 +52,7 @@ void cSpellBook::addSpell( UINT8 spell )
 	UINT32 bitmask = 0x80000000 >> ( ( 7 - spell % 8 ) + ( spell - spell % 8 ) );	
 	if( spell < 32 ) spells1_ |= bitmask; 
 	else spells2_ |= bitmask;
+	changed( SAVE|TOOLTIP );
 }
 
 void cSpellBook::removeSpell( UINT8 spell )
@@ -60,7 +61,7 @@ void cSpellBook::removeSpell( UINT8 spell )
 	UINT32 bitmask = 0xFFFFFFFF - ( 0x80000000 >> ( ( 7 - spell % 8 ) + ( spell - spell % 8 ) ) );	
 	if( spell < 32 ) spells1_ &= bitmask; 
 	else spells2_ &= bitmask;
-
+	changed( SAVE|TOOLTIP );
 }
 
 bool cSpellBook::hasSpell( UINT8 spell ) const

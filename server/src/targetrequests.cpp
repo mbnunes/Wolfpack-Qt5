@@ -1245,6 +1245,7 @@ bool cModifySpellbook::responsed( cUOSocket *socket, cUORxTarget *target )
 					if( deleteMode )
 					{
 						pBook->removeSpell( spell );
+						pBook->update( socket );
 						socket->sysMessage( tr( "You removed spell %1 from this spellbook." ).arg( spell ) );
 					}
 					else
@@ -1252,6 +1253,7 @@ bool cModifySpellbook::responsed( cUOSocket *socket, cUORxTarget *target )
 						pBook->addSpell( spell );
 						socket->sysMessage( tr( "You added spell %1 to this spellbook." ).arg( spell ) );
 					}
+					pBook->update( socket );
 				}
 			}
 			else
