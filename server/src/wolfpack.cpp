@@ -812,7 +812,7 @@ void item_char_test()
 			 if (stablemaster_serial != INVALID_SERIAL) // stabled ?
 			 {
 				P_CHAR pc_j = FindCharBySerial(stablemaster_serial);
-				if (pc_j != NULL)
+				if (pc_j == NULL)
 				{
 					stablesp.remove(stablemaster_serial, p_pet->serial);
 					p_pet->stablemaster_serial = INVALID_SERIAL;

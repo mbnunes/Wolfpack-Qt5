@@ -2429,11 +2429,7 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		P_ITEM pi_poison = pPoi;
 		if (!pPoi->isInWorld()) 
 			contsp.remove(pPoi->contserial, pi_poison->serial);
-		unsigned char k1 = pPoi->ser1;
-		unsigned char k2 = pPoi->ser2;
-		unsigned char k3 = pPoi->ser3;
-		unsigned char k4 = pPoi->ser4;
-		int kser = pPoi->serial;
+		SERIAL kser = pPoi->serial;
 
 		pPoi->Init(0);
 		pPoi->SetSerial(kser);

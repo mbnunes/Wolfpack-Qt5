@@ -849,7 +849,7 @@ void cGuilds::GumpInput(int s, int type, int index, char *text)
 // Called by: choice() 
 void cGuilds::GumpChoice(int s,int main,int sub)
 {
-	int i,member, recruit, war, guild, counter, slot;
+	int member, recruit, war, guild, counter, slot;
 	//int members[MAXGUILDMEMBERS];
 	//int recruits[MAXGUILDRECRUITS];
 	P_CHAR pc_currchar = currchar[s];

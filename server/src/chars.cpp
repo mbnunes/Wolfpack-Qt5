@@ -280,7 +280,7 @@ void cChar::Init(bool ser)
     this->murdererSer = 0;
     this->spawnregion = 0;
     this->npc_type = 0;
-    this->stablemaster_serial = 0;
+    this->stablemaster_serial = INVALID_SERIAL;
 	this->timeused_last = getNormalizedTime();
 	this->time_unused = 0;
 

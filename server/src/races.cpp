@@ -343,7 +343,7 @@ bool cRace::CheckSpellImune(int spellnum)
 {
 	unsigned int spellcount;
 	for(spellcount = 0; spellcount != ImuneToSpell.size(); spellcount++)
-		if(ImuneToSpell[spellcount] = spellnum)
+		if(ImuneToSpell[spellcount] == spellnum)
 			return true;
 	return false;
 }
@@ -352,7 +352,7 @@ bool cRace::CheckItemUse(int itemnum)
 {
 	unsigned int itemcount;
 	for(itemcount = 0; itemcount != CantUseItem.size(); itemcount++)
-		if(CantUseItem[itemcount] = itemnum)
+		if(CantUseItem[itemcount] == itemnum)
 			return false;
 	return true;
 }

@@ -426,7 +426,7 @@ void backpack(UOXSOCKET s, SERIAL serial) // Send Backpack (with items)
 		return;
 	}
 
-	int ci=0,loopexit=0;
+	int loopexit=0;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	count = vecContainer.size();
 	bpopen[10]=count>>8;
@@ -625,7 +625,7 @@ void backpack(UOXSOCKET s, SERIAL serial) // Send Backpack (with items)
 
 	Xsend(s, bpopen, 12);
 
-	ci=0;
+	unsigned int ci = 0;
 	loopexit=0;
 	P_ITEM pi;
 	for (ci = 0; ci < vecContainer.size(); ci++)
@@ -664,7 +664,7 @@ void backpack2(int s, int a1, int a2, int a3, int a4) // Send corpse stuff
 	unsigned char display2[6]="\x01\x40\x01\x02\x03";
 
 	SERIAL serial = calcserial(a1,a2,a3,a4);
-	int ci=0,loopexit=0;
+	unsigned int ci;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -684,8 +684,6 @@ void backpack2(int s, int a1, int a2, int a3, int a4) // Send corpse stuff
 	display1[6]=a4;
 	Xsend(s, display1, 7);
 
-	ci=0;
-	loopexit=0;
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
@@ -709,8 +707,6 @@ void backpack2(int s, int a1, int a2, int a3, int a4) // Send corpse stuff
 	bpopen2[2]=count2%256;
 	Xsend(s, bpopen2, 5);
 
-	ci=0;
-	loopexit=0;
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
@@ -846,7 +842,7 @@ void tileeffect(int x, int y, int z, char eff1, char eff2, char speed, char loop
 
 void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 {
-	int j,pack,serial;
+	int pack,serial;
 	unsigned char itmput[21]="\x1A\x00\x13\x40\x01\x02\x03\x20\x42\x00\x32\x06\x06\x06\x4A\x0A\x00\x00\x00";
 	P_CHAR pc_currchar = currchar[s];
 
@@ -1065,7 +1061,7 @@ void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y,
 // LB 3-JULY 2000
 void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 {
-	int j, k,ci,color,c1,c2,b,cc1=0,cc2=0;
+	int j, k,color,c1,c2,b,cc1=0,cc2=0;
 	unsigned char oc[1024];
 
 	if ( pc == NULL ) return;
@@ -1135,6 +1131,7 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 
 	for (j=0;j<MAXLAYERS;j++) layers[j] = 0;
 
+	unsigned int ci;
 	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
@@ -1374,18 +1371,18 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 
 	strcat(name2,name);//AntiChrist
 
-	if (pc->isInvul() && pc->account!=0)     {  if (strcmp(title[11].other,"")) sprintf((char*)temp, " [%s]",title[11].other); else sprintf((char*)temp,""); strcat(name2,(char*)temp); } // ripper
-	if (pc->account==0 && pc->isGM())		{  if (strcmp(title[12].other,"")) sprintf((char*)temp, " [%s]",title[12].other); else sprintf((char*)temp,""); strcat(name2,(char*)temp); } // ripper
-	if (pc->priv2&2)                           {  if (strcmp(title[13].other,"")) sprintf((char*)temp, " [%s]",title[13].other); else sprintf((char*)temp,""); strcat(name2,(char*)temp); }
-	if (pc->guarded)                           {  if (strcmp(title[14].other,"")) sprintf((char*)temp, " [%s]",title[14].other); else sprintf((char*)temp,""); strcat(name2,(char*)temp); } // Ripper
+	if (pc->isInvul() && pc->account!=0)		{  if (title[11].other[0] != 0) sprintf((char*)temp, " [%s]",title[11].other); else temp[0] = 0; strcat(name2,(char*)temp); } // ripper
+	if (pc->account==0 && pc->isGM())			{  if (title[12].other[0] != 0) sprintf((char*)temp, " [%s]",title[12].other); else temp[0] = 0; strcat(name2,(char*)temp); } // ripper
+	if (pc->priv2&2)							{  if (title[13].other[0] != 0) sprintf((char*)temp, " [%s]",title[13].other); else temp[0] = 0; strcat(name2,(char*)temp); }
+	if (pc->guarded)							{  if (title[14].other[0] != 0) sprintf((char*)temp, " [%s]",title[14].other); else temp[0] = 0; strcat(name2,(char*)temp); } // Ripper
 	if (pc->tamed && pc->npcaitype==32 
 		&& pc_currchar->Owns(pc) && pc_currchar->guarded) 
-													{ if  (strcmp(title[15].other,"")) sprintf((char*)temp, " [%s]",title[15].other); else sprintf((char*)temp,""); strcat(name2,(char*)temp); } // Ripper
-	if (pc->tamed && pc->npcaitype!=17 )  { if  (strcmp(title[16].other,"")) sprintf((char*)temp, " [%s]",title[16].other); strcat(name2,(char*)temp); }
-	if (pc->war)                               { if  (strcmp(title[17].other,"")) sprintf((char*)temp, " [%s]",title[17].other); strcat(name2,(char*)temp); } // ripper
+												{ if  (title[15].other[0] != 0) sprintf((char*)temp, " [%s]",title[15].other); else temp[0] = 0; strcat(name2,(char*)temp); } // Ripper
+	if (pc->tamed && pc->npcaitype!=17 )		{ if  (title[16].other[0] != 0) sprintf((char*)temp, " [%s]",title[16].other); strcat(name2,(char*)temp); }
+	if (pc->war)								{ if  (title[17].other[0] != 0) sprintf((char*)temp, " [%s]",title[17].other); strcat(name2,(char*)temp); } // ripper
 	if ((pc->crimflag>0)&&(pc->kills<repsys.maxkills)) 
-													{ if  (strcmp(title[18].other,"")) sprintf((char*)temp, " [%s]",title[18].other); else sprintf((char*)temp,""); strcat(name2,(char*)temp); }// ripper
-	if (pc->kills>=repsys.maxkills)            { if  (strcmp(title[19].other,"")) sprintf((char*)temp, " [%s]",title[19].other); else sprintf((char*)temp,""); strcat(name2,(char*)temp); } // AntiChrist
+												{ if  (title[18].other[0] != 0) sprintf((char*)temp, " [%s]",title[18].other); else temp[0] = 0; strcat(name2,(char*)temp); }// ripper
+	if (pc->kills>=repsys.maxkills)				{ if  (title[19].other[0] != 0) sprintf((char*)temp, " [%s]",title[19].other); else temp[0] = 0; strcat(name2,(char*)temp); } // AntiChrist
 
 	Guilds->Title(s, pc);
 
@@ -2811,7 +2808,7 @@ void deathmenu(int s) // Character sees death menu
 
 void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 {
-	int j, k,ci;
+	int j, k;
 	unsigned char oc[1024];
 
     if ( pc == NULL )
@@ -2878,6 +2875,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 
 	for (j=0;j<MAXLAYERS;j++) layers[j] = 0;
 
+	unsigned int ci;
 	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
@@ -2932,7 +2930,7 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 	unsigned char m2[6096] = {0,};
 	char itemname[256] = {0,};
 	char cFoundItems=0;
-	int k, m1t, m2t, value,serial,ci;
+	int k, m1t, m2t, value,serial;
                
 	m1[0]=0x3C; // Container content message
 	m1[1]=0;// Size of message
@@ -2947,6 +2945,7 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 	m1t=5;
 	m2t=8;
 	serial=pi->serial;
+	unsigned int ci;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
@@ -3008,7 +3007,7 @@ int sellstuff(int s, P_CHAR pc)
 {
 	char itemname[256];
 	int m1t, z, value;
-	int serial,ci,serial1,ci1;
+	int serial,serial1;
 	unsigned char m1[2048];
 	unsigned char m2[2];
 	char ciname[256]; // By Magius(CHE)
@@ -3019,6 +3018,7 @@ int sellstuff(int s, P_CHAR pc)
 	P_ITEM sellcont = NULL;
 
 	serial = pc->serial;
+	unsigned int ci;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
@@ -3061,6 +3061,7 @@ int sellstuff(int s, P_CHAR pc)
 			if ((pi_q->contserial==serial))
 			{
 				serial1 = pBackpack->serial;
+				unsigned int ci1;
 				vector<SERIAL> vecContainer2 = contsp.getData(serial1);
 				for ( ci1 = 0; ci1 < vecContainer2.size(); ci1++)
 				{

@@ -3178,7 +3178,7 @@ void cTargets::MenuPrivTarg(int s)//LB's menu privs
 
 void cTargets::ShowSkillTarget(int s) // LB's showskills
 {
-	int p,a,j,k,b=0,c,z,zz,ges=0;
+	int a,j,k,b=0,c,z,zz,ges=0;
 	char skill_info[(ALLSKILLS+1)*40];
 	char sk[25];
 
