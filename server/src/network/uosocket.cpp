@@ -29,6 +29,32 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-
-
 #include "uosocket.h"
+#include "uopacket.h"
+#include "asyncnetio.h"
+#include <conio.h>
+#include <iostream>
+
+#include <stdlib.h>
+
+
+using namespace std;
+
+extern cAsyncNetIO* netio;
+
+// Send a packet to our ioHandle
+void cUOSocket::send( cUOPacket *packet )
+{
+	netio->sendPacket( _socket, packet );
+}
+
+// Tries to recieve and process a packet
+void cUOSocket::recieve()
+{
+	cUOPacket *packet = netio->recvPacket( _socket );
+
+	if( !packet )
+		return;
+
+	packet->print( &cout );
+}

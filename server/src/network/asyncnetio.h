@@ -35,14 +35,17 @@
 #include "zthread/LockedQueue.h"
 
 #include "qmap.h"
+#include <vector>
 
 class QSocketDevice;
 class cAsyncNetIOPrivate;
 class cUOPacket;
+class cUOSocket;
 
 class cAsyncNetIO : public ZThread::Thread
 {
 	QMap<QSocketDevice*, cAsyncNetIOPrivate*> buffers;
+
 	typedef QMap<QSocketDevice*, cAsyncNetIOPrivate*>::iterator iterator;
 	typedef QMap<QSocketDevice*, cAsyncNetIOPrivate*>::const_iterator const_iterator;
 
@@ -50,7 +53,7 @@ class cAsyncNetIO : public ZThread::Thread
 
 public:
 
-	bool registerSocket(QSocketDevice*);
+	cUOSocket *registerSocket(QSocketDevice*);
 	bool unregisterSocket(QSocketDevice*);
     Q_ULONG	bytesAvailable(QSocketDevice*) const;
 

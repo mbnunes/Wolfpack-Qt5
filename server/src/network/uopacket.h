@@ -33,8 +33,9 @@
 #define __UOPACKET_H__
 
 #include "qcstring.h"
+#include <ostream>
 
-class ostream;
+using namespace std;
 
 class cUOPacket
 {

@@ -40,7 +40,7 @@
 #include "zthread/exceptions.h"
 
 #include <conio.h>
-#include <iostream.h>
+#include <iostream>
 
 #include <stdlib.h>
 
@@ -48,8 +48,8 @@
 using namespace std;
 using namespace ZThread;
 
-QSocketDevice* socket = 0;
 cAsyncNetIO* netio = 0;
+vector< cUOSocket* > uoSockets;
 
 int main( int argc, char** argv )
 {
@@ -65,26 +65,26 @@ int main( int argc, char** argv )
 		{
 			if ( listener->haveNewConnection() )
 			{
-				socket = listener->getNewConnection(); 
-				netio->registerSocket( socket );
-				cout << "Socket connected" << endl;
+				QSocketDevice *socket = listener->getNewConnection(); 
+				uoSockets.push_back( netio->registerSocket( socket ) );
+				cout << QString( "Socket connected [%1]\n" ).arg( socket->peerAddress().toString() ).latin1();
 			}
-			if ( socket )
+
+			// Process waiting packets
+			vector< cUOSocket* >::iterator uoIterator;
+
+			for( uoIterator = uoSockets.begin(); uoIterator != uoSockets.end(); ++uoIterator )
 			{
-				cUOPacket* packet = netio->recvPacket( socket );
-				if ( packet )
+				cUOSocket *uoSocket = (*uoIterator);
+
+				if( !uoSocket->socket()->isOpen() )
 				{
-					packet->print( &cout );
-					delete packet;
-				}
-				if ( !socket->isOpen() )
-				{
-					cout << "Socket disconnected" << endl;
-					netio->unregisterSocket( socket );
-					delete socket;
-					socket = 0;
+					cout << QString( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->peerAddress().toString() ).latin1();
+					netio->unregisterSocket( uoSocket->socket() );
+					uoSockets.erase( uoIterator );
 				}
 			}
+
 			_sleep( 40 );
 		}
 	}

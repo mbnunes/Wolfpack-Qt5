@@ -34,7 +34,6 @@
 // Library Includes
 #include "qstring.h"
 
-#include <ostream.h>
 #include <ctype.h>
 
 cUOPacket::cUOPacket( QByteArray d )
