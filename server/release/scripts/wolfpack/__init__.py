@@ -152,3 +152,11 @@ def tiledata( id ):
 def statics( x, y, map ):
 	return _wolfpack.statics( x, y, map )
 	
+def newnpc( createserial = 0 ):
+	return _wolfpack.newnpc( createserial )
+
+def newitem( createserial = 0 ):
+	return _wolfpack.newitem( createserial )
+
+def newplayer( createserial = 0 ):
+	return _wolfpack.newplayer( createserial )
