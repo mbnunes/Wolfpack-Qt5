@@ -62,6 +62,7 @@
 #include "../dragdrop.h"
 #include "../Trade.h"
 #include "../uobject.h"
+#include "../multis.h"
 
 
 //#include <conio.h>
