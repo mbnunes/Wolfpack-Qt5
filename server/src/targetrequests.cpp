@@ -95,7 +95,12 @@ bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	Coord_cl newPos = socket->player()->pos();
 	newPos.x = target->x();
 	newPos.y = target->y();
-	newPos.z = target->z() + TileCache::instance()->tileHeight( target->model() ); // Model Could be an NPC as well i dont like the idea...
+	if (target->model() != 0 && target->model() != 0xFFFF) {
+		newPos.z = target->z() + TileCache::instance()->tileHeight( target->model() ); // Model Could be an NPC as well i dont like the idea...
+	} else {
+		newPos.z = target->z();
+	}
+
 	pItem->moveTo( newPos );
 
 	if( nodecay )

@@ -1437,7 +1437,12 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 		startPage( page );
 		addHtmlGump( 245, 39, 270, 20, htmlmask.arg( action->name() ) );
 
-		cMakeCustomSection* pMCS = dynamic_cast< cMakeCustomSection* >( makesections[0] );
+		cMakeCustomSection* pMCS = 0;
+
+		if (makesections.size() > 0) {
+			pMCS = dynamic_cast<cMakeCustomSection*>( makesections[0] );
+		}
+
 		if( ( makesections.size() > 0 ) && ( pMCS ) )
 		{
 			QString content = "";
