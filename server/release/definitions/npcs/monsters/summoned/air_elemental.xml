@@ -19,9 +19,13 @@
 		<maxhitpoints>150</maxhitpoints>
 		<maxstamina>50</maxstamina>
 		<!-- Skills -->
-		<magicresistance><random min="" max=""/></magicresistance>
-		<tactics><random min="" max=""/></tactics>
-		<wrestling><random min="" max=""/></wrestling>
+		<magicresistance>600/magicresistance>
+		<tactics>1000</tactics>
+		<wrestling>800</wrestling>
+		<anatomy>0</anatomy>
+		<magery>700</magery>
+		<evaluatingintel>700</evaluatingintel>
+		<meditation>700</meditation>
 		<!-- Damage -->
 		<mindamage>13</mindamage>
 		<maxdamage>20</maxdamage>
