@@ -119,8 +119,9 @@ def decoration( socket, command, arguments ):
         args = str(arguments)
         if args == 'save':
             saveObject = DecorationSaveHandler(socket)
-            socket.sysmessage("Sorting items")
+            socket.sysmessage("Sorting items, please wait...")
             saveObject.sort()
+            socket.sysmessage("Writting file...")
             saveObject.save()
 
     else:
@@ -128,12 +129,16 @@ def decoration( socket, command, arguments ):
         handler = DecorationHandler()
         parser.setContentHandler(handler)
         if wolfpack.hasmap(0):
+            socket.sysmessage("Decorating map 0, please wait...")
             parser.parse("data/decoration.0.xml")
         if wolfpack.hasmap(1):
+            socket.sysmessage("Decorating map 1, please wait...")
             parser.parse("data/decoration.1.xml")
         if wolfpack.hasmap(2):
+            socket.sysmessage("Decorating map 2, please wait...")
             parser.parse("data/decoration.2.xml")
         if wolfpack.hasmap(3):
+            socket.sysmessage("Decorating map 2, please wait...")
             parser.parse("data/decoration.3.xml")
 
 def onLoad():

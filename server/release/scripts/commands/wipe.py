@@ -31,7 +31,7 @@
 import wolfpack
 import string
 import wolfpack.gumps
-from wolfpack.gumps import cGump
+from wolfpack.gumps import WarningGump
 from wolfpack.utilities import *
 
 def getBoundingBox( socket, callback ) :
