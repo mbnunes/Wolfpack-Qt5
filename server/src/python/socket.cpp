@@ -320,6 +320,8 @@ PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
 */
 PyObject* wpSocket_resendworld( wpSocket* self, PyObject* args )
 {
+	if( !self->pSock )
+		return PyFalse;
 	self->pSock->resendWorld( false );
 	return PyTrue;
 }
@@ -329,7 +331,31 @@ PyObject* wpSocket_resendworld( wpSocket* self, PyObject* args )
 */
 PyObject* wpSocket_resendplayer( wpSocket* self, PyObject* args )
 {
+	if( !self->pSock )
+		return PyFalse;
 	self->pSock->resendPlayer( false );
+	return PyTrue;
+}
+
+/*!
+	Sends a container and it's content to a socket.
+*/
+PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return PyFalse;
+	
+	if( !checkArgItem( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	if( !getArgItem( 0 ) )
+		return PyFalse;
+
+	self->pSock->sendContainer( getArgItem( 0 ) );
+
 	return PyTrue;
 }
 
@@ -343,6 +369,7 @@ static PyMethodDef wpSocketMethods[] =
 	{ "closegump",			(getattrofunc)wpSocket_closegump,	METH_VARARGS, "Closes a gump that has been sent to the client." },
 	{ "resendworld",		(getattrofunc)wpSocket_resendworld,  METH_VARARGS, "Sends the surrounding world to this socket." },
 	{ "resendplayer",		(getattrofunc)wpSocket_resendplayer,  METH_VARARGS, "Resends the player only." },
+	{ "sendcontainer",		(getattrofunc)wpSocket_sendcontainer,  METH_VARARGS, "Sends a container to the socket." },
     { NULL, NULL, 0, NULL }
 };
 
