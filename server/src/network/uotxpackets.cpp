@@ -271,7 +271,7 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	{
 		setBody( pChar->body() );
 
-		if ( pChar->isHuman() && pChar->skin() > 0 )
+		if ( pChar->isHuman() && pChar->skin() > 0 && !pChar->isUnderwearDisabled() )
 		{
 			setHue( pChar->skin() | 0x8000 );
 		}
@@ -336,7 +336,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	{
 		setModel( pChar->body() );
 
-		if ( pChar->isHuman() && pChar->skin() > 0 )
+		if ( pChar->isHuman() && pChar->skin() > 0 && !pChar->isUnderwearDisabled() )
 		{
 			setColor( pChar->skin() | 0x8000 );
 		}
@@ -429,7 +429,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	{
 		setBody( pChar->body() );
 
-		if ( pChar->isHuman() && pChar->skin() > 0 )
+		if ( pChar->isHuman() && pChar->skin() > 0 && !pChar->isUnderwearDisabled() )
 		{
 			setSkin( pChar->skin() | 0x8000 );
 		}
@@ -507,7 +507,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 	else
 	{
 		QString title = pChar->title();
-		if ( title.isEmpty() )
+		if ( title.isEmpty() && pChar->showSkillTitles() )
 		{
 			title = Skills::instance()->getSkillTitle( pChar );
 		}
@@ -564,7 +564,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 
 		position = ( position * 5 ) + wpMin<unsigned int>( 4, pChar->fame() / 2500 );
 
-		if ( pChar->objectType() != enNPC && position < titles.size() )
+		if ( pChar->objectType() != enNPC && !pChar->isReputationHidden() && position < titles.size() )
 		{
 			QString prefix = titles[position];
 			if ( prefix.length() > 0 )

@@ -436,6 +436,8 @@ public:
 	bool isDead() const;
 	bool isAtWar() const;
 	bool isInvulnerable() const;
+	bool isReputationHidden() const;
+	bool isUnderwearDisabled() const;
 	unsigned char direction() const;
 	unsigned int stepsTaken() const;
 
@@ -496,6 +498,7 @@ public:
 	void setSkillDelay( uint data );
 	void setSkin( ushort data );
 	virtual void setStamina( short data, bool notify = true );
+	void setReputationHidden(bool data);
 	void setStealthedSteps( int data );
 	void setStrength( short data );
 	void setStrengthMod( short data );
@@ -519,6 +522,7 @@ public:
 	void setManaBonus( short data );
 	unsigned char statCap() const;
 	void setStatCap( unsigned char data );
+	void setUnderwearDisabled(bool data);
 
 	unsigned char strengthCap() const;
 	unsigned char dexterityCap() const;
@@ -732,10 +736,12 @@ protected:
 	// 12 - war, cOldChar::war
 	// 13 - invulnerable, cOldChar::priv2 Bit 3
 	// UPPER WORD:
-	// 17 - ReactiveArmor (0x20000)
-	// 18 - Protection (0x40000)
-	// 19 - Magic Reflect (0x8000)
-	// 20 - Mana Drain (0x100000)
+	// 17 - ReactiveArmor (0x10000)
+	// 18 - Protection (0x20000)
+	// 19 - Magic Reflect (0x40000)
+	// 21 - Mana Drain (0x100000)
+	// 22 - Disable Fame/Karma Titles (0x200000)
+	// 23 - Disable Underwear (0x400000)
 	uint propertyFlags_;
 
 	// Weight of the char, including worn items.
@@ -1711,6 +1717,32 @@ inline unsigned char cBaseChar::direction() const
 inline void cBaseChar::setDirection( unsigned char data )
 {
 	direction_ = data;
+	changed_ = true;
+}
+
+inline bool cBaseChar::isReputationHidden() const {
+	return (propertyFlags_ & 0x200000) != 0;
+}
+
+inline void cBaseChar::setReputationHidden(bool data) {
+	if (data) {
+		propertyFlags_ |= 0x200000;
+	} else {
+		propertyFlags_ &= ~0x200000;
+	}
+	changed_ = true;
+}
+
+inline bool cBaseChar::isUnderwearDisabled() const {
+	return (propertyFlags_ & 0x400000) != 0;
+}
+
+inline void cBaseChar::setUnderwearDisabled(bool data) {
+	if (data) {
+		propertyFlags_ |= 0x400000;
+	} else {
+		propertyFlags_ &= ~0x400000;
+	}
 	changed_ = true;
 }
 

@@ -12,6 +12,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Picking up items from and dropping items into the corpses of other players is logged now in the LOG_TRACE mask.
   - Implemented an onLog event.
   - GMs can now drop items everywhere without a LOS check.
+  - Added a property flag for hiding the reputation titles and white underwear per character.
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")

@@ -536,7 +536,7 @@ void cPlayer::showName( cUOSocket* socket )
 	QString charName = name();
 
 	// Lord & Lady Title
-	if ( !isIncognito() && fame_ >= 10000 )
+	if ( !isIncognito() && fame_ >= 10000 && !isReputationHidden() )
 		charName.prepend( gender_ ? tr( "Lady " ) : tr( "Lord " ) );
 
 	QString affix( "" );

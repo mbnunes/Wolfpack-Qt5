@@ -1985,6 +1985,22 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 		setBaseid( value.toString().latin1() );
 		return 0;
 	}
+	/*
+		\property char.disableunderwear This flag disables the white hue for human underwear.
+	*/
+	else if ( name == "disableunderwear" ) {
+		setUnderwearDisabled( value.toInt() != 0 );
+		return 0;
+	}
+
+	/*
+		\property char.hidereputation This flag disables the reputation titles for this character.
+	*/
+	else if ( name == "hidereputation" ) {
+		setReputationHidden( value.toInt() != 0 );
+		return 0;
+	}
+
 
 	return cUObject::setProperty( name, value );
 }
@@ -2076,6 +2092,8 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	PY_PROPERTY( "hitpointsbonus", hitpointsBonus_ )
 	PY_PROPERTY( "staminabonus", staminaBonus_ )
 	PY_PROPERTY( "manabonus", manaBonus_ )
+	PY_PROPERTY( "disableunderwear", isUnderwearDisabled() )
+	PY_PROPERTY( "hidereputation", isReputationHidden() )
 
 	/*
 	\rproperty char.basesound The base sound id for this creature. Not used for humans.
