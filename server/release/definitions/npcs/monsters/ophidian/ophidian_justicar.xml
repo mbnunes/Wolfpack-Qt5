@@ -43,6 +43,7 @@
 		<strproperty name="slayer_group" value="ophidians" />
 		<intproperty name="carve_meat" value="1" />
 		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>
