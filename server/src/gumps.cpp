@@ -140,11 +140,21 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 		addText( 50, 140, tr( "NPCs: %1 of %2" ).arg( region->npcs() ).arg( region->maxNpcs() ), 0x834 );
 		addText( 50, 160, tr( "Items: %1 of %2" ).arg( region->items() ).arg( region->maxItems() ), 0x834 );
 		if (region->active()) {
-			addText( 50, 180, tr( "Active" ), 0x834 );
+			addText( 50, 180, tr( "Status: Active" ), 0x834 );
 		} else {
-			addText( 50, 180, tr( "Inactive" ), 0x834 );
+			addText( 50, 180, tr( "Status: Inactive" ), 0x834 );
 		}
 		addText( 50, 200, tr( "Groups: %1" ).arg(region->groups().join(", ")), 0x834 );
+
+		// Next Spawn		
+		unsigned int nextRespawn = 0;
+		if (region->nextTime() > Server::instance()->time()) {
+			(region->nextTime() - Server::instance()->time()) / 1000;
+		}
+		addText( 50, 220, tr("Next Respawn: %1 seconds").arg(nextRespawn), 0x834);
+		addText( 50, 240, tr("Total Points: %1").arg(region->countPoints()), 0x834);
+		addText( 50, 260, tr("Delay: %1 to %2 seconds").arg(region->minTime()).arg(region->maxTime()), 0x834);
+
 		//addText( 50, 180, tr( "Coordinates: %1" ).arg( allrectangles.size() ), 0x834 );
 
 		// OK button

@@ -116,6 +116,14 @@ public:
 		return nextTime_;
 	}
 
+	inline unsigned int minTime() {
+		return minTime_;
+	}
+
+	inline unsigned int maxTime() {
+		return maxTime_;
+	}
+
 private:
 	virtual void processNode( const cElement* Tag );
 	void spawnSingleNPC();
