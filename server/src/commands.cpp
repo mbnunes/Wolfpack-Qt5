@@ -555,9 +555,10 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 			}
 			else if( key == "block" )
 			{
-				// TODO: Check for block until xx here
 				if( account->isBlocked() )
 					socket->sysMessage( tr( "Account '%1' is currently blocked" ).arg( account->login() ) );
+				else if( account->secsToUnblock() )
+					socket->sysMessage( tr( "Account '%1' will be unblocked in %2 seconds" ).arg( account->login() ).arg( account->secsToUnblock() ) );
 				else
 					socket->sysMessage( tr( "Account '%1' is currently not blocked" ).arg( account->login() ) );
 			}
@@ -567,8 +568,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 			}
 			else if( key == "lastlogin" )
 			{
-				// TODO: Expose last login here
-				// socket->sysMessage( tr( "The last login of account '%1' was on %2" ).arg( account->login() ).arg( account->lastLogin.toString( Qt::DateFormat::ISODate ) ) );
+				socket->sysMessage( tr( "The last login of account '%1' was on %2" ).arg( account->login() ).arg( account->lastLogin().toString( Qt::DateFormat::ISODate ) ) );
 			}
 			else if( key == "chars" )
 			{
