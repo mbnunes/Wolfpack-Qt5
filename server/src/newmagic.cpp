@@ -491,40 +491,23 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 	if( !checkMana( pMage, spell ) || !checkReagents( pMage, spell ) )
 		return;
 
-	cUOTxUnicodeSpeech speech;
-	speech.setSource( pMage->serial );
-	speech.setFont( 3 );
-	speech.setLanguage( "ENG" ); // These are always ENG
-	speech.setModel( pMage->id() );
-	speech.setName( pMage->name.c_str() );
-	speech.setText( sInfo->mantra );
-	speech.setType( cUOTxUnicodeSpeech::Spell );
+	// Say the mantra
+	// Type 0x0A : Spell
+	pMage->talk( sInfo->mantra, pMage->saycolor(), 0x0A, false );
 
 	// This is a very interesting move of OSI 
 	// They send all action-packets the character has to perform in a row. 
 	// But they use the action 0xE9 instead of 0x10, maybe it's a bitmask 
 	// of 0xD9 but i am unsure. 
-	cUOTxAction action;
-	action.setAction( 0xE9 );
-	action.setDirection( pMage->dir() );
-	action.setSerial( pMage->serial );
-	action.setRepeat( 1 ); // Has to be repeated once (dont ask me what this means..., it was in the packet dump)
-
-	// Send it to all surrounding players twice( for testing )
-	// Send it to all Sockets in Range
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		if( mSock && mSock->player() && mSock->player()->inRange( pMage, mSock->player()->VisRange ) )
-		{
-			mSock->send( &speech );
-			mSock->send( &action );
-			mSock->send( &action );
-		}
+	// This will repeat the animation until
+	// We are done casting or until we are being
+	// disturbed.
+	pMage->startRepeatedAction( 0xE9, 1000 );
 
 	// Now we have to do the following: 
 	// We show the target cursor after a given amount of time (set in the scripts)
 	// So what we are adding here is cEndCasting() supplying the Serial of our Mage 
 	// And the ID of our Spell.
-
 
 	// This is the place where we start casting
 	/*pMage->setCasting( true );
@@ -612,3 +595,4 @@ bool cNewMagic::checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *tar
 }
 
 cNewMagic *NewMagic;
+

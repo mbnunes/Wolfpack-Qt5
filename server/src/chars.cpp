@@ -1662,6 +1662,8 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 		speechType = cUOTxUnicodeSpeech::Emote;
 	case 0x08:
 		speechType = cUOTxUnicodeSpeech::Whisper;
+	case 0x0A:
+		speechType = cUOTxUnicodeSpeech::Spell;
 	default:
 		speechType = cUOTxUnicodeSpeech::Regular;
 	};
@@ -3384,4 +3386,15 @@ void cChar::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT16 r
 		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange ) )
 			mSock->send( &effect );
 	}
+}
+
+void cChar::startRepeatedAction( UINT8 action, UINT16 delay )
+{
+	stopRepeatedAction();
+	cTempEffects::getInstance()->insert( new cRepeatAction( this, action, delay ) );
+}
+
+void cChar::stopRepeatedAction()
+{
+	cTempEffects::getInstance()->dispel( this, "repeataction", false );
 }

@@ -803,6 +803,8 @@ public:
 
 	bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true );
 	void setSkillDelay();
+	void startRepeatedAction( UINT8 action, UINT16 delay );
+	void stopRepeatedAction();
 
 	// Definition loading - sereg
 protected:

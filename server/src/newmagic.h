@@ -35,6 +35,7 @@
 #include "typedefs.h"
 #include "coord.h"
 #include "defines.h"
+#include "TmpEff.h"
 
 /*!
 	Several defines for item effects

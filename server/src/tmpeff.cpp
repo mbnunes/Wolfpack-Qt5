@@ -1669,3 +1669,21 @@ std::vector< cTempEffect* >	cTmpEffFibHeap::asVector()
 	else
 		return std::vector< cTempEffect* >();
 }
+
+cRepeatAction::cRepeatAction( P_CHAR mage, UINT8 anim, UINT32 delay )
+{
+	_mage = mage->serial;
+	_anim = anim;
+	_delay = delay;
+	mage->action( anim );
+	expiretime = uiCurrentTime + delay;
+	dispellable = false;
+}
+
+void cRepeatAction::Expire()
+{
+	P_CHAR pMage = FindCharBySerial( _mage );
+
+	if( pMage )
+		cTempEffects::getInstance()->insert( new cRepeatAction( pMage, _anim, _delay ) );
+}

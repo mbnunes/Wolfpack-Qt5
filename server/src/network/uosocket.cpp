@@ -1962,9 +1962,12 @@ void cUOSocket::handleAction( cUORxAction *packet )
 		}
 		break;
 	// Cast Spell (out of spellbook)
+	case 0x56:
+	case 0x27:
 	case 0x39:
 		{
 			// Convert the "Action"
+			sysMessage( "." + packet->action() + "." );
 			NewMagic->castSpell( _player, packet->action().toInt()-1 );
 		}
 		break;

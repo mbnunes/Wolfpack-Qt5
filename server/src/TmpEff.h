@@ -233,4 +233,17 @@ public:
 	static cTempEffects *getInstance( void ) { return &instance; }
 };
 
+// cRepeatAction
+class cRepeatAction: public cTempEffect
+{
+private:
+	SERIAL _mage;
+	UINT8 _anim;
+	UINT32 _delay;
+public:
+	cRepeatAction( P_CHAR mage, UINT8 anim, UINT32 delay );
+	virtual void Expire();
+	virtual QString objectID() { return "repeataction"; }
+};
+
 #endif
