@@ -100,7 +100,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Healers do not resurrect.
 		- Large gumps can potentially crash remote clients.
 
-Wolfpack 12.9.7 Beta
+Wolfpack 12.9.7 Beta (4. July 2004)
 	* Core Changes:
 		* Region/Spawn Region Updates:
 			- Fixed bugs that caused segfaults.
@@ -164,7 +164,7 @@ Wolfpack 12.9.7 Beta
 		- Reloading python too many times crashes the server.
 		- There are still some memory leaks.
 
-Wolfpack 12.9.6 Beta
+Wolfpack 12.9.6 Beta (18. May 2004)
 	* Numerous crash fixes.
 		- Python memory improvements.
 		- NPC related crash fixes.
@@ -222,7 +222,7 @@ Wolfpack 12.9.6 Beta
 		- Potion kegs can not be refilled.
 		- Explosion potions can detonate other potions through walls/objects.
 
-Wolfpack 12.9.5 Beta
+Wolfpack 12.9.5 Beta (8. May 2004)
 	* Misc. Updates
 		- Many misc. updates
 		- Several new commands (Documentation here: http://www.wpdev.org/docs/)
