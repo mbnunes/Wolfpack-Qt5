@@ -377,7 +377,7 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 	if (PyString_Check(object)) {
 		self->pItem->setTag(key, cVariant(PyString_AsString(object)));
 	} else if (PyUnicode_Check(object)) {
-		self->pItem->setTag(key, cVariant(QString::fromUcs2(PyUnicode_AsUnicode(object))));
+		self->pItem->setTag(key, cVariant(QString::fromUcs2((ushort*)PyUnicode_AsUnicode(object))));
 	} else if (PyInt_Check(object)) {
 		self->pItem->setTag(key, cVariant((int)PyInt_AsLong(object)));
 	} else if (PyFloat_Check(object)) {
@@ -812,7 +812,7 @@ static int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 		if( PyString_Check( value ) )
 			val = cVariant( PyString_AsString( value ) );
 		else if( PyUnicode_Check( value ) )
-			val = cVariant(QString::fromUcs2(PyUnicode_AsUnicode(value)));
+			val = cVariant(QString::fromUcs2((ushort*)PyUnicode_AsUnicode(value)));
 		else if( PyInt_Check( value ) )
 			val = cVariant( PyInt_AsLong( value ) );
 		else if( checkWpItem( value ) )

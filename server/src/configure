@@ -78,9 +78,31 @@ then
 else
 	echo "$PYTHONINC";
 fi;
+
+echo -n "Searching for Python library.... ";
+
+for py_libpath in \
+		/usr/lib/[Pp]ython*/libpython*.a \
+		/usr/lib/[Pp]ython*/config/libpython*.a \
+		;
+do
+	if [ -e "$py_libpath" ];
+	then
+		py_libs="$py_libs\n$py_libpath";
+	fi;
+done;
+
+PYTHONLIB="$(echo -e "$py_libs"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+
+if ! [ "PYTHONLIB" ];
+then
+	echo -n "Not found :((";
+else
+	echo "$PYTHONLIB";
+fi;
 # </python>
 
-export MYSQLINC PYTHONINC
+export MYSQLINC PYTHONINC PYTHONLIB
 
 echo -n "Creating Makefile using qmake... "
 

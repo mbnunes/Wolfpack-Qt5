@@ -9,7 +9,6 @@ PROJECT         = wolfpack
 TARGET          = wolfpack
 TEMPLATE       	+= app
 CONFIG        	+= qt console thread exceptions rtti
-#INCLUDEPATH	+= lib/Python/include
 OPTIONS		+= mysql
 
 unix {
@@ -28,17 +27,10 @@ unix {
 		exists(/usr/include/mysql/mysql.h) {
 			MYSQL_INCLUDE = /usr/include/mysql
 		} exists(/usr/local/lib/mysql/include/mysql/mysql.h) {
-			message("MySQL files found, support enabled")
-			INCLUDEPATH += /usr/local/lib/mysql/include/mysql
-			DEFINES += MYSQL_DRIVER
-			LIBS += -lmysqlclient
+			MYSQL_INCLUDE = /usr/local/lib/mysql/include/mysql
 		}
 
 		!isEmpty(MYSQL_INCLUDE)	{
-			message("MySQL include path........: ($$MYSQL_INCLUDE)")
-			INCLUDEPATH += $$MYSQL_INCLUDE
-			DEFINES += MYSQL_DRIVER
-			
 			exists(/usr/lib/mysql/mysqlclient*) {
 				MYSQL_LIB = /usr/lib/mysql
 			} exists (/usr/local/lib/mysql/lib/mysql/mysqlclient*) {
@@ -48,10 +40,12 @@ unix {
 			}
 			
 			!isEmpty(MYSQL_LIB) {
+				message("MySQL include path.........: ($$MYSQL_INCLUDE)")
 				message("MySQL library path.........: ($$MYSQL_LIB)")
-				LIBS += -L$$MYSQL_LIB 
+				LIBS += -L$$MYSQL_LIB -lmysqlclient
+				INCLUDEPATH += $$MYSQL_INCLUDE
+				DEFINES += MYSQL_DRIVER
 			}
-			LIBS += -lmysqlclient
 		}
 		isEmpty(MYSQL_INCLUDE)
 		{
@@ -67,9 +61,9 @@ unix {
 	{
 		message("Error: Could not find Python include files") 
 	}
-	INCLUDEPATH += /usr/local/include/stlport lib/Python sqlite lib/Python/Include network
-	LIBS  += -L. -L/usr/local/lib -Llib/Python -ldl -lpython2.3 -lutil
-	
+	INCLUDEPATH += /usr/local/include/stlport sqlite network
+	LIBS  += -L/usr/local/lib -ldl -lpython2.3 -lutil
+	LIBS  += -L$$(PYTHONLIB)	
 	# we dont use those.
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 	
@@ -114,7 +108,6 @@ HEADERS         = \
 		  Timing.h \
 		  TmpEff.h \
 		  Trade.h \
-		  ai/ai.h \
 		  accounts.h \
 		  basics.h \
 		  basechar.h \
