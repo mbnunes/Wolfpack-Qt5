@@ -113,7 +113,7 @@ QString cUORxSpeechRequest::message()
 	{
 		// Skip the keywords
 		UINT16 skipCount = ( keywordCount() + 1 ) * 12; // We have 12 Bits for the count as well
-		UINT16 skipBytes = (UINT16)floor( skipCount / 8 );
+		UINT16 skipBytes = (UINT16)floor( skipCount / 8.0 );
 		if( skipCount % 8 > 0 )
 			skipBytes++;
 

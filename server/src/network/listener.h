@@ -49,7 +49,7 @@ private:
 
 public:
 	cListener(Q_UINT16 port);
-	~cListener();
+	~cListener() throw();
 
 
 	QSocketDevice* getNewConnection();

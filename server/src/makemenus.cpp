@@ -517,7 +517,7 @@ void cMakeSection::execute( cUOSocket* const socket )
 	if( skillchecks_.count() == 0 )
 		rank = 10;
 	else
-		rank = (UINT16)(ceil( ranksum / skillchecks_.count() ));
+		rank = static_cast<UINT16>(( ranksum / skillchecks_.count() ));
 	if( rank > 10 )
 		rank = 10;
 	if( rank < 1 )
@@ -1086,9 +1086,9 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 
 	UINT32 page = 1;
 	cMakeAction::SectionContainer makesections = action->makesections();
-	std::vector< cMakeSection* > sections;
+	cMakeAction::SectionContainer sections;
 	std::vector< UINT32 > offsets;
-	std::vector< cMakeSection* >::iterator it = makesections.begin();
+	cMakeAction::SectionContainer::iterator it = makesections.begin();
 	cItem* pBackpack = 0;
 	if( pChar )
 		 pBackpack = pChar->getBackpack();
@@ -1106,7 +1106,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	}
 	it = sections.begin();
 	std::vector< UINT32 >::iterator button = offsets.begin();
-	std::vector< cMakeSection* >::iterator next = sections.begin();
+	cMakeAction::SectionContainer::iterator next = sections.begin();
 	next++;
 
 	while( it != sections.end() )
