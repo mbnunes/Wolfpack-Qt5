@@ -63,6 +63,14 @@
 #include "verinfo.h"
 #include "network/network.h"
 
+#include "sqlite/sqlite.h"
+#if defined(MYSQL_DRIVER)
+	#if defined(Q_OS_WIN32)
+		#include <winsock.h>
+	#endif
+	#include <mysql.h>
+#endif
+
 cComponent::cComponent()
 {
 	this->loaded = false;
@@ -420,11 +428,11 @@ void cServer::setupConsole()
 
 	Console::instance()->send( "Compiled for Python " PY_VERSION " (Using: " );
 	Console::instance()->send( pythonBuild + ")\n" );
-	Console::instance()->send( "SQLite Support: enabled\n" );
+	Console::instance()->send( "Compiled with SQLite " SQLITE_VERSION "\n" );
 #if defined (MYSQL_DRIVER)
-	Console::instance()->send( "MySQL Support.: enabled\n" );
+	Console::instance()->send( QString("Compiled for MySQL " MYSQL_SERVER_VERSION " (Using: %1)\n").arg(mysql_get_client_info()));
 #else
-	Console::instance()->send( "MySQL Support.: disabled\n" );
+	Console::instance()->send( "MySQL Support: disabled\n" );
 #endif
 	Console::instance()->send("\n");
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( productString(), productBeta(), productVersion() );

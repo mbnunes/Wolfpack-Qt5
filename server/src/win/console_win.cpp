@@ -49,6 +49,14 @@
 #include <qthread.h>
 #include "../verinfo.h"
 
+#include "../sqlite/sqlite.h"
+#if defined(MYSQL_DRIVER)
+	#if defined(Q_OS_WIN32)
+		#include <winsock.h>
+	#endif
+	#include <mysql.h>
+#endif
+
 #if !defined(CFM_WEIGHT)
 # define CFM_WEIGHT 0x00400000
 #endif 
@@ -222,11 +230,11 @@ LRESULT CALLBACK AboutDialog( HWND hwnd, unsigned int msg, WPARAM wparam, LPARAM
 			#else
 			credits += QString( "Python: %1 Static (Compiled: %2)\n" ).arg( pythonBuild ).arg( PY_VERSION );
 			#endif
-			credits += "SQLite Support: enabled\n";
+			credits += "Compiled with SQLite " SQLITE_VERSION "\n";
 			#if defined (MYSQL_DRIVER)
-			credits += "MySQL Support.: enabled\n";
+			credits += QString("Compiled for MySQL " MYSQL_SERVER_VERSION " (Using: %1)\n").arg(mysql_get_client_info());
 			#else
-			credits += "MySQL Support.: disabled\n";
+			credits += "MySQL Support: disabled\n";
 			#endif
 
 			cr.cpMin = GetWindowTextLength( richtext );
