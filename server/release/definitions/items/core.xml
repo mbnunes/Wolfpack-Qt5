@@ -56,6 +56,30 @@
 		<id>0x2af8</id>
 		<weight>0</weight>
 	</item>
+	
+	<!-- Scissors -->
+	<item id="f9e">
+		<id>0x0f9e</id>
+		<decay/>
+		<value>13</value>
+		<weight>1.0</weight>
+	</item>
+	
+	<!-- Blank Scroll -->
+	<item id="e34">
+		<id>0x0e34</id>
+		<decay/>
+		<value>5</value>
+		<weight>.2</weight>
+	</item>
+	
+	<!-- Lockpick -->
+	<item id="14fb">
+		<id>0x14fb</id>
+		<decay/>
+		<value>2</value>
+		<weight>.2</weight>
+	</item>
 
         <!-- Dagger -->
 	<item id="f51">
@@ -135,6 +159,14 @@
 		<layer>2</layer>
 		<value>39</value>
 		<weight>5.0</weight>
+	</item>
+	
+	<!-- Fishing Pole -->
+	<item id="dbf">
+		<id>0x0dbf</id>
+		<itemhand>2</itemhand>
+		<decay />
+		<value>14</value>
 	</item>
 
 	<!-- Gold -->
@@ -463,6 +495,20 @@
 		<id>0x0de1</id>
 		<value>1</value>
 		<weight>.02</weight>
+	</item>
+	
+	<!-- Map -->
+	<item id="14eb">
+		<id>0x14eb</id>
+		<value>40</value>
+		<type>300</type>
+	</item>
+	
+	<!-- Sextant -->
+	<item id="1057">
+		<id>0x1057</id>
+		<value>30</value>
+		<weight>2.0</weight>
 	</item>
 
 	<!-- Hair -->

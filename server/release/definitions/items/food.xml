@@ -542,5 +542,35 @@
 	<item id="103c">
 		<id>0x103c</id>
 		<type>14</type>
-	</item>	
+		<decay/>
+		<value>10</value>
+	</item>
+	
+	<!-- Raw Leg of Lamb -->
+	<item id="1609">
+		<id>0x1609</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+	</item>
+	
+	<!-- Raw Chicken Leg -->
+	<item id="1607">
+		<id>0x1607</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+	</item>
+	
+	<!-- Sack of Flour -->
+	<item id="1039">
+		<id>0x1039</id>
+		<decay/>
+		<value>10</value>
+	</item>
+	
+	<!-- Pitcher of Water -->
+	<item id="ff9">
+		<id>0x0ff9</id>
+	</item>
 </definitions>

@@ -71,7 +71,7 @@
 	        <!--Half Apron --><equipment id="153b"></equipment>
 	        <!--Ingots --><item id="1bf2"><amount>50</amount></item>
 	        <!--Random Mining Tool--><item><inherit><random list="MININGTOOLS" /></inherit></item>
-	        <!--Random Blacksmith Tool--><item><inherit><random list="BLACKSMITHTOOLS" /></inherit></item>
+	        <!--Random Blacksmith Tool--><equipment><inherit><random list="BLACKSMITHTOOLS" /></inherit></equipment>
 	</startitems>
 
 	<!--  Bowcraft -->
@@ -106,19 +106,28 @@
 	<!--  Cartography -->
 	<startitems id="cartography">
 	        <inherit id="default" />
+	        <!--Maps --><item id="14eb"><amount>4</amount></item>
+	        <!--Sextant --><item id="1057"></item>
 	</startitems>
 
 	<!--  Cooking -->
 	<startitems id="cooking">
 	        <inherit id="default" />
+	        <!--Kindling --><item id="de1"><amount>2</amount></item>
+	        <!--Raw Leg of Lamb --><item id="1609"></item>
+	        <!--Raw Chicken Leg --><item id="1607"></item>
+	        <!--Raw Fish Steak --><item id="97a"></item>
+	        <!--Sack of Flour --><item id="1039"></item>
+	        <!--Pitcher of Water --><item id="ff9"></item>
 	</startitems>
 
 	<!--  Detecting Hidden -->
 	<startitems id="detectinghidden">
 	        <inherit id="default" />
+	        <!--Cloak --><item id="1515"></item>
 	</startitems>
 
-	<!--  Enticement -->
+	<!--  Discordance -->
 	<startitems id="enticement">
 	        <inherit id="default" />
 	        <!--Random Instrument--><item><inherit><random list="INSTRUMENTS" /></inherit></item>
@@ -132,11 +141,15 @@
 	<!--  Healing -->
 	<startitems id="healing">
 	        <inherit id="default" />
+	        <!--Bandages --><item id="1f03"><amount>50</amount></item>
+	        <!--Scissors --><item id="f9e"></item>
 	</startitems>
 
 	<!--  Fishing -->
 	<startitems id="fishing">
 	        <inherit id="default" />
+	        <!--Floppy Hat --><equipment id="1713"></equipment>
+	        <!--Fishing Pole --><equipment id="dbf"></equipment>
 	</startitems>
 
 	<!--  Forensics -->
@@ -147,26 +160,32 @@
 	<!--  Herding -->
 	<startitems id="herding">
 	        <inherit id="default" />
+	        <!--Sheperd crook --><equipment id="e81"></equipment>
 	</startitems>
 
 	<!--  Hiding -->
 	<startitems id="hiding">
 	        <inherit id="default" />
+	        <!--Cloak --><item id="1515"></item>
 	</startitems>
 
 	<!--  Provocation -->
 	<startitems id="provocation">
 	        <inherit id="default" />
+	        <!--Random Instrument--><item><inherit><random list="INSTRUMENTS" /></inherit></item>
 	</startitems>
 
 	<!--  Inscription -->
 	<startitems id="inscription">
 	        <inherit id="default" />
+	        <!--Book --><item id="ff1"></item>
+	        <!--Blank Scrolls --><item id="e34"><amount>2</amount></item>
 	</startitems>
 
 	<!--  Lockpicking -->
 	<startitems id="lockpicking">
 	        <inherit id="default" />
+	        <!--Lockpicks --><item id="14fb"><amount>20</amount></item>
 	</startitems>
 
 	<!--  Magery -->
@@ -187,6 +206,7 @@
 	<!--  Snooping -->
 	<startitems id="snooping">
 	        <inherit id="default" />
+	        <!--Lockpicks --><item id="14fb"><amount>20</amount></item>
 	</startitems>
 
 	<!--  Musicianship -->
@@ -214,6 +234,7 @@
 	<!--  Stealing -->
 	<startitems id="stealing">
 	        <inherit id="default" />
+	        <!--Lockpicks --><item id="14fb"><amount>20</amount></item>
 	</startitems>
 
 	<!--  Tailoring -->
@@ -247,6 +268,8 @@
 	<!--  Veterinary -->
 	<startitems id="veterinary">
 	        <inherit id="default" />
+	        <!--Bandages --><item id="1f03"><amount>5</amount></item>
+	        <!--Scissors --><item id="f9e"></item>
 	</startitems>
 
 	<!--  Swordsmanship -->
@@ -277,6 +300,7 @@
 	<!--  Mining -->
 	<startitems id="mining">
 	        <inherit id="default" />
+	        <!--Random Mining Tool--><item><inherit><random list="MININGTOOLS" /></inherit></item>
 	</startitems>
 
 </definitions>
