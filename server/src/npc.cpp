@@ -1254,7 +1254,7 @@ void cNPC::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	QString affix;
 	
 	if (!title_.isEmpty()) {
-		affix = title_;
+		affix = " " + title_;
 	} else {
 		affix = " ";
 	}
