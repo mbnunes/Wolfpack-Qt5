@@ -1,0 +1,122 @@
+//==================================================================================
+//
+//      Wolfpack Emu (WP)
+//	UO Server Emulation Program
+//
+//	Copyright 1997, 98 by Marcus Rating (Cironian)
+//  Copyright 2001 by holders identified in authors.txt
+//	This program is free software; you can redistribute it and/or modify
+//	it under the terms of the GNU General Public License as published by
+//	the Free Software Foundation; either version 2 of the License, or
+//	(at your option) any later version.
+//
+//	This program is distributed in the hope that it will be useful,
+//	but WITHOUT ANY WARRANTY; without even the implied warranty of
+//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+//	GNU General Public License for more details.
+//
+//	You should have received a copy of the GNU General Public License
+//	along with this program; if not, write to the Free Software
+//	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+//	* In addition to that license, if you are running this program or modified
+//	* versions of it on a public system you HAVE TO make the complete source of
+//	* the version used by you available or provide people with a location to
+//	* download it.
+//
+//
+//
+//	Wolfpack Homepage: http://wpdev.sf.net/
+//========================================================================================
+
+#include "utilities.h"
+#include "char.h"
+#include "../network/uosocket.h"
+
+/*!
+	Struct for WP Python Sockets
+*/
+typedef struct {
+    PyObject_HEAD;
+	cUOSocket *pSock;
+} wpSocket;
+
+// Forward Declarations
+PyObject *wpSocket_getAttr( wpSocket *self, char *name );
+int wpSocket_setAttr( wpSocket *self, char *name, PyObject *value );
+
+/*!
+	The typedef for Wolfpack Python chars
+*/
+static PyTypeObject wpSocketType = {
+    PyObject_HEAD_INIT(NULL)
+    0,
+    "WPSocket",
+    sizeof(wpSocketType),
+    0,
+    wpDealloc,				
+    0,								
+    (getattrfunc)wpSocket_getAttr,
+    (setattrfunc)wpSocket_setAttr,
+};
+
+PyObject* PyGetSocketObject( cUOSocket *socket )
+{
+	if( !socket )
+		return Py_None;
+
+	wpSocket *rVal = PyObject_New( wpSocket, &wpSocketType );
+	rVal->pSock = socket;
+
+	if( rVal )
+		return (PyObject*)rVal;
+	else
+		return Py_None;
+}
+
+/*!
+	Sends a system message to the socket
+*/
+PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) < 1 || !PyString_Check( PyTuple_GetItem( args, 0 ) ) )
+	{
+		clConsole.send( "Minimum argument count for socket.sysmessage is 1" );
+		return PyFalse;
+	}
+
+	QString message = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+	UINT16 color = 0x37;
+	UINT16 font = 3;
+
+	if( PyTuple_Size( args ) > 1 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
+		color = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+
+	if( PyTuple_Size( args ) > 2 && PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
+		font = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
+
+	self->pSock->sysMessage( message, color, font );
+
+	return PyTrue;
+}
+
+static PyMethodDef wpSocketMethods[] = 
+{
+    { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char" },
+    { NULL, NULL, 0, NULL }
+};
+
+// Getters & Setters
+PyObject *wpSocket_getAttr( wpSocket *self, char *name )
+{
+	return Py_FindMethod( wpSocketMethods, (PyObject*)self, name );
+}
+
+int wpSocket_setAttr( wpSocket *self, char *name, PyObject *value )
+{
+	return 0;
+}
+
