@@ -100,6 +100,8 @@ public:
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
 
+	virtual void applyDefinition( const QDomElement& );
+
 	// other public methods
 	stError *setProperty( const QString &name, const cVariant &value );
 	stError *getProperty( const QString &name, cVariant &value ) const;

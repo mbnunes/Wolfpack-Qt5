@@ -672,11 +672,26 @@ void interpretCommand( const QString &command )
 	}
 }
 
+#include <qfile.h>
+
 static void parseParameter( const QString &param )
 {
 	// Add what ever paramters you want
 	// Right now we don't have any parameters
-	Q_UNUSED( param );
+	if ( param.contains(".py") )
+	{
+		if ( QFile::exists( param ) )
+		{
+			FILE* f = fopen(param, "r");
+			if ( f )
+			{
+				PyRun_SimpleFile(f, const_cast<char*>(param.latin1()));
+				exit(0);
+			}
+		}
+		else
+			clConsole.error( QString("The specified python script [%1] doesn't exist.").arg(param) );
+	}
 }
 
 /*!
@@ -763,11 +778,6 @@ int main( int argc, char *argv[] )
 	QApplication app( argc, argv, false ); // we need one instance
 	QTranslator translator( 0 ); // must be valid thru app life.
 
-	unsigned int i;
-
-	for( i = 1; i <= argc; ++i )
-		parseParameter( QString( argv[ i ] ) );
-	
 	// Unix Signal Handling
 #if defined( Q_OS_UNIX )	
 	signal( SIGHUP,  &signal_handler ); // Reload Scripts
@@ -836,6 +846,12 @@ int main( int argc, char *argv[] )
 		clConsole.log( LOG_FATAL, "Couldn't start up python." );
 		exit( -1 );
 	}
+
+	unsigned int i;
+
+	for( i = 1; i <= argc; ++i )
+		parseParameter( QString( argv[ i ] ) );
+
 
 	// Load data
 	DefManager->load();

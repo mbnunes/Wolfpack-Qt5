@@ -40,7 +40,7 @@ class cDefinable
 {
 public:
 	virtual ~cDefinable() {}
-	void applyDefinition( const QDomElement &sectionNode );
+	virtual void applyDefinition( const QDomElement &sectionNode );
 protected:
 	virtual void processNode( const QDomElement &Tag ) = 0;
 	QString getNodeValue( const QDomElement &Tag ) const;

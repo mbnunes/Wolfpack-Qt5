@@ -628,6 +628,18 @@ void cNPC::callGuards()
 	cBaseChar::callGuards();
 }
 
+void cNPC::applyDefinition( const QDomElement& sectionNode )
+{
+	cBaseChar::applyDefinition( sectionNode );
+	// Let's try to assume some unspecified values
+	if ( this->strength() && !this->hitpoints() ) // we don't want to instantly die, right?
+	{
+		if ( !this->maxHitpoints() )
+			setMaxHitpoints( strength() );
+		setHitpoints( maxHitpoints() );
+	}
+}
+
 void cNPC::showName( cUOSocket *socket )
 {
 	if( !socket->player() )
