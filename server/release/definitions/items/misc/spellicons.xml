@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="2080">
 		<id>0x2080</id>
 		<category>Misc\Spellicons\Clumsy</category>
@@ -210,7 +211,7 @@
 	</item>
 
 	<item id="20a8">
-		<id>0x20a8</id>	
+		<id>0x20a8</id>
 		<category>Misc\Spellicons\Dispel</category>
 	</item>
 
@@ -368,4 +369,5 @@
 		<id>0x20c7</id>
 		<category>Misc\Spellicons\Circle 8</category>
 	</item>
+
 </definitions>

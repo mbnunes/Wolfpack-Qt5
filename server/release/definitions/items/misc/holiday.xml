@@ -3,41 +3,47 @@
 	<!-- Snowman 1 -->
 	<item id="2328">
 		<id>0x2328</id>
+		<nodecay />
 		<category>Holiday\Snowman (N/S)</category>
 	</item>
+
 	<!-- Snowman 2 -->
 	<item id="2329">
 		<id>0x2329</id>
+		<nodecay />
 		<category>Holiday\Snowman (E/W)</category>
 	</item>
-	
+
 	<!-- Gift Box 1 -->
 	<item id="232a">
 		<id>0x232a</id>
 		<category>Holiday\Gift Box (N/S)</category>
 	</item>
+
 	<!-- Gift Box 2 -->
 	<item id="232b">
 		<id>0x232b</id>
 		<category>Holiday\Gift Box (E/W)</category>
 	</item>
-	
+
 	<!-- Wreath 1 -->
 	<item id="232c">
 		<id>0x232c</id>
 		<category>Holiday\Wreath (N/S)</category>
 	</item>
+
 	<!-- Wreath 2 -->
 	<item id="232d">
 		<id>0x232d</id>
 		<category>Holiday\Wreath (E/W)</category>
 	</item>
-	
+
 	<!-- Snowflake 1 -->
 	<item id="232e">
 		<id>0x232e</id>
 		<category>Holiday\Snowflake 1</category>
 	</item>
+
 	<!-- Snowflake 2 -->
 	<item id="232f">
 		<id>0x232f</id>

@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- Third Dawn Weapons -->
 	<item id="2554">
 		<id>0x2554</id>
@@ -180,7 +181,7 @@
 
 	<item id="257f">
 		<id>0x257f</id>
-	</item>	
+	</item>
 
 	<!-- Third Dawn Clothes & Armor -->
 	<item id="25e4">
@@ -586,4 +587,5 @@
 	<item id="26b0">
 		<id>0x26b0</id>
 	</item>
+
 </definitions>

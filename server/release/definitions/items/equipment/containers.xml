@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- trade container -->
 	<item id="2af8">
 		<name>shop container</name>
@@ -229,4 +230,5 @@
 		<category>Equipment\Containers\Barrel 3</category>
 		<type>1</type>
 	</item>
+
 </definitions>

@@ -9,832 +9,834 @@
 =================================================================
 -->
 <definitions>
-        <!-- Deck -->
-        <item id="3e61">
-                <id>0x3e61</id>
-                <category>Boat Parts\Deck\Deck 1</category>
-        </item>
-
-        <item id="3e7a">
-                <id>0x3e7a</id>
-                <category>Boat Parts\Deck\Deck 2</category>
-        </item>
-
-        <item id="3e83">
-                <id>0x3e83</id>
-                <category>Boat Parts\Deck\Deck 3</category>
-        </item>
-
-        <item id="3e88">
-                <id>0x3e88</id>
-                <category>Boat Parts\Deck\Deck 4</category>
-        </item>
-
-        <item id="3e8b">
-                <id>0x3e8b</id>
-                <category>Boat Parts\Deck\Deck 5</category>
-        </item>
-
-        <item id="3e8f">
-                <id>0x3e8f</id>
-                <category>Boat Parts\Deck\Deck 6</category>
-        </item>
-
-        <item id="3e98">
-                <id>0x3e98</id>
-                <category>Boat Parts\Deck\Deck 7</category>
-        </item>
-
-        <item id="3ea1">
-                <id>0x3ea1</id>
-                <category>Boat Parts\Deck\Deck 8</category>
-        </item>
-
-        <item id="3eaa">
-                <id>0x3eaa</id>
-                <category>Boat Parts\Deck\Deck 9</category>
-        </item>
-
-        <item id="3eac">
-                <id>0x3eac</id>
-                <category>Boat Parts\Deck\Deck 10</category>
-        </item>
-
-        <item id="3ead">
-                <id>0x3ead</id>
-                <category>Boat Parts\Deck\Deck 11</category>
-        </item>
-
-        <item id="3eb0">
-                <id>0x3eb0</id>
-                <category>Boat Parts\Deck\Deck 12</category>
-        </item>
-
-        <item id="3ec0">
-                <id>0x3ec0</id>
-                <category>Boat Parts\Deck\Deck 13</category>
-        </item>
-
-        <!-- Gang Plank -->
-        <item id="3e84">
-                <id>0x3e84</id>
-                <category>Boat Parts\Gang Plank\Gang Plank 1</category>
-        </item>
-
-        <item id="3e86">
-                <id>0x3e86</id>
-                <category>Boat Parts\Gang Plank\Gang Plank 2</category>
-        </item>
-
-        <item id="3e89">
-                <id>0x3e89</id>
-                <category>Boat Parts\Gang Plank\Gang Plank 3</category>
-        </item>
-
-        <item id="3ed3">
-                <id>0x3ed3</id>
-                <category>Boat Parts\Gang Plank\Gang Plank 4</category>
-        </item>
-
-        <item id="3ed4">
-                <id>0x3ed4</id>
-                <category>Boat Parts\Gang Plank\Gang Plank 5</category>
-        </item>
-
-        <item id="3ed5">
-                <id>0x3ed5</id>
-                <category>Boat Parts\Gang Plank\Gang Plank 6</category>
-        </item>
-
-        <!-- Hatch -->
-        <item id="3e65">
-                <id>0x3e65</id>
-                <category>Boat Parts\Hatch\Hatch 1</category>
-        </item>
-
-        <item id="3e93">
-                <id>0x3e93</id>
-                <category>Boat Parts\Hatch\Hatch 2</category>
-        </item>
-
-        <item id="3eae">
-                <id>0x3eae</id>
-                <category>Boat Parts\Hatch\Hatch 3</category>
-        </item>
-
-        <item id="3eb9">
-                <id>0x3eb9</id>
-                <category>Boat Parts\Hatch\Hatch 4</category>
-        </item>
-
-        <!-- Hold -->
-        <item id="3e64">
-                <id>0x3e64</id>
-                <category>Boat Parts\Hold\Hold 1</category>
-        </item>
-
-        <item id="3e92">
-                <id>0x3e92</id>
-                <category>Boat Parts\Hold\Hold 2</category>
-        </item>
-
-        <item id="3eaf">
-                <id>0x3eaf</id>
-                <category>Boat Parts\Hold\Hold 3</category>
-        </item>
-
-        <item id="3eb7">
-                <id>0x3eb7</id>
-                <category>Boat Parts\Hold\Hold 4</category>
-        </item>
-
-        <!-- Mast -->
-        <item id="3e57">
-                <id>0x3e57</id>
-                <category>Boat Parts\Mast\Mast 1</category>
-        </item>
-
-        <item id="3e5a">
-                <id>0x3e5a</id>
-                <category>Boat Parts\Mast\Mast 2</category>
-        </item>
-
-        <item id="3e6c">
-                <id>0x3e6c</id>
-                <category>Boat Parts\Mast\Mast 3</category>
-        </item>
-
-        <item id="3ec8">
-                <id>0x3ec8</id>
-                <category>Boat Parts\Mast\Mast 4</category>
-        </item>
-
-        <item id="3ecb">
-                <id>0x3ecb</id>
-                <category>Boat Parts\Mast\Mast 5</category>
-        </item>
-
-        <item id="3e72">
-                <id>0x3e72</id>
-                <category>Boat Parts\Mast\Mast 6</category>
-        </item>
-
-        <item id="3ed0">
-                <id>0x3ed0</id>
-                <category>Boat Parts\Mast\Mast 7</category>
-        </item>
-
-        <item id="3edd">
-                <id>0x3edd</id>
-                <category>Boat Parts\Mast\Mast 8</category>
-        </item>
-
-        <item id="3ee2">
-                <id>0x3ee2</id>
-                <category>Boat Parts\Mast\Mast 9</category>
-        </item>
-
-        <!-- Dragon Prow -->
-        <item id="3e43">
-                <id>0x3e43</id>
-                <category>Boat Parts\Prow\Dragon Prow 1</category>
-        </item>
-
-        <item id="3e44">
-                <id>0x3e44</id>
-                <category>Boat Parts\Prow\Dragon Prow 2</category>
-        </item>
-
-        <item id="3e45">
-                <id>0x3e45</id>
-                <category>Boat Parts\Prow\Dragon Prow 3</category>
-        </item>
-
-        <item id="3e46">
-                <id>0x3e46</id>
-                <category>Boat Parts\Prow\Dragon Prow 4</category>
-        </item>
-
-        <item id="3e47">
-                <id>0x3e47</id>
-                <category>Boat Parts\Prow\Dragon Prow 5</category>
-        </item>
-
-        <item id="3e48">
-                <id>0x3e48</id>
-                <category>Boat Parts\Prow\Dragon Prow 6</category>
-        </item>
-
-        <item id="3e49">
-                <id>0x3e49</id>
-                <category>Boat Parts\Prow\Dragon Prow 7</category>
-        </item>
-
-        <item id="3e56">
-                <id>0x3e56</id>
-                <category>Boat Parts\Prow\Dragon Prow 8</category>
-        </item>
-
-        <!-- Prow -->
-        <item id="3e68">
-                <id>0x3e68</id>
-                <category>Boat Parts\Prow\Prow 1</category>
-        </item>
-
-        <item id="3e69">
-                <id>0x3e69</id>
-                <category>Boat Parts\Prow\Prow 2</category>
-        </item>
-
-        <item id="3e95">
-                <id>0x3e95</id>
-                <category>Boat Parts\Prow\Prow 3</category>
-        </item>
-
-        <item id="3e96">
-                <id>0x3e96</id>
-                <category>Boat Parts\Prow\Prow 3</category>
-        </item>
-
-        <item id="3e97">
-                <id>0x3e97</id>
-                <category>Boat Parts\Prow\Prow 4</category>
-        </item>
-
-        <item id="3e9a">
-                <id>0x3e9a</id>
-                <category>Boat Parts\Prow\Prow 5</category>
-        </item>
-
-        <item id="3eb4">
-                <id>0x3eb4</id>
-                <category>Boat Parts\Prow\Prow 6</category>
-        </item>
-
-        <item id="3eba">
-                <id>0x3eba</id>
-                <category>Boat Parts\Prow\Prow 7</category>
-        </item>
-
-        <item id="3e6f">
-                <id>0x3e6f</id>
-                <category>Boat Parts\Prow\Prow 8</category>
-        </item>
-
-        <!-- Rudder -->
-        <item id="3e76">
-                <id>0x3e76</id>
-                <category>Boat Parts\Rudder\Rudder 1</category>
-        </item>
-
-        <item id="3e78">
-                <id>0x3e78</id>
-                <category>Boat Parts\Rudder\Rudder 2</category>
-        </item>
-
-        <item id="3ebb">
-                <id>0x3ebb</id>
-                <category>Boat Parts\Rudder\Rudder 3</category>
-        </item>
-
-        <item id="3ebc">
-                <id>0x3ebc</id>
-                <category>Boat Parts\Rudder\Rudder 4</category>
-        </item>
-
-        <item id="3ebe">
-                <id>0x3ebe</id>
-                <category>Boat Parts\Rudder\Rudder 5</category>
-        </item>
-
-        <!-- Sail -->
-        <item id="3e59">
-                <id>0x3e59</id>
-                <category>Boat Parts\Sail\Sail 1</category>
-        </item>
-
-        <item id="3e5b">
-                <id>0x3e5b</id>
-                <category>Boat Parts\Sail\Sail 2</category>
-        </item>
-
-        <item id="3e5c">
-                <id>0x3e5c</id>
-                <category>Boat Parts\Sail\Sail 3</category>
-        </item>
-
-        <item id="3e6a">
-                <id>0x3e6a</id>
-                <category>Boat Parts\Sail\Sail 4</category>
-        </item>
-
-        <item id="3e6b">
-                <id>0x3e6b</id>
-                <category>Boat Parts\Sail\Sail 5</category>
-        </item>
-
-        <item id="3e6d">
-                <id>0x3e6d</id>
-                <category>Boat Parts\Sail\Sail 6</category>
-        </item>
-
-        <item id="3e71">
-                <id>0x3e71</id>
-                <category>Boat Parts\Sail\Sail 7</category>
-        </item>
-
-        <item id="3ede">
-                <id>0x3ede</id>
-                <category>Boat Parts\Sail\Sail 8</category>
-        </item>
-
-        <item id="3e73">
-                <id>0x3e73</id>
-                <category>Boat Parts\Sail\Sail 9</category>
-        </item>
-
-        <item id="3edf">
-                <id>0x3edf</id>
-                <category>Boat Parts\Sail\Sail 10</category>
-        </item>
-
-        <item id="3ee0">
-                <id>0x3ee0</id>
-                <category>Boat Parts\Sail\Sail 11</category>
-        </item>
-
-        <item id="3e74">
-                <id>0x3e74</id>
-                <category>Boat Parts\Sail\Sail 12</category>
-        </item>
-
-        <item id="3ec9">
-                <id>0x3ec9</id>
-                <category>Boat Parts\Sail\Sail 13</category>
-        </item>
-
-        <item id="3ee1">
-                <id>0x3ee1</id>
-                <category>Boat Parts\Sail\Sail 14</category>
-        </item>
-
-        <item id="3ee3">
-                <id>0x3ee3</id>
-                <category>Boat Parts\Sail\Sail 15</category>
-        </item>
-
-        <item id="3eca">
-                <id>0x3eca</id>
-                <category>Boat Parts\Sail\Sail 16</category>
-        </item>
-
-        <item id="3ecc">
-                <id>0x3ecc</id>
-                <category>Boat Parts\Sail\Sail 17</category>
-        </item>
-
-        <item id="3edc">
-                <id>0x3edc</id>
-                <category>Boat Parts\Sail\Sail 18</category>
-        </item>
-
-        <!-- Ship -->
-        <item id="3e3f">
-                <id>0x3e3f</id>
-                <category>Boat Parts\Ship\Ship 1</category>
-        </item>
-
-        <item id="3e40">
-                <id>0x3e40</id>
-                <category>Boat Parts\Ship\Ship 2</category>
-        </item>
-
-        <item id="3e41">
-                <id>0x3e41</id>
-                <category>Boat Parts\Ship\Ship 3</category>
-        </item>
-
-        <item id="3e42">
-                <id>0x3e42</id>
-                <category>Boat Parts\Ship\Ship 4</category>
-        </item>
-
-        <item id="3e66">
-                <id>0x3e66</id>
-                <category>Boat Parts\Ship\Ship 5</category>
-        </item>
-
-        <item id="3e67">
-                <id>0x3e67</id>
-                <category>Boat Parts\Ship\Ship 6</category>
-        </item>
-
-        <item id="3e79">
-                <id>0x3e79</id>
-                <category>Boat Parts\Ship\Ship 7</category>
-        </item>
-
-        <item id="3e7b">
-                <id>0x3e7b</id>
-                <category>Boat Parts\Ship\Ship 8</category>
-        </item>
-
-        <item id="3e7c">
-                <id>0x3e7c</id>
-                <category>Boat Parts\Ship\Ship 9</category>
-        </item>
-
-        <item id="3e7d">
-                <id>0x3e7d</id>
-                <category>Boat Parts\Ship\Ship 10</category>
-        </item>
-
-        <item id="3e7e">
-                <id>0x3e7e</id>
-                <category>Boat Parts\Ship\Ship 11</category>
-        </item>
-
-        <item id="3e7f">
-                <id>0x3e7f</id>
-                <category>Boat Parts\Ship\Ship 12</category>
-        </item>
-
-        <item id="3e80">
-                <id>0x3e80</id>
-                <category>Boat Parts\Ship\Ship 13</category>
-        </item>
-
-        <item id="3e81">
-                <id>0x3e81</id>
-                <category>Boat Parts\Ship\Ship 14</category>
-        </item>
-
-        <item id="3e85">
-                <id>0x3e85</id>
-                <category>Boat Parts\Ship\Ship 15</category>
-        </item>
-
-        <item id="3e87">
-                <id>0x3e87</id>
-                <category>Boat Parts\Ship\Ship 16</category>
-        </item>
-
-        <item id="3e8a">
-                <id>0x3e8a</id>
-                <category>Boat Parts\Ship\Ship 17</category>
-        </item>
-
-        <item id="3e8c">
-                <id>0x3e8c</id>
-                <category>Boat Parts\Ship\Ship 18</category>
-        </item>
-
-        <item id="3e8d">
-                <id>0x3e8d</id>
-                <category>Boat Parts\Ship\Ship 19</category>
-        </item>
-
-        <item id="3e8e">
-                <id>0x3e8e</id>
-                <category>Boat Parts\Ship\Ship 20</category>
-        </item>
-
-        <item id="3e90">
-                <id>0x3e90</id>
-                <category>Boat Parts\Ship\Ship 21</category>
-        </item>
-
-        <item id="3e91">
-                <id>0x3e91</id>
-                <category>Boat Parts\Ship\Ship 22</category>
-        </item>
-
-        <item id="3e94">
-                <id>0x3e94</id>
-                <category>Boat Parts\Ship\Ship 23</category>
-        </item>
-
-        <item id="3e9b">
-                <id>0x3e9b</id>
-                <category>Boat Parts\Ship\Ship 24</category>
-        </item>
-
-        <item id="3e9c">
-                <id>0x3e9c</id>
-                <category>Boat Parts\Ship\Ship 25</category>
-        </item>
-
-        <item id="3e9d">
-                <id>0x3e9d</id>
-                <category>Boat Parts\Ship\Ship 26</category>
-        </item>
-
-        <item id="3e9e">
-                <id>0x3e9e</id>
-                <category>Boat Parts\Ship\Ship 27</category>
-        </item>
-
-        <item id="3e9f">
-                <id>0x3e9f</id>
-                <category>Boat Parts\Ship\Ship 28</category>
-        </item>
-
-        <item id="3ea0">
-                <id>0x3ea0</id>
-                <category>Boat Parts\Ship\Ship 29</category>
-        </item>
-
-        <item id="3ea3">
-                <id>0x3ea3</id>
-                <category>Boat Parts\Ship\Ship 30</category>
-        </item>
-
-        <item id="3ea4">
-                <id>0x3ea4</id>
-                <category>Boat Parts\Ship\Ship 31</category>
-        </item>
-
-        <item id="3ea5">
-                <id>0x3ea5</id>
-                <category>Boat Parts\Ship\Ship 32</category>
-        </item>
-
-        <item id="3ea6">
-                <id>0x3ea6</id>
-                <category>Boat Parts\Ship\Ship 33</category>
-        </item>
-
-        <item id="3ea7">
-                <id>0x3ea7</id>
-                <category>Boat Parts\Ship\Ship 34</category>
-        </item>
-
-        <item id="3ea8">
-                <id>0x3ea8</id>
-                <category>Boat Parts\Ship\Ship 35</category>
-        </item>
-
-        <item id="3ea9">
-                <id>0x3ea9</id>
-                <category>Boat Parts\Ship\Ship 36</category>
-        </item>
-
-        <item id="3eab">
-                <id>0x3eab</id>
-                <category>Boat Parts\Ship\Ship 37</category>
-        </item>
-
-        <item id="3eb1">
-                <id>0x3eb1</id>
-                <category>Boat Parts\Ship\Ship 38</category>
-        </item>
-
-        <item id="3eb2">
-                <id>0x3eb2</id>
-                <category>Boat Parts\Ship\Ship 39</category>
-        </item>
-
-        <item id="3eb5">
-                <id>0x3eb5</id>
-                <category>Boat Parts\Ship\Ship 40</category>
-        </item>
-
-        <item id="3eb6">
-                <id>0x3eb6</id>
-                <category>Boat Parts\Ship\Ship 41</category>
-        </item>
-
-        <item id="3ee4">
-                <id>0x3ee4</id>
-                <category>Boat Parts\Ship\Ship 42</category>
-        </item>
-
-        <item id="3ee5">
-                <id>0x3ee5</id>
-                <category>Boat Parts\Ship\Ship 43</category>
-        </item>
-
-        <item id="3ee6">
-                <id>0x3ee6</id>
-                <category>Boat Parts\Ship\Ship 44</category>
-        </item>
-
-        <item id="3ee7">
-                <id>0x3ee7</id>
-                <category>Boat Parts\Ship\Ship 45</category>
-        </item>
-
-        <item id="3ee9">
-                <id>0x3ee9</id>
-                <category>Boat Parts\Ship\Ship 46</category>
-        </item>
-
-        <item id="3eea">
-                <id>0x3eea</id>
-                <category>Boat Parts\Ship\Ship 47</category>
-        </item>
-
-        <item id="3eeb">
-                <id>0x3eeb</id>
-                <category>Boat Parts\Ship\Ship 48</category>
-        </item>
-
-        <item id="3eec">
-                <id>0x3eec</id>
-                <category>Boat Parts\Ship\Ship 49</category>
-        </item>
-
-        <!-- Spar -->
-        <item id="3e58">
-                <id>0x3e58</id>
-                <category>Boat Parts\Spar\Spar 1</category>
-        </item>
-
-        <item id="3e6e">
-                <id>0x3e6e</id>
-                <category>Boat Parts\Spar\Spar 2</category>
-        </item>
-
-        <item id="3e70">
-                <id>0x3e70</id>
-                <category>Boat Parts\Spar\Spar 3</category>
-        </item>
-
-        <item id="3ecd">
-                <id>0x3ecd</id>
-                <category>Boat Parts\Spar\Spar 4</category>
-        </item>
-
-        <item id="3ece">
-                <id>0x3ece</id>
-                <category>Boat Parts\Spar\Spar 5</category>
-        </item>
-
-        <item id="3ecf">
-                <id>0x3ecf</id>
-                <category>Boat Parts\Spar\Spar 6</category>
-        </item>
-
-        <item id="3ed1">
-                <id>0x3ed1</id>
-                <category>Boat Parts\Spar\Spar 7</category>
-        </item>
-
-        <item id="3ed2">
-                <id>0x3ed2</id>
-                <category>Boat Parts\Spar\Spar 8</category>
-        </item>
-
-        <!-- Stern -->
-        <item id="3eb3">
-                <id>0x3eb3</id>
-                <category>Boat Parts\Stern\Stern 1</category>
-        </item>
-
-        <item id="3eb8">
-                <id>0x3eb8</id>
-                <category>Boat Parts\Stern\Stern 2</category>
-        </item>
-
-        <!-- Tiller -->
-        <item id="3e5d">
-                <id>0x3e5d</id>
-                <category>Boat Parts\Tiller\Tiller 1</category>
-        </item>
-
-        <item id="3e5e">
-                <id>0x3e5e</id>
-                <category>Boat Parts\Tiller\Tiller 2</category>
-        </item>
-
-        <item id="3e5f">
-                <id>0x3e5f</id>
-                <category>Boat Parts\Tiller\Tiller 3</category>
-        </item>
-
-        <item id="3e60">
-                <id>0x3e60</id>
-                <category>Boat Parts\Tiller\Tiller 4</category>
-        </item>
-
-        <item id="3e62">
-                <id>0x3e62</id>
-                <category>Boat Parts\Tiller\Tiller 5</category>
-        </item>
-
-        <item id="3e63">
-                <id>0x3e63</id>
-                <category>Boat Parts\Tiller\Tiller 6</category>
-        </item>
-
-        <item id="3e75">
-                <id>0x3e75</id>
-                <category>Boat Parts\Tiller\Tiller 7</category>
-        </item>
-
-        <item id="3ebd">
-                <id>0x3ebd</id>
-                <category>Boat Parts\Tiller\Tiller 8</category>
-        </item>
-
-        <item id="3e77">
-                <id>0x3e77</id>
-                <category>Boat Parts\Tiller\Tiller 9</category>
-        </item>
-
-        <item id="3ebf">
-                <id>0x3ebf</id>
-                <category>Boat Parts\Tiller\Tiller 10</category>
-        </item>
-
-        <item id="3ec1">
-                <id>0x3ec1</id>
-                <category>Boat Parts\Tiller\Tiller 11</category>
-        </item>
-
-        <item id="3ec2">
-                <id>0x3ec2</id>
-                <category>Boat Parts\Tiller\Tiller 12</category>
-        </item>
-
-        <item id="3ec3">
-                <id>0x3ec3</id>
-                <category>Boat Parts\Tiller\Tiller 13</category>
-        </item>
-
-        <item id="3ec4">
-                <id>0x3ec4</id>
-                <category>Boat Parts\Tiller\Tiller 14</category>
-        </item>
-
-        <item id="3ec5">
-                <id>0x3ec5</id>
-                <category>Boat Parts\Tiller\Tiller 15</category>
-        </item>
-
-        <item id="3ec6">
-                <id>0x3ec6</id>
-                <category>Boat Parts\Tiller\Tiller 16</category>
-        </item>
-
-        <!-- Tiller Man -->
-        <item id="3e4a">
-                <id>0x3e4a</id>
-                <category>Boat Parts\Tiller Man\Tiller Man 1</category>
-        </item>
-
-        <item id="3e4b">
-                <id>0x3e4b</id>
-                <category>Boat Parts\Tiller Man\Tiller Man 2</category>
-        </item>
-
-        <item id="3e4c">
-                <id>0x3e4c</id>
-                <category>Boat Parts\Tiller Man\Tiller Man 3</category>
-        </item>
-
-        <item id="3e4d">
-                <id>0x3e4d</id>
-                <category>Boat Parts\Tiller Man\Tiller Man 4</category>
-        </item>
-
-        <item id="3e4e">
-                <id>0x3e4e</id>
-                <category>Boat Parts\Tiller Man\Tiller Man 5</category>
-        </item>
-
-        <item id="3e4f">
-                <id>0x3e4f</id>
-                <category>Boat Parts\Tiller Man\Tiller Man 6</category>
-        </item>
-
-        <item id="3e50">
-                <id>0x3e50</id>
-                <category>Boat Parts\Tiller Man\Tiller Man 7</category>
-        </item>
-
-        <item id="3e51">
-                <id>0x3e51</id>
-                <category>Boat Parts\Tiller Man\Tiller Man 8</category>
-        </item>
-
-        <item id="3e52">
-                <id>0x3e52</id>
-                <category>Boat Parts\Tiller Man\Tiller Man 9</category>
-        </item>
-
-        <item id="3e53">
-                <id>0x3e53</id>
-                <category>Boat Parts\Tiller Man\Tiller Man 10</category>
-        </item>
-
-        <item id="3e54">
-                <id>0x3e54</id>
-                <category>Boat Parts\Tiller Man\Tiller Man 11</category>
-        </item>
-
-        <item id="3e55">
-                <id>0x3e55</id>
-                <category>Boat Parts\Tiller Man\Tiller Man 12</category>
-        </item>
+
+	<!-- Deck -->
+	<item id="3e61">
+		<id>0x3e61</id>
+		<category>Boat Parts\Deck\Deck 1</category>
+	</item>
+
+	<item id="3e7a">
+		<id>0x3e7a</id>
+		<category>Boat Parts\Deck\Deck 2</category>
+	</item>
+
+	<item id="3e83">
+		<id>0x3e83</id>
+		<category>Boat Parts\Deck\Deck 3</category>
+	</item>
+
+	<item id="3e88">
+		<id>0x3e88</id>
+		<category>Boat Parts\Deck\Deck 4</category>
+	</item>
+
+	<item id="3e8b">
+		<id>0x3e8b</id>
+		<category>Boat Parts\Deck\Deck 5</category>
+	</item>
+
+	<item id="3e8f">
+		<id>0x3e8f</id>
+		<category>Boat Parts\Deck\Deck 6</category>
+	</item>
+
+	<item id="3e98">
+		<id>0x3e98</id>
+		<category>Boat Parts\Deck\Deck 7</category>
+	</item>
+
+	<item id="3ea1">
+		<id>0x3ea1</id>
+		<category>Boat Parts\Deck\Deck 8</category>
+	</item>
+
+	<item id="3eaa">
+		<id>0x3eaa</id>
+		<category>Boat Parts\Deck\Deck 9</category>
+	</item>
+
+	<item id="3eac">
+		<id>0x3eac</id>
+		<category>Boat Parts\Deck\Deck 10</category>
+	</item>
+
+	<item id="3ead">
+		<id>0x3ead</id>
+		<category>Boat Parts\Deck\Deck 11</category>
+	</item>
+
+	<item id="3eb0">
+		<id>0x3eb0</id>
+		<category>Boat Parts\Deck\Deck 12</category>
+	</item>
+
+	<item id="3ec0">
+		<id>0x3ec0</id>
+		<category>Boat Parts\Deck\Deck 13</category>
+	</item>
+
+	<!-- Gang Plank -->
+	<item id="3e84">
+		<id>0x3e84</id>
+		<category>Boat Parts\Gang Plank\Gang Plank 1</category>
+	</item>
+
+	<item id="3e86">
+		<id>0x3e86</id>
+		<category>Boat Parts\Gang Plank\Gang Plank 2</category>
+	</item>
+
+	<item id="3e89">
+		<id>0x3e89</id>
+		<category>Boat Parts\Gang Plank\Gang Plank 3</category>
+	</item>
+
+	<item id="3ed3">
+		<id>0x3ed3</id>
+		<category>Boat Parts\Gang Plank\Gang Plank 4</category>
+	</item>
+
+	<item id="3ed4">
+		<id>0x3ed4</id>
+		<category>Boat Parts\Gang Plank\Gang Plank 5</category>
+	</item>
+
+	<item id="3ed5">
+		<id>0x3ed5</id>
+		<category>Boat Parts\Gang Plank\Gang Plank 6</category>
+	</item>
+
+	<!-- Hatch -->
+	<item id="3e65">
+		<id>0x3e65</id>
+		<category>Boat Parts\Hatch\Hatch 1</category>
+	</item>
+
+	<item id="3e93">
+		<id>0x3e93</id>
+		<category>Boat Parts\Hatch\Hatch 2</category>
+	</item>
+
+	<item id="3eae">
+		<id>0x3eae</id>
+		<category>Boat Parts\Hatch\Hatch 3</category>
+	</item>
+
+	<item id="3eb9">
+		<id>0x3eb9</id>
+		<category>Boat Parts\Hatch\Hatch 4</category>
+	</item>
+
+	<!-- Hold -->
+	<item id="3e64">
+		<id>0x3e64</id>
+		<category>Boat Parts\Hold\Hold 1</category>
+	</item>
+
+	<item id="3e92">
+		<id>0x3e92</id>
+		<category>Boat Parts\Hold\Hold 2</category>
+	</item>
+
+	<item id="3eaf">
+		<id>0x3eaf</id>
+		<category>Boat Parts\Hold\Hold 3</category>
+	</item>
+
+	<item id="3eb7">
+		<id>0x3eb7</id>
+		<category>Boat Parts\Hold\Hold 4</category>
+	</item>
+
+	<!-- Mast -->
+	<item id="3e57">
+		<id>0x3e57</id>
+		<category>Boat Parts\Mast\Mast 1</category>
+	</item>
+
+	<item id="3e5a">
+		<id>0x3e5a</id>
+		<category>Boat Parts\Mast\Mast 2</category>
+	</item>
+
+	<item id="3e6c">
+		<id>0x3e6c</id>
+		<category>Boat Parts\Mast\Mast 3</category>
+	</item>
+
+	<item id="3ec8">
+		<id>0x3ec8</id>
+		<category>Boat Parts\Mast\Mast 4</category>
+	</item>
+
+	<item id="3ecb">
+		<id>0x3ecb</id>
+		<category>Boat Parts\Mast\Mast 5</category>
+	</item>
+
+	<item id="3e72">
+		<id>0x3e72</id>
+		<category>Boat Parts\Mast\Mast 6</category>
+	</item>
+
+	<item id="3ed0">
+		<id>0x3ed0</id>
+		<category>Boat Parts\Mast\Mast 7</category>
+	</item>
+
+	<item id="3edd">
+		<id>0x3edd</id>
+		<category>Boat Parts\Mast\Mast 8</category>
+	</item>
+
+	<item id="3ee2">
+		<id>0x3ee2</id>
+		<category>Boat Parts\Mast\Mast 9</category>
+	</item>
+
+	<!-- Dragon Prow -->
+	<item id="3e43">
+		<id>0x3e43</id>
+		<category>Boat Parts\Prow\Dragon Prow 1</category>
+	</item>
+
+	<item id="3e44">
+		<id>0x3e44</id>
+		<category>Boat Parts\Prow\Dragon Prow 2</category>
+	</item>
+
+	<item id="3e45">
+		<id>0x3e45</id>
+		<category>Boat Parts\Prow\Dragon Prow 3</category>
+	</item>
+
+	<item id="3e46">
+		<id>0x3e46</id>
+		<category>Boat Parts\Prow\Dragon Prow 4</category>
+	</item>
+
+	<item id="3e47">
+		<id>0x3e47</id>
+		<category>Boat Parts\Prow\Dragon Prow 5</category>
+	</item>
+
+	<item id="3e48">
+		<id>0x3e48</id>
+		<category>Boat Parts\Prow\Dragon Prow 6</category>
+	</item>
+
+	<item id="3e49">
+		<id>0x3e49</id>
+		<category>Boat Parts\Prow\Dragon Prow 7</category>
+	</item>
+
+	<item id="3e56">
+		<id>0x3e56</id>
+		<category>Boat Parts\Prow\Dragon Prow 8</category>
+	</item>
+
+	<!-- Prow -->
+	<item id="3e68">
+		<id>0x3e68</id>
+		<category>Boat Parts\Prow\Prow 1</category>
+	</item>
+
+	<item id="3e69">
+		<id>0x3e69</id>
+		<category>Boat Parts\Prow\Prow 2</category>
+	</item>
+
+	<item id="3e95">
+		<id>0x3e95</id>
+		<category>Boat Parts\Prow\Prow 3</category>
+	</item>
+
+	<item id="3e96">
+		<id>0x3e96</id>
+		<category>Boat Parts\Prow\Prow 3</category>
+	</item>
+
+	<item id="3e97">
+		<id>0x3e97</id>
+		<category>Boat Parts\Prow\Prow 4</category>
+	</item>
+
+	<item id="3e9a">
+		<id>0x3e9a</id>
+		<category>Boat Parts\Prow\Prow 5</category>
+	</item>
+
+	<item id="3eb4">
+		<id>0x3eb4</id>
+		<category>Boat Parts\Prow\Prow 6</category>
+	</item>
+
+	<item id="3eba">
+		<id>0x3eba</id>
+		<category>Boat Parts\Prow\Prow 7</category>
+	</item>
+
+	<item id="3e6f">
+		<id>0x3e6f</id>
+		<category>Boat Parts\Prow\Prow 8</category>
+	</item>
+
+	<!-- Rudder -->
+	<item id="3e76">
+		<id>0x3e76</id>
+		<category>Boat Parts\Rudder\Rudder 1</category>
+	</item>
+
+	<item id="3e78">
+		<id>0x3e78</id>
+		<category>Boat Parts\Rudder\Rudder 2</category>
+	</item>
+
+	<item id="3ebb">
+		<id>0x3ebb</id>
+		<category>Boat Parts\Rudder\Rudder 3</category>
+	</item>
+
+	<item id="3ebc">
+		<id>0x3ebc</id>
+		<category>Boat Parts\Rudder\Rudder 4</category>
+	</item>
+
+	<item id="3ebe">
+		<id>0x3ebe</id>
+		<category>Boat Parts\Rudder\Rudder 5</category>
+	</item>
+
+	<!-- Sail -->
+	<item id="3e59">
+		<id>0x3e59</id>
+		<category>Boat Parts\Sail\Sail 1</category>
+	</item>
+
+	<item id="3e5b">
+		<id>0x3e5b</id>
+		<category>Boat Parts\Sail\Sail 2</category>
+	</item>
+
+	<item id="3e5c">
+		<id>0x3e5c</id>
+		<category>Boat Parts\Sail\Sail 3</category>
+	</item>
+
+	<item id="3e6a">
+		<id>0x3e6a</id>
+		<category>Boat Parts\Sail\Sail 4</category>
+	</item>
+
+	<item id="3e6b">
+		<id>0x3e6b</id>
+		<category>Boat Parts\Sail\Sail 5</category>
+	</item>
+
+	<item id="3e6d">
+		<id>0x3e6d</id>
+		<category>Boat Parts\Sail\Sail 6</category>
+	</item>
+
+	<item id="3e71">
+		<id>0x3e71</id>
+		<category>Boat Parts\Sail\Sail 7</category>
+	</item>
+
+	<item id="3ede">
+		<id>0x3ede</id>
+		<category>Boat Parts\Sail\Sail 8</category>
+	</item>
+
+	<item id="3e73">
+		<id>0x3e73</id>
+		<category>Boat Parts\Sail\Sail 9</category>
+	</item>
+
+	<item id="3edf">
+		<id>0x3edf</id>
+		<category>Boat Parts\Sail\Sail 10</category>
+	</item>
+
+	<item id="3ee0">
+		<id>0x3ee0</id>
+		<category>Boat Parts\Sail\Sail 11</category>
+	</item>
+
+	<item id="3e74">
+		<id>0x3e74</id>
+		<category>Boat Parts\Sail\Sail 12</category>
+	</item>
+
+	<item id="3ec9">
+		<id>0x3ec9</id>
+		<category>Boat Parts\Sail\Sail 13</category>
+	</item>
+
+	<item id="3ee1">
+		<id>0x3ee1</id>
+		<category>Boat Parts\Sail\Sail 14</category>
+	</item>
+
+	<item id="3ee3">
+		<id>0x3ee3</id>
+		<category>Boat Parts\Sail\Sail 15</category>
+	</item>
+
+	<item id="3eca">
+		<id>0x3eca</id>
+		<category>Boat Parts\Sail\Sail 16</category>
+	</item>
+
+	<item id="3ecc">
+		<id>0x3ecc</id>
+		<category>Boat Parts\Sail\Sail 17</category>
+	</item>
+
+	<item id="3edc">
+		<id>0x3edc</id>
+		<category>Boat Parts\Sail\Sail 18</category>
+	</item>
+
+	<!-- Ship -->
+	<item id="3e3f">
+		<id>0x3e3f</id>
+		<category>Boat Parts\Ship\Ship 1</category>
+	</item>
+
+	<item id="3e40">
+		<id>0x3e40</id>
+		<category>Boat Parts\Ship\Ship 2</category>
+	</item>
+
+	<item id="3e41">
+		<id>0x3e41</id>
+		<category>Boat Parts\Ship\Ship 3</category>
+	</item>
+
+	<item id="3e42">
+		<id>0x3e42</id>
+		<category>Boat Parts\Ship\Ship 4</category>
+	</item>
+
+	<item id="3e66">
+		<id>0x3e66</id>
+		<category>Boat Parts\Ship\Ship 5</category>
+	</item>
+
+	<item id="3e67">
+		<id>0x3e67</id>
+		<category>Boat Parts\Ship\Ship 6</category>
+	</item>
+
+	<item id="3e79">
+		<id>0x3e79</id>
+		<category>Boat Parts\Ship\Ship 7</category>
+	</item>
+
+	<item id="3e7b">
+		<id>0x3e7b</id>
+		<category>Boat Parts\Ship\Ship 8</category>
+	</item>
+
+	<item id="3e7c">
+		<id>0x3e7c</id>
+		<category>Boat Parts\Ship\Ship 9</category>
+	</item>
+
+	<item id="3e7d">
+		<id>0x3e7d</id>
+		<category>Boat Parts\Ship\Ship 10</category>
+	</item>
+
+	<item id="3e7e">
+		<id>0x3e7e</id>
+		<category>Boat Parts\Ship\Ship 11</category>
+	</item>
+
+	<item id="3e7f">
+		<id>0x3e7f</id>
+		<category>Boat Parts\Ship\Ship 12</category>
+	</item>
+
+	<item id="3e80">
+		<id>0x3e80</id>
+		<category>Boat Parts\Ship\Ship 13</category>
+	</item>
+
+	<item id="3e81">
+		<id>0x3e81</id>
+		<category>Boat Parts\Ship\Ship 14</category>
+	</item>
+
+	<item id="3e85">
+		<id>0x3e85</id>
+		<category>Boat Parts\Ship\Ship 15</category>
+	</item>
+
+	<item id="3e87">
+		<id>0x3e87</id>
+		<category>Boat Parts\Ship\Ship 16</category>
+	</item>
+
+	<item id="3e8a">
+		<id>0x3e8a</id>
+		<category>Boat Parts\Ship\Ship 17</category>
+	</item>
+
+	<item id="3e8c">
+		<id>0x3e8c</id>
+		<category>Boat Parts\Ship\Ship 18</category>
+	</item>
+
+	<item id="3e8d">
+		<id>0x3e8d</id>
+		<category>Boat Parts\Ship\Ship 19</category>
+	</item>
+
+	<item id="3e8e">
+		<id>0x3e8e</id>
+		<category>Boat Parts\Ship\Ship 20</category>
+	</item>
+
+	<item id="3e90">
+		<id>0x3e90</id>
+		<category>Boat Parts\Ship\Ship 21</category>
+	</item>
+
+	<item id="3e91">
+		<id>0x3e91</id>
+		<category>Boat Parts\Ship\Ship 22</category>
+	</item>
+
+	<item id="3e94">
+		<id>0x3e94</id>
+		<category>Boat Parts\Ship\Ship 23</category>
+	</item>
+
+	<item id="3e9b">
+		<id>0x3e9b</id>
+		<category>Boat Parts\Ship\Ship 24</category>
+	</item>
+
+	<item id="3e9c">
+		<id>0x3e9c</id>
+		<category>Boat Parts\Ship\Ship 25</category>
+	</item>
+
+	<item id="3e9d">
+		<id>0x3e9d</id>
+		<category>Boat Parts\Ship\Ship 26</category>
+	</item>
+
+	<item id="3e9e">
+		<id>0x3e9e</id>
+		<category>Boat Parts\Ship\Ship 27</category>
+	</item>
+
+	<item id="3e9f">
+		<id>0x3e9f</id>
+		<category>Boat Parts\Ship\Ship 28</category>
+	</item>
+
+	<item id="3ea0">
+		<id>0x3ea0</id>
+		<category>Boat Parts\Ship\Ship 29</category>
+	</item>
+
+	<item id="3ea3">
+		<id>0x3ea3</id>
+		<category>Boat Parts\Ship\Ship 30</category>
+	</item>
+
+	<item id="3ea4">
+		<id>0x3ea4</id>
+		<category>Boat Parts\Ship\Ship 31</category>
+	</item>
+
+	<item id="3ea5">
+		<id>0x3ea5</id>
+		<category>Boat Parts\Ship\Ship 32</category>
+	</item>
+
+	<item id="3ea6">
+		<id>0x3ea6</id>
+		<category>Boat Parts\Ship\Ship 33</category>
+	</item>
+
+	<item id="3ea7">
+		<id>0x3ea7</id>
+		<category>Boat Parts\Ship\Ship 34</category>
+	</item>
+
+	<item id="3ea8">
+		<id>0x3ea8</id>
+		<category>Boat Parts\Ship\Ship 35</category>
+	</item>
+
+	<item id="3ea9">
+		<id>0x3ea9</id>
+		<category>Boat Parts\Ship\Ship 36</category>
+	</item>
+
+	<item id="3eab">
+		<id>0x3eab</id>
+		<category>Boat Parts\Ship\Ship 37</category>
+	</item>
+
+	<item id="3eb1">
+		<id>0x3eb1</id>
+		<category>Boat Parts\Ship\Ship 38</category>
+	</item>
+
+	<item id="3eb2">
+		<id>0x3eb2</id>
+		<category>Boat Parts\Ship\Ship 39</category>
+	</item>
+
+	<item id="3eb5">
+		<id>0x3eb5</id>
+		<category>Boat Parts\Ship\Ship 40</category>
+	</item>
+
+	<item id="3eb6">
+		<id>0x3eb6</id>
+		<category>Boat Parts\Ship\Ship 41</category>
+	</item>
+
+	<item id="3ee4">
+		<id>0x3ee4</id>
+		<category>Boat Parts\Ship\Ship 42</category>
+	</item>
+
+	<item id="3ee5">
+		<id>0x3ee5</id>
+		<category>Boat Parts\Ship\Ship 43</category>
+	</item>
+
+	<item id="3ee6">
+		<id>0x3ee6</id>
+		<category>Boat Parts\Ship\Ship 44</category>
+	</item>
+
+	<item id="3ee7">
+		<id>0x3ee7</id>
+		<category>Boat Parts\Ship\Ship 45</category>
+	</item>
+
+	<item id="3ee9">
+		<id>0x3ee9</id>
+		<category>Boat Parts\Ship\Ship 46</category>
+	</item>
+
+	<item id="3eea">
+		<id>0x3eea</id>
+		<category>Boat Parts\Ship\Ship 47</category>
+	</item>
+
+	<item id="3eeb">
+		<id>0x3eeb</id>
+		<category>Boat Parts\Ship\Ship 48</category>
+	</item>
+
+	<item id="3eec">
+		<id>0x3eec</id>
+		<category>Boat Parts\Ship\Ship 49</category>
+	</item>
+
+	<!-- Spar -->
+	<item id="3e58">
+		<id>0x3e58</id>
+		<category>Boat Parts\Spar\Spar 1</category>
+	</item>
+
+	<item id="3e6e">
+		<id>0x3e6e</id>
+		<category>Boat Parts\Spar\Spar 2</category>
+	</item>
+
+	<item id="3e70">
+		<id>0x3e70</id>
+		<category>Boat Parts\Spar\Spar 3</category>
+	</item>
+
+	<item id="3ecd">
+		<id>0x3ecd</id>
+		<category>Boat Parts\Spar\Spar 4</category>
+	</item>
+
+	<item id="3ece">
+		<id>0x3ece</id>
+		<category>Boat Parts\Spar\Spar 5</category>
+	</item>
+
+	<item id="3ecf">
+		<id>0x3ecf</id>
+		<category>Boat Parts\Spar\Spar 6</category>
+	</item>
+
+	<item id="3ed1">
+		<id>0x3ed1</id>
+		<category>Boat Parts\Spar\Spar 7</category>
+	</item>
+
+	<item id="3ed2">
+		<id>0x3ed2</id>
+		<category>Boat Parts\Spar\Spar 8</category>
+	</item>
+
+	<!-- Stern -->
+	<item id="3eb3">
+		<id>0x3eb3</id>
+		<category>Boat Parts\Stern\Stern 1</category>
+	</item>
+
+	<item id="3eb8">
+		<id>0x3eb8</id>
+		<category>Boat Parts\Stern\Stern 2</category>
+	</item>
+
+	<!-- Tiller -->
+	<item id="3e5d">
+		<id>0x3e5d</id>
+		<category>Boat Parts\Tiller\Tiller 1</category>
+	</item>
+
+	<item id="3e5e">
+		<id>0x3e5e</id>
+		<category>Boat Parts\Tiller\Tiller 2</category>
+	</item>
+
+	<item id="3e5f">
+		<id>0x3e5f</id>
+		<category>Boat Parts\Tiller\Tiller 3</category>
+	</item>
+
+	<item id="3e60">
+		<id>0x3e60</id>
+		<category>Boat Parts\Tiller\Tiller 4</category>
+	</item>
+
+	<item id="3e62">
+		<id>0x3e62</id>
+		<category>Boat Parts\Tiller\Tiller 5</category>
+	</item>
+
+	<item id="3e63">
+		<id>0x3e63</id>
+		<category>Boat Parts\Tiller\Tiller 6</category>
+	</item>
+
+	<item id="3e75">
+		<id>0x3e75</id>
+		<category>Boat Parts\Tiller\Tiller 7</category>
+	</item>
+
+	<item id="3ebd">
+		<id>0x3ebd</id>
+		<category>Boat Parts\Tiller\Tiller 8</category>
+	</item>
+
+	<item id="3e77">
+		<id>0x3e77</id>
+		<category>Boat Parts\Tiller\Tiller 9</category>
+	</item>
+
+	<item id="3ebf">
+		<id>0x3ebf</id>
+		<category>Boat Parts\Tiller\Tiller 10</category>
+	</item>
+
+	<item id="3ec1">
+		<id>0x3ec1</id>
+		<category>Boat Parts\Tiller\Tiller 11</category>
+	</item>
+
+	<item id="3ec2">
+		<id>0x3ec2</id>
+		<category>Boat Parts\Tiller\Tiller 12</category>
+	</item>
+
+	<item id="3ec3">
+		<id>0x3ec3</id>
+		<category>Boat Parts\Tiller\Tiller 13</category>
+	</item>
+
+	<item id="3ec4">
+		<id>0x3ec4</id>
+		<category>Boat Parts\Tiller\Tiller 14</category>
+	</item>
+
+	<item id="3ec5">
+		<id>0x3ec5</id>
+		<category>Boat Parts\Tiller\Tiller 15</category>
+	</item>
+
+	<item id="3ec6">
+		<id>0x3ec6</id>
+		<category>Boat Parts\Tiller\Tiller 16</category>
+	</item>
+
+	<!-- Tiller Man -->
+	<item id="3e4a">
+		<id>0x3e4a</id>
+		<category>Boat Parts\Tiller Man\Tiller Man 1</category>
+	</item>
+
+	<item id="3e4b">
+		<id>0x3e4b</id>
+		<category>Boat Parts\Tiller Man\Tiller Man 2</category>
+	</item>
+
+	<item id="3e4c">
+		<id>0x3e4c</id>
+		<category>Boat Parts\Tiller Man\Tiller Man 3</category>
+	</item>
+
+	<item id="3e4d">
+		<id>0x3e4d</id>
+		<category>Boat Parts\Tiller Man\Tiller Man 4</category>
+	</item>
+
+	<item id="3e4e">
+		<id>0x3e4e</id>
+		<category>Boat Parts\Tiller Man\Tiller Man 5</category>
+	</item>
+
+	<item id="3e4f">
+		<id>0x3e4f</id>
+		<category>Boat Parts\Tiller Man\Tiller Man 6</category>
+	</item>
+
+	<item id="3e50">
+		<id>0x3e50</id>
+		<category>Boat Parts\Tiller Man\Tiller Man 7</category>
+	</item>
+
+	<item id="3e51">
+		<id>0x3e51</id>
+		<category>Boat Parts\Tiller Man\Tiller Man 8</category>
+	</item>
+
+	<item id="3e52">
+		<id>0x3e52</id>
+		<category>Boat Parts\Tiller Man\Tiller Man 9</category>
+	</item>
+
+	<item id="3e53">
+		<id>0x3e53</id>
+		<category>Boat Parts\Tiller Man\Tiller Man 10</category>
+	</item>
+
+	<item id="3e54">
+		<id>0x3e54</id>
+		<category>Boat Parts\Tiller Man\Tiller Man 11</category>
+	</item>
+
+	<item id="3e55">
+		<id>0x3e55</id>
+		<category>Boat Parts\Tiller Man\Tiller Man 12</category>
+	</item>
+
 </definitions>

@@ -10,53 +10,54 @@ Prices and the such for the slotmachine
 
 -->
 <definitions>
-    <!-- The slotmachine itself -->
-    <item id="slotmachine">
-        <id>0x1ea8</id>
-        <color>386</color>
-        <name>a slotmachine</name>
-        <events>slotmachine</events>
-    </item>
-    
-    <!-- The Prizes -->
-    <item id="slot_prize_1">
-        <id>0xeed</id>
-        <amount>1</amount>
-    </item>
-    
-    <item id="slot_prize_2">
-        <id>0xeed</id>
-        <amount>3</amount>
-    </item>
-    
-    <item id="slot_prize_3">
-        <id>0xeed</id>
-        <amount>6</amount>
-    </item>
 
-    <item id="slot_prize_4">
-        <id>0xeed</id>
-        <amount>96</amount>
-    </item>
+	<!-- The slotmachine itself -->
+	<item id="slotmachine">
+		<id>0x1ea8</id>
+		<color>386</color>
+		<name>a slotmachine</name>
+		<events>slotmachine</events>
+	</item>
 
-    <item id="slot_prize_5">
-        <id>0xeed</id>
-        <amount>151</amount>
-    </item>
+	<!-- The Prizes -->
+	<item id="slot_prize_1">
+		<id>0xeed</id>
+		<amount>1</amount>
+	</item>
 
-    <item id="slot_prize_6">
-        <id>0xeed</id>
-        <amount>204</amount>
-    </item>
-    
-    <item id="slot_prize_7">
-        <id>0xeed</id>
-        <amount>462</amount>
-    </item>
-    
-    <item id="slot_prize_8">
-        <id>0xeed</id>
-        <amount>812</amount>
-    </item>
+	<item id="slot_prize_2">
+		<id>0xeed</id>
+		<amount>3</amount>
+	</item>
+
+	<item id="slot_prize_3">
+		<id>0xeed</id>
+		<amount>6</amount>
+	</item>
+
+	<item id="slot_prize_4">
+		<id>0xeed</id>
+		<amount>96</amount>
+	</item>
+
+	<item id="slot_prize_5">
+		<id>0xeed</id>
+		<amount>151</amount>
+	</item>
+
+	<item id="slot_prize_6">
+		<id>0xeed</id>
+		<amount>204</amount>
+	</item>
+
+	<item id="slot_prize_7">
+		<id>0xeed</id>
+		<amount>462</amount>
+	</item>
+
+	<item id="slot_prize_8">
+		<id>0xeed</id>
+		<amount>812</amount>
+	</item>
 
 </definitions>

@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- Cloak n/s -->
 	<item id="1515">
 		<category>Clothes\Accessories\Cloak (N/S)</category>
@@ -798,4 +799,5 @@
 		<category>Clothes\Special\Dupre</category>
 		<id>0x2050</id>
 	</item>
+
 </definitions>

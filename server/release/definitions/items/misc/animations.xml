@@ -7,200 +7,240 @@
 =================================================================
 -->
 <definitions>
-        <item id="36b0">
-                <id>0x36b0</id>
-                <category>Animations\Explosion 1</category>
-        </item>
 
-        <item id="36bd">
-                <id>0x36bd</id>
-                <category>Animations\Explosion 2</category>
-        </item>
+	<item id="36b0">
+		<id>0x36b0</id>
+		<nodecay />
+		<category>Animations\Explosion 1</category>
+	</item>
 
-        <item id="36cb">
-                <id>0x36cb</id>
-                <category>Animations\Explosion 3</category>
-        </item>
+	<item id="36bd">
+		<id>0x36bd</id>
+		<nodecay />
+		<category>Animations\Explosion 2</category>
+	</item>
 
-        <item id="36d4">
-                <id>0x36d4</id>
-                <category>Animations\Fireball (large)</category>
-        </item>
+	<item id="36cb">
+		<id>0x36cb</id>
+		<nodecay />
+		<category>Animations\Explosion 3</category>
+	</item>
 
-        <item id="36e4">
-                <id>0x36e4</id>
-                <category>Animations\Fireball (small)</category>
-        </item>
+	<item id="36d4">
+		<id>0x36d4</id>
+		<nodecay />
+		<category>Animations\Fireball (large)</category>
+	</item>
 
-        <item id="36f4">
-                <id>0x36f4</id>
-                <category>Animations\Fire Snake</category>
-        </item>
+	<item id="36e4">
+		<id>0x36e4</id>
+		<nodecay />
+		<category>Animations\Fireball (small)</category>
+	</item>
 
-        <item id="36fe">
-                <id>0x36fe</id>
-                <category>Animations\Explosion Ball</category>
-        </item>
+	<item id="36f4">
+		<id>0x36f4</id>
+		<nodecay />
+		<category>Animations\Fire Snake</category>
+	</item>
 
-        <item id="3709">
-                <id>0x3709</id>
-                <category>Animations\Fire Column</category>
-        </item>
+	<item id="36fe">
+		<id>0x36fe</id>
+		<nodecay />
+		<category>Animations\Explosion Ball</category>
+	</item>
 
-        <item id="3728">
-                <id>0x3728</id>
-                <category>Animations\Smoke</category>
-        </item>
+	<item id="3709">
+		<id>0x3709</id>
+		<nodecay />
+		<category>Animations\Fire Column</category>
+	</item>
 
-        <item id="3735">
-                <id>0x3735</id>
-                <category>Animations\Fizzle</category>
-        </item>
+	<item id="3728">
+		<id>0x3728</id>
+		<nodecay />
+		<category>Animations\Smoke</category>
+	</item>
 
-        <item id="373a">
-                <id>0x373a</id>
-                <category>Animations\Sparkle (blue) 1</category>
-        </item>
+	<item id="3735">
+		<id>0x3735</id>
+		<nodecay />
+		<category>Animations\Fizzle</category>
+	</item>
 
-        <item id="3779">
-                <id>0x3779</id>
-                <category>Animations\Sparkle (blue) 2</category>
-        </item>
+	<item id="373a">
+		<id>0x373a</id>
+		<nodecay />
+		<category>Animations\Sparkle (blue) 1</category>
+	</item>
 
-        <item id="374a">
-                <id>0x374a</id>
-                <category>Animations\Sparkle (red)</category>
-        </item>
+	<item id="3779">
+		<id>0x3779</id>
+		<nodecay />
+		<category>Animations\Sparkle (blue) 2</category>
+	</item>
 
-        <item id="375a">
-                <id>0x375a</id>
-                <category>Animations\Sparkle (blue &amp; gold) 1</category>
-        </item>
+	<item id="374a">
+		<id>0x374a</id>
+		<nodecay />
+		<category>Animations\Sparkle (red)</category>
+	</item>
 
-        <item id="376a">
-                <id>0x376a</id>
-                <category>Animations\Sparkle (blue &amp; gold) 2</category>
-        </item>
+	<item id="375a">
+		<id>0x375a</id>
+		<nodecay />
+		<category>Animations\Sparkle (blue &amp; gold) 1</category>
+	</item>
 
-        <item id="3789">
-                <id>0x3789</id>
-                <category>Animations\Death Vortex</category>
-        </item>
+	<item id="376a">
+		<id>0x376a</id>
+		<nodecay />
+		<category>Animations\Sparkle (blue &amp; gold) 2</category>
+	</item>
 
-        <item id="37a0">
-                <id>0x37a0</id>
-                <category>Animations\Field of Blades</category>
-        </item>
+	<item id="3789">
+		<id>0x3789</id>
+		<nodecay />
+		<category>Animations\Death Vortex</category>
+	</item>
 
-        <item id="37b9">
-                <id>0x37b9</id>
-                <category>Animations\Glow</category>
-        </item>
+	<item id="37a0">
+		<id>0x37a0</id>
+		<nodecay />
+		<category>Animations\Field of Blades</category>
+	</item>
 
-        <item id="37c4">
-                <id>0x37c4</id>
-                <category>Animations\Glow (like a star)</category>
-        </item>
+	<item id="37b9">
+		<id>0x37b9</id>
+		<nodecay />
+		<category>Animations\Glow</category>
+	</item>
 
-        <item id="37cc">
-                <id>0x37cc</id>
-                <category>Animations\Death Vortex</category>
-        </item>
+	<item id="37c4">
+		<id>0x37c4</id>
+		<nodecay />
+		<category>Animations\Glow (like a star)</category>
+	</item>
 
-        <item id="3818">
-                <id>0x3818</id>
-                <category>Animations\Energy</category>
-        </item>
+	<item id="37cc">
+		<id>0x37cc</id>
+		<nodecay />
+		<category>Animations\Death Vortex</category>
+	</item>
 
-        <item id="3915">
-                <id>0x3915</id>
-                <category>Animations\Field of Poison (N/S) 1</category>
-        </item>
+	<item id="3818">
+		<id>0x3818</id>
+		<nodecay />
+		<category>Animations\Energy</category>
+	</item>
 
-        <item id="3e02">
-                <id>0x3e02</id>
-                <category>Animations\Field of Poison (N/S) 2</category>
-        </item>
+	<item id="3915">
+		<id>0x3915</id>
+		<nodecay />
+		<category>Animations\Field of Poison (N/S) 1</category>
+	</item>
 
-        <item id="3920">
-                <id>0x3920</id>
-                <category>Animations\Field of Poison (W/E)</category>
-        </item>
+	<item id="3e02">
+		<id>0x3e02</id>
+		<nodecay />
+		<category>Animations\Field of Poison (N/S) 2</category>
+	</item>
 
-        <item id="3946">
-                <id>0x3946</id>
-                <category>Animations\Field of Energy (N/S)</category>
-        </item>
+	<item id="3920">
+		<id>0x3920</id>
+		<nodecay />
+		<category>Animations\Field of Poison (W/E)</category>
+	</item>
 
-        <item id="3956">
-                <id>0x3956</id>
-                <category>Animations\Field of Energy (W/E)</category>
-        </item>
+	<item id="3946">
+		<id>0x3946</id>
+		<nodecay />
+		<category>Animations\Field of Energy (N/S)</category>
+	</item>
 
-        <item id="3967">
-                <id>0x3967</id>
-                <category>Animations\Field of Paralysis (N/S)</category>
-        </item>
+	<item id="3956">
+		<id>0x3956</id>
+		<nodecay />
+		<category>Animations\Field of Energy (W/E)</category>
+	</item>
 
-        <item id="3979">
-                <id>0x3979</id>
-                <category>Animations\Field of Paralysis (W/E)</category>
-        </item>
+	<item id="3967">
+		<id>0x3967</id>
+		<nodecay />
+		<category>Animations\Field of Paralysis (N/S)</category>
+	</item>
 
-        <item id="398c">
-                <id>0x398c</id>
-                <category>Animations\Field of Fire (N/S) 1</category>
-        </item>
+	<item id="3979">
+		<id>0x3979</id>
+		<nodecay />
+		<category>Animations\Field of Paralysis (W/E)</category>
+	</item>
 
-        <item id="3e27">
-                <id>0x3e27</id>
-                <category>Animations\Field of Fire (N/S) 2</category>
-        </item>
+	<item id="398c">
+		<id>0x398c</id>
+		<nodecay />
+		<category>Animations\Field of Fire (N/S) 1</category>
+	</item>
 
-        <item id="3996">
-                <id>0x3996</id>
-                <category>Animations\Field of Fire (W/E)</category>
-        </item>
+	<item id="3e27">
+		<id>0x3e27</id>
+		<category>Animations\Field of Fire (N/S) 2</category>
+		<nodecay />
+	</item>
 
-        <item id="1153"> 
-                <id>0x1153</id> 
-                <category>Animations\Magical Sparkles</category> 
-        </item>
+	<item id="3996">
+		<id>0x3996</id>
+		<category>Animations\Field of Fire (W/E)</category>
+		<nodecay />
+	</item>
 
-		<item id="19ab">
-			<id>0x19ab</id>
-                <category>Animations\Fire</category> 
-		</item>
+	<item id="1153">
+		<id>0x1153</id>
+		<nodecay />
+		<category>Animations\Magical Sparkles</category>
+	</item>
 
+	<item id="19ab">
+		<id>0x19ab</id>
+		<category>Animations\Fire</category>
+		<nodecay />
+	</item>
 
 	<item id="1ec6">
 		<id>0x1ec6</id>
-                <category>Animations\Falling Coins</category> 
+		<nodecay />
+		<category>Animations\Falling Coins</category>
 	</item>
 
 	<item id="1ed9">
 		<id>0x1ed9</id>
-        <category>Animations\Magic Face 1 (N/S)</category> 
+		<nodecay />
+		<category>Animations\Magic Face 1 (N/S)</category>
 	</item>
 
 	<item id="1ee2">
 		<id>0x1ee2</id>
-        <category>Animations\Magic Face 2 (N/S)</category> 
+		<nodecay />
+		<category>Animations\Magic Face 2 (N/S)</category>
 	</item>
 
 	<item id="1eec">
 		<id>0x1eec</id>
-        <category>Animations\Magic Face 1 (W/E)</category> 
+		<nodecay />
+		<category>Animations\Magic Face 1 (W/E)</category>
 	</item>
 
 	<item id="1ef4">
 		<id>0x1ef4</id>
-        <category>Animations\Magic Face 2 (W/E)</category> 
+		<nodecay />
+		<category>Animations\Magic Face 2 (W/E)</category>
 	</item>
 
 	<item id="1f1f">
 		<id>0x1f1f</id>
-        <category>Animations\Rotating Head</category> 
+		<nodecay />
+		<category>Animations\Rotating Head</category>
 	</item>
+
 </definitions>
 

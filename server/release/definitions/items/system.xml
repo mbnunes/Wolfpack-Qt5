@@ -2,6 +2,7 @@
 	Stuff used internally
 -->
 <definitions>
+
 	<!-- Worldgem Bits -->
 	<item id="1ea7">
 		<id>0x1ea7</id>
@@ -11,8 +12,9 @@
 		<id>0x1f13</id>
 	</item>
 
-	<!-- Corpse -->	
+	<!-- Corpse -->
 	<item id="2006">
 		<id>0x2006</id>
 	</item>
+
 </definitions>

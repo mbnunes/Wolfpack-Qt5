@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="134f">
 		<id>0x134f</id>
 		<category>Rocks\Boulder 1 (1/3)</category>
@@ -223,4 +224,5 @@
 		<id>0x177c</id>
 		<category>Rocks\Rock 23</category>
 	</item>
+
 </definitions>

@@ -7,51 +7,53 @@
 =================================================================
 -->
 <definitions>
+
     <!-- Copper Coins -->
 	<item id="eea">
-		<id>0x0eea</id>
+		<id>0xeea</id>
 		<category>Equipment\Coins\Copper Coin</category>
 	</item>
 
 	<item id="eeb">
-		<id>0x0eeb</id>
+		<id>0xeeb</id>
 		<category>Equipment\Coins\Copper Coins 1</category>
 	</item>
 
 	<item id="eec">
-		<id>0x0eec</id>
+		<id>0xeec</id>
 		<category>Equipment\Coins\Copper Coins 2</category>
 	</item>
 
     <!-- Gold Coins -->
 	<item id="eed">
-		<id>0x0eed</id>
+		<id>0xeed</id>
 		<category>Equipment\Coins\Gold Coin</category>
 	</item>
 
 	<item id="eee">
-		<id>0x0eee</id>
+		<id>0xeee</id>
 		<category>Equipment\Coins\Gold Coins 1</category>
 	</item>
 
 	<item id="eef">
-		<id>0x0eef</id>
+		<id>0xeef</id>
 		<category>Equipment\Coins\Gold Coins 2</category>
 	</item>
 
     <!-- Silver Coins -->
 	<item id="ef0">
-		<id>0x0ef0</id>
+		<id>0xef0</id>
 		<category>Equipment\Coins\Silver Coin</category>
 	</item>
 
 	<item id="ef1">
-		<id>0x0ef1</id>
+		<id>0xef1</id>
 		<category>Equipment\Coins\Silver Coins 1</category>
 	</item>
 
 	<item id="ef2">
-		<id>0x0ef2</id>
+		<id>0xef2</id>
 		<category>Equipment\Coins\Silver Coins 2</category>
 	</item>
+
 </definitions>

@@ -2,6 +2,7 @@
 	These items are not available ingame.
 -->
 <definitions>
+
 	<!-- "Texture" instead of Rock -->
 	<item id="3539">
 		<id>0x3539</id>
@@ -410,12 +411,12 @@
 	<item id="1b70">
 		<id>0x1b70</id>
 	</item>
-	
+
 	<!-- Duplicate north south keg -->
 	<item id="1940">
 		<id>0x1940</id>
 	</item>
-	
+
 	<!-- Broken Lava Animation -->
 	<item id="1a7c">
 		<id>0x1a7c</id>
@@ -633,7 +634,7 @@
 	<item id="f53">
 		<id>0x0f53</id>
 	</item>
-	
+
 	<!-- Arrow used for "flying" animation -->
 	<item id="f42">
 		<id>0x0f42</id>
@@ -647,7 +648,7 @@
 	<!-- Duplicate Kindling -->
 	<item id="de2">
 		<id>0xde2</id>
-	</item>	
+	</item>
 
 	<!-- Duplicate ("Nightstand") -->
 	<item id="b36">
@@ -1084,7 +1085,7 @@
 	<item id="2069">
 		<id>0x2069</id>
 	</item>
-	
+
 	<!-- No Draw Tiles -->
 	<item id="2198">
 		<id>0x2198</id>
@@ -1491,11 +1492,10 @@
 	<item id="3ee8">
 		<id>0x3ee8</id>
 	</item>
-	
+
 	<!-- Obviously not finished jungle wall -->
 	<item id="2546">
 		<id>0x2546</id>
 	</item>
 
-	
 </definitions>

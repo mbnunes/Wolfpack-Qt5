@@ -9,15 +9,16 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- Red Moongate -->
 	<item id="dda">
-		<id>0x0dda</id>
+		<id>0xdda</id>
 		<category>Misc\Moongates\Red Moongate</category>
 	</item>
 
 	<!-- Blue Moongate -->
 	<item id="moongate">
-		<id>0x0f6c</id>
+		<id>0xf6c</id>
 		<events>moongate</events>
 		<category>Misc\Moongates\Blue Moongate</category>
 	</item>
@@ -41,4 +42,5 @@
 		<id>0x1af7</id>
 		<category>Misc\Moongates\Summon Blue Moongate 2</category>
 	</item>
+
 </definitions>
