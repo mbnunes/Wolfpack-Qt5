@@ -117,15 +117,16 @@ content += '<input type="submit" value="Save" /></td></tr>'
 
 content += "</form></table><br /><br />\n"
 
-# Character list 
-content += '<table width="350" border="0" cellspacing="0" cellpadding="3">'
-content += '<tr><td colspan="2"><b>Characters</b></td></tr>'
-content += '<tr><td colspan="2" height="1"><img src="line_green.png" height="1" width="340" /></td></tr>'
+# Character list
+if len(record.characters) > 0:
+    content += '<table width="350" border="0" cellspacing="0" cellpadding="3">'
+    content += '<tr><td colspan="2"><b>Characters</b></td></tr>'
+    content += '<tr><td colspan="2" height="1"><img src="line_green.png" height="1" width="340" /></td></tr>'
 
-for char in record.characters:
-	content += '<tr><td colspan="2"><b>%s</b> (Serial: 0x%x)</td></tr>' % ( char.name, char.serial )
+    for char in record.characters:
+        content += '<tr><td colspan="2"><b>%s</b> (Serial: 0x%x)</td></tr>' % ( char.name, char.serial )
 
-content += '</table><br/><br/><br/>'
+    content += '</table><br/><br/><br/>'
 
 
 # Back Link
