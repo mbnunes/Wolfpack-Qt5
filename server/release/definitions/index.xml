@@ -25,7 +25,7 @@
 
 	<!-- Teleports -->
 	<include file="definitions/teleports/index.xml"/>
-	
+
 	<!-- Items Base Index -->
 	<include file="definitions/items/index.xml"/>
 
@@ -61,7 +61,7 @@
 
 	<!-- NPCs -->
 		<!-- Creatures -->
-		<include file="definitions/npcs/creatures.xml"/>
+		<!--<include file="definitions/npcs/creatures.xml"/>-->
 		<!-- NPC Base Stats -->
 		<include file="definitions/npcs/animals/base.xml"/>
 		<include file="definitions/npcs/monsters/base.xml"/>
