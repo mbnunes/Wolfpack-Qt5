@@ -53,12 +53,12 @@ void buyaction(int s)
 	int itemtotal;
 	int npc;
 	int soldout;
-	int p;
 	int tmpvalue=0; // Fixed for adv trade system -- Magius(CHE) §
 	CHARACTER cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
-	p=packitem(DEREF_P_CHAR(pc_currchar));
-	if (p==-1) return; //LB no player-pack - no buy action possible - and no crash too ;-)
+	P_ITEM pi_pack = Packitem(pc_currchar);
+	if (pi_pack == NULL) 
+		return; //LB no player-pack - no buy action possible - and no crash too ;-)
 	npc=calcCharFromSer(buffer[s][3], buffer[s][4], buffer[s][5], buffer[s][6]);
 
 	if (npc <= 0) return;
@@ -188,7 +188,7 @@ void buyaction(int s)
 						case 0x1B:
 							if (pi->pileable)
 							{
-								pi->SetContSerial(items[p].serial);
+								pi->SetContSerial(pi_pack->serial);
 								RefreshItem(buyit[i]);//AntiChrist
 							}
 							else
@@ -197,7 +197,7 @@ void buyaction(int s)
 								{
 									Commands->DupeItem(s, buyit[i], 1);
 								}
-								pi->SetContSerial(items[p].serial);
+								pi->SetContSerial(pi_pack->serial);
 								pi->amount=1;
 								RefreshItem(buyit[i]);//AntiChrist
 							}
@@ -296,8 +296,10 @@ void sellaction(int s)
 
 		int ci=0,loopexit=0;
 		P_ITEM pi;
-		while ( ((pi=ContainerSearch(chars[n].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+		vector<SERIAL> vecContainer = contsp.getData(chars[n].serial);
+		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
+			pi = FindItemBySerial(vecContainer[ci]);
 			if (pi->layer==0x1A) npa=DEREF_P_ITEM(pi);		// Buy Restock container
 			else if (pi->layer==0x1B) npb=DEREF_P_ITEM(pi);	// Buy no restock container
 			else if (pi->layer==0x1C) npc=DEREF_P_ITEM(pi);	// Sell container
@@ -338,16 +340,21 @@ void sellaction(int s)
 			int join=-1;
 			ci=0,loopexit=0;
 			P_ITEM pi;
-			while ( ((pi=ContainerSearch(items[npa].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+			vector<SERIAL> vecContainer = contsp.getData(items[npa].serial);
+			for ( ci = 0; ci < vecContainer.size(); ci++)
 			{
+				pi = FindItemBySerial(vecContainer[ci]);
 				if (items_match(pi,pSell))
 					join=DEREF_P_ITEM(pi);
 			}
 
 			// Search the sell Container to determine the price
 			ci=0,loopexit=0;
-			while ( ((pi=ContainerSearch(items[npc].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+			vecContainer.clear();
+			vecContainer = contsp.getData(items[npc].serial);
+			for ( ci = 0; ci < vecContainer.size(); ci++)
 			{
+				pi = FindItemBySerial(vecContainer[ci]);
 				if (items_match(pi,pSell))
 				{
 					value=pi->value;
@@ -491,9 +498,10 @@ void clearalltrades()
 			p=packitem(k);
 			serial=pi->serial;
 			serhash=serial%HASHMAX;
-			for (ci=0;ci<contsp[serhash].max;ci++)
+			vector<SERIAL> vecContainer = contsp.getData(serial);
+			for (ci=0;ci<vecContainer.size();ci++)
 			{
-				j=contsp[serhash].pointer[ci];
+				j=calcItemFromSer(vecContainer[ci]);
 				if (j!=-1)
 					if ((items[j].contserial==serial))
 					{
@@ -563,9 +571,10 @@ void dotrade(int cont1, int cont2)
 
 	serial=items[cont1].serial;
 	serhash=serial%HASHMAX;
-	for (ci=0;ci<contsp[serhash].max;ci++)
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for (ci=0;ci<vecContainer.size();ci++)
 	{
-		i=contsp[serhash].pointer[ci];
+		i=calcItemFromSer(vecContainer[ci]);
 		if (i!=-1)
 			if ((items[i].contserial==serial))
 			{
@@ -583,9 +592,11 @@ void dotrade(int cont1, int cont2)
 	}
 	serial=items[cont2].serial;
 	serhash=serial%HASHMAX;
-	for (ci=0;ci<contsp[serhash].max;ci++)
+	vecContainer.clear();
+	vecContainer = contsp.getData(serial);
+	for (ci=0;ci<vecContainer.size();ci++)
 	{
-		i=contsp[serhash].pointer[ci];
+		i=calcItemFromSer(vecContainer[ci]);
 		if (i!=-1)
 			if ((items[i].contserial==serial))
 			{

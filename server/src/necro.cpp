@@ -180,9 +180,10 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 	serial=chars[cc].serial; // search for a dagger in the players hand
 	serhash=serial%HASHMAX;
 	item=-1;
-	for (ci=0;ci<contsp[serhash].max;ci++)
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for (ci=0;ci<vecContainer.size();ci++)
 	{
-		i=contsp[serhash].pointer[ci];
+		i=calcItemFromSer(vecContainer[ci]);
 		if (i!=-1)
 		{
 			if (items[i].id()==0x0F51 || items[i].id()==0x0F52) dag=1; else dag=0;

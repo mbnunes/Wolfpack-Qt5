@@ -1600,19 +1600,22 @@ int cGuilds::CheckValidPlace(int s)
 {
 	int p,los,i;
 	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],0);
-	int m = findmulti(pc_currchar->pos); 
-	if (m==-1) return 0;
-	if (!ishouse(m)) return 0;
+	P_ITEM pi_multi = findmulti(pc_currchar->pos); 
+	if (pi_multi == NULL) 
+		return 0;
+	if (!ishouse(pi_multi)) 
+		return 0;
 	
 	p=packitem(currchar[s]);
 	if(p>-1)
 	{
 		los=0;
-		for (int j=0;j<contsp[items[p].serial%HASHMAX].max;j++)
+		vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
+		for (int j=0;j<vecContainer.size();j++)
 		{
-			i=contsp[items[p].serial%HASHMAX].pointer[j];
+			i=calcItemFromSer(vecContainer[j]);
 			if (i!=-1) 
-				if (items[i].type==7 && calcserial(items[i].more1,items[i].more2,items[i].more3,items[i].more4)==items[m].serial)
+				if (items[i].type==7 && calcserial(items[i].more1,items[i].more2,items[i].more3,items[i].more4) == pi_multi->serial)
 				{
 					los=1;
 					break;
@@ -1623,7 +1626,7 @@ int cGuilds::CheckValidPlace(int s)
 			return 1;
 		} else
 			sysmessage(s, "You must be close to a house and have a key in your pack to place that.");
-	} else if (m==-1)
+	} else if (pi_multi == NULL)
 		sysmessage(s, "You must be close to a house and have a key in your pack to place that.");
 	return 0;
 }

@@ -315,7 +315,7 @@ void get_item(P_CLIENT ps) // Client grabs an item
 //						setptr(&itemsp[itemcount2%HASHMAX], c);
 //						itemcount2++; // important bugfix for items disappearing, lb
 						if (!items[c].isInWorld())
-							setptr(&contsp[items[c].contserial%HASHMAX], c);
+							contsp.insert(items[c].contserial, items[c].serial);
 						if (items[c].ownserial!=-1)
 							setptr(&ownsp[items[c].ownserial%HASHMAX], c);
 						if (items[c].spawnserial!=-1)
@@ -444,9 +444,10 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		// - now you can't equip 2 hnd weapons with 1hnd weapons nor shields!!
 		serial=pc_currchar->serial;
 		serhash=serial%HASHMAX;
-	  	for (ci=0;ci<contsp[serhash].max;ci++)
+		vector<SERIAL> vecContainer = contsp.getData(serial);
+		for (ci=0;ci<vecContainer.size();ci++)
 		{
-			i2=contsp[serhash].pointer[ci];
+			i2=calcItemFromSer(vecContainer[ci]);
 			if (i2!=-1 && items[i2].contserial==serial)
 			{
 				if (items[i2].itmhand==1 && pi->itmhand==1)
@@ -948,12 +949,12 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 		//Boats !
 		if (pc_currchar->multis>0) //How can they put an item in a multi if they aren't in one themselves Cut lag by not checking everytime something is put down
 		{
-			int multi = calcItemFromSer( pc_currchar->multis );
-			if (multi!=-1)
+			P_ITEM pi_multi = FindItemBySerial( pc_currchar->multis );
+			if (pi_multi != NULL)
 			{
-				multi=findmulti(pi->pos);
-				if (multi!=-1)
-					pi->SetMultiSerial(items[multi].serial);
+				pi_multi = findmulti(pi->pos);
+				if (pi_multi != NULL)
+					pi->SetMultiSerial(pi_multi->serial);
 			}
 		}
 		//End Bots
@@ -1110,9 +1111,10 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			else
 				strcpy((char*)temp2,pItem->name);
 
-			for (int i=0;i<contsp[pCont->serial%HASHMAX].max;i++) // antichrist , bugfix for inscribing scrolls
+			vector<SERIAL> vecContainer = contsp.getData(pCont->serial);
+			for (int i=0;i<vecContainer.size();i++) // antichrist , bugfix for inscribing scrolls
 			{
-				int ci=contsp[pCont->serial%HASHMAX].pointer[i];
+				int ci=calcItemFromSer(vecContainer[i]);
 				if (ci!=-1)
 				{
 					if(items[ci].name[0]=='#')

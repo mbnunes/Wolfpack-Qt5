@@ -763,20 +763,22 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					sysmessage(s, "That item is locked down.");
 					return; 
 				} // added by ripper, bugfixed by LB
-				int m = findmulti(pc_currchar->pos); // boats are also multis zippy, btw !!!		
-				if (m!=-1 && iteminrange(s, m, 18))
+				int m;
+				P_ITEM pi_multi = findmulti(pc_currchar->pos); // boats are also multis zippy, btw !!!		
+				if (pi_multi != NULL && iteminrange(s, DEREF_P_ITEM(pi_multi), 18))
 				{	
-					if (!ishouse(m))
+					if (!ishouse(pi_multi))
 						return; // LB
 					p = packitem(currchar[s]);
 					if (p>-1)
 					{
 						los = 0;
-						for (j = 0; j < contsp[items[p].serial%HASHMAX].max; j++)
+						vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
+						for (j = 0; j < vecContainer.size(); j++)
 						{
-							i = contsp[items[p].serial%HASHMAX].pointer[j];
+							i = calcItemFromSer(vecContainer[j]);
 							if (i!=-1 && p!=-1) // lb
-								if (items[i].type == 7 && calcserial(items[i].more1, items[i].more2, items[i].more3, items[i].more4) == items[m].serial)
+								if (items[i].type == 7 && calcserial(items[i].more1, items[i].more2, items[i].more3, items[i].more4) == pi_multi->serial)
 								{
 									los = 1;
 									break;
@@ -788,31 +790,33 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					{
 						m = Npcs->AddNPCxyz(-1, 2117, 0, pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
 						
-						if (m==-1) 
+						P_CHAR pc_vendor = MAKE_CHAR_REF(m);
+
+						if (pc_vendor == NULL) 
 						{
 							clConsole.send("npc-script couldnt find vendor !\n");
 							return;
 						}
 						
-						chars[m].npcaitype = 17;
-						chars[m].makeInvulnerable();
-						chars[m].hidden = 0;
-						chars[m].stealth=-1;
-						chars[m].dir = pc_currchar->dir;
-						chars[m].npcWander = 0;
-						chars[m].setInnocent();
-						chars[m].SetOwnSerial(pc_currchar->serial);
-						chars[m].tamed = false;
+						pc_vendor->npcaitype = 17;
+						pc_vendor->makeInvulnerable();
+						pc_vendor->hidden = 0;
+						pc_vendor->stealth=-1;
+						pc_vendor->dir = pc_currchar->dir;
+						pc_vendor->npcWander = 0;
+						pc_vendor->setInnocent();
+						pc_vendor->SetOwnSerial(pc_currchar->serial);
+						pc_vendor->tamed = false;
 						Items->DeleItem(pi);
-						updatechar(m);
-						teleport(m);
-						sprintf((char*)temp, "Hello sir! My name is %s and i will be working for you.", chars[m].name);
-						npctalk(s, m, (char*)temp, 0);
+						updatechar(DEREF_P_CHAR(pc_vendor));
+						teleport(DEREF_P_CHAR(pc_vendor));
+						sprintf((char*)temp, "Hello sir! My name is %s and i will be working for you.", pc_vendor->name);
+						npctalk(s, DEREF_P_CHAR(pc_vendor), (char*)temp, 0);
 					}
 					else 
 						sysmessage(s, "You must be close to a house and have a key in your pack to place that.");
 				}
-				else if (m==-1)
+				else if (pi_multi == NULL)
 					sysmessage(s, "You must be close to a house and have a key in your pack to place that.");
 				
 				return;
@@ -1350,7 +1354,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					c = Items->SpawnItem(-1, currchar[s], 1, "#", 1, 0x0D, 0xF9, 0, 0, 1, 1);
 					if (c < 0)
 						return;
-					setserial(c, packitem(currchar[s]), 1);
+					items[c].SetContSerial(items[packitem(currchar[s])].serial);
 					sysmessage(s, "You reach down and pick some cotton.");
 					return; // cotton
 				case 0x105B:

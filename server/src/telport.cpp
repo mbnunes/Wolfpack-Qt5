@@ -228,9 +228,10 @@ void advancementobjects(int s, int x, int allways)
 						int serial,serhash,ci;
 						serial=pc_s->serial;
 						serhash=serial%HASHMAX;
-						for (ci=0;ci<contsp[serhash].max;ci++)
+						vector<SERIAL> vecContainer = contsp.getData(serial);
+						for (ci = 0; ci < vecContainer.size(); ci++)
 						{
-							i=contsp[serhash].pointer[ci];
+							i=calcItemFromSer(vecContainer[ci]);
 							if (i!=-1)
 								if ((items[i].layer==0x0B) && (items[i].contserial==serial))
 								{
@@ -253,9 +254,10 @@ void advancementobjects(int s, int x, int allways)
 						int serial,serhash,ci;
 						serial=pc_s->serial;
 						serhash=serial%HASHMAX;
-						for (ci=0;ci<contsp[serhash].max;ci++)
+						vector<SERIAL> vecContainer = contsp.getData(serial);
+						for (ci = 0; ci < vecContainer.size();ci++)
 						{
-							i=contsp[serhash].pointer[ci];
+							i=calcItemFromSer(vecContainer[ci]);
 							if (i!=-1)
 								if ((items[i].layer==0x10) && (items[i].contserial==serial))
 								{
@@ -278,9 +280,10 @@ void advancementobjects(int s, int x, int allways)
 						int serial,serhash,ci;
 						serial=pc_s->serial;
 						serhash=serial%HASHMAX;
-						for (ci=0;ci<contsp[serhash].max;ci++)
+						vector<SERIAL> vecContainer = contsp.getData(serial);
+						for (ci=0;ci<vecContainer.size();ci++)
 						{
-							i=contsp[serhash].pointer[ci];
+							i=calcItemFromSer(vecContainer[ci]);
 							if (i!=-1)
 								if ((items[i].layer==0x0B) && (items[i].contserial==serial))
 								{
@@ -295,9 +298,10 @@ void advancementobjects(int s, int x, int allways)
 						int serial,serhash,ci;
 						serial=pc_s->serial;
 						serhash=serial%HASHMAX;
-						for (ci=0;ci<contsp[serhash].max;ci++)
+						vector<SERIAL> vecContainer = contsp.getData(serial);
+						for (ci=0;ci<vecContainer.size();ci++)
 						{
-							i=contsp[serhash].pointer[ci];
+							i=calcItemFromSer(vecContainer[ci]);
 							if (i!=-1)
 								if ((items[i].layer==0x10) && (items[i].contserial==serial))
 								{
@@ -312,9 +316,10 @@ void advancementobjects(int s, int x, int allways)
 						int serial,serhash,ci;
 						serial=pc_s->serial;
 						serhash=serial%HASHMAX;
-						for (ci=0;ci<contsp[serhash].max;ci++)
+						vector<SERIAL> vecContainer = contsp.getData(serial);
+						for (ci=0;ci<vecContainer.size();ci++)
 						{
-							i=contsp[serhash].pointer[ci];
+							i=calcItemFromSer(vecContainer[ci]);
 							if (i!=-1)
 								if ((items[i].layer==0x15) && (items[i].contserial==serial))
 								{
@@ -340,11 +345,12 @@ void advancementobjects(int s, int x, int allways)
 							items[retitem].pos.z=9;
 							if(items[retitem].layer==0x0b || items[retitem].layer==0x10)
 							{
-								setserial(retitem,s,4);
+								items[retitem].SetContSerial(chars[s].serial);
 							}
 							else
 							{
-								if(packnum>-1) setserial(retitem,packnum,1);
+								if(packnum>-1) 
+									items[retitem].SetContSerial(items[packnum].serial);
 							}
 							RefreshItem(retitem);//AntiChrist
 							teleport(s);
@@ -422,7 +428,7 @@ void monstergate(int s, int x)
 				if(n==-1) return;//AntiChrist to preview crashes
 				pScp->Resume(m);
 
-				setserial(n,s,4);
+				items[n].SetContSerial(chars[s].serial);
 				items[n].layer=0x15;
 				items[n].type=1;
 				items[n].dye=1;
@@ -520,7 +526,7 @@ void monstergate(int s, int x)
 				pScp->Resume(m);
 				if (retitem>-1)
 				{
-					setserial(retitem,s,4);
+					items[retitem].SetContSerial(chars[s].serial);
 					if (items[retitem].layer==0)
 					{
 						clConsole.send("Warning: Bad NPC Script %d with problem item %d executed!\n", x, storeval);
@@ -537,7 +543,7 @@ void monstergate(int s, int x)
 				pScp->Resume(m);
 				if (retitem >-1)
 				{
-					setserial(retitem,mypack,1);
+					items[retitem].SetContSerial(items[mypack].serial);
 					items[retitem].pos.x=50+(rand()%80);
 					items[retitem].pos.y=50+(rand()%80);
 					items[retitem].pos.z=9;

@@ -1298,10 +1298,10 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							{
 								serial = items[p].serial;
 								serhash = serial%HASHMAX;
-								for (ci = 0; ci < contsp[serhash].max; ci++)
+								vector<SERIAL> vecContainer = contsp.getData(serial);
+								for (ci = 0; ci < vecContainer.size(); ci++)
 								{
-									int i;
-									i = contsp[serhash].pointer[ci];
+									int i = calcItemFromSer(vecContainer[ci]);
 									if (i!=-1)
 									{
 										sprintf(sect, "x%x%x", items[i].id1, items[i].id2);
@@ -2084,10 +2084,10 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							
 							if (needitem < 0)
 							{
-								for (ci = 0; ci < contsp[serhash].max; ci++)
+								vector<SERIAL> vecContainer = contsp.getData(serial);
+								for (ci = 0; ci < vecContainer.size(); ci++)
 								{
-									int i;
-									i = contsp[serhash].pointer[ci];
+									int i = calcItemFromSer(vecContainer[ci]);
 									if (i!=-1)
 									{
 										sprintf(sect, "x%x%x", items[i].id1, items[i].id2);

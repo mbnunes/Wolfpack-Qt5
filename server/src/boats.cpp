@@ -115,10 +115,10 @@ int dist(int a, int b, int type)//Distance from A to B (type = 1 (a is a char) t
 	return (int) (hypot(dx, dy));
 }
 
-int findmulti(Coord_cl pos) //Sortta like getboat() only more general... use this for other multi stuff!
+P_ITEM findmulti(Coord_cl pos) //Sortta like getboat() only more general... use this for other multi stuff!
 {
 	int lastdist=30;
-	int multi=-1;
+	P_ITEM multi = NULL;
 	int ret;
 
 	int	StartGrid=mapRegions->StartGrid(pos.x,pos.y);
@@ -145,7 +145,7 @@ int findmulti(Coord_cl pos) //Sortta like getboat() only more general... use thi
 						{
 							lastdist=ret;
 							if (inmulti(pos, mapitem))
-								multi = DEREF_P_ITEM(mapitem);
+								multi = mapitem;
 						}
 					}
 				}
@@ -520,13 +520,12 @@ int cBoat::GetBoat(UOXSOCKET s)//get the closest boat to the player and check to
     else if (pcc_cs->multis==-1) return -1;
 	else 
 	{
-		boat = findmulti(pcc_cs->pos);
-		pi_boat = MAKE_ITEM_REF(boat);
+		pi_boat = findmulti(pcc_cs->pos);
 		if (pi_boat != NULL)//if we found a boat, make sure they are in it
 			if(!inmulti(pcc_cs->pos, pi_boat)) 
-				boat = -1;
+				pi_boat = NULL;
 
-		return boat;
+		return DEREF_P_ITEM(pi_boat);
 	}
 }
 

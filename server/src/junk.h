@@ -102,8 +102,6 @@ void checktimers();	// Check shutdown timers
 #include "basics.h"
 
 void setcharflag(P_CHAR pc);
-P_ITEM ContainerSearch(const int serial, int *ci);
-P_ITEM ContainerSearchFor(const int serial, int *ci, short id, short color=-1);
 P_ITEM FindItemBySerial(int serial);
 P_ITEM FindItemBySerPtr(unsigned char *p);
 P_CHAR FindCharBySerial(int serial);

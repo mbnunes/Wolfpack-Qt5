@@ -706,6 +706,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 		pc->packitem=n=Items->SpawnItem(calcSocketFromChar(c),c,1,"#",0,0x0E,0x75,0,0,0,0);
 		pPack=MAKE_ITEMREF_LR(n);
 		if(n==-1) return;
+		pPack->SetContSerial(chars[c].serial);
 		setserial(n,c,4);
 		pPack->layer=0x15;
 		pPack->type=1;
@@ -714,8 +715,10 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 
 	int ci=0, loopexit=0;
 	P_ITEM pi;
-	while ( (( pi=ContainerSearch(pc->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer!=0x15 && pi->layer!=0x1D &&
 			pi->layer!=0x10 && pi->layer!=0x0B && (pi->free==0))
 		{
@@ -834,8 +837,10 @@ static void KillTarget(P_CHAR pc, int ly)
 {
 	int ci=0, loopexit=0;
 	P_ITEM pi;
-	while ( (( pi=ContainerSearch(pc->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer==ly)
 		{
 			Items->DeleItem(pi);
@@ -980,8 +985,12 @@ static void ContainerEmptyTarget2(P_CLIENT ps, P_ITEM pNewCont)
 	{
 		P_ITEM pi;	// item to move from old container
 		int ci=0,loopexit=0;
-		while ( ((pi=ContainerSearch(addx[s],&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+		vector<SERIAL> vecContainer = contsp.getData(addx[s]);
+		for ( ci = 0; ci < vecContainer.size(); ci++)
+		{
+			pi = FindItemBySerial(vecContainer[ci]);
 			pNewCont->AddItem(pi);
+		}
 	}
 	else
 		sysmessage(s,"That is not a valid container!");
@@ -1537,7 +1546,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA0,0,0,0,0);
 		P_ITEM pi=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;
-		setserial(c,i,1);
+		pi->SetContSerial(items[i].serial);
 		pi->layer=0x01;
 		pi->att=5;
 
@@ -1550,7 +1559,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1C,0xED,0,0,0,0);
 		P_ITEM pi4=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;
-		setserial(c,i,1);
+		pi4->SetContSerial(items[i].serial);
 		pi4->layer=0x01;
 		pi4->att=5;
 		pi4->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1560,7 +1569,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xAD,0,0,0,0);
 		P_ITEM pi5=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;
-		setserial(c,i,1);
+		pi5->SetContSerial(items[i].serial);
 		pi5->layer=0x01;
 		pi5->att=5;
 		pi5->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1570,7 +1579,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA1,0,0,0,0);
 		P_ITEM pi6=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;
-		setserial(c,i,1);
+		pi6->SetContSerial(items[i].serial);
 		pi6->layer=0x01;
 		pi6->att=5;
 		pi6->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1580,7 +1589,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA2,0,0,0,0);
 		P_ITEM pi7=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;//AntiChrist to preview crashes
-		setserial(c,i,1);
+		pi7->SetContSerial(items[i].serial);
 		pi7->layer=0x01;
 		pi7->att=5;
 		pi7->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1590,7 +1599,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA3,0,0,0,0);
 		P_ITEM pi8=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;//AntiChrist to preview crashes
-		setserial(c,i,1);
+		pi8->SetContSerial(items[i].serial);
 		pi8->layer=0x01;
 		pi8->att=5;
 		pi8->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1601,7 +1610,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		P_ITEM pi9=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;
 		
-		setserial(c,i,1);
+		pi9->SetContSerial(items[i].serial);
 		pi9->layer=0x01;
 		pi9->att=5;
 		pi9->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1632,7 +1641,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 					n=Items->CreateScriptItem(s,storeval,0);
 					P_ITEM pi10=MAKE_ITEMREF_LR(n);
 					pi10->layer=0;
-					setserial(n, i, 1);
+					pi10->SetContSerial(items[i].serial);
 					pi10->pos.x=20+(rand()%50);
 					pi10->pos.y=85+(rand()%75);
 					pi10->pos.z=9;
@@ -1654,8 +1663,10 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		//let's empty it
 		int ci=0, loopexit=0;
 		P_ITEM pj;
-		while ( (( pj=ContainerSearch(pi3->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+		vector<SERIAL> vecContainer = contsp.getData(pi3->serial);
+		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
+			pj = FindItemBySerial(vecContainer[ci]);
 			pj->SetContSerial(-1);
 			pj->MoveTo(pi3->pos.x,pi3->pos.y,pi3->pos.z);
 			pj->startDecay();
@@ -2046,8 +2057,10 @@ void cTargets::GmOpenTarget(int s)
 	int serial=LongFromCharPtr(buffer[s]+7);
 	int ci=0, loopexit=0;
 	P_ITEM pi;
-	while ( (( pi=ContainerSearch(serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer==addmitem[s])
 		{
 			backpack(s, pi->serial);
@@ -2232,8 +2245,10 @@ int cTargets::BuyShop(int s, int c)
 
 	int ci=0, loopexit=0;
 	P_ITEM pi;
-	while ( (( pi=ContainerSearch(pc->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer==0x1A)
 		{
 			pCont1=pi;
@@ -2892,9 +2907,8 @@ void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 			return;
 		}
 
-		int multi;
-		multi = findmulti( pi->pos );
-		if( multi != -1 )
+		P_ITEM pi_multi = findmulti( pi->pos );
+		if( pi_multi != NULL )
 		{
 			if(pi->magic==4)
 			{
@@ -2947,8 +2961,8 @@ void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 			return;
 		}
 
-		int multi = findmulti( pi->pos );
-		if( multi != -1 && pi->type==1)
+		P_ITEM pi_multi = findmulti( pi->pos );
+		if( pi_multi != NULL && pi->type==1)
 		{
 		    pi->magic = 4;	// LOCKED DOWN!
 			pi->secureIt = 1;
@@ -3006,16 +3020,15 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 		/*houseSer = calcserial( addid1[s], addid2[s], addid3[s], addid4[s] );	// let's find our house
 		house = calcItemFromSer(houseSer);*/
 		// time to lock it down!
-		int multi;
-		multi = findmulti( pi->pos );
-		if( multi != -1 && pi->magic==4 || pi->type==1)
+		P_ITEM pi_multi = findmulti( pi->pos );
+		if( pi_multi != NULL && pi->magic==4 || pi->type==1)
 		{
 			pi->magic = 1;	// Default as stored by the client, perhaps we should keep a backup?
 			pi->secureIt = 0;
 			RefreshItem( itemToLock );
 			return;
 		}
-		else if( multi == -1 )
+		else if( pi_multi == NULL )
 		{
 			// not in a multi!
 			sysmessage( s, "That item is not in your house!" );
@@ -3520,7 +3533,7 @@ void cTargets::MoveToBagTarget(int s)
 	int p=packitem(currchar[s]);
 	if(p==-1) return;
 	
-	setserial(i,p,1);
+	pi->SetContSerial(items[p].serial);
 	pi->pos.x=50+rand()%80;
 	pi->pos.y=50+rand()%80;
 	pi->pos.z=9;

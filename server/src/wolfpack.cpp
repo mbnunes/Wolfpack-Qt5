@@ -91,17 +91,6 @@ int GetWindowsVersion()
 
 #endif
 
-void gotoxy(int x, int y)
-{
-	#ifndef __unix__
-	COORD xy;
-
-	xy.X=x;
-	xy.Y=y;
-	SetConsoleCursorPosition(hco, xy);
-	#endif
-}
-
 void clearscreen( void )
 {
 
@@ -260,9 +249,9 @@ void signal_handler(int signal)
 		break ;
 	case SIGTERM:
 		keeprun = 0 ;
-		break ;
+		break;
 	default:
-		break ;
+		break;
 	}
 }
 	
@@ -827,7 +816,6 @@ void item_char_test()
 				if (j==-1)
 				{
 					stablesp.remove(stablemaster_serial, p_pet->serial);
-//					removefromptr(&stablesp[stablemaster_serial%HASHMAX], DEREF_P_CHAR(p_pet));
 					p_pet->stablemaster_serial=0;
 					p_pet->timeused_last=getNormalizedTime();
 					p_pet->time_unused=0;
@@ -910,8 +898,10 @@ void wornitems(UOXSOCKET s, CHARACTER j) // Send worn items of player j
 	chars[j].onhorse=false;
 	int ci=0,loopexit=0;
 	P_ITEM pi;
-	while ( ((pi=ContainerSearch(chars[j].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(chars[j].serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->free==0)
 		{
 			if (pi->layer==0x19) chars[j].onhorse=true;
@@ -1091,9 +1081,10 @@ void deathstuff(int i)
 	if (z!=-1) j=unmounthorse(z);
 	int ci=0,loopexit=0;
 	P_ITEM pi_j;
-	
-	while ( ((pi_j=ContainerSearch(pc_player->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(pc_player->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi_j = FindItemBySerial(vecContainer[ci]);
 		if (pi_j->type==1 && pi_j->pos.x==26 && pi_j->pos.y==0 &&
 			pi_j->pos.z==0 && pi_j->id()==0x1E5E )
 		{
@@ -1163,9 +1154,11 @@ void deathstuff(int i)
 	serial=pc_player->serial;
 	serhash=serial%HASHMAX;
 	ci=0,loopexit=0;
-//	P_ITEM pi_j;
-	while ( ((pi_j=ContainerSearch(pc_player->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vecContainer.clear();
+	vecContainer = contsp.getData(pi_j->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi_j = FindItemBySerial(vecContainer[ci]);
 		int j=DEREF_P_ITEM(pi_j);
 		// for BONUS ITEMS - remove bonus
 		pc_player->removeItemBonus(pi_j);
@@ -1189,12 +1182,14 @@ void deathstuff(int i)
 				int ci1=0;
 				int loopexit1=0;
 				P_ITEM pi_k;
-				while ( ((pi_k=ContainerSearch(serial1,&ci1)) != NULL) && (++loopexit1 < MAXLOOPS) )
-				{//let's search for all the items in the pack ( now that we now this' the character's backpack )
+				vector<SERIAL> vecContainer = contsp.getData(serial1);
+				for ( ci = 0; ci < vecContainer.size(); ci++)
+				{
+					pi_k = FindItemBySerial(vecContainer[ci]);
 					if ( (!(pi_k->priv&0x02)) && (pi_k->type!=9))//Morrolan spellbook disappearance fix
 					{//put the item in the corpse only of we're sure it's not a newbie item or a spellbook
 						pi_k->layer=0;
-						setserial(DEREF_P_ITEM(pi_k), corpsenum, 1);
+						pi_k->SetContSerial(items[corpsenum].serial);
 						pi_k->SetRandPosInCont(pi_c);
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
 						if( pi_k->id1 == 0x1B && ( pi_k->id2 == 0xC3 || pi_k->id2 == 0xC4 ) )
@@ -1303,10 +1298,10 @@ int GetBankCount( CHARACTER p, unsigned short itemid, unsigned short color )
 		{
 			if( items[j].ownserial == serial && items[j].type == 1 && items[j].morex == 1 )
 			{
-				int newHash = ( items[j].serial%HASHMAX );
-				for( counter2 = 0; counter2 < contsp[newHash].max; counter2++ )
+				vector<SERIAL> vecContainer = contsp.getData(items[j].serial);
+				for( counter2 = 0; counter2 < vecContainer.size(); counter2++ )
 				{
-					i = contsp[newHash].pointer[counter2];
+					i = calcItemFromSer(vecContainer[counter2]);
 					if( i != -1 )
 					{
 						if( items[i].contserial == items[j].serial )
@@ -1345,10 +1340,10 @@ int DeleBankItem( CHARACTER p, unsigned short itemid, unsigned short color, int 
 		{
 			if( items[j].ownserial == serial && items[j].type == 1 && items[j].morex == 1 )
 			{
-				int newHash = ( items[j].serial%HASHMAX );
-				for( counter2 = 0; counter2 < contsp[newHash].max && total > 0; counter2++ )
+				vector<SERIAL> vecContainer = contsp.getData(items[j].serial);
+				for( counter2 = 0; counter2 < vecContainer.size() && total > 0; counter2++ )
 				{
-					i = contsp[newHash].pointer[counter2];
+					i = calcItemFromSer(vecContainer[counter2]);
 					if( i != -1 )
 					{
 						if( items[i].contserial == items[j].serial )
@@ -1388,8 +1383,10 @@ void usehairdye(UOXSOCKET s, ITEM x)	// x is the hair dye bottle object number
 	P_ITEM pi;
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 
-	while ( ((pi=ContainerSearch(pc_currchar->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(pc_currchar->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if(pi->layer==0x10 || pi->layer==0x0B)//beard(0x10) and hair
 		{
 			pi->color1=piDye->color1;	//Now change the color to the hair dye bottle color!
@@ -1726,36 +1723,35 @@ void dooruse(UOXSOCKET s, ITEM item)
 		// house refreshment when a house owner or friend of a houe opens the house door
 		
 		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
-		int house_item,j, houseowner_serial,ds;
-		house_item = findmulti(pi->pos);
-		if(house_item!=-1)
+		int j, houseowner_serial,ds;
+		P_ITEM house_item = findmulti(pi->pos);
+		if(house_item != NULL)
 		{
-			const P_ITEM pi2=MAKE_ITEMREF_LR(house_item);
 			if ( ishouse(house_item) )
 			{
-				houseowner_serial=pi2->GetOwnSerial();
-				j=on_hlist(house_item, pc_currchar->ser1, pc_currchar->ser2, pc_currchar->ser3, pc_currchar->ser4, NULL);
-				if ( j==H_FRIEND || pc_currchar->Owns(pi2) ) // house_refresh stuff, LB, friends of the house can do.
+				houseowner_serial=house_item->GetOwnSerial();
+				j=on_hlist(DEREF_P_ITEM(house_item), pc_currchar->ser1, pc_currchar->ser2, pc_currchar->ser3, pc_currchar->ser4, NULL);
+				if ( j==H_FRIEND || pc_currchar->Owns(house_item) ) // house_refresh stuff, LB, friends of the house can do.
 				{
 					if (s!=-1)
 					{
 						if (SrvParms->housedecay_secs!=0)
-							ds=((pi2->time_unused)*100)/(SrvParms->housedecay_secs);
+							ds=((house_item->time_unused)*100)/(SrvParms->housedecay_secs);
 						else ds=-1;
 						
 						if (ds>=50) // sysmessage iff decay status >=50%
 						{
-							if (!pc_currchar->Owns(pi2))
+							if (!pc_currchar->Owns(house_item))
 								sysmessage(s,"You refreshed your friend's house");
 							else
 								sysmessage(s,"You refreshed the house");
 						}
 					}
 					
-					pi2->time_unused=0;
-					pi2->timeused_last=getNormalizedTime();
+					house_item->time_unused=0;
+					house_item->timeused_last=getNormalizedTime();
 				}
-				//clConsole.send("house name: %s\n",pi2->name);
+				//clConsole.send("house name: %s\n",house_item->name);
 			} // end of is_house
 		} // end of is_multi
 	}
@@ -1903,7 +1899,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 			pi->color1=0x04;
 			pi->color2=0x4E;
 		}
-		setserial(n, DEREF_P_CHAR(pc), 4);
+		pi->SetContSerial(pc->serial);
 		pi->layer=0x0B;
 	}
 
@@ -1918,7 +1914,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 			pi->color1=0x04;
 			pi->color2=0x4E;
 		}
-		setserial(n, DEREF_P_CHAR(pc), 4);
+		pi->SetContSerial(pc->serial);
 		pi->layer=0x10;
 	}
 
@@ -1927,6 +1923,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pc->packitem=n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, 0x0E, 0x75, 0, 0,0,0);
 	if(n==-1) return;//AntiChrist to preview crashes
 	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
+	pi->SetContSerial(pc->serial);
 	setserial(n, DEREF_P_CHAR(pc), 4);
 	pi->layer=0x15;
 	pi->type=1;
@@ -1966,7 +1963,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	// pant/skirt color -> old client code, random color
 	pi->color1=buffer[s][102];
 	pi->color2=buffer[s][103];
-	setserial(n, DEREF_P_CHAR(pc), 4);
+	pi->SetContSerial(pc->serial);
 	pi->type=0;
 	pi->dye=1;
 	pi->hp=10;
@@ -1987,7 +1984,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->color1=buffer[s][100];
 	pi->color2=buffer[s][101];
 
-	setserial(n, DEREF_P_CHAR(pc), 4);
+	pi->SetContSerial(pc->serial);
 	pi->layer=0x05;
 	pi->dye=1;
 	pi->hp=10;
@@ -1998,7 +1995,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x17,0x0F,0x02,0x87,0,0); // shoes
 	if(n==-1) return;//AntiChrist to preview crashes
 	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
-	setserial(n, DEREF_P_CHAR(pc), 4);
+	pi->SetContSerial(pc->serial);
 	pi->layer=0x03;
 	pi->dye=1;
 	pi->hp=10;
@@ -2009,7 +2006,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x0F,0x51,0,0,0,0); // dagger
 	if(n==-1) return;//AntiChrist to preview crashes
 	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
-	setserial(n, DEREF_P_CHAR(pc), 4);
+	pi->SetContSerial(pc->serial);
 	pi->layer=0x01;
 	//pi->att=5;
 	pi->hp=10;
@@ -2064,8 +2061,10 @@ int unmounthorse(int s) // Get off a horse (Remove horse item and spawn new hors
 	P_ITEM pi; 
 	const P_CHAR p_petowner = MAKE_CHARREF_LRV(cc, -1); 
 
-	while (((pi = ContainerSearch(p_petowner->serial, &ci)) != NULL) && (++loopexit < MAXLOOPS) ) 
-	{ 
+	vector<SERIAL> vecContainer = contsp.getData(p_petowner->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
+	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer == 0x19 && pi->free == 0) 
 		{ 
 			////////////////////////////////////// 
@@ -3126,7 +3125,6 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	for (int i=0;i<HASHMAX;i++)
 	{
 		if(itemsp[i].max > ipsmax) ipsmax=itemsp[i].max;
-		if(contsp[i].max > cpsmax) cpsmax=contsp[i].max;
 		if(spawnsp[i].max > spsmax) spsmax=spawnsp[i].max;
 		if(ownsp[i].max > opsmax) opsmax=ownsp[i].max;
 	}
@@ -3889,8 +3887,10 @@ int getsubamount(int serial, short id)
 	int loopexit=0,total=0;
 	int ci=0;
 	P_ITEM pi;
-	while ( (( pi=ContainerSearch(serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->id()==id) total+=pi->amount;
 		if (pi->type==1) total+=getsubamount(pi->serial, id);
 	}
@@ -5529,25 +5529,18 @@ void BuildPointerArray()
 		charsp[i].pointer = NULL;
 		cownsp[i].pointer = NULL;
 		spawnsp[i].pointer = NULL;
-		contsp[i].pointer = NULL;
 		cspawnsp[i].pointer = NULL;
 		ownsp[i].pointer = NULL;
-//		cmultisp[i].pointer = NULL;
 		glowsp[i].pointer = NULL;
-//		stablesp[i].pointer = NULL;
 
 		// init them
 			if(( itemsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( charsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( cownsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( spawnsp[i].pointer = new int[25]) == NULL) memerrflg=1;
-			if(( contsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( cspawnsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( ownsp[i].pointer = new int[25]) == NULL) memerrflg=1;
-//			if(( imultisp[i].pointer = new int[25]) == NULL) memerrflg=1;
-//			if(( cmultisp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( glowsp[i].pointer = new int[25]) == NULL) memerrflg=1;
-//			if(( stablesp[i].pointer = new int[25]) == NULL) memerrflg=1;
 
 		if (memerrflg)
 		{
@@ -5555,14 +5548,14 @@ void BuildPointerArray()
 			Network->kr=0;
 			return;
 		}
-		itemsp[i].max=ownsp[i].max=spawnsp[i].max=contsp[i].max=cownsp[i].max=cspawnsp[i].max=charsp[i].max=glowsp[i].max=25;
-		for (int j=0;j<25;j++) itemsp[i].pointer[j]=ownsp[i].pointer[j]=cownsp[i].pointer[j]=spawnsp[i].pointer[j]=contsp[i].pointer[j]=cspawnsp[i].pointer[j]=charsp[i].pointer[j]=glowsp[i].pointer[j]=-1;
+		itemsp[i].max=ownsp[i].max=spawnsp[i].max=cownsp[i].max=cspawnsp[i].max=charsp[i].max=glowsp[i].max=25;
+		for (int j=0;j<25;j++) itemsp[i].pointer[j]=ownsp[i].pointer[j]=cownsp[i].pointer[j]=spawnsp[i].pointer[j]=cspawnsp[i].pointer[j]=charsp[i].pointer[j]=glowsp[i].pointer[j]=-1;
 	}
 }
 
 void InitMultis()
 {
-	int multi;
+	P_ITEM pi_multi;
 
 	AllCharsIterator iter_char;
 	for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
@@ -5570,26 +5563,27 @@ void InitMultis()
 		P_CHAR pc = iter_char.GetData();
 		if (!pc->free)
 		{
-			multi = findmulti(pc->pos);
-			if (multi!=-1)
+			pi_multi = findmulti(pc->pos);
+			if (pi_multi != NULL)
 			{
-				P_ITEM pim = MAKE_ITEMREF_LR(multi);
-				if (pim->type==117)
-					pc->SetMultiSerial(pim->serial);
+				if (pi_multi->type==117)
+					pc->SetMultiSerial(pi_multi->serial);
 				else
-					pc->multis=-1;
+					pc->multis = -1;
 			}
 		}
 	}
-	for (P_ITEM pi=pFirstItem;pi < pEndOfItems;pi++)
+
+	AllItemsIterator iter_items;
+	for (iter_items.Begin(); iter_items.GetData() != NULL; iter_items++)
 	{
-		int i=DEREF_P_ITEM(pi);
+		P_ITEM pi = iter_items.GetData();
 		if (!pi->free && !pi->isInWorld())
 		{
-			multi = findmulti(pi->pos);
-			if (multi!=-1)
-				if (multi!=i)
-					pi->SetMultiSerial(items[multi].serial);
+			pi_multi = findmulti(pi->pos);
+			if (pi_multi != NULL)
+				if (pi_multi != pi)
+					pi->SetMultiSerial(pi_multi->serial);
 				else pi->multis=-1;
 		}
 	}

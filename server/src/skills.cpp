@@ -820,8 +820,10 @@ int cSkills::GetInstrument(int s)
 
 	int ci=0,loopexit=0;
 	P_ITEM pi;
-	while ( ((pi=ContainerSearch(items[x].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(items[x].serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if ( IsInstrument(pi->id()) )
 		{
 			return DEREF_P_ITEM(pi);
@@ -893,12 +895,12 @@ void cSkills::DoPotion(int s, int type, int sub, int mortar)
 	}
 	if (success)
 	{
-		int cc=currchar[s];
-		tempeffect(cc, cc, 9, 0, 0, 0);	// make grinding sound for a while
-		tempeffect(cc, cc, 9, 0, 3, 0);
-		tempeffect(cc, cc, 9, 0, 6, 0);
-		tempeffect(cc, cc, 9, 0, 9, 0);
-		tempeffect2(cc, &items[mortar], 10, type, sub, 0);	// this will indirectly call CreatePotion()
+		P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 0, 0);	// make grinding sound for a while
+		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 3, 0);
+		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 6, 0);
+		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 9, 0);
+		tempeffect2(DEREF_P_CHAR(pc_currchar), &items[mortar], 10, type, sub, 0);	// this will indirectly call CreatePotion()
 	}
 }
 
@@ -913,6 +915,7 @@ void cSkills::CreatePotion(int s, char type, char sub, int mortar)
 	int success=0;
 
 	P_CHAR pc = MAKE_CHARREF_LR(s)
+	P_ITEM pi_mortar = MAKE_ITEM_REF(mortar);
 
 	switch((10*type)+sub)
 	{
@@ -947,10 +950,10 @@ void cSkills::CreatePotion(int s, char type, char sub, int mortar)
 		npcemoteall(s, (char*)temp,0);
 		return;
 	}
-	items[mortar].type=17;
-	items[mortar].more1=type;
-	items[mortar].more2=sub;
-	items[mortar].morex=pc->skill[ALCHEMY];
+	pi_mortar->type=17;
+	pi_mortar->more1=type;
+	pi_mortar->more2=sub;
+	pi_mortar->morex=pc->skill[ALCHEMY];
 	
 	if (!(getamount(s, 0x0F0E)>=1))
 	{
@@ -963,7 +966,7 @@ void cSkills::CreatePotion(int s, char type, char sub, int mortar)
 		sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc->name);
 		npcemoteall(s, (char*)temp,0);
 		delequan(s, 0x0F0E, 1);
-		Skills->PotionToBottle(s, mortar);
+		Skills->PotionToBottle(s, DEREF_P_ITEM(pi_mortar));
 	} 
 }
 
@@ -976,6 +979,7 @@ void cSkills::CreatePotion(int s, char type, char sub, int mortar)
 void cSkills::BottleTarget(int s)
 {
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	if (!pi || pi->magic==4) return;	// Ripper
 
 	if (pi->id()==0x0F0E)	// an empty potion bottle ?
@@ -986,9 +990,9 @@ void cSkills::BottleTarget(int s)
 		if(mortar <= -1) return;
 		if (items[mortar].type==17) 
 		{
-			sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", chars[currchar[s]].name);
-			npcemoteall(currchar[s], (char*)temp,0);
-			Skills->PotionToBottle(currchar[s], mortar);
+			sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc_currchar->name);
+			npcemoteall(DEREF_P_CHAR(pc_currchar), (char*)temp,0);
+			Skills->PotionToBottle(DEREF_P_CHAR(pc_currchar), mortar);
 		}
 	}
 	else
@@ -1005,9 +1009,10 @@ void cSkills::PotionToBottle(CHARACTER s, int mortar)
 	unsigned char id1,id2;
 	char pn[50];
 
-	P_CHAR pc = MAKE_CHARREF_LR(s)
+	P_CHAR pc = MAKE_CHARREF_LR(s);
+	P_ITEM pi_mortar = MAKE_ITEM_REF(mortar);
 
-	switch((10*items[mortar].more1)+items[mortar].more2)
+	switch((10*pi_mortar->more1)+pi_mortar->more2)
 	{
 	case 11: id1=0x0F;id2=0x08;strcpy(pn, "an agility");				break;
 	case 12: id1=0x0F;id2=0x08;strcpy(pn, "a greater agility");			break;
@@ -1034,30 +1039,32 @@ void cSkills::PotionToBottle(CHARACTER s, int mortar)
 		return;
 	}
 	
-	int i;
-	if ((i=Items->SpawnItem(calcSocketFromChar(s),s,1,"#",0, id1, id2,0,0,1,0)) < 0) return;
+	int i = Items->SpawnItem(calcSocketFromChar(s),s,1,"#",0, id1, id2,0,0,1,0);
+	P_ITEM pi_potion = MAKE_ITEM_REF(i);
+	if (pi_potion == NULL) 
+		return;
 	
-	sprintf(items[i].name,"%s potion",pn);
-	items[i].type=19;
-	items[i].morex=items[mortar].morex;
-	items[i].morey=items[mortar].more1;
-	items[i].morez=items[mortar].more2;
+	sprintf(pi_potion->name,"%s potion",pn);
+	pi_potion->type=19;
+	pi_potion->morex = pi_mortar->morex;
+	pi_potion->morey = pi_mortar->more1;
+	pi_potion->morez = pi_mortar->more2;
 	
 	// the remainder of this function NOT (yet) revamped by Duke !
 	
 	// Addon for Storing creator NAME and SKILLUSED by Magius(CHE) §
 	if(!pc->isGM())
 	{
-		strcpy(items[i].creator,pc->name); // Magius(CHE) - Memorize Name of the creator
-		if (pc->skill[ALCHEMY]>950) items[i].madewith=ALCHEMY+1; // Memorize Skill used - Magius(CHE)
-		else items[i].madewith=0-ALCHEMY-1; // Memorize Skill used - Magius(CHE)
+		strcpy(pi_potion->creator,pc->name); // Magius(CHE) - Memorize Name of the creator
+		if (pc->skill[ALCHEMY]>950) pi_potion->madewith=ALCHEMY+1; // Memorize Skill used - Magius(CHE)
+		else pi_potion->madewith=0-ALCHEMY-1; // Memorize Skill used - Magius(CHE)
 	} else {
-		items[i].creator[0]='\0';
-		items[i].madewith=0;
+		pi_potion->creator[0]='\0';
+		pi_potion->madewith=0;
 	}
 	
-	RefreshItem(i);
-	items[mortar].type=0;
+	RefreshItem(DEREF_P_ITEM(pi_potion));
+	pi_mortar->type=0;
 	// items[i].weight=100; // Ripper 11-25-99
 	// AntiChrist NOTE: please! use the HARDITEMS.SCP...
 	// the settings used in that script are used EVERY TIME we have an item created via
@@ -1346,8 +1353,10 @@ int cSkills::GetCombatSkill(int c)
 	
 	int ci=0,loopexit=0;
 	P_ITEM pi;
-	while ( ((pi=ContainerSearch(chars[c].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(chars[c].serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer==1 || pi->layer==2)
 		{
 			if (IsSwordType(pi->id()) )
@@ -1532,18 +1541,12 @@ void cSkills::RandomSteal(int s)
 	p = packitem(DEREF_P_CHAR(pc_npc));
 	if (p==-1) {sysmessage(s,"bad luck, your victim doesnt have a backpack"); return; } //LB
 	
-	item=-1;
 	i=0;
-	int loopexit=0;
-	do {
-		i++;
-		lollypop=contsp[items[p].serial%HASHMAX].max;
-		if (lollypop>0)
-			item=contsp[items[p].serial%HASHMAX].pointer[rand()%contsp[items[p].serial%HASHMAX].max];
-		else
-			item=-1;
-		if (i>=50) return;
-	} while (( item!=-1) && (++loopexit < MAXLOOPS) );
+	vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
+	if (vecContainer.size() != 0)
+		item = calcItemFromSer(vecContainer[rand()%vecContainer.size()]);
+	else 
+		item = -1;
 
 	if (pc_npc == pc_currchar) {
 		sysmessage(s,"You catch yourself red handed.");
@@ -2681,8 +2684,10 @@ int cSkills::GetAntiMagicalArmorDefence(int p)
 	{
 		int ci = 0, loopexit = 0;
 		P_ITEM pi;
-		while (((pi = ContainerSearch(chars[p].serial, &ci)) != NULL) &&(++loopexit < MAXLOOPS))
+		vector<SERIAL> vecContainer = contsp.getData(chars[p].serial);
+		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
+			pi = FindItemBySerial(vecContainer[ci]);
 			if (pi->layer>1 && pi->layer < 25)
 			{
 				if (!(strstr(pi->name, "leather") || strstr(pi->name, "magic") ||
@@ -2761,19 +2766,19 @@ void cSkills::Cartography(int s)
 bool cSkills::HasEmptyMap(int cc)	// Check if the player carries an empty map
 {
 	P_ITEM pack;	// Variable that stores the backpack
-	P_ITEM cand;	// Stores the candidate for the map
-	int ci=0;		// Stores the last found item
-	int loopexit=0;	// Avoids the loop to take too much time
 	pack = Packitem(&chars[cc]);	// Get the packitem
 	if (pack == NULL)	// Does he have a backpack?
 		return false;	// No? Then no cartography
-	while (++loopexit < MAXLOOPS)	// The search loop
+	unsigned int ci;
+	vector<SERIAL> vecContainer = contsp.getData(pack->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
-		cand = ContainerSearchFor(pack->serial, &ci, 0x14ED, -1);	// Search
-		if (cand == NULL)	// Nothing found?
-			return false;	// Nah, then no cartography
-		if (cand->type == 300)	// Is it the right type
-			return true;	// Yay, go on with carto
+		P_ITEM cand = FindItemBySerial(vecContainer[ci]);
+		if (cand->id() == 0x14ED && !cand->free)
+		{
+			if (cand->type == 300)	// Is it the right type
+				return true;	// Yay, go on with carto
+		}
 	}
 	return false;	// Search lasted too long, abort
 }
@@ -2781,9 +2786,6 @@ bool cSkills::HasEmptyMap(int cc)	// Check if the player carries an empty map
 bool cSkills::DelEmptyMap(int cc)	// Delete an empty map from the player's backpack, use HasEmptyMap before!
 {
 	P_ITEM pack;	// Variable that stores the backpack
-	P_ITEM cand;	// Stores the candidate for the map
-	int ci=0;		// Stores the last found item
-	int loopexit=0;	// Avoids the loop to take too much time
 	pack = Packitem(&chars[cc]);	// Get the packitem
 	if (pack == NULL)	// Does he have a backpack?
 	{
@@ -2791,19 +2793,18 @@ bool cSkills::DelEmptyMap(int cc)	// Delete an empty map from the player's backp
 		LogError("No backpack found in DelEmptyMap. No HasEmptyMap performed before or serious bug occured");
 		return false;	// abort the opeation if you get this
 	}
-	while (++loopexit < MAXLOOPS)	// The search loop
+	unsigned int ci;
+	vector<SERIAL> vecContainer = contsp.getData(pack->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
-		cand = ContainerSearchFor(pack->serial, &ci, 0x14ED, -1);	// Search
-		if (cand == NULL)	// Nothing found?
+		P_ITEM cand = FindItemBySerial(vecContainer[ci]);
+		if (cand->id()==0x14ED && !cand->free)
 		{
-			// No? Quite strange.. Give out an error message
-			LogError("No map found in pack in DelEmptyMap. No HasEmptyMap performed before or serious bug occured");
-			return false;	// abort the operation if you get this
-		}
-		if (cand->type == 300)	// Is it the right type
-		{
-			Items->DeleItem(DEREF_P_ITEM(cand));	// Delete it
-			return true;		// Go on with cartography
+			if (cand->type == 300)	// Is it the right type
+			{
+				Items->DeleItem(DEREF_P_ITEM(cand));	// Delete it
+				return true;		// Go on with cartography
+			}
 		}
 	}
 	return false;	// Search lasted too long, abort (shouldn't happen, abort if ya get this)

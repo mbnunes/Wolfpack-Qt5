@@ -643,9 +643,10 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	serial=pc_currchar->serial;
 	serhash=serial%HASHMAX;
 
-	for (i=0;i<contsp[serhash].max;i++)
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for (i=0;i<vecContainer.size();i++)
 	{
-		ci=contsp[serhash].pointer[i];
+		ci=calcItemFromSer(vecContainer[i]);
 		if (ci >-1)
 		{
 			const P_ITEM pi=MAKE_ITEMREF_LR(ci);	// on error return
@@ -724,7 +725,8 @@ char cNetworkStuff::LogOut(int s)//Instalog
 	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],0);
 	int i, p=currchar[s], a, valid=0;
 	int x=pc_currchar->pos.x, y=pc_currchar->pos.y;
-	int multi, b, ci;
+	int b, ci;
+	P_ITEM pi_multi = NULL;
 	for(a=0;a<logoutcount;a++)
 	{
 		if (logout[a].x1<=x && logout[a].y1<=y && logout[a].x2>=x && logout[a].y2>=y)
@@ -739,23 +741,27 @@ char cNetworkStuff::LogOut(int s)//Instalog
 		valid = 1; // They ain't going to die again ;)
 
 	if (pc_currchar->multis==-1)
-		multi=findmulti(pc_currchar->pos);
-	else multi = calcItemFromSer( pc_currchar->multis );
+		pi_multi = findmulti(pc_currchar->pos);
+	else 
+		pi_multi = FindItemBySerial( pc_currchar->multis );
 	
-	if (multi!=-1 && !valid)//It they are in a multi... and it's not already valid (if it is why bother checking?)
+	if (pi_multi != NULL && !valid)//It they are in a multi... and it's not already valid (if it is why bother checking?)
 	{
-		b=packitem(p);
+		b = packitem(p);
 		if (b!=-1)
-		for (a=0;a<contsp[items[b].serial%HASHMAX].max;a++)
 		{
-			ci=contsp[items[b].serial%HASHMAX].pointer[a];
-			if (ci!=-1)
-			if (items[ci].type==7 && (
-				items[ci].more1==items[multi].ser1 && items[ci].more2==items[multi].ser2 &&
-				items[ci].more3==items[multi].ser3 && items[ci].more4==items[multi].ser4))
-			{//a key to this multi
-				valid=1;//Log 'em out now!
-				break;
+			vector<SERIAL> vecContainer = contsp.getData(items[b].serial);
+			for (a=0;a<vecContainer.size();a++)
+			{
+				ci=calcItemFromSer(vecContainer[a]);
+				if (ci!=-1)
+				if (items[ci].type==7 && (
+					items[ci].more1==pi_multi->ser1 && items[ci].more2==pi_multi->ser2 &&
+					items[ci].more3==pi_multi->ser3 && items[ci].more4==pi_multi->ser4))
+				{//a key to this multi
+					valid=1;//Log 'em out now!
+					break;
+				}
 			}
 		}
 	}
@@ -1428,9 +1434,10 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						{
 							serial=items[k].serial;
 							serhash=serial%HASHMAX;
-							for (i=0;i<contsp[serhash].max;i++)
+							vector<SERIAL> vecContainer = contsp.getData(serial);
+							for (i=0;i<vecContainer.size();i++)
 							{
-								ci=contsp[serhash].pointer[i];
+								ci=calcItemFromSer(vecContainer[i]);
 								if (ci!=-1) //lb
 									if ((items[ci].contserial==serial) && (items[ci].type==9))
 									{
@@ -1443,9 +1450,10 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						{
 							serial=pc_currchar->serial;
 							serhash=serial%HASHMAX;
-							for (i=0;i<contsp[serhash].max;i++)
+							vector<SERIAL> vecContainer = contsp.getData(serial);
+							for (i=0;i<vecContainer.size();i++)
 							{
-								ci=contsp[serhash].pointer[i];
+								ci=calcItemFromSer(vecContainer[i]);
 								if (ci!=-1) //lb
 									if ((items[ci].contserial==serial) && (items[ci].layer==1)) 
 									{

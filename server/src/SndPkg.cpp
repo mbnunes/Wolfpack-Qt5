@@ -407,10 +407,8 @@ void backpack(UOXSOCKET s, SERIAL serial) // Send Backpack (with items)
 
 	int ci=0,loopexit=0;
 	P_ITEM pj;
-	while ( ((pj=ContainerSearch(serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
-	{
-		count++;
-	}
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	count = vecContainer.size();
 	bpopen[10]=count>>8;
 	bpopen[11]=count%256;
 	count=(count*19)+5;
@@ -610,8 +608,11 @@ void backpack(UOXSOCKET s, SERIAL serial) // Send Backpack (with items)
 	ci=0;
 	loopexit=0;
 	P_ITEM pi;
-	while ( ((pi=ContainerSearch(pCont->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
+		if (pi == NULL)
+			continue;
 		//fix location of items if they mess up. (needs tweaked for container types)
 		if (pi->pos.x>150) pi->pos.x=150;
 		if (pi->pos.y>140) pi->pos.y=140;
@@ -645,8 +646,10 @@ void backpack2(int s, int a1, int a2, int a3, int a4) // Send corpse stuff
 	int serial=calcserial(a1,a2,a3,a4);
 	int ci=0,loopexit=0;
 	P_ITEM pi;
-	while ( ((pi=ContainerSearch(serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer!=0)
 		{
 			count++;
@@ -663,8 +666,9 @@ void backpack2(int s, int a1, int a2, int a3, int a4) // Send corpse stuff
 
 	ci=0;
 	loopexit=0;
-	while ( ((pi=ContainerSearch(serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer!=0)
 		{
 			display2[0]=pi->layer;
@@ -687,8 +691,9 @@ void backpack2(int s, int a1, int a2, int a3, int a4) // Send corpse stuff
 
 	ci=0;
 	loopexit=0;
-	while ( ((pi=ContainerSearch(serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer!=0)
 		{
 			bpitem[0]=pi->ser1;
@@ -1159,12 +1164,12 @@ void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2)
 
 	for (j=0;j<MAXLAYERS;j++) layers[j] = 0;
 
-	for (ci=0;ci<contsp[pc->serial%HASHMAX].max;ci++)
+	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
+	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
-		j=contsp[pc->serial%HASHMAX].pointer[ci];
-		if (j!=-1)
+		P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);
+		if (pi_j != NULL)
 		{
-			const P_ITEM pi_j=MAKE_ITEMREF_LR(j);	// on error return
 			if (pc->Wears(pi_j) && (!pi_j->free))
 			{
 				if ( layers[pi_j->layer] == 0 )
@@ -2906,10 +2911,10 @@ void impowncreate(int s, int i, int z) //socket, player to send
 
 	for (j=0;j<MAXLAYERS;j++) layers[j] = 0;
 
-	for (ci=0;ci<contsp[pc->serial%HASHMAX].max;ci++)
+	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
+	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
-		j=contsp[pc->serial%HASHMAX].pointer[ci];
-		P_ITEM pi = MAKE_ITEM_REF(j);
+		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 		if (pi != NULL)
 			if (pc->Wears(pi) && !pi->free)
 			{
@@ -2979,9 +2984,11 @@ void sendshopinfo(int s, int c, P_ITEM pi)
 	m2t=8;
 	serial=pi->serial;
 	serhash=serial%HASHMAX;
-	for (ci=0;ci<contsp[serhash].max;ci++)
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
-		j=contsp[serhash].pointer[ci];
+		P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);
+		j=DEREF_P_ITEM(pi_j);
 		if (j!=-1)
 			if ((items[j].contserial==serial) &&
 				(m2[7]!=255) && (items[j].amount!=0) ) // 255 items max per shop container
@@ -3049,14 +3056,15 @@ int sellstuff(int s, int i)
 
 	serial=pc->serial;
 	serhash=serial%HASHMAX;
-	for (ci=0;ci<contsp[serhash].max;ci++)
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
-		q=contsp[serhash].pointer[ci];
-		if (q!=-1)
-			if ((items[q].contserial==serial) &&
-				(items[q].layer==0x1C))
+		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+		if (pi != NULL)
+			if ((pi->contserial==serial) &&
+				(pi->layer==0x1C))
 			{
-				p=q;
+				p = DEREF_P_ITEM(pi);
 				break;
 			}
 	}
@@ -3082,18 +3090,21 @@ int sellstuff(int s, int i)
 
 	serial=items[p].serial;
 	serhash=serial%HASHMAX;
-	for (ci=0;ci<contsp[serhash].max;ci++)
+	vecContainer.clear();
+	vecContainer = contsp.getData(serial);
+	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
-		q=contsp[serhash].pointer[ci];
+		q = calcItemFromSer(vecContainer[ci]);
 		if (q!=-1)
 		{
 			if ((items[q].contserial==serial))
 			{
 				serial1=items[pack].serial;
 				serhash1=serial1%HASHMAX;
-				for (ci1=0;ci1<contsp[serhash1].max;ci1++)
+				vector<SERIAL> vecContainer2 = contsp.getData(serial1);
+				for ( ci1 = 0; ci1 < vecContainer2.size(); ci1++)
 				{
-					j=contsp[serhash1].pointer[ci1];
+					j = calcItemFromSer(vecContainer2[ci1]);
 					if (j!=-1) // LB crashfix
 					{
 						sprintf(ciname,"'%s'",items[j].name); // Added by Magius(CHE)
@@ -3245,9 +3256,10 @@ void endtrade(int b1, int b2, int b3, int b4)
 
 	serial=items[cont1].serial;
 	serhash=serial%HASHMAX;
-	for (ci=0;ci<contsp[serhash].max;ci++)
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
-		i=contsp[serhash].pointer[ci];
+		i = calcItemFromSer(vecContainer[ci]);
 		if (i!=-1)
 			if ((items[i].contserial==serial))
 			{
@@ -3263,9 +3275,11 @@ void endtrade(int b1, int b2, int b3, int b4)
 	}
 	serial=items[cont2].serial;
 	serhash=serial%HASHMAX;
-	for (ci=0;ci<contsp[serhash].max;ci++)
+	vecContainer.clear();
+	vecContainer = contsp.getData(serial);
+	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
-		i=contsp[serhash].pointer[ci];
+		i = calcItemFromSer(vecContainer[ci]);
 		if (i!=-1)
 			if ((items[i].contserial==serial))
 			{

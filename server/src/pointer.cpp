@@ -126,8 +126,9 @@ void setserial(int nChild, int nParent, int nType)
 	switch(nType)
 	{
 	case 1:
-	    items[nChild].setContSerialOnly(items[nParent].serial);
-		setptr(&contsp[items[nChild].contserial%HASHMAX], nChild);
+//	    items[nChild].setContSerialOnly(items[nParent].serial);
+//		setptr(&contsp[items[nChild].contserial%HASHMAX], nChild);
+		clConsole.send("Warning: Item contserial being set by setserial!, this is WRONG - will do nothing.\n");
 		break;
 	case 2:				// Set the Item's Spawner
 	    items[nChild].spawnserial=items[nParent].serial;
@@ -138,8 +139,9 @@ void setserial(int nChild, int nParent, int nType)
 		setptr(&ownsp[items[nChild].ownserial%HASHMAX], nChild);
 		break;
 	case 4:
-	    items[nChild].setContSerialOnly(chars[nParent].serial);
-		setptr(&contsp[items[nChild].contserial%HASHMAX], nChild);
+//	    items[nChild].setContSerialOnly(chars[nParent].serial);
+//		setptr(&contsp[items[nChild].contserial%HASHMAX], nChild);
+		clConsole.send("Warning: Char contserial being set by setserial!, this is WRONG - will do nothing.\n");
 		break;
 	case 5:				// Set the Character's Owner
 		chars[nChild].setOwnSerialOnly(chars[nParent].serial);
@@ -171,48 +173,6 @@ void setserial(int nChild, int nParent, int nType)
 }
 
 ///////////////////////////
-// Name:	ContainerSearch
-// history:	by Duke, 3.10.2000
-// Purpose:	simplyfies the access via contsp and creates ITEM pointers
-//			IMPORTANT: ci should point to a 0 at the start of the search
-//
-P_ITEM ContainerSearch(const int serial, int *ci)
-{
-	int loopexit=0;
-	while ( (*ci<contsp[serial%HASHMAX].max) && (++loopexit < MAXLOOPS) ) 
-	{
-		int i=contsp[serial%HASHMAX].pointer[*ci];
-		(*ci)++;
-		if (i>-1)
-		{
-			if (items[i].contserial==serial)	// just to be sure
-				return MAKE_ITEMREF_LRV(i,NULL);
-		}
-	}
-	return NULL;
-}
-
-///////////////////////////
-// Name:	ContainerSearchFor
-// history:	by Duke, 14.12.2000
-// Purpose:	simplyfies the access via contsp and creates ITEM pointers.
-//			searches the container given by serial for items with the given id and (if given) color.
-//			IMPORTANT: ci should point to a 0 at the start of the search
-//
-P_ITEM ContainerSearchFor(const int serial, int *ci, short id, short color)
-{
-	P_ITEM pi;
-	int loopexit=0;
-	while ( ((pi=ContainerSearch(serial,ci)) != NULL) && (++loopexit < MAXLOOPS) )
-	{
-		if (pi->id()==id && !pi->free &&
-			(color==-1 || pi->color()==color))
-		return pi;
-	}
-	return NULL;
-}
-
-///////////////////////////
 // Name:	ContainerCountItems
 // history:	by Duke, 26.03.2001
 // Purpose:	searches the container given by serial AND the subcontainers
@@ -225,8 +185,10 @@ int ContainerCountItems(const int serial, short id, short color)
 	int total=0;
 	P_ITEM pi;
 	int loopexit=0;
-	while ( ((pi=ContainerSearch(serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->free)			// just to be sure ;-)
 			continue;
 		if (pi->type==1)		// a subcontainer ?

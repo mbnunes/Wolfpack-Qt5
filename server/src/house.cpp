@@ -227,8 +227,8 @@ void buildhouse(int s, int i)
 					//clConsole.send("Invalid %i,%i [%i,%i]\n",k,l,x+k,y+l);
 				} //else clConsole.send("DEBUG: Valid at %i,%i [%i,%i]\n",k,l,x+k,y+l);
 				
-				ii=findmulti(Coord_cl(x+k,y+l,z));
-				if (ii!=-1 && !(norealmulti))
+				P_ITEM pi_multi = findmulti(Coord_cl(x+k,y+l,z));
+				if (pi_multi != NULL && !(norealmulti))
 				{
 					sysmessage(s,"You cant build structures inside structures");
 					return;
@@ -528,9 +528,10 @@ void killhouse(ITEM i)
 // house item'ids
 // LB 19-September 2000
 
-bool ishouse(ITEM i)
+bool ishouse(P_ITEM pci)
 {
-  PC_ITEM pci = MAKE_ITEMREF_LRV(i,false);
+  if (pci == NULL)
+	  return false;
 
   if (pci->id1 < 0x40) return false;
   
@@ -598,7 +599,7 @@ int check_house_decay()
    for (iter_items.Begin(); iter_items.GetData() != iter_items.End(); iter_items++) 
    {   
 	 P_ITEM pi = iter_items.GetData(); // there shouldnt be an error here !		 
-     is_house = ishouse(DEREF_P_ITEM(pi));	 
+     is_house = ishouse(pi);	 
 	 if (is_house && !pi->free)
 	 {
        
@@ -776,29 +777,29 @@ int del_hlist(int c, int h)
 // Handles house commands from friends of the house. - Crackerjack 8/12/99
 void house_speech(int s, char *msg)	// msg must already be capitalized
 {
-	int i, fr;
+	int fr;
 //	char msg[512];
 	if(s<0 || s>MAXCLIENT) return;
-	i=findmulti(chars[currchar[s]].pos);
-	if(i==-1) return; // not in a house, so we don't care.
-	fr=on_hlist(i, chars[currchar[s]].ser1, chars[currchar[s]].ser2,
+	P_ITEM pi_multi = findmulti(chars[currchar[s]].pos);
+	if(pi_multi == NULL) return; // not in a house, so we don't care.
+	fr=on_hlist(DEREF_P_ITEM(pi_multi), chars[currchar[s]].ser1, chars[currchar[s]].ser2,
 		chars[currchar[s]].ser3, chars[currchar[s]].ser4, NULL);
-	if(fr!=H_FRIEND && !chars[currchar[s]].Owns(&items[i]) )
+	if(fr!=H_FRIEND && !chars[currchar[s]].Owns(pi_multi) )
 		return; // not a friend or owner, so we don't care.
 
 	if(strstr(msg, "I BAN THEE")) { // house ban
-		addid1[s]=items[i].ser1;
-		addid2[s]=items[i].ser2;
-		addid3[s]=items[i].ser3;
-		addid4[s]=items[i].ser4;
+		addid1[s] = pi_multi->ser1;
+		addid2[s] = pi_multi->ser2;
+		addid3[s] = pi_multi->ser3;
+		addid4[s] = pi_multi->ser4;
 		target(s, 0, 1, 0, 229, "Select person to ban from house.");
 		return;
 	}
 	if(strstr(msg, "REMOVE THYSELF")) { // kick out of house
-		addid1[s]=items[i].ser1;
-		addid2[s]=items[i].ser2;
-		addid3[s]=items[i].ser3;
-		addid4[s]=items[i].ser4;
+		addid1[s] = pi_multi->ser1;
+		addid2[s] = pi_multi->ser2;
+		addid3[s] = pi_multi->ser3;
+		addid4[s] = pi_multi->ser4;
 		target(s, 0, 1, 0, 228, "Select person to eject from house.");
 		return;
 	}

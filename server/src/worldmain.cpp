@@ -1434,15 +1434,16 @@ void CWorldMain::SaveChar( CHARACTER i )
 
 static void decay1(P_ITEM pi, int i)
 {
-	long serial, serhash, j, multi;
+	long serial, serhash, j;
 	int k, ci;
 	if (pi->corpse==1)
 	{
 		serial=pi->serial;
 		serhash=serial%HASHMAX;
-		for (ci=0;ci<contsp[serhash].max;ci++)
+		vector<SERIAL> vecContainer = contsp.getData(serial);
+		for (ci=0;ci<vecContainer.size();ci++)
 		{
-			j=contsp[serhash].pointer[ci];
+			j=calcItemFromSer(vecContainer[ci]);
 			if( j != -1 )
 			{
 				P_ITEM pi_j=MAKE_ITEMREF_LOGGED(i,err);
@@ -1473,8 +1474,8 @@ static void decay1(P_ITEM pi, int i)
 	{
 		if ( pi->multis == -1 )
 		{
-			multi = findmulti( pi->pos );
-			if( multi == -1 )
+			P_ITEM pi_multi = findmulti( pi->pos );
+			if( pi_multi == NULL )
 			{
 				Items->DeleItem(i);
 			}
@@ -1637,11 +1638,11 @@ bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
  	serial=chars[charserial].serial;
  	serhash=serial%HASHMAX;
  	bool foundMatch = false;
- 	for (ci=0;ci<contsp[serhash].max;ci++)
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for (ci=0;ci<vecContainer.size();ci++)
  	{
-		i=contsp[serhash].pointer[ci];
+		i=calcItemFromSer(vecContainer[ci]);
 
-		//i=contsp[currchar[charserial]%serhash].pointer[ci];
  		if (i!=-1)
  		{
 	 		int err;

@@ -609,17 +609,17 @@ bool WalkHandleBlocking(UOXSOCKET s, CHARACTER c, int sequence, int dir, int old
 
 	if (pc->isPlayer()) // this is also called for npcs .. LB
 	{
-		i = findmulti(pc->pos);
-		if(i!=-1) 
+		P_ITEM pi_multi = findmulti(pc->pos);
+		if(pi_multi != NULL) 
 		{
-			if ( ishouse(i) )
+			if ( ishouse(pi_multi) )
 			{
 				int sx, sy, ex, ey;		
-				j=on_hlist(i, pc->ser1, pc->ser2, pc->ser3, pc->ser4, NULL);
+				j=on_hlist(DEREF_P_ITEM(pi_multi), pc->ser1, pc->ser2, pc->ser3, pc->ser4, NULL);
 				
 				if(j==H_BAN) 
 				{
-					Map->MultiArea(i,&sx,&sy,&ex,&ey);
+					Map->MultiArea(DEREF_P_ITEM(pi_multi),&sx,&sy,&ex,&ey);
 					if(s!=-1) sysmessage(s, "You are banned from that location.");
 					pc->pos.x=ex;
 					pc->pos.y=ey+1;

@@ -392,11 +392,11 @@ char firstpacket[MAXCLIENT+1];
 
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
- lookuptr_st itemsp[HASHMAX], ownsp[HASHMAX], spawnsp[HASHMAX], contsp[HASHMAX];
+ lookuptr_st itemsp[HASHMAX], ownsp[HASHMAX], spawnsp[HASHMAX];
  lookuptr_st charsp[HASHMAX], cownsp[HASHMAX], cspawnsp[HASHMAX];
  lookuptr_st glowsp[HASHMAX];
 
-Container_cl stablesp, imultisp, cmultisp;
+Container_cl stablesp, imultisp, cmultisp, contsp;
 
 /******************************************************/
 

@@ -138,17 +138,19 @@ void restockNPC(unsigned int currenttime, int i)
 
 	if (SrvParms->shoprestock==1 && (shoprestocktime<=currenttime || overflow))
 	{
-		for (a=0;a<contsp[chars[i].serial%HASHMAX].max;a++)
+		vector<SERIAL> vecContainer = contsp.getData(chars[i].serial);
+		for ( a = 0; a < vecContainer.size(); a++ )
 		{
-			ci=contsp[chars[i].serial%HASHMAX].pointer[a];
+			ci = calcItemFromSer(vecContainer[a]);
 			if (ci!=-1)
 			{
 				const PC_ITEM pici=MAKE_ITEMREF_LR(ci);	// on error return
 				if(pici->layer==0x1A && chars[i].shop==1) //morrolan item restock fix
 				{
-					for (b=0;b<contsp[pici->serial%HASHMAX].max;b++)
+					vector<SERIAL> vecContainer2 = contsp.getData(pici->serial);
+					for (b=0;b<vecContainer2.size();b++)
 					{
-						c=contsp[pici->serial%HASHMAX].pointer[b];
+						c = calcItemFromSer(vecContainer2[b]);
 						if (c!=-1)
 						{
 							const P_ITEM pic=MAKE_ITEMREF_LR(c);	// on error return

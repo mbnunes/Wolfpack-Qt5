@@ -1728,8 +1728,10 @@ P_ITEM cChar::GetItemOnLayer(unsigned char layer)
 {
 	P_ITEM pi;
 	int ci=0,loopexit=0;
-	while ( ((pi=ContainerSearch(serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer==layer)
 			return pi;
 	}
@@ -1746,8 +1748,10 @@ P_ITEM cChar::GetBankBox( short banktype )
 {
 	P_ITEM pi;
 	int ci=0,loopexit=0;
-	while ( ((pi=ContainerSearch(serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->type == 1 && pi->morex == 1)
 			if ( banktype == 1 && pi->morez == 123 && SrvParms->usespecialbank) 
 				return pi;
@@ -1923,8 +1927,10 @@ P_ITEM cChar::getWeapon()
 {
 	int ci=0,loopexit=0;
 	P_ITEM pi;
-	while ( ((pi=ContainerSearch(serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if ((pi->layer==1 && pi->type!=9)		// not a spellbook (hozonko)
 			|| (pi->layer==2 && !getShield()) ) //Morrolan don't check for shields
 		{
@@ -1964,8 +1970,10 @@ P_ITEM Packitem(P_CHAR pc) // Find packitem
 	// - For some reason it's not defined, so go look for it.
 	int ci=0,loopexit=0;
 	P_ITEM pi;
-	while ( ((pi=ContainerSearch(pc->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer==0x15)
 		{
 			pc->packitem=DEREF_P_ITEM(pi);	//Record it for next time

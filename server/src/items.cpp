@@ -79,12 +79,12 @@ void cItem::setContSerialOnly(long contser)
 void cItem::SetContSerial(long contser)
 {
 	if (contserial!=-1)
-		removefromptr(&contsp[contserial%HASHMAX], DEREF_P_ITEM(this));
+		contsp.remove(contserial, this->serial);
 
 	setContSerialOnly(contser);
 
 	if (contser!=-1)
-		setptr(&contsp[contserial%HASHMAX], DEREF_P_ITEM(this));
+		contsp.insert(contserial, this->serial);
 }
 
 void cItem::setOwnSerialOnly(long ownser)
@@ -253,12 +253,14 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 
 bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the container to stack with
 {
-	P_ITEM pi;	// item to stack with
-	int ci=0,loopexit=0;
-	while ( ((pi=ContainerSearchFor(this->serial,&ci,pItem->id(),pItem->color())) != NULL) && (++loopexit < MAXLOOPS) )
+	unsigned int ci;
+	vector<SERIAL> vecContainer = contsp.getData(this->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
-		if (pi->PileItem(pItem))
-			return true;
+		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+		if (pi->id() == pItem->id() && !pi->free && pi->color() == pItem->color())
+			if (pi->PileItem(pItem))
+				return true;
 	}
 	return false;
 }
@@ -304,8 +306,10 @@ int cItem::DeleteAmount(int amount, short id, short color)
 	int rest=amount,loopexit=0;
 	int ci=0;
 	P_ITEM pi;
-	while ( ((pi=ContainerSearch(serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->type==1)
 			rest=pi->DeleteAmount(rest, id, color);
 		if (pi->id()==id
@@ -1267,15 +1271,20 @@ P_ITEM cAllItems::SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable
 	// we can simply spawn by increasing the amount of that item
 	if (nPack && pPack && pile==1)
 	{
-		P_ITEM pSt;	// item to stack with
-		int ci=0,loopexit=0;
-		while ( ((pSt=ContainerSearchFor(pPack->serial,&ci,id,color)) != NULL) && (++loopexit < MAXLOOPS) )
+		
+		unsigned int ci;
+		vector<SERIAL> vecContainer = contsp.getData(pPack->serial);
+		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
-			if (pSt->amount+nAmount > 65535)	// if it would create an overflow (amount is ushort!),
-				continue;						// let's search for another pile to add to
-			pSt->amount += nAmount;
-			RefreshItem(pSt);
-			return pSt;
+			P_ITEM pSt = FindItemBySerial(vecContainer[ci]);
+			if (pSt->id()==id && !pSt->free && pSt->color()==color)
+			{
+				if (pSt->amount+nAmount > 65535)	// if it would create an overflow (amount is ushort!),
+					continue;						// let's search for another pile to add to
+				pSt->amount += nAmount;
+				RefreshItem(pSt);
+				return pSt;
+			}
 		}
 	}
 	// no such item found, so let's create it
@@ -1558,8 +1567,9 @@ char cAllItems::isFieldSpellItem(int i) //LB
 //taken from 6904t2(5/10/99) - AntiChrist
 void cAllItems::DecayItem(unsigned int currenttime, int i) 
 {
-	int j,serial,serhash,ci,multi, preservebody;
+	int j,serial,serhash,ci, preservebody;
 	P_ITEM pi=MAKE_ITEMREF_LR(i);
+	P_ITEM pi_multi = NULL;
 
 	if(pi->magic==4) {pi->decaytime=0; return;}
 	if( pi->decaytime <= currenttime || (overflow) )//fixed by JustMichael
@@ -1580,13 +1590,13 @@ void cAllItems::DecayItem(unsigned int currenttime, int i)
 				  if (pi->multis<1 && !pi->corpse)
 				  {
 					// JustMichael -- Added a check to see if item is in a house
-					multi = findmulti(pi->pos);
-					if (multi!=-1)
+					pi_multi = findmulti(pi->pos);
+					if (pi_multi != NULL)
 					{
-						if( items[multi].more4==0) //JustMichael -- set more to 1 and stuff can decay in the building
+						if( pi_multi->more4==0) //JustMichael -- set more to 1 and stuff can decay in the building
 						{
 							pi->startDecay();
-							pi->SetMultiSerial(items[multi].serial);
+							pi->SetMultiSerial(pi_multi->serial);
 							return;
 						}
 					}
@@ -1606,9 +1616,10 @@ void cAllItems::DecayItem(unsigned int currenttime, int i)
 					preservebody=0;
 					serial=pi->serial;
 					serhash=serial%HASHMAX;
-					for( ci=0; ci < contsp[serhash].max; ci++ )
+					vector<SERIAL> vecContainer = contsp.getData(serial);
+					for( ci=0; ci < vecContainer.size(); ci++ )
 					{
-						j=contsp[serhash].pointer[ci];
+						j=calcItemFromSer(vecContainer[ci]);
 						if( j != -1 )
 						{
 							preservebody++;
@@ -1627,9 +1638,10 @@ void cAllItems::DecayItem(unsigned int currenttime, int i)
 				{
 					serial=pi->serial;
 					serhash=serial%HASHMAX;
-					for (ci=0;ci<contsp[serhash].max;ci++)
+					vector<SERIAL> vecContainer = contsp.getData(serial);
+					for (ci=0;ci<vecContainer.size();ci++)
 					{
-						j=contsp[serhash].pointer[ci];
+						j=calcItemFromSer(vecContainer[ci]);
                         if (j!=-1) //lb
 						{
 						   if ((items[j].contserial==pi->serial)/* &&
@@ -1754,9 +1766,10 @@ void cAllItems::RespawnItem(unsigned int currenttime, int i)
 			{
 				serial=pi->serial;
 				serhash=serial%HASHMAX;
-				for (j=0;j<contsp[serhash].max;j++)
+				vector<SERIAL> vecContainer = contsp.getData(serial);
+				for (j=0;j<vecContainer.size();j++)
 				{
-					ci=contsp[serhash].pointer[j];
+					ci=calcItemFromSer(vecContainer[j]);
 					if (ci > -1)
 					if (items[ci].contserial==serial && items[ci].free==0)
 					{
@@ -1826,8 +1839,10 @@ void cAllItems::CheckEquipment(CHARACTER p) // check equipment of character p
 
 	int ci=0, loopexit=0;
 	P_ITEM pi;
-	while ( (( pi=ContainerSearch(chars[p].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(chars[p].serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if(pi->st>chars[p].st)//if strength required > character's strength
 		{
 			if(pi->name[0]=='#')

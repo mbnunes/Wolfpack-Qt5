@@ -746,14 +746,17 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		ci=0;
 		loopexit=0;
 		P_ITEM pi;
-		while ( ((pi=ContainerSearch(pc_dest->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+		{ // ugly scope restringing... should do for now.
+		vector<SERIAL> vecContainer = contsp.getData(pc_dest->serial);
+		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
+			pi = FindItemBySerial(vecContainer[ci]);
 			if(pi->layer==0x10)//beard
 				pc_dest->beardserial=pi->serial;
 			if(pi->layer==0x0B)//hairs
 				pc_dest->hairserial=pi->serial;
 		}
-
+		}
 		// ------ SEX ------
 		pc_dest->xid1=pc_dest->id1;
 		pc_dest->xid2=pc_dest->id2;

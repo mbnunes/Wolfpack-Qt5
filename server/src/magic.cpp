@@ -131,8 +131,11 @@ void cMagic::SpellBook(UOXSOCKET s,ITEM si)
 	{
 		int ci=0, loopexit=0;
 		P_ITEM pj;
-		while ( (( pj=ContainerSearch(items[x].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+		vector<SERIAL> vecContainer = contsp.getData(items[x].serial);
+		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
+			pj = FindItemBySerial(vecContainer[ci]);
+
 			if (pj->type==9)
 			{
 				pi=pj;
@@ -144,8 +147,10 @@ void cMagic::SpellBook(UOXSOCKET s,ITEM si)
 	{
 		int ci=0, loopexit=0;
 		P_ITEM pj;
-		while ( (( pj=ContainerSearch(pc_currchar->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->serial);
+		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
+			pj = FindItemBySerial(vecContainer[ci]);
 			if (pj->type==9 && pj->layer==1)
 			{
 				pi=pj;
@@ -179,8 +184,10 @@ void cMagic::SpellBook(UOXSOCKET s,ITEM si)
 
 	int ci=0, loopexit=0;
 	P_ITEM pj;
-	while ( (( pj=ContainerSearch(pi->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(pi->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pj = FindItemBySerial(vecContainer[ci]);
 		if (IsSpellScroll72(pj->id()))
 		{
 			spells[pj->id()-0x1F2D]=1;
@@ -533,8 +540,10 @@ int cMagic::CheckBook(int circle, int spell, int i)
 
 	int ci=0, loopexit=0;
 	P_ITEM pj;
-	while ( (( pj=ContainerSearch(items[i].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(items[i].serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pj = FindItemBySerial(vecContainer[ci]);
 		if((pj->id()==(0x1F2D+spellnum) || pj->id()==0x1F6D))
 		{
 			return 1;
@@ -550,8 +559,10 @@ int cMagic::SpellsInBook(ITEM i)
 	P_ITEM pj;
 	if (i < 0)
 		return -1;
-	while (((pj = ContainerSearch(items[i].serial, &ci)) != NULL) &&(++loopexit < MAXLOOPS))
+	vector<SERIAL> vecContainer = contsp.getData(items[i].serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pj = FindItemBySerial(vecContainer[ci]);
 		if (pj->id() == 0x1F6D)
 			spellcount = 64;
 		else
@@ -1628,8 +1639,10 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	{
 		int ci=0, loopexit=0;
 		P_ITEM pj;
-		while ( (( pj=ContainerSearch(pc_currchar->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->serial);
+		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
+			pj = FindItemBySerial(vecContainer[ci]);
 			if (type!=2 && (pj->layer==2||(pj->layer==1 && pj->type!=9 )))
 			{
 				if (!(pj->id()==0x13F9 || pj->id()==0x0E8A || pj->id()==0x0DF0 || pj->id()==0x0DF2
@@ -2284,13 +2297,13 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 				{
 					//////////// (22) TELEPORT //////////////////
 					case 22:
-						int m;				
+						{
 
 						if (char_selected) { sysmessage(s, "You can't use that spell on characters");  return; }
 						if (item_selected) { sysmessage(s, "You can't teleport there.");  return; }
 
-						m = findmulti( Coord_cl(x, y, z) );
-						if( m > -1 )
+						P_ITEM pi_multi = findmulti( Coord_cl(x, y, z) );
+						if( pi_multi == NULL )
 						{
 							sysmessage( s, "You can't teleport here!" );
 							return;
@@ -2313,7 +2326,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						teleport( cc );
 						doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
 						cMagic::invisibleItemParticles(cc, curSpell, xo, yo, zo);
-						
+						}
 						break;
 					//////////// (24) WALL OF STONE /////////////
 					case 24:

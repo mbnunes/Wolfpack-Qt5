@@ -49,7 +49,7 @@ bool ishouse(int id1, int id2);
 void sendinrange(int);
 int dist(int,int,int);
 unsigned int dist(Coord_cl&, Coord_cl&); // Distance between position a and b
-int findmulti(Coord_cl);
+P_ITEM findmulti(Coord_cl);
 bool inmulti(Coord_cl, P_ITEM);
 //End Boat functions
 
@@ -93,7 +93,7 @@ int SpawnFishingItem(int nCharID,int nInPack, char* cScript, char* cList, char* 
 
 //int checkweight2(int s);
 int check_house_decay();
-bool ishouse(ITEM i);
+bool ishouse(P_ITEM);
 void cleanup(int s);
 int packitem(int p);
 void titletarget(int s);

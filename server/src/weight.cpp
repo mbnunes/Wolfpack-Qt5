@@ -61,8 +61,10 @@ void cWeight::NewCalc(int p)
 	int ci=0;
 	P_ITEM pi;
 	int loopexit=0;
-	while ( ((pi=ContainerSearch(chars[p].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(chars[p].serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->id() == 0x1E5E)	// trade window ?
 			continue;
 		if ((pi->layer!=0x0B) && (pi->layer!=0x10) && //no weight for hair/beard
@@ -96,8 +98,10 @@ float cWeight::RecursePacks(int bp)
 	int ci=0;
 	P_ITEM pi;
 	int loopexit=0;
-	while ( ((pi=ContainerSearch(items[bp].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(items[bp].serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		int itemsweight=pi->getWeight();
 		if (pi->type==1) //item is another container
 		{
@@ -158,8 +162,10 @@ float cWeight::LockeddownWeight(P_ITEM pItem, int *total, int *total2 )
 	int ci=0;
 	P_ITEM pi;
 	int loopexit=0;
-	while ( ((pi=ContainerSearch(pItem->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(pItem->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		int itemsweight=pi->getWeight();
 		total2=total2+pi->amount;
 		*total=*total+1;

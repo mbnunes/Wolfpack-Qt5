@@ -40,13 +40,13 @@
 
 P_ITEM Check4Pack(UOXSOCKET s)
 {
-	int packnum=packitem(currchar[s]);
-	if (packnum==-1)
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_ITEM pi_pack = Packitem(pc_currchar);
+	if (pi_pack == NULL)
 	{
 		sysmessage(s,"Time to buy a backpack");
-		return NULL;
 	}
-	return MAKE_ITEMREF_LRV(packnum,NULL);
+	return pi_pack;
 }
 
 bool CheckInPack(UOXSOCKET s, PC_ITEM pi)
@@ -64,6 +64,7 @@ bool CheckInPack(UOXSOCKET s, PC_ITEM pi)
 void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	if (!pi) return; 
 	short int amt=0;
 	short int amt1=0;
@@ -88,11 +89,11 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			items[c].pileable=1;
 			RefreshItem(c);
 			Items->DeleItem(pi);
-			Weight->NewCalc(currchar[s]);
-			statwindow(s,currchar[s]);
+			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+			statwindow(s,DEREF_P_CHAR(pc_currchar));
 			const P_ITEM npi=MAKE_ITEMREF_LR(c);	// on error return
 			if (!npi) return;
-			amt=itemmake[s].has=getamount(currchar[s], npi->id());
+			amt=itemmake[s].has=getamount(DEREF_P_CHAR(pc_currchar), npi->id());
 				if(amt<1)
 				{ 
 					sysmessage(s,"You don't have enough material to make anything.");
@@ -109,7 +110,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 		{
 			if (CheckInPack(s,pi))
 			{
-				int amt=itemmake[s].has=getamount(currchar[s], pi->id());
+				int amt=itemmake[s].has = getamount(DEREF_P_CHAR(pc_currchar), pi->id());
 				if(amt<1)
 				{ 
 					sysmessage(s,"You don't have enough material to make anything.");
@@ -132,6 +133,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 void cSkills::Fletching(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	if (pi && pi->magic!=4) // Ripper
 	{
 		if (( IsShaft(itemmake[s].Mat1id) && IsFeather(pi->id()) ) ||	// first clicked shaft and now feather
@@ -140,8 +142,8 @@ void cSkills::Fletching(int s)
 			if (CheckInPack(s,pi))
 			{
 				itemmake[s].Mat2id=pi->id();	// 2nd material
-				itemmake[s].has=getamount(currchar[s], itemmake[s].Mat1id);		// count both materials
-				itemmake[s].has2=getamount(currchar[s], itemmake[s].Mat2id);
+				itemmake[s].has=getamount(DEREF_P_CHAR(pc_currchar), itemmake[s].Mat1id);		// count both materials
+				itemmake[s].has2=getamount(DEREF_P_CHAR(pc_currchar), itemmake[s].Mat2id);
 				MakeMenu(s,60,BOWCRAFT);
 			}
 			return;
@@ -164,7 +166,7 @@ void cSkills::BowCraft(int s)
 		{
 			if (CheckInPack(s,pi))
 			{
-				if((itemmake[s].has=getamount(currchar[s], pi->id())) < 2)
+				if((itemmake[s].has=getamount(DEREF_P_CHAR(pc_currchar), pi->id())) < 2)
 					sysmessage(s,"You don't have enough material to make anything.");
 				else 
 				{
@@ -188,6 +190,7 @@ void cSkills::BowCraft(int s)
 void cSkills::Carpentry(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	if (pi && pi->magic!=4)
 	{
 		short id = pi->id();
@@ -196,7 +199,7 @@ void cSkills::Carpentry(int s)
 		   if (CheckInPack(s,pi))
 		   {
 			  itemmake[s].Mat1id = pi->id();
-			  itemmake[s].has=getamount(currchar[s],pi->id());
+			  itemmake[s].has=getamount(DEREF_P_CHAR(pc_currchar),pi->id());
 			  short mm = IsLog(pi->id()) ? 19 : 20; // 19 = Makemenu to create boards from logs
 			  MakeMenu(s,mm,CARPENTRY);
 		   }
@@ -208,7 +211,6 @@ void cSkills::Carpentry(int s)
 
 static bool ForgeInRange(int s)
 {
-	CHARACTER cc = currchar[s];
 	P_CHAR pc = MAKE_CHARREF_LRV(currchar[s], false);
 	bool rc = false;
 
@@ -276,14 +278,12 @@ static void AnvilTarget2(int s,				// socket #
 		sysmessage(s,"The anvil is too far away.");
 	else
 	{
-		int p=packitem(currchar[s]);
-		if (p==-1) return;
+		P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+		P_ITEM pi_pack = Packitem(pc_currchar);
+		if (pi_pack == NULL) 
+			return;
 
-		int amt=items[p].CountItems( pi->id(), pi->color());
-//		int amt=ContainerCountItems(items[p].serial, pi->id(), pi->color());
-//		int amt=Skills->GetIngotAmt(items[p].serial, 
-//									pi->id1,pi->id2,			// item ID
-//									pi->color1,pi->color2);	// color
+		int amt = pi_pack->CountItems( pi->id(), pi->color());
 		if ((itemmake[s].has=amt) < ma)
 		{
 			char msg[100];
@@ -699,7 +699,7 @@ void cSkills::Mine(int s)
 void cSkills::TreeTarget(int s)
 {
 	int lumber=0;
-	int packnum,px,py,cx,cy;
+	int px,py,cx,cy;
 	static unsigned long logtime[max_res_x][max_res_y];//see mine for values...they were 1000 also here
 	static int logamount[max_res_x][max_res_y];
 	int a, b, c;
@@ -779,8 +779,8 @@ void cSkills::TreeTarget(int s)
 		return;
 	}
 	
-	packnum=packitem(DEREF_P_CHAR(pc));
-	if (packnum==-1) {sysmessage(s,"No backpack to store logs"); return; } //LB
+	P_ITEM pi_pack = Packitem(pc);
+	if (pi_pack == NULL) {sysmessage(s,"No backpack to store logs"); return; } //LB
 	
 	if (pc->onhorse) action(s,0x1C);
 	else action(s,0x0D);
@@ -2075,7 +2075,7 @@ void cSkills::TameTarget(int s)
 
 void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 {
-	int i, pack, skill, npc;
+	int i, skill, npc;
 	char temp2[512];
 	tile_st tile;
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
@@ -2126,14 +2126,15 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 		return;
 	}
 
-	skill=Skills->CheckSkill(currchar[s],STEALING,0,999);
+	skill = Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),STEALING,0,999);
 	if (npcinrange(s,DEREF_P_CHAR(pc_npc),1))
 	{
 		if (skill)
 		{
-			pack=packitem(currchar[s]);
-			if(pack==-1) return;
-			pi->SetContSerial(items[pack].serial);
+			P_ITEM pi_pack = Packitem(pc_currchar);
+			if (pi_pack == NULL) 
+				return;
+			pi->SetContSerial(pi_pack->serial);
 			sysmessage(s,"You successfully steal that item.");
 			all_items(s);
 		} else sysmessage(s, "You failed to steal that item.");
@@ -2142,14 +2143,14 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 		{
 			sysmessage(s,"You have been cought!");
 			
-			if (npc!=-1) //lb
+			if (pc_npc != NULL) //lb
 			{
-				if (pc_npc->isNpc()) npctalkall(npc, "Guards!! A thief is amoung us!",0);
+				if (pc_npc->isNpc()) npctalkall(DEREF_P_CHAR(pc_npc), "Guards!! A thief is amoung us!",0);
 
-				criminal( currchar[s] );
+				criminal( DEREF_P_CHAR(pc_currchar) );
 
-				if (pc_npc->isInnocent() && pc_currchar->attacker!=npc && Guilds->Compare(currchar[s],npc)==0)//AntiChrist
-					criminal(currchar[s]);//Blue and not attacker and not guild
+				if (pc_npc->isInnocent() && pc_currchar->attacker != npc && Guilds->Compare(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_npc))==0)//AntiChrist
+					criminal(DEREF_P_CHAR(pc_currchar));//Blue and not attacker and not guild
 			
 				if (pi->name!="#")
 				{
@@ -2168,7 +2169,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 				if (perm[i])
 				{
 
-				  if((i!=s)&&(inrange1p(currchar[s],currchar[i]))&&(rand()%10+10==17||(rand()%2==1 && chars[currchar[i]].in>=pc_currchar->in))) sysmessage(s,temp2);
+				  if((i!=s)&&(inrange1p(DEREF_P_CHAR(pc_currchar), currchar[i]))&&(rand()%10+10==17||(rand()%2==1 && chars[currchar[i]].in>=pc_currchar->in))) sysmessage(s,temp2);
 				}
 			}
 
@@ -2178,16 +2179,15 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 
 void cSkills::BeggingTarget(int s)
 {
-	int i,serial;
 	int serhash,serial2,ci,j,gold,p,x,y,realgold;
 	char abort;
-	int cc=currchar[s];
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 
 	addid1[s]=buffer[s][7];
 	addid2[s]=buffer[s][8];
 	addid3[s]=buffer[s][9];
 	addid4[s]=buffer[s][10];
-	serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
+	SERIAL serial = calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
 
 	if(calcSocketFromChar(calcCharFromSer(addid1[s], addid2[s], addid3[s], addid4[s]))!=-1)
 	{
@@ -2195,11 +2195,10 @@ void cSkills::BeggingTarget(int s)
 		return;
 	}
 
-	i=calcCharFromSer( serial );
-	if (i!=-1)
+	P_CHAR pc = FindCharBySerial( serial );
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
-		if(chardist(i,cc)>=begging_data.range)
+		if(chardist(DEREF_P_CHAR(pc),DEREF_P_CHAR(pc_currchar))>=begging_data.range)
 		{
 			sysmessage(s,"You are not close enough to beg.");
 			return;
@@ -2209,12 +2208,12 @@ void cSkills::BeggingTarget(int s)
 		{
 			if (pc->begging_timer>=uiCurrentTime)
 			{
-				npctalk(s,i,"Annoy someone else !",1);
+				npctalk(s,DEREF_P_CHAR(pc),"Annoy someone else !",1);
 				return;
 			}
 
-			npctalkall(cc, begging_data.text[rand()%3],0); // npcemoteall?
-			if (!Skills->CheckSkill(cc,BEGGING, 0, 1000))
+			npctalkall(DEREF_P_CHAR(pc_currchar), begging_data.text[rand()%3],0); // npcemoteall?
+			if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),BEGGING, 0, 1000))
 				sysmessage(s,"They seem to ignore your begging plees.");
 			else
 			{
@@ -2227,7 +2226,7 @@ void cSkills::BeggingTarget(int s)
 				if (y>25) y=25;
 				// pre-calculate the random amout of gold that is "targeted"
 
-				p=packitem(i);
+				p = packitem(DEREF_P_CHAR(pc));
 				gold=0;
 				realgold=0;
 				abort=0;
@@ -2236,14 +2235,14 @@ void cSkills::BeggingTarget(int s)
 			
 				if (p!=-1)				
 				{
-					serial2=items[p].serial;
-					serhash=serial2%HASHMAX;	
-					for (ci=0;ci<contsp[serhash].max;ci++)
+					vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
+					for (ci = 0; ci < vecContainer.size(); ci++)
 					{
-						j=contsp[serhash].pointer[ci];
+						P_ITEM pi_j =  FindItemBySerial(vecContainer[ci]);
+						j = DEREF_P_ITEM(pi_j);
 						if (j!=-1)
 						{
-							if (items[j].id()==0x0EED && items[j].contserial==serial2 )
+							if (items[j].id()==0x0EED && items[j].contserial==items[p].serial )
 							{
 								gold+=items[j].amount; // calc total gold in pack
 								
@@ -2270,10 +2269,10 @@ void cSkills::BeggingTarget(int s)
 								
 				if (gold<=0)
 				{				
-					npctalk(s,i,"Sorry, I'm poor myself",1);
+					npctalk(s,DEREF_P_CHAR(pc),"Sorry, I'm poor myself",1);
 					return;
 				}
-				npctalkall(i,"Ohh thou lookest so poor, Here is some gold I hope this will assist thee.",0); // zippy
+				npctalkall(DEREF_P_CHAR(pc),"Ohh thou lookest so poor, Here is some gold I hope this will assist thee.",0); // zippy
 				addgold(s,realgold);
 				sysmessage(s,"Some gold is placed in your pack.");
 			}
@@ -2400,7 +2399,8 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		
 		//empty bottle after poisoning
 		int poison=DEREF_P_ITEM(pPoi);
-		if (!pPoi->isInWorld()) removefromptr(&contsp[pPoi->contserial%HASHMAX], poison);
+		if (!pPoi->isInWorld()) 
+			contsp.remove(pPoi->contserial, items[poison].serial);
 		unsigned char k1 = pPoi->ser1;
 		unsigned char k2 = pPoi->ser2;
 		unsigned char k3 = pPoi->ser3;
@@ -2821,12 +2821,11 @@ void cSkills::RepairTarget(UOXSOCKET s)
 void cSkills::SmeltItemTarget(UOXSOCKET s)
 { // Ripper..Smelting items.
 	unsigned short int sk=MINING;
+	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
 
-	int packnum=packitem(currchar[s]);
-	if (packnum==-1) {sysmessage(s,"Time to buy a backpack"); return; }
+	P_ITEM pi_pack = Packitem(pc);
+	if (pi_pack == NULL) {sysmessage(s,"Time to buy a backpack"); return; }
 
-	CHARACTER cc=currchar[s];
-	P_CHAR pc = MAKE_CHARREF_LR(cc);
 
 	if (pc->baseskill[sk] < 300)
 	{
@@ -2856,16 +2855,16 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 	      sysmessage(s," Must be closer to the forge.");
 		  return;
 	   }
-	   if (items[i].contserial!=items[packnum].serial)
+	   if (items[i].contserial!=pi_pack->serial)
 	   {
 		  sysmessage(s,"The item must be in your backpack");
 		  return;
 	   }
 	   if(pc->skill[sk]>300 && pc->skill[sk]<500 && sm==1)
 	   {
-		  if (Skills->CheckSkill(cc,sk, 0, 1000))
+		  if (Skills->CheckSkill(DEREF_P_CHAR(pc),sk, 0, 1000))
 		  {
-			  Items->SpawnItem(-1,cc,c,"#",1,0x1B,0xF2,0x09,0x61,1,1);
+			  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"#",1,0x1B,0xF2,0x09,0x61,1,1);
 			  sysmessage(s,"you smelt the item and place some ingots in your pack.");
 			  Items->DeleItem(i);
 			  return;
@@ -2873,57 +2872,57 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 	   }
 	   if(pc->skill[sk]>=500)
 	   {
-		   if (Skills->CheckSkill(cc,sk, 0, 1000))
+		   if (Skills->CheckSkill(DEREF_P_CHAR(pc),sk, 0, 1000))
 		  {
 		      switch(sm)
 			  {
 			      case 1:
-					  Items->SpawnItem(-1,cc,c,"#",1,0x1B,0xF2,0x09,0x61,1,1);
+					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"#",1,0x1B,0xF2,0x09,0x61,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
 			          Items->DeleItem(i);
 			          break;
 		          case 2:
-					  Items->SpawnItem(-1,cc,c,"silver ingot",1,0x1B,0xF2,0x00,0x00,1,1);
+					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"silver ingot",1,0x1B,0xF2,0x00,0x00,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
 			          Items->DeleItem(i);
 			          break;
 				  case 3:
-					  Items->SpawnItem(-1,cc,c,"golden ingot",1,0x1B,0xF2,col1,col2,1,1);
+					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"golden ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
 			          Items->DeleItem(i);
 			          break;
 				  case 4:
-					  Items->SpawnItem(-1,cc,c,"agapite ingot",1,0x1B,0xF2,col1,col2,1,1);
+					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"agapite ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
 			          Items->DeleItem(i);
 			          break;
 				  case 5:
-					  Items->SpawnItem(-1,cc,c,"shadow ingot",1,0x1B,0xF2,col1,col2,1,1);
+					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"shadow ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
 			          Items->DeleItem(i);
 			          break;
 				  case 6:
-					  Items->SpawnItem(-1,cc,c,"mythril ingot",1,0x1B,0xF2,col1,col2,1,1);
+					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"mythril ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
 			          Items->DeleItem(i);
 			          break;
 				  case 7:
-					  Items->SpawnItem(-1,cc,c,"bronze ingot",1,0x1B,0xF2,col1,col2,1,1);
+					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"bronze ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
 			          Items->DeleItem(i);
 			          break;
 				  case 8:
-					  Items->SpawnItem(-1,cc,c,"verite ingot",1,0x1B,0xF2,col1,col2,1,1);
+					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"verite ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
 			          Items->DeleItem(i);
 			          break;
 				  case 9:
-					  Items->SpawnItem(-1,cc,c,"merkite ingot",1,0x1B,0xF2,col1,col2,1,1);
+					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"merkite ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
 			          Items->DeleItem(i);
 			          break;
 				  case 10:
-					  Items->SpawnItem(-1,cc,c,"copper ingot",1,0x1B,0xF2,col1,col2,1,1);
+					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"copper ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
 			          Items->DeleItem(i);
 			          break;

@@ -43,8 +43,10 @@ int cCombat::GetBowType(int c)
 {
 	int ci=0,loopexit=0;
 	P_ITEM pi;
-	while ( ((pi=ContainerSearch(chars[c].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(chars[c].serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer==1 || pi->layer==2)
 		{
 			switch( pi->id() )
@@ -926,8 +928,10 @@ int cCombat::CalcAtt(int p) // Calculate total attack powerer
 	
 	int ci=0,loopexit=0;
 	P_ITEM pi;
-	while ( ((pi=ContainerSearch(pc_p->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(pc_p->serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer==1 || pi->layer==2)
 		{
 			if (pi->lodamage == pi->hidamage) total+=pi->lodamage;
@@ -959,8 +963,10 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 	{ 
 		int ci=0,loopexit=0; 
 		P_ITEM pi; 
-		while ( ((pi=ContainerSearch(pc->serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
-		{ 
+		vector<SERIAL> vecContainer = contsp.getData(pc->serial);
+		for ( ci = 0; ci < vecContainer.size(); ci++)
+		{
+			pi = FindItemBySerial(vecContainer[ci]);
 			if (pi->layer>1 && pi->layer<25) 
 			{ 
 				//blackwinds new stuff 
@@ -1240,8 +1246,10 @@ void cCombat::ItemSpell(int attaker, int defender)
 	currentSpellType[attaker]=2;
 	int ci=0,loopexit=0;
 	P_ITEM pi;
-	while ( ((pi=ContainerSearch(chars[attaker].serial,&ci)) != NULL) && (++loopexit < MAXLOOPS) )
+	vector<SERIAL> vecContainer = contsp.getData(chars[attaker].serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		pi = FindItemBySerial(vecContainer[ci]);
 		if (((pi->layer==1 && pi->type!=9) || (pi->layer==2)))
 		{
 			if (pi->offspell && (pi->att||pi->hidamage) && pi->type == 15)
