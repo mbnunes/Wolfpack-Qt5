@@ -724,7 +724,7 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 		// \property object.name This string property contains the name of the object.
 	else
 		SET_STR_PROPERTY( "name", this->name_ )
-		// \property object.pos This string property is the string representation of the position of the object.
+		// \property object.pos This property is a <object id="coord">coord</object> object (Python) or a string representation (Show/Set) of the objects position.
 	else if ( name == "pos" )
 	{
 		Coord_cl pos;
