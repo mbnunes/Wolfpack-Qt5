@@ -187,4 +187,6 @@ registerpackethook = _wolfpack.registerpackethook
 currenttime = _wolfpack.currenttime
 charcount = _wolfpack.charcount
 itemcount = _wolfpack.itemcount
+getdefinition = _wolfpack.getdefinition
+getdefinitions = _wolfpack.getdefinitions
 
