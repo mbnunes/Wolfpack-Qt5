@@ -649,7 +649,8 @@
 	<item id="de3">
 		<id>0xde3</id>
 		<nodecay />
-		<decaytime>120000</decaytime>
+		<decaytime>120</decaytime>
+		<lightsource>0x1d</lightsource>
 		<category>Decoration\Campfire\Campfire</category>
 	</item>
 
