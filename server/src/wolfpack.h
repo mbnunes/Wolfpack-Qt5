@@ -60,8 +60,11 @@
 #include "itemsmgr.h"
 #include "charsmgr.h"
 #include "prototypes.h"
-#include "junk.h"
 #include "inlines.h"
+#include "chars.h"
+#include "items.h"
+#include "basics.h"
+#include "network.h"
 
 //#include "WPScriptManager.h" // Script System
 

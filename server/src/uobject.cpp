@@ -39,7 +39,7 @@
 #include "globals.h"
 #include "network.h"
 #include "mapobjects.h"
-#include "junk.h"
+#include "wolfpack.h"
 #include "defines.h"
 #include "wpdefaultscript.h"
 #include "wpscriptmanager.h"

@@ -829,15 +829,6 @@ namespace cCharStuff
 		void Breath(P_CHAR pc_i,int currenttime);
 		void DoneAI(P_CHAR pc_i,int currenttime);
 	};
-	class cBankerAI
-	{
-	public:
-		bool DoAI(int c, P_CHAR pBanker, const QString& comm);
-		bool Withdraw(int c, P_CHAR pBanker, const std::string& comm);
-		bool BankCheck(int c, P_CHAR pBanker, const std::string& comm);
-		bool Balance(int c, P_CHAR pBanker);
-		void OpenBank(UOXSOCKET c);
-	};
 };
 
 

@@ -76,8 +76,6 @@ private:
 	// junk
 	UOXSOCKET getuoSocketsIndex( const cUOSocket* );
 	friend UOXSOCKET calcSocketFromChar(P_CHAR);
-	friend UOXSOCKET toOldSocket( const cUOSocket* );
-	friend cUOSocket* fromOldSocket(UOXSOCKET);
 
 public:
 

@@ -42,7 +42,7 @@
 #include "../corpse.h"
 #include "../accounts.h"
 #include "../globals.h"
-#include "../junk.h"
+#include "../wolfpack.h"
 #include "../territories.h"
 #include "../mapobjects.h"
 #include "../structs.h"
@@ -63,6 +63,7 @@
 #include "../newmagic.h"
 #include "../targetrequests.h"
 #include "../dragdrop.h"
+#include "../trade.h"
 
 
 //#include <conio.h>

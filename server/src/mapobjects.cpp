@@ -36,8 +36,8 @@
 #include "debug.h"
 #include "maps.h"
 #include "uobject.h"
-#include "junk.h"
 #include "globals.h"
+#include "wolfpack.h"
 
 #include <math.h>
 #include <algorithm>

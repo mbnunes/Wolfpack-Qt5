@@ -42,7 +42,6 @@
 // Wolfpack Includes
 #include "accounts.h"
 #include "globals.h"
-#include "junk.h"
 #include "verinfo.h"
 
 // Private Socket

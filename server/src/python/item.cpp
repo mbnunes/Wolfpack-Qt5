@@ -32,8 +32,9 @@
 #include "../items.h"
 #include "../tilecache.h"
 #include "../prototypes.h"
-#include "../junk.h"
+#include "../wolfpack.h"
 #include "../wpscriptmanager.h"
+#include "../itemid.h"
 
 extern cAllItems *Items;
 

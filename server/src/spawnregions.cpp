@@ -48,7 +48,7 @@ II. make sure to hold the map up to date !
 #include "walking.h"
 #include "utilsys.h"
 
-#include "junk.h" // needed for objects Npcs and Items
+#include "wolfpack.h" // needed for objects Npcs and Items
 
 using namespace std;
 

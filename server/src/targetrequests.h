@@ -33,6 +33,7 @@
 
 #include "wolfpack.h"
 #include "wptargetrequests.h"
+#include "items.h"
 
 class cAddItemTarget: public cTargetRequest
 {

@@ -29,7 +29,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-//#include "wolfpack.h"
+#include "wolfpack.h"
 #include "debug.h"
 #include "mapobjects.h"
 #include "maps.h"
@@ -37,7 +37,6 @@
 #include "itemid.h"
 #include "multiscache.h"
 #include "items.h"
-#include "junk.h"
 
 #include <set>
 #include <math.h>

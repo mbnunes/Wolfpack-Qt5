@@ -38,7 +38,7 @@
 #include "srvparams.h"
 #include "network.h"
 
-#include "junk.h" // needed for object SrvParams
+#include "globals.h" // needed for object SrvParams
 
 // cTerritories
 

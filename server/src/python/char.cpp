@@ -37,7 +37,7 @@
 #include "../chars.h"
 #include "../territories.h"
 #include "../prototypes.h"
-#include "../junk.h"
+#include "../wolfpack.h"
 #include "../classes.h"
 #include "../newmagic.h"
 #include "../skills.h"

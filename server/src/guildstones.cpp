@@ -61,83 +61,83 @@
 // Force placer to give that damn guild a damn name :)
 void StonePlacement(const cUOSocket* socket)
 {
-	P_CHAR pc = socket->player();
-	P_ITEM pDeed = FindItemBySerial(pc->fx1());
-	cGuildStone* pStone = NULL;
-
-	if ( CheckValidPlace(toOldSocket(socket)) != 1 )
-	{
-		socket->sysMessage(tr("You cannot place guildstones at any other location than your house"));
-		return;
-	}
-	
-	if (pDeed->id() == 0x14F0)
-	{
-		if (pc->guildstone() != INVALID_SERIAL)
-		{
-			socket->showSpeech( pDeed, tr("You are already in a guild."));
-			return;
-		}
-		pStone = new cGuildStone;		
-		if (!pStone)
-		{//AntiChrist - to prevent crashes
-			socket->sysMessage(tr("Cannot create guildstone"));
-			return;
-		}
-		pStone->Init();
-		pStone->setId(0x0ED5);
-		pStone->setName( tr("Guildstone for an unnamed guild") );
-		Items->GetScriptItemSetting(pStone);
-		pc->setGuildstone( pStone->serial );
-		if (pc->id() == 0x0191)	
-			pc->setGuildtitle(tr("Guildmistress"));
-		else
-			pc->setGuildtitle(tr("Guildmaster"));
-
-		pStone->webpage = DEFAULTWEBPAGE;
-		pStone->charter = DEFAULTCHARTER;
-		pStone->addMember( pc );
-		pStone->guildType = cGuildStone::standard;
-		pStone->moveTo(pc->pos);
-		pStone->setType( 202 );
-		pStone->priv = 0;
-		pStone->setLockedDown();
-		pStone->setOwnSerialOnly(pc->serial);
-
-		pStone->update();//AntiChrist
-		Items->DeleItem(pDeed);
-		//entrygump(toOldSocket(socket), pc->serial,100,1,40,"Enter a name for the guild.");
-	}
-	else
-	{
-/*		guildnumber = SearchByStone(s);
-		if (guildnumber==-1)
-		{//AntiChrist
-			sysmessage(s,"There are already enough guildstones placed.");
-			return;
-		}
-		if (( pDeed->serial==guilds[guildnumber].stone &&
-			pc->serial == guilds[guildnumber].master) ||
-			pc->isGM() )
-		{
-			sprintf(stonename, "Guildstone for %s", guilds[guildnumber].name);
-			pStone = Items->SpawnItem(currchar[s], 1, stonename, 0, 0x0ED5, 0, 0);
-			if (!pStone)
-			{
-				sysmessage(s,"Cannot create guildstone");
-				return;
-			}
-			pStone->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
-			pStone->type = 202;
-			pStone->priv = 0;		
-			pStone->update();//AntiChrist
-			Items->DeleItem(pDeed);
-			pc->fx1 = INVALID_SERIAL;
-			guilds[guildnumber].stone = pStone->serial;
-		}
-		else
-			itemmessage(s,"You are not the guildmaster of this guild. Only the guildmaster may use this guildstone teleporter.",pDeed->serial);
-*/	}
+//	P_CHAR pc = socket->player();
+//	P_ITEM pDeed = FindItemBySerial(pc->fx1());
+//	cGuildStone* pStone = NULL;
+//
+//	if ( CheckValidPlace(toOldSocket(socket)) != 1 )
+//	{
+//		socket->sysMessage(tr("You cannot place guildstones at any other location than your house"));
+//		return;
+//	}
+//	
+//	if (pDeed->id() == 0x14F0)
+//	{
+//		if (pc->guildstone() != INVALID_SERIAL)
+//		{
+//			socket->showSpeech( pDeed, tr("You are already in a guild."));
+//			return;
+//		}
+//		pStone = new cGuildStone;		
+//		if (!pStone)
+//		{//AntiChrist - to prevent crashes
+//			socket->sysMessage(tr("Cannot create guildstone"));
+//			return;
+//		}
+//		pStone->Init();
+//		pStone->setId(0x0ED5);
+//		pStone->setName( tr("Guildstone for an unnamed guild") );
+//		Items->GetScriptItemSetting(pStone);
+//		pc->setGuildstone( pStone->serial );
+//		if (pc->id() == 0x0191)	
+//			pc->setGuildtitle(tr("Guildmistress"));
+//		else
+//			pc->setGuildtitle(tr("Guildmaster"));
+//
+//		pStone->webpage = DEFAULTWEBPAGE;
+//		pStone->charter = DEFAULTCHARTER;
+//		pStone->addMember( pc );
+//		pStone->guildType = cGuildStone::standard;
+//		pStone->moveTo(pc->pos);
+//		pStone->setType( 202 );
+//		pStone->priv = 0;
+//		pStone->setLockedDown();
+//		pStone->setOwnSerialOnly(pc->serial);
+//
+//		pStone->update();//AntiChrist
+//		Items->DeleItem(pDeed);
+//		//entrygump(toOldSocket(socket), pc->serial,100,1,40,"Enter a name for the guild.");
+//	}
+//	else
+//	{
+///*		guildnumber = SearchByStone(s);
+//		if (guildnumber==-1)
+//		{//AntiChrist
+//			sysmessage(s,"There are already enough guildstones placed.");
+//			return;
+//		}
+//		if (( pDeed->serial==guilds[guildnumber].stone &&
+//			pc->serial == guilds[guildnumber].master) ||
+//			pc->isGM() )
+//		{
+//			sprintf(stonename, "Guildstone for %s", guilds[guildnumber].name);
+//			pStone = Items->SpawnItem(currchar[s], 1, stonename, 0, 0x0ED5, 0, 0);
+//			if (!pStone)
+//			{
+//				sysmessage(s,"Cannot create guildstone");
+//				return;
+//			}
+//			pStone->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
+//			pStone->type = 202;
+//			pStone->priv = 0;		
+//			pStone->update();//AntiChrist
+//			Items->DeleItem(pDeed);
+//			pc->fx1 = INVALID_SERIAL;
+//			guilds[guildnumber].stone = pStone->serial;
+//		}
+//		else
+//			itemmessage(s,"You are not the guildmaster of this guild. Only the guildmaster may use this guildstone teleporter.",pDeed->serial);
+//*/	}
 }
 
 void cGuildStone::addMember(P_CHAR pc)

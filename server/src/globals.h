@@ -142,7 +142,7 @@ extern char foodname[enNumberOfFood][20];
 extern int validEscortRegion[256];
 
 extern int npcshape[5]; //Stores the coords of the bouding shape for the NPC
-
+extern int escortRegions;
 extern jail_st jails[11];
 
 /////////////////////////////////////////
@@ -155,11 +155,46 @@ extern char temp[1024];
 extern termios termstate ;
 #endif
 
-extern WPScriptManager *ScriptManager;
-extern WPDefManager *DefManager;
+// Forward declarations
+class cSrvParams;
+class CWorldMain;
+class cBoat;
+class cAccount;
+class cAllItems;
+class Maps;
+class cSkills;
+class cFishing;
+class cWeight;
+class cTargets;
+class cMagic;
+class cMovement;
+class cSpeech;
+class cTrade;
+class cBounty;
+class cAccounts;
+class cMultisCache;
 class PersistentBroker;
-extern PersistentBroker* persistentBroker;
-//
+
+//-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
+extern cSrvParams				*SrvParams;
+extern CWorldMain				*cwmWorldState;
+extern cAllItems				*Items;
+extern Maps						*Map;
+extern cSkills					*Skills;
+extern cFishing					*Fishing;
+extern cWeight					*Weight;
+extern cTargets					*Targ;
+extern cMagic					*Magic;
+extern cSpeech					*Speech;
+extern cTrade					*Trade;
+extern cBounty					*Bounty;
+extern cMultisCache				*MultisCache;
+extern WPScriptManager			*ScriptManager;
+extern WPDefManager				*DefManager;
+extern PersistentBroker			*persistentBroker;
+// END
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-//
+
 
 #endif
 

@@ -38,7 +38,7 @@
 #include <signal.h>
 #endif
 
-
+#include "wolfpack.h"
 #include "verinfo.h"
 #include "speech.h"
 #include "territories.h"
@@ -77,6 +77,7 @@
 #include "weight.h"
 #include "onlinestatus.h"
 #include "multiscache.h"
+#include "trade.h"
 
 // Library Includes
 #include <qapplication.h>
@@ -3545,8 +3546,6 @@ void StartClasses(void)
 	Weight			= NULL;
 	Targ			= NULL;
 	Magic			= NULL;
-	DragonAI		= NULL;
-	BankerAI		= NULL;
 	ScriptManager	= NULL;
 	DefManager		= NULL;
 	SrvParams		= NULL;
@@ -3566,8 +3565,6 @@ void StartClasses(void)
 	MultisCache		= new cMultisCache( SrvParams->mulPath() );
 	//Weather = new cWeather;
 	// Sky's AI Stuff
-	DragonAI		= new cCharStuff::cDragonAI;
-	BankerAI		= new cCharStuff::cBankerAI;
 
 	// DarkStorm's ScriptManager
 	ScriptManager	= new WPScriptManager;
@@ -3588,8 +3585,6 @@ void DeleteClasses()
 	delete Weight;
 	delete Targ;
 	delete Magic;
-	delete DragonAI;
-	delete BankerAI;
 	delete ScriptManager;
 	delete DefManager;
 	delete NewMagic;

@@ -30,11 +30,12 @@
 //========================================================================================
 
 #include "customtags.h"
-#include "junk.h"
 #include "chars.h"
 #include "items.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
+#include "basics.h"
+#include "globals.h"
 
 #include <math.h>
 #include <qstring.h>

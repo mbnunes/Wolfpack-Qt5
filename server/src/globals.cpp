@@ -167,7 +167,6 @@ WPDefManager    *DefManager;
 PersistentBroker* persistentBroker;
 
 cCharStuff::cDragonAI	*DragonAI;
-cCharStuff::cBankerAI	*BankerAI;	
 
 //////////////////// ARRAYS that didnt get initialized above ////////////////////
 

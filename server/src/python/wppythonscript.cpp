@@ -38,9 +38,9 @@
 #include "wppythonscript.h"
 #include "../worldmain.h"
 #include "../globals.h"
-#include "../junk.h"
 #include "../maps.h"
 #include "../network.h"
+#include "../chars.h"
 
 // Library Includes
 #include "qfile.h"

@@ -35,7 +35,7 @@
 #include "items.h"
 #include "skills.h"
 #include "globals.h"
-#include "junk.h"
+#include "wolfpack.h"
 #include "TmpEff.h"
 #include "mapobjects.h"
 #include "gumps.h"

@@ -31,12 +31,13 @@
 
 // Wolfpack Includes
 #include "accounts.h"
-#include "junk.h"
 #include "srvparams.h"
 #include "pfactory.h"
 #include "network/uosocket.h"
 #include "charsmgr.h"
 #include "commands.h"
+#include "chars.h"
+#include "network.h"
 
 
 // ===== AccountRecord Methods ===== //

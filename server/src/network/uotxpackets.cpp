@@ -31,6 +31,9 @@
 
 #include "uotxpackets.h"
 #include "uopacket.h"
+#include "../chars.h"
+#include "../items.h"
+#include "../coord.h"
 
 void cUOTxShardList::addServer( Q_UINT16 serverIndex, QString serverName, Q_UINT8 serverFull, Q_INT8 serverTimeZone, Q_UINT32 serverIp )
 {
@@ -498,4 +501,18 @@ void cUOTxProfile::setInfo( QString title, QString staticText, QString dynamicTe
 
 	setUnicodeString( 10+title.length()+(staticText.length()*2), dynamicText, dynamicText.length()*2 );
 	setShort( 10+title.length()+(staticText.length()*2)+(dynamicText.length()*2), 0 );
+}
+
+void cUOTxSendItem::setCoord( const Coord_cl &coord )
+{
+	setShort( 11, coord.x | 0x8000 );
+	setShort( 13, coord.y | 0xC000 );
+	(*this)[16] = coord.z;
+}
+
+void cUOTxSoundEffect::setCoord( const Coord_cl &coord )
+{
+	setShort( 6, coord.x );
+	setShort( 8, coord.y );
+	setShort( 10, coord.z );
 }

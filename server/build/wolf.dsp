@@ -704,10 +704,6 @@ SOURCE=.\itemsmgr.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\junk.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\magic.h
 # End Source File
 # Begin Source File

@@ -37,7 +37,7 @@
 #include "qstring.h"
 #include "qstringlist.h"
 #include "../typedefs.h"
-#include "../junk.h"
+#include "../coord.h"
 
 #include <vector>
 #include "uopacket.h"
@@ -704,12 +704,7 @@ public:
 	void setSerial( UINT32 data )			{ setInt( 3, data | 0x80000000 ); }
 	void setId( UINT16 data )				{ setShort( 7, data ); }
 	void setAmount( UINT16 data )			{ setShort( 9, data ); }
-	void setCoord( const Coord_cl &coord )
-	{
-		setShort( 11, coord.x | 0x8000 );
-		setShort( 13, coord.y | 0xC000 );
-		(*this)[16] = coord.z;
-	}
+	void setCoord( const Coord_cl &coord );
 	void setDirection( UINT8 data )			{ (*this)[15] = data; }
 	void setColor( UINT16 data )			{ setShort( 17, data ); }
 	void setFlags( UINT8 data )				{ (*this)[19] = data; }
@@ -741,12 +736,7 @@ public:
 	cUOTxSoundEffect(): cUOPacket( 0x54, 12 )	{ (*this)[1] = 1; }
 	void setSound( UINT16 data )				{ setShort( 2, data ); }
 	void setUnknown( UINT16 data )				{ setShort( 4, data ); }
-	void setCoord( const Coord_cl &coord ) 
-	{
-		setShort( 6, coord.x );
-		setShort( 8, coord.y );
-		setShort( 10, coord.z );
-	}
+	void setCoord( const Coord_cl &coord );
 };
 
 

@@ -36,12 +36,15 @@
 // Library Includes
 #include <qcstring.h>
 #include <qsocketdevice.h>
+#include <qobject.h>
+#include <qmap.h>
 
 // Forward Declarations
 class cUOPacket;
 class AccountRecord;
 class cTargetRequest;
 class cGump;
+class cUObject;
 
 // Too many Forward Declarations
 #include "uorxpackets.h"
