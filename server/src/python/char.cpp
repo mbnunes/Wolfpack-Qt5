@@ -389,6 +389,26 @@ PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 }
 
 /*!
+	Shows an emote above the chars head
+*/
+PyObject* wpChar_emote( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !PyTuple_Size( args ) || !PyString_Check( PyTuple_GetItem( args, 0 ) ) )
+	{
+		clConsole.send( "Minimum argument count for char.emote is 1\n" );
+		return PyFalse;
+	}
+
+	QString message = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+	self->pChar->emote( message );
+	return PyTrue;
+}
+
+
+/*!
 	Takes at least one argument (item-id)
 	Optionally the color
 	It returns the amount of a resource
@@ -435,6 +455,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "combatskill",	(getattrofunc)wpChar_combatskill, METH_VARARGS, "Returns the combat skill the character would currently use." },
 	{ "useresource",	(getattrofunc)wpChar_useresource, METH_VARARGS, "Consumes a resource posessed by the char." },
 	{ "countresource",	(getattrofunc)wpChar_countresource, METH_VARARGS, "Counts the amount of a certain resource the user has." },
+	{ "emote",			(getattrofunc)wpChar_emote, METH_VARARGS, "Let's the user emote." },
     { NULL, NULL, 0, NULL }
 };
 

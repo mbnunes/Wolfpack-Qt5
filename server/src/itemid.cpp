@@ -165,9 +165,9 @@ bool IsFencingType(short id)
 	return ( IsFencing1H(id) || IsFencing2H(id) );
 }
 
-bool IsBow			(short id)	{return (id==0x13B2);}
-bool IsCrossbow		(short id)	{return (id==0x13FD);}
-bool IsHeavyCrossbow(short id)	{return (id==0x0F4F);}
+bool IsBow			(short id)	{return (id==0x13B2 || id==0x13b1);}
+bool IsCrossbow		(short id)	{return (id==0x13FD || id==0x13fc);}
+bool IsHeavyCrossbow(short id)	{return (id==0x0F4F || id==0x0f4e);}
 
 bool IsBowType(short id)
 {

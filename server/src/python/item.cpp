@@ -328,7 +328,7 @@ static PyMethodDef wpItemMethods[] =
 
 PyObject *wpItem_getAttr( wpItem *self, char *name )
 {
-	getStrProperty( "name", pItem->name().ascii() )
+	getStrProperty( "name", pItem->getName().latin1() )
 	else getIntProperty( "id", pItem->id() )
 	else getStrProperty( "name2", pItem->name2().ascii() )
 	else getIntProperty( "color", pItem->color() )
