@@ -979,6 +979,18 @@
 		<category>Decoration\Paintings &amp; Tapestry\Tapestry 11 (2/2)</category>
 	</item>
 
+	<item id="234e">
+		<id>0x234e</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\The Tapestry of Sosaria (E/W)</category>
+	</item>
+
+	<item id="234f">
+		<id>0x234f</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\The Tapestry of Sosaria (N/S)</category>
+	</item>
+
 	<!-- Shells -->
 	<item id="fc4">
 		<id>0xfc4</id>

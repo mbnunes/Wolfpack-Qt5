@@ -333,4 +333,29 @@
 		<category>Decoration\Fireplaces &amp; Ovens\Small Stone Fireplace (N/S) (2/2)</category>
 	</item>
 
+	<!-- Home Hearth -->
+	<item id="2350">
+		<id>0x2350</id>
+		<nodecay />
+		<category>Decoration\Fireplaces &amp; Ovens\Home Hearth (E/W) (1/2)</category>
+	</item>
+
+	<item id="2351">
+		<id>0x2351</id>
+		<nodecay />
+		<category>Decoration\Fireplaces &amp; Ovens\Home Hearth (E/W) (2/2)</category>
+	</item>
+
+	<item id="235e">
+		<id>0x235e</id>
+		<nodecay />
+		<category>Decoration\Fireplaces &amp; Ovens\Home Hearth (N/S) (1/2)</category>
+	</item>
+
+	<item id="235f">
+		<id>0x235f</id>
+		<nodecay />
+		<category>Decoration\Fireplaces &amp; Ovens\Home Hearth (N/S) (2/2)</category>
+	</item>
+
 </definitions>

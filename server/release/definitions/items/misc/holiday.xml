@@ -58,4 +58,20 @@
 		<category>Holiday\Snowflake 2</category>
 	</item>
 
+	<!-- Rose of Trinsic -->
+	<item id="232b">
+		<id>0x232b</id>
+		<category>Holiday\Rose of Trinsic 1</category>
+	</item>
+
+	<item id="232c">
+		<id>0x232c</id>
+		<category>Holiday\Rose of Trinsic 3</category>
+	</item>
+
+	<item id="232d">
+		<id>0x232d</id>
+		<category>Holiday\Rose of Trinsic 3</category>
+	</item>
+
 </definitions>
