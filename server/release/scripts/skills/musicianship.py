@@ -51,6 +51,7 @@ def play_instrument( char, item, success ):
 	# set last use item for musicianship
 	cur_time = servertime()
 	item.settag( 'last_musicianship_use', cur_time )
+	char.settag( 'instrument', item.serial )
 	if success:
 		sound = sounds[ item.id ]
 	else:
