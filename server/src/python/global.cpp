@@ -336,221 +336,31 @@ static PyMethodDef wpGlobal[] =
 */
 void init_wolfpack_globals()
 {
-	PyObject *wpNamespace = Py_InitModule( "wolfpack", wpGlobal );
-	
-	for( UINT8 i = 0; i < ALLSKILLS; ++i )
-		PyModule_AddIntConstant( wpNamespace, skillname[ i ], i );
+	PyObject *wpNamespace = Py_InitModule( "_wolfpack", wpGlobal );
 
-	PyObject *mConsole = Py_InitModule( "wolfpack.console", wpConsole );
+	PyObject *mConsole = Py_InitModule( "_wolfpack.console", wpConsole );
     PyObject_SetAttrString( wpNamespace, "console", mConsole );
 
-	PyObject *mTime = Py_InitModule( "wolfpack.time", wpTime );
+	PyObject *mTime = Py_InitModule( "_wolfpack.time", wpTime );
     PyObject_SetAttrString( wpNamespace, "time", mTime );
 }
 
-/*
-PyObject* PyWPServer_shutdown( PyObject* self, PyObject* args );
-PyObject* PyWPServer_save( PyObject* self, PyObject* args );
-
-PyObject* PyWPItems_findbyserial( PyObject* self, PyObject* args );
-PyObject* PyWPItems_add( PyObject* self, PyObject* args );
-
-PyObject* PyWPChars_findbyserial( PyObject* self, PyObject* args );
-
-PyObject* PyWPMovement_deny( PyObject* self, PyObject* args );
-PyObject* PyWPMovement_accept( PyObject* self, PyObject* args );
-
-PyObject* PyWP_clients( PyObject* self, PyObject* args );
-
-PyObject* PyWPMap_gettile( PyObject* self, PyObject* args );
-PyObject* PyWPMap_getheight( PyObject* self, PyObject* args );
-
-static PyMethodDef WPGlobalMethods[] = 
+void tuple_incref( PyObject *object )
 {
-    { "console_send",		PyWPConsole_send,		METH_VARARGS, "Prints something to the wolfpack console" },
-	{ "console_progress",	PyWPConsole_progress,	METH_VARARGS, "Prints a .....[xxxx] block" },
-	{ "console_printDone",	PyWPConsole_printDone,	METH_VARARGS, "Prints a [done] block" },
-	{ "console_printFail",	PyWPConsole_printFail,	METH_VARARGS, "Prints a [fail] block" },
-	{ "console_printSkip",	PyWPConsole_printSkip,	METH_VARARGS, "Prints a [skip] block" },
+	Py_INCREF( object );
+	if( PyTuple_Check( object ) )
+	{
+		for( UINT32 i = 0; i < PyTuple_Size( object ); ++i )
+			tuple_incref( PyTuple_GetItem( object, i ) );
+	}
+}
 
-	// .map
-	{ "map_gettile",		PyWPMap_gettile,		METH_VARARGS, "Get's a maptile" },
-	{ "map_getheight",		PyWPMap_getheight,		METH_VARARGS, "Get's the height of the map at the specified point" },
-
-	// .server
-	{ "server_shutdown",	PyWPServer_shutdown,	METH_VARARGS, "Shuts the server down" },
-	{ "server_save",		PyWPServer_save,		METH_VARARGS, "Saves the worldstate" },
-	
-	// .items
-	{ "items_add",			PyWPItems_add,			METH_VARARGS, "Adds an item by it's ID specified in the definition files" },
-	{ "items_findbyserial",	PyWPItems_findbyserial,	METH_VARARGS, "Finds an item by it's serial" },
-
-	// .chars	
-	{ "chars_findbyserial",	PyWPChars_findbyserial,	METH_VARARGS, "Finds an char by it's serial" },
-
-	// .movement
-	{ "movement_accept",	PyWPMovement_accept,	METH_VARARGS, "Accepts the movement of the character" },
-	{ "movement_deny",		PyWPMovement_deny,		METH_VARARGS, "Denies the movement of a character" },
-
-	// .clients
-	{ "clients",			PyWP_clients,			METH_VARARGS, "Retrieves the clientS object" },
-
-    { NULL, NULL, 0, NULL }
-};
-
-
-//========================================= WPChar
-
-//========================================= WPClients
-
-typedef struct {
-    PyObject_HEAD;
-} Py_WPClients;
-
-int Py_WPClientsLength( Py_WPClients *self );
-PyObject *Py_WPClientsGet( Py_WPClients *self, int Num );
-
-static PySequenceMethods Py_WPClientsSequence = {
-	(inquiry)Py_WPClientsLength,	
-	0,		
-	0,		
-	(intargfunc)Py_WPClientsGet
-};
-
-static PyTypeObject Py_WPClientsType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "WPClients",
-    sizeof(Py_WPClientsType),
-    0,
-    Py_WPDealloc,					
-    0,								
-    0,								
-    0,								
-    0,								
-    0,								
-    0,								
-    &Py_WPClientsSequence,			
-};
-
-//================================= WPContent
-
-typedef struct {
-    PyObject_HEAD;
-	cItem *Item;
-} Py_WPContent;
-
-int Py_WPContentLength( Py_WPContent *self );
-PyObject *Py_WPContentGet( Py_WPContent *self, int Num );
-
-static PySequenceMethods Py_WPContentSequence = {
-	(inquiry)Py_WPContentLength,
-	0,
-	0,
-	(intargfunc)Py_WPContentGet,
-	0,
-	0,
-	0,
-	0,
-};
-
-static PyTypeObject Py_WPContentType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "WPContent",
-    sizeof(Py_WPContentType),
-    0,
-    Py_WPDealloc,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    &Py_WPContentSequence,
-    0,
-    0,
-};
-
-//================================= WPEquipment
-
-typedef struct {
-    PyObject_HEAD;
-	cChar *Char;
-} Py_WPEquipment;
-
-int Py_WPEquipmentLength( Py_WPEquipment *self );
-PyObject *Py_WPEquipmentGet( Py_WPEquipment *self, int Num );
-
-static PySequenceMethods Py_WPEquipmentSequence = {
-	(inquiry)Py_WPEquipmentLength,
-	0,
-	0,
-	(intargfunc)Py_WPEquipmentGet,
-	0,
-	0,
-	0,
-	0,
-};
-
-static PyTypeObject Py_WPEquipmentType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "WPEquipment",
-    sizeof(Py_WPEquipmentType),
-    0,
-    Py_WPDealloc,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    &Py_WPEquipmentSequence,
-    0,
-    0,
-};
-
-//================== TARGETTING
-#include "wptargetrequests.h"
-#include "targeting.h"
-
-typedef struct {
-    PyObject_HEAD;
-	PKGx6C targetInfo;
-} Py_WPTarget;
-
-PyObject *Py_WPTargetGetAttr( Py_WPTarget *self, char *name );
-
-static PyTypeObject Py_WPTargetType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "WPTarget",
-    sizeof(Py_WPTargetType),
-    0,
-    Py_WPDealloc,
-    0,
-    (getattrfunc)Py_WPTargetGetAttr,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-};
-
-class cPythonTarget: public cTargetRequest
-{
-protected:
-	PyObject *callback_;
-	PyObject *arguments_;
-
-public:
-	cPythonTarget( PyObject *callback, PyObject *arguments );
-	virtual ~cPythonTarget() {};
-
-	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo );
-	virtual void timedout( UOXSOCKET socket );
-};
-*/
+void tuple_decref( PyObject *object )
+{	
+	if( PyTuple_Check( object ) )
+	{
+		for( UINT32 i = 0; i < PyTuple_Size( object ); ++i )
+			tuple_decref( PyTuple_GetItem( object, i ) );
+	}
+	Py_DECREF( object );
+}

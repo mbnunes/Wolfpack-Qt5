@@ -29,13 +29,37 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#ifndef __TARGET_H__
-#define __TARGET_H__
+#ifndef __GUMP_H__
+#define __GUMP_H__
 
-#include "../defines.h"
 #include "utilities.h"
-#include "../targetrequests.h"
+#include "../gumps.h"
 
+/*!
+	Internally used class for Python based Gumps
+*/
+class cPythonGump: public cGump
+{
+private:
+	QString callback;
+	PyObject *args;
+public:
+	cPythonGump( const QString &_callback, PyObject *_args ):
+		callback( _callback ), args( _args )
+	{
+		// Increase ref-count for argument list
+		tuple_incref( args );
+	}
+	
+	void handleResponse( cUOSocket* socket, gumpChoice_st choice )
+	{
+		// Call the response function (and pass it a response-object)
+
+		tuple_decref( args );
+	}
+};
+
+/*
 typedef struct {
     PyObject_HEAD;
 	Coord_cl pos;
@@ -206,5 +230,6 @@ public:
 		tuple_decref( args );
 	}
 };
+*/
 
 #endif

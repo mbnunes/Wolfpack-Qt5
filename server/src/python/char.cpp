@@ -458,9 +458,7 @@ PyObject* wpChar_damage( wpChar* self, PyObject* args )
 		return PyFalse;
 	}
 
-//	self->pChar->hp -= getArgInt( 0 );
-	tempshort = self->pChar->hp();
-	self->pChar->setHp( tempshort - getArgInt( 0 ) );
+	self->pChar->setHp( self->pChar->hp() - getArgInt( 0 ) );
 
 	if( self->pChar->hp() <= 0 )
 		self->pChar->kill();

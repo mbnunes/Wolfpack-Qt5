@@ -38,6 +38,7 @@
 #include "utilities.h"
 #include "../network/uosocket.h"
 #include "target.h"
+#include "gump.h"
 
 /*!
 	Struct for WP Python Sockets
@@ -189,7 +190,7 @@ PyObject* wpSocket_showspeech( wpSocket* self, PyObject* args )
 }
 
 /*!
-	Sends speech of a given object to the socket
+	Attachs a target request to the socket.
 */
 PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 {
@@ -231,12 +232,65 @@ PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Sends a gump to the socket. This function is used internally only.
+*/
+PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return PyFalse;
+
+	// Parameters:
+	// x, y, nomove, noclose, nodispose, serial, type, layout, text, callback, args
+	if( PyTuple_Size( args ) != 11 )
+		return PyFalse;
+
+	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) || !checkArgInt( 3 ) ||
+		!checkArgInt( 4 ) || !checkArgInt( 5 ) || !checkArgInt( 6 ) || !PyList_Check( PyTuple_GetItem( args, 7 ) ) ||
+		!PyList_Check( PyTuple_GetItem( args, 8 ) ) || !checkArgStr( 9 ) || !PyList_Check( PyTuple_GetItem( args, 10 ) ) )
+		return PyFalse;
+
+	INT32 x = getArgInt( 0 );
+	INT32 y = getArgInt( 1 );
+	bool nomove = getArgInt( 2 );
+	bool noclose = getArgInt( 3 );
+	bool nodispose = getArgInt( 4 );
+	UINT32 serial = getArgInt( 5 );
+	UINT32 type = getArgInt( 6 );
+	PyObject *layout = PyTuple_GetItem( args, 7 );
+	PyObject *texts = PyTuple_GetItem( args, 8 );
+	QString callback = getArgStr( 9 );
+	PyObject *py_args = PyList_AsTuple( PyTuple_GetItem( args, 10 ) );
+
+	cPythonGump *gump = new cPythonGump( callback, py_args );
+
+	INT32 i;
+	for( i = 0; i < PyList_Size( layout ); ++i )
+	{
+		if( PyString_Check( PyList_GetItem( layout, i ) ) )
+			gump->addRawLayout( PyString_AsString( PyList_GetItem( layout, i ) ) );
+		else
+			gump->addRawLayout( "" );
+	}
+
+	for( i = 0; i < PyList_Size( texts ); ++i )
+	{
+		if( PyString_Check( PyList_GetItem( texts, i ) ) )
+			gump->addRawText( PyString_AsString( PyList_GetItem( texts, i ) ) );
+		else
+			gump->addRawText( "" );
+	}
+
+	return PyTrue;
+}
+
 static PyMethodDef wpSocketMethods[] = 
 {
     { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
 	{ "showspeech",			(getattrofunc)wpSocket_showspeech, METH_VARARGS, "Sends raw speech to the socket." },
 	{ "disconnect",			(getattrofunc)wpSocket_disconnect, METH_VARARGS, "Disconnects the socket." },
 	{ "attachtarget",		(getattrofunc)wpSocket_attachtarget,  METH_VARARGS, "Adds a target request to the socket" },
+	{ "sendgump",			(getattrofunc)wpSocket_sendgump,  METH_VARARGS, "INTERNAL! Sends a gump to this socket." },
     { NULL, NULL, 0, NULL }
 };
 

@@ -45,6 +45,9 @@ class cTerritory;
 typedef cItem* P_ITEM;
 typedef cChar* P_CHAR;
 
+void tuple_incref( PyObject *object );
+void tuple_decref( PyObject *object );
+
 /*!
 	Things commonly used in other python-definition
 	source-files.
