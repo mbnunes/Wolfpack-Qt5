@@ -393,6 +393,14 @@
 		<sellprice>4</sellprice>
 		<weight>10.0</weight>
 	</item>
+	
+	<item id="leatherdye">
+		<name>#1041284</name>
+		<id>0xfab</id>
+		<category>Professions\Tailorer\Leather Dye Tub</category>
+		<basescripts>leatherdye</basescripts>
+		<weight>10.0</weight>
+	</item>
 
 	<item id="1015">
 		<id>0x1015</id>

@@ -49,6 +49,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed an issue with special moves on already killed characters. (Spamming the log)
   - Remoteadmin port can now be set via wolfpack.xml
   - Fixed a bug related to gaining skills with skillbonus juwelry equipped.
+  - Added Leather Dyes.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
