@@ -1,4 +1,4 @@
-"""
+﻿"""
 	\command disconnect
 	\description Disconnect the client of the chosen char.
 	\usage - <code>disconnect</code>
@@ -14,7 +14,8 @@ def disconnecttarget( char, args, target ):
 	if not target.char or target.char.npc:
 		char.socket.sysmessage( "That is not a valid character." )
 	if target.char:
-		target.char.socket.disconnect()
+		if target.char.socket:
+			target.char.socket.disconnect()
 		target.char.update()
 	return 1
 
