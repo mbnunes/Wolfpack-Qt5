@@ -26,6 +26,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="4" />
 				<makeitem section="armor_chain_coif" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 				
@@ -36,6 +38,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="7" />
 				<makeitem section="armor_chain_leggings" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 		
@@ -46,6 +50,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="9" />
 				<makeitem section="armor_chain_tunic" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 	</menu>
@@ -60,6 +66,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="3" />
 				<makeitem section="armor_ring_gloves" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 				
@@ -70,6 +78,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="7" />
 				<makeitem section="armor_ring_leggings" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 		
@@ -80,6 +90,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="6" />
 				<makeitem section="armor_ring_sleeves" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 		
@@ -90,6 +102,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="9" />
 				<makeitem section="armor_ring_tunic" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 	</menu>	
@@ -104,6 +118,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="6" />
 				<makeitem section="armor_plate_female" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 				
@@ -114,6 +130,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="11" />
 				<makeitem section="armor_plate_male" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 		
@@ -124,6 +142,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="7" />
 				<makeitem section="armor_plate_arms" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 		
@@ -134,6 +154,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="5" />
 				<makeitem section="armor_plate_gloves" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 		
@@ -144,6 +166,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="4" />
 				<makeitem section="armor_plate_gorget" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 		
@@ -154,6 +178,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="6" />
 				<makeitem section="armor_plate_helmet" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 		
@@ -164,6 +190,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="9" />
 				<makeitem section="armor_plate_leggings" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 	</menu>	
@@ -178,6 +206,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="4" />
 				<makeitem section="armor_helmets_bascinet" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 				
@@ -188,6 +218,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="4" />
 				<makeitem section="armor_helmets_nose" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>		
 				
@@ -198,6 +230,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="3" />
 				<makeitem section="armor_helmets_helmet" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>		
 				
@@ -208,6 +242,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="4" />
 				<makeitem section="armor_helmets_close" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>		
 	</menu>
@@ -222,6 +258,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="6" />
 				<makeitem section="armor_shields_buckler" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 
@@ -232,6 +270,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="11" />
 				<makeitem section="armor_shields_heater" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 		
@@ -242,6 +282,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="5" />
 				<makeitem section="armor_shields_shield" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 		
@@ -252,6 +294,8 @@
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="8" />
 				<makeitem section="armor_shields_kite" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
 	</menu>
