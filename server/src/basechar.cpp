@@ -580,8 +580,8 @@ void cBaseChar::action( unsigned char id, unsigned char speed, bool reverse )
 		}
 	}
 
-	if ( body_ < 0x190 && body_ >= 0xc8 )
-	{
+	// These translations are for animals.
+	if (bodytype() == 3) {
 		// Animal specific translation
 		switch ( id )
 		{
