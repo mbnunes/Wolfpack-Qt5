@@ -7,6 +7,20 @@
 =================================================================
 -->
 <definitions>
+	<!-- A banker -->
+	<npc id="banker">
+		<inherit>base_male</inherit>
+		<title>the Banker</title>
+		
+		<ai>8</ai>
+	</npc>
+	
+	<!-- A test (for making new NPC. easy and quickly write :) )-->
+	<npc id="test">
+		<inherit>base_male</inherit>
+		<title>the TEST</title>
+	</npc>	
+	
 	<!-- A tanner vendor -->
 	<npc id="tanner">
 		<inherit>base_male</inherit>
