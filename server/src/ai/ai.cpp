@@ -532,6 +532,10 @@ void Action_Wander::execute()
 					dir = newdir;
 				}
 
+				if (m_npc->direction() != dir) {
+					Movement::instance()->Walking( m_npc, dir, 0xFF );
+				}
+
 				// Walk in the same direction or if the direction has changed simply turn around.
 				// If there's a obstacle, change the direction slightly to see if we can get
 				// around it.
@@ -589,6 +593,11 @@ void Action_Wander::execute()
 			pos.y = pos.y + ( Q_INT16 ) floor( sin( rndphi ) * rnddist );
 
 			Q_UINT8 dir = m_npc->pos().direction( pos );
+
+			if (m_npc->direction() != dir) {
+				Movement::instance()->Walking( m_npc, dir, 0xFF );
+			}
+
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
 		}
@@ -635,6 +644,7 @@ bool Action_Wander::moveTo( const Coord_cl& pos )
 	// simply move towards the target
 	Q_UINT8 dir = m_npc->pos().direction( pos );
 	Coord_cl newPos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() );
+
 	if ( !mayWalk( m_npc, newPos ) )
 	{
 		if ( dir == 7 )
@@ -658,6 +668,12 @@ bool Action_Wander::moveTo( const Coord_cl& pos )
 				return false;
 			}
 		}
+	}
+    
+	// If we're not facing the direction we're trying to walk to,
+	// call Movement once more.
+	if (m_npc->direction() != dir) {
+		Movement::instance()->Walking( m_npc, dir, 0xFF );
 	}
 
 	return Movement::instance()->Walking( m_npc, dir, 0xFF );
@@ -693,6 +709,12 @@ bool Action_Wander::movePath( const Coord_cl& pos )
 		waitForPathCalculation = 0;
 		Coord_cl nextmove = m_npc->nextMove();
 		Q_UINT8 dir = m_npc->pos().direction( nextmove );
+
+		// Make sure we face the direction...
+		if (m_npc->direction() != dir) {
+			Movement::instance()->Walking( m_npc, dir, 0xFF );
+		}
+
 		bool result = Movement::instance()->Walking( m_npc, dir, 0xFF );
 		m_npc->popMove();
 		return result;
