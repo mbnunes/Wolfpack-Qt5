@@ -75,7 +75,7 @@ void cConsole::sendProgress( const QString& sMessage )
 {
 	send( sMessage + "... " );
 	changeColor( WPC_NORMAL );
-	progress = sMessage;
+	progress = sMessage + "... ";
 }
 
 // Print Progress Done

@@ -432,6 +432,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 
 			Console::instance()->log( LOG_MESSAGE, QString( "Loading %1 objects from %2.\n" ).arg( reader.objectCount() ).arg( filename ) );
 			Console::instance()->send( "0%" );
+			Console::instance()->setProgress( "0%" );
 
 			unsigned char type;
 			const QMap<unsigned char, QCString> &typemap = reader.typemap();
@@ -461,11 +462,12 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 					percent = loaded / count;
 					if ( percent != lastpercent )
 					{
+						Console::instance()->setProgress(QString::null);
 						unsigned int revert = QString::number( lastpercent ).length() + 1;
 						Console::instance()->rollbackChars(revert);
-
 						lastpercent = percent;
 						Console::instance()->send( QString::number( percent ) + "%" );
+						Console::instance()->setProgress(QString::number( percent ) + "%");
 					}
 					// Special Type for Tags
 				}
@@ -518,6 +520,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 			reader.close();
 
 			// Rollback the last percentage
+			Console::instance()->setProgress( QString::null );
 			unsigned int revert = QString::number( lastpercent ).length() + 1;
 			Console::instance()->rollbackChars(revert);
 

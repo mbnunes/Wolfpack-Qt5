@@ -2540,7 +2540,7 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 		P_CHAR target = World::instance()->findChar(packet->serial());
 		std::vector<unsigned int> switches = packet->choice().switches;
 
-		if (!target && switches.size() != 0) {
+		if (switches.size() == 1) {
 			target = World::instance()->findChar(switches[0]);
 		}
 
@@ -2557,7 +2557,7 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 
 	if ( it == gumps.end() )
 	{
-		sysMessage( tr( "Unexpected button input" ) );
+		sysMessage( tr( "Unexpected button input." ) );
 		return;
 	}
 

@@ -321,6 +321,8 @@ void cMaps::reload()
 */
 bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx )
 {
+	MapsPrivate* p = 0;
+
 	try
 	{
 		QDir baseFolder( basePath );
@@ -334,15 +336,22 @@ bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint ma
 				mapFileName = *it;
 			if ( ( *it ).lower() == staticsfile.lower() )
 				staticsFileName = *it;
+		}		
+
+		try {
+			p = new MapsPrivate( basePath + staticsIdxName, basePath + mapFileName, basePath + staticsFileName );
+		} catch(wpFileNotFoundException &e) {
+			Console::instance()->log(LOG_WARNING, QString("Unable to find the files for map %1.\n").arg(id));
+			return false;
 		}
 
-		MapsPrivate* p = new MapsPrivate( basePath + staticsIdxName, basePath + mapFileName, basePath + staticsFileName );
 		p->height = mapheight;
 		p->width = mapwidth;
 		p->loadDiffs( basePath, id );
 		d.insert( id, p );
 		return true;
 	} catch ( wpFileNotFoundException& e ) {
+		delete p;
 		Console::instance()->log(LOG_WARNING, e.error());
 		return false;
 	}

@@ -194,13 +194,30 @@ gumpChoice_st cUORxGumpResponse::choice()
 	gumpChoice_st choice;
 	choice.button = getInt( 11 );
 	Q_UINT32 numSwitches = getInt( 15 );
+
+	if (numSwitches > 2000) {
+		return choice;
+	}
+
 	Q_UINT32 i;
 	for ( i = 0; i < numSwitches; i++ )
 	{
 		choice.switches.push_back( getInt( 19 + 4 * i ) );
 	}
-	Q_UINT32 numTextEntries = getInt( 19 + 4 * numSwitches );
-	Q_UINT32 offset = 0;
+
+	Q_UINT32 offset = 19 + 4 * numSwitches;
+
+	if (offset >= size()) {
+		return choice;
+	}
+
+	Q_UINT32 numTextEntries = getInt( offset );
+
+	if (numTextEntries > 2000) {
+		return choice;
+	}
+
+	offset = 0;
 	for ( i = 0; i < numTextEntries; i++ )
 	{
 		Q_UINT16 textLength = getShort( 25 + 4 * numSwitches + offset );

@@ -184,6 +184,10 @@ public:
 	*/
 	void queueCommand( const QString& command );
 
+	inline void setProgress(const QString &progress) {
+		this->progress = progress;
+	}
+
 	/*!
 		\brief This function sets the text attribute for advanced
 			consoles.
