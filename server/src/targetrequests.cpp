@@ -135,7 +135,8 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 //	World::instance()->registerObject( pChar );
 //	Have been already registered by Init()
 
-	pChar->setPriv( 0x10 ); // No skill titles
+#pragma note("Show skill titles, implement with flag holder in new cChar")
+//	pChar->setPriv( 0x10 ); // No skill titles
 	pChar->setNpc(1);
 	Coord_cl newPos = socket->player()->pos();
 	newPos.x = target->x();

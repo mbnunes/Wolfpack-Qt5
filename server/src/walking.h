@@ -54,7 +54,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos );
 class cMovement
 {
 private:
-	signed char z, dispz;
+	signed char z;
 
 public:
 	void Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence );

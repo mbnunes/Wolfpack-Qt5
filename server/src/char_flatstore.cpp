@@ -29,9 +29,6 @@ enum eCharKeys
 	CHAR_ORGNAME = 0x01,
 	CHAR_TITLE,
 	CHAR_ACCOUNT,
-	CHAR_GUILDTYPE,
-	CHAR_GUILDTRAITOR,
-	CHAR_CELL,
 	CHAR_DIR,
 	CHAR_BODY,
 	CHAR_XBODY,
@@ -40,9 +37,6 @@ enum eCharKeys
 	CHAR_PRIV,
 	CHAR_PRIV2,
 	CHAR_STABLEMASTER,
-	CHAR_NPCTYPE,
-	CHAR_TIMEUNUSED,
-	CHAR_FONT,
 	CHAR_SAY,
 	CHAR_EMOTE,
 	CHAR_STRENGTH,
@@ -55,7 +49,6 @@ enum eCharKeys
 	CHAR_SPAWNREGION,
 	CHAR_STAMINA,
 	CHAR_MANA,
-	CHAR_HOLDGOLD,
 	CHAR_SHOP,
 	CHAR_OWNER,
 	CHAR_KARMA,
@@ -89,7 +82,6 @@ enum eCharKeys
 	CHAR_REATTACKAT,
 	CHAR_SPLIT,
 	CHAR_SPLITCHANCE,
-	CHAR_GUILDTOGGLE,
 	CHAR_GUILDSTONE,
 	CHAR_GUILDTITLE,
 	CHAR_GUILDFEALTY,
@@ -124,15 +116,6 @@ void cChar::save( FlatStore::OutputFile *output, bool first ) throw()
 	if( account_ )
 		output->chunkData( CHAR_ACCOUNT, (const char*)account_->login().utf8().data() );
 	
-	if( guildType() )
-		output->chunkData( CHAR_GUILDTYPE, (short)guildType() );
-
-	if( guildTraitor() )
-		output->startChunk( CHAR_GUILDTRAITOR );
-
-	if( cell() != 0 )
-		output->chunkData( CHAR_CELL, (unsigned char)cell() );
-
 	if( dir() != 0 )
 		output->chunkData( CHAR_DIR, (unsigned char)dir() );
 
@@ -153,9 +136,6 @@ void cChar::save( FlatStore::OutputFile *output, bool first ) throw()
 
 	if( stablemaster_serial() != INVALID_SERIAL )
 		output->chunkData( CHAR_STABLEMASTER, (unsigned int)stablemaster_serial() );
-
-	if( fonttype() != 3 )
-		output->chunkData( CHAR_FONT, (unsigned char)fonttype() );
 
 	if( saycolor() != 0x1700 )
 		output->chunkData( CHAR_SAY, (unsigned short)saycolor() );
@@ -292,9 +272,6 @@ void cChar::save( FlatStore::OutputFile *output, bool first ) throw()
 	if( splitchnc() )
 		output->chunkData( CHAR_SPLITCHANCE, (unsigned char)splitchnc() );
 
-	if( guildtoggle() )
-		output->startChunk( CHAR_GUILDTOGGLE );
-
 	if( guildstone() != INVALID_SERIAL )
 		output->chunkData( CHAR_GUILDSTONE, (unsigned int)guildstone() );
 
@@ -367,18 +344,6 @@ bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 			account_->addCharacter( this );
 		break;
 
-	case CHAR_GUILDTYPE:
-		input->readShort( GuildType );
-		break;
-
-	case CHAR_GUILDTRAITOR:
-		GuildTraitor = true;
-		break;
-
-	case CHAR_CELL:
-		input->readUChar( cell_ );
-		break;
-
 	case CHAR_DIR:
 		input->readUChar( dir_ );
 		break;
@@ -409,10 +374,6 @@ bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 
 	case CHAR_STABLEMASTER:
 		input->readUInt( (unsigned int&)stablemaster_serial_ );
-		break;
-
-	case CHAR_FONT:
-		input->readUChar( fonttype_ );
 		break;
 
 	case CHAR_SAY:
@@ -603,10 +564,6 @@ bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 
 	case CHAR_SPLITCHANCE:
 		input->readUChar( splitchnc_ );
-		break;
-
-	case CHAR_GUILDTOGGLE:
-		guildtoggle_ = true;
 		break;
 
 	case CHAR_GUILDSTONE:

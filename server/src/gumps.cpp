@@ -493,9 +493,9 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			case 28:
 				char_->setSt2( hex2dec( it->second ).toShort() );
 				break;
-			case 29:
-				char_->setDecDex( hex2dec( it->second ).toShort() );
-				break;
+//			case 29:
+//				char_->setDecDex( hex2dec( it->second ).toShort() );
+//				break;
 			case 30:
 				char_->setIn2( hex2dec( it->second ).toShort() );
 				break;

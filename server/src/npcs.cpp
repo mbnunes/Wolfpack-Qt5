@@ -133,7 +133,8 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 	P_CHAR pChar = new cChar;
 	pChar->Init();
 
-	pChar->setPriv( 0x10 );
+#pragma note("Show skill titles, implement with flag holder in new cChar")
+//	pChar->setPriv( 0x10 );
 	pChar->setNpc(1);
 	pChar->setLoDamage(1);
 	pChar->setHiDamage(1);

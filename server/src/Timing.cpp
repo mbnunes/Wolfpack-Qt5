@@ -150,7 +150,7 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 				if (pc->regen3() + (c*interval) <= currenttime && pc->mn() <= pc->in())
 				{
 				pc->setMn( pc->mn() + 1 );
-				if( pc->med() && pc->mn() <= pc->mn2() )
+				if( pc->med() )
 				
 					if (pc->mn()>pc->in())
 					{
@@ -350,10 +350,14 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 			bgsound( pc );
 	}
 
+/*
 	// Reset spirit-speak
 	if( pc->spiritspeaktimer() > 0 && pc->spiritspeaktimer() <= uiCurrentTime )
 		pc->setSpiritSpeakTimer(0);
+*/
 	
+#pragma note("TODO: jail reimplementation with xml")
+/*
 	// Jail stuff
 	if( pc->cell() > 0 )
 	{
@@ -378,7 +382,8 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 				socket->sysMessage( tr( "You have been released." ) );
 			}		
 		}
-	}	
+	}
+*/
 
 	if( pc->trackingTimer() && ( pc->trackingTimer() < currenttime ) )
 	{

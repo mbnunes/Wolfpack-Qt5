@@ -90,7 +90,6 @@ extern long int oldtime, newtime;
 #define VERFILE_TILEDATA 0x1E
 #define VERFILE_ANIMDATA 0x1F
 #define TILEDATA_TILES 0x68800
-#define SPIRITSPEAKTIMER 30 // spiritspeak lasts at least 30 seconds, additional time is calculated by Skill & INT
 //////////////////
 
 

@@ -97,12 +97,9 @@ cChar::cChar( const P_CHAR mob )
 	this->effects_ = mob->effects();
 	this->owner_ = new cChar( mob->owner() );
 	this->trackingTarget_ = mob->trackingTarget();
-	this->GuildType = mob->guildType();
-	this->GuildTraitor = mob->guildTraitor();
 	this->orgname_ = mob->orgname();
 	this->title_ = mob->title();
 	this->sex_ = mob->sex();
-	this->unicode_ = mob->unicode();
 	this->id_ = mob->id();
 	this->account_ = mob->account();
 	this->incognito_ = mob->incognito();
@@ -150,7 +147,6 @@ cChar::cChar( const P_CHAR mob )
 	this->trainer_ = mob->trainer();
 	this->trainingplayerin_ = mob->trainingplayerin();
 	this->cantrain_ = mob->cantrain();
-	this->guildtoggle_ = mob->guildtoggle();
 	this->guildtitle_ = mob->guildtitle();
 	this->guildfealty_ = mob->guildfealty();
 	this->guildstone_ = mob->guildstone();
@@ -166,19 +162,15 @@ cChar::cChar( const P_CHAR mob )
 
 	this->socket_ = mob->socket();
 	this->weight_ = mob->weight();
-	this->priv = mob->getPriv();
 	this->dx = mob->realDex();
 	this->dx2 = mob->decDex();
 	this->tmpDex = ( mob->effDex() > dx ) ? ( mob->effDex() - dx ) : 0;
 	this->loot_ = mob->lootList();
-	this->fonttype_ = mob->fonttype();
 	this->saycolor_ = mob->saycolor();
 	this->emotecolor_ = mob->emotecolor();
 	this->st_ = mob->st();
 	this->st2_ = mob->st2();
-	this->may_levitate_ = mob->may_levitate();
-	
-	this->dispz_ = mob->dispz();
+
 	this->dir_ = mob->dir();
 	this->xid_ = mob->xid();
 	this->priv2_ = mob->priv2();
@@ -187,15 +179,10 @@ cChar::cChar( const P_CHAR mob )
 	this->hp_ = mob->hp();
 	this->stm_ = mob->stm();
 	this->mn_ = mob->mn();
-	this->mn2_ = mob->mn2();
 	this->hidamage_ = mob->hidamage();
 	this->lodamage_ = mob->lodamage();
 	this->npc_ = mob->npc();
 	this->shop_ = mob->shop();
-	this->cell_ = mob->cell();
-	this->jailtimer_ = mob->jailtimer();
-	this->jailsecs_ = mob->jailsecs();
-	this->robe_ = mob->robe();
 	this->karma_ = mob->karma();
 	this->fame_ = mob->fame();
 	this->kills_ = mob->kills();
@@ -225,14 +212,7 @@ cChar::cChar( const P_CHAR mob )
 	this->setRegion( cAllTerritories::getInstance()->region( mob->region()->name() ) );
 	this->skilldelay_ = mob->skilldelay();
 	this->objectdelay_ = mob->objectdelay();
-	this->making_ = mob->making();
 	this->lastTarget_ = mob->lastTarget();
-	this->blocked_ = mob->blocked();
-	this->dir2_ = mob->dir2();
-	this->spiritspeaktimer_ = mob->spiritspeaktimer();
-	this->spattack_ = mob->spattack();
-	this->spadelay_ = mob->spadelay();
-	this->spatimer_ = mob->spatimer();
 	this->taming_ = mob->taming();
 	this->summontimer_ = mob->summontimer();
 	this->VisRange_ = mob->VisRange();
@@ -305,18 +285,15 @@ void cChar::Init( bool createSerial )
 	this->socket_ = 0;
 	this->setAntispamtimer(0);//LB - anti spam
 
-	this->setUnicode(true); // This is set to 1 if the player uses unicode speech, 0 if not
 	this->setPos( Coord_cl(100, 100, 0 ) );
 	this->dir_=0; //&0F=Direction
 	this->xid_ = 0x0190;
 	this->setId(0x0190);
 	this->setSkin(0); // Skin color
 	this->setXSkin(0); // Skin color
-	this->setPriv(0);	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
 	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
 	this->priv2_=0;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
 	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
-	this->setFontType( 3 ); // Speech font to use
 	this->setSayColor( 0x1700 ); // Color for say messages
 	this->setEmoteColor( 0x0023 ); // Color for emote messages
 	this->setSt( 50 ); // Strength
@@ -329,23 +306,14 @@ void cChar::Init( bool createSerial )
 	this->hp_=50; // Hitpoints
 	this->stm_=50; // Stamina
 	this->mn_=50; // Mana
-	this->mn2_=0; // Reserved for calculation
 	this->hidamage_=0; //NPC Damage
 	this->lodamage_=0; //NPC Damage
-	this->jailtimer_=0; //blackwinds jail system 
-    this->jailsecs_=0;
 	
 	this->setCreationDay(getPlatformDay());
 	this->npc_=false;
 	this->shop_=false; //1=npc shopkeeper
-	this->cell_=0; // Reserved for jailing players 
-	            // bugfix, LB 0= player not in jail !, not -1
 	
-	this->jailtimer_=0; //blackwinds jail system
-	this->jailsecs_=0;
-
 	this->setTamed(false); // True if NPC is tamed
-	this->robe_ = -1; // Serial number of generated death robe (If char is a ghost)
 	this->karma_ = 0;
 	this->fame_ = 0;
 	this->kills_ = 0; // PvP Kills
@@ -380,13 +348,6 @@ void cChar::Init( bool createSerial )
 	this->region_= NULL;
 	this->skilldelay_ = 0;
 	this->objectdelay_ = 0;
-	this->making_ = -1; // skill number of skill using to make item, 0 if not making anything.
-	this->blocked_ = 0;
-	this->dir2_ = 0;
-	this->spiritspeaktimer_ = 0; // Timer used for duration of spirit speak
-	this->spattack_ = 0;
-	this->spadelay_ = 0;
-	this->spatimer_ = 0;
 	this->taming_ = 0; //Skill level required for taming
 	this->summontimer_ = 0; //Timer for summoned creatures.
 	this->trackingTimer_ = 0; // Timer used for the duration of tracking
@@ -408,10 +369,8 @@ void cChar::Init( bool createSerial )
 	this->setTrainingplayerin(0); // Index in skillname of the skill the NPC is training the player in
 	this->setCantrain(true);
 	// Begin of Guild Related Character information (DasRaetsel)
-	this->setGuildtoggle(false);		// Toggle for Guildtitle								(DasRaetsel)
 	this->setGuildtitle(QString::null);	// Title Guildmaster granted player						(DasRaetsel)
 	this->setGuildfealty(INVALID_SERIAL);		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
-	this->GuildTraitor=false; 
 	//this->flag=0x04; //1=red 2=grey 4=Blue 8=green 10=Orange
 	setcharflag( this );
 	// End of Guild Related Character information
@@ -433,7 +392,6 @@ void cChar::Init( bool createSerial )
     this->setMurdererSer(INVALID_SERIAL);
     this->setSpawnregion(0);
     this->setStablemaster_serial(INVALID_SERIAL);
-	this->GuildType = 0;
 	this->setFood( 0 );
 
 	this->skills.resize( ALLSKILLS );
@@ -756,26 +714,25 @@ void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 {
 	cUObject::buildSqlString( fields, tables, conditions );
 	fields.push_back( "characters.name,characters.title,characters.account,characters.creationday" );
-	fields.push_back( "characters.guildtype,characters.guildtraitor,characters.cell" );
 	fields.push_back( "characters.dir,characters.body,characters.xbody,characters.skin" );
 	fields.push_back( "characters.xskin,characters.priv,characters.stablemaster,characters.npctype" );
-	fields.push_back( "characters.allmove,characters.font,characters.say" );
+	fields.push_back( "characters.allmove,characters.say" );
 	fields.push_back( "characters.emote,characters.strength,characters.strength2,characters.dexterity" );
 	fields.push_back( "characters.dexterity2,characters.intelligence,characters.intelligence2" );
 	fields.push_back( "characters.hitpoints,characters.spawnregion,characters.stamina" );
 	fields.push_back( "characters.mana,characters.npc,characters.holdgold,characters.shop" );
-	fields.push_back( "characters.owner,characters.robe,characters.karma,characters.fame" );
+	fields.push_back( "characters.owner,characters.karma,characters.fame" );
 	fields.push_back( "characters.kills,characters.deaths,characters.dead,characters.fixedlight" );
 	fields.push_back( "characters.cantrain,characters.def" );
 	fields.push_back( "characters.lodamage,characters.hidamage,characters.war,characters.npcwander" );
 	fields.push_back( "characters.oldnpcwander,characters.carve,characters.fx1,characters.fy1,characters.fz1" );
 	fields.push_back( "characters.fx2,characters.fy2,characters.spawn,characters.hidden,characters.hunger" );
-	fields.push_back( "characters.npcaitype,characters.spattack,characters.spadelay,characters.taming" );
+	fields.push_back( "characters.npcaitype,characters.taming" );
 	fields.push_back( "characters.summontimer,characters.poison,characters.poisoned" );
 	fields.push_back( "characters.fleeat,characters.reattackat,characters.split,characters.splitchance" );
-	fields.push_back( "characters.guildtoggle,characters.guildstone,characters.guildtitle,characters.guildfealty" );
-	fields.push_back( "characters.murderrate,characters.jailtimer" );
-	fields.push_back( "characters.jailsecs,characters.lootlist,characters.food,characters.profile,characters.guarding,characters.destination" );
+	fields.push_back( "characters.guildstone,characters.guildtitle,characters.guildfealty" );
+	fields.push_back( "characters.murderrate" );
+	fields.push_back( "characters.lootlist,characters.food,characters.profile,characters.guarding,characters.destination" );
 	tables.push_back( "characters" );
 	conditions.push_back( "uobjectmap.serial = characters.serial" );
 }
@@ -794,9 +751,6 @@ void cChar::load( char **result, UINT16 &offset )
 	title_ = result[offset++];
 	setAccount( Accounts::instance()->getRecord( result[offset++] ) );
 	creationday_ = atoi( result[offset++] );
-	GuildType = atoi( result[offset++] );
-	GuildTraitor = atoi( result[offset++] );
-	cell_ = atoi( result[offset++] );
 	dir_ = atoi( result[offset++] );
 	xid_ = atoi( result[offset++] ); setId( xid_ );
 	xid_ = atoi( result[offset++] );
@@ -805,7 +759,6 @@ void cChar::load( char **result, UINT16 &offset )
 	priv = atoi( result[offset++] );
 	stablemaster_serial_ = atoi( result[offset++] );
 	priv2_ = atoi( result[offset++] );
-	fonttype_ = atoi( result[offset++] );
 	saycolor_ = atoi( result[offset++] );
 	emotecolor_ = atoi( result[offset++] );
 	st_ = atoi( result[offset++] );
@@ -829,7 +782,6 @@ void cChar::load( char **result, UINT16 &offset )
 	if( (SERIAL)owner_ == INVALID_SERIAL )
 		owner_ = 0;
 
-	robe_ = atoi( result[offset++] );
 	karma_ = atoi( result[offset++] );
 	fame_ = atoi( result[offset++] );
 	kills_ = atoi( result[offset++] );
@@ -853,8 +805,6 @@ void cChar::load( char **result, UINT16 &offset )
 	hidden_ = atoi( result[offset++] );
 	hunger_ = atoi( result[offset++] );
 	npcaitype_ = atoi( result[offset++] );
-	spattack_ = atoi( result[offset++] );
-	spadelay_ = atoi( result[offset++] );
 	taming_ = atoi( result[offset++] );
 	summontimer_ = atoi( result[offset++] );
 	if( summontimer_ )
@@ -866,16 +816,11 @@ void cChar::load( char **result, UINT16 &offset )
 	reattackat_ = atoi( result[offset++] );
 	split_ = atoi( result[offset++] );
 	splitchnc_ = atoi( result[offset++] );
-	guildtoggle_ = atoi( result[offset++] );
 	guildstone_ = atoi( result[offset++] );
 	guildtitle_ = result[offset++];
 	guildfealty_ = atoi( result[offset++] );
 	murderrate_ = atoi( result[offset++] );
-	jailtimer_ = atoi( result[offset++] );
-	if (jailtimer_ != 0)
-		jailtimer_ += uiCurrentTime;
 
-	jailsecs_ = atoi( result[offset++] );
 	loot_ = result[offset++];
 	food_ = atoi( result[offset++] );
 	profile_ = result[offset++];
@@ -941,9 +886,6 @@ void cChar::save()
 			addStrField( "account", account_->login() );
 		
 		addField( "creationday", creationday_ );
-		addField( "guildtype", GuildType );
-		addField( "guildtraitor", GuildTraitor );
-		addField( "cell", cell_ );
 		addField( "dir", dir_ );
 		
 		addField( "body", (incognito() || polymorph()) ? xid_ : id_ );
@@ -954,7 +896,6 @@ void cChar::save()
 		addField( "stablemaster", stablemaster_serial_ );
 		
 		addField( "allmove", priv2_);
-		addField( "font", fonttype_);
 		addField( "say", saycolor_);
 		addField( "emote", emotecolor_);
 		addField( "strength", st_);
@@ -972,7 +913,6 @@ void cChar::save()
 		
 		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
 		
-		addField( "robe", robe_);
 		addField( "karma", karma_);
 		addField( "fame", fame_);
 		addField( "kills", kills_);
@@ -996,8 +936,6 @@ void cChar::save()
 		addField( "hidden", hidden_);
 		addField( "hunger", hunger_);
 		addField( "npcaitype", npcaitype_);
-		addField( "spattack", spattack_);
-		addField( "spadelay", spadelay_);
 		addField( "taming", taming_);
 		unsigned int summtimer = summontimer_ - uiCurrentTime;
 		addField( "summonremainingseconds", summtimer);
@@ -1007,14 +945,10 @@ void cChar::save()
 		addField( "reattackat", reattackat_);
 		addField( "split", split_);
 		addField( "splitchance",	splitchnc_);
-		addField( "guildtoggle",	guildtoggle_);  
 		addField( "guildstone", guildstone_);  
 		addField( "guildtitle", guildtitle_);  
 		addField( "guildfealty", guildfealty_);  
 		addField( "murderrate", murderrate_);
-		unsigned int jtimer = jailtimer_-uiCurrentTime;
-		addField( "jailtimer", jtimer); 
-		addField( "jailsecs", jailsecs_); 
 		addStrField( "lootlist", loot_);
 		addField( "food", food_);
 		addStrField( "profile", profile_ );
@@ -1499,10 +1433,6 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "ai" )
 		this->setNpcAIType( Value.toInt() );
 
-	//<priv1>0</priv1>
-	else if( TagName == "priv1" )
-		this->setPriv( Value.toUShort() );
-
 	//<priv2>0</priv2>
 	else if( TagName == "priv2" )
 		this->priv2_ = Value.toUShort();
@@ -1561,10 +1491,6 @@ void cChar::processNode( const QDomElement &Tag )
 		restock();
 	}
 		
-	//<spattack>3</spattack>
-	else if( TagName == "spattack" )
-		this->spattack_ = Value.toInt();
-
 	//<split>1</split>
 	else if( TagName == "split" )
 		this->setSplit( Value.toUShort() );
@@ -1576,10 +1502,6 @@ void cChar::processNode( const QDomElement &Tag )
 	//<saycolor>0x110</saycolor>
 	else if( TagName == "saycolor" )
 		this->setSayColor( Value.toUShort() );
-
-	//<spadelay>3</spadelay>
-	else if( TagName == "spadelay" )
-		this->spadelay_ = Value.toInt();
 
 	//<title>the king</title>
 	else if( TagName == "title" )
@@ -1767,7 +1689,7 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	{
 		// Take the dead-status into account
 		if( dead_ && !isNpc() )
-			if( !socket->player()->dead() && !socket->player()->spiritspeaktimer() && !socket->player()->isGMorCounselor() )
+			if( !socket->player()->dead() && !socket->player()->isGMorCounselor() )
 				textSpeech->setText( ghostSpeech );
 			else
 				textSpeech->setText( message );
@@ -1783,7 +1705,7 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 				{
 					// Take the dead-status into account
 					if( dead_ && !isNpc() )
-						if( !mSock->player()->dead() && !mSock->player()->spiritspeaktimer() && !mSock->player()->isGMorCounselor() )
+						if( !mSock->player()->dead() && !mSock->player()->isGMorCounselor() )
 							textSpeech->setText( ghostSpeech );
 						else
 							textSpeech->setText( message );
@@ -2661,7 +2583,6 @@ void cChar::kill()
 		P_ITEM pItem = Items->createScriptItem( "204e" );
 		if( pItem )
 		{
-			robe_ = pItem->serial();
 			this->addItem( cChar::OuterTorso, pItem );
 			pItem->update();
 		}
@@ -3921,11 +3842,8 @@ void cChar::criminal()
 stError *cChar::setProperty( const QString &name, const cVariant &value )
 {
 	changed( SAVE|TOOLTIP );
-	SET_INT_PROPERTY( "guildtype", GuildType )
-	else SET_INT_PROPERTY( "guildtraitor", GuildTraitor )
-	else SET_STR_PROPERTY( "orgname", orgname_ )
+	SET_STR_PROPERTY( "orgname", orgname_ )
 	else SET_STR_PROPERTY( "title", title_ )
-	else SET_INT_PROPERTY( "unicode", unicode_ )
 	else if( name == "account" )
 	{
 		setAccount( Accounts::instance()->getRecord( value.toString() ) );
@@ -4008,7 +3926,6 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "trainer", trainer_ )
 	else SET_INT_PROPERTY( "trainingplayerin", trainingplayerin_ )
 	else SET_INT_PROPERTY( "cantrain", cantrain_ )
-	else SET_INT_PROPERTY( "guildtoggle", guildtoggle_ )
 	else SET_INT_PROPERTY( "guildtitle", guildtitle_ )
 	else SET_INT_PROPERTY( "guildfealty", guildfealty_ )
 	else if( name == "guildstone" )
@@ -4047,7 +3964,6 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	else SET_STR_PROPERTY( "lootlist", loot_ )
-	else SET_INT_PROPERTY( "font", fonttype_ )
 	else SET_INT_PROPERTY( "saycolor", saycolor_ )
 	else SET_INT_PROPERTY( "emotecolor", emotecolor_ )
 	else SET_INT_PROPERTY( "strength", st_ )
@@ -4056,7 +3972,6 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "strength2", st2_ )
 	else SET_INT_PROPERTY( "dexterity2", dx2 )
 	else SET_INT_PROPERTY( "intelligence2", in2_ )
-	else SET_INT_PROPERTY( "maylevitate", may_levitate_ )
 	else SET_INT_PROPERTY( "direction", dir_ )
 	else SET_INT_PROPERTY( "xid", xid_ )
 	else SET_INT_PROPERTY( "priv", priv )
@@ -4064,14 +3979,10 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "health", hp_ )
 	else SET_INT_PROPERTY( "stamina", stm_ )
 	else SET_INT_PROPERTY( "mana", mn_ )
-	else SET_INT_PROPERTY( "mana2", mn2_ )
 	else SET_INT_PROPERTY( "hidamage", hidamage_ )
 	else SET_INT_PROPERTY( "lodamage", lodamage_ )
 	else SET_INT_PROPERTY( "npc", npc_ )
 	else SET_INT_PROPERTY( "shop", shop_ )
-	else SET_INT_PROPERTY( "cell", cell_ )
-	else SET_INT_PROPERTY( "jailtimer", jailtimer_ )
-	else SET_INT_PROPERTY( "jailsecs", jailsecs_ )
 	else SET_INT_PROPERTY( "karma", karma_ )
 	else SET_INT_PROPERTY( "fame", fame_ )
 	else SET_INT_PROPERTY( "kills", kills_ )
@@ -4109,9 +4020,7 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "fz1", fz1_ )
 	else SET_INT_PROPERTY( "skilldelay", skilldelay_ )
 	else SET_INT_PROPERTY( "objectdelay", objectdelay_ )
-	else SET_INT_PROPERTY( "making", making_ )
 	else SET_INT_PROPERTY( "lasttarget", lastTarget_  )
-	else SET_INT_PROPERTY( "direction2", dir2_ )
 	else SET_INT_PROPERTY( "totame", taming_ )
 	else SET_INT_PROPERTY( "summontimer", summontimer_) 
 	else SET_INT_PROPERTY( "visrange", VisRange_ )
@@ -4141,11 +4050,8 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 
 stError *cChar::getProperty( const QString &name, cVariant &value ) const
 {
-	GET_PROPERTY( "guildtype", GuildType )
-	GET_PROPERTY( "guildtraitor", GuildTraitor )
 	GET_PROPERTY( "orgname", orgname_ )
 	GET_PROPERTY( "title", title_ )
-	GET_PROPERTY( "unicode", unicode_ )
 	GET_PROPERTY( "account", ( account_ != 0 ) ? account_->login() : QString( "" ) )
 	GET_PROPERTY( "incognito", incognito_ )
 	GET_PROPERTY( "polymorph", polymorph_ )
@@ -4190,7 +4096,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "trainer", FindCharBySerial( trainer_ ) )
 	GET_PROPERTY( "trainingplayerin", trainingplayerin_ )
 	GET_PROPERTY( "cantrain", cantrain_ )
-	GET_PROPERTY( "guildtoggle", guildtoggle_ )
 	GET_PROPERTY( "guildtitle", guildtitle_ )
 	GET_PROPERTY( "guildfealty", guildfealty_ )
 	GET_PROPERTY( "guildstone", FindItemBySerial( guildstone_ ) )
@@ -4203,7 +4108,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "weight", weight_ )
 	GET_PROPERTY( "stones", weight_ / 10 )
 	GET_PROPERTY( "lootlist", loot_ )
-	GET_PROPERTY( "font", fonttype_ )
 	GET_PROPERTY( "saycolor", saycolor_ )
 	GET_PROPERTY( "emotecolor", emotecolor_ )
 	GET_PROPERTY( "strength", st_ )
@@ -4212,7 +4116,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "strength2", st2_ )
 	GET_PROPERTY( "dexterity2", dx2 )
 	GET_PROPERTY( "intelligence2", in2_ )
-	GET_PROPERTY( "maylevitate", may_levitate_ )
 	GET_PROPERTY( "direction", dir_ )
 	GET_PROPERTY( "xid", xid_ )
 	GET_PROPERTY( "priv", priv )
@@ -4220,14 +4123,10 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "health", hp_ )
 	GET_PROPERTY( "stamina", stm_ )
 	GET_PROPERTY( "mana", mn_ )
-	GET_PROPERTY( "mana2", mn2_ )
 	GET_PROPERTY( "hidamage", hidamage_ )
 	GET_PROPERTY( "lodamage", lodamage_ )
 	GET_PROPERTY( "npc", npc_ )
 	GET_PROPERTY( "shop", shop_ )
-	GET_PROPERTY( "cell", cell_ )
-	GET_PROPERTY( "jailtimer", (int)jailtimer_ )
-	GET_PROPERTY( "jailsecs", jailsecs_ )
 	GET_PROPERTY( "karma", karma_ )
 	GET_PROPERTY( "fame", fame_ )
 	GET_PROPERTY( "kills", (int)kills_ )
@@ -4257,7 +4156,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "region", ( region_ != 0 ) ? region_->name() : QString( "" ) )
 	GET_PROPERTY( "skilldelay", (int)skilldelay_ )
 	GET_PROPERTY( "objectdelay", (int)objectdelay_ )
-	GET_PROPERTY( "making", making_ )
 	if( name == "lasttarget" )
 	{
 		if( isCharSerial( lastTarget_ ) )
@@ -4267,7 +4165,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 
 		return 0;
 	}
-	GET_PROPERTY( "direction2", dir2_ )
 	GET_PROPERTY( "totame", taming_ )
 	GET_PROPERTY( "summontimer", (int)summontimer_) 
 	GET_PROPERTY( "visrange", VisRange_ )

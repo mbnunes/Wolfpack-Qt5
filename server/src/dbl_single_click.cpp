@@ -698,18 +698,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		case 302:	// Deciphered treasure map?
 			return;
 // END OF: By Polygon
-		case 401: // Blackwinds JAIL BALL 
-            if (pc_currchar->jailsecs()>0) 
-			{ 
-				 socket->showSpeech(pi, tr("You have %1 seconds left in the jail").arg((pc_currchar->jailtimer() - uiCurrentTime) / MY_CLOCKS_PER_SEC));
-			} 
-            else 
-			{ 
-	             socket->sysMessage(tr("Crystall ball shatters..")); 
-	             pi->ReduceAmount(1);
-				 pi->update();
-			}
-            return;// End jailball
 	    case 402: // Blackwinds Reputation ball 
 			{ 
 				pc_currchar->soundEffect( 0x01ec ); // Play sound effect for player 

@@ -139,7 +139,6 @@ protected:
 	unsigned long int housedecay_secs_;
 	unsigned int default_jail_time_;
 	unsigned char showCVCS_;
-	unsigned int spiritspeaktimer_;
 	unsigned int spawnRegionCheckTime_;
 	unsigned int secondsPerUOMinute_;
 	bool cacheMulFiles_;
@@ -319,7 +318,6 @@ public:
 	unsigned long int housedecay_secs() const;
 	unsigned int default_jail_time() const;
 	unsigned char showCVCS() const;
-	unsigned int spiritspeaktimer() const;
 	bool cacheMulFiles() const;
 	unsigned int spawnRegionCheckTime() const;
 	unsigned int secondsPerUOMinute() const;
@@ -963,11 +961,6 @@ inline unsigned int cSrvParams::basetimer() const
 inline unsigned int cSrvParams::redisplaytime() const
 {
 	return redisplaytime_;
-}
-
-inline unsigned int cSrvParams::spiritspeaktimer() const
-{
-	return spiritspeaktimer_;
 }
 
 inline bool cSrvParams::cacheMulFiles() const

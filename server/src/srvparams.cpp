@@ -148,7 +148,6 @@ void cSrvParams::readData()
 	snoopdelay_			    = getNumber("Game Speed", "Snoop Delay", 7, true);
 	housedecay_secs_	    = getNumber("Game Speed", "House Decay-Sec.", 604800, true);
 	default_jail_time_	    = getNumber("Game Speed", "Default Jail Time", 86400, true);
-	spiritspeaktimer_	    = getNumber("Game Speed", "Spirit Speak Timer", 60, true);
 	spawnRegionCheckTime_   = getNumber("Game Speed", "SpawnRegion Check Time", 300, true);
 	decayTime_				= getNumber("Game Speed", "Decay Time", 300, true);
 	secondsPerUOMinute_     = getNumber("Game Speed", "Seconds Per UO Minute", 5, true);

@@ -727,7 +727,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 
 	pChar->setSex( packet->gender() );
 	
-	pChar->setPriv( SrvParams->defaultpriv1() );
 	pChar->setPriv2( SrvParams->defaultpriv2() );
 
 	pChar->setName( packet->name() );
@@ -1716,6 +1715,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		return;
 	}
 
+/*
 	// No Fighting in jail
 	if( _player->cell() > 0 )
 	{
@@ -1723,6 +1723,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		send( &attack );
 		return;
 	}
+*/
 
 	// Player is dead
 	if( _player->dead() )

@@ -99,12 +99,9 @@ protected:
 
 	SERIAL					trackingTarget_;
 //	bool					animated;
-	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
-	bool					GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
 	QString					orgname_;//original name - for Incognito
 	QString					title_;
 	bool					sex_;
-	bool					unicode_; // This is set to 1 if the player uses unicode speech, 0 if not
 	unsigned short			id_;
 	AccountRecord*			account_; // changed to signed, lb
 	bool					incognito_;// AntiChrist - true if under incognito effect
@@ -158,7 +155,6 @@ protected:
 	char					trainingplayerin_; // Index in skillname of the skill the NPC is training the player in
 	bool					cantrain_;
 	// Begin of Guild Related Character information (DasRaetsel)
-	bool					guildtoggle_;		// Toggle for Guildtitle								(DasRaetsel)
 	QString					guildtitle_;			// Title Guildmaster granted player						(DasRaetsel)
 	SERIAL					guildfealty_;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
 	SERIAL					guildstone_;			// Number of guild player is in (0=no guild)			(DasRaetsel)
@@ -194,13 +190,10 @@ protected:
 	signed short			dx2;		// holds the 3 digits behind the decimal point. Reserved for calculation
 	signed short			tmpDex;	// holds all temporary effects on Dex, eg. plate, spells, potions
 	QString					loot_; // holds the lootlist section
-	unsigned char			fonttype_; // Speech font to use
 	UI16					saycolor_; // Color for say messages
 	unsigned short			emotecolor_; // Color for emote messages
 	signed short			st_; // Strength
 	signed short			st2_; // Reserved for calculation
-	bool					may_levitate_;
-	signed char				dispz_;   
 	unsigned char			dir_; //&0F=Direction
 	unsigned short			xid_; // Backup of body type for ghosts
 	unsigned char			priv2_;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
@@ -209,15 +202,10 @@ protected:
 	signed short			hp_; // Hitpoints
 	signed short			stm_; // Stamina
 	signed short			mn_; // Mana
-	signed short			mn2_; // Reserved for calculation
 	int						hidamage_; //NPC Damage
 	int						lodamage_; //NPC Damage
 	bool					npc_;	// true = Character is an NPC
 	bool					shop_;	// true = npc shopkeeper
-	unsigned char			cell_; // Reserved for jailing players
-	unsigned int			jailtimer_; // Blackwind - Timer used for crystall ball and jail time.
-	int						jailsecs_;	//             Tweak this value by using command tweak before jailing person 
-	int						robe_; // Serial number of generated death robe (If char is a ghost)
 	int						karma_;
 	signed int				fame_;	
 	unsigned int			kills_; //PvP Kills
@@ -245,14 +233,7 @@ protected:
 	cTerritory*				region_;
 	unsigned int			skilldelay_;
 	unsigned int			objectdelay_;
-	int						making_; // skill number of skill using to make item, 0 if not making anything.
 	SERIAL					lastTarget_;
-	char					blocked_;
-	char					dir2_;
-	unsigned int			spiritspeaktimer_; // Timer used for duration of spirit speak
-	int						spattack_;
-	int						spadelay_;
-	unsigned int			spatimer_;
 	int						taming_; //Skill level required for taming
 	unsigned int			summontimer_; //Timer for summoned creatures.
 	UINT8					VisRange_;
@@ -295,12 +276,9 @@ public:
 	Coord_cl nextMove( void );
 
 	// Getters
-	short					guildType() const;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
-	bool					guildTraitor() const; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
 	QString					orgname() const;	  //original name - for Incognito
 	QString					title() const;
 	bool					sex() const; // false/0 - male
-	bool					unicode() const; // This is set to 1 if the player uses unicode speech, 0 if not
 	AccountRecord*			account() const; // changed to signed, lb
 	bool					incognito() const { return incognito_;	}
 	bool					polymorph() const { return polymorph_;	}
@@ -350,7 +328,6 @@ public:
 	SERIAL					trainer() const { return trainer_;}
 	char					trainingplayerin() const { return trainingplayerin_;}
 	bool					cantrain() const { return cantrain_; }
-	bool					guildtoggle() const { return guildtoggle_; }
 	QString					guildtitle() const { return guildtitle_; }
 	SERIAL					guildfealty() const { return guildfealty_;}
 	cGuildStone*			getGuildstone();
@@ -367,13 +344,10 @@ public:
 	unsigned short			stones() const { return (weight_ / 10); }
 	QString					lootList() const { return loot_; }
 	UINT32					trackingTimer() const { return trackingTimer_; }
-	unsigned char			fonttype() const { return fonttype_; }
 	UI16					saycolor() const { return saycolor_; }
 	unsigned short			emotecolor() const { return emotecolor_; }
 	signed short			st() const { return st_; }
 	signed short			st2() const { return st2_; }
-	bool					may_levitate() const { return may_levitate_; }
-	signed char				dispz() const { return dispz_; }   
 	unsigned char			dir() const { return dir_; }
 	unsigned short			xid() const { return xid_; }
 	unsigned char			priv2() const { return priv2_; }
@@ -382,15 +356,10 @@ public:
 	signed short			hp() const { return hp_; }
 	signed short			stm() const { return stm_; }
 	signed short			mn() const { return mn_; }
-	signed short			mn2() const { return mn2_; }
 	int						hidamage() const { return hidamage_; }
 	int						lodamage() const { return lodamage_; }
 	bool					npc() const { return npc_; }
 	bool					shop() const { return shop_; }
-	unsigned char			cell() const { return cell_; }
-	unsigned int			jailtimer() const { return jailtimer_; }
-	int						jailsecs() const { return jailsecs_; }
-	int						robe() const { return robe_; }
 	int						karma() const { return karma_; }
 	signed int				fame() const { return fame_; }
 	unsigned int			kills() const { return kills_; }
@@ -420,14 +389,7 @@ public:
 	cTerritory*				region() const { return region_; }
 	unsigned int			skilldelay() const { return skilldelay_; }
 	unsigned int			objectdelay() const { return objectdelay_; }
-	int						making() const { return making_; }
 	SERIAL					lastTarget() const { return lastTarget_; }
-	char					blocked() const { return blocked_; }
-	char					dir2() const { return dir2_; }
-	unsigned int			spiritspeaktimer() const { return spiritspeaktimer_; }
-	int						spattack() const { return spattack_; }
-	int						spadelay() const { return spadelay_; }
-	unsigned int			spatimer() const { return spatimer_; }
 	int						taming() const { return taming_; }
 	unsigned int			summontimer() const { return summontimer_; }
 	int						VisRange() const { return VisRange_; }
@@ -441,12 +403,9 @@ public:
 	UINT8					skillLock( UINT16 skill ) const;
 	
 	// Setters
-	void					setGuildType(short d);
-	void					setGuildTraitor(bool  d);
 	void					setOrgname(const QString& d);//original name - for Incognito
 	void					setTitle( const QString& d);
 	void					setSex( bool female );
-	void					setUnicode( bool d); // This is set to 1 if the player uses unicode speech, 0 if not
 	void					setAccount( AccountRecord* data, bool moveFromAccToAcc = true ); // changed to signed, lb
 	void					setIncognito ( bool d) { incognito_ = d; changed( SAVE );} 
 	void					setPolymorph ( bool d) { polymorph_ = d; changed( SAVE );}
@@ -495,7 +454,6 @@ public:
 	void					setTrainer( SERIAL d ) { trainer_ = d; changed( SAVE );}
 	void					setTrainingplayerin( char d ) { trainingplayerin_ = d; changed( SAVE );}
 	void					setCantrain( bool d ) { cantrain_ = d; changed( SAVE );}
-	void					setGuildtoggle( bool d ) { guildtoggle_ = d; changed( SAVE );}
 	void					setGuildtitle( const QString& d ) { guildtitle_ = d; changed( SAVE );}
 	void					setGuildfealty( SERIAL d ) { guildfealty_ = d; changed( SAVE );}
 	void					setGuildstone( SERIAL d ) { guildstone_ = d; changed( SAVE );}
@@ -511,13 +469,10 @@ public:
 	void					setLootList( QString d ) { loot_ = d; changed( SAVE );}
 	void					setTrackingTarg( SERIAL d ) { trackingTarget_ = d; changed( SAVE );}
 	void					setTrackingTimer( UINT32 d ) { trackingTimer_ = d; changed( SAVE );}
-	void					setFontType( unsigned char d ) { fonttype_ = d; changed( SAVE );}
 	void					setSayColor( UI16 d ) { saycolor_ = d; changed( SAVE );}
 	void					setEmoteColor( unsigned short d ) { emotecolor_ = d; changed( SAVE );}
 	void					setSt( signed short d ) { st_ = d; changed( SAVE );}
 	void					setSt2( signed short d ) { st2_ = d; changed( SAVE );}
-	void					setMay_Levitate( bool d ) { may_levitate_ = d; changed( SAVE );}
-	void					setDispz( signed char d ) { dispz_ = d; changed( SAVE );}
 	void					setDir( unsigned char d ) { dir_ = d; changed( SAVE );}
 	void					setXid( unsigned short d ) { xid_ = d; changed( SAVE );}
 	void					setPriv2( unsigned char d ) { priv2_ = d; changed( SAVE+TOOLTIP );}
@@ -526,16 +481,11 @@ public:
 	void					setHp( signed short d ) { hp_ = d; changed( SAVE );}
 	void					setStm( signed short d ) { stm_ = d; changed( SAVE );}
 	void					setMn( signed short d ) { mn_ = d; changed( SAVE );}
-	void					setMn2( signed short d ) { mn2_ = d; changed( SAVE );}
 	void					setHiDamage( int d ) { hidamage_ = d; changed( SAVE );}
 	void					setLoDamage( int d ) { lodamage_ = d; changed( SAVE );}
 	void					setNpc( bool d ) { npc_ = d; changed( SAVE );}
 	void					setShop( bool d ) { shop_ = d; changed( SAVE );}
-	void					setCell( unsigned char d ) { cell_ = d; changed( SAVE );}
-	void					setJailTimer( unsigned int d ) { jailtimer_ = d; changed( SAVE );}
-	void					setJailSecs( int d ) { jailsecs_ = d; changed( SAVE );}
 	void					setLastSection( cMakeMenu* basemenu, cMakeSection* d );
-	void					setRobe( int d ) { robe_ = d; changed( SAVE );}
 	void					setKarma( int d ) { karma_ = d; changed( SAVE );}
 	void					setFame( signed int d ) { fame_ = d; changed( SAVE );}
 	void					setKills( unsigned int d ) { kills_ = d; changed( SAVE );}
@@ -566,14 +516,7 @@ public:
 	void					setRegion( cTerritory* d ) { region_ = d; changed( SAVE );}
 	void					setSkillDelay( unsigned int d ) { skilldelay_ = d; changed( SAVE );}
 	void					setObjectDelay( unsigned int d ) { objectdelay_ = d; changed( SAVE );}
-	void					setMaking( int d ) { making_ = d; changed( SAVE );}
 	void					setLastTarget( SERIAL d ) { lastTarget_ = d; changed( SAVE );}
-	void					setBlocked( char d ) { blocked_ = d; changed( SAVE );}
-	void					setDir2( char d ) { dir2_ = d; changed( SAVE );}
-	void					setSpiritSpeakTimer( unsigned int d ) { spiritspeaktimer_ = d; changed( SAVE );}
-	void					setSpAttack( int d ) { spattack_ = d; changed( SAVE );}
-	void					setSpaDelay( int d ) { spadelay_ = d; changed( SAVE );}
-	void					setSpaTimer( unsigned int d ) { spatimer_ = d; changed( SAVE );}
 	void					setTaming( int d ) { taming_ = d; changed( SAVE );}
 	void					setSummonTimer( unsigned int d ) { summontimer_ = d; changed( SAVE );}
 	void					setVisRange( int d ) { VisRange_ = d; changed( SAVE );}
@@ -602,7 +545,6 @@ public:
 	void callGuards();
 	P_CHAR unmount();
 	void mount( P_CHAR pMount );
-	bool	canMoveAll( void ) const { return priv2_&0x01; }
 	bool	isFrozen( void ) const { return priv2_&0x02; }	
 	bool	viewHouseIcons( void ) const { return priv2_&0x04; }	
 	bool	isHiddenPermanently( void ) const { return priv2_&0x08; }
@@ -636,8 +578,6 @@ public:
 	bool  isInnocent()	const;
 	bool  isMurderer()	const;
 	bool  isCriminal()	const;
-	unsigned char getPriv() const;
-	void setPriv(unsigned char p);
 	void setShowSkillTitles( bool data );
 	void showName( cUOSocket *socket );
 	void makeInvulnerable();
@@ -783,8 +723,6 @@ inline void  cChar::setShowSkillTitles( bool data ) { data ? priv |= 0x10 : priv
 inline bool  cChar::isInnocent() const		{return (flag_&0x04 ?true:false);}
 inline bool  cChar::isMurderer() const		{return (flag_&0x01 ?true:false);}
 inline bool  cChar::isCriminal() const		{return (flag_&0x02 ?true:false);}
-inline unsigned char cChar::getPriv() const	{return priv;}
-inline void cChar::setPriv(unsigned char p)	{this->priv=p; changed( SAVE );}
 inline void cChar::makeInvulnerable()		{priv |= 4; changed( SAVE );}
 inline void cChar::makeVulnerable()			{priv &= 0xFB; changed( SAVE );}
 inline void cChar::setMurderer()			{flag_ = 0x01; changed( SAVE );}
@@ -792,21 +730,15 @@ inline void cChar::setInnocent()			{flag_ = 0x04; changed( SAVE );}
 
 
 // Getters
-inline short			cChar::guildType() const		{ return GuildType; }
-inline bool				cChar::guildTraitor() const		{ return GuildTraitor; }
 inline QString			cChar::orgname() const			{ return orgname_; }
 inline QString			cChar::title() const			{ return title_;   }
-inline bool				cChar::unicode() const			{ return unicode_; }
 inline AccountRecord*	cChar::account() const			{ return account_; }
 inline cChar::Effects	cChar::effects() const			{ return effects_; }
 inline bool				cChar::sex() const				{ return sex_; }
 
 // Setters
-inline void	cChar::setGuildType(short d)			{ GuildType = d; changed( SAVE ); }
-inline void cChar::setGuildTraitor(bool  d)			{ GuildTraitor = d; changed( SAVE );}
 inline void	cChar::setOrgname( const QString& d )	{ orgname_ = d; changed( SAVE );}
 inline void cChar::setTitle( const QString& d )		{ title_ = d;   changed( SAVE );}
-inline void cChar::setUnicode(bool d)				{ unicode_ = d; changed( SAVE );}
 inline void cChar::setSex( bool female )				{ sex_ = female; changed( SAVE ); }
 
 #endif // __CHARS_H__
