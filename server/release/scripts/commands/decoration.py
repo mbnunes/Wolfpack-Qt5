@@ -7,9 +7,10 @@
 
 """
 	\command decoration
-	\description Places decoration read from a xml file.
-	\notes The decoration will be read from a XML file called
-	'data\decoration.1.xml'.
+	\description Places decoration read from a xml template found
+	in wolfpack's data folder.
+	\notes The decoration will be read from a XML files called
+	'data\decoration.?.xml, where ? is the map number'.
 """
 
 import wolfpack
@@ -72,7 +73,14 @@ def decoration( socket, command, arguments ):
     parser = xml.sax.make_parser()
     handler = DecorationHandler()
     parser.setContentHandler(handler)
-    parser.parse("data/decoration.1.xml")
+    if wolfpack.hasmap(0):
+        parser.parse("data/decoration.0.xml")
+    if wolfpack.hasmap(1):
+        parser.parse("data/decoration.1.xml")
+    if wolfpack.hasmap(2):
+        parser.parse("data/decoration.2.xml")
+    if wolfpack.hasmap(3):
+        parser.parse("data/decoration.2.xml")
 
 def onLoad():
 	wolfpack.registercommand( "decoration", decoration )

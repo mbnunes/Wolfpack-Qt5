@@ -65,7 +65,29 @@ struct stCategory
 
 stCategory categories[] =
 {
-	{ "item", WPDT_ITEM }, { "script", WPDT_SCRIPT }, { "npc", WPDT_NPC }, { "list", WPDT_LIST }, { "menu", WPDT_MENU }, { "spell", WPDT_SPELL }, { "acl", WPDT_PRIVLEVEL }, { "spawnregion", WPDT_SPAWNREGION }, { "region", WPDT_REGION }, { "multi", WPDT_MULTI }, { "text", WPDT_TEXT }, { "startitems", WPDT_STARTITEMS }, { "location", WPDT_LOCATION }, { "skill", WPDT_SKILL }, { "action", WPDT_ACTION }, { "make", WPDT_MAKESECTION }, { "makeitem", WPDT_MAKEITEM }, { "useitem", WPDT_USEITEM }, { "skillcheck", WPDT_SKILLCHECK }, { "define", WPDT_DEFINE }, { "resource", WPDT_RESOURCE }, { "contextmenu", WPDT_CONTEXTMENU }, { "ai", WPDT_AI }, { 0, WPDT_COUNT }, 
+	{ "item", WPDT_ITEM }, 
+	{ "script", WPDT_SCRIPT }, 
+	{ "npc", WPDT_NPC },
+	{ "list", WPDT_LIST }, 
+	{ "menu", WPDT_MENU }, 
+	{ "spell", WPDT_SPELL },
+	{ "acl", WPDT_PRIVLEVEL },
+	{ "spawnregion", WPDT_SPAWNREGION },
+	{ "region", WPDT_REGION },
+	{ "multi", WPDT_MULTI },
+	{ "text", WPDT_TEXT }, 
+	{ "startitems", WPDT_STARTITEMS },
+	{ "location", WPDT_LOCATION },
+	{ "skill", WPDT_SKILL }, 
+	{ "action", WPDT_ACTION },
+	{ "make", WPDT_MAKESECTION },
+	{ "makeitem", WPDT_MAKEITEM }, 
+	{ "useitem", WPDT_USEITEM },
+	{ "skillcheck", WPDT_SKILLCHECK }, 
+	{ "define", WPDT_DEFINE }, 
+	{ "resource", WPDT_RESOURCE }, 
+	{ "contextmenu", WPDT_CONTEXTMENU }, 
+	{ "ai", WPDT_AI }, { 0, WPDT_COUNT }, 
 };
 
 class cDefManagerPrivate

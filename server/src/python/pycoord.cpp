@@ -97,11 +97,24 @@ static PyObject* wpCoord_validspawnspot( wpCoord* self, PyObject* args )
 	return Movement::instance()->canLandMonsterMoveHere( self->coord ) ? PyTrue() : PyFalse();
 }
 
+static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
+{
+	Coord_cl pos;
+	ushort targetheight;
+	char touch = 0;
+	if ( !PyArg_ParseTuple( args, "O&i|b:coord.lineofsight(coord, targetheight, [touch=0])", &PyConvertCoord, &pos, &targetheight, &touch ) )
+		return 0;
+	if ( self->coord.lineOfSight( pos, targetheight, touch ) )
+		return Py_True;
+    return Py_False;
+}
+
 static PyMethodDef wpCoordMethods[] =
 {
 	{ "distance",	( getattrofunc ) wpCoord_distance, METH_VARARGS, "Whats the distance between Point A and Point B" },
 	{ "direction", ( getattrofunc ) wpCoord_direction, METH_VARARGS, NULL },
 	{ "validspawnspot",	( getattrofunc ) wpCoord_validspawnspot, METH_VARARGS, NULL },
+	{ "lineofsight", ( getattrofunc ) wpCoord_lineofsight, METH_VARARGS, NULL },
 	{ 0, 0, 0, 0 }
 };
 

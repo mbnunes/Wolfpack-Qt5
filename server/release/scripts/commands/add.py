@@ -69,7 +69,8 @@ def add(socket, command, arguments):
 
 	global generated
 	if not generated:
-		socket.sysmessage('Generating add menu...')
+		socket.sysmessage('Generating add menu.')
+		socket.sysmessage('Please wait...')
 		generateAddMenu()
 		generated = 1
 
@@ -165,7 +166,7 @@ def generateAddMenu():
 			additem = AddItemAction(submenus['\\'.join(categories) + '\\'], description, id, definition)
 		additem.description = 'Definition: ' + definition
 
-	for (id, menu) in submenus.items():
+	for menu in submenus.values():
 		menu.sort()
 
 	npcs = wolfpack.getdefinitions(WPDT_NPC)
@@ -210,7 +211,7 @@ def generateAddMenu():
 			addnpc = AddNpcAction(submenus['\\'.join(categories) + '\\'], description, definition)
 		addnpc.description = 'Definition: ' + definition
 
-	for (id, menu) in submenus.items():
+	for menu in submenus.values():
 		menu.sort()
 
 	addmenu.sort()

@@ -31,6 +31,8 @@ import wolfpack
 from wolfpack.consts import *
 from system.makemenus import MakeMenu, MakeAction, findmenu
 
+generated = 0
+
 def sendresponse2(player, arguments, target):
 	if target.item:
 		if target.item.container:
@@ -127,6 +129,13 @@ def go(socket, command, arguments):
 	player = socket.player
 
 	if len(arguments) == 0:
+        	global generated
+        	if not generated:
+        		socket.sysmessage('Generating go menu.')
+        		socket.sysmessage('Please wait...')
+        		generateGoMenu()
+        		generated = 1
+            
 		menu = findmenu('GOMENU')
 		if menu:
 			socket.sysmessage('Bringing up the travel gump.')
@@ -238,9 +247,10 @@ def generateGoMenu():
 		else:
 			GoAction(submenus['\\'.join(categories) + '\\'], description, pos)
 
-	gomenu.sort()
 	for menu in submenus.values():
 		menu.sort()
+
+	gomenu.sort()
 
 #
 # Kommando registrieren.

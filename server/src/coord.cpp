@@ -176,31 +176,7 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, bool touch )
 	return lineOfSight( target, 0, touch );
 }
 
-/*	idee hinter dem system
-	wir wollen testen ob vom einem punkt aus eine sichtlinie auf irgendeinen punkt
-	eines ausgedehnten objektes vorhanden ist
-	problem dabei:
-	versetzte lcken mssen auch abgefangen werden
-	l�ung:
-	die sichtlinie zu jedem punkt (jedem z-level) des objektes einzeln zu berechnen
-	dabei h�en wir auf, sobald wir eine gefunden haben die durchgeht, oder wissen
-	dass keine durchgeht
-	wir fangen von oben an, da mauern die nur bis zu den beinen gehn extrem h�figer
-	sind als mauern nur von oben den kopf verdecken und der algorithmus deshalb
-	im allgemeinen wenn eine sichtlinie vorhanden ist diese sofort findet, falls nicht
-	l�ft er wohl bis zum ende durch
-	vorgehensweise bei der berechnung:
-	wir erstellen erst eine liste aller x- und y-koordinaten durch die wir durchmssen
-	und legen dann die geraden mit unterschiedlicher steigung in z-richtung durch
-
-	zusatzbemerkungen:
-	ein gegenstand verhindert sichkontakt, falls er das noshoot-flag hat
-	berge (map) verhindern die sicht immer
-
-	die koordinate selber ist die, ab er derjenige guckt, also bei chars die augenh�e
-	sourceheight wird nur fr touch gebraucht
-	die koordinate vom target dagegen ist diejenige zu fssen des items/chars
-
+/*
 	idea:
 	we try if there is a line of sight between one point and any point of a large object
 	problem:
@@ -208,7 +184,7 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, bool touch )
 	solution:
 	the line to each point of the object ( each z-level ) has to be calculated itself
 	there we stop after we know, that one line is open, or all closed
-	we start from above, because walls usually are in the way in the erea of our feets,
+	we start from above, because walls usually are in the way in the area of our feets,
 	not our heads
 	so we create a list of all x- and y- coordinates we have to pass and then draw
 	straight lines in z-direction with different gradients

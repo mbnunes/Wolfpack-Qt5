@@ -100,6 +100,7 @@
 	<script>commands.sound</script>
 	<script>commands.stat</script>
 	<script>commands.tags</script>
+	<script>commands.testlos</script>
 	<script>commands.tile</script>
 	<script>commands.travel</script>
 	<script>commands.turnitem</script>
