@@ -42,10 +42,19 @@ def onUse( char, item ):
 		socket.clilocmessage( 0x7A4EC, "", 0x3b2, 3 ) # You are already fishing.
 		return 1
 
+	iserial = item.serial
+	hand1 = char.itemonlayer( LAYER_LEFTHAND )
+	hand2 = char.itemonlayer( LAYER_RIGHTHAND )
 	# Assign the target request
-	socket.clilocmessage( 0x7A4EE, "", 0x3b2, 3 ) # What water do you want to fish in?
-	socket.attachtarget( "skills.fishing.response" )
-
+	if hand1 and hand1.serial != item.serial:
+		socket.clilocmessage( 502641, "", 0x3b2, 3 ) # Must equip this item to use it!
+		return 1
+	elif hand2 and hand2.serial != item.serial:
+		socket.clilocmessage( 502641, "", 0x3b2, 3 ) # Must equip this item to use it!
+		return 1
+	else:
+		socket.clilocmessage( 0x7A4EE, "", 0x3b2, 3 ) # What water do you want to fish in?
+		socket.attachtarget( "skills.fishing.response" )
 	return 1
 
 def response( char, args, target ):
@@ -71,7 +80,7 @@ def response( char, args, target ):
 
 	# Check dynamics first ( And check if any objects start at z -> z + 13 )
 	items = wolfpack.items( pos.x, pos.y, pos.map, 1 ) # 1: Exact
-	
+
 	for item in items:
 		if item.id in staticWater and item.pos.z == pos.z and item.visible:
 			validspot = 1
@@ -102,7 +111,7 @@ def response( char, args, target ):
 		if ( not item.id in staticWater ) and ( item.pos.z >= pos.z ) and ( item.pos.z <= pos.z + FISHING_BLOCK_RANGE ):
 			# Check if the tiledata defines this as "impassable" or "surface"
 			tile = wolfpack.tiledata( item.id )
-		
+
 			if tile[ "blocking" ] or tile[ "floor" ]:
 				blockedspot = 1
 				break
@@ -112,7 +121,7 @@ def response( char, args, target ):
 		for item in staticitems:
 			if ( not item[ 'id' ] in staticWater ) and ( item[ "z" ] >= pos.z ) and ( item[ "z" ] <= pos.z + FISHING_BLOCK_RANGE ):
 				tile = wolfpack.tiledata( item.id )
-		
+
 				if tile[ "blocking" ] or tile[ "floor" ]:
 					blockedspot = 1
 					break
@@ -126,7 +135,7 @@ def response( char, args, target ):
 	if blockedspot:
 		socket.clilocmessage( 0x7a4f5, "", 0x3b2, 3, char ) # You can't reach the water there.
 		return
-	
+
 	# Turn to the position we're fishing at
 	char.turnto( pos )
 
@@ -160,7 +169,7 @@ def getFish( fishSkill, deepwater ):
 	itemid = None
 	itemname = None
 	possibleitems = []
-	maxvalue = 0		# We calculate a random value from 0 to this value and 
+	maxvalue = 0		# We calculate a random value from 0 to this value and
 						# then check the array above for matching items
 
 	# Fill items and name with real values
@@ -179,9 +188,9 @@ def getFish( fishSkill, deepwater ):
 			possibleitems.append( [ maxvalue, maxvalue + value, fishItem[ 3 ], fishItem[ 4 ] ] ) # First item: startrange, second: stoprange, third: list of item-ids, fourth: nice name
 			maxvalue += value
 
-	# Try to find a valid item in possibleitems	
+	# Try to find a valid item in possibleitems
 	choice = random.randint( 0, maxvalue )
-	
+
 	for item in possibleitems:
 		if choice >= item[ 0 ] and choice <= item[ 1 ]:
 			itemid = item[ 2 ][ random.randrange( 0, len( item[ 2 ] ) ) ]
@@ -189,11 +198,11 @@ def getFish( fishSkill, deepwater ):
 			break
 
 	return ( itemid, itemname )
-	
+
 def findResourceGem( pos ):
 	xBlock = int( floor( pos.x / 8 ) ) * 8
 	yBlock = int( floor( pos.y / 8 ) ) * 8
-	
+
 	items = wolfpack.items( xBlock, yBlock, pos.map, 1 ) # 1: Exact
 
 	for item in items:
@@ -225,7 +234,7 @@ def itemtimer( char, args ):
 
 	if resource and amount <= 0:
 		socket.clilocmessage( 0x7ad80, "", 0x3b2, 3, char ) # The fish don't seem to be biting here.
-		return		
+		return
 
 	# Fail
 	if not char.checkskill( FISHING, 0, 1000 ):
@@ -234,7 +243,7 @@ def itemtimer( char, args ):
 
 	spawnmonster = 0 # Should i spawn a monster ?
 	monster = '' # NPC id of what i should spawn near the player
-	
+
 	( itemid, itemname ) = getFish( char.skill[ FISHING ], args[1] )
 
 	# Only add if there is something to add
@@ -246,16 +255,16 @@ def itemtimer( char, args ):
 			resource.settag( 'resourcecount', amount - 1 )
 			resource.settag( 'resource', 'fish' )
 			resource.visible = 0 # GM Visible only
-			
+
 			pos = args[ 0 ]
-			resource.moveto( wolfpack.coord( int( floor( pos.x / 8 ) ) * 8, int( floor( pos.y / 8 ) ) * 8, pos.z, pos.map ) )
+			resource.moveto( wolfpack.coord( int( floor( pos.x / 8 ) ) * 8, int( floor( pos.y / 8 ) ) * 8, int( pos.z - 5 ), pos.map ) )
 			resource.decay = 1
 			resource.decaytime = wolfpack.time.servertime() + ( FISHING_REFILLTIME * 1000 )
 			resource.update() # Send to GMs
 
 		else:
 			# Use the old one
-			resource.settag( 'resourcecount', resource.gettag( 'resourcecount' ) - 1 )		
+			resource.settag( 'resourcecount', resource.gettag( 'resourcecount' ) - 1 )
 
 		item = wolfpack.additem( itemid )
 
@@ -269,6 +278,6 @@ def itemtimer( char, args ):
 
 	# Success!
 	if not spawnmonster:
-		socket.clilocmessage( 0xf61fc, "", 0x3b2, 3, 0, itemname ) # You pull out an item : 
+		socket.clilocmessage( 0xf61fc, "", 0x3b2, 3, 0, str(itemname) ) # You pull out an item :
 	else:
-		socket.clilocmessage( 0xf61fd, "", 0x3b2, 3, 0, itemname ) # You pull out an item along with a monster : 
+		socket.clilocmessage( 0xf61fd, "", 0x3b2, 3, 0, str(itemname) ) # You pull out an item along with a monster :
