@@ -36,10 +36,10 @@ class Page:
 			self.pos = wolfpack.coord(int(x), int(y), int(z), int(m))
 			self.category = unquote(values[4])
 			self.message = ['', '', '', '']
-			self.message[0] = unquote(values[5])
-			self.message[1] = unquote(values[6])
-			self.message[2] = unquote(values[7])
-			self.message[3] = unquote(values[8])
+			self.message[0] = unicode(unquote(values[5]))
+			self.message[1] = unicode(unquote(values[6]))
+			self.message[2] = unicode(unquote(values[7]))
+			self.message[3] = unicode(unquote(values[8]))
 			self.created = float(values[9])		
 		else:
 			self.account = char.account.name
@@ -153,7 +153,7 @@ class Page:
 		gump.addText( 200, 140, time.strftime(FORMAT_DATETIME, time.localtime(self.created)), hue )
 		
 		gump.addText( 50, 160, "Message:", hue )
-		html = u"<body text=\"#0000FF\" leftmargin=\"0\" topmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">%s</body>" % u"<br>".join(unicode(self.message))
+		html = u"<body text=\"#0000FF\" leftmargin=\"0\" topmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">%s</body>" % u"<br>".join(self.message)
 		gump.addResizeGump( 45, 180, 0xBB8, 345, 84 )
 		gump.addHtmlGump( 50, 180, 340, 80, unicode(html) )
 
