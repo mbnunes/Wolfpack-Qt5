@@ -15,58 +15,58 @@ ANTIMACRO = 5
 skilltable = \
 {
 
-ALCHEMY: 	 [0,	0.5,	0.5,	1,	1000,	FALSE],
-ANATOMY: 	 [0.15,	0.15,	0.7,	1,	1000,	TRUE ],
-ANIMALLORE: 	 [0,	0,	1,	1,	1000,	TRUE ], 
-ITEMID: 	 [0,	0,	1,	1,	1000,	TRUE ],
-ARMSLORE: 	 [0.75,	0.15,	0.1,	1,	1000,	TRUE ],
-PARRYING: 	 [0.75,	0.25,	0,	1,	1000,	FALSE],
-BEGGING: 	 [0,	0,	0,	1,	1000,	TRUE ],
-BLACKSMITHING:	 [1,	0,	0,	1,	1000,	FALSE],
-BOWCRAFT: 	 [0.6,	1.6,	0,	1,	1000,	FALSE],
-PEACEMAKING: 	 [0,	0,	0,	1,	1000,	TRUE ],
-CAMPING: 	 [2,	1.5,	1.5,	1,	1000,	TRUE ],
-CARPENTRY: 	 [2,	0.5,	0,	1,	1000,	FALSE],
-CARTOGRAPHY: 	 [0,	0.75,	0.75,	1,	1000,	FALSE],
-COOKING: 	 [0,	2,	3,	1,	1000,	FALSE],
-DETECTINGHIDDEN: [0,	0.4,	0.6,	1,	1000,	TRUE ],
-ENTICEMENT: 	 [0,	0.25,	0.25,	1,	1000,	TRUE ],
-EVALUATINGINTEL: [0,	0,	1,	1,	1000,	TRUE ],
-HEALING: 	 [0.6,	0.6,	0.8,	1,	1000,	TRUE ],
-FISHING: 	 [0.5,	0.5,	0,	1,	1000,	TRUE ],
-FORENSICS: 	 [0,	0.2,	0.8,	1,	1000,	TRUE ],
-HERDING: 	 [1.625,0.625,	0.25,	1,	1000,	TRUE ],
-HIDING:	 	 [0,	0.8,	0.2,	1,	1000,	TRUE ],
-PROVOCATION: 	 [0,	0.45,	0.05,	1,	1000,	TRUE ],
-INSCRIPTION: 	 [0,	0.2,	0.8,	1,	1000,	FALSE],
-LOCKPICKING: 	 [0,	2,	0,	1,	1000,	TRUE ],
-MAGERY:		 [0,	0,	1.5,	1,	1000,	TRUE ],
-MAGICRESISTANCE: [0.25,	0.25,	0.5,	1,	1000,	TRUE ],
-TACTICS: 	 [0,	0,	0,	1,	1000,	FALSE],
-SNOOPING: 	 [0,	2.5,	0,	1,	1000,	TRUE ],
-MUSICIANSHIP: 	 [0,	0.8,	0.2,	1,	1000,	TRUE ],
-POISONING: 	 [0,	0.4,	1.6,	1,	1000,	TRUE ],
-ARCHERY: 	 [0.25,	0.75,	0,	1,	1000,	FALSE],
-SPIRITSPEAK: 	 [0,	0,	1,	1,	1000,	TRUE ],
-STEALING: 	 [0,	1,	0,	1,	1000,	TRUE ],
-TAILORING: 	 [0.38,	1.63,	0.5,	1,	1000,	FALSE],
-TAMING:	 	 [1.4,	0.2,	0.4,	1,	1000,	TRUE ],
-TASTEID: 	 [0.2,	0,	0.8,	1,	1000,	TRUE ],
-TINKERING: 	 [0.5,	0.2,	0.3,	1,	1000,	FALSE],
-TRACKING: 	 [0,	1.25,	1.25,	1,	1000,	TRUE ],
-VETERINARY: 	 [0.8,	0.4,	0,8,	1,	1000,	TRUE ],
-SWORDSMANSHIP:   [0.75,	0.25,	0,	1,	1000,	FALSE],
-MACEFIGHTING: 	 [0.9,	0.1,	0,	1,	1000,	FALSE],
-FENCING: 	 [0.45,	0.55,	0,	1,	1000,	FALSE],
-WRESTLING: 	 [0.9,	0.1,	0,	1,	1000,	FALSE],
-LUMBERJACKING:   [2,	0,	0,	1,	1000,	TRUE ],
-MINING: 	 [2,	0,	0,	1,	1000,	TRUE ],
-MEDITATION: 	 [0,	0,	0,	1,	1000,	TRUE ],
-STEALTH: 	 [0,	0,	0,	1,	1000,	TRUE ],
-REMOVETRAPS: 	 [0,	0,	0,	1,	1000,	TRUE ],
-NECROMANCY: 	 [0,	0,	0,	1,	1000,	TRUE ],
-FOCUS: 	 	 [0,	0,	0,	1,	1000,	FALSE],
-CHIVALRY: 	 [0,	0,	0,	1,	1000,	TRUE ]                
+ALCHEMY:					[0, 0.5, 0.5, 1, 1000, FALSE],
+ANATOMY:					[0.15, 0.15, 0.7, 1, 1000, FALSE ],
+ANIMALLORE:				[0, 0, 1, 1, 1000, FALSE ], 
+ITEMID:						[0, 0, 1, 1, 1000, FALSE ],
+ARMSLORE:				[0.75, 0.15, 0.1, 1, 1000, FALSE ],
+PARRYING:				[0.75, 0.25, 0, 1, 1000, FALSE],
+BEGGING:					[0, 0, 0, 1, 1000, FALSE ],
+BLACKSMITHING:		[1, 0, 0, 1, 1000, FALSE],
+BOWCRAFT:				[0.6, 1.6, 0, 1, 1000, FALSE],
+PEACEMAKING:			[0, 0, 0, 1, 1000, FALSE ],
+CAMPING:					[2, 1.5, 1.5, 1, 1000, FALSE ],
+CARPENTRY:				[2, 0.5, 0, 1, 1000, FALSE],
+CARTOGRAPHY:			[0, 0.75, 0.75, 1, 1000, FALSE],
+COOKING:					[0, 2, 3, 1, 1000, FALSE],
+DETECTINGHIDDEN:	[0, 0.4, 0.6, 1, 1000, FALSE ],
+ENTICEMENT:				[0, 0.25, 0.25, 1, 1000, FALSE ],
+EVALUATINGINTEL:	[0, 0, 1, 1, 1000, FALSE ],
+HEALING:					[0.6, 0.6, 0.8, 1, 1000, FALSE ],
+FISHING:					[0.5, 0.5, 0, 1, 1000, FALSE ],
+FORENSICS:				[0, 0.2, 0.8, 1, 1000, FALSE ],
+HERDING:					[1.625, 0.625, 0.25, 1, 1000, FALSE ],
+HIDING:					[0, 0.8, 0.2, 1, 1000, FALSE ],
+PROVOCATION:			[0, 0.45, 0.05, 1, 1000, FALSE ],
+INSCRIPTION:			[0, 0.2, 0.8, 1, 1000, FALSE],
+LOCKPICKING:			[0, 2, 0, 1, 1000, FALSE ],
+MAGERY:		 			[0, 0, 1.5, 1, 1000, FALSE ],
+MAGICRESISTANCE:	[0.25, 0.25, 0.5, 1, 1000, FALSE ],
+TACTICS:	 				[0, 0, 0, 1, 1000, FALSE],
+SNOOPING:				[0, 2.5, 0, 1, 1000, FALSE ],
+MUSICIANSHIP:			[0, 0.8, 0.2, 1, 1000, FALSE ],
+POISONING:	 			[0, 0.4, 1.6, 1, 1000, FALSE ],
+ARCHERY:					[0.25, 0.75, 0, 1, 1000, FALSE],
+SPIRITSPEAK:			[0, 0, 1, 1, 1000, FALSE ],
+STEALING:					[0, 1, 0, 1, 1000, FALSE ],
+TAILORING:				[0.38, 1.63, 0.5, 1, 1000, FALSE],
+TAMING:	 	 			[1.4, 0.2, 0.4, 1, 1000, FALSE ],
+TASTEID:					[0.2, 0, 0.8, 1, 1000, FALSE ],
+TINKERING:				[0.5, 0.2, 0.3, 1, 1000, FALSE],
+TRACKING:				[0, 1.25, 1.25, 1, 1000, FALSE ],
+VETERINARY:				[0.8, 0.4, 0,8,	1, 1000, FALSE ],
+SWORDSMANSHIP:		[0.75, 0.25, 0, 1, 1000, FALSE],
+MACEFIGHTING:			[0.9, 0.1, 0, 1, 1000, FALSE],
+FENCING:	 				[0.45, 0.55, 0, 1, 1000, FALSE],
+WRESTLING:	 			[0.9, 0.1, 0, 1, 1000, FALSE],
+LUMBERJACKING:		[2, 0, 0, 1, 1000, FALSE ],
+MINING:	 				[2, 0, 0, 1, 1000, FALSE ],
+MEDITATION: 			[0, 0, 0, 1, 1000, FALSE ],
+STEALTH:					[0, 0, 0, 1, 1000, FALSE ],
+REMOVETRAPS:			[0, 0, 0, 1, 1000, FALSE ],
+NECROMANCY:			[0, 0, 0, 1, 1000, FALSE ],
+FOCUS:	 					[0, 0, 0, 1, 1000, FALSE],
+CHIVALRY:				[0, 0, 0, 1, 1000, FALSE ]                
 }
 
 skills = {}
@@ -99,7 +99,7 @@ def successharvest( char, gem, table, resname, amount ):
 	resourceitem.color = table[ resname ][ COLORID ]
 	resourceitem.id = table[ resname ][ RESOURCEID ]
 	resourceitem.amount = amount
-        gem.settag( 'resourcecount', gem.gettag( 'resourcecount' ) - amount )
+        gem.settag( 'resourcecount', str( int( gem.gettag( 'resourcecount' ) ) - amount ) )
 
 	backpack.additem( resourceitem )
 
@@ -128,7 +128,7 @@ def checkskill( char, targetobject, skillid, chance ):
 		gainchance = 0.01
 	
 	#If you lucky and antimacro is agree so let's gain this skill
-	if ( gainchance >= whrandom.random() and antimacrocheck( char, skillid, targetobject ) ) or skillvalue < 100:
+	if ( gainchance >= whrandom.random() ) or skillvalue < 100:
 		skillgain( char, skillid )
 
 	return OK
@@ -173,10 +173,10 @@ def skillgain( char, skillid ):
 
 def statgain( char, stat ):
 	#STATGAINDELAY is not over ?
-	if char.hastag( 'laststatgain' ) and ( time.time() - char.gettag( 'laststatgain' ) ) < STATGAINDELAY:
+	if char.hastag( 'laststatgain' ) and ( time.time() - int(char.gettag( 'laststatgain' ) ) ) < STATGAINDELAY:
 		return OOPS
 	
-	char.settag( 'laststatgain', time.time() )
+	char.settag( 'laststatgain', str( time.time() ) )
 	if float( totalstats( char ) ) / wolfpack.settings.getNumber( "General", "StatCap", 225 ) >= whrandom.random():
 		if stat == STRENGTH:
 			char.strength = char.strength + 1
@@ -198,10 +198,10 @@ def totalstats( char ):
 
 def antimacrocheck( char, skillid, object ):
 	#Get or set antimacro tag: "AM" + SERIAL = COUNT
-	tagname = "AMAC" + str( char.serial ) + " " + str( skillid )
-	if object.hastag( tagname ):	
+	tagname = "AMC_" + str( char.serial ) + " " + str( skillid )
+	if object.hastag( tagname ):
 		count = object.gettag( tagname )
-		object.settag( tagname, count + 1 )
+		object.settag( tagname, str( int( count + 1 ) ) )
 		if count <= ANTIMACROALLOWANCE:
 			return OK
 		elif count > ANTIMACROALLOWANCE + 1:
@@ -210,7 +210,7 @@ def antimacrocheck( char, skillid, object ):
 			object.addtimer( ANTIMACRODELAY, "wolfpack.utilities.cleartag", [char, tagname] )
 			return OOPS
 	else:
-		object.settag( tagname, 1 )
+		object.settag( tagname, "1" )
 		return OK
 
 
