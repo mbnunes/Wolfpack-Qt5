@@ -156,11 +156,12 @@ cItem::cItem( const cItem &src )
 	this->setSpawnRegion( src.spawnregion() );
 	this->desc_ = src.desc_;
 	// We're *NOT* copying the contents over
-	setTotalweight( amount_ * weight_ );
 	
 	this->setTags( src.tags() );
 	this->accuracy_ = 100;
 	this->container_ = src.container_;
+	this->totalweight_ = src.totalweight_;
+	setTotalweight( amount_ * weight_ );
 }
 
 P_CHAR cItem::owner( void ) const
