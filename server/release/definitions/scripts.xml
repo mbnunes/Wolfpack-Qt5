@@ -4,8 +4,7 @@
 	is automatically the script-name used internally (for
 	other scripts or eventlists).
 -->
-<definitions>
-	<script>trading</script>
+<definitions>	
 	<script>npc.healer</script>
 	<script>training_dummy</script>
 	<script>pickpocket_dip</script>
@@ -51,7 +50,6 @@
 	<!-- Deeds -->
 	<script>deeds.hairstyle</script>
 
-
 	<!-- Commands -->
 	<script>wolfpack.commands</script>
 	<script>wolfpack.commands.action</script>
@@ -61,6 +59,7 @@
 	<script>wolfpack.commands.dupe</script>
 	<script>wolfpack.commands.dye</script>
 	<script>wolfpack.commands.export</script>
+  <script>wolfpack.commands.go</script>
 	<script>wolfpack.commands.import</script>
 	<script>wolfpack.commands.info</script>
 	<script>wolfpack.commands.where</script>
@@ -72,9 +71,6 @@
 	<script>wolfpack.commands.serverinfo</script>
 	<script>wolfpack.commands.restore</script>
 
-	<!-- Database Scripts -->
-	<script>mysql_optimize_db</script>
-	
 	<!-- Magic -->
 	<script>spellbook</script>
 	<script>recall_rune</script>
@@ -126,10 +122,12 @@
 	<script>speech.stablemaster</script>
 
 	<!-- System Scripts -->
-	<script>webadmin</script>
-	<script>uogstatus</script>
-  <script>skillgain</script>
-  <script>system.makemenus</script>
+	<script>system.makemenus</script>
+	<script>system.mysql_optimize_db</script>
+  <script>system.skillgain</script>
+  <script>system.trading</script>
+  <script>system.uogstatus</script>
+  <script>system.webadmin</script>
 
 	<!-- Tools -->
 	<script>tools.pickaxe</script>

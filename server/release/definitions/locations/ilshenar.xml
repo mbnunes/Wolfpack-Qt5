@@ -30,7 +30,7 @@
 
 	<location id="ilshenar rock entrance" category="Ilshenar\Dungeons\Rock\Entrance">1788,573,70,2</location>
 	<location id="ilshenar rock 1" category="Ilshenar\Dungeons\Rock\Level 1">2188,318,-7,2</location>
-	<location id="ilshenar rock 2" category="Ilshenar\Dungeons\Rock\Level 2">2188.28.-27,2</location>
+	<location id="ilshenar rock 2" category="Ilshenar\Dungeons\Rock\Level 2">2188,28,-27,2</location>
 	
 	<location id="ilshenar sorcerers entrance" category="Ilshenar\Dungeons\Sorcerers\Entrance">548,462,-53,2</location>
 	<location id="ilshenar sorcerers 1" category="Ilshenar\Dungeons\Sorcerers\Level 1">428,109,-28,2</location>
@@ -47,7 +47,7 @@
 	<location id="ilshenar wisp 2" category="Ilshenar\Dungeons\Wisp\Level 2">718,1492,-28,2</location>
 	<location id="ilshenar wisp 3" category="Ilshenar\Dungeons\Wisp\Level 3">832,1551,-28,2</location>
 	<location id="ilshenar wisp 4" category="Ilshenar\Dungeons\Wisp\Level 4">960,1428,-28,2</location>
-	<location id="ilshenar wisp 5" category="Ilshenar\Dungeons\Wisp\Level 5">942.1465,-33,2</location>
+	<location id="ilshenar wisp 5" category="Ilshenar\Dungeons\Wisp\Level 5">942,1465,-33,2</location>
 	<location id="ilshenar wisp 6" category="Ilshenar\Dungeons\Wisp\Level 6">866,1434,-28,2</location>
 	<location id="ilshenar wisp 7" category="Ilshenar\Dungeons\Wisp\Level 7">807,1548,-28,2</location>
 	<location id="ilshenar wisp 8" category="Ilshenar\Dungeons\Wisp\Level 8">754,1479,-28,2</location>
