@@ -185,7 +185,7 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 	bool fromBank = false;
 	if ( totalValue < 2000 )
 	{
-		if ( pChar->CountGold() < totalValue )
+		if ( pChar->CountGold() < totalValue && !pChar->account()->isStaff() )
 		{
 			pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
 			return;
@@ -193,7 +193,7 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 	}
 	else
 	{
-		if ( pChar->CountBankGold() < totalValue )
+		if ( pChar->CountBankGold() < totalValue && !pChar->account()->isStaff() )
 		{
 			pVendor->talk( 500191, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thy bank account lacks these funds.
 			return;
@@ -245,7 +245,7 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 	else
 		pVendor->talk( tr("The total of thy purchase is %1 gold.  My thanks for the patronage.").arg(totalValue), 0xFFFF, 0, false, pChar->socket() );
 
-	if( pChar->takeGold( totalValue, fromBank ) < totalValue )
+	if( pChar->takeGold( totalValue, fromBank ) < totalValue && !pChar->account()->isStaff() )
 		Console::instance()->send( QString( "Player 0x%1 payed less than he should have to vendor 0x%2" ).arg( pChar->serial(), 8, 16 ).arg( pVendor->serial(), 8, 16 ) );
 	pChar->socket()->soundEffect( 0x32 );
 }
@@ -329,7 +329,7 @@ void Trade::sellAction( cUOSocket *socket, cUORxSell *packet )
 	
 			if(		(*it)->id() == pItem->id() && 
 					(*it)->color() == pItem->color() && 
-					(*it)->amount() >= pItem->amount() &&
+//					(*it)->amount() >= pItem->amount() &&
 					(*it)->eventList() == pItem->eventList() )
 			{
 				found = true;

@@ -2353,22 +2353,42 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	cItem::ContainerContent::const_iterator it( container.begin() );
 	cItem::ContainerContent::const_iterator end( container.end() );
 
+	bool restockNow = false;
+
+	if ( pItem->layer() == cBaseChar::BuyRestockContainer )
+	{
+		if ( pItem->hasTag("last_restock_time") )
+		{
+			if ( uint(pItem->getTag("last_restock_time").toInt()) + SrvParams->shopRestock() * 60 * MY_CLOCKS_PER_SEC < uiCurrentTime )
+				restockNow = true;
+		}
+		else
+			pItem->setTag("last_restock_time", cVariant( int(uiCurrentTime) ) );
+	}
+	
 	for( Q_INT32 i = 0; it != end; ++it, ++i )
 	{
 		P_ITEM mItem = *it;
 
-		if( mItem && mItem->amount() )
+		if( mItem )
 		{
-			itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i, i, mItem->amount(), pItem->serial() );
+			if ( restockNow )
+				mItem->setRestock( mItem->amount() );
 			
-			// change how the name is displayed
-			QString name = mItem->getName(true);
-			name[0] = name[0].upper();
-			for ( uint i = 1; i < name.length() - 1; ++i )
-				if ( name.at(i).isSpace() )
-					name.at(i+1) = name.at(i+1).upper();
-
-			buyitems.push_front( buyitem_st( mItem->buyprice(), name ) );
+			ushort amount = pItem->layer() == cBaseChar::BuyRestockContainer ? mItem->restock() : mItem->amount();
+			if ( amount )
+			{
+				itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i, i, amount, pItem->serial() );
+				
+				// change how the name is displayed
+				QString name = mItem->getName(true);
+				name[0] = name[0].upper();
+				for ( uint i = 1; i < name.length() - 1; ++i )
+					if ( name.at(i).isSpace() )
+						name.at(i+1) = name.at(i+1).upper();
+					
+					buyitems.push_front( buyitem_st( mItem->buyprice(), name ) );
+			}
 		}
 	}
 
