@@ -22,7 +22,7 @@ def onSkillUse( char, skill ):
 	socket = char.socket
 
 	# Assign the target request
-	socket.clilocmessage( 0x7A261 ) # Whom shall I examine?
+	socket.clilocmessage( 0x7A261, "", 0x3b2, 3 ) # Whom shall I examine?
 	socket.attachtarget( "skills.anatomy.response" )
 
 	return 1
@@ -62,5 +62,9 @@ def response( char, args, target ):
 	strId = min( 10, floor( target.char.strength / 10 ) )
 	dexId = min( 10, floor( target.char.dexterity / 10 ) )
 	msgId = int( 0xFD6DD + strId * 11 + dexId )
+	dexRatio = float( 100.0 / target.char.dexterity )
+	StamId = floor( ( target.char.stamina * dexRatio ) / 10 )
+	msgId2 = int( 0xFD7DF + StamId )
 
 	socket.clilocmessage( msgId, "", 0x3b2, 3, target.char )
+	socket.clilocmessage( msgId2, "", 0x3b2, 3, target.char )
