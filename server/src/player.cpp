@@ -1321,7 +1321,7 @@ bool cPlayer::onLogin( void )
 	
 	if( scriptChain || global )
 	{
-		PyObject *args = Py_BuildValue( "O&", PyGetCharObject, this );
+		PyObject *args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 
 		result = cPythonScript::callChainedEventHandler( EVENT_LOGIN, scriptChain, args );
 
@@ -1361,7 +1361,7 @@ bool cPlayer::onLogout( void )
 	
 	if( scriptChain || global )
 	{
-		PyObject *args = Py_BuildValue( "O&", PyGetCharObject, this );
+		PyObject *args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 
 		result = cPythonScript::callChainedEventHandler( EVENT_LOGOUT, scriptChain, args );
 
@@ -1382,7 +1382,7 @@ bool cPlayer::onHelp( void )
 	
 	if( scriptChain || global )
 	{
-		PyObject *args = Py_BuildValue( "O&", PyGetCharObject, this );
+		PyObject *args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 
 		result = cPythonScript::callChainedEventHandler( EVENT_HELP, scriptChain, args );
 
@@ -1403,7 +1403,7 @@ bool cPlayer::onChat( void )
 	
 	if( scriptChain || global )
 	{
-		PyObject *args = Py_BuildValue( "O&", PyGetCharObject, this );
+		PyObject *args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 
 		result = cPythonScript::callChainedEventHandler( EVENT_CHAT, scriptChain, args );
 
