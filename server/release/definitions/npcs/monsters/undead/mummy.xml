@@ -11,7 +11,7 @@
 	<!-- mummy -->
 	<npc id="mummy" inherit="undead_base">
 		<name>mummy</name>
-		<id>28</id>
+		<id>154</id>
 		<karma><random list="KARMA_L3" /></karma>
 		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->

@@ -9,7 +9,7 @@
 <definitions>
 
 	<!-- Wailing Banshee -->
-	<npc id="" inherit="monster_base">
+	<npc id="wailing_banshee" inherit="monster_base">
 		<name>wailing banshee</name>
 		<id>310</id>
 		<karma><random list="KARMA_L2" /></karma>
