@@ -53,6 +53,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed a bug in the remove command (Players without accounts caused errors)
 		- Fixed foreign characters for the page system.
 		- Fixed bandages for logged out chars.
+		- Rewrote the bandages script.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
