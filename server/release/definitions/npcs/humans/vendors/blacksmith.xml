@@ -154,7 +154,7 @@
 		<tactics><random min="600" max="830" /></tactics>
 		<swordsmanship><random min="600" max="830" /></swordsmanship>
 		<parrying><random min="610" max="930" /></parrying>
-		<category>Vendors\blacksmith (Male)</category>
+		<category>Vendors\Blacksmith (Male)</category>
 	</npc>
 	
 	<npc id="blacksmith_female">
