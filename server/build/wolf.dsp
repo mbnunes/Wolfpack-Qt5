@@ -178,7 +178,7 @@ SOURCE=.\dragdrop.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\encryption.cpp
+SOURCE=.\network\encryption.cpp
 # End Source File
 # Begin Source File
 
@@ -187,10 +187,6 @@ SOURCE=.\getopts.cpp
 # Begin Source File
 
 SOURCE=.\win\getopts_win.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\globals.cpp
 # End Source File
 # Begin Source File
 
@@ -210,7 +206,7 @@ SOURCE=.\log.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\maps.cpp
+SOURCE=.\maps\maps.cpp
 # End Source File
 # Begin Source File
 
@@ -222,11 +218,11 @@ SOURCE=.\multi.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\multiscache.cpp
+SOURCE=.\muls\multiscache.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\network.cpp
+SOURCE=.\network\network.cpp
 # End Source File
 # Begin Source File
 
@@ -294,11 +290,11 @@ SOURCE=.\territories.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\tilecache.cpp
+SOURCE=.\muls\tilecache.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Timing.cpp
+SOURCE=.\timing.cpp
 # End Source File
 # Begin Source File
 
@@ -310,7 +306,7 @@ SOURCE=.\tracking.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Trade.cpp
+SOURCE=.\trade.cpp
 # End Source File
 # Begin Source File
 
@@ -419,7 +415,7 @@ SOURCE=.\dragdrop.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\encryption.h
+SOURCE=.\network\encryption.h
 # End Source File
 # Begin Source File
 
@@ -432,10 +428,6 @@ SOURCE=.\factory.h
 # Begin Source File
 
 SOURCE=.\getopts.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\globals.h
 # End Source File
 # Begin Source File
 
@@ -461,11 +453,7 @@ SOURCE=.\log.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\maps.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\mulstructs.h
+SOURCE=.\muls\maps.h
 # End Source File
 # Begin Source File
 
@@ -474,11 +462,11 @@ SOURCE=.\multi.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\multiscache.h
+SOURCE=.\muls\multiscache.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\network.h
+SOURCE=.\network\network.h
 # End Source File
 # Begin Source File
 
@@ -569,15 +557,11 @@ SOURCE=.\territories.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\tilecache.h
+SOURCE=.\muls\tilecache.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\tileflags.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Timing.h
+SOURCE=.\timing.h
 # End Source File
 # Begin Source File
 
@@ -590,7 +574,7 @@ SOURCE=.\tracking.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Trade.h
+SOURCE=.\trade.h
 # End Source File
 # Begin Source File
 
@@ -624,11 +608,11 @@ SOURCE=.\targetrequest.h
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 # Begin Source File
 
-SOURCE=.\icon2.ico
+SOURCE=.\data\icon2.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\logo.bmp
+SOURCE=.\data\logo.bmp
 # End Source File
 # Begin Source File
 

@@ -31,7 +31,7 @@
 
 #include "guilds.h"
 #include "console.h"
-#include "network.h"
+#include "network/network.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
 #include "basics.h"

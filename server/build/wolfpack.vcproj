@@ -329,12 +329,6 @@
 				RelativePath=".\multi.h">
 			</File>
 			<File
-				RelativePath=".\network.cpp">
-			</File>
-			<File
-				RelativePath=".\network.h">
-			</File>
-			<File
 				RelativePath=".\npc.cpp">
 			</File>
 			<File
@@ -504,10 +498,22 @@
 				RelativePath=".\network\asyncnetio.h">
 			</File>
 			<File
+				RelativePath=".\network\encryption.cpp">
+			</File>
+			<File
+				RelativePath=".\network\encryption.h">
+			</File>
+			<File
 				RelativePath=".\network\listener.cpp">
 			</File>
 			<File
 				RelativePath=".\network\listener.h">
+			</File>
+			<File
+				RelativePath=".\network\network.cpp">
+			</File>
+			<File
+				RelativePath=".\network\network.h">
 			</File>
 			<File
 				RelativePath=".\network\uopacket.cpp">
@@ -730,12 +736,6 @@
 		<Filter
 			Name="Encryption"
 			Filter="">
-			<File
-				RelativePath=".\encryption.cpp">
-			</File>
-			<File
-				RelativePath=".\encryption.h">
-			</File>
 			<File
 				RelativePath=".\twofish\twofish2.c">
 			</File>

@@ -32,7 +32,7 @@
 #include "config.h"
 #include "skills.h"
 #include "muls/maps.h"
-#include "network.h"
+#include "network/network.h"
 #include "network/uosocket.h"
 #include "network/uorxpackets.h"
 #include "network/uotxpackets.h"

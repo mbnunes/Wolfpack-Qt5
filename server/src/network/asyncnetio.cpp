@@ -42,7 +42,7 @@
 #undef CONST
 
 // Twofish
-#include "../encryption.h"
+#include "encryption.h"
 
 /*!
 	\internal

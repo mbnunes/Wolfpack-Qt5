@@ -33,7 +33,7 @@
 #include "npc.h"
 #include "network/uotxpackets.h"
 #include "network/uosocket.h"
-#include "network.h"
+#include "network/network.h"
 #include "player.h"
 
 #include "world.h"

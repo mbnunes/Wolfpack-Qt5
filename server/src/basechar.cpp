@@ -43,7 +43,7 @@
 #include "multi.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
-#include "network.h"
+#include "network/network.h"
 #include "combat.h"
 #include "items.h"
 #include "basics.h"

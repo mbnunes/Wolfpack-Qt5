@@ -34,7 +34,7 @@
 #include "npc.h"
 #include "world.h"
 #include "console.h"
-#include "network.h"
+#include "network/network.h"
 #include "items.h"
 #include "network/uorxpackets.h"
 #include "network/uotxpackets.h"

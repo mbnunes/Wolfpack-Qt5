@@ -38,7 +38,7 @@
 #include "inlines.h"
 #include "guilds.h"
 #include "basechar.h"
-#include "network.h"
+#include "network/network.h"
 #include "player.h"
 #include "npc.h"
 #include "log.h"

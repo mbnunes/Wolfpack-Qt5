@@ -31,7 +31,7 @@
 #include "network/uosocket.h"
 #include "defines.h"
 #include "config.h"
-#include "network.h"
+#include "network/network.h"
 #include "basics.h"
 #include "console.h"
 #include "exceptions.h"

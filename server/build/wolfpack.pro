@@ -78,7 +78,7 @@ HEADERS = \
 	defines.h \
 	definitions.h \
 	dragdrop.h \
-	encryption.h \
+	encryption/encryption.h \
 	exceptions.h \
 	factory.h \
 	getopts.h \
@@ -87,12 +87,11 @@ HEADERS = \
 	inlines.h \
 	items.h \
 	log.h \
-	maps.h \
+	muls/maps.h \
 	md5.h \
-	mulstructs.h \
 	multi.h \
-	multiscache.h \
-	network.h \
+	muls/multiscache.h \
+	network/network.h \
 	npc.h \
 	pagesystem.h \
 	party.h \
@@ -113,8 +112,7 @@ HEADERS = \
 	speech.h \
 	targetrequests.h \
 	territories.h \
-	tilecache.h \
-	tileflags.h \
+	muls/tilecache.h \
 	timing.h \
 	timers.h \
 	tracking.h \
@@ -143,17 +141,17 @@ SOURCES = \
 	definable.cpp \
 	definitions.cpp \
 	dragdrop.cpp \
-	encryption.cpp \
+	encryption/encryption.cpp \
 	getopts.cpp \
 	guilds.cpp \
 	gumps.cpp \
 	items.cpp \
 	log.cpp \
-	maps.cpp \
+	muls/maps.cpp \
 	md5.cpp \
 	multi.cpp \
-	multiscache.cpp \
-	network.cpp \
+	muls/multiscache.cpp \
+	network/network.cpp \
 	npc.cpp \
 	party.cpp \
 	persistentbroker.cpp \
@@ -169,7 +167,7 @@ SOURCES = \
 	speech.cpp \
 	targetrequests.cpp \
 	territories.cpp \
-	tilecache.cpp \
+	muls/tilecache.cpp \
 	timing.cpp \
 	timers.cpp \
 	tracking.cpp \

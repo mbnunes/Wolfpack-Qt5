@@ -28,32 +28,21 @@
 #if !defined(__NETWORK_H__)
 #define __NETWORK_H__
 
-
-//Platform specifics
-#include "platform.h"
-
-// System Includes
+// Library Includes
 #include <qmutex.h>
-#include "singleton.h"
+#include <qptrlist.h>
+
+// Wolfpack Includes
+#include "../platform.h"
+#include "../singleton.h"
+#include "../typedefs.h"
+#include "uosocket.h"
 
 //Forward class Declaration
 class cNetworkStuff;
 class cAsyncNetIO;
 class cListener;
 class QHostAddress;
-
-//Wolfpack includes
-#include "typedefs.h"
-#include "network/uosocket.h"
-
-// Library Includes
-#include <qptrlist.h>
-
-struct ip_block_st
-{
-	unsigned long address;
-	unsigned long mask;
-};
 
 class cNetwork : public cComponent {
 	QPtrList< cUOSocket > uoSockets;

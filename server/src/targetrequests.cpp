@@ -41,7 +41,7 @@
 #include "accounts.h"
 #include "npc.h"
 #include "basics.h"
-#include "network.h"
+#include "network/network.h"
 
 // System Includes
 #include <math.h>

@@ -26,20 +26,20 @@
  */
 
 // Platform Includes
-#include "platform.h"
+#include "../platform.h"
 
 //Wolfpack Includes
 #include "network.h"
-#include "config.h"
+#include "../config.h"
 
-#include "console.h"
-#include "inlines.h"
-#include "network/asyncnetio.h"
-#include "network/uosocket.h"
-#include "network/listener.h"
-#include "basechar.h"
-#include "player.h"
-#include "exceptions.h"
+#include "../console.h"
+#include "../inlines.h"
+#include "asyncnetio.h"
+#include "uosocket.h"
+#include "listener.h"
+#include "../basechar.h"
+#include "../player.h"
+#include "../exceptions.h"
 
 // Library Includes
 #include <qstringlist.h>

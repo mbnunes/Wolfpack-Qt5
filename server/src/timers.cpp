@@ -34,7 +34,7 @@
 #include "items.h"
 
 #include "config.h"
-#include "network.h"
+#include "network/network.h"
 #include "definitions.h"
 #include "network/uosocket.h"
 #include "dbdriver.h"

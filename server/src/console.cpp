@@ -31,7 +31,7 @@
 #include "log.h"
 
 #include "world.h"
-#include "network.h"
+#include "network/network.h"
 #include "config.h"
 #include "player.h"
 #include "accounts.h"

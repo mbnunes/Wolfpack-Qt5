@@ -39,7 +39,7 @@
 #include "definitions.h"
 #include "pythonscript.h"
 #include "muls/maps.h"
-#include "network.h"
+#include "network/network.h"
 #include "log.h"
 #include "persistentbroker.h"
 #include "multi.h"

@@ -30,7 +30,7 @@
 #include "gumps.h"
 #include "config.h"
 #include "definitions.h"
-#include "network.h"
+#include "network/network.h"
 #include "network/uosocket.h"
 #include "spawnregions.h"
 #include "accounts.h"

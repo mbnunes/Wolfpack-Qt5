@@ -26,7 +26,7 @@
  */
 
 #include "corpse.h"
-#include "network.h"
+#include "network/network.h"
 #include "network/uotxpackets.h"
 #include "dbdriver.h"
 #include "network/uosocket.h"

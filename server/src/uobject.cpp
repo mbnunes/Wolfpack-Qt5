@@ -32,7 +32,7 @@
 #include "coord.h"
 #include "uobject.h"
 
-#include "network.h"
+#include "network/network.h"
 #include "console.h"
 #include "defines.h"
 #include "pythonscript.h"

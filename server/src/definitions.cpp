@@ -43,7 +43,7 @@
 #include "skills.h"
 #include "config.h"
 #include "basechar.h"
-#include "network.h"
+#include "network/network.h"
 
 #include "definitions.h"
 
@@ -51,7 +51,7 @@
 #include "inlines.h"
 #include "console.h"
 #include "commands.h"
-#include "encryption.h"
+#include "network/encryption.h"
 #include "basedef.h"
 #include "log.h"
 

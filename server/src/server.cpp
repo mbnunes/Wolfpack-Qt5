@@ -38,7 +38,7 @@
 #include "log.h"
 #include "muls/maps.h"
 #include "muls/multiscache.h"
-#include "network.h"
+#include "network/network.h"
 #include "npc.h"
 #include "player.h"
 #include "scriptmanager.h"
@@ -61,7 +61,7 @@
 #include <qapplication.h>
 #include "python/engine.h"
 #include "verinfo.h"
-#include "network.h"
+#include "network/network.h"
 
 cComponent::cComponent() {
 	this->loaded = false;

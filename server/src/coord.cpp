@@ -28,7 +28,7 @@
 // Include files
 #include "coord.h"
 #include "player.h"
-#include "network.h"
+#include "network/network.h"
 #include "sectors.h"
 #include "items.h"
 #include "muls/multiscache.h"

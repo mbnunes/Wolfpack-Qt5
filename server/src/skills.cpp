@@ -35,7 +35,7 @@
 #include "config.h"
 #include "scriptmanager.h"
 #include "skills.h"
-#include "network.h"
+#include "network/network.h"
 #include "muls/maps.h"
 #include "network/uosocket.h"
 #include "log.h"

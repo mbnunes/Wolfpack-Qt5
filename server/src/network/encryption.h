@@ -30,10 +30,10 @@
 
 #include <vector>
 #include <qstring.h>
-#include "singleton.h"
+#include "../singleton.h"
 
 extern "C" {
-#include "twofish/aes.h"
+#include "../twofish/aes.h"
 };
 
 struct stLoginKey

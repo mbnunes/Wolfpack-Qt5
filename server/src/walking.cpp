@@ -32,7 +32,7 @@
 #include "walking.h"
 #include "sectors.h"
 #include "config.h"
-#include "network.h"
+#include "network/network.h"
 #include "muls/maps.h"
 #include "muls/tilecache.h"
 #include "territories.h"

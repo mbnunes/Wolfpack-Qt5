@@ -45,7 +45,7 @@
 #include "sectors.h"
 #include "contextmenu.h"
 #include "pythonscript.h"
-#include "network.h"
+#include "network/network.h"
 
 // System Includes
 #include <functional>

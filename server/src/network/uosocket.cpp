@@ -29,7 +29,7 @@
 #include "uopacket.h"
 #include "uotxpackets.h"
 #include "asyncnetio.h"
-#include "../network.h"
+#include "network.h"
 
 // Wolfpack Includes
 #include "../corpse.h"

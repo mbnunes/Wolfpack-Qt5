@@ -34,11 +34,11 @@
 #include <qdatastream.h>
 
 #include "encryption.h"
-#include "definitions.h"
-#include "console.h"
+#include "../definitions.h"
+#include "../console.h"
 
-#include "log.h"
-#include "basics.h"
+#include "../log.h"
+#include "../basics.h"
 
 /*!
 	Initializes this "LoginCrypt" object.
