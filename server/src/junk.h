@@ -117,7 +117,7 @@ P_ITEM Packitem(P_CHAR pc); // Find packitem
 #include "regions.h"
 extern cRegion			*mapRegions; //setup map regions Tauriel
 
-int GetPackOwner(int p);
+int GetPackOwner(ITEM pi);
 P_ITEM GetOutmostCont(P_ITEM pItem, short rec = 10);
 P_CHAR GetPackOwner(P_ITEM pItem, short rec = 10);
 

@@ -165,7 +165,7 @@ public:
 	void MakeDough(int s);
 	void MakePizza(int s);
 	void Track(int i);
-	void DoPotion(int s, int type, int sub, int mortar);
+	void DoPotion(int s, int type, int sub, P_ITEM mortar);
 	void Tailoring(int s);
 	void Fletching(int s);
 	void BowCraft(int s);
@@ -208,7 +208,7 @@ public:
 	void ForensicsTarget(int s);
 	void PoisoningTarget(int s);
 	int Inscribe(int s, long snum);
-	int EngraveAction(int s, int i, int cir, int spl);
+	int EngraveAction(int s, P_ITEM pi, int cir, int spl);
 	void updateSkillLevel(int c, int s);
 	void LockPick(int s);
 	void TDummy(int s);

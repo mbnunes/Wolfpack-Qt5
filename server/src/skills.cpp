@@ -855,7 +855,7 @@ static bool DoOnePotion(int s,short regid, int regamount, char* regname)
 // Purpose:	determines regs and quantity, creates working sound and
 //			indirectly calls CreatePotion on success
 //
-void cSkills::DoPotion(int s, int type, int sub, int mortar)
+void cSkills::DoPotion(int s, int type, int sub, P_ITEM mortar)
 {
 	if (sub == 0)	// user cancelled second alchemy menu 
 		return;
@@ -894,7 +894,7 @@ void cSkills::DoPotion(int s, int type, int sub, int mortar)
 		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 3, 0);
 		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 6, 0);
 		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 9, 0);
-		tempeffect2(DEREF_P_CHAR(pc_currchar), &items[mortar], 10, type, sub, 0);	// this will indirectly call CreatePotion()
+		tempeffect2(DEREF_P_CHAR(pc_currchar), mortar, 10, type, sub, 0);	// this will indirectly call CreatePotion()
 	}
 }
 
@@ -2033,7 +2033,7 @@ void TellScroll( char *menu_name, int s, long snum )
 
 			else
 			{
-				Skills->EngraveAction(s, DEREF_P_ITEM(pi), cir, spl);	// check mana & set name
+				Skills->EngraveAction(s, pi, cir, spl);	// check mana & set name
 
 				if (!(pi->morex == cir && pi->morey == spl))	// not THIS spell
 				{
@@ -2093,11 +2093,12 @@ int cSkills::Inscribe(int s,long snum)
 // history:	unknown, modified by AntiChrist, totally revamped by Duke,8 April 2000
 // Purpose:	check mana&regs and set the name of selected spell
 //
-int cSkills::EngraveAction(int s, int i, int cir, int spl)
+int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 {
 	char *spn;					// spellname
 	int num=(8*(cir-1))+spl;
-	P_ITEM pi=MAKE_ITEMREF_LRV(i,0);
+	if (pi == NULL)
+		return -1;
 	Magic->DelReagents(currchar[s], spells[num].reagents);
 		
 	switch(cir*10 + spl)

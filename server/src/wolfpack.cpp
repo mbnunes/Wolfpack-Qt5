@@ -1363,14 +1363,15 @@ int DeleBankItem( CHARACTER p, unsigned short itemid, unsigned short color, int 
 	return total;
 }
 
-void usehairdye(UOXSOCKET s, ITEM x)	// x is the hair dye bottle object number
+void usehairdye(UOXSOCKET s, P_ITEM piDye)	// x is the hair dye bottle object number
 {
-	const P_ITEM piDye=MAKE_ITEMREF_LR(x);	// on error return
+	if (piDye == NULL)
+		return;
 
-	int ci=0,loopexit=0;
 	P_ITEM pi;
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 
+	unsigned int ci = 0;
 	vector<SERIAL> vecContainer = contsp.getData(pc_currchar->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{

@@ -1345,7 +1345,7 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
 
 	if (main>1246 && main<1255)
 	{
-		Skills->DoPotion(s, main-1246, sub, DEREF_P_ITEM(FindItemBySerial(calcserial(addid1[s], addid2[s], addid3[s], addid4[s]))));
+		Skills->DoPotion(s, main-1246, sub, FindItemBySerial(calcserial(addid1[s], addid2[s], addid3[s], addid4[s])));
 		return;
 	}
 	else if (main<ITEMMENUOFFSET) // GM Menus

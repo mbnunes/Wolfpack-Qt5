@@ -1040,7 +1040,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x1443:// Two Handed Axe
 				case 0x143E:// Halberd
 				case 0x143F:
-					addx[s] = DEREF_P_ITEM(pi); // save the item number, AntiChrist
+					addmitem[s] = pi->serial; // save the item number, AntiChrist
 					target(s, 0, 1, 0, 76, "What would you like to use that on ?");
 					return;// axes
 					
@@ -1079,7 +1079,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x0F3A:
 					if (!Item_ToolWearOut(s, pi))
 					{
-						addx[s] = DEREF_P_ITEM(pi); // save the item number, AntiChrist
+						addmitem[s] = pi->serial; // save the item number, AntiChrist
 						target(s, 0, 1, 0, 51, "Where do you want to dig?");
 					}
 					return; // mining
@@ -1330,7 +1330,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x0E27:
 				case 0x0EFF:   // Hair Dye
-					usehairdye(s, DEREF_P_ITEM(pi));
+					usehairdye(s, pi);
 					return;
 				case 0x14FB:
 				case 0x14FC:

@@ -214,7 +214,7 @@ int DeleBankItem( CHARACTER p, unsigned short itemid, unsigned short color, int 
 
 void getSextantCords(signed int x, signed int y, bool t2a, char *sextant);
 
-void usehairdye(int s, int x);
+void usehairdye(int s, P_ITEM piDye);
 void buildhouse(int s, int i);
 //void buildhouse(int s, int i,char d_id1,char d_id2,char d_id3, char d_id4);
 void deedhouse(UOXSOCKET s, int i); //crackerjack 8/9/99
