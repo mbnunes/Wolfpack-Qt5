@@ -13,12 +13,11 @@ from magic import *
 def CmdCast( socket, command, args ):
 	try:
 		args = int( args );
+		castSpell( socket.player, args, 1 )
 	except:
 		socket.sysmessage( "Usage: cast <spell-id>" )
-
-	castSpell( socket.player, args, 1 )
-
 	return True
+
 
 def onLoad():
 	wolfpack.registercommand( "cast", CmdCast )

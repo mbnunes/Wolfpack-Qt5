@@ -138,9 +138,10 @@ class Recall (Spell):
 			fizzle(char)
 			return
 
+		region = None
 		region = wolfpack.region(char.pos.x, char.pos.y, char.pos.map)
 
-		if region.norecallout:
+		if region and region.norecallout:
 			char.message(501802)
 			fizzle(char)
 			return
@@ -149,6 +150,7 @@ class Recall (Spell):
 		location = location.split(",")
 		location = wolfpack.coord(int(location[0]), int(location[1]), int(location[2]), int(location[3]))
 
+		region = None
 		region = wolfpack.region(location.x, location.y, location.map)
 
 		if not location.validspawnspot():
@@ -156,7 +158,7 @@ class Recall (Spell):
 			fizzle(char)
 			return
 
-		if region.norecallin:
+		if region and region.norecallin:
 			char.message(1019004)
 			fizzle(char)
 			return
