@@ -226,6 +226,8 @@ void CWorldMain::savenewworld(QString module)
 	SrvParams->flush();
 	if (SrvParams->serverLog()) savelog("Server data save\n","server.log");
 
+	// Check out queued connections
+
 	// Flush old items
 	persistentBroker->flushDeleteQueue();
 

@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// Englisch (USA) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -75,12 +75,12 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDI_ICON2               ICON    DISCARDABLE     "icon2.ico"
-#endif    // English (U.S.) resources
+#endif    // Englisch (USA) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// German (Austria) resources
+// Deutsch (Österreich) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEA)
 #ifdef _WIN32
@@ -113,7 +113,7 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
-#endif    // German (Austria) resources
+#endif    // Deutsch (Österreich) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

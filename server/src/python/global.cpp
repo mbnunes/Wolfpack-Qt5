@@ -37,6 +37,7 @@
 #include "../TmpEff.h"
 #include "../mapobjects.h"
 #include "../territories.h"
+#include "../maps.h"
 
 #include "utilities.h"
 #include "tempeffect.h"
@@ -316,6 +317,106 @@ PyObject* wpCurrenttime( PyObject* self, PyObject* args )
 }
 
 /*!
+	Returns a list of Static item at a given position
+*/
+PyObject *wpStatics( PyObject* self, PyObject* args )
+{
+	// Minimum is x, y, map
+	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+	
+	bool exact = true;
+	
+	if( checkArgInt( 3 ) && getArgInt( 3 ) == 0 )
+		exact = false;
+	
+	StaticsIterator iter = Map->staticsIterator( Coord_cl( getArgInt( 0 ), getArgInt( 1 ), 0, getArgInt( 2 ) ), exact );
+	
+	PyObject *list = PyList_New( 0 );
+	UINT32 xBlock = floor( getArgInt( 0 ) / 8 );
+	UINT32 yBlock = floor( getArgInt( 1 ) / 8 );
+
+	while( !iter.atEnd() )
+	{
+		// Create a Dictionary
+		PyObject *dict = PyDict_New();
+
+		PyDict_SetItemString( dict, "id", PyInt_FromLong( iter->itemid ) );
+		PyDict_SetItemString( dict, "x", PyInt_FromLong( xBlock + iter->xoff ) );
+		PyDict_SetItemString( dict, "y", PyInt_FromLong( yBlock + iter->yoff ) );
+		PyDict_SetItemString( dict, "z", PyInt_FromLong( iter->zoff ) );
+
+		PyList_Append( list, dict );
+		iter++;
+	}
+
+	return list;
+}
+
+/*!
+	Returns a list of items at a given position (sector)
+*/
+PyObject *wpItems( PyObject* self, PyObject* args )
+{
+	// Minimum is x, y, map
+	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+	
+	bool exact = true;
+	
+	if( checkArgInt( 3 ) && getArgInt( 3 ) == 0 )
+		exact = false;
+	
+	Coord_cl pos( getArgInt( 0 ), getArgInt( 1 ), 0, getArgInt( 2 ) );
+	RegionIterator4Items iter( pos );
+
+	PyObject *list = PyList_New( 0 );
+	UINT32 xBlock = floor( getArgInt( 0 ) / 8 );
+	UINT32 yBlock = floor( getArgInt( 1 ) / 8 );
+
+	for( iter.Begin(); !iter.atEnd(); iter++ )
+	{
+		P_ITEM pItem = iter.GetData();
+
+		if( pItem->pos.map != pos.map )
+			continue;
+
+		if( exact && pItem->pos.x != pos.x && pItem->pos.y != pos.y )
+			continue;
+
+		PyList_Append( list, PyGetItemObject( pItem ) );
+	}
+
+	return list;
+}
+
+/*!
+	Returns information about a given map cell.
+*/
+PyObject *wpMap( PyObject* self, PyObject* args )
+{
+	// Minimum is x, y, map
+	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	map_st mTile = Map->seekMap( Coord_cl( getArgInt( 0 ), getArgInt( 1 ), 0, getArgInt( 2 ) ) );
+
+	PyObject *dict = PyDict_New();
+	PyDict_SetItemString( dict, "id", PyInt_FromLong( mTile.id ) );
+	PyDict_SetItemString( dict, "z", PyInt_FromLong( mTile.z ) );
+	return dict;
+}
+
+/*!
 	wolfpack
 	Initializes wolfpack
 */
@@ -328,6 +429,9 @@ static PyMethodDef wpGlobal[] =
 	{ "addtimer",		wpAddtimer,		METH_VARARGS, "Adds a timed effect" },
 	{ "region",			wpRegion,		METH_VARARGS, "Gets the region at a specific position" },
 	{ "currenttime",	wpCurrenttime,	METH_VARARGS, "Time in ms since server-start" },
+	{ "statics",		wpStatics,		METH_VARARGS, "Returns a list of static-item at a given position" },
+	{ "map",			wpMap,			METH_VARARGS, "Retruns a dictionary with information about a given map tile" },
+	{ "items",			wpItems,		METH_VARARGS, "Returns a list of items in a specific sector." },
     { NULL, NULL, 0, NULL } // Terminator
 };
 
