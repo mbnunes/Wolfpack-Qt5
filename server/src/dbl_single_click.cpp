@@ -1543,7 +1543,7 @@ void singleclick(UOXSOCKET s)
 		
 	// Add creator's mark (if any)			
 	if (pi->creator.size() > 0 && pi->madewith > 0)
-		sprintf((char*)temp, "%s %s by %s", temp, skill[pi->madewith - 1].madeword, pi->creator);
+		sprintf((char*)temp, "%s %s by %s", temp, skill[pi->madewith - 1].madeword, pi->creator.c_str());
 	
 	if (pi->type == 15) // Fraz
 	{

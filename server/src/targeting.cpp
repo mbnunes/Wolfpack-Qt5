@@ -612,7 +612,7 @@ void cTargets::IstatsTarget(int s)
 				pi->st, pi->hp,pi->maxhp, pi->lodamage, pi->hidamage,pi->def,pi->rank,pi->smelt,pi->secureIt,
 				pi->morex, pi->morey, pi->morez,pi->poisoned,pi->racehate,
 				pi->weight, pi->ownserial, // Ison 2-20-99
-				pi->creator,pi->madewith,pi->value,int(double(int(pi->decaytime-uiCurrentTime)/MY_CLOCKS_PER_SEC)),(pi->priv)&0x01,pi->good,pi->rndvaluerate); // Magius(CHE) (2)
+				pi->creator.c_str(),pi->madewith,pi->value,int(double(int(pi->decaytime-uiCurrentTime)/MY_CLOCKS_PER_SEC)),(pi->priv)&0x01,pi->good,pi->rndvaluerate); // Magius(CHE) (2)
 				sysmessage(s,(char*)temp); // Ison 2-20-99
 			// End Modified lines
 		}

@@ -383,9 +383,10 @@ void cSkills::TasteIDTarget(int s)
 					{
 						if (pi->creator.size()>0)
 						{
-							if (pi->madewith>0) sprintf((char*)temp2, "It is %s by %s",skill[pi->madewith-1].madeword,pi->creator); // Magius(CHE)
-							else if (pi->madewith<0) sprintf((char*)temp2, "It is %s by %s",skill[0-pi->madewith-1].madeword,pi->creator); // Magius(CHE)
-							else sprintf((char*)temp2, "It is made by %s",pi->creator); // Magius(CHE)
+							if (pi->madewith>0) 
+								sprintf((char*)temp2, "It is %s by %s",skill[pi->madewith-1].madeword,pi->creator.c_str()); // Magius(CHE)
+							else if (pi->madewith<0) sprintf((char*)temp2, "It is %s by %s",skill[0-pi->madewith-1].madeword, pi->creator.c_str()); // Magius(CHE)
+							else sprintf((char*)temp2, "It is made by %s",pi->creator.c_str()); // Magius(CHE)
 						} else strcpy((char*)temp2, "You don't know its creator!");
 					} else strcpy((char*)temp2, "You can't know its creator!");
 					sysmessage(s, (char*)temp2);
@@ -1876,9 +1877,9 @@ void cSkills::ItemIdTarget(int s)
 			{
 				if (pi->creator.size()>0)
 				{
-					if (pi->madewith>0) sprintf((char*)temp2, "It is %s by %s",skill[pi->madewith-1].madeword,pi->creator); // Magius(CHE)
-					else if (pi->madewith<0) sprintf((char*)temp2, "It is %s by %s",skill[0-pi->madewith-1].madeword,pi->creator); // Magius(CHE)
-					else sprintf((char*)temp2, "It is made by %s",pi->creator); // Magius(CHE)
+					if (pi->madewith>0) sprintf((char*)temp2, "It is %s by %s",skill[pi->madewith-1].madeword,pi->creator.c_str()); // Magius(CHE)
+					else if (pi->madewith<0) sprintf((char*)temp2, "It is %s by %s",skill[0-pi->madewith-1].madeword,pi->creator.c_str()); // Magius(CHE)
+					else sprintf((char*)temp2, "It is made by %s",pi->creator.c_str()); // Magius(CHE)
 				} else strcpy((char*)temp2, "You don't know its creator!");
 			} else strcpy((char*)temp2, "You can't know its creator!");
 			sysmessage(s, (char*)temp2);

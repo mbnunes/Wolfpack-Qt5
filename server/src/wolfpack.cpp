@@ -648,7 +648,7 @@ char *complete_title(P_CHAR pc) // generates the ENTIRE title plus criminal stuf
 	// ripper ..rep stuff
 	else if ((pc->crimflag>0) && (!(pc->dead) && (pc->kills<4)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[0].other, pc->name, pc->title, title1(pc), title2(pc));
+		sprintf(tempstr, "%s %s, %s%s %s", title[0].other, pc->name.c_str(), pc->title.c_str(), title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=5) && (!(pc->dead) && (pc->kills<10)))
 	{
@@ -677,7 +677,7 @@ char *complete_title(P_CHAR pc) // generates the ENTIRE title plus criminal stuf
 			strcpy((char*)temp,tempstr);
 			if (pc->title.size()>0)
 			{//Titled & Skill
-				sprintf(tempstr, "%s %s %s, %s %s", temp, Races[pc->race]->RaceName.c_str(), pc->title, title1(pc), title2(pc));
+				sprintf(tempstr, "%s %s %s, %s %s", temp, Races[pc->race]->RaceName.c_str(), pc->title.c_str(), title1(pc), title2(pc));
 			}
 			else
 			{//Just skilled
