@@ -391,11 +391,31 @@ void Human_Guard::selectVictim()
 		for ( ri.Begin(); !ri.atEnd(); ri++ )
 		{
 			P_CHAR pChar = ri.GetData();
-			if ( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() && !pChar->isInnocent() )
+			if ( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
 			{
-				P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( pChar );
-				if ( pPlayer && pPlayer->isGMorCounselor() )
-					continue;
+				// If its a NPC... special handling
+				P_NPC pNpc = dynamic_cast<P_NPC>(pChar);
+
+				// NPCs owned by innocent players aren't attacked
+				if (pNpc) {
+					if (pNpc->isTamed() && pNpc->owner()) {
+						if (pNpc->owner()->isInnocent()) {
+							continue;
+						}
+					} else {
+						// Check for the AI, guards only attack other npcs if they
+						// are monsters.
+						Monster_Aggressive *npcai = dynamic_cast<Monster_Aggressive*>(pNpc->ai());
+						if (!npcai) {
+							continue;
+						}
+					}
+				} else {
+					// Innocent players aren't attacked
+					P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( pChar );
+					if ( pPlayer && (pPlayer->isInnocent() || pPlayer->isGMorCounselor()) )
+						continue;
+				}
 
 				m_currentVictim = pChar;
 				m_currentVictimSer = pChar->serial();
@@ -453,10 +473,13 @@ void Human_Guard_MoveToTarget::execute()
 	if ( !pTarget )
 		return;
 
+	// Guards always run
+	bool run = true;
+
 	if ( Config::instance()->pathfind4Combat() )
-		movePath( pTarget->pos() );
+		movePath( pTarget->pos(), run );
 	else
-		moveTo( pTarget->pos() );
+		moveTo( pTarget->pos(), run );
 }
 
 float Human_Guard_MoveToTarget::preCondition()

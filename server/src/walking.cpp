@@ -876,6 +876,8 @@ bool cMovement::canLandMonsterMoveHere( Coord_cl& pos ) const
 	if ( pos.x >= ( Maps::instance()->mapTileWidth( pos.map ) * 8 ) || pos.y >= ( Maps::instance()->mapTileHeight( pos.map ) * 8 ) )
 		return false;
 
+	int oldz = pos.z;
+
 	// Go trough the array top-to-bottom and check
 	// If we find a tile to walk on
 	vector<stBlockItem> blockList = getBlockingItems( 0, pos );
@@ -920,6 +922,38 @@ bool cMovement::canLandMonsterMoveHere( Coord_cl& pos ) const
 	// We didn't find anything to step on
 	if ( !found )
 		return false;
+
+	// Another loop *IS* needed here (at least that's what i think)
+	for ( i = 0; i < blockList.size(); ++i )
+	{
+		// So we know about the new Z position we are moving to
+		// Lets check if there is enough space ABOVE that position (at least 15 z units)
+		// If there is ANY impassable object between pos.z and pos.z + 15 we can't walk here
+		stBlockItem item = blockList[i];
+		Q_INT8 itemTop = ( item.z + item.height );
+
+		// If the item is below what we step on, ignore it
+		if (itemTop <= pos.z) {
+			continue;
+		}
+
+		// Does the top of the item looms into our space
+		// Like before 15 is the assumed height of ourself
+		// Use the new position here.
+		if ( ( itemTop > pos.z ) && ( itemTop < pos.z + P_M_MAX_Z_BLOCKS ) )
+			return false;
+
+		// Or the bottom ?
+		// note: the following test was commented out.  by putting the code back in,
+		// npcs stop wandering through the walls of multis.  I am curious if this code
+		// has other (negative) affects besides that.
+		 if ( ( item.z > oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS / 2 ) )
+			return false;
+
+		// Or does it spread the whole range ?
+		if ( ( item.z <= oldz ) && ( itemTop >= oldz + P_M_MAX_Z_BLOCKS / 2 ) )
+			return false;
+	}
 
 	return true;
 }

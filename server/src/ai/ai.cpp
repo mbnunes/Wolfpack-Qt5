@@ -646,7 +646,7 @@ void Action_Wander::execute()
 	}
 }
 
-bool Action_Wander::moveTo( const Coord_cl& pos )
+bool Action_Wander::moveTo( const Coord_cl& pos, bool run )
 {
 	// simply move towards the target
 	Q_UINT8 dir = m_npc->pos().direction( pos );
@@ -680,13 +680,21 @@ bool Action_Wander::moveTo( const Coord_cl& pos )
 	// If we're not facing the direction we're trying to walk to,
 	// call Movement once more.
 	if (m_npc->direction() != dir) {
-		Movement::instance()->Walking( m_npc, dir, 0xFF );
+		if (run) {
+			Movement::instance()->Walking( m_npc, dir|0x80, 0xFF );
+		} else {
+			Movement::instance()->Walking( m_npc, dir, 0xFF );
+		}
 	}
 
-	return Movement::instance()->Walking( m_npc, dir, 0xFF );
+	if (run) {
+		return Movement::instance()->Walking( m_npc, dir|0x80, 0xFF );
+	} else {
+		return Movement::instance()->Walking( m_npc, dir, 0xFF );
+	}
 }
 
-bool Action_Wander::movePath( const Coord_cl& pos )
+bool Action_Wander::movePath( const Coord_cl& pos, bool run )
 {
 	if ( waitForPathCalculation <= 0 && !m_npc->hasPath() )
 	{
@@ -708,7 +716,7 @@ bool Action_Wander::movePath( const Coord_cl& pos )
 	else if ( !m_npc->hasPath() )
 	{
 		waitForPathCalculation--;
-		return moveTo( pos );
+		return moveTo( pos, run );
 	}
 
 	if ( m_npc->hasPath() )
@@ -719,17 +727,26 @@ bool Action_Wander::movePath( const Coord_cl& pos )
 
 		// Make sure we face the direction...
 		if (m_npc->direction() != dir) {
-			Movement::instance()->Walking( m_npc, dir, 0xFF );
+			if (run) {
+				Movement::instance()->Walking( m_npc, dir|0x80, 0xFF );
+			} else {
+				Movement::instance()->Walking( m_npc, dir, 0xFF );
+			}
 		}
 
-		bool result = Movement::instance()->Walking( m_npc, dir, 0xFF );
+		bool result;
+		if (run) {
+			result = Movement::instance()->Walking( m_npc, dir|0x80, 0xFF );
+		} else {
+			result = Movement::instance()->Walking( m_npc, dir, 0xFF );
+		}
 		m_npc->popMove();
 		return result;
 	}
 	else
 	{
 		waitForPathCalculation = 3;
-		return moveTo( pos );
+		return moveTo( pos, run );
 	}
 }
 
@@ -786,9 +803,6 @@ float Action_FleeAttacker::preCondition()
 
 	P_CHAR pAttacker = m_npc->attackTarget();
 	if ( !pAttacker || pAttacker->isDead() || !m_npc->inRange( pAttacker, Config::instance()->pathfindFleeRadius() ) )
-		return 0.0f;
-
-	if ( m_npc->hitpoints() < m_npc->criticalHealth() )
 		return 0.0f;
 
 	pFleeFromSer = pAttacker->serial();

@@ -229,7 +229,8 @@ static void npcRegisterAfterLoading( P_NPC pc )
 
 bool cNPC::isInnocent()
 {
-	return notoriety() == 1;
+	unsigned char notoriety = this->notoriety();
+	return notoriety >= 4 && notoriety <= 6;
 }
 
 void cNPC::setOwner( P_PLAYER data, bool nochecks )
@@ -268,6 +269,16 @@ void cNPC::setNextMoveTime()
 	{
 		interval *= 3;
 		interval += RandomNum(1000, 5000);
+	}
+
+	// If we are moving to a targert, run!
+	if (ai_ && ai_->currentAction()) {
+		Human_Guard_MoveToTarget *moveToTargetG = dynamic_cast<Human_Guard_MoveToTarget*>(ai_->currentAction());
+		Monster_Aggr_MoveToTarget *moveToTargetM = dynamic_cast<Monster_Aggr_MoveToTarget*>(ai_->currentAction());
+
+		if (moveToTargetG || moveToTargetM) {
+			interval = 250;
+		}
 	}
 
 	setNextMoveTime( Server::instance()->time() + interval );

@@ -24,6 +24,8 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Spawnregions have been rewritten for more speed and functionality.
 	  Because of that the format changed, please hop on irc and ask for details if you want
 	  to convert your scripts.
+	- Guards now run towards their targets.
+	- Fixed bug #0000345.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

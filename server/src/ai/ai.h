@@ -127,6 +127,10 @@ public:
 
 	virtual QString name() = 0;
 
+	AbstractAction *currentAction() {
+		return m_currentAction;
+	}
+
 	P_NPC npc() const
 	{
 		return m_npc;
@@ -190,8 +194,8 @@ public:
 	}
 
 protected:
-	bool moveTo( const Coord_cl& pos );
-	bool movePath( const Coord_cl& pos );
+	bool moveTo( const Coord_cl& pos, bool run = false );
+	bool movePath( const Coord_cl& pos, bool run = false );
 	int waitForPathCalculation;
 };
 
@@ -541,6 +545,7 @@ public:
 		m_actions.append( new Action_FleeAttacker( npc, this ) );
 		m_actions.append( new Action_Defend( npc, this ) );
 		m_actions.append( new Animal_Wild_Flee( npc, this ) );
+		m_actions.append( new Monster_Aggr_MoveToTarget( npc, this ) );
 	}
 
 	static void registerInFactory();
