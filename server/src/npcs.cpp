@@ -1938,6 +1938,7 @@ P_ITEM cChar::getWeapon()
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
+		if (pi != NULL)
 		if ((pi->layer==1 && pi->type!=9)		// not a spellbook (hozonko)
 			|| (pi->layer==2 && !getShield()) ) //Morrolan don't check for shields
 		{

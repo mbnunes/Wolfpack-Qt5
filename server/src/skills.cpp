@@ -2676,6 +2676,7 @@ int cSkills::GetAntiMagicalArmorDefence(int p)
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pi = FindItemBySerial(vecContainer[ci]);
+			if (pi != NULL)
 			if (pi->layer>1 && pi->layer < 25)
 			{
 				if (!(strstr(pi->name, "leather") || strstr(pi->name, "magic") ||
