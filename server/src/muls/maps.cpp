@@ -694,81 +694,81 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 */
 void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exact )
 {
-	uint indexPos = ( baseX* mapRecord->height + baseY ) * 12;
+	uint indexPos = ( baseX * mapRecord->height + baseY ) * 12;
 	assert( indexPos < 0x8000000 ); // dam, breaks our assumption
+	Q_UINT32 cachePos = ((baseY & 0xFFFF) << 16) | (baseX & 0xFFFF);
 
-	Q_UINT32 cachePos;
-	if ( exact )
-		cachePos = ( x * y ) | 0x80000000;
-	else
-		cachePos = baseX * baseY;
+	QValueVector<staticrecord>* p = mapRecord->staticsCache.find(cachePos);
 
-	QValueVector<staticrecord>* p = mapRecord->staticsCache.find( cachePos );
+	// The block is not cached yet.
+	if (!p) {
+		QDataStream staticStream;
+		staticStream.setByteOrder(QDataStream::LittleEndian);
+		unsigned int blockLength;
 
-#if !defined(_DEBUG)
-	if ( !p )
-			#else
-		if ( true )
-						#endif
+		// See if this particular block is patched.
+		if ( mapRecord->staticpatches.contains( indexPos / 12 ) )
 		{
-			QDataStream staticStream;
-			staticStream.setByteOrder( QDataStream::LittleEndian );
-			unsigned int blockLength;
+			const stIndexRecord& index = mapRecord->staticpatches[indexPos / 12];
 
-			// See if this particular block is patched.
-			if ( mapRecord->staticpatches.contains( indexPos / 12 ) )
-			{
-				const stIndexRecord& index = mapRecord->staticpatches[indexPos / 12];
+			if ( index.offset == 0xFFFFFFFF )
+				return; // No statics for this block
 
-				if ( index.offset == 0xFFFFFFFF )
-					return; // No statics for this block
-
-				mapRecord->stadifdata.at( index.offset );
-				staticStream.setDevice( &mapRecord->stadifdata );
-				blockLength = index.blocklength;
-			}
-			else
-			{
-				stIndexRecord indexStructure;
-				mapRecord->idxfile.at( indexPos );
-				mapRecord->idxfile.readBlock( ( char * ) &indexStructure, sizeof( indexStructure ) );
-
-				if ( indexStructure.offset == 0xFFFFFFFF )
-					return; // No statics for this block
-
-				mapRecord->staticsfile.at( indexStructure.offset );
-				staticStream.setDevice( &mapRecord->staticsfile );
-				blockLength = indexStructure.blocklength;
-			}
-
-			const uint remainX = x % 8;
-			const uint remainY = y % 8;
-			for ( Q_UINT32 i = 0; i < blockLength / 7; ++i )
-			{
-				staticrecord r;
-				staticStream >> r.itemid;
-				staticStream >> r.xoff;
-				staticStream >> r.yoff;
-				staticStream >> r.zoff;
-				staticStream >> r.color;
-				if ( exact )
-				{
-					if ( r.xoff == remainX && r.yoff == remainY )
-						staticArray.push_back( r );
-				}
-				else
-					staticArray.push_back( r );
-			}
-
-			// update cache;
-			QValueVector<staticrecord>* temp = new QValueVector<staticrecord>( staticArray );
-			if ( !mapRecord->staticsCache.insert( cachePos, temp ) )
-				delete temp;
+			mapRecord->stadifdata.at( index.offset );
+			staticStream.setDevice( &mapRecord->stadifdata );
+			blockLength = index.blocklength;
 		}
 		else
 		{
+			stIndexRecord indexStructure;
+			mapRecord->idxfile.at( indexPos );
+			mapRecord->idxfile.readBlock( ( char * ) &indexStructure, sizeof( indexStructure ) );
+
+			if ( indexStructure.offset == 0xFFFFFFFF )
+				return; // No statics for this block
+
+			mapRecord->staticsfile.at( indexStructure.offset );
+			staticStream.setDevice( &mapRecord->staticsfile );
+			blockLength = indexStructure.blocklength;
+		}
+
+		const uint remainX = x % 8;
+		const uint remainY = y % 8;
+		for ( Q_UINT32 i = 0; i < blockLength / 7; ++i )
+		{
+			staticrecord r;
+			staticStream >> r.itemid;
+			staticStream >> r.xoff;
+			staticStream >> r.yoff;
+			staticStream >> r.zoff;
+			staticStream >> r.color;
+			if (exact) {
+				if ( r.xoff == remainX && r.yoff == remainY )
+					staticArray.push_back( r );
+			} else {
+				staticArray.push_back( r );
+			}
+		}
+
+		// update cache;
+		QValueVector<staticrecord>* temp = new QValueVector<staticrecord>( staticArray );
+		if ( !mapRecord->staticsCache.insert( cachePos, temp ) )
+			delete temp;
+	} else {
+		if (exact) {
+			// Copy only the ones we need
+			const uint remainX = x % 8;
+			const uint remainY = y % 8;
+			for (Q_UINT32 i = 0; i < p->size(); ++i ) {
+				const staticrecord &r = p->at(i);
+				if (r.xoff == remainX && r.yoff == remainY) {
+					staticArray.append(r);
+				}
+			}
+		} else {
 			staticArray = *p;
 		}
+	}
 }
 
 void StaticsIterator::inc()

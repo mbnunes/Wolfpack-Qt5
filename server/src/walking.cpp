@@ -172,7 +172,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 	// TODO: Calculate the REAL average Z Value of that Map Tile here! Otherwise clients will have minor walking problems.
 	map_st mapCell = Maps::instance()->seekMap( pos );
 	//mapBlock.z = mapCell.z;
-	land_st mapTile = TileCache::instance()->getLand( mapCell.id );
+	const land_st &mapTile = TileCache::instance()->getLand( mapCell.id );
 
 	// If it's not impassable it's automatically walkable
 	if ( !( mapTile.flag1 & 0x40 ) )
@@ -187,10 +187,16 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 	}
 
 	// Now for the static-items
-	StaticsIterator staIter = Maps::instance()->staticsIterator( pos, true );
+	const unsigned char cellx = pos.x % 8;
+	const unsigned char celly = pos.y % 8;
+	StaticsIterator staIter = Maps::instance()->staticsIterator( pos, false );
 	for ( ; !staIter.atEnd(); ++staIter )
 	{
-		tile_st tTile = TileCache::instance()->getTile( staIter->itemid );
+		// Continue if it's not the tile we want
+		if (staIter->xoff != cellx || staIter->yoff != celly)
+			continue;
+
+		const tile_st &tTile = TileCache::instance()->getTile( staIter->itemid );
 
 		// Here is decided if the tile is needed
 		// It's uninteresting if it's NOT blocking
@@ -234,7 +240,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 			}
 		}
 
-		tile_st tTile = TileCache::instance()->getTile( pItem->id() );
+		const tile_st &tTile = TileCache::instance()->getTile( pItem->id() );
 
 		// See above for what the flags mean
 		if ( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
@@ -270,7 +276,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 		{
 			if ( multi[j].visible && ( pMulti->pos().x + multi[j].x == pos.x ) && ( pMulti->pos().y + multi[j].y == pos.y ) )
 			{
-				tile_st tTile = TileCache::instance()->getTile( multi[j].tile );
+				const tile_st &tTile = TileCache::instance()->getTile( multi[j].tile );
 				if ( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
 					continue;
 

@@ -810,6 +810,7 @@ static PyObject* wpItem_lightning( wpItem* self, PyObject* args )
 static PyObject* wpItem_resendtooltip( wpItem* self, PyObject* args )
 {
 	Q_UNUSED( args );
+
 	if ( !self->pItem->free )
 		self->pItem->resendTooltip();
 

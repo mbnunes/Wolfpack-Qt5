@@ -63,8 +63,6 @@ using namespace std;
 
 void cTileCache::unload()
 {
-	staticTiles.clear();
-	landTiles.clear();
 	cComponent::unload();
 }
 
@@ -99,14 +97,7 @@ void cTileCache::load()
 		for ( j = 0; j < 32; ++j )
 		{
 			Q_UINT16 tileId = ( i * 32 ) + j;
-			land_st landTile;
-			input.readBlock( ( char * ) &landTile, 26 );
-
-			// It's not an empty tile, so let's save it
-			// We only compare until the first char of the name as
-			// the junk behind the 00 doesnt interest us
-			if ( memcmp( &emptyLandTile, &landTile, ( 26 - 19 ) ) )
-				landTiles.insert( make_pair( tileId, landTile ) );
+			input.readBlock( ( char * ) &landTiles[tileId], 26 );
 		}
 	}
 
@@ -124,14 +115,7 @@ void cTileCache::load()
 		for ( j = 0; j < 32; ++j )
 		{
 			Q_UINT16 tileId = ( i * 32 ) + j;
-			tile_st staticTile;
-			input.readBlock( ( char * ) &staticTile, 37 ); // Length of one record: 37
-
-			// It's not an empty tile, so let's save it
-			// We only compare until the first char of the name as
-			// the junk behind the 00 doesnt interest us
-			if ( memcmp( &emptyStaticTile, &staticTile, 18 ) )
-				staticTiles.insert( make_pair( tileId, staticTile ) );
+			input.readBlock( ( char * ) &staticTiles[tileId], 37 ); // Length of one record: 37
 		}
 	}
 	input.close();
@@ -202,24 +186,6 @@ void cTileCache::load()
 	cComponent::load();
 }
 
-// Get's a land-tile out of the cache
-land_st cTileCache::getLand( Q_UINT16 tileId )
-{
-	if ( landTiles.find( tileId ) == landTiles.end() )
-		return emptyLandTile;
-	else
-		return landTiles.find( tileId )->second;
-}
-
-// The same for static-tiles
-tile_st cTileCache::getTile( Q_UINT16 tileId )
-{
-	if ( staticTiles.find( tileId ) == staticTiles.end() )
-		return emptyStaticTile;
-	else
-		return staticTiles.find( tileId )->second;
-}
-
 signed char cTileCache::tileHeight( const tile_st& t )
 {
 	if ( t.flag2 & 4 )
@@ -229,7 +195,7 @@ signed char cTileCache::tileHeight( const tile_st& t )
 
 signed char cTileCache::tileHeight( ushort tileId )
 {
-	tile_st tile = getTile( tileId );
+	const tile_st &tile = getTile( tileId );
 	// For Stairs+Ladders
 	return tileHeight( tile );
 }

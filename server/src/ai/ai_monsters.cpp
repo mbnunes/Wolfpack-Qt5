@@ -87,11 +87,6 @@ bool validTarget( P_NPC npc, P_CHAR victim, int dist )
 		return false;
 	}
 
-	if ( !npc->lineOfSight( victim ) )
-	{
-		return false;
-	}
-
 	bool result = true;
 
 	// Check if the NPC has a script for target validation
@@ -122,7 +117,7 @@ P_CHAR findBestTarget( P_NPC npc )
 		}
 
 		// We don't already attack the target, right?
-		if ( victim != target  )
+		if ( victim != target )
 		{
 			// See if it's a target we want
 			unsigned int dist = npc->dist( victim );

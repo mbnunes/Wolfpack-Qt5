@@ -710,6 +710,24 @@ static PyObject* wpSocket_useitem( wpSocket* self, PyObject* args )
 }
 
 /*
+	\method socket.sendtooltip
+	\description Sends the client the tooltip of the given object.
+	\param object The object that should be sent.
+
+*/
+static PyObject* wpSocket_sendtooltip( wpSocket* self, PyObject* args )
+{
+	cUObject *object;
+
+	if ( !PyArg_ParseTuple( args, "O&:socket.sendtooltip(object)", &PyConvertObject, &object ) ) {
+		return 0;
+	}
+
+	object->sendTooltip(self->pSock);
+	Py_RETURN_NONE;
+}
+
+/*
 	\method socket.gettag
 	\description Get a custom tag attached to the socket.
 	Please keep in mind these tags are temporary in nature.
@@ -959,6 +977,7 @@ static PyMethodDef wpSocketMethods[] =
 { "log",				( getattrofunc ) wpSocket_log, METH_VARARGS, NULL },
 { "updatelightlevel",   ( getattrofunc ) wpSocket_updatelightlevel, METH_VARARGS, NULL },
 { "denymove",			( getattrofunc ) wpSocket_denymove, METH_VARARGS, NULL },
+{ "sendtooltip",		( getattrofunc ) wpSocket_sendtooltip, METH_VARARGS, NULL },
 { NULL, NULL, 0, NULL }
 };
 

@@ -1136,6 +1136,50 @@ cCommands::~cCommands()
 	_acls.clear();
 }
 
+#include "pathfinding.h"
+
+class cFindPathTarget : public cTargetRequest {
+public:
+	bool responsed(cUOSocket *socket, cUORxTarget *target) {
+		if (target->x() == 0xFFFF || target->y() == 0xFFFF) {
+			socket->sysMessage("Please select a valid target.");
+			return false;
+		}
+
+        Coord to(target->x(), target->y(), target->z(), socket->player()->pos().map);
+		QValueVector<unsigned char> path = Pathfinding::instance()->find(socket->player(), socket->player()->pos(), to);
+        
+		socket->sysMessage(QString("Found path with %1 nodes.").arg(path.size()));
+		QStringList dirs;
+
+		Coord coord = socket->player()->pos();
+
+		// Show RecallRunes where the stupid thing is
+		for (int i = 0; i < path.size(); ++i) {
+			unsigned char dir = path[i];
+			dirs.append(QString::number(path[i]));
+
+			Coord newcoord = Movement::instance()->calcCoordFromDir(dir, coord);
+			mayWalk(socket->player(), newcoord);
+			newcoord.effect(0x1f14, 1, 255, 0x26);
+			coord = newcoord;
+		}
+		socket->sysMessage("Directions: " + dirs.join(", "));
+
+		return true;
+	}
+};
+
+/*
+	Find a path
+*/
+void commandFindPath( cUOSocket* socket, const QString& /*command*/, const QStringList& args ) throw()
+{
+	// attach a target to find the target
+	socket->sysMessage("Select the target for the pathfinding calculation.");
+	socket->attachTarget(new cFindPathTarget);
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1157,5 +1201,6 @@ stCommand cCommands::commands[] =
 { "STAFF", commandStaff },
 { "SPAWNREGION", commandSpawnRegion },
 { "WALKTEST", commandWalkTest },
+{ "FINDPATH", commandFindPath },
 { NULL, NULL }
 };
