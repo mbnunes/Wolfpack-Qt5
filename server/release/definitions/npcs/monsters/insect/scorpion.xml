@@ -14,7 +14,6 @@
 		<id>48</id>
 		<karma><random list="KARMA_L2" /></karma>
 		<fame><random list="FAME_L2" /></fame>
-		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="73" max="115"/></str>
 		<dex><random min="76" max="95"/></dex>
