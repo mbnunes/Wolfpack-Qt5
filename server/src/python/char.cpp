@@ -1848,31 +1848,33 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 	Coord_cl pos;
 
 	P_ITEM pItem = 0;
+	P_CHAR pChar = 0;
 
 	// Parameter 1: Coordinate
 	if( checkArgCoord( 0 ) )
 	{
 		pos = getArgCoord( 0 );
-	}
-	// Parameter1: Item/Char
-	else
-	{
-		cUObject *obj = getArgChar( 0 );
-
-		if( !obj )
-		{
-			pItem = getArgItem( 0 );
-
-			if( pItem && pItem->getOutmostChar() == self->pChar )
-				return PyTrue;
-
-			obj = pItem;
-		}
 	
-		if( !obj )
-			return PyFalse;
+	// Parameter1: Item/Char
+	} else {	
+		pChar = getArgChar( 0 );
 
-		pos = obj->pos();
+		if(!pChar) {
+			pItem = getArgItem( 0 );
+			if (!pItem) {
+				Py_INCREF(Py_False);
+				return Py_False;
+			}
+
+			if (pItem->getOutmostChar() == self->pChar) {
+				Py_INCREF(Py_True);
+				return Py_True;
+			}
+
+			pos = pItem->pos();
+		} else {
+			pos = pChar->pos();
+		}		
 	}
 
 	UINT32 range = getArgInt( 1 );
@@ -1884,14 +1886,21 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 		return PyFalse;
 
 	if (pItem) {
-		if (!self->pChar->lineOfSight(pItem, true))
-			return PyFalse;
+		if (!self->pChar->lineOfSight(pItem, true)) {
+			Py_INCREF(Py_False);
+			return Py_False;
+		}
+	} else if (pChar) {
+		if (!self->pChar->lineOfSight(pChar, true)) {
+			Py_INCREF(Py_False);
+			return Py_False;
+		}
 	} else {
-		if (!self->pChar->lineOfSight(pos, true))
-			return PyFalse;
+		if (!self->pChar->lineOfSight(pos, true)) {
+			Py_INCREF(Py_False);
+			return Py_False;
+		}
 	}
-	
-
 	return PyTrue;
 }
 
