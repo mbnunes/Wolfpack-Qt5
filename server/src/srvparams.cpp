@@ -262,12 +262,6 @@ void cSrvParams::readData()
 	basetimer_			    = getNumber("Tracking", "Base Tracking Time", 5, true);
 	redisplaytime_			= getNumber("Tracking", "Tracking Message Redisplay Time", 5, true);
 
-	// Message Board
-	msgboardPath_			= getString("MessageBoard", "Path", "./", true);
-	msgboardPostAccess_     = getNumber("MessageBoard", "Post Access", 1, true);
-	msgboardPostRemove_     = getNumber("MessageBoard", "Post Remove", 0, true);
-	msgboardRetention_      = getNumber("MessageBoard", "Retention", 30, true);
-
 	// Light
 	worldBrightLevel_       = getNumber("Light", "World Bright Level", 1, true);
 	worldFixedLevel_		= getNumber("Light", "World Fixed Level", 0, true);

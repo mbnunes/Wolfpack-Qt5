@@ -105,10 +105,6 @@ SOURCE=.\books.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\bounty.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\char_flatstore.cpp
 # End Source File
 # Begin Source File
@@ -214,10 +210,6 @@ SOURCE=.\mapobjects.cpp
 # Begin Source File
 
 SOURCE=.\maps.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\msgboard.cpp
 # End Source File
 # Begin Source File
 
@@ -472,10 +464,6 @@ InputName=books
 
 !ENDIF 
 
-# End Source File
-# Begin Source File
-
-SOURCE=.\bounty.h
 # End Source File
 # Begin Source File
 
@@ -829,10 +817,6 @@ SOURCE=.\mapobjects.h
 # Begin Source File
 
 SOURCE=.\maps.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\msgboard.h
 # End Source File
 # Begin Source File
 

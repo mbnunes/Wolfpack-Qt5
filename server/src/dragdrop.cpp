@@ -35,7 +35,6 @@
 #include "tilecache.h"
 #include "speech.h"
 #include "itemid.h"
-#include "bounty.h"
 #include "guildstones.h"
 #include "mapobjects.h"
 #include "srvparams.h"
@@ -927,43 +926,6 @@ void cDragItems::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 
 	pChar->setHunger( pChar->hunger() + pItem->amount() );
 	Items->DeleItem( pItem );
-}
-
-void cDragItems::dropOnGuard( cUOSocket* socket, P_ITEM pItem, P_CHAR pGuard )
-{
-	// Only heads for bountys are accepted
-	if( !pItem->name().contains( "the head of" ) || !pItem->owner())
-	{
-		pGuard->talk( tr("Bring that to a merchant if you want to sell it!") );
-		socket->sysMessage( tr("I do not want that, citizen!") );
-		bounceItem( socket, pItem );
-		return;
-	}
-
-	P_CHAR pVictim = pItem->owner();
-
-	if( pVictim->questBountyReward() <= 0 )
-	{
-		pGuard->talk( tr("You can not claim a prize for innocent citizens!. You are lucky I don't strike you down where you stand!") );
-		bounceItem( socket, pItem );
-		return;
-	}
-
-	if( pVictim == socket->player() )
-	{
-		pGuard->talk( tr("You can not claim that prize scoundrel. You are lucky I don't strike you down where you stand!") );
-		Items->DeleItem( pItem ); // The guard wont give the head back...
-		return;
-	}
-
-	addgold( socket, pVictim->questBountyReward() );
-	//goldsfx( client->socket(), pVictim->questBountyReward() );
-	Bounty->BountyDelete( pVictim->serial() );
-	
-	// Thank them for their work
-	pGuard->talk( tr( "Excellent work! You have brought us the head of %1. Here is your reward of %2 gold coins." ).arg( pVictim->name() ).arg( pVictim->questBountyReward() ) );
-
-	socket->player()->setKarma( socket->player()->karma() + 100 );
 }
 
 void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )

@@ -60,7 +60,6 @@
 #include "dbdriver.h"
 #include "combat.h"
 
-#include "msgboard.h"
 #include "makemenus.h"
 #include "wpscriptmanager.h"
 #include "world.h"
@@ -148,10 +147,6 @@ cChar::cChar( const P_CHAR mob )
 	this->beardserial_ = mob->beardserial();
 	this->begging_timer_ = mob->begging_timer();
 	this->postType_ = mob->postType();
-	this->questType_ = mob->questType();
-	this->questDestRegion_ = mob->questDestRegion();
-	this->questBountyReward_ = mob->questBountyReward();
-	this->questBountyPostSerial_ = mob->questBountyPostSerial();
 	this->murdererSer_ = mob->murdererSer();
 	this->prevPos_ = mob->prevPos();
 	this->commandLevel_ = mob->commandLevel();
@@ -483,17 +478,12 @@ void cChar::Init( bool createSerial )
 	this->setAntiguardstimer(0); // AntiChrist - for "GUARDS" call-spawn
 	this->setPolymorph(false);//polymorph - AntiChrist
 	this->setIncognito(false);//incognito - AntiChrist
-    this->setQuestDestRegion(0);
-    this->setQuestOrigRegion(0);
-    this->setQuestBountyReward(0);
-    this->setQuestBountyPostSerial(INVALID_SERIAL);
     this->setMurdererSer(INVALID_SERIAL);
     this->setSpawnregion(0);
     this->setNpc_type(0);
     this->setStablemaster_serial(INVALID_SERIAL);
 	this->setTimeused_last(getNormalizedTime());
 	this->setTime_unused(0);
-	this->questType_ = 0; //??
 	this->GuildType = 0;
 	this->setFood( 0 );
 
@@ -835,8 +825,7 @@ void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	fields.push_back( "characters.summontimer,characters.poison,characters.poisoned" );
 	fields.push_back( "characters.fleeat,characters.reattackat,characters.split,characters.splitchance" );
 	fields.push_back( "characters.guildtoggle,characters.guildstone,characters.guildtitle,characters.guildfealty" );
-	fields.push_back( "characters.murderrate,characters.questtype,characters.questdestregion" );
-	fields.push_back( "characters.questorigregion,characters.questbountypostserial,characters.questbountyreward,characters.jailtimer" );
+	fields.push_back( "characters.murderrate,characters.jailtimer" );
 	fields.push_back( "characters.jailsecs,characters.lootlist,characters.food,characters.profile,characters.guarding,characters.destination" );
 	tables.push_back( "characters" );
 	conditions.push_back( "uobjectmap.serial = characters.serial" );
@@ -936,11 +925,6 @@ void cChar::load( char **result, UINT16 &offset )
 	guildtitle_ = result[offset++];
 	guildfealty_ = atoi( result[offset++] );
 	murderrate_ = atoi( result[offset++] );
-	questType_ = atoi( result[offset++] );
-	questDestRegion_ = atoi( result[offset++] );
-	questOrigRegion_ = atoi( result[offset++] );
-	questBountyPostSerial_ = atoi( result[offset++] );
-	questBountyReward_ = atoi( result[offset++] );
 	jailtimer_ = atoi( result[offset++] );
 	if (jailtimer_ != 0)
 		jailtimer_ += uiCurrentTime;
@@ -1085,11 +1069,6 @@ void cChar::save()
 		addField( "guildtitle", guildtitle_);  
 		addField( "guildfealty", guildfealty_);  
 		addField( "murderrate", murderrate_);
-		addField( "questtype", questType_);
-		addField( "questdestregion", questDestRegion_);
-		addField( "questorigregion", questOrigRegion_);
-		addField( "questbountypostserial", questBountyPostSerial_);
-		addField( "questbountyreward", questBountyReward_);
 		unsigned int jtimer = jailtimer_-uiCurrentTime;
 		addField( "jailtimer", jtimer); 
 		addField( "jailsecs", jailsecs_); 

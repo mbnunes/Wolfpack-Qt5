@@ -216,12 +216,6 @@ protected:
 	unsigned int basetimer_;
 	unsigned int redisplaytime_;
 
-	// Message Board
-	QString msgboardPath_;
-	int  msgboardPostAccess_;
-	int  msgboardPostRemove_;
-	int  msgboardRetention_;
-
 	// Light
 	unsigned char worldBrightLevel_;
 	unsigned char worldFixedLevel_;
@@ -402,12 +396,6 @@ public:
 	unsigned int maxtargets() const;
 	unsigned int basetimer() const;
 	unsigned int redisplaytime() const;
-
-	// MessageBoard
-	QString msgboardPath() const;
-	int  msgboardPostAccess() const;
-	int  msgboardPostRemove() const;
-	int  msgboardRetention() const;
 
 	// Light
 	unsigned char worldBrightLevel() const;
@@ -995,26 +983,6 @@ inline unsigned int cSrvParams::spawnRegionCheckTime() const
 inline unsigned int cSrvParams::secondsPerUOMinute() const
 {
 	return secondsPerUOMinute_;
-}
-
-inline QString cSrvParams::msgboardPath() const
-{
-	return msgboardPath_;
-}
-
-inline int cSrvParams::msgboardPostAccess() const
-{
-	return msgboardPostAccess_;
-}
-
-inline int cSrvParams::msgboardPostRemove() const
-{
-	return msgboardPostRemove_;
-}
-
-inline int cSrvParams::msgboardRetention() const
-{
-	return msgboardRetention_;
 }
 
 inline const QStringList& cSrvParams::clientsAllowed() const

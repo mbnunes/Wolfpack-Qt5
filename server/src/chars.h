@@ -137,11 +137,6 @@ protected:
 	int						beardserial_;
 	unsigned int			begging_timer_;
 	int						postType_;
-	int						questType_;
-	int						questDestRegion_;
-	int						questOrigRegion_;
-	int						questBountyReward_;      // The current reward amount for the return of this chars head
-	int						questBountyPostSerial_;  // The global posting serial number of the bounty message
 	SERIAL					murdererSer_;            // Serial number of last person that murdered this char
 	Coord_cl				prevPos_;
 	unsigned char			commandLevel_;             // 0 = player, 1 = counselor, 2 = GM
@@ -358,11 +353,6 @@ public:
 	SERIAL					beardserial() const { return beardserial_;}
 	unsigned int			begging_timer() const {return begging_timer_;}
 	int						postType() const {return postType_;}
-	int						questType() const {return questType_;}
-	int						questDestRegion() const {return questDestRegion_;}
-	int						questOrigRegion() const {return questOrigRegion_;}
-	int						questBountyReward() const {return questBountyReward_;}
-	int						questBountyPostSerial() const {return questBountyPostSerial_;}
 	SERIAL					murdererSer() const {return murdererSer_;}
 	Coord_cl				prevPos() const { return prevPos_; }
 	unsigned char			commandLevel() const { return commandLevel_;}             // 0 = player, 1 = counselor, 2 = GM
@@ -527,11 +517,6 @@ public:
 	void					setBeardSerial( SERIAL d ) {beardserial_ = d; changed( SAVE );}
 	void 					setBegging_timer( unsigned int d ) { begging_timer_ = d; changed( SAVE );}
 	void					setPostType( int d ) { postType_ = d; changed( SAVE );}
-	void					setQuestType ( int d ) { questType_ = d; changed( SAVE );}
-	void					setQuestDestRegion( int d ) { questDestRegion_ = d; changed( SAVE );}
-	void					setQuestOrigRegion( int d ) {questOrigRegion_ = d; changed( SAVE );}
-	void					setQuestBountyReward ( int d ) { questBountyReward_ = d; changed( SAVE );}
-	void					setQuestBountyPostSerial ( int d ) {questBountyPostSerial_ = d; changed( SAVE );}
 	void					setMurdererSer( SERIAL d ) { murdererSer_ = d; changed( SAVE );}
 	void					setPrevPos( const Coord_cl& d ) { prevPos_ = d; changed( SAVE );}
 	void					setCommandLevel( unsigned char d ) { commandLevel_ = d; changed( SAVE );}

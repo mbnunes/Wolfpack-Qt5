@@ -44,7 +44,6 @@
 #include "spawnregions.h"
 #include "territories.h"
 #include "skills.h"
-#include "msgboard.h"
 #include "boats.h"
 #include "house.h"
 
@@ -542,20 +541,6 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	{
 		if( pc->summontimer() && ( pc->summontimer() <= currenttime ) )
 		{
-			// Dupois - Added Dec 20, 1999
-			// QUEST expire check - after an Escort quest is created a timer is set
-			// so that the NPC will be deleted and removed from the game if it hangs around
-			// too long without every having its quest accepted by a player so we have to remove
-			// its posting from the message board before icing the NPC
-			// Only need to remove the post if the NPC does not have a follow target set
-//			if ( (pc->questType()==ESCORTQUEST) && (pc->ftarg() == INVALID_SERIAL) )
-//			{
-//				MsgBoardQuestEscortRemovePost( pc );
-//				MsgBoardQuestEscortDelete( pc );
-//				return;
-//			}
-			// Dupois - End
-
 			pc->soundEffect( 0x01FE );
 			pc->setDead( true );
 			cCharStuff::DeleteChar(pc);

@@ -57,7 +57,6 @@ HEADERS         = \
 		  basics.h \
 		  boats.h \
 		  books.h \
-		  bounty.h \
 		  chars.h \
 		  classes.h \
 		  coord.h \
@@ -82,7 +81,6 @@ HEADERS         = \
                   magic.h \
 		  makemenus.h \
 		  multis.h \
-		  msgboard.h \
 		  network.h \
                   pfactory.h \
 		  platform.h \
@@ -132,7 +130,6 @@ SOURCES         = \
 		  basics.cpp \
 		  boats.cpp \
 		  books.cpp \
-		  bounty.cpp \
 		  char_flatstore.cpp \
                   chars.cpp \
 		  combat.cpp \
@@ -160,7 +157,6 @@ SOURCES         = \
 		  mapobjects.cpp \
 		  multis.cpp \
 		  multiscache.cpp \
-		  msgboard.cpp \
 		  necro.cpp \
 		  network.cpp \
 		  npcs.cpp \
