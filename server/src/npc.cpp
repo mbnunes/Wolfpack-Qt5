@@ -239,11 +239,20 @@ void cNPC::setOwner(P_PLAYER data, bool nochecks)
 
 void cNPC::setNextMoveTime()
 {
+	unsigned int interval;
+
 	if (isTamed()) {
-		setNextMoveTime(floor(uiCurrentTime + SrvParams->tamedNpcMoveTime() * MY_CLOCKS_PER_SEC));
+		interval = SrvParams->tamedNpcMoveTime() * MY_CLOCKS_PER_SEC;
 	} else {
-		setNextMoveTime(floor(uiCurrentTime + SrvParams->npcMoveTime() * MY_CLOCKS_PER_SEC));
+		interval = SrvParams->npcMoveTime() * MY_CLOCKS_PER_SEC;
 	}
+
+	// Wander slowly if wandering freely.
+	if (wanderType() == enFreely || wanderType() == enCircle || wanderType() == enRectangle) {
+		interval *= 3;
+	}
+
+	setNextMoveTime(uiCurrentTime + interval);
 }
 
 // Update flags etc.

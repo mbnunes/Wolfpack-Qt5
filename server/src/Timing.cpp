@@ -366,7 +366,7 @@ void cTiming::checkNpc(P_NPC npc, unsigned int time)
 
 	// Give the AI time to process events
 	if (npc->ai() && npc->aiCheckTime() <= time) {
-		npc->setAICheckTime(time + npc->aiCheckInterval());
+		npc->setAICheckTime(time + SrvParams->checkAITime() * MY_CLOCKS_PER_SEC);
 		npc->ai()->check();
 	}
 

@@ -402,8 +402,7 @@ void ScriptAction::execute()
 	}
 }
 
-float Action_Wander::preCondition()
-{
+float Action_Wander::preCondition() {
 	/*
 	 * Wandering has the following preconditions:
 	 * - There is no character attacking us.
@@ -427,8 +426,7 @@ float Action_Wander::preCondition()
 	return 1.0f;
 }
 
-float Action_Wander::postCondition()
-{
+float Action_Wander::postCondition() {
 	/*
 	 * Wandering has the following postconditions:
 	 * - The NPC is wandering freely/in a circle/in a rectangle,
@@ -458,8 +456,7 @@ float Action_Wander::postCondition()
 	return 0.0f;
 }
 
-void Action_Wander::execute()
-{
+void Action_Wander::execute() {
 	m_npc->fight(0);
 
 	// If the next wandertype hasn't come yet.
