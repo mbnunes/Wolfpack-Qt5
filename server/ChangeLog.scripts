@@ -8,6 +8,7 @@ Wolfpack 12.9.10 Beta (CVS)
 		- Moved equipment properties to the definitions again.
 		- Added several small testing items.
 		- Fixed blue moongate definitions.
+		- Pet commands are now processed by all NPCs to allow GM control.
 	* Python Script Changes:
 		- Added a script for database structure updates (system/dbupdate.py).
 		- Added an event for database updates (onUpdateDatabase).
@@ -32,6 +33,7 @@ Wolfpack 12.9.10 Beta (CVS)
 		- The heal command now resends the healthbar.
 		- Fixed another trading issue.
 		- Fixed bug #0000278 (Weapon not being unequipped)
+		- Pet commands now always allow control by GMs.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
