@@ -205,7 +205,7 @@ static PyMethodDef wpTime[] =
 */
 PyObject* wpAdditem( PyObject* self, PyObject* args )
 {
-	if( PyTuple_Size( args ) < 1 || !PyString_Check( PyTuple_GetItem( args, 0 ) ) )
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
 		clConsole.send( "Minimum argument count for wolfpack.additem is 1\n" );
 		return Py_None;
@@ -221,7 +221,16 @@ PyObject* wpAdditem( PyObject* self, PyObject* args )
 */
 PyObject* wpAddnpc( PyObject* self, PyObject* args )
 {
-	return PyTrue;
+	if( PyTuple_Size( args ) < 2 || !checkArgStr( 0 ) || !checkWpCoord( PyTuple_GetItem( args, 1 ) ) )
+	{
+		clConsole.send( "Minimum argument count for wolfpack.addnpc is 2\n" );
+		return Py_None;
+	}
+
+	Coord_cl pos = getWpCoord( PyTuple_GetItem( args, 1 ) );
+	P_CHAR pChar = cCharStuff::createScriptNpc( getArgStr( 0 ), pos );
+
+	return PyGetCharObject( pChar ); 
 }
 
 /*!

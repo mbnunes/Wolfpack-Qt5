@@ -294,7 +294,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 		// check if the "bottom" of the item is reachable
 		// I would say 2 is a good "reach" value for the bottom
 		// of any item
-		if( item.walkable && ( itemTop <= pos.z + P_M_MAX_Z_CLIMB ) && ( itemTop >= pos.z - P_M_MAX_Z_FALL ) && ( item.z <= pos.z + 2 ) )
+		if( item.walkable && ( itemTop <= pos.z + P_M_MAX_Z_CLIMB ) && ( itemTop >= pos.z - P_M_MAX_Z_FALL ) /*&& ( item.z <= pos.z + 2 )*/ )
 		{
 			pos.z = itemTop;
 			found = true;
@@ -342,11 +342,14 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 /*!
 	This is called when a character
 	collides with an item and this
-	checks for special effects the item could have
+	checks for special effects the item could have.
 */
-void handleItemCollision( P_CHAR pChar, P_ITEM pItem )
+bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 {
 	Coord_cl dPos = pChar->pos;
+
+	if( pItem->onCollide( pChar ) )
+		return true;
 
 	// Decide what to do on type first.
 	switch( pItem->type() )
@@ -385,7 +388,7 @@ void handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 				}
 			}
 		}
-		return;
+		return true;
 	};
 
 	switch( pItem->id() )
@@ -396,7 +399,7 @@ void handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 		if( !Magic->CheckResist( NULL, pChar, 4 ) )
 			Magic->MagicDamage( pChar, pItem->morex/3000 );
 		pChar->soundEffect( 0x208 );
-		return;
+		return false;
 
 	//Poison field
 	case 0x3915:
@@ -404,7 +407,7 @@ void handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 		if( !Magic->CheckResist( NULL, pChar, 5 ) )
 			Magic->PoisonDamage( pChar, 1 );
 		pChar->soundEffect( 0x208 );
-		return;
+		return false;
 
 	// Para field
 	case 0x3979:
@@ -412,8 +415,10 @@ void handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 		if( !Magic->CheckResist( NULL, pChar, 6 ) )
 			tempeffect( pChar, pChar, 1, 0, 0, 0 );
 		pChar->soundEffect( 0x204 );
-		return;
+		return false;
 	};
+
+	return false;
 }
 
 /*!
@@ -439,7 +444,8 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 		// Check for item collisions here.
 		if( ( pChar->pos.x == pItem->pos.x ) && ( pChar->pos.y == pItem->pos.y ) && ( pItem->pos.z > pChar->pos.z ) && ( pItem->pos.z <= pChar->pos.z + 5 ) )
 		{
-			handleItemCollision( pChar, pItem );
+			if( handleItemCollision( pChar, pItem ) );
+			break;
 		}
 
 		// If we are a connected player then send new items

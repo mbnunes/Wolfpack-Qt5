@@ -228,7 +228,10 @@ void cUObject::removeEvent( QString Name )
 	for( myIterator = scriptChain.begin(); myIterator != scriptChain.end(); ++myIterator )
 	{
 		if( (*myIterator)->getName() == Name )
+		{
 			scriptChain.erase( myIterator );
+			break;
+		}
 	}
  
 	// I hope this works

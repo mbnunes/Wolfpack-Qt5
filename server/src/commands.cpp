@@ -426,7 +426,7 @@ public:
 			QStringList::const_iterator it = events.begin();
 			while( it != events.end() )
 			{
-				WPDefaultScript *script = ScriptManager->find( *it );
+				WPDefaultScript *script = ScriptManager->find( *(it++) );
 				if( script )
 					pObject->addEvent( script );
 			}
@@ -524,6 +524,21 @@ public:
 		else if( key == "mana" && pChar )
 			pChar->setMn( hex2dec( value ).toInt() );
 
+		else if( key == "movable" && pItem )
+			pItem->magic = hex2dec( value ).toInt();
+
+		else if( key == "more1" && pItem )
+			pItem->setMore1( hex2dec( value ).toInt() );
+
+		else if( key == "more2" && pItem )
+			pItem->setMore2( hex2dec( value ).toInt() );
+
+		else if( key == "more3" && pItem )
+			pItem->setMore3( hex2dec( value ).toInt() );
+
+		else if( key == "more4" && pItem )
+			pItem->setMore4( hex2dec( value ).toInt() );
+
 		else if( key == "morex" && pItem )
 			pItem->morex = hex2dec( value ).toInt();
 
@@ -535,13 +550,13 @@ public:
 
 		else if( key == "map" && pChar )
 		{
+			pChar->removeFromView();
 			pChar->moveTo( Coord_cl( pChar->pos.x, pChar->pos.y, pChar->pos.z, value.toInt() ) );
 			if ( pChar->socket() )
 			{
 				pChar->socket()->resendPlayer();
 				pChar->socket()->resendWorld();
 			}
-
 		}
 
 		// Object tags
@@ -590,11 +605,11 @@ public:
 
 void commandSet( cUOSocket *socket, const QString &command, QStringList &args )
 {
-	if( args.size() < 2 )
+	if( args.size() < 1 )
 	{
 		socket->sysMessage( "Usage: set <key> <value>" );
 		return;
-	}
+	}	
 
     QString key = args[0];
 	args.erase( args.begin() );
@@ -1123,6 +1138,18 @@ public:
 			else 
 				result = QString( "%1" ).arg( pItem->in );
 
+		else if( key == "more1" && pItem )
+			result = QString( "%1" ).arg( pItem->more1() );
+
+		else if( key == "more2" && pItem )
+			result = QString( "%1" ).arg( pItem->more2() );
+
+		else if( key == "more3" && pItem )
+			result = QString( "%1" ).arg( pItem->more3() );
+
+		else if( key == "more4" && pItem )
+			result = QString( "%1" ).arg( pItem->more4() );
+
 		else if( key == "morex" && pItem )
 			result = QString( "%1" ).arg( pItem->morex );
 
@@ -1131,6 +1158,12 @@ public:
 
 		else if( key == "morez" && pItem )
 			result = QString( "%1" ).arg( pItem->morez );
+
+		else if( key == "visible" && pItem )
+			result = QString( "%1" ).arg( pItem->visible );
+
+		else if( key == "movable" && pItem )
+			result = QString( "%1" ).arg( pItem->magic );
 
 		else if( key == "pos" || key == "p" )
 			result = QString( "%1,%2,%3,%4" ).arg( pObject->pos.x ).arg( pObject->pos.y ).arg( pObject->pos.z ).arg( pObject->pos.map );
@@ -1881,6 +1914,261 @@ void commandRemoveSpell( cUOSocket *socket, const QString &command, QStringList 
 	socket->attachTarget( new cModifySpellbook( spell, true ) );
 }
 
+class cAddEventTarget: public cTargetRequest
+{
+private:
+	QString _event;
+public:
+	cAddEventTarget( const QString &event ): _event( event ) {}
+	
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		cUObject *pObject = 0;
+		
+		if( isCharSerial( target->serial() ) )
+			pObject = FindCharBySerial( target->serial() );
+		else if( isItemSerial( target->serial() ) )
+			pObject = FindItemBySerial( target->serial() );
+
+		// We have to have a valid target
+		if( !pObject )
+		{
+			socket->sysMessage( tr( "You have to target a character or an item." ) );
+			return true;
+		}
+
+		// Check if we already have the event
+		if( pObject->hasEvent( _event ) )
+		{
+			socket->sysMessage( tr( "This object already has the event '%1'" ).arg( _event ) );
+			return true;
+		}
+
+		WPDefaultScript *script = ScriptManager->find( _event );
+
+		if( !script )
+		{
+			socket->sysMessage( tr( "Invalid event: '%1'" ).arg( _event ) );
+			return true;
+		}
+
+		pObject->addEvent( script );
+		return true;
+	}
+};
+
+void commandAddEvent( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( args.size() < 1 )
+	{
+		socket->sysMessage( "Usage: addevent <identifier>" );
+		return;
+	}	
+
+    QString event = args.join( " " );
+
+	// No such event
+	if( !ScriptManager->find( event ) )
+	{
+		socket->sysMessage( tr( "Invalid event: '%1'" ).arg( event ) );
+		return;
+	}
+
+	socket->sysMessage( tr( "Please select a target to add event '%1' to." ).arg( event ) );
+	socket->attachTarget( new cAddEventTarget( event ) );
+}
+
+class cRemoveEventTarget: public cTargetRequest
+{
+private:
+	QString _event;
+public:
+	cRemoveEventTarget( const QString &event ): _event( event ) {}
+	
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		cUObject *pObject = 0;
+		
+		if( isCharSerial( target->serial() ) )
+			pObject = FindCharBySerial( target->serial() );
+		else if( isItemSerial( target->serial() ) )
+			pObject = FindItemBySerial( target->serial() );
+
+		// We have to have a valid target
+		if( !pObject )
+		{
+			socket->sysMessage( tr( "You have to target a character or an item." ) );
+			return true;
+		}
+
+		// Check if we already have the event
+		if( !pObject->hasEvent( _event ) )
+		{
+			socket->sysMessage( tr( "This object doesn't have the event '%1'" ).arg( _event ) );
+			return true;
+		}
+
+		pObject->removeEvent( _event );
+		return true;
+	}
+};
+
+void commandRemoveEvent( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( args.size() < 1 )
+	{
+		socket->sysMessage( "Usage: removeevent <identifier>" );
+		return;
+	}	
+
+    QString event = args.join( " " );
+
+	socket->sysMessage( tr( "Please select a target to remove event '%1' from." ).arg( event ) );
+	socket->attachTarget( new cRemoveEventTarget( event ) );
+}
+
+class cMoveTarget: public cTargetRequest
+{
+private:
+	INT16 x,y,z;
+public:
+	cMoveTarget( INT16 _x, INT16 _y, INT8 _z ): x( _x ), y( _y ), z( _z ) {}
+	
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		cUObject *pObject = 0;
+		
+		if( isCharSerial( target->serial() ) )
+			pObject = FindCharBySerial( target->serial() );
+		else if( isItemSerial( target->serial() ) )
+			pObject = FindItemBySerial( target->serial() );
+
+		// We have to have a valid target
+		if( !pObject )
+		{
+			socket->sysMessage( tr( "You have to target a character or an item." ) );
+			return true;
+		}
+
+		// Move the object relatively
+		pObject->removeFromView();
+		Coord_cl newPos = pObject->pos + Coord_cl( x, y, z );
+		pObject->moveTo( newPos );
+		
+		if( pObject->isChar() )
+		{
+			P_CHAR pChar = dynamic_cast< P_CHAR >( pObject );
+			if( pChar )
+				pChar->resend();
+		}
+		else if( pObject->isItem() )
+		{
+			P_ITEM pItem = dynamic_cast< P_ITEM >( pObject );
+			if( pItem )
+				pItem->update();
+		}
+
+		return true;
+	}
+};
+
+void commandMove( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( args.size() < 1 )
+	{
+		socket->sysMessage( "Usage: move <x,y,z>" );
+		return;
+	}	
+
+    // Our first argument should be the relative position
+	QStringList relPos = QStringList::split( ",", args[0] );
+	
+	if( relPos.count() < 1 )
+	{
+		socket->sysMessage( "Usage: move <x,y,z>" );
+		return;
+	}
+
+	if( relPos.count() < 2 )
+		relPos.push_back( "0" );
+
+	if( relPos.count() < 3 )
+		relPos.push_back( "0" );
+
+	INT16 x = relPos[0].toInt();
+	INT16 y = relPos[1].toInt();
+	INT16 z = relPos[2].toInt();
+
+	socket->sysMessage( tr( "Please select a target to 'move %1,%2,%3'." ).arg( x ).arg( y ).arg( z ) );
+	socket->attachTarget( new cMoveTarget( x, y, z ) );
+}
+
+class cNukeTarget: public cTargetRequest
+{
+private:
+	INT16 x1, y1;
+public:
+	cNukeTarget( INT16 _x1 = -1, INT16 _y1 = -1 ): x1( _x1 ), y1( _y1 ) {}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		// Set the first corner and readd ourself
+		if( x1 == -1 || y1 == -1 )
+		{
+			x1 = target->x();
+			y1 = target->y();
+			socket->sysMessage( tr( "Please select the second corner of the box you want to nuke." ) );
+			return false;
+		}
+		else
+		{
+			INT16 x2;
+			if( target->x() < x1 )
+			{
+				x2 = x1;
+				x1 = target->x();
+			}
+			else
+				x2 = target->x();
+
+			INT16 y2;
+			if( target->y() < y1 )
+			{
+				y2 = y1;
+				y1 = target->y();
+			}
+			else
+				y2 = target->y();
+
+			socket->sysMessage( tr( "Nuking from %1,%2 to %3,%4" ).arg( x1 ).arg( y1 ).arg( x2 ).arg( y2 ) );
+			UINT16 dCount = 0;
+
+			// This could eventually be optimized
+			AllItemsIterator iter;
+			for( iter.Begin(); !iter.atEnd(); ++iter )
+			{
+				P_ITEM pItem = iter.GetData();
+				if( pItem && pItem->pos.x >= x1 && pItem->pos.x <= x2 && pItem->pos.y >= y1 && pItem->pos.y <= y2 )
+				{
+					// Delete the item
+					Items->DeleItem( pItem );
+					dCount++;
+				}
+			}
+
+			socket->sysMessage( tr( "Deleted %1 items." ).arg( dCount ) );
+			return true;
+		}		
+	}
+};
+
+void commandNuke( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	// Nuke does not take any parameters (At least for now it does not.)
+	socket->sysMessage( tr( "Please select first corner of the box you want to nuke." ) );
+	socket->attachTarget( new cNukeTarget );
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1911,6 +2199,10 @@ stCommand cCommands::commands[] =
 	{ "WHO",			commandWho },
 	{ "ADDSPELL",		commandAddSpell },
 	{ "REMOVESPELL",	commandRemoveSpell },
+	{ "ADDEVENT",		commandAddEvent },
+	{ "REMOVEEVENT",	commandRemoveEvent },
+	{ "MOVE",			commandMove },
+	{ "NUKE",			commandNuke },
 	{ NULL, NULL }
 };
 

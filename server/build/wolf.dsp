@@ -933,10 +933,6 @@ SOURCE=.\python\pycoord.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pycoord.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\python\pyregion.cpp
 # End Source File
 # Begin Source File
