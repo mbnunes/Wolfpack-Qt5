@@ -46,6 +46,7 @@
 #include "classes.h"
 #include "network.h"
 #include "mapstuff.h"
+#include "scriptc.h"
 
 #undef DBGFILE
 #define DBGFILE "skills.cpp"

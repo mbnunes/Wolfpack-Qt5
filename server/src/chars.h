@@ -593,7 +593,6 @@ class cCharStuff
 public:
 	void DeleteChar(P_CHAR pc_k);
 	P_CHAR MemCharFree();
-	P_ITEM AddRandomLoot(P_ITEM pBackpack, char * lootlist);
 	void Split(P_CHAR pc_k);
 	void CheckAI(unsigned int currenttime, P_CHAR pc_i);
 	P_CHAR createScriptNpc( int s, P_ITEM pi_i, QString Section, int posx = 0, int posy = 0, signed char posz = 0 );

@@ -42,6 +42,7 @@
 #include "network.h"
 #include "classes.h"
 #include "territories.h"
+#include "scriptc.h"
 
 // Library Includes
 #include "qdatetime.h"

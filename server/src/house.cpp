@@ -40,6 +40,8 @@
 #include "debug.h"
 #include "utilsys.h"
 #include "network.h"
+#include "scriptc.h"
+
 
 // System Include Files
 #include <algorithm>

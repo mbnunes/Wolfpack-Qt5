@@ -76,8 +76,6 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	if (pc_k != NULL) 
 		mapRegions->Remove(pc_k); // taking it out of mapregions BEFORE x,y changed, LB
 
-	delete pc_k->tags;
-	
 	pc_k->free = true;
 	cCharsManager::getInstance()->deleteChar( pc_k );
 }
@@ -86,67 +84,6 @@ P_CHAR cCharStuff::MemCharFree()			// Find a free char slot
 {
 	P_CHAR pc = new cChar;
 	return pc;
-}
-
-P_ITEM cCharStuff::AddRandomLoot(P_ITEM pBackpack, char * lootlist)
-{
-	char sect[512];
-	int i,j, storeval,loopexit=0;
-	P_ITEM retitem = NULL;
-	storeval=-1;
-	i=0; j=0;
-
-	sprintf(sect, "LOOTLIST %s", lootlist);
-	
-	Script *pScpBase=i_scripts[npc_script];
-	Script *pScp=pScpBase->Select(sect,custom_npc_script);
-	if (!pScp) return NULL;
-
-	loopexit=0;
-	do
-	{
-		pScp->NextLine();
-		if (script1[0]!='}')
-		{
-			i++; // Count number of entries on list.
-		}
-	} while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
-	pScp->Close();
-
-	if(i>0)
-	{
-		i=rand()%(i);
-		pScp=pScpBase->Select(sect,custom_npc_script);
-
-		loopexit=0;
-		do
-		{
-			pScp->NextLine();
-			if (script1[0]!='}')
-			{
-				if(j==i)
-				{
-					storeval=str2num(script1);	//script1 = ITEM#
-
-					scpMark m=pScp->Suspend();
-					retitem = Targ->AddMenuTarget(-1, 0, storeval);
-					pScp->Resume(m);
-
-					if(retitem!=NULL)
-					{
-						retitem->pos.x=50+(rand()%80);
-						retitem->pos.y=50+(rand()%80);
-						retitem->pos.z=9;
-						retitem->setContSerial(pBackpack->serial);
-					}
-					break;;    
-				}
-				else j++;
-			}
-		}	while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
-		pScp->Close();
-	}
-	return retitem;
 }
 
 void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat

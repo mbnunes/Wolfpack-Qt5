@@ -39,6 +39,7 @@
  */
 
 #include "wolfpack.h"
+#include "scriptc.h"
 
 #include <fstream>
 #include <iostream>

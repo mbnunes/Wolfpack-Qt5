@@ -42,6 +42,7 @@
 #include "wpdefmanager.h"
 #include "classes.h"
 #include "network.h"
+#include "scriptc.h"
 
 #include "debug.h"
 

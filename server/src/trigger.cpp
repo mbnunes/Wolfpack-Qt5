@@ -59,6 +59,7 @@
 #include "classes.h"
 #include "network.h"
 #include "gumps.h"
+#include "scriptc.h"
 
 #undef  DBGFILE
 #define DBGFILE "trigger.cpp"

@@ -38,6 +38,7 @@
 
 #include "books.h"
 #include "network.h"
+#include "scriptc.h"
 
 #undef DBGFILE
 #define DBGFILE "books.cpp"

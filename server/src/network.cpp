@@ -43,6 +43,7 @@ using namespace std ;
 #include "srvparams.h"
 #include "classes.h"
 #include "territories.h"
+#include "scriptc.h"
 
 // Library Includes
 #include "qstringlist.h"

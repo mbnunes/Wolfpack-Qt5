@@ -39,6 +39,7 @@
 #include "network.h"
 #include "mapstuff.h"
 #include "wpdefmanager.h"
+#include "scriptc.h"
 
 #undef  DBGFILE
 #define DBGFILE "commands.cpp"

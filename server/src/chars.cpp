@@ -1247,11 +1247,25 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "karma" )
 		this->karma = Value.toInt();
 
-	//<loot>3</loot>
+	//<loot>anything</loot>
 	else if( TagName == "loot" )
 	{
 		if( this->packitem != INVALID_SERIAL )
-			Npcs->AddRandomLoot( FindItemBySerial(this->packitem), (char*)Value.latin1() );
+		{
+			QString itemSect = DefManager->getRandomListEntry( Value );
+			if( !(itemSect.isNull() || itemSect.isEmpty()) )
+			{
+				P_ITEM retitem = Items->createScriptItem( itemSect );
+				if( retitem != NULL )
+				{
+					retitem->setContSerial(this->packitem);
+					retitem->pos.x=50+(rand()%80);
+					retitem->pos.y=50+(rand()%80);
+					retitem->pos.z=9;
+				}
+			}
+
+		}
 	}
 
 	//<lodamage>10</lodamage>

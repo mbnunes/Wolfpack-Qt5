@@ -1740,7 +1740,7 @@ void updates(UOXSOCKET s) // Update Window
 	UI32 y;
 
 #pragma note("new xml format: convert section MOTD to <text> with id MOTD")
-	QStringList motdText = DefManager->getText( "MOTD" );
+	QString motdText = DefManager->getText( "MOTD" );
 	y = motdText.length() + 10;
 	
 	updscroll[1]=y>>8;
@@ -1768,7 +1768,7 @@ void tips(int s, int tip) // Tip of the day window
 	else if( tip > tipList.size() )
 		tip = tipList.size();
 
-	QStringList tipText = DefManager->getText( tipList[ tip-1 ] );
+	QString tipText = DefManager->getText( tipList[ tip-1 ] );
 	y = tipText.length()+10;
 
 	updscroll[1]=y>>8;

@@ -43,6 +43,7 @@ History: None
 #include "classes.h"
 #include "mapstuff.h"
 #include "network.h"
+#include "scriptc.h"
 
 #undef  DBGFILE
 #define DBGFILE "fishing.cpp"

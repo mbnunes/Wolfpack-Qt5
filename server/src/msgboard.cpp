@@ -42,6 +42,7 @@
 #include "network.h"
 #include "utilsys.h"
 #include "territories.h"
+#include "scriptc.h"
 
 #undef  DBGFILE
 #define DBGFILE "msgboard.cpp"

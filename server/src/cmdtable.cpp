@@ -691,7 +691,7 @@ void command_where(UOXSOCKET s)
     if (pcc_cs == NULL) 
 		return;
 
-	cTerritory* Region = cAllTerritories::getInstance()->region( pcc_cs->region );
+	cTerritory* Region = cAllTerritories::getInstance()->region( pcc_cs->pos.x, pcc_cs->pos.y );
 
 	if( Region != NULL )
 		sysmessage( s, tr("You are at: %1").arg(Region->name()) ); 

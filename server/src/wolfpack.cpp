@@ -64,6 +64,7 @@
 #include "gumps.h"
 #include "spawnregions.h"
 #include "Timing.h"
+#include "scriptc.h"
 
 // new-style includes
 #include "wpdefmanager.h"

@@ -46,6 +46,7 @@
 #include "classes.h"
 #include "gumps.h"
 #include "network.h"
+#include "scriptc.h"
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"
