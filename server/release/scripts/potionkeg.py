@@ -1,9 +1,10 @@
 
 import wolfpack
 import wolfpack.utilities
+from potions.utilities import consumePotion
 # Imports the potion table.
 from potions import POTIONS, POT_RETURN_BOTTLE, POT_AGGRESSIVE, \
-	 POT_TARGET, POT_NAME, KEG_NAME, POT_DEF, consumePotion
+	 POT_TARGET, POT_NAME, KEG_NAME, POT_DEF
 
 ### Filling the keg ###
 def onDropOnItem( potionkeg, potion ):
