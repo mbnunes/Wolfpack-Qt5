@@ -92,7 +92,7 @@ void cNPC::load( char **result, UINT16 &offset )
 	minDamage_ = atoi( result[offset++] );
 	maxDamage_ = atoi( result[offset++] );
 	tamingMinSkill_ = atoi( result[offset++] );
-	summonTime_ = atoi( result[offset++] );
+	summonTime_ = atoi( result[offset++] ) + uiCurrentTime;
 	if( summonTime_ )
 		summonTime_ += uiCurrentTime;
 	additionalFlags_ = atoi( result[offset++] );

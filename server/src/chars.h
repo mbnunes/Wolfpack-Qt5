@@ -41,27 +41,9 @@
 #include "typedefs.h"
 #include "structs.h"
 #include "defines.h"
-#include "uobject.h"
-#include "dbdriver.h"
-#include "makemenus.h"
-#include "network/uotxpackets.h"
-
-// Library Includes
-#include <qmap.h>
-#include <qptrlist.h>
-#include <qvaluevector.h>
-#include <deque>
 
 // Forward class declaration
 class QString;
-class cUOSocket;
-class cGuildStone;
-class cTerritory;
-class cAllTerritories;
-class cTempEffect;
-class AccountRecord;
-class cMakeMenu;
-class cMakeSection;
 
 #undef  DBGFILE
 #define DBGFILE "chars.h"

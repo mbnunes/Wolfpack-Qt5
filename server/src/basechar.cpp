@@ -35,6 +35,15 @@
 #include "world.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
+#include "wpconsole.h"
+#include "maps.h"
+#include "chars.h"
+#include "mapobjects.h"
+#include "network/uosocket.h"
+#include "network/uotxpackets.h"
+#include "network.h"
+#include "combat.h"
+#include "items.h"
 
 cBaseChar::cBaseChar()
 {
@@ -166,8 +175,8 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	hunger_ = atoi( result[offset++] );
 	poison_ = atoi( result[offset++] );
 	poisoned_ = atoi( result[offset++] );
-	murdererTime_ = atoi( result[offset++] );
-	criminalTime_ = atoi( result[offset++] );
+	murdererTime_ = atoi( result[offset++] ) + uiCurrentTime;
+	criminalTime_ = atoi( result[offset++] ) + uiCurrentTime;
 	nutriment_ = atoi( result[offset++] );
 	stealthedSteps_ = atoi( result[offset++] );
 	gender_ = atoi( result[offset++] );
@@ -250,8 +259,8 @@ void cBaseChar::save()
 		addField( "hunger", hunger_);
 		addField( "poison", poison_);
 		addField( "poisoned", poisoned_);
-		addField( "murderertime", murdererTime_);
-		addField( "criminaltime", criminalTime_);
+		addField( "murderertime", murdererTime_ - uiCurrentTime);
+		addField( "criminaltime", criminalTime_ - uiCurrentTime);
 		addField( "nutriment", nutriment_);
 		addField( "gender", gender_ );
 		addField( "propertyflags", propertyFlags_ );
@@ -372,13 +381,13 @@ void cBaseChar::action( UINT8 id )
 	else if( mounted && ( id == 0x13 || id == 0x20 || id == 0x21 || id == 0x22 ) )
 		id = 0x1C; 
 
-	else if( ( mounted || this->id() < 0x190 ) && ( id == 0x22 ) )
+	else if( ( mounted || bodyID_ < 0x190 ) && ( bodyID_ == 0x22 ) )
 		return;
 
 	cUOTxAction action;
 	action.setAction( id );
 	action.setSerial( serial() );
-	action.setDirection( dir_ );
+	action.setDirection( direction_ );
 	action.setRepeat( 1 );
 	action.setRepeatFlag( 0 );
 	action.setSpeed( 1 );
@@ -408,7 +417,7 @@ P_ITEM cBaseChar::getWeapon() const
 P_ITEM cBaseChar::getShield() const
 {
 	P_ITEM leftHand = leftHandItem();
-	if( isShield( leftHand ) )
+	if( leftHand->isShield() )
 		return leftHand;
 	return NULL;
 }
