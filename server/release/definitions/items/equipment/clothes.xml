@@ -13,7 +13,7 @@
 		<category>Clothes\Accessories\Cloak (N/S)</category>
 		<id>0x1515</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<buyprice>43</buyprice>
 		<sellprice>21</sellprice>
 		<weight>5.0</weight>
@@ -22,7 +22,7 @@
 	<!-- Cloak w/e-->
 	<item id="1530">
 		<inherit id="1515" />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Accessories\Cloak (W/E)</category>
 		<id>0x1530</id>
 	</item>
@@ -39,7 +39,7 @@
 	<!-- Skirt n/s -->
 	<item id="1516">
 		<inherit id="1531" />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Legs\Skirt (N/S)</category>
 		<id>0x1516</id>
 	</item>
@@ -49,7 +49,7 @@
 		<category>Clothes\Torso\Plain Shirt (N/S)</category>
 		<id>0x1517</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<buyprice>37</buyprice>
 		<sellprice>18</sellprice>
 		<weight>2.0</weight>
@@ -58,7 +58,7 @@
 	<!-- Plain Shirt w/e -->
 	<item id="1518">
 		<inherit id="1517" />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Torso\Plain Shirt (W/E)</category>
 		<id>0x1518</id>
 	</item>
@@ -68,7 +68,7 @@
 		<category>Clothes\Legs\Short Pants (N/S)</category>
 		<id>0x152e</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<buyprice>24</buyprice>
 		<sellprice>12</sellprice>
 		<weight>2.0</weight>
@@ -77,7 +77,7 @@
 	<!-- Short Pants w/e -->
 	<item id="152f">
 		<inherit id="152e" />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Legs\Short Pants (W/E)</category>
 		<id>0x152f</id>
 	</item>
@@ -87,7 +87,7 @@
 		<category>Clothes\Legs\Skirt (W/E)</category>
 		<id>0x1531</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<buyprice>33</buyprice>
 		<sellprice>16</sellprice>
 		<weight>4.0</weight>
@@ -112,7 +112,7 @@
 		<category>Clothes\Legs\Kilt (N/S)</category>
 		<id>0x1537</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<buyprice>31</buyprice>
 		<sellprice>15</sellprice>
 		<weight>2.0</weight>
@@ -121,7 +121,7 @@
 	<!-- Kilt w/e -->
 	<item id="1538">
 		<inherit id="1537" />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Legs\Kilt (W/E)</category>
 		<id>0x1538</id>
 	</item>
@@ -131,7 +131,7 @@
 		<category>Clothes\Legs\Long Pants (N/S)</category>
 		<id>0x1539</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<buyprice>34</buyprice>
 		<sellprice>17</sellprice>
 		<weight>2.0</weight>
@@ -140,7 +140,7 @@
 	<!-- Long Pants w/e -->
 	<item id="153a">
 		<inherit id="1539" />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Legs\Long Pants (W/E)</category>
 		<id>0x153a</id>
 	</item>
@@ -184,7 +184,7 @@
 		<category>Clothes\Headwear\Bandana (N/S)</category>
 		<id>0x153f</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<defense>0</defense>
 		<requires type='str'>10</requires>
 		<durability><random min="20" max="25" /></durability>
@@ -197,7 +197,7 @@
 	<item id="1540">
 		<inherit id="153f" />
 		<id>0x1540</id>
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Headwear\Bandana (W/E)</category>
 	</item>
 
@@ -205,7 +205,7 @@
 	<item id="1541">
 		<category>Clothes\Accessories\Body Sash (N/S)</category>
 		<id>0x1541</id>
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<dye />
 	</item>
 
@@ -214,7 +214,7 @@
 		<inherit id="1541" />
 		<category>Clothes\Accessories\Body Sash (W/E)</category>
 		<id>0x1542</id>
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Skullcap n/s -->
@@ -222,7 +222,7 @@
 		<category>Clothes\Headwear\Skull Cap (N/S)</category>
 		<id>0x1543</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<defense>0</defense>
 		<requires type='str'>10</requires>
 		<durability><random min="6" max="10" /></durability>
@@ -236,7 +236,7 @@
 		<inherit id="1543" />
 		<category>Clothes\Headwear\Skull Cap (W/E)</category>
 		<id>0x1544</id>
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Bear Mask n/s -->
@@ -625,7 +625,7 @@
 		<id>0x1efd</id>
 		<category>Clothes\Torso\Fancy Shirt (N/S)</category>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<buyprice>55</buyprice>
 		<sellprice>27</sellprice>
 		<weight>2.0</weight>
@@ -636,7 +636,7 @@
 		<inherit id="1efd" />
 		<category>Clothes\Torso\Fancy Shirt (W/E)</category>
 		<id>0x1efe</id>
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Fancy Dress w/e -->
@@ -644,7 +644,7 @@
 		<category>Clothes\Torso\Fancy Dress (W/E)</category>
 		<id>0x1eff</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<buyprice>25</buyprice>
 		<sellprice>12</sellprice>
 		<weight>3.0</weight>
@@ -655,7 +655,7 @@
 		<inherit id="1eff" />
 		<category>Clothes\Torso\Fancy Dress (N/S)</category>
 		<id>0x1f00</id>
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Plain Dress n/s -->
@@ -663,7 +663,7 @@
 		<category>Clothes\Torso\Plain Dress (N/S)</category>
 		<id>0x1f01</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<buyprice>56</buyprice>
 		<sellprice>28</sellprice>
 		<weight>2.0</weight>
@@ -674,7 +674,7 @@
 		<inherit id="1f01" />
 		<category>Clothes\Torso\Plain Dress (W/E)</category>
 		<id>0x1f02</id>
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Robe n/s -->
@@ -682,7 +682,7 @@
 		<category>Clothes\Torso\Robe (N/S)</category>
 		<id>0x1f03</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<buyprice>68</buyprice>
 		<sellprice>34</sellprice>
 		<weight>3.0</weight>
@@ -693,7 +693,7 @@
 		<inherit id="1f03" />
 		<category>Clothes\Torso\Robe (W/E)</category>
 		<id>0x1f04</id>
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Jester Suit n/s -->
@@ -718,7 +718,7 @@
 		<category>Clothes\Torso\Tunic (N/S)</category>
 		<id>0x1fa1</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<buyprice>33</buyprice>
 		<sellprice>16</sellprice>
 		<weight>5.0</weight>
@@ -729,7 +729,7 @@
 		<inherit id="1fa1" />
 		<category>Clothes\Torso\Tunic (W/E)</category>
 		<id>0x1fa2</id>
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Doublet n/s -->
@@ -737,7 +737,7 @@
 		<category>Clothes\Torso\Doublet (N/S)</category>
 		<id>0x1f7b</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 		<buyprice>25</buyprice>
 		<sellprice>12</sellprice>
 		<weight>2.0</weight>
@@ -748,7 +748,7 @@
 		<inherit id="1f7b" />
 		<category>Clothes\Torso\Doublet (W/E)</category>
 		<id>0x1f7c</id>
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Surcoat n/s -->
@@ -756,7 +756,7 @@
 		<category>Clothes\Torso\Surcoat (N/S)</category>
 		<id>0x1ffd</id>
 		<dye />
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Surcoat w/e -->
@@ -764,7 +764,7 @@
 		<inherit id="1ffd" />
 		<category>Clothes\Torso\Surcoat (W/E)</category>
 		<id>0x1ffe</id>
-		<color><random list="COLORS_MISC" /></color>
+		<color><random list="COLORS_RANDOM" /></color>
 	</item>
 
 	<!-- Lord British -->

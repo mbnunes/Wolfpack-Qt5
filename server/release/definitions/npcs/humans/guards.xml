@@ -18,7 +18,7 @@
 		<totame>1100</totame>
 		<notrain />
  	</npc>
- 	
+
  	<!-- Female Guard Base -->
 	<npc id="base_female_guard">
 	        <id>0x191</id>
@@ -30,79 +30,79 @@
 		<totame>1100</totame>
 		<notrain />
  	</npc>
- 	
+
  	<npc id="male_guard">
 		<!-- The Equipment of a male_guard -->
 		<inherit>base_male_guard</inherit>
-		
+
 		<fame>10000</fame>
 		<karma>10000</karma>
 		<defense>1000</defense>
-		<attack>1000</attack> 		
-		<priv1>4</priv1> 		
+		<attack>1000</attack>
+		<priv1>4</priv1>
 		<str><random min="1000" max="1500" /></str>
 		<dex><random min="1000" max="1500" /></dex>
 		<int><random min="1000" max="1500" /></int>
-		
+
 		<parrying>990</parrying>
 		<magicresistance>990</magicresistance>
 		<tactics>1000</tactics>
-		<wrestling>990</wrestling> 
-		
+		<wrestling>990</wrestling>
+
 		<hidamage>1000</hidamage>
 		<lodamage>1000</lodamage>
-		
+
 		<title>the guard</title>
-		
+
 		<equipped>
-		        <item list="HAIR" />
-		        <item id="e75" /> <!-- Backpack -->
+			<item list="HAIR" />
+			<item id="e75" /> <!-- Backpack -->
 			<item id="143f" /> <!-- Halberd -->
 			<item id="1f7b" /> <!-- Doublet -->
 			<item id="1410" /> <!-- Plate Arms -->
 			<item id="1411" /> <!-- Plate Legs -->
 		</equipped>
 	</npc>
-	
+
 	<npc id="female_guard">
 		<!-- The Equipment of a female_guard -->
 		<inherit>base_female_guard</inherit>
-		
+
 		<fame>10000</fame>
 		<karma>10000</karma>
 		<defense>1000</defense>
-		<attack>1000</attack> 		
-		<priv1>4</priv1> 		
+		<attack>1000</attack>
+		<priv1>4</priv1>
 		<str><random min="1000" max="1500" /></str>
 		<dex><random min="1000" max="1500" /></dex>
 		<int><random min="1000" max="1500" /></int>
-		
+
 		<parrying>990</parrying>
 		<magicresistance>990</magicresistance>
 		<tactics>1000</tactics>
-		<wrestling>990</wrestling> 
-		
+		<wrestling>990</wrestling>
+
 		<hidamage>1000</hidamage>
 		<lodamage>1000</lodamage>
-		
+
 		<title>the guard</title>
-		
+
 		<equipped>
-		        <item list="HAIR_FEMALE" />
-		        <item id="e75" /> <!-- Backpack -->
+			<item list="HAIR_FEMALE" />
+			<item id="e75" /> <!-- Backpack -->
 			<item id="143f" /> <!-- Halberd -->
 			<item id="1c04" /> <!-- Female Plate -->
 		</equipped>
 	</npc>
-	
+
 	<npc id="male_teleguard">
 		<inherit>male_guard</inherit>
 		<ai>Human_Guard_Called</ai>
 	</npc>
-	
+
 	<npc id="female_teleguard">
 		<inherit>female_guard</inherit>
 		<ai>Human_Guard_Called</ai>
 	</npc>
-	
+
 </definitions>
