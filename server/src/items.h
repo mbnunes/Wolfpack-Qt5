@@ -43,20 +43,33 @@
 class ISerialization;
 class cUOSocket;
 
+/*
+	Notes for further memory footprint reduction:
+
+	a) Remove the SpawnRegion property or replace it
+	by a pointer to the spawnregion instead of having the
+	full string saved.
+
+	b) Think about the maxhp/hp properties. They're not needed
+	for most of the items.
+
+	c) Remove the decaytime property. Only a fraction of all items
+	decay. Better store serials for decaying items in a separate
+	thread and do the checks there.
+*/
 #pragma pack(1)
-class cItem : public cUObject
-{
-	friend class cBaseChar;
+class cItem : public cUObject {
+friend class cBaseChar;
+
 private:
 	bool changed_;
-	QString baseid_;
+	QString baseid_; // Make Pointer
 	void flagChanged() { changed_ = true; } // easier to debug, compiler should make it inline;
 
 public:
 	typedef QValueVector<cItem*> ContainerContent;
 
-	const char *objectID() const
-	{
+	inline const char *objectID() const {
 		return "cItem";
 	}
 
@@ -124,13 +137,14 @@ public:
 	void setHp( SI16 nValue ) { hp_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void setMaxhp( SI16 nValue ) { maxhp_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void setNewbie( bool nValue ) { ( nValue ) ? priv_ |= 0x02 : priv_ &= 0xFD; flagChanged(); changed( TOOLTIP );}
-	void setUnprocessed( bool nValue ) {
+	void setUnprocessed(bool nValue) {
 		if (nValue) {
 			priv_ |= 0x40;
 		} else {
 			priv_ &= ~ 0x40;
 		}
 	}
+
 	void setOwner( P_CHAR nOwner );
 	void setTotalweight( float data );
 	void setSpawnRegion( const QString &data ) { spawnregion_ = data; flagChanged(); }
@@ -141,8 +155,8 @@ public:
 	static void registerInFactory();
 
 	bool wearOut(); // The item wears out and true is returned if it's destroyed
-	void toBackpack( P_CHAR pChar );
-	void showName( cUOSocket *socket );
+	void toBackpack(P_CHAR pChar);
+	void showName(cUOSocket *socket);
 
 	void setMagic( uchar data ) { magic_ = data; flagChanged(); changed( TOOLTIP );}
 	void setDecayTime( uint data ) { decaytime_ = data; }
@@ -249,7 +263,7 @@ protected:
 	unsigned short color_; // Color of this item
 	unsigned short amount_; // Amount of this item
 
-	unsigned char layer_; // The layer this item is equipped on
+	unsigned char layer_; // The layer this item is equipped on /*BASEDEF*/
 	unsigned short hp_; // Amount of hitpoints this item has
 	unsigned short maxhp_; // The maximum amount of hitpoints this item can have
 	float totalweight_; // The weight of this item including all contained items
@@ -282,11 +296,11 @@ protected:
 		//   7 |  80 | Dye
 	unsigned char priv_;
 
-	ushort restock_;
-	ushort type_;
-	float weight_;
-	int sellprice_;
-	int buyprice_;
+	ushort restock_; /*BASEDEF?*/
+	ushort type_; /*BASEDEF*/
+	float weight_; /*BASEDEF*/
+	int sellprice_; /*BASEDEF*/
+	int buyprice_; /*BASEDEF*/
 };
 #pragma pack()
 

@@ -56,8 +56,16 @@ class cItem;
 class cUOTxTooltipList;
 class cMulti;
 
-class cUObject : public PersistentObject, public cDefinable, public cPythonScriptable
-{
+/*
+	Notes for further memory footprint reduction:
+    
+	a) Make bindmenu() a pure virtual function and have the
+	basedef system of cBaseChar and cItem handle the property.
+
+	b) Move direction to cBaseChar and make it lightsource (a basedef property)
+	for cItem.
+*/
+class cUObject : public PersistentObject, public cDefinable, public cPythonScriptable {
 private:
 	uchar changed_:1;
 
@@ -73,121 +81,108 @@ protected:
 
 	// Things for building the SQL string
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
-	void changed( uint );
 
-	enum eChanged // Each bit controls different state
-	{
+	cPythonScript **scriptChain; // NULL Terminated Array
+	QString eventList_; // Important for recreating the scriptChain on reloading
+	void init();
+
+	enum eChanged {
 //		SAVE = 1,
 		TOOLTIP = 2,
 		UNUSED = 4,
 		UNUSED2 = 8
 	};
 
+	void changed(uint);
 public:
-	const char *objectID() const
-	{
+	// Indicates whether the object was deleted already.
+	bool free;
+
+	const char *objectID() const {
 		return "cUObject";
 	}
 
-	// EventHandling functions
-	cPythonScript **getEvents()
-	{
-		return scriptChain;
-	}
-
-	// Forwarder for the tags
-	const cVariant &getTag( const QString& key ) const;
+	// Tag Management Methods
+	const cVariant &getTag(const QString& key) const;
 	bool hasTag( const QString& key ) const;
 	void setTag( const QString& key, const cVariant& value );
 	void removeTag( const QString& key );
 	void clearTags();
 	QStringList getTags() const;
 
+	// Event Management Methods
 	void clearEvents();
 	void addEvent( cPythonScript *Event );
 	void removeEvent( const QString& Name );
 	bool hasEvent( const QString& Name ) const;
 	void recreateEvents();
-
-	// Returns the list of events
-	const QString &eventList() const
-	{
+	inline cPythonScript **getEvents() {
+		return scriptChain;
+	}
+	inline const QString &eventList() const {
 		return eventList_;
 	}
 
-	// New Load (Query: result, offset: current field offset)
+	// Serialization Methods
 	void load( char **, UINT16& );
 	void save();
 	bool del();
 
-	bool inRange( cUObject *object, UINT32 range ) const;
-	void removeFromView( bool clean = true );
-
-	// Multiple quick-effect methods
+	// Utility Methods
 	void effect( UINT16 id, UINT8 speed = 10, UINT8 duration = 5, UINT16 hue = 0, UINT16 renderMode = 0 ); // Moving with this character
 	void effect( UINT16 id, cUObject *target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
 	void effect( UINT16 id, const Coord_cl &target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
 	void lightning( unsigned short hue = 0 );
+	bool inRange( cUObject *object, UINT32 range ) const;
+	void removeFromView( bool clean = true );
+	virtual void sendTooltip( cUOSocket* mSock );
+	bool isItem() const { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000); }
+	bool isChar() const { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ <  0x40000000); }
+	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
+	virtual void flagUnchanged() { changed_ = false; }
+	void resendTooltip();
+	char direction(cUObject*) const;
+	virtual void remove();
+	virtual void moveTo( const Coord_cl&, bool noRemove = false );
+	unsigned int dist(cUObject* d) const;
 
-	// Events
+	// Event Methods
 	virtual bool onCreate( const QString &definition );
 	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	virtual void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
 
-	bool free;
-
-// Methods
-public:
+	// Constructors And Destructors
 	cUObject();
-	cUObject( const cUObject& ); // Copy constructor
+	cUObject(const cUObject&);
 	virtual ~cUObject() {};
 
-	virtual void remove();
-	virtual void moveTo( const Coord_cl&, bool noRemove = false );
-	unsigned int dist(cUObject* d) const;
+	// Getter Methods
 	QString bindmenu() const { return bindmenu_; }
 	QString name() const { return name_;		}
 	Coord_cl pos() const { return pos_;		}
 	SERIAL serial() const { return serial_;	}
 	UINT32 getTooltip() const { return tooltip_; }
 	uchar direction() const { return dir_;  }
+	inline cMulti *multi() const {
+		return multi_;
+	}
 
+	// Setter Methods
 	void setBindmenu( const QString& d ) { bindmenu_ = d; changed_ = true;	 }
 	void setName( const QString& d ) { name_ = d; changed_ = true; changed( TOOLTIP ); }
 	void setPos( const Coord_cl& d ) { pos_ = d;	changed_ = true; }
 	virtual void setSerial( SERIAL d ) { serial_ = d; changed_ = true; }
 	void setTooltip( const UINT32 d ) { tooltip_ = d; }
-	void	setDirection( uchar d ) { dir_ = d; changed_ = true; }
-
-	virtual void sendTooltip( cUOSocket* mSock );
-
-	bool isItem() const { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000); }
-	bool isChar() const { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ <  0x40000000); }
-
-	void processNode( const cElement *Tag );
-	stError *setProperty( const QString &name, const cVariant &value );
-	stError *getProperty( const QString &name, cVariant &value );
-
-	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
-	virtual void flagUnchanged() { changed_ = false; }
-	void resendTooltip();
-
-	char direction( cUObject* ) const;
-
-	inline cMulti *multi() const {
-		return multi_;
-	}
-
+	void setDirection( uchar d ) { dir_ = d; changed_ = true; }
 	inline void setMulti(cMulti *multi) {
 		changed_ = true;
 		multi_ = multi;
 	}
 
-protected:
-	cPythonScript **scriptChain;	// NULL Terminated Array
-	QString eventList_; // Important for recreating the scriptChain on reloading
-
-	void init();
+	// Definable Methods
+	void processNode( const cElement *Tag );
+	stError *setProperty( const QString &name, const cVariant &value );
+	stError *getProperty( const QString &name, cVariant &value );
 };
 
 
