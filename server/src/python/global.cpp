@@ -33,9 +33,12 @@
 #include "char.h"
 #include "item.h"
 #include "../globals.h"
+#include "../network/uotxpackets.h"
 #include "../junk.h"
 #include "../wpconsole.h"
 #include "../TmpEff.h"
+
+#define checkArgInt( id ) PyInt_Check( PyTuple_GetItem( args, id ) )
 
 /*!
 	Sends a string to the wolfpack console.
@@ -220,16 +223,34 @@ PyObject* wpAddtimer( PyObject* self, PyObject* args )
 }
 
 /*!
+	Adds a flying object
+*/
+PyObject* wpMovingeffect( PyObject* self, PyObject* args )
+{
+	// What we need is: Source + Target + ID 
+	if( PyTuple_Size( args ) < 3 || !checkArgInt( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for wolfpack.movingeffect is 3\n" );
+		return PyFalse;
+	}
+
+	cUOTxEffect effect;
+
+	return PyTrue;
+}
+
+/*!
 	wolfpack
 	Initializes wolfpack
 */
 static PyMethodDef wpGlobal[] = 
 {
-    { "additem",	wpAdditem,	METH_VARARGS, "Adds an item with the specified script-section" },
-	{ "addnpc",		wpAddnpc,	METH_VARARGS, "Adds a npc with the specified script-section" },
-	{ "finditem",	wpFinditem,	METH_VARARGS, "Tries to find an item based on it's serial" },
-	{ "findchar",	wpFindchar,	METH_VARARGS, "Tries to find a char based on it's serial" },
-	{ "addtimer",	wpAddtimer,	METH_VARARGS, "Adds a timed effect" },
+    { "additem",		wpAdditem,		METH_VARARGS, "Adds an item with the specified script-section" },
+	{ "addnpc",			wpAddnpc,		METH_VARARGS, "Adds a npc with the specified script-section" },
+	{ "finditem",		wpFinditem,		METH_VARARGS, "Tries to find an item based on it's serial" },
+	{ "findchar",		wpFindchar,		METH_VARARGS, "Tries to find a char based on it's serial" },
+	{ "addtimer",		wpAddtimer,		METH_VARARGS, "Adds a timed effect" },
+	{ "movingeffect",	wpMovingeffect, METH_VARARGS, "Displays a moving item-efect" },
     { NULL, NULL, 0, NULL } // Terminator
 };
 
