@@ -206,6 +206,17 @@ void cUOTxSendSkills::fromChar( P_CHAR pChar )
 		addSkill( i+1, pChar->skillValue( i ), pChar->skillValue( i ), status, pChar->skillCap( i ) );
 	}
 }
+void cUOTxMapDiffs::addEntry( UINT32 mappatches, UINT32 staticpatches )
+{
+	UINT16 size = count();
+	UINT32 num = getInt( 5 );
+
+	resize( size + 8 );
+	setShort( 1, size + 8 );
+	setInt( size, mappatches );
+	setInt( size+4, staticpatches );
+	setInt( 5, num + 1 );	
+}
 
 void cUOTxContextMenu::addEntry ( Q_UINT16 RetVal, Q_UINT16 FileID, Q_UINT16 TextID, Q_UINT16 flags, Q_UINT16 color ) 
 { 

@@ -438,6 +438,24 @@ public:
 	void fromChar( P_CHAR pChar );
 };
 
+// 0x76 Change server
+class cUOTxChangeServer: public cUOPacket
+{
+public:
+	cUOTxChangeServer(): cUOPacket( 0x76, 16 ) 
+	{ 
+		(*this)[7] = 0; 
+		setInt( 8, 0 );
+	}
+	void setX( UINT16 data )		{ setShort( 1, data ); }
+	void setY( UINT16 data )		{ setShort( 3, data ); }
+	void setZ( UINT16 data )		{ setShort( 5, data ); }
+	void setBoundX( UINT16 data )	{ setShort( 8, data ); }
+	void setBoundY( UINT16 data )	{ setShort( 10,data ); } 
+	void setWidth( UINT16 data )	{ setShort( 12,data ); }
+	void setHeight( UINT16 data )	{ setShort( 14,data ); }
+};
+
 // 0x77 UpdatePlayer
 class cUOTxUpdatePlayer: public cUOPacket
 {
@@ -598,7 +616,23 @@ public:
 	void addEntry ( Q_UINT16 RetVal, Q_UINT16 FileID, Q_UINT16 TextID, Q_UINT16 flags=Popcolor, Q_UINT16 color=0x7FE0 );
 
 };
-
+// 0xBF sub 0x18 Enable map diffs
+class cUOTxMapDiffs: public cUOPacket
+{
+public:	
+	cUOTxMapDiffs(): cUOPacket( 0xBF, 9 )
+	{
+		setShort( 1, 9 );
+		setShort( 3, 0x18 );
+	}
+	void addEntry( UINT32 mappatches, UINT32 staticpatches );
+};
+/*
+[dynamic packet:bf , Generic Command:Enable map diffs ,len:0021, freq:2]
+0000: bf 00 21 00 18 00 00 00 03 00 00 07 0f 00 00 05
+0010: 7d 00 00 38 08 00 00 38 17 00 00 01 0c 00 00 01
+0020: 0c -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+*/
 // 0x21 DenyMove
 class cUOTxDenyMove: public cUOPacket
 {
