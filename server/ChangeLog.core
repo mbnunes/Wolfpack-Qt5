@@ -48,6 +48,7 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Invis items can now be used to block the line of sight.
 	- Fixed the spawnregion python interface and added documentation.
 	- Made the spawnregion info gump show the active/inactive state and the groups for spawnregions.
+	- Fix for items on very high z values interfering with walking.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

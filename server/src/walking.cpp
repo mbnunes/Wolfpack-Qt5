@@ -323,7 +323,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 	for ( i = 0; i < blockList.size(); ++i )
 	{
 		stBlockItem item = blockList[i];
-		Q_INT8 itemTop = ( item.z + item.height );
+		Q_INT32 itemTop = ( item.z + item.height );
 
 		// If we found something to step on and the next tile
 		// below would block us, use the good one instead
