@@ -61,6 +61,11 @@
 #include "territories.h"
 #include "dbdriver.h"
 #include "combat.h"
+#include "itemsmgr.h"
+#include "msgboard.h"
+
+// Qt Includes
+#include <qstringlist.h>
 
 // Libary Includes
 #include <math.h>
@@ -86,6 +91,9 @@ bool cChar::Wears(P_ITEM pi)			{	return (this == pi->container());	}
 unsigned int cChar::dist(cChar* pc)		{	return pos.distance(pc->pos);		}
 unsigned int cChar::dist(cItem* pi)		{	return pos.distance(pi->pos);		}
 QString cChar::objectID() const			{	return "cChar";						}
+bool  cChar::isGM() const				{return  priv&0x01 || account_ == 0 || ( account() && ( account()->acl() == "admin" || account()->acl() == "gm" ) );} 
+bool  cChar::isCounselor() const		{return (priv&0x80 || ( account() && ( account()->acl() == "counselor") ) );} 
+bool  cChar::isGMorCounselor() const	{return (priv&0x81 || ( account() && ( account()->acl() == "admin" || account()->acl() == "gm" || account()->acl() == "counselor" ) ) );} 
 
 cChar::cChar():
 	socket_(0), account_(0), owner_(0), guildstone_( INVALID_SERIAL ), guarding_( 0 )
@@ -3637,7 +3645,7 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	return cUObject::setProperty( name, value );
 }
 
-stError *cChar::getProperty( const QString &name, cVariant &value )
+stError *cChar::getProperty( const QString &name, cVariant &value ) const
 {
 	return cUObject::getProperty( name, value );
 }

@@ -524,8 +524,8 @@ public:
 	void setType( eSpeechType data ) { (*this)[ 9 ] = data; }
 	void setColor( Q_UINT16 data )	{ setShort( 10, data ); }
 	void setFont( Q_UINT16 font )	{ setShort( 12, font ); }
-	void setLanguage( const QString &data ) { this->setAsciiString(14, data.left( 3 ).latin1(), MIN( data.length()+1, 4 ) ); }
-	void setName( const QString &data )		{ this->setAsciiString(18, data.left( 29 ).latin1(), MIN( data.length()+1, 30 ) ); }
+	void setLanguage( const QString &data ) { this->setAsciiString(14, data.left( 3 ).latin1(), QMIN( data.length()+1, 4 ) ); }
+	void setName( const QString &data )		{ this->setAsciiString(18, data.left( 29 ).latin1(), QMIN( data.length()+1, 30 ) ); }
 	void setText( const QString &data );
 };
 
@@ -557,7 +557,7 @@ public:
 
 	void setAllowRename( bool mode )	{ (*this)[41] = mode ? 0x01 : 0x00; }
 	void setSerial( SERIAL serial )		{ setInt( 3, serial ); }
-	void setName( const QString &name ) { setAsciiString( 7, name.left( 29 ).latin1(), MIN( name.length()+1, 30 ) ); }
+	void setName( const QString &name ) { setAsciiString( 7, name.left( 29 ).latin1(), QMIN( name.length()+1, 30 ) ); }
 	void setHp( Q_UINT16 data )			{ setShort( 37, data ); }
 	void setMaxHp( Q_UINT16 data )		{ setShort( 39, data ); }
 	void setSex( bool male )			{ (*this)[43] = male ? 0 : 1; }
@@ -641,7 +641,7 @@ class cUOTxOpenPaperdoll: public cUOPacket
 public:
 	cUOTxOpenPaperdoll(): cUOPacket( 0x88, 66 ) {}
 	void setSerial( UINT32 data )		{ setInt( 1, data ); }
-	void setName( const QString &name ) { this->setAsciiString(5, name.left( 59 ).latin1(), MIN( name.length()+1, 60 ) ); }
+	void setName( const QString &name ) { this->setAsciiString(5, name.left( 59 ).latin1(), QMIN( name.length()+1, 60 ) ); }
 	void setFlag( UINT8 flag )			{ (*this)[65] = flag; }
 	UINT8 flag() const					{ return (*this)[65]; }
 	void fromChar( P_CHAR pChar );

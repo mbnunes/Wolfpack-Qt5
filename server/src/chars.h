@@ -32,25 +32,21 @@
 #if !defined(__CHARS_H__)
 #define __CHARS_H__
 
-#include "qptrlist.h"
-#include <map>
 // Platform Include
 #include "platform.h"
 
 // just temporary
 #include "debug.h"
 
-//#include "guildstones.h"
 #include "typedefs.h"
 #include "structs.h"
 #include "defines.h"
 #include "uobject.h"
-#include "accounts.h"
 #include "makemenus.h"
 
 // Library Includes
 #include <qmap.h>
-#include <qstringlist.h>
+#include <qptrlist.h>
 
 // Forward class declaration
 class QString;
@@ -58,6 +54,7 @@ class cUOSocket;
 class cGuildStone;
 class cTerritory;
 class cTempEffect;
+class AccountRecord;
 
 #undef  DBGFILE
 #define DBGFILE "chars.h"
@@ -803,7 +800,7 @@ public:
 
 	// Simple Property setting and getting.
 	stError *setProperty( const QString &name, const cVariant &value );
-	stError *getProperty( const QString &name, cVariant &value );
+	stError *getProperty( const QString &name, cVariant &value ) const;
 
 	// Definition loading - sereg
 protected:
@@ -847,9 +844,6 @@ inline bool  cChar::isPlayer() const		{return (!this->npc_);}
 inline bool  cChar::isNpc()	const			{return (this->npc_);}
 inline bool  cChar::isHuman() const			{return (this->id() == 0x190 || this->id() == 0x191);} 
 inline bool  cChar::isTrueGM() const		{return (priv&0x01);} 
-inline bool  cChar::isGM() const			{return  priv&0x01 || account_ == 0 || ( account() && ( account()->acl() == "admin" || account()->acl() == "gm" ) );} 
-inline bool  cChar::isCounselor() const		{return (priv&0x80 || ( account() && ( account()->acl() == "counselor") ) );} 
-inline bool  cChar::isGMorCounselor() const	{return (priv&0x81 || ( account() && ( account()->acl() == "admin" || account()->acl() == "gm" || account()->acl() == "counselor" ) ) );} 
 inline bool  cChar::isInvul() const			{return (priv&0x04 ?true:false);}
 inline bool  cChar::canSnoop() const		{return (priv&0x40 ?true:false);}
 inline bool  cChar::canBroadcast() const	{return (priv&0x02 ?true:false);}

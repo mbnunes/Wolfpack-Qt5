@@ -49,6 +49,9 @@
 #include "network/uotxpackets.h"
 #include "newmagic.h"
 #include "spellbook.h"
+#include "multis.h"
+#include "dragdrop.h"
+
 
 #undef  DBGFILE
 #define DBGFILE "dragdrop.cpp"

@@ -389,7 +389,7 @@ public:
 	P_CHAR getOutmostChar();
 
 	stError *setProperty( const QString &name, const cVariant &value );
-	stError *getProperty( const QString &name, cVariant &value );
+	stError *getProperty( const QString &name, cVariant &value ) const;
 protected:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 };

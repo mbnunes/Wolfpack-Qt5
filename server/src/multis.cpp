@@ -39,6 +39,7 @@
 #include "dbdriver.h"
 #include "persistentbroker.h"
 #include "targetrequests.h"
+#include "accounts.h"
 
 // System Includes
 #include <math.h>

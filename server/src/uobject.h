@@ -175,7 +175,7 @@ public:
 	bool isChar() { return (serial != INVALID_SERIAL && serial > 0 && serial <  0x40000000); }
 
 	virtual stError *setProperty( const QString &name, const cVariant &value );
-	virtual stError *getProperty( const QString &name, cVariant &value );
+	virtual stError *getProperty( const QString &name, cVariant &value ) const;
 };
 
 

@@ -72,6 +72,8 @@
 #include "spellbook.h"
 #include "persistentbroker.h"
 #include "corpse.h"
+#include "house.h"
+#include "boats.h"
 #include "weight.h"
 
 // Library Includes

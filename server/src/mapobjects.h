@@ -35,6 +35,9 @@
 // Platform specifics
 #include "platform.h"
 
+// Wolfpack Includes
+#include "coord.h"
+
 // Library Includes
 #include <vector>
 #include <qmap.h>

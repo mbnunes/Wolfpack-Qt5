@@ -34,6 +34,7 @@
 
 // Wolfpack Includes
 #include "wolfpack.h"
+#include "accounts.h"
 #include "network/uosocket.h"
 #include "SndPkg.h"
 #include "utilsys.h"
@@ -2876,7 +2877,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	return cUObject::setProperty( name, value );
 }
 
-stError *cItem::getProperty( const QString &name, cVariant &value )
+stError *cItem::getProperty( const QString &name, cVariant &value ) const
 {
 	GET_PROPERTY( "id", id_ )
 	else GET_PROPERTY( "color", color_ )
@@ -2956,7 +2957,7 @@ stError *cItem::getProperty( const QString &name, cVariant &value )
 	else GET_PROPERTY( "disabled", (int)disabled_ )
 	else GET_PROPERTY( "disabledmsg", disabledmsg_ )
 	else GET_PROPERTY( "poisoned", (int)poisoned_ )
-	else GET_PROPERTY( "murdertime", murdertime_ )
+	else GET_PROPERTY( "murdertime", (int)murdertime_ )
 	else GET_PROPERTY( "rank", rank_ )
 	else GET_PROPERTY( "creator", creator )
 	else GET_PROPERTY( "good", good )

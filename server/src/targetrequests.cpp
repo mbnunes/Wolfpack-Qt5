@@ -47,6 +47,9 @@
 #include "spellbook.h"
 #include "books.h"
 #include "newmagic.h"
+#include "house.h"
+#include "boats.h"
+#include "accounts.h"
 
 
 // System Includes

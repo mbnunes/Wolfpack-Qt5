@@ -55,7 +55,6 @@ struct statcap_st
 //#include "books.h"
 //#include "speech.h"
 //#include "trigger.h"
-#include "dragdrop.h"
 #include "Trade.h"
 #include "bounty.h"
 //#include "regions.h"
@@ -102,9 +101,7 @@ extern cCharStuff::cDragonAI	*DragonAI;
 extern cCharStuff::cBankerAI	*BankerAI;
 // END
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-//
-#if !defined(MIN)
-#define MIN(arga, argb) (arga<argb?arga:argb)
-#endif
+
 
 extern int escortRegions;
 

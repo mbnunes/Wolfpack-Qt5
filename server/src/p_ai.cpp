@@ -36,6 +36,7 @@
 #include "srvparams.h"
 #include "classes.h"
 #include "territories.h"
+#include "msgboard.h"
 
 using namespace std;
 

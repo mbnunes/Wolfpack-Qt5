@@ -29,17 +29,21 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#include "wolfpack.h"
-#include "SndPkg.h"
+//#include "wolfpack.h"
 #include "debug.h"
 #include "mapobjects.h"
 #include "maps.h"
 #include "tilecache.h"
 #include "itemid.h"
 #include "multiscache.h"
+#include "items.h"
+#include "junk.h"
 
 #include <set>
 #include <math.h>
+
+// Qt Includes
+#include <qptrlist.h>
 
 #undef  DBGFILE
 #define DBGFILE "LoS.cpp"

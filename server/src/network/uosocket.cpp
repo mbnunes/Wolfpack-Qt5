@@ -62,6 +62,8 @@
 #include "../TmpEff.h"
 #include "../newmagic.h"
 #include "../targetrequests.h"
+#include "../dragdrop.h"
+
 
 //#include <conio.h>
 #include <iostream>

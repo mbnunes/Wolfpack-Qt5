@@ -32,6 +32,8 @@
 #if !defined(__DRAGDROP_H__)
 #define __DRAGDROP_H__
 
+#include "typedefs.h"
+
 class cUOSocket;
 class cUORxDropItem;
 class cUORxDragItem;

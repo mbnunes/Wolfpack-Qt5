@@ -33,7 +33,6 @@
 #include "platform.h"
 
 // Wolfpack Includes
-//#include "cmdtable.h" // who took this out and why?? cj 8/11/99
 #include "targeting.h"
 #include "guildstones.h"
 #include "mapobjects.h"
@@ -50,6 +49,7 @@
 #include "skills.h"
 #include "multis.h"
 #include "weight.h"
+#include "house.h"
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"

@@ -37,7 +37,7 @@
 
 //system includes
 
-#include <iostream>
+//#include <iostream>
 
 #if defined (__unix__)
 #include <termios.h>
@@ -51,9 +51,9 @@
 // Forward class declarations
 #include "wpconsole.h"
 #include "typedefs.h"
-#include "boats.h"    // Boats
-#include "msgboard.h" // Bulletin Boards
-#include "house.h"    // Housing System
+//#include "boats.h"    // Boats
+//#include "msgboard.h" // Bulletin Boards
+//#include "house.h"    // Housing System
 #include "defines.h"
 #include "structs.h"
 #include "globals.h"
@@ -64,14 +64,6 @@
 #include "inlines.h"
 
 //#include "WPScriptManager.h" // Script System
-
-struct MatchItemAndSerial : public std::binary_function<P_ITEM, SERIAL, bool>
-{
-	bool operator()(P_ITEM pi, SERIAL serial) const
-	{
-		return pi->serial == serial;
-	}
-};
 
 
 #endif // __WOLFPACK_H

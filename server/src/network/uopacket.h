@@ -32,15 +32,15 @@
 #if !defined(__UOPACKET_H__)
 #define __UOPACKET_H__
 
-#include "qcstring.h"
-#include "qstring.h"
+#include <qcstring.h>
 
-#include <iostream>
+#include <iosfwd>
 
 using namespace std;
 
 // Forward declaration
-class cUORxMultiPurpose;
+//class cUORxMultiPurpose;
+class QString;
 
 class cUOPacket
 {

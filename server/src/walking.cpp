@@ -48,6 +48,7 @@
 #include "multiscache.h"
 #include "tilecache.h"
 #include "weight.h"
+#include "multis.h"
 
 // Library Includes
 #include <qvaluevector.h>

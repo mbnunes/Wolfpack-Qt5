@@ -32,10 +32,10 @@
 #include "uopacket.h"
 
 // Library Includes
-#include "qstring.h"
+#include <qstring.h>
 
 #include <ctype.h>
-
+#include <iostream>
 
 /*****************************************************************************
   cUOPacket member functions

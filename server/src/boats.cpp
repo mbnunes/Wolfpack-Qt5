@@ -42,6 +42,7 @@
 #include "classes.h" // only for the illegal_z!
 #include "dbdriver.h"
 #include "persistentbroker.h"
+#include "itemsmgr.h"
 
 #undef DBGFILE
 #define DBGFILE "boats.cpp" 

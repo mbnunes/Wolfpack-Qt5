@@ -45,6 +45,8 @@
 #include "spawnregions.h"
 #include "territories.h"
 #include "skills.h"
+#include "msgboard.h"
+#include "boats.h"
 
 // Library Includes
 #include "qdatetime.h"

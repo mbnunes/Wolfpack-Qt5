@@ -47,6 +47,7 @@
 #include "resources.h"
 #include "multis.h"
 #include "targetactions.h"
+#include "boats.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"

@@ -50,6 +50,15 @@
 #undef  DBGFILE
 #define DBGFILE "Trade.cpp"
 
+struct MatchItemAndSerial : public std::binary_function<P_ITEM, SERIAL, bool>
+{
+	bool operator()(P_ITEM pi, SERIAL serial) const
+	{
+		return pi->serial == serial;
+	}
+};
+
+
 void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 {
 	P_CHAR pChar = socket->player();

@@ -38,7 +38,7 @@
 #ifndef _ITEMID_H
 #define _ITEMID_H
 
-#include "qcstring.h"
+#include <qglobal.h>
 
 bool IsCorpse		(short id);
 bool IsSpellScroll	(short id);	// predefined spells

@@ -552,7 +552,7 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 	PROPERTY_ERROR( -1, QString( "Property not found: '%1'" ).arg( name ) )
 }
 
-stError *cUObject::getProperty( const QString &name, cVariant &value )
+stError *cUObject::getProperty( const QString &name, cVariant &value ) const
 {
 	GET_PROPERTY( "bindmenu", bindmenu_ )
 	else GET_PROPERTY( "serial", "0x" + QString::number( serial, 16 ) )

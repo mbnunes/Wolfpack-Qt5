@@ -32,6 +32,12 @@
 //Wolfpack Includes
 
 #include "tilecache.h"
+#include "wpconsole.h"
+#include "globals.h"
+
+#include <qfile.h>
+#include <qdatastream.h>
+
 
 using namespace std;
 

@@ -37,20 +37,12 @@
 
 // System Includes
 #include "qstring.h"
-#include "qfile.h"
-#include "qdatastream.h"
-#include <vector>
 #include <map>
 
 // Third Party includes
 
 // Wolfpack Includes
-#include "wpconsole.h"
-#include "structs.h"
-#include "tileflags.h"
 #include "singleton.h"
-
-extern WPConsole_cl clConsole ;
 
 struct tile_st
 {
@@ -108,8 +100,6 @@ private:
 	std::map< UINT16, land_st > landTiles;
 	land_st emptyLandTile;
 public:
-	cTileCache() {}
-	virtual ~cTileCache() {};
 
 	land_st getLand( UINT16 tileId );
 	tile_st getTile( UINT16 tileId );
@@ -118,7 +108,7 @@ public:
 
     bool load( const QString &nPath );
 	bool unload();
-	bool reload() { unload(); load( path ); return true; }
+	bool reload() { unload(); return load( path ); }
 };
 
 typedef SingletonHolder<cTileCache> TileCache;

@@ -35,6 +35,7 @@
 //   By - Dupois (dupois@home.com)
 //
 #include "bounty.h"
+#include "msgboard.h"
 
 #undef  DBGFILE
 #define DBGFILE "bounty.cpp"

@@ -46,6 +46,9 @@
 #include "utilities.h"
 #include "tempeffect.h"
 
+// Library Includes
+#include <qdatetime.h>
+
 /*!
 	Sends a string to the wolfpack console.
 */

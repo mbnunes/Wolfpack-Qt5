@@ -34,7 +34,6 @@
 
 #include <qvaluevector.h>
 #include <qmap.h>
-#include <qfile.h>
 
 struct multiItem_st
 {

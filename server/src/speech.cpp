@@ -44,6 +44,9 @@
 #include "territories.h"
 #include "network/uosocket.h"
 #include "pagesystem.h"
+#include "msgboard.h"
+#include "house.h"
+#include "boats.h"
 #include "wpdefaultscript.h"
 
 // Library Includes
