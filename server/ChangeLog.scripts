@@ -15,6 +15,8 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Loot fixes for daemons.
 		- Added carve information to all npcs.
 		- Fixed reagent requirements for cure potions.
+		- Fixed the shopkeeper inventory for mages.
+		- Fixed the lightsource id for braziers.
 	* Python Script Changes:
 		- Removed weight from the info menu.
 		- The info command now correctly resends the changed players.

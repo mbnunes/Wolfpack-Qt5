@@ -386,34 +386,40 @@
 		<id>0xe31</id>
 		<nodecay />
 		<category>Decoration\Lightsources\Brazier 1</category>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="e32">
 		<id>0xe32</id>
 		<nodecay />
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="e33">
 		<id>0xe33</id>
 		<nodecay />
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="19aa">
 		<id>0x19aa</id>
 		<nodecay />
 		<category>Decoration\Lightsources\Brazier 2</category>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="19bb">
 		<id>0x19bb</id>
 		<nodecay />
 		<category>Decoration\Lightsources\Brazier 3</category>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="1f2b">
 		<id>0x1f2b</id>
 		<nodecay />
 		<category>Decoration\Lightsources\Brazier 4</category>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="142c">
