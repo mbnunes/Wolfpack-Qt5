@@ -152,6 +152,26 @@ bool WPPythonScript::onSingleClick( P_CHAR Character, P_CHAR Viewer )
 	PyEvalMethod( "onSingleClick" )
 }
 
+bool WPPythonScript::onLogout( P_CHAR Character )
+{
+	PyHasMethod( "onLogout" )
+
+	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
+
+	PyEvalMethod( "onLogout" )
+}
+
+bool WPPythonScript::onLogin( P_CHAR Character )
+{
+	PyHasMethod( "onLogin" )
+
+	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
+
+	PyEvalMethod( "onLogin" )
+}
+
 bool WPPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )
 {
 	PyHasMethod( "onCollideItem" )

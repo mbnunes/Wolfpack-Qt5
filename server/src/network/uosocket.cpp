@@ -349,6 +349,8 @@ void cUOSocket::disconnect( void )
 
 	if( _player )
 	{
+		_player->onLogout();
+
 		cUOSocket* mSocket = 0;
 		QPtrListIterator<cUOSocket> it( cNetwork::instance()->getIterator() );
 		while ( ( mSocket = it.current() ) )
@@ -357,8 +359,7 @@ void cUOSocket::disconnect( void )
 			if ( mSocket == this || !SrvParams->joinMsg() || !mSocket->player() || !mSocket->player()->isGMorCounselor() )
 				continue;
 			mSocket->sysMessage( tr("%1 left the world!").arg( _player->name.latin1() ), 0x25 );
-		}
-
+		}		
 		_player->setSocket( NULL );
 	}
 
@@ -499,6 +500,9 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 
 	_account->setInUse( true );
 	playChar( characters.at(packet->slot()) );
+
+	if( _player )
+		_player->onLogin();
 }
 
 // Set up the neccesary stuff to play
