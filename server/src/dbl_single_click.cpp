@@ -509,71 +509,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				// End of guild stuff
 
 		// PlayerVendors deed
-		case 217:			
-			{	
-				if (pi->isLockedDown())
-				{
-					socket->sysMessage(tr("That item is locked down."));
-					return; 
-				}
-
-				cMulti* pi_multi = cMulti::findMulti( pc_currchar->pos() );
-				if( pi_multi && pc_currchar->inRange( pi_multi, 18 ) )
-				{	
-					if ( !IsHouse( pi_multi->id() ) )
-						return;
-					int los = 0;
-					const P_ITEM pi_p = pc_currchar->getBackpack();
-					if( pi_p )
-					{
-						los = 0;
-						cItem::ContainerContent container = pi_p->content();
-						cItem::ContainerContent::const_iterator it(container.begin());
-						for( ; it != container.end(); ++it )
-						{
-							const P_ITEM pi_i = *it;
-							if ( pi_i ) // lb
-								if (pi_i->type() == 7 && calcserial(pi_i->more1(), pi_i->more2(), pi_i->more3(), pi_i->more4()) == pi_multi->serial())
-								{
-									los = 1;
-									break;
-								}
-						}
-					}
-				
-					if (los)
-					{
-						P_NPC pc_vendor = cCharStuff::createScriptNpc( "2117", pc_currchar->pos() );
-						
-						if (pc_vendor == NULL) 
-						{
-							clConsole.send("npc-script couldnt find vendor in npc-section 2117!\n");
-							return;
-						}
-						
-//						pc_vendor->setNpcAIType( 17 );
-						pc_vendor->setInvulnerable( true );
-						pc_vendor->setHidden( false );
-						pc_vendor->setInvisible( false );
-						pc_vendor->setStealthedSteps(-1);
-						pc_vendor->setDirection( pc_currchar->direction() );
-						pc_vendor->setWanderType( enHalt );
-						pc_vendor->setMurdererTime( 0 );
-						pc_vendor->setCriminalTime( 0 );
-						pc_vendor->setOwner( pc_currchar );
-						pc_vendor->setTamed(false);
-						Items->DeleItem(pi);
-						pc_vendor->talk( tr("Hello sir! My name is %1 and i will be working for you.").arg(pc_vendor->name()), -1, 0 );
-						pc_vendor->update();
-					}
-					else 
-						socket->sysMessage(tr("You must be close to a house and have a key in your pack to place that."));
-				}
-				else if (pi_multi == NULL)
-					socket->sysMessage(tr("You must be close to a house and have a key in your pack to place that."));
-				
-				return;
-			}
+		case 217:
+			qWarning("Player Vendor code is gone, sorry... implement in python");
 			break;
 
 		case 222:	// player clicks on a house item (sign) to set ban/friendlists, rename

@@ -521,14 +521,14 @@ void cNPC::kill()
 	}
 
 	corpse->setBodyId( orgBodyID_ );
-	corpse->setMoreY( ishuman( this ) ); //is human??
+	corpse->setMoreY( this->isHuman() ); //is human??
 	corpse->setCarve( carve() ); //store carve section
 	corpse->setName2( name() );
 
 	corpse->moveTo( pos() );
 
 	corpse->setMore1(nType);
-	corpse->setDirection( direction_ );
+	corpse->setDirection( direction() );
 	corpse->startDecay();
 	
 	// stores the time and the murderer's name

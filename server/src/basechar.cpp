@@ -62,7 +62,6 @@ cBaseChar::cBaseChar()
 	propertyFlags_		= 0;
 	weight_				= 0;
 	bodyArmor_			= 2;
-	direction_			= 0;
 	dexterity_			= 0;
 	dexterityMod_		= 0;
 	maxStamina_			= 0;
@@ -132,7 +131,7 @@ void cBaseChar::buildSqlString( QStringList &fields, QStringList &tables, QStrin
 {
 	cUObject::buildSqlString( fields, tables, conditions );
 	fields.push_back( "characters.name,characters.title,characters.creationdate" );
-	fields.push_back( "characters.dir,characters.body,characters.orgbody,characters.skin" );
+	fields.push_back( "characters.body,characters.orgbody,characters.skin" );
 	fields.push_back( "characters.orgskin,characters.saycolor" );
 	fields.push_back( "characters.emotecolor,characters.strength,characters.strengthmod,characters.dexterity" );
 	fields.push_back( "characters.dexteritymod,characters.intelligence,characters.intelligencemod" );
@@ -165,7 +164,6 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	orgName_ = result[offset++];
 	title_ = result[offset++];
 	creationDate_ = QDateTime::fromString( result[offset++], Qt::ISODate );
-	direction_ = atoi( result[offset++] );
 	bodyID_ = atoi( result[offset++] );
 	orgBodyID_ = atoi( result[offset++] );
 	skin_ = atoi( result[offset++] );
@@ -251,7 +249,6 @@ void cBaseChar::save()
 		addStrField( "name", orgName_ );	
 		addStrField( "title", title_ );
 		addField( "creationdate", creationDate_.toString() );
-		addField( "dir", direction_ );
 		addField( "body", bodyID_ );
 		addField( "orgbody", orgBodyID_ );
 		addField( "skin", skin_ );
@@ -407,7 +404,7 @@ void cBaseChar::action( UINT8 id )
 	cUOTxAction action;
 	action.setAction( id );
 	action.setSerial( serial() );
-	action.setDirection( direction_ );
+	action.setDirection( direction() );
 	action.setRepeat( 1 );
 	action.setRepeatFlag( 0 );
 	action.setSpeed( 1 );
@@ -606,10 +603,10 @@ void cBaseChar::turnTo( const Coord_cl &pos )
 	else 
 		return;
 
-	if( nDir != direction_ )
+	if( nDir != direction() )
 	{
 		changed( SAVE );
-		direction_ = nDir;
+		setDirection( nDir );
 		update();
 	}
 }
@@ -1237,29 +1234,6 @@ void cBaseChar::processNode( const cElement *Tag )
 		}
 	}
 
-	//<direction>SE</direction>
-	else if( TagName == "direction" )
-	{
-		if( Value == "NE" )
-			this->direction_ = 1;
-		else if( Value == "E" )
-			this->direction_ = 2;
-		else if( Value == "SE" )
-			this->direction_ = 3;
-		else if( Value == "S" )
-			this->direction_ = 4;
-		else if( Value == "SW" )
-			this->direction_ = 5;
-		else if( Value == "W" )
-			this->direction_ = 6;
-		else if( Value == "NW" )
-			this->direction_ = 7;
-		else if( Value == "N" )
-			this->direction_ = 0;
-		else
-			this->direction_ = Value.toUShort();
-	}
-
 	//<stat type="str">100</stats>
 	else if( TagName == "stat" )
 	{
@@ -1661,7 +1635,6 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "strength2", strengthMod_ )
 	else SET_INT_PROPERTY( "dexterity2", dexterityMod_ )
 	else SET_INT_PROPERTY( "intelligence2", intelligenceMod_ )
-	else SET_INT_PROPERTY( "direction", direction_ )
 	else SET_INT_PROPERTY( "xid", orgBodyID_ )
 	else SET_INT_PROPERTY( "orgid", orgBodyID_ )
 	else SET_INT_PROPERTY( "maxhitpoints", maxHitpoints_ )
@@ -1758,7 +1731,6 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "strength2", strengthMod_ )
 	else GET_PROPERTY( "dexterity2", dexterityMod_ )
 	else GET_PROPERTY( "intelligence2", intelligenceMod_ )
-	else GET_PROPERTY( "direction", direction_ )
 	else GET_PROPERTY( "orgid", orgBodyID_ )
 	else GET_PROPERTY( "xid", orgBodyID_ )
 	else GET_PROPERTY( "maxhitpoints", maxHitpoints_ )

@@ -222,10 +222,6 @@ bool cBaseChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatSto
 		title_ = QString::fromUtf8( input->readString() );
 		break;
 
-	case CHAR_DIR:
-		input->readUChar( direction_ );
-		break;
-
 	case CHAR_BODY:
 		input->readUShort( bodyID_ );
 		break;

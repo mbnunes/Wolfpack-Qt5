@@ -128,7 +128,6 @@ cItem::cItem( const cItem &src )
 	this->setOwnSerialOnly(src.ownSerial());
 	this->visible_=src.visible_;
 	this->spawnserial=src.spawnserial;
-	this->dir_=src.dir_;
 	this->priv_=src.priv_;
 	this->buyprice_ = src.buyprice_;
 	this->sellprice_ = src.sellprice_;
@@ -512,7 +511,6 @@ void cItem::save()
 		addField("owner",			ownserial_);
 		addField("visible",		visible_);
 		addField("spawn",			spawnserial);
-		addField("dir",			dir_);
 		addField("priv",			priv_);
 		addField("sellprice",			sellprice_);
 		addField("buyprice",			buyprice_);
@@ -663,7 +661,6 @@ void cItem::Init( bool createSerial )
 	this->setOwnSerialOnly(-1);
 	this->visible_=0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	this->spawnserial=-1;
-	this->dir_=0; // Direction, or light source type.
 	// Everything decays by default.
 	this->priv_=1; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
 	this->disabled_ = 0; //Item is disabled, cant trigger.
@@ -1860,7 +1857,7 @@ void cItem::update( cUOSocket *mSock )
 		sendItem->setAmount( amount() );
 		sendItem->setColor( color() );
 		sendItem->setCoord( pos() );
-		sendItem->setDirection( dir_ );
+		sendItem->setDirection( direction() );
 
 		if( mSock )
 		{
@@ -2295,7 +2292,6 @@ void cItem::load( char **result, UINT16 &offset )
 	ownserial_ = atoi( result[offset++] );
 	visible_ = atoi( result[offset++] );
 	spawnserial = atoi( result[offset++] );
-	dir_ = atoi( result[offset++] );
 	priv_ = atoi( result[offset++] );
 	sellprice_ = atoi( result[offset++] );
 	buyprice_ = atoi( result[offset++] );
@@ -2316,7 +2312,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.spawnregion,items.good,items.description,items.accuracy" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.spawnregion,items.good,items.description,items.accuracy" ); // for now! later on we should specify each field
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2649,7 +2645,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	}
 
 	else SET_INT_PROPERTY( "spawn", spawnserial )
-	else SET_INT_PROPERTY( "direction", dir_ )
 	else SET_INT_PROPERTY( "sellprice", sellprice_ )
 	else SET_INT_PROPERTY( "buyprice", buyprice_ )
 	else SET_INT_PROPERTY( "restock", restock_ )
@@ -2793,7 +2788,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
 	else GET_PROPERTY( "spawn", FindItemBySerial( spawnserial ) )
 
-	else GET_PROPERTY( "direction", dir_ )
 	else GET_PROPERTY( "buyprice", buyprice_ )
 	else GET_PROPERTY( "sellprice", sellprice_ )
 	else GET_PROPERTY( "restock", restock_ )

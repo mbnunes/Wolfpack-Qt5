@@ -540,13 +540,13 @@ void cPlayer::kill()
     corpse->setOwner( this );
 
 	corpse->setBodyId( orgBodyID_ );
-	corpse->setMoreY( ishuman( this ) ); //is human??
+	corpse->setMoreY( this->isHuman() ); //is human??
 	corpse->setName2( name() );
 
 	corpse->moveTo( pos() );
 
 	corpse->setMore1(nType);
-	corpse->setDirection( direction_ );
+	corpse->setDirection( direction() );
 	corpse->startDecay();
 	
 	// Set the ownerserial to the player's
@@ -689,7 +689,7 @@ P_NPC cPlayer::unmount()
 			pMount->setWanderY1( pi->pos().y );
 			pMount->setWanderRadius( pi->pos().z );
 			pMount->setBodyID( pi->morey() );
-			pMount->setDirection( direction_ );
+			pMount->setDirection( direction() );
 			pMount->setStrength( pi->tags().get("strength").toInt() );
 			pMount->setDexterity( pi->tags().get("dexterity").toInt() );
 			pMount->setIntelligence( pi->tags().get("intelligence").toInt() );

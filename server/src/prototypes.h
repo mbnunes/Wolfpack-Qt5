@@ -43,7 +43,6 @@ class Coord_cl;
 
 // Function Declarations
 //
-void endScrn() ;
 
 QString hex2dec( const QString& value );
 extern void init_creatures(void);
@@ -52,8 +51,6 @@ void savelog(const char *msg, char *logfile);
 void Karma(P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma);
 void Fame(P_CHAR pc_toChange, int nFame);
 
-bool ishuman(P_CHAR pc);
-int chardir(P_CHAR a, P_CHAR b);
 int fielddir(P_CHAR pc, int x, int y, int z);
 
 void endmessage(int x);
@@ -66,8 +63,6 @@ void dooruse( cUOSocket*, P_ITEM );
 void playmonstersound(P_CHAR monster, unsigned short id, int sfx);
 void sellaction(int s);
 void addgold(cUOSocket* s, int totgold);
-int calcValue(P_ITEM pi, int value);
-int calcGoodValue(P_CHAR npcnum, P_ITEM pi, int value,int goodtype); // by Magius(CHE) for trade system
 void StoreItemRandomValue(P_ITEM pi,QString tmpreg); // by Magius(CHE) (2) for trade system
 
 void clearalltrades();
@@ -80,8 +75,6 @@ int DeleBankItem( P_PLAYER pc, unsigned short itemid, unsigned short color, int 
 void getSextantCords(signed int x, signed int y, bool t2a, char *sextant);
 void bgsound(P_CHAR pc);
 int hexnumber(int countx);
-int makenumber(int countx);
-inline int calcserial(unsigned char a1,unsigned char a2,unsigned char a3,unsigned char a4) {return (static_cast<int>((a1<<24))|static_cast<int>((a2<<16)) | static_cast<int>((a3<<8)) | static_cast<int>(a4));}
 int lineOfSight( const Coord_cl&, const Coord_cl&, int checkfor );
 void reloadScripts();
 

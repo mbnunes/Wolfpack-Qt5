@@ -135,14 +135,15 @@ void LogMessageF(unsigned char Type, long Line, char *File, char *Message, ...)
 	Yarantsau Andrei, QA
 	Minsk, Belarus
 
-	Modifications from Correa
+	Modifications by Correa
 */
 
-#if defined(Q_OS_WIN32) && 0
+#if defined(Q_OS_WIN32) && 1
 
 #include <qfile.h>
 #include <qdatetime.h>
 #include <qthread.h>
+#include <windows.h>
 
 #define SystemBasicInformation       0
 #define SystemPerformanceInformation 2
@@ -557,6 +558,7 @@ protected:
 				.arg(QDateTime::currentDateTime().toString())
 				.arg(hInfo->GetCPUInfo())
 				.arg(hInfo->HeapCommitedBytes()/1024);
+			hInfo->m_log.device()->flush();
 			msleep(1000);
 		};
 		
@@ -570,13 +572,13 @@ protected:
 		hInfo->m_log << QString("Total memory difference: %1Kb\n\n").arg(hInfo->HeapCompareSnapShots()/1024 );
 		
 //		hInfo->HeapCompareDumpWithFile(FALSE); // basic report
-		hInfo->HeapCompareDumpWithFile(TRUE);  // extended report
+//		hInfo->HeapCompareDumpWithFile(TRUE);  // extended report
 		
 		delete hInfo;
 	}
 };
 
-//static debugThread myDebugThread;
+static debugThread myDebugThread;
 
 
 #endif

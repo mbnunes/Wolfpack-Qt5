@@ -62,49 +62,6 @@ namespace FlatStore
 	class InputFile;
 };
 
-#define PROPERTY_ERROR( errno, data ) { stError *errRet = new stError; errRet->code = errno; errRet->text = data; return errRet; }
-
-#define GET_PROPERTY( id, getter ) if( name == id ) {\
-	value = cVariant( getter ); \
-	return 0; \
-}
-
-#define SET_STR_PROPERTY( id, setter ) if( name == id ) {\
-	QString text = value.toString(); \
-	if( text == QString::null )	\
-		PROPERTY_ERROR( -2, "String expected" ) \
-	setter = text; \
-	return 0; \
-	}
-
-#define SET_INT_PROPERTY( id, setter ) if( name == id ) {\
-	bool ok; \
-	INT32 data = value.toInt( &ok ); \
-	if( !ok ) \
-		PROPERTY_ERROR( -2, "Integer expected" ) \
-	setter = data; \
-	return 0; \
-	}
-
-#define SET_BOOL_PROPERTY( id, setter ) if( name == id ) {\
-	bool ok; \
-	INT32 data = value.toInt( &ok ); \
-	if( !ok ) \
-		PROPERTY_ERROR( -2, "Boolean expected" ) \
-	setter = data == 0 ? false : true; \
-	return 0; \
-	}
-
-#define SET_CHAR_PROPERTY( id, setter ) if( name == id ) {\
-	setter = value.toChar(); \
-	return 0; \
-	}
-
-#define SET_ITEM_PROPERTY( id, setter ) if( name == id ) {\
-	setter = value.toItem(); \
-	return 0; \
-	}
-
 struct stError;
 
 class cUObject : public PersistentObject, public cDefinable
@@ -115,15 +72,16 @@ class cUObject : public PersistentObject, public cDefinable
 // Data Members
 protected:
 	QString bindmenu_;
-	UINT32 tooltip_;
+	uint tooltip_;
 	QString name_;
 	Coord_cl pos_;
 	SERIAL serial_;
 	SERIAL multis_;
+	uchar changed_:1;
 	cCustomTags tags_;
+	uchar dir_:3;
 
 protected:
-	bool changed_;
 	// Things for building the SQL string
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 	
@@ -176,15 +134,16 @@ public:
 
 	void changed( UI32 );
 	void moveTo( const Coord_cl&, bool noRemove = false );
-	unsigned int dist(cUObject* d) const;
-	QString bindmenu() const	{ return bindmenu_; }
-	QString name() const		{ return name_;		}
-	Coord_cl pos() const		{ return pos_;		}
-	SERIAL serial() const		{ return serial_;	}
-	SERIAL multis() const		{ return multis_;	}
-	cCustomTags tags() const	{ return tags_;		}
-	cCustomTags& tags()			{ return tags_;		}
-	UINT32 getTooltip() const		{ return tooltip_; }
+	unsigned int	dist(cUObject* d) const;
+	QString			bindmenu()		const { return bindmenu_; }
+	QString			name()			const { return name_;		}
+	Coord_cl		pos()			const { return pos_;		}
+	SERIAL			serial()		const { return serial_;	}
+	SERIAL			multis()		const { return multis_;	}
+	cCustomTags		tags()			const { return tags_;		}
+	cCustomTags&	tags()				  { return tags_;		}
+	UINT32			getTooltip()	const { return tooltip_; }
+	uchar			direction()		const { return dir_;  }
 
 	void setBindmenu( const QString& d )	{ bindmenu_ = d; changed( SAVE );	}
 	void setName( const QString& d )		{ name_ = d; changed( SAVE+TOOLTIP );		}	
@@ -193,6 +152,8 @@ public:
 	void setTags( const cCustomTags& d )	{ tags_ = d; changed( SAVE+TOOLTIP );		}
 	virtual void setSerial( SERIAL d )		{ serial_ = d; changed( SAVE );	}
 	void setTooltip( const UINT32 d )		{ tooltip_ = d; }
+	void	setDirection( uchar d )			{ dir_ = d; changed( SAVE );}
+
 	virtual void sendTooltip( cUOSocket* mSock );
 
 	bool isItem() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000); }
@@ -204,6 +165,8 @@ public:
 	virtual stError *setProperty( const QString &name, const cVariant &value );
 	virtual stError *getProperty( const QString &name, cVariant &value ) const;
 	virtual void flagUnchanged() { changed_ = false; }
+
+	char direction( cUObject* ) const;
 
 protected:
 
@@ -297,6 +260,5 @@ struct stError
 	setter = value.toItem(); \
 	return 0; \
 	}
-
 
 #endif // __UOBJECT_H__

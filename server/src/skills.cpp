@@ -890,7 +890,7 @@ int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 {
 	int ar = 0;
 
-	if (ishuman(pc))
+	if ( pc->isHuman() )
 	{
 		
 		unsigned int ci = 0;

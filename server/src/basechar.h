@@ -79,7 +79,7 @@ public:
 	BuyNoRestockContainer, SellContainer, BankBox, Dragging };
 
 	// implementation of interfaces
-	void load( char **, UINT16& );
+	void load( char **, ushort& );
 	void save();
 	void save( FlatStore::OutputFile*, bool first = false ) throw();
 	bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* ) throw();
@@ -93,13 +93,13 @@ public:
 	virtual void update( bool excludeself = false ) = 0; 
 	virtual void resend( bool clean = true, bool excludeself = false ) = 0; 
 	// other methods
-	virtual UINT8 notority( P_CHAR pChar ) = 0; // Gets the notority towards another char
+	virtual uchar notority( P_CHAR pChar ) = 0; // Gets the notority towards another char
 	virtual void kill() = 0;
 	virtual void showName( cUOSocket *socket ) = 0;
 	virtual void fight(P_CHAR pOpponent) = 0;
 	virtual void soundEffect( UI16 soundId, bool hearAll = true ) = 0;
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false ) = 0;
-	virtual UINT32 takeGold( UINT32 amount, bool useBank = false ) = 0;
+	virtual uint takeGold( uint amount, bool useBank = false ) = 0;
 	unsigned int damage( eDamageType type, unsigned int amount, cUObject *source = 0 );
 
 	// other public methods
@@ -107,13 +107,13 @@ public:
 	stError *setProperty( const QString &name, const cVariant &value );
 	stError *getProperty( const QString &name, cVariant &value ) const;
 	void updateHealth( void );
-	void action( UINT8 id ); // Do an action
+	void action( uchar id ); // Do an action
 	P_ITEM getWeapon() const;
 	P_ITEM getShield() const;
-	void setHairColor( UINT16 d); 
-	void setHairStyle( UINT16 d); 
-	void setBeardColor( UINT16 d); 
-	void setBeardStyle( UINT16 d); 
+	void setHairColor( ushort d); 
+	void setHairStyle( ushort d); 
+	void setBeardColor( ushort d); 
+	void setBeardStyle( ushort d); 
 	void playDeathSound();
 	void resurrect();
 	void turnTo( cUObject *object );
@@ -165,58 +165,57 @@ public:
 
 	// getters
     SERIAL			attackerSerial() const;
-    UINT16			bodyArmor() const;
-    UINT16			bodyID() const;
+    ushort			bodyArmor() const;
+    ushort			bodyID() const;
     SERIAL			combatTarget() const;
     QDateTime		creationDate() const;
-    UINT32			criminalTime() const;
-    UINT16			deaths() const;
-    INT16			dexterityMod() const;
-    INT16			dexterity() const;
-    UINT8			direction() const;
-    UINT16			emoteColor() const;
-    INT16			fame() const;
-    UINT8			flag() const;
+    uint			criminalTime() const;
+    ushort			deaths() const;
+    short			dexterityMod() const;
+    short			dexterity() const;
+    ushort			emoteColor() const;
+    short			fame() const;
+    uchar			flag() const;
     bool			gender() const;
     P_CHAR			guarding() const;
-    INT16			hitpoints() const;
-    INT32			hunger() const;
-    UINT32			hungerTime() const;
-    INT16			intelligence() const;
-    INT16			intelligenceMod() const;
-    INT16			karma() const;
-    UINT16			kills() const;
-    INT16			mana() const;
-    UINT16			maxHitpoints() const;
-    UINT16			maxMana() const;
-    UINT16			maxStamina() const;
+    short			hitpoints() const;
+    int				hunger() const;
+    uint			hungerTime() const;
+    short			intelligence() const;
+    short			intelligenceMod() const;
+    short			karma() const;
+    ushort			kills() const;
+    short			mana() const;
+    ushort			maxHitpoints() const;
+    ushort			maxMana() const;
+    ushort			maxStamina() const;
     SERIAL			murdererSerial() const;
-    UINT32			murdererTime() const;
-    UINT32			nextHitTime() const;
-    UINT32			nutriment() const;
-    INT16			orgBodyID() const;
+    uint			murdererTime() const;
+    uint			nextHitTime() const;
+    uint			nutriment() const;
+    short			orgBodyID() const;
     QString			orgName() const;
-    UINT16			orgSkin() const;
-    INT32			poison() const;
-    UINT32			poisoned() const;
-    UINT32			poisonTime() const;
-    UINT32			poisonWearOffTime() const;
-    UINT32			propertyFlags() const;
-	UINT32			regenHitpointsTime() const;
-	UINT32			regenStaminaTime() const;
-	UINT32			regenManaTime() const;
+    ushort			orgSkin() const;
+    int				poison() const;
+    uint			poisoned() const;
+    uint			poisonTime() const;
+    uint			poisonWearOffTime() const;
+    uint			propertyFlags() const;
+	uint			regenHitpointsTime() const;
+	uint			regenStaminaTime() const;
+	uint			regenManaTime() const;
     cTerritory*		region() const;
-    UINT32			runningSteps() const;
-    UINT16			saycolor() const;
-    UINT32			skillDelay() const;
-    UINT16			skin() const;
-    INT16			stamina() const;
-    INT32			stealthedSteps() const;
-    INT16			strength() const;
-    INT16			strengthMod() const;
+    uint			runningSteps() const;
+    ushort			saycolor() const;
+    uint			skillDelay() const;
+    ushort			skin() const;
+    short			stamina() const;
+    int				stealthedSteps() const;
+    short			strength() const;
+    short			strengthMod() const;
     SERIAL			swingTarget() const;
     QString			title() const;
-    UINT16			weight() const;
+    ushort			weight() const;
 	// bit flag getters
 	bool			isIncognito() const;
 	bool			isPolymorphed() const;
@@ -234,9 +233,9 @@ public:
 	bool			attackFirst() const;
 	// advanced getters for data structures
 	// skills
-	UINT16			skillValue( UINT16 skill ) const;
-	UINT16			skillCap( UINT16 skill ) const;
-	UINT8			skillLock( UINT16 skill ) const;
+	ushort			skillValue( ushort skill ) const;
+	ushort			skillCap( ushort skill ) const;
+	uchar			skillLock( ushort skill ) const;
 	// effects
 	EffectContainer	effects() const;
 	// guards
@@ -246,58 +245,57 @@ public:
 
 	// setters
     void setAttackerSerial(SERIAL data);
-	void setBodyArmor(UINT16 data);
-    void setBodyID(UINT16 data);
+	void setBodyArmor(ushort data);
+    void setBodyID(ushort data);
     void setCombatTarget(SERIAL data);
     void setCreationDate(const QDateTime &data);
-    void setCriminalTime(UINT32 data);
-    void setDeaths(UINT16 data);
-    void setDexterityMod(INT16 data);
-    void setDexterity(INT16 data);
-    void setDirection(UINT8 data);
-    void setEmoteColor(UINT16 data);
-    void setFame(INT16 data);
-    void setFlag(UINT8 data);
+    void setCriminalTime(uint data);
+    void setDeaths(ushort data);
+    void setDexterityMod(short data);
+    void setDexterity(short data);
+    void setEmoteColor(ushort data);
+    void setFame(short data);
+    void setFlag(uchar data);
     void setGender(bool data);
 	void setGuarding(P_CHAR data);
-    void setHitpoints(INT16 data);
-    void setHunger(INT32 data);
-    void setHungerTime(UINT32 data);
-    void setIntelligence(INT16 data);
-    void setIntelligenceMod(INT16 data);
-    void setKarma(INT16 data);
-    void setKills(UINT16 data);
-    void setMana(INT16 data);
-    void setMaxHitpoints(UINT16 data);
-    void setMaxMana(UINT16 data);
-    void setMaxStamina(UINT16 data);
+    void setHitpoints(short data);
+    void setHunger(int data);
+    void setHungerTime(uint data);
+    void setIntelligence(short data);
+    void setIntelligenceMod(short data);
+    void setKarma(short data);
+    void setKills(ushort data);
+    void setMana(short data);
+    void setMaxHitpoints(ushort data);
+    void setMaxMana(ushort data);
+    void setMaxStamina(ushort data);
     void setMurdererSerial(SERIAL data);
-    void setMurdererTime(UINT32 data);
-    void setNextHitTime(UINT32 data);
-    void setNutriment(UINT32 data);
-    void setOrgBodyID(INT16 data);
+    void setMurdererTime(uint data);
+    void setNextHitTime(uint data);
+    void setNutriment(uint data);
+    void setOrgBodyID(short data);
     void setOrgName(const QString &data);
-    void setOrgSkin(UINT16 data);
-    void setPoison(INT32 data);
-    void setPoisoned(UINT32 data);
-    void setPoisonTime(UINT32 data);
-    void setPoisonWearOffTime(UINT32 data);
-    void setPropertyFlags(UINT32 data);
-	void setRegenHitpointsTime(UINT32 data);
-	void setRegenStaminaTime(UINT32 data);
-	void setRegenManaTime(UINT32 data);
+    void setOrgSkin(ushort data);
+    void setPoison(int data);
+    void setPoisoned(uint data);
+    void setPoisonTime(uint data);
+    void setPoisonWearOffTime(uint data);
+    void setPropertyFlags(uint data);
+	void setRegenHitpointsTime(uint data);
+	void setRegenStaminaTime(uint data);
+	void setRegenManaTime(uint data);
     void setRegion(cTerritory* data);
-    void setRunningSteps(UINT32 data);
-    void setSaycolor(UINT16 data);
-    void setSkillDelay(UINT32 data);
-    void setSkin(UINT16 data);
-    virtual void setStamina(INT16 data, bool notify = true );
-    void setStealthedSteps(INT32 data);
-    void setStrength(INT16 data);
-    void setStrengthMod(INT16 data);
+    void setRunningSteps(uint data);
+    void setSaycolor(ushort data);
+    void setSkillDelay(uint data);
+    void setSkin(ushort data);
+    virtual void setStamina(short data, bool notify = true );
+    void setStealthedSteps(int data);
+    void setStrength(short data);
+    void setStrengthMod(short data);
     void setSwingTarget(SERIAL data);
     void setTitle(const QString &data);
-    void setWeight(UINT16 data);
+    void setWeight(ushort data);
 	// bit flag setters
 	void setIncognito(bool data);
 	void setPolymorphed(bool data);
@@ -315,9 +313,9 @@ public:
 	void setAttackFirst(bool data);
 	// advanced setters for data structures
 	// skills
-	void setSkillValue( UINT16 skill, UINT16 value );
-	void setSkillCap( UINT16 skill, UINT16 cap );
-	void setSkillLock( UINT16 skill, UINT8 lock );
+	void setSkillValue( ushort skill, ushort value );
+	void setSkillCap( ushort skill, ushort cap );
+	void setSkillLock( ushort skill, uchar lock );
 	// effects
 	void addEffect( cTempEffect *effect );
 	void removeEffect( cTempEffect *effect );
@@ -332,9 +330,9 @@ protected:
 	// type definitions
 	struct stSkillValue
 	{
-		UINT16 value; // Skill Value (Default: 0)
-		UINT16 cap; // Special Cap Value (Default: 1000)
-		UINT8 lock; // 0: Up, 1: Down, 2: Locked (Default: 0)
+		ushort value; // Skill Value (Default: 0)
+		ushort cap; // Special Cap Value (Default: 1000)
+		uchar lock; // 0: Up, 1: Down, 2: Locked (Default: 0)
 
 		stSkillValue(): value( 0 ), cap( 1000 ), lock( 0 ) {}
 	};
@@ -344,11 +342,11 @@ protected:
 	virtual void processNode( const cElement *Tag );
 
     // The body ID for this character. cOldChar::id_
-    UINT16 bodyID_;
+    ushort bodyID_;
 
     // The original body id, when the char is affected by magic.
     // cOldChar::xid_
-    UINT16 orgBodyID_;
+    ushort orgBodyID_;
 
     // The gender of the character. cOldChar::sex_
     bool gender_;
@@ -357,7 +355,7 @@ protected:
     // The original skin color hue of the char. Is needed after applying
     // magical/temporal effects which change skin color.
     // cOldChar::xskin_
-    UINT16 orgSkin_;
+    ushort orgSkin_;
 
     // Flag storage for magical/temporal/skill effects like incognito,
     // polymorph, ... . 
@@ -376,85 +374,81 @@ protected:
     // 12 - war, cOldChar::war
 	// 13 - invulnerable, cOldChar::priv2 Bit 3
 	// 14 - attack first, cOldChar::attackfirst_
-    UINT32 propertyFlags_;
+    uint propertyFlags_;
 
     // Weight of the char, including worn items.
-    UINT16 weight_;
+    ushort weight_;
 
     // Base body armor value.
-    UINT16 bodyArmor_;
-
-    // Direction the char looks at.
-    // cOldChar::dir_
-    UINT8 direction_;
+    ushort bodyArmor_;
 
     // Dexterity of the char
     // cOldChar::dx
-    INT16 dexterity_;
+    short dexterity_;
 
     // dex modifier for influencing equipped items.
     // cOldChar::dx2
-    INT16 dexterityMod_;
+    short dexterityMod_;
 
     // maximum stamina the character can fill up
-    UINT16 maxStamina_;
+    ushort maxStamina_;
 
     // current stamina of the char.
     // cOldChar::stm_
-    INT16 stamina_;
+    short stamina_;
 
     // strength of the char
     // cOldChar::st_
-    INT16 strength_;
+    short strength_;
 
     // temporal strength addons.
     // cOldChar::st2_
-    INT16 strengthMod_;
+    short strengthMod_;
 
     // Maximum hitpoints the char can fill up to.
-    UINT16 maxHitpoints_;
+    ushort maxHitpoints_;
 
     // current hitpoints of the char.
     // cOldChar::hp_
-    INT16 hitpoints_;
+    short hitpoints_;
 
     // Intelligence of the char.
     // cOldChar::in_
-    INT16 intelligence_;
+    short intelligence_;
 
     // Modifier for intelligence. cOldChar::in2_
-    INT16 intelligenceMod_;
+    short intelligenceMod_;
 
     // Maximum mana the char can fill up.
-    UINT16 maxMana_;
+    ushort maxMana_;
 
     // current mana of the char.
     // cOldChar::mn_
-    INT16 mana_;
+    short mana_;
 
     // Karma of the char.
-    INT16 karma_;
+    short karma_;
 
     // Fame of the char.
-    INT16 fame_;
+    short fame_;
 
     // Kills the char has made
-    UINT16 kills_;
+    ushort kills_;
 
     // Times the char has died.
-    UINT16 deaths_;
+    ushort deaths_;
 
     // The hunger value of the char. 6 means not hungry, 0 means starving.
     // cOldChar::hunger_
-    INT32 hunger_;
+    int hunger_;
 
     // Server clocks when next hunger check will be made.
     // cOldChar::hungertime_
-    UINT32 hungerTime_;
+    uint hungerTime_;
 
     // the type of food the char can eat to decrease hunger
     // cOldChar::food_
-    UINT32 nutriment_;
+    uint nutriment_;
 
     // Ingame name-color flag.
     // Bits:
@@ -463,44 +457,44 @@ protected:
     // 03 - blue
     // 04 - green
     // 05 - orange
-    UINT8 flag_;
+    uchar flag_;
 
     // Color for emote messages.
-    UINT16 emoteColor_;
+    ushort emoteColor_;
 
     // Saves the date of creation. cOldChar::creationday_
     QDateTime creationDate_;
 
     // Saves the number of steps that were stealthed. value -1 indicates that
     // the char will be revealed
-    INT32 stealthedSteps_;
+    int stealthedSteps_;
 
     // Saves the number of steps the char ran.
-    UINT32 runningSteps_;
+    uint runningSteps_;
 
     // Time, till murderer flag disappears. cOldChar::murderrate_
-    UINT32 murdererTime_;
+    uint murdererTime_;
 
     // Time, till criminal flag wears off. value -1 indicates not criminal!
-    UINT32 criminalTime_;
+    uint criminalTime_;
 
     // Time till a combat hit times out.
-    UINT32 nextHitTime_;
+    uint nextHitTime_;
 
     // time till next skill usage is possible
-    UINT32 skillDelay_;
+    uint skillDelay_;
 
     // Poison value. dont ask me :/
-    INT32 poison_;
+    int poison_;
 
     // poisoned value.dont ask me :/
-    UINT32 poisoned_;
+    uint poisoned_;
 
     // poison timer value. dont ask me..
-    UINT32 poisonTime_;
+    uint poisonTime_;
 
     // poison wear off timer.dont ask me
-    UINT32 poisonWearOffTime_;
+    uint poisonWearOffTime_;
 
     // Title of the char.
     QString title_;
@@ -510,7 +504,7 @@ protected:
     QString orgName_;
 
     // Skin color hue of the char.
-    UINT16 skin_;
+    ushort skin_;
 
     // Temporal effects that affect this character.
     EffectContainer effects_;
@@ -525,7 +519,7 @@ protected:
     cTerritory* region_;
 
     // Color hue the char speeks with.
-    UINT16 saycolor_;
+    ushort saycolor_;
 
     // Serial of the char, which attacked this character.
     // cOldChar::attacker_
@@ -547,15 +541,15 @@ protected:
 
 	// Time, when next hitpoint will be regenerated.
 	// cOldChar::regen_
-	UINT32 regenHitpointsTime_;
+	uint regenHitpointsTime_;
 
 	// Time, when next stamina point will be regenerated.
 	// cOldChar::regen2_
-	UINT32 regenStaminaTime_;
+	uint regenStaminaTime_;
 
 	// Time, when next mana point will be regenerated.
 	// cOldChar::regen3_
-	UINT32 regenManaTime_;
+	uint regenManaTime_;
 
     // Char which the character guards.
     P_CHAR guarding_;
@@ -581,23 +575,23 @@ inline void cBaseChar::setGuarding(P_CHAR data)
 		guarding_->addGuard( this );		
 }
 
-inline UINT16 cBaseChar::bodyArmor() const
+inline ushort cBaseChar::bodyArmor() const
 {
     return bodyArmor_;
 }
 
-inline void cBaseChar::setBodyArmor(UINT16 data)
+inline void cBaseChar::setBodyArmor(ushort data)
 {
     bodyArmor_ = data;
 	changed( SAVE );
 }
 
-inline UINT16 cBaseChar::bodyID() const
+inline ushort cBaseChar::bodyID() const
 {
     return bodyID_;
 }
 
-inline void cBaseChar::setBodyID(UINT16 data)
+inline void cBaseChar::setBodyID(ushort data)
 {
     bodyID_ = data;
 	changed( SAVE );
@@ -614,89 +608,78 @@ inline void cBaseChar::setCreationDate(const QDateTime &data)
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::criminalTime() const
+inline uint cBaseChar::criminalTime() const
 {
     return criminalTime_;
 }
 
-inline void cBaseChar::setCriminalTime(UINT32 data)
+inline void cBaseChar::setCriminalTime(uint data)
 {
     criminalTime_ = data;
 	changed( SAVE );
 }
 
-inline UINT16 cBaseChar::deaths() const
+inline ushort cBaseChar::deaths() const
 {
     return deaths_;
 }
 
-inline void cBaseChar::setDeaths(UINT16 data)
+inline void cBaseChar::setDeaths(ushort data)
 {
     deaths_ = data;
 	changed( SAVE );
 }
 
-inline INT16 cBaseChar::dexterityMod() const
+inline short cBaseChar::dexterityMod() const
 {
     return dexterityMod_;
 }
 
-inline void cBaseChar::setDexterityMod(INT16 data)
+inline void cBaseChar::setDexterityMod(short data)
 {
     dexterityMod_ = data;
 	changed( SAVE );
 }
 
-inline INT16 cBaseChar::dexterity() const
+inline short cBaseChar::dexterity() const
 {
     return dexterity_;
 }
 
-inline void cBaseChar::setDexterity(INT16 data)
+inline void cBaseChar::setDexterity(short data)
 {
     dexterity_ = data;
 	changed( SAVE );
 }
 
-inline UINT8 cBaseChar::direction() const
-{
-    return direction_;
-}
-
-inline void cBaseChar::setDirection(UINT8 data)
-{
-    direction_ = data;
-	changed( SAVE );
-}
-
-inline UINT16 cBaseChar::emoteColor() const
+inline ushort cBaseChar::emoteColor() const
 {
     return emoteColor_;
 }
 
-inline void cBaseChar::setEmoteColor(UINT16 data)
+inline void cBaseChar::setEmoteColor(ushort data)
 {
     emoteColor_ = data;
 	changed( SAVE );
 }
 
-inline INT16 cBaseChar::fame() const
+inline short cBaseChar::fame() const
 {
     return fame_;
 }
 
-inline void cBaseChar::setFame(INT16 data)
+inline void cBaseChar::setFame(short data)
 {
     fame_ = data;
 	changed( SAVE );
 }
 
-inline UINT8 cBaseChar::flag() const
+inline uchar cBaseChar::flag() const
 {
     return flag_;
 }
 
-inline void cBaseChar::setFlag(UINT8 data)
+inline void cBaseChar::setFlag(uchar data)
 {
     flag_ = data;
 	changed( SAVE );
@@ -713,301 +696,301 @@ inline void cBaseChar::setGender(bool data)
 	changed( SAVE );
 }
 
-inline INT16 cBaseChar::hitpoints() const
+inline short cBaseChar::hitpoints() const
 {
     return hitpoints_;
 }
 
-inline void cBaseChar::setHitpoints(INT16 data)
+inline void cBaseChar::setHitpoints(short data)
 {
     hitpoints_ = data;
 	changed( SAVE );
 }
 
-inline INT32 cBaseChar::hunger() const
+inline int cBaseChar::hunger() const
 {
     return hunger_;
 }
 
-inline void cBaseChar::setHunger(INT32 data)
+inline void cBaseChar::setHunger(int data)
 {
     hunger_ = data;
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::hungerTime() const
+inline uint cBaseChar::hungerTime() const
 {
     return hungerTime_;
 }
 
-inline void cBaseChar::setHungerTime(UINT32 data)
+inline void cBaseChar::setHungerTime(uint data)
 {
     hungerTime_ = data;
 	changed( SAVE );
 }
 
-inline INT16 cBaseChar::intelligence() const
+inline short cBaseChar::intelligence() const
 {
     return intelligence_;
 }
 
-inline void cBaseChar::setIntelligence(INT16 data)
+inline void cBaseChar::setIntelligence(short data)
 {
     intelligence_ = data;
 	changed( SAVE );
 }
 
-inline INT16 cBaseChar::intelligenceMod() const
+inline short cBaseChar::intelligenceMod() const
 {
     return intelligenceMod_;
 }
 
-inline void cBaseChar::setIntelligenceMod(INT16 data)
+inline void cBaseChar::setIntelligenceMod(short data)
 {
     intelligenceMod_ = data;
 	changed( SAVE );
 }
 
-inline INT16 cBaseChar::karma() const
+inline short cBaseChar::karma() const
 {
     return karma_;
 }
 
-inline void cBaseChar::setKarma(INT16 data)
+inline void cBaseChar::setKarma(short data)
 {
     karma_ = data;
 	changed( SAVE );
 }
 
-inline UINT16 cBaseChar::kills() const
+inline ushort cBaseChar::kills() const
 {
     return kills_;
 }
 
-inline void cBaseChar::setKills(UINT16 data)
+inline void cBaseChar::setKills(ushort data)
 {
     kills_ = data;
 	changed( SAVE );
 }
 
-inline INT16 cBaseChar::mana() const
+inline short cBaseChar::mana() const
 {
     return mana_;
 }
 
-inline void cBaseChar::setMana(INT16 data)
+inline void cBaseChar::setMana(short data)
 {
     mana_ = data;
 	changed( SAVE );
 }
 
-inline UINT16 cBaseChar::maxHitpoints() const
+inline ushort cBaseChar::maxHitpoints() const
 {
     return maxHitpoints_;
 }
 
-inline void cBaseChar::setMaxHitpoints(UINT16 data)
+inline void cBaseChar::setMaxHitpoints(ushort data)
 {
     maxHitpoints_ = data;
 	changed( SAVE );
 }
 
-inline UINT16 cBaseChar::maxMana() const
+inline ushort cBaseChar::maxMana() const
 {
     return maxMana_;
 }
 
-inline void cBaseChar::setMaxMana(UINT16 data)
+inline void cBaseChar::setMaxMana(ushort data)
 {
     maxMana_ = data;
 	changed( SAVE );
 }
 
-inline UINT16 cBaseChar::maxStamina() const
+inline ushort cBaseChar::maxStamina() const
 {
     return maxStamina_;
 }
 
-inline void cBaseChar::setMaxStamina(UINT16 data)
+inline void cBaseChar::setMaxStamina(ushort data)
 {
     maxStamina_ = data;
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::murdererTime() const
+inline uint cBaseChar::murdererTime() const
 {
     return murdererTime_;
 }
 
-inline void cBaseChar::setMurdererTime(UINT32 data)
+inline void cBaseChar::setMurdererTime(uint data)
 {
     murdererTime_ = data;
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::nextHitTime() const
+inline uint cBaseChar::nextHitTime() const
 {
     return nextHitTime_;
 }
 
-inline void cBaseChar::setNextHitTime(UINT32 data)
+inline void cBaseChar::setNextHitTime(uint data)
 {
     nextHitTime_ = data;
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::nutriment() const
+inline uint cBaseChar::nutriment() const
 {
     return nutriment_;
 }
 
-inline void cBaseChar::setNutriment(UINT32 data)
+inline void cBaseChar::setNutriment(uint data)
 {
     nutriment_ = data;
 	changed( SAVE );
 }
 
-inline INT16 cBaseChar::orgBodyID() const
+inline short cBaseChar::orgBodyID() const
 {
     return orgBodyID_;
 }
 
-inline void cBaseChar::setOrgBodyID(INT16 data)
+inline void cBaseChar::setOrgBodyID(short data)
 {
     orgBodyID_ = data;
 	changed( SAVE );
 }
 
-inline UINT16 cBaseChar::orgSkin() const
+inline ushort cBaseChar::orgSkin() const
 {
     return orgSkin_;
 }
 
-inline void cBaseChar::setOrgSkin(UINT16 data)
+inline void cBaseChar::setOrgSkin(ushort data)
 {
     orgSkin_ = data;
 	changed( SAVE );
 }
 
-inline INT32 cBaseChar::poison() const
+inline int cBaseChar::poison() const
 {
     return poison_;
 }
 
-inline void cBaseChar::setPoison(INT32 data)
+inline void cBaseChar::setPoison(int data)
 {
     poison_ = data;
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::poisoned() const
+inline uint cBaseChar::poisoned() const
 {
     return poisoned_;
 }
 
-inline void cBaseChar::setPoisoned(UINT32 data)
+inline void cBaseChar::setPoisoned(uint data)
 {
     poisoned_ = data;
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::poisonTime() const
+inline uint cBaseChar::poisonTime() const
 {
     return poisonTime_;
 }
 
-inline void cBaseChar::setPoisonTime(UINT32 data)
+inline void cBaseChar::setPoisonTime(uint data)
 {
     poisonTime_ = data;
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::poisonWearOffTime() const
+inline uint cBaseChar::poisonWearOffTime() const
 {
     return poisonWearOffTime_;
 }
 
-inline void cBaseChar::setPoisonWearOffTime(UINT32 data)
+inline void cBaseChar::setPoisonWearOffTime(uint data)
 {
     poisonWearOffTime_ = data;
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::propertyFlags() const
+inline uint cBaseChar::propertyFlags() const
 {
     return propertyFlags_;
 }
 
-inline void cBaseChar::setPropertyFlags(UINT32 data)
+inline void cBaseChar::setPropertyFlags(uint data)
 {
     propertyFlags_ = data;
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::runningSteps() const
+inline uint cBaseChar::runningSteps() const
 {
     return runningSteps_;
 }
 
-inline void cBaseChar::setRunningSteps(UINT32 data)
+inline void cBaseChar::setRunningSteps(uint data)
 {
     runningSteps_ = data;
 }
 
-inline UINT32 cBaseChar::skillDelay() const
+inline uint cBaseChar::skillDelay() const
 {
     return skillDelay_;
 }
 
-inline void cBaseChar::setSkillDelay(UINT32 data)
+inline void cBaseChar::setSkillDelay(uint data)
 {
     skillDelay_ = data;
 }
 
-inline INT16 cBaseChar::stamina() const
+inline short cBaseChar::stamina() const
 {
     return stamina_;
 }
 
-inline INT32 cBaseChar::stealthedSteps() const
+inline int cBaseChar::stealthedSteps() const
 {
     return stealthedSteps_;
 }
 
-inline void cBaseChar::setStealthedSteps(INT32 data)
+inline void cBaseChar::setStealthedSteps(int data)
 {
     stealthedSteps_ = data;
 	changed( SAVE );
 }
 
-inline INT16 cBaseChar::strength() const
+inline short cBaseChar::strength() const
 {
     return strength_;
 }
 
-inline void cBaseChar::setStrength(INT16 data)
+inline void cBaseChar::setStrength(short data)
 {
     strength_ = data;
 	changed( SAVE );
 }
 
-inline INT16 cBaseChar::strengthMod() const
+inline short cBaseChar::strengthMod() const
 {
     return strengthMod_;
 }
 
-inline void cBaseChar::setStrengthMod(INT16 data)
+inline void cBaseChar::setStrengthMod(short data)
 {
     strengthMod_ = data;
 	changed( SAVE );
 }
 
-inline UINT16 cBaseChar::weight() const
+inline ushort cBaseChar::weight() const
 {
     return weight_;
 }
 
-inline void cBaseChar::setWeight(UINT16 data)
+inline void cBaseChar::setWeight(ushort data)
 {
     weight_ = data;
 	changed( SAVE );
@@ -1067,23 +1050,23 @@ inline void cBaseChar::setRegion(cTerritory* data)
     region_ = data;
 }
 
-inline UINT16 cBaseChar::saycolor() const
+inline ushort cBaseChar::saycolor() const
 {
     return saycolor_;
 }
 
-inline void cBaseChar::setSaycolor(UINT16 data)
+inline void cBaseChar::setSaycolor(ushort data)
 {
     saycolor_ = data;
 	changed( SAVE );
 }
 
-inline UINT16 cBaseChar::skin() const
+inline ushort cBaseChar::skin() const
 {
     return skin_;
 }
 
-inline void cBaseChar::setSkin(UINT16 data)
+inline void cBaseChar::setSkin(ushort data)
 {
     skin_ = data;
 	changed( SAVE );
@@ -1110,34 +1093,34 @@ inline void cBaseChar::setTitle(const QString &data)
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::regenHitpointsTime() const
+inline uint cBaseChar::regenHitpointsTime() const
 {
     return regenHitpointsTime_;
 }
 
-inline void cBaseChar::setRegenHitpointsTime(UINT32 data)
+inline void cBaseChar::setRegenHitpointsTime(uint data)
 {
     regenHitpointsTime_ = data;
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::regenStaminaTime() const
+inline uint cBaseChar::regenStaminaTime() const
 {
     return regenStaminaTime_;
 }
 
-inline void cBaseChar::setRegenStaminaTime(UINT32 data)
+inline void cBaseChar::setRegenStaminaTime(uint data)
 {
     regenStaminaTime_ = data;
 	changed( SAVE );
 }
 
-inline UINT32 cBaseChar::regenManaTime() const
+inline uint cBaseChar::regenManaTime() const
 {
     return regenManaTime_;
 }
 
-inline void cBaseChar::setRegenManaTime(UINT32 data)
+inline void cBaseChar::setRegenManaTime(uint data)
 {
     regenManaTime_ = data;
 	changed( SAVE );

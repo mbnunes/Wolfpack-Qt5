@@ -114,6 +114,7 @@ void cUObject::load( char **result, UINT16 &offset )
 	name_ = result[offset++];
 	serial_ = atoi(result[offset++]);
 	multis_ = atoi(result[offset++]);
+	dir_ = atoi( result[offset++] );
 	pos_.x = atoi(result[offset++]);
 	pos_.y = atoi(result[offset++]);
 	pos_.z = atoi(result[offset++]);
@@ -162,6 +163,7 @@ void cUObject::save()
 		addStrField( "name", name_ );
 		addField( "serial", serial_ );
 		addField( "multis", multis_ );
+		addField( "direction", dir_);
 		addField( "pos_x", pos_.x );
 		addField( "pos_y", pos_.y );
 		addField( "pos_z", pos_.z );
@@ -207,7 +209,7 @@ bool cUObject::del()
 */
 void cUObject::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
-	fields.push_back( "uobject.name,uobject.serial,uobject.multis,uobject.pos_x,uobject.pos_y,uobject.pos_z,uobject.pos_map,uobject.events,uobject.bindmenu,uobject.havetags" );
+	fields.push_back( "uobject.name,uobject.serial,uobject.multis,uobject.direction,uobject.pos_x,uobject.pos_y,uobject.pos_z,uobject.pos_map,uobject.events,uobject.bindmenu,uobject.havetags" );
 	tables.push_back( "uobject" );
 	conditions.push_back( "uobjectmap.serial = uobject.serial" );
 }
@@ -489,11 +491,34 @@ void cUObject::processNode( const cElement *Tag )
 	QString TagName = Tag->name();
 	QString Value = Tag->getValue();
 
+	//<direction>SE</direction>
+	if( TagName == "direction" )
+	{
+		if( Value == "NE" )
+			this->dir_ = 1;
+		else if( Value == "E" )
+			this->dir_ = 2;
+		else if( Value == "SE" )
+			this->dir_ = 3;
+		else if( Value == "S" )
+			this->dir_ = 4;
+		else if( Value == "SW" )
+			this->dir_ = 5;
+		else if( Value == "W" )
+			this->dir_ = 6;
+		else if( Value == "NW" )
+			this->dir_ = 7;
+		else if( Value == "N" )
+			this->dir_ = 0;
+		else
+			this->dir_ = Value.toUShort();
+	}
+
 	// <tag type="string"> also type="value"
 	//	    <key>multisection</key>
 	//		<value>smallboat</value>
 	// </tag>
-	if( TagName == "tag" )
+	else if( TagName == "tag" )
 	{
 		QString tkey, tvalue;
 
@@ -660,6 +685,7 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 	SET_STR_PROPERTY( "bindmenu", bindmenu_ )
 	else SET_INT_PROPERTY( "serial", serial_ )
 	else SET_INT_PROPERTY( "multi", multis_ )
+	else SET_INT_PROPERTY( "direction", dir_ )
 	else SET_BOOL_PROPERTY( "free", free )
 	else SET_STR_PROPERTY( "name", this->name_ )
 
@@ -699,7 +725,8 @@ stError *cUObject::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "free", free ? 1 : 0 )
 	else GET_PROPERTY( "name", this->name() )
 	else GET_PROPERTY( "pos", pos() )
-	else GET_PROPERTY( "eventlist", eventList_ == QString::null ? QString( "" ) : eventList_ );
+	else GET_PROPERTY( "eventlist", eventList_ == QString::null ? QString( "" ) : eventList_ )
+	else GET_PROPERTY( "direction", dir_ )
 
 	PROPERTY_ERROR( -1, QString( "Property not found: '%1'" ).arg( name ) )
 }
@@ -728,4 +755,26 @@ void cUObject::changed( UI32 state )
 {
 	if( state & SAVE ) changed_ = true;
 	if( state & TOOLTIP ) tooltip_ = 0xFFFFFFFF;
+}
+
+/*!
+	Returns the direction from this object to another \s d object
+*/
+char cUObject::direction( cUObject* d ) const
+{
+	int dir = -1;
+	int xdif = d->pos().x - this->pos().x;
+	int ydif = d->pos().y - this->pos().y;
+
+	if ((xdif==0)&&(ydif<0)) dir=0;
+	else if ((xdif>0)&&(ydif<0)) dir=1;
+	else if ((xdif>0)&&(ydif==0)) dir=2;
+	else if ((xdif>0)&&(ydif>0)) dir=3;
+	else if ((xdif==0)&&(ydif>0)) dir=4;
+	else if ((xdif<0)&&(ydif>0)) dir=5;
+	else if ((xdif<0)&&(ydif==0)) dir=6;
+	else if ((xdif<0)&&(ydif<0)) dir=7;
+	else dir=-1;
+
+	return dir;
 }

@@ -83,7 +83,6 @@ class cItem : public cUObject
 	Q_PROPERTY ( uint		disabled	READ disabled		WRITE setDisabled		)
 	Q_PROPERTY ( uint		poisoned	READ poisoned		WRITE setPoisoned		)
 	Q_PROPERTY ( int		rank		READ rank			WRITE setRank			)
-	Q_PROPERTY ( uchar		direction	READ direction		WRITE setDirection		)
 	Q_PROPERTY ( QString	description	READ description	WRITE setDescription	)
 	Q_PROPERTY ( QString	creator		READ creator		WRITE setCreator		)
 	Q_PROPERTY ( int		ownserial	READ ownSerial		WRITE SetOwnSerial		)
@@ -168,7 +167,6 @@ public:
 	uint			disabled()		const { return disabled_; } 
 	uint			poisoned()		const { return poisoned_; }
 	int				rank()			const { return rank_; } 
-	uchar			direction()		const { return dir_;  }
 	QString			description()	const { return desc_; }
 	QString			creator()		const { return creator_;}
 	uchar			visible()		const { return visible_;}
@@ -227,7 +225,6 @@ public:
 	void	setTotalweight( int data );
 	void	setAntispamtimer ( uint data ) { antispamtimer_ = data; changed( SAVE );}
 	void	setAccuracy( ushort data ) { accuracy_ = data; changed( SAVE );}
-	void	setDirection( uchar d )	 { dir_ = d; changed( SAVE );}
 	void	setDescription( const QString& d ) { desc_ = d; changed( SAVE+TOOLTIP );}
 	void	setCreator( const QString& d )	{ creator_ = d;	changed( SAVE+TOOLTIP );}
 
@@ -438,7 +435,6 @@ protected:
 	// RANK 1 ---> 1*10=10% this item has 90% of malus!
 	// RANK 10 --> 10*10=100% this item has no malus! RANK 10 is automatically setted if you select RANKSYSTEM 0.
 	// Vars: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
-	uchar		dir_;
 	QString		desc_;
 	QString		creator_; // Store the name of the player made this item
 	SERIAL		ownserial_;

@@ -449,10 +449,6 @@ bool cItem::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 		input->readUInt( (unsigned int&)spawnserial );
 		break;
 
-	case ITEM_DIRECTION:
-		input->readUChar( dir_ );
-		break;
-
 	case ITEM_PRIV:
 		input->readUChar( priv_ );
 		break;

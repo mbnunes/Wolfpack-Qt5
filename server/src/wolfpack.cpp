@@ -674,7 +674,7 @@ void interpretCommand( const QString &command )
 				clConsole.send("End of commands list.\n");
 				break;
 			default:
-				clConsole.send(tr("WOLFPACK: Key %1 [%2] does not preform a fucntion.\n").arg(c).arg(QString::number(c)));
+				clConsole.send(tr("WOLFPACK: Key %1 [%2] does not preform a function.\n").arg( c > 32 ? c : '¿' ).arg(QString::number(c)));
 				break;
 			}
 		}
@@ -689,21 +689,55 @@ static void parseParameter( const QString &param )
 	{
 		if ( QFile::exists( param ) )
 		{
-			FILE *fp = fopen(param.latin1(), "r");
+			PyObject *pName, *pModule, *pDict, *pFunc;
+			PyObject *pArgs, *pValue;
+			int i;
 			
-			if (fp != NULL)
-			{
-				(void) PyRun_SimpleFile(fp, (char*)param.latin1());
-				PyErr_Clear();
-				fclose(fp);
+			pName = PyString_FromString( param.left(param.length() - 3).latin1() );
+			/* Error checking of pName left out */
+			
+			pModule = PyImport_Import(pName);
+			Py_DECREF(pName);
+			
+			if (pModule != NULL) {
+				pDict = PyModule_GetDict(pModule);
+				/* pDict is a borrowed reference */
+				
+				pFunc = PyDict_GetItemString(pDict, "main");
+				/* pFun: Borrowed reference */
+				
+				if (pFunc && PyCallable_Check(pFunc)) {
+					pArgs = PyTuple_New(0);
+					pValue = PyObject_CallObject(pFunc, pArgs);
+					Py_DECREF(pArgs);
+					if (pValue != NULL) {
+						printf("Result of call: %ld\n", PyInt_AsLong(pValue));
+						Py_DECREF(pValue);
+					}
+					else {
+						Py_DECREF(pModule);
+						PyErr_Print();
+						fprintf(stderr,"Call failed\n");
+						return;
+					}
+					/* pDict and pFunc are borrowed and must not be Py_DECREF-ed */
+				}
+				else {
+					if (PyErr_Occurred())
+						PyErr_Print();
+				}
+				Py_DECREF(pModule);
 			}
-			else
-			{
-				clConsole.send( QString("Can't open %1. Critical macro support data not available!\n").arg(param) );
+			else {
+				PyErr_Print();
+				fprintf(stderr, "Failed to load \"%s\"\n", param.latin1());
 			}
+			stopPython();
+			exit(0);
 		}
 		else
 			clConsole.error( QString("The specified python script [%1] doesn't exist.").arg(param) );
+
 	}
 }
 
@@ -1177,33 +1211,6 @@ int main( int argc, char *argv[] )
 	return 0;
 }
 
-bool ishuman(P_CHAR pc)
-{
-	// Check if the Player or Npc is human! -- by Magius(CHE)
-	if (pc->orgBodyID()==0x0190 || pc->orgBodyID()==0x0191) return true;
-	else return false;
-}
-
-int chardir(P_CHAR a, P_CHAR b)	// direction from character a to char b
-{
-	int dir,xdif,ydif;
-
-	xdif = b->pos().x - a->pos().x;
-	ydif = b->pos().y - a->pos().y;
-
-	if ((xdif==0)&&(ydif<0)) dir=0;
-	else if ((xdif>0)&&(ydif<0)) dir=1;
-	else if ((xdif>0)&&(ydif==0)) dir=2;
-	else if ((xdif>0)&&(ydif>0)) dir=3;
-	else if ((xdif==0)&&(ydif>0)) dir=4;
-	else if ((xdif<0)&&(ydif>0)) dir=5;
-	else if ((xdif<0)&&(ydif==0)) dir=6;
-	else if ((xdif<0)&&(ydif<0)) dir=7;
-	else dir=-1;
-
-	return dir;
-}
-
 int chardirxyz(P_CHAR pc, int x, int y)	// direction from character a to char b
 {
 	int dir, xdif, ydif;
@@ -1437,67 +1444,6 @@ void playmonstersound(P_CHAR monster, unsigned short id, int sfx)
 void addgold(cUOSocket* socket, int totgold)
 {
 	Items->SpawnItem(socket->player(), totgold,"#",true,0x0EED,0,1);
-}
-
-int calcValue(P_ITEM pi, int value)
-{
-	int mod=10;
-	if (pi == NULL)
-		return value;
-
-	if( pi->type() == 19 )
-	{
-		if (pi->morex()>500) 
-			mod	=mod+1;
-		if (pi->morex()>900) mod=mod+1;
-		if (pi->morex()>1000) mod=mod+1;
-		if (pi->morez()>1) mod=mod+(3*(pi->morez()-1));
-		value=(value*mod)/10;
-	}
-
-	// Lines added for Rank System by Magius(CHE)
-	if (pi->rank()>0 && pi->rank()<10 && SrvParams->rank_system()==1)
-	{
-		value=(int) (pi->rank()*value)/10;
-	}
-	if (value<1) value=1;
-	// end addon
-
-	// Lines added for Trade System by Magius(CHE) (2)
-	if (pi->rndvaluerate()<0) pi->setRndValueRate(0);
-	if (pi->rndvaluerate()!=0 && SrvParams->trade_system()==1) {
-		value+=(int) (value*pi->rndvaluerate())/1000;
-	}
-	if (value<1) value=1;
-	// end addon
-
-	return value;
-}
-
-int calcGoodValue(P_CHAR npcnum2, P_ITEM pi, int value,int goodtype)
-{ // Function Created by Magius(CHE) for trade System
-	cTerritory* Region = AllTerritories::instance()->region( npcnum2->pos().x, npcnum2->pos().y, npcnum2->pos().map );
-
-	int regvalue=0;
-	int x;
-	if( pi == NULL || Region == NULL )
-		return value;
-
-	int good=pi->good();
-
-	if (good<=-1 || good >255 ) return value;
-
-	if (goodtype==1) regvalue=Region->tradesystem_[good].sellable;	// Vendor SELL
-	if (goodtype==0) regvalue=Region->tradesystem_[good].buyable;	// Vendor BUY
-
-	x=(int) (value*abs(regvalue))/1000;
-
-	if (regvalue<0)	value-=x;
-	else value+=x;
-
-	if (value<=0) value=1; // Added by Magius(CHE) (2)
-
-	return value;
 }
 
 void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
