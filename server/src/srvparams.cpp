@@ -117,6 +117,7 @@ void cSrvParams::readData()
 	checkAITime_			= getDouble("AI", "Default AI Check Time", 1.2, true);
 	stablemasterRefreshTime_	= getNumber( "AI", "Refresh time in sec (Stablemasters)", 60, true );
 	stablemasterGoldPerRefresh_	= getDouble( "AI", "Gold cost per refresh cycle (Stablemaster)", 0.2, true );
+	animalWildFleeRange_	= getNumber("AI", "Wild animals flee range", 8, true );
 
 	// Persistency
 	databasePassword_		= getString("Database", "password", "", false);

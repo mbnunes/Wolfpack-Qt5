@@ -31,6 +31,102 @@
 #include "ai.h"
 #include "npc.h"
 #include "player.h"
+#include "srvparams.h"
+#include "globals.h"
+#include "mapobjects.h"
+#include "basics.h"
+
+// library includes
+#include <math.h>
+
+static AbstractAI* productCreator_AW()
+{
+	return new Animal_Wild( NULL );
+}
+
+void Animal_Wild::registerInFactory()
+{
+	AIFactory::instance()->registerType("Animal_Wild", productCreator_AW);
+}
+
+static AbstractAI* productCreator_AD()
+{
+	return new Animal_Domestic( NULL );
+}
+
+void Animal_Domestic::registerInFactory()
+{
+	AIFactory::instance()->registerType("Animal_Domestic", productCreator_AD);
+}
+
+void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
+{
+	//TODO: speech handling here
+}
+
+float Animal_Wild_Flee::preCondition()
+{
+	/*
+	 * Fleeing from an approaching player has the following preconditions:
+	 * - There is a player within flight range.
+	 * - There is no character attacking us.
+	 *
+	 */
+
+	if( m_npc->attackerSerial() != INVALID_SERIAL )
+		return 0.0f;
+
+	RegionIterator4Chars ri( m_npc->pos(), SrvParams->animalWildFleeRange() );
+	for(ri.Begin(); !ri.atEnd(); ri++)
+	{
+		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(ri.GetData());
+		if( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
+			return 1.0f;
+	}
+
+	return 0.0f;
+}
+
+float Animal_Wild_Flee::postCondition()
+{
+	/*
+	 * Fleeing from an approaching player has the following postconditions:
+	 * - There is no character in flight range.
+	 * - There is an character attacking us.
+	 *
+	 */
+
+	if( m_npc->attackerSerial() != INVALID_SERIAL )
+		return 1.0f;
+
+	RegionIterator4Chars ri( m_npc->pos(), SrvParams->animalWildFleeRange() );
+	for(ri.Begin(); !ri.atEnd(); ri++)
+	{
+		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(ri.GetData());
+		if( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
+			return 0.0f;
+	}
+	return 1.0f;
+}
+
+void Animal_Wild_Flee::execute()
+{
+	if( !m_npc->hasPath() )
+	{
+		Coord_cl newPos = m_npc->pos();
+		// find a valid spot in a circle of flee_radius fields to move to
+		float rnddist = (float)RandomNum( 1, SrvParams->pathfindFleeRadius() );
+		// now get a point on this circle around the npc
+		float rndphi = (float)RandomNum( 0, 100 ) / 100.0f * 2.0f * 3.14159265358979323846f;
+		newPos.x = newPos.x + (INT16)floor( cos( rndphi ) * rnddist );
+		newPos.y = newPos.y + (INT16)floor( sin( rndphi ) * rnddist );
+
+		// we use pathfinding for fleeing
+		movePath( newPos );
+	}
+	else
+		movePath( m_npc->pathDestination() );
+}
 
 /*
 #include "world.h"

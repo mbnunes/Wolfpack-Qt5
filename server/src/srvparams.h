@@ -168,6 +168,7 @@ protected:
 	float checkAITime_;
 	unsigned int stablemasterRefreshTime_;
 	float stablemasterGoldPerRefresh_;
+	unsigned int animalWildFleeRange_;
 
 	// Remote Admin
 	unsigned int ra_port_;
@@ -279,6 +280,7 @@ public:
 	float checkAITime() const;
 	float stablemasterGoldPerRefresh() const;
 	unsigned int stablemasterRefreshTime() const;
+	unsigned int animalWildFleeRange() const;
 	float checkFollowTime() const;
 	float checkTammedTime() const;
 	int niceLevel() const;
@@ -598,6 +600,11 @@ inline float cSrvParams::stablemasterGoldPerRefresh() const
 inline unsigned int cSrvParams::stablemasterRefreshTime() const
 {
 	return stablemasterRefreshTime_;
+}
+
+inline unsigned int cSrvParams::animalWildFleeRange() const
+{
+	return animalWildFleeRange_;
 }
 
 inline float cSrvParams::checkFollowTime() const

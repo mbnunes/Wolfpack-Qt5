@@ -300,7 +300,7 @@ float Action_FleeAttacker::preCondition()
 	/*
 	 * Fleeing from an attacker has the following preconditions:
 	 * - There is a character attacking us.
-	 * - The attacking character has died.
+	 * - The attacking character has not died.
 	 * - The attacking character is within flee range.
 	 * - The hitpoints are below the critical value.
 	 *
@@ -337,9 +337,6 @@ float Action_FleeAttacker::postCondition()
 	if( !pAttacker || pAttacker->isDead() || !m_npc->inRange( pAttacker, SrvParams->pathfindFleeRadius() ) )
 		return 1.0f;
 
-	if( m_npc->hitpoints() == m_npc->maxHitpoints() )
-		return 1.0f;
-
 	float healthmod = (float)(m_npc->hitpoints() - m_npc->criticalHealth()) /
 						(float)(m_npc->maxHitpoints() - m_npc->criticalHealth());
 	return healthmod;
@@ -362,5 +359,70 @@ void Action_FleeAttacker::execute()
 	}
 	else
 		movePath( m_npc->pathDestination() );
+}
+
+float Action_Defend::preCondition()
+{
+	/*
+	 * Defending has the following preconditions:
+	 * - There is a character attacking us.
+	 * - The attacking character has not died.
+	 * - The attacking character is within combat range.
+	 * - The hitpoints are above the critical value.
+	 *
+	 * Fuzzy: The nearer we get to the critical health, the chance
+	 *	      increases to flee.
+	 */
+
+	P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
+	if( !pAttacker || pAttacker->isDead() )
+		return 0.0f;
+
+	if( m_npc->hitpoints() < m_npc->criticalHealth() )
+		return 0.0f;
+
+	UINT8 range = 1;
+	if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
+		range = ARCHERY_RANGE;
+
+	if( !m_npc->inRange( pAttacker, range ) )
+		return 0.0f;
+
+	float healthmod = (float)m_npc->hitpoints() / ((float)m_npc->criticalHealth()/100.0f * (float)m_npc->maxHitpoints());
+	return healthmod;
+}
+
+float Action_Defend::postCondition()
+{
+	/*
+	 * Defending has the following postconditions:
+	 * - The character isn't attacking us anymore.
+	 * - The attacker has died.
+	 * - The attacker is not within combat range.
+	 * - Health is critical.
+	 *
+	 * Fuzzy: The nearer we get to the critical health line,
+	 *        the higher is the chance to end the defend action.
+	 */
+
+	P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
+	if( !pAttacker || pAttacker->isDead() )
+		return 1.0f;
+
+	UINT8 range = 1;
+	if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
+		range = ARCHERY_RANGE;
+
+	if( !m_npc->inRange( pAttacker, range ) )
+		return 1.0f;
+
+	float healthmod = (float)(m_npc->maxHitpoints() - m_npc->hitpoints()) /
+						(float)(m_npc->maxHitpoints() - ((float)m_npc->criticalHealth()/100.0f * (float)m_npc->maxHitpoints()));
+	return healthmod;
+}
+
+void Action_Defend::execute()
+{
+	// combat is handled somewhere else
 }
 

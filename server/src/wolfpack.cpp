@@ -947,7 +947,8 @@ int main( int argc, char *argv[] )
 	Monster_Aggressive_L1::registerInFactory();
 	Human_Vendor::registerInFactory();
 	Human_Stablemaster::registerInFactory();
-	//Animal_Wild::registerInFactory();
+	Animal_Wild::registerInFactory();
+	Animal_Domestic::registerInFactory();
 
 	try
 	{

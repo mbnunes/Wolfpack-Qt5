@@ -156,6 +156,17 @@ public:
 	virtual float postCondition();
 };
 
+class Action_Defend : public AbstractAction
+{
+protected:
+	Action_Defend() : AbstractAction() {}
+public:
+	Action_Defend( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ) {}
+	virtual void execute();
+	virtual float preCondition();
+	virtual float postCondition();
+};
+
 class Monster_Aggr_Wander : public Action_Wander
 {
 protected:
@@ -281,6 +292,61 @@ public:
 
 	void refreshStock();
 	void handleTargetInput( P_PLAYER player, cUORxTarget* target );
+};
+
+class Animal_Wild_Flee : public Action_Wander
+{
+protected:
+	Animal_Wild_Flee() : Action_Wander() {}
+public:
+	Animal_Wild_Flee( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai ) {}
+	virtual void execute();
+	virtual float preCondition();
+	virtual float postCondition();
+};
+
+class AnimalAI : public AbstractAI
+{
+protected:
+	AnimalAI() : AbstractAI() {}
+
+public:
+	virtual void onSpeechInput( P_PLAYER pTalker, const QString &comm );
+};
+
+class Animal_Wild : public AnimalAI
+{
+protected:
+	Animal_Wild() : AnimalAI() {}
+
+public:
+	Animal_Wild( P_NPC npc )	
+	{
+		m_actions.append( new Action_Wander( npc, this ) );
+		m_actions.append( new Action_FleeAttacker( npc, this ) );
+		m_actions.append( new Action_Defend( npc, this ) );
+		m_actions.append( new Animal_Wild_Flee( npc, this ) );
+	}
+
+	static void registerInFactory();
+	virtual QString name() { return "Animal_Wild"; }
+};
+
+class Animal_Domestic : public AnimalAI
+{
+protected:
+	Animal_Domestic() : AnimalAI() {}
+
+public:
+	Animal_Domestic( P_NPC npc )	
+	{
+		m_actions.append( new Action_Wander( npc, this ) );
+		m_actions.append( new Action_FleeAttacker( npc, this ) );
+		m_actions.append( new Action_Defend( npc, this ) );
+	}
+
+	static void registerInFactory();
+	virtual QString name() { return "Animal_Domestic"; }
 };
 
 
