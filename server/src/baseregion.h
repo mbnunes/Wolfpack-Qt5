@@ -49,13 +49,14 @@
 class cBaseRegion : public cDefinable
 {
 public:
-	cBaseRegion() {;}
+	cBaseRegion(): parent_( 0 ) {;}
 
-	cBaseRegion( const QDomElement& Tag )
+	cBaseRegion( const QDomElement& Tag, cBaseRegion* pParent )
 	{
 		this->init();
 		this->name_ = Tag.attribute( "id" );
 		this->applyDefinition( Tag );
+		this->parent_ = pParent;
 	}
 
 	virtual ~cBaseRegion()
@@ -141,6 +142,10 @@ public:
 		}
 		return result;
 	}
+
+	// Only getters, no setters
+	cBaseRegion *parent() const { return parent_; }
+	std::vector< cBaseRegion* > children() const { return subregions_; }
 protected:
 	virtual void processNode( const QDomElement &Tag )
 	{
@@ -159,7 +164,7 @@ protected:
 		}
 
 		else if( TagName == "region" && Tag.attributes().contains( "id" ) )
-			this->subregions_.push_back( new cBaseRegion( Tag ) );
+			this->subregions_.push_back( new cBaseRegion( Tag, this ) );
 	}
 
 protected:
@@ -174,6 +179,7 @@ protected:
 	QString							name_;			// name of the region (section's name)
 	std::vector< rect_st >			rectangles_;	// vector of rectangles
 	std::vector< cBaseRegion* >		subregions_;	// list of region object references of included regions
+	cBaseRegion*					parent_;		// the region directly above this region
 };
 
 class cAllBaseRegions

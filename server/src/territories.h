@@ -47,11 +47,12 @@ struct good_st
 class cTerritory : public cBaseRegion
 {
 public:
-	cTerritory( const QDomElement &Tag )
+	cTerritory( const QDomElement &Tag, cBaseRegion *parent )
 	{
 		this->init();
 		this->name_ = Tag.attribute( "id" );
 		this->applyDefinition( Tag );
+		this->parent_ = parent;
 	}
 
 	void	init( void );
@@ -59,13 +60,17 @@ public:
 	// Getters
 	QString		name( void )			{ return name_; }
 	QString		midilist( void )		{ return midilist_; }
-	bool		isGuarded( void )		{ return flags_ & 0x01; }
-	bool		allowsMark( void )		{ return flags_ & 0x02; }
-	bool		allowsGate( void )		{ return flags_ & 0x04; }
-	bool		allowsRecall( void )	{ return flags_ & 0x08; }
-	bool		allowsMagicDamage()		{ return flags_ & 0x10; }
-	bool		isValidEscortRegion()	{ return flags_ & 0x20; }
-	bool		allowsMagic( void )		{ return flags_ & 0x40; }
+	bool		isGuarded( void )			{ return flags_ & 0x0001; }
+	bool		isNoMark( void )			{ return flags_ & 0x0002; }
+	bool		isNoGate( void )			{ return flags_ & 0x0004; }
+	bool		isNoRecallOut( void )		{ return flags_ & 0x0008; }
+	bool		isNoRecallIn( void )		{ return flags_ & 0x0010; }
+	bool		isRecallShield( void ) { return flags_ & 0x0020; }
+	bool		isNoAgressiveMagic( void )	{ return flags_ & 0x0040; }
+	bool		isAntiMagic( void )			{ return flags_ & 0x0080; }
+	bool		isValidEscortRegion( void )	{ return flags_ & 0x0100; }
+	bool		isCave( void )				{ return flags_ & 0x0200; }
+	bool		isNoMusic( void )			{ return flags_ & 0x0400; }
 	QString		guardOwner( void )		{ return guardowner_; }
 	UI08		snowChance( void )		{ return snowchance_; }
 	UI08		rainChance( void )		{ return rainchance_; }
@@ -73,20 +78,24 @@ public:
 	QString		getGuardSect( void );
 private:
 	// Setters to ease up the flag meanings
-	void		setGuarded( bool data )		{ (data) ? flags_ |= 0x01 : flags_ &= 0xFE;  }
-	void		setMark( bool data )		{ (data) ? flags_ |= 0x02 : flags_ &= 0xFD; }
-	void		setGate( bool data )		{ (data) ? flags_ |= 0x04 : flags_ &= 0xFB; }
-	void		setRecall( bool data )		{ (data) ? flags_ |= 0x08 : flags_ &= 0xF7; }
-	void		setMagicDamage( bool data ) { (data) ? flags_ |= 0x10 : flags_ &= 0xEF; }
-	void		setEscortRegion( bool data) { (data) ? flags_ |= 0x20 : flags_ &= 0xDF; }
-	void		setMagic( bool data )		{ (data) ? flags_ |= 0x40 : flags_ &= 0xBF; }
+	void		setGuarded( bool data )				{ flags_ & 0x0001; }
+	void		setNoMark( bool data )				{ flags_ & 0x0002; }
+	void		setNoGate( bool data )				{ flags_ & 0x0004; }
+	void		setNoRecallOut( bool data )			{ flags_ & 0x0008; }
+	void		setNoRecallIn( bool data )			{ flags_ & 0x0010; }
+	void		setRecallShield( bool data )		{ flags_ & 0x0020; }
+	void		setNoAgressiveMagic( bool data )	{ flags_ & 0x0040; }
+	void		setAntiMagic( bool data )			{ flags_ & 0x0080; }
+	void		setValidEscortRegion( bool data )	{ flags_ & 0x0100; }
+	void		setCave( bool data )				{ flags_ & 0x0200; }
+	void		setNoMusic( bool data )				{ flags_ & 0x0400; }
 
 	virtual void processNode( const QDomElement &Tag );
 
 private:
 	QString					midilist_;		// midilist to play
 
-	UI08					flags_;			// flags like guarded, mark allowed, etc. (see getters)
+	UINT16					flags_;			// flags like guarded, mark allowed, etc. (see getters)
 	
 	QString					guardowner_;
 	UI08					snowchance_;

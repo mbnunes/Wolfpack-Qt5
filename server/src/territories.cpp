@@ -46,13 +46,7 @@ void cTerritory::init( void )
 {
 	cBaseRegion::init();
 	midilist_ = "";
-	setGuarded( false );
-	setMark( true );
-	setGate( true );
-	setRecall( true );
-	setMagicDamage( true );
-	setEscortRegion( false );
-	setMagic( true );
+	flags_ = 0;
 	guardowner_ = QString();
 	snowchance_ = 50;
 	rainchance_ = 50;
@@ -101,12 +95,6 @@ void cTerritory::processNode( const QDomElement &Tag )
 		}
 	}
 
-	// <escortregion />
-	else if( TagName == "escortregion" )
-		this->setEscortRegion( true );
-	// scps:	validEscortRegion[escortRegions] = i;
-	// should be implemented as a method of cAllTerritories to check for the tag!
-
 	// <guardowner>text</guardowner>
 	else if( TagName == "guardowner" )
 		this->guardowner_ = Value;
@@ -115,29 +103,40 @@ void cTerritory::processNode( const QDomElement &Tag )
 	else if( TagName == "midilist" )
 		this->midilist_ = Value;
 
-	// <guarded />
-	else if( TagName == "guarded" )
-		this->setGuarded( true );
+	else if( TagName == "flags" )
+	{
+		flags_ = 0;
 
-	// <nomagicdamage />
-	else if( TagName == "nomagicdamage" )
-		this->setMagicDamage( false );
-
-	// <nomagic />
-	else if( TagName == "nomagic" )
-		this->setMagic( false );
-
-	// <nomark />
-	else if( TagName == "nomark" )
-		this->setMark( false );
-
-	// <nogate />
-	else if( TagName == "nogate" )
-		this->setGate( false );
-
-	// <norecall />
-	else if( TagName == "norecall" )
-		this->setRecall( false );
+		QDomNode childNode = Tag.firstChild();
+		while( !childNode.isNull() )
+		{
+			if( childNode.isElement() )
+			{
+				if( childNode.nodeName() == "guarded" )
+					setGuarded( true );
+				else if( childNode.nodeName() == "nomark" )
+					setNoMark( true );
+				else if( childNode.nodeName() == "nogate" )
+					setNoGate( true );
+				else if( childNode.nodeName() == "norecallout" )
+					setNoRecallOut( true );
+				else if( childNode.nodeName() == "norecallin" )
+					setNoRecallIn( true );
+				else if( childNode.nodeName() == "recallshield" )
+					setRecallShield( true );
+				else if( childNode.nodeName() == "noagressivemagic" )
+					setNoAgressiveMagic( true );
+				else if( childNode.nodeName() == "antimagic" )
+					setAntiMagic( true );
+				else if( childNode.nodeName() == "escortregion" )
+					setValidEscortRegion( true );
+				else if( childNode.nodeName() == "cave" )
+					setCave( true );
+				else if( childNode.nodeName() == "nomusic" )
+					setNoMusic( true );
+			}
+		}
+	}
 
 	// <snowchance>50</snowchance>
 	else if( TagName == "snowchance" )
@@ -208,7 +207,7 @@ void cTerritory::processNode( const QDomElement &Tag )
 	// </region>
 	else if( TagName == "region" && Tag.attributes().contains( "id" ) )
 	{
-		cTerritory* toinsert_ = new cTerritory( Tag );
+		cTerritory* toinsert_ = new cTerritory( Tag, this );
 		this->subregions_.push_back( toinsert_ );
 	}
 
@@ -246,7 +245,7 @@ void cAllTerritories::load( void )
 	while( it != DefSections.end() )
 	{
 		const QDomElement* DefSection = DefManager->getSection( WPDT_REGION, *it );
-		this->topregion_ = new cTerritory( *DefSection );
+		this->topregion_ = new cTerritory( *DefSection, 0 );
 		++it;
 	}
 
