@@ -133,6 +133,7 @@ public:
 	void handleAction( cUORxAction* packet );
 	void handleGumpResponse( cUORxGumpResponse* packet );
 	void handleHelpRequest( cUORxHelpRequest* packet );
+	void handleSkillLock( cUORxSkillLock* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );

@@ -442,6 +442,15 @@ public:
 	cUORxHelpRequest( const QByteArray &data ) : cUOPacket( data ) {}
 };
 
+// 0x3A Set Skill Lock
+class cUORxSkillLock : public cUOPacket
+{
+public:
+	cUORxSkillLock( const QByteArray &data ): cUOPacket( data ) {}
+	UINT16 skill() { return getShort( 3 ); }
+	UINT8 lock()   { return rawPacket[ 5 ]; }
+};
+
 #endif
 
 

@@ -482,10 +482,10 @@ void cMakeMenu::processNode( const QDomElement &Tag )
 		name_ = Value;
 }
 
-cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, QString notices )
+cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notices )
 {
-	QString htmlmask = "<html><body text=\"#FFFFFF\">%1</body></html>";
-	QString htmlmaskcenter = "<html><body text=\"#FFFFFF\"><div align=\"center\">%1</div></body></html>";
+	QString htmlmask = "<body text=\"#FFFFFF\">%1</body>";
+	QString htmlmaskcenter = "<body text=\"#FFFFFF\"><div align=\"center\">%1</div></body>";
 
 	action_ = NULL;
 	menu_ = menu;
@@ -496,13 +496,27 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, QString notices )
 
 	startPage();
 	addResizeGump( 0, 0, 0x13BE, 530, 417 );
-	addTiledGump( 10, 10, 510, 22, 0xA40, -1 );
-	addTiledGump( 10,292, 150, 45, 0xA40, -1 );
-	addTiledGump( 165, 292, 355, 45, 0xA40, -1 );
-	addTiledGump( 10, 342, 510, 65, 0xA40, -1 );
-	addTiledGump( 10, 37, 200, 250, 0xA40, -1 );
-	addTiledGump( 215, 37, 305, 250, 0xA40, -1 );
-	addCheckertrans( 10, 10, 510, 397 );
+
+	if( socket->version().contains("3D") )
+	{
+		addTiledGump( 10, 32, 510, 5, 0xA40, -1 );
+		addTiledGump( 10, 287, 510, 5, 0xA40, -1 );
+		addTiledGump( 10, 337, 510, 5, 0xA40, -1 );
+		addTiledGump( 160, 292, 5, 45, 0xA40, -1 );
+		addTiledGump( 210, 37, 5, 250, 0xA40, -1 );
+		addTiledGump( 10, 37, 5, 305, 0xA40, -1 );
+		addTiledGump( 515, 37, 5, 305, 0xA40, -1 );
+	}
+	else
+	{
+		addTiledGump( 10, 10, 510, 22, 0xA40, -1 );
+		addTiledGump( 10,292, 150, 45, 0xA40, -1 );
+		addTiledGump( 165, 292, 355, 45, 0xA40, -1 );
+		addTiledGump( 10, 342, 510, 65, 0xA40, -1 );
+		addTiledGump( 10, 37, 200, 250, 0xA40, -1 );
+		addTiledGump( 215, 37, 305, 250, 0xA40, -1 );
+		addCheckertrans( 10, 10, 510, 397 );
+	}
 
 	addHtmlGump( 10, 12, 510, 20, htmlmaskcenter.arg( menu_->name() ) ); 
 	addHtmlGump( 10, 39, 200, 20, htmlmaskcenter.arg( tr("CATEGORIES") ) ); 
@@ -594,8 +608,9 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, QString notices )
 	}
 }
 
-cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cChar* pChar )
+cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 {
+	cChar* pChar = socket->player();
 	action_ = action;
 	menu_ = action->baseMenu();
 	prev_ = action->baseMenu();
@@ -727,7 +742,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	std::vector< cMakeAction* > actions = menu_->actions();
 
 	if( choice.button == -1 && prev_ && cAllMakeMenus::getInstance()->contains( prev_ ) )
-		socket->send( new cMakeMenuGump( prev_ ) );
+		socket->send( new cMakeMenuGump( prev_, socket ) );
 	else if( action_ ) // we have response of a detail menu
 	{
 		std::vector< cMakeSection* > sections = action_->makesections();
@@ -758,7 +773,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	}
 	else if( choice.button < submenus.size()+3 )
 	{
-		socket->send( new cMakeMenuGump( submenus[ choice.button-3 ] ) );
+		socket->send( new cMakeMenuGump( submenus[ choice.button-3 ], socket ) );
 	}
 	else if( choice.button < (actions.size()+submenus.size()+4) )
 	{
@@ -776,7 +791,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			section->execute( socket );
 		}
 		else
-			socket->send( new cMakeMenuGump( menu_, tr("You do not have enough resources to make this item") ) );
+			socket->send( new cMakeMenuGump( menu_, socket, tr("You do not have enough resources to make this item") ) );
 	}
 	else if( choice.button < (actions.size()+submenus.size()+4+1000) )
 	{
@@ -794,7 +809,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				pChar->setLastSection( basemenu, section );
 			it++;
 		}
-		socket->send( new cMakeMenuGump( action, socket->player() ) );
+		socket->send( new cMakeMenuGump( action, socket ) );
 	}
 }
 
@@ -875,11 +890,11 @@ void cLastTenGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	}
 
 	if( choice.button == -1 && prev_ )
-		socket->send( new cMakeMenuGump( prev_ ) );
+		socket->send( new cMakeMenuGump( prev_, socket ) );
 	else if( choice.button > 0 && choice.button <= 10 )
 	{
 		cMakeSection* section = sections_.at( choice.button-1 );
-		socket->send( new cMakeMenuGump( section->baseAction()->baseMenu() ) );
+		socket->send( new cMakeMenuGump( section->baseAction()->baseMenu(), socket ) );
 	}
 	else if( choice.button > 10 && choice.button <= 20 )
 	{
@@ -899,7 +914,7 @@ void cLastTenGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	{
 		cMakeSection* section = sections_.at( choice.button-21 );
 		cMakeAction* action = section->baseAction();
-		socket->send( new cMakeMenuGump( action, socket->player() ) ); 
+		socket->send( new cMakeMenuGump( action, socket ) ); 
 	}
 }
 

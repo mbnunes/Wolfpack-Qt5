@@ -338,7 +338,7 @@ void commandAdd( cUOSocket *socket, const QString &command, QStringList &args )
 		if( !pMakeMenu )
 			socket->sysMessage( "Addmenu undefined!" );
 		else
-			socket->send( new cMakeMenuGump( pMakeMenu ) );
+			socket->send( new cMakeMenuGump( pMakeMenu, socket ) );
 		return;
 	}
 

@@ -218,58 +218,60 @@ void cUOSocket::recieve()
 	case 0x06:
 		handleDoubleClick( dynamic_cast< cUORxDoubleClick*>( packet ) );
 		break;
-	case 0x80:
-		handleLoginRequest( dynamic_cast< cUORxLoginRequest* >( packet ) ); break;
-	case 0xA4:
-		handleHardwareInfo( dynamic_cast< cUORxHardwareInfo* >( packet ) ); break;
-	case 0xA0:
-		handleSelectShard( dynamic_cast< cUORxSelectShard* >( packet ) ); break;
-	case 0x91:
-		handleServerAttach( dynamic_cast< cUORxServerAttach* >( packet ) ); break;
-	case 0x34:
-		handleQuery( dynamic_cast< cUORxQuery* >( packet ) ); break;
-	case 0x73:
-		break; // Pings are handeled
-	case 0x83:
-		handleDeleteCharacter( dynamic_cast< cUORxDeleteCharacter* >( packet ) ); break;
-	case 0x5D:
-		handlePlayCharacter( dynamic_cast< cUORxPlayCharacter* >( packet ) ); break;
-	case 0xC8:
-		handleUpdateRange( dynamic_cast< cUORxUpdateRange* >( packet ) ); break;
-	case 0x09:
-		handleRequestLook( dynamic_cast< cUORxRequestLook* >( packet ) ); break;
-	case 0xBF:
-		handleMultiPurpose( dynamic_cast< cUORxMultiPurpose* >( packet ) ); break;
-	case 0xBD:
-		_version = dynamic_cast< cUORxSetVersion* >( packet )->version(); break;
-	case 0xAD:
-		handleSpeechRequest( dynamic_cast< cUORxSpeechRequest* >( packet ) ); break;
-	case 0x6c:
-		handleTarget( dynamic_cast< cUORxTarget* >( packet ) ); break;
-	case 0x22:
-		resync(); break;
 	case 0x07:
 		cDragItems::getInstance()->grabItem( this, dynamic_cast< cUORxDragItem* >( packet ) ); break;
 	case 0x08:
 		cDragItems::getInstance()->dropItem( this, dynamic_cast< cUORxDropItem* >( packet ) ); break;
+	case 0x09:
+		handleRequestLook( dynamic_cast< cUORxRequestLook* >( packet ) ); break;
+	case 0x12:
+		handleAction( dynamic_cast< cUORxAction* >( packet ) ); break;
 	case 0x13:
 		cDragItems::getInstance()->equipItem( this, dynamic_cast< cUORxWearItem* >( packet ) ); break;
-	case 0x72:
-		handleChangeWarmode( dynamic_cast< cUORxChangeWarmode* >( packet ) ); break;
+	case 0x22:
+		resync(); break;
+	case 0x2C:
+		/* Resurrection menu */ break;
+	case 0x34:
+		handleQuery( dynamic_cast< cUORxQuery* >( packet ) ); break;
+	case 0x3A:
+		handleSkillLock( dynamic_cast< cUORxSkillLock* >( packet ) ); break;
+	case 0x3B:
+		Trade->buyaction( this, dynamic_cast< cUORxBuy* >( packet ) ); break;
+	case 0x5D:
+		handlePlayCharacter( dynamic_cast< cUORxPlayCharacter* >( packet ) ); break;
 	case 0x66:
 		handleBookPage( dynamic_cast< cUORxBookPage* >( packet ) ); break;
+	case 0x6c:
+		handleTarget( dynamic_cast< cUORxTarget* >( packet ) ); break;
+	case 0x72:
+		handleChangeWarmode( dynamic_cast< cUORxChangeWarmode* >( packet ) ); break;
+	case 0x73:
+		break; // Pings are handeled
+	case 0x80:
+		handleLoginRequest( dynamic_cast< cUORxLoginRequest* >( packet ) ); break;
+	case 0x83:
+		handleDeleteCharacter( dynamic_cast< cUORxDeleteCharacter* >( packet ) ); break;
+	case 0x91:
+		handleServerAttach( dynamic_cast< cUORxServerAttach* >( packet ) ); break;
 	case 0x93:
 		handleUpdateBook( dynamic_cast< cUORxUpdateBook* >( packet ) ); break;
 	case 0x9B:
 		handleHelpRequest( dynamic_cast< cUORxHelpRequest* >( packet ) ); break;
-	case 0x12:
-		handleAction( dynamic_cast< cUORxAction* >( packet ) ); break;
+	case 0xA0:
+		handleSelectShard( dynamic_cast< cUORxSelectShard* >( packet ) ); break;
+	case 0xA4:
+		handleHardwareInfo( dynamic_cast< cUORxHardwareInfo* >( packet ) ); break;
+	case 0xAD:
+		handleSpeechRequest( dynamic_cast< cUORxSpeechRequest* >( packet ) ); break;
 	case 0xB1:
 		handleGumpResponse( dynamic_cast< cUORxGumpResponse* >( packet ) ); break;
-	case 0x2C:
-		/* Resurrection menu */ break;
-	case 0x3B:
-		Trade->buyaction( this, dynamic_cast< cUORxBuy* >( packet ) ); break;
+	case 0xBD:
+		_version = dynamic_cast< cUORxSetVersion* >( packet )->version(); break;
+	case 0xBF:
+		handleMultiPurpose( dynamic_cast< cUORxMultiPurpose* >( packet ) ); break;
+	case 0xC8:
+		handleUpdateRange( dynamic_cast< cUORxUpdateRange* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -1931,4 +1933,9 @@ void cUOSocket::handleHelpRequest( cUORxHelpRequest* packet )
 {
 	cHelpGump* pGump = new cHelpGump( this->player()->serial );
 	send( pGump );
+}
+
+void cUOSocket::handleSkillLock( cUORxSkillLock* packet )
+{
+	player()->lockSkill[ packet->skill() ] = packet->lock();
 }

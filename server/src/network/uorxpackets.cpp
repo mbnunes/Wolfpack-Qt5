@@ -56,6 +56,7 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	case 0x22:		return new cUORxResyncWalk( data );
 	case 0x2C:		return new cUORxResurrectionMenu( data );
 	case 0x34:		return new cUORxQuery( data );
+	case 0x3A:		return new cUORxSkillLock( data );
 	case 0x3B:		return new cUORxBuy( data );
 	case 0x5D:		return new cUORxPlayCharacter( data );
 	case 0x66:		return new cUORxBookPage( data );

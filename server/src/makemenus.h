@@ -288,8 +288,8 @@ private:
 	cMakeMenu* prev_;
 	cMakeAction* action_;
 public:
-	cMakeMenuGump( cMakeMenu* menu, QString notices = "" );
-	cMakeMenuGump( cMakeAction* action, cChar* pChar );
+	cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notices = "" );
+	cMakeMenuGump( cMakeAction* action, cUOSocket* socket );
 	
 	// implements cGump
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
