@@ -1151,7 +1151,7 @@ void talking(int s, string speech) // PC speech
 		}
 		int match = 0;
 		strcpy(sect, "NO DEFAULT TEXT DEFINED");
-		int loopexit = 0;
+		unsigned long loopexit = 0;
 		do
 		{
 			pScp->NextLineSplitted();

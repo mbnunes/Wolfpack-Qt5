@@ -111,7 +111,7 @@ the line of sight.
 	*/
 	// - Tauriel's region stuff 3/6/99
 	int StartGrid=mapRegions->StartGrid(source.x,source.y);
-	int loopexit=0;
+	unsigned long loopexit=0;
 	
 	// - This needs to use a pointer/array to cut down on walking lag...
 	cRegion::RegionIterator4Items ri(source);

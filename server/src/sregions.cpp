@@ -161,7 +161,7 @@ void loadspawnregions()//Regionspawns
 	spawnregion.reserve(1); // Spawnregions start at 1, so we need to trash spawnregion[0] :(
 
 	openscript("spawn.scp");
-	int loopexit=0 ;
+	unsigned long loopexit=0 ;
 	do
 	{
 		read2();
@@ -219,7 +219,7 @@ static void loadpredefspawnregion(char *name)//Load predefined spawnregion //Reg
 	}
 	spawnregion_st dummy;
 	memset(&dummy, 0, sizeof(spawnregion_st));
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do {
 		read2();
 		if(!(strcmp((char*)script1, "NLIST")))

@@ -375,7 +375,7 @@ void MsgBoardOpen(int s)
 //////////////////////////////////////////////////////////////////////////////
 void MsgBoardList( int s )
 {
-	int loopexit=0, loopexit2=0;
+	unsigned long loopexit=0, loopexit2=0;
 	// READ IN bbp FILE (for list on message board)
 	
 	// Client sends:
@@ -936,7 +936,7 @@ int MsgBoardPost( int s, int msgType, int autoPost )
 	// WRITE FILE OUT (POST MESSAGE)
 	
 	// 50 chars for prefix and 4 for the extension plus the ending NULL
-	int loopexit3=0;
+	unsigned long loopexit3=0;
 	char        fileName[256] = "";
 	FILE        *pFile = NULL;
 	
@@ -1230,7 +1230,7 @@ void MsgBoardOpenPost( int s )
 	char fileName[256] = "";
 	FILE *file = NULL;
 	
-	int loopexit4=0,loopexit2=0;
+	unsigned long loopexit4=0,loopexit2=0;
 	int msgSN           = 0;
 	int msgBoardSerial  = 0;
 	int msgBytes        = 0;
@@ -1527,7 +1527,7 @@ void MsgBoardRemovePost( int s )
 			sysmessage( s, "Failed to find post to be removed." );
 			return;
 		}
-		int loopexit=0;
+		unsigned long loopexit=0;
 		
 		// Loop until we have reached the end of the file
 		while ( !feof(file) && (++loopexit < MAXLOOPS) )
@@ -1641,7 +1641,7 @@ bool MsgBoardRemoveGlobalPostBySerial( int nPostSerial )
 			return false;
 		}
 		
-		int loopexit=0;
+		unsigned long loopexit=0;
 		// Loop until we have reached the end of the file
 		while ( !feof(file) && (++loopexit < MAXLOOPS) )
 		{
@@ -1854,7 +1854,7 @@ int MsgBoardPostQuest( int serial, int questType )
 	msg2Post[11]  = 0x00;              // Reply to message serial number ( 00 00 00 00 for base post )
 	
 	openscript("msgboard.scp");
-	int loopexit=0;
+	unsigned long loopexit=0;
 	
 	switch ( questType )
 	{
@@ -1868,7 +1868,7 @@ int MsgBoardPostQuest( int serial, int questType )
 			}
 			
 			// Count the number of entries under the list section to determine what range to randomize within
-			int loopexit=0;
+			unsigned long loopexit=0;
 			do
 			{
 				read2();
@@ -2022,7 +2022,7 @@ int MsgBoardPostQuest( int serial, int questType )
 	numLinesOffset = offset - 1;
 
 	loopexit=0;
-	int loopexit2=0;
+	unsigned long loopexit2=0;
 	// Read in the random post message choosen above and fill in buffer body for posting
 	while ( (++loopexit < MAXLOOPS)  )
 	{
@@ -2166,7 +2166,7 @@ int MsgBoardPostQuest( int serial, int questType )
 void MsgBoardQuestEscortCreate( int npcIndex )
 {
 	// Choose a random region as a destination for the escort quest (except for the same region as the NPC was spawned in)
-	int loopexit=0;
+	unsigned long loopexit=0;
 	P_CHAR pc_npc = MAKE_CHARREF_LR(npcIndex);
 	do 
 	{
@@ -2318,7 +2318,7 @@ void MsgBoardQuestEscortRemovePost( int npcIndex )
 	
 	P_CHAR pc_npc = MAKE_CHARREF_LR(npcIndex);
 	SERIAL s = pc_npc->serial;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	
 	FILE *file = NULL;
 	// 50 chars for prefix and 4 for the extension plus the ending NULL
@@ -2411,7 +2411,7 @@ void MsgBoardQuestEscortRemovePost( int npcIndex )
 //////////////////////////////////////////////////////////////////////////////
 void MsgBoardMaintenance( void )
 {
-	int loopexit=0, loopexit2=0;
+	unsigned long loopexit=0, loopexit2=0;
 	char                  filePath[256]   = "";
 	char                  fileName[256]   = "";
 	char                  fileBBITmp[256] = "";

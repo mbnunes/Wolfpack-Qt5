@@ -246,7 +246,7 @@ void loadserverdefaults(void)
 
 void loadspeed()//Lag Fix -- Zippy -- NEW FUNCTION
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -268,7 +268,7 @@ void loadspeed()//Lag Fix -- Zippy -- NEW FUNCTION
 
 void loadcombat() // By Magius(CHE)
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -289,7 +289,7 @@ void loadcombat() // By Magius(CHE)
 
 void loadregenerate() // by Magius(CHE)
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -303,7 +303,7 @@ void loadregenerate() // by Magius(CHE)
 
 void loadhunger() // by Magius(CHE)
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -316,7 +316,7 @@ void loadhunger() // by Magius(CHE)
 
 void loadvendor() // by Magius(CHE)
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -347,7 +347,7 @@ void loadvendor() // by Magius(CHE)
 
 void loadresources()
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -370,7 +370,7 @@ void loadresources()
 
 void loadrepsys() //Repsys
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -388,7 +388,7 @@ void loadrepsys() //Repsys
 void loadserver()
 {
 	// Server.scp completly reorganized by Magius(CHE) 3 September 1999
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -515,7 +515,7 @@ void loadserver()
 
 void loadtracking() // Load scriptable tracking data
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -534,7 +534,7 @@ void loadtracking() // Load scriptable tracking data
 
 void loadbegging()
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -550,7 +550,7 @@ void loadbegging()
 
 void loadfishing()
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -562,7 +562,7 @@ void loadfishing()
 
 void loadspiritspeak()
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -573,7 +573,7 @@ void loadspiritspeak()
 
 void loadtime_light()
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -598,7 +598,7 @@ void loadtime_light()
 
 void loadremote_admin()
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		readw2();
@@ -611,7 +611,7 @@ void loadremote_admin()
 
 void loadserverscript(char *fn) // Load a server script
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	wscfile = fopen(fn, "r");
 	if(wscfile==NULL)
 	{

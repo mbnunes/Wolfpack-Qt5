@@ -1633,7 +1633,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							// AntiChrist
 							int	StartGrid = mapRegions->StartGrid(pc_ts->pos.x, pc_ts->pos.y);
 							
-							int loopexit = 0;
+							unsigned long loopexit = 0;
 							unsigned int increment = 0;
 							cRegion::RegionIterator4Items ri(pc_ts->pos);
 							for (ri.Begin(); ri.GetData() != ri.End(); ri++)
@@ -3265,7 +3265,7 @@ int checkenvoke(char eid1, char eid2)
 		fprintf(stderr, "Cannot open envoke.scp: %s", strerror(errno));
 		exit(1);
 	}
-	int loopexit = 0;
+	unsigned long loopexit = 0;
 	while ((fgets(buf, sizeof(buf), envokefile))  &&(++loopexit < MAXLOOPS))
 	{
 		sprintf((char*)temp, "x%x%xx", eid1, eid2);      // antichrist

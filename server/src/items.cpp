@@ -1332,7 +1332,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 
 	unsigned char tscript1[512];//AntiChrist - important bug/crash fix!!!
 	unsigned char tscript2[512];//these have to be backed up before using them!!!
-	int loopexit=0;
+	unsigned long loopexit=0;
 
 	strcpy((char*)tscript1,(char*)script1);//AntiChrist
 	strcpy((char*)tscript2,(char*)script2);

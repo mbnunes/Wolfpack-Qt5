@@ -1285,7 +1285,7 @@ void cSkills::DetectHidden(UOXSOCKET s)
 	
 	range = (j*j/1.0E6)*VISRANGE;	// this seems like an ok formula
 	
-	int loopexit=0;
+	unsigned long loopexit=0;
 	int	StartGrid=mapRegions->StartGrid(pc_currchar->pos.x,pc_currchar->pos.y);
 	int	getcell=mapRegions->GetCell(pc_currchar->pos.x,pc_currchar->pos.y);
 	

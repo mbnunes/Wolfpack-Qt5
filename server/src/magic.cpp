@@ -79,7 +79,7 @@ int cMagic::InitSpells(void)
 	//	return false;
 	//}
 	
-	int loopexit = 0;
+	unsigned long loopexit = 0;
 	do
 	{
 		read2();
@@ -776,7 +776,7 @@ void cMagic::PoisonDamage(CHARACTER p, int poison) // new functionality, lb !!!
 void cMagic::CheckFieldEffects2(unsigned int currenttime, CHARACTER c,char timecheck)//c=character (Not socket) //Lag fix -- Zippy
 
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	// - Tauriel's region stuff 3/6/99
 
 	int j;
@@ -1745,7 +1745,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 
 	int calcreg;
 	int defender;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	int c,a;
 	double d;
 	bool recalled;

@@ -131,7 +131,7 @@ int validtelepos(int s)
 void advancementobjects(int s, int x, int allways)
 {
 	char sect[512];
-	int loopexit=0;
+	unsigned long loopexit=0;
 
 	P_CHAR pc_s = MAKE_CHARREF_LR(s);
 
@@ -452,7 +452,7 @@ void monstergate(int s, int x)
 		}
 	}
 
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		pScp->NextLineSplitted();
@@ -756,7 +756,7 @@ void polycolorgate(int s, int x)
 	if (!pScp)
 		return; 
 
-	int loopexit = 0; 
+	unsigned long loopexit = 0; 
 	do 
 	{ 
 		pScp->NextLineSplitted(); 
@@ -798,7 +798,7 @@ void objTeleporters(int s)
 	//	int	getcell=mapRegions->GetCell(pc_s->x,pc_s->y);
 	
 	unsigned int increment = 0;
-	int loopexit = 0;
+	unsigned long loopexit = 0;
 	for (unsigned int checkgrid = StartGrid + (increment*mapRegions->GetColSize()); increment < 3; increment++, checkgrid = StartGrid + (increment*mapRegions->GetColSize()))
 	{
 		for (int a = 0; a < 3; a++)

@@ -77,7 +77,7 @@ int SpawnRandomMonster(int nCharID, char* cScript, char* cList, char* cNpcID)
 			} else return -1;
 		}
 	}
-	int loopexit=0;
+	unsigned long loopexit=0;
  	do
  	{
   		read1();
@@ -133,7 +133,7 @@ int SpawnRandomItem(int nCharID,int nInPack, char* cScript, char* cList, char* c
 			} else return -1;
 		}
 	}
-	int loopexit=0;
+	unsigned long loopexit=0;
  	do
  	{
   		read1();

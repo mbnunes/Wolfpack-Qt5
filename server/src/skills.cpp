@@ -552,7 +552,7 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 	strcpy(gmtext[0],(char*)script1);
 
 	pScp->NextLineSplitted();
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		if (script1[0]!='}')
@@ -1175,7 +1175,7 @@ char cSkills::AdvanceSkill(CHARACTER s, int sk, char skillused)
 
 	} else ges=0;
 	
-	int loopexit=0;
+	unsigned long loopexit=0;
 	while ( (wpadvance[1+i+skill[sk].advance_index].skill==sk && 
 		wpadvance[1+i+skill[sk].advance_index].base<=pc->baseskill[sk]) && (++loopexit < MAXLOOPS) )
 	{
@@ -1252,7 +1252,7 @@ char cSkills::AdvanceSkill(CHARACTER s, int sk, char skillused)
 //
 static int calcStatIncrement(int sk, int i, int stat)
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	while ((wpadvance[i+1].skill==sk &&		// if NEXT line is for same skill
 			wpadvance[i+1].base <= stat*10) && (++loopexit < MAXLOOPS) )	// and is not higher than our stat
 	{
@@ -1806,7 +1806,7 @@ void cSkills::TrackingMenu(int s,int gmindex)
 	}
 	read1();
 	lentext=sprintf(gmtext[0], "%s", script1);
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		read2();
@@ -2592,7 +2592,7 @@ void loadskills()
 			noskill=1;
 		}
 
-		int loopexit=0;
+		unsigned long loopexit=0;
 		do
 		{
 			read2();

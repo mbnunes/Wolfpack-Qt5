@@ -1812,7 +1812,7 @@ void updates(UOXSOCKET s) // Update Window
 	pos=ftell(scpfile);
 	x=-1;
 	y=-2;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		read1();
@@ -1850,7 +1850,7 @@ void tips(int s, int i) // Tip of the day window
 		return;
 	}
 	x=i;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		read2();

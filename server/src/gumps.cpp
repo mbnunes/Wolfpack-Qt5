@@ -423,7 +423,7 @@ void cGump::Input(int s)
 void cGump::Menu(UOXSOCKET s, int m, ITEM it)
 {
 	char sect[512];
-	int loopexit=0;
+	unsigned long loopexit=0;
 	short int length, length2, textlines=0;
 	unsigned int i;
 	bool house_gump=false, new_decay=false;

@@ -1624,7 +1624,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 			return;
 		}
 
-		int loopexit=0;
+		unsigned long loopexit=0;
 		do
 		{
 			read2();
@@ -2679,7 +2679,7 @@ void cTargets::ShowPriv3Target(int s) // crackerjack, jul 25/99
 		char priv_info[10248];
 		int i;
 		sprintf(priv_info, "%s can execute the following commands:\n", pc->name);
-		i=0; int loopexit=0;
+		i=0; unsigned long loopexit=0;
 		while(command_table[i].cmd_name && (++loopexit < MAXLOOPS) )
 		{
 			if(command_table[i].cmd_priv_m==255||
@@ -3323,7 +3323,7 @@ void cTargets::ShowAccountCommentTarget(int s)
 		}
 
 		openscript("accounts.adm");
-		int loopexit=0;
+		unsigned long loopexit=0;
 		do
 		{
 			read2();

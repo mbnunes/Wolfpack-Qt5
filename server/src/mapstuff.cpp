@@ -217,7 +217,7 @@ signed char cMapStuff::StaticTop(short int x, short int y, signed char oldz)
 {
 //	int top = illegal_z;
 	signed char top = illegal_z;
-	int loopexit=0;
+	unsigned long loopexit=0;
 
 	MapStaticIterator msi(x, y);
 	staticrecord *stat;
@@ -250,7 +250,7 @@ bool cMapStuff::IsUnderRoof(short int x, short int y, signed char z)
 {
 	MapStaticIterator msi(x, y);
 	staticrecord *stat;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	while ( (stat = msi.Next()) && (++loopexit < MAXLOOPS) )
 	{
 		tile_st tile;
@@ -404,7 +404,7 @@ signed char cMapStuff::DynamicElevation(short int x, short int y, signed char ol
 	//unsigned int increment=0;
 	//int mapitem=-1;
 	int mapitemptr=-1;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	
 	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
 
@@ -490,7 +490,7 @@ int cMapStuff::DynTile(short int x, short int y, signed char oldz)
 	// - Tauriel's region stuff 3/6/99
 	const int getcell = mapRegions->GetCell(x,y);
 	int mapitemptr=-1;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
 	for (unsigned int k = 0; k < vecEntries.size(); k++)
     {
@@ -963,7 +963,7 @@ staticrecord *MapStaticIterator::First()
 staticrecord *MapStaticIterator::Next()
 {
 	tileid = 0;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	if (index >= length)
 		return NULL;
 	
@@ -1172,7 +1172,7 @@ bool cMapStuff::TileWalk(int tilenum)
 bool cMapStuff::DoesStaticBlock( short int x, short int y, signed char oldz )
 {
 	MapStaticIterator msi(x, y);
-	int loopexit=0;
+	unsigned long loopexit=0;
 	
 	staticrecord *stat;
 	while ( (stat = msi.Next()) && (++loopexit < MAXLOOPS) )

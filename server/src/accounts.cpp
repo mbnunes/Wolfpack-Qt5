@@ -50,7 +50,7 @@ cAccount::~cAccount(void)
 
 void cAccount::LoadAccount( int acctnumb )
 {
-	int loopexit=0;
+	unsigned long loopexit=0;
 	account_st account;
 	account.name.erase();
 	account.pass.erase();

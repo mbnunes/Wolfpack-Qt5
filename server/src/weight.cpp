@@ -60,7 +60,7 @@ void cWeight::NewCalc(int p)
 	//get weight for items on players
 	int ci=0;
 	P_ITEM pi;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	vector<SERIAL> vecContainer = contsp.getData(chars[p].serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
@@ -97,7 +97,7 @@ float cWeight::RecursePacks(int bp)
 	
 	int ci=0;
 	P_ITEM pi;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	vector<SERIAL> vecContainer = contsp.getData(items[bp].serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
@@ -161,7 +161,7 @@ float cWeight::LockeddownWeight(P_ITEM pItem, int *total, int *total2 )
 	
 	int ci=0;
 	P_ITEM pi;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	vector<SERIAL> vecContainer = contsp.getData(pItem->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{

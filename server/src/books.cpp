@@ -57,7 +57,7 @@ void cBooks::openbook_old(UOXSOCKET s, P_ITEM pBook)
 	char bookopen[10]="\x93\x40\x01\x02\x03\x00\x00\x00\x02"; //LB 7'th dec 1999, making it client 1.26 complaint
 	char booktitle[61]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
 	char bookauthor[31]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-	int loopexit=0;
+	unsigned long loopexit=0;
 	
 	openscript("misc.scp");
 	sprintf((char*)temp, "BOOK %i",	calcserial(pBook->more1, pBook->more2, pBook->more3, pBook->more4));
@@ -268,7 +268,7 @@ void cBooks::readbook_readonly_old(UOXSOCKET s, P_ITEM pBook, int p)
 {
 	int x, y, pos, j;
 	char bookpage[14]="\x66\x01\x02\x40\x01\x02\x03\x00\x01\x00\x01\x00\x01";
-	int loopexit=0,loopexit2=0;
+	unsigned long loopexit=0,loopexit2=0;
 	
 	openscript("misc.scp");
 	sprintf((char*)temp, "BOOK %i", calcserial(pBook->more1, pBook->more2, pBook->more3, pBook->more4));
@@ -336,7 +336,7 @@ void cBooks::readbook_writeable(UOXSOCKET s, P_ITEM pBook, int p, int l)
 {
 	int ii=0,lines_processed=0,lin=0;
 	char line[34],ch;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	
 	if (a_t) write_title(pBook,s); // if title was changed by writer write the changes "down"
 	if (a_t) write_author(pBook,s); // if author was changed by writer write the changes "down" to the bok-file

@@ -690,7 +690,7 @@ void command_setpriv3(UOXSOCKET s)
 {
 	int y, z,err;
 	unsigned int i;
-	int loopexit=0;
+	unsigned long loopexit=0;
 
     PC_CHAR pcc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
     if (err) return;

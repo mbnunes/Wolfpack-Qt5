@@ -82,7 +82,7 @@ int SpawnFishingMonster(UOXSOCKET s, char* cScript, char* cList, char* cNpcID)
 			} else return -1;
 		}
 	}
-	int loopexit=0;
+	unsigned long loopexit=0;
  	do
 	{
   		read1();
@@ -138,7 +138,7 @@ int SpawnFishingItem(UOXSOCKET s,int nInPack, char* cScript, char* cList, char* 
 			} else return -1;
 		}
 	}
-	int loopexit=0;
+	unsigned long loopexit=0;
  	do
  	{
   		read1();

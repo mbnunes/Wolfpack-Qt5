@@ -1792,7 +1792,7 @@ signed long cNetworkStuff::Authenticate( const char *username, const char *pass 
 
 void cNetworkStuff::LoadHosts_deny(void)
 {
-	int loopexit = 0;
+	unsigned long loopexit = 0;
 	std::string  sScript1 ;
 	std::string  sToken1 ;
 	int siEnd ;

@@ -62,7 +62,7 @@ int addrandomcolor(int s, char *colorlist)
 
 		return 0;
 	}
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		read1();
@@ -119,7 +119,7 @@ static int addrandomhaircolor(int s, char *colorlist)
 		clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name);
 		return 0;
 	}
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		read1();
@@ -176,7 +176,7 @@ void setrandomname(int s, char * namelist)
 		return;
 	}
 
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		pScp->NextLine();
@@ -847,7 +847,7 @@ int cCharStuff::AddRandomNPC(int s, char * npclist, int spawnpoint)
 	Script *pScp=pScpBase->Select(sect,custom_npc_script);
 	if (!pScp) return -1;
 
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		pScp->NextLine();
@@ -948,7 +948,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 	Script *pScp=pScpBase->Select(sect,custom_npc_script);
 	if (!pScp) return -1;
 	
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		pScp->NextLineSplitted();

@@ -32,7 +32,7 @@
 #if !defined(__DEFINES_H__)
 #define __DEFINES_H__
 
-#define MAXLOOPS 66666
+#define MAXLOOPS 250000
 #define MaxZstep 5
 
 #if defined(__borland__)

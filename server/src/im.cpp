@@ -314,7 +314,7 @@ typedef struct _menu_option_info {
 static int gettoken( FILE *fmenu )
 {
   int c;
-  int loopexit=0,loopexit2=0,loopexit3=0,loopexit4=0,loopexit5=0;
+  unsigned long loopexit=0,loopexit2=0,loopexit3=0,loopexit4=0,loopexit5=0;
 
   buf_number = 0;
   c = getc( fmenu );
@@ -622,7 +622,7 @@ int im_loadmenus( const char *file_name, im_menucallback callback )
  */
 void im_clearmenus()
 {
-  int loopexit=0;
+  unsigned long loopexit=0;
   menulist_node *p = menu_list, *next;
 
   while( p && (++loopexit < MAXLOOPS)) {

@@ -111,7 +111,7 @@ void UOXFile::refill()
 
 char *UOXFile::gets(char *lnBuff, int lnSize)
 {
-	int loopexit = 0, loopexit2 = 0;
+	unsigned long loopexit = 0, loopexit2 = 0;
 	if (fmode == 0)
 	{
 		int i;

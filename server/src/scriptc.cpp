@@ -129,7 +129,7 @@ void Script::MakeIndexForFile()
     clConsole.send("Reloading %-15s: ", filename); fflush (stdout);
 
     // Snarf the part of SECTION... until EOL
-	int loopexit=0;
+	unsigned long loopexit=0;
     while( (fgets(buf, sizeof(buf), fp)) && (++loopexit < MAXLOOPS) )
         if (sscanf(buf, "SECTION %256[^\n]", section_name) == 1)
 		{
@@ -254,7 +254,7 @@ void Script::MakeIndexForFile()
     clConsole.send("Reloading %-15s: ", filename); fflush (stdout);
 
     // Snarf the part of SECTION... until EOL
-	int loopexit=0;
+	unsigned long loopexit=0;
     while( (fgets(buf, sizeof(buf), fp)) && (++loopexit < MAXLOOPS) )
         if (sscanf(buf, "SECTION %256[^\n]", section_name) == 1)
 		{
@@ -295,7 +295,7 @@ void Script::MakeIndexForMem()
 
     if (flags & SCP_PRELOADED)
 	{
-		int loopexit=0;
+		unsigned long loopexit=0;
 		while( NextLine() && (++loopexit < MAXLOOPS) )
 		{
 			if (sscanf((char*)temp, "SECTION %256[^\n]", section_name) == 1)

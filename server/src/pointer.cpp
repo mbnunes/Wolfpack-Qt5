@@ -184,7 +184,7 @@ int ContainerCountItems(const int serial, short id, short color)
 	int ci=0; 
 	int total=0;
 	P_ITEM pi;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{

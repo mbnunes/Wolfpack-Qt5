@@ -169,7 +169,7 @@ void get_item(P_CLIENT ps) // Client grabs an item
 	x = DEREF_P_ITEM(pi);
 	if (!items[x].isInWorld())  // Find character owning item
 	{
-		int loopexit = 0;
+		unsigned long loopexit = 0;
 		do  // Find character owning item
 		{
 			if (isCharSerial(items[x].contserial))

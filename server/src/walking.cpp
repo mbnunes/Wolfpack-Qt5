@@ -308,7 +308,7 @@ void WalkCollectBlockers(UOXSOCKET s, CHARACTER c)
 
 	MapStaticIterator msi(pc->pos.x, pc->pos.y);
 	staticrecord *stat;
-	int loopexit = 0;
+	unsigned long loopexit = 0;
 	while ( (stat = msi.Next())  && (++loopexit < MAXLOOPS))
 	{
 		//clConsole.send("staticr[X] type=%d, id=%d\n", 2, stat->itemid);
@@ -358,7 +358,7 @@ void WalkEvaluateBlockers(UOXSOCKET s, CHARACTER c, signed char *pz, signed char
 	if(pc->isGM()) gmbody=1; else gmbody=0;
 	if(pc->dead) gmbody=1; else gmbody=0;//ghosts can walk trhou doors
 	
-	int loopexit=0;
+	unsigned long loopexit=0;
 	
 	
 	do
@@ -867,7 +867,7 @@ bool WalkHandleItemsAtNewPos(UOXSOCKET s, CHARACTER c, int oldx, int oldy, int n
 	P_CHAR pc = MAKE_CHARREF_LRV(c, true);
 	
 	P_ITEM pi;
-	int loopexit=0;
+	unsigned long loopexit=0;
 
 	unsigned int StartGrid=mapRegions->StartGrid(pc->pos.x, pc->pos.y);
 	unsigned int getcell=mapRegions->GetCell(pc->pos.x,pc->pos.y);

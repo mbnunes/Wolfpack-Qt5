@@ -840,7 +840,7 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		}
 
 		clConsole.send("Loading characters ");	// MAgius(CHE) (1)
-		int loopexit=0;
+		unsigned long loopexit=0;
 		do
 		{
 			if (!s) readw3(); else s=false;
@@ -940,7 +940,7 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 	if(!wscfile)
 		clConsole.send("ERROR: World data not found, using blank world instead.\n");
 	else {
-		int loopexit=0;
+		unsigned long loopexit=0;
 		do
 		{
 			readw3();

@@ -374,7 +374,7 @@ void loadcustomtitle() // for custom titles
 		return;
 	}
 
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		read1();
@@ -687,7 +687,7 @@ void gcollect () // Remove items which were in deleted containers
 	LogMessage("Performing Garbage Collection...");
 
 	rtotal=0;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		removed=0;
@@ -746,7 +746,7 @@ void loadmenuprivs()
 	// script loading ....
 	openscript("menupriv.scp");
 	i=-1;k=0;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		i++;
@@ -854,7 +854,7 @@ void splitline() // For putting single words of cline into comm array
 
 	d=" ";
 	s=strtok((char*)cline,d);
-	int loopexit=0;
+	unsigned long loopexit=0;
 	while ( (s!=NULL) && (++loopexit < MAXLOOPS) )
 	{
 		comm[i]=(unsigned char*)s;
@@ -1435,7 +1435,7 @@ void explodeitem(int s, unsigned int nItem)
 	if (dmg<5) dmg=RandomNum(5,10);	// 5 points minimum damage
 	if (len<2) len=2;	// 2 square min damage range
 
-	int loopexit=0;
+	unsigned long loopexit=0;
 	cRegion::RegionIterator4Chars ri(pi->pos);
 	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 	{
@@ -2387,7 +2387,7 @@ void batchcheck(int s) // Do we have to run a batch file
 		return;
 	}
 
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		read2();
@@ -3872,7 +3872,7 @@ void openspecialbank(int s, int i)
 // streamlined by Duke 01.06.2000
 int getsubamount(int serial, short id)
 {
-	int loopexit=0,total=0;
+	unsigned long loopexit=0,total=0;
 	int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
@@ -4468,7 +4468,7 @@ void loadmetagm() // LORD BINARY
 		if (i_scripts[metagm_script]->find(sect))
 		{
 			k++;n=0;mode=-1;pm=-1;
-			int loopexit=0;
+			unsigned long loopexit=0;
 			do
 			{
 				read2();
@@ -4479,7 +4479,7 @@ void loadmetagm() // LORD BINARY
 
 					if (pm>-1 && n==0) // only check for commnad words AFTER the mode token
 					{
-						ss=0; y=-1;int loopexit=0;
+						ss=0; y=-1;unsigned long loopexit=0;
 						while((command_table[ss].cmd_name)&&(y==-1)&& (++loopexit < MAXLOOPS) ) // search for the command
 						{
 							if(!(strcmp(command_table[ss].cmd_name, (char*)script1))) y=ss;
@@ -4551,7 +4551,7 @@ void dosocketmidi(int s)
 
 	char midiarray[50];
 	int i=0;
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		//read2();
@@ -5271,7 +5271,7 @@ void enlist(int s, int listnum) // listnum is stored in items morex
 		}
 	} else strcpy(sect, "items.scp");
 
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		read2();

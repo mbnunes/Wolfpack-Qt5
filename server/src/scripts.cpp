@@ -247,7 +247,7 @@ void scriptlist(int x, int spc, int all)
 	} else strcpy(file, "items.scp");
 	read1();
 
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		read2();
@@ -288,7 +288,7 @@ void scriptmax(char *txt)
 		pScp=i_scripts[items_script];
 	sprintf(str, "SECTION %s ", txt);
 
-	int loopexit=0;
+	unsigned long loopexit=0;
 	do
 	{
 		pScp->NextLine();
@@ -351,7 +351,7 @@ void gettokennum(char * s, int num)
 
 	i=0;
 
-	int loopexit=0;
+	unsigned long loopexit=0;
 	while(num!=0 && (++loopexit < MAXLOOPS) )
 	{
 		if (s[i]==0)

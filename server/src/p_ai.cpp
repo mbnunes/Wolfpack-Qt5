@@ -432,7 +432,7 @@ void cCharStuff::cDragonAI::DoAI(int i,int currenttime)
 	if (pc_i->war)
 	{
 		npctalkall(i,"Who dares disturbe me?!?!",1);
-		int loopexit=0;
+		unsigned long loopexit=0;
 		cRegion::RegionIterator4Chars ri(pc_i->pos);
 		for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 		{
