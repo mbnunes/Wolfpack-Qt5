@@ -1,6 +1,7 @@
 
 import wolfpack
 import random
+import system.poison
 import wolfpack.utilities
 from wolfpack.consts import HEALING, ANATOMY, VETERINARY, ANIMALLORE
 
@@ -99,8 +100,10 @@ def validCharTarget( char, target ):
 	if not target.poison > -1 and target.health >= target.maxhitpoints:
 		if target == char:
 			char.socket.clilocmessage(1061288)
+			#You do not require healing.
 		else:
 			char.socket.clilocmessage(500955)
+			#that being is not damaged
 		return 0
 
 	return 1
@@ -125,15 +128,15 @@ def bandage_response( char, args, target ):
 		return
 
 	if corpse and ( char.skill[ HEALING ] < 800 or char.skill[ ANATOMY ] < 800 ):
-		char.socket.sysmessage("1")
+		char.socket.sysmessage("You are not skilled enough to heal the dead")
 		return
 
 	if target.char and target.char.dead and ( char.skill[ HEALING ] < 800 or char.skill[ ANATOMY ] < 800 ):
-		char.socket.sysmessage("You are not skilled enough for that.")
+		char.socket.sysmessage("You are not skilled enough to heal the dead.")
 		return
 
-	if target.char and target.poison > -1 and ( char.skill[ HEALING ] < 600 or char.skill[ ANATOMY ] < 600 ):
-		char.socket.sysmessage("You are not skilled enough for that.")
+	if target.char and target.char.poison > -1 and ( char.skill[ HEALING ] < 600 or char.skill[ ANATOMY ] < 600 ):
+		char.socket.sysmessage("You are not skilled enough to cure poisons.")
 		return
 
 	# Consume Bandages
@@ -259,8 +262,8 @@ def bandage_timer( char, args ):
 				char.socket.clilocmessage(1010060)
 				return
 
-			target.poison=-1
-			target.update()
+			system.poison.cure(target)
+
 			if target <> char:
 				target.socket.clilocmessage(1010059)
 				target.soundeffect( 0x57,0 )
