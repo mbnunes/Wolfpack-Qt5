@@ -1661,3 +1661,57 @@ void cGumps::Open(int s, P_CHAR pc, int num1, int num2)
 	shopgumpopen[6]=num2;
 	Xsend(s, shopgumpopen, 7);
 }
+
+// New Single gump implementation, written by darkstorm
+Q_UINT32 cGump::addRawText( const QString &data )
+{
+	// Do we already have the text?
+	if( !text_.contains( data ) ) 
+		text_.push_back( data );
+
+	return text_.findIndex( data );
+}
+
+// Send it to UOXSOCKET s
+void cGump::send( UOXSOCKET socket )
+{
+	QString layout = layout_.join( "" );
+	QByteArray packet( 21 + layout.length() + 2 );
+	packet[ 0 ] = 0xB0;
+	LongToCharPtr( serial_, (Q_UINT8*)&packet.data()[3] );
+	LongToCharPtr( type_, (Q_UINT8*)&packet.data()[7] );
+	LongToCharPtr( x_, (Q_UINT8*)&packet.data()[11] );
+	LongToCharPtr( y_, (Q_UINT8*)&packet.data()[15] );
+	ShortToCharPtr( layout.length(), (Q_UINT8*)&packet.data()[19] );
+
+	memcpy( &packet.data()[21], layout.latin1(), layout.length() );
+
+	// Send the unicode text-lines
+	ShortToCharPtr( text_.count(), (Q_UINT8*)&packet.data()[ 21 + layout.length() ] );
+
+	for( Q_INT32 i = 0; i < text_.count(); ++i )
+	{
+		packet.resize( packet.count() + 2 + ( text_[ i ].length() * 2 ) );
+	
+		// Bytes are not swapped for network byteorder so lets shift them left by one byte and copy one byte less
+		packet[ (int)(packet.count() - ( text_[ i ].length() * 2 ) ) ] = 0;
+		memcpy( (Q_UINT8*)&packet.data()[ packet.count() - ( text_[ i ].length() * 2 ) + 1 ], text_[i].unicode(), (text_[i].length()*2) - 1 );
+		ShortToCharPtr( text_[i].length(), (Q_UINT8*)&packet.data()[ packet.count() - ( text_[ i ].length() * 2 ) - 2 ]  );
+	}
+	
+	// Calc the packet length
+	ShortToCharPtr( packet.count(), (Q_UINT8*)&packet.data()[1] );
+	Xsend( socket, packet.data(), packet.count() );
+}
+
+void cGump::addButton( Q_INT32 buttonX, Q_INT32 buttonY, Q_UINT16 gumpUp, Q_UINT16 gumpDown, Q_INT32 returnCode )
+{
+	QString button = QString( "{button %1 %2 %3 %4 1 0 %5}" ).arg( buttonX ).arg( buttonY ).arg( gumpUp ).arg( gumpDown ).arg( returnCode );
+	layout_.push_back( button );
+}
+
+void cGump::addPageButton( Q_INT32 buttonX, Q_INT32 buttonY, Q_UINT16 gumpUp, Q_UINT16 gumpDown, Q_INT32 pageId )
+{
+	QString button = QString( "{button %1 %2 %3 %4 0 %5 0}" ).arg( buttonX ).arg( buttonY ).arg( gumpUp ).arg( gumpDown ).arg( pageId );
+	layout_.push_back( button );
+}

@@ -593,7 +593,17 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	sysmessage(s, 0x37, tr(QString("Running on %1 %2 %3 ").arg(wp_version.productstring.c_str()).arg(wp_version.betareleasestring.c_str()).arg(wp_version.verstring.c_str())) );
 	sysmessage(s, 0x37, tr(QString("Current developers: %1").arg(wp_version.codersstring.c_str())) );*/
 	
-	// Send a house-build packet just for fun
+	/*
+	// Testing Gumps
+	cGump myGump( 0x12345678, 0x00000001, false, false, false, 200, 300 );
+	myGump.addBackground( 0x53, 400, 300 );
+	myGump.startPage( 1 );
+	myGump.addText( 10, 10, "Mein Text auf Seite 1", 0x480 );
+	myGump.addPageButton( 10, 40, 0x2907, 0x290A, 2 );
+	myGump.startPage( 2 );
+	myGump.addText( 10, 10, "Mein Text auf Seite 2", 0x480 );
+	myGump.addPageButton( 10, 40, 0x2907, 0x290A, 1 );
+	myGump.send( s );*/
 
 	pc_currchar->region=255;
 	cAllTerritories::getInstance()->check(pc_currchar);
