@@ -440,10 +440,7 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 				pBackpack->dye=1;
 
 				if( Tag.hasChildNodes() )
-				{
-					Items->processScriptItemNode( pBackpack, Tag ); //colorlist
-					Items->processItemContainerNode( pBackpack, Tag );
-				}
+					Items->applyItemSection(pBackpack, &Tag);
 			}
 
 		//<carve>3</carve>

@@ -1912,7 +1912,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 }
 
 // Applies a script-section to an item
-void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
+void cAllItems::applyItemSection( P_ITEM Item, QString &Section )
 {
 	QDomElement *ItemSection = DefManager->getSection( WPDT_ITEM, Section );
 
@@ -1922,10 +1922,16 @@ void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 		return;
 	}
 
+	this->applyItemSection( Item, ItemSection );
+}
+
+// Applies a script-section to an item
+void cAllItems::applyItemSection( P_ITEM Item, QDomElement *Section )
+{
 	// at least do the following:
 	// name + id
 
-	QDomNodeList Tags = ItemSection->childNodes();
+	QDomNodeList Tags = Section->childNodes();
 	
 	UI16 i, j;
 
@@ -2233,6 +2239,8 @@ void cAllItems::processScriptItemNode( P_ITEM madeItem, QDomElement &Node )
 
 			madeItem->setColor( Value.toInt() );
 		}
+		else if( currChild.nodeName() == "inherit" && currChild.attributes().contains("id") )
+			this->applyItemSection( madeItem, currChild.attributeNode("id").nodeValue() ); 
 	}
 }
 

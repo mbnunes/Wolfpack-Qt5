@@ -267,15 +267,14 @@ private:
 	cItem* CreateScriptRandomItem(int s, char *sItemList);
 	unsigned char PackType(unsigned char id1, unsigned char id2);
 	
-	// Added by DarkStorm
-	void applyItemSection( P_ITEM Item, const QString &Section );
-
 public:
 	// Added by DarkStorm
 	P_ITEM createScriptItem( QString Section ); // Creates an item from an item-section
 	P_ITEM createListItem( QString Section ); // Creates an Item from an item-list
 	void processScriptItemNode( P_ITEM madeItem, QDomElement &Node );
 	void processItemContainerNode( P_ITEM contItem, QDomElement &Node );
+	void applyItemSection( P_ITEM Item, QString &Section );
+	void applyItemSection( P_ITEM Item, QDomElement* Section );
 
 	cAllItems() {}
 	void DeleItem(P_ITEM pi);
