@@ -2060,7 +2060,7 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 				// remove from hash table 
 				stablesp.remove(stablemaster_serial, p_pet->serial);
 				
-				p_pet->stablemaster_serial = 0; // actual unstabling 
+				p_pet->stablemaster_serial = INVALID_SERIAL; // actual unstabling 
 				p_pet->timeused_last = getNormalizedTime(); 
 				p_pet->time_unused = 0; 
 				p_pet->pos.x = p_petowner->pos.x; 

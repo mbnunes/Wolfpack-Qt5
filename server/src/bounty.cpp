@@ -106,7 +106,7 @@ void cBounty::BountyAskVictim( int nVictimSerial, int nMurdererSerial )
 bool cBounty::BountyCreate( int nMurdererSerial, int nRewardAmount )
 {
   P_CHAR pc_nIndex  = FindCharBySerial( nMurdererSerial );
-  int   nPostSerial = 0;
+  int   nPostSerial = INVALID_SERIAL;
   
   if (pc_nIndex == NULL) return false;
 
@@ -162,7 +162,7 @@ bool cBounty::BountyDelete( int nMurdererSerial )
 
   // Reset all bounty values for this character
   pc_nIndex->questBountyReward     = 0;
-  pc_nIndex->questBountyPostSerial = 0;
+  pc_nIndex->questBountyPostSerial = INVALID_SERIAL;
 
   return bReturn;
 

@@ -628,26 +628,19 @@ void cRespawn::Continue()
 			{
 				P_CHAR pc_j = FindCharBySerial(vecSpawned[ci]);
 				if (pc_j != NULL)
+				{
 					if (pi->serial==pc_j->spawnserial)
 					{
 						k++;
 					}
+				}
 			}
 
 			if (k<pi->amount)	// lord binary, adds spawn amount checking
 			{
-				int olditemcount = cItemsManager::getItemsManager().size();
 				Npcs->AddNPC(-1, pi, pi->morex);
-				if (cItemsManager::getItemsManager().size()-olditemcount>300)
-				{
-					char ttt[222];
-					sprintf(ttt,"script npc %d produced %d items. Current limit is 300 !",
-								pi->morex,cItemsManager::getItemsManager().size()-olditemcount);
-					LogWarning(ttt);
-				}
 				pi->gatetime=0;
 				currentSpawnItem++;
-				return;			// take a break
 			}
 		}
 	}

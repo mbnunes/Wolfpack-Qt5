@@ -421,7 +421,7 @@ void loadchar(int x) // Load a character from WSC
  }
 
  //a = mapRegions->AddItem(x+CharacterOffset);
- if(pc->stablemaster_serial == 0)
+ if(pc->stablemaster_serial == INVALID_SERIAL)
  { 
     mapRegions->Add(pc); 
  } 

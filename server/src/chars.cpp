@@ -276,7 +276,7 @@ void cChar::Init(bool ser)
     this->questDestRegion = 0;
     this->questOrigRegion= 0;
     this->questBountyReward= 0;
-    this->questBountyPostSerial = 0;
+    this->questBountyPostSerial = INVALID_SERIAL;
     this->murdererSer = 0;
     this->spawnregion = 0;
     this->npc_type = 0;
