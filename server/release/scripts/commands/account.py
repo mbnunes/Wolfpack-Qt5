@@ -10,96 +10,133 @@ usage2 = "Usage: account [create,remove,set,show] username [(key,pass), value]"
 # Loads the command
 def onLoad():
 	wolfpack.registercommand( 'account', commandAccount )
+	return
 
 # Handles the account command
 def commandAccount( socket, cmd, args ):
+	char = socket.player
 	args = args.strip()
-	if len(args) == 0:
-		socket.sysmessage( usage1 )
-		socket.sysmessage( usage2 )
-		return True
-	elif len( args ) > 0:
-		try:
-			args = args.split( ' ' )
-			if len( args ) == 1:
-				( action ) = args
-				if action.lower() == 'reload':
-					wolfpack.accounts.reload()
-					return True
-				elif action.lower() == 'save':
-					wolfpack.accounts.save()
-					return True
-			elif len( args ) == 2:
-				( action, username ) = args
-				if action.lower() == 'remove':
-					accountRemove( socket, username )
-					return True
-			elif len( args ) == 3:
-				( action, username, key ) = args
-				if action.lower() == 'create':
-					if len( key ) == 0:
-						socket.sysmessage( "Error: Empty password!" )
-						return True
-					else:
-						accountCreate( socket, username.lower(), key )
-						return True
-				elif action.lower() == 'show':
-					accountShow( socket, username.lower(), key )
-					return True
-			elif len( args ) == 4:
-				( action, username, key, value ) = args
-				if action.lower() == 'set':
-					accountSet( socket, username.lower(), key.lower(), value )
-					return True
-			else:
-				socket.sysmessage( usage1 )
-				socket.sysmessage( usage2 )
+	# Command with arguments
+	if len( args ) > 0:
+		args = args.split( ' ' )
+		# Error Check
+		if len( args ) >= 5:
+			return False
+		# One Argument
+		if len( args ) == 1:
+			( action ) = args
+			action = action.lower()
+			# Reload Accounts
+			if action == 'reload':
+				char.log( LOG_MESSAGE, "0x%x reloaded accounts." % char.serial )
+				wolfpack.accounts.reload()
 				return True
-		except:
+			# Save Accounts
+			elif action == 'save':
+				char.log( LOG_MESSAGE, "0x%x saved accounts." % char.serial )
+				wolfpack.accounts.save()
+				return True
+			else:
+				return False
+		# Two Arguments
+		elif len( args ) == 2:
+			( action, username ) = args
+			action = action.lower()
+			username = username.lower()
+			# Remove Accounts
+			if action == 'remove':
+				accountRemove( socket, username )
+				return True
+		# Three Arguments
+		elif len( args ) == 3:
+			( action, username, key ) = args
+			action = action.lower()
+			username = username.lower()
+			# Create Accounts
+			if action == 'create':
+				accountCreate( socket, username, key )
+				return True
+			# Show Accounts
+			elif action == 'show':
+				accountShow( socket, username, key )
+				return True
+			else:
+				return False
+		# Four Arguments
+		elif len( args ) == 4:
+			( action, username, key, value ) = args
+			action = action.lower()
+			username = username.lower()
+			key = key.lower()
+			# Set Accounts
+			if action.lower() == 'set':
+				accountSet( socket, username, key, value )
+				return True
+			else:
+				return False
+		# Error
+		else:
 			socket.sysmessage( usage1 )
 			socket.sysmessage( usage2 )
-			return True
+			return False
 
 # Removes an account
 def accountRemove( socket, username ):
-	# Make sure username stays lowercased
-	username = username.lower()
+	char = socket.player
+	characcount = wolfpack.accounts.find( char.account.name )
 	# Usernames are limited to 16 characters in length
-	if len( username ) > 16:
-		socket.sysmessage( "The given username exceeds the 16 character limit!" )
-		return True
+	if len( username ) > 16 or len( username ) == 0:
+		if len( username ) > 16:
+			socket.sysmessage( "Error: Username exceeds the 16 character limit!" )
+		elif len( username ) == 0:
+			socket.sysmessage( "Error: Username is NULL!" )
+		return False
 	# Check if the account exists/Delete
 	else:
 		account = wolfpack.accounts.find( username )
 		if account:
-			account.delete()
-			socket.sysmessage( "Removed account: %s" % username )
-			return True
+			# Rank Protection
+			if account.rank >= characcount.rank:
+				socket.sysmessage( "Error: Your account rank does not permit this!" )
+				return False
+			else:
+				account.delete()
+				socket.sysmessage( "Success: Account %s removed!" % username )
+				char.log( LOG_MESSAGE, "0x%x removed account: %s\n" % ( char.serial, username ) )
+				return True
 		# Failure
 		else:
-			socket.sysmessage( "The given account name could not be found for removal!" )
-			return True
+			socket.sysmessage( "Error: Account %s does not exist for removal!" % username )
+			return False
 
 # Creates a new account
 def accountCreate( socket, username, password ):
-	username = username.lower()
+	char = socket.player
+	characcount = wolfpack.accounts.find( char.account.name )
 	# Usernames and passwords are limited to 16 characters in length
 	if len( username ) > 16 or len( password ) > 16:
 		if len( username ) > 16:
-			socket.sysmessage( "The given username exceeds the 16 character limit!" )
+			socket.sysmessage( "Error: Username exceeds the 16 character limit!" )
 		if len( password ) > 16:
-			socket.sysmessage( "The given password exceeds the 16 character limit!" )
+			socket.sysmessage( "Error: Password exceeds the 16 character limit!" )
+		return True
+	elif len( username ) == 0 or len( password ) == 0:
+		if len( username ) == 0:
+			socket.sysmessage( "Error: Username is NULL!" )
+		if len( password ) == 0:
+			socket.sysmessage( "Error: Password is NULL!" )
 		return True
 	# Check if the account exists
 	else:
 		account = wolfpack.accounts.find( username )
 		if account:
 			socket.sysmessage( "An account with this name already exists!" )
-			return True
+			return False
 		# Create the Account
 		elif not account:
 		 	wolfpack.accounts.add( username, password )
 			socket.sysmessage( "You created the account successfully!" )
+			char.log( LOG_MESSAGE, "0x%x created account: %s\n" % ( char.serial, username ) )
 			return True
 		# Failure
 		else:
@@ -108,7 +145,8 @@ def accountCreate( socket, username, password ):
 
 # Shows account properties
 def accountShow( socket, username, key ):
-	username = username.lower()
+	char = socket.player
+	characcount = wolfpack.accounts.find( char.account )
 	key = key.lower()
 	# Usernames are limited to 16 characters in length
 	if len( username ) > 16:
@@ -118,6 +156,9 @@ def accountShow( socket, username, key ):
 	else:
 		account = wolfpack.accounts.find( username )
 		if account:
+			#
+			if account.rank >= characcount.rank:
+				return False
 			if key == 'acl':
 				socket.sysmessage( "%s.acl = %s" % ( account.name, account.acl ) )
 				return True
@@ -155,7 +196,6 @@ def accountShow( socket, username, key ):
 
 # Sets account properties
 def accountSet( socket, username, key, value ):
-	username = username.lower()
 	# Usernames are limited to 16 characters in length
 	if len( username ) > 16:
 		socket.sysmessage( "The given username exceeds the 16 character limit!" )
