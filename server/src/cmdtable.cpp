@@ -1439,8 +1439,7 @@ void command_additem(UOXSOCKET s)
 		target( s, 0, 1, 0, 26, (char*)temp );
 	}
 
-	return;
-	
+	return;	
 }
 
 void command_dupe(UOXSOCKET s)
@@ -1623,6 +1622,7 @@ void command_temp(UOXSOCKET s)
 void command_addnpc(UOXSOCKET s)
 // (d or h h) Add the specified NPC from NPC.SCP or by hex ID code.
 {
+	sysmessage( s, QString( "Where do you want to create the '%1'" ).arg( Commands->GetAllParams() ) );
 	attachTargetRequest( s, new cAddNpcTarget( Commands->GetAllParams() ) );
 }
 

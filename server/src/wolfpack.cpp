@@ -760,7 +760,7 @@ void gcollect () // Remove items which were in deleted containers
 
 void item_char_test()
 {
-	LogMessage("Starting item consistancy check");
+	LogMessage( "Starting item consistancy check" );
 	
 	AllItemsIterator iterItems;
 	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
@@ -3373,7 +3373,7 @@ void impaction(int s, int act)
 		action(s, 0x1b);
 		return;
 	}
-	if ((pc_currchar->onHorse() || (pc_currchar->id1<1 && pc_currchar->id2<90))
+	if( (pc_currchar->onHorse() || ( pc_currchar->id() < 0x190 ) )
 		&& (act==0x22))
 	{
 		return;

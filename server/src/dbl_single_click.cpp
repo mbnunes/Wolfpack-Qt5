@@ -40,10 +40,37 @@
 #include "classes.h"
 #include "network.h"
 #include "gumps.h"
+#include "wptargetrequests.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
 
+// Loads a Cannonball
+class cLoadCannon: public cTargetRequest
+{
+protected:
+	SERIAL cannonBall;
+public:
+	cLoadCannon( SERIAL nBall ) { cannonBall = nBall; };
+	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo )
+	{
+		sysmessage( socket, "You try to put the cannon ball into the cannon but fail" );
+	}
+};
+
+void useCannonBall( UOXSOCKET socket, P_CHAR user, P_ITEM cannonball )
+{
+	if( cannonball->isLockedDown() )
+	{
+		sysmessage( socket, "This is too heavy for you" );
+		return;
+	}
+
+	// Display a target
+	attachTargetRequest( socket, new cLoadCannon( cannonball->serial ) );
+}
+
+// Shows the Spellbook gump when using a spellbook
 void useSpellBook( UOXSOCKET socket, P_CHAR mage, P_ITEM spellbook )
 {
 	mage->objectdelay = 0;
@@ -779,8 +806,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					clConsole.send("Unhandled guild item type named: %s with ID of: %X", pi->name().ascii(), pi->id());
 				return;
 				// End of guild stuff
-			case 203: // Open a gumpmenu - Crackerjack 8/9/99
-				
+		case 203: // Open a gumpmenu - Crackerjack 8/9/99
 				if (! pc_currchar->Owns(pi)) // bugfix LB 5.10.99
 				{
 					if (!(pc_currchar->isGM()))
@@ -795,6 +821,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 				Gumps->Menu(s, pi->morex, pi);						
 				return;
+		// Cannon Ball
+		case 204:
+			useCannonBall( s, pc_currchar, pi );
+			return;
 		case 217:			// PlayerVendors deed
 			{	
 				if (pi->isLockedDown())
@@ -858,8 +888,11 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				
 				return;
 			}
+		
 		// By Polygon: Clicked on a tattered treasure map, call decipher-function
-		case 301: Skills->Decipher(pi, s); return;
+		case 301: 
+			Skills->Decipher(pi, s); 
+			return;
 /*
 	By Polygon:
 	Clicked on a deciphered treasure map
@@ -1130,10 +1163,6 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x0E1E:  // yarn to cloth
 					pc_currchar->setTailItem(  pi->serial );
 					target(s, 0, 1, 0, 165, "Select loom to make your cloth");
-					return;
-				case 0x14ED: // Build cannon
-					target(s, 0, 1, 0, 171, "Build this Monster!");
-					Items->DeleItem(pi);
 					return;
 				case 0x1BD1:
 				case 0x1BD2:

@@ -182,7 +182,10 @@ void cSpell::load( QDomElement &node )
 
 bool cSpell::prepare( P_CHAR character, UI08 source )
 {
-	return false;
+	if( source == 1 )
+		return true;
+	else
+		return false;
 }
 
 void cSpell::cast( P_CHAR character, UI08 source )
@@ -280,6 +283,18 @@ void cMagic::openSpellBook( P_CHAR mage, P_ITEM spellbook )
 	// We *need* to send the spellbook to a connected client
 	if( socket == -1 )
 		return;
+
+	// If no SpellBook is passed ( Third Dawn only ! ) find one
+	if( spellbook == NULL )
+	{
+		spellbook = findSpellBook( mage );
+		
+		if( spellbook == NULL )
+		{
+			sysmessage( socket, "You do not posess a spellbook" );
+			return;
+		}
+	}
 
 	// Draw Container (GumpID: 0xFFFF, Serial: SpellBook );
 	cPDrawContainer drawContainer( 0xFFFF, spellbook->serial );
@@ -478,13 +493,11 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 	if( sourceType == 2 )
 		return false;
 
+	// Start our casting action
 	impaction( calcSocketFromChar( caster ), spell->action() );
 	cMagic::preParticles( spellId, caster );
 
-	if( sourceType == 1 )
-		return true;
-	else
-		return false;
+	return spell->prepare( caster, sourceType );
 
 	/*if (!SrvParams->cutScrollReq())
 	{
@@ -550,15 +563,7 @@ short cMagic::calcSpellId( UI16 model )
 		return -1;
 	else
 		return tile.unknown1;
-	
-	// I don't know who did that before me but i do know
-	// that the spell id for each scroll is stored in
-	// the unknown 1 value - DarkStorm
-	/*if (id==0x1F2D)					return 7;			// Reactive Armor
-	if (id>=0x1F2E && id<=0x1F33)	return (short) (id-0x1F2D);	// first circle without weaken
-	if (id>=0x1F34 && id<=0x1F6C)	return (short)(id-0x1F2D+1);	// 2 to 8 circle spell scrolls plus weaken*/
 }
-
 
 ///////////////////
 // Name:	InitSpells
@@ -4320,26 +4325,6 @@ void cMagic::CannonTarget(int s)
 	}
 }
 */
-void cMagic::BuildCannon(int s)
-{
-	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return;
-	
-	soundeffect(s, 0x02, 0x45);
-	soundeffect(s, 0x02, 0x46);
-	
-	P_ITEM pi_k = Items->SpawnItem(-1, currchar[s] , 1,"#",0,0x0E,0x91,0,0,1);
-	pi_k->setType( 15 );
-	pi_k->morex=8;
-	pi_k->morey=10;
-	pi_k->morez=0;
-	pi_k->magic=1;
-	pi_k->decaytime=0;
-	pi_k->pos.x=(buffer[s][11]*256)+buffer[s][12];
-	pi_k->pos.y=(buffer[s][13]*256)+buffer[s][14];
-	pi_k->pos.z=buffer[s][16];
-	RefreshItem(pi_k);
-}
-
 
 // only used for the /gate command
 // AntiChrist

@@ -226,7 +226,6 @@ public:
     void Mark(UOXSOCKET s);
     void Gate(UOXSOCKET s);
     void Heal(UOXSOCKET s);
-	void BuildCannon(int s);
 	bool CheckMagicReflect(P_CHAR pc);
 	P_CHAR CheckMagicReflect(P_CHAR &attacker, P_CHAR &defender);
 	void MagicDamage(P_CHAR pc, int amount);

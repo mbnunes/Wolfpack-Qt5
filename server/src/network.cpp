@@ -1667,6 +1667,8 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							case 0x0A: // Wrestling Stun
 								sysmessage( s, QString( "Wrestling Stun is unsupported" ) );
 								break;
+							case 0x05: // Unknown - Just send once on login
+								break;
 							default:
 								sysmessage( s, QString( "Unsupported extended Macro message: %1" ).arg( subsubcommand ) );
 								break;

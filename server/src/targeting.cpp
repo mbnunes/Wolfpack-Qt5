@@ -4267,7 +4267,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 167: Skills->Tailoring(s); break;
 
 		case 170: Targ->LoadCannon(s); break;
-		case 171: Magic->BuildCannon(s); break;
 		case 172: Skills->Fletching(s); break;
 		case 173: Skills->MakeDough(s); break;
 		case 174: Skills->MakePizza(s); break;
