@@ -40,6 +40,8 @@ Wolfpack 12.9.10 Beta (CVS)
 		  Remove should only delete player characters under the player acl.
 		- New commands: kick, ban, unban.
 		- Fixed bug #0000280. (Tooltip not being resent in wolfpack.utilities.tocontainer)
+		- Summoning spells and the animal taming skill now take the player.maxcontrolslots property
+		  into account.
 	* Misc. Changes:
 		- Fixed bug #0000279. (Memory leak in the npc preview of the gm tool)
 	* Known Issues, Bugs, and Missing Features:
