@@ -38,8 +38,9 @@
 
 #include "../player.h"
 
-/*!
-	The object for Wolfpack cAccount items
+/*
+	\object account
+	\description This object type represents a user account.
 */
 typedef struct
 {
@@ -68,8 +69,9 @@ static PyTypeObject wpAccountType =
 
 };
 
-/*!
-	Removes this account
+/*
+	\method account.delete
+	\description Removes this account and all characters attached to it.
 */
 static PyObject* wpAccount_delete( wpAccount* self, PyObject* args )
 {
@@ -87,8 +89,9 @@ static PyObject* wpAccount_delete( wpAccount* self, PyObject* args )
 	return PyTrue();
 }
 
-/*!
-	Blocks the account from logging into the system
+/*
+	\method account.block
+	\description Blocks this account.
 */
 static PyObject* wpAccount_block( wpAccount* self, PyObject* args )
 {
@@ -98,8 +101,9 @@ static PyObject* wpAccount_block( wpAccount* self, PyObject* args )
 	return PyTrue();
 }
 
-/*!
-	unBlocks the account from logging into the system
+/*
+	\method account.unblock
+	\description Unblock this account.
 */
 static PyObject* wpAccount_unblock( wpAccount* self, PyObject* args )
 {
@@ -108,6 +112,11 @@ static PyObject* wpAccount_unblock( wpAccount* self, PyObject* args )
 	return PyTrue();
 }
 
+/*
+	\method account.addcharacter
+	\param player The player that should be added to this account.
+	\description Add a player character to this account.
+*/
 static PyObject* wpAccount_addcharacter( wpAccount* self, PyObject* args )
 {
 	if ( !checkArgChar( 0 ) )
@@ -126,6 +135,11 @@ static PyObject* wpAccount_addcharacter( wpAccount* self, PyObject* args )
 	return PyTrue();
 }
 
+/*
+	\method account.removecharacter
+	\param player The player that should be removed from this account.
+	\description Removes a player from this account.
+*/
 static PyObject* wpAccount_removecharacter( wpAccount* self, PyObject* args )
 {
 	if ( !checkArgChar( 0 ) )
@@ -144,6 +158,13 @@ static PyObject* wpAccount_removecharacter( wpAccount* self, PyObject* args )
 	return PyTrue();
 }
 
+/*
+	\method account.authorized
+	\param group The ACL group that should be checked for.
+	\param action The action in the given ACL group that should be checked.
+	\return True if the account may perform the given action. False otherwise.
+	\description Checks if the account may perform a given action based on its ACL.
+*/
 static PyObject* wpAccount_authorized( wpAccount* self, PyObject* args )
 {
 	if ( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
@@ -161,6 +182,12 @@ static PyObject* wpAccount_authorized( wpAccount* self, PyObject* args )
 		return PyFalse();
 }
 
+/*
+	\method account.checkpassword
+	\param password The given password.
+	\description Checks if the password of the account matches. Automatically takes MD5 hashing into account.
+	\return True if the password is correct, false otherwise.
+*/
 static PyObject* wpAccount_checkpassword( wpAccount* self, PyObject* args )
 {
 	char* password;
@@ -207,6 +234,9 @@ static PyObject* wpAccount_getAttr( wpAccount* self, char* name )
 
 	if ( !strcmp( name, "acl" ) )
 		return PyString_FromString( self->account->acl().latin1() );
+	/*
+		\rproperty account.name The name of this account.
+	*/
 	else if ( !strcmp( name, "name" ) )
 		return PyString_FromString( self->account->login().latin1() );
 	else if ( !strcmp( name, "multigems" ) )
@@ -226,6 +256,10 @@ static PyObject* wpAccount_getAttr( wpAccount* self, char* name )
 		return PyString_FromString( self->account->password().latin1() );
 	else if ( !strcmp( name, "flags" ) )
 		return PyInt_FromLong( self->account->flags() );
+	/*
+		\rproperty account.characters A list of <object id="CHAR">char</object> objects. This list contains
+		all characters assigned to this account.
+	*/
 	else if ( !strcmp( name, "characters" ) )
 	{
 		PyObject* list = PyList_New( 0 );
@@ -234,6 +268,10 @@ static PyObject* wpAccount_getAttr( wpAccount* self, char* name )
 			PyList_Append( list, PyGetCharObject( characters[i] ) );
 		return list;
 	}
+	/*
+		\rproperty account.lastlogin The last login date of this account or
+		"Unknown" if it's unknown.
+	*/
 	else if ( !strcmp( name, "lastlogin" ) )
 	{
 		if ( !self->account->lastLogin().isValid() )
@@ -248,6 +286,9 @@ static PyObject* wpAccount_getAttr( wpAccount* self, char* name )
 		else
 			return PyString_FromString( "" );
 	}
+	/*
+		\rproperty account.inuse Indicates whether this account is currently in use.
+	*/
 	else if ( !strcmp( name, "inuse" ) )
 	{
 		if ( self->account->inUse() )
@@ -255,6 +296,10 @@ static PyObject* wpAccount_getAttr( wpAccount* self, char* name )
 		else
 			return PyFalse();
 	}
+	/*
+		\rproperty account.rank Returns the integer rank of this account. This is inherited by the ACL of 
+		this account.
+	*/
 	else if ( !strcmp( name, "rank" ) )
 	{
 		return PyInt_FromLong( self->account->rank() );
@@ -267,8 +312,14 @@ static PyObject* wpAccount_getAttr( wpAccount* self, char* name )
 
 static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value )
 {
+	/*
+		\property account.acl The name of the ACL used to check the permissions of this account.
+	*/
 	if ( !strcmp( name, "acl" ) && PyString_Check( value ) )
 		self->account->setAcl( PyString_AsString( value ) );
+	/*
+		\property account.multigems Indicates whether Multis should be sent as Worldgems to this account.
+	*/		
 	else if ( !strcmp( name, "multigems" ) )
 	{
 		if ( PyObject_IsTrue( value ) )
@@ -280,8 +331,24 @@ static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value )
 			self->account->setMultiGems( false );
 		}
 	}
+	/*
+		\property account.password The password of this account. Please note that if MD5 hashing is activated,
+		this property will only return the hashed password. But when setting this property you don't need to 
+		specify the MD5 hashed password as it will be automatically converted.
+	*/		
 	else if ( !strcmp( name, "password" ) && PyString_Check( value ) )
 		self->account->setPassword( PyString_AsString( value ) );
+	/*
+		\property account.flags This property provides direct access to the flags of this account. Possible flags
+		are:
+		<code>0x00000001 blocked
+		0x00000002 allmove
+		0x00000004 allshow
+		0x00000008 showserials
+		0x00000010 pagenotify
+		0x00000020 staff - gm mode on/off
+		0x00000040 multigems on/off</code>
+	*/
 	else if ( !strcmp( name, "flags" ) && PyInt_Check( value ) )
 		self->account->setFlags( PyInt_AsLong( value ) );
 	else if ( !strcmp( name, "blockuntil" ) && PyString_Check( value ) )

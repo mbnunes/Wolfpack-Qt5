@@ -2516,7 +2516,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		return PyGetRegionObject( self->pChar->region() );
 
 	/*
-		\rproperty char.account An <object id="ACCOUNT">ACCOUNT</object> object for the players account.
+		\rproperty char.account An <object id="ACCOUNT">account</object> object for the players account.
 		None for NPCs and players without accounts.
 		This property is exclusive to python scripts and overrides normal properties with the same name.
 	*/
