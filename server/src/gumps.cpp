@@ -1881,7 +1881,7 @@ cHelpGump::cHelpGump( SERIAL charSerial )
 	addGump( 193, 10, 0x15E9 ); // "Button" like gump
 	addText( 190, 90, tr( "Help menu" ), 0x530 );
 
-	addText( 50, 120, tr( "Message: %1" ).arg( ((pPage) ? pPage->pageTime() : "") ), 0x834 );
+	addText( 50, 120, tr( "Message: %1" ).arg( ((pPage != NULL) ? pPage->pageTime() : "") ), 0x834 );
 	addResizeGump( 45, 140, 0xBB8, 345, 84 );
 
 	addInputField( 50, 140, 330, 16, 1, lines[0] , 0x834 );
