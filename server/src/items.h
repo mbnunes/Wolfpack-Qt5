@@ -79,6 +79,7 @@ protected:
 	UI08 moreb3_;
 	UI08 moreb4_;
 	ContainerContent content_;
+	cUObject *container_;
 
 //******************** ADDED FROM PUBLIC *******************
 	
@@ -140,6 +141,7 @@ public:
 	QString			carve()			const { return carve_; }
 	unsigned int	antispamtimer() const { return antispamtimer_;}
 	UI16			accuracy()		const { return accuracy_; }		// for weapons, could be used for certain tools too.
+	cUObject		*container()    const { return container_; }
 
 //****************************ADDED GETTERS*************
 	

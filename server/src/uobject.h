@@ -123,8 +123,8 @@ public:
 	QString bindmenu() const { return bindmenu_; }
 	void setBindmenu( const QString& d ) { bindmenu_ = d; }
 
-	bool isItem() { return isItemSerial( serial ); }
-	bool isChar() { return isCharSerial( serial ); }
+	bool isItem() { return (serial != INVALID_SERIAL && serial >= 0 && serial >= 0x40000000); }
+	bool isChar() { return (serial != INVALID_SERIAL && serial >= 0 && serial <  0x40000000); }
 };
 
 
