@@ -29,6 +29,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed another major memory leak in definitions reloading.
   - Removed redundant skill tag use:
     Replaced with <skill id="skillname">value</skill>
+  - Fixed an SQL tag loading issue.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
