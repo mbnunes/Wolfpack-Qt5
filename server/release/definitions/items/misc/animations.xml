@@ -138,35 +138,35 @@
 		<id>0x3915</id>
 		<nodecay />
 		<category>Animations\Field of Poison (N/S) 1</category>
-		<direction>30</direction>
+		<lightsource>30</lightsource>
 	</item>
 
 	<item id="3e02">
 		<id>0x3e02</id>
 		<nodecay />
 		<category>Animations\Field of Poison (N/S) 2</category>
-		<direction>30</direction>
+		<lightsource>30</lightsource>
 	</item>
 
 	<item id="3920">
 		<id>0x3920</id>
 		<nodecay />
 		<category>Animations\Field of Poison (W/E)</category>
-		<direction>30</direction>
+		<lightsource>30</lightsource>
 	</item>
 
 	<item id="3946">
 		<id>0x3946</id>
 		<nodecay />
 		<category>Animations\Field of Energy (N/S)</category>
-		<direction>30</direction>
+		<lightsource>30</lightsource>
 	</item>
 
 	<item id="3956">
 		<id>0x3956</id>
 		<nodecay />
 		<category>Animations\Field of Energy (W/E)</category>
-		<direction>30</direction>
+		<lightsource>30</lightsource>
 	</item>
 
 	<item id="3967">
@@ -185,21 +185,21 @@
 		<id>0x398c</id>
 		<nodecay />
 		<category>Animations\Field of Fire (N/S) 1</category>
-		<direction>30</direction>
+		<lightsource>30</lightsource>
 	</item>
 
 	<item id="3e27">
 		<id>0x3e27</id>
 		<category>Animations\Field of Fire (N/S) 2</category>
 		<nodecay />
-		<direction>30</direction>
+		<lightsource>30</lightsource>
 	</item>
 
 	<item id="3996">
 		<id>0x3996</id>
 		<category>Animations\Field of Fire (W/E)</category>
 		<nodecay />
-		<direction>30</direction>
+		<lightsource>30</direction>
 	</item>
 
 	<item id="1153">
@@ -208,11 +208,66 @@
 		<category>Animations\Magical Sparkles</category>
 	</item>
 
+	<item id="1154">
+		<id>0x1154</id>
+		<nodecay />
+	</item>
+
+	<item id="1155">
+		<id>0x1155</id>
+		<nodecay />
+	</item>
+
+	<item id="1156">
+		<id>0x1156</id>
+		<nodecay />
+	</item>
+
+	<item id="1157">
+		<id>0x1157</id>
+		<nodecay />
+	</item>
+
+	<item id="1158">
+		<id>0x1158</id>
+		<nodecay />
+	</item>
+
+	<item id="1159">
+		<id>0x1159</id>
+		<nodecay />
+	</item>
+
+	<item id="115a">
+		<id>0x115a</id>
+		<nodecay />
+	</item>
+
+	<item id="115b">
+		<id>0x115b</id>
+		<nodecay />
+	</item>
+
+	<item id="115c">
+		<id>0x115c</id>
+		<nodecay />
+	</item>
+
+	<item id="115d">
+		<id>0x115d</id>
+		<nodecay />
+	</item>
+
+	<item id="115e">
+		<id>0x115e</id>
+		<nodecay />
+	</item>
+
 	<item id="19ab">
 		<id>0x19ab</id>
 		<category>Animations\Fire</category>
 		<nodecay />
-		<direction>29</direction>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="1ec6">

@@ -3678,6 +3678,18 @@
 		<nodecay/>
 	</item>
 
+	<item id="334">
+		<id>0x334</id>
+		<nodecay/>
+		<category>Buildings\Walls\Wooden Wall\Wall 1</category>
+	</item>
+
+	<item id="336">
+		<id>0x336</id>
+		<nodecay/>
+		<category>Buildings\Walls\Wooden Wall\Wall 2</category>
+	</item>
+
 	<item id="421">
 		<id>0x421</id>
 		<category>Buildings\Walls\Palisade Wall\Decorated Wall 1</category>

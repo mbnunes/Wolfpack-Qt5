@@ -14,6 +14,7 @@
 	<include file="definitions/items/buildings/banners.xml"/>
 	<include file="definitions/items/buildings/carpets.xml"/>
 	<include file="definitions/items/buildings/chairs.xml"/>
+	<include file="definitions/items/buildings/curtains.xml"/>
 	<include file="definitions/items/buildings/doors.xml"/>
 	<include file="definitions/items/buildings/dungeon.xml"/>
 	<include file="definitions/items/buildings/fences.xml"/>
