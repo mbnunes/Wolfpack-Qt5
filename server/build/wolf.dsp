@@ -827,6 +827,14 @@ SOURCE=.\python\item.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\python\pycoord.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\pycoord.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\python\skills.h
 # End Source File
 # Begin Source File

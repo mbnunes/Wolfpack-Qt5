@@ -33,7 +33,7 @@
 #include "item.h"
 #include "char.h"
 #include "socket.h"
-#include "coord.h"
+#include "pycoord.h"
 #include "skills.h"
 #include "../chars.h"
 #include "../prototypes.h"

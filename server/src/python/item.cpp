@@ -31,7 +31,7 @@
 
 #include "utilities.h"
 #include "item.h"
-#include "coord.h"
+#include "pycoord.h"
 #include "char.h"
 #include "../items.h"
 #include "../tilecache.h"
