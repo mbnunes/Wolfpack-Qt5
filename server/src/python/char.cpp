@@ -2159,6 +2159,66 @@ static PyObject *wpChar_log(wpChar *self, PyObject *args) {
 }
 
 /*
+	\method char.removeevent
+	\description Remove a python script from the event chain for this object.
+	\param event The id of the python script you want to remove from the event chain.
+*/
+static PyObject *wpChar_removeevent(wpChar *self, PyObject *args) {	
+	char *event;
+	if (!PyArg_ParseTuple(args, "s:char.removeevent(name)", &event)) {
+		return 0;
+	}
+	self->pChar->removeEvent(event);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+/*
+	\method char.addevent
+	\description Add a pythonscript to the event chain of this object.
+	Does nothing if the object already has that event.
+	\param event The id of the python script you want to add to the event chain.
+*/
+static PyObject *wpChar_addevent(wpChar *self, PyObject *args) {	
+	char *event;
+	if (!PyArg_ParseTuple(args, "s:char.addevent(name)", &event)) {
+		return 0;
+	}
+
+	cPythonScript *script = ScriptManager::instance()->find(event);
+
+	if (!script) {
+		PyErr_Format(PyExc_RuntimeError, "No such script: %s", event);
+		return 0;
+	}
+
+	self->pChar->addEvent(script);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+/*
+	\method char.hasevent
+	\description Check if this object has a python script in its event chain.
+	\param event The id of the python script you are looking for.
+	\return True of the script is in the chain. False otherwise.
+*/
+static PyObject *wpChar_hasevent(wpChar *self, PyObject *args) {	
+	char *event;
+	if (!PyArg_ParseTuple(args, "s:char.hasevent(name)", &event)) {
+		return 0;
+	}
+
+	if (self->pChar->hasEvent(event)) {
+		Py_INCREF(Py_True);
+		return Py_True;
+	} else {
+		Py_INCREF(Py_False);
+		return Py_False;
+	}
+}
+
+/*
 	\method char.callevent
 	\description Call a python event chain for this object. Ignore global hooks.
 	\param event The id of the event you want to call. See <library id="wolfpack.consts">wolfpack.consts</library> for constants.
@@ -2232,6 +2292,11 @@ static PyMethodDef wpCharMethods[] =
 
 	{ "addtimer",		(getattrofunc)wpChar_addtimer,			METH_VARARGS, "Adds a timer to this character." },
 	{ "dispel",			(getattrofunc)wpChar_dispel,			METH_VARARGS, "Dispels this character (with special options)." },
+
+	// Event handling functions
+	{ "addevent",		(getattrofunc)wpChar_addevent,			METH_VARARGS, 0},
+	{ "removeevent",	(getattrofunc)wpChar_removeevent,		METH_VARARGS, 0},
+	{ "hasevent",		(getattrofunc)wpChar_hasevent,			METH_VARARGS, 0},
 	{ "callevent",		(getattrofunc)wpChar_callevent,			METH_VARARGS, 0},
 
 	// Update Stats
@@ -2273,6 +2338,7 @@ static PyMethodDef wpCharMethods[] =
 	// Is*? Functions
 	{ "isitem",			(getattrofunc)wpChar_isitem,			METH_VARARGS, "Is this an item." },
 	{ "ischar",			(getattrofunc)wpChar_ischar,			METH_VARARGS, "Is this a char." },
+
     { NULL, NULL, 0, NULL }
 };
 

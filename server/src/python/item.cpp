@@ -916,6 +916,66 @@ static PyObject* wpItem_removeitems(wpItem *self, PyObject *args) {
 }
 
 /*
+	\method item.removeevent
+	\description Remove a python script from the event chain for this object.
+	\param event The id of the python script you want to remove from the event chain.
+*/
+static PyObject *wpItem_removeevent(wpItem *self, PyObject *args) {	
+	char *event;
+	if (!PyArg_ParseTuple(args, "s:item.removeevent(name)", &event)) {
+		return 0;
+	}
+	self->pItem->removeEvent(event);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+/*
+	\method item.addevent
+	\description Add a pythonscript to the event chain of this object.
+	Does nothing if the object already has that event.
+	\param event The id of the python script you want to add to the event chain.
+*/
+static PyObject *wpItem_addevent(wpItem *self, PyObject *args) {	
+	char *event;
+	if (!PyArg_ParseTuple(args, "s:item.addevent(name)", &event)) {
+		return 0;
+	}
+
+	cPythonScript *script = ScriptManager::instance()->find(event);
+
+	if (!script) {
+		PyErr_Format(PyExc_RuntimeError, "No such script: %s", event);
+		return 0;
+	}
+
+	self->pItem->addEvent(script);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+/*
+	\method item.hasevent
+	\description Check if this object has a python script in its event chain.
+	\param event The id of the python script you are looking for.
+	\return True of the script is in the chain. False otherwise.
+*/
+static PyObject *wpItem_hasevent(wpItem *self, PyObject *args) {	
+	char *event;
+	if (!PyArg_ParseTuple(args, "s:item.hasevent(name)", &event)) {
+		return 0;
+	}
+
+	if (self->pItem->hasEvent(event)) {
+		Py_INCREF(Py_True);
+		return Py_True;
+	} else {
+		Py_INCREF(Py_False);
+		return Py_False;
+	}
+}
+
+/*
 	\method item.callevent
 	\description Call a python event chain for this object. Ignore global hooks.
 	\param event The id of the event you want to call. See <library id="wolfpack.consts">wolfpack.consts</library> for constants.
@@ -967,7 +1027,12 @@ static PyMethodDef wpItemMethods[] =
 	{ "lightning",			(getattrofunc)wpItem_lightning, METH_VARARGS, 0 },
 	{ "resendtooltip",		(getattrofunc)wpItem_resendtooltip, METH_VARARGS, 0 },
 	{ "dupe",				(getattrofunc)wpItem_dupe, METH_VARARGS, 0 },
+
+	// Event handling
 	{ "callevent",			(getattrofunc)wpItem_callevent, METH_VARARGS, 0 },
+	{ "addevent",			(getattrofunc)wpItem_addevent,			METH_VARARGS, 0},
+	{ "removeevent",		(getattrofunc)wpItem_removeevent,		METH_VARARGS, 0},
+	{ "hasevent",			(getattrofunc)wpItem_hasevent,			METH_VARARGS, 0},
 
 	// Effects
 	{ "movingeffect",		(getattrofunc)wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
