@@ -109,7 +109,6 @@ HEADERS         = \
 		  uobject.h \
 		  utilsys.h \
 		  verinfo.h \
-		  whitespace.h \
 		  wolfpack.h \
 		  wpconsole.h \
 		  tilecache.h \
@@ -151,7 +150,6 @@ SOURCES         = \
 		  guildstones.cpp \
 		  gumps.cpp \
 		  house.cpp \
-		  html.cpp \
                   iserialization.cpp \
 	   	  item_flatstore.cpp \
 		  itemid.cpp \
