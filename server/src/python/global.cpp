@@ -1281,12 +1281,30 @@ static PyObject *wpGetDefinitions(PyObject *self, PyObject *args) {
 	return result;
 }
 
+static PyObject *wpLock(PyObject *self, PyObject *args) {
+	Q_UNUSED(self);
+	Q_UNUSED(args);
+	lockDataMutex();
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+static PyObject *wpUnlock(PyObject *self, PyObject *args) {
+	Q_UNUSED(self);
+	Q_UNUSED(args);
+	unlockDataMutex();
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
 /*!
 	wolfpack
 	Initializes wolfpack
 */
 static PyMethodDef wpGlobal[] = 
 {
+	{ "lock",				wpLock,							METH_VARARGS, NULL },
+	{ "unlock",				wpUnlock,						METH_VARARGS, NULL },
 	{ "getdefinition",		wpGetDefinition,				METH_VARARGS, "Gets a certain definition by it's id." },
 	{ "getdefinitions",		wpGetDefinitions,				METH_VARARGS, "Gets all definitions by type." },
 	{ "packet",				wpPacket,						METH_VARARGS, NULL },

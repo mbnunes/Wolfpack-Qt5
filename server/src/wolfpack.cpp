@@ -202,20 +202,14 @@ void queueAction (eActionType type) {
 	}
 }
 
-#if defined(Q_OS_WIN32)
 QMutex dataMutex;
-#endif
 
 void lockDataMutex() {
-#if defined(Q_OS_WIN32)
 	dataMutex.lock();
-#endif
 }
 
 void unlockDataMutex() {
-#if defined(Q_OS_WIN32)
 	dataMutex.unlock();
-#endif
 }
 
 //#if defined(_DEBUG)

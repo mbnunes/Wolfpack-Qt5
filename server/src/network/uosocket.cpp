@@ -1380,16 +1380,11 @@ void cUOSocket::resendPlayer( bool quick )
 
 		resendWorld( false );
 	}
-
-	// Resend our equipment
-	cUOTxDrawChar drawChar;
-	drawChar.fromChar( _player );
-	drawChar.setHighlight(_player->notoriety(_player));
-	send( &drawChar );
-
+	
 	cUOTxDrawPlayer drawPlayer;
-	drawPlayer.fromChar( _player );
-	send( &drawPlayer );
+	drawPlayer.fromChar(_player);
+	drawPlayer.setFlag(_player->notoriety(_player));
+	send(&drawPlayer);
 
     // Reset the walking sequence
 	_walkSequence = 0xFF;
@@ -1399,9 +1394,9 @@ void cUOSocket::resendPlayer( bool quick )
 	cBaseChar::ItemContainer::const_iterator it;
 
 	for (it = content.begin(); it != content.end(); it++) {	
-		P_ITEM pItem = *it;
-
-		if (pItem->layer() < 0x19) {
+		P_ITEM pItem = it.data();
+		if (pItem->layer() <= 0x19) {
+			pItem->update(this);
 			pItem->sendTooltip(this);
 		}
 	}
@@ -1430,13 +1425,18 @@ void cUOSocket::updateChar( P_CHAR pChar )
 
 // Sends a foreign char including equipment
 void cUOSocket::sendChar(P_CHAR pChar) {
+	if (pChar == _player) {
+		updatePlayer();
+		return;
+	}
+
 	if (canSee(pChar)) {
 		// Then completely resend it
 		cUOTxDrawChar drawChar;
 		drawChar.fromChar( pChar );
 		drawChar.setHighlight( pChar->notoriety( _player ) );
 		pChar->sendTooltip(this);
-		send( &drawChar );
+		send(&drawChar);
 
 		// Send item tooltips
 		cBaseChar::ItemContainer content = pChar->content();

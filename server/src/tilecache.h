@@ -87,7 +87,7 @@ inline bool tile_st::isBlocking() const
 
 inline bool tile_st::isRoofOrFloorTile() const
 {
-	return ( (( flag1 & 0x1 ) && ( flag2 % 0x2)) || ( flag4 & 0x10 ));
+	return (( flag1 & 0x1 ) && ( flag2 % 0x2));
 }
 
 inline bool tile_st::isTransparent() const
