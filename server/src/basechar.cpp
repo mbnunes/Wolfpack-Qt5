@@ -1528,7 +1528,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "haircolor" )
 	{
 		bool ok;
-		Q_INT32 data = value.toInt( &ok );
+		int data = value.toInt( &ok );
 		if ( !ok )
 			PROPERTY_ERROR( -2, "Integer expected" )
 			setHairColor( data );
@@ -1541,7 +1541,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "hairstyle" )
 	{
 		bool ok;
-		Q_INT32 data = value.toInt( &ok );
+		int data = value.toInt( &ok );
 		if ( !ok )
 			PROPERTY_ERROR( -2, "Integer expected" )
 			setHairStyle( data );
@@ -1554,7 +1554,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "beardcolor" )
 	{
 		bool ok;
-		Q_INT32 data = value.toInt( &ok );
+		int data = value.toInt( &ok );
 		if ( !ok )
 			PROPERTY_ERROR( -2, "Integer expected" )
 			setBeardColor( data );
@@ -1567,7 +1567,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "beardstyle" )
 	{
 		bool ok;
-		Q_INT32 data = value.toInt( &ok );
+		int data = value.toInt( &ok );
 		if ( !ok )
 			PROPERTY_ERROR( -2, "Integer expected" )
 			setBeardStyle( data );
@@ -2619,15 +2619,7 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 
 		if ( result )
 		{
-			// Strings and Unicode Objects gladly accepted
-			if ( PyString_Check( result ) )
-			{
-				name = PyString_AsString( result );
-			}
-			else if ( PyUnicode_Check( result ) )
-			{
-				name = QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( result ) );
-			}
+			name = Python2QString( result );
 		}
 
 		Py_XDECREF( result );

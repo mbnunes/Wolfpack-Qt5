@@ -520,18 +520,7 @@ PyObject* wpGuild_setmemberinfo( wpGuild* self, PyObject* args )
 	PyObject* guildtitle = PyDict_GetItemString( dict, "guildtitle" );
 	if ( guildtitle )
 	{
-		if ( PyUnicode_Check( guildtitle ) )
-		{
-			info->setGuildTitle( QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( guildtitle ) ) );
-		}
-		else if ( PyString_Check( guildtitle ) )
-		{
-			info->setGuildTitle( QString::fromUtf8( PyString_AsString( guildtitle ) ) );
-		}
-		else
-		{
-			info->setGuildTitle( QString::null );
-		}
+			info->setGuildTitle( Python2QString( guildtitle ) );
 	}
 
 	PyObject* joined = PyDict_GetItemString( dict, "joined" );
@@ -790,63 +779,19 @@ static int wpGuild_setAttr( wpGuild* self, char* name, PyObject* value )
 	}
 	else if ( !strcmp( name, "name" ) )
 	{
-		if ( PyUnicode_Check( value ) )
-		{
-			self->guild->setName( QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( value ) ) );
-		}
-		else if ( PyString_Check( value ) )
-		{
-			self->guild->setName( QString::fromUtf8( PyString_AsString( value ) ) );
-		}
-		else
-		{
-			self->guild->setName( QString::null );
-		}
+		self->guild->setName( Python2QString( value ) );
 	}
 	else if ( !strcmp( name, "abbreviation" ) )
 	{
-		if ( PyUnicode_Check( value ) )
-		{
-			self->guild->setAbbreviation( QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( value ) ) );
-		}
-		else if ( PyString_Check( value ) )
-		{
-			self->guild->setAbbreviation( QString::fromUtf8( PyString_AsString( value ) ) );
-		}
-		else
-		{
-			self->guild->setAbbreviation( QString::null );
-		}
+		self->guild->setAbbreviation( Python2QString( value ) );
 	}
 	else if ( !strcmp( name, "charta" ) )
 	{
-		if ( PyUnicode_Check( value ) )
-		{
-			self->guild->setCharta( QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( value ) ) );
-		}
-		else if ( PyString_Check( value ) )
-		{
-			self->guild->setCharta( QString::fromUtf8( PyString_AsString( value ) ) );
-		}
-		else
-		{
-			self->guild->setCharta( QString::null );
-		}
+		self->guild->setCharta( Python2QString( value ) );
 	}
 	else if ( !strcmp( name, "website" ) )
 	{
-		if ( PyUnicode_Check( value ) )
-		{
-			self->guild->setWebsite( QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( value ) ) );
-		}
-		else if ( PyString_Check( value ) )
-		{
-			self->guild->setWebsite( QString::fromUtf8( PyString_AsString( value ) ) );
-		}
-		else
-		{
-			self->guild->setWebsite( QString::null );
-		}
+		self->guild->setWebsite( Python2QString( value ) );
 	}
 	else if ( !strcmp( name, "alignment" ) )
 	{

@@ -420,7 +420,7 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 		}
 		else if ( PyUnicode_Check( item ) )
 		{
-			gump->addRawLayout( QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( item ) ) );
+			gump->addRawLayout( Python2QString( item ) );
 		}
 		else
 		{
@@ -438,7 +438,7 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 		}
 		else if ( PyUnicode_Check( item ) )
 		{
-			gump->addRawText( QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( item ) ) );
+			gump->addRawText( Python2QString( item ) );
 		}
 		else
 		{

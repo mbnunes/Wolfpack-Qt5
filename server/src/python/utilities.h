@@ -128,8 +128,8 @@ AbstractAI* getWpAI( PyObject* );
 #define getArgInt( id ) PyInt_AsLong( PyTuple_GetItem( args, id ) )
 #define checkArgStr( id ) ( PyTuple_Size( args ) > id && ( PyString_Check( PyTuple_GetItem( args, id ) ) || PyUnicode_Check( PyTuple_GetItem( args, id ) ) ) )
 #define checkArgUnicode( id ) ( PyTuple_Size( args ) > id && PyUnicode_Check( PyTuple_GetItem( args, id ) ) )
-#define getArgStr( id ) (PyString_Check(PyTuple_GetItem(args,id)) ? QString(PyString_AsString(PyTuple_GetItem(args, id))) : QString::fromUcs2((ushort*)PyUnicode_AS_UNICODE(PyTuple_GetItem(args,id))))
-#define getArgUnicode( id ) PyUnicode_AsUnicode( PyTuple_GetItem( args, id ) )
+#define getArgStr( id ) (Python2QString(PyTuple_GetItem(args,id)))
+#define getArgUnicode( id ) Python2QString( PyTuple_GetItem( args, id ) )
 #define getUnicodeSize( id ) PyUnicode_GetSize( PyTuple_GetItem( args, id ) )
 #define checkArgAccount( id ) ( PyTuple_Size( args ) > id && checkWpAccount( PyTuple_GetItem( args, id ) ) )
 #define checkArgRegion( id ) ( PyTuple_Size( args ) > id && checkWpRegion( PyTuple_GetItem( args, id ) ) )
@@ -154,7 +154,11 @@ inline QString Python2QString( PyObject* object )
 {
 	if ( PyUnicode_Check( object ) )
 	{
+#if defined(Py_UNICODE_WIDE)
+		return QString::fromUtf8( PyUnicode_AsUTF8String( object ) );
+#else
 		return QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( object ) );
+#endif
 	}
 	else if ( PyString_Check( object ) )
 	{

@@ -154,7 +154,7 @@ struct stError
 
 #define SET_INT_PROPERTY( id, setter ) if( name == id ) {\
 	bool ok; \
-	Q_INT32 data = value.toInt( &ok ); \
+	int data = value.toInt( &ok ); \
 	if( !ok ) \
 		PROPERTY_ERROR( -2, "Integer expected" ) \
 	setter = data; \

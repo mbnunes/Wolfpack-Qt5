@@ -136,7 +136,7 @@ public:
 		if ( responsefunc.contains( "." ) )
 		{
 			// Find the last dot
-			Q_INT32 position = responsefunc.findRev( "." );
+			int position = responsefunc.findRev( "." );
 			QString sModule = responsefunc.left( position );
 			QString sFunction = responsefunc.right( responsefunc.length() - ( position + 1 ) );
 
@@ -174,7 +174,7 @@ public:
 		if ( !timeoutfunc.isNull() && !timeoutfunc.isEmpty() && timeoutfunc.contains( "." ) )
 		{
 			// Find the last dot
-			Q_INT32 position = timeoutfunc.findRev( "." );
+			int position = timeoutfunc.findRev( "." );
 			QString sModule = timeoutfunc.left( position );
 			QString sFunction = timeoutfunc.right( timeoutfunc.length() - ( position + 1 ) );
 
@@ -209,7 +209,7 @@ public:
 		if ( !cancelfunc.isNull() && !cancelfunc.isEmpty() && cancelfunc.contains( "." ) )
 		{
 			// Find the last dot
-			Q_INT32 position = cancelfunc.findRev( "." );
+			int position = cancelfunc.findRev( "." );
 			QString sModule = cancelfunc.left( position );
 			QString sFunction = cancelfunc.right( cancelfunc.length() - ( position + 1 ) );
 
