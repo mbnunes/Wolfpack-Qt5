@@ -53,6 +53,7 @@ protected:
 	UI16		id_;
 	UI16		color_;
 	UI16		amount_; 
+	UI16		restock_;
 	UI16		amount2_; 
 	QString		name_;
 	QString		name2_;
@@ -72,6 +73,9 @@ protected:
 	QString		carve_;
 	unsigned int	antispamtimer_;
 	UI16		accuracy_;	// for weapons, could be used for certain tools too.
+	INT32		sellprice_;
+	INT32		buyprice_;
+	INT32		price_; // This price is only used for player vendor items
 
 	// More values
 	UI08 moreb1_;
@@ -126,6 +130,7 @@ public:
 	UI16			id()			const { return id_; }			// The graphical id of the item
 	UI16			color()			const { return color_; }		// The Color of the item
 	UI16			amount()		const { return amount_; }		// Amount of items in pile
+	UI16			restock()		const { return restock_; }		// Amount of items a vendor will respawn this item to.
 	UI16			amount2()		const { return amount2_; }		// Used to track things like number of yards left in a roll of cloth
 	const QString	&name2()		const { return name2_; }		// The identified name of the item
 	const QString	&name()			const { return name_; }		// The identified name of the item
@@ -157,6 +162,9 @@ public:
 	unsigned int	antispamtimer() const { return antispamtimer_;}
 	UI16			accuracy()		const { return accuracy_; }		// for weapons, could be used for certain tools too.
 	cUObject		*container()    const { return container_; }
+	INT32			sellprice()		const { return sellprice_; } // Price this item is being bought at by normal vendors
+	INT32			buyprice()		const { return buyprice_; } // Price this item is being sold at by normal vendors
+	INT32			price()			const { return price_; } // Price this item is being sold at by player vendors
 
 //****************************ADDED GETTERS*************
 	
@@ -189,6 +197,7 @@ public:
 	void	setId( UI16 nValue ) { id_ = nValue; };
 	void	setColor( UI16 nValue ) { color_ = nValue; };
 	void	setAmount( UI16 nValue );
+	void	setRestock( UI16 nValue ) { restock_ = nValue; }
 	void	setAmount2( UI16 nValue ) { amount2_ = nValue; }; //Used to track things like number of yards left in a roll of cloth
 	void	setName( const QString& nValue ) { name_ = nValue; };
 	void	setName2( const QString& nValue ) { name2_ = nValue; };
@@ -252,6 +261,9 @@ public:
 	void	setGateTime( unsigned int data ) { gatetime_ = data; }
 	void	setGateNumber( int data ) { gatenumber_ = data; }
 	void	setDecayTime( unsigned int data ) { decaytime_ = data; }
+	void	setPrice( INT32 data ) { price_ = data; }
+	void	setBuyprice( INT32 data ) { buyprice_ = data; }
+	void	setSellprice( INT32 data ) { sellprice_ = data; }
 //*******************************************END ADDED SETTERS**********
 	SERIAL contserial;
 	
@@ -278,8 +290,6 @@ public:
 	//   7 |  80 | <unused>
 	UI08 priv;
 	
-	int value; // Price shopkeeper sells item at.
-	int restock; // Number up to which shopkeeper should restock this item
 	unsigned int disabled; //Item is disabled, cant trigger.
 	QString disabledmsg; //Item is disabled, so display this message. -- added by Magius(CHE) §
 	unsigned int poisoned; //AntiChrist -- for poisoning skill

@@ -653,9 +653,6 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 	// spanserial
 	else getIntProperty( "dir", pItem->dir ) // lightsource type
 	else getIntProperty( "priv", pItem->priv ) 
-	else getIntProperty( "value", pItem->value ) 
-	else getIntProperty( "restock", pItem->restock )
-	else getIntProperty( "value", pItem->value ) 
 	else getIntProperty( "disabled", pItem->disabled )
 	else getStrProperty( "disabledmsg", pItem->disabledmsg.latin1() ) 
 	else getIntProperty( "poisoned", pItem->poisoned ) 
@@ -833,9 +830,6 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 	// spanserial
 	else setIntProperty( "dir", pItem->dir ) // lightsource type
 	else setIntProperty( "priv", pItem->priv ) 
-	else setIntProperty( "value", pItem->value ) 
-	else setIntProperty( "restock", pItem->restock )
-	else setIntProperty( "value", pItem->value ) 
 	else setIntProperty( "disabled", pItem->disabled )
 	else setStrProperty( "disabledmsg", pItem->disabledmsg ) 
 	else setIntProperty( "poisoned", pItem->poisoned ) 

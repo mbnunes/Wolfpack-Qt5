@@ -74,7 +74,7 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 	case cChar::enPricing:
 		if (ok)
 		{
-			pItem->value = num;
+			pItem->setPrice( num );
 			socket->sysMessage( tr( "This item's price has been set to %1." ).arg( num ) );
 		}
 		else
@@ -783,7 +783,8 @@ bool PlayerVendorSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor, cons
 		if( pDeed )
 		{
 			pDeed->setType( 217 );
-			pDeed->value = 2000;
+			pDeed->setBuyprice( 2000 );
+			pDeed->setSellprice( 1000 );
 			pDeed->update();
 			cCharStuff::DeleteChar( pVendor );
 			socket->sysMessage( tr( "Packed up vendor %1." ).arg( pVendor->name.latin1() ) );

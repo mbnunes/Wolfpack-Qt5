@@ -3615,10 +3615,10 @@ void cChar::restock()
 			P_ITEM pItem = *it;
 			if( pItem )
 			{
-				if( pItem->restock < pItem->amount() )
+				if( pItem->restock() < pItem->amount() )
 				{
-					UINT16 restock = QMAX( ( pItem->amount() - pItem->restock ) / 2, 1 );
-					pItem->restock += restock;
+					UINT16 restock = QMAX( ( pItem->amount() - pItem->restock() ) / 2, 1 );
+					pItem->setRestock( pItem->restock() + restock );
 				}
 
 				if( SrvParams->trade_system() )

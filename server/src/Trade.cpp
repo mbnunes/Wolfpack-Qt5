@@ -148,14 +148,14 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 		}
 
 		// Check amount
-		if( amount > pItem->restock )
-			amount = pItem->restock;
+		if( pItem->restock() > pItem->amount() )
+			pItem->setRestock( pItem->amount() );
 
 		// Nothing of that item left
-		if( amount == 0 )
+		if( pItem->restock() == 0 )
 			continue;
 
-		totalValue += amount * pItem->value;
+		totalValue += amount * pItem->buyprice();
 
 		items.insert( make_pair( pItem->serial, amount ) );
 	}
@@ -173,7 +173,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 		P_ITEM pItem = FindItemBySerial( iter->first );
 		UINT16 amount = iter->second;
 
-		pItem->restock -= amount; // Reduce the items in stock
+		pItem->setRestock( pItem->restock() - amount ); // Reduce the items in stock
 		P_ITEM pSold;
 
 

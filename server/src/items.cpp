@@ -79,7 +79,7 @@ void cItem::registerInFactory()
 cItem::cItem(): 
 contserial( INVALID_SERIAL ), container_(0), totalweight_(0), incognito(false),
 rndvaluerate(0), dooropen_(0),gatetime_(0),gatenumber_(-1),disabledmsg(""),murdertime(0),
-timeused_last(0) {};
+timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), price_( 0 ), restock_( 1 ) {};
 
 cItem::cItem( cItem &src )
 {
@@ -142,8 +142,9 @@ cItem::cItem( cItem &src )
 	this->spawnserial=src.spawnserial;
 	this->dir=src.dir;
 	this->priv=src.priv;
-	this->value=src.value;
-	this->restock=src.restock;
+	this->buyprice_ = src.buyprice_;
+	this->sellprice_ = src.sellprice_;
+	this->restock_ = src.restock_;
 	this->disabled=src.disabled;
 	this->disabledmsg = src.disabledmsg;
 	this->poisoned=src.poisoned;
@@ -533,8 +534,9 @@ void cItem::save()
 	addField("spawn",			spawnserial);
 	addField("dir",			dir);
 	addField("priv",			priv);
-	addField("value",			value);
-	addField("restock",		restock);
+	addField("sellprice",			sellprice_);
+	addField("buyprice",			buyprice_);
+	addField("restock",		restock_);
 	addField("disabled",		disabled);
 	addStrField("spawnregion",	spawnregion_);
 	addField("good",			good);
@@ -686,8 +688,6 @@ void cItem::Init( bool mkser )
 	this->spawnserial=-1;
 	this->dir=0; // Direction, or light source type.
 	this->priv=0; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
-	this->value=0; // Price shopkeeper sells item at.
-	this->restock=0; // Number up to which shopkeeper should restock this item
 	this->disabled = 0; //Item is disabled, cant trigger.
 	this->disabledmsg = ""; //Item disabled message. -- by Magius(CHE) §
 	this->poisoned = 0; //AntiChrist -- for poisoning skill
@@ -908,9 +908,6 @@ P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging) /
 
 	if(nDigging) 
 	{
-		if( pi->value != 0 ) 
-			pi->value = 1 + ( rand() % ( pi->value ) ); 
-		
 		if(pi->hp()!=0) 
 			pi->setHp( 1 + ( rand() % pi->hp() ) );
 		
@@ -1421,7 +1418,7 @@ void cItem::processNode( const QDomElement& Tag )
 	else if( TagName == "amount" )
 	{
 		this->setAmount( Value.toULong() );
-		this->restock = Value.toULong(); // Maximumm sell-amount from the beginning
+		this->restock_ = Value.toULong(); // Maximumm sell-amount from the beginning
 	}
 
 	// <color>480</color>
@@ -1466,9 +1463,19 @@ void cItem::processNode( const QDomElement& Tag )
 	else if( TagName == "weight" )
 		this->setWeight( (UINT32)( Value.toFloat() * 10 ) );
 
-	// <value>10</value>
-	else if( TagName == "value" )
-		this->value = Value.toInt();
+	// <buyprice>10</buyprice>
+	else if( TagName == "buyprice" )
+	{
+		this->buyprice_ = Value.toInt();
+	}
+
+	// <sellprice>10</sellprice>
+	else if( TagName == "sellprice" )
+		this->sellprice_ = Value.toInt();
+
+	// <price>10</price>
+	else if( TagName == "price" )
+		this->price_ = Value.toInt();
 
 	// <carve></carve> For corpses and item spawners
 	else if( TagName == "carve" )
@@ -1476,7 +1483,7 @@ void cItem::processNode( const QDomElement& Tag )
 		
 	// <restock>10</restock>
 	else if( TagName == "restock" )
-		this->restock = Value.toInt();
+		this->restock_ = Value.toInt();
 
 	// <durability>10</durabilty>
 	else if( TagName == "durability" )
@@ -1739,13 +1746,22 @@ void cItem::processModifierNode( const QDomElement &Tag )
 			setWeight( weight() + Value.toInt() );
 	}
 
-	// <value>+20</value>
-	else if( TagName == "value" )
+	// <sellprice>+20</sellprice>
+	else if( TagName == "sellprice" )
 	{
 		if( Value.contains(".") || Value.contains(",") )
-			value = (INT32)ceil((float)value * Value.toFloat());
+			sellprice_ = (INT32)ceil((float)sellprice_ * Value.toFloat());
 		else
-			value += Value.toInt();
+			sellprice_ += Value.toInt();
+	}
+
+	// <buyprice>+20</buyprice>
+	else if( TagName == "buyprice" )
+	{
+		if( Value.contains(".") || Value.contains(",") )
+			buyprice_ = (INT32)ceil((float)buyprice_ * Value.toFloat());
+		else
+			buyprice_ += Value.toInt();
 	}
 
 	// <durability>-10</durabilty>
@@ -1941,7 +1957,7 @@ void cItem::showName( cUOSocket *socket )
 	{
 		P_CHAR pc_j = getOutmostChar();
 		if( pc_j && pc_j->npcaitype() == 17 )
-			socket->showSpeech( this, tr( "at %1gp" ).arg( value ) );
+			socket->showSpeech( this, tr( "at %1gp" ).arg( price_ ) );
 	}
 
 	// Show RepSys Settings of Victim when killed
@@ -2422,8 +2438,10 @@ void cItem::load( char **result, UINT16 &offset )
 	spawnserial = atoi( result[offset++] );
 	dir = atoi( result[offset++] );
 	priv = atoi( result[offset++] );
-	value = atoi( result[offset++] );
-	restock = atoi( result[offset++] );
+	sellprice_ = atoi( result[offset++] );
+	buyprice_ = atoi( result[offset++] );
+	price_ = atoi( result[offset++] );
+	restock_ = atoi( result[offset++] );
 	disabled = atoi( result[offset++] );
 	spawnregion_ = result[offset++];
 	good = atoi( result[offset++] );
@@ -2437,7 +2455,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.moreb1,items.moreb2,items.moreb3,items.moreb4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.value,items.restock,items.disabled,items.spawnregion,items.good,items.desc,items.carve,items.accuracy" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.moreb1,items.moreb2,items.moreb3,items.moreb4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.sellprice,items.buyprice,items.price,items.restock,items.disabled,items.spawnregion,items.good,items.desc,items.carve,items.accuracy" ); // for now! later on we should specify each field
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2773,8 +2791,10 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 
 	else SET_INT_PROPERTY( "spawn", spawnserial )
 	else SET_INT_PROPERTY( "dir", dir )
-	else SET_INT_PROPERTY( "value", this->value )
-	else SET_INT_PROPERTY( "restock", restock )
+	else SET_INT_PROPERTY( "sellprice", sellprice_ )
+	else SET_INT_PROPERTY( "buyprice", price_ )
+	else SET_INT_PROPERTY( "price", price_ )
+	else SET_INT_PROPERTY( "restock", restock_ )
 	else SET_INT_PROPERTY( "disabled", disabled )
 	else SET_STR_PROPERTY( "disabledmsg", disabledmsg )
 	else SET_INT_PROPERTY( "poisoned", poisoned )
@@ -2924,8 +2944,10 @@ stError *cItem::getProperty( const QString &name, cVariant &value )
 	else GET_PROPERTY( "spawn", FindItemBySerial( spawnserial ) )
 
 	else GET_PROPERTY( "dir", dir )
-	else GET_PROPERTY( "value", value )
-	else GET_PROPERTY( "restock", restock )
+	else GET_PROPERTY( "buyprice", buyprice_ )
+	else GET_PROPERTY( "sellprice", sellprice_ )
+	else GET_PROPERTY( "price", price_ )
+	else GET_PROPERTY( "restock", restock_ )
 	else GET_PROPERTY( "disabled", (int)disabled )
 	else GET_PROPERTY( "disabledmsg", disabledmsg )
 	else GET_PROPERTY( "poisoned", (int)poisoned )

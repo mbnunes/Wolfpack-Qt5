@@ -678,46 +678,5 @@ bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, const string& comm)
 
 bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, const string& comm)
 {
-	P_CHAR pc_currchar = currchar[c];
-	int beginoffset ;
-	int endoffset ;
-	int value =0 ;
-	string value2;
-	if ((beginoffset=comm.find_first_of("0123456789")) != string::npos)
-	{
-		if ((endoffset=comm.find_first_not_of("0123456789",beginoffset))== string::npos)
-			endoffset = comm.length();
-		value2= comm.substr(beginoffset,endoffset-beginoffset) ;
-		value = QString(value2.c_str()).toUInt();
-	}
-
-	int d = pc_currchar->CountBankGold();
-	{
-		int goldcount = value;
-		if (goldcount < 5000 || goldcount > 1000000)
-		{
-			pBanker->talk( tr("%1 you can only get checks worth 5000gp to 1000000gp.").arg(pc_currchar->name.latin1()), -1, 0 );
-			return false;
-		}
-		if (d >= goldcount)
-		{
-			const P_ITEM pi = Items->SpawnItem(c, pc_currchar, 1, "bank check", 0, 0x14, 0xF0, 0, 0, 0); // bank check
-			if (pi != NULL)
-			pi->setType( 1000 );
-			pi->setId(0x14F0);
-			pi->setColor( 0x0099 );
-			pi->priv |= 0x02;
-			pi->value = goldcount;
-			DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);
-			P_ITEM bankbox = pc_currchar->getBankBox();
-			bankbox->addItem(pi);
-			//statwindow(c, pc_currchar);
-			pBanker->talk( tr("%1 your check has been placed in your bankbox, it is worth %2.").arg(pc_currchar->name.latin1()).arg(goldcount), -1, 0 );
-			return true;
-		}
-		else
-			pBanker->talk( tr("%s you have insufficent funds!").arg(pc_currchar->name.latin1()), -1, 0 );
-
-		return true;
-	}
+	return false;
 }

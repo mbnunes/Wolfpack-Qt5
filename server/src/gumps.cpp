@@ -684,10 +684,10 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addInputField( 200, 200, 200, 16, 25, QString( "%1" ).arg( pItem->visible ), 0x834 );
 		addText( 50, 220, tr( "Rank:" ), 0x834 );
 		addInputField( 200, 220, 200, 16, 26, QString( "%1" ).arg( pItem->rank ), 0x834 );
-		addText( 50, 240, tr( "Value:" ), 0x834 );
-		addInputField( 200, 240, 200, 16, 27, QString( "%1" ).arg( pItem->value ), 0x834 );
+		addText( 50, 240, tr( "Price:" ), 0x834 );
+		addInputField( 200, 240, 200, 16, 27, QString( "%1" ).arg( pItem->price() ), 0x834 );
 		addText( 50, 260, tr( "Restock:" ), 0x834 );
-		addInputField( 200, 260, 200, 16, 28, QString( "%1" ).arg( pItem->restock ), 0x834 );
+		addInputField( 200, 260, 200, 16, 28, QString( "%1" ).arg( pItem->restock() ), 0x834 );
 		addText( 50, 280, tr( "Poisoned:" ), 0x834 );
 		addInputField( 200, 280, 200, 16, 29, QString( "%1" ).arg( pItem->poisoned ), 0x834 );
 		addText( 50, 300, tr( "Spawnregion:" ), 0x834 );
@@ -885,10 +885,10 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				item_->rank = hex2dec( it->second ).toInt();
 				break;
 			case 27:
-				item_->value = hex2dec( it->second ).toInt();
+				item_->setPrice( hex2dec( it->second ).toInt() );
 				break;
 			case 28:
-				item_->restock = hex2dec( it->second ).toInt();
+				item_->setRestock( hex2dec( it->second ).toInt() );
 				break;
 			case 29:
 				item_->poisoned = hex2dec( it->second ).toUInt();

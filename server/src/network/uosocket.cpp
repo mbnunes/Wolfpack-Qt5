@@ -2114,11 +2114,11 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 		if( mItem )
 		{
 			// For Layer 0x1A restock is the amount currently in stock
-			if( pItem->layer() == 0x1A && mItem->restock <= 0 )
+			if( pItem->layer() == 0x1A && mItem->restock() <= 0 )
 				continue;
 
-			itemContent.addItem( mItem->serial, mItem->id(), mItem->color(), i, i, ( pItem->layer() == 0x1A ) ? mItem->restock : mItem->amount(), pItem->serial );
-			vendorBuy.addItem( mItem->value, mItem->getName() );
+			itemContent.addItem( mItem->serial, mItem->id(), mItem->color(), i, i, ( pItem->layer() == 0x1A ) ? mItem->restock() : mItem->amount(), pItem->serial );
+			vendorBuy.addItem( mItem->buyprice(), mItem->getName() );
 		}
 	}
 

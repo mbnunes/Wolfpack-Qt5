@@ -282,7 +282,8 @@ void cHouse::toDeed( cUOSocket* socket )
 			{
 				pPvDeed->setName( tr("A vendor deed for %1").arg( pc->name ) );
 				pPvDeed->setType( 217 );
-				pPvDeed->value = 2000;
+				pPvDeed->setBuyprice( 2000 );
+				pPvDeed->setSellprice( 1000 );
 				pPvDeed->update();
 				socket->sysMessage( tr("Packed up vendor %1.").arg(pc->name) );
 			}

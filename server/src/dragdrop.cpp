@@ -1041,17 +1041,16 @@ void cDragItems::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker )
 	// For House and Boat deeds we should pay back 75% of the value
 	if( pItem->id() == 0x14EF )
 	{
-		if( !pItem->value )
+		if( !pItem->sellprice() )
 		{
 			pBroker->talk( tr("I can only accept deeds with value!") );
 			bounceItem( socket, pItem );
 			return;
 		}
-
-		Q_UINT32 nValue = static_cast< Q_UINT32 >( 0.75 * pItem->value );
-		socket->player()->giveGold( nValue, true );
+		
+		socket->player()->giveGold( pItem->sellprice(), true );
+		pBroker->talk( tr( "Here you have your %1 gold, %2" ).arg( pItem->sellprice() ).arg( socket->player()->name.latin1() ) );
 		Items->DeleItem( pItem );
-		pBroker->talk( tr( "Here you have your %1 gold, %2" ).arg( nValue ).arg( socket->player()->name.latin1() ) );
 		return;
 	}
 

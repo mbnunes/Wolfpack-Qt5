@@ -58,7 +58,7 @@
 
 void cTargets::PlVBuy(int s)//PlayerVendors
 {
-	if (s == -1) 
+/*	if (s == -1) 
 		return;
 	int v = addx[s];
 	P_CHAR pc = FindCharBySerial(v);
@@ -97,7 +97,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 
 	// sends item to the proud new owner's pack
 	pBackpack->addItem(pi);
-	pi->update();
+	pi->update();*/
 
 }
 
@@ -197,58 +197,6 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 
 void cTargets::IstatsTarget(int s)
 {
-	if ((buffer[s][7]==0)&&(buffer[s][8]==0)&&(buffer[s][9]==0)&&(buffer[s][10]==0))
-	{
-		/*Map->SeekTile(((buffer[s][0x11]<<8)+buffer[s][0x12]), &tile);
-		sprintf((char*)temp, "Item [Static] ID [%x %x]",buffer[s][0x11], buffer[s][0x12]);
-		sysmessage(s, (char*)temp);
-		sprintf((char*)temp, "ID2 [%i], Height [%i]",((buffer[s][0x11]<<8)+buffer[s][0x12]), tile.height);
-		sysmessage(s, (char*)temp);*/
-	}
-	else
-	{
-		int serial=LongFromCharPtr(buffer[s]+7);
-		PC_ITEM pi=FindItemBySerial(serial);
-		if (pi!=NULL)
-		{
-			// Modified by Magius(CHE)
-			char contstr[20];
-			int co=pi->contserial;
-			sprintf(contstr,"[%x %x %x %x]",
-				(co&0xFF000000)>>24,
-				(co&0x00FF0000)>>16,
-				(co&0x0000FF00)>>8,
-				(co&0x000000FF) );
-			sprintf((char*)temp, "Item [Dynamic] Ser [%8x] ID [%4x] Name [%s] Name2 [%s] Color [%4x] Cont %s Layer [%x] Type [%d] Magic [%x] More [%x %x %x %x] Position [%i %i %i] Amount [%i] Priv [%x]",
-				pi->serial, pi->id(),
-				pi->name().ascii(),pi->name2().ascii(),pi->color(),
-				contstr,
-				pi->layer(),pi->type(),pi->magic(),
-				pi->more1(),pi->more2(),pi->more3(),pi->more4(),
-				pi->pos.x,pi->pos.y,pi->pos.z,pi->amount(), pi->priv);
-			sysmessage(s, (char*)temp);
-			sprintf((char*)temp, "STR [%d] HP/MAX [%d/%d] Damage [%d-%d] Defence [%d] Rank [%d] SecureIt [%d] MoreXYZ [%i %i %i] Poisoned [%i] Weight [%d] Owner [%x] Creator [%s] MadeValue [%i] Value [%i] Decaytime[%i] Decay [%i] GoodType[%i] RandomValueRate[%i]",
-				pi->st(),
-				pi->hp(), pi->maxhp(),
-				pi->lodamage(), pi->hidamage(),
-				pi->def(),
-				pi->rank,
-				( pi->secured() ) ? 1 : 0,
-				pi->morex(), pi->morey(), pi->morez(),
-				pi->poisoned,
-				pi->weight(),
-				pi->ownserial, // Ison 2-20-99
-				pi->creator.latin1(),
-				pi->madewith,
-				pi->value,
-				int(double(int(pi->decaytime()-uiCurrentTime)/MY_CLOCKS_PER_SEC)),
-				(pi->priv)&0x01,
-				pi->good,
-				pi->rndvaluerate); // Magius(CHE) (2)
-			sysmessage(s,(char*)temp); // Ison 2-20-99
-			// End Modified lines
-		}
-	}
 }
 
 // public !!!
