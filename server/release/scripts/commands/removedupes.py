@@ -7,16 +7,16 @@
 	\ a duplicate is an item that is in the same location (x,y,z,map) and has the same ID#
 	\ as another.
 	\
-	\ NOTE: this *may* delete things you would rather keep.  this routine is intended to 
+	\ NOTE: this *may* delete things you would rather keep.  this routine is intended to
 	\       clean up after an 'import or 'decoration command is issued on a map in error.
-	\       
+	\
 	\		this routines does NOT know if an item has had the 'dupe command issued on it
 	\       nor does it detect items duped on the account of exploits or other such nonsense.
 	\
 	\
-	\ DOUBLE NOTE: you should consider disabling this command once your shard is "live".  
+	\ DOUBLE NOTE: you should consider disabling this command once your shard is "live".
 	\
-	\					
+	\
 """
 
 import wolfpack
@@ -30,10 +30,6 @@ MAP2_HEIGHT = 1600
 MAP3_WIDTH = 2560
 MAP3_HEIGHT = 2048
 
-
-def onLoad():
-	wolfpack.registercommand( "removedupes", commandRemoveDupes )
-
 def commandRemoveDupes(socket, cmd, args):
 	socket.sysmessage( "Removing Dupes From Map 0, please wait." )
 	removeDupesFromMap( socket, 0 )
@@ -43,8 +39,8 @@ def commandRemoveDupes(socket, cmd, args):
 	removeDupesFromMap( socket, 2 )
 	socket.sysmessage( "Removing Dupes From Map 3, please wait." )
 	removeDupesFromMap( socket, 3 )
+	return
 
-	
 def removeDupesFromMap( socket, mapid ):
 	squareregionsize = 16
 
@@ -80,13 +76,14 @@ def removeDupesFromMap( socket, mapid ):
 		return
 
 	x = 0
-	
+
 	while x <= xiters:
 		y = 0
 		while y <= yiters:
 			DoMapRegion( x * squareregionsize, y * squareregionsize, squareregionsize, mapid )
 			y = y + 1
 		x = x + 1
+	return
 
 def DoMapRegion( x_start, y_start, squareregionsize, mapid ):
 
@@ -138,7 +135,7 @@ def DoMapRegion( x_start, y_start, squareregionsize, mapid ):
 	while item:
 		items.append(item)
 		item = iter.next
-	
+
 	todelete = []
 
 	item = iter.first
@@ -154,7 +151,12 @@ def DoMapRegion( x_start, y_start, squareregionsize, mapid ):
 				if item in items:
 					items.remove(item)
 		item = iter.next
-				
+
 	for item in todelete:
 		item.delete()
 		item.update()
+	return
+
+def onLoad():
+	wolfpack.registercommand( "removedupes", commandRemoveDupes )
+	return

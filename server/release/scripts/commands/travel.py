@@ -22,3 +22,4 @@ def travel( socket, command, args ):
 
 def onLoad():
 	wolfpack.registercommand( "travel", travel )
+	return

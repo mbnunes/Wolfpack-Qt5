@@ -30,10 +30,6 @@ from wolfpack.consts import YELLOW, NORMAL, skillnamesids, SKILLNAMES, ALLSKILLS
 usage =   'Usage: skill <skill-name> <value*10>'
 example = 'Example: skill mining 1000'
 
-def onLoad():
-	wolfpack.registercommand( "skill", skill )
-	wolfpack.registercommand( "allskills", allskills )
-
 def skill( socket, command, args ):
 	args = args.strip()   # Remove trailing and leading whitespaces
 	if len( args ) > 0:
@@ -100,3 +96,8 @@ def allskills( socket, command, args ):
 	except:
 		socket.sysmessage( "Usage: allskills [value]" )
 		return False
+
+def onLoad():
+	wolfpack.registercommand( "skill", skill )
+	wolfpack.registercommand( "allskills", allskills )
+	return

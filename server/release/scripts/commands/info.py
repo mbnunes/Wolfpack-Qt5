@@ -29,16 +29,17 @@ def setTag(player, obj, tagname, value):
 	if value == None:
 		deleteTag(player, obj, tagname)
 		return
-	
+
 	oldvalue = None
 	if obj.hastag(tagname):
 		oldvalue = obj.gettag(tagname)
-		
+
 	if oldvalue == value:
 		return # Nothing changed
-	
+
 	player.log(LOG_MESSAGE, u"Setting tag '%s' on object 0x%x from '%s' (%s) to '%s' (%s).\n" % (unicode(tagname), obj.serial, unicode(oldvalue), type(oldvalue).__name__, unicode(value), type(value).__name__))
 	obj.settag(tagname, value)
+	return
 
 #
 # Helper function for deleting a tag from an object
@@ -47,12 +48,13 @@ def deleteTag(player, obj, tagname):
 	oldvalue = None
 	if obj.hastag(tagname):
 		oldvalue = obj.gettag(tagname)
-		
+
 	if oldvalue == None:
 		return # Nothing changed
-	
+
 	player.log(LOG_MESSAGE, u"Deleting tag '%s' from object 0x%x. Value was '%s' (%s).\n" % (unicode(tagname), obj.serial, unicode(oldvalue), type(oldvalue).__name__))
 	obj.deltag(tagname)
+	return
 
 def str2bool( str ):
 	if str == "1" or str.upper() == "TRUE":
@@ -67,9 +69,6 @@ def info( socket, command, argstring ):
 
 	socket.attachtarget( "commands.info.infotargetresponse" )
 	return True
-
-def onLoad():
-	wolfpack.registercommand( "info", info )
 
 def infotargetresponse( char, args, target ):
 	if not char.socket:
@@ -135,11 +134,11 @@ def statictileinfo( socket, model, pos, tile ):
 	# Find the given static tile
 	statics = wolfpack.statics(pos.x, pos.y, pos.map, True)
 	color = 0
-	
-	for stile in statics:	
+
+	for stile in statics:
 		if stile[0] == model and stile[3] == pos.z:
 			color = stile[4]
-	
+
 	gump = cGump( 0, 0, 0, 0, 40 )
 
 	gump.addResizeGump( 0, 40, 0xA28, 450, 300 ) # Background
@@ -158,7 +157,7 @@ def statictileinfo( socket, model, pos, tile ):
 
 	# Wet ? Impassable ? At least these are the most interesting
 	gump.addCroppedText( 50, 220, 230, 40, "Properties: "+ tile['flagnames'], 0x834 )
-	
+
 	gump.addText( 50, 240, "Color : 0x%x" % color, 0x834 )
 
 	# OK button
@@ -583,10 +582,10 @@ def charinfo_response( player, args, choice ):
 	#if char.rank >= player.rank and not player == char:
 	#	socket.sysmessage( "You've burnt your fingers!" )
 	#	return True
-	
+
 	textentries = choice.text
 	keys = textentries.keys()
-		
+
 	for key in keys:
 		if key == 1:
 			if char.name != textentries[1]:
@@ -768,7 +767,7 @@ def charinfo_response( player, args, choice ):
 				player.log(LOG_MESSAGE, "Changing 'emotecolor' for character 0x%x from 0x%x to 0x%x.\n" % ( char.serial, char.emotecolor, value ) )
 				char.emotecolor = int( hex2dec( textentries[ key ] ) )
 		elif key == 37:
-			if ( textentries[key] ) == "female":				
+			if ( textentries[key] ) == "female":
 				value = 1
 			elif ( textentries[key] ) == "male":
 				value = 0
@@ -779,7 +778,7 @@ def charinfo_response( player, args, choice ):
 					value = char.gender
 				else:
 					value = int( textentries[ key ] )
-					
+
 			if char.gender != value:
 				player.log(LOG_MESSAGE, "Changing 'gender' for character 0x%x from %i to %i.\n" % ( char.serial, char.gender, value ) )
 				char.gender = value
@@ -789,11 +788,11 @@ def charinfo_response( player, args, choice ):
 					value = None
 				else:
 					value = wolfpack.findchar( int( hex2dec( textentries[ key ] ) ) )
-					
+
 				if value != char.owner:
 					player.log(LOG_MESSAGE, "Changing 'owner' for character 0x%x from %s to %s.\n" % ( char.serial, str(char.owner), str(value) ) )
 					char.owner = value
-					
+
 		elif key == 39:
 			if not char.npc:
 				value = int(hex2dec(textentries[key]))
@@ -815,7 +814,7 @@ def charinfo_response( player, args, choice ):
 				value = textentries[ key ]
 				if char.profile != value:
 					char.profile = textentries[ key ]
-				
+
 		elif key == 42:
 			pass
 
@@ -834,7 +833,7 @@ def charinfo_response( player, args, choice ):
 					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
-				
+
 				setTag(player, char, 'dmg_fire', value)
 		elif key == 47:
 			if char.npc:
@@ -842,7 +841,7 @@ def charinfo_response( player, args, choice ):
 					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
-				
+
 				setTag(player, char, 'dmg_cold', value)
 		elif key == 48:
 			if char.npc:
@@ -850,7 +849,7 @@ def charinfo_response( player, args, choice ):
 					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
-				
+
 				setTag(player, char, 'dmg_poison', value)
 		elif key == 49:
 			if char.npc:
@@ -858,7 +857,7 @@ def charinfo_response( player, args, choice ):
 					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
-				
+
 				setTag(player, char, 'dmg_energy', value)
 		elif key == 50:
 			if char.npc:
@@ -866,7 +865,7 @@ def charinfo_response( player, args, choice ):
 					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
-				
+
 				setTag(player, char, 'res_physical', value)
 		elif key == 51:
 			if char.npc:
@@ -874,7 +873,7 @@ def charinfo_response( player, args, choice ):
 					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
-				
+
 				setTag(player, char, 'res_fire', value)
 		elif key == 52:
 			if char.npc:
@@ -882,7 +881,7 @@ def charinfo_response( player, args, choice ):
 					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
-				
+
 				setTag(player, char, 'res_cold', value)
 		elif key == 53:
 			if char.npc:
@@ -890,7 +889,7 @@ def charinfo_response( player, args, choice ):
 					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
-				
+
 				setTag(player, char, 'res_poison', value)
 		elif key == 54:
 			if char.npc:
@@ -898,12 +897,12 @@ def charinfo_response( player, args, choice ):
 					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
-				
+
 				setTag(player, char, 'res_energy', value)
 
 	if choice.button == 1:
 		charinfo( socket, char )
-		
+
 	char.update()
 	return True
 
@@ -1260,7 +1259,7 @@ def iteminfo_response( player, args, choice ):
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'price', value)
 		#elif key == 16:
 		#	item.restock = int( hex2dec( textentries[ key ] ) )
@@ -1269,179 +1268,183 @@ def iteminfo_response( player, args, choice ):
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'timeunused', value)
 		elif key == 18:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'charges', value)
 		elif key == 19:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'maxcharges', value)
 		elif key == 20:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'req_str', value)
 		elif key == 21:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'req_dex', value)
 		elif key == 22:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'req_int', value)
 		elif key == 23:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'boni_str', value)
 		elif key == 24:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'boni_dex', value)
 		elif key == 25:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'boni_int', value)
 		elif key == 26:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'speed', value)
 		elif key == 27:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = textentries[key]
-				
+
 				setTag(player, item, 'resname', value)
 		elif key == 28:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = textentries[key]
-				
+
 				setTag(player, item, 'resname2', value)
 		elif key == 29:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'exceptional', value)
 		elif key == 30:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'res_physical', value)
 		elif key == 31:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'res_fire', value)
 		elif key == 32:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'res_cold', value)
 		elif key == 33:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'res_poison', value)
 		elif key == 34:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'res_energy', value)
 		elif key == 35:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'dmg_physical', value)
 		elif key == 36:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'dmg_fire', value)
 		elif key == 37:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'dmg_cold', value)
 		elif key == 38:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'dmg_poison', value)
 		elif key == 39:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'dmg_energy', value)
 		elif key == 40:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'mindamage', value)
 		elif key == 41:
 				if textentries[ key ] == '':
 					value = None
 				else:
 					value = int( hex2dec( textentries[key] ) )
-				
+
 				setTag(player, item, 'maxdamage', value)
 
 	if choice.button == 1:
 		iteminfo( socket, item )
-	
+
 	item.update()
 	return True
+
+def onLoad():
+	wolfpack.registercommand( "info", info )
+	return

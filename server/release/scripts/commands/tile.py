@@ -27,10 +27,10 @@ def tileResponse(player, arguments, target):
 	y2 = max(arguments[2].y, target.pos.y)
 	z = arguments[0]
 	ids = arguments[1]
-	
+
 	unlimited = player.account.authorized('Misc', 'Unlimited Tile')
 	count = ((x2 - x1) + 1) * ((y2 - y1) + 1)
-	
+
 	# Cap at 500 items if not an admin is using it
 	if not unlimited and count > 250:
 		player.socket.sysmessage('You are not allowed to tile more than 250 items at once.')
@@ -50,6 +50,8 @@ def tileResponse(player, arguments, target):
 			item.decay = 0
 			item.movable = 2 # Not Movable
 			item.update()
+
+	return
 
 #
 # Gather arguments and validate id list.
@@ -71,9 +73,11 @@ def commandTile(socket, command, arguments):
 
 	socket.sysmessage('Please select the first corner.')
 	socket.attachtarget('commands.tile.tileResponse', [z, ids])
+	return
 
 #
 # Register the command
 #
 def onLoad():
 	wolfpack.registercommand("tile", commandTile)
+	return

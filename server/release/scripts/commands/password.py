@@ -11,11 +11,6 @@ import wolfpack.accounts
 import string
 from wolfpack.consts import LOG_MESSAGE
 
-# Loads the command
-def onLoad():
-	wolfpack.registercommand( 'password', commandPassword )
-	return
-
 # Handles the password command
 def commandPassword( socket, cmd, args ):
 	char = socket.player
@@ -33,3 +28,8 @@ def commandPassword( socket, cmd, args ):
 	socket.sysmessage( "Your password has been changed." )
 	char.log( LOG_MESSAGE, "Account %s changed their password.\n" % char.serial )
 	return True
+
+# Loads the command
+def onLoad():
+	wolfpack.registercommand( 'password', commandPassword )
+	return

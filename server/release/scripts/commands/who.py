@@ -18,12 +18,9 @@ from wolfpack import tr
 import math
 from wolfpack.gumps import cGump
 
-def onLoad():
-	wolfpack.registercommand( "who", cmdWho )
-	return
-
 def cmdWho(socket, command, arguments):
 	showWhoGump(socket.player, 0)
+	return
 
 def showWhoGump(player, page):
 	current_page = page
@@ -85,6 +82,7 @@ def showWhoGump(player, page):
 	gump.setArgs( [ current_page ] )
 	gump.setCallback( callbackWho )
 	gump.send( player.socket )
+	return
 
 def callbackWho( char, args, choice ):
 	page = args[0]
@@ -100,6 +98,7 @@ def callbackWho( char, args, choice ):
 		serial = choice.button - 2
 		player = wolfpack.findchar(serial)
 		details(char, player)
+	return
 
 def details(char, player):
 	if not player.socket:
@@ -138,7 +137,7 @@ def details(char, player):
 	# Bring Char
 	gump.addButton( 20, 200, 0xFA5, 0xFA7, 2 )
 	gump.addText( 50, 200, unicode( "Bring char" ), 0x834 )
-	
+
 	if not player.jailed:
 		# Jail Char
 		gump.addButton( 20, 220, 0xFA5, 0xFA7, 3 )
@@ -175,14 +174,15 @@ def details(char, player):
 		installation = 'Renaissance'
 	else:
 		installation = 'The Second Age'
-	
+
 	# Client Version and Installation
 	gump.addText( 150, 300, unicode( "Client: %s (%s)" % (player.socket.version, installation) ), 0x834 )
-		
+
 	# Stuff and Send
 	gump.setCallback( callbackSocket )
 	gump.setArgs( [ player.serial ] )
 	gump.send( char.socket )
+	return
 
 def callbackSocket( char, args, choice ):
 	socket = char.socket
@@ -239,3 +239,7 @@ def callbackSocket( char, args, choice ):
 		return True
 
 	return True
+
+def onLoad():
+	wolfpack.registercommand( "who", cmdWho )
+	return

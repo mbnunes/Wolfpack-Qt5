@@ -18,11 +18,6 @@
 import wolfpack
 from wolfpack.consts import LOG_MESSAGE
 
-def onLoad():
-	wolfpack.registercommand( "kill", commandKill )
-	wolfpack.registercommand( "bolt", commandBolt )
-	return
-
 def commandKill(socket, cmd, args):
 	socket.sysmessage( "Please select the target to kill." )
 	socket.attachtarget( "commands.kill.dokill", [] )
@@ -50,3 +45,8 @@ def dobolt( char, args, target ):
 	if target.char and not target.char.dead:
 		target.char.lightning()
 		return True
+
+def onLoad():
+	wolfpack.registercommand( "kill", commandKill )
+	wolfpack.registercommand( "bolt", commandBolt )
+	return

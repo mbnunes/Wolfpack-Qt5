@@ -99,6 +99,8 @@ def serverinfo( socket, command, arguments ):
 
 	gump.addHtmlGump( x=20, y=20, width=240, height=360, html=text )
 	gump.send( char )
+	return
 
 def onLoad():
 	wolfpack.registercommand( "serverinfo", serverinfo )
+	return

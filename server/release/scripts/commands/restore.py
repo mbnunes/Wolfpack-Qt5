@@ -22,16 +22,13 @@
 import wolfpack
 from wolfpack.consts import LOG_MESSAGE, GRAY
 
-def onLoad():
-	wolfpack.registercommand( "restore", restore )
-	wolfpack.registercommand( "heal", heal )
-
 def restore( socket, command, arguments ):
 	try:
 		socket.attachtarget( "commands.restore.dorestore" )
 		socket.sysmessage( 'Target the character you wish to restore.' )
 	except:
 		socket.sysmessage( 'There was an error with restore.' )
+	return
 
 def dorestore( char, args, target ):
 	if target.item:
@@ -44,6 +41,7 @@ def dorestore( char, args, target ):
 		target.char.effect(0x376A, 9, 32)
 		target.char.soundeffect(0x202)
 		char.log( LOG_MESSAGE, "Restored 0x%x.\n" % target.char.serial )
+	return
 
 def heal( socket, command, arguments ):
 	try:
@@ -51,6 +49,7 @@ def heal( socket, command, arguments ):
 		socket.sysmessage( 'Target the character you wish to heal.' )
 	except:
 		socket.sysmessage( 'There was an error with heal.' )
+	return
 
 def doheal( char, args, target ):
 	if target.item:
@@ -61,3 +60,9 @@ def doheal( char, args, target ):
 		target.char.effect(0x376A, 9, 32)
 		target.char.soundeffect(0x202)
 		char.log( LOG_MESSAGE, "Healed 0x%x.\n" % target.char.serial )
+	return
+
+def onLoad():
+	wolfpack.registercommand( "restore", restore )
+	wolfpack.registercommand( "heal", heal )
+	return

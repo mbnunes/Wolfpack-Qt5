@@ -22,14 +22,9 @@
 
 import wolfpack
 
-def onLoad():
-	wolfpack.registercommand( "move", commandMove )
-	wolfpack.registercommand( "smove", commandMove )
-	return
-
 def commandMove( socket, cmd, args ):
 	moveself = cmd.upper() == 'SMOVE'
-	
+
 	char = socket.player
 	args = args.strip()
 	if len(args) == 0:
@@ -47,7 +42,7 @@ def commandMove( socket, cmd, args ):
 			except:
 				socket.sysmessage( "'%s' must be a number." % i )
 				return True
-			
+
 		if len( args ) >= 1 and len( args ) <= 4:
 			if len( args ) == 4:
 				xmod = int( args[0] )
@@ -71,8 +66,8 @@ def commandMove( socket, cmd, args ):
 				ymod = 0
 				zmod = 0
 				newmap = None
-				
-			if moveself:			
+
+			if moveself:
 				pos = char.pos
 				if newmap != None:
 					newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
@@ -84,7 +79,7 @@ def commandMove( socket, cmd, args ):
 				if char.socket:
 					char.socket.resendworld()
 				return True
-			else:				
+			else:
 				if newmap != None:
 					socket.sysmessage( "Please select a target to move %i,%i,%i,%i" % ( xmod, ymod, zmod, newmap ) )
 				else:
@@ -133,3 +128,8 @@ def response( char, args, target ):
 			char.socket.resendworld()
 		return True
 	return True
+
+def onLoad():
+	wolfpack.registercommand( "move", commandMove )
+	wolfpack.registercommand( "smove", commandMove )
+	return

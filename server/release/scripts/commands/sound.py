@@ -23,6 +23,8 @@ def sound( socket, command, arguments ):
 		socket.player.soundeffect( sound )
 	except:
 		socket.sysmessage( 'Usage: sound <sound-id>' )
+	return
 
 def onLoad():
 	wolfpack.registercommand( "sound", sound )
+	return

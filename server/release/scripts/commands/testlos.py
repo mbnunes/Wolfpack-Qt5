@@ -16,7 +16,8 @@ from wolfpack.consts import LOG_MESSAGE
 
 def testlos( socket, command, arguments ):
 	wolfpack.console.log( LOG_MESSAGE, "Message" )
+	return
 
 def onLoad():
 	wolfpack.registercommand( "testlos", testlos )
-
+	return

@@ -12,13 +12,13 @@ from wolfpack.consts import *
 
 def timer(char, args):
 	socket = char.socket
-	
+
 	if not socket or not socket.hastag('follow_target'):
 		return
-	
+
 	target_serial = socket.gettag('follow_target')
 	target = wolfpack.findchar(target_serial)
-	
+
 	if not target or target.pos.map == 0xFF:
 		message = tr('Stopped following 0x%x.') % target_serial
 		socket.sysmessage(message)
@@ -31,8 +31,9 @@ def timer(char, args):
 		char.moveto(target.pos)
 		char.update()
 		socket.resendworld()
-	
+
 	char.addtimer(1500, timer, [], False, False, 'FOLLOW_TIMER')
+	return
 
 # for the .who-menu
 def who_target(player, arguments, target):
@@ -46,6 +47,7 @@ def target(player, arguments, target):
 		player.socket.sysmessage(tr('You chose an invalid follow target.'))
 		return
 	dofollow( player, target)
+	return
 
 def dofollow( player, target):
 	if target.rank > player.rank:
@@ -54,10 +56,11 @@ def dofollow( player, target):
 
 	message = tr('Started following 0x%x.') % target.serial
 	player.socket.sysmessage(message)
-	player.socket.log(LOG_MESSAGE, message + "\n")	
+	player.socket.log(LOG_MESSAGE, message + "\n")
 	player.socket.settag('follow_target', target.serial)
 	player.dispel(None, True, 'FOLLOW_TIMER')
 	player.addtimer(1500, timer, [], False, False, 'FOLLOW_TIMER')
+	return
 
 def follow(socket, command, arguments):
 	socket.player.dispel(None, True, 'FOLLOW_TIMER')
@@ -68,6 +71,8 @@ def follow(socket, command, arguments):
 		socket.deltag('follow_target')
 	socket.sysmessage(tr('Choose a new character to follow.'))
 	socket.attachtarget('commands.follow.target', [])
+	return
 
 def onLoad():
 	wolfpack.registercommand('follow', follow)
+	return

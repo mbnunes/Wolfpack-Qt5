@@ -59,6 +59,7 @@ def sendresponse2(player, arguments, target):
 	if not object.ischar() or not object.socket:
 		return
 	object.socket.resendworld()
+	return
 
 def sendresponse(player, arguments, target):
 	if target.item:
@@ -122,6 +123,7 @@ def sendresponse(player, arguments, target):
 				object.socket.resendworld()
 		else:
 			player.socket.sysmessage('Usage: send <x, y, z, map>|<location>')
+	return
 
 #
 # Send an object to a given location
@@ -133,6 +135,7 @@ def send(socket, command, arguments):
 	else:
 		socket.sysmessage("Please choose the object you want to teleport.")
 		socket.attachtarget('commands.go.sendresponse', [])
+	return
 
 #
 # Shows a certain makemenu to the user.
@@ -196,6 +199,7 @@ def go(socket, command, arguments):
 		player.socket.resendworld()
 	else:
 		socket.sysmessage('Usage: <x, y, z, map>|<location>')
+	return
 
 #
 # This action moves the character to a given position
@@ -207,6 +211,7 @@ class GoAction(MakeAction):
 	def __init__(self, parent, title, pos):
 		MakeAction.__init__(self, parent, title)
 		self.pos = pos
+		return
 
 	#
 	# Teleport the user to the position of this
@@ -218,6 +223,7 @@ class GoAction(MakeAction):
 		player.moveto(self.pos)
 		player.update()
 		player.socket.resendworld()
+		return
 
 #
 # Generate a menu structure out of the
@@ -270,6 +276,7 @@ def generateGoMenu():
 		menu.sort()
 
 	gomenu.sort()
+	return
 
 #
 # Kommando registrieren.
@@ -277,7 +284,9 @@ def generateGoMenu():
 def onLoad():
 	wolfpack.registercommand('go', go)
 	wolfpack.registercommand('send', send)
+	return
 
 def onUnload():
 	global generated
 	generated = 0
+	return

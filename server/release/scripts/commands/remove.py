@@ -7,9 +7,6 @@ import wolfpack
 from wolfpack.consts import LOG_MESSAGE
 from wolfpack.utilities import hex2dec
 
-def onLoad():
-	wolfpack.registercommand( "remove", commandRemove )
-
 def commandRemove(socket, cmd, args):
 	if len(args) > 0:
 		serial = hex2dec(args)
@@ -70,3 +67,7 @@ def doRemove( char, args, target ):
 	else:
 		char.socket.sysmessage( "This was not a valid object for deletion!" )
 		return False
+
+def onLoad():
+	wolfpack.registercommand( "remove", commandRemove )
+	return

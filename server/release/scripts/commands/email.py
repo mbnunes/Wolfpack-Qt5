@@ -11,11 +11,6 @@ import wolfpack.accounts
 import string
 from wolfpack.consts import LOG_MESSAGE
 
-# Loads the command
-def onLoad():
-	wolfpack.registercommand( 'email', commandEmail )
-	return
-
 # Handles the email command
 def commandEmail( socket, cmd, args ):
 	char = socket.player
@@ -33,3 +28,8 @@ def commandEmail( socket, cmd, args ):
 	socket.sysmessage( "Your email has been changed." )
 	char.log( LOG_MESSAGE, "Account %s changed their email.\n" % account.name )
 	return True
+
+# Loads the command
+def onLoad():
+	wolfpack.registercommand( 'email', commandEmail )
+	return

@@ -21,7 +21,7 @@ def response(player, arguments, response):
 
 	if not target:
 		return False
-		
+
 	# Switch Page
 	if response.button & 0x1000 != 0:
 		page = response.button & 0xFFF
@@ -32,8 +32,8 @@ def response(player, arguments, response):
 	for skill in range( 0, ALLSKILLS ):
 		if not response.text.has_key(0x1000 | skill) or not response.text.has_key(0x2000 | skill):
 			continue
-		
-		try:		
+
+		try:
 			newvalue = int(floor(float(response.text[0x1000 | skill]) * 10))
 			newcap = int(floor(float(response.text[0x2000 | skill]) * 10))
 		except:
@@ -55,10 +55,10 @@ def response(player, arguments, response):
 def showgump(player, target, page):
 	# 80 pixel diameter
 	pages = int(ceil(ALLSKILLS / 5.0))
-	
+
 	if page > pages:
-		return	
-	
+		return
+
 	dialog = wolfpack.gumps.cGump()
 	dialog.setCallback(response)
 	dialog.setArgs([target.serial])
@@ -127,6 +127,7 @@ def callback(player, arguments, target):
 		return
 
 	showgump(player, target.char, 0)
+	return
 
 #
 # Show the skillinfo target
@@ -134,9 +135,11 @@ def callback(player, arguments, target):
 def edit(socket, command, arguments):
 	socket.sysmessage('Please select a character whose skills you want to view.')
 	socket.attachtarget('commands.skillinfo.callback', [])
+	return
 
 #
 # Skillinfo debugging command
 #
 def onLoad():
 	wolfpack.registercommand('skillinfo', edit)
+	return

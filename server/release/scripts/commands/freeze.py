@@ -29,6 +29,8 @@ def response( char, args, target ):
 		target.char.resendtooltip()
 	else:
 		char.socket.sysmessage( 'That was not a valid object.', GRAY )
+	return
 
 def onLoad():
 	wolfpack.registercommand( "freeze", freeze )
+	return

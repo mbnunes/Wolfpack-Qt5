@@ -47,5 +47,8 @@ def where( socket, command, arguments ):
 	else:
 		socket.sysmessage( "You are at %d,%d,%d on %s" % ( pos.x, pos.y, pos.z, map ) )
 
+	return
+
 def onLoad():
 	wolfpack.registercommand( "where", where )
+	return

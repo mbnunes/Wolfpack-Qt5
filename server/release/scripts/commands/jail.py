@@ -29,34 +29,35 @@ def jailPlayer(player, target, tojail = True):
 
 	if tojail:
 		target.settag('unjail_pos', str(target.pos))
-		
+
 		target.removefromview()
 		target.moveto(JAIL_POS)
 		target.update()
 		if target.socket:
-			target.socket.resendworld()		
-		
+			target.socket.resendworld()
+
 		player.log(LOG_MESSAGE, 'Jailed player %s (0x%x).\n' % (target.orgname, target.serial))
 		player.socket.sysmessage(tr('The targetted player has been jailed.'))
 		target.message(503268) # You've been jailed
 	else:
 		player.log(LOG_MESSAGE,'Unjailed player %s (0x%x).\n' % (target.orgname, target.serial))
-		player.socket.sysmessage(tr('The targetted player has been unjailed.'))	
-	
+		player.socket.sysmessage(tr('The targetted player has been unjailed.'))
+
 		# Send back to original position
-		unjail_pos = target.gettag('unjail_pos')		
+		unjail_pos = target.gettag('unjail_pos')
 		if unjail_pos and unjail_pos.count(',') == 3:
 			(x, y, z, map) = unjail_pos.split(',')
-		
-			if map != 0xFF:		
+
+			if map != 0xFF:
 				target.removefromview()
 				target.moveto(wolfpack.coord(int(x), int(y), int(z), int(map)))
 				target.update()
 				if target.socket:
 					target.socket.resendworld()
 
-		target.deltag('unjail_pos')	
-		target.message(503267) # You've been unjailed		
+		target.deltag('unjail_pos')
+		target.message(503267) # You've been unjailed
+	return
 
 def response(player, arguments, target):
 	if not target.char or not target.char.player:
@@ -68,15 +69,19 @@ def response(player, arguments, target):
 		return
 
 	jailPlayer(player, target.char, arguments[0])
+	return
 
 def jail(socket, command, arguments):
 	socket.sysmessage(tr('Target the player you want to send to jail.'))
 	socket.attachtarget('commands.jail.response', [1])
-	
+	return
+
 def forgive(socket, command, arguments):
 	socket.sysmessage(tr('Target the player you want to release from jail.'))
 	socket.attachtarget('commands.jail.response', [0])
+	return
 
 def onLoad():
 	wolfpack.registercommand('jail', jail)
 	wolfpack.registercommand('forgive', forgive)
+	return

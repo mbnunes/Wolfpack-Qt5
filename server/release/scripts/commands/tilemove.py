@@ -59,10 +59,10 @@ def tileResponse(player, arguments, target):
 	x2 = max( arguments[6].x, target.pos.x )
 	y1 = min( arguments[6].y, target.pos.y )
 	y2 = max( arguments[6].y, target.pos.y )
-		
+
 	unlimited = player.account.authorized("Misc", "Unlimited Tile")
 	count = ((x2 - x1) + 1) * ((y2 - y1) + 1)
-	
+
 	# Cap at 250 items if not an admin is using it
 	if( not unlimited and count > 250 ):
 		player.socket.sysmessage( "You are not allowed to move more than 250 items at once." )
@@ -77,7 +77,7 @@ def tileResponse(player, arguments, target):
 	# because moving them inside the rectangle will change the iterator
 	while item:
 		z = item.pos.z
-	
+
 		if mode == MODE_NONE:
 			items.append( item )
 		elif mode == MODE_EQUAL and z == z0:
@@ -106,6 +106,7 @@ def tileResponse(player, arguments, target):
 		count += 1
 
 	socket.sysmessage( "%i items moved" % count )
+	return
 
 #
 # Gather arguments and validate id list.
@@ -157,13 +158,13 @@ def commandTileMove(socket, command, arguments):
 		except:
 			socket.sysmessage( "'%s' must be a number." % i )
 			return True
-	        
+
 	if( len(arguments) < 1 or len(arguments) > 4 ):
-	        socket.sysmessage( "Usage: tilemove [z0] x" )
-	        socket.sysmessage( "Usage: tilemove [z0] x[,y]" )
-	        socket.sysmessage( "Usage: tilemove [z0] x[,y][,z]" )
-	        socket.sysmessage( "Usage: tilemove [z0] x[,y][,z][,map]" )
-	        return False
+		socket.sysmessage( "Usage: tilemove [z0] x" )
+		socket.sysmessage( "Usage: tilemove [z0] x[,y]" )
+		socket.sysmessage( "Usage: tilemove [z0] x[,y][,z]" )
+		socket.sysmessage( "Usage: tilemove [z0] x[,y][,z][,map]" )
+		return False
 
 	if len( arguments ) == 4:
 		xmod = int( arguments[0] )
@@ -200,3 +201,4 @@ def commandTileMove(socket, command, arguments):
 #
 def onLoad():
 	wolfpack.registercommand( "tilemove", commandTileMove )
+	return

@@ -15,11 +15,6 @@
 import wolfpack
 import wolfpack.accounts
 
-def onLoad():
-	wolfpack.registercommand( "kick", commandKick )
-	wolfpack.registercommand( "ban", commandBan )
-	wolfpack.registercommand( "unban", commandUnban )
-
 def commandKick( socket, cmd, args ):
 	if len( args ) > 0:
 		accname = args.lower()
@@ -98,3 +93,9 @@ def accountAction( socket, account, action ):
 					socket.sysmessage( "You have kick-banned %s." % char.name )
 			return True
 	return False
+
+def onLoad():
+	wolfpack.registercommand( "kick", commandKick )
+	wolfpack.registercommand( "ban", commandBan )
+	wolfpack.registercommand( "unban", commandUnban )
+	return

@@ -14,12 +14,6 @@
 """
 import wolfpack
 
-# Loads the command
-def onLoad():
-	wolfpack.registercommand( 'fix', commandFix )
-	wolfpack.registercommand( 'resend', commandFix )
-	return
-
 def commandFix( socket, cmd, args ):
 	char = socket.player
 	socket.sysmessage( "Resending the world, please wait." )
@@ -28,3 +22,9 @@ def commandFix( socket, cmd, args ):
 	#socket.resendworld()
 	socket.sysmessage( "Resend complete." )
 	return True
+
+# Loads the command
+def onLoad():
+	wolfpack.registercommand( 'fix', commandFix )
+	wolfpack.registercommand( 'resend', commandFix )
+	return

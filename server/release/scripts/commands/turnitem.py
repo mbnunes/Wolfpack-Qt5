@@ -170,12 +170,10 @@ TURNDEEDS = {
 	\usage - <code>turnitem</code>
 """
 
-def onLoad():
-	wolfpack.registercommand( "turnitem", turnitem )
-
 def turnitem( socket, command, arguments ):
 	socket.sysmessage( "Target the object you would like to turn." )
 	socket.attachtarget( "commands.turnitem.targetitem", [] )
+	return
 
 def targetitem( char, args, target ):
 	socket = char.socket
@@ -218,3 +216,7 @@ def targetitem( char, args, target ):
 	else:
 		socket.sysmessage("This item is not turnable.")
 		return True
+
+def onLoad():
+	wolfpack.registercommand( "turnitem", turnitem )
+	return

@@ -94,36 +94,36 @@ def onLoad():
 	Parse multi txt file
 """
 def parseMulti( file, pos ):
-  warnings = ''
-  count = 0
-  for line in file:
-    # Replace \r and \n's
-    line = line.replace( "\r", "" )
-    line = line.replace( "\n", "" )
+	warnings = ''
+	count = 0
+	for line in file:
+		# Replace \r and \n's
+		line = line.replace( "\r", "" )
+		line = line.replace( "\n", "" )
 
 
-    if len(line.split(' ')) != 5:
-      continue
+		if len(line.split(' ')) != 5:
+			continue
 
-    ( id, x, y, z, show ) = line.split(' ')
+		( id, x, y, z, show ) = line.split(' ')
 
-    if not int(show):
-      continue
+		if not int(show):
+			continue
 
-    id = hex2dec( id )
-    x = int( x )
-    y = int( y )
-    z = int( z )
-    newitem = wolfpack.newitem(1) # Generate a new serial for us
+		id = hex2dec( id )
+		x = int( x )
+		y = int( y )
+		z = int( z )
+		newitem = wolfpack.newitem(1) # Generate a new serial for us
 
-    newitem.decay = 0
-    newitem.id = id
+		newitem.decay = 0
+		newitem.id = id
 
-    newitem.moveto( pos.x + x, pos.y + y, pos.z + z, pos.map, 1 )
-    newitem.update()
-    count += 1
+		newitem.moveto( pos.x + x, pos.y + y, pos.z + z, pos.map, 1 )
+		newitem.update()
+		count += 1
 
-  return ( count, warnings )
+	return ( count, warnings )
 
 """
 	Parse .txt file
@@ -454,3 +454,4 @@ def callback( char, args, choice ):
 	gump.addButton( x=310, y=250, up=0x26af, down=0x26b1, returncode=0 )
 
 	gump.send( char )
+	return

@@ -84,6 +84,7 @@ def taginfo_callback(player, tagnames, response):
 				player.log(LOG_MESSAGE, u"Setting tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), object.serial, unicode(value), type(value).__name__))
 				object.deltag(tagnames[i])
 				object.settag(name, value)
+	return
 
 def taginfo_response(player, arguments, target):
 	if target.char:
@@ -159,6 +160,7 @@ def taginfo_response(player, arguments, target):
 			dialog.addText(405, 147 + yoffset, "Number", 2100)
 
 	dialog.send(player)
+	return
 
 #
 # Tag info
@@ -166,6 +168,7 @@ def taginfo_response(player, arguments, target):
 def commandTaginfo(socket, command, arguments):
 	socket.sysmessage("Select an object you want to use this command on.")
 	socket.attachtarget("commands.tags.taginfo_response", [])
+	return
 
 #
 # Target response
@@ -206,6 +209,8 @@ def settagResponse(player, arguments, target):
 	else:
 		player.socket.sysmessage('You need to target a character or an item.')
 
+	return
+
 #
 # Sets a tag for the item
 #
@@ -236,6 +241,7 @@ def commandSettag(socket, command, arguments):
 		return
 
 	socket.attachtarget("commands.tags.settagResponse", [name, value])
+	return
 
 #
 # Target response
@@ -270,6 +276,8 @@ def deltagResponse(player, arguments, target):
 
 	else:
 		player.socket.sysmessage('You need to target a character or an item.')
+
+	return
 
 #
 # Target response
@@ -306,6 +314,7 @@ def gettagResponse(player, arguments, target):
 		typename = 'float'
 
 	player.socket.sysmessage("The %s value for tag '%s' is: %s" % (typename, name, str(value)))
+	return
 
 #
 # Gets a tag from the item
@@ -317,6 +326,7 @@ def commandGettag(socket, command, arguments):
 
 	socket.sysmessage("From which object do you want to get tag '%s'?" % arguments)
 	socket.attachtarget("commands.tags.gettagResponse", [arguments])
+	return
 
 #
 # Delete a tag
@@ -328,6 +338,7 @@ def commandDeltag(socket, command, arguments):
 
 	socket.sysmessage("From which object do you want to remove the tag '%s'?" % arguments)
 	socket.attachtarget("commands.tags.deltagResponse", [arguments])
+	return
 
 #
 # Register the command with the server
@@ -337,3 +348,4 @@ def onLoad():
 	wolfpack.registercommand('gettag', commandGettag)
 	wolfpack.registercommand('deltag', commandDeltag)
 	wolfpack.registercommand('taginfo', commandTaginfo)
+	return

@@ -9,10 +9,6 @@
 import wolfpack
 from wolfpack.consts import LOG_MESSAGE
 
-def onLoad():
-	wolfpack.registercommand( "resurrect", resurrect )
-	return
-
 def resurrect( socket, command, arguments ):
 	socket.sysmessage( "Whom do you wish to resurrect?" )
 	socket.attachtarget( "commands.resurrect.response", [] )
@@ -44,3 +40,7 @@ def response( char, args, target ):
 		char.socket.sysmessage( 'This object can not be resurrected!', GRAY )
 		return False
 	return True
+
+def onLoad():
+	wolfpack.registercommand( "resurrect", resurrect )
+	return

@@ -74,9 +74,7 @@ nonsaves = [ \
 def exportcmd( socket, command, arguments ):
 	socket.sysmessage( "Target the upper left corner of the area you want to export." )
 	socket.attachtarget( "commands.export.callback", [] )
-
-def onLoad():
-	wolfpack.registercommand( "export", exportcmd )
+	return
 
 def callback( char, args, target ):
 	socket = char.socket
@@ -132,19 +130,19 @@ def callback( char, args, target ):
 
 def export( char, args, choice ):
 	if choice.button != 1 or len( args ) != 4:
-		return 1
+		return False
 
 	filename = choice.text[1]
 
 	if len( choice.switches ) != 1:
 		char.socket.sysmessage( "Error: len(choice.switches) != 1." )
-		return 1
+		return False
 
 	format = choice.switches[0]
 
 	if len( filename ) == 0:
 		char.socket.sysmessage( "Error: You need to provide a valid filename." )
-		return 1
+		return False
 
 	# Open the output file
 	output = open( filename, "wb" )	# Note that we *force* the output to have lines terminated with \n\r
@@ -229,3 +227,8 @@ def export( char, args, choice ):
 	gump.addButton( x=310, y=250, up=0x26af, down=0x26b1, returncode=0 )
 
 	gump.send( char )
+	return True
+
+def onLoad():
+	wolfpack.registercommand( "export", exportcmd )
+	return

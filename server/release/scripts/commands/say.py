@@ -15,6 +15,7 @@ def say( socket, command, arguments ):
 		return True
 	socket.sysmessage( "" )
 	socket.attachtarget( "commands.say.saytarget", [ arguments ] )
+	return
 
 def saytarget( char, args, target ):
 	if target.char:
@@ -23,10 +24,12 @@ def saytarget( char, args, target ):
 		target.item.say( unicode(args[0]) )
 	else:
 		char.socket.sysmessage( "That's not a valid object." )
+	return
 
 def onLoad():
 	wolfpack.registercommand( "say", say )
-	
+	return
+
 """
 	\command say
 	\description Let a char say the text or show the text over an item.

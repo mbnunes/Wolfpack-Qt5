@@ -50,11 +50,6 @@ import string
 from wolfpack.utilities import hex2dec
 from wolfpack.consts import LOG_MESSAGE
 
-# Loads the command
-def onLoad():
-	wolfpack.registercommand( 'account', commandAccount )
-	return
-
 # Handles the account command
 def commandAccount( socket, cmd, args ):
 	char = socket.player
@@ -415,3 +410,8 @@ def accountSet( socket, username, key, value ):
 	else:
 		socket.sysmessage( "Error: Account %s could not be located!" % username )
 		return True
+
+# Loads the command
+def onLoad():
+	wolfpack.registercommand( 'account', commandAccount )
+	return

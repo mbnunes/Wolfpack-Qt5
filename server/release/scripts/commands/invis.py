@@ -12,10 +12,6 @@
 import wolfpack
 from wolfpack.utilities import booleantoggle
 
-def onLoad():
-	wolfpack.registercommand( "invis", commandInvis )
-	return
-
 def commandInvis( socket, cmd, args ):
 	char = socket.player
 	char.removefromview()
@@ -23,3 +19,7 @@ def commandInvis( socket, cmd, args ):
 	char.update()
 	socket.sysmessage( "Invisible is now '%i'." % char.invisible )
 	return True
+
+def onLoad():
+	wolfpack.registercommand( "invis", commandInvis )
+	return
