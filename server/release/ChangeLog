@@ -51,6 +51,9 @@ Wolfpack 12.9.13 Beta (CVS)
   - Added the ability to make yourself visible to other players.
   - Guildbutton now triggers onGuildButton(player) python event.
   - Fixed bug #0000376. (Stablemasters don't take money from the bank)
+  - Added "Refresh Characters Maximum Values" setting. Setting this to "false" will disable the automatic 
+    recalculation of Maxhitpoints/Maxmana/Maxstamina.
+  - Added a warning in the console if translation file could not be found.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.

@@ -148,6 +148,7 @@ protected:
 	double tamedNpcMoveTime_;
 	unsigned int showNpcTitles_;
 	unsigned char maxCharsPerAccount_;
+	bool refreshMaxValues_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -221,6 +222,10 @@ public:
 	unsigned int animalWildFleeRange() const;
 	float checkFollowTime() const;
 	float checkTamedTime() const;
+	bool refreshMaxValues() const
+	{
+		return refreshMaxValues_;
+	}
 	bool antiSpeedHack() const
 	{
 		return antiSpeedHack_;
