@@ -3741,11 +3741,11 @@ bool cChar::onShowContext( cUObject *object )
 	return false;
 }
 
-bool cChar::onShowTooltip( P_CHAR sender )
+bool cChar::onShowTooltip( P_CHAR sender, cUOTxTooltipList* tooltip )
 {
 
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onShowToolTip( sender, this  ) )
+		if( scriptChain[ i ]->onShowToolTip( sender, this, tooltip  ) )
 			return true;
 
 	return false;

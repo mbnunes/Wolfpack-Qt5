@@ -40,6 +40,7 @@ class cChar;
 class Coord_cl;
 class AccountRecord;
 class cTerritory;
+class cUOTxTooltipList;
 
 typedef cItem* P_ITEM;
 typedef cChar* P_CHAR;
@@ -74,6 +75,8 @@ inline void wpDealloc( PyObject* self )
 {
     PyObject_Del( self );
 }
+
+PyObject *PyGetTooltipObject( cUOTxTooltipList* );
 
 bool checkWpSocket( PyObject *object );
 PyObject *PyGetSocketObject( cUOSocket* );

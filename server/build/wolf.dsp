@@ -1396,6 +1396,10 @@ SOURCE=.\python\pyregion.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\python\pytooltip.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\python\skills.h
 # End Source File
 # Begin Source File
