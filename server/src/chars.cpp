@@ -51,6 +51,7 @@
 #include "utilsys.h"
 #include "network.h"
 #include "mapstuff.h"
+#include "classes.h"
 
 // Inline members
 
@@ -1092,3 +1093,373 @@ bool cChar::onCollideChar( P_CHAR Obstacle )
 	return false;
 }
 
+void cChar::processNode( QDomElement &Tag )
+{
+	QString TagName = Tag.nodeName();
+	QString Value;
+	QDomNodeList ChildTags;
+
+	if( Tag.hasChildNodes() )
+		Value = this->getNodeValue( Tag );
+
+	//<name>my this</name>
+	if( TagName == "name" )
+		this->name = Value;
+		
+	//<backpack>
+	//	<color>0x132</color>
+	//	<item id="a">
+	//	...
+	//	<item id="z">
+	//</backpack>
+	else if( TagName == "backpack" )
+	{
+		if( this->packitem == INVALID_SERIAL )
+		{
+			P_ITEM pBackpack = Items->SpawnItem( -1, this, 1, "Backpack", 0, 0x0E,0x75,0,0,0);
+			if( pBackpack == NULL )
+			{
+				Npcs->DeleteChar( this );
+				return;
+			}
+			
+			this->packitem = pBackpack->serial;
+			
+			pBackpack->pos.x = 0;
+			pBackpack->pos.y = 0;
+			pBackpack->pos.z = 0;
+			pBackpack->setContSerial(this->serial);
+			pBackpack->setLayer( 0x15 );
+			pBackpack->setType( 1 );
+			pBackpack->dye=1;
+
+			if( Tag.hasChildNodes() )
+				pBackpack->applyDefinition( Tag );
+		}
+	}
+
+	//<carve>3</carve>
+	else if( TagName == "carve" ) 
+		this->setCarve( Value.toInt() );
+
+	//<cantrain />
+	else if( TagName == "cantrain" )
+		this->setCantrain( true );
+
+	//<direction>SE</direction>
+	else if( TagName == "direction" )
+	{
+		if( Value == "NE" )
+			this->dir=1;
+		else if( Value == "E" )
+			this->dir=2;
+		else if( Value == "SE" )
+			this->dir=3;
+		else if( Value == "S" )
+			this->dir=4;
+		else if( Value == "SW" )
+			this->dir=5;
+		else if( Value == "W" )
+			this->dir=6;
+		else if( Value == "NW" )
+			this->dir=7;
+		else if( Value == "N" )
+			this->dir=0;
+	}
+
+	//<stat type="str">100</stats>
+	else if( TagName == "stat" )
+	{
+		if( Tag.attributes().contains("type") )
+		{
+			QString statType = Tag.attributeNode("type").nodeValue();
+			if( statType == "str" )
+			{
+				this->st = Value.toShort();
+				this->st2 = this->st;
+				this->hp = this->st;
+			}
+			else if( statType == "dex" )
+			{
+				this->setDex( Value.toShort() );
+				this->stm = this->realDex();
+			}
+			else if( statType == "int" )
+			{
+				this->in = Value.toShort();
+				this->in2 = this->in;
+				this->mn = this->in;
+			}
+		}
+	}
+
+	//<defense>10</defense>
+	else if( TagName == "defense" )
+		this->def = Value.toUInt();
+
+	//<attack>10</attack>
+	else if( TagName == "attack" )
+		this->att = Value.toUInt();
+
+	//<emotecolor>0x482</emotecolor>
+	else if( TagName == "emotecolor" )
+		this->emotecolor = Value.toUShort();
+
+	//<fleeat>10</fleeat>
+	else if( TagName == "fleeat" )
+		this->setFleeat( Value.toShort() );
+
+	//<fame>8000</fame>
+	else if( TagName == "fame" )
+		this->fame = Value.toInt();
+
+	//<gold>100</gold>
+	else if( TagName == "gold" )
+	{
+		if( this->packitem != INVALID_SERIAL )
+		{
+			P_ITEM pGold = Items->SpawnItem(this,1,"#",1,0x0EED,0,1);
+			if(pGold == NULL)
+			{
+				Npcs->DeleteChar(this);
+				return;
+			}
+			pGold->priv |= 0x01;
+
+			pGold->setAmount( Value.toInt() );
+		}
+	}
+
+	//<hidamage>10</hidamage>
+	else if( TagName == "hidamage" )
+		this->hidamage = Value.toInt();
+
+#pragma note("Hair color tag not yet implemented!")
+/*
+	//<haircolor>2</haircolor> (colorlist)
+	else if( TagName == "haircolor" )
+	{
+		unsigned short haircolor = addrandomhaircolor(this, (this*)Value.latin1());
+		if( haircolor != -1 )
+			this->setHairColor( haircolor );
+	}
+*/
+
+	//<id>0x11</id>
+	else if( TagName == "id" )
+	{
+		this->setId( Value.toUShort() );
+		this->xid = this->id();
+	}
+
+	//<karma>-500</karma>
+	else if( TagName == "karma" )
+		this->karma = Value.toInt();
+
+	//<loot>3</loot>
+	else if( TagName == "loot" )
+	{
+		if( this->packitem != INVALID_SERIAL )
+			Npcs->AddRandomLoot( FindItemBySerial(this->packitem), (char*)Value.latin1() );
+	}
+
+	//<lodamage>10</lodamage>
+	else if( TagName == "lodamage" )
+		this->lodamage = Value.toInt();
+
+	//<notrain />
+	else if( TagName == "notrain" )
+		this->setCantrain( false );
+
+	//<npcwander type="rectangle" x1="-10" x2="12" y1="5" y2="7" />
+	//<......... type="rect" ... />
+	//<......... type="3" ... />
+	//<......... type="circle" radius="10" />
+	//<......... type="2" ... />
+	//<......... type="free" (or "1") />
+	//<......... type="none" (or "0") />
+	else if( TagName == "npcwander" )
+	{
+		if( Tag.attributes().contains("type") )
+		{
+			QString wanderType = Tag.attributeNode("type").nodeValue();
+			if( wanderType == "rectangle" || wanderType == "rect" || wanderType == "3" )
+				if( Tag.attributes().contains("x1") &&
+					Tag.attributes().contains("x2") &&
+					Tag.attributes().contains("y1") &&
+					Tag.attributes().contains("y2") )
+				{
+					this->npcWander = 3;
+					this->fx1 = this->pos.x + Tag.attributeNode("x1").nodeValue().toInt();
+					this->fx2 = this->pos.x + Tag.attributeNode("x2").nodeValue().toInt();
+					this->fy1 = this->pos.y + Tag.attributeNode("y1").nodeValue().toInt();
+					this->fy2 = this->pos.y + Tag.attributeNode("y2").nodeValue().toInt();
+					this->fz1 = -1;
+				}
+			else if( wanderType == "circle" || wanderType == "2" )
+			{
+				this->npcWander = 2;
+				this->fx1 = this->pos.x;
+				this->fy1 = this->pos.y;
+				this->fz1 = this->pos.z;
+				if( Tag.attributes().contains("radius") )
+					this->fx2 = Tag.attributeNode("radius").nodeValue().toInt();
+				else
+					this->fx2 = 2;
+			}
+			else if( wanderType == "free" || wanderType == "1" )
+				this->npcWander = 1;
+			else
+				this->npcWander = 0; //default
+		}
+	}
+	//<ai>2</ai>
+	else if( TagName == "ai" )
+		this->setNpcAIType( Value.toInt() );
+
+	//<onhorse />
+	else if( TagName == "onhorse" )
+		this->setOnHorse( true );
+	//<priv1>0</priv1>
+	else if( TagName == "priv1" )
+		this->setPriv( Value.toUShort() );
+
+	//<priv2>0</priv2>
+	else if( TagName == "priv2" )
+		this->priv2 = Value.toUShort();
+	//<poison>2</poison>
+	else if( TagName == "poison" )
+		this->setPoison( Value.toInt() );
+	//<reattackat>40</reattackat>
+	else if( TagName == "reattackat" )
+		this->setReattackat( Value.toShort() );
+
+	//<skin>0x342</skin>
+	else if( TagName == "skin" )
+	{
+		this->setSkin( Value.toUShort() );
+		this->setXSkin( Value.toUShort() );
+	}
+
+	//<shopkeeper>
+	//	<sellitems>...handled like item-<contains>-section...</sellitems>
+	//	<shopitems>...see above...</shopitems>
+	//	<rshopitems>...see above...</rshopitems>
+	//</shopkeeper>
+	else if( TagName == "shopkeeper" )
+	{
+		Commands->MakeShop( this );
+		QDomNode childNode;
+		for( childNode = Tag.firstChild(); !childNode.isNull(); childNode = Tag.nextSibling() )
+		{
+			QDomElement currNode = childNode.toElement();
+			
+			if( !currNode.hasChildNodes() )
+				continue;
+
+			unsigned char contlayer = 0;
+			if( currNode.nodeName() == "rshopitems" )
+				contlayer = 0x1A;
+			else if( currNode.nodeName() == "shopitems" )
+				contlayer = 0x1B;
+			else if( currNode.nodeName() == "sellitems" )
+				contlayer = 0x1C;
+			else 
+				continue;
+				
+			P_ITEM contItem = this->GetItemOnLayer( contlayer );
+			if( contItem != NULL )
+				contItem->processContainerNode( currNode );
+		}
+	}
+		
+	//<spattack>3</spattack>
+	else if( TagName == "spattack" )
+		this->spattack = Value.toInt();
+
+	//<speech>13</speech>
+	else if( TagName == "speech" )
+		this->speech = Value.toUShort();
+
+	//<split>1</split>
+	else if( TagName == "split" )
+		this->setSplit( Value.toUShort() );
+
+	//<splitchance>10</splitchance>
+	else if( TagName == "splitchance" )
+		this->setSplitchnc( Value.toUShort() );
+
+	//<saycolor>0x110</saycolor>
+	else if( TagName == "saycolor" )
+		this->saycolor = Value.toUShort();
+
+	//<spadelay>3</spadelay>
+	else if( TagName == "spadelay" )
+		this->spadelay = Value.toInt();
+
+	//<stablemaster />
+	else if( TagName == "stablemaster" )
+		this->setNpc_type(1);
+
+	//<title>the king</title>
+	else if( TagName == "title" )
+		this->setTitle( Value );
+
+	//<totame>115</totame>
+	else if( TagName == "totame" )
+		this->taming = Value.toInt();
+
+	//<trigger>3</trigger>
+	else if( TagName = "trigger" )
+		this->setTrigger( Value.toInt() );
+
+	//<trigword>abc</trigword>
+	else if( TagName == "trigword" )
+		this->setTrigword( Value );
+
+	//<skill type="alchemy">100</skill>
+	//<skill type="1">100</skill>
+	else if( TagName == "skill" && Tag.attributes().contains("type") )
+	{
+		if( Tag.attributeNode("type").nodeValue().toInt() > 0 &&
+			Tag.attributeNode("type").nodeValue().toInt() <= ALLSKILLS )
+			this->setBaseSkill((Tag.attributeNode("type").nodeValue().toInt() - 1), Value.toInt());
+		else
+			for( UI32 j = 0; j < ALLSKILLS; j++ )
+				if( Tag.attributeNode("type").nodeValue().contains( QString(skillname[j]), false ) )
+					this->setBaseSkill(j, Value.toInt());
+	}
+
+	//<equipped>
+	//	<item id="a" />
+	//	<item id="b" />
+	//	...
+	//</epuipped>
+	else if( TagName == "equipped" )
+	{
+		QDomNode childNode;
+		for( childNode = Tag.firstChild(); !childNode.isNull(); childNode = Tag.nextSibling() )
+		{
+			QDomElement currChild = childNode.toElement();
+			if( currChild.nodeName() == "item" && currChild.attributes().contains("id") )
+			{
+				P_ITEM nItem = Items->createScriptItem( currChild.attributeNode("id").nodeValue() );
+				if( nItem == NULL )
+					continue;
+				else if( nItem->layer() == 0 )
+				{
+					Items->DeleItem( nItem );
+					continue;
+				}
+				else
+					nItem->setContSerial( this->serial );
+
+				if( currChild.hasChildNodes() )  // color
+					nItem->applyDefinition( currChild.toElement() );
+			}
+		}
+	}
+
+	else
+		cUObject::processNode( Tag );
+}

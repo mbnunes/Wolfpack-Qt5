@@ -45,7 +45,6 @@
 #include "srvparams.h"
 #include "wpdefmanager.h"
 #include "wpdefaultscript.h"
-#include "wpxmlparser.h"
 #include "mapstuff.h"
 #include "network.h"
 #include "classes.h"
@@ -1928,9 +1927,9 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 	P_ITEM nItem = NULL;
 
 	// Get an Item and assign a serial to it
-	cWPXMLParser Parser( WPDT_ITEM );
+	QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, Section );
 	
-	if( !Parser.prepareParsing( Section ) ) // section not found i.e.
+	if( DefSection->isNull() ) // section not found 
 		clConsole.log( "Unable to create unscripted Item: %s", Section.latin1() );
 	else
 	{
@@ -1938,7 +1937,7 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 		nItem->Init( true );
 		cItemsManager::getInstance()->registerItem( nItem );
 		
-		Parser.applyNodes( nItem );
+		nItem->applyDefinition( *DefSection );
 	}
 
 	return nItem;
@@ -1978,3 +1977,276 @@ bool cItem::onTalkToItem( P_CHAR Talker, const QString &Text )
 
 	return false;
 }
+
+void cItem::processNode( QDomElement& Tag )
+{
+	// we do this as we're going to modify the element
+	QString TagName = Tag.nodeName();
+	QString Value;
+
+	if( Tag.hasChildNodes() )
+		Value = this->getNodeValue( Tag );
+	
+	// <name>my Item</name>
+	if( TagName == "name" )
+		this->setName( Value );
+	 
+	// <identified>my magic item</identified>
+	else if( TagName == "identified" )
+		this->setName2( Value.latin1() );
+
+	// <amount>120</amount>
+	else if( TagName == "amount" )
+		this->setAmount( Value.toULong() );
+
+	// <color>480</color>
+	else if( TagName == "color" )
+		this->setColor( Value.toUShort( NULL, 16 ) );
+
+	// <events>a,b,c</events>
+	//else if( TagName == "color" )
+	//	this->color = Value.toUShort( NULL, 16 );
+
+	// <attack min="1" max="2"/>
+	else if( TagName == "attack" )
+	{
+		if( Tag.attributes().contains( "min" ) )
+			this->setLodamage( Tag.attributeNode( "min" ).nodeValue().toInt() );
+
+		if( Tag.attributes().contains( "max" ) )
+			this->setHidamage( Tag.attributeNode( "max" ).nodeValue().toInt() );
+
+		// Better...
+		if( this->lodamage() > this->hidamage() )
+			this->setHidamage( this->lodamage() );
+	}
+
+	// <defense>10</defense>
+	else if( TagName == "defense" )
+		this->def = Value.toInt();
+
+	// <type>10</type>
+	else if( TagName == "type" )
+		this->setType( Value.toUInt() );
+
+	// <weight>10</weight>
+	else if( TagName == "weight" )
+		this->setWeight( Value.toUInt() );
+
+	// <value>10</value>
+	else if( TagName == "value" )
+		this->value = Value.toInt();
+		
+	// <restock>10</restock>
+	else if( TagName == "restock" )
+		this->restock = Value.toInt();
+
+	// <layer>10</layer>
+	else if( TagName == "layer" )
+		this->setLayer( Value.toShort() );
+
+	// <durability>10</durabilty>
+	else if( TagName == "durability" )
+	{
+		this->setMaxhp( Value.toLong() );
+		this->setHp( this->maxhp() );
+	}
+
+	// <speed>10</speed>
+	else if( TagName == "speed" )
+		this->setSpeed( Value.toLong() );
+
+	// <good>10</good>
+	else if( TagName == "good" )
+		this->good = Value.toInt();
+
+	// <lightsource>10</lightsource>
+	else if( TagName == "lightsource" )
+		this->dir = Value.toUShort();
+
+	// <more1>10</more1>
+	else if( TagName == "more1" )
+		this->more1 = Value.toInt();
+
+	// <more>10</more> <<<<< alias for more1
+	else if( TagName == "more" )
+		this->more1 = Value.toInt();
+
+	// <more2>10</more2>
+	else if( TagName == "more2" )
+		this->more2 = Value.toInt();
+
+	// <morex>10</morex>
+	else if( TagName == "morex" )
+		this->morex = Value.toInt();
+
+	// <morex>10</morex>
+	else if( TagName == "morey" )
+		this->morex = Value.toInt();
+
+	// <morez>10</morez>
+	else if( TagName == "morez" )
+		this->morez = Value.toInt();
+
+	// <morexyz>10</morexyz>
+	else if( TagName == "morexyz" )
+	{
+		QStringList Elements = QStringList::split( ",", Value );
+		if( Elements.count() == 3 )
+		{
+			this->morex = Elements[ 0 ].toInt();
+			this->morey = Elements[ 1 ].toInt();
+			this->morez = Elements[ 2 ].toInt();
+		}
+	}
+
+	// <movable />
+	// <ownermovable />
+	// <immovable />
+	else if( TagName == "movable" )
+		this->magic = 1;
+	else if( TagName == "immovable" )
+		this->magic = 2;
+	else if( TagName == "ownermovable" )
+		this->magic = 3;
+
+	// <decay />
+	// <nodecay />
+	else if( TagName == "decay" )
+		this->priv |= 0x01;
+	else if( TagName == "nodecay" )
+		this->priv &= 0xFE;
+
+	// <pile />
+	// <nopile />
+	else if( TagName == "pile" )
+		this->setPileable( true );
+
+	else if( TagName == "nopile" )
+		this->setPileable( false );
+
+	// <dispellable />
+	// <notdispellable />
+	else if( TagName == "dispellable" )
+		this->priv |= 0x04;
+	else if( TagName == "notdispellable" )
+		this->priv &= 0xFB;
+
+	// <newbie />
+	// <notnewbie />
+	else if( TagName == "newbie" )
+		this->priv |= 0x04;
+	else if( TagName == "notnewbie" )
+		this->priv &= 0xFB;
+
+	// <itemhand>2</itemhand>
+	else if( TagName == "itemhand" )
+		this->setItemhand( Value.toInt() );
+
+	// <racehate>2</racehate>
+	else if( TagName == "racehate" )
+		this->setRacehate( Value.toInt() );
+
+	// <restock>2</restock>
+	else if( TagName == "restock" )
+		this->restock = Value.toInt();
+
+	// <trigger>2</trigger>
+	else if( TagName == "trigger" )
+		this->trigger = Value.toInt();
+
+	// <triggertype>2</triggertype>
+	else if( TagName == "triggertype" )
+		this->trigtype = Value.toInt();
+
+	// <smelt>2</smelt>
+	else if( TagName == "smelt" )
+		this->setSmelt( Value.toInt() );
+
+	// <requires type="xx">2</requires>
+	else if( TagName == "requires" )
+	{
+		if( !Tag.attributes().contains( "type" ) )
+			return;
+
+		QString Type = Tag.attributeNode( "type" ).nodeValue();
+			
+		if( Type == "str" )
+			this->st = Value.toULong();
+		else if( Type == "dex" )
+			this->dx = Value.toULong();
+		else if( Type == "int" )
+			this->in = Value.toULong();
+	}
+
+	// <visible />
+	// <invisible />
+	// <ownervisible />
+	else if( TagName == "invisible" )
+		this->visible = 2;
+	else if( TagName == "visible" )
+		this->visible = 0;
+	else if( TagName == "ownervisible" )
+		this->visible = 1;
+
+	// <modifier type="xx">2</modifier>
+	else if( TagName == "modifier" )
+	{
+		if( !Tag.attributes().contains( "type" ) )
+			return;
+
+		QString Type = Tag.attributeNode( "type" ).nodeValue();
+			
+		if( Type == "str" )
+			this->st2 = Value.toULong();
+		else if( Type == "dex" )
+			this->dx2 = Value.toULong();
+		else if( Type == "int" )
+			this->in2 = Value.toULong();
+	}
+
+	// <dye />
+	// <nodye />
+	else if( TagName == "dye" )
+		this->dye = 1;
+	else if( TagName == "nodye" )
+		this->dye = 0;
+
+	// <id>12f9</id>
+	else if( TagName == "id" )
+		this->setId( Value.toUShort( NULL, 16 ) );
+
+	// <content><item id="a" />...<item id="z" /></contains> (sereg)
+	else if( TagName == "content" && Tag.hasChildNodes() )
+		this->processContainerNode( Tag ); 
+
+	else
+		cUObject::processNode( Tag );
+}
+
+void cItem::processContainerNode( QDomElement &Tag )
+{
+	//item containers can be scripted like this:
+	/*
+	<contains>
+		<item><inherit list="myList" /></item>
+		<item><inherit id="myItem1" /><amount><random ... /></amount><color><colorlist><random...></colorlist></color></item>
+		...
+	</contains>
+	*/
+	for( QDomNode childNode = Tag.firstChild(); !childNode.isNull(); childNode = Tag.nextSibling() )
+		if( childNode.toElement().nodeName() == "item" )
+		{
+			P_ITEM nItem = Items->MemItemFree();
+	
+			if( nItem == NULL )
+				continue;
+
+			nItem->Init( true );
+			cItemsManager::getInstance()->registerItem( nItem );
+
+			nItem->applyDefinition( childNode.toElement() );	
+			nItem->setContSerial( this->serial );
+		}
+}
+

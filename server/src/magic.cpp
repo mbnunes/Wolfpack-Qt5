@@ -51,7 +51,6 @@
 #include "srvparams.h"
 #include "globals.h"
 #include "wpdefmanager.h"
-#include "wpxmlparser.h"
 #include "classes.h"
 #include "mapstuff.h"
 #include "network.h"
@@ -197,19 +196,18 @@ void cMagic::load( void )
 
 	QStringList sections = DefManager->getSections( WPDT_SPELL );
 
-	cWPXMLParser Parser( WPDT_SPELL );
-
 	for( UI08 i = 0; i < sections.count(); i++ )
 	{
+		QDomElement* DefSection = DefManager->getSection( WPDT_SPELL, sections[ i ] );
 		// Check if it's a valid spell-id
 		bool ok = true;
 		UI32 spellID = sections[ i ].toInt( &ok );
 
-		if( !Parser.prepareParsing( sections[ i ] ) || !ok || spellID > 255 )
+		if( !ok || spellID > 255 )
 			continue;
 
 		loadedSpells[ spellID ] = new cSpell;
-		loadedSpells[ spellID ]->load( *Parser.baseTag() );
+		loadedSpells[ spellID ]->load( *DefSection );
 	}
 
 	clConsole.ProgressDone();

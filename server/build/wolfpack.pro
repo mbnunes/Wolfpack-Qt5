@@ -105,9 +105,8 @@ HEADERS         = Client.h \
 		  wppythonscript.h \
 		  wpscriptmanager.h \
 		  menuactions.h \
-		  wptargetrequests.h \
-		  wpxmlparser.h
-
+		  wptargetrequests.h 
+		  
 SOURCES         = Client.cpp \
 		  LoS.cpp \
 		  SkiTarg.cpp \
@@ -184,8 +183,7 @@ SOURCES         = Client.cpp \
 		  wppythonscript.cpp \
 		  wpscriptmanager.cpp \
 		  menuactions.cpp \
-		  wptargetrequests.cpp \
-		  wpxmlparser.cpp 
+		  wptargetrequests.cpp 
 
 INTERFACES	=
 TRANSLATIONS    = \

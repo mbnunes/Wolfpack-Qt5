@@ -43,7 +43,6 @@
 #include "regions.h"
 #include "wpdefmanager.h"
 #include "wpdefaultscript.h"
-#include "wpxmlparser.h"
 #include "network.h"
 #include "classes.h"
 #include "mapstuff.h"
@@ -386,9 +385,9 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	if( Section.length() == 0 )
 		return NULL;
 
-	cWPXMLParser Parser( WPDT_NPC );
+	QDomElement* DefSection = DefManager->getSection( WPDT_NPC, Section );
 
-	if( !Parser.prepareParsing( Section ) )
+	if( DefSection->isNull() )
 	{
 		clConsole.log( "Unable to create unscripted Npc: %s", Section.latin1() );
 		return NULL;
@@ -506,7 +505,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
    
 	nChar->region = calcRegionFromXY(nChar->pos.x, nChar->pos.y);
 
-	Parser.applyNodes( nChar );
+	nChar->applyDefinition( *DefSection );
 
 	return nChar;
 }

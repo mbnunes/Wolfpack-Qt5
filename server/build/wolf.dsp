@@ -394,10 +394,6 @@ SOURCE=.\wpscriptmanager.cpp
 
 SOURCE=.\wptargetrequests.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=.\wpxmlparser.cpp
-# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -725,10 +721,6 @@ SOURCE=.\wpscriptmanager.h
 # Begin Source File
 
 SOURCE=.\wptargetrequests.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\wpxmlparser.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

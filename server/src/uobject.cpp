@@ -280,3 +280,89 @@ void cUObject::recreateEvents( void )
 		scriptChain.push_back( myScript );
 	}
 }
+
+void cUObject::applyDefinition( QDomElement& sectionNode )
+{
+	QDomNode TagNode;
+	for( TagNode = sectionNode.firstChild(); !TagNode.isNull(); TagNode = sectionNode.nextSibling() )
+	{
+		if( !TagNode.isElement() )
+			continue;
+		else
+			this->processNode( TagNode.toElement() );
+	}
+}
+
+QString cUObject::getNodeValue( QDomNode &Node )
+{
+	QDomElement Tag = Node.toElement();
+
+	if( Tag.nodeName() == "namelist" )
+	{
+		// Get the namelist and select a random name!
+		// ...
+		QString selectedName = Tag.text();
+		return selectedName;
+	}
+	else if( Tag.nodeName() == "random" )
+	{
+		if( Tag.attributes().contains("min") && Tag.attributes().contains("max") )
+			return QString("%1").arg( RandomNum( Tag.attributeNode("min").nodeValue().toInt(), Tag.attributeNode("max").nodeValue().toInt() ) );
+		else if( Tag.attributes().contains("list") )
+		{
+			QStringList RandValues = QStringList::split(",", Tag.attributeNode("list").nodeValue());
+			return RandValues[ RandomNum(0,RandValues.size()-1) ];
+		}
+		else if( Tag.attributes().contains("dice") )
+			return QString("%1").arg(rollDice(Tag.attributeNode("dice").nodeValue()));
+		else
+			return QString("0");
+	}
+	else if( Tag.nodeName() == "colorlist" )
+	{
+		QString Value = QString();
+		if( Tag.hasChildNodes() )
+		{
+			QDomNode childNode;
+			for( childNode = Tag.firstChild(); !childNode.isNull(); childNode = Tag.nextSibling() )
+			{
+				if( childNode.isText() )
+					Value += childNode.toText().data();
+				else if( childNode.isElement() )
+					Value += this->getNodeValue( childNode );
+			}
+		}
+		else
+			Value = QString("%1").arg(addrandomcolor( NULL, (char*)Tag.nodeValue().latin1() ));
+
+		return Value;
+	}
+
+	if( !Tag.hasChildNodes() )
+		return Tag.text();
+
+	// Process the childnodes
+	QDomNodeList childNodes = Tag.childNodes();
+
+	for( int i = 0; i < childNodes.count(); i++ )
+	{
+		if( !childNodes.item( i ).isElement() )
+			continue;
+
+		return this->getNodeValue( childNodes.item( i ).toElement() );
+	}
+
+	return "";
+}
+
+void cUObject::processNode( QDomElement &Tag )
+{
+	QString TagName = Tag.nodeName();
+	QString Value;
+	QDomNodeList ChildTags;
+
+	if( Tag.hasChildNodes() )
+		Value = this->getNodeValue( Tag );
+
+	// nothing in here because the getters and setters are not finished!
+}

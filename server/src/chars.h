@@ -578,6 +578,10 @@ public:
 	bool onChat( void ); // The character wants to chat
 	bool onSkillUse( UI08 Skill ); // The character uses %Skill
 	bool onCollideChar( P_CHAR Obstacle ); // This is called for the walking character first, then for the character walked on
+
+	// Definition loading - sereg
+protected:
+	void processNode( QDomElement& Tag );
 };
 
 class cCharStuff

@@ -45,6 +45,8 @@
 // Library includes
 #include "qstring.h"
 #include "qstringlist.h"
+#include "qdom.h"
+#include "qfile.h"
 
 // Forward class declarations
 //class ISerialization;
@@ -55,6 +57,8 @@ class cUObject : public cSerializable
 {
 // Data Members
 public:
+	void applyDefinition( QDomElement &sectionNode );
+
 	const std::vector< WPDefaultScript* > &getEvents( void );
 	void setEvents( std::vector< WPDefaultScript* > List );
 	void clearEvents( void );
@@ -77,6 +81,9 @@ public:
 	Coord_cl pos;
 // Methods
 protected:
+	void processNode( QDomElement &Tag );
+	QString getNodeValue( QDomNode &Node );
+
 	std::vector< WPDefaultScript* > scriptChain;
 	QStringList eventList_; // Important for recreating the scriptChain on reloading
 	void init();

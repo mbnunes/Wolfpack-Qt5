@@ -39,7 +39,6 @@
 #include "network.h"
 #include "mapstuff.h"
 #include "wpdefmanager.h"
-#include "wpxmlparser.h"
 
 #undef  DBGFILE
 #define DBGFILE "commands.cpp"
@@ -1153,24 +1152,18 @@ void cCommands::loadPrivLvlCmds( void )
 		return;
 	}
 	
-	cWPXMLParser Parser( WPDT_PRIVLEVEL );
-
 	for(QStringList::iterator it = ScriptSections.begin(); it != ScriptSections.end(); ++it )
 	{
-		UI32 j;
-		
-		if( !Parser.prepareParsing( *it ) || !Parser.baseTag()->attributes().contains( "id" ) )
-			continue;
-		
-		QDomElement Tag = *Parser.baseTag();
-		QString privlvl = Tag.attribute( "id" );
-		privlvl_commands[privlvl].implicit = !( Tag.attributes().contains( "type" ) && Tag.attribute( "type" ) == "explicit" );
+		QDomElement *Tag = DefManager->getSection( WPDT_PRIVLEVEL, *it );
 
-		if( !Parser.baseTag()->hasChildNodes() )
+		if( Tag->isNull() || !Tag->attributes().contains( "id" ) )
 			continue;
 		
-		for( j = 0; j < Tag.childNodes().count(); j++ )
-			this->addCmdToPrivLvl( privlvl, Tag.childNodes().item( j ).nodeName() );
+		QString privlvl = Tag->attribute( "id" );
+		privlvl_commands[privlvl].implicit = !( Tag->attributes().contains( "type" ) && Tag->attribute( "type" ) == "explicit" );
+
+		for( QDomNode childNode = Tag->firstChild(); !childNode.isNull(); childNode = Tag->nextSibling() )
+			this->addCmdToPrivLvl( privlvl, childNode.nodeName() );
 	}
 	clConsole.ProgressDone();
 }

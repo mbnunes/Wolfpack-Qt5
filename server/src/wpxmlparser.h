@@ -37,14 +37,25 @@
 #include "items.h"
 #include "chars.h"
 
-class cWPXMLParser
+class IDefReader
+
+class cDefinable
 {
 public:
-	cWPXMLParser();
-	virtual ~cWPXMLParser() {};
+	virtual ~cDefinable() {;}
 
-	cWPXMLParser( WPDEF_TYPE baseType );
-	cWPXMLParser( WPDEF_TYPE baseType, QDomElement* baseTag );
+	virtual void		applyNode( IDefReader &defreader );
+	virtual std::string objectID( void ) = 0;
+};
+
+class IDefReader
+{
+public:
+	IDefReader();
+	virtual ~IDefReader() {};
+
+	IDefReader( WPDEF_TYPE baseType );
+	IDefReader( WPDEF_TYPE baseType, QDomElement* baseTag );
 
 	QDomElement*		baseTag( void )						{ return basetag;	 };
 	void				setBaseTag( QDomElement* newTag )	{ basetag = newTag;	 };
@@ -52,9 +63,6 @@ public:
 	void				setBaseType( WPDEF_TYPE newType )	{ basetype = newType;};
 
 	bool				prepareParsing( QString Section );
-
-	void				applyNodes( P_ITEM Item, QDomElement* Node = NULL );
-	void				applyNodes( P_CHAR Char, QDomElement* Node = NULL );
 
 	QString				processNode( QDomElement &Node );
 	void				processItemContainerNode( P_ITEM contItem, QDomElement &Node );
