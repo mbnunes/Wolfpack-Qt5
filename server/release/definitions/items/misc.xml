@@ -1,0 +1,57 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+    <!-- Copper Coins -->
+	<item id="eea">
+		<id>0x0eea</id>
+		<category>Equipment\Coins\Copper Coin</category>
+	</item>
+
+	<item id="eeb">
+		<id>0x0eeb</id>
+		<category>Equipment\Coins\Copper Coins 1</category>
+	</item>
+
+	<item id="eec">
+		<id>0x0eec</id>
+		<category>Equipment\Coins\Copper Coins 2</category>
+	</item>
+
+    <!-- Gold Coins -->
+	<item id="eed">
+		<id>0x0eed</id>
+		<category>Equipment\Coins\Gold Coin</category>
+	</item>
+
+	<item id="eee">
+		<id>0x0eee</id>
+		<category>Equipment\Coins\Gold Coins 1</category>
+	</item>
+
+	<item id="eef">
+		<id>0x0eef</id>
+		<category>Equipment\Coins\Gold Coins 2</category>
+	</item>
+
+    <!-- Silver Coins -->
+	<item id="ef0">
+		<id>0x0ef0</id>
+		<category>Equipment\Coins\Silver Coin</category>
+	</item>
+
+	<item id="ef1">
+		<id>0x0ef1</id>
+		<category>Equipment\Coins\Silver Coins 1</category>
+	</item>
+
+	<item id="ef2">
+		<id>0x0ef2</id>
+		<category>Equipment\Coins\Silver Coins 2</category>
+	</item>
+</definitions>
