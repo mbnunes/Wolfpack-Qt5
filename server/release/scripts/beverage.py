@@ -2,6 +2,8 @@
 import wolfpack
 from wolfpack.consts import *
 import random
+from system import poison
+import skills
 
 # Baseid: ClilocBaseId, MaxQuantity, Empty Item Id, Fillable
 CONTAINERS = {
@@ -100,6 +102,12 @@ def onUse(char, item):
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage(502946)
 		return 1
+		
+	# poisoned drink
+	if item.hastag( 'poisoning_char' ):
+		poison.poison( char, item.gettag( 'poisoning_strength' ) )
+		char.socket.clilocmessage( 1010512 )
+		skills.poisoning.wearoff( item )
 	
 	quantity = 0
 	if item.hastag('quantity'):
