@@ -702,15 +702,15 @@ def onDelete(item):
 
 # Try to equip an item after calling onWearItem for it
 def onUse(player, item):
-	if not player.gm and item.movable == 3:
-		player.objectdelay = 0
-		return True
-		
 	if item.container == player:
 		return False
 
 	tile = wolfpack.tiledata(item.id)
-
+	
+	if not player.gm and (item.movable > 1 or tile['weight'] == 255):
+		player.objectdelay = 0
+		return True
+	
 	if not tile.has_key('layer'):
 		return False
 
