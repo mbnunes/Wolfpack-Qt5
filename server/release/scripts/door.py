@@ -224,7 +224,7 @@ def opendoor( char, item ):
 		if door[0] == item.id:
 			# Change the Door id and resend
 			item.id = door[1]
-			item.moveto( pos.x + door[2], pos.y + door[3] )
+			item.moveto( pos.x + door[2], pos.y + door[3], pos.z )
 			item.update()
 
 			# Soundeffect (open)
@@ -261,7 +261,7 @@ def opendoor( char, item ):
 		elif door[1] == item.id:
 			# Change the door id and update the clients around it
 			item.id = door[0]
-			item.moveto( pos.x - door[2], pos.y - door[3] )
+			item.moveto( pos.x - door[2], pos.y - door[3], pos.z )
 			if item.hastag('opened'):
 				item.deltag( 'opened' )
 			item.update()
@@ -283,20 +283,40 @@ def autoclose( item, args ):
 	if opencount != args[0]:
 		return
 
-	# Find the door definition for this item
+	"""
+	# NOTE!
+	# We need to put in a form of character checking for the location
+	# where the door closes, this way the door doesn't close ON people.
+	"""
+	blocked = 0
 	for door in doors:
 		if door[1] == item.id:
-			pos = item.pos
+			chars = wolfpack.chars( item.pos.x - door[2], item.pos.y - door[3], item.pos.map, 0 )
+	for char in chars:
+		if char.pos.z == item.pos.z:
+			blocked = 1
+		elif char.pos.z < item.pos.z and char.pos.z >= ( item.pos.z - 5):
+			blocked = 1
+		elif char.pos.z > item.pos.z and char.pos.z <= ( item.pos.z + 5):
+			blocked = 1
 
-			# Change the door id and update the clients around it
-			item.id = door[0]
-			item.moveto( pos.x - door[2], pos.y - door[3] )
-			if item.hastag( 'opened' ):
-				item.deltag( 'opened' )
-			item.update()
+	if blocked == 1:
+		item.addtimer(CLOSEDOOR_DELAY, "door.autoclose", [ int(item.gettag('opencount')) ], 1)
+	else:
+		# Find the door definition for this item
+		for door in doors:
+			if door[1] == item.id:
+				pos = item.pos
 
-			# Soundeffect (close)
-			item.soundeffect( door[5] )
+				# Change the door id and update the clients around it
+				item.id = door[0]
+				item.moveto( pos.x - door[2], pos.y - door[3], pos.z )
+				if item.hastag( 'opened' ):
+					item.deltag( 'opened' )
+				item.update()
+
+				# Soundeffect (close)
+				item.soundeffect( door[5] )
 
 
 def onUse(char, item, norange=0):
@@ -318,4 +338,3 @@ def onUse(char, item, norange=0):
 
 def onTelekinesis(char, item):
 	return onUse(char, item, 1)
-
