@@ -37,6 +37,7 @@ Wolfpack 12.9.9 Beta (CVS)
 	- Ignore a 4.0.4a multi purpose packet that doesn't make sense.
 	- Fixed a bug related to serverlists duplication on configuration reload.
 	- Documentation fixes for item.addtimer.
+	- Item Base Definitions are now reloaded correctly.
 
 Wolfpack 12.9.8 Beta (19. August 2004)
 	- Save fixes

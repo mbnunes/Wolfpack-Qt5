@@ -299,6 +299,7 @@ void cDefinitions::unload()
 
 	impl->imports.clear();
 	CharBaseDefs::instance()->reset();
+	ItemBaseDefs::instance()->reset();
 	listcache_.clear();
 	cComponent::unload();
 }

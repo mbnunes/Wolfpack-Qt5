@@ -151,8 +151,7 @@
 		<category>Misc\Archery Butte\Archery Butte (W/E)</category>
 	</item>
 
-	<item id="100b">
-		<inherit id="100a" />
+	<item id="100b" inherit="100a">
 		<id>0x100b</id>
 		<category>Misc\Archery Butte\Archery Butte (N/S)</category>
 	</item>
