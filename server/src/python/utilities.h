@@ -161,8 +161,8 @@ inline QString Python2QString( PyObject* object )
 	{
 #if defined(Py_UNICODE_WIDE)
 		PyObject *utf8 = PyUnicode_AsUTF8String( object );
-		return QString::fromUtf8( PyString_AsString( object ) );
-		Py_DECREF(object);
+		return QString::fromUtf8( PyString_AsString( utf8 ) );
+		Py_DECREF(utf8);
 #else
 		return QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( object ) );
 #endif
