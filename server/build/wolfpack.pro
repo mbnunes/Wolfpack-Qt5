@@ -160,7 +160,7 @@ SOURCES += \
 	../src/multi.cpp \
 	../src/npc.cpp \
 	../src/party.cpp
-	../src/pathfinding.h \ \
+	../src/pathfinding.cpp \
 	../src/persistentbroker.cpp \
 	../src/persistentobject.cpp \
 	../src/player.cpp \
