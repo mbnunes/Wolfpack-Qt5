@@ -3748,6 +3748,14 @@ bool cChar::onShowTooltip( P_CHAR sender, cUOTxTooltipList* tooltip )
 		if( scriptChain[ i ]->onShowToolTip( sender, this, tooltip  ) )
 			return true;
 
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SHOWTOOLTIP );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		(*it)->onShowToolTip( sender, this, tooltip );
+
 	return false;
 }
 
