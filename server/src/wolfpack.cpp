@@ -34,9 +34,6 @@
 
 #endif
 
-#include "wolfpack.h"
-
-#include "basics.h"
 #if defined(__unix__)
 #include <signal.h>
 #endif
@@ -45,11 +42,9 @@
 #include "speech.h"
 #include "SndPkg.h"
 #include "territories.h"
-#include "commands.h"
 #include "remadmin.h"
-#include "utilsys.h"
 #include "worldmain.h"
-#include "walking.h"
+//#include "walking.h"
 #include "books.h"
 #include "TmpEff.h"
 #include "guildstones.h"
@@ -78,15 +73,13 @@
 #include "persistentbroker.h"
 
 // Library Includes
-#include "qapplication.h"
-#include "qtranslator.h"
-#include "qstring.h"
-#include "qregexp.h"
-#include "qlibrary.h"
-#include "qdatetime.h"
-#include "qfile.h"
+#include <qapplication.h>
+#include <qtranslator.h>
+#include <qstring.h>
+#include <qlibrary.h>
+#include <qdatetime.h>
 
-#include "fstream"
+#include <fstream>
 
 #undef DBGFILE
 #define DBGFILE "wolfpack.cpp"
@@ -516,7 +509,7 @@ void savelog(const char *msg, char *logfile)
 		FILE *file;
 		file = fopen( logfile, "a" );
 		
-		QString logMessage = QString( "[%1] %2\n" ).arg( getRealTimeString().c_str() ).arg( msg );
+		QString logMessage = QString( "[%1] %2\n" ).arg( QDateTime::currentDateTime().toString() ).arg( msg );
 
 		// Remove newlines
 		logMessage = logMessage.replace( QRegExp( "\n" ), "" );
@@ -1220,7 +1213,7 @@ void checkkey ()
 				break;
 			case 'A': //reload the accounts file
 			case 'a':
-				Accounts->reload();
+				Accounts::instance()->reload();
 				break;
 			case 'r':
 			case 'R':
@@ -1400,7 +1393,7 @@ int main( int argc, char *argv[] )
 
 	// Need to load the ACLs before we load any account
 	cCommands::instance()->loadACLs();
-	Accounts->load();
+	Accounts::instance()->load();
 
 	keeprun = 1;
 	//keeprun = cNetwork::instance()->kr; //LB. for some technical reasons global varaibles CANT be changed in constructors in c++.
@@ -1528,7 +1521,6 @@ int main( int argc, char *argv[] )
 		RemoteAdmin::initialize( SrvParams->ra_port() );
 
 	item_char_test(); //LB
-	MsgBoardMaintenance(); // Bad system
 
 	if( SrvParams->serverLog() )
 		savelog( "Server startup", "server.log" );
@@ -4083,14 +4075,12 @@ void StartClasses(void)
 
 // NULL Classes out first....
 	cwmWorldState	= NULL;
-	Accounts		= NULL;
 	Items			= NULL;
 	Map				= NULL;
 	Skills			= NULL;
 	Weight			= NULL;
 	Targ			= NULL;
 	Magic			= NULL;
-	Movement		= NULL;
 	DragonAI		= NULL;
 	BankerAI		= NULL;
 	ScriptManager	= NULL;
@@ -4102,14 +4092,12 @@ void StartClasses(void)
 	// Classes nulled now, lets get them set up :)
 	SrvParams		= new cSrvParams("wolfpack.xml", "Wolfpack", "1.0");
 	cwmWorldState	= new CWorldMain;
-	Accounts		= new cAccounts;
 	Items			= new cAllItems;
 	Map				= new Maps ( SrvParams->mulPath() );
 	Skills			= new cSkills;
 	Weight			= new cWeight;
 	Targ			= new cTargets;
 	Magic			= new cMagic;
-	Movement		= new cMovement;
 
 	//Weather = new cWeather;
 	// Sky's AI Stuff
@@ -4129,14 +4117,12 @@ void DeleteClasses()
 {
 	delete SrvParams;
 	delete cwmWorldState;
-	delete Accounts;
 	delete Items;
 	delete Map;
 	delete Skills;
 	delete Weight;
 	delete Targ;
 	delete Magic;
-	delete Movement;
 	delete DragonAI;
 	delete BankerAI;
 	delete ScriptManager;

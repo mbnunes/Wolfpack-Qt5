@@ -540,7 +540,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	char t[120];
 
 	cCharStuff::CheckAI( currenttime, pc );
-	Movement->NpcMovement( currenttime, pc );
+	Movement::instance()->NpcMovement( currenttime, pc );
     setcharflag( pc );
 
 

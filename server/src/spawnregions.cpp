@@ -225,7 +225,7 @@ bool cSpawnRegion::findValidSpot( Coord_cl &pos )
 		else
 			pos.z = Map->height( pos );
 
-		if( Movement->canLandMonsterMoveHere( pos ) )
+		if( Movement::instance()->canLandMonsterMoveHere( pos ) )
 			return true;
 		i++;
 	}

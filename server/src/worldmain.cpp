@@ -286,8 +286,8 @@ void CWorldMain::savenewworld(QString module)
 	delete archive;
 
 	// Save the accounts
-	clConsole.PrepareProgress( tr( "Saving %1 accounts" ).arg( Accounts->count() ).latin1() );
-	Accounts->save();
+	clConsole.PrepareProgress( tr( "Saving %1 accounts" ).arg( Accounts::instance()->count() ).latin1() );
+	Accounts::instance()->save();
 	clConsole.ProgressDone();
 	
 //	ItemsThread.join();

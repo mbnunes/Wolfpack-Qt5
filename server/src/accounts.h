@@ -37,6 +37,7 @@
 
 #include "iserialization.h"
 #include "typedefs.h"
+#include "singleton.h"
 
 // Library Includes
 #include "qstring.h"
@@ -197,6 +198,8 @@ inline void AccountRecord::setInUse( bool data )
 {
 	inUse_ = data;
 }
+
+typedef SingletonHolder<cAccounts> Accounts;
 
 #endif // __ACCOUNTS_H__
 

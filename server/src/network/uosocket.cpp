@@ -553,7 +553,7 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 
 	cAccounts::enErrorCode error = cAccounts::NoError;
 
-	AccountRecord* authRet = Accounts->authenticate( username, password, &error );
+	AccountRecord* authRet = Accounts::instance()->authenticate( username, password, &error );
 
 	// Reject login
 	if( !_account && error != cAccounts::NoError )
@@ -565,7 +565,7 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 		case cAccounts::LoginNotFound:
 			if ( SrvParams->autoAccountCreate() )
 			{
-				authRet = Accounts->createAccount( username, password );
+				authRet = Accounts::instance()->createAccount( username, password );
 				_account = authRet;
 				return true;
 			}
@@ -1016,7 +1016,7 @@ void cUOSocket::denyMove( Q_UINT8 sequence )
 */
 void cUOSocket::handleWalkRequest( cUORxWalkRequest* packet )
 {
-	Movement->Walking( _player, packet->direction(), packet->key());
+	Movement::instance()->Walking( _player, packet->direction(), packet->key());
 }
 
 void cUOSocket::resendPlayer()

@@ -29,6 +29,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+#include <limits.h>
+
 #include "Python.h"
 #include "../accounts.h"
 

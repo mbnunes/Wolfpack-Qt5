@@ -105,10 +105,6 @@ SOURCE=.\basics.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\blockallocator.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\boats.cpp
 # End Source File
 # Begin Source File

@@ -214,8 +214,6 @@ cFishing        *Fishing;
 cWeight			*Weight;
 cTargets		*Targ;
 cMagic			*Magic;
-cAccounts		*Accounts;
-cMovement		*Movement;
 cSpeech	        *Speech;
 cTrade	        *Trade;
 cBounty         *Bounty;

@@ -85,7 +85,6 @@ class cMultisCache;
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cSrvParams		*SrvParams;
 extern CWorldMain		*cwmWorldState;
-extern cAccounts		*Accounts;
 extern cAllItems		*Items;
 extern Maps				*Map;
 extern cSkills			*Skills;
@@ -93,7 +92,6 @@ extern cFishing			*Fishing;
 extern cWeight			*Weight;
 extern cTargets			*Targ;
 extern cMagic			*Magic;
-extern cMovement		*Movement;
 extern cSpeech	        *Speech;
 extern cTrade	        *Trade;
 extern cBounty          *Bounty;

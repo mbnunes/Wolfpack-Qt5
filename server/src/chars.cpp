@@ -674,7 +674,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("title",			title_);
 		QString login;
 		archive.read("account",			login);
-		setAccount( Accounts->getRecord( login ) );
+		setAccount( Accounts::instance()->getRecord( login ) );
 		archive.read("creationday",		creationday_);
 		archive.read("gmmoveeff",		gmMoveEff_);
 		archive.read("guildtype",		GuildType);
@@ -1069,7 +1069,7 @@ void cChar::load( const QString& s/* = QString::null  */ )
 		loadPersistentStrValue("title",			title_);
 		QString login;
 		loadPersistentStrValue("account",		login);
-		setAccount( Accounts->getRecord( login ) );
+		setAccount( Accounts::instance()->getRecord( login ) );
 		loadPersistentIntValue("creationday",	creationday_);
 		loadPersistentIntValue("gmmoveeff",		gmMoveEff_);
 		loadPersistentIntValue("guildtype",		GuildType);
@@ -3269,7 +3269,7 @@ void cChar::attackTarget( P_CHAR defender )
 void cChar::toggleCombat()
 {
 	war_ = !war_;
-	Movement->CombatWalk( this );
+	Movement::instance()->CombatWalk( this );
 }
 
 P_ITEM cChar::rightHandItem()

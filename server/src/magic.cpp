@@ -2606,7 +2606,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								sysmessage(s,"Give up wanabe Jesus !");
 								return;
 							}
-							if (!Movement->canLandMonsterMoveHere(targetLocation))
+							if (!Movement::instance()->canLandMonsterMoveHere(targetLocation))
 							{
 								 switch(RandomNum(0,4))
 								 {

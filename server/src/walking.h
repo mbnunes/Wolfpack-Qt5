@@ -89,5 +89,7 @@ private:
 
 };
 
+typedef SingletonHolder<cMovement> Movement;
+
 #endif // __WALKING2_H__
 

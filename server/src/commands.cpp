@@ -667,13 +667,13 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 		{
 			socket->sysMessage( tr( "Usage: account create <username> <password>" ) );
 		} 
-		else if( Accounts->getRecord( args[1].left( 30 ) ) )
+		else if( Accounts::instance()->getRecord( args[1].left( 30 ) ) )
 		{
 			socket->sysMessage( tr( "Account '%1' already exists" ).arg( args[1].left( 30 ) ) );
 		}
 		else
 		{
-			Accounts->createAccount( args[1].left( 30 ), args[2].left( 30 ) );
+			Accounts::instance()->createAccount( args[1].left( 30 ), args[2].left( 30 ) );
 			socket->sysMessage( tr( "Account '%1' with password '%2' has been created" ).arg( args[1].left( 30 ) ).arg( args[2].left( 30 ) ) );
 		}
 	}
@@ -685,15 +685,15 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 		{
 			socket->sysMessage( tr( "Usage: account remove <username>" ) );
 		} 
-		else if( !Accounts->getRecord( args[1].left( 30 ) ) )
+		else if( !Accounts::instance()->getRecord( args[1].left( 30 ) ) )
 		{
 			socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1].left( 30 ) ) );
 		}
 		else
 		{
-			AccountRecord *account = Accounts->getRecord( args[1].left( 30 ) );
+			AccountRecord *account = Accounts::instance()->getRecord( args[1].left( 30 ) );
 			QValueVector<cChar*> characters = account->caracterList();
-			Accounts->remove( account );
+			Accounts::instance()->remove( account );
 			UINT32 i = 0;
 			for(; i < characters.size(); ++i )
 				if( characters[i] )
@@ -710,13 +710,13 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 		{
 			socket->sysMessage( tr( "Usage: account set <username> <key> <value>" ) );
 		}
-		else if( !Accounts->getRecord( args[1].left( 30 ) ) )
+		else if( !Accounts::instance()->getRecord( args[1].left( 30 ) ) )
 		{
 				socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1].left( 30 ) ) ); 
 		}
 		else
 		{
-			AccountRecord *account = Accounts->getRecord( args[1].left( 30 ) );
+			AccountRecord *account = Accounts::instance()->getRecord( args[1].left( 30 ) );
 			QString key = args[2];
 			QString value = args[3];
 
@@ -778,13 +778,13 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 		{
 			socket->sysMessage( tr( "Usage: account show <username> <key>" ) );
 		}
-		else if( !Accounts->getRecord( args[1].left( 30 ) ) )
+		else if( !Accounts::instance()->getRecord( args[1].left( 30 ) ) )
 		{
 			socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1].left( 30 ) ) );
 		}
 		else
 		{
-			AccountRecord *account = Accounts->getRecord( args[1].left( 30 ) );
+			AccountRecord *account = Accounts::instance()->getRecord( args[1].left( 30 ) );
 			QString key = args[2];
 
 			if( key == "password" )
@@ -1724,7 +1724,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 	// accounts
 	if( subCommand == "accounts" )
 	{
-		Accounts->reload();
+		Accounts::instance()->reload();
 		socket->sysMessage( tr("Accounts reloaded") );
 	}
 	if( subCommand == "scripts" )
@@ -1748,7 +1748,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 	}
 	if( subCommand == "all" )
 	{
-		Accounts->reload();
+		Accounts::instance()->reload();
 		clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
 
 		SrvParams->reload(); // Reload wolfpack.xml

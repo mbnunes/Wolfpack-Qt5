@@ -308,7 +308,7 @@ AccountRecord* cAccounts::getRecord( const QString& login )
 
 void AccountRecord::remove()
 {
-	Accounts->remove( this );
+	Accounts::instance()->remove( this );
 }
 
 void cAccounts::remove( AccountRecord *record )
