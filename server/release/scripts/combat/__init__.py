@@ -22,7 +22,7 @@ def onSwing(attacker, defender, time):
   if not defender.attacktarget:
     defender.fight(attacker)
 
-  attacker.log(LOG_PYTHON, "Swing at " + str(time) + "\n")
+  #attacker.log(LOG_PYTHON, "Swing at " + str(time) + "\n")
 
   if AGEOFSHADOWS:
     weapon = attacker.getweapon()
@@ -53,7 +53,7 @@ def onSwing(attacker, defender, time):
       raise
 
     attacker.nextswing = time + combat.properties.getdelay(attacker, weapon)
-    attacker.log(LOG_PYTHON, "Next swing in " + str(attacker.nextswing - time) + "ms\n")
+    #attacker.log(LOG_PYTHON, "Next swing in " + str(attacker.nextswing - time) + "ms\n")
 
 #
 # Callback for showing the status gump to yourself.

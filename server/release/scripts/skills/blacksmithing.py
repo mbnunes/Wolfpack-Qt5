@@ -81,7 +81,7 @@ def checkanvilandforge(char):
 #
 # Check if the character is using the right tool
 #
-def checktool(char, item):
+def checktool(char, item, wearout = 0):
   # Has to be in our posession
   if item.getoutmostchar() != char:
     char.socket.clilocmessage(500364)
@@ -98,6 +98,15 @@ def checktool(char, item):
   if equipped and equipped != item:
     char.socket.clilocmessage(1048146)
     return 0
+
+  if wearout:
+    uses = int(item.gettag('remaining_uses'))
+    if uses <= 1:
+      char.socket.clilocmessage(1044038)
+      item.delete()
+      return 0
+    else:
+      item.settag('remaining_uses', uses - 1)
   
   return 1
 
@@ -206,6 +215,9 @@ class SmithItemAction(CraftItemAction):
         bonus += 20
         item.settag('aos_boni_damage', bonus)
 
+    # Reduce the uses remain count
+    checktool(player, wolfpack.finditem(arguments[0]), 1)
+
   #
   # First check if we are near an anvil and forge.
   # Then play a blacksmithing sound.
@@ -236,6 +248,9 @@ class BlacksmithingMenu(MakeMenu):
     MakeMenu.__init__(self, id, parent, title)
     self.sort = 1
     self.allowmark = 1
+    self.allowrepair = 1
+    self.allowenhance = 1
+    self.allowsmelt = 1
     self.submaterials1 = METALS
     self.submaterials2 = SCALES
     self.submaterial2missing = 1060884

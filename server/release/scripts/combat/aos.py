@@ -1,7 +1,7 @@
 
 import wolfpack
 from wolfpack.consts import *
-from wolfpack.utilities import consumeresources
+from wolfpack.utilities import consumeresources, tobackpack
 import combat.properties
 import combat.utilities
 import random
@@ -208,10 +208,19 @@ def absorbdamage(defender, damage):
   # If there is armor at the given position,
   # it should be damaged. This implementation is so crappy because
   # we lack the required properties for armors yet.
-  if armor:
-    armor.health -= 1
-    if armor.health < 1:
-      armor.delete()
+  if armor and armor.health > 0:
+    # 4% chance for losing one hitpoint
+    if 0.04 >= random.random():
+      armor.health -= 1
+      armor.resendtooltip()
+
+  # Unequip the armor
+  if armor and armor.health <= 1:
+    tobackpack(armor, defender)
+    armor.update()
+    if defender.socket:
+          defender.socket.clilocmessage(500645)
+    armor = None
 
   # Only players can parry using a shield or a weapon
   if defender.player:
@@ -248,10 +257,17 @@ def absorbdamage(defender, damage):
       damage = 0
 
       # This is as lame as above
-      if shield:
-        shield.health -= 1
-        if shield.health < 1:
-          shield.delete()
+      if shield and shield.health > 0:
+        # 4% chance for losing one hitpoint
+        if 0.04 >= random.random():
+          shield.health -= 1
+          shield.resendtooltip()
+
+      if shield.health <= 0:
+        tobackpack(shield, defender)
+        shield.update()
+        if defender.socket:
+          defender.socket.clilocmessage(500645)
 
   return damage
 
@@ -269,12 +285,11 @@ def hit(attacker, defender, weapon, time):
   damage = scaledamage(attacker, damage)
 
   # Scale Damage based on boni, skills and other effects
+  #if attacker.socket:
+  #  attacker.socket.sysmessage('DEALT: %u,%u,%u' % (mindamage, maxdamage, damage))
 
-  if attacker.socket:
-    attacker.socket.sysmessage('DEALT: %u,%u,%u' % (mindamage, maxdamage, damage))
-
-  if defender.socket:
-    defender.socket.sysmessage('TAKEN: %u,%u,%u' % (mindamage, maxdamage, damage))
+  #if defender.socket:
+  #  defender.socket.sysmessage('TAKEN: %u,%u,%u' % (mindamage, maxdamage, damage))
   
   # Give the defender a chance to absorb damage
   damage = absorbdamage(defender, damage)
@@ -289,7 +304,7 @@ def hit(attacker, defender, weapon, time):
   poison = ceil(poison * damage / 100)
   energy = ceil(energy * damage / 100)
 
-  attacker.log(LOG_MESSAGE, "Damage distribution b4 resistances: ph: %u, fi: %u, co: %u, po: %u, en: %u\n" % (physical, fire, cold, poison, energy))
+  #attacker.log(LOG_MESSAGE, "Damage distribution b4 resistances: ph: %u, fi: %u, co: %u, po: %u, en: %u\n" % (physical, fire, cold, poison, energy))
 
   # Reduce the individual damage by the defenders resistances
   if physical > 0:
@@ -312,12 +327,24 @@ def hit(attacker, defender, weapon, time):
     resistance = 100 - min(100, combat.properties.fromchar(defender, RESISTANCE_ENERGY))
     energy = ceil(energy * resistance / 100)
 
-  attacker.log(LOG_MESSAGE, "Damage distribution after resistances: ph: %u, fi: %u, co: %u, po: %u, en: %u\n" % (physical, fire, cold, poison, energy))
+  #attacker.log(LOG_MESSAGE, "Damage distribution after resistances: ph: %u, fi: %u, co: %u, po: %u, en: %u\n" % (physical, fire, cold, poison, energy))
 
   # Recalculate the total damage value, min. damage: 1
   damage = max(1, physical + fire + cold + poison + energy)
-
   defender.damage(DAMAGE_PHYSICAL, damage, attacker)
+
+  # Wear out the weapon
+  if weapon:
+    # 4% chance for losing one hitpoint
+    if 0.04 >= random.random():
+      if weapon.health > 0:
+        weapon.health -= 1
+        weapon.resendtooltip()
+    if weapon.health <= 0:
+      tobackpack(weapon, attacker)
+      weapon.update()
+      if attacker.socket:
+        attacker.socket.clilocmessage(500645)
 
 #
 # The character missed his target. Show that he missed and and 

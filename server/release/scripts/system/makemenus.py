@@ -147,7 +147,6 @@ class MakeItemAction(MakeAction):
     gump.addTiledGump(165, 130, 355, 80, 2624)
     gump.addTiledGump(165, 215, 355, 80, 2624)
     gump.addTiledGump(165, 300, 355, 80, 2624)
-    gump.addTiledGump(10, 385, 510, 22, 2624)
     gump.addTiledGump(10,  37, 150, 88, 2624)
     gump.addTiledGump(10, 130, 150, 22, 2624)
     gump.addTiledGump(10, 215, 150, 22, 2624)
@@ -162,9 +161,9 @@ class MakeItemAction(MakeAction):
     gump.addHtmlGump(10, 302, 150, 20, centerhtml % "OTHER")
     gump.addHtmlGump(170, 39, 70, 20, whitehtml % "ITEM")
     gump.addButton(15, 387, 0xFAE, 0xFB0, 0) # Back to the parent menu of this node
-    gump.addHtmlGump(50, 389, 80, 18, whitehtml % "BACK")
+    gump.addText(50, 389, "Back", 0x480)
     gump.addButton(375, 387, 4005, 4007, 1) # Make the item
-    gump.addHtmlGump(410, 389, 95, 18, whitehtml % "MAKE NOW")
+    gump.addText(410, 389, "Make Now", 0x480)
 
     # Item Name 
     gump.addHtmlGump(245, 39, 270, 20, whitehtml % self.title)
@@ -202,6 +201,28 @@ def MakeMenuResponse(player, arguments, response):
     menus[menu].response(player, response, arguments)
 
 #
+# MakeMenu Target Request Response Handler
+#
+def MakeMenuTarget(player, arguments, target):
+  assert(len(arguments) >= 2)
+  menu = arguments[0]
+  action = arguments[1]
+  arguments = list(arguments)[2:]
+
+  global menus
+  if not menus.has_key(menu):
+    raise RuntimeError, "Unknown makemenu: %s." % menu
+  else:
+    if action == 1:
+      menus[menu].repair(player, arguments, target)
+    elif action == 2:
+      menus[menu].enhance(player, arguments, target)
+    elif action == 1:
+      menus[menu].smelt(player, arguments, target)
+    else:
+      raise RuntimeError, "Unknown subaction: %u." % action    
+
+#
 # This class encapsulates all functionality for a single
 # category in the makemenus.
 #
@@ -219,10 +240,18 @@ class MakeMenu:
     self.submenus = []
     self.subactions = []
     self.title = title
-    self.notices = ''
     self.generated = 0
     self.gumptype = 0
     self.sort = 0
+
+    # Display a repair item button on the makemenu
+    self.allowrepair = 0
+
+    # Allow enhancement of items.
+    self.allowenhance = 0
+
+    # Allow smelting items.
+    self.allowsmelt = 0
 
     self.submaterial1missing = 0
     self.submaterial1noskill = 0
@@ -343,56 +372,89 @@ class MakeMenu:
 
     gump.send(player)
 
+  #
+  # Repair an item.
+  #
+  def repair(self, player, arguments, target):
+    pass
+
+  #
+  # Smelt an item.
+  #
+  def smelt(self, player, arguments, target):
+    pass
+
+  #
+  # Enchant an item.
+  #
+  def enchant(self, player, arguments, target):
+    pass
+
   # 
   # Adds the neccesary buttons to a gump.
   #
   def addbuttons(self, gump, player, arguments, submenu = 0):
+    # Allow repairing items.
+    if self.allowrepair:
+      gump.addButton(350, 310, 4005, 4007, 10)
+      gump.addText(385, 313, "Repair Item", 0x480)
+
+    # Allow enhancement of items
+    if self.allowenhance:
+      gump.addButton(350, 330, 4005, 4007, 11)
+      gump.addText(385, 333, "Enhance Item", 0x480)
+
+    # Allow smelting of items
+    if self.allowsmelt:
+      gump.addButton(350, 350, 4005, 4007, 12)
+      gump.addText(385, 353, "Smelt Item", 0x480)
+
     # EXIT button , return value: 0
-    gump.addButton(15, 382, 0xFB1, 0xFB3, 0)
-    gump.addHtmlGump(50, 385, 150, 18, whitehtml % "EXIT")
+    gump.addButton(15, 350, 0xFB1, 0xFB3, 0)
+    gump.addText(50, 353, "Exit", 0x480)
    
     # MAKE LAST button , return value: 2
-    gump.addButton(310, 382, 4005, 4007, 2)
-    gump.addHtmlGump(345, 385, 150, 18, whitehtml % "MAKE LAST")
+    gump.addButton(15, 330, 4005, 4007, 2)
+    gump.addText(50, 333, "Make Last", 0x480)
 
     # PREVIOUS MENU button, return value: 3
     # Or: if we're on one of the subpages for settings
     # just return to the normal page
     if submenu:
-      gump.addButton(15, 362, 0xFAE, 0xFB0, 9)
-      gump.addHtmlGump(50, 365, 150, 18, whitehtml % "BACK")
+      gump.addButton(15, 310, 0xFAE, 0xFB0, 9)
+      gump.addText(50, 313, "Back", 0x480)
     elif self.parent:
-      gump.addButton(15, 362, 0xFAE, 0xFB0, 3)
-      gump.addHtmlGump(50, 365, 150, 18, whitehtml % "PREVIOUS MENU")
+      gump.addButton(15, 310, 0xFAE, 0xFB0, 3)
+      gump.addText(50, 313, "Previous Menu", 0x480)
 
     # LAST 10
     if not submenu:
 			gump.addButton(15, 60, 0xFAB, 0xFAD, 1)
-			gump.addHtmlGump(50, 63, 150, 18, whitehtml % "Last Ten")
+			gump.addText(50, 63, "Last Ten", 0x480)
 
     # MARK ITEM button
     if self.allowmark:
       if not player.hastag('markitem'):
         buttonid = 4 # DONT MARK ITEM -> MARK ITEM
-        clilocid = 1044018
+        message = "Dont Mark Item"
       else:
         buttonid = 5 # Turns to "DONT MARK ITEM"
-        clilocid = 1044017
+        message= "Mark Item"
           
-      gump.addButton(310, 362, 4005, 4007, buttonid)
-      gump.addXmfHtmlGump(345, 365, 150, 18, clilocid, 0, 0, 0x7FFF)
+      gump.addButton(165, 350, 4005, 4007, buttonid)
+      gump.addText(200, 353, message, 0x480)
   
     # Button for the primary submaterial
     if len(self.submaterials1) > 0:
-      gump.addButton(165, 362, 4005, 4007, 7) # Display change res1 type gump
+      gump.addButton(165, 310, 4005, 4007, 7) # Display change res1 type gump
       index = self.getsubmaterial1used(player, arguments)
-      gump.addText(200, 362, self.submaterials1[index][0], 0x480)
+      gump.addText(200, 313, self.submaterials1[index][0], 0x480)
 
     # Button for the secondary submaterial
     if len(self.submaterials2) > 0:
-      gump.addButton(165, 382, 4005, 4007, 8) # Display change res2 type gump
+      gump.addButton(165, 330, 4005, 4007, 8) # Display change res2 type gump
       index = self.getsubmaterial2used(player, arguments)
-      gump.addText(200, 385, self.submaterials2[index][0], 0x480)
+      gump.addText(200, 333, self.submaterials2[index][0], 0x480)
  
   #
   # Helper function for making the last action
@@ -457,6 +519,21 @@ class MakeMenu:
     # Show ourself
     elif response.button == 9:
       self.send(player)
+
+    # Repair Item
+    elif response.button == 10:
+      player.socket.clilocmessage(1044276)
+      player.socket.attachtarget("system.makemenus.MakeMenuTarget", [self.id, 1] + arguments)
+
+    # Enhance Item
+    elif response.button == 11:
+      player.socket.clilocmessage(1061004)
+      player.socket.attachtarget("system.makemenus.MakeMenuTarget", [self.id, 2] + arguments)
+
+    # Smelt Item
+    elif response.button == 12:
+      player.socket.clilocmessage(1044273)
+      player.socket.attachtarget("system.makemenus.MakeMenuTarget", [self.id, 3] + arguments)
 
     # Submenu
     elif response.button & 0x80000000:
@@ -542,20 +619,15 @@ class MakeMenu:
     gump.setArgs([self.id] + arguments)
     gump.setType(self.gumptype)
     gump.startPage(0)
-    gump.addBackground(0x13be, 530, 417)
+    gump.addBackground(0x13be, 530, 388)
     gump.addTiledGump(10, 10, 510, 22, 0xA40)
-    gump.addTiledGump(10,292, 150, 45, 0xA40)
-    gump.addTiledGump(165, 292, 355, 45, 0xA40)
-    gump.addTiledGump(10, 342, 510, 65, 0xA40)
     gump.addTiledGump(10, 37, 200, 250, 0xA40)
     gump.addTiledGump(215, 37, 305, 250, 0xA40)
-    gump.addCheckerTrans(10, 10, 510, 397)
+    gump.addCheckerTrans(10, 10, 510, 368)
     
     gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
     gump.addHtmlGump(10, 39, 200, 20, centerhtml % "CATEGORIES")
     gump.addHtmlGump(215, 39, 305, 20, centerhtml % "SELECTIONS")
-    gump.addHtmlGump(10, 294, 150, 20, centerhtml % "NOTICES")
-    gump.addHtmlGump(170, 292, 345, 41, whitehtml % self.notices)
 
     return gump
 
@@ -603,13 +675,13 @@ class MakeMenu:
 
       # Add a back button
       if i > 0:
-        gump.addPageButton(15, 342, 0xFAE, 0xFB0, i)
-        gump.addHtmlGump(50, 345, 150, 18, whitehtml % "PREVIOUS PAGE")
+        gump.addPageButton(15, 290, 0xFAE, 0xFB0, i)
+        gump.addText(50, 293, "Previous Page", 0x480)
 
       # Add a next button
       if i+1 < pages:
-        gump.addPageButton(310, 342, 4005, 4007, i + 2)
-        gump.addHtmlGump(345, 345, 150, 18, whitehtml % "NEXT PAGE")
+        gump.addPageButton(350, 290, 4005, 4007, i + 2)
+        gump.addText(385, 293, "Next Page", 0x480)
 
     gump.setArgs([self.id] + args)
     gump.send(player)
