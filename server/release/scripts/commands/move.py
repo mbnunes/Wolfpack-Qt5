@@ -23,6 +23,7 @@ def commandMove( socket, cmd, args ):
 		socket.sysmessage( "Usage: move [x]" )
 		socket.sysmessage( "Usage: move [x],[y]" )
 		socket.sysmessage( "Usage: move [x],[y],[z]" )
+		socket.sysmessage( "Usage: move [x],[y],[z],[map]" )
 		return False
 	else:
 		args = args.split( "," )
@@ -56,8 +57,8 @@ def commandMove( socket, cmd, args ):
 				ymod = 0
 				zmod = 0
 				newmap = None
-			if newmap:
-				socket.sysmesage( "Please select a target to move %i,%i,%i,%i" % ( xmod, ymod, zmod, newmap ) )
+			if newmap != None:
+				socket.sysmessage( "Please select a target to move %i,%i,%i,%i" % ( xmod, ymod, zmod, newmap ) )
 			else:
 				socket.sysmessage( "Please select a target to move %i,%i,%i" % ( xmod, ymod, zmod ) )
 			socket.attachtarget( "commands.move.response", [ int(xmod), int(ymod), int(zmod), newmap ] )
@@ -72,23 +73,18 @@ def commandMove( socket, cmd, args ):
 
 def response( char, args, target ):
 	socket = char.socket
-	xmod = args[0]
-	ymod = args[1]
-	zmod = args[2]
-	newmap = args[3]
-	if not newmap:
-		newmap = False
-
-	if newmap:
-		newmap = int(newmap)
-	xmod = int( xmod )
-	ymod = int( ymod )
-	zmod = int( zmod )
+	xmod = int( args[0] )
+	ymod = int( args[1] )
+	zmod = int( args[2] )
+	if( args[3] == None ):
+		newmap = None
+	else:
+		newmap = int( args[3] )
 
 	if target.item:
 		item = target.item
 		pos = item.pos
-		if type(newmap) == int:
+		if newmap != None:
 			newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
 		else:
 			newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
@@ -98,7 +94,7 @@ def response( char, args, target ):
 	elif target.char:
 		char = target.char
 		pos = char.pos
-		if type(newmap) == int:
+		if newmap != None:
 			newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
 		else:
 			newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
