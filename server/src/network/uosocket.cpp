@@ -2153,22 +2153,27 @@ void cUOSocket::updateMana( P_CHAR pChar )
 	}
 }
 
-void cUOSocket::updateHealth( P_CHAR pChar )
-{
+void cUOSocket::updateHealth(P_CHAR pChar) {
 	if( !pChar )
 		pChar = _player;
 
 	if( !pChar )
 		return;
 
-	float factor = pChar->hitpoints() / (float)pChar->maxHitpoints();
-	unsigned short max = 256;
-	unsigned short cur = (unsigned short)(factor * max);
-
 	cUOTxUpdateHealth update;
 	update.setSerial(pChar->serial());
-	update.setMaximum(max);
-	update.setCurrent(cur);
+
+	if (pChar != _player) {
+		float factor = pChar->hitpoints() / (float)pChar->maxHitpoints();
+		unsigned short max = 256;
+		unsigned short cur = (unsigned short)(factor * max);
+		update.setMaximum(max);
+		update.setCurrent(cur);
+	} else {
+		update.setMaximum(pChar->maxHitpoints());
+		update.setCurrent(pChar->hitpoints());
+	}
+
 	send(&update);
 
 	// Send the packet to our party members too
@@ -2194,8 +2199,16 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	// Dont allow rename-self
 	sendStats.setAllowRename( ( ( pChar->objectType() == enNPC && dynamic_cast<P_NPC>(pChar)->owner() == _player && !pChar->isHuman() ) || _player->isGM() ) && ( _player != pChar ) );
 
-	sendStats.setMaxHp( pChar->maxHitpoints() );
-	sendStats.setHp( pChar->hitpoints() );
+	if (pChar != _player) {
+		float factor = pChar->hitpoints() / (float)pChar->maxHitpoints();
+		unsigned short max = 256;
+		unsigned short cur = (unsigned short)(factor * max);
+		sendStats.setMaxHp(max);
+		sendStats.setHp(cur);
+	} else {
+		sendStats.setMaxHp(pChar->maxHitpoints());
+		sendStats.setHp(pChar->hitpoints());
+	}
 
 	sendStats.setName( pChar->name() );
 	sendStats.setSerial( pChar->serial() );
