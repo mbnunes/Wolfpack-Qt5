@@ -353,22 +353,6 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 	World::instance()->registerObject( pc );
 	pc->setRegion( AllTerritories::instance()->region( pc->pos().x, pc->pos().y, pc->pos().map ) );
 
-	if (pc->bodyID() <= 0x3e1)
-	{
-		unsigned short k = pc->bodyID();
-		unsigned short c1 = pc->skin();
-		unsigned short b = c1&0x4000;
-		if ((b == 16384 && (k >=0x0190 && k<=0x03e1)) || c1==0x8000)
-		{
-			if (c1!=0xf000)
-			{
-				pc->setSkin( 0xF000 );
-				pc->setOrgSkin( 0xF000 );
-				Console::instance()->send(QString("char/player: %1 : [%2] correted problematic skin hue\n").arg(pc->name()).arg( pc->serial(), 16 ) );
-			}
-		}
-	}
-
 	UINT16 max_x = Map->mapTileWidth(pc->pos().map) * 8;
 	UINT16 max_y = Map->mapTileHeight(pc->pos().map) * 8;
 

@@ -445,9 +445,10 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	bool running = dir & 0x80;
 	dir = dir & 0x7F; // Remove the running flag
 
+	bool turning = dir != pChar->direction();
+
 	// This happens if we're moving
-	if( dir == pChar->direction() )
-	{
+	if (!turning) {
 		// Note: Do NOT use the copy constructor as it'll create a reference
 		Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos() );
 
@@ -548,7 +549,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	}
 
 	// If we really moved handle teleporters and new items
-	if (dir == pChar->direction()) {
+	if (!turning) {
 		handleItems( pChar, oldpos );
 		HandleTeleporters( pChar, oldpos );
 	}
