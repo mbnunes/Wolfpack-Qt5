@@ -19,6 +19,9 @@
 		<group name="RemoteAccess">
 			<action name="any" permit="true" />
 		</group>
+		<group name="Misc">
+			<action name="Unlimited Tile" permit="true" />
+		</group>
 	</acl>
 
 	<!-- GameMaster privs -->
@@ -38,7 +41,10 @@
 			<action name="SHUTDOWN" permit="false" />
 		</group>
 		<group name="multi">
-			<action name="any" permit="true" />
+			<action name="any" permit="true" />			
+		</group>
+		<group name="Misc">
+			<action name="Unlimited Tile" permit="false" />
 		</group>
 	</acl>
 

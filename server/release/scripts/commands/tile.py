@@ -9,6 +9,7 @@
 """
 
 import wolfpack
+from wolfpack.consts import *
 import random
 
 #
@@ -26,8 +27,17 @@ def tileResponse(player, arguments, target):
 	y2 = max(arguments[2].y, target.pos.y)
 	z = arguments[0]
 	ids = arguments[1]
+	
+	unlimited = player.account.authorized('Misc', 'Unlimited Tile')
+	count = ((x2 - x1) + 1) * ((y2 - y1) + 1)
+	
+	# Cap at 500 items if not an admin is using it
+	if not unlimited and count > 250:
+		player.socket.sysmessage('You are not allowed to tile more than 250 items at once.')
+		return
 
-	player.socket.sysmessage('Creating items from %u,%u to %u,%u at z=%d.' % (x1, y1, x2, y2, z))
+	player.log(LOG_MESSAGE, "Tiling %u items (%s) from %u,%u to %u,%u at z=%d.\n" % (count, ", ".join(ids), x1, y1, x2, y2, z))
+	player.socket.sysmessage('Creating %u items from %u,%u to %u,%u at z=%d.' % (count, x1, y1, x2, y2, z))
 	pos = player.pos
 	pos.z = z
 

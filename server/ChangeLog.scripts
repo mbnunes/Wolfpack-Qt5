@@ -67,6 +67,7 @@ Wolfpack 12.9.9 Beta (CVS)
 		- Implemented a new page system.
 		- Fix for bug #0000270 (.controlslots for blade spirits)
 		- Fix for bug #0000263 (casting with weapon allowed although weapon is not spell channeling)
+		- Fix for bug #0000260 (.tile now caps at 250 items if the acl doesn't allow unlimited items)
 	* Misc. Changes:
 		- Experimental Mac OSX Support
 	* Known Issues, Bugs, and Missing Features:
