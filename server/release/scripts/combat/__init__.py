@@ -40,6 +40,11 @@ def onSwing(attacker, defender, time):
 	if defender.invisible or defender.hidden:
 		attacker.attacktarget = None
 		return
+		
+	# Wait one second until the attacker is unfrozen
+	if attacker.frozen:
+		attacker.nextswing = time + 500
+		return
 
 	# Reveal us
 	attacker.reveal()
