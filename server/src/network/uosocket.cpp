@@ -2161,10 +2161,14 @@ void cUOSocket::updateHealth( P_CHAR pChar )
 	if( !pChar )
 		return;
 
+	float factor = pChar->hitpoints() / (float)pChar->maxHitpoints();
+	unsigned short max = 256;
+	unsigned short cur = (unsigned short)(factor * max);
+
 	cUOTxUpdateHealth update;
 	update.setSerial(pChar->serial());
-	update.setMaximum(pChar->maxHitpoints());
-	update.setCurrent(pChar->hitpoints());
+	update.setMaximum(max);
+	update.setCurrent(cur);
 	send(&update);
 
 	// Send the packet to our party members too
