@@ -78,7 +78,6 @@
 
 	<!-- order shield -->
 	<item id="1bc4_gold" inherit="1bc4">
-		<inherit id="1bc4" />
 		<gold_armor />
 		<baseid>1bc4</baseid>
 		<category>Armor\Gold\Shields\Order Shield (N/S)</category>

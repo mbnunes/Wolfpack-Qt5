@@ -78,7 +78,6 @@
 
 	<!-- order shield -->
 	<item id="1bc4_valorite" inherit="1bc4">
-		<inherit id="1bc4" />
 		<valorite_armor />
 		<baseid>1bc4</baseid>
 		<category>Armor\Valorite\Shields\Order Shield (N/S)</category>

@@ -57,20 +57,17 @@
 		<basescripts>magic.rune</basescripts>
 	</item>
 
-	<item id="1f15">
-		<inherit id="1f14" />
+	<item id="1f15" inherit="1f14">
 		<id>0x1f15</id>
 		<category>Professions\Mage\Runes\Recall Rune (2)</category>
 	</item>
 
-	<item id="1f16">
-		<inherit id="1f14" />
+	<item id="1f16" inherit="1f14">
 		<id>0x1f16</id>
 		<category>Professions\Mage\Runes\Recall Rune (3)</category>
 	</item>
 
-	<item id="1f17">
-		<inherit id="1f14" />
+	<item id="1f17" inherit="1f14">		
 		<id>0x1f17</id>
 		<category>Professions\Mage\Runes\Recall Rune (4)</category>
 	</item>
@@ -903,8 +900,7 @@
 		<category>Professions\Mage\Scroll 6 (W/E)</category>
 	</item>
 
-	<item id="e3b" type="spellbook">
-		<inherit id="efa" />
+	<item id="e3b" inherit="efa">
 		<id>0xe3b</id>
 		<category>Professions\Mage\Spellbook (W/E)</category>
 	</item>

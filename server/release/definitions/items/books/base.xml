@@ -18,61 +18,52 @@
 	</item>
 
 	<!-- Book 1 -->
-	<item id="fef">
-		<inherit id="base_book" />
+	<item id="fef" inherit="base_book">
 		<category>Equipment\Books\Book 1</category>
 		<id>0x0fef</id>
 	</item>
 
 	<!-- Book 2 -->
-	<item id="ff0">
-		<inherit id="base_book" />
+	<item id="ff0" inherit="base_book">
 		<category>Equipment\Books\Book 2</category>
 		<id>0x0ff0</id>
 	</item>
 
 	<!-- Book 3 -->
-	<item id="ff1">
-		<inherit id="base_book" />
+	<item id="ff1" inherit="base_book">
 		<category>Equipment\Books\Book 3</category>
 		<id>0x0ff1</id>
 	</item>
 
 	<!-- Book 4 -->
-	<item id="ff2">
-		<inherit id="base_book" />
+	<item id="ff2" inherit="base_book">
 		<category>Equipment\Books\Book 4</category>
 		<id>0x0ff2</id>
 	</item>
 
 	<!-- Book 5 -->
-	<item id="ff3">
-		<inherit id="base_book" />
+	<item id="ff3" inherit="base_book">
 		<category>Equipment\Books\Book 5</category>
 		<id>0x0ff3</id>
 	</item>
 
 	<!-- Book 6 -->
-	<item id="ff4">
-		<inherit id="base_book" />
+	<item id="ff4" inherit="base_book">
 		<category>Equipment\Books\Book 6</category>
 		<id>0x0ff4</id>
 	</item>
 
-	<item id="fbd">
-		<inherit id="base_book" />
+	<item id="fbd" inherit="base_book">
 		<id>0x0fbd</id>
 		<category>Equipment\Books\Book 7 (N/S)</category>
 	</item>
 
-	<item id="fbe">
-		<inherit id="base_book" />
+	<item id="fbe" inherit="base_book">
 		<id>0x0fbe</id>
 		<category>Equipment\Books\Book 7 (W/E)</category>
 	</item>
 
-	<item id="1e20">
-		<inherit id="base_book" />
+	<item id="1e20" inherit="base_book">
 		<id>0x1e20</id>
 		<category>Equipment\Books\Book 8</category>
 	</item>

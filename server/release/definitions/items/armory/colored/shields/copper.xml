@@ -78,7 +78,6 @@
 
 	<!-- order shield -->
 	<item id="1bc4_copper" inherit="1bc4">
-		<inherit id="1bc4" />
 		<copper_armor />
 		<baseid>1bc4</baseid>
 		<category>Armor\Copper\Shields\Order Shield (N/S)</category>

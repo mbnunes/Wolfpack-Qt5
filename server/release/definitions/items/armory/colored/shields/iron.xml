@@ -78,7 +78,6 @@
 
 	<!-- order shield -->
 	<item id="1bc4_iron" inherit="1bc4">
-		<inherit id="1bc4" />
 		<iron_armor />
 		<baseid>1bc4</baseid>
 		<category>Armor\Iron\Shields\Order Shield (N/S)</category>

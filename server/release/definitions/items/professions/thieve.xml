@@ -16,8 +16,7 @@
 		<basescripts>lockpick</basescripts>
 	</item>
 
-	<item id="14fc">
-		<inherit id="14fb" />
+	<item id="14fc" inherit="14fb">
 		<id>0x14fc</id>
 		<category>Professions\Thieve\Lockpick (E/W)</category>
 	</item>
@@ -28,8 +27,7 @@
 		<basescripts>lockpick</basescripts>
 	</item>
 
-	<item id="14fe">
-		<inherit id="14fd" />
+	<item id="14fe" inherit="14fd">
 		<id>0x14fe</id>
 		<category>Professions\Thieve\Lockpicks (N/S)</category>
 	</item>

@@ -374,17 +374,15 @@ Food subtypes:
 	</item>
 
 	<!-- Mug of Ale 1 -->
-	<item id="9ee">
+	<item id="9ee" inherit="drinks_base">
 		<category>Equipment\Food\Mug of Ale 1</category>
-		<inherit id="drinks_base" />
 		<id>0x9ee</id>
 		<weight>0.1</weight>
 	</item>
 
 	<!-- Mug of Ale 2 -->
-	<item id="9ef">
+	<item id="9ef" inherit="drinks_base">
 		<category>Equipment\Food\Mug of Ale 2</category>
-		<inherit id="drinks_base" />
 		<id>0x9ef</id>
 		<weight>0.1</weight>
 	</item>
@@ -446,14 +444,12 @@ Food subtypes:
 		<category>Equipment\Food\Turnip 3</category>
 	</item>
 
-	<item id="d39">
-		<inherit id="c61" />
+	<item id="d39" inherit="c61">
 		<id>0xd39</id>
 		<category>Equipment\Food\Turnip 4</category>
 	</item>
 
-	<item id="d3a">
-		<inherit id="c61" />
+	<item id="d3a" inherit="c61">
 		<id>0xd3a</id>
 		<category>Equipment\Food\Turnip 5</category>
 	</item>
@@ -546,8 +542,7 @@ Food subtypes:
 
 	</item>
 
-	<item id="c73">
-		<inherit id="c72" />
+	<item id="c73" inherit="c72">
 		<id>0xc73</id>
 		<category>Equipment\Food\Squash 2</category>
 	</item>
@@ -627,27 +622,23 @@ Food subtypes:
 
 	</item>
 
-	<item id="c80">
-		<inherit id="c7f" />
+	<item id="c80" inherit="c7f">
 		<id>0xc80</id>
 		<category>Equipment\Food\Ear of Corn 2</category>
 	</item>
 
-	<item id="c81">
-		<inherit id="c7f" />
+	<item id="c81" inherit="c7f">
 		<id>0xc81</id>
 		<category>Equipment\Food\Ear of Corn 3</category>
 	</item>
 
-	<item id="c82">
-		<inherit id="c7f" />
+	<item id="c82" inherit="c7f">
 		<id>0xc82</id>
 		<category>Equipment\Food\Ear of Corn 4</category>
 	</item>
 
 	<!-- Grape Bunch -->
-	<item id="d1a">
-		<inherit id="9d1" />
+	<item id="d1a" inherit="9d1">
 		<id>0xd1a</id>
 		<category>Equipment\Food\Grape Bunch 2</category>
 	</item>

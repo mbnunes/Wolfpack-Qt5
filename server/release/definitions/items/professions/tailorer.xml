@@ -317,8 +317,7 @@
 		<basescripts>scissors</basescripts>
 	</item>
 
-	<item id="f9f">
-		<inherit id="f9e" />
+	<item id="f9f" inherit="f9e">
 		<id>0xf9f</id>
 		<category>Professions\Tailorer\Scissors (W/E)</category>
 	</item>
