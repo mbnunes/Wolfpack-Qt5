@@ -46,7 +46,7 @@ def onSpeech( listener, speaker, text, keywords ):
 
 			# Withraw
 			else:
-				# Check if the player has enough gold on his bank
+				# Check if the player has enough gold in his bank
 				bank = speaker.getbankbox()
 				gold = 0
 
@@ -79,9 +79,9 @@ def onSpeech( listener, speaker, text, keywords ):
 			if bank:
 				amount = bank.countresource( 0xEED, 0x0 )
 				if not amount: 
-					listener.say( "Alas you don't have any money on your bank." )
+					listener.say( "Alas you don't have any money in your bank." )
 				else:
-					listener.say( "You have %i gold on your bank." % amount )
+					listener.say( "You have %i gold in your bank." % amount )
 			break
 
 		# bank
@@ -108,7 +108,7 @@ def onSpeech( listener, speaker, text, keywords ):
 
 			# Withraw
 			else:
-				# Check if the player has enough gold on his bank
+				# Check if the player has enough gold in his bank
 				bank = speaker.getbankbox()
 				gold = 0
 
@@ -120,7 +120,7 @@ def onSpeech( listener, speaker, text, keywords ):
 
 				else:
 					# We have enough money, so let's withdraw it
-					listener.say( "I've put a check for %i gold on your bank." % amount )
+					listener.say( "I've put a check for %i gold in your bank." % amount )
 					bank.useresource( amount, 0xEED, 0x0 )
 					check = wolfpack.additem( "bank_check" )
 					check.settag( 'value', amount )
