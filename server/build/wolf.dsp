@@ -896,6 +896,10 @@ SOURCE=.\sqlite\copy.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\sqlite\date.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\sqlite\delete.c
 # End Source File
 # Begin Source File
@@ -1009,6 +1013,14 @@ SOURCE=.\sqlite\vdbe.c
 # Begin Source File
 
 SOURCE=.\sqlite\vdbe.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\sqlite\vdbeaux.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\sqlite\vdbeInt.h
 # End Source File
 # Begin Source File
 
