@@ -248,6 +248,17 @@ void cGuild::setSerial( unsigned int data )
 
 void cGuilds::registerGuild( cGuild* guild )
 {
+	iterator it = guilds.find(guild->serial());
+
+	if (it != guilds.end()) {
+		if (it.data() != guild) {
+			delete it.data();
+			guilds.erase(it);
+		} else {
+			return; // Already registered
+		}
+	}
+
 	guilds.insert( guild->serial(), guild, true );
 }
 

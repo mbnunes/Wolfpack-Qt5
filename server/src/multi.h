@@ -96,7 +96,7 @@ public:
 
 	// Move all contained items along.
 	// Also recheck our position in the multi grid.
-	void moveTo( const Coord&, bool noRemove = false );
+	void moveTo( const Coord& );
 
 	// Create a multi from a script definition
 	static cMulti* createFromScript( const QString& section );

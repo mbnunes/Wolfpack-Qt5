@@ -329,10 +329,7 @@ public:
 	{
 		priv_ = d; flagChanged(); changed( TOOLTIP );
 	}
-	void setContainer( cUObject* d )
-	{
-		container_ = d; flagChanged();
-	}
+	void setContainer( cUObject* d );
 
 	virtual void Init( bool mkser = true );
 	void setSerial( SERIAL ser );
@@ -359,7 +356,7 @@ public:
 	}
 	Q_UINT16 getWeaponSkill();
 
-	void moveTo( const Coord& pos, bool noremove = false );
+	void moveTo( const Coord& pos );
 	long reduceAmount( unsigned int amount = 1 );
 	short containerGumpType() const;
 	void setRandPosInCont( cItem* pCont );

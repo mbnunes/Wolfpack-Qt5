@@ -104,9 +104,7 @@ cBaseChar::cBaseChar()
 	saycolor_ = 0x1700;
 	murdererSerial_ = INVALID_SERIAL;
 	guarding_ = NULL;
-	cUObject::pos_ = Coord( 100, 100, 0, 0 );
 	setDead( false );  // we want to live ;)
-
 	saycolor_ = 600;
 	hitpointsBonus_ = 0;
 	staminaBonus_ = 0;
@@ -218,6 +216,11 @@ void cBaseChar::load( cBufferedReader& reader, unsigned int version )
 
 	// Load Skills
 	unsigned int count = ALLSKILLS;
+	
+	if (version < 9) {
+		count = CHIVALRY + 1; // Before version 9 the highest skill was chivalry
+	}
+
 	for ( unsigned int s = 0; s < count; ++s )
 	{
 		// Read value, cap, lock
@@ -1434,13 +1437,12 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 	if ( atLayer( layer ) != 0 )
 	{
 		log( LOG_ERROR, tr( "Trying to put item 0x%1 on layer %2 which is already occupied.\n" ).arg( pi->serial(), 0, 16 ).arg( layer ) );
-		pi->container_ = 0;
-		pi->moveTo( pos_, true );
+		pi->container_ = 0; // Remove from cont
+		pi->moveTo(pos_); // Move to world
 		return;
 	}
 
-	if ( !noRemove )
-	{
+	if ( !noRemove ) {
 		pi->removeFromCont();
 	}
 
@@ -1450,15 +1452,8 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 	{
 		pi->setLayer( layer );
 	}
-
-	if ( Server::instance()->getState() != STARTUP )
-	{
-		pi->setContainer( this );
-	}
-	else
-	{
-		pi->container_ = this; // Avoid a flagChanged()
-	}
+	
+	pi->setContainer(this);
 
 	if ( handleWeight && ( pi->layer() < 0x1A || pi->layer() == 0x1E ) )
 	{
@@ -2385,7 +2380,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 			{
 				blood->setColor(bloodColor);
 				blood->setNoDecay( false ); // Override the nodecay tag in the definitions
-				blood->moveTo( pos_, true ); // Move it to the feet of the victim
+				blood->moveTo( pos_ ); // Move it to the feet of the victim
 				blood->update(); // Send it to all sockets in range
 			}
 		}
@@ -2809,7 +2804,7 @@ bool cBaseChar::kill( cUObject* source )
 		corpse->setTag( "notoriety", cVariant( notoriety( this ) ) );
 		corpse->setCharBaseid( baseid() );
 		corpse->setOwner( this );
-		corpse->moveTo( pos_, true );
+		corpse->moveTo( pos_ );
 		corpse->setDirection( direction() );
 		corpse->setMurderTime( QDateTime::currentDateTime().toTime_t() );
 
@@ -2879,7 +2874,7 @@ bool cBaseChar::kill( cUObject* source )
 				corpse->addItem( item );
 			else
 			{
-				item->moveTo( pos_, true );
+				item->moveTo( pos_ );
 				item->update();
 			}
 		}
@@ -3387,10 +3382,16 @@ double cBaseChar::getManaRate()
 }
 
 // Light and Region checks
-void cBaseChar::moveTo( const Coord& pos, bool noremove )
+void cBaseChar::moveTo( const Coord& pos )
 {
-	cUObject::moveTo( pos, noremove );
-	Territories::instance()->check( this );
+	if (!pos.isInternalMap() && !Maps::instance()->hasMap(pos.map)) {
+		return;
+	}
+
+	cUObject::moveTo(pos);
+	if (!pos_.isInternalMap()) {
+		Territories::instance()->check(this);
+	}
 }
 
 void cBaseChar::remove()
@@ -3445,7 +3446,6 @@ void cBaseChar::remove()
 		multi_ = 0;
 	}
 
-	MapObjects::instance()->remove( this );
 	cUObject::remove();
 }
 

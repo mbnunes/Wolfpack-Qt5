@@ -1434,7 +1434,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString& /*command*/, const 
 			if ( !Maps::instance()->canFit( x, y, z, map ) )
 				return 0;
 			cItem* door = cItem::createFromScript( QString::number( 0x6A5 + 2 * int( facing ), 16 ) );
-			door->moveTo( Coord( x, y, z, map ), true );
+			door->moveTo( Coord( x, y, z, map ) );
 			return door;
 		}
 	public:

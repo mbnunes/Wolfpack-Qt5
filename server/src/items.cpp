@@ -98,7 +98,8 @@ cItem::cItem( const cItem& src ) : cUObject(src), totalweight_( 0 ), container_(
 	this->totalweight_ = amount_ * weight();
 	this->multi_ = 0;
 	this->isPersistent = false;
-	moveTo( src.pos_, true );
+	pos_ = src.pos_; // Copy position
+	pos_.setInternalMap(); // Make absolutly sure that we're not flagged as being in the sector maps yet	
 }
 
 P_CHAR cItem::owner( void ) const
@@ -128,7 +129,7 @@ void cItem::toBackpack( P_CHAR pChar )
 	if ( !pPack )
 	{
 		removeFromCont();
-		moveTo( pChar->pos(), true );
+		moveTo( pChar->pos() );
 	}
 	// Or to the backpack
 	else
@@ -315,7 +316,7 @@ void cItem::setRandPosInCont( cItem* pCont )
 	default:
 		position.y = RandomNum( 30, 80 );
 	}
-	setPos( position );
+	moveTo( position );
 }
 
 /*!
@@ -362,8 +363,11 @@ void cItem::save( cBufferedWriter& writer, unsigned int version )
 
 void cItem::postload( unsigned int /*version*/ )
 {
-	if( !container_ )
-	{
+	if (container_) {
+		pos_.setInternalMap();
+	}
+
+	if( !container_ && !pos_.isInternalMap() ) {
 		MapObjects::instance()->add( this );
 	}
 }
@@ -517,7 +521,7 @@ void cItem::Init( bool createSerial )
 	this->container_ = 0;
 	this->free = false;
 	this->setId( 0x0001 ); // Item visuals as stored in the client
-	this->setPos( Coord( 100, 100, 0 ) );
+	this->pos_.setInternalMap();
 	this->color_ = 0x00; // Hue
 	this->layer_ = 0; // Layer if equipped on paperdoll
 	this->amount_ = 1; // Amount of items in pile
@@ -569,8 +573,6 @@ void cItem::remove()
 	}
 	else
 	{
-		MapObjects::instance()->remove( this );
-
 		// Remove us from a possilbe multi container too
 		if ( multi_ )
 		{
@@ -1086,7 +1088,7 @@ P_ITEM cItem::dupe()
 
 		if ( pchar )
 		{
-			nItem->moveTo( pchar->pos(), true );
+			nItem->moveTo( pchar->pos() );
 		}
 		else
 		{
@@ -1099,7 +1101,7 @@ P_ITEM cItem::dupe()
 	}
 	else
 	{
-		nItem->moveTo( pos_, true );
+		nItem->moveTo( pos_ );
 	}
 	return nItem;
 }
@@ -1405,7 +1407,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 
 	content_.add( pItem );
 	pItem->layer_ = 0;
-	pItem->container_ = this;
+	pItem->setContainer(this);
 
 	// If the Server is running and this happens, resend the tooltip of us and
 	// all our parent containers.
@@ -1656,13 +1658,12 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 			P_ITEM pCont = getOutmostItem();
 			P_CHAR pChar = pCont->getOutmostChar();
 
-			if ( pChar )
-				setPos( pChar->pos() );
-			else
-				setPos( pCont->pos() );
-
 			removeFromCont();
-			MapObjects::instance()->add( this );
+
+			if ( pChar )
+				moveTo( pChar->pos() );
+			else
+				moveTo( pCont->pos() );
 		}
 	}
 	/*
@@ -2130,22 +2131,19 @@ unsigned int cItem::removeItems( const QStringList& baseids, unsigned int amount
 	return amount;
 }
 
-void cItem::moveTo( const Coord& newpos, bool noremove )
+void cItem::moveTo( const Coord& newpos )
 {
-	// See if the map is valid
-	if ( !Maps::instance()->hasMap( newpos.map ) )
-	{
-		return;
-	}
-
-	if ( container_ )
-	{
+	if ( container_ ) {
 		pos_ = newpos;
+		pos_.setInternalMap(); // We're not in the sector maps
 		changed_ = true;
-	}
-	else
-	{
-		cUObject::moveTo( newpos, noremove );
+	} else {
+		// See if the map is valid
+		if ( !newpos.isInternalMap() && !Maps::instance()->hasMap( newpos.map ) ) {
+			return;
+		}
+
+		cUObject::moveTo(newpos);
 	}
 }
 
@@ -2366,4 +2364,19 @@ unsigned int cItem::getSellPrice(P_CHAR pVendor) {
 	Py_XDECREF(args);
 
 	return sellprice;
+}
+
+void cItem::setContainer( cUObject* d )
+{
+	if (d && !pos_.isInternalMap()) {
+		MapObjects::instance()->remove(this);
+		pos_.setInternalMap();
+
+		if (multi_) {
+			multi_->removeObject(this);
+			multi_ = 0;
+		}
+	}
+
+	container_ = d; flagChanged();
 }

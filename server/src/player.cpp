@@ -102,7 +102,10 @@ void cPlayer::buildSqlString( const char *objectid, QStringList& fields, QString
 void cPlayer::postload( unsigned int version )
 {
 	cBaseChar::postload( version );
-	MapObjects::instance()->add( this );
+	
+	if (!pos_.isInternalMap()) {
+		MapObjects::instance()->add( this );
+	}
 
 	// account removed?
 	if( account() == 0 ) {
@@ -425,7 +428,7 @@ P_NPC cPlayer::unmount()
 		{
 			pMount->setWanderType( enHalt );
 			pMount->setStablemasterSerial( INVALID_SERIAL );
-			pMount->moveTo( pos(), true );
+			pMount->moveTo( pos() );
 			pMount->setDirection( direction_ );
 			pMount->resend( false );
 			pMount->bark( Bark_Idle );
@@ -975,7 +978,9 @@ bool cPlayer::onDisconnect()
 bool cPlayer::onLogout()
 {
 	// move the char from the online to the offline chars structure
-	MapObjects::instance()->updateOnlineStatus( this, false );
+	if (!pos_.isInternalMap()) {
+		MapObjects::instance()->updateOnlineStatus( this, false );
+	}
 
 	// trigger the script event
 	bool result = false;
@@ -1676,12 +1681,12 @@ unsigned char cPlayer::controlslots() const
 	return controlslots;
 }
 
-void cPlayer::moveTo( const Coord& pos, bool noremove )
+void cPlayer::moveTo( const Coord& pos )
 {
 	Coord oldpos = pos_;
-	cBaseChar::moveTo( pos, noremove );
+	cBaseChar::moveTo( pos );
 
-	if ( socket_ && oldpos.map != pos_.map )
+	if ( !pos_.isInternalMap() && socket_ && oldpos.map != pos_.map )
 	{
 		socket_->resendPlayer( false );
 	}

@@ -84,8 +84,8 @@ typedef std::map<SERIAL, P_CHAR> CharMap;
 // Don't forget to change the version number before changing tableInfo!
 //
 // ONCE AGAIN, DON'T FORGET TO INCREASE THIS VALUE
-#define DATABASE_VERSION 8
-#define WP_DATABASE_VERSION "8"
+#define DATABASE_VERSION 9
+#define WP_DATABASE_VERSION "9"
 
 // This is used for autocreating the tables
 struct
@@ -530,7 +530,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 					cGuild *guild = 0;
 
 					try {
-						guild = new cGuild();
+						guild = new cGuild(false);
 						guild->load(reader, reader.version());
 						Guilds::instance()->registerGuild(guild);
 					} catch (wpException& ) {

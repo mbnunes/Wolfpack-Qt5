@@ -138,7 +138,7 @@ public:
 	bool canSee( cUObject* object );
 	virtual bool canSeeChar( P_CHAR character );
 	virtual bool canSeeItem( P_ITEM item );
-	virtual void moveTo( const Coord& pos, bool noremove = false );
+	virtual void moveTo( const Coord& pos );
 
 	/*
 		Line of sight check for an item.

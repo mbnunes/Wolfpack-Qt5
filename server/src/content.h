@@ -55,6 +55,7 @@ private:
 	cItem **content;
 
    	ContainerContent(const ContainerContent &src) {
+		content = 0;
 	}
 public:
 

@@ -83,9 +83,9 @@ PyObject* cMulti::getProperty( const QString& name )
 	return cItem::getProperty( name );
 }
 
-void cMulti::moveTo( const Coord& pos, bool noRemove )
+void cMulti::moveTo( const Coord& pos )
 {
-	cUObject::moveTo( pos, noRemove );
+	cUObject::moveTo( pos );
 }
 
 cMulti* cMulti::createFromScript( const QString& id )

@@ -200,7 +200,7 @@ static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 			return 0;
 		}
 
-		self->pItem->moveTo( pos, noRemove ? true : false );
+		self->pItem->moveTo( pos );
 	}
 	else
 	{
@@ -210,7 +210,7 @@ static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 			return 0;
 		}
 		pos.z = ( signed char ) z;
-		self->pItem->moveTo( pos, noRemove ? true : false );
+		self->pItem->moveTo( pos );
 	}
 
 	Py_RETURN_NONE;
@@ -1349,7 +1349,7 @@ static int wpItem_setAttr( wpItem* self, char* name, PyObject* value )
 		else
 		{
 			self->pItem->removeFromCont();
-			self->pItem->moveTo( self->pItem->pos(), true );
+			self->pItem->moveTo( self->pItem->pos() );
 		}
 	}
 	else

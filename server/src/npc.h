@@ -133,6 +133,8 @@ public:
 	virtual void callGuards(); // overriding
 	void makeShop();
 
+	virtual void moveTo( const Coord& pos );
+
 	// getters
 	Q_UINT32 additionalFlags() const;
 	Q_UINT32 nextBeggingTime() const;
@@ -141,7 +143,7 @@ public:
 	Q_UINT32 nextMsgTime() const;
 	Q_UINT32 summonTime() const;
 	P_PLAYER owner() const;
-	SERIAL stablemasterSerial() const;
+	SERIAL stablemasterSerial() const;	
 	AbstractAI* ai() const;
 	Q_UINT32 aiCheckTime() const;
 	Q_UINT16 aiCheckInterval() const;

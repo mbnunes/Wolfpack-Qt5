@@ -57,6 +57,7 @@
 cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), changed_( true ),
 	tooltip_( 0xFFFFFFFF ), name_( QString::null ), scriptChain( 0 ), spawnregion_( 0 )
 {
+	pos_.setInternalMap(); // We're not in the map objects yet
 }
 
 cUObject::~cUObject()
@@ -97,53 +98,57 @@ cUObject::cUObject( const cUObject& src ) : cDefinable(src), cPythonScriptable(s
 	}
 	this->name_ = src.name_;
 	this->pos_ = src.pos_;
+	pos_.setInternalMap();
 	this->tags_ = src.tags_;
 	this->spawnregion_ = 0; // SpawnRegion references aren't transferred
 	changed_ = true;
 }
 
-void cUObject::moveTo( const Coord& newpos, bool noRemove )
-{
+void cUObject::moveTo(const Coord& newpos) {
+	if (pos_ == newpos) {
+		return; // Nothing changed
+	}
+
 	// See if the map is valid
-	if ( !Maps::instance()->hasMap( newpos.map ) )
-	{
+	if ( !newpos.isInternalMap() && !Maps::instance()->hasMap( newpos.map ) ) {
 		return;
 	}
 
-	// Position Changed
-	cMulti* multi = cMulti::find( newpos );
-	// Don't put multis into themselves
-	if ( multi != this && multi_ != multi )
-	{
-		if ( multi_ )
-		{
-			multi_->removeObject( this );
+	// We're moved to the internal map although we're not on the internal map
+	if (newpos.isInternalMap() && !pos_.isInternalMap()) {		
+		MapObjects::instance()->remove(this); // Remove from the sectors
+		if (multi_) {
+			multi_->removeObject(this);
+			multi_ = 0;
 		}
-
-		if ( multi )
-		{
-			multi->addObject( this );
-		}
-
-		multi_ = multi;
-	}
-
-	// note: is noRemove really necessary?
-	if( noRemove )
-	{
-		// place the object onto the map
-		pos_ = newpos; // This is required since MapObjects transparently checks
-					   // for objects->pos()
-		MapObjects::instance()->add( this );
-	}
-	else
-	{
-		// update the object's position
+	} else if (pos_.isInternalMap() && !newpos.isInternalMap()) {
+		pos_ = newpos; // Add uses this coordinate internally
+		MapObjects::instance()->add(this); // Add to the sectors
+	} else if (!newpos.isInternalMap()) {
 		MapObjects::instance()->update( this, newpos );
 	}
 
 	pos_ = newpos;
 	changed_ = true;
+
+	// We're not on an internal map
+	if (!pos_.isInternalMap()) {
+		// Position Changed
+		cMulti* multi = cMulti::find( newpos );
+		// Don't put multis into themselves
+		if ( multi != this && multi_ != multi )
+		{
+			if ( multi_ ) {
+				multi_->removeObject(this);
+			}
+
+			if ( multi ) {
+				multi->addObject(this);
+			}
+
+			multi_ = multi;
+		}
+	}
 }
 
 /*!
@@ -980,6 +985,17 @@ void cUObject::createTooltip( cUOTxTooltipList& tooltip, cPlayer* /*player*/ )
 void cUObject::remove()
 {
 	setSpawnregion( 0 ); // Remove from a spawnregion if applicable
+
+	if (multi_) {
+		multi_->removeObject(this);
+		multi_ = 0;
+	}
+
+	// Remove from the sectors if we previously were on the map
+	if (!pos_.isInternalMap()) {
+		MapObjects::instance()->remove(this);
+		pos_.setInternalMap();
+	}
 
 	// Queue up for deletion from worldfile
 	World::instance()->deleteObject( this );

@@ -576,7 +576,7 @@ void cSpawnRegion::spawnSingleNPC()
 		pChar->Init();
 		pChar->setSpawnregion(this);
 		pChar->setBaseid(id.latin1());
-		pChar->moveTo( pos, true );
+		pChar->moveTo( pos );
 
 		pChar->applyDefinition( parent ); // Apply the definition from the id first
 
@@ -666,7 +666,7 @@ void cSpawnRegion::spawnSingleItem()
 		pItem->Init();
 		pItem->setSpawnregion(this);
 		pItem->setBaseid(id.latin1());
-		pItem->moveTo( pos, true );
+		pItem->moveTo( pos );
 
 		pItem->applyDefinition( parent ); // Apply the definition from the id first
 		pItem->applyDefinition( tag ); // Now apply the given tag

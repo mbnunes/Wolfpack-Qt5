@@ -502,8 +502,7 @@ void MapObjects::add( cUObject *object )
 	if( !object )	// compatibility with old code
 		return;
 
-	if( isItemSerial( object->serial() ) )
-	{
+	if( isItemSerial( object->serial() ) ) {
 		Timing::instance()->addDecayItem( reinterpret_cast<P_ITEM>( object ) );
 	}
 

@@ -45,6 +45,7 @@
 #include "console.h"
 #include "corpse.h"
 #include "definitions.h"
+#include "multi.h"
 #include "combat.h"
 #include "walking.h"
 #include "skills.h"
@@ -103,6 +104,10 @@ void cNPC::buildSqlString( const char *objectid, QStringList& fields, QStringLis
 
 void cNPC::postload( unsigned int version )
 {
+	if (stablemasterSerial_ != INVALID_SERIAL) {
+		pos_.setInternalMap();
+	}
+
 	cBaseChar::postload( version );
 
 	SERIAL owner = ( SERIAL ) owner_;
@@ -111,9 +116,18 @@ void cNPC::postload( unsigned int version )
 	if ( wanderType() == enFollowTarget )
 		setWanderType( enFreely );
 
-	if( stablemasterSerial() == INVALID_SERIAL )
-	{
+	if( stablemasterSerial() == INVALID_SERIAL && !pos_.isInternalMap() ) {
 		MapObjects::instance()->add( this );
+	}
+
+	// If our stablemaster is missing, remove us
+	if (stablemasterSerial_ != INVALID_SERIAL) {
+		P_CHAR stablemaster = World::instance()->findChar(stablemasterSerial_);
+		if (!stablemaster) {
+			Console::instance()->log(LOG_WARNING, tr("Removing NPC %1 (0x%2) because of invalid stablemaster 0x%3.\n").arg(name()).arg(serial_).arg(stablemasterSerial_));
+			stablemasterSerial_ = INVALID_SERIAL;
+			remove();
+		}
 	}
 }
 
@@ -1421,15 +1435,14 @@ void cNPC::setStablemasterSerial( SERIAL data )
 	if( stablemasterSerial_ == data )
 		return;
 
-	if( data == INVALID_SERIAL )
-	{
-		// was stabled, and now is entering the world
-		MapObjects::instance()->add( this );
-	}
-	else if( stablemasterSerial_ == INVALID_SERIAL )
-	{
-		// was on the world, and now is being stabled
-		MapObjects::instance()->remove( this );
+	if( data != INVALID_SERIAL ) {
+		MapObjects::instance()->remove(this);
+        pos_.setInternalMap();
+
+		if (multi_) {
+			multi_->removeObject(this);
+			multi_ = 0;			
+		}
 	}
 
 	stablemasterSerial_ = data;
@@ -1452,7 +1465,7 @@ cNPC* cNPC::createFromScript( const QString& section, const Coord& pos )
 	P_NPC pChar = new cNPC;
 	pChar->Init();
 	pChar->basedef_ = CharBaseDefs::instance()->get( section.latin1() );
-	pChar->moveTo( pos, true );
+	pChar->moveTo( pos );
 	pChar->applyDefinition( DefSection );
 
 	// OrgBody and OrgSkin are often not set in the scripts
@@ -1509,4 +1522,14 @@ bool cNPC::isOverloaded() {
 
 unsigned int cNPC::maxWeight() {
 	return 0;
+}
+
+void cNPC::moveTo(const Coord &newpos) {
+	// Never call local function for this
+	if (stablemasterSerial_ != INVALID_SERIAL) {
+		pos_ = newpos;
+		pos_.setInternalMap();
+	} else {
+		cBaseChar::moveTo(newpos);
+	}
 }

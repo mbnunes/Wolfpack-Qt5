@@ -773,7 +773,6 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	pChar->sendTooltip( this );
 
 	// Send us our player and send the rest to us as well.
-	pChar->moveTo( pChar->pos() );
 	pChar->resend( false );
 	resendWorld( false );
 
@@ -1014,7 +1013,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 
 	pChar->setOrgBody( pChar->body() );
 
-	pChar->moveTo( startLocations[packet->startTown()].pos, true );
+	pChar->moveTo( startLocations[packet->startTown()].pos );
 	pChar->setDirection( 4 );
 
 	pChar->setStrength( packet->strength() );
@@ -1730,8 +1729,7 @@ void cUOSocket::setPlayer( P_PLAYER pChar )
 	// If the player is changing
 	if( pChar && ( pChar != _player ) )
 	{
-		if( _player )
-		{
+		if( _player ) {
 			// This should never happen, we should deny logins while there's a lingering
 			// char; but just in case, as this may avoid problems:
 			_player->onLogout();
@@ -1740,11 +1738,10 @@ void cUOSocket::setPlayer( P_PLAYER pChar )
 			_player->setLogoutTime( 0 );
 			_player->resend( false );
 		}
-
+		
 		_player = pChar;
 		_player->setSocket( this );
 		_player->resend( false );
-		MapObjects::instance()->add( _player );
 	}
 
 	_state = InGame;

@@ -65,6 +65,14 @@ public:
 
 	static Coord null;
 
+	inline bool isInternalMap() const {
+		return map == 0xFF;
+	}
+
+	inline void setInternalMap() {
+		map = 0xFF;
+	}
+
 public:
 	UI16 x;
 	UI16 y;

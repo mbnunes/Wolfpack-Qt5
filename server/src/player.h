@@ -209,7 +209,7 @@ public:
 	void removePet( P_NPC pPet, bool noOwnerChange = false );
 	bool canSeeChar( P_CHAR character );
 	bool canSeeItem( P_ITEM item );
-	virtual void moveTo( const Coord& pos, bool noremove = false );
+	virtual void moveTo( const Coord& pos );
 
 	// cPythonScriptable inherited methods
 	PyObject* getPyObject();

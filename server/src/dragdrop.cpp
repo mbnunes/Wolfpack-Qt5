@@ -202,30 +202,9 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 	// Remove from spawnregion
 	pItem->setSpawnregion( 0 );
 
-	// Remove it from the World if it is in world, otherwise remove it from it's current container
-	if ( pItem->isInWorld() )
-		MapObjects::instance()->remove( pItem );
-	else
-		pItem->removeFromCont( true );
-
-	// Remove eventual item-bonusses if we're unequipping something
-	if ( pItem->container() && pItem->container()->isChar() )
-	{
-		P_CHAR wearer = dynamic_cast<P_CHAR>( pItem->container() );
-
-		// resend the stat window
-		if ( wearer && wearer->objectType() == enPlayer )
-		{
-			P_PLAYER pp = dynamic_cast<P_PLAYER>( wearer );
-			if ( pp->socket() )
-				pp->socket()->sendStatWindow();
-		}
-	}
-
 	pChar->addItem( cBaseChar::Dragging, pItem );
 
-	if ( weight != pChar->weight() )
-	{
+	if ( weight != pChar->weight() ) {
 		socket->sendStatWindow();
 	}
 }
@@ -623,7 +602,7 @@ void DragAndDrop::dropOnGround( cUOSocket* socket, P_ITEM pItem, const Coord& po
 	}
 
 	pItem->removeFromCont();
-	pItem->moveTo( pos, true );
+	pItem->moveTo( pos );
 	pItem->update();
 
 	// Play Sounds for non gold items
@@ -759,7 +738,7 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 		else
 		{
 			pCont->addItem( pItem, false );
-			pItem->setPos( dropPos );
+			pItem->moveTo( dropPos );
 		}
 
 		// Dropped on another Container/in another Container
@@ -801,7 +780,7 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 		if ( pNewCont )
 		{
 			pNewCont->addItem( pItem, false );
-			pItem->setPos( pCont->pos() + Coord( 0, 0, 2 ) );
+			pItem->moveTo( pCont->pos() + Coord( 0, 0, 2 ) );
 		}
 		else
 		{
@@ -811,7 +790,7 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 	else
 	{
 		pItem->removeFromCont();
-		pItem->moveTo( pCont->pos() + Coord( 0, 0, 2 ), true );
+		pItem->moveTo( pCont->pos() + Coord( 0, 0, 2 ) );
 	}
 
 	pItem->update();

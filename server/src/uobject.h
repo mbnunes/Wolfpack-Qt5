@@ -160,7 +160,7 @@ public:
 	void resendTooltip();
 	unsigned char direction( cUObject* );
 	virtual void remove();
-	virtual void moveTo( const Coord&, bool noRemove = false );
+	virtual void moveTo( const Coord& );
 	unsigned int dist( cUObject* d ) const;
 
 	// Event Methods
@@ -207,11 +207,6 @@ public:
 	void setName( const QString& d )
 	{
 		name_ = d; changed_ = true; changed( TOOLTIP );
-	}
-
-	void setPos( const Coord& d )
-	{
-		pos_ = d;	changed_ = true;
 	}
 
 	virtual void setSerial( SERIAL d )
