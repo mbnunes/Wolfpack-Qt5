@@ -15,6 +15,10 @@ from system import poison
 
 POISONING_DELAY = 1000
 
+# Min/Max-Skills for the various poison levels
+MINSKILLS = [0, 300, 600, 950]
+MAXSKILLS = [600, 700, 1000, 1000]
+
 # Button for AnimalTaming pressed on skill gump
 def poisoning( char, skill ):
 	# you cannot use skill while dead
@@ -41,6 +45,9 @@ def selectpotion(char, args, target):
 	char.socket.clilocmessage( 502142 )
 	char.socket.attachtarget( "skills.poisoning.selecttarget", [ potion.serial ] )
 	return 1
+	
+# Check for the following weapons: Butchers Knife, Cleaver, Dagger, Double Bladed Staff, Pike, Kryss
+ALLOWED = [ 0x13f6, 0x13f7, 0xec2, 0xec3, 0xf51, 0xf52, 0x26bf, 0x26c9, 0x26be, 0x26c8, 0x1400, 0x1401 ]
 
 def selecttarget( char, args, target ):
 	# you cannot use skill while dead
@@ -52,23 +59,15 @@ def selecttarget( char, args, target ):
 	if not potion:
 		return
 
-	# target item must exists in backpack
-	#if not target.item.getoutmostitem() == char.backpack:
-	#	char.socket.clilocmessage( 500295 )
-	#	return
-
-	# check target type : food / blades
 	if not target.item:
 		char.socket.clilocmessage( 502145 )
 		return
-	if not ( target.item.hasscript( 'food' ) or target.item.hasscript( 'blades' ) ):
-		char.socket.clilocmessage( 502145 )
+		
+	global ALLOWED
+	if not target.item.id in ALLOWED:
+		char.socket.clilocmessage(1060204)
 		return
-
-	# already poisoned
-	#if target.hastag( 'poisoning' ):
-	#	return
-
+	
 	# sound / effect
 	char.soundeffect( 0x4F )
 	# apply poison to the item
@@ -83,35 +82,20 @@ def poisonit( char, args ):
 
 	skill = char.skill[ POISONING ]
 
-	# poison strength : lesser(1), normal, greater, deadly(4)
-	strength = int( potion.gettag( 'potiontype' ) ) - 13
+	# poison strength : lesser(0), normal, greater, deadly(3)
+	strength = int( potion.gettag( 'potiontype' ) ) - 14
 
 	# consume the potion / add a blank bottle
 	potion.delete()
 	bottle = wolfpack.additem( 'f0e' )
 	if not tobackpack( bottle, char ):
-		bottle.moveto( char.pos.x, char.pos.y, char.pos.z, char.pos.map )
-	bottle.update()
+		bottle.update()
 
-	# FIXME : success / fail chance
-	if skill < ( strength + 0.8 ) * 200:
-		# failed to poison item
+	if not char.checkskill( POISONING, MINSKILLS[strength], MAXSKILLS[strength] ):
 		char.socket.clilocmessage( 1010518 )
 		return 1
 
-	# check skill advance
-	char.checkskill( POISONING, 0, 1000 )
-
-	# FIXME : less / strong chance
-	if random.randint( 0, 20 ) > ( skill - strength * 200 ):
-		strength = strength - 1
-		if strength < 1:
-			# failed to poison
-			char.socket.clilocmessage( 502148 )
-			return 1
-		char.socket.clilocmessage( 1010518 )
-	else:
-		char.socket.clilocmessage( 1010517 )
+	char.socket.clilocmessage(1010517)
 
 	# decrease karma / fame
 
@@ -122,7 +106,7 @@ def poisonit( char, args ):
 	# weapon : poison chance when hit % = char.skill[ POISONING ] / 4
 	# 	number of uses before the poison wears off
 	if item.hasscript( 'blades' ):
-		item.settag( 'poisoning_uses', 20 - strength * 2 )
+		item.settag( 'poisoning_uses', 18 - strength * 2 )
 	return 1
 
 def hitEffect( char, weapon ):
