@@ -1,66 +1,18 @@
 Microsoft Visual Studio Solution File, Format Version 7.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZTHREAD_2_2_9_static", "lib\ZThread\ZTHREAD_static.vcproj", "{127539E0-38FA-41AA-8072-69BC9BE6F7BD}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pythoncore", "lib\Python\PCbuild\pythoncore.vcproj", "{4A8B79CB-95D2-415B-BD65-570736DCB816}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wolf", "wolf.vcproj", "{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wrl", "lib\wrl\src\wrl.vcproj", "{4D292A75-C82A-44E8-BD1C-442F5507978F}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "moc", "lib\wrl\src\moc\moc.vcproj", "{321C6C0D-A464-4B7A-93BD-B310F7160492}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wolf", "wolf.vcproj", "{ABB8D2C5-9C74-4457-A202-B0C572F45242}"
 EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
-		ConfigName.0 = Alpha Debug
-		ConfigName.1 = Alpha Release
-		ConfigName.2 = Debug
-		ConfigName.3 = Release
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
 	EndGlobalSection
 	GlobalSection(ProjectDependencies) = postSolution
-		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.0 = {4A8B79CB-95D2-415B-BD65-570736DCB816}
-		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.1 = {127539E0-38FA-41AA-8072-69BC9BE6F7BD}
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
-		{127539E0-38FA-41AA-8072-69BC9BE6F7BD}.Alpha Debug.ActiveCfg = Debug|Win32
-		{127539E0-38FA-41AA-8072-69BC9BE6F7BD}.Alpha Debug.Build.0 = Debug|Win32
-		{127539E0-38FA-41AA-8072-69BC9BE6F7BD}.Alpha Release.ActiveCfg = Release|Win32
-		{127539E0-38FA-41AA-8072-69BC9BE6F7BD}.Alpha Release.Build.0 = Release|Win32
-		{127539E0-38FA-41AA-8072-69BC9BE6F7BD}.Debug.ActiveCfg = Debug|Win32
-		{127539E0-38FA-41AA-8072-69BC9BE6F7BD}.Debug.Build.0 = Debug|Win32
-		{127539E0-38FA-41AA-8072-69BC9BE6F7BD}.Release.ActiveCfg = Release|Win32
-		{127539E0-38FA-41AA-8072-69BC9BE6F7BD}.Release.Build.0 = Release|Win32
-		{4A8B79CB-95D2-415B-BD65-570736DCB816}.Alpha Debug.ActiveCfg = Alpha Debug|Win32
-		{4A8B79CB-95D2-415B-BD65-570736DCB816}.Alpha Debug.Build.0 = Alpha Debug|Win32
-		{4A8B79CB-95D2-415B-BD65-570736DCB816}.Alpha Release.ActiveCfg = Alpha Release|Win32
-		{4A8B79CB-95D2-415B-BD65-570736DCB816}.Alpha Release.Build.0 = Alpha Release|Win32
-		{4A8B79CB-95D2-415B-BD65-570736DCB816}.Debug.ActiveCfg = Debug|Win32
-		{4A8B79CB-95D2-415B-BD65-570736DCB816}.Debug.Build.0 = Debug|Win32
-		{4A8B79CB-95D2-415B-BD65-570736DCB816}.Release.ActiveCfg = Release|Win32
-		{4A8B79CB-95D2-415B-BD65-570736DCB816}.Release.Build.0 = Release|Win32
-		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.Alpha Debug.ActiveCfg = Debug|Win32
-		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.Alpha Debug.Build.0 = Debug|Win32
-		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.Alpha Release.ActiveCfg = Release|Win32
-		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.Alpha Release.Build.0 = Release|Win32
-		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.Debug.ActiveCfg = Debug|Win32
-		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.Debug.Build.0 = Debug|Win32
-		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.Release.ActiveCfg = Release|Win32
-		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.Release.Build.0 = Release|Win32
-		{4D292A75-C82A-44E8-BD1C-442F5507978F}.Alpha Debug.ActiveCfg = Debug|Win32
-		{4D292A75-C82A-44E8-BD1C-442F5507978F}.Alpha Debug.Build.0 = Debug|Win32
-		{4D292A75-C82A-44E8-BD1C-442F5507978F}.Alpha Release.ActiveCfg = Release|Win32
-		{4D292A75-C82A-44E8-BD1C-442F5507978F}.Alpha Release.Build.0 = Release|Win32
-		{4D292A75-C82A-44E8-BD1C-442F5507978F}.Debug.ActiveCfg = Debug|Win32
-		{4D292A75-C82A-44E8-BD1C-442F5507978F}.Debug.Build.0 = Debug|Win32
-		{4D292A75-C82A-44E8-BD1C-442F5507978F}.Release.ActiveCfg = Release|Win32
-		{4D292A75-C82A-44E8-BD1C-442F5507978F}.Release.Build.0 = Release|Win32
-		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Alpha Debug.ActiveCfg = Debug|Win32
-		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Alpha Debug.Build.0 = Debug|Win32
-		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Alpha Release.ActiveCfg = Release|Win32
-		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Alpha Release.Build.0 = Release|Win32
-		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Debug.ActiveCfg = Debug|Win32
-		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Debug.Build.0 = Debug|Win32
-		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Release.ActiveCfg = Release|Win32
-		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Release.Build.0 = Release|Win32
+		{ABB8D2C5-9C74-4457-A202-B0C572F45242}.Debug.ActiveCfg = Debug|Win32
+		{ABB8D2C5-9C74-4457-A202-B0C572F45242}.Debug.Build.0 = Debug|Win32
+		{ABB8D2C5-9C74-4457-A202-B0C572F45242}.Release.ActiveCfg = Release|Win32
+		{ABB8D2C5-9C74-4457-A202-B0C572F45242}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

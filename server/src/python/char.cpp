@@ -95,6 +95,7 @@ PyObject* PyGetCharObject( P_CHAR pChar )
 */
 PyObject* wpChar_update( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -398,6 +399,7 @@ PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -447,6 +449,7 @@ PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -460,6 +463,7 @@ PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_kill( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -474,8 +478,6 @@ PyObject* wpChar_kill( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_damage( wpChar* self, PyObject* args )
 {
-	signed short tempshort; 
-
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -577,11 +579,15 @@ PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 
 PyObject* wpChar_isitem( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(self);
 	return PyFalse;
 }
 
 PyObject* wpChar_ischar( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(self);
 	return PyTrue;
 }
 
@@ -752,6 +758,7 @@ PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -764,6 +771,7 @@ PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -780,6 +788,7 @@ PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_updatestamina( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -796,6 +805,7 @@ PyObject* wpChar_updatestamina( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_updatestats( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -813,6 +823,7 @@ PyObject* wpChar_updatestats( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_getweapon( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -873,6 +884,7 @@ PyObject* wpChar_mount( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_unmount( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -906,6 +918,7 @@ PyObject* wpChar_equip( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_getbankbox( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -917,6 +930,7 @@ PyObject* wpChar_getbankbox( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_getbackpack( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -1050,7 +1064,7 @@ PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 		if( !dispelargs )
 			dispelargs = PyTuple_New( 0 );
 
-		for( INT32 i = 0; i < effects.size(); ++i )
+		for( uint i = 0; i < effects.size(); ++i )
 		{
 			// No python effect, but we are forcing.
 			if( ( force || effects[i]->dispellable ) && dispelid.isNull() && effects[i]->objectID() != "cPythonEffect" )
@@ -1169,6 +1183,7 @@ PyObject* wpChar_maywalk( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_iscriminal( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -1180,6 +1195,7 @@ PyObject* wpChar_iscriminal( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_ismurderer( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -1191,6 +1207,7 @@ PyObject* wpChar_ismurderer( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_criminal( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -1254,6 +1271,7 @@ PyObject* wpChar_follow( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_disturb( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -1299,6 +1317,7 @@ PyObject* wpChar_goto( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -1421,7 +1440,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		cChar::Followers followers = self->pChar->followers();
 		PyObject *rVal = PyTuple_New( followers.size() );
 
-		for( INT32 i = 0; i < followers.size(); ++i )
+		for( uint i = 0; i < followers.size(); ++i )
 			PyTuple_SetItem( rVal, i, PyGetCharObject( followers[i] ) );
 
 		return rVal;
@@ -1431,7 +1450,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		cChar::Followers guards = self->pChar->guardedby();
 		PyObject *rVal = PyTuple_New( guards.size() );
 
-		for( INT32 i = 0; i < guards.size(); ++i )
+		for( uint i = 0; i < guards.size(); ++i )
 			PyTuple_SetItem( rVal, i, PyGetCharObject( guards[i] ) );
 
 		return rVal;
@@ -1440,7 +1459,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	{
 		QStringList events = QStringList::split( ",", self->pChar->eventList() );
 		PyObject *list = PyList_New( events.count() );
-		for( INT32 i = 0; i < events.count(); ++i )
+		for( uint i = 0; i < events.count(); ++i )
 			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
 		return list;
 	}

@@ -114,8 +114,8 @@ QString cUORxSpeechRequest::message()
 	{
 		// Skip the keywords
 		UINT16 skipCount = ( keywordCount() + 1 ) * 12; // We have 12 Bits for the count as well
-		UINT16 skipBytes = (UINT16)floor( skipCount / 8.0 );
-		if( skipCount % 8 > 0 )
+		UINT16 skipBytes = static_cast<UINT16>( skipCount / 8 );
+		if( skipCount % 8 > 0 ) // Round up
 			skipBytes++;
 
 		QString speech = getAsciiString(12 + skipBytes, getShort(1) - (12 + skipBytes) );
@@ -175,9 +175,9 @@ gumpChoice_st cUORxGumpResponse::choice()
 	return choice;
 }
 
-std::vector< UINT16 > cUORxSpeechRequest::keywords()
+QValueVector< UINT16 > cUORxSpeechRequest::keywords()
 {
-	std::vector< UINT16 > keywords;
+	QValueVector< UINT16 > keywords;
 
 	UINT16 count = keywordCount();
 	UINT16 offset = 13; // Skip the count

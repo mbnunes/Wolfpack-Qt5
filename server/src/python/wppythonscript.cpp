@@ -350,7 +350,7 @@ bool WPPythonScript::onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUOR
 	PyObject *tuple = PyTuple_New( 4 );
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( spell ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( type ) );
 	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos().map ) );
 	
 	PyEvalMethod( "onSpellFailure" )
@@ -372,7 +372,7 @@ bool WPPythonScript::onCreate( cUObject *object, const QString &definition )
 	PyEvalMethod( "onCreate" )
 }
 
-bool WPPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString &text, std::vector< UINT16 > keywords )
+bool WPPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString &text, const QValueVector< UINT16 >& keywords )
 {
 	PyHasMethod( "onSpeech" )
 
@@ -386,7 +386,7 @@ bool WPPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString 
 	
 	// Convert the keywords into a list
 	PyObject *list = PyList_New( 0 );
-	for( std::vector< UINT16 >::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
+	for( QValueVector< UINT16 >::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
 		PyList_Append( list, PyInt_FromLong( *iter ) );
 
 

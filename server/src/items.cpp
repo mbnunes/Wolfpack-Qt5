@@ -854,6 +854,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 
 void cAllItems::GetScriptItemSetting(P_ITEM pi)
 {
+	qWarning("cAllItems::GetScriptItemSettings is empty!");
 }
 
 P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging) // Added by Genesis 11-5-98
@@ -902,7 +903,7 @@ char cAllItems::isFieldSpellItem(P_ITEM pi) //LB
 
 void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi) 
 {
-	int serial, preservebody;
+	int preservebody;
 	if ( pi == NULL )
 		return;
 	cMulti* pi_multi = NULL;

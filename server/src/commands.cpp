@@ -194,6 +194,7 @@ void cCommands::loadACLs( void )
 // .go placename >> Go to that specific place
 void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	P_CHAR pChar = socket->player();
 
 	if( !pChar )
@@ -253,12 +254,16 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandResurrect( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(command);
 	socket->sysMessage( tr( "Select the being you want to resurrect" ) );
 	socket->attachTarget( new cResurectTarget );
 }
 
 void commandWhere( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(command);
 	P_CHAR pChar = socket->player();
 
 	if( !pChar )
@@ -277,18 +282,23 @@ void commandWhere( cUOSocket *socket, const QString &command, QStringList &args 
 
 void commandKill( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(command);
 	socket->sysMessage( tr( "Please select a target to kill" ) );
 	socket->attachTarget( new cKillTarget );
 }
 
 void commandFix( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(command);
 	// TODO: Eventually check if the character is stuck etc.
 	socket->resendPlayer();
 }
 
 void commandAddItem( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	QString param = args.join( " " ).stripWhiteSpace();
 
 	const QDomElement *node = DefManager->getSection( WPDT_ITEM, param );
@@ -304,6 +314,7 @@ void commandAddItem( cUOSocket *socket, const QString &command, QStringList &arg
 
 void commandStatic( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	QString param = args.join( " " ).stripWhiteSpace();
 
 	const QDomElement *node = DefManager->getSection( WPDT_ITEM, param );
@@ -319,6 +330,7 @@ void commandStatic( cUOSocket *socket, const QString &command, QStringList &args
 
 void commandAddNpc( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	QString param = args.join( " " ).stripWhiteSpace();
 
 	const QDomElement *node = DefManager->getSection( WPDT_NPC, param );
@@ -334,6 +346,7 @@ void commandAddNpc( cUOSocket *socket, const QString &command, QStringList &args
 
 void commandAdd( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	// Bring up the Add-menu
 	if( args.count() < 1 )
 	{
@@ -369,6 +382,7 @@ void commandAdd( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandSet( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	if( args.size() < 1 )
 	{
 		socket->sysMessage( "Usage: set <key> <value>" );
@@ -385,6 +399,8 @@ void commandSet( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandResend( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(command);
 	socket->resendPlayer( false );
 	socket->resendWorld();
 }
@@ -392,11 +408,15 @@ void commandResend( cUOSocket *socket, const QString &command, QStringList &args
 
 void commandRemove( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(socket);
+	Q_UNUSED(command);
+	Q_UNUSED(args);
 	socket->attachTarget( new cRemoveTarget );
 }
 
 void commandAccount( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	// Account Create User Pass
 	// Account Remove User
 	// Account Set User Pass
@@ -584,11 +604,16 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 
 void commandTele( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(socket);
+	Q_UNUSED(command);
+	Q_UNUSED(args);
 	socket->attachTarget( new cTeleTarget );
 }
 
 void commandSave( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(socket);
+	Q_UNUSED(command);
 	if( args.count() > 0 )
 		cwmWorldState->savenewworld( args[0] );
 	else
@@ -597,6 +622,7 @@ void commandSave( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandInfo( cUOSocket *socket, const QString &command, QStringList &args )
 { 
+	Q_UNUSED(command);
 	SERIAL serial = args.size() > 0 ? args[0].toUInt() : INVALID_SERIAL;
 	if( serial != INVALID_SERIAL )
 	{
@@ -633,12 +659,14 @@ void commandInfo( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandShow( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	socket->sysMessage( tr( "Please select a target" ) );
 	socket->attachTarget( new cShowTarget( args.join( " " ) ) );
 }
 
 void commandBank( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	socket->sysMessage( tr( "Please chose the owner of the container you want to open" ) );
 
 	bool ok = false;
@@ -652,6 +680,7 @@ void commandBank( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandAction( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	bool ok = false;
 	UINT32 action = hex2dec( args.join( " " ) ).toInt( &ok );
 
@@ -670,6 +699,7 @@ void commandAction( cUOSocket *socket, const QString &command, QStringList &args
 
 void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	// Spawnregion respawn region_name
 	// Spawnregion clear   region_name
 	// Spawnregion fill    region_name
@@ -814,6 +844,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 
 void commandTags( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	// Tags set		<key> <value>	(as string/value)
 	// Tags get		<key>
 	// Tags remove	<key> or all
@@ -879,6 +910,8 @@ void commandTags( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandWho( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(command);
 	// Who
 	cWhoMenuGump* pGump = new cWhoMenuGump( 1 );
 	socket->send( pGump );
@@ -886,6 +919,8 @@ void commandWho( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandPages( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(command);
 	// Pages
 	if( socket->player() )
 	{
@@ -903,6 +938,8 @@ void commandPages( cUOSocket *socket, const QString &command, QStringList &args 
 
 void commandShutDown( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(socket);
+	Q_UNUSED(command);
 	// Shutdown
 	// Shutdown x (x in seconds)
 	if( args.count() == 0 )
@@ -911,6 +948,7 @@ void commandShutDown( cUOSocket *socket, const QString &command, QStringList &ar
 
 void commandReload( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	// Reload accounts
 	// Reload scripts
 	// Reload all
@@ -1002,6 +1040,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 
 void commandMakeMenu( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	// Makemenu <menusection>
 
 	if( args.count() == 0 )
@@ -1015,6 +1054,7 @@ void commandMakeMenu( cUOSocket *socket, const QString &command, QStringList &ar
 
 void commandAddSpell( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	bool ok = false;
 	UINT8 spell = 0;
 
@@ -1035,6 +1075,7 @@ void commandAddSpell( cUOSocket *socket, const QString &command, QStringList &ar
 
 void commandRemoveSpell( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	bool ok = false;
 	UINT8 spell = 0;
 
@@ -1056,6 +1097,7 @@ void commandRemoveSpell( cUOSocket *socket, const QString &command, QStringList 
 
 void commandAddEvent( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	if( args.size() < 1 )
 	{
 		socket->sysMessage( "Usage: addevent <identifier>" );
@@ -1077,6 +1119,7 @@ void commandAddEvent( cUOSocket *socket, const QString &command, QStringList &ar
 
 void commandRemoveEvent( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	if( args.size() < 1 )
 	{
 		socket->sysMessage( "Usage: removeevent <identifier>" );
@@ -1091,6 +1134,7 @@ void commandRemoveEvent( cUOSocket *socket, const QString &command, QStringList 
 
 void commandMove( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	if( args.size() < 1 )
 	{
 		socket->sysMessage( "Usage: move <x,y,z>" );
@@ -1122,6 +1166,8 @@ void commandMove( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandNuke( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(command);
 	// Nuke does not take any parameters (At least for now it does not.)
 	socket->sysMessage( tr( "Please select first corner of the box you want to nuke." ) );
 	socket->attachTarget( new cNukeTarget );
@@ -1129,6 +1175,7 @@ void commandNuke( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandTile( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	if( args.count() < 2 )
 	{
 		socket->sysMessage( "Usage: tile <z> <id>[,<idn>]" );
@@ -1154,6 +1201,7 @@ void commandTile( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandAllShow( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	if( !socket->player() || !socket->player()->account() )
 		return;
 
@@ -1174,6 +1222,7 @@ void commandAllShow( cUOSocket *socket, const QString &command, QStringList &arg
 
 void commandAllMove( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	if( !socket->player() || !socket->player()->account() )
 		return;
 
@@ -1195,6 +1244,7 @@ void commandAllMove( cUOSocket *socket, const QString &command, QStringList &arg
 
 void commandShowSerials( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	if( !socket->player() || !socket->player()->account() )
 		return;
 
@@ -1213,12 +1263,15 @@ void commandShowSerials( cUOSocket *socket, const QString &command, QStringList 
 
 void commandRestock( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(command);
 	socket->sysMessage( tr( "Please select the vendor you want to restock." ) );
 	socket->attachTarget( new cRestockTarget );
 }
 
 void commandAllSkills( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	if( args.count() < 1 )
 	{
 		socket->sysMessage( tr( "Usage: allskills <value>" ) );
@@ -1240,11 +1293,14 @@ void commandAllSkills( cUOSocket *socket, const QString &command, QStringList &a
 
 void commandBroadcast( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(socket);
+	Q_UNUSED(command);
 	cNetwork::instance()->broadcast( args.join( " " ).latin1() );
 }
 
 void commandInvis( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	socket->player()->removeFromView();
 	
 	if( socket->player()->hidden() || ( args.count() > 0 && args[0].toInt() == 0 ) )
@@ -1265,6 +1321,7 @@ void commandInvis( cUOSocket *socket, const QString &command, QStringList &args 
 
 void commandPageNotify( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	if( socket->account()->isPageNotify() || ( args.count() > 0 && args[0].toInt() == 0 ) )
 	{
 		socket->account()->setPageNotify( false );
@@ -1280,6 +1337,7 @@ void commandPageNotify( cUOSocket *socket, const QString &command, QStringList &
 // Change password for current account
 void commandPassword( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	if( args.count() < 1 )
 	{
 		socket->sysMessage( tr( "Usage: password <newpassword>" ) );
@@ -1299,6 +1357,7 @@ void commandPassword( cUOSocket *socket, const QString &command, QStringList &ar
 
 void commandGmtalk( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	Q_UNUSED(command);
 	if( args.count() < 1 )
 	{
 		socket->sysMessage( tr( "Usage: gmtalk <message>" ) );

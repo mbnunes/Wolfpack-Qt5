@@ -56,6 +56,7 @@
 */
 PyObject* wpConsole_send( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	if( PyTuple_Size( args ) < 1 )
 		return PyFalse;
 
@@ -74,6 +75,7 @@ PyObject* wpConsole_send( PyObject* self, PyObject* args )
 */
 PyObject* wpConsole_progress( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);	
 	if( PyTuple_Size( args ) < 1 )
 		return PyFalse;
 
@@ -92,6 +94,8 @@ PyObject* wpConsole_progress( PyObject* self, PyObject* args )
 */
 PyObject* wpConsole_progressDone( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	clConsole.ProgressDone();
 	return PyInt_FromLong( 1 );
 }
@@ -101,6 +105,8 @@ PyObject* wpConsole_progressDone( PyObject* self, PyObject* args )
 */
 PyObject* wpConsole_progressFail( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	clConsole.ProgressFail();
 	return PyInt_FromLong( 1 );
 }
@@ -110,6 +116,8 @@ PyObject* wpConsole_progressFail( PyObject* self, PyObject* args )
 */
 PyObject* wpConsole_progressSkip( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	clConsole.ProgressSkip();
 	return PyInt_FromLong( 1 );
 }
@@ -119,10 +127,12 @@ PyObject* wpConsole_progressSkip( PyObject* self, PyObject* args )
 */
 PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
 {	
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	QStringList linebuffer = clConsole.linebuffer();
 	PyObject *list = PyList_New( linebuffer.count() );
 
-	for( int i = 0; i < linebuffer.count(); ++i )
+	for( uint i = 0; i < linebuffer.count(); ++i )
 		if( linebuffer[i].isNull() )
 			PyList_SetItem( list, i, PyString_FromString( "" ) );
 		else
@@ -152,6 +162,8 @@ static PyMethodDef wpConsole[] =
 */
 PyObject* wpTime_second( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.time().second() );
 }
 
@@ -160,6 +172,8 @@ PyObject* wpTime_second( PyObject* self, PyObject* args )
 */
 PyObject* wpTime_minute( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.time().minute() );
 }
 
@@ -168,6 +182,8 @@ PyObject* wpTime_minute( PyObject* self, PyObject* args )
 */
 PyObject* wpTime_hour( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.time().hour() );
 }
 
@@ -176,6 +192,8 @@ PyObject* wpTime_hour( PyObject* self, PyObject* args )
 */
 PyObject* wpTime_day( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.date().day() );
 }
 
@@ -184,6 +202,8 @@ PyObject* wpTime_day( PyObject* self, PyObject* args )
 */
 PyObject* wpTime_month( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.date().month() );
 }
 
@@ -192,6 +212,8 @@ PyObject* wpTime_month( PyObject* self, PyObject* args )
 */
 PyObject* wpTime_year( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.date().year() );
 }
 
@@ -200,6 +222,8 @@ PyObject* wpTime_year( PyObject* self, PyObject* args )
 */
 PyObject* wpTime_timestamp( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.time().elapsed() );
 }
 
@@ -208,8 +232,8 @@ PyObject* wpTime_timestamp( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpTime[] = 
 {
-	{ "second",		wpTime_second,		METH_VARARGS, "Returns the current time-seconds" },
-	{ "minute",		wpTime_minute,		METH_VARARGS, "Returns the current time-minutes" },
+	{ "second",			wpTime_second,		METH_VARARGS, "Returns the current time-seconds" },
+	{ "minute",			wpTime_minute,		METH_VARARGS, "Returns the current time-minutes" },
 	{ "hour",			wpTime_hour,		METH_VARARGS, "Returns the current time-hour" },
 	{ "day",			wpTime_day,			METH_VARARGS, "Returns the current date-day" },
 	{ "month",			wpTime_month,		METH_VARARGS, "Returns the current date-month" },
@@ -230,6 +254,7 @@ static PyMethodDef wpTime[] =
 */
 PyObject* wpAdditem( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);	
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
 		PyErr_BadArgument();
@@ -246,6 +271,7 @@ PyObject* wpAdditem( PyObject* self, PyObject* args )
 */
 PyObject* wpAddnpc( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);	
 	if( PyTuple_Size( args ) < 2 || !checkArgStr( 0 ) || !checkWpCoord( PyTuple_GetItem( args, 1 ) ) )
 	{
 		PyErr_BadArgument();
@@ -264,6 +290,7 @@ PyObject* wpAddnpc( PyObject* self, PyObject* args )
 */
 PyObject* wpFinditem( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);	
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
 		PyErr_BadArgument();
@@ -280,6 +307,7 @@ PyObject* wpFinditem( PyObject* self, PyObject* args )
 */
 PyObject* wpFindchar( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
 		PyErr_BadArgument();
@@ -295,6 +323,7 @@ PyObject* wpFindchar( PyObject* self, PyObject* args )
 */
 PyObject* wpAddtimer( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	// Three arguments
 	if( PyTuple_Size( args ) < 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
 	{
@@ -325,6 +354,7 @@ PyObject* wpAddtimer( PyObject* self, PyObject* args )
 */
 PyObject* wpRegion( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	// Three arguments
 	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
 	{
@@ -341,6 +371,8 @@ PyObject* wpRegion( PyObject* self, PyObject* args )
 */
 PyObject* wpCurrenttime( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(self);
 	return PyInt_FromLong( uiCurrentTime );
 }
 
@@ -349,6 +381,7 @@ PyObject* wpCurrenttime( PyObject* self, PyObject* args )
 */
 PyObject *wpStatics( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	// Minimum is x, y, map
 	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
 	{
@@ -389,6 +422,7 @@ PyObject *wpStatics( PyObject* self, PyObject* args )
 */
 PyObject *wpItems( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	// Minimum is x, y, map
 	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
 	{
@@ -429,6 +463,7 @@ PyObject *wpItems( PyObject* self, PyObject* args )
 */
 PyObject *wpMap( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	// Minimum is x, y, map
 	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
 	{
@@ -449,6 +484,7 @@ PyObject *wpMap( PyObject* self, PyObject* args )
 */
 PyObject *wpTiledata( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	if( !checkArgInt( 0 ) )
 	{
 		PyErr_BadArgument();
@@ -485,6 +521,7 @@ PyObject *wpTiledata( PyObject* self, PyObject* args )
 */
 PyObject *wpSpell( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	if( !checkArgInt( 0 ) )
 	{
 		PyErr_BadArgument();
@@ -529,6 +566,7 @@ PyObject *wpSpell( PyObject* self, PyObject* args )
 */
 PyObject *wpList( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) )
 	{
 		PyErr_BadArgument();
@@ -538,7 +576,7 @@ PyObject *wpList( PyObject* self, PyObject* args )
 	QStringList list = DefManager->getList( getArgStr( 0 ) );
 	PyObject *pylist = PyList_New( list.count() );
 
-	for( int i = 0; i < list.count(); ++i )
+	for( uint i = 0; i < list.count(); ++i )
 		PyList_SetItem( pylist, i, PyString_FromString( list[i].latin1() ) );
 
 	return pylist;
@@ -547,16 +585,22 @@ PyObject *wpList( PyObject* self, PyObject* args )
 
 PyObject *wpSocketsFirst( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(self);
 	return PyGetSocketObject( cNetwork::instance()->first() );
 }
 
 PyObject *wpSocketsNext( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(self);
 	return PyGetSocketObject( cNetwork::instance()->next() );  
 }
 
 PyObject *wpSocketsCount( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(self);
 	return PyInt_FromLong( cNetwork::instance()->count() );
 }
 
@@ -599,6 +643,7 @@ static PyMethodDef wpGlobal[] =
 */
 PyObject *wpSpeechAddKeyword( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) || !checkArgInt( 1 ) )
 	{
 		PyErr_BadArgument();
@@ -623,6 +668,7 @@ PyObject *wpSpeechAddKeyword( PyObject* self, PyObject* args )
 */
 PyObject *wpSpeechAddWord( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
 	{
 		PyErr_BadArgument();
@@ -647,6 +693,7 @@ PyObject *wpSpeechAddWord( PyObject* self, PyObject* args )
 */
 PyObject *wpSpeechAddRegexp( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
 	{
 		PyErr_BadArgument();
@@ -671,6 +718,7 @@ PyObject *wpSpeechAddRegexp( PyObject* self, PyObject* args )
 */
 PyObject *wpSpeechSetCatchAll( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) || !checkArgInt( 1 ) )
 	{
 		PyErr_BadArgument();
@@ -708,6 +756,7 @@ static PyMethodDef wpSpeech[] =
  */
 PyObject *wpAccountsFind( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) )
 	{
 		PyErr_BadArgument();
@@ -723,6 +772,8 @@ PyObject *wpAccountsFind( PyObject* self, PyObject* args )
  */
 PyObject *wpAccountsList( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(self);
 	PyObject *list = PyList_New( 0 );
 
 	cAccounts::const_iterator it = Accounts::instance()->begin();
@@ -742,6 +793,8 @@ PyObject *wpAccountsList( PyObject* self, PyObject* args )
  */
 PyObject *wpAccountsAcls( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(self);
 	PyObject *list = PyList_New( 0 );
 
 	QMap< QString, cAcl* >::const_iterator it = cCommands::instance()->aclbegin();
@@ -761,6 +814,7 @@ PyObject *wpAccountsAcls( PyObject* self, PyObject* args )
  */
 PyObject *wpAccountsAcl( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) )
 		return Py_None;
 
@@ -789,6 +843,7 @@ PyObject *wpAccountsAcl( PyObject* self, PyObject* args )
  */
 PyObject *wpAccountsAdd( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) && !checkArgStr( 1 ) )
 	{
 		PyErr_BadArgument();
@@ -815,6 +870,8 @@ PyObject *wpAccountsAdd( PyObject* self, PyObject* args )
  */
 PyObject *wpAccountsReload( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(self);
 	Accounts::instance()->reload();
 	return PyTrue;
 }
@@ -824,6 +881,8 @@ PyObject *wpAccountsReload( PyObject* self, PyObject* args )
  */
 PyObject *wpAccountsSave( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);
+	Q_UNUSED(self);
 	Accounts::instance()->save();
 	return PyTrue;
 }
@@ -872,7 +931,7 @@ void tuple_incref( PyObject *object )
 	Py_INCREF( object );
 	if( PyTuple_Check( object ) )
 	{
-		for( UINT32 i = 0; i < PyTuple_Size( object ); ++i )
+		for( int i = 0; i < PyTuple_Size( object ); ++i )
 			tuple_incref( PyTuple_GetItem( object, i ) );
 	}
 }

@@ -269,7 +269,6 @@ void cTmpEff::Reverse()
 
 void cTmpEff::Expire()
 {
-	int k;
 	signed short tempsignedshort;
 
 	P_CHAR pc_s = FindCharBySerial(getDest());
@@ -508,7 +507,6 @@ void cTempEffects::check()
 
 bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {
-	int color, color1, color2, socket; //used for incognito spell
 	signed short tempsignedshort;
 
 	if ( pc_source == NULL || pc_dest == NULL )

@@ -12,8 +12,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="c:\wolfpack"
-			IntermediateDirectory="c:\wolfpack\intermediate"
+			OutputDirectory=".\Debug"
+			IntermediateDirectory=".\Debug"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -21,38 +21,49 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="lib/Python/PC,lib/Python/include,lib\ZThread\include,lib\wrl\include"
-				PreprocessorDefinitions="_CONSOLE,ZTHREAD_STATIC,PY_NOSOCKETS,_DEBUG,WIN32"
+				AdditionalIncludeDirectories="lib/Python/PC,lib/Python/include,lib\bugreport,lib\ZThread\include,$(QTDIR)\include,c:\mysql\include"
+				PreprocessorDefinitions="_CONSOLE;ZTHREAD_STATIC;PY_NOSOCKETS;_DEBUG;WIN32;QT_DLL;WP_DONT_USE_HASH_MAP"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
+				BufferSecurityCheck="TRUE"
+				EnableFunctionLevelLinking="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile="c:\wolfpack\intermediate/wolf.pch"
-				AssemblerListingLocation="c:\wolfpack\intermediate/"
-				ObjectFile="c:\wolfpack\intermediate/"
-				ProgramDataBaseFileName="c:\wolfpack\intermediate/"
+				PrecompiledHeaderThrough="wolfpack.h"
+				PrecompiledHeaderFile=".\Debug/wolf.pch"
+				AssemblerListingLocation=".\Debug/"
+				ObjectFile=".\Debug/"
+				ProgramDataBaseFileName=".\Debug/"
 				BrowseInformation="1"
+				WarningLevel="4"
 				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"
-				CompileAs="0"/>
+				CompileAs="0"
+				DisableSpecificWarnings="4290,4267"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="ws2_32.lib ZThread.lib wrl.lib odbc32.lib odbccp32.lib"
-				OutputFile="c:\wolfpack/wolf.exe"
+				AdditionalDependencies="ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt310.lib odbc32.lib odbccp32.lib libmysql.lib pdh.lib"
+				ShowProgress="1"
+				OutputFile="C:\Wolfpack\Wolfpack.exe"
 				Version="12.9"
-				LinkIncremental="2"
+				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="lib\ZThread\lib,lib\wrl\lib,lib\Python\lib"
-				IgnoreDefaultLibraryNames="libc.lib,libcmt.lib,msvcrt.lib,libcd.lib,msvcrtd.lib,libcpd.lib"
+				AdditionalLibraryDirectories="lib\ZThread\lib,lib\Python\lib,lib\bugreport\lib"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="c:\wolfpack/wolf.pdb"
-				SubSystem="1"/>
+				ProgramDatabaseFile=".\Debug/Wolfpack.pdb"
+				GenerateMapFile="TRUE"
+				MapFileName=".\Debug/Wolfpack.map"
+				SubSystem="1"
+				OptimizeReferences="0"
+				OptimizeForWindows98="0"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName="c:\wolfpack/wolf.tlb"/>
+				TypeLibraryName=".\Debug/wolf.tlb"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -79,10 +90,10 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="0"
-				AdditionalIncludeDirectories="lib\Python\PC,lib\Python\include,lib\ZThread\include,lib\wrl\include"
-				PreprocessorDefinitions="NDEBUG,WIN32,_CONSOLE,ZTHREAD_STATIC"
+				AdditionalIncludeDirectories="lib/Python/PC,lib/Python/include,lib\ZThread\include,$(QTDIR)\include"
+				PreprocessorDefinitions="NDEBUG,WIN32,_CONSOLE,ZTHREAD_SHARED,QT_DLL,WP_DONT_USE_HASH_MAP"
 				StringPooling="TRUE"
-				RuntimeLibrary="0"
+				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="2"
@@ -98,15 +109,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="ws2_32.lib ZThread.lib wrl.lib"
-				OutputFile=".\Release/wolf.exe"
+				AdditionalDependencies="ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt310.lib odbc32.lib odbccp32.lib libmysql.lib"
+				OutputFile="C:\wolfpack\wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="..\lib\ZThread\lib,..\lib\wrl\lib,..\lib\Python\lib"
-				IgnoreDefaultLibraryNames="LIBCMT.lib"
-				ProgramDatabaseFile=".\Release/wolf.pdb"
+				AdditionalLibraryDirectories="lib\ZThread\lib,lib\Python\lib"
+				ProgramDatabaseFile=".\Release/wolfpack.pdb"
 				GenerateMapFile="TRUE"
-				MapFileName=".\Release/wolf.map"
+				MapFileName=".\Release/wolfpack.map"
 				SubSystem="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -133,12 +143,6 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
 				RelativePath=".\LoS.cpp">
-			</File>
-			<File
-				RelativePath=".\SkiTarg.cpp">
-			</File>
-			<File
-				RelativePath=".\SndPkg.cpp">
 			</File>
 			<File
 				RelativePath=".\Timing.cpp">
@@ -189,6 +193,9 @@
 				RelativePath=".\customtags.cpp">
 			</File>
 			<File
+				RelativePath=".\dbdriver.cpp">
+			</File>
+			<File
 				RelativePath=".\dbl_single_click.cpp">
 			</File>
 			<File
@@ -199,9 +206,6 @@
 			</File>
 			<File
 				RelativePath=".\dragdrop.cpp">
-			</File>
-			<File
-				RelativePath=".\fishing.cpp">
 			</File>
 			<File
 				RelativePath=".\globals.cpp">
@@ -240,7 +244,10 @@
 				RelativePath=".\mapobjects.cpp">
 			</File>
 			<File
-				RelativePath="maps.cpp">
+				RelativePath=".\maps.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_books.cpp">
 			</File>
 			<File
 				RelativePath=".\msgboard.cpp">
@@ -249,19 +256,13 @@
 				RelativePath=".\multis.cpp">
 			</File>
 			<File
-				RelativePath="multiscache.cpp">
-			</File>
-			<File
-				RelativePath=".\necro.cpp">
-			</File>
-			<File
-				RelativePath=".\netsys.cpp">
+				RelativePath=".\multiscache.cpp">
 			</File>
 			<File
 				RelativePath=".\network.cpp">
 			</File>
 			<File
-				RelativePath="newmagic.cpp">
+				RelativePath=".\newmagic.cpp">
 			</File>
 			<File
 				RelativePath=".\npcs.cpp">
@@ -270,10 +271,16 @@
 				RelativePath=".\p_ai.cpp">
 			</File>
 			<File
-				RelativePath=".\packlen.cpp">
+				RelativePath=".\persistentbroker.cpp">
+			</File>
+			<File
+				RelativePath=".\persistentobject.cpp">
 			</File>
 			<File
 				RelativePath=".\pfactory.cpp">
+			</File>
+			<File
+				RelativePath=".\preferences.cpp">
 			</File>
 			<File
 				RelativePath=".\remadmin.cpp">
@@ -297,10 +304,13 @@
 				RelativePath=".\speech.cpp">
 			</File>
 			<File
-				RelativePath="spellbook.cpp">
+				RelativePath=".\spellbook.cpp">
 			</File>
 			<File
 				RelativePath=".\srvparams.cpp">
+			</File>
+			<File
+				RelativePath=".\srvparams_win.cpp">
 			</File>
 			<File
 				RelativePath=".\storage.cpp">
@@ -315,13 +325,13 @@
 				RelativePath=".\targetrequests.cpp">
 			</File>
 			<File
-				RelativePath=".\telport.cpp">
-			</File>
-			<File
 				RelativePath=".\territories.cpp">
 			</File>
 			<File
 				RelativePath=".\tilecache.cpp">
+			</File>
+			<File
+				RelativePath=".\tracking.cpp">
 			</File>
 			<File
 				RelativePath=".\uobject.cpp">
@@ -345,6 +355,9 @@
 				RelativePath=".\wpconsole.cpp">
 			</File>
 			<File
+				RelativePath=".\wpdefaultscript.cpp">
+			</File>
+			<File
 				RelativePath=".\wpdefmanager.cpp">
 			</File>
 			<File
@@ -353,25 +366,33 @@
 			<File
 				RelativePath=".\wptargetrequests.cpp">
 			</File>
-			<Filter
-				Name="Skills"
-				Filter="">
-				<File
-					RelativePath=".\tracking.cpp">
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath=".\SndPkg.h">
-			</File>
-			<File
 				RelativePath=".\Timing.h">
 			</File>
 			<File
 				RelativePath=".\TmpEff.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing TmpEff.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing TmpEff.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Trade.h">
@@ -387,15 +408,69 @@
 			</File>
 			<File
 				RelativePath=".\boats.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing boats.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing boats.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\books.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing books.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing books.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\bounty.h">
 			</File>
 			<File
 				RelativePath=".\chars.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing chars.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing chars.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\charsmgr.h">
@@ -404,10 +479,28 @@
 				RelativePath=".\classes.h">
 			</File>
 			<File
-				RelativePath=".\cmdtable.h">
+				RelativePath=".\combat.h">
 			</File>
 			<File
-				RelativePath=".\combat.h">
+				RelativePath=".\commands.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing commands.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing commands.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\contextmenu.h">
@@ -422,10 +515,7 @@
 				RelativePath=".\customtags.h">
 			</File>
 			<File
-				RelativePath=".\cweather.h">
-			</File>
-			<File
-				RelativePath=".\daemon.h">
+				RelativePath=".\dbdriver.h">
 			</File>
 			<File
 				RelativePath=".\dbl_single_click.h">
@@ -443,6 +533,9 @@
 				RelativePath=".\dragdrop.h">
 			</File>
 			<File
+				RelativePath=".\factory.h">
+			</File>
+			<File
 				RelativePath=".\globals.h">
 			</File>
 			<File
@@ -450,42 +543,108 @@
 			</File>
 			<File
 				RelativePath=".\gumps.h">
-			</File>
-			<File
-				RelativePath=".\hCache.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing gumps.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing gumps.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\house.h">
-			</File>
-			<File
-				RelativePath=".\im.h">
 			</File>
 			<File
 				RelativePath=".\inlines.h">
 			</File>
 			<File
 				RelativePath=".\iserialization.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing iserialization.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing iserialization.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\itemid.h">
 			</File>
 			<File
 				RelativePath=".\items.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing items.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing items.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\itemsmgr.h">
-			</File>
-			<File
-				RelativePath=".\junk.h">
 			</File>
 			<File
 				RelativePath=".\magic.h">
 			</File>
 			<File
 				RelativePath=".\makemenus.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing makemenus.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing makemenus.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\mapobjects.h">
+			</File>
+			<File
+				RelativePath=".\maps.h">
 			</File>
 			<File
 				RelativePath=".\msgboard.h">
@@ -494,31 +653,79 @@
 				RelativePath=".\mulstructs.h">
 			</File>
 			<File
-				RelativePath=".\multicache.h">
-			</File>
-			<File
 				RelativePath=".\multis.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing multis.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing multis.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\netsys.h">
+				RelativePath=".\multiscache.h">
 			</File>
 			<File
 				RelativePath=".\network.h">
 			</File>
 			<File
-				RelativePath="newmagic.h">
-			</File>
-			<File
-				RelativePath=".\packlen.h">
+				RelativePath=".\newmagic.h">
 			</File>
 			<File
 				RelativePath=".\pagesystem.h">
+			</File>
+			<File
+				RelativePath=".\persistentbroker.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing persistentbroker.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\persistentobject.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing persistentobject.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing persistentobject.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\pfactory.h">
 			</File>
 			<File
 				RelativePath=".\platform.h">
+			</File>
+			<File
+				RelativePath=".\preferences.h">
 			</File>
 			<File
 				RelativePath=".\prototypes.h">
@@ -531,12 +738,33 @@
 			</File>
 			<File
 				RelativePath=".\resources.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing resources.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing resources.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\serbinfile.h">
 			</File>
 			<File
 				RelativePath=".\serxmlfile.h">
+			</File>
+			<File
+				RelativePath=".\singleton.h">
 			</File>
 			<File
 				RelativePath=".\skills.h">
@@ -548,7 +776,25 @@
 				RelativePath=".\speech.h">
 			</File>
 			<File
-				RelativePath="spellbook.h">
+				RelativePath=".\spellbook.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing spellbook.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing spellbook.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\srvparams.h">
@@ -570,12 +816,45 @@
 			</File>
 			<File
 				RelativePath=".\targetrequests.h">
-			</File>
-			<File
-				RelativePath=".\telport.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing targetrequests.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing targetrequests.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\territories.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing territories.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing territories.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\tilecache.h">
@@ -584,13 +863,28 @@
 				RelativePath=".\tileflags.h">
 			</File>
 			<File
-				RelativePath=".\trigger.h">
-			</File>
-			<File
 				RelativePath=".\typedefs.h">
 			</File>
 			<File
 				RelativePath=".\uobject.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing uobject.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing uobject.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\utilsys.h">
@@ -627,6 +921,24 @@
 			</File>
 			<File
 				RelativePath=".\wptargetrequests.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing wptargetrequests.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing wptargetrequests.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<Filter
 				Name="Skills No. 1"
@@ -678,6 +990,24 @@
 			</File>
 			<File
 				RelativePath=".\network\uosocket.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing uosocket.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing uosocket.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\network\uotxpackets.cpp">
@@ -693,9 +1023,6 @@
 				RelativePath=".\python\char.cpp">
 			</File>
 			<File
-				RelativePath=".\python\char.h">
-			</File>
-			<File
 				RelativePath=".\python\content.h">
 			</File>
 			<File
@@ -708,10 +1035,10 @@
 				RelativePath=".\python\global.cpp">
 			</File>
 			<File
-				RelativePath=".\python\item.cpp">
+				RelativePath=".\python\gump.h">
 			</File>
 			<File
-				RelativePath=".\python\item.h">
+				RelativePath=".\python\item.cpp">
 			</File>
 			<File
 				RelativePath=".\python\pyaccount.cpp">
@@ -720,13 +1047,7 @@
 				RelativePath=".\python\pycoord.cpp">
 			</File>
 			<File
-				RelativePath=".\python\pycoord.h">
-			</File>
-			<File
 				RelativePath=".\python\pyregion.cpp">
-			</File>
-			<File
-				RelativePath=".\python\region.cpp">
 			</File>
 			<File
 				RelativePath=".\python\skills.h">
@@ -735,7 +1056,10 @@
 				RelativePath=".\python\socket.cpp">
 			</File>
 			<File
-				RelativePath=".\python\socket.h">
+				RelativePath=".\python\target.h">
+			</File>
+			<File
+				RelativePath=".\python\tempeffect.h">
 			</File>
 			<File
 				RelativePath=".\python\utilities.h">
@@ -745,6 +1069,61 @@
 			</File>
 			<File
 				RelativePath=".\python\wppythonscript.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Generated"
+			Filter="">
+			<File
+				RelativePath=".\moc_TmpEff.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_boats.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_chars.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_commands.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_gumps.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_iserialization.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_items.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_makemenus.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_multis.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_persistentobject.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_resources.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_spellbook.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_targetrequests.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_territories.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_uobject.cpp">
+			</File>
+			<File
+				RelativePath=".\network\moc_uosocket.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_wptargetrequests.cpp">
 			</File>
 		</Filter>
 	</Files>

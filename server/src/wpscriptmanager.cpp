@@ -38,7 +38,7 @@
 #include "python/engine.h"
 
 // Library Includes
-#include "qstring.h"
+#include <qstring.h>
 
 using namespace std;
 

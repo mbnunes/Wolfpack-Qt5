@@ -922,7 +922,7 @@ public:
 void interpretCommand( const QString &command )
 {
 	cUOSocket *mSock;
-	int i,j=0;
+	int i;
 	char c = command.latin1()[0];
 
 	if (c != 0)

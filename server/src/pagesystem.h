@@ -88,8 +88,8 @@ class cPagesManager : public std::deque< cPage* >
 {
 protected:
 	cPagesManager() {}
-	cPagesManager(cPagesManager& _it) {} // Unallow copy constructor
-	cPagesManager& operator=(cPagesManager& _it) { return *this; } // Unallow Assignment
+	cPagesManager(cPagesManager&) {} // Unallow copy constructor
+	cPagesManager& operator=(cPagesManager&) { return *this; } // Unallow Assignment
 public:
 	void save()
 	{

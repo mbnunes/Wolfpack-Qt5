@@ -37,9 +37,10 @@
 #include "coord.h"
 
 // Library Includes
-#include "qstring.h"
-#include "qdom.h"
-#include "qregexp.h"
+#include <qstring.h>
+#include <qdom.h>
+#include <qregexp.h>
+#include <qvaluevector.h>
 
 #include <vector>
 
@@ -66,7 +67,7 @@ public:
 	bool catchAllSpeech() const { return catchAllSpeech_; }
 	void setHandleSpeech( bool data ) { handleSpeech_ = data; }
 	void setCatchAllSpeech( bool data ) { catchAllSpeech_ = data; }
-	bool canHandleSpeech( const QString &text, std::vector< UINT16 > keywords );
+	bool canHandleSpeech( const QString &text, const QValueVector< UINT16 >& keywords );
 
 	// Scripting Type (i.e. Python or "Default")
 	virtual const QString Type( void ) {
@@ -79,7 +80,7 @@ public:
 	// Methods for loading, unloading and reloading the scripts
 	// these methods are unused for the default script
 	// as it basically does nothing
-	virtual void load( const QDomElement &Data ) {}
+	virtual void load( const QDomElement &Data ) { Q_UNUSED(Data); }
 	virtual void unload( void ) {}
 
 	// We need an identification value for the scripts
@@ -90,44 +91,44 @@ public:
 	// That means first onUse for the character is called
 	// and afterwards it's called for the item
 	// That way you can add special behaviour
-	virtual bool onUse( P_CHAR User, P_ITEM Used ) { return false; }
+	virtual bool onUse( P_CHAR User, P_ITEM Used ) { Q_UNUSED(User); Q_UNUSED(Used); return false; }
 
-	virtual bool onSingleClick( P_ITEM Item, P_CHAR Viewer ) { return false; }
-	virtual bool onSingleClick( P_CHAR Character, P_CHAR Viewer ) { return false; }
+	virtual bool onSingleClick( P_ITEM Item, P_CHAR Viewer ) { Q_UNUSED(Item); Q_UNUSED(Viewer); return false; }
+	virtual bool onSingleClick( P_CHAR Character, P_CHAR Viewer ) { Q_UNUSED(Character); Q_UNUSED(Viewer); return false; }
 
-	virtual bool onCollideItem( P_CHAR Character, P_ITEM Obstacle ) { return false; }
-	virtual bool onCollideChar( P_CHAR Character, P_CHAR Obstacle ) { return false; }
-	virtual bool onWalk( P_CHAR Character, UI08 Direction, UI08 onSequence ) { return false; }
-	virtual bool onCreate( cUObject *object, const QString &definition ) { return false; }
+	virtual bool onCollideItem( P_CHAR Character, P_ITEM Obstacle ) { Q_UNUSED(Character); Q_UNUSED(Obstacle); return false; }
+	virtual bool onCollideChar( P_CHAR Character, P_CHAR Obstacle ) { Q_UNUSED(Character); Q_UNUSED(Obstacle); return false; }
+	virtual bool onWalk( P_CHAR Character, UI08 Direction, UI08 onSequence ) { Q_UNUSED(Character); Q_UNUSED(Direction); Q_UNUSED(onSequence); return false; }
+	virtual bool onCreate( cUObject *object, const QString &definition ) { Q_UNUSED(object); Q_UNUSED(definition); return false; }
 
 	// if this events returns true (handeled) then we should not display the text
-	virtual bool onLogin( P_CHAR pChar ) { return false; }
-	virtual bool onLogout( P_CHAR pChar ) { return false; }
-	virtual bool onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ) { return false; }
-	virtual bool onWarModeToggle( P_CHAR Character, bool War ) { return false; }
-	virtual bool onHelp( P_CHAR Character ) { return false; }
-	virtual bool onChat( P_CHAR Character ) { return false; }
-	virtual bool onSkillUse( P_CHAR Character, UI08 Skill ) { return false; }
-	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id ) { return false; }
-	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject ) { return false; }
+	virtual bool onLogin( P_CHAR pChar ) { Q_UNUSED(pChar); return false; }
+	virtual bool onLogout( P_CHAR pChar ) { Q_UNUSED(pChar); return false; }
+	virtual bool onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ) { Q_UNUSED(Character); Q_UNUSED(speechType); Q_UNUSED(speechColor); Q_UNUSED(speechFont); Q_UNUSED(Text); Q_UNUSED(Lang); return false; }
+	virtual bool onWarModeToggle( P_CHAR Character, bool War ) { Q_UNUSED(Character); Q_UNUSED(War); return false; }
+	virtual bool onHelp( P_CHAR Character ) { Q_UNUSED(Character); return false; }
+	virtual bool onChat( P_CHAR Character ) { Q_UNUSED(Character); return false; }
+	virtual bool onSkillUse( P_CHAR Character, UI08 Skill ) { Q_UNUSED(Character); Q_UNUSED(Skill); return false; }
+	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id ) { Q_UNUSED(pChar); Q_UNUSED(pObject); Q_UNUSED(id); return false; }
+	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject ) { Q_UNUSED(pChar); Q_UNUSED(pObject); return false; }
 
 	// Drop/Pickup Events
-	virtual bool onDropOnChar( P_CHAR pChar, P_ITEM pItem ) { return false; }
-	virtual bool onDropOnItem( P_ITEM pCont, P_ITEM pItem ) { return false; }
-	virtual bool onDropOnGround( P_ITEM pItem, const Coord_cl &pos ) { return false; }
-	virtual bool onPickup( P_CHAR pChar, P_ITEM pItem ) { return false; }
+	virtual bool onDropOnChar( P_CHAR pChar, P_ITEM pItem ) { Q_UNUSED(pChar); Q_UNUSED(pItem); return false; }
+	virtual bool onDropOnItem( P_ITEM pCont, P_ITEM pItem ) { Q_UNUSED(pCont); Q_UNUSED(pItem); return false; }
+	virtual bool onDropOnGround( P_ITEM pItem, const Coord_cl &pos ) { Q_UNUSED(pItem); Q_UNUSED(pos); return false; }
+	virtual bool onPickup( P_CHAR pChar, P_ITEM pItem ) { Q_UNUSED(pChar); Q_UNUSED(pItem); return false; }
 
 	// Speech Event
-	virtual bool onSpeech( cUObject *listener, P_CHAR talker, const QString &text, std::vector< UINT16 > keywords ) { return false; }
-	virtual bool onConsoleOutput( const QString &line ) { return false; }
-	virtual bool onCommand( cUOSocket *socket, const QString &name, const QString &args ) { return false; }
+	virtual bool onSpeech( cUObject *listener, P_CHAR talker, const QString &text, const QValueVector< UINT16 >& keywords ) { Q_UNUSED(listener); Q_UNUSED(talker); Q_UNUSED(text); Q_UNUSED(keywords); return false; }
+	virtual bool onConsoleOutput( const QString &line ) { Q_UNUSED(line); return false; }
+	virtual bool onCommand( cUOSocket *socket, const QString &name, const QString &args ) { Q_UNUSED(socket); Q_UNUSED(name); Q_UNUSED(args); return false; }
 
 	// Magic System
-	virtual bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { return false; }
-	virtual bool onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { return false; }
-	virtual bool onSpellCheckTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget *target ) { return false; }
-	virtual bool onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* ) { return false; }
-	virtual bool onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* ) { return false; }
+	virtual bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { Q_UNUSED(pMage); Q_UNUSED(spell); Q_UNUSED(type); return false; }
+	virtual bool onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { Q_UNUSED(pMage); Q_UNUSED(spell); Q_UNUSED(type); return false; }
+	virtual bool onSpellCheckTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget *target ) { Q_UNUSED(pMage); Q_UNUSED(spell); Q_UNUSED(type); Q_UNUSED(target); return false; }
+	virtual bool onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* ) { Q_UNUSED(pMage); Q_UNUSED(spell); Q_UNUSED(type); return false; }
+	virtual bool onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* ) { Q_UNUSED(pMage); Q_UNUSED(spell); Q_UNUSED(type); return false; }
 };
 
 #endif

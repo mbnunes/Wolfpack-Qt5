@@ -727,7 +727,7 @@ public:
 	P_ITEM getBackpack();
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
-	void setSerial(const SERIAL ser);
+	void setSerial(SERIAL ser);
 	void MoveTo(short newx, short newy, signed char newz);
 	void MoveToXY(short newx, short newy);
 	bool Wears(P_ITEM pi);

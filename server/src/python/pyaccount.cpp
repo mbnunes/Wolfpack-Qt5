@@ -65,11 +65,12 @@ static PyTypeObject wpAccountType = {
 
 PyObject *wpAccount_delete( wpAccount *self, PyObject *args )
 {
+	Q_UNUSED(args);
 	if( self->account == 0 )
 		return PyFalse;
 
 	QValueVector< cChar* > chars = self->account->caracterList();
-	for( int i = 0; i < chars.size(); ++i )
+	for( uint i = 0; i < chars.size(); ++i )
 		cCharStuff::DeleteChar( chars[i] );
 
 	self->account->remove();
@@ -80,6 +81,7 @@ PyObject *wpAccount_delete( wpAccount *self, PyObject *args )
 
 PyObject *wpAccount_block( wpAccount *self, PyObject *args )
 {
+	Q_UNUSED(args);
 	if( self->account == 0 )
 		return PyFalse;
 
@@ -89,6 +91,7 @@ PyObject *wpAccount_block( wpAccount *self, PyObject *args )
 
 PyObject *wpAccount_unblock( wpAccount *self, PyObject *args )
 {
+	Q_UNUSED(args);
 	if( self->account == 0 )
 		return PyFalse;
 
@@ -183,7 +186,7 @@ PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 	{
 		PyObject *list = PyList_New( 0 );
 		QValueVector< cChar* > characters = self->account->caracterList();
-		for( int i = 0; i < characters.size(); ++i )
+		for( uint i = 0; i < characters.size(); ++i )
 			PyList_Append( list, PyGetCharObject( characters[i] ) );
 		return list;
 	}

@@ -31,13 +31,15 @@
 #if !defined(__UO_RXPACKETS__)
 #define __UO_RXPACKETS__
 
-#include "uopacket.h"
-#include "qcstring.h"
-#include "qstring.h"
-#include "qstringlist.h"
-
 // Wolfpack Includes
 #include "../typedefs.h"
+#include "uopacket.h"
+
+// Qt Includes
+#include <qcstring.h>
+#include <qstring.h>
+#include <qstringlist.h>
+#include <qvaluevector.h>
 
 cUOPacket *getUOPacket( const QByteArray &data );
 
@@ -292,12 +294,12 @@ class cUORxSpeechRequest: public cUOPacket
 {
 public:
 	cUORxSpeechRequest( const QByteArray& data ) : cUOPacket( data ) {}
-	UINT8 type() const		{ return (*this)[3]; }
-	UINT16 color() const	{ return getShort( 4 ); }
-	UINT16 font() const		{ return getShort( 6 ); }
-	UINT16 keywordCount() const	{ return getShort( 12 ) >> 4; }
-	std::vector< UINT16 > keywords();
-	QString language() const	{ return this->getAsciiString(12, 4); }
+	UINT8 type() const				{ return (*this)[3]; }
+	UINT16 color() const			{ return getShort( 4 ); }
+	UINT16 font() const				{ return getShort( 6 ); }
+	UINT16 keywordCount() const		{ return getShort( 12 ) >> 4; }
+	QValueVector< UINT16 > keywords();
+	QString language() const		{ return this->getAsciiString(12, 4); }
 	QString message();
 };
 

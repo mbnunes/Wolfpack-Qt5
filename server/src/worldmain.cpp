@@ -129,7 +129,7 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 
 	QStringList types = UObjectFactory::instance()->objectTypes();
 
-	for( INT32 j = 0; j < types.count(); ++j )
+	for( uint j = 0; j < types.count(); ++j )
 	{
 		QString type = types[j];
 		
@@ -368,7 +368,6 @@ static void decay1(P_ITEM pi, P_ITEM pItem)
 //o--------------------------------------------------------------------------
 bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 { 
-	int serial;
 	P_CHAR pc = FindCharBySerial(charserial);
 	if (pc == NULL) return false;
  	bool foundMatch = false;

@@ -453,7 +453,7 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 		// Check for item collisions here.
 		if( ( pChar->pos().x == pItem->pos().x ) && ( pChar->pos().y == pItem->pos().y ) && ( pItem->pos().z >= pChar->pos().z ) && ( pItem->pos().z <= pChar->pos().z + 5 ) )
 		{
-			if( handleItemCollision( pChar, pItem ) );
+			if( handleItemCollision( pChar, pItem ) )
 			break;
 		}
 
@@ -894,7 +894,7 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 				if ( !def )
 					continue;
 				QValueVector<multiItem_st> multi = def->getEntries();
-				for (int j = 0; j < multi.size(); ++j)
+				for (uint j = 0; j < multi.size(); ++j)
 				{
 					if (multi[j].visible && (mapitem->pos().x+multi[j].x == position.x) && (mapitem->pos().y+multi[j].y == position.y))
 					{

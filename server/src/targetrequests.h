@@ -603,6 +603,7 @@ public:
 
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
+		Q_UNUSED(socket);
 		if( isCharSerial( target->serial() ) )
 		{
 			P_CHAR pChar = FindCharBySerial( target->serial() );

@@ -36,8 +36,8 @@
 #include "platform.h"
 
 // Library includes
-#include "qvaluelist.h"
-#include "qptrvector.h"
+#include <qvaluelist.h>
+#include <qptrvector.h>
 #include <qstringlist.h>
 
 #include "uobject.h"

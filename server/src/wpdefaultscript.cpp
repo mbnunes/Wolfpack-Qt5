@@ -31,11 +31,13 @@
 
 #include "wpdefaultscript.h"
 
+#include <qvaluevector.h>
+
 // A method for WPDefaultScript
-bool WPDefaultScript::canHandleSpeech( const QString &text, std::vector< UINT16 > keywords )
+bool WPDefaultScript::canHandleSpeech( const QString &text, const QValueVector< UINT16 >& keywords )
 {
 	// Check keywords first.
-	for( std::vector< UINT16 >::const_iterator iter1 = keywords.begin(); iter1 != keywords.end(); ++iter1 )
+	for( QValueVector< UINT16 >::const_iterator iter1 = keywords.begin(); iter1 != keywords.end(); ++iter1 )
 		for( std::vector< UINT16 >::const_iterator iter2 = speechKeywords_.begin(); iter2 != speechKeywords_.end(); ++iter2 )
 		{
 			if( *iter1 == *iter2 )

@@ -28,8 +28,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "qhostaddress.h"
-
 #include "uosocket.h"
 #include "uopacket.h"
 #include "uotxpackets.h"
@@ -68,6 +66,7 @@
 //#include <conio.h>
 #include <iostream>
 #include <stdlib.h>
+#include <qhostaddress.h>
 
 using namespace std;
 
@@ -1209,7 +1208,9 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 	// Check if it's a command, then dispatch it to the command system
 	// if it's normal speech send it to the normal speech dispatcher
 	QString speech = packet->message();
-	std::vector< UINT16 > keywords = packet->keywords();
+	QValueVector< UINT16 > keywords;
+	if ( packet->type() & 0xc0 )
+		keywords = packet->keywords();
 	UINT16 color = packet->color();
 	UINT16 font = packet->font();
 	UINT16 type = packet->type() & 0x3f; // Pad out the Tokenized speech flag
@@ -1333,7 +1334,7 @@ void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 
 void cUOSocket::playMusic()
 {
-	if( !_player );
+	if( !_player )
 		return;
 
 	cTerritory* Region = _player->region();
@@ -2151,6 +2152,7 @@ void cUOSocket::sendBuyWindow( P_CHAR pVendor )
 
 void cUOSocket::handleHelpRequest( cUORxHelpRequest* packet )
 {
+	Q_UNUSED(packet);
 	cHelpGump* pGump = new cHelpGump( this->player()->serial() );
 	send( pGump );
 }

@@ -34,6 +34,9 @@
 #include "../items.h"
 #include "../coord.h"
 
+// Library Includes
+#include <qstringlist.h>
+
 void cUOTxShardList::addServer( Q_UINT16 serverIndex, QString serverName, Q_UINT8 serverFull, Q_INT8 serverTimeZone, Q_UINT32 serverIp )
 {
 	// Increase the server-count

@@ -226,8 +226,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 		return;
 	unsigned int tempuint;
 	signed short tempshort;
-	int y,x, timer;//, valid=0;
-	char t[120];
+	int timer;//, valid=0;
 
 	if ( pc == NULL ) return;
 
@@ -671,7 +670,6 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 void checkauto() // Check automatic/timer controlled stuff (Like fighting and regeneration)
 {
 	//int k;
-	unsigned int i;
 	unsigned int currenttime = uiCurrentTime;
 	static unsigned int checkspawnregions = 0;
 	static unsigned int checknpcs = 0;

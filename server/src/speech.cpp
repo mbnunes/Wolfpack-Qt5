@@ -912,7 +912,7 @@ void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
 //			what kind of npcs are standing around and then checking only those keywords
 //			that they might be interested in.
 //			This is especially usefull in crowded places.
-bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, std::vector< UINT16 > &keywords )
+bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, QValueVector< UINT16 > &keywords )
 {
     if( !pPlayer->socket() || pPlayer->dead() )
 		return false;
@@ -947,6 +947,15 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, 
 					return true;
 		}
 
+		if( BankerSpeech( socket, pPlayer, pNpc, speechUpr ) )
+			return true;
+
+		if( VendorSpeech( socket, pPlayer, pNpc, speechUpr ) )
+			return true;
+
+		if( PetCommand( socket, pPlayer, pNpc, speechUpr ) )
+			return true;
+
 		if( StableSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 		
@@ -962,26 +971,18 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, 
 		if( EscortSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 		
-		if( BankerSpeech( socket, pPlayer, pNpc, speechUpr ) )
-			return true;
-		
 		if( TrainerSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 		
-		if( PetCommand( socket, pPlayer, pNpc, speechUpr ) )
-			return true;
-
 		if( PlayerVendorSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 		
-		if( VendorSpeech( socket, pPlayer, pNpc, speechUpr ) )
-			return true;
 	}
 	
 	return false;
 }
 
-void cSpeech::talking( P_CHAR pChar, const QString &speech, std::vector< UINT16 > &keywords, UINT16 color, UINT8 type ) // PC speech
+void cSpeech::talking( P_CHAR pChar, const QString &speech, QValueVector< UINT16 > &keywords, UINT16 color, UINT8 type ) // PC speech
 {	
 	// handle things like renaming or describing an item
 	if( !pChar->socket() )
@@ -1035,13 +1036,12 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, std::vector< UINT16 
 		GuildResign(s);
 	}*/
 	
+	QString speechUpr = speech.upper();
 	if( response( socket, pChar, speech, keywords ) )
 		return;  // Vendor responded already
 	
-	QString speechUpr = speech.upper();
-
 	// 0x0007 -> Speech-id for "Guards"
-	for( std::vector< UINT16 >::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
+	for( QValueVector< UINT16 >::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
 	{
 		UINT16 keyword = *iter;
 

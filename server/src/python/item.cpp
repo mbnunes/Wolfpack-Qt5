@@ -87,6 +87,7 @@ inline PyObject* PyGetItemObject( P_ITEM item )
 */
 PyObject* wpItem_update( wpItem* self, PyObject* args )
 {
+	Q_UNUSED(args);	
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
@@ -100,6 +101,7 @@ PyObject* wpItem_update( wpItem* self, PyObject* args )
 */
 PyObject* wpItem_delete( wpItem* self, PyObject* args )
 {
+	Q_UNUSED(args);	
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
@@ -249,6 +251,7 @@ PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 */
 PyObject* wpItem_weaponskill( wpItem* self, PyObject* args )
 {
+	Q_UNUSED(args);	
 	if( !self->pItem || self->pItem->free )
 		return PyInt_FromLong( -1 );
 
@@ -425,11 +428,15 @@ PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 
 PyObject* wpItem_ischar( wpItem* self, PyObject* args )
 {
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	return PyFalse;
 }
 
 PyObject* wpItem_isitem( wpItem* self, PyObject* args )
 {
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
 	return PyTrue;
 }
 
@@ -524,6 +531,7 @@ PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 */
 PyObject* wpItem_getoutmostitem( wpItem* self, PyObject* args )
 {
+	Q_UNUSED(args);	
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
@@ -535,6 +543,7 @@ PyObject* wpItem_getoutmostitem( wpItem* self, PyObject* args )
 */
 PyObject* wpItem_getoutmostchar( wpItem* self, PyObject* args )
 {
+	Q_UNUSED(args);	
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 

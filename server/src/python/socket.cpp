@@ -247,7 +247,7 @@ PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 	// Collect Data
 	QString responsefunc = getArgStr( 0 );
 	QString cancelfunc, timeoutfunc;
-	UINT16 timeout;
+	UINT16 timeout = 0;
 	PyObject *targetargs = 0;
 
 	// If Second argument is present, it has to be a tuple
@@ -364,6 +364,7 @@ PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
 */
 PyObject* wpSocket_resendworld( wpSocket* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pSock )
 		return PyFalse;
 	self->pSock->resendWorld( false );
@@ -375,6 +376,7 @@ PyObject* wpSocket_resendworld( wpSocket* self, PyObject* args )
 */
 PyObject* wpSocket_resendplayer( wpSocket* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pSock )
 		return PyFalse;
 	self->pSock->resendPlayer( false );

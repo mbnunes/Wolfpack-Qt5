@@ -300,7 +300,7 @@ public:
 	uint timeused_last; // helper attribute for time_unused, doesnt get saved
 	
 	virtual void Init( bool mkser = true );
-	void setSerial(const SERIAL ser);
+	void setSerial(SERIAL ser);
 	bool isInWorld()			{ return (!container_); }
 	bool isMulti()				{ return ( id_ >= 0x4000 ); }
 	bool isPileable();

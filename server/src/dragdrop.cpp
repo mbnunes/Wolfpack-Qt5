@@ -460,7 +460,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// ONLY the new equipped item and the sound-effect
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		if( mSock->player() && ( mSock->player()->dist( pWearer ) <= mSock->player()->VisRange() ) );
+		if( mSock->player() && ( mSock->player()->dist( pWearer ) <= mSock->player()->VisRange() ) )
 		{
 			mSock->send( &wearItem );
 			mSock->send( &soundEffect );
