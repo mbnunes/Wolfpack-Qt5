@@ -1,4 +1,12 @@
 
+<!--
+			<wood id="1bdd;1bde;1bdf;1be0;1be1;1be2" amount="0" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="0" />
+			<ingots id="1765;1766;1767;1768" amount="0" />
+			<cloth id="" amount="0" />
+
+-->
+
 <definitions>
 
 	<menu id="CARPENTRY" name="Carpentry">
@@ -9,6 +17,9 @@
 		<menu id="CARPENTRY_STAVESSHIELDS" />
 		<menu id="CARPENTRY_INSTRUMENTS" />
 		<menu id="CARPENTRY_MISCADDONS" />
+	</menu>
+
+	<menu id="CARPENTRY_MISCADDONS" name="Misc. Add-ons">
 		<menu id="CARPENTRY_BLACKSMITHY" />
 		<menu id="CARPENTRY_TRAINING" />
 		<menu id="CARPENTRY_TAILORING" />
@@ -22,45 +33,141 @@
 		</craft>
 		<craft definition="1eb1" name="Barrel Staves">
 			<carpentry min="-250" max="250" />
-			<wood id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc;1bdd;1bde;1bdf;1be0;1be1;1be2" amount="5" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" />
 		</craft>
 		<craft definition="1db8" name="Barrel Lid">
 			<carpentry min="-140" max="360" />
-			<wood id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc;1bdd;1bde;1bdf;1be0;1be1;1be2" amount="4" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="4" />
 		</craft>
-		<craft definition="" name="Short Music Stand (Left)">
+		<craft definition="eb6" name="Short Music Stand">
 			<carpentry min="539" max="1039" />
-			<wood id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc;1bdd;1bde;1bdf;1be0;1be1;1be2" amount="15" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" />
 		</craft>
-		<craft definition="" name="Tall Music Stand (Left)">
+		<craft definition="ebc" name="Tall Music Stand">
 			<carpentry min="565" max="1065" />
-			<wood id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc;1bdd;1bde;1bdf;1be0;1be1;1be2" amount="20" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="20" />
 		</craft>
-		<craft definition="" name="Easel (South)">
+		<craft definition="f65" name="Easel">
 			<carpentry min="618" max="1118" />
-			<wood id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc;1bdd;1bde;1bdf;1be0;1be1;1be2" amount="20" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="20" />
 		</craft>
 	</menu>
 
 	<menu id="CARPENTRY_FURNITURE" name="Furniture">
+		<craft definition="b5e" name="Foot Stool">
+			<carpentry min="110" max="610" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="9" />
+		</craft>
+		<craft definition="a2a" name="Stool">
+			<carpentry min="110" max="610" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="9" />
+		</craft>
+		<craft definition="b5a" name="Straw Chair">
+			<carpentry min="210" max="710" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="13" />
+		</craft>
+		<craft definition="b56" name="Wooden Chair">
+			<carpentry min="210" max="710" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="13" />
+		</craft>
+		<craft definition="b4e" name="Vesper-Style Chair">
+			<carpentry min="421" max="921" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" />
+		</craft>
+		<craft definition="b52" name="Trinsic-Style Chair">
+			<carpentry min="421" max="921" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" />
+		</craft>
+		<craft definition="1049" name="Wooden Bench">
+			<carpentry min="526" max="1026" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" />
+		</craft>
+		<craft definition="b2e" name="Wooden Throne">
+			<carpentry min="526" max="1026" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" />
+		</craft>
+		<craft definition="b32" name="Fancy Throne">
+			<carpentry min="736" max="1236" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="19" />
+		</craft>
+		<craft definition="b34" name="Smal Table">
+			<carpentry min="421" max="921" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" />
+		</craft>
+		<craft definition="b49" name="Writing Table">
+			<carpentry min="631" max="1131" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" />
+		</craft>
+		<craft definition="b7c" name="Large Table">
+			<carpentry min="631" max="1131" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="23" />
+		</craft>
+		<craft definition="b7d" name="Yew-Wood Table">
+			<carpentry min="842" max="1342" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="27" />
+		</craft>
 	</menu>
 
+	<!-- Tinkering in here signals for lockable containers -->
 	<menu id="CARPENTRY_CONTAINERS" name="Containers">
+		<craft definition="9aa" name="Wooden Box">
+			<carpentry min="210" max="710" />
+			<tinkering min="210" max="710" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="10" />
+		</craft>
+		<craft definition="9a9" name="Small Crate">
+			<carpentry min="100" max="600" />
+			<tinkering min="100" max="600" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="8" />
+		</craft>
+		<craft definition="e3f" name="Medium Crate">
+			<carpentry min="315" max="815" />
+			<tinkering min="315" max="815" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" />
+		</craft>
+		<craft definition="e3d" name="Large Crate">
+			<carpentry min="473" max="973" />
+			<tinkering min="473" max="973" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="18" />
+		</craft>
+		<craft definition="e42" name="Wooden Chest">
+			<carpentry min="736" max="1236" />
+			<tinkering min="736" max="1236" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="10" />
+		</craft>
+		<craft definition="a9d" name="Wooden Shelf">
+			<carpentry min="315" max="815" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="25" />
+		</craft>
+		<craft definition="a4d" name="Fancy Armoire">
+			<carpentry min="842" max="1342" />
+			<tinkering min="842" max="1342" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" />
+		</craft>
+		<craft definition="a4f" name="Armoire">
+			<carpentry min="842" max="1342" />
+			<tinkering min="842" max="1342" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" />
+		</craft>
+		<craft definition="e7f" name="Keg">
+			<carpentry min="578" max="1078" />
+			<materials id="1eb1" amount="3" /> <!-- Barrel Staves -->
+			<materials id="10e1;10e2" amount="1" /> <!-- Barrel Hoops -->
+			<materials id="1bd8" amount="1" /> <!-- Barrel Lid -->
+		</craft>
 	</menu>
 
 	<menu id="CARPENTRY_STAVESSHIELDS" name="Staves and Shields">
 	</menu>
 
+	<menu id="CARPENTRY_TRAINING" name="Training">
+	</menu>
+
+    <!-- Extra Skill Based Objects -->
 	<menu id="CARPENTRY_INSTRUMENTS" name="Instruments">
 	</menu>
 
-	<menu id="CARPENTRY_MISCADDONS" name="Misc. Add-ons">
-	</menu>
-
 	<menu id="CARPENTRY_BLACKSMITHY" name="Blacksmithy">
-	</menu>
-
-	<menu id="CARPENTRY_TRAINING" name="Training">
 	</menu>
 
 	<menu id="CARPENTRY_TAILORING" name="Tailoring">
