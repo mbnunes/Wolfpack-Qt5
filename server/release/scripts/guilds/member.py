@@ -41,9 +41,9 @@ def onLogin(player):
         online.append(member)
 
     if len(online) > 1:
-      player.socket.sysmessage('There are %u members of your guild logged in.' % len(online))
+      player.socket.sysmessage('There are %u other members of your guild logged on.' % len(online), 0x30)
     elif len(online) == 1:
-      player.socket.sysmessage('There is one member of your guild logged in.')
+      player.socket.sysmessage('There is one other member of your guild logged on.', 0x30)
 
     # Private messaging
     tags = player.tags
