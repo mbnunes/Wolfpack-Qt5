@@ -60,9 +60,7 @@ def commandUnban( socket, cmd, args ):
 		accname = args.lower()
 		account = wolfpack.accounts.find( accname )
 		if account and account.rank <= myrank:
-			if account.rank > 1 and playeraccount.authorized( 'Misc', 'May Block Staff Accounts' ):
-				continue
-			else:
+			if account.rank <= 1 or not playeraccount.authorized( 'Misc', 'May Block Staff Accounts' ):
 				socket.sysmessage( "You're not authorized to unban staff members." )
 				return False
 			account.unblock()
@@ -80,9 +78,7 @@ def accountAction( socket, account, action ):
 		socket.sysmessage( "Failed to find an account with the given name." )
 		return False
 	elif account and account.rank <= myrank:
-		if account.rank > 1 and playeraccount.authorized( 'Misc', 'May Block Staff Accounts' ):
-			continue
-		else:
+		if account.rank <= 1 or not playeraccount.authorized( 'Misc', 'May Block Staff Accounts' ):
 			socket.sysmessage( "You're not authorized to kick or ban staff members." )
 			return False
 
