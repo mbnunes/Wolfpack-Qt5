@@ -871,6 +871,8 @@
 		<decay />
 		<category>Professions\Mage\Empty Scroll (W/E)</category>
 		<weight>1.0</weight>
+		<buyprice>5</buyprice>
+		<sellprice>3</sellprice>
 	</item>
 
 	<item id="e35">
@@ -999,6 +1001,7 @@
 		<category>Professions\Mage\Pen &amp; Ink (N/S)</category>
 		<basescripts>skills.inscription</basescripts>
 		<weight>1.0</weight>
+		<buyprice>8</buyprice>
 	</item>
 
 	<!-- Blue Moongates -->
