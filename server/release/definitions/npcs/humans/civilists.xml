@@ -56,10 +56,12 @@
 	<!-- Pirate -->
 	<npc id="pirate_male">
 		<inherit>base_male</inherit>
+		<karma>500</karma>
 		<title>the Pirate</title>
 	</npc>
 	<npc id="pirate_female">
 		<inherit>base_female</inherit>
+		<karma>500</karma>
 		<title>the Pirate</title>
 	</npc>	
 </definitions>
