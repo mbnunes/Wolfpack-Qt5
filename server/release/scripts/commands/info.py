@@ -30,35 +30,35 @@ def info( socket, command, argstring ):
 	#args = argstring.split(" ")
 	#if len(argstring) > 0:
 		# TODO: implement spawnregion info gump and more here
-		#return 1
+		#return True
 
 	socket.attachtarget( "commands.info.infotargetresponse" )
-	return 1
+	return True
 
 def onLoad():
 	wolfpack.registercommand( "info", info )
 
 def infotargetresponse( char, args, target ):
 	if not char.socket:
-		return 0
+		return False
 
 	# map target
 	if target.char:
 		charinfo( char.socket, target.char )
-		return 1
+		return True
 	elif target.item:
 		iteminfo( char.socket, target.item )
-		return 1
+		return True
 	elif target.model == 0:
 		map = wolfpack.map( target.pos.x, target.pos.y, target.pos.map )
 		tile = wolfpack.landdata( map['id'] )
 		maptileinfo( char.socket, map, tile )
-		return 1
+		return True
 	elif target.model != 0:
 		tile = wolfpack.tiledata( target.model )
 		statictileinfo( char.socket, target.model, target.pos, tile )
-		return 1
-	return 1
+		return True
+	return True
 
 def maptileinfo( socket, map, tile ):
 	gump = cGump( 0, 0, 0, 0, 40 )
@@ -538,12 +538,12 @@ def charinfo_response( player, args, choice ):
 	socket = player.socket
 	char = args[0]
 	if choice.button == 0 or not char or not socket:
-		return 1
+		return True
 
 	# check for rank
 	#if char.rank >= player.rank and not player == char:
 	#	socket.sysmessage( "You've burnt your fingers!" )
-	#	return 1
+	#	return True
 
 	textentries = choice.text
 	keys = textentries.keys()
@@ -749,11 +749,11 @@ def charinfo_response( player, args, choice ):
 		charinfo( socket, char )
 		
 	char.update()
-	return 1
+	return True
 
 def iteminfo( socket, item ):
 	if not socket or not item:
-		return 0
+		return False
 
 	gump = wolfpack.gumps.cGump()
 	gump.setCallback( "commands.info.iteminfo_response" )
@@ -1065,7 +1065,7 @@ def iteminfo_response( player, args, choice ):
 	socket = player.socket
 	item = args[0]
 	if choice.button == 0 or not item or not socket:
-		return 1
+		return True
 
 	textentries = choice.text
 	keys = textentries.keys()
@@ -1260,6 +1260,6 @@ def iteminfo_response( player, args, choice ):
 
 	if choice.button == 1:
 		iteminfo( socket, item )
-		item.update()
-
-	return 1
+	
+	item.update()
+	return True
