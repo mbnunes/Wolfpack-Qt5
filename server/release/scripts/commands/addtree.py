@@ -256,14 +256,14 @@ def addtree(socket, command, arguments):
 		if item != 'yew' and item != 'random' and not jungleindex[item] and trees[item]:
 			if wolfpack.getdefinition(WPDT_ITEM, trees[item][TREE]) and wolfpack.getdefinition(WPDT_ITEM, trees[item][LEAVES]):
 				socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES]) )
-				socket.attachtarget( "custom.addtree.createtree", [ item ] )
+				socket.attachtarget( "commands.addtree.createtree", [ item ] )
 		elif item == 'yew':
 			socket.sysmessage( "Where do you want to place the yew tree?" )
 			socket.attachtarget( "custom.addtree.createyewtree", [] )
 			return
 		elif jungleindex[item]:
 			socket.sysmessage( "Where do you want to place the jungle tree [%s]?" %(item) )
-			socket.attachtarget( "custom.addtree.createjungletree", [item] )
+			socket.attachtarget( "commands.addtree.createjungletree", [item] )
 			return
 		elif item == 'random':
 			randomtrees = [ randint(0,2), randint(0,12), randint(2,12), randint(0,21), randint(13,15), randint(16,21) ]
@@ -272,7 +272,7 @@ def addtree(socket, command, arguments):
 			if trees[item]:
 				if wolfpack.getdefinition(WPDT_ITEM, trees[item][TREE]) and wolfpack.getdefinition(WPDT_ITEM, trees[item][LEAVES]):
 					socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES]) )
-					socket.attachtarget( "custom.addtree.createtree", [ item ] )
+					socket.attachtarget( "commands.addtree.createtree", [ item ] )
 				return
 
 def onLoad():
