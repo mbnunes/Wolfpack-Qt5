@@ -524,6 +524,19 @@ PyObject* wpSocket_deltag( wpSocket* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Resends the status window to this client.
+*/
+PyObject *wpSocket_resendstatus( wpSocket *self, PyObject *args )
+{
+	if( !self->pSock )
+		return PyFalse;
+
+	self->pSock->sendStatWindow();
+
+	return PyTrue;
+}
+
 static PyMethodDef wpSocketMethods[] = 
 {
     { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
@@ -540,7 +553,8 @@ static PyMethodDef wpSocketMethods[] =
 	{ "gettag",				(getattrofunc)wpSocket_gettag,	METH_VARARGS,	"Gets a tag from a socket." },
 	{ "settag",				(getattrofunc)wpSocket_settag,	METH_VARARGS,	"Sets a tag to a socket." },
 	{ "hastag",				(getattrofunc)wpSocket_hastag,	METH_VARARGS,	"Checks if a socket has a specific tag." },
-	{ "dettag",				(getattrofunc)wpSocket_deltag,	METH_VARARGS,	"Delete specific tag." },
+	{ "deltag",				(getattrofunc)wpSocket_deltag,	METH_VARARGS,	"Delete specific tag." },
+	{ "resendstatus",		(getattrofunc)wpSocket_resendstatus, METH_VARARGS,	"Resends the status windows to this client." },
     { NULL, NULL, 0, NULL }
 };
 

@@ -1934,6 +1934,7 @@ void cUOSocket::updateHealth( P_CHAR pChar )
 		return;
 
 	cUOTxUpdateHealth update;
+	update.setSerial( pChar->serial() );
 	
 	if( pChar == _player )
 	{
