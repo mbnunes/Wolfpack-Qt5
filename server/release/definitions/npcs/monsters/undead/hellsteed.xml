@@ -12,8 +12,8 @@
 	<npc id="hellsteed" inherit="monster_base">
 		<name>hellsteed</name>
 		<id>205</id>
-		<karma>-14000</karma>
-		<fame>14000</fame>
+		<karma><random list="KARMA_L4" /></karma>
+		<fame><random list="FAME_L4" /></fame>
 		<!-- Stats -->
 		<str><random min="201" max="210" /></str>
 		<dex><random min="101" max="110" /></dex>

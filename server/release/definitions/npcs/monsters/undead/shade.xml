@@ -12,13 +12,13 @@
 	<npc id="shade" inherit="undead_base">
 		<name>shade</name>
 		<id>153</id>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
+		<karma><random list="KARMA_L2" /></karma>
+		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
-		<maxhitpoints><random min="46" max="60"/></maxhitpoints>
 		<str><random min="76" max="100"/></str>
 		<dex><random min="76" max="95"/></dex>
 		<int><random min="36" max="60"/></int>
+		<maxhitpoints><random min="46" max="60"/></maxhitpoints>
 		<!-- Skills -->
 		<wrestling><random min="451" max="550"/></wrestling>
 		<tactics><random min="451" max="600"/></tactics>

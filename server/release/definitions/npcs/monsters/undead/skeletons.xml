@@ -10,12 +10,13 @@
 
 	<npc id="skeleton_base" inherit="undead_base">
 		<name>skeleton</name>
-		<karma>-450</karma>
-		<fame>450</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="56" max="80"/></str>
 		<dex><random min="56" max="75"/></dex>
 		<int><random min="16" max="40"/></int>
+		<maxhitpoints><random min="34" max="48"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="451" max="600"/></magicresistance>
 		<tactics><random min="451" max="600"/></tactics>

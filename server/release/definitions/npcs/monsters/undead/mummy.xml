@@ -12,13 +12,13 @@
 	<npc id="mummy" inherit="undead_base">
 		<name>mummy</name>
 		<id>28</id>
-		<karma>-4000</karma>
-		<fame>4000</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
-		<maxhitpoints><random min="208" max="222"/></maxhitpoints>
 		<str><random min="346" max="370"/></str>
 		<dex><random min="71" max="90"/></dex>
 		<int><random min="26" max="40"/></int>
+		<maxhitpoints><random min="208" max="222"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="151" max="400"/></magicresistance>
 		<tactics><random min="351" max="500"/></tactics>

@@ -12,8 +12,8 @@
 	<npc id="patchwork_skeleton" inherit="monster_base">
 		<name>patchwork skeleton</name>
 		<id>309</id>
-		<karma>-200</karma>
-		<fame>900</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="96" max="120"/></str>
 		<dex><random min="71" max="95"/></dex>

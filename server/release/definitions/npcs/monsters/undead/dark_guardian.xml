@@ -12,8 +12,8 @@
 	<npc id="dark_guardian" inherit="monster_base">
 		<name>dark guardian</name>
 		<id>79</id>
-		<karma>0</karma>
-		<fame>0</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="126" max="150"/></str>
 		<dex><random min="101" max="120"/></dex>

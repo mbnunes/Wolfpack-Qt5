@@ -12,13 +12,13 @@
 	<npc id="bone_magi" inherit="undead_base">
 		<name>bone magi</name>
 		<id>148</id>
-		<karma>-3000</karma>
-		<fame>3000</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
-		<maxhitpoints><random min="46" max="60"/></maxhitpoints>
 		<str><random min="76" max="100"/></str>
 		<dex><random min="56" max="75"/></dex>
-		<int><random min="601" max="700"/></int>
+		<int><random min="186" max="210"/></int>
+		<maxhitpoints><random min="46" max="60"/></maxhitpoints>
 		<!-- Skills -->
 		<evaluatingintel><random min="601" max="700"/></evaluatingintel>
 		<magery><random min="601" max="700"/></magery>
@@ -26,6 +26,7 @@
 		<tactics><random min="451" max="600"/></tactics>
 		<wrestling><random min="451" max="550"/></wrestling>
 		<anatomy>0</anatomy>
+		<meditation>0</meditation>
 		<!-- Damage -->
 		<mindamage>4</mindamage>
 		<maxdamage>11</maxdamage>

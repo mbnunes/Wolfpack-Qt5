@@ -13,8 +13,8 @@
 	<npc id="lich_lord" inherit="undead_base">
 		<name>lich lord</name>
 		<id>78</id>
-		<karma>-18000</karma>
-		<fame>18000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<maxhitpoints><random min="250" max="303"/></maxhitpoints>
 		<str><random min="416" max="505"/></str>
@@ -27,6 +27,7 @@
 		<tactics><random min="501" max="700"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
 		<anatomy>0</anatomy>
+		<meditation>0</meditation>
 		<!-- Damage -->
 		<mindamage>30</mindamage>
 		<maxdamage>38</maxdamage>

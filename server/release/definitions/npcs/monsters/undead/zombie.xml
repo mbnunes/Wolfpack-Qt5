@@ -12,13 +12,13 @@
 	<npc id="zombie" inherit="undead_base">
 		<name>zombie</name>
 		<id>3</id>
-		<karma>-600</karma>
-		<fame>600</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
-		<maxhitpoints><random min="28" max="42"/></maxhitpoints>
 		<str><random min="46" max="70"/></str>
 		<dex><random min="31" max="50"/></dex>
 		<int><random min="26" max="40"/></int>
+		<maxhitpoints><random min="28" max="42"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="151" max="400"/></magicresistance>
 		<tactics><random min="351" max="500"/></tactics>

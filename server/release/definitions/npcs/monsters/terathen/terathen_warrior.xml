@@ -12,8 +12,8 @@
 	<npc id="terathan_warrior" inherit="monster_base">
 		<name>terathan warrior</name>
 		<id>70</id>
-		<karma>-4000</karma>
-		<fame>4000</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="166" max="215"/></str>
 		<dex><random min="96" max="145"/></dex>
