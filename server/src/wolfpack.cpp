@@ -66,6 +66,7 @@
 #include "tilecache.h"
 #include "accounts.h"
 #include "makemenus.h"
+#include "skills.h"
 
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"

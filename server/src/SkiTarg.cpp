@@ -45,6 +45,9 @@
 #include "mapstuff.h"
 #include "network.h"
 #include "wpdefmanager.h"
+#include "makemenus.h"
+#include "skills.h"
+#include "network/uosocket.h"
 
 #undef DBGFILE
 #define DBGFILE "skiTarg.cpp"
@@ -188,33 +191,21 @@ void cSkills::BowCraft(int s)
 
 ////////////////////
 // name:	Carpentry()
-// history:	unknown, rewritten by Duke, 25.05.2000
-// purpose:	sets up appropriate Makemenu when player targets logs or boards
-//			after dclick on carpentry tool
+// history:	unknown, Duke, 25.05.2000, rewritten for 13.x sereg, 16.08.2002
+// purpose:	sets up appropriate Makemenu when player dclick on carpentry tool
 //			
-//			If logs are targetted, Makemenu 19 is called to produce boards
-//			If boards, MM 20 is called for furniture etc.
 
-void cSkills::Carpentry(int s)
+void cSkills::Carpentry( cUOSocket* socket )
 {
-	/*const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = currchar[s];
-	if (pi && !pi->isLockedDown())
+#pragma note("add hardcoded xml menu section: CRAFTMENU_CARPENTRY")
+	cMakeMenu* pMenu = cAllMakeMenus::getInstance()->getMenu( "CRAFTMENU_CARPENTRY" );
+	if( pMenu )
 	{
-		short id = pi->id();
-		if( IsLog(id) || IsBoard(id) ) // logs or boards
-		{
-		   if (CheckInPack(s,pi))
-		   {
-			  itemmake[s].Mat1id = pi->id();
-			  itemmake[s].has=getamount(pc_currchar,pi->id());
-			  short mm = IsLog(pi->id()) ? 19 : 20; // 19 = Makemenu to create boards from logs
-			  MakeMenu(s,mm,CARPENTRY);
-		   }
-		}
+		cMakeMenuGump* pGump = new cMakeMenuGump( pMenu, socket );
+		socket->send( pGump );
 	}
 	else
-		sysmessage(s,tr("You cannot use that material for carpentry.") );*/
+		clConsole.send( "WARNING: Missing carpentry menu definition!" );
 }
 
 static bool ForgeInRange(int s)

@@ -57,6 +57,7 @@
 #include "../combat.h"
 #include "../books.h"
 #include "../gumps.h"
+#include "../skills.h"
 
 //#include <conio.h>
 #include <iostream>

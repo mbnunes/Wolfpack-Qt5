@@ -32,7 +32,7 @@
 #include "makemenus.h"
 #include "wolfpack.h"
 #include "network/uosocket.h"
-#include "classes.h"
+#include "skills.h"
 #include "targetrequests.h"
 #include "wpdefmanager.h"
 #include "charsmgr.h"
@@ -73,7 +73,36 @@ void cMakeItem::processNode( const QDomElement &Tag )
 cUseItem::cUseItem( const QDomElement &Tag )
 {
 	name_ = Tag.attribute( "name" );
-	id_ = hex2dec( Tag.attribute( "itemid" ) ).toUShort();
+	if( !Tag.attribute( "itemid" ).isNull() )
+	{
+		QString idstr = Tag.attribute( "itemid" );
+		QStringList ids;
+		ids.push_back( idstr );
+		if( idstr.contains(",") )
+		{
+			ids = QStringList::split( ",", idstr );
+		}
+
+		QStringList::const_iterator it = ids.begin();
+		while( it != ids.end() )
+		{
+			if( (*it).contains("-") )
+			{
+				QStringList idspan = QStringList::split( "-", idstr );
+				UINT16 min = hex2dec(idspan[0]).toUShort();
+				UINT16 max = hex2dec(idspan[1]).toUShort();
+				while( min <= max )
+				{
+					id_.push_back( min );
+					++min;
+				}
+			}
+			else
+				id_.push_back( hex2dec( (*it) ).toUShort() );
+
+			++it;
+		}
+	}
 	amount_ = hex2dec( Tag.attribute( "amount" ) ).toUShort();
 	colormin_ = 0;
 	colormax_ = 0;
@@ -94,7 +123,35 @@ void cUseItem::processNode( const QDomElement &Tag )
 		name_ = Value;
 
 	else if( TagName == "id" )
-		id_ = Value.toUShort();
+	{
+		QString idstr = Tag.attribute( "itemid" );
+		QStringList ids;
+		ids.push_back( idstr );
+		if( idstr.contains(",") )
+		{
+			ids = QStringList::split( ",", idstr );
+		}
+
+		QStringList::const_iterator it = ids.begin();
+		while( it != ids.end() )
+		{
+			if( (*it).contains("-") )
+			{
+				QStringList idspan = QStringList::split( "-", idstr );
+				UINT16 min = hex2dec(idspan[0]).toUShort();
+				UINT16 max = hex2dec(idspan[1]).toUShort();
+				while( min <= max )
+				{
+					id_.push_back( min );
+					++min;
+				}
+			}
+			else
+				id_.push_back( hex2dec( (*it) ).toUShort() );
+
+			++it;
+		}
+	}
 
 	else if( TagName == "amount" )
 		amount_ = Value.toUShort();
@@ -203,7 +260,13 @@ bool	cMakeSection::hasEnough( cItem* pBackpack )
 		UINT16 amount = 0;
 		do
 		{
-			amount += pBackpack->CountItems( uiit.current()->id(), color );
+			QValueList< UINT16 > ids = uiit.current()->id();
+			QValueListIterator< UINT16 > it = ids.begin();
+			while( it != ids.end() )
+			{
+				amount += pBackpack->CountItems( (*it), color );
+				++it;
+			}
 			++color;
 		} while( color <= uiit.current()->colormax() );
 
@@ -231,13 +294,19 @@ void	cMakeSection::useResources( cItem* pBackpack )
 		UINT16 curramount = 0;
 		do
 		{
-			// remove all available items or just the amount thats left
-			curramount = pBackpack->CountItems( uiit.current()->id(), color );
-			if( curramount > amount )
+			QValueList< UINT16 > ids = uiit.current()->id();
+			QValueListIterator< UINT16 > it = ids.begin();
+			while( it != ids.end() && amount > 0 )
+			{
+				// remove all available items or just the amount thats left
+				curramount = pBackpack->CountItems( (*it), color );
+				if( curramount > amount )
 				curramount = amount;
-			pBackpack->DeleteAmount( curramount, uiit.current()->id(), color );
+				pBackpack->DeleteAmount( curramount, (*it), color );
 
-			amount -= curramount;
+				amount -= curramount;
+				++it;
+			}
 			++color;
 		} while( color <= uiit.current()->colormax() && amount > 0 );
 
@@ -652,7 +721,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 		QString content;
 		startPage( page );
 
-		if( !pChar || !pBackpack || !(*it)->hasEnough( pBackpack ) || (*it)->skilledEnough( pChar ) )
+		if( !pChar || !pBackpack || !(*it)->hasEnough( pBackpack ) || !(*it)->skilledEnough( pChar ) )
 		{
 			it++;
 			next++;

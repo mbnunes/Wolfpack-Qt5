@@ -46,6 +46,7 @@
 #include "network.h"
 #include "TmpEff.h"
 #include "territories.h"
+#include "skills.h"
 
 #undef DBGFILE
 #define DBGFILE "magic.cpp"

@@ -50,6 +50,7 @@
 #include "network.h"
 #include "wpdefmanager.h"
 #include "network/uosocket.h"
+#include "skills.h"
 
 #include <algorithm>
 #include <typeinfo>

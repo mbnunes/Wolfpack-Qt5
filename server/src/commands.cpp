@@ -31,7 +31,7 @@
 
 #include "globals.h"
 #include "accounts.h"
-#include "classes.h"
+#include "skills.h"
 #include "commands.h"
 #include "gumps.h"
 #include "mapstuff.h"

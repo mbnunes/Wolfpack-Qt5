@@ -607,6 +607,10 @@ SOURCE=.\serxmlfile.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\skills.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SndPkg.h
 # End Source File
 # Begin Source File

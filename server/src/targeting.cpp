@@ -47,6 +47,7 @@
 #include "network/uosocket.h"
 #include "gumps.h"
 #include "network.h"
+#include "skills.h"
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"
@@ -3927,6 +3928,7 @@ void cTargets::MoveToBagTarget(int s)
 
 void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with the targetting cursor
 {
+	cUOSocket* socket = ps->player()->socket();
 	UOXSOCKET s = ps->socket();
 	targetok[ s ] = 0;
 
@@ -4129,7 +4131,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 131: if (currchar[s]->isGM()) Targ->permHideTarget(s); break; /* not used */
 		case 132: if (currchar[s]->isGM()) Targ->unHideTarget(s); break; /* not used */
 		case 133: ItemTarget(ps,pt); break;//SetWipeTarget
-		case 134: Skills->Carpentry(s); break;
+		case 134: Skills->Carpentry( socket ); break;
 		case 135: Targ->SetSpeechTarget(s); break;
 		case 136: Targ->XTeleport(s,0); break;
 

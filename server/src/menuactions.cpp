@@ -31,7 +31,7 @@
 
 #include "menuactions.h"
 #include "srvparams.h"
-#include "classes.h"
+#include "skills.h"
 #include "accounts.h"
 
 // Library Includes

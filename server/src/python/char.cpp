@@ -40,6 +40,7 @@
 #include "../prototypes.h"
 #include "../junk.h"
 #include "../classes.h"
+#include "../skills.h"
 
 extern cCharStuff *Npcs;
 

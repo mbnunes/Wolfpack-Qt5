@@ -33,7 +33,7 @@
 #include "network/uosocket.h"
 #include "chars.h"
 #include "items.h"
-#include "classes.h"
+#include "skills.h"
 #include "globals.h"
 #include "junk.h"
 #include "TmpEff.h"

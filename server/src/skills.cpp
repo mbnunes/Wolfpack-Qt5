@@ -47,10 +47,11 @@
 #include "regions.h"
 #include "srvparams.h"
 #include "wpscriptmanager.h"
-#include "classes.h"
+#include "skills.h"
 #include "network.h"
 #include "mapstuff.h"
 #include "network/uosocket.h"
+#include "classes.h"
 
 #undef DBGFILE
 #define DBGFILE "skills.cpp"

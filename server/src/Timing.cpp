@@ -44,6 +44,7 @@
 #include "network.h"
 #include "spawnregions.h"
 #include "territories.h"
+#include "skills.h"
 
 // Library Includes
 #include "qdatetime.h"

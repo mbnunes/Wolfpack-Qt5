@@ -38,6 +38,7 @@
 #include "guildstones.h"
 #include "srvparams.h"
 #include "classes.h"
+#include "skills.h"
 #include "network.h"
 #include "gumps.h"
 #include "targetrequests.h"
@@ -1098,7 +1099,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x1033:
 				case 0x1034:// Saw
 				case 0x1035:
-					target(s, 0, 1, 0, 134, "Select material to use.");
+					Skills->Carpentry( socket );
 					return; // carpentry
 					
 				case 0x0E85:// pickaxes

@@ -80,14 +80,14 @@ public:
 	virtual void processNode( const QDomElement &Tag );
 
 	// Getters
-	UINT16		id()		{ return id_; }
+	QValueList< UINT16 >	id()		{ return id_; }
 	QString		name()		{ return name_; }
 	UINT16		colormin()	{ return colormin_; }
 	UINT16		colormax()	{ return colormax_; }
 	UINT16		amount()	{ return amount_; }
 
 private:
-	UINT16		id_;
+	QValueList< UINT16 >	id_;
 	QString		name_;
 	UINT16		colormin_;
 	UINT16		colormax_;

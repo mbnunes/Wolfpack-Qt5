@@ -50,6 +50,7 @@
 #include "classes.h"
 #include "territories.h"
 #include "wpdefmanager.h"
+#include "skills.h"
 
 #include "network/uotxpackets.h"
 #include "network/uosocket.h"
