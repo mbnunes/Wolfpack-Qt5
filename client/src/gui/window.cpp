@@ -31,7 +31,7 @@ void cWindow::draw(int xoffset, int yoffset) {
 cControl *cWindow::getControl(int x, int y) {
 	cControl *control = cContainer::getControl(x, y);
 
-	if (control && control != this && control->isMoveHandle()) {
+	if (control && control != this && isMovable() && control->isMoveHandle()) {
 		return this;
 	}
 
@@ -39,7 +39,9 @@ cControl *cWindow::getControl(int x, int y) {
 }
 
 void cWindow::onMouseDown(int x, int y, unsigned char button, bool pressed) {
-	tracking = true;
+	if (isMovable()) {
+		tracking = true;
+	}
 }
 
 void cWindow::onMouseUp(int x, int y, unsigned char button, bool pressed) {
