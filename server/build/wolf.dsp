@@ -544,10 +544,6 @@ SOURCE=.\network.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\oem.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\packlen.h
 # End Source File
 # Begin Source File

@@ -43,7 +43,6 @@
 #include "SndPkg.h"
 #include "sregions.h"
 #include "itemid.h"
-#include "oem.h"
 #include "guildstones.h"
 #include "combat.h"
 #include "regions.h"
