@@ -195,12 +195,12 @@ do
 		ITEM="$(echo "$1"|sed -e 's/^--\([^-]\+-\)\?//')";
 	fi;
 
-	if [ "$ITEM" == "$1" ];
+	if [ "x$ITEM" == "x$1" ];
 	then
 		echo "Unknown option \"$1\"!" >&2;
 		print_usage >&2;
 
-	elif [ "$1" == "--help" ];
+	elif [ "x$1" == "x--help" ];
 	then
 		print_usage;
 	fi;
