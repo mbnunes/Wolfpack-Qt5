@@ -763,9 +763,9 @@ void cItem::processNode( const cElement* Tag )
 	else if ( TagName == "durability" )
 	{
 		if ( Tag->hasAttribute( "value" ) )
-			this->setMaxhp( Tag->getAttribute( "value" ).toUShort() );
+			this->setMaxhp( Tag->getAttribute( "value" ).toLong() );
 		else if ( Tag->hasAttribute( "min" ) &&  Tag->hasAttribute( "max" ) )
-			this->setMaxhp( RandomNum( Tag->getAttribute( "min" ).toUShort(), Tag->getAttribute( "max" ).toUShort() ) );
+			this->setMaxhp( RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() ) );
 		else
 			this->setMaxhp( Value.toLong() );
 		this->setHp( this->maxhp() );

@@ -628,7 +628,7 @@ void cItemBaseDef::processNode( const cElement* node )
 	if ( node->name() == "weight" )
 	{
 		if ( node->hasAttribute( "value" ) )
-			weight_ = node->getAttribute( "value" ).toInt();
+			weight_ = node->getAttribute( "value" ).toFloat();
 		else
 			weight_ = node->text().toFloat();
 	}

@@ -64,6 +64,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - More tag documentation in the code.
   - Definitoin Tag Cleanups.
   - Using skills no longer unhides by default, unhide moved to python.
+  - Further xml suppport for lists: <color list="COLORS_MISC" />
+    Only some xml tags can work properly with this.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.
@@ -87,6 +89,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - Ranged weapons set to 10 instead of 12.
   - Price fixes for arrows/bolts.
   - Fixed potion kegs.
+  - Cleanups with equipment for the cleaner xml style.
+  - Gave guards colored hair.
  * Python Script Changes:
   - Fixed bug #0000369. (Equip possible although item.movable = 3)
   - Fixed bug #0000361. (Pets don't follow trough gate)
