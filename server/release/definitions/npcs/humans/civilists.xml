@@ -100,7 +100,7 @@
 	<npc id="vendor_male">
 		<inherit>base_male</inherit>
 		<ai>Human_Vendor</ai>
-		<bindmenu>vendor_menu,train_menu</bindmenu>
+		<bindmenu>paperdoll_menu,vendor_menu,train_menu</bindmenu>
 		<basescript>contextmenus.trainmenu</basescript>
 		<invulnerable />
 		<wandertype>0</wandertype>
