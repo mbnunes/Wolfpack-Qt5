@@ -43,6 +43,108 @@
 #include <math.h>
 #include <set>
 
+// New Line Of Sight Code
+Coord_cl getCharLosCoord(P_CHAR pChar, bool eye) {
+	Coord_cl result = pChar->pos();
+	result.z += eye ? 15 : 10;
+	return result;
+}
+
+Coord_cl getItemLosCoord(P_ITEM pItem, bool eye) {
+	Coord_cl pos = pItem->getOutmostPos();
+	tile_st tile = TileCache::instance()->getTile(pItem->id());
+	pos.z += tile.height / 2 + 1;
+	return pos;
+}
+
+bool isBetween(double n, int lower, int higher, double tolerance = 0.5) {
+	// Swap the bounds if they are out of order
+	if (lower > higher) {
+		std::swap(lower, higher);
+	}
+
+	return (n > lower - tolerance) && (n < higher + tolerance);
+}
+
+double round(double n) {
+    double f = n - floor(n);
+	if (f >= 0.50) {
+		return ceil(n);
+	} else {
+		return floor(n);
+	}
+}
+
+inline QValueList<Coord_cl> getPointList(const Coord_cl &origin, const Coord_cl &target) {
+	// Create a list of coordinates we are going to "touch" when looking
+	// from point a to point b
+	QValueList<Coord_cl> pointList;
+
+	int xDiff = target.x - origin.x; // i1
+	int yDiff = target.y - origin.y; // j1
+	int zDiff = target.z - origin.z; // k1
+
+	// Calculate the length of the X,Y diagonal
+	double xyDiagonal = sqrt( (double)( xDiff * xDiff + yDiff * yDiff ) ); // d3
+		
+	// Calculate the length of the second diagonal
+	double zDiagonal; // d4
+	if (zDiff != 0) {
+		zDiagonal = sqrt( xyDiagonal * xyDiagonal + (double)( zDiff * zDiff ) );
+	} else {
+		zDiagonal = zDiff;
+	}
+
+	// Calculate the "increases"
+	double d1 = yDiff / zDiagonal;
+	double d2 = xDiff / zDiagonal;
+    xyDiagonal = zDiff / zDiagonal;
+
+	double d6 = origin.y; // CurrentY ?
+	double d7 = origin.z; // CurrentZ ?
+	double d5 = origin.x; // CurrentX ?
+
+	while (isBetween(d5, target.x, origin.x) && isBetween(d6, target.y, origin.y) && isBetween(d7, target.z, origin.z)) {
+		Coord_cl pos((int)round(d5), (int)round(d6), (int)round(d7), origin.map);
+
+		if (pointList.count() == 0 || pointList.last() != pos) {
+			pointList.append(pos);
+		}
+
+		// Jump to the next set of coordinates.
+		d7 += xyDiagonal;
+		d5 += d2;
+        d6 += d1;
+	}
+
+	return pointList;
+}
+
+bool lineOfSightNew(const Coord_cl &origin, const Coord_cl &target) {
+	// If the target is out of range, save cpu time by not calculating the
+	// line of sight
+	if (origin.map != target.map || origin.distance(target) > 25) {
+        return false;
+	}
+
+	// LoS always succeeds for the same points
+	if (origin == target) {
+		return true;
+	}
+
+	QValueList<Coord_cl> pointList = getPointList(origin, target);
+
+	QValueList<Coord_cl>::const_iterator it;
+	for (it = pointList.begin(); it != pointList.end(); ++it) {
+		Coord_cl point = *it;
+
+		// Play an effect for the tile
+		point.effect(0x181D, 10, 20);
+	}
+
+	return false;
+}
+
 Coord_cl Coord_cl::null( 0xFFFF, 0xFFFF, 0xFF, 0xFF );
 
 Coord_cl::Coord_cl( void )

@@ -2328,3 +2328,16 @@ bool cItem::hasScript( const QCString& name )
 
 	return cUObject::hasScript(name);
 }
+
+Coord_cl cItem::getOutmostPos() {
+	if (container_) {
+		if (container_->isChar()) {
+			return container_->pos();
+		}
+		P_ITEM container = dynamic_cast<P_ITEM>(container_);
+		if (container) {
+			return container->getOutmostPos();
+		}
+	}
+	return pos_;
+}

@@ -178,12 +178,27 @@ static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
 	return Py_False;
 }
 
+extern bool lineOfSightNew(const Coord_cl &origin, const Coord_cl &target);
+
+static PyObject* wpCoord_lineofsightnew( wpCoord* self, PyObject* args )
+{
+	Coord_cl pos;
+	if ( !PyArg_ParseTuple( args, "O&:coord.lineofsight(coord)", &PyConvertCoord, &pos ) )
+		return 0;
+	
+	if ( lineOfSightNew( self->coord, pos ) )
+		return Py_True;
+
+	return Py_False;
+}
+
 static PyMethodDef wpCoordMethods[] =
 {
 { "distance",	( getattrofunc ) wpCoord_distance, METH_VARARGS, "Whats the distance between Point A and Point B" },
 { "direction", ( getattrofunc ) wpCoord_direction, METH_VARARGS, NULL },
 { "validspawnspot",	( getattrofunc ) wpCoord_validspawnspot, METH_VARARGS, NULL },
 { "lineofsight", ( getattrofunc ) wpCoord_lineofsight, METH_VARARGS, NULL },
+{ "lineofsightnew", ( getattrofunc ) wpCoord_lineofsightnew, METH_VARARGS, NULL },
 { 0, 0, 0, 0 }
 };
 

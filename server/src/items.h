@@ -427,6 +427,7 @@ public:
 
 	P_ITEM getOutmostItem();
 	P_CHAR getOutmostChar();
+	Coord_cl getOutmostPos();
 
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 	virtual stError* setProperty( const QString& name, const cVariant& value );
