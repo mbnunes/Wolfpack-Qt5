@@ -33,7 +33,7 @@ def onContextMenuCheckEnabled( char, target, tag ):
 def onContextEntry( char, target, tag  ):
 
 	skill = tag - 1
-	if ( char.isdead() or skill < 0 ):
+	if ( char.dead or skill < 0 ):
 		return 1
 
 	baseToSet = target.skill[ skill ] / ( 1000 / MAX_TEACHING )

@@ -2,6 +2,8 @@
 import re
 
 COMMAND_NAME_PATTERN = re.compile("\\\\command\s(\w+)", re.S)
+PROPERTY_NAME_PATTERN = re.compile("\\\\rproperty\s([\w\.]+)", re.S)
+RPROPERTY_NAME_PATTERN = re.compile("\\\\property\s([\w\.]+)", re.S)
 OBJECT_NAME_PATTERN = re.compile("\\\\object\s(\w+)", re.S)
 METHOD_NAME_PATTERN = re.compile("\\\\method\s([\w\.]+)", re.S)
 DESCRIPTION_PATTERN = re.compile('\\\\description\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
@@ -11,6 +13,7 @@ RETURNVALUE_PATTERN = re.compile('\\\\return\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
 CALLCONDITION_PATTERN = re.compile('\\\\condition\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
 EVENT_NAME_PATTERN = re.compile("\\\\event\s(\w+)", re.S)
 PARAM_PATTERN = re.compile('\\\\param\s+(\w+)\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
+INHERIT_PATTERN = re.compile('\\\\inherit\s+(\w+)\s*(?=\Z|[\s\n]+\\\\\w)', re.S)
 
 VERSION = "Unknown"
 BETA = ""
@@ -65,7 +68,7 @@ def parsecommand(text):
 		'usage': processtext(usage),
 		'notes': processtext(notes),
 	}
-	
+
 #
 # Parse an object comment
 #
@@ -85,9 +88,16 @@ def parseobject(text):
 	if result:
 		description = result.group(1)
 	
+	inherit = []
+	
+	results = INHERIT_PATTERN.findall(text)
+	for result in results:
+		inherit.append(result.strip().upper())
+	
 	return {
 		'object': processtext(name),
 		'description': processtext(description),
+		'inherit': inherit,
 	}	
 	
 #
@@ -225,7 +235,7 @@ def parsepython(filename):
 # and searches for comments.
 #
 def parsecpp(filename):
-	pattern = re.compile("\/\*\s*\n*\s*(.*?)\s*\n*\s*\*\/", re.S) # Multiline comment pattern
+	pattern = re.compile("\/\*\s*\n*\s*(.*?)\s*\n*\s*\*\/", re.S) # Multiline comment pattern	
 
 	file = open(filename, 'rU')
 	content = file.read()
@@ -256,6 +266,65 @@ def parsecpp(filename):
 			method = parsemethod(text)
 			if method:
 				objectsmethods.append(method)
+		elif text.startswith('\\property '):
+			text = text[10:]
+			if ' ' in text:
+				(name, description) = text.split(' ', 1)
+				if not '.' in name:
+					continue					
+				(object, property) = name.split('.', 1)
+				objectsproperties.append({
+					'object': processtext(object.upper()),
+					'property': processtext(property),
+					'description': processtext(description),
+					'readonly': '0'
+				})
+		elif text.startswith('\\rproperty '):
+			text = text[11:]
+			if ' ' in text:
+				(name, description) = text.split(' ', 1)
+				if not '.' in name:
+					continue					
+				(object, property) = name.split('.', 1)
+				objectsproperties.append({
+					'object': processtext(object.upper()),
+					'property': processtext(property),
+					'description': processtext(description),
+					'readonly': '1'
+				})				
+
+	# Get singleline comments
+	pattern = re.compile("\/\/\ *(.*?)$", re.M) # Single line comment pattern
+	
+	results = pattern.finditer(content)
+	for result in results:
+		text = result.group(1).strip()
+		if text.startswith('\\property '):
+			text = text[10:]
+			if ' ' in text:
+				(name, description) = text.split(' ', 1)
+				if not '.' in name:
+					continue					
+				(object, property) = name.split('.', 1)
+				objectsproperties.append({
+					'object': processtext(object.upper()),
+					'property': processtext(property),
+					'description': processtext(description),
+					'readonly': '0'
+				})
+		elif text.startswith('\\rproperty '):
+			text = text[11:]
+			if ' ' in text:
+				(name, description) = text.split(' ', 1)
+				if not '.' in name:
+					continue					
+				(object, property) = name.split('.', 1)
+				objectsproperties.append({
+					'object': processtext(object.upper()),
+					'property': processtext(property),
+					'description': processtext(description),
+					'readonly': '1'
+				})
 
 	# See if there is a version string in this file
 	result = re.compile("inline\s+const\s+char\s*\*\s*productVersion\(\)\s*\{\s*return\s+\"([^\"]+)\"\;", re.S).search(content)

@@ -56,7 +56,11 @@ a:active {
     </div></td>
     <td width="33%" class="text"><span class="sectiontitle">SCRIPTING OBJECTS</span><br>
       This section of the documentation gives you an overview over available wolfpack specific objects, their properties and methods and in some cases how to create them.<br>
-      <a href="#">Read more...</a> </td>
+      <a href="object.php">Read more... (<?
+		  	$result = mysql_query("SELECT COUNT(*) FROM documentation_objects;");
+			echo array_pop(mysql_fetch_array($result));
+			mysql_free_result($result);
+		  ?> objects)</a></td>
     <td width="33%" class="text"><span class="sectiontitle">SCRIPTING LIBRARY</span><br>
       Wolfpack comes with a sophisticated library of scripts. This section of the documentation provides an overview over the library and its functions.<br>
       <a href="#">Read more... </a></td>

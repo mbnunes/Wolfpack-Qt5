@@ -212,7 +212,7 @@ def successlumberjacking( time, args ):
 		return OOPS
 	else:
 		# Skill Check against LUMBERJACKING
-		if not char.checkskill( resource, LUMBERJACKING, 0 ):
+		if not char.checkskill(resource, LUMBERJACKING, reqskill, 1200):
 			char.socket.clilocmessage( 500495 ) # You hack at the tree for a while but fail to produce...
 			success = 0
 			return OOPS
