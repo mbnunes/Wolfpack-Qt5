@@ -7,52 +7,36 @@
 # Scripts for checks created by bankers.                        #
 #===============================================================#
 
+#ID: 0xFE8F1 (0)
+#Into your bank box I have placed a check in the amount of:
+
 import wolfpack
 
 def onCreate( item, definition ):
 	item.settag( 'value', 0 )
 
-def onSingleClick( item, char ):
-	if not item.hastag( 'value' ):
-		return 0
-
-	char.socket.showspeech( item, "%s [Value: %i]" % ( item.name, int( item.gettag( 'value' ) ) ) )
+def onShowToolTip( sender, target, tooltip ):
+	
+	tooltip.add( 1041361, "" ) # A Bank Check
+	tooltip.add( 1038021, "" ) # Blessed
+	tooltip.add( 1060738, str( target.gettag( "value") ) )
+	tooltip.send ( sender )
 	return 1
 
 def onUse( char, item ):
-	char.socket.showspeech( item, "Drop this on a banker in order to deposit it." )
-	return 1
-
-# Check if the character has the banker speech event
-# If yes, deposit the check
-def onDropOnChar( char, item ):
-	if not "speech_banker" in char.events:
-		return 0
-
-	if not item.hastag( 'value' ):
-		return 0
-
-	dropper = item.container # If its dropped it HAS to be on a char (dragging layer)
-	value = int( item.gettag( 'value' ) )
-
-	if value < 1:	
-		char.say( "This check is worthless!",5 )
-		return 1 # Auto Bounce
-
-	# Perfect, we found a banker to deposit this check at.
-	char.say( "I deposited %i gold on your bank in return for the check." % value,5 )
-	item.delete()
-
-	bankbox = dropper.getbankbox()
-
+	#D: 0xFE8F0 (0)
+	#Gold was deposited in your account:
+	bankbox = char.getbankbox()
+	value = item.gettag( "value" )
 	if bankbox:
 		while value > 0:
-			item = wolfpack.additem( "eed" )
-			item.amount = min( [ value, 65535 ] )
-			item.container = bankbox
+			gold = wolfpack.additem( "eed" )
+			gold.amount = min( [ value, 60000 ] )
+			gold.container = bankbox
 
-			value -= min( [ value, 65535 ] )				
-
-		dropper.soundeffect( 0x37, 0 )
-	
+			value -= min( [ value, 60000 ] )				
+		amount = str( value )
+		char.soundeffect( 0x37, 0 )
+		char.socket.sendcontainer( bankbox )
+		item.delete()
 	return 1

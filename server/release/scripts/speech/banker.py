@@ -42,7 +42,9 @@ def onSpeech( listener, speaker, text, keywords ):
 
 			# Invalid Withdraw Amount
 			if not amount:
-				listener.say( "How much do you want to withdraw?",5 )
+				#Thou must tell me how much thou wishest to withdraw
+				speaker.socket.clilocmessage( 0x7A29B, "", 0x3b2, 3, listener )
+				return
 
 			# Withraw
 			else:
@@ -54,11 +56,14 @@ def onSpeech( listener, speaker, text, keywords ):
 					gold = bank.countresource( 0xEED, 0x0 )
 
 				if amount > gold:
-					listener.say( "You don't have enough money in your bank box.",5 )
+					# Thou dost not have sufficient funds in thy account to withdraw that much.
+					speaker.socket.clilocmessage( 0x7A29E, "", 0x3b2, 3, listener )
+					return
 
 				else:
 					# We have enough money, so let's withdraw it
-					listener.say( "Here are your %i gold." % amount,5 )
+					# Thou hast withdrawn gold from thy account.
+					speaker.socket.clilocmessage( 0xF6955, "", 0x3b2, 3, listener )
 					bank.useresource( amount, 0xEED, 0x0 )
 					backpack = speaker.getbackpack()
 
@@ -78,10 +83,9 @@ def onSpeech( listener, speaker, text, keywords ):
 			bank = speaker.getbankbox()
 			if bank:
 				amount = bank.countresource( 0xEED, 0x0 )
-				if not amount: 
-					listener.say( "Alas you don't have any money in your bank.",5 )
-				else:
-					listener.say( "You have %i gold in your bank." % amount,5 )
+				gold = str( amount )
+				# Thy current bank balance is:
+				speaker.socket.clilocmessage( 0xFE8EC, "", 0x3b2, 3, listener, " %s" %gold )
 			break
 
 		# bank
@@ -89,7 +93,7 @@ def onSpeech( listener, speaker, text, keywords ):
 			bank = speaker.getbankbox()
 			
 			if bank:
-				listener.say( "Here is your bank box, %s." % speaker.name,5 )
+				listener.say( "Here is your bank box, %s." % speaker.name, 0x3b2 )
 				speaker.socket.sendcontainer( bank )
 
 			break
@@ -104,7 +108,8 @@ def onSpeech( listener, speaker, text, keywords ):
 
 			# Invalid Withdraw Amount
 			if amount < 5000:
-				listener.say( "A check at least needs to have 5000 gold value.",5 )
+				speaker.socket.clilocmessage( 0x7A29F, "", 0x3b2, 3, listener )
+				return
 
 			# Withraw
 			else:
@@ -116,11 +121,14 @@ def onSpeech( listener, speaker, text, keywords ):
 					gold = bank.countresource( 0xEED, 0x0 )
 
 				if amount > gold:
-					listener.say( "You don't have enough money in your bank box.",5 )
-
+					# Ah, art thou trying to fool me? Thou hast not so much gold!
+					speaker.socket.clilocmessage( 0x7A29C, "", 0x3b2, 3, listener )
+					return
 				else:
 					# We have enough money, so let's withdraw it
-					listener.say( "I've put a check for %i gold in your bank." % amount,5 )
+					# Into your bank box I have placed a check in the amount of:
+					total = str( amount )
+					speaker.socket.clilocmessage( 0xFE8F1, "", 0x3b2, 3, listener, " %s" %total )
 					bank.useresource( amount, 0xEED, 0x0 )
 					check = wolfpack.additem( "bank_check" )
 					check.settag( 'value', amount )
@@ -133,14 +141,8 @@ def onSpeech( listener, speaker, text, keywords ):
 # An item has been dropped on us
 def onDropOnChar( char, item ):
 
-	# Let's deposit the item in the users bankbox
-	dropper = item.container
-	bankbox = dropper.getbankbox()
-
-	if bankbox:
-		char.say( "I've put the item into your bankbox.",5 )
-		item.container = bankbox
-		item.update()
-		return 1
-
+	if "speech_banker" in char.events:
+		char.socket.clilocmessage( 0x7A2A4, "", 0x3b2, 3, listener )
+		#backpack = char.getbackpack()
+		#item.container = backpack
 	return 0
