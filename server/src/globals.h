@@ -302,7 +302,8 @@ extern termios termstate ;
 
 extern WPScriptManager *ScriptManager;
 extern WPDefManager *DefManager;
-
+class PersistentBroker;
+extern PersistentBroker* persistentBroker;
 //
 
 #endif

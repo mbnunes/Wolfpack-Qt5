@@ -45,6 +45,11 @@
 #include "wpscriptmanager.h"
 #include "network/uosocket.h"
 #include "wpdefmanager.h"
+#include "persistentbroker.h"
+
+// Library Includes
+#include <qsqlcursor.h>
+
 
 // Debug includes and defines
 #undef  DBGFILE
@@ -71,6 +76,7 @@ void cUObject::init()
 	this->serial = INVALID_SERIAL;
 	this->multis = INVALID_SERIAL;
 	this->free = false;
+	this->bindmenu_ = QString::null;
 }
 
 void cUObject::moveTo( const Coord_cl& newpos )
@@ -81,52 +87,77 @@ void cUObject::moveTo( const Coord_cl& newpos )
 }
 
 /*!
- * Provides persistence for instances of UObject
- *
- * @param &archive : an ISerialization descendent.
- *
- * @return void  : none.
- */
-void cUObject::Serialize(ISerialization &archive)
+	Performs persistency layer saves.
+*/
+void cUObject::save( const QString& )
 {
-	QString events;
-
-	if (archive.isReading())
+	startSaveSqlStatement("UObject");
+	savePersistentStrValue("name",		name);
+	savePersistentIntValue("serial",	serial);
+	savePersistentIntValue("multis",	multis);
+	savePersistentIntValue("pos_x",		pos.x);
+	savePersistentIntValue("pos_y",		pos.y);
+	savePersistentIntValue("pos_z",		pos.z);
+	savePersistentIntValue("pos_map",	pos.map);
+	savePersistentStrValue("events",	eventList_.join(","));
+	savePersistentStrValue("bindmenu",	bindmenu_);
+	endSaveSqlStatement(QString("serial='%1'").arg(serial));
+	// Update classes type map so we can properly load this later on.
+	if ( !this->isPersistent )
 	{
-		archive.read("name", name);
-		archive.read("serial", serial);
-		archive.read("multis", multis);
-		archive.read("pos.x", pos.x);
-		archive.read("pos.y", pos.y);
-		archive.read("pos.z", pos.z);
-		archive.read("pos.map", pos.map);
-		archive.read("events", events );
-		eventList_ = QStringList::split( ",", events );
-		recreateEvents();
-		archive.read( "bindmenu",	bindmenu );
-
-		QString objectID;
-		archive.readObjectID( objectID );
-		if( objectID == "CUSTOMTAGS" )
-			archive.readObject( &tags );
+		QString query = QString("INSERT INTO uobjectmap SET serial='%1', type='%2';").arg(serial).arg(objectID());
+		persistentBroker->executeQuery(query);
 	}
-	else if (archive.isWritting())
+
+	PersistentObject::save();
+}
+
+void cUObject::load( const QString& s )
+{
+	startLoadSqlStatement("UObject", "serial", s)
 	{
-		archive.write("name", name);
-		archive.write("serial", serial);
-		archive.write("multis", multis);
-		archive.write("pos.x", pos.x);
-		archive.write("pos.y", pos.y);
-		archive.write("pos.z", pos.z);
-		archive.write("pos.map", pos.map);
-
-		events = eventList_.join( "," );
-		archive.write( "events", events );
-		archive.write( "bindmenu", bindmenu );
-
-		archive.writeObject( &tags );
+		loadPersistentStrValue("name",		name);
+		loadPersistentIntValue("serial",	serial);
+		loadPersistentIntValue("multis",	multis);
+		loadPersistentIntValue("pos_x",		pos.x);
+		loadPersistentIntValue("pos_y",		pos.y);
+		loadPersistentIntValue("pos_z",		pos.z);
+		loadPersistentIntValue("pos_map",	pos.map);
+		QString events;
+		loadPersistentStrValue("events", events);
+		eventList_ = QStringList::split(",", events);
+		loadPersistentStrValue("bindmenu",	bindmenu_);
 	}
-	cSerializable::Serialize( archive );
+	endLoadSqlStatement(s);
+	PersistentObject::load(s);
+}
+
+bool cUObject::del( const QString& s/* = QString::null  */ )
+{
+	QSqlCursor cursor("UObject");
+	cursor.select(QString("serial='%1'").arg(serial));
+	while ( cursor.next() )
+	{
+		cursor.primeDelete();
+		if ( cursor.del() > 1 )
+		{
+			qWarning("More than one record was deleted in table UObject when only 1 was expected, delete criteria was:");
+			qWarning(cursor.filter());
+		}
+
+	}
+	cursor.setName("uobjectmap");
+	cursor.select(QString("serial='%1'").arg(serial));
+	while ( cursor.next() )
+	{
+		cursor.primeDelete();
+		if ( cursor.del() > 1 )
+		{
+			qWarning("More than one record was deleted in table uobjectmap when only 1 was expected, delete criteria was:");
+			qWarning(cursor.filter());
+		}
+	}
+	return PersistentObject::del( s );
 }
 
 /*!
@@ -357,3 +388,4 @@ bool cUObject::inRange( cUObject *object, UINT32 range )
 
 	return ( pos.distance( object->pos ) <= range );
 }
+

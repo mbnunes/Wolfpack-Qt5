@@ -141,8 +141,11 @@ protected:
 	unsigned int beggingRange_;
 	unsigned int beggingTime_;
 	unsigned char season_;
-	QString worldSaveModule_;
-	QString worldSaveDirectory_;
+	QString databaseDriver_;
+	QString databaseName_;
+	QString databaseUsername_;
+	QString databasePassword_;
+	QString databaseHost_;
 	int saveInterval_;
 	bool heartBeat_;
 	int defaultpriv1_;
@@ -318,8 +321,6 @@ public:
 	unsigned int beggingTime() const;
 	unsigned char season() const;
 	void setSeason( unsigned char );
-	QString worldSaveModule() const;
-	QString worldSaveDirectory() const;
 	int saveInterval() const;
 	bool heartBeat() const;
 	int defaultpriv1() const;
@@ -329,6 +330,13 @@ public:
 	int AccountBlockTime() const;
 	int resetAttemptCount() const;
 	QString accountsArchiver() const;
+
+	// Persistency Module
+	QString databaseHost() const;
+	QString databasePassword() const;
+	QString databaseUsername() const;
+	QString databaseDriver() const;
+	QString databaseName() const;
 
 	// Remote Admin
 	unsigned int ra_port() const;
@@ -1031,16 +1039,6 @@ inline void cSrvParams::setSeason( unsigned char data)
 	season_ = data;
 }
 
-inline QString cSrvParams::worldSaveModule() const
-{
-	return worldSaveModule_;
-}
-
-inline QString cSrvParams::worldSaveDirectory() const
-{
-	return worldSaveDirectory_;
-}
-
 inline int cSrvParams::saveInterval() const
 {
 	return saveInterval_;
@@ -1089,6 +1087,31 @@ inline int cSrvParams::resetAttemptCount() const
 inline QString cSrvParams::accountsArchiver() const
 {
 	return accountsArchiver_;
+}
+
+inline QString cSrvParams::databaseDriver() const
+{
+	return databaseDriver_;
+}
+
+inline QString cSrvParams::databaseHost() const 
+{
+	return databaseHost_;
+}
+
+inline QString cSrvParams::databaseName() const
+{
+	return databaseName_;
+}
+
+inline QString cSrvParams::databaseUsername() const
+{
+	return databaseUsername_;
+}
+
+inline QString cSrvParams::databasePassword() const
+{
+	return databasePassword_;
 }
 
 #endif //__SRVPARAMS_H___

@@ -413,7 +413,7 @@ void cTmpEff::Expire()
 		if( more1 == 0 )
 		{
 			if( more2 != 0 )
-				pc_s->emote( tr( "*%1 continues grinding.*" ).arg( pc_s->name.c_str() ) );
+				pc_s->emote( tr( "*%1 continues grinding.*" ).arg( pc_s->name ) );
 			
 			pc_s->soundEffect( 0x242 );
 		}
@@ -1042,7 +1042,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 			}
 
 			// ------ NAME -----
-			pc_dest->setOrgname( pc_dest->name.c_str() );
+			pc_dest->setOrgname( pc_dest->name );
 
 			if(pc_dest->id()==0x0190) 
 				pc_dest->name = DefManager->getRandomListEntry( "1" );

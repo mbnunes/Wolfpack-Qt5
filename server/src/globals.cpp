@@ -222,6 +222,7 @@ cBounty         *Bounty;
 cMultisCache	*MultisCache;
 WPScriptManager	*ScriptManager;
 WPDefManager    *DefManager;
+PersistentBroker* persistentBroker;
 
 cCharStuff::cDragonAI	*DragonAI;
 cCharStuff::cBankerAI	*BankerAI;	

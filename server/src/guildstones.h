@@ -75,6 +75,8 @@ public:
 	virtual ~cGuildStone() {}
 	virtual void Serialize( ISerialization &archive );
 	virtual QString objectID() const;
+	void save( const QString& = QString::null ) {};
+	void load( const QString& = QString::null ) {};
 	
 	void addMember(P_CHAR);
 	bool isMember(P_CHAR);

@@ -714,7 +714,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 			if( !pChar->checkSkill( SNOOPING, 0, 1000 ) )
 			{
 
-				socket->sysMessage( tr( "You fail to put that into %1's pack" ).arg( packOwner->name.c_str() ) );
+				socket->sysMessage( tr( "You fail to put that into %1's pack" ).arg( packOwner->name.latin1() ) );
 				socket->bounceItem( pItem, BR_NO_REASON );
 				return;
 			}
@@ -913,7 +913,7 @@ void cDragItems::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 
 	// *You see Snowwhite eating some poisoned apples*
 	// Color: 0x0026
-	QString emote = QString( "*You see %1 eating %2*" ).arg( pChar->name.c_str() ).arg( pItem->getName() );
+	QString emote = QString( "*You see %1 eating %2*" ).arg( pChar->name.latin1() ).arg( pItem->getName() );
 	pChar->emote( emote );
 
 	// We try to feed it more than it needs
@@ -963,7 +963,7 @@ void cDragItems::dropOnGuard( cUOSocket* socket, P_ITEM pItem, P_CHAR pGuard )
 	Bounty->BountyDelete( pVictim->serial );
 	
 	// Thank them for their work
-	pGuard->talk( tr( "Excellent work! You have brought us the head of %1. Here is your reward of %2 gold coins." ).arg( pVictim->name.c_str() ).arg( pVictim->questBountyReward() ) );
+	pGuard->talk( tr( "Excellent work! You have brought us the head of %1. Here is your reward of %2 gold coins." ).arg( pVictim->name.latin1() ).arg( pVictim->questBountyReward() ) );
 
 	socket->player()->setKarma( socket->player()->karma() + 100 );
 }
@@ -996,7 +996,7 @@ void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 
 		// *You see Snowwhite eating some poisoned apples*
 		// Color: 0x0026
-		QString emote = QString( "*You see %1 eating %2*" ).arg( pBeggar->name.c_str() ).arg( pItem->getName() );
+		QString emote = QString( "*You see %1 eating %2*" ).arg( pBeggar->name.latin1() ).arg( pItem->getName() );
 		pBeggar->emote( emote );
 
 		// We try to feed it more than it needs
@@ -1032,7 +1032,7 @@ void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 		return;
 	}
 
-	pBeggar->talk( tr( "Thank you %1 for the %2 gold!" ).arg( socket->player()->name.c_str() ).arg( pItem->amount() ) );
+	pBeggar->talk( tr( "Thank you %1 for the %2 gold!" ).arg( socket->player()->name.latin1() ).arg( pItem->amount() ) );
 	socket->sysMessage( "You have gained some karma!" );
 	
 	if( pItem->amount() <= 100 )
@@ -1058,7 +1058,7 @@ void cDragItems::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker )
 		Q_UINT32 nValue = static_cast< Q_UINT32 >( 0.75 * pItem->value );
 		socket->player()->giveGold( nValue, true );
 		Items->DeleItem( pItem );
-		pBroker->talk( tr( "Here you have your %1 gold, %2" ).arg( nValue ).arg( socket->player()->name.c_str() ) );
+		pBroker->talk( tr( "Here you have your %1 gold, %2" ).arg( nValue ).arg( socket->player()->name.latin1() ) );
 		return;
 	}
 
@@ -1092,7 +1092,7 @@ void cDragItems::dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker )
 	}
 
 	pChar->giveGold( pItem->value, true );
-	pBanker->talk( tr( "%1 I have cashed thy cheque and deposited %2 gold." ).arg( pChar->name.c_str() ).arg( pItem->amount() ) );
+	pBanker->talk( tr( "%1 I have cashed thy cheque and deposited %2 gold." ).arg( pChar->name.latin1() ).arg( pItem->amount() ) );
 
 	pItem->ReduceAmount();
 	//if( pItem->ReduceAmount() > 0 )
@@ -1131,7 +1131,7 @@ void cDragItems::dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer
 	
 	pChar->setBaseSkill( skill, pChar->baseSkill( skill ) + skillDelta );
 	Skills->updateSkillLevel( pChar, skill );
-	updateskill( toOldSocket(socket), skill );
+	socket->sendSkill( skill );
 
 	// we will not reset the trainer id here because he may want to give him more money
 }

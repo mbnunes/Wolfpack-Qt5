@@ -118,7 +118,7 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 		{
 			cPage* pPage = new cPage( pChar->serial, PT_GM, speech, pChar->pos );
 			cPagesManager::getInstance()->push_back( pPage );
-			notification = tr( "GM Page from %1: %2" ).arg( pChar->name.c_str() ).arg( speech );
+			notification = tr( "GM Page from %1: %2" ).arg( pChar->name.latin1() ).arg( speech );
 			
 			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
 				if( mSock->player() && mSock->player()->isGM() )
@@ -138,7 +138,7 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 		{
 			cPage* pPage = new cPage( pChar->serial, PT_COUNSELOR, speech, pChar->pos );
 			cPagesManager::getInstance()->push_back( pPage );
-			notification = tr( "Counselor Page from %1: %2" ).arg( pChar->name.c_str() ).arg( speech );
+			notification = tr( "Counselor Page from %1: %2" ).arg( pChar->name.latin1() ).arg( speech );
 			
 			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
 				if( mSock->player() && (socket->player()->isCounselor() || socket->player()->isGM()) )
@@ -185,7 +185,7 @@ bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QStr
 		{
 			if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial()==INVALID_SERIAL) //owner of the pet ? and not already stabled ?
 			{
-				QString pntmp = p_pet->name.c_str();
+				QString pntmp = p_pet->name.latin1();
 				if (speech.contains(pntmp, false))
 				{
 					found=true;
@@ -223,7 +223,7 @@ bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QStr
 
 	stablesp.insert( pMaster->serial, p_pet->serial );
 
-	pMaster->talk( tr( "Your pet is now stabled, say retrieve or claim %1 to claim your pet" ).arg( p_pet->name.c_str() ) );
+	pMaster->talk( tr( "Your pet is now stabled, say retrieve or claim %1 to claim your pet" ).arg( p_pet->name.latin1() ) );
 	return true;
 }
 
@@ -251,7 +251,7 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 		
 		if( pPet )
 		{
-			if( !pPlayer->Owns( pPet ) || !comm.contains( pPet->name.c_str(), false ) )
+			if( !pPlayer->Owns( pPet ) || !comm.contains( pPet->name.latin1(), false ) )
 				pPet = NULL;
 			else
 				break;
@@ -370,7 +370,7 @@ bool QuestionSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pChar, const QStr
 	// Tell the questioner our name
 	if( comm.contains( "NAME" ) )
 	{
-		pChar->talk( tr( "Hello, my name is %1." ).arg( pChar->name.c_str() ) );
+		pChar->talk( tr( "Hello, my name is %1." ).arg( pChar->name.latin1() ) );
 		return true;
 	}
 	
@@ -465,7 +465,7 @@ bool EscortSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pEscortee, const QS
 		{
 			// Send out a message saying we are already being escorted
 			pPlayer = FindCharBySerial( pEscortee->ftarg() );
-			pEscortee->talk( tr( "I being escorted to %1 by %2." ).arg( pEscortee->questDestRegion() ).arg( pPlayer->name.c_str() ) );
+			pEscortee->talk( tr( "I being escorted to %1 by %2." ).arg( pEscortee->questDestRegion() ).arg( pPlayer->name.latin1() ) );
 		}
 		return true;
 	}
@@ -597,7 +597,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	if( pPlayer->dist( pPet ) > 7 )
 		return false;
 	
-	QString petname = pPet->name.c_str();
+	QString petname = pPet->name.latin1();
 	bool bAllCommand = false;
 
 	if( !comm.contains( petname, false ) )
@@ -701,7 +701,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 		pPet->setNpcWander( 2 );
 		pPet->SetOwnSerial( -1 );
 		pPet->setTamed( false );
-		pPet->emote( tr( "%1 appears to have decided that it is better off without a master" ).arg( pPet->name.c_str() ) );
+		pPet->emote( tr( "%1 appears to have decided that it is better off without a master" ).arg( pPet->name.latin1() ) );
 		if( SrvParams->tamedDisappear() ==1 )
 		{
 			pPet->soundEffect( 0x01FE );
@@ -751,7 +751,7 @@ bool VendorChkName( P_CHAR pVendor, const QString& comm )
 	if( ( comm.contains( "VENDOR" ) ) || ( comm.contains( "SHOPKEEPER" ) ) )
 		return true;
 
-	if( comm.contains( pVendor->name.c_str(), false ) )
+	if( comm.contains( pVendor->name.latin1(), false ) )
 		return true;
 	else
 		return false;
@@ -803,7 +803,7 @@ bool PlayerVendorSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor, cons
 			pDeed->value = 2000;
 			pDeed->update();
 			cCharStuff::DeleteChar( pVendor );
-			socket->sysMessage( tr( "Packed up vendor %1." ).arg( pVendor->name.c_str() ) );
+			socket->sysMessage( tr( "Packed up vendor %1." ).arg( pVendor->name.latin1() ) );
 			return true;
 		}
 	}
@@ -867,7 +867,7 @@ void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
 
 	if( !pMulti )
 	{
-		clConsole.send( tr( "Player %1 [0x%2] has bad multi serial [0x%1]" ).arg( pPlayer->name.c_str() ).arg( pPlayer->serial, 8, 16 ).arg( pPlayer->multis ) );
+		clConsole.send( tr( "Player %1 [0x%2] has bad multi serial [0x%1]" ).arg( pPlayer->name.latin1() ).arg( pPlayer->serial, 8, 16 ).arg( pPlayer->multis ) );
 		pPlayer->multis = INVALID_SERIAL;
 		return;
 	}
@@ -1026,7 +1026,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 		if( lFile.open( IO_Append ) )
 		{
 			QString logMessage( "[%1] %2: %3 [%4, 0x%5]" );
-			logMessage = logMessage.arg( getRealTimeString().c_str() ).arg( pChar->name.c_str() ).arg( speech ).arg( pChar->account()->login() ).arg( pChar->serial, 8, 16 );
+			logMessage = logMessage.arg( getRealTimeString().c_str() ).arg( pChar->name.latin1() ).arg( speech ).arg( pChar->account()->login() ).arg( pChar->serial, 8, 16 );
 			lFile.writeBlock( logMessage.latin1(), logMessage.length() );
 			lFile.close();
 		}

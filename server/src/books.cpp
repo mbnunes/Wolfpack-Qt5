@@ -35,34 +35,40 @@
 #include "network/uotxpackets.h"
 #include "network/uosocket.h"
 #include "wpdefmanager.h"
+#include "persistentbroker.h"
 
-#include "qregexp.h"
+#include <qregexp.h>
+#include <qsqlcursor.h>
 
 #undef DBGFILE
 #define DBGFILE "books.cpp"
+
+static cUObject* productCreator()
+{
+	return new cBook;
+}
+
+void cBook::registerInFactory()
+{
+	UObjectFactory::instance()->registerType("cBook", productCreator);
+}
+
+cBook::cBook()
+{
+	cItem::Init( false );
+	this->setType( 11 ); // book type
+	this->predefined_ = false;
+	this->readonly_ = false;
+	this->title_ = QString::null;
+	this->author_ = QString::null;
+	this->section_ = QString::null;
+	this->pages_ = 0;
+}
 
 void cBook::Serialize( ISerialization &archive )
 {
 	if( archive.isReading() )
 	{
-		archive.read( "book.title", title_ );
-		archive.read( "book.author", author_ );
-		UINT32 contsize = 0;
-		archive.read( "book.contsize", contsize );
-		content_.clear();
-		UI32 i;
-		for( i = 0; i < contsize; i++ )
-		{
-			QString currPage = (char*)0;
-			archive.read( (char*)QString("book.content.page%1").arg(i).latin1(), currPage );
-			while( i >= content_.size() ) // lets fill it up with empty strings
-				content_.push_back( QString("") );
-			content_[i] = currPage;
-		}
-		archive.read( "book.readonly", readonly_ );
-		archive.read( "book.predefined", predefined_ );
-		archive.read( "book.section", section_ );
-		archive.read( "book.pages", pages_ );
 	}
 	else
 	{
@@ -81,6 +87,72 @@ void cBook::Serialize( ISerialization &archive )
 		archive.write( "book.pages", pages_ );
 	}
 	cItem::Serialize( archive );
+}
+
+void cBook::save( const QString& s/* = QString::null  */ )
+{
+	startSaveSqlStatement("Books");
+	savePersistentIntValue("serial",		serial); // never forget we have serials on each table
+	savePersistentStrValue("title",			title_ );
+	savePersistentStrValue("author",		author_ );
+	for ( QMap<int, QString>::iterator it = content_.begin(); it != content_.end(); ++it )
+	{
+		startSaveSqlStatement("BookPages");
+		savePersistentIntValue("serial",	serial );
+		savePersistentIntValue("page",		it.key() );
+		savePersistentStrValue("text",		it.data() );
+		endSaveSqlStatement(QString("serial='%1' AND page='%2'").arg(serial).arg(it.key()));
+	}
+	savePersistentIntValue("readonly",		readonly_ );
+	savePersistentIntValue("predefined",	predefined_ );
+	savePersistentStrValue("section",		section_ );
+	savePersistentIntValue("pages",			pages_ );
+	endSaveSqlStatement(QString("serial='%1'").arg(serial));
+	cItem::save(s);
+}
+
+void cBook::load( const QString& s/* = QString::null  */ )
+{
+	startLoadSqlStatement("Books", "serial", s)
+	{
+		loadPersistentStrValue("title",  title_ );
+		loadPersistentStrValue("author", author_ );
+		QSqlCursor bookPages("BookPages");
+		bookPages.select(QString("serial='%1'").arg(serial));
+		while( bookPages.next() )
+		{
+			content_[bookPages.value("page").toInt()] = bookPages.value("text").toString();
+		}
+		loadPersistentIntValue( "readonly", readonly_ );
+		loadPersistentIntValue( "predefined", predefined_ );
+		loadPersistentStrValue( "section", section_ );
+		loadPersistentIntValue( "pages", pages_ );
+	}
+	endLoadSqlStatement(s);
+	cItem::load(s);
+}
+
+bool cBook::del( const QString& s/* = QString::null  */ )
+{
+	QSqlCursor cursor("Books");
+	cursor.select(QString("serial='%1'").arg(serial));
+	while ( cursor.next() )
+	{
+		cursor.primeDelete();
+		if ( cursor.del() > 1 )
+		{
+			qWarning("More than one record was deleted in table Books when only 1 was expected, delete criteria was:");
+			qWarning(cursor.filter());
+		}
+	}
+	cursor.setName("BookPages");
+	cursor.select(QString("serial='%1'").arg(serial));
+	while ( cursor.next() )
+	{
+		cursor.primeDelete();
+		cursor.del();
+	}
+	return cItem::del( s );
 }
 
 void cBook::processNode( const QDomElement &Tag )
@@ -128,14 +200,10 @@ void cBook::processNode( const QDomElement &Tag )
 				{
 					UINT32 n = childTag.attribute( "no" ).toShort();
 
-					// fill it up with blanks
-					while( content_.size() < n )
-						content_.push_back( "" );
-
 					content_[ n - 1 ] = text;
 				}
 				else
-					content_.push_back( text );
+					content_.insert( content_.size() + 1, text );
 			}
 			childNode = childNode.nextSibling();
 		}
@@ -194,7 +262,7 @@ void cBook::refresh( void )
 				//	</content>
 				else if( TagName == "content" )
 				{
-					QStringList content = QStringList();
+					QMap<int, QString> content;
 					QDomNode chchildNode = Tag.firstChild();
 					while( !chchildNode.isNull() )
 					{
@@ -212,14 +280,10 @@ void cBook::refresh( void )
 							{
 								UINT32 n = chchildTag.attribute( "no" ).toShort();
 
-								// fill it up with blanks
-								while( content.size() < n )
-									content.push_back( "" );
-
 								content[ n - 1 ] = text;
 							}
 							else
-								content.push_back( text );
+								content.insert( content.size() + 1, text );
 						}
 						chchildNode = chchildNode.nextSibling();
 					}

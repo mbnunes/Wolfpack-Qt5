@@ -102,7 +102,6 @@ void bolteffectUO3D(P_CHAR player);
 void itemeffectUO3D(P_ITEM pi, stat_st *sta);
 
 void dolight(int s, char level);
-void updateskill(int s, int skillnum); // updated for client 1.26.2b by LB
 void deathaction(P_CHAR pc, P_ITEM pi_x); // Character does a certain action
 void deathmenu(int s); // Character sees death menu
 void impowncreate(int s, P_CHAR pc, int z); //socket, player to send

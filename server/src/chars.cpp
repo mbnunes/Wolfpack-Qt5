@@ -58,15 +58,29 @@
 #include "guildstones.h"
 #include "network/asyncnetio.h"
 #include "walking.h"
+#include "persistentbroker.h"
+#include "territories.h"
+
+#include <qsqlcursor.h>
 
 #undef  DBGFILE
 #define DBGFILE "chars.cpp"
+
+static cUObject* productCreator()
+{
+	return new cChar;
+}
+
+void cChar::registerInFactory()
+{
+	UObjectFactory::instance()->registerType("cChar", productCreator);
+}
 
 bool cChar::Owns(P_ITEM pi)				{	return (serial==pi->ownserial);		}
 bool cChar::Wears(P_ITEM pi)			{	return (serial == pi->contserial);	}
 unsigned int cChar::dist(cChar* pc)		{	return pos.distance(pc->pos);		}
 unsigned int cChar::dist(cItem* pi)		{	return pos.distance(pi->pos);		}
-QString cChar::objectID() const			{	return "CHARACTER";					}
+QString cChar::objectID() const			{	return "cChar";						}
 
 void cChar::giveGold( Q_UINT32 amount, bool inBank )
 {
@@ -356,7 +370,7 @@ P_ITEM cChar::getBankBox( void )
 	}
 
 	// If we reach this point, bankbox wasn't found == wasn't created yet.
-	sprintf((char*)temp, "%s's bank box.", name.c_str());
+	sprintf((char*)temp, "%s's bank box.", name.latin1());
 	UOXSOCKET s = calcSocketFromChar(this);
 	pi = Items->SpawnItem(this, 1, (char*)temp, 0, 0x09AB, 0, 0);
 	if(pi == NULL) 
@@ -1002,6 +1016,294 @@ void cChar::Serialize(ISerialization &archive)
 	cUObject::Serialize(archive);
 }
 
+void cChar::save( const QString& s/* = QString::null  */ )
+{
+	startSaveSqlStatement("Characters");
+	savePersistentIntValue("serial",		serial); // never forget we have serials on each table
+	if (incognito())
+	{
+		savePersistentStrValue("name",		name);
+	}
+	else
+	{
+		savePersistentStrValue("name",		orgname() );
+	}
+	savePersistentStrValue("title",			title_);
+	if ( account_ )
+	{
+		savePersistentStrValue("account",	account_->login() );
+	}
+	savePersistentIntValue("creationday",	creationday_);
+	savePersistentIntValue("gmmoveeff",		gmMoveEff_);
+	savePersistentIntValue("guildtype",		GuildType);
+	savePersistentIntValue("guildtraitor",	GuildTraitor);
+	savePersistentIntValue("cell",			cell_);
+	
+	savePersistentIntValue("dir",			dir_);
+
+	if(incognito() || polymorph())
+	{//if under incognito spell, don't save BODY but the original XBODY
+		savePersistentIntValue("body",		xid_);
+	} 
+	else
+	{//else backup body normally
+		savePersistentIntValue("body",		id());
+	}
+	savePersistentIntValue("xbody",			xid_);
+	//AntiChrist - incognito spell special stuff - 12/99
+	if(incognito())
+	{//if under incognito spell, don't save SKIN but the original XSKIN
+		savePersistentIntValue("skin",		xskin_);
+	} 
+	else
+	{//else backup skin normally
+		savePersistentIntValue("skin",		skin_);
+	}
+	
+	savePersistentIntValue("xskin",			xskin_);
+	savePersistentIntValue("priv",			priv);
+	
+	savePersistentIntValue("stablemaster",	stablemaster_serial_);
+	savePersistentIntValue("npctype",		npc_type_);
+	savePersistentIntValue("time_unused",	time_unused_);
+	
+	savePersistentIntValue("allmove",		priv2_);
+	savePersistentIntValue("font",			fonttype_);
+	savePersistentIntValue("say",			saycolor_);
+	savePersistentIntValue("emote",			emotecolor_);
+	savePersistentIntValue("strength",		st_);
+	savePersistentIntValue("strength2",		st2_);
+	savePersistentIntValue("dexterity",		dx);
+	savePersistentIntValue("dexterity2",	dx2);
+	savePersistentIntValue("intelligence",	in_);
+	savePersistentIntValue("intelligence2",	in2_);
+	savePersistentIntValue("hitpoints",		hp_);
+	savePersistentIntValue("spawnregion",	spawnregion_);
+	savePersistentIntValue("stamina",		stm_);
+	savePersistentIntValue("mana",			mn_);
+	savePersistentIntValue("npc",			npc_);
+	savePersistentIntValue("holdgold",		holdg_);
+	savePersistentIntValue("shop",			shop_);
+	savePersistentIntValue("own",			ownserial_);
+	savePersistentIntValue("robe",			robe_);
+	savePersistentIntValue("karma",			karma_);
+	savePersistentIntValue("fame",			fame_);
+	savePersistentIntValue("kills",			kills_);
+	savePersistentIntValue("deaths",		deaths_);
+	savePersistentIntValue("dead",			dead_);
+	savePersistentIntValue("packitem",		packitem_);
+	savePersistentIntValue("fixedlight",	fixedlight_);
+	savePersistentIntValue("speech",		speech_);
+	savePersistentStrValue("disablemsg",	disabledmsg_);
+	unsigned int j = 0;
+	for( ; j < TRUESKILLS; j++ )
+	{// Currently we save all.
+		startSaveSqlStatement("skills");
+		savePersistentIntValue("serial", serial);
+		savePersistentIntValue("skill", j);
+		savePersistentIntValue( "value", baseSkill_[j] );
+		savePersistentIntValue( "locktype", lockSkill_[j] );
+		endSaveSqlStatement(QString("serial='%1' AND skill='%2'").arg(serial).arg(j));
+	}
+	savePersistentIntValue("cantrain", cantrain_);
+	
+	savePersistentIntValue("def",			def_);
+	savePersistentIntValue("lodamage",		lodamage_);
+	savePersistentIntValue("hidamage",		hidamage_);
+	savePersistentIntValue("war",			war_);
+	savePersistentIntValue("npcwander",		npcWander_);
+	savePersistentIntValue("oldnpcwander",	oldnpcWander_);
+	savePersistentIntValue("carve",			carve_);
+	savePersistentIntValue("fx1",			fx1_);
+	savePersistentIntValue("fy1",			fy1_);
+	savePersistentIntValue("fz1",			fz1_);
+	savePersistentIntValue("fx2",			fx2_);
+	savePersistentIntValue("fy2",			fy2_);
+	savePersistentIntValue("spawn",			spawnserial_);
+	savePersistentIntValue("hidden",		hidden_);
+	savePersistentIntValue("hunger",		hunger_);
+	savePersistentIntValue("npcaitype",		npcaitype_);
+	savePersistentIntValue("spattack",		spattack_);
+	savePersistentIntValue("spadelay",		spadelay_);
+	savePersistentIntValue("taming",		taming_);
+	unsigned int summtimer = summontimer_ - uiCurrentTime;
+	savePersistentIntValue("summonremainingseconds", summtimer);
+	
+	savePersistentIntValue("advobj",		advobj_);
+	savePersistentIntValue("poison",		poison_);
+	savePersistentIntValue("poisoned",		poisoned_);
+	savePersistentIntValue("fleeat",		fleeat_);
+	savePersistentIntValue("reattackat",	reattackat_);
+	savePersistentIntValue("split",			split_);
+	savePersistentIntValue("splitchance",	splitchnc_);
+	// Begin of Guild related things (DasRaetsel)
+	savePersistentIntValue("guildtoggle",	guildtoggle_);  
+	savePersistentIntValue("guildstone",	guildstone_);  
+	savePersistentIntValue("guildtitle",	guildtitle_);  
+	savePersistentIntValue("guildfealty",	guildfealty_);  
+	savePersistentIntValue("murderrate",	murderrate_);
+	savePersistentIntValue("menupriv",		menupriv_);
+	savePersistentIntValue("questtype",		questType_);
+	savePersistentIntValue("questdestregion",questDestRegion_);
+	savePersistentIntValue("questorigregion",questOrigRegion_);
+	savePersistentIntValue("questbountypostserial", questBountyPostSerial_);
+	savePersistentIntValue("questbountyreward", questBountyReward_);
+	unsigned int jtimer = jailtimer_-uiCurrentTime;
+	savePersistentIntValue("jailtimer",		jtimer); 
+	savePersistentIntValue("jailsecs",		jailsecs_); 
+	savePersistentIntValue("lootlist",		loot_);
+	savePersistentIntValue("food",			food_);
+	
+	endSaveSqlStatement(QString("serial='%1'").arg(serial));
+	// Save base class
+	cUObject::save(s);
+}
+
+void characterRegisterAfterLoading( P_CHAR pc );
+
+void cChar::load( const QString& s/* = QString::null  */ )
+{
+	cChar::Init( false ); // initialize
+	startLoadSqlStatement("Characters", "serial", s)
+	{
+		loadPersistentStrValue("name",			orgname_);
+		loadPersistentStrValue("title",			title_);
+		QString login;
+		loadPersistentStrValue("account",		login);
+		setAccount( Accounts->getRecord( login ) );
+		loadPersistentIntValue("creationday",	creationday_);
+		loadPersistentIntValue("gmmoveeff",		gmMoveEff_);
+		loadPersistentIntValue("guildtype",		GuildType);
+		loadPersistentIntValue("guildtraitor",	GuildTraitor);
+		loadPersistentIntValue("cell",			cell_);
+		loadPersistentIntValue("dir",			dir_);
+		loadPersistentIntValue("body",			xid_);	setId(xid_);
+		loadPersistentIntValue("xbody",			xid_);
+		loadPersistentIntValue("skin",			skin_);	
+		loadPersistentIntValue("xskin",			xskin_);
+		loadPersistentIntValue("priv",			priv);
+		
+		loadPersistentIntValue("stablemaster",	stablemaster_serial_);
+		loadPersistentIntValue("npctype",		npc_type_);
+		loadPersistentIntValue("time_unused",	time_unused_);
+		
+		loadPersistentIntValue("allmove",		priv2_);
+		loadPersistentIntValue("font",			fonttype_);
+		loadPersistentIntValue("say",			saycolor_);
+		loadPersistentIntValue("emote",			emotecolor_);
+		loadPersistentIntValue("strength",		st_);
+		loadPersistentIntValue("strength2",		st2_);
+		loadPersistentIntValue("dexterity",		dx);
+		loadPersistentIntValue("dexterity2",	dx2);
+		loadPersistentIntValue("intelligence",	in_);
+		loadPersistentIntValue("intelligence2",	in2_);
+		loadPersistentIntValue("hitpoints",		hp_);
+		loadPersistentStrValue("spawnregion",	spawnregion_);
+		loadPersistentIntValue("stamina",		stm_);
+		loadPersistentIntValue("mana",			mn_);
+		loadPersistentIntValue("npc",			npc_);
+		loadPersistentIntValue("holdgold",		holdg_);
+		loadPersistentIntValue("shop",			shop_);
+		loadPersistentIntValue("own",			ownserial_);
+		loadPersistentIntValue("robe",			robe_);
+		loadPersistentIntValue("karma",			karma_);
+		loadPersistentIntValue("fame",			fame_);
+		loadPersistentIntValue("kills",			kills_);
+		loadPersistentIntValue("deaths",		deaths_);
+		loadPersistentIntValue("dead",			dead_);
+		loadPersistentIntValue("packitem",		packitem_);
+		loadPersistentIntValue("fixedlight",	fixedlight_);
+		loadPersistentIntValue("speech",		speech_);
+
+		loadPersistentStrValue("disablemsg",	disabledmsg_);
+		QSqlCursor skills("Skills");
+		skills.select(QString("serial='%1'").arg(s));
+		while( skills.next() )
+		{
+			const uint i = skills.value("skill").toUInt();
+			baseSkill_[i] = skills.value("value").toInt();
+			lockSkill_[i] = skills.value("locktype").toInt();
+		}
+		loadPersistentIntValue("cantrain",		cantrain_);
+		loadPersistentIntValue("def",			def_);
+		loadPersistentIntValue("lodamage",		lodamage_);
+		loadPersistentIntValue("hidamage",		hidamage_);
+		loadPersistentIntValue("war",			war_);
+		loadPersistentIntValue("npcwander",		npcWander_);
+		loadPersistentIntValue("oldnpcwander",	oldnpcWander_);
+		loadPersistentStrValue("carve",			carve_);
+		loadPersistentIntValue("fx1",			fx1_);
+		loadPersistentIntValue("fy1",			fy1_);
+		loadPersistentIntValue("fz1",			fz1_);
+		loadPersistentIntValue("fx2",			fx2_);
+		loadPersistentIntValue("fy2",			fy2_);
+		loadPersistentIntValue("spawn",			spawnserial_);
+		loadPersistentIntValue("hidden",		hidden_);
+		loadPersistentIntValue("hunger",		hunger_);
+		loadPersistentIntValue("npcaitype",		npcaitype_);
+		loadPersistentIntValue("spattack",		spattack_);
+		loadPersistentIntValue("spadelay",		spadelay_);
+		loadPersistentIntValue("taming",		taming_);
+		loadPersistentIntValue("summontimer",	summontimer_);
+		if (summontimer_ != 0)
+			summontimer_ += uiCurrentTime;
+		loadPersistentIntValue("advobj",		advobj_);
+		loadPersistentIntValue("poison",		poison_);
+		loadPersistentIntValue("poisoned",		poisoned_);
+		loadPersistentIntValue("fleeat",		fleeat_);
+		loadPersistentIntValue("reattackat",	reattackat_);
+		loadPersistentIntValue("split",			split_);
+		loadPersistentIntValue("splitchance",	splitchnc_);
+		// Begin of Guild related things (DasRaetsel)
+		loadPersistentIntValue("guildtoggle",	guildtoggle_);  
+		loadPersistentIntValue("guildstone",	guildstone_);  
+		loadPersistentStrValue("guildtitle",	guildtitle_);  
+		loadPersistentIntValue("guildfealty",	guildfealty_);  
+		loadPersistentIntValue("murderrate",	murderrate_);
+		loadPersistentIntValue("menupriv",		menupriv_);
+		loadPersistentIntValue("questtype",		questType_);
+		loadPersistentIntValue("questdestregion",	questDestRegion_);
+		loadPersistentIntValue("questorigregion",	questOrigRegion_);
+		loadPersistentIntValue("questbountypostserial", questBountyPostSerial_);
+		loadPersistentIntValue("questbountyreward", questBountyReward_);
+		loadPersistentIntValue("jailtimer",		jailtimer_);
+		if (jailtimer_ != 0)
+			jailtimer_ += uiCurrentTime;
+		loadPersistentIntValue("jailsecs",		jailsecs_); 
+		loadPersistentStrValue("lootlist",		loot_ );
+		loadPersistentIntValue("food",			food_ );
+		SetOwnSerial(ownserial_);
+		SetSpawnSerial(spawnserial_);
+		setAccount( account_ );
+	}
+	endLoadSqlStatement(s);
+	cUObject::load(s);
+	characterRegisterAfterLoading( this ); // post processing/checking/registering
+}
+
+bool cChar::del( const QString& s/* = QString::null  */ )
+{
+	QSqlCursor cursor("Characters");
+	cursor.select(QString("serial='%1'").arg(serial));
+	while ( cursor.next() )
+	{
+		cursor.primeDelete();
+		if ( cursor.del() > 1 )
+		{
+			qWarning("More than one record was deleted in table Characters when only 1 was expected, delete criteria was:");
+			qWarning(cursor.filter());
+		}
+	}
+	cursor.setName("Skills");
+	cursor.select(QString("serial='%1'").arg(serial));
+	while ( cursor.next() )
+	{
+		cursor.primeDelete();
+		cursor.del();
+	}
+	return cUObject::del( s );
+}
+
 //========== WRAPPER EVENTS
 
 // Shows the name of a character to someone else
@@ -1153,9 +1455,9 @@ void cChar::processNode( const QDomElement &Tag )
 	if( TagName == "bindmenu" )
 	{
 		if( !Tag.attribute( "id" ).isNull() ) 
-			this->bindmenu = Tag.attribute( "id" );
+			this->setBindmenu(Tag.attribute( "id" ));
 		else
-			bindmenu = Value;
+			setBindmenu(Value);
 	}
 
 	//<name>my this</name>
@@ -1652,20 +1954,13 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 
 	switch( type )
 	{
-	case 0x01:
-		speechType = cUOTxUnicodeSpeech::Broadcast;
-	case 0x06:
-		speechType = cUOTxUnicodeSpeech::System;
-	case 0x09:
-		speechType = cUOTxUnicodeSpeech::Yell;
-	case 0x02:
-		speechType = cUOTxUnicodeSpeech::Emote;
-	case 0x08:
-		speechType = cUOTxUnicodeSpeech::Whisper;
-	case 0x0A:
-		speechType = cUOTxUnicodeSpeech::Spell;
-	default:
-		speechType = cUOTxUnicodeSpeech::Regular;
+	case 0x01:		speechType = cUOTxUnicodeSpeech::Broadcast;		break;
+	case 0x06:		speechType = cUOTxUnicodeSpeech::System;		break;
+	case 0x09:		speechType = cUOTxUnicodeSpeech::Yell;			break;
+	case 0x02:		speechType = cUOTxUnicodeSpeech::Emote;			break;
+	case 0x08:		speechType = cUOTxUnicodeSpeech::Whisper;		break;
+	case 0x0A:		speechType = cUOTxUnicodeSpeech::Spell;			break;
+	default:		speechType = cUOTxUnicodeSpeech::Regular;		break;
 	};
 
 	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
@@ -1674,7 +1969,7 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	textSpeech->setFont( 3 ); // Default Font
 	textSpeech->setType( speechType );
 	textSpeech->setLanguage( lang );
-	textSpeech->setName( name.c_str() );
+	textSpeech->setName( name.latin1() );
 	textSpeech->setColor( color );
 	textSpeech->setText( message );
 
@@ -1736,7 +2031,7 @@ void cChar::emote( const QString &emote, UI16 color )
 	textSpeech.setFont( 3 ); // Default Font
 	textSpeech.setType( cUOTxUnicodeSpeech::Emote );
 	textSpeech.setLanguage( "ENU" );
-	textSpeech.setName( name.c_str() );
+	textSpeech.setName( name );
 	textSpeech.setColor( color );
 	textSpeech.setText( emote );
 	
@@ -1779,7 +2074,7 @@ void cChar::showName( cUOSocket *socket )
 	if( onSingleClick( socket->player() ) )
 		return;
 
-	QString charName = name.c_str();
+	QString charName = name;
 
 	// For NPCs we can apply titles
 	if( !isPlayer() && SrvParams->showNpcTitles() && !title_.isEmpty() )
@@ -1941,38 +2236,38 @@ QString cChar::fullName( void )
 	QString fName;
 
 	if( isGM() )
-		fName = QString( "%1 %2" ).arg( name.c_str() ).arg( title_ );
+		fName = QString( "%1 %2" ).arg( name.latin1() ).arg( title_ );
 
 	// Normal Criminal
 	else if( ( crimflag_ > 0 ) && !dead_ && ( kills_ < SrvParams->maxkills() ) )
-		fName = tr( "The Criminal %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Criminal %1, %2%3 %4" ).arg( name ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Serial Killer
 	else if( ( kills_ >= SrvParams->maxkills() ) && ( kills_ < 10 ) && !dead_ )
-		fName = tr( "The Serial Killer %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Serial Killer %1, %2%3 %4" ).arg( name.latin1() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Murderer
 	else if( ( kills_ >= 10 ) && ( kills_ < 20 ) && !dead_ )
-		fName = tr( "The Murderer %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Murderer %1, %2%3 %4" ).arg( name.latin1() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Mass Murderer
 	else if( ( kills_ >= 20 ) && ( kills_ < 50 ) && !dead_ )
-		fName = tr( "The Mass Murderer %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Mass Murderer %1, %2%3 %4" ).arg( name.latin1() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Evil Dread Murderer
 	else if( ( kills_ >= 50 ) && ( kills_ < 100 ) && !dead_ )
-		fName = tr( "The Evil Dread Murderer %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Evil Dread Murderer %1, %2%3 %4" ).arg( name.latin1() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Evil Emperor
 	else if( ( kills_ >= 100 ) && !dead_ )
-		fName = tr( "The Evil Emperor %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Evil Emperor %1, %2%3 %4" ).arg( name.latin1() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// Normal Player
 	else if( title_.isEmpty() )
-		fName = QString( "%1%2, %3 %4" ).arg( title3( this ) ).arg( name.c_str() ).arg( title1( this ) ).arg( title2( this ) );
+		fName = QString( "%1%2, %3 %4" ).arg( title3( this ) ).arg( name.latin1() ).arg( title1( this ) ).arg( title2( this ) );
 
 	else
-		fName = QString( "%1%2 %4, %4 %5" ).arg( title3( this ) ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = QString( "%1%2 %4, %4 %5" ).arg( title3( this ) ).arg( name.latin1() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	return fName;
 }
@@ -2130,7 +2425,7 @@ void cChar::kill()
 	if( pAttacker )
 	{
 		pAttacker->setTarg(INVALID_SERIAL);
-		murderer = pAttacker->name.c_str();
+		murderer = pAttacker->name.latin1();
 
 	}
 
@@ -2198,7 +2493,7 @@ void cChar::kill()
 
 					if( SrvParams->pvpLog() )
 					{
-						sprintf((char*)temp,"%s was killed by %s!\n", name.c_str(),pc_t->name.c_str());
+						sprintf((char*)temp,"%s was killed by %s!\n", name.latin1(),pc_t->name.latin1());
 						savelog((char*)temp,"PvP.log");
 					}
 				}
@@ -2256,7 +2551,7 @@ void cChar::kill()
 	if( elem && !elem->isNull() )
 		corpse->applyDefinition( (*elem) );
 
-	corpse->setName( tr( "corpse of %1" ).arg( name.c_str() ) );
+	corpse->setName( tr( "corpse of %1" ).arg( name.latin1() ) );
 	corpse->setColor( xskin() );
 
 	// Check for the player hair/beard
@@ -2294,7 +2589,7 @@ void cChar::kill()
 	corpse->setBodyId( xid_ );
 	corpse->morey = ishuman( this ); //is human??
 	corpse->setCarve( carve() ); //store carve section
-	corpse->setName2( name.c_str() );
+	corpse->setName2( name.latin1() );
 
 	corpse->moveTo( pos );
 
@@ -2705,7 +3000,7 @@ void cChar::mount( P_CHAR pMount )
 			unmount();
 
 		setOnHorse( true );
-		P_ITEM pMountItem = Items->SpawnItem( this, 1, pMount->name.c_str(), 0, 0x0915, pMount->skin(), 0 );
+		P_ITEM pMountItem = Items->SpawnItem( this, 1, pMount->name.latin1(), 0, 0x0915, pMount->skin(), 0 );
 		if( !pMountItem )
 			return;
 
@@ -2741,8 +3036,8 @@ void cChar::mount( P_CHAR pMount )
 			case 0xBB: pMountItem->setId(0x3EB8); break; // Ridgeback
 			case 0x17: pMountItem->setId(0x3EBC); break; // giant beetle
 			case 0x19: pMountItem->setId(0x3EBB); break; // skeletal mount
-			case 0x1a: pMountItem->setId(0x3EBD); break;// swamp dragon
-			case 0x1f: pMountItem->setId(0x3EBE); break;// armor dragon
+			case 0x1a: pMountItem->setId(0x3EBD); break; // swamp dragon
+			case 0x1f: pMountItem->setId(0x3EBE); break; // armor dragon
 		}
 		
 		pMountItem->setContSerial( serial );
@@ -3069,11 +3364,11 @@ void cChar::attackTarget( P_CHAR defender )
 	// Send a message to the defender
 	if( defender->socket() )
 	{
-		QString message = tr( "You see %1 attacking you!" ).arg( name.c_str() );
+		QString message = tr( "You see %1 attacking you!" ).arg( name.latin1() );
 		defender->socket()->showSpeech( this, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 	}
 
-	QString emote = tr( "You see %1 attacking %2" ).arg( name.c_str() ).arg( defender->name.c_str() );
+	QString emote = tr( "You see %1 attacking %2" ).arg( name.latin1() ).arg( defender->name.latin1() );
 
 	RegionIterator4Chars cIter( pos );
 	for( cIter.Begin(); !cIter.atEnd(); cIter++ )
@@ -3390,6 +3685,85 @@ void cChar::startRepeatedAction( UINT8 action, UINT16 delay )
 void cChar::stopRepeatedAction()
 {
 	cTempEffects::getInstance()->dispel( this, "repeataction", false );
+}
+
+static void characterRegisterAfterLoading( P_CHAR pc )
+{
+	cCharsManager::getInstance()->registerChar( pc );
+	int zeta;
+	for ( zeta = 0; zeta < ALLSKILLS; ++zeta ) 
+		if (pc->lockSkill(zeta) != 0 && pc->lockSkill(zeta) != 1 && pc->lockSkill(zeta) != 2)
+			pc->setLockSkill(zeta, 0);
+	
+	pc->setPriv2(pc->priv2() & 0xf7);
+	pc->setHidden( 0 );
+	pc->setStealth( -1 );
+	
+	//AntiChrist bugfix for magic reflect
+	//		pc->priv2 &= 0xBF;
+	pc->setPriv2(pc->priv2() & 0xBF);
+	pc->SetSpawnSerial( pc->spawnSerial() );
+	
+	pc->setRegion( cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y ) );
+	
+	pc->setAntispamtimer( 0 );   //LB - AntiSpam -
+	pc->setAntiguardstimer( 0 ); //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn
+	
+	if (pc->id() <= 0x3e1)
+	{
+		unsigned short k = pc->id();
+		unsigned short c1 = pc->skin();
+		unsigned short b = c1&0x4000;
+		if ((b == 16384 && (k >=0x0190 && k<=0x03e1)) || c1==0x8000)
+		{
+			if (c1!=0xf000)
+			{
+				pc->setSkin( 0xF000 );
+				pc->setXSkin( 0xF000 );
+				clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name.latin1(),pc->serial);
+			}
+		}
+	} 
+	else	// client crashing body --> delete if non player esle put onl”x a warning on server screen
+	{	// we dont want to delete that char, dont we ?
+	
+		if (pc->account() == 0)
+		{
+			cCharStuff::DeleteChar(pc);
+		} 
+		else
+		{
+			pc->setId(0x0190);
+			clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name.latin1());
+		}
+	}
+	
+	if(pc->stablemaster_serial() == INVALID_SERIAL)
+	{ 
+		cMapObjects::getInstance()->add(pc); 
+	} 
+	else
+		stablesp.insert(pc->stablemaster_serial(), pc->serial);
+	
+	if (pc->isPlayer() && pc->account() == 0) pc->setMenupriv(-1);
+	
+	
+	int max_x = Map->mapTileWidth(pc->pos.map) * 8;
+	int max_y = Map->mapTileHeight(pc->pos.map) * 8;
+	if( ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account() ==0) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account() == 0))
+		&& !( pc->pos.x == 0 && pc->pos.y == 0 && pc->pos.z == 0 ) ) // the last are mounted animals
+	{
+		cCharStuff::DeleteChar(pc); //character in an invalid location
+	}
+	if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account() != 0) || (( pc->pos.x>max_x || pc->pos.y>max_y ) && pc->account() !=0))
+	{
+		Coord_cl pos(pc->pos);
+		pos.x = 900;
+		pos.y = 300;
+		pos.z = 30;
+		pc->moveTo(pos); //player in an invalid location
+	}
+	setcharflag(pc);//AntiChrist
 }
 
 bool cChar::onShowContext( cUObject *object )

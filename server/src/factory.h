@@ -26,62 +26,53 @@
 //
 //
 //
-//	Wolfpack Homepage: http://wpdev.sf.net/
+//	Wolfpack Homepage: http://www.wpdev.sf.net/
 //========================================================================================
 
-#if !defined(__HOUSE_H__)
-#define __HOUSE_H__
+#if !defined(__FACTORY_H__)
+#define __FACTORY_H__
 
-#include "wolfpack.h"
-#include "items.h"
-#include "multis.h"
+// Implementation based on the book Alexandrescu, Andrei. "Modern C++ Design: Generic 
+// Programming and Design Patterns Applied".
 
-// Forward Class declaration
-class cUOSocket;
+// I knew buying the book was a good idea :o)
 
-class cHouse : public cMulti
+#include <map>
+
+template <
+	class product, 
+	typename keyType,
+	typename productCreator = product* (*)()
+>
+
+class Factory
 {
 public:
-
-	unsigned int last_used;
-
-	cHouse() 
-	{
-		cItem::Init( false );
-
-		contserial = INVALID_SERIAL;
-		deedsection_ = QString::null;
-		nokey_ = false;
-		charpos_.x = charpos_.y = charpos_.z = 0;
+	bool registerType(const keyType& id, productCreator creator)
+    {
+		return associations_.insert( mapTypes::value_type( id, creator ) ).second;
+    }
+        
+	bool unregisterType(const keyType& id)
+    {
+		return associations_.erase(id) == 1;
+    }
+        
+    product* createObject(const keyType& id) const
+    {
+		typename mapTypes::const_iterator it = associations_.find(id);
+        if ( it != associations_.end() )
+        {
+			return (it->second)();
+		}
+		return 0;
 	}
-	virtual ~cHouse() {}
-	virtual void Serialize( ISerialization &archive );
-	virtual QString objectID() const;
-
-	bool onValidPlace( void );
-	void build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );
-	void remove( void );
-
-	virtual void toDeed( cUOSocket* socket );
-
-
-	QString	deedSection( void ) { return deedsection_; }
-	void	setDeedSection( QString data ) { deedsection_ = data; }
-
-protected:
-	virtual void processNode( const QDomElement &Tag );
-	void processHouseItemNode( const QDomElement &Tag );
-
-	bool nokey_;
-	
-	struct posxyz_st
-	{
-		int x;
-		int y;
-		int z;
-	};
-
-	posxyz_st	charpos_;
+        
+private:
+	typedef std::map<keyType, productCreator> mapTypes;
+	mapTypes associations_;
 };
 
-#endif // __HOUSE_H__
+
+#endif // __FACTORY_H__
+

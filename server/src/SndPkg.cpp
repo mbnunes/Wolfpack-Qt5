@@ -799,7 +799,7 @@ void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 				if (perm[i])
 				{
 					Xsend(i, talk, 14);
-					Xsend(i, (void*)pc_currchar->name.c_str(), 30);
+					Xsend(i, (void*)pc_currchar->name.latin1(), 30);
 					Xsend(i, &buffer[s][8], strlen((char*)&buffer[s][8])+1);
 				}
 			}
@@ -823,7 +823,7 @@ void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 				if (perm[i])
 				{
 					Xsend(i, talk, 14);
-					Xsend(i, (void*)pc_currchar->name.c_str(), 30);
+					Xsend(i, (void*)pc_currchar->name.latin1(), 30);
 					Xsend(i, &nonuni[0], strlen((char*)&nonuni[0])+1);
 				}
 			}
@@ -866,7 +866,7 @@ void npctalk_runic(int s, P_CHAR pc_npc, const char *txt,char antispam) // NPC s
 		talk[13]=8;
 
 		Xsend(s, talk, 14);
-		Xsend(s, (void*)pc_npc->name.c_str(), 30);
+		Xsend(s, (void*)pc_npc->name.latin1(), 30);
 		Xsend(s, txt, strlen(txt)+1);
 	}
 }
@@ -1566,13 +1566,6 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 				}
 				else
 				{
-#ifdef DEBUG
-					ConOut("Double layer (%i) on Item (%i) on Char (%i)\n", pi->layer() , j , i);
-					sprintf(temp, "Double layer (%i) on Item (%2x %2x %2x %2x) on Char (%2x %2x %2x %2x)\n",
-						pi->layer(), pi->ser1, pi->ser2, pi->ser3, pi->ser4,
-						pc->ser1, pc->ser2, pc->ser3, pc->ser4);
-					sysbroadcast(temp);
-#endif
 				}
 			}
 	}
@@ -1923,7 +1916,7 @@ void tellmessage(int i, int s, const char *txt)
 	int tl;
 	P_CHAR pc_currchar = currchar[s];
 
-	sprintf((char*)temp, "GM tells %s: %s", pc_currchar->name.c_str(), txt);
+	sprintf((char*)temp, "GM tells %s: %s", pc_currchar->name.latin1(), txt);
 
 	tl=44+strlen((char*)temp)+1;
 	talk[1]=tl>>8;

@@ -2666,7 +2666,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									}
 									else
 									{
-										sprintf((char*)temp,"There seems to be something in the way between you and %s.", mapchar->name.c_str());
+										sprintf((char*)temp,"There seems to be something in the way between you and %s.", mapchar->name.latin1());
 										sysmessage(s, (char*)temp);
 									}
 								}
@@ -2698,7 +2698,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									}
 									else
 									{
-										sprintf( (char*)temp, "There seems to be something in the way between you and %s.", mapchar->name.c_str() );
+										sprintf( (char*)temp, "There seems to be something in the way between you and %s.", mapchar->name.latin1() );
 										sysmessage( s, (char*)temp );
 									}
 								}
@@ -2799,7 +2799,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									}
 									else
 									{
-										sprintf((char*)temp,"Try as you might, but you cannot see %s well enough to cover.", mapchar->name.c_str());
+										sprintf((char*)temp,"Try as you might, but you cannot see %s well enough to cover.", mapchar->name.latin1());
 										sysmessage(s, (char*)temp);
 									}
 								}

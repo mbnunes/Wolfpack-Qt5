@@ -176,7 +176,7 @@ public:
 
 			addTilePic( (pAmount*100)+20, 20, creatures[ pChar->id() ].icon );
 			addButton( (pAmount*100)+20, 110, 0xFA5, 0xFA7, pChar->serial );
-			addCroppedText( (pAmount*100)+20, 90, 100, 40, pChar->name.c_str() );
+			addCroppedText( (pAmount*100)+20, 90, 100, 40, pChar->name );
 
 			++pAmount;
 		}

@@ -35,9 +35,10 @@
 #include "platform.h"
 #include "typedefs.h"
 #include "coord.h"
-#include "iserialization.h"
+#include "persistentobject.h"
 #include "definable.h"
 #include "customtags.h"
+#include "factory.h"
 
 // System includes
 #include <string>
@@ -55,9 +56,12 @@ class Coord_cl;
 class WPDefaultScript;
 class cUOSocket;
 
-class cUObject : public cSerializable, public cDefinable
+class cUObject : public PersistentObject, public cDefinable
 {
+//	Q_OBJECT
 // Data Members
+private:
+ 	QString bindmenu_;
 public:
 	const std::vector< WPDefaultScript* > &getEvents( void );
 	void setEvents( std::vector< WPDefaultScript* > List );
@@ -66,6 +70,10 @@ public:
 	void removeEvent( QString Name );
 	void removeFromView( bool clean = true );
 	bool hasEvent( QString Name );
+
+	void save( const QString& = QString::null );
+	void load( const QString& = QString::null );
+	bool del ( const QString& = QString::null );
 
 	QString eventList( void ); // Returns the list of events
 	void recreateEvents( void ); // If the scripts are reloaded call that for each and every existing object
@@ -79,9 +87,7 @@ public:
 	SERIAL multis;
 	bool free;
 
- 	QString bindmenu;
-
-	std::string name;
+	QString name;
 	Coord_cl pos;
 	cCustomTags tags;
 
@@ -101,9 +107,23 @@ public:
 	cUObject();
 	cUObject( cUObject& ); // Copy constructor
 	virtual ~cUObject() {};
-	virtual void Serialize(ISerialization &archive);
+	virtual void Serialize(ISerialization &archive) {};
 	virtual QString objectID() const = 0;
 	void moveTo( const Coord_cl& );
+	QString bindmenu() const { return bindmenu_; }
+	void setBindmenu( const QString& d ) { bindmenu_ = d; }
+
+
+};
+
+class UObjectFactory : public Factory<cUObject, QString>
+{
+public:
+	static UObjectFactory* instance()
+	{
+		static UObjectFactory factory;
+		return &factory;
+	}
 };
 
 #endif // __UOBJECT_H__

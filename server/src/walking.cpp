@@ -987,7 +987,7 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 		else if( !mapChar->isHidden() && !mapChar->dead() && (!(mapChar->isInvul())) &&(!(mapChar->isGM()))) // ripper..GMs and ghosts dont get shoved.)
 		{
 			if( socket )
-				socket->sysMessage( tr( "Being perfectly rested, you shove %1 out of the way." ).arg( mapChar->name.c_str() ) );
+				socket->sysMessage( tr( "Being perfectly rested, you shove %1 out of the way." ).arg( mapChar->name ) );
 			
 			pChar->setStm( QMAX( ( tempshort = pChar->stm() ) - 4, 0 ) );
 			updatestats( pChar, 2 );

@@ -343,21 +343,6 @@ void cUOSocket::disconnect( void )
 
 	if( _player )
 	{
-		// TODO: network iteration causes crash!
-		// CORREA: please check this issue, allcharsiterator is sub-optimal
-		// first i thought it could be a packet from the sysmessage call
-		// but mSock != this excludes this issue :/ - sereg
-/*		AllCharsIterator iter_chars;
-		for( iter_chars.Begin(); !iter_chars.atEnd(); iter_chars.Next() )
-		{
-			P_CHAR pc = iter_chars.GetData();
-			
-			if( pc && pc->socket() && pc->socket() != this )
-			{
-				pc->socket()->sysMessage( tr("%1 left the world!").arg( _player->name.c_str() ), 0x25 );
-			}
-		}
-*/
 		cUOSocket* mSocket = 0;
 		QPtrListIterator<cUOSocket> it( cNetwork::instance()->getIterator() );
 		while ( ( mSocket = it.current() ) )
@@ -365,12 +350,8 @@ void cUOSocket::disconnect( void )
 			++it;
 			if ( mSocket == this || !SrvParams->joinMsg() || !mSocket->player() || !mSocket->player()->isGMorCounselor() )
 				continue;
-			mSocket->sysMessage( tr("%1 left the world!").arg( _player->name.c_str() ), 0x25 );
+			mSocket->sysMessage( tr("%1 left the world!").arg( _player->name.latin1() ), 0x25 );
 		}
-//		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-//			if( mSock != this && SrvParams->joinMsg() && mSock->player() && mSock->player()->isGMorCounselor() )
-//				mSock->sysMessage( tr("%1 left the world!").arg( _player->name.c_str() ), 0x25 );
-
 
 		_player->setSocket( NULL );
 	}
@@ -445,7 +426,7 @@ void cUOSocket::sendCharList()
 	// Add the characters
 	Q_UINT8 i = 0;
 	for(; i < characters.size(); ++i )
-		charList->addCharacter( characters.at(i)->name.c_str() );
+		charList->addCharacter( characters.at(i)->name.latin1() );
 
 	// Add the Starting Locations
 	vector< StartLocation_st > startLocations = SrvParams->startLocation();
@@ -562,7 +543,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 	
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		if( mSock != this && SrvParams->joinMsg() && mSock->player() && mSock->player()->isGMorCounselor() )
-			mSock->sysMessage( tr("%1 entered the world!").arg( pChar->name.c_str() ), 0x48 );
+			mSock->sysMessage( tr("%1 entered the world!").arg( pChar->name.latin1() ), 0x48 );
 }
 
 bool cUOSocket::authenticate( const QString &username, const QString &password )
@@ -837,7 +818,7 @@ void cUOSocket::updateCharList()
 
 	// Add the characters
 	for( Q_UINT8 i = 0; i < characters.size(); ++i )
-		charList.setCharacter( i, characters.at(i)->name.c_str() );
+		charList.setCharacter( i, characters.at(i)->name.latin1() );
 
 	send( &charList );
 }
@@ -954,17 +935,17 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 	cUObject *clicked = FindItemBySerial( packet->serial() );
 	if ( clicked == 0 ) clicked = FindCharBySerial( packet->serial() );
 	
-	if (!clicked || clicked->bindmenu.isEmpty() )
+	if (!clicked || clicked->bindmenu().isEmpty() )
 		return;
 	
-	if( !cAllConMenus::getInstance()->MenuExist( clicked->bindmenu ) ) 
+	if( !cAllConMenus::getInstance()->MenuExist( clicked->bindmenu() ) ) 
 	{
-		clicked->bindmenu = "";
+		clicked->setBindmenu(QString::null);
 		return;
 	}
 	
 	QString acl = this->account()->acl(); 
-	QString bindmenu = clicked->bindmenu;
+	QString bindmenu = clicked->bindmenu();
 	
 	menu.setSerial ( packet->serial() ); 
 	
@@ -994,7 +975,7 @@ void cUOSocket::showSpeech( cUObject *object, const QString &message, Q_UINT16 c
 {
 	cUOTxUnicodeSpeech speech;
 	speech.setSource( object->serial );
-	speech.setName( object->name.c_str() );
+	speech.setName( object->name.latin1() );
 	speech.setFont( font );
 	speech.setColor( color );
 	speech.setText( message );
@@ -1565,7 +1546,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	// Playervendors are invulnerable
 	if( pc_i->npcaitype() == 17 ) 
 	{
-		sysMessage( tr( "%1 cannot be harmed." ).arg( pc_i->name.c_str() ) );
+		sysMessage( tr( "%1 cannot be harmed." ).arg( pc_i->name.latin1() ) );
 		send( &attack );
 		return;
 	}
@@ -1656,14 +1637,14 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 
 	// Send the "You see %1 attacking %2" string to all surrounding sockets
 	// Except the one being attacked
-	QString message = tr( "*You see %1 attacking %2!" ).arg(_player->name.c_str()).arg(pc_i->name.c_str());
+	QString message = tr( "*You see %1 attacking %2!" ).arg(_player->name.latin1()).arg(pc_i->name.latin1());
 	for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
 		if( s->player() && s != this && s->player()->inRange( _player, s->player()->VisRange() ) && s->player() != pc_i )
 			s->showSpeech( _player, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 
 	// Send an extra message to the victim
 	if( pc_i->socket() )
-		pc_i->socket()->showSpeech( _player, tr( "You see %1 attacking you" ).arg( _player->name.c_str() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+		pc_i->socket()->showSpeech( _player, tr( "You see %1 attacking you" ).arg( _player->name.latin1() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
 }
 
 void cUOSocket::soundEffect( UINT16 soundId, cUObject *source )
@@ -1855,7 +1836,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	sendStats.setMaxHp( pChar->st() );
 	sendStats.setHp( pChar->hp() );
 
-	sendStats.setName( pChar->name.c_str() );
+	sendStats.setName( pChar->name.latin1() );
 	sendStats.setSerial( pChar->serial );
 		
 	// Set the rest - and reset if nec.
@@ -1904,7 +1885,7 @@ void cUOSocket::handleBookPage( cUORxBookPage* packet )
 		else if( pBook->writeable() )
 		{
 			// page write request
-			QStringList content_ = pBook->content();
+			QMap<int, QString> content_ = pBook->content();
 			QStringList lines = packet->lines();
 			
 			QString toInsert = QString();
@@ -1916,9 +1897,6 @@ void cUOSocket::handleBookPage( cUORxBookPage* packet )
 			}
 
 			UINT16 n = packet->page();
-			while( content_.size() < n )
-				content_.push_back( "" );
-
 			content_[ n - 1 ] = toInsert;
 			pBook->setContent( content_ );
 		}
@@ -2058,7 +2036,7 @@ void cUOSocket::clilocMessage( const Q_INT16 FileID, const Q_UINT16 MsgID, const
 	{
 		msg.setSerial( object->serial );
 		msg.setType( cUOTxClilocMsg::OnObject );
-		msg.setName( object->name.c_str() );
+		msg.setName( object->name.latin1() );
 	}
 	else
 	{

@@ -271,7 +271,7 @@ void cSkillCheck::processNode( const QDomElement &Tag )
 
 bool cSkillCheck::skilledEnough( cChar* pChar )
 {
-	return ( pChar->skill( skillid() ) >= min() );
+	return ( pChar->skill( skillid() ) >= minimum() );
 }
 
 void cSkillCheck::applySkillMod( float skillmod )
@@ -413,17 +413,17 @@ UINT32	cMakeSection::calcRank( cChar* pChar )
 	QPtrListIterator< cSkillCheck > skit( skillchecks_ );
 	while( skit.current() && hasSuccess )
 	{
-		if( !pChar->checkSkill( skit.current()->skillid(), skit.current()->min(), skit.current()->max() ) )
+		if( !pChar->checkSkill( skit.current()->skillid(), skit.current()->minimum(), skit.current()->maximum() ) )
 			hasSuccess = false;
 		else
 		{
 			UINT16 skill = pChar->skill( skit.current()->skillid() );
-			if( skill > skit.current()->max() )
-				skill = skit.current()->max();
-			if( skill < skit.current()->min() )
-				skill = skit.current()->min();
+			if( skill > skit.current()->maximum() )
+				skill = skit.current()->maximum();
+			if( skill < skit.current()->minimum() )
+				skill = skit.current()->minimum();
 
-			ranksum += (UINT16)( ceil( (double)skill / (double)(skit.current()->max() - skit.current()->min()) * 10.0f ) );
+			ranksum += (UINT16)( ceil( (double)skill / (double)(skit.current()->maximum() - skit.current()->minimum()) * 10.0f ) );
 		}
 		++skit;
 	}
@@ -1099,7 +1099,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 		QPtrListIterator< cSkillCheck > sit( skillchecks );
 		while( sit.current() )
 		{
-			content += QString("%2% %1<br>").arg( skillname[ sit.current()->skillid() ] ).arg( QString::number( (double)sit.current()->min() / 10.0f, 'f', 1 ).lower() );
+			content += QString("%2% %1<br>").arg( skillname[ sit.current()->skillid() ] ).arg( QString::number( (double)sit.current()->minimum() / 10.0f, 'f', 1 ).lower() );
 			++sit;
 		}
 		content = htmlmask.arg( content );
@@ -1135,9 +1135,9 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 			while( sit.current() )
 			{
 				if( pChar && sit.current()->skilledEnough( pChar ) )
-					content += QString("%2% %1<br>").arg( skillname[ sit.current()->skillid() ] ).arg( QString::number( (double)sit.current()->min() / 10.0f, 'f', 1 ).lower() );
+					content += QString("%2% %1<br>").arg( skillname[ sit.current()->skillid() ] ).arg( QString::number( (double)sit.current()->minimum() / 10.0f, 'f', 1 ).lower() );
 				else
-					content += QString("<basefont color=\"#FF0000\">%2% %1<br><basefont color=\"#FFFFFF\">").arg( skillname[ sit.current()->skillid() ] ).arg( QString::number( (double)sit.current()->min() / 10.0f, 'f', 1 ).lower() );
+					content += QString("<basefont color=\"#FF0000\">%2% %1<br><basefont color=\"#FFFFFF\">").arg( skillname[ sit.current()->skillid() ] ).arg( QString::number( (double)sit.current()->minimum() / 10.0f, 'f', 1 ).lower() );
 
 				++sit;
 			}
@@ -1324,7 +1324,7 @@ cLastTenGump::cLastTenGump( QPtrList< cMakeSection > sections, cMakeMenu* prev, 
 		addButton( 480, yoffset, 4011, 4012, i+20 );
 		addHtmlGump( 255, yoffset+3, 295, 18, htmlmask.arg( QString("%1 %2").arg(it.current()->baseAction()->name()).arg(it.current()->name()) ) );
 		yoffset += 20;
-		i++;
+		++i;
 		++it;
 	}
 }

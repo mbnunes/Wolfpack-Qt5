@@ -280,11 +280,11 @@ void cHouse::toDeed( cUOSocket* socket )
 			P_ITEM pPvDeed = Items->createScriptItem( "14f0" );
 			if( pPvDeed )
 			{
-				pPvDeed->setName( tr("A vendor deed for %1").arg( pc->name.c_str() ) );
+				pPvDeed->setName( tr("A vendor deed for %1").arg( pc->name ) );
 				pPvDeed->setType( 217 );
 				pPvDeed->value = 2000;
 				pPvDeed->update();
-				socket->sysMessage( tr("Packed up vendor %1.").arg(pc->name.c_str()) );
+				socket->sysMessage( tr("Packed up vendor %1.").arg(pc->name) );
 			}
 		}
 	}

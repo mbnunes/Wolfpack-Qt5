@@ -175,7 +175,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		vector<SERIAL>::iterator it = find(member.begin(), member.end(), pc->guildfealty());
 		if ( it != member.end())
 		{
-			strcpy(guildfealty, FindCharBySerial(*it)->name.c_str());
+			strcpy(guildfealty, FindCharBySerial(*it)->name.latin1());
 		}
 	}
 	else 
@@ -208,7 +208,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 
 		if (guildmaster<0) return;
 
-		lentext = sprintf(mygump[0], "%s (%s %s)", this->guildName.c_str(), guildmaster->guildtitle().latin1(), guildmaster->name.c_str());
+		lentext = sprintf(mygump[0], "%s (%s %s)", this->guildName.c_str(), guildmaster->guildtitle().latin1(), guildmaster->name.latin1());
 		strcpy(mygump[1],"Recruit someone into the guild.");
 		strcpy(mygump[2],"View the current roster.");
 		strcpy(mygump[3],"View the guild's charter.");
@@ -280,7 +280,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		unsigned int i;
 		for (i = 0; i < recruit.size(); ++i)
 		{
-			strcpy(mygump[counter++], FindCharBySerial(this->recruit[i])->name.c_str());
+			strcpy(mygump[counter++], FindCharBySerial(this->recruit[i])->name.latin1());
 		}
 		gmprefix[8] = 6;
 		break;
@@ -295,7 +295,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		for (i = 0; i < member.size(); ++i)
 		{
 			counter++;
-			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.c_str());
+			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.latin1());
 		}
 		gmprefix[8] = 7;
 		break;
@@ -310,7 +310,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		for ( i = 0; i < member.size(); ++i)
 		{
 			counter++;
-			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.c_str());
+			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.latin1());
 		}
 		gmprefix[8] = 8;
 		break;
@@ -325,7 +325,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		for ( i = 0; i < recruit.size(); ++i)
 		{
 			counter++;
-			strcpy(mygump[counter], FindCharBySerial(this->recruit[i])->name.c_str());
+			strcpy(mygump[counter], FindCharBySerial(this->recruit[i])->name.latin1());
 		}
 		gmprefix[8] = 9;
 		break;
@@ -340,7 +340,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		for ( i = 0; i < recruit.size(); ++i)
 		{
 			counter++;
-			strcpy(mygump[counter], FindCharBySerial(this->recruit[i])->name.c_str());
+			strcpy(mygump[counter], FindCharBySerial(this->recruit[i])->name.latin1());
 		}
 		gmprefix[8] = 10;
 		break;
@@ -371,7 +371,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		for (i = 0; i < this->member.size(); ++i)
 		{
 			counter++;
-			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.c_str());
+			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.latin1());
 		}
 		gmprefix[8] = 12;
 		break;
@@ -386,7 +386,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		for (i = 0; i < this->member.size(); ++i)
 		{
 			counter++;
-			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.c_str());
+			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.latin1());
 		}
 		
 		gmprefix[8] = 13;
@@ -1344,7 +1344,7 @@ void CheckConsistancy(void )
 
 	    if (pc_a->guildnumber <0 || pc_a->guildnumber>=MAXGUILDS) // invalid guildnumber ?
 		{  
-		   sprintf((char*)temp,"player %s has invalid guild info. cancled his/her guild membership",pc_a->name.c_str());
+		   sprintf((char*)temp,"player %s has invalid guild info. cancled his/her guild membership",pc_a->name.latin1());
 		   LogWarning((char*)temp);
 		   pc_a->guildnumber=0;
 		   pc_a->guildfealty=0;
@@ -1357,7 +1357,7 @@ void CheckConsistancy(void )
 		{
            if (guilds[pc_a->guildnumber].free && pc_a->guildnumber!=0)
 		   {
-			  sprintf((char*)temp,"player %s belongs to a guild that is no more. canceled his/her guild membership", pc_a->name.c_str());
+			  sprintf((char*)temp,"player %s belongs to a guild that is no more. canceled his/her guild membership", pc_a->name.latin1());
 			  LogWarning((char*)temp);
 			  pc_a->guildnumber=0;
 		      pc_a->guildfealty=0;

@@ -382,14 +382,14 @@ public:
 					// Show Creator by Magius(CHE)
 					if (pc_currchar->checkSkill( ITEMID, 250, 500, false ))
 					{
-						if (pi->creator.size()>0)
+						if (pi->creator.length()>0)
 						{
 							if (pi->madewith>0) 
-								socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator.c_str()) ); // Magius(CHE)
+								socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator.latin1()) ); // Magius(CHE)
 							else if (pi->madewith<0) 
-								socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator.c_str()) ); // Magius(CHE)
+								socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator.latin1()) ); // Magius(CHE)
 							else 
-								socket->sysMessage( tr("It is made by %1").arg(pi->creator.c_str()) ); // Magius(CHE)
+								socket->sysMessage( tr("It is made by %1").arg(pi->creator.latin1()) ); // Magius(CHE)
 						} else 
 							socket->sysMessage( tr("You don't know its creator!") );
 					} else 
@@ -518,15 +518,15 @@ public:
 				socket->sysMessage( tr("That creature looks tame already." ) );
 				return true;
 			}
-			sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name.c_str(),pc->name.c_str());
+			sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name.latin1(),pc->name.latin1());
 			for(int a=0;a<3;a++)
 			{
 				switch(rand()%4)
 				{
 				case 0: pc_currchar->talk( tr("I've always wanted a pet like you."), -1 ,0);		break;
 				case 1: pc_currchar->talk( tr("Will you be my friend?"), -1 ,0);					break;
-				case 2: pc_currchar->talk( tr("Here %1.").arg(pc->name.c_str()), -1 ,0);			break;
-				case 3: pc_currchar->talk( tr("Good %1.").arg(pc->name.c_str()), -1 ,0);			break;
+				case 2: pc_currchar->talk( tr("Here %1.").arg(pc->name), -1 ,0);			break;
+				case 3: pc_currchar->talk( tr("Good %1.").arg(pc->name), -1 ,0);			break;
 				default: 
 					LogError("switch reached default");
 				}
@@ -741,7 +741,7 @@ public:
 						P_CHAR pOwner = FindCharBySerial( pc->ownserial() );
 						QString ownername = "nobody";
 						if( pOwner )
-							ownername = QString( pOwner->name.c_str() );
+							ownername = QString( pOwner->name.latin1() );
 						pc->talk( tr("It is loyal to %1!").arg( ownername ) );
 					}
 				}
@@ -837,14 +837,14 @@ public:
 					
 					if (pi->name() != "#")
 					{
-						sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.c_str()).arg(pi->name()) );
-						sprintf((char*)temp2, tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.c_str()).arg(pi->name()).arg(pc_npc->name.c_str()) );
+						sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.latin1()).arg(pi->name()) );
+						sprintf((char*)temp2, tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.latin1()).arg(pi->name()).arg(pc_npc->name.latin1()) );
 					} 
 					else
 					{
 						tile = cTileCache::instance()->getTile( pi->id() );
-						sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.c_str()).arg((char*)tile.name) );
-						sprintf((char*)temp2,tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.c_str()).arg((char*)tile.name).arg(pc_npc->name.c_str()) );
+						sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.latin1()).arg((char*)tile.name) );
+						sprintf((char*)temp2,tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.latin1()).arg((char*)tile.name).arg(pc_npc->name.latin1()) );
 					}
 					socket->sysMessage((char*)temp); //lb
 				}
@@ -1025,14 +1025,14 @@ public:
 					// Show Creator by Magius(CHE)
 					if (pc_currchar->checkSkill( TASTEID, 250, 500, false ))
 					{
-						if (pi->creator.size()>0)
+						if (pi->creator.length()>0)
 						{
 							if (pi->madewith>0) 
-								socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator.c_str()) ); // Magius(CHE)
+								socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator) ); // Magius(CHE)
 							else if (pi->madewith<0) 
-								socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator.c_str()) ); // Magius(CHE)
+								socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator) ); // Magius(CHE)
 							else 
-								socket->sysMessage( tr("It is made by %1").arg(pi->creator.c_str()) ); // Magius(CHE)
+								socket->sysMessage( tr("It is made by %1").arg(pi->creator) ); // Magius(CHE)
 						} else 
 							socket->sysMessage( tr("You don't know its creator!") );
 					} else 
@@ -1148,7 +1148,7 @@ public:
 			Victim->fight(attacker);
 			Victim->resetAttackFirst();
 			
-			strcpy(temp, tr("* You see %1 attacking %2 *").arg(attacker->name.c_str()).arg(Victim->name.c_str()) );
+			strcpy(temp, tr("* You see %1 attacking %2 *").arg(attacker->name.latin1()).arg(Victim->name.latin1()) );
 			int i;
 			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
 			{
@@ -1429,7 +1429,7 @@ static bool DoOnePotion(int s,short regid, int regamount, char* regname)
 	if (getamount(currchar[s], regid) >= regamount)
 	{
 		success=true;
-		currchar[s]->emote( tr("*%s starts grinding some %s in the mortar.*").arg(currchar[s]->name.c_str()).arg(regname) ); // LB, the 1 stops stupid alchemy spam
+		currchar[s]->emote( tr("*%s starts grinding some %s in the mortar.*").arg(currchar[s]->name).arg(regname) ); // LB, the 1 stops stupid alchemy spam
 		delequan(currchar[s],regid,regamount);
 	}
 	else
@@ -1528,7 +1528,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 
 	if (success==0 && !pc->isGM()) // AC bugfix
 	{
-		pc->emote( tr("*%1 tosses the failed mixture from the mortar, unable to create a potion from it.*").arg(pc->name.c_str()) );
+		pc->emote( tr("*%1 tosses the failed mixture from the mortar, unable to create a potion from it.*").arg(pc->name) );
 		return;
 	}
 	pi_mortar->setType( 17 );
@@ -1543,7 +1543,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 	else
 	{
 		pc->soundEffect( 0x0240 );
-		pc->emote( tr("*%1 pours the completed potion into a bottle.*").arg(pc->name.c_str()));
+		pc->emote( tr("*%1 pours the completed potion into a bottle.*").arg(pc->name));
 		delequan(pc, 0x0F0E, 1);
 		Skills->PotionToBottle(pc, pi_mortar);
 	} 
@@ -1569,7 +1569,7 @@ void cSkills::BottleTarget(int s)
 		if(mortar == NULL) return;
 		if (mortar->type() == 17) 
 		{
-			pc_currchar->emote( tr("*%1 pours the completed potion into a bottle.*").arg(pc_currchar->name.c_str()));
+			pc_currchar->emote( tr("*%1 pours the completed potion into a bottle.*").arg(pc_currchar->name));
 			Skills->PotionToBottle(pc_currchar, mortar);
 		}
 	}
@@ -1741,7 +1741,8 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 					if (d==1 && pc->baseSkill(dsk)==0) d=0; // should never happen ...
 						pc->setBaseSkill(dsk, pc->baseSkill(dsk)-d);
 					Skills->updateSkillLevel(pc, dsk); 		// we HAVE to correct the skill-value
-					updateskill(calcSocketFromChar(pc), dsk); // and send changed skill values packet so that client can re-draw correctly			
+					if ( pc->socket() )
+						pc->socket()->sendSkill( dsk );
 				}
 			// this is very important cauz this is ONLY done for the calling skill value automatically .
 			} 
@@ -1753,7 +1754,8 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 				{
 					pc->setBaseSkill(dsk, pc->baseSkill(dsk)-1);
 					Skills->updateSkillLevel(pc, dsk); 	
-					updateskill(calcSocketFromChar(pc), dsk); 				
+					if ( pc->socket() ) 
+						pc->socket()->sendSkill( dsk ); 				
 				}
 
 				if (c!=0) d=rand()%c; else d=0;
@@ -1762,7 +1764,8 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 				{
 					pc->setBaseSkill(dsk, pc->baseSkill(dsk)-1);
 					Skills->updateSkillLevel(pc, dsk); 	
-					updateskill(calcSocketFromChar(pc), dsk); 			
+					if ( pc->socket() ) 
+						pc->socket()->sendSkill( dsk ); 				
 				}
 			}
 		}
@@ -2093,7 +2096,7 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 		return;
 	}
 
-	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name.c_str(), item->name().ascii());
+	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name.latin1(), item->name().latin1());
 	socket->sysMessage( (char*)temp );
 	if( pc_currchar->inRange( pc_npc, 1 ) )
 	{
@@ -2138,12 +2141,12 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 			
 			if (item->name() != "#")
 			{
-				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.c_str(),item->name().ascii());
-				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.c_str(), item->name().ascii(), pc_npc->name.c_str());
+				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.latin1(),item->name().ascii());
+				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.latin1(), item->name().ascii(), pc_npc->name.latin1());
 			} else {
 				tile = cTileCache::instance()->getTile( item->id() );
-				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.c_str(), tile.name);
-				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.c_str(),tile.name, pc_npc->name.c_str());
+				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.latin1(), tile.name);
+				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.latin1(),tile.name, pc_npc->name.latin1());
 			}
 			socket->sysMessage( (char*)temp); // bugfix, LB
 			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
@@ -2692,7 +2695,7 @@ void cSkills::Persecute ( cUOSocket* socket )
 			}
 			pc_currchar->setSkillDelay();
 
-			sprintf((char*)temp, "%s is persecuted by a ghost!!", target->name.c_str());
+			sprintf((char*)temp, "%s is persecuted by a ghost!!", target->name.latin1());
 					
 			// Dupois pointed out the for loop was changing i which would drive stuff nuts later
 				
@@ -2860,7 +2863,7 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 
 	if( pc_owner->isGMorCounselor() )
 	{
-		pc_owner->message( tr( "%1 is trying to snoop in your pack" ).arg( player->name.c_str() ) );
+		pc_owner->message( tr( "%1 is trying to snoop in your pack" ).arg( player->name.latin1() ) );
 		socket->sysMessage( tr( "You can't peek into that container or you'll be jailed." ) );
 		return;
 	}
@@ -2876,7 +2879,7 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 		if( pc_owner->isNpc() )
 			pc_owner->talk( tr( "Art thou attempting to disturb my privacy?" ) );
 		else
-			pc_owner->message( tr( "You notice %1 trying to peek into your pack!" ).arg( player->name.c_str() ) );
+			pc_owner->message( tr( "You notice %1 trying to peek into your pack!" ).arg( player->name.latin1() ) );
 	}
 
 	

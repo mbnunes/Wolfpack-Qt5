@@ -1133,7 +1133,7 @@ cResourceItem::~cResourceItem()
 
 void cResourceItem::Serialize( ISerialization &archive )
 {
-	cSerializable::Serialize( archive );
+	//cSerializable::Serialize( archive );
 }
 
 

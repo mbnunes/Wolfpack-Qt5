@@ -115,6 +115,14 @@ void cSrvParams::readData()
 	accountsArchiver_		= getString("Accounts", "Archiver Module", "xml", true);
 
 
+	// Persistency
+	databasePassword_		= getString("Database", "password", QString::null, true);
+	databaseUsername_		= getString("Database", "username", QString::null, true);
+	databaseHost_			= getString("Database", "host", "localhost", true);
+	databaseName_			= getString("Database", "name", "wolfpack", true);
+	databaseDriver_			= getString("Database", "driver", "QMYSQL3", true);
+
+
 	// Remote Admin
 	ra_port_		        = getNumber("Remote Admin",	"Port", 2594, true);
 	EnableRA_			    = getBool("Remote Admin",	"Enable", false, true);
@@ -199,10 +207,8 @@ void cSrvParams::readData()
 	showCVCS_               = getNumber("General",  "Show CVCS", 0, true);
 	cacheMulFiles_			= getBool  ("General",  "Cache Mul Files", true, true);
 	beggingRange_           = getNumber("General",  "Begging Range", 3, true);
-	worldSaveModule_		= getString("General",  "WorldSave Module", "binary", true);
 	clientsAllowed_			= QStringList::split(",", getString("General", "Allowed Clients", "SERVER_DEFAULT", true).upper());
 	uoTime.fromString( QString::number(FIRST_YEAR) + "-" + getString("General", "Initial Date/Time", "01-18T01:00:00", true), Qt::ISODate);
-	worldSaveDirectory_		= getString("General",	"SavePath", "./", true);
 	saveInterval_			= getNumber("General", "Save Interval", 900, true);
 	heartBeat_				= getBool("General", "HeartBeat", false, true);
 	defaultpriv1_			= getNumber("General", "DefaultPrivileage1", 0, true);

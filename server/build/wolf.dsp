@@ -25,7 +25,7 @@ CFG=wolf - Win32 Debug
 # PROP AllowPerConfigDependencies 0
 # PROP Scc_ProjName "wolf"
 # PROP Scc_LocalPath "."
-CPP=cl.exe
+CPP=xicl6.exe
 RSC=rc.exe
 
 !IF  "$(CFG)" == "wolf - Win32 Release"
@@ -48,7 +48,7 @@ RSC=rc.exe
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=link.exe
+LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib ws2_32.lib kernel32.lib user32.lib advapi32.lib wrl.lib /nologo /subsystem:console /incremental:yes /map /machine:I386 /nodefaultlib:"LIBCMT.lib" /libpath:"..\lib\ZThread\lib" /libpath:"..\lib\wrl\lib" /libpath:"..\lib\Python\lib"
 # SUBTRACT LINK32 /nodefaultlib
@@ -67,15 +67,15 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /Gm /GR /GX /ZI /Od /I "lib/Python/PC" /I "lib/Python/include" /I "lib\ZThread\include" /I "lib\wrl\include" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /D "PY_NOSOCKETS" /D "_DEBUG" /D "WIN32" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /Gm /GR /GX /ZI /Od /I "lib/Python/PC" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /D "PY_NOSOCKETS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=link.exe
+LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 ws2_32.lib ZThread.lib wrl.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /version:12.9 /subsystem:console /debug /machine:I386 /nodefaultlib:"libc.lib" /nodefaultlib:"libcmt.lib" /nodefaultlib:"msvcrt.lib" /nodefaultlib:"libcd.lib" /nodefaultlib:"msvcrtd.lib" /nodefaultlib:"libcpd.lib" /out:"debug/wolf.exe" /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib" /libpath:"lib\Python\lib"
+# ADD LINK32 ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt310.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /version:12.9 /subsystem:console /debug /machine:I386 /nodefaultlib:"libc.lib" /nodefaultlib:"libcmt.lib" /nodefaultlib:"msvcrt.lib" /nodefaultlib:"libcd.lib" /nodefaultlib:"msvcrtd.lib" /nodefaultlib:"libcpd.lib" /out:"debug/wolf.exe" /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib" /libpath:"lib\Python\lib"
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -261,11 +261,19 @@ SOURCE=.\p_ai.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\packlen.cpp
+SOURCE=.\persistentbroker.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\persistentobject.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\pfactory.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\preferences.cpp
 # End Source File
 # Begin Source File
 
@@ -489,6 +497,10 @@ SOURCE=.\dragdrop.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\factory.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\globals.h
 # End Source File
 # Begin Source File
@@ -585,11 +597,63 @@ SOURCE=.\pagesystem.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\persistentbroker.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing persistentbroker.h...
+InputDir=.
+InputPath=.\persistentbroker.h
+InputName=persistentbroker
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\persistentobject.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing persistentobject.h...
+InputDir=.
+InputPath=.\persistentobject.h
+InputName=persistentobject
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\pfactory.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\platform.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\preferences.h
 # End Source File
 # Begin Source File
 

@@ -538,7 +538,7 @@ static PyMethodDef wpCharMethods[] =
 // Getters & Setters
 PyObject *wpChar_getAttr( wpChar *self, char *name )
 {
-	pGetStr( "name", name.c_str() )
+	pGetStr( "name", name )
 	else pGetStr( "orgname", orgname().latin1() )
 	else pGetStr( "title", title().latin1() )
 

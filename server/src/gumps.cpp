@@ -260,7 +260,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addResizeGump( 195, 300, 0xBB8, 215, 20 );
 
 		addText( 50, 120, tr( "Name:" ), 0x834 );
-		addInputField( 200, 120, 200, 16,  1, QString( "%1" ).arg( pChar->name.c_str() ), 0x834 );
+		addInputField( 200, 120, 200, 16,  1, QString( "%1" ).arg( pChar->name ), 0x834 );
 		addText( 50, 140, tr( "Title:" ), 0x834 );
 		addInputField( 200, 140, 200, 16,  2, QString( "%1" ).arg( pChar->title() ), 0x834 );
 		addText( 50, 160, tr( "Body:" ), 0x834 );
@@ -711,7 +711,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 140, tr( "Time unused:" ), 0x834 );
 		addInputField( 200, 140, 200, 16, 32, QString( "%1" ).arg( pItem->time_unused ), 0x834 );
 		addText( 50, 160, tr( "Creator:" ), 0x834 );
-		addInputField( 200, 160, 200, 16, 33, QString( "%1" ).arg( pItem->creator.c_str() ), 0x834 );
+		addInputField( 200, 160, 200, 16, 33, QString( "%1" ).arg( pItem->creator ), 0x834 );
 		addText( 50, 180, tr( "Made with skill no.:" ), 0x834 );
 		addInputField( 200, 180, 200, 16, 34, QString( "%1" ).arg( pItem->madewith ), 0x834 );
 		addText( 50, 200, tr( "Morex:" ), 0x834 );
@@ -1042,7 +1042,7 @@ cWhoMenuGump::cWhoMenuGump( UINT32 page )
 		cChar* pChar = mSock->player();
 		if( pChar )
 		{
-			charNames.push_back( pChar->name.c_str() );
+			charNames.push_back( pChar->name );
 			accNames.push_back( pChar->account()->login() );
 			IPs.push_back( mSock->ip() );
 			sockets_.push_back( mSock );
@@ -1149,7 +1149,7 @@ cSocketInfoGump::cSocketInfoGump( cUOSocket* socket )
 		startPage( 1 );
 
 		addText( 50, 60, tr( "Char name:" ), 0x834 );
-		addText( 250, 60, QString( "%1" ).arg( pChar->name.c_str() ), 0x834 );
+		addText( 250, 60, QString( "%1" ).arg( pChar->name ), 0x834 );
 		addText( 50, 80, tr( "IP:" ), 0x834 );
 		addText( 250, 80, QString( "%1" ).arg( socket->ip() ), 0x834 );
 		addText( 50, 100, tr( "Position:" ), 0x834 );
@@ -1290,7 +1290,7 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 		cChar* pChar = FindCharBySerial( (*it)->charSerial() );
 		if( pChar && ptype <= (*it)->pageType() )
 		{
-			charNames.push_back( pChar->name.c_str() );
+			charNames.push_back( pChar->name );
 			pageTimes.push_back( (*it)->pageTime() );
 			pageCategories.push_back( categories[(*it)->pageCategory()-1] );
 			pageTypes.push_back( (*it)->pageType() );
@@ -1405,7 +1405,7 @@ cPageInfoGump::cPageInfoGump( cPage* page )
 		UINT16 hue = 0x834;
 
 		addText( 50, 60, tr( "Char name:" ), hue );
-		addText( 200, 60, QString( "%1" ).arg( pChar->name.c_str() ), hue );
+		addText( 200, 60, QString( "%1" ).arg( pChar->name ), hue );
 		addText( 50, 80, tr( "Account name:" ), hue );
 		addText( 200, 80, QString( "%1" ).arg( pChar->account()->login() ), hue );
 		addText( 50, 100, tr( "Char position:" ), hue );

@@ -25,63 +25,27 @@
 //	* download it.
 //
 //
-//
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if !defined(__HOUSE_H__)
-#define __HOUSE_H__
+#if !defined(__PERSISTENTOBJECT_H__)
+#define __PERSISTENTOBJECT_H__
 
-#include "wolfpack.h"
-#include "items.h"
-#include "multis.h"
+#include <qobject.h>
+#include <qstring.h>
 
-// Forward Class declaration
-class cUOSocket;
-
-class cHouse : public cMulti
+class PersistentObject //: public QObject
 {
-public:
-
-	unsigned int last_used;
-
-	cHouse() 
-	{
-		cItem::Init( false );
-
-		contserial = INVALID_SERIAL;
-		deedsection_ = QString::null;
-		nokey_ = false;
-		charpos_.x = charpos_.y = charpos_.z = 0;
-	}
-	virtual ~cHouse() {}
-	virtual void Serialize( ISerialization &archive );
-	virtual QString objectID() const;
-
-	bool onValidPlace( void );
-	void build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );
-	void remove( void );
-
-	virtual void toDeed( cUOSocket* socket );
-
-
-	QString	deedSection( void ) { return deedsection_; }
-	void	setDeedSection( QString data ) { deedsection_ = data; }
-
+//	Q_OBJECT
 protected:
-	virtual void processNode( const QDomElement &Tag );
-	void processHouseItemNode( const QDomElement &Tag );
-
-	bool nokey_;
-	
-	struct posxyz_st
-	{
-		int x;
-		int y;
-		int z;
-	};
-
-	posxyz_st	charpos_;
+	bool isPersistent;
+public:
+	PersistentObject();
+	virtual ~PersistentObject() {}
+	virtual void save( const QString& = QString::null );
+	virtual void load( const QString& = QString::null );
+	virtual bool del( const QString& = QString::null);
 };
 
-#endif // __HOUSE_H__
+
+#endif // __PERSISTENTOBJECT_H__

@@ -1143,7 +1143,7 @@ int MsgBoardPost( int s, int msgType, int autoPost )
 	// Get the Authors info and create msgAuthor packet
 	// if this was a user posting, get the characters name, other wise leave it blank
 	if ( !autoPost )
-		strncpy( &msgAuthor[1], currchar[s]->name.c_str(), (sizeof(msgAuthor)-1) );
+		strncpy( &msgAuthor[1], currchar[s]->name.latin1(), (sizeof(msgAuthor)-1) );
 	msgAuthor[0] = strlen(&msgAuthor[1]) + 1;  // get the length of the name + 1 for null
 	
 	newMsgSize += (msgAuthor[0]+1);   // Update the new total length of the message
@@ -2069,7 +2069,7 @@ int MsgBoardPostQuest( int serial, int questType )
 					// NPC Name
 				case 'n':
 					{
-						strcpy( flagPos, (FindCharBySerial( serial )->name.c_str()) );
+						strcpy( flagPos, (FindCharBySerial( serial )->name.latin1()) );
 						strcat( (char*)temp, tempString );
 						break;
 					}
@@ -2248,17 +2248,14 @@ void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 	// Post the message to the message board in the same REGION as the NPC
 	if ( !MsgBoardPostQuest(pc_npc->serial, ESCORTQUEST) )
 	{
-		clConsole.send( "WOLFPACK: MsgBoardQuestEscortCreate() Failed to add quest post for %s\n", pc_npc->name.c_str() );
-		clConsole.send( "WOLFPACK: MsgBoardQuestEscortCreate() Deleting NPC %s\n", pc_npc->name.c_str() );
+		clConsole.send( "WOLFPACK: MsgBoardQuestEscortCreate() Failed to add quest post for %s\n", pc_npc->name.latin1() );
+		clConsole.send( "WOLFPACK: MsgBoardQuestEscortCreate() Deleting NPC %s\n", pc_npc->name.latin1() );
 		cCharStuff::DeleteChar( pc_npc );
 		//deletechar( npcIndex );
 		return;
 	}
 	
 	// Debugging messages
-#ifdef DEBUG
-	clConsole.send("WOLFPACK: MsgBoardQuestEscortCreate() Escort quest for:\n       %s to be escorted to %s\n", pc_npc->name, region[pc_npc->questDestRegion].name.c_str() );
-#endif
 }
 
 
@@ -2284,7 +2281,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 	// If they have no money, well, oops!
 	if ( servicePay == 0 )
 	{
-		pc_npc->talk( tr("Thank you %1 for thy service. We have made it safely to %2. Alas, I seem to be a little short on gold. I have nothing to pay you with.").arg(currchar[k]->name.c_str()).arg(pc_npc->questDestRegion()), -1, 0 );
+		pc_npc->talk( tr("Thank you %1 for thy service. We have made it safely to %2. Alas, I seem to be a little short on gold. I have nothing to pay you with.").arg(currchar[k]->name.latin1()).arg(pc_npc->questDestRegion()), -1, 0 );
 	}
 	else // Otherwise pay the poor sod for his time
 	{
@@ -2292,11 +2289,11 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 		if ( servicePay < 75 ) servicePay += RandomNum(75, 100);
 		addgold( k, servicePay );
 		//goldsfx( k, servicePay );
-		pc_npc->talk( tr("Thank you %1 for thy service. We have made it safely to %2. Here is thy pay as promised.").arg(currchar[k]->name.c_str()).arg(pc_npc->questDestRegion()), -1, 0 );
+		pc_npc->talk( tr("Thank you %1 for thy service. We have made it safely to %2. Here is thy pay as promised.").arg(currchar[k]->name.latin1()).arg(pc_npc->questDestRegion()), -1, 0 );
 	}
 	
 	// Inform the PC of what he has just been given as payment
-	sprintf( (char*)temp, "You have just received %d gold coins from %s %s", servicePay, pc_npc->name.c_str(), pc_npc->title().latin1() );
+	sprintf( (char*)temp, "You have just received %d gold coins from %s %s", servicePay, pc_npc->name.latin1(), pc_npc->title().latin1() );
 	sysmessage( k, (char*)temp );
 	
 	// Take the NPC out of quest mode

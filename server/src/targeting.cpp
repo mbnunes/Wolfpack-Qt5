@@ -291,7 +291,7 @@ void cTargets::IstatsTarget(int s)
 				pi->st, pi->hp(),pi->maxhp(), pi->lodamage(), pi->hidamage(),pi->def,pi->rank,( pi->secured() ) ? 1 : 0,
 				pi->morex, pi->morey, pi->morez,pi->poisoned,
 				pi->weight(), pi->ownserial, // Ison 2-20-99
-				pi->creator.c_str(),pi->madewith,pi->value,int(double(int(pi->decaytime-uiCurrentTime)/MY_CLOCKS_PER_SEC)),(pi->priv)&0x01,pi->good,pi->rndvaluerate); // Magius(CHE) (2)
+				pi->creator.latin1(),pi->madewith,pi->value,int(double(int(pi->decaytime-uiCurrentTime)/MY_CLOCKS_PER_SEC)),(pi->priv)&0x01,pi->good,pi->rndvaluerate); // Magius(CHE) (2)
 				sysmessage(s,(char*)temp); // Ison 2-20-99
 			// End Modified lines
 		}
@@ -864,7 +864,7 @@ void cTargets::TransferTarget(int s)
 	if ( !( pc1 && pc2 ) ) // They were not found, could be bad formed packet.
 		return;
 
-	pc1->emote( tr("%1 will now take %2 as his master.").arg(pc1->name.c_str()).arg(pc2->name.c_str()), -1 );
+	pc1->emote( tr("%1 will now take %2 as his master.").arg(pc1->name.latin1()).arg(pc2->name.latin1()), -1 );
 
 	if (pc1->ownserial() != -1) 
 		pc1->SetOwnSerial(-1);
@@ -1314,8 +1314,8 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	pi3->more4 = static_cast<unsigned char>((pHouse->serial&0x000000FF));
 	pi3->setType( 7 );
 	
-	sysmessage(s, "You have transferred your house to %s.", pc->name.c_str());
-	sprintf((char*)temp, "%s has transferred a house to %s.", currchar[s]->name.c_str(), pc->name.c_str());
+	sysmessage(s, "You have transferred your house to %s.", pc->name.latin1());
+	sprintf((char*)temp, "%s has transferred a house to %s.", currchar[s]->name.latin1(), pc->name.latin1());
 
 	int k;
 	for(k=0;k<now;k++)
@@ -1369,7 +1369,7 @@ void cTargets::HouseBanTarget(int s)
 	{
 		if (pc->serial == pc_home->serial) return;
 		pHouse->addBan(pc);
-		sysmessage(s, "%s has been banned from this house.", pc->name.c_str());
+		sysmessage(s, "%s has been banned from this house.", pc->name.latin1());
 	}
 }
 
@@ -1388,7 +1388,7 @@ void cTargets::HouseFriendTarget(int s) // crackerjack 8/12/99 - add somebody to
 			return;
 		}
 		pHouse->addFriend(Friend);
-		sysmessage(s, "%s has been made a Friend of the house.", Friend->name.c_str());
+		sysmessage(s, "%s has been made a Friend of the house.", Friend->name.latin1());
 	}
 }
 
@@ -1407,7 +1407,7 @@ void cTargets::HouseUnBanTarget(int s)
 			return;
 		}
 		pHouse->removeBan(pc_banned);
-		sysmessage(s,"%s has been UnBanned!",pc_banned->name.c_str());
+		sysmessage(s,"%s has been UnBanned!",pc_banned->name.latin1());
 	}
 	return;
 }
@@ -1427,7 +1427,7 @@ void cTargets::HouseUnFriendTarget(int s)
 			return;
 		}
 		pHouse->removeFriend(pc_friend);
-		sysmessage(s,"%s is no longer a Friend of this home!", pc_friend->name.c_str());
+		sysmessage(s,"%s is no longer a Friend of this home!", pc_friend->name.latin1());
 	}
 	return;
 }

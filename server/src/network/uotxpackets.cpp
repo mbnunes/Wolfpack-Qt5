@@ -352,7 +352,7 @@ void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial );
-	setName( pChar->name.c_str() );
+	setName( pChar->name );
 
 	if( pChar->war() )
 		setFlag( 0x40 );

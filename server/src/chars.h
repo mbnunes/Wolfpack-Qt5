@@ -268,6 +268,10 @@ public:
 	cChar();
 	virtual void Serialize(ISerialization &archive);
 	virtual QString objectID() const;
+	static void registerInFactory();
+	void save( const QString& = QString::null );
+	void load( const QString& = QString::null );
+	bool del ( const QString& = QString::null );
     
 	// A typical sequence for the following could be:
 	// Remove from View( clean = false )

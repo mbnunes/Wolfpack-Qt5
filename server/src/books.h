@@ -45,81 +45,36 @@ class ISerialization;
 class cBook : public cItem
 {
 public:
-	cBook()
-	{
-		cItem::Init( false );
-		this->setType( 11 ); // book type
-		this->predefined_ = false;
-		this->readonly_ = false;
-
-		this->title_ = (char*)0;
-		this->author_ = (char*)0;
-		this->content_ = QStringList();
-
-		this->section_ = (char*)0;
-
-		this->pages_ = 0;
-	}
-
-	virtual ~cBook() {;}
+	cBook();
 
 	// abstract cSerializable
-	virtual QString objectID( void ) const { return "BOOK"; }
+	virtual QString objectID( void ) const { return "cBook"; }
 	virtual void	Serialize( ISerialization &archive );
 
 	// abstract cDefinable
 	virtual void	processNode( const QDomElement &Tag );
 
+	// PersistentObject
+	void save( const QString& = QString::null );
+	void load( const QString& = QString::null );
+	bool del ( const QString& = QString::null );
+
 	// setters/getters
-	QString		title( void )			{ return title_; }
-	QString		author( void )			{ return author_; }
-	QStringList	content( void )			{ return content_; }
-	UINT16		pages( void )			
-	{ 
-		if( predefined_ )
-			return content_.size();
-		else
-			return pages_;
-	}
+	QString		title( void )	const;
+	QString		author( void )	const;
+	QMap<int, QString>	content( void )	const;
+	UINT16		pages( void )	const;		
+	bool		predefined( void )	const;
+	bool		readonly( void )	const;
+	bool		writeable( void )	const;
+	QString		section( void )	const;
 
-	bool		predefined( void )		{ return predefined_; }
-	bool		readonly( void )		{ return readonly_; }
-
-	bool		writeable( void )		{ return !predefined_ && !readonly_; }
-
-	QString		section( void )		{ return section_; }
-
-
-	void		setAuthor( QString data )
-	{
-		this->author_ = data;
-	}
-
-	void		setTitle( QString data )
-	{
-		this->title_ = data;
-	}
-
-	void		setContent( QStringList data )
-	{
-		this->content_ = data;
-	}
-
-	void		setPredefined( bool data )
-	{
-		this->predefined_ = data;
-	}
-
-	void		setSection( QString data )
-	{
-		this->section_ = data;
-	}
-
-	void		setPages( UINT16 data )
-	{
-		this->pages_ = data;
-	}
-
+	void		setAuthor( const QString& data );
+	void		setTitle( const QString& data );
+	void		setContent( const QMap<int, QString>& data );
+	void		setPredefined( bool data );
+	void		setSection( const QString& data );
+	void		setPages( UINT16 data );
 
 	// networking
 	void		open( cUOSocket* socket );
@@ -127,6 +82,9 @@ public:
 
 	// methods for predefined books
 	void		refresh( void );
+
+	// static methods
+	static void registerInFactory();
 
 private:
 	bool		predefined_;
@@ -136,9 +94,32 @@ private:
 
 	QString		title_;
 	QString		author_;
-	QStringList	content_;
+	QMap<int, QString>	content_;
 
 	UINT16		pages_;
 };
+
+// Inline methods
+inline QString cBook::title( void )			const	{ return title_; }
+inline QString cBook::author( void )		const	{ return author_; }
+inline QMap<int, QString> cBook::content( void )	const	{ return content_; }
+inline UINT16 cBook::pages( void )			const		
+{ 
+	if( predefined_ )
+		return content_.size();
+	else
+		return pages_;
+}
+inline bool cBook::predefined( void )		const	{ return predefined_; }
+inline bool cBook::readonly( void )			const	{ return readonly_; }
+inline bool cBook::writeable( void )		const	{ return !predefined_ && !readonly_; }
+inline QString cBook::section( void )		const	{ return section_; }
+
+inline void cBook::setAuthor( const QString& data )			{ this->author_ = data; }
+inline void cBook::setTitle( const QString& data )			{ this->title_ = data;	}
+inline void cBook::setContent( const QMap<int, QString>& data )	{ this->content_ = data; }
+inline void cBook::setPredefined( bool data )				{ this->predefined_ = data; } 
+inline void cBook::setSection( const QString& data )		{ this->section_ = data; }
+inline void cBook::setPages( UINT16 data )					{ this->pages_ = data; }
 
 #endif

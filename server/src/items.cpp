@@ -51,9 +51,22 @@
 #include "classes.h"
 #include "multis.h"
 #include "spellbook.h"
+#include "persistentbroker.h"
+
+#include <qsqlcursor.h>
 
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
+
+static cUObject* productCreator()
+{
+	return new cItem;
+}
+
+void cItem::registerInFactory()
+{
+	UObjectFactory::instance()->registerType("cItem", productCreator);
+}
 
 P_CHAR cItem::owner( void )
 {
@@ -186,7 +199,7 @@ cItem::cItem( cItem &src )
 
 inline QString cItem::objectID() const
 {
-	return "ITEM";
+	return "cItem";
 }
 
 void cItem::startDecay()			
@@ -568,139 +581,164 @@ int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 	return rest;
 }
 
-void cItem::Serialize(ISerialization &archive)
+void cItem::save( const QString& s/* = QString::null  */ )
 {
-	if (archive.isReading())
+	startSaveSqlStatement("Items");
+	savePersistentIntValue("serial",		serial);
+	savePersistentIntValue("id",			id());
+	savePersistentStrValue("name",			name_); // warning: items do not use cUObject name!
+	savePersistentStrValue("name2",			name2_);
+	savePersistentStrValue("creator",		creator);
+	savePersistentIntValue("sk_name",		madewith);
+	savePersistentIntValue("color",			color());
+	savePersistentIntValue("cont",			contserial);
+	savePersistentIntValue("layer",			layer_);
+	savePersistentIntValue("type",			type_);
+	savePersistentIntValue("type2",			type2_);
+	savePersistentIntValue("offspell",		offspell_);
+	savePersistentIntValue("more1",			more1);
+	savePersistentIntValue("more2",			more2);
+	savePersistentIntValue("more3",			more3);
+	savePersistentIntValue("more4",			more4);
+	savePersistentIntValue("moreb1",		moreb1_);
+	savePersistentIntValue("moreb2",		moreb2_);
+	savePersistentIntValue("moreb3",		moreb3_);
+	savePersistentIntValue("moreb4",		moreb4_);
+	savePersistentIntValue("morex",			morex);
+	savePersistentIntValue("morey",			morey);
+	savePersistentIntValue("morez",			morez);
+	savePersistentIntValue("amount",		amount_);
+	savePersistentIntValue("doordir",		doordir);
+	savePersistentIntValue("dye",			dye);
+	savePersistentIntValue("decaytime",		decaytime > 0 ? decaytime - uiCurrentTime : 0);
+	savePersistentIntValue("att",			att);
+	savePersistentIntValue("def",			def);
+	savePersistentIntValue("hidamage",		hidamage_);
+	savePersistentIntValue("lodamage",		lodamage_);
+	savePersistentIntValue("st",			st);
+	savePersistentIntValue("time_unused",	time_unused);
+	savePersistentIntValue("weight",		weight_);
+	savePersistentIntValue("hp",			hp_);
+	savePersistentIntValue("maxhp",			maxhp_);
+	savePersistentIntValue("rank",			rank);
+	savePersistentIntValue("st2",			st2);
+	savePersistentIntValue("dx",			dx);
+	savePersistentIntValue("dx2",			dx2);
+	savePersistentIntValue("intelligence",	in);
+	savePersistentIntValue("intelligence2",	in2);
+	savePersistentIntValue("speed",			speed_);
+	savePersistentIntValue("poisoned",		poisoned);
+	savePersistentIntValue("magic",			magic);
+	savePersistentIntValue("owner",			ownserial);
+	savePersistentIntValue("visible",		visible);
+	savePersistentIntValue("spawn",			spawnserial);
+	savePersistentIntValue("dir",			dir);
+	savePersistentIntValue("priv",			priv);
+	savePersistentIntValue("value",			value);
+	savePersistentIntValue("restock",		restock);
+	savePersistentIntValue("disabled",		disabled);
+	savePersistentStrValue("spawnregion",	spawnregion_);
+	savePersistentIntValue("good",			good);
+	savePersistentIntValue("glow",			glow);
+	savePersistentIntValue("glow_color",	glow_color);
+	savePersistentIntValue("glowtype",		glow_effect);
+	savePersistentStrValue("desc",			desc);
+	savePersistentStrValue("carve",			carve_);
+	savePersistentIntValue("accuracy",		accuracy_);
+	endSaveSqlStatement(QString("serial='%1'").arg(serial));
+	cUObject::save(s);
+}
+
+void itemRegisterAfterLoading( P_ITEM pi );
+
+void cItem::load( const QString& s/* = QString::null  */ )
+{
+	startLoadSqlStatement("items", "serial", s)
 	{
 		unsigned short temp;
-		archive.read("id",			temp);			setId(temp);
-		archive.read("name",		name_);
-		archive.read("name2",		name2_);
-		archive.read("creator",		creator);
-		archive.read("sk_name",		madewith);
-		archive.read("color",		color_);
-		archive.read("cont",		contserial);
-		archive.read("layer",		layer_);
-		archive.read("type",		type_ );
-		archive.read("type2",		type2_);
-		archive.read("offspell",	offspell_);
-		archive.read("more1",		more1);
-		archive.read("more2",		more2);
-		archive.read("more3",		more3);
-		archive.read("more4",		more4);
-		archive.read("moreb1",		moreb1_);
-		archive.read("moreb2",		moreb2_);
-		archive.read("moreb3",		moreb3_);
-		archive.read("moreb4",		moreb4_);
-		archive.read("morex",		morex);
-		archive.read("morey",		morey);
-		archive.read("morez",		morez);
-		archive.read("amount",		amount_);
-		archive.read("doordir",		doordir);
-		archive.read("dye",			dye);
-		archive.read("decaytime",	decaytime);
+		loadPersistentIntValue("id",			temp);			setId(temp);
+		loadPersistentStrValue("name",			name_);
+		loadPersistentStrValue("name2",			name2_);
+		loadPersistentStrValue("creator",		creator);
+		loadPersistentIntValue("sk_name",		madewith);
+		loadPersistentIntValue("color",			color_);
+		loadPersistentIntValue("cont",			contserial);
+		loadPersistentIntValue("layer",			layer_);
+		loadPersistentIntValue("type",			type_ );
+		loadPersistentIntValue("type2",			type2_);
+		loadPersistentIntValue("offspell",		offspell_);
+		loadPersistentIntValue("more1",			more1);
+		loadPersistentIntValue("more2",			more2);
+		loadPersistentIntValue("more3",			more3);
+		loadPersistentIntValue("more4",			more4);
+		loadPersistentIntValue("moreb1",		moreb1_);
+		loadPersistentIntValue("moreb2",		moreb2_);
+		loadPersistentIntValue("moreb3",		moreb3_);
+		loadPersistentIntValue("moreb4",		moreb4_);
+		loadPersistentIntValue("morex",			morex);
+		loadPersistentIntValue("morey",			morey);
+		loadPersistentIntValue("morez",			morez);
+		loadPersistentIntValue("amount",		amount_);
+		loadPersistentIntValue("doordir",		doordir);
+		loadPersistentIntValue("dye",			dye);
+		loadPersistentIntValue("decaytime",		decaytime);
 		if ( decaytime > 0 )
 			decaytime += uiCurrentTime;
-		archive.read("att",			att);
-		archive.read("def",			def);
-		archive.read("hidamage",	hidamage_);
-		archive.read("lodamage",	lodamage_);
-		archive.read("st",			st);
-		archive.read("time_unused",	time_unused);
+		loadPersistentIntValue("att",			att);
+		loadPersistentIntValue("def",			def);
+		loadPersistentIntValue("hidamage",		hidamage_);
+		loadPersistentIntValue("lodamage",		lodamage_);
+		loadPersistentIntValue("st",			st);
+		loadPersistentIntValue("time_unused",	time_unused);
+		loadPersistentIntValue("weight",		weight_);
+		loadPersistentIntValue("hp",			hp_);
+		loadPersistentIntValue("maxhp",			maxhp_);
+		loadPersistentIntValue("rank",			rank);
+		loadPersistentIntValue("st2",			st2);
+		loadPersistentIntValue("dx",			dx);
+		loadPersistentIntValue("dx2",			dx2);
+		loadPersistentIntValue("intelligence",	in);
+		loadPersistentIntValue("intelligence2",	in2);
+		loadPersistentIntValue("speed",			speed_);
+		loadPersistentUIntValue("poisoned",		poisoned);
+		loadPersistentIntValue("magic",			magic);
+		loadPersistentIntValue("owner",			ownserial);
+		loadPersistentIntValue("visible",		visible);
+		loadPersistentIntValue("spawn",			spawnserial);
+		loadPersistentIntValue("dir",			dir);
+		loadPersistentIntValue("priv",			priv);
+		loadPersistentIntValue("value",			value);
+		loadPersistentIntValue("restock",		restock);
+		loadPersistentUIntValue("disabled",		disabled);
+		loadPersistentIntValue("spawnregion",	spawnregion_);
+		loadPersistentIntValue("good",			good);
+		loadPersistentIntValue("glow",			glow);
+		loadPersistentIntValue("glow_color",	glow_color);
+		loadPersistentIntValue("glowtype",		glow_effect);
+		loadPersistentStrValue("desc",			desc);
+		loadPersistentStrValue("carve",			carve_);
+		loadPersistentIntValue("accuracy",		accuracy_);
+	}
+	endLoadSqlStatement(s);
+	cUObject::load(s);
+	itemRegisterAfterLoading( this ); // Check/Register items after loading
+}
 
-		archive.read("weight",		weight_);
-		archive.read("hp",			hp_);
-		archive.read("maxhp",		maxhp_);
-		archive.read("rank",		rank);
-		archive.read("st2",			st2);
-		archive.read("dx",			dx);
-		archive.read("dx2",			dx2);
-		archive.read("in",			in);
-		archive.read("in2",			in2);
-		archive.read("speed",		speed_);
-		archive.read("poisoned",	poisoned);
-		archive.read("magic",		magic);
-		archive.read("owner",		ownserial);
-		archive.read("visible",		visible);
-		archive.read("spawn",		spawnserial);
-		archive.read("dir",			dir);
-		archive.read("priv",		priv);
-		archive.read("value",		value);
-		archive.read("restock",		restock);
-		archive.read("disabled",	disabled);
-		archive.read("spawnregion",	spawnregion_);
-		archive.read("good",		good);
-		archive.read("glow",		glow);
-		archive.read("glow_color",	glow_color);
-		archive.read("glowtype",	glow_effect);
-		archive.read("desc",		desc);
-		archive.read("carve",		carve_);
-		archive.read("accuracy",	accuracy_);
-	}
-	else if ( archive.isWritting())
+bool cItem::del( const QString& s/* = QString::null  */ )
+{
+	QSqlCursor cursor("items");
+	cursor.select(QString("serial='%1'").arg(serial));
+	while ( cursor.next() )
 	{
-		archive.write("id",			id());
-		archive.write("name",		name_); // warning: items do not use cUObject name!
-		archive.write("name2",		name2_);
-		archive.write("creator",	creator);
-		archive.write("sk_name",	madewith);
-		archive.write("color",		color());
-		archive.write("cont",		contserial);
-		archive.write("layer",		layer_);
-		archive.write("type",		type_);
-		archive.write("type2",		type2_);
-		archive.write("offspell",	offspell_);
-		archive.write("more1",		more1);
-		archive.write("more2",		more2);
-		archive.write("more3",		more3);
-		archive.write("more4",		more4);
-		archive.write("moreb1",		moreb1_);
-		archive.write("moreb2",		moreb2_);
-		archive.write("moreb3",		moreb3_);
-		archive.write("moreb4",		moreb4_);
-		archive.write("morex",		morex);
-		archive.write("morey",		morey);
-		archive.write("morez",		morez);
-		archive.write("amount",		amount_);
-		archive.write("doordir",	doordir);
-		archive.write("dye",		dye);
-		archive.write("decaytime",	decaytime > 0 ? decaytime - uiCurrentTime : 0);
-		archive.write("att",		att);
-		archive.write("def",		def);
-		archive.write("hidamage",	hidamage_);
-		archive.write("lodamage",	lodamage_);
-		archive.write("st",			st);
-		archive.write("time_unused",time_unused);
-		archive.write("weight",		weight_);
-		archive.write("hp",			hp_);
-		archive.write("maxhp",		maxhp_);
-		archive.write("rank",		rank);
-		archive.write("st2",		st2);
-		archive.write("dx",			dx);
-		archive.write("dx2",		dx2);
-		archive.write("in",			in);
-		archive.write("in2",		in2);
-		archive.write("speed",		speed_);
-		archive.write("poisoned",	poisoned);
-		archive.write("magic",		magic);
-		archive.write("owner",		ownserial);
-		archive.write("visible",	visible);
-		archive.write("spawn",		spawnserial);
-		archive.write("dir",		dir);
-		archive.write("priv",		priv);
-		archive.write("value",		value);
-		archive.write("restock",	restock);
-		archive.write("disabled",	disabled);
-		archive.write("spawnregion",spawnregion_);
-		archive.write("good",		good);
-		archive.write("glow",		glow);
-		archive.write("glow_color",	glow_color);
-		archive.write("glowtype",	glow_effect);
-		archive.write("desc",		desc);
-		archive.write("carve",		carve_);
-		archive.write("accuracy",	accuracy_);
+		cursor.primeDelete();
+		if ( cursor.del() > 1 )
+		{
+			qWarning("More than one record was deleted in table Items when only 1 was expected, delete criteria was:");
+			qWarning(cursor.filter());
+		}
+
 	}
-	cUObject::Serialize(archive);
+	return cUObject::del( s );
 }
 
 static int getname(P_ITEM pi, char* itemname)
@@ -911,6 +949,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 			}
 		}
 
+		pi->del(); // Remove from database
 		// Queue for later delete.
 		cItemsManager::getInstance()->deleteItem(pi);
 	}
@@ -1578,9 +1617,9 @@ void cItem::processNode( const QDomElement& Tag )
 	if( TagName == "bindmenu" )
 	{
 		if( !Tag.attribute( "id" ).isNull() ) 
-			this->bindmenu = Tag.attribute( "id" );
+			this->setBindmenu(Tag.attribute( "id" ));
 		else
-			bindmenu = Value;
+			setBindmenu(Value);
 	}
 
 	// <name>my Item</name>
@@ -2115,10 +2154,10 @@ void cItem::showName( cUOSocket *socket )
 			if (pc_j->npcaitype() == 17)
 			{
 				char temp2[256];
-				if (creator.size() > 0 && madewith>0)
-					sprintf((char*)temp2, "%s %s by %s", desc.c_str(), skill[madewith - 1].madeword.latin1(), creator.c_str()); 
+				if (creator.length() > 0 && madewith>0)
+					sprintf((char*)temp2, "%s %s by %s", desc.latin1(), skill[madewith - 1].madeword.latin1(), creator.latin1()); 
 				else
-					strcpy((char*)temp2, desc.c_str()); // LB bugfix
+					strcpy((char*)temp2, desc.latin1()); // LB bugfix
 				
 				sprintf((char*)temp, "%s at %igp", temp2, value);
 				itemmessage(s, (char*)temp, serial);
@@ -2138,8 +2177,8 @@ void cItem::showName( cUOSocket *socket )
 			sprintf((char*)temp, "%s : %i", name_.latin1(), amount());
 		
 	// Add creator's mark (if any)
-	if( creator.size() > 0 && madewith > 0 )
-		sprintf((char*)temp, "%s %s by %s", temp, skill[madewith - 1].madeword.latin1(), creator.c_str());
+	if( creator.length() > 0 && madewith > 0 )
+		sprintf((char*)temp, "%s %s by %s", temp, skill[madewith - 1].madeword.latin1(), creator.latin1());
 	
 	if( type() == 15 )
 	{
@@ -2522,7 +2561,7 @@ bool cItem::wearOut()
 					continue;
 
 				if( mSock->player() && mSock->player()->inRange( pOwner, mSock->player()->VisRange() ) )
-					mSock->showSpeech( pOwner, tr( "You see %1 destroying his %2" ).arg( pOwner->name.c_str() ).arg( getName() ), 0x23, 3, cUOTxUnicodeSpeech::Emote );
+					mSock->showSpeech( pOwner, tr( "You see %1 destroying his %2" ).arg( pOwner->name ).arg( getName() ), 0x23, 3, cUOTxUnicodeSpeech::Emote );
 			}
 		}
 
@@ -2567,5 +2606,32 @@ QPtrList< cItem > cItem::getContainment()
 	return itemlist;
 }
 
+static void itemRegisterAfterLoading( P_ITEM pi )
+{
+	cItemsManager::getInstance()->registerItem( pi );
+	if( pi->objectID() == "cGuildStone" ) // register as guild as well
+		guilds.push_back(pi->serial);
+	pi->timeused_last = getNormalizedTime();
 
+	// Set the outside indices
+	pi->SetSpawnSerial( pi->spawnserial );
+	pi->setContSerial( pi->contserial );
+	pi->SetOwnSerial( pi->ownserial );
+
+	if( pi->maxhp() == 0) 
+		pi->setMaxhp( pi->hp() );
+
+	// Tauriel adding region pointers
+	if (pi->isInWorld())
+	{
+		int max_x = Map->mapTileWidth(pi->pos.map) * 8;
+		int max_y = Map->mapTileHeight(pi->pos.map) * 8;
+		if (pi->pos.x>max_x || pi->pos.y>max_y) 
+		{
+			Items->DeleItem(pi);	//these are invalid locations, delete them!
+		}
+		else
+			cMapObjects::getInstance()->add(pi);
+	}
+}
 

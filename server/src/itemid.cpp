@@ -63,19 +63,6 @@ bool IsTree(short id)	// this is used in AxeTarget()
 	return false;
 }
 
-#if 0
-bool IsTree2(short id)	// this is used in SwordTarget() to give kindling. Donno why it's different
-{
-	if (id==0x0CD0 || id==0x0CD3 || id==0x0CD6 ||
-		id==0x0CD8 || id==0x0CDA || id==0x0CDD ||
-		id==0x0CE0 || id==0x0CE3 || id==0x0CE6 ||
-		(id>=0x0CCA && id<=0x0CCD) ||
-		(id>=0x12B8 && id<=0x12BB) )
-		return true;
-	return false;
-}
-#endif
-
 bool IsSpellScroll(short id)
 {
 	return (id>0x1F2C && id<0x1F6D);

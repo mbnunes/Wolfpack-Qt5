@@ -540,8 +540,8 @@ void cBoat::turn( SI08 turn )
 
 			cAllTerritories::getInstance()->check( pc );
 
-			cUOTxDrawChar* drawChar = new cUOTxDrawChar();
-			drawChar->fromChar( pc );
+			cUOTxDrawChar drawChar;
+			drawChar.fromChar( pc );
 
 
 			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
@@ -552,13 +552,11 @@ void cBoat::turn( SI08 turn )
 					iter_sock.current()->resendPlayer();
 				if( !( ( pc->isHidden() || ( pc->dead() && !pc->war() ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
 				{
-					drawChar->setHighlight( pc->notority( iter_sock.current()->player() ) );
-					iter_sock.current()->send( new cUOTxDrawChar( *drawChar ) );
+					drawChar.setHighlight( pc->notority( iter_sock.current()->player() ) );
+					iter_sock.current()->send( &drawChar );
 				}
 				++iter_sock;
 			}
-
-			delete drawChar;
 		}
 		else
 			toremove.append( (*it) );
@@ -768,8 +766,8 @@ bool cBoat::move( void )
 
 			cAllTerritories::getInstance()->check( pc );
 
-			cUOTxDrawChar* drawChar = new cUOTxDrawChar();
-			drawChar->fromChar( pc );
+			cUOTxDrawChar drawChar;
+			drawChar.fromChar( pc );
 
 			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 			while( iter_sock.current() )
@@ -781,13 +779,11 @@ bool cBoat::move( void )
 				}
 				if( !( ( pc->isHidden() || ( pc->dead() && !pc->war() ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
 				{
-					drawChar->setHighlight( pc->notority( iter_sock.current()->player() ) );
-					iter_sock.current()->send( new cUOTxDrawChar( *drawChar ) );
+					drawChar.setHighlight( pc->notority( iter_sock.current()->player() ) );
+					iter_sock.current()->send( &drawChar );
 				}
 				++iter_sock;
 			}
-
-			delete drawChar;
 		}
 		else
 			toremove.append( (*it) );

@@ -566,8 +566,6 @@ cUOPacket* cAsyncNetIO::recvPacket( QSocketDevice* socket )
 /*!
   Queues \a packet for sending to \a socket. UO Huffman compression will
   be applied if \a compress is true.
-  Notice \a packet ownership is transfered to cAsyncNetIO and it's memory
-  will be freed once the packet have been transmited.
 */
 void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet, bool compress )
 {

@@ -470,14 +470,14 @@ public:
 		if( coowner_ )
 		{
 			pMulti->setCoOwner( pc );
-			socket->sysMessage( tr("You have made %1 to the new co-owner of %2").arg( pc->name.c_str() ).arg( pMulti->name() ) );
-			pc->socket()->sysMessage( tr("%1 has made you to the new co-owner of %2").arg( socket->player()->name.c_str() ).arg( pMulti->name() ) );
+			socket->sysMessage( tr("You have made %1 to the new co-owner of %2").arg( pc->name.latin1() ).arg( pMulti->name() ) );
+			pc->socket()->sysMessage( tr("%1 has made you to the new co-owner of %2").arg( socket->player()->name.latin1() ).arg( pMulti->name() ) );
 		}
 		else
 		{
 			pMulti->setOwner( pc );
-			socket->sysMessage( tr("You have made %1 to the new owner of %2").arg( pc->name.c_str() ).arg( pMulti->name() ) );
-			pc->socket()->sysMessage( tr("%1 has made you to the new owner of %2").arg( socket->player()->name.c_str() ).arg( pMulti->name() ) );
+			socket->sysMessage( tr("You have made %1 to the new owner of %2").arg( pc->name.latin1() ).arg( pMulti->name() ) );
+			pc->socket()->sysMessage( tr("%1 has made you to the new owner of %2").arg( socket->player()->name.latin1() ).arg( pMulti->name() ) );
 		}
 		return true;
 	}
@@ -580,12 +580,12 @@ cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 	P_CHAR pOwner = pMulti->owner();
 	QString ownername;
 	if( pOwner )
-		ownername = pOwner->name.c_str();
+		ownername = pOwner->name.latin1();
 
 	P_CHAR pCoOwner = pMulti->coOwner();
 	QString coownername;
 	if( pCoOwner )
-		coownername = pCoOwner->name.c_str();
+		coownername = pCoOwner->name.latin1();
 
 	char_ = charSerial;
 	multi_ = multiSerial;
@@ -724,7 +724,7 @@ cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 			while( i < (page_-1) * 10 && i < bans.size() )
 			{
 				UI32 offset = i - (page_-2) * 10;
-				addText( 60, 140+offset*20, QString(bans[ i ]->name.c_str()), 0x834 );
+				addText( 60, 140+offset*20, QString(bans[ i ]->name.latin1()), 0x834 );
 				addButton( 20, 140+offset*20, 0xFB1, 0xFB3, 10+i ); 
 				++i;
 			}
@@ -739,7 +739,7 @@ cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 			while( i < (page_-banpages-1) * 10 && i < friends.size() )
 			{
 				UI32 offset = i - (page_-banpages-2) * 10;
-				addText( 60, 140+offset*20, QString(friends[ i ]->name.c_str()), 0x834 );
+				addText( 60, 140+offset*20, QString(friends[ i ]->name.latin1()), 0x834 );
 				addButton( 20, 140+offset*20, 0xFB1, 0xFB3, 10+i+bans.size() ); 
 				++i;
 			}

@@ -79,7 +79,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if (pc->isInvul() || pc->dead() || !pc->isInnocent())
 							continue;
-						pc_i->talk( tr("Hello %1, Welcome to my shop, How may i help thee?.").arg( pc->name.c_str() ), -1, 0, true );
+						pc_i->talk( tr("Hello %1, Welcome to my shop, How may i help thee?.").arg( pc->name.latin1() ), -1, 0, true );
 						pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 					}
 				}
@@ -280,12 +280,12 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						}
 						if (pc->isPlayer() && pc->crimflag() > 0 && d <= 3)
 						{
-							pc_i->talk( tr("You better watch your step %1, I am watching thee!!").arg( pc->name.c_str() ), -1, 0, true );
+							pc_i->talk( tr("You better watch your step %1, I am watching thee!!").arg( pc->name.latin1() ), -1, 0, true );
 							pc_i->setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*30 );
 						}
 						else if (pc->isPlayer() && pc->isInnocent() && d <= 3)
 						{
-							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg( pc->name.c_str() ).arg( pc->region()->name() ), -1, 0, true );
+							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg( pc->name.latin1() ).arg( pc->region()->name() ), -1, 0, true );
 							pc_i->setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*30 );
 						}
 						else if (d <= SrvParams->attack_distance() &&(
@@ -369,12 +369,12 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						}
 						if (pc->isPlayer() && pc->crimflag() > 0 && d <= 3)
 						{
-							pc_i->talk( tr("You better watch your step %1, I am watching thee!!").arg(pc->name.c_str()), -1, 0, true );
+							pc_i->talk( tr("You better watch your step %1, I am watching thee!!").arg(pc->name.latin1()), -1, 0, true );
 							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
 						else if (pc->isPlayer() && pc->isInnocent() && d <= 3)
 						{
-							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg(pc->name.c_str()).arg(pc->region()->name()), -1, 0, true );
+							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg(pc->name.latin1()).arg(pc->region()->name()), -1, 0, true );
 							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
 						else if (d <= SrvParams->attack_distance() &&(
@@ -664,7 +664,7 @@ void cCharStuff::cBankerAI::OpenBank(UOXSOCKET c)
 bool cCharStuff::cBankerAI::Balance(int c, P_CHAR pBanker)
 {
 	P_CHAR pc_currchar = currchar[c];
-	pBanker->talk( tr("%1's balance as of now is %2.").arg(pc_currchar->name.c_str()).arg(pc_currchar->CountBankGold()), -1, 0 );
+	pBanker->talk( tr("%1's balance as of now is %2.").arg(pc_currchar->name.latin1()).arg(pc_currchar->CountBankGold()), -1, 0 );
 	return true;
 }
 
@@ -690,12 +690,12 @@ bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, const string& comm)
 		addgold(c, goldcount);
 		//goldsfx(c, goldcount);
 		DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);
-		pBanker->talk( tr("%1 here is your withdraw of %2.").arg(pc_currchar->name.c_str()).arg(goldcount), -1, 0 );
+		pBanker->talk( tr("%1 here is your withdraw of %2.").arg(pc_currchar->name.latin1()).arg(goldcount), -1, 0 );
 		return true;
 	}
 	else
 	{
-		pBanker->talk( tr("%1 you have insufficent funds!").arg(pc_currchar->name.c_str()), -1, 0 );
+		pBanker->talk( tr("%1 you have insufficent funds!").arg(pc_currchar->name.latin1()), -1, 0 );
 	}
 	return true;
 }
@@ -720,7 +720,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, const string& comm)
 		int goldcount = value;
 		if (goldcount < 5000 || goldcount > 1000000)
 		{
-			pBanker->talk( tr("%1 you can only get checks worth 5000gp to 1000000gp.").arg(pc_currchar->name.c_str()), -1, 0 );
+			pBanker->talk( tr("%1 you can only get checks worth 5000gp to 1000000gp.").arg(pc_currchar->name.latin1()), -1, 0 );
 			return false;
 		}
 		if (d >= goldcount)
@@ -736,11 +736,11 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, const string& comm)
 			P_ITEM bankbox = pc_currchar->getBankBox();
 			bankbox->AddItem(pi);
 			//statwindow(c, pc_currchar);
-			pBanker->talk( tr("%1 your check has been placed in your bankbox, it is worth %2.").arg(pc_currchar->name.c_str()).arg(goldcount), -1, 0 );
+			pBanker->talk( tr("%1 your check has been placed in your bankbox, it is worth %2.").arg(pc_currchar->name.latin1()).arg(goldcount), -1, 0 );
 			return true;
 		}
 		else
-			pBanker->talk( tr("%s you have insufficent funds!").arg(pc_currchar->name.c_str()), -1, 0 );
+			pBanker->talk( tr("%s you have insufficent funds!").arg(pc_currchar->name.latin1()), -1, 0 );
 
 		return true;
 	}

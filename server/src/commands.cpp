@@ -865,7 +865,7 @@ void commandSave( cUOSocket *socket, const QString &command, QStringList &args )
 	if( args.count() > 0 )
 		cwmWorldState->savenewworld( args[0] );
 	else
-		cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
+		cwmWorldState->savenewworld( "binary" );
 }
 
 #define FLAG_STUB( a, b, c ) if( tile.a & b ) flags.push_back( tr( c ) )
@@ -1099,7 +1099,7 @@ public:
 			if( pItem )
 				result = pItem->name();
 			else
-				result = pChar->name.c_str();
+				result = pChar->name;
 		
 		else if( ( key == "title" ) )
 			result = pChar->title();

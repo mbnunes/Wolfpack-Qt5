@@ -212,7 +212,7 @@ extern long int oldtime, newtime;
 
 #define STR 50 // #skills+2
 #define DEX 51 // #skills+3
-#define INT 52 // #skills+4
+#define INTELIGENCE 52 // #skills+4
 #define FAME 53 // #skills+5
 #define KARMA 54 // #skills+6
 

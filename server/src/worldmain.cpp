@@ -52,13 +52,13 @@
 #include "books.h"
 #include "multis.h"
 #include "spellbook.h"
+#include "persistentbroker.h"
+
+// Library Includes
+#include <qsqlcursor.h>
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
-
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
 
 
 // Items Saver thread
@@ -67,17 +67,13 @@ void CWorldMain::cItemsSaver::run() throw()
 	try
 	{
 		waitMutex.acquire();
-		ISerialization* archive = cPluginFactory::serializationArchiver( module );
-		archive->prepareWritting( "items" );
 		AllItemsIterator iterItems;
 		for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
 		{
 			P_ITEM pi = iterItems.GetData();
 			if( pi && pi->objectID() != "RESOURCEITEM" )
-				archive->writeObject( pi );
+				persistentBroker->saveObject(pi);
 		}
-		archive->close();
-		delete archive;
 		waitMutex.release();
 	}
 	catch( ... )
@@ -126,177 +122,20 @@ void CWorldMain::loadnewworld(QString module) // Load world
 	register unsigned int i;
 
 	// Load Chars
-	archive->prepareReading( "chars" );
-	clConsole.send("Loading Characters %i...\n", archive->size());
-	progress_display progress(archive->size());
-	for ( i = 0; i < archive->size(); ++progress, ++i)
+	clConsole.send("Loading Items and Characters[%i]...\n", archive->size());
+	QSqlCursor cursor("uobjectmap");
+	progress_display progress(cursor.size());
+	for ( cursor.select(); cursor.next(); )
 	{
-		archive->readObjectID(objectID);
-		P_CHAR pc = NULL;
-		if ( objectID == "CHARACTER" )
+		cUObject* object = UObjectFactory::instance()->createObject( cursor.value("type").toString() );
+		if ( !object )
 		{
-			pc = new cChar;
-			pc->Init(false);
+			qWarning(QString("Warning: Unrecognized class type %1, object serial == %2 will not be loaded.").arg(cursor.value("type").toString()).arg(cursor.value("serial").toString()) );
+			continue;
 		}
-		else
-			continue; // Something went wrong and we have an NULL pointer
-		archive->readObject( pc );
-		cCharsManager::getInstance()->registerChar( pc );
-		int zeta;
-		for (zeta = 0;zeta<ALLSKILLS;zeta++) if (pc->lockSkill(zeta)!=0 && pc->lockSkill(zeta)!=1 && pc->lockSkill(zeta)!=2) pc->setLockSkill(zeta,0);
-
-		//AntiChrist bugfix for hiding
-//		pc->priv2 &= 0xf7; // unhide - AntiChrist
-		pc->setPriv2(pc->priv2() & 0xf7);
-		pc->setHidden( 0 );
-		pc->setStealth( -1 );
-
-		//AntiChrist bugfix for magic reflect
-//		pc->priv2 &= 0xBF;
-		pc->setPriv2(pc->priv2() & 0xBF);
-		pc->SetSpawnSerial( pc->spawnSerial() );
-
-		pc->setRegion( cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y ) );
-
-		pc->setAntispamtimer( 0 );   //LB - AntiSpam -
-		pc->setAntiguardstimer( 0 ); //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn
-
-		if (pc->id() <= 0x3e1)
-		{
-			unsigned short k = pc->id();
-			unsigned short c1 = pc->skin();
-			unsigned short b = c1&0x4000;
-			if ((b == 16384 && (k >=0x0190 && k<=0x03e1)) || c1==0x8000)
-			{
-				if (c1!=0xf000)
-				{
-					pc->setSkin( 0xF000 );
-					pc->setXSkin( 0xF000 );
-					clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name.c_str(),pc->serial);
-				}
-			}
-		} 
-		else	// client crashing body --> delete if non player esle put onl”x a warning on server screen
-			// we dont want to delete that char, dont we ?
-		{
-			if (pc->account() == 0)
-			{
-				cCharStuff::DeleteChar(pc);
-			} 
-			else
-			{
-				pc->setId(0x0190);
-				clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name.c_str());
-			}
-		}
-
-		if(pc->stablemaster_serial() == INVALID_SERIAL)
-		{ 
-			cMapObjects::getInstance()->add(pc); 
-		} 
-		else
-			stablesp.insert(pc->stablemaster_serial(), pc->serial);
-
-		if (pc->isPlayer() && pc->account() == 0) pc->setMenupriv(-1);
-
-
-		int max_x = Map->mapTileWidth(pc->pos.map) * 8;
-		int max_y = Map->mapTileHeight(pc->pos.map) * 8;
-		if( ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account() ==0) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account() == 0))
-			&& !( pc->pos.x == 0 && pc->pos.y == 0 && pc->pos.z == 0 ) ) // the last are mounted animals
-		// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
-		{
-			cCharStuff::DeleteChar(pc); //character in an invalid location
-		}
-		if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account() != 0) || (( pc->pos.x>max_x || pc->pos.y>max_y ) && pc->account() !=0))
-		// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account !=-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account!=-1))
-		{
-			Coord_cl pos(pc->pos);
-			pos.x = 900;
-			pos.y = 300;
-			pos.z = 30;
-			pc->moveTo(pos); //player in an invalid location
-		}
-		setcharflag(pc);//AntiChrist
+		object->load( cursor.value("serial").toString() );
 	}
 	clConsole.send(" Done.\n");
-	archive->close();
-	delete archive;
-
-	SERIAL newCont;
-
-	// Load Items
-	archive = cPluginFactory::serializationArchiver(module);
-
-	archive->prepareReading( "items" ); // Load Items
-	clConsole.send( "Loading Items %i...\n", archive->size() );
-	progress.restart(archive->size());
-	for ( i = 0; i < archive->size(); ++progress, ++i )
-	{
-		archive->readObjectID(objectID);
-		P_ITEM pi = NULL;
-		if ( objectID == "ITEM" )
-		{
-			pi = new cItem;
-		} 
-		else if ( objectID == "HOUSE" )
-		{
-			pi = dynamic_cast<P_ITEM>(new cHouse);
-		}
-		else if ( objectID == "BOAT" )
-		{
-			pi = dynamic_cast<P_ITEM>(new cBoat);
-		}
-		else if ( objectID == "BOOK" )
-		{
-			pi = dynamic_cast<P_ITEM>(new cBook);
-		}
-		else if ( objectID == "GUILDSTONE" )
-		{
-			pi = dynamic_cast<P_ITEM>(new cGuildStone);
-		}
-		else if( objectID == "CORPSE" )
-		{
-			pi = dynamic_cast<P_ITEM>(new cCorpse);
-		}
-		else if( objectID == "SPELLBOOK" )
-		{
-			pi = dynamic_cast<P_ITEM>(new cSpellBook);
-		}
-		else // somethine went wrong and we have a NULL pointer.
-			continue; 
-
-		pi->Init( false );
-		archive->readObject( pi );
-		cItemsManager::getInstance()->registerItem( pi );
-		if( objectID == "GUILDSTONE" ) // register as guild as well
-			guilds.push_back(pi->serial);
-		pi->timeused_last = getNormalizedTime();
-
-		// Set the outside indices
-		pi->SetSpawnSerial( pi->spawnserial );
-		pi->setContSerial( pi->contserial );
-		pi->SetOwnSerial( pi->ownserial );
-
-		if( pi->maxhp() == 0) 
-			pi->setMaxhp( pi->hp() );
-
-		// Tauriel adding region pointers
-		if (pi->isInWorld())
-		{
-			int max_x = Map->mapTileWidth(pi->pos.map) * 8;
-			int max_y = Map->mapTileHeight(pi->pos.map) * 8;
-			if (pi->pos.x>max_x || pi->pos.y>max_y) 
-			{
-				Items->DeleItem(pi);	//these are invalid locations, delete them!
-			}
-			else
-				cMapObjects::getInstance()->add(pi);
-		}
-	}
-	clConsole.send(" Done.\n");
-	archive->close();
-	delete archive;
 
 	// Load Temporary Effects
 	archive = cPluginFactory::serializationArchiver(module);
@@ -364,7 +203,7 @@ void CWorldMain::savenewworld(QString module)
 
 
 	cItemsSaver ItemsThread(module);
-	ItemsThread.start();
+	ItemsThread.run(); // thread disabled for now.
 
 	SrvParams->flush();
 	if (SrvParams->serverLog()) savelog("Server data save\n","server.log");
@@ -374,7 +213,8 @@ void CWorldMain::savenewworld(QString module)
 	AllCharsIterator iterChars;
 	for (iterChars.Begin(); !iterChars.atEnd(); ++iterChars)
 	{
-		archive->writeObject( iterChars.GetData() );
+//		archive->writeObject( iterChars.GetData() );
+		persistentBroker->saveObject(iterChars.GetData());
 	}
 	archive->close();
 	delete archive;
@@ -390,7 +230,7 @@ void CWorldMain::savenewworld(QString module)
 	Accounts->save();
 	clConsole.ProgressDone();
 	
-	ItemsThread.join();
+//	ItemsThread.join();
 
 	if ( announce() )
 	{

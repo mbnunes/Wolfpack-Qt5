@@ -74,6 +74,7 @@
 #include "Python.h"
 #include "python/engine.h"
 #include "newmagic.h"
+#include "persistentbroker.h"
 
 // Library Includes
 #include "qapplication.h"
@@ -1164,7 +1165,7 @@ void checkkey ()
 				if ( !cwmWorldState->Saving() )
 				{
 					clConsole.send( "Saving worldfile...");
-					cwmWorldState->savenewworld(SrvParams->worldSaveModule());
+					cwmWorldState->savenewworld("binary");
 					SrvParams->flush();
 					clConsole.send( "Done!\n");
 				}
@@ -1209,7 +1210,7 @@ void checkkey ()
 				{
 					if(perm[i]) //Keeps NPC's from appearing on the list
 					{
-						clConsole.send("%i) %s [%x]\n", j, currchar[i]->name.c_str(), currchar[i]->serial);
+						clConsole.send("%i) %s [%x]\n", j, currchar[i]->name.latin1(), currchar[i]->serial);
 						j++;
 					}
 				}
@@ -1431,15 +1432,15 @@ int main( int argc, char *argv[] )
 	CIAO_IF_ERROR;
 
 	// Try to cache the tiledata.mul
+	clConsole.PrepareProgress("Loading tile cache");
 	if( !cTileCache::instance()->load( SrvParams->mulPath() ) )
 	{
 		error = 1;
 		CIAO_IF_ERROR;
 	}
 
-
-//	Map->Cache = SrvParams->cacheMulFiles();
 	cAllTerritories::getInstance()->load();
+	clConsole.ProgressDone();
 
 	CIAO_IF_ERROR;
 
@@ -1453,6 +1454,31 @@ int main( int argc, char *argv[] )
 		
 	srand(uiCurrentTime); // initial randomization call
 
+	clConsole.PrepareProgress("Openning database drivers and connection");
+	if (!persistentBroker->openDriver(SrvParams->databaseDriver()))
+	{
+		clConsole.ProgressFail();
+		qWarning("Error trying to load Database Driver");
+		clConsole.ChangeColor( WPC_RED );
+		clConsole.send("WARNING: Saving and loading of worldfile is disabled!");
+		clConsole.ChangeColor( WPC_NORMAL );
+	}
+	else if ( !persistentBroker->connect(SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword()) )
+	{
+		clConsole.ProgressFail();
+		qWarning("Error trying to connect to database");
+		QSqlError e = persistentBroker->driver()->lastError();
+		qWarning(QString("Database error response: %1").arg(e.databaseText()));
+		qWarning(QString("Driver error response: %1").arg(e.driverText()));
+		clConsole.ChangeColor( WPC_RED );
+		clConsole.send("WARNING: Saving and loading of worldfile is disabled!");
+		clConsole.ChangeColor( WPC_NORMAL );
+
+	}
+	else
+		clConsole.ProgressDone();
+	
+
 	clConsole.send("\nLoading vital scripts:\n");
 	
 //	read_in_teleport();
@@ -1460,7 +1486,12 @@ int main( int argc, char *argv[] )
 
 	serverstarttime = getNormalizedTime();
 
-	cwmWorldState->loadnewworld(SrvParams->worldSaveModule());
+	// Registers our Built-in types into factory.
+	cChar::registerInFactory();
+	cItem::registerInFactory();
+	cBook::registerInFactory();
+
+	cwmWorldState->loadnewworld("binary");
 	CIAO_IF_ERROR; // LB prevents file corruption
 
 	cAllSpawnRegions::getInstance()->load();
@@ -1598,7 +1629,7 @@ int main( int argc, char *argv[] )
 					
 					)
 				{
-					clConsole.send("Player %s disconnected due to inactivity !\n", currchar[r]->name.c_str());
+					clConsole.send("Player %s disconnected due to inactivity !\n", currchar[r]->name.latin1());
 					//sysmessage(r,"you have been idle for too long and have been disconnected!");
 					char msg[3];
 					msg[0]=0x53;
@@ -1673,7 +1704,7 @@ int main( int argc, char *argv[] )
 	NewMagic->unload();
 	
 	gcollect();		// cleanup before saving, especially items of deleted chars (Duke, 10.1.2001)
-	cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
+	cwmWorldState->savenewworld( "binary" );
 
 	clConsole.PrepareProgress( "Closing sockets" );
 	cNetwork::shutdown();
@@ -4084,6 +4115,7 @@ void StartClasses(void)
 	DefManager		= NULL;
 	SrvParams		= NULL;
 	NewMagic		= NULL;
+	persistentBroker = 0;
 
 	// Classes nulled now, lets get them set up :)
 	SrvParams		= new cSrvParams("wolfpack.xml", "Wolfpack", "1.0");
@@ -4106,6 +4138,7 @@ void StartClasses(void)
 	ScriptManager	= new WPScriptManager;
 	DefManager		= new WPDefManager;
 	NewMagic		= new cNewMagic;
+	persistentBroker = new PersistentBroker;
 	
 	clConsole.ProgressDone();
 }

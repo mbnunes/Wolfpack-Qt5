@@ -78,6 +78,9 @@ protected:
 	void	processModifierNode( const QDomElement &Tag );
 public:
 	virtual void	talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
+	void save( const QString& = QString::null );
+	void load( const QString& = QString::null );
+	bool del ( const QString& = QString::null );
 
 	void	processContainerNode( const QDomElement &Tag );
 	virtual void update( cUOSocket *mSock = NULL );
@@ -156,9 +159,8 @@ public:
 
 	cItem() { totalweight_ = 0; };
 	cItem( cItem& src); // Copy constructor
-	virtual ~cItem() {}
-	virtual void Serialize( ISerialization &archive );
 	virtual QString objectID() const;
+	static void registerInFactory();
 
 	bool wearOut(); // The item wears out and true is returned if it's destroyed
 	P_ITEM	getCorpse( void ); // Get the corpse this item is in
@@ -221,7 +223,7 @@ public:
 	// RANK 1 ---> 1*10=10% this item has 90% of malus!
 	// RANK 10 --> 10*10=100% this item has no malus! RANK 10 is automatically setted if you select RANKSYSTEM 0.
 	// Vars: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
-	string creator; // Store the name of the player made this item -- Magius(CHE)
+	QString creator; // Store the name of the player made this item -- Magius(CHE)
 	int good; // Store type of GOODs to trade system! (Plz not set as UNSIGNED)  --- Magius(CHE)
 	int rndvaluerate; // Store the value calculated base on RANDOMVALUE in region.scp. ---- MAgius(CHE) (2)
 	int madewith; // Store the skills used to make this item -- Magius(CHE)
@@ -242,7 +244,7 @@ public:
 	unsigned short glow_color; // for backup of old color
 	unsigned char glow_effect; 
 	
-	string desc;
+	QString desc;
 	
 	bool incognito; //AntiChrist - for items under incognito effect
 	// ^^ NUTS !! - move that to priv

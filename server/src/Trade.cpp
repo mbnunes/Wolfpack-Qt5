@@ -194,7 +194,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 	}
 
 	socket->send( &clearBuy );
-	pVendor->talk( tr( "Thank you %1, this makes %2 gold" ).arg( pChar->name.c_str() ).arg( totalValue ) );
+	pVendor->talk( tr( "Thank you %1, this makes %2 gold" ).arg( pChar->name.latin1() ).arg( totalValue ) );
 
 	if( pChar->takeGold( totalValue, true ) < totalValue )
 		clConsole.send( QString( "Player 0x%1 payed less than he should have to vendor 0x%2" ).arg( pChar->serial, 8, 16 ).arg( pVendor->serial, 8, 16 ) );
@@ -248,7 +248,7 @@ void cTrade::sellaction(int s)
 		}
 		if (maxsell>SrvParams->sellmaxitem())
 		{
-			pc_n->talk( tr("Sorry %1 but i can buy only %2 items at time!").arg(currchar[s]->name.c_str()).arg(SrvParams->sellmaxitem()), -1, 0 );
+			pc_n->talk( tr("Sorry %1 but i can buy only %2 items at time!").arg(currchar[s]->name.latin1()).arg(SrvParams->sellmaxitem()), -1, 0 );
 			return;
 		}
 
@@ -365,14 +365,14 @@ P_ITEM cTrade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
 	trade.setPartner( pChar->serial );
 	trade.setBox1( box1 );
 	trade.setBox2( box2 );
-	trade.setName( pChar->name.c_str() );
+	trade.setName( pChar->name.latin1() );
 	pPlayer->socket()->send( &trade );
 
 	// To the other
 	trade.setPartner( pPlayer->serial );
 	trade.setBox1( box2 );
 	trade.setBox2( box1 );
-	trade.setName( pPlayer->name.c_str() );
+	trade.setName( pPlayer->name.latin1() );
 	pChar->socket()->send( &trade );
 
 	return FindItemBySerial( box1 );
@@ -390,13 +390,13 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	if (pi_bps == NULL) //LB
 	{
 		sysmessage(s, "Time to buy a backpack!");
-		sysmessage(s2, "%s doesnt have a backpack!", pc_currchar->name.c_str());
+		sysmessage(s2, "%s doesnt have a backpack!", pc_currchar->name.latin1());
 		return 0;
 	}
 	if (pi_bpi == NULL)
 	{
 		sysmessage(s2, "Time to buy a backpack!");
-		sysmessage(s, "%s doesnt have a backpack!", pc_i->name.c_str());
+		sysmessage(s, "%s doesnt have a backpack!", pc_i->name.latin1());
 		return 0;
 	}
 
@@ -443,7 +443,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	LongToCharPtr(pi_ps->serial,msg+8);
 	LongToCharPtr(pi_pi->serial,msg+12);
 	msg[16]=1;
-	strcpy((char*)&(msg[17]), pc_i->name.c_str());
+	strcpy((char*)&(msg[17]), pc_i->name.latin1());
 	Xsend(s, msg, 47);
 
 	if (s2 != INVALID_UOXSOCKET)
@@ -456,7 +456,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 		LongToCharPtr(pi_pi->serial,msg+8);
 		LongToCharPtr(pi_ps->serial,msg+12);
 		msg[16]=1;
-		strcpy((char*)&(msg[17]), pc_currchar->name.c_str());
+		strcpy((char*)&(msg[17]), pc_currchar->name.latin1());
 
 		Xsend(s2, msg, 47);
 	}

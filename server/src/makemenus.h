@@ -109,9 +109,9 @@ public:
 	virtual void processNode( const QDomElement &Tag );
 
 	// Getters
-	UINT8		skillid()	{ return skillid_; }
-	UINT16		min()		{ return min_; }
-	UINT16		max()		{ return max_; }
+	UINT8		skillid()		{ return skillid_; }
+	UINT16		minimum()		{ return min_; }
+	UINT16		maximum()		{ return max_; }
 
 	bool		skilledEnough( cChar* pChar );
 	void		applySkillMod( float skillmod );

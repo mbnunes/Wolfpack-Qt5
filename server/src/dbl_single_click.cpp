@@ -293,7 +293,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					if( pc_currchar->isHuman() )
 						pc_currchar->action( 0x20 );
 
-					pc_currchar->emote( tr( "*%1 loots the body of %2*" ).arg( pc_currchar->name.c_str() ).arg( pi->name2() ), 0x26 );
+					pc_currchar->emote( tr( "*%1 loots the body of %2*" ).arg( pc_currchar->name ).arg( pi->name2() ), 0x26 );
 				}
 
 				pc_currchar->setObjectDelay( 0 );
@@ -753,7 +753,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						pc_vendor->SetOwnSerial(pc_currchar->serial);
 						pc_vendor->setTamed(false);
 						Items->DeleItem(pi);
-						pc_vendor->talk( tr("Hello sir! My name is %1 and i will be working for you.").arg(pc_vendor->name.c_str()), -1, 0 );
+						pc_vendor->talk( tr("Hello sir! My name is %1 and i will be working for you.").arg(pc_vendor->name), -1, 0 );
 						updatechar( pc_vendor );
 						pc_vendor->update();
 					}

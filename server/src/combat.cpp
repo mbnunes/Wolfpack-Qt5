@@ -255,10 +255,10 @@ namespace Combat
 				// NOTE: There should be a random chance that this
 				// message appears *or* a flag to set
 				if( pAttacker->socket() )
-					pAttacker->socket()->sysMessage( tr( "You miss %1" ).arg( pDefender->name.c_str() ) );
+					pAttacker->socket()->sysMessage( tr( "You miss %1" ).arg( pDefender->name.latin1() ) );
 
 				if( pDefender->socket() )
-					pDefender->socket()->sysMessage( tr( "%1 misses you" ).arg( pAttacker->name.c_str() ) );
+					pDefender->socket()->sysMessage( tr( "%1 misses you" ).arg( pAttacker->name.latin1() ) );
 
 				if( pAttacker->isPlayer() )
 					playMissedSoundEffect( pAttacker );
@@ -553,9 +553,9 @@ namespace Combat
 			}
 
 			if( pAttacker->socket() )
-				pAttacker->socket()->sysMessage( attMessage.arg( pDefender->name.c_str() ) );
+				pAttacker->socket()->sysMessage( attMessage.arg( pDefender->name.latin1() ) );
 			if( pDefender->socket() )
-				pDefender->socket()->sysMessage( defMessage.arg( pAttacker->name.c_str() ) );
+				pDefender->socket()->sysMessage( defMessage.arg( pAttacker->name.latin1() ) );
 
 			// Stamina Loss
 			if( ( fightskill == MACEFIGHTING ) && ( IsSpecialMace( pItem->id() ) ) && pDefender->isPlayer() )
@@ -935,7 +935,7 @@ namespace Combat
 						
 						if( SrvParams->pvpLog() )
 						{
-							sprintf((char*)temp,"%s was killed by %s!\n",pDefender->name.c_str(), pAttacker->name.c_str());
+							sprintf((char*)temp,"%s was killed by %s!\n",pDefender->name.latin1(), pAttacker->name.latin1());
 							savelog((char*)temp,"PvP.log");
 						}
 					}
