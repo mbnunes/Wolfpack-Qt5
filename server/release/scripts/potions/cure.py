@@ -4,6 +4,7 @@ from wolfpack.consts import ANIM_FIDGET3, SOUND_DRINK1, MAGERY, ALCHEMY
 from potions.consts import *
 from potions.utilities import consumePotion, canUsePotion
 from system import poison
+from random import random
 
 
 # Cure Potions
