@@ -36,11 +36,14 @@
 #include "typedefs.h"
 #include "coord.h"
 #include "mstring.h"
-#include "WPDefaultScript.h"
+//#include "WPDefaultScript.h"
 
 // System includes
 #include <string>
 #include <vector>
+
+// Library includes
+#include "qstring.h"
 
 // Forward class declarations
 class ISerialization;

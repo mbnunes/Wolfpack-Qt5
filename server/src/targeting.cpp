@@ -39,6 +39,8 @@
 #include "guildstones.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "wpdefmanager.h"
+#include "wpscriptmanager.h"
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"

@@ -38,7 +38,8 @@
 #include "gumps.h"
 #include "guildstones.h"
 #include "srvparams.h"
-#include "MenuActions.h"
+#include "menuactions.h"
+#include "wpdefmanager.h"
 
 #include "debug.h"
 

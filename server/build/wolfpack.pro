@@ -4,11 +4,11 @@
 #
 #
 
-PROJECT         = Wolfpack Emu
+PROJECT         = wolfpack
 TARGET          = wolfpack
 TEMPLATE        = app
 CONFIG          = console debug thread
-INCLUDEPATH     = lib/ZThread/include lib/wrl/include
+INCLUDEPATH     = lib/ZThread/include lib/wrl/include lib/Python/include
 DEFINES         = REENTRANT ZTHREAD_STATIC NDEBUG
 win32:DEFINES  += WIN32 
 win32:OBJECTS_DIR = obj
@@ -56,7 +56,6 @@ HEADERS         = Client.h \
 		  guildstones.h \
 		  gumps.h \
 		  hCache.h \
-		  hFile.h \
 		  im.h \
 		  inlines.h \
                   iserialization.h \
@@ -82,9 +81,6 @@ HEADERS         = Client.h \
                   srvparams.h \
                   serxmlfile.h \
                   serbinfile.h \
-		  stl_headers_end.h \
-		  stl_headers_start.h \
-		  storage.h \
 		  stream.h \
 		  structs.h \
 		  targeting.h \

@@ -58,6 +58,8 @@
 #include "combat.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "wpdefmanager.h"
+#include "wpscriptmanager.h"
 
 // Library Includes
 #include "qapplication.h"
@@ -304,6 +306,7 @@ void init_deamon()
 	
 #endif
 }
+
 
 unsigned int dist(Coord_cl &a, Coord_cl &b) // Distance between position a and b
 {

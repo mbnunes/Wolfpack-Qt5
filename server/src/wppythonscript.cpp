@@ -16,11 +16,11 @@
 #define PyHasMethodVoid(a) if( !PyObject_HasAttr( codeModule, PyString_FromString( a ) ) ) return;
 
 // Setting and getting item properties
-#define setItemIntProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Item->##property = PyInt_AS_LONG( value );
-#define setItemStrProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Item->##property = PyString_AS_STRING( value );
+#define setItemIntProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Item->property = PyInt_AS_LONG( value );
+#define setItemStrProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Item->property = PyString_AS_STRING( value );
 
-#define getItemIntProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyInt_FromLong( self->Item->##property );
-#define getItemStrProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyString_FromString( self->Item->##property );
+#define getItemIntProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyInt_FromLong( self->Item->property );
+#define getItemStrProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyString_FromString( self->Item->property );
 
 // If an error occured, report it
 inline void PyReportError( void )
@@ -49,6 +49,9 @@ inline PyObject* PyGetCharObject( P_CHAR Char )
 	return (PyObject*)returnVal;
 }
 
+//////////////////////////////////////////////////////////////////////
+// Konstruktion/Destruktion
+//////////////////////////////////////////////////////////////////////
 
 // Find our module name
 void WPPythonScript::load( const QDomElement &Data )

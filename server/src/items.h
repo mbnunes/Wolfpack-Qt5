@@ -34,7 +34,7 @@
 
 //#include "wolfpack.h" //for now.
 
-#include "WPDefaultScript.h"
+//#include "WPDefaultScript.h"
 #include "uobject.h"
 #include "defines.h"
 

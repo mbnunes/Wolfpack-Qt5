@@ -40,6 +40,7 @@
 #include "regions.h"
 #include "junk.h"
 #include "defines.h"
+#include "wpdefaultscript.h"
 
 // Debug includes and defines
 #undef  DBGFILE

@@ -55,14 +55,16 @@ using namespace std;
 
 class Script;
 class QDateTime;
+class WPScriptManager;
+class WPDefManager;
 
 //Wolfpack Includes
 
 #include "structs.h"
 #include "verinfo.h"
 #include "storage.h"
-#include "WPScriptManager.h"
-#include "WPDefManager.h"
+//#include "wpscriptmanager.h"
+//#include "wpdefmanager.h"
 
 // Global Variables
 //	Instantiate our console object

@@ -35,8 +35,8 @@
 #include "tilecache.h"
 #include "verinfo.h"
 #include "walking2.h"
-#include "WPScriptManager.h"
-#include "WPDefManager.h"
+#include "wpscriptmanager.h"
+#include "wpdefmanager.h"
 
 #if defined(__unix__)
 termios termstate ;

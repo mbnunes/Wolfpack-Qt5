@@ -9,8 +9,8 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "WPDefaultScript.h"
-#include "WPPythonScript.h"
+#include "wpdefaultscript.h"
+#include "wppythonscript.h"
 
 #include <map>
 #include <string>

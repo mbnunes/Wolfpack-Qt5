@@ -91,7 +91,7 @@ using namespace std;
 
 #include "inlines.h"
 
-#include "WPScriptManager.h" // Script System
+//#include "WPScriptManager.h" // Script System
 
 #endif // __WOLFPACK_H
 

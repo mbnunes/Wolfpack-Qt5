@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "wolfpack.h"
-#include "WPDefManager.h"
+#include "wpdefmanager.h"
 #include <qdom.h>
 #include <qfile.h>
 

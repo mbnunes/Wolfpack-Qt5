@@ -19,3 +19,4 @@ void playSkillSound( UOXSOCKET Socket, UI08 Skill, bool Success );
 UI08 calcRank( P_CHAR Character, UI08 Skill, UI08 MinSkill, UI08 MaxSkill );
 
 #endif
+

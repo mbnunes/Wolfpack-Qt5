@@ -43,6 +43,8 @@
 #include "books.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "wpdefmanager.h"
+#include "wpdefaultscript.h"
 
 #undef  DBGFILE
 #define DBGFILE "items.cpp"

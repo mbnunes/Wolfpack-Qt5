@@ -42,6 +42,7 @@
 #include "combat.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "wpscriptmanager.h"
 
 #undef DBGFILE
 #define DBGFILE "skills.cpp"

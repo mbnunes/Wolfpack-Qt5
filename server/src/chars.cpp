@@ -38,7 +38,7 @@
 
 
 // Wolfpack includes
-#include "WPDefaultScript.h"
+#include "wpdefaultscript.h"
 #include "chars.h"
 #include "charsmgr.h"
 #include "items.h"
