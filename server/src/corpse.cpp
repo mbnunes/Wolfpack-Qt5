@@ -50,8 +50,8 @@ void cCorpse::Serialize( ISerialization &archive )
 		{
 			UINT8 eLayer;
 			UINT32 eSerial;
-			archive.read( QString( "equiplayer%1" ).arg( i ), eLayer );
-			archive.read( QString( "equipitem%1" ).arg( i ), eSerial );
+			archive.read( (char*)QString( "equiplayer.%1" ).arg( i ).latin1(), eLayer );
+			archive.read( (char*)QString( "equipitem.%1" ).arg( i ).latin1(), eSerial );
 			equipment_.insert( make_pair( eLayer, eSerial ) );
 		}
 	}
@@ -67,9 +67,9 @@ void cCorpse::Serialize( ISerialization &archive )
 		UINT8 i = 0;
 		for( map< UINT8, SERIAL >::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 		{
-			archive.write( QString( "equiplayer%1" ).arg( i ), it->first );
-			archive.write( QString( "equipitem%1" ).arg( i ), it->second );
-			i++;
+			archive.write( (char*)QString( "equiplayer.%1" ).arg( i ).latin1(), it->first );
+			archive.write( (char*)QString( "equipitem.%1" ).arg( i ).latin1(), it->second );
+			++i;
 		}
 	}
 

@@ -54,7 +54,6 @@ typedef unsigned char		LIGHTLEVEL;
 typedef unsigned char		SECONDS;
 typedef int					ITEM;
 typedef int					SERIAL;
-typedef unsigned int		RACE;
 typedef	cItem *				P_ITEM;
 typedef const cItem *		PC_ITEM;
 typedef cChar *				P_CHAR;
@@ -71,6 +70,18 @@ enum WPPAGE_TYPE
 {
 	PT_GM = 0,
 	PT_COUNSELOR
+};
+
+enum enBodyParts
+{
+	ALL = 0,
+	LEGS,
+	BODY,
+	ARMS,
+	HANDS,
+	NECK,
+	HEAD,
+	DEADLY
 };
 
 #endif

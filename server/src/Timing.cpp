@@ -266,9 +266,9 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 	Magic->CheckFieldEffects2( currenttime, pc, 1 ); 
 	
 	if( !pc->dead() && pc->swingtarg() == -1 )
-		Combat->DoCombat( pc, currenttime );
+		Combat::combat( pc );
 	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout <= currenttime ) )
-		Combat->CombatHitCheckLoS( pc, currenttime );
+		Combat::checkandhit( pc );
 
 	// Guess it was taken out because of traffic-concerns ?
 /*	if (wtype==1 && raindroptime<=currenttime && !noweather[s]) // implment. of xuri's raindrop idea, LB
@@ -549,10 +549,10 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	Movement->NpcMovement( currenttime, pc );
     setcharflag( pc );
 
-	if( !pc->dead() && pc->swingtarg() == -1 )
-		Combat->DoCombat( pc, currenttime );
+	if( !pc->dead() && pc->swingtarg() == -1 && pc->war() )
+		Combat::combat( pc );
 	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout <= currenttime ) )
-		Combat->CombatHitCheckLoS(pc,currenttime);
+		Combat::checkandhit( pc );
 
 	Magic->CheckFieldEffects2( currenttime, pc, 0 );
 

@@ -1326,7 +1326,7 @@ void callguards( P_CHAR pc_player )
 		{
 			if( !pc->dead() && !pc->isInnocent() && pc_player->inRange( pc, 14 ) )
 			{
-				Combat->SpawnGuard( pc, pc, pc->pos );
+				Combat::spawnGuard( pc, pc, pc->pos );
 			}
 		}
 	}
@@ -4321,7 +4321,6 @@ void StartClasses(void)
 // NULL Classes out first....
 	cwmWorldState	= NULL;
 	Accounts		= NULL;
-	Combat			= NULL;
 	Items			= NULL;
 	Map				= NULL;
 	Npcs			= NULL;
@@ -4341,7 +4340,6 @@ void StartClasses(void)
 	SrvParams		= new cSrvParams("wolfpack.xml", "Wolfpack", "1.0");
 	cwmWorldState	= new CWorldMain;
 	Accounts		= new cAccounts;
-	Combat			= new cCombat;
 	Items			= new cAllItems;
 	Map				= new cMapStuff ( SrvParams->mulPath());
 	Npcs			= new cCharStuff;
@@ -4369,7 +4367,6 @@ void DeleteClasses()
 	delete SrvParams;
 	delete cwmWorldState;
 	delete Accounts;
-	delete Combat;
 	delete Items;
 	delete Map;
 	delete Npcs;

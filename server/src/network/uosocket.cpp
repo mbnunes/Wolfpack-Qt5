@@ -359,6 +359,9 @@ void cUOSocket::disconnect( void )
 		}
 //		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 //			if( mSock != this && SrvParams->joinMsg() && mSock->player() && mSock->player()->isGMorCounselor() )
+//				mSock->sysMessage( tr("%1 left the world!").arg( _player->name.c_str() ), 0x25 );
+
+
 		_player->setSocket( NULL );
 	}
 
@@ -1216,7 +1219,7 @@ void cUOSocket::sendPaperdoll( P_CHAR pChar )
 */
 void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 {
-	_player->targ = INVALID_SERIAL;
+//	_player->targ = INVALID_SERIAL;  
 	_player->setWar( packet->warmode() );
 
 	cUOTxWarmode warmode;
@@ -1596,12 +1599,12 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		if( pc_i->isPlayer() && pc_i->isInnocent() && GuildCompare( _player, pc_i ) == 0 ) //REPSYS
 		{
 			criminal( _player );
-			Combat->SpawnGuard( _player, pc_i, _player->pos );
+			Combat::spawnGuard( _player, pc_i, _player->pos );
 		}
 		else if( pc_i->isNpc() && pc_i->isInnocent() && !pc_i->isHuman() && pc_i->npcaitype() != 4 )
 		{
 			criminal( _player );
-			Combat->SpawnGuard( _player, pc_i, _player->pos );
+			Combat::spawnGuard( _player, pc_i, _player->pos );
 		}
 		else if( pc_i->isNpc() && pc_i->isInnocent() && pc_i->isHuman() && pc_i->npcaitype() != 4 )
 		{
@@ -1838,7 +1841,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	cUOTxSendStats sendStats;
 
 	// TODO: extended packet information
-	sendStats.setFullMode( pChar == _player, _version.left(2) == "3." );
+	sendStats.setFullMode( pChar == _player, _version.left(1).toInt() == 3 );
 
 	sendStats.setAllowRename( _player->Owns( pChar ) || _player->isGM() );
 	
@@ -1860,9 +1863,9 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setIntelligence( pChar->in() );
 		sendStats.setWeight( pChar->weight() );
 		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
-		sendStats.setArmor( Combat->CalcDef( pChar, 0 ) ); // TODO: Inaccurate	
+		sendStats.setArmor( pChar->calcDefense( ALL ) );
 		sendStats.setSex( true );
-		if( _version.left(2) == "3." )
+		if( _version.left(1).toInt() == 3 )
 		{
 			std::vector< SERIAL > vecContainer = ownsp.getData( pChar->serial );
 			sendStats.setPets( vecContainer.size() );

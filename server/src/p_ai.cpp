@@ -173,7 +173,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						continue;
 
 					// If the distance is below the minimal distance we found
-					if( ( Victim == NULL ) || ( minDist > d ) )
+					if( ( ( Victim == NULL ) || ( minDist > d ) ) && !pc->isGMorCounselor() )
 					{
 						Victim = pc;
 						minDist = d;
@@ -201,7 +201,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 				}
 
 				// We found a victim
-				if( Victim && !Victim->isGMorCounselor() )
+				if( Victim )
 					pc_i->attackTarget( Victim );
 
 				return;

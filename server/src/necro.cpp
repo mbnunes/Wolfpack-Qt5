@@ -55,7 +55,10 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 //	int cc = currchar[nSocket];
 	cChar* Player = currchar[nSocket];
 
-	cItem* Weapon = Player->getWeapon(); // search for a dagger in the players hand
+	cItem* Weapon = Player->rightHandItem(); // search for a dagger in the players hand
+	if( !Weapon )
+		Weapon = Player->leftHandItem();
+
 	if (!Weapon || !IsDagger(Weapon->id()) )
 	{
 		sysmessage(nSocket,"You do not have a dagger equipped.");

@@ -38,6 +38,7 @@
 #include "../junk.h"
 #include "../classes.h"
 #include "../skills.h"
+#include "../combat.h"
 
 extern cCharStuff *Npcs;
 
@@ -369,7 +370,11 @@ PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
-	return PyInt_FromLong( Skills->GetCombatSkill( self->pChar ) );
+	P_ITEM pi = self->pChar->rightHandItem();
+	if( !pi )
+		pi = self->pChar->leftHandItem();
+
+	return PyInt_FromLong( Combat::weaponSkill( pi ) );
 }
 
 /*!
@@ -542,8 +547,6 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else pGetInt( "id", id() )
 	else pGetInt( "xid", xid() )
     
-	else if ( !strcmp( name, "race" ) )
-		return PyInt_FromLong( self->pChar->race() );
 	else pGetInt( "dir", dir() )
 
 	// Flags

@@ -59,7 +59,6 @@ protected:
 	UI16		type2_;
 	UI08		offspell_; // Whats that for ?!
 	SI16		speed_;
-	SI16		racehate_; 
 	SI16		weight_;
 	SI16		hp_;
 	SI16		maxhp_;
@@ -68,6 +67,7 @@ protected:
 	INT32		totalweight_;
 	QString		carve_;
 	unsigned int	antispamtimer_;
+	UI16		accuracy_;	// for weapons, could be used for certain tools too.
 
 	// More values
 	UI08 moreb1_;
@@ -103,7 +103,6 @@ public:
 	SI16			lodamage()		const { return lodamage_; }		// Minimum damage weapon inflicts
 	SI16			hidamage()		const { return hidamage_; }		// Maximum damage weapon inflicts
 	bool			wipe()			const { return priv&0x10; }		// Should the item be wiped when affected by /WIPE
-	SI16			racehate()		const { return racehate_; }		// Race ID this weapon does double damage to
 	SI16			weight()		const { return weight_; }
 	SI16			stones()		const { return (SI16)( weight_ / 10 ); } // Weight transformed to UO Stones
 	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
@@ -120,6 +119,7 @@ public:
 	INT32			totalweight()	const { return totalweight_; }
 	QString			carve()			const { return carve_; }
 	unsigned int	antispamtimer() const { return antispamtimer_;}
+	UI16			accuracy()		const { return accuracy_; }		// for weapons, could be used for certain tools too.
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -140,7 +140,6 @@ public:
 	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; };
 	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; };
 	void	setWipe( bool nValue ) { ( nValue ) ? priv &= 0x10 : priv |= 0xEF; };
-	void	setRacehate( SI16 nValue ) { racehate_ = nValue; };
 	void	setWeight( SI16 nValue );
 	void	setHp( SI16 nValue ) { hp_ = nValue; };
 	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; };
@@ -154,8 +153,9 @@ public:
 	void	setNewbie( bool nValue ) { ( nValue ) ? priv |= 0x02 : priv &= 0xFD; }
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( INT32 data );
-	void	setCarve( QString data ) { carve_ = data; };
+	void	setCarve( QString data ) { carve_ = data; }
 	void	setAntispamtimer ( unsigned int data ) { antispamtimer_ = data;}
+	void	setAccuracy( UI16 data ) { accuracy_ = data; }
 
 	cItem() { totalweight_ = 0; };
 	cItem( cItem& src); // Copy constructor

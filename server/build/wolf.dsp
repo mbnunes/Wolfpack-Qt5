@@ -449,6 +449,10 @@ SOURCE=.\cmdtable.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\combat.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\contextmenu.h
 # End Source File
 # Begin Source File

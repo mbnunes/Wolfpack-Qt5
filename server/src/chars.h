@@ -106,7 +106,6 @@ public:
 	cTerritory*				region;
 	unsigned int			skilldelay;
 	unsigned int			objectdelay;
-	int						combathitmessage;
 	int						making; // skill number of skill using to make item, 0 if not making anything.
 	SERIAL					lastTarget;
 	char					blocked;
@@ -261,7 +260,6 @@ protected:
 	signed short			st_; // Strength
 	signed short			st2_; // Reserved for calculation
 
-	RACE					race_; // -Fraz- Race AddOn
 	// Skyfire's NPC advancments.
 	bool					may_levitate_;
 	//Skyfire - End NPC's home/work/food vars'
@@ -304,7 +302,6 @@ protected:
 
 	unsigned char			fixedlight_; // Fixed lighting level (For chars in dungeons, where they dont see the night)
 	unsigned char			speech_; // For NPCs: Number of the assigned speech block
-	unsigned int			att_; // Intrinsic attack (For monsters that cant carry weapons)
 	unsigned int			def_; // Intrinsic defense
 	bool					war_; // War Mode
 //END ADDED FROM PUBLIC ******************************************
@@ -445,7 +442,6 @@ public:
 	unsigned short			emotecolor() const { return emotecolor_; }
 	signed short			st() const { return st_; }
 	signed short			st2() const { return st2_; }
-	RACE					race() const { return race_; }
 	bool					may_levitate() const { return may_levitate_; }
 	unsigned char			pathnum() const { return pathnum_; }
 	path_st					path( int val ) const { return path_[val]; }
@@ -481,7 +477,6 @@ public:
 
 	unsigned char			fixedlight() const { return fixedlight_; }
 	unsigned char			speech() const { return speech_; }
-	unsigned int			att() const { return att_; }
 	unsigned int			def() const { return def_; }
 	bool					war() const { return war_; }
 //END ADDED GETTERS***********************************************
@@ -604,7 +599,6 @@ public:
 	void					setEmoteColor( unsigned short data ) { emotecolor_ = data; }
 	void					setSt( signed short data ) { st_ = data; }
 	void					setSt2( signed short data ) { st2_ = data; }
-	void					setRace( RACE data ) { race_ = data; }
 	void					setMay_Levitate( bool data ) { may_levitate_ = data; }
 	void					setPathNum( unsigned char data ) { pathnum_ = data; }
 	void					setPath( int p, path_st val ){ path_[p] = val; }
@@ -641,7 +635,6 @@ public:
 
 	void					setFixedLight( unsigned char data ) { fixedlight_ = data; }
 	void					setSpeech( unsigned char data ) { speech_ = data; }
-	void					setAtt( unsigned int data ) { att_ = data; }
 	void					setDef( unsigned int data ) { def_ = data; }
 	void					setWar( bool data ) { war_ = data; }
 	//END SETTERS********************************************************
@@ -704,8 +697,8 @@ public:
 	void addHalo(P_ITEM pi);
 	void removeHalo(P_ITEM pi);
 	void glowHalo(P_ITEM pi);
-	P_ITEM getWeapon();
-	P_ITEM getShield();
+	bool hasWeapon();
+	bool hasShield();
 	P_ITEM getBackpack();
 	void setOwnSerialOnly(long ownser);
 	void SetOwnSerial(long ownser);
@@ -751,7 +744,12 @@ public:
 	void giveNewbieItems( Q_UINT8 skill = 0xFF );
 
 	void attackTarget( P_CHAR defender );
+	void applyPoison( P_CHAR defender );
 	void toggleCombat();
+	UI16 calcDefense( enBodyParts bodypart, bool wearout = false );
+
+	P_ITEM rightHandItem();
+	P_ITEM leftHandItem();
 
 	// Definition loading - sereg
 protected:

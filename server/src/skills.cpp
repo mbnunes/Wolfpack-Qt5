@@ -741,7 +741,7 @@ public:
 		{
 			if (Skills->CheckSkill(pc_currchar, ANIMALLORE, 0, 1000))
 			{
-				pc->talk( tr("Attack [%1] Defense [%2] Taming [%3] Hit Points [%4]").arg(pc->att()).arg(pc->def()).arg(pc->taming/10).arg(pc->hp()) );
+				pc->talk( tr("Attack[%1-%2] Defense [%3] Taming [%4] Hit Points [%5]").arg(pc->lodamage()).arg(pc->hidamage()).arg(pc->def()).arg(pc->taming/10).arg(pc->hp()) );
 				return true;
 			}
 			else
@@ -1133,7 +1133,7 @@ public:
 				{
 					Coord_cl cPos = Player->pos;
 					cPos.x++;
-					Combat->SpawnGuard( Player, Player, cPos );
+					Combat::spawnGuard( Player, Player, cPos );
 				}
 				
 				socket->sysMessage( tr("Your music succeeds as you start a fight.") );
@@ -1940,38 +1940,6 @@ void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds +
 	SetTimerSec(&currchar[s]->spiritspeaktimer,SrvParams->spiritspeaktimer()+currchar[s]->in);*/
 }
 
-int cSkills::GetCombatSkill( P_CHAR pc )
-{
-	P_ITEM pi;
-	std::vector< SERIAL > vecContainer = contsp.getData( pc->serial );
-	std::vector< SERIAL >::iterator it = vecContainer.begin();
-	while( it != vecContainer.end() )
-	{
-		pi = FindItemBySerial( *it );
-		if( pi && ( pi->layer() == 1 || pi->layer() == 2 ) )
-		{
-			if (IsSwordType(pi->id()) )
-			{
-				return SWORDSMANSHIP;
-			}
-			if (IsMaceType(pi->id()) )
-			{
-				return MACEFIGHTING;
-			}
-			if (IsFencingType(pi->id()) )
-			{
-				return FENCING;
-			}
-			if (IsBowType(pi->id()) )
-			{
-				return ARCHERY;
-			}
-		}
-		++it;
-	}
-	return WRESTLING;
-}
-
 void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the skill list
 {
 	P_CHAR pChar = socket->player();
@@ -2754,7 +2722,7 @@ void cSkills::Meditation( cUOSocket *socket )
 		pc_currchar->setMed(false);
 		return;
 	}
-	else if (pc_currchar->getWeapon() || pc_currchar->getShield())
+	else if (pc_currchar->hasWeapon() || pc_currchar->hasShield())
 	{
 		socket->sysMessage( tr("You cannot meditate with a weapon or shield equipped!"));
 		pc_currchar->setMed( false );

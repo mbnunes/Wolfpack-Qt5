@@ -104,7 +104,6 @@ public:
 	void SpiritSpeak(int s);
 	void ArmsLoreTarget(int s);
 	void ItemIdTarget(int s);
-	int GetCombatSkill(P_CHAR pc);
 	void SkillUse( cUOSocket*, UINT16 );
 	void CreateTrackingMenu(int s, int m);
 	void TrackingMenu(int s, int gmindex);

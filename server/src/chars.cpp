@@ -133,7 +133,6 @@ void cChar::Init(bool ser)
 //	this->oldpos.x=0; // fix for jail bug
 //	this->oldpos.y=0; // fix for jail bug
 //	this->oldpos.z=0; // LB, experimental, change back to unsignbed if this give sproblems
-	this->race_=0; // -Fraz- Race AddOn
 	this->dir_=0; //&0F=Direction
 	this->xid_ = 0x0190;
 	this->setId(0x0190);
@@ -190,7 +189,6 @@ void cChar::Init(bool ser)
 	// changed to -1, LB, bugfix
 	this->speech_ = 0; // For NPCs: Number of the assigned speech block
 	this->setWeight( 0 );
-	this->att_ = 0; // Intrinsic attack (For monsters that cant carry weapons)
 	this->def_ = 0; // Intrinsic defense
 	this->war_ = false; // War Mode
 	this->targ=INVALID_SERIAL; // Current combat target
@@ -226,7 +224,6 @@ void cChar::Init(bool ser)
 	this->region=NULL;
 	this->skilldelay=0;
 	this->objectdelay=0;
-	this->combathitmessage=0;
 	this->making=-1; // skill number of skill using to make item, 0 if not making anything.
 	this->blocked=0;
 	this->dir2=0;
@@ -560,36 +557,26 @@ void cChar::glowHalo(P_ITEM pi)
 	}
 }
 
-///////////////////////
-// Name:	getWeapon
-// history:	moved here from combat.cpp by Duke, 20.5.2001
-// Purpose:	finds the equipped weapon of a character
-
-P_ITEM cChar::getWeapon()
+bool cChar::hasWeapon()
 {
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for( UINT32 ci = 0; ci < vecContainer.size(); ++ci )
 	{
 		P_ITEM pi = FindItemBySerial( vecContainer[ci] );
 		if( pi && ( ( pi->layer() == 1 && pi->type() != 9 ) || ( pi->layer() == 2 && !IsShield( pi->id() ) ) ) )
-			return pi;
+			return true;
 	}
 
-	return NULL;
+	return false;
 }
 
-///////////////////////
-// Name:	getShield
-// history:	by Duke, 20.5.2001
-// Purpose:	finds the equipped shield of a character
-
-P_ITEM cChar::getShield()
+bool cChar::hasShield()
 {
 	P_ITEM pi=GetItemOnLayer(2);
 	if (pi && IsShield(pi->id()) )
-		return pi;
+		return true;
 	else
-		return NULL;
+		return false;
 }
 
 P_ITEM Packitem(P_CHAR pc) // Find packitem
@@ -783,7 +770,6 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("dispz",			dispz_ );
 		archive.read("cell",			cell_);
 		archive.read("dir",				dir_);
-		archive.read("race",			race_ );
 		archive.read("body",			xid_);	setId(xid_);
 		archive.read("xbody",			xid_);
 		archive.read("skin",			skin_);	
@@ -835,7 +821,6 @@ void cChar::Serialize(ISerialization &archive)
 		}
 		archive.read("cantrain",		cantrain_);
 		
-		archive.read("att",				att_);
 		archive.read("def",				def_);
 		archive.read("lodamage",		lodamage_);
 		archive.read("hidamage",		hidamage_);
@@ -910,7 +895,6 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("dispz",			dispz_);
 		archive.write("cell",			cell_);
 		archive.write("dir",			dir_);
-		archive.write("race",			race_);
 		//AntiChrist - incognito and polymorph spell special stuff - 12/99
 		if(incognito() || polymorph())
 		{//if under incognito spell, don't save BODY but the original XBODY
@@ -980,7 +964,6 @@ void cChar::Serialize(ISerialization &archive)
 		}
 		archive.write("cantrain", cantrain_);
 		
-		archive.write("att",			att_);
 		archive.write("def",			def_);
 		archive.write("lodamage",		lodamage_);
 		archive.write("hidamage",		hidamage_);
@@ -1306,9 +1289,21 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "defense" )
 		this->def_ = Value.toUInt();
 
+	//<attack min=".." max= "" />
 	//<attack>10</attack>
 	else if( TagName == "attack" )
-		this->att_ = Value.toUInt();
+	{
+		if( Tag.hasAttribute("min") && Tag.hasAttribute("max") )
+		{
+			lodamage_ = hex2dec( Tag.attribute("min") ).toInt();
+			hidamage_ = hex2dec( Tag.attribute("max") ).toInt();
+		}
+		else
+		{
+			lodamage_ = Value.toInt();
+			hidamage_ = lodamage_;
+		}
+	}
 
 	//<emotecolor>0x482</emotecolor>
 	else if( TagName == "emotecolor" )
@@ -2142,6 +2137,7 @@ void cChar::kill()
 	if( attacker != INVALID_SERIAL )
 	{
 		pAttacker = FindCharBySerial( attacker );
+		pAttacker->targ = INVALID_SERIAL;
 
 		if( pAttacker )
 			murderer = pAttacker->name.c_str();
@@ -3076,4 +3072,156 @@ void cChar::toggleCombat()
 	Movement->CombatWalk( this );
 }
 
+P_ITEM cChar::rightHandItem()
+{
+	return GetItemOnLayer( 1 );
+}
 
+P_ITEM cChar::leftHandItem()
+{
+	return GetItemOnLayer( 2 );
+}
+
+void cChar::applyPoison( P_CHAR defender )
+{
+	if( !defender )
+		return;
+
+	if( poison() && ( defender->poisoned() < poison() ) )
+	{
+		if( RandomNum( 0, 2 ) == 2 )
+		{
+			defender->setPoisoned( poison() );
+
+			// a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
+			defender->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC*( 40 / defender->poisoned() ) ) ); 
+
+			// wear off starts after poison takes effect - AntiChrist
+			defender->setPoisonwearofftime( defender->poisontime() + ( MY_CLOCKS_PER_SEC*SrvParams->poisonTimer() ) ); 
+
+			defender->resend( false );
+			if( defender->socket() )
+				defender->socket()->sysMessage( tr("You have been poisoned!" ) );
+		}
+	}
+}
+
+UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
+{
+	P_ITEM pHitItem = NULL; 
+	UI16 total = def(); // the body armor is base value
+
+	if( bodypart == ALL )
+	{
+		P_ITEM pShield = leftHandItem();
+		// Displayed AR = ((Parrying Skill * Base AR of Shield) ÷ 200) + 1
+		if( pShield && IsShield( pShield->id() ) )
+			total += ( (UI16)floor( (float)( skill( PARRYING ) * pShield->def ) / 200.0f ) + 1 );
+	} 	
+
+	if( skill( PARRYING ) >= 1000 ) 
+		total += 5; // gm parry bonus. 
+
+	P_ITEM pi; 
+	std::vector< SERIAL > vecContainer = contsp.getData( serial );
+	std::vector< SERIAL >::iterator it = vecContainer.begin();
+
+	while( it != vecContainer.end() )
+	{
+		pi = FindItemBySerial( *it );
+		if( pi && pi->layer() > 1 && pi->layer() < 25 ) 
+		{ 
+			//blackwinds new stuff 
+			UI16 effdef = 0;
+			if( pi->maxhp() > 0 ) 
+				effdef = (UI16)floor( (float)pi->hp() / (float)pi->maxhp() * (float)pi->def );
+
+			if( bodypart == ALL )
+			{
+				if( effdef > 0 )
+				{
+					total += effdef;
+					if( wearout )
+						pi->wearOut();
+				}
+			}
+			else 
+			{ 
+				switch( pi->layer() ) 
+				{ 
+				case 5: 
+				case 13: 
+				case 17: 
+				case 20: 
+				case 22: 
+					if( bodypart == BODY ) 
+					{ 
+						total += effdef; 
+						pHitItem = pi; 
+					} 
+					break; 
+				case 19: 
+					if( bodypart == ARMS ) 
+					{ 
+						total += effdef; 
+						pHitItem = pi; 
+					} 
+					break; 
+				case 6: 
+					if( bodypart == HEAD ) 
+					{ 
+						total += effdef; 
+						pHitItem = pi; 
+					} 
+					break; 
+				case 3: 
+				case 4: 
+				case 12: 
+				case 23: 
+				case 24: 
+					if( bodypart == LEGS )
+					{ 
+						total += effdef; 
+						pHitItem = pi; 
+					} 
+					break; 
+				case 10: 
+					if( bodypart == NECK ) 
+					{ 
+						total += effdef; 
+						pHitItem = pi; 
+					} 
+					break; 
+				case 7: 
+					if( bodypart == HANDS )
+					{ 
+						total += effdef; 
+						pHitItem = pi; 
+					} 
+					break; 
+				default: 
+					break; 
+				} 
+			}
+		}
+		++it;
+	} 
+
+	// TODO: MOVE THAT TO THE DAMN APPROPIATE FUNCTION !! THIS DAMGES EVERYTHING WHEN JUST CALCULATING
+
+	if( pHitItem ) 
+	{ 
+		// don't damage hairs, beard and backpack 
+		// important! this sometimes cause backpack destroy! 
+		if( pHitItem->layer() != 0x0B && pHitItem->layer() != 0x10 && pHitItem->layer() != 0x15 )
+		{
+			if( pHitItem->wearOut() )
+				removeItemBonus( pHitItem ); // remove BONUS STATS given by equipped special items
+		}
+	}
+	
+	if( total < 2 && bodypart == ALL ) 
+		total = 2;
+
+	return total;
+}

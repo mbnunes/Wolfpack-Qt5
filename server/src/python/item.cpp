@@ -475,7 +475,6 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 
 	else getIntProperty( "weight", pItem->weight() )
 	else getIntProperty( "totalweight", pItem->totalweight() )
-	else getIntProperty( "racehate", pItem->racehate() )
 	else getIntProperty( "more1", pItem->more1 )
 	else getIntProperty( "more2", pItem->more2 )
 	else getIntProperty( "more3", pItem->more3 )
@@ -577,9 +576,6 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 
 	else if( !strcmp( name, "type2" ) )
 		self->pItem->setType2( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "racehate" ) )
-		self->pItem->setRacehate( PyInt_AS_LONG( value ) );
 
 	else if( !strcmp( name, "weight" ) )
 		self->pItem->setWeight( PyInt_AS_LONG( value ) );

@@ -145,7 +145,6 @@ cItem::cItem( cItem &src )
 	this->def = src.def;
 	this->lodamage_=src.lodamage_;
 	this->hidamage_=src.hidamage_;
-	this->racehate_ = src.racehate_;
 	this->smelt_=src.smelt_;
 	this->hp_ = src.hp_;
 	this->maxhp_=src.maxhp_;
@@ -185,6 +184,7 @@ cItem::cItem( cItem &src )
 	setTotalweight( src.totalweight() );
 
 	this->tags = src.tags;
+	this->accuracy_ = 100;
 }
 
 inline QString cItem::objectID() const
@@ -607,7 +607,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("def",			def);
 		archive.read("hidamage",	hidamage_);
 		archive.read("lodamage",	lodamage_);
-		archive.read("racehate",	racehate_);
 		archive.read("st",			st);
 		archive.read("time_unused",	time_unused);
 
@@ -642,6 +641,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("glowtype",	glow_effect);
 		archive.read("desc",		desc);
 		archive.read("carve",		carve_);
+		archive.read("accuracy",	accuracy_);
 	}
 	else if ( archive.isWritting())
 	{
@@ -675,7 +675,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("def",		def);
 		archive.write("hidamage",	hidamage_);
 		archive.write("lodamage",	lodamage_);
-		archive.write("racehate",	racehate_);
 		archive.write("st",			st);
 		archive.write("time_unused",time_unused);
 		archive.write("weight",		weight_);
@@ -709,6 +708,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("glowtype",	glow_effect);
 		archive.write("desc",		desc);
 		archive.write("carve",		carve_);
+		archive.write("accuracy",	accuracy_);
 	}
 	cUObject::Serialize(archive);
 }
@@ -832,7 +832,6 @@ void cItem::Init( bool mkser )
 	this->def=0; // Item defense
 	this->lodamage_=0; //Minimum Damage weapon inflicts
 	this->hidamage_=0; //Maximum damage weapon inflicts
-	this->racehate_=-1; //race hating weapon -Fraz-
 	this->smelt_ = 0; // for smelting items
 	this->hp_=0; //Number of hit points an item has.
 	this->maxhp_=0; // Max number of hit points an item can have.
@@ -867,6 +866,7 @@ void cItem::Init( bool mkser )
 	this->time_unused = 0;
 	this->timeused_last=getNormalizedTime();
 	this->spawnregion_ = "";
+	this->accuracy_ = 100;
 }
 
 /*!
@@ -1744,10 +1744,6 @@ void cItem::processNode( const QDomElement& Tag )
 	else if( TagName == "singlehanded" )
 		this->setTwohanded( false );
 
-	// <racehate>2</racehate>
-	else if( TagName == "racehate" )
-		this->setRacehate( Value.toInt() );
-
 	// <trigger>2</trigger>
 	else if( TagName == "trigger" )
 		this->trigger = Value.toInt();
@@ -1830,6 +1826,7 @@ void cItem::processNode( const QDomElement& Tag )
 	else if( TagName == "content" && Tag.hasChildNodes() )
 		this->processContainerNode( Tag ); 
 
+	// <inherit>f23</inherit>
 	else if( TagName == "inherit" && Tag.attributes().contains( "id" ) )
 	{
 		QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, Tag.attribute( "id" ) );
@@ -1843,6 +1840,12 @@ void cItem::processNode( const QDomElement& Tag )
 		QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, nodeValue );
 		if( !DefSection->isNull() )
 			applyDefinition( *DefSection );
+	}
+
+	// <accuracy>20</accuracy> value between 0 and 100
+	else if( TagName == "accuracy" )
+	{
+		setAccuracy( Value.toUShort() );
 	}
 
 	else if( !DefSection->isNull() )
