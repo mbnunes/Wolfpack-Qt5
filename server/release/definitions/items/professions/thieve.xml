@@ -1,0 +1,42 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Thieve                                                        |
+=================================================================
+-->
+<definitions>
+	<item id="14fb">
+		<id>0x14fb</id>
+		<category>Professions\Thieve\Lockpick (W/E)</category>
+	</item>
+
+	<item id="14fc">
+		<inherit id="14fb" />
+		<id>0x14fc</id>
+		<category>Professions\Thieve\Lockpick (E/W)</category>
+	</item>
+
+	<item id="14fd">
+		<id>0x14fd</id>
+		<category>Professions\Thieve\Lockpicks (W/E)</category>
+	</item>
+
+	<item id="14fe">
+		<id>0x14fe</id>
+		<category>Professions\Thieve\Lockpicks (N/S)</category>
+	</item>
+
+	<item id="1ec0">
+		<id>0x1ec0</id>
+		<category>Professions\Thieve\Pickpocket Dip</category>
+	</item>
+
+	<item id="1ec1">
+		<id>0x1ec1</id>
+		<category>Professions\Thieve\Pickpocket Dip (Animated)</category>
+	</item>
+</definitions>

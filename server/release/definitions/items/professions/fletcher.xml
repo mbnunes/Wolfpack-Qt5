@@ -1,0 +1,62 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Fletcher                                                      |
+=================================================================
+-->
+<definitions>
+	<item id="dfa">
+		<id>0x0dfa</id>
+		<category>Professions\Fletcher\Feathers 1</category>
+	</item>
+
+	<item id="dfb">
+		<id>0x0dfb</id>
+		<category>Professions\Fletcher\Feathers 2</category>
+	</item>
+
+	<item id="f40">
+		<id>0x0f40</id>
+		<category>Professions\Fletcher\Arrows 1</category>
+	</item>
+
+	<item id="f41">
+		<id>0x0f41</id>
+		<category>Professions\Fletcher\Arrows 2</category>
+	</item>
+
+	<item id="1020">
+		<id>0x1020</id>
+		<category>Professions\Fletcher\Feathers 3</category>
+	</item>
+
+	<item id="1021">
+		<id>0x1021</id>
+		<category>Professions\Fletcher\Feathers 4</category>
+	</item>
+
+	<item id="1022">
+		<id>0x1022</id>
+		<category>Professions\Fletcher\Arrow Fletching 1</category>
+	</item>
+
+	<item id="1023">
+		<id>0x1023</id>
+		<category>Professions\Fletcher\Arrow Fletching 2</category>
+	</item>
+
+	<item id="1024">
+		<id>0x1024</id>
+		<category>Professions\Fletcher\Arrow Shafts 1</category>
+	</item>
+
+	<item id="1025">
+		<id>0x1025</id>
+		<category>Professions\Fletcher\Arrow Shafts 2</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,82 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Mapmaker                                                      |
+=================================================================
+-->
+<definitions>
+	<item id="1047">
+		<id>0x1047</id>
+		<category>Professions\Mapmaker\Globe 1</category>
+	</item>
+
+	<item id="1048">
+		<id>0x1048</id>
+		<category>Professions\Mapmaker\Globe 2</category>
+	</item>
+
+	<item id="14eb">
+		<id>0x14eb</id>
+		<category>Professions\Mapmaker\Map (N/S)</category>
+	</item>
+
+	<item id="14ec">
+		<id>0x14ec</id>
+		<category>Professions\Mapmaker\Map (W/E)</category>
+	</item>
+
+	<item id="14ed">
+		<id>0x14ed</id>
+		<category>Professions\Mapmaker\Rolled Map (N/S)</category>
+	</item>
+
+	<item id="14ee">
+		<id>0x14ee</id>
+		<category>Professions\Mapmaker\Rolled Map (W/E)</category>
+	</item>
+
+	<item id="14ef">
+		<id>0x14ef</id>
+		<category>Professions\Mapmaker\Deed (N/S)</category>
+	</item>
+
+	<item id="14f0">
+		<id>0x14f0</id>
+		<category>Professions\Mapmaker\Deed (W/E)</category>
+	</item>
+
+	<item id="14f1">
+		<id>0x14f1</id>
+		<category>Professions\Mapmaker\Ship Plans (N/S)</category>
+	</item>
+
+	<item id="14f2">
+		<id>0x14f2</id>
+		<category>Professions\Mapmaker\Ship Plans (W/E)</category>
+	</item>
+
+	<item id="14f3">
+		<id>0x14f3</id>
+		<category>Professions\Mapmaker\Ship Model (N/S)</category>
+	</item>
+
+	<item id="14f4">
+		<id>0x14f4</id>
+		<category>Professions\Mapmaker\Ship Model (W/E)</category>
+	</item>
+
+	<item id="14f5">
+		<id>0x14f5</id>
+		<category>Professions\Mapmaker\Spyglass (W/E)</category>
+	</item>
+
+	<item id="14f6">
+		<id>0x14f6</id>
+		<category>Professions\Mapmaker\Spyglass (N/S)</category>
+	</item>
+
+</definitions>

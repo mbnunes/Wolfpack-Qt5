@@ -1,0 +1,182 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Jewelier                                                      |
+=================================================================
+-->
+<definitions>
+	<item id="f0f">
+		<id>0x0f0f</id>
+		<category>Professions\Jeweler\Star Sapphire 1</category>
+	</item>
+
+	<item id="f10">
+		<id>0x0f10</id>
+		<category>Professions\Jeweler\Emerald 1</category>
+	</item>
+
+	<item id="f11">
+		<id>0x0f11</id>
+		<category>Professions\Jeweler\Sapphire 1</category>
+	</item>
+
+	<item id="f12">
+		<id>0x0f12</id>
+		<category>Professions\Jeweler\Sapphire 2</category>
+	</item>
+
+	<item id="f13">
+		<id>0x0f13</id>
+		<category>Professions\Jeweler\Ruby 1</category>
+	</item>
+
+	<item id="f14">
+		<id>0x0f14</id>
+		<category>Professions\Jeweler\Ruby 2</category>
+	</item>
+
+	<item id="f15">
+		<id>0x0f15</id>
+		<category>Professions\Jeweler\Citrine 1</category>
+	</item>
+
+	<item id="f16">
+		<id>0x0f16</id>
+		<category>Professions\Jeweler\Amethyst 1</category>
+	</item>
+
+	<item id="f17">
+		<id>0x0f17</id>
+		<category>Professions\Jeweler\Amethyst 2</category>
+	</item>
+
+	<item id="f18">
+		<id>0x0f18</id>
+		<category>Professions\Jeweler\Tourmaline 1</category>
+	</item>
+
+	<item id="f19">
+		<id>0x0f19</id>
+		<category>Professions\Jeweler\Sapphire 3</category>
+	</item>
+
+	<item id="f1a">
+		<id>0x0f1a</id>
+		<category>Professions\Jeweler\Ruby 3</category>
+	</item>
+
+	<item id="f1b">
+		<id>0x0f1b</id>
+		<category>Professions\Jeweler\Star Sapphire 2</category>
+	</item>
+
+	<item id="f1c">
+		<id>0x0f1c</id>
+		<category>Professions\Jeweler\Ruby 4</category>
+	</item>
+
+	<item id="f1d">
+		<id>0x0f1d</id>
+		<category>Professions\Jeweler\Ruby 5</category>
+	</item>
+
+	<item id="f1e">
+		<id>0x0f1e</id>
+		<category>Professions\Jeweler\Tourmaline 2</category>
+	</item>
+
+	<item id="f1f">
+		<id>0x0f1f</id>
+		<category>Professions\Jeweler\Sapphire 4</category>
+	</item>
+
+	<item id="f20">
+		<id>0x0f20</id>
+		<category>Professions\Jeweler\Tourmaline 3</category>
+	</item>
+
+	<item id="f21">
+		<id>0x0f21</id>
+		<category>Professions\Jeweler\Star Sapphire 3</category>
+	</item>
+
+	<item id="f22">
+		<id>0x0f22</id>
+		<category>Professions\Jeweler\Amethyst 3</category>
+	</item>
+
+	<item id="f23">
+		<id>0x0f23</id>
+		<category>Professions\Jeweler\Citrine 2</category>
+	</item>
+
+	<item id="f24">
+		<id>0x0f24</id>
+		<category>Professions\Jeweler\Citrine 3</category>
+	</item>
+
+	<item id="f25">
+		<id>0x0f25</id>
+		<category>Professions\Jeweler\Amber</category>
+	</item>
+
+	<item id="f26">
+		<id>0x0f26</id>
+		<category>Professions\Jeweler\Diamond 1</category>
+	</item>
+
+	<item id="f27">
+		<id>0x0f27</id>
+		<category>Professions\Jeweler\Diamond 2</category>
+	</item>
+
+	<item id="f28">
+		<id>0x0f28</id>
+		<category>Professions\Jeweler\Diamond 3</category>
+	</item>
+
+	<item id="f29">
+		<id>0x0f29</id>
+		<category>Professions\Jeweler\Diamond 4</category>
+	</item>
+
+	<item id="f2a">
+		<id>0x0f2a</id>
+		<category>Professions\Jeweler\Ruby 6</category>
+	</item>
+
+	<item id="f2b">
+		<id>0x0f2b</id>
+		<category>Professions\Jeweler\Ruby 7</category>
+	</item>
+
+	<item id="f2c">
+		<id>0x0f2c</id>
+		<category>Professions\Jeweler\Citrine 4</category>
+	</item>
+
+	<item id="f2d">
+		<id>0x0f2d</id>
+		<category>Professions\Jeweler\Tourmaline 4</category>
+	</item>
+
+	<item id="f2e">
+		<id>0x0f2e</id>
+		<category>Professions\Jeweler\Amethyst 4</category>
+	</item>
+
+	<item id="f2f">
+		<id>0x0f2f</id>
+		<category>Professions\Jeweler\Emerald 2</category>
+	</item>
+
+	<item id="f30">
+		<id>0x0f30</id>
+		<category>Professions\Jeweler\Diamond 5</category>
+	</item>
+
+</definitions>

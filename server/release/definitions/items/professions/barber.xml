@@ -1,0 +1,107 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Barber                                                        |
+=================================================================
+-->
+<definitions>
+	<item id="dfc">
+		<id>0x0dfc</id>
+		<category>Professions\Barber\Barber Scissors (W/E)</category>
+	</item>
+
+	<item id="dfd">
+		<id>0x0dfd</id>
+		<category>Professions\Barber\Barber Scissors (N/S)</category>
+	</item>
+
+	<item id="dfe">
+		<id>0x0dfe</id>
+		<category>Professions\Barber\Cut Hair</category>
+	</item>
+
+	<item id="dff">
+		<id>0x0dff</id>
+		<category>Professions\Barber\Wig 1 (N/S)</category>
+	</item>
+
+	<item id="e00">
+		<id>0x0e00</id>
+		<category>Professions\Barber\Wig 1 (W/E)</category>
+	</item>
+
+	<item id="e01">
+		<id>0x0e01</id>
+		<category>Professions\Barber\Wig 2 (N/S)</category>
+	</item>
+
+	<item id="e02">
+		<id>0x0e02</id>
+		<category>Professions\Barber\Wig 2 (W/E)</category>
+	</item>
+
+	<item id="e03">
+		<id>0x0e03</id>
+		<category>Professions\Barber\Wig 3 (N/S)</category>
+	</item>
+
+	<item id="e04">
+		<id>0x0e04</id>
+		<category>Professions\Barber\Wig 3 (W/E)</category>
+	</item>
+
+	<item id="e05">
+		<id>0x0e05</id>
+		<category>Professions\Barber\Wig Stand 1 (N/S)</category>
+	</item>
+
+	<item id="e06">
+		<id>0x0e06</id>
+		<category>Professions\Barber\Wig Stand 1 (W/E)</category>
+	</item>
+
+	<item id="e07">
+		<id>0x0e07</id>
+		<category>Professions\Barber\Wig Stand 2 (N/S)</category>
+	</item>
+
+	<item id="e08">
+		<id>0x0e08</id>
+		<category>Professions\Barber\Wig Stand 2 (W/E)</category>
+	</item>
+
+	<item id="e09">
+		<id>0x0e09</id>
+		<category>Professions\Barber\Wig 4 (N/S)</category>
+	</item>
+
+	<item id="e0a">
+		<id>0x0e0a</id>
+		<category>Professions\Barber\Wig 4 (W/E)</category>
+	</item>
+
+	<item id="e0b">
+		<id>0x0e0b</id>
+		<category>Professions\Barber\Wig 5 (N/S)</category>
+	</item>
+
+	<item id="e0c">
+		<id>0x0e0c</id>
+		<category>Professions\Barber\Wig 5 (W/E)</category>
+	</item>
+
+	<item id="e0d">
+		<id>0x0e0d</id>
+		<category>Professions\Barber\Wig 6 (N/S)</category>
+	</item>
+
+	<item id="e0e">
+		<id>0x0e0e</id>
+		<category>Professions\Barber\Wig 6 (W/E)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,67 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Peasant                                                       |
+=================================================================
+-->
+<definitions>
+	<item id="14ff">
+		<id>0x14ff</id>
+		<category>Professions\Peasant\Seive</category>
+	</item>
+
+	<item id="1500">
+		<id>0x1500</id>
+		<category>Professions\Peasant\Plough (W/E) (1/2)</category>
+	</item>
+
+	<item id="1501">
+		<id>0x1501</id>
+		<category>Professions\Peasant\Plough (W/E) (2/2)</category>
+	</item>
+
+	<item id="1502">
+		<id>0x1502</id>
+		<category>Professions\Peasant\Plough (N/S) (2/2)</category>
+	</item>
+
+	<item id="1503">
+		<id>0x1503</id>
+		<category>Professions\Peasant\Plough (N/S) (1/2)</category>
+	</item>
+
+	<item id="1504">
+		<id>0x1504</id>
+		<category>Professions\Peasant\Harrow (N/S) (1/2)</category>
+	</item>
+
+	<item id="1505">
+		<id>0x1505</id>
+		<category>Professions\Peasant\Harrow (N/S) (2/2)</category>
+	</item>
+
+	<item id="1506">
+		<id>0x1506</id>
+		<category>Professions\Peasant\Harrow (W/E) (1/2)</category>
+	</item>
+
+	<item id="1507">
+		<id>0x1507</id>
+		<category>Professions\Peasant\Harrow (W/E) (2/2)</category>
+	</item>
+
+	<item id="1e34">
+		<id>0x1e34</id>
+		<category>Professions\Peasant\Scarecrow (N/S)</category>
+	</item>
+
+	<item id="1e35">
+		<id>0x1e35</id>
+		<category>Professions\Peasant\Scarecrow (W/E)</category>
+	</item>
+
+</definitions>

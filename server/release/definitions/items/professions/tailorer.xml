@@ -1,0 +1,227 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Tailorer                                                      |
+=================================================================
+-->
+<definitions>
+	<item id="def">
+		<id>0x0def</id>
+		<category>Professions\Tailorer\Raw Cotton</category>
+	</item>
+
+	<item id="df6">
+		<id>0x0df6</id>
+		<category>Professions\Tailorer\Knitting (N/S)</category>
+	</item>
+
+	<item id="df7">
+		<id>0x0df7</id>
+		<category>Professions\Tailorer\Knitting (W/E)</category>
+	</item>
+
+	<item id="ec6">
+		<id>0x0ec6</id>
+		<category>Professions\Tailorer\Dress Form (N/S)</category>
+	</item>
+
+	<item id="ec7">
+		<id>0x0ec7</id>
+		<category>Professions\Tailorer\Dress Form (W/E)</category>
+	</item>
+
+	<item id="1069">
+		<id>0x1069</id>
+		<category>Professions\Tailorer\Stretched Hide 1 (W/E)</category>
+	</item>
+
+	<item id="106a">
+		<id>0x106a</id>
+		<category>Professions\Tailorer\Stretched Hide 2 (W/E)</category>
+	</item>
+
+	<item id="106b">
+		<id>0x106b</id>
+		<category>Professions\Tailorer\Stretched Hide 3 (W/E)</category>
+	</item>
+
+	<item id="106c">
+		<id>0x106c</id>
+		<category>Professions\Tailorer\Stretched Hide 4 (W/E) (1/2)</category>
+	</item>
+
+	<item id="106d">
+		<id>0x106d</id>
+		<category>Professions\Tailorer\Stretched Hide 4 (W/E) (2/2)</category>
+	</item>
+
+	<item id="106e">
+		<id>0x106e</id>
+		<category>Professions\Tailorer\Stretched Hide 5 (W/E) (1/2)</category>
+	</item>
+
+	<item id="106f">
+		<id>0x106f</id>
+		<category>Professions\Tailorer\Stretched Hide 5 (W/E) (2/2)</category>
+	</item>
+
+
+	<item id="107a">
+		<id>0x107a</id>
+		<category>Professions\Tailorer\Stretched Hide 1 (N/S)</category>
+	</item>
+
+	<item id="107b">
+		<id>0x107b</id>
+		<category>Professions\Tailorer\Stretched Hide 2 (N/S)</category>
+	</item>
+
+	<item id="107c">
+		<id>0x107c</id>
+		<category>Professions\Tailorer\Stretched Hide 3 (N/S)</category>
+	</item>
+
+	<item id="107d">
+		<id>0x107d</id>
+		<category>Professions\Tailorer\Stretched Hide 4 (N/S) (1/2)</category>
+	</item>
+
+	<item id="107e">
+		<id>0x107e</id>
+		<category>Professions\Tailorer\Stretched Hide 4 (N/S) (2/2)</category>
+	</item>
+
+	<item id="107f">
+		<id>0x107f</id>
+		<category>Professions\Tailorer\Stretched Hide 5 (N/S) (1/2)</category>
+	</item>
+
+	<item id="1080">
+		<id>0x1080</id>
+		<category>Professions\Tailorer\Stretched Hide 5 (N/S) (2/2)</category>
+	</item>
+
+	<item id="13c8">
+		<id>0x13c8</id>
+		<category>Professions\Tailorer\Hanging Leather Sleeves (N/S)</category>
+	</item>
+
+	<item id="13c9">
+		<id>0x13c9</id>
+		<category>Professions\Tailorer\Hanging Leather Leggings (N/S)</category>
+	</item>
+
+	<item id="13ca">
+		<id>0x13ca</id>
+		<category>Professions\Tailorer\Hanging Leather Tunic (N/S)</category>
+	</item>
+
+	<item id="13cf">
+		<id>0x13cf</id>
+		<category>Professions\Tailorer\Hanging Leather Sleeves (W/E)</category>
+	</item>
+
+	<item id="13d0">
+		<id>0x13d0</id>
+		<category>Professions\Tailorer\Hanging Leather Leggings (W/E)</category>
+	</item>
+
+	<item id="13d1">
+		<id>0x13d1</id>
+		<category>Professions\Tailorer\Hanging Leather Sleeves (W/E)</category>
+	</item>
+
+	<item id="13d7">
+		<id>0x13d7</id>
+		<category>Professions\Tailorer\Hanging Studded Sleeves (N/S)</category>
+	</item>
+
+	<item id="13d8">
+		<id>0x13d8</id>
+		<category>Professions\Tailorer\Hanging Studded Leggings (N/S)</category>
+	</item>
+
+	<item id="13d9">
+		<id>0x13d9</id>
+		<category>Professions\Tailorer\Hanging Studded Tunic (N/S)</category>
+	</item>
+
+	<item id="13de">
+		<id>0x13de</id>
+		<category>Professions\Tailorer\Hanging Studded Sleeves (W/E)</category>
+	</item>
+
+	<item id="13df">
+		<id>0x13df</id>
+		<category>Professions\Tailorer\Hanging Studded Leggings (W/E)</category>
+	</item>
+
+	<item id="13e0">
+		<id>0x13e0</id>
+		<category>Professions\Tailorer\Hanging Studded Tunic (W/E)</category>
+	</item>
+
+	<item id="175d">
+		<id>0x175d</id>
+		<category>Professions\Tailorer\Folded Cloth 1 (W/E)</category>
+	</item>
+
+	<item id="175e">
+		<id>0x175e</id>
+		<category>Professions\Tailorer\Folded Cloth 2 (W/E)</category>
+	</item>
+
+	<item id="175f">
+		<id>0x175f</id>
+		<category>Professions\Tailorer\Folded Cloth 3 (W/E)</category>
+	</item>
+
+	<item id="1760">
+		<id>0x1760</id>
+		<category>Professions\Tailorer\Folded Cloth 4 (W/E)</category>
+	</item>
+
+	<item id="1761">
+		<id>0x1761</id>
+		<category>Professions\Tailorer\Folded Cloth 1 (N/S)</category>
+	</item>
+
+	<item id="1762">
+		<id>0x1762</id>
+		<category>Professions\Tailorer\Folded Cloth 2 (N/S)</category>
+	</item>
+
+	<item id="1763">
+		<id>0x1763</id>
+		<category>Professions\Tailorer\Folded Cloth 3 (N/S)</category>
+	</item>
+
+	<item id="1764">
+		<id>0x1764</id>
+		<category>Professions\Tailorer\Folded Cloth 4 (N/S)</category>
+	</item>
+
+	<item id="1765">
+		<id>0x1765</id>
+		<category>Professions\Tailorer\Cloth (W/E)</category>
+	</item>
+
+	<item id="1766">
+		<id>0x1766</id>
+		<category>Professions\Tailorer\Cut Cloth (N/S)</category>
+	</item>
+
+	<item id="1767">
+		<id>0x1767</id>
+		<category>Professions\Tailorer\Cloth (N/S)</category>
+	</item>
+
+	<item id="1768">
+		<id>0x1768</id>
+		<category>Professions\Tailorer\Cut Cloth (W/E)</category>
+	</item>
+</definitions>

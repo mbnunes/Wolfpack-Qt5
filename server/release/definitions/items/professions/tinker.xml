@@ -1,0 +1,197 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Tinker                                                        |
+=================================================================
+-->
+<definitions>
+	<item id="104b">
+		<id>0x104b</id>
+		<category>Professions\Tinker\Clock (W/E)</category>
+	</item>
+
+	<item id="104c">
+		<id>0x104c</id>
+		<category>Professions\Tinker\Clock (N/S)</category>
+	</item>
+
+	<item id="104d">
+		<id>0x104d</id>
+		<category>Professions\Tinker\Clock Frame (W/E)</category>
+	</item>
+
+	<item id="104e">
+		<id>0x104e</id>
+		<category>Professions\Tinker\Clock Frame (N/S)</category>
+	</item>
+
+	<item id="104f">
+		<id>0x104f</id>
+		<category>Professions\Tinker\Clock Parts (W/E)</category>
+	</item>
+
+	<item id="1050">
+		<id>0x1050</id>
+		<category>Professions\Tinker\Clock Parts (N/S)</category>
+	</item>
+
+	<item id="1051">
+		<id>0x1051</id>
+		<category>Professions\Tinker\Axle with Gears (W/E)</category>
+	</item>
+
+	<item id="1052">
+		<id>0x1052</id>
+		<category>Professions\Tinker\Axle with Gears (N/S)</category>
+	</item>
+
+	<item id="1053">
+		<id>0x1053</id>
+		<category>Professions\Tinker\Gears (W/E)</category>
+	</item>
+
+	<item id="1054">
+		<id>0x1054</id>
+		<category>Professions\Tinker\Gears (N/S)</category>
+	</item>
+
+	<item id="1055">
+		<id>0x1055</id>
+		<category>Professions\Tinker\Hinge (W/E)</category>
+	</item>
+
+	<item id="1056">
+		<id>0x1056</id>
+		<category>Professions\Tinker\Hinge (W/E)</category>
+	</item>
+
+	<item id="1057">
+		<id>0x1057</id>
+		<category>Professions\Tinker\Sextant (W/E)</category>
+	</item>
+
+	<item id="1058">
+		<id>0x1058</id>
+		<category>Professions\Tinker\Sextant (N/S)</category>
+	</item>
+
+	<item id="1059">
+		<id>0x1059</id>
+		<category>Professions\Tinker\Sextant Parts (W/E)</category>
+	</item>
+
+	<item id="105a">
+		<id>0x105a</id>
+		<category>Professions\Tinker\Sextant Parts (N/S)</category>
+	</item>
+
+	<item id="105b">
+		<id>0x105b</id>
+		<category>Professions\Tinker\Axle (W/E)</category>
+	</item>
+
+	<item id="105c">
+		<id>0x105c</id>
+		<category>Professions\Tinker\Axle (N/S)</category>
+	</item>
+
+	<item id="105d">
+		<id>0x105d</id>
+		<category>Professions\Tinker\Springs (W/E)</category>
+	</item>
+
+	<item id="105e">
+		<id>0x105e</id>
+		<category>Professions\Tinker\Springs (N/S)</category>
+	</item>
+
+	<item id="1876">
+		<id>0x1876</id>
+		<category>Professions\Tinker\Iron Wire</category>
+	</item>
+
+	<item id="1877">
+		<id>0x1877</id>
+		<category>Professions\Tinker\Silver Wire</category>
+	</item>
+
+	<item id="1878">
+		<id>0x1878</id>
+		<category>Professions\Tinker\Gold Wire</category>
+	</item>
+
+	<item id="1879">
+		<id>0x1879</id>
+		<category>Professions\Tinker\Copper Wire</category>
+	</item>
+
+	<item id="1eb6">
+		<id>0x1eb6</id>
+		<category>Professions\Tinker\Empty Toolkit 1</category>
+	</item>
+
+	<item id="1eb7">
+		<id>0x1eb7</id>
+		<category>Professions\Tinker\Empty Toolkit 2</category>
+	</item>
+
+	<item id="1eb8">
+		<id>0x1eb8</id>
+		<category>Professions\Tinker\Toolkit 1 (W/E)</category>
+	</item>
+
+	<item id="1eb9">
+		<id>0x1eb9</id>
+		<category>Professions\Tinker\Toolkit 1 (N/S)</category>
+	</item>
+
+	<item id="1eba">
+		<id>0x1eba</id>
+		<category>Professions\Tinker\Toolkit 2 (W/E)</category>
+	</item>
+
+	<item id="1ebb">
+		<id>0x1ebb</id>
+		<category>Professions\Tinker\Toolkit 2 (N/S)</category>
+	</item>
+
+	<item id="1ebc">
+		<id>0x1ebc</id>
+		<category>Professions\Tinker\Tinker Tools</category>
+	</item>
+
+	<item id="26b1">
+		<id>0x26b1</id>
+		<category>Professions\Tinker\Dragon Scale 1</category>
+	</item>
+
+	<item id="26b2">
+		<id>0x26b2</id>
+		<category>Professions\Tinker\Dragon Scale 2</category>
+	</item>
+
+	<item id="26b3">
+		<id>0x26b3</id>
+		<category>Professions\Tinker\Dragon Scale 3</category>
+	</item>
+
+	<item id="26b4">
+		<id>0x26b4</id>
+		<category>Professions\Tinker\Dragon Scale 4</category>
+	</item>
+
+	<item id="26b5">
+		<id>0x26b5</id>
+		<category>Professions\Tinker\Dragon Scale 5</category>
+	</item>
+
+	<item id="26b6">
+		<id>0x26b6</id>
+		<category>Professions\Tinker\Dragon Scale 6</category>
+	</item>
+
+</definitions>

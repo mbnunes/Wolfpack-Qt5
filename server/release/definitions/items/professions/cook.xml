@@ -1,0 +1,42 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Cook                                                          |
+=================================================================
+-->
+<definitions>
+	<item id="10ee">
+		<id>0x10ee</id>
+		<category>Professions\Cook\Garbage 1</category>
+	</item>
+
+	<item id="10ef">
+		<id>0x10ef</id>
+		<category>Professions\Cook\Garbage 2</category>
+	</item>
+
+	<item id="10f0">
+		<id>0x10f0</id>
+		<category>Professions\Cook\Garbage 3</category>
+	</item>
+
+	<item id="10f1">
+		<id>0x10f1</id>
+		<category>Professions\Cook\Garbage 4</category>
+	</item>
+
+	<item id="10f2">
+		<id>0x10f2</id>
+		<category>Professions\Cook\Pile of Garbage (W/E)</category>
+	</item>
+
+	<item id="10f3">
+		<id>0x10f3</id>
+		<category>Professions\Cook\Pile of Garbage (N/S)</category>
+	</item>
+
+</definitions>

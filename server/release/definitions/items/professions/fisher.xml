@@ -1,0 +1,166 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Fisher                                                        |
+=================================================================
+-->
+<definitions>
+	<item id="dc8">
+		<id>0x0dc8</id>
+		<category>Professions\Fisher\Fishing Net 1</category>
+	</item>
+
+	<item id="dc9">
+		<id>0x0dc9</id>
+		<category>Professions\Fisher\Fishing Net 2</category>
+	</item>
+
+	<item id="dca">
+		<id>0x0dca</id>
+		<category>Professions\Fisher\Fishing Net 3</category>
+	</item>
+
+	<item id="dcb">
+		<id>0x0dcb</id>
+		<category>Professions\Fisher\Fishing Weight 1</category>
+	</item>
+
+	<item id="dcc">
+		<id>0x0dcc</id>
+		<category>Professions\Fisher\Fishing Weight 2</category>
+	</item>
+
+	<item id="dcd">
+		<id>0x0dcd</id>
+		<category>Professions\Fisher\Fishing Weight 3</category>
+	</item>
+
+	<item id="dce">
+		<id>0x0dce</id>
+		<category>Professions\Fisher\Fishing Weight 4</category>
+	</item>
+
+	<item id="dcf">
+		<id>0x0dcf</id>
+		<category>Professions\Fisher\Fishing Weight 5</category>
+	</item>
+
+	<item id="dd0">
+		<id>0x0dd0</id>
+		<category>Professions\Fisher\Fishing Net 4</category>
+	</item>
+
+	<item id="dd1">
+		<id>0x0dd1</id>
+		<category>Professions\Fisher\Fishing Net 5</category>
+	</item>
+
+	<item id="dd2">
+		<id>0x0dd2</id>
+		<category>Professions\Fisher\Fishing Net 6</category>
+	</item>
+
+	<item id="dd3">
+		<id>0x0dd3</id>
+		<category>Professions\Fisher\Fishing Net 7</category>
+	</item>
+
+	<item id="dd4">
+		<id>0x0dd4</id>
+		<category>Professions\Fisher\Fishing Net 8</category>
+	</item>
+
+	<item id="dd5">
+		<id>0x0dd5</id>
+		<category>Professions\Fisher\Fishing Net 9</category>
+	</item>
+
+	<item id="dd6">
+		<id>0x0dd6</id>
+		<category>Professions\Fisher\Small Fish 1</category>
+	</item>
+
+	<item id="dd7">
+		<id>0x0dd7</id>
+		<category>Professions\Fisher\Small Fish 2</category>
+	</item>
+
+	<item id="dd8">
+		<id>0x0dd8</id>
+		<category>Professions\Fisher\Small Fish 3</category>
+	</item>
+
+	<item id="dd9">
+		<id>0x0dd9</id>
+		<category>Professions\Fisher\Small Fish 4</category>
+	</item>
+
+	<item id="1e15">
+		<id>0x1e15</id>
+		<category>Professions\Fisher\Raw Fish 1</category>
+	</item>
+
+	<item id="1e16">
+		<id>0x1e16</id>
+		<category>Professions\Fisher\Raw Fish 2</category>
+	</item>
+
+	<item id="1e17">
+		<id>0x1e17</id>
+		<category>Professions\Fisher\Raw Fish 3</category>
+	</item>
+
+	<item id="1e18">
+		<id>0x1e18</id>
+		<category>Professions\Fisher\Raw Fish 4</category>
+	</item>
+
+	<item id="1e19">
+		<id>0x1e19</id>
+		<category>Professions\Fisher\Fish Heads 1</category>
+	</item>
+
+	<item id="1e1a">
+		<id>0x1e1a</id>
+		<category>Professions\Fisher\Fish Heads 2</category>
+	</item>
+
+	<item id="1e1b">
+		<id>0x1e1b</id>
+		<category>Professions\Fisher\Fish Heads 3</category>
+	</item>
+
+	<item id="1ea1">
+		<id>0x1ea1</id>
+		<category>Professions\Fisher\Rope 1</category>
+	</item>
+
+	<item id="1ea2">
+		<id>0x1ea2</id>
+		<category>Professions\Fisher\Rope 2</category>
+	</item>
+
+	<item id="1ea3">
+		<id>0x1ea3</id>
+		<category>Professions\Fisher\Hanging Net 1</category>
+	</item>
+
+	<item id="1ea4">
+		<id>0x1ea4</id>
+		<category>Professions\Fisher\Hanging Net 2</category>
+	</item>
+
+	<item id="1ea5">
+		<id>0x1ea5</id>
+		<category>Professions\Fisher\Hanging Net 3</category>
+	</item>
+
+	<item id="1ea6">
+		<id>0x1ea6</id>
+		<category>Professions\Fisher\Hanging Net 4</category>
+	</item>
+</definitions>

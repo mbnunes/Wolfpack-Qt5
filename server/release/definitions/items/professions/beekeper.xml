@@ -1,0 +1,86 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Beekeeper                                                     |
+=================================================================
+-->
+<definitions>
+	<item id="91a">
+		<id>0x091a</id>
+		<category>Professions\Beekeper\Beehive</category>
+	</item>
+
+	<item id="91b">
+		<id>0x091b</id>
+		<category>Professions\Beekeper\Bees 1</category>
+	</item>
+
+	<item id="923">
+		<id>0x0923</id>
+		<category>Professions\Beekeper\Bees 2</category>
+	</item>
+
+	<item id="1420">
+		<id>0x1420</id>
+		<category>Professions\Beekeper\Roll of String (W/E)</category>
+	</item>
+
+	<item id="1421">
+		<id>0x1421</id>
+		<category>Professions\Beekeper\Roll of String (N/S)</category>
+	</item>
+
+	<item id="1422">
+		<id>0x1422</id>
+		<category>Professions\Beekeper\Beeswax 1 (W/E)</category>
+	</item>
+
+	<item id="1423">
+		<id>0x1423</id>
+		<category>Professions\Beekeper\Beeswax 1 (N/S)</category>
+	</item>
+
+	<item id="1424">
+		<id>0x1424</id>
+		<category>Professions\Beekeper\Beeswax 2 (W/E)</category>
+	</item>
+
+	<item id="1425">
+		<id>0x1425</id>
+		<category>Professions\Beekeper\Beeswax 2 (N/S)</category>
+	</item>
+
+	<item id="1426">
+		<id>0x1426</id>
+		<category>Professions\Beekeper\Beeswax 3 (W/E)</category>
+	</item>
+
+	<item id="1427">
+		<id>0x1427</id>
+		<category>Professions\Beekeper\Beeswax 2 (N/S)</category>
+	</item>
+
+	<item id="1428">
+		<id>0x1428</id>
+		<category>Professions\Beekeper\Dipping Stick (W/E)</category>
+	</item>
+
+	<item id="1429">
+		<id>0x1429</id>
+		<category>Professions\Beekeper\Dipping Stick (N/S)</category>
+	</item>
+
+	<item id="142a">
+		<id>0x142a</id>
+		<category>Professions\Beekeper\Pot of Wax 1</category>
+	</item>
+
+	<item id="142b">
+		<id>0x142b</id>
+		<category>Professions\Beekeper\Pot of Wax 2</category>
+	</item>
+</definitions>

@@ -1,0 +1,21 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Mage                                                          |
+=================================================================
+-->
+<definitions>
+	<item id="1f19">
+		<id>0x1f19</id>
+		<category>Professions\Mage\Green Magical Crystal</category>
+	</item>
+
+	<item id="1f1c">
+		<id>0x1f1c</id>
+		<category>Professions\Mage\Purple Magical Crystal</category>
+	</item>
+</definitions>

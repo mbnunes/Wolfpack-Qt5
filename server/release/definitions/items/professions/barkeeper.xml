@@ -1,0 +1,146 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Barkeeper                                                     |
+=================================================================
+-->
+<definitions>
+	<item id="e12">
+		<id>0x0e12</id>
+		<category>Professions\Barkeeper\Chessmen 1</category>
+	</item>
+
+	<item id="e13">
+		<id>0x0e13</id>
+		<category>Professions\Barkeeper\Chessmen 2</category>
+	</item>
+
+	<item id="e14">
+		<id>0x0e14</id>
+		<category>Professions\Barkeeper\Chessmen 3</category>
+	</item>
+
+	<item id="e15">
+		<id>0x0e15</id>
+		<category>Professions\Barkeeper\Cards 1</category>
+	</item>
+
+	<item id="e16">
+		<id>0x0e16</id>
+		<category>Professions\Barkeeper\Cards 2</category>
+	</item>
+
+	<item id="e17">
+		<id>0x0e17</id>
+		<category>Professions\Barkeeper\Cards 3</category>
+	</item>
+
+	<item id="e18">
+		<id>0x0e18</id>
+		<category>Professions\Barkeeper\Cards 4</category>
+	</item>
+
+	<item id="e19">
+		<id>0x0e19</id>
+		<category>Professions\Barkeeper\Cards 5</category>
+	</item>
+
+	<item id="e1a">
+		<id>0x0e1a</id>
+		<category>Professions\Barkeeper\Checkers 1</category>
+	</item>
+
+	<item id="e1b">
+		<id>0x0e1b</id>
+		<category>Professions\Barkeeper\Checkers 2</category>
+	</item>
+
+	<item id="e1c">
+		<id>0x0e1c</id>
+		<category>Professions\Barkeeper\Backgammon Board 1</category>
+	</item>
+
+	<item id="fa2">
+		<id>0x0fa2</id>
+		<category>Professions\Barkeeper\Cards 6</category>
+	</item>
+
+	<item id="fa3">
+		<id>0x0fa3</id>
+		<category>Professions\Barkeeper\Cards 7</category>
+	</item>
+
+	<item id="fa4">
+		<id>0x0fa4</id>
+		<category>Professions\Barkeeper\Checkers 3</category>
+	</item>
+
+	<item id="fa5">
+		<id>0x0fa5</id>
+		<category>Professions\Barkeeper\Checkers 4</category>
+	</item>
+
+	<item id="fa6">
+		<id>0x0fa6</id>
+		<category>Professions\Barkeeper\Game Board</category>
+	</item>
+
+	<item id="fa7">
+		<id>0x0fa7</id>
+		<category>Professions\Barkeeper\Dice and Cup</category>
+	</item>
+
+	<item id="fa8">
+		<id>0x0fa8</id>
+		<category>Professions\Barkeeper\Chessmen 4</category>
+	</item>
+
+	<item id="fad">
+		<id>0x0fad</id>
+		<category>Professions\Barkeeper\Backgammon Board 2</category>
+	</item>
+
+	<item id="1ad6">
+		<id>0x1ad6</id>
+		<category>Professions\Barkeeper\Keg (N/S)</category>
+	</item>
+
+	<item id="1ad7">
+		<id>0x1ad7</id>
+		<category>Professions\Barkeeper\Keg (W/E)</category>
+	</item>
+
+	<item id="1e2e">
+		<id>0x1e2e</id>
+		<category>Professions\Barkeeper\Dartboard 1 (N/S)</category>
+	</item>
+
+	<item id="1e2f">
+		<id>0x1e2f</id>
+		<category>Professions\Barkeeper\Dartboard 1 (W/E)</category>
+	</item>
+
+	<item id="1e30">
+		<id>0x1e30</id>
+		<category>Professions\Barkeeper\Dartboard 2 (N/S)</category>
+	</item>
+
+	<item id="1e31">
+		<id>0x1e31</id>
+		<category>Professions\Barkeeper\Dartboard 2 (W/E)</category>
+	</item>
+
+	<item id="1e32">
+		<id>0x1e32</id>
+		<category>Professions\Barkeeper\Dartboard 3 (N/S)</category>
+	</item>
+
+	<item id="1e33">
+		<id>0x1e33</id>
+		<category>Professions\Barkeeper\Dartboard 3 (W/E)</category>
+	</item>
+</definitions>

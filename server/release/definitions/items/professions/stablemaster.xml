@@ -1,0 +1,161 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Stablemaster                                                  |
+=================================================================
+-->
+<definitions>
+	<item id="b41">
+		<id>0x0b41</id>
+		<category>Professions\Stablemaster\Water Trough (N/S) (1/2)</category>
+	</item>
+
+	<item id="b42">
+		<id>0x0b42</id>
+		<category>Professions\Stablemaster\Water Trough (N/S) (2/2)</category>
+	</item>
+
+	<item id="b43">
+		<id>0x0b43</id>
+		<category>Professions\Stablemaster\Water Trough (W/E) (1/2)</category>
+	</item>
+
+	<item id="b44">
+		<id>0x0b44</id>
+		<category>Professions\Stablemaster\Water Trough (W/E) (2/2)</category>
+	</item>
+
+	<item id="f31">
+		<id>0x0f31</id>
+		<category>Professions\Stablemaster\Twig (N/S)</category>
+	</item>
+
+	<item id="f32">
+		<id>0x0f32</id>
+		<category>Professions\Stablemaster\Twig (W/E)</category>
+	</item>
+
+	<item id="f34">
+		<id>0x0f34</id>
+		<category>Professions\Stablemaster\Hay 1</category>
+	</item>
+
+	<item id="f35">
+		<id>0x0f35</id>
+		<category>Professions\Stablemaster\Hay 2</category>
+	</item>
+
+	<item id="1036">
+		<id>0x1036</id>
+		<category>Professions\Stablemaster\Hay 3</category>
+	</item>
+
+	<item id="1037">
+		<id>0x1037</id>
+		<category>Professions\Stablemaster\Hay 4</category>
+	</item>
+
+	<item id="f36">
+		<id>0x0f36</id>
+		<category>Professions\Stablemaster\Sheaf of Hay 1</category>
+	</item>
+
+	<item id="f37">
+		<id>0x0f37</id>
+		<category>Professions\Stablemaster\Saddle (N/S)</category>
+	</item>
+
+	<item id="f38">
+		<id>0x0f38</id>
+		<category>Professions\Stablemaster\Saddle (W/E)</category>
+	</item>
+
+	<item id="f3b">
+		<id>0x0f3b</id>
+		<category>Professions\Stablemaster\Horse Dung 1</category>
+	</item>
+
+	<item id="f3c">
+		<id>0x0f3c</id>
+		<category>Professions\Stablemaster\Horse Dung 2</category>
+	</item>
+
+	<item id="100c">
+		<id>0x100c</id>
+		<category>Professions\Stablemaster\Sheaf of Hay 2</category>
+	</item>
+
+	<item id="100d">
+		<id>0x100d</id>
+		<category>Professions\Stablemaster\Sheaf of Hay 3</category>
+	</item>
+
+	<item id="1370">
+		<id>0x1370</id>
+		<category>Professions\Stablemaster\Brush 1 (W/E)</category>
+	</item> 
+
+	<item id="1371">
+		<id>0x1371</id>
+		<category>Professions\Stablemaster\Brush 1 (N/S)</category>
+	</item>
+
+	<item id="1372">
+		<id>0x1372</id>
+		<category>Professions\Stablemaster\Brush 2 (N/S)</category>
+	</item>
+
+	<item id="1373">
+		<id>0x1373</id>
+		<category>Professions\Stablemaster\Brush 2 (W/E)</category>
+	</item>
+
+	<item id="1374">
+		<id>0x1374</id>
+		<category>Professions\Stablemaster\Bridle (N/S)</category>
+	</item>
+
+	<item id="1375">
+		<id>0x1375</id>
+		<category>Professions\Stablemaster\Bridle (W/E)</category>
+	</item>
+
+	<item id="1376">
+		<id>0x1376</id>
+		<category>Professions\Stablemaster\Horse Barding (W/E) (1/2)</category>
+	</item>
+
+	<item id="1377">
+		<id>0x1377</id>
+		<category>Professions\Stablemaster\Horse Barding (W/E) (2/2)</category>
+	</item>
+
+	<item id="1378">
+		<id>0x1378</id>
+		<category>Professions\Stablemaster\Horse Barding (N/S) (1/2)</category>
+	</item>
+
+	<item id="1379">
+		<id>0x1379</id>
+		<category>Professions\Stablemaster\Horse Barding (N/S) (2/2)</category>
+	</item>
+
+	<item id="1449">
+		<id>0x1449</id>
+		<category>Professions\Stablemaster\Loose Grain</category>
+	</item>
+
+	<item id="14e7">
+		<id>0x14e7</id>
+		<category>Professions\Stablemaster\Hitching Post (W/E)</category>
+	</item>
+
+	<item id="14e8">
+		<id>0x14e8</id>
+		<category>Professions\Stablemaster\Hitching Post (N/S)</category>
+	</item>
+</definitions>

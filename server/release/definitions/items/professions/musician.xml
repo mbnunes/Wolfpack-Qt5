@@ -1,0 +1,71 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Musician                                                      |
+=================================================================
+-->
+<definitions>
+	<item id="eb5">
+		<id>0x0eb5</id>
+		<category>Professions\Musician\Music Stand 1</category>
+	</item>
+
+	<item id="eb6">
+		<id>0x0eb6</id>
+		<category>Professions\Musician\Music Stand 2</category>
+	</item>
+
+	<item id="eb7">
+		<id>0x0eb7</id>
+		<category>Professions\Musician\Music Stand 3</category>
+	</item>
+
+	<item id="eb8">
+		<id>0x0eb8</id>
+		<category>Professions\Musician\Music Stand 4</category>
+	</item>
+
+	<item id="eb9">
+		<id>0x0eb9</id>
+		<category>Professions\Musician\Music Stand 5</category>
+	</item>
+
+	<item id="eba">
+		<id>0x0eba</id>
+		<category>Professions\Musician\Music Stand 6</category>
+	</item>
+
+	<item id="ebb">
+		<id>0x0ebb</id>
+		<category>Professions\Musician\Music Stand 7</category>
+	</item>
+
+	<item id="ebc">
+		<id>0x0ebc</id>
+		<category>Professions\Musician\Music Stand 8</category>
+	</item>
+
+	<item id="ebd">
+		<id>0x0ebd</id>
+		<category>Professions\Musician\Music Sheet 1</category>
+	</item>
+
+	<item id="ebe">
+		<id>0x0ebe</id>
+		<category>Professions\Musician\Music Sheet 2</category>
+	</item>
+
+	<item id="ebf">
+		<id>0x0ebf</id>
+		<category>Professions\Musician\Music Sheet 3</category>
+	</item>
+
+	<item id="ec0">
+		<id>0x0ec0</id>
+		<category>Professions\Musician\Music Sheet 4</category>
+	</item>
+</definitions>

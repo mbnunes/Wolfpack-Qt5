@@ -1,0 +1,182 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Miner                                                         |
+=================================================================
+-->
+<definitions>
+	<item id="19b7">
+		<id>0x19b7</id>
+		<category>Professions\Miner\Iron Ore 1</category>
+	</item>
+
+	<item id="19b8">
+		<id>0x19b8</id>
+		<category>Professions\Miner\Iron Ore 2</category>
+	</item>
+
+	<item id="19b9">
+		<id>0x19b9</id>
+		<category>Professions\Miner\Iron Ore 3</category>
+	</item>
+
+	<item id="19ba">
+		<id>0x19ba</id>
+		<category>Professions\Miner\Iron Ore 4</category>
+	</item>
+
+	<item id="1a82">
+		<id>0x1a82</id>
+		<category>Professions\Miner\Ore Cart (N/S) (1/3)</category>
+	</item>
+
+	<item id="1a83">
+		<id>0x1a83</id>
+		<category>Professions\Miner\Ore Cart (N/S) (2/3)</category>
+	</item>
+
+	<item id="1a86">
+		<id>0x1a86</id>
+		<category>Professions\Miner\Ore Cart (N/S) (3/3)</category>
+	</item>
+
+	<item id="1a87">
+		<id>0x1a87</id>
+		<category>Professions\Miner\Ore Cart (W/E) (1/3)</category>
+	</item>
+
+	<item id="1a88">
+		<id>0x1a88</id>
+		<category>Professions\Miner\Ore Cart (W/E) (2/3)</category>
+	</item>
+
+	<item id="1a8b">
+		<id>0x1a8b</id>
+		<category>Professions\Miner\Ore Cart (W/E) (3/3)</category>
+	</item>
+
+	<item id="1be3">
+		<id>0x1be3</id>
+		<category>Professions\Miner\Copper Ingot (W/E)</category>
+	</item>
+
+	<item id="1be4">
+		<id>0x1be4</id>
+		<category>Professions\Miner\Copper Ingots 1 (W/E)</category>
+	</item>
+
+	<item id="1be5">
+		<id>0x1be5</id>
+		<category>Professions\Miner\Copper Ingots 2 (W/E)</category>
+	</item>
+
+	<item id="1be6">
+		<id>0x1be6</id>
+		<category>Professions\Miner\Copper Ingot (N/S)</category>
+	</item>
+
+	<item id="1be7">
+		<id>0x1be7</id>
+		<category>Professions\Miner\Copper Ingots 1 (N/S)</category>
+	</item>
+
+	<item id="1be8">
+		<id>0x1be8</id>
+		<category>Professions\Miner\Copper Ingots 2 (N/S)</category>
+	</item>
+
+	<item id="1be9">
+		<id>0x1be9</id>
+		<category>Professions\Miner\Gold Ingot (W/E)</category>
+	</item>
+
+	<item id="1bea">
+		<id>0x1bea</id>
+		<category>Professions\Miner\Gold Ingots 1 (W/E)</category>
+	</item>
+
+	<item id="1beb">
+		<id>0x1beb</id>
+		<category>Professions\Miner\Gold Ingots 2 (W/E)</category>
+	</item>
+
+	<item id="1bec">
+		<id>0x1bec</id>
+		<category>Professions\Miner\Gold Ingot (N/S)</category>
+	</item>
+
+	<item id="1bed">
+		<id>0x1bed</id>
+		<category>Professions\Miner\Gold Ingots 1 (N/S)</category>
+	</item>
+
+	<item id="1bee">
+		<id>0x1bee</id>
+		<category>Professions\Miner\Gold Ingots 2 (N/S)</category>
+	</item>
+
+	<item id="1bef">
+		<id>0x1bef</id>
+		<category>Professions\Miner\Iron Ingot (W/E)</category>
+	</item>
+
+	<item id="1bf0">
+		<id>0x1bf0</id>
+		<category>Professions\Miner\Iron Ingots 1 (W/E)</category>
+	</item>
+
+	<item id="1bf1">
+		<id>0x1bf1</id>
+		<category>Professions\Miner\Iron Ingots 2 (W/E)</category>
+	</item>
+
+	<item id="1bf2">
+		<id>0x1bf2</id>
+		<category>Professions\Miner\Iron Ingot (N/S)</category>
+	</item>
+
+	<item id="1bf3">
+		<id>0x1bf3</id>
+		<category>Professions\Miner\Iron Ingots 1 (N/S)</category>
+	</item>
+
+	<item id="1bf4">
+		<id>0x1bf4</id>
+		<category>Professions\Miner\Iron Ingots 2 (N/S)</category>
+	</item>
+
+	<item id="1bf5">
+		<id>0x1bf5</id>
+		<category>Professions\Miner\Silver Ingot (W/E)</category>
+	</item>
+
+	<item id="1bf6">
+		<id>0x1bf6</id>
+		<category>Professions\Miner\Silver Ingots 1 (W/E)</category>
+	</item>
+
+	<item id="1bf7">
+		<id>0x1bf7</id>
+		<category>Professions\Miner\Silver Ingots 2 (W/E)</category>
+	</item>
+
+	<item id="1bf8">
+		<id>0x1bf8</id>
+		<category>Professions\Miner\Silver Ingot (N/S)</category>
+	</item>
+
+	<item id="1bf9">
+		<id>0x1bf9</id>
+		<category>Professions\Miner\Silver Ingots 1 (N/S)</category>
+	</item>
+
+	<item id="1bfa">
+		<id>0x1bfa</id>
+		<category>Professions\Miner\Silver Ingots 2 (N/S)</category>
+	</item>
+
+</definitions>

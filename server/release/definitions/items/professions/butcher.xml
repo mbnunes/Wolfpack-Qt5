@@ -1,0 +1,127 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Butcher                                                       |
+=================================================================
+-->
+<definitions>
+	<item id="1e83">
+		<id>0x1e83</id>
+		<category>Professions\Butcher\Bird 1 (N/S)</category>
+	</item>
+
+	<item id="1e84">
+		<id>0x1e84</id>
+		<category>Professions\Butcher\Bird 1 (W/E)</category>
+	</item>
+
+	<item id="1e85">
+		<id>0x1e85</id>
+		<category>Professions\Butcher\Bird 2 (N/S)</category>
+	</item>
+
+	<item id="1e86">
+		<id>0x1e86</id>
+		<category>Professions\Butcher\Bird 2 (W/E)</category>
+	</item>
+
+	<item id="1e87">
+		<id>0x1e87</id>
+		<category>Professions\Butcher\Chicken</category>
+	</item>
+
+	<item id="1e88">
+		<id>0x1e88</id>
+		<category>Professions\Butcher\Skinned Goat (N/S)</category>
+	</item>
+
+	<item id="1e89">
+		<id>0x1e89</id>
+		<category>Professions\Butcher\Skinned Goat (W/E)</category>
+	</item>
+
+	<item id="1e8a">
+		<id>0x1e8a</id>
+		<category>Professions\Butcher\Lard</category>
+	</item>
+
+	<item id="1e8b">
+		<id>0x1e8b</id>
+		<category>Professions\Butcher\Plucked Chicken</category>
+	</item>
+
+	<item id="1e8c">
+		<id>0x1e8c</id>
+		<category>Professions\Butcher\Pig's Feet (W/E)</category>
+	</item>
+
+	<item id="1e8d">
+		<id>0x1e8d</id>
+		<category>Professions\Butcher\Pig's Feet (N/S)</category>
+	</item>
+
+	<item id="1e8e">
+		<id>0x1e8e</id>
+		<category>Professions\Butcher\Pig's Head (N/S)</category>
+	</item>
+
+	<item id="1e8f">
+		<id>0x1e8f</id>
+		<category>Professions\Butcher\Pig's Head (W/E)</category>
+	</item>
+
+	<item id="1e90">
+		<id>0x1e90</id>
+		<category>Professions\Butcher\Skinned Deer (N/S)</category>
+	</item>
+
+	<item id="1e91">
+		<id>0x1e91</id>
+		<category>Professions\Butcher\Skinned Deer (W/E)</category>
+	</item>
+
+	<item id="1e92">
+		<id>0x1e92</id>
+		<category>Professions\Butcher\Skinned Rabbit (N/S)</category>
+	</item>
+
+	<item id="1e93">
+		<id>0x1e93</id>
+		<category>Professions\Butcher\Skinned Rabbit (W/E)</category>
+	</item>
+
+	<item id="1e94">
+		<id>0x1e94</id>
+		<category>Professions\Butcher\Spit 1 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1e95">
+		<id>0x1e95</id>
+		<category>Professions\Butcher\Spit 2 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1e96">
+		<id>0x1e96</id>
+		<category>Professions\Butcher\Spit (W/E) (1/2)</category>
+	</item>
+
+	<item id="1e97">
+		<id>0x1e97</id>
+		<category>Professions\Butcher\Spit 1 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1e98">
+		<id>0x1e98</id>
+		<category>Professions\Butcher\Spit 2 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1e99">
+		<id>0x1e99</id>
+		<category>Professions\Butcher\Spit (N/S) (1/2)</category>
+	</item>
+
+</definitions>
