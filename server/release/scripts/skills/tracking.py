@@ -17,19 +17,21 @@ STEALTH_DELAY = 5000
 MIN_HIDING = 800
 
 def tracking( char, skill ):
-	if skill != TRACKING:
-		return 0
+	socket = char.socket
+
+	if skill != TRACKING or not char.socket:
+		return False
 
 	if char.socket.hastag( 'skill_delay' ):
-		if wolfpack.time.currenttime() < char.socket.gettag( 'skill_delay' ):
-			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-			return 1
+		if wolfpack.time.currenttime() < socket.gettag( 'skill_delay' ):
+			socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			return True
 		else:
-			char.socket.deltag( 'skill_delay' )
+			socket.deltag( 'skill_delay' )
 
-	char.socket.clilocmessage( 1011350 ) # What do you wish to track?
-	char.socket.closegump( 0x87651592 ) # What to track
-	gump = cGump( x = 20, y = 30, callback="skills.tracking.trackWhatResponse", type=0x87651592 )
+	socket.clilocmessage( 1011350 ) # What do you wish to track?
+	socket.closegump( 0x87651592 ) # What to track
+	gump = cGump( x=20, y=30, callback="skills.tracking.trackWhatResponse", type=0x87651592 )
 
 	gump.startPage( 0 )
 	gump.addBackground( 5054, 440, 135 )
@@ -54,12 +56,12 @@ def tracking( char, skill ):
 
 	gump.send( char )
 
-	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + STEALTH_DELAY ) )
+	socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + STEALTH_DELAY ) )
 
-	return 1
+	return True
 
 def trackWhatResponse( char, args, target ):
-	return 1
+	return True
 
 def onLoad():
 	skills.register( TRACKING, tracking )

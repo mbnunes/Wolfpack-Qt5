@@ -690,6 +690,22 @@ def checkLoS( object1, object2, rangecheck=10 ):
 	else:
 		return 0
 
+"""
+	\function wolfpack.utilities.itemsincontainer
+	\param serial
+	\return list
+	\description Returns a list of item serials inside the container.
+"""
+def itemsincontainer( serial ):
+	container = wolfpack.finditem( serial )
+	itemlist = []
+	if container.type == 1:
+		for item in container.content:
+			itemlist += [ item.serial ]
+		return itemlist
+	else:
+		return itemlist
+
 # Class for Wrapping Chars or Items in Argument Lists
 class ObjectWrapper:
 	def __init__(self, wrapped):
