@@ -271,6 +271,9 @@ void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech
 	if ( InputSpeech( socket, pChar, speech ) )
 		return;
 
+	// log
+	pChar->log(LOG_SPEECH, tr("Saying '%1' (%2, 0x%3).\n").arg(speech).arg(font).arg(color, 0, 16));
+
 	pChar->unhide();
 
 	// Check for Bogus Color

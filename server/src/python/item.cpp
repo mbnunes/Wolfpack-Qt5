@@ -328,14 +328,14 @@ static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 		return NULL;
 	}
 
-	Q_UINT16 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	Q_UINT32 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
 	Q_UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
 	Q_UINT16 color = 0;
 
 	if ( PyTuple_Size( args ) > 2 && PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
 		color = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
 
-	Q_UINT16 deleted = 0;
+	Q_UINT32 deleted = 0;
 	deleted = self->pItem->deleteAmount( amount, id, color );
 
 	return PyInt_FromLong( deleted );

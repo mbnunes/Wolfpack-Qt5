@@ -2688,6 +2688,37 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 	sendStatWindow();
 }
 
+static void walkSellItems(P_ITEM pCont, P_ITEM pPurchase, QPtrList<cItem> &items) {
+	cItem::ContainerContent container = pPurchase->content();
+	cItem::ContainerContent::const_iterator it( container.begin() );
+	cItem::ContainerContent::const_iterator end( container.end() );
+
+	cItem::ContainerContent packcont = pCont->content();
+	cItem::ContainerContent::const_iterator pit;
+
+	// For every pack item search for an equivalent sellitem
+	pit = packcont.begin();
+	while ( pit != packcont.end() ) {
+		P_ITEM pItem = *pit;
+
+		// Containers with content are walked and _not_ sold
+		if (pItem->type() == 1 && pItem->content().size() > 0) {
+			walkSellItems(pItem, pPurchase, items);
+		} else {
+			// Search all sellable items
+			for (it = container.begin(); it != container.end(); ++it) {
+				P_ITEM mItem = *it;
+				if ( pItem->baseid() == mItem->baseid() && pItem->scriptList() == mItem->scriptList() ) {
+					items.append(pItem);
+					break; // Break the inner loop
+				}
+			}
+		}
+
+		++pit;
+	}
+}
+
 void cUOSocket::sendSellWindow( P_NPC pVendor, P_CHAR pSeller )
 {
 	P_ITEM pPurchase = pVendor->atLayer( cBaseChar::SellContainer );
@@ -2699,30 +2730,16 @@ void cUOSocket::sendSellWindow( P_NPC pVendor, P_CHAR pSeller )
 		cUOTxSellList itemContent;
 		itemContent.setSerial( pVendor->serial() );
 
-		cItem::ContainerContent container = pPurchase->content();
-		cItem::ContainerContent::const_iterator it( container.begin() );
-		cItem::ContainerContent::const_iterator end( container.end() );
+		walkSellItems(pBackpack, pPurchase, items);
 
-		cItem::ContainerContent packcont = pBackpack->content();
-		cItem::ContainerContent::const_iterator pit;
-
-		for ( Q_INT32 i = 0; it != end; ++it, ++i )
-		{
-			P_ITEM mItem = *it;
-
-			if ( mItem )
-			{
-				pit = packcont.begin();
-				while ( pit != packcont.end() )
-				{
-					if ( *pit && ( *pit )->baseid() == mItem->baseid() && ( *pit )->scriptList() == mItem->scriptList() )
-					{
-						unsigned int sellprice = mItem->getSellPrice(pVendor);
-						itemContent.addItem( ( *pit )->serial(), ( *pit )->id(), ( *pit )->color(), ( *pit )->amount(), sellprice, ( *pit )->getName() );
-						items.append( ( *pit ) );
-					}
-					++pit;
-				}
+		// Transfer the found items to the sell list
+		P_ITEM pItem;
+		unsigned int count = 0;
+		for (pItem = items.first(); pItem; pItem = items.next()) {
+			unsigned int sellprice = pItem->getSellPrice(pVendor);
+			if (sellprice != 0) {
+				itemContent.addItem( pItem->serial(), pItem->id(), pItem->color(), pItem->amount(), sellprice, pItem->getName() );
+				++count;
 			}
 		}
 
@@ -3103,19 +3120,15 @@ bool cUOSocket::useItem( P_ITEM item )
 		}
 
 		// TODO: Add a XML option for this
-		if ( !_player->owns( item ) && !_player->isGM() && _player->isInnocent() )
-		{
+		if ( !_player->owns( item ) && !_player->isGM() && _player->isInnocent() ) {
 			// Innocent Corpse and not in the same party && party allowance for looting?
-			if ( item->hasTag( "notoriety" ) && item->getTag( "notoriety" ).toInt() == 0x01 )
-			{
+			if ( item->hasTag( "notoriety" ) && item->getTag( "notoriety" ).toInt() == 0x01 ) {
 				P_PLAYER owner = dynamic_cast<P_PLAYER>( item->owner() );
 				bool allowed = false;
 
-				if ( owner && owner->party() && owner->party() == _player->party() )
-				{
+				if ( owner && owner->party() && owner->party() == _player->party() ) {
 					// Check if the player allowed looting his corpse by party members
-					if ( owner->party()->lootingAllowed().contains( owner ) )
-					{
+					if ( owner->party()->lootingAllowed().contains( owner ) ) {
 						allowed = true;
 					}
 				}
@@ -3125,6 +3138,13 @@ bool cUOSocket::useItem( P_ITEM item )
 					_player->makeCriminal();
 				}
 			}
+		}
+
+		// Get the corpse owner
+		P_PLAYER owner = dynamic_cast<P_PLAYER>(item->owner());
+
+		if (owner && owner != _player) {
+			log(LOG_NOTICE, tr("Looking into corpse of player '%1' ('%2', 0x%3)").arg(owner->name()).arg(owner->account() ? owner->account()->login() : QString("unknown")).arg(owner->serial(), 0, 16));
 		}
 	}
 

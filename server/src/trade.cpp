@@ -178,7 +178,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 	// Get our total gold at once
 	Q_UINT32 bankGold = pChar->countBankGold();
 	Q_UINT32 packGold = pChar->countGold();
-	bool fromBank;
+	bool fromBank = false;
 
 	if ( !pChar->isGM() )
 	{
@@ -334,7 +334,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 		}
 
 		// now look for the item in the player's pack
-		if (pItem->container() != pPack) {
+		if (pItem->getOutmostChar() != pChar) {
 			socket->sysMessage( tr( "Invalid item sold." ) );
 			socket->send( &clearBuy );
 			return;

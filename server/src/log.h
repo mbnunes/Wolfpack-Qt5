@@ -47,6 +47,7 @@ enum eLogLevel
 	LOG_NOTICE		= 0x10,
 	LOG_TRACE		= 0x20,
 	LOG_DEBUG		= 0x40,
+	LOG_SPEECH		= 0x80,
 	LOG_ALL			= 0xFF
 };
 

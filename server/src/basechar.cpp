@@ -2839,7 +2839,7 @@ bool cBaseChar::kill( cUObject* source )
 				}
 			}
 		}
-	}
+	} 
 
 	// Fame is reduced by 10% upon death
 	fame_ = ( int ) ( ( float ) fame_ * 0.90 );
@@ -2851,6 +2851,40 @@ bool cBaseChar::kill( cUObject* source )
 	P_PLAYER player = dynamic_cast<P_PLAYER>( this );
 
 	bool summoned = npc && npc->summoned();
+
+	// Kill Logging
+	QString logName;
+	if (npc) {
+		if (summoned) {
+			logName = tr("Summoned npc '%1' ('%2', 0x%3)").arg(name()).arg(baseid()).arg(serial_, 0, 16);
+		} else {
+			logName = tr("Npc '%1' ('%2', 0x%3)").arg(name()).arg(baseid()).arg(serial_, 0, 16);
+		}
+	} else if (player) {
+		logName = tr("Player '%1' ('%2', 0x%3)").arg(name()).arg(player->account() ? player->account()->login() : QString("Unknown")).arg(serial_, 0, 16);
+	}
+
+	QString killerName;
+	if (pKiller && pKiller != this) {
+		P_NPC pKillerNpc = dynamic_cast<P_NPC>(pKiller);
+		P_PLAYER pKillerPlayer = dynamic_cast<P_PLAYER>(pKiller);
+
+		if (pKillerNpc) {
+			if (pKillerNpc->summoned()) {
+				killerName = tr("summoned npc '%1' ('%2', 0x%3)").arg(pKiller->name()).arg(pKiller->baseid()).arg(pKiller->serial(), 0, 16);
+			} else {
+				killerName = tr("npc '%1' ('%2', 0x%3)").arg(pKiller->name()).arg(pKiller->baseid()).arg(pKiller->serial(), 0, 16);
+			}
+		} else if (pKillerPlayer) {
+			killerName = tr("player '%1' ('%2', 0x%3)").arg(pKiller->name()).arg(pKillerPlayer->account() ? pKillerPlayer->account()->login() : QString("Unknown")).arg(pKillerPlayer->serial(), 0, 16);
+		}
+	} else if (pKiller && pKiller == this) {
+		killerName = tr("himself");
+	} else if (!pKiller) {
+		killerName = tr("accident");
+	}
+
+	log(LOG_TRACE, tr("%1 was killed by %2.\n").arg(logName).arg(killerName));
 
 	if ( player )
 		player->unmount();

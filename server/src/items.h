@@ -361,7 +361,7 @@ public:
 	Q_UINT16 getWeaponSkill();
 
 	void moveTo( const Coord_cl& pos, bool noremove = false );
-	long reduceAmount( short amount = 1 );
+	long reduceAmount( unsigned int amount = 1 );
 	short containerGumpType() const;
 	void setRandPosInCont( cItem* pCont );
 	bool pileItem( cItem* pItem );

@@ -148,9 +148,9 @@ void cItem::toBackpack( P_CHAR pChar )
  * 		necessary and returns 0. If the request could not be fully satisfied,
  * 		the remainder is returned
  */
-long cItem::reduceAmount( const short amt )
+long cItem::reduceAmount( unsigned int amt )
 {
-	Q_UINT16 rest = 0;
+	Q_UINT32 rest = 0;
 	if ( amount_ > amt )
 	{
 		setAmount( amount_ - amt );
@@ -160,8 +160,8 @@ long cItem::reduceAmount( const short amt )
 	}
 	else
 	{
-		this->remove();
 		rest = amt - amount_;
+		this->remove();		
 	}
 	return rest;
 }
@@ -327,7 +327,7 @@ void cItem::setRandPosInCont( cItem* pCont )
 */
 int cItem::deleteAmount( int amount, unsigned short _id, unsigned short _color )
 {
-	int rest = amount;
+	unsigned int rest = amount;
 	P_ITEM pi;
 	cItem::ContainerContent container( this->content() );
 	cItem::ContainerContent::const_iterator it( container.begin() );

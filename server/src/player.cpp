@@ -751,8 +751,12 @@ void cPlayer::giveGold( Q_UINT32 amount, bool inBank )
 	{
 		P_ITEM pile = cItem::createFromScript( "eed" );
 		pile->setAmount( QMIN( total, static_cast<Q_UINT32>( 65535 ) ) );
-		pCont->addItem( pile );
 		total -= pile->amount();
+
+		pCont->addItem( pile );
+		if (!pile->free) {
+			pile->update();
+		}
 	}
 
 	goldSound( amount, false );
