@@ -1,5 +1,4 @@
 CREATE TABLE `boats` (
-  `serial` int(11) NOT NULL default '0',
   `autosail` tinyint(1) NOT NULL default '0',
   `boatdir` tinyint(1) NOT NULL default '0',
   `itemserial1` int(11) NOT NULL default '-1',
@@ -10,110 +9,111 @@ CREATE TABLE `boats` (
   `multi2` smallint(6) default '0',
   `multi3` smallint(6) default '0',
   `multi4` smallint(6) default '0',
+  `serial` int(11) NOT NULL default '0',
   PRIMARY KEY (`serial`)
 );
 
 CREATE TABLE `boats_itemids` (
-  `serial` int(11) NOT NULL default '0',
   `a` tinyint(1)  NOT NULL default '0',
   `b` tinyint(1)  NOT NULL default '0',
   `id` smallint(6)  default '0',
+  `serial` int(11) NOT NULL default '0',
   PRIMARY KEY (`serial`)
 );
 
 CREATE TABLE `boats_itemoffsets` (
-  `serial` int(11) NOT NULL default '0',
   `a` tinyint(1)  NOT NULL default '0',
   `b` tinyint(1)  NOT NULL default '0',
   `c` tinyint(1)  NOT NULL default '0',
   `offset` smallint(6) default '0',
+  `serial` int(11) NOT NULL default '0',
   PRIMARY KEY (`serial`)
 );
 
 CREATE TABLE `bookpages` (
-  `serial` int(11) NOT NULL default '0',
   `page` tinyint(3) NOT NULL default '0',
+  `serial` int(11) NOT NULL default '0',
   `text` varchar(255) NOT NULL default '',
   PRIMARY KEY (`serial`,`page`)
 );
 
 CREATE TABLE `books` (
+  `author` varchar(255) NOT NULL default '',
+  `pages` smallint(5)  NOT NULL default '0',
+  `predefined` tinyint(1) NOT NULL default '0',
+  `readonly` tinyint(1) NOT NULL default '0',
+  `section` varchar(255)  NOT NULL default '',
   `serial` int(11) NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
-  `author` varchar(255) NOT NULL default '',
-  `readonly` tinyint(1) NOT NULL default '0',
-  `predefined` tinyint(1) NOT NULL default '0',
-  `section` varchar(255)  NOT NULL default '',
-  `pages` smallint(5)  NOT NULL default '0',
   PRIMARY KEY (`serial`)
 );
 
 CREATE TABLE `characters` (
-  `serial` int(11) NOT NULL default '0',
-  `name` varchar(255) default NULL,
-  `title` varchar(255) default NULL,
-  `creationdate` varchar(255) default NULL,
+  `attacker` int(11) NOT NULL default '-1',
   `body` smallint(5)  NOT NULL default '0',
-  `orgbody` smallint(5)  NOT NULL default '0',
-  `skin` smallint(5)  NOT NULL default '0',
-  `orgskin` smallint(5)  NOT NULL default '0',
-  `saycolor` smallint(5)  NOT NULL default '0',
-  `emotecolor` smallint(5)  NOT NULL default '0',
-  `strength` smallint(6) NOT NULL default '0',
-  `strengthmod` smallint(6) NOT NULL default '0',
-  `dexterity` smallint(6) NOT NULL default '0',
-  `dexteritymod` smallint(6) NOT NULL default '0',
-  `intelligence` smallint(6) NOT NULL default '0',
-  `intelligencemod` smallint(6) NOT NULL default '0',
-  `maxhitpoints` smallint(6) NOT NULL default '0',
-  `hitpoints` smallint(6) NOT NULL default '0',
-  `maxstamina` smallint(6) NOT NULL default '0',
-  `stamina` smallint(6) NOT NULL default '0',
-  `maxmana` smallint(6) default NULL,
-  `mana` smallint(6) default NULL,
-  `karma` int(11) NOT NULL default '0',
-  `fame` int(11) NOT NULL default '0',
-  `kills` int(10)  NOT NULL default '0',
+  `combattarget` int(11) NOT NULL default '-1',
+  `creationdate` varchar(255) default NULL,
+  `criminaltime` int(11)  NOT NULL default '0',
   `deaths` int(10)  NOT NULL default '0',
   `def` int(10)  NOT NULL default '0',
-  `hunger` int(11) NOT NULL default '0',
-  `poison` int(11) NOT NULL default '0',
-  `poisoned` int(10)  NOT NULL default '0',
-  `murderertime` int(11)  NOT NULL default '0',
-  `criminaltime` int(11)  NOT NULL default '0',
-  `nutriment` int(10)  NOT NULL default '0',
+  `dexteritymod` smallint(6) NOT NULL default '0',
+  `dexterity` smallint(6) NOT NULL default '0',
+  `emotecolor` smallint(5)  NOT NULL default '0',
+  `fame` int(11) NOT NULL default '0',
   `gender` tinyint(1)  NOT NULL default '0',
-  `propertyflags` int(11)  NOT NULL default '0',
-  `attacker` int(11) NOT NULL default '-1',
-  `combattarget` int(11) NOT NULL default '-1',
-  `murderer` int(11) NOT NULL default '-1',
   `guarding` int(11) NOT NULL default '-1',
+  `hitpoints` smallint(6) NOT NULL default '0',
+  `hunger` int(11) NOT NULL default '0',
+  `intelligencemod` smallint(6) NOT NULL default '0',
+  `intelligence` smallint(6) NOT NULL default '0',
+  `karma` int(11) NOT NULL default '0',
+  `kills` int(10)  NOT NULL default '0',
+  `mana` smallint(6) default NULL,
+  `maxhitpoints` smallint(6) NOT NULL default '0',
+  `maxmana` smallint(6) default NULL,
+  `maxstamina` smallint(6) NOT NULL default '0',
+  `murderertime` int(11)  NOT NULL default '0',
+  `murderer` int(11) NOT NULL default '-1',
+  `name` varchar(255) default NULL,
+  `nutriment` int(10)  NOT NULL default '0',
+  `orgbody` smallint(5)  NOT NULL default '0',
+  `orgskin` smallint(5)  NOT NULL default '0',
+  `poisoned` int(10)  NOT NULL default '0',
+  `poison` int(11) NOT NULL default '0',
+  `propertyflags` int(11)  NOT NULL default '0',
+  `saycolor` smallint(5)  NOT NULL default '0',
+  `serial` int(11) NOT NULL default '0',
+  `skin` smallint(5)  NOT NULL default '0',
+  `stamina` smallint(6) NOT NULL default '0',
+  `strengthmod` smallint(6) NOT NULL default '0',
+  `strength` smallint(6) NOT NULL default '0',
+  `title` varchar(255) default NULL,
   PRIMARY KEY (`serial`)
 );
 
 CREATE TABLE `corpses` (
-  `serial` int(11) NOT NULL default '0',
-  `bodyid` smallint(6)  NOT NULL default '0',
-  `hairstyle` smallint(6)  NOT NULL default '0',
-  `haircolor` smallint(6)  NOT NULL default '0',
-  `beardstyle` smallint(6)  NOT NULL default '0',
   `beardcolor` smallint(6)  NOT NULL default '0',
+  `beardstyle` smallint(6)  NOT NULL default '0',
+  `bodyid` smallint(6)  NOT NULL default '0',
+  `haircolor` smallint(6)  NOT NULL default '0',
+  `hairstyle` smallint(6)  NOT NULL default '0',
+  `serial` int(11) NOT NULL default '0',
   PRIMARY KEY (`serial`)
 );
 
 CREATE TABLE `corpses_equipment` (
-  `serial` int(11) NOT NULL default '0',
-  `layer` tinyint(3)  NOT NULL default '0',
   `item` int(11) NOT NULL default '-1',
+  `layer` tinyint(3)  NOT NULL default '0',
+  `serial` int(11) NOT NULL default '0',
   PRIMARY KEY (`serial`,`layer`)
 );
 
 CREATE TABLE `houses` (
-  `serial` int(11) NOT NULL default '0',
-  `nokey` tinyint(1) NOT NULL default '0',
   `charpos_x` smallint(6) NOT NULL default '0',
   `charpos_y` smallint(6) NOT NULL default '0',
   `charpos_z` smallint(6) NOT NULL default '0',
+  `nokey` tinyint(1) NOT NULL default '0',
+  `serial` int(11) NOT NULL default '0',
   PRIMARY KEY (`serial`)
 );
 
@@ -148,88 +148,88 @@ CREATE TABLE `items` (
 );
 
 CREATE TABLE `multis` (
-  `serial` int(11) NOT NULL default '0',
   `coowner` int(11) NOT NULL default '-1',
   `deedsection` varchar(255) NOT NULL default '',
+  `serial` int(11) NOT NULL default '0',
   PRIMARY KEY (`serial`)
 );
 
 CREATE TABLE `multis_bans` (
-  `serial` int(11) NOT NULL default '0',
   `ban` int(11) NOT NULL default '-1',
+  `serial` int(11) NOT NULL default '0',
   PRIMARY KEY (`serial`,`ban`)
 );
 
 CREATE TABLE `multis_friends` (
-  `serial` int(11) NOT NULL default '0',
   `friend` int(11) NOT NULL default '-1',
+  `serial` int(11) NOT NULL default '0',
   PRIMARY KEY (`serial`,`friend`)
 );
 
 CREATE TABLE `npcs` (
-  `serial` int(11) NOT NULL default '0',
-  `mindamage` smallint(6)  NOT NULL default '0',
-  `maxdamage` smallint(6)  NOT NULL default '0',
-  `tamingminskill` smallint(6)  NOT NULL default '0',
-  `summontime` int(11)  NOT NULL default '0',
   `additionalflags` int(11)  NOT NULL default '0',
-  `owner` int(11) NOT NULL default '-1',
-  `carve` varchar(255) default NULL,
-  `spawnregion` varchar(255) default NULL,
-  `stablemaster` int(11) NOT NULL default '-1',
-  `lootlist` varchar(255) default NULL,
   `ai` varchar(255) default NULL,
+  `carve` varchar(255) default NULL,
+  `fleeat` smallint(3)  NOT NULL default '10',
+  `lootlist` varchar(255) default NULL,
+  `maxdamage` smallint(6)  NOT NULL default '0',
+  `mindamage` smallint(6)  NOT NULL default '0',
+  `owner` int(11) NOT NULL default '-1',
+  `serial` int(11) NOT NULL default '0',
+  `spawnregion` varchar(255) default NULL,
+  `spellshigh` int(11)  NOT NULL default '0',
+  `spellslow` int(11)  NOT NULL default '0',
+  `stablemaster` int(11) NOT NULL default '-1',
+  `summontime` int(11)  NOT NULL default '0',
+  `tamingminskill` smallint(6)  NOT NULL default '0',
+  `wanderradius` smallint(6) NOT NULL default '0',
   `wandertype` smallint(3) NOT NULL default '0',
   `wanderx1` smallint(6) NOT NULL default '0',
   `wanderx2` smallint(6) NOT NULL default '0',
   `wandery1` smallint(6) NOT NULL default '0',
   `wandery2` smallint(6) NOT NULL default '0',
-  `wanderradius` smallint(6) NOT NULL default '0',
-  `fleeat` smallint(3)  NOT NULL default '10',
-  `spellslow` int(11)  NOT NULL default '0',
-  `spellshigh` int(11)  NOT NULL default '0',
   PRIMARY KEY (`serial`)
 );
 
 CREATE TABLE `players` (
-  `serial` int(11) NOT NULL default '0',
   `account` varchar(255) default NULL,
   `additionalflags` int(10)  NOT NULL default '0',
-  `visualrange` tinyint(3)  NOT NULL default '0',
-  `profile` longtext,
   `fixedlight` tinyint(3)  NOT NULL default '0',
+  `profile` longtext,
+  `serial` int(11) NOT NULL default '0',
+  `visualrange` tinyint(3)  NOT NULL default '0',
   PRIMARY KEY (`serial`)
 );
 
 CREATE TABLE `skills` (
+  `cap` smallint(6) default '0',
+  `locktype` tinyint(4) default '0',
   `serial` int(11) NOT NULL default '0',
   `skill` tinyint(3)  NOT NULL default '0',
   `value` smallint(6) NOT NULL default '0',
-  `locktype` tinyint(4) default '0',
-  `cap` smallint(6) default '0',
   PRIMARY KEY (`serial`,`skill`)
 );
 
 CREATE TABLE `tags` (
-  `serial` int(11) NOT NULL default '0',
   `name` varchar(64) NOT NULL default '',
+  `serial` int(11) NOT NULL default '0',
   `type` varchar(6) NOT NULL default '',
   `value` longtext NOT NULL,
   PRIMARY KEY (`serial`,`name`)
 );
 
 CREATE TABLE `uobject` (
-  `name` varchar(255) default NULL,
-  `serial` int(11) NOT NULL default '0',
-  `multis` int(11) NOT NULL default '-1',
+  `bindmenu` varchar(255) default NULL,
   `direction` char(1) NOT NULL default '0',
+  `events` varchar(255) default NULL,
+  `havetags` tinyint(1) NOT NULL default '0',
+  `multis` int(11) NOT NULL default '-1',
+  `name` varchar(255) default NULL,
+  `pos_map` tinyint(4) NOT NULL default '0',
   `pos_x` smallint(6)  NOT NULL default '0',
   `pos_y` smallint(6)  NOT NULL default '0',
   `pos_z` smallint(6) NOT NULL default '0',
-  `pos_map` tinyint(4) NOT NULL default '0',
-  `events` varchar(255) default NULL,
-  `bindmenu` varchar(255) default NULL,
-  `havetags` tinyint(1) NOT NULL default '0',
+  `serial` int(11) NOT NULL default '0',
   PRIMARY KEY (`serial`)
 );
 
@@ -240,12 +240,12 @@ CREATE TABLE `uobjectmap` (
 );
 
 CREATE TABLE `effects` (
+  `destination` int(11) NOT NULL default '-1',
+  `dispellable` tinyint(4) NOT NULL default '0',
+  `expiretime` int(11) NOT NULL default '0',
   `id` int(11) NOT NULL default '0',
   `objectid` varchar(64) NOT NULL default '',
-  `expiretime` int(11) NOT NULL default '0',
-  `dispellable` tinyint(4) NOT NULL default '0',
   `source` int(11) NOT NULL default '-1',
-  `destination` int(11) NOT NULL default '-1',
   PRIMARY KEY  (`id`)
 );
 
