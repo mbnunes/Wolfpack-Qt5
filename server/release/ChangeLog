@@ -3,11 +3,13 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed onDeath being called after the npc was already deleted.
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
+  - fixed bug #0000381 ("potion_keg" and "potionkeg")
  * Python Script Changes:
   - Added a follow command.
   - Tinkers can now choose a second material
   - Fixed an issue with the spell Telekinesis
   - Fix for Detecting Hidden
+  - fixed bug #0000380 (potionkeg was not usable with nightsight potion)
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
