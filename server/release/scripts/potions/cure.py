@@ -24,13 +24,16 @@ def potion( char, potion, curetype ):
 		curelevel = 1
 	elif curetype == 6:
 		curelevel = 2
-
+		
+	char.socket.sysmessage( "curelevel: %s\n char.poison: %s" % (char.poison - curelevel, char.poison) )
+	char.socket.sysmessage( "%s" % (char.poison - curelevel) )
 	if curelevel >= char.poison:
 		poison.cure( char )
 		char.effect( 0x373a, 10, 15 )
 		char.soundeffect( 0x1e0 )
 	# curelevel now must be lower than char.poison
 	else:
+		chance = 0.0
 		if ( char.poison - curelevel ) == 1:
 			chance = 0.5
 		elif ( char.poison - curelevel ) == 2:
