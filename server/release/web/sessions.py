@@ -30,7 +30,7 @@ def start_session( username ):
 
 	session = {
 		'username': username,
-		'expire': time.time() + 900
+		'expire': time.time() + 9000
 	}
 
 	sessions[ session_key ] = session
@@ -48,7 +48,7 @@ def get_session( session_id ):
 		return None
 	else:
 		# Refresh expire time
-		sessions[ session_id ][ 'expire' ] = time.time() + 900
+		sessions[ session_id ][ 'expire' ] = time.time() + 9000
 		return sessions[ session_id ]
 
 """
