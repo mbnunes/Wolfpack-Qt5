@@ -793,6 +793,8 @@ void cUOSocket::giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill )
 */
 void cUOSocket::sysMessage( const QString &message, Q_UINT16 color, UINT16 font )
 {
+	if( message.isEmpty() )
+		return;
 	// Color: 0x0037
 	cUOTxUnicodeSpeech speech;
 	speech.setSource( 0xFFFFFFFF );

@@ -75,6 +75,7 @@ HEADERS         = client.h \
 		  regions.h \
 		  remadmin.h \
 		  resource.h \
+		  resources.h \
 		  spawnregions.h \
 		  speech.h \
                   srvparams.h \
@@ -157,6 +158,7 @@ SOURCES         = client.cpp \
                   pfactory.cpp \
 		  regions.cpp \
 		  remadmin.cpp \
+		  resources.cpp \
 		  scripts.cpp \
                   serxmlfile.cpp \
                   serbinfile.cpp \

@@ -899,13 +899,6 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		else
 			pi = Items->SpawnItem( pc, 1, (char*)QString("%1").arg( name_ ).latin1(), true, id, color, true );
 
-/*		if( pi )
-		{
-			pi->pos = pc->pos;
-			mapRegions->Add( pi );
-			pi->update();
-		}*/
-			
 		spawnamount -= 1;
 	}
 }
@@ -1104,13 +1097,6 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 		else
 			pi = Items->SpawnItem( pc, 1, (char*)QString("%1").arg( name_ ).latin1(), true, id, color, true );
 
-/*		if( pi )
-		{
-			pi->pos = pc->pos;
-			mapRegions->Add( pi );
-			pi->update();
-		}*/
-			
 		spawnamount -= 1;
 	}
 }

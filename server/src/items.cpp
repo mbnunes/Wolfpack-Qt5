@@ -1863,7 +1863,9 @@ void cItem::processModifierNode( const QDomElement &Tag )
 
 	// <name>magic %1</name>
 	if( TagName == "name" )
+	{
 		name_ = Value.arg( name_ );
+	}
 
 	// <identified>%1 of Hardening</identified>
 	else if( TagName == "identified" )
@@ -1871,16 +1873,33 @@ void cItem::processModifierNode( const QDomElement &Tag )
 
 	// <color>-10</color>
 	else if( TagName == "color" )
-		color_ += Value.toShort();
+	{
+		if( Value.contains(".") || Value.contains(",") )
+			color_ = (UINT16)ceil((float)color_ * Value.toFloat());
+		else
+			color_ += Value.toShort();
+	}
 
 	// <attack min="-1" max="+2"/>
 	else if( TagName == "attack" )
 	{
 		if( Tag.attributes().contains( "min" ) )
-			setLodamage( lodamage() + Tag.attribute( "min" ).toInt() );
+		{
+			Value = Tag.attribute("min");
+			if( Value.contains(".") || Value.contains(",") )
+				setLodamage( (UINT16)ceil((float)lodamage() * Value.toFloat()) );
+			else
+				setLodamage( lodamage() + Value.toInt() );
+		}
 
 		if( Tag.attributes().contains( "max" ) )
-			setHidamage( hidamage() + Tag.attribute( "max" ).toInt() );
+		{
+			Value = Tag.attribute("max");
+			if( Value.contains(".") || Value.contains(",") )
+				setHidamage( (UINT16)ceil((float)hidamage() * Value.toFloat()) );
+			else
+				setHidamage( hidamage() + Value.toInt() );
+		}
 
 		// Better...
 		if( lodamage() > hidamage() )
@@ -1889,26 +1908,49 @@ void cItem::processModifierNode( const QDomElement &Tag )
 
 	// <defense>+10</defense>
 	else if( TagName == "defense" )
-		def += Value.toInt();
+	{
+		if( Value.contains(".") || Value.contains(",") )
+			def = (UINT32)ceil((float)def * Value.toFloat());
+		else
+			def += Value.toUInt();
+	}
 
 	// <weight>-10</weight>
 	else if( TagName == "weight" )
-		setWeight( weight() + (INT32)( Value.toFloat() * 10 ) );
+	{
+		if( Value.contains(".") || Value.contains(",") )
+			setWeight( (INT32)ceil((float)weight() * Value.toFloat()) );
+		else
+			setWeight( weight() + Value.toInt() );
+	}
 
 	// <value>+20</value>
 	else if( TagName == "value" )
-		value += Value.toInt();
+	{
+		if( Value.contains(".") || Value.contains(",") )
+			value = (INT32)ceil((float)value * Value.toFloat());
+		else
+			value += Value.toInt();
+	}
 
 	// <durability>-10</durabilty>
 	else if( TagName == "durability" )
 	{
-		setMaxhp( maxhp() + Value.toLong() );
+		if( Value.contains(".") || Value.contains(",") )
+			setMaxhp( (INT32)ceil((float)maxhp() * Value.toFloat()) );
+		else
+			setMaxhp( maxhp() + Value.toLong() );
 		setHp( maxhp() );
 	}
 
 	// <speed>-10</speed>
 	else if( TagName == "speed" )
-		setSpeed( speed() + Value.toLong() );
+	{
+		if( Value.contains(".") || Value.contains(",") )
+			setSpeed( (INT32)ceil((float)speed() * Value.toFloat()) );
+		else
+			setSpeed( speed() + Value.toLong() );
+	}
 
 	// <requires type="xx">2</requires>
 	else if( TagName == "requires" )
@@ -1919,11 +1961,26 @@ void cItem::processModifierNode( const QDomElement &Tag )
 		QString Type = Tag.attribute( "type" );
 			
 		if( Type == "str" )
-			this->st += Value.toLong();
+		{
+			if( Value.contains(".") || Value.contains(",") )
+				st = (INT32)ceil((float)st * Value.toFloat());
+			else
+				this->st += Value.toLong();
+		}
 		else if( Type == "dex" )
-			this->dx += Value.toLong();
+		{
+			if( Value.contains(".") || Value.contains(",") )
+				dx = (INT32)ceil((float)dx * Value.toFloat());
+			else
+				this->dx += Value.toLong();
+		}
 		else if( Type == "int" )
-			this->in += Value.toLong();
+		{
+			if( Value.contains(".") || Value.contains(",") )
+				in = (INT32)ceil((float)in * Value.toFloat());
+			else
+				this->in += Value.toLong();
+		}
 	}
 
 	// <modifier type="xx">2</modifier>
@@ -1935,11 +1992,26 @@ void cItem::processModifierNode( const QDomElement &Tag )
 		QString Type = Tag.attribute( "type" );
 			
 		if( Type == "str" )
-			this->st2 += Value.toLong();
+		{
+			if( Value.contains(".") || Value.contains(",") )
+				st2 = (INT32)ceil((float)st2 * Value.toFloat());
+			else
+				this->st2 += Value.toLong();
+		}
 		else if( Type == "dex" )
-			this->dx2 += Value.toLong();
+		{
+			if( Value.contains(".") || Value.contains(",") )
+				dx2 = (INT32)ceil((float)dx2 * Value.toFloat());
+			else
+				this->dx2 += Value.toLong();
+		}
 		else if( Type == "int" )
-			this->in2 += Value.toLong();
+		{
+			if( Value.contains(".") || Value.contains(",") )
+				in2 = (INT32)ceil((float)in2 * Value.toFloat());
+			else
+				this->in2 += Value.toLong();
+		}
 	}
 
 	// <id>+3</id>

@@ -1839,7 +1839,7 @@ int main( int argc, char *argv[] )
 	QString languageFile = SrvParams->getString("General", "Language File", "", true);
 	if ( !languageFile.isEmpty() )
 	{
-		translator.load( languageFile, "./languages" );
+		translator.load( languageFile, "." );
 		app.installTranslator( &translator );
 	}
 
