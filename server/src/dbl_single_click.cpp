@@ -673,11 +673,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 						socket->sysMessage( tr("Who will you use the bandages on?") );
 					}
 					return;
-				case 0x1057:
-				case 0x1058: // sextants
-					getSextantCords(pc_currchar->pos().x, pc_currchar->pos().y, socket->isT2A(), temp);
-					socket->sysMessage( tr("You are at: %1").arg(temp) );
-					return;
 				case 0x14FB:
 				case 0x14FC:
 				case 0x14FD:

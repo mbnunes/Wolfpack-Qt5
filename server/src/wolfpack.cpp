@@ -92,39 +92,7 @@
 
 #include "python/utilities.h"
 
-
 using namespace std;
-
-#undef DBGFILE
-#define DBGFILE "wolfpack.cpp"
-#include "debug.h"
-
-///////////
-// Name:	inVisRange
-// Purpose:	checks if position 1 and 2 are in visual range
-// history:	by Duke, 18.11.2000
-//
-bool inVisRange(int x1, int y1, int x2, int y2)
-{
-	return (QMAX(abs(x1-x2), abs(y1-y2)) <= VISRANGE);
-}
-
-bool inrange1p (PC_CHAR pca, P_CHAR pcb) // Are characters a and b in visual range
-{
-	if (pca == NULL || pcb == NULL) return false;
-
-	return inVisRange(pca->pos().x, pca->pos().y, pcb->pos().x, pcb->pos().y);
-}
-
-///////////
-// Name:	inRange
-// Purpose:	checks if position 1 and 2 are in given range
-// history:	by Duke, 19.11.2000
-//
-bool inRange(int x1, int y1, int x2, int y2, int range)
-{
-	return (QMAX(abs(x1-x2), abs(y1-y2)) <= range);
-}
 
 //================================================================================
 //
@@ -179,52 +147,6 @@ void signal_handler(int signal)
 }
 	
 #endif
-
-void savelog(const char *msg, char *logfile)
-{
-	FILE *file;
-	file = fopen( logfile, "a" );
-	
-	QString logMessage = QString( "[%1] %2\n" ).arg( QDateTime::currentDateTime().toString() ).arg( msg );
-	
-	// Remove newlines
-	logMessage = logMessage.replace( QRegExp( "\n" ), "" );
-	
-	fprintf( file, "%s", logMessage.ascii() );
-	
-	fclose( file );
-}
-
-int DeleBankItem( P_PLAYER pc, unsigned short itemid, unsigned short color, int amt )
-{
-	if( pc == NULL )
-		return amt;
-
-	P_ITEM pBank = pc->getBankBox();
-
-	if( pBank )
-		return pBank->DeleteAmount( amt, itemid, color );
-	else
-		return 0;
-}
-
-void endmessage(int x) // If shutdown is initialized
-{
-	x = 0;
-	unsigned int igetclock = uiCurrentTime;
-	if (endtime < igetclock)
-		endtime = igetclock;
-
-	QString message;
-
-	if( ( ( ( endtime - igetclock ) / MY_CLOCKS_PER_SEC ) / 60 ) < 1 ) 	
-		message = tr( "Server going down in %1 secs." ).arg( ( endtime - igetclock ) / MY_CLOCKS_PER_SEC );
-	else
-		message = tr( "Server going down in %1 minutes." ).arg( ( ( endtime - igetclock ) / MY_CLOCKS_PER_SEC ) / 60 );
-	
-	cNetwork::instance()->broadcast( message );
-	clConsole.send( message );
-}
 
 void reloadScripts()
 {
@@ -961,128 +883,6 @@ int chardirxyz(P_CHAR pc, int x, int y)	// direction from character a to char b
 	return dir;
 }
 
-int fielddir(P_CHAR pc, int x, int y, int z)
-{
-//WARNING: unreferenced formal parameter z
-	int dir=chardirxyz(pc, x, y);
-	switch (dir)
-	{
-	case 0:
-	case 4:
-		return 0;
-		break;
-	case 2:
-	case 6:
-		return 1;
-		break;
-	case 1:
-	case 3:
-	case 5:
-	case 7:
-	case -1:
-		switch(pc->direction()) //crashfix, LB
-		{
-		case 0:
-		case 4:
-			return 0;
-			break;
-		case 2:
-		case 6:
-			return 1;
-			break;
-		case 1:
-		case 3:
-		case 5:
-		case 7:
-			return 1;
-		default:
-			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, fielddir()\n"); //Morrolan
-			return 0;
-		}
-	default:
-		clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, fielddir()\n"); //Morrolan
-		return 0;
-	}
-	return 1;
-}
-
-////////////////////
-// Author : LB
-// purpose: converting x,y coords to sextant coords
-// input : x,y coords of object
-// output: sextant: sextant cords as string (char *)
-// memory for output string sextant has to be reserved by callee !
-// if not -> crash (has to be >=36 bytes !)
-// thanks goes to Balxan / UOAM for the basic alogithm
-// could be optimized a lot, but the freuqency of being called is probably very low
-/////////////////////
-
-void getSextantCords(signed int x, signed int y, bool t2a, char *sextant)
-{
-   double Tx, Ty, Dx, Dy, Cx, Cy, Wx, Wy, Mx, My, Hx, Hy;
-   signed int xH, xM, yH, yM;
-   char xHs[20], yHs[20], xMs[20], yMs[20];
-
-   if (t2a) // for t2a the center is in the middle
-   {
-	   Cy = 3112.0;
-	   Cx = 5936.0;
-   } else
-   {
-	  // center, LB's throne *g*
-      Cx = 1323.0;
-      Cy = 1624.0;
-   }
-
-   //  map dimensions
-   Wx = 5120.0;
-   Wy = 4096.0;
-
-   // convert input ints to float;
-   Tx = (double) x;
-   Ty = (double) y;
-
-   // main calculation
-   Dx = ( (Tx - Cx) * 360.0 ) / Wx;
-   Dy = ( (Ty - Cy) * 360.0 ) / Wy;
-
-   ////// now let's get minutes, hours & directions from it
-   Hx = (signed int) Dx; // get hours (cut off digits after comma, no idea if there's a cleaner/better way)
-
-   Mx = Dx - Hx; // get minutes
-   Mx = Mx * 60;
-
-   Hy = (signed int) Dy;
-   My = Dy - Hy;
-   My = My * 60;
-
-   // convert the results to ints;
-   xH = (signed int) Hx;
-   xM = (signed int) Mx;
-   yH = (signed int) Hy;
-   yM = (signed int) My;
-
-   // now compose result string
-
-//   numtostr(abs(xH),xHs);
-//   numtostr(abs(xM),xMs);
-//   numtostr(abs(yH),yHs);
-//   numtostr(abs(yM),yMs);
-
-   strcpy((char*)sextant, xHs);
-   strcat((char*)sextant,"o ");
-   strcat((char*)sextant, xMs);
-   strcat((char*)sextant,"' ");
-   if (xH>=0) strcat((char*)sextant,"E"); else strcat((char*)sextant,"W");
-
-   strcat((char*)sextant, "  ");
-   strcat((char*)sextant, yHs);
-   strcat((char*)sextant,"o ");
-   strcat((char*)sextant, yMs);
-   strcat((char*)sextant,"' ");
-   if (yH>=0) strcat((char*)sextant,"S"); else strcat((char*)sextant,"N");
-
-}
 void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall )
 {
 	if( !socket || !socket->player() )
@@ -1408,4 +1208,75 @@ void setcharflag( P_CHAR pc )
 	}
 }
 
+///////////
+// Name:	inVisRange
+// Purpose:	checks if position 1 and 2 are in visual range
+// history:	by Duke, 18.11.2000
+//
+bool inVisRange(int x1, int y1, int x2, int y2)
+{
+	return (QMAX(abs(x1-x2), abs(y1-y2)) <= VISRANGE);
+}
 
+bool inrange1p (PC_CHAR pca, P_CHAR pcb) // Are characters a and b in visual range
+{
+	if (pca == NULL || pcb == NULL) return false;
+
+	return inVisRange(pca->pos().x, pca->pos().y, pcb->pos().x, pcb->pos().y);
+}
+
+///////////
+// Name:	inRange
+// Purpose:	checks if position 1 and 2 are in given range
+// history:	by Duke, 19.11.2000
+//
+bool inRange(int x1, int y1, int x2, int y2, int range)
+{
+	return (QMAX(abs(x1-x2), abs(y1-y2)) <= range);
+}
+
+void savelog(const char *msg, char *logfile)
+{
+	FILE *file;
+	file = fopen( logfile, "a" );
+	
+	QString logMessage = QString( "[%1] %2\n" ).arg( QDateTime::currentDateTime().toString() ).arg( msg );
+	
+	// Remove newlines
+	logMessage = logMessage.replace( QRegExp( "\n" ), "" );
+	
+	fprintf( file, "%s", logMessage.ascii() );
+	
+	fclose( file );
+}
+
+int DeleBankItem( P_PLAYER pc, unsigned short itemid, unsigned short color, int amt )
+{
+	if( pc == NULL )
+		return amt;
+
+	P_ITEM pBank = pc->getBankBox();
+
+	if( pBank )
+		return pBank->DeleteAmount( amt, itemid, color );
+	else
+		return 0;
+}
+
+void endmessage(int x) // If shutdown is initialized
+{
+	x = 0;
+	unsigned int igetclock = uiCurrentTime;
+	if (endtime < igetclock)
+		endtime = igetclock;
+
+	QString message;
+
+	if( ( ( ( endtime - igetclock ) / MY_CLOCKS_PER_SEC ) / 60 ) < 1 ) 	
+		message = tr( "Server going down in %1 secs." ).arg( ( endtime - igetclock ) / MY_CLOCKS_PER_SEC );
+	else
+		message = tr( "Server going down in %1 minutes." ).arg( ( ( endtime - igetclock ) / MY_CLOCKS_PER_SEC ) / 60 );
+	
+	cNetwork::instance()->broadcast( message );
+	clConsole.send( message );
+}

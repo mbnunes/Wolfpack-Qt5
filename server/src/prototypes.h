@@ -50,8 +50,6 @@ void savelog(const char *msg, char *logfile);
 void Karma(P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma);
 void Fame(P_CHAR pc_toChange, int nFame);
 
-int fielddir(P_CHAR pc, int x, int y, int z);
-
 void endmessage(int x);
 
 void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall );
@@ -63,7 +61,6 @@ void playmonstersound(P_CHAR monster, unsigned short id, int sfx);
 bool inVisRange(int x1, int y1, int x2, int y2);
 
 int DeleBankItem( P_PLAYER pc, unsigned short itemid, unsigned short color, int amt );
-void getSextantCords(signed int x, signed int y, bool t2a, char *sextant);
 int lineOfSight( const Coord_cl&, const Coord_cl&, int checkfor );
 void reloadScripts();
 
