@@ -3342,6 +3342,12 @@ bool cUOSocket::useItem( P_ITEM item )
 		return false;
 	}
 
+	// Items in locked items cannot be used
+	if (item->isInLockedItem()) {
+		sysMessage(tr( "You have to unlock the container before using it."));
+		return false;
+	}
+
 	// Cant use stuff that isn't in your pack.
 	P_CHAR pOutmostChar = item->getOutmostChar();
 
@@ -3445,12 +3451,6 @@ bool cUOSocket::useItem( P_ITEM item )
 			if ( item->layer() > 0x18 )
 			{
 				sysMessage( tr( "You can't see this." ) );
-				return false;
-			}
-
-			if ( item->isInLockedItem() )
-			{
-				sysMessage( tr( "You have to unlock it before taking a look." ) );
 				return false;
 			}
 

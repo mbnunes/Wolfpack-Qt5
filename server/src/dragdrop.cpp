@@ -75,11 +75,17 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 	}
 
 	// Check if the item can be reached
-	if ( !pChar->isGM() && pItem->getOutmostChar() != pChar && !pChar->lineOfSight( pItem ) )
-	{
+	if ( !pChar->isGM() && pItem->getOutmostChar() != pChar && !pChar->lineOfSight( pItem ) ) {
 		socket->bounceItem( pItem, BR_OUT_OF_REACH );
 		return;
 	}
+
+	// Rekursiv prüfen ob es in einem abgeschlossenen container liegt
+	if (pItem->isInLockedItem()) {
+		socket->sysMessage(tr( "You cannot grab items in locked containers."));
+		socket->bounceItem( pItem, BR_NO_REASON );
+		return;
+	}	
 
 	P_ITEM outmostCont = pItem->getOutmostItem();
 
