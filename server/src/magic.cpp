@@ -125,8 +125,8 @@ void cMagic::SpellBook(UOXSOCKET s)
 }
 void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 {
-	if (pi == NULL)
-		return;
+	//if (pi == NULL)
+		//return;
 	
 //	CHARACTER cc=currchar[s];
 	P_CHAR pc_currchar = currchar[s];
@@ -272,7 +272,7 @@ char cMagic::GateCollision(P_CHAR pc_player)
 	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
 	for (unsigned int k = 0; k < vecEntries.size(); k++)
 	{
-		if (vecEntries.size() == 0) 
+		if (vecEntries.size() == 0)
 			break;
 		if (!isItemSerial(vecEntries[k]))
 			continue;
@@ -483,7 +483,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	pc_monster->npc = 1;
 
 	if (id!=0x023E && !(id==0x000d && color1==0 && color2==0x75)) // don't own BS or EV.
-		pc_monster->SetOwnSerial(pc_currchar->serial); 
+		pc_monster->SetOwnSerial(pc_currchar->serial);
 
 	if (x==0)
 	{
@@ -595,12 +595,12 @@ char cMagic::CheckMana(P_CHAR pc, int num)
 	if (pc->priv2&0x10)
 		return 1;
 
-	if (pc->mn >= spells[num].mana) 
+	if (pc->mn >= spells[num].mana)
 		return 1;
-	else 
+	else
 	{
 		UOXSOCKET p = calcSocketFromChar(pc);
-		if (p != -1) 
+		if (p != -1)
 			sysmessage(p, "You have insufficient mana to cast that spell.");
 		return 0;
 	}
@@ -621,7 +621,7 @@ char cMagic::SubtractMana(P_CHAR pc, int mana)
 
 	if (pc->mn >= mana)
 		pc->mn-=mana;
-	else 
+	else
 		pc->mn = 0;
 
 	updatestats((pc), 1);//AntiChrist - bugfix
@@ -734,7 +734,7 @@ void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 	if (pc->priv2&0x02)
 	{
 		pc->priv2 &= 0xFD;
-		if (s!=-1) 
+		if (s!=-1)
 			sysmessage(s, "You are no longer frozen.");
 	}
 	if ( !pc->isInvul() && (region[pc->region].priv&0x40)) // LB magic-region change
@@ -743,7 +743,7 @@ void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 		else if (poison<0) poison = 1;
 		pc->poisoned=poison;
 		pc->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer);	// lb
-		if (s != -1) 
+		if (s != -1)
 			impowncreate(s, pc, 1); //Lb, sends the green bar !
 	}
 }
@@ -808,7 +808,7 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, P_CHAR pc, char timech
 						
 						soundeffect2(pc, 0x0208);
 						return; //Ripper
-					} 
+					}
 					else if (mapitem->id()==0x3979 || mapitem->id()==0x3967)
 					{//Para Field
 						if (!CheckResist(NULL, pc, 6))
@@ -857,9 +857,9 @@ void cMagic::MagicTrap(P_CHAR pc, P_ITEM pTrap)
 	if (!pTrap) return;
 	staticeffect(pc, 0x36, 0xB0, 0x09, 0x09);
 	soundeffect2(pc, 0x0207);
-	if(CheckResist(NULL, pc, 4)) 
+	if(CheckResist(NULL, pc, 4))
 		MagicDamage(pc,pTrap->moreb2);
-	else 
+	else
 		MagicDamage(pc,pTrap->moreb2/2);
 	pTrap->moreb1=0;
 	pTrap->moreb2=0;
@@ -929,7 +929,7 @@ int cMagic::RegMsg(P_CHAR pc, reag_st failmsg)
 	if (display)
 	{
 		UOXSOCKET i = calcSocketFromChar(pc);
-		if (i != -1) 
+		if (i != -1)
 			sysmessage(i, message);
 		return 0;
 	}
@@ -964,16 +964,16 @@ void cMagic::SpellFail(UOXSOCKET s)
 {
 	P_CHAR pc_currchar = currchar[s];
 	//Use Reagents on failure ( if casting from spellbook )
-	if (currentSpellType[s]==0) 
+	if (currentSpellType[s]==0)
 		DelReagents( pc_currchar, spells[pc_currchar->spell].reagents );
 
 	//npcaction(cc, 128); // whaaaaaaaaaaaaaat ?
 	//orders the PG to move a step on, but the pg doesn't really move
 	//disappearing from the other clients. solarin
 	
-	if ( rand()%5==2 ) 
-		doStaticEffect(pc_currchar, 99); 
-	else 
+	if ( rand()%5==2 )
+		doStaticEffect(pc_currchar, 99);
+	else
 		staticeffect(pc_currchar, 0x37, 0x35, 0, 30);
 	soundeffect2(pc_currchar, 0x005C);
 	npcemote(s, pc_currchar, "The spell fizzles.",0);
@@ -999,7 +999,7 @@ void cMagic::LightningSpell(P_CHAR pc_Attacker, P_CHAR pc_Defender, bool usemana
 		return;
 	P_CHAR pc_trg = CheckMagicReflect(pc_Attacker, pc_Defender);
 	
-	if (usemana) 
+	if (usemana)
 		SubtractMana(pc_Attacker, 11);
 	bolteffect(pc_trg, true);
 	soundeffect2(pc_trg, 0x0029);
@@ -1095,7 +1095,7 @@ void cMagic::NPCDispel(P_CHAR pc_s, P_CHAR pc_i)
 		{
 			SubtractMana(pc_s,20);
 			tileeffect(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z, 0x37, 0x2A, 0x00, 0x00);
-			if (pc_i->isNpc()) 
+			if (pc_i->isNpc())
 				Npcs->DeleteChar(pc_i);
 			else deathstuff(pc_i);
 		}
@@ -1302,9 +1302,9 @@ void cMagic::FireballSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 
 	doMoveEffect(18, pc_attacker, pc_target);
 	soundeffect2(pc_attacker, 0x015E);
-	if (CheckResist(pc_attacker, pc_target, 3)) 
+	if (CheckResist(pc_attacker, pc_target, 3))
 		MagicDamage(pc_target, pc_attacker->skill[MAGERY]/280+1);
-	else 
+	else
 		MagicDamage(pc_target, (pc_attacker->skill[MAGERY]+1*(pc_attacker->skill[EVALUATINGINTEL]/3))/(139+1*(pc_target->skill[MAGICRESISTANCE]/30))+RandomNum(1,4));
 	return;
 }
@@ -1581,7 +1581,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	{
 		pc_currchar->spelltime=((spells[num].delay/10)*MY_CLOCKS_PER_SEC)+uiCurrentTime;
 		pc_currchar->priv2 |= 2;//freeze
-	} 
+	}
 	else
 	{
 		pc_currchar->spelltime=0;
@@ -1628,7 +1628,7 @@ void cMagic::afterParticles(int num, P_CHAR pc)
     stat_st t;
 	t = cMagic::getStatEffects_after(num);
 	if( t.effect[4] != -1 && t.effect[5] != -1 && t.effect[6] != -1 && t.effect[7] != -1 )
-	staticeffect(pc, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true); 
+	staticeffect(pc, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true);
 }
 
 //##ModelId=3C5D930F0091
@@ -1637,7 +1637,7 @@ void cMagic::itemParticles(int num, P_ITEM pi)
     stat_st t;
 	t = cMagic::getStatEffects_item(num);
 	if( t.effect[4] != -1 && t.effect[5] != -1 && t.effect[6] != -1 && t.effect[7] != -1 )
-	staticeffect2(pi, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true); 
+	staticeffect2(pi, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true);
 }
 
 //##ModelId=3C5D930F01D2
@@ -1671,7 +1671,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	int snr;
 	bool char_selected, item_selected, terrain_selected;
 	
-	if (pc_currchar->dead) 
+	if (pc_currchar->dead)
 		return;
 	if (currentSpellType[s]==0)
 	{
@@ -1723,7 +1723,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							{										
 								xo=pc_currchar->pos.x;
 								yo=pc_currchar->pos.y;
-								zo=pc_currchar->pos.z;											                                  
+								zo=pc_currchar->pos.z;											
 								
 								cMagic::invisibleItemParticles(pc_currchar, curSpell, xo, yo, zo);
 								
@@ -2031,9 +2031,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						if (pc_defender->priv2&0x20)
 						{
 							tileeffect(pc_defender->pos.x,pc_defender->pos.y,pc_defender->pos.z, 0x37, 0x2A, 0x00, 0x00);
-							if (pc_defender->isNpc()) 
+							if (pc_defender->isNpc())
 								Npcs->DeleteChar(pc_defender);
-							else 
+							else
 								deathstuff(pc_defender);
 						}
 						break;
@@ -2371,7 +2371,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 											return;
 										}
 										
-										if (mapchar->isNpc()) 
+										if (mapchar->isNpc())
 											npcattacktarget(mapchar, pc_currchar);
 										doStaticEffect(mapchar, curSpell);
 										soundeffect2(mapchar, 0x01FB);
@@ -2474,7 +2474,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 											sysmessage(s," They are Invulnerable merchants!");
 											return;
 										}
-										if (mapchar->isNpc()) 
+										if (mapchar->isNpc())
 											npcattacktarget(pc_currchar, mapchar);
 										bolteffect(mapchar, true);
 										soundeffect2(pc_currchar, 0x0029); //Homey fix for chainlightning sound
@@ -2865,19 +2865,19 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									if(rand()%2) npcaction(pc, 0x15); else npcaction(pc, 0x16);
 									if((pc->isNpc() || online(pc)) && pc->hp==0)
 									{
-										deathstuff(pc);                              
+										deathstuff(pc);
 									}
 								}	
 								else
-								{ 
-									if (pc->hp<=0) 
-										deathstuff(pc); 
+								{
+									if (pc->hp<=0)
+										deathstuff(pc);
 									else
-									{ 
+									{
 										if (pc->isNpc())
 										{
-											npcaction(pc, 0x2); 
-											npcattacktarget(currchar[s],pc); 
+											npcaction(pc, 0x2);
+											npcattacktarget(currchar[s],pc);
 										}
 									}
 								}	
@@ -3177,22 +3177,22 @@ move_st cMagic::getMoveEffects( int num )
 	int te5,te6,te7,te8,te9,te10,te11,te12,te13, te14, te15, te16, te17; // 3d moving effects
 	switch( num )
 	{
-	case 5:		te0=0x36; te1=0xE4; te2=0x05; te3=0x00; te4=0x01; 
+	case 5:		te0=0x36; te1=0xE4; te2=0x05; te3=0x00; te4=0x01;
 		        te5=0x36; te6=0xe4; te7=0x07; te8=0x00; te9=0x0b; te10=0xbe; te11=0x0f; te12=0xa6; te13=0x00; te14=0x00; te15=0; te16=0; te17=0;
 				break;
 
-	case 18:	te0=0x36; te1=0xD5; te2=0x07; te3=0x00; te4=0x01; 
+	case 18:	te0=0x36; te1=0xD5; te2=0x07; te3=0x00; te4=0x01;
 		        te5=0x36; te6=0xd4; te7=0x07; te8=0x00; te9=0x0b; te10=0xcb; te11=0x0f; te12=0xb3; te13=0x1; te14=0x60;te15=0; te16=1; te17=0;
 		        break;
 
-	case 42:	te0=0x37; te1=0x9F; te2=0x07; te3=0x00; te4=0x01; 
+	case 42:	te0=0x37; te1=0x9F; te2=0x07; te3=0x00; te4=0x01;
 		        te5=0x37; te6=0x9f; te7=0x07; te8=0x00; te9=0x0b; te10=0xe3; te11=0x0f; te12=0xcb; te13=0x2; te14=0x11; te15=0; te16=1; te17=0;
 		        break;
 
-	case 55:	te0=0x36; te1=0xD5; te2=0x07; te3=0x00; te4=0x01; 
+	case 55:	te0=0x36; te1=0xD5; te2=0x07; te3=0x00; te4=0x01;
 		        te5=0x36; te6=0xd4; te7=0x0a; te8=0x07; te9=0x25; te10=0x1d; te11=0x00; te12=0x01; te13=0x0; te14=0x0; te15=0; te16=1; te17=1;
 		        break;
-						        
+						
 
 	default:	te0=-1;	  te1=-1;   te2=-1;   te3=-1;   te4=-1;	  break;
 	}
@@ -3230,22 +3230,22 @@ stat_st cMagic::getStatEffects( int num )
     te11=0; te12=1;
 	switch( num )
 	{
-	case 1:		te0=0x37; te1=0x4A; te2=0x00; te3=15; 
+	case 1:		te0=0x37; te1=0x4A; te2=0x00; te3=15;
 		        te4=0x00; te5=0x00; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0x8a; te10=0xffffff00;			
 				break;
-	case 3:		te0=0x37; te1=0x4A; te2=0x00; te3=15; 
+	case 3:		te0=0x37; te1=0x4A; te2=0x00; te3=15;
 		        te4=0x37; te5=0x79; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0x8c; te10=0xffffff00;
 		        break;
-	case 4:		te0=0x37; te1=0x6A; te2=0x09; te3=0x06; 
+	case 4:		te0=0x37; te1=0x6A; te2=0x09; te3=0x06;
 		        te4=0x37; te5=0x6A; te6=0x09; te7=0x20;
 				te8=0x13; te9=0x8d; te10=0xffffff00;
 		        break;
 	case 7:		te0=0x37; te1=0x3A; te2=0x00; te3=15;
 		        te4=0x37; te5=0x6A; te6=0x09; te7=0x20;
 				te8=0x13; te9=0x90; te10=0xffffff03;
-		        break; 
+		        break;
 	case 8:		te0=0x37; te1=0x4A; te2=0x00; te3=15;
 		        te4=0x37; te5=0x79; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0x91; te10=0xffffff00;
@@ -3262,19 +3262,19 @@ stat_st cMagic::getStatEffects( int num )
 		        te4=0x37; te5=0x3a; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0x94; te10=0xffffff03;
 				break;
-	case 12:	te0=0x37; te1=0x4A; te2=0x09; te3=0x07; 
+	case 12:	te0=0x37; te1=0x4A; te2=0x09; te3=0x07;
 		        te4=0x37; te5=0x4a; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0x95; te10=0xffffff03;
 		        break;
-	case 15:	te0=0x37; te1=0x6A; te2=0x09; te3=0x06; 
+	case 15:	te0=0x37; te1=0x6A; te2=0x09; te3=0x06;
 		        te4=0x37; te5=0x5a; te6=0x09; te7=0x14;
 				te8=0x13; te9=0x98; te10=0xffffff03;
 		        break;
-	case 16:	te0=0x37; te1=0x3A; te2=0x00; te3=15; 
+	case 16:	te0=0x37; te1=0x3A; te2=0x00; te3=15;
 		        te4=0x37; te5=0x5a; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0x99; te10=0xffffff03;
 		        break;
-	case 17:	te0=0x37; te1=0x3A; te2=0x00; te3=15; 
+	case 17:	te0=0x37; te1=0x3A; te2=0x00; te3=15;
 		        te4=0x37; te5=0x3a; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0x9a; te10=0xffffff02;
 		        break;
@@ -3282,15 +3282,15 @@ stat_st cMagic::getStatEffects( int num )
 		        te4=0x37; te5=0x4a; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0x9d; te10=0xffffff03;
 		        break;
-	case 22:	te0=0x37; te1=0x2A; te2=0x09; te3=0x06; 
+	case 22:	te0=0x37; te1=0x2A; te2=0x09; te3=0x06;
 		        te4=0x37; te5=0x28; te6=0x0a; te7=0x00;
 				te8=0x13; te9=0x9f; te10=0xffffff00;
 		        break;
-	case 25:	te0=0x37; te1=0x6A; te2=0x09; te3=0x06; 
+	case 25:	te0=0x37; te1=0x6A; te2=0x09; te3=0x06;
 		        te4=0x37; te5=0x6a; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0x94; te10=0xffffff03;
 		        break;
-	case 26:    te0=0x37; te1=0x5A; te2=0x09; te3=0x06; 
+	case 26:    te0=0x37; te1=0x5A; te2=0x09; te3=0x06;
 		        te4=0x37; te5=0x5a; te6=0x09; te7=0x14;
 				te8=0x13; te9=0xa3; te10=0xffffff03;
 				break;
@@ -3298,7 +3298,7 @@ stat_st cMagic::getStatEffects( int num )
 		        te4=0x37; te5=0x4a; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0xa4; te10=0xffffff03;
 				break;
-	case 29:	te0=0x37; te1=0x6A; te2=0x09; te3=0x06; 
+	case 29:	te0=0x37; te1=0x6A; te2=0x09; te3=0x06;
                 te4=0x37; te5=0x6a; te6=0x09; te7=0x20;
 				te8=0x13; te9=0xa6; te10=0xffffff03;
 		        break;
@@ -3327,7 +3327,7 @@ stat_st cMagic::getStatEffects( int num )
 		        te4=0x37; te5=0x5a; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0xad; te10=0xffffff03;				
 		        break;
-	case 37:	te0=0x37; te1=0x4A; te2=0x00; te3=15; 	            
+	case 37:	te0=0x37; te1=0x4A; te2=0x00; te3=15; 	
 		        te4=0x00; te5=0x00; te6=0x0a; te7=0x0f;
 				te8=0x07; te9=0xf6; te10=0xffffff00;	
 		        break;
@@ -3340,27 +3340,27 @@ stat_st cMagic::getStatEffects( int num )
 		        te4=0x37; te5=0x28; te6=0x0a; te7=0x0a;
 				te8=0x13; te9=0xb1; te10=0xffffff00;
 				break;
-	case 43:	te0=0x36; te1=0xB0; te2=0x09; te3=0x09; 
+	case 43:	te0=0x36; te1=0xB0; te2=0x09; te3=0x09;
 		        te4=0x36; te5=0xbd; te6=0x0a; te7=0x0a;
 				te8=0x13; te9=0xb4; te10=0xffffff00;
 		        break;
-	case 46:	te0=0x37; te1=0x4A; te2=0x00; te3=15; 
+	case 46:	te0=0x37; te1=0x4A; te2=0x00; te3=15;
 		        te4=0x37; te5=0x4a; te6=0x0a; te7=0x0f;
-				te8=0x13; te9=0x95; te10=0xffffff03;		 
+				te8=0x13; te9=0x95; te10=0xffffff03;		
 		        break;		
-	case 51:	te0=0x37; te1=0x09; te2=0x09; te3=0x19; 			   
+	case 51:	te0=0x37; te1=0x09; te2=0x09; te3=0x19; 			
 		        te4=0x37; te5=0x09; te6=0x0a; te7=0x1e;
 				te8=0x13; te9=0xbc; te10=0xffffff05;
 		        break;
-	case 53:	te0=0x37; te1=0x4A; te2=0x00; te3=15; 
+	case 53:	te0=0x37; te1=0x4A; te2=0x00; te3=15;
 		        te4=0x37; te5=0x4a; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0xbe; te10=0xffffff00;		
 		        break;
-	case 54:	te0=0x37; te1=0x2A; te2=0x09; te3=0x06; 
+	case 54:	te0=0x37; te1=0x2A; te2=0x09; te3=0x06;
 		        te4=0x37; te5=0x28; te6=0x0a; te7=0x0a;
 				te8=0x13; te9=0x9f; te10=0xffffff00;		
 		        break;
-	case 55:	te0=0x37; te1=0x2A; te2=0x09; te3=0x06; 
+	case 55:	te0=0x37; te1=0x2A; te2=0x09; te3=0x06;
 		        te4=0x00; te5=0x00; te6=0x0a; te7=0x05;
 				te10=rand()%3;
 				switch (te10)
@@ -3368,41 +3368,41 @@ stat_st cMagic::getStatEffects( int num )
 				  case 0: te8=0x13; te9=0xc0; break;
 				  case 1: te8=0x17; te9=0xa8; break;
 				  case 2: te9=0x1b; te9=0x90; break;
-				  default: te8=0x13; te9=0xc0; 
+				  default: te8=0x13; te9=0xc0;
 				}
 				te10=0xffffff00;		
 		        break;
-	case 58: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06; 
+	case 58: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06;
 		        te4=0x00; te5=0x00; te6=0x0a; te7=0x05;
 				te8=0x13; te9=0xc3; te10=0xffffff00;
 				break;
-	case 59: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06; 
+	case 59: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06;
 		        te4=0x36; te5=0x6a; te6=0x09; te7=0x20;
 			    te8=0x25; te9=0x1d; te10=0xffffff03;			
 				break;
-	case 60: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06; 
+	case 60: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06;
 		        te4=0x00; te5=0x00; te6=0x0a; te7=0x20;
 			    te8=0x13; te9=0xc5; te10=0xffffff03;			
 				//te11=27; te12=0xf;
 				break;
-	case 61: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06; 
+	case 61: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06;
 		        te4=0x00; te5=0x00; te6=0x0a; te7=0x00;
 			    te8=0x13; te9=0xc6; te10=0xffffff03;			
 				break;
-	case 62: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06; 
+	case 62: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06;
 		        te4=0x00; te5=0x00; te6=0x0a; te7=0x20;
 			    te8=0x13; te9=0xc7; te10=0xffffff03;			
 				break;
-	case 63: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06; 
+	case 63: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06;
 		        te4=0x00; te5=0x00; te6=0x0a; te7=0x20;
 			    te8=0x13; te9=0xc8; te10=0xffffff03;			
 				break;
-	case 64: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06; 
+	case 64: 	te0=0x37; te1=0x2A; te2=0x09; te3=0x06;
 		        te4=0x00; te5=0x00; te6=0x09; te7=0x00;
 			    te8=0x13; te9=0xc9; te10=0xffffff03;			
 				break;
 
-	case 66:	te0=0x36; te1=0xB0; te2=0x09; te3=0x09; 
+	case 66:	te0=0x36; te1=0xB0; te2=0x09; te3=0x09;
 		        te4=0x37; te5=0x4a; te6=0x0a; te7=0x0f;
 				te8=0x13; te9=0x9e; te10=0xffffff00;	
 		        break;
@@ -3410,7 +3410,7 @@ stat_st cMagic::getStatEffects( int num )
 	case 99:	te0=0x37; te1=0x35; te2=0x00; te3=0x30;  // fizzle
 		        te4=0x00; te5=0x00; te6=0x0a; te7=0x0f;
 				te8=0x0f; te9=0xcb; te10=0xffffff01;	
-		        break;			 
+		        break;			
 
 	default:	te0=-1;	te1=-1;	te2=-1;	te3=-1; break;
 	}
@@ -3442,11 +3442,11 @@ stat_st cMagic::getStatEffects_pre( int num)
 	{
 	case 1:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;
 	case 2:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x33; temp.effect[10]=0xffff0102; break;
-	case 3:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;		        
+	case 3:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;		
 	case 4:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x65; temp.effect[10]=0xffff0102; break;		
 	case 5:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x51; temp.effect[10]=0xffff0102; break;
 	case 6:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;
-	case 7:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x33; temp.effect[10]=0xffff0102; break;		        
+	case 7:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x33; temp.effect[10]=0xffff0102; break;		
 	case 8:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;
 
 	case 9:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x65; temp.effect[10]=0xffff0102; break;
@@ -3531,7 +3531,7 @@ stat_st cMagic::getStatEffects_after( int num)
 	te11=0; te12=1;
 	switch( num )
 	{
-	   case 6:	  te4=0x37; te5=0x6a; te6=0x09; te7=0x20; te8=0x13; te9=0x8f; te10=0xffff0003; break;	  	 
+	   case 6:	  te4=0x37; te5=0x6a; te6=0x09; te7=0x20; te8=0x13; te9=0x8f; te10=0xffff0003; break;	  	
 	   case 37:   te4=0x37; te5=0x4a; te6=0x0a; te7=0x0f; te8=0x13; te9=0xae; te10=0xffff0000; break;
 	   case 38:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x13; te9=0xaf; te10=0xffffff05; te11=0x27; te12=0x0f; break;
 	   default:	te4=-1;	te5=-1;	te6=-1;	te7=-1; break;
@@ -3559,7 +3559,7 @@ stat_st cMagic::getStatEffects_item( int num)
 	int te4,te5,te6,te7,te8,te9,te10, te11;
 
 	switch( num )
-	{	  
+	{	
 	   case 13:   te4=0x37; te5=0x6a; te6=0x09; te7=0x0a; te8=0x13; te9=0x96; te10=0xffff0000; te11=0; break;
 	   case 14:   te4=0x37; te5=0x6a; te6=0x09; te7=0x20; te8=0x13; te9=0x8f; te10=0xffff0003; te11=0; break;
 	   case 19:   te4=0x37; te5=0x6a; te6=0x09; te7=0x20; te8=0x13; te9=0x9c; te10=0xffff0002; te11=0; break;
@@ -3596,14 +3596,14 @@ void cMagic::invisibleItemParticles(P_CHAR pc, int spellNum, short x, short y, s
 {
 	P_ITEM it;
 
-    // create a dummy item for the effect on old location 
+    // create a dummy item for the effect on old location
     it = Items->SpawnItem(pc, 1, "bugalert, plz let the devteam know", 0, 0x1, 0x00, 0);					
     it->pos.x=x;
 	it->pos.y=y;
 	it->pos.z=z;					
 	RefreshItem( it );
 	itemParticles(spellNum, it );
-	// this is rather tricky, deleitem can't be applied there 
+	// this is rather tricky, deleitem can't be applied there
 	// because the client has to tihnk its still there. np because it's an invisible item anyway
 	// but we have to tell the memory manger to delete it
 	cItemsManager::getInstance()->unregisterItem(it);
@@ -3711,8 +3711,8 @@ void cMagic::doStaticEffect( P_CHAR source, int num )
 	{
 		staticeffect( source, temp.effect[0], temp.effect[1], temp.effect[2], temp.effect[3], true,  &temp);
 		// looks stupid to pass a pointer to a struct variable and elements of the *same* struct variable
-		// actually it's very tricky but ok. (via pointer #4..15 is accessed, saved work to change a few 1000 LOC's) 
-		// please don't touch. thx, LB 
+		// actually it's very tricky but ok. (via pointer #4..15 is accessed, saved work to change a few 1000 LOC's)
+		// please don't touch. thx, LB
 	}
 }
 
@@ -3912,7 +3912,7 @@ void cMagic::Heal(UOXSOCKET s)
 		doStaticEffect(pc_defender, 4);
 		pc_defender->hp = pc_defender->st;
 		updatestats((pc_defender), 0);
-	} else 
+	} else
 		sysmessage(s,"Not a valid heal target");
 
 }
