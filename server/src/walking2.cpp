@@ -1385,10 +1385,12 @@ bool cMovement::CanCharMove( P_CHAR pc, Coord_cl &coord, UI08 dir )
 
 	if ( ( dir & 0x07 ) % 2 )
 	{
-		if( !CanCharWalk( pc, calcCoordFromDir( dir - 1, coord ) ) )
+		Coord_cl temp = calcCoordFromDir( dir - 1, coord );
+		if( !CanCharWalk( pc, temp ) )
 			return false;
 
-		if( !CanCharWalk( pc, calcCoordFromDir( dir + 1, coord ) ) )
+		temp = calcCoordFromDir( dir + 1, coord );
+		if( !CanCharWalk( pc, temp ) )
 			return false;
 	}
 
@@ -1498,9 +1500,9 @@ inline bool cMovement::isOverloaded( P_CHAR pc )
 }
 
 // Does what getxfromdir and getyfromdir did before
-Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl oldCoords )
+Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords )
 {
-	Coord_cl newCoords = oldCoords;
+	Coord_cl newCoords(oldCoords);
 
 	// We're not switching the running flag
 	switch( dir&0x07 )

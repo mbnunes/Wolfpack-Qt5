@@ -2357,14 +2357,13 @@ void start_glow(void)	// better to make an extra function cauze in loaditem it c
 	bool bDeamon = false ;
 #endif
 
-void checkparm(string param)
+void checkparm(QString param)
 {
-	transform( param.begin(), param.end(), param.begin(), ::toupper );
-	//cout << "Console paramter is : " << param << endl;
+	param = param.upper();
 
 	if (param == "--NO-DEAMON")
 		bDeamon = false ;
-	else if (param =="--DEAMON")
+	else if (param == "--DEAMON")
 		bDeamon = true ;
 
 	// Add what ever paramters you want
@@ -2374,16 +2373,17 @@ int main( int argc, char *argv[] )
 {
 	QApplication app( argc, argv ); // we need one instance
 
-	bDeamon = false ;
 	keeprun = 1; // First of all, we want to run :)
 
 	// Parse our arguments
 	if (argc > 1)
+	{
 		for (int index=1; index < argc ; index++)
 		{
-			string param( argv[ index ] );
+			QString param( argv[ index ] );
 			checkparm( param );
 		}
+	}
 	
 	if( bDeamon )
 	{

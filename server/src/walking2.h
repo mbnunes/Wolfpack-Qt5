@@ -69,7 +69,7 @@ private:
 	bool CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, signed char cz);
 
 	void randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type );
-	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl oldCoords );
+	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords );
 	void PathFind( P_CHAR pc, unsigned short gx, unsigned short gy );
 
 	bool verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw();

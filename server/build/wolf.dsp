@@ -120,7 +120,7 @@ SOURCE=.\charsmgr.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Client.cpp
+SOURCE=.\client.cpp
 # End Source File
 # Begin Source File
 
@@ -784,14 +784,6 @@ SOURCE=.\network\uopacket.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\uopacketmanager.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\network\uopacketmanager.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\network\uorxpackets.cpp
 # End Source File
 # Begin Source File
@@ -805,14 +797,6 @@ SOURCE=.\network\uosocket.cpp
 # Begin Source File
 
 SOURCE=.\network\uosocket.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\network\uosocketmanager.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\network\uosocketmanager.h
 # End Source File
 # Begin Source File
 
