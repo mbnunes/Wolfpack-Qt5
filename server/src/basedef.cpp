@@ -118,6 +118,7 @@ void cCharBaseDef::processNode( const cElement* node )
 	else if ( node->name() == "basescripts" )
 	{
 		baseScriptList_ = node->text();
+		refreshScripts();
 	}
 }
 

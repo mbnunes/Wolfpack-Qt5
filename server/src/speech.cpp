@@ -189,34 +189,6 @@ bool QuestionSpeech( cUOSocket* socket, P_PLAYER pPlayer, P_NPC pChar, const QSt
 	return false;
 }
 
-bool BankerSpeech( cUOSocket* socket, P_PLAYER pPlayer, P_NPC pBanker, const QString& comm )
-{
-	// Needs to be a banker
-	/*	if( pBanker->npcaitype() != 8 )
-			return false;*/
-
-	if ( !pBanker->ai() || pBanker->ai()->name() != "Banker" )
-		return false;
-
-	if ( pPlayer->dist( pBanker ) > 6 )
-		return false;
-
-	if ( comm.contains( "BANK" ) )
-	{
-		pBanker->turnTo( pPlayer );
-		socket->sendContainer( pPlayer->getBankbox() );
-		return true;
-	}
-
-	if ( ( comm.contains( "BALANCE" ) ) | ( comm.contains( "WITHDRAW" ) ) || ( comm.contains( "CHECK" ) ) )
-	{
-		//BankerAI->DoAI( s, pBanker, comm );
-		return true;
-	}
-
-	return false;
-}
-
 bool VendorChkName( P_CHAR pVendor, const QString& comm )
 {
 	if ( ( comm.contains( "VENDOR" ) ) || ( comm.contains( "SHOPKEEPER" ) ) )
@@ -280,9 +252,6 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 		{
 			pNpc->ai()->onSpeechInput( pPlayer, speechUpr );
 		}
-
-		if ( BankerSpeech( socket, pPlayer, pNpc, speechUpr ) )
-			return true;
 
 		if ( QuestionSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
