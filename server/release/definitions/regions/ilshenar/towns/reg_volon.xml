@@ -1,0 +1,10 @@
+
+<definitions>
+
+	<!-- Reg Volon -->
+	<region id="ilshenar_reg_volon">
+		<rectangle x1="1328" y1="1008" x2="1408" y2="1120" map="2" />
+	</region>
+
+</definitions>
+
