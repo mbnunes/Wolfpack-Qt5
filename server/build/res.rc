@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Englisch (USA) resources
+// English (U.S.) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -66,6 +66,7 @@ END
 
 #endif    // !_MAC
 
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Icon
@@ -79,7 +80,7 @@ IDI_ICON2               ICON    DISCARDABLE     "icon2.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Deutsch (Österreich) resources
+// German (Austria) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEA)
 #ifdef _WIN32

@@ -1447,7 +1447,7 @@ void cUOSocket::attachTarget( cTargetRequest *request, UINT16 multiid )
 
 	cUOTxPlace target;
 	target.setTargSerial( 1 );
-	target.setModelID( 0x4000 - multiid );
+	target.setModelID( multiid - 0x4000 );
 	send( &target );
 }
 

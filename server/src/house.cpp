@@ -109,12 +109,17 @@ bool cHouse::onValidPlace()
 	for( j = 0; j < length; j++ )
 	{
 		mfile->get_st_multi(&multi);
+		Coord_cl multipos = Coord_cl( multi.x + pos.x, multi.y + pos.y, pos.z, pos.map );
 
-		mapz = Map->MapElevation( Coord_cl( multi.x + pos.x, multi.y + pos.y, pos.z, pos.map ) );
+		mapz = Map->MapElevation( multipos );
 		if( pos.z < mapz )
 			return false;
+
+		land_st mapTile = cTileCache::instance()->getLand( Map->SeekMap( multipos ).id );
+		if( mapTile.flag1 & 0x40 || mapTile.flag1 & 0x80 )
+			return false;
 		
-		MapStaticIterator msi( Coord_cl( multi.x + pos.x, multi.y + pos.y, pos.z, pos.map ) );
+		MapStaticIterator msi( multipos );
 		staticrecord *stat = msi.Next();
 		while( stat != NULL )
 		{
@@ -124,7 +129,7 @@ bool cHouse::onValidPlace()
 			stat = msi.Next();
 		}
 		
-		cRegion::RegionIterator4Items ri( Coord_cl( multi.x + pos.x, multi.y + pos.y, pos.z, pos.map ) );
+		cRegion::RegionIterator4Items ri( multipos );
 		for( ri.Begin(); !ri.atEnd(); ri++ ) 
 		{
 			P_ITEM pi = ri.GetData();
@@ -177,7 +182,7 @@ void cHouse::processNode( const QDomElement &Tag )
 		{
 			cItemsManager::getInstance()->registerItem( phi );
 			phi->SetOwnSerial( this->ownserial );
-			phi->SetMultiSerial( this->serial );
+			addItem( phi );
 			phi->applyDefinition( Tag );
 
 			if (phi->isInWorld()) 
@@ -185,17 +190,9 @@ void cHouse::processNode( const QDomElement &Tag )
 		}
 	}
 
-	// <deed>deedsection</deed> (any item section)
-	else if( TagName == "deed" )
-		this->deedsection_ = Value;
-
 	// <nokey />
 	else if( TagName == "nokey" )
 		nokey_ = true;
-
-	// <name>balbalab</name>
-	else if( TagName == "name" )
-		this->setName( Value );
 
 	// <lockdownamount>3</lockdownamount>
 	else if( TagName == "lockdownamount" )
@@ -232,20 +229,9 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 	if( pDeed != NULL )
 		Items->DeleItem( pDeed );
 
-	if( !this->nokey_ )
+	if( !nokey_ )
 	{
-		P_ITEM pKey = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0, 1,1);
-		
-		pKey->tags.set( "house_serial", this->serial );
-		pKey->setType( 7 );
-		pKey->priv=2;
-        
-		P_ITEM pKey2 = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0,1,1);
-		P_ITEM bankbox = pc_currchar->getBankBox();
-		pKey2->tags.set( "house_serial", this->serial );
-		pKey2->setType( 7 );
-		pKey2->priv=2;
-		bankbox->AddItem(pKey2);
+		createKeys( pc_currchar, tr("house key") );
 	}
 
 	cRegion::RegionIterator4Items ri(this->pos);
@@ -256,17 +242,6 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 	}
 		
 	pc_currchar->MoveTo( pc_currchar->pos.x + charpos_.x, pc_currchar->pos.y + charpos_.y, pc_currchar->pos.z + charpos_.z );
-}
-
-void cHouse::removeKeys( void )
-{
-	AllItemsIterator iter_items;
-	for( iter_items.Begin(); !iter_items.atEnd(); ++iter_items )
-	{
-		P_ITEM pi = iter_items.GetData();
-		if( pi->type() == 7 && pi->tags.get( "house" ).isValid() && pi->tags.get( "house" ).toUInt() == this->serial )
-			Items->DeleItem( pi );
-	}
 }
 
 void cHouse::remove( void )
@@ -289,15 +264,8 @@ void cHouse::remove( void )
 	}
 }
 
-#pragma note( "check char stuff BEFORE and AFTER this method is called!" )
 P_ITEM cHouse::toDeed( UOXSOCKET s )
 {
-	//sprintf((char*)temp, "Demolishing %s", pHouse->name().ascii() );
-	//sysmessage( s, (char*)temp );
-	//...
-	//pc->pos.z = pc->dispz = Map->MapElevation(pc->pos);
-	//teleport(pc);
-
 	P_CHAR pc_currchar = currchar[ s ];
 
 	cRegion::RegionIterator4Chars ri(this->pos);
@@ -332,45 +300,10 @@ P_ITEM cHouse::toDeed( UOXSOCKET s )
 	return pDeed;
 }
 
-bool cHouse::isBanned(P_CHAR pc)
-{
-	return binary_search(bans_.begin(), bans_.end(), pc->serial);
-}
-
-bool cHouse::isFriend(P_CHAR pc)
-{
-	return binary_search(friends_.begin(), friends_.end(), pc->serial);
-}
-
-void cHouse::addBan(P_CHAR pc)
-{
-	bans_.push_back(pc->serial);
-	sort(bans_.begin(), bans_.end());
-}
-
-void cHouse::addFriend(P_CHAR pc)
-{	
-	friends_.push_back(pc->serial);
-	sort(friends_.begin(), friends_.end());
-}
-
-void cHouse::removeBan(P_CHAR pc)
-{
-	vector<SERIAL>::iterator it = find(bans_.begin(), bans_.end(), pc->serial);
-	bans_.erase(it);
-}
-
-void cHouse::removeFriend(P_CHAR pc)
-{
-	vector<SERIAL>::iterator it = find(friends_.begin(), friends_.end(), pc->serial);
-	friends_.erase(it);
-}
-
 void cHouse::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
 	{
-		archive.read( "deed.id", deedsection_ );
 		archive.read( "lockdownamt", lockdownamount_ );
 		archive.read( "secureamt", secureamount_ );
 		archive.read( "nokey", nokey_ );
@@ -379,26 +312,9 @@ void cHouse::Serialize(ISerialization &archive)
 		archive.read( "charpos.x", charpos_.x );
 		archive.read( "charpos.y", charpos_.y );
 		archive.read( "charpos.z", charpos_.z );
-
-		unsigned int amount = 0;
-		register unsigned int i;
-		SERIAL readData;
-		archive.read("banamount", amount);
-		for (i = 0; i < amount; ++i)
-		{
-			archive.read("ban", readData);
-			bans_.push_back(readData);			
-		}
-		archive.read("friendamount", amount);
-		for (i = 0; i < amount; ++i)
-		{
-			archive.read("friend", readData);
-			friends_.push_back(readData);
-		}
 	}
 	else if ( archive.isWritting())
 	{
-		archive.write( "deed.id", deedsection_ );
 		archive.write( "lockdownamt", lockdownamount_ );
 		archive.write( "secureamt", secureamount_ );
 		archive.write( "nokey", nokey_ );
@@ -407,16 +323,8 @@ void cHouse::Serialize(ISerialization &archive)
 		archive.write( "charpos.x", charpos_.x );
 		archive.write( "charpos.y", charpos_.y );
 		archive.write( "charpos.z", charpos_.z );
-
-		register unsigned int i;
-		archive.write("banamount", bans_.size());
-		for ( i = 0; i < bans_.size(); ++i )
-			archive.write("ban", bans_[i]);
-		archive.write("friendamount", friends_.size());
-		for ( i = 0; i < friends_.size(); ++i )
-			archive.write("friend", friends_[i]);
 	}
-	cItem::Serialize(archive); // Call base class method too.
+	cMulti::Serialize(archive); // Call base class method too.
 }
 
 QString cHouse::objectID() const

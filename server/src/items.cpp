@@ -1159,7 +1159,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 						if( pi_multi->more4==0 ) //JustMichael -- set more to 1 and stuff can decay in the building
 						{
 							pi->startDecay();
-							pi->SetMultiSerial(pi_multi->serial);
+							pi_multi->addItem( pi );
 							return;
 						}
 					}

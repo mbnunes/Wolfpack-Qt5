@@ -4572,37 +4572,14 @@ void SetGlobalVars()
 
 void InitMultis()
 {
-	cMulti* pi_multi;
-
-	AllCharsIterator iter_char;
-	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
-	{
-		P_CHAR pc = iter_char.GetData();
-		if (!pc->free)
-		{
-			pi_multi = cMulti::findMulti( pc->pos );
-			if (pi_multi != NULL)
-			{
-				if (pi_multi->type()==117)
-					pc->SetMultiSerial(pi_multi->serial);
-				else
-					pc->multis = INVALID_SERIAL;
-			}
-		}
-	}
-
 	AllItemsIterator iter_items;
-	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++)
+	for( iter_items.Begin(); !iter_items.atEnd(); iter_items++ )
 	{
-		P_ITEM pi = iter_items.GetData();
-		if (!pi->free && !pi->isInWorld())
+		cMulti* pMulti = dynamic_cast< cMulti* >( iter_items.GetData() );
+		if( pMulti )
 		{
-			pi_multi = cMulti::findMulti( pi->pos );
-			if (pi_multi != NULL)
-				if (pi_multi != pi)
-					pi->SetMultiSerial(pi_multi->serial);
-				else
-					pi->multis = INVALID_SERIAL;
+			pMulti->checkChars();
+			pMulti->checkItems();
 		}
 	}
 }

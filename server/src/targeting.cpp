@@ -481,18 +481,6 @@ void XgoTarget(int s)
 	}
 }
 
-static void PrivTarget(int s, P_CHAR pc)
-{
-	if (SrvParams->gmLog())	//Logging
-	{
-		sprintf((char*)temp, "%s.gm_log", currchar[s]->name.c_str());
-		sprintf((char*)temp2, "%s as given %s Priv [%x][%x]\n", currchar[s]->name.c_str(), pc->name.c_str(), addid1[s],addid2[s]);
-		savelog((char*)temp2, (char*)temp);
-	}
-	pc->setPriv(addid1[s]);
-	pc->setPriv2(addid2[s]);
-}
-
 static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 {
 	/*if (pi)
@@ -4006,7 +3994,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 6: if (Iready) pi->setType( addid1[s] ); break; //Typetarget
 		case 7: Targ->IDtarget(s); break;
 		case 8:	XgoTarget(s); break;
-		case 9: if (Cready) PrivTarget(s,pc); break;
 		case 10: ItemTarget(ps,pt); break;//MoreTarget
 		case 11: if (Iready) KeyTarget(s,pi); break;
 		case 12: Targ->IstatsTarget(s); break;

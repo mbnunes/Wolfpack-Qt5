@@ -92,16 +92,8 @@ public:
 	virtual void Serialize( ISerialization &archive );
 	virtual QString objectID() const;
 
-	bool isBanned(P_CHAR pc);
-	void addBan(P_CHAR pc);
-	void removeBan(P_CHAR pc);
-	bool isFriend(P_CHAR pc);
-	void addFriend(P_CHAR pc);
-	void removeFriend(P_CHAR pc);
-
 	bool onValidPlace( void );
 	void build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );
-	void removeKeys( void );
 	void remove( void );
 
 	P_ITEM toDeed( UOXSOCKET s );

@@ -221,7 +221,14 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	
 	//mapRegions->Remove( pItem );
 	pItem->setContSerial( pChar->serial );
-	pItem->SetMultiSerial( INVALID_SERIAL ); 
+	if( pItem->multis != INVALID_SERIAL )
+	{
+		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pItem->multis ) );
+		if( pMulti )
+		{
+			pMulti->removeItem( pItem );
+		}
+	}
 	pItem->setLayer( 0x1E );
 }
 
@@ -647,19 +654,12 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 		pChar->glowHalo( pItem );
 	}
 
-	// Multi handling (Hm i don't like that...)
-	/* and i do not understand this crap :)
-	if( pChar->multis > 0 )
+	// Multi handling
+	cMulti* pMulti = cMulti::findMulti( pos );
+	if( pMulti )
 	{
-		P_ITEM pMulti = FindItemBySerial( pChar->multis );
-		if( pMulti != NULL )
-		{
-			pMulti = findmulti( pItem->pos );
-			if( pItem != NULL )
-				pItem->SetMultiSerial( pMulti->serial );
-		}
+		pMulti->addItem( pItem );
 	}
-	*/
 }
 
 void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos )

@@ -541,6 +541,17 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 			return;
 		}
 
+		// Lets check if we entered or left a multi
+		cMulti* pOldMulti = cMulti::findMulti( pChar->pos );
+		cMulti* pNewMulti = cMulti::findMulti( newCoord );
+		if( pOldMulti != pNewMulti )
+		{
+			if( pOldMulti )
+				pOldMulti->removeChar( pChar );
+			if( pNewMulti )
+				pNewMulti->addChar( pChar );
+		}
+
 		// We moved so let's update our location
 		pChar->moveTo( newCoord );
 		cAllTerritories::getInstance()->check( pChar );

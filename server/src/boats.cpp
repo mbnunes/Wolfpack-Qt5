@@ -88,6 +88,8 @@ cBoat::cBoat() : cMulti()
 void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial )
 {
 	P_CHAR pc_currchar = FindCharBySerial( senderserial );
+	if( !pc_currchar )
+		return;
 	cUOSocket* socket = pc_currchar->socket();
 	P_ITEM pdeed = FindItemBySerial( deedserial );
 	UI08 siproblem = 0;
@@ -215,18 +217,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		return;
 	}
 
-	P_ITEM pKey = Items->SpawnItem(-1, pc_currchar, 1, "a boat key", 0, 0x10, 0x0F, 0, 1,1);
-		
-	pKey->tags.set( "boatserial", this->serial );
-	pKey->setType( 7 );
-	pKey->priv=2;
-        
-	P_ITEM pKey2 = Items->SpawnItem(-1, pc_currchar, 1, "a boat key", 0, 0x10, 0x0F, 0,1,1);
-	P_ITEM bankbox = pc_currchar->getBankBox();
-	pKey2->tags.set( "boatserial", this->serial );
-	pKey2->setType( 7 );
-	pKey2->priv=2;
-	bankbox->AddItem(pKey2);
+	createKeys( pc_currchar, tr("boat key") );
 
 	this->autosail_ = 0;	// khpae : not moving 0, 1-8 : moving boatdirection+1
 
@@ -254,7 +245,6 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		socket->send( uoPacket );
 	}
 	
-//    pc_currchar->SetMultiSerial(this->serial);
 	this->SetOwnSerial( pc_currchar->serial );
 }
 
@@ -363,15 +353,8 @@ void cBoat::processNode( const QDomElement &Tag )
 		}
 	}
 
-
-
-	// <deed>deedsection</deed> (any item section)
-	else if( TagName == "deed" )
-		this->deedsection_ = Value;
-
-	// <name>balbalab</name>
-	else if( TagName == "name" )
-		this->setName( Value );
+	else
+		cMulti::processNode( Tag );
 }
 
 void cBoat::processSpecialItemNode( const QDomElement &Tag, UI08 item )
@@ -458,7 +441,7 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 		while( stat != NULL )
 		{
 			msi.GetTile( &tile );
-			if( !(tile.flag1 & 0x80) && ( pos.z >= stat->zoff && pos.z <= (stat->zoff+70) ) && mapblocks )
+			if( !(tile.flag1 & 0x80) && ( pos.z >= stat->zoff && pos.z <= (stat->zoff+70) ) )
 				return false;
 			if( mapblocks )
 				mapblocks = false;
@@ -556,12 +539,13 @@ void cBoat::turn( SI08 turn )
 	this->boatdir = newboatdir;
 	
 	// turn all items and chars on the boat and send them
+	QValueList< SERIAL > toremove;
 	QValueList< SERIAL >::iterator it = chars_.begin();
 	while( it != chars_.end() )
 	{
 		SI08 dx = 0, dy = 0;
 		P_CHAR pc = FindCharBySerial( *it );
-		if( pc != NULL )
+		if( pc )
 		{
 			UI16 newx = pc->pos.x; 
 			UI16 newy = pc->pos.y;
@@ -599,22 +583,29 @@ void cBoat::turn( SI08 turn )
 
 			delete drawChar;
 		}
+		else
+			toremove.append( (*it) );
+		++it;
+	}
+	it = toremove.begin();
+	while( it != toremove.end() )
+	{
+		chars_.remove( (*it) );
 		++it;
 	}
 
-	QPtrList< cItem > founditems;
-	cRegion::RegionIterator4Items rj( pos );
-	for( rj.Begin(); !rj.atEnd(); rj++ ) 
+	toremove.clear();
+	it = items_.begin();
+	while( it != items_.end() )
 	{
-		P_ITEM pi = rj.GetData();
-		if( pi && inMulti( pi->pos ) )
-			founditems.append( pi );
-	}
+		P_ITEM pi = FindItemBySerial( *it );
+		if( !pi )
+		{
+			toremove.append( (*it) );
+			++it;
+			continue;
+		}
 
-	P_ITEM pi = NULL;
-	QPtrListIterator< cItem > cit( founditems );
-	while( pi = cit.current() )
-	{
 		SI08 dx = 0, dy = 0;
 		mapRegions->Remove( pi );
 		dx = pi->pos.x - this->pos.x;
@@ -638,7 +629,13 @@ void cBoat::turn( SI08 turn )
 			pi->update( iter_sock.current() );
 			++iter_sock;
 		}
-	++cit;
+		++it;
+	}
+	it = toremove.begin();
+	while( it != toremove.end() )
+	{
+		items_.remove( (*it) );
+		++it;
 	}
 
 	// change positions and ids of the special items
@@ -783,6 +780,7 @@ bool cBoat::move( void )
 	pStarplank->moveTo( pStarplank->pos + desloc );
 	pHold->moveTo( pHold->pos + desloc );
 
+	QValueList< SERIAL > toremove;
 	QValueList< SERIAL >::iterator it = chars_.begin();
 	while( it != chars_.end() )
 	{
@@ -799,7 +797,9 @@ bool cBoat::move( void )
 			{
 				iter_sock.current()->removeObject( pc );
 				if( iter_sock.current() == pc->socket() )
+				{
 					iter_sock.current()->resendPlayer();
+				}
 				if( !( ( pc->isHidden() || ( pc->dead && !pc->war ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
 				{
 					drawChar->setHighlight( pc->notority( iter_sock.current()->player() ) );
@@ -810,37 +810,30 @@ bool cBoat::move( void )
 
 			delete drawChar;
 		}
+		else
+			toremove.append( (*it) );
+		++it;
+	}
+	it = toremove.begin();
+	while( it != toremove.end() )
+	{
+		chars_.remove( (*it) );
 		++it;
 	}
 
-	QPtrList< cItem > founditems;
-	cRegion::RegionIterator4Items rj( pos );
-	for( rj.Begin(); !rj.atEnd(); rj++ ) 
+	toremove.clear();
+	it = items_.begin();
+	while( it != items_.end() )
 	{
-		P_ITEM pi = rj.GetData();
-		if( pi && inMulti( pi->pos ) )
+		P_ITEM pi = FindItemBySerial( *it );
+		if( !pi )
 		{
-			bool boatitem = false;
-			for( int i = 0; i < 4; ++i )
-			{
-				if( itemserials[i] == pi->serial )
-				{
-					boatitem = true;
-					break;
-				}
-			}
-			if( !boatitem )
-				founditems.append( pi );
+			toremove.append( *it );
+			++it;
+			continue;
 		}
-	}
 
-
-	P_ITEM pi = NULL;
-	QPtrListIterator< cItem > cit( founditems );
-	while( pi = cit.current() )
-	{
 		pi->MoveTo( pi->pos.x + dx, pi->pos.y + dy, pi->pos.z );
-
 
 		QPtrListIterator< cUOSocket> iter_sock( socketsinrange );
 		while( iter_sock.current() )
@@ -848,7 +841,13 @@ bool cBoat::move( void )
 			pi->update( iter_sock.current() );
 			++iter_sock;
 		}
-		++cit;
+		++it;
+	}
+	it = toremove.begin();
+	while( it != toremove.end() )
+	{
+		items_.remove( (*it) );
+		++it;
 	}
 
 	QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
@@ -897,9 +896,8 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 				if( pc->isNpc() && pc_currchar->Owns( pc ) )
 				{
 					pc->moveTo( pos + Coord_cl( 1, 1, 2 ) );
-					pc->SetMultiSerial( this->serial );
-					this->chars_.append( pc->serial );
-					pc->update();
+					addChar( pc );
+					pc->resend();
 				}
 			}
 			vit++;
@@ -926,9 +924,8 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 		
 		z = pos.z + 3;
 		pc_currchar->MoveTo( x, y, z );
-		teleport( pc_currchar );
-		pc_currchar->SetMultiSerial( this->serial ); // set chars->multis value
-		this->chars_.append( pc_currchar->serial );
+		pc_currchar->resend();
+		addChar( pc_currchar );
 		socket->sysMessage( tr("You entered a boat") );
 	}
 	else
@@ -1019,30 +1016,25 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 	while( it != vecCown.end() )
 	{
 		P_CHAR pc = FindCharBySerial( *it );
-		if( pc != NULL )
+		if( pc )
 		{
 			if( pc->isNpc() && pc_currchar->Owns( pc ) && inrange1p( pc_currchar, pc ) )
 			{
 				pc->MoveTo( x, y, z );
-				pc->SetMultiSerial( INVALID_SERIAL );
-				this->chars_.remove( pc->serial );
-				pc->update();
+				removeChar( pc );
+				pc->resend();
 			}
 		}
 		it++;
 	}
 	pc_currchar->MoveTo( x, y, z );
-	teleport( pc_currchar );
-	pc_currchar->SetMultiSerial( INVALID_SERIAL );
-	this->chars_.remove( pc_currchar->serial );
+	pc_currchar->resend();
+	removeChar( pc_currchar );
 	return true;
 }
 
 void cBoat::switchPlankState( P_ITEM pplank ) //Open, or close the plank (called from keytarget() )
 {
-	if( !pplank->tags.get( "boatserial" ).isValid() || pplank->tags.get( "boatserial" ).toUInt() != this->serial )
-		return;
-
 	UI08 shortboatdir = this->boatdir / 2;
 	if( pplank->id() == this->itemids[ shortboatdir ][PORT_P_C] )
 		pplank->setId( this->itemids[ shortboatdir ][PORT_P_O] ); 
@@ -1100,8 +1092,10 @@ char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they sa
 {
 	SERIAL serial;
 
-	if( !socket ) 
+	if( !socket || !socket->player() ) 
 		return 0;
+
+	P_CHAR pc = socket->player();
 
 	//get the tiller man's item #
 	serial = this->itemserials[ TILLER ];
@@ -1111,29 +1105,36 @@ char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they sa
 	if ( tiller == NULL ) 
 		return 0;
 
+	if( ownserial != pc->serial && !findKey( pc ) && !isFriend( pc ) )
+	{
+		tiller->talk( tr("You are not my master.") );
+		return 1;
+	}
+
+	bool checkandreturn = false;
 	if(msg.contains("FORWARD LEFT")) {
 		this->shift_ = -1;
 		this->moves_ = 1;
 		if( move() )
 			tiller->talk( tr("Aye, sir."), 0x481, 0 );
-		return 1;
+		checkandreturn = true;
 	} else if (msg.contains ("FORWARD RIGHT") ) {
 		this->shift_ = 1;
 		this->moves_ = 1;
 		if( move() )
 			tiller->talk( tr("Aye, sir."), 0x481, 0 );
-		return 1;
+		checkandreturn = true;
 	} else if (msg.contains ("BACKWARD RIGHT") ) {
 		this->shift_ = 1;
 		this->moves_ = -1;
 		tiller->talk( tr("Aye, sir."), 0x481, 0 );
-		return 1;
+		checkandreturn = true;
 	} else if (msg.contains ("BACKWARD LEFT")) {
 		this->shift_ = -1;
 		this->moves_ = -1;
 		if( move() )
 			tiller->talk( tr("Aye, sir."), 0x481, 0 );
-		return 1;
+		checkandreturn = true;
 	} else	if (msg.contains ("FORWARD")) {
 		this->moves_ = 1;
 		if( move() )
@@ -1146,12 +1147,12 @@ char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they sa
 		this->shift_ = -1;
 		if( move() )
 			tiller->talk( tr("Aye, sir."), 0x481, 0 );
-		return 1;
+		checkandreturn = true;
 	} else if(msg.contains("RIGHT") && !msg.contains("TURN")) {
 		this->shift_ = 1;
 		if( move() )
 			tiller->talk( tr("Aye, sir."), 0x481, 0 );
-		return 1;
+		checkandreturn = true;
 	}
 
 	if(msg.contains("ONE") || msg.contains("DRIFT") ||
@@ -1163,6 +1164,8 @@ char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they sa
 		tiller->talk( tr("Aye, sir."), 0x481, 0 );
 		return 1;
 	}
+	if( checkandreturn )
+		return 1;
 
 	if( msg.contains("TURN") )
 	{
@@ -1199,49 +1202,26 @@ char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they sa
 // khpae - make deed from a boat
 void cBoat::toDeed( cUOSocket* socket ) {
 	P_CHAR pc = socket->player();
-	if (pc == NULL) {
+	if ( !pc ) {
 		return;
 	}
 	// if player is in boat
-	if (pc->multis == this->serial) {
+	if ( inMulti( pc->pos ) ) {
 		socket->sysMessage ( tr("You must leave the boat to deed it.") );
 		return;
 	}
-	// check the player has the boat key
-	P_ITEM bpack = Packitem (pc);
-	if (bpack == NULL) {
-		return;
-	}
-	vector<SERIAL> vpack = contsp.getData (bpack->serial);
-	P_ITEM pi = NULL;
-	bool found = false;
-	int in;
-	for (in=0; in<vpack.size (); in++) {
-		pi = FindItemBySerial (vpack[in]);
-		if (pi == NULL) {
-			contsp.remove (bpack->serial, vpack[in]);
-			continue;
-		}
-		if (pi->type() == 7) {
-			if( pi->tags.get( "boatserial" ).isValid() )
-			{
-				SERIAL si = pi->tags.get( "boatserial" ).toUInt();
-				if (si == this->serial) {
-					found = true;
-					break;
-				}
-			}
-		}
-	}
-	if ((!found) || (pi==NULL)) {
+
+	// check if the player has the boat key
+	P_ITEM pi = findKey( pc );
+
+	if ( !pi ) {
 		socket->sysMessage ( tr("You don't have the boat key.") );
 		return;
 	}
-	// if any pcs / npcs / items are in the boat, it cannot be deed.
-/*	if (items_.size () > 0) {
+	if (items_.size () > 0) {
 		socket->sysMessage ( tr("You can only deed with empty boat (remove items).") );
 		return;
-	}*/
+	}
 	if (chars_.size () > 0) {
 		socket->sysMessage ( tr("You can only deed with empty boat (remove pc/npcs).") );
 		return;
@@ -1254,15 +1234,8 @@ void cBoat::toDeed( cUOSocket* socket ) {
 	}
 	// remove key
 	Items->DeleItem (pi);
-	// remove all other keys for this ship
-	AllItemsIterator iter_items;
-	for (iter_items.Begin (); !iter_items.atEnd (); ++iter_items) {
-		P_ITEM boatKey = iter_items.GetData();
-		if ((boatKey->type()==7) && boatKey->tags.get( "boatserial" ).isValid() && boatKey->tags.get( "boatserial" ).toUInt() == this->serial ) {
-			--iter_items;
-			Items->DeleItem (boatKey);
-		}
-	}
+
+	removeKeys();
 
 	P_ITEM pTiller = FindItemBySerial( this->itemserials[ TILLER ] );
 	if( pTiller != NULL )
@@ -1280,8 +1253,8 @@ void cBoat::toDeed( cUOSocket* socket ) {
 	if( pHold != NULL ) 
 		Items->DeleItem( pHold );
 
+	this->removeChar( pc );
 	Items->DeleItem (this);
-	pc->SetMultiSerial( INVALID_SERIAL );
 	socket->sysMessage ( tr("You deed the boat.") );
 }
 
@@ -1361,7 +1334,7 @@ void cBoat::Serialize( ISerialization &archive )
 		}
 
 	}
-	cItem::Serialize( archive );
+	cMulti::Serialize( archive );
 }
 
 

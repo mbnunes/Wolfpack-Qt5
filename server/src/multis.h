@@ -54,6 +54,23 @@ public:
 //	virtual QString objectID( void ) const { return "MULTI"; }
 
 	QString deedSection( void ) { return deedsection_; }
+	void	addItem( P_ITEM pi );
+	void	removeItem( P_ITEM pi );
+	void	checkItems();
+	void	addChar( P_CHAR pc );
+	void	removeChar( P_CHAR pc );
+	void	checkChars();
+
+	bool	isBanned( P_CHAR pc );
+	void	addBan( P_CHAR pc );
+	void	removeBan( P_CHAR pc );
+	bool	isFriend( P_CHAR pc );
+	void	addFriend( P_CHAR pc );
+	void	removeFriend( P_CHAR pc );
+
+	P_ITEM	findKey( P_CHAR pc );
+	void	createKeys( P_CHAR pc, const QString &name );
+	void	removeKeys( void );
 
 	bool inMulti( const Coord_cl &srcpos );
 
@@ -61,7 +78,7 @@ public:
 	static bool		inMulti( const Coord_cl &srcpos, const Coord_cl &multipos, UI16 id );
 
 protected:
-//	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const QDomElement &Tag );
 
 protected:
 	QString deedsection_;
