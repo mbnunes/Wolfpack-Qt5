@@ -123,11 +123,11 @@ SOURCE=.\cFile.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\char_array.cpp
+SOURCE=.\chars.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\CharWrap.cpp
+SOURCE=.\charsmgr.cpp
 # End Source File
 # Begin Source File
 
@@ -411,15 +411,11 @@ SOURCE=.\bounty.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\char_array.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\chars.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\CharWrap.h
+SOURCE=.\charsmgr.h
 # End Source File
 # Begin Source File
 
