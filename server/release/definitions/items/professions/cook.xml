@@ -40,4 +40,539 @@
 		<category>Professions\Cook\Pile of Garbage (N/S)</category>
 	</item>
 
+	<!-- Tray n/s -->
+	<item id="991">
+		<id>0x991</id>
+		<category>Professions\Cook\Kitchen\Tray (N/S)</category>
+	</item>
+
+	<!-- Tray w/e -->
+	<item id="992" inherit="991">
+		<baseid>991</baseid>
+		<id>0x992</id>
+		<category>Professions\Cook\Kitchen\Tray (W/E)</category>
+	</item>
+
+	<!-- Cauldron n/s -->
+	<item id="974">
+		<id>0x974</id>
+		<category>Professions\Cook\Kitchen\Cauldron (N/S)</category>
+		<note>Use this in conjunction with <ref id="item:970">stew</ref></note>
+	</item>
+
+	<!-- Cauldron w/e -->
+	<item id="975" inherit="974">
+		<baseid>974</baseid>
+		<id>0x975</id>
+		<category>Professions\Cook\Kitchen\Cauldron (W/E)</category>
+	</item>
+
+	<!-- Frypan -->
+	<item id="97f">
+		<id>0x97f</id>
+		<category>Professions\Cook\Kitchen\Frypan 1</category>
+	</item>
+
+	<!-- Frypan 2 -->
+	<item id="9e2">
+		<id>0x9e2</id>
+		<category>Professions\Cook\Kitchen\Frypan 2</category>
+	</item>
+
+	<!-- Ceramic Mug 1 -->
+	<item id="995">
+		<id>0x995</id>
+		<category>Professions\Cook\Kitchen\Ceramic Mug 1</category>
+	</item>
+
+	<!-- Ceramic Mug 2 -->
+	<item id="996" inherit="995">
+		<baseid>995</baseid>
+		<id>0x996</id>
+		<category>Professions\Cook\Kitchen\Ceramic Mug 2</category>
+	</item>
+
+	<!-- Ceramic Mug 3 -->
+	<item id="997" inherit="995">
+		<baseid>995</baseid>
+		<id>0x997</id>
+		<category>Professions\Cook\Kitchen\Ceramic Mug 3</category>
+	</item>
+
+	<!-- Ceramic Mug 4 -->
+	<item id="9ca" inherit="995">
+		<baseid>995</baseid>
+		<id>0x9ca</id>
+		<category>Professions\Cook\Kitchen\Ceramic Mug 4</category>
+	</item>
+
+	<!-- Mug 1 -->
+	<item id="998">
+		<id>0x998</id>
+		<category>Professions\Cook\Kitchen\Mug 1</category>
+	</item>
+
+	<!-- Mug 2 -->
+	<item id="999" inherit="998">
+		<baseid>998</baseid>
+		<id>0x999</id>
+		<category>Professions\Cook\Kitchen\Mug 2</category>
+	</item>
+
+	<!-- Goblet 1 -->
+	<item id="99a">
+		<id>0x99a</id>
+		<category>Professions\Cook\Kitchen\Goblet 1</category>
+	</item>
+
+	<!-- Goblet 2 -->
+	<item id="9b3" inherit="99a">
+		<baseid>99a</baseid>
+		<id>0x9b3</id>
+		<category>Professions\Cook\Kitchen\Goblet 2</category>
+	</item>
+
+	<!-- Goblet 3 -->
+	<item id="9bf" inherit="99a">
+		<baseid>99a</baseid>
+		<id>0x9bf</id>
+		<category>Professions\Cook\Kitchen\Goblet 3</category>
+	</item>
+
+	<!-- Goblet 4 -->
+	<item id="9cb" inherit="99a">
+		<baseid>99a</baseid>
+		<id>0x9cb</id>
+		<category>Professions\Cook\Kitchen\Goblet 4</category>
+	</item>
+
+	<!-- Fork w/e -->
+	<item id="9a3">
+		<id>0x9a3</id>
+		<category>Professions\Cook\Kitchen\Fork (E/W)</category>
+	</item>
+
+	<!-- Fork n/s -->
+	<item id="9a4" inherit="9a3">
+		<baseid>9a3</baseid>
+		<category>Professions\Cook\Kitchen\Fork (S/N)</category>
+		<id>0x9a4</id>
+	</item>
+
+	<!-- Knife w/e -->
+	<item id="9a5">
+		<id>0x9a5</id>
+		<category>Professions\Cook\Kitchen\Knife (E/W)</category>
+	</item>
+
+	<!-- Knife n/s -->
+	<item id="9a6" inherit="9a5">
+		<baseid>9a5</baseid>
+		<id>0x9a6</id>
+		<category>Professions\Cook\Kitchen\Knife (S/N)</category>
+	</item>
+
+	<!-- Glass Pitcher -->
+	<item id="9a7">
+		<id>0x9a7</id>
+		<category>Professions\Cook\Kitchen\Glass Pitcher (empty)</category>
+	</item>
+
+	<!-- Eggshells -->
+	<item id="9b4">
+		<id>0x9b4</id>
+		<category>Professions\Cook\Kitchen\Eggshells</category>
+	</item>
+
+	<!-- Silverware 1 w/e -->
+	<item id="9bd">
+		<category>Professions\Cook\Kitchen\Silverware 1 (W/E)</category>
+		<id>0x9bd</id>
+	</item>
+
+	<!-- Silverware 1 n/s -->
+	<item id="9be" inherit="9bd">
+		<baseid>9bd</baseid>
+		<id>0x9be</id>
+		<category>Professions\Cook\Kitchen\Silverware 1 (N/S)</category>
+	</item>
+
+	<!-- Spoon w/e -->
+	<item id="9c2">
+		<id>0x9c2</id>
+		<category>Professions\Cook\Kitchen\Spoon (E/W)</category>
+	</item>
+
+	<!-- Spoon n/s -->
+	<item id="9c3" inherit="9c2">
+		<baseid>9c2</baseid>
+		<id>0x9c3</id>
+		<category>Professions\Cook\Kitchen\Spoon (S/N)</category>
+	</item>
+
+	<!-- Silverware 2 n/s -->
+	<item id="9d4">
+		<id>0x9d4</id>
+		<category>Professions\Cook\Kitchen\Silverware 2 (N/S)</category>
+	</item>
+
+	<!-- Silverware 2 w/e -->
+	<item id="9d5" inherit="9d4">
+		<baseid>9d4</baseid>
+		<id>0x9d5</id>
+		<category>Professions\Cook\Kitchen\Silverware 2 (W/E)</category>
+	</item>
+
+	<!-- Pitcher -->
+	<item id="9d6">
+		<category>Professions\Cook\Kitchen\Pitcher</category>
+		<id>0x9d6</id>
+	</item>
+
+	<!-- Plate -->
+	<item id="9d7">
+		<id>0x9d7</id>
+		<category>Professions\Cook\Kitchen\Plate</category>
+	</item>
+
+	<!-- Plate of Food 1 -->
+	<item id="9af">
+		<id>0x9af</id>
+		<category>Professions\Cook\Kitchen\Plate of Food 1</category>
+	</item>
+
+	<!-- Plate of Food 2 -->
+	<item id="9d8" inherit="9af">
+		<baseid>9af</baseid>
+		<id>0x9d8</id>
+		<category>Professions\Cook\Kitchen\Plate of Food 2</category>
+	</item>
+
+	<!-- Plate of Food 3 -->
+	<item id="9d9" inherit="9af">
+		<baseid>9af</baseid>
+		<id>0x9d9</id>
+		<category>Professions\Cook\Kitchen\Plate of Food 3</category>
+	</item>
+
+	<!-- Dirty Plate 2 -->
+	<item id="9da">
+		<id>0x9da</id>
+		<category>Professions\Cook\Kitchen\Dirty Plate 2</category>
+	</item>
+
+	<!-- Dirty Plate 1 -->
+	<item id="9ae">
+		<id>0x9ae</id>
+		<category>Professions\Cook\Kitchen\Dirty Plate 1</category>
+	</item>
+
+	<!-- Dirty Plate 3 -->
+	<item id="a19">
+		<id>0xa19</id>
+		<category>Professions\Cook\Kitchen\Dirty Plate 3</category>
+	</item>
+
+	<!-- Plate of Food 4 -->
+	<item id="9db">
+		<id>0x9db</id>
+		<category>Professions\Cook\Kitchen\Plate of Food 4</category>
+	</item>
+
+	<!-- Dirty Pot 1 -->
+	<item id="9dc">
+		<id>0x9dc</id>
+		<category>Professions\Cook\Kitchen\Dirty Pot 1</category>
+	</item>
+
+	<!-- Dirty Pot 2 -->
+	<item id="9dd">
+		<id>0x9dd</id>
+		<category>Professions\Cook\Kitchen\Dirty Pot 2</category>
+	</item>
+
+	<!-- Dirty Pot 3 -->
+	<item id="9df">
+		<id>0x9df</id>
+		<category>Professions\Cook\Kitchen\Dirty Pot 3</category>
+	</item>
+
+	<!-- Dirty Pot 4 -->
+	<item id="9e6">
+		<id>0x9e6</id>
+		<category>Professions\Cook\Kitchen\Dirty Pot 4</category>
+	</item>
+
+	<!-- Dirty Pot 5 -->
+	<item id="9e7">
+		<id>0x9e7</id>
+		<category>Professions\Cook\Kitchen\Dirty Pot 5</category>
+	</item>
+
+	<!-- Pot 1 -->
+	<item id="9e0">
+		<id>0x9e0</id>
+		<category>Professions\Cook\Kitchen\Pot 1</category>
+	</item>
+
+	<!-- Pot 2 -->
+	<item id="9e1">
+		<id>0x9e1</id>
+		<category>Professions\Cook\Kitchen\Pot 2</category>
+	</item>
+
+	<!-- Pot 3 -->
+	<item id="9e3">
+		<id>0x9e3</id>
+		<category>Professions\Cook\Kitchen\Pot 3</category>
+	</item>
+
+	<!-- Pot 4 -->
+	<item id="9e4">
+		<id>0x9e4</id>
+		<category>Professions\Cook\Kitchen\Pot 4</category>
+	</item>
+
+	<!-- Pot 5 -->
+	<item id="9e5">
+		<id>0x9e5</id>
+		<category>Professions\Cook\Kitchen\Pot 5</category>
+	</item>
+
+	<!-- Dirty Frypan -->
+	<item id="9de">
+		<id>0x9de</id>
+		<category>Professions\Cook\Kitchen\Dirty Frypan</category>
+	</item>
+
+	<!-- Dirty Pan -->
+	<item id="9e8">
+		<category>Professions\Cook\Kitchen\Dirty Pan</category>
+		<id>0x9e8</id>
+	</item>
+
+	<!-- Pan -->
+	<item id="9f3">
+		<category>Professions\Cook\Kitchen\Pan</category>
+		<id>0x9f3</id>
+	</item>
+
+	<!-- Fork n/s -->
+	<item id="9f4">
+		<category>Professions\Cook\Kitchen\Fork (N/S)</category>
+		<id>0x9f4</id>
+	</item>
+
+	<!-- Fork w/e -->
+	<item id="9f5">
+		<category>Professions\Cook\Kitchen\Fork (W/E)</category>
+		<id>0x9f5</id>
+	</item>
+
+	<!-- Knife n/s -->
+	<item id="9f6">
+		<category>Professions\Cook\Kitchen\Knife (N/S)</category>
+		<id>0x9f6</id>
+	</item>
+
+	<!-- Knife w/e -->
+	<item id="9f7">
+		<category>Professions\Cook\Kitchen\Knife (W/E)</category>
+		<id>0x9f7</id>
+	</item>
+
+	<!-- Spoon n/s -->
+	<item id="9f8">
+		<category>Professions\Cook\Kitchen\Spoon (N/S)</category>
+		<id>0x9f8</id>
+	</item>
+
+	<!-- Spoon w/e -->
+	<item id="9f9">
+		<category>Professions\Cook\Kitchen\Spoon (W/E)</category>
+		<id>0x9f9</id>
+	</item>
+
+	<!-- Bowl of Flour -->
+	<item id="a1e">
+		<category>Professions\Cook\Supplies\Bowl of Flour</category>
+		<id>0xa1e</id>
+		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
+		<weight>0.4</weight>
+		<events>cooking</events>
+	</item>
+
+	<!-- Skull Mugs -->
+	<item id="ffb">
+		<id>0xffb</id>
+		<category>Professions\Cook\Bar\Skull Mug 1</category>
+	</item>
+
+	<item id="ffc" inherit="ffb">
+		<id>0xffc</id>
+		<category>Professions\Cook\Bar\Skull Mug 2</category>
+	</item>
+
+	<item id="ffd" inherit="ffb">
+		<id>0xffd</id>
+		<category>Professions\Cook\Bar\Skull Mug 3</category>
+	</item>
+
+	<item id="ffe" inherit="ffb">
+		<id>0xffe</id>
+		<category>Professions\Cook\Bar\Skull Mug 4</category>
+	</item>
+
+	<!-- Pewter Mug -->
+	<item id="fff">
+		<id>0xfff</id>
+		<category>Professions\Cook\Bar\Pewter Mug 1</category>
+	</item>
+
+	<item id="1000" inherit="fff">
+		<id>0x1000</id>
+		<category>Professions\Cook\Bar\Pewter Mug 2</category>
+	</item>
+
+	<item id="1001" inherit="fff">
+		<id>0x1001</id>
+		<category>Professions\Cook\Bar\Pewter Mug 3</category>
+	</item>
+
+	<item id="1002" inherit="fff">
+		<id>0x1002</id>
+		<category>Professions\Cook\Bar\Pewter Mug 4</category>
+	</item>
+
+	<!-- Spittoon -->
+	<item id="1003">
+		<id>0x1003</id>
+		<category>Professions\Cook\Bar\Spittoon</category>
+	</item>
+
+	<item id="103f">
+		<id>0x103f</id>
+		<weight>0.1</weight>
+		<category>Professions\Cook\Supplies\Cookie Mix</category>
+		<events>cooking</events>
+	</item>
+
+	<item id="1042">
+		<id>0x1042</id>
+		<weight>0.1</weight>
+		<category>Professions\Cook\Supplies\Unbaked Pie</category>
+		<events>cooking</events>
+	</item>
+
+	<item id="1083">
+		<id>0x1083</id>
+		<weight>0.1</weight>
+		<category>Professions\Cook\Supplies\Unbaked Pizza</category>
+		<events>cooking</events>
+	</item>
+
+	<item id="15f8">
+		<id>0x15f8</id>
+		<weight>0.5</weight>
+		<category>Professions\Cook\Kitchen\Wooden Bowl</category>
+	</item>
+
+	<item id="15fd">
+		<id>0x15fd</id>
+		<category>Professions\Cook\Kitchen\Pewter Bowl</category>
+	</item>
+
+	<item id="1603">
+		<id>0x1603</id>
+		<category>Professions\Cook\Kitchen\Large Pewter Bowl</category>
+	</item>
+
+	<item id="1605">
+		<id>0x1605</id>
+		<category>Professions\Cook\Kitchen\Large Wooden Bowl</category>
+	</item>
+
+	<item id="1871">
+		<id>0x1871</id>
+		<category>Professions\Cook\Professions\Cook\Decoration\Beef Carcass 1 (N/S)</category>
+	</item>
+
+	<item id="1872">
+		<id>0x1872</id>
+		<category>Professions\Cook\Professions\Cook\Decoration\Beef Carcass 1 (W/E)</category>
+	</item>
+
+	<item id="1873">
+		<id>0x1873</id>
+		<category>Professions\Cook\Professions\Cook\Decoration\Beef Carcass 2 (N/S)</category>
+	</item>
+
+	<item id="1874">
+		<id>0x1874</id>
+		<category>Professions\Cook\Professions\Cook\Decoration\Beef Carcass 2 (W/E)</category>
+	</item>
+
+	<!-- Raw Leg of Lamb -->
+	<item id="1609">
+		<id>0x1609</id>
+		<buyprice>5</buyprice>
+		<sellprice>2</sellprice>
+		<weight>0.2</weight>
+		<category>Professions\Cook\Supplies\Raw Leg of Lamb</category>
+		<events>cooking</events>
+	</item>
+
+	<!-- Raw Chicken Leg -->
+	<item id="1607">
+		<id>0x1607</id>
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
+		<category>Professions\Cook\Supplies\Raw Chicken Leg</category>
+		<events>cooking</events>
+	</item>
+
+	<item id="1f81">
+		<category>Professions\Cook\Decoration\Kitchen\Glass 1</category>
+		<id>0x1f81</id>
+	</item>
+
+	<item id="1f82">
+		<id>0x1f82</id>
+		<category>Professions\Cook\Decoration\Kitchen\Glass 2</category>
+	</item>
+
+	<item id="1f83">
+		<id>0x1f83</id>
+		<category>Professions\Cook\Decoration\Kitchen\Glass 3</category>
+	</item>
+
+	<item id="1f84">
+		<id>0x1f84</id>
+		<category>Professions\Cook\Decoration\Kitchen\Glass 4</category>
+	</item>
+
+	<item id="10e8">
+		<id>0x10e8</id>
+		<category>Professions\Cook\Kitchen\Small Wooden Spoon</category>
+	</item>
+
+	<item id="10e9">
+		<id>0x10e9</id>
+		<category>Professions\Cook\Kitchen\Large Wooden Spoon</category>
+	</item>
+
+	<!-- Glass Pitcher -->
+	<item id="ff6">
+		<id>0xff6</id>
+		<category>Professions\Cook\Decoration\Bar\Glass Pitcher 1</category>
+	</item>
+
+	<item id="ff7" inherit="ff6">
+		<id>0xff7</id>
+		<category>Professions\Cook\Decoration\Bar\Glass Pitcher 2</category>
+	</item>
+
+
 </definitions>

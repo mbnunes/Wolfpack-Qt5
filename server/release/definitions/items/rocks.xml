@@ -12,102 +12,102 @@
 
 	<item id="134f" inherit="ITEM_NO_DECAY">
 		<id>0x134f</id>
-		<category>Rocks\Boulder 1 (1/3)</category>
+		<category>Rocks\Boulders\Boulder 1 (1/3)</category>
 	</item>
 
 	<item id="1350" inherit="ITEM_NO_DECAY">
 		<id>0x1350</id>
-		<category>Rocks\Boulder 1 (2/3)</category>
+		<category>Rocks\Boulders\Boulder 1 (2/3)</category>
 	</item>
 
 	<item id="1351" inherit="ITEM_NO_DECAY">
 		<id>0x1351</id>
-		<category>Rocks\Boulder 1 (3/3)</category>
+		<category>Rocks\Boulders\Boulder 1 (3/3)</category>
 	</item>
 
 	<item id="1352" inherit="ITEM_NO_DECAY">
 		<id>0x1352</id>
-		<category>Rocks\Boulder 2 (1/3)</category>
+		<category>Rocks\Boulders\Boulder 2 (1/3)</category>
 	</item>
 
 	<item id="1353" inherit="ITEM_NO_DECAY">
 		<id>0x1353</id>
-		<category>Rocks\Boulder 2 (2/3)</category>
+		<category>Rocks\Boulders\Boulder 2 (2/3)</category>
 	</item>
 
 	<item id="1354" inherit="ITEM_NO_DECAY">
 		<id>0x1354</id>
-		<category>Rocks\Boulder 2 (3/3)</category>
+		<category>Rocks\Boulders\Boulder 2 (3/3)</category>
 	</item>
 
 	<item id="1355" inherit="ITEM_NO_DECAY">
 		<id>0x1355</id>
-		<category>Rocks\Boulder 3 (1/2)</category>
+		<category>Rocks\Boulders\Boulder 3 (1/2)</category>
 	</item>
 
 	<item id="1356" inherit="ITEM_NO_DECAY">
 		<id>0x1356</id>
-		<category>Rocks\Boulder 3 (2/2)</category>
+		<category>Rocks\Boulders\Boulder 3 (2/2)</category>
 	</item>
 
 	<item id="1357" inherit="ITEM_NO_DECAY">
 		<id>0x1357</id>
-		<category>Rocks\Boulder 4 (1/3)</category>
+		<category>Rocks\Boulders\Boulder 4 (1/3)</category>
 	</item>
 
 	<item id="1358" inherit="ITEM_NO_DECAY">
 		<id>0x1358</id>
-		<category>Rocks\Boulder 4 (2/3)</category>
+		<category>Rocks\Boulders\Boulder 4 (2/3)</category>
 	</item>
 
 	<item id="1359" inherit="ITEM_NO_DECAY">
 		<id>0x1359</id>
-		<category>Rocks\Boulder 4 (3/3)</category>
+		<category>Rocks\Boulders\Boulder 4 (3/3)</category>
 	</item>
 
 	<item id="135a" inherit="ITEM_NO_DECAY">
 		<id>0x135a</id>
-		<category>Rocks\Boulder 5 (1/2)</category>
+		<category>Rocks\Boulders\Boulder 5 (1/2)</category>
 	</item>
 
 	<item id="135b" inherit="ITEM_NO_DECAY">
 		<id>0x135b</id>
-		<category>Rocks\Boulder 5 (2/2)</category>
+		<category>Rocks\Boulders\Boulder 5 (2/2)</category>
 	</item>
 
 	<item id="135c" inherit="ITEM_NO_DECAY">
 		<id>0x135c</id>
-		<category>Rocks\Boulder 6 (1/3)</category>
+		<category>Rocks\Boulders\Boulder 6 (1/3)</category>
 	</item>
 
 	<item id="135d" inherit="ITEM_NO_DECAY">
 		<id>0x135d</id>
-		<category>Rocks\Boulder 6 (2/3)</category>
+		<category>Rocks\Boulders\Boulder 6 (2/3)</category>
 	</item>
 
 	<item id="135e" inherit="ITEM_NO_DECAY">
 		<id>0x135e</id>
-		<category>Rocks\Boulder 6 (3/3)</category>
+		<category>Rocks\Boulders\Boulder 6 (3/3)</category>
 	</item>
 
 	<item id="135f" inherit="ITEM_NO_DECAY">
 		<id>0x135f</id>
-		<category>Rocks\Boulder 7 (1/2)</category>
+		<category>Rocks\Boulders\Boulder 7 (1/2)</category>
 	</item>
 
 	<item id="1360" inherit="ITEM_NO_DECAY">
 		<id>0x1360</id>
-		<category>Rocks\Boulder 7 (2/2)</category>
+		<category>Rocks\Boulders\Boulder 7 (2/2)</category>
 	</item>
 
 	<item id="1361" inherit="ITEM_NO_DECAY">
 		<id>0x1361</id>
-		<category>Rocks\Boulder 8 (1/2)</category>
+		<category>Rocks\Boulders\Boulder 8 (1/2)</category>
 	</item>
 
 	<item id="1362" inherit="ITEM_NO_DECAY">
 		<id>0x1362</id>
-		<category>Rocks\Boulder 8 (2/2)</category>
+		<category>Rocks\Boulders\Boulder 8 (2/2)</category>
 	</item>
 
 	<item id="1363" inherit="ITEM_NO_DECAY">

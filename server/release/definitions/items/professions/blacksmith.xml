@@ -11,47 +11,46 @@
 <definitions>
 
 	<item id="faf" inherit="ITEM_NO_DECAY">
-		<id>0x0faf</id>
+		<id>0xfaf</id>
 		<category>Professions\Blacksmith\Anvil (N/S)</category>
 	</item>
 
 	<item id="fb0" inherit="ITEM_NO_DECAY">
-		<id>0x0fb0</id>
+		<id>0xfb0</id>
 		<category>Professions\Blacksmith\Anvil (W/E)</category>
 	</item>
 
 	<item id="fb1" inherit="ITEM_NO_DECAY">
-		<id>0x0fb1</id>
+		<id>0xfb1</id>
 		<category>Professions\Blacksmith\Small Forge</category>
 	</item>
 
 	<item id="fb6" inherit="ITEM_NO_DECAY">
-		<id>0x0fb6</id>
+		<id>0xfb6</id>
 		<category>Professions\Blacksmith\Horse Shoes</category>
 	</item>
 
 	<item id="fb7">
-		<id>0x0fb7</id>
+		<id>0xfb7</id>
 		<category>Professions\Blacksmith\Forged Metal (W/E)</category>
 	</item>
 
 	<item id="fb8">
-		<id>0x0fb8</id>
+		<id>0xfb8</id>
 		<category>Professions\Blacksmith\Forged Metal (N/S)</category>
 	</item>
 
 	<item id="fbb">
-		<id>0x0fbb</id>
+		<id>0xfbb</id>
 		<events>skills.blacksmithing,equipment</events>
 		<category>Professions\Blacksmith\Tongs (W/E)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
-	<item id="fbc">
-		<id>0x0fbc</id>
-		<events>skills.blacksmithing,equipment</events>
+	<item id="fbc" inherit="fbb">
+		<baseid>fbb</baseid>
+		<id>0xfbc</id>
 		<category>Professions\Blacksmith\Tongs (N/S)</category>
-		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
 	<item id="13bc" inherit="ITEM_NO_DECAY">

@@ -11,161 +11,161 @@
 <definitions>
 
 	<item id="e24">
-		<id>0x0e24</id>
+		<id>0xe24</id>
 		<category>Professions\Alchemist\Empty Vials</category>
 	</item>
 
 	<item id="e25">
-		<id>0x0e25</id>
+		<id>0xe25</id>
 		<category>Professions\Alchemist\Bottle 1</category>
 	</item>
 
 	<item id="e26">
-		<id>0x0e26</id>
+		<id>0xe26</id>
 		<category>Professions\Alchemist\Bottle 2</category>
 	</item>
 
 	<item id="e27">
-		<id>0x0e27</id>
+		<id>0xe27</id>
 		<name>hair dye</name>
 		<category>Professions\Alchemist\Hair Dye 1</category>
 		<events>environment</events>
 	</item>
 
 	<item id="e28">
-		<id>0x0e28</id>
+		<id>0xe28</id>
 		<category>Professions\Alchemist\Bottle 4</category>
 	</item>
 
 	<item id="e29">
-		<id>0x0e29</id>
+		<id>0xe29</id>
 		<category>Professions\Alchemist\Bottle 5</category>
 	</item>
 
 	<item id="e2a">
-		<id>0x0e2a</id>
+		<id>0xe2a</id>
 		<category>Professions\Alchemist\Bottle 6</category>
 	</item>
 
 	<item id="e2b">
-		<id>0x0e2b</id>
+		<id>0xe2b</id>
 		<category>Professions\Alchemist\Bottle 7</category>
 	</item>
 
 	<item id="e2c">
-		<id>0x0e2c</id>
+		<id>0xe2c</id>
 		<category>Professions\Alchemist\Bottle 8</category>
 	</item>
 
 	<item id="e44">
-		<id>0x0e44</id>
+		<id>0xe44</id>
 		<category>Professions\Alchemist\Empty Jars 1</category>
 	</item>
 
 	<item id="e45">
-		<id>0x0e45</id>
+		<id>0xe45</id>
 		<category>Professions\Alchemist\Empty Jars 2</category>
 	</item>
 
 	<item id="e46">
-		<id>0x0e46</id>
+		<id>0xe46</id>
 		<category>Professions\Alchemist\Empty Jars 3</category>
 	</item>
 
 	<item id="e47">
-		<id>0x0e47</id>
+		<id>0xe47</id>
 		<category>Professions\Alchemist\Empty Jars 4</category>
 	</item>
 
 	<item id="e48">
-		<id>0x0e48</id>
+		<id>0xe48</id>
 		<category>Professions\Alchemist\Full Jars 1</category>
 	</item>
 
 	<item id="e49">
-		<id>0x0e49</id>
+		<id>0xe49</id>
 		<category>Professions\Alchemist\Full Jars 2</category>
 	</item>
 
 	<item id="e4a">
-		<id>0x0e4a</id>
+		<id>0xe4a</id>
 		<category>Professions\Alchemist\Full Jars 3</category>
 	</item>
 
 	<item id="e4b">
-		<id>0x0e4b</id>
+		<id>0xe4b</id>
 		<category>Professions\Alchemist\Full Jars 4</category>
 	</item>
 
 	<item id="e4c">
-		<id>0x0e4c</id>
+		<id>0xe4c</id>
 		<category>Professions\Alchemist\Jars 1</category>
 	</item>
 
 	<item id="e4d">
-		<id>0x0e4d</id>
+		<id>0xe4d</id>
 		<category>Professions\Alchemist\Jars 2</category>
 	</item>
 
 	<item id="e4e">
-		<id>0x0e4e</id>
+		<id>0xe4e</id>
 		<category>Professions\Alchemist\Jars 3</category>
 	</item>
 
 	<item id="e4f">
-		<id>0x0e4f</id>
+		<id>0xe4f</id>
 		<category>Professions\Alchemist\Jars 4</category>
 	</item>
 
 	<item id="efb">
-		<id>0x0efb</id>
+		<id>0xefb</id>
 		<category>Professions\Alchemist\Bottle 9</category>
 	</item>
 
 	<item id="efc">
-		<id>0x0efc</id>
+		<id>0xefc</id>
 		<category>Professions\Alchemist\Bottle 10</category>
 	</item>
 
 	<item id="efd">
-		<id>0x0efd</id>
+		<id>0xefd</id>
 		<category>Professions\Alchemist\Bottle 11</category>
 	</item>
 
 	<item id="efe">
-		<id>0x0efe</id>
+		<id>0xefe</id>
 		<category>Professions\Alchemist\Bottle 12</category>
 	</item>
 
 	<item id="eff">
-		<id>0x0eff</id>
+		<id>0xeff</id>
 		<name>hair dye</name>
 		<category>Professions\Alchemist\Hair Dye 2</category>
 		<events>environment</events>
 	</item>
 
 	<item id="f00">
-		<id>0x0f00</id>
+		<id>0xf00</id>
 		<category>Professions\Alchemist\Bottle 14</category>
 	</item>
 
 	<item id="f01">
-		<id>0x0f01</id>
+		<id>0xf01</id>
 		<category>Professions\Alchemist\Bottle 15</category>
 	</item>
 
 	<item id="f02">
-		<id>0x0f02</id>
+		<id>0xf02</id>
 		<category>Professions\Alchemist\Bottle 16</category>
 	</item>
 
 	<item id="f03">
-		<id>0x0f03</id>
+		<id>0xf03</id>
 		<category>Professions\Alchemist\Bottle 17</category>
 	</item>
 
 	<item id="f04">
-		<id>0x0f04</id>
+		<id>0xf04</id>
 		<category>Professions\Alchemist\Bottle 18</category>
 	</item>
 
@@ -196,62 +196,62 @@
 
 	<item id="181d">
 		<id>0x181d</id>
-		<category>Professions\Alchemist\Alchemical Symbol 1</category>
+		<category>Professions\Alchemist\Symbols\Alchemical Symbol 1</category>
 	</item>
 
 	<item id="181e">
 		<id>0x181e</id>
-		<category>Professions\Alchemist\Alchemical Symbol 2</category>
+		<category>Professions\Alchemist\Symbols\Alchemical Symbol 2</category>
 	</item>
 
 	<item id="181f">
 		<id>0x181f</id>
-		<category>Professions\Alchemist\Alchemical Symbol 3</category>
+		<category>Professions\Alchemist\Symbols\Alchemical Symbol 3</category>
 	</item>
 
 	<item id="1820">
 		<id>0x1820</id>
-		<category>Professions\Alchemist\Alchemical Symbol 4</category>
+		<category>Professions\Alchemist\Symbols\Alchemical Symbol 4</category>
 	</item>
 
 	<item id="1821">
 		<id>0x1821</id>
-		<category>Professions\Alchemist\Alchemical Symbol 5</category>
+		<category>Professions\Alchemist\Symbols\Alchemical Symbol 5</category>
 	</item>
 
 	<item id="1822">
 		<id>0x1822</id>
-		<category>Professions\Alchemist\Alchemical Symbol 6</category>
+		<category>Professions\Alchemist\Symbols\Alchemical Symbol 6</category>
 	</item>
 
 	<item id="1823">
 		<id>0x1823</id>
-		<category>Professions\Alchemist\Alchemical Symbol 7</category>
+		<category>Professions\Alchemist\Symbols\Alchemical Symbol 7</category>
 	</item>
 
 	<item id="1824">
 		<id>0x1824</id>
-		<category>Professions\Alchemist\Alchemical Symbol 8</category>
+		<category>Professions\Alchemist\Symbols\Alchemical Symbol 8</category>
 	</item>
 
 	<item id="1825">
 		<id>0x1825</id>
-		<category>Professions\Alchemist\Alchemical Symbol 9</category>
+		<category>Professions\Alchemist\Symbols\Alchemical Symbol 9</category>
 	</item>
 
 	<item id="1826">
 		<id>0x1826</id>
-		<category>Professions\Alchemist\Alchemical Symbol 10</category>
+		<category>Professions\Alchemist\Symbols\Alchemical Symbol 10</category>
 	</item>
 
 	<item id="1827">
 		<id>0x1827</id>
-		<category>Professions\Alchemist\Alchemical Symbol 11</category>
+		<category>Professions\Alchemist\Symbols\Alchemical Symbol 11</category>
 	</item>
 
 	<item id="1828">
 		<id>0x1828</id>
-		<category>Professions\Alchemist\Alchemical Symbol 12</category>
+		<category>Professions\Alchemist\Symbols\Alchemical Symbol 12</category>
 	</item>
 
 	<!-- Flask -->
@@ -488,7 +488,7 @@
 
 	<!-- Mortar & pestle -->
 	<item id="e9b">
-		<id>0x0e9b</id>
+		<id>0xe9b</id>
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
 		<category>Professions\Alchemist\Mortar &amp; Pestle</category>
@@ -498,7 +498,7 @@
 	</item>
 
 	<item id="f0e">
-		<id>0x0f0e</id>
+		<id>0xf0e</id>
 		<buyprice>5</buyprice>
 		<sellprice>3</sellprice>
 		<category>Professions\Alchemist\Empty Bottle</category>

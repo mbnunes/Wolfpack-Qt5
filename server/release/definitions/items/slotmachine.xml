@@ -18,43 +18,43 @@
 	</item>
 
 	<!-- The Prizes -->
-	<item id="slot_prize_1">
-		<id>0xeed</id>
+	<item id="slot_prize_1" inherit="eed">
+		<baseid>eed</baseid>
 		<amount>1</amount>
 	</item>
 
-	<item id="slot_prize_2">
-		<id>0xeed</id>
+	<item id="slot_prize_2" inherit="eed">
+		<baseid>eed</baseid>
 		<amount>3</amount>
 	</item>
 
-	<item id="slot_prize_3">
-		<id>0xeed</id>
+	<item id="slot_prize_3" inherit="eed">
+		<baseid>eed</baseid>
 		<amount>6</amount>
 	</item>
 
-	<item id="slot_prize_4">
-		<id>0xeed</id>
+	<item id="slot_prize_4" inherit="eed">
+		<baseid>eed</baseid>
 		<amount>96</amount>
 	</item>
 
-	<item id="slot_prize_5">
-		<id>0xeed</id>
+	<item id="slot_prize_5" inherit="eed">
+		<baseid>eed</baseid>
 		<amount>151</amount>
 	</item>
 
-	<item id="slot_prize_6">
-		<id>0xeed</id>
+	<item id="slot_prize_6" inherit="eed">
+		<baseid>eed</baseid>
 		<amount>204</amount>
 	</item>
 
-	<item id="slot_prize_7">
-		<id>0xeed</id>
+	<item id="slot_prize_7" inherit="eed">
+		<baseid>eed</baseid>
 		<amount>462</amount>
 	</item>
 
-	<item id="slot_prize_8">
-		<id>0xeed</id>
+	<item id="slot_prize_8" inherit="eed">
+		<baseid>eed</baseid>
 		<amount>812</amount>
 	</item>
 

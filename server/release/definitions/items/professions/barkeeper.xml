@@ -11,97 +11,97 @@
 <definitions>
 
 	<item id="e12">
-		<id>0x0e12</id>
+		<id>0xe12</id>
 		<category>Professions\Barkeeper\Chessmen 1</category>
 	</item>
 
 	<item id="e13">
-		<id>0x0e13</id>
+		<id>0xe13</id>
 		<category>Professions\Barkeeper\Chessmen 2</category>
 	</item>
 
 	<item id="e14">
-		<id>0x0e14</id>
+		<id>0xe14</id>
 		<category>Professions\Barkeeper\Chessmen 3</category>
 	</item>
 
 	<item id="e15">
-		<id>0x0e15</id>
+		<id>0xe15</id>
 		<category>Professions\Barkeeper\Cards 1</category>
 	</item>
 
 	<item id="e16">
-		<id>0x0e16</id>
+		<id>0xe16</id>
 		<category>Professions\Barkeeper\Cards 2</category>
 	</item>
 
 	<item id="e17">
-		<id>0x0e17</id>
+		<id>0xe17</id>
 		<category>Professions\Barkeeper\Cards 3</category>
 	</item>
 
 	<item id="e18">
-		<id>0x0e18</id>
+		<id>0xe18</id>
 		<category>Professions\Barkeeper\Cards 4</category>
 	</item>
 
 	<item id="e19">
-		<id>0x0e19</id>
+		<id>0xe19</id>
 		<category>Professions\Barkeeper\Cards 5</category>
 	</item>
 
 	<item id="e1a">
-		<id>0x0e1a</id>
+		<id>0xe1a</id>
 		<category>Professions\Barkeeper\Checkers 1</category>
 	</item>
 
 	<item id="e1b">
-		<id>0x0e1b</id>
+		<id>0xe1b</id>
 		<category>Professions\Barkeeper\Checkers 2</category>
 	</item>
 
 	<item id="e1c">
-		<id>0x0e1c</id>
+		<id>0xe1c</id>
 		<category>Professions\Barkeeper\Backgammon Board 1</category>
 	</item>
 
 	<item id="fa2">
-		<id>0x0fa2</id>
+		<id>0xfa2</id>
 		<category>Professions\Barkeeper\Cards 6</category>
 	</item>
 
 	<item id="fa3">
-		<id>0x0fa3</id>
+		<id>0xfa3</id>
 		<category>Professions\Barkeeper\Cards 7</category>
 	</item>
 
 	<item id="fa4">
-		<id>0x0fa4</id>
+		<id>0xfa4</id>
 		<category>Professions\Barkeeper\Checkers 3</category>
 	</item>
 
 	<item id="fa5">
-		<id>0x0fa5</id>
+		<id>0xfa5</id>
 		<category>Professions\Barkeeper\Checkers 4</category>
 	</item>
 
 	<item id="fa6">
-		<id>0x0fa6</id>
+		<id>0xfa6</id>
 		<category>Professions\Barkeeper\Game Board</category>
 	</item>
 
 	<item id="fa7">
-		<id>0x0fa7</id>
+		<id>0xfa7</id>
 		<category>Professions\Barkeeper\Dice and Cup</category>
 	</item>
 
 	<item id="fa8">
-		<id>0x0fa8</id>
+		<id>0xfa8</id>
 		<category>Professions\Barkeeper\Chessmen 4</category>
 	</item>
 
 	<item id="fad">
-		<id>0x0fad</id>
+		<id>0xfad</id>
 		<category>Professions\Barkeeper\Backgammon Board 2</category>
 	</item>
 

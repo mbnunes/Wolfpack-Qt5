@@ -895,37 +895,37 @@
 
 	<!-- Growing Plants -->
 	<item id="c68">
-		<id>0x0c68</id>
+		<id>0xc68</id>
 		<nodecay />
 		<category>Vegetation\Growing\Sprouts 1</category>
 	</item>
 
 	<item id="c69">
-		<id>0x0c69</id>
+		<id>0xc69</id>
 		<nodecay />
 		<category>Vegetation\Growing\Sprouts 2</category>
 	</item>
 
 	<item id="c6f">
-		<id>0x0c6f</id>
+		<id>0xc6f</id>
 		<nodecay />
 		<category>Vegetation\Growing\Onions</category>
 	</item>
 
 	<item id="c76">
-		<id>0x0c76</id>
+		<id>0xc76</id>
 		<nodecay />
 		<category>Vegetation\Growing\Carrots</category>
 	</item>
 
 	<item id="c7d">
-		<id>0x0c7d</id>
+		<id>0xc7d</id>
 		<nodecay />
 		<category>Vegetation\Growing\Corn Stalk 1</category>
 	</item>
 
 	<item id="c7e">
-		<id>0x0c7e</id>
+		<id>0xc7e</id>
 		<nodecay />
 		<category>Vegetation\Growing\Corn Stalk 2</category>
 	</item>

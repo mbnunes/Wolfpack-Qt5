@@ -92,77 +92,92 @@
 
 	<item id="1883">
 		<id>0x1883</id>
-		<category>Professions\Baker\Millstone 1</category>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 1</category>
 	</item>
 
 	<item id="1884">
 		<id>0x1884</id>
-		<category>Professions\Baker\Millstone 2</category>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 2</category>
 	</item>
 
 	<item id="1885">
 		<id>0x1885</id>
-		<category>Professions\Baker\Millstone 3</category>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 3</category>
 	</item>
 
 	<item id="1886">
 		<id>0x1886</id>
-		<category>Professions\Baker\Millstone 4</category>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 4</category>
 	</item>
 
 	<item id="1887">
 		<id>0x1887</id>
-		<category>Professions\Baker\Millstone 5</category>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 5</category>
 	</item>
 
 	<item id="1888">
 		<id>0x1888</id>
-		<category>Professions\Baker\Millstone 6</category>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 6</category>
 	</item>
 
 	<item id="1889">
 		<id>0x1889</id>
-		<category>Professions\Baker\Millstone 7</category>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 7</category>
 	</item>
 
 	<item id="188a">
 		<id>0x188a</id>
-		<category>Professions\Baker\Millstone 8</category>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 8</category>
 	</item>
 
 	<item id="1920">
 		<id>0x1920</id>
-		<category>Professions\Baker\Flour Mill 1 (W/E) (1/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 1 (W/E) (1/2)</category>
 	</item>
 
 	<item id="1921">
 		<id>0x1921</id>
-		<category>Professions\Baker\Flour Mill 2 (W/E) (1/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 2 (W/E) (1/2)</category>
 	</item>
 
 	<item id="1922">
 		<id>0x1922</id>
-		<category>Professions\Baker\Flour Mill 1 (W/E) (2/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 1 (W/E) (2/2)</category>
 	</item>
 
 	<item id="1923">
 		<id>0x1923</id>
-		<category>Professions\Baker\Flour Mill 2 (W/E) (2/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 2 (W/E) (2/2)</category>
 	</item>
 
 	<item id="1924">
 		<id>0x1924</id>
+		<nodecay />
 		<category>Professions\Baker\Crank (W/E)</category>
 	</item>
 
 	<item id="1925">
 		<id>0x1925</id>
-		<category>Professions\Baker\Flour Mill 3 (W/E) (1/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 3 (W/E) (1/2)</category>
 	</item>
 
 	<item id="1926">
 		<id>0x1926</id>
-		<category>Professions\Baker\Flour Mill 3 (W/E) (2/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 3 (W/E) (2/2)</category>
 	</item>
 
 	<item id="1928">
@@ -172,22 +187,26 @@
 
 	<item id="192c">
 		<id>0x192c</id>
-		<category>Professions\Baker\Flour Mill 1 (N/S) (1/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 1 (N/S) (1/2)</category>
 	</item>
 
 	<item id="192d">
 		<id>0x192d</id>
-		<category>Professions\Baker\Flour Mill 2 (N/S) (1/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 2 (N/S) (1/2)</category>
 	</item>
 
 	<item id="192e">
 		<id>0x192e</id>
-		<category>Professions\Baker\Flour Mill 1 (N/S) (2/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 1 (N/S) (2/2)</category>
 	</item>
 
 	<item id="192f">
 		<id>0x192f</id>
-		<category>Professions\Baker\Flour Mill 2 (N/S) (2/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 2 (N/S) (2/2)</category>
 	</item>
 
 	<item id="1930">
@@ -197,12 +216,12 @@
 
 	<item id="1931">
 		<id>0x1931</id>
-		<category>Professions\Baker\Flour Mill 3 (N/S) (1/2)</category>
+		<category>Professions\Baker\Flour Mill\Flour Mill 3 (N/S) (1/2)</category>
 	</item>
 
 	<item id="1932">
 		<id>0x1932</id>
-		<category>Professions\Baker\Flour Mill 3 (N/S) (2/2)</category>
+		<category>Professions\Baker\Flour Mill\Flour Mill 3 (N/S) (2/2)</category>
 	</item>
 
 	<item id="1934">
@@ -212,32 +231,35 @@
 
 	<item id="1e26">
 		<id>0x1e26</id>
-		<category>Professions\Baker\Oar (N/S) (1/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Oar\Oar (N/S) (1/2)</category>
 	</item>
 
 	<item id="1e27">
 		<id>0x1e27</id>
-		<category>Professions\Baker\Oar (N/S) (2/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Oar\Oar (N/S) (2/2)</category>
 	</item>
 
 	<item id="1e28">
 		<id>0x1e28</id>
-		<category>Professions\Baker\Oar (W/E) (1/2)</category>
+		<nodecay />
+		<category>Professions\Baker\Oar\Oar (W/E) (1/2)</category>
 	</item>
 
 	<item id="1e29">
 		<id>0x1e29</id>
-		<category>Professions\Baker\Oar (W/E) (2/2)</category>
+		<category>Professions\Baker\Oar\Oar (W/E) (2/2)</category>
 	</item>
 
 	<item id="1e2a">
 		<id>0x1e2a</id>
-		<category>Professions\Baker\Oars (N/S)</category>
+		<category>Professions\Baker\Oar\Oars (N/S)</category>
 	</item>
 
 	<item id="1e2b">
 		<id>0x1e2b</id>
-		<category>Professions\Baker\Oars (W/E)</category>
+		<category>Professions\Baker\Oar\Oars (W/E)</category>
 	</item>
 
 	<item id="1ebd">

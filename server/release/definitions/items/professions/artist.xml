@@ -11,77 +11,77 @@
 <definitions>
 
 	<item id="f65">
-		<id>0x0f65</id>
+		<id>0xf65</id>
 		<category>Professions\Artist\Canvas 1</category>
 	</item>
 
 	<item id="f66">
-		<id>0x0f66</id>
+		<id>0xf66</id>
 		<category>Professions\Artist\Canvas 2</category>
 	</item>
 
 	<item id="f67">
-		<id>0x0f67</id>
+		<id>0xf67</id>
 		<category>Professions\Artist\Canvas 3</category>
 	</item>
 
 	<item id="f68">
-		<id>0x0f68</id>
+		<id>0xf68</id>
 		<category>Professions\Artist\Canvas 4</category>
 	</item>
 
 	<item id="f69">
-		<id>0x0f69</id>
+		<id>0xf69</id>
 		<category>Professions\Artist\Canvas 5</category>
 	</item>
 
 	<item id="f6a">
-		<id>0x0f6a</id>
+		<id>0xf6a</id>
 		<category>Professions\Artist\Canvas 6</category>
 	</item>
 
 	<item id="f71">
-		<id>0x0f71</id>
+		<id>0xf71</id>
 		<category>Professions\Artist\Rack of Canvases 1</category>
 	</item>
 
 	<item id="f72">
-		<id>0x0f72</id>
+		<id>0xf72</id>
 		<category>Professions\Artist\Rack of Canvases 2</category>
 	</item>
 
 	<item id="f73">
-		<id>0x0f73</id>
+		<id>0xf73</id>
 		<category>Professions\Artist\Rack of Canvases 3</category>
 	</item>
 
 	<item id="f74">
-		<id>0x0f74</id>
+		<id>0xf74</id>
 		<category>Professions\Artist\Rack of Canvases 4</category>
 	</item>
 
 	<item id="f75">
-		<id>0x0f75</id>
+		<id>0xf75</id>
 		<category>Professions\Artist\Rack of Canvases 5</category>
 	</item>
 
 	<item id="f76">
-		<id>0x0f76</id>
+		<id>0xf76</id>
 		<category>Professions\Artist\Rack of Canvases 6</category>
 	</item>
 
 	<item id="fbf">
-		<id>0x0fbf</id>
+		<id>0xfbf</id>
 		<category>Professions\Artist\Pen &amp; Ink (W/E)</category>
 	</item>
 
 	<item id="fc0">
-		<id>0x0fc0</id>
+		<id>0xfc0</id>
 		<category>Professions\Artist\Pen &amp; Ink (N/S)</category>
 	</item>
 
 	<item id="fc1">
-		<id>0x0fc1</id>
+		<id>0xfc1</id>
 		<category>Professions\Artist\Paints and Brush</category>
 	</item>
 

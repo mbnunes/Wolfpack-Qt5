@@ -8,7 +8,8 @@
 -->
 <definitions>
 
-	<item id="1000gold" inherit="EED">
+	<item id="1000gold" inherit="eed">
+		<baseid>eed</baseid>
 		<amount>1000</amount>
 	</item>
 

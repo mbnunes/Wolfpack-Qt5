@@ -145,33 +145,33 @@
 
 	<item id="1eb8">
 		<id>0x1eb8</id>
-		<category>Professions\Tinker\Toolkit 1 (W/E)</category>
+		<category>Professions\Tinker\Tools\Toolkit 1 (W/E)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
 	<item id="1eb9">
 		<id>0x1eb9</id>
-		<category>Professions\Tinker\Toolkit 1 (N/S)</category>
+		<category>Professions\Tinker\Tools\Toolkit 1 (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
 	<item id="1eba">
 		<id>0x1eba</id>
-		<category>Professions\Tinker\Toolkit 2 (W/E)</category>
+		<category>Professions\Tinker\Tools\Toolkit 2 (W/E)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<events>skills.tinkering</events>
 	</item>
 
 	<item id="1ebb">
 		<id>0x1ebb</id>
-		<category>Professions\Tinker\Toolkit 2 (N/S)</category>
+		<category>Professions\Tinker\Tools\Toolkit 2 (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<events>skills.tinkering</events>
 	</item>
 
 	<item id="1ebc">
 		<id>0x1ebc</id>
-		<category>Professions\Tinker\Tinker Tools</category>
+		<category>Professions\Tinker\Tools\Tinker Tools</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<events>equipment,skills.tinkering</events>
 	</item>

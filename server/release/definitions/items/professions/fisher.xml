@@ -11,92 +11,92 @@
 <definitions>
 
 	<item id="dc8">
-		<id>0x0dc8</id>
+		<id>0xdc8</id>
 		<category>Professions\Fisher\Fishing Net 1</category>
 	</item>
 
 	<item id="dc9">
-		<id>0x0dc9</id>
+		<id>0xdc9</id>
 		<category>Professions\Fisher\Fishing Net 2</category>
 	</item>
 
 	<item id="dca">
-		<id>0x0dca</id>
+		<id>0xdca</id>
 		<category>Professions\Fisher\Fishing Net 3</category>
 	</item>
 
 	<item id="dcb">
-		<id>0x0dcb</id>
+		<id>0xdcb</id>
 		<category>Professions\Fisher\Fishing Weight 1</category>
 	</item>
 
 	<item id="dcc">
-		<id>0x0dcc</id>
+		<id>0xdcc</id>
 		<category>Professions\Fisher\Fishing Weight 2</category>
 	</item>
 
 	<item id="dcd">
-		<id>0x0dcd</id>
+		<id>0xdcd</id>
 		<category>Professions\Fisher\Fishing Weight 3</category>
 	</item>
 
 	<item id="dce">
-		<id>0x0dce</id>
+		<id>0xdce</id>
 		<category>Professions\Fisher\Fishing Weight 4</category>
 	</item>
 
 	<item id="dcf">
-		<id>0x0dcf</id>
+		<id>0xdcf</id>
 		<category>Professions\Fisher\Fishing Weight 5</category>
 	</item>
 
 	<item id="dd0">
-		<id>0x0dd0</id>
+		<id>0xdd0</id>
 		<category>Professions\Fisher\Fishing Net 4</category>
 	</item>
 
 	<item id="dd1">
-		<id>0x0dd1</id>
+		<id>0xdd1</id>
 		<category>Professions\Fisher\Fishing Net 5</category>
 	</item>
 
 	<item id="dd2">
-		<id>0x0dd2</id>
+		<id>0xdd2</id>
 		<category>Professions\Fisher\Fishing Net 6</category>
 	</item>
 
 	<item id="dd3">
-		<id>0x0dd3</id>
+		<id>0xdd3</id>
 		<category>Professions\Fisher\Fishing Net 7</category>
 	</item>
 
 	<item id="dd4">
-		<id>0x0dd4</id>
+		<id>0xdd4</id>
 		<category>Professions\Fisher\Fishing Net 8</category>
 	</item>
 
 	<item id="dd5">
-		<id>0x0dd5</id>
+		<id>0xdd5</id>
 		<category>Professions\Fisher\Fishing Net 9</category>
 	</item>
 
 	<item id="dd6">
-		<id>0x0dd6</id>
+		<id>0xdd6</id>
 		<category>Professions\Fisher\Small Fish 1</category>
 	</item>
 
 	<item id="dd7">
-		<id>0x0dd7</id>
+		<id>0xdd7</id>
 		<category>Professions\Fisher\Small Fish 2</category>
 	</item>
 
 	<item id="dd8">
-		<id>0x0dd8</id>
+		<id>0xdd8</id>
 		<category>Professions\Fisher\Small Fish 3</category>
 	</item>
 
 	<item id="dd9">
-		<id>0x0dd9</id>
+		<id>0xdd9</id>
 		<category>Professions\Fisher\Small Fish 4</category>
 	</item>
 
@@ -170,17 +170,15 @@
 		<id>0xdbf</id>
 		<decay />
 		<value>120</value>
-		<category>Professions\Fisher\Fishing Pole (N/S)</category>
+		<category>Professions\Fisher\Tools\Fishing Pole (N/S)</category>
 		<tag name="remaining_uses" type="int" value="50" />
 		<events>skills.fishing</events>
 	</item>
 
-	<item id="dc0">
-		<inherit id="dbf" />
+	<item id="dc0" inherit="dbf">
+		<baseid>dbf</baseid>
 		<id>0xdc0</id>
-		<category>Professions\Fisher\Fishing Pole (W/E)</category>
-		<tag name="remaining_uses" type="int" value="50" />
-		<events>skills.fishing</events>
+		<category>Professions\Fisher\Tools\Fishing Pole (W/E)</category>
 	</item>
 
 </definitions>

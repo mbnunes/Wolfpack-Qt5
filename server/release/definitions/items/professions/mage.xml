@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="1f19">
 		<id>0x1f19</id>
 		<category>Professions\Mage\Green Magical Crystal</category>
@@ -845,100 +846,100 @@
 
 	<!-- Wands -->
 	<item id="df2">
-		<id>0x0df2</id>
+		<id>0xdf2</id>
 		<category>Professions\Mage\Wands\Wand 1</category>
 	</item>
 
 	<item id="df3">
-		<id>0x0df3</id>
+		<id>0xdf3</id>
 		<category>Professions\Mage\Wands\Wand 2</category>
 	</item>
 
 	<item id="df4">
-		<id>0x0df4</id>
+		<id>0xdf4</id>
 		<category>Professions\Mage\Wands\Wand 3</category>
 	</item>
 
 	<item id="df5">
-		<id>0x0df5</id>
+		<id>0xdf5</id>
 		<category>Professions\Mage\Wands\Wand 4</category>
 	</item>
 
 	<!-- Another Spellbook + Empty Scrolls -->
 	<item id="e34">
-		<id>0x0e34</id>
+		<id>0xe34</id>
 		<decay />
 		<category>Professions\Mage\Empty Scroll (W/E)</category>
 	</item>
 
 	<item id="e35">
-		<id>0x0e35</id>
+		<id>0xe35</id>
 		<category>Professions\Mage\Scroll 1 (W/E)</category>
 	</item>
 
 	<item id="e36">
-		<id>0x0e36</id>
+		<id>0xe36</id>
 		<category>Professions\Mage\Scroll 2 (W/E)</category>
 	</item>
 
 	<item id="e37">
-		<id>0x0e37</id>
+		<id>0xe37</id>
 		<category>Professions\Mage\Scroll 3 (W/E)</category>
 	</item>
 
 	<item id="e38">
-		<id>0x0e38</id>
+		<id>0xe38</id>
 		<category>Professions\Mage\Scroll 4 (W/E)</category>
 	</item>
 
 	<item id="e39">
-		<id>0x0e39</id>
+		<id>0xe39</id>
 		<category>Professions\Mage\Scroll 5 (W/E)</category>
 	</item>
 
 	<item id="e3a">
-		<id>0x0e3a</id>
+		<id>0xe3a</id>
 		<category>Professions\Mage\Scroll 6 (W/E)</category>
 	</item>
 
 	<item id="e3b" type="spellbook">
 		<inherit id="efa" />
-		<id>0x0e3b</id>
+		<id>0xe3b</id>
 		<category>Professions\Mage\Spellbook (W/E)</category>
 	</item>
 
 	<item id="ef3">
-		<id>0x0ef3</id>
+		<id>0xef3</id>
 		<category>Professions\Mage\Empty Scroll (N/S)</category>
 	</item>
 
 	<item id="ef4">
-		<id>0x0ef4</id>
+		<id>0xef4</id>
 		<category>Professions\Mage\Scroll 1 (N/S)</category>
 	</item>
 
 	<item id="ef5">
-		<id>0x0ef5</id>
+		<id>0xef5</id>
 		<category>Professions\Mage\Scroll 2 (N/S)</category>
 	</item>
 
 	<item id="ef6">
-		<id>0x0ef6</id>
+		<id>0xef6</id>
 		<category>Professions\Mage\Scroll 3 (N/S)</category>
 	</item>
 
 	<item id="ef7">
-		<id>0x0ef7</id>
+		<id>0xef7</id>
 		<category>Professions\Mage\Scroll 4 (N/S)</category>
 	</item>
 
 	<item id="ef8">
-		<id>0x0ef8</id>
+		<id>0xef8</id>
 		<category>Professions\Mage\Scroll 5 (N/S)</category>
 	</item>
 
 	<item id="ef9">
-		<id>0x0ef9</id>
+		<id>0xef9</id>
 		<category>Professions\Mage\Scroll 6 (N/S)</category>
 	</item>
 
@@ -975,7 +976,7 @@
 	<!-- Inscription Tool ? -->
 	<item id="scribes_pen">
 		<name>#1044168</name>
-		<id>0x0fbf</id>
+		<id>0xfbf</id>
 		<category>Professions\Mage\Pen &amp; Ink (N/S)</category>
 	</item>
 

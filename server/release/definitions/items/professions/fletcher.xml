@@ -11,22 +11,22 @@
 <definitions>
 
 	<item id="dfa">
-		<id>0x0dfa</id>
+		<id>0xdfa</id>
 		<category>Professions\Fletcher\Decorative Feathers 1</category>
 	</item>
 
 	<item id="dfb">
-		<id>0x0dfb</id>
+		<id>0xdfb</id>
 		<category>Professions\Fletcher\Decorative Feathers 2</category>
 	</item>
 
 	<item id="f40">
-		<id>0x0f40</id>
+		<id>0xf40</id>
 		<category>Professions\Fletcher\Arrows 1</category>
 	</item>
 
 	<item id="f41">
-		<id>0x0f41</id>
+		<id>0xf41</id>
 		<category>Professions\Fletcher\Arrows 2</category>
 	</item>
 
@@ -68,7 +68,7 @@
 
 	<!-- arrows -->
 	<item id="f3f">
-		<id>0x0f3f</id>
+		<id>0xf3f</id>
     <weight>0.1</weight>
 		<category>Professions\Fletcher\Arrow</category>
 	</item>

@@ -10,27 +10,27 @@
 -->
 <definitions>
 	<item id="def">
-		<id>0x0def</id>
+		<id>0xdef</id>
 		<category>Professions\Tailorer\Resources\Raw Cotton 1</category>
 	</item>
 
 	<item id="df6">
-		<id>0x0df6</id>
+		<id>0xdf6</id>
 		<category>Professions\Tailorer\Decoration\Knitting (N/S)</category>
 	</item>
 
 	<item id="df7">
-		<id>0x0df7</id>
+		<id>0xdf7</id>
 		<category>Professions\Tailorer\Decoration\Knitting (W/E)</category>
 	</item>
 
 	<item id="ec6">
-		<id>0x0ec6</id>
+		<id>0xec6</id>
 		<category>Professions\Tailorer\Decoration\Dress Form (N/S)</category>
 	</item>
 
 	<item id="ec7">
-		<id>0x0ec7</id>
+		<id>0xec7</id>
 		<category>Professions\Tailorer\Decoration\Dress Form (W/E)</category>
 	</item>
 
@@ -227,7 +227,7 @@
 
 	<!-- Raw Cotton -->
 	<item id="df9">
-		<id>0x0df9</id>
+		<id>0xdf9</id>
 		<category>Professions\Tailorer\Resources\Raw Cotton 2</category>
 	</item>
 
@@ -265,61 +265,61 @@
 
 	<!-- Bolt of Cloth -->
 	<item id="f95">
-		<id>0x0f95</id>
+		<id>0xf95</id>
 		<category>Professions\Tailorer\Bolt of Cloth 1</category>
 	</item>
 
 	<item id="f96">
-		<id>0x0f96</id>
+		<id>0xf96</id>
 		<category>Professions\Tailorer\Bolt of Cloth 2</category>
 	</item>
 
 	<item id="f97">
-		<id>0x0f97</id>
+		<id>0xf97</id>
 		<category>Professions\Tailorer\Bolt of Cloth 3</category>
 	</item>
 
 	<item id="f98">
-		<id>0x0f98</id>
+		<id>0xf98</id>
 		<category>Professions\Tailorer\Bolt of Cloth 4</category>
 	</item>
 
 	<item id="f99">
-		<id>0x0f99</id>
+		<id>0xf99</id>
 		<category>Professions\Tailorer\Bolt of Cloth 5</category>
 	</item>
 
 	<item id="f9a">
-		<id>0x0f9a</id>
+		<id>0xf9a</id>
 		<category>Professions\Tailorer\Bolt of Cloth 6</category>
 	</item>
 
 	<item id="f9b">
-		<id>0x0f9b</id>
+		<id>0xf9b</id>
 		<category>Professions\Tailorer\Bolt of Cloth 7</category>
 	</item>
 
 	<item id="f9c">
-		<id>0x0f9c</id>
+		<id>0xf9c</id>
 		<category>Professions\Tailorer\Bolt of Cloth 8</category>
 	</item>
 
 	<item id="f9d">
-		<id>0x0f9d</id>
-		<category>Professions\Tailorer\Sewing Kit</category>		
+		<id>0xf9d</id>
+		<category>Professions\Tailorer\Sewing Kit</category>
 		<tag name="remaining_uses" type="int" value="35" />
     <events>skills.tailoring,equipment</events>
 	</item>
 
 	<item id="f9e">
-		<id>0x0f9e</id>
+		<id>0xf9e</id>
 		<category>Professions\Tailorer\Scissors (N/S)</category>
 		<events>scissors</events>
 	</item>
 
 	<item id="f9f">
 		<inherit id="f9e" />
-		<id>0x0f9f</id>
+		<id>0xf9f</id>
 		<category>Professions\Tailorer\Scissors (W/E)</category>
 	</item>
 
@@ -336,7 +336,7 @@
 	</item>
 
 	<item id="fa9">
-		<id>0x0fa9</id>
+		<id>0xfa9</id>
 		<category>Professions\Tailorer\Dyes</category>
 		<tag name="remaining_uses" type="int" value="10" />
     <events>dyes</events>

@@ -11,22 +11,22 @@
 <definitions>
 
 	<item id="e2d">
-		<id>0x0e2d</id>
+		<id>0xe2d</id>
 		<category>Professions\Gipsy\Crystal Ball 1</category>
 	</item>
 
 	<item id="e2e">
-		<id>0x0e2e</id>
+		<id>0xe2e</id>
 		<category>Professions\Gipsy\Crystal Ball 2</category>
 	</item>
 
 	<item id="e2f">
-		<id>0x0e2f</id>
+		<id>0xe2f</id>
 		<category>Professions\Gipsy\Crystal Ball 3</category>
 	</item>
 
 	<item id="e30">
-		<id>0x0e30</id>
+		<id>0xe30</id>
 		<category>Professions\Gipsy\Crystal Ball 4</category>
 	</item>
 

@@ -29,13 +29,13 @@
 	</item>
 
 	<item id="ee9">
-		<id>0x0ee9</id>
+		<id>0xee9</id>
 		<category>Professions\Healer\Clean Bandages 1</category>
 		<events>bandages</events>
 	</item>
 
 	<item id="e23">
-		<id>0x0e23</id>
+		<id>0xe23</id>
 		<category>Professions\Healer\Bloody Water</category>
 	</item>
 
