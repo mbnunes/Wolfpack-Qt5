@@ -133,9 +133,6 @@ void cNewMagic::load()
 		if( !id || id > 64 )
 			continue;
 
-		spells[id].script = 0;
-		//memset( &spells[id].reagents, 0, sizeof( stReagents ) );
-
         id--;
 		QDomElement node = elem->firstChild().toElement();
 

@@ -69,6 +69,7 @@ typedef void (*spellStub)( P_CHAR pMage, Coord_cl tPos, UINT16 model = 0, SERIAL
 struct stReagents
 {
 	UINT8 ginseng, bloodmoss, mandrake, blackpearl, spidersilk, sulfurash, garlic, nightshade;
+	stReagents(): ginseng( 0 ), bloodmoss( 0 ), mandrake( 0 ), blackpearl( 0 ), spidersilk( 0 ), sulfurash( 0 ), garlic( 0 ), nightshade( 0 ) {}
 };
 
 class WPDefaultScript;
@@ -80,6 +81,15 @@ struct stNewSpell
 	UINT8 action, targets, flags, mana;
 	stReagents reagents;
 	WPDefaultScript *script;
+
+	stNewSpell(): name( "" ), mantra( "" ), 
+		target( "Please select a target." ), 
+		booklow( 0 ), bookhigh( 0 ), 
+		scrolllow( 0 ), scrollhigh( 0 ), 
+		delay( 0 ), actiondelay( 0 ), 
+		scroll( 0 ), action( 0 ), 
+		targets( 0 ), flags( 0 ), 
+		mana ( 0 ), script( 0 ) {}
 };
 
 struct stSpellStub

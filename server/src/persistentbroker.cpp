@@ -101,6 +101,8 @@ bool PersistentBroker::deleteObject( PersistentObject* object )
 
 void PersistentBroker::executeQuery( const QString& query )
 {
+	qWarning( query );
+
 	if ( !connection->exec( query ).isActive() )
 	{
 		qWarning(QString("Error executing query: \"%1\"").arg(query));

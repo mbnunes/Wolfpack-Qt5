@@ -43,6 +43,7 @@
 // System includes
 #include <string>
 #include <vector>
+#include <map>
 
 // Library includes
 #include "qstring.h"
@@ -55,6 +56,7 @@
 class Coord_cl;
 class WPDefaultScript;
 class cUOSocket;
+class QSqlQuery;
 
 class cUObject : public PersistentObject, public cDefinable
 {
@@ -62,6 +64,10 @@ class cUObject : public PersistentObject, public cDefinable
 // Data Members
 private:
  	QString bindmenu_;
+
+	// Things for building the SQL string
+	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+
 public:
 	const std::vector< WPDefaultScript* > &getEvents( void );
 	void setEvents( std::vector< WPDefaultScript* > List );
@@ -74,6 +80,9 @@ public:
 	void save( const QString& = QString::null );
 	void load( const QString& = QString::null );
 	bool del ( const QString& = QString::null );
+	
+	// New Load (Query: result, offset: current field offset)
+	virtual void load( QSqlQuery *result, UINT16 &offset );
 
 	QString eventList( void ); // Returns the list of events
 	void recreateEvents( void ); // If the scripts are reloaded call that for each and every existing object
@@ -112,9 +121,8 @@ public:
 	void moveTo( const Coord_cl& );
 	QString bindmenu() const { return bindmenu_; }
 	void setBindmenu( const QString& d ) { bindmenu_ = d; }
-
-
 };
+
 
 class UObjectFactory : public Factory<cUObject, QString>
 {
@@ -124,6 +132,30 @@ public:
 		static UObjectFactory factory;
 		return &factory;
 	}
+
+	void registerSqlQuery( const QString &type, const QString &query )
+	{
+		sql_queries.insert( make_pair( type, query ) );
+	}
+
+	QString findSqlQuery( const QString &type )
+	{
+		map< QString, QString >::iterator iter = sql_queries.find( type );
+
+		if( iter == sql_queries.end() )
+			return QString::null;
+		else
+			return iter->second;
+	}
+
+	QStringList objectTypes()
+	{
+		return sql_keys;
+	}
+
+private:
+	map< QString, QString > sql_queries;
+	QStringList sql_keys;
 };
 
 #endif // __UOBJECT_H__

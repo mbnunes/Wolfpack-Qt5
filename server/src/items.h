@@ -80,6 +80,7 @@ public:
 	virtual void	talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	void save( const QString& = QString::null );
 	void load( const QString& = QString::null );
+	virtual void load( QSqlQuery *result, UINT16 &offset );
 	bool del ( const QString& = QString::null );
 
 	void	processContainerNode( const QDomElement &Tag );
@@ -292,6 +293,8 @@ public:
 	virtual bool onTalkToItem( P_CHAR Talker, const QString &Text );
 	
 	QPtrList< cItem > getContainment();
+private:
+	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 };
 
 

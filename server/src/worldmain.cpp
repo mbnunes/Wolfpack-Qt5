@@ -119,30 +119,36 @@ void CWorldMain::loadnewworld(QString module) // Load world
 	ISerialization* archive = cPluginFactory::serializationArchiver(module);
 
 	QString objectID;
-	register unsigned int i;
+	register unsigned int i = 0;
 
-	// Load Chars
-	clConsole.send("Loading Items and Characters[%i]...\n", archive->size());
-	QSqlCursor cursor("uobjectmap");
-	progress_display progress(cursor.size());
-	for ( cursor.select(); cursor.next(); )
+	// Load cItem
+	clConsole.send( "Loading World... " );
+	QTime startTime = QTime::currentTime();
+	
+	QStringList types = UObjectFactory::instance()->objectTypes();
+
+	for( UINT8 i = 0; i < types.count(); ++i )
 	{
-		cUObject* object = UObjectFactory::instance()->createObject( cursor.value("type").toString() );
-		if ( !object )
+		QString = types.item( i );
+
+		QSqlQuery query( UObjectFactory::instance()->findSqlQuery( type ) );
+	
+		while( query.isActive() && query.next() )
 		{
-			qWarning(QString("Warning: Unrecognized class type %1, object serial == %2 will not be loaded.").arg(cursor.value("type").toString()).arg(cursor.value("serial").toString()) );
-			continue;
+			cUObject *object = UObjectFactory::instance()->createObject( type );
+			UINT16 offset = 2; // Skip the first two fields
+			object->load( &query, offset );
 		}
-		object->load( cursor.value("serial").toString() );
 	}
-	clConsole.send(" Done.\n");
+	
+	printf( " done in %0.02fs\n", startTime.msecsTo( QTime::currentTime() ) / 1000 );	
 
 	// Load Temporary Effects
 	archive = cPluginFactory::serializationArchiver(module);
 
 	archive->prepareReading( "effects" );
 	clConsole.send("Loading Temp. Effects %i...\n", archive->size());
-	progress.restart(archive->size());
+	progress_display progress( archive->size() );
 	for ( i = 0; i < archive->size(); ++progress, ++i)
 	{
 		archive->readObjectID(objectID);

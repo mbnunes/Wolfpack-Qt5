@@ -62,8 +62,12 @@ public:
 	void setSpells2( UINT32 data );
 
 	// abstract cSerializable
-	virtual QString objectID( void ) const { return "SPELLBOOK"; }
+	virtual QString objectID( void ) const { return "cSpellBook"; }
 	virtual void Serialize( ISerialization &archive );
+	static void registerInFactory();
+	void save( const QString& = QString::null );
+	void load( const QString& = QString::null );
+	bool del( const QString& = QString::null );
 
 	// abstract cDefinable
 	virtual void processNode( const QDomElement &Tag );

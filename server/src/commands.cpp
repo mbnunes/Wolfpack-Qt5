@@ -49,6 +49,7 @@
 #include "makemenus.h"
 #include "resources.h"
 #include "contextmenu.h"
+#include "spellbook.h"
 
 // System Includes
 #include <functional>
@@ -1779,6 +1780,107 @@ void commandMakeMenu( cUOSocket *socket, const QString &command, QStringList &ar
 	cAllMakeMenus::getInstance()->callMakeMenu( socket, args[0] );
 }
 
+class cModifySpellbook: public cTargetRequest
+{
+private:
+	UINT8 spell;
+	bool deleteMode;
+public:
+	cModifySpellbook( UINT8 _spell, bool _deleteMode = false )
+	{
+		deleteMode = _deleteMode;
+		spell = _spell;
+	}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		if( !socket->player() )
+			return true;
+
+		// Check if we really targetted a spellbook
+		if( isItemSerial( target->serial() ) )
+		{
+			P_ITEM pItem = FindItemBySerial( target->serial() );
+
+			if( pItem )
+			{
+				cSpellBook *pBook = dynamic_cast< cSpellBook* >( pItem );
+
+				if( pBook )
+				{
+					if( spell >= 64 )
+					{
+						socket->sysMessage( tr( "The spell id you specified is invalid." ) );
+					}
+					else
+					{
+						if( deleteMode )
+						{
+							pBook->removeSpell( spell );
+							socket->sysMessage( tr( "You removed spell %1 from this spellbook." ).arg( spell ) );
+						}
+						else
+						{
+							pBook->addSpell( spell );
+							socket->sysMessage( tr( "You added spell %1 to this spellbook." ).arg( spell ) );
+						}
+					}
+				}
+				else
+				socket->sysMessage( tr( "This is not a valid spellbook." ) );
+			}
+			else
+				socket->sysMessage( tr( "This is not a valid spellbook." ) );
+		}
+		else
+			socket->sysMessage( tr( "This is not a valid spellbook." ) );
+
+		return true;
+	}
+
+	virtual void canceled( cUOSocket *socket ) {}
+};
+
+void commandAddSpell( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	bool ok = false;
+	UINT8 spell = 0;
+
+	if( args.count() > 0 )
+		spell = args[0].toUInt( &ok );
+
+	// Get the spellid
+	if( !ok )
+	{
+		socket->sysMessage( tr( "Usage: addspell <spell-id>" ) );
+		return;
+	}
+	
+
+	socket->sysMessage( tr( "Please select the spellbook you want to add this spell to." ) );
+	socket->attachTarget( new cModifySpellbook( spell, false ) );
+}
+
+void commandRemoveSpell( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	bool ok = false;
+	UINT8 spell = 0;
+
+	if( args.count() > 0 )
+		spell = args[0].toUInt( &ok );
+
+	// Get the spellid
+	if( !ok )
+	{
+		socket->sysMessage( tr( "Usage: removespell <spell-id>" ) );
+		return;
+	}
+	
+
+	socket->sysMessage( tr( "Please select the spellbook you want to remove this spell from." ) );
+	socket->attachTarget( new cModifySpellbook( spell, true ) );
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1807,6 +1909,8 @@ stCommand cCommands::commands[] =
 	{ "TELE",			commandTele },
 	{ "WHERE",			commandWhere },
 	{ "WHO",			commandWho },
+	{ "ADDSPELL",		commandAddSpell },
+	{ "REMOVESPELL",	commandRemoveSpell },
 	{ NULL, NULL }
 };
 

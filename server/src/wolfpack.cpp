@@ -74,6 +74,7 @@
 #include "Python.h"
 #include "python/engine.h"
 #include "newmagic.h"
+#include "spellbook.h"
 #include "persistentbroker.h"
 
 // Library Includes
@@ -1490,6 +1491,7 @@ int main( int argc, char *argv[] )
 	cChar::registerInFactory();
 	cItem::registerInFactory();
 	cBook::registerInFactory();
+	cSpellBook::registerInFactory();
 
 	cwmWorldState->loadnewworld("binary");
 	CIAO_IF_ERROR; // LB prevents file corruption

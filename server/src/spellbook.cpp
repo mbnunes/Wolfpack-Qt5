@@ -34,6 +34,8 @@
 #include "chars.h"
 #include "network/uosocket.h"
 #include "newmagic.h"
+#include "persistentbroker.h"
+#include <qsqlcursor.h>
 
 void cSpellBook::Init( bool mkser )
 {
@@ -185,3 +187,52 @@ UINT8 cSpellBook::spellCount()
 
 	return count;
 }
+
+static cUObject* productCreator()
+{
+	return new cSpellBook;
+}
+
+void cSpellBook::registerInFactory()
+{
+	UObjectFactory::instance()->registerType("cSpellBook", productCreator);
+}
+
+void cSpellBook::save( const QString& s )
+{
+	startSaveSqlStatement("spellbooks");
+	savePersistentIntValue( "serial", serial );
+	savePersistentIntValue( "spells1", spells1_ );
+	savePersistentIntValue( "spells2", spells2_ );
+	endSaveSqlStatement(QString("serial='%1'").arg(serial));
+	cItem::save( s );
+}
+
+void cSpellBook::load( const QString& s )
+{
+	startLoadSqlStatement("spellbooks", "serial", s)
+	{
+		loadPersistentUIntValue( "spells1", spells1_ );
+		loadPersistentUIntValue( "spells2", spells2_ );
+	}
+
+	endLoadSqlStatement(s);
+	cItem::load(s);
+}
+
+bool cSpellBook::del( const QString& s )
+{
+	QSqlCursor cursor("spellbooks");
+	cursor.select(QString("serial='%1'").arg(serial));
+	while ( cursor.next() )
+	{
+		cursor.primeDelete();
+		if ( cursor.del() > 1 )
+		{
+			qWarning("More than one record was deleted in table Spellbooks when only 1 was expected, delete criteria was:");
+			qWarning(cursor.filter());
+		}
+	}
+	return cItem::del( s );
+}
+

@@ -1018,7 +1018,7 @@ void cChar::Serialize(ISerialization &archive)
 
 void cChar::save( const QString& s/* = QString::null  */ )
 {
-	startSaveSqlStatement("Characters");
+	startSaveSqlStatement("characters");
 	savePersistentIntValue("serial",		serial); // never forget we have serials on each table
 	if (incognito())
 	{
@@ -1164,7 +1164,7 @@ void characterRegisterAfterLoading( P_CHAR pc );
 void cChar::load( const QString& s/* = QString::null  */ )
 {
 	cChar::Init( false ); // initialize
-	startLoadSqlStatement("Characters", "serial", s)
+	startLoadSqlStatement("characters", "serial", s)
 	{
 		loadPersistentStrValue("name",			orgname_);
 		loadPersistentStrValue("title",			title_);
@@ -1283,7 +1283,7 @@ void cChar::load( const QString& s/* = QString::null  */ )
 
 bool cChar::del( const QString& s/* = QString::null  */ )
 {
-	QSqlCursor cursor("Characters");
+	QSqlCursor cursor("characters");
 	cursor.select(QString("serial='%1'").arg(serial));
 	while ( cursor.next() )
 	{

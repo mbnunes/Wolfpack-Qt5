@@ -91,7 +91,7 @@ void cUObject::moveTo( const Coord_cl& newpos )
 */
 void cUObject::save( const QString& )
 {
-	startSaveSqlStatement("UObject");
+	startSaveSqlStatement("uobject");
 	savePersistentStrValue("name",		name);
 	savePersistentIntValue("serial",	serial);
 	savePersistentIntValue("multis",	multis);
@@ -114,7 +114,23 @@ void cUObject::save( const QString& )
 
 void cUObject::load( const QString& s )
 {
-	startLoadSqlStatement("UObject", "serial", s)
+	QSqlQuery query( QString( "SELECT * FROM uobject WHERE serial = '%1'" ).arg( s ) );
+	query.first();
+
+	name = query.value( 0 ).toString();
+	serial = query.value( 1 ).toInt();
+	multis = query.value( 2 ).toInt();
+	pos.x = query.value( 3 ).toInt();
+	pos.y = query.value( 4 ).toInt();
+	pos.z = query.value( 5 ).toInt();
+	pos.map = query.value( 6 ).toInt();
+
+	// Load Events
+	QString events = query.value( 7 ).toString();
+	eventList_ = QStringList::split( ",", events );
+	bindmenu_ = query.value( 8 ).toString();
+
+	/*startLoadSqlStatement("uobject", "serial", s)
 	{
 		loadPersistentStrValue("name",		name);
 		loadPersistentIntValue("serial",	serial);
@@ -128,13 +144,13 @@ void cUObject::load( const QString& s )
 		eventList_ = QStringList::split(",", events);
 		loadPersistentStrValue("bindmenu",	bindmenu_);
 	}
-	endLoadSqlStatement(s);
+	endLoadSqlStatement(s);*/
 	PersistentObject::load(s);
 }
 
 bool cUObject::del( const QString& s/* = QString::null  */ )
 {
-	QSqlCursor cursor("UObject");
+	QSqlCursor cursor("uobject");
 	cursor.select(QString("serial='%1'").arg(serial));
 	while ( cursor.next() )
 	{
@@ -389,3 +405,24 @@ bool cUObject::inRange( cUObject *object, UINT32 range )
 	return ( pos.distance( object->pos ) <= range );
 }
 
+
+void cUObject::load( QSqlQuery *result, UINT16 &offset )
+{
+	name = result->value( offset++ ).toString();
+	serial = result->value( offset++ ).toInt();
+	multis = result->value( offset++ ).toInt();
+	pos.x = result->value( offset++ ).toInt();
+	pos.y = result->value( offset++ ).toInt();
+	pos.z = result->value( offset++ ).toInt();
+	pos.map = result->value( offset++ ).toInt();
+	QString events = result->value( offset++ ).toString();
+	eventList_ = QStringList::split( ",", events );
+	bindmenu_ = result->value( offset++ ).toInt();
+}
+
+void cUObject::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
+{
+	fields.push_back( "uobject.name,uobject.serial,uobject.multis,uobject.pos_x,uobject.pos_y,uobject.pos_z,uobject.pos_map,uobject.events,uobject.bindmenu" );
+	tables.push_back( "uobject" );
+	conditions.push_back( "uobjectmap.serial = uobject.serial" );
+}

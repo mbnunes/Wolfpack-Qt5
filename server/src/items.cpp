@@ -65,7 +65,14 @@ static cUObject* productCreator()
 
 void cItem::registerInFactory()
 {
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+
+	qWarning( sqlString );
+	
 	UObjectFactory::instance()->registerType("cItem", productCreator);
+	UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
 }
 
 P_CHAR cItem::owner( void )
@@ -583,7 +590,7 @@ int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 
 void cItem::save( const QString& s/* = QString::null  */ )
 {
-	startSaveSqlStatement("Items");
+	startSaveSqlStatement("items");
 	savePersistentIntValue("serial",		serial);
 	savePersistentIntValue("id",			id());
 	savePersistentStrValue("name",			name_); // warning: items do not use cUObject name!
@@ -651,9 +658,13 @@ void cItem::save( const QString& s/* = QString::null  */ )
 
 void itemRegisterAfterLoading( P_ITEM pi );
 
+// s = serial (key)
 void cItem::load( const QString& s/* = QString::null  */ )
 {
-	startLoadSqlStatement("items", "serial", s)
+	QSqlQuery query( QString( "SELECT * FROM items WHERE serial = '%1'" ).arg( s ) );
+	query.first();	
+
+	/*startLoadSqlStatement("items", "serial", s)
 	{
 		unsigned short temp;
 		loadPersistentIntValue("id",			temp);			setId(temp);
@@ -719,7 +730,7 @@ void cItem::load( const QString& s/* = QString::null  */ )
 		loadPersistentStrValue("carve",			carve_);
 		loadPersistentIntValue("accuracy",		accuracy_);
 	}
-	endLoadSqlStatement(s);
+	endLoadSqlStatement(s);*/
 	cUObject::load(s);
 	itemRegisterAfterLoading( this ); // Check/Register items after loading
 }
@@ -2633,5 +2644,83 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 		else
 			cMapObjects::getInstance()->add(pi);
 	}
+}
+
+void cItem::load( QSqlQuery *result, UINT16 &offset )
+{
+	cUObject::load( result, offset ); // Load the items we inherit from first
+
+	id_ = result->value( offset++ ).toInt();
+	name_ = result->value( offset++ ).toString();
+	name2_ = result->value( offset++ ).toString();
+	creator = result->value( offset++ ).toString();
+	madewith = result->value( offset++ ).toInt();
+	color_ = result->value( offset++ ).toInt();
+	contserial = result->value( offset++ ).toInt();
+	layer_ = result->value( offset++ ).toInt();
+	type_ = result->value( offset++ ).toInt();
+	type2_ = result->value( offset++ ).toInt();
+	offspell_ = result->value( offset++ ).toInt();
+	more1 = result->value( offset++ ).toInt();
+	more2 = result->value( offset++ ).toInt();
+	more3 = result->value( offset++ ).toInt();
+	more4 = result->value( offset++ ).toInt();
+	moreb1_ = result->value( offset++ ).toInt();
+	moreb2_ = result->value( offset++ ).toInt();
+	moreb3_ = result->value( offset++ ).toInt();
+	moreb4_ = result->value( offset++ ).toInt();
+	morex = result->value( offset++ ).toInt();
+	morey = result->value( offset++ ).toInt();
+	morez = result->value( offset++ ).toInt();
+	amount_ = result->value( offset++ ).toInt();
+	doordir = result->value( offset++ ).toInt();
+	dye = result->value( offset++ ).toInt();
+	decaytime = result->value( offset++ ).toInt();
+	if( decaytime > 0 )
+		decaytime += uiCurrentTime;
+	att = result->value( offset++ ).toInt();
+	def = result->value( offset++ ).toInt();
+	hidamage_ = result->value( offset++ ).toInt();
+	lodamage_ = result->value( offset++ ).toInt();
+	st = result->value( offset++ ).toInt();
+	time_unused = result->value( offset++ ).toInt();
+	weight_ = result->value( offset++ ).toInt();
+	hp_ = result->value( offset++ ).toInt();
+	maxhp_ = result->value( offset++ ).toInt();
+	rank = result->value( offset++ ).toInt();
+	st2 = result->value( offset++ ).toInt();
+	dx = result->value( offset++ ).toInt();
+	dx2 = result->value( offset++ ).toInt();
+	in = result->value( offset++ ).toInt();
+	in2 = result->value( offset++ ).toInt();
+	speed_ = result->value( offset++ ).toInt();
+	poisoned = result->value( offset++ ).toUInt();
+	magic = result->value( offset++ ).toInt();
+	ownserial = result->value( offset++ ).toInt();
+	visible = result->value( offset++ ).toInt();
+	spawnserial = result->value( offset++ ).toInt();
+	dir = result->value( offset++ ).toInt();
+	priv = result->value( offset++ ).toInt();
+	value = result->value( offset++ ).toInt();
+	restock = result->value( offset++ ).toInt();
+	disabled = result->value( offset++ ).toUInt();
+	spawnregion_ = result->value( offset++ ).toInt();
+	good = result->value( offset++ ).toInt();
+	glow = result->value( offset++ ).toInt();
+	glow_color = result->value( offset++ ).toInt();
+	glow_effect = result->value( offset++ ).toInt();
+	desc = result->value( offset++ ).toString();
+	carve_ = result->value( offset++ ).toString();
+	accuracy_ = result->value( offset++ ).toInt();
+
+	itemRegisterAfterLoading( this );
+}
+
+void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
+{
+	cUObject::buildSqlString( fields, tables, conditions );
+	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.moreb1,items.moreb2,items.moreb3,items.moreb4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.value,items.restock,items.disabled,items.spawnregion,items.good,items.glow,items.glow_color,items.glowtype,items.desc,items.carve,items.accuracy" ); // for now! later on we should specify each field
+	tables.push_back( "items" );
+	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
 
