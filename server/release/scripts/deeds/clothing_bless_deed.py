@@ -13,24 +13,22 @@ import re
 def onShowTooltip( sender, target, tooltip ):
 	tooltip.add( 1041008, "" )
 	tooltip.add( 1038021, "" )
-	tooltip.send( sender )
-	return 1
-
+	return True
 
 def onUse( char, item ):
 	char.socket.clilocmessage( 0xF55DA, "", 0x3b2, 3 )
 	char.socket.attachtarget( "deeds.clothing_bless_deed.response", [item.serial] )
 
-	return 1
+	return True
 
 def response( char, args, target ):
 	if not isclothing( target.item ) or ishat( target.item ):
 		char.socket.clilocmessage( 0xF55DB, "", 0x3b2, 3 )
-		return 0
+		return False
 
 	if target.item.hastag( "blessed " ):
 		char.socket.clilocmessage( 0xF55D9, "", 0x3b2, 3 )
-		return 0
+		return False
 
 	item = wolfpack.finditem(args[0])
 	backpack = char.getbackpack()
@@ -40,6 +38,6 @@ def response( char, args, target ):
 	target.item.newbie = 1
 	item.delete()
 
-	return 1
+	return True
 
 

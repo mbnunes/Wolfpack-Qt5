@@ -15,8 +15,6 @@ def onShowTooltip( sender, target, tooltip ):
 		filled( target, tooltip )
 	else:
 		unfilled( target, tooltip)
-
-	tooltip.send ( sender )
 	return True
 
 def filled( target, tooltip ):

@@ -56,7 +56,6 @@ def onShowTooltip( sender, target, tooltip ):
 	tooltip.add( tooltip_id, "" )
 	# blessed
 	tooltip.add( 1038021, "" )
-	tooltip.send( sender )
 
 def onUse( char, item ):
 	if not char or not item:
