@@ -143,7 +143,7 @@ SOURCE=.\console.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\console_win.cpp
+SOURCE=.\win\console_win.cpp
 # End Source File
 # Begin Source File
 
@@ -287,7 +287,7 @@ SOURCE=.\srvparams.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\srvparams_win.cpp
+SOURCE=.\win\srvparams_win.cpp
 # End Source File
 # Begin Source File
 
