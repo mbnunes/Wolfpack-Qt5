@@ -282,7 +282,8 @@ PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 	}
 
 	cPythonTarget *target = new cPythonTarget( responsefunc, timeoutfunc, cancelfunc, targetargs );
-	target->setTimeout( uiCurrentTime + timeout );
+	if( timeout != 0 )
+		target->setTimeout( uiCurrentTime + timeout );
 	self->pSock->attachTarget( target );
 
 	return PyTrue;

@@ -1568,7 +1568,7 @@ void cUOSocket::updatePlayer()
 void cUOSocket::poll()
 {
 	// TODO: check for timed out target requests herei
-	if( targetRequest && ( targetRequest->timeout() > 1 ) && targetRequest->timeout() < uiCurrentTime )
+	if( targetRequest && targetRequest->timeout() > 1 && targetRequest->timeout() < uiCurrentTime )
 	{
 		targetRequest->timedout( this );
 		delete targetRequest;
