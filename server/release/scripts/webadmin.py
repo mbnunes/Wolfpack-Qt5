@@ -284,7 +284,7 @@ def onUnload():
 	global thread
 	if thread:
 		thread.cancel()
-		time.sleep(30) # This is needed to allow the thread to sync (Remember => global interpreter lock)
+		time.sleep(0.3) # This is needed to allow the thread to sync (Remember => global interpreter lock)
 		thread.join() # Join with the thread
 
 	web.sessions.clear_sessions()
