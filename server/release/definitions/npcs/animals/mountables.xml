@@ -205,8 +205,8 @@
 	</npc>
 
 	<!-- Llamas -->
-	<npc id="llama">
-		<name>llama</name>
+	<npc id="ridablellama">
+		<name>a ridable llama</name>
 		<id>0x00dc</id>
 		<category>Animals\Ridables\Llama</category>
 		<inherit id="animal_base" />
@@ -524,6 +524,270 @@
 		<evaluatingintel><random min="792" max="896" /></evaluatingintel>
 		<meditation><random min="491" max="600" /></meditation>
 		<totame>951</totame>
+		<food>5</food>
+	</npc>
+
+	<!-- Ethereal Beetle -->
+	<npc id="ethereal_beetle">
+		<name>an ethereal giant beetle</name>
+		<id>0xC3</id>
+		<category>Animals\Ridables\Ethereal Beetle</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="-0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense>60</defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<str>100</str>
+		<dex>100</dex>
+		<int>100</int>
+		<wrestling>1000</wrestling>
+		<tactics>1000</tactics>
+		<magicresistance>800</magicresistance>
+		<totame>0</totame>
+		<food>0</food>
+	</npc>
+
+	<!-- Ethereal Horse -->
+	<npc id="ethereal_horse">
+		<name>an ethereal horse</name>
+		<id>0x73</id>
+		<category>Animals\Ridables\Ethereal Horse</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense>60</defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<str>100</str>
+		<dex>100</dex>
+		<int>100</int>
+		<wrestling>1000</wrestling>
+		<tactics>1000</tactics>
+		<magicresistance>800</magicresistance>
+		<totame>0</totame>
+		<food>0</food>
+	</npc>
+
+	<!-- Ethereal Ki-rin -->
+	<npc id="ethereal_kirin">
+		<name>an ethereal ki-rin</name>
+		<id>0x0317</id>
+		<category>Animals\Ridables\Ethereal Ki-rin</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense>60</defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<str>100</str>
+		<dex>100</dex>
+		<int>100</int>
+		<wrestling>1000</wrestling>
+		<tactics>1000</tactics>
+		<magicresistance>800</magicresistance>
+		<totame>0</totame>
+		<food>0</food>
+	</npc>
+
+	<!-- Ethereal Llama -->
+	<npc id="ethereal_llama">
+		<name>an ethereal llama</name>
+		<id>0xAA</id>
+		<category>Animals\Ridables\Ethereal Llama</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense>60</defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<str>100</str>
+		<dex>100</dex>
+		<int>100</int>
+		<wrestling>1000</wrestling>
+		<tactics>1000</tactics>
+		<magicresistance>800</magicresistance>
+		<totame>0</totame>
+		<food>0</food>
+	</npc>
+
+	<!-- Ethereal Ostard -->
+	<npc id="ethereal_ostard">
+		<name>an ethereal ostard</name>
+		<id>0xAB</id>
+		<category>Animals\Ridables\Ethereal Ostard</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense>60</defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<str>100</str>
+		<dex>100</dex>
+		<int>100</int>
+		<wrestling>1000</wrestling>
+		<tactics>1000</tactics>
+		<magicresistance>800</magicresistance>
+		<totame>0</totame>
+		<food>0</food>
+	</npc>
+
+	<!-- Ethereal Ridgeback -->
+	<npc id="ethereal_ridgeback">
+		<name>an ethereal ridgeback</name>
+		<id>0xC1</id>
+		<category>Animals\Ridables\Ethereal Ridgeback</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense>60</defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<str>100</str>
+		<dex>100</dex>
+		<int>100</int>
+		<wrestling>1000</wrestling>
+		<tactics>1000</tactics>
+		<magicresistance>800</magicresistance>
+		<totame>0</totame>
+		<food>0</food>
+	</npc>
+
+	<!-- Ethereal Swamp Dragon -->
+	<npc id="ethereal_swamp_dragon">
+		<name>an ethereal swamp dragon</name>
+		<id>0xC2</id>
+		<category>Animals\Ridables\Ethereal Swamp Dragon</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense>60</defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<str>100</str>
+		<dex>100</dex>
+		<int>100</int>
+		<wrestling>1000</wrestling>
+		<tactics>1000</tactics>
+		<magicresistance>800</magicresistance>
+		<totame>0</totame>
+		<food>0</food>
+	</npc>
+
+	<!-- Ethereal Unicorn -->
+	<npc id="ethereal_unicorn">
+		<name>an ethereal unicorn</name>
+		<id>0xC0</id>
+		<category>Animals\Ridables\Ethereal Unicorn</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="-0" max="0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense>60</defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<str>100</str>
+		<dex>100</dex>
+		<int>100</int>
+		<wrestling>1000</wrestling>
+		<tactics>1000</tactics>
+		<magicresistance>800</magicresistance>
+		<totame>0</totame>
+		<food>0</food>
+	</npc>
+
+	<!-- Britannian Warhorse -->
+	<npc id="britannian_warhorse">
+		<name>a war horse</name>
+		<id>0x76</id>
+		<category>Animals\Ridables\Britannian Warhorse</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense>50</defense>
+		<lodamage>5</lodamage>
+		<hidamage>20</hidamage>
+		<str>400</str>
+		<dex>125</dex>
+		<int><random min="51" max="56" /></int>
+		<wrestling><random min="393" max="463" /></wrestling>
+		<tactics><random min="259" max="422" /></tactics>
+		<magicresistance><random min="255" max="297" /></magicresistance>
+		<totame>291</totame>
+		<food>5</food>
+	</npc>
+
+	<!-- Council of Mages Warhorse -->
+	<npc id="magecouncil_warhorse">
+		<name>a war horse</name>
+		<id>0x77</id>
+		<category>Animals\Ridables\Council of Mages Warhorse</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense>50</defense>
+		<lodamage>5</lodamage>
+		<hidamage>20</hidamage>
+		<str>400</str>
+		<dex>125</dex>
+		<int><random min="51" max="56" /></int>
+		<wrestling><random min="393" max="463" /></wrestling>
+		<tactics><random min="259" max="422" /></tactics>
+		<magicresistance><random min="255" max="297" /></magicresistance>
+		<totame>291</totame>
+		<food>5</food>
+	</npc>
+
+	<!-- Shadowlords Warhorse -->
+	<npc id="shadowlord_warhorse">
+		<name>a war horse</name>
+		<id>0x78</id>
+		<category>Animals\Ridables\Shadowlord Warhorse</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense>50</defense>
+		<lodamage>5</lodamage>
+		<hidamage>20</hidamage>
+		<str>400</str>
+		<dex>125</dex>
+		<int><random min="51" max="56" /></int>
+		<wrestling><random min="393" max="463" /></wrestling>
+		<tactics><random min="259" max="422" /></tactics>
+		<magicresistance><random min="255" max="297" /></magicresistance>
+		<totame>0</totame>
+		<food>0</food>
+	</npc>
+
+	<!-- Followers of Minax Warhorse -->
+	<npc id="minax_warhorse">
+		<name>a war horse</name>
+		<id>0x76</id>
+		<category>Animals\Ridables\Minax Warhorse</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense>50</defense>
+		<lodamage>5</lodamage>
+		<hidamage>20</hidamage>
+		<str>400</str>
+		<dex>125</dex>
+		<int><random min="51" max="56" /></int>
+		<wrestling><random min="393" max="463" /></wrestling>
+		<tactics><random min="259" max="422" /></tactics>
+		<magicresistance><random min="255" max="297" /></magicresistance>
+		<totame>291</totame>
 		<food>5</food>
 	</npc>
 </definitions>

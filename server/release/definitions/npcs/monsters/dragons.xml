@@ -179,6 +179,8 @@
 		<fame>
 
 
+
+
 			<random min="5000" max="9999"/>
 		</fame>
 		<defense>
@@ -215,4 +217,141 @@
 		<carve>carve_drake_red</carve>
 		<!-- Priv -->
 	</npc>
+
+	<!-- an ancient wyrm -->
+	<npc id="ancient_wyrm">
+		<name>an ancient wyrm</name>
+		<id>0x2e</id>
+		<category>Monsters\dragons\Ancient Wyrm </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-15000"/></karma>
+		<fame><random min="10000" max="15000"/></fame>
+		<defense><random min="70" max="70"/></defense>
+		<lodamage>25</lodamage>
+		<hidamage>45</hidamage>
+		<!-- Stats -->
+		<str><random min="1103" max="1131"/></str>
+		<dex><random min="99" max="120"/></dex>
+		<int><random min="734" max="752"/></int>
+		<!-- Skills -->
+		<wrestling><random min="986" max="1000"/></wrestling>
+		<tactics><random min="996" max="1000"/></tactics>
+		<magicresistance><random min="1201" max="1330"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<magery><random min="858" max="993" /></magery>
+		<meditation><random min="617" max="644" /></meditation>
+		<evaluatingintel><random min="728" max="782" /><evaluatingintel>
+		<carve></carve>
+		</npc>
+
+        <!-- serpentine dragon -->
+        <npc id="serpentine_dragon">
+		<name>a serpentine dragon</name>
+                <id>0x67</id>
+                <category>Monsters\dragons\Serpentine dragon</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="5000" max="9999" /></karma>
+                <fame><random min="10000" max="15000" /></fame>
+                <defense><random min="36" max="36" /></defense>
+                <lodamage>20</lodamage>
+                <hidamage>40</hidamage>
+                <!-- Stats -->
+                <str><random min="800" max="800" /></str>
+                <dex><random min="202" max="220" /></dex>
+                <int><random min="1006" max="1039" /></int>
+                <!-- Skills -->
+                <wrestling><random min="386" max="957" /></wrestling>
+                <tactics><random min="502" max="599" /></tactics>
+                <magicresistance><random min="1000" max="1000" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="1107" max="1195" /></magery>
+		<evaluatingintel><random min="1000" max="1000" /></evaluatingintel>
+		<meditation><random min="1000 max="1000" /></meditation>
+        </npc>
+
+        <!-- shadow wyrm -->
+        <npc id="shadow_wyrm">
+		<name>a shadow wyrm</name>
+                <id>0x6A</id>
+                <category>Monsters\dragons\Shadow Wyrm</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-10000" max="-15000" /></karma>
+                <fame><random min="10000" max="15000" /></fame>
+                <defense><random min="70" max="70" /></defense>
+                <lodamage>25</lodamage>
+                <hidamage>45</hidamage>
+                <!-- Stats -->
+                <str><random min="935" max="958" /></str>
+                <dex><random min="124" max="139" /></dex>
+                <int><random min="543" max="572" /></int>
+                <!-- Skills -->
+                <wrestling><random min="979" max="989" /></wrestling>
+                <tactics><random min="979" max="985" /></tactics>
+                <magicresistance><random min="1087" max="1117" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="948" max="988" /></magery>
+		<evaluatingintel><random min="747" max="795" /></evaluatingintel>
+		<meditation><random min="615 max="697" /></meditation>
+        </npc>
+
+        <!-- white wyrm hazy white -->
+        <npc id="white_wyrm_1">
+		<name>a white wyrm</name>
+                <id>0x31</id>
+                <category>Monsters\dragons\White Wyrm (Hazy White)</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-10000" max="-15000" /></karma>
+                <fame><random min="10000" max="15000" /></fame>
+                <defense><random min="64" max="64" /></defense>
+                <lodamage>21</lodamage>
+                <hidamage>45</hidamage>
+                <!-- Stats -->
+                <str><random min="721" max="760" /></str>
+                <dex><random min="102" max="130" /></dex>
+                <int><random min="384" max="425" /></int>
+                <!-- Skills -->
+                <wrestling><random min="911" max="1000" /></wrestling>
+                <tactics><random min="976" max="998" /></tactics>
+                <magicresistance><random min="991" max="1000" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="992" max="1000" /></magery>
+		<evaluatingintel><random min="0" max="0" /></evaluatingintel>
+		<meditation><random min="0 max="0" /></meditation>
+		<totame>963</totame>
+		<food>1</food>
+        </npc>
+
+        <!-- white wyrm (Pure) -->
+        <npc id="white_wyrm_2">
+                <inherit id="white_wyrm_1" />
+                <id>0xB4</id>
+                <category>Monsters\dragons\White Wyrm (Pure)</category>
+        </npc>
+
+        <!-- wyvern -->
+        <npc id="wyvern">
+		<name>a wyvern</name>
+                <id>0x3E</id>
+                <category>Monsters\dragons\Wyrvern</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-2500" max="-4999" /></karma>
+                <fame><random min="2500" max="4999" /></fame>
+                <defense><random min="40" max="40" /></defense>
+                <lodamage>6</lodamage>
+                <hidamage>15</hidamage>
+                <!-- Stats -->
+                <str><random min="206" max="236" /></str>
+                <dex><random min="153" max="170" /></dex>
+                <int><random min="53" max="90" /></int>
+                <!-- Skills -->
+                <wrestling><random min="710" max="796" /></wrestling>
+                <tactics><random min="661" max="884" /></tactics>
+                <magicresistance><random min="683" max="777" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<poisoning><random min="606" max="778" /></poisoning>
+        </npc>
 </definitions>

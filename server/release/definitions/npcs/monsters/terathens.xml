@@ -150,4 +150,29 @@
 		</anatomy>
 		<!-- Priv -->
 	</npc>
+
+        <!-- terathan avenger -->
+        <npc id="terathan_avenger">
+		<name>a terathan avenger</name>
+                <id>0x5</id>
+                <category>Monsters\Terathans\Terathan Avengers</category>
+                <skin>0x66d</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-10000" max="-15000" /></karma>
+                <fame><random min="10000" max="1500" /></fame>
+                <defense><random min="50" max="50" /></defense>
+                <lodamage>5</lodamage>
+                <hidamage>19</hidamage>
+                <!-- Stats -->
+                <str><random min="501" max="585" /></str>
+                <dex><random min="79" max="95" /></dex>
+                <int><random min="48" max="60" /></int>
+                <!-- Skills -->
+                <wrestling><random min="935" max="993" /></wrestling>
+                <tactics><random min="901" max="991" /></tactics>
+                <magicresistance><random min="674" max="798" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<poisoning><random min="607" max="792" /></poisoning>
+		<magery><random min="819" max="973" /></magery>
+        </npc>
 </definitions>

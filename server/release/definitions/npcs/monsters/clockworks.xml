@@ -1,0 +1,122 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Viper                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification:                         |
+=================================================================
+-->
+<defintions>
+	<!-- betrayer -->
+	<npc id="betrayer">
+		<name>a betrayer</name>
+		<id>0x87</id>
+		<category>Monsters\Clockworks\Betrayer </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-15000"/></karma>
+		<fame><random min="10000" max="15000"/></fame>
+		<defense><random min="62" max="68"/></defense>
+		<lodamage>10</lodamage>
+		<hidamage>25</hidamage>
+		<!-- Stats -->
+		<str><random min="411" max="493"/></str>
+		<dex><random min="83" max="100"/></dex>
+		<int><random min="163" max="191"/></int>
+		<!-- Skills -->
+		<wrestling><random min="913" max="993"/></wrestling>
+		<tactics><random min="909" max="985"/></tactics>
+		<magicresistance><random min="1201" max="1292"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<magery><random min="630" max="916" /></magery>
+		<evaluatingintel><random min="943" max="996" /><evaluatingintel>
+		</npc>
+
+	<!-- juggernaut -->
+	<npc id="blackthorn_juggernaut">
+		<name>a blackthorn juggernaut</name>
+		<id>0x300</id>
+		<category>Monsters\Clockworks\Blackthorn Juggernaut </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-9999"/></karma>
+		<fame><random min="2500" max="9999"/></fame>
+		<defense><random min="62" max="80"/></defense>
+		<lodamage>10</lodamage>
+		<hidamage>25</hidamage>
+		<!-- Stats -->
+		<str><random min="312" max="400"/></str>
+		<dex><random min="51" max="70"/></dex>
+		<int><random min="56" max="97"/></int>
+		<!-- Skills -->
+		<wrestling><random min="928" max="988"/></wrestling>
+		<tactics><random min="910" max="998"/></tactics>
+		<magicresistance><random min="1409" max="1485"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
+
+	<!-- exodus overseer -->
+	<npc id="exodus_overseer">
+		<name>an exodus overseer</name>
+		<id>0x2f4</id>
+		<category>Monsters\Clockworks\Exodus Overseer </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-15000"/></karma>
+		<fame><random min="10000" max="15000"/></fame>
+		<defense><random min="50" max="50"/></defense>
+		<lodamage>5</lodamage>
+		<hidamage>17</hidamage>
+		<!-- Stats -->
+		<str><random min="551" max="649"/></str>
+		<dex><random min="78" max="95"/></dex>
+		<int><random min="68" max="86"/></int>
+		<!-- Skills -->
+		<wrestling><random min="844" max="954"/></wrestling>
+		<tactics><random min="836" max="961"/></tactics>
+		<magicresistance><random min="848" max="982"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
+
+	<!-- exodus minion -->
+	<npc id="exodus_minion">
+		<name>an exodus minion</name>
+		<id>0x2f5</id>
+		<category>Monsters\Clockworks\Exodus Minion </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-15000"/></karma>
+		<fame><random min="10000" max="15000"/></fame>
+		<defense><random min="62" max="68"/></defense>
+		<lodamage>10</lodamage>
+		<hidamage>25</hidamage>
+		<!-- Stats -->
+		<str><random min="854" max="935"/></str>
+		<dex><random min="72" max="78"/></dex>
+		<int><random min="73" max="85"/></int>
+		<!-- Skills -->
+		<wrestling><random min="929" max="987"/>
+		<tactics><random min="910" max="987" /></tactics>
+		<magicresistance><random min="903" max="976"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
+
+        <!-- golem -->
+        <npc id="golem">
+                <name>a golem</name>
+                <id>0x2f0</id>
+                <category>Monsters\Clockworks\Golem</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="0" max="0" /></karma>
+                <fame><random min="0" max="0" /></fame>
+                <defense><random min="30" max="54" /></defense>
+                <lodamage>9</lodamage>
+                <hidamage>25</hidamage>
+                <!-- Stats -->
+                <str><random min="256" max="343" /></str>
+                <dex><random min="78" max="96" /></dex>
+                <int><random min="106" max="135" /></int>
+                <!-- Skills -->
+                <wrestling><random min="676" max="973" /></wrestling>
+                <tactics><random min="621" max="950" /></tactics>
+                <magicresistance><random min="1529" max="1882" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+        </npc>
+</definitions>

@@ -91,26 +91,19 @@
 		<inherit id="undead_loot_small" />
 		<karma><random min="-0" max="-624"/></karma>
 		<fame><random min="0" max="1249"/></fame>
-
 		<defense>16</defense>
 		<lodamage>5</lodamage>
 		<hidamage>10</hidamage>
-
 		<!-- Stats -->
 		<str><random min="61" max="76"/></str>
 		<dex><random min="56" max="73"/></dex>
 		<int><random min="16" max="37"/></int>
-
 		<!-- This is a loot replacement section ;) -->
-		<backpack>
-			<item inherit="f43" />
-		</backpack>
-
+		<backpack><item inherit="f43" /></backpack>
 		<!-- Skills -->
 		<wrestling><random min="594" max="675"/></wrestling>
 		<tactics><random min="451" max="592"/></tactics>
 		<magicresistance><random min="454" max="582"/></magicresistance>
-
 		<category>Monsters\Undead\Skeleton (with Axe)</category>
 	</npc>
 
@@ -142,12 +135,11 @@
 		<swordsmanship><random min="594" max="675"/></swordsmanship>
 		<tactics><random min="451" max="592"/></tactics>
 		<magicresistance><random min="454" max="582"/></magicresistance>
-
 		<category>Monsters\Undead\Skeleton (with Scimitar)</category>
 	</npc>
 
-	<!-- a zombie medium-->
-	<npc id="zombie_medium">
+	<!-- a zombie-->
+	<npc id="zombie">
 		<name>zombie</name>
 		<id>0x002</id>
 		<inherit id="undead_base"/>
@@ -187,8 +179,8 @@
 		</anatomy>
 		<!-- Priv -->
 	</npc>
-	<!-- a lich medium-->
-	<npc id="lich_medium">
+	<!-- a lich -->
+	<npc id="lich">
 		<name>lich</name>
 		<id>0x018</id>
 		<inherit id="undead_base"/>
@@ -241,8 +233,8 @@
 		<!-- Priv -->
 	</npc>
 
-	<!-- a shade medium-->
-	<npc id="shade_medium">
+	<!-- a shade -->
+	<npc id="shade">
 		<name><random list="NAMES_SHADE" /></name>
 		<id>0x01a</id>
 		<inherit id="undead_base"/>
@@ -294,4 +286,149 @@
 		</meditation>
 		<!-- Priv -->
 	</npc>
+
+	<!-- bone magi -->
+	<npc id="bone_magi">
+		<name>a bone magi</name>
+		<id>0x94</id>
+		<inherit id="undead_base" />
+		<inherit id="undead_loot_small" />
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense>38</defense>
+		<lodamage>5</lodamage>
+		<hidamage>10</hidamage>
+		<!-- Stats -->
+		<str><random min="77" max="98"/></str>
+		<dex><random min="58" max="75"/></dex>
+		<int><random min="186" max="209"/></int>
+		<!-- Skills -->
+		<wrestling><random min="513" max="574"/></wrestling>
+		<tactics><random min="459" max="600"/></tactics>
+		<magicresistance><random min="567" max="699"/></magicresistance>
+		<magery><random min="669" max="739" /></magery>
+		<category>Monsters\Undead\Bone Magi</category>
+	</npc>
+
+	<!-- lich lord -->
+	<npc id="lich_lord">
+		<name>a lich lord</name>
+		<id>0x4e</id>
+		<inherit id="undead_base" />
+		<inherit id="undead_loot_small" />
+		<karma><random min="-10000" max="-15000"/></karma>
+		<fame><random min="10000" max="15000"/></fame>
+		<defense>50</defense>
+		<lodamage>8</lodamage>
+		<hidamage>25</hidamage>
+		<!-- Stats -->
+		<str><random min="419" max="496"/></str>
+		<dex><random min="146" max="7164"/></dex>
+		<int><random min="571" max="646"/></int>
+		<!-- Skills -->
+		<wrestling><random min="658" max="818"/></wrestling>
+		<tactics><random min="508" max="691"/></tactics>
+		<magicresistance><random min="1582" max="1822"/></magicresistance>
+		<magery><random min="920" max="994" /></magery>
+		<evaluatingintel><random min="342 max="524" /></evaluatingintel>
+		<meditation><random min="302" max="455" /></meditation>
+		<category>Monsters\Undead\Lich Lord</category>
+	</npc>
+
+        <!-- mummy -->
+        <npc id="mummy">
+                <name>a mummy</name>
+                <id>0x9A</id>
+                <category>Monsters\Undead\Mummy</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-2500" max="-4999" /></karma>
+                <fame><random min="2500" max="4999" /></fame>
+                <defense><random min="50" max="50" /></defense>
+                <lodamage>9</lodamage>
+                <hidamage>15</hidamage>
+                <!-- Stats -->
+                <str><random min="348" max="367" /></str>
+                <dex><random min="71" max="108" /></dex>
+                <int><random min="28" max="40" /></int>
+                <!-- Skills -->
+                <wrestling><random min="431" max="525" /></wrestling>
+                <tactics><random min="358" max="489" /></tactics>
+                <magicresistance><random min="153" max="366" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+        </npc>
+
+        <!-- rotting corpse -->
+        <npc id="rotting_corpse">
+                <name>a rotting corpse</name>
+                <id>0x9B</id>
+                <category>Monsters\Undead\Rotting Corpse</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-5000" max="-9999" /></karma>
+                <fame><random min="5000" max="9999" /></fame>
+                <defense><random min="40" max="40" /></defense>
+                <lodamage>3</lodamage>
+                <hidamage>10</hidamage>
+                <!-- Stats -->
+                <str><random min="2000" max="2000" /></str>
+                <dex><random min="75" max="75" /></dex>
+                <int><random min="155" max="192" /></int>
+                <!-- Skills -->
+                <wrestling><random min="941" max="999" /></wrestling>
+                <tactics><random min="1000" max="1000" /></tactics>
+                <magicresistance><random min="2500" max="2500" /></magicresistance>
+		<poisoning><random min="1200" max="1200" /></poisoning>
+        </npc>
+
+        <!-- skeletal Dragon -->
+        <npc id="skeletal_dragon">
+		<name>a skeletal dragon</name>
+                <id>0x68</id>
+                <category>Monsters\Undead\Skeletal Dragon</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-10000" max="-15000" /></karma>
+                <fame><random min="10000" max="15000" /></fame>
+                <defense><random min="80" max="80" /></defense>
+                <lodamage>20</lodamage>
+                <hidamage>40</hidamage>
+                <!-- Stats -->
+                <str><random min="932" max="960" /></str>
+                <dex><random min="130" max="149" /></dex>
+                <int><random min="528" max="572" /></int>
+                <!-- Skills -->
+                <wrestling><random min="984" max="997" /></wrestling>
+                <tactics><random min="981" max="992" /></tactics>
+                <magicresistance><random min="1175" max="1224" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="894" max="998" /></magery>
+		<evaluatingintel><random min="729" max="768" /></evaluatingintel>
+		<meditation><random min="624 max="673" /></meditation>
+        </npc>
+
+        <!-- skeletal mage -->
+        <npc id="skeletal_mage">
+		<name>a skeletal mage</name>
+                <id>0x94</id>
+                <category>Monsters\Undead\Skeletal Mage</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-2500" max="-4999" /></karma>
+                <fame><random min="2500" max="4999" /></fame>
+                <defense><random min="38" max="38" /></defense>
+                <lodamage>5</lodamage>
+                <hidamage>10</hidamage>
+                <!-- Stats -->
+                <str><random min="76" max="99" /></str>
+                <dex><random min="56" max="74" /></dex>
+                <int><random min="190" max="210" /></int>
+                <!-- Skills -->
+                <wrestling><random min="501" max="584" /></wrestling>
+                <tactics><random min="454" max="573" /></tactics>
+                <magicresistance><random min="566" max="700" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="676" max="741" /></magery>
+		<meditation><random min="0 max="0" /></meditation>
+        </npc>
 </definitions>

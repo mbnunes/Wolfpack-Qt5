@@ -1,6 +1,4 @@
 <definitions>
-
-
         <!-- Chicken -->
         <npc id="chicken">
                 <name>chicken</name>
@@ -74,6 +72,32 @@
                 <totame>171</totame>
              	<food>3</food>
              	<carve>carve_eagle</carve>
+        </npc>
+
+        <!-- pixie -->
+        <npc id="pixie">
+                <name><random list="NAMES_PIXIE" /></name>
+                <id>0x80</id>
+                <category>Animals\Air\Pixie</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma><random min="2500" max="4999" /></karma>
+                <fame><random min="2500" max="2499" /></fame>
+                <defense><random min="100" max="100" /></defense>
+                <lodamage>1</lodamage>
+                <hidamage>2</hidamage>
+                <!-- Stats -->
+                <str><random min="21" max="30" /></str>
+                <dex><random min="302" max="400" /></dex>
+                <int><random min="201" max="250" /></int>
+                <!-- Skills -->
+                <wrestling><random min="145" max="178" /></wrestling>
+                <tactics><random min="101" max="200" /></tactics>
+                <magicresistance><random min="1103" max="1407" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="915" max="1000" /></magery>
+		<evaluatingintel><random min="901" max="998" /></evaluatingintel>
+		<meditation><random min="902" max="1000" /></meditation>
         </npc>
 
 </definitions>

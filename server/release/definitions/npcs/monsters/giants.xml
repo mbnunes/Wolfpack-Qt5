@@ -245,7 +245,148 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_troll</carve>
+		<carve>carve_troll</carve>
 		<!-- Priv -->
 	</npc>
+
+	<!-- an arctic ogre lord -->
+	<npc id="arctic_ogre_lord">
+		<name>an arctic ogre lord</name>
+		<id>0x87</id>
+		<category>Monsters\giants\Arctic Ogre Lord </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-15000"/></karma>
+		<fame><random min="10000" max="15000"/></fame>
+		<defense><random min="50" max="50"/></defense>
+		<lodamage>15</lodamage>
+		<hidamage>35</hidamage>
+		<!-- Stats -->
+		<str><random min="858" max="914"/></str>
+		<dex><random min="67" max="75"/></dex>
+		<int><random min="52" max="59"/></int>
+		<!-- Skills -->
+		<wrestling><random min="931" max="982"/></wrestling>
+		<tactics><random min="939" max="970"/></tactics>
+		<magicresistance><random min="1263" max="1354"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<carve></carve>
+		</npc>
+
+	<!-- bogthing -->
+	<npc id="bog_thing">
+		<name>a bog thing</name>
+		<id>0x30c</id>
+		<category>Monsters\giants\Bog Thing </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="28" max="28"/></defense>
+		<lodamage>8</lodamage>
+		<hidamage>17</hidamage>
+		<!-- Stats -->
+		<str><random min="808" max="845"/></str>
+		<dex><random min="47" max="57"/></dex>
+		<int><random min="37" max="49"/></int>
+		<!-- Skills -->
+		<wrestling><random min="712" max="806"/></wrestling>
+		<tactics><random min="739" max="798"/></tactics>
+		<magicresistance><random min="905" max="940"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<carve></carve>
+		</npc>
+
+	<!-- bogling -->
+	<npc id="bogling">
+		<name>a bogling</name>
+		<id>0x30b</id>
+		<category>Monsters\giants\bogling </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-15000"/></karma>
+		<fame><random min="10000" max="15000"/></fame>
+		<defense><random min="20" max="20"/></defense>
+		<lodamage>5</lodamage>
+		<hidamage>8</hidamage>
+		<!-- Stats -->
+		<str><random min="96" max="120"/></str>
+		<dex><random min="94" max="115"/></dex>
+		<int><random min="21" max="1944"/></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="730"/></wrestling>
+		<tactics><random min="564" max="771"/></tactics>
+		<magicresistance><random min="766" max="983"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<carve></carve>
+		</npc>
+
+        <!-- ethereal warrior -->
+        <npc id="ethereal_warrior">
+                <name>an ethereal warrior</name>
+                <id>0x7B</id>
+                <category>Monsters\giants\Ethereal Warrior</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma><random min="5000" max="9999" /></karma>
+                <fame><random min="5000" max="9999" /></fame>
+                <defense><random min="102" max="120" /></defense>
+                <lodamage>11</lodamage>
+                <hidamage>22</hidamage>
+                <!-- Stats -->
+                <str><random min="614" max="760" /></str>
+                <dex><random min="186" max="240" /></dex>
+                <int><random min="370" max="443" /></int>
+                <!-- Skills -->
+                <wrestling><random min="980" max="998" /></wrestling>
+                <tactics><random min="910" max="987" /></tactics>
+                <magicresistance><random min="906" max="989" /></magicresistance>
+		<anatomy><random min="504" max="747" /></anatomy>
+		<magery><random min="992" max="100" /></magery>
+		<evaluatingintel><random min="919" max="1000" /></evaluatingintel>
+		<meditation><random min="924" max="999" /></meditation>
+                <carve></carve>
+        </npc>
+
+        <!-- frost troll -->
+        <npc id="frost_troll">
+                <name>an frost troll</name>
+                <id>0x37</id>
+                <category>Monsters\giants\Frost Troll</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-2500" max="-4999" /></karma>
+                <fame><random min="2500" max="4999" /></fame>
+                <defense>50</defense>
+                <lodamage>7</lodamage>
+                <hidamage>19</hidamage>
+                <!-- Stats -->
+                <str><random min="233" max="258" /></str>
+                <dex><random min="72" max="85" /></dex>
+                <int><random min="46" max="70" /></int>
+                <!-- Skills -->
+                <wrestling><random min="825" max="958" /></wrestling>
+                <tactics><random min="821" max="997" /></tactics>
+                <magicresistance><random min="665" max="793" /></magicresistance>
+        </npc>
+
+        <!-- Ogre Lord -->
+        <npc id="ogre_lord">
+                <name>an ogre lord</name>
+                <id>0x53</id>
+                <category>Monsters\giants\Ogre Lord</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-10000" max="-15000" /></karma>
+                <fame><random min="10000" max="15000" /></fame>
+                <defense><random min="50" max="50" /></defense>
+                <lodamage>20</lodamage>
+                <hidamage>45</hidamage>
+                <!-- Stats -->
+                <str><random min="819" max="934" /></str>
+                <dex><random min="66" max="75" /></dex>
+                <int><random min="49" max="70" /></int>
+                <!-- Skills -->
+                <wrestling><random min="912" max="968" /></wrestling>
+                <tactics><random min="911" max="999" /></tactics>
+                <magicresistance><random min="1267" max="1400" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+        </npc>
 </definitions>

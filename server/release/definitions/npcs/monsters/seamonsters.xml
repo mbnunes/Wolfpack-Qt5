@@ -49,7 +49,57 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+		<category>Monsters\Sea Monsters\Kraken
 		<!-- Priv -->
 	</npc>
+
+        <!-- deep sea serpent -->
+        <npc id="deep_sea_serpent">
+                <name>a deep sea serpent</name>
+                <id>0x96</id>
+                <category>Monsters\Sea Monsters\Deep Sea Serpent</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-5000" max="-9999" /></karma>
+                <fame><random min="5000" max="9999" /></fame>
+                <defense>60</defense>
+                <lodamage>6</lodamage>
+                <hidamage>15</hidamage>
+                <!-- Stats -->
+                <str><random min="259" max="385" /></str>
+                <dex><random min="100" max="125" /></dex>
+                <int><random min="110" max="149" /></int>
+                <!-- Skills -->
+                <wrestling><random min="640" max="697" /></wrestling>
+                <tactics><random min="604" max="666" /></tactics>
+		<magicresistance><random min="611" max="7373" /></magicresistance>
+		<magery><random min="150" max="150" /></magery>
+                <carve></carve>
+        </npc>
+
+        <!-- sea serpent -->
+        <npc id="sea_serpent">
+		<name>a sea serpent</name>
+                <id>0x91</id>
+                <category>Monsters\Sea Monsters\Sea Serpent</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-5000" max="-9999" /></karma>
+                <fame><random min="5000" max="9999" /></fame>
+                <defense><random min="30" max="30" /></defense>
+                <lodamage>5</lodamage>
+                <hidamage>13</hidamage>
+                <!-- Stats -->
+                <str><random min="186" max="215" /></str>
+                <dex><random min="62" max="83" /></dex>
+                <int><random min="61" max="87" /></int>
+                <!-- Skills -->
+                <wrestling><random min="643" max="730" /></wrestling>
+                <tactics><random min="601" max="694" /></tactics>
+                <magicresistance><random min="640" max="749" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="91" max="130" /></magery>
+		<meditation><random min="0 max="0" /></meditation>
+        </npc>
 
 </definitions>

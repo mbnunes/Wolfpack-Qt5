@@ -23,8 +23,8 @@
 		<defense>
 			<random min="30" max="30"/>
 		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
+		<lodamage>5</lodamage>
+		<hidamage>10</hidamage>
 		<gold>
 			<random min="50" max="150"/>
 		</gold>
@@ -79,8 +79,8 @@
 		<defense>
 			<random min="50" max="50"/>
 		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
+		<lodamage>9</lodamage>
+		<hidamage>20</hidamage>
 		<gold>
 			<random min="200" max="250"/>
 		</gold>
@@ -135,8 +135,8 @@
 		<defense>
 			<random min="36" max="36"/>
 		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
+		<lodamage>7</lodamage>
+		<hidamage>14</hidamage>
 		<gold>
 			<random min="50" max="150"/>
 		</gold>
@@ -166,4 +166,147 @@
 		<carve>carve_ophidian_warrior_medium</carve>
 		<!-- Priv -->
 	</npc>
+
+        <!-- ophidian avenger -->
+        <npc id="ophidian_avenger">
+                <name>an ophidian avenger</name>
+                <id>0x65</id>
+                <category>Monsters\ophidians\Ophidian Avenger</category>
+                <skin>0x66d</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-5000" max="-9999" /></karma>
+                <fame><random min="5000" max="9999" /></fame>
+                <defense><random min="40" max="40" /></defense>
+                <lodamage>20</lodamage>
+                <hidamage>40</hidamage>
+                <!-- Stats -->
+                <str><random min="450" max="577" /></str>
+                <dex><random min="166" max="175" /></dex>
+                <int><random min="46" max="70" /></int>
+                <!-- Skills -->
+                <wrestling><random min="925" max="995" /></wrestling>
+                <tactics><random min="908" max="999" /></tactics>
+                <magicresistance><random min="663" max="798" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<poisoning><random min="618" max="800" /></poisoning>
+        </npc>
+
+        <!-- Ophidian Enforcer -->
+        <npc id="ophidian_enforcer">
+                <name>an ophidian enforcer</name>
+                <id>0x2f2</id>
+                <category>Monsters\ophidians\Ophidian Enforcer</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-2500" max="-4999" /></karma>
+                <fame><random min="2500" max="4999" /></fame>
+                <defense><random min="36" max="36" /></defense>
+                <lodamage>7</lodamage>
+                <hidamage>14</hidamage>
+                <!-- Stats -->
+                <str><random min="197" max="294" /></str>
+                <dex><random min="117" max="159" /></dex>
+                <int><random min="78" max="134" /></int>
+                <!-- Skills -->
+                <wrestling><random min="100" max="100" /></wrestling>
+                <tactics><random min="757" max="894" /></tactics>
+                <magicresistance><random min="715" max="828" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+        </npc>
+
+        <!-- ophidian justicar -->
+        <npc id="gazer">
+                <name>an ophidian justicar</name>
+                <id>0x55</id>
+                <category>Monsters\ophidians\Ophidian Justicar</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-5000" max="-9999" /></karma>
+                <fame><random min="5000" max="9999" /></fame>
+                <defense><random min="44" max="44" /></defense>
+                <lodamage>7</lodamage>
+                <hidamage>14</hidamage>
+                <!-- Stats -->
+                <str><random min="97" max="122" /></str>
+                <dex><random min="86" max="103" /></dex>
+                <int><random min="106" max="165" /></int>
+                <!-- Skills -->
+                <wrestling><random min="359" max="582" /></wrestling>
+                <tactics><random min="737" max="788" /></tactics>
+                <magicresistance><random min="838" max="876" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="960" max="1000" /></magery>
+        </npc>
+
+        <!-- ophidian knight errant -->
+        <npc id="ophidian_knight_errant">
+                <name>an ophidian knight-errant</name>
+                <id>0x89</id>
+                <category>Monsters\ophidians\Ophidian Knight-Errant</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-5000" max="-9999" /></karma>
+                <fame><random min="5000" max="9999" /></fame>
+                <defense><random min="40" max="40" /></defense>
+                <lodamage>15</lodamage>
+                <hidamage>30</hidamage>
+                <!-- Stats -->
+                <str><random min="443" max="577" /></str>
+                <dex><random min="169" max="175" /></dex>
+                <int><random min="48" max="70" /></int>
+                <!-- Skills -->
+                <wrestling><random min="936" max="999" /></wrestling>
+                <tactics><random min="907" max="998" /></tactics>
+                <magicresistance><random min="652" max="800" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<poisoning><random min="601" max="767" /></poisoning>
+        </npc>
+
+        <!-- ophidian shaman -->
+        <npc id="ophidian_shaman">
+                <name>an ophidian shaman</name>
+                <id>0x55</id>
+                <category>Monsters\ophidians\Ophidian Shaman</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-2500" max="-4999" /></karma>
+                <fame><random min="2500" max="4999" /></fame>
+                <defense><random min="30" max="30" /></defense>
+                <lodamage>5</lodamage>
+                <hidamage>10</hidamage>
+                <!-- Stats -->
+                <str><random min="181" max="204" /></str>
+                <dex><random min="195" max="204" /></dex>
+                <int><random min="100" max="119" /></int>
+                <!-- Skills -->
+                <wrestling><random min="395" max="559" /></wrestling>
+                <tactics><random min="745" max="783" /></tactics>
+                <magicresistance><random min="846" max="874" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="873" max="976" /></magery>
+        </npc>
+
+        <!-- ophidian zealot -->
+        <npc id="ophidian_zealot">
+                <name>an ophidian zealot</name>
+                <id>0x88</id>
+                <category>Monsters\ophidians\Ophidian Zealot</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-5000" max="-9999" /></karma>
+                <fame><random min="5000" max="9999" /></fame>
+                <defense><random min="44" max="44" /></defense>
+                <lodamage>8</lodamage>
+                <hidamage>15</hidamage>
+                <!-- Stats -->
+                <str><random min="284" max="303" /></str>
+                <dex><random min="199" max="215" /></dex>
+                <int><random min="226" max="248" /></int>
+                <!-- Skills -->
+                <wrestling><random min="331" max="633" /></wrestling>
+                <tactics><random min="743" max="790" /></tactics>
+                <magicresistance><random min="846" max="887" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="962" max="996" /></magery>
+        </npc>
 </definitions>

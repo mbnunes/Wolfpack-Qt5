@@ -6691,7 +6691,7 @@
 		<item>Ann Bonny</item>
 		<item>Mary Read</item>
 	</list>
-	<list id="NAMES_PIXI">
+	<list id="NAMES_PIXIE">
 		<item>Ciline</item>
 		<item>Cynthe</item>
 		<item>Klian</item>
@@ -6950,5 +6950,7 @@
 		<item>a shade</item>
 		<item>a spectre</item>
 		<item>a bogle</item>
+		<item>a ghoul</item>
+		<item>a wraith</item>
 	</list>
 </definitions>

@@ -14,6 +14,7 @@
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
+		<category>Monsters\Common Monsters\Sewer Rat</category>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -56,6 +57,7 @@
 		<name>a frost ooze</name>
 		<id>0x033</id>
 		<inherit id="monster_base"/>
+		<category>Monsters\Common Monsters\Frost Ooze</category>
 		<karma>
 			<random min="-0" max="-624"/>
 		</karma>
@@ -66,7 +68,7 @@
 			<random min="16" max="16"/>
 		</defense>
 		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
+		<hidamage>2</hidamage>
 		<!-- Stats -->
 		<str>
 			<random min="19" max="28"/>
@@ -98,6 +100,7 @@
 		<name>a slime</name>
 		<id>0x033</id>
 		<inherit id="monster_base"/>
+		<category>Monsters\Common Monsters\Slime</category>
 		<karma>
 			<random min="-0" max="-624"/>
 		</karma>
@@ -145,6 +148,7 @@
 		<name>a reaper</name>
 		<id>0x02f</id>
 		<inherit id="monster_base"/>
+		<category>Monsters\Common Monsters\Reaper</category>
 		<karma>
 			<random min="-2500" max="-4999"/>
 		</karma>
@@ -199,6 +203,7 @@
 		<name>a corpser</name>
 		<id>0x008</id>
 		<inherit id="monster_base"/>
+		<category>Monsters\Common Monsters\Corpser</category>
 		<karma>
 			<random min="-625" max="-1249"/>
 		</karma>
@@ -238,5 +243,305 @@
 		</anatomy>
 		<!-- Priv -->
 	</npc>
+
+	<!-- Ice Snake -->
+	<npc id="ice_snake">
+		<name>an ice snake</name>
+		<id>0x345</id>
+		<category>Monsters\Common Monsters\Ice Snake</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="0" max="-624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense>30</defense>
+		<lodamage>1</lodamage>
+		<hidamage>4</hidamage>
+		<str><random min="42" max="54" /></str>
+		<dex><random min="38" max="44" /></dex>
+		<int><random min="26" max="30" /></int>
+		<wrestling><random min="444" max="533" /></wrestling>
+		<tactics><random min="425" max="500" /></tactics>
+		<magicresistance><random min="152" max="194" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+	</npc>
+
+	<!-- Ice Snake -->
+	<npc id="ice_snake">
+		<name>an ice snake</name>
+		<id>0x345</id>
+		<category>Monsters\Common Monsters\Ice Snake</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="0" max="-624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense>30</defense>
+		<lodamage>1</lodamage>
+		<hidamage>4</hidamage>
+		<str><random min="42" max="54" /></str>
+		<dex><random min="38" max="44" /></dex>
+		<int><random min="26" max="30" /></int>
+		<wrestling><random min="444" max="533" /></wrestling>
+		<tactics><random min="425" max="500" /></tactics>
+		<magicresistance><random min="152" max="194" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+	</npc>
+
+	<!-- Lava Snake -->
+	<npc id="lava_snake">
+		<name>a lava snake</name>
+		<id>0x346</id>
+		<category>Monsters\Common Monsters\Lava Snake</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="0" max="-624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense>24</defense>
+		<lodamage>1</lodamage>
+		<hidamage>4</hidamage>
+		<str><random min="46" max="51" /></str>
+		<dex><random min="18" max="25" /></dex>
+		<int><random min="10" max="10" /></int>
+		<wrestling><random min="250" max="341" /></wrestling>
+		<tactics><random min="167" max="278" /></tactics>
+		<magicresistance><random min="158" max="197" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+	</npc>
+
+	<!-- vorpal bunny -->
+	<npc id="vorpal_bunny">
+		<name>a vorpal bunny</name>
+		<id>0xCD</id>
+		<category>Monsters\Common Monsters\Vorpal Bunny</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="0" max="-624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense>4</defense>
+		<lodamage>1</lodamage>
+		<hidamage>2</hidamage>
+		<str><random min="2000" max="2000" /></str>
+		<dex><random min="500" max="500" /></dex>
+		<int><random min="1000" max="1000" /></int>
+		<wrestling><random min="145" max="145" /></wrestling>
+		<tactics><random min="50" max="50" /></tactics>
+		<magicresistance><random min="2000" max="2000" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+	</npc>
+
+	<!-- an ant lion -->
+	<npc id="ant_lion">
+		<name>an ancient wyrm</name>
+		<id>0x313</id>
+		<category>Monsters\Common Monsters\Ant Lion </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="60" max="60"/></defense>
+		<lodamage>10</lodamage>
+		<hidamage>20</hidamage>
+		<!-- Stats -->
+		<str><random min="296" max="317"/></str>
+		<dex><random min="85" max="105"/></dex>
+		<int><random min="38" max="57"/></int>
+		<!-- Skills -->
+		<wrestling><random min="910" max="910"/></wrestling>
+		<tactics><random min="900" max="900"/></tactics>
+		<magicresistance><random min="700" max="1330"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<carve></carve>
+		</npc>
+
+        <!-- elder gazer -->
+        <npc id="elder_gazer">
+                <name>an elder gazer</name>
+                <id>0x44</id>
+                <category>Monsters\Common Monsters\Elder Gazer</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="10000" max="15000" /></karma>
+                <fame><random min="10000" max="15000" /></fame>
+                <defense>50</defense>
+                <lodamage>10</lodamage>
+                <hidamage>18</hidamage>
+                <!-- Stats -->
+                <str><random min="298" max="325" /></str>
+                <dex><random min="86" max="5101" /></dex>
+                <int><random min="301" max="364" /></int>
+                <!-- Skills -->
+                <wrestling><random min="850" max="977" /></wrestling>
+                <tactics><random min="821" max="975" /></tactics>
+                <magicresistance><random min="1187" max="1282" /></magicresistance>
+		<magery><random min="921" max="992" /></magery>
+		<evaluatingintel><random min="258" max="337" /></evaluatingintel>
+                <carve></carve>
+        </npc>
+
+        <!-- gazer -->
+        <npc id="gazer">
+                <name>a gazer</name>
+                <id>0x16</id>
+                <category>Monsters\Common Monsters\Gazer</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-2500" max="-4999" /></karma>
+                <fame><random min="2500" max="4999" /></fame>
+                <defense><random min="36" max="36" /></defense>
+                <lodamage>7</lodamage>
+                <hidamage>14</hidamage>
+                <!-- Stats -->
+                <str><random min="97" max="122" /></str>
+                <dex><random min="86" max="103" /></dex>
+                <int><random min="106" max="165" /></int>
+                <!-- Skills -->
+                <wrestling><random min="557" max="727" /></wrestling>
+                <tactics><random min="528" max="670" /></tactics>
+                <magicresistance><random min="605" max="750" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="575" max="685" /></magery>
+        </npc>
+
+        <!-- mongbat (strong) -->
+        <npc id="mongbat_strong">
+                <name>a mongbat</name>
+                <id>0x27</id>
+                <category>Monsters\Common Monsters\Mongbat (Strong)</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-0" max="-624" /></karma>
+                <fame><random min="0" max="1249" /></fame>
+                <defense><random min="20" max="20" /></defense>
+                <lodamage>3</lodamage>
+                <hidamage>9</hidamage>
+                <!-- Stats -->
+                <str><random min="56" max="80" /></str>
+                <dex><random min="61" max="80" /></dex>
+                <int><random min="26" max="50" /></int>
+                <!-- Skills -->
+                <wrestling><random min="248" max="385" /></wrestling>
+                <tactics><random min="356" max="499" /></tactics>
+                <magicresistance><random min="151" max="294" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<totame>711</totame>
+		<food>1</food>
+        </npc>
+
+        <!-- phoenix -->
+        <npc id="phoenix">
+		<name>a phoenix</name>
+                <id>0x5</id>
+                <category>Monsters\Common Monsters\Phoenix</category>
+                <skin>0x66d</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-0" max="-624" /></karma>
+                <fame><random min="0" max="1249" /></fame>
+                <defense><random min="50" max="50" /></defense>
+                <lodamage>40</lodamage>
+                <hidamage>60</hidamage>
+                <!-- Stats -->
+                <str><random min="546" max="582" /></str>
+                <dex><random min="257" max="201" /></dex>
+                <int><random min="550" max="550" /></int>
+                <!-- Skills -->
+                <wrestling><random min="946" max="999" /></wrestling>
+                <tactics><random min="878" max="982" /></tactics>
+                <magicresistance><random min="1155" max="1328" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="925" max="972" /></magery>
+		<meditation><random min="806" max="889" /></meditation>
+        </npc>
+
+        <!-- sand vortex -->
+        <npc id="sand_vortex">
+		<name>a sand vortex</name>
+                <id>0x316</id>
+                <category>Monsters\Common Monsters\Sand Vortex</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-2500" max="-4999" /></karma>
+                <fame><random min="2500" max="4999" /></fame>
+                <defense><random min="94" max="94" /></defense>
+                <lodamage>7</lodamage>
+                <hidamage>16</hidamage>
+                <!-- Stats -->
+                <str><random min="96" max="120" /></str>
+                <dex><random min="172" max="193" /></dex>
+                <int><random min="82" max="97" /></int>
+                <!-- Skills -->
+                <wrestling><random min="820" max="820" /></wrestling>
+                <tactics><random min="700" max="700" /></tactics>
+                <magicresistance><random min="1500" max="1500" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+        </npc>
+
+        <!-- shadow wisp -->
+        <npc id="shadow_wisp">
+		<name>a shadow wisp</name>
+                <id>0xA5</id>
+                <category>Monsters\Common Monsters\Shadow Wisp</category>
+                <skin>0x66d</skin>
+                <inherit id="monster_base" />
+                <karma><random min="0" max="0" /></karma>
+                <fame><random min="0" max="0" /></fame>
+                <defense><random min="18" max="18" /></defense>
+                <lodamage>1</lodamage>
+                <hidamage>2</hidamage>
+                <!-- Stats -->
+                <str><random min="16" max="40" /></str>
+                <dex><random min="16" max="45" /></dex>
+                <int><random min="11" max="25" /></int>
+                <!-- Skills -->
+                <wrestling><random min="270" max="418" /></wrestling>
+                <tactics><random min="2" max="147" /></tactics>
+                <magicresistance><random min="100" max="100" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="508" max="528" /></magery>
+		<meditation><random min="0" max="0" /></meditation>
+        </npc>
+
+        <!-- swamp tentacle -->
+        <npc id="swamp tentacle">
+		<name>a swamp tentacle</name>
+                <id>0x42</id>
+                <category>Monsters\Common Monsters\Swamp Tentacle</category>
+                <skin>0x66d</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-2500" max="-4999" /></karma>
+                <fame><random min="2500" max="4999" /></fame>
+                <defense><random min="30" max="30" /></defense>
+                <lodamage>7</lodamage>
+                <hidamage>17</hidamage>
+                <!-- Stats -->
+                <str><random min="96" max="120" /></str>
+                <dex><random min="66" max="80" /></dex>
+                <int><random min="18" max="30" /></int>
+                <!-- Skills -->
+                <wrestling><random min="686" max="809" /></wrestling>
+                <tactics><random min="661" max="793" /></tactics>
+                <magicresistance><random min="151" max="193" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+        </npc>
+
+        <!-- wisp -->
+        <npc id="wisp">
+		<name>a wisp</name>
+                <id>0x3a</id>
+                <category>Monsters\Common Monsters\Wisp</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma><random min="0" max="0" /></karma>
+                <fame><random min="0" max="0" /></fame>
+                <defense><random min="40" max="40" /></defense>
+                <lodamage>5</lodamage>
+                <hidamage>17</hidamage>
+                <!-- Stats -->
+                <str><random min="196" max="225" /></str>
+                <dex><random min="196" max="225" /></dex>
+                <int><random min="196" max="225" /></int>
+                <!-- Skills -->
+                <wrestling><random min="820" max="820" /></wrestling>
+                <tactics><random min="800" max="800" /></tactics>
+                <magicresistance><random min="800" max="800" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+        </npc>
 
 </definitions>

@@ -226,43 +226,283 @@
 		<name>a harpy</name>
 		<id>0x01e</id>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="28" max="28"/>
-		</defense>
+		<karma><random min="-1250" max="-2499"/></karma>
+		<fame><random min="1250" max="2499"/></fame>
+		<defense><random min="28" max="28"/></defense>
 		<lodamage>5</lodamage>
 		<hidamage>16</hidamage>
-		<gold>
-			<random min="50" max="150"/>
-		</gold>
+		<gold><random min="50" max="150"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="96" max="118"/>
-		</str>
-		<dex>
-			<random min="86" max="105"/>
-		</dex>
-		<int>
-			<random min="54" max="71"/>
-		</int>
+		<str><random min="96" max="118"/></str>
+		<dex><random min="86" max="105"/></dex>
+		<int><random min="54" max="71"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="731" max="906"/>
-		</wrestling>
-		<tactics>
-			<random min="759" max="994"/>
-		</tactics>
-		<magicresistance>
-			<random min="546" max="650"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="731" max="906"/></wrestling>
+		<tactics><random min="759" max="994"/></tactics>
+		<magicresistance><random min="546" max="650"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
 		<!-- Priv -->
 	</npc>
+
+        <!-- efreet -->
+        <npc id="efreet">
+                <name>an efreet</name>
+                <id>0x83</id>
+                <category>Monsters\deamons\Efreet</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="0" max="-624" /></karma>
+                <fame><random min="0" max="1249" /></fame>
+                <defense>56</defense>
+                <lodamage>15</lodamage>
+                <hidamage>20</hidamage>
+                <!-- Stats -->
+                <str><random min="328" max="354" /></str>
+                <dex><random min="271" max="283" /></dex>
+                <int><random min="177" max="195" /></int>
+                <!-- Skills -->
+                <wrestling><random min="649" max="798" /></wrestling>
+                <tactics><random min="613" max="793" /></tactics>
+                <magicresistance><random min="612" max="740" /></magicresistance>
+		<magery><random min="677" max="776" /></magery>
+		<carve></carve>
+        </npc>
+
+        <!-- enslaved gargoyle -->
+        <npc id="enslaved_gargoyle">
+                <name>an enslaved Gargoyle</name>
+                <id>0x2f1</id>
+                <category>Monsters\deamons\Enslaved Gargoyle</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-5000" max="-9999" /></karma>
+                <fame><random min="5000" max="9999" /></fame>
+                <defense>32</defense>
+                <lodamage>9</lodamage>
+                <hidamage>19</hidamage>
+                <!-- Stats -->
+                <str><random min="316" max="341" /></str>
+                <dex><random min="76" max="94" /></dex>
+                <int><random min="81" max="104" /></int>
+                <!-- Skills -->
+                <wrestling><random min="519" max="777" /></wrestling>
+                <tactics><random min="515" max="685" /></tactics>
+                <magicresistance><random min="716" max="819" /></magicresistance>
+        </npc>
+
+        <!-- fire gargoyle -->
+        <npc id="fire_gargoyle">
+                <name><random list="NAMES_GARGOYLE" /></name>
+                <id>0x82</id>
+                <category>Monsters\deamons\Fire Gargoyle</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-5000" max="-9999" /></karma>
+                <fame><random min="5000" max="9999" /></fame>
+                <defense>32</defense>
+                <lodamage>7</lodamage>
+                <hidamage>16</hidamage>
+                <!-- Stats -->
+                <str><random min="352" max="394" /></str>
+                <dex><random min="127" max="146" /></dex>
+                <int><random min="226" max="250" /></int>
+                <!-- Skills -->
+                <wrestling><random min="464" max="786" /></wrestling>
+                <tactics><random min="830" max="984" /></tactics>
+                <magicresistance><random min="916" max="1045" /></magicresistance>
+		<anatomy><random min="758" max="843" /></anatomy>
+		<magery><random min="927" max="1050" /></magery>
+        </npc>
+
+        <!-- gargoyle destroyer -->
+        <npc id="gargoyle_destoryer">
+                <name>a gargoyle destroyer</name>
+                <id>0x2f3</id>
+                <category>Monsters\deamons\Gargoyle Destroyer</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-10000" max="-15000" /></karma>
+                <fame><random min="10000" max="15000" /></fame>
+                <defense><random min="64" max="78" /></defense>
+                <lodamage>23</lodamage>
+                <hidamage>41</hidamage>
+                <!-- Stats -->
+                <str><random min="797" max="816" /></str>
+                <dex><random min="123" max="137" /></dex>
+                <int><random min="159" max="185" /></int>
+                <!-- Skills -->
+                <wrestling><random min="919" max="963" /></wrestling>
+                <tactics><random min="923" max="995" /></tactics>
+                <magicresistance><random min="1378" max="1497" /></magicresistance>
+		<anatomy><random min="793" max="850" /></anatomy>
+		<magery><random min="949" max="964" /></magery>
+        </npc>
+
+        <!-- gargoyle enforcer -->
+        <npc id="gargoyle_enforcer">
+                <name>a gargoyle enforcer</name>
+                <id>0x2f2</id>
+                <category>Monsters\deamons\Gargoyle Enforcer</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-10000" max="-15000" /></karma>
+                <fame><random min="10000" max="15000" /></fame>
+                <defense><random min="54" max="64" /></defense>
+                <lodamage>23</lodamage>
+                <hidamage>41</hidamage>
+                <!-- Stats -->
+                <str><random min="269" max="309" /></str>
+                <dex><random min="82" max="94" /></dex>
+                <int><random min="117" max="122" /></int>
+                <!-- Skills -->
+                <wrestling><random min="848" max="900" /></wrestling>
+                <tactics><random min="755" max="771" /></tactics>
+                <magicresistance><random min="1206" max="1289" /></magicresistance>
+		<anatomy><random min="719" max="797" /></anatomy>
+		<magery><random min="834" max="889" /></magery>
+		<evaluatingintel><random min="768" max="933" /></evaluatingintel>
+        </npc>
+
+        <!-- hellcat (large) -->
+        <npc id="large_hellcat">
+                <name>a hellcat</name>
+                <id>0x7f</id>
+                <category>Monsters\deamons\Hellcat (Large)</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-1250" max="-2499" /></karma>
+                <fame><random min="1250" max="2499" /></fame>
+                <defense><random min="30" max="30" /></defense>
+                <lodamage>2</lodamage>
+                <hidamage>20</hidamage>
+                <!-- Stats -->
+                <str><random min="161" max="185" /></str>
+                <dex><random min="96" max="115" /></dex>
+                <int><random min="76" max="100" /></int>
+                <!-- Skills -->
+                <wrestling><random min="553" max="678" /></wrestling>
+                <tactics><random min="507" max="637" /></tactics>
+                <magicresistance><random min="755" max="887" /></magicresistance>
+		<totame>891</totame>
+		<food>1</food>
+        </npc>
+
+        <!-- horde minion -->
+        <npc id="gargoyle_destoryer">
+                <name>a horde minion</name>
+                <id>0x308</id>
+                <category>Monsters\deamons\Horde Minion</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-0" max="-624" /></karma>
+                <fame><random min="0" max="1249" /></fame>
+                <defense><random min="18" max="18" /></defense>
+                <lodamage>1</lodamage>
+                <hidamage>5</hidamage>
+                <!-- Stats -->
+                <str><random min="17" max="34" /></str>
+                <dex><random min="34" max="60" /></dex>
+                <int><random min="11" max="25" /></int>
+                <!-- Skills -->
+                <wrestling><random min="278" max="405" /></wrestling>
+                <tactics><random min="25" max="148" /></tactics>
+                <magicresistance><random min="100" max="100" /></magicresistance>
+        </npc>
+
+        <!-- ice fiend -->
+        <npc id="ice_fiend">
+                <name>an ice fiend</name>
+                <id>0x2b</id>
+                <category>Monsters\deamons\Ice Fiend</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-10000" max="-15000" /></karma>
+                <fame><random min="10000" max="15000" /></fame>
+                <defense><random min="60" max="60" /></defense>
+                <lodamage>5</lodamage>
+                <hidamage>20</hidamage>
+                <!-- Stats -->
+                <str><random min="377" max="390" /></str>
+                <dex><random min="176" max="193" /></dex>
+                <int><random min="207" max="224" /></int>
+                <!-- Skills -->
+                <wrestling><random min="847" max="989" /></wrestling>
+                <tactics><random min="808" max="847" /></tactics>
+                <magicresistance><random min="783" max="825" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="888" max="909" /></magery>
+		<evaluatingintel><random min="252" max="316" /></evaluatingintel>
+        </npc>
+
+        <!-- stone gargoyle -->
+        <npc id="stone_gargoyle">
+		<name>a stone gargoyle</name>
+                <id>0x43</id>
+                <category>Monsters\deamons\Stone Gargoyle</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-2500" max="-4999" /></karma>
+                <fame><random min="2500" max="4999" /></fame>
+                <defense><random min="50" max="50" /></defense>
+                <lodamage>7</lodamage>
+                <hidamage>21</hidamage>
+                <!-- Stats -->
+                <str><random min="249" max="275" /></str>
+                <dex><random min="82" max="94" /></dex>
+                <int><random min="85" max="105" /></int>
+                <!-- Skills -->
+                <wrestling><random min="657" max="996" /></wrestling>
+                <tactics><random min="848" max="975" /></tactics>
+                <magicresistance><random min="856" max="972" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+        </npc>
+
+        <!-- stone harpy -->
+        <npc id="stone_harpy">
+		<name>a stone harpy</name>
+                <id>0x49</id>
+                <category>Monsters\deamons\Stone Harpy</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-2500" max="-4999" /></karma>
+                <fame><random min="2500" max="4999" /></fame>
+                <defense><random min="50" max="50" /></defense>
+                <lodamage>7</lodamage>
+                <hidamage>21</hidamage>
+                <!-- Stats -->
+                <str><random min="297" max="317" /></str>
+                <dex><random min="89" max="109" /></dex>
+                <int><random min="51" max="66" /></int>
+                <!-- Skills -->
+                <wrestling><random min="746" max="981" /></wrestling>
+                <tactics><random min="714" max="938" /></tactics>
+                <magicresistance><random min="528" max="648" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+        </npc>
+
+        <!-- succubus -->
+        <npc id="succubus">
+		<name>a succubus</name>
+                <id>0x95</id>
+                <category>Monsters\deamons\Succubus</category>
+                <skin>0</skin>
+                <inherit id="monster_base" />
+                <karma><random min="-10000" max="-15000" /></karma>
+                <fame><random min="10000" max="15000" /></fame>
+                <defense><random min="80" max="80" /></defense>
+                <lodamage>12</lodamage>
+                <hidamage>33</hidamage>
+                <!-- Stats -->
+                <str><random min="540" max="558" /></str>
+                <dex><random min="127" max="133" /></dex>
+                <int><random min="570" max="603" /></int>
+                <!-- Skills -->
+                <wrestling><random min="827" max="848" /></wrestling>
+                <tactics><random min="868" max="890" /></tactics>
+                <magicresistance><random min="1247" max="1331" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="996" max="1000" /></magery>
+		<evaluatingintel><random min="901" max="980" /></evaluatingintel>
+		<meditation><random min="909 max="981" /></meditation>
+        </npc>
 </definitions>
