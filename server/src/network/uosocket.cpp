@@ -1736,7 +1736,6 @@ void cUOSocket::bounceItem( P_ITEM pItem, eBounceReason reason )
 		
 		if( pItem->isInWorld() )
 		{
-			// TODO: Send a drop-soundeffect if we were forced to drop it to ground
 			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 				mSock->soundEffect( 0x42, pItem );
 		}

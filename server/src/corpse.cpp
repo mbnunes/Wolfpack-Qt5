@@ -32,6 +32,7 @@
 #include "network/uotxpackets.h"
 #include "dbdriver.h"
 #include "network/uosocket.h"
+#include "persistentbroker.h"
 
 #include <functional>
 
@@ -84,58 +85,39 @@ void cCorpse::load( char **result, UINT16 &offset )
 
 void cCorpse::save()
 {
+	initSave;
+	setTable( "corpses" );
+	
+	addField( "serial", serial );
+	addField( "bodyid", bodyId_ );
+	addField( "hairstyle", hairStyle_ );
+	addField( "haircolor", hairColor_ );
+	addField( "beardstyle", beardStyle_ );
+	addField( "beardcolor", beardColor_ );
+
+	addCondition( "serial", serial );
+	saveFields;
+
+	// Equipment can change as well
+	if( isPersistent )
+		persistentBroker->executeQuery( QString( "DELETE FROM corpses_equipment WHERE serial = '%1'" ).arg( serial ) );
+
+	for( map< UINT8, SERIAL >::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
+		persistentBroker->executeQuery( QString( "INSERT INTO corpses_equipment SET serial = '%1', layer = '%2', item = '%3'" ).arg( serial ).arg( it->first ).arg( it->second ) );
+
 	cItem::save();
 }
 
 bool cCorpse::del()
 {
-	// Not decided how to do that yet
+	if( !isPersistent )
+		return false;
+
+	persistentBroker->executeQuery( QString( "DELETE FROM corpses WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->executeQuery( QString( "DELETE FROM corpses_equipment WHERE serial = '%1'" ).arg( serial ) );
+
 	return cItem::del();
 }
-
-// abstract cSerializable
-/*void cCorpse::Serialize( ISerialization &archive )
-{
-	if( archive.isReading() )
-	{
-		archive.read( "bodyid", bodyId_ );
-		archive.read( "hairstyle", hairStyle_ );
-		archive.read( "haircolor", hairColor_ );
-		archive.read( "beardstyle", beardStyle_ );
-		archive.read( "beardcolor", beardColor_ );
-
-		unsigned int equipCount = 0;
-		archive.read( "equipcount", equipCount );
-
-		for( UINT8 i = 0; i < equipCount; ++i )
-		{
-			UINT8 eLayer;
-			UINT32 eSerial;
-			archive.read( (char*)QString( "equiplayer.%1" ).arg( i ).latin1(), eLayer );
-			archive.read( (char*)QString( "equipitem.%1" ).arg( i ).latin1(), eSerial );
-			equipment_.insert( make_pair( eLayer, eSerial ) );
-		}
-	}
-	else if( archive.isWritting() )
-	{
-		archive.write( "bodyid", bodyId_ );
-		archive.write( "hairstyle", hairStyle_ );
-		archive.write( "haircolor", hairColor_ );
-		archive.write( "beardstyle", beardStyle_ );
-		archive.write( "beardcolor", beardColor_ );
-		archive.write( "equipcount", equipment_.size() );
-
-		UINT8 i = 0;
-		for( map< UINT8, SERIAL >::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
-		{
-			archive.write( (char*)QString( "equiplayer.%1" ).arg( i ).latin1(), it->first );
-			archive.write( (char*)QString( "equipitem.%1" ).arg( i ).latin1(), it->second );
-			++i;
-		}
-	}
-
-	cItem::Serialize( archive );
-}*/
 
 // abstract cDefinable
 void cCorpse::processNode( const QDomElement &Tag )

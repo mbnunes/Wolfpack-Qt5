@@ -36,6 +36,7 @@
 #include "network/uosocket.h"
 #include "wpdefmanager.h"
 #include "persistentbroker.h"
+#include "dbdriver.h"
 
 #include <qregexp.h>
 #include <qsqlcursor.h>
@@ -72,25 +73,66 @@ cBook::cBook()
 void cBook::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cItem::buildSqlString( fields, tables, conditions );
-	//fields.push_back( "" );
-	//tables.push_back( "boats" );
-	//conditions.push_back( "uobjectmap.serial = boats.serial" );
+	fields.push_back( "books.predefined,books.readonly,books.title,books.author,books.section,books.pages" );
+	tables.push_back( "books" );
+	conditions.push_back( "uobjectmap.serial = books.serial" );
 }
 
 void cBook::load( char **result, UINT16 &offset )
 {
 	cItem::load( result, offset );
-	
+	predefined_ = atoi( result[offset++] );
+	readonly_ = atoi( result[offset++] );
+	title_ = result[offset++];
+	author_ = result[offset++];
+	section_ = result[offset++];
+	pages_ = atoi( result[offset++] );
+
+	// Load the pages
+	cDBDriver driver;
+	cDBResult res = driver.query( QString( "SELECT page,text FROM bookpages WHERE serial = '%1'" ).arg( serial ) );
+
+	while( res.fetchrow() )
+		content_.insert( res.getInt( 0 ), res.getString( 1 ) );
+
+	res.free();
 }
 
 void cBook::save()
 {
+	initSave;
+	setTable( "books" );
+
+	addField( "serial", serial );
+	addField( "predefined", predefined_ ? 1 : 0 );
+	addField( "readonly", readonly_ ? 1 : 0 );
+	addStrField( "title", title_ );
+	addStrField( "author", author_ );
+	addStrField( "section", section_ );
+	addField( "pages", content_.count() );
+
+	addCondition( "serial", serial );
+	saveFields;
+
+	// Delete all Pages from the DB and reinsert them
+	// The Amount of pages CAN change!
+	if( isPersistent )
+		persistentBroker->executeQuery( QString( "DELETE FROM bookpages WHERE serial = '%1'" ).arg( serial ) );
+	
+	for ( QMap<int, QString>::iterator it = content_.begin(); it != content_.end(); ++it )
+		persistentBroker->executeQuery( QString( "INSERT INTO bookpages SET serial = '%1', page = '%2', text = '%3'" ).arg( serial ).arg( it.key() ).arg( __escapeReservedCharacters( it.data() ) ) );
+
 	cItem::save();
 }
 
 bool cBook::del()
 {
-	// Not decided how to do that yet
+	if( !isPersistent )
+		return false;
+
+	persistentBroker->executeQuery( QString( "DELETE FROM books WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->executeQuery( QString( "DELETE FROM bookpages WHERE serial = '%1'" ).arg( serial ) );
+
 	return cItem::del();
 }
 

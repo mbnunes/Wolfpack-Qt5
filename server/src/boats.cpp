@@ -41,6 +41,7 @@
 #include "multiscache.h"
 #include "classes.h" // only for the illegal_z!
 #include "dbdriver.h"
+#include "persistentbroker.h"
 
 #undef DBGFILE
 #define DBGFILE "boats.cpp" 
@@ -1260,7 +1261,7 @@ void cBoat::registerInFactory()
 void cBoat::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cMulti::buildSqlString( fields, tables, conditions );
-	fields.push_back( "boats.autosail,boats.boatdir,boats.itemserial1,boats.itemserial2,boats.itemserial3,boats.itemserial4,boats.multi1,boats.multi2,boats.multi3,boats.multi4,boats.multi5,boats.multi6,boats.multi6,boats.multi7,boats.multi8" );
+	fields.push_back( "boats.autosail,boats.boatdir,boats.itemserial1,boats.itemserial2,boats.itemserial3,boats.itemserial4,boats.multi1,boats.multi2,boats.multi3,boats.multi4" );
 	tables.push_back( "boats" );
 	conditions.push_back( "uobjectmap.serial = boats.serial" );
 }
@@ -1276,7 +1277,7 @@ void cBoat::load( char **result, UINT16 &offset )
 	for( i = 0; i < 4; ++i )
 		itemserials[i] = atoi( result[offset++] );
 
-	for( i = 0; i < 8; ++i )
+	for( i = 0; i < 4; ++i )
 		multiids_.push_back( atoi( result[offset++] ) );
 
 	// Load the other tables
@@ -1332,98 +1333,73 @@ void cBoat::load( char **result, UINT16 &offset )
 
 void cBoat::save()
 {
+	initSave;
+
+	setTable( "boats" );
+
+	addField( "serial", serial );
+	addField( "autosail", autosail_ );
+	addField( "boatdir", boatdir );
+
+	INT32 i, j, k;
+
+	for( i = 0; i < 4; ++i )
+		addField( QString( "itemserial%1" ).arg( i ), itemserials[i] );
+
+	for( i = 0; i < 4; ++i )
+		addField( QString( "multi%1" ).arg( i ), multiids_[i] );
+
+	addCondition( "serial", serial );
+	saveFields;
+
+	// Save the other tables as well	
+	for( i = 0; i < 4; i ++ )
+	{
+		for( j = 0; j < 6; j++ )
+		{
+			clearFields;
+			setTable( "boats_itemids" );
+			addField( "a", i );
+			addField( "b", j );
+			addField( "id", itemids[i][j] );
+			addCondition( "a", i );
+			addCondition( "b", j );
+			saveFields;
+		}
+	}
+
+	for( i = 0; i < 4; i++ )
+	{
+		for( j = 0; j < 4; j++ )
+		{
+			for( k = 0; k < 2; k++ )
+			{
+				clearFields;
+				setTable( "boats_itemoffsets" );
+				addField( "a", i );
+				addField( "b", j );
+				addField( "c", k );
+				addField( "offset", itemoffsets[i][j][k] );
+				addCondition( "a", i );
+				addCondition( "b", j );
+				addCondition( "c", k );
+				saveFields;
+			}
+		}
+	}
+
 	cMulti::save();
 }
 
-/*void cBoat::save( const QString &s  )
-{
-	// Not decided how to do that yet
-}*/
-
 bool cBoat::del()
 {
-	// Not decided how to do that yet
+	if( !isPersistent )
+		return false;
+
+	persistentBroker->executeQuery( QString( "DELETE FROM boats WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->executeQuery( QString( "DELETE FROM boats_itemoffsets WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->executeQuery( QString( "DELETE FROM boats_itemids WHERE serial = '%1'" ).arg( serial ) );
+
 	return cMulti::del();
 }
-
-/*void cBoat::Serialize( ISerialization &archive )
-{
-	if( archive.isReading() )
-	{
-		archive.read( "boat.autosail", autosail_ );
-		archive.read( "boat.dir", boatdir );
-		int i,j,k;
-		for( i = 0; i < 8; i++ )
-		{
-			int currid = 0;
-			archive.read( (char*)QString("boat.multiid%1").arg(i).latin1(), currid );
-			this->multiids_.push_back( currid );
-		}
-		for( i = 0; i < 4; i++ )
-		{
-			for( j = 0; j < 4; j++ )
-			{
-				for( k = 0; k < 2; k++ )
-				{
-					signed short curroffset = 0;
-					archive.read( (char*)QString("boat.itemoffset.%1.%2.%3").arg(i).arg(j).arg(k).latin1(), curroffset );
-					this->itemoffsets[i][j][k] = curroffset;
-				}
-			}
-		}
-		for( i = 0; i < 4; i++ )
-		{
-			for( j = 0; j < 6; j++ )
-			{
-				unsigned short currid = 0;
-				archive.read( (char*)QString("boat.itemid.%1.%2").arg(i).arg(j).latin1(), currid );
-				this->itemids[i][j] = currid;
-			}
-		}
-
-		for( i = 0; i < 4; ++i )
-		{
-			int serial = 0;
-			archive.read( (char*)QString("boat.itemserial.%1").arg(i).latin1(), serial );
-			this->itemserials[ i ] = serial;
-		}
-	}
-	else
-	{
-		archive.write( "boat.autosail", autosail_ );
-		archive.write( "boat.dir", boatdir );
-		int i, j, k;
-		for( i = 0; i < 8; i++ )
-		{
-			int currid = this->multiids_[i];
-			archive.write( (char*)QString("boat.multiid%1").arg(i).latin1(), currid );
-		}
-		for( i = 0; i < 4; i++ )
-		{
-			for( j = 0; j < 4; j++ )
-			{
-				for( k = 0; k < 2; k++ )
-				{
-					archive.write( (char*)QString("boat.itemoffset.%1.%2.%3").arg(i).arg(j).arg(k).latin1(), this->itemoffsets[i][j][k] );
-				}
-			}
-		}
-		for( i = 0; i < 4; i ++ )
-		{
-			for( j = 0; j < 6; j++ )
-			{
-				archive.write( (char*)QString("boat.itemid.%1.%2").arg(i).arg(j).latin1(), this->itemids[i][j] );
-			}
-		}
-
-		for( i = 0; i < 4; ++i )
-		{
-			archive.write( (char*)QString("boat.itemserial.%1").arg(i).latin1(), this->itemserials[i] );
-		}
-
-	}
-	cMulti::Serialize( archive );
-}
-*/
-
 

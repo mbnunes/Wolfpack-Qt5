@@ -105,7 +105,6 @@ bool PersistentBroker::deleteObject( PersistentObject* object )
 
 bool PersistentBroker::executeQuery( const QString& query )
 {
-	qWarning( query );
 	bool result = connection->execute(query);
 	if( !result )
 	{

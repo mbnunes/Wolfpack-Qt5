@@ -930,6 +930,8 @@ void cChar::save()
 		addField( "skill", j );
 		addField( "value", baseSkill_[j] );
 		addField( "locktype", lockSkill_[j] );
+		addCondition( "serial", serial );
+		addCondition( "skill", j );
 		saveFields;
 	}
 
@@ -937,7 +939,10 @@ void cChar::save()
 }
 
 bool cChar::del()
-{
+{	
+	if( !isPersistent )
+		return false; // We didn't need to delete the object
+
 	persistentBroker->executeQuery( QString( "DELETE FROM characters WHERE `serial`= '%1'" ).arg( serial ) );
 	persistentBroker->executeQuery( QString( "DELETE FROM skills WHERE `serial`= '%1'" ).arg( serial ) );
 	return cUObject::del();

@@ -180,7 +180,7 @@ void cItem::toBackpack( P_CHAR pChar )
 	// Pack it to the ground
 	if( !pPack )
 	{
-		container_ = 0;
+		removeFromCont();
 		moveTo( pChar->pos );
 		update();
 	}
@@ -551,7 +551,10 @@ static void itemRegisterAfterLoading( P_ITEM pi );
 
 bool cItem::del()
 {
-	persistentBroker->executeQuery( QString( "DELETE FROM items WHERE `serial` = '%1'" ).arg( serial ) );
+	if( !isPersistent )
+		return false; // We didn't need to delete the object
+
+	persistentBroker->executeQuery( QString( "DELETE FROM items WHERE serial = '%1'" ).arg( serial ) );
 	return cUObject::del();
 }
 
@@ -720,21 +723,9 @@ void cAllItems::DeleItem(P_ITEM pi)
 
 		// - remove from cMapObjects::getInstance() if a world item
 		if( pi->isInWorld() ) 
-		{
 			cMapObjects::getInstance()->remove(pi);
-		}
 		else
-		{
-			P_ITEM container = dynamic_cast<P_ITEM>(pi->container());
-			if ( container )
-				container->removeItem(pi);
-			else
-			{
-				P_CHAR pWearer = dynamic_cast<P_CHAR>(pi->container());
-				if ( pWearer )
-					pWearer->removeItem( static_cast<cChar::enLayer>( pi->layer() ) );
-			}
-		}
+			pi->removeFromCont();
 
         // if a new book gets deleted also delete the corresponding bok file
 
@@ -744,9 +735,10 @@ void cAllItems::DeleItem(P_ITEM pi)
 		cItem::ContainerContent::const_iterator end( container.end()   );
 		for ( ; it != end; ++it )
 		{
+			// This could turn out to be a problem. We're removing from top-cont as well
 			P_ITEM pContent = *it;
-			if (pContent != NULL)
-				DeleItem(pContent);
+			if( pContent )
+				DeleItem( pContent );
 		}
 
 		// if it is within a multi, delete it from the multis vector

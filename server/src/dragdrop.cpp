@@ -611,26 +611,16 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 		socket->bounceItem( pItem, BR_CANNOT_PICK_THAT_UP );
 		return;
 	}
-	
-	if ( pItem->container() )
-	{
-		P_ITEM pi = dynamic_cast<P_ITEM>( pItem->container() );
-		if ( pi )
-			pi->removeItem(pItem);
-		else
-		{
-			P_CHAR pc = dynamic_cast<P_CHAR>( pItem->container() );
-			pc->removeItem( static_cast<cChar::enLayer>( pItem->layer() ) );
-		}
-	}
 
-	pItem->moveTo( pos );	
-	pItem->setLayer( 0 );
+	pItem->removeFromCont();
+	pItem->moveTo( pos );
 	pItem->update();
+
 	if( pItem->priv & 0x01 )
 		pItem->startDecay();
 
 	// Multi handling
+	// Has it been dropped into a multi
 	cMulti* pMulti = cMulti::findMulti( pos );
 	if( pMulti )
 	{
