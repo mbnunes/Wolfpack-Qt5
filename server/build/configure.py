@@ -80,7 +80,7 @@ def checkQt():
 		QMAKE_EXECUTABLE = "qmake"
 
 	sys.stdout.write( "Checking QTDIR enviroment variable..." )
-	if ( len( os.environ["QTDIR"] ) > 0 and os.path.exists( os.environ["QTDIR"] ) ):
+	if ( os.environ.has_key("QTDIR") and os.path.exists( os.environ["QTDIR"] ) ):
 		sys.stdout.write( "ok\n" )
 	else:
 		sys.stdout.write( red("failed") + "\n" )
