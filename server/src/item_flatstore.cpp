@@ -568,7 +568,7 @@ bool cItem::postload() throw()
 				return false;
 			}
 
-			pItem->addItem( pItem, false, true, true );
+			pItem->addItem( this, false, true, true );
 		}
 	}
 	else

@@ -2428,8 +2428,14 @@ void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 
 void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRemove )
 {
-	if( pItem == this || !pItem )
+	if( !pItem )
 		return;
+
+	if( pItem == this )
+	{
+		clConsole.log( LOG_WARNING, QString( "Rejected putting an item into itself (%1)" ).arg( serial_, 0, 16 ) );
+		return;
+	}
 
 	if( !noRemove )
 		pItem->removeFromCont( handleWeight );
