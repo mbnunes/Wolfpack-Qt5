@@ -56,6 +56,8 @@ extern int main( int argc, char **argv );
 #define CONTROL_LOGWINDOW 0x10
 #define CONTROL_INPUT 0x11
 
+HBITMAP hLogo = 0;
+HBRUSH hbSeparator = 0, hbBackground = 0;
 HWND logWindow = 0;			// Log Window
 HWND inputWindow = 0;		// Input Textfield
 HWND mainWindow = 0;		// Main Window
@@ -83,6 +85,44 @@ static QString getErrorString()
 	return result;
 }
 
+// Fill a rectangular on a specific context
+void paintRect( HDC dc, INT32 x, INT32 y, INT32 width, INT32 height, HBRUSH brush )
+{
+	RECT rect;
+	rect.bottom = y + height;
+	rect.right = x + width;
+	rect.top = y;
+	rect.left = x;
+
+	FillRect( dc, &rect, brush );
+}
+
+void drawWindow( HWND window )
+{
+	PAINTSTRUCT paintInfo;
+	HDC dc = BeginPaint( window, &paintInfo );
+
+	RECT rect;
+	GetClientRect( window,  &rect );
+
+	paintRect( dc, 0, 0, rect.right, 87, hbBackground );
+	paintRect( dc, 0, 87, rect.right, 1, hbSeparator );
+
+	// Draw our Logo
+	HDC tempdc = CreateCompatibleDC( dc );
+	HGDIOBJ oldobj = SelectObject( tempdc, hLogo );
+
+	BITMAP bm;
+	GetObject( hLogo, sizeof(bm), &bm );
+
+	BitBlt( dc, 0, 0, bm.bmWidth, bm.bmHeight, tempdc, 0, 0, SRCCOPY );
+
+	SelectObject( tempdc, oldobj );
+	DeleteDC( tempdc );
+
+	EndPaint( window, &paintInfo );
+}
+
 LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam )
 {
 	if( mainWindow && hwnd != mainWindow )
@@ -95,6 +135,10 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 	switch( msg )
 	{
 	case WM_CREATE:
+		hLogo = LoadBitmap( appInstance, MAKEINTRESOURCE( IDB_LOGO ) );
+		hbSeparator = CreateSolidBrush( RGB( 0xAF, 0xAF, 0xAF ) );
+		hbBackground = CreateSolidBrush( RGB( 0, 64, 38 ) );
+
 		// Create Richedit Box
 		logWindow = CreateWindow( RICHEDIT_CLASS, 0, ES_LEFT|ES_MULTILINE|ES_AUTOVSCROLL|ES_READONLY|WS_CHILD|WS_VISIBLE|WS_VSCROLL, 0, 0, 10, 10, hwnd, (HMENU)CONTROL_LOGWINDOW, appInstance, 0 );
 
@@ -158,11 +202,15 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 					inputHeight = logfont.lfHeight + 4;
 			}
 
-			MoveWindow( logWindow, 0, 0, width, height - inputHeight, TRUE );
+			// Note: 88 pixel spacer are always on top
+			MoveWindow( logWindow, 0, 88, width, height - inputHeight - 88, TRUE );
 			MoveWindow( inputWindow, 0, height - inputHeight, width, inputHeight, TRUE );
 		}
 
 		return 0;
+
+	case WM_PAINT:
+		drawWindow( hwnd );
 
 	case WM_ERASEBKGND:
 		return 1;
@@ -213,6 +261,9 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		return 1;
 
 	case WM_DESTROY:
+		DeleteObject( hLogo );
+		DeleteObject( hbSeparator );
+		DeleteObject( hbBackground );
 		keeprun = 0;
 		PostQuitMessage( 0 );
 		return 0;
