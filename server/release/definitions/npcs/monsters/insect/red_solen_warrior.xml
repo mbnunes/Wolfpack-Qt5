@@ -5,21 +5,31 @@
 	<npc id="red_solen_warrior">
 		<name>a red solen warrior</name>
 		<id>0x30e</id>
-		<category>Monsters\Solen\Red Solen Warrior </category>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="52" max="52"/></defense>
-		<lodamage>11</lodamage>
-		<hidamage>33</hidamage>
+		<karma>-3000</karma>
+		<fame>3000</fame>
 		<!-- Stats -->
 		<str><random min="196" max="220"/></str>
 		<dex><random min="101" max="125"/></dex>
 		<int><random min="36" max="60"/></int>
 		<!-- Skills -->
-		<wrestling>800</wrestling>
-		<tactics>800</tactics>
 		<magicresistance>600</magicresistance>
+		<tactics>800</tactics>
+		<wrestling>800</wrestling>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>15</hidamage>
+		<tag name="physicaldamage" value="80" />
+		<tag name="poisondamage" value="20" />
+		<!-- Resists -->
+		<defense><random min="52" max="52"/></defense>
+		<tag name="coldresist" value="10,25" />
+		<tag name="energyresist" value="10,25" />
+		<tag name="fireresist" value="20,35" />
+		<tag name="physicalresist" value="20,35" />
+		<tag name="poisonresist" value="20,35" />
+		<!-- Misc. -->
+		<category>Monsters\Solen\Red Solen Warrior</category>
 	</npc>
 
 </definitions>

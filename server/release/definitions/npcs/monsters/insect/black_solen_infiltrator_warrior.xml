@@ -5,21 +5,31 @@
 	<npc id="black_solen_infiltrator_warrior">
 		<name>a black solen infiltrator</name>
 		<id>0x326</id>
-		<category>Monsters\Solen\Black Solen Infiltrator (Warrior)</category>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="20" max="35"/></defense>
-		<lodamage>11</lodamage>
-		<hidamage>33</hidamage>
+		<karma>-3000</karma>
+		<fame>3000</fame>
 		<!-- Stats -->
 		<str><random min="206" max="230"/></str>
 		<dex><random min="121" max="145"/></dex>
 		<int><random min="66" max="90"/></int>
 		<!-- Skills -->
-		<wrestling>800</wrestling>
-		<tactics>800</tactics>
 		<magicresistance>800</magicresistance>
+		<tactics>800</tactics>
+		<wrestling>800</wrestling>
+		<!-- Damage -->
+		<lodamage>11</lodamage>
+		<hidamage>33</hidamage>
+		<tag name="physicaldamage" value="80" />
+		<tag name="poisondamage" value="20" />
+		<!-- Resists -->
+		<defense><random min="20" max="35"/></defense>
+		<tag name="coldresist" value="10,25" />
+		<tag name="energyresist" value="10,25" />
+		<tag name="fireresist" value="20,35" />
+		<tag name="physicalresist" value="20,35" />
+		<tag name="poisonresist" value="20,35" />
+		<!-- Misc. -->
+		<category>Monsters\Solen\Black Solen Infiltrator (Warrior)</category>
 	</npc>
 
 </definitions>

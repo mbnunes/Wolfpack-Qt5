@@ -5,24 +5,33 @@
 	<npc id="frost_spider">
 		<name>a frost spider</name>
 		<id>0x14</id>
-		<category>Monsters\Giant Animals\Frost Spider</category>
-		<skin>0</skin>
 		<inherit id="animal_base" />
-		<karma><random min="-0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
-		<defense><random min="25" max="30" /></defense>
-		<lodamage>9</lodamage>
-		<hidamage>28</hidamage>
+		<karma>-775</karma>
+		<fame>775</fame>
 		<!-- Stats -->
-		<str><random min="76" max="100" /></str>
-		<dex><random min="126" max="145" /></dex>
-		<int><random min="36" max="60" /></int>
+		<str><random min="76" max="100"/></str>
+		<dex><random min="126" max="145"/></dex>
+		<int><random min="36" max="60"/></int>
 		<!-- Skills -->
-		<wrestling><random min="501" max="650" /></wrestling>
-		<tactics><random min="351" max="500" /></tactics>
-		<magicresistance><random min="251" max="400" /></magicresistance>
+		<magicresistance><random min="251" max="400"/></magicresistance>
+		<tactics><random min="351" max="500"/></tactics>
+		<wrestling><random min="501" max="650"/></wrestling>
+		<!-- Damage -->
+		<lodamage>6</lodamage>
+		<hidamage>16</hidamage>
+		<tag name="firedamage" value="80" />
+		<tag name="physicaldamage" value="20" />
+		<!-- Resists -->
+		<defense><random min="25" max="30" /></defense>
+		<tag name="coldresist" value="40,50" />
+		<tag name="energyresist" value="10,20" />
+		<tag name="fireresist" value="5,10" />
+		<tag name="physicalresist" value="25,30" />
+		<tag name="poisonresist" value="20,30" />
+		<!-- Misc. -->
+		<desc>The giant spider of the tundra hunts by burrowing into the snow and waiting to trap passers by. Unfortunate creatures caught by the spider are often paralyzed by its venom. The spider then envelops the victimin a cocoon of silk. Victims are then used over time to feed the spider. When the victim is used up, only the desiccated husk and their possessions remain.</desc>
 		<totame>747</totame>
-		<food>1</food>
+		<category>Monsters\Insects\Frost Spider</category>
 	</npc>
 
 </definitions>

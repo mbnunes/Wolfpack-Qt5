@@ -1,31 +1,41 @@
 
 <definitions>
 
-	<!-- a scorpion -->
-	<npc id="scorpion">
-		<name>a scorpion</name>
-		<id>0x030</id>
-		<category>Monsters\Giant Animals\Scorpion</category>
+	<!-- a giant scorpion -->
+	<npc id="giant_scorpion">
+		<name>a giant scorpion</name>
+		<id>0x30</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-1250" max="-2499"/></karma>
-		<fame><random min="1250" max="2499"/></fame>
-		<defense><random min="20" max="25"/></defense>
-		<lodamage>8</lodamage>
-		<hidamage>17</hidamage>
+		<karma>-2000</karma>
+		<fame>2000</fame>
 		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="73" max="115"/></str>
 		<dex><random min="76" max="95"/></dex>
 		<int><random min="16" max="30"/></int>
 		<!-- Skills -->
-		<wrestling>	<random min="503" max="650"/></wrestling>
-		<tactics><random min="603" max="750"/></tactics>
-		<magicresistance><random min="301" max="350"/></magicresistance>
 		<poisoning><random min="801" max="1000"/></poisoning>
+		<magicresistance><random min="301" max="350"/></magicresistance>
+		<tactics><random min="603" max="750"/></tactics>
+		<wrestling><random min="503" max="650"/></wrestling>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>10</hidamage>
+		<tag name="physicaldamage" value="60" />
+		<tag name="poisondamage" value="40" />
+		<!-- Resists -->
+		<defense><random min="20" max="25"/></defense>
+		<tag name="coldresist" value="20,25" />
+		<tag name="energyresist" value="10,15" />
+		<tag name="fireresist" value="10,15" />
+		<tag name="physicalresist" value="20,25" />
+		<tag name="poisonresist" value="40,50" />
+		<!-- Misc. -->
+		<desc>These are the most horrid of all the giant vermin, for the venom in their great stingers is potent enough to slay a strong man with a single strike. Gold is often found in their nests, but this seems to be more due to the scavenger's love for shiny objects than to any sentience.</desc>
 		<carve>carve_scorpion_gaint</carve>
 		<totame>471</totame>
 		<food>1</food>
-		<!-- Priv -->
+		<category>Monsters\Insects\Giant Scorpion</category>
 	</npc>
 
 </definitions>

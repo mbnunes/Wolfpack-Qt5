@@ -5,21 +5,31 @@
 	<npc id="red_solen_queen">
 		<name>a red solen infiltrator</name>
 		<id>0x30f</id>
-		<category>Monsters\Solen\Red Solen Queen </category>
 		<inherit id="monster_base"/>
-		<karma><random min="-5000" max="-9999"/></karma>
-		<fame><random min="5000" max="9999"/></fame>
-		<defense><random min="30" max="40"/></defense>
-		<lodamage>26</lodamage>
-		<hidamage>39</hidamage>
+		<karma>-4500</karma>
+		<fame>4500</fame>
 		<!-- Stats -->
 		<str><random min="296" max="320"/></str>
 		<dex><random min="121" max="145"/></dex>
 		<int><random min="76" max="100"/></int>
 		<!-- Skills -->
-		<wrestling>900</wrestling>
-		<tactics>900</tactics>
 		<magicresistance>700</magicresistance>
+		<tactics>900</tactics>
+		<wrestling>900</wrestling>
+		<!-- Damage -->
+		<lodamage>10</lodamage>
+		<hidamage>15</hidamage>
+		<tag name="physicaldamage" value="70" />
+		<tag name="poisondamage" value="30" />
+		<!-- Resists -->
+		<defense><random min="30" max="40"/></defense>
+		<tag name="coldresist" value="25,35" />
+		<tag name="energyresist" value="25,30" />
+		<tag name="fireresist" value="30,35" />
+		<tag name="physicalresist" value="30,40" />
+		<tag name="poisonresist" value="35,40" />
+		<!-- Misc. -->
+		<category>Monsters\Solen\Red Solen Queen</category>
 	</npc>
 
 </definitions>

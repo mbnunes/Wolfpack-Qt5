@@ -5,13 +5,9 @@
 	<npc id="red_solen_worker">
 		<name>a red solen worker</name>
 		<id>0x30d</id>
-		<category>Monsters\Solen\Red Solen Worker</category>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="25" max="30"/></defense>
-		<lodamage>8</lodamage>
-		<hidamage>12</hidamage>
+		<karma>-1500</karma>
+		<fame>1500</fame>
 		<!-- Stats -->
 		<str><random min="96" max="120"/></str>
 		<dex><random min="81" max="105"/></dex>
@@ -20,6 +16,18 @@
 		<wrestling>600</wrestling>
 		<tactics>650</tactics>
 		<magicresistance>600</magicresistance>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>7</hidamage>
+		<!-- Resists -->
+		<defense><random min="25" max="30"/></defense>
+		<tag name="coldresist" value="10,20" />
+		<tag name="energyresist" value="20,30" />
+		<tag name="fireresist" value="20,30" />
+		<tag name="physicalresist" value="25,30" />
+		<tag name="poisonresist" value="10,20" />
+		<!-- Misc. -->
+		<category>Monsters\Solen\Red Solen Worker</category>
 	</npc>
 
 </definitions>

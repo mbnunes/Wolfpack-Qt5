@@ -5,24 +5,31 @@
 	<npc id="giant_black_widow">
 		<name>a giant black widown</name>
 		<id>0x9d</id>
-		<category>Monsters\Giant Animals\Giant Black Widow</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
-		<defense><random min="20" max="30" /></defense>
-		<lodamage>11</lodamage>
-		<hidamage>35</hidamage>
+		<karma>-3500</karma>
+		<fame>3500</fame>
 		<!-- Stats -->
 		<str><random min="76" max="100" /></str>
 		<dex><random min="96" max="115" /></dex>
 		<int><random min="36" max="60" /></int>
 		<!-- Skills -->
-		<wrestling><random min="701" max="850" /></wrestling>
-		<tactics><random min="651" max="800" /></tactics>
-		<magicresistance><random min="451" max="600" /></magicresistance>
-		<anatomy><random min="303" max="750" /></anatomy>
-		<poisoning><random min="601" max="800" /></poisoning>
+		<anatomy><random min="303" max="750"/></anatomy>
+		<poisoning><random min="601" max="800"/></poisoning>
+		<magicresistance><random min="451" max="600"/></magicresistance>
+		<tactics><random min="651" max="800"/></tactics>
+		<wrestling><random min="701" max="850"/></wrestling>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>17</hidamage>
+		<!-- Resists -->
+		<defense><random min="20" max="30" /></defense>
+		<tag name="coldresist" value="10,20" />
+		<tag name="energyresist" value="10,20" />
+		<tag name="fireresist" value="10,20" />
+		<tag name="physicalresist" value="20,30" />
+		<tag name="poisonresist" value="50,60" />
+		<!-- Misc. -->
+		<category>Monsters\Insects\Giant Black Widow</category>
 	</npc>
 
 </definitions>
