@@ -543,12 +543,25 @@
 		</action>
 
 		<action type="resource">
-			<name>Spoon</name>
+			<name>Spoon(Left)</name>
 			<model>0x09c2</model>
 			<description>a spoon</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="1" />
 				<makeitem section="9c2" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Spoon(Right)</name>
+			<model>0x09c3</model>
+			<description>a spoon</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="1" />
+				<makeitem section="9c3" amount="1" />
 				<skillcheck skillid="37" min="0" max="100" />
 			</make>
 			<fail>You failed</fail>
@@ -569,7 +582,20 @@
 		</action>
 
 		<action type="resource">
-			<name>Fork</name>
+			<name>Fork(Left)</name>
+			<model>0x09f4</model>
+			<description>a fork</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="1" />
+				<makeitem section="9f4" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Fork(Right)</name>
 			<model>0x09f5</model>
 			<description>a fork</description>
 			<make resource="RESOURCE_INGOT">
@@ -595,7 +621,20 @@
 		</action>
 
 		<action type="resource">
-			<name>Knife</name>
+			<name>Knife(Left)</name>
+			<model>0x09f6</model>
+			<description>a knife</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="1" />
+				<makeitem section="9f6" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Knife(Right)</name>
 			<model>0x09f7</model>
 			<description>a knife</description>
 			<make resource="RESOURCE_INGOT">
@@ -769,12 +808,15 @@
 			<make script="skills.tinkering.makering" />
 		</action>
 
-		<action type="script">
+		<!--
+		what gem we use ??
+		-->
+		<!--action type="script">
 			<name>Necklace(Silver)</name>
 			<model>0x1f0a</model>
 			<description>a silver necklace</description>
 			<make script="skills.tinkering.makesilvernecklace" />
-		</action>
+		</action-->
 
 		<action type="script">
 			<name>Necklace(Jeweled)</name>
@@ -790,12 +832,15 @@
 			<make script="skills.tinkering.makeearring" />
 		</action>
 
-		<action type="script">
+		<!--
+		don't know what gem we use
+		-->
+		<!--action type="script">
 			<name>Necklace(Golden)</name>
 			<model>0x1089</model>
 			<description>a golden necklace</description>
 			<make script="skills.tinkering.makegoldennecklace" />
-		</action>
+		</action-->
 
 		<action type="script">
 			<name>Bracelet</name>

@@ -52,6 +52,7 @@
 	<script id="skills.bowcraft" type="python" module="skills.bowcraft" />
 	<script id="skills.cooking" type="python" module="skills.cooking" />
 	<script id="skills.alchemy" type="python" module="skills.alchemy" />
+	<script id="skills.tinkering" type="python" module="skills.tinkering" />
 
 	<!-- Load *LAST* thats important -->
 	<script id="errorhandler"	type="python" module="errorhandler" />
