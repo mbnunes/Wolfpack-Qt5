@@ -1058,6 +1058,7 @@ void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )
 				tooltips.addLine( 0xF9060 + pItem->id(), "" );
 			else
 				tooltips.addLine( 0x1005bd, " \t" + pItem->name() + "\t " );
+
 			this->send( &tooltips );
 		}
 	}

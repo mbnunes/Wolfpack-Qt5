@@ -2363,6 +2363,21 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 
 void cItem::sendTooltip( cUOSocket* mSock )
 {
+	// There is a list of statically overridden items in the client (@50A1C0 for 4.0.0o)
+	unsigned short id = this->id();
+
+	// Mostly Signs (not movable but still have tooltips shown)
+	if(	( id >= 0xba3 && id <= 0xc0e ) ||
+		( id >= 0x1297 && id <= 0x129e ) ||
+		( id >= 0x3e4a && id <= 0x3e55 ) ||
+		( id >= 0xed4 && id <= 0xede ) ||
+		( id >= 0x1165 && id <= 0x1184 )
+		)
+	{
+		cUObject::sendTooltip( mSock );
+		return;
+	}
+
 	// Don't send the tooltip if we're a supposed-to-be-static item
 	tile_st tile = TileCache::instance()->getTile( id_ );
 
