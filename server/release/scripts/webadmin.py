@@ -230,65 +230,61 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 	    print "Could not write to logfile: web.log\n"
 
 class WebserverThread(Thread):
-    def __init__( self, port=REMOTEADMIN_PORT ):
-	Thread.__init__( self )
-	self.port = port
-	self.stopped = Event()
-	self.httpd = None
+  def __init__( self, port=REMOTEADMIN_PORT ):
+    Thread.__init__( self )
+    self.port = port
+    self.stopped = Event()
+    self.httpd = None
 
-    def cancel( self ):
-      self.stopped.set()
-      self.httpd.server_close()
+  def cancel( self ):
+    self.stopped.set()
 
-    def run( self ):
-      # Wait with binding the webserver for 5 Seconds
-      server_address = ( '', self.port )
+  def run( self ):
+    # Wait with binding the webserver for 5 Seconds
+    server_address = ('', self.port)
+    
+    # Starting up
+    if not wolfpack.isreloading():
+      wolfpack.console.send("Remote Admin running on port %u\n" % self.port)
+    
+    try:
+      filepath = os.path.normpath(os.path.abspath('web/'))
+      self.httpd = Webserver(('', self.port), filepath)
+    except:
+      traceback.print_exc()
+      return
+    
+    while not self.stopped.isSet():
+      self.httpd.handle_request()
+      self.stopped.wait(0.05)
 
-      # Starting up
-      if not wolfpack.isreloading():
-            wolfpack.console.send( "Remote Admin running on port %u\n" % self.port )
-
-      try:
-            filepath = os.path.normpath( os.path.abspath( 'web/' ) )
-            self.httpd = Webserver( ( '', self.port ), filepath )
-      except:
-            traceback.print_exc()
-            return
-
-      while 1:
-            self.httpd.handle_request()
-            self.stopped.wait( 0.05 )
-            
-            if self.stopped.isSet():
-                  break
-
-      wolfpack.console.send( "Shutting down the Remote Admin.\n" )
+    wolfpack.console.send("Shutting down the Remote Admin.\n")
 
 thread = None
 
 def onServerStart():
-	web.sessions.clear_sessions()
-
-	global thread
-	thread = WebserverThread( REMOTEADMIN_PORT )
-	thread.start()
+  web.sessions.clear_sessions()
+  
+  global thread
+  thread = WebserverThread(REMOTEADMIN_PORT)
+  thread.start()
 
 def onLoad():
-	# Not on ServerStart
-	if not wolfpack.isstarting():
-		web.sessions.clear_sessions()
+  # Not on ServerStart
+  if not wolfpack.isstarting():
+    web.sessions.clear_sessions()
 
-		# Start the Thread
-		global thread
-		thread = WebserverThread( REMOTEADMIN_PORT )
-		thread.start()
+    # Start the Thread
+    global thread
+    thread = WebserverThread( REMOTEADMIN_PORT )
+    thread.start()
 
 def onUnload():
 	# Stop the Thread
 	global thread
 	if thread:
 		thread.cancel()
-		time.sleep( 1 )	# This is needed to allow the thread to sync (Remember => global interpreter lock)
+		time.sleep(30) # This is needed to allow the thread to sync (Remember => global interpreter lock)
 		thread.join() # Join with the thread
 
 	web.sessions.clear_sessions()
