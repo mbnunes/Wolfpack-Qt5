@@ -645,8 +645,8 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->setId( ( packet->gender() == 1 ) ? 0x191 : 0x190 );
 	pChar->xid = pChar->id();
 
-	pChar->st = packet->strength();
-	pChar->hp = pChar->st;
+	pChar->setSt( packet->strength() );
+	pChar->hp = pChar->st();
 
 	pChar->setDex( packet->dexterity() );
 	pChar->stm = pChar->effDex();
@@ -1753,13 +1753,13 @@ void cUOSocket::updateHealth( P_CHAR pChar )
 	
 	if( pChar == _player )
 	{
-		update.setMaximum( pChar->st );
+		update.setMaximum( pChar->st() );
 		update.setCurrent( pChar->hp );
 	}
 	else
 	{
 		update.setMaximum( 100 );
-		update.setCurrent( (UINT16)((pChar->hp/pChar->st)*100) );
+		update.setCurrent( (UINT16)((pChar->hp/pChar->st())*100) );
 	}
 
 	send( &update );
@@ -1777,7 +1777,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	cUOTxSendStats sendStats;
 	sendStats.setAllowRename( _player->Owns( pChar ) || _player->isGM() );
 	
-	sendStats.setMaxHp( pChar->st );
+	sendStats.setMaxHp( pChar->st() );
 	sendStats.setHp( pChar->hp );
 
 	sendStats.setName( pChar->name.c_str() );
@@ -1792,7 +1792,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setMaxStamina( pChar->effDex() );
 		sendStats.setMana( pChar->mn );
 		sendStats.setMaxMana( pChar->in );
-		sendStats.setStrength( pChar->st );
+		sendStats.setStrength( pChar->st() );
 		sendStats.setDexterity( pChar->effDex() );
 		sendStats.setIntelligence( pChar->in );
 		sendStats.setWeight( pChar->weight() );

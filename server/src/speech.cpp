@@ -1015,7 +1015,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 	}
 
 	if( type == 0 || type == 2)
-		pChar->saycolor = color;
+		pChar->setSayColor( color );
 
 	if( SrvParams->speechLog() )
 	{

@@ -91,11 +91,6 @@ public:
 	bool	viewHouseIcons( void ) { return priv2&0x04; }	
 	bool	isHiddenPermanently( void ) { return priv2&0x08; }
 
-	unsigned char			fonttype; // Speech font to use
-	UI16					saycolor; // Color for say messages
-	unsigned short			emotecolor; // Color for emote messages
-	signed short			st; // Strength
-	signed short			st2; // Reserved for calculation
 	signed short			in; // Intelligence
 	signed short			in2; // Reserved for calculation
 	signed short			hp; // Hitpoints
@@ -292,7 +287,14 @@ protected:
 	signed short			tmpDex;	// holds all temporary effects on Dex, eg. plate, spells, potions
 
 	QString					loot_; // holds the lootlist section
+//BEGIN ADDED FROM PUBLIC*****************************************
+	unsigned char			fonttype_; // Speech font to use
+	UI16					saycolor_; // Color for say messages
+	unsigned short			emotecolor_; // Color for emote messages
+	signed short			st_; // Strength
+	signed short			st2_; // Reserved for calculation
 
+//END ADDED FROM PUBLIC ******************************************
 	std::map< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 
 	// Public Methods
@@ -425,6 +427,14 @@ public:
 	QString					lootList() const { return loot_; }
 	UINT32					trackingTimer() const { return trackingTimer_; }
 
+//BEGIN ADDED GETTERS**********************************************
+	unsigned char			fonttype() const { return fonttype_; }
+	UI16					saycolor() const { return saycolor_; }
+	unsigned short			emotecolor() const { return emotecolor_; }
+	signed short			st() const { return st_; }
+	signed short			st2() const { return st2_; }
+
+//END ADDED GETTERS***********************************************
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu )
 	{ 
 		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator it = lastselections_.find( basemenu );
@@ -557,6 +567,14 @@ public:
 	void					setTrackingTarg( SERIAL data ) { trackingTarget_ = data; }
 	void					setTrackingTimer( UINT32 data ) { trackingTimer_ = data; }
 
+//ADDED SETTERS******************************************************
+	void					setFontType( unsigned char data ) { fonttype_ = data; }
+	void					setSayColor( UI16 data ) { saycolor_ = data; }
+	void					setEmoteColor( unsigned short data ) { emotecolor_ = data; }
+	void					setSt( signed short data ) { st_ = data; }
+	void					setSt2( signed short data ) { st2_ = data; }
+
+//END SETTERS********************************************************
 	void					setLastSection( cMakeMenu* basemenu, cMakeSection* data )
 	{
 		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator mit = lastselections_.find( basemenu );

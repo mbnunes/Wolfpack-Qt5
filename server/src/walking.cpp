@@ -1637,7 +1637,7 @@ bool cMovement::consumeStamina( cUOSocket *socket, P_CHAR pChar, bool running )
 	return true;
 
 	// Weight percent
-	UINT32 allowedWeight = ( pChar->st * WEIGHT_PER_STR ) + 30;
+	UINT32 allowedWeight = ( pChar->st() * WEIGHT_PER_STR ) + 30;
 	UINT8 load = pChar->weight() / allowedWeight;
 
 	if( running )

@@ -134,7 +134,7 @@ public:
 		}
 
 		register UINT16 dex = aChar->effDex();
-		register UINT16 str = aChar->st;
+		register UINT16 str = aChar->st();
 
 		// No Str & no Dex = Not living
 		if( !str && !dex )
@@ -1799,8 +1799,9 @@ void cSkills::AdvanceStats( P_CHAR pChar, UINT16 skillId )
 	INT32 mod = SrvParams->statsAdvanceModifier();
 	
 	// Strength advancement
+	signed short temp1,temp2;
 	if( skill[skillId].st > rand() % mod )
-		if( AdvanceOneStat( skillId, i, &(pChar->st), &(pChar->st2), &update, pChar->isGM() ) && atCap && !pChar->isGM() )
+		if( AdvanceOneStat( skillId, i, &( temp1 = pChar->st()), &( temp2 = pChar->st2()), &update, pChar->isGM() ) && atCap && !pChar->isGM() )
 			if( rand() % 2 ) 
 				pChar->chgRealDex(-1); 
 			else 
@@ -1812,7 +1813,7 @@ void cSkills::AdvanceStats( P_CHAR pChar, UINT16 skillId )
 			update = true;
 			if( atCap )
 				if( rand() % 2 )
-					pChar->st -= 1;
+					pChar->setSt( ( pChar->st() ) - 1 );
 				else 
 					pChar->in -= 1;
 		}
@@ -1822,7 +1823,7 @@ void cSkills::AdvanceStats( P_CHAR pChar, UINT16 skillId )
 			if( rand()%2 ) 
 				pChar->chgRealDex(-1); 
 			else 
-				pChar->st-=1;
+				pChar->setSt( ( pChar->st() ) - 1 );
 	
 	cUOSocket *socket = pChar->socket();
 	if( update && socket )
@@ -2488,7 +2489,7 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 // Calculate the skill of this character based on the characters baseskill and stats
 void cSkills::updateSkillLevel(P_CHAR pc, int s)
 {
-	int temp = (((skill[s].st * pc->st) / 100 +
+	int temp = (((skill[s].st * pc->st()) / 100 +
 		(skill[s].dx * pc->effDex()) / 100 +
 		(skill[s].in * pc->in) / 100)
 		*(1000-pc->baseSkill(s)))/1000+pc->baseSkill(s);
@@ -2740,7 +2741,7 @@ void cSkills::Persecute ( cUOSocket* socket )
 			{
 				if(socket->inRange(s) && s != socket) 
 				{
-					pc_currchar->emotecolor = 0x0026;
+					pc_currchar->setEmoteColor( 0x0026 );
 					npcemote(toOldSocket(s), target, (char*)temp, 1);
 				}
 			}

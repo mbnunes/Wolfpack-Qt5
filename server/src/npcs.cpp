@@ -104,7 +104,7 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 	pc_c->ftarg = INVALID_SERIAL;
 	pc_c->moveTo(pc_k->pos + Coord_cl(1, 0, 0) );
 	pc_c->kills = 0;
-	pc_c->hp = pc_k->st;
+	pc_c->hp = pc_k->st();
 	pc_c->stm = pc_k->realDex();
 	pc_c->mn = pc_k->in;
 	z=rand()%35;

@@ -1450,7 +1450,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		pi->def = pc_mount->fy2;
 		
 		// AntiChrist bugfixes - 11/10/99
-		pi->setMoreb2( pc_mount->st );
+		pi->setMoreb2( pc_mount->st() );
 		pi->setMoreb3( pc_mount->realDex() );
 		pi->setMoreb4( pc_mount->in );
 		pi->setHp( pc_mount->hp );
@@ -2784,15 +2784,15 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 		switch(pi->morez)
 		{
 		case 1:
-			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+5+RandomNum(1,5)+pc_p->skill(17)/100), pc_p->st);
+			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+5+RandomNum(1,5)+pc_p->skill(17)/100), pc_p->st());
 			sysmessage(s, tr("You feel better!"));
 			break;
 		case 2:
-			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+15+RandomNum(1,10)+pc_p->skill(17)/50), pc_p->st);
+			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+15+RandomNum(1,10)+pc_p->skill(17)/50), pc_p->st());
 			sysmessage(s, tr("You feel more healty!"));
 			break;
 		case 3:
-			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+20+RandomNum(1,20)+pc_p->skill(17)/40), pc_p->st);
+			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+20+RandomNum(1,20)+pc_p->skill(17)/40), pc_p->st());
 			sysmessage(s, tr("You feel much more healty!"));
 			break;
 		default:

@@ -1426,7 +1426,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if(pi->st>pc_p->st)//if strength required > character's strength
+		if(pi->st>pc_p->st() )//if strength required > character's strength
 		{
 			if(pi->name() == "#")
 				pi->getName(temp2);

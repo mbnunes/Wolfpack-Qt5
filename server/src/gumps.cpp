@@ -268,7 +268,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 180, tr( "Skin:" ), 0x834 );
 		addInputField( 200, 180, 200, 16,  4, QString( "0x%1" ).arg( QString::number( pChar->skin(), 16 ) ), 0x834 );
 		addText( 50, 200, tr( "Strength:" ), 0x834 );
-		addInputField( 200, 200, 200, 16,  5, QString( "%1" ).arg( pChar->st ), 0x834 );
+		addInputField( 200, 200, 200, 16,  5, QString( "%1" ).arg( pChar->st() ), 0x834 );
 		addText( 50, 220, tr( "Dexterity:" ), 0x834 );
 		addInputField( 200, 220, 200, 16,  6, QString( "%1" ).arg( pChar->realDex() ), 0x834 );
 		addText( 50, 240, tr( "Intelligence:" ), 0x834 );
@@ -354,7 +354,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 240, tr( "Direction:" ), 0x834 );
 		addInputField( 200, 240, 200, 16, 27, QString( "%1" ).arg( pChar->dir ), 0x834 );
 		addText( 50, 260, tr( "Strength modifier:" ), 0x834 );
-		addInputField( 200, 260, 200, 16, 28, QString( "%1" ).arg( pChar->st2 ), 0x834 );
+		addInputField( 200, 260, 200, 16, 28, QString( "%1" ).arg( pChar->st2() ), 0x834 );
 		addText( 50, 280, tr( "Dexterity modifier:" ), 0x834 );
 		addInputField( 200, 280, 200, 16, 29, QString( "%1" ).arg( pChar->decDex() ), 0x834 );
 		addText( 50, 300, tr( "Intelligence modifier:" ), 0x834 );
@@ -376,9 +376,9 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addResizeGump( 195, 200, 0xBB8, 215, 20 );
 
 		addText( 50, 120, tr( "Speech color:" ), 0x834 );
-		addInputField( 200, 120, 200, 16, 31, QString( "0x%1" ).arg( QString::number( pChar->saycolor, 16 ) ), 0x834 );
+		addInputField( 200, 120, 200, 16, 31, QString( "0x%1" ).arg( QString::number( pChar->saycolor(), 16 ) ), 0x834 );
 		addText( 50, 140, tr( "Emote color:" ), 0x834 );
-		addInputField( 200, 140, 200, 16, 32, QString( "0x%1" ).arg( QString::number( pChar->emotecolor, 16 ) ), 0x834 );
+		addInputField( 200, 140, 200, 16, 32, QString( "0x%1" ).arg( QString::number( pChar->emotecolor(), 16 ) ), 0x834 );
 		addText( 50, 160, tr( "Speech:" ), 0x834 );
 		addInputField( 200, 160, 200, 16, 33, QString( "%1" ).arg( pChar->speech ), 0x834 );
 		addText( 50, 180, tr( "Carve:" ), 0x834 );
@@ -417,7 +417,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setSkin( hex2dec( it->second ).toUShort() );
 				break;
 			case 5:
-				char_->st = hex2dec( it->second ).toShort();
+				char_->setSt( hex2dec( it->second ).toShort() );
 				break;
 			case 6:
 				char_->setDex( hex2dec( it->second ).toShort() );
@@ -510,7 +510,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->dir = hex2dec( it->second ).toUShort();
 				break;
 			case 28:
-				char_->st2 = hex2dec( it->second ).toShort();
+				char_->setSt2( hex2dec( it->second ).toShort() );
 				break;
 			case 29:
 				char_->setDecDex( hex2dec( it->second ).toShort() );
@@ -519,10 +519,10 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->in2 = hex2dec( it->second ).toShort();
 				break;
 			case 31:
-				char_->saycolor = hex2dec( it->second ).toUShort();
+				char_->setSayColor( hex2dec( it->second ).toUShort() );
 				break;
 			case 32:
-				char_->emotecolor = hex2dec( it->second ).toUShort();
+				char_->setEmoteColor( hex2dec( it->second ).toUShort() );
 				break;
 			case 33:
 				char_->speech = hex2dec( it->second ).toUShort();

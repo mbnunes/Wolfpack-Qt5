@@ -462,7 +462,7 @@ public:
 		else if( key == "str" )
 			if( pChar )
 			{
-				pChar->st = hex2dec( value ).toInt();
+				pChar->setSt( hex2dec( value ).toInt() );
 				for( UINT8 i = 0; i < ALLSKILLS; ++i )
 					Skills->updateSkillLevel( pChar, i );
 			}
@@ -1055,7 +1055,7 @@ public:
 
 		else if( ( key == "str" ) )
 			if( pChar )
-				result = QString( "%1" ).arg( pChar->st );
+				result = QString( "%1" ).arg( pChar->st() );
 			else 
 				result = QString( "%1" ).arg( pItem->st );
 

@@ -1211,7 +1211,7 @@ void GuildTitle(int s, P_CHAR pc_player2)
 		talk[7]=1;
 		talk[8]=1;
 		talk[9]=0;
-		ShortToCharPtr(pc_player2->emotecolor, &talk[10]);
+		ShortToCharPtr(pc_player2->emotecolor(), &talk[10]);
 		talk[12]=0;
 		talk[13]=3;
 		Xsend(s, talk, 14);

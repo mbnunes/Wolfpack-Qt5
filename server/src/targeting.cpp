@@ -758,8 +758,8 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	}
 	
 	// All stats to 100
-	pc->st  = 100;
-	pc->st2 = 100;
+	pc->setSt( 100 );
+	pc->setSt2( 100 );
 	pc->hp  = 100;
 	pc->stm = 100;
 	pc->in  = 100;
@@ -2944,7 +2944,7 @@ void cTargets::FullStatsTarget(int s)
 		pc->soundEffect( 0x01F2 );
 		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
 		pc->mn=pc->in;
-		pc->hp=pc->st;
+		pc->hp=pc->st();
 		pc->stm=pc->effDex();
 		updatestats(pc, 0);
 		updatestats(pc, 1);
@@ -4014,7 +4014,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 16: if (Cready) KillTarget(pc, 0x0b); break;
 		case 17: if (Cready) KillTarget(pc, 0x10); break;
 		case 18: if (Cready) KillTarget(pc, 0x15); break;
-		case 19: if (Cready) pc->fonttype=addid1[s]; break;
+		case 19: if (Cready) pc->setFontType( addid1[s] ); break;
 		case 20: Targ->GhostTarget(s); break;
 		case 21: Targ->ResurrectionTarget(s); break; // needed for /resurrect command
 		case 22: { cBoltTarget		T(ps);	T.process();} break;

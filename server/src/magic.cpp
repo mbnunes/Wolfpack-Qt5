@@ -971,7 +971,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->setBaseSkill(SWORDSMANSHIP, 1000);
 		pc_monster->setBaseSkill(PARRYING, 1000);
 		pc_monster->setSkill(MAGICRESISTANCE, 650);
-		pc_monster->st=pc_monster->hp=600;
+		pc_monster->setSt( pc_monster->hp=600 );
 		pc_monster->setDex(70);
 		pc_monster->stm=70;
 		pc_monster->in=pc_monster->mn=100;
@@ -992,7 +992,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->setBaseSkill(SWORDSMANSHIP, 1000);
 		pc_monster->setBaseSkill(PARRYING, 1000);
 		pc_monster->setSkill(MAGICRESISTANCE, 1000);
-		pc_monster->st=pc_monster->hp=600;
+		pc_monster->setSt( pc_monster->hp=600 );
 		pc_monster->setDex(70);
 		pc_monster->stm=70;
 		pc_monster->in=pc_monster->mn=100;
@@ -1011,7 +1011,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->setBaseSkill(SWORDSMANSHIP, 1000);
 		pc_monster->setBaseSkill(PARRYING, 1000);
 		pc_monster->setSkill(MAGICRESISTANCE, 650);
-		pc_monster->st=pc_monster->hp=600;
+		pc_monster->setSt( pc_monster->hp=600 );
 		pc_monster->setDex(70);
 		pc_monster->stm=70;
 		pc_monster->in=pc_monster->mn=100;
@@ -1586,7 +1586,7 @@ void cMagic::NPCHeal(P_CHAR pc)
 	{
 		SubtractMana(pc, 10);
 		int j=pc->hp+(pc->skill(MAGERY)/30+RandomNum(1,12));
-		pc->hp = QMIN(pc->st, static_cast<signed short>(j));
+		pc->hp = QMIN(pc->st(), static_cast<signed short>(j));
 		doStaticEffect(pc, 4);
 		updatestats(pc, 0);
 	}
@@ -2372,7 +2372,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							}
 						}
 						j=pc_defender->hp+(pc_currchar->skill(MAGERY)/30+RandomNum(1,12));
-						pc_defender->hp=QMIN(pc_defender->st, static_cast<signed short>(j));
+						pc_defender->hp=QMIN(pc_defender->st(), static_cast<signed short>(j));
 						updatestats((pc_defender), 0);
 						break;
 						//////////// (30) LIGHTNING /////////////
@@ -4292,7 +4292,7 @@ void cMagic::Heal(UOXSOCKET s)
 	{
 		playSound( pc_currchar, 4);
 		doStaticEffect(pc_defender, 4);
-		pc_defender->hp = pc_defender->st;
+		pc_defender->hp = pc_defender->st();
 		updatestats((pc_defender), 0);
 	} else
 		sysmessage(s,"Not a valid heal target");

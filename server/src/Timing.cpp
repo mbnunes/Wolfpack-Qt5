@@ -102,9 +102,9 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 	
 	if( !pc->dead )
 	{
-		if( pc->hp > pc->st )
+		if( pc->hp > pc->st() )
 		{
-			pc->hp = pc->st;
+			pc->hp = pc->st();
 			pc->updateHealth();
 		}
 
@@ -125,11 +125,11 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 			UINT32 interval = SrvParams->hitpointrate() * MY_CLOCKS_PER_SEC;
 
 			// If it's not disabled hunger affects our health regeneration
-			if( pc->hp < pc->st && pc->hunger() > 3 || SrvParams->hungerRate() == 0 )
+			if( pc->hp < pc->st() && pc->hunger() > 3 || SrvParams->hungerRate() == 0 )
 			{
-				for( UINT16 c = 0; c < pc->st + 1; ++c )
+				for( UINT16 c = 0; c < pc->st() + 1; ++c )
 				{
-					if( pc->regen + ( c * interval ) <= currenttime && pc->hp <= pc->st )
+					if( pc->regen + ( c * interval ) <= currenttime && pc->hp <= pc->st() )
 					{
 						if( pc->skill( HEALING ) < 500 )
 							pc->hp++;
@@ -138,9 +138,9 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 						else 
 							pc->hp += 3;
 
-						if( pc->hp > pc->st )
+						if( pc->hp > pc->st() )
 						{
-							pc->hp = pc->st;
+							pc->hp = pc->st();
 							break;
 						}
 					}
@@ -554,7 +554,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	}
 
 	// Character is not fleeing but reached the border
-	if( pc->npcWander != 5 && pc->hp < pc->st*pc->fleeat() / 100 )
+	if( pc->npcWander != 5 && pc->hp < pc->st()*pc->fleeat() / 100 )
 	{
 		pc->oldnpcWander = pc->npcWander;
 		pc->npcWander=5;
@@ -562,7 +562,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	}
 
     // Character is fleeing and has regenerated
-	if( pc->npcWander == 5 && pc->hp > pc->st*pc->reattackat() / 100 )
+	if( pc->npcWander == 5 && pc->hp > pc->st()*pc->reattackat() / 100 )
 	{
 		pc->npcWander = pc->oldnpcWander;
 		pc->setNextMoveTime();
@@ -584,7 +584,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s looks a bit nauseous *",pc->name.c_str());
-						pc->emotecolor = 0x0026;//buffer[s][4];
+						pc->setEmoteColor( 0x0026 );//buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
 					pc->hp -= RandomNum(1,2);
@@ -596,7 +596,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name.c_str());
-						pc->emotecolor = 0x0026; //buffer[s][4];
+						pc->setEmoteColor( 0x0026 ); //buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
 
@@ -610,7 +610,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s is in severe pain! *",pc->name.c_str());
-						pc->emotecolor = 0x0026;//buffer[s][4];
+						pc->setEmoteColor( 0x0026 );//buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
 					pcalc=( ( pc->hp * RandomNum(5,10) ) / 100 ) + RandomNum(1,3); // damage: 5..10% of hp's+ 1..2 constant
@@ -623,7 +623,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *",pc->name.c_str());
-						pc->emotecolor = 0x0026;//buffer[s][4];
+						pc->setEmoteColor( 0x0026 );//buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
 
@@ -695,7 +695,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 
 			if(strlen(t))
 			{//display message ( if there's one
-				pc->emotecolor = 0x0026;//buffer[s][4];
+				pc->setEmoteColor( 0x0026 );//buffer[s][4];
 				npcemoteall(pc,t,1);
 			}
 		}//if tamed

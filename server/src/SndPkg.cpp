@@ -1108,7 +1108,7 @@ void updatestats( P_CHAR pc, char x )
 	switch (x)
 	{
 	case 0:
-		a=pc->st;
+		a=pc->st();
 		b=pc->hp;
 		break;
 	case 1:
@@ -1212,7 +1212,7 @@ void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 			talk[10]=buffer[s][4];
 			talk[11]=buffer[s][5];
 			talk[12]=buffer[s][6];
-			talk[13]=pc_currchar->fonttype;
+			talk[13]=pc_currchar->fonttype();
 			for (i=0;i<now;i++)
 			{
 				if (perm[i])
@@ -1235,7 +1235,7 @@ void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 			talk[10]=buffer[s][4];
 			talk[11]=buffer[s][5];
 			talk[12]=buffer[s][6];
-			talk[13]=pc_currchar->fonttype;
+			talk[13]=pc_currchar->fonttype();
 
 			for (i=0;i<now;i++)
 			{
@@ -1296,25 +1296,25 @@ void npctalk(int s, P_CHAR pc_npc, const char *txt,char antispam) // NPC speech
 		LongToCharPtr(pc_npc->serial, &talk[3]);
 		ShortToCharPtr(pc_npc->serial, &talk[7]);
 		talk[9]=0; // Type
-		pc_npc->saycolor = 0x0481;
+		pc_npc->setSayColor( 0x0481 );
 
 		talk[12]=0;
-		talk[13]=pc_currchar->fonttype;
+		talk[13]=pc_currchar->fonttype();
 
 		if (pc_npc->npcaitype()==2 && SrvParams->badNpcsRed() == 0) //bad npcs speech (red)..Ripper
 		{
-			pc_npc->saycolor = 0x03B2;
+			pc_npc->setSayColor( 0x03B2 );
 		}
 		else if (pc_npc->npcaitype()==2 && SrvParams->badNpcsRed() == 1)
 		{
-			pc_npc->saycolor = 0x0026;
+			pc_npc->setSayColor( 0x0026 );
 		}
 		else if(pc_npc->isNpc() && !pc_npc->tamed() && !pc_npc->guarded() && !pc_npc->war)
 		{
-			pc_npc->saycolor = 0x005b;
+			pc_npc->setSayColor( 0x005b );
 		}
 
-		ShortToCharPtr(pc_npc->saycolor, &talk[10]);
+		ShortToCharPtr(pc_npc->saycolor(), &talk[10]);
 		Xsend(s, talk, 14);
 		Xsend(s, (void*)pc_npc->name.c_str(), 30);
 		Xsend(s, txt, strlen(txt)+1);
@@ -1399,9 +1399,9 @@ void npcemote(int s, P_CHAR pc_npc, const char *txt, char antispam) // NPC speec
 		LongToCharPtr(pc_npc->serial, &talk[3]);
 		ShortToCharPtr(pc_npc->id(),  &talk[7]);
 		talk[9]=2; // Type
-		ShortToCharPtr(pc_npc->emotecolor, &talk[10]);
+		ShortToCharPtr(pc_npc->emotecolor(), &talk[10]);
 		talk[12]=0;
-		talk[13]=pc_currchar->fonttype;
+		talk[13]=pc_currchar->fonttype();
 		Xsend(s, talk, 14);
 		Xsend(s, (void*)pc_npc->name.c_str(), 30);
 		Xsend(s, txt, strlen(txt)+1);

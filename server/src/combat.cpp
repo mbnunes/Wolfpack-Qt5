@@ -291,7 +291,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 
 		Skills->CheckSkill( pc_attacker, TACTICS, 0, 1000 );
 		damage=(int)(basedamage*((pc_attacker->skill(TACTICS)+500.0)/1000.0)); // Add Tactical bonus
-		damage=damage+(int)((basedamage*(pc_attacker->st/500.0))); // Add Strength bonus
+		damage=damage+(int)((basedamage*(pc_attacker->st() /500.0))); // Add Strength bonus
 
 			//===== BONUS DAMAGE FOR ANATOMY
 			//Anatomy = 100 -> Bonus +20% Damage

@@ -192,23 +192,29 @@ void cTmpEff::On(P_CHAR pc)
 	if (!pc)
 		return;
 	
+	signed short tempsignedshort;
+
 	switch(this->num)
 	{
 	case 1:	pc->priv2 |= 0x02;		break;
 	case 2:	pc->fixedlight = SrvParams->worldBrightLevel();break;
 	case 3:	pc->chgDex(-1 * this->more1);	break;
 	case 4:	pc->in-=this->more1;		break;
-	case 5:	pc->st-=this->more1;		break;
+//	case 5:	pc->st-=this->more1;		break;
+	case 5: pc->setSt( ( tempsignedshort = pc->st() ) - this->more1 );  break;
 	case 6:	pc->chgDex(this->more1);	break;
 	case 7:	pc->in+=this->more1;		break;
-	case 8:	pc->st+=this->more1;		break;
+//	case 8:	pc->st+=this->more1;		break;
+	case 8: pc->setSt( (tempsignedshort = pc->st() ) + this->more1 );	break;
 	case 11:
-		pc->st+=this->more1;
+//		pc->st+=this->more1;
+		pc->setSt( ( tempsignedshort = pc->st() ) + this->more1 );		
 		pc->chgDex(this->more2);
 		pc->in+=this->more3;
 		break;
 	case 12:
-		pc->st-=this->more1;
+//		pc->st-=this->more1;
+		pc->setSt( ( tempsignedshort = pc->st() ) - this->more1 );		
 		pc->chgDex(-1 * this->more2);
 		pc->in-=this->more3;
 		break;
@@ -219,6 +225,8 @@ void cTmpEff::Off(P_CHAR pc)
 {
 	if (!pc)
 		return;
+	
+	signed short tempsignedshort;
 
 	switch(this->num)
 	{
@@ -226,17 +234,21 @@ void cTmpEff::Off(P_CHAR pc)
 	case 2:	pc->fixedlight='\xFF';		break;
 	case 3:	pc->chgDex(this->more1);	break;
 	case 4:	pc->in+=this->more1;		break;
-	case 5:	pc->st+=this->more1;		break;
+//	case 5:	pc->st+=this->more1;		break;
+	case 5: pc->setSt( ( tempsignedshort = pc->st() ) + this->more1 );		break;
 	case 6:	pc->chgDex(-1 * this->more1);break;
 	case 7:	pc->in-=this->more1;		break;
-	case 8:	pc->st-=this->more1;		break;
+//	case 8:	pc->st-=this->more1;		break;
+	case 8: pc->setSt( ( tempsignedshort = pc->st() ) - this->more1 );		break;
 	case 11:
-		pc->st-=this->more1;
+//		pc->st-=this->more1;
+		pc->setSt( ( tempsignedshort = pc->st() ) - this->more1 );		
 		pc->chgDex(-1 * this->more2);
 		pc->in-=this->more3;
 		break;
 	case 12:
-		pc->st+=this->more1;
+//		pc->st+=this->more1;
+		pc->setSt( ( tempsignedshort = pc->st() ) + this->more1 );		
 		pc->chgDex(this->more2);
 		pc->in+=this->more3;
 		break;
@@ -247,6 +259,7 @@ void cTmpEff::Off(P_CHAR pc)
 void cTmpEff::Reverse()
 {
 	P_CHAR pc_s = FindCharBySerial(getDest());
+	signed short tempsignedshort;
 
 	switch(num)
 	{
@@ -254,17 +267,21 @@ void cTmpEff::Reverse()
 	case 2:	pc_s->fixedlight='\xFF';break;
 	case 3:	pc_s->chgDex(more1);	break;
 	case 4:	pc_s->in+=more1;		break;
-	case 5:	pc_s->st+=more1;		break;
+//	case 5:	pc_s->st+=more1;		break;
+	case 5: pc_s->setSt( ( tempsignedshort = pc_s->st() ) + more1 );		break;
 	case 6:	pc_s->chgDex(-1 * more1);break;
 	case 7:	pc_s->in-=more1;		break;
-	case 8:	pc_s->st-=more1;		break;
+//	case 8:	pc_s->st-=more1;		break;
+	case 8: pc_s->setSt( ( tempsignedshort = pc_s->st() ) - more1 );		break;
 	case 11:
-		pc_s->st-=more1;
+//		pc_s->st-=more1;
+		pc_s->setSt( ( tempsignedshort = pc_s->st() ) - more1 );		
 		pc_s->chgDex(-1 * more2);
 		pc_s->in-=more3;
 		break;
 	case 12:
-		pc_s->st+=more1;
+//		pc_s->st+=more1;
+		pc_s->setSt( ( tempsignedshort = pc_s->st() ) + more1 );		
 		pc_s->chgDex(more2);
 		pc_s->in+=more3;
 		break;
@@ -299,6 +316,7 @@ void cTmpEff::Reverse()
 void cTmpEff::Expire()
 {
 	int k;
+	signed short tempsignedshort;
 
 	P_CHAR pc_s = FindCharBySerial(getDest());
 	if (   num != 9		// grinding
@@ -347,7 +365,8 @@ void cTmpEff::Expire()
 			socket->updateMana();
 		break;
 	case 5:
-		pc_s->st += more1;
+//		pc_s->st += more1;
+		pc_s->setSt( ( tempsignedshort = pc_s->st() ) + more1 );		
 		// TODO: Update the health-bars for all people in range (It *HAS* changed here)
         if( socket )
 			socket->updateHealth();
@@ -365,8 +384,9 @@ void cTmpEff::Expire()
 			socket->updateMana();
 		break;
 	case 8:
-		pc_s->st-=more1;
-		pc_s->hp=QMIN(pc_s->hp, pc_s->st);
+//		pc_s->st-=more1;
+		pc_s->setSt( ( tempsignedshort = pc_s->st() ) + more1 );	
+		pc_s->hp=QMIN(pc_s->hp, pc_s->st());
 		if( socket )
 			socket->updateHealth();
 		break;
@@ -389,8 +409,9 @@ void cTmpEff::Expire()
 		}
 		break;
 	case 11:
-		pc_s->st-=more1;
-		pc_s->hp=QMIN(pc_s->hp, pc_s->st);
+//		pc_s->st-=more1;
+		pc_s->setSt( ( tempsignedshort = pc_s->st() ) - more1 );
+		pc_s->hp=QMIN(pc_s->hp, pc_s->st());
 		pc_s->chgDex(-1 * more2);
 		pc_s->stm=QMIN(pc_s->stm, pc_s->effDex());
 		pc_s->in-=more3;
@@ -399,7 +420,8 @@ void cTmpEff::Expire()
 			socket->sendStatWindow();
 		break;
 	case 12:
-		pc_s->st+=more1;
+//		pc_s->st+=more1;
+		pc_s->setSt( ( tempsignedshort = pc_s->st() ) + more1 );
 		pc_s->chgDex(more2);
 		pc_s->in+=more3;
 		if( socket )
@@ -676,6 +698,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 {
 	
 	int color, color1, color2, socket; //used for incognito spell
+	signed short tempsignedshort;
 
 	if ( pc_source == NULL || pc_dest == NULL )
 		return false;
@@ -775,10 +798,11 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pTE->dispellable=1;
 		break;
 	case 5:
-		if (pc_dest->st<more1)
-			more1=pc_dest->st;
-		pc_dest->st-=more1;
-		pc_dest->hp=QMIN(pc_dest->hp, pc_dest->st);
+		if (pc_dest->st()<more1)
+			more1=pc_dest->st();
+//		pc_dest->st-=more1;
+		pc_dest->setSt( ( tempsignedshort = pc_dest->st() ) - more1 );
+		pc_dest->hp=QMIN(pc_dest->hp, pc_dest->st());
 		if( mSock )
 			mSock->updateHealth();
 		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
@@ -816,10 +840,10 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pTE->dispellable=1;
 		break;
 	case 8:
-		if (pc_dest->st+more1>255)
-			more1=pc_dest->st-255;
-		pc_dest->st+=more1;
-
+		if (pc_dest->st()+more1>255)
+			more1=pc_dest->st()-255;
+//		pc_dest->st+=more1;
+		pc_dest->setSt( ( tempsignedshort = pc_dest->st() ) + more1 ); 
 		if( mSock )
 			mSock->updateHealth();
 
@@ -843,13 +867,15 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pTE->more2=more2;
 		break;
 	case 11: // Bless
-		if (pc_dest->st+more1>255)
-			more1=pc_dest->st-255;
+		if (pc_dest->st()+more1>255)
+//			more1=pc_dest->st-255;
+			pc_dest->setSt( ( tempsignedshort = pc_dest->st() ) - 255 ); 
 		if (pc_dest->effDex()+more2>250)
 			more2=250-pc_dest->effDex();
 		if (pc_dest->in+more3>255)
 			more3=pc_dest->in-255;
-		pc_dest->st+=more1;
+//		pc_dest->st+=more1;
+		pc_dest->setSt( ( tempsignedshort = pc_dest->st() ) + more1 ); 
 		pc_dest->chgDex(more2);
 		pc_dest->in+=more3;
 
@@ -864,13 +890,14 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pTE->dispellable=1;
 		break;
 	case 12: // Curse
-		if (pc_dest->st<more1)
-			more1=pc_dest->st;
+		if (pc_dest->st()<more1)
+			more1=pc_dest->st();			
 		if (pc_dest->effDex()<more2)
 			more2=pc_dest->effDex();
 		if (pc_dest->in<more3)
 			more3=pc_dest->in;
-		pc_dest->st-=more1;
+//		pc_dest->st-=more1;
+		pc_dest->setSt( ( tempsignedshort = pc_dest->st() ) - more1 ); 
 		pc_dest->chgDex(-1 * more2);
 		pc_dest->in-=more3;
 
@@ -1124,7 +1151,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		if (k==-1) return 0;
 		sysmessage(k,"Hmmm, tasty, LSD");
 		LSD[k]=1;
-		pc_source->hp=pc_source->st;
+		pc_source->hp=pc_source->st();
 		pc_source->mn=pc_source->in;
 		impowncreate(k, pc_source, 0);
 		pTE->setExpiretime_s(90);

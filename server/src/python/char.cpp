@@ -500,15 +500,19 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else pGetInt( "permmagicreflect", priv2 & 0x40 ? 1 : 0 )
 	else pGetInt( "noreags", priv2 & 0x80 ? 1 : 0 )
 
-	else pGetInt( "fonttype", fonttype )
-	else pGetInt( "saycolor", saycolor )
-	else pGetInt( "emotecolor", emotecolor )
-
-	else pGetInt( "str", st )
+	else if( !strcmp( name, "fonttype" ) ) 
+		return PyInt_FromLong( self->pChar->fonttype() );
+	else if( !strcmp( name, "saycolor" ) ) 
+		return PyInt_FromLong( self->pChar->saycolor() );
+	else if( !strcmp( name, "emotecolor" ) ) 
+		return PyInt_FromLong( self->pChar->emotecolor() );
+	else if( !strcmp( name, "str" ) ) 
+		return PyInt_FromLong( self->pChar->st() );
 	else pGetInt( "dex", effDex() )
 	else pGetInt( "int", in )
 
-	else pGetInt( "str2", st2 )
+	else if ( !strcmp( name, "str2" ) )
+		return PyInt_FromLong( self->pChar->st2() );
 	else pGetInt( "dex2", decDex() )
 	else pGetInt( "int2", in2 )
 
@@ -681,8 +685,8 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 	else setIntProperty( "stamina", pChar->stm )
 	else setIntProperty( "mana", pChar->mn )
 
-	else setIntProperty( "str", pChar->st )
-	
+	else if ( !strcmp("str", name) )
+		self->pChar->setSt( PyInt_AS_LONG( value ) );
 	else if( !strcmp( "dex", name ) )
 		self->pChar->setDex( PyInt_AS_LONG( value ) );
 	

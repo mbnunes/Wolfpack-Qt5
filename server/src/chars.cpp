@@ -142,12 +142,12 @@ void cChar::Init(bool ser)
 	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
 	this->priv2=0;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
 	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
-	this->fonttype=3; // Speech font to use
-	this->saycolor=0x1700; // Color for say messages
-	this->emotecolor = 0x0023; // Color for emote messages
-	this->st=50; // Strength
-	this->st2=0; // Reserved for calculation
-	this->dx=50; // Dexterity
+	this->setFontType( 3 ); // Speech font to use
+	this->setSayColor( 0x1700 ); // Color for say messages
+	this->setEmoteColor( 0x0023 ); // Color for emote messages
+	this->setSt( 50 ); // Strength
+	this->setSt2( 0 ); // Reserved for calculation
+	this->dx=50; //  Dexterity
 	this->dx2=0; // Reserved for calculation
 	this->tmpDex=0; // Reserved for calculation
 	this->in=50; // Intelligence
@@ -737,7 +737,8 @@ int cChar::getTeachingDelta(cChar* pPlayer, int skill, int sum)
 
 void cChar::removeItemBonus(cItem* pi)
 {
-	this->st -= pi->st2;
+//	this->st -= pi->st2;
+	this->setSt( ( this->st() ) - pi->st2);
 	this->chgDex(-1 * pi->dx2);
 	this->in -= pi->in2;
 }
@@ -795,11 +796,11 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("time_unused",		time_unused_);
 		
 		archive.read("allmove",			priv2);
-		archive.read("font",			fonttype);
-		archive.read("say",				saycolor);
-		archive.read("emote",			emotecolor);
-		archive.read("strength",		st);
-		archive.read("strength2",		st2);
+		archive.read("font",			fonttype_);
+		archive.read("say",				saycolor_);
+		archive.read("emote",			emotecolor_);
+		archive.read("strength",		st_);
+		archive.read("strength2",		st2_);
 		archive.read("dexterity",		dx);
 		archive.read("dexterity2",		dx2);
 		archive.read("intelligence",	in);
@@ -1251,8 +1252,8 @@ void cChar::processNode( const QDomElement &Tag )
 			QString statType = Tag.attribute( "type" );
 			if( statType == "str" )
 			{
-				this->st = Value.toLong();
-				this->hp = this->st;
+				this->st_ = Value.toLong();
+				this->hp = this->st_;
 			}
 			else if( statType == "dex" )
 			{
@@ -1273,8 +1274,8 @@ void cChar::processNode( const QDomElement &Tag )
 	// Aliasses <str <dex <int
 	else if( TagName == "str" )
 	{
-		st = Value.toLong();
-		hp = st;
+		st_ = Value.toLong();
+		hp = st_;
 		
 		for( UINT8 i = 0; i < ALLSKILLS; ++i )
 			Skills->updateSkillLevel( this, i );
@@ -1308,7 +1309,7 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<emotecolor>0x482</emotecolor>
 	else if( TagName == "emotecolor" )
-		this->emotecolor = Value.toUShort();
+		this->emotecolor_ = Value.toUShort();
 
 	//<fleeat>10</fleeat>
 	else if( TagName == "fleeat" )
@@ -1481,7 +1482,7 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<saycolor>0x110</saycolor>
 	else if( TagName == "saycolor" )
-		this->saycolor = Value.toUShort();
+		this->setSayColor( Value.toUShort() );
 
 	//<spadelay>3</spadelay>
 	else if( TagName == "spadelay" )
@@ -1639,7 +1640,7 @@ void cChar::soundEffect( UI16 soundId, bool hearAll )
 void cChar::talk( const QString &message, UI16 color, UINT8 type )
 {
 	if( color == 0xFFFF )
-		color = saycolor;
+		color = saycolor_;
 
 	QString lang( "ENU" );
 
@@ -1708,7 +1709,7 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type )
 void cChar::emote( const QString &emote, UI16 color )
 {
 	if( color == 0xFFFF )
-		color = emotecolor;
+		color = emotecolor_;
 
 	cUOTxUnicodeSpeech textSpeech;
 	textSpeech.setSource( serial );
@@ -1746,7 +1747,7 @@ void cChar::setAccount( AccountRecord* data, bool moveFromAccToAcc )
 
 void cChar::giveItemBonus(cItem* pi)
 {
-	st += pi->st2;
+	st_ += pi->st2;
 	chgDex( pi->dx2 );
 	in += pi->in2;
 }
@@ -2468,7 +2469,7 @@ void cChar::resurrect()
 	setId( xid );
 	setSkin( xskin() );
 	dead = false;
-	hp = QMAX( 1, (UINT16)( 0.1 * st ) );
+	hp = QMAX( 1, (UINT16)( 0.1 * st_ ) );
 	stm = (UINT16)( 0.1 * effDex() );
 	mn = (UINT16)( 0.1 * in );
 	attacker = INVALID_SERIAL;
