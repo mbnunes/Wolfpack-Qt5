@@ -3,8 +3,15 @@ Wolfpack 13.0.0 ChangeLog
 Wolfpack 12.9.9 Beta (CVS)
 	* Core Changes:
 		- Added an email field for accounts.
+		- Timer fixes.
+		- Changes to event/script functions. ( See Python changes. )
 	* Definition Changes:
+		- Tag Changes:
+			<events></events> is now <scripts></scripts>
 	* Python Script Changes:
+		- Function Changes:
+			Old: addevent() hasevent() removeevent()
+			New: addscript() hasscript() removescript()
 		- Added the bolt command, just lightnings the target.
 		- Added the email command, changes your account's email.
 		- Added sparkle effects to the heal/restore commands.
@@ -12,6 +19,7 @@ Wolfpack 12.9.9 Beta (CVS)
 			Fixed a few typos.
 			Fixed a bug in updating the password
 			Added support for the email field.
+			Fixed a bug with updating passwords. ( Dreoth was tired. :P )
 		- Tweaked the hunger script.
 		- Fixed an update bug with npcs and the dye command.
 		- Fixed a bug with the dupe command.
