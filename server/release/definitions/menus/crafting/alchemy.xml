@@ -17,6 +17,12 @@
 		<menu id="ALCHEMY_POISON" />
 		<menu id="ALCHEMY_CURE" />
 		<menu id="ALCHEMY_EXPLOSION" />
+		<craft definition="potion_shrink" name="Shrink Potion">
+			<alchemy min="800" max="1300" />
+			<material id="f7a" amount="8" name="Black Pearls" />
+			<material id="f86" amount="8" name="Mandrake Root" />
+			<material id="f0e" amount="1" name="Empty Bottle" />
+		</craft>
 	</menu>
 
 	<menu id="ALCHEMY_REFRESH" name="Refresh">
