@@ -65,7 +65,7 @@ def onUse( char, item ):
 	else:
 		potiontype = item.gettag( 'potiontype' )
 		# Make sure it's in the index
-		if not potiontype in potions:
+		if not potiontype in POTIONS:
 			return False
 
 		# Do we throw this thing?
@@ -252,6 +252,7 @@ def potionregion( args ):
 					chainbomb = chainregion.next
 				# Potion Kegs
 				elif (chainbomb.hastag('kegfill') and chainbomb.hastag('potiontype')) and ( chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1 ):
+					chainbomb.settag('exploding', 'true')
 					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
 					chainbomb = chainregion.next
 				else:
@@ -285,6 +286,7 @@ def potionregion( args ):
 					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 0, chainbomb.amount] )
 					chainbomb = chainregion.next
 				elif ( chainbomb.hastag('kegfill') and chainbomb.hastag('potiontype') ) and ( chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1 ):
+					chainbomb.settag('exploding', 'true')
 					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
 					chainbomb = chainregion.next
 				else:
@@ -324,7 +326,7 @@ def potiondamage( char, target, potion, dmgbonus ):
 	if damage >= (target.maxhitpoints / 2):
 		target.effect(0x3709, 10, 30)
 	target.effect( explosions[randint(0,2)], 20, 10)
-	energydamage(target, char, damage, fire=100)
+	energydamage(target, char, damage, fire=100 )
 	return
 
 # You have to have one hand free for using a potion
