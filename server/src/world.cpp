@@ -421,13 +421,8 @@ void cWorld::loadTag( cBufferedReader& reader, unsigned int version )
 	}
 }
 
-void cWorld::load()
+void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 {
-	unsigned int loadStart = getNormalizedTime();
-	QPtrList<PersistentObject> objects;
-
-	if ( Config::instance()->databaseDriver() == "binary" )
-	{
 		QString filename = Config::instance()->binarySavepath();
 
 		if ( QFile::exists( filename ) )
@@ -533,10 +528,11 @@ void cWorld::load()
 				++cit;
 			}
 		}
-	}
-	else
-	{
-		if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
+}
+
+void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
+{
+	if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
 		{
 			Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
 			return;
@@ -815,6 +811,20 @@ void cWorld::load()
 		UoTime::instance()->setMinutes( db_time.toInt() );
 
 		PersistentBroker::instance()->disconnect();
+}
+
+void cWorld::load()
+{
+	unsigned int loadStart = getNormalizedTime();
+	QPtrList<PersistentObject> objects;
+
+	if ( Config::instance()->databaseDriver() == "binary" )
+	{
+		loadBinary( objects );
+	}
+	else
+	{
+		loadSQL( objects );
 	}
 	
 

@@ -38,6 +38,7 @@
 #include <qthread.h>
 #include "server.h"
 
+class PersistentObject;
 class cBufferedReader;
 
 class cCharIterator
@@ -101,6 +102,8 @@ public:
 
 	// WorldLoader interface
 	void load();
+	void loadBinary(QPtrList<PersistentObject> &objects);
+	void loadSQL(QPtrList<PersistentObject> &objects);
 	void unload();
 	void save();
 
