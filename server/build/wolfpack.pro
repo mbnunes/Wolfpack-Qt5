@@ -173,10 +173,6 @@ HEADERS         = \
 		  
 SOURCES         = \
 		accounts.cpp \
-		ai/ai.cpp \
-		ai/ai_animals.cpp \
-		ai/ai_humans.cpp \
-		ai/ai_monsters.cpp \
 		basechar.cpp \
 		basedef.cpp \
 		basics.cpp \
@@ -251,6 +247,14 @@ SOURCES		+= network/asyncnetio.cpp \
 		   network/uorxpackets.cpp \
 		   network/uosocket.cpp \
 		   network/uotxpackets.cpp
+
+# AI Module
+HEADERS		+= ai/ai.h
+
+SOURCES		+= ai/ai.cpp \
+		   ai/ai_animals.cpp \
+		   ai/ai_humans.cpp \
+		   ai/ai_monsters.cpp
 
 # Python Module
 SOURCES		+= python/char.cpp \
