@@ -45,6 +45,7 @@
 #include "targetrequests.h"
 #include "Trade.h"
 #include "TmpEff.h"
+#include "mapobjects.h"
 
 #include <math.h>
 
@@ -366,13 +367,27 @@ void Human_Stablemaster_Wander::attacked()
 
 void Human_Stablemaster_Wander::init()
 {
-	TempEffects::instance()->insert( new cAIRefreshTimer( npc, 60 ) );
+	TempEffects::instance()->insert( new cAIRefreshTimer( npc, SrvParams->stablemasterRefreshTime() ) );
 }
 
 void Human_Stablemaster_Wander::refresh()
 {
-//	cItem::ContainerContent 
-#pragma note("TODO: gem refreshing" )
+	// let's increase the refresh times of the gems in the 
+	// stablemaster's backpack
+	P_ITEM pPack = npc->getBackpack();
+	if( pPack )
+	{
+		cItem::ContainerContent content = pPack->content();
+		cItem::ContainerContent::const_iterator it( content.begin() );
+		while( it != content.end() )
+		{
+			if( (*it) && (*it)->id() == 0x1ea7 )
+			{
+				(*it)->setMoreZ( (*it)->morez() + 1 );
+			}
+			++it;
+		}
+	}
 
 	TempEffects::instance()->insert( new cAIRefreshTimer( npc, 60 ) );
 }
@@ -392,7 +407,49 @@ void Human_Stablemaster_Wander::speechInput( P_PLAYER pTalker, const QString &me
 		else if( message.contains( tr(" RELEASE") ) )
 		{
 			int gold = pTalker->CountBankGold() + pTalker->CountGold();
-#pragma note("TODO: pet releasing")
+			int topay = 0;
+			P_ITEM pPack = npc->getBackpack();
+			cItem::ContainerContent stableitems;
+			if( pPack )
+			{
+				cItem::ContainerContent content = pPack->content();
+				cItem::ContainerContent::const_iterator it( content.begin() );
+				while( it != content.end() )
+				{
+					if( (*it) && (*it)->id() == 0x1ea7 && (*it)->morey() == pTalker->serial() )
+					{
+						topay += (int)floor( (float)(*it)->morez() * SrvParams->stablemasterGoldPerRefresh() );
+						stableitems.push_back( (*it) );
+					}
+					++it;
+				}
+			}
+			if( !stableitems.empty() )
+			{
+				if( topay > gold )
+				{
+					npc->talk( tr("You do not possess enough gold. Come later if you have more!") );
+					return;
+				}
+				pTalker->takeGold( topay, true );
+				cItem::ContainerContent::const_iterator it( stableitems.begin() );
+				while( it != stableitems.end() )
+				{
+					if( (*it) )
+					{
+						P_NPC pPet = dynamic_cast<P_NPC>(World::instance()->findChar( (*it)->morex() ));
+						if( pPet )
+						{
+							pPet->free = false;
+							MapObjects::instance()->add( pPet );
+						}
+						Items->DeleItem( *it );
+					}
+					++it;
+				}
+				pPack->update();
+				npc->talk( tr("Here you are! That costs %1 gold. Farewell!").arg( topay ) );
+			}
 		}
 	}
 }
@@ -435,6 +492,9 @@ void Human_Stablemaster_Wander::targetCursorInput( cUOSocket *socket, cUORxTarge
 	pGem->setVisible( 2 ); // gm visible
 	pGem->setContainer( pPack );
 	pGem->update();
+
+	pPet->free = true;
+	MapObjects::instance()->remove( pPet );
 
 	npc->talk( tr("Say release to get your pet back!") );
 }

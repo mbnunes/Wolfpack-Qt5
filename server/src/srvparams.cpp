@@ -113,6 +113,10 @@ void cSrvParams::readData()
 	accountsBlockTime_		= getNumber("Accounts", "Block Failed Logins", 3*60, true);
 	accountsArchiver_		= getString("Accounts", "Archiver Module", "xml", true);
 
+	// AI
+	checkAITime_			= getDouble("AI", "Default AI Check Time", 1.2, true);
+	stablemasterRefreshTime_	= getNumber( "AI", "Refresh time in sec (Stablemasters)", 60, true );
+	stablemasterGoldPerRefresh_	= getDouble( "AI", "Gold cost per refresh cycle (Stablemaster)", 0.2, true );
 
 	// Persistency
 	databasePassword_		= getString("Database", "password", "", false);
@@ -134,7 +138,6 @@ void cSrvParams::readData()
 	checkItemTime_			= getDouble("Game Speed", "Items Check Time", 1.1, true);
 	checkNPCTime_			= getDouble("Game Speed", "NPCs Check Time", 1.0, true);
 	checkTammedTime_		= getDouble("Game Speed", "Tamed Check Time", 0.5, true);
-	checkAITime_			= getDouble("Game Speed", "AI Check Time", 1.2, true);
 	niceLevel_				= getNumber("Game Speed", "Nice Level", 2, true);
 	skillDelay_			    = getNumber("Game Speed", "SkillDelay", 7, true);
 	skillLevel_				= getNumber("Game Speed", "SkillLevel", 3, true);
@@ -287,6 +290,7 @@ void cSrvParams::readData()
 	pathfindFollowRadius_	= getNumber( "Path Finding", "Follow Radius", 10, true );
 	pathfindFollowMinCost_	= getDouble( "Path Finding", "Follow min. estimated Cost", 1.5, true );
 	pathfindFleeRadius_		= getNumber( "Path Finding", "Flee Radius", 10, true );
+
 }
 
 void cSrvParams::reload()

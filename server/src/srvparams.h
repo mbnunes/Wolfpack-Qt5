@@ -92,7 +92,6 @@ protected:
 	bool announceWorldSaves_;
 	float checkItemTime_;
 	float checkNPCTime_;
-	float checkAITime_;
 	float checkFollowTime_;
 	float checkTammedTime_;
 	unsigned int decayTime_;
@@ -165,6 +164,10 @@ protected:
 	double npcMoveTime_;
 	double tamedNpcMoveTime_;
 
+	// AI
+	float checkAITime_;
+	unsigned int stablemasterRefreshTime_;
+	float stablemasterGoldPerRefresh_;
 
 	// Remote Admin
 	unsigned int ra_port_;
@@ -274,6 +277,8 @@ public:
 	float checkItemTime() const;
 	float checkNPCTime() const;
 	float checkAITime() const;
+	float stablemasterGoldPerRefresh() const;
+	unsigned int stablemasterRefreshTime() const;
 	float checkFollowTime() const;
 	float checkTammedTime() const;
 	int niceLevel() const;
@@ -583,6 +588,16 @@ inline float cSrvParams::checkNPCTime() const
 inline float cSrvParams::checkAITime() const
 {
 	return checkAITime_;
+}
+
+inline float cSrvParams::stablemasterGoldPerRefresh() const
+{
+	return stablemasterGoldPerRefresh_;
+}
+
+inline unsigned int cSrvParams::stablemasterRefreshTime() const
+{
+	return stablemasterRefreshTime_;
 }
 
 inline float cSrvParams::checkFollowTime() const
