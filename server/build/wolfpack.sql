@@ -156,6 +156,7 @@ CREATE TABLE `players` (
 	`strlock` tinyint(4) NOT NULL default '0',
 	`dexlock` tinyint(4) NOT NULL default '0',
 	`intlock` tinyint(4) NOT NULL default '0',
+	`maxcontrolslots` tinyint(4) NOT NULL default '5',
 	PRIMARY KEY  (`serial`)
 );
 
