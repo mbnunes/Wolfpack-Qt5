@@ -117,7 +117,7 @@ def checkMySQL(options):
 					"/usr/include/mysql/mysql.h", \
 					"/usr/local/include/mysql.h", \
 					"/usr/include/mysql.h" ]
-	elif sys.platform == "freebsd4":
+	elif sys.platform == "freebsd4" or sys.platform == " freebsd5":
 		MySQL_LIBSEARCHPATH = [ "/usr/local/lib/mysql/libmysqlclient*.so", \
 					"/usr/lib/mysql/libmysqlclient*.so", \
 					"/usr/local/lib/libmysqlclient*.so", \
@@ -179,7 +179,7 @@ def checkPython(options):
 					 "/usr/local/lib/[Pp]ython2.3*/config/libpython2.3*.a"]
 		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython2.3*/Python.h", \
 					 "/usr/include/[Pp]ython2.3*/Python.h"]
-	elif sys.platform == "freebsd4":
+	elif sys.platform == "freebsd4" or sys.platform == "freebsd5":
 		PYTHONLIBSEARCHPATH = [ "/usr/local/lib/libpython2.3*.so", \
 					 "/usr/local/lib/[Pp]ython2.3*/libpython2.3*.so", \
 					 "/usr/lib/libpython2.3*.so", \
