@@ -100,6 +100,14 @@ public:
 	QStringList imports;
 };
 
+cDefinitions::Iterator cDefinitions::begin(eDefCategory type) {
+	return impl->unique[type].begin();
+}
+
+cDefinitions::Iterator cDefinitions::end(eDefCategory type) {
+	return impl->unique[type].end();
+}
+
 class cXmlHandler : public QXmlDefaultHandler
 {
 private:

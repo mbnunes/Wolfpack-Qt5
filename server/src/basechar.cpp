@@ -2546,7 +2546,7 @@ bool cBaseChar::onWalk( unsigned char direction, unsigned char sequence )
 	bool result = false;
 	if ( canHandleEvent( EVENT_WALK ) )
 	{
-		PyObject* args = Py_BuildValue( "O&bb", PyGetCharObject, this, direction, sequence );
+		PyObject* args = Py_BuildValue( "(O&bb)", PyGetCharObject, this, direction, sequence );
 		result = callEventHandler( EVENT_WALK, args );
 		Py_DECREF( args );
 	}

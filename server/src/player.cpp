@@ -591,7 +591,7 @@ void cPlayer::showName( cUOSocket* socket )
 	
 		if ( isInvulnerable() )
 		{
-			speechColor = 0x35;
+			speechColor = 0x37;
 		}
 	
 		// ASCII Packet
@@ -627,7 +627,7 @@ void cPlayer::showName( cUOSocket* socket )
 	
 		if ( isInvulnerable() )
 		{
-			speechColor = 0x37;
+			speechColor = 0x35;
 		}
 	
 		// Show it to the socket

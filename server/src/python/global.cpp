@@ -1663,6 +1663,24 @@ static PyObject* wpGetDefinitions( PyObject* /*self*/, PyObject* args )
 }
 
 /*
+	\function wolfpack.definitionsiterator
+	\param type The definition type.
+	Use one of the "Definition Constants" from <module id="wolfpack.consts">wolfpack.consts</module>.
+	\return A definitionsiterator object.
+	\description This function will create and return a definitionsiterator object for the given definition type.
+*/
+static PyObject* wpDefinitionsIterator( PyObject* /*self*/, PyObject* args )
+{
+	unsigned int type;
+
+	if ( !PyArg_ParseTuple( args, "I:wolfpack.definitionsiterator(type)", &type ) ) {
+		return 0;
+	}
+
+	return PyGetDefinitionIterator((eDefCategory)type);
+}
+
+/*
 	\function wolfpack.callevent
 	\param script The id of the script containing the event.
 	\param event The numeric constant for the event you want to call.
@@ -2009,6 +2027,7 @@ static PyMethodDef wpGlobal[] =
 { "charcount",			wpCharCount,					METH_NOARGS,  "Returns the number of chars in the world" },
 { "itemcount",			wpItemCount,					METH_NOARGS,  "Returns the number of items in the world" },
 { "tr",					wpTr,							METH_VARARGS, NULL },
+{ "definitionsiterator",wpDefinitionsIterator,			METH_VARARGS, NULL },
 { NULL, NULL, 0, NULL } // Terminator
 
 };

@@ -30,9 +30,11 @@
 
 #include "utilities.h"
 #include "../world.h"
+#include "../definitions.h"
 
 PyObject* PyGetCharIterator();
 PyObject* PyGetItemIterator();
+PyObject* PyGetDefinitionIterator(eDefCategory type);
 
 
 #endif

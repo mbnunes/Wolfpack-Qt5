@@ -134,8 +134,13 @@ private:
 	cDefManagerPrivate* impl;
 
 public:
+	typedef QMap<QString, cElement*>::iterator Iterator;
+
 	cDefinitions();
 	virtual ~cDefinitions();
+
+	Iterator begin(eDefCategory type);
+	Iterator end(eDefCategory type);
 
 	void reload( void );
 	void load( void );

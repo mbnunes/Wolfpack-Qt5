@@ -27,6 +27,7 @@
 
 #include "worlditerator.h"
 #include "../world.h"
+#include "../definitions.h"
 
 /*
 	\object itemiterator
@@ -165,5 +166,93 @@ PyObject* PyGetCharIterator()
 	wpCharIterator* returnVal = PyObject_New( wpCharIterator, &wpCharIteratorType );
 	returnVal->iter = new cCharIterator;
 
+	return ( PyObject * ) returnVal;
+}
+
+/*
+ *	Definition Iterator
+ */
+
+/*
+	\object definitioniterator
+	\description This object type allows you to iterate over all definitions of a given type like this:
+
+	<code>iterator = wolfpack.definitionsiterator(type)
+	node = iterator.first
+	while node:
+	&nbsp;&nbsp;# Access node properties here
+	&nbsp;&nbsp;node = iterator.next</code>
+*/
+typedef struct
+{
+	PyObject_HEAD;
+	cDefinitions::Iterator *iter;
+	eDefCategory type;
+} wpDefinitionsIterator;
+
+static void wpDefinitionsIteratorDealloc( PyObject* self )
+{
+	delete ( ( wpDefinitionsIterator* ) self )->iter;
+	PyObject_Del( self );
+}
+
+static PyObject* wpDefinitionsIterator_getAttr( wpDefinitionsIterator* self, char* name )
+{
+	/*
+		\rproperty definitioniterator.first Accessing this property will reset the iterator to the first definition and return it.
+		If there are no definitions to iterate over, None is returned.
+	*/
+	if ( !strcmp( name, "first" ) ) {
+		delete self->iter;
+		self->iter = new cDefinitions::Iterator(Definitions::instance()->begin(self->type));
+
+		if (*(self->iter) == Definitions::instance()->end(self->type)) {
+			Py_RETURN_NONE;
+		} else {
+			PyObject *result = self->iter->data()->getPyObject();
+			(*(self->iter))++;
+			return result;
+		}
+	}
+	/*
+		\rproperty definitioniterator.next Accessing this property will advance the iterator to the next definition and return it.
+		At the end of the iteration, None is returned.
+	*/
+	else if ( !strcmp( name, "next" ) ) {
+		if (*(self->iter) == Definitions::instance()->end(self->type)) {
+			Py_RETURN_NONE;
+		} else {
+			PyObject *result = self->iter->data()->getPyObject();
+			(*(self->iter))++;
+			return result;
+		}
+	}
+
+	Py_RETURN_FALSE;
+}
+
+static PyTypeObject wpDefinitionsIteratorType =
+{
+PyObject_HEAD_INIT( NULL )
+0,
+"wpDefinitionsIterator",
+sizeof( wpDefinitionsIteratorType ),
+0,
+wpDefinitionsIteratorDealloc,
+0,
+( getattrfunc ) wpDefinitionsIterator_getAttr,
+0,
+0,
+0,
+0,
+0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+};
+
+PyObject* PyGetDefinitionIterator(eDefCategory type)
+{
+	wpDefinitionsIterator* returnVal = PyObject_New( wpDefinitionsIterator, &wpDefinitionsIteratorType );
+	returnVal->iter = 0;
+	returnVal->type = type;
 	return ( PyObject * ) returnVal;
 }

@@ -178,23 +178,27 @@ def generateAddMenu(serial = 0, items = None):
 	if not char or not char.socket:
 		char = None
 
-	if not items:
+	"""if not items:
 		items = wolfpack.getdefinitions(WPDT_ITEM)
 		if char:
 			char.socket.sysmessage('Done getting list of definitions.')
 		wolfpack.queuecode(generateAddMenu, (serial, items))
-		return
+		return"""
 
 	addmenu= MakeMenu('ADDMENU', None, 'Add Menu')
 	submenus = {}
 
 	# Process 100 at a time
-	for item in items:
+	definitions = wolfpack.definitionsiterator(WPDT_ITEM)
+	item = definitions.first
+	while item:
 		if not item.hasattribute('id'):
+			item = definitions.next
 			continue
 
 		child = item.findchild('category')
 		if not child:
+			item = definitions.next
 			continue
 
 		categories = ['Items'] + child.text.split('\\')
@@ -235,19 +239,23 @@ def generateAddMenu(serial = 0, items = None):
 		else:
 			additem = AddItemAction(submenus['\\'.join(categories) + '\\'], description, id, definition)
 		additem.description = 'Definition: ' + definition
+		item = definitions.next
 
 	for menu in submenus.values():
 		menu.sort()
 
-	npcs = wolfpack.getdefinitions(WPDT_NPC)
+	npcs = wolfpack.definitionsiterator(WPDT_NPC)
 	submenus = {}
 
-	for npc in npcs:
+	npc = npcs.first
+	while npc:
 		if not npc.hasattribute('id'):
+			npc = npcs.next
 			continue
 
 		child = npc.findchild('category')
 		if not child:
+			npc = npcs.next
 			continue
 
 		categories = ['NPCs'] + child.text.split('\\')
@@ -280,6 +288,7 @@ def generateAddMenu(serial = 0, items = None):
 		else:
 			addnpc = AddNpcAction(submenus['\\'.join(categories) + '\\'], description, definition)
 		addnpc.description = 'Definition: ' + definition
+		npc = npcs.next
 
 	for menu in submenus.values():
 		menu.sort()

@@ -720,20 +720,17 @@ bool cPythonScript::load( const QCString& name )
 		reportPythonError( name_ );
 	}
 
+	// Get and cache the module's dictionary
+	PyObject *pDict = PyModule_GetDict(codeModule); // BORROWED REFERENCE
+
 	// Cache Event Functions
-	for ( unsigned int i = 0; i < EVENT_COUNT; ++i )
-	{
-		if ( PyObject_HasAttrString( codeModule, eventNames[i] ) )
-		{
-			events[i] = PyObject_GetAttrString( codeModule, eventNames[i] );
+	for (unsigned int i = 0; i < EVENT_COUNT; ++i) {		
+		events[i] = PyDict_GetItemString( pDict, eventNames[i] );
 
-			if ( events[i] && !PyCallable_Check( events[i] ) )
-			{
-				Console::instance()->log( LOG_ERROR, tr( "Script %1 has non callable event: %1" ).arg( eventNames[i] ) );
-
-				Py_DECREF( events[i] );
-				events[i] = 0;
-			}
+		if (events[i] && !PyCallable_Check(events[i])) {
+			Console::instance()->log( LOG_ERROR, tr( "Script %1 has non callable event: %1.\n" ).arg(name_).arg( eventNames[i] ) );
+			Py_DECREF(events[i]);
+			events[i] = 0;
 		}
 	}
 
@@ -758,7 +755,7 @@ PyObject* cPythonScript::callEvent( ePythonEvent event, PyObject* args, bool ign
 
 	if ( event < EVENT_COUNT && events[event] )
 	{
-		result = PyObject_CallObject( events[event], args );
+		result = PyEval_CallObject( events[event], args ); // Using the DEFINE here should give a minor speed improvement
 
 		if ( !ignoreErrors )
 			reportPythonError( name_ );
@@ -777,7 +774,7 @@ PyObject* cPythonScript::callEvent( const QString& name, PyObject* args, bool ig
 
 		if ( event && PyCallable_Check( event ) )
 		{
-			result = PyObject_CallObject( event, args );
+			result = PyEval_CallObject( event, args );
 
 			if ( !ignoreErrors )
 				reportPythonError( name_ );
