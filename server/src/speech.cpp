@@ -1035,9 +1035,14 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, std::vector< UINT16 
 	QString speechUpr = speech.upper();
 
 	// 0x0007 -> Speech-id for "Guards"
-	if( find( keywords.begin(), keywords.end(), 0x07 ) != keywords.end() )
-		callguards( pChar );
+	for( std::vector< UINT16 >::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
+	{
+		UINT16 keyword = *iter;
 
+		if( keyword == 0x07 )
+			callguards( pChar );
+	}
+	
 	// well,i had a strange problem with duplicate speech input
 	// its quite easy to understand....
 	// the former loop searched for the tiller man and when it
@@ -1046,7 +1051,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, std::vector< UINT16 
 	// and appended to the end of the cell vector... hence, the
 	// tiller was found twice...
 	// therefore we produce a QPtrList of cBoat* pointers and 
-	// then go through it for appliing speech --- sereg
+	// then go through it for applying speech --- sereg
 	RegionIterator4Items rj( pChar->pos );
 	QPtrList< cBoat >	pboats;
 	for( rj.Begin(); !rj.atEnd(); rj++ )
