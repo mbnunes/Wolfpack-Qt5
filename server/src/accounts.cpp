@@ -40,7 +40,8 @@
 
 AccountRecord::AccountRecord()
 {
-	acl_ = cCommands::instance()->getACL( "" );
+	aclName_ = "";
+	acl_ = 0; // Null it out
 	blocked_ = false;
 }
 
@@ -51,21 +52,18 @@ void AccountRecord::Serialize( ISerialization& archive )
 		archive.read("login", login_);
 		archive.read("password", password_);
 		archive.read("blocked", blocked_);
+		archive.read("acl", aclName_);
 		QString temp;
-		archive.read("acl", temp);
-		acl_ = cCommands::instance()->getACL(temp);
 		archive.read("lastlogin", temp);
 		lastLogin_.fromString(temp, Qt::ISODate);
+		refreshAcl(); // Reload our ACL
 	}
 	else // Writting
 	{
 		archive.write( "login", login_ );
 		archive.write( "password", password_ );
 		archive.write( "blocked", blocked_ );
-		if ( cCommands::instance()->isValidACL( acl_ ) && !acl_.key().isNull() )
-			archive.write( "acl", QString( acl_.key() ) );
-		else
-			archive.write( "acl", QString( "" ) );
+		archive.write( "acl", aclName_ );
 		archive.write( "lastlogin", lastLogin_.toString( Qt::ISODate ) );
 	}
 	cSerializable::Serialize( archive );
@@ -111,28 +109,26 @@ bool AccountRecord::removeCharacter( cChar* d )
 
 bool AccountRecord::authorized( const QString& group, const QString& value ) const
 {
-	QMap<QString, QMap<QString, stACLcommand> >::const_iterator it = acl_.data().find(group);
-	if ( it != acl_.data().end() )
-	{
-		QMap<QString, stACLcommand>::const_iterator it2 = it.data().find( value );
-		if ( it2 != it.data().end() )
-		{
-			return it2.data().permit;
-		}
-		else
-		{
-			it2 = it.data().find("any");
-			if ( it2 != it.data().end() )
-			{
-				return it2.data().permit;
-			}
-			else
-				false; // any not found, then it's deny.
-		}
-	}
-	
-	// for now, group "any" not implemented.
-	
+	// No Valid ACL specified
+	if( !acl_ )
+		return false;
+
+	// No group? No Access!
+	QMap< QString, QMap< QString, bool > >::iterator groupIter = acl_->groups.find( group );
+	if( groupIter == acl_->groups.end() )
+		return false;
+
+	// Group
+	QMap< QString, bool > aGroup = groupIter.data();
+
+	// Check if we have a rule for the specified command, if not check for any
+	if(	aGroup.find( value ) != aGroup.end() )
+		return aGroup[ value ];
+
+	if( aGroup.find( "any" ) != aGroup.end() )
+		return aGroup[ "any" ];
+
+	// TODO: Implement Group any here
 	return false;
 }
 
@@ -235,11 +231,10 @@ AccountRecord* cAccounts::createAccount( const QString& login, const QString& pa
 	d->password_ = password;
 	accounts.insert(d->login(), d);
 	if ( accounts.count() == 1 ) // first account, it must be admin!
-	{
-		d->setACL( cCommands::instance()->getACL("admin") );
-	}
+		d->setAcl( "admin" );
 	else
-		d->setACL( cCommands::instance()->getACL("player") );
+		d->setAcl( "player" );
+	d->refreshAcl();
 	save(); //make sure to save it.
 	return d;
 }
@@ -268,4 +263,9 @@ void cAccounts::remove( AccountRecord *record )
 	if( accounts.contains( record->login() ) )
 		accounts.remove( record->login() );
 	delete record;
+}
+
+void AccountRecord::refreshAcl()
+{
+	acl_ = cCommands::instance()->getACL( aclName_ ); 
 }

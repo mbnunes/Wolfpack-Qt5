@@ -106,13 +106,18 @@ void cCommands::loadACLs( void )
 	}
 
 	QString groupName;
+
+	// We are iterating trough a list of ACLs
+	// In each loop we create one acl
 	for( QStringList::iterator it = ScriptSections.begin(); it != ScriptSections.end(); ++it )
 	{
 		QDomElement *Tag = DefManager->getSection( WPDT_PRIVLEVEL, *it );
-		QMap<QString, stACLcommand> group;
+
 		if( Tag->isNull() )
 			continue;
+
 		QString ACLname = Tag->attribute("id");
+
 		if ( ACLname == QString::null )
 		{
 			clConsole.ChangeColor( WPC_RED );
@@ -121,9 +126,13 @@ void cCommands::loadACLs( void )
 			continue;
 		}
 		
+		// While we are in this loop we are building an ACL
+		stAcl *acl = new stAcl;
+		acl->name = ACLname;
+		QMap< QString, bool > group;
+
 		QDomElement n = Tag->firstChild().toElement();
-		QMap<QString, QMap<QString, stACLcommand> > acl;
-		while (!n.isNull())
+		while( !n.isNull() )
 		{
 			if ( n.nodeName() == "group" )
 			{
@@ -132,20 +141,21 @@ void cCommands::loadACLs( void )
 			} 
 			else if ( n.nodeName() == "action" )
 			{
-				stACLcommand action;
-				action.name = n.attribute( "name", "any" );
-				action.permit = n.attribute( "permit", "false" ) == "true" ? true : false;
-				group.insert( action.name, action );
+				QString name = n.attribute( "name", "any" );
+				bool permit = n.attribute( "permit", "false" ) == "true" ? true : false;
+				group.insert( name, permit );
 				n = n.nextSibling().toElement(); // Process next action
 			}
 
 			if ( n.isNull() && n.parentNode() != *Tag )
 			{
 				n = n.parentNode().nextSibling().toElement();
-				acl.insert( groupName, group );
+				acl->groups.insert( groupName, group );
+				group.clear();
 			}
 		}
-		ACLs.insert( ACLname, acl );		
+
+		_acls.insert( ACLname, acl );	
 	}
 	clConsole.ProgressDone();
 }
@@ -536,6 +546,22 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 					}
 				}
 			}
+			else if( key == "acl" )
+			{
+				if( !cCommands::instance()->getACL( value ) )
+				{
+					socket->sysMessage( tr( "You tried to specify an unknown acl '%1'" ).arg( value ) );
+				}
+				else
+				{
+					account->setAcl( value );
+					account->refreshAcl();
+				}
+			}
+			else
+			{
+				socket->sysMessage( tr( "Unknown field '%1' for account '%2'" ).arg( args[2] ).arg( account->login() ) );
+			}
 		}
 	}
 	// Show properties of accounts
@@ -574,6 +600,10 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 			else if( key == "lastlogin" )
 			{
 				socket->sysMessage( tr( "The last login of account '%1' was on %2" ).arg( account->login() ).arg( account->lastLogin().toString( Qt::DateFormat::ISODate ) ) );
+			}
+			else if( key == "acl" )
+			{
+				socket->sysMessage( tr( "The acl of account '%1' is %2" ).arg( account->login() ).arg( account->acl() ) );
 			}
 			else if( key == "chars" )
 			{

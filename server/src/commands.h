@@ -44,20 +44,21 @@ struct stCommand
 	void (*command)( cUOSocket*, const QString&, QStringList& );	
 };
 
-struct stACLcommand
+struct stAcl
 {
-	QString		name;
-	bool		permit;
-	
-	stACLcommand() { permit = true; };
+	QString name;
+	QMap< QString, QMap< QString, bool > > groups;
 };
 
-typedef QMap<QString, QMap<QString, QMap< QString, stACLcommand > > >::iterator cACL;
+typedef stAcl cAcl;
+
+// ACL:
+// Group -> Command -> Permitted
 
 class cCommands
 {
 private:
-	QMap<QString, QMap<QString, QMap< QString, stACLcommand > > > ACLs;
+	QMap< QString, stAcl* > _acls;
 	static stCommand commands[];
 public:
 	// Command processing system
@@ -72,18 +73,15 @@ public:
 
 	// Privlevel System
 	void loadACLs( void );
-	cACL getACL( const QString& );
-	bool isValidACL( cACL& );
+	stAcl *getACL( const QString& );
 };
 
-inline bool cCommands::isValidACL( cACL& acl )
+inline cAcl *cCommands::getACL( const QString& key )
 {
-	return ( ACLs.end() != acl );
-}
-
-inline cACL cCommands::getACL( const QString& key )
-{
-	return ACLs.find( key );
+	if( _acls.find( key ) == _acls.end() )
+		return 0;
+	else
+		return _acls.find( key ).data();
 }
 
 

@@ -58,7 +58,8 @@ class AccountRecord : public cSerializable
 private:
 	QString login_;
 	QString password_;
-	cACL acl_;
+	cAcl *acl_;
+	QString aclName_;
 	QValueVector<cChar*> characters_;
 	QDateTime lastLogin_;
 	QDateTime blockUntil;
@@ -86,9 +87,11 @@ public:
 	uint secsToUnblock() const;
 	void block();
 	void unBlock();
-	void setACL( cACL );
+	void setAcl( const QString &nAcl );
+	QString acl() const;
 	QDateTime lastLogin() const;
 	void setLastLogin( const QDateTime& );
+	void refreshAcl();
 		
 	void Serialize( ISerialization& );
 	QString	objectID( void ) const;
@@ -121,6 +124,11 @@ public:
 };
 
 // inline members
+inline QString AccountRecord::acl() const
+{
+	return aclName_;
+}
+
 inline QString AccountRecord::login() const
 {
 	return login_;
@@ -146,9 +154,9 @@ inline QString AccountRecord::objectID( void ) const
 	return "ACCOUNT";
 }
 
-inline void AccountRecord::setACL( cACL d )
+inline void AccountRecord::setAcl( const QString &d )
 {
-	acl_ = d;
+	aclName_ = d;
 }
 
 inline void AccountRecord::block( int seconds )
