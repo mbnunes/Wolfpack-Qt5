@@ -660,7 +660,6 @@ void cCommands::DyeItem(int s) // Rehue an item
 	int serial=calcserial(buffer[s][1],buffer[s][2],buffer[s][3],buffer[s][4]);
 	P_ITEM pi = FindItemBySerial(serial);
 	if (pi != NULL)
-		return;
 	{
 			c1=buffer[s][7];
 			c2=buffer[s][8];
@@ -696,8 +695,7 @@ void cCommands::DyeItem(int s) // Rehue an item
 
 	serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
 	P_CHAR pc = FindCharBySerial(serial);
-	if (pc == NULL)
-		return;
+	if (pc != NULL)
 	{
 		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 		if( !(pc_currchar->isGM() ) ) return; // Only gms dye characters
@@ -730,7 +728,6 @@ void cCommands::SetItemTrigger(int s)
   serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
   P_ITEM pi = FindItemBySerial(serial);
   if (pi != NULL)
-	  return;
   {
 		sysmessage(s,"Item triggered");
 		pi->trigger=addx[s];
@@ -745,7 +742,6 @@ void cCommands::SetTriggerType(int s)
   serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
   P_ITEM pi = FindItemBySerial(serial);
   if (pi != NULL)
-	  return;
   {
 		sysmessage(s,"Trigger type set");
 		pi->trigtype=addx[s];
@@ -759,8 +755,7 @@ void cCommands::SetTriggerWord(int s)
 	
   serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
   P_CHAR pc = FindCharBySerial(serial);
-  if (pc == NULL)
-	  return;
+  if (pc != NULL)
   {
 		sysmessage(s,"Trigger word set");
 		strcpy(pc->trigword,xtext[s]);
