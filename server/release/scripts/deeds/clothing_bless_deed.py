@@ -10,8 +10,7 @@ from wolfpack.utilities import *
 from wolfpack.consts import *
 import re
 
-def onShowToolTip( sender, target, tooltip ):
-
+def onShowTooltip( sender, target, tooltip ):
 	tooltip.add( 1041008, "" )
 	tooltip.add( 1038021, "" )
 	tooltip.send( sender )
@@ -19,14 +18,12 @@ def onShowToolTip( sender, target, tooltip ):
 
 
 def onUse( char, item ):
-
 	char.socket.clilocmessage( 0xF55DA, "", 0x3b2, 3 )
 	char.socket.attachtarget( "deeds.clothing_bless_deed.response", [item.serial] )
 
 	return 1
 
 def response( char, args, target ):
-
 	if not isclothing( target.item ) or ishat( target.item ):
 		char.socket.clilocmessage( 0xF55DB, "", 0x3b2, 3 )
 		return 0

@@ -45,7 +45,7 @@ deeds = {
 	'dresser_s': [ 1022620, 1, "a45", "a44" ]
 }
 
-def onShowToolTip( sender, target, tooltip ):
+def onShowTooltip( sender, target, tooltip ):
 	# name in tooltip
 	if not target.hastag( 'carpentry_type' ):
 		return
