@@ -18,13 +18,14 @@
 		<requires type="str">15</requires>
 		<speed>15</speed>
 		<weight>4.0</weight>
-		<type>3</type>
+		<type>1002</type>
 		<category>Weapons\Axes\Hatchet N/S</category>
 	</item>
 	
 	<item id="f44">
 		<inherit id="f43" />
 		<id>0x0f44</id>
+		<type>1002</type>
 		<category>Weapons\Axes\Hatchet W/E</category>
 	</item>
 
@@ -39,12 +40,14 @@
 		<requires type="str">35</requires>
 		<speed>37</speed>
 		<weight>8.0</weight>
+		<type>1002</type>
 		<category>Weapons\Axes\Executioner's Axe W/E</category>
 	</item>
 
 	<item id="f46">
 		<inherit id="f45" />
 		<id>0x0f46</id>
+		<type>1002</type>
 		<category>Weapons\Axes\Executioner's Axe W/E</category>
 	</item>
 	
@@ -59,12 +62,14 @@
 		<requires type="str">40</requires>
 		<speed>30</speed>
 		<weight>2.0</weight>
+		<type>1002</type>
 		<category>Weapons\Axes\Battle Axe N/S</category>
 	</item>
 
 	<item id="f48">
 		<inherit id="f47" />
 		<id>0x0f48</id>
+		<type>1002</type>
 		<category>Weapons\Axes\Battle Axe W/E</category>
 	</item>	
 	
@@ -78,6 +83,7 @@
 		<value>50</value>
 		<requires type="str">35</requires>
 		<speed>37</speed>
+		<type>1002</type>
 		<category>Weapons\Axes\Axe N/S</category>
 		<weight>4.0</weight>
 	</item>
@@ -85,6 +91,7 @@
 	<item id="f4a">
 		<inherit id="f49" />
 		<id>0x0f4a</id>
+		<type>1002</type>
 		<category>Weapons\Axes\Axe W/E</category>
 	</item>
 
@@ -99,12 +106,14 @@
 		<requires type="str">45</requires>
 		<speed>37</speed>
 		<weight>8.0</weight>
+		<type>1002</type>
 		<category>Weapons\Axes\Double Axe N/S</category>
 	</item>
 
 	<item id="f4c">
 		<inherit id="f4b" />
 		<id>0x0f4c</id>
+		<type>1002</type>
 		<category>Weapons\Axes\Double Axe W/E</category>
 	</item>
 </definitions>

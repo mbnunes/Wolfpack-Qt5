@@ -135,7 +135,7 @@ extern int addx2[MAXCLIENT];
 extern int addy2[MAXCLIENT];
 extern signed char addz[MAXCLIENT];
 extern int addmitem[MAXCLIENT];
-extern char xtext[MAXCLIENT][31];
+//extern char xtext[MAXCLIENT][31];
 extern unsigned char perm[MAXCLIENT];
 //extern unsigned char clientDimension[MAXCLIENT]; // stores if the client is the new 3d or old 2d one
 extern std::string SocketStrings[MAXCLIENT];

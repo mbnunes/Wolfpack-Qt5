@@ -58,37 +58,10 @@ class cSetAmountTarget ;
 
 #include "debug.h"
 
-typedef struct _PKGx6C
-{
-//Clicking Commands (19 bytes) 
-//* BYTE cmd 
-//* BYTE type 
-//* 0x00 = server set cursor to pointer 
-//* 0x01 = client return pointer position 
-//* BYTE[4] charID
-	short Tnum;		// we only use the low byte anyway, so short
-//* BYTE Cursor Type 
-//* 0x00 - Select Object 
-//* 0x01 - Choose x, y, z 
-//* The following are always sent but are only valid if sent by client 
-//* BYTE[4] Clicked On ID
-	long Tserial;
-//* BYTE[2] click xLoc
-	short TxLoc;
-//* BYTE[2] click yLoc 
-	short TyLoc;
-//* BYTE unknown2 (0x00) 
-//* BYTE click zLoc
-	signed char TzLoc;
-//* BYTE[2] model # (if a static tile, 0 if a map/landscape tile)
-	short model;
-//Note: the model # and charID should NEVER be trusted.
-} PKGx6C;
 
 class cTargets
 {
 private:
-	void AddItem( UOXSOCKET s );
 	void HouseSecureDown( UOXSOCKET s ); // Ripper
 	void HouseLockdown( UOXSOCKET s ); // Abaddon
     void HouseRelease( UOXSOCKET s ); // Abaddon

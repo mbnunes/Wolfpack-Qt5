@@ -101,67 +101,6 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 
 }
 
-////////////////
-// name:		addtarget
-// history:		UnKnown (Touched tabstops by Tauriel Dec 29, 1998)
-// Purpose:		Adds an item when using /add # # .
-//
-static void AddTarget(int s, PKGx6C *pp)
-{
-	if(pp->TxLoc==-1 || pp->TyLoc==-1) return;
-
-	if (addid1[s]>=0x40) // LB 25-dec-199, changed == to >= for chest multis, probably not really necassairy
-	{
-		switch (addid2[s])
-		{
-		case 100:
-		case 102:
-		case 104:
-		case 106:
-		case 108:
-		case 110:
-		case 112:
-		case 114:
-		case 116:
-		case 118:
-		case 120:
-		case 122:
-		case 124:
-		case 126:
-		case 140:
-			const QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, QString("%1").arg(addid3[s]) );
-			if( !DefSection->isNull() )
-			{
-				UI32 houseid = 0;
-				QDomNode childNode = DefSection->firstChild();
-				while( !childNode.isNull() && houseid == 0 )
-				{
-					if( childNode.isElement() && childNode.nodeName() == "id" )
-						houseid = childNode.toElement().text().toUInt();
-					childNode = childNode.nextSibling();
-				}
-//				if( houseid != 0 )
-//					attachPlaceRequest( s, new cBuildMultiTarget( QString("%1").arg(addid3[s]), currchar[s]->serial, INVALID_SERIAL ), houseid );
-			}
-			return; // Morrolan, here we WANT fall-thru, don't mess with this switch
-		}
-	}
-	bool pileable = false;
-	short id=(addid1[s]<<8)+addid2[s];
-	tile_st tile = TileCache::instance()->getTile( id );
-	if (tile.flag2&0x08) pileable=true;
-
-	P_ITEM pi = Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0,0);
-	if(!pi) return;
-	pi->priv=0;	//Make them not decay
-	pi->MoveTo(pp->TxLoc,pp->TyLoc,pp->TzLoc+TileCache::instance()->tileHeight(pp->model));
-
-	pi->update();
-	addid1[s]=0;
-	addid2[s]=0;
-}
-
-
 
 static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 {
@@ -357,90 +296,6 @@ void cTargets::VisibleTarget (int s)
 	}
 }
 
-static void AddNpcTarget(int s, PKGx6C *pp)
-{
-	if(pp->TxLoc==-1 || pp->TyLoc==-1) return;
-	P_CHAR pc = new cChar;
-	if ( pc == NULL )
-		return;
-	pc->Init();
-	pc->name = "Dummy";
-	pc->setId(static_cast<ushort>(addid1[s] << 8)+addid2[s]);
-	pc->setXid(pc->id());
-	pc->setSkin(0);
-	pc->setXSkin(0);
-	pc->setPriv(0x10);
-	pc->pos.x=pp->TxLoc;
-	pc->pos.y=pp->TyLoc;
-	pc->pos.z=pp->TzLoc+TileCache::instance()->tileHeight(pp->model);
-	cMapObjects::getInstance()->add(pc); // add it to da regions ...
-	pc->isNpc();
-	updatechar(pc);
-}
-
-static void Tiling(int s, PKGx6C *pp) // Clicking the corners of tiling calls this function - Crwth 01/11/1999
-{
-	/*if(pp->TxLoc==-1 || pp->TyLoc==-1) return;
-	if (clickx[s]==-1 && clicky[s]==-1)
-	{
-		clickx[s]=pp->TxLoc;
-		clicky[s]=pp->TyLoc;
-		target(s,0,1,0,198, "Select second corner of bounding box.");
-		return;
-	}
-
-	int c;
-	bool pileable = false;
-	tile_st tile;
-	int x1=clickx[s],x2=pp->TxLoc;
-	int y1=clicky[s],y2=pp->TyLoc;
-
-	clickx[s]=-1;clicky[s]=-1;
-
-	if (x1>x2) {c=x1;x1=x2;x2=c;}
-	if (y1>y2) {c=y1;y1=y2;y2=c;}
-
-	if (addid1[s]==0x40)
-	{
-		switch (addid2[s])
-		{
-		case 100:
-		case 102:
-		case 104:
-		case 106:
-		case 108:
-		case 110:
-		case 112:
-		case 114:
-		case 116:
-		case 118:
-		case 120:
-		case 122:
-		case 124:
-		case 126:
-		case 140:
-			AddTarget(s,pp);
-			return;
-		}
-	}
-
-	int x,y;
-	short id=(addid1[s]<<8)+addid2[s];
-	Map->SeekTile(id, &tile);
-	if (tile.flag2&0x08) pileable = true;
-	for (x=x1;x<=x2;x++)
-		for (y=y1;y<=y2;y++)
-		{
-			P_ITEM pi = Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0, 0);
-			if(!pi) return;
-			pi->priv=0;	//Make them not decay
-			pi->MoveTo(x,y,pp->TzLoc+Map->TileHeight(pp->model));
-			pi->update();
-		}
-
-	addid1[s]=0;
-	addid2[s]=0;*/
-}
 
 //public !!
 void cTargets::Wiping(int s) // Clicking the corners of wiping calls this function - Crwth 01/11/1999
@@ -491,31 +346,6 @@ void cTargets::Wiping(int s) // Clicking the corners of wiping calls this functi
 	}*/
 }
 
-static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it (unmovable) at that spot
-{
-	if(pp->TxLoc==-1 || pp->TyLoc==-1) return;
-	P_CHAR pc_currchar = currchar[s];
-
-	// ANTICHRIST -- CHECKS LINE OF SIGHT!
-	Coord_cl clTemp4(pc_currchar->pos);
-	clTemp4.x = pp->TxLoc;
-	clTemp4.y = pp->TyLoc;
-	clTemp4.z = pp->TzLoc;
-	if(lineOfSight( pc_currchar->pos, clTemp4, WALLS_CHIMNEYS + DOORS + ROOFING_SLANTED))
-	{
-		P_ITEM pi = FindItemBySerial(calcserial(addid1[s],addid2[s],addid3[s],addid4[s]));
-		if (pi != NULL) // crashfix LB
-		{
-			pi->moveTo( clTemp4 );
-			//pi->setContSerial(INVALID_SERIAL);
-			pi->setGMMovable(); //make item unmovable once thrown
-			movingeffect2(pc_currchar, pi, 0x0F, 0x0D, 0x11, 0x00, 0x00);
-			pi->update();
-		}
-	}
-	else 
-		sysmessage(s,"You cannot throw the potion there!");
-}
 
 void cTargets::SquelchTarg(int s)//Squelch
 {
@@ -556,54 +386,6 @@ void cTargets::SquelchTarg(int s)//Squelch
 }
 
 
-static void TeleStuff(int s, PKGx6C *pp)
-{
-	sysmessage(s, "Command temporary disabled for code restructure");
-/*
-	static int targ=-1;//What/who to tele
-	int x, y, z;
-	int serial, i;
-	if (targ==-1)
-	{
-		serial=LongFromCharPtr(buffer[s]+7);
-		targ=calcCharFromSer(serial);
-
-		if(targ!=-1)
-		{
-			targ+=1000000;
-			target(s,0,1,0,222,"Select location to put this character.");
-		} else {
-			targ=calcItemFromSer(serial);
-			if(targ!=-1)
-				target(s,0,1,0,222,"Select location to put this item.");
-		}
-		return;
-	} else
-	{
-		if(pp->TxLoc==-1 || pp->TyLoc==-1) return;
-		x=pp->TxLoc;
-		y=pp->TyLoc;
-		z=pp->TzLoc+Map->TileHeight(pp->model);
-
-		if (targ>999999)//character
-		{
-			sysmessage(s, "Moving character...");
-			i=targ-1000000;
-			chars[i].MoveTo(x,y,z);
-			teleport(i);
-		} else {
-			i=targ;
-			items[i].MoveTo(x,y,z);
-			sysmessage(s, "Moving item...");
-			i->update();
-		}
-		targ=-1;
-		return;
-	}
-	*/
-
-}
-
 void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bird)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -617,7 +399,6 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 	pi1->startDecay();
 	pi1->update();
 
-//	int c;
 	if (feat)
 	{
 		P_ITEM pi = Items->SpawnItem(s, pc_currchar,feat,"feather",1,0x1B,0xD1,0,1,1);
@@ -1603,6 +1384,7 @@ void cTargets::LoadCannon(int s)
 	}*/
 }
 
+/*
 void cTargets::AddItem( UOXSOCKET s )
 {
 	if( s == -1 )
@@ -1640,3 +1422,4 @@ void cTargets::AddItem( UOXSOCKET s )
 	Item->MoveTo( TargetX, TargetY, TargetZ );
 	Item->update();
 }
+*/

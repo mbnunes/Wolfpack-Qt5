@@ -413,15 +413,15 @@ std::vector<StartLocation_st>& cSrvParams::startLocation()
 
 void cSrvParams::setDefaultStartLocation()
 {
-	setString("StartLocation", "Location 1", "Yew=567,978,0,0");
-	setString("StartLocation", "Location 2", "Minoc=2477,407,15,0");
-	setString("StartLocation", "Location 3", "Britain=1496,1629,10,0");
-	setString("StartLocation", "Location 4", "Moonglow=4404,1169,0,0");
-	setString("StartLocation", "Location 5", "Trinsic=1844,2745,0,0");
-	setString("StartLocation", "Location 6", "Magincia=3738,2223,20,0");
-	setString("StartLocation", "Location 7", "Jhelom=1378,3817,0,0");
-	setString("StartLocation", "Location 8", "Skara Brae=594,2227,0,0");
-	setString("StartLocation", "Location 9", "Vesper=2771,977,0,0");
+	setString("StartLocation", "Location 1", "Yew=567,978,0,1");
+	setString("StartLocation", "Location 2", "Minoc=2477,407,15,1");
+	setString("StartLocation", "Location 3", "Britain=1496,1629,10,1");
+	setString("StartLocation", "Location 4", "Moonglow=4404,1169,0,1");
+	setString("StartLocation", "Location 5", "Trinsic=1844,2745,0,1");
+	setString("StartLocation", "Location 6", "Magincia=3738,2223,20,1");
+	setString("StartLocation", "Location 7", "Jhelom=1378,3817,0,1");
+	setString("StartLocation", "Location 8", "Skara Brae=594,2227,0,1");
+	setString("StartLocation", "Location 9", "Vesper=2771,977,0,1");
 	flush(); // save
 }
 

@@ -14,6 +14,7 @@
 		<id>0x10e4</id>
 		<decay/>
 		<value>5</value>
+		<type>1103</type>
 	</item>
 	
 	<!-- Dovetail Saw -->
@@ -22,6 +23,7 @@
 		<id>0x1028</id>
 		<decay/>
 		<value>15</value>
+		<type>1103</type>
 	</item>
 	
 	<!-- saw -->
@@ -29,6 +31,7 @@
 		<name>saw</name>
 		<id>0x1034</id>
 		<value>20</value>
+		<type>1103</type>
 	</item>
 	
 	<!-- Carpenter Hammer -->
@@ -36,6 +39,7 @@
 		<name>carpenter hammer</name>
 		<id>0x102a</id>
 		<value>15</value>
+		<type>1103</type>
 	</item>
 	
 	<!-- Carpenter Hammer -->
@@ -43,6 +47,7 @@
 		<name>carpenter hammer</name>
 		<id>0x102a</id>
 		<value>15</value>
+		<type>1103</type>
 	</item>	
 	
 	<!-- Jointing Plane -->
@@ -50,6 +55,7 @@
 		<name>jointing plane</name>
 		<id>0x1030</id>
 		<value>15</value>
+		<type>1103</type>
 	</item>
 	
 	<!-- Smoothing Plane -->
@@ -57,6 +63,7 @@
 		<name>smoothing plane</name>
 		<id>0x1032</id>
 		<value>15</value>
+		<type>1103</type>
 	</item>
 	
 	<!-- Scorp -->
@@ -64,6 +71,7 @@
 		<name>scorp</name>
 		<id>0x10e7</id>
 		<value>10</value>
+		<type>1103</type>
 	</item>
 	
 	<!-- Inshave -->
@@ -71,6 +79,7 @@
 		<name>inshave</name>
 		<id>0x10e6</id>
 		<value>10</value>
+		<type>1103</type>
 	</item>
 	
 	<!-- Moulding Plane -->
@@ -78,6 +87,7 @@
 		<name>moulding plane</name>
 		<id>0x102c</id>
 		<value>15</value>
+		<type>1103</type>
 	</item>
 	
 	<!-- Nails -->

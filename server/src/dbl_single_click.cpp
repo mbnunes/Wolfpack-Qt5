@@ -236,12 +236,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	// Check item behaviour by it's tpye
 	switch (pi->type())
 	{
-	// Bladed Weapons (Swords, Axes)
-	case 3:
-		// Show a target-request
-		socket->sysMessage( tr( "What do you want to use this on?" ) );
-		socket->attachTarget( new cFindResource( "RESOURCE_LOG" ) );
-		return;
 
 	case 16:
 		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
@@ -948,11 +942,12 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				return;
 			}
 
-		// 1001: Sword Weapons (Swordsmanship)
-		case 1001:
-
-		// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
-		case 1002:
+		case 1001: // Sword Weapons (Swordsmanship)
+		case 1002: // Axe Weapons (Swordsmanship + Lumberjacking)
+			// Show a target-request
+			socket->sysMessage( tr( "What do you want to use this on?" ) );
+			socket->attachTarget( new cFindResource( "RESOURCE_LOG" ) );
+			return;
 
 		// 1003: Macefighting (Staffs)
 		case 1003:
