@@ -30,11 +30,7 @@
 
 inline const char* productString()
 {
-#ifdef _DEBUG
-	return "Wolfpack DEBUG BUILD";
-#else
-	return "Wolfpack Release";
-#endif
+	return "Wolfpack";
 }
 
 inline const char* productVersion()
