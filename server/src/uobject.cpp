@@ -710,7 +710,13 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 	changed( TOOLTIP );
 	changed_ = true;	
 	// \rproperty object.serial This integer property contains the serial for this object.
-	SET_INT_PROPERTY( "serial", serial_ )
+	if (name == "serial") {
+		if (!value.canCast(cVariant::Int)) {
+			PROPERTY_ERROR( -3, QString( "Invalid integer value: '%1'" ).arg( value.toString() ) );
+		}
+		setSerial(value.toInt());
+		return 0;
+	}
 
 	// \property object.free This boolean property indicates that the object has been freed and is awaiting deletion.
 	else
