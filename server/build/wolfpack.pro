@@ -56,7 +56,6 @@ HEADERS         = \
 		  itemid.h \
 		  items.h \
                   itemsmgr.h \
-		  junk.h \
                   magic.h \
 		  makemenus.h \
 		  multis.h \

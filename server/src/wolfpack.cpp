@@ -77,7 +77,7 @@
 #include "weight.h"
 #include "onlinestatus.h"
 #include "multiscache.h"
-#include "trade.h"
+#include "Trade.h"
 
 // Library Includes
 #include <qapplication.h>

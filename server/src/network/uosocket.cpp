@@ -62,7 +62,7 @@
 #include "../newmagic.h"
 #include "../targetrequests.h"
 #include "../dragdrop.h"
-#include "../trade.h"
+#include "../Trade.h"
 
 
 //#include <conio.h>

@@ -60,7 +60,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 			socket->sysMessage( tr("You are not close enough to apply the bandages.") );
 			return true;
 		}
-		if ((ph->isInnocent()) &&(ph->serial != pp->serial))
+		if ((ph->isInnocent()) &&(ph->serial() != pp->serial()))
 		{
 			if ((pp->crimflag()>0) ||(pp->isMurderer()))
 			{
@@ -161,7 +161,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				//int iMore1 = min(pp->st, j+pp->hp)-pp->hp;
 				if(j>(pp->st() -pp->hp()))
 					j=(pp->st() -pp->hp());
-				if(pp->serial==ph->serial)
+				if(pp->serial()==ph->serial())
 					tempeffect(ph, ph, 35, j, 0, 15, 0);//allow a delay
 				else 
 					tempeffect(ph, ph, 35, j, 0, 5, 0);// added suggestion by Ramases //-Fraz- must be checked

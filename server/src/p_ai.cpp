@@ -499,7 +499,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 60: // Skyfire - Dragon AI
 			break;
 		default:
-			clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc (%8x) has invalid AI type %i\n", pc_i->serial, pc_i->npcaitype()); // Morrolan
+			clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc (%8x) has invalid AI type %i\n", pc_i->serial(), pc_i->npcaitype()); // Morrolan
 			return;
 	}// switch
 }// void checknpcai

@@ -42,7 +42,7 @@
 #include "structs.h"
 #include "defines.h"
 #include "uobject.h"
-//#include "makemenus.h"
+#include "makemenus.h"
 
 // Library Includes
 #include <qmap.h>
@@ -737,7 +737,7 @@ public:
 	void removeItemBonus(cItem* pi);
 	void giveItemBonus(cItem* pi);
 	void Init(bool ser = true);
-	bool isSameAs(cChar* pc) {if (!pc || pc->serial != serial) return false; else return true;}
+	bool isSameAs(cChar* pc) {if (!pc || pc->serial() != serial()) return false; else return true;}
 	bool inGuardedArea();
 	bool canPickUp(cItem* pi);
 	void soundEffect( UI16 soundId, bool hearAll = true );

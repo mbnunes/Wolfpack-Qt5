@@ -257,7 +257,7 @@ the line of sight.
 			if( pi && pi->id() < 0x4000 )
 			{
 				tile = TileCache::instance()->getTile( pi->id() );
-				if(	( (*pit).z >= pi->pos().z ) && ( (*pit).z <= ( pi->pos().z + tile.height ) ) && ( pi->visible == 0 ) )
+				if(	( (*pit).z >= pi->pos().z ) && ( (*pit).z <= ( pi->pos().z + tile.height ) ) && ( pi->visible() == 0 ) )
 					itemids.insert( pi->id() );
 			}
 		}

@@ -972,7 +972,7 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 			continue;
 
 		// If it's not on the same position it's useless to check
-		if( mapChar->pos != pChar->pos )
+		if( mapChar->pos() != pChar->pos() )
 			continue;
 
 		if( ( pChar->id() == 0x3DB ) || ( pChar->id() == 0x192 ) || ( pChar->id() == 0x193 ) || !pChar->isGMorCounselor() )

@@ -63,6 +63,7 @@
 #include "combat.h"
 #include "itemsmgr.h"
 #include "msgboard.h"
+#include "makemenus.h"
 
 // Qt Includes
 #include <qstringlist.h>

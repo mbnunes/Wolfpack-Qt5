@@ -1026,7 +1026,7 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 
 				}
 				// Item has been moved
-				else if( ( pSpawned->free ) || ( pSpawned->pos != pItem->pos ) )
+				else if( ( pSpawned->free ) || ( pSpawned->pos() != pItem->pos() ) )
 				{
 					pSpawned->SetSpawnSerial( INVALID_SERIAL );
 					--amount;
@@ -2926,7 +2926,7 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "decaytime", (int)decaytime_ )
 
 	// Visible
-	else GET_PROPERTY( "visible", visible == 0 ? 1 : 0 )
+	else GET_PROPERTY( "visible", visible_ == 0 ? 1 : 0 )
 	else GET_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
 	else GET_PROPERTY( "spawn", FindItemBySerial( spawnserial ) )
 
