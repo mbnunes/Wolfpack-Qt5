@@ -44,7 +44,7 @@ regexp_exist ()
 # the regexp is to check the validity of the user's input
 ask_path ()
 {
-	echo "not found." >&2;
+	[ "$2" != "skip" ] && echo "not found." >&2;
 	SUPPLIED_PATH="";
 
 	[ "$(echo "$1"|grep 'so$')" ] && LIB_OR_INC="library" || LIB_OR_INC="include";
@@ -69,10 +69,18 @@ ask_path ()
 # check version of package using the file/dir in path
 check_version ()
 {
+	if [ ! "$2" ];
+	then
+		echo "Error! You can't skip required stuff!" >&2;
+		LIB_PATH="(skipped)";
+	else
+		LIB_PATH="$2";
+	fi;
+
 	case "$1" in
 		python-inc)
 			VERSION_REGEXP='^[  ]*#[    ]*define[       ]*PY_VERSION[^"]*"\([^"]*\)".*$';
-			VERSION="$(grep "$VERSION_REGEXP" "${2}/patchlevel.h"|sed -e "s/$VERSION_REGEXP/\1/")";
+			VERSION="$(grep "$VERSION_REGEXP" "${LIB_PATH}/patchlevel.h"|sed -e "s/$VERSION_REGEXP/\1/")";
 			if [ ! "$(echo "$VERSION"|grep '^2\.3')" ];
 			then
 				cat >&2 <<-EOF
@@ -85,10 +93,10 @@ check_version ()
 			fi;
 			;;
 		python-lib)
-			if [ ! -e "${2}/libpython2.3.so" ] && [ ! -e "${2}/libpython2.3.a" ];
+			if [ ! -e "${LIB_PATH}/libpython2.3.so" ] && [ ! -e "${LIB_PATH}/libpython2.3.a" ];
 			then
 				cat >&2 <<-EOF
-				Python 2.3.x library files not found in ${2}!
+				Python 2.3.x library files not found in ${LIB_PATH}!
 				Please install the appropriate version from:
 				    http://www.python.org/2.3.3/
 				or use ${0} --help for help with specifying the correct path.
@@ -98,7 +106,7 @@ check_version ()
 			;;
 		qt)
 			VERSION_REGEXP='^.*version:[^(]*([^     ]*[     ]*\([^)]*\)).*$';
-			VERSION="$(eval "$2 -v" 2>&1|grep "$VERSION_REGEXP"|sed -e "s/$VERSION_REGEXP/\1/")";
+			VERSION="$(eval "${LIB_PATH} -v" 2>&1|grep "$VERSION_REGEXP"|sed -e "s/$VERSION_REGEXP/\1/")";
 			if [ ! "$(echo "$VERSION"|grep '^3\.')" ];
 			then
 				cat >&2 <<-EOF
@@ -376,11 +384,13 @@ then
 	then
 		if [ "$STATIC_PRESENT" = "y" ];
 		then
-			echo;
-			echo "Static libraries are available.";
-			echo -n "You should link Python dynamically, because .so files were ";
+			echo "error:" >&2;
+			echo "No dynamically linked Python libraries were found." >&2;
+			echo "Please make sure that .so files are available!" >&2;
+			echo "You can do this using --enable-shared at the Python" >&2;
+			echo "./configure script." >&2;
 		fi;
-		PYTHON_LIB="$(ask_path 'libpython.*\.so')";
+		PYTHON_LIB="$(ask_path 'libpython.*\.so' 'skip')";
 	else
 		echo "( $PYTHON_LIB )";
 	fi;
