@@ -34,21 +34,17 @@
 // Platform specifics
 #include "platform.h"
 #include "typedefs.h"
+#include "singleton.h"
 
 // System Includes
 #include <qstringlist.h>
 #include <qstring.h>
 #include <qmutex.h>
 
-// Third Party includes
-
-// Wolfpack Includes
-#include "singleton.h"
-
-// Class definitions
-
-enum WPC_ColorKeys 
-{
+/*!
+	\brief This is an enumeration 
+*/
+enum enConsoleColors {
 	WPC_NORMAL = 0,
 	WPC_RED,
 	WPC_GREEN,
@@ -57,60 +53,147 @@ enum WPC_ColorKeys
 	WPC_BROWN
 };
 
-enum eFontType
-{
+/*!
+	\brief This is an enumeration of possible font
+		types for console output.
+*/
+enum enFontType {
 	FONT_SERIF = 0,
 	FONT_NOSERIF,
 	FONT_FIXEDWIDTH
 };
 
-class cConsole
-{
+/*!
+	\brief This class encapsulates all access to server console features.
+*/
+class cConsole {
+	friend class SingletonHolder;
+
 private:
 	QStringList linebuffer_;
 	QString incompleteLine_;
 	QStringList commandQueue;
 	QMutex commandMutex;
+	QString progress;
 
-public:
+	/*!
+		\brief This method is internally used to handle a command.
+		\params command The command to execute.
+		\params silent Should the command fail silently.
+	*/
+	bool handleCommand(const QString &command, bool silent = false);
+
+	/*!
+		\brief Construct a new console object. Only available to
+			the \s SingletonHolder class.
+	*/
 	cConsole();
-	virtual ~cConsole();
 
-	void enabled(bool);
+	/*!
+		\brief Destructor for an instance of the console object.
+	*/
+	~cConsole();
+public:
+
 
 	// Send a message to the console
-	virtual void send(const QString &sMessage);
+	void send(const QString &sMessage);
 
-	// Log a message
-	void log( UINT8 logLevel, const QString &message, bool timestamp = true );
+	/*!
+		\brief Send a message to the console and to the logfile as well.
+		\params loglevel The loglevel for the message.
+		\params message The message you want to log.
+		\params timestamp Should the message be timestamped.
+	*/
+	void log(UINT8 logLevel, const QString &message, bool timestamp = true);
 
-        // Get input from the console
-	UI08 getkey(void);
+	/*!
+		\brief Give the console time to start.
+	*/
+	void start();
 
-	// Prepare a 
-	// xxxxx -----------------------[         ]
-	// line
-	void PrepareProgress( const QString &sMessage );
-	void ProgressDone( void );
-	void ProgressFail( void );
-	void ProgressSkip( void );
+	/*!
+		\brief Give the console time to process events.
+	*/
+	void poll();
 
+	/*!
+		\brief Stop the console.
+	*/
+	void stop();
+
+	/*!
+		\brief Send a progress line to the console.
+			It has to be terminted by \s sendDone, 
+			\s sendFail or \s sendSkip.
+		\params title The title of the progress line.
+	*/
+	void sendProgress(const QString &title);
+
+	/*!
+		\brief End a progress line and indicate success.
+	*/
+	void sendDone();
+
+	/*!
+		\brief End a progress line and indicate failure.
+	*/
+	void sendFail();
+
+	/*!
+		\brief End a progress line and indicate that the
+			process was skipped.
+	*/
+	void sendSkip();
+
+	/*!
+		\brief Change the console foreground color for
+			text output.
+		\params color The new textcolor.
+	*/
+	void changeColor(enConsoleColors color);
+
+	/*!
+		\brief Changes the console window title.
+		\params title The new console title.
+	*/
+	void setConsoleTitle(const QString &title);
+
+	/*!
+		\brief Notify the console of a server state change.
+		\params newstate The new serverstate.
+	*/
 	void notifyServerState(enServerState newstate);
-	virtual void ChangeColor( WPC_ColorKeys Color );
-	virtual void setConsoleTitle( const QString& data );
-	QStringList linebuffer() const { return linebuffer_; }
-	void queueCommand( const QString &command ); // Thread-Safe
-	
-	virtual void start();
-	virtual void poll();
-	virtual void stop();
 
-	void setAttributes( bool bold, bool italic, bool underlined, unsigned char r, unsigned char g, unsigned char b, unsigned char size, eFontType font );
-private:
-	bool bEnabled;
-	bool handleCommand( const QString &command, bool silentFail = false );
+	/*!
+		\brief Returns a reference to the linebuffer
+			storing all lines sent to the console.
+	*/
+	const QStringList &linebuffer() const {
+		return linebuffer_;
+	}
+	
+	/*!
+		\brief Queue a command to the console. This is thread-safe.
+		\params command The command you want to queue.
+	*/
+	void queueCommand(const QString &command);
+
+	/*!
+		\brief This function sets the text attribute for advanced
+			consoles.
+		\params bold Specifies whether the sent text should be bold.
+		\params italic Specifies whether the sent text should be italic.
+		\params underlined Specifies whether the sent text should be underlined.
+		\params r The red part of the text color.
+		\params g The green part of the text color.
+		\params b The blue part of the text color.
+		\params size The size of the text.
+		\params font The font used to draw the text.
+	*/
+	void setAttributes(bool bold, bool italic, bool underlined, unsigned char r, unsigned char g, unsigned char b, unsigned char size, enFontType font);
 };
 
-typedef SingletonHolder< cConsole > Console;
+typedef SingletonHolder<cConsole> Console;
 
 #endif

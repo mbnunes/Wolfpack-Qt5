@@ -563,8 +563,6 @@ void cWorld::load()
 	// Load Temporary Effects
 	TempEffects::instance()->load();
 
-	Console::instance()->PrepareProgress( "Postprocessing" );
-
 	// It's not possible to use cItemIterator during postprocessing because it skips lingering items
 	ItemMap::iterator iter;
 	QPtrList< cItem > deleteItems;
@@ -579,6 +577,7 @@ void cWorld::load()
 			int max_x = Map->mapTileWidth(pi->pos().map) * 8;
 			int max_y = Map->mapTileHeight(pi->pos().map) * 8;
 			if (pi->pos().x > max_x || pi->pos().y > max_y) {
+				Console::instance()->log(LOG_ERROR, QString("Item with invalid position %1,%2.\n").arg(pi->pos().x).arg(pi->pos().y));
 				deleteItems.append(pi);
 				continue;
 			} else {
@@ -592,6 +591,7 @@ void cWorld::load()
 				if (pCont) {
 					pCont->addItem(pi, false, true, true);
 				} else {
+					Console::instance()->log(LOG_ERROR, QString("Item with invalid container [%1].\n").arg(contserial));
 					deleteItems.append(pi); // Queue this item up for deletion
 					continue; // Skip further processing
 				}
@@ -603,6 +603,7 @@ void cWorld::load()
 				}
 
 				if (!pCont || pi->container() != pCont) {
+					Console::instance()->log(LOG_ERROR, QString("Item with invalid wearer [%1].\n").arg(contserial));
 					deleteItems.append(pi);
 					continue;
 				}
@@ -633,43 +634,34 @@ void cWorld::load()
 	// Post Process Characters
 	cCharIterator charIter;
 	P_CHAR pChar;
-	for( pChar = charIter.first(); pChar; pChar = charIter.next() )
-	{
+	for (pChar = charIter.first(); pChar; pChar = charIter.next()) {
 		P_NPC pNPC = dynamic_cast<P_NPC>(pChar);
 
 		// Find Owner
-		if( pNPC && pNPC->owner() )
-		{
+		if (pNPC && pNPC->owner()) {
 			SERIAL owner = pNPC->owner()->serial();
 
 			P_PLAYER pOwner = dynamic_cast<P_PLAYER>(FindCharBySerial( owner ));
-			if( pOwner )
-			{
+			if (pOwner) {
 				pNPC->setOwner( pOwner );
 				pOwner->addPet( pNPC, true );
-			}
-			else
-			{
-				Console::instance()->send( tr( "The owner of Serial 0x%1 is invalid: %2" ).arg( pNPC->serial(), 16 ).arg( owner, 16 ) );
-				pNPC->setOwner( NULL );
+			} else {
+				Console::instance()->send(QString("The owner of Serial 0x%1 is invalid: %2").arg(pNPC->serial(), 0, 16).arg(owner, 0, 16));
+				pNPC->setOwner(NULL);
 			}
 		}
 
 		// Find Guarding
-		if( pChar->guarding() )
-		{
+		if (pChar->guarding()) {
 			SERIAL guarding = (SERIAL)pChar->guarding();
 
-			P_CHAR pGuarding = FindCharBySerial( guarding );
-			if( pGuarding )
-			{
-				pChar->setGuarding( pGuarding );
-				pGuarding->addGuard( pChar, true );
-			}
-			else
-			{
+			P_CHAR pGuarding = FindCharBySerial(guarding);
+			if (pGuarding) {
+				pChar->setGuarding(pGuarding);
+				pGuarding->addGuard(pChar, true);
+			} else {
 				Console::instance()->send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( guarding, 16 ) );
-				pChar->setGuarding( NULL );
+				pChar->setGuarding(0);
 			}
 		}
 
@@ -677,8 +669,9 @@ void cWorld::load()
 		{
 			cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis() ) );
 
-			if( pMulti )
-				pMulti->addChar( pChar );
+			if (pMulti) {
+				pMulti->addChar(pChar);
+			}
 		}
 
 		cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
@@ -690,16 +683,12 @@ void cWorld::load()
 	// Post process spawnregions
 	SpawnRegions::instance()->postWorldLoading();
 
-	Console::instance()->ProgressDone();
-
 	if (deleteItems.count() > 0) {
-		Console::instance()->PrepareProgress( "Deleting lost items" );
 		// Do we have to delete items?
 		for( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
 			quickdelete( pItem );
-		Console::instance()->ProgressDone();
 
-		Console::instance()->send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
+		Console::instance()->send(QString::number(deleteItems.count()) + " deleted due to invalid container or position.\n");
 		deleteItems.clear();
 	}
 
@@ -707,21 +696,19 @@ void cWorld::load()
 	Guilds::instance()->load();
 
 	// load server time from db
-	Console::instance()->PrepareProgress( "Setting Worldtime" );
 	QString db_time;
 	QString default_time = SrvParams->getString( "General", "UO Time", "0", true );
 	getOption( "worldtime", db_time, default_time );
 	uoTime.setTime_t( db_time.toInt() );
-	Console::instance()->ProgressDone();
 
 	Console::instance()->send(QString("Worldtime is %1 on %3. %4 in year %5").arg(uoTime.time().toString()).arg(uoTime.date().day()).arg(QDate::monthName(uoTime.date().month())).arg(uoTime.date().year() - 1970) + ".\n" );
 
 	persistentBroker->disconnect();
 
 	Console::instance()->send("World Loading ");
-	Console::instance()->ChangeColor( WPC_GREEN );
-	Console::instance()->send( "Completed\n" );
-	Console::instance()->ChangeColor( WPC_NORMAL );
+	Console::instance()->changeColor(WPC_GREEN);
+	Console::instance()->send("Completed\n");
+	Console::instance()->changeColor(WPC_NORMAL);
 }
 
 void cWorld::save()
@@ -818,17 +805,17 @@ void cWorld::save()
 
 		uiCurrentTime = getNormalizedTime();
 
-		Console::instance()->ChangeColor( WPC_GREEN );
+		Console::instance()->changeColor( WPC_GREEN );
 		Console::instance()->send( " Done" );
-		Console::instance()->ChangeColor( WPC_NORMAL );
+		Console::instance()->changeColor( WPC_NORMAL );
 
 		Console::instance()->send( QString( " [%1ms]\n" ).arg( uiCurrentTime - startTime ) );
 	} catch(QString &e) {
 		persistentBroker->rollbackTransaction();
 
-		Console::instance()->ChangeColor( WPC_RED );
+		Console::instance()->changeColor( WPC_RED );
 		Console::instance()->send( " Failed\n" );
-		Console::instance()->ChangeColor( WPC_NORMAL );
+		Console::instance()->changeColor( WPC_NORMAL );
 
 		Console::instance()->log( LOG_ERROR, "Saving failed: " + e );
 	}

@@ -246,8 +246,7 @@ float ScriptAction::preCondition()
 	{
 		// Try to call the python function
 		// Get everything before the last dot
-		if( precond.contains( "." ) )
-		{
+		if (precond.contains(".")) {
 			// Find the last dot
 			INT32 position = precond.findRev( "." );
 			QString sModule = precond.left( position );

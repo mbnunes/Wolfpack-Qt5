@@ -80,7 +80,7 @@ void cScriptManager::reload( void )
 
 	// Stop + Restart Python
 	stopPython();
-	startPython( qApp->argc(), qApp->argv(), true );
+	startPython(qApp->argc(), qApp->argv());
 
 	load();
 
@@ -132,10 +132,10 @@ void cScriptManager::unload() {
 
 void cScriptManager::load()
 {
-	Console::instance()->PrepareProgress( "Loading ScriptManager" );
+	Console::instance()->sendProgress("Loading Python Scripts");
 
 	// Each Section is a Script identifier
-	const QValueVector< cElement* > &sections = DefManager->getDefinitions( WPDT_SCRIPT );
+	const QValueVector<cElement*> &sections = DefManager->getDefinitions(WPDT_SCRIPT);
 
 	unsigned int loaded = 0;
 	unsigned int i;
@@ -144,9 +144,7 @@ void cScriptManager::load()
 		const cElement *element = sections[i];
 		
 		if (scripts.contains(element->text().latin1())) {
-			Console::instance()->ProgressFail();
-			Console::instance()->PrepareProgress("Continuing...");
-			Console::instance()->log(LOG_WARNING, QString("Duplicate Script: %1").arg(element->text().utf8()));
+			Console::instance()->log(LOG_WARNING, QString("Duplicate Script: %1").arg(element->text()));
 			continue;
 		}
 
@@ -156,7 +154,7 @@ void cScriptManager::load()
 		++loaded;
 	}
 
-	Console::instance()->ProgressDone();
+	Console::instance()->sendDone();
 	Console::instance()->send(QString("%1 Script(s) loaded\n").arg(loaded));
 }
 

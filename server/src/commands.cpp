@@ -136,11 +136,8 @@ void cCommands::loadACLs( void )
 
 	QStringList ScriptSections = DefManager->getSections( WPDT_PRIVLEVEL );
 
-	if( ScriptSections.isEmpty() )
-	{
-		Console::instance()->ChangeColor( WPC_RED );
-		Console::instance()->send("WARNING: No ACLs for players, counselors, gms and admins defined!\n");
-		Console::instance()->ChangeColor( WPC_NORMAL );
+	if (ScriptSections.isEmpty()) {
+		Console::instance()->log(LOG_WARNING, "No ACLs for players, counselors, gms and admins defined!\n");
 		return;
 	}
 

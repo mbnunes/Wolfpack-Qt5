@@ -189,9 +189,7 @@ public:
 					// If the element has an id, 
 					if (!tagId.isEmpty()) {
 						if (impl->unique[categories[i].key].contains(tagId)) {
-							Console::instance()->ProgressFail();
 							Console::instance()->log(LOG_WARNING, QString("Duplicate %1: %2\n[File: %3, Line: %4]\n").arg(element->name()).arg(tagId).arg(filename).arg(locator->lineNumber()));
-							Console::instance()->PrepareProgress("Parsing Definitions");
 							delete element;
 						} else {
 							impl->unique[categories[i].key].insert(tagId, element);
@@ -205,10 +203,7 @@ public:
 				++i;
 			}
 
-			Console::instance()->ProgressFail();
-			Console::instance()->log(LOG_WARNING, QString("Unknown element: %1\n[File: %2, Line: %3]\n").arg(element->name()).arg(filename).arg(locator->lineNumber()));
-			Console::instance()->PrepareProgress("Parsing Definitions");
-			
+			Console::instance()->log(LOG_WARNING, QString("Unknown element: %1\n[File: %2, Line: %3]\n").arg(element->name()).arg(filename).arg(locator->lineNumber()));		
 			delete element;
 		}
 
@@ -230,23 +225,17 @@ public:
 	// error handling
 	bool warning ( const QXmlParseException & exception )
 	{
-		Console::instance()->ProgressFail();
 		Console::instance()->log( LOG_WARNING, QString("%1\n[File: %2, Line: %3, Column: %4").arg(exception.message(), filename).arg(exception.lineNumber()).arg(exception.columnNumber()));
-		Console::instance()->PrepareProgress( "Parsing Definitions" );
 		return true; // continue
 	}
 	bool error ( const QXmlParseException & exception )
 	{
-		Console::instance()->ProgressFail();
 		Console::instance()->log( LOG_ERROR, QString("%1\n[File: %2, Line: %3, Column: %4").arg(exception.message(), filename).arg(exception.lineNumber()).arg(exception.columnNumber()));
-		Console::instance()->PrepareProgress( "Parsing Definitions" );
 		return true; // continue
 	}
 	bool fatalError ( const QXmlParseException & exception )
 	{
-		Console::instance()->ProgressFail();
 		Console::instance()->log( LOG_ERROR, QString("%1\n[File: %2, Line: %3, Column: %4").arg(exception.message(), filename).arg(exception.lineNumber()).arg(exception.columnNumber()));
-		Console::instance()->PrepareProgress( "Parsing Definitions" );
 		return true; // continue
 	}
 	
@@ -259,9 +248,7 @@ bool WPDefManager::ImportSections( const QString& FileName )
 	QFile File( FileName );
 
     if ( !File.open( IO_ReadOnly ) )
-	{
-		Console::instance()->ProgressFail();
-	
+	{	
 		Console::instance()->send( "Unable to open " );
 		Console::instance()->send( FileName );
 		Console::instance()->send( "!\n" );
@@ -342,17 +329,16 @@ void WPDefManager::load( void )
 {
 	unsigned int i = 0;
 
-	Console::instance()->PrepareProgress( "Loading Definitions" );
+	Console::instance()->sendProgress( "Loading Definitions" );
 
 	impl->imports = QStringList::split( ";", SrvParams->getString( "General", "Definitions", "definitions.xml", true ) );
 
-	while( i < impl->imports.size() )
-	{
-		ImportSections( impl->imports[i] );
+	while (i < impl->imports.size()) {
+		ImportSections(impl->imports[i]);
 		++i;
 	}
 
-	Console::instance()->ProgressDone();
+	Console::instance()->sendDone();
 
 	// create a list cache, because reading all the lists on the fly
 	// means wasting time

@@ -203,6 +203,16 @@ void cConsole::ChangeColor( WPC_ColorKeys Color )
 // Send a message to the console
 void cConsole::send(const QString &sMessage)
 {
+	// If a progress message is waiting, remove it.
+	if (!progress.isEmpty()) {
+		QString temp = progress;
+		progress = QString::null;
+		for (int i = 0; i < temp.length() + 4; ++i) {
+			fprintf(stdout, "\b");
+		}
+		progress = temp;
+	}
+
 	fprintf( stdout, sMessage.latin1() );
 	fflush( stdout );
 
@@ -220,6 +230,13 @@ void cConsole::send(const QString &sMessage)
 	else
 	{
 		incompleteLine_.append( sMessage );
+	}
+
+	// Resend the Progress message if neccesary.
+	if (!progress.isEmpty()) {
+		QString temp = progress;
+		progress = QString::null;
+		sendProgress(temp);
 	}
 }
 

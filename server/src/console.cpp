@@ -65,18 +65,13 @@ using namespace std;
 // Constructor
 cConsole::cConsole()
 {
-	bEnabled = true;
+	progress = QString::null;
 }
 
 // Destuctor
 cConsole::~cConsole()
 {
 	// Clean up any terminal settings
-}
-
-void cConsole::enabled(bool bState)
-{
-	bEnabled = bState;
 }
 
 void cConsole::log( UINT8 logLevel, const QString &message, bool timestamp )
@@ -90,64 +85,36 @@ void cConsole::log( UINT8 logLevel, const QString &message, bool timestamp )
 	Log::instance()->print( (eLogLevel)logLevel, msg + "\n", timestamp );
 }
 
-// Get input from the console
-UI08 cConsole::getkey(void)
-{
-	UI08 key = 0;
-
-//	if (cin.peek())
-//		key = cin.get();
-	
-	return key;
-}
-
 // Prepare a "progess" line
-void cConsole::PrepareProgress( const QString &sMessage )
-{
-	UI08 PrintedChars = sMessage.length() + 1; // one spacer
-
-	send( sMessage.right(59) + " " );
-
-	ChangeColor( WPC_WHITE );
-	// Fill up the remaining chars with "....."
-	for( UI08 i = 0; i < 60 - PrintedChars; i++ )
-		send( "." );
-
-	ChangeColor( WPC_NORMAL );
-
-	send( " [____]" );
+void cConsole::sendProgress(const QString &sMessage) {
+	send(sMessage + "... ");
+	changeColor(WPC_NORMAL);
+	progress = sMessage;
 }
 
 // Print Progress Done
-void cConsole::ProgressDone( void )
-{
-	send( "\b\b\b\b\b" ); // Go 5 Characters back
-	ChangeColor( WPC_GREEN );
-	send( "done" );
-	ChangeColor( WPC_NORMAL );
-	send( "]\n" );
+void cConsole::sendDone() {	
+	progress = QString::null;
+	changeColor(WPC_GREEN);
+	send("Done\n");
+	changeColor(WPC_NORMAL);
 }
 
 // Print "Fail"
-void cConsole::ProgressFail( void )
-{
-	send( "\b\b\b\b\b" ); // Go 5 Characters back
-	ChangeColor( WPC_RED );
-	send( "fail" );
-	ChangeColor( WPC_NORMAL );
-	send( "]\n" );
+void cConsole::sendFail() {
+	progress = QString::null;
+	changeColor(WPC_RED);
+	send("Failed\n");
+	changeColor(WPC_NORMAL);
 }
 
 // Print "Skip" (maps etc.)
-void cConsole::ProgressSkip( void )
-{
-	send( "\b\b\b\b\b" ); // Go 5 Characters back
-	ChangeColor( WPC_YELLOW );
-	send( "skip" );
-	ChangeColor( WPC_NORMAL );
-	send( "]\n" );
+void cConsole::sendSkip() {
+	progress = QString::null;
+	changeColor(WPC_YELLOW);
+	send("Skipped\n");
+	changeColor(WPC_NORMAL);
 }
-
 
 bool cConsole::handleCommand( const QString &command, bool silentFail )
 {

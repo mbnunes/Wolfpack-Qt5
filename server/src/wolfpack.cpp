@@ -455,16 +455,12 @@ int main( int argc, char **argv )
 	}
 #endif
 
-	Console::instance()->PrepareProgress( "Initializing Multis" );
 	InitMultis();
-	Console::instance()->ProgressDone();
 
 	uiCurrentTime = getNormalizedTime();
 
 	// network startup
-	Console::instance()->PrepareProgress( "Starting up Network" );
 	cNetwork::startup();
-	Console::instance()->ProgressDone();
 
 	if( SrvParams->enableLogin() )
 	{
@@ -533,15 +529,15 @@ int main( int argc, char **argv )
 				switch( type )
 				{
 				case RELOAD_ACCOUNTS:
-					Console::instance()->PrepareProgress( "Reloading Accounts" );
+					Console::instance()->sendProgress( "Reloading Accounts" );
 					Accounts::instance()->reload();
-					Console::instance()->ProgressDone();
+					Console::instance()->sendDone();
 					break;
 
 				case RELOAD_CONFIGURATION:
-					Console::instance()->PrepareProgress( "Reloading Configuration" );
+					Console::instance()->sendProgress( "Reloading Configuration" );
 					SrvParams->reload();
-					Console::instance()->ProgressDone();
+					Console::instance()->sendDone();
 					break;
 
 				case RELOAD_SCRIPTS:
@@ -571,10 +567,7 @@ int main( int argc, char **argv )
 	ScriptManager::instance()->onServerStop();
 
 	cNetwork::instance()->broadcast( tr( "The server is shutting down." ) );
-
-	Console::instance()->PrepareProgress( tr( "Shutting down network" ) );
 	cNetwork::shutdown();
-	Console::instance()->ProgressDone();
 
 	SrvParams->flush(); // Save config options
 

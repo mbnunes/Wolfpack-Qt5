@@ -171,53 +171,56 @@ static PyObject* wpConsole_send( PyObject* self, PyObject* args )
 /*!
 	Sends a progress-bar to the wolfpack console
 */
-static PyObject* wpConsole_progress( PyObject* self, PyObject* args )
+static PyObject* wpConsole_sendprogress( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);	
-	if( PyTuple_Size( args ) < 1 )
-		return PyFalse;
+	char *message;
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &message)) {
+		return 0;
+	}
 
-	PyObject *pyMessage = PyTuple_GetItem( args, 0 );
+	Console::instance()->sendProgress(QString::fromUtf8(message));
 
-	if( pyMessage == NULL )
-		return PyFalse;
+	PyMem_Free(message);
 
-	Console::instance()->PrepareProgress( PyString_AS_STRING( pyMessage ) );
-
-	return PyInt_FromLong( 1 );
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
 	Sends a [done] progress section to the console
 */
-static PyObject* wpConsole_progressDone( PyObject* self, PyObject* args )
+static PyObject* wpConsole_senddone( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);	
 	Q_UNUSED(args);
-	Console::instance()->ProgressDone();
-	return PyInt_FromLong( 1 );
+	Console::instance()->sendDone();
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
 	Sends a [fail] progress section to the console
 */
-static PyObject* wpConsole_progressFail( PyObject* self, PyObject* args )
+static PyObject* wpConsole_sendfail( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);	
 	Q_UNUSED(args);
-	Console::instance()->ProgressFail();
-	return PyInt_FromLong( 1 );
+	Console::instance()->sendFail();
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
 	Sends a [skip] progress section to the console
 */
-static PyObject* wpConsole_progressSkip( PyObject* self, PyObject* args )
+static PyObject* wpConsole_sendskip( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);	
 	Q_UNUSED(args);
-	Console::instance()->ProgressSkip();
-	return PyInt_FromLong( 1 );
+	Console::instance()->sendSkip();
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
@@ -255,10 +258,10 @@ static PyObject* wpConsole_shutdown( PyObject* self, PyObject* args )
 static PyMethodDef wpConsole[] = 
 {
 	{ "send",		wpConsole_send,			METH_VARARGS,	"Prints something to the wolfpack console" },
-	{ "progress",		wpConsole_progress,		METH_VARARGS,	"Prints a .....[xxxx] block" },
-	{ "progressDone",	wpConsole_progressDone,		METH_NOARGS,	"Prints a [done] block" },
-	{ "progressFail",	wpConsole_progressFail,		METH_NOARGS,	"Prints a [fail] block" },
-	{ "progressSkip",	wpConsole_progressSkip,		METH_NOARGS,	"Prints a [skip] block" },
+	{ "progress",		wpConsole_sendprogress,		METH_VARARGS,	"Prints a .....[xxxx] block" },
+	{ "progressDone",	wpConsole_senddone,		METH_NOARGS,	"Prints a [done] block" },
+	{ "progressFail",	wpConsole_sendfail,		METH_NOARGS,	"Prints a [fail] block" },
+	{ "progressSkip",	wpConsole_sendskip,		METH_NOARGS,	"Prints a [skip] block" },
 	{ "getbuffer",		wpConsole_getbuffer,		METH_NOARGS,	"Gets the linebuffer of the console" },
 	{ "log",		wpConsole_log,			METH_VARARGS,	NULL },
 	{ "shutdown",		wpConsole_shutdown,		METH_NOARGS,	"Shut the server down" },

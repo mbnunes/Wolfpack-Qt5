@@ -145,7 +145,7 @@ void cTiming::poll() {
 	}
 
 	// Save the positions of connected players
-	//QValueVector<Coord_cl> positions;
+	QValueVector<Coord_cl> positions;
 
 	// Periodic checks for connected players
 	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
@@ -156,7 +156,7 @@ void cTiming::poll() {
 		socket->player()->poll(time, events);
 		checkRegeneration(socket->player(), time);
 		checkPlayer(socket->player(), time);
-		//positions.append(socket->player()->pos());
+		positions.append(socket->player()->pos());
 	}
 
 	// Check all other characters
@@ -166,23 +166,19 @@ void cTiming::poll() {
 		for (P_CHAR character = chariter.first(); character; character = chariter.next()) {
 			P_NPC npc = dynamic_cast<P_NPC>(character);
 
-			if (npc && npc->stablemasterSerial() == INVALID_SERIAL) {				
-				checkRegeneration(npc, time);
-				checkNpc(npc, time);
-				npc->poll(time, events);
+			if (npc && npc->stablemasterSerial() == INVALID_SERIAL) {
+				// Check if we are anywhere near a player
+				// all other npcs are accounted as inactive
+				for (QValueVector<Coord_cl>::const_iterator it = positions.begin(); it != positions.end(); ++it) {
+					if ((*it).distance(npc->pos()) <= 24) {
+						checkRegeneration(npc, time);
+						checkNpc(npc, time);
+						npc->poll(time, events);
+						break;
+					}
+				}
 				continue;
 			}
-
-			// Check if we are anywhere near a player
-			// all other npcs are accounted as inactive
-			//for (QValueVector<Coord_cl>::const_iterator it = positions.begin(); it != positions.end(); ++it) 
-			//{
-			//	if ((*it).distance(npc->pos()) <= 24) 
-			//	{							
-			//		checkNpc(npc, time);
-			//		break;
-			//	}
-			//}
 
 			P_PLAYER player = dynamic_cast<P_PLAYER>(character);
 			if (player) {

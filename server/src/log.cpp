@@ -166,9 +166,9 @@ void cLog::print( eLogLevel loglevel, cUOSocket *sock, const QString &string, bo
 	{
 		prelude.sprintf( "%02u:%02u:", now.hour(), now.minute() );
 
-		Console::instance()->ChangeColor( WPC_WHITE );
+		Console::instance()->changeColor( WPC_WHITE );
 		Console::instance()->send( prelude );
-		Console::instance()->ChangeColor( WPC_NORMAL );
+		Console::instance()->changeColor( WPC_NORMAL );
 
 		if( sock )
 			Console::instance()->send( QString( "%1:" ).arg( sock->uniqueId(), 0, 16 ) );
@@ -178,19 +178,19 @@ void cLog::print( eLogLevel loglevel, cUOSocket *sock, const QString &string, bo
 	switch( loglevel )
 	{
 	case LOG_ERROR:
-		Console::instance()->ChangeColor( WPC_RED );
+		Console::instance()->changeColor( WPC_RED );
 		Console::instance()->send( "ERROR: " );
-		Console::instance()->ChangeColor( WPC_NORMAL );
+		Console::instance()->changeColor( WPC_NORMAL );
 		break;
 
 	case LOG_WARNING:
-		Console::instance()->ChangeColor( WPC_YELLOW );
+		Console::instance()->changeColor( WPC_YELLOW );
 		Console::instance()->send( "WARNING: " );
-		Console::instance()->ChangeColor( WPC_NORMAL );
+		Console::instance()->changeColor( WPC_NORMAL );
 		break;
 
 	case LOG_PYTHON:
-		Console::instance()->ChangeColor( WPC_BROWN );
+		Console::instance()->changeColor( WPC_BROWN );
 		break;
 
 	default:
@@ -202,7 +202,7 @@ void cLog::print( eLogLevel loglevel, cUOSocket *sock, const QString &string, bo
 
 	if( loglevel == LOG_PYTHON )
 	{
-		Console::instance()->ChangeColor( WPC_NORMAL );
+		Console::instance()->changeColor( WPC_NORMAL );
 	}
 }
 

@@ -50,11 +50,9 @@
 #endif
 #define slots
 
-void reloadPython( void );
-void stopPython( void );
-void startPython( int argc, char* argv[], bool silent = false );
-void reportPythonError( QString moduleName = QString::null );
-
+void reloadPython();
+void stopPython();
+void startPython(int argc, char* argv[]);
+void reportPythonError(QString moduleName = QString::null);
 
 #endif // __PYTHON_ENGINE_H__
-

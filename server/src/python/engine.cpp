@@ -60,11 +60,7 @@ void stopPython( void )
 /*!
 	Starts the python interpreter
 */
-void startPython( int argc, char* argv[], bool silent )
-{
-	if( !silent )
-		Console::instance()->PrepareProgress( "Starting Python interpreter" );
-
+void startPython(int argc, char* argv[]) {
 	Py_SetProgramName( argv[ 0 ] );
 
 	Py_NoSiteFlag = 1; // No import because we need to set the search path first
@@ -78,27 +74,13 @@ void startPython( int argc, char* argv[], bool silent )
 	QStringList elements = QStringList::split( ";", SrvParams->getString( "General", "Python Searchpath", "./scripts;.", true ) );
 	
 	// Prepend our items to the searchpath
-	for( int i = elements.count() - 1; i >= 0; --i )
-	{
+	for (int i = elements.count() - 1; i >= 0; --i) {
 		PyList_Insert( searchpath, 0, PyString_FromString( elements[i].latin1() ) );
 	}
 	
 	// Import site now
-	PyObject *m = PyImport_ImportModule( "site" );
-	
-	if( !m )
-	{
-		if( !silent )
-		{
-			Console::instance()->ProgressFail();
-			if( PyErr_Occurred() )
-				PyErr_Print();
-		}
-		
-		return;
-	}
-
-	Py_XDECREF( m );
+	PyObject *m = PyImport_ImportModule("site");
+	Py_XDECREF(m);
 	
 	// Try changing the stderr + stdout pointers
 	PyObject *file = PyFile_FromString("python.log", "w");
@@ -109,29 +91,13 @@ void startPython( int argc, char* argv[], bool silent )
 		Py_INCREF(file);
 		PySys_SetObject("stdout", file);
 		Py_DECREF(file);
-	} else {
-		if (!silent) {
-			Console::instance()->ProgressFail();
-			Console::instance()->log(LOG_ERROR, "Couldn't open python.log for writing.\n");
-			Console::instance()->PrepareProgress( "Starting Python interpreter" );
-		}
 	}
 
-	try
-	{
-		init_wolfpack_globals(); // Init wolfpack extensions
-	}
-	catch( ... )
-	{
-		if( !silent )
-			Console::instance()->ProgressFail();
-
+	try {
+		init_wolfpack_globals();
+	} catch (...) {
 		Console::instance()->send( "Failed to initialize the python extension modules\n" );
-		return;
 	}
-
-	if( !silent )
-		Console::instance()->ProgressDone();
 }
 
 /*!	

@@ -137,9 +137,7 @@ bool cPythonScript::load(const QString &name)
 	codeModule = PyImport_ImportModule(const_cast<char*>(name.latin1()));
 
 	if(!codeModule) {
-		Console::instance()->ProgressFail();
 		reportPythonError(name);
-		Console::instance()->PrepareProgress("Continuing loading");
 		return false;
 	}
 
@@ -147,9 +145,7 @@ bool cPythonScript::load(const QString &name)
 	callEventHandler("onLoad", 0, true);
 
 	if (PyErr_Occurred()) {
-		Console::instance()->ProgressFail();
-		reportPythonError(name_);
-		Console::instance()->PrepareProgress("Continuing loading");
+		reportPythonError(name_);		
 	}
 
 	// Cache Event Functions
@@ -158,9 +154,7 @@ bool cPythonScript::load(const QString &name)
 			events[i] = PyObject_GetAttrString(codeModule, eventNames[i]);
 
 			if (events[i] && !PyCallable_Check(events[i])) {
-				Console::instance()->ProgressFail();
 				Console::instance()->log( LOG_ERROR, QString( "Script %1 has non callable event: %1" ).arg( eventNames[ i ] ) );
-				Console::instance()->PrepareProgress( "Continuing loading" );
 
 				Py_DECREF(events[i]);
 				events[i] = 0;

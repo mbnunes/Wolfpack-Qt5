@@ -693,6 +693,16 @@ void cConsole::stop()
 
 void cConsole::send(const QString &sMessage)
 {
+	// If a progress message is waiting, remove it.
+	if (!progress.isEmpty()) {
+		QString temp = progress;
+		progress = QString::null;
+		for (int i = 0; i < temp.length() + 4; ++i) {
+			send("\b");
+		}
+		progress = temp;
+	}
+
 	unsigned int ctrlLength = GetWindowTextLength( logWindow );
 	unsigned int textLength = sMessage.length();
 
@@ -717,9 +727,6 @@ void cConsole::send(const QString &sMessage)
 		SendMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)"" );
 	}
 
-	// Place the Caret at the End of the Text
-	
-
 	// process \b properly
 	if ( sMessage.contains("\b") )
 	{
@@ -734,7 +741,10 @@ void cConsole::send(const QString &sMessage)
 			range.cpMin -= 1;
 			SendMessage( logWindow, EM_EXSETSEL, 0, (LPARAM)&range );
 			SendMessage( logWindow, EM_REPLACESEL, FALSE, 0 );
-			send( sMessage.left( sMessage.length() - 1 ) );
+
+			if (sMessage.length() > 1) {
+				send( sMessage.left( sMessage.length() - 1 ) );
+			}
 			return;
 		}
 	}
@@ -753,8 +763,7 @@ void cConsole::send(const QString &sMessage)
 		SendMessage( logWindow, WM_VSCROLL, SB_BOTTOM, 0 );
 
 	// Update linebuffer_, so that web console works as well.
-	if( sMessage.contains( "\n" ) )
-	{
+	if (sMessage.contains("\n")) {
 		incompleteLine_.append( sMessage ); // Split by \n
 		QStringList lines = QStringList::split( "\n", incompleteLine_, true );
 
@@ -763,59 +772,59 @@ void cConsole::send(const QString &sMessage)
 			linebuffer_.push_back( lines[i] );
 
 		incompleteLine_ = lines[ lines.count() - 1 ];
+	} else {
+		incompleteLine_.append(sMessage);
 	}
-	else
-	{
-		incompleteLine_.append( sMessage );
+
+	// Resend the Progress message if neccesary.
+	if (!progress.isEmpty()) {
+		QString temp = progress;
+		progress = QString::null;
+		sendProgress(temp);
 	}
 }
 
-void cConsole::ChangeColor( WPC_ColorKeys color )
-{
-	// Move the selection to the end of the field
+void cConsole::changeColor(enConsoleColors color) {
 	unsigned int tLength = GetWindowTextLength(logWindow);
 	SendMessage(logWindow, EM_SETSEL, tLength, tLength);
 	
-	ZeroMemory( &cf, sizeof( CHARFORMAT ) );
-	cf.cbSize = sizeof( CHARFORMAT );
+	ZeroMemory(&cf, sizeof(CHARFORMAT));
+	cf.cbSize = sizeof(CHARFORMAT);
 	cf.dwMask = CFM_COLOR;
 	
-	switch( color )
-	{
+	switch (color) {
 	case WPC_GREEN:
-		cf.crTextColor = RGB( 0x00,0xFF,0x00 );
+		cf.crTextColor = RGB(0x00,0xFF,0x00);
 		break;
 
 	case WPC_RED:
-		cf.crTextColor = RGB( 0xFF,0x00,0x00 );
+		cf.crTextColor = RGB(0xFF,0x00,0x00);
 		break;
 
 	case WPC_YELLOW:
-		cf.crTextColor = RGB( 0x00,0xFF,0xFF );
+		cf.crTextColor = RGB(0x00,0xFF,0xFF);
 		break;
 
 	case WPC_BROWN:
-		cf.crTextColor = RGB( 204, 204, 153 );
+		cf.crTextColor = RGB(204, 204, 153);
 		break;
 
 	case WPC_NORMAL:
-        cf.crTextColor = RGB( 0xAF,0xAF,0xAF );
+        cf.crTextColor = RGB(0xAF,0xAF,0xAF);
 		break;
 
 	case WPC_WHITE:
-		cf.crTextColor = RGB( 0xFF,0xFF,0xFF );
+		cf.crTextColor = RGB(0xFF,0xFF,0xFF);
 		break;
 
 	};
 }
 
-void cConsole::setConsoleTitle( const QString& data )
-{
-	SetWindowText( mainWindow, data.latin1() );
+void cConsole::setConsoleTitle(const QString& data) {
+	SetWindowText(mainWindow, data.latin1());
 }
 
-// Extended Attributes
-void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned char r, unsigned char g, unsigned char b, unsigned char size, eFontType font )
+void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned char r, unsigned char g, unsigned char b, unsigned char size, enFontType font )
 {
 	CHARFORMAT cf;
 	ZeroMemory( &cf, sizeof( CHARFORMAT ) );
@@ -870,7 +879,6 @@ void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned 
 	SendMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
 }
 
-// Notify the tray area about our state change.
 void cConsole::notifyServerState(enServerState newstate) {
 	#define ARRAYSIZE(a) (sizeof(a)/sizeof(a[0]))
 	qstrcpy(icondata.szInfoTitle, "Wolfpack Server Status");
