@@ -38,14 +38,14 @@ def onUse( char, item ):
 	# first introduction of GGS
 	success = 0
 	if not char.socket.hastag( 'musicianship_gain_time' ):
-		success = char.checkskill( MUSICIANSHIP, 0, 1000 )
+		success = char.checkskill( MUSICIANSHIP, 0, 300 )
 		if success:
 			char.socket.settag( 'musicianship_gain_time', wolfpack.time.currenttime() )
 	else:
 		success = 0
 		last_gain = char.socket.gettag( 'musicianship_gain_time' )
 		if wolfpack.time.currenttime() - last_gain >= MUSICIANSHIP_GAIN_DELAY:
-			success = char.checkskill( MUSICIANSHIP, 0, 1000 )
+			success = char.checkskill( MUSICIANSHIP, 0, 300 )
 			if not success:
 				char.skill[ MUSICIANSHIP ] += 1
 			success = 1

@@ -128,10 +128,11 @@ def add(socket, command, arguments):
 
 	global generated
 	if not generated:
+		generated = True
 		socket.sysmessage('Generating add menu.')
 		socket.sysmessage('Please wait...')
-		generateAddMenu()
-		generated = 1
+		generateAddMenu(socket.player.serial)
+		return
 
 	menu = findmenu('ADDMENU')
 	if menu:
@@ -172,12 +173,22 @@ class AddItemAction(MakeItemAction):
 # Generate a menu structure out of the
 # category tags of our item definitions.
 #
-def generateAddMenu():
-	items = wolfpack.getdefinitions(WPDT_ITEM)
+def generateAddMenu(serial = 0, items = None):
+	char = wolfpack.findchar(serial)
+	if not char or not char.socket:
+		char = None
+
+	if not items:
+		items = wolfpack.getdefinitions(WPDT_ITEM)
+		if char:
+			char.socket.sysmessage('Done getting list of definitions.')
+		wolfpack.queuecode(generateAddMenu, (serial, items))
+		return
 
 	addmenu= MakeMenu('ADDMENU', None, 'Add Menu')
 	submenus = {}
 
+	# Process 100 at a time
 	for item in items:
 		if not item.hasattribute('id'):
 			continue
@@ -274,6 +285,9 @@ def generateAddMenu():
 		menu.sort()
 
 	addmenu.sort()
+	
+	if char:
+		addmenu.send(char)
 
 def onLoad():
 	wolfpack.registercommand('add', add)
