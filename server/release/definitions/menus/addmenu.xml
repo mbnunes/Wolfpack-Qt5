@@ -107,24 +107,12 @@
 
 	<menu id="ADD_SKILLITEMS_CARPENTRY_resources">
 		<name>Carpentry Resources</name>
-		<action>
+		<action type="amount">
 			<name>Board</name>
 			<model>0x1BD7</model>
 			<description>Wooden board for carpentry</description>
-			<make name="(1)">
-				<makeitem section="1bd7" amount="1" />
-			</make>
-			<make name="(2)">
-				<makeitem section="1bd7" amount="2" />
-			</make>
-			<make name="(5)">
-				<makeitem section="1bd7" amount="5" />
-			</make>
-			<make name="(10)">
-				<makeitem section="1bd7" amount="10" />
-			</make>
-			<make name="(100)">
-				<makeitem section="1bd7" amount="100" />
+			<make amounts="1,2,5,10,20,50,100">
+				<makeitem section="1bd7" />
 			</make>
 		</action>
 	</menu>	
