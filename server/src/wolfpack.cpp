@@ -1084,94 +1084,118 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		if( x == ( db + 0 ) )
 		{
 			pi->setId( pi->id() + 1 );
-			pi->pos.x--;
-			pi->pos.y++;
+			Coord_cl pos( pi->pos );
+			pos.x--;
+			pos.y++;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if( x == ( db + 1 ) )
 		{
 			pi->setId( pi->id() - 1 );
-			pi->pos.x++;
-			pi->pos.y--;
+			Coord_cl pos( pi->pos );
+			pos.x++;
+			pos.y--;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
 		}
 		else if (x==(db+2))
 		{
 			pi->setId( pi->id() + 1 );
-			pi->pos.x++;
-			pi->pos.y++;
+			Coord_cl pos( pi->pos );
+			pos.x++;
+			pos.y++;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if (x==(db+3))
 		{
 			pi->setId( pi->id() - 1 );
-			pi->pos.x--;
-			pi->pos.y--;
+			Coord_cl pos( pi->pos );
+			pos.x--;
+			pos.y--;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
 		}
 		else if (x==(db+4))
 		{
 			pi->setId( pi->id() + 1 );
-			pi->pos.x--;
+			Coord_cl pos( pi->pos );
+			pos.x--;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if (x==(db+5))
 		{
 			pi->setId( pi->id() - 1 );
-			pi->pos.x++;
+			Coord_cl pos( pi->pos );
+			pos.x++;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
 		}
 		else if (x==(db+6))
 		{
 			pi->setId( pi->id() + 1 );
-			pi->pos.x++;
-			pi->pos.y--;
+			Coord_cl pos( pi->pos );
+			pos.x++;
+			pos.y--;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if (x==(db+7))
 		{
 			pi->setId( pi->id() - 1 );
-			pi->pos.x--;
-			pi->pos.y++;
+			Coord_cl pos( pi->pos );
+			pos.x--;
+			pos.y++;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
 		}
 		else if (x==(db+8))
 		{
 			pi->setId( pi->id() + 1 );
-			pi->pos.x++;
-			pi->pos.y++;
+			Coord_cl pos( pi->pos );
+			pos.x++;
+			pos.y++;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if (x==(db+9))
 		{
 			pi->setId( pi->id() - 1 );
-			pi->pos.x--;
-			pi->pos.y--;
+			Coord_cl pos( pi->pos );
+			pos.x--;
+			pos.y--;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
 		}
 		else if (x==(db+10))
 		{
 			pi->setId( pi->id() + 1 );
-			pi->pos.x++;
-			pi->pos.y--;
+			Coord_cl pos( pi->pos );
+			pos.x++;
+			pos.y--;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if (x==(db+11))
 		{
 			pi->setId( pi->id() - 1 );
-			pi->pos.x--;
-			pi->pos.y++;
+			Coord_cl pos( pi->pos );
+			pos.x--;
+			pos.y++;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
 		}
@@ -1190,14 +1214,18 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if( x == ( db + 14 ) )
 		{
 			pi->setId( pi->id() + 1 );
-			pi->pos.y--;
+			Coord_cl pos( pi->pos );
+			pos.y--;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if( x == ( db + 15 ) )
 		{
 			pi->setId( pi->id() - 1 );
-			pi->pos.y++;
+			Coord_cl pos( pi->pos );
+			pos.y++;
+			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
 		}
