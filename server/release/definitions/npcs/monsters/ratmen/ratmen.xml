@@ -11,7 +11,7 @@
 	<!-- Ratman Base -->
 	<npc id="ratman" inherit="monster_base">
 		<name><random list="NAMES_RATMAN" /></name>
-		<id><radom list="NPCIDS_RATMAN" /></id>
+		<id><random list="NPCIDS_RATMAN" /></id>
 		<karma><random list="KARMA_L2" /></karma>
 		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
