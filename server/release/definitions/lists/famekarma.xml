@@ -1,0 +1,208 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<!--
+	These should make it very easy to give monsters more accurate fame/karma levels
+-->
+<definitions>
+
+	<!-- Fame Gain -->
+	<list id="FAME_L1">
+		<item><random min="0" max="1249" /></item>
+		<item><random min="249" max="1249" /></item>
+		<item><random min="499" max="1249" /></item>
+		<item><random min="749" max="1249" /></item>
+		<item><random min="999" max="1249" /></item>
+	</list>
+
+	<list id="FAME_L2">
+		<item><random min="1250" max=" 2499" /></item>
+		<item><random min="1499" max=" 2499" /></item>
+		<item><random min="1749" max=" 2499" /></item>
+		<item><random min="1999" max=" 2499" /></item>
+		<item><random min="2249" max=" 2499" /></item>
+	</list>
+
+	<list id="FAME_L3">
+		<item><random min="2500" max=" 4999" /></item>
+		<item><random min="2749" max=" 4999" /></item>
+		<item><random min="2999" max=" 4999" /></item>
+		<item><random min="3249" max=" 4999" /></item>
+		<item><random min="3499" max=" 4999" /></item>
+		<item><random min="3799" max=" 4999" /></item>
+		<item><random min="3999" max=" 4999" /></item>
+		<item><random min="4249" max=" 4999" /></item>
+		<item><random min="4499" max=" 4999" /></item>
+		<item><random min="4749" max=" 4999" /></item>
+	</list>
+
+	<list id="FAME_L4">
+		<item><random min="5000" max="9999" /></item>
+		<item><random min="5499" max="9999" /></item>
+		<item><random min="5999" max="9999" /></item>
+		<item><random min="6499" max="9999" /></item>
+		<item><random min="6999" max="9999" /></item>
+		<item><random min="7499" max="9999" /></item>
+		<item><random min="7999" max="9999" /></item>
+		<item><random min="8499" max="9999" /></item>
+		<item><random min="8999" max="9999" /></item>
+		<item><random min="9499" max="9999" /></item>
+		<item><random min="9749" max="9999" /></item>
+	</list>
+
+	<list id="FAME_L5">
+		<item><random min="10000" max="25000" /></item>
+		<item><random min="10999" max="25000" /></item>
+		<item><random min="11999" max="25000" /></item>
+		<item><random min="12999" max="25000" /></item>
+		<item><random min="13999" max="25000" /></item>
+		<item><random min="14999" max="25000" /></item>
+		<item><random min="15999" max="25000" /></item>
+		<item><random min="16999" max="25000" /></item>
+		<item><random min="17999" max="25000" /></item>
+		<item><random min="18999" max="25000" /></item>
+		<item><random min="19999" max="25000" /></item>
+		<item><random min="20999" max="25000" /></item>
+		<item><random min="21999" max="25000" /></item>
+		<item><random min="22999" max="25000" /></item>
+		<item><random min="23999" max="25000" /></item>
+		<item><random min="24499" max="25000" /></item>
+	</list>
+
+	<!-- Zero Karma Gain -->
+	<list id="KARMA_NL0">
+		<item><random min="0" max="624" /></item>
+	</list>
+
+	<list id="KARMA_L0">
+		<item><random min="-624" max="0" /></item>
+	</list>
+
+	<!-- Positive Karma Gain -->
+	<list id="KARMA_NL1">
+		<item><random min="625" max="1249" /></item>
+		<item><random min="749" max="1249" /></item>
+		<item><random min="999" max="1249" /></item>
+	</list>
+
+	<list id="KARMA_NL2">
+		<item><random min="1250" max="2499" /></item>
+		<item><random min="1499" max=" 2499" /></item>
+		<item><random min="1749" max=" 2499" /></item>
+		<item><random min="1999" max=" 2499" /></item>
+		<item><random min="2249" max=" 2499" /></item>
+	</list>
+
+	<list id="KARMA_NL3">
+		<item><random min="2500" max="4999" /></item>
+		<item><random min="2749" max=" 4999" /></item>
+		<item><random min="2999" max=" 4999" /></item>
+		<item><random min="3249" max=" 4999" /></item>
+		<item><random min="3499" max=" 4999" /></item>
+		<item><random min="3799" max=" 4999" /></item>
+		<item><random min="3999" max=" 4999" /></item>
+		<item><random min="4249" max=" 4999" /></item>
+		<item><random min="4499" max=" 4999" /></item>
+		<item><random min="4749" max=" 4999" /></item>
+	</list>
+
+	<list id="KARMA_NL4">
+		<item><random min="5000" max="9999" /></item>
+		<item><random min="5499" max="9999" /></item>
+		<item><random min="5999" max="9999" /></item>
+		<item><random min="6499" max="9999" /></item>
+		<item><random min="6999" max="9999" /></item>
+		<item><random min="7499" max="9999" /></item>
+		<item><random min="7999" max="9999" /></item>
+		<item><random min="8499" max="9999" /></item>
+		<item><random min="8999" max="9999" /></item>
+		<item><random min="9499" max="9999" /></item>
+		<item><random min="9749" max="9999" /></item>
+	</list>
+
+	<list id="KARMA_NL5">
+		<item><random min="10000" max="25000" /></item>
+		<item><random min="10999" max="25000" /></item>
+		<item><random min="11999" max="25000" /></item>
+		<item><random min="12999" max="25000" /></item>
+		<item><random min="13999" max="25000" /></item>
+		<item><random min="14999" max="25000" /></item>
+		<item><random min="15999" max="25000" /></item>
+		<item><random min="16999" max="25000" /></item>
+		<item><random min="17999" max="25000" /></item>
+		<item><random min="18999" max="25000" /></item>
+		<item><random min="19999" max="25000" /></item>
+		<item><random min="20999" max="25000" /></item>
+		<item><random min="21999" max="25000" /></item>
+		<item><random min="22999" max="25000" /></item>
+		<item><random min="23999" max="25000" /></item>
+		<item><random min="24499" max="25000" /></item>
+	</list>
+
+	<!-- Negative Karma Gain -->
+	<list id="KARMA_L1">
+		<item><random max="-625" min="-1249" /></item>
+		<item><random max="-749" min="-1249" /></item>
+		<item><random max="-999" min="-1249" /></item>
+	</list>
+
+	<list id="KARMA_L2">
+		<item><random max="-1250" min="-2499" /></item>
+		<item><random max="-1499" max="-2499" /></item>
+		<item><random max="-1749" max="-2499" /></item>
+		<item><random max="-1999" max="-2499" /></item>
+		<item><random max="-2249" max="-2499" /></item>
+	</list>
+
+	<list id="KARMA_L3">
+		<item><random max="-2500" min="-4999" /></item>
+		<item><random max="-2749" min="-4999" /></item>
+		<item><random max="-2999" min="-4999" /></item>
+		<item><random max="-3249" min="-4999" /></item>
+		<item><random max="-3499" min="-4999" /></item>
+		<item><random max="-3799" min="-4999" /></item>
+		<item><random max="-3999" min="-4999" /></item>
+		<item><random max="-4249" min="-4999" /></item>
+		<item><random max="-4499" min="-4999" /></item>
+		<item><random max="-4749" min="-4999" /></item>
+	</list>
+
+	<list id="KARMA_L4">
+		<item><random max="-5000" min="-9999" /></item>
+		<item><random max="-5499" min="-9999" /></item>
+		<item><random max="-5999" min="-9999" /></item>
+		<item><random max="-6499" min="-9999" /></item>
+		<item><random max="-6999" min="-9999" /></item>
+		<item><random max="-7499" min="-9999" /></item>
+		<item><random max="-7999" min="-9999" /></item>
+		<item><random max="-8499" min="-9999" /></item>
+		<item><random max="-8999" min="-9999" /></item>
+		<item><random max="-9499" min="-9999" /></item>
+		<item><random max="-9749" min="-9999" /></item>
+	</list>
+
+	<list id="KARMA_L5">
+		<item><random max="-10000" min="-25000" /></item>
+		<item><random max="-10999" min="-25000" /></item>
+		<item><random max="-11999" min="-25000" /></item>
+		<item><random max="-12999" min="-25000" /></item>
+		<item><random max="-13999" min="-25000" /></item>
+		<item><random max="-14999" min="-25000" /></item>
+		<item><random max="-15999" min="-25000" /></item>
+		<item><random max="-16999" min="-25000" /></item>
+		<item><random max="-17999" min="-25000" /></item>
+		<item><random max="-18999" min="-25000" /></item>
+		<item><random max="-19999" min="-25000" /></item>
+		<item><random max="-20999" min="-25000" /></item>
+		<item><random max="-21999" min="-25000" /></item>
+		<item><random max="-22999" min="-25000" /></item>
+		<item><random max="-23999" min="-25000" /></item>
+		<item><random max="-24499" min="-25000" /></item>
+	</list>
+
+</definitions>

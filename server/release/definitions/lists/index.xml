@@ -14,6 +14,7 @@
 	<include file="definitions/lists/carve_animals_land.xml"/>
 	<include file="definitions/lists/carve_animals_water.xml"/>
 	<include file="definitions/lists/colors.xml"/>
+	<include file="definitions/lists/famekarma.xml"/>
 	<include file="definitions/lists/itemids.xml"/>
 	<include file="definitions/lists/misc.xml"/>
 	<include file="definitions/lists/names/index.xml"/>
