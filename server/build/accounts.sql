@@ -5,5 +5,6 @@ CREATE TABLE `accounts` (
 	`acl` varchar(255) NOT NULL default 'player',
 	`lastlogin` int NOT NULL default '0',
 	`blockuntil` int NOT NULL default '0',
+	`email` varchar(255) NOT NULL default '',
 	PRIMARY KEY  (`login`)
 );
