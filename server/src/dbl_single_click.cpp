@@ -840,6 +840,16 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			Skills->Tailoring( socket );
 			return;
 
+		// 1107: Alchemy Tools
+		case 1107:
+			MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_ALCHEMY" );
+			return;
+
+		// 1108: Tailoring Tools
+		case 1108:
+			Skills->Fletching( socket );
+			return;
+
 		default:						
 			break;
 		}
