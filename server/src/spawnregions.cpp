@@ -192,7 +192,7 @@ void cSpawnRegion::processNode( const cElement* Tag )
 		cBaseRegion::processNode( Tag );
 
 		if ( Tag->hasAttribute( "z" ) )
-			this->z_.push_back( Tag->getAttribute( "z" ).toUShort() );
+			this->z_.push_back( Tag->getAttribute( "z" ).toShort() );
 		else
 			this->z_.push_back( 255 );
 	}
