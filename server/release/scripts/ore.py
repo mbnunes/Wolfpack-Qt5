@@ -12,13 +12,12 @@ from wolfpack.time import *
 from random import randrange, randint
 from system.lootlists import DEF_ORES # Gets BaseIDs
 
-forgeids = [ 0xfb1, 0x197a, 0x197b, 0x197c, 0x197d, 0x197e, 0x197f, 0x1980,
-				0x1981, 0x1982, 0x1983, 0x1984, 0x1985, 0x1986, 0x1987, 0x1988,
-				0x1989, 0x198a, 0x198b, 0x198c, 0x198d, 0x198e, 0x198f, 0x1990,
-				0x1991, 0x1992, 0x1993, 0x1994, 0x1995, 0x1996, 0x1997, 0x1998,
-				0x1999, 0x199a, 0x199b, 0x199c, 0x199d, 0x199e, 0x199f, 0x19a0,
-				0x19a1, 0x19a2, 0x19a3, 0x19a4, 0x19a5, 0x19a6, 0x19a7, 0x19a8,
-				0x19a9 ]
+FORGEIDS = [ 'fb1', '197a', '197b', '197c', '197d', '197e', '197f', '1980', \
+	'1981', '1982', '1983', '1984', '1985', '1986', '1987', '1988', '1989', \
+	'198a', '198b', '198c', '198d', '198e', '198f', '1990', '1991', '1992', \
+	'1993', '1994', '1995', '1996', '1997', '1998', '1999', '199a', '199b', \
+	'199c', '199d', '199e', '199f', '19a0', '19a1', '19a2', '19a3', '19a4', \
+	'19a5', '19a6', '19a7', '19a8', '19a9' ]
 
 def onShowTooltip(player, object, tooltip):
 	name = 'Unknown Ore'
@@ -80,7 +79,7 @@ def response( char, args, target ):
 	targetitem = wolfpack.finditem( target.item.serial )
 
 	# We go onto creating ingots here.
-	if target.item.baseid in forgeids:
+	if target.item.baseid in FORGEIDS:
 		if item.baseid in DEF_ORES:
 			if char.pos.distance( target.pos ) > 3:
 				char.socket.clilocmessage( 0x7A258 ) # You can't reach...
