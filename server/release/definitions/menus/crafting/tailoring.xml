@@ -386,27 +386,27 @@
 			<leather amount="14" />
 		</tailor>
 		
-		<setailor definition="13db" name="Studded Mempo">
+		<setailor definition="279d" name="Studded Mempo">
 			<tailoring min="800" max="1050" />
 			<leather amount="8" />
 		</setailor>		
 		
-		<setailor definition="13db" name="Studded Do">
+		<setailor definition="277c" name="Studded Do">
 			<tailoring min="950" max="1200" />
 			<leather amount="14" />
 		</setailor>		
 		
-		<setailor definition="13db" name="Studded Hiro Sode">
+		<setailor definition="277f" name="Studded Hiro Sode">
 			<tailoring min="850" max="1100" />
 			<leather amount="8" />
 		</setailor>		
 		
-		<setailor definition="13db" name="Studded Suneate">
+		<setailor definition="2787" name="Studded Suneate">
 			<tailoring min="920" max="1170" />
 			<leather amount="14" />
 		</setailor>		
 		
-		<setailor definition="13db" name="Studded Haidate">
+		<setailor definition="278b" name="Studded Haidate">
 			<tailoring min="920" max="1170" />
 			<leather amount="14" />
 		</setailor>								
