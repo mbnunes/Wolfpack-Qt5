@@ -742,17 +742,17 @@
 	</item>
 
 	<!-- stone post-->
-	<item id="0x1d2" hue="0x48e">
+	<item id="0x1d2">
 		<pos x="1428" y="1686" z="20" map="1" />
 	</item>
 
 	<!-- stone arch-->
-	<item id="0x1d5" hue="0x48e">
+	<item id="0x1d5">
 		<pos x="1437" y="1689" z="20" map="1" />
 	</item>
 
 	<!-- stone arch-->
-	<item id="0x1d6" hue="0x48e">
+	<item id="0x1d6">
 		<pos x="1435" y="1689" z="20" map="1" />
 		<pos x="1429" y="1689" z="20" map="1" />
 		<pos x="1432" y="1689" z="20" map="1" />
@@ -762,7 +762,7 @@
 	</item>
 
 	<!-- stone arch-->
-	<item id="0x1d7" hue="0x48e">
+	<item id="0x1d7">
 		<pos x="1431" y="1689" z="20" map="1" />
 		<pos x="1431" y="1686" z="20" map="1" />
 		<pos x="1434" y="1686" z="20" map="1" />
@@ -771,12 +771,12 @@
 	</item>
 
 	<!-- stone arch-->
-	<item id="0x1d8" hue="0x48e">
+	<item id="0x1d8">
 		<pos x="1428" y="1687" z="20" map="1" />
 	</item>
 
 	<!-- stone arch-->
-	<item id="0x1d9" hue="0x48e">
+	<item id="0x1d9">
 		<pos x="1428" y="1689" z="20" map="1" />
 	</item>
 
@@ -912,7 +912,7 @@
 	</item>
 
 	<!-- stone stairs-->
-	<item id="0x3ee" hue="0x48e">
+	<item id="0x3ee">
 		<pos x="1415" y="1698" z="1" map="1" />
 		<pos x="1415" y="1696" z="1" map="1" />
 		<pos x="1414" y="1695" z="1" map="1" />
@@ -937,7 +937,7 @@
 	</item>
 
 	<!-- stone stairs-->
-	<item id="0x3f0" hue="0x48e">
+	<item id="0x3f0">
 		<pos x="1416" y="1699" z="1" map="1" />
 		<pos x="1416" y="1697" z="1" map="1" />
 	</item>
@@ -978,12 +978,12 @@
 	</item>
 
 	<!-- stone stairs-->
-	<item id="0x3fa" hue="0x48e">
+	<item id="0x3fa">
 		<pos x="1416" y="1695" z="1" map="1" />
 	</item>
 
 	<!-- stone stairs-->
-	<item id="0x400" hue="0x48e">
+	<item id="0x400">
 		<pos x="1415" y="1700" z="1" map="1" />
 	</item>
 
@@ -1425,7 +1425,7 @@
 	</item>
 
 	<!-- metal door-->
-	<item id="0x675" hue="0x48e">
+	<item id="0x675">
 		<pos x="1438" y="1692" z="0" map="1" />
 	</item>
 
@@ -1459,7 +1459,7 @@
 	</item>
 
 	<!-- metal door-->
-	<item id="0x677" hue="0x48e">
+	<item id="0x677">
 		<pos x="1439" y="1692" z="0" map="1" />
 	</item>
 
@@ -1474,7 +1474,7 @@
 	</item>
 
 	<!-- metal door-->
-	<item id="0x679" hue="0x48e">
+	<item id="0x679">
 		<pos x="1427" y="1682" z="0" map="1" />
 	</item>
 
@@ -11084,7 +11084,7 @@
 	</item>
 
 	<!-- chair-->
-	<item id="0xb57" hue="0x48e">
+	<item id="0xb57">
 		<pos x="1424" y="1685" z="0" map="1" />
 		<pos x="1437" y="1684" z="0" map="1" />
 		<pos x="1433" y="1684" z="0" map="1" />
@@ -11811,7 +11811,7 @@
 	</item>
 
 	<!-- chair-->
-	<item id="0xb5c" hue="0x48e">
+	<item id="0xb5c">
 		<pos x="1438" y="1686" z="0" map="1" />
 		<pos x="1432" y="1686" z="0" map="1" />
 		<pos x="1434" y="1686" z="0" map="1" />
@@ -14661,7 +14661,7 @@
 	</item>
 
 	<!-- Bank-->
-	<item id="0xc0c" hue="0x48e">
+	<item id="0xc0c">
 		<attribute key="name" value="#1016302" />
 		<pos x="1436" y="1693" z="0" map="1" />
 	</item>
@@ -23589,7 +23589,7 @@
 	</item>
 
 	<!-- sign-->
-	<item id="0x129d" hue="0x48e">
+	<item id="0x129d">
 		<attribute key="name" value="#1016504" />
 		<pos x="1424" y="1701" z="18" map="1" />
 	</item>
@@ -23989,7 +23989,7 @@
 	</item>
 
 	<!-- Compassion-->
-	<item id="0x14a7" hue="0x48e">
+	<item id="0x14a7">
 		<pos x="1439" y="1690" z="20" map="1" />
 		<pos x="1425" y="1690" z="20" map="1" />
 		<pos x="1425" y="1685" z="20" map="1" />
@@ -23997,7 +23997,7 @@
 	</item>
 
 	<!-- Compassion-->
-	<item id="0x14a8" hue="0x48e">
+	<item id="0x14a8">
 		<pos x="1425" y="1686" z="20" map="1" />
 		<pos x="1439" y="1685" z="20" map="1" />
 		<pos x="1425" y="1691" z="20" map="1" />
@@ -24005,7 +24005,7 @@
 	</item>
 
 	<!-- Compassion-->
-	<item id="0x14a9" hue="0x48e">
+	<item id="0x14a9">
 		<pos x="1426" y="1691" z="20" map="1" />
 		<pos x="1440" y="1685" z="20" map="1" />
 		<pos x="1426" y="1686" z="20" map="1" />
@@ -24013,7 +24013,7 @@
 	</item>
 
 	<!-- Compassion-->
-	<item id="0x14aa" hue="0x48e">
+	<item id="0x14aa">
 		<pos x="1440" y="1684" z="20" map="1" />
 		<pos x="1426" y="1685" z="20" map="1" />
 		<pos x="1440" y="1690" z="20" map="1" />
@@ -24021,26 +24021,26 @@
 	</item>
 
 	<!-- Compassion-->
-	<item id="0x14ab" hue="0x48e">
+	<item id="0x14ab">
 		<pos x="1434" y="1695" z="0" map="1" />
 		<pos x="1434" y="1695" z="0" map="1" />
 		<pos x="1426" y="1695" z="0" map="1" />
 	</item>
 
 	<!-- Compassion-->
-	<item id="0x14ac" hue="0x48e">
+	<item id="0x14ac">
 		<pos x="1434" y="1696" z="0" map="1" />
 		<pos x="1426" y="1696" z="0" map="1" />
 	</item>
 
 	<!-- Compassion-->
-	<item id="0x14ad" hue="0x48e">
+	<item id="0x14ad">
 		<pos x="1435" y="1696" z="0" map="1" />
 		<pos x="1427" y="1696" z="0" map="1" />
 	</item>
 
 	<!-- Compassion-->
-	<item id="0x14ae" hue="0x48e">
+	<item id="0x14ae">
 		<pos x="1427" y="1695" z="0" map="1" />
 		<pos x="1435" y="1695" z="0" map="1" />
 	</item>
@@ -24579,7 +24579,7 @@
 	</item>
 
 	<!-- decorative shield-->
-	<item id="0x1576" hue="0x48e">
+	<item id="0x1576">
 		<pos x="1433" y="1693" z="0" map="1" />
 		<pos x="1425" y="1693" z="0" map="1" />
 		<pos x="1428" y="1693" z="0" map="1" />
