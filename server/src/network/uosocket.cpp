@@ -1453,7 +1453,7 @@ void cUOSocket::attachTarget( cTargetRequest *request )
 	// Let the old one time out
 	if( targetRequest && targetRequest != request )
 	{
-		targetRequest->timedout( this );
+		targetRequest->canceled( this );
 		delete targetRequest;
 	}
 
@@ -1473,7 +1473,7 @@ void cUOSocket::attachTarget( cTargetRequest *request, UINT16 multiid )
 
 	if( targetRequest )
 	{
-		targetRequest->timedout( this );
+		targetRequest->canceled( this );
 		delete targetRequest;
 	}
 
@@ -1499,7 +1499,7 @@ void cUOSocket::handleTarget( cUORxTarget *packet )
 
 	// Check if there really was a response or if it just was canceled
 	if( !packet->serial() && ( ( packet->x() == 0xFFFF ) || ( packet->y() == 0xFFFF ) || ( (UINT8)packet->z() == 0xFF ) ) )
-		targetRequest->timedout( this );
+		targetRequest->canceled( this );
 	else
 	{
 		if ( targetRequest->responsed( this, packet ) )
@@ -2076,4 +2076,9 @@ void cUOSocket::clilocMessage( const Q_INT16 FileID, const Q_UINT16 MsgID, const
 	send( &msg );
 }
 
-
+void cUOSocket::cancelTarget()
+{
+	cUOTxTarget target;
+	target.setTargSerial( 0xFFFFFFFF );
+	send( &target );
+}

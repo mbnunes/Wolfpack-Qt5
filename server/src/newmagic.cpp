@@ -296,7 +296,6 @@ bool cNewMagic::checkReagents( P_CHAR pMage, UINT8 spell )
 	return true;
 }
 
-
 /*!
 	This checks the needed skill to cast the specified 
 	spell. If scroll is true, the spell is cast 

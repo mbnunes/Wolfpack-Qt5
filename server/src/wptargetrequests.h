@@ -48,7 +48,8 @@ public:
 	virtual ~cTargetRequest( void ) {}
 
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target ) = 0; // Request has been answered
-	virtual void timedout( cUOSocket *socket ) {}; // Request is overwritten
+	virtual void timedout( cUOSocket *socket ) {}; // The user did not respond
+	virtual void canceled( cUOSocket *socket ) {}; // Request has been canceled
 
 	UI32 targetId( void ) const;
 	void setTargetId( UI32 data );
