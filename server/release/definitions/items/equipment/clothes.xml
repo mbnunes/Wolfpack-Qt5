@@ -638,4 +638,86 @@
 		<newbie />
 	</item>
 
+	<!-- Samurai Empire -->
+
+	<!-- Male Kimono -->
+	<item id="2782">
+		<category>Clothes\Samurai\Male Kimono</category>
+		<id>0x2782</id>
+	</item>
+	<item id="27cd" inherit="2782">
+		<id>0x27cd</id>
+		<baseid>2782</baseid>
+	</item>
+
+	<!-- Female Kimono -->
+	<item id="2783">
+		<category>Clothes\Samurai\Female Kimono</category>
+		<id>0x2783</id>
+	</item>
+	<item id="27ce" inherit="2783">
+		<id>0x27ce</id>
+		<baseid>2783</baseid>
+	</item>
+
+	<!-- Kamishimo -->
+	<item id="2799">
+		<category>Clothes\Samurai\Kamishimo</category>
+		<id>0x2799</id>
+	</item>
+	<item id="27e4" inherit="2799">
+		<id>0x27e4</id>
+		<baseid>2799</baseid>
+	</item>
+
+	<!-- Hakama -->
+	<item id="279a">
+		<category>Clothes\Samurai\Hakama</category>
+		<id>0x279a</id>
+	</item>
+	<item id="27e5" inherit="279a">
+		<id>0x27e5</id>
+		<baseid>279a</baseid>
+	</item>
+
+	<!-- Tattsuke-Hakama -->
+	<item id="279b">
+		<category>Clothes\Samurai\Tattsuke-Hakama</category>
+		<id>0x279b</id>
+	</item>
+	<item id="27e6" inherit="279b">
+		<id>0x27e6</id>
+		<baseid>279b</baseid>
+	</item>
+
+	<!-- Tattsuke-Shita -->
+	<item id="279c">
+		<category>Clothes\Samurai\Tattsuke-Shita</category>
+		<id>0x279c</id>
+	</item>
+	<item id="27e7" inherit="279c">
+		<id>0x27e7</id>
+		<baseid>279c</baseid>
+	</item>
+
+	<!-- Obi -->
+	<item id="27a0">
+		<category>Clothes\Samurai\Obi</category>
+		<id>0x27a0</id>
+	</item>
+	<item id="27eb" inherit="27a0">
+		<id>0x27eb</id>
+		<baseid>27a0</baseid>
+	</item>
+
+	<!-- Jin-Baori -->
+	<item id="27a1">
+		<category>Clothes\Samurai\Jin-Baori</category>
+		<id>0x27a1</id>
+	</item>
+	<item id="27ec" inherit="27a1">
+		<id>0x27ec</id>
+		<baseid>27a1</baseid>
+	</item>
+
 </definitions>
