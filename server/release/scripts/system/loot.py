@@ -18,28 +18,34 @@ PACK_STACKABLE = 3
 #
 PACKS = {
 	# Gold Packs
-	'verypoor': [
+	'gold_verypoor': [
 		[0.9, 'eed', '1d10', 1] # 1 - 10
 	],
-	'poor': [
-		[1.0, 'eed', '1d10+10', 1] # 11 - 20
+	'gold_poor': [
+		[0.925, 'eed', '1d10+10', 1] # 11 - 20
 	],
-	'meager': [
-		[1.0, 'eed', '3d10+20', 1] # 23 - 50
+	'gold_meager': [
+		[0.95, 'eed', '3d10+20', 1] # 23 - 50
 	],
-	'average': [
+	'gold_average': [
 		[1.0, 'eed', '5d10+50', 1] # 55 - 100
 	],
-	'rich': [
+	'gold_good': [
+		[1.0, 'eed', '3d20+100', 1] # 103 - 160
+	]
+	'gold_rich': [
 		[1.0, 'eed', '10d10+150', 1] # 160 - 250
 	],
-	'filthyrich': [
+	'gold_filthyrich': [
 		[1.0, 'eed', '2d100+200', 1] # 202 - 400
 	],
-	'ultrarich': [
+	'gold_ultrarich': [
 		[1.0, 'eed', '5d100+500', 1] # 505 - 1000
 	],
-	'superboss': [
+	'gold_superrich': [
+		[1.0, 'eed', '20d10+1000', 1] # 1020 - 1200
+	],
+	'gold_superboss': [
 		[1.0, 'eed', '10d100+1000', 1] # 1010 - 2000
 	],
 	# Gem Packs
@@ -329,8 +335,36 @@ PACKS = {
 	],
 	'alcoholpack_high': [
 		[0.99, DEF_DRINKS_ALCOHOL, 1, 0]
+	],
+	# Reagent Packs
+	'regs_low': [
+		[1.0, DEF_PLAINREGS, "1d4", 0]
+	],
+	'regs_med': [
+		[1.0, DEF_PLAINREGS, "1d6", 0]
+	],
+	'regs_high': [
+		[1.0, DEF_PLAINREGS, "1d8+2", 0]
+	],
+	# Necro Reagent Packs
+	'necroregs_low': [
+		[1.0, DEF_NECROREGS, "1d4", 0]
+	],
+	'necroregs_med': [
+		[1.0, DEF_NECROREGS, "1d6", 0]
+	],
+	'necroregs_high': [
+		[1.0, DEF_NECROREGS, "1d8+2", 0]
+	],
+	# Scroll Packs
+
+	# Monster Specific
+	'mummy_pack': [
+		[0.9, 'eed', random.randint(190,220), 1] # 190 - 220 Gold
+		[1.0, '', 5, 1], # 5 Garlic
+		[1.0, DEF_BASEGEMS, 1, 1], # One Gem
+		[1.0, '', 10, 1] # 10 Bandages
 	]
-	#
 }
 
 #
