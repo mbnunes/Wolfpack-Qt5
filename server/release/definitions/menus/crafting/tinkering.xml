@@ -147,7 +147,7 @@
 		<action type="resource">
 			<name>Tinker's Tools</name>
 			<model>0x1eb9</model>
-			<description>tinker's tools</name>
+			<description>tinker's tools</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="2" />
 				<makeitem section="1eb9" amount="1" />

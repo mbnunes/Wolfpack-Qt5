@@ -441,7 +441,7 @@
 		</action>
 
 		<action type="script">
-			<name>Polymorph<name>
+			<name>Polymorph</name>
 			<model>0x1f64</model>
 			<description>a polymorph scroll</description>
 			<make script="skills.inscription.polymorph" />

@@ -62,7 +62,7 @@
 		
 		<action>
 			<name>Bow</name>
-			<mode>0x13b2</model>
+			<model>0x13b2</model>
 			<description>a bow</description>
 			<make>
 				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="7" />
