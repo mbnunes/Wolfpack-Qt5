@@ -285,10 +285,10 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 		setFlag( flag() | 0x40 );
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
-	if ( player && !player->socket() && !player->logoutTime() )
+	/*if ( player && !player->socket() && !player->logoutTime() )
 	{
 		setFlag( flag() | 0x80 );
-	}
+	}*/
 
 	if ( pChar->isHidden() || pChar->isInvisible() )
 		setFlag( flag() | 0x80 );
@@ -348,10 +348,10 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 		setFlag( 0x40 );
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
-	if ( player && !player->socket() && !player->logoutTime() )
+	/*if ( player && !player->socket() && !player->logoutTime() )
 	{
 		setFlag( flag() | 0x80 );
-	}
+	}*/
 
 	if ( pChar->isHidden() || pChar->isInvisible() )
 		setFlag( flag() | 0x80 );
@@ -434,10 +434,10 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 		setFlag( 0x40 );
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
-	if ( player && !player->socket() && !player->logoutTime() )
+	/*if ( player && !player->socket() && !player->logoutTime() )
 	{
 		setFlag( flag() | 0x80 );
-	}
+	}*/
 
 	if ( pChar->isHidden() || pChar->isInvisible() )
 		setFlag( flag() | 0x80 );
@@ -584,10 +584,10 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 	}*/
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
-	if ( player && !player->socket() && !player->logoutTime() )
+	/*if ( player && !player->socket() && !player->logoutTime() )
 	{
 		setFlag( flag() | 0x80 );
-	}
+	}*/
 
 	if ( pChar->isHidden() || pChar->isInvisible() )
 		setFlag( flag() | 0x80 );

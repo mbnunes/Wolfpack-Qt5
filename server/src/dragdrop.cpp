@@ -74,7 +74,7 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 	}
 
 	// Check if the item can be reached
-	if (pItem->getOutmostChar() != pChar && !pChar->lineOfSight(pItem)) {
+	if ( !pChar->isGM() && pItem->getOutmostChar() != pChar && !pChar->lineOfSight(pItem)) {
 		socket->bounceItem( pItem, BR_OUT_OF_REACH );
 		return;
 	}

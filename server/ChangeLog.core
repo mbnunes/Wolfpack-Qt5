@@ -43,6 +43,8 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Reduced network latency.
 	- Made AI checks occur more often if the npc moves faster.
 	- Added an option to disable spawnregions alltogether for build servers etc.
+	- GMs now can really move everything.
+	- Logged out characters are no longer shown in gray because of client bugs.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.
