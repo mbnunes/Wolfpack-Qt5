@@ -1,0 +1,55 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by:
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Meer Mage -->
+	<npc id="meer_mage" inherit="monster_base">
+		<name>meer mage</name>
+		<id>770</id>
+		<karma>-8000</karma>
+		<fame>8000</fame>
+		<!-- Stats -->
+		<str><random min="171" max="200"/></str>
+		<dex><random min="126" max="145"/></dex>
+		<int><random min="276" max="305"/></int>
+		<maxhitpoints><random min="103" max="120"/></maxhitpoints>
+		<maxstamina><random min="126" max="145"/></maxstamina>
+		<maxmana><random min="276" max="305"/></maxmana>
+		<!-- Skills -->
+		<wrestling><random min="601" max="800"/></wrestling>
+		<tactics><random min="701" max="900"/></tactics>
+		<magicresistance><random min="810" max="1000"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<magery><random min="701" max="800"/></magery>
+		<evaluatingintel><random min="1000" max="1000"/></evaluatingintel>
+		<meditation><random min="851" max="950"/></meditation>
+		<!-- Damage -->
+		<mindamage>51</mindamage>
+		<maxdamage>55</maxdamage>
+		<!-- Damage Properties -->
+		<!--
+		<tag name="dmg_fire" value="0" type="int" />
+		<tag name="dmg_cold" value="0" type="int" />
+		<tag name="dmg_poison" value="0" type="int" />
+		<tag name="dmg_energy" value="0" type="int" />
+		-->
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_fire" value="15,25" type="int" />
+		<tag name="res_cold" value="50,50" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: 2 Medium Level Scrolls, Magic Items, Daemon Bone Armor, Level 3 Treasure Map -->
+		<lootpacks>gold_filthy_rich</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Meer\Meer Mage</category>
+	</npc>
+
+</definitions>

@@ -1,0 +1,52 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by:
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Meer Captain -->
+	<npc id="meer_captain" inherit="monster_base">
+		<name>meer captain</name>
+		<id>773</id>
+		<karma>-5000</karma>
+		<fame>2000</fame>
+		<!-- Stats -->
+		<str><random min="96" max="110"/></str>
+		<dex><random min="186" max="200"/></dex>
+		<int><random min="96" max="110"/></int>
+		<maxhitpoints><random min="58" max="66"/></maxhitpoints>
+		<maxstamina><random min="186" max="200"/></maxstamina>
+		<maxmana><random min="96" max="110"/></maxmana>
+		<!-- Skills -->
+		<wrestling><random min="809" max="899"/></wrestling>
+		<tactics><random min="910" max="1000"/></tactics>
+		<magicresistance><random min="910" max="1000"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<!-- Damage -->
+		<mindamage>34</mindamage>
+		<maxdamage>39</maxdamage>
+		<!-- Damage Properties -->
+		<!--
+		<tag name="dmg_fire" value="0" type="int" />
+		<tag name="dmg_cold" value="0" type="int" />
+		<tag name="dmg_poison" value="0" type="int" />
+		<tag name="dmg_energy" value="0" type="int" />
+		-->
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="35,45" type="int" />
+		<tag name="res_energy" value="35,45" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: Crossbow, 40-60 Bolts, 10-20 Reagents, Longsword -->
+		<lootpacks>gold_meager</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Meer\Meer Captain</category>
+	</npc>
+
+</definitions>

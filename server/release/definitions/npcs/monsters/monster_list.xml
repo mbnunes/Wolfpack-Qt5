@@ -41,6 +41,9 @@
 	<!-- Lizardmen -->
 	<include file="definitions/npcs/monsters/lizardmen/index.xml" />
 
+	<!-- Meer -->
+	<include file="definitions/npcs/monsters/meer/index.xml" />
+	
 	<!-- Ophidian -->
 	<include file="definitions/npcs/monsters/ophidian/index.xml" />
 
