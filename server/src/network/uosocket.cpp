@@ -126,7 +126,12 @@ void cUOSocket::send( cGump *gump )
 	if( gump->serial() == INVALID_SERIAL )
 	{
 		while( gump->serial() == INVALID_SERIAL || ( gumps.find( gump->serial() ) != gumps.end() ) )
-			gump->setSerial( RandomNum( 1, 0xFFFFFFFE ) );
+			gump->setSerial( RandomNum( 1, 0xDDDDDDDC ) ); 
+		// randomnum takes int not uint... if 2nd val is above 0xdddddddd
+		// it will interpret it as negative... internally it checks
+		// if 1st < 2nd val, so it ended up in an infinite loop as soon
+		// as 2 gumps were in the queue
+		// plz dont touch this or replace it with 0xFFFFFFFE (= -2) again!
 	}
 	// Remove/Timeout the old one first
 	else if( gumps.find( gump->serial() ) != gumps.end() )

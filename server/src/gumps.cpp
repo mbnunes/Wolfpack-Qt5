@@ -1587,6 +1587,7 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 	std::vector< WPPAGE_TYPE > pageTypes;
 	std::vector< UINT32 > offsets;
 	UINT32 offset = 0;
+	UINT32 bla = 0;
 
 	QStringList categories = cPagesManager::getInstance()->categories();
 
@@ -1897,18 +1898,18 @@ cHelpGump::cHelpGump( SERIAL charSerial )
 	addRadioButton( 250, 230, 0xD0, 0xD1, 2, ((pPage) ? (pPage->pageType() == PT_COUNSELOR) : false ) );
 	addText( 280, 230, tr( "Counselor Page" ), 0x849 );
 
-	UINT32 i = 1; // categories[0] == none.. should not be option!
+	UINT32 i = 0; // categories[0] == none.. should not be option!
 	UINT32 offset = 0;
 	startGroup( 2 );
 	addText( 50, 270, tr( "Categories:" ), 0x834 );
 	while( i < categories.count() )
 	{
-		addRadioButton( 50, 290 + offset * 20, 0xD0, 0xD1, 4 + i, ((pPage) ? (category == (i+1)) : (i == 1) ) );
+		addRadioButton( 50, 290 + offset * 20, 0xD0, 0xD1, i+1, ((pPage) ? (category == (i)) : (i == 0) ) );
 		addText( 80, 290 + offset * 20, categories[i], 0x834 );
 
 		if( i+1 < categories.count() )
 		{
-			addRadioButton( 250, 290 + offset * 20, 0xD0, 0xD1, 5 + i, ((pPage) ? (category == (i+2)) : false ) );
+			addRadioButton( 250, 290 + offset * 20, 0xD0, 0xD1, i+2, ((pPage) ? (category == (i+1)) : false ) );
 			addText( 280, 290 + offset * 20, categories[i+1], 0x834 );
 		}
 		offset++;
@@ -1984,7 +1985,7 @@ void cHelpGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			pPage->setPageType( PT_COUNSELOR );
 			break;
 		}
-		pPage->setPageCategory( choice.switches[1] - 3 );
+		pPage->setPageCategory( choice.switches[1] );
 	}
 }
 

@@ -129,7 +129,7 @@ public:
 		data = temp.c_str();
 	}
 
-	virtual void write(const char* Key, QString &data)
+	virtual void write(const char* Key, const QString &data)
 	{
 		std::string temp;
 

@@ -96,6 +96,25 @@ public:
 	virtual void read(const char* Key, signed   char  &data);
 	virtual void read(const char* Key, bool           &data);
 	virtual void read(const char* Key, double         &data);
+
+/*	virtual void read( const char* Key, QString &data )
+	{
+		std::string temp;
+		read( Key, temp );
+		data = temp.c_str();
+	}
+
+	virtual void write(const char* Key, QString &data)
+	{
+		std::string temp;
+
+		if( data.latin1() == NULL )
+			temp = "";
+		else
+			temp = data.latin1();
+
+		write( Key, temp );
+	}*/
 };
 
 #endif // __SERBINFILE_H__

@@ -484,8 +484,8 @@ void cMakeMenu::processNode( const QDomElement &Tag )
 
 cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, QString notices )
 {
-	QString htmlmask = "<body text=\"#FFFFFF\">%1</body>";
-	QString htmlmaskcenter = "<body text=\"#FFFFFF\"><div align=\"center\">%1</div></body>";
+	QString htmlmask = "<html><body text=\"#FFFFFF\">%1</body></html>";
+	QString htmlmaskcenter = "<html><body text=\"#FFFFFF\"><div align=\"center\">%1</div></body></html>";
 
 	action_ = NULL;
 	menu_ = menu;

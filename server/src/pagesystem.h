@@ -176,7 +176,8 @@ public:
 	QStringList categories( void )
 	{
 		QStringList categories = DefManager->getList( "PAGE_CATEGORIES" );
-		categories.push_front( "none" );
+		if( categories.count() == 0 )
+			categories.push_back( "none" );
 		return categories;
 	}
 };

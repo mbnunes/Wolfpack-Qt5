@@ -131,7 +131,7 @@ void serBinFile::close()
 
 void serBinFile::writeObjectID( const QString& data )
 {
-	write("objectID", data);
+	ISerialization::write("objectID", data);
 	if( _objectlevel == 0 )
 		++_count;
 	++_objectlevel;
