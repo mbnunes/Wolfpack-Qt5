@@ -64,8 +64,11 @@
 				</td>
 				<td width="33%" class="text">
 					<span class="sectiontitle">MISCELLANEOUS</span><br />
-					Miscelleneous information can be found in this section. Links, configuration and setup among other things.<br />
-					<a href="#">Read more...</a>
+					<a href="introduction.html">Introduction to Wolfpack</a><br />
+					<a href="FAQ.html">FAQ</a><br />
+					<a href="http://doc.wpdev.org/ChangeLog.wolfpack">Changelog</a><img src="external_link.gif" alt="External Link" width="11" height="12" border="0" align="bottom" /><br />
+					<a href="http://doc.wpdev.org/formats/">File Formats</a> <img src="external_link.gif" alt="External Link" width="11" height="12" border="0" align="bottom" /><br />
+					<a href="http://doc.wpdev.org/wolfpack-{SHORTVERSION}-doc.zip">Download Documentation</a> <img src="external_link.gif" alt="External Link" width="11" height="12" border="0" align="bottom" />
 				</td>
 			</tr>
 		</table>
