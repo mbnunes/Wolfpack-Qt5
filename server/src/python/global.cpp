@@ -494,26 +494,21 @@ PyObject *wpItems( PyObject* self, PyObject* args )
 		return 0;
 	}
 	
-	bool exact = true;
-	
-	if( checkArgInt( 3 ) && getArgInt( 3 ) == 0 )
-		exact = false;
+	UINT32 range = 1;
+
+	if( checkArgInt( 3 ) && getArgInt( 3 ) > 1 )
+		range = getArgInt( 3 );
 	
 	Coord_cl pos( getArgInt( 0 ), getArgInt( 1 ), 0, getArgInt( 2 ) );
-	RegionIterator4Items iter( pos );
+	RegionIterator4Items iter( pos, range );
 
 	PyObject *list = PyList_New( 0 );
 	for( iter.Begin(); !iter.atEnd(); iter++ )
 	{
 		P_ITEM pItem = iter.GetData();
 
-		if( pItem->pos().map != pos.map )
-			continue;
-
-		if( exact && ( pItem->pos().x != pos.x && pItem->pos().y != pos.y ) )
-			continue;
-
-		PyList_Append( list, PyGetItemObject( pItem ) );
+		if( pItem )
+			PyList_Append( list, PyGetItemObject( pItem ) );
 	}
 
 	return list;
@@ -532,26 +527,21 @@ PyObject *wpChars( PyObject* self, PyObject* args )
 		return 0;
 	}
 	
-	bool exact = true;
+	UINT32 range = 1;
 	
-	if( checkArgInt( 3 ) && getArgInt( 3 ) == 0 )
-		exact = false;
+	if( checkArgInt( 3 ) && getArgInt( 3 ) > 1 )
+		range = getArgInt( 3 );
 	
 	Coord_cl pos( getArgInt( 0 ), getArgInt( 1 ), 0, getArgInt( 2 ) );
-	RegionIterator4Chars iter( pos );
+	RegionIterator4Chars iter( pos, range );
 
 	PyObject *list = PyList_New( 0 );
 	for( iter.Begin(); !iter.atEnd(); iter++ )
 	{
 		P_CHAR pChar = iter.GetData();
 
-		if( pChar->pos().map != pos.map )
-			continue;
-
-		if( exact && ( pChar->pos().x != pos.x && pChar->pos().y != pos.y ) )
-			continue;
-
-		PyList_Append( list, PyGetCharObject( pChar ) );
+		if( pChar )
+			PyList_Append( list, PyGetCharObject( pChar ) );
 	}
 
 	return list;
