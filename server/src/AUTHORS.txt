@@ -7,4 +7,5 @@ Ki Hong Pae (Khpae),
 Charles Kerr (Punt),
 Fred Robinson (Ripper),
 Jörg Stückler (Sereg),
-Rüdiger Pakmor (Varan Dar)
+Rüdiger Pakmor (Varan Dar),
+Jorge Pereira (Kell)
