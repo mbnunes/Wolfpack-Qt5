@@ -369,11 +369,11 @@ def onUse(player, item):
 	# Check if there is another dclick handler
 	# in the eventchain somewhere. if not,
 	# return 1 to handle the equip event.
-	events = item.scripts
+	scripts = item.scripts
 
-	for event in events:
-		if wolfpack.hasscript(event, EVENT_WEARITEM):
-			result = wolfpack.callevent(event, EVENT_WEARITEM, (player, player, item, layer))
+	for script in scripts:
+		if wolfpack.hasevent(script, EVENT_WEARITEM):
+			result = wolfpack.callevent(script, EVENT_WEARITEM, (player, player, item, layer))
 			if result:
 				return 1
 
@@ -381,8 +381,8 @@ def onUse(player, item):
 	item.update()
 	item.soundeffect(0x57)
 
-	for event in events[events.index("equipment")+1:]:
-		if wolfpack.hasscript(event, EVENT_USE):
+	for script in scripts[scripts.index("equipment")+1:]:
+		if wolfpack.hasevent(script, EVENT_USE):
 		 return 0
 
 	return 1
