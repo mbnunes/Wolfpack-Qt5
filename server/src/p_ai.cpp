@@ -566,35 +566,37 @@ bool cCharStuff::cBankerAI::Balance(int c, int i)
 {
 	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c],false);
 	sprintf(temp, "%s's balance as of now is %i.", pc_currchar->name, pc_currchar->CountBankGold());
-	npctalkall(i, temp, 1);
+	npctalk(c, i, temp,1);
 	return true;
 }
 
 bool cCharStuff::cBankerAI::Withdraw(int c, int i, char *comm)
 {
 	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c],false);
-	int a=0;
-	char value1[50]={' '};
-	char value2[50]={' '};
-	value1[0]=0;
-	value2[0]=0;
-	while(comm[a]!=0 && comm[a]!=' ' && a<50 )
-	{
-		a++;
-	}
-	strncpy(value1, temp, a);
-	value1[a]=0;
-	if (value1[0]!='[' && comm[a]!=0) strcpy(value2, comm+a+1);
-	if(pc_currchar->CountBankGold()>=str2num(value2))
-	{
-		int goldcount=str2num(value2);
-		addgold(currchar[c], goldcount);
-		goldsfx(currchar[c], goldcount);
-		DeleBankItem( c, 0x0EED, 0, goldcount );
-		npctalkall(i,"The money has been added to your pack.",1);
-		return true;
-	}
-	else
-		npctalkall(i,"You have insufficent funds!",1);
-	return true;
+	    int a=0;
+	    char value1[50]={' '};
+	    char value2[50]={' '};
+	    value1[0]=0;
+	    value2[0]=0;
+	    while(comm[a]!=0 && comm[a]!=' ' && a<50 )
+		{
+		   a++;
+		}
+	    strncpy(value1, temp, a);
+	    value1[a]=0;
+	    if (value1[0]!='[' && comm[a]!=0) strcpy(value2, comm+a+1);
+	    if(pc_currchar->CountBankGold()>=str2num(value2))
+		{
+		    int goldcount=str2num(value2);
+		    addgold(c, goldcount);
+		    goldsfx(c, goldcount);
+		    DeleBankItem(DEREF_P_CHAR(pc_currchar), 0x0EED, 0, goldcount );
+		    sprintf(temp, "%s here is your withdraw of %i.", pc_currchar->name, goldcount);
+		    npctalk(c, i, temp,1);
+		    return true;
+		}
+	    else
+		    sprintf(temp, "%s you have insufficent funds!", pc_currchar->name);
+	        npctalk(c, i, temp,1);
+	        return true;
 }

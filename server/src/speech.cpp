@@ -530,28 +530,8 @@ bool BankerSpeech(cChar* pBanker, char* comm, cChar* pPlayer, UOXSOCKET s)
 		return 0;
 	if (pPlayer->dist(pBanker) > 6)
 		return 0;
-	
-	if (strstr(comm, "BANK"))
-	{
-		openbank(s, currchar[s]);
-		return true;
-	}
-	if (strstr(comm, "BALANCE"))
-	{
-		sprintf(temp, "%s's balance as of now is %i.", pPlayer->name, pPlayer->CountBankGold());
-		npctalkall(pBanker, temp, 1);
-		return true;
-	}
-
-	if(SrvParms->usespecialbank)	//this only if specialbank is enabled - AntiChrist
-	{
-		if (strstr(comm, SrvParms->specialbanktrigger))
-		{
-			openspecialbank(s, currchar[s]);
-			return true;
-		}
-	}
-	return 0;
+	BankerAI->DoAI(s,DEREF_P_CHAR(pBanker),comm);
+	return true;
 }
 
 bool TrainerSpeech(cChar* pTrainer, char* comm, cChar* pPlayer, UOXSOCKET s)
