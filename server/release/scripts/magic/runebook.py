@@ -43,8 +43,6 @@ def isRecallScroll(scroll):
 # Show a custom tooltip for runebooks
 #
 def onShowTooltip(player, runebook, tooltip):
-	tooltip.reset()
-	tooltip.add(1028901, '')
 	if runebook.hastag('description'):
 		description = unicode(runebook.gettag('description'))
 		if len(description) > 0:
