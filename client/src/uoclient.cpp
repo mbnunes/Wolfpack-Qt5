@@ -33,7 +33,8 @@
 
 #include "network/uosocket.h"
 
-#include <windows.h>
+//#include <windows.h>
+
 
 cUoClient::cUoClient() {
 	UoSocket = new cUoSocket();
@@ -81,7 +82,7 @@ cUoClient::~cUoClient() {
 	delete Art;
 	delete Verdata;
 	delete Hues;
-	delete Gumpart;	
+	delete Gumpart;
 
 	delete Gui;
 	delete Engine;
@@ -154,7 +155,7 @@ void cUoClient::unload() {
 
 	Config->save(); // Save Configuration
 
-	Log->print("\n-----------------------------------------------------------------------------\n", false);	
+	Log->print("\n-----------------------------------------------------------------------------\n", false);
 	Log->print(tr("Stopped Session (%1)\n").arg(QDateTime::currentDateTime().toString()), false);
 	Log->print("-----------------------------------------------------------------------------\n\n", false);
 
@@ -204,7 +205,7 @@ void cUoClient::processSdlEvent(const SDL_Event &event) {
 			}
 			break;
 
-		case SDL_KEYUP:            			
+		case SDL_KEYUP:
 			// Forward it to the control with the input focus. Otherwise go trough all controls.
 			if (Gui->inputFocus()) {
 				Gui->inputFocus()->onKeyUp(event.key.keysym);
@@ -278,8 +279,8 @@ void cUoClient::processSdlEvent(const SDL_Event &event) {
 					if (lastMouseMovement) {
 						lastMouseMovement->onMouseEnter();
 					}
-				}				
-				
+				}
+
 				cControl *control = mouseCapture;
 				if (control && control->isMoveHandle()) {
 					cControl *movable = control->getMovableControl();
@@ -331,13 +332,13 @@ void myMessageOutput( QtMsgType type, const char *msg )
     }
 }
 
-BOOL (__stdcall *wglSwapIntervalEXT)(int interval);
+bool (STDCALL *wglSwapIntervalEXT)(int interval);
 
 void cUoClient::run(const QStringList &arguments) {
 	qInstallMsgHandler(myMessageOutput); // Install handler
-	int argc = 0;		
+	int argc = 0;
 	App = new QApplication(argc, 0);
-	
+
 	Config->setFile("config.xml"); // Default Config File
 
 	try {
@@ -350,7 +351,7 @@ void cUoClient::run(const QStringList &arguments) {
 	}
 
 	// This is windows specific
-	wglSwapIntervalEXT = (BOOL (__stdcall *)(int))wglGetProcAddress("wglSwapIntervalEXT");
+	//wglSwapIntervalEXT = (bool (STDCALL *)(int))wglGetProcAddress("wglSwapIntervalEXT");
 
 	//LoginDialog->show(PAGE_LOGIN); // Set up the login screen
 	//World->changeFacet(ILSHENAR);
@@ -366,7 +367,7 @@ void cUoClient::run(const QStringList &arguments) {
 
 	while (running()) {
 		UoSocket->poll();
-		
+
 		SDL_Event event; // An SDL Event
 		while (SDL_PollEvent(&event)) {
 			processSdlEvent(event);
@@ -374,7 +375,7 @@ void cUoClient::run(const QStringList &arguments) {
 
 		glClear(GL_COLOR_BUFFER_BIT); // Clear both. Background and Z Buffer.
 		glLoadIdentity(); // Return to the identity matrix
-		
+
 		// Process the WorldView move tick
 		WorldView->moveTick();
 
@@ -387,7 +388,7 @@ void cUoClient::run(const QStringList &arguments) {
 		Gui->draw(); // Draw the GUI controls
 		Cursor->draw(); // Draw the cursor overlay
 
-		wglSwapIntervalEXT(4);
+		//wglSwapIntervalEXT(4);
 		Engine->poll(); // Swap
 		//SDL_Delay(5);
 	}

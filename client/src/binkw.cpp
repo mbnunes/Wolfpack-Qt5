@@ -1,6 +1,6 @@
 
 #include "binkw.h"
-#include <windows.h>
+//#include <windows.h>
 
 // Pointers to the file
 

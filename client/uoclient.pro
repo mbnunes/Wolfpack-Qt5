@@ -7,6 +7,7 @@ CONFIG += qt thread exceptions release
 
 win32:CONFIG += windows
 unix:CONFIG += x11
+unix:INCLUDEPATH += /usr/include/GL /usr/include/SDL
 
 # No idea what it does
 # DEFINES += QT_CLEAN_NAMESPACE QT_COMPAT_WARNINGS
@@ -17,6 +18,8 @@ OBJECTS_DIR = obj
 MOC_DIR = obj
 
 win32:DEFINES -= UNICODE
+
+unix:LIBS += -lGL -lGLU -lSDL
 
 DEPENDPATH += src
 INCLUDEPATH += include;libs/include
@@ -44,7 +47,8 @@ HEADERS += include/dialogs/login.h \
 	include/gui/itemimage.h \
 	include/gui/label.h \
 	include/gui/textfield.h \
-	include/gui/tiledgumpimage.h
+	include/gui/tiledgumpimage.h \
+	include/gui/worldview.h 
 
 # MUL INCLUDES
 HEADERS += include/muls/art.h \
@@ -55,32 +59,63 @@ HEADERS += include/muls/art.h \
 	include/muls/verdata.h
 
 # MAIN srcS
-SOURCES += src/config.cpp \
+SOURCES += \
+	src/binkw.cpp \
+	src/config.cpp \
+	src/config_unix.cpp \
 	src/engine.cpp \
 	src/log.cpp \
 	src/paintable.cpp \
-	src/uoclient.cpp
+	src/startup_unix.cpp \
+	src/texture.cpp \
+	src/uoclient.cpp \
+	src/utilities.cpp \
+	src/utilities_unix.cpp \
+	src/vector.cpp
 	
 # GUI srcS
 SOURCES += src/dialogs/login.cpp \
-	src/gui/asciilabel.cpp \
+	src/dialogs/movecenter.cpp 
+
+SOURCES += src/gui/asciilabel.cpp \
 	src/gui/bordergump.cpp \
 	src/gui/container.cpp \
+	src/gui/contextmenu.cpp \
 	src/gui/control.cpp \
+	src/gui/cursor.cpp \
 	src/gui/gui.cpp \
 	src/gui/gumpimage.cpp \
 	src/gui/image.cpp \
 	src/gui/imagebutton.cpp \
 	src/gui/itemimage.cpp \
 	src/gui/label.cpp \
+	src/gui/scrollbar.cpp \
 	src/gui/textfield.cpp \
-	src/gui/tiledgumpimage.cpp
+	src/gui/tiledgumpimage.cpp \
+	src/gui/window.cpp \
+	src/gui/worldview.cpp 
+
+SOURCES += src/network/encryption.cpp \
+	src/network/loginpackets.cpp \
+	src/network/uopacket.cpp \
+	src/network/uosocket.cpp
+
+SOURCES += src/game/dynamicentity.cpp \
+	src/game/entity.cpp \
+	src/game/groundtile.cpp \
+	src/game/mobile.cpp \
+	src/game/statictile.cpp \
+	src/game/world.cpp
 
 # MUL srcS
 SOURCES += src/muls/art.cpp \
+	src/muls/animations.cpp \
 	src/muls/asciifonts.cpp \
 	src/muls/gumpart.cpp \
 	src/muls/hues.cpp \
+	src/muls/maps.cpp \
+	src/muls/tiledata.cpp \
+	src/muls/textures.cpp \
 	src/muls/unicodefonts.cpp \
 	src/muls/verdata.cpp
 

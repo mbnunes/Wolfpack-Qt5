@@ -191,10 +191,10 @@ void cEngine::poll() {
 		screenshot_ = false;
 	}
 
-	if (lastswap_start + 1000 < GetTickCount()) {
+	if (lastswap_start + 1000 < SDL_GetTicks()) {
 		SDL_WM_SetCaption(tr("Ultima Online %1 fps").arg(lastswap_count).latin1(), 0);
 		lastswap_count = 0;
-		lastswap_start = GetTickCount();
+		lastswap_start = SDL_GetTicks();
 	} else {
 		++lastswap_count;
 	}

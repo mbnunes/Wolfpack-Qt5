@@ -8,10 +8,16 @@
 
 #include <qvaluevector.h>
 
+#if !defined(__WIN__)
+#define STDCALL
+#else
+#define STDCALL __stdcall
+#endif 
+
 class cContextMenuEntry;
 class cContextMenu;
 
-typedef void (__stdcall *fnContextMenuCallback)(cContextMenu *menu, int selected, void *customData);
+typedef void (STDCALL *fnContextMenuCallback)(cContextMenu *menu, int selected, void *customData);
 
 class cContextMenu : public cWindow {
 friend class cContextMenuEntry;

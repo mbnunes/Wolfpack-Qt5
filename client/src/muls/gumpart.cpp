@@ -73,7 +73,7 @@ SDL_Surface *cGumpart::read(unsigned short id, unsigned short hueid, bool partia
 	short height, width; // Height and width of gump
 	stHue *hue = Hues->get(hueid); // Retrieve the hue (for hue=0 its null)
 	SDL_Surface *surface = 0; // The gump surface
-	QDataStream dataStream = d->dataStream; // The stream to read the data from
+	QDataStream &dataStream = d->dataStream; // The stream to read the data from
 
 	stVerdataRecord *patch = Verdata->getPatch(VERDATA_GUMPART, id);
 	if (patch) {

@@ -557,7 +557,8 @@ unsigned int cTextField::getOffset(int x) {
 	}
 
 	int offset  = 0;
-	for (int i = leftOffset_; i < (int)text_.length(); ++i) {
+	int i;
+	for (i = leftOffset_; i < (int)text_.length(); ++i) {
 		SDL_Surface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)));
 		if (ch) {
 			// Is it in this character?
@@ -616,7 +617,8 @@ void cTextField::replaceSelection(const QCString &replacement) {
 	}
 
 	// Insert text at the caret
-	for (int i = 0; i < (int)replacement.length() && text_.length() + 1 <= maxLength_; ++i) {
+	int i;
+	for (i = 0; i < (int)replacement.length() && text_.length() + 1 <= maxLength_; ++i) {
 		text_.insert(caret_ + i, replacement.at(i));
 	}
 	setCaret(caret_ + i);

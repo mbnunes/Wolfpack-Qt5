@@ -305,7 +305,7 @@ bool cGroundTile::hitTest(int x, int y) {
 /*
 	Ground tile context menu callback.
 */
-static void __stdcall cmCallback(cContextMenu *menu, int id, cGroundTile *tile) {
+static void cmCallback(cContextMenu *menu, int id, cGroundTile *tile) {
 	switch (id) {
 		case 0:
 			World->removeEntity(tile);

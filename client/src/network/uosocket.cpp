@@ -7,7 +7,7 @@
 #include "dialogs/login.h"
 #include "log.h"
 
-#include <winsock2.h>
+//#include <winsock2.h>
 
 // Declare the variable
 fnIncomingPacketConstructor cUoSocket::incomingPacketConstructors[256] = {0, };

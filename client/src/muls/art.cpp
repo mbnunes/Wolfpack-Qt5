@@ -334,7 +334,7 @@ SDL_Surface *cArt::getLandArt(unsigned short id, bool texture) {
 	int offset = -1; // Default to invalid
 	int length = 0; // Length of data record
 	SDL_Surface *surface = 0; // The land surface
-	QDataStream dataStream = this->dataStream; // The stream to read the data from
+	QDataStream &dataStream = this->dataStream; // The stream to read the data from
 
 	stVerdataRecord *patch = Verdata->getPatch(VERDATA_ART, id);
 	if (patch) {
