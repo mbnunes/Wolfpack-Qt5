@@ -1260,6 +1260,7 @@ def iteminfo_response( player, args, choice ):
 
 	if choice.button == 1:
 		iteminfo( socket, item )
+
 	
 	item.update()
 	return True
