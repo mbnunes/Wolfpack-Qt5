@@ -77,7 +77,6 @@ class cSkills;
 class cFishing;
 class cWeight;
 class cTargets;
-class cNetworkStuff;
 class cMagic;
 class cBooks;
 class cMovement;
@@ -100,7 +99,6 @@ extern cSkills			*Skills;
 extern cFishing			*Fishing;
 extern cWeight			*Weight;
 extern cTargets			*Targ;
-extern cNetworkStuff	*Network;
 extern cMagic			*Magic;
 extern cBooks           *Books;
 extern cMovement		*Movement;
@@ -120,7 +118,6 @@ extern cCharStuff::cBankerAI	*BankerAI;
 
 extern int escortRegions;
 
-void charcreate(UOXSOCKET s);	// All the character creation stuff
 void srequest(int s);
 
 int inrange2 (UOXSOCKET s, P_ITEM pi);

@@ -53,28 +53,22 @@ cAccount::~cAccount(void)
 		SaveAccounts();
 }
 
-bool cAccount::findByNumber( int number, account_st* retValue )
+QString cAccount::findByNumber( Q_INT32 account )
 {
-	map<int, string>::iterator it = acctnumbers_sp.find( number );
-	if ( it != acctnumbers_sp.end() )
-	{
-		map<string, account_st>::iterator it2 = acctlist.find( (*it).second );
-		if ( it2 != acctlist.end() )
-		{
-			retValue = &(*it2).second;
-			return true;
-		}
-	}
+	QString accName;
 
-	return false; // All other paths
+	if( acctnumbers_sp.find( account ) != acctnumbers_sp.end() )
+		accName = acctnumbers_sp[ account ];
+
+	return accName;
 }
 
 void cAccount::LoadAccount( int acctnumb )
 {
 	unsigned long loopexit=0;
 	account_st account;
-	account.name.erase();
-	account.pass.erase();
+	account.name = "";
+	account.pass = "";
 	account.ban = false;
 	account.remoteadmin = false;
 	account.number = acctnumb;
@@ -88,8 +82,9 @@ void cAccount::LoadAccount( int acctnumb )
 		else if (!strcmp((char*)script1, "REMOTEADMIN"))	account.remoteadmin = true;
 	}
 	while ( (strcmp((char*)script1, "}")) && (strcmp((char*)script1, "EOF")) && (++loopexit < MAXLOOPS) );
-	acctlist.insert(make_pair(account.name, account));
-	acctnumbers_sp.insert(make_pair(account.number, account.name));
+
+	acctlist.insert( make_pair( account.name, account ) );
+	acctnumbers_sp.insert( make_pair( account.number, account.name ) );
 	lasttimecheck = uiCurrentTime;
 }
 
@@ -148,7 +143,7 @@ void cAccount::LoadAccounts( bool silent )
 
 void cAccount::SaveAccounts( void )
 {
-	map<string, account_st>::iterator iter_account;
+	map< QString, account_st >::iterator iter_account;
 	account_st account;
 	fstream faccount ;
 	string  line ;
@@ -161,8 +156,8 @@ void cAccount::SaveAccounts( void )
 			account = iter_account->second;    
 			faccount << "SECTION ACCOUNT " << account.number << endl ;
 			faccount << "{" << endl ;
-			faccount << "NAME " << account.name << endl ;
-			faccount << "PASS " << account.pass << endl ;
+			faccount << "NAME " << account.name.latin1() << endl ;
+			faccount << "PASS " << account.pass.latin1() << endl ;
 			if (account.ban)
 				faccount << "BAN" << endl ;
 			if (account.remoteadmin)
@@ -186,8 +181,8 @@ bool cAccount::RemoteAdmin(int acctnum)
 	if (acctnum < 0)
 		return false;
 
-	map<string, account_st>::iterator iter_account;
-	map<int, string>::iterator iter_acctnumber = acctnumbers_sp.find(acctnum);
+	map< QString, account_st >::iterator iter_account;
+	map< int, QString >::iterator iter_acctnumber = acctnumbers_sp.find(acctnum);
 	if (iter_acctnumber == acctnumbers_sp.end())
 		return false;
 
@@ -197,10 +192,10 @@ bool cAccount::RemoteAdmin(int acctnum)
 		return false;
 }
 
-signed int cAccount::Authenticate(string username, string password)
+signed int cAccount::Authenticate( const QString &username, const QString &password)
 {
 	account_st account;
-	map<string, account_st>::iterator iter_account;
+	map< QString, account_st >::iterator iter_account;
 
 	if ((iter_account = acctlist.find(username)) != acctlist.end())
 	{
@@ -217,7 +212,7 @@ signed int cAccount::Authenticate(string username, string password)
 	return LOGIN_NOT_FOUND;
 }
 
-unsigned int cAccount::CreateAccount(const string& username, const string& password)
+unsigned int cAccount::CreateAccount(const QString& username, const QString& password)
 {
 	++lastusedacctnum;
 	account_st account;
@@ -301,53 +296,66 @@ void cAccount::SetOffline( int acctnum )
 
 }
 
-bool cAccount::ChangePassword(unsigned int number, string password)
+bool cAccount::ChangePassword( unsigned int number, const QString &password )
 {
-	account_st* account = NULL;
-	if ( findByNumber( number, account ) )
-	{
-		account->pass = password;
-		++unsavedaccounts;
-		if (unsavedaccounts >= saveratio)
-			SaveAccounts();
-		return true;
-	}
-	return false;
+	QString accName = findByNumber( number );
+	
+	if( accName.isEmpty() )
+		return false;
+
+	acctlist[ accName ].pass = password;
+
+	++unsavedaccounts;
+	if (unsavedaccounts >= saveratio)
+		SaveAccounts();
+
+	return true;
 }
 
-vector<SERIAL> cAccount::characters( int number )
+vector< P_CHAR > cAccount::characters( int number )
 {
-	account_st* account = NULL;
-	if ( findByNumber( number, account ) )
+	QString accName = findByNumber( number );
+
+	if( accName.isEmpty() )
+		return vector< P_CHAR >();
+
+	vector< SERIAL > charSerials = acctlist[ accName ].characters;
+	vector< SERIAL >::const_iterator iter;
+	vector< P_CHAR > charList;
+
+	for( iter = charSerials.begin(); iter != charSerials.end(); ++iter )
 	{
-		return account->characters;
+		P_CHAR pChar = FindCharBySerial( (*iter) );
+		if( pChar )
+			charList.push_back( pChar );
 	}
-	return vector<SERIAL>();
+
+	return charList;
 }
 
 void cAccount::addCharacter( int number, SERIAL serial )
 {
-	account_st* account = NULL;
-	if ( findByNumber( number, account ) )
-	{
-		account->characters.push_back( serial );
-	}
+	QString accName = findByNumber( number );
+
+	if( accName.isEmpty() )
+		return;
+
+	acctlist[ accName ].characters.push_back( serial );
 }
 
 void cAccount::removeCharacter( int number, SERIAL serial )
 {
-	account_st* account = NULL;
-	if ( findByNumber( number, account ) )
-	{
-		register unsigned int i;
-		for ( i = 0; i < account->characters.size(); ++i )
-		{
-			if ( account->characters[i] == serial )
-			{
-				account->characters.erase( account->characters.begin() + i );
-				return;
-			}
-		}
-	}
-}
+	QString accName = findByNumber( number );
 
+	if( accName.isEmpty() )
+		return;
+
+	vector< SERIAL >::iterator iter;
+
+	for( iter = acctlist[ accName ].characters.begin(); iter != acctlist[ accName ].characters.end(); ++iter )
+		if( (*iter) == serial )
+		{
+			acctlist[ accName ].characters.erase( iter );
+			return;
+		}
+}

@@ -303,7 +303,7 @@ void sysbroadcast(const char *txt) // System broadcast in bold text
 			Xsend(i, (char*)txt, strlen(txt)+1);
 		}
 	}
-//	Network->ClearBuffers();
+//	cNetwork::instance()->ClearBuffers();
 }
 
 void sysmessage(UOXSOCKET s, const QString& txt)

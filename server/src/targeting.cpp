@@ -911,7 +911,7 @@ void cTargets::CloseTarget(int s)
 		{
 			sysmessage(s, "Kicking player");
 			sysmessage(j, "You have been kicked!"); //New -- Zippy
-			Network->Disconnect(j);
+			//cNetwork::instance()->disconnect(j);
 		}
 	}
 }

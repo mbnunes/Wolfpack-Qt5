@@ -278,9 +278,7 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 	item->setContSerial( wearer->serial );
 
 	// Add the item bonuses
-	wearer->st = (wearer->st + item->st2);
-	wearer->chgDex( item->dx2 );
-	wearer->in = (wearer->in + item->in2);
+	wearer->giveItemBonus( item );
 }
 
 void cDragItems::bounceItem( P_CLIENT client, P_ITEM pItem, bool denyMove )
@@ -453,9 +451,7 @@ void cDragItems::equipItem( P_CLIENT client )
 		pWearer->setOnHorse( true );
 
 	// Apply the bonuses
-	pWearer->st += pItem->st2;
-	pWearer->chgDex( pItem->dx2 );
-	pWearer->in += pItem->in2;
+	pWearer->giveItemBonus( pItem );
 
 	// Show debug information if requested
 	if( showlayer )

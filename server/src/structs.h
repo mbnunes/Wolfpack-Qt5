@@ -237,10 +237,10 @@ struct tele_locations_st
 struct ServerList_st
 {
 	UI16 uiIndex;
-	string sServer;
+	QString sServer;
 	UI08 uiFull;
 	UI08 uiTime;
-	string sIP;
+	Q_UINT32 sIP;
 	UI16 uiPort;
 };
 

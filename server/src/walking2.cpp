@@ -936,7 +936,7 @@ void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence
 		walkok[2]=0x41;
 		if (pc->hidden())
 			walkok[2]=0x00;
-		Network->xSend(socket, walkok, 3, 0);
+		cNetwork::instance()->xSend(socket, walkok, 3, 0);
 
 		walksequence[socket] = sequence;
 		if (walksequence[socket] == 255)
@@ -1005,7 +1005,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, const Coo
 				default:extmove[16]=3; break;//grey
 				}
 			}
-			Network->xSend(visSocket, extmove, 17, 0);
+			cNetwork::instance()->xSend(visSocket, extmove, 17, 0);
 		}
 	}
 }
@@ -1097,7 +1097,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, const Coo
 				{
 					//unsigned int punt = extmove[0] ;
 					//cout << "NPC Walk sent, ID : " << hex<< punt <<dec <<endl;
-					Network->xSend(i, extmove, 17, 0);
+					cNetwork::instance()->xSend(i, extmove, 17, 0);
 				}
 			}
 		}
@@ -1484,7 +1484,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
                 //                              pc->attacker=INVALID_SERIAL;
                 pc->targ = INVALID_SERIAL;
             }
-            Network->xSend(i, extmove, 17, 0);
+            cNetwork::instance()->xSend(i, extmove, 17, 0);
         }
     }
 }
@@ -2004,7 +2004,7 @@ void cMovement::deny( UOXSOCKET k, P_CHAR pc, int sequence )
 	walkdeny[5] = pc->pos.y%256;
 	walkdeny[6] = pc->dir;
 	walkdeny[7] = pc->dispz;
-	Network->xSend( k, walkdeny, 8, 0 );
+	cNetwork::instance()->xSend( k, walkdeny, 8, 0 );
 	walksequence[k] = -1;
 }
 

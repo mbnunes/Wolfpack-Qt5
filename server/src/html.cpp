@@ -35,6 +35,7 @@
 #include "srvparams.h"
 #include "debug.h"
 #include "scriptc.h"
+#include "qhostaddress.h"
 
 #undef  DBGFILE
 #define DBGFILE "html.cpp"
@@ -203,7 +204,9 @@ void updatehtml()//HTML
 		{
 			//ip=inet_addr(serv[str2num(script2)-1][1]);
 			vector<ServerList_st>::iterator it = SrvParams->serverList().begin();
-			fprintf(html, (*(it + str2num(script2) - 1)).sIP.c_str());
+			QHostAddress host( (*(it + str2num(script2) - 1)).sIP );
+
+			fprintf(html, host.toString());
 		}
 		else if(!(strcmp((char*)script1,"GMNUM")))
 		{

@@ -719,7 +719,7 @@ PyObject* PyWPMovement_deny( PyObject* self, PyObject* args )
 	walkdeny[5] = pc->pos.y%256;
 	walkdeny[6] = pc->dir;
 	walkdeny[7] = pc->dispz;
-	Network->xSend( k, walkdeny, 8, 0 );
+	cNetwork::instance()->xSend( k, walkdeny, 8, 0 );
 	walksequence[k] = -1;
 
 	return PyTrue;
@@ -1277,7 +1277,7 @@ PyObject *Py_WPClientGetAttr( Py_WPClient *self, char *name )
 
 PyObject* Py_WPClient_disconnect( Py_WPClient* self, PyObject* args )
 {
-	Network->Disconnect( self->Socket );
+	//cNetwork::instance()->Disconnect( self->Socket );
 	return PyTrue;
 }
 
@@ -1297,7 +1297,7 @@ PyObject* Py_WPClient_send( Py_WPClient* self, PyObject* args )
 	Xsend( self->Socket, Message, len );
 
 	// send the buffer
-	//Network->xSend( self->Socket, buffer, buffLen, 0 );
+	//cNetwork::instance()->xSend( self->Socket, buffer, buffLen, 0 );
 
 	return PyTrue;
 }

@@ -35,6 +35,14 @@
 #include <string>
 using namespace std ;
 
+
+// New NetworkIO Testing stuff
+#include "network/asyncnetio.h"
+#include "network/uosocket.h"
+#include "network/listener.h"
+
+cAsyncNetIO* netio;
+
 //Wolfpack Includes
 #include "network.h"
 #include "gumps.h"
@@ -54,7 +62,6 @@ using namespace std ;
 #undef  DBGFILE
 #define DBGFILE "Network.cpp"
 
-
 // Authenticate return codes
 
 #define LOGIN_NOT_FOUND -3
@@ -62,90 +69,96 @@ using namespace std ;
 #define ACCOUNT_BANNED -5
 #define ACCOUNT_WIPE -6
 
-cNetworkStuff::cNetworkStuff() // Initialize sockets
-{
+cNetwork *cNetwork::instance_;
 
-#ifndef __unix__
-	wVersionRequested=0x0002;
-	err = WSAStartup(wVersionRequested, &wsaData);
-	if (err!=0)
+cNetwork::cNetwork( void )
+{
+	listener_ = new cListener( SrvParams->port() );
+	netIo_ = new cAsyncNetIO;
+
+	listener_->start();
+	netIo_->start();
+}
+
+cNetwork::~cNetwork( void )
+{
+	netIo_->cancel();
+	listener_->cancel();
+
+	delete netIo_;
+	delete listener_;
+}
+
+void cNetwork::poll( void )
+{
+	// Check for new Connections
+	if ( listener_->haveNewConnection() )
 	{
-		clConsole.send("ERROR: Winsock 2.0 not found...\n");
-		keeprun=0;
-		error=1;
-		kr=0;
-		faul=1;
+		QSocketDevice *socket = listener_->getNewConnection(); 
+		netIo_->registerSocket( socket );
+		uoSockets.push_back( new cUOSocket(socket) );
+
+		// Notify the admin
+		clConsole.send( QString( "Socket connected [%1]\n" ).arg( socket->address().toString() ) );
+	}
+
+	// fast return
+	if( uoSockets.size() < 1 )
 		return;
-	}
-#endif
 
-	error = faul = 0;
-	kr = 1; // Let's continue
+	// Check for new Packets
+	vector< cUOSocket* >::iterator uoIterator;
 
-
-}
-
-void cNetworkStuff::DoStreamCode(UOXSOCKET s)
-{ 
-	int status ;
-	int len = Pack(outbuffer[s],  xoutbuffer, boutlength[s]);
-	if ((status = send(client[s], xoutbuffer, len, MSG_NOSIGNAL)) == SOCKET_ERROR)
+	for( uoIterator = uoSockets.begin(); uoIterator != uoSockets.end(); ++uoIterator )
 	{
-         #ifndef __unix__
-		   errno = WSAGetLastError();
-		   if (errno != WSAECONNRESET) LogErrorVar("Socket Send error %i \n",errno) ;
-         #else
-		 LogError("Socket Send error \n") ;
-         #endif
-		
-	}
-}
+		cUOSocket *uoSocket = (*uoIterator);
 
-void cNetworkStuff::FlushBuffer(int s) // Sends buffered data at once
-{
-	int status ;
-	if (boutlength[s]>0)
-	{
-		//  clConsole.send("S = %i, bout = %i, cc = %i\n", s, boutlength[s], cryptclient[s]);
-		if (cryptclient[s])
+		// Check for disconnected sockets
+		if( !uoSocket->socket()->isValid() )
 		{
-			DoStreamCode(s);
+			clConsole.send( QString( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->address().toString() ) );
+			netIo_->unregisterSocket( uoSocket->socket() );
+			uoSockets.erase( uoIterator );
 		}
 		else
-		{			
-			if((status = send(client[s], (char*)outbuffer[s], boutlength[s], MSG_NOSIGNAL))==SOCKET_ERROR)
-			{
-            #ifndef __unix__
-				errno = WSAGetLastError();
-			#endif
-				if (errno != WSAECONNRESET)
-					LogErrorVar("Socket Send Error %i\n",errno) ;
-			}
-		}
-		boutlength[s]=0;
-		//  clConsole.send("Done\n");
-	}
+			uoSocket->recieve();
+	}	
 }
 
-void cNetworkStuff::ClearBuffers() // Sends ALL buffered data
+// Code for wrapping old Stuff
+void cNetwork::xSend( int s, const void *point, int length, int test) // Buffering send function
 {
-	int i;
+	cUOSocket *socket = uoSockets[ s ];
 	
-	for (i=0;i<now;i++)
-	{
-		FlushBuffer(i);
-	}
+	if( !socket )
+		return;
+
+	QByteArray data( length );
+	memcpy( data.data(), point, length );
+	cUOPacket *packet = new cUOPacket( data );
+
+	socket->send( packet );
 }
 
-void cNetworkStuff::xSend(int s, const void *point, int length, int test) // Buffering send function
+// Load IP Blocking rules
+void cNetwork::load( void )
 {
-
-	cNetworkStuff::SendUOX3(s, point, length, test);
-//	cNetworkStuff::SendOSI(s, point, length, test);
 }
 
+// Reload IP Blocking rules
+void cNetwork::reload( void )
+{
+	unload();
+	load();
+}
 
-void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instalog
+// Unload IP Blocking rules
+void cNetwork::unload( void )
+{
+	hosts_deny.clear();
+}
+
+/*void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instalog
 {
 	int i;
 
@@ -472,9 +485,9 @@ void cNetworkStuff::pSplit (char *pass0) // Split login password into Wolfpack p
 	strncpy(pass1,pass0,i);
 	pass1[i]=0;
 	if (pass0[i]!=0) strcpy(pass2, pass0+i+1);
-}
+}*/
 
-void cNetworkStuff::charplay (int s) // After hitting "Play Character" button //Instalog
+/*void cNetworkStuff::charplay (int s) // After hitting "Play Character" button //Instalog
 {
 	int j;
 	P_CHAR pc_selected = NULL;
@@ -588,7 +601,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	///  sysmessage(s, "xxx") does use color 0 !
 	/// you can change 0x37 to your liking, but not to 0
 	/////////////////////////////////////////////////////////////////////
-
+*/
 	/*sysmessage(s, 0x37, tr(QString("Welcome to %1 !").arg(SrvParams->serverList()[0].sServer.c_str())));
 	sysmessage(s, 0x37, tr(QString("Running on %1 %2 %3 ").arg(wp_version.productstring.c_str()).arg(wp_version.betareleasestring.c_str()).arg(wp_version.verstring.c_str())) );
 	sysmessage(s, 0x37, tr(QString("Current developers: %1").arg(wp_version.codersstring.c_str())) );*/
@@ -604,7 +617,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	myGump.addText( 10, 10, "Mein Text auf Seite 2", 0x480 );
 	myGump.addPageButton( 10, 40, 0x2907, 0x290A, 1 );
 	myGump.send( s );*/
-
+/*
 	pc_currchar->region=255;
 	cAllTerritories::getInstance()->check(pc_currchar);
 	//Tauriel set packitem at login
@@ -786,7 +799,7 @@ void cNetworkStuff::sockInit()
 		kr=0;
 		faul=1;
 		return;
-	}
+	}*/
 /*
 #ifdef __linux__
 
@@ -802,7 +815,7 @@ void cNetworkStuff::sockInit()
 	}
 
 #endif
-*/
+*//*
 	len_connection_addr=sizeof (struct sockaddr_in);
 	connection.sin_family = AF_INET;
 	connection.sin_addr.s_addr = INADDR_ANY;	
@@ -994,99 +1007,6 @@ void cNetworkStuff::CheckMessage() // Check for messages from the clients
 		}
 	}
 }
-
-
-// Author: Beosil
-
-static unsigned int bit_table[257][2] =
-{
-	{0x02, 0x00}, 	{0x05, 0x1F}, 	{0x06, 0x22}, 	{0x07, 0x34}, 	{0x07, 0x75}, 	{0x06, 0x28}, 	{0x06, 0x3B}, 	{0x07, 0x32},
-	{0x08, 0xE0}, 	{0x08, 0x62}, 	{0x07, 0x56}, 	{0x08, 0x79}, 	{0x09, 0x19D},	{0x08, 0x97}, 	{0x06, 0x2A}, 	{0x07, 0x57},
-	{0x08, 0x71}, 	{0x08, 0x5B}, 	{0x09, 0x1CC},	{0x08, 0xA7}, 	{0x07, 0x25}, 	{0x07, 0x4F}, 	{0x08, 0x66}, 	{0x08, 0x7D},
-	{0x09, 0x191},	{0x09, 0x1CE}, 	{0x07, 0x3F}, 	{0x09, 0x90}, 	{0x08, 0x59}, 	{0x08, 0x7B}, 	{0x08, 0x91}, 	{0x08, 0xC6},
-	{0x06, 0x2D}, 	{0x09, 0x186}, 	{0x08, 0x6F}, 	{0x09, 0x93}, 	{0x0A, 0x1CC},	{0x08, 0x5A}, 	{0x0A, 0x1AE},	{0x0A, 0x1C0},
-	{0x09, 0x148},	{0x09, 0x14A}, 	{0x09, 0x82}, 	{0x0A, 0x19F}, 	{0x09, 0x171},	{0x09, 0x120}, 	{0x09, 0xE7}, 	{0x0A, 0x1F3},
-	{0x09, 0x14B},	{0x09, 0x100},	{0x09, 0x190},	{0x06, 0x13}, 	{0x09, 0x161},	{0x09, 0x125},	{0x09, 0x133},	{0x09, 0x195},
-	{0x09, 0x173},	{0x09, 0x1CA},	{0x09, 0x86}, 	{0x09, 0x1E9}, 	{0x09, 0xDB}, 	{0x09, 0x1EC},	{0x09, 0x8B}, 	{0x09, 0x85},
-	{0x05, 0x0A}, 	{0x08, 0x96}, 	{0x08, 0x9C}, 	{0x09, 0x1C3}, 	{0x09, 0x19C},	{0x09, 0x8F}, 	{0x09, 0x18F},	{0x09, 0x91},
-	{0x09, 0x87}, 	{0x09, 0xC6}, 	{0x09, 0x177},	{0x09, 0x89}, 	{0x09, 0xD6}, 	{0x09, 0x8C}, 	{0x09, 0x1EE},	{0x09, 0x1EB},
-	{0x09, 0x84}, 	{0x09, 0x164}, 	{0x09, 0x175},	{0x09, 0x1CD}, 	{0x08, 0x5E}, 	{0x09, 0x88}, 	{0x09, 0x12B},	{0x09, 0x172},
-	{0x09, 0x10A},	{0x09, 0x8D}, 	{0x09, 0x13A},	{0x09, 0x11C}, 	{0x0A, 0x1E1},	{0x0A, 0x1E0}, 	{0x09, 0x187},	{0x0A, 0x1DC},
-	{0x0A, 0x1DF},	{0x07, 0x74}, 	{0x09, 0x19F},	{0x08, 0x8D},	{0x08, 0xE4}, 	{0x07, 0x79}, 	{0x09, 0xEA}, 	{0x09, 0xE1},
-	{0x08, 0x40}, 	{0x07, 0x41}, 	{0x09, 0x10B},	{0x09, 0xB0}, 	{0x08, 0x6A}, 	{0x08, 0xC1}, 	{0x07, 0x71}, 	{0x07, 0x78},
-	{0x08, 0xB1}, 	{0x09, 0x14C}, 	{0x07, 0x43}, 	{0x08, 0x76}, 	{0x07, 0x66}, 	{0x07, 0x4D}, 	{0x09, 0x8A}, 	{0x06, 0x2F},
-	{0x08, 0xC9},	{0x09, 0xCE}, 	{0x09, 0x149},	{0x09, 0x160}, 	{0x0A, 0x1BA}, 	{0x0A, 0x19E}, 	{0x0A, 0x39F}, 	{0x09, 0xE5},
-	{0x09, 0x194}, 	{0x09, 0x184}, 	{0x09, 0x126}, 	{0x07, 0x30}, 	{0x08, 0x6C}, 	{0x09, 0x121}, 	{0x09, 0x1E8}, 	{0x0A, 0x1C1},
-	{0x0A, 0x11D}, 	{0x0A, 0x163}, 	{0x0A, 0x385}, 	{0x0A, 0x3DB}, 	{0x0A, 0x17D}, 	{0x0A, 0x106}, 	{0x0A, 0x397}, 	{0x0A, 0x24E},
-	{0x07, 0x2E}, 	{0x08, 0x98}, 	{0x0A, 0x33C}, 	{0x0A, 0x32E}, 	{0x0A, 0x1E9}, 	{0x09, 0xBF}, 	{0x0A, 0x3DF}, 	{0x0A, 0x1DD},
-	{0x0A, 0x32D}, 	{0x0A, 0x2ED}, 	{0x0A, 0x30B}, 	{0x0A, 0x107}, 	{0x0A, 0x2E8}, 	{0x0A, 0x3DE}, 	{0x0A, 0x125}, 	{0x0A, 0x1E8},
-	{0x09, 0xE9}, 	{0x0A, 0x1CD}, 	{0x0A, 0x1B5}, 	{0x09, 0x165}, 	{0x0A, 0x232}, 	{0x0A, 0x2E1}, 	{0x0B, 0x3AE}, 	{0x0B, 0x3C6},
-	{0x0B, 0x3E2}, 	{0x0A, 0x205}, 	{0x0A, 0x29A}, 	{0x0A, 0x248}, 	{0x0A, 0x2CD}, 	{0x0A, 0x23B}, 	{0x0B, 0x3C5}, 	{0x0A, 0x251},
-	{0x0A, 0x2E9}, 	{0x0A, 0x252}, 	{0x09, 0x1EA}, 	{0x0B, 0x3A0}, 	{0x0B, 0x391}, 	{0x0A, 0x23C}, 	{0x0B, 0x392}, 	{0x0B, 0x3D5},
-	{0x0A, 0x233}, 	{0x0A, 0x2CC}, 	{0x0B, 0x390}, 	{0x0A, 0x1BB}, 	{0x0B, 0x3A1}, 	{0x0B, 0x3C4}, 	{0x0A, 0x211}, 	{0x0A, 0x203},
-	{0x09, 0x12A}, 	{0x0A, 0x231}, 	{0x0B, 0x3E0}, 	{0x0A, 0x29B}, 	{0x0B, 0x3D7}, 	{0x0A, 0x202}, 	{0x0B, 0x3AD}, 	{0x0A, 0x213},
-	{0x0A, 0x253}, 	{0x0A, 0x32C}, 	{0x0A, 0x23D}, 	{0x0A, 0x23F}, 	{0x0A, 0x32F}, 	{0x0A, 0x11C}, 	{0x0A, 0x384}, 	{0x0A, 0x31C},
-	{0x0A, 0x17C}, 	{0x0A, 0x30A}, 	{0x0A, 0x2E0}, 	{0x0A, 0x276}, 	{0x0A, 0x250}, 	{0x0B, 0x3E3}, 	{0x0A, 0x396}, 	{0x0A, 0x18F},
-	{0x0A, 0x204}, 	{0x0A, 0x206}, 	{0x0A, 0x230}, 	{0x0A, 0x265}, 	{0x0A, 0x212}, 	{0x0A, 0x23E}, 	{0x0B, 0x3AC}, 	{0x0B, 0x393},
-	{0x0B, 0x3E1}, 	{0x0A, 0x1DE}, 	{0x0B, 0x3D6}, 	{0x0A, 0x31D}, 	{0x0B, 0x3E5}, 	{0x0B, 0x3E4}, 	{0x0A, 0x207}, 	{0x0B, 0x3C7},
-	{0x0A, 0x277}, 	{0x0B, 0x3D4}, 	{0x08, 0xC0},	{0x0A, 0x162}, 	{0x0A, 0x3DA}, 	{0x0A, 0x124}, 	{0x0A, 0x1B4}, 	{0x0A, 0x264},
-	{0x0A, 0x33D}, 	{0x0A, 0x1D1}, 	{0x0A, 0x1AF}, 	{0x0A, 0x39E}, 	{0x0A, 0x24F}, 	{0x0B, 0x373}, 	{0x0A, 0x249}, 	{0x0B, 0x372},
-	{0x09, 0x167}, 	{0x0A, 0x210}, 	{0x0A, 0x23A}, 	{0x0A, 0x1B8}, 	{0x0B, 0x3AF}, 	{0x0A, 0x18E}, 	{0x0A, 0x2EC}, 	{0x07, 0x62},
-	{0x04, 0x0D}
-
-};
-
-int cNetworkStuff::Pack(void *pvIn, void *pvOut, int len)
-{
-	unsigned char *pIn = (unsigned char *)pvIn;
-	unsigned char *pOut = (unsigned char *)pvOut;
-
-	int actByte = 0;
-	int bitByte = 0;
-	int nrBits;
-	unsigned int value;
-
-	if (len <= 0 || pIn == NULL || pvOut == NULL) return 0; // Server crash fix
-
-	while(len--)
-	{
-		nrBits = bit_table[*pIn][0];
-		value = bit_table[*pIn++][1];
-
-		while(nrBits--)
-		{
-			pOut[actByte] = (pOut[actByte] << 1) | (unsigned char)((value >> nrBits) & 0x1);
-
-			bitByte = (bitByte + 1) & 0x07;
-			if(!bitByte) actByte++;
-		}
-	}
-
-	nrBits = bit_table[256][0];
-	value = bit_table[256][1];
-
-	while(nrBits--)
-	{
-		pOut[actByte] = (pOut[actByte] << 1) | (unsigned char)((value >> nrBits) & 0x1);
-
-		bitByte = (bitByte + 1) & 0x07;
-		if(!bitByte) actByte++;
-	}
-
-	if(bitByte)
-	{
-		while(bitByte < 8)
-		{
-			pOut[actByte] <<= 1;
-			bitByte++;
-		}
-
-		actByte++;
-	}
-
-	return actByte;
-}
-
 void cNetworkStuff::GetMsg(int s) // Receive message from client
 {
 	int count, j, serial, length, dyn_length, loopexit=0, fb;
@@ -1138,11 +1058,11 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 			if (length==PACKET_LEN_NONE)
 			{				
 				clConsole.send("received unknown packet from user\n\n");
-
+*/
 				/*FD_ZERO(&all); FD_SET(client[s],&all);nfds=client[s]+1;
 				if (select(nfds, &all, NULL, NULL, &uoxtimeout)>0) Receive(s, MAXBUFFER-2, 0);				
 				// I think thats supposed to be a re-synch attempt for next msg-in case of getting garbage (LB)
-				*/
+				*//*
 
 				cNetworkStuff::Disconnect(s);
 				return;
@@ -1265,13 +1185,13 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							// Get the trigger
 							
 							buffer[s][3] = buffer[s][3] & 0x0F ; // set to normal (cutting off the ascii indicator since we are converting back to unicode)					
-							
-							int num_words,/*idx=0,*/ num_unknown;				
+							*/
+							//int num_words,/*idx=0,*/ num_unknown;				
 							
 							// number of distict trigger words
-							num_words = ( (static_cast<int>(buffer[s][12])) << 24 ) + ( (static_cast<int>(buffer[s][13])) << 16 );
+							/*num_words = ( (static_cast<int>(buffer[s][12])) << 24 ) + ( (static_cast<int>(buffer[s][13])) << 16 );
 							num_words = num_words & 0xfff00000;
-							num_words = (num_words >> 20);
+							num_words = (num_words >> 20);*/
 							
 							/*************************************/
 							// plz dont delete yet
@@ -1283,7 +1203,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							// cout << "idx: " << idx << endl;
 							/*************************************/
 							
-							if ((num_words %2) == 1)  // odd number ?
+							/*if ((num_words %2) == 1)  // odd number ?
 							{
 								num_unknown = ( num_words / 2 )  * 3;
 							} else
@@ -1597,10 +1517,10 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							strcpy((char*)&PACKET0xB8[8], complete_title(pc));
 							tlen += strlen(complete_title(pc))+1;
 							PACKET0xB8[tlen] = 0;
-							tlen++;
+							tlen++;*/
 							//strcpy((char*)&PACKET0xB8[tlen], "Can not determine this account's age.");
 							//tlen += strlen((char*)&PACKET0xB8[tlen]);*/
-							tlen += 4;
+							/*len += 4;
 							PACKET0xB8[2] = (unsigned char) tlen;
 							Xsend(s, PACKET0xB8, tlen);
 						}
@@ -1829,7 +1749,7 @@ void cNetworkStuff::SendSMARTWOLF(UOXSOCKET s, void *point, int length, int test
 	cNetworkStuff::SendUOX3(s, point, length, test);
 
 }
-
+*/
 // LB 1'st Sept 2001
 // Heart of sychrounous-send
 /*
@@ -1926,10 +1846,10 @@ bool cNetworkStuff::CheckPacket(UOXSOCKET s, unsigned char packetnumber, int len
 */
 // when we have erros in send, i.g synch error, lets try to fire an error message to client before disconnecting
 // of course xsend can't be used, because it's called for erorrs IN xsend.
-void cNetworkStuff::SendGoodByeMessageRaw(UOXSOCKET s)
+/*void cNetworkStuff::SendGoodByeMessageRaw(UOXSOCKET s)
 {
 
-}
+}*/
 
 UOXSOCKET calcSocketFromChar(P_CHAR pc)
 {

@@ -68,4 +68,3 @@ int str2num(char *s, int base) // Convert string to integer
 	char* dummy; // ignore the stop pointer
 	return strtol(s, &dummy, base);
 }
-

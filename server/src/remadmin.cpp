@@ -202,12 +202,12 @@ void racCheckConn(void)
 		clConsole.send("[FAIL]\n");
 		return;
 	}
-	if (Network->CheckForBlockedIP(rac_sockets_addr))
+	/*if (cNetwork::instance()->CheckForBlockedIP(rac_sockets_addr))
 	{
 		clConsole.send("[ BLOCKED ] IP Address: %s\n", inet_ntoa(rac_sockets_addr.sin_addr));
 		closesocket(sockets[racnow]);
 		return;
-	}
+	}*/
 	
 	clConsole.send("[ OK ]\n");
 	
@@ -315,7 +315,7 @@ void racRcv(int s)
 				racProcessInput(s); 
 			}
 			if (status[s] == RACST_STDIN)
-				racPrintf(s, "%s $", SrvParams->serverList()[0].sServer.c_str());
+				racPrintf(s, "%s $", SrvParams->serverList()[0].sServer.latin1());
 			
 			break;
 		}
@@ -381,7 +381,7 @@ void racProcessInput(int s)
 		status[s] = RACST_CHECK_PWD;
 		return;
 	case RACST_CHECK_PWD:
-		if (!Accounts->RemoteAdmin(Accounts->Authenticate(username[s], inputbuffer)))
+		if (!Accounts->RemoteAdmin(Accounts->Authenticate(username[s].c_str(), inputbuffer.c_str())))
 		{
 			racPrintf(s, "\r\nAccess Denied.");
 			status[s] = RACST_ACCESS_DENIED;
@@ -391,9 +391,9 @@ void racProcessInput(int s)
 		else 
 		{
 			status[s] = RACST_STDIN;
-			racPrintf(s, "\r\n", SrvParams->serverList()[0].sServer.c_str());
+			racPrintf(s, "\r\n", SrvParams->serverList()[0].sServer.latin1());
 			racPrintf(s, "\r\n------------------------------------------------------------------------\n\r");
-			racPrintf(s, "Welcome to the %s administration console\n\r", SrvParams->serverList()[0].sServer.c_str());
+			racPrintf(s, "Welcome to the %s administration console\n\r", SrvParams->serverList()[0].sServer.latin1());
 			racPrintf(s, "\r\nType HELP to receive help on commands.\r\n");
 			racPrintf(s, "\n\r");
 			return;
@@ -510,7 +510,7 @@ void racProcessInput(int s)
 				racPrintf(s, "Syntax is : ADDACCT <name>,<password>\r\nExample : ADDACCT administrator,password\r\n");
 				return;
 			}
-			int acct = Accounts->CreateAccount(param1, param2);
+			int acct = Accounts->CreateAccount(param1.c_str(), param2.c_str());
 			racPrintf(s, "Account %d created\r\n  Name : %s\r\n  Pass : %s\r\n\n", acct, (char*)param1.c_str(), (char*)param2.c_str());
 			return;
 		}
@@ -528,7 +528,7 @@ void racProcessInput(int s)
 
 			racPrintf(s, " Done!\r\n");
 			racPrintf(s, "WOLFPACK: Reloading IP Blocking rules...");
-			Network->LoadHosts_deny();
+			cNetwork::instance()->reload();
 			racPrintf(s, "Done\r\n");
 		}
 		else

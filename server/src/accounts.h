@@ -43,6 +43,7 @@
 #include <map>
 #include <vector>
 #include <sys/stat.h>
+#include "qstring.h"
 
 using namespace std;
 
@@ -64,13 +65,12 @@ class cAccount;
 #define ACCOUNT_BANNED -5
 #define ACCOUNT_WIPE -6
 
-
 using namespace std;
 struct account_st
 {
 	unsigned int number;
-	string name;
-	string pass;
+	QString name;
+	QString pass;
 	bool ban;
 	bool remoteadmin;
 	vector<SERIAL> characters;
@@ -79,20 +79,20 @@ struct account_st
 class cAccount
 {
 private:
-	map<string, account_st> acctlist;
-	map<int, string> acctnumbers_sp;
+	map< QString, account_st > acctlist;
+	map< int, QString > acctnumbers_sp;
 
 	struct acctman_st {
 		bool online;
 		SERIAL character;
 	};
-	map<int, acctman_st> acctman;
+	map< int, acctman_st > acctman;
 	int lastusedacctnum;
 	unsigned int unsavedaccounts;
 	unsigned int saveratio;
 	void LoadAccount ( int acctnumb );
-	bool findByNumber( int number, account_st* retValue );
 public:
+	QString findByNumber( Q_INT32 account );
 	unsigned int lasttimecheck;
 	cAccount( void );
 	~cAccount( void );
@@ -106,10 +106,10 @@ public:
 	void CheckAccountFile(void);
 	int Count();
 	bool RemoteAdmin(int acctnum);
-	signed int Authenticate(string username, string password);
-	unsigned int CreateAccount(const string& username, const string& password);
-	bool ChangePassword(unsigned int number, string password);
-	vector<SERIAL> characters( int number );
+	signed int Authenticate( const QString &username, const QString &password);
+	unsigned int CreateAccount(const QString& username, const QString& password);
+	bool ChangePassword(unsigned int number, const QString &password);
+	vector< P_CHAR > characters( int number );
 	void addCharacter( int number, SERIAL serial );
 	void removeCharacter( int number, SERIAL serial );
 };

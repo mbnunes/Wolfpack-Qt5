@@ -488,7 +488,7 @@ void command_serversleep(UOXSOCKET s)
 		sysbroadcast((char*)temp); // broadcast server sleep
 		for (a=0; a<now; a++) // make sure all send buffers are flushed (=the messages are really send beffore server sleeps)
 		{
-			if (perm[a]) Network->FlushBuffer(a);
+			//if (perm[a]) cNetwork::instance()->FlushBuffer(a);
 		}
 		seconds=seconds*1000; 
 		
@@ -499,7 +499,7 @@ void command_serversleep(UOXSOCKET s)
 		sysbroadcast((char*)temp); 
 		for (a=0; a<now; a++) // not absolutely necassairy ..
 		{
-			if (perm[a]) Network->FlushBuffer(a);
+			//if (perm[a]) cNetwork::instance()->FlushBuffer(a);
 		}
 		
 	}
@@ -520,7 +520,7 @@ void command_reloadcachedscripts(UOXSOCKET s)
 	Commands->loadPrivLvlCmds();
 	loadskills();
 	read_in_teleport(); // hope i've cought all  ...
-	Network->LoadHosts_deny();
+	cNetwork::instance()->load();
 	
 	sysmessage(s, tr("Cached scripts reloaded"));
 }
@@ -1352,7 +1352,7 @@ void command_web(UOXSOCKET s)
 void command_disconnect(UOXSOCKET s)
 // (d) Disconnects the user logged in under the specified slot.
 {
-	if (tnum==2) Network->Disconnect(makenumber(1));
+	//if (tnum==2) cNetwork::instance()->disconnect(makenumber(1));
 	return;
 }
 

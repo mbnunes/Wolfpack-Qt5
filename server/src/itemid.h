@@ -38,6 +38,8 @@
 #ifndef _ITEMID_H
 #define _ITEMID_H
 
+#include "qcstring.h"
+
 bool IsCorpse		(short id);
 bool IsSpellScroll	(short id);	// predefined spells
 bool IsSpellScroll72(short id);	// includes the scrolls with a variable name
@@ -90,5 +92,30 @@ bool IsLeatherArmour(short id);
 bool IsMetalArmour	(short id);
 
 bool IsHouse		(unsigned short id);
+
+inline bool isHair( Q_UINT16 model )
+{
+	return	( ( ( model >= 0x203B ) && ( model <= 0x203D ) ) || ( ( model >= 0x2044 ) && ( model <= 0x204A ) ) ) ? true : false;
+}
+
+inline bool isBeard( Q_UINT16 model )
+{
+	return	( ( ( model >= 0x203E ) && ( model <= 0x2041 ) ) || ( ( model >= 0x204B ) && ( model <= 0x204D ) ) ) ? true : false;
+}
+
+inline bool isNormalColor( Q_UINT16 color )
+{
+	return ( ( color >= 2 ) && ( color < 0x3ea ) ) ? true : false;
+}
+
+inline bool isSkinColor( Q_UINT16 color )
+{
+	return ( ( color >= 0x3EA ) && ( color <= 0x422 ) ) ? true : false;
+}
+
+inline bool isHairColor( Q_UINT16 color )
+{
+	return ( ( color >= 0x44E ) && ( color <= 0x47D ) ) ? true : false;
+}
 
 #endif

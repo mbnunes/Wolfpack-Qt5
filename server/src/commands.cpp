@@ -1028,7 +1028,7 @@ void cCommands::Possess(int s)
 		pc_currchar->npc = 1;
 		pc_currchar->account = -1;
 		currchar[s] = pPos;
-		Network->startchar( s );
+		cNetwork::instance()->startchar( s );
 		sysmessage( s, "Welcome back to your old body." );
 	}
 	else if( pPos->isNpc() )
@@ -1057,7 +1057,7 @@ void cCommands::Possess(int s)
 		pc_currchar->npc = 17;
 		pc_currchar->npcWander = 0;
 		currchar[s] = pPos;
-		Network->startchar( s );
+		cNetwork::instance()->startchar( s );
 		sprintf((char*)temp,"Welcome to %s's body!", pPos->name.c_str() );
 		sysmessage(s, (char*)temp);
 	}

@@ -193,7 +193,7 @@ void cGumps::Button(int s, int button, SERIAL serial, char type)
 						break;
 					}
 					sysmessage(s, "Kicking player");				
-					Network->Disconnect(calcSocketFromChar(pc_c));
+					//cNetwork::instance()->Disconnect(calcSocketFromChar(pc_c));
 					break;
 				}
 			default:

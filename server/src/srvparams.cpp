@@ -250,7 +250,9 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 					ServerList_st server;
 					server.sServer = strList[0];
 					QStringList strList2 = QStringList::split(",", strList[1].stripWhiteSpace());
-					server.sIP = strList2[0];
+					QHostAddress host;
+					host.setAddress( strList2[0] );
+					server.sIP = host.ip4Addr();
 					bool ok = false;
 					server.uiPort = strList2[1].toUShort(&ok);
 					if ( !ok )

@@ -269,7 +269,6 @@ cSkills			*Skills;
 cFishing        *Fishing;
 cWeight			*Weight;
 cTargets		*Targ;
-cNetworkStuff	*Network;
 cMagic			*Magic;
 cBooks          *Books;
 cAccount		*Accounts;

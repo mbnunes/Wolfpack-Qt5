@@ -52,7 +52,8 @@ enum WPDEF_TYPE
 	WPDT_SPAWNREGION,
 	WPDT_REGION,
 	WPDT_MULTI,
-	WPDT_TEXT
+	WPDT_TEXT,
+	WPDT_STARTITEMS
 };
 
 class WPDefManager  
@@ -70,6 +71,7 @@ private:
 	DefSections Regions;
 	DefSections Multis;
 	DefSections Texts;
+	DefSections StartItems;
 
 	bool ImportSections( const QString& FileName );
 	void ProcessNode( QDomElement Node );

@@ -562,6 +562,7 @@ public:
 	unsigned int getSkillSum();
 	int getTeachingDelta(cChar* pPlayer, int skill, int sum);
 	void removeItemBonus(cItem* pi);
+	void giveItemBonus(cItem* pi);
 	void Init(bool ser = true);
 	bool isSameAs(cChar* pc) {if (!pc || pc->serial != serial) return false; else return true;}
 	bool inGuardedArea();
@@ -661,6 +662,5 @@ inline void cChar::setGuildTraitor(bool  data)			{ GuildTraitor = data; }
 inline void	cChar::setOrgname( const QString& data )	{ orgname_ = data; }
 inline void cChar::setTitle( const QString& data )		{ title_ = data;   }
 inline void cChar::setUnicode(bool data)				{ unicode_ = data; }
-inline void	cChar::setAccount(int data)					{ account_ = data; }
 
 #endif

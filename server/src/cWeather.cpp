@@ -54,15 +54,15 @@ void cWeather::DoWeather(int s)
 		}
 	    else if(Type[Region]==1)
 		{
-		    Network->xSend(s,rain,4,0);
+		    cNetwork::instance()->xSend(s,rain,4,0);
 		}
 	    else if(Type[Region]==2)
 		{
-		    Network->xSend(s,snow,4,0);
+		    cNetwork::instance()->xSend(s,snow,4,0);
 		}
 	    else
 		{
-		    Network->xSend(s,dry,4,0);
+		    cNetwork::instance()->xSend(s,dry,4,0);
 		}
 		*/
 	}
@@ -153,7 +153,7 @@ void cWeather::CTimer()
 //		   r=currchar[s]->region;
 		   if(noweather[s])
 		   {
-			   Network->xSend(s,dry,4,0);
+			   cNetwork::instance()->xSend(s,dry,4,0);
 			   return;
 		   }
 		   if(Active[r] && perm[s])

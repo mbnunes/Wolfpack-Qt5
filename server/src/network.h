@@ -45,12 +45,11 @@ using namespace std ;
 
 //Forward class Declaration
 class cNetworkStuff;
-
-
+class cAsyncNetIO;
+class cUOSocket;
+class cListener;
 
 //Wolfpack includes
-
-//#include "netsys.h"
 #include "wolfpack.h"
 #include "verinfo.h"
 #include "debug.h"
@@ -59,19 +58,7 @@ class cNetworkStuff;
 #include "rcvpkg.h"
 #include "SndPkg.h"
 
-
-/*
-#if defined(__unix__)
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <sys/ioctl.h>
-#endif
-*/
 #include "utilsys.h"
-
-
 #include "typedefs.h"
 
 struct ip_block_st
@@ -80,60 +67,38 @@ struct ip_block_st
 	unsigned long mask;
 };
 
-
-class cNetworkStuff
+class cNetwork
 {
 public:
-	cNetworkStuff();
+	cNetwork();
+	virtual ~cNetwork();
 
-	void startchar(UOXSOCKET s);
-	void LoginMain(UOXSOCKET s);
+	void disconnect( UOXSOCKET s );
 	void xSend(UOXSOCKET s, const void *point, int length, int test);
-	void Disconnect(UOXSOCKET s);
-	void ClearBuffers();
-	void CheckConn();
-	void CheckMessage();
-	void SockClose();
-	void FlushBuffer(UOXSOCKET s);
-	void LoadHosts_deny( void );
-	void Initialize(void) { sockInit(); }
+	
+	void load( void );
+	void unload( void );
+	void reload( void );
+	
+	bool CheckForBlockedIP( sockaddr_in ip_address );
 
-	int kr,faul; // needed because global varaibles cant be changes in constructores LB
-	bool CheckForBlockedIP(sockaddr_in ip_address);
+	static void startup( void ) { instance_ = new cNetwork; }
+	static void shutdown( void ) { delete instance_; }
+	static cNetwork *instance( void ) { return instance_; }
+
+	void poll( void ); // called by the main loop
+
+	cAsyncNetIO *netIo() { return netIo_; }
 
 private:
-	char pass1[256];
-	char pass2[256];
-
-	void SendUOX3(UOXSOCKET s, const void *point, int length, int test);
-	void SendOSI(UOXSOCKET s, void *point, int length, int test);
-	void SendSMARTWOLF(UOXSOCKET s, void *point, int length, int test);
-//	void CountPackets(UOXSOCKET s, int &numpackets, long int & offsetlastfullpacket, bool & dataerror);
-//    bool CheckPacket(UOXSOCKET s, unsigned char packetnumber, int length, unsigned long int offset);
-	void SendGoodByeMessageRaw(UOXSOCKET s);
-
+	static cNetwork *instance_;
 	std::vector<ip_block_st> hosts_deny;
-
-	signed long Authenticate( const char *username, const char *pass );
-	void DoStreamCode(UOXSOCKET s);
-	int  Pack(void *pvIn, void *pvOut, int len);
-	void Login2(int s);
-	void Relay(int s);
-	void GoodAuth(int s);
-	void charplay (int s);
-	void CharList(int s);
-	int  Receive(int s, int x, int a);
-	void GetMsg(int s);
-	char LogOut(int s);
-	void pSplit(char *pass0);
-	void sockInit();
-
-protected:
-
+	std::vector< cUOSocket* > uoSockets;
+	cAsyncNetIO *netIo_;
+	cListener *listener_;
 };
 
 // Helper Function
 UOXSOCKET calcSocketFromChar(P_CHAR pc);
-
 
 #endif

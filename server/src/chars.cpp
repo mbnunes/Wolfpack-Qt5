@@ -850,6 +850,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("gmrestrict",		gmrestrict_);
 		SetOwnSerial(ownserial);
 		SetSpawnSerial(spawnserial_);
+		setAccount( account_ );
 	}
 	else if ( archive.isWritting())
 	{
@@ -861,7 +862,7 @@ void cChar::Serialize(ISerialization &archive)
 		{
 			archive.write("name", name);
 		}
-		
+
 		archive.write("title",			title_);
 		archive.write("account",		account_);
 		archive.write("creationday",	creationday_);
@@ -1633,4 +1634,22 @@ void cChar::message( const QString &message, UI16 color )
 
 	cUnicodeSpeech textSpeech( this, message, color, 3, "ENU", SP_REGULAR );
 	textSpeech.send( calcSocketFromChar( this ) );
+}
+
+void cChar::setAccount( int data )
+{
+	if( account_ != -1 )
+		Accounts->removeCharacter( account_, serial );
+
+	account_ = data;
+
+	if( account_ != -1 )
+		Accounts->addCharacter( account_, serial );
+}
+
+void cChar::giveItemBonus(cItem* pi)
+{
+	st += pi->st2;
+	chgDex( pi->dx2 );
+	in += pi->in2;
 }

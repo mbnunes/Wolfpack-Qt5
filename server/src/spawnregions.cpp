@@ -366,7 +366,7 @@ void cAllSpawnRegions::load( void )
 {
 	UI32 starttime = getNormalizedTime();
 	QStringList DefSections = DefManager->getSections( WPDT_SPAWNREGION );
-	clConsole.PrepareProgress( "Loading spawn regions..." );
+	clConsole.PrepareProgress( "Loading spawn regions" );
 
 	QStringList::iterator it = DefSections.begin();
 	while( it != DefSections.end() )

@@ -69,8 +69,8 @@ void LogMessageF(unsigned char Type, long Line, char *File, char *Message, ...);
 
 #define _ ,
 
-//#define Xsend(sock,buff,length) if (sock<0 || sock>=MAXCLIENT) LogCritical("Socket/Index confusion @ Xsend %i\n" _ sock);  else Network->xSend(sock, buff, length, 0)
-#define Xsend(sock,buff,length) if ( sock>=MAXCLIENT) LogCritical("Socket/Index confusion @ Xsend %i\n" _ sock);  else Network->xSend(sock, buff, length, 0)
+//#define Xsend(sock,buff,length) if (sock<0 || sock>=MAXCLIENT) LogCritical("Socket/Index confusion @ Xsend %i\n" _ sock);  else cNetwork::instance()->xSend(sock, buff, length, 0)
+#define Xsend(sock,buff,length) if ( sock>=MAXCLIENT) LogCritical("Socket/Index confusion @ Xsend %i\n" _ sock);  else cNetwork::instance()->xSend(sock, buff, length, 0)
 #define CRASH_IF_INVALID_SOCK(sock) if (sock<0 || sock>=MAXCLIENT) chars[-1000000].x=0
 
 // Usefull to leave some FIXME comments in source (will show in the warnings window (Original from UOX3) :)

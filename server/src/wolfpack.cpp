@@ -263,7 +263,7 @@ void signal_handler(int signal)
 	{
 	case SIGHUP:
 		SrvParams->reload();
-		Network->LoadHosts_deny();
+		cNetwork::instance()->reload();
 		DefManager->reload();
 		cAllSpawnRegions::getInstance()->reload();
 		cAllTerritories::getInstance()->reload();
@@ -815,7 +815,6 @@ void item_char_test()
 			 }
 		}
 	}
-	clConsole.send(" Done!\n");
 }
 
 
@@ -1728,268 +1727,6 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 		sysmessage(s, "This doesnt seem to be a valid door type. Contact a GM.");
 }
 
-int validhair(int a, int b) // Is selected hair type valid
-{
-	
-	if( a != 0x20 )
-		return 0;
-	switch( b )
-	{
-	case 0x3B:
-	case 0x3C:
-	case 0x3D:
-	case 0x44:
-	case 0x45:
-	case 0x46:
-	case 0x47:
-	case 0x48:
-	case 0x49:
-	case 0x4A:
-		return 1;
-	default:
-		return 0;
-	}
-	return 1;
-}
-
-int validbeard(int a, int b) // Is selected beard type valid
-{
-	if( a != 0x20 )
-		return 0;
-	switch( b )
-	{
-	case 0x3E:
-	case 0x3F:
-	case 0x40:
-	case 0x41:
-	case 0x4B:
-	case 0x4C:
-	case 0x4D:
-		return 1;
-	default:
-		return 0;
-	}
-	return 1;
-}
-
-void charcreate( UOXSOCKET s ) // All the character creation stuff
-{
-	signed int ii;
-	int totalstats,totalskills;
-	P_CHAR pc = Npcs->MemCharFree();
-	if ( pc == NULL )
-		return;
-
-	pc->Init();
-
-	pc->name = (char*)buffer[s] + 10;
-	pc->setAccount(acctno[s]);
-
-	//	Code to support the new GuildType, and GuildTraitor members of the
-	//	character strcture.
-	pc->setGuildType(-1);				//	Default to no guild
-	pc->setGuildTraitor(false);	//	Also defauot to non trator, or no guild
-	pc->race=0; // Default human race
-	if (buffer[s][0x46]!='\x00')
-	{
-		pc->setId(0x0191);
-		pc->xid = 0x0191;
-	}
-	pc->setSkin( (buffer[s][0x50]|0x80 << 8) + buffer[s][0x51] );
-	if ( pc->skin() < 0x83EA || pc->skin() > 0x8422 )
-	{
-		pc->setSkin( 0x83EA );
-	}
-	pc->setXSkin(pc->skin());
-	pc->setPriv(SrvParams->defaultpriv1());
-	pc->priv2=SrvParams->defaultpriv2();
-
-	if (acctno[s]==0)
-	{
-		pc->setPriv(0xE7);
-		pc->setPrivLvl("admin");
-		pc->setMenupriv(-1); // lb, menu priv
-	}
-	else
-	{
-		unsigned int i;
-		pc->setPrivLvl("player"); // player defaults is 2
-	}
-
-	pc->moveTo(SrvParams->startLocation()[buffer[s][0x5B]].pos);
-
-	pc->dir=4;
-
-	pc->hp=pc->st=buffer[s][0x47];
-	if (pc->st>45) pc->st=45;		// fix for hack exploit
-	if (pc->st<10) pc->st=10;
-	totalstats=pc->st;
-
-	short d=buffer[s][0x48];
-	if (d>45) d=45;		// fix for hack exploit
-	if (d<10) d=10;
-	if (d+totalstats>65) d=65-totalstats;
-	totalstats+=d;
-	pc->setDex(d);
-	pc->stm=d;
-
-	pc->mn=pc->in=buffer[s][0x49];
-	if (pc->in>45) pc->in=45;		// fix for hack exploit
-	if (pc->in<10) pc->in=10;
-	if (pc->in+totalstats>65) pc->in=65-totalstats;
-
-	if (buffer[s][0x4b]>50) buffer[s][0x4b]=50; // fixes for hack exploit
-	totalskills=buffer[s][0x4b];
-	if (buffer[s][0x4d]>50) buffer[s][0x4d]=50;
-	if (buffer[s][0x4d]+totalskills>100) buffer[s][0x4d]=100-totalskills;
-	totalskills+=buffer[s][0x4d];
-	if (buffer[s][0x4f]>50) buffer[s][0x4f]=50;
-	if (buffer[s][0x4f]+totalskills>100) buffer[s][0x4f]=100-totalskills;
-
-	for (ii=0;ii<TRUESKILLS;ii++)
-	{
-		pc->setBaseSkill(ii, 0);
-		if (ii==buffer[s][0x4a]) 
-			pc->setBaseSkill(buffer[s][0x4a], buffer[s][0x4b]*10);
-		else if (ii==buffer[s][0x4c]) 
-			pc->setBaseSkill(buffer[s][0x4c], buffer[s][0x4d]*10);
-		else if (ii==buffer[s][0x4e]) 
-			pc->setBaseSkill(buffer[s][0x4e],buffer[s][0x4f]*10);
-		Skills->updateSkillLevel(pc, ii);
-	}
-
-	if (validhair(buffer[s][0x52],buffer[s][0x53]))
-	{
-		const P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, buffer[s][0x52], buffer[s][0x53], static_cast<unsigned short>(buffer[s][0x54]<<8)+buffer[s][0x55],0,0);
-		if(pi == NULL) return;
-		if ( pi->color() < 0x044E || pi->color() > 0x04AD )
-		{
-			pi->setColor( 0x044E );
-		}
-		pi->setContSerial(pc->serial);
-		pi->setLayer( 0x0B );
-	}
-
-	if ( (validbeard(buffer[s][0x56],buffer[s][0x57])) && (pc->id2==0x90) )
-	{
-		const P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, buffer[s][0x56], buffer[s][0x57], static_cast<unsigned short>(buffer[s][0x58]<<8) + buffer[s][0x59],0,0);
-		if(pi == NULL) return;//AntiChrist to preview crashes
-		if ( pi->color() < 0x044E || pi->color() > 0x04AD )
-		{
-			pi->setColor( 0x044E );
-		}
-		pi->setContSerial(pc->serial);
-		pi->setLayer( 0x10 );
-	}
-
-	{	// just to limit the scope of pi
-	// - create the backpack
-	P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, 0x0E, 0x75, 0, 0,0);
-	if (pi == NULL)
-		return;
-	pc->packitem = pi->serial;
-	pi->setContSerial(pc->serial);
-	pi->setLayer( 0x15 );
-	pi->setType( 1 );
-	pi->dye=1;
-	}
-
-	{	// limit the scope of pi
-	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x09,0x15,0,0,0);
-	if(pi == NULL) return;//AntiChrist to preview crashes
-
-	switch (RandomNum(0, 1))
-	{
-	case 0:
-		if ((pc->id() == 0x0190) && (pc->xid == 0x0190))
-		{
-			pi->setId( 0x1539 );
-			pi->setLayer( 0x04 ); // pant
-		} else
-		{
-			pi->setId( 0x1516 );
-			pi->setLayer( 23 ); //skirt
-		}
-		break;
-	case 1:
-		if ((pc->id() == 0x0190) && (pc->xid == 0x0190))
-		{
-			pi->setId(0x152E);
-			pi->setLayer( 0x04 );
-		} else
-		{
-			pi->setId(0x1537);
-			pi->setLayer( 23 );
-		}
-		break;
-	}
-	// pant/skirt color -> old client code, random color
-	pi->setColor( static_cast<unsigned short>(buffer[s][102]<<8) + buffer[s][103] );
-	pi->setContSerial(pc->serial);
-	pi->setType( 0 );
-	pi->dye=1;
-	pi->setHp( 10 );
-	pi->priv |= 0x02; // Mark as a newbie item
-	}
-
-	{	// limit the scope of pi
-	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x09,0x15,0,0,0); // spawn pants
-	if(pi == NULL) return;//AntiChrist to preview crashes
-	if (!(rand()%2))
-	{
-		pi->setId(0x1EFD);
-	}
-	else
-	{
-		pi->setId(0x1517);
-	}
-	pi->setColor( static_cast<unsigned short>(buffer[s][100]<<8) + buffer[s][101] );
-
-	pi->setContSerial(pc->serial);
-	pi->setLayer( 0x05 );
-	pi->dye=1;
-	pi->setHp( 10 );
-	pi->def=1;
-	pi->priv |= 0x02; // Mark as a newbie item
-	}
-
-	{	// limit the scope of pi
-	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x17,0x0F,0x0287,0,0); // shoes
-	if(pi == NULL) return;//AntiChrist to preview crashes
-	pi->setContSerial(pc->serial);
-	pi->setLayer( 0x03 );
-	pi->dye=1;
-	pi->setHp( 10 );
-	pi->def=1;
-	pi->priv |= 0x02; // Mark as a newbie item
-	}
-
-	{	// limit the scope of pi
-	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x0F,0x51,0,0,0); // dagger
-	if(pi == NULL) return;
-	pi->setContSerial(pc->serial);
-	pi->setLayer( 0x01 );
-	//pi->att=5;
-	pi->setHp( 10 );
-	pi->setSpeed( 50 );
-	pi->setLodamage( 3 );
-	pi->setHidamage( 15 );
-	pi->priv |= 0x02; // Mark as a newbie item
-	}
-
-	currchar[s] = pc;
-	newbieitems(s, pc);
-
-	perm[s]=1;
-	if(pc->st<10)
-		pc->st=10;
-	if(pc->in<10)
-		pc->in=10;
-	if(pc->effDex()<10)
-		pc->setDex(10);
-	Network->startchar(s);
-}
-
 int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn new horse)
 {
 	unsigned int ci = 0;
@@ -2572,7 +2309,7 @@ void checkkey ()
 				for (i=0;i<now;i++)
 					if (acctno[i]==0 && perm[i])
 					{
-						Network->Disconnect(i);
+						//cNetwork::instance()->Disconnect(i);
 						clConsole.send( "Account 0 disconnected\n");
 					}
 					break;
@@ -2616,7 +2353,7 @@ void checkkey ()
 
 				ScriptManager->reload(); // Reload Scripts
 
-				Network->LoadHosts_deny(); // This will be integrated into the normal definition system soon
+				cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
 				break;
 			case '?':
 				clConsole.send("Console commands:\n");
@@ -2740,7 +2477,7 @@ int main( int argc, char *argv[] )
 
 	#endif	
 
-	#define CIAO_IF_ERROR if (error==1) { Network->SockClose(); im_clearmenus(); DeleteClasses(); exit(-1); }
+	#define CIAO_IF_ERROR if (error==1) { cNetwork::instance()->shutdown(); im_clearmenus(); DeleteClasses(); exit(-1); }
 
 	int i;
 	unsigned long tempSecs;
@@ -2753,96 +2490,38 @@ int main( int argc, char *argv[] )
 	int r;
 	uiCurrentTime = serverstarttime = getNormalizedTime();
 
-	#ifndef __unix__ // If X-Wolf mandatory flag is set don't start if wolfpack hasn't been started by X-Wolf
-
-#if 0
-//	if (0)
-
-	  int win = GetWindowsVersion();
-	  switch (win)
-	  {
-	      case W95:
-		  clConsole.send("Detected Windows Version: Windows 95\n");
-		  break;
-
-		  case W98:
-		  clConsole.send("Detected Windows Version: Windows 98\n");
-		  break;
-
-		  case WME:
-		  clConsole.send("Detected Windows Version: Windows ME\n");
-		  break;
-
-		  case WNT4:
-		  clConsole.send("Detected Windows Version: Windows NT 4.0\n");
-		  break;
-
-		  case W2K:
-		  clConsole.send("Detected Windows Version: Windows 2000\n");
-		  break;
-
-		  case XP:
-		  clConsole.send("Detected Windows Version: Windows XP\n");
-		  break;
-
-	  }
-
-	  if (wp_version.verstruct.flags & WPV_REQXWOLF)
-	  {		
-		    // link dynamicaly so that it starts on systems that don't have the isdebuggerpresent() system call (w95)
-		    bool detectable;
-		  	BOOL  (WINAPI *lpfIsDebuggerPresent)   (void  ) = NULL;
-	        HINSTANCE hInstLib = LoadLibraryA ("Kernel32.DLL" );
-            if (hInstLib==NULL) FreeLibrary(hInstLib); else lpfIsDebuggerPresent = ( BOOL ( WINAPI* ) ( void ) )  GetProcAddress ( hInstLib, "IsDebuggerPresent" );
-		    BOOL debuggerpresent=false;
-			if (lpfIsDebuggerPresent==NULL) { detectable=false; } else { detectable=true; debuggerpresent = lpfIsDebuggerPresent(); }
-
-			if (!debuggerpresent && detectable)
-			{		     		   			
-               clConsole.send("This is a Wolfpack version that needs to be started by X-Wolf\n");
-			   clConsole.send("Wolfpack server detected that is hasn't been started by X-Wolf, quitting\n");
-               FreeLibrary(hInstLib);
-			   exit(666);
-			} else if (!detectable)
-			{
-			   clConsole.send("This is a Wolfpack version that needs to be started by X-Wolf\n");
-			   clConsole.send("But Wolfpack can't detect if it is started by X-Wolf or not\n");
-			
-			}
-
-			if (hInstLib!=NULL) FreeLibrary(hInstLib);		
-	  }
-	
-	#endif
-    #endif
-
-	//constart();
-
-	clConsole.send( "Starting up Wolfpack...\n" );
-	openings = 0;
-	scpfilename[0] = 0;
-
-	sprintf((char*)temp, "%s %s %s", wp_version.productstring.c_str() , wp_version.betareleasestring.c_str() , wp_version.verstring.c_str() );
-	
-	#ifndef __unix__
-	SetConsoleTitle((char*)temp);
-	#endif
-
-#if 1
-	
-	#ifndef __unix__ // wip stuff is currently only for windows stuff
-	  BOOL w = WIP_Init();
-	  // that's all :) no wip stuff in wp-core
-	  if (w==FALSE)
-	  {
-		  clConsole.send("Error starting WIP, WIP clients won't work");
-	  }
-    #endif
-
+#ifndef __unix__
+	clearscreen();
+	QString os( "WIN32" );
+#else
+	QString os( "LINUX" );
 #endif
 
-	StartClasses();
+	// Print a seperator somehow
+	clConsole.send( QString( "\n%1 %2 %3 [%4]\n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ).arg( os ) );
+
+	clConsole.send( "Copyright (C) 1997, 98 Marcus Rating (Cironian)\n");
+	clConsole.send( "This program is free software; you can redistribute it and/or modify\n");
+	clConsole.send( "it under the terms of the GNU General Public License as published by\n");
+	clConsole.send( "the Free Software Foundation; either version 2 of the License, or\n");
+	clConsole.send( "(at your option) any later version.\n\n");
+	clConsole.send( "Compiled on %s (%s %s)\n",__DATE__,__TIME__, wp_version.timezonestring.c_str() );
+	clConsole.send( "Programmed by: %s\n", wp_version.codersstring.c_str() );
+	clConsole.send( "\n" );
+
+	openings = 0;
+	scpfilename[0] = 0;
 	
+	#ifndef __unix__
+		QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() );
+		SetConsoleTitle( consoleTitle.latin1() );
+
+		// Initialize WIP (Whatever that is for)
+		if( !WIP_Init() )
+			clConsole.send( "WIP not startet. WIP Clients unavailable." );
+    #endif
+
+	StartClasses();
 	CIAO_IF_ERROR;
 
 	DefManager->load();
@@ -2886,11 +2565,9 @@ int main( int argc, char *argv[] )
 		}
 	}
 
-
-	CIAO_IF_ERROR; // no wolfpack.ini crashes further startup process. so stop insted of crash
+	CIAO_IF_ERROR;
 
 	SetGlobalVars();
-
 	SkillVars();	// Set Creator Variables
 
 	clConsole.PrepareProgress( "Loading skills" );
@@ -2899,8 +2576,9 @@ int main( int argc, char *argv[] )
 
 	Accounts->LoadAccounts( false );
 
-	keeprun = Network->kr; //LB. for some technical reasons global varaibles CANT be changed in constructors in c++.
-	error = Network->faul; // i hope i can find a cleaner solution for that, but this works !!!
+	keeprun = 1;
+	//keeprun = cNetwork::instance()->kr; //LB. for some technical reasons global varaibles CANT be changed in constructors in c++.
+	//error = cNetwork::instance()->faul; // i hope i can find a cleaner solution for that, but this works !!!
 	// has to here and not at the cal cause it would get overriten later
 
 	CIAO_IF_ERROR;
@@ -2912,7 +2590,7 @@ int main( int argc, char *argv[] )
 
 	Map->Load();
 
-	if (keeprun==0) { Network->SockClose(); im_clearmenus(); DeleteClasses(); exit(-1); }
+	if (keeprun==0) { cNetwork::instance()->shutdown(); im_clearmenus(); DeleteClasses(); exit(-1); }
 		
 	srand(uiCurrentTime); // initial randomization call
 
@@ -2947,124 +2625,76 @@ int main( int argc, char *argv[] )
 		}
 	}
 
-	clConsole.send("Clearing all trades...");
+	clConsole.PrepareProgress( "Resetting all Trade windows" ); // Should automatically be done whenever a char disconnects
 	Trade->clearalltrades();
-	clConsole.send(" Done.\n");
+	clConsole.ProgressDone();
 
-	//Boats --Check the multi status of every item character at start up to get them set!
-	clConsole.send("Initializing multis...");
+	clConsole.PrepareProgress( "Initializing Multis" );
 	InitMultis();
-	clConsole.send(" Done.\n");
-	//End Boats --^
-
-	// Should be handeled by the normal make menu system
-	/*clConsole.send("Loading IM Menus...");
-	im_loadmenus( "inscribe.gmp", TellScroll ); //loading gump for inscribe()
-	clConsole.send(" Done.\n");*/
+	clConsole.ProgressDone();
 
 	gcollect();
 
-	clConsole.send("Initializing glowing-items...");
-	start_glow();
-	clConsole.send(" Done!\n"); // Magius(CHE) (1)
-	FD_ZERO(&conn);
 	starttime=uiCurrentTime;
 	endtime=0;
 	lclock=0;
-	clConsole.send(".");LogMessage("Initializing Queue System...");
-	initque(); // Initialize gmpages[] array
 
-	clConsole.send(".");LogMessage("Done. Loading custom titles...");
+	FD_ZERO(&conn);
+
+	clConsole.PrepareProgress( "Start glowing items" );
+	start_glow();
+	clConsole.ProgressDone();
+
+	clConsole.PrepareProgress( "Initializing GM Pages" );
+	initque();
+	clConsole.ProgressDone();
+
+	clConsole.PrepareProgress( "Loading custom tiles" );
 	loadcustomtitle();
-	clConsole.send(" Done.\n");
+	clConsole.ProgressDone();
 
-	clConsole.send("Initializing Network...");
-	Network->Initialize();
-	clConsole.send(" Done.\n");
+	clConsole.PrepareProgress( "Starting up Network" );
+	cNetwork::startup();
+	clConsole.ProgressDone();
 
 	cwmWorldState->announce(SrvParams->announceWorldSaves());
 
-	clConsole.send("Initializing sounds... ");
-	init_creatures(); //lb, initilises the creatures array (with soudfiles and other creatures infos)
-	clConsole.send("Done.\n");
+	init_creatures(); // This initializes *fixed* data that should DEFINETLY be swaped out to the scripts !!!
 
 	Magic->load(); // Load the new magic system
 
-	clConsole.send("Loading IP Blocking rules...");
-	Network->LoadHosts_deny();
-	clConsole.send("Done\n");
+	clConsole.PrepareProgress( "Loading IP Blocking rules" );
+	cNetwork::instance()->load();
+	clConsole.ProgressDone();
+
     if (SrvParams->EnableRA())
          racInit();
 
-#ifndef __unix__
-	clearscreen(); // Moved by Magiu s(CHE (1)
-	sprintf(idname, "%s %s %s [WIN32] compiled by %s\nCurrent developers: %s", wp_version.productstring.c_str() ,  wp_version.betareleasestring.c_str(), wp_version.verstring.c_str() , wp_version.compiledbystring.c_str() , wp_version.codersstring.c_str() );
-#else
-	sprintf(idname, "%s %s %s [LINUX] compiled by %s\nCurrent developers: %s", wp_version.productstring.c_str() ,  wp_version.betareleasestring.c_str(), wp_version.verstring.c_str() , wp_version.compiledbystring.c_str(), wp_version.codersstring.c_str() );
-#endif
-	clConsole.send(idname);
-	clConsole.send("\n");
-	clConsole.send("(Configured for connections by UO Clients supported by Ignition)\n\n");
-	clConsole.send("Copyright (C) 1997, 98 Marcus Rating (Cironian)\n\n");
-	clConsole.send("This program is free software; you can redistribute it and/or modify\n");
-	clConsole.send("it under the terms of the GNU General Public License as published by\n");
-	clConsole.send("the Free Software Foundation; either version 2 of the License, or\n");
-	clConsole.send("(at your option) any later version.\n\n");
-	clConsole.send("%s %s %s\n",wp_version.productstring.c_str() , wp_version.betareleasestring.c_str() , wp_version.verstring.c_str() );
-	clConsole.send("Compiled on %s (%s %s)\n",__DATE__,__TIME__, wp_version.timezonestring.c_str() );
-	clConsole.send("Compiled by %s at %s\n", wp_version.compiledbystring.c_str() , wp_version.emailstring.c_str() );
-	clConsole.send("Programmed by: %s\n", wp_version.codersstring.c_str() );
-//	if (sizeof(tile_st)!=37)
-//		clConsole.send("This version of WOLFPACK was compiled incorrectly. sizeof(tile_st) = %d \n", sizeof(tile_st));
-	clConsole.send("\n");
-	// Server.scp status --- By Magius(CHE)
-	clConsole.send( "Server Settings:\n");
-	InitServerSettings();
-
 	item_char_test(); //LB
-	//Guilds->CheckConsistancy(); // LB
-	//Weather->run() ;
-	//Network->InitConnThread();
-
-	clConsole.send("WOLFPACK: Startup Complete.\n\n");
-
+	MsgBoardMaintenance(); // Bad system
 
 	if( SrvParams->serverLog() )
 		savelog( "Server startup", "server.log" );
 
-	uiCurrentTime=getNormalizedTime();
-	serverstarttime=getNormalizedTime(); // dont remove, its absolutly necassairy that its 3 times in the startup sequence for several timing reasons.
+	uiCurrentTime = getNormalizedTime();
+	serverstarttime = getNormalizedTime(); // dont remove, its absolutly necassairy that its 3 times in the startup sequence for several timing reasons.
 
 	CIAO_IF_ERROR;
 
-    if (MapTileHeight>300)
-		clConsole.send("BRITANNIA MAP SERVER\n");
+    if( MapTileHeight > 300 )
+		clConsole.send("\nMap: Britannia\n");
 	else
-		clConsole.send("ILSHENAR MAP SERVER \n");
+		clConsole.send("\nMap: Ilshenar\n");
 
-    // print allowed clients
-    clConsole.send("\nAllowed clients\n");
+    // print allowed clients	
+	clConsole.send( "Allowed clients: " );
 
-	if ( SrvParams->clientsAllowed().contains("ALL") )
-		clConsole.send("ALL");
+	if( SrvParams->clientsAllowed().contains( "ALL" ) )
+		clConsole.send( "All\n\n" );
 	else
-	{
-		QStringList::const_iterator it = SrvParams->clientsAllowed().begin();
-		for (; it != SrvParams->clientsAllowed().end(); ++it)
-		{
-			if ( *it != "SERVER_DEFAULT" )
-				clConsole.send( (*it) );
-			else
-				clConsole.send( wp_version.clientsupportedstring );
-		}
-	}
-	
-	// Do a little Testing( ! )
-	PyObject *codeModule = PyImport_ImportModule( "wptest" );
-	PyObject_CallMethod( codeModule, "onServerStart", NULL );
+		clConsole.send( SrvParams->clientsAllowed().join( ", " ) + "\n\n" );
 
-	if( PyErr_Occurred() )
-		PyErr_Print();
+	clConsole.send( QString( "Wolfpack running on port %1\n" ).arg( SrvParams->port() ) );
 
 	PyThreadState *_save;
 
@@ -3128,22 +2758,26 @@ int main( int argc, char *argv[] )
 					msg[0]=0x53;
 					msg[1]=0x07;
 					Xsend(r, msg, 2);
-					Network->Disconnect(r);
+					//cNetwork::instance()->Disconnect(r);
 				}
 
 			}
 		}
+
 		if( uiNextCheckConn<=uiCurrentTime || overflow) // Cut lag on CheckConn by not doing it EVERY loop.
 		{
-			Network->CheckConn();
+			//cNetwork::instance()->CheckConn();
             if (SrvParams->EnableRA())
                racCheckConn();
 			uiNextCheckConn = (unsigned int)( uiCurrentTime + ( double )( 3 * MY_CLOCKS_PER_SEC ) );
 		}
 
-		Network->CheckMessage();
+		//cNetwork::instance()->CheckMessage();
+		cNetwork::instance()->poll(); // Poll the network
+
         if (SrvParams->EnableRA())
            racCheckInp();
+
 		tempTime = getNormalizedTime() - tempSecs ;
 		networkTime += tempTime;
 		++networkTimeCount;
@@ -3177,7 +2811,7 @@ int main( int argc, char *argv[] )
 		autoTime += tempTime;
 		++autoTimeCount;
 
-		Network->ClearBuffers();
+		//cNetwork::instance()->ClearBuffers();
 
 		tempTime = getNormalizedTime() - loopSecs;
 		loopTime += tempTime;
@@ -3197,7 +2831,7 @@ int main( int argc, char *argv[] )
 	im_clearmenus();
 	
 	clConsole.PrepareProgress( "Closing sockets" );
-	Network->SockClose();
+	cNetwork::shutdown();
 	gcollect();		// cleanup before saving, especially items of deleted chars (Duke, 10.1.2001)
 	clConsole.ProgressDone();
 	
@@ -5892,12 +5526,6 @@ void InitMultis()
 	}
 }
 
-void InitServerSettings()
-{
-	// Leave this as the last function to call before exiting
-	MsgBoardMaintenance();
-}
-
 void StartClasses(void)
 {
 	clConsole.PrepareProgress( "Initializing classes" );
@@ -5914,7 +5542,6 @@ void StartClasses(void)
 	Skills			= NULL;
 	Weight			= NULL;
 	Targ			= NULL;
-	Network			= NULL;
 	Magic			= NULL;
 	Books			= NULL;
 	Movement		= NULL;
@@ -5938,7 +5565,6 @@ void StartClasses(void)
 	Skills			= new cSkills;
 	Weight			= new cWeight;
 	Targ			= new cTargets;
-	Network			= new cNetworkStuff;
 	Magic			= new cMagic;
 	Books			= new cBooks;
 	Movement		= new cMovement;
@@ -5970,7 +5596,6 @@ void DeleteClasses(void)
 	delete Skills;
 	delete Weight;
 	delete Targ;
-	delete Network;
 	delete Magic;
 	delete Books;
 	delete Movement;
