@@ -344,7 +344,7 @@ static PyObject* wpSocket_customize( wpSocket* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pSock )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgItem( 0 ) )
 	{
@@ -475,7 +475,7 @@ static PyObject* wpSocket_resendplayer( wpSocket* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pSock )
-		return PyFalse;
+		return PyFalse();
 	self->pSock->resendPlayer( false );
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -490,7 +490,7 @@ static PyObject* wpSocket_resendplayer( wpSocket* self, PyObject* args )
 static PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
-		return PyFalse;
+		return PyFalse();
 	
 	if( !checkArgItem( 0 ) )
 	{
@@ -499,7 +499,7 @@ static PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
 	}
 
 	if( !getArgItem( 0 ) )
-		return PyFalse;
+		return PyFalse();
 
 	self->pSock->sendContainer( getArgItem( 0 ) );
 
@@ -548,7 +548,7 @@ static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 static PyObject* wpSocket_sendpaperdoll( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
-		return PyFalse;
+		return PyFalse();
 	
 	if( !checkArgChar( 0 ) )
 	{
@@ -557,7 +557,7 @@ static PyObject* wpSocket_sendpaperdoll( wpSocket* self, PyObject* args )
 	}
 
 	if( !getArgChar( 0 ) )
-		return PyFalse;
+		return PyFalse();
 
 	self->pSock->sendPaperdoll( getArgChar( 0 ) );
 
@@ -621,7 +621,7 @@ static PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
 static PyObject* wpSocket_hastag( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
-		return PyFalse;
+		return PyFalse();
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
@@ -631,7 +631,7 @@ static PyObject* wpSocket_hastag( wpSocket* self, PyObject* args )
 
 	QString key = getArgStr( 0 );
 	
-	return self->pSock->tags().has( key ) ? PyTrue : PyFalse;
+	return self->pSock->tags().has( key ) ? PyTrue() : PyFalse();
 }
 
 /*!
@@ -640,7 +640,7 @@ static PyObject* wpSocket_hastag( wpSocket* self, PyObject* args )
 static PyObject* wpSocket_deltag( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
-		return PyFalse;
+		return PyFalse();
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
@@ -685,7 +685,7 @@ static PyObject *wpSocket_questarrow( wpSocket *self, PyObject *args )
 		return 0;
 
 	self->pSock->sendQuestArrow( show, x, y );
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyObject *wpSocket_log( wpSocket *self, PyObject *args )
@@ -697,12 +697,12 @@ static PyObject *wpSocket_log( wpSocket *self, PyObject *args )
 		return 0;
 
 	self->pSock->log( (eLogLevel)loglevel, text );
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyObject *wpSocket_updateplayer(wpSocket *self, PyObject *args) {
 	self->pSock->updatePlayer();
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyObject *wpSocket_updateskill(wpSocket *self, PyObject *args) {
@@ -713,7 +713,7 @@ static PyObject *wpSocket_updateskill(wpSocket *self, PyObject *args) {
 	}
 
 	self->pSock->sendSkill(skill);
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyMethodDef wpSocketMethods[] = 

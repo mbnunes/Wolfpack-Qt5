@@ -195,9 +195,9 @@ static PyObject *wpDbResult_fetchrow(wpDbResult *self, PyObject *args)
 	bool result = self->result->fetchrow();
 
 	if (result) 
-		return PyTrue;
+		return PyTrue();
 	else
-		return PyFalse;
+		return PyFalse();
 }
 
 static PyObject *wpDbResult_getint(wpDbResult *self, PyObject *args) {

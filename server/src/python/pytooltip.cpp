@@ -80,13 +80,13 @@ static PyObject *wpTooltip_add(wpTooltip *self, PyObject *args) {
 
 	self->list->addLine(id, QString::fromUtf8(params));
 	PyMem_Free(params);
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyObject *wpTooltip_reset(wpTooltip *self, PyObject *args) {
 	self->list->resize(19);
 	self->list->setShort(1, 19);
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyMethodDef wpTooltipMethods[] = 

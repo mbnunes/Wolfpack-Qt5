@@ -42,9 +42,9 @@
 //#define DEBUG_PYTHON
 #undef slots
 #if defined(_DEBUG) && defined(Q_CC_MSVC) && !defined(DEBUG_PYTHON)
-#	undef _DEBUG
+//#	undef _DEBUG
 #	include <Python.h>
-#	define _DEBUG
+//#	define _DEBUG
 #else
 #	include <Python.h>
 #endif

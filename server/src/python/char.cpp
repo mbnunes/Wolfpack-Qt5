@@ -154,7 +154,7 @@ static PyObject* wpChar_update(wpChar* self, PyObject* args)
 static PyObject* wpChar_removefromview( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgInt( 0 ) || getArgInt( 0 ) == 0 )
 		self->pChar->removeFromView( false );
@@ -186,7 +186,7 @@ static PyObject* wpChar_message( wpChar* self, PyObject* args )
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 	
 	if( !player || !player->socket() )
-		return PyFalse;
+		return PyFalse();
 
 	if (checkArgStr(0)) {
 		QString message = getArgStr( 0 );
@@ -244,12 +244,12 @@ static PyObject* wpChar_message( wpChar* self, PyObject* args )
 static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( PyTuple_Size( args ) == 1 && checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
 	{
 		self->pChar->moveTo( getWpCoord( PyTuple_GetItem( args, 0 ) ) );
-		return PyTrue;
+		return PyTrue();
 	}
 
 	// Gather parameters
@@ -265,7 +265,7 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 	if( PyTuple_Size( args ) >= 2 )
 	{
 		if( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
-			return PyFalse;
+			return PyFalse();
 
 		pos.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
 		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
@@ -275,7 +275,7 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 	if( PyTuple_Size( args ) >= 3 )
 	{
 		if( !PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
-			return PyFalse;
+			return PyFalse();
 
 		pos.z = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
 	}
@@ -284,7 +284,7 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 	if( PyTuple_Size( args ) >= 4 )
 	{
 		if( !PyInt_Check( PyTuple_GetItem( args, 3 ) ) )
-			return PyFalse;
+			return PyFalse();
 
 		pos.map = PyInt_AsLong( PyTuple_GetItem( args, 3 ) );
 	}
@@ -308,7 +308,7 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 static PyObject* wpChar_sound( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgInt( 0 ) )
 	{
@@ -319,7 +319,7 @@ static PyObject* wpChar_sound( wpChar* self, PyObject* args )
 	unsigned char arg = getArgInt( 0 );
 
 	if( arg > cBaseChar::Bark_Death )
-		return PyFalse;
+		return PyFalse();
 
 	self->pChar->bark( (cBaseChar::enBark)arg );
 	
@@ -338,7 +338,7 @@ static PyObject* wpChar_sound( wpChar* self, PyObject* args )
 static PyObject* wpChar_soundeffect( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
@@ -496,7 +496,7 @@ static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 static PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 {
 	if( self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	unsigned short skill;
 	unsigned short min, max;
@@ -506,7 +506,7 @@ static PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 	
 	bool success = self->pChar->checkSkill( skill, min, max );
 
-	return success ? PyTrue : PyFalse;
+	return success ? PyTrue() : PyFalse();
 }
 
 /*
@@ -518,7 +518,7 @@ static PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 static PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgInt( 0 ) )
 	{
@@ -537,7 +537,7 @@ static PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	P_ITEM pi = self->pChar->rightHandItem();
 	if( !pi )
@@ -590,11 +590,11 @@ static PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	self->pChar->resurrect();
 
-	return PyTrue;
+	return PyTrue();
 }
 
 /*
@@ -607,11 +607,11 @@ static PyObject* wpChar_kill( wpChar* self, PyObject* args )
 	Q_UNUSED(args);
 	
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	self->pChar->damage( DAMAGE_GODLY, self->pChar->hitpoints() );
 
-	return PyTrue;
+	return PyTrue();
 }
 
 /*
@@ -630,7 +630,7 @@ static PyObject* wpChar_kill( wpChar* self, PyObject* args )
 static PyObject* wpChar_damage( wpChar* self, PyObject* args )
 {
 	if( self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	int type, amount;
 	PyObject *source = Py_None;
@@ -655,7 +655,7 @@ static PyObject* wpChar_damage( wpChar* self, PyObject* args )
 static PyObject* wpChar_emote( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if (!checkArgStr(0)) {
 		PyErr_BadArgument();
@@ -696,14 +696,14 @@ static PyObject* wpChar_emote( wpChar* self, PyObject* args )
 static PyObject* wpChar_say( wpChar* self, PyObject* args, PyObject *keywds )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgStr( 0 ) )
 	{
 		P_NPC npc = dynamic_cast<P_NPC>( self->pChar );
 
 		if ( !npc )
-			return PyFalse;
+			return PyFalse();
 
 		uint id;
 		char *clilocargs = 0;
@@ -745,7 +745,7 @@ static PyObject* wpChar_say( wpChar* self, PyObject* args, PyObject *keywds )
 static PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 	
 	if( PyTuple_Size( args ) < 1 || !checkArgInt( 0 ) )
 	{
@@ -776,7 +776,7 @@ static PyObject* wpChar_isitem( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	Q_UNUSED(self);
-	return PyFalse;
+	return PyFalse();
 }
 
 /*
@@ -787,7 +787,7 @@ static PyObject* wpChar_ischar( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	Q_UNUSED(self);
-	return PyTrue;
+	return PyTrue();
 }
 
 /*
@@ -835,7 +835,7 @@ static PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 {
 	if( self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	char *key;
 	PyObject *object;
@@ -866,7 +866,7 @@ static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 static PyObject* wpChar_hastag( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
@@ -876,7 +876,7 @@ static PyObject* wpChar_hastag( wpChar* self, PyObject* args )
 
 	QString key = getArgStr( 0 );
 	
-	return self->pChar->getTag( key ).isValid() ? PyTrue : PyFalse;
+	return self->pChar->getTag( key ).isValid() ? PyTrue() : PyFalse();
 }
 
 /*
@@ -887,7 +887,7 @@ static PyObject* wpChar_hastag( wpChar* self, PyObject* args )
 static PyObject* wpChar_deltag( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
@@ -913,11 +913,11 @@ static PyObject* wpChar_deltag( wpChar* self, PyObject* args )
 static PyObject* wpChar_addfollower( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 	if (!player)
-		return PyFalse;
+		return PyFalse();
 
 	if (!checkArgChar(0)) {
 		PyErr_BadArgument();
@@ -944,12 +944,12 @@ static PyObject* wpChar_addfollower( wpChar* self, PyObject* args )
 static PyObject* wpChar_removefollower( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
 	if (!player)
-		return PyFalse;
+		return PyFalse();
 
 	if (!checkArgChar(0)) {
 		PyErr_BadArgument();
@@ -978,11 +978,11 @@ static PyObject* wpChar_removefollower( wpChar* self, PyObject* args )
 static PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 	if ( !player )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgChar( 0 ) )
 	{
@@ -996,10 +996,10 @@ static PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
 	{
 		cBaseChar::CharContainer::const_iterator iter = player->pets().begin();
 		cBaseChar::CharContainer::const_iterator end  = player->pets().end();
-		return std::binary_search( iter, end, (cBaseChar*)pPet ) ? PyTrue : PyFalse;
+		return std::binary_search( iter, end, (cBaseChar*)pPet ) ? PyTrue() : PyFalse();
 	}
 
-	return PyFalse;
+	return PyFalse();
 }
 
 /*
@@ -1011,7 +1011,7 @@ static PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	self->pChar->updateHealth();
 	Py_INCREF(Py_None);
@@ -1028,7 +1028,7 @@ static PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
@@ -1050,7 +1050,7 @@ static PyObject* wpChar_updatestamina( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
@@ -1070,7 +1070,7 @@ static PyObject* wpChar_updatestats( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
@@ -1092,7 +1092,7 @@ static PyObject* wpChar_getweapon( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	return PyGetItemObject( self->pChar->getWeapon() ); 
 }
@@ -1107,7 +1107,7 @@ static PyObject* wpChar_getweapon( wpChar* self, PyObject* args )
 static PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( checkArgCoord( 0 ) )
 	{
@@ -1156,7 +1156,7 @@ static PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 static PyObject* wpChar_mount( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgChar( 0 ) )
 	{
@@ -1191,7 +1191,7 @@ static PyObject* wpChar_unmount( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
 	if (!player) {
@@ -1205,7 +1205,7 @@ static PyObject* wpChar_unmount( wpChar* self, PyObject* args )
 static PyObject* wpChar_equip( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgItem( 0 ) )
 	{
@@ -1233,12 +1233,12 @@ static PyObject* wpChar_getbankbox( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
 	if ( !player )
-		return PyFalse;
+		return PyFalse();
 
 	return PyGetItemObject( player->getBankbox() );
 }
@@ -1254,7 +1254,7 @@ static PyObject* wpChar_getbackpack( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	return PyGetItemObject( self->pChar->getBackpack() );
 }
@@ -1329,7 +1329,7 @@ static PyObject* wpChar_movingeffect(wpChar* self, PyObject* args) {
 static PyObject* wpChar_effect( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgInt( 0 ) )
 	{
@@ -1378,7 +1378,7 @@ static PyObject* wpChar_effect( wpChar* self, PyObject* args )
 static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	// We now have the list of effects applied to pChar
 	// Now check if we force dispelling and only have two arguments
@@ -1503,7 +1503,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	// Three arguments
 	if( PyTuple_Size( args ) < 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
@@ -1558,7 +1558,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 static PyObject* wpChar_maywalk( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	// Four Arguments: x,y,z,map
 	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) || !checkArgInt( 3 ) )
@@ -1574,9 +1574,9 @@ static PyObject* wpChar_maywalk( wpChar* self, PyObject* args )
 	int argmap = getArgInt( 3 );
 	Coord_cl argcoord( argx, argy, argz, argmap );
 	if( !mayWalk( self->pChar, argcoord ) )
-		return PyFalse;
+		return PyFalse();
 	else
-		return PyTrue;
+		return PyTrue();
 }
 
 /*
@@ -1588,9 +1588,9 @@ static PyObject* wpChar_iscriminal( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
-	return self->pChar->isCriminal() ? PyTrue : PyFalse;
+	return self->pChar->isCriminal() ? PyTrue() : PyFalse();
 }
 
 /*
@@ -1616,9 +1616,9 @@ static PyObject* wpChar_ismurderer( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
-	return self->pChar->isMurderer() ? PyTrue : PyFalse;
+	return self->pChar->isMurderer() ? PyTrue() : PyFalse();
 }
 
 /*
@@ -1629,7 +1629,7 @@ static PyObject* wpChar_criminal( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
@@ -1672,13 +1672,13 @@ static PyObject* wpChar_fight( wpChar* self, PyObject* args ) {
 	P_CHAR pChar = getArgChar(0);
 
 	if (self->pChar == pChar) {
-		return PyFalse;
+		return PyFalse();
 	}
 
 	if (self->pChar->fight(pChar)) {
-		return PyTrue;
+		return PyTrue();
 	} else {
-		return PyFalse;
+		return PyFalse();
 	}
 }
 
@@ -1691,7 +1691,7 @@ static PyObject* wpChar_fight( wpChar* self, PyObject* args ) {
 static PyObject* wpChar_follow( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgChar( 0 ) )
 	{
@@ -1702,11 +1702,11 @@ static PyObject* wpChar_follow( wpChar* self, PyObject* args )
 	P_PLAYER pChar = dynamic_cast<P_PLAYER>( getArgChar( 0 ) );
 
 	if( !pChar || pChar == self->pChar )
-		return PyFalse;
+		return PyFalse();
 
 	P_NPC npc = dynamic_cast<P_NPC>( self->pChar );
 	if ( !npc )
-		return PyFalse;
+		return PyFalse();
 
 	//pChar->addPet( npc );
 	npc->setWanderType( enFollowTarget );
@@ -1725,7 +1725,7 @@ static PyObject* wpChar_disturb( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
@@ -1749,7 +1749,7 @@ static PyObject* wpChar_disturb( wpChar* self, PyObject* args )
 static PyObject* wpChar_goto( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgCoord( 0 ) )
 	{
@@ -1762,7 +1762,7 @@ static PyObject* wpChar_goto( wpChar* self, PyObject* args )
 	if( pos.map != self->pChar->pos().map )
 	{
 		PyErr_Warn( PyExc_Warning, "Cannot move to a different map using goto." );
-		return PyFalse;
+		return PyFalse();
 	}
 
 	P_NPC npc = dynamic_cast<P_NPC>( self->pChar );
@@ -1790,7 +1790,7 @@ static PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	self->pChar->update();
 	
@@ -1815,7 +1815,7 @@ static PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 static PyObject* wpChar_notoriety( wpChar* self, PyObject* args )
 {
 	if (self->pChar->free) {
-		return PyFalse;
+		return PyFalse();
 	}
 
 	P_CHAR target = 0;
@@ -1843,12 +1843,12 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( self->pChar->free || ( !checkArgObject( 0 ) && !checkArgCoord( 0 ) ) || !checkArgInt( 1 ) )
-		return PyFalse;
+		return PyFalse();
 
 	P_PLAYER pPlayer = dynamic_cast< P_PLAYER >( self->pChar );
 
 	if( pPlayer && pPlayer->isGM() )
-		return PyTrue;
+		return PyTrue();
 
 	Coord_cl pos;
 
@@ -1885,10 +1885,10 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 	UINT32 range = getArgInt( 1 );
 
 	if( self->pChar->pos().map != pos.map )
-		return PyFalse;
+		return PyFalse();
 
 	if( self->pChar->pos().distance( pos ) > range )
-		return PyFalse;
+		return PyFalse();
 
 	if (pItem) {
 		if (!self->pChar->lineOfSight(pItem, true)) {
@@ -1906,7 +1906,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 			return Py_False;
 		}
 	}
-	return PyTrue;
+	return PyTrue();
 }
 
 /*
@@ -1919,7 +1919,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 static PyObject* wpChar_canpickup( wpChar* self, PyObject* args )
 {
 	if( self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( PyTuple_Size( args ) != 1 )
 	{
@@ -1932,9 +1932,9 @@ static PyObject* wpChar_canpickup( wpChar* self, PyObject* args )
 	P_PLAYER pPlayer = dynamic_cast< P_PLAYER >( self->pChar );
 
 	if( !pPlayer )
-		return PyFalse;
+		return PyFalse();
 
-	return pPlayer->canPickUp( pItem ) ? PyTrue : PyFalse;
+	return pPlayer->canPickUp( pItem ) ? PyTrue() : PyFalse();
 }
 
 /*
@@ -1947,7 +1947,7 @@ static PyObject* wpChar_canpickup( wpChar* self, PyObject* args )
 static PyObject* wpChar_cansee( wpChar *self, PyObject *args )
 {
 	if( self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	PyObject *object = 0;
 
@@ -1968,7 +1968,7 @@ static PyObject* wpChar_cansee( wpChar *self, PyObject *args )
 		return 0;
 	}
 
-	return result ? PyTrue : PyFalse;
+	return result ? PyTrue() : PyFalse();
 }
 
 /*
@@ -1998,7 +1998,7 @@ static PyObject* wpChar_resendtooltip( wpChar *self, PyObject *args )
 {
 	Q_UNUSED(args);
 	if( self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	self->pChar->resendTooltip();
 	Py_INCREF(Py_None);
@@ -2019,7 +2019,7 @@ static PyObject* wpChar_resendtooltip( wpChar *self, PyObject *args )
 static PyObject* wpChar_additem( wpChar *self, PyObject *args )
 {
 	if( self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgInt( 0 ) && !checkArgItem( 1 ) )
 	{
@@ -2057,7 +2057,7 @@ static PyObject* wpChar_additem( wpChar *self, PyObject *args )
 static PyObject* wpChar_vendorbuy( wpChar *self, PyObject* args )
 {
 	if ( self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 	if ( !checkArgChar( 0 ) )
 	{
 		PyErr_BadArgument();
@@ -2085,7 +2085,7 @@ static PyObject* wpChar_vendorbuy( wpChar *self, PyObject* args )
 static PyObject* wpChar_vendorsell( wpChar *self, PyObject* args )
 {
 	if ( self->pChar->free )
-		return PyFalse;
+		return PyFalse();
 	if ( !checkArgChar( 0 ) )
 	{
 		PyErr_BadArgument();
@@ -2350,9 +2350,9 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 	
 		if (!player)
-			return PyFalse;
+			return PyFalse();
 
-		return player->isGM() ? PyTrue : PyFalse;
+		return player->isGM() ? PyTrue() : PyFalse();
 		
 	/*
 		\rproperty char.tags This property is a list of names for all tags attached to this character.
@@ -2548,13 +2548,13 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		This property is exclusive to python scripts and overrides normal properties with the same name.
 	*/
 	} else if (!strcmp("npc", name)) {
-    return self->pChar->objectType() == enNPC ? PyTrue : PyFalse;
+    return self->pChar->objectType() == enNPC ? PyTrue() : PyFalse();
   /*
   	\rproperty char.player True if this character is a player, false otherwise.
   	This property is exclusive to python scripts and overrides normal properties with the same name.
   */
   } else if (!strcmp("player", name)) {
-    return self->pChar->objectType() == enPlayer ? PyTrue : PyFalse;
+    return self->pChar->objectType() == enPlayer ? PyTrue() : PyFalse();
   } else {
 		cVariant result;
 		stError *error = self->pChar->getProperty( name, result );

@@ -54,8 +54,16 @@ typedef cMulti* P_MULTI;
 	Things commonly used in other python-definition
 	source-files.
 */
-#define PyFalse PyInt_FromLong( 0 )
-#define PyTrue PyInt_FromLong( 1 )
+inline PyObject *PyFalse() {
+	Py_INCREF(Py_False);
+	return Py_False;
+}
+
+inline PyObject *PyTrue() {
+	Py_INCREF(Py_True);
+	return Py_True;
+}
+
 #define PyHasMethod(a) if( codeModule == NULL ) return false; if( !PyObject_HasAttrString( codeModule, a ) ) return false;
 
 // Setting and getting item/char properties
@@ -64,10 +72,7 @@ typedef cMulti* P_MULTI;
 #define getIntProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyInt_FromLong( self->property );
 #define getStrProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyString_FromString( self->property );
 
-inline void wpDealloc( PyObject* self )
-{
-    PyObject_Del( self );
-}
+void wpDealloc(PyObject* self);
 
 PyObject *PyGetTooltipObject( cUOTxTooltipList* );
 

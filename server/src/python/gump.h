@@ -76,7 +76,7 @@ PyObject *wpGumpResponse_getAttr( wpGumpResponse *self, char *name )
 		return list;
 	}
 
-	return PyFalse;
+	return PyFalse();
 }
 
 static PyTypeObject wpGumpResponseType = {

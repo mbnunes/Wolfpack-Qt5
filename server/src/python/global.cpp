@@ -144,7 +144,7 @@ static PyObject* wpConsole_log( PyObject* self, PyObject* args )
 
 	Console::instance()->log( (eLogLevel)loglevel, text );
 
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -154,16 +154,16 @@ static PyObject* wpConsole_send( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if( PyTuple_Size( args ) < 1 )
-		return PyFalse;
+		return PyFalse();
 
 	PyObject *pyMessage = PyTuple_GetItem( args, 0 );
 
 	if( pyMessage == Py_None )
-		return PyFalse;
+		return PyFalse();
 
 	Console::instance()->send( PyString_AS_STRING( pyMessage ) );
 
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -246,7 +246,7 @@ static PyObject* wpConsole_shutdown( PyObject* self, PyObject* args )
 	Q_UNUSED(args);
 	keeprun = 0;
 
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -475,7 +475,7 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	effect->setExpiretime_ms( expiretime );
 	TempEffects::instance()->insert( effect );
 
-	return PyFalse;
+	return PyFalse();
 }
 
 /*!
@@ -672,7 +672,7 @@ static PyObject *wpEffect( PyObject* self, PyObject* args )
 			mSock->send( &effect );
 	}
 
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -701,7 +701,7 @@ static PyObject* wpHasMap( PyObject* self, PyObject* args )
 	if( !PyArg_ParseTuple( args, "i:wolfpack.hasmap", &map ) )
 		return 0;
 
-	return Map->hasMap( map ) ? PyTrue : PyFalse;
+	return Map->hasMap( map ) ? PyTrue() : PyFalse();
 }
 
 static PyObject *wpLanddata(PyObject *self, PyObject *args) {
@@ -838,7 +838,7 @@ static PyObject *wpRegisterGlobal( PyObject* self, PyObject* args )
 	}
 
 	ScriptManager::instance()->setGlobalHook( (ePythonEvent)event, script );
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -860,7 +860,7 @@ static PyObject *wpRegisterCommand( PyObject* self, PyObject* args )
 
 	Py_INCREF( function );
 	ScriptManager::instance()->setCommandHook( command, function );
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -881,7 +881,7 @@ static PyObject *wpRegisterPacketHook( PyObject* self, PyObject* args )
 	}
 
 	cUOSocket::registerPacketHandler(packet, function);
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -956,9 +956,9 @@ static PyObject* wpIsStarting( PyObject* self, PyObject* args )
 	Q_UNUSED(self);
 	Q_UNUSED(args);
 	if( serverState == STARTUP )
-		return PyTrue;
+		return PyTrue();
 	else
-		return PyFalse;
+		return PyFalse();
 }
 
 /*!
@@ -969,9 +969,9 @@ static PyObject* wpIsRunning( PyObject* self, PyObject* args )
 	Q_UNUSED(self);
 	Q_UNUSED(args);
 	if( serverState == RUNNING )
-		return PyTrue;
+		return PyTrue();
 	else
-		return PyFalse;
+		return PyFalse();
 }
 
 /*!
@@ -982,9 +982,9 @@ static PyObject* wpIsReloading( PyObject* self, PyObject* args )
 	Q_UNUSED(self);
 	Q_UNUSED(args);
 	if( serverState == SCRIPTRELOAD )
-		return PyTrue;
+		return PyTrue();
 	else
-		return PyFalse;
+		return PyFalse();
 }
 
 /*!
@@ -995,9 +995,9 @@ static PyObject* wpIsClosing( PyObject* self, PyObject* args )
 	Q_UNUSED(self);
 	Q_UNUSED(args);
 	if( serverState == SHUTDOWN )
-		return PyTrue;
+		return PyTrue();
 	else
-		return PyFalse;
+		return PyFalse();
 }
 
 static PyObject* wpCharBlock( PyObject* self, PyObject* args )
@@ -1532,7 +1532,7 @@ static PyObject *wpAccountsAcl( PyObject* self, PyObject* args )
 		PyObject *dict2 = PyDict_New();
 
 		for( QMap< QString, bool >::const_iterator it = (*git).begin(); it != (*git).end(); ++it )
-			PyDict_SetItem( dict2, PyString_FromString( it.key() ), it.data() ? PyTrue : PyFalse );
+			PyDict_SetItem( dict2, PyString_FromString( it.key() ), it.data() ? PyTrue() : PyFalse() );
 
 		PyDict_SetItem( dict, PyString_FromString( git.key() ), dict2 );
 	}
@@ -1556,12 +1556,12 @@ static PyObject *wpAccountsAdd( PyObject* self, PyObject* args )
 	QString password = getArgStr( 1 );
 
 	if( login.length() < 1 && password.length() < 1 )
-		return PyFalse;
+		return PyFalse();
 
 	cAccount *account = Accounts::instance()->getRecord( login );
 
 	if( account )
-		return PyFalse;
+		return PyFalse();
 
 	account = Accounts::instance()->createAccount( login, password );
 	return PyGetAccountObject( account );
@@ -1575,7 +1575,7 @@ static PyObject *wpAccountsReload( PyObject* self, PyObject* args )
 	Q_UNUSED(self);
 	Q_UNUSED(args);
 	Accounts::instance()->reload();
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -1586,7 +1586,7 @@ static PyObject *wpAccountsSave( PyObject* self, PyObject* args )
 	Q_UNUSED(self);
 	Q_UNUSED(args);
 	Accounts::instance()->save();
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -1618,7 +1618,7 @@ static PyObject *wpSettingsGetBool( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple(args, "ssb|b:getBool(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
 		return 0;
 
-	return SrvParams->getBool( pyGroup, pyKey, pyDef, create ) ? PyTrue : PyFalse;
+	return SrvParams->getBool( pyGroup, pyKey, pyDef, create ) ? PyTrue() : PyFalse();
 }
 
 /*!
@@ -1635,7 +1635,7 @@ static PyObject *wpSettingsSetBool( PyObject* self, PyObject* args )
 		return 0;
 
 	SrvParams->setBool( pyGroup, pyKey, pyValue );
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -1671,7 +1671,7 @@ static PyObject *wpSettingsSetNumber( PyObject* self, PyObject* args )
 		return 0;
 
 	SrvParams->setNumber( pyGroup, pyKey, pyValue );
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -1706,7 +1706,7 @@ static PyObject *wpSettingsSetString( PyObject* self, PyObject* args )
 		return 0;
 
 	SrvParams->setString( pyGroup, pyKey, pyValue );
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -1717,7 +1717,7 @@ static PyObject* wpSettingsReload( PyObject* self, PyObject* args )
 	Q_UNUSED(self);
 	Q_UNUSED(args);
 	SrvParams->reload();
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -1728,7 +1728,7 @@ static PyObject* wpSettingsSave( PyObject* self, PyObject* args )
 	Q_UNUSED(self);
 	Q_UNUSED(args);
 	SrvParams->flush();
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -1771,7 +1771,7 @@ static PyObject* wpOptionsSetOption( PyObject* self, PyObject* args )
 
 	World::instance()->setOption( arg_key, arg_val );
 
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -1831,7 +1831,7 @@ static PyObject *wpExecute(PyObject *self, PyObject *args) {
 	}
 
 	PyMem_Free(query);
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyObject *wpDriver(PyObject *self, PyObject *args) 
@@ -1864,7 +1864,7 @@ static PyObject *wpClose(PyObject *self, PyObject *args)
 		return 0;
 	}
 
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyObject *wpOpen(PyObject *self, PyObject *args) {
@@ -1890,7 +1890,7 @@ static PyObject *wpOpen(PyObject *self, PyObject *args) {
 		return 0;
 	}
 
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyMethodDef wpDatabase[] = {

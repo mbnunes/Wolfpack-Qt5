@@ -71,9 +71,14 @@ cPythonScript* cScriptManager::find( const QCString &name )
 		return 0;
 }
 
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
 void cScriptManager::reload( void )
 {
 	changeServerState(SCRIPTRELOAD);
+
+	ContextMenus::instance()->unload();
 	
 	// First unload, then reload
 	unload();
@@ -97,7 +102,7 @@ void cScriptManager::reload( void )
 	for( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
 		pChar->recreateEvents();
 
-	ContextMenus::instance()->reload();
+	ContextMenus::instance()->load();
 
 	changeServerState(RUNNING);
 }
@@ -109,8 +114,7 @@ void cScriptManager::unload() {
 
 	cScriptManager::iterator it;
 	
-	for( it = scripts.begin(); it != scripts.end(); ++it )
-	{
+	for (it = scripts.begin(); it != scripts.end(); ++it) {
 		it.data()->unload();
 		delete it.data();
 	}

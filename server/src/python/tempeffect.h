@@ -146,7 +146,7 @@ public:
 					else if( isCharSerial( destSer ) )
 						PyTuple_SetItem( p_args, 0, PyGetCharObject( FindCharBySerial( destSer ) ) );
 					else
-						PyTuple_SetItem( p_args, 0, PyFalse );
+						PyTuple_SetItem( p_args, 0, PyFalse() );
 
 					PyTuple_SetItem( p_args, 1, args );
 

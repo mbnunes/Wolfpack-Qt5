@@ -94,7 +94,7 @@ static PyObject *wpCoord_direction( wpCoord *self, PyObject *args )
 static PyObject *wpCoord_validspawnspot( wpCoord *self, PyObject *args )
 {
 	Q_UNUSED( args );
-	return Movement::instance()->canLandMonsterMoveHere( self->coord ) ? PyTrue : PyFalse;
+	return Movement::instance()->canLandMonsterMoveHere( self->coord ) ? PyTrue() : PyFalse();
 }
 
 static PyMethodDef wpCoordMethods[] = 

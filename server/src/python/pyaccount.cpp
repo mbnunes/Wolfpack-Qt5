@@ -75,7 +75,7 @@ static PyObject *wpAccount_delete( wpAccount *self, PyObject *args )
 {
 	Q_UNUSED(args);
 	if( self->account == 0 )
-		return PyFalse;
+		return PyFalse();
 
 	QValueVector< P_PLAYER > chars = self->account->caracterList();
 	for( uint i = 0; i < chars.size(); ++i )
@@ -84,7 +84,7 @@ static PyObject *wpAccount_delete( wpAccount *self, PyObject *args )
 	self->account->remove();
 	self->account = 0;
 
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -94,7 +94,7 @@ static PyObject *wpAccount_block( wpAccount *self, PyObject *args ) {
 	Q_UNUSED(args);
 
 	self->account->setBlocked( true );
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -103,7 +103,7 @@ static PyObject *wpAccount_block( wpAccount *self, PyObject *args ) {
 static PyObject *wpAccount_unblock(wpAccount *self, PyObject *args) {
 	Q_UNUSED(args);
 	self->account->setBlocked(false);
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyObject *wpAccount_addcharacter(wpAccount *self, PyObject *args) {
@@ -119,7 +119,7 @@ static PyObject *wpAccount_addcharacter(wpAccount *self, PyObject *args) {
 		pChar->setAccount( self->account );
 	}
 
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyObject *wpAccount_removecharacter( wpAccount *self, PyObject *args ) {
@@ -136,7 +136,7 @@ static PyObject *wpAccount_removecharacter( wpAccount *self, PyObject *args ) {
 		pChar->setAccount( 0 );
 	}
 
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyObject *wpAccount_authorized( wpAccount *self, PyObject *args ) {
@@ -149,9 +149,9 @@ static PyObject *wpAccount_authorized( wpAccount *self, PyObject *args ) {
 	QCString action = getArgStr( 1 ).latin1();
 
 	if( self->account->authorized( group, action ) )
-		return PyTrue;
+		return PyTrue();
 	else
-		return PyFalse;
+		return PyFalse();
 }
 
 static PyObject *wpAccount_checkpassword(wpAccount *self, PyObject *args) {
@@ -171,7 +171,7 @@ static PyObject *wpAccount_checkpassword(wpAccount *self, PyObject *args) {
 
 	PyMem_Free(password);
 
-	return authorized ? PyTrue : PyFalse;
+	return authorized ? PyTrue() : PyFalse();
 }
 
 static PyMethodDef wpAccountMethods[] = 
@@ -234,9 +234,9 @@ static PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 	else if( !strcmp( name, "inuse" ) )
 	{
 		if( self->account->inUse() )
-			return PyTrue;
+			return PyTrue();
 		else
-			return PyFalse;
+			return PyFalse();
 	}
 	else if( !strcmp( name, "rank" ) )
 	{

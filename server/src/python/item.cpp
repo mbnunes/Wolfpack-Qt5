@@ -123,7 +123,7 @@ static PyObject* wpItem_update( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pItem || self->pItem->free )
-		return PyFalse;
+		return PyFalse();
 
 	self->pItem->update();
 
@@ -142,7 +142,7 @@ static PyObject* wpItem_delete( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pItem || self->pItem->free )
-		return PyFalse;
+		return PyFalse();
 
 	self->pItem->remove();
 
@@ -171,7 +171,7 @@ static PyObject* wpItem_delete( wpItem* self, PyObject* args )
 static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
-		return PyFalse;
+		return PyFalse();
 
 	// Gather parameters
 	Coord_cl pos = self->pItem->pos();
@@ -229,7 +229,7 @@ static PyObject* wpItem_removefromview( wpItem* self, PyObject* args )
 static PyObject* wpItem_soundeffect( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
@@ -340,7 +340,7 @@ static PyObject* wpItem_weaponskill( wpItem* self, PyObject* args )
 static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( PyTuple_Size( args ) < 2 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 	{
@@ -372,7 +372,7 @@ static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
@@ -438,7 +438,7 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 {
 	if (self->pItem->free)
-		return PyFalse;
+		return PyFalse();
 
 	char *key;
 	PyObject *object;
@@ -472,7 +472,7 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
-		return PyFalse;
+		return PyFalse();
 
 	char* pKey = 0;
 	if ( !PyArg_ParseTuple( args, "s:item.hastag( key )", &pKey ) )
@@ -480,7 +480,7 @@ static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 
 	QString key = pKey;
 
-	return self->pItem->getTag( key ).isValid() ? PyTrue : PyFalse;
+	return self->pItem->getTag( key ).isValid() ? PyTrue() : PyFalse();
 }
 
 /*!
@@ -494,7 +494,7 @@ static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 static PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgStr( 0 ) )
 	{
@@ -517,7 +517,7 @@ static PyObject* wpItem_ischar( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	Q_UNUSED(self);
-	return PyFalse;
+	return PyFalse();
 }
 /*
 	\method item.isitem
@@ -528,7 +528,7 @@ static PyObject* wpItem_isitem( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	Q_UNUSED(self);
-	return PyTrue;
+	return PyTrue();
 }
 
 /*!
@@ -548,7 +548,7 @@ static PyObject* wpItem_isitem( wpItem* self, PyObject* args )
 static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( ( !checkArgObject( 1 ) && !checkArgCoord( 1 ) ) || !checkArgInt( 0 ) )
 	{
@@ -645,7 +645,7 @@ static PyObject* wpItem_getoutmostitem( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pItem || self->pItem->free )
-		return PyFalse;
+		return PyFalse();
 
 	return PyGetItemObject( self->pItem->getOutmostItem() );
 }
@@ -657,7 +657,7 @@ static PyObject* wpItem_getoutmostchar( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pItem || self->pItem->free )
-		return PyFalse;
+		return PyFalse();
 
 	return PyGetCharObject( self->pItem->getOutmostChar() );
 }
@@ -693,7 +693,7 @@ static PyObject* wpItem_getname( wpItem* self, PyObject* args )
 static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
-		return PyFalse;
+		return PyFalse();
 
 	if( !checkArgItem( 0 ) )
 	{
@@ -843,7 +843,7 @@ static PyObject* wpItem_isblessed( wpItem *self, PyObject *args )
 	if (self->pItem->free) {
 		return 0;
 	}
-	return self->pItem->newbie() ? PyTrue : PyFalse;
+	return self->pItem->newbie() ? PyTrue() : PyFalse();
 }
 
 /*
@@ -857,7 +857,7 @@ static PyObject* wpItem_canstack(wpItem *self, PyObject *args) {
 		return 0;
 	}
 
-	return self->pItem->canStack(other) ? PyTrue : PyFalse;
+	return self->pItem->canStack(other) ? PyTrue() : PyFalse();
 }
 
 /*

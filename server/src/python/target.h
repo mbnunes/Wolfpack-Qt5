@@ -57,7 +57,7 @@ static PyObject *wpTarget_getAttr( wpTarget *self, char *name )
 		if( isCharSerial( self->object ) )
 			return PyGetCharObject( FindCharBySerial( self->object ) );
 
-	return PyFalse;
+	return PyFalse();
 }
 
 static PyTypeObject wpTargetType = {

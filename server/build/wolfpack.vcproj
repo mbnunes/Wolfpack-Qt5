@@ -25,7 +25,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;QT_DLL;QT_NO_STL;QT_THREAD_SUPPORT;CRASHHANDLER"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				ForceConformanceInForLoopScope="FALSE"
 				UsePrecompiledHeader="0"
 				BrowseInformation="1"

@@ -53,7 +53,7 @@ static PyObject *wpRegionIteratorItems_getAttr( wpRegionIteratorItems *self, cha
 	else if( !strcmp( name, "next" ) )
 		return PyGetItemObject( self->iter->next() );
 
-	return PyFalse;
+	return PyFalse();
 }
 
 static PyTypeObject wpRegionIteratorItemsType = {
@@ -109,7 +109,7 @@ static PyObject *wpRegionIteratorChars_getAttr( wpRegionIteratorChars *self, cha
 	else if( !strcmp( name, "next" ) )
 		return PyGetCharObject( self->iter->next() );
 
-	return PyFalse;
+	return PyFalse();
 }
 
 static PyTypeObject wpRegionIteratorCharsType = {

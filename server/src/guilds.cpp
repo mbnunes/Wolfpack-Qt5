@@ -336,9 +336,9 @@ PyObject *wpGuild_addmember(wpGuild *self, PyObject *args) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>(character);
 		if (player) {
 			self->guild->addMember(player);
-			return PyTrue;
+			return PyTrue();
 		} else {
-			return PyFalse;
+			return PyFalse();
 		}
 	}
 	return 0;
@@ -350,9 +350,9 @@ PyObject *wpGuild_removemember(wpGuild *self, PyObject *args) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>(character);
 		if (player) {
 			self->guild->removeMember(player);
-			return PyTrue;
+			return PyTrue();
 		} else {
-			return PyFalse;
+			return PyFalse();
 		}
 	}
 	return 0;
@@ -364,9 +364,9 @@ PyObject *wpGuild_addcanidate(wpGuild *self, PyObject *args) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>(character);
 		if (player) {
 			self->guild->addCanidate(player);
-			return PyTrue;
+			return PyTrue();
 		} else {
-			return PyFalse;
+			return PyFalse();
 		}
 	}
 	return 0;
@@ -378,9 +378,9 @@ PyObject *wpGuild_removecanidate(wpGuild *self, PyObject *args) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>(character);
 		if (player) {
 			self->guild->removeCanidate(player);
-			return PyTrue;
+			return PyTrue();
 		} else {
-			return PyFalse;
+			return PyFalse();
 		}
 	}
 	return 0;
@@ -426,7 +426,7 @@ PyObject *wpGuild_setmemberinfo(wpGuild *self, PyObject *args) {
 		}
 	}
 
-	return PyTrue;
+	return PyTrue();
 }
 
 PyObject *wpGuild_getmemberinfo(wpGuild *self, PyObject *args) {
@@ -463,7 +463,7 @@ PyObject *wpGuild_delete(wpGuild *self, PyObject *args)
 	Guilds::instance()->unregisterGuild(self->guild);
 	delete self->guild;
 	self->guild = 0;
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyMethodDef wpGuildMethods[] = {

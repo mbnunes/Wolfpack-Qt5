@@ -32,6 +32,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
 // Wolfpack Includes
 #include "../accounts.h"
@@ -49,6 +50,7 @@
 #include <richedit.h>
 #include <commctrl.h>
 #include <qthread.h>
+#include "../verinfo.h"
 
 /*
 	This file includes the Windows GUI implementation of our Console.
@@ -552,6 +554,33 @@ protected:
 
 int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd )
 {
+#if defined(_DEBUG)
+/*	AllocConsole();
+	CONSOLE_SCREEN_BUFFER_INFO coninfo;
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
+	coninfo.dwSize.Y = 500;
+	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), coninfo.dwSize);
+
+	int hConHandle;
+	long lStdHandle;
+	FILE *fp;
+
+	lStdHandle = (long)GetStdHandle(STD_OUTPUT_HANDLE);
+	hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
+	fp = _fdopen( hConHandle, "w" );
+	*stdout = *fp;
+	setvbuf( stdout, NULL, _IONBF, 0 );
+
+	lStdHandle = (long)GetStdHandle(STD_ERROR_HANDLE);
+	hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
+	fp = _fdopen( hConHandle, "w" );
+	*stderr = *fp;
+	setvbuf( stderr, NULL, _IONBF, 0 );
+
+	QString consoleTitle = QString("%1 %2 %3 - Debug Console").arg(productString()).arg(productBeta()).arg(productVersion());
+	SetConsoleTitle(consoleTitle.latin1());*/
+#endif
+
 	INITCOMMONCONTROLSEX initex;
 	initex.dwICC = ICC_WIN95_CLASSES;
 	initex.dwSize = sizeof(INITCOMMONCONTROLSEX);

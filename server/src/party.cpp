@@ -488,7 +488,7 @@ static PyObject *wpParty_tellsingle(wpParty *self, PyObject *args)
 
 		PyMem_Free(message);
 
-		return PyTrue;
+		return PyTrue();
 	}
 
 	return 0;
@@ -507,7 +507,7 @@ static PyObject *wpParty_tellall(wpParty *self, PyObject *args)
 
 		PyMem_Free(message);
 		
-		return PyTrue;
+		return PyTrue();
 	}
 
 	return 0;

@@ -384,14 +384,11 @@ public:
 	CharMap chars;
 
 	// Pending for deletion
-	std::list< cUObject* > pendingObjects;
+	std::list<cUObject*> pendingObjects;
 
-	void purgePendingObjects()
-	{
-		std::list< cUObject* >::const_iterator it;
-		for( it = pendingObjects.begin(); it != pendingObjects.end(); ++it )
-		{
-			World::instance()->unregisterObject( *it );
+	void purgePendingObjects() {
+		std::list<cUObject*>::const_iterator it;
+		for (it = pendingObjects.begin(); it != pendingObjects.end(); ++it) {
 			delete *it;
 		}
 
@@ -1078,7 +1075,8 @@ void cWorld::deleteObject( cUObject *object )
 	// Mark it as Free
 	object->free = true;
 
-	p->pendingObjects.push_back( object );
+	p->pendingObjects.push_back(object);
+	unregisterObject(object);
 }
 
 // "Really" delete objects that are pending to be deleted.

@@ -746,7 +746,7 @@ static PyObject* wpElement_hasattribute(wpElement *self, PyObject *args) {
 		return 0;
 	}
 
-	return self->element->hasAttribute(name) ? PyTrue : PyFalse;
+	return self->element->hasAttribute(name) ? PyTrue() : PyFalse();
 }
 
 static PyObject* wpElement_getattribute(wpElement *self, PyObject *args) {

@@ -101,12 +101,12 @@ static PyObject* wpAI_onSpeechInput( wpAI *self, PyObject *args )
 	
 	P_PLAYER player = dynamic_cast<P_PLAYER>(pc);
 	if ( !player )
-		return PyFalse;
+		return PyFalse();
 
 	QString str = getArgStr(1);
 	self->pAI->onSpeechInput( player, str.upper() );
 
-	return PyTrue;
+	return PyTrue();
 }
 
 static PyMethodDef wpAIMethods[] = 

@@ -28,13 +28,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-/////////////////////
-// Name:	Trade.cpp
-// Purpose: functions that are related to trade
-// History:	cut from wolfpack.cpp by Duke, 26.10.00
-// Remarks:	not necessarily ALL those functions
-//
-
 #include "Trade.h"
 #include "inlines.h"
 #include "srvparams.h"
@@ -55,9 +48,6 @@
 
 using namespace std;
 
-#undef  DBGFILE
-#define DBGFILE "Trade.cpp"
-
 namespace Trade
 {
 
@@ -68,7 +58,6 @@ struct MatchItemAndSerial : public std::binary_function<P_ITEM, SERIAL, bool>
 		return pi->serial() == serial;
 	}
 };
-
 
 void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 {
@@ -182,22 +171,13 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 	}
 
 	bool fromBank = false;
-	if ( totalValue < 2000 )
+	if (pChar->CountGold() < totalValue && !pChar->account()->isStaff())
 	{
-		if ( pChar->CountGold() < totalValue && !pChar->account()->isStaff() )
-		{
-			pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
-			return;
-		}
-	}
-	else
-	{
-		if ( pChar->CountBankGold() < totalValue && !pChar->account()->isStaff() )
-		{
-			pVendor->talk( 500191, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thy bank account lacks these funds.
-			return;
-		}
-		fromBank = true;
+		pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
+		return;
+	} else if (pChar->CountBankGold() < totalValue && !pChar->account()->isStaff()) {
+		pVendor->talk( 500191, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thy bank account lacks these funds.
+		return;
 	}
 
 	if ( !items.size() )

@@ -47,13 +47,16 @@ void init_wolfpack_globals();
 /*!
 	Stops the python interpreter
 */
-void stopPython( void )
-{
-	// Give the Python Threads time to finalize
+void stopPython() {
+    // Give the Python Threads time to finalize
 	Py_BEGIN_ALLOW_THREADS
 		QWaitCondition waitCondition;
-		waitCondition.wait(100);
+		waitCondition.wait(500);
 	Py_END_ALLOW_THREADS
+
+	// We have to be sure that all memory
+	// is freed here.
+
 	Py_Finalize();
 }
 
@@ -221,4 +224,8 @@ void reportPythonError( QString moduleName )
 		Py_XDECREF( value );
 		Py_XDECREF( traceback );
 	}
+}
+
+void wpDealloc(PyObject* self) {
+    PyObject_Del(self);
 }

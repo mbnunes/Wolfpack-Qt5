@@ -533,7 +533,7 @@ bool cPythonScript::load(const QString &name)
 	}
 
 	// Call the onLoad event
-	callEventHandler("onLoad", 0, true);
+	//callEventHandler("onLoad", 0, true);
 
 	if (PyErr_Occurred()) {
 		reportPythonError(name_);		
