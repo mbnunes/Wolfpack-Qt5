@@ -326,6 +326,8 @@ PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 	if( type )
 		gump->setType( type );
 
+	gump->setX( x );
+	gump->setY( y );
 	gump->setNoClose( noclose );
 	gump->setNoMove( nomove );
 	gump->setNoDispose( nodispose );

@@ -118,7 +118,7 @@ public:
 		// Call the response function (and pass it a response-object)
 		// Try to call the python function
 		// Get everything before the last dot
-		if( callback.contains( "." ) )
+		if( !callback.isNull() && !callback.isEmpty() && callback.contains( "." ) )
 		{
 			// Find the last dot
 			INT32 position = callback.findRev( "." );
