@@ -48,6 +48,10 @@ def onSpeech( pet, char, text, keywords ):
 	if not char.socket:
 		return 0
 
+	# Check if the pet is owned by char
+	if ( not pet.owner or pet.owner != char ) and not char.gm:
+		return 0
+
 	# Check for keywords
 	checkname = 1
 
@@ -66,15 +70,28 @@ def onSpeech( pet, char, text, keywords ):
 
 		# "come"
 		if keyword == 0x155:
-			char.socket.showspeech( pet, pet.name + " comes to your position." )
-
 			# Check if all pets should come (0x0164 = all come)
 			if 0x164 in keywords:
 				for pet in char.followers:
 					if pet.pos.distance( char.pos ) < 16:
+						# If the pet is fighting, stop fighting
+						if pet.war and pet.target:
+							pet.target = None
+							pet.war = 0
+							pet.updateflags()
+
+						pet.following = None
 						pet.goto( char.pos )
 						pet.sound( SND_ATTACK )
 			else:
+				# If the pet is fighting, stop fighting
+				if pet.war and pet.target:
+					pet.target = None
+					pet.war = 0
+					pet.updateflags()
+
+				pet.following = None
+
 				pet.goto( char.pos )
 				pet.sound( SND_ATTACK )
 
@@ -132,17 +149,19 @@ def onSpeech( pet, char, text, keywords ):
 						pet.target = None
 						pet.following = None
 						pet.guarding = None
-						pet.war = 0
+						if pet.war:
+							pet.war = 0
+							pet.updateflags()
 						pet.npcwander = 0
-						pet.updateflags()
 						pet.sound( SND_ATTACK )
 			else:
 				pet.target = None
 				pet.following = None
 				pet.guarding = None
-				pet.war = 0
+				if pet.war:
+					pet.war = 0
+					pet.updateflags()
 				pet.npcwander = 0
-				pet.updateflags()
 				pet.sound( SND_ATTACK )
 
 		# "follow"

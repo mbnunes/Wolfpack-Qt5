@@ -56,3 +56,20 @@ def items( x, y, map, exact=1 ):
 		raise TypeError, "x, y and map need to be integer values"
 	else:
 		return _wolfpack.items( x, y, map, exact )
+
+def addtimer( expiretime, function, args, serializable=0 ):
+	
+	if not type( expiretime ) is IntType:
+		raise TypeError, "expiretime needs to be a number"
+	elif not type( function ) is StringType:
+		raise TypeError, "function needs to be a string"
+	elif not type( args ) is ListType:
+		raise TypeError, "args need to be a list"
+	elif not type( serializable ) is IntType:
+		raise TypeError, "serializable needs to be a number"	
+
+	if serializable != 0:
+		serializable = 1
+
+	return _wolfpack.addtimer( expiretime, function, args, serializable )
+	
