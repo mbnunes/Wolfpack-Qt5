@@ -186,38 +186,4 @@ public:
 
 typedef SingletonHolder<cTempEffects> TempEffects;
 
-// cRepeatAction
-class cRepeatAction: public cTempEffect
-{
-private:
-	SERIAL _mage;
-	UINT8 _anim;
-	UINT32 _delay;
-public:
-	cRepeatAction( P_CHAR mage, UINT8 anim, UINT32 delay );
-	virtual void Expire();
-};
-
-class cDelayedHeal: public cTempEffect
-{
-private:
-	UINT16 amount;
-public:
-	cDelayedHeal( P_CHAR pSource, P_CHAR pTarget, UINT16 _amount );
-	virtual void Expire();
-};
-
-
-class AbstractAI;
-
-class cStablemasterRefreshTimer: public cTempEffect
-{
-private:
-	P_NPC m_npc;
-	AbstractAI* m_interface;
-public:
-	cStablemasterRefreshTimer( P_NPC m_npc, AbstractAI* m_interface, UINT32 time );
-	virtual void Expire();
-};
-
 #endif

@@ -35,28 +35,12 @@
 #include "wptargetrequests.h"
 #include "typedefs.h"
 
-class cSkHealing : public cTargetRequest
-{
-	SERIAL bandageSerial;
-public:
-	cSkHealing( SERIAL bandage ) : bandageSerial(bandage) {}
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
-
 class cSkLockpicking : public cTargetRequest
 {
 	SERIAL lockPick;
 public:
 	cSkLockpicking ( SERIAL lockpick ) : lockPick(lockpick) {}
 	bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
-
-class cDyeTarget : public cTargetRequest
-{
-	int color;
-public:
-	cDyeTarget( int colorID ) : color(colorID) {}
-	bool responsed( cUOSocket* socket, cUORxTarget *target );
 };
 
 #endif // __TARGETACTIONS_H__

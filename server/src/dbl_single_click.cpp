@@ -378,37 +378,12 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		}
 		return;
 		
-		// Drinks (This needs some other effects as well)
+		// Drinks
 		case 105:  
 			pc_currchar->soundEffect( 0x30 + RandomNum( 0, 1 ) );			
 			pi->reduceAmount( 1 ); // Remove a drink
 			pc_currchar->message( "Gulp!" );
 			return;
-
-		case 202:
-//				if ( pi->id() == 0x14F0  ||  pi->id() == 0x1869 )	// Check for Deed/Teleporter + Guild Type
-//				{
-//					pc_currchar->setFx1( pi->serial() );
-//					StonePlacement(socket);
-//					return;
-//				}
-//				else if (pi->id() == 0x0ED5)	// Check for Guildstone + Guild Type
-//				{
-//					pc_currchar->setFx1( pi->serial() );
-//					cGuildStone *pStone = dynamic_cast<cGuildStone*>(pi);
-//					if ( pStone != NULL )
-//						pStone->Menu(s, 1);
-//					return;
-//				}
-//				else 
-//					Console::instance()->send("Unhandled guild item type named: %s with ID of: %X", pi->name().ascii(), pi->id());
-				return;
-				// End of guild stuff
-
-		// PlayerVendors deed
-		case 217:
-			qWarning("Player Vendor code is gone, sorry... implement in python");
-			break;
 
 		case 222:	// player clicks on a house item (sign) to set ban/friendlists, rename
 			{
@@ -443,18 +418,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				socket->send( &dyetub );
 			}
 			return;
-
-		// Dying tub
-		case 406:
-			socket->sysMessage( tr( "What do you want to dye?" ) );
-			socket->attachTarget( new cDyeTarget( pi->color() ) );
-			return;
-
-		case 1000: // Ripper...bank checks
-			{
-				socket->sysMessage(tr("To cash this, you need to drop it on a banker."));
-				return;
-			}
 
 		// 1001: Sword Weapons (Swordsmanship)
 		case 1001: 
@@ -664,13 +627,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 //						target(s, 0, 1, 0, 108, "What do you wish to grind with your mortar and pestle?");
 			//		}
 			//		return; // alchemy
-				case 0x0E21: // healing
-					{
-						cSkHealing* target = new cSkHealing( pi->serial() );
-						socket->attachTarget( target );
-						socket->sysMessage( tr("Who will you use the bandages on?") );
-					}
-					return;
 				case 0x14FB:
 				case 0x14FC:
 				case 0x14FD:

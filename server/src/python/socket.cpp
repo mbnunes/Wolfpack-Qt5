@@ -634,6 +634,18 @@ static PyObject *wpSocket_questarrow( wpSocket *self, PyObject *args )
 	return PyTrue;
 }
 
+static PyObject *wpSocket_log( wpSocket *self, PyObject *args )
+{
+	char loglevel;
+	char *text;
+
+	if( !PyArg_ParseTuple( args, "bs:socket.log( loglevel, text )", &loglevel, &text ) )
+		return 0;
+
+	self->pSock->log( (eLogLevel)loglevel, text );
+	return PyTrue;
+}
+
 static PyMethodDef wpSocketMethods[] = 
 {
 	{ "questarrow",			(getattrofunc)wpSocket_questarrow, METH_VARARGS, NULL },
@@ -656,6 +668,7 @@ static PyMethodDef wpSocketMethods[] =
 	{ "resendstatus",		(getattrofunc)wpSocket_resendstatus, METH_VARARGS,	"Resends the status windows to this client." },
 	{ "resendstatus",		(getattrofunc)wpSocket_resendstatus, METH_VARARGS,	"Resends the status windows to this client." },
 	{ "customize",			(getattrofunc)wpSocket_customize, METH_VARARGS,	"Begin house customization." },
+	{ "log",				(getattrofunc)wpSocket_log, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 };
 

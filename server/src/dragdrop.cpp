@@ -146,20 +146,6 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 
 	// ==== Grabbing the Item is allowed here ====
 	
-	// Remove eventual item-bonusses if we're unequipping something
-	if( pItem->container() && pItem->container()->isChar() ) 
-	{
-		P_CHAR wearer = dynamic_cast<P_CHAR>( pItem->container() );
-
-		// resend the stat window
-		if( wearer && wearer->objectType() == enPlayer )
-		{
-			P_PLAYER pp = dynamic_cast<P_PLAYER>(wearer);
-			if( pp->socket() )
-				pp->socket()->sendStatWindow();
-		}
-	}
-
 	// Send the user a pickup sound if we're picking it up
 	// From a container/paperdoll
 	if( !pItem->isInWorld() )
@@ -200,6 +186,20 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		MapObjects::instance()->remove( pItem );
 	else
 		pItem->removeFromCont( true );
+
+	// Remove eventual item-bonusses if we're unequipping something
+	if( pItem->container() && pItem->container()->isChar() ) 
+	{
+		P_CHAR wearer = dynamic_cast<P_CHAR>( pItem->container() );
+
+		// resend the stat window
+		if( wearer && wearer->objectType() == enPlayer )
+		{
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(wearer);
+			if( pp->socket() )
+				pp->socket()->sendStatWindow();
+		}
+	}
 
 	// The item was in a multi
 	if( pItem->multis() != INVALID_SERIAL )

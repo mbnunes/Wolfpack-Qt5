@@ -131,7 +131,6 @@ void cSrvParams::readData()
 	niceLevel_				= getNumber("Game Speed", "Nice Level", 2, true);
 	skillDelay_			    = getNumber("Game Speed", "SkillDelay", 7, true);
 	skillLevel_				= getNumber("Game Speed", "SkillLevel", 3, true);
-	bandageDelay_			= getNumber("Game Speed", "BandageDelay", 6, true);
 	maxStealthSteps_		= getNumber("Game Speed", "Max Stealth Steps", 10, true);
 	runningStamSteps_		= getNumber("Game Speed", "Running Stamina Steps", 15, true);
 	hungerRate_				= getNumber("Game Speed", "Hunger Rate", 6000, true);
@@ -159,7 +158,6 @@ void cSrvParams::readData()
 	saveSpawns_				= getBool("General",	"Save Spawned Regions", true, true);
 	lootdecayswithcorpse_   = getBool("General",    "Loot Decays With Corpse", true, true);
 	invisTimer_             = getDouble("General",    "InvisTimer", 60, true);
-	bandageInCombat_		= getBool("General",	"Bandage In Combat",	true, true);
 	poisonTimer_		    = getNumber("General",  "PoisonTimer", 180, true);
 	hungerDamage_			= getNumber("General",  "Hunger Damage", 0, true);
 	persecute_              = getNumber("General",  "Persecution", 1, true);

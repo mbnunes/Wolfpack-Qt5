@@ -1,5 +1,6 @@
 //Microsoft Developer Studio generated resource script.
 //
+#include "resrc1.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
@@ -7,13 +8,17 @@
 // Generated from the TEXTINCLUDE 2 resource.
 //
 #include "resource.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 12,9,1,0
+ FILEVERSION 12,9,4,0
  PRODUCTVERSION 13,0,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -32,7 +37,7 @@ BEGIN
             VALUE "Comments", "http://www.wpdev.org/\0"
             VALUE "CompanyName", "Wolfpack Development Team\0"
             VALUE "FileDescription", "Ultima Online Server Emulator\0"
-            VALUE "FileVersion", "12, 9, 1, 0\0"
+            VALUE "FileVersion", "12, 9, 4, 0\0"
             VALUE "InternalName", "\0"
             VALUE "LegalCopyright", "© 2002-2003 Wolfpack Dev. Team\0"
             VALUE "LegalTrademarks", "\0"
@@ -57,3 +62,43 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDI_ICON2               ICON    DISCARDABLE     "icon2.ico"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resrc1.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""resource.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

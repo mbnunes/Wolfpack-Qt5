@@ -94,8 +94,6 @@ protected:
 	float invisTimer_;
 	unsigned short skillDelay_;
 	int skillLevel_;
-	unsigned short bandageDelay_;
-	bool bandageInCombat_;
 	unsigned int poisonTimer_;
 	signed int maxStealthSteps_;
 	unsigned int runningStamSteps_;
@@ -203,8 +201,6 @@ public:
 	bool lootdecayswithcorpse() const;
 	float invisTimer() const;
 	unsigned short skillDelay() const;
-	unsigned short bandageDelay() const;
-	bool bandageInCombat() const;
 	unsigned int poisonTimer() const;
 	signed int maxStealthSteps() const;
 	unsigned int runningStamSteps() const;
@@ -425,16 +421,6 @@ inline bool cSrvParams::lootdecayswithcorpse() const
 inline unsigned short cSrvParams::skillDelay() const
 {
 	return skillDelay_;
-}
-
-inline unsigned short cSrvParams::bandageDelay() const
-{
-	return bandageDelay_;
-}
-
-inline bool cSrvParams::bandageInCombat() const
-{
-	return bandageInCombat_;
 }
 
 inline unsigned int cSrvParams::poisonTimer() const

@@ -2353,6 +2353,7 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "magic", magic_ )
 
 	// Flags
+	else GET_PROPERTY( "dye", dye() ? 1 : 0 )
 	else GET_PROPERTY( "decay", priv_ & 0x01 ? 0 : 1 )
 	else GET_PROPERTY( "newbie", priv_ & 0x02 ? 1 : 0 )
 	else GET_PROPERTY( "dispellable", priv_ & 0x04 ? 1 : 0 )

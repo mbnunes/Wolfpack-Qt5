@@ -343,25 +343,6 @@ void cDelayedHideChar::Expire()
 	pc->resend( true );
 }
 
-cRepeatAction::cRepeatAction( P_CHAR mage, UINT8 anim, UINT32 delay )
-{
-	_mage = mage->serial();
-	_anim = anim;
-	_delay = delay;
-	mage->action( anim );
-	expiretime = uiCurrentTime + delay;
-	dispellable = false;
-	serializable = false;
-}
-
-void cRepeatAction::Expire()
-{
-	P_CHAR pMage = FindCharBySerial( _mage );
-
-	if( pMage )
-		TempEffects::instance()->insert( new cRepeatAction( pMage, _anim, _delay ) );
-}
-
 void cTempEffects::insert( cTempEffect *pT )
 {
 	// If the tempeffect has a char it affects, 
@@ -391,63 +372,6 @@ void cTempEffects::erase( cTempEffect *pT )
 		{
 			teffects.erase( it );
 			std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
-		}
-	}
-}
-
-void cDelayedHeal::Expire()
-{
-	P_CHAR pSource = FindCharBySerial( destSer );
-	P_CHAR pTarget = FindCharBySerial( sourSer );
-
-	if( !pSource || !pTarget )
-		return;
-
-	if( !pSource->inRange( pTarget, 5 ) )
-	{
-		if( pSource->objectType() == enPlayer )
-		{
-			P_PLAYER pp = dynamic_cast<P_PLAYER>(pSource);
-			if( pp->socket() )
-				pp->socket()->sysMessage( tr( "You are standing too far away to apply any bandages." ) );
-		}
-		return;
-	}
-}
-
-cDelayedHeal::cDelayedHeal( P_CHAR pSource, P_CHAR pTarget, UINT16 _amount )
-{
-	// Switching them here is important because we want to 
-	// keep track of our current healing targets
-	destSer = pSource->serial();
-	sourSer = pTarget->serial();
-	amount = _amount;
-	objectid = "cDelayedHeal";
-	serializable = false;
-	dispellable = false;
-}
-
-cStablemasterRefreshTimer::cStablemasterRefreshTimer( P_NPC pNPC, AbstractAI* interface_, UINT32 time )
-{
-	m_npc = pNPC;
-	m_interface = interface_;
-	objectid = "cStablemasterRefreshTimer";
-	serializable = false;
-	dispellable = false;
-	expiretime = uiCurrentTime + time * MY_CLOCKS_PER_SEC;
-}
-
-void cStablemasterRefreshTimer::Expire()
-{
-	// lets check if the npc exists, and if the
-	// npc ai on the npc is the same like the one which set the timer
-	if( m_npc )
-	{
-		AbstractAI* ai = m_npc->ai();
-		if( ai && ai == m_interface )
-		{
-			Human_Stablemaster* pAI = dynamic_cast< Human_Stablemaster* >(ai);
-			pAI->refreshStock();
 		}
 	}
 }

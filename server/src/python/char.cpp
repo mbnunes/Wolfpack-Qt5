@@ -1471,8 +1471,13 @@ static PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
-	if( !self->pChar || self->pChar->free || ( !checkArgObject( 0 ) && !checkArgCoord( 0 ) ) || !checkArgInt( 1 ) )
+	if( self->pChar->free || ( !checkArgObject( 0 ) && !checkArgCoord( 0 ) ) || !checkArgInt( 1 ) )
 		return PyFalse;
+
+	P_PLAYER pPlayer = dynamic_cast< P_PLAYER >( self->pChar );
+
+	if( pPlayer && pPlayer->isGM() )
+		return PyTrue;
 
 	Coord_cl pos;
 
@@ -1487,7 +1492,14 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 		cUObject *obj = getArgChar( 0 );
 
 		if( !obj )
-			obj = getArgItem( 0 );
+		{
+			P_ITEM pItem = getArgItem( 0 );
+
+			if( pItem && pItem->getOutmostChar() == self->pChar )
+				return PyTrue;
+
+			obj = pItem;
+		}
 	
 		if( !obj )
 			return PyFalse;
@@ -1507,6 +1519,27 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 		return PyFalse;
 
 	return PyTrue;
+}
+
+static PyObject* wpChar_canpickup( wpChar* self, PyObject* args )
+{
+	if( self->pChar->free )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) != 1 )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	P_ITEM pItem = getArgItem( 0 );
+
+	P_PLAYER pPlayer = dynamic_cast< P_PLAYER >( self->pChar );
+
+	if( !pPlayer )
+		return PyFalse;
+
+	return pPlayer->canPickUp( pItem ) ? PyTrue : PyFalse;
 }
 
 static PyMethodDef wpCharMethods[] = 
@@ -1537,6 +1570,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "sound",			(getattrofunc)wpChar_sound,				METH_VARARGS, "Play a creature specific sound." },
 	{ "disturb",		(getattrofunc)wpChar_disturb,			METH_VARARGS, "Disturbs whatever this character is doing right now." },
 	{ "canreach",		(getattrofunc)wpChar_canreach,			METH_VARARGS, "Checks if this character can reach a certain object." },
+	{ "canpickup",		(getattrofunc)wpChar_canpickup,			METH_VARARGS, NULL },
 	
 	// Mostly NPC functions
 	{ "attack",			(getattrofunc)wpChar_attack,			METH_VARARGS, "Let's the character attack someone else." },
