@@ -1806,7 +1806,11 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setIntelligence( pChar->in );
 		sendStats.setWeight( pChar->weight() );
 		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
-		sendStats.setArmor( Combat->CalcDef( pChar, 0 ) ); // TODO: Inaccurate			
+		sendStats.setArmor( Combat->CalcDef( pChar, 0 ) ); // TODO: Inaccurate	
+		sendStats.setSex( true );
+		sendStats.setPets( 0 );
+		sendStats.setMaxPets( 0 );
+		sendStats.setStatCap( 300 );
 	}
 
 	send( &sendStats );

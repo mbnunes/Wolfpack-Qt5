@@ -133,28 +133,28 @@ public:
 				continue;
 
 			// Do the neccesary checks
+			bool passed = true;
 			switch( type )
 			{
 			// Animals
 			case 1:
-				if( !pChar->isNpc() || pChar->id() == 0x190 || pChar->id() == 0x191 || pChar->npcaitype() == 2 )
-					return;
+				passed = !( !pChar->isNpc() || pChar->id() == 0x190 || pChar->id() == 0x191 || pChar->npcaitype() == 2 );
 				break;
 			// Monsters
 			case 2:
-				if( !pChar->isNpc() || pChar->id() == 0x190 || pChar->id() == 0x191 || pChar->npcaitype() != 2 )
-					return;
+				passed = !( !pChar->isNpc() || pChar->id() == 0x190 || pChar->id() == 0x191 || pChar->npcaitype() != 2 );
 				break;
 			// Human
 			case 3:
-				if( !pChar->isNpc() || ( pChar->id() != 0x190 && pChar->id() != 0x191 ) )
-					return;
+				passed = !( !pChar->isNpc() || ( pChar->id() != 0x190 && pChar->id() != 0x191 ) );
 				break;
 			case 4:
-				if( !pChar->socket() )
-					return;
+				passed = ( pChar->socket() != NULL );
 				break;
 			};
+
+			if( !passed )
+				continue;
 
 			// Checks passed, add the character
 			if( pAmount == 0 ) // Start new page

@@ -74,6 +74,7 @@ int rollDice( QString dicePattern ) // roll dices d&d style
 	return RandomNum(x,x*y)+z;
 }
 
+/*
 int str2num( string s, int base)
 {
 	return str2num((char*)s.c_str(),base) ;
@@ -84,6 +85,7 @@ int str2num(char *s, int base) // Convert string to integer
 	char* dummy; // ignore the stop pointer
 	return strtol(s, &dummy, base);
 }
+*/
 
 bool parseCoordinates( const QString &input, Coord_cl &coord )
 {

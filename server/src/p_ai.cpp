@@ -678,7 +678,7 @@ bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, const string& comm)
 		if ((endoffset=comm.find_first_not_of("0123456789",beginoffset))== string::npos)
 			endoffset = comm.length();
 		value2= comm.substr(beginoffset,endoffset-beginoffset);
-		value = str2num(value2) ;
+		value = QString(value2.c_str()).toUInt();
 	}
 	else 
 		value = 0 ;
@@ -710,7 +710,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, const string& comm)
 		if ((endoffset=comm.find_first_not_of("0123456789",beginoffset))== string::npos)
 			endoffset = comm.length();
 		value2= comm.substr(beginoffset,endoffset-beginoffset) ;
-		value = str2num(value2) ;
+		value = QString(value2.c_str()).toUInt();
 	}
 
 	int d = pc_currchar->CountBankGold();

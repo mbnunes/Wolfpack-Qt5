@@ -344,7 +344,7 @@ void cUObject::removeFromView( bool clean )
 			mPos = pCont->pos;
 			P_CHAR pOwner = FindCharBySerial( pCont->contserial );
 			if( pOwner )
-				pos = pOwner->pos;
+				mPos = pOwner->pos;
 		}
 	}
 

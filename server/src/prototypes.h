@@ -189,7 +189,6 @@ void mtarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt)
 void lockpick(int s);
 
 
-short getstatskillvalue(char *stringguy);
 // for newbie stuff
 int bestskill(P_CHAR pc);
 int nextbestskill(P_CHAR pc, int bstskll);

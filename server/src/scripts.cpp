@@ -359,6 +359,7 @@ void gettokennum(char * s, int num)
 	}
 }
 
+/*
 // Added by Krozy on 7-Sep-98
 // New getstatskillvalue function.
 // Takes a string, gets the tokens.
@@ -383,4 +384,5 @@ short getstatskillvalue(char *stringguy)
 	}
 	return retcode;
 }
+*/
 

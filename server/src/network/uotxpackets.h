@@ -532,8 +532,18 @@ class cUOTxSendStats: public cUOPacket
 public:
 	cUOTxSendStats(): cUOPacket( 0x11, 70 ) { setShort( 1, 0x42 ); }
 
-	void setFullMode( bool mode, bool extended = false ) { rawPacket[42] = mode ? 0x01 : 0x00; setShort( 1, extended ? 0x46 : 0x42 ); }
-	void setAllowRename( bool mode ) { rawPacket[41] = mode ? 0xFF : 0x00; }
+	void setFullMode( bool mode, bool extended = false ) 
+	{ 
+		if( extended )
+		{
+			setShort( 1, 0x46 );
+			rawPacket[42] = 0x03;
+		}
+		else
+			rawPacket[42] = mode ? 0x01 : 0x00;
+	}
+
+	void setAllowRename( bool mode ) { rawPacket[41] = mode ? 0x01 : 0x00; }
 	void setSerial( SERIAL serial ) { setInt( 3, serial ); }
 	void setName( const QString &name ) { setAsciiString( 7, name, MIN( name.length()+1, 30 ) ); }
 	void setHp( Q_UINT16 data ) { setShort( 37, data ); }
