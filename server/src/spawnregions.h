@@ -165,7 +165,7 @@ public:
 		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
 		while ( it != this->end() )
 		{
-			numNpcs += it->second->npcs();
+			numNpcs += (*it).second->npcs();
 			++it;
 		}
 		return numNpcs;
@@ -177,7 +177,7 @@ public:
 		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
 		while ( it != this->end() )
 		{
-			numItems += it->second->items();
+			numItems += (*it).second->items();
 			++it;
 		}
 		return numItems;
@@ -189,7 +189,7 @@ public:
 		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
 		while ( it != this->end() )
 		{
-			numNpcs += it->second->maxNpcs();
+			numNpcs += (*it).second->maxNpcs();
 			++it;
 		}
 		return numNpcs;
@@ -201,7 +201,7 @@ public:
 		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
 		while ( it != this->end() )
 		{
-			numItems += it->second->maxItems();
+			numItems += (*it).second->maxItems();
 			++it;
 		}
 		return numItems;
