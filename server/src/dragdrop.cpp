@@ -696,6 +696,37 @@ static bool ItemDroppedOnBeggar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	return true;
 }
 
+static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
+{
+	UOXSOCKET s=ps->GetSocket();
+	CHARACTER cc=ps->GetCurrChar();
+	P_CHAR pc_currchar = MAKE_CHARREF_LRV(cc,true);
+	int t=calcCharFromSer(pp->Tserial);
+	P_ITEM bankbox = pc_currchar->GetBankBox();
+	int amt = pi->amount;
+	if (pi->id() == 0x0EED)
+	{
+		sprintf((char*)temp,"%s you have deposited %i gold.",pc_currchar->name, amt);
+		npctalk(s,t,(char*)temp,0);
+		bankbox->AddItem(pi);
+	    statwindow(s, DEREF_P_CHAR(pc_currchar));
+		return true;
+	}
+    else
+	{
+		  sprintf((char*)temp,"Sorry %s i can only deposit gold",pc_currchar->name);
+		  npctalk(s,t,(char*)temp,0);
+		  Sndbounce5(s);
+		  if (ps->IsDragging())
+		  {
+			 ps->ResetDragging();
+			 item_bounce5(s,pi);
+			 return true;
+		  }
+	   }
+	return true;
+}
+
 static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
 	UOXSOCKET s=ps->GetSocket();
@@ -815,6 +846,12 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				if ( pTC->npcaitype == 5 )
 				{
 					ItemDroppedOnBeggar( ps, pp, pi);
+					return true;
+				}
+				if ( pTC->npcaitype == 8 )
+				{
+					ItemDroppedOnBanker( ps, pp, pi);
+					return true;
 				}
 				
 				//This crazy training stuff done by Anthracks (fred1117@tiac.net)

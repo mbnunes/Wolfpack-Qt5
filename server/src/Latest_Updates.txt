@@ -38,3 +38,4 @@ isnt needed anymore. (Ripper)
 31) Fixed: Some problems with not being able to walk over some bridges and other such walking fixes. (Skyfire)
 32) Added: BadNpcsRed to the server.scp. set to 0 all bad npcs will grey. set 1 (default) they
 are red. (Ripper)
+33) Added: You can now drop gold on a banker and he will deposit it for you :) (Ripper)
