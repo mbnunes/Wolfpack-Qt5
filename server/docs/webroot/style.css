@@ -36,20 +36,11 @@ img {
 	border: 0;
 }
 
-a:link {
+a {
 	color: #0000FF;
 	text-decoration: none;
-}
-
-a:visited {
-	text-decoration: none;
-	color: #0000FF;
 }
 
 a:hover {
-	text-decoration: underline;
-}
-
-a:active {
-	text-decoration: none;
+	color: #FF0000;
 }
