@@ -300,7 +300,7 @@ void cDragItems::bounceItem( P_CLIENT client, P_ITEM pItem, bool denyMove )
 	// to all in-range sockets
 	if( pItem->isInWorld() )
 	{
-		for( UOXSOCKET s; s < now; s++ )
+		for( UOXSOCKET s = 0; s < now; s++ )
 			if( inrange2( s, pItem ) )
 				soundeffect( s, 0x00, 0x42 );
 	}
@@ -734,30 +734,6 @@ void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const 
 				pCont->morez = 0;
 				sendtradestatus( tradeWindow, pCont );
 			}
-	}
-	
-	//
-	// AntiChrist - Special Bank Stuff
-	//
-	// if morey == 123  - gold only bank
-	// and morex == 1
-	//
-	if( SrvParams->useSpecialBank() )
-	{
-		if( pCont->morey == 123 && pCont->morex == 1 && pCont->type() == 1 )
-		{
-			// Only gold is allowed in this bank
-			if( pItem->id() == 0xEED )
-			{ 
-				goldsfx( client->socket(), 2 );
-			} 
-			else // bonce back
-			{
-				client->sysMessage( "You can only put gold in this bank box!" );
-				bounceItem( client, pItem );
-				return;
-			}
-		}
 	}
 	
 	if( !pChar->canPickUp( pItem ) )

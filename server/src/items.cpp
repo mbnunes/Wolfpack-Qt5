@@ -933,13 +933,7 @@ P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, QString nItem)
 	if (pc_ch == NULL) 
 		return NULL;
 	
-	P_ITEM bankbox = pc_ch->GetBankBox();
-	
-	if (bankbox == NULL)
-	{
-		LogWarning("Bank box not found in SpawnItemBank()");
-		return NULL;
-	}
+	P_ITEM bankbox = pc_ch->getBankBox();
 
 	UOXSOCKET s = calcSocketFromChar(pc_ch);          // Don't check if s == -1, it's ok if it is.
 	P_ITEM pi = createScriptItem(s, nItem, 1);

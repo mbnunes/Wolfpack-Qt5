@@ -537,7 +537,8 @@ public:
 	int  CountItems(short ID, short col= -1);
 	int  CountGold()			{return CountItems(0x0EED);}
 	P_ITEM GetItemOnLayer(unsigned char layer);
-	P_ITEM GetBankBox( short type = 1);
+	P_ITEM getBankBox( void );
+	void openBank( UOXSOCKET socket = -1 );
 	int  CountBankGold();
 	void addHalo(P_ITEM pi);
 	void removeHalo(P_ITEM pi);

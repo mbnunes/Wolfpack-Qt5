@@ -574,15 +574,7 @@ bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, string& comm)
 	string search3("WITHDRAW") ;
 	string search4("CHECK") ;
 
-	if (SrvParams->useSpecialBank())
-	{
-		search1 = SrvParams->specialBankTrigger().latin1();
-		if ((comm.find(search1)!= string::npos) &&(!(pc_currchar->dead)))
-		{
-			openspecialbank(c, currchar[c]);
-		}
-	}
-    else if ((comm.find(search1)!=string::npos) &&(!(pc_currchar->dead)))
+	if ((comm.find(search1)!=string::npos) &&(!(pc_currchar->dead)))
 	{
 		OpenBank(c);
 		return true;
@@ -604,7 +596,7 @@ bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, string& comm)
 
 void cCharStuff::cBankerAI::OpenBank(UOXSOCKET c)
 {
-	openbank(c, currchar[c]);
+	currchar[c]->openBank();
 	return;
 }
 
@@ -682,7 +674,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, string& comm)
 			pi->priv |= 0x02;
 			pi->value = goldcount;
 			DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);
-			P_ITEM bankbox = pc_currchar->GetBankBox();
+			P_ITEM bankbox = pc_currchar->getBankBox();
 			bankbox->AddItem(pi);
 			statwindow(c, pc_currchar);
 			sprintf(temp, "%s your check has been placed in your bankbox, it is worth %i.", pc_currchar->name.c_str(), goldcount);

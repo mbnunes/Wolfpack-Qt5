@@ -3410,37 +3410,37 @@ void cPContainerItems::addItem( SERIAL serial, UI16 model, UI16 amount, UI16 x, 
 	data.resize( data.size() + 19 );
 
 	// Item serial
-	data[ offset + 0 ] = static_cast< UI08 >( serial >> 24 );
-	data[ offset + 1 ] = static_cast< UI08 >( serial >> 16 );
-	data[ offset + 2 ] = static_cast< UI08 >( serial >> 8 );
-	data[ offset + 3 ] = static_cast< UI08 >( serial );
+	data[ (int)(offset + 0) ] = static_cast< UI08 >( serial >> 24 );
+	data[ (int)(offset + 1) ] = static_cast< UI08 >( serial >> 16 );
+	data[ (int)(offset + 2) ] = static_cast< UI08 >( serial >> 8 );
+	data[ (int)(offset + 3) ] = static_cast< UI08 >( serial );
 
 	// Item model
-	data[ offset + 4 ] = static_cast< UI08 >( model >> 8 );
-	data[ offset + 5 ] = static_cast< UI08 >( model );	
+	data[ (int)(offset + 4) ] = static_cast< UI08 >( model >> 8 );
+	data[ (int)(offset + 5) ] = static_cast< UI08 >( model );	
 
 	// Unknown ?
-	data[ offset + 6 ] = 0x00;
+	data[ (int)(offset + 6) ] = 0x00;
 
 	// Amount
-	data[ offset + 7 ] = static_cast< UI08 >( amount >> 8 );
-	data[ offset + 8 ] = static_cast< UI08 >( amount );	
+	data[ (int)(offset + 7) ] = static_cast< UI08 >( amount >> 8 );
+	data[ (int)(offset + 8) ] = static_cast< UI08 >( amount );	
 
 	// X + Y
-	data[ offset + 9 ]  = static_cast< UI08 >( x >> 8 );
-	data[ offset + 10 ] = static_cast< UI08 >( x );	
-	data[ offset + 11 ] = static_cast< UI08 >( y >> 8 );
-	data[ offset + 12 ] = static_cast< UI08 >( y );
+	data[ (int)(offset + 9) ]  = static_cast< UI08 >( x >> 8 );
+	data[ (int)(offset + 10) ] = static_cast< UI08 >( x );	
+	data[ (int)(offset + 11) ] = static_cast< UI08 >( y >> 8 );
+	data[ (int)(offset + 12) ] = static_cast< UI08 >( y );
 
 	// Contserial
-	data[ offset + 13 ] = static_cast< UI08 >( contserial >> 24 );
-	data[ offset + 14 ] = static_cast< UI08 >( contserial >> 16 );
-	data[ offset + 15 ] = static_cast< UI08 >( contserial >> 8 );
-	data[ offset + 16 ] = static_cast< UI08 >( contserial );
+	data[ (int)(offset + 13) ] = static_cast< UI08 >( contserial >> 24 );
+	data[ (int)(offset + 14) ] = static_cast< UI08 >( contserial >> 16 );
+	data[ (int)(offset + 15) ] = static_cast< UI08 >( contserial >> 8 );
+	data[ (int)(offset + 16) ] = static_cast< UI08 >( contserial );
 
 	// Hue
-	data[ offset + 17 ] = static_cast< UI08 >( hue >> 8 );
-	data[ offset + 18 ] = static_cast< UI08 >( hue );	
+	data[ (int)(offset + 17) ] = static_cast< UI08 >( hue >> 8 );
+	data[ (int)(offset + 18) ] = static_cast< UI08 >( hue );	
 
 	// Increase the itemcount:
 	UI16 itemCount = ( data[ 3 ] << 8 ) | ( data[ 4 ] ) + 1;

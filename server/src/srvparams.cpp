@@ -144,8 +144,6 @@ void cSrvParams::readData()
 	errors_to_console_      = getNumber("General",  "Errors To Console", 0, true);
 	showCVCS_               = getNumber("General",  "Show CVCS", 0, true);
 	cacheMulFiles_			= getBool  ("General",  "Cache Mul Files", true, true);
-	specialBankTrigger_     = getString("General",  "Special Bank Trigger", "WARE", true).upper();
-	useSpecialBank_			= getBool  ("General",  "Special Bank", false, true);
 	beggingRange_           = getNumber("General",  "Begging Range", 3, true);
 	worldSaveModule_		= getString("General",  "WorldSave Module", "binary", true);
 	clientsAllowed_			= QStringList::split(",", getString("General", "Allowed Clients", "SERVER_DEFAULT", true).upper());

@@ -318,7 +318,7 @@ P_ITEM cChar::GetItemOnLayer(unsigned char layer)
 // Purpose:	Return the bank box. If banktype == 1, it will return the Item's bank box, else, 
 //          gold bankbox is returned. 
 
-P_ITEM cChar::GetBankBox( short banktype )			
+P_ITEM cChar::getBankBox( void )
 {
 	P_ITEM pi;
 	unsigned int ci=0;
@@ -326,14 +326,11 @@ P_ITEM cChar::GetBankBox( short banktype )
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if( pi->type() == 1 && pi->morex == 1 )
-			if ( banktype == 1 && pi->morez == 123 && SrvParams->useSpecialBank()) 
-				return pi;
-			else if ( banktype != 1 || !SrvParams->useSpecialBank())
-				return pi;
+		if( pi && pi->layer() == 0x1D )
+			return pi;
 	}
-	// If we reach this point, bankbox wasn't found == wasn't created yet.
 
+	// If we reach this point, bankbox wasn't found == wasn't created yet.
 	sprintf((char*)temp, "%s's bank box.", name.c_str());
 	UOXSOCKET s = calcSocketFromChar(this);
 	pi = Items->SpawnItem(this, 1, (char*)temp, 0, 0x09AB, 0, 0);
@@ -343,15 +340,12 @@ P_ITEM cChar::GetBankBox( short banktype )
 	pi->SetOwnSerial(this->serial);
 	pi->setContSerial(this->serial);
 	pi->morex=1;
-	if(SrvParams->useSpecialBank() && banktype == 1)//AntiChrist - Special Bank
-		pi->morey=123;//gold only bank
 	pi->setType( 1 );
 	if (s != -1)
 		wearIt(s, pi);
 
 	return pi;
 }
-
 
 ///////////////////////
 // Name:	disturbMed
@@ -446,9 +440,23 @@ int cChar::CountItems(short ID, short col)
 
 int cChar::CountBankGold()
 {
-	P_ITEM pi = GetBankBox(1); //we want gold bankbox.
-	if (!pi) return 0;
-	return pi->CountItems(0x0EED);
+	P_ITEM pi = getBankBox(); //we want gold bankbox.
+	return pi->CountItems( 0x0EED );
+}
+
+void cChar::openBank( UOXSOCKET socket )
+{
+	// Send to ourself ?
+	if( socket == INVALID_SOCKET )
+	{
+		if( !online( this ) )
+			return;
+		socket = calcSocketFromChar( this );
+	}
+
+	// Send it to the socket
+	P_ITEM bankBox = getBankBox();
+	backpack( socket, bankBox->serial );
 }
 
 ///////////////////////
@@ -1536,7 +1544,7 @@ void cChar::talk( const QString &message, UI16 color )
 	cUnicodeSpeech textSpeech( this, message, color, 3, "ENU", SP_REGULAR );
 	
 	// Send to all clients in range
-	for( UOXSOCKET s; s < now; s++ )
+	for( UOXSOCKET s = 0; s < now; s++ )
 		if( perm[ s ] && inrange1p( this, currchar[ s ] ) )
 			textSpeech.send( s );
 }
@@ -1549,7 +1557,7 @@ void cChar::emote( const QString &emote, UI16 color )
 	cUnicodeSpeech textSpeech( this, emote, color, 3, "ENU", SP_EMOTE );
 	
 	// Send to all clients in range
-	for( UOXSOCKET s; s < now; s++ )
+	for( UOXSOCKET s = 0; s < now; s++ )
 		if( perm[ s ] && inrange1p( this, currchar[ s ] ) )
 			textSpeech.send( s );
 }

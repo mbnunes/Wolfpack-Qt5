@@ -2605,17 +2605,7 @@ void cTargets::xBankTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		openbank(s, pc);
-	}
-}
-
-void cTargets::xSpecialBankTarget(int s)//AntiChrist
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		openspecialbank(s, pc);
+		pc->openBank( s );
 	}
 }
 
@@ -4227,8 +4217,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 89: ItemTarget(ps,pt); break;//ObjPrivTarget
 
 		case 100: Magic->NewCastSpell( s ); break;	// we now have this as our new spell targeting location
-
-		case 105: Targ->xSpecialBankTarget(s); break;//AntiChrist
 		case 106: Targ->NpcAITarget(s); break;
 		case 107: Targ->xBankTarget(s); break;
 		case 108: Skills->AlchemyTarget(s); break;

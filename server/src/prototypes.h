@@ -133,10 +133,6 @@ void gcollect();
 //void seekland(int landnum, land_st *land);
 void weather(int s, unsigned char bolt);
 unsigned char npcinrange (UOXSOCKET s, P_CHAR i, int distance);  //check for horse distance...
-//void xbanktarget(int s);
-void openbank(int s, P_CHAR pc_i);
-void openspecialbank(int s, P_CHAR pc);//AntiChrist
-char inbankrange(int i);
 int getamount(P_CHAR pc, short id);
 void delequan(P_CHAR pc, short id, int amount, int *not_deleted = NULL);
 void gettokennum(char * s, int num);

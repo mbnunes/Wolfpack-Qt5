@@ -1132,7 +1132,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						else if (!(strcmp("MISC", (char*)script1)))  // Perform a miscellaneous function
 						{
 							if (!(strcmp("bank", strlwr((char*)script2))))
-								openbank(ts, currchar[ts]);
+								currchar[ ts ]->openBank();
 						}
 						else if (!(strcmp("MSG", (char*)script1)))  // Display a message when trigger is activated
 						{
@@ -2682,9 +2682,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						else if (!(strcmp("MISC", (char*)script1)))  // Perform a miscellaneous function
 						{
 							if (!(strcmp("bank", strlwr((char*)script2))))
-								openbank(ts, pc_ts);
-							if (!(strcmp("ware", strlwr((char*)script2))))
-								openspecialbank(ts, pc_ts);// AntiChrist
+								pc_ts->openBank();
+
 							if (!(strcmp("balance", strlwr((char*)script2))))
 							{
 								sprintf(sect, "You have %i gp in your bank account!", pc_ts->CountBankGold());

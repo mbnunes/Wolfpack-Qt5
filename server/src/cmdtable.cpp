@@ -74,7 +74,6 @@ TARGET_S target_istats = { 0, 1, 0, 12, "Select item to inspect." };
 TARGET_S target_cstats = { 0, 1, 0, 13, "Select char to inspect." };
 TARGET_S target_tele = { 0, 1, 0, 2, "Select teleport target." };
 TARGET_S target_xbank = { 0, 1, 0, 107, "Select target to open bank of." };
-TARGET_S target_xsbank = { 0, 1, 0, 107, "Select target to open specialbank of." };//AntiChrist
 TARGET_S target_remove = { 0, 1, 0, 3, "Select item to remove." };
 TARGET_S target_makegm = { 0, 1, 0, 14, "Select character to make a GM." };
 TARGET_S target_makecns = { 0, 1, 0, 15, "Select character to make a Counselor." };
@@ -202,7 +201,6 @@ CMDTABLE_S command_table[] = {
 	{"SETHEXMOREXYZ",	CMD_TARGETHXYZ,	(CMD_DEFINE)&target_sethexmorexyz},
 	{"SETNPCAI",		CMD_TARGETHX,	(CMD_DEFINE)&target_setnpcai},
 	{"XBANK",			CMD_TARGET,	(CMD_DEFINE)&target_xbank},
-	{"XSBANK",			CMD_TARGET,	(CMD_DEFINE)&target_xsbank},//AntiChrist
 	{"TILE",			CMD_FUNC,	(CMD_DEFINE)&command_tile},
 	{"WIPE",			CMD_FUNC,	(CMD_DEFINE)&command_wipe},
 	{"IWIPE",			CMD_FUNC,	(CMD_DEFINE)&command_iwipe},

@@ -208,7 +208,7 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 		pKey->priv=2;
         
 		P_ITEM pKey2 = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0,1,1);
-		P_ITEM bankbox = pc_currchar->GetBankBox();
+		P_ITEM bankbox = pc_currchar->getBankBox();
 		pKey2->tags.set( "house_serial", this->serial );
 		pKey2->setType( 7 );
 		pKey2->priv=2;

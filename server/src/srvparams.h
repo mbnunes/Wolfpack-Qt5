@@ -139,8 +139,6 @@ protected:
 	unsigned int spawnRegionCheckTime_;
 	unsigned int secondsPerUOMinute_;
 	bool cacheMulFiles_;
-	bool useSpecialBank_;
-	QString specialBankTrigger_;
 	unsigned int beggingRange_;
 	unsigned int beggingTime_;
 	unsigned char season_;
@@ -314,8 +312,6 @@ public:
 	unsigned int spawnRegionCheckTime() const;
 	unsigned int secondsPerUOMinute() const;
 	void setSecondsPerUOMinute( unsigned int );
-	bool useSpecialBank() const;
-	QString specialBankTrigger() const;
 	bool isClientAllowed( const QString& );
 	const QStringList& clientsAllowed() const;
 	unsigned int beggingRange() const;
@@ -1025,16 +1021,6 @@ inline unsigned int cSrvParams::spawnRegionCheckTime() const
 inline unsigned int cSrvParams::secondsPerUOMinute() const
 {
 	return secondsPerUOMinute_;
-}
-
-inline bool cSrvParams::useSpecialBank() const
-{
-	return useSpecialBank_;
-}
-
-inline QString cSrvParams::specialBankTrigger() const
-{
-	return specialBankTrigger_;
 }
 
 inline QString cSrvParams::msgboardPath() const

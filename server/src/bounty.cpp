@@ -172,7 +172,7 @@ bool cBounty::BountyWithdrawGold( P_CHAR pVictim, int nAmount )
 	if (has < nAmount)
 		return false;
 
-	P_ITEM pBox = pVictim->GetBankBox();
+	P_ITEM pBox = pVictim->getBankBox();
 	if (!pBox)
 		return false;	// shouldn't happen coz it's needed in CountBankGold...
 
