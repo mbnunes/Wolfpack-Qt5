@@ -891,18 +891,18 @@ static void freeClasses( void )
 }
 
 #if defined(_DEBUG)
-//#include <crash.h>
+#include <crash.h>
 #endif
 
 /*!
-	Main server procedure.
+	Main server entry point.
 */
 int main( int argc, char *argv[] )
 {
 #if defined(_DEBUG)
-//	InstallCrashHandler( HANDLE_HTTPREPORT, GSTSO_PARAMS | GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE );
-//	SetCustomMessage("A crash occurred. Please send this bug report to developers\n");
-//	SetVersion(wp_version.verstring.c_str());
+	InstallCrashHandler( HANDLE_HTTPREPORT, GSTSO_PARAMS | GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE );
+	SetCustomMessage("A crash occurred. Please send this bug report to developers\n");
+	SetVersion(wp_version.verstring.c_str());
 #endif
 
 	QApplication app( argc, argv, false ); // we need one instance
@@ -1025,7 +1025,7 @@ int main( int argc, char *argv[] )
 		Map->registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
 		Map->registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
 		Map->registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");	
-		Map->registerMap(3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul");	
+//		Map->registerMap(3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul");	
 
 		clConsole.send( "\n" );
 	}

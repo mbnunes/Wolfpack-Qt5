@@ -33,7 +33,22 @@
 
 #include "twofish.h"
 
-#define u8 unsigned char
+// System includes
+#include <stdio.h>
+#include <stdlib.h>
+#include <memory.h>
+
+typedef unsigned char u8;
+typedef unsigned int u32;
+
+#if !defined(BYTE)
+#define BYTE unsigned char
+#endif
+
+#define RS_MOD 0x14D
+#define RHO 0x01010101L
+
+
 u8 RS[4][8] = {
     { 0x01, 0xA4, 0x55, 0x87, 0x5A, 0x58, 0xDB, 0x9E, },
     { 0xA4, 0x56, 0x82, 0xF3, 0x1E, 0xC6, 0x68, 0xE5, },
