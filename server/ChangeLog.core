@@ -1,7 +1,16 @@
 Wolfpack ChangeLog
 
 Wolfpack 12.9.9 Beta (CVS)
-
+	- Allowed viewing and setting account properties via .set and .show.
+	  Replace <property> with the name of the account property and <value> 
+	  with the value you want to set:
+	  .set account.<property> <value> 
+	  .show account.<property>
+	- Moved the account property getters and setters into the cAccount class.
+	- Added an e-mail field to the account database.
+	- Added the "email" property for accounts to the python interface.
+	- .exportdefinitions now exports data about NPCS and their equipment to the
+	  categories.db database.
 
 Wolfpack 12.9.8 Beta (19. August 2004)
 	- Save fixes
