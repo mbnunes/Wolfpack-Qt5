@@ -54,6 +54,10 @@ public:
 		HairReq = 0; // 0=none, 1=male, 2=female, 3=all
 		NoHair = false;
 		NoBeard = false;
+		BaseAR = 0;
+		StartX = 0;
+		StartY = 0;
+		StartZ = 0;
 	}
 	bool IsPlayerRace;
 	string RaceName;
@@ -67,6 +71,10 @@ public:
 	int StrCap;
 	int DexCap;
 	int VisRange;
+	int BaseAR;
+	int StartX;
+	int StartY;
+	int StartZ;
 	vector<int> CanUseSkill;
 	vector<int> CantUseItem;
 	vector<int> RacialAlly;

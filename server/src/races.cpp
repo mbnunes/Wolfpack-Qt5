@@ -57,6 +57,8 @@ void cRaces::LoadRaceFile()
 			case 'b':
 				if(!strcmp((char*)script1, "BEARDREQ"))
 					races[racecount].BeardReq = str2num(script2);
+				if(!strcmp((char*)script1, "BASEAR"))
+					races[racecount].BaseAR = str2num(script2);
 				break;
 			case 'C':
 			case 'c':
@@ -239,6 +241,9 @@ void cRaces::SetRace(P_CHAR pc, int race)
 
 	if(Races[race]->StartDex>0)
 		pc->setDex(Races[race]->StartDex);
+
+	if(Races[race]->BaseAR>0)
+		pc->def+=Races[race]->BaseAR;
 
 
 	updatechar(DEREF_P_CHAR(pc));
