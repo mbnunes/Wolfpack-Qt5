@@ -880,8 +880,9 @@ void command_showids(UOXSOCKET s)
 		P_CHAR mapchar = FindCharBySerial(*it);
 		if ( mapchar != NULL)
 		{
-			if (inrange1p(currchar[s], mapchar)) 
-				showcname(s, mapchar, 1);
+			// TODO: FIXME
+			//if (inrange1p(currchar[s], mapchar)) 
+			//	mapchar->showName( s );
 		}
 	}
 	return;

@@ -40,6 +40,7 @@
 
 // Forward Class declarations
 class ISerialization;
+class cUOSocket;
 
 class cItem : public cUObject
 {
@@ -146,6 +147,7 @@ public:
 	
 	P_ITEM	getCorpse( void ); // Get the corpse this item is in
 	void	toBackpack( P_CHAR pChar );
+	void	showName( cUOSocket *socket );
 
 	SERIAL contserial;
 

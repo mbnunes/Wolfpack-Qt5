@@ -42,6 +42,7 @@ class cUOPacket;
 
 // Too many Forward Declarations
 #include "uorxpackets.h"
+#include "uotxpackets.h"
 #include "../typedefs.h"
 
 
@@ -102,6 +103,7 @@ public:
 	void handleWalkRequest( cUORxWalkRequest* packet );
 
 	// Utilities
+	void showSpeech( cUObject *object, const QString &message, Q_UINT16 color = 0xFFFF, Q_UINT16 font = 0xFFFF, cUOTxUnicodeSpeech::eSpeechType speechType = cUOTxUnicodeSpeech::Regular );
 	void sysMessage( const QString &message, Q_UINT16 color = 0x0037 );
 	void sendCharList();
 	void updateCharList();

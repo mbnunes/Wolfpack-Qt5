@@ -669,6 +669,23 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 
 void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
 {
+	// Check if it's a singleclick on items or chars
+	if( isCharSerial( packet->serial() ) )
+	{
+		P_CHAR pChar = FindCharBySerial( packet->serial() );
+
+		if( !pChar )
+			return;
+
+		pChar->showName( this );
+	}
+	else
+	{
+		P_ITEM pItem = FindItemBySerial( packet->serial() );
+
+		if( !pItem )
+			return;
+	}
 }
 
 void cUOSocket::handleRequestUse( cUORxRequestUse *packet )
@@ -689,17 +706,19 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 // Show a context menu
 void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 {
+	// The dumps below didn't have ANY effect so it's removed for now
+
 	// Send a dummy popup menu
 	/*cUOTxContextMenu menu;
 	menu.addEntry( 0x17EB, 0x0001 );
 	send( &menu );*/
 
-	const char *pData = "\xbf\x00\x2c\x00\x14\x00\x01\x00\x20\x65\xb9\x05\x00\x0a\x17\xeb\x00\x20\xff\xff\x01\x93\x18\x08\x00\x00\x00\x6e\x17\xd7\x00\x00\x00\x6f\x17\xd8\x00\x00\x00\xcf\x17\x77\x00\x01";
+	/*const char *pData = "\xbf\x00\x2c\x00\x14\x00\x01\x00\x20\x65\xb9\x05\x00\x0a\x17\xeb\x00\x20\xff\xff\x01\x93\x18\x08\x00\x00\x00\x6e\x17\xd7\x00\x00\x00\x6f\x17\xd8\x00\x00\x00\xcf\x17\x77\x00\x01";
 	//const char *pData = "\xbf\x00\x1a\x00\x14\x00\x01\x01\x88\xad\x4b\x02\x00\x0a\x17\xeb\x00\x20\xff\xff\x01\x2e\x18\x01\x00\x00";
 	QByteArray data( 0x2c );
 	memcpy( data.data(), pData, 0x2c );
 	cUOPacket cPacket( data );
-	send( &cPacket );
+	send( &cPacket );*/
 
 	//0000: bf 00 2c 00 14 00 01 00 20 65 b9 05 00 0a 17 eb : ..,..... e......
 	//0010: 00 20 ff ff 01 93 18 08 00 00 00 6e 17 d7 00 00 : . .........n....
@@ -710,6 +729,18 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 
 }
 
+void cUOSocket::showSpeech( cUObject *object, const QString &message, Q_UINT16 color, Q_UINT16 font, cUOTxUnicodeSpeech::eSpeechType speechType )
+{
+	cUOTxUnicodeSpeech speech;
+	speech.setSource( object->serial );
+	speech.setName( object->name.c_str() );
+	speech.setFont( font );
+	speech.setColor( color );
+	speech.setText( message );
+	speech.setType( speechType );
+	send( &speech );
+}
+
 void cUOSocket::handleWalkRequest( cUORxWalkRequest* packet )
 {
 //	cUOPacket moveOk(0x22, 3);
@@ -717,4 +748,3 @@ void cUOSocket::handleWalkRequest( cUORxWalkRequest* packet )
 //	moveOk[1] = packet->key();
 //	send( &moveOk );
 }
-

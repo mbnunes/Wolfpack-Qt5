@@ -149,6 +149,7 @@ void cUOTxDrawObject::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 lay
 void cUOTxUnicodeSpeech::setText( const QString &data )
 {
 	rawPacket.resize( 50 + (data.length()*2) );
+	setShort( 1, rawPacket.count() );
 
 	Q_INT32 offset = 48; // Pad right by one - remeber to copy one byte less
 	rawPacket[ offset ] = 0x00;

@@ -45,6 +45,7 @@
 
 // Forward class declaration
 class QString;
+class cUOSocket;
 
 #undef  DBGFILE
 #define DBGFILE "chars.h"
@@ -73,6 +74,12 @@ public:
 	unsigned short			xid; // Backup of body type for ghosts
 	unsigned char			priv2;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
 	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
+
+	bool	canMoveAll( void ) { return priv2&0x01; }
+	bool	isFrozen( void ) { return priv2&0x02; }	
+	bool	viewHouseIcons( void ) { return priv2&0x04; }	
+	bool	isHiddenPermanently( void ) { return priv2&0x08; }
+
 	unsigned char			fonttype; // Speech font to use
 	UI16					saycolor; // Color for say messages
 	unsigned short			emotecolor; // Color for emote messages
@@ -522,6 +529,7 @@ public:
 	bool  isCriminal()	const;
 	unsigned char getPriv() const;
 	void setPriv(unsigned char p);
+	void showName( cUOSocket *socket );
 	void makeInvulnerable();
 	void makeVulnerable();
 	void setMurderer();

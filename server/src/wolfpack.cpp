@@ -907,68 +907,6 @@ void all_items(int s) // Send ALL items to player
 	}
 }
 
-void showcname (UOXSOCKET s, P_CHAR pc_i, char b) // Singleclick text for a character
-{
-	int c;
-	int x;
-
-	P_CHAR pc_currchar = currchar[s];
-
-	if (pc_i == NULL)
-		return;
-
-	if (pc_i->squelched())
-	{
-		sprintf((char*)temp," [%s]",title[7].other);
-		if (!(strcmp(title[7].other,""))) temp[0] = 0;
-		itemmessage(s, (char*)temp ,pc_i->serial);
-	}
-
-	if ((pc_currchar->canSeeSerials()) || b)
-	{
-		sprintf((char*)temp, "%s [%08x]", pc_i->name.c_str(), pc_i->serial);
-	}
-	else
-	{
-		if (pc_i->isPlayer())
-		{
-			if (pc_currchar->isGM())
-			{
-				sprintf((char*)temp, "[%08x]", pc_i->serial);
-				itemmessage(s,(char*)temp, pc_i->serial);
-			}
-			if (!online(pc_i)) sprintf((char*)temp, "%s (%s)",title[8].other, pc_i->name.c_str());
-			else strcpy((char*)temp,pc_i->name.c_str());
-			if (!strcmp(title[8].other,"")) temp[0] = 0;
-		}
-		else
-		{
-			temp[0] = 0;
-			x=0;
-			char temp2[256] = {0,};
-			strcpy(temp2, pc_i->name.c_str());
-			do
-			{
-				c=temp2[x];
-				if ((c!=0))
-				{
-					if(c=='_')
-						c=' ';
-					if (SrvParams->showNpcTitles() == 1)
-					{
-					    sprintf((char*)temp, "%s,%s", pc_i->name.c_str(),pc_i->title().latin1());
-					}else{
-					   sprintf((char*)temp, "%s%c", temp, c);
-					}
-				    x++;
-				}
-			}
-			while ((c!=0) && x<50 );
-		}
-	}
-	textflags(s, pc_i, (char*)temp);
-}
-
 /////////////////
 // Name:	deathstuff
 // History:	by UnKnown (Touched tabstops by Tauriel Dec 28, 1998)

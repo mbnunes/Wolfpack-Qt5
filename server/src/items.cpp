@@ -34,6 +34,7 @@
 
 // Wolfpack Includes
 #include "wolfpack.h"
+#include "network/uosocket.h"
 #include "SndPkg.h"
 #include "utilsys.h"
 #include "iserialization.h"
@@ -1829,3 +1830,133 @@ void cItem::processContainerNode( const QDomElement &Tag )
 	childNode = childNode.nextSibling();
 }
 
+void cItem::showName( cUOSocket *socket )
+{
+	// End chars/npcs section
+	/*P_ITEM pi = FindItemBySerial(serial);
+	if (pi == NULL)
+	{
+		clConsole.send( "WOLFPACK.CPP: singleclick couldn't find item serial: %x\n", serial );
+		return;
+	}
+	
+    if( pi->onShowItemName( pc_currchar ) )
+        return;        
+	
+	pi->getName(itemname);
+
+	if (pi->type() == 9)
+	{
+		int spellcount=Magic->SpellsInBook(pi);
+		sprintf((char*)temp, "%i spells", spellcount);
+		itemmessage(s, (char*)temp, serial,0x0481);
+	}
+
+	if (pi->type() == 1000) // Ripper...used for bank checks.
+	{
+		sprintf((char*)temp, "value : %i", pi->value);
+		itemmessage(s, (char*)temp, serial,0x0481);
+	}
+
+	if (pi->type() == 187) // Ripper...used for slotmachine.
+	{
+		sprintf((char*)temp, "[%i gold Slot]", SrvParams->slotAmount());
+		itemmessage(s, (char*)temp, serial,0x0481);
+	}
+	
+	if (pc_currchar->getPriv()&8)
+	{
+		if (pi->amount() > 1)
+			sprintf((char*)temp, "%s [%x]: %i", itemname, pi->serial, pi->amount());
+		else
+			sprintf((char*)temp, "%s [%x]", itemname, pi->serial);
+		itemmessage(s, (char*)temp, serial);
+		return;
+	}
+	
+	// Click in a Player Vendor item, show description, price and return
+	if (!pi->isInWorld() && isItemSerial(pi->contserial))
+	{
+		P_CHAR pc_j = GetPackOwner(FindItemBySerial(pi->contserial));
+		if (pc_j != NULL)
+		{
+			if (pc_j->npcaitype() == 17)
+			{
+				if (pi->creator.size() > 0 && pi->madewith>0)
+					sprintf((char*)temp2, "%s %s by %s", pi->desc.c_str(), skill[pi->madewith - 1].madeword, pi->creator.c_str()); 
+				else
+					strcpy((char*)temp2, pi->desc.c_str()); // LB bugfix
+				
+				sprintf((char*)temp, "%s at %igp", temp2, pi->value); // Changed by Magius(CHE)				
+				itemmessage(s, (char*)temp, serial);
+				return;
+			}
+		}
+	}
+	
+	// From now on, we will build the message into temp, and let itemname with just the name info
+	// Add amount info.
+	if (!pi->isPileable() || pi->amount() == 1)
+		strncpy((char*)temp, itemname, 100);
+	else 
+		if (itemname[strlen(itemname) - 1] != 's') // avoid iron ingotss : x
+			sprintf((char*)temp, "%ss : %i", itemname, pi->amount());
+		else
+			sprintf((char*)temp, "%s : %i", itemname, pi->amount());
+		
+	// Add creator's mark (if any)			
+	if (pi->creator.size() > 0 && pi->madewith > 0)
+		sprintf((char*)temp, "%s %s by %s", temp, skill[pi->madewith - 1].madeword, pi->creator.c_str());
+	
+	if (pi->type() == 15) // Fraz
+	{
+		if (pi->name2() == pi->name())
+		{
+			sprintf((char*)temp, "%s %i charge", temp, pi->morez);
+			if (pi->morez != 1)
+			strcat(temp, "s");
+		}
+	}
+	else if (pi->type() == 404 || pi->type() == 181)
+	{
+			if (pi->name2() == pi->name())
+			{
+			sprintf((char*)temp, "%s %i charge", temp, pi->morex);
+			if (pi->morex != 1)
+			strcat(temp, "s");
+			}
+	}	
+	// Corpse highlighting...Ripper
+	if( pi->corpse() == 1 )
+	{
+		if( pi->more2 == 1 )
+		    itemmessage(s,"[Innocent]",serial, 0x005A);
+		else if( pi->more2 == 2 )
+			itemmessage(s,"[Criminal]",serial, 0x03B2);
+		else if( pi->more2 == 3 )
+			itemmessage(s,"[Murderer]",serial, 0x0026);
+	}  // end highlighting
+	// Let's handle secure/locked down stuff.
+	if (pi->isLockedDown() && pi->type() != 12 && pi->type() != 13 && pi->type() != 203)
+	{
+		if ( !pi->secured() )
+			itemmessage(s, "[locked down]", serial, 0x0481);
+		if ( pi->secured() && pi->isLockedDown())
+			itemmessage(s, "[locked down & secure]", serial, 0x0481);				
+	}
+	
+	itemmessage(s, (char*)temp, serial);
+	
+	// Send the item/weight as the last line in case of containers
+	if (pi->type() == 1 || pi->type() == 63 || pi->type() == 65 || pi->type() == 87)
+	{
+		wgt = (int) Weight->LockeddownWeight(pi, &amt, 0); // get stones and item #, LB	
+		if (amt>0)
+		{
+			sprintf((char*)temp2, "[%i items, %i stones]", amt, wgt);
+			itemmessage(s, (char*)temp2, serial);
+		}
+		else
+			itemmessage(s, "[0 items, 0 stones]", serial);
+	}*/
+}

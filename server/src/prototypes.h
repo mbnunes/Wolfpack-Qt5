@@ -66,7 +66,6 @@ void TellScroll( char *menu_name, int player, long item_param );
 
 void doubleclick(int s);
 void dbl_click_character(UOXSOCKET s, SERIAL target_serial);
-void singleclick(UOXSOCKET s);
 
 //void walking(int s, int dir, int sequence);
 void teleporters(P_CHAR pc_s);
@@ -127,7 +126,6 @@ void setabovelight(unsigned char);
 
 void tweakmenu(UOXSOCKET, SERIAL);
 int validtelepos(int s);
-void showcname (UOXSOCKET s, P_CHAR pc_i, char b);
 void addhere(int s, signed char z);
 void whomenu(int s, int type);
 void playermenu(int s, int type);

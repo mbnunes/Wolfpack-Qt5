@@ -50,9 +50,11 @@
 #include "srvparams.h"
 #include "utilsys.h"
 #include "network.h"
+#include "network/uosocket.h"
 #include "mapstuff.h"
 #include "classes.h"
 #include "wpdefmanager.h"
+#include "guildstones.h"
 
 // Inline members
 
@@ -1652,4 +1654,117 @@ void cChar::giveItemBonus(cItem* pi)
 	st += pi->st2;
 	chgDex( pi->dx2 );
 	in += pi->in2;
+}
+
+void cChar::showName( cUOSocket *socket )
+{
+	if( onShowCharName( socket->player() ) )
+		return;
+
+	QString charName = name.c_str();
+
+	// For NPCs we can apply titles
+	if( !isPlayer() && SrvParams->showNpcTitles() )
+		charName.append( ", " + title_ );
+
+	// Lord & Lady Title
+	if( fame == 10000 )
+		charName.prepend( ( id() == 0x191 ) ? "Lady " : "Lord " );
+
+	// Are we squelched ?
+	if( squelched() )
+		charName.append( " [squelched]" );
+
+	// Append serial for GMs
+	if( socket->player()->canSeeSerials() )
+		charName.append( QString( " [0x]" ).arg( serial, 4, 16 ) );
+
+	// Append offline flag
+	if( !online( this ) )
+		charName.append( " [offline]" );
+
+	// Invulnerability
+	if( isInvul() )
+		charName.append( " [invul]" );
+
+	// Frozen
+	if( isFrozen() )
+		charName.append( " [frozen]" );
+
+	// Guarded
+	if( guarded() )
+		charName.append( " [guarded]" );
+
+	// Guarding
+	if( tamed() && npcaitype_ == 32 && socket->player()->Owns( this ) && socket->player()->guarded() )
+		charName.append( " [guarding]" );
+
+	// Tamed
+	if( tamed() && npcaitype_ != 17 )
+		charName.append( " [tamed]" );
+
+	// WarMode ?
+	if( war )
+		charName.append( " [war mode]" );
+
+	// Criminal ?
+	if( crimflag() && ( kills < SrvParams->maxkills() ) )
+		charName.append( " [criminal]" );
+
+	// Murderer
+	if( kills >= SrvParams->maxkills() )
+		charName.append( " [murderer]" );
+
+	cGuildStone *guildStone = dynamic_cast< cGuildStone* >( FindItemBySerial( guildstone_ ) );
+
+	// If we belong to a guild append the guilds title
+	// [Guildmaster, SdV] [Chaos]
+	if( guildStone )
+	{
+		if( !guildtitle_.isEmpty() )
+			charName.append( QString( " [%1, %2]" ).arg( guildtitle_ ).arg( guildStone->abbreviation.c_str() ) );
+		else
+			charName.append( QString( " [%2]" ).arg( guildStone->abbreviation.c_str() ) );
+
+		switch( guildStone->guildType )
+		{
+		case cGuildStone::order:	
+			charName.append( " [Order]" ); break;
+		case cGuildStone::chaos:
+			charName.append( " [Chaos]" ); break;
+		}
+	}
+	
+	Q_UINT8 gStatus = GuildCompare( this, socket->player() );
+	Q_UINT16 speechColor;
+
+	if( !gStatus )
+	{
+		if( isGMorCounselor() )
+			speechColor = 0x35;
+		else switch( flag() )
+		{
+			case 0x01:	
+				speechColor = 0x26; break; //red
+			case 0x04:	
+				speechColor = 0x5A; break; //blue
+			case 0x08:	
+				speechColor = 0x4A; break; //green
+			case 0x10:	
+				speechColor = 0x30; break; //orange
+			default:	
+				speechColor = 0x3B2; break; //grey
+		}
+	}
+
+	// Same Guild or Allied Guild
+	else if( gStatus == 1 )
+		speechColor = 0x43;
+
+	// Enemy Guild
+	else if( gStatus == 2 )
+		speechColor = 0x30;
+
+	// Show it to the socket
+	socket->showSpeech( this, charName, speechColor, 3, cUOTxUnicodeSpeech::System );
 }
