@@ -1955,7 +1955,7 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 				name = PyString_AsString( result );
 
 			if( PyUnicode_Check( result ) )
-				name = QString::fromUcs2( PyUnicode_AS_UNICODE( result ) );
+				name = QString::fromUcs2( (unsigned short*)( PyUnicode_AS_UNICODE( result ) ) );
 		}
 
 		Py_XDECREF( result );
