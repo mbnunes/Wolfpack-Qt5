@@ -135,8 +135,7 @@ void advancementobjects(int s, int x, int allways)
 
 	P_CHAR pc_s = MAKE_CHARREF_LR(s);
 
-	int packnum;
-	int pos,i,retitem=-1;
+	int pos,retitem=-1;
 	if ((pc_s->advobj==0)||(allways==1))
 	{
 		staticeffect(s, 0x37, 0x3A, 0, 15);

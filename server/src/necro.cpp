@@ -167,7 +167,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 	P_ITEM pVial = MAKE_ITEMREF_LR(addx[nSocket]);
 	if (!pVial) return; // should never happen
 	
-	int nDist=0,i;
+	int nDist=0;
 	P_ITEM pDagger = NULL;
 	SERIAL serial = calcserial(buffer[nSocket][7],buffer[nSocket][8],buffer[nSocket][9],buffer[nSocket][10]);
 
