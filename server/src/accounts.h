@@ -84,7 +84,7 @@ private:
 
 	struct acctman_st {
 		bool online;
-		CHARACTER character;
+		SERIAL character;
 	};
 	map<int, acctman_st> acctman;
 	int lastusedacctnum;

@@ -84,18 +84,12 @@ int nextbestskill(CHARACTER m, int bstskll)  // Which skill is the second highes
 }
 
 
-void newbieitems(CHARACTER c)
+void newbieitems(UOXSOCKET s, CHARACTER c)
 {
 	int first, second, third, storeval, itemaddperskill, loopexit = 0;
 	char sect[512];
 	char whichsect[15];
 	long int pos;
-	int s;
-	for (s = 0; s < now; s++)
-	{
-		if (c == DEREF_P_CHAR(currchar[s]))
-			break;
-	}
 
 	P_CHAR pc = MAKE_CHARREF_LR(c);
 	first = bestskill(c);

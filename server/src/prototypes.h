@@ -236,7 +236,7 @@ short getstatskillvalue(char *stringguy);
 // for newbie stuff
 int bestskill(CHARACTER p);
 int nextbestskill(CHARACTER m, int bstskll);
-void newbieitems(CHARACTER c);
+void newbieitems(UOXSOCKET s, CHARACTER c);
 void read3 ();
 void read4 ();
 void readscript ();
@@ -257,7 +257,6 @@ int makenumber(int countx);
 // Dupois - fileArchive() prototypes
 // Added Oct 20, 1998
 void fileArchive(char *pFile2Archive_chars, char *pFile2Archive_items, char *pArchiveDir);
-void ArchiveID(char archiveid[MAXARCHID]);
 // End - Dupois
 
 //Trigger routines

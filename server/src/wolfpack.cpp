@@ -2002,7 +2002,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	currchar[s] = pc;
-	newbieitems(DEREF_P_CHAR(pc));
+	newbieitems(s, DEREF_P_CHAR(pc));
 
 	perm[s]=1;
 	if(pc->st<10)

@@ -228,8 +228,16 @@ bool cAccount::IsOnline( int acctnum )
 	if ((iter_acctman = acctman.find(acctnum)) != acctman.end())
 	{
 		acctman_st dummy = iter_acctman->second;
-		return dummy.online || chars[dummy.character].logout > uiCurrentTime;
-	} else return false;
+		if ( dummy.online )
+			return true;
+		else
+		{
+			P_CHAR pc = FindCharBySerial(dummy.character);
+			return pc->logout > uiCurrentTime;
+		}
+	} 
+	else 
+		return false;
 }
 
 CHARACTER cAccount::GetInWorld( int acctnum )
@@ -240,15 +248,16 @@ CHARACTER cAccount::GetInWorld( int acctnum )
 	if ((iter_acctman = acctman.find(acctnum)) != acctman.end())
 	{
 		acctman_st dummy = iter_acctman->second;
-		return dummy.character;
+		P_CHAR pc = FindCharBySerial(dummy.character);
+		return DEREF_P_CHAR(pc);
 	} else return -1;
 }
 
-void cAccount::SetOnline( int acctnum, CHARACTER character)
+void cAccount::SetOnline( int acctnum, SERIAL serial)
 {
 	acctman_st dummy;
 	dummy.online = true;
-	dummy.character = character;
+	dummy.character = serial;
 	acctman.insert(make_pair(acctnum, dummy));
 }
 

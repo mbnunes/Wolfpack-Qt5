@@ -569,7 +569,7 @@ void cNetworkStuff::charplay (int s) // After hitting "Play Character" button //
 
 			if (Accounts->GetInWorld(acctno[s]) == -1 || pc_selected->isGM())//AntiChrist
 			{
-				Accounts->SetOnline(acctno[s], DEREF_P_CHAR(pc_selected));
+				Accounts->SetOnline(acctno[s], pc_selected->serial);
 				pc_selected->logout=-1;
 				currchar[s] = pc_selected;
 				startchar(s);
@@ -678,7 +678,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 		sysbroadcast((char*)temp);//message upon entering a server
 	}
 
-	Accounts->SetOnline(acctno[s], DEREF_P_CHAR(pc_currchar));
+	Accounts->SetOnline(acctno[s], pc_currchar->serial);
 	teleport(DEREF_P_CHAR(pc_currchar));
 
 	pc_currchar->murderrate=uiCurrentTime+repsys.murderdecay*MY_CLOCKS_PER_SEC; // LB, bugfix for murder-count getting --'ed each start
