@@ -61,7 +61,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 	switch (pc_i->npcaitype)
 	{
 		case 0: // Shopkeepers greet players..Ripper
-			if (server_data.VendorGreet == 1 && pc_i->isNpc() && pc_i->shop == 1 && pc_i->id1 == 0x01 &&(pc_i->id2 == 0x90 || pc_i->id2 == 0x91))
+			if (server_data.VendorGreet == 1 && pc_i->isNpc() && pc_i->shop == 1 && pc_i->isHuman())
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
