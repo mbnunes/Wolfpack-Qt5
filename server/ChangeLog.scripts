@@ -1,12 +1,6 @@
 Wolfpack ChangeLog
 
 Wolfpack 12.9.11 Beta (CVS)
-	* Core Changes:
-		- Made mapdif*, stadi* and friends case insensitive, so under *nix
-                  they don't have to be renamed.
-		- Fixed crash under windows when the server terminates unexpectedly
-		- Console will show which unicode format was compiled in Python UCS2 or UCS4
-		- Fixed compile error on FreeBSD.		
 	* Definition Changes:
 		- Fixed minimum taming for npcs.
 		- Added the shopkeeper inventory for many vendors.
@@ -18,6 +12,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fishing now shows the success cliloc message correctly.
 		- Fixed the dyable attribute for certain new items.
 		- Allowed more cloth resource types for tailoring.
+		- Loot fixes for daemons.
 	* Python Script Changes:
 		- Removed weight from the info menu.
 		- The info command now correctly resends the changed players.
