@@ -1718,7 +1718,7 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 
 	// There is one special case. if the user has the body 0x3db and the first char
 	// of the speech is = then it's always a command
-	if ( ( _player->body() == 0x3DB ) && speech.startsWith( Config::instance()->commandPrefix() ) )
+	if ( ( _player->body() == 0x3DB ) && speech.startsWith( "=" ) )
 		Commands::instance()->process( this, speech.right( speech.length() - 1 ) );
 	else if ( speech.startsWith( Config::instance()->commandPrefix() ) )
 		Commands::instance()->process( this, speech.right( speech.length() - 1 ) );
