@@ -627,12 +627,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	Xsend( s, setseason, 3 );
 
 	if (SrvParams->joinMsg())
-	{
-		if (pc_currchar->name == "pty Slot --")
-			pc_currchar->name = "A new Character";
-		sprintf((char*)temp,"%s entered the realm", pc_currchar->name.c_str());//message upon entering a server
-		sysbroadcast((char*)temp);//message upon entering a server
-	}
+		sysbroadcast( QString( "%1 entered the realm" ).arg( pc_currchar->name.c_str() ).latin1() );
 
 	Accounts->SetOnline(acctno[s], pc_currchar->serial);
 	teleport(pc_currchar);

@@ -62,6 +62,35 @@ unsigned int cChar::dist(cChar* pc)		{	return pos.distance(pc->pos);		}
 unsigned int cChar::dist(cItem* pi)		{	return pos.distance(pi->pos);		}
 QString cChar::objectID() const			{	return "CHARACTER";					}
 
+void cChar::giveGold( Q_UINT32 amount, bool inBank )
+{
+	P_ITEM pCont = NULL;
+    if( !inBank )
+		pCont = getBackpack();
+	else
+		pCont = getBankBox();
+
+	if( !pCont )
+		return;
+
+	// Begin Spawning
+	Q_UINT32 total = amount;
+
+	while( total > 0 )
+	{
+		P_ITEM pile = new cItem;
+		pile->Init();
+		pile->setId( 0xEED );
+		pile->setAmount( min( total, 65535 ) );
+		pCont->AddItem( pile );
+
+		total -= pile->amount();
+	}
+
+	if( online( this ) )
+		goldsfx( calcSocketFromChar( this ), amount );
+}
+
 void cChar::setSerial(SERIAL ser)
 {
 	this->serial = ser;

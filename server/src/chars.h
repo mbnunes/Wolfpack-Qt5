@@ -568,6 +568,7 @@ public:
 	unsigned int dist(cItem* pi);
 	void soundEffect( UI16 soundId, bool hearAll = true );
 	void talk( const QString &message, UI16 color = 0xFFFF );
+	void giveGold( Q_UINT32 amount, bool inBank = false );
 	void emote( const QString &emote, UI16 color = 0xFFFF );
 	void message( const QString &message, UI16 color = 0x3B2 );
 

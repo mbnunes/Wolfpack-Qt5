@@ -618,12 +618,12 @@ void cDragItems::dropOnChar( P_CLIENT client, P_ITEM pItem, P_CHAR pOtherChar )
 	case 5:
 		dropOnBeggar( client, pItem, pOtherChar );
 		break;
-	/*case 8:
+	case 8:
 		dropOnBanker( client, pItem, pOtherChar );
-		break;*/
-	/*case 19:
+		break;
+	case 19:
 		dropOnBroker( client, pItem, pOtherChar );
-		break;*/
+		break;
 	};
 
 	// Try to train - works for any NPC
@@ -779,6 +779,7 @@ void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const 
 	}
 
 	// Playervendors (chest equipped by the vendor - opened to the client)
+
 	/*if( !( pCont->pileable() && pItem->pileable() && pCont->id() == pItem->id() || ( pCont->type() != 1 && pCont->type() != 9 ) ) )
 	{
 		P_CHAR pc_j = GetPackOwner(pCont);
@@ -791,17 +792,7 @@ void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const 
 				sysmessage(s, "Set a price for this item.");
 			}
 		}
-
-		short xx=pp->TxLoc;
-		short yy=pp->TyLoc;
-
-		pCont->AddItem(pItem,xx,yy);
-	
-		soundeffect2( pChar, 0x57 );
-		statwindow(s, pChar);
-	}
-	
-	else*/
+	*/
 	
 	// We may also drop into *any* locked chest
 	// So we can have post-boxes ;o)
@@ -1031,153 +1022,70 @@ void cDragItems::dropOnBeggar( P_CLIENT client, P_ITEM pItem, P_CHAR pBeggar )
 
 void cDragItems::dropOnBanker( P_CLIENT client, P_ITEM pItem, P_CHAR pBanker )
 {
-	bounceItem( client, pItem );
-}
+	P_CHAR pChar = client->player();
 
-void cDragItems::dropOnBroker( P_CLIENT client, P_ITEM pItem, P_CHAR pBroker )
-{
-	bounceItem( client, pItem );
+	// No cheque ? >> Put into bank
+	if( ( pItem->id() != 0x14F0 ) && ( pItem->type() != 1000 ) )
+	{
+		P_ITEM bankBox = pChar->getBankBox();
+
+		if( bankBox )
+			bankBox->AddItem( pItem );
+		else
+			bounceItem( client, pItem );
+
+		pBanker->talk( QString( "The %1 is now in thy bank box" ).arg( pItem->getName() ) );
+		return;
+	}
+
+	// No Value ?!
+	if( !pItem->value )
+	{
+		pBanker->talk( "This cheque does not have any value!" );
+		bounceItem( client, pItem );
+		return;
+	}
+
+	pChar->giveGold( pItem->value, true );
+	pBanker->talk( QString( "%1 I have cashed thy cheque and deposited %2 gold." ).arg( pChar->name.c_str() ).arg( pItem->amount() ) );
+
+	pItem->ReduceAmount();
+	statwindow( client->socket(), pChar );
 }
 
 void cDragItems::dropOnTrainer( P_CLIENT client, P_ITEM pItem, P_CHAR pTrainer )
 {
-	bounceItem( client, pItem );
-}
+	P_CHAR pChar = client->player();
 
-/*
-static bool DeedDroppedOnBroker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
-{
-	UOXSOCKET s=ps->GetSocket();
-	P_CHAR pc_currchar = ps->getPlayer();
-	P_CHAR target = FindCharBySerial(pp->Tserial);
-	P_ITEM bankbox = pc_currchar->GetBankBox();
-	int value = static_cast<int>(pi->value/1.25);
-	int total = value;
+	if( pItem->id() != 0xEED )
+	{
+		pTrainer->talk( "You need to give me gold if you want me to train you!" );
+		bounceItem( client, pItem );
+		return;
+	}
+
+	pTrainer->talk( "I thank thee for thy payment. That should give thee a good start on thy way. Farewell!" );
+
+	Q_UINT8 skill = pTrainer->trainingplayerin();
+	Q_INT32 skillSum = pChar->getSkillSum();
+	Q_INT32 skillDelta = pTrainer->getTeachingDelta( pChar, skill, skillSum );
+
+	goldsfx( client->socket(), pItem->amount() );
+
+	if( pItem->amount() > skillDelta )
+	{
+		pItem->ReduceAmount( skillDelta );
+		bounceItem( client, pItem );
+	}
+	else
+	{
+		skillDelta = pItem->amount();
+		Items->DeleItem( pItem );
+	}
 	
-	if ((pi->morex >= 1 && pi->morex <= 14) || (pi->morex >= 16 && pi->morex <= 17) || (pi->morex >= 26 && pi->morex <= 32))
-	{
-		while ( value > 65000)
-		{
-			const P_ITEM pi_gold = Items->SpawnItem(s, pc_currchar, 65000, "#", 1, 0x0E, 0xED, 0, 0, 0);
-		    if(pi_gold == NULL) return false;
-			bankbox->AddItem(pi_gold);
-			value -= 65000;
-		}
-		const P_ITEM pi_gold = Items->SpawnItem(s, pc_currchar, value, "#", 1, 0x0E, 0xED, 0, 0, 0);
-	    if(pi_gold == NULL) return false;
-		bankbox->AddItem( pi_gold );
-		Items->DeleItem( pi ); // deed is consumed.
-		sprintf((char*)temp,"%s thank you for your patronage, I have deposited %i gold into your bank account.",pc_currchar->name.c_str(), total);
-		npctalk(s,target,(char*)temp,0);
-	    statwindow(s, pc_currchar);
-		return true;
-	}
-    else
-	{
-		  sprintf((char*)temp,"Sorry %s i can only accept house deeds.",pc_currchar->name.c_str());
-		  npctalk(s,target,(char*)temp,0);
-		  bounceItem( ps, pi );
-	}
-	return true;
+	pChar->setBaseSkill( skill, pChar->baseSkill( skill ) + skillDelta );
+	Skills->updateSkillLevel( pChar, skill );
+	updateskill( client->socket(), skill );
+
+	// we will not reset the trainer id here because he may want to give him more money
 }
-
-static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
-{
-	UOXSOCKET s=ps->GetSocket();
-	P_CHAR pc_currchar = ps->getPlayer();
-	P_CHAR target = FindCharBySerial(pp->Tserial);
-	P_ITEM bankbox = pc_currchar->GetBankBox();
-	int amt = pi->amount();
-	int value = pi->value;
-	
-	if (pi->id() == 0x14F0 && pi->type() == 1000)
-	{
-		while ( pi->value > 65000)
-		{
-			const P_ITEM pi_gold = Items->SpawnItem(s, pc_currchar, 65000, "#", 1, 0x0E, 0xED, 0, 0, 0);
-		    if(pi_gold == NULL) return false;
-			bankbox->AddItem(pi_gold);
-			pi->value -= 65000;
-		}
-		const P_ITEM pi_gold = Items->SpawnItem(s, pc_currchar, pi->value, "#", 1, 0x0E, 0xED, 0, 0, 0);
-	    if(pi_gold == NULL) return false;
-		bankbox->AddItem( pi_gold );
-		Items->DeleItem( pi ); // Check is consumed.
-		sprintf((char*)temp,"%s I have cashed your check and deposited %i gold.",pc_currchar->name.c_str(), value);
-		npctalk(s,target,(char*)temp,0);
-	    statwindow(s, pc_currchar);
-		return true;
-	}
-    else if (pi->id() == 0x0EED)
-	{
-		sprintf((char*)temp,"%s you have deposited %i gold.",pc_currchar->name.c_str(), amt);
-		npctalk(s,target,(char*)temp,0);
-		bankbox->AddItem(pi);
-	    statwindow(s, pc_currchar);
-		return true;
-	}
-    else
-	{
-		  sprintf((char*)temp,"Sorry %s i can only deposit gold",pc_currchar->name.c_str());
-		  npctalk(s,target,(char*)temp,0);
-		  bounceItem( ps, pi );
-	}
-	return true;
-}
-
-static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
-{
-	UOXSOCKET s = ps->GetSocket();
-	P_CHAR pc_currchar = ps->getPlayer();
-	P_CHAR pc_t = FindCharBySerial(pp->Tserial);
-
-	if( pi->id() ==0x0EED )
-	{ // They gave the NPC gold
-		char sk=pc_t->trainingplayerin();
-		npctalk(s, pc_t, "I thank thee for thy payment. That should give thee a good start on thy way. Farewell!",0);
-
-		int sum = pc_currchar->getSkillSum();
-		int delta = pc_t->getTeachingDelta(pc_currchar, sk, sum);
-
-		if(pi->amount()>delta) // Paid too much
-		{
-			pi->setAmount( pi->amount()  - delta );
-			bounceItem( ps, pi );
-		}
-		else
-		{
-			if(pi->amount() < delta)		// Gave less gold
-				delta = pi->amount();		// so adjust skillgain
-			Items->DeleItem(pi);
-		}
-		pc_currchar->setBaseSkill(sk, pc_currchar->baseSkill(sk) + delta);
-		Skills->updateSkillLevel(pc_currchar, sk);
-		updateskill(s,sk);
-
-		pc_currchar->setTrainer(INVALID_SERIAL);
-		pc_t->setTrainingplayerin('\xFF');
-		itemsfx(s, pi->id());//AntiChrist - do the gold sound
-		return true;
-	}
-	else // Did not give gold
-	{
-		npctalk(s, pc_t, "I am sorry, but I can only accept gold.",0);
-		bounceItem( ps, pi );
-	}
-	return true;
-}
-
-//This crazy training stuff done by Anthracks (fred1117@tiac.net)
-if(pc_currchar->trainer() != pTC->serial)
-{
-	npctalk(s, pTC, "Thank thee kindly, but I have done nothing to warrant a gift.",0);
-	bounceItem( ps, pi );
-	return true;
-}
-else // The player is training from this NPC
-{
-	ItemDroppedOnTrainer( ps, pp, pi);
-	return true;
-}
-*/
-

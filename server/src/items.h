@@ -251,7 +251,7 @@ public:
 	
 //	inline unsigned short color()		{return (unsigned short)((color1<<8)+color2);}
 	void MoveTo(int newx, int newy, signed char newz);
-	long ReduceAmount(const short amount);
+	long ReduceAmount(const short amount = 1);
 	short GetContGumpType();
 	void SetRandPosInCont(cItem* pCont);
 	bool PileItem(cItem* pItem);
