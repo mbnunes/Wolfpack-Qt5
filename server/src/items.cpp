@@ -2690,7 +2690,7 @@ void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 
 void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight )
 {
-	content_.append( pItem );
+	content_.push_back( pItem );
 	if( !this->ContainerPileItem( pItem ) ) // try to pile
 	{
 		if (randomPos)
