@@ -737,6 +737,28 @@ static PyMethodDef wpSockets[] =
 };
 
 /*!
+	Coord object creation
+*/
+PyObject *wpCoord( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+
+	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) || !checkArgInt( 3 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	Coord_cl pos;
+	pos.x = getArgInt( 0 );
+	pos.y = getArgInt( 1 );
+	pos.z = getArgInt( 2 );
+	pos.map = getArgInt( 3 );
+
+	return PyGetCoordObject( pos );
+}
+
+/*!
 	wolfpack
 	Initializes wolfpack
 */
@@ -755,6 +777,7 @@ static PyMethodDef wpGlobal[] =
 	{ "items",				wpItems,			METH_VARARGS, "Returns a list of items in a specific sector." },
 	{ "chars",				wpChars,			METH_VARARGS, "Returns a list of chars in a specific sector." },
 	{ "tiledata",			wpTiledata,			METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
+	{ "coord",				wpCoord,			METH_VARARGS, "Creates a coordinate object from the given parameters (x,y,z,map)." },
 	{ "spell",				wpSpell,			METH_VARARGS, "Returns information about a certain spell." },
 	{ "list",				wpList,				METH_VARARGS, "Returns a list defined in the definitions as a Python List" },
 	{ "registerglobal",		wpRegisterGlobal,	METH_VARARGS, "Registers a global script hook." },

@@ -1038,7 +1038,7 @@ public:
 class cUOTxClilocMsgAffix: public cUOPacket
 {
 public:
-	cUOTxClilocMsgAffix(): cUOPacket (0xCC,PacketLen ) { setShort( 1, PacketLen ); }
+	cUOTxClilocMsgAffix(): cUOPacket ( 0xCC, PacketLen ) { setShort( 1, PacketLen ); }
 
 	enum { LowerLeft = 6, OnObject = 7, PacketLen = 50 };
 	enum { DontMove = 0x04, Unknown = 0x02, Prepend = 0x01 };
