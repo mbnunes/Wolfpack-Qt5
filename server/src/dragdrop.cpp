@@ -734,7 +734,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	// Spell Book
 	if( pCont->type() == 9 )
 	{
-		UI08 spellId = Magic->calcSpellId( pItem->id() );
+		SI16 spellId = Magic->calcSpellId( pItem->id() );
 
 		if( spellId < 0 )
 		{
