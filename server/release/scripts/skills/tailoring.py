@@ -40,7 +40,7 @@ def onUse(char, item):
 def ClothSelectResponse(player, arguments, target):
 	global CLOTH
 	action = arguments[0]
-	args = list(arguments[1:])
+	args = list(arguments[1:][0])
 	
 	if not target.item:
 		player.socket.clilocmessage(1046439) # That is not a valid target
