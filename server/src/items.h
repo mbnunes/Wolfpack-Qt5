@@ -110,6 +110,7 @@ public:
 	virtual void update( cUOSocket *mSock = NULL );
 	P_ITEM	dupe();
 	void	soundEffect( UINT16 sound );
+	void sendTooltip( cUOSocket* mSock );
 
 	// Getters
 	ushort			id()			const { return id_; }			// The graphical id of the item

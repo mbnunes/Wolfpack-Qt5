@@ -193,7 +193,7 @@ public:
 	void setTags( const cCustomTags& d )	{ tags_ = d; changed( SAVE+TOOLTIP );		}
 	virtual void setSerial( SERIAL d )		{ serial_ = d; changed( SAVE );	}
 	void setTooltip( const UINT32 d )		{ tooltip_ = d; }
-	void sendTooltip( cUOSocket* mSock );
+	virtual void sendTooltip( cUOSocket* mSock );
 
 	bool isItem() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000); }
 	bool isChar() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ <  0x40000000); }

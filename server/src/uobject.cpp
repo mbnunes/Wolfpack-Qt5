@@ -581,7 +581,7 @@ void cUObject::effect( UINT16 id, cUObject *target, bool fixedDirection, bool ex
 	effect.setSourcePos( pos_ );
 	effect.setTargetPos( target->pos_ );
 	effect.setId( id );
-    effect.setSpeed( speed );
+	effect.setSpeed( speed );
 	effect.setExplodes( explodes );
 	effect.setFixedDirection( fixedDirection );
 	effect.setHue( hue );
@@ -706,25 +706,22 @@ stError *cUObject::getProperty( const QString &name, cVariant &value ) const
 
 void cUObject::sendTooltip( cUOSocket* mSock )
 {
-
 	if( tooltip_ == 0xFFFFFFFF )
 	{
 		tooltip_ = World::instance()->getUnusedTooltip(); 
 		setTooltip( tooltip_ );
 	}
 
-	cUOTxAttachTooltip* tooltip = new cUOTxAttachTooltip;
+	cUOTxAttachTooltip tooltip;
 
-	tooltip->setId( tooltip_ );
-	tooltip->setSerial( serial() );
+	tooltip.setId( tooltip_ );
+	tooltip.setSerial( serial() );
 
 	if( tooltip_ >= mSock->toolTips()->size() || !mSock->haveTooltip( tooltip_ ) )
 	{
 		mSock->addTooltip( tooltip_ );
-		mSock->send( tooltip );
+		mSock->send( &tooltip );
 	}
-
-	delete( tooltip );
 }
 
 void cUObject::changed( UI32 state )

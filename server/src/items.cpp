@@ -2831,3 +2831,14 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "visible", visible() )
 	else return cUObject::getProperty( name, value );
 }
+
+void cItem::sendTooltip( cUOSocket* mSock )
+{
+	// Don't send the tooltip if we're a supposed-to-be-static item
+	tile_st tile = TileCache::instance()->getTile( id_ );
+
+	if( tile.weight == 255 && !isAllMovable() )
+		return;
+
+	cUObject::sendTooltip( mSock );
+}

@@ -886,6 +886,12 @@ P_ITEM cItemIterator::next()
 	if( p->it == World::instance()->p->items.end() )
 		return 0;
 
+	if( p->it->second->free )
+	{
+		p->it++;
+		return next();
+	}
+
 	return (p->it++)->second;
 }
 
@@ -918,6 +924,12 @@ P_CHAR cCharIterator::next()
 {
 	if( p->it == World::instance()->p->chars.end() )
 		return 0;
+
+	if( p->it->second->free )
+	{
+		p->it++;
+		return next();
+	}
 
 	return (p->it++)->second;
 }

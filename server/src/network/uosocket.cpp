@@ -1054,7 +1054,10 @@ void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )
 
 		if( !pItem->onShowTooltip( this->player(), &tooltips ) ) // just for test if object haven't tooltip
 		{
-			tooltips.addLine( 0x1005bd, " \t" + pItem->name() + "\t " );
+			if( pItem->name() == "#" || pItem->name().isNull() )
+				tooltips.addLine( 0xF9060 + pItem->id(), "" );
+			else
+				tooltips.addLine( 0x1005bd, " \t" + pItem->name() + "\t " );
 			this->send( &tooltips );
 		}
 	}
