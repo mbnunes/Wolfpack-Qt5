@@ -6,6 +6,7 @@ Wolfpack 12.9.13 Beta (CVS)
 		- Adjusted carving sheeps.
 		- Fixed leatherworkers and tanners not buying leather and hides.
 		- Male NPCs now have a 75% chance of getting a beard when created.
+		- Made shrink potions craftable.
 	* Python Script Changes:
 		- Fixed bug #0000369. (Equip possible although item.movable = 3)
 		- Fixed bug #0000361. (Pets don't follow trough gate)
@@ -20,6 +21,7 @@ Wolfpack 12.9.13 Beta (CVS)
 		- Fixed fishing pole not wearing out.
 		- Fixed gainfactor for skills always beeing 1.0
 		- Fixed a skill check bug with lumberjacking.
+		- Implemented shrink potions.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
