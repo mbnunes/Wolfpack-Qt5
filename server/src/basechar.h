@@ -497,11 +497,12 @@ protected:
 	// type definitions
 	struct stSkillValue
 	{
+		bool changed;
 		ushort value; // Skill Value (Default: 0)
 		ushort cap; // Special Cap Value (Default: 1000)
 		uchar lock; // 0: Up, 1: Down, 2: Locked (Default: 0)
 
-		stSkillValue(): value( 0 ), cap( 1000 ), lock( 0 ) {}
+		stSkillValue(): value(0), cap(1000), lock(0), changed(false) {}
 	};
 
 	// other protected methods
@@ -686,9 +687,6 @@ protected:
 
     // Color hue the char speeks with.
     ushort saycolor_;
-
-    // Target the char is going to hit after it swang
-    SERIAL swingTarget_;
 
     // Serial of the last char which murdered this character.
     // cOldChar::murdererSer_
@@ -893,7 +891,6 @@ inline uint cBaseChar::hungerTime() const
 inline void cBaseChar::setHungerTime(uint data)
 {
     hungerTime_ = data;
-	changed_ = true;
 }
 
 inline short cBaseChar::intelligence() const
@@ -1108,7 +1105,6 @@ inline int cBaseChar::stealthedSteps() const
 inline void cBaseChar::setStealthedSteps(int data)
 {
     stealthedSteps_ = data;
-	changed_ = true;
 }
 
 inline short cBaseChar::strength() const
@@ -1143,7 +1139,6 @@ inline float cBaseChar::weight() const
 inline void cBaseChar::setWeight(float data)
 {
 	weight_ = ceilf( data * 100 ) / 100;
-	changed_ = true;
 }
 
 inline SERIAL cBaseChar::murdererSerial() const
@@ -1219,7 +1214,6 @@ inline uint cBaseChar::regenHitpointsTime() const
 inline void cBaseChar::setRegenHitpointsTime(uint data)
 {
     regenHitpointsTime_ = data;
-	changed_ = true;
 }
 
 inline uint cBaseChar::regenStaminaTime() const
@@ -1230,7 +1224,6 @@ inline uint cBaseChar::regenStaminaTime() const
 inline void cBaseChar::setRegenStaminaTime(uint data)
 {
     regenStaminaTime_ = data;
-	changed_ = true;
 }
 
 inline uint cBaseChar::regenManaTime() const
@@ -1241,7 +1234,6 @@ inline uint cBaseChar::regenManaTime() const
 inline void cBaseChar::setRegenManaTime(uint data)
 {
     regenManaTime_ = data;
-	changed_ = true;
 }
 
 inline bool cBaseChar::isIncognito() const

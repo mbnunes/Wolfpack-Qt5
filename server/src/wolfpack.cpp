@@ -560,8 +560,6 @@ int main( int argc, char **argv )
 		}
 
 		// See if we should release our data lock for a while.
-
-
 		Console::instance()->poll();
 		cNetwork::instance()->poll();
 		Timing::instance()->poll();

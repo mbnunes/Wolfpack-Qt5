@@ -569,25 +569,22 @@ void cWorld::load()
 	ItemMap::iterator iter;
 	QPtrList< cItem > deleteItems;
 
-	for( iter = p->items.begin(); iter != p->items.end(); ++iter )
+	for (iter = p->items.begin(); iter != p->items.end(); ++iter)
 	{
 		P_ITEM pi = iter->second;
 		SERIAL contserial = reinterpret_cast<SERIAL>(pi->container());
 
-		// We used free for uncontained items
-		if (!pi->free) {
+		if (contserial == INVALID_SERIAL) {
+			pi->setUnprocessed(false); // This is for safety reasons
 			int max_x = Map->mapTileWidth(pi->pos().map) * 8;
 			int max_y = Map->mapTileHeight(pi->pos().map) * 8;
 			if (pi->pos().x > max_x || pi->pos().y > max_y) {
-				deleteItems.append( pi );
+				deleteItems.append(pi);
 				continue;
 			} else {
 				MapObjects::instance()->add(pi);
 			}
 		} else {
-			// Flag the container value as valid
-			pi->free = false;
-
 			// 1. Handle the Container Value
 			if (isItemSerial(contserial)) {
 				P_ITEM pCont = FindItemBySerial(contserial);
@@ -598,17 +595,20 @@ void cWorld::load()
 					deleteItems.append(pi); // Queue this item up for deletion
 					continue; // Skip further processing
 				}
-			}
-			else if (isCharSerial(contserial)) {
-				P_CHAR pCont = FindCharBySerial( contserial );
+			} else if (isCharSerial(contserial)) {
+				P_CHAR pCont = FindCharBySerial(contserial);
 
 				if (pCont) {
-					pCont->addItem((cBaseChar::enLayer) pi->layer(), pi, true, true);
-				} else {
+					pCont->addItem((cBaseChar::enLayer)pi->layer(), pi, true, true);
+				}
+
+				if (!pCont || pi->container() != pCont) {
 					deleteItems.append(pi);
 					continue;
 				}
-			}
+			}			
+
+			pi->setUnprocessed(false);
 		}
 
 		// If this item has a multiserial then add it to the multi
@@ -682,7 +682,7 @@ void cWorld::load()
 		}
 
 		cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-		pChar->setRegion( region );
+		pChar->setRegion(region);
 
 		pChar->flagUnchanged(); // We've just loaded, nothing changes
 	}
@@ -692,16 +692,13 @@ void cWorld::load()
 
 	Console::instance()->ProgressDone();
 
-	Console::instance()->PrepareProgress( "Deleting lost items" );
+	if (deleteItems.count() > 0) {
+		Console::instance()->PrepareProgress( "Deleting lost items" );
+		// Do we have to delete items?
+		for( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
+			quickdelete( pItem );
+		Console::instance()->ProgressDone();
 
-	// Do we have to delete items?
-	for( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
-		quickdelete( pItem );
-
-	Console::instance()->ProgressDone();
-
-	if( deleteItems.count() > 0 )
-	{
 		Console::instance()->send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
 		deleteItems.clear();
 	}

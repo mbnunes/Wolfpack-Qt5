@@ -577,10 +577,9 @@ void cItem::remove()
 
 void cItem::startDecay()
 {
-	if( container_ || nodecay() )
+	if (container_ || nodecay()) {
 		return;
-
-//	flagChanged();
+	}
 
 	decaytime_ = uiCurrentTime;
 
@@ -909,13 +908,6 @@ void cItem::processNode( const cElement *Tag )
 		this->setDye( true );
 	else if( TagName == "nodye" )
 		this->setDye( false );
-
-	// <corpse />
-	// <nocorpse />
-	else if( TagName == "corpse" )
-		this->setCorpse( true );
-	else if( TagName == "nocorpse" )
-		this->setCorpse( false );
 
 	// <id>0x12f9</id>
 	else if( TagName == "id" )
@@ -1291,43 +1283,22 @@ void cItem::setWeight( float nValue )
 
 // This subtracts the weight of the top-container
 // And then readds the new weight
-void cItem::setTotalweight( float data )
-{
-	//if( data < 0 )
-		// FixWeight!
+void cItem::setTotalweight(float data) {
+	float difference = data - totalweight_;
 
-	// Completely ignore the container if the free flag is set
-	// this flag is abused during the load phase of the server
-	// to flag items with yet unprocessed container values
-	if (!free && container_) {
-		if(container_->isChar())
-		{
-			P_CHAR pChar = dynamic_cast<P_CHAR>( container_ );
-			if( pChar && ( ( layer_ < 0x1A ) || ( layer_ == 0x1E ) ) )
-				pChar->setWeight( pChar->weight() - totalweight_ );
-		} else if(container_->isItem()) {
-			P_ITEM pItem = dynamic_cast<P_ITEM>( container_ );
-			if( pItem )
-				pItem->setTotalweight( pItem->totalweight() - totalweight_ );
-		}
-	}
+	if (difference != 0) {
+		totalweight_ += difference;
 
-	changed( TOOLTIP );
-	flagChanged();
-	totalweight_ = ceilf( data * 100 ) / 100;
+		if (!unprocessed() && container_) {
+			P_CHAR pChar = dynamic_cast<P_CHAR>(container_);
 
-	// Completely ignore the container if the free flag is set
-	// this flag is abused during the load phase of the server
-	// to flag items with yet unprocessed container values
-	if (!free && container_) {
-		if (container_->isChar()) {
-			P_CHAR pChar = dynamic_cast<P_CHAR>( container_ );
-			if( pChar && ( ( layer_ < 0x1A ) || ( layer_ == 0x1E ) ) )
-				pChar->setWeight( pChar->weight() + totalweight_ );
-		} else if (container_->isItem()) {
-			P_ITEM pItem = dynamic_cast<P_ITEM>( container_ );
-			if(pItem) {
-				pItem->setTotalweight( pItem->totalweight() + totalweight_);
+			if (pChar && (layer_ < 0x1A || layer_ == 0x1E)) {
+				pChar->setWeight(pChar->weight() + difference);
+			} else {
+				P_ITEM pItem = dynamic_cast<P_ITEM>(container_);
+				if (pItem) {
+					pItem->setTotalweight(pItem->totalweight() + difference);
+				}
 			}
 		}
 	}
@@ -1462,15 +1433,6 @@ QPtrList< cItem > cItem::getContainment() const
 	return itemlist;
 }
 
-static void itemRegisterAfterLoading( P_ITEM pi )
-{
-	World::instance()->registerObject( pi );
-
-	// Set the outside indices
-	if( pi->maxhp() == 0 )
-		pi->setMaxhp( pi->hp() );
-}
-
 static cUObject* productCreator()
 {
 	return new cItem;
@@ -1493,22 +1455,10 @@ void cItem::load( char **result, UINT16 &offset )
 	if( !isItemSerial( serial() ) )
 		throw QString( "Item has invalid character serial: 0x%1" ).arg( serial(), 0, 16 );
 
-	id_ = atoi( result[offset++] );
-	color_ = atoi( result[offset++] );
+	id_ = atoi(result[offset++]);
+	color_ = atoi(result[offset++]);
 
-	//  Warning, ugly optimization ahead, if you have a better idea, we want to hear it.
-	//  For load speed and memory conservation, we will store the SERIAL of the container
-	//  here and then right after load is done we replace that value with it's memory address
-	//  as it should be.
-	SERIAL containerSerial = atoi( result[offset++] );
-
-	if (containerSerial != INVALID_SERIAL) 
-	{
-		container_ = reinterpret_cast<cUObject*>(containerSerial);
-		free = true; // Abuse free for lingering items
-	}
-
-	// ugly optimization ends here.
+	SERIAL containerSerial = atoi(result[offset++]);
 
 	layer_ = atoi( result[offset++] );
 	type_ = atoi( result[offset++] );
@@ -1538,7 +1488,18 @@ void cItem::load( char **result, UINT16 &offset )
 	// Their own weight should already be set.
 	totalweight_ = ceilf( amount_ * weight_ * 100 ) / 100;
 
-	itemRegisterAfterLoading( this );
+	//  Warning, ugly optimization ahead, if you have a better idea, we want to hear it.
+	//  For load speed and memory conservation, we will store the SERIAL of the container
+	//  here and then right after load is done we replace that value with it's memory address
+	//  as it should be.
+	if (containerSerial != INVALID_SERIAL)
+	{
+		container_ = reinterpret_cast<cUObject*>(containerSerial);
+		setUnprocessed(true);
+	}
+	// ugly optimization ends here.
+
+	World::instance()->registerObject(this);
 }
 
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
@@ -1561,28 +1522,26 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 		return;
 	}
 
-	if( !noRemove )
-		pItem->removeFromCont( handleWeight );
+	if (!noRemove) {
+		pItem->removeFromCont(handleWeight);
+	}
 
 	content_.push_back( pItem );
 	pItem->layer_ = 0;
 	pItem->container_ = this;
 
-	if( randomPos && !this->ContainerPileItem( pItem ) ) // try to pile
-	{
-		if (randomPos)
-			pItem->SetRandPosInCont( this ); // not piled, random pos
+	if (randomPos && !this->ContainerPileItem(pItem)) {
+		pItem->SetRandPosInCont(this); // not piled, random pos
 	}
 
-	if (handleWeight) 
-	{
-		setTotalweight( this->totalweight() + pItem->totalweight() );
+	if (handleWeight) {
+		// Increase the totalweight upward recursively
+		setTotalweight(totalweight() + pItem->totalweight());
 	}
 
 	// If the Server is running and this happens, resend the tooltip of us and
 	// all our parent containers.
-	if (serverState == RUNNING) 
-	{
+	if (serverState == RUNNING) {
 		P_ITEM cont = this;
 
 		while (cont) 

@@ -73,7 +73,7 @@ public:
 	void setMurderer( const QString& data );
 	void setMurderTime( uint data );
 	void setCarve( const QString& data );
-
+	bool corpse() const { return true; }
 
 	UINT16 bodyId() const;
 	UINT16 hairStyle() const;

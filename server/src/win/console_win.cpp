@@ -409,15 +409,15 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		return 1;
 
 	case WM_DESTROY:
-		KillTimer( NULL, uptimeTimer );
-		DestroyMenu( hmMainMenu );
-		DeleteObject( hLogo );
-		DeleteObject( hbSeparator );
-		DeleteObject( hbBackground );
-		DeleteObject( iconRed );
-		DeleteObject( iconGreen );
+		KillTimer(NULL, uptimeTimer);
+		DestroyMenu(hmMainMenu);
+		DeleteObject(hLogo);
+		DeleteObject(hbSeparator);
+		DeleteObject(hbBackground);
+		DeleteObject(iconRed);
+		DeleteObject(iconGreen);
 		keeprun = 0;
-		PostQuitMessage( 0 );
+		PostQuitMessage(0);
 		return 0;
 	}
 
@@ -491,14 +491,11 @@ protected:
 
 		returnValue_ = main( argc, argv.data() );
 
-		if( returnValue_ != 0 )
-		{
+		if (returnValue_ != 0) {
 			Console::instance()->send( "\nThe server has been shut down. You can close this window now.\n" );
 			canClose = true;
-		}
-		else
-		{
-			SendMessage( mainWindow, WM_QUIT, 0, 0 );
+		} else {
+			PostMessage(mainWindow, WM_QUIT, 0, 0);
 		}
 	}
 };

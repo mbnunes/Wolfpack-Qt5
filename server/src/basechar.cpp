@@ -110,8 +110,7 @@ cBaseChar::cBaseChar()
     saycolor_			= 0x1700;
     murdererSerial_		= INVALID_SERIAL;
     guarding_			= NULL;
-	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );
-	skills_.resize( ALLSKILLS );
+	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );	
 	setDead(false);  // we want to live ;)
 	regenHitpointsTime_	= uiCurrentTime + SrvParams->hitpointrate() * MY_CLOCKS_PER_SEC;
 	regenStaminaTime_	= uiCurrentTime + SrvParams->staminarate() * MY_CLOCKS_PER_SEC;
@@ -124,6 +123,7 @@ cBaseChar::cBaseChar()
 	dexterityCap_		= 125;
 	intelligenceCap_	= 125;
 	statCap_			= SrvParams->statcap();
+	skills_.resize(ALLSKILLS);
 }
 
 cBaseChar::cBaseChar(const cBaseChar& right)
@@ -245,6 +245,7 @@ void cBaseChar::load( char **result, UINT16 &offset )
 		skValue.value = value;
 		skValue.lock = lockType;
 		skValue.cap = cap;
+		skValue.changed = false;
 
 		skills_[ skill ] = skValue;
 	}
@@ -257,9 +258,10 @@ void cBaseChar::load( char **result, UINT16 &offset )
 
 void cBaseChar::save()
 {
+	initSave;
+
 	if ( changed_ )
-	{
-		initSave;
+	{		
 		setTable( "characters" );
 
 		addField( "serial", serial() );
@@ -307,12 +309,14 @@ void cBaseChar::save()
 		addField( "statcap", statCap_ );
 		addCondition( "serial", serial() );
 		saveFields;
+	}
 
-		QValueVector< stSkillValue >::const_iterator it;
-		int i = 0;
-		persistentBroker->lockTable("skills");
-		for( it = skills_.begin(); it != skills_.end(); ++it )
-		{
+	QValueVector<stSkillValue>::iterator it;
+	int i = 0;
+	persistentBroker->lockTable("skills");
+	for( it = skills_.begin(); it != skills_.end(); ++it )
+	{
+		if ((*it).changed) {
 			clearFields;
 			setTable( "skills" );
 			addField( "serial", serial() );
@@ -323,10 +327,12 @@ void cBaseChar::save()
 			addCondition( "serial", serial() );
 			addCondition( "skill", i );
 			saveFields;
-			++i;
+			(*it).changed = false;
 		}
-		persistentBroker->unlockTable("skills");
+		++i;
 	}
+	persistentBroker->unlockTable("skills");
+
 	cUObject::save();
 }
 
@@ -1134,11 +1140,10 @@ void cBaseChar::processNode( const cElement *Tag )
 
 void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight, bool noRemove )
 {
-	// DoubleEquip is *NOT* allowed
-	if ( atLayer( layer ) != 0 )
-	{
-		log( LOG_WARNING, QString( "Trying to put an item on layer %1 which is already occupied\n" ).arg( layer ) );
-		pi->setContainer( 0 );
+	if (atLayer(layer) != 0) {
+		log(LOG_ERROR, QString("Trying to put item 0x%1 on layer %2 which is already occupied.\n").arg(pi->serial(), 0, 16).arg(layer));
+		pi->container_ = 0;
+		pi->moveTo(pos_, true);
 		return;
 	}
 
@@ -1151,11 +1156,20 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 	}
 
 	content_.insert( (ushort)(layer), pi );
-	pi->setLayer( layer );
-	pi->setContainer(this);
 
-	if( handleWeight )
+	if (pi->layer() != layer) {
+		pi->setLayer(layer);
+	}
+
+	if (serverState != STARTUP) {
+		pi->setContainer(this);
+	} else {
+		pi->container_ = this; // Avoid a flagChanged()
+	}
+
+	if (handleWeight) {
 		weight_ += pi->totalweight();
+	}
 }
 
 void cBaseChar::removeItem( cBaseChar::enLayer layer, bool handleWeight )
@@ -1248,7 +1262,6 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	}
 	else SET_INT_PROPERTY( "stealthedsteps", stealthedSteps_ )
 	else SET_INT_PROPERTY( "runningsteps", runningSteps_ )
-	else SET_INT_PROPERTY( "swingtarget", swingTarget_ )
 	else if( name == "tamed" )
 	{
 		setTamed( value.toInt() );
@@ -1376,7 +1389,6 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "creationdate", creationDate_.toString() )
 	else GET_PROPERTY( "stealthedsteps", stealthedSteps_ )
 	else GET_PROPERTY( "runningsteps", (int)runningSteps_ )
-	else GET_PROPERTY( "swingtarget", FindCharBySerial( swingTarget_ ) )
 	else GET_PROPERTY( "tamed", isTamed() )
 	else GET_PROPERTY( "guarding", guarding_ )
 	else GET_PROPERTY( "murderer", FindCharBySerial( murdererSerial_ ) )
@@ -1458,30 +1470,14 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 
 void cBaseChar::setSkillValue( UINT16 skill, UINT16 value )
 {
-	skills_[ skill ].value = value;
-
-	// Check if we can delete the current skill
-//	const stSkillValue &skValue = skills_[ skill ];
-
-//	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
-//		skills_.remove( skill );
-
-	changed( TOOLTIP );
-	changed_ = true;
+	skills_[skill].value = value;
+	skills_[skill].changed = true;
 }
 
 void cBaseChar::setSkillCap( UINT16 skill, UINT16 cap )
 {
-	skills_[ skill ].cap = cap;
-
-	// Check if we can delete the current skill
-//	const stSkillValue &skValue = skills_[ skill ];
-
-//	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
-//		skills_.remove( skill );
-
-	changed( TOOLTIP );
-	changed_ = true;
+	skills_[skill].cap = cap;
+	skills_[skill].changed = true;
 }
 
 void cBaseChar::setSkillLock( UINT16 skill, UINT8 lock )
@@ -1489,40 +1485,23 @@ void cBaseChar::setSkillLock( UINT16 skill, UINT8 lock )
 	if( lock > 2 )
 		lock = 0;
 
-	skills_[ skill ].lock = lock;
-
-	// Check if we can delete the current skill
-//	const stSkillValue &skValue = skills_[ skill ];
-
-//	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
-//		skills_.remove( skill );
-
-	changed( TOOLTIP );
-	changed_ = true;
+	skills_[skill].lock = lock;
+	skills_[skill].changed = true;
 }
 
 UINT16 cBaseChar::skillValue( UINT16 skill ) const
 {
 	return skills_[ skill ].value;
-
-//	if( skValue == skills_.end() )
-//		return 0;
 }
 
 UINT16 cBaseChar::skillCap( UINT16 skill ) const
 {
 	return skills_[ skill ].cap;
-
-//	if( skValue == skills_.end() )
-//		return 1000;
 }
 
 UINT8 cBaseChar::skillLock( UINT16 skill ) const
 {
 	return skills_[ skill ].lock;
-
-//	if( skValue == skills_.end() )
-//		return 0;
 }
 
 void cBaseChar::setStamina(INT16 data, bool notify /* = true */ )

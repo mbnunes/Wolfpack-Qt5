@@ -45,6 +45,7 @@
 #include "sectors.h"
 #include "srvparams.h"
 #include "log.h"
+#include "spawnregions.h"
 #include "corpse.h"
 #include "wpdefmanager.h"
 #include "chars.h"
@@ -152,6 +153,15 @@ void cNPC::load( char **result, UINT16 &offset )
 
 	npcRegisterAfterLoading( this );
 	changed_ = false;
+
+	if (!spawnregion_.isEmpty()) {
+		cSpawnRegion *region = SpawnRegions::instance()->region(spawnregion_);
+		if (region) {
+			region->add(serial_);
+		} else {
+			spawnregion_ = QString::null;
+		}
+	}
 }
 
 void cNPC::save()

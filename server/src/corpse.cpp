@@ -229,7 +229,6 @@ cCorpse::cCorpse( bool init )
 	murderer_ = QString::null;
 	murdertime_ = 0;
 	id_ = 0x2006;
-	setCorpse( true );
 	setType( 1 );
 }
 

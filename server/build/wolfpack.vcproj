@@ -87,6 +87,7 @@
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="0"
+				StructMemberAlignment="3"
 				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="FALSE"
 				EnableEnhancedInstructionSet="1"
@@ -617,9 +618,6 @@
 			</File>
 			<File
 				RelativePath=".\python\pycoord.cpp">
-			</File>
-			<File
-				RelativePath=".\python\pyelement.cpp">
 			</File>
 			<File
 				RelativePath=".\python\pypacket.cpp">

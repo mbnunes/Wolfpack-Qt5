@@ -93,7 +93,7 @@ void Monster_Aggressive_L0::selectVictim()
 			{
 				P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
 				if( pPlayer && pPlayer->isGMorCounselor() )
-					continue;
+					continue;			
 
 				m_currentVictim = pChar;
 				break;

@@ -334,10 +334,8 @@ void cSectorMaps::add( cUObject *object )
 			if( it == itemmaps.end() )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
 			
-			it->second->addItem( (cUObject*)pItem );
+			it->second->addItem((cUObject*)pItem);
 
-			// Start Decay... 
-			// This makes it a lot easier *g*
 			pItem->startDecay();
 		}
 	}
@@ -353,7 +351,7 @@ void cSectorMaps::add( cUObject *object )
 			if( it == charmaps.end() )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
 			
-			it->second->addItem( (cUObject*)pChar );
+			it->second->addItem((cUObject*)pChar);
 		}
 	}
 }

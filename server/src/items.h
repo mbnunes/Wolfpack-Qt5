@@ -49,6 +49,7 @@ class cUOSocket;
 #pragma pack(1)
 class cItem : public cUObject
 {
+	friend class cBaseChar;
 private:
 	bool changed_;
 	QString baseid_;
@@ -89,11 +90,12 @@ public:
 	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
 	SI16			maxhp()			const { return maxhp_; }		// Maximum number of hitpoints an item has
 	bool			dye()			const { return priv_&0x80; }	// Can the item be dyed
-	bool			corpse()		const { return priv_&0x40; }		// Is the item a corpse
+	virtual bool			corpse()		const { return false; }		// Is the item a corpse
 	bool			newbie()		const { return priv_&0x02; }		// Is the Item Newbie
+	bool			unprocessed()	const { return priv_&0x40; }
 	bool			nodecay()		const { return priv_&0x01; }		// Is the item protected from decaying
 	P_CHAR			owner()			const;
-	float				totalweight()	const { return ( ceilf( totalweight_ * 100 ) / 100 ); }
+	float				totalweight()	const { return totalweight_; }
 	cUObject*		container()		const { return container_; }
 	int				sellprice()		const { return sellprice_; } // Price this item is being bought at by normal vendors
 	int				buyprice()		const { return buyprice_; } // Price this item is being sold at by normal vendors
@@ -122,8 +124,14 @@ public:
 	void	setWeight( float nValue );
 	void	setHp( SI16 nValue ) { hp_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; flagChanged(); changed( TOOLTIP );};
-	void	setCorpse( bool nValue ) { ( nValue ) ? priv_ |= 0x40 : priv_ &= 0xBF; flagChanged(); changed( TOOLTIP );}
 	void	setNewbie( bool nValue ) { ( nValue ) ? priv_ |= 0x02 : priv_ &= 0xFD; flagChanged(); changed( TOOLTIP );}
+	void	setUnprocessed( bool nValue ) {
+		if (nValue) {
+			priv_ |= 0x40;
+		} else {
+			priv_ &= ~ 0x40;
+		}
+	}
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( float data );
 	void	setSpawnRegion( const QString &data ) { spawnregion_ = data; flagChanged(); }
@@ -191,7 +199,7 @@ public:
 	int  CountItems(short ID, short col= -1) const;
 	int  DeleteAmount(int amount, ushort _id, ushort _color = 0);
 	QString getName( bool shortName = false );
-	void startDecay();
+	void startDecay();	
 	void setAllMovable()		{this->magic_=1; flagChanged();} // set it all movable..
 	bool isAllMovable()         {return (magic_==1);}
 	void setGMMovable()		    {this->magic_=2; flagChanged();} // set it GM movable.
@@ -275,7 +283,7 @@ protected:
 	//   3 |  08 | Secured (Chests)
 	//   4 |  10 | Wipeable (/WIPE affects the item)
 	//   5 |  20 | Twohanded
-	//   6 |  40 | Corpse
+	//   6 |  40 | Unprocessed (Set on load. Unset on postprocess)
 	//   7 |  80 | Dye
 	unsigned char priv_;
 

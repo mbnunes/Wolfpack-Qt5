@@ -311,7 +311,6 @@ void cTiming::checkRegeneration(P_CHAR character, unsigned int time)
 							player->socket()->clilocMessage(501846);
 						character->setMeditating(false);
 					}
-					character->setMana(character->maxMana());
 					break;
 				} 
 				else
