@@ -121,7 +121,8 @@ HEADERS         = \
 			world.h \
 			wpdefmanager.h \
 			wptargetrequests.h \
-			corpse.h
+			corpse.h \
+      md5.h
 
 SOURCES         = \
 		accounts.cpp \
@@ -181,7 +182,8 @@ SOURCES         = \
 		walking.cpp \
 		world.cpp \
 		wpdefmanager.cpp \
-		wptargetrequests.cpp
+		wptargetrequests.cpp \
+    md5.cpp
 
 # Twofish Module
 SOURCES		+= twofish/twofish2.c

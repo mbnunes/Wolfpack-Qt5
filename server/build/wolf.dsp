@@ -215,6 +215,10 @@ SOURCE=.\items.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\md5.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\log.cpp
 # End Source File
 # Begin Source File
