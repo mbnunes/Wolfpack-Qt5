@@ -75,7 +75,6 @@ HEADERS         = \
 		  encryption.h \
 		  exceptions.h \
 		  globals.h \
-		  guildstones.h \
 		  gumps.h \
 		  house.h \
 		  inlines.h \
@@ -145,7 +144,6 @@ SOURCES         = \
 		definable.cpp \
 		dragdrop.cpp \
 		globals.cpp \
-		guildstones.cpp \
 		gumps.cpp \
 		house.cpp \
 		iserialization.cpp \
