@@ -4779,6 +4779,7 @@ void cChar::findPath( const Coord_cl &goal, float sufficient_cost = 0.0f )
 	pathnode_cl *currentNode = NULL;
 	pathnode_cl *newNode = NULL;
 	pathnode_cl *prevNode = NULL;
+	int iterations = 0;
 	while( !unvisited_nodes.empty() )
 	{
 		// get the first element of the queue
@@ -4797,9 +4798,9 @@ void cChar::findPath( const Coord_cl &goal, float sufficient_cost = 0.0f )
 			visited = std::binary_search( visited_nodes.begin(), visited_nodes.end(), currentNode, pathnode_coordComparePredicate() );
 
 			// steps > step depth 
-		} while( ( visited || currentNode->step > PATHFIND_MAXSTEPS ) && !unvisited_nodes.empty() );
+		} while( ( visited || currentNode->step > SrvParams->pathfindMaxSteps() ) && !unvisited_nodes.empty() );
 
-		if( currentNode->step > PATHFIND_MAXSTEPS )
+		if( iterations > SrvParams->pathfindMaxIterations() || currentNode->step > SrvParams->pathfindMaxSteps() )
 		{
 			// lets set the pointer invalid if we have an invalid path
 			currentNode = NULL;
@@ -4844,6 +4845,7 @@ void cChar::findPath( const Coord_cl &goal, float sufficient_cost = 0.0f )
 
 		visited_nodes.push_back( currentNode );
 		std::sort( visited_nodes.begin(), visited_nodes.end(), pathnode_coordComparePredicate() );
+		++iterations;
 	}
 
 	// finally lets set the char's path
@@ -4858,6 +4860,7 @@ void cChar::findPath( const Coord_cl &goal, float sufficient_cost = 0.0f )
 	}
 
 	/* debug...
+	clConsole.send( QString( "Pathfinding: %1 iterations\n" ).arg( iterations ) );
 	std::deque< Coord_cl >::const_iterator it = path_.begin();
 	while( it != path_.end() )
 	{

@@ -237,11 +237,6 @@ enum enDirection
 #define CONN_SECOND 2
 
 // Maximum Search Steps: Iterations to calculate
-#define PATHFIND_MAXSTEPS			15
-#define PATHFIND_FOLLOW_MINCOST		1.5f
-#define PATHFIND_FOLLOW_RADIUS		10
-#define	PATHFIND_FLEE_RADIUS		15
-
 #endif
 ///////////////////////  End Defines
 

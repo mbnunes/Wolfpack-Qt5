@@ -285,6 +285,15 @@ void cSrvParams::readData()
 	loadModule_				= getString( "Worldsaves", "Loader", "sql", true );
 	savePrefix_				= getString( "Worldsaves", "Prefix", "", true );
 	savePath_				= getString( "Worldsaves", "Path", "", true );
+
+	// Path Finding
+	pathfind4Follow_		= getBool( "Path Finding", "Activate for Following", true, true );
+	pathfind4Combat_		= getBool( "Path Finding", "Activate for Combat", false, true );
+	pathfindMaxIterations_	= getNumber( "Path Finding", "Maximum Iterations during Calculation", 100, true );
+	pathfindMaxSteps_		= getNumber( "Path Finding", "Maximum Steps for Calculation", 20, true );
+	pathfindFollowRadius_	= getNumber( "Path Finding", "Follow Radius", 10, true );
+	pathfindFollowMinCost_	= getDouble( "Path Finding", "Follow min. estimated Cost", 1.5, true );
+	pathfindFleeRadius_		= getNumber( "Path Finding", "Flee Radius", 10, true );
 }
 
 void cSrvParams::reload()

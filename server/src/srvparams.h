@@ -234,6 +234,15 @@ protected:
 	bool walkDisturbsCast_;
 	bool cutScrollReq_;
 
+	// Path Finding
+	int		pathfindMaxSteps_;
+	int		pathfindMaxIterations_;
+	bool	pathfind4Follow_;
+	bool	pathfind4Combat_;
+	int		pathfindFollowRadius_;
+	float	pathfindFollowMinCost_;
+	int		pathfindFleeRadius_;
+
 public:
     cSrvParams( const QString& filename, const QString& format, const QString& version );
 
@@ -339,7 +348,6 @@ public:
 	QString accountsArchiver() const;
 	bool addMenuByCategoryTag() const;
 
-
 	// Persistency Module
 	QString databaseHost() const;
 	QString databasePassword() const;
@@ -424,6 +432,15 @@ public:
 	QString saveModule() const;
 	QString loadModule() const;
 	QString savePrefix() const;
+
+	// Path Finding
+	int pathfindMaxSteps() const;
+	int pathfindMaxIterations() const;
+	bool pathfind4Follow() const;
+	bool pathfind4Combat() const;
+	int pathfindFollowRadius() const;
+	float pathfindFollowMinCost() const;
+	int pathfindFleeRadius() const;
 
 private:
 	void setDefaultStartLocation();
@@ -1158,6 +1175,41 @@ inline QString cSrvParams::savePrefix() const
 inline QString cSrvParams::savePath() const
 {
 	return savePath_;
+}
+
+inline int cSrvParams::pathfindMaxSteps() const
+{
+	return pathfindMaxSteps_;
+}
+
+inline bool cSrvParams::pathfind4Follow() const
+{
+	return pathfind4Follow_;
+}
+
+inline bool cSrvParams::pathfind4Combat() const
+{
+	return pathfind4Combat_;
+}
+
+inline int cSrvParams::pathfindFollowRadius() const
+{
+	return pathfindFollowRadius_;
+}
+
+inline float cSrvParams::pathfindFollowMinCost() const
+{
+	return pathfindFollowMinCost_;
+}
+
+inline int cSrvParams::pathfindFleeRadius() const
+{
+	return pathfindFleeRadius_;
+}
+
+inline int cSrvParams::pathfindMaxIterations() const
+{
+	return pathfindMaxIterations_;
 }
 
 #endif //__SRVPARAMS_H___

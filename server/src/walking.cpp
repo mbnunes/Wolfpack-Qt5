@@ -529,18 +529,13 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		{
 			if( socket )
 				socket->denyMove( sequence );
-			else if( pChar->isNpc() )
-//				pChar->pathnum += P_PF_MRV;
-//				pChar->setPathNum( pChar->pathnum() + P_PF_MRV);
-
 			return;
 		}
         
 		// Check if we're going to collide with characters
 		if( pChar->isNpc() && CheckForCharacterAtXYZ( pChar, newCoord ) )
 		{
-//			pChar->pathnum += P_PF_MRV;
-//			pChar->setPathNum( pChar->pathnum() + P_PF_MRV);
+			pChar->clearPath();
 			return;
 		}
 
@@ -1305,29 +1300,40 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 
 		    if( pc_target->socket() || pc_target->isNpc() )
 			{
-				if( pc_i->dist( pc_target ) <= PATHFIND_FOLLOW_RADIUS && pc_i->pathHeuristic( pc_i->pos(), pc_target->pos() ) > PATHFIND_FOLLOW_MINCOST )
+				if( pc_i->dist( pc_target ) <= SrvParams->pathfindFollowRadius() && pc_i->pathHeuristic( pc_i->pos(), pc_target->pos() ) > SrvParams->pathfindFollowMinCost() )
 				{
-					Coord_cl nextmove = pc_i->nextMove();
-					// check if we already have calculated a path
-					// and if the destination still is within cost range.
-					if( !pc_i->hasPath() ||
-						pc_i->pathHeuristic( pc_i->pathDestination(), pc_target->pos() ) > PATHFIND_FOLLOW_MINCOST ||
-						!mayWalk( pc_i, nextmove ) )
+					if( SrvParams->pathfind4Follow() )
 					{
-						pc_i->findPath( pc_target->pos(), PATHFIND_FOLLOW_MINCOST );
-						nextmove = pc_i->nextMove();
-					}
-
-					if( nextmove.x != 0xFFFF )
-					{
-						int dir = chardirxyz( pc_i, nextmove.x, nextmove.y );
-						if( pc_i->dir() == dir )
+						Coord_cl nextmove = pc_i->nextMove();
+						// check if we already have calculated a path
+						// and if the destination still is within cost range.
+						if( !pc_i->hasPath() ||
+							pc_i->pathHeuristic( pc_i->pathDestination(), pc_target->pos() ) > SrvParams->pathfindFollowMinCost() ||
+							!mayWalk( pc_i, nextmove ) )
 						{
-							// only delete the move if the dirs are equal,
-							// because walking checks this !
-							pc_i->popMove();
+							pc_i->findPath( pc_target->pos(), SrvParams->pathfindFollowMinCost() );
+							nextmove = pc_i->nextMove();
 						}
-						Walking( pc_i, dir, 0xFF );
+
+						if( nextmove.x != 0xFFFF )
+						{
+							int dir = chardirxyz( pc_i, nextmove.x, nextmove.y );
+							if( pc_i->dir() == dir )
+							{
+								// only delete the move if the dirs are equal,
+								// because walking checks this !
+								pc_i->popMove();
+							}
+							Walking( pc_i, dir, 0xFF );
+						}
+						else
+						{
+							pc_i->setNpcWander( 0 );
+						}
+					}
+					else
+					{
+						Walking( pc_i, chardirxyz( pc_i, pc_target->pos().x, pc_target->pos().y ), 0xFF );
 					}
 				}
 
@@ -1374,10 +1380,10 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 			if( !pc_k ) 
 				return;
 
-			if ( pc_k->dist(pc_i) < PATHFIND_FLEE_RADIUS )
+			if ( pc_k->dist(pc_i) < SrvParams->pathfindFleeRadius() )
 			{
 				// calculate a x,y to flee towards
-				int mydist = PATHFIND_FLEE_RADIUS - pc_k->dist( pc_i ) + 1;
+				int mydist = SrvParams->pathfindFleeRadius() - pc_k->dist( pc_i ) + 1;
 				j = chardirxyz( pc_i, pc_k->pos().x, pc_k->pos().y );
 				Coord_cl fleeCoord = calcCoordFromDir( j, pc_i->pos() );
 
