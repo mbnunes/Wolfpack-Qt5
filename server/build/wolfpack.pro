@@ -103,7 +103,6 @@ HEADERS         = client.h \
 		  extract.h \
 		  wpdefaultscript.h \
 		  wpdefmanager.h \
-		  wppythonscript.h \
 		  wpscriptmanager.h \
 		  menuactions.h \
 		  wptargetrequests.h \
@@ -184,7 +183,6 @@ SOURCES         = client.cpp \
 		  walking2.cpp \
 		  packlen.cpp \
 		  wpdefmanager.cpp \
-		  wppythonscript.cpp \
 		  wpscriptmanager.cpp \
 		  menuactions.cpp \
 		  wptargetrequests.cpp 
@@ -196,6 +194,14 @@ SOURCES		+= network/asyncnetio.cpp \
 		   network/uorxpackets.cpp \
 		   network/uosocket.cpp \
 		   network/uotxpackets.cpp
+
+# Python Module
+SOURCES		+= python/char.cpp \
+		   python/engine.cpp \
+		   python/global.cpp \
+		   python/item.cpp \
+		   python/socket.cpp \
+		   python/wppythonscript.cpp
 
 INTERFACES	=
 TRANSLATIONS    = \
