@@ -114,6 +114,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Reorganized the potion scripts.
   - Added possibility to cut bone parts into usable bones using scissors.
   - Fixed potion kegs.
+  - Added tilecolorz command. Same as tilecolor, but limited to one z coordinate.
  * Misc. Changes:
   - FAQ Updates.
  * Known Issues, Bugs, and Missing Features:
