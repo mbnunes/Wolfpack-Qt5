@@ -661,6 +661,55 @@ void commandSave( cUOSocket *socket, const QString &command, QStringList &args )
 	cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
 }
 
+#define FLAG_STUB( a, b, c ) if( tile.a & b ) flags.push_back( tr( c ) )
+
+QStringList getFlagNames( const tile_st &tile )
+{
+	QStringList flags;
+
+	// Flag 1
+	FLAG_STUB( flag1, 0x01, "background" );
+	FLAG_STUB( flag1, 0x02, "weapon" );
+	FLAG_STUB( flag1, 0x04, "transparent" );
+	FLAG_STUB( flag1, 0x08, "translucent" );
+	FLAG_STUB( flag1, 0x10, "wall" );
+	FLAG_STUB( flag1, 0x20, "damaging" );
+	FLAG_STUB( flag1, 0x40, "impassable" );
+	FLAG_STUB( flag1, 0x80, "wet" );
+
+	// Flag 2
+	//FLAG_STUB( flag2, 0x01, "unknown1" ); 
+	FLAG_STUB( flag2, 0x02, "surface" );
+	FLAG_STUB( flag2, 0x04, "stairs" );
+	FLAG_STUB( flag2, 0x08, "stackable" );
+	FLAG_STUB( flag2, 0x10, "window" );
+	FLAG_STUB( flag2, 0x20, "no shoot" );
+	FLAG_STUB( flag2, 0x40, "a" );
+	FLAG_STUB( flag2, 0x80, "an" );
+
+	// Flag 3
+	FLAG_STUB( flag3, 0x01, "internal" ); 
+	FLAG_STUB( flag3, 0x02, "foliage" );
+	FLAG_STUB( flag3, 0x04, "partial hue" );
+	//FLAG_STUB( flag3, 0x08, "unknown2" );
+	FLAG_STUB( flag3, 0x10, "map" );
+	FLAG_STUB( flag3, 0x20, "container" );
+	FLAG_STUB( flag3, 0x40, "wearable" );
+	FLAG_STUB( flag3, 0x80, "lightsource" );
+
+	// Flag 4
+	FLAG_STUB( flag4, 0x01, "animation" ); 
+	FLAG_STUB( flag4, 0x02, "no diagonal" );
+	//FLAG_STUB( flag4, 0x04, "unknown3" );
+	FLAG_STUB( flag4, 0x08, "armor" );
+	FLAG_STUB( flag4, 0x10, "roof" );
+	FLAG_STUB( flag4, 0x20, "door" );
+	FLAG_STUB( flag4, 0x40, "stair back" );
+	FLAG_STUB( flag4, 0x80, "stair right" );
+
+	return flags;
+}
+
 class cInfoTarget: public cTargetRequest
 {
 public:
@@ -678,9 +727,10 @@ public:
 		if( !target->model() && !target->serial() )
 		{
 			map_st mapTile = Map->SeekMap( pos );
+			land_st lTile = cTileCache::instance()->getLand( mapTile.id );
 			
 			// Display a gump with this information
-			cGump iGump( 0, 0 );
+			cGump iGump( 100, 100 );
 
 			// Basic .INFO Header
 			iGump.addResizeGump( 0, 40, 0xA28, 450, 250 ); //Background
@@ -689,19 +739,11 @@ public:
 			iGump.addTilePic( 202, 23, 0x14eb ); // Type of info menu
 
             iGump.addText( 175, 90, tr( "Landscape Info" ), 0x530 );
-			
-			Coord_cl pos = socket->player()->pos;
-			pos.x = target->x();
-			pos.y = target->y();
 
 			// Give information about the tile
-			land_st lTile = cTileCache::instance()->getLand( Map->SeekMap( pos ).id );
-
 			iGump.addText( 50, 120, tr( "Name: %1" ).arg( lTile.name ), 0x834 );
-
-			iGump.addText( 50, 145, tr( "ID: 0x%1" ).arg( Map->SeekMap( pos ).id, 0, 16 ), 0x834 );
-
-			iGump.addText( 50, 170, tr( "Z Height: %1" ).arg( Map->SeekMap( pos ).z ), 0x834 );
+			iGump.addText( 50, 145, tr( "ID: 0x%1" ).arg( mapTile.id, 0, 16 ), 0x834 );
+			iGump.addText( 50, 170, tr( "Z Height: %1" ).arg( mapTile.z ), 0x834 );
 
 			// Wet ? Impassable ? At least these are the most interesting
 			QStringList flags;
@@ -723,6 +765,45 @@ public:
 			// OK button
 			iGump.addButton( 90, 240, 0x481, 0x483, 0 ); // Only Exit possible
 			iGump.addText( 130, 240, tr( "Close" ), 0x834 );
+
+			iGump.send( socket );
+		}
+		// Static Tiles
+		else if( target->model() && !target->serial() )
+		{
+			tile_st sTile = cTileCache::instance()->getTile( target->model() );
+
+			// Display a gump with this information
+			cGump iGump( 100, 100 );
+
+			// Basic .INFO Header
+			iGump.addResizeGump( 0, 40, 0xA28, 450, 300 ); //Background
+			iGump.addGump( 105, 18, 0x58B ); // Fancy top-bar
+			iGump.addGump( 182, 0, 0x589 ); // "Button" like gump
+			iGump.addTilePic( 202, 23, 0x14EF ); // Display our tile
+
+            iGump.addText( 175, 90, tr( "Static Info" ), 0x530 );
+			
+			// Give information about the tile
+			iGump.addText( 50, 120, tr( "Name: %1" ).arg( sTile.name ), 0x834 );
+			iGump.addText( 50, 140, tr( "ID: 0x%1" ).arg( target->model(), 0, 16 ), 0x834 );
+			iGump.addText( 50, 160, tr( "Position: %1,%2,%3" ).arg( target->x() ).arg( target->y() ).arg( target->z() ), 0x834 );
+			iGump.addText( 50, 180, tr( "Weight: %1" ).arg( (UINT8)sTile.weight ), 0x834 );
+			iGump.addText( 50, 200, tr( "Height: %1" ).arg( (UINT8)sTile.height ), 0x834 );
+
+			// Wet ? Impassable ? At least these are the most interesting
+			QStringList flags = getFlagNames( sTile );
+
+			iGump.addText( 50, 220, tr( "Properties: %1" ).arg( flags.join( ", " ) ), 0x834 );
+
+			// OK button
+			iGump.addButton( 90, 275, 0x481, 0x483, 0 ); // Only Exit possible
+			iGump.addText( 130, 275, tr( "Close" ), 0x834 );
+
+			// Item Preview
+			iGump.addResizeGump( 300, 120, 0xBB8, 110, 150 );
+			iGump.addTilePic( 340, 160 - ( sTile.height / 2 ), target->model() );
+
 
 			iGump.send( socket );
 		}
