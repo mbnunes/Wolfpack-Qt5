@@ -1,35 +1,233 @@
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
-|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|  ((    _/{  "-;  | Created by: Raptor                         |
 |   )).-' {{ ;'`   | Revised by:                                |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
 <definitions>
-	<!-- Britain -->
-	<location id="britain">1500,1630,10,0</location>
-	<location id="britain graveyard">1384,1497,10,0</location>
-	<location id="britain bank">1430,1688,0,0</location>
-	
-	<!-- Vesper -->
-	<location id="vesper">2895,688,0,0</location>
-	<location id="vesper graveyard">2782,867,0,0</location>
-	<location id="vesper docks">3003,830,0,0</location>
-	
-	<location id="yew">546,991,0,0</location>
-	<location id="wind">1361,895,0,0</location>	
-	<location id="trinsic">1815,2822,0,0</location>
-	<location id="skara brae">591,2147,0,0</location>
-	<location id="serpents hold">3021,3397,15,0</location>
-	<location id="occlo">3686,2519,0,0</location>
-	<location id="njuhelm">3756,1244,0,0</location>
-	<location id="moonglow">4442,1171,0,0</location>
-	<location id="minoc">2466,443,15,0</location>
-	<location id="jhelom">1376,3817,0,0</location>
-	<location id="cove">2246,1214,0,0</location>
-	<location id="bucaneers den">2736,2166,1,0</location>
+        <!-- Britain -->
+        <location id="britain" category="towns\britain">1500,1630,10,0</location>
+        <location id="britain graveyard" category="towns\britain">1384,1497,10,0</location>
+        <location id="britain bank" category="towns\britain">1430,1688,0,0</location>
+        <location id="britain healers" category="towns\britain">1474,1611,20,0</location>
+        <location id="britains premier provisioner and fish shop" category="towns\britain">1475,1672,0,0</location>
+        <location id="britain etheral goods" category="towns\britain">1502,1661,27,0</location>
+        <location id="britain farmlands" category="towns\britain">1228,1705,0,0</location>
+        <location id="britain hall of virtues" category="towns\britain">1554,1610,11,0</location>
+        <location id="lord blackthorns castle" category="towns\britain">1523,1456,15,0</location>
+        <location id="lord british castle" category="towns\britain">1401,1625,28,0</location>
 
-	<!-- Ilshenar -->
-	<location id="mistas">820,1068,-30,2</location> 
+        <!-- Bucaneers Den -->
+        <location id="bucaneers den bathouse" category="towns\bucaneers den">2667,2084,5,0</location>
+        <location id="bucaneers den docks" category="towns\bucaneers den">2736,2166,1,0</location>
+        <location id="bucaneers den tavern" category="towns\bucaneers den">2691,2233,2,0</location>
+
+        <!-- Cove -->
+        <location id="cove cemetary" category="towns\cove">2437,1098,8,0</location>
+        <location id="cove center" category="towns\cove">2246,1214,0,0</location>
+
+        <!-- Jhelom -->
+        <location id="jhelom docks" category="towns\jhelom">1485,3695,0,0</location>
+        <location id="jhelom farm" category="towns\jhelom">1131,3606,0,0</location>
+        <location id="jhelom fighting pit" category="towns\jhelom">1397,3745,-20,0</location>
+        <location id="jhelom's fine tailoring" category="towns\jhelom">1460,4011,0,0</location>
+        <location id="jhelom inn" category="towns\jhelom">1376,3817,0,0</location>
+
+        <!-- Minoc -->
+        <location id="minoc" category="towns\minoc">2466,443,15,0</location>
+        <location id="minoc mining camp" category="towns\minoc">2585,528,15,0</location>
+        <location id="minoc stables" category="towns\minoc">2527,378,23,0</location>
+
+        <!-- Moonglow -->
+        <location id="moonglow cemetary" category="towns\moonglow">4549,1330,8,0</location>
+        <location id="moonglow lycaeum" category="towns\moonglow">4310,1007,0,0</location>
+        <location id="moonglow bank" category="towns\moonglow">4471,1178,0,0</location>
+
+        <!-- Njuhelm -->
+        <location id="njuhelm" category="towns\njuhelm">3756,1244,0,0</location>
+        <location id="njuhelm market" category="towns\njuhelm">3554,1187,0,0</location>
+        <location id="njuhelm palace" category="towns\njuhelm">3703,1282,20,0</location>
+
+        <!-- Occlo -->
+        <location id="occlo bank" category="towns\occlo">3686,2519,0,0</location>
+        <location id="occlo smithy" category="towns\occlo">3642,2595,0,0</location>
+
+        <!-- Serpents Hold -->
+        <location id="serpents hold" category="towns\serpents hold">3021,3397,15,0</location>
+        <location id="serpents hold outside gates" category="towns\serpents hold">2980,3387,15,0</location>
+
+        <!-- Skara Brae -->
+        <location id="skara brae bank" category="towns\skara brae">591,2147,0,0</location>
+        <location id="skara brae guild hall" category="towns\skara brae">619,2131,0,0</location>
+        <location id="skara brae market" category="towns\skara brae">611,2159,0,0</location>
+        <location id="skara brae shear pleasure" category="towns\skara brae">650,2184,0,0</location>
+        <location id="skara brae sundry supplies" category="towns\skara brae">584,2227,0,0</location>
+        <location id="skara brae bowman" category="towns\skara brae">595,2211,0,0</location>
+
+        <!-- Trinsic -->
+        <location id="trinsic bank" category="towns\trinsic">1815,2822,0,0</location>
+        <location id="trinsic brittania provisions" category="towns\trinsic">1852,2792,-8,0</location>
+        <location id="trinsic" category="towns\trinsic">1956,2780,10,0</location>
+        <location id="trinsic honourable arms" category="towns\trinsic">1934,2772,10,0</location>
+        <location id="trinsic outside gates" category="towns\trinsic">1827,2779,0,0</location>
+        <location id="trinsic jail" category="towns\trinsic">1851,2770,0,0</location>
+
+        <!-- Vesper -->
+        <location id="vesper cemetary" category="towns\vesper">2782,867,0,0</location>
+        <location id="vesper docks" category="towns\vesper">3003,830,0,0</location>
+        <location id="vesper bank" category="towns\vesper">2895,688,0,0</location>
+        <location id="vesper the adventurer's friend" category="towns\vesper">2842,876,0,0</location>
+
+        <!-- Wind -->
+        <location id="wind entrance" category="towns\wind">5167,243,15,0</location>
+        <location id="wind garden" category="towns\wind">5214,24,16,0</location>
+        <location id="wind outside entrance" category="towns\wind">1361,895,0,0</location>
+
+        <!-- Yew -->
+        <location id="yew cemetary" category="towns\yew">724,1136,0,0</location>
+        <location id="yew" category="towns\yew">546,991,0,0</location>
+        <location id="yew abbey" category="towns\yew">635,818,0,0</location>
+
+        <!-- Councelor Halls -->
+        <location id="moonglow councelor hall" category="misc\councelor halls">4479,1126,0,0</location>
+        <location id="skara brae councelor halls" category="misc\councelor halls">619,2131,0,0</location>
+
+        <!-- Forts -->
+        <location id="cove orc fort" category="misc\forts">2171,1332,0,0</location>
+        <location id="yew brigand camp" category="misc\forts">885,1682,0,0</location>
+        <location id="yew fort of the damned" category="misc\forts">972,768,0,0</location>
+        <location id="yew orc fort" category="misc\forts">634,1500,0,0</location>
+
+        <!-- Moongates -->
+        <location id="britain moongate" category="misc\moongates">1338,1991,0,0</location>
+        <location id="jhelom moongate" category="misc\moongates">1502,3769,0,0</location>
+        <location id="magincia moongate" category="misc\moongates">3567,2138,0,0</location>
+        <location id="minoc moongate" category="misc\moongates">2705,691,0,0</location>
+        <location id="moonglow moongate" category="misc\moongates">4470,1281,0,0</location>
+        <location id="skara brae moongate" category="misc\moongates">647,2067,0,0</location>
+        <location id="trinsic moongate" category="misc\moongates">1826,2944,-25,0</location>
+        <location id="yew moongate" category="misc\moongates">769,747,0,0</location>
+
+        <!-- Shrines -->
+        <location id="chaos shrine" category="misc\shrines">1456,854,0,0</location>
+        <location id="compassion shrine" category="misc\shrines">1856,872,2,0</location>
+        <location id="honesty shrine" category="misc\shrines">4217,564,35,0</location>
+        <location id="honor shrine" category="misc\shrines">1730,3528,0,0</location>
+        <location id="humility shrine" category="misc\shrines">4276,3699,0,0</location>
+        <location id="justice shrine" category="misc\shrines">1301,639,15,0</location>
+        <location id="sacrifice shrine" category="misc\shrines">3355,299,9,0</location>
+        <location id="spirituality shrine" category="misc\shrines">1589,2485,5,0</location>
+        <location id="valor shrine" category="misc\shrines">2496,3932,0,0</location>
+
+        <!-- Sightings -->
+        <location id="ancient ruins north of trinsic" category="misc\sightings">1814,2421,0,0</location>
+        <location id="crossroads west of britain" category="misc\sightings">1012,1937,0,0</location>
+        <location id="fishermans huts" category="misc\sightings">2381,3485,3,0</location>
+        <location id="hidden valley temple" category="misc\sightings">1687,2986,0,0</location>
+        <location id="inside the hedge maze" category="misc\sightings">1152,2228,16,0</location>
+        <location id="island temple" category="misc\sightings">2494,3566,3,0</location>
+        <location id="outside the hedge maze" category="misc\sightings">1260,2301,0,0</location>
+        <location id="temple of fire" category="misc\sightings">4595,3600,30,0</location>
+        <location id="the great waterfall" category="misc\sightings">1322,544,30,0</location>
+        <location id="trappers camp" category="misc\sightings">3347,572,0,0</location>
+
+        <!-- Dungeons: Covetous -->
+        <location id="covetous lake area" category="dungeons\covetous">5467,1809,0,0</location>
+        <location id="covetous level 1" category="dungeons\covetous">5456,1862,0,0</location>
+        <location id="covetous level 2" category="dungeons\covetous">5613,1998,0,0</location>
+        <location id="covetous level 3" category="dungeons\covetous">5580,1926,0,0</location>
+        <location id="covetous entrance" category="dungeons\covetous">2499,922,0,0</location>
+        <location id="covetous torture rooms" category="dungeons\covetous">5553,1808,0,0</location>
+
+        <!-- Dungeons: Deceit -->
+        <location id="deceit level 1" category="dungeons\deceit">5189,637,0,0</location>
+        <location id="deceit level 2" category="dungeons\deceit">5310,531,0,0</location>
+        <location id="deceit level 3" category="dungeons\deceit">5141,651,0,0</location>
+        <location id="deceit level 4" category="dungeons\deceit">5307,655,0,0</location>
+        <location id="deceit outside entrance" category="dungeons\deceit">4111,434,5,0</location>
+
+        <!-- Dungeons: Despise -->
+        <location id="despise entrance room" category="dungeons\despise">5579,632,30,0</location>
+        <location id="despise level 1" category="dungeons\despise">5499,571,59,0</location>
+        <location id="despise level 2" category="dungeons\despise">5518,673,20,0</location>
+        <location id="despise level 3" category="dungeons\despise">5405,860,45,0</location>
+        <location id="despise entrance" category="dungeons\despise">1301,1080,0,0</location>
+
+        <!-- Dungeons: Destard -->
+        <location id="destard level 1" category="dungeons\destard">5243,1004,0,0</location>
+        <location id="destard level 2" category="dungeons\destard">5148,805,0,0</location>
+        <location id="destard level 3" category="dungeons\destard">5140,983,0,0</location>
+        <location id="destard entrance" category="dungeons\destard">1176,2639,0,0</location>
+
+        <!-- Dungeons: Hythloth -->
+        <location id="hythloth level 1" category="dungeons\hythloth">5907,28,44,0</location>
+        <location id="hythloth level 2" category="dungeons\hythloth">5978,171,0,0</location>
+        <location id="hythloth level 3" category="dungeons\hythloth">6083,148,-22,0</location>
+        <location id="hythloth level 4" category="dungeons\hythloth">6059,92,22,0</location>
+        <location id="hythloth entrance" category="dungeons\hythloth">4722,3825,0,0</location>
+
+        <!-- Dungeons: Shame -->
+        <location id="shame level 1" category="dungeons\shame">5395,126,0,0</location>
+        <location id="shame level 2" category="dungeons\shame">5515,15,5,0</location>
+        <location id="shame level 3" category="dungeons\shame">5516,142,25,0</location>
+        <location id="shame level 4" category="dungeons\shame">5876,22,-10,0</location>
+        <location id="shame entrance" category="dungeons\shame">514,1561,0,0</location>
+
+        <!-- Dungeons: Wrong -->
+        <location id="wrong level 1" category="dungeons\wrong">5825,630,0,0</location>
+        <location id="wrong level 2" category="dungeons\wrong">5694,569,20,0</location>
+        <location id="wrong level 3" category="dungeons\wrong">5703,630,0,0</location>
+        <location id="wrong entrance" category="dungeons\wrong">2044,238,10,0</location>
+
+        <!-- Jails -->
+        <location id="jail cell 1" category="gamemaster\jails">5276,1164,0,0</location>
+        <location id="jail cell 2" category="gamemaster\jails">5286,1164,0,0</location>
+        <location id="jail cell 3" category="gamemaster\jails">5296,1164,0,0</location>
+        <location id="jail cell 4" category="gamemaster\jails">5306,1164,0,0</location>
+        <location id="jail cell 5" category="gamemaster\jails">5276,1174,0,0</location>
+        <location id="jail cell 6" category="gamemaster\jails">5286,1174,0,0</location>
+        <location id="jail cell 7" category="gamemaster\jails">5296,1174,0,0</location>
+        <location id="jail cell 8" category="gamemaster\jails">5306,1174,0,0</location>
+        <location id="jail cell 9" category="gamemaster\jails">5283,1184,0,0</location>
+        <location id="jail cell 10" category="gamemaster\jails">5304,1184,0,0</location>
+
+        <!-- Dungeons: Others -->
+        <location id="green acres" category="gamemaster\others">5434,1102,0,0</location>
+        <location id="star room" category="gamemaster\others">5152,1761,0,0</location>
+        <location id="t2a green acres" category="gamemaster\others">5972,1678,0,0</location>
+
+        <!-- The Second Age Dungeons -->
+        <location id="fire dungeon entrance" category="the second age\dungeons">5760,2907,17,0</location>
+        <location id="ice dungeon entrancen (from old lands)" category="the second age\dungeons">1999,81,5,0</location>
+        <location id="ice dungeon entrancen (from snow lands)" category="the second age\dungeons">5209,2322,33,0</location>
+
+        <!-- The Second Age Entrances -->
+        <location id="entrances from britain (sewers)" category="the second age\entrances &amp; exits">1490,1641,24,0</location>
+        <location id="entrance from cave (n of minoc)" category="the second age\entrances &amp; exits">2401,201,0,0</location>
+        <location id="entrance from cave (se of trinsic)" category="the second age\entrances &amp; exits">1628,3322,0,0</location>
+        <location id="entrance from serpents hold" category="the second age\entrances &amp; exits">2923,3407,8,0</location>
+        <location id="entrance from trinsic (island)" category="the second age\entrances &amp; exits">1984,2068,-40,0</location>
+        <location id="entrance from vesper (cemetary)" category="the second age\entrances &amp; exits">2778,894,-23,0</location>
+
+        <!-- The Second Age Exits -->
+        <location id="exit to britain (sewers)" category="the second age\entrances &amp; exits">6032,1501,31,0</location>
+        <location id="exit to cave (n of minoc)" category="the second age\entrances &amp; exits">6088,3676,18,0</location>
+        <location id="exit to cave (se of trinsic)" category="the second age\entrances &amp; exits">5154,4063,37,0</location>
+        <location id="exit to serpents hold" category="the second age\entrances &amp; exits">5687,1422,38,0</location>
+        <location id="exit to trinsic (island)" category="the second age\entrances &amp; exits">5128,3144,97,0</location>
+        <location id="exit to vesper (cemetary)" category="the second age\entrances &amp; exits">5697,3656,0,0</location>
+
+        <!-- The Second Age Forts and Ruins -->
+        <location id="city of the dead" category="the second age\forts &amp; ruins">5213,3667,-3,0</location>
+        <location id="delucia orc fort" category="the second age\forts &amp; ruins">5211,3630,3,0</location>
+        <location id="ruins in the woods" category="the second age\forts &amp; ruins">5389,3233,-5,0</location>
+        <location id="terathen fort entrance" category="the second age\forts &amp; ruins">5451,3140,-60,0</location>
+        <location id="terathen underground entrancen" category="the second age\forts &amp; ruins">5427,3119,-60,0</location>
+
+        <!-- The Second Age Towns -->
+        <location id="delucia bank" category="the second age\towns">5270,3993,37,0</location>
+        <location id="the just inn (papua)" category="the second age\towns">5771,3162,14,0</location>
+        <location id="tricks of the trade (papua)" category="the second age\towns">5730,3206,-7,0</location>
 </definitions>
