@@ -17,4 +17,5 @@
 	<include file="definitions/menus/crafting/cartography.xml"/>
 	<include file="definitions/menus/crafting/tailoring.xml" />
 	<include file="definitions/menus/crafting/tinkering.xml" />
+	<include file="definitions/menus/crafting/cooking.xml" />
 </definitions>

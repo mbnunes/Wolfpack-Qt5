@@ -493,6 +493,7 @@ def setStatus(plant, status):
 
 		plant.name = '#1061924' # Decorative plant
 		plant.id = genus.itemid
+		plant.movable = 1
 		plant.color = hue.color
 		plant.update()
 
@@ -939,6 +940,7 @@ def updatePlant(plant):
 			plant.name = genus.name
 		plant.id = genus.itemid
 		plant.color = hue.color
+		plant.movable = True
 	elif status >= STATUS_PLANT:
 		plant.id = 0x1600
 		plant.color = 0

@@ -67,16 +67,19 @@
 		<category>Professions\Cook\Kitchen\Cauldron (W/E)</category>
 	</item>
 
-	<!-- Frypan -->
+	<!-- Skillet -->
 	<item id="97f">
+		<name>#1044567</name>
 		<id>0x97f</id>
-		<category>Professions\Cook\Kitchen\Frypan 1</category>
+		<category>Professions\Cook\Tools\Skillet</category>
+		<basescripts>skills.cooking,equipment</basescripts>
+		<tag name="remaining_uses" type="int" value="50" />
 	</item>
 
 	<!-- Frypan 2 -->
 	<item id="9e2">
 		<id>0x9e2</id>
-		<category>Professions\Cook\Kitchen\Frypan 2</category>
+		<category>Professions\Cook\Kitchen\Frypan</category>
 	</item>
 
 	<!-- Ceramic Mug 1 -->
@@ -453,16 +456,79 @@
 
 	<item id="103f">
 		<id>0x103f</id>
-		<weight>0.1</weight>
+		<weight>1.1</weight>
 		<category>Professions\Cook\Supplies\Cookie Mix</category>
-		<basescripts>cooking</basescripts>
 	</item>
+	
+	<item id="cake_mix">
+		<name>#1041002</name>
+		<id>0x103f</id>
+		<weight>1.1</weight>
+		<category>Professions\Cook\Supplies\Cake Mix</category>
+	</item>	
 
 	<item id="1042">
 		<id>0x1042</id>
 		<weight>0.1</weight>
 		<category>Professions\Cook\Supplies\Unbaked Pie</category>
 		<basescripts>cooking</basescripts>
+	</item>
+	
+	<!-- Unbaked Quiche -->
+	<item id="unbaked_quiche">
+		<name>#1041339</name>
+		<id>0x1042</id>
+		<weight>1.0</weight>
+		<category>Professions\Cook\Supplies\Unbaked Quiche</category>
+	</item>
+	
+	<item id="unbaked_meatpie">
+		<name>#1041338</name>
+		<id>0x1042</id>
+		<weight>1.0</weight>
+		<category>Professions\Cook\Supplies\Unbaked Meat Pie</category>
+	</item>	
+	
+	<item id="unbaked_fruitpie">
+		<name>#1041334</name>
+		<id>0x1042</id>
+		<weight>1.0</weight>
+		<category>Professions\Cook\Supplies\Unbaked Fruit Pie</category>
+	</item>
+	
+	<item id="unbaked_peachcobbler">
+		<name>#1041335</name>
+		<id>0x1042</id>
+		<weight>1.0</weight>
+		<category>Professions\Cook\Supplies\Unbaked Peach Cobbler</category>
+	</item>
+	
+	<item id="unbaked_applepie">
+		<name>#1041336</name>
+		<id>0x1042</id>
+		<weight>1.0</weight>
+		<category>Professions\Cook\Supplies\Unbaked Apple Pie</category>
+	</item>	
+	
+	<item id="unbaked_pumpkinpie">
+		<name>#1041342</name>
+		<id>0x1042</id>
+		<weight>1.0</weight>
+		<category>Professions\Cook\Supplies\Unbaked Pumpkin Pie</category>
+	</item>
+	
+	<item id="unbaked_sausagepizza">
+		<name>#1041337</name>
+		<id>0x1083</id>
+		<weight>1.0</weight>
+		<category>Professions\Cook\Supplies\Unbaked Sausage Pizza</category>
+	</item>	
+	
+	<item id="unbaked_cheesepizza">
+		<name>#1041341</name>
+		<id>0x1083</id>
+		<weight>1.0</weight>
+		<category>Professions\Cook\Supplies\Unbaked Cheese Pizza</category>
 	</item>
 
 	<item id="1083">

@@ -277,6 +277,9 @@ def consume(item):
 	quantity = 0
 	if item.hastag('quantity'):
 		quantity = int(item.gettag('quantity'))
+		
+	if quantity <= 0:
+		return False # Couldn't consume
 
 	btype = ''
 	if item.hastag('fluid'):
@@ -306,6 +309,7 @@ def consume(item):
 	else:
 		item.settag('quantity', int(quantity))
 		item.resendtooltip()
+	return True
 
 #
 # Take a nip of the nice fluid in the container

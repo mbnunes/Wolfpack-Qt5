@@ -81,10 +81,17 @@ Food subtypes:
 	<!-- Dough -->
 	<item id="103d">
 		<id>0x103d</id>
-		<weight>0.2</weight>
-		<basescripts>cooking</basescripts>
+		<weight>1.0</weight>
 		<category>Equipment\Food\Dough</category>
 	</item>
+	
+	<item id="sweet_dough">
+		<name>#1041340</name>
+		<color>150</color>
+		<id>0x103d</id>
+		<weight>1.0</weight>
+		<category>Equipment\Food\Sweet Dough</category>
+	</item>	
 
 	<!-- Fish Steak -->
 	<item id="97b">
@@ -365,7 +372,6 @@ Food subtypes:
 		<sellprice>5</sellprice>
 		<basescripts>food</basescripts>
 		<weight>1</weight>
-
 	</item>
 
 	<!-- Muffin -->

@@ -32,12 +32,16 @@
 
 	<item id="103e">
 		<id>0x103e</id>
-		<category>Professions\Baker\Flour Sifter</category>
+		<category>Professions\Baker\Tools\Flour Sifter</category>		
+		<basescripts>skills.cooking,equipment</basescripts>
+		<tag name="remaining_uses" type="int" value="50" />
 	</item>
 
 	<item id="1043">
 		<id>0x1043</id>
-		<category>Professions\Baker\Rolling Pin</category>
+		<category>Professions\Baker\Tools\Rolling Pin</category>		
+		<basescripts>skills.cooking,equipment</basescripts>
+		<tag name="remaining_uses" type="int" value="50" />
 	</item>
 
 	<item id="1044">

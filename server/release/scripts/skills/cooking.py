@@ -1,15 +1,182 @@
 #################################################################
 #   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
-#  ((    _/{  "-;  # Created by: khpae									 #
+#  ((    _/{  "-;  # Created by: khpae							#
 #   )).-' {{ ;'`   # Revised by:                                #
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
 import wolfpack
-import wolfpack.utilities
-from wolfpack.consts import *
-from math import *
+import math
+import random
+from wolfpack import console
+from wolfpack.consts import COOKING, LOG_ERROR, WPDT_MENU, WPDT_ITEM, skillnamesids
+from wolfpack import properties, tr
+from system.makemenus import CraftItemAction, MakeMenu, findmenu
+from wolfpack.utilities import hex2dec, tobackpack, createlockandkey
+import beverage
 
+#
+# Bring up the cooking menu
+#
+def onUse(char, item):
+	menu = findmenu('COOKING')
+	if menu:
+		menu.send(char, [item.serial])
+	return True
+
+#
+# Cook an item
+#
+class CookItemAction(CraftItemAction):
+	def __init__(self, parent, title, itemid, definition):
+		CraftItemAction.__init__(self, parent, title, itemid, definition)
+		self.requiretool = True # Require a tool
+		self.needheat = False
+		self.needoven = False
+		self.water = False
+		
+	#
+	# Process special options
+	#
+	def processnode(self, node, menu):
+		if node.name == 'needoven':
+			self.needoven = True
+		elif node.name == 'needheat':
+			self.needheat = True
+		elif node.name == 'water':
+			self.water = True
+		else:
+			CraftItemAction.processnode(self, node, menu)
+			
+	#
+	# Add our water to the materials list
+	#
+	def getmaterialshtml(self, player, arguments):
+		materialshtml = CraftItemAction.getmaterialshtml(self, player, arguments)
+		
+		if self.water:
+			materialshtml += tr("Water: 1<br>")
+
+		return materialshtml
+			
+	#
+	# Check for water
+	#
+	def checkmaterial(self, player, arguments, silent = 0):
+		result = CraftItemAction.checkmaterial(self, player, arguments, silent)
+		
+		# Check if we have enough water in our backpack
+		if result and self.water:
+			found = False # Found at laest one unit of water?
+			backpack = player.getbackpack()
+			for item in backpack.content:
+				if item.hasscript('beverage') and item.gettag('fluid') == 'water' and item.hastag('quantity'):
+					quantity = int(item.gettag('quantity'))
+					if quantity > 0:
+						found = True
+						break
+						
+			if not found:
+				if not silent:
+					player.socket.clilocmessage(1044253) # You don't have the components needed to make that.
+				return False
+
+		return result
+		
+	#
+	# Consume material
+	#
+	def consumematerial(self, player, arguments, half = 0):
+		result = CraftItemAction.consumematerial(self, player, arguments, half)
+		
+		# Check if we have enough water in our backpack
+		if result and self.water:
+			content = player.getbackpack().content
+			for item in content:
+				if item.hasscript('beverage') and item.gettag('fluid') == 'water' and item.hastag('quantity'):
+					if beverage.consume(item):
+						return True
+						
+			player.socket.clilocmessage(1044253) # You don't have the components needed to make that.
+			return False
+
+		return result
+
+#
+# Cooking Menu
+#
+class CookingMenu(MakeMenu):
+	def __init__(self, id, parent, title):
+		MakeMenu.__init__(self, id, parent, title)
+		self.allowmark = False
+		self.delay = 1250
+		self.gumptype = 0xb10cae72 # This should be unique
+
+#
+# Load a menu with a given id and
+# append it to the parents submenus.
+#
+def loadMenu(id, parent = None):
+	definition = wolfpack.getdefinition(WPDT_MENU, id)
+	if not definition:
+		if parent:
+			console.log(LOG_ERROR, "Unknown submenu %s in menu %s.\n" % (id, parent.id))
+		else:
+			console.log(LOG_ERROR, "Unknown menu: %s.\n" % id)
+		return
+
+	name = definition.getattribute('name', '')
+	menu = CookingMenu(id, parent, name)
+
+	# See if we have any submenus
+	for i in range(0, definition.childcount):
+		child = definition.getchild(i)
+		# Submenu
+		if child.name == 'menu':
+			if not child.hasattribute('id'):
+				console.log(LOG_ERROR, "Submenu with missing id attribute in menu %s.\n" % menu.id)
+			else:
+				loadMenu(child.getattribute('id'), menu)
+
+		# Craft an item
+		elif child.name == 'cook':
+			if not child.hasattribute('definition') or not child.hasattribute('name'):
+				console.log(LOG_ERROR, "Cooking action without definition or name in menu %s.\n" % menu.id)
+			else:
+				itemdef = child.getattribute('definition')
+				name = child.getattribute('name')
+				try:
+					# See if we can find an item id if it's not given
+					if not child.hasattribute('itemid'):
+						item = wolfpack.getdefinition(WPDT_ITEM, itemdef)
+						itemid = 0
+						if item:
+							itemchild = item.findchild('id')
+							if itemchild:
+								itemid = itemchild.value
+						else:
+							console.log(LOG_ERROR, "Cooking action with invalid definition %s in menu %s.\n" % (itemdef, menu.id))
+					else:
+						itemid = hex2dec(child.getattribute('itemid', '0'))
+					action = CookItemAction(menu, name, int(itemid), itemdef)
+				except:
+					console.log(LOG_ERROR, "Cooking action with invalid item id in menu %s.\n" % menu.id)
+
+				# Process subitems
+				for j in range(0, child.childcount):
+					subchild = child.getchild(j)
+					action.processnode(subchild, menu)
+					
+	# Sort the menu. This is important for the makehistory to make.
+	menu.sort()
+
+#
+# Load the cooking menu.
+#
+def onLoad():
+	loadMenu('COOKING')
+
+"""
 MILL_RANGE = 2
 flour_mill = [ 0x1920, 0x1921, 0x1922, 0x1923, 0x1924, 0x1925, 0x1926, 0x1927, 0x1928, 0x1929, 0x192a, 0x192b, 0x192c, 0x192d, 0x192e, 0x192f, 0x1930, 0x1931, 0x1932, 0x1933 ]
 # how many doughs a sack of flour can make
@@ -288,3 +455,4 @@ def checkfire( pos ):
 			found_fire = 1
 			break
 	return found_fire
+"""
