@@ -41,6 +41,8 @@
 #include "guildstones.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "chars.h"
+#include "wolfpack.h"
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"

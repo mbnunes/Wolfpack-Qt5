@@ -36,6 +36,7 @@
 
 // System Includes
 #include <exception>
+#include <string>
 
 namespace wp_exceptions
 {
@@ -44,7 +45,6 @@ namespace wp_exceptions
 	class wpbad_ptr : public std::exception
 	{
 	private:
-	//##ModelId=3C5D92F500D1
 		std::string m_Error;
 	public:
 	//##ModelId=3C5D92F500E4

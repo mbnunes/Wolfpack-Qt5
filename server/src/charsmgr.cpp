@@ -30,8 +30,11 @@
 //========================================================================================
 
 #include "charsmgr.h"
+#include "chars.h"
 
 #include <algorithm>
+
+using namespace std;
 /*
 template<class _T, class _P>
 class maxKeyPred : public binary_function<pair<_T, _P>, pair<_T, _P>, bool>
@@ -42,7 +45,7 @@ public:
 		return a.first < b.first;
 	}
 };
-*/
+
 
 struct max_serialPred : binary_function<pair<SERIAL, cChar*>, pair<SERIAL, cChar*>, bool>
 {
@@ -51,7 +54,7 @@ struct max_serialPred : binary_function<pair<SERIAL, cChar*>, pair<SERIAL, cChar
 		return a.first < b.first;
 	}
 };
-
+*/
 
 /*!
  * Registers a character into the CharsManager Instance and enable lookups by serial.

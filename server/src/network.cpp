@@ -1976,3 +1976,18 @@ void cNetworkStuff::SendGoodByeMessageRaw(UOXSOCKET s)
 {
 
 }
+
+UOXSOCKET calcSocketFromChar(P_CHAR pc)
+{
+	if (pc == NULL || pc->npc)
+	{
+		return -1;
+	}
+	register int j;
+	for (j = 0; j < now; ++j)
+	{
+		if (currchar[j] == pc && perm[j]) 
+			return j;
+	}
+	return -1;
+}

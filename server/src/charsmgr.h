@@ -35,13 +35,18 @@
 #include "platform.h"
 
 // Wolfpack specific
-#include "wolfpack.h"
-#include "chars.h"
+//#include "wolfpack.h"
+//#include "chars.h"
 #include "exceptions.h"
+#include "typedefs.h"
 
 // System Includes
 #include <map>
 #include <list>
+
+// Forward declarations
+class cChar;
+
 
 /*!
 CLASS

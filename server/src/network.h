@@ -125,4 +125,9 @@ private:
 protected:
 
 };
+
+// Helper Function
+UOXSOCKET calcSocketFromChar(P_CHAR pc);
+
+
 #endif
