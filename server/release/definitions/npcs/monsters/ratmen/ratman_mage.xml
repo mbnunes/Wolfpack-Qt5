@@ -10,7 +10,8 @@
 
 	<!-- a ratman mage -->
 	<npc id="ratman_mage" inherit="monster_base">
-		<basescripts>speech.ratman</basescripts>
+		<basescripts>speech.monster</basescripts>
+		<strproperty name="monsterspeech" value="ratman" />
 		<name><random list="NAMES_RATMAN" /></name>
 		<id>143</id>
 		<karma><random list="KARMA_L4" /></karma>

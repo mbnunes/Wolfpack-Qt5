@@ -9,7 +9,7 @@ Wolfpack 12.9.10 Beta (CVS)
 		- Added an event for database updates (onUpdateDatabase).
 		- The system.trading event is now removed on login from the characters who
 		  have it.
-		- Added speech.orc, speech.ratman, speech.lizardman.		
+		- Added speech.monster.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

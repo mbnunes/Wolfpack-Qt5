@@ -12,21 +12,26 @@
 		<id>31</id>
 		<karma><random list="KARMA_L0" /></karma>
 		<fame><random list="FAME_L1" /></fame>
+		
 		<!-- Stats -->
 		<str><random min="26" max="50"/></str>
 		<dex><random min="36" max="55"/></dex>
 		<int><random min="16" max="30"/></int>
 		<maxhitpoints><random min="16" max="30"/></maxhitpoints>
+		
 		<!-- Skills -->
 		<magicresistance><random min="151" max="200"/></magicresistance>
 		<tactics><random min="251" max="400"/></tactics>
 		<wrestling><random min="251" max="400"/></wrestling>
 		<anatomy>0</anatomy>
+		
 		<!-- Damage -->
 		<mindamage>6</mindamage>
 		<maxdamage>12</maxdamage>
+		
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="15,20" type="int" />
+		
 		<!-- Misc. -->
 		<!-- Missing: Body Parts -->
 		<lootpacks>lootpack_poor</lootpacks>

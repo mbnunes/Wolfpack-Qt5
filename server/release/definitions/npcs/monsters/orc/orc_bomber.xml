@@ -11,7 +11,8 @@
 	<!-- orc bomber -->
 	<npc id="orc_bomber" inherit="monster_base">
 		<name>orc bomber</name>
-		<basescripts>speech.orc</basescripts>
+		<strproperty name="monsterspeech" value="orc" />
+		<basescripts>speech.monster</basescripts>
 		<id>182</id>
 		<karma><random list="KARMA_L2" /></karma>
 		<fame><random list="FAME_L2" /></fame>
