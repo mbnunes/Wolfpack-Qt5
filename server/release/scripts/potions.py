@@ -72,6 +72,7 @@ def potionexplosion(args):
 		return
 	else:
 		potion.soundeffect(0x307) # Boom!
+		potion.effect(0x36BD, 20, 10)
 		potionregion( [char, potion] )
 		potion.delete()
 		return
@@ -81,7 +82,7 @@ def potioncountdown( time, args ):
 	potion = args[1]
 	counter = args[2]
 	if counter > 0:
-		#item.say("%s" % str(counter) )
+		potion.say("%s" % str(counter) )
 		potionexplosion([ char, potion, int(counter - 1) ])
 	return
 
