@@ -33,8 +33,6 @@
 //
 // Author		:	DasRaetsel
 // EMail		:	sascha@toxic.franken.de
-// Web			:	http://uox3.home.pages.de/
-// Last Edited	:	30. May 1999
 
 // Last touch 9'th November 2000 by LB
 // removed all cases of guild[-1]
@@ -149,12 +147,98 @@ bool cGuildStone::isMember(P_CHAR pc)
 	return binary_search(member.begin(), member.end(), pc->serial);
 }
 
+void cGuildStone::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
+{
+	cItem::buildSqlString( fields, tables, conditions );
+	fields.push_back( "guildstones.guildname,guildstones.abbreviation,guildstones.guildtype,guildstones.charter,guildstones.webpage,guildstones.master,guildstones.priv" );
+	tables.push_back( "guildstones" );
+	conditions.push_back( "uobjectmap.serial = guildstones.serial" );
+}
+
+static cUObject* productCreator()
+{
+	return new cGuildStone;
+}
+
+void cGuildStone::registerInFactory()
+{
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cGuildStone' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	UObjectFactory::instance()->registerType("cGuildStone", productCreator);
+	UObjectFactory::instance()->registerSqlQuery( "cGuildStone", sqlString );
+}
+
+void cGuildStone::load( char **result, UINT16 &offset )
+{
+	cItem::load( result, offset );
+	
+	guildName = result[offset++];
+	abbreviation = result[offset++];
+	guildType = (cGuildStone::enGuildType)atoi( result[offset++] );
+	charter = result[offset++];
+	webpage = result[offset++];
+	master = atoi( result[offset++] );
+	priv = atoi( result[offset++] );
+
+	// Query wars, members and recruits
+	QString sql = "SELECT guildstones_members.member FROM guildstones_members WHERE serial = '" + QString::number( serial ) + "'";
+
+	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
+		throw mysql_error( cwmWorldState->mysql );
+
+	MYSQL_RES *mResult = mysql_use_result( cwmWorldState->mysql );
+
+	// Fetch row-by-row
+	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+		member.push_back( atoi( row[0] ) );
+
+	mysql_free_result( mResult );
+
+	sql = "SELECT guildstones_war.enemy FROM guildstones_war WHERE serial = '" + QString::number( serial ) + "'";
+
+	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
+		throw mysql_error( cwmWorldState->mysql );
+
+	mResult = mysql_use_result( cwmWorldState->mysql );
+
+	// Fetch row-by-row
+	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+		war.push_back( atoi( row[0] ) );
+
+	mysql_free_result( mResult );
+
+	sql = "SELECT guildstones_recruits.recruit FROM guildstones_recruits WHERE serial = '" + QString::number( serial ) + "'";
+
+	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
+		throw mysql_error( cwmWorldState->mysql );
+
+	mResult = mysql_use_result( cwmWorldState->mysql );
+
+	// Fetch row-by-row
+	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+		recruit.push_back( atoi( row[0] ) );
+
+	mysql_free_result( mResult );
+}
+
+void cGuildStone::save( const QString &s  )
+{
+	// Not decided how to do that yet
+}
+
+bool cGuildStone::del ( const QString &s )
+{
+	// Not decided how to do that yet
+	return cItem::del( s );
+}
+
 // guildstonemenu() : Opens the guild menu for a player
 // Recognizes Guildmaster with the owner fields of the stone.
 // Ofcourse checks for membership before opening any gump ;)
 void cGuildStone::Menu(UOXSOCKET s, int page)
 {
-	//int total,i, counter,guild,recruit,war,member;
+/*	//int total,i, counter,guild,recruit,war,member;
 	int counter = 1;
 	int lentext;
 	int gumpnum = 0;
@@ -488,7 +572,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		Xsend(s,&lentext,1);
 		Xsend(s,mygump[i],lentext);
 	}
-	return;
+	return;*/
 }
 
 
@@ -1110,7 +1194,7 @@ void cGuildStone::CalcMaster()
 		this->master = currenthighest;
 }
 
-void cGuildStone::Serialize( ISerialization &archive )
+/*void cGuildStone::Serialize( ISerialization &archive )
 {
 	if ( archive.isReading() )
 	{
@@ -1170,7 +1254,7 @@ void cGuildStone::Serialize( ISerialization &archive )
 		}
 	}
 	cItem::Serialize( archive );
-}
+}*/
 
 // TESTED: OKAY (fine fine.. now proove that it really works.. )
 // guildtitle(viewing character socket, clicked character) displays players title string, over the name
@@ -1178,7 +1262,7 @@ void cGuildStone::Serialize( ISerialization &archive )
 // Called by: textflags()
 void GuildTitle(int s, P_CHAR pc_player2)
 {
-	char title[150];
+/*	char title[150];
 	char abbreviation[5];
 	char guildtype[10];
 	int tl;
@@ -1218,7 +1302,7 @@ void GuildTitle(int s, P_CHAR pc_player2)
 		Xsend(s, talk, 14);
 		Xsend(s, sysname, 30);
 		Xsend(s, title, strlen(title)+1);
-	}
+	}*/
 }
 
 int CheckValidPlace(int s)

@@ -39,8 +39,10 @@
 #include "network/uosocket.h"
 #include "territories.h"
 #include "multiscache.h"
-
 #include "classes.h" // only for the illegal_z!
+#include "worldmain.h"
+
+#include <mysql.h>
 
 #undef DBGFILE
 #define DBGFILE "boats.cpp" 
@@ -1243,7 +1245,98 @@ void cBoat::toDeed( cUOSocket* socket )
 	socket->sysMessage( tr("You turned the boat into a deed.") );
 }
 
-void cBoat::Serialize( ISerialization &archive )
+static cUObject* productCreator()
+{
+	return new cBoat;
+}
+
+void cBoat::registerInFactory()
+{
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cBoat' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	UObjectFactory::instance()->registerType("cBoat", productCreator);
+	UObjectFactory::instance()->registerSqlQuery( "cBoat", sqlString );
+}
+
+void cBoat::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
+{
+	cMulti::buildSqlString( fields, tables, conditions );
+	fields.push_back( "boats.autosail,boats.boatdir,boats.itemserial1,boats.itemserial2,boats.itemserial3,boats.itemserial4,boats.multi1,boats.multi2,boats.multi3,boats.multi4,boats.multi5,boats.multi6,boats.multi6,boats.multi7,boats.multi8" );
+	tables.push_back( "boats" );
+	conditions.push_back( "uobjectmap.serial = boats.serial" );
+}
+
+void cBoat::load( char **result, UINT16 &offset )
+{
+	cMulti::load( result, offset );
+	
+	autosail_ = atoi( result[offset++] );
+	boatdir = atoi( result[offset++] );
+
+	int i;
+	for( i = 0; i < 4; ++i )
+		itemserials[i] = atoi( result[offset++] );
+
+	for( i = 0; i < 8; ++i )
+		multiids_.push_back( atoi( result[offset++] ) );
+
+	// Load the other tables
+	QString sql = "SELECT boats_itemids.a,boats_itemids.b,boats_itemids.id FROM boats_itemids WHERE serial = '" + QString::number( serial ) + "'";
+	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
+		throw mysql_error( cwmWorldState->mysql );
+
+	MYSQL_RES *mResult = mysql_use_result( cwmWorldState->mysql );
+
+	// Fetch row-by-row
+	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+	{
+		// row[0] -> a
+		// row[1] -> b
+		// row[2] -> id
+		UINT8 a = QMIN( 3, atoi( row[0] ) );
+		UINT8 b = QMIN( 5, atoi( row[1] ) );
+		itemids[a][b] = atoi( row[2] );
+	}
+
+	mysql_free_result( mResult );
+
+	sql = "SELECT boats_itemoffsets.a,boats_itemoffsets.b,boats_itemoffsets.c,boats_itemoffsets.offset FROM boats_itemoffsets WHERE serial = '" + QString::number( serial ) + "'";
+
+	// Error Checking		
+	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
+		throw mysql_error( cwmWorldState->mysql );
+
+	mResult = mysql_use_result( cwmWorldState->mysql );
+
+	// Fetch row-by-row
+	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+	{
+		// row[0] -> a
+		// row[1] -> b
+		// row[2] -> c
+		// row[2] -> offset
+		UINT8 a = QMIN( 3, atoi( row[0] ) );
+		UINT8 b = QMIN( 3, atoi( row[1] ) );
+		UINT8 c = QMIN( 1, atoi( row[2] ) );
+		itemoffsets[a][b][c] = atoi( row[3] );
+	}
+
+	mysql_free_result( mResult );
+}
+
+void cBoat::save( const QString &s  )
+{
+	// Not decided how to do that yet
+}
+
+bool cBoat::del( const QString &s )
+{
+	// Not decided how to do that yet
+	return cMulti::del( s );
+}
+
+/*void cBoat::Serialize( ISerialization &archive )
 {
 	if( archive.isReading() )
 	{
@@ -1321,5 +1414,6 @@ void cBoat::Serialize( ISerialization &archive )
 	}
 	cMulti::Serialize( archive );
 }
+*/
 
 

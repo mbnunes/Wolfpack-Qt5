@@ -1054,7 +1054,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 	cMulti* pi_multi = NULL;
 	
 	if(pi->isLockedDown()) {pi->decaytime=0; return;}
-	if( pi->decaytime <= currenttime || (overflow) )//fixed by JustMichael
+	if( pi->decaytime <= currenttime )
 	{
 		if (pi->priv&0x01 && pi->isInWorld() && !pi->free)
 		{  // decaytime = 5 minutes, * 60 secs per min, * MY_CLOCKS_PER_SEC
@@ -1354,37 +1354,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 
 P_ITEM cAllItems::createScriptItem( UOXSOCKET s, QString Section, UI32 nSpawned )
 {
-	P_ITEM nItem = this->createScriptItem( Section );
-
-	if( nItem == NULL )
-		return NULL;
-
-	if( s != -1 && !nSpawned )
-	{
-		if (triggerx)
-		{
-			nItem->MoveTo(triggerx,triggery,triggerz);
-		}
-		else
-		{
-/*			short xx,yy;
-			signed char zz;
-			xx=(buffer[s][11]<<8)+buffer[s][12];
-			yy=(buffer[s][13]<<8)+buffer[s][14];
-			zz=buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]);
-			nItem->MoveTo(xx,yy,zz);
-			*/
-			qWarning("Warning: Disabled code branch called!");
-		}
-	}
-	else
-	{
-		if( nItem->isInWorld() )
-			cMapObjects::getInstance()->add( nItem );
-		nItem->update();
-	}
-
-	return nItem;
+	return NULL;
 }
 
 // Retrieves the Item Information stored in Section

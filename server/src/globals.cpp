@@ -49,17 +49,7 @@ wp_version_info wp_version;
 #include "qdatetime.h"
 
 //	Instantiate our console object
-
 WPConsole_cl clConsole;
-
-UI32 VersionRecordSize = 20L;
-UI32 MultiRecordSize = 12L;
-UI32 LandRecordSize = 26L;
-UI32 TileRecordSize = 37L;
-UI32 MapRecordSize = 3L;
-UI32 MultiIndexRecordSize = 12L;
-UI32 StaticRecordSize = 7L;
-//  Should characters have expiration before delete
 
 unsigned short int doorbase[DOORTYPES]={
 0x0675, 0x0685, 0x0695, 0x06A5, 0x06B5, 0x06C5, 0x06D5, 0x06E5, 0x0839, 0x084C, 
@@ -90,27 +80,8 @@ char spellname[71][25]={
 char foodname[enNumberOfFood][20]={
 "no food", "raw meat", "raw fish", "eggs", "crops", "fruits", "hay",
 "grain", "cooked meat", "cooked fish", "pastries", "leather", "metal" };
-
-unsigned char wppause[3]="\x33\x01";
-unsigned char restart[3]="\x33\x00";
-unsigned char goxyz[20]="\x20\x00\x05\xA8\x90\x01\x90\x00\x83\xFF\x00\x06\x08\x06\x49\x00\x00\x02\x00";
-unsigned char wearitem[16]="\x2E\x40\x0A\x00\x01\x00\x00\x00\x01\x00\x05\xA8\x90\x00\x00";
-unsigned char talk[15]="\x1C\x00\x00\x01\x02\x03\x04\x01\x90\x00\x00\x38\x00\x03";
-unsigned char sysname[31]="System\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-unsigned char removeitem[6]="\x1D\x00\x00\x00\x00";
-unsigned char gmprefix[10]="\x7C\x00\x00\x01\x02\x03\x04\x00\x64";
-unsigned char gmmiddle[5]="\x00\x00\x00\x00";
-unsigned char sfx[13]="\x54\x01\x12\x34\x00\x00\x06\x40\x05\x9A\x00\x00";
-unsigned char doact[15]="\x6E\x01\x02\x03\x04\x01\x02\x00\x05\x00\x01\x00\x00\x01";
-unsigned char bpitem[20]="\x40\x0D\x98\xF7\x0F\x4F\x00\x00\x09\x00\x30\x00\x52\x40\x0B\x00\x1A\x00\x00";
-unsigned char dyevat[10]="\x95\x40\x01\x02\x03\x00\x00\x0F\xAB";
-unsigned char updscroll[11]="\xA6\x01\x02\x02\x00\x00\x00\x00\x01\x02";
-unsigned char spc[2]="\x20";
-unsigned char extmove[18]="\x77\x01\x02\x03\x04\x01\x90\x01\x02\x01\x02\x0A\x00\xED\x00\x00\x00";
-unsigned char particleSystem[49];             
+          
 time_t	oldtime, newtime;
-
-unsigned long int updatepctime=0;
 
 unsigned int polyduration=90;
 
@@ -119,7 +90,6 @@ int gatecount=0;
 QDateTime uoTime;
 int secondsperuominute=5; //Number of seconds for a WOLFPACK minute.
 int uotickcount=1;
-int openings=0;
 unsigned long initialserversec ;
 unsigned long initialservermill ;
 //int goldamount;
@@ -152,33 +122,15 @@ unsigned char w_anim[3]={0x1d,0x95,0}; // flying blood instead of lightnings, LB
 
 unsigned int raindroptime;
 
-int save_counter;//LB, world backup rate
-int gDecayItem=0; //Last item that was checked for decay Tauriel 3/7/99
-int gRespawnItem=0; //Last item that was checked for respawn Tauriel 3/7/99
-
-
-int locationcount;
-unsigned int logoutcount;//Instalog
-
 //unsigned int cmem;
 int tnum;
 
 unsigned int starttime, endtime, lclock;
-bool overflow;
-unsigned char globallight;
-unsigned char wtype;
-int executebatch;
-int showlayer;
-
-unsigned char tempflag;
 
 unsigned int fly_p=18; // flying probability = 1/fly_p each step (if it doesnt fly)
 unsigned char fly_steps_max=27;
 
 unsigned int shoprestocktime=0;
-int shoprestockrate=5;
-unsigned int respawntime=0;
-unsigned int gatedesttime=0;
 
 //int *spawnedguards;
 // Profiling
@@ -232,16 +184,8 @@ cCharStuff::cBankerAI	*BankerAI;
 /////////////////////////////////////////////
 // maximum too cause maxclient = maximum +1
 
- char noweather[MAXCLIENT+1]; //LB
-
-//char firstpacket[MAXCLIENT+1];
-
-// int newclient[MAXCLIENT];
  char unsigned buffer[MAXCLIENT][MAXBUFFER_REAL];
-// char  outbuffer[MAXCLIENT][MAXBUFFER_REAL];
-// short int walksequence[MAXCLIENT];
  signed char addid5[MAXCLIENT];
-// int acctno[MAXCLIENT];
  P_CHAR currchar[MAXCLIENT];
  make_st itemmake[MAXCLIENT];
  int tempint[MAXCLIENT];
@@ -296,10 +240,7 @@ list<SERIAL> guilds;
  std::multimap <int, tele_locations_st> tele_locations; // can't use a map here, so using a multimap with x as the key :(
  title_st title[ALLSKILLS+1];
 
- location_st location[4000];
- logout_st logout[1024];//Instalog
  advance_st wpadvance[1000];
- //spell_st spells[100];
  int validEscortRegion[256];
  creat_st creatures[2048];
 

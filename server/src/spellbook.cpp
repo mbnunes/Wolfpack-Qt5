@@ -97,7 +97,7 @@ bool cSpellBook::hasSpell( UINT8 spell )
 }
 
 // abstract cSerializable
-void cSpellBook::Serialize( ISerialization &archive )
+/*void cSpellBook::Serialize( ISerialization &archive )
 {
 	if( archive.isReading() )
 	{
@@ -111,7 +111,7 @@ void cSpellBook::Serialize( ISerialization &archive )
 	}
 
 	cItem::Serialize( archive );
-}
+}*/
 
 // abstract cDefinable
 void cSpellBook::processNode( const QDomElement &Tag )
@@ -195,10 +195,14 @@ static cUObject* productCreator()
 
 void cSpellBook::registerInFactory()
 {
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cSpellBook' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType("cSpellBook", productCreator);
+	UObjectFactory::instance()->registerSqlQuery( "cSpellBook", sqlString );
 }
 
-void cSpellBook::save( const QString& s )
+/*void cSpellBook::save( const QString& s )
 {
 	startSaveSqlStatement("spellbooks");
 	savePersistentIntValue( "serial", serial );
@@ -206,9 +210,9 @@ void cSpellBook::save( const QString& s )
 	savePersistentIntValue( "spells2", spells2_ );
 	endSaveSqlStatement(QString("serial='%1'").arg(serial));
 	cItem::save( s );
-}
+}*/
 
-void cSpellBook::load( const QString& s )
+/*void cSpellBook::load( const QString& s )
 {
 	startLoadSqlStatement("spellbooks", "serial", s)
 	{
@@ -218,9 +222,9 @@ void cSpellBook::load( const QString& s )
 
 	endLoadSqlStatement(s);
 	cItem::load(s);
-}
+}*/
 
-bool cSpellBook::del( const QString& s )
+/*bool cSpellBook::del( const QString& s )
 {
 	QSqlCursor cursor("spellbooks");
 	cursor.select(QString("serial='%1'").arg(serial));
@@ -234,5 +238,31 @@ bool cSpellBook::del( const QString& s )
 		}
 	}
 	return cItem::del( s );
+}*/
+
+void cSpellBook::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
+{
+	cItem::buildSqlString( fields, tables, conditions );
+	//fields.push_back( "" );
+	//tables.push_back( "boats" );
+	//conditions.push_back( "uobjectmap.serial = boats.serial" );
 }
+
+void cSpellBook::load( char **result, UINT16 &offset )
+{
+	cItem::load( result, offset );
+	
+}
+
+void cSpellBook::save( const QString &s  )
+{
+	// Not decided how to do that yet
+}
+
+bool cSpellBook::del ( const QString &s )
+{
+	// Not decided how to do that yet
+	return cItem::del( s );
+}
+
 

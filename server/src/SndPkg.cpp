@@ -60,7 +60,7 @@
 
 void soundeffect(int s, unsigned char a, unsigned char b) // Play sound effect for player
 {
-	int i;
+/*	int i;
 	
 	P_CHAR pc_currchar = currchar[s];
 
@@ -74,24 +74,24 @@ void soundeffect(int s, unsigned char a, unsigned char b) // Play sound effect f
 		if ((perm[i])&&((inrange1(s,i))||(s==i)))
 		{
 			Xsend(i, sfx, 12);
-		}
+		}*/
 }
 
 void action(int s, int x) // Character does a certain action
 {
-	int i;
+	/*int i;
 	P_CHAR pc_currchar = currchar[s];
 
 	LongToCharPtr(pc_currchar->serial, &doact[1]);
 	doact[5]=x>>8;
 	doact[6]=x%256;
 	Xsend(s, doact, 14);
-	for (i=0;i<now;i++) if ((inrange1(s, i))&&(perm[i])) { Xsend(i, doact, 14); }
+	for (i=0;i<now;i++) if ((inrange1(s, i))&&(perm[i])) { Xsend(i, doact, 14); }*/
 }
 
 void npcaction( P_CHAR pc_npc, int x ) // NPC character does a certain action
 {
-	int i;
+	/*int i;
 	if ( !pc_npc )
 		return;
 
@@ -100,7 +100,7 @@ void npcaction( P_CHAR pc_npc, int x ) // NPC character does a certain action
 	doact[6]=x%256;
 	for (i=0;i<now;i++) 
 		if ((inrange1p(currchar[i], pc_npc))&&(perm[i])) 
-			Xsend(i, doact, 14);
+			Xsend(i, doact, 14);*/
 }
 
 
@@ -117,7 +117,7 @@ void weather(int s, char bolt) // Send new weather to player
 
 	for (int j=0;j<now;j++)
 	{
-		if (noweather[currchar[j]] && wtype!=0)
+		if (noweather[currchar[j]] && wtype != 0)
 		{
 			Xsend(s,wdry,4);
 			return;
@@ -182,104 +182,14 @@ void sysmessage(UOXSOCKET s, short color, const QString& txt)
 
 void sysmessage(UOXSOCKET s, char *txt, ...) // System message (In lower left corner)
 {
-	if(s==-1) return;
-	if ( s>=MAXCLIENT)
-		LogCriticalVar("Socket/Index confusion @ Xsend <%s>\n",txt);
-	va_list argptr;
-	char msg[512];
-	va_start( argptr, txt );
-	vsprintf( msg, txt, argptr );
-	va_end( argptr );
-	int tl = 44 + strlen( msg ) + 1;
-	talk[1]=tl>>8;
-	talk[2]=tl%256;
-	talk[3]=1;
-	talk[4]=1;
-	talk[5]=1;
-	talk[6]=1;
-	talk[7]=1;
-	talk[8]=1;
-	talk[9]=0x0;
-	talk[10]=0x00;	//Color1  - Previous default was 0x0040
-	talk[11]=0x00;  //Color2
-	talk[12]=0;     
-	talk[13]=3;
-
-	// problem1: 3d clietns crash if color set to 0 since 3.0.6g 
-	// workaround: set it to non 0 if 3d client
-	// but a mean pitfall remaining: there are a couple sysmessages BEFORE client dimension is known
-	// hence 3d clients are recognized as 2d clients for those sysmessages
-	// it's important that those sysmessages are called with color != 0 ...
-	// it've tagged them with "UNKOWNDIMENSION sysmessages" in comment
-	if ( clientDimension[s]==3 && talk[10]==0 && talk[11]==0) { talk[10]=0; talk[11]=0x37; }
-
-	Xsend(s, talk, 14);
-	Xsend(s, sysname, 30);
-	Xsend(s, msg, strlen((char*)msg)+1);
 }
 
 void sysmessage(UOXSOCKET s, short color, char *txt, ...) // System message (In lower left corner)
 {
-	if(s==-1) return;
-	va_list argptr;
-	char msg[512];
-	va_start( argptr, txt );
-	vsprintf( msg, (char *)txt, argptr );
-	va_end( argptr );
-	int tl = 44 + strlen( msg ) + 1;
-	talk[1]=tl>>8;
-	talk[2]=tl%256;
-	talk[3]=1;
-	talk[4]=1;
-	talk[5]=1;
-	talk[6]=1;
-	talk[7]=1;
-	talk[8]=1;
-	talk[9]=0;
-	talk[10]=color>>8;
-	talk[11]=color%256;			 
-	talk[12]=0;
-	talk[13]=3;
-
-	if ( clientDimension[s]==3 && color==0) { talk[10]=0; talk[11]=0x37; }
-
-	Xsend(s, talk, 14);
-	Xsend(s, sysname, 30);
-	Xsend(s, msg, strlen((char*)msg)+1);
 }
 
 void itemmessage(UOXSOCKET s, char *txt, int serial, short color) 
 {// The message when an item is clicked (new interface, Duke)
-
-	P_ITEM pi = FindItemBySerial(serial);
-
-	if ( pi == NULL )
-		return;
-
-	if ((pi->type() == 1 && color == 0x0000)||
-		(pi->type() == 9 && color == 0x0000)||
-		(pi->type() == 1000 && color == 0x0000)||
-		(pi->id()==0x1BF2 && color == 0x0000))
-		color = 0x03B2;
-	    else
-			if( !pi->corpse() )
-			color = 0x0481;
-
-		if ( clientDimension[s]==3 && color==0) { talk[10]=0; talk[11]=0x37; }
-
-	int tl=44+strlen(txt)+1;
-	talk[1]=tl>>8;
-	talk[2]=tl%256;
-	LongToCharPtr(serial,talk+3);
-	talk[7]=1;
-	talk[8]=1;
-	talk[9]=6; // Mode: "You see"
-	ShortToCharPtr(color,talk+10);
-	talk[12]=0;
-	talk[13]=3;
-	Xsend(s, talk, 14);
-	Xsend(s, sysname, 30);
-	Xsend(s, txt, strlen(txt)+1);
 }
 
 void wearIt(const UOXSOCKET s, const P_ITEM pi)
@@ -613,7 +523,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 
 void updatechar(P_CHAR pc) // If character status has been changed (Polymorph), resend him
 {
-	int i;
+/*	int i;
 	if (pc == NULL)
 		return;
 	setcharflag(pc);//AntiChrist - bugfix for highlight color not being updated
@@ -649,7 +559,7 @@ void updatechar(P_CHAR pc) // If character status has been changed (Polymorph), 
 				impowncreate(i, pc, 0);			
 			}
 		}
-	}
+	}*/
 }
 
 
@@ -731,7 +641,7 @@ void updatestats( P_CHAR pc, char x )
 
 void updates(UOXSOCKET s) // Update Window
 {
-	UI32 y;
+/*	UI32 y;
 
 	QString motdText = DefManager->getText( "MOTD" );
 	y = motdText.length() + 10;
@@ -743,7 +653,7 @@ void updates(UOXSOCKET s) // Update Window
 	updscroll[9]=(y-10)%256;
 	Xsend(s, updscroll, 10);
 	
-	Xsend(s, (char*)motdText.latin1(), motdText.length() );
+	Xsend(s, (char*)motdText.latin1(), motdText.length() );*/
 }
 
 void tips(cUOSocket* socket, int tip) // Tip of the day window
@@ -782,61 +692,6 @@ void weblaunch(int s, char *txt) // Direct client to a web page
 
 void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 {
-	int i,tl;
-	unsigned char nonuni[512];
-	P_CHAR pc_currchar = currchar[s];
-
-	if(pc_currchar->unicode())
-		for (i=13;i<(buffer[s][1]<<8)+buffer[s][2];i=i+2)
-		{
-			nonuni[(i-13)/2]=buffer[s][i];
-		}
-		if(!pc_currchar->unicode())
-		{
-			tl=44+strlen((char*)&buffer[s][8])+1;
-			talk[1]=tl>>8;
-			talk[2]=tl%256;
-			LongToCharPtr(pc_currchar->serial, &talk[3]);
-			ShortToCharPtr(pc_currchar->id(),  &talk[7]);
-			talk[9]=1;
-			talk[10]=buffer[s][4];
-			talk[11]=buffer[s][5];
-			talk[12]=buffer[s][6];
-			talk[13]=pc_currchar->fonttype();
-			for (i=0;i<now;i++)
-			{
-				if (perm[i])
-				{
-					Xsend(i, talk, 14);
-					Xsend(i, (void*)pc_currchar->name.latin1(), 30);
-					Xsend(i, &buffer[s][8], strlen((char*)&buffer[s][8])+1);
-				}
-			}
-		} // end unicode IF
-		else
-		{
-			tl=44+strlen((char*)&nonuni[0])+1;
-
-			talk[1]=tl>>8;
-			talk[2]=tl%256;
-			LongToCharPtr(pc_currchar->serial, &talk[3]);
-			ShortToCharPtr(pc_currchar->id(),  &talk[7]);
-			talk[9]=1;
-			talk[10]=buffer[s][4];
-			talk[11]=buffer[s][5];
-			talk[12]=buffer[s][6];
-			talk[13]=pc_currchar->fonttype();
-
-			for (i=0;i<now;i++)
-			{
-				if (perm[i])
-				{
-					Xsend(i, talk, 14);
-					Xsend(i, (void*)pc_currchar->name.latin1(), 30);
-					Xsend(i, &nonuni[0], strlen((char*)&nonuni[0])+1);
-				}
-			}
-		}
 }
 
 void npctalk_runic(int s, P_CHAR pc_npc, const char *txt,char antispam) // NPC speech
@@ -857,7 +712,7 @@ void npctalk_runic(int s, P_CHAR pc_npc, const char *txt,char antispam) // NPC s
 
 	if (machwas)
 	{
-		tl=44+strlen(txt)+1;
+	/*	tl=44+strlen(txt)+1;
 		talk[1]=tl>>8;
 		talk[2]=tl%256;
 		LongToCharPtr(pc_npc->serial,  &talk[3]);
@@ -876,7 +731,7 @@ void npctalk_runic(int s, P_CHAR pc_npc, const char *txt,char antispam) // NPC s
 
 		Xsend(s, talk, 14);
 		Xsend(s, (void*)pc_npc->name.latin1(), 30);
-		Xsend(s, txt, strlen(txt)+1);
+		Xsend(s, txt, strlen(txt)+1);*/
 	}
 }
 
@@ -910,7 +765,7 @@ void npcemote(int s, P_CHAR pc_npc, const char *txt, char antispam) // NPC speec
 
 void staticeffect(P_CHAR pc_player, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop,  bool UO3DonlyEffekt, stat_st *sta, bool skip_old)
 {
-	int a0,a1,a2,a3,a4;
+/*	int a0,a1,a2,a3,a4;
 	unsigned char effect[29] = {0,};
 	int j;
 	if ( pc_player == NULL ) return;
@@ -988,13 +843,13 @@ void staticeffect(P_CHAR pc_player, unsigned char eff1, unsigned char eff2, unsi
 
 	// remark: if a UO:3D effect is send and ALL clients are UO:3D ones, the pre-calculation of the 2-d packet
 	// is redundant. but we can never know, and probably it will take years till the 2d cliet dies.
-	// I think it's too infrequnet to consider this as optimization.
+	// I think it's too infrequnet to consider this as optimization.*/
 }
 
 
 void movingeffect(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode, bool UO3DonlyEffekt, move_st *str, bool skip_old )
 {
-	
+/*	
 	unsigned char effect[29];
 	int j;
 
@@ -1059,12 +914,12 @@ void movingeffect(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned
 		 }
 	   }
 	}		
-
+*/
 }
 
 void bolteffect(P_CHAR pc_player, bool UO3DonlyEffekt, bool skip_old )
 {
-	unsigned char effect[29] = {0,};
+/*	unsigned char effect[29] = {0,};
 	int  j;
 
 	if ( pc_player == NULL )
@@ -1119,14 +974,14 @@ void bolteffect(P_CHAR pc_player, bool UO3DonlyEffekt, bool skip_old )
 			 else if (clientDimension[j] != 2 && clientDimension[j] !=3 ) { sprintf(temp, "Invalid Client Dimension: %i\n",clientDimension[j]); LogError(temp); }
 		 }
 	   }
-	}		
+	}		*/
 }
 
 
 // staticeffect2 is for effects on items
 void staticeffect2(P_ITEM pi, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode, bool UO3DonlyEffekt,  stat_st *str, bool skip_old )
 {
-	unsigned char effect[29] = {0,};
+/*	unsigned char effect[29] = {0,};
 	
 	if (!skip_old)
 	{
@@ -1190,13 +1045,13 @@ void staticeffect2(P_ITEM pi, unsigned char eff1, unsigned char eff2, unsigned c
 				{ sprintf(temp, "Invalid Client Dimension: %i\n",clientDimension[j]); LogError(temp); }
 			}
 		}
-	}		
+	}	*/	
 }
 
 
 void bolteffect2(P_CHAR pc_player,char a1,char a2)	// experimenatal, lb
 {
-	unsigned char effect[29] = {0,};
+/*	unsigned char effect[29] = {0,};
 	int j,x2,x,y2,y;
 	if ( pc_player == NULL )
 		return;
@@ -1245,14 +1100,14 @@ void bolteffect2(P_CHAR pc_player,char a1,char a2)	// experimenatal, lb
 		{
 			Xsend(j, effect, 28);
 		}
-	}
+	}*/
 }
 
 //	- Movingeffect3 is used to send an object from a char
 //    to another object (like purple potions)
 void movingeffect3(P_CHAR pc_source, unsigned short x, unsigned short y, signed char z, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode)
 {
-	unsigned char effect[29] = {0,};
+/*	unsigned char effect[29] = {0,};
 	int j;
 
 	if ( pc_source == NULL ) return;
@@ -1288,13 +1143,13 @@ void movingeffect3(P_CHAR pc_source, unsigned short x, unsigned short y, signed 
 		//{
 			Xsend(j, effect, 28);
 		//}
-	}
+	}*/
 }
 
 // staticeffect3 is for effects on items
 void staticeffect3(UI16 x, UI16 y, SI08 z, unsigned char eff1, unsigned char eff2, char speed, char loop, char explode)
 {
-	char effect[29] = {0,};
+/*	char effect[29] = {0,};
 	int j;
 //	memset (&effect, 0, 29);
 
@@ -1326,12 +1181,12 @@ void staticeffect3(UI16 x, UI16 y, SI08 z, unsigned char eff1, unsigned char eff
 		{
 			Xsend(j, effect, 28);
 		}
-	}
+	}*/
 }
 
 void movingeffect3(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode,unsigned char unk1,unsigned char unk2,unsigned char ajust,unsigned char type)
 {
-	//0x0f 0x42 = arrow 0x1b 0xfe=bolt
+/*	//0x0f 0x42 = arrow 0x1b 0xfe=bolt
 	unsigned char effect[29];
 	int j;
 
@@ -1366,7 +1221,7 @@ void movingeffect3(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigne
 		{
 			Xsend(j, effect, 28);
 		}
-	}
+	}*/
 }
 
 
@@ -1375,7 +1230,7 @@ void movingeffect3(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigne
 //	to another object (like purple potions)
 void movingeffect2(P_CHAR pc_source, P_ITEM dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode)
 {
-	//0x0f 0x42 = arrow 0x1b 0xfe=bolt
+/*	//0x0f 0x42 = arrow 0x1b 0xfe=bolt
 	unsigned char effect[29] = {0,};
 	int j;
 	const P_ITEM pi = dest;	// on error return
@@ -1410,12 +1265,12 @@ void movingeffect2(P_CHAR pc_source, P_ITEM dest, unsigned char eff1, unsigned c
 		{
 			Xsend(j, effect, 28);
 		}
-	}
+	}*/
 }
 
 void updateskill(int s, int skillnum) // updated for client 1.26.2b by LB
 {
-	char update[11];
+/*	char update[11];
 	char x;
 	
 	P_CHAR pc_currchar = currchar[s];
@@ -1438,12 +1293,12 @@ void updateskill(int s, int skillnum) // updated for client 1.26.2b by LB
 	
 	// CRASH_IF_INVALID_SOCK(s);
 	
-	Xsend(s, update, 11);
+	Xsend(s, update, 11);*/
 }
 
 void deathaction(P_CHAR pc, P_ITEM pi_x) // Character does a certain action
 {
-	int i;
+/*	int i;
 	unsigned char deathact[14]="\xAF\x01\x02\x03\x04\x01\x02\x00\x05\x00\x00\x00\x00";
 
 	if (pi_x == NULL || pc == NULL)
@@ -1454,7 +1309,7 @@ void deathaction(P_CHAR pc, P_ITEM pi_x) // Character does a certain action
 	
 	for (i=0;i<now;i++) 
 		if ((inrange1p(pc, currchar[i]))&&(perm[i]) && (currchar[i]!=pc)) 
-			Xsend(i, deathact, 13);
+			Xsend(i, deathact, 13);*/
 	
 }
 
@@ -1772,7 +1627,7 @@ void endtrade(SERIAL serial)
 
 void tellmessage(int i, int s, const char *txt)
 {
-	int tl;
+/*	int tl;
 	P_CHAR pc_currchar = currchar[s];
 
 	sprintf((char*)temp, "GM tells %s: %s", pc_currchar->name.latin1(), txt);
@@ -1796,7 +1651,7 @@ void tellmessage(int i, int s, const char *txt)
 	Xsend(s, temp, strlen((char*)temp)+1);
 	Xsend(i, talk, 14);//So Person who said it can see too
 	Xsend(i, sysname, 30);
-	Xsend(i, temp, strlen((char*)temp)+1);
+	Xsend(i, temp, strlen((char*)temp)+1);*/
 }
 
 
@@ -1820,7 +1675,7 @@ void tellmessage(int i, int s, const char *txt)
 void staticeffectUO3D(P_CHAR pc_cs, stat_st *sta)
 {  
    
-   if ( pc_cs == NULL )
+/*   if ( pc_cs == NULL )
 	   return;
 
    // please no optimization of p[...]=0's yet :)
@@ -1882,7 +1737,7 @@ void staticeffectUO3D(P_CHAR pc_cs, stat_st *sta)
 	particleSystem[46]=0; // layer, gets set afterwards for multi layering
 
 	particleSystem[47]=0x0; // has to be always 0 for all types
-	particleSystem[48]=0x0;
+	particleSystem[48]=0x0;*/
   	   	   
 }
 
@@ -1904,7 +1759,7 @@ void staticeffectUO3D(P_CHAR pc_cs, stat_st *sta)
 
 void movingeffectUO3D(P_CHAR pc_cs, P_CHAR pc_cd, move_st *sta)
 {
-   if (pc_cs == NULL || pc_cd == NULL) return;
+ /*  if (pc_cs == NULL || pc_cd == NULL) return;
 
 	particleSystem[0]=0xc7;
 	particleSystem[1]=0x0;
@@ -1961,14 +1816,14 @@ void movingeffectUO3D(P_CHAR pc_cs, P_CHAR pc_cd, move_st *sta)
 	particleSystem[46]=0xff; // layer, has to be 0xff in that modus
 
 	particleSystem[47]=sta->effect[17];
-	particleSystem[48]=0x0;
+	particleSystem[48]=0x0;*/
 
 }
 
 // same sta-layout as staticeffectuo3d
 void itemeffectUO3D(P_ITEM pi, stat_st *sta)
 {
-	// please no optimization of p[...]=0's yet :)
+/*	// please no optimization of p[...]=0's yet :)
 	
 	particleSystem[0]=0xc7;
 	particleSystem[1]=0x2;
@@ -2034,7 +1889,7 @@ void itemeffectUO3D(P_ITEM pi, stat_st *sta)
 	particleSystem[46]=0xff; 
 	
 	particleSystem[47]=0x0; 
-	particleSystem[48]=0x0;
+	particleSystem[48]=0x0;*/
 }
 
 void bolteffectUO3D(P_CHAR player)

@@ -34,8 +34,47 @@
 
 #include <functional>
 
+static cUObject* productCreator()
+{
+	return new cCorpse;
+}
+
+void cCorpse::registerInFactory()
+{
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cCorpse' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	UObjectFactory::instance()->registerType("cCorpse", productCreator);
+	UObjectFactory::instance()->registerSqlQuery( "cCorpse", sqlString );
+}
+
+void cCorpse::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
+{
+	cItem::buildSqlString( fields, tables, conditions );
+	//fields.push_back( "" );
+	//tables.push_back( "boats" );
+	//conditions.push_back( "uobjectmap.serial = boats.serial" );
+}
+
+void cCorpse::load( char **result, UINT16 &offset )
+{
+	cItem::load( result, offset );
+	
+}
+
+void cCorpse::save( const QString &s  )
+{
+	// Not decided how to do that yet
+}
+
+bool cCorpse::del ( const QString &s )
+{
+	// Not decided how to do that yet
+	return cItem::del( s );
+}
+
 // abstract cSerializable
-void cCorpse::Serialize( ISerialization &archive )
+/*void cCorpse::Serialize( ISerialization &archive )
 {
 	if( archive.isReading() )
 	{
@@ -76,7 +115,7 @@ void cCorpse::Serialize( ISerialization &archive )
 	}
 
 	cItem::Serialize( archive );
-}
+}*/
 
 // abstract cDefinable
 void cCorpse::processNode( const QDomElement &Tag )

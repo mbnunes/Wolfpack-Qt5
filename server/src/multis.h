@@ -38,6 +38,7 @@
 // Library includes
 #include "qvaluelist.h"
 #include "qptrvector.h"
+#include <qstringlist.h>
 
 #include "uobject.h"
 #include "items.h"
@@ -46,15 +47,20 @@
 // Forward Declaration
 class cChar;
 
+// Beware! This is abstract (more or less)
 class cMulti : public cItem
 {
+private:
+	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+
 public:
 	cMulti();
-
-	virtual void Serialize( ISerialization &archive );
-//	virtual QString objectID( void ) const { return "MULTI"; }
-
 	virtual void toDeed( cUOSocket* socket ) = 0;
+
+	// DB Serialization
+	virtual void load( char **, UINT16& );
+	void save( const QString& = QString::null );
+	bool del ( const QString& = QString::null );
 
 	QString deedSection( void ) { return deedsection_; }
 	bool	itemsdecay( void ) { return itemsdecay_; }

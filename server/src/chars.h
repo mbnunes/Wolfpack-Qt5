@@ -50,6 +50,7 @@
 
 // Library Includes
 #include <qmap.h>
+#include <qstringlist.h>
 
 // Forward class declaration
 class QString;
@@ -60,9 +61,11 @@ class cTerritory;
 #undef  DBGFILE
 #define DBGFILE "chars.h"
 
-
 class cChar : public cUObject
 {
+private:
+	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+
 // Public Types
 public:
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
@@ -274,11 +277,10 @@ protected:
 	// Public Methods
 public:
 	cChar();
-	virtual void Serialize(ISerialization &archive);
 	virtual QString objectID() const;
 	static void registerInFactory();
+	virtual void load( char **, UINT16& );
 	void save( const QString& = QString::null );
-	void load( const QString& = QString::null );
 	bool del ( const QString& = QString::null );
     
 	// A typical sequence for the following could be:

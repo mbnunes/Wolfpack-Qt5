@@ -431,10 +431,6 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// Apply the bonuses
 	pWearer->giveItemBonus( pItem );
 
-	// Show debug information if requested
-	if( showlayer )
-		clConsole.send( QString( "Item (%1) equipped on layer %2" ).arg( pItem->name() ).arg( pItem->layer() ) );
-
 	// I don't think we need to remove the item
 	// as it's only visible to the current char
 	// And he looses contact anyway

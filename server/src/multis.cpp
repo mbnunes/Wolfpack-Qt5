@@ -36,6 +36,7 @@
 #include "maps.h"
 #include "network/uosocket.h"
 #include "multiscache.h"
+#include "worldmain.h"
 
 #undef DBGFILE
 #define DBGFILE "multis.cpp" 
@@ -48,7 +49,75 @@ cMulti::cMulti()
 	coowner_ = INVALID_SERIAL;
 }
 
-void cMulti::Serialize( ISerialization &archive )
+void cMulti::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
+{
+	cItem::buildSqlString( fields, tables, conditions );
+	fields.push_back( "multis.coowner,multis.deedsection" );
+	tables.push_back( "multis" );
+	conditions.push_back( "uobjectmap.serial = multis.serial" );
+}
+
+void cMulti::load( char **result, UINT16 &offset )
+{
+	cItem::load( result, offset );
+	
+	coowner_ = atoi( result[offset++] );
+	deedsection_ = result[offset++];
+
+	// Load from two additional tables here
+	QString sql = "SELECT multis_bans.serial,multis_bans.ban FROM multis_bans WHERE multis_bans.serial = '" + QString::number( serial ) + "'";
+
+	// Error Checking		
+	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
+		throw mysql_error( cwmWorldState->mysql );
+
+	MYSQL_RES *mResult = mysql_use_result( cwmWorldState->mysql );
+
+	// Fetch row-by-row
+	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+	{
+		// row[1] is our serial
+		SERIAL banned = atoi( row[1] );
+		P_CHAR pChar = FindCharBySerial( banned );
+
+		if( pChar )
+			addBan( pChar );
+	}
+
+	mysql_free_result( mResult );
+
+	sql = "SELECT multis_friends.serial,multis_friends.friend FROM multis_friends WHERE multis_friends.serial = '" + QString::number( serial ) + "'";
+
+	// Error Checking		
+	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
+		throw mysql_error( cwmWorldState->mysql );
+
+	mResult = mysql_use_result( cwmWorldState->mysql );
+
+	// Fetch row-by-row
+	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+	{
+		// row[1] is our serial
+		SERIAL friendserial = atoi( row[1] );
+		P_CHAR pChar = FindCharBySerial( friendserial );
+
+		if( pChar )
+			addFriend( pChar );
+	}
+
+	mysql_free_result( mResult );
+}
+
+void cMulti::save( const QString&  )
+{
+}
+
+bool cMulti::del ( const QString& )
+{
+	return true;
+}
+
+/*void cMulti::Serialize( ISerialization &archive )
 {
 	if( archive.isReading() )
 	{
@@ -117,7 +186,7 @@ void cMulti::Serialize( ISerialization &archive )
 		archive.write( "multi.coowner", coowner_ );
 	}
 	cItem::Serialize( archive );
-}
+}*/
 
 
 void cMulti::processNode( const QDomElement &Tag )

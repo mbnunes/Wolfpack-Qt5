@@ -35,6 +35,7 @@
 // Library includes
 #include "qdom.h"
 #include "qstring.h"
+#include "qstringlist.h"
 
 // Wolfpack includes
 #include "items.h"
@@ -44,21 +45,24 @@ class ISerialization;
 
 class cBook : public cItem
 {
+private:
+	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+
 public:
 	cBook();
 
 	// abstract cSerializable
 	virtual QString objectID( void ) const { return "cBook"; }
-	virtual void	Serialize( ISerialization &archive );
 
 	// abstract cDefinable
 	virtual void	processNode( const QDomElement &Tag );
 
 	// PersistentObject
+	static void registerInFactory();
+	virtual void load( char **, UINT16& );
 	void save( const QString& = QString::null );
-	void load( const QString& = QString::null );
 	bool del ( const QString& = QString::null );
-
+	
 	// setters/getters
 	QString		title( void )	const;
 	QString		author( void )	const;
@@ -82,10 +86,6 @@ public:
 
 	// methods for predefined books
 	void		refresh( void );
-
-	// static methods
-	static void registerInFactory();
-
 private:
 	bool		predefined_;
 	bool		readonly_;

@@ -48,13 +48,13 @@ History: None
 #undef  DBGFILE
 #define DBGFILE "fishing.cpp"
 
-int SpawnFishingMonster(UOXSOCKET s, char* cScript, char* cList, char* cNpcID)
+/*int SpawnFishingMonster(UOXSOCKET s, char* cScript, char* cList, char* cNpcID)
 {
-	/*This function gets the random monster number from
+	This function gets the random monster number from
 	the script and list specified.
 	Npcs->AddRespawnNPC passing the new number*/
-
-/*	P_CHAR pc_currchar = currchar[s];
+/*
+	P_CHAR pc_currchar = currchar[s];
 
 	if (pc_currchar->inGuardedArea() && SrvParams->guardsActive()) //guarded
 		return -1;
@@ -108,13 +108,13 @@ int SpawnFishingMonster(UOXSOCKET s, char* cScript, char* cList, char* cNpcID)
 			return item[i];
 		}
 	}
-	*/
+	
 	return -1;
-}
+}*/
 
-int SpawnFishingItem(UOXSOCKET s,int nInPack, char* cScript, char* cList, char* cItemID)
+/*int SpawnFishingItem(UOXSOCKET s,int nInPack, char* cScript, char* cList, char* cItemID)
 {
- 	/*This function gets the random item number from the list and recalls
+ 	This function gets the random item number from the list and recalls
  	  SpawnItemBackpack2 passing the new number*/
 /*	char sect[512];
 	int i=0,item[256]={0};
@@ -166,7 +166,7 @@ int SpawnFishingItem(UOXSOCKET s,int nInPack, char* cScript, char* cList, char* 
 			return item[i];
 		}
 	}
-*/
+
 	return -1;
-}
+}*/
 

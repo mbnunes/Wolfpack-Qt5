@@ -50,7 +50,11 @@ static cUObject* productCreator()
 
 void cBook::registerInFactory()
 {
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cBook' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType("cBook", productCreator);
+	UObjectFactory::instance()->registerSqlQuery( "cBook", sqlString );
 }
 
 cBook::cBook()
@@ -65,7 +69,32 @@ cBook::cBook()
 	this->pages_ = 0;
 }
 
-void cBook::Serialize( ISerialization &archive )
+void cBook::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
+{
+	cItem::buildSqlString( fields, tables, conditions );
+	//fields.push_back( "" );
+	//tables.push_back( "boats" );
+	//conditions.push_back( "uobjectmap.serial = boats.serial" );
+}
+
+void cBook::load( char **result, UINT16 &offset )
+{
+	cItem::load( result, offset );
+	
+}
+
+void cBook::save( const QString &s  )
+{
+	// Not decided how to do that yet
+}
+
+bool cBook::del ( const QString &s )
+{
+	// Not decided how to do that yet
+	return cItem::del( s );
+}
+
+/*void cBook::Serialize( ISerialization &archive )
 {
 	if( archive.isReading() )
 	{
@@ -87,9 +116,9 @@ void cBook::Serialize( ISerialization &archive )
 		archive.write( "book.pages", pages_ );
 	}
 	cItem::Serialize( archive );
-}
+}*/
 
-void cBook::save( const QString& s/* = QString::null  */ )
+/*void cBook::save( const QString& s )
 {
 	startSaveSqlStatement("Books");
 	savePersistentIntValue("serial",		serial); // never forget we have serials on each table
@@ -109,9 +138,9 @@ void cBook::save( const QString& s/* = QString::null  */ )
 	savePersistentIntValue("pages",			pages_ );
 	endSaveSqlStatement(QString("serial='%1'").arg(serial));
 	cItem::save(s);
-}
+}*/
 
-void cBook::load( const QString& s/* = QString::null  */ )
+/*void cBook::load( const QString& s )
 {
 	startLoadSqlStatement("Books", "serial", s)
 	{
@@ -130,9 +159,9 @@ void cBook::load( const QString& s/* = QString::null  */ )
 	}
 	endLoadSqlStatement(s);
 	cItem::load(s);
-}
+}*/
 
-bool cBook::del( const QString& s/* = QString::null  */ )
+/*bool cBook::del( const QString& s )
 {
 	QSqlCursor cursor("Books");
 	cursor.select(QString("serial='%1'").arg(serial));
@@ -153,7 +182,7 @@ bool cBook::del( const QString& s/* = QString::null  */ )
 		cursor.del();
 	}
 	return cItem::del( s );
-}
+}*/
 
 void cBook::processNode( const QDomElement &Tag )
 {

@@ -54,17 +54,14 @@ class CWorldMain ;
 #include "typedefs.h"
 #include "debug.h"
 
-
 #include <zthread/Thread.h>
 #include <zthread/FastMutex.h>
 #include <qstring.h>
 #include <qmap.h>
-
-struct stContMap
-{
-	SERIAL contserial;
-	P_ITEM item;
-};
+#ifdef WIN32
+#include <winsock.h>
+#endif
+#include <mysql.h>
 
 class CWorldMain  
 {
@@ -79,8 +76,7 @@ public:
 	bool Saving( void );
 	bool RemoveItemsFromCharBody(int charserial, int type1, int type2);
 
-	// Only available while loading (which is single-threaded!)
-	std::vector< stContMap > contmap;
+	MYSQL *mysql;
 private:
 	bool isSaving;
 	int DisplayWorldSaves;

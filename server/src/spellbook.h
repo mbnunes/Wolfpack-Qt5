@@ -33,10 +33,16 @@
 #define __SPELLBOOK_H__
 
 #include "items.h"
+
+// Library Includes
 #include "qstring.h"
+#include <qstringlist.h>
 
 class cSpellBook: public cItem
 {
+private:
+	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+
 private:
 	UINT32 spells1_;
 	UINT32 spells2_;
@@ -63,11 +69,12 @@ public:
 
 	// abstract cSerializable
 	virtual QString objectID( void ) const { return "cSpellBook"; }
-	virtual void Serialize( ISerialization &archive );
+
+	// DB Serialization
 	static void registerInFactory();
+	virtual void load( char **, UINT16& );
 	void save( const QString& = QString::null );
-	void load( const QString& = QString::null );
-	bool del( const QString& = QString::null );
+	bool del ( const QString& = QString::null );
 
 	// abstract cDefinable
 	virtual void processNode( const QDomElement &Tag );

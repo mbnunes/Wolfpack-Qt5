@@ -38,6 +38,9 @@ class cUOSocket;
 class cCorpse: public cItem
 {
 private:
+	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+
+private:
 	UINT16 bodyId_; // Body id of the corpse
 	UINT16 hairStyle_; // Style of the hair
 	UINT16 hairColor_; // Color of the hair
@@ -63,9 +66,13 @@ public:
 
 	void addEquipment( UINT8 layer, SERIAL serial );
 
-	// abstract cSerializable
-	virtual QString objectID( void ) const { return "CORPSE"; }
-	virtual void Serialize( ISerialization &archive );
+	virtual QString objectID( void ) const { return "cCorpse"; }
+
+	// DB Serialization
+	static void registerInFactory();
+	virtual void load( char **, UINT16& );
+	void save( const QString& = QString::null );
+	bool del ( const QString& = QString::null );
 
 	// abstract cDefinable
 	virtual void processNode( const QDomElement &Tag );

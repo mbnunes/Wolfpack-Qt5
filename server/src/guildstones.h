@@ -38,6 +38,7 @@
 // System Includes
 #include <stdio.h>
 #include <string>
+#include <qstringlist.h>
 #include <vector>
 
 // Wolfpack Includes
@@ -57,6 +58,9 @@ class ISerialization;
 
 class cGuildStone : public cItem
 {
+private:
+	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+
 public:
 	enum enGuildType { standard = 0, chaos, order };
 	std::string			guildName;
@@ -73,11 +77,14 @@ public:
 public:
 	cGuildStone() {}
 	virtual ~cGuildStone() {}
-	virtual void Serialize( ISerialization &archive );
 	virtual QString objectID() const;
-	void save( const QString& = QString::null ) {};
-	void load( const QString& = QString::null ) {};
-	
+
+	// DB Serialization
+	static void registerInFactory();
+	virtual void load( char **, UINT16& );
+	void save( const QString& = QString::null );
+	bool del ( const QString& = QString::null );
+
 	void addMember(P_CHAR);
 	bool isMember(P_CHAR);
 	void removeMember(P_CHAR);
@@ -99,7 +106,7 @@ public:
 
 inline QString cGuildStone::objectID() const
 {
-	return "GUILDSTONE";
+	return "cGuildStone";
 }
 
 int CheckValidPlace(UOXSOCKET s);

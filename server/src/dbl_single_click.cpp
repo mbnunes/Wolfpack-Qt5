@@ -660,11 +660,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			teleport(pc_currchar);
 			pi->setType( 101 );
 			return; // case 102
-		case 103: // Army enlistment
-			enlist(s, pi->morex);
-			Items->DeleItem(pi);
-			return; // case 103 (army enlistment object)
-
 		// Teleport object
 		case 104: 
 			pc_currchar->removeFromView( false );
@@ -1072,10 +1067,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x19B8: // smelt ore
 					socket->sysMessage( "Where do you want to smelt the ore?" );
 					socket->attachTarget( new cConvertResource( QString("RESOURCE_INGOT"), pi ) );
-					return;
-				case 0x1E5E:
-				case 0x1E5F: // Message board opening
-					MsgBoardEvent(s);
 					return;
 				case 0x0EC4:// skinning knife 1 - antichrist
 				case 0x0EC5:// skinning knife 2

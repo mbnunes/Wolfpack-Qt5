@@ -54,7 +54,6 @@
 // Library Includes
 #include <qsqlcursor.h>
 #include <qcstring.h>
-#include <mysql.h>
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
@@ -120,73 +119,69 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 	QString objectID;
 	register unsigned int i = 0;
 
-	// Load cItem
 	clConsole.send( "Loading World...\n" );
+
+	mysql_init( mysql );
+
+	// This should be in SrvParams
+	//mysql_options(mysql,MYSQL_OPT_COMPRESS,0);
 	
-	MYSQL mysql;
-	mysql_init(&mysql);
-	//mysql_options(&mysql,MYSQL_OPT_COMPRESS,0);
-	
-	if( !mysql_real_connect( &mysql, SrvParams->databaseHost().latin1(), SrvParams->databaseUsername().latin1(),SrvParams->databasePassword().latin1(), SrvParams->databaseName().latin1(), 0, NULL, 0 ) )
+	if( !mysql_real_connect( mysql, SrvParams->databaseHost().latin1(), SrvParams->databaseUsername().latin1(),SrvParams->databasePassword().latin1(), SrvParams->databaseName().latin1(), 0, NULL, 0 ) )
 	{
-		fprintf( stderr, "Failed to connect to database: Error: %s\n", mysql_error(&mysql) );
+		fprintf( stderr, "Failed to connect to database: Error: %s\n", mysql_error(mysql) );
 		return;
 	}
 
-	// Error Checking
-	if( mysql_query( &mysql, UObjectFactory::instance()->findSqlQuery( "cItem" ).latin1() ) )
-	{
-		QString error = mysql_error( &mysql );
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( "\nERROR" );
-		clConsole.ChangeColor( WPC_NORMAL );
-		clConsole.send( ": " + error + "\n" );
-		return;
-	}
+	QStringList types = UObjectFactory::instance()->objectTypes();
 
-	MYSQL_RES *result = mysql_use_result( &mysql );
-	MYSQL_ROW row;
-
-	UINT32 sTime = getNormalizedTime();
-	UINT16 offset;
-	cUObject *object;
-
-	// Fetch row-by-row
-	while( ( row = mysql_fetch_row( result ) ) )
-	{
-		// do something with data
-		object = UObjectFactory::instance()->createObject( "cItem" );
-		offset = 2; // Skip the first two fields
-		object->load( row, offset );
-
-		if( ++i % 50000 == 0 )
-			qWarning( QString::number( i ) );
-	}
-
-	mysql_free_result( result );
-	mysql_close(&mysql);
-
-	/*QStringList types = UObjectFactory::instance()->objectTypes();
-
-	QSqlQuery query;
-	query.setForwardOnly(true);
 	for( INT32 j = 0; j < types.count(); ++j )
 	{
 		QString type = types[j];
-		QSqlQuery query;
-			UINT16 offset;
-			cUObject *object;
-			query.exec( UObjectFactory::instance()->findSqlQuery( type ) );
-			while( query.isActive() && query.next() )
-			{
-				object = UObjectFactory::instance()->createObject( type );
-				offset = 2; // Skip the first two fields
-				object->load( &query, offset );
-			}
 
-	}*/
+		// Find out how many objects of this type are available		
+		if( mysql_query( mysql, QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '" + type + "'" ).latin1() ) )
+			throw mysql_error( mysql );
 
-	clConsole.send( "Loaded %i in %i msecs\n", i, getNormalizedTime() - sTime );
+		MYSQL_RES *result = mysql_use_result( mysql );
+		MYSQL_ROW row = mysql_fetch_row( result );
+
+		UINT32 count = atoi( row[0] );
+
+		mysql_free_result( result );
+
+		clConsole.send( "Loading " + QString::number( count ) + " objects of type " + type + "\n" );
+
+		// Error Checking		
+		if( mysql_query( mysql, UObjectFactory::instance()->findSqlQuery( type ).latin1() ) )
+			throw mysql_error( mysql );
+
+		result = mysql_use_result( mysql );
+
+		UINT32 sTime = getNormalizedTime();
+		UINT16 offset;
+		cUObject *object;
+
+		progress_display progress( count );
+
+		// Fetch row-by-row
+		while( ( row = mysql_fetch_row( result ) ) )
+		{
+			// do something with data
+			object = UObjectFactory::instance()->createObject( type );
+			offset = 2; // Skip the first two fields
+			object->load( row, offset );
+
+			++progress;
+		}
+
+		mysql_free_result( result );
+
+		clConsole.send( "Loaded %i objects in %i msecs\n", progress.count(), getNormalizedTime() - sTime );
+	}
+
+	mysql_close( mysql );
+
+//	clConsole.send( "Loaded %i in %i msecs\n", i, getNormalizedTime() - sTime );
 
 	// Load Temporary Effects
 	archive = cPluginFactory::serializationArchiver(module);

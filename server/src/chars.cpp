@@ -73,7 +73,11 @@ static cUObject* productCreator()
 
 void cChar::registerInFactory()
 {
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cChar' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType("cChar", productCreator);
+	UObjectFactory::instance()->registerSqlQuery( "cChar", sqlString );
 }
 
 bool cChar::Owns(P_ITEM pi)				{	return (serial==pi->ownserial);		}
@@ -666,7 +670,32 @@ bool cChar::canPickUp(cItem* pi)
 	return true;
 }
 
-void cChar::Serialize(ISerialization &archive)
+void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
+{
+	cUObject::buildSqlString( fields, tables, conditions );
+	//fields.push_back( "" );
+	//tables.push_back( "boats" );
+	//conditions.push_back( "uobjectmap.serial = boats.serial" );
+}
+
+void cChar::load( char **result, UINT16 &offset )
+{
+	cUObject::load( result, offset );
+	
+}
+
+void cChar::save( const QString &s  )
+{
+	// Not decided how to do that yet
+}
+
+bool cChar::del ( const QString &s )
+{
+	// Not decided how to do that yet
+	return cUObject::del( s );
+}
+
+/*void cChar::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
 	{
@@ -913,9 +942,9 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("food",			food_);
 	}
 	cUObject::Serialize(archive);
-}
+}*/
 
-void cChar::save( const QString& s/* = QString::null  */ )
+/*void cChar::save( const QString& s )
 {
 	startSaveSqlStatement("characters");
 	savePersistentIntValue("serial",		serial); // never forget we have serials on each table
@@ -1056,11 +1085,11 @@ void cChar::save( const QString& s/* = QString::null  */ )
 	endSaveSqlStatement(QString("serial='%1'").arg(serial));
 	// Save base class
 	cUObject::save(s);
-}
+}*/
 
 static void characterRegisterAfterLoading( P_CHAR pc );
 
-void cChar::load( const QString& s/* = QString::null  */ )
+/*void cChar::load( const QString& s )
 {
 	cChar::Init( false ); // initialize
 	startLoadSqlStatement("characters", "serial", s)
@@ -1178,9 +1207,9 @@ void cChar::load( const QString& s/* = QString::null  */ )
 	endLoadSqlStatement(s);
 	cUObject::load(s);
 	characterRegisterAfterLoading( this ); // post processing/checking/registering
-}
+}*/
 
-bool cChar::del( const QString& s/* = QString::null  */ )
+/*bool cChar::del( const QString& s )
 {
 	QSqlCursor cursor("characters");
 	cursor.select(QString("serial='%1'").arg(serial));
@@ -1201,7 +1230,7 @@ bool cChar::del( const QString& s/* = QString::null  */ )
 		cursor.del();
 	}
 	return cUObject::del( s );
-}
+}*/
 
 //========== WRAPPER EVENTS
 

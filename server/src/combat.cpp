@@ -1044,9 +1044,6 @@ namespace Combat
 
 		if( ( pc->timeout() < uiCurrentTime ) && ( pc->timeout2() < uiCurrentTime ) ) 
 			return true;
-		
-		if( overflow )
-			return true;
 	
 		return false;
 	}

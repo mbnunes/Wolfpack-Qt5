@@ -75,11 +75,6 @@ extern unsigned int raindroptime;
 extern unsigned int polyduration;
 extern wp_version_info wp_version;
 
-extern int gDecayItem; //Last item that was checked for decay Tauriel 3/7/99
-extern int gRespawnItem; //Last item that was checked for respawn Tauriel 3/7/99
-
-extern int save_counter;//LB, world backup rate
-
 extern unsigned int fly_p; // flying probability = 1/fly_p each step (if it doesnt fly)
 extern unsigned char fly_steps_max;
 
@@ -110,41 +105,10 @@ extern int secure; // Secure mode
 
 extern int xycount;
 
-extern int locationcount;
-extern unsigned int logoutcount;//Instalog
-
-extern unsigned long int updatepctime;
-
-extern UI32 VersionRecordSize;
-extern UI32 MultiRecordSize;
-extern UI32 LandRecordSize;
-extern UI32 TileRecordSize;
-extern UI32 MapRecordSize;
-extern UI32 MultiIndexRecordSize;
-extern UI32 StaticRecordSize;
-
-
-extern int tnum;
 extern unsigned int starttime, endtime, lclock;
-extern bool overflow;
-
-extern unsigned char globallight;
-extern unsigned char wtype;
-
-extern int executebatch;
-extern int showlayer;
-extern int openings;
-
-extern unsigned char tempflag;
 
 extern unsigned int shoprestocktime;
-extern int shoprestockrate;
-extern unsigned int respawntime;
-extern unsigned int gatedesttime;
 
-extern int triggerx;
-extern int triggery;
-extern signed char triggerz;
 extern unsigned int hungerdamagetimer; // Used for hunger damage
 // Profiling
 extern int networkTime;
@@ -155,13 +119,10 @@ extern int networkTimeCount;
 extern int timerTimeCount;
 extern int autoTimeCount;
 extern int loopTimeCount;
-//extern	lookuptr_st MapCells[24576]; //A very large pointer structure array
 
 extern unsigned long int serverstarttime;
 
-
-
-extern unsigned long initialserversec ;
+extern unsigned long initialserversec;
 extern unsigned long initialservermill ;
 
 
@@ -169,9 +130,6 @@ extern unsigned long initialservermill ;
 ///             MAXCLIENT arrays          ///
 /////////////////////////////////////////////
 // maximum too cause maxclient = maximum +1
-
-//extern char firstpacket[MAXCLIENT+1];
-extern char noweather[MAXCLIENT+1]; //LB
 
 extern unsigned char  buffer[MAXCLIENT][MAXBUFFER_REAL];
 extern signed char addid5[MAXCLIENT];
@@ -225,10 +183,7 @@ extern  std::multimap <int, tele_locations_st> tele_locations; // can't use a ma
 extern title_st title[ALLSKILLS+1];
 
 extern creat_st creatures[2048]; //LB, stores the base-sound+sound flags of monsters, animals
-extern location_st location[4000];
-extern logout_st logout[1024];//Instalog
 extern advance_st wpadvance[1000];
-//extern spell_st spells[100];
 extern char spellname[71][25];
 extern char foodname[enNumberOfFood][20];
 extern int validEscortRegion[256];
@@ -243,30 +198,6 @@ extern jail_st jails[11];
 
 extern char gettokenstr[256];
 extern char temp[1024];
-
-
-////////////////////////////////
-//  small packet-arrays
-///////////////////////////////
-
-extern unsigned char wppause[3];
-extern unsigned char w_anim[3];
-extern unsigned char restart[3];
-extern unsigned char goxyz[20];
-extern unsigned char wearitem[16];
-extern unsigned char talk[15];
-extern unsigned char sysname[31];
-extern unsigned char removeitem[6];
-extern unsigned char gmprefix[10];
-extern unsigned char gmmiddle[5];
-extern unsigned char sfx[13];
-extern unsigned char doact[15];
-extern unsigned char bpitem[20];
-extern unsigned char dyevat[10];
-extern unsigned char updscroll[11];
-extern unsigned char spc[2];
-extern unsigned char extmove[18];
-extern unsigned char particleSystem[49];
 
 #ifdef __unix__
 extern termios termstate ;

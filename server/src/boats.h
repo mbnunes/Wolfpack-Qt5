@@ -63,13 +63,23 @@ class QString;
 // be aware when changing things in here!
 // - sereg
 
+class QStringList;
+
 class cBoat : public cMulti
 {
+private:
+	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+
 public:
 	cBoat();
 
-	virtual void Serialize( ISerialization &archive );
-	virtual QString objectID( void ) const { return "BOAT"; }
+	// PersistentObject
+	static void registerInFactory();
+	virtual void load( char **, UINT16& );
+	void save( const QString& = QString::null );
+	bool del ( const QString& = QString::null );
+
+	virtual QString objectID( void ) const { return "cBoat"; }
 
 	void handlePlankClick( cUOSocket* socket, P_ITEM pplank );
 	void switchPlankState( P_ITEM pplank );

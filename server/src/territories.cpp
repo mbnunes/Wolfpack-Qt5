@@ -232,7 +232,7 @@ void cAllTerritories::load( void )
 {
 	UI32 starttime = getNormalizedTime();
 	QStringList DefSections = DefManager->getSections( WPDT_REGION );
-	clConsole.PrepareProgress( "Loading regions..." );
+	clConsole.PrepareProgress( "Loading regions" );
 
 	if( DefSections.isEmpty() )
 	{
@@ -256,14 +256,6 @@ void cAllTerritories::load( void )
 	if( DefSections.size() > 1 )
 	{
 		clConsole.error( QString("WARNING: found more than 1 top level region! check your scripts! (found %1)\n").arg( DefSections.size() ).latin1() );
-	}
-
-	AllCharsIterator iterChars;
-	for (iterChars.Begin(); !iterChars.atEnd(); ++iterChars)
-	{
-		P_CHAR pc = iterChars.GetData();
-		if( pc )
-			pc->setRegion( region( pc->pos.x, pc->pos.y ) );
 	}
 
 	clConsole.send( QString( "Loaded %1 regions in %2 sec.\n" ).arg( this->count() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ) );

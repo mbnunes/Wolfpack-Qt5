@@ -36,11 +36,17 @@
 #include "items.h"
 #include "multis.h"
 
+// Library Includes
+#include <qstringlist.h>
+
 // Forward Class declaration
 class cUOSocket;
 
 class cHouse : public cMulti
 {
+private:
+	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+
 public:
 
 	unsigned int last_used;
@@ -55,7 +61,6 @@ public:
 		charpos_.x = charpos_.y = charpos_.z = 0;
 	}
 	virtual ~cHouse() {}
-	virtual void Serialize( ISerialization &archive );
 	virtual QString objectID() const;
 
 	bool onValidPlace( void );
@@ -64,6 +69,11 @@ public:
 
 	virtual void toDeed( cUOSocket* socket );
 
+	// DB Serialization
+	static void registerInFactory();
+	virtual void load( char **, UINT16& );
+	void save( const QString& = QString::null );
+	bool del ( const QString& = QString::null );
 
 	QString	deedSection( void ) { return deedsection_; }
 	void	setDeedSection( QString data ) { deedsection_ = data; }

@@ -307,7 +307,35 @@ void cHouse::toDeed( cUOSocket* socket )
 	socket->sysMessage( tr("You turned the boat into a deed.") );
 }
 
-void cHouse::Serialize(ISerialization &archive)
+void cHouse::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
+{
+	cMulti::buildSqlString( fields, tables, conditions );
+	fields.push_back( "houses.nokey,houses.charpos_x,houses.charpos_y,houses.charpos_z" );
+	tables.push_back( "houses" );
+	conditions.push_back( "uobjectmap.serial = houses.serial" );
+}
+
+void cHouse::load( char **result, UINT16 &offset )
+{
+	cMulti::load( result, offset );
+	nokey_ = atoi( result[offset++] );
+	charpos_.x = atoi( result[offset++] );
+	charpos_.y = atoi( result[offset++] );
+	charpos_.z = atoi( result[offset++] );
+}
+
+void cHouse::save( const QString &s  )
+{
+	// Not decided how to do that yet
+}
+
+bool cHouse::del( const QString &s )
+{
+	// Not decided how to do that yet
+	return cMulti::del( s );
+}
+
+/*void cHouse::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
 	{
@@ -324,13 +352,23 @@ void cHouse::Serialize(ISerialization &archive)
 		archive.write( "charpos.z", charpos_.z );
 	}
 	cMulti::Serialize(archive); // Call base class method too.
-}
+}*/
 
 QString cHouse::objectID() const
 {
-	return "HOUSE";
+	return "cHouse";
 }
 
+static cUObject* productCreator()
+{
+	return new cHouse;
+}
 
-
-
+void cHouse::registerInFactory()
+{
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cHouse' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	UObjectFactory::instance()->registerType("cHouse", productCreator);
+	UObjectFactory::instance()->registerSqlQuery( "cHouse", sqlString );
+}

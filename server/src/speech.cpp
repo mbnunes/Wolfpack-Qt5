@@ -1080,9 +1080,6 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 		++pit;
 	}
 
-	// >> LEGACY
-	//house_speech( s, SpeechUpr );
-
 	// this makes it so npcs do not respond to dead people - HEALERS ??
 	if( pChar->dead() )
 		return;

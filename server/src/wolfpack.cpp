@@ -71,6 +71,7 @@
 #include "newmagic.h"
 #include "spellbook.h"
 #include "persistentbroker.h"
+#include "corpse.h"
 
 // Library Includes
 #include <qapplication.h>
@@ -397,55 +398,6 @@ QString title3(P_CHAR pc) // Paperdoll title for character p (3)
 	return fametitle;
 }
 
-void gcollect () // Remove items which were in deleted containers
-{
-	int removed = 0, rtotal = 0;
-	bool bdelete;
-	clConsole.PrepareProgress( "Performing Garbage Collection..." );
-
-	vector< P_ITEM > toDelete;
-	AllItemsIterator iter_items;	
-	for( iter_items.Begin(); !iter_items.atEnd(); ++iter_items )
-	{
-		P_ITEM pi = iter_items.GetData();
-		
-		if( pi->free || pi->isInWorld() )
-			continue;
-
-		bdelete = true;
-
-		// find the container if theres one.
-		if( isCharSerial( pi->contserial ) )
-		{
-			P_CHAR pc = FindCharBySerial( pi->contserial );
-			if (pc != NULL)
-				bdelete = false;
-		}
-		else
-		{
-			P_ITEM pContainer = GetOutmostCont(pi);
-			if (pContainer != NULL)
-				bdelete = false;
-		}
-		if (bdelete)
-		{
-			toDelete.push_back( pi );
-			removed++;
-		}
-	}
-	rtotal += removed;
-
-	std::vector< P_ITEM >::iterator it = toDelete.begin();
-	while( it != toDelete.end() )
-	{
-		Items->DeleItem( (*it) ); 
-		it++;
-	}
-
-	clConsole.ProgressDone();
-	clConsole.send( QString( "Deleted %1 items.\n" ).arg( rtotal ) );
-}
-
 void item_char_test()
 {
 	LogMessage( "Starting item consistancy check" );
@@ -540,17 +492,6 @@ void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 				pc->setOnHorse( true );
 			wearIt(s,pi);
 		}
-	}
-}
-
-void all_items(int s) // Send ALL items to player
-{
-	AllItemsIterator iterItems;
-	for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
-	{
-		P_ITEM pi = iterItems.GetData();
-		if (!pi->free)
-			senditem(s, pi);
 	}
 }
 
@@ -1117,6 +1058,7 @@ void endScrn()
 
 void checkkey ()
 {
+	cUOSocket *mSock;
 	int i,j=0;
 	char c=0;
 
@@ -1171,19 +1113,6 @@ void checkkey ()
 					clConsole.send( "Done!\n");
 				}
 				break;
-			case 'L':
-			case 'l':
-				if (showlayer)
-				{
-					clConsole.send("WOLFPACK: Layer display disabled.\n");
-					showlayer=0;
-				}
-				else
-				{
-					clConsole.send("WOLFPACK: Layer display enabled.\n");
-					showlayer=1;
-				}
-				break;
 			case 'D':	// Disconnect account 0 (useful when client crashes)
 			case 'd':	
 					break;
@@ -1199,17 +1128,20 @@ void checkkey ()
 				break;
 			case 'W':
 			case 'w':				// Display logged in chars
-				clConsole.send("Current Users in the World:\n");
-				j = 0;  //Fix bug counting ppl online.
-				for (i=0;i<now;i++)
+				clConsole.send( "Current Users in the World:\n" );
+
+				mSock = cNetwork::instance()->first();
+				i = 0;
+				
+				for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 				{
-					if(perm[i]) //Keeps NPC's from appearing on the list
+					if( mSock->player() )
 					{
-						clConsole.send("%i) %s [%x]\n", j, currchar[i]->name.latin1(), currchar[i]->serial);
-						j++;
+						clConsole.send( "%i) %s [%x]\n", ++i, mSock->player()->name.latin1(), mSock->player()->serial );
 					}
 				}
-				clConsole.send("Total Users Online: %d\n", j);
+
+				clConsole.send( "Total Users Online: %d\n", cNetwork::instance()->count() );
 				break;
 			case 'A': //reload the accounts file
 			case 'a':
@@ -1237,11 +1169,6 @@ void checkkey ()
 				clConsole.send("	<Esc> or Q: Shutdown the server.\n");
 				clConsole.send("	T - System Message: The server is shutting down in 10 minutes.\n");
 				clConsole.send("	# - Save world\n");
-				clConsole.send("	L - Toggle layer Display");
-				if (showlayer)
-					clConsole.send("[enabled]\n");
-				else
-					clConsole.send("[disabled]\n");
 				clConsole.send("	D - Disconnect Account 0\n");
 				clConsole.send("	1 - Sysmessage: Attention Players Server being brought down!\n");
 				clConsole.send("	2 - Broadcast Message 2\n");
@@ -1388,7 +1315,6 @@ int main( int argc, char *argv[] )
 	clConsole.send( "Programmed by: %s\n", wp_version.codersstring.c_str() );
 	clConsole.send( "\n" );
 
-	openings = 0;
 	
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() );
 	clConsole.setConsoleTitle( consoleTitle );
@@ -1460,33 +1386,6 @@ int main( int argc, char *argv[] )
 		
 	srand(uiCurrentTime); // initial randomization call
 
-	clConsole.PrepareProgress("Openning database drivers and connection");
-	if (!persistentBroker->openDriver(SrvParams->databaseDriver()))
-	{
-		clConsole.ProgressFail();
-		qWarning("Error trying to load Database Driver");
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send("WARNING: Saving and loading of worldfile is disabled!");
-		clConsole.ChangeColor( WPC_NORMAL );
-	}
-	else if ( !persistentBroker->connect(SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword()) )
-	{
-		clConsole.ProgressFail();
-		qWarning("Error trying to connect to database");
-		QSqlError e = persistentBroker->driver()->lastError();
-		qWarning(QString("Database error response: %1").arg(e.databaseText()));
-		qWarning(QString("Driver error response: %1").arg(e.driverText()));
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send("WARNING: Saving and loading of worldfile is disabled!");
-		clConsole.ChangeColor( WPC_NORMAL );
-
-	}
-	else
-		clConsole.ProgressDone();
-	
-
-	clConsole.send("\nLoading vital scripts:\n");
-	
 //	read_in_teleport();
 	CIAO_IF_ERROR;
 
@@ -1497,9 +1396,23 @@ int main( int argc, char *argv[] )
 	cItem::registerInFactory();
 	cBook::registerInFactory();
 	cSpellBook::registerInFactory();
+	cCorpse::registerInFactory();
+	cMulti::registerInFactory();
+	cBoat::registerInFactory();
+	cHouse::registerInFactory();
 
-	cwmWorldState->loadnewworld( "binary" );
-	CIAO_IF_ERROR;
+	try
+	{
+		cwmWorldState->loadnewworld( "binary" );
+	}
+	catch( char *error )
+	{
+		clConsole.ChangeColor( WPC_RED );
+		clConsole.send( "\nERROR" );
+		clConsole.ChangeColor( WPC_NORMAL );
+		clConsole.send( ": " + QString( error ) + "\n" );
+		return 1;
+	}
 
 	clConsole.PrepareProgress( "Postprocessing" );
 
@@ -1559,8 +1472,18 @@ int main( int argc, char *argv[] )
 			continue;
 		}
 
+		// If this item has a multiserial then add it to the multi
+		if( isItemSerial( pi->multis ) )
+		{
+			cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis ) );
+
+			if( pMulti )
+				pMulti->addItem( pi );
+		}
+
 		// "Store Random value", whatever it does...
-		StoreItemRandomValue(pi, "none");
+		if( pi->container() && pi->container()->isItem() )
+			StoreItemRandomValue(pi, "none");
 
 		// effect on dex ? like plate eg.
 		if( pi->dx2 && pi->container() && pi->container()->isChar() )
@@ -1572,6 +1495,27 @@ int main( int argc, char *argv[] )
 		}
 	}
 
+	// Post Process Characters
+	AllCharsIterator charIter;
+	for( charIter.Begin(); !charIter.atEnd(); ++charIter )
+	{
+		P_CHAR pChar = charIter.GetData();
+
+		if( pChar )
+		{
+			if( isItemSerial( pChar->multis ) )
+			{
+				cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis ) );
+
+				if( pMulti )
+					pMulti->addChar( pChar );
+			}
+
+			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+			pChar->setRegion( region );
+		}
+	}
+
 	clConsole.ProgressDone();
 
 	clConsole.PrepareProgress( "Deleting lost items" );
@@ -1579,9 +1523,6 @@ int main( int argc, char *argv[] )
 	// Do we have to delete items?
 	for( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
 		quickdelete( pItem );
-
-	// Clear our Contmap
-	cwmWorldState->contmap.clear();
 
 	clConsole.ProgressDone();
 
@@ -1603,8 +1544,6 @@ int main( int argc, char *argv[] )
 	clConsole.PrepareProgress( "Initializing Multis" );
 	InitMultis();
 	clConsole.ProgressDone();
-
-	gcollect();
 
 	starttime=uiCurrentTime;
 	endtime=0;
@@ -1767,7 +1706,6 @@ int main( int argc, char *argv[] )
 	Magic->unload();
 	NewMagic->unload();
 	
-	gcollect();		// cleanup before saving, especially items of deleted chars (Duke, 10.1.2001)
 	cwmWorldState->savenewworld( "binary" );
 
 	clConsole.PrepareProgress( "Closing sockets" );
@@ -1899,37 +1837,6 @@ int fielddir(P_CHAR pc, int x, int y, int z)
 	}
 	return 1;
 }
-
-char indungeon(P_CHAR pc)
-{
-	if (pc->pos.x<5119)
-		return 0;
-
-	int x1 = (pc->pos.x-5119)>>8;
-	int y1 = (pc->pos.y>>8);
-
-	switch (y1)
-	{
-	case 5:
-	case 0:	return 1;
-	case 1:
-		if (x1 != 0) return 1;
-		return 0;
-	case 2:
-	case 3:
-		if (x1 < 3) return 1;
-		else return 0;
-	case 4:
-	case 6:
-		if (x1 == 0) return 1;
-		else return 0;
-	case 7:
-		if (x1 < 2) return 1;
-		else return 0;
-	}
-	return 0;
-}
-
 
 ////////////////////
 // Author : LB
@@ -2554,39 +2461,6 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 		pi->rndvaluerate=(int) RandomNum(min,max);
 	}
 }
-
-int numbitsset( int number )
-{
-	int bitsset = 0;
-
-	while( number )
-	{
-		if( number & 0x1 ) bitsset++;
-		number >>= 1;
-	}
-	return bitsset;
-}
-
-int whichbit( int number, int bit )
-{
-	int i, setbits = 0, whichbit = 0, intsize = sizeof(int) * 8;
-
-	for( i=0;i<intsize;i++ )
-	{
-		if( number & 0x1 ) setbits++;
-
-		if( setbits == bit )
-		{
-			whichbit = i+1;
-			break;
-		}
-		number >>= 1;
-	}
-
-	return whichbit;
-}
-
-
 
 // Dupois - added to do easy item sound effects based on an
 //			items id1 and id2 fields in struct items. Then just define the CASE statement
@@ -3738,13 +3612,13 @@ void bgsound(P_CHAR pc)
 			}
 			if (bgsound!=0) // bugfix lb
 			{
-				sfx[2]=basesound>>8;
+				/*sfx[2]=basesound>>8;
 				sfx[3]=basesound%256;
 				sfx[6]=inrange[sound]->pos.x>>8;
 				sfx[7]=inrange[sound]->pos.x%256;
 				sfx[8]=inrange[sound]->pos.y>>8;
 				sfx[9]=inrange[sound]->pos.y%256;
-				Xsend(calcSocketFromChar(pc), sfx, 12); //bugfix, LB
+				Xsend(calcSocketFromChar(pc), sfx, 12); //bugfix, LB*/
 			}
 		}
 	}
@@ -3769,13 +3643,13 @@ void bgsound(P_CHAR pc)
 
 		if (basesound !=0)
 		{
-			sfx[2] = (unsigned char) (basesound>>8);
+			/*sfx[2] = (unsigned char) (basesound>>8);
 			sfx[3] = (unsigned char) (basesound%256);
 			sfx[6] = (unsigned char) (pc->pos.x>>8);
 			sfx[7] = (unsigned char) (pc->pos.x%256);
 			sfx[8] = (unsigned char) (pc->pos.y>>8);
 			sfx[9] = (unsigned char) (pc->pos.y%256);
-			Xsend(calcSocketFromChar(pc), sfx, 12); //bugfix LB
+			Xsend(calcSocketFromChar(pc), sfx, 12); //bugfix LB*/
 		}
 	}
 }
@@ -3964,21 +3838,6 @@ void Fame(P_CHAR pc_toChange, int nFame)
 		}
 }
 
-void enlist(UOXSOCKET s, UI32 listnum) // listnum is stored in items morex
-{
-	QStringList itemSections = DefManager->getList( QString("%1").arg(listnum) );
-
-	if( !itemSections.isEmpty() )
-	{
-		QStringList::iterator itemSect = itemSections.begin();
-		while( itemSect != itemSections.end() )
-		{
-			Items->SpawnItemBackpack2( s, *itemSect, 0);
-			itemSect++;
-		}
-	}
-}
-
 void criminal(P_CHAR pc) //Repsys
 {
 	if( !pc )
@@ -4096,22 +3955,10 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 
 void SetGlobalVars()
 {
-	int i=0;
-	
-	w_anim[0]=0; w_anim[1]=0; w_anim[2]=0;
-
-	for (i=0;i<(MAXCLIENT);i++) { clientDimension[i]=2; noweather[i]=1; } // LB	
-	//for (i=0;i<cmem;i++) talkingto[i]=0; // cmem isnt set here !
-	
-	save_counter=0;
 	keeprun=1;
 	error=0;
 	now=0;
 	secure=1;
-	wtype=0;
-	globallight=0;
-	executebatch=0;
-	showlayer=0;
 	autosaved = 0;
 	dosavewarning = 0;
 }
@@ -4192,58 +4039,6 @@ void DeleteClasses()
 	//delete Weather;
 }
 
-// if we can find new effects they can be added here and will be active
-// for 'go 'goiter 'goplace 'whilst and 'tell for gm's and counselors
-
-//////////////////////////////////
-// Function for the different gm movement effects
-// 0 = none
-// 1 = flamestrike
-// 2 - 6 = different sparkles
-// Aldur
-//
-//
-
-void doGmMoveEff( UOXSOCKET s )
-{
-	if (s == -1) // Just to make sure ;)
-		return;
-	
-	P_CHAR pc_currchar = currchar[s];
-	if (!(pc_currchar->priv2() & 0x08))
-	{
-		switch (pc_currchar->gmMoveEff())
-		{
-		case 1:
-			// flamestrike
-			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x09, 0x09, 0x19, 0);
-			soundeffect(s, 0x02, 0x08);
-			break;
-		case 2:
-			// sparklie (fireworks wand style)
-			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x3A, 0x09, 0x19, 0);
-			break;
-		case 3:
-			// sparklie (fireworks wand style)
-			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x4A, 0x09, 0x19, 0);
-			break;
-		case 4:
-			// sparklie (fireworks wand style)
-			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x5A, 0x09, 0x19, 0);
-			break;
-		case 5:
-			// sparklie (fireworks wand style)
-			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x6A, 0x09, 0x19, 0);
-			break;
-		case 6:
-			// sparklie (fireworks wand style)
-			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x7A, 0x09, 0x19, 0);
-			break;
-		}
-	}
-	return;
-}
-
 int check_house_decay()
 {
 	int houses=0;   
@@ -4285,344 +4080,3 @@ int check_house_decay()
 	//delete Watch;
 	return decayed_houses;
 }
-
-//o---------------------------------------------------------------------------o
-//|	Function	-	void AutoFurnitureTurn( int s, int i)
-//|	Date		-	11/23/2001  Happy Thanksgiving!
-//|	Programmer	-	CyberSpud
-//o---------------------------------------------------------------------------o
-//|	Purpose		-	Takes a character's socket and an item and rotates that
-//|					item if the character is facing one of the cardinal
-//|					directions.  
-//o---------------------------------------------------------------------------o
-
-// Returns true if item was updated.
-bool autoFurnitureTurn( int s, P_ITEM pi ) // Auto turn furniture
-{
-	P_CHAR pc_currchar = currchar[s];
-	int CharDir = pc_currchar->dir();
-	int id = pi->id();
-	char direction[8];
-
-	switch (CharDir)
-	{
-		case 0:
-			strcpy(direction,"north");
-			break;
-		case 2:
-			strcpy(direction,"east");
-			break;
-		case 4:
-			strcpy(direction,"south");
-			break;
-		case 6:
-			strcpy(direction,"west");
-			break;
-		default:  //not facing one of the cardinal directions so go ahead and return
-			return false;
-	}
-	
-//***straw chair***
-	if (id == 0x0B5c	  //north
-		 ||  id == 0x0B5a	  //east
-		 ||  id == 0x0B5b	  //south
-		 ||  id == 0x0B5d) //west
-	{	
-		switch (CharDir)
-		{
-		case 0:
-			id = 0x0B5c;
-			break;
-		case 2:
-			id = 0x0B5a;
-			break;
-		case 4:
-			id = 0x0B5b;
-			break;
-		case 6:
-			id = 0x0B5d;
-			break;
-		}
-	}
-	
-//***fancy chair***
-	else if (id == 0x0B50    //north
-			||  id == 0x0B4e    //east
-			||  id == 0x0B4f    //south
-			||  id == 0x0B51)  //west
-	{	
-		switch (CharDir)
-		{
-		case 0:
-			id = 0x0B50;
-			break;
-		case 2:
-			id = 0x0B4e;
-			break;
-		case 4:
-			id = 0x0B4f;
-			break;
-		case 6:
-			id = 0x0B51;
-			break;
-		}
-	}
-//***Trinsic chair***
-	else if (id == 0x0B54    //north
-			||  id == 0x0B52    //east
-			||  id == 0x0B53    //south
-			||  id == 0x0B55)  //west
-	{	
-		switch (CharDir)
-		{
-		case 0:
-			id = 0x0B54;
-			break;
-		case 2:
-			id = 0x0B52;
-			break;
-		case 4:
-			id = 0x0B53;
-			break;
-		case 6:
-			id = 0x0B55;
-			break;
-		}
-	}
-//***wooden chair***
-	else if (id == 0x0B59    //north
-			||  id == 0x0B56    //east
-			||  id == 0x0B57    //south
-			||  id == 0x0B58)  //west
-	{	
-		switch (CharDir)
-		{
-		case 0:
-			id = 0x0B59;
-			break;
-		case 2:
-			id = 0x0B56;
-			break;
-		case 4:
-			id = 0x0B57;
-			break;
-		case 6:
-			id = 0x0B58;
-			break;
-		}
-	}
-//***wooden throne***
-	else if (id == 0x0B31    //north
-			||  id == 0x0B2f    //east
-			||  id == 0x0B2e    //south
-			||  id == 0x0B30)  //west
-	{	
-		switch (CharDir)
-		{
-		case 0:
-			id = 0x0B31;
-			break;
-		case 2:
-			id = 0x0B2f;
-			break;
-		case 4:
-			id = 0x0B2e;
-			break;
-		case 6:
-			id = 0x0B30;
-			break;
-		}
-	}
-//***stone throne***
-	else if (id == 0x121a    //north
-			||  id == 0x1219    //east
-			||  id == 0x1218    //south
-			||  id == 0x121b)  //west
-	{	
-		switch (CharDir)
-		{
-		case 0:
-			id = 0x121a;
-			break;
-		case 2:
-			id = 0x1219;
-			break;
-		case 4:
-			id = 0x1218;
-			break;
-		case 6:
-			id = 0x121b;
-			break;
-		}
-	}
-//***fancy throne***
-	else if (id == 0x0b32    //north
-			||  id == 0x0b33)  //east
-	{	
-		switch (CharDir)
-		{
-		case 0:
-		case 4:
-			id = 0x0b32;
-			break;
-		case 2:
-		case 6:
-			id = 0x0b33;
-			break;
-		}
-	}
-//***wooden bench***
-	else if (id == 0x0b2d    //north
-			||  id == 0x0b2c)  //east
-	{	
-		switch (CharDir)
-		{
-		case 0:
-		case 4:
-			id = 0x0b2d;
-			break;
-		case 2:
-		case 6:
-			id = 0x0b2c;
-			break;
-		}
-	}
-//***chest of drawers***
-	else if (id == 0x0a2c    //north
-			||  id == 0x0a34)  //east
-	{	
-		switch (CharDir)
-		{
-		case 0:
-		case 4:
-			id = 0x0a2c;
-			break;
-		case 2:
-		case 6:
-			id = 0x0a34;
-			break;
-		}
-	}
-//***stained chest of drawers***
-	else if (id == 0x0a30    //north
-			||  id == 0x0a38)  //east
-	{	
-		switch (CharDir)
-		{
-		case 0:
-		case 4:
-			id = 0x0a30;
-			break;
-		case 2:
-		case 6:
-			id = 0x0a38;
-			break;
-		}
-	}
-//***armiore***
-	else if (id == 0x0a4f    //north
-			|| id == 0x0a53)  //east
-	{	
-		switch (CharDir)
-		{
-		case 0:
-		case 4:
-			id = 0x0a4f;
-			break;
-		case 2:
-		case 6:
-			id = 0x0a53;
-			break;
-		}
-	}
-//***stained armiore***
-	else if ( id == 0x0a4d    //north
-			||  id == 0x0a51)  //east
-	{	
-		switch (CharDir)
-		{
-		case 0:
-		case 4:
-			id = 0x0a4d;
-			break;
-		case 2:
-		case 6:
-			id = 0x0a51;
-			break;
-		}
-	}
-//***empty bookcase***
-	else if ( id == 0x0a9d    //north
-			||  id == 0x0a9e)  //east
-	{	
-		switch (CharDir)
-		{
-		case 0:
-		case 4:
-			id = 0x0a9d;
-			break;
-		case 2:
-		case 6:
-			id = 0x0a9e;
-			break;
-		}
-	}
-//***wooden chest***
-	else if (id == 0x0e43    //north
-			|| id == 0x0e42)  //east
-	{	
-		switch (CharDir)
-		{
-		case 0:
-		case 4:
-			id = 0x0e43;
-			break;
-		case 2:
-		case 6:
-			id = 0x0e42;
-			break;
-		}
-	}
-//***metal chest***
-	else if (id == 0x0e41    //north
-			|| id == 0x0e40)  //east
-	{	
-		switch (CharDir)
-		{
-		case 0:
-		case 4:
-			id = 0x0e41;
-			break;
-		case 2:
-		case 6:
-			id = 0x0e40;
-			break;
-		}
-	}
-//***silver chest***
-	else if (id == 0x09ab ||  //north
-			 id == 0x0e7c)    //east
-	{	
-		switch (CharDir)
-		{
-		case 0:
-		case 4:
-			id = 0x09ab;
-			break;
-		case 2:
-		case 6:
-			id = 0x0e7c;
-			break;
-		}
-	}
-//***not a piece of furniture***
-	else	
-	{
-		return false;
-	}
-	
-	pi->setId(id);	//change the id and refresh the item
-	sysmessage(s, "You face the item to the %s", direction);
-	return true;
-}
-

@@ -269,7 +269,7 @@ bool cUObject::onUse( cUObject *Target )
 		// if not as the first
 		bool Handeled = false;
 
-		if( this->objectID() != "CHARACTER" )
+		if( !this->isChar() )
 			Handeled = scriptChain[ i ]->onUse( (P_CHAR)Target, (P_ITEM)this );
 		else
 			Handeled = scriptChain[ i ]->onUse( (P_CHAR)this, (P_ITEM)Target );
@@ -291,10 +291,10 @@ bool cUObject::onCollide( cUObject* Obstacle )
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 	{
 		// Items cannot collide with items
-		if( this->objectID() != "CHARACTER" ) // Item, so obstacle has to be character
+		if( !isChar() ) // Item, so obstacle has to be character
 			scriptChain[ i ]->onCollideItem( (P_CHAR)Obstacle, (P_ITEM)this );
 		else
-			if( Obstacle->objectID() == "ITEM" )
+			if( Obstacle->isItem() )
 				if( scriptChain[ i ]->onCollideItem( (P_CHAR)this, (P_ITEM)Obstacle ) )
 					return true;
 
