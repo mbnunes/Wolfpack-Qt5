@@ -161,3 +161,111 @@ void reloadPython()
 	for( INT32 i = 0; i < PyList_Size( mList ); ++i )
 		PyImport_ReloadModule( PyList_GetItem( mList, i ) );
 }
+
+void reportPythonError( QString moduleName )
+{
+	// Print the Error
+	if( PyErr_Occurred() )
+	{
+		PyObject *exception, *value, *traceback;
+
+		PyErr_Fetch( &exception, &value, &traceback );
+		PyErr_NormalizeException( &exception, &value, &traceback );
+
+		// Set sys. variables for exception tracking
+		PySys_SetObject( "last_type", exception );
+		PySys_SetObject( "last_value", value );
+		PySys_SetObject( "last_traceback", traceback );
+
+		PyObject *exceptionName = PyObject_GetAttrString( exception, "__name__" );
+
+		// Do we have a detailed description of the error ?
+		PyObject *error = value != 0 ? PyObject_Str( value ) : 0;
+
+		if( !error )
+		{
+			if( !moduleName.isNull() )
+			{
+				Console::instance()->log( LOG_ERROR, QString( "An error occured while compiling \"%1\": %2" ).arg( moduleName ).arg( PyString_AsString( exceptionName ) ) );
+			}
+			else
+			{
+				Console::instance()->log( LOG_ERROR, QString( "An error occured: %1" ).arg( PyString_AsString( exceptionName ) ) );
+			}
+		}
+		else
+		{
+			if( !moduleName.isNull() )
+			{
+				Console::instance()->log( LOG_ERROR, QString( "An error occured in \"%1\": %2" ).arg( moduleName ).arg( PyString_AsString( exceptionName ) ) );
+			}
+			else
+			{
+				Console::instance()->log( LOG_ERROR, QString( "An error occured: %1" ).arg( PyString_AsString( exceptionName ) ) );
+			}
+
+			Console::instance()->log( LOG_PYTHON, QString( "%1: %2" ).arg( PyString_AsString( exceptionName ) ).arg( PyString_AsString( error ) ), false );
+			Py_XDECREF( error );
+		}
+
+		// Don't print a traceback for syntax errors
+		if( PyErr_GivenExceptionMatches( exception, PyExc_SyntaxError ) )
+		{
+			Py_XDECREF( traceback );
+			traceback = 0;
+		}
+
+		// Dump a traceback
+		while( traceback )
+		{
+			if( !PyObject_HasAttrString( traceback, "tb_frame" ) )
+				break;
+
+			PyObject *frame = PyObject_GetAttrString( traceback, "tb_frame" );
+
+			if( !PyObject_HasAttrString( frame, "f_code" ) )
+			{
+				Py_XDECREF( frame );
+				break;
+			}
+
+			PyObject *code = PyObject_GetAttrString( frame, "f_code" );
+
+			if( !PyObject_HasAttrString( code, "co_filename" ) || !PyObject_HasAttrString( code, "co_name" ) )
+			{
+				Py_XDECREF( frame );
+				Py_XDECREF( code );
+				break;
+			}
+
+			PyObject *pyFilename = PyObject_GetAttrString( code, "co_filename" );
+			PyObject *pyFunction = PyObject_GetAttrString( code, "co_name" );
+
+			QString filename = PyString_AsString( pyFilename );
+			QString function = PyString_AsString( pyFunction );
+
+			Py_XDECREF( pyFilename );
+			Py_XDECREF( pyFunction );
+
+			Py_XDECREF( code );
+			Py_XDECREF( frame );
+
+			PyObject *pyLine = PyObject_GetAttrString( traceback, "tb_lineno" );
+			unsigned int line = PyInt_AsLong( pyLine );
+			Py_XDECREF( pyLine );
+
+			// Print it 
+			Console::instance()->log( LOG_PYTHON, QString( "File '%1',%2 in '%3'" ).arg( filename ).arg( line ).arg( function ), false );
+
+			// Switch Frames
+			PyObject *newtb = PyObject_GetAttrString( traceback, "tb_next" );
+			Py_XDECREF( traceback );
+			traceback = newtb;
+		}
+
+		Py_XDECREF( exceptionName );
+		Py_XDECREF( exception );
+		Py_XDECREF( value );
+		Py_XDECREF( traceback );
+	}
+}

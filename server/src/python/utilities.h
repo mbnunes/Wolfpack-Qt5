@@ -33,6 +33,7 @@
 
 #include "engine.h"
 #include "pyerrors.h"
+#include <qstring.h>
 
 #include "../typedefs.h"
 
@@ -62,15 +63,6 @@ typedef cMulti* P_MULTI;
 #define setStrProperty( identifier, property ) if( !strcmp( name, identifier ) ) self->property = PyString_AS_STRING( value );
 #define getIntProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyInt_FromLong( self->property );
 #define getStrProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyString_FromString( self->property );
-
-/*!
-	This function checks if there has been an error and tries to print it out.
-  */
-inline void PyReportError( void )
-{
-	if( PyErr_Occurred() )
-		PyErr_Print();
-}
 
 inline void wpDealloc( PyObject* self )
 {

@@ -37,6 +37,7 @@
 #define __PYTHON_ENGINE_H__
 
 #include <qglobal.h>
+#include <qstring.h>
 
 //#define DEBUG_PYTHON
 #undef slots
@@ -52,6 +53,8 @@
 void reloadPython( void );
 void stopPython( void );
 void startPython( int argc, char* argv[], bool silent = false );
+void reportPythonError( QString moduleName = QString::null );
+
 
 #endif // __PYTHON_ENGINE_H__
 

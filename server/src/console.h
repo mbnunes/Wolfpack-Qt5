@@ -87,7 +87,7 @@ public:
 	virtual void send(const QString &sMessage);
 
 	// Log a message
-	void log( UINT8 logLevel, const QString &message );
+	void log( UINT8 logLevel, const QString &message, bool timestamp = true );
 
         // Get input from the console
 	UI08 getkey(void);

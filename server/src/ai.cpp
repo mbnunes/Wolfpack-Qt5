@@ -224,12 +224,16 @@ void ScriptAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 					PyTuple_SetItem( p_args, 1, PyGetCharObject( pTalker ) );
 					PyTuple_SetItem( p_args, 2, PyString_FromString( comm.latin1() ) );
 
-					PyEval_CallObject( pFunc, p_args );
+					Py_XDECREF( PyEval_CallObject( pFunc, p_args ) );
 
-					if( PyErr_Occurred() )
-						PyErr_Print();
+					Py_XDECREF( p_args );
+
+					reportPythonError( sModule );
 				}
+				Py_XDECREF( pFunc );
 			}
+
+			Py_XDECREF( pModule );
 		}
 	}
 }
@@ -257,17 +261,31 @@ float ScriptAction::preCondition()
 					// Create our Argument list
 					PyObject *p_args = PyTuple_New( 3 );
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+					PyTuple_SetItem( p_args, 1, Py_None );
+					PyTuple_SetItem( p_args, 2, Py_None );
 
 					PyObject *returnValue = PyObject_CallObject( pFunc, p_args ); 
 
-					PyReportError(); 
+					Py_XDECREF( p_args );
+
+					reportPythonError( sModule );
 					
 					if( returnValue == NULL || !PyFloat_Check( returnValue ) ) 
-						return 0.0f;
+					{
+						Py_XDECREF( returnValue );
+						return 1.0f;
+					}
 					else
-						return PyFloat_AsDouble( returnValue );
+					{
+						double result = PyFloat_AsDouble( returnValue );
+						Py_XDECREF( returnValue );
+						return result;
+					}
 				}
+				Py_XDECREF( pFunc );
 			}
+
+			Py_XDECREF( pModule );
 		}
 	}
 	return 0.0f;
@@ -296,17 +314,31 @@ float ScriptAction::postCondition()
 					// Create our Argument list
 					PyObject *p_args = PyTuple_New( 3 );
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+					PyTuple_SetItem( p_args, 1, Py_None );
+					PyTuple_SetItem( p_args, 2, Py_None );
 
 					PyObject *returnValue = PyObject_CallObject( pFunc, p_args ); 
 
-					PyReportError(); 
+					Py_XDECREF( p_args );
+
+					reportPythonError( sModule );
 					
 					if( returnValue == NULL || !PyFloat_Check( returnValue ) ) 
+					{
+						Py_XDECREF( returnValue );
 						return 1.0f;
+					}
 					else
-						return PyFloat_AsDouble( returnValue );
+					{
+						double result = PyFloat_AsDouble( returnValue );
+						Py_XDECREF( returnValue );
+						return result;
+					}
 				}
+				Py_XDECREF( pFunc );
 			}
+
+			Py_XDECREF( pModule );
 		}
 	}
 	return 1.0f;
@@ -335,13 +367,19 @@ void ScriptAction::execute()
 					// Create our Argument list
 					PyObject *p_args = PyTuple_New( 3 );
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+					PyTuple_SetItem( p_args, 1, Py_None );
+					PyTuple_SetItem( p_args, 2, Py_None );
 
-					PyEval_CallObject( pFunc, p_args );
+					Py_XDECREF( PyEval_CallObject( pFunc, p_args ) );
 
-					if( PyErr_Occurred() )
-						PyErr_Print();
+					Py_XDECREF( p_args );
+
+					reportPythonError( sModule );
 				}
+				Py_XDECREF( pFunc );
 			}
+
+			Py_XDECREF( pModule );
 		}
 	}
 }

@@ -123,6 +123,10 @@ void cLog::log( eLogLevel loglevel, cUOSocket *sock, const QString &string, bool
 		prelude.append( "WARNING: " );
 		break;
 
+	case LOG_PYTHON:
+		prelude.append( "PYTHON: " );
+		break;
+
 	default:
 		prelude.append( " " );
 	}
@@ -138,7 +142,6 @@ void cLog::print( eLogLevel loglevel, const QString &string, bool timestamp )
 {	
 	// Send to the Console too
 	print( loglevel, 0, string, timestamp );
-	log( loglevel, 0, string, timestamp );
 }
 
 void cLog::print( eLogLevel loglevel, cUOSocket *sock, const QString &string, bool timestamp )
@@ -178,11 +181,20 @@ void cLog::print( eLogLevel loglevel, cUOSocket *sock, const QString &string, bo
 		Console::instance()->ChangeColor( WPC_NORMAL );
 		break;
 
+	case LOG_PYTHON:
+		Console::instance()->setAttributes( false, false, false, 204, 204, 153, 0, FONT_FIXEDWIDTH );
+		break;
+
 	default:
 		if( !prelude.isEmpty() )
 			Console::instance()->send( " " );
 	}
 
 	Console::instance()->send( string );
+
+	if( loglevel == LOG_PYTHON )
+	{
+		Console::instance()->ChangeColor( WPC_NORMAL );
+	}
 }
 

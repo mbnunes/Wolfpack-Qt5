@@ -108,7 +108,7 @@ void cPythonScript::unload( void )
 	}
 		
 	PyObject* result = PyObject_CallObject( method, NULL );
-	PyReportError();
+	reportPythonError( name_ );
 	Py_XDECREF( result ); // void
 	Py_DECREF( method );
 	Py_DECREF( codeModule );
@@ -130,21 +130,15 @@ bool cPythonScript::load( const cElement *element )
 
 	setName( name );
 
-	QString moduleName = element->text();
-
-	if( moduleName.isNull() || moduleName.isEmpty() )
+	if( name.isNull() || name.isEmpty() )
 		return false;
 
-	codeModule = PyImport_ImportModule( const_cast<char*>(moduleName.latin1()) );
+	codeModule = PyImport_ImportModule( const_cast<char*>(name.latin1()) );
 
 	if( !codeModule )
 	{
 		Console::instance()->ProgressFail();
-
-		if( PyErr_Occurred() )
-			PyErr_Print();
-
-		Console::instance()->send( QString( "\nError while compiling module [" + moduleName + "]\n" ) );
+		reportPythonError( name );
 		Console::instance()->PrepareProgress( "Continuing loading" );
 		return false;
 	}
@@ -157,7 +151,12 @@ bool cPythonScript::load( const cElement *element )
 		if ( PyCallable_Check( method ) )
 		{
 			PyObject* result = PyObject_CallObject( method, NULL );
-			PyReportError();
+			if( PyErr_Occurred() )
+			{
+				Console::instance()->ProgressFail();
+				reportPythonError( name );
+				Console::instance()->PrepareProgress( "Continuing loading" );
+			}
 			Py_XDECREF( result );
 		}
 		Py_DECREF( method );
@@ -428,7 +427,7 @@ unsigned int cPythonScript::onDamage( P_CHAR pChar, unsigned char type, unsigned
 
 	PyObject *returnValue = PyObject_CallObject( method, args ); 
 	
-	PyReportError();
+	reportPythonError( name_ );
 	Py_DECREF( args );
 	Py_DECREF( method );
 	
@@ -702,7 +701,7 @@ QString cPythonScript::onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin )
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( pOrigin ) );
 
 	PyObject *returnValue = PyObject_CallObject( method, tuple ); 
-	PyReportError();
+	reportPythonError( name_ );
 	Py_DECREF( tuple );
 	Py_DECREF( method );
 

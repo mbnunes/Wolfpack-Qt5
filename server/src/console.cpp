@@ -82,7 +82,7 @@ void cConsole::enabled(bool bState)
 }
 
 //========================================================================================
-void cConsole::log( UINT8 logLevel, const QString &message )
+void cConsole::log( UINT8 logLevel, const QString &message, bool timestamp )
 {
 	// Legacy Code
 	QString msg = message;
@@ -90,7 +90,7 @@ void cConsole::log( UINT8 logLevel, const QString &message )
 	if( msg.endsWith( "\n" ) )
 		msg = msg.left( msg.length() - 1 );
 
-	Log::instance()->print( (eLogLevel)logLevel, msg + "\n" );
+	Log::instance()->print( (eLogLevel)logLevel, msg + "\n", timestamp );
 }
 
 //=========================================================================================

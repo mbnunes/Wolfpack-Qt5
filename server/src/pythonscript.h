@@ -158,11 +158,8 @@ public:
 		
 		Py_XDECREF( tuple );
 		Py_DECREF( method );
-		if( PyErr_Occurred() )
-		{
-			PyErr_Print();
-			PyErr_Clear();
-		}
+
+		reportPythonError( name_ );
 
 		if( !returnValue ) 
 			return false;
