@@ -7,7 +7,26 @@
 =================================================================
 -->
 <definitions>
-        <!-- IDs of Shirts -->
+  <!-- List of small blood puddles (>=20% hitpoints) -->
+  <list id="SMALL_BLOOD_PUDDLES">
+    <item>1645</item>
+    <item>122c</item>
+    <item>122e</item>
+  </list>
+
+  <!-- List of medium blood puddles (>=35% hitpoints) -->
+  <list id="MEDIUM_BLOOD_PUDDLES">
+    <item>122b</item>
+    <item>122d</item>
+  </list>
+
+  <!-- List of big blood puddles (>=50% hitpoints) -->
+  <list id="BIG_BLOOD_PUDDLES">
+    <item>122a</item>
+  </list>
+
+
+  <!-- IDs of Shirts -->
 	<list id="SHIRTS">
 		<item>1efd</item> <!-- Fancy -->
 		<item>1517</item> <!-- Plain -->
