@@ -137,6 +137,7 @@ def endheal(char, arguments):
 		
 	if char.dead:
 		socket.clilocmessage(500962) # Died before finishing his work
+		socket.deltag('bandage_slipped')
 		return
 	
 	if socket.hastag('bandage_slipped'):
