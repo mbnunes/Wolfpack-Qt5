@@ -1,10 +1,12 @@
 
 # Input
-HEADERS += $$AI_H/ai.h \
-	$$AI_H/ai_mage.h
+HEADERS += \
+	$$PWD/ai.h \
+	$$PWD/ai_mage.h
 
-SOURCES += $$AI_CPP/ai.cpp \
-	$$AI_CPP/ai_animals.cpp \
-	$$AI_CPP/ai_humans.cpp \
-	$$AI_CPP/ai_monsters.cpp \
-	$$AI_CPP/ai_mage.cpp
+SOURCES += \ 
+	$$PWD/ai.cpp \
+	$$PWD/ai_animals.cpp \
+	$$PWD/ai_humans.cpp \
+	$$PWD/ai_monsters.cpp \
+	$$PWD/ai_mage.cpp

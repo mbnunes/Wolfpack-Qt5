@@ -1,9 +1,14 @@
 
 # Input
-HEADERS += $$MULS_H/maps.h \
-	$$MULS_H/multiscache.h \
-	$$MULS_H/tilecache.h
+HEADERS += \ 
+	$$PWD/maps.h \
+	$$PWD/multiscache.h \
+	$$PWD/tilecache.h
 
-SOURCES += $$MULS_CPP/maps.cpp \
-	$$MULS_CPP/multiscache.cpp \
-	$$MULS_CPP/tilecache.cpp
+SOURCES += \ 
+	$$PWD/maps.cpp \
+	$$PWD/multiscache.cpp \
+	$$PWD/tilecache.cpp
+
+INCLUDEPATH += $$PWD
+DEPENDPATH += $$PWD
