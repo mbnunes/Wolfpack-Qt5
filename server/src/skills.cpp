@@ -2992,7 +2992,7 @@ bool cSkills::MeetRequirements( P_CHAR myChar, QDomElement Requirements, bool No
 
 			// Get the script and query
 			// onCheckMakeItem
-			WPDefaultScript *Script = ScriptManager->FindScript( Element.attributeNode( "id" ).nodeValue() );
+			WPDefaultScript *Script = ScriptManager->find( Element.attributeNode( "id" ).nodeValue() );
 
 			if( Script == NULL )
 				continue;

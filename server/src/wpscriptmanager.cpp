@@ -29,15 +29,14 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+#include "wolfpack.h"
 #include "wpscriptmanager.h"
 #include "wpdefmanager.h"
-#include "wolfpack.h"
-#include <qstring.h>
+#include "wpdefaultscript.h"
+#include "wppythonscript.h"
 
-WPScriptManager::WPScriptManager()
-{
-
-}
+// Library Includes
+#include "qstring.h"
 
 WPScriptManager::~WPScriptManager()
 {
@@ -50,30 +49,35 @@ WPScriptManager::~WPScriptManager()
 }
 
 
-WPDefaultScript* WPScriptManager::FindScript( QString Name )
+WPDefaultScript* WPScriptManager::find( const QString& Name ) const
 {
-	return Scripts[ Name ];
+	map< QString, WPDefaultScript* >::const_iterator it = Scripts.find( Name );
+	if ( it != Scripts.end() )
+		return (*it).second;
+	else
+		return 0;
 }
 
-void WPScriptManager::AddScript( QString Name, WPDefaultScript *Script )
+void WPScriptManager::add( const QString& Name, WPDefaultScript *Script )
 {
-	RemoveScript( Name );
+	remove( Name );
 
 	Script->setName( Name );
 
 	Scripts[ Name ] = Script;
 }
 
-void WPScriptManager::RemoveScript( QString Name )
+void WPScriptManager::remove( const QString& Name )
 {
-	if( Scripts.find( Name ) != Scripts.end() )
+	iterator it = Scripts.find( Name );
+	if( it != Scripts.end() )
 	{
-		delete Scripts[ Name ];
-		Scripts.erase( Name );
+		delete (*it).second;
+		Scripts.erase( it );
 	}
 }
 
-void WPScriptManager::Load( void )
+void WPScriptManager::load( void )
 {
 	clConsole.PrepareProgress( "Loading Script Manager" );
 
@@ -99,12 +103,12 @@ void WPScriptManager::Load( void )
 		if( ScriptType == "default" )
 			Script = new WPDefaultScript;
 		else if( ScriptType == "python" )
-			Script = (WPDefaultScript*)new WPPythonScript;
+			Script = new WPPythonScript;
 		else
 			continue;
 	
 		Script->load( Node );
-		AddScript( SectionList[ i ].ascii(), Script );
+		add( SectionList[ i ].ascii(), Script );
 		ScriptsLoaded++;
 	}
 

@@ -32,17 +32,20 @@
 #if !defined(AFX_WPSCRIPTMANAGER_H__267F80C6_32E0_43C9_992F_9FAD5DECDC2C__INCLUDED_)
 #define AFX_WPSCRIPTMANAGER_H__267F80C6_32E0_43C9_992F_9FAD5DECDC2C__INCLUDED_
 
-#include "wpdefaultscript.h"
-#include "wppythonscript.h"
+// Our Includes
+//#include "wppythonscript.h"
 
+// System Includes
 #include <map>
 #include <string>
 
-//#include "wolfpack.h"
+// Library includes
+#include "qstring.h"
 
-typedef std::map< std::string, WPDefaultScript* >::iterator ScriptIterator;
+// Forward definitions
+class WPDefaultScript;
 
-using namespace std;
+//using namespace std;
 
 enum WPScriptTypes
 {
@@ -57,14 +60,15 @@ private:
 	std::map< QString, WPDefaultScript* > Scripts;
 
 public:
-	WPScriptManager();
+	typedef std::map< QString, WPDefaultScript* >::iterator iterator;
+
 	virtual ~WPScriptManager();
 
-	WPDefaultScript* FindScript( QString Name );
-	void AddScript( QString Name, WPDefaultScript *Script );
-	void RemoveScript( QString Name );
+	WPDefaultScript* find( const QString& Name ) const;
+	void add( const QString& Name, WPDefaultScript *Script );
+	void remove( const QString& Name );
 
-	void Load( void );
+	void load( void );
 };
 
 #endif // !defined(AFX_WPSCRIPTMANAGER_H__267F80C6_32E0_43C9_992F_9FAD5DECDC2C__INCLUDED_)

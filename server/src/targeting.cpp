@@ -1088,7 +1088,7 @@ void cTargets::AllSetTarget(int s)
 		{
 			QString eventName = events[ i ];
 
-			WPDefaultScript *scriptObj = ScriptManager->FindScript( eventName );
+			WPDefaultScript *scriptObj = ScriptManager->find( eventName );
 
 			// No event with that name found
 			if( scriptObj == NULL )

@@ -60,6 +60,7 @@
 #include "srvparams.h"
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
+#include "wppythonscript.h"
 
 // Library Includes
 #include "qapplication.h"
@@ -2903,7 +2904,7 @@ int main( int argc, char *argv[] )
 
 	startPython( argc, argv );
 
-	ScriptManager->Load();
+	ScriptManager->load();
 
 	Map->Cache = 0;
 	Admin->ReadIni();
