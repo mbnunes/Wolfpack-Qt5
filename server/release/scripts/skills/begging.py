@@ -70,7 +70,7 @@ def response( char, args, target ):
 
 	if gold_beg == 1:
 		gold_coins = GOLD_COIN
-	elif gold_beg < 4:
+	elif gold_beg < 6:
 		gold_coins = GOLD_COIN1
 	else:
 		gold_coins = GOLD_COIN2
