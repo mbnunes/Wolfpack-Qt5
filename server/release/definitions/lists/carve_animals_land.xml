@@ -26,17 +26,17 @@
 		<item>1079,12</item> <!-- hides -->
 	</list>
 
-	<list id="carve_bear_d_brown">
+	<list id="carve_blacl_bear">
 		<item>9f1,1</item> <!-- meat -->
 		<item>1079,12</item> <!-- hides -->
 	</list>
 
-	<list id="carve_bear_l_brown">
+	<list id="carve_grizzly_bear">
 		<item>9f1,1</item> <!-- meat -->
 		<item>1079,12</item> <!-- hides -->
 	</list>
 
-	<list id="carve_bear_polar">
+	<list id="carve_polar_bear">
 		<item>9f1,2</item> <!-- meat -->
 		<item>1079,3</item> <!-- hides -->
 	</list>
@@ -65,12 +65,7 @@
 		<item>1079,1</item> <!-- hides -->
 	</list>
 
-	<list id="carve_cow_black">
-		<item>9f1,8</item> <!-- meat -->
-		<item>1079,12</item> <!-- hides -->
-	</list>
-
-	<list id="carve_cow_brown">
+	<list id="carve_cow">
 		<item>9f1,8</item> <!-- meat -->
 		<item>1079,12</item> <!-- hides -->
 	</list>

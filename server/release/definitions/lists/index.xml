@@ -18,6 +18,7 @@
 	<include file="definitions/lists/misc.xml"/>
 	<include file="definitions/lists/names/index.xml"/>
 	<include file="definitions/lists/npcs.xml"/>
+	<include file="definitions/lists/npcids.xml"/>
 	<include file="definitions/lists/skins.xml"/>
 	<include file="definitions/lists/sounds.xml"/>
 	<include file="definitions/lists/titles.xml"/>

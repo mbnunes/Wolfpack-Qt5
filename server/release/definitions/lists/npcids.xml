@@ -1,0 +1,74 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<!--
+	NPC IDs List for multiple IDs
+-->
+<definitions>
+
+	<!-- Horse IDs -->
+	<list id="NPCIDS_HORSE">
+		<item>200</item>
+		<item>204</item>
+		<item>226</item>
+		<item>228</item>
+	</list>
+
+	<!-- Nightmare IDs -->
+	<list id="NPCIDS_NIGHTMARE">
+		<item>116</item>
+		<item>177</item>
+		<item>178</item>
+		<item>179</item>
+	</list>
+
+	<!-- Bull IDs -->
+	<list id="NPCIDS_BULL">
+		<item>232</item>
+		<item>233</item>
+	</list>
+
+	<!-- Cow IDs -->
+	<list id="NPCIDS_COW">
+		<item>216</item>
+		<item>231</item>
+	</list>
+
+	<!-- Grey Wolf IDs -->
+	<list id="NPCIDS_GREYWOLF">
+		<item>25</item>
+		<item>27</item>
+	</list>
+
+	<!-- Snow Leopard IDs -->
+	<list id="NPCIDS_SNOWLEOPARD">
+		<item>64</item>
+		<item>65</item>
+	</list>
+
+	<!-- White Wolf IDs -->
+	<list id="NPCIDS_WHITEWOLF">
+		<item>34</item>
+		<item>37</item>
+	</list>
+
+	<!-- Swamp Dragon IDs -->
+	<list id="NPCIDS_SWAMPDRAGON">
+		<item>794</item>
+		<item>799</item>
+	</list>
+
+	<!-- War Horse IDs -->
+	<list id="NPCIDS_WARHORSE">
+		<item>118</item>
+		<item>119</item>
+		<item>120</item>
+		<item>121</item>
+	</list>
+
+</definitions>
