@@ -10,12 +10,10 @@
 	<item id="empty_map_e">
 		<name>empty map</name>
 		<id>0x14ed</id>
-		<type>10</type>
 	</item>
 	<item id="empty_map_w">
 		<name>empty map</name>
 		<id>0x14ee</id>
-		<type>10</type>
 	</item>
 
 	<!-- world map small -->
