@@ -2876,7 +2876,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 
 	int a = 1 + pi->weight() / 100;	// number of ingots you get depends on the weight (Duke)
 
-	if (pi->isLockedDown() || pi->rank!=30 || (pi->smelt < 1 || pi->smelt > 10 ))
+	if (pi->isLockedDown() || pi->rank!=30 || (pi->smelt() < 1 || pi->smelt() > 10 ))
 	{
 		sysmessage(s, tr("You cant smelt that item!") );
 		return;
@@ -2886,7 +2886,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 		sysmessage(s,tr("Must be closer to the forge.") );
 		return;
 	}
-	if(pc->skill[sk]< 300 || ( pc->skill[sk]<500 && pi->smelt!=1 ) )
+	if(pc->skill[sk]< 300 || ( pc->skill[sk]<500 && pi->smelt()!=1 ) )
 	{
 		sysmessage(s, tr("You aren't skilled enough to even try that!") );
 		return;
@@ -2895,7 +2895,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 	{
 		char* Name = NULL;
 		unsigned short Color = pi->color();
-		switch(pi->smelt)
+		switch( pi->smelt() )
 		{
 		case 1:	Name="#";			 	Color=0x0961;	break;
 		case 2:	Name="silver ingot"; 	Color=0x0000;	break;

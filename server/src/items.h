@@ -61,8 +61,15 @@ private:
 	SI16 speed_;
 	SI16 racehate_; 
 	SI16 weight_;
-	SI16 hp_; //Number of hit points an item has.
-	SI16 maxhp_; // Max number of hit points an item can have.
+	SI16 hp_;
+	SI16 maxhp_;
+	SI08 smelt_;
+
+	// More values
+	UI08 moreb1_;
+	UI08 moreb2_;
+	UI08 moreb3_;
+	UI08 moreb4_;
 
 public:
 	// Getters
@@ -86,8 +93,13 @@ public:
 	bool			pileable()	const { return priv&0x20; }; // Can Item be piled
 	SI16			racehate()	const { return racehate_; }; // Race ID this weapon does double damage to
 	SI16			weight()	const { return weight_; };
-	SI16			hp()		const { return hp_; }; // Number of hitpoints an item has
-	SI16			maxhp()		const { return maxhp_; }; // Maximum number of hitpoints an item has
+	SI16			hp()		const { return hp_; };		 // Number of hitpoints an item has
+	SI16			maxhp()		const { return maxhp_; };	 // Maximum number of hitpoints an item has
+	SI32			smelt()		const { return smelt_; };	 // For item smelting
+	UI08			moreb1()	const { return moreb1_; };
+	UI08			moreb2()	const { return moreb2_; };
+	UI08			moreb3()	const { return moreb3_; };
+	UI08			moreb4()	const { return moreb4_; };
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -113,6 +125,11 @@ public:
 	void	setWeight( SI16 nValue ) { weight_ = nValue; };
 	void	setHp( SI16 nValue ) { hp_ = nValue; };
 	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; };
+	void	setSmelt( SI32 nValue ) { smelt_ = nValue; };
+	void	setMoreb1( UI08 nValue ) { moreb1_ = nValue; };
+	void	setMoreb2( UI08 nValue ) { moreb2_ = nValue; };
+	void	setMoreb3( UI08 nValue ) { moreb3_ = nValue; };
+	void	setMoreb4( UI08 nValue ) { moreb4_ = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
@@ -130,10 +147,6 @@ public:
 	unsigned char more2;
 	unsigned char more3;
 	unsigned char more4;
-	unsigned char moreb1;
-	unsigned char moreb2;
-	unsigned char moreb3;
-	unsigned char moreb4;
 	unsigned int morex;
 	unsigned int morey;
 	unsigned int morez;
@@ -149,7 +162,6 @@ public:
 	signed short dx2; // The dexterity the item gives
 	signed short in; // The intelligence needed to equip the item
 	signed short in2; // The intelligence the item gives
-	int smelt; // for item smelting
 	unsigned char magic; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
 	unsigned int gatetime;
 	int gatenumber;

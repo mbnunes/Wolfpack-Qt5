@@ -3001,7 +3001,7 @@ void endtrade(SERIAL serial)
 	pi_cont1 = FindItemBySerial(serial);
 	if (pi_cont1 == NULL) 
 		return; // LB, crashfix
-	pi_cont2 = FindItemBySerial(calcserial(pi_cont1->moreb1, pi_cont1->moreb2, pi_cont1->moreb3, pi_cont1->moreb4));
+	pi_cont2 = FindItemBySerial(calcserial(pi_cont1->moreb1(), pi_cont1->moreb2(), pi_cont1->moreb3(), pi_cont1->moreb4()));
 	if (pi_cont2 == NULL) return; // LB, crashfix
 	P_CHAR pc1 = FindCharBySerial(pi_cont1->contserial);
 	P_CHAR pc2 = FindCharBySerial(pi_cont2->contserial);

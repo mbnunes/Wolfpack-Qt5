@@ -338,7 +338,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		
 	case 1: // normal containers
 	case 63:
-		if (pi->moreb1)
+		if( pi->moreb1() )
 			Magic->MagicTrap(pc_currchar, pi); // added by AntiChrist
 		// only 1 and 63 can be trapped, so pleaz leave it here :) - Anti
 	case 65: // nodecay item spawner..Ripper
@@ -455,7 +455,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	case 64: // locked container //Morrolan traps?
 		// Added traps effects by AntiChrist
 		pc_currchar->objectdelay = 0;
-		if (pi->moreb1)
+		if (pi->moreb1())
 			Magic->MagicTrap(pc_currchar, pi);
 		sysmessage(s, "This item is locked.");
 		return;// case 8/64 (locked container)
@@ -481,10 +481,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		map1[8] = pi->more2;
 		map1[9] = pi->more3;	// Assign topleft y
 		map1[10] = pi->more4;
-		map1[11] = pi->moreb1;	// Assign lowright x
-		map1[12] = pi->moreb2;
-		map1[13] = pi->moreb3;	// Assign lowright y
-		map1[14] = pi->moreb4;
+		map1[11] = pi->moreb1();	// Assign lowright x
+		map1[12] = pi->moreb2();
+		map1[13] = pi->moreb3();	// Assign lowright y
+		map1[14] = pi->moreb4();
 		int width, height;		// Tempoary storage for w and h;
 		width = 134 + (134 * pi->morez);	// Calculate new w and h
 		height = 134 + (134 * pi->morez);
@@ -692,23 +692,23 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				for (it.Begin(); !it.atEnd(); it++)
 				{
 					P_ITEM pj = it.GetData();
-					if (((pj->moreb1 == pi->morex) &&(pj->moreb2 == pi->morey) &&(pj->moreb3 == pi->morez))
+					if (((pj->moreb1() == pi->morex) &&(pj->moreb2() == pi->morey) &&(pj->moreb3() == pi->morez))
 						||((pj->morex == pi->morex) &&(pj->morey == pi->morey) &&(pj->morez == pi->morez))
 						&&((pj != pi) &&(pi->morex != 0) &&(pi->morey != 0) &&(pi->morez != 0)))
 					{ 
 						if ((pj->morex == 0) &&(pj->morey == 0) &&(pj->morez == 0))
 						{ 
-							pj->morex = pj->moreb1;
-							pj->morey = pj->moreb2;
-							pj->morez = pj->moreb3;
+							pj->morex = pj->moreb1();
+							pj->morey = pj->moreb2();
+							pj->morez = pj->moreb3();
 							pj->visible = 0;								
 							RefreshItem(pj);// AntiChrist
 						} 
 						else 
 						{
-							pj->moreb1 = pj->morex;
-							pj->moreb2 = pj->morey;
-							pj->moreb3 = pj->morez;
+							pj->setMoreb1( pj->morex );
+							pj->setMoreb2( pj->morey );
+							pj->setMoreb3( pj->morez );
 							pj->morex = 0;
 							pj->morey = 0;
 							pj->morez = 0;
@@ -861,10 +861,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			map1[8] = pi->more2;
 			map1[9] = pi->more3;	// Assign topleft y
 			map1[10] = pi->more4;
-			map1[11] = pi->moreb1;	// Assign lowright x
-			map1[12] = pi->moreb2;
-			map1[13] = pi->moreb3;	// Assign lowright y
-			map1[14] = pi->moreb4;
+			map1[11] = pi->moreb1();	// Assign lowright x
+			map1[12] = pi->moreb2();
+			map1[13] = pi->moreb3();	// Assign lowright y
+			map1[14] = pi->moreb4();
 			map1[15] = 0x01;			// Let width and height be 256
 			map1[16] = 0x00;
 			map1[17] = 0x01;
@@ -879,8 +879,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			int tlx, tly, lrx, lry;	// tempoary storage for map extends
 			tlx = (pi->more1 << 8) + pi->more2;
 			tly = (pi->more3 << 8) + pi->more4;
-			lrx = (pi->moreb1 << 8) + pi->moreb2;
-			lry = (pi->moreb3 << 8) + pi->moreb4;
+			lrx = (pi->moreb1() << 8) + pi->moreb2();
+			lry = (pi->moreb3() << 8) + pi->moreb4();
 			posx = (256 * (pi->morex - tlx)) / (lrx - tlx);	// Generate location for point
 			posy = (256 * (pi->morey - tly)) / (lry - tly);
 			map3[7] = posx>>8;	// Store the point position

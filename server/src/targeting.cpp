@@ -617,7 +617,7 @@ void cTargets::IstatsTarget(int s)
 				pi->pos.x,pi->pos.y,pi->pos.z,pi->amount(), pi->priv);
 			sysmessage(s, (char*)temp);
 			sprintf((char*)temp,"STR [%d] HP/MAX [%d/%d] Damage [%d-%d] Defence [%d] Rank [%d] Smelt [%d] SecureIt [%d] MoreXYZ [%i %i %i] Poisoned [%i] RaceHate [%i] Weight [%d] Owner [%x] Creator [%s] MadeValue [%i] Value [%i] Decaytime[%i] Decay [%i] GoodType[%i] RandomValueRate[%i]",
-				pi->st, pi->hp,pi->maxhp, pi->lodamage, pi->hidamage,pi->def,pi->rank,pi->smelt,( pi->secured() ) ? 1 : 0,
+				pi->st, pi->hp,pi->maxhp, pi->lodamage, pi->hidamage,pi->def,pi->rank,pi->smelt(),( pi->secured() ) ? 1 : 0,
 				pi->morex, pi->morey, pi->morez,pi->poisoned,pi->racehate,
 				pi->weight, pi->ownserial, // Ison 2-20-99
 				pi->creator.c_str(),pi->madewith,pi->value,int(double(int(pi->decaytime-uiCurrentTime)/MY_CLOCKS_PER_SEC)),(pi->priv)&0x01,pi->good,pi->rndvaluerate); // Magius(CHE) (2)

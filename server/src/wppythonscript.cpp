@@ -778,10 +778,10 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "more2", Item->more2 )
 	else getIntProperty( "more3", Item->more3 )
 	else getIntProperty( "more4", Item->more4 )
-	else getIntProperty( "moreb1", Item->moreb1 )
-	else getIntProperty( "moreb2", Item->moreb2 )
-	else getIntProperty( "moreb3", Item->moreb3 )
-	else getIntProperty( "moreb4", Item->moreb4 )
+	else getIntProperty( "moreb1", Item->moreb1() )
+	else getIntProperty( "moreb2", Item->moreb2() )
+	else getIntProperty( "moreb3", Item->moreb3() )
+	else getIntProperty( "moreb4", Item->moreb4() )
 	else getIntProperty( "morex", Item->morex )
 	else getIntProperty( "morey", Item->morey )
 	else getIntProperty( "morez", Item->morez )
@@ -802,7 +802,7 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "dex2", Item->dx2 )
 	else getIntProperty( "int2", Item->in2 )
 	else getIntProperty( "speed", Item->speed() )
-	else getIntProperty( "smelt", Item->smelt )
+	else getIntProperty( "smelt", Item->smelt() )
 	else getIntProperty( "secured", Item->secured() ? 1 : 0 )
 	else getIntProperty( "moveable", Item->magic )
 	else getIntProperty( "gatetime", Item->gatetime )
@@ -884,6 +884,18 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else if( !strcmp( name, "weight" ) )
 		self->Item->setWeight( PyInt_AS_LONG( value ) );
 
+	else if( !strcmp( name, "moreb1" ) )
+		self->Item->setMoreb1( PyInt_AS_LONG( value ) );
+
+	else if( !strcmp( name, "moreb2" ) )
+		self->Item->setMoreb1( PyInt_AS_LONG( value ) );
+
+	else if( !strcmp( name, "moreb3" ) )
+		self->Item->setMoreb1( PyInt_AS_LONG( value ) );
+
+	else if( !strcmp( name, "moreb4" ) )
+		self->Item->setMoreb1( PyInt_AS_LONG( value ) );
+
 	// CONTAINER!!
 	else setIntProperty( "oldx", Item->oldpos.x )
 	else setIntProperty( "oldy", Item->oldpos.y )
@@ -894,10 +906,6 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else setIntProperty( "more2", Item->more2 )
 	else setIntProperty( "more3", Item->more3 )
 	else setIntProperty( "more4", Item->more4 )
-	else setIntProperty( "moreb1", Item->moreb1 )
-	else setIntProperty( "moreb2", Item->moreb2 )
-	else setIntProperty( "moreb3", Item->moreb3 )
-	else setIntProperty( "moreb4", Item->moreb4 )
 	else setIntProperty( "morex", Item->morex )
 	else setIntProperty( "morey", Item->morey )
 	else setIntProperty( "morez", Item->morez )
@@ -923,7 +931,8 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else if( !strcmp( name, "hidamage" ) )
 		self->Item->setHidamage( PyInt_AS_LONG( value ) );
 
-	else setIntProperty( "smelt", Item->smelt )
+	else if( !strcmp( name, "smelt" ) )
+		self->Item->setSmelt( PyInt_AS_LONG( value ) );
 
 	else if( !strcmp( name, "secured" ) )
 		self->Item->setSecured( ( PyInt_AS_LONG( value ) == 1 ) ? true : false );

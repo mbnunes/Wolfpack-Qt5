@@ -880,12 +880,12 @@ void cMagic::MagicTrap(P_CHAR pc, P_ITEM pTrap)
 	staticeffect(pc, 0x36, 0xB0, 0x09, 0x09);
 	soundeffect2(pc, 0x0207);
 	if(CheckResist(NULL, pc, 4))
-		MagicDamage(pc,pTrap->moreb2);
+		MagicDamage(pc,pTrap->moreb2());
 	else
-		MagicDamage(pc,pTrap->moreb2/2);
-	pTrap->moreb1=0;
-	pTrap->moreb2=0;
-	pTrap->moreb3=0;
+		MagicDamage(pc,pTrap->moreb2()/2);
+	pTrap->setMoreb1( 0 );
+	pTrap->setMoreb2( 0 );
+	pTrap->setMoreb3( 0 );
 }
 
 ///////////////////
@@ -2683,10 +2683,10 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							pi->type()==8 || pi->type()==64)
 							&& pi->id()!=0x0E75)
 						{
-							pi->moreb1=1;
-							pi->moreb2=pc_currchar->skill[MAGERY]/20;
-							pi->moreb3=pc_currchar->skill[MAGERY]/10;
-							soundeffect3(pi,0x01F0);									
+							pi->setMoreb1( 1 );
+							pi->setMoreb2( pc_currchar->skill[ MAGERY ] / 20 );
+							pi->setMoreb3( pc_currchar->skill[ MAGERY ] / 10 );
+							soundeffect3( pi, 0x01F0 );
 							cMagic::itemParticles(13,pi);
 							sysmessage(s,"It's trapped!");
 						}
@@ -2698,18 +2698,19 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						if((pi->type()==1 || pi->type()==63 ||
 							pi->type()==8 || pi->type()==64))
 						{
-							if(pi->moreb1==1)
+							if( pi->moreb1() == 1 )
 							{
-								if(rand()%100<=50+(pc_currchar->skill[MAGERY]/10)-pi->moreb3)
+								if( rand() % 100 <= 50 + ( pc_currchar->skill[ MAGERY ] / 10 ) - pi->moreb3() )
 								{
-									pi->moreb1=0;
-									pi->moreb2=0;
-									pi->moreb3=0;
+									pi->setMoreb1( 0 );
+									pi->setMoreb2( 0 );
+									pi->setMoreb3( 0 );
 									soundeffect3(pi, 0x01F1);
-									cMagic::itemParticles(14,pi);
-									sysmessage(s,"You successfully untrap this item!");
+									cMagic::itemParticles( 14, pi );
+									sysmessage( s, "You successfully untrap this item!" );
 								}
-								else sysmessage(s,"You miss to untrap this item!");
+								else 
+									sysmessage(s,"You miss to untrap this item!");
 							}
 							else sysmessage(s,"This item doesn't seem to be trapped!");
 						}

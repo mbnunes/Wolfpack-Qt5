@@ -2397,14 +2397,14 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		pos.z = pc_mount->fz1;
 		pi->moveTo(pos);
 		
-		pi->moreb1 = pc_mount->npcWander;
+		pi->setMoreb1( pc_mount->npcWander );
 		pi->att = pc_mount->fx2;
 		pi->def = pc_mount->fy2;
 		
 		// AntiChrist bugfixes - 11/10/99
-		pi->moreb2 = pc_mount->st;
-		pi->moreb3 = pc_mount->realDex();
-		pi->moreb4 = pc_mount->in;
+		pi->setMoreb2( pc_mount->st );
+		pi->setMoreb3( pc_mount->realDex() );
+		pi->setMoreb4( pc_mount->in );
 		pi->setHp( pc_mount->hp );
 		pi->setLodamage( pc_mount->fame );
 		pi->setHidamage( pc_mount->karma );

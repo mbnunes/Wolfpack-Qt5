@@ -382,17 +382,23 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			&& SrvParams->rank_system()==0)	// this would interfer with the rank system
 		{
 			pi->rank=30; // Ripper..used for item smelting
-			if(pi->color() == 0x00 && pi->smelt == 2) pi->smelt=2; //Silver
-			else if(pi->color()==0x0466) pi->smelt=3; //Golden
-			else if(pi->color()==0x0150) pi->smelt=4; //Agapite
-			else if(pi->color()==0x0386) pi->smelt=5; //Shadow
-			else if(pi->color()==0x0191) pi->smelt=6; //Mythril
-			else if(pi->color()==0x02E7) pi->smelt=7; //Bronze
-			else if(pi->color()==0x022F) pi->smelt=8; //Verite
-			else if(pi->color()==0x02C3) pi->smelt=9; //Merkite
-			else if(pi->color()==0x046E) pi->smelt=10; //Copper
-			else
-			pi->smelt=1; //Iron
+
+			switch( pi->color() )
+			{
+			case 0x0466: pi->setSmelt( 3 );  break; // Golden
+			case 0x0150: pi->setSmelt( 4 );  break; // Agapite
+			case 0x0386: pi->setSmelt( 5 );  break; // Shadow
+			case 0x0191: pi->setSmelt( 6 );  break; // Mythril
+			case 0x02E7: pi->setSmelt( 7 );  break; // Bronze
+			case 0x022F: pi->setSmelt( 8 );  break; // Verite
+			case 0x02C3: pi->setSmelt( 9 );  break; // Merkite
+			case 0x046E: pi->setSmelt( 10 ); break; // Copper
+			default:
+				if( pi->smelt() != 2 )
+					pi->setSmelt( 1 );  // Iron
+				
+				break; 
+			}
 
 			int modifier = 1;
 			int skmin = itemmake[s].minskill;
@@ -560,10 +566,10 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			pi->more2=(tlx)%256;	//	--- " ---
 			pi->more3=(tly)>>8;		// Set topleft y
 			pi->more4=(tly)%256;	//  --- " ---
-			pi->moreb1=(lrx)>>8;	// Set lowright x
-			pi->moreb2=(lrx)%256;	//  --- " ---
-			pi->moreb3=(lry)>>8;	// Set lowright y
-			pi->moreb4=(lry)%256;	//  --- " ---
+			pi->setMoreb1( (lrx)>>8 );	// Set lowright x
+			pi->setMoreb2( (lrx)%256 );	//  --- " ---
+			pi->setMoreb3( (lry)>>8 );	// Set lowright y
+			pi->setMoreb4( (lry)%256 );	//  --- " ---
 		}
 //		END OF: By Polygon
 }
@@ -2926,10 +2932,10 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 			nmap->more2 = tlx%256;
 			nmap->more3 = tly>>8;
 			nmap->more4 = tly%256;
-			nmap->moreb1 = lrx>>8;
-			nmap->moreb2 = lrx%256;
-			nmap->moreb3 = lry>>8;
-			nmap->moreb4 = lry%256;
+			nmap->setMoreb1( lrx>>8 );
+			nmap->setMoreb2( lrx%256 );
+			nmap->setMoreb3( lry>>8 );
+			nmap->setMoreb4( lry%256 );
 			nmap->morex = x;		// Store the treasure's location
 			nmap->morey = y;
 			Items->DeleItem(tmap);	// Delete the tattered map

@@ -317,10 +317,10 @@ void cGump::Input(int s)
 					pj->more4 = (unsigned char)(k%256);
 					break;
 		case 13: 	k = hex2num( text );	// MoreB
-					pj->moreb1 = (unsigned char)(k>>24);
-					pj->moreb2 = (unsigned char)(k>>16);
-					pj->moreb3 = (unsigned char)(k>>8);
-					pj->moreb4 = (unsigned char)(k%256);
+					pj->setMoreb1( (unsigned char)(k>>24) );
+					pj->setMoreb2( (unsigned char)(k>>16) );
+					pj->setMoreb3( (unsigned char)(k>>8) );
+					pj->setMoreb4( (unsigned char)(k%256) );
 					break;
 		case 14: 	k = str2num( text );	pj->setPileable(k);	break;	// Pileable
 		case 15:	k = str2num( text );	pj->dye = k;		break;	// Dye
@@ -1137,7 +1137,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "More");
 		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x", (pj->more1<<24)+(pj->more2<<16)+(pj->more3<<8)+pj->more4);
 		line--; if( line == 0 ) strcpy( (char*)script1, "MoreB");
-		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x", (pj->moreb1<<24)+(pj->moreb2<<16)+(pj->moreb3<<8)+pj->moreb4);
+		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x", (pj->moreb1()<<24)+(pj->moreb2()<<16)+(pj->moreb3()<<8)+pj->moreb4());
 		line--; if( line == 0 ) strcpy( (char*)script1, "Stackable");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->pileable() ? 1 : 0 );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Dyeable");

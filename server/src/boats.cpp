@@ -387,10 +387,10 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 	pHold->pos.z=-5;
 	pHold->priv=0;
 	
-	pBoat->moreb1 = static_cast<unsigned char>((pTiller->serial&0xFF000000)>>24);
-	pBoat->moreb2 = static_cast<unsigned char>((pTiller->serial&0x00FF0000)>>16);
-	pBoat->moreb3 = static_cast<unsigned char>((pTiller->serial&0x0000FF00)>>8);
-	pBoat->moreb4 = static_cast<unsigned char>((pTiller->serial&0x000000FF));
+	pBoat->setMoreb1( static_cast<unsigned char>((pTiller->serial&0xFF000000)>>24) );
+	pBoat->setMoreb2( static_cast<unsigned char>((pTiller->serial&0x00FF0000)>>16) );
+	pBoat->setMoreb3( static_cast<unsigned char>((pTiller->serial&0x0000FF00)>>8) );
+	pBoat->setMoreb4( static_cast<unsigned char>((pTiller->serial&0x000000FF)) );
 	pBoat->morex=pPlankL->serial;//Store the other stuff anywhere it will fit :-)
 	pBoat->morey=pPlankR->serial;
 	pBoat->morez=pHold->serial;
@@ -487,7 +487,7 @@ bool cBoat::Block(P_ITEM pBoat, short int xmove, short int ymove, int dir)//Chec
 	land_st land;
 	tile_st tile;
 
-    ser = calcserial(pBoat->moreb1, pBoat->moreb2, pBoat->moreb3, pBoat->moreb4);
+    ser = calcserial(pBoat->moreb1(), pBoat->moreb2(), pBoat->moreb3(), pBoat->moreb4());
 	P_ITEM t	= FindItemBySerial( ser );
 	P_ITEM p1	= FindItemBySerial( pBoat->morex );
 	P_ITEM p2	= FindItemBySerial( pBoat->morey );
@@ -616,7 +616,7 @@ void cBoat::Move(UOXSOCKET s, int dir, P_ITEM pBoat)
 	if (pBoat == NULL)
 		return;
 
-	serial = calcserial(pBoat->moreb1, pBoat->moreb2, pBoat->moreb3, pBoat->moreb4);
+	serial = calcserial(pBoat->moreb1(), pBoat->moreb2(), pBoat->moreb3(), pBoat->moreb4());
 	if (serial == INVALID_SERIAL) return;
 	P_ITEM pTiller = FindItemBySerial( serial );
 	if(pTiller == NULL)
@@ -796,7 +796,7 @@ void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the p
 	}
 	
 	//Of course we need the boat items!
-	serial = calcserial(pBoat->moreb1,pBoat->moreb2,pBoat->moreb3,pBoat->moreb4);
+	serial = calcserial(pBoat->moreb1(),pBoat->moreb2(),pBoat->moreb3(),pBoat->moreb4());
 	if(serial == INVALID_SERIAL) return;
 	P_ITEM pTiller = FindItemBySerial( serial );
 	if(pTiller == NULL) return;
@@ -937,7 +937,7 @@ char cBoat::Speech(UOXSOCKET s, string& msg)//See if they said a command. msg mu
 		return 0;
 
 	//get the tiller man's item #
-	serial=calcserial(boat->moreb1, boat->moreb2, boat->moreb3, boat->moreb4);
+	serial=calcserial(boat->moreb1(), boat->moreb2(), boat->moreb3(), boat->moreb4());
 	if ( serial == INVALID_SERIAL ) 
 		return 0;
 	P_ITEM tiller = FindItemBySerial(serial);

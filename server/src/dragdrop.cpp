@@ -265,7 +265,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 					if (px->layer() == 0 && px->id() == 0x1E5E)
 					{
 						// Trade window???
-						serial = calcserial(px->moreb1, px->moreb2, px->moreb3, px->moreb4);
+						serial = calcserial(px->moreb1(), px->moreb2(), px->moreb3(), px->moreb4());
 						if (serial == INVALID_SERIAL)
 							return;
 						P_ITEM pi_z = FindItemBySerial(serial);
@@ -1217,7 +1217,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	if( pCont->layer() == 0 && pCont->id() == 0x1E5E &&	pc_currchar->Wears( pCont ) )
 	{
 		// Trade window???
-		serial=calcserial(pCont->moreb1, pCont->moreb2, pCont->moreb3, pCont->moreb4);
+		serial=calcserial(pCont->moreb1(), pCont->moreb2(), pCont->moreb3(), pCont->moreb4());
 		if(serial == INVALID_SERIAL) return;
 		P_ITEM pi_z = FindItemBySerial( serial );
 		

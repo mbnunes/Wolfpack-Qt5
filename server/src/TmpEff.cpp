@@ -77,8 +77,8 @@ static void reverseIncognito(P_CHAR pc)
 				if(pHair->incognito) //let's ensure it was marked as under incognito effect
 				{
 					//stores old hair values
-					pHair->setColor( static_cast<unsigned short>(pHair->moreb1 << 8) + pHair->moreb2 );
-					pHair->setId( static_cast<UI16>( pHair->moreb3 << 8 ) + pHair->moreb4 );
+					pHair->setColor( static_cast<unsigned short>(pHair->moreb1() << 8) + pHair->moreb2() );
+					pHair->setId( static_cast<UI16>( pHair->moreb3() << 8 ) + pHair->moreb4() );
 					pHair->incognito=false;
 				}
 			}
@@ -92,8 +92,8 @@ static void reverseIncognito(P_CHAR pc)
 				if(pBeard->incognito) //let's ensure it was marked as under incognito effect
 				{
 					//restores old beard values
-					pBeard->setColor( static_cast<unsigned short>(pBeard->moreb1<<8) + pBeard->moreb2 );
-					pBeard->setId( static_cast<UI16>( pBeard->moreb3 << 8 ) + pBeard->moreb4 );
+					pBeard->setColor( static_cast<unsigned short>(pBeard->moreb1()<<8) + pBeard->moreb2() );
+					pBeard->setId( static_cast<UI16>( pBeard->moreb3() << 8 ) + pBeard->moreb4() );
 					pBeard->incognito=false;
 				}
 			}
@@ -934,10 +934,10 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 				if(pHair)
 				{
 					//stores old hair values...
-					pHair->moreb1 = static_cast<unsigned char>(pHair->color()>>8);
-					pHair->moreb2 = static_cast<unsigned char>(pHair->color()%256);
-					pHair->moreb3 = ((pHair->id()&0xFF00) >> 8);
-					pHair->moreb4 = pHair->id()&0x00FF;
+					pHair->setMoreb1( static_cast<unsigned char>(pHair->color()>>8) );
+					pHair->setMoreb2( static_cast<unsigned char>(pHair->color()%256) );
+					pHair->setMoreb3( ((pHair->id()&0xFF00) >> 8) );
+					pHair->setMoreb4( pHair->id()&0x00FF );
 
 					//and change them with random ones
 					switch( rand() % 10 )
@@ -977,10 +977,10 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 				{
 					//clConsole.send("BEARD FOUND!!\n");
 					//stores old beard values
-					pBeard->moreb1 = static_cast<unsigned char>(pBeard->color()>>8);
-					pBeard->moreb2 = static_cast<unsigned char>(pBeard->color()%256);
-					pBeard->moreb3 = static_cast<unsigned char>(pBeard->id() >> 8);
-					pBeard->moreb4 = static_cast<unsigned char>(pBeard->id()%256);
+					pBeard->setMoreb1( static_cast<unsigned char>(pBeard->color()>>8) );
+					pBeard->setMoreb2( static_cast<unsigned char>(pBeard->color()%256) );
+					pBeard->setMoreb3( static_cast<unsigned char>(pBeard->id() >> 8) );
+					pBeard->setMoreb4( static_cast<unsigned char>(pBeard->id()%256) );
 
 					//changes them with random ones
 					switch(rand()%7)

@@ -446,10 +446,10 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	if (s2 != INVALID_UOXSOCKET)
 		sendbpitem(s2, pi_pi);
 
-	pi_pi->moreb1 = static_cast<unsigned char>((pi_ps->serial&0xFF000000)>>24);
-	pi_pi->moreb2 = static_cast<unsigned char>((pi_ps->serial&0x00FF0000)>>16);
-	pi_pi->moreb3 = static_cast<unsigned char>((pi_ps->serial&0x0000FF00)>>8);
-	pi_pi->moreb4 = static_cast<unsigned char>((pi_ps->serial&0x000000FF));
+	pi_pi->setMoreb1( static_cast<unsigned char>((pi_ps->serial&0xFF000000)>>24) );
+	pi_pi->setMoreb2( static_cast<unsigned char>((pi_ps->serial&0x00FF0000)>>16) );
+	pi_pi->setMoreb3( static_cast<unsigned char>((pi_ps->serial&0x0000FF00)>>8) );
+	pi_pi->setMoreb4( static_cast<unsigned char>((pi_ps->serial&0x000000FF)) );
 	pi_ps->more1 = static_cast<unsigned char>((pi_pi->serial&0xFF000000)>>24);
 	pi_ps->more2 = static_cast<unsigned char>((pi_pi->serial&0x00FF0000)>>16);
 	pi_ps->more3 = static_cast<unsigned char>((pi_pi->serial&0x0000FF00)>>8);
@@ -528,7 +528,7 @@ void cTrade::trademsg(int s)
 	case 2://Change check marks. Possibly conclude trade
 		cont1 = FindItemBySerPtr(&buffer[s][4]);
 		if (cont1 != NULL)
-			cont2 = FindItemBySerial(calcserial(cont1->moreb1, cont1->moreb2, cont1->moreb3, cont1->moreb4));
+			cont2 = FindItemBySerial(calcserial(cont1->moreb1(), cont1->moreb2(), cont1->moreb3(), cont1->moreb4()));
 		else
 			cont2 = NULL;
 		if (cont2 != NULL) // lb crashfix

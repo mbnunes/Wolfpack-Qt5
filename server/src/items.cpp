@@ -79,10 +79,10 @@ cItem::cItem( cItem &src )
 	this->more2 = src.more2;
 	this->more3 = src.more3;
 	this->more4 = src.more4;
-	this->moreb1 = src.moreb1;
-	this->moreb2 = src.moreb2;
-	this->moreb3 = src.moreb3;
-	this->moreb4 = src.moreb4;
+	this->moreb1_ = src.moreb1_;
+	this->moreb2_ = src.moreb2_;
+	this->moreb3_ = src.moreb3_;
+	this->moreb4_ = src.moreb4_;
 	this->morex = src.morex;
 	this->morey = src.morey;;
 	this->morez = src.morez;
@@ -98,7 +98,7 @@ cItem::cItem( cItem &src )
 	this->lodamage_=src.lodamage_;
 	this->hidamage_=src.hidamage_;
 	this->racehate_ = src.racehate_;
-	this->smelt=src.smelt;
+	this->smelt_=src.smelt_;
 	this->hp_ = src.hp_;
 	this->maxhp_=src.maxhp_;
 	this->st=src.st;
@@ -443,10 +443,10 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("more2",		more2);
 		archive.read("more3",		more3);
 		archive.read("more4",		more4);
-		archive.read("moreb1",		moreb1);
-		archive.read("moreb2",		moreb2);
-		archive.read("moreb3",		moreb3);
-		archive.read("moreb4",		moreb4);
+		archive.read("moreb1",		moreb1_);
+		archive.read("moreb2",		moreb2_);
+		archive.read("moreb3",		moreb3_);
+		archive.read("moreb4",		moreb4_);
 		archive.read("morex",		morex);
 		archive.read("morey",		morey);
 		archive.read("morez",		morez);
@@ -490,7 +490,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("spawnregion",	spawnregion);
 		archive.read("uses",		tuses);
 		archive.read("good",		good);
-		archive.read("smelt",		smelt);
+		archive.read("smelt",		smelt_);
 		archive.read("glow",		glow);
 		archive.read("glow_color",	glow_color);
 		archive.read("glowtype",	glow_effect);
@@ -513,10 +513,10 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("more2",		more2);
 		archive.write("more3",		more3);
 		archive.write("more4",		more4);
-		archive.write("moreb1",		moreb1);
-		archive.write("moreb2",		moreb2);
-		archive.write("moreb3",		moreb3);
-		archive.write("moreb4",		moreb4);
+		archive.write("moreb1",		moreb1_);
+		archive.write("moreb2",		moreb2_);
+		archive.write("moreb3",		moreb3_);
+		archive.write("moreb4",		moreb4_);
 		archive.write("morex",		morex);
 		archive.write("morey",		morey);
 		archive.write("morez",		morez);
@@ -558,7 +558,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("spawnregion",spawnregion);
 		archive.write("uses",		tuses);
 		archive.write("good",		good);
-		archive.write("smelt",		smelt);
+		archive.write("smelt",		smelt_);
 		archive.write("glow",		glow);
 		archive.write("glow_color",	glow_color);
 		archive.write("glowtype",	glow_effect);
@@ -696,10 +696,10 @@ void cItem::Init(bool mkser)
 	this->more2=0;
 	this->more3=0;
 	this->more4=0;
-	this->moreb1=0;
-	this->moreb2=0;
-	this->moreb3=0;
-	this->moreb4=0;
+	this->moreb1_=0;
+	this->moreb2_=0;
+	this->moreb3_=0;
+	this->moreb4_=0;
 	this->morex=0;
 	this->morey=0;
 	this->morez=0;
@@ -715,7 +715,7 @@ void cItem::Init(bool mkser)
 	this->lodamage_=0; //Minimum Damage weapon inflicts
 	this->hidamage_=0; //Maximum damage weapon inflicts
 	this->racehate_=-1; //race hating weapon -Fraz-
-	this->smelt=0; // for smelting items
+	this->smelt_ = 0; // for smelting items
 	this->hp_=0; //Number of hit points an item has.
 	this->maxhp_=0; // Max number of hit points an item can have.
 	this->st=0; // The strength needed to equip the item
@@ -967,10 +967,10 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					else if (!strcmp("MORE2", (char*)script1))
 					{
 						tmp = str2num(script2);
-						pi->moreb1 = tmp >> 24;
-						pi->moreb2 = tmp >> 16;
-						pi->moreb3 = tmp >> 8;
-						pi->moreb4 = tmp%256;
+						pi->setMoreb1( tmp >> 24 );
+						pi->setMoreb1( tmp >> 16 );
+						pi->setMoreb1( tmp >> 8 );
+						pi->setMoreb1( tmp%256 );
 					}
 					else if (!strcmp("MOVABLE", (char*)script1))
 						pi->magic = str2num(script2);
@@ -1026,7 +1026,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					if (!strcmp("SK_MADE", (char*)script1))
 						pi->madewith = str2num(script2); // by Magius(CHE)
 					else if (!strcmp("SMELT", (char*)script1))
-						pi->smelt = str2num(script2);
+						pi->setSmelt( str2num( script2 ) );
 					else if (!strcmp("STR", (char*)script1))
 						pi->st = str2num(script2);
 					else if (!strcmp("SPD", (char*)script1))
@@ -1468,11 +1468,11 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 					//MORE2 may not be useful ?
 					else if (!(strcmp("MORE2", (char*)script1)))
 					{
-						tmp=str2num(script2);
-						pi->moreb1=tmp>>24;
-						pi->moreb2=tmp>>16;
-						pi->moreb3=tmp>>8;
-						pi->moreb4=tmp%256;
+						tmp = str2num(script2);
+						pi->setMoreb1( tmp>>24 );
+						pi->setMoreb2( tmp>>16 );
+						pi->setMoreb3( tmp>>8 );
+						pi->setMoreb4( tmp%256 );
 					}
 					else if (!(strcmp("MOREX",(char*)script1))) pi->morex=str2num(script2);
 					else if (!(strcmp("MOREY",(char*)script1))) pi->morey=str2num(script2);
@@ -1510,7 +1510,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 					else if (!(strcmp("SK_MADE", (char*)script1))) pi->madewith=str2num(script2); // by Magius(CHE)
 					else if (!(strcmp("STR", (char*)script1))) pi->st=str2num(script2);
 					else if (!(strcmp("STRADD", (char*)script1))) pi->st2=str2num(script2);
-					else if (!(strcmp("SMELT", (char*)script1))) pi->smelt=str2num(script2);
+					else if (!(strcmp("SMELT", (char*)script1))) pi->setSmelt( str2num( script2 ) );
 				break;
 				
 				case 'T':
@@ -2133,7 +2133,7 @@ void cAllItems::applyItemSection( P_ITEM Item, QDomElement *Section )
 
 		// <smelt>2</smelt>
 		else if( TagName == "smelt" )
-			Item->smelt = Value.toInt();
+			Item->setSmelt( Value.toInt() );
 
 		// <requires type="xx">2</requires>
 		else if( TagName == "requires" )
