@@ -584,127 +584,127 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>the Architect</source>
-        <translation type="unfinished"></translation>
+        <translation>die Architektin</translation>
     </message>
     <message>
         <source>the Armorer</source>
-        <translation type="unfinished"></translation>
+        <translation>die Waffenschmiedin</translation>
     </message>
     <message>
         <source>the Artist</source>
-        <translation type="unfinished"></translation>
+        <translation>die Künstlerin</translation>
     </message>
     <message>
         <source>the Baker</source>
-        <translation type="unfinished"></translation>
+        <translation>die Bäckerin</translation>
     </message>
     <message>
         <source>the Banker</source>
-        <translation type="unfinished"></translation>
+        <translation>die Bankierin</translation>
     </message>
     <message>
         <source>the Hairstylist</source>
-        <translation type="unfinished"></translation>
+        <translation>die Frieseuse</translation>
     </message>
     <message>
         <source>the Bard</source>
-        <translation type="unfinished"></translation>
+        <translation>die Bardin</translation>
     </message>
     <message>
         <source>the Blacksmith</source>
-        <translation type="unfinished"></translation>
+        <translation>die Schmiedin</translation>
     </message>
     <message>
         <source>the Bowyer</source>
-        <translation type="unfinished"></translation>
+        <translation>die Bogenmacherin</translation>
     </message>
     <message>
         <source>the butcher</source>
-        <translation type="unfinished"></translation>
+        <translation>die Metzgerin</translation>
     </message>
     <message>
         <source>the Carpenter</source>
-        <translation type="unfinished"></translation>
+        <translation>die Schreinerin</translation>
     </message>
     <message>
         <source>the Cobbler</source>
-        <translation type="unfinished"></translation>
+        <translation>die Schusterin</translation>
     </message>
     <message>
         <source>the Cook</source>
-        <translation type="unfinished"></translation>
+        <translation>die Köchin</translation>
     </message>
     <message>
         <source>the Fisherlady</source>
-        <translation type="unfinished"></translation>
+        <translation>die Fischerin</translation>
     </message>
     <message>
         <source>the Healer</source>
-        <translation type="unfinished"></translation>
+        <translation>die Heilerin</translation>
     </message>
     <message>
         <source>the Herbalist</source>
-        <translation type="unfinished"></translation>
+        <translation>die Kräuterfrau</translation>
     </message>
     <message>
         <source>the Innkeeper</source>
-        <translation type="unfinished"></translation>
+        <translation>die Gastwirtin</translation>
     </message>
     <message>
         <source>the Jeweler</source>
-        <translation type="unfinished"></translation>
+        <translation>die Juwelierin</translation>
     </message>
     <message>
         <source>the Leatherworker</source>
-        <translation type="unfinished"></translation>
+        <translation>die Lederarbeiterin</translation>
     </message>
     <message>
         <source>the Mage</source>
-        <translation type="unfinished"></translation>
+        <translation>die Magierin</translation>
     </message>
     <message>
         <source>the Provisioner</source>
-        <translation type="unfinished"></translation>
+        <translation>die Feinkosthänderlin</translation>
     </message>
     <message>
         <source>the Shipwright</source>
-        <translation type="unfinished"></translation>
+        <translation>die Schiffszimmerfrau</translation>
     </message>
     <message>
         <source>the Spinner</source>
-        <translation type="unfinished"></translation>
+        <translation>die Spinnerin</translation>
     </message>
     <message>
         <source>the Stablemaster</source>
-        <translation type="unfinished"></translation>
+        <translation>die Stallmeisterin</translation>
     </message>
     <message>
         <source>the Tailor</source>
-        <translation type="unfinished"></translation>
+        <translation>die Schneiderin</translation>
     </message>
     <message>
         <source>the Tanner</source>
-        <translation type="unfinished"></translation>
+        <translation>die Gerberin</translation>
     </message>
     <message>
         <source>the Tavernkeeper</source>
-        <translation type="unfinished"></translation>
+        <translation>die Wirtin</translation>
     </message>
     <message>
         <source>the Tinker</source>
-        <translation type="unfinished"></translation>
+        <translation>die Bastlerin</translation>
     </message>
     <message>
         <source>the Veterinarian</source>
-        <translation type="unfinished"></translation>
+        <translation>die Tierpflegerin</translation>
     </message>
     <message>
         <source>the Weaponsmith</source>
-        <translation type="unfinished"></translation>
+        <translation>die Waffenschmiedin</translation>
     </message>
     <message>
         <source>the Weaver</source>
-        <translation type="unfinished"></translation>
+        <translation>die Weberin</translation>
     </message>
 </context>
 <context>
@@ -715,127 +715,127 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>the Architect</source>
-        <translation type="unfinished"></translation>
+        <translation>der Architekt</translation>
     </message>
     <message>
         <source>the Armorer</source>
-        <translation type="unfinished"></translation>
+        <translation>der Rüstungsschmied</translation>
     </message>
     <message>
         <source>the Artist</source>
-        <translation type="unfinished"></translation>
+        <translation>der Künstler</translation>
     </message>
     <message>
         <source>the Baker</source>
-        <translation type="unfinished"></translation>
+        <translation>der Bäcker</translation>
     </message>
     <message>
         <source>the Banker</source>
-        <translation type="unfinished"></translation>
+        <translation>der Bankier</translation>
     </message>
     <message>
         <source>the Hairstylist</source>
-        <translation type="unfinished"></translation>
+        <translation>der Friseur</translation>
     </message>
     <message>
         <source>the Bard</source>
-        <translation type="unfinished"></translation>
+        <translation>der Barde</translation>
     </message>
     <message>
         <source>the Blacksmith</source>
-        <translation type="unfinished"></translation>
+        <translation>der Schmied</translation>
     </message>
     <message>
         <source>the Bowyer</source>
-        <translation type="unfinished"></translation>
+        <translation>der Bogenmacher</translation>
     </message>
     <message>
         <source>the butcher</source>
-        <translation type="unfinished"></translation>
+        <translation>der Metzger</translation>
     </message>
     <message>
         <source>the Carpenter</source>
-        <translation type="unfinished"></translation>
+        <translation>der Schreiner</translation>
     </message>
     <message>
         <source>the Cobbler</source>
-        <translation type="unfinished"></translation>
+        <translation>der Schuster</translation>
     </message>
     <message>
         <source>the Cook</source>
-        <translation type="unfinished"></translation>
+        <translation>der Koch</translation>
     </message>
     <message>
         <source>the Fisherman</source>
-        <translation type="unfinished"></translation>
+        <translation>der Fischer</translation>
     </message>
     <message>
         <source>the Healer</source>
-        <translation type="unfinished"></translation>
+        <translation>der Heiler</translation>
     </message>
     <message>
         <source>the Herbalist</source>
-        <translation type="unfinished"></translation>
+        <translation>der Kräutermann</translation>
     </message>
     <message>
         <source>the Innkeeper</source>
-        <translation type="unfinished"></translation>
+        <translation>der Gastwirt</translation>
     </message>
     <message>
         <source>the Jeweler</source>
-        <translation type="unfinished"></translation>
+        <translation>der Juwelier</translation>
     </message>
     <message>
         <source>the Leatherworker</source>
-        <translation type="unfinished"></translation>
+        <translation>der Lederarbeiter</translation>
     </message>
     <message>
         <source>the Mage</source>
-        <translation type="unfinished"></translation>
+        <translation>der Magier</translation>
     </message>
     <message>
         <source>the Provisioner</source>
-        <translation type="unfinished"></translation>
+        <translation>der Feinkosthändler</translation>
     </message>
     <message>
         <source>the Shipwright</source>
-        <translation type="unfinished"></translation>
+        <translation>der Schiffszimmermann</translation>
     </message>
     <message>
         <source>the Spinner</source>
-        <translation type="unfinished"></translation>
+        <translation>der Spinner</translation>
     </message>
     <message>
         <source>the Stablemaster</source>
-        <translation type="unfinished"></translation>
+        <translation>der Stallmeister</translation>
     </message>
     <message>
         <source>the Tailor</source>
-        <translation type="unfinished"></translation>
+        <translation>der Schneider</translation>
     </message>
     <message>
         <source>the Tanner</source>
-        <translation type="unfinished"></translation>
+        <translation>der Gerber</translation>
     </message>
     <message>
         <source>the Tavernkeeper</source>
-        <translation type="unfinished"></translation>
+        <translation>der Wirt</translation>
     </message>
     <message>
         <source>the Tinker</source>
-        <translation type="unfinished"></translation>
+        <translation>der  Bastler</translation>
     </message>
     <message>
         <source>the Veterinarian</source>
-        <translation type="unfinished"></translation>
+        <translation>der Tierpfleger</translation>
     </message>
     <message>
         <source>the Weaponsmith</source>
-        <translation type="unfinished"></translation>
+        <translation>der Waffenschmied</translation>
     </message>
     <message>
         <source>the Weaver</source>
-        <translation type="unfinished"></translation>
+        <translation>der Weber</translation>
     </message>
 </context>
 <context>
@@ -1215,11 +1215,11 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <translation>Du verlierst deine Konzentration</translation>
     </message>
     <message>
-        <source> <byte value="x9"/>Lady %1<byte value="x9"/>%2</source>
+        <source><byte value="x9"/>Lady %1<byte value="x9"/>%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> <byte value="x9"/>Lord %1<byte value="x9"/>%2</source>
+        <source><byte value="x9"/>Lord %1<byte value="x9"/>%2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
