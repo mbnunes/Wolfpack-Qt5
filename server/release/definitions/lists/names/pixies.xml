@@ -1,0 +1,36 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: DarkStorm
+|   )).-' {{ ;'`   | Revised by: White Wolf, Dreoth
+|  ( (  ;._ \\ ctr | Last Modification: Split
+=================================================================
+-->
+<definitions>
+
+	<list id="NAMES_PIXIE">
+		<item>Ciline</item>
+		<item>Cynthe</item>
+		<item>Klian</item>
+		<item>Klistra</item>
+		<item>Laeri</item>
+		<item>Liera</item>
+		<item>Nedra</item>
+		<item>Os</item>
+		<item>Oune</item>
+		<item>Pieppe</item>
+		<item>Piku</item>
+		<item>Rael</item>
+		<item>Sefi</item>
+		<item>Shendin</item>
+		<item>Shri</item>
+		<item>Sili</item>
+		<item>Sini</item>
+		<item>Wienne</item>
+		<item>Xian</item>
+		<item>Ybri</item>
+		<item>Zanne</item>
+		<item>Zut</item>
+	</list>
+
+</definitoins>

@@ -8,7 +8,7 @@
 	<include file="definitions/lists/colors.xml"/>
 	<include file="definitions/lists/itemids.xml"/>
 	<include file="definitions/lists/misc.xml"/>
-	<include file="definitions/lists/names.xml"/>
+	<include file="definitions/lists/names/index.xml"/>
 	<include file="definitions/lists/npcs.xml"/>
 	<include file="definitions/lists/skins.xml"/>
 	<include file="definitions/lists/sounds.xml"/>

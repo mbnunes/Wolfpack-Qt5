@@ -1,0 +1,110 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: DarkStorm
+|   )).-' {{ ;'`   | Revised by: White Wolf, Dreoth
+|  ( (  ;._ \\ ctr | Last Modification: Split
+=================================================================
+-->
+<definitions>
+
+	<list id="NAMES_BALRON">
+		<item>Lord Of The Abyss</item>
+		<item>Slayer</item>
+		<item>The Collector Of Souls</item>
+		<item>a balron</item>
+		<item>an ancient daemon</item>
+		<item>an elder daemon</item>
+	</list>
+
+	<list id="NAMES_DAEMON">
+		<item>a beastly daemon</item>
+		<item>a cacodaemon</item>
+		<item>a daemon</item>
+		<item>Aamon</item>
+		<item>Agalierept</item>
+		<item>Agares</item>
+		<item>Aglasis</item>
+		<item>Aiwaz</item>
+		<item>Astaroth</item>
+		<item>Ayperos</item>
+		<item>Azatoth</item>
+		<item>Azmodaeus</item>
+		<item>Azrael</item>
+		<item>Ba'al</item>
+		<item>Baal</item>
+		<item>Barbatos</item>
+		<item>Bathim</item>
+		<item>Bathsin</item>
+		<item>Be'elzebubba</item>
+		<item>Be'elzubub</item>
+		<item>Bechard</item>
+		<item>Beelzebuth</item>
+		<item>Botis</item>
+		<item>Brulefer</item>
+		<item>Bucon</item>
+		<item>Buer</item>
+		<item>Clauneck</item>
+		<item>Clitheret</item>
+		<item>Cthulhu</item>
+		<item>Cthulu</item>
+		<item>Duziel</item>
+		<item>El Chupacabra</item>
+		<item>Eleogap</item>
+		<item>Eliezer</item>
+		<item>Eligor</item>
+		<item>Eligos</item>
+		<item>Faraii</item>
+		<item>Fleurety</item>
+		<item>Frimost</item>
+		<item>Frucissiere</item>
+		<item>Fruitimere</item>
+		<item>Glassyalabolas</item>
+		<item>Guland</item>
+		<item>Gusoyn</item>
+		<item>Hael</item>
+		<item>Haristum</item>
+		<item>Heramael</item>
+		<item>Hiepacth</item>
+		<item>Huictiigara</item>
+		<item>Humots</item>
+		<item>Khil</item>
+		<item>Marbas</item>
+		<item>Mephistopheles</item>
+		<item>Mersilde</item>
+		<item>Minoson</item>
+		<item>Molech</item>
+		<item>Moloch</item>
+		<item>Morail</item>
+		<item>Musisin</item>
+		<item>Naberrs</item>
+		<item>Nebiros</item>
+		<item>Nebirots</item>
+		<item>Nyarlathotep</item>
+		<item>Pentagnony</item>
+		<item>Proculo</item>
+		<item>Pruslas</item>
+		<item>Pursan</item>
+		<item>Rofocale</item>
+		<item>Sargatans</item>
+		<item>Satanchia</item>
+		<item>Satanciae</item>
+		<item>Segal</item>
+		<item>Sergulath</item>
+		<item>Sergutthy</item>
+		<item>Sidragrosam</item>
+		<item>Sirchade</item>
+		<item>Starr</item>
+		<item>Surgat</item>
+		<item>Sustugriel</item>
+		<item>Tarchimache</item>
+		<item>Tarihimal</item>
+		<item>Trimasel</item>
+		<item>Tyriel</item>
+		<item>Vaelfar</item>
+		<item>Wormius</item>
+		<item>Yog-Sothoth</item>
+		<item>Zoray</item>
+	</list>
+
+</definitoins>

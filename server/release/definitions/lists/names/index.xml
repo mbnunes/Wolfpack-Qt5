@@ -1,0 +1,28 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<include file="definitions/lists/names/birds.xml"/>
+	<include file="definitions/lists/names/centaur.xml"/>
+	<include file="definitions/lists/names/daemons.xml"/>
+	<include file="definitions/lists/names/evil_mages.xml"/>
+	<include file="definitions/lists/names/gargoyles.xml"/>
+	<include file="definitions/lists/names/human_females.xml"/>
+	<include file="definitions/lists/names/human_males.xml"/>
+	<include file="definitions/lists/names/lizardmen.xml"/>
+	<include file="definitions/lists/names/orcs.xml"/>
+	<include file="definitions/lists/names/pirates_female.xml"/>
+	<include file="definitions/lists/names/pirates_male.xml"/>
+	<include file="definitions/lists/names/pixies.xml"/>
+	<include file="definitions/lists/names/ratmen.xml"/>
+	<include file="definitions/lists/names/savage_female.xml"/>
+	<include file="definitions/lists/names/savage_male.xml"/>
+	<include file="definitions/lists/names/undead.xml"/>
+
+</definitions>

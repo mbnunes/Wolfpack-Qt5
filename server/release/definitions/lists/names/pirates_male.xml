@@ -1,0 +1,31 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: DarkStorm
+|   )).-' {{ ;'`   | Revised by: White Wolf, Dreoth
+|  ( (  ;._ \\ ctr | Last Modification: Split
+=================================================================
+-->
+<definitions>
+
+	<list id="NAMES_PIRATE_MALE">
+		<item>Aruj Barbarossa</item>
+		<item>Bartholomew Portugues</item>
+		<item>Bartholomew Roberts</item>
+		<item>Blackbeard</item>
+		<item>Calico Jack</item>
+		<item>Captain Kidd</item>
+		<item>Charles Vane</item>
+		<item>Edward England</item>
+		<item>Francis L'olonais</item>
+		<item>Henry Every</item>
+		<item>Henry Morgan</item>
+		<item>Howell Davis</item>
+		<item>Jaques Sores</item>
+		<item>Jean Lafitte</item>
+		<item>John Rackam</item>
+		<item>Roche Brasiliano</item>
+		<item>Thomas Cavendish</item>
+	</list>
+
+</definitoins>
