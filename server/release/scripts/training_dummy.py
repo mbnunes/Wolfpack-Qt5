@@ -6,6 +6,8 @@
 #################################################################
 
 import wolfpack
+from wolfpack.consts import *
+import random
 
 # 0x1070 Facing South/North (Swinging: 0x1071)
 # 0x1074 Facing East/West   (Swinging: 0x1075)
@@ -13,6 +15,7 @@ import wolfpack
 def onUse( char, item ):
 	# Either the dummy is swinging or we aren't assigned to a dummy
 	if( item.id != 0x1070 and item.id != 0x1074  ):
+		char.socket.sysmessage( 'Wait until the dummy stops swinging.' )
 		return 1
 
 	# Distance & Direction checks
@@ -35,19 +38,17 @@ def onUse( char, item ):
 		return 1
 	
 	# Turn to the correct direction
-	if( char.direction != direction ):
-		char.direction = direction
-		char.update()
+	char.turnto( item )
 
 	skill = char.combatskill() # Determine the combat skill used by the character
 
 	# We can only train FENCING+MACEFIGHTING+SWORDSMANSHIP+WRESTLING
-	if( skill != wolfpack.FENCING and skill != wolfpack.MACEFIGHTING and skill != wolfpack.SWORDSMANSHIP and skill != wolfpack.WRESTLING ):
+	if( skill != FENCING and skill != MACEFIGHTING and skill != SWORDSMANSHIP and skill != WRESTLING ):
 		char.message( "You can't train with this weapon on this dummy." )
 		return 1
 	
 	# If we've already learned all we can > cancel.
-	if( char.baseskill[ skill ] >= 300 ):
+	if( char.skill[ skill ] >= 300 ):
 		char.message( "You can learn much from a dummy but you have already learned it all." )
 		return 1
 	
@@ -67,15 +68,15 @@ def onUse( char, item ):
 	item.update()
 	item.soundeffect( 0x33 )
 			
-	# Add a timer to reset the id
-	wolfpack.addtimer( "training_dummy.resetid", 3000, (item.serial,) )
+	# Add a timer to reset the id (serializable!)
+	wolfpack.addtimer( random.randint( 2000, 3000 ), "training_dummy.resetid", [ item.serial ], 1 )
 		
 	return 1
 	
 # Reset the id of a swinging dummy
-def resetid( iSerial ):
-	item = wolfpack.finditem( iSerial )
+def resetid( object, args ):
+	item = wolfpack.finditem( args[0] )
 	
-	if( item and ( item.id == 0x1070 or item.id == 0x1074 ) ):
-		item.id += 1
+	if( item and ( item.id == 0x1071 or item.id == 0x1075 ) ):
+		item.id -= 1
 		item.update()
