@@ -42,7 +42,6 @@
 #undef  DBGFILE
 #define DBGFILE "Trade.cpp"
 
-//##ModelId=3C5D92B2012E
 void cTrade::buyaction(int s)
 {
 	char clearmsg[8];
@@ -232,7 +231,6 @@ void cTrade::buyaction(int s)
 	statwindow(s, pc_currchar);
 }
 
-//##ModelId=3C5D92B20142
 void cTrade::restock(int s)
 {
 	int a,serial;
@@ -287,7 +285,6 @@ static bool items_match(P_ITEM pi1, P_ITEM pi2)
 	return false;
 }
 
-//##ModelId=3C5D92B20156
 void cTrade::sellaction(int s)
 {
 	int i, amt, value=0, totgold=0;
@@ -402,7 +399,6 @@ void cTrade::sellaction(int s)
 	Xsend(s, clearmsg, 8);
 }
 
-//##ModelId=3C5D92B2016A
 P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -488,7 +484,6 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	return pi_ps;
 }
 
-//##ModelId=3C5D92B2017E
 void cTrade::clearalltrades()
 {
 	AllItemsIterator iterItems;
@@ -522,7 +517,6 @@ void cTrade::clearalltrades()
 	}
 }
 
-//##ModelId=3C5D92B20188
 void cTrade::trademsg(int s)
 {
 	P_ITEM cont1, cont2;
@@ -556,7 +550,6 @@ void cTrade::trademsg(int s)
 	}
 }
 
-//##ModelId=3C5D92B2019C
 void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 {
 	int serial;

@@ -49,12 +49,9 @@
 #include "oem.h"
 #ifdef OEM
 
-//##ModelId=3C5D933800FE
 struct str_pair		// a pair of two strings
 {
-	//##ModelId=3C5D9338013A
 	char* english;
-	//##ModelId=3C5D9338018A
 	char* foreign;
 };
 

@@ -151,7 +151,6 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype, const int coloring,
 
 // This routine processes both Static and Dynamic items
 // ts: socket
-//##ModelId=3C5D92B20033
 void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 {
 
@@ -2033,7 +2032,6 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 // This routine processes tokens for the NPC triggers.
 // ts: socket!!!! (Player fire the trigger)- AntiChrist
 // ti: no-socket!!!! (NPC triggered) - Magius(CHE)
-//##ModelId=3C5D92B2005B
 void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magius(CHE) §
 {
 	char sect[512];
@@ -3128,7 +3126,6 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
   closescript();
 }
 
-//##ModelId=3C5D92B20079
 int cTrigger::checkenvoke(char eid1, char eid2)
 {
 	FILE *envokefile;

@@ -53,7 +53,6 @@ void newcalcweight(int);
 
 **************************************************************************************************************************/
 
-//##ModelId=3C5D9306005D
 void cWeight::NewCalc(P_CHAR pc)
 {
 	float totalweight=0.0;
@@ -157,7 +156,6 @@ int cWeight::CheckWeight2(int s) // Morrolan - Check when player is teleporting 
 }
 
 //	history:	added containersearch Duke, 4.11.2k
-//##ModelId=3C5D930600A2
 float cWeight::LockeddownWeight(P_ITEM pItem, int *total, int *total2 )
 {
 	float totalweight=0.0;

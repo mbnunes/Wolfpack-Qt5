@@ -42,13 +42,11 @@
 #undef  DBGFILE
 #define DBGFILE "uobject.cpp"
 
-//##ModelId=3C5D92B0021B
 cUObject::cUObject()
 {
 	init();
 }
 
-//##ModelId=3C5D92B0021C
 cUObject::cUObject( cUObject &src )
 {
 	this->serial = src.serial;
@@ -57,12 +55,10 @@ cUObject::cUObject( cUObject &src )
 	this->free = src.free;
 }
 
-//##ModelId=3C5D92B0022F
 cUObject::~cUObject()
 {
 }
 
-//##ModelId=3C5D92B00207
 void cUObject::init()
 {
 	this->serial = INVALID_SERIAL;
@@ -78,7 +74,7 @@ void cUObject::init()
  *
  * @return void  : none.
  */
-//##ModelId=3C5D92B00239
+
 void cUObject::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
@@ -106,7 +102,6 @@ void cUObject::Serialize(ISerialization &archive)
 	}
 }
 
-//##ModelId=3C5D92B00257
 inline string cUObject::objectID()
 {
 	return string("UOBJECT");

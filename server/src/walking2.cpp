@@ -654,7 +654,6 @@ bool cMovement::CanBirdWalk(unitile_st xyb)
 
 // if we have a valid socket, see if we need to deny the movement request because of
 // something to do with the walk sequence being out of sync.
-//##ModelId=3C5D92AE01D2
 bool cMovement::VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence) throw()
 {
     if (socket != INVALID_UOXSOCKET)
@@ -706,7 +705,6 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 	return true;
 }
 
-//##ModelId=3C5D92AE0218
 bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 // PARAM WARNING: unreferenced paramater socket
 {
@@ -732,7 +730,6 @@ bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 }
 
 // see if a player has tried to move into a house they were banned from it
-//##ModelId=3C5D92AE0240
 bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
 {
     if ( pc->isPlayer() ) // this code is also called from npcs-walking code, so only check for players to cut down lag!
@@ -762,19 +759,13 @@ bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
 // I already made sure I could move there (even the crazy XY block stuff) so this IS a valid move. Just move the
 // directions. Oh, and since I we already have the GetX/YfromDir functions (and we need those) why don't we just
 // use them here?
-
-//##ModelId=3C5D92AE029A
 void cMovement::MoveCharForDirection(P_CHAR pc, int dir)
 {
 	pc->pos.x = GetXfromDir(dir, pc->pos.x);
 	pc->pos.y = GetYfromDir(dir, pc->pos.y);
 }
 
-
 // Split up of FillXYBlockStuff
-
-
-//##ModelId=3C5D92AD0361
 void cMovement::GetBlockingMap(SI16 x, SI16 y, unitile_st *xyblock, int &xycount)
 {
 	int mapid = 0;
@@ -1836,8 +1827,6 @@ short int cMovement::Distance(short int sx, short int sy, short int dx, short in
 // Method        : Modified the old CheckWalkable function so that it can be utilized throughout
 // the walking code. Ever wonder why NPCs can walk through walls and stuff in combat mode? This
 // is the fix, plus more.
-
-//##ModelId=3C5D92AE0088
 short int cMovement::Direction(short int sx, short int sy, short int dx, short int dy)
 {
 	
@@ -1859,7 +1848,6 @@ short int cMovement::Direction(short int sx, short int sy, short int dx, short i
 	return dir;
 }
 
-//##ModelId=3C5D92AD0086
 bool cMovement::CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z)
 {
 
@@ -1981,8 +1969,6 @@ bool cMovement::CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z)
 // Revision Date : 2000.09.17
 // Purpose       : Check if a character can walk to a from x,y to dir direction
 // Method        : This handles the funky diagonal moves.
-
-//##ModelId=3C5D92AD00AF
 bool cMovement::CanCharMove(P_CHAR pc, short int x, short int y, signed char &z, int dir)
 {
 	z = illegal_z;
@@ -1998,8 +1984,6 @@ bool cMovement::CanCharMove(P_CHAR pc, short int x, short int y, signed char &z,
 	return CanCharWalk(pc, GetXfromDir(dir, x), GetYfromDir(dir, y), z);
 }
 
-
-//##ModelId=3C5D92AF016F
 void cMovement::deny( UOXSOCKET k, P_CHAR pc, int sequence )
 {
 	char walkdeny[9] = "\x21\x00\x01\x02\x01\x02\x00\x01";
@@ -2100,7 +2084,6 @@ inline int calcTileHeight( int h ) throw()
     invalid_z == -128, if walk is blocked
 
 ********************************************************/
-//##ModelId=3C5D92AD0158
 int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int oldx, unsigned int oldy, bool justask )
 {
 	const signed int oldz = pc->pos.z;
@@ -2233,7 +2216,6 @@ int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int
 
 // knox, reinserted it since some other files access it,
 //       100% sure this is wrong, however the smaller ill.
-//##ModelId=3C5D92AD0130
 int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_s )
 {
 	const int getcell=mapRegions->GetCell(Coord_cl(x,y, z));
@@ -2297,9 +2279,7 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
     return 0;
 }
 
-
 // Static Members
-//##ModelId=3C5D92AD01BE
 void cMovement::getXYfromDir(int dir, int *x, int *y)
 {
 	switch(dir&0x07)

@@ -37,7 +37,6 @@
 
 //========================================================================================
 // Constructor
-//##ModelId=3C5D929102F3
 WPConsole_cl::WPConsole_cl()
 {
 	bEnabled = true;
@@ -47,19 +46,16 @@ WPConsole_cl::WPConsole_cl()
 
 //========================================================================================
 // Destuctor
-//##ModelId=3C5D929103C5
 WPConsole_cl::~WPConsole_cl()
 {
 	// Clean up any terminal settings
 }
 
-//##ModelId=3C5D929103D9
 void WPConsole_cl::enabled(bool bState)
 {
 	bEnabled = bState;
 }
 
-//##ModelId=3C5D929200B9
 void WPConsole_cl::setStreams(istream *in, ostream *out, ostream *error, ostream *log)
 {
 	inputstrm  = in;
@@ -70,7 +66,6 @@ void WPConsole_cl::setStreams(istream *in, ostream *out, ostream *error, ostream
 
 //========================================================================================
 // Send a char string to the console
-//##ModelId=3C5D92920115
 void WPConsole_cl::send(char* szMessage, ...)
 {
 	va_list argptr;
@@ -85,7 +80,6 @@ void WPConsole_cl::send(char* szMessage, ...)
 
 //========================================================================================
 // Send a message to the console
-//##ModelId=3C5D92920132
 void WPConsole_cl::send(string sMessage)
 {
 	if (outputstrm != NULL)
@@ -96,7 +90,6 @@ void WPConsole_cl::send(string sMessage)
 }
 //========================================================================================
 // Send a char string to the log
-//##ModelId=3C5D92920150
 void WPConsole_cl::log(char* szMessage, ...)
 {
 	va_list argptr;
@@ -111,7 +104,6 @@ void WPConsole_cl::log(char* szMessage, ...)
 }
 //========================================================================================
 // Send a message to the log
-//##ModelId=3C5D9292016E
 void WPConsole_cl::log(string sMessage)
 {
 	if (logstrm != NULL)
@@ -120,7 +112,6 @@ void WPConsole_cl::log(string sMessage)
 }
 //========================================================================================
 // Send a char string to the error
-//##ModelId=3C5D92920179
 void WPConsole_cl::error(char* szMessage, ...)
 {
 	va_list argptr;
@@ -134,7 +125,6 @@ void WPConsole_cl::error(char* szMessage, ...)
 }
 //========================================================================================
 // Send a message to the console
-//##ModelId=3C5D929201A0
 void WPConsole_cl::error(string sMessage)
 {
 	if (errorstrm != NULL)
@@ -143,7 +133,6 @@ void WPConsole_cl::error(string sMessage)
 
 //=========================================================================================
 // Get input from the console
-//##ModelId=3C5D929201B4
 UI08 WPConsole_cl::getkey(void)
 {
 	UI08 key = 0;

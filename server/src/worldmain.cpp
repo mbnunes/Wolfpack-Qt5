@@ -94,7 +94,6 @@ CWorldMain::CWorldMain()
 	isSaving = false;
 }
 
-//##ModelId=3C5D92A9015D
 CWorldMain::~CWorldMain()
 {
 	if (iWsc)
