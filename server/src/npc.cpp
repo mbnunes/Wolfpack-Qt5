@@ -55,6 +55,7 @@
 
 cNPC::cNPC()
 {
+	setWanderFollowTarget(0);
 	nextMsgTime_ = 0;
 	nextGuardCallTime_ = 0;
 	nextBeggingTime_ = 0;
@@ -109,6 +110,8 @@ void cNPC::postload( unsigned int version )
 	SERIAL owner = ( SERIAL ) owner_;
 	owner_ = 0;
 	setOwner( dynamic_cast<P_PLAYER>( World::instance()->findChar( owner ) ) );
+	if ( wanderType() == enFollowTarget )
+		setWanderType( enFreely );
 }
 
 void cNPC::load( cBufferedReader& reader )
@@ -904,7 +907,7 @@ Coord_cl cNPC::nextMove()
 		ret = path_.front();
 	}
 	else
-		ret = Coord_cl( 0xFFFF, 0xFFFF, 0xFF, 0 );
+		ret = Coord_cl( 0xFFFF, 0xFFFF, (SI08) 0xFF, 0 );
 
 	return ret;
 }
@@ -937,7 +940,7 @@ bool cNPC::hasPath( void )
 Coord_cl cNPC::pathDestination( void ) const
 {
 	if ( path_.empty() )
-		return Coord_cl( 0xFFFF, 0xFFFF, 0xFF, 0 );
+		return Coord_cl( 0xFFFF, 0xFFFF, (SI08) 0xFF, 0 );
 	else
 		return path_.back();
 }

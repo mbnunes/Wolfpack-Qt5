@@ -420,6 +420,9 @@ void cWorld::loadTag( cBufferedReader& reader, unsigned int version )
 
 void cWorld::load()
 {
+	unsigned int loadStart = getNormalizedTime();
+	QPtrList<PersistentObject> objects;
+
 	if ( Config::instance()->databaseDriver() == "binary" )
 	{
 		QString filename = Config::instance()->binarySavepath();
@@ -438,9 +441,6 @@ void cWorld::load()
 			unsigned int count = reader.objectCount();
 			unsigned int lastpercent = 0;
 			unsigned int percent = 0;
-			unsigned int loadStart = getNormalizedTime();
-			QPtrList<PersistentObject> objects;
-
 			do
 			{
 				type = reader.readByte();
@@ -521,17 +521,6 @@ void cWorld::load()
 			}
 			while ( type != 0xFF );
 			reader.close();
-
-			QPtrList<PersistentObject>::const_iterator cit(objects.begin());
-			while (cit != objects.end()) {
-				(*cit)->postload(reader.version());
-				++cit;
-			}
-
-			unsigned int duration = getNormalizedTime() - loadStart;
-
-			Console::instance()->send( "\b\b\b\b" ); // 100%
-			Console::instance()->log( LOG_MESSAGE, QString( "The world loaded in %1 ms.\n" ).arg( duration ) );
 		}
 	}
 	else
@@ -607,6 +596,7 @@ void cWorld::load()
 				// do something with data
 				object = PersistentFactory::instance()->createObject( type );
 				object->load( row, offset );
+				objects.append(object);
 
 				++progress;
 			}
@@ -758,6 +748,7 @@ void cWorld::load()
 
 			pChar->flagUnchanged(); // We've just loaded, nothing changes
 		}
+	
 
 		if ( deleteItems.count() > 0 )
 		{
@@ -768,7 +759,7 @@ void cWorld::load()
 			Console::instance()->send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
 			deleteItems.clear();
 		}
-
+	
 		// Load SpawnRegion information
 		cDBResult result = PersistentBroker::instance()->query( "SELECT spawnregion,serial FROM spawnregions;" );
 
@@ -797,8 +788,20 @@ void cWorld::load()
 		UoTime::instance()->setMinutes( db_time.toInt() );
 
 		PersistentBroker::instance()->disconnect();
-		Console::instance()->send( "Finished loading the world.\n" );
 	}
+	
+	// post process all loaded objects
+	QPtrList<PersistentObject>::const_iterator cit(objects.begin());
+	
+	while (cit != objects.end()) {
+		(*cit)->postload(0);
+		++cit;
+	}
+	
+	unsigned int duration = getNormalizedTime() - loadStart;
+
+	Console::instance()->send( "\n\b\b\b\b" ); // 100%
+	Console::instance()->log( LOG_MESSAGE, QString( "\nThe world loaded in %1 ms.\n" ).arg( duration ) );
 
 	cComponent::load();
 }
