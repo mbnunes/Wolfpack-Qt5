@@ -1775,5 +1775,5 @@ bool cPlayer::isOverloaded() {
 }
 
 unsigned int cPlayer::maxWeight() {
-	return 40 + strength_ * 3.5;
+	return (unsigned int)( 40 + strength_ * 3.5 );
 }

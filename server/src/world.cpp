@@ -522,7 +522,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 
 			// post process all loaded objects
 			QPtrList<PersistentObject>::const_iterator cit(objects.begin());
-			
+
 			while (cit != objects.end()) {
 				(*cit)->postload(reader.version());
 				++cit;
@@ -576,7 +576,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 		// Get Database Version (Since Version 7 SQL has it)
 		QString db_version;
 		getOption("db_version", db_version, "7");
-		
+
 		if (db_version.toInt() != DATABASE_VERSION) {
 			cPythonScript *script = ScriptManager::instance()->getGlobalHook(EVENT_UPDATEDATABASE);
 			if (!script || !script->canHandleEvent(EVENT_UPDATEDATABASE)) {
@@ -586,7 +586,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 			PyObject *args = Py_BuildValue("(ii)", DATABASE_VERSION, db_version.toInt());
 			bool result = script->callEventHandler(EVENT_UPDATEDATABASE, args);
 			Py_DECREF(args);
-			
+
 			if (!result) {
 				throw wpException(QString("Unable to load world database. Version mismatch: %1 != %2.").arg(db_version.toInt()).arg(DATABASE_VERSION));
 			}
@@ -761,13 +761,13 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 
 			pChar->flagUnchanged(); // We've just loaded, nothing changes
 		}
-	
+
 		// post process all loaded objects
 		// Note from DarkStorm: I THINK it's important to do this before
 		// the deletion of objects, otherwise you might have items in this
 		// list that are already deleted.
 		QPtrList<PersistentObject>::const_iterator cit(objects.begin());
-		
+
 		while (cit != objects.end()) {
 			(*cit)->postload(0);
 			++cit;
@@ -782,7 +782,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 			Console::instance()->send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
 			deleteItems.clear();
 		}
-	
+
 		// Load SpawnRegion information
 		cDBResult result = PersistentBroker::instance()->query( "SELECT spawnregion,serial FROM spawnregions;" );
 
@@ -826,9 +826,9 @@ void cWorld::load()
 	{
 		loadSQL( objects );
 	}
-	
 
-	
+
+
 	unsigned int duration = getNormalizedTime() - loadStart;
 
 	Console::instance()->send( "\n\b\b\b\b" ); // 100%
@@ -1051,7 +1051,7 @@ void cWorld::save() {
  */
 void cWorld::getOption( const QString& name, QString& value, const QString fallback )
 {
-	QMap<QString, QString>::iterator it = options.find(name);	
+	QMap<QString, QString>::iterator it = options.find(name);
 	if (it == options.end()) {
 		value = fallback;
 	} else {
@@ -1295,7 +1295,7 @@ QMap<QDateTime, QString> listBackups(const QString &filename) {
 		QString timestamp = backup.right(backup.length() - name.length());
 		QDate date;
 		QTime time;
-		
+
 		// Length has to be -YYYYMMDD-HHMM (14 Characters)
 		if (timestamp.length() != 14) {
 			continue;
@@ -1314,7 +1314,7 @@ QMap<QDateTime, QString> listBackups(const QString &filename) {
 
 		date.setYMD(year, month, day);
 		time.setHMS(hour, minute, 0);
-		
+
 		backups.insert(QDateTime(date, time), *sit);
 	}
 
@@ -1332,7 +1332,7 @@ void cWorld::backupWorld(const QString &filename, unsigned int count, bool compr
 
 	// Check if we need to remove a previous backup
 	QMap<QDateTime, QString> backups = listBackups(filename);
-	
+
 	if (backups.count() >= count) {
 		// Remove the oldest backup
 		QDateTime current;
@@ -1398,7 +1398,7 @@ void cBackupThread::run() {
 	while ((readSize = input.readBlock(buffer, 4096)) > 0) {
 		gzwrite(output, buffer, readSize);
 	}
-	
+
 	input.close();
 	gzclose(output);
 
