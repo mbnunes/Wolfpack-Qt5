@@ -4,22 +4,33 @@
 	<!-- Blade Spirit -->
 	<npc id="blade_spirit">
 		<name>a blade spirit</name>
-		<id>0x023e</id>
-		<category>Monsters\Elementals\Blade Spirit</category>
+		<id>0x23e</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="30" max="40"/></defense>
-		<lodamage>20</lodamage>
-		<hidamage>32</hidamage>
+		<karma>0</karma>
+		<fame>0</fame>
 		<!-- Stats -->
 		<str>150</str>
 		<dex>150</dex>
 		<int>100</int>
 		<!-- Skills -->
-		<wrestling>900</wrestling>
-		<tactics>1000</tactics>
 		<magicresistance>700</magicresistance>
+		<tactics>900</tactics>
+		<wrestling>900</wrestling>
+		<!-- Damage -->
+		<lodamage>10</lodamage>
+		<hidamage>18</hidamage>
+		<tag name="energydamage" value="20" />
+		<tag name="physicaldamage" value="60" />
+		<tag name="poisondamage" value="20" />
+		<!-- Resists -->
+		<defense><random min="30" max="40"/></defense>
+		<tag name="coldresist" value="30,40" />
+		<tag name="energyresist" value="20,30" />
+		<tag name="fireresist" value="40,50" />
+		<tag name="physicalresist" value="30,40" />
+		<tag name="poisonresist" value="100" />
+		<!-- Misc. -->
+		<category>Monsters\Summoned\Blade Spirit</category>
 	</npc>
 
 </definitions>
