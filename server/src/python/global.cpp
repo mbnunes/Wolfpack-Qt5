@@ -634,14 +634,17 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 		PyErr_Format(PyExc_RuntimeError, "Unable to access unknown map %u.", map);
 	}
 
+	int maxX = Maps::instance()->mapTileWidth(map) * 8;
+	int maxY = Maps::instance()->mapTileHeight(map) * 8;
+
 	if (x < 0)
 		x = 0;
-	if (x >= Maps::instance()->mapTileWidth(map))
-		x = Maps::instance()->mapTileWidth(map) - 1;
+	if (x >= maxX)
+		x = maxX - 1;
 	if (y < 0)
 		y = 0;
-	if (y >= Maps::instance()->mapTileHeight(map))
-		y = Maps::instance()->mapTileHeight(map) - 1;
+	if (y >= maxY)
+		y = maxY - 1;
 
 	StaticsIterator iter = Maps::instance()->staticsIterator( Coord_cl( x, y, 0, map ), exact );
 
