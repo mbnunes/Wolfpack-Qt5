@@ -81,9 +81,9 @@ def fizzle( char ):
 
 def statmodifier_dispel( char, args, source, dispelargs ):
 	# Normally reduce "if not 'silent' in dispelargs"
-	char.str -= args[0]
-	char.dex -= args[1]
-	char.int -= args[2]
+	char.strength -= args[0]
+	char.dexterity -= args[1]
+	char.intelligence -= args[2]
 
 	if not "silent" in dispelargs:
 		# If Str changed, resend to others
@@ -95,9 +95,9 @@ def statmodifier_dispel( char, args, source, dispelargs ):
 
 def statmodifier_expire( char, args ):
 	# The stat modifier normally expired, so just reduce the stats and resend
-	char.str -= args[0]
-	char.dex -= args[1]
-	char.int -= args[2]
+	char.strength -= args[0]
+	char.dexterity -= args[1]
+	char.intelligence -= args[2]
 
 	# If Str changed, resend to others
 	if args[0] != 0:
@@ -111,9 +111,9 @@ def statmodifier( char, time, mStr, mDex, mInt ):
 	# And readd a new one (remove the old ones silently)
 	char.dispel( char, 0, "statmodifier", [ "silent" ] )
 
-	char.str += mStr
-	char.dex += mDex
-	char.int += mInt
+	char.strength += mStr
+	char.dexterity += mDex
+	char.intelligence += mInt
 
 	if mStr != 0:
 		char.updatehealth()

@@ -7,6 +7,8 @@
 # Utility functions used in Python scripts                      #
 #===============================================================#
 
+import _wolfpack.speech
+
 def addKeyword( script, keyword ):
 	_wolfpack.speech.addKeyword( script, keyword )
 
