@@ -52,6 +52,58 @@ ask_path ()
 	echo "$SUPPLIED_PATH";
 }
 
+##### check_version [package] [path]
+# check version of package using the file/dir in path
+check_version ()
+{
+	case "$1" in
+		python-inc)
+			VERSION_REGEXP='^[  ]*#[    ]*define[       ]*PY_VERSION[^"]*"\([^"]*\)".*$';
+			VERSION="$(grep "$VERSION_REGEXP" "${2}/patchlevel.h"|sed -e "s/$VERSION_REGEXP/\1/")";
+			if [ ! "$(echo "$VERSION"|grep '^2\.3')" ];
+			then
+				cat >&2 <<-EOF
+				Python version is ${VERSION}, but should be 2.3.x!
+				Please install the appropriate version from:
+				    http://www.python.org/2.3.3/
+				or use ${0} --help for help with specifying the correct path.
+				EOF
+				exit 1;
+			fi;
+			;;
+		python-lib)
+			if [ ! -e "${2}/libpython2.3.so" ];
+			then
+				cat >&2 <<-EOF
+				Python 2.3.x library files not found in ${2}!
+				Please install the appropriate version from:
+				    http://www.python.org/2.3.3/
+				or use ${0} --help for help with specifying the correct path.
+				EOF
+				exit 1;
+			fi;
+			;;
+		qt)
+			VERSION_REGEXP='^.*version:[^(]*([^     ]*[     ]*\([^)]*\)).*$';
+			VERSION="$(eval "$2 -v" 2>&1|grep "$VERSION_REGEXP"|sed -e "s/$VERSION_REGEXP/\1/")";
+			if [ ! "$(echo "$VERSION"|grep '^3\.')" ];
+			then
+				cat >&2 <<-EOF
+				error!
+				Your Qt version is ${VERSION} and hence too old.
+				Please install version 3.x.x from:
+				    http://www.trolltech.com/download/qt/x11.html
+				or use ${0} --help for help with specifying the correct path.
+
+				Please note, that Qt has to be installed multi threaded!
+				To compile qt multi threaded, use -thread there as a ./configure option.
+				EOF
+				exit 1;
+			fi;
+			;;
+	esac;
+}
+
 ##### print_usage
 # prints usage information
 print_usage ()
@@ -260,6 +312,8 @@ else
 	fi;
 fi;
 
+check_version "python-inc" "${PYTHON_INC}";
+
 echo -n "Searching for Python library.... ";
 
 if ! [ "${_PYTHON_LIB}" ];
@@ -296,6 +350,8 @@ else
 		echo "( $PYTHON_LIB )";
 	fi;
 fi;
+
+check_version "python-lib" "${PYTHON_LIB}";
 # </python>
 
 PASSED_VARIABLES="";
@@ -321,7 +377,9 @@ fi;
 
 if [ -x "$QMAKE_BIN" ];
 then
-	QMAKE_OUTPUT="$(eval "qmake -o Makefile $PASSED_VARIABLES wolfpack.pro" 2>&1)";
+	check_version "qt" "$QMAKE_BIN";
+
+	QMAKE_OUTPUT="$(eval "$QMAKE_BIN -o Makefile $PASSED_VARIABLES wolfpack.pro" 2>&1)";
 	if [ "$?" -gt "0" ];
 	then
 		echo "failed:" >&2;
