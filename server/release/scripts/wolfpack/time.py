@@ -36,3 +36,5 @@ def servertime():
 
 def currentdatetime():
 	return _wolfpack.currentdatetime()
+
+currentlightlevel = _wolfpack.time.currentlightlevel

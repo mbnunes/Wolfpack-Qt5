@@ -1,21 +1,31 @@
 
 import wolfpack
+from wolfpack import time
 
 def season( socket, command, arguments ):
 	packet = [ 0xbc, int(arguments), 0x01 ]
 	socket.sendpacket(packet)
 
-def enablegod( socket, command, arguments ):
-	packet = [ 0x2b, 0x01 ]
-	socket.sendpacket( packet )
+#def enablegod( socket, command, arguments ):
+#	packet = [ 0x2b, 0x01 ]
+#	socket.sendpacket( packet )
 
 def updateplayer(socket, command, arguments):
 	socket.updateplayer()
 
+def uotime(socket, command, arguments):
+	socket.sysmessage('Current Time: %02u:%02u' % (time.hour(), time.minute()))
+	socket.sysmessage('Current Lightlevel: %u' % (time.currentlightlevel()))
+
 def onLoad():
-	wolfpack.registercommand( "enablegod", enablegod )
-	wolfpack.registercommand( "season", season )
-	wolfpack.registercommand( "updateplayer", updateplayer)
+	wolfpack.registercommand("season", season)
+	wolfpack.registercommand("updateplayer", updateplayer)
+	wolfpack.registercommand("time", uotime)
+
+"""
+	\command time
+	\description Show the current ingame time and the current lightlevel.
+"""
 
 """
 	\command updateplayer
