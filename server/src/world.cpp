@@ -472,7 +472,7 @@ void cWorld::load()
 	{
 		QString type = types[j];
 
-		cDBResult res = persistentBroker->query( QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '%1'" ).arg( type ) );
+		cDBResult res = persistentBroker->query( QString( "SELECT COUNT(*) FROM `uobjectmap` WHERE `type` = '%1'" ).arg( type ) );
 
 		// Find out how many objects of this type are available
 		if( !res.isValid() )
@@ -836,18 +836,18 @@ void cWorld::setOption( const QString name, const QString value )
 	}
 
 	// check if the option already exists
-	cDBResult res = persistentBroker->query( QString( "SELECT value FROM settings WHERE option = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
+	cDBResult res = persistentBroker->query( QString( "SELECT `option`,`value` FROM `settings` WHERE `option` = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
 
 	QString sql;
 
 	if( !res.isValid() || !res.fetchrow() )
 	{
-		sql = "INSERT INTO settings VALUES('%1','%2')";
+		sql = "INSERT INTO `settings` VALUES('%1','%2')";
 		sql = sql.arg( persistentBroker->quoteString( name ) ).arg( persistentBroker->quoteString( value ) );
 	}
 	else
 	{
-		sql = "UPDATE settings SET value='%1' WHERE option='%2'";
+		sql = "UPDATE `settings` SET `value`='%1' WHERE `option`='%2'";
 		sql = sql.arg( persistentBroker->quoteString( value ) ).arg( persistentBroker->quoteString( name ) );
 	}
 
