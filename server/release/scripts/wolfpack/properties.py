@@ -95,14 +95,24 @@ def fromitem(item, property):
 	if not item:
 		return info[1]
 
-	# Tag overrides properties
-	if item.hastag(info[0]):
+	# Tags Always go first, override system.
+	if item.hastag( info[0] ):
 		# HITSOUND and MISSSOUND need special treatment beacuse of
 		# the list character.
 		if property == HITSOUND or property == MISSSOUND:
 			return str(item.gettag(info[0])).split(',')
 		else:
 			return int(item.gettag(info[0]))
+
+	elif item.hasintproperty( info[0] ):
+		return int( item.getintproperty( info[0], 0 ) )
+
+	elif item.hasstrproperty( info[0] ):
+		if property == HITSOUND or property == MISSSOUND:
+			return str(item.getstrproperty( info[0], '' ) ).split(',')
+		else:
+			return str(item.getstrproperty( info[0], '' ) )
+
 	else:
 		# See if our weapon info has anything for the
 		# requested item. Otherwise return the default value.
@@ -129,6 +139,7 @@ def fromitem(item, property):
 							value += weaponinfo.WEAPON_RESNAME_BONI[resname][property]
 
 				return value
+
 		elif itemcheck(item, ITEM_ARMOR) or itemcheck(item, ITEM_SHIELD):
 			if armorinfo.ARMORINFO.has_key(item.baseid):
 				armordata = armorinfo.ARMORINFO[item.baseid]
@@ -144,9 +155,21 @@ def fromitem(item, property):
 					if armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
 						if armorinfo.ARMOR_RESNAME_BONI[resname].has_key(property):
 							value += armorinfo.ARMOR_RESNAME_BONI[resname][property]
+				# No tag, what about property?
+				elif item.hasstrproperty('resname'):
+					resname = str( item.getstrproperty( 'resname', '' ) )
+					if armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
+						if armorinfo.ARMOR_RESNAME_BONI[resname].has_key(property):
+							value += armorinfo.ARMOR_RESNAME_BONI[resname][property]
 
 				if item.hastag('resname2'):
 					resname = str(item.gettag('resname2'))
+					if armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
+						if armorinfo.ARMOR_RESNAME_BONI[resname].has_key(property):
+							value += armorinfo.ARMOR_RESNAME_BONI[resname][property]
+				# No tag, what about property?
+				elif item.hasstrproperty('resname2'):
+					resname = str( item.getstrproperty( 'resname2', '' ) )
 					if armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
 						if armorinfo.ARMOR_RESNAME_BONI[resname].has_key(property):
 							value += armorinfo.ARMOR_RESNAME_BONI[resname][property]
@@ -232,10 +255,16 @@ def getdamage(char):
 	if char.npc:
 		# If the npc has mindamage and maxdamage tags, they
 		# override all other settings
-		if char.hastag('mindamage') and char.hastag('maxdamage'):
+
+		mindamage = char.getintproperty( 'mindamage', 1 )
+		if char.hastag('mindamage'):
 			mindamage = int(char.gettag('mindamage'))
+
+		maxdamage = char.getintproperty( 'maxdamage', 3 )
+		if char.hastag('maxdamage'):
 			maxdamage = int(char.gettag('maxdamage'))
-			return (mindamage, maxdamage)
+
+		return (mindamage, maxdamage)
 
 		# Special treatment for fists.
 		if not weapon:

@@ -58,10 +58,30 @@ def onShowTooltip(viewer, object, tooltip):
 				resinfo = properties.weaponinfo.WEAPON_RESNAME_BONI[resname]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix1 = resinfo[MATERIALPREFIX]
+		elif object.hasstrproperty( 'resname' ):
+			resname = str( object.getstrproperty( 'resname' ) )
+			if armor and properties.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
+				resinfo = properties.armorinfo.ARMOR_RESNAME_BONI[resname]
+				if resinfo.has_key(MATERIALPREFIX):
+					prefix1 = resinfo[MATERIALPREFIX]
+			if weapon and properties.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
+				resinfo = properties.weaponinfo.WEAPON_RESNAME_BONI[resname]
+				if resinfo.has_key(MATERIALPREFIX):
+					prefix1 = resinfo[MATERIALPREFIX]
 
 		prefix2 = None
 		if object.hastag('resname2'):
 			resname2 = str(object.gettag('resname2'))
+			if armor and properties.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
+				resinfo = properties.armorinfo.ARMOR_RESNAME_BONI[resname2]
+				if resinfo.has_key(MATERIALPREFIX):
+					prefix2 = resinfo[MATERIALPREFIX]
+			if weapon and properties.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname2):
+				resinfo = properties.weaponinfo.WEAPON_RESNAME_BONI[resname2]
+				if resinfo.has_key(MATERIALPREFIX):
+					prefix2 = resinfo[MATERIALPREFIX]
+		elif object.hasstrproperty( 'resname2' ):
+			resname2 = str( object.getstrproperty( 'resname2' ) )
 			if armor and properties.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
 				resinfo = properties.armorinfo.ARMOR_RESNAME_BONI[resname2]
 				if resinfo.has_key(MATERIALPREFIX):
@@ -253,21 +273,21 @@ def onShowTooltip(viewer, object, tooltip):
 def onWearItem(player, wearer, item, layer):
 	lower = properties.fromitem(item, LOWERREQS) / 100.0
 
-	req_str = object.getintproperty( 'req_strength', 0 )
-	if object.hastag( 'req_strength' ):
-		req_str = int( object.gettag( 'req_strength' ) )
+	req_str = item.getintproperty( 'req_strength', 0 )
+	if item.hastag( 'req_strength' ):
+		req_str = int( item.gettag( 'req_strength' ) )
 	if lower:
 		req_str = int(ceil(req_str) * (1.0 - lower))
 
-	req_dex = object.getintproperty( 'req_dexterity', 0 )
-	if object.hastag( 'req_dexterity' ):
-		req_str = int( object.gettag( 'req_dexterity' ) )
+	req_dex = item.getintproperty( 'req_dexterity', 0 )
+	if item.hastag( 'req_dexterity' ):
+		req_dex = int( item.gettag( 'req_dexterity' ) )
 	if lower:
 		req_dex = int(ceil(req_dex) * (1.0 - lower))
 
-	req_int = object.getintproperty( 'req_intelligence', 0 )
-	if object.hastag( 'req_intelligence' ):
-		req_str = int( object.gettag( 'req_intelligence' ) )
+	req_int = item.getintproperty( 'req_intelligence', 0 )
+	if item.hastag( 'req_intelligence' ):
+		req_int = int( item.gettag( 'req_intelligence' ) )
 	if lower:
 		req_int = int(ceil(req_int) * (1.0 - lower))
 
