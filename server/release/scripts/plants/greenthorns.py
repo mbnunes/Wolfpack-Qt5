@@ -284,7 +284,7 @@ def furrowsCallback(player, args):
 			npc.update()
 			
 			# Start timer to dig away
-			npc.addtimer(10 * 1000, vorpalbunny_dig, [], True)
+			npc.addtimer(3 * 60 * 1000, vorpalbunny_dig, [], True)
 
 #
 # Start digging hole

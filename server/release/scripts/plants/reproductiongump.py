@@ -25,6 +25,11 @@ def addBackground(dialog):
 	dialog.addTilePic(211, 45, 0xceb)
 	dialog.addTilePic(211, 118, 0xcec)	
 
+	dialog.addGump(60, 90, 0xe17)
+	dialog.addGump(120, 90, 0xe17)
+	dialog.addGump(60, 145, 0xe17)
+	dialog.addGump(120, 145, 0xe17)	
+
 #
 # Add different state information
 #
