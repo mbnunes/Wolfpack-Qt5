@@ -14,7 +14,7 @@
 	<include file="definitions/regions/ilshenar/towns/mistas.xml" />
 	<include file="definitions/regions/ilshenar/towns/montor.xml" />
 	<include file="definitions/regions/ilshenar/towns/reg_volon.xml" />
-	<include file="definitions/regions/ilshenar/towns/savage_camps.xml" />
+	<include file="definitions/regions/ilshenar/towns/savage_camp.xml" />
 	<include file="definitions/regions/ilshenar/towns/terort_skitas.xml" />
 	<!-- Dungeons -->
 	<include file="definitions/regions/ilshenar/dungeons/ancient_lair.xml" />
@@ -34,7 +34,7 @@
 	<include file="definitions/regions/ilshenar/dungeons/spider_cave.xml" />
 	<include file="definitions/regions/ilshenar/dungeons/spider_forest.xml" />
 	<include file="definitions/regions/ilshenar/dungeons/spider_valley.xml" />
-	<include file="definitions/regions/ilshenar/dungeons/volanic_lair.xml" />
+	<include file="definitions/regions/ilshenar/dungeons/volcanic_lair.xml" />
 	<include file="definitions/regions/ilshenar/dungeons/wisp_dungeon.xml" />
 	<!-- Misc. -->
 	<include file="definitions/regions/ilshenar/misc/moongates.xml" />

@@ -130,33 +130,36 @@ def accountCreate( socket, username, password ):
 	else:
 		account = wolfpack.accounts.find( username )
 		if account:
-			socket.sysmessage( "An account with this name already exists!" )
+			socket.sysmessage( "Error: Account %s exists!" % username )
 			return False
 		# Create the Account
 		elif not account:
-		 	wolfpack.accounts.add( username, password )
+		 	newaccount = wolfpack.accounts.add( username, password )
+			newaccount.acl = 'player'
 			socket.sysmessage( "You created the account successfully!" )
 			char.log( LOG_MESSAGE, "0x%x created account: %s\n" % ( char.serial, username ) )
 			return True
 		# Failure
 		else:
-			socket.sysmessage( "Account creation failed!" )
+			socket.sysmessage( "Error: Account creation failed!" )
 			return True
 
 # Shows account properties
 def accountShow( socket, username, key ):
 	char = socket.player
-	characcount = wolfpack.accounts.find( char.account )
-	key = key.lower()
+	characcount = wolfpack.accounts.find( char.account.name )
 	# Usernames are limited to 16 characters in length
-	if len( username ) > 16:
-		socket.sysmessage( "The given username exceeds the 16 character limit!" )
-		return True
+	if len( username ) > 16 or len( username ) == 0:
+		if len( username ) > 16:
+			socket.sysmessage( "Error: Username exceeds the 16 character limit!" )
+		if len( username ) == 0:
+			socket.sysmessage( "Error: Username is NULL!" )
+		return False
 	# Find the account
 	else:
 		account = wolfpack.accounts.find( username )
 		if account:
-			#
+			# Rank Checking
 			if account.rank >= characcount.rank:
 				return False
 			if key == 'acl':
