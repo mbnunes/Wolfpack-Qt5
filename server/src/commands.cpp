@@ -1146,27 +1146,25 @@ void cCommands::loadPrivLvlCmds( void )
 	if( ScriptSections.isEmpty() )
 		return;
 
-	cWPXMLParser* Parser = new cWPXMLParser( WPDT_PRIVLEVEL );
+	cWPXMLParser Parser( WPDT_PRIVLEVEL );
 
-	UI32 i;
-	for( i = 0; i < ScriptSections.size(); i++ )
+	for(QStringList::iterator it = ScriptSections.begin(); it != ScriptSections.end(); ++it )
 	{
 		UI32 j;
 		
-		if( !Parser->prepareParsing( ScriptSections[i] ) || !Parser->baseTag()->attributes().contains( "id" ) )
+		if( !Parser.prepareParsing( *it ) || !Parser.baseTag()->attributes().contains( "id" ) )
 			continue;
 		
-		QDomElement Tag = *Parser->baseTag();
+		QDomElement Tag = *Parser.baseTag();
 		QString privlvl = Tag.attribute( "id" );
 		privlvl_commands[privlvl].implicit = !( Tag.attributes().contains( "type" ) && Tag.attribute( "type" ) == "explicit" );
 
-		if( !Parser->baseTag()->hasChildNodes() )
+		if( !Parser.baseTag()->hasChildNodes() )
 			continue;
 		
 		for( j = 0; j < Tag.childNodes().count(); j++ )
 			this->addCmdToPrivLvl( privlvl, Tag.childNodes().item( j ).nodeName() );
 	}
-	delete Parser;
 	clConsole.ProgressDone();
 }
 
