@@ -306,6 +306,12 @@ done;
 
 echo -n "Creating Makefile using qmake... ";
 
+if [ -d "${_QT_PATH}" ];
+then
+	QTDIR="${_QT_PATH}";
+	export QTDIR;
+fi;
+
 if [ -x "$QTDIR/bin/qmake" ];
 then
 	QMAKE_BIN="$QTDIR/bin/qmake";
