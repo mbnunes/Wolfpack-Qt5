@@ -35,7 +35,6 @@
 
 #include "zthread/Thread.h"
 #include "zthread/LockedQueue.h"
-#include "zthread/Exceptions.h"
 
 #include "qsocketdevice.h"
 

@@ -106,11 +106,19 @@ SOURCE=.\uopacketmanager.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\uorxpackets.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\uosocket.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\uosocketmanager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\uotxpackets.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -134,11 +142,19 @@ SOURCE=.\uopacketmanager.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\uorxpackets.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\uosocket.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\uosocketmanager.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\uotxpackets.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

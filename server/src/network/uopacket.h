@@ -57,7 +57,7 @@ public:
 	short getShort( unsigned int);
 	void  setInt( unsigned int, unsigned int );
 	void  setShort( unsigned int, unsigned short );
-	QString dump( const QByteArray& );
+	static QString dump( const QByteArray& );
 
 	virtual void print( ostream* );
 };

@@ -196,12 +196,12 @@ class cUOTxChangeMap: public cUOPacket
 public:
 	cUOTxChangeMap(): cUOPacket( 6 ) 
 	{
-		rawPacket[ 0 ] = 0xBF;
+		rawPacket[0] = static_cast<uchar>(0xBF);
 		setShort( 1, 6 ); // Packet Length
 		setShort( 3, 0x08 ); // Subcommand
 	}
 
-	void setMap( eMapType data ) { rawPacket[ 5 ] = data; }
+	void setMap( eMapType data ) { rawPacket[5] = data; }
 };
 
 enum eSeasonType
@@ -219,7 +219,7 @@ class cUOTxChangeSeason: public cUOPacket
 public:
 	cUOTxChangeSeason(): cUOPacket( 3 )
 	{
-		rawPacket[ 0 ] = 0xBC;
+		rawPacket[ 0 ] = static_cast<uchar>(0xBC);
 		rawPacket[ 1 ] = 1;
 	}
 
@@ -239,13 +239,19 @@ enum eWeatherType
 // 0x65 Weather
 class cUOTxWeather: public cUOPacket
 {
+public:
+	enum eWeatherType
+	{
+		Raining = 0, Fiercestorm, Snowing, Storm, Temperature = 0xFE, None
+	};
+
 	cUOTxWeather(): cUOPacket( 4 ) {
-		rawPacket[ 0 ] = 0x65;
-		rawPacket[ 1 ] = 0xFF;
+		rawPacket[ 0 ] = static_cast<uchar>(0x65);
+		rawPacket[ 1 ] = static_cast<uchar>(0xFF);
 	}
 
-	void setType( eWeatherType data ) { rawPacket[ 1 ] = data; }
-	void setAmount( Q_UINT8 data ) { rawPacket[ 2 ] = data; }
+	void setType( eWeatherType data )	{ rawPacket[ 1 ] = data; }
+	void setAmount( Q_UINT8 data )		{ rawPacket[ 2 ] = data; }
 	void setTemperature( Q_UINT8 data ) { rawPacket[ 3 ] = data; }
 };
 
@@ -264,12 +270,12 @@ class cUOTxQuestPointer: public cUOPacket
 public:
 	cUOTxQuestPointer(): cUOPacket( 6 )
 	{
-		rawPacket[ 0 ] = 0xBA;
+		rawPacket[ 0 ] = static_cast<uchar>(0xBA);
 	}
 
-	void setActive( bool data ) { rawPacket[ 1 ] = data ? 1 : 0; }
-	void setX( Q_UINT16 data ) { setShort( 2, data ); }
-	void setY( Q_UINT16 data ) { setShort( 4, data ); }
+	void setActive( bool data )		{ rawPacket[ 1 ] = data ? 1 : 0; }
+	void setX( Q_UINT16 data )		{ setShort( 2, data ); }
+	void setY( Q_UINT16 data )		{ setShort( 4, data ); }
 };
 
 // 0xB9 ClientFeatures

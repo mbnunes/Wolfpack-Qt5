@@ -29,13 +29,14 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+#if !defined(__ASYNCNETIO_H__)
+#define __ASYNCNETIO_H__
 
 #include "zthread/FastMutex.h"
 #include "zthread/Thread.h"
 #include "zthread/LockedQueue.h"
 
 #include "qmap.h"
-#include <vector>
 
 class QSocketDevice;
 class cAsyncNetIOPrivate;
@@ -45,8 +46,8 @@ class cAsyncNetIO : public ZThread::Thread
 {
 	QMap<QSocketDevice*, cAsyncNetIOPrivate*> buffers;
 
-	typedef QMap<QSocketDevice*, cAsyncNetIOPrivate*>::iterator iterator;
-	typedef QMap<QSocketDevice*, cAsyncNetIOPrivate*>::const_iterator const_iterator;
+	typedef QMap<QSocketDevice*, cAsyncNetIOPrivate*>::iterator			iterator;
+	typedef QMap<QSocketDevice*, cAsyncNetIOPrivate*>::const_iterator	const_iterator;
 
 	ZThread::FastMutex mapsMutex;
 
@@ -65,3 +66,4 @@ private:
 	void buildUOPackets( cAsyncNetIOPrivate* );
 };
 
+#endif //__ASYNCNETIO_H__

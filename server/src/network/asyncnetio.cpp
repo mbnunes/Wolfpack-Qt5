@@ -100,7 +100,6 @@ public:
 
     QSocketDevice      *socket;			// connection socket
     QPtrList<QByteArray> rba, wba;		// list of read/write bufs
-    QHostAddress		addr;			// connection address
     Q_ULONG			rsize, wsize;		// read/write total buf size
     Q_ULONG			rindex, windex;		// read/write index
 	FastMutex		wmutex;				// write mutex

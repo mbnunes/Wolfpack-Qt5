@@ -41,7 +41,7 @@
 
 #include <conio.h>
 #include <iostream>
-
+#include <vector>
 #include <stdlib.h>
 
 // Namespaces

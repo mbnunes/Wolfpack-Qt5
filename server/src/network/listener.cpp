@@ -31,11 +31,37 @@
 
 #include "listener.h"
 
+
+/*****************************************************************************
+  QCString member functions
+ *****************************************************************************/
+
+/*!
+  \class cListener listener.h
+  \ingroup network
+  \ingroup tools
+  \ingroup threaded
+
+  \brief The cListener class provides an abstraction of the Acceptor
+  Pattern.
+
+
+  cListener inherits ZThread::Thread, which is defined as in Zthread Library.
+
+  You might use cListener for waitting new connections without pooling.
+
+*/
+
+/*!
+  \fn cListener::cListener( Q_UINT16 port )
+  Constructs a listener binded to \a port.
+*/
+
 cListener::cListener( Q_UINT16 port )
 {
 	listenningSocket.setBlocking( true );
 	listenningSocket.bind( static_cast<Q_UINT32>(0), port );
-	listenningSocket.listen( 50 );
+	listenningSocket.listen( 20 );
 }
 
 void cListener::run() throw()

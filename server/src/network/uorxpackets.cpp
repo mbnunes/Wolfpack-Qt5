@@ -34,10 +34,10 @@
 
 cUOPacket *getUOPacket( const QByteArray &data )
 {
-	if( data.size() < 1 )
-		return NULL;
+	if( data.isEmpty() )
+		return 0;
 
-	Q_UINT8 packetId = data[ 0 ];
+	Q_UINT8 packetId = data[0];
 
 	switch( packetId )
 	{

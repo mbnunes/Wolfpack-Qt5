@@ -41,9 +41,8 @@ cUOPacket::cUOPacket( QByteArray d )
 	rawPacket = d.copy();
 }
 
-cUOPacket::cUOPacket( Q_UINT32 size )
+cUOPacket::cUOPacket( Q_UINT32 size )  : rawPacket( size )
 {
-	rawPacket.resize( size );
 	rawPacket.fill( (char)0 );
 }
 
@@ -178,8 +177,6 @@ void  cUOPacket::setShort( unsigned int pos, unsigned short value )
 	rawPacket.at(pos++) = static_cast<char>((value >> 8 ) & 0x000000FF);
 	rawPacket.at(pos)   = static_cast<char>((value)       & 0x000000FF);
 }
-
-#define LINE_WIDTH 6
 
 // Leave as last method, please
 void cUOPacket::print( ostream* s )
