@@ -76,7 +76,7 @@ def onUse( char, item ):
 			if potiontype in [ 11, 12, 13 ]:
 				# char, potion, counter value
 				if not item.hastag('exploding'):
-					potionexplosion( item, [char, 4, item.amount] )
+					potionexplosion( item, [char.serial, 4, item.amount] )
 					item.settag('exploding', 'true')
 				socket.sysmessage( 'You should throw this now!', RED )
 				socket.attachtarget( "potions.targetexplosionpotion", [ item ] )
@@ -161,6 +161,7 @@ def targetexplosionpotion(char, args, target):
 
 # Explosion Potion Function
 def potionexplosion( potion, args ):
+	# args[0] == char.serial
 	if args[1] > 0:
 		potion.addtimer( 1000, "potions.potioncountdown", [args[0], args[1], args[2]] )
 	else:
@@ -172,6 +173,7 @@ def potionexplosion( potion, args ):
 
 # Explosion Potion Function
 def potioncountdown( potion, args ):
+	# args[0] == char.serial
 	counter = args[1]
 	if potion:
 		if counter >= 0:
@@ -195,13 +197,14 @@ def chainpotiontimer( char, potion, bomb, outradius ):
 
 	bomb.settag( 'exploding', char.serial )
 	if bomb.hastag( 'kegfill' ) and int( bomb.gettag( 'kegfill' ) ) >= 1:
-		bomb.addtimer( randint( 1000, 2250 ), "potions.potioncountdown", [ char, 0, int( bomb.gettag( 'kegfill' ) ) ] )
+		bomb.addtimer( randint( 1000, 2250 ), "potions.potioncountdown", [ char.serial, 0, int( bomb.gettag( 'kegfill' ) ) ] )
 	else:
-		bomb.addtimer( randint( 1000, 2250 ), "potions.potioncountdown", [ char, 0, bomb.amount ] )
+		bomb.addtimer( randint( 1000, 2250 ), "potions.potioncountdown", [ char.serial, 0, bomb.amount ] )
 	return
 
 # Explosion Potion Function
-def potionregion( char, potion, bonus=0 ):
+def potionregion( charserial, potion, bonus=0 ):
+	char = wolfpack.findchar( charserial )
 	if potion.gettag('potiontype') == 11:
 		outradius = 1
 	elif potion.gettag('potiontype') == 12:
@@ -409,7 +412,7 @@ def healPotion( char, potion, healtype ):
 			# Broken Timer
 			if time.time() - elapsed > HEAL_POT_DELAY:
 				socket.deltag('heal_pot_timer')
-			else:		
+			else:
 				socket.clilocmessage( 500235 ) # You must wait 10 seconds before using another healing potion.
 				return False
 
@@ -502,7 +505,7 @@ def agilityPotion( char, potion, agilitytype ):
 	if char.hastag( "dex_pot_timer" ):
 		# Compare
 		elapsed = int( char.gettag( "dex_pot_timer" ) )
-		
+
 		# Some bug occured
 		if elapsed - time.time() > AGILITY_TIME:
 			char.deltag('dex_pot_timer')
@@ -552,13 +555,13 @@ def strengthPotion( char, potion, strengthtype ):
 	if char.hastag( "str_pot_timer" ):
 		# Compare
 		elapsed = int( char.gettag( "str_pot_timer" ) )
-		
+
 		if elapsed - time.time() > STRENGTH_TIME:
 			char.deltag('str_pot_timer')
 		elif elapsed > time.time():
 			socket.clilocmessage(502173) # You are already  under a similar effect
 			return False
-		
+
 	char.settag( "str_pot_timer", time.time() + STRENGTH_TIME )
 
 	if char.strength + bonus < 1:
