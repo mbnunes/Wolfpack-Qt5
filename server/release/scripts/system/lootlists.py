@@ -70,7 +70,7 @@ DEF_ALLPOTIONS = ['f06', 'f07', 'f08', 'f09', 'f0a', 'f0b', 'f0c', 'f0d']
 # Reagents
 DEF_PLAINREGS = ['f7a', 'f7b', 'f84', 'f85', 'f86', 'f88', 'f8c', 'f8d']
 DEF_NECROREGS = ['f78', 'f79', 'f7c', 'f7d', 'f7e', 'f7f', 'f80', 'f81', 'f82', 'f83', 'f87', 'f89', 'f8a', 'f8b', 'f8e', 'f8f', 'f90', 'f91']
-DEF_ALLREGS = PLAINREGS + NECROREGS
+DEF_ALLREGS = DEF_PLAINREGS + DEF_NECROREGS
 
 
 
