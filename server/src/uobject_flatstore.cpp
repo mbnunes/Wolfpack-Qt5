@@ -19,7 +19,8 @@ enum eObjectKeys
 	OBJECT_POS_Y,			// 2 Byte Short
 	OBJECT_POS_Z,			// 1 Byte Char
 	OBJECT_POS_MAP,			// 1 Byte Unsigned Char
-	OBJECT_EVENTS			// String
+	OBJECT_EVENTS,			// String
+	OBJECT_DIRECTION
 };
 
 void cUObject::save( FlatStore::OutputFile *output, bool first ) throw()
@@ -45,6 +46,8 @@ void cUObject::save( FlatStore::OutputFile *output, bool first ) throw()
 
 	if( !eventList().isEmpty() )
 		output->chunkData( OBJECT_EVENTS, eventList().utf8().data() );
+
+	output->chunkData( OBJECT_DIRECTION, (unsigned char)direction() );
 
 	output->finishChunkGroup();
 
@@ -92,6 +95,14 @@ bool cUObject::load( unsigned char chunkGroup, unsigned char chunkType, FlatStor
 		eventList_ = QString::fromUtf8( input->readString() );
 		recreateEvents();
 		break;
+
+	case OBJECT_DIRECTION:
+		{
+			unsigned char temp;
+			input->readUChar( temp );
+			dir_ = temp;
+			break;
+		}
 
 	default:
 		return false;

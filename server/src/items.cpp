@@ -1239,24 +1239,9 @@ void cItem::processNode( const cElement *Tag )
 			setBindmenu(Value);
 	}
 
-	// <name>my Item</name>
-	if( TagName == "name" )
-		this->setName( Value );
-	 
 	// <identified>my magic item</identified>
 	else if( TagName == "identified" )
 		this->setName2( Value.latin1() );
-
-	// <amount>120</amount>
-	else if( TagName == "amount" )
-	{
-		this->setAmount( Value.toULong() );
-		this->restock_ = Value.toULong(); // Maximumm sell-amount from the beginning
-	}
-
-	// <color>480</color>
-	else if( TagName == "color" )
-		this->setColor( Value.toUShort() );
 
 	// <attack min="1" max="2"/>
 	else if( TagName == "attack" )
@@ -1272,10 +1257,6 @@ void cItem::processNode( const cElement *Tag )
 			this->setHidamage( this->lodamage() );
 	}
 
-	// <defense>10</defense>
-	else if( TagName == "defense" )
-		this->def_ = Value.toInt();
-
 	// for convenience
 	// <food>1</food>
 	else if( TagName == "food" )
@@ -1284,39 +1265,9 @@ void cItem::processNode( const cElement *Tag )
 		setType2( Value.toUInt() );
 	}
 
-	// <type>10</type>
-	else if( TagName == "type" )
-		this->setType( Value.toUInt() );
-
-	// <type2>10</type2>
-	else if( TagName == "type2" )
-		this->setType2( Value.toUInt() );
-
 	// <weight>10</weight>
 	else if( TagName == "weight" )
 		this->setWeight( (UINT32)( Value.toFloat() * 10 ) );
-
-	// <buyprice>10</buyprice>
-	else if( TagName == "buyprice" )
-	{
-		this->buyprice_ = Value.toInt();
-	}
-
-	// <sellprice>10</sellprice>
-	else if( TagName == "sellprice" )
-		this->sellprice_ = Value.toInt();
-
-	// <price>10</price>
-//	else if( TagName == "price" )
-//		this->price_ = Value.toInt();   --> this was supposed to be player vendor price, the player defines it! :)
-
-	// <carve></carve> For corpses and item spawners
-//	else if( TagName == "carve" )
-//		this->carve_ = Value;
-		
-	// <restock>10</restock>
-	else if( TagName == "restock" )
-		this->restock_ = Value.toInt();
 
 	// <durability>10</durabilty>
 	else if( TagName == "durability" )
@@ -1494,12 +1445,6 @@ void cItem::processNode( const cElement *Tag )
 		
 		if( section )
 			applyDefinition( section );
-	}
-
-	// <accuracy>20</accuracy> value between 0 and 100
-	else if( TagName == "accuracy" )
-	{
-		setAccuracy( Value.toUShort() );
 	}
 
 	else if( section )
@@ -1691,19 +1636,8 @@ void cItem::processModifierNode( const cElement *Tag )
 		}
 	}
 
-	// <color>480</color>
-	else if( TagName == "color" )
-		this->setColor( color() + Value.toUShort() );
-
-	// <id>12f9</id>
-	else if( TagName == "id" )
-	{
-		this->setId( id() + Value.toUShort() );
-
-		// In addition to the normal behaviour we retrieve the weight of the
-		// item here.
-		setWeight( TileCache::instance()->getTile( id_ ).weight );
-	}
+	else
+		cUObject::processNode( Tag );
 }
 
 void cItem::processContainerNode( const cElement *Tag )
