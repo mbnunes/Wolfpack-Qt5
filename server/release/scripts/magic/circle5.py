@@ -109,7 +109,6 @@ class Incognito (Spell):
 			return
 
 		duration = int(1 + (6 * char.skill[MAGERY]) / 50.0) * 1000
-		duration = 10000
 
 		char.orgskin = char.skin
 		char.skin = random.randint(1002, 1059)
@@ -124,13 +123,13 @@ class Incognito (Spell):
 		newhaircolor = random.randint(1102, 1150)
 
 		if char.id == 0x190:
-			char.name = 'Mann'
+			char.name = 'Man'
 
 			# Create new hair
 			newhair = random.choice(['2044', '2045', '2046', '203c', '203b', '203d', '2047', '2048', '2049', '204a', ''])
 			newbeard = random.choice(['203e', '203f', '2040', '2041', '204b', '204c', '204d', ''])
 		else:
-			char.name = 'Frau'
+			char.name = 'Woman'
 			newhair = random.choice(['2044', '2045', '2046', '203c', '203b', '203d', '2047', '2048', '2049', '204a', ''])
 
 		hair = char.itemonlayer(LAYER_HAIR)
@@ -161,8 +160,11 @@ class Incognito (Spell):
 			beard.color = newhaircolor
 			char.additem(LAYER_BEARD, beard)
 
+		hair.update()
+		beard.update()
+		
 		char.incognito = 1
-
+		
 		char.update()
 		char.resendtooltip()
 		char.addtimer(duration, "magic.circle5.incognito_expire", [hairid, haircolor, facialid, facialcolor], 1)

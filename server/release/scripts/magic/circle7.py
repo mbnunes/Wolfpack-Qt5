@@ -271,7 +271,7 @@ class MassDispel (Spell):
 			if char == target or not target.npc or target.summontimer == 0:
 				continue
 
-			if self.checkresist(char, tgarget):
+			if self.checkresist(char, target):
 				target.effect(0x3779, 10, 20)
 			else:
 				wolfpack.effect(0x3728, target.pos, 8, 20)
