@@ -284,7 +284,7 @@ def gump_callback( char, args, response ):
 			return
 		count = prices[ id ] + prices_shrinks
 		if char.countresource( 0xeed, 0 ) < count:
-			vendor.say( "You don't have enoug gold!",5 )
+			vendor.say( "You don't have enough gold!",5 )
 			return
 		char.useresource( count, 0xeed, 0 )
 		char.soundeffect( 0x37, 0 )
