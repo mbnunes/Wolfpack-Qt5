@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "wpdefmanager.h"
 #include "basics.h"
@@ -106,7 +103,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 			socket->sysMessage( tr( "That skill has been disabled." ) );
 			return;
 		}
-		
+
 		message = tr("What do you wish to steal?");
 		targetRequest = new cSkStealing;
 		break;
@@ -150,7 +147,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 
 	if( targetRequest )
 		socket->attachTarget( targetRequest );
-	
+
 	if( message )
 		pChar->message( message );
 
@@ -193,7 +190,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 
 	P_ITEM pBackpack = pVictim->getBackpack();
 
-	if( !pBackpack ) 
+	if( !pBackpack )
 	{
 		socket->sysMessage( tr( "Bad luck, your victim doesn't have a backpack." ) );
 		return;
@@ -277,28 +274,28 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 			if( pVictim->region() && pVictim->region()->isGuarded() )
 				pn->callGuards();
 		}
-		
-		if (pVictim->notoriety(pChar) == 0x01) 
+
+		if (pVictim->notoriety(pChar) == 0x01)
 			pChar->makeCriminal();
 
 		// Our Victim always notices it.
-		if (pVictim->objectType() == enPlayer) 
+		if (pVictim->objectType() == enPlayer)
 		{
 			P_PLAYER pp = dynamic_cast<P_PLAYER>(pVictim);
 			if( pp->socket() )
 				pp->socket()->showSpeech( pChar, tr( "You notice %1 trying to steal %2 from you." ).arg( pChar->name() ).arg( pToSteal->getName( true ) ) );
 		}
 
-		QString message = tr( "You notice %1 trying to steal %2 from %3." ).arg( pChar->name() ).arg( pItem->getName() ).arg( pVictim->name() );	
+		QString message = tr( "You notice %1 trying to steal %2 from %3." ).arg( pChar->name() ).arg( pItem->getName() ).arg( pVictim->name() );
 
 		for ( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next())
 		{
 			// Everyone within 7 Tiles notices us
-			if( mSock != socket && mSock->player() && mSock->player()->serial() != pVictim->serial() && mSock->player()->inRange( pChar, 7 ) ) 
+			if( mSock != socket && mSock->player() && mSock->player()->serial() != pVictim->serial() && mSock->player()->inRange( pChar, 7 ) )
 				mSock->showSpeech( pChar, message );
 		}
-		
-	} 
+
+	}
 }
 
 void cSkills::Meditation(cUOSocket *socket) {
@@ -315,14 +312,14 @@ void cSkills::Meditation(cUOSocket *socket) {
 	} else {
 		socket->clilocMessage(501851);
 		pc_currchar->setMeditating(true);
-		pc_currchar->soundEffect(0xf9);		
+		pc_currchar->soundEffect(0xf9);
 	}
 }
 
 void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 {
 	cUOSocket *socket = player->socket();
-	
+
 	if( !socket )
 		return;
 
@@ -350,7 +347,7 @@ void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 			pp_owner->message( tr( "You notice %1 trying to peek into your pack!" ).arg( player->name() ) );
 	}
 
-	
+
 
 //	SetTimerSec(player->objectdelay(), SrvParams->objectDelay()+SrvParams->snoopdelay());
 	player->setObjectDelay( SetTimerSec(player->objectDelay(), SrvParams->objectDelay()+SrvParams->snoopdelay()) );
@@ -365,7 +362,7 @@ void cSkills::Cartography( cUOSocket* socket )
 // name:	Carpentry()
 // history:	unknown, Duke, 25.05.2000, rewritten for 13.x sereg, 16.08.2002
 // purpose:	sets up appropriate Makemenu when player dclick on carpentry tool
-//			
+//
 
 void cSkills::Carpentry( cUOSocket* socket )
 {
@@ -387,7 +384,7 @@ void cSkills::Blacksmithing( cUOSocket* socket )
 {
 	P_CHAR pc = socket->player();
 	bool foundAnvil = false;
-	
+
 	RegionIterator4Items rIter( pc->pos() );
 	for( rIter.Begin(); !rIter.atEnd(); rIter++ )
 	{
@@ -432,24 +429,24 @@ void cSkills::load()
 {
 	// Try to get all skills first
 	UINT32 i;
-	
-	for (i = 0; i < ALLSKILLS; ++i) 
+
+	for (i = 0; i < ALLSKILLS; ++i)
 	{
 		const cElement *skill = DefManager->getDefinition(WPDT_SKILL, QString::number(i));
 
-		if (!skill) 
+		if (!skill)
 			continue;
 
 		stSkill nSkill;
 
-		for (unsigned int j = 0; j < skill->childCount(); ++j) 
+		for (unsigned int j = 0; j < skill->childCount(); ++j)
 		{
 			const cElement *node = skill->getChild( j );
-			if( node->name() == "name" ) 
+			if( node->name() == "name" )
 				nSkill.name = node->text();
-			else if( node->name() == "defname" ) 
+			else if( node->name() == "defname" )
 				nSkill.defname = node->text();
-			else if( node->name() == "title" ) 
+			else if( node->name() == "title" )
 				nSkill.title = node->text();
 		}
 
@@ -460,7 +457,7 @@ void cSkills::load()
 	skillRanks = DefManager->getList("SKILL_RANKS");
 
 	// Fill it up to 10 Ranks
-	while (skillRanks.count() < 10) 
+	while (skillRanks.count() < 10)
 		skillRanks.push_back("");
 }
 
@@ -475,30 +472,30 @@ QString cSkills::getSkillTitle(P_CHAR pChar) const
 	QString skillTitle;
 	P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
 
-	if (SrvParams->showSkillTitles() && player && !player->isGM()) 
+	if (SrvParams->showSkillTitles() && player && !player->isGM())
 	{
 		unsigned short skill = 0;
 		unsigned short skillValue = 0;
-		
-		for (int i = 0; i < ALLSKILLS; ++i) 
+
+		for (int i = 0; i < ALLSKILLS; ++i)
 		{
-			if (pChar->skillValue(i) > skillValue) 
+			if (pChar->skillValue(i) > skillValue)
 			{
                 skill = i;
 				skillValue = pChar->skillValue(i);
 			}
 		}
-		
+
 		unsigned char title = QMAX(1, ((int)pChar->skillValue(skill) - 300) / 100);
 
-		if (title >= skillRanks.size()) 
+		if (title >= skillRanks.size())
 		{
 			pChar->log(LOG_ERROR, "Invalid skill rank information.\n");
 			return skillTitle;
 		}
 
 		// Skill not found
-		if (skill >= skills.size()) 
+		if (skill >= skills.size())
 		{
 			pChar->log(LOG_ERROR, QString("Skill id out of range: %u.\n").arg(skill));
 			return skillTitle;
@@ -518,7 +515,7 @@ const QString &cSkills::getSkillName( UINT16 skill ) const
 		return QString::null;
 	}
 
-	return skills[skill].name;	
+	return skills[skill].name;
 }
 
 INT16 cSkills::findSkillByDef( const QString &defname ) const
@@ -541,6 +538,6 @@ const QString &cSkills::getSkillDef( UINT16 skill ) const
 		Console::instance()->log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
 		return QString::null;
 	}
-	
+
 	return skills[skill].defname;
 }

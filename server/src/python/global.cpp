@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "engine.h"
 
@@ -96,7 +93,7 @@ static QStringList getFlagNames(unsigned char flag1, unsigned char flag2, unsign
 	FLAG_STUB( flag1, 0x80, "wet" );
 
 	// Flag 2
-	//FLAG_STUB( flag2, 0x01, "unknown1" ); 
+	//FLAG_STUB( flag2, 0x01, "unknown1" );
 	FLAG_STUB( flag2, 0x02, "surface" );
 	FLAG_STUB( flag2, 0x04, "stairs" );
 	FLAG_STUB( flag2, 0x08, "stackable" );
@@ -106,7 +103,7 @@ static QStringList getFlagNames(unsigned char flag1, unsigned char flag2, unsign
 	FLAG_STUB( flag2, 0x80, "an" );
 
 	// Flag 3
-	FLAG_STUB( flag3, 0x01, "internal" ); 
+	FLAG_STUB( flag3, 0x01, "internal" );
 	FLAG_STUB( flag3, 0x02, "foliage" );
 	FLAG_STUB( flag3, 0x04, "partial hue" );
 	//FLAG_STUB( flag3, 0x08, "unknown2" );
@@ -116,7 +113,7 @@ static QStringList getFlagNames(unsigned char flag1, unsigned char flag2, unsign
 	FLAG_STUB( flag3, 0x80, "lightsource" );
 
 	// Flag 4
-	FLAG_STUB( flag4, 0x01, "animation" ); 
+	FLAG_STUB( flag4, 0x01, "animation" );
 	FLAG_STUB( flag4, 0x02, "no diagonal" );
 	//FLAG_STUB( flag4, 0x04, "unknown3" );
 	FLAG_STUB( flag4, 0x08, "armor" );
@@ -171,7 +168,7 @@ static PyObject* wpConsole_send( PyObject* self, PyObject* args )
 */
 static PyObject* wpConsole_sendprogress( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 	char *message;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &message)) {
 		return 0;
@@ -190,7 +187,7 @@ static PyObject* wpConsole_sendprogress( PyObject* self, PyObject* args )
 */
 static PyObject* wpConsole_senddone( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 	Q_UNUSED(args);
 	Console::instance()->sendDone();
 	Py_INCREF(Py_None);
@@ -202,7 +199,7 @@ static PyObject* wpConsole_senddone( PyObject* self, PyObject* args )
 */
 static PyObject* wpConsole_sendfail( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 	Q_UNUSED(args);
 	Console::instance()->sendFail();
 	Py_INCREF(Py_None);
@@ -214,7 +211,7 @@ static PyObject* wpConsole_sendfail( PyObject* self, PyObject* args )
 */
 static PyObject* wpConsole_sendskip( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 	Q_UNUSED(args);
 	Console::instance()->sendSkip();
 	Py_INCREF(Py_None);
@@ -225,8 +222,8 @@ static PyObject* wpConsole_sendskip( PyObject* self, PyObject* args )
 	Returns a list of Strings (the linebuffer)
 */
 static PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
-{	
-	Q_UNUSED(self);	
+{
+	Q_UNUSED(self);
 	Q_UNUSED(args);
 	QStringList linebuffer = Console::instance()->linebuffer();
 	PyObject *list = PyList_New( linebuffer.count() );
@@ -242,7 +239,7 @@ static PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
 
 static PyObject* wpConsole_shutdown( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 	Q_UNUSED(args);
 	keeprun = 0;
 
@@ -253,7 +250,7 @@ static PyObject* wpConsole_shutdown( PyObject* self, PyObject* args )
 	wolfpack.console
 	Initializes wolfpack.console
 */
-static PyMethodDef wpConsole[] = 
+static PyMethodDef wpConsole[] =
 {
 	{ "send",		wpConsole_send,			METH_VARARGS,	"Prints something to the wolfpack console" },
 	{ "progress",		wpConsole_sendprogress,		METH_VARARGS,	"Prints a .....[xxxx] block" },
@@ -271,7 +268,7 @@ static PyMethodDef wpConsole[] =
 */
 static PyObject* wpTime_minute( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 	Q_UNUSED(args);
 	return PyInt_FromLong( UoTime::instance()->minute() );
 }
@@ -281,14 +278,14 @@ static PyObject* wpTime_minute( PyObject* self, PyObject* args )
 */
 static PyObject* wpTime_hour( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 	Q_UNUSED(args);
 	return PyInt_FromLong( UoTime::instance()->hour() );
 }
 
 static PyObject* wpTime_days( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 	Q_UNUSED(args);
 	return PyInt_FromLong( UoTime::instance()->days() );
 }
@@ -298,14 +295,14 @@ static PyObject* wpTime_days( PyObject* self, PyObject* args )
 */
 static PyObject* wpTime_minutes( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 	Q_UNUSED(args);
 	return PyInt_FromLong(UoTime::instance()->getMinutes());
 }
 
 static PyObject* wpTime_currentlightlevel( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 	Q_UNUSED(args);
 	return PyInt_FromLong( SrvParams->worldCurrentLevel() );
 }
@@ -313,7 +310,7 @@ static PyObject* wpTime_currentlightlevel( PyObject* self, PyObject* args )
 /*!
 	Methods for handling UO Time from within python
 */
-static PyMethodDef wpTime[] = 
+static PyMethodDef wpTime[] =
 {
 	{ "minute",				wpTime_minute,				METH_NOARGS, "Returns the current time-minutes" },
 	{ "hour",				wpTime_hour,				METH_NOARGS, "Returns the current time-hour" },
@@ -359,16 +356,16 @@ static PyObject* wpAddnpc( PyObject* self, PyObject* args )
 
 	P_CHAR pChar = cNPC::createFromScript(getArgStr(0), pos);
 
-	return PyGetCharObject( pChar ); 
+	return PyGetCharObject( pChar );
 }
 
 /*!
-	Creates an item object based on the 
+	Creates an item object based on the
 	passed serial
 */
 static PyObject* wpFinditem( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 
 	SERIAL serial = INVALID_SERIAL;
 	if ( !PyArg_ParseTuple( args, "i:wolfpack.finditem", &serial ) )
@@ -396,7 +393,7 @@ static PyObject *wpGuilds(PyObject *self, PyObject *args)
 */
 static PyObject* wpFindguild( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 
 	SERIAL serial;
 
@@ -414,7 +411,7 @@ static PyObject* wpFindguild( PyObject* self, PyObject* args )
 }
 
 /*!
-	Creates a char object based on the 
+	Creates a char object based on the
 	passed serial
 */
 static PyObject* wpFindchar( PyObject* self, PyObject* args )
@@ -465,13 +462,13 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	PyObject *py_args = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
 
 	cPythonEffect *effect = new cPythonEffect( function, py_args );
-	
+
 	// Should we save this effect?
-	if( checkArgInt( 3 ) && getArgInt( 3 ) != 0 ) 
+	if( checkArgInt( 3 ) && getArgInt( 3 ) != 0 )
 		effect->setSerializable( true );
 	else
 		effect->setSerializable( false );
-	
+
 	effect->setExpiretime_ms( expiretime );
 	TempEffects::instance()->insert( effect );
 
@@ -514,9 +511,9 @@ static PyObject *wpStatics( PyObject* self, PyObject* args )
 	uchar exact = 0;
 	if ( !PyArg_ParseTuple( args, "iii|b:wolfpack.statics", &x, &y, &map, &exact ) )
 		return 0;
-	
+
 	StaticsIterator iter = Map->staticsIterator( Coord_cl( x, y, 0, map ), exact );
-	
+
 	PyObject *list = PyList_New( 0 );
 	UINT32 xBlock = x / 8;
 	UINT32 yBlock = y / 8;
@@ -539,7 +536,7 @@ static PyObject *wpStatics( PyObject* self, PyObject* args )
 }
 
 /*!
-	Returns a list of all items serials 
+	Returns a list of all items serials
 */
 static PyObject *wpAllItemsSerials( PyObject* self, PyObject* args )
 {
@@ -575,7 +572,7 @@ static PyObject *wpAllCharsIterator( PyObject* self, PyObject* args )
 }
 
 /*!
-	Returns a list of all chars serials 
+	Returns a list of all chars serials
 */
 static PyObject *wpAllCharsSerials( PyObject* self, PyObject* args )
 {
@@ -600,7 +597,7 @@ static PyObject *wpItems( PyObject* self, PyObject* args )
 	uint x = 0, y = 0, map = 0, range = 1;
 	if ( !PyArg_ParseTuple( args, "iii|i:wolfpack.items", &x, &y, &map, &range ) )
 		return 0;
-	
+
 	Coord_cl pos( x, y, 0, map );
 	RegionIterator4Items iter( pos, range );
 
@@ -626,7 +623,7 @@ static PyObject *wpChars( PyObject* self, PyObject* args )
 	uint x = 0, y = 0, map = 0, range = 1;
 	if ( !PyArg_ParseTuple( args, "iii|i:wolfpack.chars", &x, &y, &map, &range ) )
 		return 0;
-	
+
 	Coord_cl pos( x, y, 0, map );
 	RegionIterator4Chars iter( pos, range );
 
@@ -648,13 +645,13 @@ static PyObject *wpChars( PyObject* self, PyObject* args )
 static PyObject *wpEffect( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
-	
+
 	// effect-id, position, speed, duration
 	if( !checkArgInt( 0 ) || !checkArgCoord( 1 ) || !checkArgInt( 2 ) || !checkArgInt( 3 ) )
 	{
 		PyErr_BadArgument();
 		return 0;
-	}	
+	}
 
 	cUOTxEffect effect;
 	effect.setType( ET_STAYSOURCEPOS );
@@ -787,7 +784,7 @@ static PyObject *wpTiledata( PyObject* self, PyObject* args )
 			PyDict_SetItemString( dict, "flagnames", PyString_FromString(flags.latin1()) );
 		}
 	}
-	
+
 	return dict;
 }
 
@@ -909,7 +906,7 @@ static PyObject *wpAddMulti(PyObject* self, PyObject* args) {
 	}
 
 	cMulti *multi = cMulti::createFromScript(definition);
-	
+
 	if (multi) {
 		return multi->getPyObject();
 	} else {
@@ -943,7 +940,7 @@ static PyObject* wpServerVersion( PyObject* self, PyObject* args )
 */
 static PyObject* wpCurrentdatetime( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
+	Q_UNUSED(self);
 	Q_UNUSED(args);
 	return PyString_FromString( QDateTime::currentDateTime().toString() );
 }
@@ -1060,7 +1057,7 @@ static PyObject* wpNewItem( PyObject *self, PyObject *args )
 		return 0;
 
 	P_ITEM pItem = new cItem;
-	
+
 	if( createSerial )
 		pItem->Init( true );
 
@@ -1075,14 +1072,14 @@ static PyObject* wpNewNpc( PyObject *self, PyObject *args )
 		return 0;
 
 	P_NPC pNpc = new cNPC;
-	
+
 	if( createSerial )
 		pNpc->Init( true );
 
 	return PyGetCharObject( pNpc );
 }
 
-static PyObject *wpNewguild(PyObject *self, PyObject *args) 
+static PyObject *wpNewguild(PyObject *self, PyObject *args)
 {
 	Q_UNUSED(args);
 	cGuild *guild = new cGuild(true);
@@ -1098,7 +1095,7 @@ static PyObject* wpNewPlayer( PyObject *self, PyObject *args )
 		return 0;
 
 	P_PLAYER pPlayer = new cPlayer;
-	
+
 	if( createSerial )
 		pPlayer->Init( true );
 
@@ -1169,12 +1166,12 @@ static PyObject* wpPacket( PyObject* self, PyObject* args )
 static PyObject* wpQueueAction( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
-	
+
 	unsigned int type = 0;
 
 	if( !PyArg_ParseTuple( args, "i:wolfpack.queueaction( type )", &type ) )
 		return 0;
-	
+
 	queueAction( (eActionType)type );
 
 	return PyInt_FromLong( 1 );
@@ -1193,7 +1190,7 @@ static PyObject *wpGetDefinition(PyObject *self, PyObject *args) {
 	PyMem_Free(name);
 
 	if (element) {
-		return const_cast<cElement*>(element)->getPyObject();	
+		return const_cast<cElement*>(element)->getPyObject();
 	} else {
 		Py_INCREF(Py_None);
 		return Py_None;
@@ -1202,7 +1199,7 @@ static PyObject *wpGetDefinition(PyObject *self, PyObject *args) {
 
 static PyObject *wpGetDefinitions(PyObject *self, PyObject *args) {
 	unsigned int type;
-	
+
 	if (!PyArg_ParseTuple(args, "I:getdefinitions(type)", &type)) {
 		return 0;
 	}
@@ -1211,7 +1208,7 @@ static PyObject *wpGetDefinitions(PyObject *self, PyObject *args) {
 	QStringList sections = DefManager->getSections((eDefCategory)type);
 
 	PyObject *result = PyTuple_New(elements.size() + sections.size());
-	
+
 	uint i = 0;
 	for (; i < elements.size(); ++i) {
 		PyTuple_SetItem(result, i, elements[i]->getPyObject());
@@ -1246,7 +1243,7 @@ static PyObject *wpCallEvent(PyObject *self, PyObject *args) {
 	unsigned int event;
 	PyObject *eventargs;
 
-	if (!PyArg_ParseTuple(args, "sIO!:wolfpack.callevent(scriptname, event, args)", 
+	if (!PyArg_ParseTuple(args, "sIO!:wolfpack.callevent(scriptname, event, args)",
 		&script, &event, &PyTuple_Type, &eventargs)) {
 		return 0;
 	}
@@ -1299,7 +1296,7 @@ static PyObject *wpCallNamedEvent(PyObject *self, PyObject *args) {
 	char *event;
 	PyObject *eventargs;
 
-	if (!PyArg_ParseTuple(args, "ssO!:wolfpack.callevent(scriptname, event, args)", 
+	if (!PyArg_ParseTuple(args, "ssO!:wolfpack.callevent(scriptname, event, args)",
 		&script, &event, &PyTuple_Type, &eventargs)) {
 		return 0;
 	}
@@ -1351,7 +1348,7 @@ static PyObject *wpHasNamedEvent(PyObject *self, PyObject *args) {
 	wolfpack
 	Initializes wolfpack
 */
-static PyMethodDef wpGlobal[] = 
+static PyMethodDef wpGlobal[] =
 {
 	{ "callevent",			wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." },
 	{ "hasevent",			wpHasEvent,						METH_VARARGS, "If the given script has the given event. Return true." },
@@ -1422,7 +1419,7 @@ static PyObject *wpSocketsNext( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	return PyGetSocketObject( Network::instance()->next() );  
+	return PyGetSocketObject( Network::instance()->next() );
 }
 
 /*!
@@ -1439,7 +1436,7 @@ static PyObject *wpSocketsCount( PyObject* self, PyObject* args )
 	wolfpack.sockets
 	Socket iteration
 */
-static PyMethodDef wpSockets[] = 
+static PyMethodDef wpSockets[] =
 {
 	{ "first",	wpSocketsFirst,	METH_NOARGS, "Returns the first connected socket." },
 	{ "next",	wpSocketsNext,	METH_NOARGS, "Returns the next connected socket." },
@@ -1525,7 +1522,7 @@ static PyObject *wpAccountsAcl( PyObject* self, PyObject* args )
 	}
 
 	PyObject *dict = PyDict_New();
-	
+
 	QMap< QString, QMap< QString, bool > >::const_iterator git;
 	for( git = acl->groups.begin(); git != acl->groups.end(); ++git )
 	{
@@ -1593,7 +1590,7 @@ static PyObject *wpAccountsSave( PyObject* self, PyObject* args )
 	wolfpack.accounts
 	account related functions
 */
-static PyMethodDef wpAccounts[] = 
+static PyMethodDef wpAccounts[] =
 {
     { "find",		wpAccountsFind,		METH_VARARGS, "Finds an account object." },
 	{ "list",		wpAccountsList,		METH_NOARGS, "Gets a list of Account names." },
@@ -1606,9 +1603,9 @@ static PyMethodDef wpAccounts[] =
 };
 
 /*!
-	Reads the boolean entry specified by key and group. 
+	Reads the boolean entry specified by key and group.
 	The key is created if it doesn't exist, using the default argument.
-	If an error occurs the settings are left unchanged and FALSE is returned; 
+	If an error occurs the settings are left unchanged and FALSE is returned;
 	otherwise TRUE is returned
 */
 static PyObject *wpSettingsGetBool( PyObject* self, PyObject* args )
@@ -1622,9 +1619,9 @@ static PyObject *wpSettingsGetBool( PyObject* self, PyObject* args )
 }
 
 /*!
-	Writes the boolean entry value into specified key and group. 
-	The key is created if it doesn't exist. Any previous value is overwritten by value. 
-	If an error occurs the settings are left unchanged and FALSE is returned; 
+	Writes the boolean entry value into specified key and group.
+	The key is created if it doesn't exist. Any previous value is overwritten by value.
+	If an error occurs the settings are left unchanged and FALSE is returned;
 	otherwise TRUE is returned
 */
 static PyObject *wpSettingsSetBool( PyObject* self, PyObject* args )
@@ -1639,10 +1636,10 @@ static PyObject *wpSettingsSetBool( PyObject* self, PyObject* args )
 }
 
 /*!
-	Reads the numeric entry specified by key and group. 
+	Reads the numeric entry specified by key and group.
 	The key is created if it doesn't exist using the default argument, provided
-	that \a create argument is true. 
-	If an error occurs the settings are left unchanged and FALSE is returned; 
+	that \a create argument is true.
+	If an error occurs the settings are left unchanged and FALSE is returned;
 	otherwise TRUE is returned
 */
 static PyObject *wpSettingsGetNumber( PyObject* self, PyObject* args )
@@ -1657,9 +1654,9 @@ static PyObject *wpSettingsGetNumber( PyObject* self, PyObject* args )
 }
 
 /*!
-	Writes the numeric entry value into specified key and group. 
-	The key is created if it doesn't exist. Any previous value is overwritten by value. 
-	If an error occurs the settings are left unchanged and FALSE is returned; 
+	Writes the numeric entry value into specified key and group.
+	The key is created if it doesn't exist. Any previous value is overwritten by value.
+	If an error occurs the settings are left unchanged and FALSE is returned;
 	otherwise TRUE is returned
 */
 static PyObject *wpSettingsSetNumber( PyObject* self, PyObject* args )
@@ -1676,10 +1673,10 @@ static PyObject *wpSettingsSetNumber( PyObject* self, PyObject* args )
 
 /*!
 	getString( group, key, default, create )
-	Reads the string entry specified by key and group. 
+	Reads the string entry specified by key and group.
 	The key is created if it doesn't exist using the default argument, provided that
 	\a create argument is true.
-	If an error occurs the settings are left unchanged and FALSE is returned; 
+	If an error occurs the settings are left unchanged and FALSE is returned;
 	otherwise TRUE is returned
 */
 static PyObject *wpSettingsGetString( PyObject* self, PyObject* args )
@@ -1688,14 +1685,14 @@ static PyObject *wpSettingsGetString( PyObject* self, PyObject* args )
 	char *pyGroup, *pyKey, *pyDef, create = 0;
 	if ( !PyArg_ParseTuple(args, "sss|b:getString(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
 		return 0;
-	
+
 	return PyString_FromString( SrvParams->getString( pyGroup, pyKey, pyDef, create ) );
 }
 
 /*!
-	Writes the string entry value into specified key and group. 
-	The key is created if it doesn't exist. Any previous value is overwritten by value. 
-	If an error occurs the settings are left unchanged and FALSE is returned; 
+	Writes the string entry value into specified key and group.
+	The key is created if it doesn't exist. Any previous value is overwritten by value.
+	If an error occurs the settings are left unchanged and FALSE is returned;
 	otherwise TRUE is returned
 */
 static PyObject *wpSettingsSetString( PyObject* self, PyObject* args )
@@ -1735,7 +1732,7 @@ static PyObject* wpSettingsSave( PyObject* self, PyObject* args )
 	wolfpack.settings
 	wolfpack.xml config related functions
 */
-static PyMethodDef wpSettings[] = 
+static PyMethodDef wpSettings[] =
 {
     { "getBool",		wpSettingsGetBool,		METH_VARARGS, "Reads a boolean value from wolfpack.xml." },
 	{ "setBool",		wpSettingsSetBool,		METH_VARARGS, "Sets a boolean value to wolfpack.xml." },
@@ -1778,7 +1775,7 @@ static PyObject* wpOptionsSetOption( PyObject* self, PyObject* args )
 	wolfpack.options
 	config using the settings table
 */
-static PyMethodDef wpOptions[] = 
+static PyMethodDef wpOptions[] =
 {
 	{ "getOption",		wpOptionsGetOption,		METH_VARARGS, "Reads a string value from the database." },
 	{ "setOption",		wpOptionsSetOption,		METH_VARARGS, "Sets a string value and a key to the database." },
@@ -1793,7 +1790,7 @@ static PyObject *wpQuery(PyObject *self, PyObject *args) {
 	}
 
 	cDBResult result;
-	
+
 	try {
 		result = persistentBroker->query(query);
 	} catch (QString e) {
@@ -1805,9 +1802,9 @@ static PyObject *wpQuery(PyObject *self, PyObject *args) {
 		PyErr_SetString(PyExc_RuntimeError, "An error occured while querying the database.");
 		return 0;
 	}
-	
+
 	PyMem_Free(query);
-	
+
 	return (new cDBResult(result))->getPyObject();
 }
 
@@ -1834,7 +1831,7 @@ static PyObject *wpExecute(PyObject *self, PyObject *args) {
 	return PyTrue();
 }
 
-static PyObject *wpDriver(PyObject *self, PyObject *args) 
+static PyObject *wpDriver(PyObject *self, PyObject *args)
 {
 	Q_UNUSED(args);
 	unsigned int database;
@@ -1846,19 +1843,19 @@ static PyObject *wpDriver(PyObject *self, PyObject *args)
 
 	if (database == 1)
 		driver = SrvParams->accountsDriver();
-	else if (database == 2) 
+	else if (database == 2)
 		driver = SrvParams->databaseDriver();
 
 	return PyString_FromString(driver.latin1());
 }
 
-static PyObject *wpClose(PyObject *self, PyObject *args) 
+static PyObject *wpClose(PyObject *self, PyObject *args)
 {
-	try 
+	try
 	{
 		persistentBroker->disconnect();
 	}
-	catch (...) 
+	catch (...)
 	{
 		PyErr_SetString(PyExc_RuntimeError, "Error while disconnecting from the database.");
 		return 0;
@@ -1876,10 +1873,10 @@ static PyObject *wpOpen(PyObject *self, PyObject *args) {
 
 	try {
 		if (database == 1) {
-			persistentBroker->connect(SrvParams->accountsHost(), SrvParams->accountsName(), 
+			persistentBroker->connect(SrvParams->accountsHost(), SrvParams->accountsName(),
 				SrvParams->accountsUsername(), SrvParams->accountsPassword());
 		} else if (database == 2) {
-			persistentBroker->connect(SrvParams->databaseHost(), SrvParams->databaseName(), 
+			persistentBroker->connect(SrvParams->databaseHost(), SrvParams->databaseName(),
 				SrvParams->databaseUsername(), SrvParams->databasePassword());
 		}
 	} catch (QString e) {
@@ -1923,7 +1920,7 @@ void init_wolfpack_globals()
 
 	PyObject *mSettings = Py_InitModule( "_wolfpack.settings", wpSettings );
 	PyObject_SetAttrString( wpNamespace, "settings", mSettings );
-	
+
 	PyObject *mOptions = Py_InitModule( "_wolfpack.options", wpOptions );
 	PyObject_SetAttrString( wpNamespace, "options", mOptions );
 
@@ -1932,9 +1929,9 @@ void init_wolfpack_globals()
 
 	// Try to import the wolfpack module and add some integer constants
 	/*PyObject *module;
-	
+
 	module = PyImport_ImportModule("wolfpack.consts");
-	
+
 	if (!module) {
 		reportPythonError("wolfpack.consts");
 		return;
@@ -1951,7 +1948,7 @@ int PyConvertObject(PyObject *object, cUObject **uoobject) {
 	} else {
 		PyErr_SetString(PyExc_TypeError, "Object expected.");
 		return 0;
-	}   
-	
+	}
+
 	return 1;
 }

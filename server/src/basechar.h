@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #ifndef CBASECHAR_H_HEADER_INCLUDED
 #define CBASECHAR_H_HEADER_INCLUDED
@@ -54,7 +51,7 @@ class cMulti;
 class cUOTxTooltipList;
 
 
-// This class is the base interface for all char objects. 
+// This class is the base interface for all char objects.
 class cBaseChar : public cUObject
 {
 public:
@@ -67,7 +64,7 @@ public:
     cBaseChar();
     cBaseChar(const cBaseChar& right);
     virtual ~cBaseChar();
- 
+
 	// operators
     cBaseChar& operator=(const cBaseChar& right);
 
@@ -76,7 +73,7 @@ public:
 	typedef QValueVector< cBaseChar* > CharContainer;
 	typedef QValueVector< cTempEffect* > EffectContainer;
 	enum enLayer { TradeWindow = 0, SingleHandedWeapon, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
-	Ring, Neck = 0xA, Hair, Waist, InnerTorso, Bracelet, FacialHair = 0x10,  MiddleTorso, 
+	Ring, Neck = 0xA, Hair, Waist, InnerTorso, Bracelet, FacialHair = 0x10,  MiddleTorso,
 	Earrings, Arms, Back, Backpack, OuterTorso, OuterLegs, InnerLegs, Mount, BuyRestockContainer,
 	BuyNoRestockContainer, SellContainer, BankBox, Dragging };
 
@@ -97,8 +94,8 @@ public:
 	// object type specific methods
 	virtual enCharTypes objectType() = 0;
 	// network related methods
-	virtual void update( bool excludeself = false ) = 0; 
-	virtual void resend(bool clean = true) = 0; 
+	virtual void update( bool excludeself = false ) = 0;
+	virtual void resend(bool clean = true) = 0;
 	// other methods
 	virtual uchar notoriety( P_CHAR pChar ) = 0; // Gets the notoriety towards another char
 
@@ -188,10 +185,10 @@ public:
 		\param mode The speech mode of the message. 0x00 is default and means regular speech.
 		\returns True if the message was sent or False otherwise.
 	*/
-	bool message(const QString &message, 
-				 unsigned short color = 0x3b2, 
-				 cUObject *source = 0, 
-				 unsigned short font = 0x03, 
+	bool message(const QString &message,
+				 unsigned short color = 0x3b2,
+				 cUObject *source = 0,
+				 unsigned short font = 0x03,
 				 unsigned char mode = 0x00);
 
 	/*!
@@ -208,26 +205,26 @@ public:
 	*/
 	virtual bool inWorld() = 0;
 
-	virtual void showName( cUOSocket *socket ) = 0;	
+	virtual void showName( cUOSocket *socket ) = 0;
 	virtual void soundEffect( UI16 soundId, bool hearAll = true ) = 0;
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false ) = 0;
 	virtual uint takeGold( uint amount, bool useBank = false ) = 0;
 	virtual void log( eLogLevel, const QString &string ) = 0;
 	virtual void log( const QString &string ) = 0;
-	unsigned int damage(eDamageType type, unsigned int amount, cUObject *source = 0);	
-	
+	unsigned int damage(eDamageType type, unsigned int amount, cUObject *source = 0);
+
 	// other public methods
 	// Simple Property setting and getting for script engines.
 	stError *setProperty( const QString &name, const cVariant &value );
-	stError *getProperty( const QString &name, cVariant &value ) const;	
+	stError *getProperty( const QString &name, cVariant &value ) const;
 	void updateHealth( void );
 	void action(uchar id, uchar speed = 1, bool reverse = false); // Do an action
 	P_ITEM getWeapon() const;
 	P_ITEM getShield() const;
-	void setHairColor( ushort d); 
-	void setHairStyle( ushort d); 
-	void setBeardColor( ushort d); 
-	void setBeardStyle( ushort d); 
+	void setHairColor( ushort d);
+	void setHairStyle( ushort d);
+	void setBeardColor( ushort d);
+	void setBeardStyle( ushort d);
 	void playDeathSound();
 	double getHitpointRate();
 	double getStaminaRate();
@@ -289,7 +286,7 @@ public:
 	inline void setAttackTarget(P_CHAR target) {
 		attackTarget_ = target;
 	}
-	
+
 	inline unsigned int nextSwing() const {
 		return nextSwing_;
 	}
@@ -301,7 +298,7 @@ public:
 	void refreshMaximumValues();
 
 	// getters
-    ushort			body() const;    
+    ushort			body() const;
     QDateTime		creationDate() const;
     uint			criminalTime() const;
     ushort			deaths() const;
@@ -516,14 +513,14 @@ protected:
 
     // The gender of the character. cOldChar::sex_
     bool gender_;
-    
+
     // The original skin color hue of the char. Is needed after applying
     // magical/temporal effects which change skin color.
     // cOldChar::xskin_
     ushort orgSkin_;
 
     // Flag storage for magical/temporal/skill effects like incognito,
-    // polymorph, ... . 
+    // polymorph, ... .
     // Bits:
     // 01 - incognito. cOldChar::incognito_
     // 02 - polymorph. cOldChar::polymorph_
@@ -723,7 +720,7 @@ inline void cBaseChar::setGuarding(P_CHAR data)
 	changed( TOOLTIP );
 
 	if( guarding_ )
-		guarding_->addGuard( this );		
+		guarding_->addGuard( this );
 }
 
 inline ushort cBaseChar::body() const
@@ -1248,73 +1245,73 @@ inline bool cBaseChar::isInvulnerable() const
 
 inline void cBaseChar::setIncognito(bool data)
 {
-	if( data ) propertyFlags_ |= 0x0001; else propertyFlags_ &= ~0x0001; 
+	if( data ) propertyFlags_ |= 0x0001; else propertyFlags_ &= ~0x0001;
 	changed_ = true;
 }
 
 inline void cBaseChar::setPolymorphed(bool data)
 {
-	if( data ) propertyFlags_ |= 0x0002; else propertyFlags_ &= ~0x0002; 
+	if( data ) propertyFlags_ |= 0x0002; else propertyFlags_ &= ~0x0002;
 	changed_ = true;
 }
 
 inline void cBaseChar::setTamed(bool data)
 {
-	if( data ) propertyFlags_ |= 0x0004; else propertyFlags_ &= ~0x0004; 
+	if( data ) propertyFlags_ |= 0x0004; else propertyFlags_ &= ~0x0004;
 	changed_ = true;
 }
 
 inline void cBaseChar::setCasting(bool data)
 {
-	if( data ) propertyFlags_ |= 0x0008; else propertyFlags_ &= ~0x0008; 
+	if( data ) propertyFlags_ |= 0x0008; else propertyFlags_ &= ~0x0008;
 	changed_ = true;
 }
 
 inline void cBaseChar::setHidden(bool data)
 {
-	if( data ) propertyFlags_ |= 0x0010; else propertyFlags_ &= ~0x0010; 
+	if( data ) propertyFlags_ |= 0x0010; else propertyFlags_ &= ~0x0010;
 	changed_ = true;
 }
 
 inline void cBaseChar::setInvisible(bool data)
 {
-	if( data ) propertyFlags_ |= 0x0020; else propertyFlags_ &= ~0x0020; 
+	if( data ) propertyFlags_ |= 0x0020; else propertyFlags_ &= ~0x0020;
 	changed_ = true;
 }
 
 inline void cBaseChar::setMeditating(bool data)
 {
-	if( data ) propertyFlags_ |= 0x0080; else propertyFlags_ &= ~0x0080; 
+	if( data ) propertyFlags_ |= 0x0080; else propertyFlags_ &= ~0x0080;
 	changed_ = true;
 }
 
 inline void cBaseChar::setFrozen(bool data)
 {
-	if( data ) propertyFlags_ |= 0x0100; else propertyFlags_ &= ~0x0100; 
+	if( data ) propertyFlags_ |= 0x0100; else propertyFlags_ &= ~0x0100;
 	changed_ = true;
 }
 
 inline void cBaseChar::setShowSkillTitles(bool data)
 {
-	if( data ) propertyFlags_ |= 0x0200; else propertyFlags_ &= ~0x0200; 
+	if( data ) propertyFlags_ |= 0x0200; else propertyFlags_ &= ~0x0200;
 	changed_ = true;
 }
 
 inline void cBaseChar::setDead(bool data)
 {
-	if( data ) propertyFlags_ |= 0x0400; else propertyFlags_ &= ~0x0400; 
+	if( data ) propertyFlags_ |= 0x0400; else propertyFlags_ &= ~0x0400;
 	changed_ = true;
 }
 
 inline void cBaseChar::setAtWar(bool data)
 {
-	if( data ) propertyFlags_ |= 0x0800; else propertyFlags_ &= ~0x0800; 
+	if( data ) propertyFlags_ |= 0x0800; else propertyFlags_ &= ~0x0800;
 	changed_ = true;
 }
 
 inline void cBaseChar::setInvulnerable(bool data)
 {
-	if( data ) propertyFlags_ |= 0x1000; else propertyFlags_ &= ~0x1000; 
+	if( data ) propertyFlags_ |= 0x1000; else propertyFlags_ &= ~0x1000;
 	changed_ = true;
 }
 
@@ -1328,9 +1325,9 @@ inline cBaseChar::ItemContainer cBaseChar::content() const
 	return content_;
 }
 
-inline bool cBaseChar::isHuman() const 
-{ 
-	return (body_ == 0x190 || body_ == 0x191); 
+inline bool cBaseChar::isHuman() const
+{
+	return (body_ == 0x190 || body_ == 0x191);
 }
 
 inline bool cBaseChar::isInnocent()

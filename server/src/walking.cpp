@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 // Platform Includes
 #include "platform.h"
@@ -104,9 +101,9 @@ using namespace std;
 // knoxos         : 2000.08.?? - For finally making use of the flags, and height blocking
 // DarkStorm	  : 2002.06.19 - Cleaning up the mess
 
-// To clear things up, we only need to care about 
+// To clear things up, we only need to care about
 // blocking items anyway. So we don't need 90% of the data
-// previously gathered. What we need is a check if the character 
+// previously gathered. What we need is a check if the character
 // Can walk the tile, the tile's height and if the tile's a stair
 struct stBlockItem
 {
@@ -117,7 +114,7 @@ struct stBlockItem
 	stBlockItem(): walkable( false ), height( 0 ), z( -128 ) {}
 };
 
-// Keep in mind that this only get's called when 
+// Keep in mind that this only get's called when
 // the tile we're walking on is impassable
 bool checkWalkable( P_CHAR pChar, UINT16 tileId )
 {
@@ -225,7 +222,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 						blockItem.walkable = checkWalkable( pChar, pItem->id() );
 
 					blockList.push_back( blockItem );
-					push_heap( blockList.begin(), blockList.end(), compareTiles() );				
+					push_heap( blockList.begin(), blockList.end(), compareTiles() );
 				}
 			}
 			continue;
@@ -281,7 +278,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 	P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
 
 	priviledged = player && player->isGM();
-	
+
 	for( i = 0; i < blockList.size(); ++i )
 	{
 		stBlockItem item = blockList[i];
@@ -294,7 +291,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 			return false;
 
 		// If the top of the item is within our max-climb reach
-		// then the first check passed. in addition we need to 
+		// then the first check passed. in addition we need to
 		// check if the "bottom" of the item is reachable
 		// I would say 2 is a good "reach" value for the bottom
 		// of any item
@@ -382,7 +379,7 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 				}
 			}
 		}
-		
+
 		// If we are a connected player then send new items
 		if (player && player->socket()) {
 			UI32 oldDist = oldpos.distance( pItem->pos() );
@@ -393,12 +390,12 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 				if ((oldDist >= BUILDRANGE) && (newDist < BUILDRANGE)) {
 					pItem->update(player->socket());
 				}
-			} else {				
+			} else {
 				if ((oldDist >= player->visualRange()) && (newDist < player->visualRange())) {
 					pItem->update(player->socket());
 				}
 			}
-		}		
+		}
 	}
 }
 
@@ -436,7 +433,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 	// save our original location before we even think about moving
 	const Coord_cl oldpos( pChar->pos() );
-	
+
 	// If the Direction we're moving to is different from our current direction
 	// We're turning and NOT moving into a specific direction
 	// Clear the running flag here (!)
@@ -458,7 +455,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 				player->socket()->denyMove( sequence );
 			return;
 		}
-	
+
 		// Check for Characters in our way
 		if( !checkObstacles( pChar, newCoord, running ) )
 		{
@@ -478,7 +475,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 			if (player && player->socket())
 				player->socket()->allowMove(sequence);
 		}
-        
+
 		// Check if we're going to collide with characters
 		if( !player && CheckForCharacterAtXYZ( pChar, newCoord ) )
 		{
@@ -492,7 +489,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 		// We moved so let's update our location
 		pChar->moveTo(newCoord);
-		pChar->setLastMovement(uiCurrentTime);		
+		pChar->setLastMovement(uiCurrentTime);
 		checkStealth( pChar ); // Reveals the user if neccesary
 	} else {
 		if( player && player->socket() )
@@ -502,11 +499,11 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// do all of the following regardless of whether turning or moving i guess
 	// set the player direction to contain only the cardinal direction bits
 	pChar->setDirection(dir);
-	
+
 	RegionIterator4Chars ri( pChar->pos() );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) {
 		P_CHAR observer = ri.GetData();
-		
+
 		if (observer == pChar) {
 			continue;
 		}
@@ -523,9 +520,9 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		// Send our movement to the observer
 		P_PLAYER otherplayer = dynamic_cast<P_PLAYER>(observer);
 
-		if (otherplayer && otherplayer->socket()) {            
+		if (otherplayer && otherplayer->socket()) {
 			if (distance > otherplayer->visualRange()) {
-				otherplayer->socket()->sendChar(pChar); // Previously we were out of range 
+				otherplayer->socket()->sendChar(pChar); // Previously we were out of range
 			} else {
 				otherplayer->socket()->updateChar(pChar); // Previously we were already known
 			}
@@ -567,7 +564,7 @@ bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw() {
 		return false;
 	}
 
-	// Simply ignore this packet. 
+	// Simply ignore this packet.
 	// It's out of sync
 	if (socket->walkSequence() != sequence) {
 		socket->denyMove(sequence);
@@ -581,11 +578,11 @@ bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw() {
 void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 {
 	signed short tempshort;
-	
+
 	// Don't regenerate stamina while running
 	pChar->setRegenStaminaTime(uiCurrentTime + floor(pChar->getStaminaRate() * 1000));
 	pChar->setRunningSteps(pChar->runningSteps() + 1);
-	
+
 	// If we're running on our feet, check for stamina loss
 	// Crap
 	if( !pChar->isDead() && !pChar->atLayer( cBaseChar::Mount ) && pChar->runningSteps() > ( SrvParams->runningStamSteps() ) * 2 )
@@ -701,8 +698,8 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 		return true;
 
 	float requiredStamina = ceilf( (float)((double)( (double)overweight * 0.10f ) * (double)pChar->weight()) * 100 ) / 100;
-	
-	if( pChar->stamina() < requiredStamina ) 
+
+	if( pChar->stamina() < requiredStamina )
 	{
 		pChar->talk( tr( "You are too exhausted to move" ) );
 		return false;
@@ -746,8 +743,8 @@ UINT16 DynTile( const Coord_cl &pos )
 			}
 			else if ( mapitem->pos() == pos )
 				return mapitem->id();
-        }    
-		
+        }
+
     }
 	return (UINT16)-1;
 }
@@ -767,7 +764,7 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 	Coord_cl mPos = pos;
 	mPos.z = elev;
     const INT32 dt = DynTile( mPos );
-	
+
     // if there is a dynamic tile at this spot, check to see if its a blocker
     // if it does block, might as well INT16-circuit and return right away
     if ( dt >= 0 )
@@ -776,15 +773,15 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 		if ( tile.isBlocking() || tile.isWet() )
 			return false;
 	}
-	
+
     // if there's a static block here in our way, return false
-	StaticsIterator msi = Map->staticsIterator( pos );	
+	StaticsIterator msi = Map->staticsIterator( pos );
 	while (!msi.atEnd()) {
 		tile_st tile = TileCache::instance()->getTile( msi->itemid );
 		const INT32 elev = msi->zoff + cTileCache::tileHeight(tile);
 		if( (elev >= pos.z) && (msi->zoff <= pos.z ) )
 		{
-			if (tile.isBlocking() || tile.isWet()) 
+			if (tile.isBlocking() || tile.isWet())
 				return false;
 		}
 		msi++;
@@ -797,7 +794,7 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 		const INT32 elev = item->pos().z + cTileCache::tileHeight(tile);
 		if( (elev >= pos.z) && (item->pos().z  <= pos.z ) )
 		{
-			if (tile.isBlocking() || tile.isWet()) 
+			if (tile.isBlocking() || tile.isWet())
 				return false;
 		}
 	}

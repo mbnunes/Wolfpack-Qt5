@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #ifndef AI_H_HEADER_INCLUDED
 #define AI_H_HEADER_INCLUDED
@@ -77,9 +74,9 @@ public:
 	virtual float	preCondition() = 0;
 
 	/* postCondition
-	 * 
+	 *
 	 * @return A value between 0 and 1 which indicates the
-	 * propability that this action will lead to a result 
+	 * propability that this action will lead to a result
 	 * in proper time.
 	 * (So the method will return 1 if the action is finished)
 	 * This gives us the possibility of fuzzy logic.
@@ -280,7 +277,7 @@ protected:
 	Monster_Aggressive_L0() : Monster_Aggressive() {}
 
 public:
-	Monster_Aggressive_L0( P_NPC npc ) : Monster_Aggressive( npc ) 
+	Monster_Aggressive_L0( P_NPC npc ) : Monster_Aggressive( npc )
 	{
 		m_actions.append( new Monster_Aggr_Wander( npc, this ) );
 		m_actions.append( new Monster_Aggr_MoveToTarget( npc, this ) );
@@ -300,7 +297,7 @@ protected:
 	Monster_Aggressive_L1() : Monster_Aggressive() {}
 
 public:
-	Monster_Aggressive_L1( P_NPC npc ) : Monster_Aggressive( npc ) 
+	Monster_Aggressive_L1( P_NPC npc ) : Monster_Aggressive( npc )
 	{
 		m_actions.append( new Monster_Aggr_Wander( npc, this ) );
 		m_actions.append( new Action_FleeAttacker( npc, this ) );
@@ -342,7 +339,7 @@ public:
 	Normal_Base(P_NPC npc) : AbstractAI(npc) {
 		m_actions.append(new Action_Wander(npc, this));
 		m_actions.append(new Action_FleeAttacker(npc, this));
-	} 
+	}
 
 	static void registerInFactory();
 	virtual QString name() {return "Normal_Base";}
@@ -362,7 +359,7 @@ public:
 		notorietyOverride_ = 1;
 		m_actions.append( new Action_Wander( npc, this ) );
 		m_actions.append( new Action_FleeAttacker( npc, this ) );
-	} 
+	}
 
 	virtual void onSpeechInput( P_PLAYER pTalker, const QString &comm );
 
@@ -424,7 +421,7 @@ protected:
 	Animal_Wild() : AnimalAI() {}
 
 public:
-	Animal_Wild( P_NPC npc ) : AnimalAI( npc )	
+	Animal_Wild( P_NPC npc ) : AnimalAI( npc )
 	{
 		m_actions.append( new Action_Wander( npc, this ) );
 		m_actions.append( new Action_FleeAttacker( npc, this ) );
@@ -442,7 +439,7 @@ protected:
 	Animal_Domestic() : AnimalAI() {}
 
 public:
-	Animal_Domestic( P_NPC npc ) : AnimalAI( npc )	
+	Animal_Domestic( P_NPC npc ) : AnimalAI( npc )
 	{
 		m_actions.append( new Action_Wander( npc, this ) );
 		m_actions.append( new Action_FleeAttacker( npc, this ) );
@@ -621,7 +618,7 @@ protected:
 
 public:
 	Human_Guard( P_NPC npc );
-	
+
 	static void registerInFactory();
 	virtual QString name() { return "Human_Guard"; }
 

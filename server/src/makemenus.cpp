@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "makemenus.h"
 #include "network/uosocket.h"
@@ -187,7 +184,7 @@ void cUseItem::processNode( const cElement *Tag )
 	else if( TagName == "color" )
 	{
 		QString Value = Tag->text();
-		
+
 		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
 			const cElement *chTag = Tag->getChild( i );
@@ -213,7 +210,7 @@ void cUseItem::processNode( const cElement *Tag )
 		}
 		else
 			colstr.push_back( Value );
-		
+
 		QStringList::const_iterator it = colstr.begin();
 		while( it != colstr.end() )
 		{
@@ -312,7 +309,7 @@ void cSkillCheck::applySkillMod( float skillmod )
   cMakeSection member functions
  *****************************************************************************/
 
-cMakeSection::~cMakeSection() 
+cMakeSection::~cMakeSection()
 {
 }
 
@@ -338,7 +335,7 @@ void cMakeSection::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
 	QString Value = Tag->value();
-	
+
 	if( TagName == "name" )
 		name_ = Value;
 }
@@ -588,43 +585,43 @@ void cMakeCustomSection::execute( cUOSocket* const socket )
 		QString Message;
 		switch( rank )
 		{
-			case 1: 
+			case 1:
 				Message = tr("You made an item with no quality!");
 				break;
 
-			case 2: 
+			case 2:
 				Message = tr("You made an item very below standard quality!");
 				break;
 
-			case 3: 
+			case 3:
 				Message = tr("You made an item below standard quality!");
 				break;
 
-			case 4: 
+			case 4:
 				Message = tr("You made a weak quality item!");
 				break;
 
-			case 5: 
+			case 5:
 				Message = tr("You made a standard quality item!");
 				break;
 
-			case 6: 
+			case 6:
 				Message = tr("You made a nice quality item!");
 				break;
 
-			case 7: 
+			case 7:
 				Message = tr("You made a good quality item!");
 				break;
 
-			case 8: 
+			case 8:
 				Message = tr("You made a great quality item!");
 				break;
 
-			case 9: 
+			case 9:
 				Message = tr("You made a beautiful quality item!");
 				break;
 
-			case 10: 
+			case 10:
 				Message = tr("You made a perfect quality item!");
 				break;
 		}
@@ -835,7 +832,7 @@ void cDoScriptAction::execute( cUOSocket* const socket )
 				PyTuple_SetItem( p_args, 0, PyGetCharObject( pChar ) );
 
 				PyEval_CallObject( pFunc, p_args );
-				
+
 				if( PyErr_Occurred() )
 					PyErr_Print();
 			}
@@ -964,7 +961,7 @@ void cMakeAction::processNode( const cElement *Tag )
 						QString name;
 						UINT16 amount = 1;
 						QValueVector< UINT16 > id;
-						
+
 						for( unsigned int i = 0; i < Tag->childCount(); ++i )
 						{
 							const cElement *childTag = Tag->getChild( i );
@@ -1012,7 +1009,7 @@ void cMakeAction::processNode( const cElement *Tag )
 							name = pResource->name();
 						else
 							name = pMakeSection->name();
-						
+
 						if( !item.name.isNull() )
 							name = QString("%1 %2").arg( item.name ).arg( name );
 
@@ -1073,7 +1070,7 @@ void cMakeAction::processNode( const cElement *Tag )
 		succsound_ = Value.toUShort();
 		failsound_ = succsound_;
 	}
-	
+
 	else if( TagName == "succsound" )
 		succsound_ = Value.toUShort();
 
@@ -1200,9 +1197,9 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notice
 	addTiledGump( 215, 37, 305, 250, 0xA40, -1 );
 	addCheckertrans( 10, 10, 510, 397 );
 
-	addHtmlGump( 10, 12, 510, 20, htmlmaskcenter.arg( menu_->name() ) ); 
-	addHtmlGump( 10, 39, 200, 20, htmlmaskcenter.arg( tr("CATEGORIES") ) ); 
-	addHtmlGump( 215, 39, 305, 20, htmlmaskcenter.arg( tr("SELECTIONS") ) ); 
+	addHtmlGump( 10, 12, 510, 20, htmlmaskcenter.arg( menu_->name() ) );
+	addHtmlGump( 10, 39, 200, 20, htmlmaskcenter.arg( tr("CATEGORIES") ) );
+	addHtmlGump( 215, 39, 305, 20, htmlmaskcenter.arg( tr("SELECTIONS") ) );
 	addHtmlGump( 10, 294, 150, 20, htmlmaskcenter.arg( tr("NOTICES") ) );
 
 	if( !notices.isEmpty() )
@@ -1314,7 +1311,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	addTiledGump( 10, 300, 150, 22, 2624, -1 );
 	addCheckertrans( 10, 10, 510, 397 );
 
-	addHtmlGump( 10, 12, 510, 20, htmlmaskcenter.arg( menu_->name() ) ); 
+	addHtmlGump( 10, 12, 510, 20, htmlmaskcenter.arg( menu_->name() ) );
 	if( action->model() > 0 )
 		addTilePic( 15, 42, action->model() );
 	addHtmlGump( 10, 132, 150, 20, htmlmaskcenter.arg( tr("SKILLS") ) );
@@ -1343,7 +1340,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	{
 		if( pChar && pBackpack )
 		{
-			if( action->type() == cMakeAction::CUSTOM_SECTIONS || 
+			if( action->type() == cMakeAction::CUSTOM_SECTIONS ||
 				action->type() == cMakeAction::AMOUNT_SECTIONS ||
 				action->type() == cMakeAction::RESOURCE_SECTIONS )
 			{
@@ -1467,7 +1464,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 			}
 			content = htmlmask.arg( content );
 			addHtmlGump( 170, 217, 345, 76, content, false, (useitems.count() > 4) );
-		}	
+		}
 	}
 }
 
@@ -1505,7 +1502,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choi
 		if( !pChar )
 			return;
 		QPtrList< cMakeSection > sections = pChar->lastSelections( menu_->baseMenu() );
-		socket->send( new cLastTenGump( sections, menu_ ) ); 
+		socket->send( new cLastTenGump( sections, menu_ ) );
 	}
 	else if( choice.button == 2 )
 	{
@@ -1611,9 +1608,9 @@ cLastTenGump::cLastTenGump( QPtrList< cMakeSection > sections, cMakeMenu* prev, 
 	addTiledGump( 215, 37, 305, 250, 0xA40, -1 );
 	addCheckertrans( 10, 10, 510, 397 );
 
-	addHtmlGump( 10, 12, 510, 20, htmlmaskcenter.arg( tr("LAST TEN") ) ); 
-	addHtmlGump( 10, 39, 200, 20, htmlmaskcenter.arg( tr("CATEGORIES") ) ); 
-	addHtmlGump( 215, 39, 305, 20, htmlmaskcenter.arg( tr("SELECTIONS") ) ); 
+	addHtmlGump( 10, 12, 510, 20, htmlmaskcenter.arg( tr("LAST TEN") ) );
+	addHtmlGump( 10, 39, 200, 20, htmlmaskcenter.arg( tr("CATEGORIES") ) );
+	addHtmlGump( 215, 39, 305, 20, htmlmaskcenter.arg( tr("SELECTIONS") ) );
 	addHtmlGump( 10, 294, 150, 20, htmlmaskcenter.arg( tr("NOTICES") ) );
 
 	if( !notices.isEmpty() )
@@ -1691,7 +1688,7 @@ void cLastTenGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choic
 	{
 		cMakeSection* section = sections_.at( choice.button-21 );
 		cMakeAction* action = section->baseAction();
-		socket->send( new cMakeMenuGump( action, socket ) ); 
+		socket->send( new cMakeMenuGump( action, socket ) );
 	}
 }
 
@@ -1711,11 +1708,11 @@ UINT16 cAllMakeMenus::getModel( const cElement *Tag )
 	for( unsigned int i = 0; i < Tag->childCount(); ++i )
 	{
 		const cElement *childTag = Tag->getChild( i );
-		
+
 		if( childTag->name() == "id" )
 			model = childTag->value().toUShort();
 	}
-	
+
 	return model;
 }
 

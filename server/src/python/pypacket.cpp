@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include <qstring.h>
 
@@ -162,7 +159,7 @@ static PyObject *wpPacket_setascii(PyObject *self, PyObject *args)
 {
 	unsigned short pos;
 	char *buffer;
-		
+
 	if (!PyArg_ParseTuple(args, "Hs:wppacket.setbuffer(position, value)", &pos, &buffer))
 		return 0;
 
@@ -175,7 +172,7 @@ static PyObject *wpPacket_setascii(PyObject *self, PyObject *args)
 	} else {
 		packet->setAsciiString(pos, buffer, length);
 	}
-	
+
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -185,12 +182,12 @@ static PyObject *wpPacket_setunicode( PyObject *self, PyObject *args )
 {
 	int pos;
 	char *buffer;
-		
+
 	if( !PyArg_ParseTuple( args, "ies:wppacket.setunicode( position, value )", &pos, "utf-8", &buffer ) )
 		return 0;
 
 	QString string = QString::fromUtf8( buffer );
-	
+
 	( (wpPacket*)self )->packet->setUnicodeString( pos, string, string.length() );
 
 	PyMem_Free( buffer );
@@ -202,11 +199,11 @@ static PyObject *wpPacket_setunicode( PyObject *self, PyObject *args )
 static PyObject *wpPacket_getunicode(PyObject *self, PyObject *args) {
 	int pos;
 	int length;
-		
+
 	if (!PyArg_ParseTuple(args, "ii:wppacket.getunicode(position, length)", &pos, &length)) {
 		return 0;
 	}
-	
+
 	cUOPacket *packet = ((wpPacket*)self)->packet;
 	QString string = packet->getUnicodeString(pos, length);
 
@@ -216,11 +213,11 @@ static PyObject *wpPacket_getunicode(PyObject *self, PyObject *args) {
 static PyObject *wpPacket_getascii(PyObject *self, PyObject *args) {
 	int pos;
 	int length;
-		
+
 	if (!PyArg_ParseTuple(args, "ii:wppacket.getascii(position, length)", &pos, &length)) {
 		return 0;
 	}
-	
+
 	cUOPacket *packet = ((wpPacket*)self)->packet;
 	QCString string = packet->getAsciiString(pos, length);
 
@@ -255,7 +252,7 @@ static PyObject *wpPacket_dump( PyObject *self, PyObject *args )
 }
 
 // List of Methods
-PyMethodDef wpPacketMethods[] = 
+PyMethodDef wpPacketMethods[] =
 {
 	{"resize",		wpPacket_resize,		METH_VARARGS,	NULL},
 	{"setbyte",		wpPacket_setbyte,		METH_VARARGS,	NULL},

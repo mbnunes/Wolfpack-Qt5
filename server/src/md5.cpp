@@ -1,32 +1,31 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
-// This file is (c) 2003 Sebastian Hartte.
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
+
+/* This file is (c) 2003 Sebastian Hartte. */
 
 #include <algorithm>
 #include <stdio.h>
@@ -56,7 +55,7 @@ void cMd5::reset() {
 	bits[1] = 0;
 }
 
-inline void byteReverse(unsigned char *buffer, unsigned int longs) 
+inline void byteReverse(unsigned char *buffer, unsigned int longs)
 {
     unsigned int temp;
     do
@@ -75,7 +74,7 @@ inline void byteReverse(unsigned char *buffer, unsigned int longs)
 #define F4(x, y, z) (y ^ (x | ~z))
 #define MD5STEP(f, w, x, y, z, data, s) (w += f(x, y, z) + data,  w = w<<s | w>>(32-s),  w += x)
 
-void cMd5::update() 
+void cMd5::update()
 {
     register unsigned int a, b, c, d;
 	unsigned int *ptrInput = (unsigned int*)input;
@@ -159,7 +158,7 @@ void cMd5::update()
     buffer[3] += d;
 }
 
-void cMd5::update(unsigned char *data, unsigned int length) 
+void cMd5::update(unsigned char *data, unsigned int length)
 {
 	if(finalized)
 		return;
@@ -196,7 +195,7 @@ void cMd5::update(unsigned char *data, unsigned int length)
 		}
 
 		// We have enough data to clear our temporary buffer
-		memcpy(ptrInput, data, temp);		
+		memcpy(ptrInput, data, temp);
 		byteReverse(input, 16);
 		update();
 
@@ -217,7 +216,7 @@ void cMd5::update(unsigned char *data, unsigned int length)
 	memcpy(input, data, length);
 }
 
-void cMd5::finalize() 
+void cMd5::finalize()
 {
 	if(finalized)
 		return;
@@ -227,7 +226,7 @@ void cMd5::finalize()
 	unsigned int count = (bits[0] >> 3) & 0x3F;
 
 	unsigned char *ptrInput = (unsigned char*)input + count;
-	
+
 	// Set the first byte of the padding to 0x80
 	*ptrInput++ = 0x80;
 
@@ -266,7 +265,7 @@ void cMd5::finalize()
 	finalized = true;
 }
 
-void cMd5::digest(char *digest) 
+void cMd5::digest(char *digest)
 {
 	if(!finalized)
 		return;

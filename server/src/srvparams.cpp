@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "srvparams.h"
 #include "globals.h"
@@ -49,7 +46,7 @@
 # include <sys/types.h>
 # include <sys/socket.h>
 # include <netinet/in.h>
-# include <netdb.h> 
+# include <netdb.h>
 #endif
 
 const char preferencesFileVersion[] = "1.0";
@@ -107,7 +104,7 @@ void cSrvParams::readData() {
 	accountsPassword_		= getString( "Accounts", "Database Password", "", true );
 	hashAccountPasswords_   = getBool("Accounts", "Use MD5 Hashed Passwords", false, true);
 	convertUnhashedPasswords_ = getBool("Accounts", "Automatically Hash Loaded Passwords", false, true);
-	
+
 	// AI
 	checkAITime_			=		getDouble( "AI", "Default AI Check Time", 1.2, true );
 	animalWildFleeRange_	=		getNumber( "AI", "Wild animals flee range", 8, true );
@@ -124,7 +121,7 @@ void cSrvParams::readData() {
 	murderdecay_		    = getNumber("Repsys", "Murder Decay", 28800, true);
 	maxkills_		        = getNumber("Repsys", "Max Kills", 5, true);
 	crimtime_		        = getNumber("Repsys", "Criminal Time", 120, true);
-    
+
 	// Game Speed Group
 	objectDelay_			= getNumber("Game Speed", "ObjectDelay", 1, true);
 	checkItemTime_			= getDouble("Game Speed", "Items Check Time", 1.1, true);
@@ -147,7 +144,7 @@ void cSrvParams::readData() {
 	secondsPerUOMinute_     = getNumber("Game Speed", "Seconds Per UO Minute", 5, true);
 	npcMoveTime_			= getDouble("Game Speed", "NPC Move Time", 3.0, true );
 	tamedNpcMoveTime_		= getDouble("Game Speed", "Tamed NPC Move Time", 0.6, true );
-    
+
 	// General Group
 	showSkillTitles_		= getBool("General",	"ShowSkillTitles", true, true );
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
@@ -155,7 +152,7 @@ void cSrvParams::readData() {
 	commandPrefix_			= getString("General",	"Command Prefix",	"'", true);
 	skillAdvanceModifier_	= getNumber("General",	"Skill Advance Modifier", 1000, true);
 	statsAdvanceModifier_	= getNumber("General",	"Stats Advance Modifier", 500, true);
-	stealing_				= getBool("General",	"Stealing Enabled",	true, true);			
+	stealing_				= getBool("General",	"Stealing Enabled",	true, true);
 	guardsActive_			= getBool("General",	"Guards Enabled",	true, true);
 	saveSpawns_				= getBool("General",	"Save Spawned Regions", true, true);
 	lootdecayswithcorpse_   = getBool("General",    "Loot Decays With Corpse", true, true);
@@ -171,7 +168,7 @@ void cSrvParams::readData() {
 	showNpcTitles_			= getNumber("General",  "Show Npc Titles", 1, true);
 	logMask_				= getNumber("General",  "Logging Mask", LOG_ALL, true);
 	overwriteDefinitions_   = getBool( "General", "Overwrite Definitions", false, true);
-	
+
 	saveInterval_			= getNumber("General", "Save Interval", 900, true);
 	mulPath_				= QDir::convertSeparators( getString("General", "MulPath", "./muls/", true) );
 	logPath_				= QDir::convertSeparators( getString("General", "LogPath", "./logs/", true ) );
@@ -306,8 +303,8 @@ void cSrvParams::setDungeonLightLevel( unsigned char data )
 }
 
 void cSrvParams::setMulPath( const QString& data )
-{ 
-	mulPath_ = data; 
+{
+	mulPath_ = data;
 	setString("General", "MulPath", data);
 	flush();
 }

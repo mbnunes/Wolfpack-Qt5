@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "customtags.h"
 #include "items.h"
@@ -210,7 +207,7 @@ bool cVariant::operator==( const cVariant &v ) const
 		{
 		case cVariant::String:
 			return *(QString*)value.ptr == *(QString*)v.value.ptr;
-			
+
 		case cVariant::Coord:
 			return *(Coord_cl*)value.ptr == *(Coord_cl*)v.value.ptr;
 
@@ -334,7 +331,7 @@ const QString cVariant::toString() const
 
 	if ( typ == Long )
 		return QString::number( value.d );
-    
+
 	if ( typ == Double )
 		return QString::number( toDouble() );
 
@@ -348,7 +345,7 @@ const QString cVariant::toString() const
 	}
 
 	if ( typ == Item )
-	{		
+	{
 		P_ITEM pItem = static_cast< P_ITEM >( value.ptr );
 		if( pItem )
 			return "0x" + QString::number( (unsigned int)pItem->serial(), 16 );
@@ -380,7 +377,7 @@ int cVariant::toInt( bool * ok ) const
 {
     if( typ == String )
 		return hex2dec( *( (QString*)value.ptr ) ).toInt( ok );
-    
+
 	if ( ok )
 		*ok = canCast( Int );
 
@@ -400,7 +397,7 @@ int cVariant::toInt( bool * ok ) const
 	}
 
 	if ( typ == Item )
-	{		
+	{
 		P_ITEM pItem = static_cast< P_ITEM >( value.ptr );
 		return pItem ? pItem->serial() : INVALID_SERIAL;
 	}
@@ -421,7 +418,7 @@ double cVariant::toDouble( bool * ok ) const
 {
     if( typ == String )
 		return ((QString*)value.ptr)->toDouble( ok );
-    
+
 	if ( ok )
 		*ok = canCast( Double );
 
@@ -441,7 +438,7 @@ double cVariant::toDouble( bool * ok ) const
 	}
 
 	if ( typ == Item )
-	{		
+	{
 		P_ITEM pItem = static_cast< P_ITEM >( value.ptr );
 		return pItem ? (double)pItem->serial() : (double)INVALID_SERIAL;
 	}
@@ -639,7 +636,7 @@ cCustomTags::cCustomTags( const cCustomTags& d )
 	if( d.tags_ )
 		tags_ = new QMap< QString, cVariant >( *d.tags_ );
 	else
-		tags_ = 0;		
+		tags_ = 0;
 
 	changed = true;
 }
@@ -706,7 +703,7 @@ void cCustomTags::save( SERIAL key )
 		// Save the Variant type and value
 		QString name = it.key();
 		QString type = it.data().typeName();
-		QString value = it.data().toString();		
+		QString value = it.data().toString();
 
 		persistentBroker->executeQuery( QString( "REPLACE INTO tags VALUES(%1,'%2','%3','%4')" ).arg( key ).arg( persistentBroker->quoteString( name ) ).arg( type ).arg( persistentBroker->quoteString( value ) ) );
 	}
@@ -756,7 +753,7 @@ bool cCustomTags::has( const QString &key ) const
 		if( tags_->find( key ) != tags_->end() )
 			return true;
 	}
-	
+
 	return false;
 }
 
@@ -783,7 +780,7 @@ void cCustomTags::set( const QString& key, const cVariant& value )
 		tags_ = new QMap< QString, cVariant >;
 
 	QMap< QString, cVariant >::iterator iter = tags_->find( key );
-	
+
 	if( iter != tags_->end() )
 	{
 		if( !value.isValid() )
@@ -799,7 +796,7 @@ void cCustomTags::set( const QString& key, const cVariant& value )
 	}
 	else
 	{
-		tags_->insert( key, value ); 
+		tags_->insert( key, value );
 		changed = true;
 	}
 }
@@ -809,7 +806,7 @@ void cCustomTags::remove( const QString& key )
 	if( tags_ )
 	{
 		QMap< QString, cVariant >::iterator iter( tags_->find( key ) );
-		
+
 		if( iter != tags_->end() )
 		{
 			tags_->erase( iter );
@@ -830,7 +827,7 @@ QStringList cCustomTags::getKeys( void ) const
 	{
 		return tags_->keys();
 	}
-	
+
 	return QStringList();
 }
 

@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #if !defined(__UO_TXPACKETS__)
 #define __UO_TXPACKETS__
@@ -140,7 +137,7 @@ public:
 class cUOTxUpdateCharList: public cUOPacket
 {
 public:
-	cUOTxUpdateCharList(): cUOPacket(0x86, 304) 
+	cUOTxUpdateCharList(): cUOPacket(0x86, 304)
 	{
 		setShort(1, 304);
 	}
@@ -199,7 +196,7 @@ class cUOTxChangeMap: public cUOPacket
 public:
 //	enum eMapType	{ Felucca = 0, Trammel, Ilshenar };
 
-	cUOTxChangeMap(): cUOPacket(0xBF, 6) 
+	cUOTxChangeMap(): cUOPacket(0xBF, 6)
 	{
 		setShort(1, 6);    // Packet Length
 		setShort(3, 0x08); // Subcommand
@@ -291,17 +288,17 @@ class cUOTxDrawContainer: public cUOPacket
 {
 public:
 	cUOTxDrawContainer(): cUOPacket(0x24, 7) {}
-                               
+
 	void setSerial(unsigned int serial)		{ setInt(1, serial); }
 	void setGump(unsigned short gump)		{ setShort(5, gump); }
 };
-                                           
+
 // 0x25 AddContainerItem
 class cUOTxAddContainerItem: public cUOPacket
 {
 public:
 	cUOTxAddContainerItem(): cUOPacket(0x25, 20) {}
-	
+
 	void setSerial(unsigned int serial)		{ setInt(1, serial); }
 	void setModel(unsigned short model)		{ setShort(5, model); }
 	void setUnknown1(unsigned char data)	{ (*this)[ 7 ] = data; }
@@ -326,7 +323,7 @@ public:
 	};
 
 	cUOTxRejectDrag(): cUOPacket(0x27, 2) {}
-	
+
 	void setRejectType(eRejectType type) { (*this)[1] = type; }
 };
 
@@ -335,7 +332,7 @@ class cUOTxClearSquare: public cUOPacket
 {
 public:
 	cUOTxClearSquare(): cUOPacket(0x28, 5) {}
-	
+
 	void setX(unsigned short x) { setShort(1, x); }
 	void setY(unsigned short y) { setShort(3, y); }
 };
@@ -350,9 +347,9 @@ public:
 // 0x2E CharEquipment
 class cUOTxCharEquipment: public cUOPacket
 {
-public: 
+public:
 	cUOTxCharEquipment(): cUOPacket(0x2E, 15) {}
-		
+
 	void setSerial(unsigned int data)		{ setInt(1, data); }
 	void setModel(unsigned short model)		{ setShort(5, model); }
 	void setUnknown1(unsigned char data)	{ (*this)[ 7 ] = data; }
@@ -386,8 +383,8 @@ public:
 class cUOTxUpdateSkill: public cUOPacket
 {
 public:
-	cUOTxUpdateSkill(): cUOPacket(0x3A, 13) 
-	{ 
+	cUOTxUpdateSkill(): cUOPacket(0x3A, 13)
+	{
 		setShort(1, 13);
 		(*this)[3] = static_cast<unsigned char>(0xDF);
 	}
@@ -451,16 +448,16 @@ public:
 class cUOTxChangeServer: public cUOPacket
 {
 public:
-	cUOTxChangeServer(): cUOPacket(0x76, 16) 
-	{ 
-		(*this)[7] = 0; 
+	cUOTxChangeServer(): cUOPacket(0x76, 16)
+	{
+		(*this)[7] = 0;
 		setInt(8, 0);
 	}
 	void setX(unsigned short data)		{ setShort(1, data); }
 	void setY(unsigned short data)		{ setShort(3, data); }
 	void setZ(short data)		{ setShort(5, data); }
 	void setBoundX(unsigned short data)	{ setShort(8, data); }
-	void setBoundY(unsigned short data)	{ setShort(10,data); } 
+	void setBoundY(unsigned short data)	{ setShort(10,data); }
 	void setWidth(unsigned short data)	{ setShort(12,data); }
 	void setHeight(unsigned short data)	{ setShort(14,data); }
 };
@@ -493,11 +490,11 @@ public:
 		setShort(1, 23);
 		setInt(19, 0);
 	}
-	
+
 	void setSerial(unsigned int data)		{ setInt(3, data); }
 	void setModel(unsigned short data)		{ setShort(7, data); }
 	void setX(unsigned short data)			{ setShort(9, data); }
-	void setY(unsigned short data)			{ setShort(11, data); }	
+	void setY(unsigned short data)			{ setShort(11, data); }
 	void setZ(char data)					{ (*this)[13] = data;  }
 	void setDirection(unsigned char data)	{ (*this)[14] = data; }
 	void setColor(unsigned short data)		{ setShort(15, data); }
@@ -505,7 +502,7 @@ public:
 	unsigned char flag() const				{ return (*this)[17]; }
 	void setHighlight(unsigned char data)	{ (*this)[18] = data; }
 	void fromChar(P_CHAR pChar);
-	
+
 	// The last 4 bytes are the terminator
 	void addEquipment(unsigned int serial, unsigned short model, unsigned char layer, unsigned short color);
 };
@@ -564,8 +561,8 @@ class cUOTxSendStats: public cUOPacket
 public:
 	cUOTxSendStats(): cUOPacket(0x11, 0x2B) { setShort(1, 0x2B); }
 
-	void setFullMode(bool mode, bool extended = false) 
-	{ 
+	void setFullMode(bool mode, bool extended = false)
+	{
 		if(extended)
 		{
 			resize(0x58);
@@ -607,28 +604,28 @@ public:
 };
 
 // 0xBF Subcommand: 0x14
-class cUOTxContextMenu: public cUOPacket 
-{ 
-public: 
-	
-	cUOTxContextMenu(): cUOPacket(0xBF, 12) 
-	{ 
-		setShort(1, 12); 
-		setShort(3, 0x14); 
-		setShort(5, 0x0001); 
-	} 
-	
-	enum { Poplocked = 0x01, Poparrow = 0x02, Popcolor = 0x20 }; 
-	
-	void setSerial (unsigned int data) { setInt(7, data); } 
-	void setEntNum (unsigned char data) { (*this)[11] = data; } 
+class cUOTxContextMenu: public cUOPacket
+{
+public:
+
+	cUOTxContextMenu(): cUOPacket(0xBF, 12)
+	{
+		setShort(1, 12);
+		setShort(3, 0x14);
+		setShort(5, 0x0001);
+	}
+
+	enum { Poplocked = 0x01, Poparrow = 0x02, Popcolor = 0x20 };
+
+	void setSerial (unsigned int data) { setInt(7, data); }
+	void setEntNum (unsigned char data) { (*this)[11] = data; }
 	void addEntry (unsigned short RetVal, unsigned short msgID, unsigned short flags=Popcolor, unsigned short color=0x7FE0);
 
 };
 // 0xBF sub 0x18 Enable map diffs
 class cUOTxMapDiffs: public cUOPacket
 {
-public:	
+public:
 	cUOTxMapDiffs(): cUOPacket(0xBF, 9)
 	{
 		setShort(1, 9);
@@ -884,7 +881,7 @@ class cUOTxQuestArrow: public cUOPacket
 public:
 	cUOTxQuestArrow(): cUOPacket(0xBA, 6) {}
 	void setActive(unsigned char status)			{ (*this)[1] = status; }
-	void setPos(const Coord_cl &pos) 
+	void setPos(const Coord_cl &pos)
 	{
 		setShort(2, pos.x);
 		setShort(4, pos.y);
@@ -937,7 +934,7 @@ public:
 class cUOTxGumpDialog: public cUOPacket
 {
 public:
-	cUOTxGumpDialog(unsigned short size): cUOPacket(0xB0, size) 
+	cUOTxGumpDialog(unsigned short size): cUOPacket(0xB0, size)
 	{
 		setShort(1, size);
 	}
@@ -1071,7 +1068,7 @@ public:
 	void setMsgNum (unsigned int data) { setInt(14, data); }
 	void setName (const QString &data) { this->setAsciiString(18, data.latin1(), 30); }
 	void setParams (const QString &data);
-}; 
+};
 
 // 0xCC Cliloc message
 class cUOTxClilocMsgAffix: public cUOPacket
@@ -1125,7 +1122,7 @@ public:
 		(*this)[16] = pos.z;
 	}
 
-	void setTargetPos(const Coord_cl &pos) 
+	void setTargetPos(const Coord_cl &pos)
 	{
 		setShort(17, pos.x);
 		setShort(19, pos.y);
@@ -1158,7 +1155,7 @@ public:
 		(*this)[16] = pos.z;
 	}
 
-	void setTargetPos(const Coord_cl &pos) 
+	void setTargetPos(const Coord_cl &pos)
 	{
 		setShort(17, pos.x);
 		setShort(19, pos.y);
@@ -1172,7 +1169,7 @@ public:
 	void setExplodes(bool data) { (*this)[27] = data ? 1 : 0; }
 	void setHue(unsigned int data) { setInt(28, data); }
 	void setRenderMode(unsigned int data) { setInt(32, data); }
-	
+
 	// 3d Specific Stuff
 	void set3dEffectId(unsigned short data) { setShort(36, data); }
 	void set3dExplosionId(unsigned short data) { setShort(38, data); }
@@ -1250,7 +1247,7 @@ public:
 	void addItem(unsigned short id, short deltaX, short deltaY, short deltaZ, unsigned short hue);
 };
 
-// 0xD6 
+// 0xD6
 class cUOTxTooltipList : public cUOPacket
 {
 public:
@@ -1273,7 +1270,7 @@ public:
 class cUOTxAttachTooltip : public cUOPacket
 {
 public:
-	cUOTxAttachTooltip(): cUOPacket(0xBF, 13) 
+	cUOTxAttachTooltip(): cUOPacket(0xBF, 13)
 	{
 		setShort(1, 13);    // Packet Length
 		setShort(3, 0x10); // Subcommand
@@ -1286,7 +1283,7 @@ public:
 // 0xBF sub 0x1d : Ask client - this version of custom house is cached ?
 class cUOTxAskCustomHouse : public cUOPacket
 {
-public: 
+public:
 	cUOTxAskCustomHouse(): cUOPacket(0xBF, 0x0D)
 	{
 		setShort(1, 0x0D);
@@ -1384,7 +1381,7 @@ public:
 
 	enum eMode {
 		SingleMember = 0x03,
-		WholeParty = 0x04		
+		WholeParty = 0x04
 	};
 
 	void setMode(eMode mode) {

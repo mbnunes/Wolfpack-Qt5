@@ -271,6 +271,7 @@ then
 	echo "Debug: Yes";
 	DEFINES="_DEBUG";
 	QMAKE_CXXFLAGS="-g";
+	QMAKE_CFLAGS="-g";
 	CONFIG="warn_on";
 fi;
 
@@ -295,7 +296,7 @@ then
 			MYSQL_INC="${_MYSQL_INC}";
 			echo "( $MYSQL_INC )";
 		fi;
-		
+
 	else
 		MYSQL_INC="$(mysql_config --cflags|sed -e "s/^\([^-]*-I\)*['\"]\?\([^ '\"$]*\).*$/\2/")";
 
@@ -475,7 +476,7 @@ echo ".";
 # </stlport>
 
 PASSED_VARIABLES="";
-for i in MYSQL_INC MYSQL_LIB PYTHON_INC PYTHON_LIB STLPORT_INC STLPORT_LIB DEFINES QMAKE_CXXFLAGS QMAKE_LFLAGS CONFIG;
+for i in MYSQL_INC MYSQL_LIB PYTHON_INC PYTHON_LIB STLPORT_INC STLPORT_LIB DEFINES QMAKE_CXXFLAGS QMAKE_CFLAGS QMAKE_LFLAGS CONFIG;
 do
 	PASSED_VARIABLES="$PASSED_VARIABLES $i+='$(eval "echo \$$i")'";
 done;

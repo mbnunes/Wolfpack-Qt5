@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "guilds.h"
 #include "globals.h"
@@ -49,7 +46,7 @@ unsigned int cGuilds::findFreeSerial() {
 			serial = it.data()->serial() + 1;
 		}
 	}
-	
+
 	return serial;
 }
 
@@ -201,7 +198,7 @@ cGuild::~cGuild() {
 		// Remove the MemberInfo structure
 		MemberInfo *info = getMemberInfo(player);
 		delete info;
-		memberinfo_.remove(player);	
+		memberinfo_.remove(player);
 	}
 }
 
@@ -212,7 +209,7 @@ void cGuild::setSerial(unsigned int data)
 			Guilds::instance()->unregisterGuild(this);
 		}
 
-		serial_ = data;		
+		serial_ = data;
 		Guilds::instance()->registerGuild(this);
 	}
 }
@@ -271,7 +268,7 @@ void cGuild::removeMember(P_PLAYER member) {
 
 void cGuild::addCanidate(P_PLAYER canidate) {
 	// Only add him to the canidates if he is not a member already
-	if (!members_.contains(canidate)) {	
+	if (!members_.contains(canidate)) {
 		canidates_.append(canidate);
 		canidate->setGuild(this);
 	}
@@ -279,7 +276,7 @@ void cGuild::addCanidate(P_PLAYER canidate) {
 
 void cGuild::removeCanidate(P_PLAYER canidate) {
 	members_.remove(canidate);
-	canidates_.remove(canidate);	
+	canidates_.remove(canidate);
 	canidate->setGuild(0);
 }
 
@@ -324,7 +321,7 @@ PyTypeObject wpGuildType = {
 };
 
 static int wpGuild_compare(PyObject *a, PyObject *b) {
-	if (a->ob_type != &wpGuildType || b->ob_type != &wpGuildType) 
+	if (a->ob_type != &wpGuildType || b->ob_type != &wpGuildType)
 		return -1;
 
 	return !(((wpGuild*)a)->guild == ((wpGuild*)b)->guild);
@@ -447,11 +444,11 @@ PyObject *wpGuild_getmemberinfo(wpGuild *self, PyObject *args) {
 	PyObject *result = PyDict_New();
 	PyDict_SetItemString(result, "showsign", PyInt_FromLong(info->showSign() ? 1 : 0));
 	PyDict_SetItemString(result, "joined", PyInt_FromLong(info->joined()));
-	
+
 	if (info->guildTitle().isNull()) {
-		PyDict_SetItemString(result, "guildtitle", PyUnicode_FromWideChar(L"", 0));		
+		PyDict_SetItemString(result, "guildtitle", PyUnicode_FromWideChar(L"", 0));
 	} else {
-		PyDict_SetItemString(result, "guildtitle", PyUnicode_FromUnicode((Py_UNICODE*)info->guildTitle().ucs2(), info->guildTitle().length()));		
+		PyDict_SetItemString(result, "guildtitle", PyUnicode_FromUnicode((Py_UNICODE*)info->guildTitle().ucs2(), info->guildTitle().length()));
 	}
 
 	return result;

@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 // library includes
 #include <qvaluelist.h>
@@ -279,9 +276,9 @@ void cNPC::resend( bool clean)
 			drawChar.fromChar(this);
 			drawChar.setHighlight(notoriety(socket->player()));
 			socket->send(&drawChar);
-			
+
 			sendTooltip(socket);
-			
+
 			for (ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it) {
 				it.data()->sendTooltip(socket);
 			}
@@ -349,7 +346,7 @@ void cNPC::talk( const UINT32 MsgID, const QString& params /*= 0*/, const QStrin
 {
 	if ( color == 0xFFFF )
 		color = saycolor_;
-	
+
 	if ( socket )
 	{
 		if ( affix.isEmpty() )
@@ -733,7 +730,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		\property char.mindamage The minimum damage the natural weapon of this npc can deal.
 		This property is only used if the NPC doesn't use a weapon.
 		This property is exclusive to NPC objects.
-	*/	
+	*/
 	else SET_INT_PROPERTY( "mindamage", minDamage_ )
 
 	/*
@@ -811,13 +808,13 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	/*
-		\property char.totame The required taming skill to tame this NPC. 
+		\property char.totame The required taming skill to tame this NPC.
 		Please note that this skill is the float value multiplied by 10 (100.0% = 1000).
 		This property is exclusive to NPC objects.
 	*/
 	else SET_INT_PROPERTY( "totame", tamingMinSkill_ )
 	/*
-		\property char.summontime The servertime when this summoned creature will disappear. 
+		\property char.summontime The servertime when this summoned creature will disappear.
 		If this integer value is 0, the NPC will never disappear.
 		This property is exclusive to NPC objects.
 	*/
@@ -863,13 +860,13 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	*/
 	else SET_INT_PROPERTY( "criticalhealth", criticalHealth_ )
 	/*
-		\property char.spellslow This integer bitfield indicates the spells of the first 4 circles this NPC is able to 
+		\property char.spellslow This integer bitfield indicates the spells of the first 4 circles this NPC is able to
 		cast without a spellbook.
 		This property is exclusive to NPC objects.
 	*/
 	else SET_INT_PROPERTY( "spellslow", spellsLow_ )
 	/*
-		\property char.spellshigh This integer bitfield indicates the spells of the last 4 circles this NPC is able to 
+		\property char.spellshigh This integer bitfield indicates the spells of the last 4 circles this NPC is able to
 		cast without a spellbook.
 		This property is exclusive to NPC objects.
 	*/
@@ -1341,7 +1338,7 @@ void cNPC::vendorBuy( P_PLAYER player )
 		talk( tr( "Sorry but i have no goods to sell" ) );
 		return;
 	}
-	
+
 	talk( 500186, 0, 0, false, saycolor(), player->socket() ); // Greetings.  Have a look around.
 	player->socket()->sendBuyWindow( this );
 }
@@ -1349,12 +1346,12 @@ void cNPC::vendorBuy( P_PLAYER player )
 void cNPC::vendorSell( P_PLAYER player )
 {
 	P_ITEM pContC = GetItemOnLayer( cBaseChar::SellContainer );
-	
+
 	if (!pContC || pContC->content().size() == 0) {
 		talk(501550, 0, 0, false, saycolor_, player->socket());
 		return;
-	}	
-	
+	}
+
 	player->socket()->sendSellWindow( this, player );
 }
 
@@ -1385,7 +1382,7 @@ void cNPC::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	cUObject::createTooltip(tooltip, player);
 
 	QString affix;
-	
+
 	if (!title_.isEmpty()) {
 		affix = " " + title_;
 	} else {
@@ -1399,7 +1396,7 @@ void cNPC::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 		} else {
 			affix.append(tr(" (frozen)"));
 		}
-	}	
+	}
 
 	tooltip.addLine(1050045, QString(" \t%1\t%2").arg(name_).arg(affix));
 	onShowTooltip(player, &tooltip);

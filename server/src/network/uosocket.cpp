@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2003 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "uosocket.h"
 #include "uopacket.h"
@@ -84,7 +81,7 @@ using namespace std;
 /*!
   \class cUOSocket uosocket.h
 
-  \brief The cUOSocket class provides an abstraction of Ultima Online network 
+  \brief The cUOSocket class provides an abstraction of Ultima Online network
   connected sockets. It works with Application level packets provided by \sa cAsyncNetIO.
 
   \ingroup network
@@ -96,7 +93,7 @@ using namespace std;
   Ownership of \a sDevice will be transfered to cUOSocket, that is,
   cUOSocket will call delete on the given pointer when it's destructed.
 */
-cUOSocket::cUOSocket( QSocketDevice *sDevice ): 
+cUOSocket::cUOSocket( QSocketDevice *sDevice ):
 		_walkSequence(0), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
 		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ),
 		_screenWidth(640), _screenHeight(480)
@@ -119,27 +116,27 @@ void cUOSocket::registerPacketHandler(unsigned char packet, PyObject *handler) {
 		Py_DECREF(handlers[packet]);
 
 	// Only install callable packet handlers.
-	if (handler && PyCallable_Check(handler)) 
+	if (handler && PyCallable_Check(handler))
 	{
 		Py_INCREF(handler);
 		handlers[packet] = handler;
-	} 
+	}
 	else
 	{
 		// Clear the packet handler.
 		handlers[packet] = 0;
-	}	
+	}
 }
 
-void cUOSocket::clearPacketHandlers() 
+void cUOSocket::clearPacketHandlers()
 {
-	for (int i = 0; i < 256; ++i) 
+	for (int i = 0; i < 256; ++i)
 	{
-		if (handlers[i]) 
+		if (handlers[i])
 		{
 			Py_DECREF(handlers[i]);
 			handlers[i] = 0;
-		}		
+		}
 	}
 }
 
@@ -185,7 +182,7 @@ void cUOSocket::send( cGump *gump )
 	if( gump->serial() == INVALID_SERIAL )
 	{
 		while( gump->serial() == INVALID_SERIAL || ( gumps.contains( gump->serial() ) ) )
-			gump->setSerial( RandomNum( 0x10000000, 0x1000FFFF ) ); 
+			gump->setSerial( RandomNum( 0x10000000, 0x1000FFFF ) );
 		// I changed this, everything between 0x10000000 and 0x1000FFFF is randomly generated
 	}
 	else if( gumps.contains( gump->serial() ) ) // Remove/Timeout the old one first
@@ -198,7 +195,7 @@ void cUOSocket::send( cGump *gump )
 	gumps.insert( gump->serial(), gump );
 
 	QString layout = gump->layout().join( "" );
-	if (gump->noClose()) 
+	if (gump->noClose())
 		layout.prepend("{noclose}");
 
 	if (gump->noMove())
@@ -233,7 +230,7 @@ void cUOSocket::recieve()
 {
 	cUOPacket *packet = Network::instance()->netIo()->recvPacket( _socket );
 
-	if (!packet) 
+	if (!packet)
 		return;
 
 	unsigned char packetId = (*packet)[0];
@@ -242,7 +239,7 @@ void cUOSocket::recieve()
 	if ((_account == 0) && (packetId != 0x80) && (packetId != 0x91))
 	{
 		log(QString("Communication error: 0x%1 instead of 0x80 or 0x91\n").arg(packetId, 2, 16));
-		
+
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
 		send( &denyLogin );
@@ -310,7 +307,7 @@ void cUOSocket::recieve()
 	case 0x3B:
 		handleBuy( dynamic_cast< cUORxBuy* >( packet ) ); break;
 	case 0x5D:
-		handlePlayCharacter( dynamic_cast< cUORxPlayCharacter* >( packet ) ); break;	
+		handlePlayCharacter( dynamic_cast< cUORxPlayCharacter* >( packet ) ); break;
 	case 0x6c:
 		handleTarget( dynamic_cast< cUORxTarget* >( packet ) ); break;
 	case 0x6F:
@@ -362,7 +359,7 @@ void cUOSocket::recieve()
 
 	// We received a packet we know
 	_lastActivity = getNormalizedTime();
-	
+
 	delete packet;
 }
 
@@ -395,10 +392,10 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
 	cUOTxShardList shardList;
 
 	vector< ServerList_st > shards = SrvParams->serverList();
-	
+
 	for( Q_UINT8 i = 0; i < shards.size(); ++i )
 		shardList.addServer( i, shards[i].sServer, 0x00, shards[i].uiTime, shards[i].ip );
-	
+
 	send( &shardList );
 }
 
@@ -471,7 +468,7 @@ void cUOSocket::handleSelectShard( cUORxSelectShard *packet )
 	relay->setServerIp( shards[ packet->shardId() ].ip );
 	relay->setServerPort( shards[ packet->shardId() ].uiPort );
 	relay->setAuthId( 0xFFFFFFFF ); // This is NO AUTH ID !!!
-	// This is the thing it sends next time it connects to 
+	// This is the thing it sends next time it connects to
 	// know whether it's gameserver or loginserver encryption
 	send( relay );
 	delete relay;
@@ -494,7 +491,7 @@ void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 
 /*!
   This method sends the list of Characters this account have
-  during the login process. 
+  during the login process.
   \sa cUOTxCharTownList
 */
 void cUOSocket::sendCharList()
@@ -624,7 +621,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	send(&season);
 
 	updatePlayer();
-    
+
 	cUOTxChangeServer changeserver;
 	changeserver.setX(pChar->pos().x);
 	changeserver.setY(pChar->pos().y);
@@ -649,7 +646,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	cBaseChar::ItemContainer content = _player->content();
 	cBaseChar::ItemContainer::const_iterator it;
 
-	for (it = content.begin(); it != content.end(); it++) {	
+	for (it = content.begin(); it != content.end(); it++) {
 		P_ITEM pItem = it.data();
 		if (pItem->layer() <= 0x19) {
 			pItem->update(this);
@@ -669,7 +666,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 //	send( &unknown );
 
 	unknown.setOption(3);
-//	send( &unknown );	
+//	send( &unknown );
 
 	// Reset combat information
 	pChar->setAttackTarget(0);
@@ -680,7 +677,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// Reset the party
 	cUOTxPartyRemoveMember updateparty;
 	updateparty.setSerial(_player->serial());
-	send(&updateparty);	
+	send(&updateparty);
 
 	// Start the game / Resend
 	cUOTxStartGame startGame;
@@ -720,7 +717,7 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 			{
 				authRet = Accounts::instance()->createAccount( username, password );
 				_account = authRet;
-				
+
 				log( QString( "Automatically created account '%1'.\n" ).arg( username ) );
 				return true;
 			}
@@ -729,16 +726,16 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 			break;
 		case cAccounts::BadPassword:
 			log( QString( "Failed to log in as '%1', wrong password\n" ).arg( username ) );
-			denyPacket.setReason( cUOTxDenyLogin::DL_BADPASSWORD ); 
+			denyPacket.setReason( cUOTxDenyLogin::DL_BADPASSWORD );
 			break;
 		case cAccounts::Wipped:
 		case cAccounts::Banned:
 			log( QString( "Failed to log in as '%1', Wipped/Banned account\n" ).arg( username ) );
-			denyPacket.setReason( cUOTxDenyLogin::DL_BLOCKED ); 
+			denyPacket.setReason( cUOTxDenyLogin::DL_BLOCKED );
 			break;
 		case cAccounts::AlreadyInUse:
 			log( QString( "Failed to log in as '%1', account is already in use\n" ).arg( username ) );
-			denyPacket.setReason( cUOTxDenyLogin::DL_INUSE ); 
+			denyPacket.setReason( cUOTxDenyLogin::DL_INUSE );
 			break;
 		};
 
@@ -841,9 +838,9 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->Init();
 
 	pChar->setGender( packet->gender() );
-	
+
 	pChar->setName( packet->name() );
-	
+
 	pChar->setSkin(packet->skinColor());
 	pChar->setOrgSkin(packet->skinColor());
 
@@ -871,12 +868,12 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 
 	// Create the char equipment (shirt, paint, hair and beard only)
 	P_ITEM pItem;
-	
+
 	// Shirt
 	pItem = cItem::createFromScript( "1517" );
 	pItem->setColor( packet->shirtColor() );
 	pItem->setNewbie( true );
-	pChar->addItem( cBaseChar::Shirt, pItem );	
+	pChar->addItem( cBaseChar::Shirt, pItem );
 
 	// Skirt or Pants
 	pItem = cItem::createFromScript( ( packet->gender() != 0 ) ? "1516" : "152e" );
@@ -904,7 +901,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	// Automatically create Backpack + Bankbox
 	pChar->getBankbox();
 	pChar->getBackpack();
-	
+
 	pChar->setAccount( _account );
 
 	uchar skillid = 0xFF;
@@ -1012,10 +1009,10 @@ void cUOSocket::handleQuery( cUORxQuery *packet )
 	{
 		if( ( pChar != _player ) && !_player->isGM() )
 			return;
-		
+
 		if( pChar->onShowSkillGump() )
 			return;
-		
+
 		// Send a full skill update
 		cUOTxSendSkills skillList;
 		skillList.fromChar( pChar );
@@ -1037,7 +1034,7 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 		return; // Na..
 
 	if (_player) {
-		_player->setVisualRange(packet->range());			
+		_player->setVisualRange(packet->range());
 	}
 
 	cUOPacket update(0xc8, 2);
@@ -1108,9 +1105,9 @@ void cUOSocket::handleMultiPurpose(cUORxMultiPurpose *packet) {
 		handleContextMenuRequest(dynamic_cast<cUORxContextMenuRequest*>(packet));
 		return;
 
-	case cUORxMultiPurpose::contextMenuSelection: 
+	case cUORxMultiPurpose::contextMenuSelection:
 		handleContextMenuSelection(dynamic_cast<cUORxContextMenuSelection*>(packet));
-		return; 
+		return;
 
 	case cUORxMultiPurpose::castSpell:
 		handleCastSpell(dynamic_cast<cUORxCastSpell*>(packet));
@@ -1130,33 +1127,33 @@ void cUOSocket::handleMultiPurpose(cUORxMultiPurpose *packet) {
 
 	case cUORxMultiPurpose::partySystem:
 		handleParty(packet);
-		return;		
+		return;
 	};
 
 	QString message;
 	message.sprintf("Receieved unknown multi purpose subcommand: 0x%02x", packet->subCommand());
 	message += packet->dump(packet->uncompressed()) + "\n";
 	log(LOG_WARNING, message);
-} 
+}
 
 /*!
   This method handles cUORxAosMultiPurpose packet types.
   \sa cUORxAosMultiPurpose
 */
-void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose *packet ) 
-{ 
+void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose *packet )
+{
 	if ( !packet ) // Happens if it's not inherited from cUORxAosMultiPurpose
 		return;
 
-	switch( packet->subCommand() ) 
-	{ 
+	switch( packet->subCommand() )
+	{
 		case cUORxAosMultiPurpose::CHBackup:
 			handleCHBackup( packet ); break;
 		case cUORxAosMultiPurpose::CHRestore:
 			handleCHRestore( packet ); break;
-		case cUORxAosMultiPurpose::CHCommit:	
+		case cUORxAosMultiPurpose::CHCommit:
 			handleCHCommit( packet ); break;
-		case cUORxAosMultiPurpose::CHDelete:	
+		case cUORxAosMultiPurpose::CHDelete:
 			handleCHDelete( dynamic_cast< cUORxCHDelete* >( packet ) ); break;
 		case cUORxAosMultiPurpose::CHAddElement:
 			handleCHAddElement( dynamic_cast< cUORxCHAddElement* >( packet ) ); break;
@@ -1164,7 +1161,7 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose *packet )
 			handleCHClose( packet ); break;
 		case cUORxAosMultiPurpose::CHStairs:
 			handleCHStairs( dynamic_cast< cUORxCHStairs* >( packet ) ); break;
-		case cUORxAosMultiPurpose::CHSync:	
+		case cUORxAosMultiPurpose::CHSync:
 			handleCHSync( packet ); break;
 		case cUORxAosMultiPurpose::CHClear:
 			handleCHClear( packet ); break;
@@ -1175,9 +1172,9 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose *packet )
 /*		case cUORxAosMultiPurpose::AbilitySelect:
 			handleAbilitySelect( dynamic_cast< */
 		default:
-			Console::instance()->log( LOG_WARNING, packet->dump( packet->uncompressed() ) );	
-	}; 
-} 
+			Console::instance()->log( LOG_WARNING, packet->dump( packet->uncompressed() ) );
+	};
+}
 #pragma message(Reminder "Implement Custom House subcommands here")
 
 void cUOSocket::handleCHBackup( cUORxAosMultiPurpose *packet )
@@ -1224,8 +1221,8 @@ void cUOSocket::handleCastSpell( cUORxCastSpell *packet )
 	_player->onCastSpell( packet->spell() );
 }
 
-void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet ) 
-{ 
+void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet )
+{
 	P_CHAR pChar;
 	P_ITEM pItem;
 
@@ -1253,15 +1250,15 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet )
 	if ( pItem )
 	{
 		menu->onContextEntry( this->player(), pItem, Tag );
-	} 
-	else 
+	}
+	else
 	{
 		pChar = FindCharBySerial( packet->serial() );
 		if( !pChar )
 			return;
 		menu->onContextEntry( this->player(), pChar, Tag );
 	}
-} 
+}
 void cUOSocket::handleCustomHouseRequest( cUORxCustomHouseRequest *packet )
 {
 /*	SERIAL serial = packet->serial();
@@ -1272,7 +1269,7 @@ void cUOSocket::handleCustomHouseRequest( cUORxCustomHouseRequest *packet )
 void cUOSocket::handleToolTip(cUORxRequestToolTip *packet) {
 	cUOTxTooltipList tooltip;
 	cUObject *object = World::instance()->findObject(packet->serial());
-	
+
 	if (object && player()) {
 		object->createTooltip(tooltip, player());
 		send(&tooltip);
@@ -1284,8 +1281,8 @@ void cUOSocket::handleToolTip(cUORxRequestToolTip *packet) {
   This method handles cUORxContextMenuRequest packet types.
   \sa cUORxContextMenuRequest
 */
-void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet ) 
-{ 
+void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
+{
 	cUObject *clicked = FindItemBySerial( packet->serial() );
 	if ( clicked == 0 ) clicked = FindCharBySerial( packet->serial() );
 
@@ -1294,15 +1291,15 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 
 	if( clicked->bindmenu().isEmpty() )
 		return;
-	
-/*	if( !ContextMenus::instance()->menuExists( clicked->bindmenu() ) ) 
+
+/*	if( !ContextMenus::instance()->menuExists( clicked->bindmenu() ) )
 	{
 		clicked->setBindmenu(QString::null);
 		return;
 	}
-*/	
-	cUOTxContextMenu menuPacket; 
-	menuPacket.setSerial ( packet->serial() ); 
+*/
+	cUOTxContextMenu menuPacket;
+	menuPacket.setSerial ( packet->serial() );
 
 	QStringList bindMenus = QStringList::split(",", clicked->bindmenu());
 	QStringList::const_iterator menuIt = bindMenus.begin();
@@ -1312,7 +1309,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 	for ( ; menuIt != bindMenus.end(); ++menuIt )
 	{
 		cContextMenu* menu = ContextMenus::instance()->getMenu( *menuIt );
-	
+
 		if ( !menu )
 			continue;
 
@@ -1331,12 +1328,12 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 			if ( (*it)->checkEnabled() )
 				if ( !menu->onCheckEnabled( this->player(), clicked, entryCount ) )
 					enabled = false;
-			menuPacket.addEntry( i++, (*it)->cliloc(), enabled ? (*it)->flags() : (*it)->flags() | 0x0001, (*it)->color() ); 
+			menuPacket.addEntry( i++, (*it)->cliloc(), enabled ? (*it)->flags() : (*it)->flags() | 0x0001, (*it)->color() );
 		}
 	}
 	if ( i ) // Won't send empty menus
-		send( &menuPacket ); 
-} 
+		send( &menuPacket );
+}
 
 /*!
   This method prints \a message on top of \a object using the given \a color and \a speechType
@@ -1364,7 +1361,7 @@ void cUOSocket::allowMove( Q_UINT8 sequence )
 	acceptMove.setSequence(sequence);
 	acceptMove.setHighlight(_player->notoriety(_player));
 	send(&acceptMove);
-	
+
 	if (sequence == 255) {
 		_walkSequence = 1;
 	} else {
@@ -1409,7 +1406,7 @@ void cUOSocket::resendPlayer(bool quick)
 	send(&season);
 
 	updatePlayer();
-    
+
 	cUOTxChangeServer changeserver;
 	changeserver.setX(pChar->pos().x);
 	changeserver.setY(pChar->pos().y);
@@ -1436,7 +1433,7 @@ void cUOSocket::resendPlayer(bool quick)
 		cUOTxChangeMap changemap;
 		changemap.setMap(pos_.map);
 		socket_->send(&changemap);
-        
+
 		cUOTxChangeServer changeserver;
 		changeserver.setX(pos_.x);
 		changeserver.setY(pos_.y);
@@ -1452,14 +1449,14 @@ void cUOSocket::resendPlayer(bool quick)
 	cBaseChar::ItemContainer content = _player->content();
 	cBaseChar::ItemContainer::const_iterator it;
 
-	for (it = content.begin(); it != content.end(); it++) {	
+	for (it = content.begin(); it != content.end(); it++) {
 		P_ITEM pItem = it.data();
 		if (pItem->layer() <= 0x19) {
 			pItem->update(this);
 			pItem->sendTooltip(this);
 		}
 	}
-	
+
 	updateLightLevel();
 
 	// Set the warmode status
@@ -1568,7 +1565,7 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 	else
 		Speech->talking( _player, packet->language(), speech, keywords, color, font, type );
 }
-	
+
 /*!
   This method handles cUORxDoubleClick packet types.
   \sa cUORxDoubleClick
@@ -1597,8 +1594,8 @@ void cUOSocket::handleGetTip( cUORxGetTip* packet )
 	{
 		UI32 tip = packet->lastTip();
 
-		if( tip == 0 ) 
-			tip = 1; 
+		if( tip == 0 )
+			tip = 1;
 
 		QStringList tipList = DefManager->getList( "TIPS" );
 		if( tipList.size() == 0 )
@@ -1611,7 +1608,7 @@ void cUOSocket::handleGetTip( cUORxGetTip* packet )
 		packet.setType( cUOTxTipWindow::Tip );
 		packet.setNumber( tip );
 		packet.setMessage( tipText.latin1() );
-		send( &packet );	
+		send( &packet );
 	}
 }
 
@@ -1644,13 +1641,13 @@ void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 	_player->disturbMed();
 
 	// Something changed
-	if( _player->isDead() && _player->isAtWar() ) 
+	if( _player->isDead() && _player->isAtWar() )
 		_player->resend( false );
 	else if( _player->isDead() && !_player->isAtWar() )
 	{
 		_player->removeFromView( false );
 		_player->resend( false );
-	}			
+	}
 	else
 		_player->update( true );
 
@@ -1749,7 +1746,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 
 		case 0x09A9:					// Small Wooden Crate
 			gump = 0x44; break;
-			
+
 		case 0x2006:					// Coffin
 			gump = 0x09; break;
 
@@ -1825,7 +1822,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	for( ; it != end; ++it )
 	{
 		P_ITEM pItem = *it;
-		
+
 		if( !pItem || !canSee(pItem) )
 			continue;
 
@@ -1848,7 +1845,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		}
 
 		if( pCorpse->beardStyle() )
-		{			
+		{
 			itemContent.addItem( 0x4FFFFFFF, pCorpse->beardStyle(), pCorpse->beardColor(), 0, 0, 1, pCorpse->serial() );
 			++count;
 		}
@@ -1858,7 +1855,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	if( count )
 	{
 		send( &itemContent );
-		
+
 		for( P_ITEM pItem = tooltipItems.first(); pItem; pItem = tooltipItems.next() )
 		{
 			pItem->sendTooltip( this );
@@ -1982,7 +1979,7 @@ void cUOSocket::handleTarget( cUORxTarget *packet )
 {
 	if( !_player )
 		return;
-	
+
 	if( !targetRequest )
 		return;
 
@@ -1997,7 +1994,7 @@ void cUOSocket::handleTarget( cUORxTarget *packet )
 
 		if ( request->responsed( this, packet ) )
 		{
-			delete request;			
+			delete request;
 		}
 		else
 			attachTarget( request ); // Resend target.
@@ -2019,7 +2016,7 @@ void cUOSocket::soundEffect( UINT16 soundId, cUObject *source )
 
 	cUOTxSoundEffect sound;
 	sound.setSound( soundId );
-	
+
 	if( !source )
 		sound.setCoord( _player->pos() );
 	else
@@ -2051,12 +2048,12 @@ void cUOSocket::resendWorld( bool clean )
 		if (clean) {
 			removeObject(pChar);
 		}
-		
+
 		// Hidden
 		if (_player->canSee(pChar)) {
 			cUOTxDrawChar drawChar;
 			drawChar.fromChar(pChar);
-			drawChar.setHighlight(pChar->notoriety(_player));			
+			drawChar.setHighlight(pChar->notoriety(_player));
 			send(&drawChar);
 			pChar->sendTooltip(this);
 		}
@@ -2091,7 +2088,7 @@ void cUOSocket::bounceItem( P_ITEM pItem, UINT8 reason )
 		}
 
 		pItem->toBackpack(player);
-		
+
 		if( pItem->isInWorld() )
 			pItem->soundEffect( 0x42 );
 		else
@@ -2139,7 +2136,7 @@ void cUOSocket::updateMana( P_CHAR pChar )
 
 	cUOTxUpdateMana update;
 	update.setSerial( pChar->serial() );
-	
+
 	if( pChar == _player )
 	{
 		update.setMaximum( pChar->maxMana() );
@@ -2195,13 +2192,13 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 
 	// Dont allow rename-self
 	sendStats.setAllowRename( ( ( pChar->objectType() == enNPC && dynamic_cast<P_NPC>(pChar)->owner() == _player && !pChar->isHuman() ) || _player->isGM() ) && ( _player != pChar ) );
-	
+
 	sendStats.setMaxHp( pChar->maxHitpoints() );
 	sendStats.setHp( pChar->hitpoints() );
 
 	sendStats.setName( pChar->name() );
 	sendStats.setSerial( pChar->serial() );
-		
+
 	// Set the rest - and reset if nec.
 	if( pChar == _player )
 	{
@@ -2274,7 +2271,7 @@ void cUOSocket::sendSkill( UINT16 skill )
 	pUpdate.setId( skill );
 	pUpdate.setValue( _player->skillValue( skill ) );
 	pUpdate.setRealValue( _player->skillValue( skill ) );
-	
+
 	UINT8 lock = _player->skillLock( skill );
 
 	if( lock == 0 )
@@ -2316,7 +2313,7 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 	}
 
 	cGump* pGump = it.data();
-	
+
 	if( pGump )
 	{
 		pGump->handleResponse( this, packet->choice() );
@@ -2347,7 +2344,7 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	// Only allowed for pItem's contained by a character
 	cUOTxItemContent itemContent;
 	cUOTxVendorBuy vendorBuy;
-	vendorBuy.setSerial( pItem->serial() );	
+	vendorBuy.setSerial( pItem->serial() );
 
 	/* dont ask me, but the order of the items for vendorbuy is reversed */
 	QValueList< buyitem_st > buyitems;
@@ -2376,12 +2373,12 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 		else
 			pItem->setTag("last_restock_time", cVariant( int(uiCurrentTime) ) );
 	}
-	
+
 	unsigned int i = 0;
 	for (P_ITEM mItem = sortedList.first(); mItem; mItem = sortedList.next()) {
 		if (restockNow)
 			mItem->setRestock( mItem->amount() );
-		
+
 		unsigned short amount = pItem->layer() == cBaseChar::BuyRestockContainer ? mItem->restock() : mItem->amount();
 		if (amount >= 1) {
 			itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i, 1, amount, pItem->serial() );
@@ -2412,7 +2409,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 {
 	P_ITEM pBought = pVendor->atLayer( cBaseChar::BuyNoRestockContainer );
 	P_ITEM pStock = pVendor->atLayer( cBaseChar::BuyRestockContainer );
-	
+
 	if( pBought )
 		sendVendorCont( pBought );
 
@@ -2432,7 +2429,7 @@ void cUOSocket::sendSellWindow( P_NPC pVendor, P_CHAR pSeller )
 {
 	P_ITEM pPurchase = pVendor->atLayer( cBaseChar::SellContainer );
 	P_ITEM pBackpack = pSeller->getBackpack();
-	
+
 	if (pPurchase && pBackpack)
 	{
 		QPtrList<cItem> items;
@@ -2567,13 +2564,13 @@ void cUOSocket::clilocMessageAffix( const UINT32 MsgID, const QString &params, c
 	msg.setBody( 0xFF );
 	msg.setHue( color );
 	msg.setFont( font );
-	
+
 	UINT8 flags = 0;
 	if( prepend )
 		flags |= cUOTxClilocMsgAffix::Prepend;
 	if( dontMove )
 		flags |= cUOTxClilocMsgAffix::DontMove;
-	if (system) 
+	if (system)
 		flags |= cUOTxClilocMsgAffix::System;
 	msg.setFlags( flags );
 
@@ -2739,33 +2736,33 @@ bool cUOSocket::canSee(cUObject *object) {
 	}
 }
 
-void cUOSocket::handleExtendedStats(cUORxExtendedStats *packet) { 	 
-	unsigned char lock = packet->lock(); 	 
-	unsigned char stat = packet->stat(); 	 
+void cUOSocket::handleExtendedStats(cUORxExtendedStats *packet) {
+	unsigned char lock = packet->lock();
+	unsigned char stat = packet->stat();
 
-	if (lock > 2) { 	 
-			log(LOG_WARNING, QString("Wrong lock value for extended stats packet: %1\n").arg(lock)); 	 
-			return; 	 
-	} 	 
+	if (lock > 2) {
+			log(LOG_WARNING, QString("Wrong lock value for extended stats packet: %1\n").arg(lock));
+			return;
+	}
 
-	switch (stat) { 	 
-			case 0: 	 
-					_player->setStrengthLock(lock); 	 
-					break; 	 
+	switch (stat) {
+			case 0:
+					_player->setStrengthLock(lock);
+					break;
 
-			case 1: 	 
-					_player->setDexterityLock(lock); 	 
-					break; 	 
+			case 1:
+					_player->setDexterityLock(lock);
+					break;
 
-			case 2: 	 
-					_player->setIntelligenceLock(lock); 	 
-					break; 	 
+			case 2:
+					_player->setIntelligenceLock(lock);
+					break;
 
-			default: 	 
-					log(LOG_WARNING, QString("Wrong stat value for extended stats packet: %1\n").arg(stat)); 	 
-					break; 	 
-	} 	 
-} 	 
+			default:
+					log(LOG_WARNING, QString("Wrong stat value for extended stats packet: %1\n").arg(stat));
+					break;
+	}
+}
 
 void cUOSocket::handleChat(cUOPacket *packet) {
 	if (cPythonScript::canChainHandleEvent(EVENT_CHAT, _player->getEvents())) {

@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #if !defined (__UOBJECT_H__)
 #define __UOBJECT_H__
@@ -59,7 +56,7 @@ class cItem;
 class cUOTxTooltipList;
 class cMulti;
 
-class cUObject : public PersistentObject, public cDefinable, public cPythonScriptable 
+class cUObject : public PersistentObject, public cDefinable, public cPythonScriptable
 {
 private:
 	uchar changed_:1;
@@ -77,7 +74,7 @@ protected:
 	// Things for building the SQL string
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 	void changed( uint );
-	
+
 	enum eChanged // Each bit controls different state
 	{
 //		SAVE = 1,
@@ -95,7 +92,7 @@ public:
 	// EventHandling functions
 	cPythonScript **getEvents()
 	{
-		return scriptChain; 
+		return scriptChain;
 	}
 
 	// Forwarder for the tags
@@ -111,13 +108,13 @@ public:
 	void removeEvent( const QString& Name );
 	bool hasEvent( const QString& Name ) const;
 	void recreateEvents();
-	
+
 	// Returns the list of events
 	const QString &eventList() const
 	{
-		return eventList_; 
-	}	
-	
+		return eventList_;
+	}
+
 	// New Load (Query: result, offset: current field offset)
 	void load( char **, UINT16& );
 	void save();
@@ -136,7 +133,7 @@ public:
 	virtual bool onCreate( const QString &definition );
 	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	virtual void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
-	
+
 	bool free;
 
 // Methods
@@ -156,7 +153,7 @@ public:
 	uchar			direction()		const { return dir_;  }
 
 	void setBindmenu( const QString& d )	{ bindmenu_ = d; changed_ = true;	}
-	void setName( const QString& d )		{ name_ = d; changed_ = true; changed( TOOLTIP );		}	
+	void setName( const QString& d )		{ name_ = d; changed_ = true; changed( TOOLTIP );		}
 	void setPos( const Coord_cl& d )		{ pos_ = d;	changed_ = true;		}
 	virtual void setSerial( SERIAL d )		{ serial_ = d; changed_ = true;	}
 	void setTooltip( const UINT32 d )		{ tooltip_ = d; }

@@ -1,39 +1,34 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
+
 
 // TmpEff.h: interface for the TmpEff class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #if !defined(__TMPEFF_H__)
-#define __TMPEFF_H__ 
+#define __TMPEFF_H__
 
 //Platform specifics
 #include "platform.h"
@@ -68,16 +63,16 @@ public:
 	unsigned int expiretime;
 	unsigned char dispellable;
 
-	// Fib Heap Node variables 
+	// Fib Heap Node variables
 	cTempEffect*	left;
 	cTempEffect*	right;
 	cTempEffect*	father;
 	cTempEffect*	son;
 	unsigned int	rank;
 	bool			marker;
-	
+
 	/*
-		Provided for subclasses to save additional information.
+	 * Provided for subclasses to save additional information.
 	*/
 	void saveFloat( unsigned int id, QString key, double value );
 	void saveInt( unsigned int id, QString key, int value );
@@ -89,7 +84,7 @@ public:
 	bool loadString( unsigned int id, QString key, QString &value );
 	bool loadChar(unsigned int id, QString key, P_CHAR &character );
 	bool loadItem(unsigned int id, QString key, P_ITEM &item );
-	
+
 public:
 //	cTempEffect() { serializable = true; }
 	cTempEffect( cTempEffect* left_ = NULL, cTempEffect* right_ = NULL, cTempEffect* father_ = NULL,
@@ -109,10 +104,10 @@ public:
 		dispellable = false;	// Most Effects are NOT dispellable by default
 	}
 
-	bool operator<( const cTempEffect &a ) const 
-	{ 
-		return expiretime < a.expiretime; 
-	} 
+	bool operator<( const cTempEffect &a ) const
+	{
+		return expiretime < a.expiretime;
+	}
 
 	virtual				~cTempEffect() {}
 	void				setExpiretime_s(int seconds);
@@ -147,7 +142,7 @@ public:
 class cTempEffects
 {
 private:
-	
+
 	struct ComparePredicate : public std::binary_function<cTempEffect*, cTempEffect*, bool>
 	{
 		bool operator()(const cTempEffect *a, const cTempEffect *b)

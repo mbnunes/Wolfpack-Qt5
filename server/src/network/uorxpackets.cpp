@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "uorxpackets.h"
 #include "uopacket.h"
@@ -83,21 +80,21 @@ cUOPacket *getUORxPacket( const QByteArray &data )
 	case 0xB8:		return new cUORxProfile( data );
 	case 0xD7:		return cUORxAosMultiPurpose::packet( data );
 	default:		return new cUOPacket( data );
-	};	
+	};
 }
 
-cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data ) 
-{ 
+cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data )
+{
 	cUOPacket temp(data);
-	
-	// Switch the Subcommand 
-	switch ( temp.getShort(3) ) 
-	{ 
-	case setLanguage: 
+
+	// Switch the Subcommand
+	switch ( temp.getShort(3) )
+	{
+	case setLanguage:
 		return new cUORxSetLanguage(data);
-	case contextMenuRequest: 
+	case contextMenuRequest:
 		return new cUORxContextMenuRequest(data);
-	case contextMenuSelection: 
+	case contextMenuSelection:
 		return new cUORxContextMenuSelection(data);
 	case castSpell:
 		return new cUORxCastSpell(data);
@@ -109,8 +106,8 @@ cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data )
 		return new cUORxExtendedStats(data);
 	default:
 		return new cUORxMultiPurpose(data);
-	}; 
-} 
+	};
+}
 
 cUOPacket *cUORxAosMultiPurpose::packet( const QByteArray& data )
 {
@@ -168,7 +165,7 @@ gumpChoice_st cUORxGumpResponse::choice()
 	for( i = 0; i < numTextEntries; i++ )
 	{
 		UINT16 textLength = getShort( 25 + 4 * numSwitches + offset );
-		choice.textentries.insert( 
+		choice.textentries.insert(
 			make_pair< UINT16, QString >( getShort( 23 + 4 * numSwitches + offset ), getUnicodeString( 27 + 4 * numSwitches + offset, textLength * 2 ) ) );
 
 		offset += 4 + textLength * 2;
@@ -192,7 +189,7 @@ QValueVector< UINT16 > cUORxSpeechRequest::keywords()
 
 		UINT16 value;
 
-		// The second, fourth, etc. keyword always 
+		// The second, fourth, etc. keyword always
 		// has the *first* 12 bits of a short
 		if( i % 2 != 0 )
 		{

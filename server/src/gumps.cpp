@@ -1,33 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
-
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "accounts.h"
 #include "globals.h"
@@ -48,8 +44,8 @@
 // System Includes
 #include <math.h>
 
-cGump::cGump() : serial_( INVALID_SERIAL ), type_( 1 ), 
-x_( 50 ), y_( 50 ), noMove_( false ), noClose_( false ), 
+cGump::cGump() : serial_( INVALID_SERIAL ), type_( 1 ),
+x_( 50 ), y_( 50 ), noMove_( false ), noClose_( false ),
 noDispose_( false )
 {
 }
@@ -58,7 +54,7 @@ noDispose_( false )
 Q_UINT32 cGump::addRawText( const QString &data )
 {
 	// Do we already have the text?
-	if( !text_.contains( data ) ) 
+	if( !text_.contains( data ) )
 		text_.push_back( data );
 
 	return text_.findIndex( data );
@@ -76,14 +72,14 @@ void cGump::addPageButton( Q_INT32 buttonX, Q_INT32 buttonY, Q_UINT16 gumpUp, Q_
 	layout_.push_back( button );
 }
 
-void cGump::addGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_UINT16 gumpId, Q_INT16 hue ) 
+void cGump::addGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_UINT16 gumpId, Q_INT16 hue )
 {
-	layout_.push_back( QString( "{gumppic %1 %2 %3%4}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( ( hue != -1 ) ? QString( " hue=%1" ).arg( hue ) : QString("") ) ); 
+	layout_.push_back( QString( "{gumppic %1 %2 %3%4}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( ( hue != -1 ) ? QString( " hue=%1" ).arg( hue ) : QString("") ) );
 }
 
-void cGump::addTiledGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_INT32 width, Q_INT32 height, Q_UINT16 gumpId, Q_INT16 hue ) 
+void cGump::addTiledGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_INT32 width, Q_INT32 height, Q_UINT16 gumpId, Q_INT16 hue )
 {
-	layout_.push_back( QString( "{gumppictiled %1 %2 %4 %5 %3%6}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ).arg( ( hue != -1 ) ? QString( " hue=%1" ).arg( hue ) : QString("") ) ); 
+	layout_.push_back( QString( "{gumppictiled %1 %2 %4 %5 %3%6}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ).arg( ( hue != -1 ) ? QString( " hue=%1" ).arg( hue ) : QString("") ) );
 }
 
 void cGump::addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString &html, bool hasBack, bool canScroll )
@@ -169,9 +165,9 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 				it++;
 			}
 			UINT32 thisrects = rectangles.size();
-			
 
-			
+
+
 			for( i = 0; i < thisrects; i++ )
 			{
 				addText( 50, 200 + i * 20, tr( "Rectangle %1: %2" ).arg( i+1+left ).arg( rectangles[i] ), 0x834 );
@@ -239,9 +235,9 @@ cTagsInfoGump::cTagsInfoGump( const cUObject* object ) : object_( const_cast<cUO
 				it++;
 			}
 			UINT32 thiskeys = keys.size();
-			
 
-			
+
+
 			for( i = 0; i < thiskeys; i++ )
 			{
 				addText( 50, 120 + i * 20, tr( "Tag \"%1\": %2" ).arg( keys[i] ).arg( object->getTag( keys[i] ).toString() ), 0x834 );
@@ -306,10 +302,10 @@ cWhoMenuGump::cWhoMenuGump( UINT32 page )
 	addCheckertrans( 15, 15, 350, 330 );
 	addGump( 130, 18, 0xFA8 );
 	addText( 165, 20, tr( "Who Menu" ), 0x530 );
-	
+
 	// X button
 	addText( 70, 320, "Close", 0x834 );
-	addButton( 30, 320, 0xFB1, 0xFB3, 0 ); 
+	addButton( 30, 320, 0xFB1, 0xFB3, 0 );
 
 	startPage( 1 );
 
@@ -321,7 +317,7 @@ cWhoMenuGump::cWhoMenuGump( UINT32 page )
 
 	for( i = left; i <= right; i++ )
 	{
-		addButton( 20, 60 + (i-left) * 22, 0xFA5, 0xFA7, offsets[i]+3 ); 
+		addButton( 20, 60 + (i-left) * 22, 0xFA5, 0xFA7, offsets[i]+3 );
 		addText( 50, 60 + (i-left) * 22, QString( "%1(%2)" ).arg( charNames[i] ).arg( accNames[i] ), 0x834 );
 		addText( 240, 60 + (i-left) * 22, QString( "%1" ).arg( IPs[i] ), 0x834 );
 	}
@@ -333,7 +329,7 @@ cWhoMenuGump::cWhoMenuGump( UINT32 page )
 	if( page_ < pages ) // next page
 		addButton( 260, 320, 0x0FA, 0x0FA, 2 );
 }
-  
+
 void cWhoMenuGump::handleResponse( cUOSocket *socket, const gumpChoice_st& choice )
 {
 	if( choice.button == 0 )
@@ -382,16 +378,16 @@ cSocketInfoGump::cSocketInfoGump( cUOSocket* socket )
 	if( contains && pChar )
 	{
 		startPage();
-		
+
 		addBackground( 0xE10, 440, 340 ); //Background
 		addResizeGump( 195, 260, 0xBB8, 205, 20 );
 		addCheckertrans( 15, 15, 410, 310 );
 		addGump( 160, 18, 0xFA2 );
 		addText( 195, 20, tr( "Socket Menu" ), 0x530 );
-	
+
 		// X button
 		addText( 70, 300, "Close", 0x834 );
-		addButton( 30, 300, 0xFB1, 0xFB3, 0 ); 
+		addButton( 30, 300, 0xFB1, 0xFB3, 0 );
 
 		startPage( 1 );
 
@@ -406,21 +402,21 @@ cSocketInfoGump::cSocketInfoGump( cUOSocket* socket )
 		addText( 50, 140, tr( "Account / ACL:" ), 0x834 );
 		addText( 250, 140, QString( "%1 / %2" ).arg( pChar->account()->login() ).arg( pChar->account()->acl() ), 0x834 );
 
-		addButton( 20, 180, 0xFA5, 0xFA7, 1 ); 
+		addButton( 20, 180, 0xFA5, 0xFA7, 1 );
 		addText( 50, 180, tr( "Go to position" ), 0x834 );
-		addButton( 20, 200, 0xFA5, 0xFA71, 2 ); 
+		addButton( 20, 200, 0xFA5, 0xFA71, 2 );
 		addText( 50, 200, tr( "Bring char" ), 0x834 );
-		addButton( 20, 220, 0xFA5, 0xFA7, 3 ); 
+		addButton( 20, 220, 0xFA5, 0xFA7, 3 );
 		addText( 50, 220, tr( "Jail char" ), 0x834 );
-		addButton( 20, 260, 0xFBD, 0xFBF, 6 ); 
+		addButton( 20, 260, 0xFBD, 0xFBF, 6 );
 		addText( 50, 260, tr( "Send message:" ), 0x834 );
 		addInputField( 200, 260, 190, 16, 1, tr( "<msg>" ), 0x834 );
 
-		addButton( 220, 180, 0xFAB, 0xFAD, 5 ); 
+		addButton( 220, 180, 0xFAB, 0xFAD, 5 );
 		addText( 250, 180, tr( "Show char info gump" ), 0x834 );
-		addButton( 220, 200, 0xFA5, 0xFA7, 7 ); 
+		addButton( 220, 200, 0xFA5, 0xFA7, 7 );
 		addText( 250, 200, tr( "Disconnect" ), 0x834 );
-		addButton( 220, 220, 0xFA5, 0xFA7, 4 ); 
+		addButton( 220, 220, 0xFA5, 0xFA7, 4 );
 		addText( 250, 220, tr( "Forgive char" ), 0x834 );
 	}
 }
@@ -436,7 +432,7 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 		if( mSock == socket_ )
 			contains = true;
 	}
-	
+
 	if( choice.button == 0 )
 		return;
 	else if( contains && socket_->player() )
@@ -560,10 +556,10 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 	addCheckertrans( 15, 15, 450, 330 );
 	addGump( 180, 18, 0xFA8 );
 	addText( 215, 20, tr( "Page Queue" ), 0x530 );
-	
+
 	// X button
 	addText( 70, 320, "Close", 0x834 );
-	addButton( 30, 320, 0xFB1, 0xFB3, 0 ); 
+	addButton( 30, 320, 0xFB1, 0xFB3, 0 );
 
 	startPage( 1 );
 
@@ -589,7 +585,7 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 	if( page_ < pages ) // next page
 		addButton( 260, 320, 0x0FA, 0x0FA, 2 );
 }
-  
+
 void cPagesGump::handleResponse( cUOSocket *socket, const gumpChoice_st& choice )
 {
 	if( choice.button == 0 )
@@ -630,17 +626,17 @@ cPageInfoGump::cPageInfoGump( cPage* page )
 		if ( !pChar )
 			return;
 		startPage();
-		
+
 		addBackground( 0xE10, 440, 440 ); //Background
 		addResizeGump( 195, 360, 0xBB8, 205, 20 );
 		addCheckertrans( 15, 15, 410, 410 );
-		
+
 		addGump( 165, 18, 0xFA2 );
 		addText( 200, 20, tr( "Page Menu" ), 0x530 );
-	
+
 		// X button
 		addText( 70, 400, "Close", 0x834 );
-		addButton( 30, 400, 0xFB1, 0xFB3, 0 ); 
+		addButton( 30, 400, 0xFB1, 0xFB3, 0 );
 
 		QStringList categories = cPagesManager::getInstance()->categories();
 		switch( page->pageType() )
@@ -669,26 +665,26 @@ cPageInfoGump::cPageInfoGump( cPage* page )
 		addText( 200, 140, QString( "%1" ).arg( page->pageTime() ), hue );
 
 		addText( 50, 160, tr( "Message:" ), hue );
-		QString html = 
+		QString html =
 			QString("<body text=\"#0000FF\" leftmargin=\"0\" topmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">%1</body>").arg( page_->content() );
 		addResizeGump( 45, 180, 0xBB8, 345, 84 );
 		addHtmlGump( 50, 180, 340, 80, html );
 
-		addButton( 20, 280, 0xFA5, 0xFA7, 1 ); 
+		addButton( 20, 280, 0xFA5, 0xFA7, 1 );
 		addText( 50, 280, tr( "Go to char position" ), 0x834 );
-		addButton( 20, 300, 0xFA5, 0xFA71, 2 ); 
+		addButton( 20, 300, 0xFA5, 0xFA71, 2 );
 		addText( 50, 300, tr( "Bring char" ), 0x834 );
-		addButton( 20, 320, 0xFA5, 0xFA7, 3 ); 
+		addButton( 20, 320, 0xFA5, 0xFA7, 3 );
 		addText( 50, 320, tr( "Go to page position" ), 0x834 );
-		addButton( 20, 360, 0xFBD, 0xFBF, 4 ); 
+		addButton( 20, 360, 0xFBD, 0xFBF, 4 );
 		addText( 50, 360, tr( "Send message:" ), 0x834 );
 		addInputField( 200, 360, 190, 16, 1, tr( "<msg>" ), 0x834 );
 
-		addButton( 220, 280, 0xFAB, 0xFAD, 5 ); 
+		addButton( 220, 280, 0xFAB, 0xFAD, 5 );
 		addText( 250, 280, tr( "Show socket info gump" ), 0x834 );
-		addButton( 220, 300, 0xFA5, 0xFA7, 6 ); 
+		addButton( 220, 300, 0xFA5, 0xFA7, 6 );
 		addText( 250, 300, tr( "Move page on top" ), 0x834 );
-		addButton( 220, 320, 0xFA5, 0xFA7, 7 ); 
+		addButton( 220, 320, 0xFA5, 0xFA7, 7 );
 		addText( 250, 320, tr( "Delete page" ), 0x834 );
 
 	}
@@ -701,12 +697,12 @@ void cPageInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choi
 	else if( page_ && cPagesManager::getInstance()->contains( page_ ) )
 	{
 		P_PLAYER pChar = dynamic_cast<P_PLAYER>( FindCharBySerial( page_->charSerial() ) );
-		
+
 		if ( !pChar )
 			return;
 
 		cUOSocket* socket_ = pChar->socket();
-		
+
 		if( !socket_ )
 			return;
 
@@ -870,7 +866,7 @@ cHelpGump::cHelpGump( SERIAL charSerial )
 		addText( 100, 290 + (offset+1) * 20, "Delete my page", 0x834 );
 	}
 
-//	addButton( 20, 280, 0xFA5, 0xFA7, 1 ); 
+//	addButton( 20, 280, 0xFA5, 0xFA7, 1 );
 //	addText( 60, 280, tr( "" ), 0x834 );
 
 	// OK button

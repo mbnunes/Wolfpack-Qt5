@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 
 #include "maps.h"
@@ -64,7 +61,7 @@ public:
 	QMap<unsigned int, unsigned int> staticpatches;
 
 #pragma pack (1)
-	struct mapblock 
+	struct mapblock
 	{
 		unsigned int header;
 		map_st cells[64];
@@ -81,7 +78,7 @@ public:
 	QFile staticsfile;
 	QFile mapdifdata;
 	QFile stadifindex;
-	QFile stadifdata;	
+	QFile stadifdata;
 
 	/*
 		Try to load the Map- and Stadiff files.
@@ -105,7 +102,7 @@ MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QStrin
 	mapfile.setName( map );
 	if ( !mapfile.open( IO_ReadOnly ) )
 		throw wpFileNotFoundException( QString("Couldn't open file %1").arg( map ) );
-	
+
 	staticsfile.setName( statics );
 	if ( !staticsfile.open( IO_ReadOnly ) )
 		throw wpFileNotFoundException( QString("Couldn't open file %1").arg( statics ) );
@@ -120,12 +117,12 @@ void MapsPrivate::loadDiffs(const QString& basepath, unsigned int id) {
 	mapdifdata.open(IO_ReadOnly);
 
 	// Try to read a list of ids
-	if (mapdifdata.isOpen() && mapdiflist.open( IO_ReadOnly ) ) 
+	if (mapdifdata.isOpen() && mapdiflist.open( IO_ReadOnly ) )
 	{
 		QDataStream listinput( &mapdiflist );
 		listinput.setByteOrder( QDataStream::LittleEndian );
 		unsigned int offset = 0;
-		while ( !listinput.atEnd() ) 
+		while ( !listinput.atEnd() )
 		{
 			unsigned int id;
 			listinput >> id;
@@ -141,12 +138,12 @@ void MapsPrivate::loadDiffs(const QString& basepath, unsigned int id) {
 	stadifindex.setName(basepath + QString("stadifi%1.mul").arg(id));
 	stadifindex.open(IO_ReadOnly);
 
-	if (stadifdata.isOpen() && stadifindex.isOpen() && stadiflist.open( IO_ReadOnly ) ) 
+	if (stadifdata.isOpen() && stadifindex.isOpen() && stadiflist.open( IO_ReadOnly ) )
 	{
 		QDataStream listinput( &stadiflist );
 		listinput.setByteOrder( QDataStream::LittleEndian );
 		unsigned int offset = 0;
-		while ( !listinput.atEnd() ) 
+		while ( !listinput.atEnd() )
 		{
 			unsigned int id;
 			listinput >> id;
@@ -157,7 +154,7 @@ void MapsPrivate::loadDiffs(const QString& basepath, unsigned int id) {
 	}
 }
 
-map_st MapsPrivate::seekMap(ushort x, ushort y) 
+map_st MapsPrivate::seekMap(ushort x, ushort y)
 {
 	// The blockid our cell is in
 	unsigned int blockid = x / 8 * height + y / 8;
@@ -165,18 +162,18 @@ map_st MapsPrivate::seekMap(ushort x, ushort y)
 	// See if the block has been cached
     mapblock* result = mapCache.find(blockid);
 	bool borrowed = true;
-	
-	if (!result) 
+
+	if (!result)
 	{
 		result = new mapblock;
-		
+
 		// See if the block has been patched
-		if (mappatches.contains(blockid)) 
+		if (mappatches.contains(blockid))
 		{
 			unsigned int offset = mappatches[blockid];
 			mapdifdata.at(offset);
 			mapdifdata.readBlock((char*)result, sizeof(mapblock));
-		} 
+		}
 		else
 		{
 			mapfile.at(blockid * sizeof(mapblock));
@@ -185,12 +182,12 @@ map_st MapsPrivate::seekMap(ushort x, ushort y)
 
 		borrowed = mapCache.insert(blockid, result);
 	}
-	
+
 	// Convert to in-block values.
 	y %= 8;
 	x %= 8;
 	map_st cell = result->cells[y * 8 + x];
-	
+
 	if (!borrowed)
 		delete result;
 
@@ -237,7 +234,7 @@ Maps::~Maps()
 */
 bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx )
 {
-	try 
+	try
 	{
 		QDir baseFolder( basePath );
 		QStringList files = baseFolder.entryList();
@@ -259,7 +256,7 @@ bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint map
 		d.insert( id, p );
 		return true;
 	}
-	catch ( wpFileNotFoundException& e ) 
+	catch ( wpFileNotFoundException& e )
 	{
 		qWarning( e.error() );
 		return false;
@@ -275,7 +272,7 @@ bool Maps::hasMap( uint id ) const
 }
 
 /*!
-	Seeks for a map record (map_st) in the given map \a id, at the given \a x, \a y 
+	Seeks for a map record (map_st) in the given map \a id, at the given \a x, \a y
 	coordinates.
 	\sa map_st
 */
@@ -309,7 +306,7 @@ signed char Maps::mapElevation( const Coord_cl& p ) const
 	if (430 == map.id || 475 == map.id || 580 == map.id || 610 == map.id ||
 		611 == map.id || 612 == map.id || 613 == map.id)
 		return ILLEGAL_Z;
-	/*! 
+	/*!
 	\internal
 	\note maybe the above if could be better checked thru flags. Or even better yet,
 	simply return map.z and leave the responsability of checking walkability to the calee
@@ -359,7 +356,7 @@ signed char Maps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, in
 		INT8 map2z = mapElevation( p + Coord_cl( 1, 0, 0 ) );
 		INT8 map3z = mapElevation( p + Coord_cl( 0, 1, 0 ) );
 		INT8 map4z = mapElevation( p + Coord_cl( 1, 1, 0 ) );
-		
+
 		INT8 testz = 0;
 		if (abs(map1.z - map4z) <= abs(map2z - map3z))
 		{
@@ -367,8 +364,8 @@ signed char Maps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, in
 				testz = map1.z;
 			else // round down.
 				testz = (signed char)( floor( ( map1.z + map4z ) / 2.0 ) );
-		} 
-		else 
+		}
+		else
 		{
 			if (ILLEGAL_Z == map2z || ILLEGAL_Z == map3z)
 				testz = map1.z;
@@ -409,7 +406,7 @@ bool Maps::canFit( int x, int y, int z, int map, int height ) const
 	land_st land = TileCache::instance()->getLand( map1.id );
 	if ( land.isBlocking() )
 		return false; // There is something here.
-	
+
 	// check statics too
 	StaticsIterator StaticTiles = staticsIterator( Coord_cl( x, y, z, map ) );
 	for ( ; !StaticTiles.atEnd(); ++StaticTiles )
@@ -422,15 +419,15 @@ bool Maps::canFit( int x, int y, int z, int map, int height ) const
 	return true;
 }
 
-unsigned int Maps::mapPatches(unsigned int id) 
+unsigned int Maps::mapPatches(unsigned int id)
 {
-	if (d.find(id) == d.end()) 
+	if (d.find(id) == d.end())
 		throw wpException(QString("[Maps::mapPatches line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
 
 	return d.find(id).data()->mappatches.size();
 }
 
-unsigned int Maps::staticPatches(unsigned int id) 
+unsigned int Maps::staticPatches(unsigned int id)
 {
 	if (d.find(id) == d.end())
 		throw wpException(QString("[Maps::staticPatches line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
@@ -487,7 +484,7 @@ signed char Maps::staticTop(const Coord_cl& pos) const
 		++msi;
 	}
 	return top;
-}	
+}
 
 // Return new height of player who walked to X/Y but from OLDZ
 signed char Maps::height(const Coord_cl& pos)
@@ -546,7 +543,7 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 	baseX = x / 8;
 	baseY = y / 8;
 	pos = 0;
-	
+
 	if ( baseX < d->width && baseY < d->height )
 		load(d, x, y, exact);
 }
@@ -568,11 +565,11 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 		cachePos = baseX * baseY;
 
 	QValueVector<staticrecord>* p = mapRecord->staticsCache.find(cachePos);
-	
+
 	if ( !p )
 	{ // Well, unfortunally we will be forced to read the file :(
 #pragma pack (1)
-		struct 
+		struct
 		{
 			Q_UINT32 offset;
 			Q_UINT32 blocklength;
@@ -583,9 +580,9 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 		staticStream.setByteOrder( QDataStream::LittleEndian );
 
 		// See if this particular block is patched.
-		if (mapRecord->staticpatches.contains(indexPos / 12)) 
+		if (mapRecord->staticpatches.contains(indexPos / 12))
 		{
-			indexPos = mapRecord->staticpatches[indexPos / 12];		
+			indexPos = mapRecord->staticpatches[indexPos / 12];
 
 			mapRecord->stadifindex.at(indexPos);
 			mapRecord->stadifindex.readBlock((char*)&indexStructure, sizeof(indexStructure));
@@ -627,7 +624,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 			else
 				staticArray.push_back( r );
 		}
-		
+
 		// update cache;
 		QValueVector<staticrecord>* temp = new QValueVector<staticrecord>(staticArray);
 		if ( !mapRecord->staticsCache.insert( cachePos, temp ) )

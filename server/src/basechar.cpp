@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 // wolfpack includes
 #include "accounts.h"
@@ -106,7 +103,7 @@ cBaseChar::cBaseChar()
     saycolor_			= 0x1700;
     murdererSerial_		= INVALID_SERIAL;
     guarding_			= NULL;
-	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );	
+	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );
 	setDead(false);  // we want to live ;)
 
 	saycolor_			= 600;
@@ -254,7 +251,7 @@ void cBaseChar::load( char **result, UINT16 &offset )
 void cBaseChar::save()
 {
 	initSave;
-	if (changed_) {		
+	if (changed_) {
 		setTable( "characters" );
 
 		addField( "serial", serial() );
@@ -302,13 +299,13 @@ void cBaseChar::save()
 		saveFields;
 	}
 
-	QValueVector<stSkillValue>::iterator it;	
+	QValueVector<stSkillValue>::iterator it;
 	persistentBroker->lockTable("skills");
 	int i = 0;
 	QCString query(256); // 256 byte should be enough
 	for (it = skills_.begin(); it != skills_.end(); ++it, ++i) {
 		if ((*it).changed) {
-			query.sprintf("REPLACE INTO skills VALUES(%u,%u,%u,%u,%u);", 
+			query.sprintf("REPLACE INTO skills VALUES(%u,%u,%u,%u,%u);",
 				serial_, i, (*it).value, (*it).lock, (*it).cap);
 			persistentBroker->executeQuery(query.data());
 			(*it).changed = false;
@@ -666,7 +663,7 @@ void cBaseChar::resurrect() {
 
 		resend(false);
 	} else {
-		// Move all items from the corpse to the backpack and then look for 
+		// Move all items from the corpse to the backpack and then look for
 		// previous equipment
 		cItem::ContainerContent content = corpse->content();
 		cItem::ContainerContent::iterator it;
@@ -705,7 +702,7 @@ void cBaseChar::resurrect() {
 
 		// Let him "stand up"
 		this->action(action, 2, true);
-	}	
+	}
 }
 
 void cBaseChar::turnTo( const Coord_cl &pos )
@@ -779,7 +776,7 @@ void cBaseChar::unhide()
 {
 	setStealthedSteps(0);
 
-	if (isHidden() && !isInvisible()) {		
+	if (isHidden() && !isInvisible()) {
 		setHidden(false);
 		resend(false); // They cant see us anyway
 		sysmessage(500814);
@@ -1235,7 +1232,7 @@ void cBaseChar::processNode( const cElement *Tag )
 	}
 	// <saycolor>color</saycolor>
 	else if ( TagName == "saycolor" )
-	{	
+	{
 		bool ok;
 		ushort color = Value.toUShort(&ok);
 		if ( ok )
@@ -1286,11 +1283,11 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 	} else {
 		pi->container_ = this; // Avoid a flagChanged()
 	}
-	
+
 	if (handleWeight && (pi->layer() < 0x1A || pi->layer() == 0x1E)) {
 		weight_ += pi->totalweight();
 	}
-	
+
 	if (!noRemove) {
 		// Dragging doesnt count as Equipping
 		if( layer != Dragging )
@@ -1309,10 +1306,10 @@ void cBaseChar::removeItem( cBaseChar::enLayer layer, bool handleWeight )
 
 		if( handleWeight )
 			weight_ -= pi->totalweight();
-			
+
 		// Dragging doesnt count as Equipping
 		if( layer != Dragging )
-			pi->onUnequip( this, layer );			
+			pi->onUnequip( this, layer );
 	}
 }
 
@@ -1326,8 +1323,8 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	*/
 	SET_STR_PROPERTY( "orgname", orgName_ )
 	/*
-		\property char.title This string property contains the title of the character. 
-	*/	
+		\property char.title This string property contains the title of the character.
+	*/
 	else SET_STR_PROPERTY( "title", title_ )
 	/*
 		\property char.incognito This boolean property indicates whether the character is incognito.
@@ -1339,7 +1336,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	}
 	/*
 		\property char.polymorph This boolean property indicates whether the character is polymorphed.
-	*/	
+	*/
 	else if( name == "polymorph" )
 	{
 		setPolymorphed( value.toInt() );
@@ -1347,7 +1344,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	}
 	/*
 		\property char.dead This boolean property indicates whether the character is dead.
-	*/		
+	*/
 	else if( name == "dead" )
 	{
 		setDead( value.toInt() );
@@ -1369,7 +1366,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.hairstyle This integer property sets the hairstyle of the character.
 		This property is write only.
-	*/	
+	*/
 	else if( name == "hairstyle" )
 	{
 		bool ok;
@@ -1382,7 +1379,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.beardcolor This integer property sets the beardcolor of the character.
 		This property is write only.
-	*/	
+	*/
 	else if( name == "beardcolor" )
 	{
 		bool ok;
@@ -1395,7 +1392,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.beardstyle This integer property sets the beardstyle of the character.
 		This property is write only.
-	*/	
+	*/
 	else if( name == "beardstyle" )
 	{
 		bool ok;
@@ -1414,19 +1411,19 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		\property char.maxhitpoints This integer property contains the maximum hitpoints for the character.
 		Please note that the maximum hitpoints are constantly recalculated. Please see hitpointsbonus for
 		a better way to increase the maximum hitponts of a character.
-	*/	
+	*/
 	else SET_INT_PROPERTY( "maxhitpoints", maxHitpoints_ )
 	/*
 		\property char.maxstamina This integer property contains the maximum stamina for the character.
 		Please note that the maximum stamina are constantly recalculated. Please see staminabonus for
 		a better way to increase the maximum stamina of a character.
-	*/		
+	*/
 	else SET_INT_PROPERTY( "maxstamina", maxStamina_ )
 	/*
 		\property char.maxmana This integer property contains the maximum mana for the character.
 		Please note that the maximum mana are constantly recalculated. Please see manabonus for
 		a better way to increase the maximum mana of a character.
-	*/		
+	*/
 	else SET_INT_PROPERTY( "maxmana", maxMana_ )
 	/*
 		\property char.lastmovement This integer property indicates the servertime of the last movement
@@ -1440,7 +1437,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "orgskin", orgSkin_ )
 	/*
 		\property char.creationdate This string property indicates the date and time the character was created.
-	*/	
+	*/
 	else if( name == "creationdate" )
 	{
 		creationDate_ = QDateTime::fromString( value.toString() );
@@ -1448,7 +1445,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	}
 	/*
 		\property char.stealthedsteps This integer property indicates how many steps the character walked when stealthed already.
-	*/		
+	*/
 	else SET_INT_PROPERTY( "stealthedsteps", stealthedSteps_ )
 	/*
 		\property char.runningsteps This integer property indicates how many steps the character is running so far.
@@ -1464,7 +1461,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	}
 	/*
 		\property char.guarding This character property is the character that is currently guarded by this character.
-	*/	
+	*/
 	else SET_CHAR_PROPERTY( "guarding", guarding_ )
 	/*
 		\property char.murderer This integer property indicates the serial of the character who killed this character last.
@@ -1480,23 +1477,23 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	}
 	/*
 		\property char.hidden This boolean property indicates whether the character is currently hidden.
-	*/	
+	*/
 	else if( name == "hidden" )
 	{
 		setHidden( value.toInt() );
 		return 0;
 	}
-	
+
 	/*
 		\property char.hunger This integer property indicates the food level of the character. 0 is the lowest food level, 6 the highest.
 	*/
 	else SET_INT_PROPERTY( "hunger", hunger_ )
-	
+
 	/*
 		\property char.hungertime This integer property is the next servertime the foodlevel of this character will be reduced.
-	*/	
+	*/
 	else SET_INT_PROPERTY( "hungertime", hungerTime_ )
-	
+
 	/*
 		\property char.poison The strength of the poison applied to this character.
 		A value of -1 means that no poision is applied to this character.
@@ -1507,13 +1504,13 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		\property char.flag The ingame notoriety for this character.
 	*/
 	else SET_INT_PROPERTY("flag", flag_)
-	
+
 	/*
-		\property propertyflags The bitfield (32 bit) with basechar properties. You can use the 
+		\property propertyflags The bitfield (32 bit) with basechar properties. You can use the
 		upper 8 bits for custom properties.
 	*/
 	else SET_INT_PROPERTY("propertyflags", propertyFlags_)
-	
+
 	/*
 		\property char.murderertime This integer property indicates when the next kill of the murder count will be removed.
 	*/
@@ -1540,44 +1537,44 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "saycolor", saycolor_ )
 	/*
 		\property char.emotecolor This integer property is the emote color of this character.
-	*/	
+	*/
 	else SET_INT_PROPERTY( "emotecolor", emoteColor_ )
 	/*
 		\property char.strength This integer property is the strength of this character.
-	*/	
+	*/
 	else if (name == "strength") {
 		setStrength(value.toInt());
 		return 0;
 	/*
 		\property char.dexterity This integer property is the dexterity of this character.
-	*/			
+	*/
 	} else if (name == "dexterity") {
 		setDexterity(value.toInt());
 		return 0;
 	/*
 		\property char.intelligence This integer property is the intelligence of this character.
-	*/			
+	*/
 	} else if (name == "intelligence") {
 		setIntelligence(value.toInt());
 		return 0;
 	/*
-		\property char.strength2 This integer property contains a modification value applied to strength. This is used to 
+		\property char.strength2 This integer property contains a modification value applied to strength. This is used to
 		determine the real strength of the character if needed.
 	*/
-	} else if (name == "strength2") {		
+	} else if (name == "strength2") {
 		setStrengthMod(value.toInt());
 		return 0;
 	/*
-		\property char.dexterity2 This integer property contains a modification value applied to dexterity. This is used to 
+		\property char.dexterity2 This integer property contains a modification value applied to dexterity. This is used to
 		determine the real dexterity of the character if needed.
-	*/		
+	*/
 	} else if (name == "dexterity2") {
 		setDexterityMod(value.toInt());
 		return 0;
 	/*
-		\property char.intelligence2 This integer property contains a modification value applied to intelligence. This is used to 
+		\property char.intelligence2 This integer property contains a modification value applied to intelligence. This is used to
 		determine the real intelligence of the character if needed.
-	*/		
+	*/
 	} else if (name == "intelligence2") {
 		setIntelligenceMod(value.toInt());
 		return 0;
@@ -1589,27 +1586,27 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "orgid", orgBody_ )
 	/*
 		\property char.hitpoints The current hitpoints of this character.
-	*/	
+	*/
 	else SET_INT_PROPERTY( "hitpoints", hitpoints_ )
 	/*
 		\property char.health The current hitpoints of this character.
-	*/		
+	*/
 	else SET_INT_PROPERTY( "health", hitpoints_ )
 	/*
 		\property char.stamina The current stamina of this character.
-	*/			
+	*/
 	else SET_INT_PROPERTY( "stamina", stamina_ )
 	/*
 		\property char.mana The current mana of this character.
-	*/			
+	*/
 	else SET_INT_PROPERTY( "mana", mana_ )
 	/*
 		\property char.karma The current karma of this character.
-	*/			
+	*/
 	else SET_INT_PROPERTY( "karma", karma_ )
 	/*
 		\property char.fame The current fame of this character.
-	*/			
+	*/
 	else SET_INT_PROPERTY( "fame", fame_ )
 	/*
 		\property char.kills The current kills of this character.
@@ -1622,7 +1619,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "deaths", deaths_ )
 	/*
 		\property char.war This boolean property indicates whether the character is in warmode or not.
-	*/		
+	*/
 	else if( name == "war" )
 	{
 		setAtWar( value.toInt() );
@@ -1630,7 +1627,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	}
 	/*
 		\property char.attacktarget The attack target of this character.
-	*/			
+	*/
 	else SET_CHAR_PROPERTY( "attacktarget", attackTarget_ )
 	/*
 		\property char.nextswing The servertime the character will be able to swing (attack) next.
@@ -1642,11 +1639,11 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "regenhealth", regenHitpointsTime_ )
 	/*
 		\property char.regenstamina The next servertime the character will try to regenerate stamina.
-	*/	
+	*/
 	else SET_INT_PROPERTY( "regenstamina", regenStaminaTime_ )
 	/*
 		\property char.regenmana The next servertime the character will try to regenerate mana.
-	*/	
+	*/
 	else SET_INT_PROPERTY( "regenmana", regenManaTime_ )
 	/*
 		\property char.skilldelay The servertime the character will be able to use another active skill again.
@@ -1668,8 +1665,8 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	/*
 		\property char.staminabonus The integer bonus awarded to the maximum stamina of this character.
-	*/		
-	} else if (name == "staminabonus") {		
+	*/
+	} else if (name == "staminabonus") {
 		setStaminaBonus(value.toInt());
 		return 0;
 	/*
@@ -1680,7 +1677,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	/*
 		\property char.invulnerable Indicates whether the character is invulnerable or not.
-	*/		
+	*/
 	} else if( name == "invulnerable" )
 	{
 		setInvulnerable( value.toInt() );
@@ -1906,7 +1903,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, (unsigned int)type, amount, PyGetCharObject, source );
 		else if( dynamic_cast< P_ITEM >( source ) )
 			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, (unsigned int)type, amount, PyGetItemObject, source );
-		else 
+		else
 			args = Py_BuildValue( "O&iiO", PyGetCharObject, this, (unsigned int)type, amount, Py_None );
 
 		PyObject *result = cPythonScript::callChainedEvent( EVENT_DAMAGE, scriptChain, args );
@@ -1929,7 +1926,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 	}
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>(source);
-	
+
 	if (!player) {
 		P_ITEM tool = dynamic_cast<P_ITEM>(source);
 		if (tool && tool->owner()) {
@@ -1945,7 +1942,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 		damage.setSerial(serial_);
 		player->socket()->send(&damage);
 	}
-	
+
 	// There is a 33% chance that blood is created on hit by phsical means
 	if (type == DAMAGE_PHYSICAL && !RandomNum(0,2)) {
 		P_ITEM blood = 0;
@@ -1955,11 +1952,11 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 		if (amount >= maxHitpoints_ * 0.50) {
 			blood = cItem::createFromList("BIG_BLOOD_PUDDLES");
 
-		// Otherwise we display a medium puddle of blood if the damage is greater 
+		// Otherwise we display a medium puddle of blood if the damage is greater
 		// than 25% of the maximum healthpoints
 		} else if (amount >= maxHitpoints_ * 0.35) {
 			blood = cItem::createFromList("MEDIUM_BLOOD_PUDDLES");
-	
+
 		// at last we only display a small stain of blood if the damage has been
 		// greater than 10% of the maximum hitpoints
 		} else if (amount >= maxHitpoints_ * 0.20) {
@@ -1967,7 +1964,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 		}
 
 		if (blood) {
-			blood->moveTo(pos_); // Move it to the feet of the victim			
+			blood->moveTo(pos_); // Move it to the feet of the victim
 			blood->setNoDecay(false); // Override the nodecay tag in the definitions
 			blood->setDecayTime(uiCurrentTime + 20 * MY_CLOCKS_PER_SEC); // Let it decay in 20 seconds from now
 			blood->update(); // Send it to all sockets in range
@@ -2344,69 +2341,69 @@ bool cBaseChar::onSkillGain( unsigned char skill, unsigned short min, unsigned s
 	return result;
 }
 
-bool cBaseChar::kill(cUObject *source) {	
-	if (free || isDead()) 
+bool cBaseChar::kill(cUObject *source) {
+	if (free || isDead())
 		return false;
 
 	changed(TOOLTIP);
-	changed_ = true;	
+	changed_ = true;
 	hitpoints_ = 0;
 	updateHealth();
 	setDead(true);
-	setPoison(-1);	
-	
+	setPoison(-1);
+
 	if (isIncognito()) {
 		setBody(orgBody());
 		setSkin(orgSkin());
-		setName(orgName());		
+		setName(orgName());
 	} else if (isPolymorphed()) {
-		setBody(orgBody());	
+		setBody(orgBody());
 		setSkin(orgSkin());
 	}
-	
+
 	setIncognito(false);
-	setPolymorphed(false);	
+	setPolymorphed(false);
 
 	P_CHAR pKiller = dynamic_cast<P_CHAR>(source);
 	P_ITEM pTool = 0;
 
 	// Were we killed by some sort of item?
-	if (source && !pKiller) 
+	if (source && !pKiller)
 	{
 		pTool = dynamic_cast<P_ITEM>(source);
 
 		// If we were killed by some sort of tool (explosion potions)
 		// the owner is responsible for the murder
-		if (pTool && pTool->owner()) 
+		if (pTool && pTool->owner())
 			pKiller = pTool->owner();
 	}
 
-	// Only trigger the reputation system if we can find someone responsible 
+	// Only trigger the reputation system if we can find someone responsible
 	// for the murder
 	if (pKiller && pKiller != this)
 	{
 		// Only award karma and fame in unguarded areas
-		if (!pKiller->inGuardedArea()) 
+		if (!pKiller->inGuardedArea())
 		{
 			pKiller->awardFame(fame_);
 			pKiller->awardKarma(this, 0 - karma_);
 		}
-		
+
 		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pKiller);
 
 		// Only players can become criminal
-		if (pPlayer) 
+		if (pPlayer)
 		{
 			// Award fame and karma to the party members of this player if they can see the victim
-			if (pPlayer->party()) 
+			if (pPlayer->party())
 			{
 				QPtrList<cPlayer> members = pPlayer->party()->members();
 
-				for (P_PLAYER member = members.first(); member; member = members.next()) 
+				for (P_PLAYER member = members.first(); member; member = members.next())
 				{
-					if (member != pPlayer && member->canSeeChar(this)) 
+					if (member != pPlayer && member->canSeeChar(this))
 					{
-						if (!member->inGuardedArea()) 
+						if (!member->inGuardedArea())
 						{
 							member->awardFame(fame_);
 							member->awardKarma(this, 0 - karma_);
@@ -2415,22 +2412,22 @@ bool cBaseChar::kill(cUObject *source) {
 				}
 			}
 
-			if (isInnocent()) 
+			if (isInnocent())
 			{
 				pPlayer->makeCriminal();
 				pPlayer->setKills(pPlayer->kills() + 1);
 				setMurdererSerial(pPlayer->serial());
 
 				// Report the number of slain people to the player
-				if (pPlayer->socket()) 
+				if (pPlayer->socket())
 					pPlayer->socket()->sysMessage(tr("You have killed %1 innocent people.").arg(pPlayer->kills()));
 
 				// The player became a murderer
-				if (pPlayer->kills() >= SrvParams->maxkills()) 
+				if (pPlayer->kills() >= SrvParams->maxkills())
 				{
 					pPlayer->setMurdererTime(getNormalizedTime() + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC);
-	
-					if (pPlayer->socket()) 
+
+					if (pPlayer->socket())
 						pPlayer->socket()->clilocMessage(502134);
 				}
 			}
@@ -2448,18 +2445,18 @@ bool cBaseChar::kill(cUObject *source) {
 
 	bool summoned = npc && npc->summoned();
 
-	if (player) 
+	if (player)
 		player->unmount();
-	
+
 	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef(body_);
 
 	// If we are a creature type with a corpse and if we are not summoned
 	// we create a corpse
 	if (!summoned && basedef && !basedef->noCorpse()) {
 		corpse = new cCorpse(true);
-		
+
 		const cElement *elem = DefManager->getDefinition(WPDT_ITEM, "2006");
-		if (elem) 
+		if (elem)
 			corpse->applyDefinition(elem);
 
 		corpse->setName(name_);
@@ -2467,13 +2464,13 @@ bool cBaseChar::kill(cUObject *source) {
 		corpse->setBodyId(body_);
 		corpse->setTag("human", cVariant(isHuman() ? 1 : 0 ));
 		corpse->setTag("name", cVariant(name_));
-		
+
 		// Storing the player's notoriety
 		// So a singleclick on the corpse
 		// Will display the right color
 		corpse->setTag("notoriety", cVariant(notoriety(this)));
 
-		if (npc) 
+		if (npc)
 			corpse->setCarve(npc->carve());
 
         corpse->setOwner(this);
@@ -2481,48 +2478,48 @@ bool cBaseChar::kill(cUObject *source) {
 		corpse->setDirection(direction());
 
 		// stores the time and the murderer's name
-		if (pKiller) 
+		if (pKiller)
 		{
 			corpse->setMurderer(pKiller->name());
 			corpse->setMurderTime(uiCurrentTime);
 		}
 
 		// Move possible equipment to the corpse
-		for (unsigned char layer = SingleHandedWeapon; layer <= InnerLegs; ++layer) 
+		for (unsigned char layer = SingleHandedWeapon; layer <= InnerLegs; ++layer)
 		{
 			P_ITEM item = GetItemOnLayer(layer);
 
-			if (item) 
+			if (item)
 			{
 				if (layer != Backpack && layer != Hair && layer != FacialHair) {
 					// Put into the backpack
-					if (item->newbie()) 
+					if (item->newbie())
 					{
 						backpack->addItem(item);
 
-						if (player && player->socket()) 
+						if (player && player->socket())
 							item->update(player->socket());
-					} 
-					else 
+					}
+					else
 					{
 						corpse->addItem(item);
 						corpse->addEquipment(layer, item->serial());
 					}
-				} 
-				else if (layer == Hair) 
+				}
+				else if (layer == Hair)
 				{
 					corpse->setHairStyle(item->id());
 					corpse->setHairColor(item->color());
 				}
-				else if (layer == FacialHair) 
+				else if (layer == FacialHair)
 				{
 					corpse->setBeardStyle(item->id());
 					corpse->setBeardColor(item->color());
 				}
 			}
 		}
-        
-		corpse->setDecayTime(uiCurrentTime + SrvParams->corpseDecayTime() * MY_CLOCKS_PER_SEC);		
+
+		corpse->setDecayTime(uiCurrentTime + SrvParams->corpseDecayTime() * MY_CLOCKS_PER_SEC);
 		corpse->update();
 	}
 
@@ -2532,11 +2529,11 @@ bool cBaseChar::kill(cUObject *source) {
 
 	for (it = content.begin(); it != content.end(); ++it) {
 		P_ITEM item = *it;
-		if (!item->newbie()) 
+		if (!item->newbie())
 		{
-			if (corpse) 
+			if (corpse)
 				corpse->addItem(item);
-			else 
+			else
 			{
 				item->moveTo(pos_);
 				item->update();
@@ -2545,18 +2542,18 @@ bool cBaseChar::kill(cUObject *source) {
 	}
 
 	// Create Loot for NPcs
-	if (npc && !npc->lootList().isEmpty()) 
+	if (npc && !npc->lootList().isEmpty())
 	{
 		QStringList lootlist = DefManager->getList(npc->lootList());
 
 		QStringList::const_iterator it;
-		for (it = lootlist.begin(); it != lootlist.end(); ++it) 
+		for (it = lootlist.begin(); it != lootlist.end(); ++it)
 		{
 			P_ITEM loot = cItem::createFromScript(*it);
 
-			if (loot) 
+			if (loot)
 			{
-				if (corpse) 
+				if (corpse)
 					corpse->addItem(loot);
 				else
 				{
@@ -2568,8 +2565,8 @@ bool cBaseChar::kill(cUObject *source) {
 	}
 
 	// Summoned monsters simply disappear
-	if (summoned) 
-	{		
+	if (summoned)
+	{
 		soundEffect(0x1fe);
 		pos_.effect(0x3735, 10, 30);
 
@@ -2583,17 +2580,17 @@ bool cBaseChar::kill(cUObject *source) {
 	cUOTxDeathAction dAction;
 	dAction.setSerial(serial_);
 
-	if (corpse) 
+	if (corpse)
 		dAction.setCorpse(corpse->serial());
 
 	cUOTxRemoveObject rObject;
 	rObject.setSerial(serial_);
-	
-	for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() ) 
+
+	for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
-		if (mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange())) 
+		if (mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange()))
 		{
-			if (mSock->player() != this) 
+			if (mSock->player() != this)
 			{
 				mSock->send(&dAction);
 				mSock->send(&rObject);
@@ -2607,11 +2604,11 @@ bool cBaseChar::kill(cUObject *source) {
 		remove();
 	}
 
-	if (player) 
+	if (player)
 	{
 		// Create a death shroud for the player
 		P_ITEM shroud = cItem::createFromScript("204e");
-		if (shroud) 
+		if (shroud)
 		{
 			addItem(OuterTorso, shroud);
 			shroud->update();
@@ -2619,26 +2616,26 @@ bool cBaseChar::kill(cUObject *source) {
 
 		player->resend(false);
 
-		if (player->socket()) 
-		{	
+		if (player->socket())
+		{
 			// Notify the player of his death
 			cUOTxCharDeath death;
 			player->socket()->send(&death);
 		}
 
 		// Notify the party that we died.
-		if (player->party()) 
+		if (player->party())
 		{
 			QString message;
 
-			if (source == player) 
+			if (source == player)
 				message = tr("I comitted suicide.");
-			else if (pKiller) 
+			else if (pKiller)
 				message = tr("I was killed by %1.").arg(pKiller->name());
-			else 
+			else
 				message = tr("I was killed.");
 
-			player->party()->send(player, message);		
+			player->party()->send(player, message);
 		}
 	}
 
@@ -2649,20 +2646,20 @@ bool cBaseChar::canSee(cUObject *object)
 {
 	P_ITEM item = dynamic_cast<P_ITEM>(object);
 
-	if (item) 
+	if (item)
 		return canSeeItem(item);
 
 	P_CHAR character = dynamic_cast<P_CHAR>(object);
 
-	if (character) 
+	if (character)
 		return canSeeChar(character);
 
 	return false;
 }
 
-bool cBaseChar::canSeeChar(P_CHAR character) 
+bool cBaseChar::canSeeChar(P_CHAR character)
 {
-	if (character != this) 
+	if (character != this)
 	{
 		if (!character || character->free)
 			return false;
@@ -2679,7 +2676,7 @@ bool cBaseChar::canSeeChar(P_CHAR character)
 		}
 
 		// Check distance
-		if (pos_.distance(character->pos()) > VISRANGE) 
+		if (pos_.distance(character->pos()) > VISRANGE)
 			return false;
 
 		// Check if the target is a npc and currently stabled
@@ -2698,20 +2695,20 @@ bool cBaseChar::canSeeChar(P_CHAR character)
 	return true;
 }
 
-bool cBaseChar::canSeeItem(P_ITEM item) 
+bool cBaseChar::canSeeItem(P_ITEM item)
 {
-	if (!item) 
+	if (!item)
 		return false;
 
-	if (item->visible() == 2) 
+	if (item->visible() == 2)
 		return false;
-	else if (item->visible() == 1 && item->owner() != this) 
+	else if (item->visible() == 1 && item->owner() != this)
 		return false;
 
 	// Check for container
-	if (item->container()) 
+	if (item->container())
 		return canSee(item->container());
-	else 
+	else
 	{
 		cMulti *multi = dynamic_cast<cMulti*>(item);
 
@@ -2721,21 +2718,21 @@ bool cBaseChar::canSeeItem(P_ITEM item)
 		} else {
 			if (pos_.distance(item->pos()) > VISRANGE)
 				return false;
-		}		
+		}
 	}
 
 	return true;
 }
 
-cFightInfo *cBaseChar::findFight(P_CHAR enemy) 
+cFightInfo *cBaseChar::findFight(P_CHAR enemy)
 {
 	if (enemy)
 	{
-		for (cFightInfo *fight = fights_.first(); fight; fight = fights_.next()) 
+		for (cFightInfo *fight = fights_.first(); fight; fight = fights_.next())
 		{
 			// We are only searching the fights we participate in, thats why we only
 			// have to check for our enemy
-			if (fight->attacker() == enemy || fight->victim() == enemy) 
+			if (fight->attacker() == enemy || fight->victim() == enemy)
 				return fight;
 		}
 	}
@@ -2743,7 +2740,7 @@ cFightInfo *cBaseChar::findFight(P_CHAR enemy)
 	return 0;
 }
 
-cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy) 
+cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 {
 	FightStatus result = FightDenied;
 
@@ -2761,29 +2758,29 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 	cUOTxAttackResponse attack;
 	attack.setSerial(INVALID_SERIAL);
 
-	if (enemy) 
+	if (enemy)
 	{
 		// Invisible or hidden creatures cannot be fought
-		if (!canSeeChar(enemy)) 
+		if (!canSeeChar(enemy))
 		{
 			sysmessage(500950);
 			enemy = 0;
 		}
-		else if (enemy->isDead()) 
+		else if (enemy->isDead())
 		{
 			sysmessage("You cannot fight dead creatures.");
 			enemy = 0;
 		}
-		else if (enemy->isInvulnerable()) 
+		else if (enemy->isInvulnerable())
 		{
 			sysmessage(1061621);
 			enemy = 0;
 		}
 	}
-	
+
 	// If we are fighting someone and our target is null,
 	// stop fighting.
-	if (!enemy) 
+	if (!enemy)
 	{
 		// Update only if neccesary
 		if (attackTarget_) {
@@ -2796,21 +2793,21 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 	// If there already is an ongoing fight with our target,
 	// simply return. Otherwise create the structure and fill it.
 	cFightInfo *fight = findFight(enemy);
-	
-	if (fight) 
+
+	if (fight)
 	{
 		// There certainly is a reason to renew this fight
 		fight->refresh();
 		result = FightContinued;
 	}
-	else 
+	else
 	{
 		// Check if it is legitimate to attack the enemy
 		bool legitimate = enemy->notoriety(this) != 0x01;
 		fight = new cFightInfo(this, enemy, legitimate);
-		
+
 		// Display a message to the victim if our target changed to him
-		if (attackTarget() != enemy) 
+		if (attackTarget() != enemy)
 		{
 			P_PLAYER player = dynamic_cast<P_PLAYER>(enemy);
 			if (player && player->socket())
@@ -2858,7 +2855,7 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 			for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 				if( mSock->player() && mSock->player() != pc_i && mSock->player()->inRange( pPet, mSock->player()->visualRange() ) )
 					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
-			
+
 			if( pc_i->objectType() == enPlayer )
 			{
 				P_PLAYER pp = dynamic_cast<P_PLAYER>(pc_i);
@@ -2964,31 +2961,31 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 	}*/
 //}
 
-bool cBaseChar::sysmessage(const QString &message, unsigned short color, unsigned short font) 
+bool cBaseChar::sysmessage(const QString &message, unsigned short color, unsigned short font)
 {
 	return false;
 }
 
-bool cBaseChar::sysmessage(unsigned int message, const QString &params, unsigned short color, unsigned short font) 
+bool cBaseChar::sysmessage(unsigned int message, const QString &params, unsigned short color, unsigned short font)
 {
 	return false;
 }
 
-bool cBaseChar::message(const QString &message, unsigned short color, cUObject *source, unsigned short font, unsigned char mode) 
+bool cBaseChar::message(const QString &message, unsigned short color, cUObject *source, unsigned short font, unsigned char mode)
 {
 	return false;
 }
 
-bool cBaseChar::send(cUOPacket *packet) 
+bool cBaseChar::send(cUOPacket *packet)
 {
 	return false;
 }
 
-void cBaseChar::poll(unsigned int time, unsigned int events) 
+void cBaseChar::poll(unsigned int time, unsigned int events)
 {
-	if (events & EventCombat) 
+	if (events & EventCombat)
 	{
-		if (attackTarget_ && nextSwing_ <= time) 
+		if (attackTarget_ && nextSwing_ <= time)
 		{
 			P_CHAR target = attackTarget_;
 
@@ -3021,7 +3018,7 @@ void cBaseChar::poll(unsigned int time, unsigned int events)
 			} else if (!lineOfSight(attackTarget_, true)) {
 				return;
 			}
-	
+
 			cPythonScript *global = ScriptManager::instance()->getGlobalHook(EVENT_SWING);
 
 			if (global)
@@ -3034,9 +3031,9 @@ void cBaseChar::poll(unsigned int time, unsigned int events)
 	}
 }
 
-void cBaseChar::refreshMaximumValues() 
+void cBaseChar::refreshMaximumValues()
 {
-	if (objectType() == enPlayer) 
+	if (objectType() == enPlayer)
 		maxHitpoints_ = QMAX(1, ((strength_) / 2) + hitpointsBonus_ + 50);
 
 	maxStamina_ = (int)QMAX(1, dexterity_ + staminaBonus_);
@@ -3045,7 +3042,7 @@ void cBaseChar::refreshMaximumValues()
 
 bool cBaseChar::lineOfSight(P_CHAR target, bool touch)
 {
-	if (target == this) 
+	if (target == this)
 	{
 		return true;
 	}
@@ -3065,7 +3062,7 @@ bool cBaseChar::lineOfSight(P_ITEM target, bool touch)
 bool cBaseChar::lineOfSight(Coord_cl target, bool touch)
 {
 	Coord_cl eyes = pos_ + Coord_cl(0, 0, 15);
-	
+
 	return eyes.lineOfSight(target, 0, touch);
 }
 
@@ -3076,7 +3073,7 @@ double cBaseChar::getHitpointRate() {
 	if (hasTag("regenhitpoints")) {
 		points = QMAX(0, getTag("regenhitpoints").toInt());
 	}
-    
+
 	return 1.0 / (0.1 * (1 + points));
 }
 
@@ -3113,7 +3110,7 @@ double cBaseChar::getManaRate() {
 	double medPoints = QMIN(13.0, (intelligence() + skillValue(MEDITATION) * 0.03) * (skillValue(MEDITATION) < 1000 ? 0.025 : 0.0275));
 	double focusPoints = skillValue(FOCUS) * 0.005;
 
-	// Wearing type 1009 items without the 'magearmor': 1 or 'spellchanneling': 1 flags 
+	// Wearing type 1009 items without the 'magearmor': 1 or 'spellchanneling': 1 flags
 	// eliminates the meditation bonus
 	for (unsigned char layer = SingleHandedWeapon; layer < Mount; ++layer) {
 		P_ITEM item = atLayer((enLayer)layer);
@@ -3157,7 +3154,7 @@ void cBaseChar::remove() {
 	removeFromView(false);
 
 	free = true;
-	
+
 	setGuarding(0);
 
 	// We need to remove the equipment here.
@@ -3172,7 +3169,7 @@ void cBaseChar::remove() {
 
 		pItem->remove();
 	}
-	
+
 	if (multi_) {
 		multi_->removeObject(this);
 		multi_ = 0;

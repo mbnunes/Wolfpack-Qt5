@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "engine.h"
 
@@ -856,7 +853,7 @@ static PyObject* wpItem_canstack(wpItem *self, PyObject *args) {
 
 /*
 	\method item.countitems
-	\description Counts items recursively in a container by matching their baseids 
+	\description Counts items recursively in a container by matching their baseids
 	against a given list of strings.
 	\param baseids A list of strings the baseids of all items will be matched against.
 	\return Amount of matching items.
@@ -883,11 +880,11 @@ static PyObject* wpItem_countitems(wpItem *self, PyObject *args) {
 
 /*
 	\method item.removeitems
-	\description Removes items recursively from a container by matching their baseids 
+	\description Removes items recursively from a container by matching their baseids
 	against a given list of strings.
 	\param baseids A list of strings the baseids of the found items will be matched against.
 	\param amount Amount of items to remove.
-	\return The amount of items that still would need to be removed. If the requested amount could be 
+	\return The amount of items that still would need to be removed. If the requested amount could be
 	statisfied, the return value is 0.
 */
 static PyObject* wpItem_removeitems(wpItem *self, PyObject *args) {
@@ -916,7 +913,7 @@ static PyObject* wpItem_removeitems(wpItem *self, PyObject *args) {
 	\description Remove a python script from the event chain for this object.
 	\param event The id of the python script you want to remove from the event chain.
 */
-static PyObject *wpItem_removeevent(wpItem *self, PyObject *args) {	
+static PyObject *wpItem_removeevent(wpItem *self, PyObject *args) {
 	char *event;
 	if (!PyArg_ParseTuple(args, "s:item.removeevent(name)", &event)) {
 		return 0;
@@ -932,7 +929,7 @@ static PyObject *wpItem_removeevent(wpItem *self, PyObject *args) {
 	Does nothing if the object already has that event.
 	\param event The id of the python script you want to add to the event chain.
 */
-static PyObject *wpItem_addevent(wpItem *self, PyObject *args) {	
+static PyObject *wpItem_addevent(wpItem *self, PyObject *args) {
 	char *event;
 	if (!PyArg_ParseTuple(args, "s:item.addevent(name)", &event)) {
 		return 0;
@@ -956,7 +953,7 @@ static PyObject *wpItem_addevent(wpItem *self, PyObject *args) {
 	\param event The id of the python script you are looking for.
 	\return True of the script is in the chain. False otherwise.
 */
-static PyObject *wpItem_hasevent(wpItem *self, PyObject *args) {	
+static PyObject *wpItem_hasevent(wpItem *self, PyObject *args) {
 	char *event;
 	if (!PyArg_ParseTuple(args, "s:item.hasevent(name)", &event)) {
 		return 0;
@@ -978,7 +975,7 @@ static PyObject *wpItem_hasevent(wpItem *self, PyObject *args) {
 	\param args A tuple of arguments you want to pass to this event handler.
 	\return The result of the first handling event.
 */
-static PyObject *wpItem_callevent(wpItem *self, PyObject *args) {	
+static PyObject *wpItem_callevent(wpItem *self, PyObject *args) {
 	unsigned int event;
 	PyObject *eventargs;
 

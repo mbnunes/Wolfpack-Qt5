@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 // Wolfpack Includes
 #include "dbdriver.h"
@@ -96,7 +93,7 @@ bool cDBResult::fetchrow()
 		int count;
 		const char **columns;
 
-		return ( sqlite_step( (sqlite_vm*)_result, &count, (const char***)&_row, &columns ) == SQLITE_ROW );	
+		return ( sqlite_step( (sqlite_vm*)_result, &count, (const char***)&_row, &columns ) == SQLITE_ROW );
 	}
 	return false;
 }
@@ -125,7 +122,7 @@ void cDBResult::free()
 			{
 				throw QString( "Unknown SQLite error while finalizing query." );
 			}
-		}	
+		}
 	}
 
 	_result = 0;
@@ -189,12 +186,12 @@ static PyObject *wpDbResult_free(wpDbResult *self, PyObject *args)
 	return Py_None;
 }
 
-static PyObject *wpDbResult_fetchrow(wpDbResult *self, PyObject *args) 
+static PyObject *wpDbResult_fetchrow(wpDbResult *self, PyObject *args)
 {
 	Q_UNUSED(args);
 	bool result = self->result->fetchrow();
 
-	if (result) 
+	if (result)
 		return PyTrue();
 	else
 		return PyFalse();
@@ -318,7 +315,7 @@ cDBResult cSQLiteDriver::query( const QString &query )
 {
 	char *error = NULL;
 	sqlite_vm *result;
-	
+
 
 	// Compile a VM and pass it to cSQLiteResult
 	if( sqlite_compile( (sqlite*)connection, query.latin1(), NULL, &result, &error ) != SQLITE_OK )
@@ -335,7 +332,7 @@ cDBResult cSQLiteDriver::query( const QString &query )
 		}
 	}
 
-	return cDBResult( result, connection, false ); 
+	return cDBResult( result, connection, false );
 }
 
 bool cSQLiteDriver::tableExists( const QString &table )
@@ -355,7 +352,7 @@ bool cSQLiteDriver::tableExists( const QString &table )
 
 #ifdef MYSQL_DRIVER
 
-bool cMySQLDriver::open( int id ) 
+bool cMySQLDriver::open( int id )
 {
 	if ( connection )
 		return true;
@@ -363,9 +360,9 @@ bool cMySQLDriver::open( int id )
 	connection = mysql_init( 0 );
 	if ( !connection )
 		throw QString("mysql_init(): insufficient memory to allocate a new object");
-	
+
 	( (MYSQL*)connection )->reconnect = 1;
-	
+
 	if ( !mysql_real_connect((MYSQL*)connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
 	{ // Named pipes are acctually slower :(
 		throw QString( "Connection to DB failed: %1" ).arg( mysql_error( (MYSQL*)connection ) );
@@ -392,7 +389,7 @@ cDBResult cMySQLDriver::query( const QString &query )
 	{
 		return cDBResult(); // Return invalid result
 	}
-	
+
 	MYSQL_RES *result = mysql_use_result( mysql );
 	return cDBResult( result, mysql );
 }
@@ -435,7 +432,7 @@ void cMySQLDriver::setActiveConnection( int id )
 	if( connections.find( id ) == connections.end() )
 	{
 		connection = NULL;
-		open( id );		
+		open( id );
 	}
 	else
 	{

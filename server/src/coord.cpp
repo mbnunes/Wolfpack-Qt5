@@ -1,36 +1,31 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
-
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 // Include files
-
 #include "coord.h"
 #include "player.h"
 #include "network.h"
@@ -176,26 +171,26 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, bool touch )
 	wir wollen testen ob vom einem punkt aus eine sichtlinie auf irgendeinen punkt
 	eines ausgedehnten objektes vorhanden ist
 	problem dabei:
-	versetzte lücken müssen auch abgefangen werden
-	lösung:
+	versetzte lcken mssen auch abgefangen werden
+	lï¿½ung:
 	die sichtlinie zu jedem punkt (jedem z-level) des objektes einzeln zu berechnen
-	dabei hören wir auf, sobald wir eine gefunden haben die durchgeht, oder wissen
+	dabei hï¿½en wir auf, sobald wir eine gefunden haben die durchgeht, oder wissen
 	dass keine durchgeht
-	wir fangen von oben an, da mauern die nur bis zu den beinen gehn extrem häufiger
+	wir fangen von oben an, da mauern die nur bis zu den beinen gehn extrem hï¿½figer
 	sind als mauern nur von oben den kopf verdecken und der algorithmus deshalb
 	im allgemeinen wenn eine sichtlinie vorhanden ist diese sofort findet, falls nicht
-	läuft er wohl bis zum ende durch
+	lï¿½ft er wohl bis zum ende durch
 	vorgehensweise bei der berechnung:
-	wir erstellen erst eine liste aller x- und y-koordinaten durch die wir durchmüssen
+	wir erstellen erst eine liste aller x- und y-koordinaten durch die wir durchmssen
 	und legen dann die geraden mit unterschiedlicher steigung in z-richtung durch
 
 	zusatzbemerkungen:
 	ein gegenstand verhindert sichkontakt, falls er das noshoot-flag hat
 	berge (map) verhindern die sicht immer
 
-	die koordinate selber ist die, ab er derjenige guckt, also bei chars die augenhöhe
-	sourceheight wird nur für touch gebraucht
-	die koordinate vom target dagegen ist diejenige zu füssen des items/chars
+	die koordinate selber ist die, ab er derjenige guckt, also bei chars die augenhï¿½e
+	sourceheight wird nur fr touch gebraucht
+	die koordinate vom target dagegen ist diejenige zu fssen des items/chars
 
 	idea:
 	we try if there is a line of sight between one point and any point of a large object
@@ -206,7 +201,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, bool touch )
 	there we stop after we know, that one line is open, or all closed
 	we start from above, because walls usually are in the way in the erea of our feets,
 	not our heads
-	so we create a list of all x- and y- coordinates we have to pass and then draw 
+	so we create a list of all x- and y- coordinates we have to pass and then draw
 	straight lines in z-direction with different gradients
 
 	comments:
@@ -294,7 +289,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					//Console::instance()->send( QString( "add exaktpos coordinate %1,%2\n" ).arg( gridx ).arg( oldpos-sgn_y ) );
 					exaktpos = false;
 				}
-					
+
 				// linear evaluation of extended 2x2 matrix, abbreviated
 				double t = (double)sgn_x * ((double)i+0.5) * (double)m / (double)n + (double)y;
 				//Console::instance()->send( QString( "t:%1\n" ).arg( t ) );
@@ -303,7 +298,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				{
 					exaktpos = true;
 				}
-				
+
 				if( ((sgn_y>0) && (t<oldpos+0.5)) || ((sgn_y<0) && (t>oldpos-0.5)) || (oldpos==target.y) )
 				{
 					collisions.push_back( Coord_cl( gridx, oldpos, 0, map ) );
@@ -311,7 +306,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				}
 				// but if not, we have to take BOTH coordinates, which the calculated collision is between!
 				else
-				{ 
+				{
 					collisions.push_back( Coord_cl( gridx, oldpos, 0, map ) );
 					//Console::instance()->send( QString( "add coordinate %1,%2\n" ).arg( gridx ).arg( oldpos ) );
 					oldpos += sgn_y;
@@ -320,7 +315,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				}
 			}
 		}
-		
+
 		oldpos = x;
 		exaktpos = false;
 		for( i = 0; (sgn_y * m >= sgn_x * n) && (i <= (sgn_y * m)); ++i )
@@ -355,7 +350,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				}
 				// but if not, we have to take BOTH coordinates, which the calculated collision is between!
 				else
-				{ 
+				{
 					collisions.push_back( Coord_cl( oldpos, gridy, 0, map ) );
 					//Console::instance()->send( QString( "add coordinate %1,%2\n" ).arg( oldpos ).arg( gridy ) );
 					oldpos += sgn_x;;
@@ -378,9 +373,9 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 		}
 	}
 
-	//touch wird von notouch getrennt, da der notouch algorithmus wesentlich aufwändiger
-	//ist (touch benötigt die erste for-schleife nicht), macht den code zwar bisserl
-	//unübersichtlicher, aber ist wesentlich effizienter
+	//touch wird von notouch getrennt, da der notouch algorithmus wesentlich aufwï¿½diger
+	//ist (touch benï¿½igt die erste for-schleife nicht), macht den code zwar bisserl
+	//unbersichtlicher, aber ist wesentlich effizienter
 
 	//touch is separated from notouch, because the notouch calculation is much more to do
 	//( one additional for-loop )
@@ -411,10 +406,10 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				gradient = (double)m / (double)n;
 				offset = 0.5*( (double)y + (double)target.y - gradient*( x + target.x ) );
 			}
-	
+
 			map_st map1, map2;
 			SI32 j;
-	
+
 			bool posHigherThanMap;
 			map1 = Map->seekMap( (*this) );
 			if( map1.z > z )
@@ -425,7 +420,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 			{
 				posHigherThanMap = true;
 			}
-			
+
 			//Console::instance()->send( QString( "after first things\n" ) );
 			QValueList< Coord_cl >::iterator pit = collisions.begin();
 			while( pit != collisions.end() )
@@ -439,7 +434,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				//or x = ( y - offset ) / gradient
 				//we now have to test, where the line cuts one position
 				//start and endposition has to be done alone
-				
+
 				double z1 = -300;
 				double z2 = -300;
 				SI08 zmin, zmax;
@@ -460,7 +455,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				else if( sgn_x == 0 )
 				{
 					//gradient only in y-direction
-					z1 = (double)i - dz*( fabs( (double)target.y - (double)((*pit).y) ) -0.5 ); 
+					z1 = (double)i - dz*( fabs( (double)target.y - (double)((*pit).y) ) -0.5 );
 					z2 = (double)i - dz*( fabs( (double)target.y - (double)((*pit).y) ) +0.5 );
 					//Console::instance()->send( QString( "i:%1,ty:%2,cy:%3\n" ).arg( i ).arg( target.y ).arg( (*pit).y ) );
 					//Console::instance()->send( QString( "z1:%1,z2:%2\n" ).arg( z1 ).arg( z2 ) );
@@ -477,7 +472,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					}
 
 					/*another try, but i think its needed for all positions, not only start and end...
-					//target 
+					//target
 					if( (*pit).y == target.y )
 					{
 						if( dz > 0 )
@@ -521,7 +516,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				else if( sgn_y == 0 )
 				{
 					//gradient only in y-direction
-					z1 = (double)i - dz*( fabs( (double)target.x - (double)((*pit).x) ) -0.5 ); 
+					z1 = (double)i - dz*( fabs( (double)target.x - (double)((*pit).x) ) -0.5 );
 					z2 = (double)i - dz*( fabs( (double)target.x - (double)((*pit).x) ) +0.5 );
 					//Console::instance()->send( QString( "i:%1,tx:%2,cx:%3\n" ).arg( i ).arg( target.x ).arg( (*pit).x ) );
 					//Console::instance()->send( QString( "z1:%1,z2:%2\n" ).arg( z1 ).arg( z2 ) );
@@ -536,7 +531,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 						zmin = (SI08)floor( z1 );
 						zmax = (SI08)ceilf( z2 );
 					}
-					
+
 					if( dz > 0 )
 					{
 						zmax = QMIN( zmax, i );
@@ -567,7 +562,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 							z2 = gradx * ( (double)((*pit).x)-0.5 ) + grady * temp;
 						}
 						else
-						{	
+						{
 							z1 = gradx * ( (double)((*pit).x)-0.5 ) + grady * temp;
 						}
 						//Console::instance()->send( QString( "1:i:%1,tx:%2,ty:%3,cy:%4,cy:%5\n" ).arg( i ).arg( target.x ).arg( target.y ).arg( (*pit).x ).arg( (*pit).y ) );
@@ -582,7 +577,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 							z2 = gradx * ( (double)((*pit).x)+0.5 ) + grady * temp;
 						}
 						else
-						{	
+						{
 							z1 = gradx * ( (double)((*pit).x)+0.5 ) + grady * temp;
 						}
 						//Console::instance()->send( QString( "2:i:%1,tx:%2,ty:%3,cy:%4,cy:%5\n" ).arg( i ).arg( target.x ).arg( target.y ).arg( (*pit).x ).arg( (*pit).y ) );
@@ -618,7 +613,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 						//Console::instance()->send( QString( "4:i:%1,tx:%2,ty:%3,cy:%4,cy:%5\n" ).arg( i ).arg( target.x ).arg( target.y ).arg( (*pit).x ).arg( (*pit).y ) );
 						//Console::instance()->send( QString( "z1:%1,z2:%2\n" ).arg( z1 ).arg( z2 ) );
 					}
-					
+
 					//Console::instance()->send( QString( "z1:%1,z2:%2\n" ).arg( z1 ).arg( z2 ) );
 					if( z1 > z2 )
 					{
@@ -662,14 +657,14 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					zmin = QMIN( (SI08)floor( zmin + dz/2 ), target.z+1 );
 					zmax = QMAX( zmin - dz + 1, z );	//to prevent floor-mistakes
 				}*/
-	
-				// Texture mapping  
+
+				// Texture mapping
 				map1 = Map->seekMap( *pit );
 				map2 = Map->seekMap( Coord_cl( (*pit).x + sgn_x, (*pit).y + sgn_y, (*pit).z, map ) );
-			
+
 				//Console::instance()->send( QString( "maphoehe:%1\n" ).arg( map1.z ) );
 				StaticsIterator msi = Map->staticsIterator( *pit );
-				if( (map1.id != 2) && (map2.id != 2) ) 
+				if( (map1.id != 2) && (map2.id != 2) )
 				{
 					if( ( map1.z >= zmin ) && ( map1.z <= zmax ) )
 					{
@@ -678,7 +673,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 						blocked = true;
 						break;
 					}
-	
+
 					//now we have to test, if this tile is under our line and the next above or
 					//vice verse
 					//in this case, both dont cut our line, but the mapconnection between them
@@ -699,10 +694,10 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 						blocked = true;
 						break;
 					}
-				}	 
-				
+				}
+
 				//Console::instance()->send( QString( "after map\n" ) );
-	
+
 				// Statics
 				tile_st tile;
 				while( !msi.atEnd() )
@@ -720,14 +715,14 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 							break;
 						}
 					}
-		
+
 					++msi;
 				}
 				if( blocked )
 				{
 					break;
 				}
-				
+
 				//Console::instance()->send( QString( "after statics\n" ) );
 				// Items
 				RegionIterator4Items rj( (*pit), 0 );
@@ -745,14 +740,14 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 								blocked = true;
 								break;
 							}
-						}	
+						}
 					}
 				}
 				if( blocked )
 				{
 					break;
 				}
-	
+
 				//Console::instance()->send( QString( "after items\n" ) );
 				// Multis
 				QPtrListIterator< cItem > mit( multis );
@@ -766,7 +761,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					for( j = 0; j < multi.size(); ++j )
 					{
 						if( ( multi[j].visible ) && ( pi->pos().x + multi[j].x == (*pit).x ) &&
-							( pi->pos().y + multi[j].y == (*pit).y ) )			
+							( pi->pos().y + multi[j].y == (*pit).y ) )
 						{
 							tile = TileCache::instance()->getTile( multi[j].tile );
 							if( ( zmax >= pi->pos().z + multi[j].z ) &&
@@ -777,7 +772,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 									blocked = true;
 									break;
 								}
-							}	
+							}
 						}
 					}
 					++mit;
@@ -785,7 +780,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				//Console::instance()->send( QString( "after multis\n" ) );
 				++pit;
 			}
-	
+
 			if( !blocked )
 				return true;
 		}
@@ -814,10 +809,10 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 			gradient = (double)m / (double)n;
 			offset = 0.5*( (double)y + (double)target.y - gradient*( x + target.x ) );
 		}
-	
+
 		map_st map1, map2;
 		SI32 j;
-	
+
 		bool posHigherThanMap;
 		map1 = Map->seekMap( (*this) );
 		if( map1.z > z )
@@ -828,14 +823,14 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 		{
 			posHigherThanMap = true;
 		}
-		
+
 		//Console::instance()->send( QString( "after first things\n" ) );
 		QValueList< Coord_cl >::iterator pit = collisions.begin();
 		while( pit != collisions.end() )
 		{
-			//Console::instance()->send( QString( "coordinate:%1,%2\n" ).arg( (*pit).x ).arg( (*pit).y ) );				
+			//Console::instance()->send( QString( "coordinate:%1,%2\n" ).arg( (*pit).x ).arg( (*pit).y ) );
 			//lets see what z-coordinates we have to test
-			//anmerkung: touch kommt nur für chars vor, grösse von chars ist 15
+			//anmerkung: touch kommt nur fr chars vor, grï¿½se von chars ist 15
 			//SI08 zmin = (SI08)floor(  (double)z - (double)sourceheight + dz_down*sqrt( ((double)target.x - (double)(*pit).x)*((double)target.x - (double)(*pit).x) + ((double)target.y - (double)(*pit).y)*((double)target.y - (double)(*pit).y) ) );
 			//SI08 zmax = (SI08)floor(  (double)z + dz_up*sqrt( ((double)target.x - (double)(*pit).x)*((double)target.x - (double)(*pit).x) + ((double)target.y - (double)(*pit).y)*((double)target.y - (double)(*pit).y) ) );
 			SI08 zmin, zmax;
@@ -884,7 +879,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 						continue;
 					}
 				}
-				else 
+				else
 				{
 					//we may have to split the test into two if we would do it exactly
 					//but i think we can throw away the test from down in this case
@@ -905,9 +900,9 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 			}
 			else if( sgn_x == 0 )
 			{
-				z1_up = target.z + targetheight - dz_up*( fabs( (double)target.y - (double)((*pit).y) ) -0.5 ); 
+				z1_up = target.z + targetheight - dz_up*( fabs( (double)target.y - (double)((*pit).y) ) -0.5 );
 				z2_up = target.z + targetheight - dz_up*( fabs( (double)target.y - (double)((*pit).y) ) +0.5 );
-			
+
 				z1_down = target.z - dz_down*( fabs( (double)target.y - (double)((*pit).y) ) -0.5 );
 				z2_down = target.z - dz_down*( fabs( (double)target.y - (double)((*pit).y) ) +0.5 );
 
@@ -969,7 +964,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 							continue;
 						}
 					}
-					else 
+					else
 					{
 						//we may have to split the test into two if we would do it exactly
 						//but i think we can throw away the test from down in this case
@@ -992,9 +987,9 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 			}
 			else if( sgn_y == 0 )
 			{
-				z1_up = target.z + targetheight - dz_up*( fabs( (double)target.x - (double)((*pit).x) ) -0.5 ); 
+				z1_up = target.z + targetheight - dz_up*( fabs( (double)target.x - (double)((*pit).x) ) -0.5 );
 				z2_up = target.z + targetheight - dz_up*( fabs( (double)target.x - (double)((*pit).x) ) +0.5 );
-			
+
 				z1_down = target.z - dz_down*( fabs( (double)target.x - (double)((*pit).x) ) -0.5 );
 				z2_down = target.z - dz_down*( fabs( (double)target.x - (double)((*pit).x) ) +0.5 );
 
@@ -1050,7 +1045,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 							continue;
 						}
 					}
-					else 
+					else
 					{
 						//we may have to split the test into two if we would do it exactly
 						//but i think we can throw away the test from down in this case
@@ -1107,7 +1102,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 						z2_down = gradx_down * ( (double)((*pit).x)+0.5 ) + grady_down * temp;
 					}
 					else
-					{	
+					{
 						z1_up = gradx_up * ( (double)((*pit).x)+0.5 ) + grady_up * temp;
 						z1_down = gradx_down * ( (double)((*pit).x)+0.5 ) + grady_down * temp;
 					}
@@ -1212,7 +1207,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 							continue;
 						}
 					}
-					else 
+					else
 					{
 						//we may have to split the test into two if we would do it exactly
 						//but i think we can throw away the test from down in this case
@@ -1230,18 +1225,18 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 							continue;
 						}
 					}
-				}				
+				}
 			}
 			//Console::instance()->send( QString( "zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
 
-			// Texture mapping  
+			// Texture mapping
 			map1 = Map->seekMap( *pit );
 			map2 = Map->seekMap( Coord_cl( (*pit).x + sgn_x, (*pit).y + sgn_y, (*pit).z, map ) );
-			
+
 			//Console::instance()->send( QString( "try2" ) );
 			StaticsIterator msi = Map->staticsIterator( *pit );
 			RegionIterator4Items rj( (*pit), 0 );
-			if( (map1.id != 2) && (map2.id != 2) ) 
+			if( (map1.id != 2) && (map2.id != 2) )
 			{
 				if( ( map1.z > zmin ) && ( map1.z < zmax ) )
 				{
@@ -1249,7 +1244,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					//Console::instance()->send( QString( "map cut 1\n" ) );
 					return false;
 				}
-				
+
 				//now we have to test, if this tile is under our line and the next above or
 				//vice verse
 				//in this case, both dont cut our line, but the mapconnection between them
@@ -1262,7 +1257,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					//Console::instance()->send( QString( "map1:%1,map2:%2,map1id:%3\n" ).arg( map1.z ).arg( map2.z ).arg( map1.id ) );
 					if( ( map1.z < map2.z ) && ( map1.z < zmin ) && ( map2.z > zmax+dz_down ) )
 					{
-						//Console::instance()->send( QString( "mapcut1\n" ) ); 
+						//Console::instance()->send( QString( "mapcut1\n" ) );
 					}
 					else if( ( map1.z > map2.z ) && ( map1.z > zmin ) && ( map2.z < zmin+dz_down ) )
 					{
@@ -1278,10 +1273,10 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					}
 					return false;
 				}
-			}	 
-			
+			}
+
 			//Console::instance()->send( QString( "after map\n" ) );
-		
+
 			// Statics
 			tile_st tile;
 			while( !msi.atEnd() )
@@ -1300,10 +1295,10 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 						}
 					}
 				}
-			
+
 				++msi;
 			}
-			
+
 			//Console::instance()->send( QString( "after statics\n" ) );
 			// Items
 			//Console::instance()->send( QString( "Items at: %1,%2,%3,%4\n" ).arg( (*pit).x ).arg( (*pit).y ).arg( (*pit).z ).arg( (*pit).map ) );
@@ -1322,10 +1317,10 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 							//Console::instance()->send( QString( "Item:%1,Z:%2,Height:%3\n" ).arg( pi->id() ).arg( pi->pos().z ).arg( tile.height ) );
 							return false;
 						}
-					}	
+					}
 				}
 			}
-			
+
 			//Console::instance()->send( QString( "after items\n" ) );
 			// Multis
 			QPtrListIterator< cItem > mit( multis );
@@ -1342,7 +1337,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				for( j = 0; j < multi.size(); ++j )
 				{
 					if( ( multi[j].visible ) && ( pi->pos().x + multi[j].x == (*pit).x ) &&
-						( pi->pos().y + multi[j].y == (*pit).y ) )			
+						( pi->pos().y + multi[j].y == (*pit).y ) )
 					{
 						tile = TileCache::instance()->getTile( multi[j].tile );
 						if( ( zmax >= pi->pos().z + multi[j].z ) &&
@@ -1350,9 +1345,9 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 						{
 							if( tile.isBlocking() || tile.isRoofOrFloorTile() )
 							{
-								return false;							
+								return false;
 							}
-						}	
+						}
 					}
 				}
 				++mit;

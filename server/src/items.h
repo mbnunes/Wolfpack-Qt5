@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #if !defined( __ITEMS_H )
 #define __ITEMS_H
@@ -104,7 +101,7 @@ public:
 	uint			decaytime()		const { return decaytime_; }
 	uchar			visible()		const { return visible_;}
 	uchar			priv()			const { return priv_;	}
-	QString			baseid()		const { return baseid_; }    
+	QString			baseid()		const { return baseid_; }
 	QString			spawnregion()	const { return spawnregion_; }
 
 //***************************END ADDED GETTERS************
@@ -158,11 +155,11 @@ public:
 	bool isInWorld() const			{ return (!container_); }
 	bool isMulti() const				{ return ( id_ >= 0x4000 ); }
 	bool isPileable();
-	
+
 	void setOwnSerialOnly(int ownser);
 	void SetOwnSerial(int ownser);
 	int ownSerial() const			{return ownserial_;}
-		
+
 	bool isShield() const { return type_ == 1008; }
 	UINT16 getWeaponSkill();
 
@@ -187,7 +184,7 @@ public:
 	unsigned int countItems(const QStringList &baseids);
 
 	/*!
-		\brief Removes a certain amount of items from this container 
+		\brief Removes a certain amount of items from this container
 			recursively.
 		\param baseids The list of baseids that a item can have.
 		\param amount The amount of items to remove.
@@ -198,7 +195,7 @@ public:
 	int  CountItems(short ID, short col= -1) const;
 	int  DeleteAmount(int amount, ushort _id, ushort _color = 0);
 	QString getName( bool shortName = false );
-	void startDecay();	
+	void startDecay();
 	void setAllMovable()		{this->magic_=1; flagChanged();} // set it all movable..
 	bool isAllMovable()         {return (magic_==1);}
 	void setGMMovable()		    {this->magic_=2; flagChanged();} // set it GM movable.
@@ -220,7 +217,7 @@ public:
 	bool onDropOnGround( const Coord_cl &pos );
 	bool onPickup( P_CHAR pChar );
 //	bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
-	
+
 	QPtrList< cItem > getContainment() const;
 
 	P_ITEM getOutmostItem();
@@ -235,7 +232,7 @@ public:
 
 	static P_ITEM createFromScript( const QString &section );
 	static P_ITEM createFromList( const QString &list );
-	static P_ITEM createFromId( unsigned short id );	
+	static P_ITEM createFromId( unsigned short id );
 	void decay( unsigned int currenttime );
 	void remove();
 
@@ -249,7 +246,7 @@ protected:
 	unsigned short	id_;			// Display id of the item
 	unsigned short	color_;			// Color of this item
 	unsigned short	amount_;		// Amount of this item
-	
+
 	unsigned char	layer_;			// The layer this item is equipped on
 	unsigned short	hp_;			// Amount of hitpoints this item has
 	unsigned short	maxhp_;			// The maximum amount of hitpoints this item can have
@@ -264,7 +261,7 @@ protected:
 									// 2: This item cannot be moved
 									// 3: This item can only be moved by it's owner
 									// 4: This item has been locked down
-	
+
 	unsigned int	decaytime_;		// This timer specifies when the item will decay. If this value is 0, the item will never decay
 	SERIAL			ownserial_;		// This property specifies the owner of this item. If it is INVALID_SERIAL, this item has no owner
 	unsigned char	visible_;		// This property specifies the visibility of the item.
@@ -275,7 +272,7 @@ protected:
 	//===================
 	//   0 |  01 | NoDecay
 	//   1 |  02 | Newbie
-	//   2 |  04 | 
+	//   2 |  04 |
 	//   3 |  08 | Secured (Chests)
 	//   4 |  10 | Allow meditation
 	//   5 |  20 | Twohanded

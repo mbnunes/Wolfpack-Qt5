@@ -1,35 +1,32 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #if !defined(__BASEREGION_H__)
-#define __BASEREGION_H__ 
+#define __BASEREGION_H__
 
 #include "definable.h"
 #include "platform.h"
@@ -48,7 +45,7 @@
 class cBaseRegion : public cDefinable
 {
 public:
-	struct rect_st 
+	struct rect_st
 	{
 		UI16 x1;
 		UI16 x2;
@@ -56,7 +53,7 @@ public:
 		UI16 y2;
 		UI08 map;
 	};
-	
+
 	cBaseRegion(): parent_( 0 ) {;}
 
 	cBaseRegion( const cElement *tag, cBaseRegion* pParent )
@@ -85,7 +82,7 @@ public:
 	bool	contains( UI16 posx, UI16 posy, UI08 map ) const
 	{
 		QValueVector< rect_st >::const_iterator it = this->rectangles_.begin();
-		
+
 		while( it != this->rectangles_.end() )
 		{
 			if( ( ( posx >= (*it).x1 && posx <= (*it).x2 )   ||
@@ -126,7 +123,7 @@ public:
 			foundRegion = this;
 		else
 			return 0;
-		
+
 		QValueVector< cBaseRegion* >::iterator it = this->subregions_.begin();
 		while( it != this->subregions_.end() )
 		{
@@ -158,7 +155,7 @@ protected:
 	{
 		QString TagName = Tag->name();
 		QString Value = Tag->value();
-	
+
 		// <rectangle x1="0" x2="1000" y1="0" y2="500" />
 		if( TagName == "rectangle"  )
 		{
@@ -189,7 +186,7 @@ public:
 class cAllBaseRegions
 {
 public:
-	virtual ~cAllBaseRegions() 
+	virtual ~cAllBaseRegions()
 	{
 		QMap<uint, cBaseRegion*>::const_iterator it( topregions.begin() );
 		for ( ; it != topregions.end(); ++it )

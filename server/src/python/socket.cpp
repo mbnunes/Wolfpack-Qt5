@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "utilities.h"
 #include "../network/uosocket.h"
@@ -142,7 +139,7 @@ static PyObject* wpSocket_clilocmessage(wpSocket* self, PyObject* args) {
 
 	if (!PyArg_ParseTuple(args, "I|esHHOesBB:socket.clilocmessage"
 		"(messageid, [params], [color], [font], [source], [affix], [dontmove], [prepend])",
-		&clilocid, "utf-8", &params, &color, &font, &psource, 
+		&clilocid, "utf-8", &params, &color, &font, &psource,
 		"utf-8", &affix, &dontmove, &prepend)) {
 		return 0;
 	}
@@ -154,7 +151,7 @@ static PyObject* wpSocket_clilocmessage(wpSocket* self, PyObject* args) {
 	}
 
 	if (affix != 0) {
-		self->pSock->clilocMessageAffix(clilocid, QString::fromUtf8(params), 
+		self->pSock->clilocMessageAffix(clilocid, QString::fromUtf8(params),
 			QString::fromUtf8(affix), color, font, source, dontmove, prepend);
 		PyMem_Free(affix);
 	} else {
@@ -184,14 +181,14 @@ static PyObject* wpSocket_showspeech(wpSocket* self, PyObject* args) {
 	unsigned short color = 0x3b2;
 	unsigned short font = 3;
 	unsigned char type = 0;
-	
+
 	if (!PyArg_ParseTuple(args, "O&es|HHB:socket.showspeech"
-		"(source, message, [color], [font], [type])", 
+		"(source, message, [color], [font], [type])",
 		PyConvertObject, &object, "utf-8", &message, &color, &font, &type)) {
 		return 0;
 	}
 
-	self->pSock->showSpeech(object, QString::fromUtf8(message), color, font, 
+	self->pSock->showSpeech(object, QString::fromUtf8(message), color, font,
 		(cUOTxUnicodeSpeech::eSpeechType)type);
 	PyMem_Free(message);
 	Py_INCREF(Py_None);
@@ -209,12 +206,12 @@ static PyObject* wpSocket_showspeech(wpSocket* self, PyObject* args) {
 	- <code>player</code> The <object id="CHAR">char</object> object of the player sending the target response.
 	- <code>arguments</code> The arguments passed to attachtarget. This is converted to a tuple.
 	- <code>target</code> A <object id="TARGET">target</object> object representing the target.
-	
+
 	\param args A list of arguments that are passed to the callback function. This defaults to an empty list.
-	\param cancelcallback The full name of a python function that should be called when the target is canceled. 
+	\param cancelcallback The full name of a python function that should be called when the target is canceled.
 	Defaults to an empty string.
 	\param timeoutcallback The full name of a python function that should be called when the target times out.
-	\param timeout The timeout of this target in miliseconds. Defaults to zero which means the target doesn't 
+	\param timeout The timeout of this target in miliseconds. Defaults to zero which means the target doesn't
 	time out at all.
 */
 static PyObject* wpSocket_attachtarget(wpSocket* self, PyObject* args) {
@@ -222,14 +219,14 @@ static PyObject* wpSocket_attachtarget(wpSocket* self, PyObject* args) {
 	PyObject *targetargs = 0;
 	char *cancelfunc = 0;
 	char *timeoutfunc = 0;
-	unsigned int timeout = 0;	
+	unsigned int timeout = 0;
 
 	if (!PyArg_ParseTuple(args, "s|O!ssI:socket.attachtarget"
-		"(callback, [args], [cancelcallback], [timeoutcallback], [timeout])", 
+		"(callback, [args], [cancelcallback], [timeoutcallback], [timeout])",
 		&responsefunc, &PyList_Type, &targetargs, &cancelfunc, &timeoutfunc, &timeout)) {
 		return 0;
 	}
-	
+
 	if (targetargs) {
 		targetargs = PyList_AsTuple(targetargs);
 	} else {
@@ -237,7 +234,7 @@ static PyObject* wpSocket_attachtarget(wpSocket* self, PyObject* args) {
 	}
 
 	cPythonTarget *target = new cPythonTarget(responsefunc, timeoutfunc, cancelfunc, targetargs);
-	
+
 	if (timeout) {
 		target->setTimeout(uiCurrentTime + timeout);
 	}
@@ -250,19 +247,19 @@ static PyObject* wpSocket_attachtarget(wpSocket* self, PyObject* args) {
 static PyObject* wpSocket_attachitemtarget(wpSocket* self, PyObject* args) {
 	char *responsefunc;
 	PyObject *items;
-	PyObject *targetargs = 0;	
+	PyObject *targetargs = 0;
 	char *cancelfunc = 0;
 	char *timeoutfunc = 0;
 	unsigned int timeout = 0;
 	int xoffset, yoffset, zoffset;
 
 	if (!PyArg_ParseTuple(args, "sO!iii|O!ssI:socket.attachitemtarget"
-		"(callback, [items], [args], [cancelcallback], [timeoutcallback], [timeout])", 
-		&responsefunc, &PyList_Type, &items, &xoffset, &yoffset, &zoffset, &PyList_Type, 
+		"(callback, [items], [args], [cancelcallback], [timeoutcallback], [timeout])",
+		&responsefunc, &PyList_Type, &items, &xoffset, &yoffset, &zoffset, &PyList_Type,
 		&targetargs, &cancelfunc, &timeoutfunc, &timeout)) {
 		return 0;
 	}
-	
+
 	if (targetargs) {
 		targetargs = PyList_AsTuple(targetargs);
 	} else {
@@ -276,7 +273,7 @@ static PyObject* wpSocket_attachitemtarget(wpSocket* self, PyObject* args) {
 		PyObject *listitem = PyList_GetItem(items, i);
 
 		// Has to be another list
-		if (PyList_Check(listitem)) {			
+		if (PyList_Check(listitem)) {
 			// id, xoffset, yoffset, zoffset, hue
 			if (PyList_Size(listitem) == 5) {
 				PyObject *id = PyList_GetItem(listitem, 0);
@@ -299,8 +296,8 @@ static PyObject* wpSocket_attachitemtarget(wpSocket* self, PyObject* args) {
 		}
 	}
 
-    cPythonTarget *target = new cPythonTarget(responsefunc, timeoutfunc, cancelfunc, targetargs);	
-	
+    cPythonTarget *target = new cPythonTarget(responsefunc, timeoutfunc, cancelfunc, targetargs);
+
 	if (timeout) {
 		target->setTimeout(uiCurrentTime + timeout);
 	}
@@ -316,18 +313,18 @@ static PyObject* wpSocket_attachmultitarget(wpSocket* self, PyObject* args) {
 	PyObject *targetargs;
 	char *cancelfunc = 0;
 	char *timeoutfunc = 0;
-	unsigned int timeout = 0;	
+	unsigned int timeout = 0;
 
 	if (!PyArg_ParseTuple(args, "sHO!|ssI:socket.attachmultitarget"
-		"(callback, multi, args, [cancelcallback], [timeoutcallback], [timeout])", 
+		"(callback, multi, args, [cancelcallback], [timeoutcallback], [timeout])",
 		&responsefunc, &multiid, &PyList_Type, &targetargs, &cancelfunc, &timeoutfunc, &timeout)) {
 		return 0;
 	}
-	
+
 	targetargs = PyList_AsTuple(targetargs);
 
 	cPythonTarget *target = new cPythonTarget(responsefunc, timeoutfunc, cancelfunc, targetargs);
-	
+
 	if (timeout) {
 		target->setTimeout(uiCurrentTime + timeout);
 	}
@@ -371,8 +368,8 @@ static PyObject* wpSocket_sendgump(wpSocket* self, PyObject* args) {
 	PyObject *layout, *texts, *py_args;
 	char *callback;
 
-	if (!PyArg_ParseTuple(args, "iiBBBIIO!O!sO!:socket.sendgump", &x, &y, &nomove, 
-		&noclose, &nodispose, &serial, &type, &PyList_Type, &layout, &PyList_Type, &texts, 
+	if (!PyArg_ParseTuple(args, "iiBBBIIO!O!sO!:socket.sendgump", &x, &y, &nomove,
+		&noclose, &nodispose, &serial, &type, &PyList_Type, &layout, &PyList_Type, &texts,
 		&callback, &PyList_Type, &py_args)) {
 		return 0;
 	}
@@ -427,7 +424,7 @@ static PyObject* wpSocket_sendgump(wpSocket* self, PyObject* args) {
 	\method socket.closegump
 	\description Closes a gump sent to the client.
 	\param type The type id of the gump(s) to close.
-	\param buttonid Which button id should the client send as a response for the closed gumps. 
+	\param buttonid Which button id should the client send as a response for the closed gumps.
 	Defaults to 0.
 */
 static PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
@@ -443,7 +440,7 @@ static PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
 	closeGump.setButton(button);
 	closeGump.setType(type);
 	self->pSock->send(&closeGump);
-	
+
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -491,7 +488,7 @@ static PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 		return PyFalse();
-	
+
 	if( !checkArgItem( 0 ) )
 	{
 		PyErr_BadArgument();
@@ -549,7 +546,7 @@ static PyObject* wpSocket_sendpaperdoll( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 		return PyFalse();
-	
+
 	if( !checkArgChar( 0 ) )
 	{
 		PyErr_BadArgument();
@@ -630,7 +627,7 @@ static PyObject* wpSocket_hastag( wpSocket* self, PyObject* args )
 	}
 
 	QString key = getArgStr( 0 );
-	
+
 	return self->pSock->tags().has( key ) ? PyTrue() : PyFalse();
 }
 
@@ -716,7 +713,7 @@ static PyObject *wpSocket_updateskill(wpSocket *self, PyObject *args) {
 	return PyTrue();
 }
 
-static PyMethodDef wpSocketMethods[] = 
+static PyMethodDef wpSocketMethods[] =
 {
 	{ "updateskill",		(getattrofunc)wpSocket_updateskill, METH_VARARGS, NULL },
 	{ "updateplayer",		(getattrofunc)wpSocket_updateplayer, METH_VARARGS, NULL },

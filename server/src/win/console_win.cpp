@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 // System Includes
 #include <stdio.h>
@@ -178,7 +175,7 @@ LRESULT CALLBACK AboutDialog(HWND hwnd, unsigned int msg, WPARAM wparam, LPARAM 
 			if (richtext) {
 				HRSRC resource = FindResource(appInstance, MAKEINTRESOURCE(IDD_CREDITS), RT_RCDATA);
 				HGLOBAL rData = LoadResource(appInstance, resource);
-				
+
 				const char *data = (const char*)LockResource(rData);
 				QStringList creditList = QStringList::split(",", data);
 				QString credits = "This is an unsorted not neccesarily complete list of people who contributed to Wolfpack:\n\n";
@@ -186,7 +183,7 @@ LRESULT CALLBACK AboutDialog(HWND hwnd, unsigned int msg, WPARAM wparam, LPARAM 
 				for (unsigned int i = 0; i < creditList.size(); ++i) {
 					credits.append(creditList[i]);
 				}
-                
+
 				SetWindowText(richtext, credits.latin1());
 
 				UnlockResource(rData);
@@ -226,7 +223,7 @@ bool handleMenuSelect( unsigned int id )
 		queueAction( RELOAD_ACCOUNTS );
 		break;
 
-	case ID_RELOAD_PYTHON:		
+	case ID_RELOAD_PYTHON:
 		queueAction( RELOAD_PYTHON );
 		break;
 
@@ -249,7 +246,7 @@ bool handleMenuSelect( unsigned int id )
 		// Generate a list of Users
 		mSock = Network::instance()->first();
 		i = 0;
-		
+
 		for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
 			if( mSock->player() )
@@ -273,7 +270,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 {
 	LOGFONT lfont;
 	NMHDR *notify = (NMHDR*)lparam;
-	HDC dc;	
+	HDC dc;
 
 	switch( msg )
 	{
@@ -291,7 +288,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 				} else {
 					ShowWindow(mainWindow, SW_NORMAL);
 					UpdateWindow(mainWindow);
-				}				
+				}
 				break;
 		}
 
@@ -351,7 +348,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 			qstrcpy( lfont.lfFaceName, "Courier" );
 			font = CreateFontIndirect( &lfont );
 		}
-           
+
 		// Set the font of our logwindow
 		SendMessage( logWindow, WM_SETFONT, (WPARAM)font, 0 );
 		SendMessage( logWindow, EM_SETBKGNDCOLOR, 0, (LPARAM)RGB(0,0,0) );
@@ -360,7 +357,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
         ZeroMemory( &cf, sizeof( CHARFORMAT ) );
         cf.cbSize = sizeof( CHARFORMAT );
         cf.dwMask = CFM_COLOR;
-        cf.crTextColor = RGB( 0xAF,0xAF,0xAF ); 
+        cf.crTextColor = RGB( 0xAF,0xAF,0xAF );
 
 		SendMessage( logWindow, EM_SETCHARFORMAT, SCF_DEFAULT, (LPARAM)&cf );
 		SendMessage( logWindow, EM_AUTOURLDETECT, TRUE, 0 );
@@ -416,7 +413,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 
 	case WM_NOTIFY:
 		if( wparam == CONTROL_LOGWINDOW )
-		{		
+		{
 			if( notify->code == EN_LINK )
 			{
 				ENLINK *link = (ENLINK*)notify;
@@ -424,7 +421,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 				if( link->msg == WM_LBUTTONDOWN )
 				{
 					char *string = new char[ ( link->chrg.cpMax - link->chrg.cpMin ) + 1 ];
-					
+
 					TEXTRANGE tr;
 					tr.chrg = link->chrg;
 					tr.lpstrText = string;
@@ -435,7 +432,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 					ShellExecute( mainWindow, "open", string, 0, 0, SW_NORMAL );
 
 					delete [] string;
-				}				
+				}
 			}
 			else if( notify->code == EN_MSGFILTER )
 			{
@@ -450,10 +447,10 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 			}
 		}
 		return 0;
-		
+
 	case WM_CLOSE:
 		keeprun = 0;
-		
+
 		if (canClose) {
 			DestroyWindow( mainWindow );
 		}
@@ -473,7 +470,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		return 0;
 	}
 
-	return DefWindowProc( hwnd, msg, wparam, lparam ); 
+	return DefWindowProc( hwnd, msg, wparam, lparam );
 }
 
 class cServerThread : public QThread
@@ -492,53 +489,53 @@ protected:
 	void run()
 	{
 		QMemArray<pchar> argv( 8 );
-		/*	 
-			Since Windows programs don't get passed the command name as the	 
-			first argument, we need to fetch it explicitly.	 
+		/*
+			Since Windows programs don't get passed the command name as the
+			first argument, we need to fetch it explicitly.
 		*/
 		static char appFileName[256];
 		GetModuleFileNameA( 0, appFileName, sizeof(appFileName) );
 		int argc = 1;
 		argv[0] = appFileName;
 
-		/* 
-			Parse the Windows command line string.  If an argument begins with a	
-			double quote, then spaces are considered part of the argument until the	
-			next double quote.  The argument terminates at the second quote. Note	 
-			that this is different from the usual Unix semantics.	 
+		/*
+			Parse the Windows command line string.  If an argument begins with a
+			double quote, then spaces are considered part of the argument until the
+			next double quote.  The argument terminates at the second quote. Note
+			that this is different from the usual Unix semantics.
 		*/
 
 		char *p = cmdLine;
 		char *p_end = p + strlen(p);
-	
-		while ( *p && p < p_end ) 
+
+		while ( *p && p < p_end )
 		{
 			while ( isspace( (uchar)*p ) )			// skip whitespace
 				p++;
 
 		    if (*p == '\0')
-				break;	 
-			
-			if (*p == '"') 
-			{	 
+				break;
+
+			if (*p == '"')
+			{
 				p++;
 				if ( argc >= (int)argv.size()-1 )
 					argv.resize( argv.size()*2 );
-				argv[argc++] = p;	 
-				while ( (*p != '\0') && (*p != '"') ) 
-					p++;	 
-			} else {	 
+				argv[argc++] = p;
+				while ( (*p != '\0') && (*p != '"') )
+					p++;
+			} else {
 				if ( argc >= (int)argv.size()-1 )
 					argv.resize( argv.size()*2 );
-				argv[argc++] = p;	 
+				argv[argc++] = p;
 				while (*p != '\0' && !isspace( (uchar)*p ) )
-					p++;	 
-			}	 
-			if (*p != '\0') {	 
-				*p = '\0';	 
-				p++;	 
-			}	 
-		}				
+					p++;
+			}
+			if (*p != '\0') {
+				*p = '\0';
+				p++;
+			}
+		}
 		argv[argc] = 0;
 
 		returnValue_ = main( argc, argv.data() );
@@ -615,7 +612,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	wpClass.lpszClassName = WOLFPACK_CLASS;
 	wpClass.hIconSm = iconRed;
 	wpClass.style = CS_DBLCLKS | CS_VREDRAW | CS_HREDRAW;
-	
+
 	if (!RegisterClassEx(&wpClass))
 	{
 		MessageBox(0, "Couldn't register Window Class.", "Window Class", MB_OK|MB_ICONERROR);
@@ -650,7 +647,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	// This is "ported" from MFC
 	tooltip = CreateWindowEx(WS_EX_TOPMOST, TOOLTIPS_CLASS, NULL, WS_POPUP|TTS_NOPREFIX|TTS_ALWAYSTIP|TTS_BALLOON,
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, mainWindow, NULL, hInstance, NULL);
-	
+
 	if (tooltip) {
 		TOOLINFO info;
 		info.cbSize = sizeof(info);
@@ -678,7 +675,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 				char command[512] = { 0, };
 				GetWindowText( inputWindow, command, 512 );
 				SetWindowText( inputWindow, "" );
-      
+
 				// We are in a different Thread. Remember that.
 				Console::instance()->queueCommand( command );
 			}
@@ -701,14 +698,14 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 			// Update the icon
 			static unsigned int lastState = 0xFFFFFFFF;
 
-			if (lastState != serverState) 
+			if (lastState != serverState)
 			{
-				if (serverState == RUNNING) 
+				if (serverState == RUNNING)
 				{
 					SendMessage(mainWindow, WM_SETICON, ICON_SMALL, (WPARAM)iconGreen);
 					SendMessage(statusIcon, STM_SETIMAGE, IMAGE_ICON, (LPARAM)iconGreen);
-				} 
-				else 
+				}
+				else
 				{
 					SendMessage(mainWindow, WM_SETICON, ICON_SMALL, (WPARAM)iconRed);
 					SendMessage(statusIcon, STM_SETIMAGE, IMAGE_ICON, (LPARAM)iconRed);
@@ -726,7 +723,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	keeprun = 0; // We quit, so let's quit the server too
 
 	serverThread.wait();
-	
+
 	return serverThread.returnValue();
 }
 
@@ -849,11 +846,11 @@ void cConsole::send(const QString &sMessage)
 void cConsole::changeColor(enConsoleColors color) {
 	unsigned int tLength = GetWindowTextLength(logWindow);
 	SendMessage(logWindow, EM_SETSEL, tLength, tLength);
-	
+
 	ZeroMemory(&cf, sizeof(CHARFORMAT));
 	cf.cbSize = sizeof(CHARFORMAT);
 	cf.dwMask = CFM_COLOR;
-	
+
 	switch (color) {
 	case WPC_GREEN:
 		cf.crTextColor = RGB(0x00,0xFF,0x00);
@@ -952,7 +949,7 @@ void cConsole::notifyServerState(enServerState newstate) {
 #endif
 
 	icondata.uFlags = NIF_ICON;
-	
+
 	if (newstate == RUNNING) {
 		icondata.hIcon = iconGreen;
 	} else {
@@ -962,21 +959,21 @@ void cConsole::notifyServerState(enServerState newstate) {
 #if (_WIN32_IE >= 0x0500)
 	qstrcpy(icondata.szInfoTitle, "Wolfpack Server Status");
 	// Startup has finished
-	if (serverState == STARTUP && newstate == RUNNING) 
+	if (serverState == STARTUP && newstate == RUNNING)
 	{
 		icondata.uFlags |= NIF_INFO;
 		icondata.uTimeout = 2500;
 		icondata.dwInfoFlags = NIIF_INFO;
 		qstrcpy(icondata.szInfo, "Wolfpack has started up and is now ready to use.");
-	} 
+	}
 	else if (serverState == SCRIPTRELOAD && newstate == RUNNING)
 	{
 		icondata.uFlags |= NIF_INFO;
 		icondata.uTimeout = 2500;
 		icondata.dwInfoFlags = NIIF_INFO;
 		qstrcpy(icondata.szInfo, "Wolfpack has finished reloading the scripts.");
-	} 
-	else if (newstate == SHUTDOWN) 
+	}
+	else if (newstate == SHUTDOWN)
 	{
 		icondata.uFlags |= NIF_INFO;
 		icondata.uTimeout = 2500;

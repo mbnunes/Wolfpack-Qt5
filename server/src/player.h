@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #if !defined (CPLAYER_H_HEADER_INCLUDED)
 #define CPLAYER_H_HEADER_INCLUDED
@@ -68,14 +65,14 @@ public:
 	void load( char **, UINT16& );
 	void save();
 	bool del();
-    
+
 	virtual bool send(cUOPacket *packet);
 	virtual enCharTypes objectType();
-	virtual void update( bool excludeself = false ); 
-	virtual void resend(bool clean = true); 
+	virtual void update( bool excludeself = false );
+	virtual void resend(bool clean = true);
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	virtual UINT8 notoriety( P_CHAR pChar );
-	virtual void showName( cUOSocket *socket );	
+	virtual void showName( cUOSocket *socket );
 	virtual void soundEffect( UI16 soundId, bool hearAll = true );
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
@@ -98,11 +95,11 @@ public:
 	void mount( P_NPC pMount );
 	bool isGM() const;
 	bool isCounselor() const;
-	bool isGMorCounselor() const; 
+	bool isGMorCounselor() const;
 	void makeCriminal();
 	void disturbMed();
 	int  CountBankGold();
-	bool canPickUp(cItem* pi);	
+	bool canPickUp(cItem* pi);
 	virtual bool inWorld();
 	void giveNewbieItems( Q_UINT8 skill = 0xFF );
 	bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true ); // override
@@ -133,7 +130,7 @@ public:
 	UINT8					visualRange() const;
 	QString					profile() const;
     UINT8					fixedLightLevel() const;
-	
+
 	// bit flag getters
 	bool					maySnoop() const;
 	bool					mayBroadcast() const;
@@ -182,7 +179,7 @@ public:
 	void clearLastSelections( void );
 	void remove();
 	// pets
-	void addPet( P_NPC pPet, bool noOwnerChange = false );	
+	void addPet( P_NPC pPet, bool noOwnerChange = false );
 	void removePet( P_NPC pPet, bool noOwnerChange = false );
 	bool canSeeChar(P_CHAR character);
 	bool canSeeItem(P_ITEM item);
@@ -221,7 +218,7 @@ protected:
     UINT32 objectDelay_;
 
     // Additional property flags.
-    // 
+    //
     // Bits:
 	// 02 - may snoop, cOldChar::priv Bit 7
 	// 03 - may broadcast, cOldChar::priv Bit 2
@@ -272,7 +269,7 @@ inline void cPlayer::setAccount(cAccount* data, bool moveFromAccToAcc)
 {
 	if( moveFromAccToAcc && account_ != 0 )
 		account_->removeCharacter( this );
-	
+
 	account_ = data;
 
 	if( account_ != 0 )
@@ -400,19 +397,19 @@ inline bool cPlayer::showSerials() const
 
 inline void cPlayer::setMaySnoop(bool data)
 {
-	if( data ) additionalFlags_ |= 0x0002; else additionalFlags_ &= ~0x0002; 
+	if( data ) additionalFlags_ |= 0x0002; else additionalFlags_ &= ~0x0002;
 	changed_ = true;
 }
 
 inline void cPlayer::setMayBroadcast(bool data)
 {
-	if( data ) additionalFlags_ |= 0x0004; else additionalFlags_ &= ~0x0004; 
+	if( data ) additionalFlags_ |= 0x0004; else additionalFlags_ &= ~0x0004;
 	changed_ = true;
 }
 
 inline void cPlayer::setShowSerials(bool data)
 {
-	if( data ) additionalFlags_ |= 0x0008; else additionalFlags_ &= ~0x0008; 
+	if( data ) additionalFlags_ |= 0x0008; else additionalFlags_ &= ~0x0008;
 	changed_ = true;
 }
 

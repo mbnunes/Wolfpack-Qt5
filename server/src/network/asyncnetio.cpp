@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "asyncnetio.h"
 #include "uorxpackets.h"
@@ -136,7 +133,7 @@ public:
 	cClientEncryption *encryption;
 };
 
-cAsyncNetIOPrivate::cAsyncNetIOPrivate() 
+cAsyncNetIOPrivate::cAsyncNetIOPrivate()
 	: socket(0), rsize(0), wsize(0), rindex(0), windex(0), skippedUOHeader(false), encryption(0)
 {
     rba.setAutoDelete( TRUE );
@@ -161,7 +158,7 @@ cAsyncNetIOPrivate::~cAsyncNetIOPrivate()
 */
 Q_LONG cAsyncNetIOPrivate::readBlock( char *data, Q_ULONG maxlen )
 {
-    if ( data == 0 && maxlen != 0 ) 
+    if ( data == 0 && maxlen != 0 )
 	{
 		return -1;
     }
@@ -187,10 +184,10 @@ Q_LONG cAsyncNetIOPrivate::writeBlock( const char *data, Q_ULONG len )
 
     if ( len == 0 )
 		return 0;
-	
+
     QByteArray *a = wba.last();
-	
-    if ( a && a->size() + len < 128 ) 
+
+    if ( a && a->size() + len < 128 )
 	{
 		// small buffer, resize
 		int i = a->size();
@@ -208,7 +205,7 @@ Q_LONG cAsyncNetIOPrivate::writeBlock( const char *data, Q_ULONG len )
 
 /*!
 	\internal
-    Writes \a data and returns the number of bytes written. 
+    Writes \a data and returns the number of bytes written.
 	Returns -1 if an error occurred.
 */
 Q_LONG cAsyncNetIOPrivate::writeBlock( QByteArray data )
@@ -226,7 +223,7 @@ Q_LONG cAsyncNetIOPrivate::writeBlock( QByteArray data )
 */
 int cAsyncNetIOPrivate::getch()
 {
-    if ( rsize > 0 ) 
+    if ( rsize > 0 )
 	{
 		uchar c;
 		consumeReadBuf( 1, (char*)&c );
@@ -270,10 +267,10 @@ bool cAsyncNetIOPrivate::consumeWriteBuf( Q_ULONG nbytes )
     if ( nbytes <= 0 || nbytes > wsize )
 	return false;
     wsize -= nbytes;
-    for ( ;; ) 
+    for ( ;; )
 	{
 		QByteArray *a = wba.first();
-		if ( windex + nbytes >= a->size() ) 
+		if ( windex + nbytes >= a->size() )
 		{
 		    nbytes -= a->size() - windex;
 			wba.remove();
@@ -299,14 +296,14 @@ bool cAsyncNetIOPrivate::consumeReadBuf( Q_ULONG nbytes, char *sink )
     if ( nbytes <= 0 || nbytes > rsize )
 		return false;
     rsize -= nbytes;
-    for ( ;; ) 
+    for ( ;; )
 	{
 		QByteArray *a = rba.first();
-		if ( rindex + nbytes >= a->size() ) 
+		if ( rindex + nbytes >= a->size() )
 		{
 			// Here we skip the whole byte array and get the next later
 			int len = a->size() - rindex;
-			if ( sink ) 
+			if ( sink )
 			{
 				memcpy( sink, a->data()+rindex, len );
 				sink += len;
@@ -314,7 +311,7 @@ bool cAsyncNetIOPrivate::consumeReadBuf( Q_ULONG nbytes, char *sink )
 			nbytes -= len;
 			rba.remove();
 			rindex = 0;
-			if ( nbytes == 0 ) 
+			if ( nbytes == 0 )
 			{		// nothing more to skip
 				break;
 			}
@@ -421,7 +418,7 @@ void cAsyncNetIO::run() throw()
 						char temp[4];
 						d->consumeReadBuf( 4, temp );
 						d->skippedUOHeader = true;
-	
+
 						d->seed = ( ( temp[0] & 0xFF ) << 24 ) | ( ( temp[1] & 0xFF ) << 16 ) | ( ( temp[2] & 0xFF ) << 8 ) | ( ( temp[3] & 0xFF ) );
 
 						// Only 0xFFFFFFFF seed allowed for !d->login
@@ -454,7 +451,7 @@ void cAsyncNetIO::run() throw()
 					memcpy( a->data(), buf, nread );
 					d->rba.append(a);
 					d->rsize += nread;
-					
+
 					// We need to use the read buffer as a temporary buffer
 					// for encrypted data if we didn't receive all we need
 					if( !d->encryption )
@@ -486,10 +483,10 @@ void cAsyncNetIO::run() throw()
 								cGameEncryption *crypt = new cGameEncryption;
 								crypt->init( 0xFFFFFFFF ); // Seed is fixed anyway
 								d->encryption = crypt;
-							}							
-						
+							}
+
 						} // LoginServer Encryption
-						else if( d->login && d->rsize >= 62 ) 
+						else if( d->login && d->rsize >= 62 )
 						{
 							// The 0x80 packet is 62 byte, but we want to have everything
 							nread = d->rsize;
@@ -541,7 +538,7 @@ void cAsyncNetIO::run() throw()
 							d->rba.append(a);
 							d->rsize += nread;
 						}
-					}					
+					}
 				}
 				else if( nread == 0 )
 				{
@@ -550,11 +547,11 @@ void cAsyncNetIO::run() throw()
 
 				buildUOPackets( d );
 			}
-			
+
 			// Write data to socket
 			flushWriteBuffer( d );
 		}
-		mapsMutex.unlock();		
+		mapsMutex.unlock();
 		//if( buffers.empty() )
 		// Disconnecting doesnt work for now
 		waitCondition.wait(40); // let's rest for a while
@@ -669,7 +666,7 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 		QByteArray* a = d->wba.first();
 		int nwritten;
 		int i = 0;
-		if ( (int)a->size() - d->windex < 1460 ) 
+		if ( (int)a->size() - d->windex < 1460 )
 		{
 			// Concatenate many smaller blocks.  the first may be
 			// partial, but each subsequent block is copied entirely
@@ -683,7 +680,7 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 			QByteArray out( 65536 );
 			int j = d->windex;
 			int s = a->size() - j;
-			while ( a && i+s < (int)out.size() ) 
+			while ( a && i+s < (int)out.size() )
 			{
 				memcpy( out.data()+i, a->data()+j, s );
 				j = 0;
@@ -700,7 +697,7 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 		} else {
 			// Big block, write it immediately
 			i = a->size() - d->windex;
-			
+
 			// Encrypt the outgoing buffer
 			if( d->encryption )
 				d->encryption->serverEncrypt( a->data() + d->windex, i );
@@ -708,7 +705,7 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 			nwritten = d->socket->writeBlock( a->data() + d->windex, i );
 		}
 
-		if ( nwritten ) 
+		if ( nwritten )
 		{
 			if ( d->consumeWriteBuf( nwritten ) )
 				consumed += nwritten;
@@ -719,7 +716,7 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 }
 
 /*!
-  Tries to receive a cUOPacket from \a socket if one is avaliable. 
+  Tries to receive a cUOPacket from \a socket if one is avaliable.
   If no packet is avaliable at this time, the result will be 0.
   Packets retrieved from this method should be freed by
   the caller.
@@ -758,14 +755,14 @@ void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet, bool com
 }
 
 /*!
-  Sends to connected \a socket any packet writes still in buffer. This method 
+  Sends to connected \a socket any packet writes still in buffer. This method
   is usually called prior to disconnection to ensure all data, including error
   messages have been sent.
 */
 void cAsyncNetIO::flush( QSocketDevice* socket)
 {
 	iterator it = buffers.find( socket );
-	
+
 	if( it != buffers.end() )
 		flushWriteBuffer( it.data() );
 }

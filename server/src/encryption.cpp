@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 /*
  * Parts of cGameEncryption are based on work done in injection
@@ -44,7 +41,7 @@
 #include "basics.h"
 
 /*!
-	Initializes this "LoginCrypt" object. 
+	Initializes this "LoginCrypt" object.
 	Seed is the DWORD sent by the client in the beginning of each connection.
 	Buffer/Length should be the first 62 bytes received by the client.
 */
@@ -52,7 +49,7 @@ bool cLoginEncryption::init( unsigned int seed, const char *buffer, unsigned int
 {
 	if( length < 62 )
 		return false;
-	
+
 	// Try to find a valid key
 	char packet[62];
 
@@ -73,7 +70,7 @@ bool cLoginEncryption::init( unsigned int seed, const char *buffer, unsigned int
 		table2 = orgTable2;
 		key1 = key->key1;
 		key2 = key->key2;
-        
+
 		clientDecrypt( &packet[0], 62 );
 
 		// Check if it decrypted correctly
@@ -133,16 +130,16 @@ void cLoginEncryption::clientDecrypt( char *buffer, unsigned int length )
 	Initializes the gameserver encryption using the given seed
 */
 void cGameEncryption::init( unsigned int seed )
-{	
+{
     makeKey( &ki, DIR_DECRYPT, 0x80, NULL );
     cipherInit( &ci, MODE_ECB, NULL );
 
 	ki.key32[0] = ki.key32[1] = ki.key32[2] = ki.key32[3] = seed;
 	reKey( &ki );
-	
+
 	for( unsigned int i = 0; i < 256; ++i )
 		cipherTable[i] = i;
-	
+
 	recvPos = 0x100;
 	sendPos = 0x00;
 }
@@ -181,11 +178,11 @@ void cGameEncryption::clientDecrypt( char* buffer, unsigned int length )
 */
 void cGameEncryption::serverEncrypt( char *buffer, unsigned int length )
 {
-   	static const UINT8 xorData[0x10] = 
+   	static const UINT8 xorData[0x10] =
 	{
 		// Seed: 7F000001
-		//0x05, 0x92, 0x66, 0x23, 0x67, 0x14, 0xE3, 0x62, 0xDC, 0x60, 0x8C, 0xD6, 0xFE, 0x7C, 0x25, 0x69 
-		
+		//0x05, 0x92, 0x66, 0x23, 0x67, 0x14, 0xE3, 0x62, 0xDC, 0x60, 0x8C, 0xD6, 0xFE, 0x7C, 0x25, 0x69
+
 		// Seed: FFFFFFFF
 		0xa9, 0xd5, 0x7d, 0xa4, 0x3e, 0x0c, 0x22, 0xda, 0xde, 0x15, 0xe9, 0x92, 0xdd, 0x99, 0x98, 0x4d
 	};
@@ -218,7 +215,7 @@ void cKeyManager::load()
 	for( it = list.begin(); it != list.end(); ++it )
 	{
 		QStringList elements = QStringList::split( ";", *it, false );
-        
+
 		if( elements.size() < 3 )
 		{
 			Log::instance()->print( LOG_WARNING, QString( "Invalid encryption key: %1" ).arg( *it ) );
@@ -244,7 +241,7 @@ void cKeyManager::load()
 			Log::instance()->print( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[2].stripWhiteSpace() ) );
 			continue;
 		}
-		
+
 		keys.push_back( key );
 	}
 }

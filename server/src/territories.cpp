@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "territories.h"
 #include "wpdefmanager.h"
@@ -197,7 +194,7 @@ void cTerritory::processNode( const cElement *Tag )
 					const cElement *chchildNode = childNode->getChild( j );
 
 					QString childValue = chchildNode->value();
-					
+
 					if( chchildNode->name() == "buyable" )
 						goods.buyable = childValue.toInt();
 					else if( chchildNode->name() == "sellable" )
@@ -298,21 +295,21 @@ void cAllTerritories::load( void )
 	// Make sure that there is one top level region for each map
 	// Insert it at the beginning (last overrides first).
 	for (unsigned char i = 0; i <= 3; ++i) {
-		if (Map->hasMap(i)) {	
+		if (Map->hasMap(i)) {
 			cTerritory *territory = new cTerritory();
 			cBaseRegion::rect_st rect;
 			rect.map = i;
 			rect.x1 = 0;
 			rect.y1 = 0;
 			rect.x2 = Map->mapTileWidth(i) * 8;
-			rect.y2 = Map->mapTileHeight(i) * 8;			
+			rect.y2 = Map->mapTileHeight(i) * 8;
 			territory->rectangles().append(rect);
 			topregions[i].append(territory);
 		}
 	}
 
 	const QValueVector<cElement*> &elements = DefManager->getDefinitions(WPDT_REGION);
-	
+
 	QValueVector<cElement*>::const_iterator it(elements.begin());
 	while (it != elements.end()) {
 		cTerritory* territory = new cTerritory(*it, 0);
@@ -322,7 +319,7 @@ void cAllTerritories::load( void )
 			delete territory;
 		} else {
 			unsigned char map = territory->rectangles()[0].map;
-			
+
 			if (!topregions.contains(map)) {
 				topregions[map].setAutoDelete(true);
 			}
@@ -353,7 +350,7 @@ void cAllTerritories::check( P_CHAR pc )
 		pc->setRegion(currRegion);
 
 		if (socket) {
-			// If the last region was a cave or if the new region is a cave, 
+			// If the last region was a cave or if the new region is a cave,
 			// update the lightlevel.
 			if ((currRegion->isCave() && !lastRegion->isCave()) ||
 				(!currRegion->isCave() && lastRegion->isCave())) {

@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "../python/utilities.h"
 
@@ -285,13 +282,13 @@ float ScriptAction::preCondition()
 					PyTuple_SetItem( p_args, 1, Py_None );
 					PyTuple_SetItem( p_args, 2, Py_None );
 
-					PyObject *returnValue = PyObject_CallObject( pFunc, p_args ); 
+					PyObject *returnValue = PyObject_CallObject( pFunc, p_args );
 
 					Py_XDECREF( p_args );
 
 					reportPythonError( sModule );
-					
-					if( returnValue == NULL || !PyFloat_Check( returnValue ) ) 
+
+					if( returnValue == NULL || !PyFloat_Check( returnValue ) )
 					{
 						Py_XDECREF( returnValue );
 						return 1.0f;
@@ -338,13 +335,13 @@ float ScriptAction::postCondition()
 					PyTuple_SetItem( p_args, 1, Py_None );
 					PyTuple_SetItem( p_args, 2, Py_None );
 
-					PyObject *returnValue = PyObject_CallObject( pFunc, p_args ); 
+					PyObject *returnValue = PyObject_CallObject( pFunc, p_args );
 
 					Py_XDECREF( p_args );
 
 					reportPythonError( sModule );
-					
-					if( returnValue == NULL || !PyFloat_Check( returnValue ) ) 
+
+					if( returnValue == NULL || !PyFloat_Check( returnValue ) )
 					{
 						Py_XDECREF( returnValue );
 						return 1.0f;
@@ -434,7 +431,7 @@ float Action_Wander::postCondition()
 {
 	/*
 	 * Wandering has the following postconditions:
-	 * - The NPC is wandering freely/in a circle/in a rectangle, 
+	 * - The NPC is wandering freely/in a circle/in a rectangle,
 	 *   then we can abort after each step!
 	 * - The NPC has reached its destination.
 	 * - The NPC is within follow range.
@@ -488,7 +485,7 @@ void Action_Wander::execute()
 		// get any point out of the rectangle and calculate the direction to it
 		UINT16 rndx = RandomNum( m_npc->wanderX1(), m_npc->wanderX2() );
 		UINT16 rndy = RandomNum( m_npc->wanderY1(), m_npc->wanderY2() );
-		
+
 		UINT8 dir = m_npc->pos().direction( Coord_cl( rndx, rndy ) );
 		m_npc->setDirection( dir );
 		Movement::instance()->Walking( m_npc, dir, 0xFF );
@@ -510,7 +507,7 @@ void Action_Wander::execute()
 		UINT8 dir = m_npc->pos().direction( pos );
 		m_npc->setDirection( dir );
 		Movement::instance()->Walking( m_npc, dir, 0xFF );
-		break;	
+		break;
 	}
 	case enFollowTarget:
 	{
@@ -797,7 +794,7 @@ void AbstractAI::onSpeechInput( P_PLAYER pTalker, const QString &comm ) {
 	if (pTalker->dist(m_npc) > 7) {
 		return;
 	}
-	
+
 	if (comm.contains(" FOLLOW")) {
 		if (comm.contains(" ME")) {
 			m_npc->setWanderFollowTarget(pTalker);

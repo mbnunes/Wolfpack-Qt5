@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "uopacket.h"
 
@@ -42,7 +39,7 @@
 /*!
   \class cUOPacket uopacket.h
 
-  \brief The cUOPacket class provides an abstraction of Ultima Online network 
+  \brief The cUOPacket class provides an abstraction of Ultima Online network
   packets.
 
   \ingroup network
@@ -142,7 +139,7 @@ void cUOPacket::resize( uint newSize )
 
 /*!
   Returns the packet size. This method doesn't reflect the size of this packet
-  type, but rather how many bytes this instance in particular uses. No 
+  type, but rather how many bytes this instance in particular uses. No
   consistency checks are made or enforced here.
 */
 uint cUOPacket::size() const
@@ -174,11 +171,11 @@ void cUOPacket::setRawData( uint pos, const char* data, uint dataSize )
 /*!
   static Huffman codes table used for packet compression
 */
-struct 
+struct
 {
 	unsigned int size;
 	unsigned int code;
-} 
+}
 static bitTable[257] =
 {
 	{0x02, 0x00}, 	{0x05, 0x1F}, 	{0x06, 0x22}, 	{0x07, 0x34}, 	{0x07, 0x75}, 	{0x06, 0x28}, 	{0x06, 0x3B}, 	{0x07, 0x32},
@@ -250,7 +247,7 @@ void cUOPacket::compress( void )
 		{
 			pOut[actByte] = (pOut[actByte] << 1) | (unsigned char)((value >> nrBits) & 0x1);
 			bitByte = (bitByte + 1) & 0x07;
-			if(!bitByte) 
+			if(!bitByte)
 				++actByte;
 		}
 	}
@@ -263,7 +260,7 @@ void cUOPacket::compress( void )
 		pOut[actByte] = (pOut[actByte] << 1) | (unsigned char)((value >> nrBits) & 0x1);
 
 		bitByte = (bitByte + 1) & 0x07;
-		if(!bitByte) 
+		if(!bitByte)
 			++actByte;
 	}
 
@@ -304,12 +301,12 @@ void cUOPacket::compress( void )
 	buffer32 <<= codeSize;
 	buffer32 |= code;
 	bufferSize += codeSize;
-	while (bufferSize >= 8) 
+	while (bufferSize >= 8)
 	{
 		bufferSize -= 8;
 		temp[actByte++] = (unsigned char) (buffer32 >> bufferSize) & 0xFF;//31;
 	}
-	if (bufferSize > 0) 
+	if (bufferSize > 0)
 	{
 		temp[actByte++] = (unsigned char) (buffer32 << 8 - bufferSize) & 0xFF;//& 31;
 	}
@@ -575,7 +572,7 @@ QCString cUOPacket::dump( const QByteArray &data )
 
 	int lines = length / 16;
 	if ( length % 16 ) // always round up.
-		lines++;  
+		lines++;
 
 	for (int actLine = 0; actLine < lines; ++actLine)
 	{
@@ -592,15 +589,15 @@ QCString cUOPacket::dump( const QByteArray &data )
 					number.prepend( "0" );
 				line += number;
 			}
-			else 
+			else
 				line += "-- ";
 		}
 
 		line += ": ";
- 
+
 		for(actRow = 0; actRow < 16; ++actRow)
 		{
-			if( actLine * 16 + actRow < length ) 
+			if( actLine * 16 + actRow < length )
 				line += ( isprint(static_cast< Q_UINT8 >( data[actLine * 16 + actRow] ) ) ) ? data[actLine * 16 + actRow] : '.' ;
 		}
 

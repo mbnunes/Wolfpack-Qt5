@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 // Library Includes
 #include "qstring.h"
@@ -49,7 +46,7 @@
 
 // 8 uses more memory but is faster
 // 16 uses a lot less memory but is slower
-// The outside world does not know about this setting. 
+// The outside world does not know about this setting.
 // So take care!
 #define SECTOR_SIZE 8
 
@@ -153,7 +150,7 @@ bool cSectorMap::removeItem( cUObject *object )
 	}
 
 	unsigned int block = calcBlockId( x, y );
-	
+
 	// Seems like the item is already gone
 	if( !grid[block] )
 		return true;
@@ -166,7 +163,7 @@ bool cSectorMap::removeItem( cUObject *object )
 		{
 			// We found our object. Create a new array and copy the rest over
 			cUObject **newData = (cUObject**)malloc( ( grid[block]->count - 1 ) * sizeof( cUObject* ) );
-			
+
 			unsigned int offset = 0;
 			unsigned int j;
 
@@ -182,7 +179,7 @@ bool cSectorMap::removeItem( cUObject *object )
 
 			/*memcpy( newData, grid[block]->data, sizeof( cUObject* ) * i );
 			memcpy( newData + ( i * sizeof( cUObject* ) ), grid[block]->data + sizeof( cUObject* ) * ( i + 1 ), QMAX( 0, sizeof( cUObject* ) * ( grid[block]->count - ( i + 1 ) ) ) );*/
-			
+
 			free( grid[block]->data );
 			grid[block]->data = newData;
 			grid[block]->count--;
@@ -200,18 +197,18 @@ bool cSectorMap::removeItem( cUObject *object )
 
 	return true;
 }
-	
+
 unsigned int cSectorMap::countItems( unsigned int block )
 {
 	// Not in our reach
 	if( block >= gridWidth_ * gridHeight_ )
 		return 0;
-	
+
 	// The block could've been empty
 	if( !grid[block] )
 		return 0;
 	else
-		return grid[block]->count;	
+		return grid[block]->count;
 }
 
 unsigned int cSectorMap::getItems( unsigned int block, cUObject **items )
@@ -296,7 +293,7 @@ void cSectorMaps::addMap( unsigned char map, unsigned int width, unsigned int he
 {
 	// Create a map in the Char and in the Item map
 	cSectorMap *itemmap = new cSectorMap;
-	
+
 	if( !itemmap->init( width, height ) )
 	{
 		delete itemmap;
@@ -319,7 +316,7 @@ void cSectorMaps::addMap( unsigned char map, unsigned int width, unsigned int he
 void cSectorMaps::add( cUObject *object )
 {
 	// Very powerful statement. It completely
-	// annihilates the need to check for 
+	// annihilates the need to check for
 	// nullpointers in our object-map
 	if( !object )
 		return;
@@ -335,7 +332,7 @@ void cSectorMaps::add( cUObject *object )
 
 			if( it == itemmaps.end() )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
-			
+
 			it->second->addItem((cUObject*)pItem);
 
 			pItem->startDecay();
@@ -343,10 +340,10 @@ void cSectorMaps::add( cUObject *object )
 	}
 	else if( isCharSerial( object->serial() ) )
 	{
-		// This is a safety check to make sure that 
+		// This is a safety check to make sure that
 		// stabled pets don't appear on our sectormap
 		P_NPC npc = dynamic_cast<P_NPC>(object);
-		
+
 		if (npc && npc->stablemasterSerial() != INVALID_SERIAL) {
             return;
 		}
@@ -367,7 +364,7 @@ void cSectorMaps::add( cUObject *object )
 
 			if( it == charmaps.end() )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
-			
+
 			it->second->addItem((cUObject*)pChar);
 		}
 	}
@@ -376,7 +373,7 @@ void cSectorMaps::add( cUObject *object )
 void cSectorMaps::remove( cUObject *object )
 {
 	// Very powerful statement. It completely
-	// annihilates the need to check for 
+	// annihilates the need to check for
 	// nullpointers in our object-map
 	if( !object )
 		return;
@@ -393,7 +390,7 @@ void cSectorMaps::remove( cUObject *object )
 
 			if( it == itemmaps.end() )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
-			
+
 			it->second->removeItem( (cUObject*)pItem );
 			pItem->setDecayTime( 0 ); // Reset Decay Time
 		}
@@ -409,7 +406,7 @@ void cSectorMaps::remove( cUObject *object )
 
 			if( it == charmaps.end() )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
-			
+
 			it->second->removeItem( (cUObject*)pChar );
 		}
 	}
@@ -423,7 +420,7 @@ cSectorIterator *cSectorMaps::findObjects( MapType type, cSectorMap *sector, int
 	y2 = QMAX(0, y2);
 
 	// First step: count how many items we are going to hold
-	unsigned int count = 0;	
+	unsigned int count = 0;
 	unsigned int gridSize = sector->gridWidth() * sector->gridHeight();
 	unsigned int xBlock, yBlock;
 
@@ -469,7 +466,7 @@ cSectorIterator *cSectorMaps::findObjects( MapType type, cSectorMap *sector, int
 		was just there to measure the amount of memory we had to allocate
 		for the list.
 	*/
-	
+
 	switch( type )
 	{
 	case MT_ITEMS:
@@ -636,7 +633,7 @@ RegionIterator4Chars& RegionIterator4Chars::operator ++( int )
 }
 
 /*
- *	RegionIterator4Items 
+ *	RegionIterator4Items
  *  A wrapper class around the new implementation.
  */
 RegionIterator4Items::RegionIterator4Items( const Coord_cl &pos, unsigned int distance )

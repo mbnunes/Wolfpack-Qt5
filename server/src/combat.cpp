@@ -1,38 +1,34 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 // Platform Includes
 #include "platform.h"
 
 // Wolfpack Includes
-
 #include "itemid.h"
 #include "sectors.h"
 #include "combat.h"
@@ -68,7 +64,7 @@ void cCombat::playMissedSoundEffect( P_CHAR pChar, UINT16 skill )
 
 	switch( skill )
 	{
-	case ARCHERY:			
+	case ARCHERY:
 		id = RandomNum( 0, 1 ) ? 0x233 : 0x238;
 		break;
 
@@ -130,7 +126,7 @@ void cCombat::playSoundEffect( P_CHAR pChar, UINT16 skill, P_ITEM pWeapon )
 			id = 0x232;
 		break;
 	}
-	
+
 	// Use Wrestling Sounds
 	if( !id )
 	{
@@ -172,7 +168,7 @@ void cCombat::playGetHitSoundEffect( P_CHAR pChar )
 		else
 			pChar->soundEffect( 0x156 );
 	}
-	else	
+	else
 		pChar->bark( cBaseChar::Bark_GetHit );
 }
 
@@ -190,14 +186,14 @@ UI16 cCombat::weaponSkill( P_ITEM pi )
 	{
 		// 1001: Sword Weapons (Swordsmanship)
 		// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
-		case 1001:			
+		case 1001:
 		case 1002:
 			return SWORDSMANSHIP;
 			break;
 
 		// 1003: Macefighting (Staffs)
 		// 1004: Macefighting (Maces/WarHammer)
-		case 1003:			
+		case 1003:
 		case 1004:
 			return MACEFIGHTING;
 			break;
@@ -245,7 +241,7 @@ cCombat::enBowTypes cCombat::bowType( P_ITEM pi )
 void cCombat::checkandhit( P_CHAR pAttacker )
 {
 /*	P_CHAR pDefender = FindCharBySerial( pAttacker->swingTarget() );
-	
+
 	// We made our swing, so reset the target.
 	pAttacker->setSwingTarget( INVALID_SERIAL );
 
@@ -270,15 +266,15 @@ void cCombat::checkandhit( P_CHAR pAttacker )
 		return;
 	}
 
-	// Can we see our target. 
+	// Can we see our target.
 	bool los = pAttacker->pos().lineOfSight( pDefender->pos(), true );
 	hit( pAttacker, pDefender, los );*/
 }
 
 /*!
 	This function is responsible for calculating
-	the to-hit chance and dealing the right 
-	amount of damage. This is called *after* 
+	the to-hit chance and dealing the right
+	amount of damage. This is called *after*
 	we completed a swing.
 */
 void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
@@ -300,7 +296,7 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 		if( pWeapon->wearOut() ) // Our weapon has been destroyed
 			wSkill = WRESTLING;
 
-	// For Bows and Crossbows, 
+	// For Bows and Crossbows,
 	// check if the user has enough ammunition
 	P_ITEM pAmmo = NULL;
 
@@ -328,9 +324,9 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	}
 
 	UINT16 minskill, maxskill;
-	
+
 	// If we are wearing a weapon, let the skill-check
-	// depend on the power of the weapon automatically.		
+	// depend on the power of the weapon automatically.
 	if( wSkill != WRESTLING && pWeapon )
 	{
 		// Maximum 99% minimum skill
@@ -352,7 +348,7 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	// Calculate the defense Skill
 	P_ITEM pDefWeapon = pDefender->getWeapon();
 	UINT16 dSkill = pDefWeapon ? pDefWeapon->getWeaponSkill() : WRESTLING;
-	
+
 	// You can't defend yourself with a bow in your hand
 	if( dSkill == ARCHERY )
 	{
@@ -360,7 +356,7 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 		pDefWeapon = 0; // So we dont get accounted for the weapon-strength
 	}
 
-	// Do the same check like we did	
+	// Do the same check like we did
 	if( dSkill != WRESTLING && pDefWeapon )
 	{
 		// Maximum 99% minimum skill
@@ -382,13 +378,13 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	// wrestling skill *or* evasion skill
 	UINT16 dEvasion = QMIN( 120, pDefender->skillValue( dSkill ) / 10 ); // Up to 120
 
-	// If we are unarmed there could be a chance that we can 
+	// If we are unarmed there could be a chance that we can
 	// evade the blow by using EVALINT + ANATOMY
 	if( dSkill == WRESTLING )
 		dEvasion = QMAX( dEvasion, QMIN( 120, ( pDefender->skillValue( EVALUATINGINTEL ) + pDefender->skillValue( ANATOMY ) + 200 ) / 20 ) );
 
 	// Now we have to calculate hitChance
-	// Hit Chance = ( Attacker's Combat Ability + 50 ) ÷ ( [Defender's Combat Ability + 50] x 2 )
+	// Hit Chance = ( Attacker's Combat Ability + 50 ) ï¿½( [Defender's Combat Ability + 50] x 2 )
 	double hitChance = ( pAttacker->skillValue( wSkill ) / 10 ) + 50;
 	hitChance /= ( dEvasion + 50 ) * 2;
 	hitChance = hitChance * 100;
@@ -396,9 +392,9 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	// Check if we missed
 	if( RandomNum( 1, 100 ) > hitChance )
 	{
-		// If we missed using a Bow or Crossbow we 
-		// could leave the ammunition at the feets of 
-		// our target. 
+		// If we missed using a Bow or Crossbow we
+		// could leave the ammunition at the feets of
+		// our target.
 		if( wSkill == ARCHERY )
 		{
 			if( pAmmo && RandomNum( 1, 3 ) == 1 ) // 1/3 chance
@@ -414,7 +410,7 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 		return;
 	}
 
-	// If we item we used was enchantet using 
+	// If we item we used was enchantet using
 	// some kind of spell, it's now time to
 	// apply the spell effect. This feature
 	// can only be used when magic has been
@@ -432,7 +428,7 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	// Modify the damaged based on the weapon skill
 	// I did not find this in the OSI specs
 	//damage = (SI32)ceil( (float)damage * (float)pAttacker->skillValue( wSkill ) / 1000.0f );
-	
+
 	// Fall back to minDamage/maxDamage
 	else if( pAttacker->objectType() == enNPC && pn->minDamage() != 0 && pn->maxDamage() != 0 )
 	{
@@ -458,7 +454,7 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	// Anatomy GM gives another +10%
 	if( pAttacker->skillValue( ANATOMY ) >= 1000 )
 		damage += damage * 0.10;
-		
+
 	// If we are using an axe then add the lumberjacking bonus
 	if( pWeapon && pWeapon->type() == 1002 )
 	{
@@ -468,7 +464,7 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 		// Lumberjacking GM gives another +10%
 		if( pAttacker->skillValue( LUMBERJACKING ) >= 1000 )
 			damage += damage * 0.10;
-	}		
+	}
 
 	// Parrying with shield
 	P_ITEM pShield = pDefender->leftHandItem();
@@ -477,7 +473,7 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 		// Do a parry check depending on the attackers skill
 		pDefender->checkSkill( PARRYING, 0, pAttacker->skillValue( wSkill ) );
 
-		// % Chance of Blocking = Parrying Skill ÷ 2
+		// % Chance of Blocking = Parrying Skill ï¿½2
 		if( pDefender->skillValue( PARRYING ) / 2 >= RandomNum( 0, 1000 ) )
 		{
 			// We successfully parried the blow
@@ -525,7 +521,7 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	UINT16 ar = pDefender->calcDefense( bodyPart, true );
 	damage -= RandomNum( ar / 2, ar );
 
-	// Macefighting Weapons (2handed only) 
+	// Macefighting Weapons (2handed only)
 	// Deal Stamina loss
 	if( pWeapon && ( pWeapon->type() == 1003 || pWeapon->type() == 1004 ) && pWeapon->twohanded() )
 		pDefender->setStamina( QMAX( 0, pDefender->stamina() - RandomNum( 3, 6 ) ) );
@@ -582,18 +578,18 @@ void cCombat::combat( P_CHAR pAttacker )
 	}
 
 	// We have two delay-timers for attacking
-	// Timer for melee weapons and for 
-	// ranged weapons. If we cannot attack again yet, 
+	// Timer for melee weapons and for
+	// ranged weapons. If we cannot attack again yet,
 	// we return from this function.
 	if( !isTimerOk( pAttacker ) )
 		return;
-	
+
 	P_ITEM pWeapon = pAttacker->getWeapon();
 	bool mayAttack = false;
-	
-	// We only need to do LOS checks for archery. Otherwise we'll "compute" a new 
+
+	// We only need to do LOS checks for archery. Otherwise we'll "compute" a new
 	// swing value. We only can hit them when we're standing right beside them either.
-	if( pWeapon && pWeapon->getWeaponSkill() == ARCHERY )		
+	if( pWeapon && pWeapon->getWeaponSkill() == ARCHERY )
 	{
 		// Only shot if our "head" can see the opponent
 		if( pAttacker->pos().lineOfSight( pDefender->pos() ) )
@@ -626,8 +622,8 @@ void cCombat::combat( P_CHAR pAttacker )
 			{
 				if( pp->socket() )
 					pp->socket()->sysMessage( tr( "You are too tired to attack." ) );
-				
-				// Only re-check for missing stamina the next time 
+
+				// Only re-check for missing stamina the next time
 				// we could try to hit them.
 				setWeaponTimeout( pp, pp->leftHandItem() );
 				setWeaponTimeout( pp, pp->rightHandItem() );
@@ -638,7 +634,7 @@ void cCombat::combat( P_CHAR pAttacker )
 			pp->setStamina( QMIN( pp->dexterity(), QMAX( 0, pp->stamina() + SrvParams->attackstamina() ) ) );
 		}
 	}
-			
+
 	// Show the Combat Animations
 	doCombatAnimations( pAttacker, pDefender, pWeapon );
 
@@ -661,7 +657,7 @@ void cCombat::combat( P_CHAR pAttacker )
 	// Our target finally died.
 	if( pDefender->isDead() ) // Highlight // Repsys
 	{
-		// murder count \/				
+		// murder count \/
 		if( ( pAttacker->objectType() == enPlayer ) && ( pDefender->objectType() == enPlayer ) ) //Player vs Player
 		{
 			if( pDefender->isInnocent() )
@@ -690,16 +686,16 @@ void cCombat::combat( P_CHAR pAttacker )
 void cCombat::setWeaponTimeout( P_CHAR pAttacker, P_ITEM pWeapon )
 {
 /*	UI32 x,j;
-	
-	if( pWeapon ) 
-	{ 
-		if( pWeapon->speed() == 0 ) 
+
+	if( pWeapon )
+	{
+		if( pWeapon->speed() == 0 )
 			pWeapon->setSpeed( 35 );
 
-		// Attack Speed= 15,000 ÷ ( [Stamina +100] x Weapon Speed )
-		x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->stamina()+100) * pWeapon->speed() ); 
+		// Attack Speed= 15,000 ï¿½( [Stamina +100] x Weapon Speed )
+		x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->stamina()+100) * pWeapon->speed() );
 	}
-	else 
+	else
 	{
 		if( pAttacker->skillValue(WRESTLING) > 200 ) j = 35;
 		else if( pAttacker->skillValue(WRESTLING) > 400 ) j = 40;
@@ -758,7 +754,7 @@ bool cCombat::isTimerOk( P_CHAR pc )
 	/*if( !pc )
 		return false;
 
-	if( pc->nextHitTime() < uiCurrentTime ) 
+	if( pc->nextHitTime() < uiCurrentTime )
 		return true;*/
 
 	return false;
@@ -767,14 +763,14 @@ bool cCombat::isTimerOk( P_CHAR pc )
 // play animation for weapon in hand during combat on a horse
 void cCombat::doHorseCombatAnimation( P_CHAR pc )
 {
-/*	if( !pc ) 
+/*	if( !pc )
 		return;
 
 	P_ITEM pWeapon = pc->rightHandItem();
 	if( !pWeapon )
 		pWeapon = pc->leftHandItem();
 
-	P_ITEM pHorseItem = pc->GetItemOnLayer( 0x19 );	
+	P_ITEM pHorseItem = pc->GetItemOnLayer( 0x19 );
 
 	int base;
 	switch( pHorseItem->id() & 0x00FF )
@@ -784,7 +780,7 @@ void cCombat::doHorseCombatAnimation( P_CHAR pc )
 			base = 0x2b;
 			break;
 
-		case 0xa3:  // ostards 
+		case 0xa3:  // ostards
 		case 0xa4:
 		case 0xa5:
 		case 0xac:
@@ -845,7 +841,7 @@ void cCombat::doFootCombatAnimation( P_CHAR pc )
 		{
 			pc->action( 0x12 ); // bow
 			return;
-		} 
+		}
 		else if( IsCrossbow( id ) || IsHeavyCrossbow( id ) )
 		{
 			pc->action( 0x13 ); //crossbow - regular
@@ -943,7 +939,7 @@ void cCombat::spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl &pos 
 {
 	if( !pOffender || !pCaller )
 		return;
-	
+
 	if( pOffender->isDead() || pCaller->isDead())
 		return;
 
@@ -951,18 +947,18 @@ void cCombat::spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl &pos 
 
 	if( pRegion == NULL )
 		return;
-	
+
 	if( pRegion->isGuarded() && SrvParams->guardsActive() )
 	{
 		QString guardsect = pRegion->getGuardSect();
 
 		P_NPC pGuard = ( guardsect.isNull() ? NULL : cNPC::createFromScript(guardsect, pos));
-		
-		if ( !pGuard ) 
+
+		if ( !pGuard )
 			return;
-		
+
 		// Send guard to surrounding Players
-		pGuard->resend(false);			
+		pGuard->resend(false);
 		pGuard->soundEffect(0x1FE);
 		pGuard->effect(0x372A, 0x09, 0x06);
 		pGuard->fight(pOffender);

@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "basics.h"
 #include "tilecache.h"
@@ -120,7 +117,7 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 
 	P_ITEM outmostCont = pItem->getOutmostItem();
 
-	// If the top-most container ( thats important ) is a corpse 
+	// If the top-most container ( thats important ) is a corpse
 	// and looting is a crime, flag the character criminal.
 	if( !pChar->isGM() && outmostCont && outmostCont->corpse() )
 	{
@@ -128,7 +125,7 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		// if the corpse is innocent and not in our guild
 		bool sameGuild = true;//( GuildCompare( pChar, outmostCont->owner() ) != 0 );
 
-		if( outmostCont->hasTag( "notoriety" ) && outmostCont->getTag( "notoriety" ).toInt() == 1 && 
+		if( outmostCont->hasTag( "notoriety" ) && outmostCont->getTag( "notoriety" ).toInt() == 1 &&
 			!pChar->Owns( outmostCont ) && !sameGuild )
 		{
 //			pChar->karma -= 5;
@@ -144,12 +141,12 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	//} << Deactivated (DarkStorm)
 
 	// ==== Grabbing the Item is allowed here ====
-	
+
 	// Send the user a pickup sound if we're picking it up
 	// From a container/paperdoll
 	if( !pItem->isInWorld() )
 		socket->soundEffect( 0x57, pItem );
-	
+
 	// If we're picking up a specific amount of what we got
 	// Take that into account
 	if( amount < pItem->amount() )
@@ -185,7 +182,7 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 			pItem->setAmount( pickedAmount );
 		}
 	}
-	
+
 	// *normally* we should exclude the dragging socket here. but it works so as well.
 	pItem->removeFromView( true );
 
@@ -196,7 +193,7 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		pItem->removeFromCont( true );
 
 	// Remove eventual item-bonusses if we're unequipping something
-	if( pItem->container() && pItem->container()->isChar() ) 
+	if( pItem->container() && pItem->container()->isChar() )
 	{
 		P_CHAR wearer = dynamic_cast<P_CHAR>( pItem->container() );
 
@@ -242,8 +239,8 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 	cBaseChar::ItemContainer::const_iterator it(container.begin());
 	for( ; it != container.end(); ++it )
 	{
-		P_ITEM equip = *it; 
-		
+		P_ITEM equip = *it;
+
 		// Unequip the item and free the layer that way
 		if( equip && ( equip->layer() == tile.layer ) )
 			equip->toBackpack( wearer );
@@ -315,7 +312,7 @@ void DragAndDrop::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	if( pWearer != pChar && !pChar->isGM() )
 	{
 		P_NPC pNpc = dynamic_cast< P_NPC >( pWearer );
-		
+
 		// But we are allowed to equip our own humans
 		if( !pNpc || ( pNpc->owner() != pChar && pWearer->isHuman() ) )
 			socket->sysMessage( tr( "You can't equip other players." ) );
@@ -357,11 +354,11 @@ void DragAndDrop::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// If that fails it cancels
 	// we also need to check if there is a twohanded weapon if we want to equip another weapon.
 	UI08 layer = pTile.layer;
-	
+
 	P_ITEM equippedLayerItem = pWearer->atLayer( static_cast<cBaseChar::enLayer>(layer) );
 
 	// we're equipping so we do the check
-	if (equippedLayerItem) { 
+	if (equippedLayerItem) {
 		if( pChar->canPickUp( equippedLayerItem ) )
 		{
 			equippedLayerItem->toBackpack( pWearer );
@@ -446,7 +443,7 @@ void DragAndDrop::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 
 	// Get possible containers
 	P_ITEM pItem = FindItemBySerial( packet->serial() );
-	
+
 	if( !pItem )
 		return;
 
@@ -516,7 +513,7 @@ void DragAndDrop::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar
 		pItem->toBackpack( pChar );
 		return;
 	}
-	
+
 	// Are we in range of our target
 	if( !pChar->inRange( pOtherChar, 3 ) )
 	{
@@ -535,7 +532,7 @@ void DragAndDrop::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar
 	if( pOtherChar->objectType() == enPlayer && dynamic_cast<P_PLAYER>(pOtherChar)->socket() )
 	{
 		dynamic_cast<P_PLAYER>(pChar)->onTradeStart( dynamic_cast<P_PLAYER>(pOtherChar), pItem );
-		// Check if we're already trading, 
+		// Check if we're already trading,
 		// if not create a new window
 		/*
 		P_ITEM tradeWindow = pChar->atLayer( cBaseChar::TradeWindow );
@@ -628,7 +625,7 @@ inline char calcSpellId( cItem *item )
 void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos )
 {
 	P_PLAYER pChar = socket->player();
-	
+
 	if( pItem->isMulti() )
 	{
 		socket->sysMessage( tr( "You cannot put houses in containers" ) );
@@ -638,7 +635,7 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 		pItem->remove();
 		return;
 	}
-	
+
 	if( pItem->onDropOnItem( pCont ) )
 	{
 		if( pItem->free )
@@ -658,13 +655,13 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 		return;
 	}
 
-	// If the target belongs to another character 
+	// If the target belongs to another character
 	// It needs to be our vendor or else it's denied
 	P_CHAR packOwner = pCont->getOutmostChar();
 
 	if( ( packOwner ) && ( packOwner != pChar ) && !pChar->isGM() )
 	{
-		// For each item someone puts into there 
+		// For each item someone puts into there
 		// He needs to do a snoop-check
 		if( pChar->maySnoop() )
 		{
@@ -677,7 +674,7 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 			}
 		}
 
-		if( packOwner->objectType() == enPlayer || 
+		if( packOwner->objectType() == enPlayer ||
 			( packOwner->objectType() == enNPC && dynamic_cast<P_NPC>(packOwner)->owner() != pChar ) )
 		{
 			socket->sysMessage( tr("You cannot put that into the belongings of another player") );
@@ -685,7 +682,7 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 			return;
 		}
 	}
-	
+
 	if( !pChar->canPickUp( pItem ) )
 	{
 		socket->bounceItem( pItem, BR_CANNOT_PICK_THAT_UP );
@@ -741,12 +738,12 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 		return;
 	}
 	// Item matching needs to be extended !!! at least Color! (for certain types)
-	else if ( pCont->isPileable() && pItem->isPileable() 
+	else if ( pCont->isPileable() && pItem->isPileable()
 		&& (pCont->baseid() == pItem->baseid() && pCont->color() == pItem->color())) {
 		if( pCont->amount() + pItem->amount() <= 60000 )
 		{
 			pCont->setAmount( pCont->amount() + pItem->amount() );
-			
+
 			pItem->remove();
 			pCont->update(); // Need to update the amount
 		} else {
@@ -782,7 +779,7 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 void DragAndDrop::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 {
 	int tempint;
-	
+
 	if( ( pBeggar->hunger() < 6 ) && pItem->type() == 14 )
 	{
 		pBeggar->talk( tr("*cough* Thank thee!") );
@@ -795,7 +792,7 @@ void DragAndDrop::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar 
 		// We try to feed it more than it needs
 		if( pBeggar->hunger() + pItem->amount() > 6 )
 		{
-			
+
 //			client->player()->karma += ( 6 - pBeggar->hunger() ) * 10;
 			tempint = ( 6 - pBeggar->hunger() ) * 10;
 			socket->player()->setKarma( socket->player()->karma() + tempint );
@@ -827,12 +824,12 @@ void DragAndDrop::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar 
 
 	pBeggar->talk( tr( "Thank you %1 for the %2 gold!" ).arg( socket->player()->name() ).arg( pItem->amount() ) );
 	socket->sysMessage( tr("You have gained some karma!") );
-	
+
 	if( pItem->amount() <= 100 )
 		socket->player()->setKarma( socket->player()->karma() + 10 );
 	else
 		socket->player()->setKarma( socket->player()->karma() + 50 );
-	
+
 	pItem->remove();
 }
 
@@ -847,7 +844,7 @@ void DragAndDrop::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker 
 			bounceItem( socket, pItem );
 			return;
 		}
-		
+
 		socket->player()->giveGold( pItem->sellprice(), true );
 		pBroker->talk( tr( "Here you have your %1 gold, %2" ).arg( pItem->sellprice() ).arg( socket->player()->name() ) );
 		pItem->remove();

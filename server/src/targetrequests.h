@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #if !defined(__TARGETREQUEST_H__)
 #define __TARGETREQUEST_H__
@@ -47,7 +44,7 @@
 // Stealing
 class cSkStealing: public cTargetRequest
 {
-	
+
 public:
 	bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target );
 };
@@ -56,20 +53,20 @@ public:
 // Forensics Evaluation
 class cSkForensics: public cTargetRequest
 {
-	
+
 public:
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		int curtim=uiCurrentTime;
 		P_ITEM pi = FindItemBySerial(target->serial());
 		P_PLAYER pc_currchar = socket->player();
-		
+
 		if( !pi || !pi->corpse() )
 		{
 			socket->sysMessage( tr( "That does not appear to be a corpse." ) );
 			return true;
 		}
-		
+
 		cCorpse* corpse = dynamic_cast<cCorpse*>(pi);
 		if ( !corpse )
 			return true;
@@ -80,16 +77,16 @@ public:
 		}
 		else
 		{
-			if (!pc_currchar->checkSkill( FORENSICS, 0, 500)) 
-				socket->sysMessage( tr("You are not certain about the corpse.")); 
+			if (!pc_currchar->checkSkill( FORENSICS, 0, 500))
+				socket->sysMessage( tr("You are not certain about the corpse."));
 			else
 			{
 				if(((curtim-corpse->murdertime())/MY_CLOCKS_PER_SEC)>180) socket->sysMessage( tr("The %1 is many many seconds old.").arg(corpse->name()));
 				else if(((curtim-corpse->murdertime())/MY_CLOCKS_PER_SEC)>60) socket->sysMessage( tr("The %1 is many seconds old.").arg(corpse->name()) );
 				else if(((curtim-corpse->murdertime())/MY_CLOCKS_PER_SEC)<=60) socket->sysMessage( tr("The %1 is few seconds old.").arg(corpse->name()) );
-								
-				if ( !pc_currchar->checkSkill( FORENSICS, 500, 1000, false ) || corpse->murderer().isNull() ) 
-					socket->sysMessage( tr("You can't say who was the killer.") ); 
+
+				if ( !pc_currchar->checkSkill( FORENSICS, 500, 1000, false ) || corpse->murderer().isNull() )
+					socket->sysMessage( tr("You can't say who was the killer.") );
 				else
 				{
 					socket->sysMessage( tr("The killer was %1.").arg( corpse->murderer() ) );
@@ -104,7 +101,7 @@ public:
 // Poisoning
 class cSkPoisoning: public cTargetRequest
 {
-	
+
 	bool poisonSelected;
 	P_ITEM pPoison;
 public:
@@ -140,7 +137,7 @@ public:
 
 class cSkRepairItem : public cTargetRequest
 {
-	
+
 private:
 	cDoCodeAction* makesection_;
 public:
@@ -150,7 +147,7 @@ public:
 
 class cResurectTarget: public cTargetRequest
 {
-	
+
 public:
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
@@ -170,7 +167,7 @@ public:
 
 class cKillTarget: public cTargetRequest
 {
-	
+
 public:
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
@@ -204,7 +201,7 @@ public:
 
 class cSetTarget: public cTargetRequest
 {
-	
+
 	QString key,value;
 public:
 	cSetTarget( const QString& nKey, const QString& nValue ) : key(nKey), value(nValue) {}
@@ -213,22 +210,22 @@ public:
 
 class cRemoveTarget: public cTargetRequest
 {
-	
+
 public:
 	bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
 class cTeleTarget: public cTargetRequest
 {
-	
+
 public:
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
-		// This is a GM command so we do not check anything but send the 
+		// This is a GM command so we do not check anything but send the
 		// char where he wants to move
 		if( !socket->player() )
 			return true;
-	
+
 		socket->player()->removeFromView( false );
 
 		Coord_cl newPos = socket->player()->pos();
@@ -245,7 +242,7 @@ public:
 
 class cShowTarget: public cTargetRequest
 {
-	
+
 private:
 	QString key;
 public:
@@ -255,15 +252,15 @@ public:
 
 class cSetTagTarget: public cTargetRequest
 {
-	
+
 private:
 	UINT8 type_;
 	QString key_;
 	QString value_;
 public:
-	cSetTagTarget( QString key, QString value, UINT8 type ) 
-	{ 
-		type_	= type; 
+	cSetTagTarget( QString key, QString value, UINT8 type )
+	{
+		type_	= type;
 		key_	= key;
 		value_	= value;
 	}
@@ -313,12 +310,12 @@ public:
 
 class cGetTagTarget: public cTargetRequest
 {
-	
+
 private:
 	QString key_;
 public:
-	cGetTagTarget( QString key ) 
-	{ 
+	cGetTagTarget( QString key )
+	{
 		key_	= key;
 	}
 
@@ -348,12 +345,12 @@ public:
 
 class cRemoveTagTarget: public cTargetRequest
 {
-	
+
 private:
 	QString key_;
 public:
-	cRemoveTagTarget( QString key ) 
-	{ 
+	cRemoveTagTarget( QString key )
+	{
 		key_	= key;
 	}
 
@@ -424,7 +421,7 @@ public:
 
 class cTagsInfoTarget: public cTargetRequest
 {
-	
+
 public:
 	cTagsInfoTarget() {}
 
@@ -456,27 +453,27 @@ public:
 
 class cAddEventTarget: public cTargetRequest
 {
-	
+
 private:
 	QString _event;
 public:
 	cAddEventTarget( const QString &event ): _event( event ) {}
-	
+
 	bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
 class cRemoveEventTarget: public cTargetRequest
 {
-	
+
 private:
 	QString _event;
 public:
 	cRemoveEventTarget( const QString &event ): _event( event ) {}
-	
+
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		cUObject *pObject = 0;
-		
+
 		if( isCharSerial( target->serial() ) )
 			pObject = FindCharBySerial( target->serial() );
 		else if( isItemSerial( target->serial() ) )
@@ -503,16 +500,16 @@ public:
 
 class cMoveTarget: public cTargetRequest
 {
-	
+
 private:
 	INT16 x,y,z;
 public:
 	cMoveTarget( INT16 _x, INT16 _y, INT8 _z ): x( _x ), y( _y ), z( _z ) {}
-	
+
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		cUObject *pObject = 0;
-		
+
 		if( isCharSerial( target->serial() ) )
 			pObject = FindCharBySerial( target->serial() );
 		else if( isItemSerial( target->serial() ) )
@@ -540,7 +537,7 @@ public:
 		// Move the object relatively
 		Coord_cl newPos = pObject->pos() + Coord_cl( x, y, z );
 		pObject->moveTo( newPos );
-		
+
 		if( pObject->isChar() )
 		{
 			P_CHAR pChar = dynamic_cast< P_CHAR >( pObject );
@@ -561,7 +558,7 @@ public:
 
 class cRestockTarget: public cTargetRequest
 {
-	
+
 public:
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
@@ -583,7 +580,7 @@ public:
 
 class cStableTarget: public cTargetRequest
 {
-	
+
 private:
 	P_NPC m_npc;
 public:
@@ -602,7 +599,7 @@ public:
 
 class cFollowTarget : public cTargetRequest
 {
-	
+
 private:
 	P_NPC m_npc;
 public:

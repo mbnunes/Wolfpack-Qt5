@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 // Platform Includes
 #include "platform.h"
@@ -55,7 +52,7 @@ bool isInLockedItem( P_ITEM pItem )
 	if( pItem->container() && pItem->container()->isItem() )
 	{
 		P_ITEM pCont = dynamic_cast< P_ITEM >( pItem->container() );
-		
+
 		if( pCont->type() == 8 || pCont->type() == 64 )
 			return false;
 		else
@@ -77,10 +74,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	}
 	else
 		pc_currchar->setObjectDelay( SrvParams->objectDelay() * MY_CLOCKS_PER_SEC + uiCurrentTime );
-	
-	
+
+
 	P_ITEM pi = FindItemBySerial( serial );
-	
+
 	if( !pi )
 		return;
 
@@ -126,7 +123,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 			}
 		}
 	}
-	
+
 	// Secure containers
 	if( pi->isLockedDown() && pi->secured() )
 	{
@@ -136,7 +133,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 			return;
 		}
 	}
-	
+
 	// Dead ppl can only use ankhs
 	if( pc_currchar->isDead() && pi->type() != 16 )
 	{
@@ -167,7 +164,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	case 1: // normal containers
 		{
 			pc_currchar->setObjectDelay( 0 );	// no delay for opening containers
-			
+
 			if( pc_currchar->isGM() )
 			{
 				socket->sendContainer( pi );
@@ -196,7 +193,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 					socket->clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
 					return;
 				}
-				
+
 				socket->sendContainer( pi );
 				return;
 			}
@@ -222,7 +219,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 					{
 						if( !pChar->inRange( pc_currchar, 2 ) )
 							socket->sysMessage( tr( "You must stand nearer to snoop!" ) );
-						else						
+						else
 							Skills->Snooping( pc_currchar, pi );
 					}
 					else if( pChar == pc_currchar )
@@ -240,7 +237,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				{
 					if( !pChar->inRange( pc_currchar, 2 ) )
 						socket->sysMessage( tr( "You must stand nearer to snoop!" ) );
-					else						
+					else
 						Skills->Snooping( pc_currchar, pi );
 				}
 				else if( pChar == pc_currchar )
@@ -261,24 +258,24 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 			pc_currchar->resurrect();
 			socket->sysMessage( tr( "You have been resurrected." ) );
 			return;
-		} 
-		else 
+		}
+		else
 		{
 			socket->sysMessage( tr( "You are already living!" ) );
 			return;
 		}
-	
+
 	// Drinks
-	case 105:  
-		pc_currchar->soundEffect( 0x30 + RandomNum( 0, 1 ) );			
+	case 105:
+		pc_currchar->soundEffect( 0x30 + RandomNum( 0, 1 ) );
 		pi->reduceAmount( 1 ); // Remove a drink
 		pc_currchar->message( "Gulp!" );
 		return;
 
 	// 1001: Sword Weapons (Swordsmanship)
-	case 1001: 
+	case 1001:
 	// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
-	case 1002: 
+	case 1002:
 	// 1005: Fencing
 	case 1005:
 	// 1003: Macefighting (Staffs)
@@ -293,7 +290,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	case 1008:
 		break;
 
-	default:						
+	default:
 		break;
 	}
 

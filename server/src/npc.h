@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #ifndef CNPC_H_HEADER_INCLUDED
 #define CNPC_H_HEADER_INCLUDED
@@ -64,11 +61,11 @@ public:
 		// constructors
 		stWanderType() : type( enHalt ) {}
 		stWanderType( enWanderTypes type_ ) : type( type_ ) {}
-		stWanderType( UINT16 x1_, UINT16 x2_, UINT16 y1_, UINT16 y2_ ) : 
+		stWanderType( UINT16 x1_, UINT16 x2_, UINT16 y1_, UINT16 y2_ ) :
 			type( enRectangle ), x1( x1_ ), x2( x2_ ), y1( y1_ ), y2( y2_ ) {}
-		stWanderType( UINT16 x_, UINT16 y_, UINT16 radius_ ) : 
+		stWanderType( UINT16 x_, UINT16 y_, UINT16 radius_ ) :
 			type( enCircle ), x1( x_ ), y1( y_ ), radius( radius_ ) {}
-		
+
 		// attributes
 		enWanderTypes type;
 		// rectangles and circles
@@ -89,8 +86,8 @@ public:
 	bool del();
 
 	virtual enCharTypes objectType();
-	virtual void update( bool excludeself = false ); 
-	virtual void resend( bool clean = true); 
+	virtual void update( bool excludeself = false );
+	virtual void resend( bool clean = true);
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 			void talk( const UINT32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
 	virtual UINT8 notoriety( P_CHAR pChar = NULL );
@@ -180,7 +177,7 @@ public:
 	void setAICheckTime( UINT32 data );
 	void setAICheckInterval( UINT16 data );
 	void setCriticalHealth( UINT8 data );
-	
+
 	// bit flag setters
 	void setSpell( UINT8 spell, bool data );
 	// advanced setters for data structures
@@ -242,7 +239,7 @@ protected:
 
     // Stores information about how the npc wanders. uses the struct
     // stWanderType with attributes for rectangles, circles and more...
-    // 
+    //
     // cOldChar::npcWander_
     // cOldChar::fx1_ ...
     stWanderType wanderType_;
@@ -255,7 +252,7 @@ protected:
     UINT32 summonTime_;
 
     // Additional property flags
-    // 
+    //
     // Bits:
 	// 0x00000001 Creature is summoned
     UINT32 additionalFlags_;
@@ -487,14 +484,14 @@ inline bool cNPC::hasSpell( UINT8 spell ) const
 
 inline void cNPC::setSpell( UINT8 spell, bool data )
 {
-	if( data ) 
+	if( data )
 	{
 		if( spell < 32 )
 			spellsLow_ |= ( 1 << spell );
 		else if( spell >= 32 && spell < 64 )
 			spellsHigh_ |= ( 1 << (spell-32) );
 	}
-	else 
+	else
 	{
 		if( spell < 32 )
 			spellsLow_ &= ~( 1 << spell );
@@ -605,16 +602,16 @@ inline bool cNPC::isInnocent()
 	return notoriety() == 1;
 }
 
-inline bool cNPC::summoned() const 
+inline bool cNPC::summoned() const
 {
 	return ( additionalFlags_ & 0x01 ) != 0;
 }
 
-inline void cNPC::setSummoned(bool data) 
+inline void cNPC::setSummoned(bool data)
 {
 	if (data)
 		additionalFlags_ |= 0x01;
-	else		
+	else
 		additionalFlags_ &= ~0x01;
 	changed_ = true;
 }

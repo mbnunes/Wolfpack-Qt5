@@ -1,33 +1,29 @@
-
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "engine.h"
 
@@ -164,7 +160,7 @@ static PyObject* wpChar_removefromview( wpChar* self, PyObject* args )
 	\method char.message
 	\description Send an overhead localized message to a player. This method does nothing for NPCs.
 	\param message The numeric id of the localized message.
-	\param params Optional parameter. 
+	\param params Optional parameter.
 	Parameters that should be parsed into the localized message.
 	\param affix Optional parameter.
 	If specified, the affix will be appended to the localized message.
@@ -172,7 +168,7 @@ static PyObject* wpChar_removefromview( wpChar* self, PyObject* args )
 static PyObject* wpChar_message( wpChar* self, PyObject* args )
 {
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
-	
+
 	if( !player || !player->socket() )
 		return PyFalse();
 
@@ -196,7 +192,7 @@ static PyObject* wpChar_message( wpChar* self, PyObject* args )
 		char *affix = 0;
 
 		if( !PyArg_ParseTuple( args, "i|ss:char.message( clilocid, [args], [affix] )", &id, &clilocargs, &affix ) )
-			return 0;		
+			return 0;
 
 		// Cliloc Message
 		if( affix )
@@ -310,7 +306,7 @@ static PyObject* wpChar_sound( wpChar* self, PyObject* args )
 		return PyFalse();
 
 	self->pChar->bark( (cBaseChar::enBark)arg );
-	
+
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -320,7 +316,7 @@ static PyObject* wpChar_sound( wpChar* self, PyObject* args )
 	\description Play a soundeffect originating from the character.
 	\param sound The id of the soundeffect.
 	\param hearall Defaults to true.
-	If set to false, only the character can hear the sound. Has no 
+	If set to false, only the character can hear the sound. Has no
 	effect for NPCs.
 */
 static PyObject* wpChar_soundeffect( wpChar* self, PyObject* args )
@@ -346,7 +342,7 @@ static PyObject* wpChar_soundeffect( wpChar* self, PyObject* args )
 /*
 	\method char.distanceto
 	\description Measure the distance between the character and another object.
-	\param object The target object. May be another character, item or a coord 
+	\param object The target object. May be another character, item or a coord
 	object.
 	\return The distance in tiles towards the given target.
 */
@@ -379,7 +375,7 @@ static PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
         if( pChar )
 			return PyInt_FromLong( pChar->dist( self->pChar ) );
 	}
-	else if( PyTuple_Size( args ) >= 2 ) // Min 2 
+	else if( PyTuple_Size( args ) >= 2 ) // Min 2
 	{
 		Coord_cl pos = self->pChar->pos();
 
@@ -387,7 +383,7 @@ static PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 			return PyInt_FromLong( -1 );
 
 		pos.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );  
+		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
 
 		return PyInt_FromLong( self->pChar->pos().distance( pos ) );
 	}
@@ -399,7 +395,7 @@ static PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 /*
 	\method char.action
 	\description Play an animation for the character.
-	The animation id is automatically translated if the character is on a horse or 
+	The animation id is automatically translated if the character is on a horse or
 	if the current body id of the character doesn't	support the animation.
 	\param id The id of the animation that should be played.
 */
@@ -419,7 +415,7 @@ static PyObject* wpChar_action( wpChar* self, PyObject* args )
 /*
 	\method char.directionto
 	\description Return the direction from the character to another object.
-	\param object The target object. May be another character, item or a coord 
+	\param object The target object. May be another character, item or a coord
 	object.
 	\return The direction towards the target.
 */
@@ -455,7 +451,7 @@ static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
         if( pChar )
 			return PyInt_FromLong( self->pChar->direction(pChar) );
 	}
-	else if( PyTuple_Size( args ) >= 2 ) // Min 2 
+	else if( PyTuple_Size( args ) >= 2 ) // Min 2
 	{
 		Coord_cl pos = self->pChar->pos();
 
@@ -463,7 +459,7 @@ static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 			return PyInt_FromLong( -1 );
 
 		pos.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );  
+		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
 
 		return PyInt_FromLong( self->pChar->pos().direction( pos ) );
 	}
@@ -474,7 +470,7 @@ static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 
 /*
 	\method char.checkskill
-	\description Make a skillcheck with a given difficulty and allow the 
+	\description Make a skillcheck with a given difficulty and allow the
 	character to gain in that skill.
 	\param skill The id of the skill that should be checked.
 	\param min The lower boundary of the difficulty range.
@@ -491,7 +487,7 @@ static PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 
 	if( !PyArg_ParseTuple( args, "hhh|char.checkskill( skill, min, max )", &skill, &min, &max ) )
 		return 0;
-	
+
 	bool success = self->pChar->checkSkill( skill, min, max );
 
 	return success ? PyTrue() : PyFalse();
@@ -535,7 +531,7 @@ static PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
 }
 
 /*
-	\method char.useresource	
+	\method char.useresource
 	\description Remove items from the characters backpack recursively.
 	\param amount The amount if items that should be deleted.
 	\param id The display id of the items that should be deleted.
@@ -547,7 +543,7 @@ static PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyInt_FromLong( 0 );
-	
+
 	if( PyTuple_Size( args ) < 2 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 	{
 		PyErr_BadArgument();
@@ -587,13 +583,13 @@ static PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
 
 /*
 	\method char.kill
-	\description Kill the character. This is not forced, but instead 
+	\description Kill the character. This is not forced, but instead
 	it tries to damage the character so he dies normally.
 */
 static PyObject* wpChar_kill( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
-	
+
 	if( !self->pChar || self->pChar->free )
 		return PyFalse();
 
@@ -622,7 +618,7 @@ static PyObject* wpChar_damage( wpChar* self, PyObject* args )
 
 	int type, amount;
 	PyObject *source = Py_None;
-	
+
 	if( !PyArg_ParseTuple( args, "ii|O:char.damage( type, amount, source )", &type, &amount, &source ) )
 		return 0;
 
@@ -652,7 +648,7 @@ static PyObject* wpChar_emote( wpChar* self, PyObject* args )
 
 	QString message = QString( "*%1*" ).arg(getArgStr(0));
 	self->pChar->emote(message);
-	
+
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -703,21 +699,21 @@ static PyObject* wpChar_say( wpChar* self, PyObject* args, PyObject *keywds )
 		static char *kwlist[] = { "clilocid", "args", "affix", "prepend", "color", "socket", NULL};
 
 		if( !PyArg_ParseTupleAndKeywords( args, keywds, "i|ssbiO&:char.say( clilocid, [args], [affix], [prepend], [color], [socket] )", kwlist, &id, &clilocargs, &affix, &prepend, &color, PyConvertSocket, &socket ) )
-			return 0;		
+			return 0;
 
 		npc->talk( id, clilocargs, affix, prepend, color, socket );
 	}
 	else
 	{
 		ushort color = self->pChar->saycolor();
-		
+
 		if( checkArgInt( 1 ) )
 			color = getArgInt( 1 );
 
 		self->pChar->talk( getArgStr( 0 ), color );
 
 	}
-	
+
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -734,7 +730,7 @@ static PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse();
-	
+
 	if( PyTuple_Size( args ) < 1 || !checkArgInt( 0 ) )
 	{
 		PyErr_BadArgument();
@@ -807,7 +803,7 @@ static PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 	else if( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
 	else if( value.type() == cVariant::Double )
-		return PyFloat_FromDouble( value.asDouble() );		
+		return PyFloat_FromDouble( value.asDouble() );
 
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -863,7 +859,7 @@ static PyObject* wpChar_hastag( wpChar* self, PyObject* args )
 	}
 
 	QString key = getArgStr( 0 );
-	
+
 	return self->pChar->getTag( key ).isValid() ? PyTrue() : PyFalse();
 }
 
@@ -913,11 +909,11 @@ static PyObject* wpChar_addfollower( wpChar* self, PyObject* args )
 	}
 
 	P_NPC pPet = dynamic_cast<P_NPC>( getArgChar( 0 ) );
-	
+
 	if (pPet) {
 		player->addPet( pPet );
 	}
-	
+
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -943,13 +939,13 @@ static PyObject* wpChar_removefollower( wpChar* self, PyObject* args )
 		PyErr_BadArgument();
 		return NULL;
 	}
-  
+
 	P_NPC pPet = dynamic_cast<P_NPC>( getArgChar( 0 ) );
-	
+
 	if (pPet) {
 		player->removePet(pPet);
 	}
-	
+
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -957,7 +953,7 @@ static PyObject* wpChar_removefollower( wpChar* self, PyObject* args )
 /*
 	\method char.hasfollower
 	\description Checks if a certain pet is in the follower list of this
-	character. 
+	character.
 	Please note that the pet is automatically in the follower list of this
 	character if it's owned by him.
 	\param pet The pet you want to check for.
@@ -979,7 +975,7 @@ static PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
 	}
 
 	P_NPC pPet = dynamic_cast<P_NPC>( getArgChar( 0 ) );
-	
+
 	if( pPet )
 	{
 		cBaseChar::CharContainer::const_iterator iter = player->pets().begin();
@@ -992,7 +988,7 @@ static PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
 
 /*
 	\method char.updatehealth
-	\description Update the healthbar of this character. The update will also be sent to 
+	\description Update the healthbar of this character. The update will also be sent to
 	anyone in range and the partymembers of the character.
 */
 static PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
@@ -1008,8 +1004,8 @@ static PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
 
 /*
 	\method char.updatemana
-	\description Update the minimum and maximum mana of this character. 
-	This method only has an effect for connected players. The change will 
+	\description Update the minimum and maximum mana of this character.
+	This method only has an effect for connected players. The change will
 	also be visible to party members of the player.
 */
 static PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
@@ -1023,15 +1019,15 @@ static PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
 	if (player && player->socket()) {
 		player->socket()->updateMana();
 	}
-	
+
 	Py_INCREF(Py_None);
 	return Py_None;
 }
 
 /*
 	\method char.updatestamina
-	\description Update the minimum and maximum stamina of this character. 
-	This method only has an effect for connected players. The change will 
+	\description Update the minimum and maximum stamina of this character.
+	This method only has an effect for connected players. The change will
 	also be visible to party members of the player.
 */
 static PyObject* wpChar_updatestamina( wpChar* self, PyObject* args )
@@ -1042,7 +1038,7 @@ static PyObject* wpChar_updatestamina( wpChar* self, PyObject* args )
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
-	if (player && player->socket()) {	
+	if (player && player->socket()) {
 		player->socket()->updateStamina();
 	}
 
@@ -1062,7 +1058,7 @@ static PyObject* wpChar_updatestats( wpChar* self, PyObject* args )
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
-	if (player && player->socket()) {	
+	if (player && player->socket()) {
 		player->socket()->sendStatWindow();
 	}
 
@@ -1082,14 +1078,14 @@ static PyObject* wpChar_getweapon( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse();
 
-	return PyGetItemObject( self->pChar->getWeapon() ); 
+	return PyGetItemObject( self->pChar->getWeapon() );
 }
 
 /*
 	\method char.turnto
 	\description Let the character turn toward another object or coordinate.
-	\param target What the character should turn toward to. This may either be another character, an item or a 
-	coordinate object. If the character should turn toward equipped or contained items, he will turn to the wearer 
+	\param target What the character should turn toward to. This may either be another character, an item or a
+	coordinate object. If the character should turn toward equipped or contained items, he will turn to the wearer
 	or outmost container.
 */
 static PyObject* wpChar_turnto( wpChar* self, PyObject* args )
@@ -1118,7 +1114,7 @@ static PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 	else if( checkArgItem( 0 ) )
 	{
 		P_ITEM pItem = getArgItem( 0 );
-		
+
 		pItem = pItem->getOutmostItem();
 
 		if( pItem->container() && pItem->container()->isChar() )
@@ -1137,7 +1133,7 @@ static PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 /*
 	\method char.mount
 	\description Forces the character to mount a mountable npc.
-	This method only works for players as the mounter and npcs 
+	This method only works for players as the mounter and npcs
 	as the mounted object.
 	\param pet The pet the player should be mounted on.
 */
@@ -1202,7 +1198,7 @@ static PyObject* wpChar_equip( wpChar* self, PyObject* args )
 	}
 
 	P_ITEM pItem = getArgItem( 0 );
-	
+
 	if( pItem )
 		self->pChar->wear( pItem );
 
@@ -1214,7 +1210,7 @@ static PyObject* wpChar_equip( wpChar* self, PyObject* args )
 	\method char.getbankbox
 	\description Get the bankbox of the character and autocreate it if
 	neccesary.
-	\return The bankbox item object. If this method returns None, 
+	\return The bankbox item object. If this method returns None,
 	something went <b>really</b> wrong.
 */
 static PyObject* wpChar_getbankbox( wpChar* self, PyObject* args )
@@ -1235,7 +1231,7 @@ static PyObject* wpChar_getbankbox( wpChar* self, PyObject* args )
 	\method char.getbackpack
 	\description Get the backpack of the character and autocreate it if
 	neccesary.
-	\return The backpack item object. If this method returns None, 
+	\return The backpack item object. If this method returns None,
 	something went <b>really</b> wrong.
 */
 static PyObject* wpChar_getbackpack( wpChar* self, PyObject* args )
@@ -1256,7 +1252,7 @@ static PyObject* wpChar_getbackpack( wpChar* self, PyObject* args )
 	If false, the animated object will turn towards the target. This is used
 	for arrows, fireballs and similar effects.
 	\param explodes Defaults to false.
-	If this is true, an explosion will be shown when the effect reaches 
+	If this is true, an explosion will be shown when the effect reaches
 	its target.
 	\param speed Defaults to 10.
 	This is the speed of the moving effect.
@@ -1269,16 +1265,16 @@ static PyObject* wpChar_getbackpack( wpChar* self, PyObject* args )
 static PyObject* wpChar_movingeffect(wpChar* self, PyObject* args) {
 	PyObject *target;
 	unsigned short id;
-	
-	// Optional Arguments	
+
+	// Optional Arguments
 	unsigned char fixedDirection = 1;
 	unsigned char explodes = 0;
 	unsigned char speed = 10;
 	unsigned int hue = 0;
 	unsigned int renderMode = 0;
 
-	if (!PyArg_ParseTuple(args, 
-		"HO|BBBII:char.movingeffect(id, target, [fixedDirection], [explodes], [speed], [hue], [rendermode])", 
+	if (!PyArg_ParseTuple(args,
+		"HO|BBBII:char.movingeffect(id, target, [fixedDirection], [explodes], [speed], [hue], [rendermode])",
 		&id, &target, &fixedDirection, &explodes, &speed, &hue, &renderMode)) {
 		return 0;
 	}
@@ -1324,7 +1320,7 @@ static PyObject* wpChar_effect( wpChar* self, PyObject* args )
 		PyErr_BadArgument();
 		return NULL;
 	}
-	
+
 	UINT16 id = getArgInt( 0 );
 
 	// Optional Arguments
@@ -1333,12 +1329,12 @@ static PyObject* wpChar_effect( wpChar* self, PyObject* args )
 	UINT16 hue = 0;
 	UINT16 renderMode = 0;
 
-	if (!PyArg_ParseTuple(args, 
-		"H|BBHH:char.effect(id, [speed], [duration], [hue], [rendermode])", 
+	if (!PyArg_ParseTuple(args,
+		"H|BBHH:char.effect(id, [speed], [duration], [hue], [rendermode])",
 		&id, &speed, &duration, &hue, &renderMode)) {
 		return 0;
 	}
-	
+
 	self->pChar->effect( id, speed, duration, hue, renderMode );
 
 	Py_INCREF(Py_None);
@@ -1357,7 +1353,7 @@ static PyObject* wpChar_effect( wpChar* self, PyObject* args )
 	If this is true, all effects matching the dispelid will be dispelled,
 	even if they're not marked as dispellable.
 	\param dispelid Defaults to an empty string.
-	If this string is empty, all effects will be affected. Otherwise dispel 
+	If this string is empty, all effects will be affected. Otherwise dispel
 	will only affect effects that have the given dispel id.
 	\param dispelargs Defaults to an empty list.
 	This list of parameters will be passed on to the dispel callback specified
@@ -1389,7 +1385,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 
 		if( PyTuple_Size( args ) > 3 && PyList_Check( PyTuple_GetItem( args, 3 ) ) )
 			dispelargs = PyList_AsTuple( PyTuple_GetItem( args, 3 ) );
-		
+
 		if( !dispelargs )
 			dispelargs = PyTuple_New( 0 );
 
@@ -1407,7 +1403,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 				ptype = dispelid.latin1();
 			}
 
-			PyObject *args = Py_BuildValue("(NNBBsN", self->pChar->getPyObject(), source, 
+			PyObject *args = Py_BuildValue("(NNBBsN", self->pChar->getPyObject(), source,
 				0, force ? 1 : 0, ptype, dispelargs);
 			bool result = cPythonScript::callChainedEventHandler(EVENT_DISPEL,self->pChar->getEvents(), args);
 			Py_DECREF(args);
@@ -1450,7 +1446,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 					TempEffects::instance()->erase( effects[i] );
 				}
 			}
-			
+
 		}
 	}
 
@@ -1462,16 +1458,16 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 	\method char.addtimer
 	\description Add a timed effect to this character.
 	\param expiretime The time in miliseconds until this effect expires and the given expire function is called.
-	\param expirecallback The full name of the function (preceding the name of the script and modules it is in) that should be called 
+	\param expirecallback The full name of the function (preceding the name of the script and modules it is in) that should be called
 	when the effect expires. The prototype for this function is:
 	<code>def expire_callback(char, args):
 		&nbsp;&nbsp;pass</code>
 	Char is the character the effect was applied to. Args is the list of custom arguments you passed to addtimer.
-	\param arguments A list of arguments that should be passed on to the effect. Please note that you should only pass on 
+	\param arguments A list of arguments that should be passed on to the effect. Please note that you should only pass on
 	strings, integers and floats because they are the only objects that can be saved to the worldfile. If you want to pass on
 	items or characters, please pass the serial instead and use the findchar and finditem functions in the <library id="wolfpack">wolfpack</library>
 	library.
-	\param serializable Defaults to false. 
+	\param serializable Defaults to false.
 	If this is true, the effect will be saved to the worldfile as well. Otherwise the effect will be lost when the server is
 	shutted down or crashes.
 	\param dispellable Defaults to false.
@@ -1480,12 +1476,12 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 	This string is an identifier you need to specify if you later want to dispel this specific effect. It should be an identifier
 	unique to this type of effect.
 	\param dispelcallback Defaults to an empty string.
-	Like the expirecallback this string is the full name of a function including script and modules it may be in. It's called when the 
-	effect is dispelled by any means. The prototype for this function is:	
+	Like the expirecallback this string is the full name of a function including script and modules it may be in. It's called when the
+	effect is dispelled by any means. The prototype for this function is:
 	<code>def dispel_callback(char, args, source, dispelargs):
 		&nbsp;&nbsp;pass</code>
-	Char is the character the effect was applied to, args are the custom arguments you passed to addtimer. 
-	Source is the character responsible for the dispelling of the effect, but may also be None. For a 
+	Char is the character the effect was applied to, args are the custom arguments you passed to addtimer.
+	Source is the character responsible for the dispelling of the effect, but may also be None. For a
 	description of dispelargs see the description of the dispel method.
 */
 static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
@@ -1505,13 +1501,13 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	PyObject *py_args = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
 
 	cPythonEffect *effect = new cPythonEffect( function, py_args );
-	
+
 	// Should we save this effect?
-	if( checkArgInt( 3 ) && getArgInt( 3 ) != 0 ) 
+	if( checkArgInt( 3 ) && getArgInt( 3 ) != 0 )
 		effect->setSerializable( true );
 	else
 		effect->setSerializable( false );
-	
+
 	// dispellable
 	if( checkArgInt( 4 ) && getArgInt( 4 ) != 0 )
 		effect->dispellable = true;
@@ -1588,7 +1584,7 @@ static PyObject* wpChar_iscriminal( wpChar* self, PyObject* args )
 static PyObject* wpChar_delete( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
-	
+
 	self->pChar->remove();
 
 	Py_INCREF(Py_None);
@@ -1706,7 +1702,7 @@ static PyObject* wpChar_follow( wpChar* self, PyObject* args )
 
 /*
 	\method char.disturb
-	\description This method only works for players. 
+	\description This method only works for players.
 	Disturb the player at whatever he is doing. Meditation for instance.
 */
 static PyObject* wpChar_disturb( wpChar* self, PyObject* args )
@@ -1769,9 +1765,9 @@ static PyObject* wpChar_goto( wpChar* self, PyObject* args )
 
 /*
 	\method char.updateflags
-	\description This method will resend the flags for this character. Please be sure 
+	\description This method will resend the flags for this character. Please be sure
 	to only use this if you are sure that the flags have changed. If the flags didn't change
-	and you use this method, all clients in range will see the character walking one 
+	and you use this method, all clients in range will see the character walking one
 	cell forward, although he didn't do serverside.
 */
 static PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
@@ -1781,14 +1777,14 @@ static PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 		return PyFalse();
 
 	self->pChar->update();
-	
+
 	Py_INCREF(Py_None);
 	return Py_None;
 }
 
 /*
 	\method char.notoriety
-	\description Calculate the notoriety value toward another character or a generic 
+	\description Calculate the notoriety value toward another character or a generic
 	notoriety value if no target is given.
 	\param target The character you want to calculate the notoriety value with.
 	\return The notoriety, which is one of the following values:
@@ -1822,7 +1818,7 @@ static PyObject* wpChar_notoriety( wpChar* self, PyObject* args )
 	\method char.canreach
 	\description Check if the character can reach the given object or coordinate and if he is in
 	within a given range.
-	\param target The object the character wants to reach. This can either be an item, a character or a 
+	\param target The object the character wants to reach. This can either be an item, a character or a
 	coordinate object.
 	\param range The range the character needs to be within.
 	\return True if the character can reach the given object, false otherwise.
@@ -1847,9 +1843,9 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 	if( checkArgCoord( 0 ) )
 	{
 		pos = getArgCoord( 0 );
-	
+
 	// Parameter1: Item/Char
-	} else {	
+	} else {
 		pChar = getArgChar( 0 );
 
 		if(!pChar) {
@@ -1867,7 +1863,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 			pos = pItem->pos();
 		} else {
 			pos = pChar->pos();
-		}		
+		}
 	}
 
 	UINT32 range = getArgInt( 1 );
@@ -1968,7 +1964,7 @@ static PyObject* wpChar_cansee( wpChar *self, PyObject *args )
 static PyObject* wpChar_lightning( wpChar *self, PyObject *args )
 {
 	unsigned short hue = 0;
-	
+
 	if( !PyArg_ParseTuple( args, "|h:char.lightning( [hue] )", &hue ) )
 		return 0;
 
@@ -2025,10 +2021,10 @@ static PyObject* wpChar_additem( wpChar *self, PyObject *args )
 
 	int layer = getArgInt( 0 );
 	P_ITEM pItem = getArgItem( 1 );
-	
+
 	if (!pItem) {
 		Py_INCREF(Py_None);
-		return Py_None;		
+		return Py_None;
 	}
 
 	self->pChar->addItem( (cBaseChar::enLayer)layer, pItem, handleWeight, noRemove );
@@ -2054,7 +2050,7 @@ static PyObject* wpChar_vendorbuy( wpChar *self, PyObject* args )
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( getArgChar( 0 ) );
 	P_NPC npc = dynamic_cast<P_NPC>( self->pChar );
-	
+
 	if ( !player || !npc ) {
 		Py_INCREF(Py_None);
 		return Py_None;
@@ -2082,10 +2078,10 @@ static PyObject* wpChar_vendorsell( wpChar *self, PyObject* args )
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( getArgChar( 0 ) );
 	P_NPC npc = dynamic_cast<P_NPC>( self->pChar );
-	
+
 	if (!player || !npc) {
 		Py_INCREF(Py_None);
-		return Py_None;		
+		return Py_None;
 	}
 
 	npc->vendorSell( player );
@@ -2114,7 +2110,7 @@ static PyObject* wpChar_aiengine( wpChar* self, PyObject* args )
 /*
 	\method char.log
 	\description Log an event associated with this character.
-	If the character is a connected player, his socket id will be 
+	If the character is a connected player, his socket id will be
 	prepended to the message.
 	\param level The loglevel to use for the message. Possible constants from <library id="wolfpack.consts">wolfpack.consts</library> are:
 	<code>0x00 LOG_MESSAGE
@@ -2126,7 +2122,7 @@ static PyObject* wpChar_aiengine( wpChar* self, PyObject* args )
 0x06 LOG_DEBUG</code>
 	\param message The message you want to send to the logfile and console. Please make sure to include a newline (\n) at the end.
 */
-static PyObject *wpChar_log(wpChar *self, PyObject *args) {	
+static PyObject *wpChar_log(wpChar *self, PyObject *args) {
 	char *message;
 	unsigned int loglevel;
 
@@ -2145,7 +2141,7 @@ static PyObject *wpChar_log(wpChar *self, PyObject *args) {
 	\description Remove a python script from the event chain for this object.
 	\param event The id of the python script you want to remove from the event chain.
 */
-static PyObject *wpChar_removeevent(wpChar *self, PyObject *args) {	
+static PyObject *wpChar_removeevent(wpChar *self, PyObject *args) {
 	char *event;
 	if (!PyArg_ParseTuple(args, "s:char.removeevent(name)", &event)) {
 		return 0;
@@ -2161,7 +2157,7 @@ static PyObject *wpChar_removeevent(wpChar *self, PyObject *args) {
 	Does nothing if the object already has that event.
 	\param event The id of the python script you want to add to the event chain.
 */
-static PyObject *wpChar_addevent(wpChar *self, PyObject *args) {	
+static PyObject *wpChar_addevent(wpChar *self, PyObject *args) {
 	char *event;
 	if (!PyArg_ParseTuple(args, "s:char.addevent(name)", &event)) {
 		return 0;
@@ -2185,7 +2181,7 @@ static PyObject *wpChar_addevent(wpChar *self, PyObject *args) {
 	\param event The id of the python script you are looking for.
 	\return True of the script is in the chain. False otherwise.
 */
-static PyObject *wpChar_hasevent(wpChar *self, PyObject *args) {	
+static PyObject *wpChar_hasevent(wpChar *self, PyObject *args) {
 	char *event;
 	if (!PyArg_ParseTuple(args, "s:char.hasevent(name)", &event)) {
 		return 0;
@@ -2207,7 +2203,7 @@ static PyObject *wpChar_hasevent(wpChar *self, PyObject *args) {
 	\param args A tuple of arguments you want to pass to this event handler.
 	\return The result of the first handling event.
 */
-static PyObject *wpChar_callevent(wpChar *self, PyObject *args) {	
+static PyObject *wpChar_callevent(wpChar *self, PyObject *args) {
 	unsigned int event;
 	PyObject *eventargs;
 
@@ -2228,7 +2224,7 @@ static PyObject *wpChar_callevent(wpChar *self, PyObject *args) {
 	return Py_False;
 }
 
-static PyMethodDef wpCharMethods[] = 
+static PyMethodDef wpCharMethods[] =
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto,			METH_VARARGS, "Moves the character to the specified location." },
 	{ "resurrect",		(getattrofunc)wpChar_resurrect,			METH_VARARGS, "Resurrects the character." },
@@ -2263,7 +2259,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "lightning",		(getattrofunc)wpChar_lightning,			METH_VARARGS, NULL },
 	{ "log",			(getattrofunc)wpChar_log,				METH_VARARGS, NULL },
 	{ "additem",		(getattrofunc)wpChar_additem,			METH_VARARGS, "Creating item on specified layer."},
-	
+
 	// Mostly NPC functions
 	{ "fight",			(getattrofunc)wpChar_fight,			METH_VARARGS, "Let's the character attack someone else." },
 	{ "goto",			(getattrofunc)wpChar_goto,				METH_VARARGS, "The character should go to a coordinate." },
@@ -2329,19 +2325,19 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 {
 	// Python specific stuff
 	/*
-		\rproperty char.gm Indicates whether the player is a gm or not. 
+		\rproperty char.gm Indicates whether the player is a gm or not.
 		Always false for NPCs.
 		This property is exclusive to python scripts and overrides normal properties with the same name.
 	*/
 	if ( !strcmp( "gm", name ) )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
-	
+
 		if (!player)
 			return PyFalse();
 
 		return player->isGM() ? PyTrue() : PyFalse();
-		
+
 	/*
 		\rproperty char.tags This property is a list of names for all tags attached to this character.
 		This property is exclusive to python scripts and overrides normal properties with the same name.
@@ -2359,7 +2355,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		}
 
 		return list;
-		
+
 	/*
 		\rproperty char.party A <object id="PARTY">PARTY</object> object for the party the player belongs to.
 		None for NPCs or if the player is not in a party.
@@ -2374,7 +2370,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 		Py_INCREF(Py_None);
 		return Py_None;
-		
+
 	/*
 		\rproperty char.guild A <object id="GUILD">GUILD</object> object for the guild the player belongs to.
 		None for NPCs or if the player is not in a guild.
@@ -2389,7 +2385,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 		Py_INCREF(Py_None);
 		return Py_None;
-		
+
 	/*
 		\rproperty char.rank The rank for the players account.
 		NPCs and players without accounts always have rank 1.
@@ -2397,7 +2393,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	*/
 	} else if( !strcmp("rank", name)) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
-	
+
 		if (!player)
 			return PyInt_FromLong(1);
 
@@ -2408,7 +2404,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		} else {
 			return PyInt_FromLong(1);
 		}
-		
+
 	/*
 		\rproperty char.region A <object id="REGION">REGION</object> object for the region the character is in.
 		May be None if the region the character is in is undefined.
@@ -2459,7 +2455,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		skills->type = 0;
 		return (PyObject*)( skills );
 	}
-	
+
 	/*
 		\rproperty char.skillcap Returns a <object id="SKILL">SKILL</object> object in cap mode for the character.
 		This property is exclusive to python scripts and overrides normal properties with the same name.
@@ -2676,7 +2672,7 @@ bool checkWpChar( PyObject *pObj )
 int wpChar_compare( PyObject *a, PyObject *b )
 {
 	// Both have to be characters
-	if( a->ob_type != &wpCharType || b->ob_type != &wpCharType ) 
+	if( a->ob_type != &wpCharType || b->ob_type != &wpCharType )
 		return -1;
 
 	P_CHAR pA = getWpChar( a );
@@ -2706,7 +2702,7 @@ int PyConvertPlayer(PyObject *object, P_PLAYER* player) {
 	if (!temp) {
 		return 0;
 	}
-    
+
 	*player = temp;
 	return 1;
 }

@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "ai.h"
 #include "../npc.h"
@@ -72,7 +69,7 @@ void Human_Vendor::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 	}
 }
 
-Human_Stablemaster::Human_Stablemaster( P_NPC npc ) : AbstractAI( npc ) 
+Human_Stablemaster::Human_Stablemaster( P_NPC npc ) : AbstractAI( npc )
 {
 	notorietyOverride_ = 1;
 	m_actions.append( new Action_Wander( npc, this ) );
@@ -294,7 +291,7 @@ void Human_Guard_Called_Disappear::execute()
 	// nothing to do
 }
 
-float Human_Guard_Called_Disappear::preCondition() {	
+float Human_Guard_Called_Disappear::preCondition() {
 	P_CHAR pTarget = m_npc->attackTarget();
 	if( !pTarget || pTarget->isDead() || pTarget->isInnocent() || pTarget->region() != m_npc->region() )
 		return 1.0f;
@@ -344,7 +341,7 @@ void Human_Guard::selectVictim()
 		else if( !m_npc->inRange( m_currentVictim, SrvParams->attack_distance() ) )
 			m_currentVictim = NULL;
 	}
-	
+
 	if( !m_currentVictim )
 	{
 		// Get a criminal or murderer in range to attack it

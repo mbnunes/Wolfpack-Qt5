@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 // Platform Includes
 #include "platform.h"
@@ -103,7 +100,7 @@ bool InputSpeech( cUOSocket *socket, P_PLAYER pChar, const QString &speech )
 		break;
 
 	// Renaming ourself
-	case cPlayer::enNameDeed: 
+	case cPlayer::enNameDeed:
 		pChar->setName( speech );
 		socket->sysMessage( tr( "Your new name is: %1" ).arg( speech ) );
 		pChar->setInputMode(cPlayer::enNone);
@@ -112,7 +109,7 @@ bool InputSpeech( cUOSocket *socket, P_PLAYER pChar, const QString &speech )
 
 	// Renaming a house sign
 	case cPlayer::enHouseSign:
-		pItem->setName( speech ); 
+		pItem->setName( speech );
 		socket->sysMessage( tr( "Your house has been renamed to: %1" ).arg( speech ) );
 		pChar->setInputMode(cPlayer::enNone);
 		pChar->setInputItem(INVALID_SERIAL);
@@ -124,36 +121,36 @@ bool InputSpeech( cUOSocket *socket, P_PLAYER pChar, const QString &speech )
 			cPage* pPage = new cPage( pChar->serial(), PT_GM, speech, pChar->pos() );
 			cPagesManager::getInstance()->push_back( pPage );
 			notification = tr( "GM Page from %1: %2" ).arg( pChar->name() ).arg( speech );
-			
+
 			for ( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next())
 				if( mSock->player() && mSock->player()->isGM() )
 					mSock->sysMessage( notification );
-				
+
 				if( Network::instance()->count() > 0 )
 					socket->sysMessage( tr( "Available Game Masters have been notified of your request." ) );
 				else
 					socket->sysMessage( tr( "There was no Game Master available, page queued." ) );
-				
+
 				pChar->setInputMode(cPlayer::enNone);
 		}
 		break;
-		
+
 	// Paging a Counselor
 	case cPlayer::enPageCouns:
 		{
 			cPage* pPage = new cPage( pChar->serial(), PT_COUNSELOR, speech, pChar->pos() );
 			cPagesManager::getInstance()->push_back( pPage );
 			notification = tr( "Counselor Page from %1: %2" ).arg( pChar->name() ).arg( speech );
-			
+
 			for ( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next())
 				if( mSock->player() && (socket->player()->isCounselor() || socket->player()->isGM()) )
 					mSock->sysMessage( notification );
-				
+
 				if( Network::instance()->count() > 0 )
 					socket->sysMessage( tr( "Available Counselors have been notified of your request." ) );
 				else
 					socket->sysMessage( tr( "There was no Counselor available, page queued." ) );
-				
+
 				pChar->setInputMode(cPlayer::enNone);
 		}
 		break;
@@ -161,7 +158,7 @@ bool InputSpeech( cUOSocket *socket, P_PLAYER pChar, const QString &speech )
 	default:
 		break;	// do nothing
 	}
-	
+
 	return true;
 }
 
@@ -174,13 +171,13 @@ bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QStr
 
 	if( !speech.contains( "STABLE" ) )
 		return false;
-      
+
 	/////////////////////////////////////////////////////////////////////
 	//// so far we have a stablemaster! lets see if the caller has a pet
 	//// if so check if the pets name is in the commandstring
 	//// if not return
     ///////////////////////////////////////////////////////////////////
-	
+
 	bool found = false;
 	P_CHAR p_pet = NULL;
 	RegionIterator4Chars ri( pPlayer->pos() );
@@ -201,16 +198,16 @@ bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QStr
 		}
 	}
 
-	if (!found) 
-	{ 
+	if (!found)
+	{
 		pMaster->talk( tr( "Which pet?" ) );
 		return 1;
-	} 
+	}
 
 	/////////////////////////////////////////////////////////////
 	/// now we have a pet and stablemaster -> time to STABLE :-)
     ////////////////////////////////////////////////////////////
-	
+
     // set stablesp && pets stablemaster serial
 	// remove it from screen!
 	p_pet->removeFromView(); // Remove it from view of all sockets
@@ -238,11 +235,11 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 {
 /* redo with python
 	// is it a stablemaster ?
-	if( pMaster->npc_type() != 1 )	
+	if( pMaster->npc_type() != 1 )
 		return false;
 
 	if( !comm.contains( "CLAIM" ) && !comm.contains( "RETRIEVE" ) )
-	
+
 		return false;
 
 	/////////////////////////////////////////////////////////////////////
@@ -256,7 +253,7 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 	for( UINT32 i = 0; i < pets.size(); ++i )
 	{
 		pPet = FindCharBySerial( pets[i] );
-		
+
 		if( pPet )
 		{
 			if( pPet->owner() != pPlayer || !comm.contains( pPet->name(), false ) )
@@ -266,11 +263,11 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 		}
 	}
 
-	if( !pPet ) 
-	{ 
+	if( !pPet )
+	{
 		pMaster->talk( tr( "Sorry, I can't return that pet." ) );
 		return true;
-	} 
+	}
 
 	/////////////////////////////////////////////////////////////
 	/// now we have the claimed pet and stablemaster -> time to UNSTABLE :-)
@@ -283,15 +280,15 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 
 	pMaster->talk( tr( "That's %1 gold pieces" ).arg( fee ) );
 
-	/////////// check if customer can pay ! ///////////////    
+	/////////// check if customer can pay ! ///////////////
 	if( pPlayer->CountGold() < fee )
 	{
 		pMaster->talk( tr( "You can't afford the fee to claim your pet. Come back when you have enough gold." ) );
 		return true;
 	}
-	
+
 	delequan( pPlayer, 0x0EED, fee, NULL );
-		
+
 	// remove from hash table
 	stablesp.remove( pMaster->serial(), pPet->serial() );
 	pPet->setStablemaster_serial( INVALID_SERIAL ); // actual unstabling
@@ -301,7 +298,7 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 	MapObjects::instance()->remove( pPet );
 	MapObjects::instance()->add( pPet );
 	pPet->resend( false ); // Resend
-		
+
 	pMaster->talk( tr( "Here's your pet. Treat it well." ) );
 */
 	return false;
@@ -310,14 +307,14 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QString& comm )
 {
 /*	// lets be close to talk :)
-	if( pPlayer->dist( pGuard ) > 3 )	
+	if( pPlayer->dist( pGuard ) > 3 )
 		return false;
 
 	cGuildStone *pStone = pPlayer->getGuildstone();
 
 	// if they say chaos shield
 	if( ( pGuard->npcaitype() == 6 ) && ( comm.contains( "CHAOS SHIELD" ) ) )
-	{	
+	{
 		// The user needs to be in a chaos guild in order to get a shield
 		if( !pStone || ( pStone->guildType != cGuildStone::chaos ) )
 		{
@@ -335,14 +332,14 @@ bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QStri
 		// lets give them a new chaos shield.
 		P_ITEM pShield = cItem::createFromScript( "28" );
 		pPlayer->getBackpack()->addItem( pShield );
-		
+
 		socket->sysMessage( tr( "You put the chaos shield into your backpack" ) );
 		pGuard->talk( tr( "Hi fellow guild member, here is your new chaos shield." ) );
 		return true;
 	}
 	// He wants an order shield
 	else if( ( pGuard->npcaitype() == 7 ) && ( comm.contains( "ORDER SHIELD" ) ) )
-	{	
+	{
 		// The user needs to be in a order guild in order to get a shield
 		if( !pStone || ( pStone->guildType != cGuildStone::order ) )
 		{
@@ -361,7 +358,7 @@ bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QStri
 		// lets give them a new order shield.
 		P_ITEM pShield = cItem::createFromScript( "29" );
 		pPlayer->getBackpack()->addItem( pShield );
-		
+
 		socket->sysMessage( tr( "You put the order shield into your backpack" ) );
 		pGuard->talk( tr( "Hi fellow guild member, here is your new order shield." ) );
 		return true;
@@ -375,30 +372,30 @@ bool QuestionSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pChar, const QSt
 {
 	if( !pChar->isHuman() || pPlayer->dist( pChar ) > 3 )
 		return false;
-	
+
 	// Tell the questioner our name
 	if( comm.contains( "NAME" ) )
 	{
 		pChar->talk( tr( "Hello, my name is %1." ).arg( pChar->name() ) );
 		return true;
 	}
-	
+
     // say time and the npChar gives the time.
 	if( comm.contains( "TIME" ) )
 	{
 		pChar->talk( tr( "It is now %1 hours and %2 minutes.").arg(UoTime::instance()->hour()).arg(UoTime::instance()->minute()));
 		return true;
-	}	
+	}
 
 	if( comm.contains( "LOCATION" ) )
 	{
 		cTerritory* Region = pPlayer->region();
-		
+
 		if( Region )
 			pChar->talk( tr( "You are in %1" ).arg( Region->name() ) );
-		else 
+		else
 			pChar->talk( tr( "You are in the wilderness" ) );
-				
+
 		return true;
 	}
 
@@ -420,7 +417,7 @@ bool BankerSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pBanker, const QSt
 
 	if( comm.contains( "BANK" ) )
 	{
-		pBanker->turnTo( pPlayer );		
+		pBanker->turnTo( pPlayer );
 		socket->sendContainer( pPlayer->getBankbox() );
 		return true;
 	}
@@ -434,7 +431,7 @@ bool BankerSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pBanker, const QSt
     return false;
 }
 
-bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pTrainer, const QString& comm ) 
+bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pTrainer, const QString& comm )
 {
 /*	if( pPlayer->dist( pTrainer ) > 3 || !pTrainer->isHuman() )
 		return false;
@@ -449,9 +446,9 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pTrainer, const QSt
 	}
 
 	INT32 i, skill = -1;
-	
+
 	// this is to prevent errors when a player says "train <skill>" then don't pay the npc
-	pPlayer->setTrainer( INVALID_SERIAL ); 
+	pPlayer->setTrainer( INVALID_SERIAL );
 
 	for( i = 0; i < ALLSKILLS; ++i )
 		if( comm.contains( Skills->getSkillName( i ), false ) )
@@ -488,7 +485,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pTrainer, const QSt
 			{
 				int delta = pTrainer->getTeachingDelta( pPlayer, skill, sum );
 				int perc = ( pPlayer->skillValue( skill ) + delta ) / 10;
-				
+
 				message.append( tr( " Very well I, can train thee up to the level of %i percent for %i gold. Pay for less and I shall teach thee less." ).arg( perc ).arg( delta ) );
 
 				pPlayer->setTrainer( pTrainer->serial() );
@@ -514,7 +511,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pTrainer, const QSt
 	}
 
 	// skills and a trainer ?
-	if( skillList.count() > 0 ) 
+	if( skillList.count() > 0 )
 		pTrainer->talk( tr( "I can teach thee the following skills: %1." ).arg( skillList.join( ", " ) ) );
 	else
 		pTrainer->talk( tr( "I am sorry, but I have nothing to teach thee" ) );
@@ -623,36 +620,36 @@ bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm
 
 		if( StableSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
-		
+
 		if( UnStableSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
-		
+
 		if( ShieldSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
-		
+
 		if( QuestionSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
-		
+
 		if( TrainerSpeech( socket, pPlayer, pNpc, speechUpr ) )
-			return true;	
+			return true;
 	}
-	
+
 	return false;
 }
 
 void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speech, QValueVector< UINT16 > &keywords, UINT16 color, UINT16 font, UINT8 type ) // PC speech
-{	
+{
 	// handle things like renaming or describing an item
 	if( !pChar->socket() )
 		return;
 
 	cUOSocket *socket = pChar->socket();
 
-	if (InputSpeech(socket, pChar, speech))	
+	if (InputSpeech(socket, pChar, speech))
 		return;
 
 	pChar->unhide();
-		
+
 	// Check for Bogus Color
 	if (!isNormalColor(color))
 		color = 0x2;
@@ -670,11 +667,11 @@ void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speec
 	}
 
 	pChar->talk(speech, color, type);
-		
+
 	QString speechUpr = speech.upper();
 	if( response( socket, pChar, speech, keywords ) )
 		return;  // Vendor responded already
-	
+
 	// 0x0007 -> Speech-id for "Guards"
 	for( QValueVector< UINT16 >::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
 	{
@@ -683,18 +680,18 @@ void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speec
 		if( keyword == 0x07 )
 			pChar->callGuards();
 	}
-	
+
 	// this makes it so npcs do not respond to isDead people - HEALERS ??
 	if( pChar->isDead() )
 		return;
-	
+
 /*	P_CHAR pc = NULL; ???
 	P_CHAR pNpc = NULL;
 	RegionIterator4Chars ri( pChar->pos() );
 	for( ri.Begin(); !ri.atEnd(); ri++ )
-	{	
+	{
 		pc = ri.GetData();
-		if (!pc->isSameAs( pChar ) 
+		if (!pc->isSameAs( pChar )
 			&& pc->isNpc()
 			&& pc->dist( pChar ) <= 2)
 		{

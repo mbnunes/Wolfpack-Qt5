@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "python/tempeffect.h"
 
@@ -230,7 +227,7 @@ void cTempEffect::load( unsigned int id, const char **result )
 cTempEffects::cTempEffects()
 {
 	std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() ); // No temp effects to start with
-}  
+}
 
 void cTempEffects::check()
 {
@@ -240,7 +237,7 @@ void cTempEffects::check()
 
 	if( !tEffect)
 		return;
-	
+
 	while( tEffect && tEffect->expiretime <= uiCurrentTime )
 	{
 		if( isCharSerial( tEffect->getDest() ) )
@@ -284,7 +281,7 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, 
 			ptype = type.latin1();
 		}
 
-		PyObject *args = Py_BuildValue("(NNBBsN", pc_dest->getPyObject(), source, 
+		PyObject *args = Py_BuildValue("(NNBBsN", pc_dest->getPyObject(), source,
 			silent ? 1 : 0, onlyDispellable ? 0 : 1, ptype, PyTuple_New(0));
 		bool result = cPythonScript::callChainedEventHandler(EVENT_DISPEL, pc_dest->getEvents(), args);
 		Py_DECREF(args);
@@ -360,7 +357,7 @@ void cTempEffects::load()
 	cDBResult result = persistentBroker->query( "SELECT id,objectid,expiretime,dispellable,source,destination FROM effects ORDER BY expiretime ASC;" );
 
 	persistentBroker->driver()->setActiveConnection( CONN_SECOND );
-		
+
 	while( result.fetchrow() )
 	{
 		unsigned int id = result.getInt( 0 );
@@ -372,7 +369,7 @@ void cTempEffects::load()
 		{
 			effect = new cPythonEffect;
 		}
-		else if( objectId == "cDelayedHideChar" ) 
+		else if( objectId == "cDelayedHideChar" )
 		{
 			effect = new cDelayedHideChar;
 		}
@@ -382,9 +379,9 @@ void cTempEffects::load()
 		}
 
 		const char **res = (const char**)result.data(); // Skip id, objectid
-		
+
 		effect->load( id, res );
-		
+
 		insert( effect );
 	}
 	result.free();
@@ -431,7 +428,7 @@ cDelayedHideChar::cDelayedHideChar( SERIAL serial )
 		destSer = INVALID_SERIAL;
 		return;
 	}
-	
+
 	destSer = serial;
 	setSerializable( true );
 }
@@ -453,7 +450,7 @@ void cDelayedHideChar::Expire()
 
 void cTempEffects::insert( cTempEffect *pT )
 {
-	// If the tempeffect has a char it affects, 
+	// If the tempeffect has a char it affects,
 	// then don't forge to add it to his effects
 	if( isCharSerial( pT->getDest() ) )
 	{

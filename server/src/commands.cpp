@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "globals.h"
 #include "accounts.h"
@@ -243,10 +240,10 @@ void commandFix( cUOSocket *socket, const QString &command, const QStringList &a
 	\usage - <code>set key value</code>
 	Key is the name of the property you want to set.
 	Value is the new property value.
-	\notes See the object reference for <object id="char">characters</object> 
-	and <object id="item">items</object> for valid property keys. All integer, float, string, 
-	character and item properties can be set using this command as well. In addition to the 
-	properties you find there, you can also set skills by using skill.skillname as the key and 
+	\notes See the object reference for <object id="char">characters</object>
+	and <object id="item">items</object> for valid property keys. All integer, float, string,
+	character and item properties can be set using this command as well. In addition to the
+	properties you find there, you can also set skills by using skill.skillname as the key and
 	the skill value multiplied by ten as the value (i.e. 100.0% = 1000).
 */
 void commandSet( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
@@ -262,7 +259,7 @@ void commandSet( cUOSocket *socket, const QString &command, const QStringList &a
 	QStringList realargs(args);
 	realargs.remove(realargs.begin());
 	QString value;
-	if (realargs.size() == 0) 
+	if (realargs.size() == 0)
 	{
 		value = "";
 	}
@@ -324,9 +321,9 @@ void commandRemove( cUOSocket *socket, const QString &command, const QStringList
 	- <code>account set username key value</code>
 	- <code>account show username key</code>
 	Use the create subcommand to create a new account with the given username and password.
-	To remove an account along with all player characters on that account, use the remove 
+	To remove an account along with all player characters on that account, use the remove
 	subcommand and pass the username to it.
-	To change properties of a given account, use the set subcommand and pass the username, 
+	To change properties of a given account, use the set subcommand and pass the username,
 	the property key and the new property value to it. See the notes for a list of valid property keys.
 	To view properties of an account, use the show subcommand and pass the property key to it.
 
@@ -347,12 +344,12 @@ void commandRemove( cUOSocket *socket, const QString &command, const QStringList
 
 	<i>lastlogin</i>
 	When was the last successful login made.
-	
+
 	<i>chars</i>
 	Prints a list of player characters on this account.
 
 	Valid values for the block property are either on, off or for how long the account should be blocked.
-	
+
 	If you have enabled MD5 passwords, you can only view the hashed password when showing the password property.
 */
 void commandAccount( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
@@ -764,7 +761,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, const QStrin
 	The remove subcommand will remove a tag from the object.
 	The info subcommand will show a dialog with all attached tags.
 
-	\notes The remove subcommand also accepts <i>all</i> as the key which will 
+	\notes The remove subcommand also accepts <i>all</i> as the key which will
 	remove all attached tags from the object.
 */
 void commandTags( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
@@ -914,7 +911,7 @@ void commandStaff( cUOSocket *socket, const QString &command, const QStringList 
 	\notes The <i>accounts</i> parameter will reload all accounts from the account database.
 	The <i>python</i> parameter will reload all Python scripts.
 	The <i>scripts</i> parameter will reload all XML definitions and Python scripts.
-	The <i>all</i> parameter will reload all three.	
+	The <i>all</i> parameter will reload all three.
 */
 void commandReload( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
@@ -957,7 +954,7 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 		MakeMenus::instance()->reload();
 		ScriptManager::instance()->reload(); // Reload Scripts
 		Skills->reload();
-		
+
 		// Update the Regions
 		cCharIterator iter;
 		P_CHAR pChar;
@@ -986,7 +983,7 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
 		ScriptManager::instance()->reload(); // Reload Scripts
-		
+
 		// Update the Regions
 		cCharIterator iter;
 		P_CHAR pChar;
@@ -1295,7 +1292,7 @@ void commandGmtalk( cUOSocket *socket, const QString &command, const QStringList
 /*
 	\command doorgen
 	\description Generate doors in passage ways.
-	\notes This command is not guranteed to work correctly. Please see if 
+	\notes This command is not guranteed to work correctly. Please see if
 	you find any broken doors after you use this command. Don't use this command
 	on custom maps.
 */

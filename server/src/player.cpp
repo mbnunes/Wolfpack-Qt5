@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "player.h"
 #include "persistentbroker.h"
@@ -235,7 +232,7 @@ void cPlayer::resend(bool clean)
 				drawChar.setHighlight(notoriety(socket->player()));
 				socket->send(&drawChar);
 				sendTooltip(socket);
-	            
+
 				// Send equipment tooltips to other players as well
 				for (ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it) {
 					it.data()->sendTooltip(socket);
@@ -476,7 +473,7 @@ void cPlayer::mount( P_NPC pMount )
 		pMount->removeFromView(false);
 		pMount->fight(0);
 		pMount->setStablemasterSerial(serial_);
-		MapObjects::instance()->remove(pMount);		
+		MapObjects::instance()->remove(pMount);
 	}
 	else
 		socket->sysMessage( tr("You dont own that creature.") );
@@ -1105,7 +1102,7 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 {
 	changed( TOOLTIP );
 	changed_ = true;
-	
+
 	/*
 		\property char.account The name of the account assigned to this player.
 		You can change the account by assignging a new name to this string property.
@@ -1158,7 +1155,7 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 		0x01 Down
 		0x02 Locked</code>
 		This property is exclusive to player objects.
-	*/	
+	*/
 	else SET_INT_PROPERTY( "dexteritylock", dexterityLock_ )
 	/*
 		\property char.intelligencelock This integer property indicates the lock status for the players intelligence.
@@ -1167,7 +1164,7 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 		0x01 Down
 		0x02 Locked</code>
 		This property is exclusive to player objects.
-	*/	
+	*/
 	else SET_INT_PROPERTY( "intelligencelock", intelligenceLock_ )
 	else if( name.left( 6 ) == "skill." )
 	{
@@ -1212,12 +1209,12 @@ stError *cPlayer::getProperty( const QString &name, cVariant &value ) const
 {
 	GET_PROPERTY( "account", ( account_ != 0 ) ? account_->login() : QString( "" ) )
 	/*
-		\rproperty controlslots The amount of controlslots currently used for this 
+		\rproperty controlslots The amount of controlslots currently used for this
 		player.
-		This property is only available for player objects.		
+		This property is only available for player objects.
 	*/
 	else GET_PROPERTY( "controlslots", (int)controlslots() )
-	else GET_PROPERTY( "logouttime", (int)logoutTime_ )	
+	else GET_PROPERTY( "logouttime", (int)logoutTime_ )
 	else GET_PROPERTY( "npc", false )
 	else GET_PROPERTY( "lightbonus", fixedLightLevel_ )
 	else GET_PROPERTY( "objectdelay", (int)objectDelay_ )
@@ -1405,7 +1402,7 @@ bool cPlayer::canSeeChar(P_CHAR character) {
 					}
 				}
 			}
-			
+
 			if (party_ && party_ == player->party()) {
 				privileged = true;
 			}
@@ -1418,7 +1415,7 @@ bool cPlayer::canSeeChar(P_CHAR character) {
 			}
 		}
 
-		// Dead characters are invisible unless we have more than 100.0% spirit speak 
+		// Dead characters are invisible unless we have more than 100.0% spirit speak
 		// or are privileged...
 		if (character->isDead()) {
 			// Only NPCs with spiritspeak >= 1000 can see dead people
@@ -1464,7 +1461,7 @@ bool cPlayer::canSeeItem(P_ITEM item) {
 		} else {
 			P_CHAR character = dynamic_cast<P_CHAR>(item->container());
 			return canSeeChar(character);
-		}		
+		}
 	} else {
 		cMulti *multi = dynamic_cast<cMulti*>(item);
 
@@ -1527,13 +1524,13 @@ bool cPlayer::sysmessage(unsigned int message, const QString &params, unsigned s
 
 cBaseChar::FightStatus cPlayer::fight(P_CHAR enemy) {
 	FightStatus status = cBaseChar::fight(enemy);
-	
+
 	// We have player dependant actions if the fight started
 	if (status != FightDenied) {
 		// Notoriety handling only if the fight started
 		if (status == FightStarted) {
 			cFightInfo *fight = findFight(enemy);
-		
+
 			if (fight && fight->attacker() == this && !fight->legitimate()) {
 				makeCriminal();
 			}

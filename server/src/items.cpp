@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are running this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 // Platform Includes
 #include "platform.h"
@@ -83,7 +80,7 @@ buyprice_( 0 ), restock_( 1 ), baseid_(QString::null) {
 	// Copy Events
 	scriptChain = 0;
 	eventList_ = src.eventList_;
-	recreateEvents();	
+	recreateEvents();
 	this->name_ = src.name_;
 	this->tags_ = src.tags_;
 	//cItem properties setting
@@ -491,7 +488,7 @@ void cItem::Init( bool createSerial )
 	if( createSerial )
 		this->setSerial( World::instance()->findItemSerial() );
 
-	this->container_ = 0;	
+	this->container_ = 0;
 	this->free = false;
 	this->setId( 0x0001 ); // Item visuals as stored in the client
 	this->setPos( Coord_cl(100, 100, 0) );
@@ -551,7 +548,7 @@ void cItem::remove()
 		// Remove us from a possilbe multi container too
 		if (multi_) {
 			multi_->removeObject(this);
-			multi_ = 0;			
+			multi_ = 0;
 		}
 	}
 
@@ -1125,7 +1122,7 @@ void cItem::update(cUOSocket *singlesocket)
 			{
 				flags |= 0x80;
 			}
-			
+
 			if (singlesocket->account()->isMultiGems() && isMulti()) {
 				sendItem.setId(0x1ea7);
 			}

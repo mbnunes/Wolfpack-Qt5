@@ -1,32 +1,29 @@
-//==================================================================================
-//
-//      Wolfpack Emu (WP)
-//	UO Server Emulation Program
-//
-//  Copyright 2001-2004 by holders identified in authors.txt
-//	This program is free software; you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation; either version 2 of the License, or
-//	(at your option) any later version.
-//
-//	This program is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//	GNU General Public License for more details.
-//
-//	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
-//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
-//
-//	* In addition to that license, if you are runningSteps this program or modified
-//	* versions of it on a public system you HAVE TO make the complete source of
-//	* the version used by you available or provide people with a location to
-//	* download it.
-//
-//
-//
-//	Wolfpack Homepage: http://wpdev.sf.net/
-//==================================================================================
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://wpdev.sf.net/
+ */
 
 #include "uotxpackets.h"
 #include "uopacket.h"
@@ -53,7 +50,7 @@ void cUOTxShardList::addServer( unsigned short serverIndex, QString serverName, 
 	setShort( 1, count() );
 	setShort( offset, serverIndex );
 
-	if( serverName.length() > 31 ) 
+	if( serverName.length() > 31 )
 		serverName = serverName.left( 31 );
 
 	setAsciiString( offset + 2, serverName.latin1(), serverName.length()+1 );
@@ -209,33 +206,33 @@ void cUOTxMapDiffs::addEntry( unsigned int mappatches, unsigned int staticpatche
 	setShort( 1, size + 8 );
 	setInt( size, mappatches );
 	setInt( size+4, staticpatches );
-	setInt( 5, num + 1 );	
+	setInt( 5, num + 1 );
 }
 
-void cUOTxContextMenu::addEntry ( unsigned short RetVal, unsigned short msgID, unsigned short flags, unsigned short color ) 
-{ 
-	unsigned int size = count(); 
-	
-	++(*this)[ 11 ]; 
-	
-	
-	if ( flags & Popcolor ) 
-	{ 
-		resize( size + 8 ); 
-		setShort( size+6, color ); 
-		setShort( 1, size + 8 ); 
-	} 
-	else 
-	{ 
-		resize( size + 6 ); 
-		setShort( 1, size + 6 ); 
-	} 
-	
-	setShort( size, RetVal ); 
-	setShort( size+2, msgID ); 
-	setShort( size+4, flags ); 
-	
-} 
+void cUOTxContextMenu::addEntry ( unsigned short RetVal, unsigned short msgID, unsigned short flags, unsigned short color )
+{
+	unsigned int size = count();
+
+	++(*this)[ 11 ];
+
+
+	if ( flags & Popcolor )
+	{
+		resize( size + 8 );
+		setShort( size+6, color );
+		setShort( 1, size + 8 );
+	}
+	else
+	{
+		resize( size + 6 );
+		setShort( 1, size + 6 );
+	}
+
+	setShort( size, RetVal );
+	setShort( size+2, msgID );
+	setShort( size+4, flags );
+
+}
 
 void cUOTxDenyMove::setCoord( Coord_cl coord )
 {
@@ -255,7 +252,7 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	setSerial( pChar->serial() );
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
-	setZ( pChar->pos().z );	
+	setZ( pChar->pos().z );
 
 	if (pChar->isDead()) {
 		setBody(pChar->gender() ? 0x193 : 0x192);
@@ -269,7 +266,7 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 			setHue(pChar->skin());
 		}
 	}
-	
+
 	// If he's runningSteps we need to take that into account here
 	// ->runningSteps() is greater than zero in that case
 	setDirection( pChar->runningSteps() ? pChar->direction()|0x80 : pChar->direction() );
@@ -407,7 +404,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	}
 
 	setFlag(0);
-	
+
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
@@ -453,7 +450,7 @@ void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 		setContainer( pItem->container()->serial() );
 	else
 		setContainer( INVALID_SERIAL );
-	
+
 	setColor( pItem->color() );
 }
 
@@ -472,7 +469,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 		}
 
 		QStringList titles = DefManager->getList("REPUTATION_TITLES");
-		
+
 		// Calculate the position inside the list
 		unsigned int position;
 
@@ -510,7 +507,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 			}
 
 			// Lord/Lady Title
-			if (pChar->fame() == 10000) {    
+			if (pChar->fame() == 10000) {
 				prefix.append(pChar->gender() ? tr("Lady") : tr("Lord"));
 				prefix.append(" ");
 			}
@@ -574,7 +571,7 @@ void cUOTxItemContent::addItem( SERIAL serial, unsigned short id, unsigned short
 	setShort( 3, getShort( 3 ) + 1 );
 	setShort( 1, size() );
 
-	setInt( offset, serial );	
+	setInt( offset, serial );
 	setShort( offset+4, id );
 	(*this)[ offset+6] = 0;
 	setShort( offset+7, amount );
@@ -589,12 +586,12 @@ void cUOTxVendorBuy::addItem( unsigned int price, const QString &description )
 	int offset = size();
 	resize( size() + 5 + description.length() + 1 ); // Null terminate it for gods-sake
 	setShort( 1, size() );
-	
+
 	// Add the item itself
 	setInt( offset, price );
 	(*this)[ offset+4 ] = description.length() + 1;
 	setAsciiString( offset + 5, description.latin1(), description.length() + 1 );
-	
+
 	++(*this)[7]; // Increase item count
 }
 
@@ -684,7 +681,7 @@ void cUOTxTooltipList::addLine( unsigned int id, const QString& params )
 	// Add our Line
 	setInt( offset, id );
 	setShort( offset + 4, params.length() * 2 );
-	
+
 	setUnicodeString( offset + 6, params, params.length() * 2, true );
 
 	// Terminator
@@ -705,7 +702,7 @@ void cUOTxCustomHouse::addTile( unsigned short id, short x, short y, short z )
 	(*this)[sz - 1] = z;
 }
 
-void cUOTxSellList::addItem( unsigned int serial, unsigned short id, unsigned short hue, 
+void cUOTxSellList::addItem( unsigned int serial, unsigned short id, unsigned short hue,
 							unsigned short amount, unsigned short value, const QString &name )
 {
 	unsigned int offset = size();
@@ -748,7 +745,7 @@ void cUOTxAsciiSpeech::setMessage(const QString &data) {
     resize(45 + data.length());
 	setShort(1, 45 + data.length());
 	setAsciiString(44, data.latin1(), data.length() + 1);
-	(*this)[44 + data.length()] = 0; // Null Termination		
+	(*this)[44 + data.length()] = 0; // Null Termination
 }
 
 void cUOTxClilocMsg::setParams(const QString &data) {
