@@ -65,7 +65,7 @@ def checkhit(attacker, defender, time):
   bonus = 0 # Get the weapon "accuracy" status
   bonus += 0 # Get the attackers AttackChance bonus
   attackChance = (attackerValue + 20.0) * (100 + bonus)
-  
+
   # Calculate the defense chance
   bonus = 0 # Get the defenders defend chance
   defendChance = (defenderValue + 20.0) * (100 + bonus)
@@ -84,7 +84,7 @@ def scaledamage(char, damage, checkskills = 1):
   if checkskills:
     char.checkskill(TACTICS, 0, 1200) # Tactics gain
     char.checkskill(ANATOMY, 0, 1200) # Anatomy gain
-  
+
   weapon = char.getweapon()
 
   # Get the total damage bonus this character gets
@@ -119,7 +119,7 @@ def scaledamage(char, damage, checkskills = 1):
   bonus += char.skill[TACTICS] * 0.0625
 
   # Add another 6.25 percent for grandmasters
-  if char.skill[TACTICS] >= 1000:   
+  if char.skill[TACTICS] >= 1000:
     bonus += 6.25
 
   damage = damage + damage * bonus / 100.0
@@ -165,16 +165,16 @@ def damagetypes(char):
 
   physical = 100 - (fire + cold + poison + energy)
 
-  return (physical, fire, cold, poison, energy)  
+  return (physical, fire, cold, poison, energy)
 
 #
 # Absorb damage done by an attacker.
-# This damages equipped armor of the defender and 
+# This damages equipped armor of the defender and
 # checks if the damage can be blocked using a shield.
 # This returns the new damage value.
 #
 def absorbdamage(defender, damage):
-  # I think RunUO does this in a good fashion. 
+  # I think RunUO does this in a good fashion.
   # Determine the layer using a floating point chance.
   position = random.random()
   armor = None
@@ -184,7 +184,7 @@ def absorbdamage(defender, damage):
     armor = defender.itemonlayer(LAYER_NECK)
 
   # 7% chance: Gloves
-  elif position <= 0.014:
+  elif position <= 0.14:
     armor = defender.itemonlayer(LAYER_GLOVES)
 
   # 14% chance: Arms
@@ -194,7 +194,7 @@ def absorbdamage(defender, damage):
   # 15% chance: Head
   elif position <= 0.43:
     armor = defender.itemonlayer(LAYER_HELM)
-  
+
   # 22% chance: Legs
   elif position <= 0.65:
     armor = defender.itemonlayer(LAYER_LEGS)
@@ -205,7 +205,7 @@ def absorbdamage(defender, damage):
 
   # See if it's really an armor
   if not combat.properties.itemcheck(armor, ITEM_ARMOR):
-    armor = None    
+    armor = None
 
   # If there is armor at the given position,
   # it should be damaged. This implementation is so crappy because
@@ -236,7 +236,7 @@ def absorbdamage(defender, damage):
     if not combat.properties.itemcheck(weapon, ITEM_MELEE):
       weapon = None
 
-    # If we have a shield determine if we blocked the blow by 
+    # If we have a shield determine if we blocked the blow by
     # really checking the parry skill
     if shield:
       # There is a 0.3% chance to block for each skill point
@@ -251,7 +251,7 @@ def absorbdamage(defender, damage):
       # There is a 0.15% chance to block for each skill point
       chance = defender.skill[PARRYING] * 0.00015
       blocked = chance >= random.random()
-    
+
     # If we blocked the blow. Show it, absorb the damage
     # and damage the shield if there is any
     if blocked:
@@ -291,7 +291,7 @@ def hit(attacker, defender, weapon, time):
 
   #if defender.socket:
   #  defender.socket.sysmessage('TAKEN: %u,%u,%u' % (mindamage, maxdamage, damage))
-  
+
   # Give the defender a chance to absorb damage
   damage = absorbdamage(defender, damage)
 
@@ -335,7 +335,7 @@ def hit(attacker, defender, weapon, time):
   # Recalculate the total damage value, min. damage: 1
   damage = max(1, physical + fire + cold + poison + energy)
   defender.damage(DAMAGE_PHYSICAL, damage, attacker)
-  
+
   if DEBUG:
     attacker.log(LOG_MESSAGE, 'Character %x damaged character %x by %u points.' % (attacker.serial, defender.serial, damage))
 
@@ -353,7 +353,7 @@ def hit(attacker, defender, weapon, time):
         attacker.socket.clilocmessage(500645)
 
 #
-# The character missed his target. Show that he missed and and 
+# The character missed his target. Show that he missed and and
 # play a sound effect.
 #
 def miss(attacker, defender, weapon, time):

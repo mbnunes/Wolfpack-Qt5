@@ -172,7 +172,7 @@ def playhitsound(attacker, defender):
   if not weapon and attacker.id < 0x190:
     attacker.sound(SND_ATTACK)
   else:
-    sounds = combat.properties.fromitem(weapon, MISSSOUND)
+    sounds = combat.properties.fromitem(weapon, HITSOUND)
 
     # Only play a sound if there are any
     if len(sounds) != 0:
