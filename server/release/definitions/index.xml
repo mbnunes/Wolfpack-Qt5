@@ -43,9 +43,9 @@
 	<!-- Vegetation Index -->
 	<include file="definitions/items/vegetation/index.xml"/>
 	<!-- Weapon Index -->
-	<include file="definitions/items/weaponry/weaponry_list.xml"/>
+	<include file="definitions/items/weaponry/index.xml"/>
 	<!-- Armor Index -->
-	<include file="definitions/items/armory/armory_list.xml" />
+	<include file="definitions/items/armory/index.xml" />
 
 	<!-- Shrinkable Items/Mounts -->
 	<include file="definitions/items/shrink/shrink.xml"/>
