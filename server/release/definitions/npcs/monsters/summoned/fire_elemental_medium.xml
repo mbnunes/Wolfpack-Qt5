@@ -5,7 +5,7 @@
 	<npc id="elemental_fire_medium">
 		<name>a fire elemental</name>
 		<id>0xf</id>
-		<category>Monsters\magicals_summoned\Fire Elemental (Medium)</category>
+		<category>Monsters\Summoned\Fire Elemental (Medium)</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>

@@ -5,22 +5,33 @@
 	<npc id="giant_ice_worm">
 		<name>a giant ice worm</name>
 		<id>0x59</id>
-		<category>Monsters\Giant Animals\Giant Ice Worm</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-2500" max="-4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
+		<karma>-900</karma>
+		<fame>900</fame>
+		<!-- Stats -->
+		<str><random min="42" max="54"/></str>
+		<dex><random min="36" max="45"/></dex>
+		<int><random min="26" max="30"/></int>
+		<!-- Skills -->
+		<magicresistance><random min="151" max="200"/></magicresistance>
+		<tactics><random min="393" max="540"/></tactics>
+		<wrestling><random min="393" max="540"/></wrestling>
+		<!-- Damage -->
+		<lodamage>4</lodamage>
+		<hidamage>12</hidamage>
+		<tag name="colddamage" value="25" />s
+		<tag name="physicaldamage" value="25" />
+		<tag name="poisondamage" value="50" />
+		<!-- Resists -->
 		<defense><random min="30" max="35" /></defense>
-		<lodamage>15</lodamage>
-		<hidamage>35</hidamage>
-		<str><random min="216" max="245" /></str>
-		<dex><random min="76" max="100" /></dex>
-		<int><random min="66" max="85" /></int>
-		<wrestling><random min="601" max="800" /></wrestling>
-		<tactics><random min="751" max="800" /></tactics>
-		<magicresistance><random min="451" max="600" /></magicresistance>
-		<poisoning><random min="751" max="950" /></poisoning>
+		<tag name="coldresist" value="80,90" />
+		<tag name="energyresist" value="30,40" />
+		<tag name="fireresist" value="-10,0" />
+		<tag name="physicalresist" value="20,25" />
+		<tag name="poisonresist" value="60,70" />
+		<!-- Misc. -->
 		<totame>711</totame>
+		<category>Monsters\Reptiles\Giant Ice Worm</category>
 	</npc>
 
 </definitions>

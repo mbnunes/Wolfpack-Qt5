@@ -5,7 +5,7 @@
 	<npc id="gazer_medium">
 		<name>a gazer</name>
 		<id>0x016</id>
-		<category>Monsters\magicals_summoned\Gazer (Medium)</category>
+		<category>Monsters\Summoned\Gazer (Medium)</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>

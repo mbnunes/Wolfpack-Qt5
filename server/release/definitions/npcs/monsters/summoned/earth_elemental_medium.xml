@@ -5,7 +5,7 @@
 	<npc id="elemental_earth_medium">
 		<name>an earth elemental</name>
 		<id>0x00e</id>
-		<category>Monsters\magicals_summoned\Earth Elemental (Medium)</category>
+		<category>Monsters\Summoned\Earth Elemental (Medium)</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>

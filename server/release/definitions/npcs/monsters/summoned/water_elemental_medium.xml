@@ -5,7 +5,7 @@
 	<npc id="elemental_water_medium">
 		<name>a water elemental</name>
 		<id>0x010</id>
-		<category>Monsters\magicals_summoned\Water Elemental (Medium)</category>
+		<category>Monsters\Summoned\Water Elemental (Medium)</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>

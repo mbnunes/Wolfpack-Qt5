@@ -29,7 +29,7 @@
 		<tag name="physicalresist" value="80,90" />
 		<tag name="poisonresist" value="60,70" />
 		<!-- Misc. -->
-		<category>Monsters\Common Monsters\Sand Vortex</category>
+		<category>Monsters\Elementals\Sand Vortex</category>
 	</npc>
 
 </definitions>

@@ -5,25 +5,32 @@
 	<npc id="lava_lizard">
 		<name>a lava lizard</name>
 		<id>0xce</id>
-		<category>Monsters\Deamons\lava lizard</category>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="35" max="45"/></defense>
-		<lodamage>14</lodamage>
-		<hidamage>45</hidamage>
+		<karma>-3000</karma>
+		<fame>3000</fame>
 		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="126" max="150"/></str>
 		<dex><random min="56" max="75"/></dex>
 		<int><random min="11" max="20"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="800"/></wrestling>
-		<tactics><random min="601" max="800"/></tactics>
 		<magicresistance><random min="551" max="700"/></magicresistance>
+		<tactics><random min="601" max="800"/></tactics>
+		<wrestling><random min="601" max="800"/></wrestling>
+		<!-- Damage -->
+		<lodamage>6</lodamage>
+		<hidamage>24</hidamage>
+		<!-- Resists -->
+		<defense><random min="35" max="45"/></defense>
+		<tag name="energyresist" value="25,35" />
+		<tag name="fireresist" value="30,45" />
+		<tag name="physicalresist" value="35,45" />
+		<tag name="poisonresist" value="25,35" />
+		<!-- Misc. -->
+		<desc>The red skin of the lava lizard should serve as a warning to all whopass nearby. Any creature who bathes in the fiery liquid form of theearth herself is a hearty beast worthy of a wide berth. Lava lizardsshare the fearsome jaws of their cousin, the crocodile, though theirteeth are black and harder than obsidian. Those lava lizards foundabove ground are most likely mothers guarding a nest. Although smallerthan their male counterparts, the female lava lizards are prone toattack with higher frequency and greater ferocity. It is best to avoidthe lairs of a lava lizard, for there is little to gain from them, butmuch to lose.</desc>
 		<carve>carve_lava_lizard</carve>
 		<totame>807</totame>
-		<food>12</food>
+		<category>Monsters\Reptiles\lava lizard</category>
 	</npc>
 
 </definitions>

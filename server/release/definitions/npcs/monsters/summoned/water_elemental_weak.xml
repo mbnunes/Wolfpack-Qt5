@@ -5,7 +5,7 @@
 	<npc id="elemental_water_weak">
 		<name>a water elemental</name>
 		<id>0x010</id>
-		<category>Monsters\magicals_summoned\Water Elemental (Weak)</category>
+		<category>Monsters\Summoned\Water Elemental (Weak)</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>

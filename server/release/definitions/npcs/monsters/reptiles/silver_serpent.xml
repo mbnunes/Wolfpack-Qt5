@@ -4,22 +4,26 @@
 	<!-- Silver Serpent -->
 	<npc id="silver_serpent">
 		<name>a silver serpent</name>
-		<id>0x5B</id>
-		<category>Monsters\Giant Animals\Silver Serpent</category>
-		<skin>0</skin>
+		<id>0x5b</id>
 		<inherit id="monster_base" />
 		<karma><random min="-5000" max="-9999" /></karma>
 		<fame><random min="5000" max="9999" /></fame>
-		<defense><random min="35" max="45" /></defense>
-		<lodamage>11</lodamage>
-		<hidamage>53</hidamage>
+		<!-- Stats -->
 		<str><random min="161" max="360" /></str>
 		<dex><random min="151" max="300" /></dex>
 		<int><random min="21" max="40" /></int>
+		<!-- Skills -->
 		<wrestling><random min="851" max="1000" /></wrestling>
 		<tactics><random min="801" max="950" /></tactics>
 		<magicresistance><random min="951" max="1000" /></magicresistance>
 		<poisoning><random min="901" max="1000" /></poisoning>
+		<!-- Damage -->
+		<lodamage>11</lodamage>
+		<hidamage>53</hidamage>
+		<!-- Resists -->
+		<defense><random min="35" max="45" /></defense>
+		<!-- Misc. -->
+		<category>Monsters\Reptiles\Silver Serpent</category>
 	</npc>
 
 </definitions>

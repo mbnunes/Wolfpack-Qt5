@@ -5,7 +5,7 @@
 	<npc id="elemental_fire_hard">
 		<name>a fire elemental</name>
 		<id>0x00f</id>
-		<category>Monsters\magicals_summoned\Fire Elemental (Hard)</category>
+		<category>Monsters\Summoned\Fire Elemental (Hard)</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>

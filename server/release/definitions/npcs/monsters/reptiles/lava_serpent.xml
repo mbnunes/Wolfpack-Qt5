@@ -4,21 +4,32 @@
 	<!-- Lava Serpent -->
 	<npc id="lava_serpent">
 		<name>a lava serpent</name>
-		<id>0x5A</id>
-		<category>Monsters\Giant Animals\Lava Serpent</category>
-		<skin>0</skin>
+		<id>0x5a</id>
 		<inherit id="monster_base" />
-		<karma><random min="-1250" max="-2499" /></karma>
-		<fame><random min="1250" max="2499" /></fame>
-		<defense><random min="35" max="45" /></defense>
-		<lodamage>33</lodamage>
-		<hidamage>56</hidamage>
-		<str><random min="386" max="415" /></str>
-		<dex><random min="56" max="80" /></dex>
-		<int><random min="66" max="85" /></int>
+		<karma>-4500</karma>
+		<fame>4500</fame>
+		<!-- Stats -->
+		<str><random min="386" max="415"/></str>
+		<dex><random min="56" max="80"/></dex>
+		<int><random min="66" max="85"/></int>
+		<!-- Skills -->
 		<wrestling><random min="601" max="800" /></wrestling>
 		<tactics><random min="651" max="700" /></tactics>
 		<magicresistance><random min="253" max="700" /></magicresistance>
+		<!-- Damage -->
+		<lodamage>10</lodamage>
+		<hidamage>22</hidamage>
+		<tag name="firedamage" value="80" />
+		<tag name="physicaldamage" value="20" />
+		<!-- Resists -->
+		<defense><random min="35" max="45" /></defense>
+		<tag name="energyresist" value="10,20" />
+		<tag name="fireresist" value="70,80" />
+		<tag name="physicalresist" value="35,45" />
+		<tag name="poisonresist" value="30,40" />
+		<!-- Misc. -->
+		<desc>Though once common, lava serpents are now rare. They make their homesin lakes of lava, occasionally venturing to land for a quick meal. Itis believed that the lava serpent was the progenitor of the dragon. Dragons are not fond of this theory, and have been known to kill at the mention of such blasphemy.</desc>
+		<category>Monsters\Reptiles\Lava Serpent</category>
 	</npc>
 
 </definitions>

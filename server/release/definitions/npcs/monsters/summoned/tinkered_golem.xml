@@ -5,7 +5,7 @@
 	<npc id="tinkered_golem">
 		<name>a golem</name>
 		<id>0x2f0</id>
-		<category>Monsters\Clockworks\Golem (Tinkered)</category>
+		<category>Monsters\Summoned\Golem (Tinkered)</category>
 		<skin>0</skin>
 		<inherit id="monster_base" />
 		<karma>-3500</karma>

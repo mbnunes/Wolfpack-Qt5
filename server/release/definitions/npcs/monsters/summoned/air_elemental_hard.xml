@@ -5,7 +5,7 @@
 	<npc id="elemental_air_hard">
 		<name>an air elemental</name>
 		<id>0xd</id>
-		<category>Monsters\magicals_summoned\Air Elemental (Hard)</category>
+		<category>Monsters\Summoned\Air Elemental (Hard)</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>

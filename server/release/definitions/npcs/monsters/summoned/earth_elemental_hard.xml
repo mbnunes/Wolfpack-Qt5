@@ -5,7 +5,7 @@
 	<npc id="elemental_earth_hard">
 		<name>an earth elemental</name>
 		<id>0xe</id>
-		<category>Monsters\magicals_summoned\Earth Elemental (Hard)</category>
+		<category>Monsters\Summoned\Earth Elemental (Hard)</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>

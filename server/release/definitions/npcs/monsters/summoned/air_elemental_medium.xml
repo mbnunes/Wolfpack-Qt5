@@ -5,7 +5,7 @@
 	<npc id="elemental_air_medium">
 		<name>an air elemental</name>
 		<id>0x00d</id>
-		<category>Monsters\magicals_summoned\Air Elemental (Medium)</category>
+		<category>Monsters\Summoned\Air Elemental (Medium)</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
