@@ -1,4 +1,4 @@
-<?
+<?php
 	// Change these settings to whatever you need.
 	$db_host = 'localhost';
 	$db_name = 'wpdev';
