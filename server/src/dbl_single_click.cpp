@@ -176,7 +176,7 @@ void slotmachine(UOXSOCKET s, P_ITEM pi)
 	}
 	delequan(pc_currchar, 0x0EED, SrvParams->slotAmount(), NULL);	// lets delete the coins played.
 	int spin=RandomNum( 0,100);	// now lets spin to win :)
-	switch(spin)
+	/*switch(spin)
 	{
 	case 0: Items->SpawnItemBackpack2(s,"3185",1);
 		sysmessage(s,"Single bars, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
@@ -196,7 +196,7 @@ void slotmachine(UOXSOCKET s, P_ITEM pi)
 		sysmessage(s,"Jackpot, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
 	default : itemmessage(s,"Sorry,not a winner,please insert coins.",pi->serial); break;
 	}
-	soundeffect(s, 0x00, 0x57);	// my stupid spin sound hehe.
+	soundeffect(s, 0x00, 0x57);	// my stupid spin sound hehe.*/
 }
 
 void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
@@ -570,12 +570,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		}
 		else
 		{
-			switch (RandomNum(0, 2))
-			{
-			case 0: soundeffect2(pc_currchar, 0x003A);		break;
-			case 1: soundeffect2(pc_currchar, 0x003B);		break;
-			case 2: soundeffect2(pc_currchar, 0x003C);		break;
-			}// switch(foodsnd)
+			pc_currchar->soundEffect( 0x3A + RandomNum( 0, 2 ) );
 			
 			switch (pc_currchar->hunger())
 			{
@@ -592,11 +587,11 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			if ((pi->poisoned) &&(pc_currchar->poisoned() < pi->poisoned)) 
 			{
 				socket->sysMessage(tr("You have been poisoned!"));
-				soundeffect2(pc_currchar, 0x0246); // poison sound - SpaceDog
+				pc_currchar->soundEffect( 0x246 ); // poison sound
 				pc_currchar->setPoisoned( pi->poisoned );
 				pc_currchar->setPoisontime( uiCurrentTime +(MY_CLOCKS_PER_SEC*(40/pc_currchar->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 				pc_currchar->setPoisonwearofftime( pc_currchar->poisontime() +(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()) ); // wear off starts after poison takes effect - AntiChrist
-				impowncreate(s, pc_currchar, 1); // Lb, sends the green bar ! 
+				pc_currchar->resend( false );
 			}
 			
 			pi->ReduceAmount(1);	// Remove a food item
@@ -621,7 +616,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		case 8: itemmessage(s, "You are a person of culture.", pi->serial);											break;
 		case 9: itemmessage(s, "Give me a break! How much good fortune do you expect!", pi->serial);				break;
 		}// switch
-		soundeffect(s, 0x01, 0xEC);
+		//soundeffect(s, 0x01, 0xEC);
 		return;// case 18 (crystal ball?)
 		case 19: // potions
 			usepotion(currchar[s], pi);
@@ -734,21 +729,22 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			enlist(s, pi->morex);
 			Items->DeleItem(pi);
 			return; // case 103 (army enlistment object)
-		case 104: // Teleport object
-			pc_currchar->MoveTo(pi->morex,pi->morey,pi->morez);
-			teleport(currchar[s]);
-			return; // case 104 (teleport object (again?))
-		case 105:  // For drinking
-			switch (RandomNum(0, 1))
-			{
-			case 0: soundeffect2(currchar[s], 0x31);		break;
-			case 1: soundeffect2(currchar[s], 0x30);		break; 
-			}// switch(drinksnd)
-			
-			pi->ReduceAmount(1);	// Remove a drink
-			sysmessage(s, "Gulp !");
-			return; //	case 105 (drinks)
-			case 202:
+
+		// Teleport object
+		case 104: 
+			pc_currchar->removeFromView( false );
+			pc_currchar->MoveTo( pi->morex, pi->morey, pi->morez );
+			pc_currchar->resend( false );
+			return;
+		
+		// Drinks (This needs some other effects as well)
+		case 105:  
+			pc_currchar->soundEffect( 0x30 + RandomNum( 0, 1 ) );			
+			pi->ReduceAmount(1); // Remove a drink
+			pc_currchar->message( "Gulp!" );
+			return;
+
+		case 202:
 				if ( pi->id() == 0x14F0  ||  pi->id() == 0x1869 )	// Check for Deed/Teleporter + Guild Type
 				{
 					pc_currchar->fx1 = pi->serial;
@@ -767,27 +763,14 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					clConsole.send("Unhandled guild item type named: %s with ID of: %X", pi->name().ascii(), pi->id());
 				return;
 				// End of guild stuff
-		case 203: // Open a gumpmenu - Crackerjack 8/9/99
-				if (! pc_currchar->Owns(pi)) // bugfix LB 5.10.99
-				{
-					if (!(pc_currchar->isGM()))
-					{
-						sysmessage(s, "You can not use that.");
-						return;
-					}
-				}
-				addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
-				addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
-				addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
-				addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 
-//				cGumps::instance()->Menu( s, pi->morex, pi );
-				return;
 		// Cannon Ball
 		case 204:
 			useCannonBall( s, pc_currchar, pi );
 			return;
-		case 217:			// PlayerVendors deed
+
+		// PlayerVendors deed
+		case 217:			
 			{	
 				if (pi->isLockedDown())
 				{
@@ -912,15 +895,15 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
             return;// End jailball
 	    case 402: // Blackwinds Reputation ball 
 			{ 
-                 soundeffect2(pc_currchar, 0x01ec); // Play sound effect for player 
-                 socket->sysMessage(tr("Your karma is %1").arg(pc_currchar->karma)); 
-                 socket->sysMessage(tr("Your fame is %1").arg(pc_currchar->fame)); 
-                 socket->sysMessage(tr("Your Kill count is %1 ").arg(pc_currchar->kills)); 
-                 socket->sysMessage(tr("You died %1 times.").arg(pc_currchar->deaths));
-				 staticeffect(pc_currchar, 0x37, 0x2A, 0x09, 0x06 );
-				 socket->sysMessage(tr("*The crystal ball seems to have vanished*"));
-                 pi->ReduceAmount(1); 
-                 return; 
+				pc_currchar->soundEffect( 0x01ec ); // Play sound effect for player 
+                socket->sysMessage(tr("Your karma is %1").arg(pc_currchar->karma)); 
+                socket->sysMessage(tr("Your fame is %1").arg(pc_currchar->fame)); 
+                socket->sysMessage(tr("Your Kill count is %1 ").arg(pc_currchar->kills)); 
+                socket->sysMessage(tr("You died %1 times.").arg(pc_currchar->deaths));
+				staticeffect(pc_currchar, 0x37, 0x2A, 0x09, 0x06 );
+				socket->sysMessage(tr("*The crystal ball seems to have vanished*"));
+                pi->ReduceAmount(1); 
+                return; 
 			}
 		case 404: // Fraz'z ID wand
 			{
@@ -1014,36 +997,32 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						}
 					}
 					return;// deeds
-				case 0x100A:
-				case 0x100B:// archery butte
-					Skills->AButte(s, pi);
-					return;// archery butte
 				case 0x0E9C:
-					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
-						soundeffect2(currchar[s], 0x0038);
+					if (Skills->CheckSkill( pc_currchar, MUSICIANSHIP, 0, 1000 ) )
+						pc_currchar->soundEffect( 0x0038 );
 					else 
-						soundeffect2(currchar[s], 0x0039);
+						pc_currchar->soundEffect( 0x0039 );
 					return;
 				case 0x0E9D:
 				case 0x0E9E:
-					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
-						soundeffect2(currchar[s], 0x0052);
+					if (Skills->CheckSkill( pc_currchar, MUSICIANSHIP, 0, 1000 ) )
+						pc_currchar->soundEffect( 0x0052 );
 					else 
-						soundeffect2(currchar[s], 0x0053);
+						pc_currchar->soundEffect( 0x0053 );
 					return;
 				case 0x0EB1:
 				case 0x0EB2:
-					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
-						soundeffect2(currchar[s], 0x0045);
+					if (Skills->CheckSkill( pc_currchar, MUSICIANSHIP, 0, 1000 ) )
+						pc_currchar->soundEffect( 0x0045 );
 					else 
-						soundeffect2(currchar[s], 0x0046);
+						pc_currchar->soundEffect( 0x0046 );
 					return;
 				case 0x0EB3:
 				case 0x0EB4:
-					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
-						soundeffect2(currchar[s], 0x004C);
+					if (Skills->CheckSkill( pc_currchar, MUSICIANSHIP, 0, 1000 ) )
+						pc_currchar->soundEffect( 0x004C );
 					else 
-						soundeffect2(currchar[s], 0x004D);
+						pc_currchar->soundEffect( 0x004D );
 					return;
 				case 0x0F43:// Axe, Double Axe and Bardiche
 				case 0x0F44:
@@ -1384,16 +1363,17 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x0C53:
 				case 0x0C54: // cotton plants
 					{
-						if (!pc_currchar->onHorse())
-							action(s, 0x0D);
-						else 
-							action(s, 0x1d);
-						soundeffect(s, 0x01, 0x3E);
+						pc_currchar->action( 0xD );
+						pc_currchar->soundEffect( 0x13E );
+
 						P_ITEM p_cotton = Items->SpawnItem(-1, pc_currchar, 1, "#", 1, 0x0D, 0xF9, 0, 1, 1);
-						if ( p_cotton == NULL )
+						if ( !p_cotton )
 							return;
-						p_cotton->setContSerial(Packitem(pc_currchar)->serial);
-						sysmessage(s, "You reach down and pick some cotton.");
+						
+						p_cotton->toBackpack( pc_currchar );
+						
+						if( socket )
+							socket->sysMessage( tr( "You reach down and pick some cotton." ) );
 					}
 					return; // cotton
 				case 0x105B:

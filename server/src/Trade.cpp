@@ -305,8 +305,8 @@ void cTrade::sellaction(int s)
 			}
 			else
 			{
-				pSell->setContSerial(pNoRestock->serial);
-				SndRemoveitem(pSell->serial);
+				pSell->removeFromView();
+				pSell->setContSerial( pNoRestock->serial );
 				if( pSell->amount() != amt )
 				{
 					P_ITEM nItem = pSell->dupe();

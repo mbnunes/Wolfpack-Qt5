@@ -641,11 +641,11 @@ void cSkills::Mine(int s)
 		return;
 	}
 	
-	if (pc->onHorse())
-		action(s,0x1A);
-	else
-		action(s,0x0b);
-	soundeffect(s,0x01,0x25); 
+	//if (pc->onHorse())
+	//	action(s,0x1A);
+	//else
+//		action(s,0x0b);
+	//soundeffect(s,0x01,0x25); 
 	
 	if(!Skills->CheckSkill(pc, MINING, 0, 1000)) 
 	{
@@ -801,7 +801,7 @@ void cSkills::TreeTarget(int s)
 		action(s,0x1C);
 	else 
 		action(s,0x0D);
-	soundeffect(s,0x01,0x3E);
+	//soundeffect(s,0x01,0x3E);
 	
 	if (!Skills->CheckSkill(pc, LUMBERJACKING, 0, 1000)) 
 	{
@@ -859,7 +859,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		action(s,0x1A);
 	else
 		action(s,0x0b);
-	soundeffect(s,0x01,0x25);
+	//soundeffect(s,0x01,0x25);
 	if(!Skills->CheckSkill(pc, MINING, 0, 800)) 
 	{
 		sysmessage(s, tr("You sifted through the dirt and found nothing.") );
@@ -871,7 +871,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		action(s,0x1A);
 	else
 		action(s,0x0b);
-	soundeffect(s,0x01,0x25);
+	//soundeffect(s,0x01,0x25);
 	int nRandnum=rand()%13;
 	switch(nRandnum)
 	{
@@ -1226,7 +1226,7 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 			{
 				if(iteminrange(s,pi,3))
 				{
-					soundeffect(s,0x01,0xDD);	// cooking sound
+					//soundeffect(s,0x01,0xDD);	// cooking sound
 					if (!Skills->CheckSkill(pc_currchar,COOKING, 0, 1000)) 
 					{
 						sysmessage(s, tr("You failed to cook the %1 and drop some into the ashes.").arg(matname) );
@@ -1453,7 +1453,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 		if ((IsCloth(pi->id()) && (IsCutCloth(pi->id()))))
 		{
 			amt = pi->amount();  //-Frazurbluu- changed to reflect current OSI 
-			soundeffect(s,0x02,0x48);
+			//soundeffect(s,0x02,0x48);
 			sysmessage(s, tr("You cut some cloth into bandages, and put it in your backpack") );
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,amt,"#",0,0x0E,0x21,col1,1,1);
 			if(pi_c == NULL) return;
@@ -1471,7 +1471,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 				amt=(pi->amount()*50);//-Frazurbluu- changed to reflect current OSI 
 			else
 				amt=50;
-			soundeffect(s,0x02,0x48);
+			//soundeffect(s,0x02,0x48);
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"cut cloth",0,0x17,0x66,col1,1,1);
 			if(pi_c == NULL) return;
 			pi_c->setWeight( 10 );
@@ -1483,7 +1483,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 		if( IsHide(pi->id()) )
 		{
 			amt = pi->amount();
-			soundeffect(s,0x02,0x48);
+			//soundeffect(s,0x02,0x48);
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"leather piece",0,0x10,0x67,col1,1,1);
 			if( !pi_c ) 
 				return;
@@ -1860,8 +1860,8 @@ public:
 	virtual void failure(SOCK s)		{delonfail(s);playbad(s);failmsg(s);}
 	*/
 	virtual void failmsg(int s)			{sysmessage(s,failtext);}
-	virtual void playbad(int s)			{soundeffect(s,badsnd1,badsnd2);}
-	virtual void playgood(int s)		{soundeffect(s,0,0x2A);}
+	virtual void playbad(int s)			{/*soundeffect(s,badsnd1,badsnd2);*/}
+	virtual void playgood(int s)		{/*soundeffect(s,0,0x2A);*/}
 	virtual void checkPartID(short id)	{;}
 	virtual bool decide()				{return (itembits == 3) ? true : false;}
 	virtual void createIt(int s)		{;}

@@ -895,4 +895,13 @@ public:
 	void setContent( QString layout, QStringList text );
 };
 
+// 0x95 Dye Tub
+class cUOTxDyeTub: public cUOPacket
+{
+public:
+	cUOTxDyeTub(): cUOPacket( 0x95, 9 ) {}
+	void setSerial( UINT32 data ) { setInt( 1, data ); }
+	void setModel( UINT16 data ) { setShort( 7, data ); }
+};
+
 #endif

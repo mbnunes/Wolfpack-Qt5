@@ -57,47 +57,6 @@
 #undef  DBGFILE
 #define DBGFILE "SndPkg.cpp"
 
-//keep the target highlighted so that we know who we're attacking =)
-//26/10/99//new packet
-
-void SndAttackOK(UOXSOCKET s, int serial)
-{
-	unsigned char attackok[6]="\xAA\x00\x00\x00\x00";//AntiChrist! 26/10/99
-	LongToCharPtr(serial,attackok+1);
-	Xsend(s, attackok, 5);
-}
-
-void SndDyevat(UOXSOCKET s, int serial, short id)
-{
-	LongToCharPtr(serial,(dyevat+1));
-	ShortToCharPtr(id,dyevat+7);
-	Xsend(s, dyevat, 9);
-}
-
-void SndUpdscroll(UOXSOCKET s, short txtlen, char* txt)
-{
-	ShortToCharPtr(txtlen+10,updscroll+1);
-	updscroll[3]=2;
-	ShortToCharPtr(txtlen,updscroll+8);
-	Xsend(s, updscroll, 10);
-	Xsend(s, txt, txtlen);
-}
-
-void SndRemoveitem(int serial)
-{
-	LongToCharPtr(serial,removeitem+1);
-	for(int j=0;j<now;j++)
-		if (perm[j])
-			Xsend(j, removeitem, 5);
-}
-
-void SndShopgumpopen(UOXSOCKET s, int serial)
-{
-	unsigned char shopgumpopen[8]="\x24\x00\x00\x00\x01\x00\x30";
-	LongToCharPtr(serial,shopgumpopen+1);
-	Xsend(s, shopgumpopen, 7);
-}
-
 void soundeffect(int s, unsigned char a, unsigned char b) // Play sound effect for player
 {
 	int i;
@@ -115,68 +74,6 @@ void soundeffect(int s, unsigned char a, unsigned char b) // Play sound effect f
 		{
 			Xsend(i, sfx, 12);
 		}
-}
-
-void soundeffect2(P_CHAR pc, short sound)
-{
-	int i;
-
-	ShortToCharPtr(sound, sfx+2);
-	sfx[6]=pc->pos.x>>8;
-	sfx[7]=pc->pos.x%256;
-	sfx[8]=pc->pos.y>>8;
-	sfx[9]=pc->pos.y%256;
-	for (i=0;i<now;i++)
-		if ((perm[i])&&(inrange1p(pc, currchar[i])))
-		{
-			Xsend(i, sfx, 12);
-		}
-}
-
-void soundeffect2(P_CHAR pc, unsigned char a, unsigned char b)
-{
-	int i;
-
-	if (pc == NULL)
-		return;
-	sfx[2]=a;
-	sfx[3]=b;
-	sfx[6]=pc->pos.x>>8;
-	sfx[7]=pc->pos.x%256;
-	sfx[8]=pc->pos.y>>8;
-	sfx[9]=pc->pos.y%256;
-	for (i=0;i<now;i++)
-		if ((perm[i])&&(inrange1p(pc, currchar[i])))
-		{
-			Xsend(i, sfx, 12);
-		}
-}
-
-void soundeffect4(P_ITEM pi, UOXSOCKET s, unsigned char a, unsigned char b)
-{
-	if (pi == NULL)
-		return;
-	sfx[2]=a;
-	sfx[3]=b;
-	sfx[6]=pi->pos.x>>8;
-	sfx[7]=pi->pos.x%256;
-	sfx[8]=pi->pos.y>>8;
-	sfx[9]=pi->pos.y%256;
-	Xsend(s, sfx, 12);
-}
-
-void soundeffect5(UOXSOCKET s, unsigned char a, unsigned char b)
-{
-	P_CHAR pc_currchar = currchar[s];
-
-	sfx[2]=a;
-	sfx[3]=b;
-	sfx[6]=pc_currchar->pos.x>>8;
-	sfx[7]=pc_currchar->pos.x%256;
-	sfx[8]=pc_currchar->pos.y>>8;
-	sfx[9]=pc_currchar->pos.y%256;
-	Xsend(s, sfx, 12);
-
 }
 
 void action(int s, int x) // Character does a certain action

@@ -2987,7 +2987,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							cline = &script2[0];
 							splitline();
 							short snd = ((short)(hexnumber(0) << 8) | hexnumber(1));
-							soundeffect2(ti, snd);
+							ti->soundEffect( snd );
 						}
 						else if (!(strcmp("SETTRG", (char*)script1)))  // Set npcs trigger to new trigger
 						{

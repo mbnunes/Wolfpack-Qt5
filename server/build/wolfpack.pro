@@ -93,7 +93,6 @@ HEADERS         = client.h \
 		  verinfo.h \
 		  weight.h \
 		  whitespace.h \
-		  wip.h \
 		  wolfpack.h \
 		  worldmain.h \
 		  wpconsole.h \
@@ -176,7 +175,6 @@ SOURCES         = client.cpp \
 		  uobject.cpp \
 		  utilsys.cpp \
 		  weight.cpp \
-		  wip.cpp \
 		  wolfpack.cpp \
 		  worldmain.cpp \
 		  wpconsole.cpp \

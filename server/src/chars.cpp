@@ -2025,9 +2025,13 @@ void cChar::action( UINT8 id )
 	if( animated )
 		return;
 
-	if( onHorse() && ( id == 0x10 || id == 0x11 ) )
+	bool mounted = onHorse();
+
+	if( mounted && ( id == 0x10 || id == 0x11 ) )
 		id = 0x1b;
-	else if( ( onHorse() || this->id() < 0x190 ) && ( id == 0x22 ) )
+	else if( mounted && ( id == 0x0D ) )
+		id = 0x1D;
+	else if( ( mounted || this->id() < 0x190 ) && ( id == 0x22 ) )
 		return;
 
 	cUOTxAction action;

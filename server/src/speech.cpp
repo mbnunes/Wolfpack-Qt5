@@ -701,7 +701,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 		pPet->emote( tr( "%1 appears to have decided that it is better off without a master" ).arg( pPet->name.c_str() ) );
 		if( SrvParams->tamedDisappear() ==1 )
 		{
-			soundeffect2( pPet, 0x01FE );
+			pPet->soundEffect( 0x01FE );
 			Npcs->DeleteChar( pPet );
 		}
 		bReturn = true;

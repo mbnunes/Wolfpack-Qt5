@@ -68,14 +68,14 @@ void playSkillSound( UOXSOCKET Socket, UI08 Skill, bool Success )
 
 	// Blacksmithing
 	case 0x07:
-		action( Socket, 0x9 );
-		soundeffect2( Character, 0x2A );
+		Character->action( 0x9 );
+		Character->soundEffect( 0x2A );
 		break;
 
 	// Carpentry
 	case 0x11:
-		action( Socket, 0x9 );
-		soundeffect2( Character, 0x23D );
+		Character->action( 0x9 );
+		Character->soundEffect( 0x23D );
 		break;
 	
 	};
@@ -693,8 +693,8 @@ bool makeItem( UOXSOCKET Socket, QDomElement& Action )
 	sysmessage( Socket, "You put the item in your backpack." );
 
 	// 0x58
-	if( Character != NULL )
-		soundeffect2( Character, 0x57 );
+	if( Character )
+		Character->soundEffect( 0x57 );
 
 	return true;
 }

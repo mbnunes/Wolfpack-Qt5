@@ -297,7 +297,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							pc_i->pos.x = pc->pos.x; // Ripper..guards teleport to enemies.
 							pc_i->pos.y = pc->pos.y;
 							pc_i->pos.z = pc->pos.z;
-							soundeffect2(pc_i, 0x01FE); // crashfix, LB
+							pc_i->soundEffect( 0x01FE );
 							staticeffect(pc_i, 0x37, 0x2A, 0x09, 0x06);
 							// We found a victim
 				            if( Victim != NULL )
@@ -388,7 +388,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							pc_i->pos.x = pc->pos.x; // Ripper..guards teleport to enemies.
 							pc_i->pos.y = pc->pos.y;
 							pc_i->pos.z = pc->pos.z;
-							soundeffect2(pc_i, 0x01FE); // crashfix, LB
+							pc_i->soundEffect( 0x01FE );
 							staticeffect(pc_i, 0x37, 0x2A, 0x09, 0x06);
 							// We found a victim
 				            if( Victim != NULL )

@@ -427,7 +427,6 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// I don't think we need to remove the item
 	// as it's only visible to the current char
 	// And he looses contact anyway
-	// SndRemoveitem( pi->serial );
 
 	// Build our packets
 	cUOTxCharEquipment wearItem;

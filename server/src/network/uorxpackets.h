@@ -425,5 +425,14 @@ public:
 	UINT16 iAmount( UINT16 item ) { return getShort( 13 + ( item * 7 ) ); }
 };
 
-#endif
+// 0x95 Dye
+class cUORxDye: public cUOPacket
+{
+public:
+	cUORxDye( const QByteArray &data ): cUOPacket( data ) {}
+	UINT32 serial() { return getInt( 1 ); }
+	UINT16 model() { return getShort( 5 ); }
+	UINT16 color() { return getShort( 7 ); }
+};
 
+#endif

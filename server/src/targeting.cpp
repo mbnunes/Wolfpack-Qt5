@@ -317,15 +317,16 @@ void DyeTarget(int s)
 	if ((addid1[s]==255)&&(addid2[s]==255))
 	{
 		P_ITEM pi=FindItemBySerial(serial);
-		if (pi!=NULL)
+		if( pi )
 		{
-			SndDyevat(s,pi->serial, pi->id());
+
+			//SndDyevat(s,pi->serial, pi->id());
 			RefreshItem(pi);
 		}
 		P_CHAR pc = FindCharBySerial(serial);
 		if (pc != NULL)
 		{
-			SndDyevat(s,pc->serial,0x2106);
+			//SndDyevat(s,pc->serial,0x2106);
 		}
 	}
 	else
@@ -711,13 +712,15 @@ static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 			{
 				Trig->triggerwitem(calcSocketFromChar(pc_c), pi, 1); // trigger is fired
 			}
+			pi->removeFromView( false );
+
 			pi->pos.x=(rand()%80)+50;
 			pi->pos.y=(rand()%80)+50;
 			pi->pos.z=9;
 			pi->setContSerial(pPack->serial);
 			pi->setLayer( 0x00 );
-			SndRemoveitem(pi->serial);
-			RefreshItem(pi);
+
+			pi->update();
 		}
 		else if (pc->Wears(pi) &&
 			(pi->layer()==0x0B || pi->layer()==0x10))	// hair & beard (Duke)
@@ -846,7 +849,7 @@ public:
 		if (w_anim[0]==0 && w_anim[1]==0)
 		{
 			bolteffect(pc, true);
-			soundeffect2(pc, 0x0029);
+			pc->soundEffect( 0x0029 );
 		}
 		else
 		{
@@ -2634,7 +2637,7 @@ void cTargets::StaminaTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		soundeffect2(pc, 0x01F2);
+		pc->soundEffect( 0x01F2 );
 		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
 		pc->stm = pc->effDex();
 		updatestats(pc, 2);
@@ -2649,7 +2652,7 @@ void cTargets::ManaTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		soundeffect2(pc, 0x01F2);
+		pc->soundEffect( 0x01F2 );
 		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
 		pc->mn = pc->in;
 		updatestats(pc, 1);
@@ -2837,7 +2840,7 @@ void cTargets::permHideTarget(int s)
 		pc->priv2 |= 8; 
 		// staticeffect(i, 0x37, 0x09, 0x09, 0x19); 
 		staticeffect3(pc->pos.x + 1, pc->pos.y + 1, pc->pos.z + 10, 0x37, 0x09, 0x09, 0x19, 0); 
-		soundeffect2(pc, 0x0208); 
+		pc->soundEffect( 0x0208 ); 
 		tempeffect(pc, pc, 33, 1, 0, 0); 
 		return; 
 	} 
@@ -2871,7 +2874,7 @@ void cTargets::unHideTarget(int s)
 		// which takes the char coords. 
 		// staticeffect(i, 0x37, 0x09, 0x09, 0x19); 
 		staticeffect3(pc->pos.x + 1, pc->pos.y + 1, pc->pos.z + 10, 0x37, 0x09, 0x09, 0x19, 0); 
-		soundeffect2(pc, 0x0208); 
+		pc->soundEffect( 0x0208 ); 
 		tempeffect(pc, pc, 34, 1, 0, 0); 
 		return; 
 	} 
@@ -2944,7 +2947,7 @@ void cTargets::FullStatsTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		soundeffect2(pc, 0x01F2);
+		pc->soundEffect( 0x01F2 );
 		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
 		pc->mn=pc->in;
 		pc->hp=pc->st;
@@ -3641,7 +3644,7 @@ void cTargets::MenuPrivTarg(int s)//LB's menu privs
 
 void cTargets::ShowSkillTarget(int s) // LB's showskills
 {
-	int a,j,k,b=0,c,z,zz,ges=0;
+/*	int a,j,k,b=0,c,z,zz,ges=0;
 	char skill_info[(ALLSKILLS+1)*40];
 	char sk[25];
 
@@ -3693,7 +3696,7 @@ void cTargets::ShowSkillTarget(int s) // LB's showskills
 		SndUpdscroll(s, strlen(skill_info), skill_info);
 	}
 	else
-		sysmessage(s,"no valid target");
+		sysmessage(s,"no valid target");*/
 }
 
 void cTargets::FetchTarget(UOXSOCKET s) // Ripper
@@ -3832,11 +3835,11 @@ static void ItemTarget(P_CLIENT ps, PKGx6C *pt)
 		RefreshItem(pi);
 		break;
 	case 31://ColorsTarget
-		if (pi->id()==0x0FAB ||						//dye vat
+		/*if (pi->id()==0x0FAB ||						//dye vat
 			pi->id()==0x0EFF || pi->id()==0x0E27 )	//hair dye
-			SndDyevat(s,pi->serial,pi->id());
+			//SndDyevat(s,pi->serial,pi->id());
 		else
-			sysmessage(s, "You can only use this item on a dye vat.");
+			sysmessage(s, "You can only use this item on a dye vat.");*/
 		break;
 	case 63://MoreXTarget
 		pi->morex=addx[s];
@@ -3917,6 +3920,8 @@ void cTargets::MoveToBagTarget(int s)
 	P_ITEM pBackpack = Packitem(pc_currchar);
 	if(pBackpack == NULL) return;
 	
+	pi->removeFromView( false );
+
 	pi->setContSerial(pBackpack->serial);
 	pi->pos.x=50+rand()%80;
 	pi->pos.y=50+rand()%80;
@@ -3924,8 +3929,7 @@ void cTargets::MoveToBagTarget(int s)
 	pi->setLayer( 0x00 );
 	pi->decaytime=0;//reset decaytimer
 	
-	SndRemoveitem(pi->serial);
-	RefreshItem(pi);
+	pi->update();
 }
 
 void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with the targetting cursor

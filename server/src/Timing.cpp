@@ -563,7 +563,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 			}
 			// Dupois - End
 
-			soundeffect2(pc, 0x01FE);
+			pc->soundEffect( 0x01FE );
 			pc->dead = true;
 			Npcs->DeleteChar(pc);
 			return;

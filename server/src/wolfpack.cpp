@@ -931,8 +931,8 @@ void explodeitem(int s, P_ITEM pi)
 		pi->pos.x=pc_currchar->pos.x;
 		pi->pos.y=pc_currchar->pos.y;
 		pi->pos.z=pc_currchar->pos.z;
-		npcaction( pc_currchar, 0x15 );
-		soundeffect2(pc_currchar, 0x0207);
+		pc_currchar->action( 0x15 );
+		pc_currchar->soundEffect( 0x0207 );
 	}
 	else
 	{
@@ -2800,7 +2800,7 @@ void addgold(UOXSOCKET s, int totgold)
 	Items->SpawnItem(s, currchar[s], totgold,"#",1,0x0E,0xED,0,1,1);
 }
 
-void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
+void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 {
 	int x;
 
@@ -2831,15 +2831,19 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 			sysmessage(s, "You feel more agile!");
 			break;
 		case 2:
-			tempeffect(currchar[s], pc_p, 6, 10+RandomNum(1,20), 0, 0, 120);
+			tempeffect( currchar[s], pc_p, 6, 10+RandomNum(1,20), 0, 0, 120);
 			sysmessage(s, "You feel much more agile!");
 			break;
 		default:
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 			return;
 		}
-		soundeffect2(pc_p, 0x01E7);
-		if (s!=-1) updatestats(pc_p, 2);
+		
+		pc_p->soundEffect( 0x01E7 );
+		
+		if( pc_p->socket() )
+			pc_p->socket()->updateStamina();
+
 		break;
 
 	case 2: // Cure Potion
@@ -2879,11 +2883,14 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 			else
 			{
 				staticeffect(pc_p, 0x37, 0x3A, 0, 15);
-				soundeffect2(pc_p, 0x01E0); //cure sound - SpaceDog
-				sysmessage(s,"The poison was cured.");
+				pc_p->soundEffect( 0x01E0 ); //cure sound
+				if( pc_p->socket() )
+					pc_p->socket()->sysMessage( tr( "The poison was cured." ) );
+				
 			}
 		}
-		impowncreate(calcSocketFromChar(pc_p), pc_p, 1); //Lb, makes the green bar blue or the blue bar blue !
+
+		pc_p->resend( false );
 		break;
 
 	case 3: // Explosion Potion
@@ -2923,22 +2930,24 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 			return;
 		}
-		if (s!=-1) updatestats(pc_p, 0);
+
+		pc_p->updateHealth();
 		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
-		soundeffect2(pc_p, 0x01F2); //Healing Sound - SpaceDog
+		pc_p->soundEffect( 0x01F2 ); //Healing Sound
 		break;
 	case 5: // Night Sight Potion
 		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06);
 		tempeffect(currchar[s], pc_p, 2, 0, 0, 0,(720*SrvParams->secondsPerUOMinute()*MY_CLOCKS_PER_SEC)); // should last for 12 UO-hours
-		soundeffect2(pc_p, 0x01E3);
+		pc_p->soundEffect( 0x01E3 );
 		break;
 	case 6: // Poison Potion
 		if(pc_p->poisoned() < pi->morez) pc_p->setPoisoned(pi->morez);
 		if(pi->morez>4) pi->morez=4;
+		
 		pc_p->setPoisonwearofftime(uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()));
-		impowncreate(calcSocketFromChar(pc_p), pc_p, 1); //Lb, sends the green bar !
-		soundeffect2(pc_p, 0x0246); //poison sound - SpaceDog
-		sysmessage(s, tr("You poisoned yourself! *sigh*")); //message -SpaceDog
+		pc_p->resend( false );
+		pc_p->soundEffect( 0x0246); //poison sound
+		sysmessage(s, tr( "You poisoned yourself!" )); //message
 		break;
 	case 7: // Refresh Potion
 		switch(pi->morez)
@@ -2955,9 +2964,10 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 			return;
 		}
-		if (s!=-1) updatestats(pc_p, 2);
+		
+		pc_p->updateHealth();
 		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
-		soundeffect2(pc_p, 0x01F2); //Healing Sound
+		pc_p->soundEffect( 0x01F2 ); //Healing Sound
 		break;
 	case 8: // Strength Potion
 		staticeffect(pc_p, 0x37, 0x3a, 0, 15);
@@ -2975,7 +2985,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 			return;
 		}
-		soundeffect2(pc_p, 0x01EE);
+		pc_p->soundEffect( 0x01EE );
 		break;
 
 	case 9: // Mana Potion
@@ -2997,58 +3007,34 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		}
 		if (s!=-1) updatestats(pc_p, 1);
 		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
-		soundeffect2(pc_p, 0x01E7); //agility sound - SpaceDog
-		break;
-
-	case 10: //LB's LSD potion, 5'th november 1999
-		if (pi->id()!=0x1841) return; // only works with an special flask
-		if (s==-1) return;
-		if (LSD[s]==1)
-		{
-			sysmessage(s, tr("no,no,no,cant you get enough ?"));
-			return;
-		}
-		tempeffect(pc_p, pc_p, 20, 60+RandomNum(1,120), 0, 0); // trigger effect
-		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
-		soundeffect5(calcSocketFromChar(pc_p), 0x00, 0xF8); // lsd sound :)
+		pc_p->soundEffect( 0x01E7 ); // Agility sound
 		break;
 
 	default:
 		clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 		return;
 	}
-	soundeffect2(pc_p, 0x0030);
-	if (pc_p->isHuman() && !pc_p->onHorse())
-		npcaction( pc_p, 0x22);
-	//empty bottle after drinking - Tauriel
-	if (pi->amount()!=1)
-	{
-		pi->ReduceAmount( 1 );
-	}
-	//empty bottle after drinking - Tauriel
-	pi->setContSerial(-1);
-	if (pi->morey!=3)
-	{
-		int lsd = pi->morey; // save morey before overwritten
-		int kser = pi->serial;
 
-		pi->Init(0);
-		pi->SetSerial(kser);
-		pi->setId(0x0F0E);
+	pc_p->soundEffect( 0x30 );
+	pc_p->action( 0x22 );
 
-		if (lsd==10) // empty Lsd potions
-		{
-			pi->setId(0x183d);
-		}
-		pi->moveTo(pc_p->pos);
-		pi->priv|=0x01;
+	// empty bottle after drinking
+	pi->setContSerial( -1 );
+	if( pi->morey != 3 )
+	{
+		SERIAL kser = pi->serial;
+		pi->Init( 0 );
+		pi->SetSerial( kser );
+		pi->setId( 0x0F0E );
+		pi->moveTo( pc_p->pos );
+		pi->priv |= 0x01;
 	}
 	else
 	{
-		Items->DeleItem(pi);
+		Items->DeleItem( pi );
 	}
-	RefreshItem(pi);// AntiChrist
-	// end empty bottle change
+	
+	pi->update();
 }
 
 int calcValue(P_ITEM pi, int value)

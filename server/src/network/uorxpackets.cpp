@@ -75,6 +75,7 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	case 0xBD:		return new cUORxSetVersion( data );
 	case 0xC8:		return new cUORxUpdateRange( data );
 	case 0x3B:		return new cUORxBuy( data );
+	case 0x95:		return new cUORxDye( data );
 	default:		return new cUOPacket( data );
 	};	
 }

@@ -959,17 +959,17 @@ public:
 			LogError("switch reached default");
 			return true;
 		}
+
+		pc->soundEffect( 0x0247 ); //poisoning effect
+
 		if(success)
 		{
-			soundeffect2(pc, 0x0247); //poisoning effect
+			
 			if(pi->poisoned<pPoison->morez) pi->poisoned = pPoison->morez;
 			socket->sysMessage( tr("You successfully poison that item.") );
 		} 
 		else
-		{
-			soundeffect2(pc, 0x0247); //poisoning effect
 			socket->sysMessage( tr("You fail to apply the poison.") );
-		}
 		
 		//empty bottle after poisoning
 		P_ITEM pi_poison = pPoison;
@@ -1935,15 +1935,13 @@ void cSkills::PlayInstrumentWell(cUOSocket* socket, P_ITEM pi)
 	P_CHAR pc_currchar = socket->player();
 	switch(pi->id())
 	{
-	case 0x0E9C:	soundeffect2(pc_currchar, 0x0038);	break;
+	case 0x0E9C:	pc_currchar->soundEffect( 0x0038 );	break;
 	case 0x0E9D:
-	case 0x0E9E:	soundeffect2(pc_currchar, 0x0052);	break;
+	case 0x0E9E:	pc_currchar->soundEffect( 0x0052 );	break;
 	case 0x0EB1:
-	case 0x0EB2:	soundeffect2(pc_currchar, 0x0045);	break;
+	case 0x0EB2:	pc_currchar->soundEffect( 0x0045 );	break;
 	case 0x0EB3:
-	case 0x0EB4:	soundeffect2(pc_currchar, 0x004C);	break;
-	default:
-		LogError("switch reached default");
+	case 0x0EB4:	pc_currchar->soundEffect( 0x004C );	break;
 	}
 }
 
@@ -1952,15 +1950,13 @@ void cSkills::PlayInstrumentPoor(cUOSocket* socket, P_ITEM pi)
 	P_CHAR pc_currchar = socket->player();
 	switch(pi->id())
 	{
-	case 0x0E9C:	soundeffect2(pc_currchar, 0x0039);	break;
+	case 0x0E9C:	pc_currchar->soundEffect( 0x0039);	break;
 	case 0x0E9D:
-	case 0x0E9E:	soundeffect2(pc_currchar, 0x0053);	break;
+	case 0x0E9E:	pc_currchar->soundEffect( 0x0053);	break;
 	case 0x0EB1:
-	case 0x0EB2:	soundeffect2(pc_currchar, 0x0046);	break;
+	case 0x0EB2:	pc_currchar->soundEffect( 0x0046);	break;
 	case 0x0EB3:
-	case 0x0EB4:	soundeffect2(pc_currchar, 0x004D);	break;
-	default:
-		LogError("switch reached default");
+	case 0x0EB4:	pc_currchar->soundEffect( 0x004D);	break;
 	}
 }
 
@@ -2114,8 +2110,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 	}
 	else
 	{
-		// Dupois - Added pouring potion sfx Oct 09, 1998
-		soundeffect2(pc, 0x0240);	// Liquid sfx
+		pc->soundEffect( 0x0240 );
 		sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc->name.c_str());
 		npcemoteall(pc, (char*)temp,0);
 		delequan(pc, 0x0F0E, 1);
