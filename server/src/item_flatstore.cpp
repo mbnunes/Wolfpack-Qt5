@@ -65,7 +65,7 @@ enum eItemKeys
 	ITEM_ACCURACY
 };
 
-void cItem::save( FlatStore::OutputFile *output, bool first )
+void cItem::save( FlatStore::OutputFile *output, bool first ) throw()
 {
 	if( first )
 		output->startObject( serial(), CHUNK_ITEM );
@@ -242,4 +242,244 @@ void cItem::save( FlatStore::OutputFile *output, bool first )
 
 	if( first )
 		output->finishObject();
+}
+
+bool cItem::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile *input )
+{
+	if( chunkGroup != CHUNK_ITEM )
+		return cUObject::load( chunkGroup, chunkType, input ); 
+
+	unsigned int temp;
+
+	switch( chunkType )
+	{
+	case ITEM_ID:
+		input->readUShort( id_ );
+		break;
+
+	case ITEM_CREATOR:
+		creator_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case ITEM_COLOR:
+		input->readUShort( color_ );
+		break;
+
+	case ITEM_CONTAINER:
+		/*
+		WARNING
+
+		We are temporarily caching the container serial in a 32-bit pointer.
+		*/
+		input->readUInt( temp );
+		container_ = reinterpret_cast< cUObject* >( temp );
+
+		break;
+
+	case ITEM_LAYER:
+		input->readUChar( layer_ );
+		break;
+
+	case ITEM_TYPE:
+		input->readUShort( type_ );
+		break;
+
+	case ITEM_TYPE2:
+		input->readUShort( type2_ );
+		break;
+
+	case ITEM_MORE1:
+		input->readUChar( more1_ );
+		break;
+
+	case ITEM_MORE2:
+		input->readUChar( more2_ );
+		break;
+
+	case ITEM_MORE3:
+		input->readUChar( more3_ );
+		break;
+
+	case ITEM_MORE4:
+		input->readUChar( more4_ );
+		break;
+
+	case ITEM_MOREB1:
+		input->readUChar( moreb1_ );
+		break;
+
+	case ITEM_MOREB2:
+		input->readUChar( moreb2_ );
+		break;
+
+	case ITEM_MOREB3:
+		input->readUChar( moreb3_ );
+		break;
+
+	case ITEM_MOREB4:
+		input->readUChar( moreb4_ );
+		break;
+
+	case ITEM_MOREX:
+		input->readUInt( morex_ );
+		break;
+
+	case ITEM_MOREY:
+		input->readUInt( morey_ );
+		break;
+
+	case ITEM_MOREZ:
+		input->readUInt( morez_ );
+		break;
+
+	case ITEM_AMOUNT:
+		input->readUShort( amount_ );
+		break;
+
+	case ITEM_DOORDIR:
+		input->readUChar( doordir_ );
+		break;
+
+	case ITEM_DYE:
+		input->readUChar( dye_ );
+		break;
+
+	case ITEM_DECAYTIME:
+		input->readUInt( decaytime_ );
+		decaytime_ += uiCurrentTime;
+		break;
+
+	case ITEM_ATTACK:
+		input->readUInt( att_ );
+		break;
+
+	case ITEM_DEFENSE:
+		input->readUInt( def_ );
+		break;
+
+	case ITEM_HIDAMAGE:
+		input->readShort( hidamage_ );
+		break;
+
+	case ITEM_LODAMAGE:
+		input->readShort( lodamage_ );
+		break;
+
+	case ITEM_STRENGTH:
+		input->readShort( st_ );
+		break;
+
+	case ITEM_TIMEUNUSED:
+		input->readUInt( time_unused );
+		break;
+
+	case ITEM_WEIGHT:
+		input->readShort( weight_ );
+		break;
+
+	case ITEM_HEALTH:
+		input->readShort( hp_ );
+		break;
+
+	case ITEM_MAXHEALTH:
+		input->readShort( maxhp_ );
+		break;
+
+	case ITEM_RANK:
+		input->readInt( rank_ );
+		break;
+
+	case ITEM_STRENGTH2:
+		input->readShort( st2_ );
+		break;
+
+	case ITEM_DEXTERITY:
+		input->readShort( dx_ );
+		break;
+
+	case ITEM_DEXTERITY2:
+		input->readShort( dx2_ );
+		break;
+
+	case ITEM_INTELLIGENCE:
+		input->readShort( in_ );
+		break;
+
+	case ITEM_INTELLIGENCE2:
+		input->readShort( in2_ );
+		break;
+
+	case ITEM_SPEED:
+		input->readShort( speed_ );
+		break;
+
+	case ITEM_POISONED:
+		input->readUInt( poisoned_ );
+		break;
+
+	case ITEM_MAGIC:
+		input->readUChar( magic_ );
+		break;
+
+	case ITEM_OWNER:
+		input->readUInt( (unsigned int&)ownserial_ );
+		break;
+
+	case ITEM_VISIBLE:
+		input->readUChar( visible_ );
+		break;
+
+	case ITEM_SPAWN:
+		input->readUInt( (unsigned int&)spawnserial );
+		break;
+
+	case ITEM_DIRECTION:
+		input->readUChar( dir_ );
+		break;
+
+	case ITEM_PRIV:
+		input->readUChar( priv_ );
+		break;
+
+	case ITEM_SELLPRICE:
+		input->readInt( sellprice_ );
+		break;
+
+	case ITEM_BUYPRICE:
+		input->readInt( buyprice_ );
+		break;
+
+	case ITEM_RESTOCK:
+		input->readUShort( restock_ );
+		break;
+
+	case ITEM_DISABLED:
+		input->readUInt( disabled_ );
+		break;
+
+	case ITEM_SPAWNREGION:
+		spawnregion_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case ITEM_GOOD:
+		input->readInt( good_ );
+		break;
+
+	case ITEM_DESCRIPTION:
+		desc_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case ITEM_CARVE:
+		carve_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case ITEM_ACCURACY:
+		input->readUShort( accuracy_ );
+		break;
+
+	default: 
+		return false;
+	}
+
+	return true;
 }

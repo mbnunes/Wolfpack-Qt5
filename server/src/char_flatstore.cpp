@@ -89,7 +89,7 @@ enum eCharKeys
 //			addField( "locktype", (*it).lock );
 //			addField( "cap", (*it).cap );
 
-void cChar::save( FlatStore::OutputFile *output, bool first )
+void cChar::save( FlatStore::OutputFile *output, bool first ) throw()
 {
 	if( first )
 		output->startObject( serial(), CHUNK_CHAR );
@@ -330,7 +330,7 @@ void cChar::save( FlatStore::OutputFile *output, bool first )
 		output->finishObject();
 }
 
-bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile *input )
+bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile *input ) throw()
 {
 	if( chunkGroup == CHUNK_SKILLS )
 	{

@@ -108,8 +108,8 @@ public:
 	virtual void	talk( const QString &message, ushort color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	void load( char **, UINT16& );
 	void save();
-	void save( FlatStore::OutputFile*, bool first = false );
-	bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* );
+	void save( FlatStore::OutputFile*, bool first = false ) throw();
+	bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* ) throw();
 	bool del();
 
 	void	processContainerNode( const QDomElement &Tag );
