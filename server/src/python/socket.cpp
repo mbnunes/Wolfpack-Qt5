@@ -361,9 +361,7 @@ static PyObject* wpSocket_customize( wpSocket* self, PyObject* args )
 }
 
 
-/*!
-	Sends a gump to the socket. This function is used internally only.
-*/
+// DEPRECATED
 static PyObject* wpSocket_sendgump(wpSocket* self, PyObject* args) {
 	// Parameters:
 	// x, y, nomove, noclose, nodispose, serial, type, layout, text, callback, args
@@ -425,9 +423,12 @@ static PyObject* wpSocket_sendgump(wpSocket* self, PyObject* args) {
 	return PyInt_FromLong( gump->serial() );
 }
 
-/*!
-	Closes a gump that has been sent to the client using it's
-	serial.
+/*
+	\method socket.closegump
+	\description Closes a gump sent to the client.
+	\param type The type id of the gump(s) to close.
+	\param buttonid Which button id should the client send as a response for the closed gumps. 
+	Defaults to 0.
 */
 static PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
 {
@@ -447,8 +448,12 @@ static PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
 	return Py_None;
 }
 
-/*!
-	Resends the world around this socket.
+/*
+	\method socket.resendworld
+	\description Resends the world to this socket. This method should be called
+	whenever you move the player to a new area of the world.
+	\param clean Should all objects being sent to the client be removed from it first.
+	Defaults to 0. This parameter has a use for resending multis in the area.
 */
 static PyObject* wpSocket_resendworld(wpSocket* self, PyObject* args) {
 	unsigned char clean = 0;
@@ -462,8 +467,9 @@ static PyObject* wpSocket_resendworld(wpSocket* self, PyObject* args) {
 	return Py_None;
 }
 
-/*!
-	Resends the player only.
+/*
+	\method socket.resendplayer
+	\description Resend the information about the player to this socket only.
 */
 static PyObject* wpSocket_resendplayer( wpSocket* self, PyObject* args )
 {
@@ -475,8 +481,11 @@ static PyObject* wpSocket_resendplayer( wpSocket* self, PyObject* args )
 	return Py_None;
 }
 
-/*!
-	Sends a container and it's content to a socket.
+/*
+	\method socket.sendcontainer
+	\description Sends the content and gump of a container to this socket.
+	\param container The <object id="ITEM">item</object> object of the container
+	that should be sent to the client.
 */
 static PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
 {
@@ -498,9 +507,7 @@ static PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
 	return Py_None;
 }
 
-/*!
-	Sends a packet to this socket.
-*/
+// DEPRECATED
 static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 {
 	if( PyTuple_Size( args ) != 1 )
@@ -532,6 +539,12 @@ static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 	return Py_None;
 }
 
+/*
+	\method socket.sendpaperdoll
+	\description Sends the paperdoll of character to this client.
+	\param char The character whose paperdoll should be sent to the client.
+
+*/
 static PyObject* wpSocket_sendpaperdoll( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
