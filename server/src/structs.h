@@ -247,39 +247,6 @@ struct ServerList_st
 	UI16 uiPort;
 };
 
-//#include "start_pack.h"
-struct tile_st
-{
-	char flag1;
-	char flag2;
-	char flag3;
-	char flag4;
-	UINT8 weight;
-	char layer;
-	short unknown1;
-	char unknown2;
-	char quantity;
-	short animation;
-	char unknown3;
-	char hue;
-	char unknown4;
-	char unknown5;
-	char height;
-	char name[20];
-};
-//#include "end_pack.h"
-
-struct land_st
-{
-	char flag1;
-	char flag2;
-	char flag3;
-	char flag4;
-	char unknown1;
-	char unknown2;
-	char name[20];
-};
-
 struct map_st
 {
 	short int id;

@@ -34,7 +34,10 @@
 
 #include "structs.h"
 #include "hCache.h"
-#include "qintcache.h"
+#include "tilecache.h"
+
+// Library Includes
+#include <qintcache.h>
 
 
 #if ILSHENAR == 1

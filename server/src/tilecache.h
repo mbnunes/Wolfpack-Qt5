@@ -53,6 +53,37 @@ using namespace std ;
 
 extern WPConsole_cl clConsole ;
 
+struct tile_st
+{
+	char flag1;
+	char flag2;
+	char flag3;
+	char flag4;
+	UINT8 weight;
+	char layer;
+	short unknown1;
+	char unknown2;
+	char quantity;
+	short animation;
+	char unknown3;
+	char hue;
+	char unknown4;
+	char unknown5;
+	char height;
+	char name[20];
+};
+
+struct land_st
+{
+	char flag1;
+	char flag2;
+	char flag3;
+	char flag4;
+	char unknown1;
+	char unknown2;
+	char name[20];
+};
+
 class cTileCache
 {
 private:
