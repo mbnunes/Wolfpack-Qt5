@@ -35,6 +35,7 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Added the ability to sell items from subpacks.
 	- Fixed a bug (Exploit) related to consumeResource.
 	- Removed old page system from core.
+	- onCreate is now called for players on character creation.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

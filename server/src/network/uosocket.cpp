@@ -636,7 +636,7 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 	// Check the character the user wants to play
 	QValueVector<P_PLAYER> characters = _account->caracterList();
 
-	if ( packet->slot() > characters.size() )
+	if ( packet->slot() >= characters.size() )
 	{
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
@@ -653,7 +653,10 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 	}
 
 	_account->setInUse( true );
-	playChar( characters.at( packet->slot() ) );
+	
+	P_PLAYER pChar = characters.at(packet->slot());	
+	log(LOG_MESSAGE, tr("Selected character '%1' (0x%2).\n").arg(pChar->name()).arg(pChar->serial(), 0, 16));
+	playChar( pChar );
 	_player->onLogin();
 }
 
@@ -1070,11 +1073,12 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	pChar->giveNewbieItems( skillid );
 	pChar->giveNewbieItems( skillid2 );
 
+	log(LOG_MESSAGE, tr("Created character '%1' (0x%2).\n").arg(pChar->name()).arg(pChar->serial(), 0, 16));
+
 	// Start the game with the newly created char -- OR RELAY HIM !!
 	playChar( pChar );
+	pChar->onCreate(pChar->baseid()); // Call onCreate before onLogin
 	pChar->onLogin();
-	// Processes a create character request
-	// Notes from Lord Binaries packet documentation:
 #undef cancelCreate
 }
 
