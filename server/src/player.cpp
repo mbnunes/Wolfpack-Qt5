@@ -1629,7 +1629,7 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	}
 
 	// Don't miss lord and lady titles
-	if ( !isIncognito() && !isPolymorphed() && fame_ >= 1000 )
+	if ( !isIncognito() && !isPolymorphed() && fame_ >= 10000 )
 	{
 		if ( gender() )
 		{

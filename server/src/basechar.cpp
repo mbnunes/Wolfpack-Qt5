@@ -3207,8 +3207,14 @@ void cBaseChar::poll( unsigned int time, unsigned int events )
 			unsigned char range = 1;
 			P_ITEM weapon = getWeapon();
 
-			if ( weapon && weapon->hasTag( "range" ) )
-				range = weapon->getTag( "range" ).toInt();
+			if ( weapon )
+			{
+				if ( weapon->hasTag( "range" ) ) {
+					range = weapon->getTag( "range" ).toInt();
+				} else if ( weapon->basedef() ) {
+					range = weapon->basedef()->getIntProperty( "range", 1 );
+				}
+			}
 
 			// We are out of range
 			if ( pos().distance( target->pos() ) > range )

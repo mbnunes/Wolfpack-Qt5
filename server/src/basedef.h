@@ -38,9 +38,6 @@
 class cElement;
 class cPythonScript;
 
-#undef getIntProperty
-#undef getStrProperty
-
 class cBaseDef : public cDefinable {
 protected:
 	// Our id

@@ -18,6 +18,11 @@ Wolfpack 12.9.10 Beta (CVS)
 	- Serials of objects can now be correctly changed via the script interface.
 	  But be careful not to create two objects with the same serial.
 	- Fixed contextmenus to use <scripts></scripts>, this was missed.
+	- Removed old macros that interfered with the new property system.
+	- Allowed the range for weapons to be a property which can be overriden
+	  with a tag.
+	- Fixed a tooltip bug that made players lords and ladies with only 1000 points
+	  of fame.
 
 Wolfpack 12.9.9 Beta (4. September 2004)
 	- Allowed viewing and setting account properties via .set and .show.

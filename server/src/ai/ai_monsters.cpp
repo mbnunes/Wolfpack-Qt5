@@ -221,9 +221,13 @@ float Monster_Aggr_MoveToTarget::preCondition()
 	Q_UINT8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
 
-	if ( weapon && weapon->hasTag( "range" ) )
+	if ( weapon )
 	{
-		range = weapon->getTag( "range" ).toInt();
+		if ( weapon->hasTag( "range" ) ) {
+			range = weapon->getTag( "range" ).toInt();
+		} else if ( weapon->basedef() ) {
+			range = weapon->basedef()->getIntProperty( "range", 1 );
+		}
 	}
 
 	if ( m_npc->inRange( pAI->currentVictim(), range ) )
@@ -255,9 +259,13 @@ float Monster_Aggr_MoveToTarget::postCondition()
 
 	Q_UINT8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
-	if ( weapon && weapon->hasTag( "range" ) )
+	if ( weapon )
 	{
-		range = weapon->getTag( "range" ).toInt();
+		if ( weapon->hasTag( "range" ) ) {
+			range = weapon->getTag( "range" ).toInt();
+		} else if ( weapon->basedef() ) {
+			range = weapon->basedef()->getIntProperty( "range", 1 );
+		}
 	}
 
 	if ( m_npc->inRange( pAI->currentVictim(), range ) )
@@ -312,9 +320,13 @@ float Monster_Aggr_Fight::preCondition()
 
 	Q_UINT8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
-	if ( weapon && weapon->hasTag( "range" ) )
+	if ( weapon )
 	{
-		range = weapon->getTag( "range" ).toInt();
+		if ( weapon->hasTag( "range" ) ) {
+			range = weapon->getTag( "range" ).toInt();
+		} else if ( weapon->basedef() ) {
+			range = weapon->basedef()->getIntProperty( "range", 1 );
+		}
 	}
 
 	if ( !m_npc->inRange( pAI->currentVictim(), range ) )
@@ -347,9 +359,13 @@ float Monster_Aggr_Fight::postCondition()
 
 	Q_UINT8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
-	if ( weapon && weapon->hasTag( "range" ) )
+	if ( weapon )
 	{
-		range = weapon->getTag( "range" ).toInt();
+		if ( weapon->hasTag( "range" ) ) {
+			range = weapon->getTag( "range" ).toInt();
+		} else if ( weapon->basedef() ) {
+			range = weapon->basedef()->getIntProperty( "range", 1 );
+		}
 	}
 
 	if ( !m_npc->inRange( pAI->currentVictim(), range ) )

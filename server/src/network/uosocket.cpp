@@ -565,7 +565,7 @@ void cUOSocket::sendCharList()
 	if ( maxChars == 6 )
 		clientFeatures.setSixthCharacterSlot( true );
 	//clientFeatures.setShort( 1, 0xFFFF ); // AoS TEST
-	clientFeatures.setShort(1, 0x801F);
+	//clientFeatures.setShort(1, 0x801F);
 	send( &clientFeatures );
 
 	cUOTxCharTownList charList;
