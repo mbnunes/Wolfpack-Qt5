@@ -741,12 +741,9 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->setIn( packet->intelligence() );
 	pChar->setMn( pChar->in() );
 
-	pChar->setBaseSkill( packet->skillId1(), packet->skillValue1()*10 );
-	pChar->setBaseSkill( packet->skillId2(), packet->skillValue2()*10 );
-	pChar->setBaseSkill( packet->skillId3(), packet->skillValue3()*10 );
-	Skills->updateSkillLevel( pChar, packet->skillId1() );
-	Skills->updateSkillLevel( pChar, packet->skillId2() );
-	Skills->updateSkillLevel( pChar, packet->skillId3() );
+	pChar->setSkillValue( packet->skillId1(), packet->skillValue1()*10 );
+	pChar->setSkillValue( packet->skillId2(), packet->skillValue2()*10 );
+	pChar->setSkillValue( packet->skillId3(), packet->skillValue3()*10 );
 
 	CharsManager::instance()->registerChar( pChar );
 
@@ -2082,8 +2079,18 @@ void cUOSocket::sendSkill( UINT16 skill )
 
 	cUOTxUpdateSkill pUpdate;
 	pUpdate.setId( skill );
-	pUpdate.setValue( _player->skill( skill ) );
-	pUpdate.setRealValue( _player->baseSkill( skill ) );
+	pUpdate.setValue( _player->skillValue( skill ) );
+	pUpdate.setRealValue( _player->skillValue( skill ) );
+	
+	UINT8 lock = _player->skillLock( skill );
+
+	if( lock == 0 )
+		pUpdate.setStatus( cUOTxUpdateSkill::Up );
+	else if( lock == 1 )
+		pUpdate.setStatus( cUOTxUpdateSkill ::Down );
+	else
+		pUpdate.setStatus( cUOTxUpdateSkill ::Locked );
+
 	send( &pUpdate );
 }
 
@@ -2194,7 +2201,7 @@ void cUOSocket::handleHelpRequest( cUORxHelpRequest* packet )
 
 void cUOSocket::handleSkillLock( cUORxSkillLock* packet )
 {
-	player()->setLockSkill( packet->skill(), packet->lock() );
+	player()->setSkillLock( packet->skill(), packet->lock() );
 }
 
 /*

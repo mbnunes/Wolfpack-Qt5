@@ -289,7 +289,7 @@ void cSkillCheck::processNode( const QDomElement &Tag )
 
 bool cSkillCheck::skilledEnough( cChar* pChar )
 {
-	return ( pChar->skill( skillid() ) >= minimum() );
+	return ( pChar->skillValue( skillid() ) >= minimum() );
 }
 
 void cSkillCheck::applySkillMod( float skillmod )
@@ -452,7 +452,7 @@ UINT32	cMakeSection::calcRank( cChar* pChar )
 			hasSuccess = false;
 		else
 		{
-			UINT16 skill = pChar->skill( skit.current()->skillid() );
+			UINT16 skill = pChar->skillValue( skit.current()->skillid() );
 			if( skill > skit.current()->maximum() )
 				skill = skit.current()->maximum();
 			if( skill < skit.current()->minimum() )

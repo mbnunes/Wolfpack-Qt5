@@ -1230,10 +1230,6 @@ int main( int argc, char *argv[] )
 				}
 			}
 
-			// Set Skills (non-real)
-			for( UINT8 i = 0; i < ALLSKILLS; ++i )
-				Skills->updateSkillLevel( pChar, i );
-
 			if( isItemSerial( pChar->multis() ) )
 			{
 				cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis() ) );

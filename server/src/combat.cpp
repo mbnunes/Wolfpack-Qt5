@@ -394,16 +394,16 @@ namespace Combat
 		// Now Calculate the Combat Ability of the Defender
 		// This is either the used skill OR for wrestling:
 		// wrestling skill *or* evasion skill
-		UINT16 dEvasion = QMIN( 120, pDefender->skill( dSkill ) / 10 ); // Up to 120
+		UINT16 dEvasion = QMIN( 120, pDefender->skillValue( dSkill ) / 10 ); // Up to 120
 
 		// If we are unarmed there could be a chance that we can 
 		// evade the blow by using EVALINT + ANATOMY
 		if( dSkill == WRESTLING )
-			dEvasion = QMAX( dEvasion, QMIN( 120, ( pDefender->skill( EVALUATINGINTEL ) + pDefender->skill( ANATOMY ) + 200 ) / 20 ) );
+			dEvasion = QMAX( dEvasion, QMIN( 120, ( pDefender->skillValue( EVALUATINGINTEL ) + pDefender->skillValue( ANATOMY ) + 200 ) / 20 ) );
 
 		// Now we have to calculate hitChance
 		// Hit Chance = ( Attacker's Combat Ability + 50 ) ÷ ( [Defender's Combat Ability + 50] x 2 )
-		double hitChance = ( pAttacker->skill( wSkill ) / 10 ) + 50;
+		double hitChance = ( pAttacker->skillValue( wSkill ) / 10 ) + 50;
 		hitChance /= ( dEvasion + 50 ) * 2;
 		hitChance = hitChance * 100;
 
@@ -466,7 +466,7 @@ namespace Combat
 
 		// Modify the damaged based on the weapon skill
 		// I did not find this in the OSI specs
-		//damage = (SI32)ceil( (float)damage * (float)pAttacker->skill( wSkill ) / 1000.0f );
+		//damage = (SI32)ceil( (float)damage * (float)pAttacker->skillValue( wSkill ) / 1000.0f );
 		
 		// Fall back to lodamage/hidamage
 		else if( pAttacker->lodamage() != 0 && pAttacker->hidamage() != 0 )
@@ -475,31 +475,31 @@ namespace Combat
 
 		// otherwise use the WRESTLING skill
 		else
-			damage = RandomNum( 0, QMAX( 1, pAttacker->skill( WRESTLING ) / 50 ) );
+			damage = RandomNum( 0, QMAX( 1, pAttacker->skillValue( WRESTLING ) / 50 ) );
 
 		// Boni to damage:
 
 		// Tactics (% of Base Damage is Tactics + 50)
-		damage = damage * ( pAttacker->skill( TACTICS ) / 10 + 50 ) / 100;
+		damage = damage * ( pAttacker->skillValue( TACTICS ) / 10 + 50 ) / 100;
 
 		// Strength (add 1/5 of strength * damage)
 		damage += damage * ( pAttacker->st() / 500 );
 
 		// Anatomy (add 1/5 of anatomy * damage)
-		damage += damage * ( pAttacker->skill( ANATOMY ) / 500 );
+		damage += damage * ( pAttacker->skillValue( ANATOMY ) / 500 );
 
 		// Anatomy GM gives another +10%
-		if( pAttacker->baseSkill( ANATOMY ) >= 1000 )
+		if( pAttacker->skillValue( ANATOMY ) >= 1000 )
 			damage += damage * 0.10;
 			
 		// If we are using an axe then add the lumberjacking bonus
 		if( pWeapon && pWeapon->type() == 1002 )
 		{
 			// Lumberjacking (add 1/5 of lumberjacking * damage)
-			damage += damage * ( pAttacker->skill( LUMBERJACKING ) / 500 );
+			damage += damage * ( pAttacker->skillValue( LUMBERJACKING ) / 500 );
 
 			// Lumberjacking GM gives another +10%
-			if( pAttacker->baseSkill( LUMBERJACKING ) >= 1000 )
+			if( pAttacker->skillValue( LUMBERJACKING ) >= 1000 )
 				damage += damage * 0.10;
 		}		
 
@@ -508,10 +508,10 @@ namespace Combat
 		if( pShield && pShield->type() == 1008 )
 		{
 			// Do a parry check depending on the attackers skill
-			pDefender->checkSkill( PARRYING, 0, pAttacker->skill( wSkill ) );
+			pDefender->checkSkill( PARRYING, 0, pAttacker->skillValue( wSkill ) );
 
 			// % Chance of Blocking = Parrying Skill ÷ 2
-			if( pDefender->skill( PARRYING ) / 2 >= RandomNum( 0, 1000 ) )
+			if( pDefender->skillValue( PARRYING ) / 2 >= RandomNum( 0, 1000 ) )
 			{
 				// We successfully parried the blow
 				if( pAttacker->socket() )
@@ -715,7 +715,7 @@ namespace Combat
 		if( pDefender->ra() )
 		{
 			// lets reflect (MAGERY/2)% of the damage
-			SI32 reflectdamage = damage * pDefender->skill( MAGERY ) / 2000;
+			SI32 reflectdamage = damage * pDefender->skillValue( MAGERY ) / 2000;
 			damage -= reflectdamage;
 
 			if( reflectdamage > 0 )
@@ -1023,10 +1023,10 @@ namespace Combat
 		}
 		else 
 		{
-			if( pAttacker->skill(WRESTLING) > 200 ) j = 35;
-			else if( pAttacker->skill(WRESTLING) > 400 ) j = 40;
-			else if( pAttacker->skill(WRESTLING) > 600 ) j = 45;
-			else if( pAttacker->skill(WRESTLING) > 800 ) j = 50;
+			if( pAttacker->skillValue(WRESTLING) > 200 ) j = 35;
+			else if( pAttacker->skillValue(WRESTLING) > 400 ) j = 40;
+			else if( pAttacker->skillValue(WRESTLING) > 600 ) j = 45;
+			else if( pAttacker->skillValue(WRESTLING) > 800 ) j = 50;
 			else j = 30;
 			x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->stm()+100) * j);
 		}
@@ -1330,7 +1330,7 @@ void cCombat::ItemCastSpell( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pItem )
 
 	UINT16 spellnum = ( ( pItem->morex * 8 ) - 8 ) + pItem->morey;
 	UINT16 tempmana = pAttacker->mn(); //Save their mana so we can give it back.
-	UINT16 tempmage = pAttacker->skill( MAGERY ); //Easier than writing new functions for all these spells
+	UINT16 tempmage = pAttacker->skillValue( MAGERY ); //Easier than writing new functions for all these spells
 
 	if( pItem->type() != 15 || pItem->morez <= 0 )
 		return;

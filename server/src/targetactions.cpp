@@ -74,13 +74,13 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 	// Resurrecting
 	if( pTarget->dead() )
 	{
-		if( pHealer->skill( HEALING ) < 800 || pHealer->skill( ANATOMY ) < 800 )
+		if( pHealer->skillValue( HEALING ) < 800 || pHealer->skillValue( ANATOMY ) < 800 )
 		{
 			socket->sysMessage( tr( "You are not skilled enough to resurrect." ) );
 			return true;
 		}
 
-		int reschance = static_cast<int>( ( pHealer->baseSkill( HEALING ) + pHealer->baseSkill( ANATOMY ) ) * 0.17 );
+		int reschance = static_cast<int>( ( pHealer->skillValue( HEALING ) + pHealer->skillValue( ANATOMY ) ) * 0.17 );
 		int rescheck = RandomNum( 1, 100 );
 
 		if( pHealer->checkSkill( HEALING, 800, 1000 ) && pHealer->checkSkill( ANATOMY, 800, 1000 ) && reschance <= rescheck )
@@ -108,13 +108,13 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 			secondSkill = ANIMALLORE;
 		}
 
-		if( pHealer->skill( firstSkill ) < 600 || pHealer->skill( secondSkill ) < 600 )
+		if( pHealer->skillValue( firstSkill ) < 600 || pHealer->skillValue( secondSkill ) < 600 )
 		{
 			socket->sysMessage( tr("You are not skilled enough to cure poison.") );
 			return true;			
 		}
 
-		unsigned int curechance = static_cast<int>( ( pHealer->baseSkill( firstSkill ) + pHealer->baseSkill( secondSkill ) ) *0.67 );
+		unsigned int curechance = static_cast<int>( ( pHealer->skillValue( firstSkill ) + pHealer->skillValue( secondSkill ) ) *0.67 );
 		unsigned int curecheck = RandomNum( 1, 100 );
 		pHealer->checkSkill( firstSkill, 600, 1000 );
 		pHealer->checkSkill( secondSkill, 600, 1000 );
@@ -157,8 +157,8 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 	else
 	{
-		unsigned int healmin = ( ( ( pHealer->skill( firstSkill ) / 5 ) + ( pHealer->skill( secondSkill ) / 5 ) ) + 3 );
-		unsigned int healmax = ( ( ( pHealer->skill( firstSkill ) / 5 ) + ( pHealer->skill( secondSkill ) / 2 ) ) + 10 );
+		unsigned int healmin = ( ( ( pHealer->skillValue( firstSkill ) / 5 ) + ( pHealer->skillValue( secondSkill ) / 5 ) ) + 3 );
+		unsigned int healmax = ( ( ( pHealer->skillValue( firstSkill ) / 5 ) + ( pHealer->skillValue( secondSkill ) / 2 ) ) + 10 );
 		unsigned int amount = RandomNum( healmin, healmax );
 		
 		// We don't heal over the maximum amount.

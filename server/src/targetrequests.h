@@ -189,7 +189,7 @@ public:
 		}
 		else // Lore used on a non-human
 		{
-			UI16 skill = pc_currchar->skill( ANIMALLORE );
+			UI16 skill = pc_currchar->skillValue( ANIMALLORE );
 			if( pc->tamed() || ( skill >= 1000 && skill <= 1100 && (pc->taming()<=1200||pc->taming()>0) ) ||
 				skill >= 1100 )
 			{

@@ -872,11 +872,11 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		return;
 	}
 
-	if( pc->skill( skillid_ ) < item.minskill )
+	if( pc->skillValue( skillid_ ) < item.minskill )
 		spawnamount = 0;
-	else if( pc->skill( skillid_ ) < item.maxskill && item.maxskill > item.minskill )
+	else if( pc->skillValue( skillid_ ) < item.maxskill && item.maxskill > item.minskill )
 	{
-		spawnamount = (UINT16)( ceil( (double)(pc->skill( skillid_ )-item.minskill) / (double)(item.maxskill - item.minskill) * (double)spawnamount) );
+		spawnamount = (UINT16)( ceil( (double)(pc->skillValue( skillid_ )-item.minskill) / (double)(item.maxskill - item.minskill) * (double)spawnamount) );
 		if( spawnamount == 0 )
 		{
 			spawnamount = 1;
@@ -1136,11 +1136,11 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 		return;
 	}
 
-	if( pc->skill( skillid_ ) < item.minskill )
+	if( pc->skillValue( skillid_ ) < item.minskill )
 		spawnamount = 0;
-	else if( pc->skill( skillid_ ) < item.maxskill && item.maxskill > item.minskill )
+	else if( pc->skillValue( skillid_ ) < item.maxskill && item.maxskill > item.minskill )
 	{
-		spawnamount = (UINT16)( ceil( (double)(pc->skill( skillid_ )-item.minskill) / (double)(item.maxskill - item.minskill) * (double)spawnamount) );
+		spawnamount = (UINT16)( ceil( (double)(pc->skillValue( skillid_ )-item.minskill) / (double)(item.maxskill - item.minskill) * (double)spawnamount) );
 		if( spawnamount == 0 )
 		{
 			spawnamount = 1;

@@ -829,7 +829,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
  		}
 		pc_monster->setOwner( pc_currchar );
 		pc_monster->MoveTo(pc_currchar->pos.x+rand()%2, pc_currchar->pos.y+rand()%2, pc_currchar->pos.z);
- 		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
+ 		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skillValue(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
  		updatechar(pc_monster);
  		npcaction(pc_monster, 0x0C);
 		doStaticEffect(pc_monster, spellnum);
@@ -842,7 +842,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 			pc_monster = cCharStuff::createScriptNpc(s,NULL,"295",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			if( pc_monster == NULL )
 				return;
-            pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
+            pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skillValue(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 			pc_monster->setNpcAIType(50);
 			pc_monster->setTamed(false);			
 		}
@@ -852,7 +852,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 			pc_monster = cCharStuff::createScriptNpc(s,NULL,"291",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			if( pc_monster == NULL )
 				return;
-			pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
+			pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skillValue(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 			pc_monster->setTamed(true);
 		}
 		break;
@@ -861,7 +861,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = cCharStuff::createScriptNpc(s,NULL,"290",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
-		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
+		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skillValue(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 		pc_monster->setTamed(true);
 		break;
 	case 0x000E: //Earth
@@ -869,7 +869,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = cCharStuff::createScriptNpc(s,NULL,"292",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
-		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
+		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skillValue(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 		pc_monster->setTamed(true);
 		break;
 	case 0x000F: //Fire
@@ -877,7 +877,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = cCharStuff::createScriptNpc(s,NULL,"293",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
-		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
+		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skillValue(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 		pc_monster->setTamed(true);
 		break;
 	case 0x0010: //Water
@@ -885,7 +885,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = cCharStuff::createScriptNpc(s,NULL,"294",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
-		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
+		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skillValue(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 		pc_monster->setTamed(true);
 		break;
 	case 0x023E: //Blade Spirits
@@ -893,7 +893,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = cCharStuff::createScriptNpc(s,NULL,"296",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
-		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
+		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skillValue(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 		pc_monster->setNpcAIType(50);
 		pc_monster->setTamed(false);
 		break;
@@ -990,7 +990,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	}
 
 	pc_monster->setSpaDelay(10);
-	pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
+	pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skillValue(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 	updatechar(pc_monster);
 	npcaction(pc_monster, 0x0C);
 	doStaticEffect(pc_monster, spellnum);
@@ -1136,7 +1136,7 @@ char cMagic::CheckResist(P_CHAR pc_attacker, P_CHAR pc_defender, int circle)
 		//A higher Eval.Int. can disable opponent's resistspell!
 		if(pc_attacker != NULL) //NOTE: only do the EV.INT. check if attacker >= 0
 		{
-			if(pc_attacker->skill(EVALUATINGINTEL) < pc_defender->skill(MAGICRESISTANCE) && (rand()%3)==0)
+			if(pc_attacker->skillValue(EVALUATINGINTEL) < pc_defender->skillValue(MAGICRESISTANCE) && (rand()%3)==0)
 			{
 				UOXSOCKET s = calcSocketFromChar(pc_defender);
 				if (s!=-1)
@@ -1308,7 +1308,7 @@ void cMagic::BoxSpell(UOXSOCKET s, int& x1, int& x2, int& y1, int& y2, int& z1, 
 	y=(buffer[s][13]<<8)+buffer[s][14];
 	z=buffer[s][16];
 
-	lenght=currchar[s]->skill(MAGERY)/170; // increased max-range, LB
+	lenght=currchar[s]->skillValue(MAGERY)/170; // increased max-range, LB
 
 	x1=x-lenght;
 	x2=x+lenght;
@@ -1498,13 +1498,13 @@ void cMagic::EnergyBoltSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool useman
 
 	if (CheckResist(pc_attacker, pc_defender, 6))
 	{
-		MagicDamage(pc_target, pc_attacker->skill(MAGERY)/120);
-		//MagicDamage(t, (4+(rand()%4)+2)*(pc_currchar->skill(MAGERY)/1000+1));
+		MagicDamage(pc_target, pc_attacker->skillValue(MAGERY)/120);
+		//MagicDamage(t, (4+(rand()%4)+2)*(pc_currchar->skillValue(MAGERY)/1000+1));
 	}
 	else
 	{
-		MagicDamage(pc_target, (pc_attacker->skill(MAGERY)+1*(pc_attacker->skill(EVALUATINGINTEL)/3))/(34+1*(pc_defender->skill(MAGICRESISTANCE)/30))+RandomNum(1,10));
-		//MagicDamage(t, (8+(rand()%5)+4)*(pc_currchar->skill(MAGERY)/750+1));
+		MagicDamage(pc_target, (pc_attacker->skillValue(MAGERY)+1*(pc_attacker->skillValue(EVALUATINGINTEL)/3))/(34+1*(pc_defender->skillValue(MAGICRESISTANCE)/30))+RandomNum(1,10));
+		//MagicDamage(t, (8+(rand()%5)+4)*(pc_currchar->skillValue(MAGERY)/750+1));
 	}
 	return;
 }
@@ -1543,11 +1543,11 @@ void cMagic::MagicArrow(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 		SubtractMana(pc_attacker, 4);
 	if (CheckResist(pc_attacker, pc_target, 1))
 	{
-		MagicDamage(pc_target, (1+(rand()%1)+1)*(pc_attacker->skill(MAGERY)/2000+1));
+		MagicDamage(pc_target, (1+(rand()%1)+1)*(pc_attacker->skillValue(MAGERY)/2000+1));
 	}
 	else
 	{
-		MagicDamage(pc_target, (1+(rand()%1)+2)*(pc_attacker->skill(MAGERY)/1500+1));
+		MagicDamage(pc_target, (1+(rand()%1)+2)*(pc_attacker->skillValue(MAGERY)/1500+1));
 	}
 	return;
 }
@@ -1571,7 +1571,7 @@ void cMagic::ClumsySpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 	doStaticEffect(pc_defender, 1);
 	pc_defender->soundEffect( 0x01DF );
 	if (CheckResist(pc_attacker, pc_defender, 1)) return;
-	tempeffect(pc_attacker, pc_defender, 3, pc_attacker->skill(MAGERY)/100, 0, 0);
+	tempeffect(pc_attacker, pc_defender, 3, pc_attacker->skillValue(MAGERY)/100, 0, 0);
 	return;
 }
 
@@ -1594,7 +1594,7 @@ void cMagic::FeebleMindSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool useman
 	doStaticEffect(pc_target, 3);
 	pc_target->soundEffect( 0x01E4 );
 	if (CheckResist(pc_attacker, pc_target, 1)) return;
-	tempeffect(pc_attacker, pc_target, 4, pc_attacker->skill(MAGERY)/100, 0, 0);
+	tempeffect(pc_attacker, pc_target, 4, pc_attacker->skillValue(MAGERY)/100, 0, 0);
 	return;
 }
 
@@ -1615,7 +1615,7 @@ void cMagic::WeakenSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 	doStaticEffect(pc_target, 8);
 	pc_target->soundEffect( 0x01E6 );
 	if(CheckResist(pc_attacker, pc_target, 1)) return;
-	tempeffect(pc_attacker, pc_target, 5, pc_attacker->skill(MAGERY)/100, 0, 0);
+	tempeffect(pc_attacker, pc_target, 5, pc_attacker->skillValue(MAGERY)/100, 0, 0);
 	return;
 }
 
@@ -1637,11 +1637,11 @@ void cMagic::HarmSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 	pc_target->soundEffect( 0x01F1 );
 	if (CheckResist(pc_attacker, pc_target, 2))
 	{
-		MagicDamage(pc_defender, pc_attacker->skill(MAGERY)/500+1);
+		MagicDamage(pc_defender, pc_attacker->skillValue(MAGERY)/500+1);
 	}
 	else
 	{
-		MagicDamage(pc_defender, pc_attacker->skill(MAGERY)/250+RandomNum(1,2));
+		MagicDamage(pc_defender, pc_attacker->skillValue(MAGERY)/250+RandomNum(1,2));
 	}
 	return;
 }
@@ -1664,9 +1664,9 @@ void cMagic::FireballSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 	doMoveEffect(18, pc_attacker, pc_target);
 	pc_attacker->soundEffect( 0x015E );
 	if (CheckResist(pc_attacker, pc_target, 3))
-		MagicDamage(pc_target, pc_attacker->skill(MAGERY)/280+1);
+		MagicDamage(pc_target, pc_attacker->skillValue(MAGERY)/280+1);
 	else
-		MagicDamage(pc_target, (pc_attacker->skill(MAGERY)+1*(pc_attacker->skill(EVALUATINGINTEL)/3))/(139+1*(pc_target->skill(MAGICRESISTANCE)/30))+RandomNum(1,4));
+		MagicDamage(pc_target, (pc_attacker->skillValue(MAGERY)+1*(pc_attacker->skillValue(EVALUATINGINTEL)/3))/(139+1*(pc_target->skillValue(MAGICRESISTANCE)/30))+RandomNum(1,4));
 	return;
 }
 
@@ -1689,7 +1689,7 @@ void cMagic::CurseSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 	doStaticEffect(pc_target, 27);
 	pc_target->soundEffect( 0x01E1 );
 	if(CheckResist(pc_attacker, pc_target, 1)) return;
-	j = pc_attacker->skill(MAGERY)/100;
+	j = pc_attacker->skillValue(MAGERY)/100;
 	tempeffect(pc_attacker, pc_target, 12, j, j, j);
 	return;
 }
@@ -1778,11 +1778,11 @@ void cMagic::ExplosionSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana
 	pc_target->soundEffect( 0x0207 );
 	if (CheckResist(pc_attacker, pc_target, 6))
 	{
-		MagicDamage(pc_target, pc_attacker->skill(MAGERY)/120+RandomNum(1,5));
+		MagicDamage(pc_target, pc_attacker->skillValue(MAGERY)/120+RandomNum(1,5));
 	}
 	else
 	{
-		MagicDamage(pc_target, pc_attacker->skill(MAGERY)/40+RandomNum(1,10));
+		MagicDamage(pc_target, pc_attacker->skillValue(MAGERY)/40+RandomNum(1,10));
 	}
 	return;
 }
@@ -1805,12 +1805,12 @@ void cMagic::FlameStrikeSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usema
 
 	if (CheckResist(pc_attacker, pc_defender, 7))
 	{
-		MagicDamage(pc_target, pc_attacker->skill(MAGERY)/80);
+		MagicDamage(pc_target, pc_attacker->skillValue(MAGERY)/80);
 		//MagicDamage(t, (3+(rand()%11)+1)*(chars[cc].skill[MAGERY]/1000+1));
 	}
 	else
 	{
-		MagicDamage(pc_target, (pc_attacker->skill(MAGERY)+1*(pc_attacker->skill(EVALUATINGINTEL)/3))/(34+1*(pc_target->skill(MAGICRESISTANCE)/30))+RandomNum(1,25));
+		MagicDamage(pc_target, (pc_attacker->skillValue(MAGERY)+1*(pc_attacker->skillValue(EVALUATINGINTEL)/3))/(34+1*(pc_target->skillValue(MAGICRESISTANCE)/30))+RandomNum(1,25));
 		//MagicDamage(t, (10+(rand()%12)+1)*(chars[cc].skill[MAGERY]/750+1));
 	}
 	return;
@@ -2067,16 +2067,16 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					{
 						//////////// (1) CLUMSY /////////////////
 					case 1:
-						tempeffect( pc_currchar, pc_defender, 3, pc_currchar->skill(MAGERY)/100, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 3, pc_currchar->skillValue(MAGERY)/100, 0, 0);
 						break;
 						//////////// (3) FEEBLEMIND /////////////
 					case 3:
-						tempeffect( pc_currchar, pc_defender, 4, pc_currchar->skill(MAGERY)/100, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 4, pc_currchar->skillValue(MAGERY)/100, 0, 0);
 						break;
 						//////////// (4) HEAL ///////////////////
 					case 4:
 						int m,h;
-						m=pc_currchar->skill(MAGERY);
+						m=pc_currchar->skillValue(MAGERY);
 						if ((pc_currchar->isInnocent()) &&(pc_currchar->serial != pc_defender->serial))
 						{
 							if ((pc_defender->crimflag()>0) ||(pc_defender->isMurderer()))
@@ -2098,7 +2098,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										break;
 										//////////// (5) MAGIC ARROW ////////////
 					case 5:
-						MagicDamage(pc_defender, (1+(rand()%1)+1)*(pc_currchar->skill(MAGERY)/2000+1));
+						MagicDamage(pc_defender, (1+(rand()%1)+1)*(pc_currchar->skillValue(MAGERY)/2000+1));
 						break;
 						//////////// (6) NIGHT SIGHT ////////////
 					case 6:
@@ -2111,20 +2111,20 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							sysmessage(s,"Spell fails due to the armor on target!");
 							break;
 						}
-						tempeffect( pc_currchar, pc_defender, 15, pc_currchar->skill(MAGERY)/100, 0, 0 );
+						tempeffect( pc_currchar, pc_defender, 15, pc_currchar->skillValue(MAGERY)/100, 0, 0 );
 						pc_defender->setRa(1);
 						break;
 						//////////// (8) WEAKEN /////////////////
 					case 8:
-						tempeffect( pc_currchar, pc_defender, 5, pc_currchar->skill(MAGERY)/100, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 5, pc_currchar->skillValue(MAGERY)/100, 0, 0);
 						break;
 						//////////// (9) AGILITY ////////////////
 					case 9:
-						tempeffect( pc_currchar, pc_defender, 6, pc_currchar->skill(MAGERY)/100, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 6, pc_currchar->skillValue(MAGERY)/100, 0, 0);
 						break;
 						//////////// (10) CUNNING ///////////////
 					case 10:
-						tempeffect( pc_currchar, pc_defender, 7, pc_currchar->skill(MAGERY)/100, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 7, pc_currchar->skillValue(MAGERY)/100, 0, 0);
 						break;
 						//////////// (11) CURE //////////////////
 					case 11:
@@ -2135,9 +2135,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						//////////// (12) HARM //////////////////
 					case 12:
 						if (CheckResist(pc_currchar, pc_defender, 2))
-							MagicDamage(pc_defender, pc_currchar->skill(MAGERY)/500+1);
+							MagicDamage(pc_defender, pc_currchar->skillValue(MAGERY)/500+1);
 						else
-							MagicDamage(pc_defender, (pc_currchar->skill(MAGERY)+1*(pc_currchar->skill(EVALUATINGINTEL)/3))/(249+1*(pc_defender->skill(MAGICRESISTANCE)/30))+RandomNum(1,2));
+							MagicDamage(pc_defender, (pc_currchar->skillValue(MAGERY)+1*(pc_currchar->skillValue(EVALUATINGINTEL)/3))/(249+1*(pc_defender->skillValue(MAGICRESISTANCE)/30))+RandomNum(1,2));
 						break;
 						//////////// (15) PROTECTION ////////////
 					case 15:
@@ -2146,23 +2146,23 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							sysmessage(s,"Spell fails due to the armor on target!");
 							break;
 						}
-						tempeffect( pc_currchar, pc_defender, 21, pc_currchar->skill(MAGERY)/100, 0, 0 );
+						tempeffect( pc_currchar, pc_defender, 21, pc_currchar->skillValue(MAGERY)/100, 0, 0 );
 						break;
 						//////////// (16) STRENGTH //////////////
 					case 16:
-						tempeffect( pc_currchar, pc_defender, 8, pc_currchar->skill(MAGERY)/100, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 8, pc_currchar->skillValue(MAGERY)/100, 0, 0);
 						break;
 						//////////// (17) BLESS /////////////////
 					case 17:
-						j=pc_currchar->skill(MAGERY)/100;
+						j=pc_currchar->skillValue(MAGERY)/100;
 						tempeffect( pc_currchar, pc_defender, 11, j, j, j);
 						break;
 						//////////// (18) FIREBALL //////////////
 					case 18:
 						if (CheckResist(pc_currchar, pc_defender, 3))
-							MagicDamage(pc_defender, pc_currchar->skill(MAGERY)/280+1);
+							MagicDamage(pc_defender, pc_currchar->skillValue(MAGERY)/280+1);
 						else
-							MagicDamage(pc_defender, (pc_currchar->skill(MAGERY)+1*(pc_currchar->skill(EVALUATINGINTEL)/3))/(139+1*(pc_defender->skill(MAGICRESISTANCE)/30))+RandomNum(1,4));
+							MagicDamage(pc_defender, (pc_currchar->skillValue(MAGERY)+1*(pc_currchar->skillValue(EVALUATINGINTEL)/3))/(139+1*(pc_defender->skillValue(MAGICRESISTANCE)/30))+RandomNum(1,4));
 						break;
 						//////////// (20) POISON ////////////////
 					case 20:
@@ -2177,7 +2177,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					case 27:
 						if(!CheckResist(pc_currchar, pc_defender, 1))
 						{
-							j=pc_currchar->skill(MAGERY)/100;
+							j=pc_currchar->skillValue(MAGERY)/100;
 							tempeffect(pc_currchar, pc_defender, 12, j, j, j);
 						}
 						break;
@@ -2190,7 +2190,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								criminal(pc_currchar);
 							}
 						}
-						j=pc_defender->hp()+(pc_currchar->skill(MAGERY)/30+RandomNum(1,12));
+						j=pc_defender->hp()+(pc_currchar->skillValue(MAGERY)/30+RandomNum(1,12));
 						pc_defender->setHp(QMIN(pc_defender->st(), static_cast<signed short>(j)) );
 						updatestats((pc_defender), 0);
 						break;
@@ -2198,16 +2198,16 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					case 30:
 						bolteffect(pc_defender, true);
 						if (CheckResist(pc_currchar, pc_defender, 4))
-							MagicDamage(pc_defender, pc_currchar->skill(MAGERY)/180+RandomNum(1,2));
+							MagicDamage(pc_defender, pc_currchar->skillValue(MAGERY)/180+RandomNum(1,2));
 						else
-							MagicDamage(pc_defender, (pc_currchar->skill(MAGERY)+1*(pc_currchar->skill(EVALUATINGINTEL)/3))/(89+1*(pc_defender->skill(MAGICRESISTANCE)/30))+RandomNum(1,5));
+							MagicDamage(pc_defender, (pc_currchar->skillValue(MAGERY)+1*(pc_currchar->skillValue(EVALUATINGINTEL)/3))/(89+1*(pc_defender->skillValue(MAGICRESISTANCE)/30))+RandomNum(1,5));
 						break;
 						//////////// (31) MANA DRAIN ////////////
 					case 31:
 						if(!CheckResist(pc_currchar, pc_defender, 4))
 						{
-//							pc_defender->mn-=pc_currchar->skill(MAGERY)/35;
-							pc_defender->setMn(pc_defender->mn() - pc_currchar->skill(MAGERY)/35);
+//							pc_defender->mn-=pc_currchar->skillValue(MAGERY)/35;
+							pc_defender->setMn(pc_defender->mn() - pc_currchar->skillValue(MAGERY)/35);
 							if (pc_defender->mn()<0) pc_defender->setMn(0);
 							updatestats((pc_defender), 1);
 						}
@@ -2249,17 +2249,17 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						//////////// (42) ENERGY BOLT ///////////
 					case 42:
 						if (CheckResist(pc_currchar, pc_defender, 6))
-							MagicDamage(pc_defender, pc_currchar->skill(MAGERY)/120);
+							MagicDamage(pc_defender, pc_currchar->skillValue(MAGERY)/120);
 						else
-							MagicDamage(pc_defender, (pc_currchar->skill(MAGERY)+1*(pc_currchar->skill(EVALUATINGINTEL)/3))/(34+1*(pc_defender->skill(MAGICRESISTANCE)/30))+RandomNum(1,10));						
+							MagicDamage(pc_defender, (pc_currchar->skillValue(MAGERY)+1*(pc_currchar->skillValue(EVALUATINGINTEL)/3))/(34+1*(pc_defender->skillValue(MAGICRESISTANCE)/30))+RandomNum(1,10));						
 						
 						break;
 						//////////// (43) EXPLOSION /////////////
 					case 43:
 						if (CheckResist(pc_currchar, pc_defender, 6))
-							MagicDamage(pc_defender, pc_currchar->skill(MAGERY)/120+RandomNum(1,5));
+							MagicDamage(pc_defender, pc_currchar->skillValue(MAGERY)/120+RandomNum(1,5));
 						else
-							MagicDamage(pc_defender, (pc_currchar->skill(MAGERY)+1*(pc_currchar->skill(EVALUATINGINTEL)/3))/(39+1*(pc_defender->skill(MAGICRESISTANCE)/30))+RandomNum(1,10));
+							MagicDamage(pc_defender, (pc_currchar->skillValue(MAGERY)+1*(pc_currchar->skillValue(EVALUATINGINTEL)/3))/(39+1*(pc_defender->skillValue(MAGICRESISTANCE)/30))+RandomNum(1,10));
 						break;
 						//////////// (44) INVISIBILITY //////////
 					case 44:						
@@ -2273,9 +2273,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						//////////// (51) FLAMESTRIKE ///////////
 					case 51:
 						if (CheckResist(pc_currchar, pc_defender, 7))
-							MagicDamage(pc_defender, pc_currchar->skill(MAGERY)/80);
+							MagicDamage(pc_defender, pc_currchar->skillValue(MAGERY)/80);
 						else
-							MagicDamage(pc_defender, (pc_currchar->skill(MAGERY)+1*(pc_currchar->skill(EVALUATINGINTEL)/3))/(34+1*(pc_defender->skill(MAGICRESISTANCE)/30))+RandomNum(1,25));
+							MagicDamage(pc_defender, (pc_currchar->skillValue(MAGERY)+1*(pc_currchar->skillValue(EVALUATINGINTEL)/3))/(34+1*(pc_defender->skillValue(MAGICRESISTANCE)/30))+RandomNum(1,25));
 						break;
 						//////////// (53) MANA VAMPIRE //////////
 					case 53:
@@ -2313,9 +2313,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						//////////// (66) CANNON FIRING /////////
 					case 66:
 						if (CheckParry(pc_defender, 6))
-							MagicDamage(pc_defender, pc_currchar->skill(TACTICS)/50);
+							MagicDamage(pc_defender, pc_currchar->skillValue(TACTICS)/50);
 						else
-							MagicDamage(pc_defender, pc_currchar->skill(TACTICS)/25);
+							MagicDamage(pc_defender, pc_currchar->skillValue(TACTICS)/25);
 						break;
 					default:
 						clConsole.send("MAGIC-ERROR: Unknown CharacterTarget spell %i, magic.cpp\n", curSpell );
@@ -2498,7 +2498,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									{
 										playSound( mapchar, curSpell );
 										doStaticEffect( mapchar, 26 );	// protection
-										tempeffect( pc_currchar, mapchar, 21, pc_currchar->skill(MAGERY)/100, 0, 0 );
+										tempeffect( pc_currchar, mapchar, 21, pc_currchar->skillValue(MAGERY)/100, 0, 0 );
 									}
 									else
 									{
@@ -2596,8 +2596,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 											mapchar->attackTarget( pc_currchar );
 										doStaticEffect(mapchar, curSpell);
 										mapchar->soundEffect( 0x01FB );
-										if(CheckResist(pc_currchar, mapchar, 6)) j=pc_currchar->skill(MAGERY)/200;
-										else j=pc_currchar->skill(MAGERY)/75;
+										if(CheckResist(pc_currchar, mapchar, 6)) j=pc_currchar->skillValue(MAGERY)/200;
+										else j=pc_currchar->skillValue(MAGERY)/75;
 										tempeffect(pc_currchar, mapchar, 12, j, j, j);
 									}
 									else
@@ -2631,7 +2631,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						if ((lineOfSight( pc_currchar->pos, clTemp2, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 							(pc_currchar->isGM())))
 						{
-							j=pc_currchar->skill(MAGERY);
+							j=pc_currchar->skillValue(MAGERY);
 							range=(((j-261)*(15))/739)+5;
 							//If the caster has a Magery of 26.1 (min to cast reveal w/ scroll), range radius is
 							//5 tiles, if magery is maxed out at 100.0 (except for gms I suppose), range is 20
@@ -2707,11 +2707,11 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										}
 										if (CheckResist(pc_attacker, pc_defender, 7))
 										{
-											MagicDamage(pc_defender, pc_attacker->skill(MAGERY)/70);
+											MagicDamage(pc_defender, pc_attacker->skillValue(MAGERY)/70);
 										}
 										else
 										{
-											MagicDamage(pc_defender, (pc_currchar->skill(MAGERY)+1*(pc_currchar->skill(EVALUATINGINTEL)/3))/(49+1*(pc_ii->skill(MAGICRESISTANCE)/30)));
+											MagicDamage(pc_defender, (pc_currchar->skillValue(MAGERY)+1*(pc_currchar->skillValue(EVALUATINGINTEL)/3))/(49+1*(pc_ii->skillValue(MAGICRESISTANCE)/30)));
 										}
 									}
 									else
@@ -2807,11 +2807,11 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										cMagic::doStaticEffect(mapchar, curSpell);
 										if (CheckResist(pc_currchar, mapchar, 7))
 										{
-											MagicDamage(mapchar, pc_currchar->skill(MAGERY)/80);
+											MagicDamage(mapchar, pc_currchar->skillValue(MAGERY)/80);
 										}
 										else
 										{
-											MagicDamage(mapchar, (pc_currchar->skill(MAGERY)+1*(pc_currchar->skill(EVALUATINGINTEL)/3))/(39+1*(pc_i->skill(MAGICRESISTANCE)/30)));
+											MagicDamage(mapchar, (pc_currchar->skillValue(MAGERY)+1*(pc_currchar->skillValue(EVALUATINGINTEL)/3))/(39+1*(pc_i->skillValue(MAGICRESISTANCE)/30)));
 										}
 									}
 									else
@@ -2851,8 +2851,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if(pi)
 							{
 								pi->priv |= 0x05;
-								pi->decaytime=uiCurrentTime+((pc_currchar->skill(MAGERY)/15)*MY_CLOCKS_PER_SEC);
-								pi->setMoreX(pc_currchar->skill(MAGERY)); // remember casters magery skill for damage, LB
+								pi->decaytime=uiCurrentTime+((pc_currchar->skillValue(MAGERY)/15)*MY_CLOCKS_PER_SEC);
+								pi->setMoreX(pc_currchar->skillValue(MAGERY)); // remember casters magery skill for damage, LB
 								pi->MoveTo(fx[j], fy[j], Map->height( Coord_cl( fx[j], fy[j], z, pi->pos.map )));
 								pi->dir=29;
 								pi->magic=2;
@@ -2886,8 +2886,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							&& pi->id()!=0x0E75)
 						{
 							pi->setMoreb1( 1 );
-							pi->setMoreb2( pc_currchar->skill( MAGERY ) / 20 );
-							pi->setMoreb3( pc_currchar->skill( MAGERY ) / 10 );
+							pi->setMoreb2( pc_currchar->skillValue( MAGERY ) / 20 );
+							pi->setMoreb3( pc_currchar->skillValue( MAGERY ) / 10 );
 							pi->soundEffect( 0x1F0 );
 							cMagic::itemParticles(13,pi);
 							sysmessage(s,"It's trapped!");
@@ -2902,7 +2902,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						{
 							if( pi->moreb1() == 1 )
 							{
-								if( rand() % 100 <= 50 + ( pc_currchar->skill( MAGERY ) / 10 ) - pi->moreb3() )
+								if( rand() % 100 <= 50 + ( pc_currchar->skillValue( MAGERY ) / 10 ) - pi->moreb3() )
 								{
 									pi->setMoreb1( 0 );
 									pi->setMoreb2( 0 );
@@ -3036,7 +3036,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			//////////// (57) EARTHQUAKE ///////////////
 		case 57:
 		{
-			dmg=(pc_currchar->skill(MAGERY)/40)+(rand()%20-10);
+			dmg=(pc_currchar->skillValue(MAGERY)/40)+(rand()%20-10);
 			dmgmod = 0;
 			
 			loopexit=0;

@@ -254,10 +254,10 @@ void cTmpEff::Reverse()
 	case 21:
 		int toDrop;
 		toDrop = more1; //Effect->more1;
-		if( ( pc_s->baseSkill(PARRYING) - toDrop ) < 0 )
-			pc_s->setBaseSkill(PARRYING, 0);
+		if( ( pc_s->skillValue(PARRYING) - toDrop ) < 0 )
+			pc_s->setSkillValue(PARRYING, 0);
 		else
-			pc_s->setBaseSkill(PARRYING, pc_s->baseSkill(PARRYING) - toDrop);
+			pc_s->setSkillValue(PARRYING, pc_s->skillValue(PARRYING) - toDrop);
 		
 	default:
 		clConsole.send("ERROR: Fallout of switch\n"); //Morrolan
@@ -424,10 +424,10 @@ void cTmpEff::Expire()
 	case 21:
 		int toDrop;
 		toDrop = more1; //Effect->more1;
-		if( ( pc_s->baseSkill(PARRYING) - toDrop ) < 0 )
-			pc_s->setBaseSkill(PARRYING, 0);
+		if( ( pc_s->skillValue(PARRYING) - toDrop ) < 0 )
+			pc_s->setSkillValue(PARRYING, 0);
 		else
-			pc_s->setBaseSkill(PARRYING, pc_s->baseSkill(PARRYING) - toDrop);
+			pc_s->setSkillValue(PARRYING, pc_s->skillValue(PARRYING) - toDrop);
 		break;
 		
 	case 33: // delayed hiding for gms after flamestrike effect
@@ -556,7 +556,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 	{
 	case 1:
 		pc_dest->setPriv2(pc_dest->priv2() | 0x02);
-		pTE->setExpiretime_s(pc_source->skill(MAGERY)/100);
+		pTE->setExpiretime_s(pc_source->skillValue(MAGERY)/100);
 		pTE->more1=0;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -573,7 +573,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 30.12.2000)
 			pTE->setExpiretime_s(dur);
 		else
-			pTE->setExpiretime_s(pc_source->skill(MAGERY)*10);
+			pTE->setExpiretime_s(pc_source->skillValue(MAGERY)*10);
 		pTE->more1=0;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -586,7 +586,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pc_dest->setStm( QMIN(pc_dest->stm(), pc_dest->effDex()) );
 		if( mSock )
 			mSock->updateStamina();
-		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
+		pTE->setExpiretime_s(pc_source->skillValue(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -599,7 +599,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pc_dest->setMn( QMIN(pc_dest->mn(), pc_dest->in()) );
 		if( mSock )
 			mSock->updateMana();
-		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
+		pTE->setExpiretime_s(pc_source->skillValue(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -612,7 +612,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pc_dest->setHp( QMIN(pc_dest->hp(), pc_dest->st()) );
 		if( mSock )
 			mSock->updateHealth();
-		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
+		pTE->setExpiretime_s(pc_source->skillValue(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -630,7 +630,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		if( dur )		
 			pTE->setExpiretime_s(dur);
 		else
-			pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
+			pTE->setExpiretime_s(pc_source->skillValue(MAGERY)/10);
 
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -643,7 +643,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pc_dest->setIn( (tempsignedshort = pc_dest->in() ) + more1 );	
 		if( mSock )
 			mSock->updateMana();
-		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
+		pTE->setExpiretime_s(pc_source->skillValue(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -660,7 +660,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		if( dur )		
 			pTE->setExpiretime_s(dur);
 		else			// else use caster's skill
-			pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
+			pTE->setExpiretime_s(pc_source->skillValue(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
 		pTE->dispellable=1;

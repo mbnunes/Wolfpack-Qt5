@@ -99,10 +99,10 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 				{
 					if( pc->regen() + ( c * interval ) <= currenttime && pc->hp() <= pc->st() )
 					{
-						if( pc->skill( HEALING ) < 500 )
+						if( pc->skillValue( HEALING ) < 500 )
 							pc->setHp( pc->hp() + 1 );
 					
-						else if (pc->skill( HEALING ) < 800)
+						else if (pc->skillValue( HEALING ) < 800)
 							pc->setHp( pc->hp() + 2 );
 
 						else 
@@ -169,7 +169,7 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 				// 100 = Maximum skill (GM)
 				// 50 = int affects mana regen (%50)
 				int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(pc) + 1) / SrvParams->manarate());
-				int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skill(MEDITATION) + 1)/10) + ((pc->in() + 1) / 2)) / ratio));
+				int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skillValue(MEDITATION) + 1)/10) + ((pc->in() + 1) / 2)) / ratio));
 				if (pc->med())
 				{
 					pc->setRegen3( currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC) );

@@ -1288,8 +1288,11 @@ void commandAllSkills( cUOSocket *socket, const QString &command, QStringList &a
 	{
 		for( int i = 0; i < ALLSKILLS; ++i )
 		{
-			pChar->setBaseSkill( i, value );
-			Skills->updateSkillLevel( pChar, i );
+			pChar->setSkillValue( i, value );
+
+			
+			if( pChar->socket() )
+				pChar->socket()->sendSkill( i );
 		}
 	}
 }

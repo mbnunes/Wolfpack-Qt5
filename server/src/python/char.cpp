@@ -1451,19 +1451,27 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else if( !strcmp( "socket", name ) )
 		return PyGetSocketObject( self->pChar->socket() );
 
-	else if( !strcmp( "baseskill", name ) )
-	{
-		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
-		skills->base = true;
-		skills->pChar = self->pChar;
-		return (PyObject*)( skills );
-	}
-
 	else if( !strcmp( "skill", name ) )
 	{
 		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
-		skills->base = false;
 		skills->pChar = self->pChar;
+		skills->type = 0;
+		return (PyObject*)( skills );
+	}
+
+	else if( !strcmp( "skillcap", name ) )
+	{
+		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
+		skills->pChar = self->pChar;
+		skills->type = 1;
+		return (PyObject*)( skills );
+	}
+
+	else if( !strcmp( "skilllock", name ) )
+	{
+		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
+		skills->pChar = self->pChar;
+		skills->type = 2;
 		return (PyObject*)( skills );
 	}
 

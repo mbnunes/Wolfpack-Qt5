@@ -800,7 +800,7 @@ void cMovement::checkStealth( P_CHAR pChar )
 		if( pChar->stealth() != -1 )
 		{
 			pChar->setStealth( pChar->stealth() + 1 );
-			if( pChar->stealth() > ( ( SrvParams->maxStealthSteps() * pChar->skill( STEALTH ) ) / 1000 ) )
+			if( pChar->stealth() > ( ( SrvParams->maxStealthSteps() * pChar->skillValue( STEALTH ) ) / 1000 ) )
 			{
 				if( pChar->socket() )
 					pChar->socket()->sysMessage( tr( "You have been revealed." ) );

@@ -40,7 +40,7 @@ typedef cChar* P_CHAR;
 typedef struct {
     PyObject_HEAD;
 	P_CHAR pChar;
-	bool base;
+	UINT8 type; // 0: Value; 1: Cap; 2: Lock
 } wpSkills;
 
 int wpSkills_length( wpSkills *self )
@@ -54,10 +54,12 @@ PyObject *wpSkills_get( wpSkills *self, int skill )
 	if( !self->pChar || self->pChar->free || skill >= ALLSKILLS )
 		return PyInt_FromLong( -1 );
 
-	if( self->base )
-		return PyInt_FromLong( self->pChar->baseSkill( skill ) );
+	if( self->type == 0 )
+		return PyInt_FromLong( self->pChar->skillValue( skill ) );
+	else if( self->type == 1 )
+		return PyInt_FromLong( self->pChar->skillCap( skill ) );
 	else
-		return PyInt_FromLong( self->pChar->skill( skill ) );
+		return PyInt_FromLong( self->pChar->skillLock( skill ) );
 }
 
 PyObject *wpSkills_set( wpSkills *self, int skill, PyObject *pValue )
@@ -70,13 +72,15 @@ PyObject *wpSkills_set( wpSkills *self, int skill, PyObject *pValue )
 
 	UINT16 value = PyInt_AsLong( pValue );
 
-	if( self->base )
-	{
-		self->pChar->setBaseSkill( skill, value );
-		Skills->updateSkillLevel( self->pChar, skill );
-	}
-	else
-		self->pChar->setSkill( skill, value );
+	if( self->type == 0 )
+		self->pChar->setSkillValue( skill, value );
+	else if( self->type == 1 )
+		self->pChar->setSkillCap( skill, value );
+	else if( self->type == 2 )
+		self->pChar->setSkillLock( skill, value );
+
+	if( self->pChar->socket() )
+		self->pChar->socket()->sendSkill( skill );
 
 	return 0;
 }

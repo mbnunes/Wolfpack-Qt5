@@ -1091,8 +1091,7 @@ void cDragItems::dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer
 		Items->DeleItem( pItem );
 	}
 	
-	pChar->setBaseSkill( skill, pChar->baseSkill( skill ) + skillDelta );
-	Skills->updateSkillLevel( pChar, skill );
+	pChar->setSkillValue( skill, pChar->skillValue( skill ) + skillDelta );
 	socket->sendSkill( skill );
 
 	// we will not reset the trainer id here because he may want to give him more money

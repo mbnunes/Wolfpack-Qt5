@@ -377,10 +377,10 @@ public:
 class cUOTxUpdateSkill: public cUOPacket
 {
 public:
-	cUOTxUpdateSkill(): cUOPacket( 0x3A, 11 ) 
+	cUOTxUpdateSkill(): cUOPacket( 0x3A, 13 ) 
 	{ 
-		setShort( 1, 11 );
-		(*this)[3] = 0xFF;
+		setShort( 1, 13 );
+		(*this)[3] = 0xDF;
 	}
 
 	enum eStatus
@@ -394,6 +394,7 @@ public:
 	void setValue( UINT16 data )		{ setShort( 6, data ) ; }
 	void setRealValue( UINT16 data )	{ setShort( 8, data ); }
 	void setStatus( eStatus data )		{ (*this)[10] = data; }
+	void setCap( UINT16 data )			{ setShort( 11, data ); }
 };
 
 // 0x3A SendSkills( multiple skills )
@@ -401,6 +402,7 @@ class cUOTxSendSkills: public cUOPacket
 {
 public:
 	cUOTxSendSkills(): cUOPacket( 0x3A, 6 ) {
+		(*this)[3] = 0x02;
 		setShort( 1, 6 );
 	}
 
@@ -411,7 +413,7 @@ public:
 		Locked = 2
 	};
 
-	void addSkill( Q_UINT16 skillId, Q_UINT16 skill, Q_UINT16 realSkill, eStatus status );
+	void addSkill( Q_UINT16 skillId, Q_UINT16 skill, Q_UINT16 realSkill, eStatus status, UINT16 cap );
 	void fromChar( P_CHAR pChar );
 };
 

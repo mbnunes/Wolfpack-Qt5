@@ -515,7 +515,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 
 	if( skill != -1 )
 	{
-		if( pTrainer->baseSkill( skill ) <= 10 || !pTrainer->cantrain() )
+		if( pTrainer->skillValue( skill ) <= 10 || !pTrainer->cantrain() )
 		{
 			pTrainer->talk( "I am sorry but I cannot train thee in that skill." );
 			return true;
@@ -527,7 +527,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 		QString message = tr( "Thou wishest to learn of %1" ).arg( skillName );
 
 		// This should be configureable
-		if( pPlayer->baseSkill(skill) >= 250 )
+		if( pPlayer->skillValue(skill) >= 250 )
 			message.append( tr( " I can teach thee no more than thou already knowest!" ) );
 		else
 		{
@@ -540,7 +540,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 			else
 			{
 				int delta = pTrainer->getTeachingDelta( pPlayer, skill, sum );
-				int perc = ( pPlayer->baseSkill( skill ) + delta ) / 10;
+				int perc = ( pPlayer->skillValue( skill ) + delta ) / 10;
 				
 				message.append( tr( " Very well I, can train thee up to the level of %i percent for %i gold. Pay for less and I shall teach thee less." ).arg( perc ).arg( delta ) );
 
@@ -559,7 +559,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 
 	for( i = 0; i < ALLSKILLS; ++i )
 	{
-		if( pTrainer->baseSkill( i ) >= 10 && pPlayer->baseSkill( i ) < 250 )
+		if( pTrainer->skillValue( i ) >= 10 && pPlayer->skillValue( i ) < 250 )
 		{
 			QString skillName = Skills->getSkillName( i );
 			skillList.push_back( skillName );

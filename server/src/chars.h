@@ -196,8 +196,18 @@ protected:
 	int						squelched_; // zippy  - squelching
 	unsigned int			mutetime_; //Time till they are UN-Squelched.
 	bool					med_; // 0=not meditating, 1=meditating //Morrolan - Meditation 
-	unsigned short  		baseSkill_[ALLSKILLS+1]; // Base skills without stat modifiers
-	unsigned short  		skill_[ALLSKILLS+1]; // List of skills (with stat modifiers)
+
+	struct stSkillValue
+	{
+		UINT16 value; // Skill Value (Default: 0)
+		UINT16 cap; // Special Cap Value (Default: 1000)
+		UINT8 lock; // 0: Up, 1: Down, 2: Locked (Default: 0)
+
+		stSkillValue(): value( 0 ), cap( 1000 ), lock( 0 ) {}
+	};
+
+	QMap< UINT16, stSkillValue >	skills; // Skills for this Character
+
 	cUOSocket*				socket_;
 	unsigned short			weight_;
 	unsigned char			priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
@@ -273,7 +283,6 @@ protected:
 	unsigned int			spatimer_;
 	int						taming_; //Skill level required for taming
 	unsigned int			summontimer_; //Timer for summoned creatures.
-	unsigned char			lockSkill_[ALLSKILLS+1]; // LB, client 1.26.2b skill managment
 	UINT8					VisRange_;
 	QString					profile_;
 
@@ -402,8 +411,6 @@ public:
 	int						squelched() const { return squelched_;}
 	int						mutetime() const { return mutetime_; }
 	bool					med() const { return med_;}
-	unsigned short			baseSkill( int v ) const { return baseSkill_[v]; }
-	unsigned short			skill( int v ) const {return skill_[v];} // List of skills (with stat modifiers)
 	cUOSocket*				socket() const { return socket_; }
 	unsigned short			weight() const { return weight_; }
 	unsigned short			stones() const { return (weight_ / 10); }
@@ -477,13 +484,15 @@ public:
 	unsigned int			spatimer() const { return spatimer_; }
 	int						taming() const { return taming_; }
 	unsigned int			summontimer() const { return summontimer_; }
-	unsigned char			lockSkill( int d ) const { return lockSkill_[d]; }// LB, client 1.26.2b skill managment
 	int						VisRange() const { return VisRange_; }
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu );
 	cMakeSection*			lastSection( cMakeMenu* basemenu );
 	unsigned int			food() const { return food_; }
 	P_CHAR					owner() const { return owner_; }
 	QString					profile() const { return profile_; }
+	UINT16					skillValue( UINT16 skill ) const;
+	UINT16					skillCap( UINT16 skill ) const;
+	UINT8					skillLock( UINT16 skill ) const;
 	
 	// Setters
 	void					setGuildType(short d);
@@ -579,8 +588,6 @@ public:
 	void					setSquelched( int d) { squelched_ = d; changed_ = true;}
 	void					setMutetime( int d ) { mutetime_ = d; changed_ = true;}
 	void					setMed( bool d ) { med_ = d; changed_ = true;}
-	void					setBaseSkill( int s, unsigned short v) { baseSkill_[s] = v; changed_ = true;}
-	void					setSkill( int s, unsigned short v) { skill_[s] = v; changed_ = true;}
 	void					setSocket( cUOSocket* d ) { socket_ = d; changed_ = true;}
 	void					setWeight( unsigned short d ) { weight_ = d; changed_ = true;}
 	void					setLootList( QString d ) { loot_ = d; changed_ = true;}
@@ -656,10 +663,13 @@ public:
 	void					setSpaTimer( unsigned int d ) { spatimer_ = d; changed_ = true;}
 	void					setTaming( int d ) { taming_ = d; changed_ = true;}
 	void					setSummonTimer( unsigned int d ) { summontimer_ = d; changed_ = true;}
-	void					setLockSkill( int index, unsigned char val ) { lockSkill_[index] = val; changed_ = true;}
 	void					setVisRange( int d ) { VisRange_ = d; changed_ = true;}
 	void					setProfile( const QString &d ) { profile_ = d; changed_ = true;}
-	void					clearLastSelections( void );	
+	void					clearLastSelections( void );
+
+	void					setSkillValue( UINT16 skill, UINT16 value );
+	void					setSkillCap( UINT16 skill, UINT16 cap );
+	void					setSkillLock( UINT16 skill, UINT8 lock );
 
 	UINT8 notority( P_CHAR pChar ); // Gets the notority toward another char
 	void kill();

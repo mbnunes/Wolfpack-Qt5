@@ -95,8 +95,6 @@ public:
 	bool advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const;
 	bool advanceStats( P_CHAR pChar, UINT16 skill ) const;
 
-	void updateSkillLevel( P_CHAR pChar, UINT16 skill ) const; // DEPRECATED
-
 	// Skill Usage methods
 	void PlayInstrumentWell(cUOSocket*, P_ITEM pi);
 	void PlayInstrumentPoor(cUOSocket*, P_ITEM pi);

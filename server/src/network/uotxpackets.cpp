@@ -124,18 +124,20 @@ void cUOTxUpdateCharList::setCharacter( Q_UINT8 index, QString name )
 	setAsciiString(offset, name.latin1(), 30 );
 }
 
-void cUOTxSendSkills::addSkill( Q_UINT16 skillId, Q_UINT16 skill, Q_UINT16 realSkill, eStatus status )
+void cUOTxSendSkills::addSkill( Q_UINT16 skillId, Q_UINT16 skill, Q_UINT16 realSkill, eStatus status, UINT16 cap )
 {
 	// Overwrite the last 2 bytes (terminator) and readd them later
 	Q_INT32 offset = count() - 2;
-	resize( count() + 7 );
+	resize( count() + 9 );
 	setShort( 1, count() );
 
 	setShort( offset, skillId );
 	setShort( offset+2, skill );
 	setShort( offset+4, realSkill );
 	(*this)[ offset+6 ] = status;
-	setShort( offset+7, 0 ); // Terminator
+
+	setShort( offset+7, cap );
+	setShort( offset+9, 0 ); // Terminator
 }
 
 void cUOTxDrawChar::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color )
@@ -183,8 +185,26 @@ void cUOTxSendSkills::fromChar( P_CHAR pChar )
 	if( !pChar )
 		return;
 
+	(*this)[3] = 0x02;
+
 	for( UINT8 i = 0; i < ALLSKILLS; ++i )
-		addSkill( i+1, pChar->skill( i ), pChar->baseSkill( i ), cUOTxSendSkills::Up );
+	{
+		eStatus status;
+
+		switch( pChar->skillLock( i ) )
+		{
+		case 1:
+			status = Down;
+			break;
+		case 2:
+			status = Locked;
+			break;
+		default:
+			status = Up;
+		};
+
+		addSkill( i+1, pChar->skillValue( i ), pChar->skillValue( i ), status, pChar->skillCap( i ) );
+	}
 }
 
 void cUOTxContextMenu::addEntry ( Q_UINT16 RetVal, Q_UINT16 FileID, Q_UINT16 TextID, Q_UINT16 flags, Q_UINT16 color ) 

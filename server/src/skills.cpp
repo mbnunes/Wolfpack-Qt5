@@ -118,7 +118,7 @@ void cSkills::Stealth( cUOSocket *socket )
 		return;
 	}
 
-	if( pChar->skill( HIDING ) < 700 )
+	if( pChar->skillValue( HIDING ) < 700 )
 	{
 		socket->sysMessage( tr( "You are not hidden well enough. Become better at hiding." ) );
 		return;
@@ -345,7 +345,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 	pi_mortar->setType( 17 );
 	pi_mortar->setMore1(type);
 	pi_mortar->setMore2(sub);
-	pi_mortar->setMoreX(pc->skill(ALCHEMY));
+	pi_mortar->setMoreX(pc->skillValue(ALCHEMY));
 	
 	if (!(getamount(pc, 0x0F0E)>=1))
 	{
@@ -443,7 +443,7 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	if(!pc->isGM())
 	{
 		pi_potion->setCreator(pc->name()); // Magius(CHE) - Memorize Name of the creator
-		if (pc->skill(ALCHEMY)>950) pi_potion->setMadeWith(ALCHEMY+1); // Memorize Skill used - Magius(CHE)
+		if (pc->skillValue(ALCHEMY)>950) pi_potion->setMadeWith(ALCHEMY+1); // Memorize Skill used - Magius(CHE)
 		else pi_potion->setMadeWith(0-ALCHEMY-1); // Memorize Skill used - Magius(CHE)
 	} else {
 		pi_potion->setCreator("");
@@ -690,7 +690,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		return;
 	}
 
-	UINT16 maxWeight = QMIN( 1, pChar->baseSkill( STEALING ) / 10 ); // We can steal max. 10 Stones when we are a GM
+	UINT16 maxWeight = QMIN( 1, pChar->skillValue( STEALING ) / 10 ); // We can steal max. 10 Stones when we are a GM
 	// 1000 Skill == 100 Weight == 10 Stones
 
 	QPtrList< cItem > containment = pBackpack->getContainment();
@@ -745,7 +745,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		if( !pToSteal->free )
 			pToSteal->update();
 
-		caught = pChar->skill( STEALING ) < rand() % 1001;
+		caught = pChar->skillValue( STEALING ) < rand() % 1001;
 	}
 	else
 	{
@@ -935,18 +935,6 @@ void TellScroll( char *menu_name, int s, long snum )
 			}
 		}
 	}//else if*/
-}
-
-// Calculate the skill of this character based on the characters baseskill and stats
-void cSkills::updateSkillLevel( P_CHAR pc, UINT16 skill ) const
-{
-/*	int temp = (((skill[s].st * pc->st()) / 100 +
-		(skill[s].dx * pc->effDex()) / 100 +
-		(skill[s].in * pc->in()) / 100)
-		*(1000-pc->baseSkill(s)))/1000+pc->baseSkill(s);
-	
-		
-	pc->setSkill( s, QMAX( static_cast<unsigned int>(pc->baseSkill(s)), static_cast<unsigned int>(temp) ) );*/
 }
 
 void cSkills::Meditation( cUOSocket *socket )
@@ -1469,7 +1457,7 @@ QString cSkills::getSkillTitle( P_CHAR pChar ) const
 
 	// Build our Skill Title (so first of all find the highest skill)
 	UINT16 skill = pChar->bestSkill();
-	UINT16 skillValue = pChar->baseSkill( skill );
+	UINT16 skillValue = pChar->skillValue( skill );
 
 	// Append the Skill Rank
 	if( skillValue  >= 1000 )		skillTitle.append( skillRanks[8] );
@@ -1634,7 +1622,7 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
 		return false;
 
 	// For GMs there is no LockState
-	UINT8 lockState = pChar->isGM() ? 0 : pChar->lockSkill( skill );
+	UINT8 lockState = pChar->isGM() ? 0 : pChar->skillLock( skill );
 
 	// NOTE:
 	// Before this change, if you used locked skills you couldn't gain
@@ -1652,7 +1640,7 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
 
 	// Is the skill at it's single cap already ?
 	// NOTE: Later on we need to provide support for power scrolls
-	if( pChar->baseSkill( skill ) >= 1000 )
+	if( pChar->skillValue( skill ) >= 1000 )
 		return false;
 
 	// If our skillsum is at the serverset skill cap we need
@@ -1666,7 +1654,7 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
 		// 1: Lower Skill
 		for( UINT32 i = 0; i < ALLSKILLS; ++i )
 		{
-			if( i != skill && pChar->lockSkill( i ) == 1 && pChar->baseSkill( i ) > 0 )
+			if( i != skill && pChar->skillLock( i ) == 1 && pChar->skillValue( i ) > 0 )
 			{
 				// Found a skill we can lower
 				atrophySkills.push_back( i );
@@ -1686,7 +1674,7 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
 	{
 		advance = skills[ skill ].advancement[ i ];
 
-		if( advance.base <= pChar->baseSkill( skill ) )
+		if( advance.base <= pChar->skillValue( skill ) )
 		{
 			found = true;
 			break;
@@ -1705,9 +1693,7 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
 	if( chance > rand() % SrvParams->skillAdvanceModifier() )
 	{
 		gained = true;
-		pChar->setBaseSkill( skill, pChar->baseSkill( skill ) + 1 );
-		pChar->setSkill( skill, pChar->skill( skill ) + 1 );
-		updateSkillLevel( pChar, skill );
+		pChar->setSkillValue( skill, pChar->skillValue( skill ) + 1 );
 
 		if( pChar->socket() )
 			pChar->socket()->sendSkill( skill );
@@ -1719,8 +1705,7 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
 		// Which skill do we want to lower
 		UINT16 skill = atrophySkills[ RandomNum( 0, atrophySkills.size() ) ];
 
-		pChar->setBaseSkill( skill, pChar->baseSkill( skill ) - 1 );
-		updateSkillLevel( pChar, skill );
+		pChar->setSkillValue( skill, pChar->skillValue( skill ) - 1 );
 		
 		if( pChar->socket() )
 			pChar->socket()->sendSkill( skill );

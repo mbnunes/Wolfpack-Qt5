@@ -202,7 +202,7 @@ bool cSkDetectHidden::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( dPos.distance( pChar->pos() ) > pChar->VisRange() )
 		return true;
 	
-	UINT16 dSkill = pChar->skill( DETECTINGHIDDEN );		
+	UINT16 dSkill = pChar->skillValue( DETECTINGHIDDEN );		
 	double range = ( dSkill * dSkill / 1.0E6 ) * VISRANGE; // this seems like an ok formula
 	
 	RegionIterator4Chars ri( dPos );
@@ -219,7 +219,7 @@ bool cSkDetectHidden::responsed( cUOSocket *socket, cUORxTarget *target )
 				UINT16 dy = abs( hChar->pos().y - dPos.y );
 				double c = hypot( dx, dy );
 				
-				INT16 low = (UINT16)( hChar->skill(HIDING) * hChar->skill(HIDING) / 1E3 - ( range * 50 / VISRANGE ) * ( range - c ) / range );
+				INT16 low = (UINT16)( hChar->skillValue(HIDING) * hChar->skillValue(HIDING) / 1E3 - ( range * 50 / VISRANGE ) * ( range - c ) / range );
 				if( low < 0 ) 
 					low = 0;
 				else if( low > 1000 )
@@ -415,7 +415,7 @@ bool cSkTame::responsed( cUOSocket *socket, cUORxTarget *target )
 			}
 		}
 		if ((!pc_currchar->checkSkill(TAMING, 0, 1000))||
-			(pc_currchar->skill(TAMING)<pc->taming())) 
+			(pc_currchar->skillValue(TAMING)<pc->taming())) 
 		{
 			socket->sysMessage( tr("You were unable to tame it.") );
 			return true;
@@ -625,7 +625,7 @@ bool cSkBegging::responsed( cUOSocket *socket, cUORxTarget *target )
 		else
 		{
 			pc->setBegging_timer( SrvParams->beggingTime() * MY_CLOCKS_PER_SEC + uiCurrentTime); 
-			x=pc->skill(BEGGING)/50;
+			x=pc->skillValue(BEGGING)/50;
 			
 			if (x<1) x=1; 
 			y=rand()%x;
@@ -700,7 +700,7 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 	char temp2[512];
 	tile_st tile;
 	P_CHAR pc_currchar = socket->player();
-	int cansteal = QMAX( 1, pc_currchar->baseSkill( STEALING ) / 10 );
+	int cansteal = QMAX( 1, pc_currchar->skillValue( STEALING ) / 10 );
 	cansteal = cansteal * 10;
 	
 	if( isCharSerial( target->serial() ) )
@@ -758,7 +758,7 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 		else 
 			socket->sysMessage( tr("You failed to steal that item.") );
 		
-		if (((!(skill))&&(rand()%16==7)) || (pc_currchar->skill(STEALING)<rand()%1001))
+		if (((!(skill))&&(rand()%16==7)) || (pc_currchar->skillValue(STEALING)<rand()%1001))
 		{
 			socket->sysMessage( tr("You have been cought!") );
 			
@@ -964,7 +964,7 @@ bool cSkRepairItem::responsed( cUOSocket *socket, cUORxTarget *target )
 
 	if( !makesection_ )
 	{
-		short smithing = pc->baseSkill( BLACKSMITHING );
+		short smithing = pc->skillValue( BLACKSMITHING );
 		if		((smithing>=900)) dmg=1;
 		else if ((smithing>=700)) dmg=2;
 		else if ((smithing>=500)) dmg=3;

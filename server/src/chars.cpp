@@ -204,12 +204,8 @@ cChar::cChar( const P_CHAR mob )
 	this->squelched_ = mob->squelched();
 	this->mutetime_ = mob->mutetime();
 	this->med_ = mob->med();
-	int i;
-	for( i=0; i<( ALLSKILLS + 1 ); i++)
-	{
-		this->baseSkill_[ i ] = mob->baseSkill( i );
-		this->skill_[ i ] = mob->skill( i );
-	}
+	this->skills = mob->skills;
+
 	this->socket_ = mob->socket();
 	this->weight_ = mob->weight();
 	this->priv = mob->getPriv();
@@ -224,6 +220,8 @@ cChar::cChar( const P_CHAR mob )
 	this->st2_ = mob->st2();
 	this->may_levitate_ = mob->may_levitate();
 	this->pathnum_ = mob->pathnum();
+	
+	unsigned int i;
 	for( i=0; i<PATHNUM; i++)
 	{
 		this->path_[ i ].x = mob->path( i ).x;
@@ -287,10 +285,6 @@ cChar::cChar( const P_CHAR mob )
 	this->spatimer_ = mob->spatimer();
 	this->taming_ = mob->taming();
 	this->summontimer_ = mob->summontimer();
-	for( i=0; i<( ALLSKILLS+1 ); i++)
-	{
-		this->lockSkill_[ i ] = mob->lockSkill( i );
-	}
 	this->VisRange_ = mob->VisRange();
 	this->profile_ = mob->profile();
 	//this->lastselections_ = 
@@ -388,11 +382,6 @@ void cChar::Init(bool ser)
     this->jailsecs_=0;
 	
 	this->setCreationDay(getPlatformDay());
-	for (i=0;i<ALLSKILLS;i++)
-	{
-		this->setBaseSkill(i, 0);
-		this->setSkill(i, 0);
-	}
 	this->npc_=false;
 	this->shop_=false; //1=npc shopkeeper
 	this->cell_=0; // Reserved for jailing players 
@@ -518,14 +507,6 @@ void cChar::Init(bool ser)
 	this->setTime_unused(0);
 	this->questType_ = 0; //??
 	this->GuildType = 0;
-	for (i=0;i<ALLSKILLS;i++)
-	{
-		this->setBaseSkill(i, 0);
-		this->setSkill(i, 0);
-	}
-	for (i = 0; i < ALLSKILLS; i++) 
-		this->lockSkill_[i]=0;
-
 	this->setFood( 0 );
 }
 
@@ -776,11 +757,12 @@ void cChar::MoveTo(short newx, short newy, signed char newz)
 
 unsigned int cChar::getSkillSum()
 {
-	unsigned int sum = 0, a = 0;
-	for (; a < ALLSKILLS; ++a)
-	{
-		sum += this->baseSkill_[a];
-	}
+	unsigned int sum = 0;
+
+	QMap< UINT16, stSkillValue >::const_iterator it = skills.begin();
+	for( ; it != skills.end(); ++it )
+		sum += (*it).value;
+
 	return sum;		// this *includes* the decimal digit ie. xxx.y
 }
 
@@ -791,8 +773,8 @@ unsigned int cChar::getSkillSum()
 
 int cChar::getTeachingDelta(cChar* pPlayer, int skill, int sum)
 {
-	int delta = QMIN(250,this->baseSkill(skill)/2);		// half the trainers skill, but not more than 250
-	delta -= pPlayer->baseSkill(skill);					// calc difference
+	int delta = QMIN(250,skillValue(skill)/2);		// half the trainers skill, but not more than 250
+	delta -= skillValue(skill);					// calc difference
 	if (delta <= 0)
 		return 0;
 
@@ -1000,9 +982,23 @@ void cChar::load( char **result, UINT16 &offset )
 		// row[1] = value
 		// row[2] = locktype
 		// row[3] = cap (unused!)
-		UINT16 i = res.getInt( 0 );
-		baseSkill_[i] = res.getInt( 1 );
-		lockSkill_[i] = res.getInt( 2 );
+		UINT16 skill = res.getInt( 0 );
+		UINT16 value = res.getInt( 1 );
+		UINT8 lockType = res.getInt( 2 );
+		UINT16 cap = res.getInt( 3 );
+
+		if( lockType > 2 )
+			lockType = 0;
+
+		if( value != 0 || lockType != 0 || cap != 1000 )
+		{
+			stSkillValue skValue;
+			skValue.value = value;
+			skValue.lock = lockType;
+			skValue.cap = cap;
+
+			skills.insert( skill, skValue );
+		}
 	}
 
 	res.free();
@@ -1120,16 +1116,18 @@ void cChar::save()
 		addCondition( "serial", serial() );
 		saveFields;
 		
-		for( UINT32 j = 0; j < ALLSKILLS; ++j )
+		QMap< UINT16, stSkillValue >::const_iterator it;
+		for( it = skills.begin(); it != skills.end(); ++it )
 		{
 			clearFields;
 			setTable( "skills" );
 			addField( "serial", serial() );
-			addField( "skill", j );
-			addField( "value", baseSkill_[j] );
-			addField( "locktype", lockSkill_[j] );
+			addField( "skill", it.key() );
+			addField( "value", (*it).value );
+			addField( "locktype", (*it).lock );
+			addField( "cap", (*it).cap );
 			addCondition( "serial", serial() );
-			addCondition( "skill", j );
+			addCondition( "skill", it.key() );
 			saveFields;
 		}
 	}
@@ -1483,9 +1481,6 @@ void cChar::processNode( const QDomElement &Tag )
 				this->in_ = Value.toLong();
 				this->mn_ = this->in_;
 			}
-
-			for( UINT8 i = 0; i < ALLSKILLS; ++i )
-				Skills->updateSkillLevel( this, i );
 		}
 	}
 
@@ -1494,27 +1489,18 @@ void cChar::processNode( const QDomElement &Tag )
 	{
 		st_ = Value.toLong();
 		hp_ = st_;
-		
-		for( UINT8 i = 0; i < ALLSKILLS; ++i )
-			Skills->updateSkillLevel( this, i );
 	}
 
 	else if( TagName == "dex" )
 	{
 		setDex( Value.toLong() );
 		stm_ = realDex();
-
-		for( UINT8 i = 0; i < ALLSKILLS; ++i )
-			Skills->updateSkillLevel( this, i );
 	}
 	
 	else if( TagName == "int" )
 	{
 		in_ = Value.toLong();
 		mn_ = in_;
-
-		for( UINT8 i = 0; i < ALLSKILLS; ++i )
-			Skills->updateSkillLevel( this, i );
 	}
 
 	//<defense>10</defense>
@@ -1741,11 +1727,11 @@ void cChar::processNode( const QDomElement &Tag )
 	{
 		if( Tag.attribute("type").toInt() > 0 &&
 			Tag.attribute("type").toInt() <= ALLSKILLS )
-			this->setBaseSkill( ( Tag.attribute( "type" ).toInt() - 1 ), Value.toInt() );
+			setSkillValue( ( Tag.attribute( "type" ).toInt() - 1 ), Value.toInt() );
 		else
 		{
 			INT16 skillId = Skills->findSkillByDef( Tag.attribute( "type", "" ) );
-			setBaseSkill( skillId, Value.toInt() );
+			setSkillValue( skillId, Value.toInt() );
 		}
 	}
 
@@ -1828,14 +1814,9 @@ void cChar::processNode( const QDomElement &Tag )
 		INT16 skillId = Skills->findSkillByDef( TagName );
 
 		if( skillId == -1 )
-		{
 			cUObject::processNode( Tag );
-		}
 		else
-		{
-			setBaseSkill( skillId, Value.toInt() );
-			Skills->updateSkillLevel( this, skillId );
-		}
+			setSkillValue( skillId, Value.toInt() );
 	}		
 }
 
@@ -2171,11 +2152,11 @@ UINT16 cChar::bestSkill()
 	for( UINT32 i = 0; i < ALLSKILLS; ++i )
 	{
 		// Non Locked Skills have Priority
-		if( baseSkill_[ i ] > skillVal || ( baseSkill_[ i ] == skillVal && !lockSkill_[i] && !skillUp ) )
+		if( skillValue( i ) > skillVal || ( skillValue( i ) == skillVal && !skillLock( i ) && !skillUp ) )
 		{
 			skill = i;
-			skillVal = baseSkill_[ i ];
-			skillUp = ( lockSkill_[ i ] == 0 );
+			skillVal = skillValue( i );
+			skillUp = ( skillLock( i ) == 0 );
 		}
 	}
 
@@ -3544,10 +3525,10 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 		
 		// Displayed AR = ((Parrying Skill * Base AR of Shield) ÷ 200) + 1
 		if( pShield && IsShield( pShield->id() ) )
-			total += ( (UI16)( (float)( skill( PARRYING ) * pShield->def() ) / 200.0f ) + 1 );
+			total += ( (UI16)( (float)( skillValue( PARRYING ) * pShield->def() ) / 200.0f ) + 1 );
 	} 	
 
-	if( skill( PARRYING ) >= 1000 ) 
+	if( skillValue( PARRYING ) >= 1000 ) 
 		total += 5; // gm parry bonus. 
 
 	P_ITEM pi; 
@@ -3669,7 +3650,7 @@ bool cChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 	//    max = 1200;
 
 	// How far is the players skill above the required minimum.
-	int charrange = this->skill( skill ) - min;	
+	int charrange = skillValue( skill ) - min;	
 	
 	if( charrange < 0 )
 		charrange = 0;
@@ -3688,11 +3669,10 @@ bool cChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 		success = true;
 	
 	// We can only advance when doing things which aren't below our ability
-	if( baseSkill_[ skill ] < max )
+	if( skillValue( skill ) < max )
 	{
 		if( advance && Skills->advanceSkill( this, skill, success ) )
 		{
-			Skills->updateSkillLevel( this, skill ); 
 			if( socket_ )
 				socket_->sendSkill( skill );
 		}
@@ -3720,11 +3700,6 @@ void cChar::stopRepeatedAction()
 static void characterRegisterAfterLoading( P_CHAR pc )
 {
 	CharsManager::instance()->registerChar( pc );
-	int zeta;
-	for ( zeta = 0; zeta < ALLSKILLS; ++zeta ) 
-		if (pc->lockSkill(zeta) != 0 && pc->lockSkill(zeta) != 1 && pc->lockSkill(zeta) != 2)
-			pc->setLockSkill(zeta, 0);
-	
 	pc->setPriv2(pc->priv2() & 0xBF); // ???
 
 	pc->setHidden( 0 );
@@ -4234,22 +4209,6 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	SET_STR_PROPERTY( "profile", profile_ )
 	SET_INT_PROPERTY( "id", id_ )
 
-	// baseskill.
-	if( name.left( 10 ) == "baseskill." )
-	{
-		QString skill = name.right( name.length() - 10 );
-		INT16 skillId = Skills->findSkillByDef( name );
-
-		if( skillId != -1 )
-		{
-			setBaseSkill( skillId, value.toInt() );
-			Skills->updateSkillLevel( this, skillId );
-			if( socket_ )
-				socket_->sendSkill( skillId );
-			return 0;
-		}
-	}
-
 	// skill.
 	if( name.left( 6 ) == "skill." )
 	{
@@ -4258,7 +4217,7 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 
 		if( skillId != -1 )
 		{
-			setSkill( skillId, value.toInt() );
+			setSkillValue( skillId, value.toInt() );
 			if( socket_ )
 				socket_->sendSkill( skillId );
 			return 0;
@@ -4417,19 +4376,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "profile", profile_ )
 	GET_PROPERTY( "id", id_ )
 
-	// baseskill.
-	if( name.left( 10 ) == "baseskill." )
-	{
-		QString skill = name.right( name.length() - 10 );
-		INT16 skillId = Skills->findSkillByDef( skill );
-
-		if( skillId != -1 )
-		{
-				value = cVariant( baseSkill( skillId ) );
-				return 0;
-		}
-	}
-
 	// skill.
 	if( name.left( 6 ) == "skill." )
 	{
@@ -4438,7 +4384,7 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 
 		if( skillId != -1 )
 		{
-			value = cVariant( this->skill( skillId ) );
+			value = cVariant( this->skillValue( skillId ) );
 			return 0;
 		}
 	}
@@ -4475,4 +4421,70 @@ void cChar::playDeathSound()
 	{
 		playmonstersound( this, xid_, SND_DIE );
 	}
+}
+
+void cChar::setSkillValue( UINT16 skill, UINT16 value )
+{
+	skills[ skill ].value = value;
+
+	// Check if we can delete the current skill
+	const stSkillValue &skValue = skills[ skill ];
+
+	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
+		skills.remove( skill );
+}
+
+void cChar::setSkillCap( UINT16 skill, UINT16 cap )
+{
+	skills[ skill ].cap = cap;
+
+	// Check if we can delete the current skill
+	const stSkillValue &skValue = skills[ skill ];
+
+	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
+		skills.remove( skill );
+}
+
+void cChar::setSkillLock( UINT16 skill, UINT8 lock )
+{
+	if( lock > 2 )
+		lock = 0;
+
+	skills[ skill ].lock = lock;
+
+	// Check if we can delete the current skill
+	const stSkillValue &skValue = skills[ skill ];
+
+	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
+		skills.remove( skill );
+}
+
+UINT16 cChar::skillValue( UINT16 skill ) const
+{
+	QMap< UINT16, stSkillValue >::const_iterator skValue = skills.find( skill );
+
+	if( skValue == skills.end() )
+		return 0;
+
+	return (*skValue).value;
+}
+
+UINT16 cChar::skillCap( UINT16 skill ) const
+{
+	QMap< UINT16, stSkillValue >::const_iterator skValue = skills.find( skill );
+
+	if( skValue == skills.end() )
+		return 0;
+
+	return (*skValue).cap;
+}
+
+UINT8 cChar::skillLock( UINT16 skill ) const
+{
+	return 0;	QMap< UINT16, stSkillValue >::const_iterator skValue = skills.find( skill );
+
+	if( skValue == skills.end() )
+		return 0;
+
+	return (*skValue).lock;
 }
