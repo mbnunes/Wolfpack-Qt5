@@ -1600,6 +1600,20 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 		affix = " (frozen)";
 	}
 
+	if ( !isIncognito() && !isPolymorphed() && guild_ && !guild_->abbreviation().isEmpty() )
+	{
+		cGuild::MemberInfo* info = guild_->getMemberInfo( this );
+
+		if ( info && info->showSign() )
+		{
+			if (affix.length() == 1) {
+				affix = QString(" [%1]").arg(guild_->abbreviation());
+			} else {
+				affix.append(QString(" [%1]").arg(guild_->abbreviation()));
+			}
+		}
+	}
+
 	// Don't miss lord and lady titles
 	if ( !isIncognito() && !isPolymorphed() && fame_ >= 10000 )
 	{
