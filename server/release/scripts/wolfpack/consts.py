@@ -22,8 +22,9 @@ FORMAT_DATETIME = FORMAT_DATE + ' ' + FORMAT_TIME
 AGEOFSHADOWS = 1
 FELUCIA2XRESGAIN = 0
 
-# The dictionary keys for the dictionary returned by
-# combat.properties.fromchar()
+# These are properties you can get via
+# combat.properties.fromchar or
+# combat.properties.fromitem
 RESISTANCE_PHYSICAL = 1
 RESISTANCE_ENERGY = 2
 RESISTANCE_COLD = 3
@@ -37,11 +38,12 @@ DAMAGE_FIRE = 10
 DAMAGEBONUS = 11
 SPEEDBONUS = 12
 HITBONUS = 13
-
-# Item only properties
-MINDAMAGE = 14
-MAXDAMAGE = 15
-SPEED = 16
+DEFENSEBONUS = 14
+MINDAMAGE = 15
+MAXDAMAGE = 16
+SPEED = 17
+MISSSOUND = 18
+HITSOUND = 19
 
 # Money Resource Types
 GOLD_COIN = 0xeed

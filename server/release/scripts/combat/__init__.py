@@ -18,6 +18,10 @@ def onLoad():
 # the next hit can be done.
 #
 def onSwing(attacker, defender, time):
+  # Let the defender strike back if he doesnt fight anyone right now
+  if not defender.attacktarget:
+    defender.fight(attacker)
+
   attacker.log(LOG_PYTHON, "Swing at " + str(time) + "\n")
 
   if AGEOFSHADOWS:
@@ -43,20 +47,20 @@ def onSwing(attacker, defender, time):
 # We need to insert the AOS resistances here.
 #
 def onShowStatus(char, packet):
-  properties = combat.properties.fromchar(char)
+  damagebonus = combat.properties.fromchar(char, DAMAGEBONUS)
 
   # Get weapon properties if applicable
-  weapon_properties = combat.properties.fromitem(char.getweapon())
+  (mindamage, maxdamage) = combat.properties.getdamage(char)
 
-  # Increase the damage by the bonus
-  weapon_properties[MINDAMAGE] *= properties[DAMAGEBONUS] / 100
-  weapon_properties[MAXDAMAGE] *= properties[DAMAGEBONUS] / 100
-
-  packet.setshort(62, properties[RESISTANCE_PHYSICAL]) # Physical resistance
-  packet.setshort(70, properties[RESISTANCE_FIRE]) # Fire Resistance
-  packet.setshort(72, properties[RESISTANCE_COLD]) # Cold Resistance
-  packet.setshort(74, properties[RESISTANCE_POISON]) # Poison Resistance
-  packet.setshort(76, properties[RESISTANCE_ENERGY]) # Energy Resistance
+  # Scale damage
+  mindamage = combat.aos.scaledamage(char, mindamage, 0)
+  maxdamage = combat.aos.scaledamage(char, maxdamage, 0)
+  
+  packet.setshort(62, combat.properties.fromchar(char, RESISTANCE_PHYSICAL)) # Physical resistance
+  packet.setshort(70, combat.properties.fromchar(char, RESISTANCE_FIRE)) # Fire Resistance
+  packet.setshort(72, combat.properties.fromchar(char, RESISTANCE_COLD)) # Cold Resistance
+  packet.setshort(74, combat.properties.fromchar(char, RESISTANCE_POISON)) # Poison Resistance
+  packet.setshort(76, combat.properties.fromchar(char, RESISTANCE_ENERGY)) # Energy Resistance
   packet.setshort(78, 0) # Luck
-  packet.setshort(80, weapon_properties[MINDAMAGE]) # Min. Damage
-  packet.setshort(82, weapon_properties[MAXDAMAGE]) # Max. Damage
+  packet.setshort(80, mindamage) # Min. Damage
+  packet.setshort(82, maxdamage) # Max. Damage

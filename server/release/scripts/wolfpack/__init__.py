@@ -182,3 +182,4 @@ guilds = _wolfpack.guilds
 newguild = _wolfpack.newguild	
 findguild = _wolfpack.findguild
 queueaction = _wolfpack.queueaction
+charbase = _wolfpack.charbase
