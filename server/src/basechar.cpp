@@ -2269,12 +2269,11 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		resendTooltip();
 	}
 
-
 	P_CHAR sourceChar = dynamic_cast<P_CHAR>(source);
 
 	if (sourceChar && sourceChar->canHandleEvent(EVENT_DODAMAGE)) {
 		PyObject* args = Py_BuildValue( "NiiN", sourceChar->getPyObject(), type, amount, getPyObject() );
-		PyObject* result = callEvent(EVENT_DODAMAGE, args);
+		PyObject* result = sourceChar->callEvent(EVENT_DODAMAGE, args);
 
 		if (result) {
 			if (PyInt_Check(result))
