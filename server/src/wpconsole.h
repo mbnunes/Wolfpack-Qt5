@@ -36,23 +36,22 @@
 
 
 // System Includes
-
 #include <iosfwd>
 #include <cstdarg>
 #include <cstdio>
+#include "qstringlist.h"
 
 // Third Party includes
 
-
-
-//Forward class declaration
+// Forward class declaration
 class QString;
 class WPConsole_cl;
+class WPDefaultScript;
 
-//Wolfpack Includes
+// Wolfpack Includes
 
 
-//Class definitions
+// Class definitions
 
 enum WPC_ColorKeys 
 {
@@ -65,7 +64,12 @@ enum WPC_ColorKeys
 
 class WPConsole_cl
 {
+private:
+	QStringList linebuffer_;
+	QString incompleteLine_;
 public:
+	QStringList linebuffer() const { return linebuffer_; }
+
 	// Constructor
 	WPConsole_cl();
 	// Destructor

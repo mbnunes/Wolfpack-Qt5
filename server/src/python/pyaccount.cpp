@@ -32,19 +32,102 @@
 #include <limits.h>
 
 #include "Python.h"
+#include "utilities.h"
 #include "../accounts.h"
+#include "qvaluevector.h"
+
+/*!
+	The object for Wolfpack Coord items
+*/
+typedef struct {
+    PyObject_HEAD;
+	AccountRecord *account;
+} wpAccount;
+
+// Forward Declarations
+PyObject *wpAccount_getAttr( wpAccount *self, char *name );
+int wpAccount_setAttr( wpAccount *self, char *name, PyObject *value );
+
+/*!
+	The typedef for Wolfpack Python items
+*/
+static PyTypeObject wpAccountType = {
+    PyObject_HEAD_INIT(NULL)
+    0,
+    "wpaccount",
+    sizeof(wpAccountType),
+    0,
+    wpDealloc,				
+    0,								
+    (getattrfunc)wpAccount_getAttr,
+    (setattrfunc)wpAccount_setAttr,
+};
+
+PyObject *wpAccount_getAttr( wpAccount *self, char *name )
+{
+	if( !strcmp( name, "acl" ) )
+		return PyString_FromString( self->account->acl().latin1() );
+	else if( !strcmp( name, "name" ) )
+		return PyString_FromString( self->account->login().latin1() );
+	else if( !strcmp( name, "password" ) )
+		return PyString_FromString( self->account->password().latin1() );
+	else if( !strcmp( name, "flags" ) )
+		return PyInt_FromLong( self->account->flags() );
+	else if( !strcmp( name, "characters" ) )
+	{
+		PyObject *list = PyList_New( 0 );
+		QValueVector< cChar* > characters = self->account->caracterList();
+		for( int i = 0; i < characters.size(); ++i )
+			PyList_Append( list, PyGetCharObject( characters[i] ) );
+		return list;
+	}
+
+	return 0;
+}
+
+int wpAccount_setAttr( wpAccount *self, char *name, PyObject *value )
+{
+/*	// I only have integer params in mind
+	if( !PyInt_Check( value ) )
+		return 1;
+
+	if( !strcmp( name, "x" ) )
+		self->coord.x = PyInt_AsLong( value );
+	else if( !strcmp( name, "y" ) )
+		self->coord.y = PyInt_AsLong( value );
+	else if( !strcmp( name, "z" ) )
+		self->coord.z = PyInt_AsLong( value );
+	else if( !strcmp( name, "map" ) )
+		self->coord.map = PyInt_AsLong( value );
+*/
+	return 0;
+}
 
 bool checkWpAccount( PyObject *object )
 {
-	return false;
+	if( !object )
+		return false;
+	return ( object->ob_type == &wpAccountType );
 }
 
-PyObject* PyGetAccountObject( AccountRecord* )
+PyObject* PyGetAccountObject( AccountRecord *account )
 {
-	return Py_None;
+	if( !account )
+		return Py_None;
+
+	wpAccount *cObject = PyObject_New( wpAccount, &wpAccountType );
+	cObject->account = account;
+    return (PyObject*)( cObject );	
 }
 
-AccountRecord* getWpAccount( PyObject* )
+AccountRecord* getWpAccount( PyObject *wpaccount )
 {
-	return NULL;
+	if( !wpaccount )
+		return 0;
+
+	if( !checkWpAccount( wpaccount ) )
+		return 0;
+
+	wpAccount *cObject = (wpAccount*)wpaccount;
+	return cObject->account;
 }

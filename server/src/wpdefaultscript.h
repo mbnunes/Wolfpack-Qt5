@@ -45,6 +45,7 @@
 
 class cUObject;
 class cUORxTarget;
+class cUOSocket;
 
 class WPDefaultScript  
 {
@@ -118,6 +119,8 @@ public:
 
 	// Speech Event
 	virtual bool onSpeech( cUObject *listener, P_CHAR talker, const QString &text, std::vector< UINT16 > keywords ) { return false; }
+	virtual bool onConsoleOutput( const QString &line ) { return false; }
+	virtual bool onCommand( cUOSocket *socket, const QString &name, const QString &args ) { return false; }
 
 	// Magic System
 	virtual bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { return false; }

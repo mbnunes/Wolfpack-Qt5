@@ -31,6 +31,9 @@
 #if !defined( __COMMANDS_H__ )
 #define __COMMANDS_H__
 
+// Wolfpack Includes
+#include "wpdefaultscript.h"
+
 // Library Includes
 #include <qmap.h>
 #include <qstring.h>
@@ -60,8 +63,12 @@ class cCommands : public QObject
 	Q_OBJECT
 private:
 	QMap< QString, cAcl* > _acls;
+	QMap< QString, WPDefaultScript > _customcommands;
 	static stCommand commands[];
 public:
+	void addCustomCommand( const QString &name, WPDefaultScript *script );
+	void clearCustomCommands();
+
 	// Command processing system
 	void process( cUOSocket *socket, const QString &command );
 	void dispatch( cUOSocket *socket, const QString &command, QStringList &arguments );

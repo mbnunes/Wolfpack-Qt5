@@ -40,6 +40,7 @@
 #include "../territories.h"
 #include "../maps.h"
 #include "../tilecache.h"
+#include "../accounts.h"
 #include "../wpscriptmanager.h"
 #include "../wpdefmanager.h"
 #include "../wpdefaultscript.h"
@@ -114,6 +115,24 @@ PyObject* wpConsole_progressSkip( PyObject* self, PyObject* args )
 }
 
 /*!
+	Returns a list of Strings (the linebuffer)
+*/
+PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
+{	
+	QStringList linebuffer = clConsole.linebuffer();
+	PyObject *list = PyList_New( linebuffer.count() );
+
+	for( int i = 0; i < linebuffer.count(); ++i )
+		if( linebuffer[i].isNull() )
+			PyList_SetItem( list, i, PyString_FromString( "" ) );
+		else
+			PyList_SetItem( list, i, PyString_FromString( linebuffer[i].latin1() ) );
+
+	return list;
+}
+
+
+/*!
 	wolfpack.console
 	Initializes wolfpack.console
 */
@@ -124,6 +143,7 @@ static PyMethodDef wpConsole[] =
 	{ "progressDone",	wpConsole_progressDone,	METH_VARARGS, "Prints a [done] block" },
 	{ "progressFail",	wpConsole_progressFail,	METH_VARARGS, "Prints a [fail] block" },
 	{ "progressSkip",	wpConsole_progressSkip,	METH_VARARGS, "Prints a [skip] block" },
+	{ "getbuffer",		wpConsole_getbuffer,	METH_VARARGS, "Gets the linebuffer of the console" },
     { NULL, NULL, 0, NULL } // Terminator
 };
 
@@ -656,6 +676,31 @@ static PyMethodDef wpSpeech[] =
 };
 
 /*!
+	Finds an Account object.
+ */
+PyObject *wpAccountsFind( PyObject* self, PyObject* args )
+{
+	if( !checkArgStr( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	AccountRecord* account = Accounts::instance()->getRecord( getArgStr( 0 ) );
+	return PyGetAccountObject( account );
+}
+
+/*!
+	wolfpack.accounts
+	account related functions
+*/
+static PyMethodDef wpAccounts[] = 
+{
+    { "find",		wpAccountsFind, METH_VARARGS, "Finds an account object." },
+	{ NULL, NULL, 0, NULL } // Terminator
+};
+
+/*!
 	This initializes the wolfpack.console extension
 */
 void init_wolfpack_globals()
@@ -667,6 +712,9 @@ void init_wolfpack_globals()
 
 	PyObject *mSpeech = Py_InitModule( "_wolfpack.speech", wpSpeech );
     PyObject_SetAttrString( wpNamespace, "speech", mSpeech );
+
+	PyObject *mAccounts = Py_InitModule( "_wolfpack.accounts", wpAccounts );
+    PyObject_SetAttrString( wpNamespace, "accounts", mAccounts );
 
 	PyObject *mTime = Py_InitModule( "_wolfpack.time", wpTime );
     PyObject_SetAttrString( wpNamespace, "time", mTime );

@@ -30,11 +30,10 @@
 //========================================================================================
 
 // Wolfpack Includes
-
 #include "wpconsole.h"
+#include "wpdefaultscript.h"
 
 // Library Includes
-
 #include "qstring.h"
 
 #ifndef __unix__
@@ -44,8 +43,6 @@
 #include <iostream>
 
 using namespace std;
-
-// Method Implementations
 
 //========================================================================================
 // Constructor
@@ -94,6 +91,22 @@ void WPConsole_cl::send(char* szMessage, ...)
 // Send a message to the console
 void WPConsole_cl::send(const QString &sMessage)
 {
+	if( sMessage.contains( "\n" ) )
+	{
+		incompleteLine_.append( sMessage ); // Split by \n
+		QStringList lines = QStringList::split( "\n", incompleteLine_, true );
+
+		// Insert all except the last element
+		for( int i = 0; i < lines.count()-1; ++i )
+			linebuffer_.push_back( lines[i] );
+
+		incompleteLine_ = lines[ lines.count() - 1 ];
+	}
+	else
+	{
+		incompleteLine_.append( sMessage );
+	}
+
 	if( outputstrm != NULL )
 	{
 		(*outputstrm) << sMessage.latin1();
