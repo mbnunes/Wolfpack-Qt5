@@ -614,6 +614,8 @@ PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 		return PyString_FromString( value.asString().latin1() );
 	else if( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
+	else if( value.type() == cVariant::Double )
+		return PyFloat_FromDouble( value.asDouble() );		
 
 	return Py_None;
 }
@@ -623,23 +625,30 @@ PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_settag( wpChar* self, PyObject* args )
 {
-	if( !self->pChar || self->pChar->free )
+	if( self->pChar->free )
 		return PyFalse;
 
-	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) || ( !checkArgStr( 1 ) && !checkArgInt( 1 )  ) )
+	char *key;
+	PyObject *object;
+
+	if( !PyArg_ParseTuple( args, "sO:char.settag( name, value )", &key, &object ) )
+		return 0;
+
+	if( PyString_Check( object ) )
 	{
-		PyErr_BadArgument();
-		return NULL;
+		self->pChar->tags().remove( key );
+		self->pChar->tags().set( key, cVariant( PyString_AsString( object ) ) );
 	}
-
-	QString key = getArgStr( 0 );
-
-	self->pChar->tags().remove( key );
-
-	if( checkArgStr( 1 ) )
-		self->pChar->tags().set( key, cVariant( getArgStr( 1 ) ) );
-	else if( checkArgInt( 1 ) )
-		self->pChar->tags().set( key, cVariant( (int)getArgInt( 1 ) ) );
+	else if( PyInt_Check( object ) )
+	{
+		self->pChar->tags().remove( key );
+		self->pChar->tags().set( key, cVariant( (int)PyInt_AsLong( object ) ) );
+	}
+	else if( PyFloat_Check( object ) )
+	{
+		self->pChar->tags().remove( key );
+		self->pChar->tags().set( key, cVariant( (double)PyFloat_AsDouble( object ) ) );
+	}
 
 	return PyTrue;
 }
