@@ -580,9 +580,9 @@ protected:
 	{
 		QMemArray<pchar> argv( 8 );
 		/*
-						Since Windows programs don't get passed the command name as the
-						first argument, we need to fetch it explicitly.
-					*/
+			Since Windows programs don't get passed the command name as the
+			first argument, we need to fetch it explicitly.
+		*/
 		static char appFileName[256];
 		GetModuleFileNameA( 0, appFileName, sizeof( appFileName ) );
 		int argc = 1;
@@ -642,7 +642,7 @@ protected:
 
 		if ( returnValue_ != 0 )
 		{
-			Console::instance()->send( tr("\nThe server has been shut down. You can close this window now.\n") );
+			Console::instance()->send( ("\nThe server has been shut down. You can close this window now.\n") );
 			canClose = true;
 		}
 		else

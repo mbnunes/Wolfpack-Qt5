@@ -159,9 +159,12 @@ void cServer::pollQueuedActions()
 		d->actionQueue.erase(d->actionQueue.begin());
 		d->actionMutex.unlock();
 
-		try {
+		try 
+		{
 			action->execute();
-		} catch ( wpException e ) {
+		} 
+		catch ( wpException& e )
+		{
 			Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
 		}
 
@@ -255,7 +258,7 @@ bool cServer::run( int argc, char** argv )
 	
 	setState( STARTUP );
 
-	QApplication app( argc, argv, false );
+	new QApplication ( argc, argv, false );
 	QTranslator translator( 0 );
 
 	// Load wolfpack.xml
@@ -263,11 +266,7 @@ bool cServer::run( int argc, char** argv )
 	if ( !Config::instance()->fileState() )
 	{
 		Console::instance()->log( LOG_WARNING, "Your configuration file [wolfpack.xml] have just been created with default settings.\n");
-#if !defined(Q_OS_WIN32)
-		// We can only detect mul path under Windows.
-		Console::instance()->log( LOG_ERROR, "Please setup the path to the *.mul files before continuing\n");
-		return false;
-#endif
+		Console::instance()->log( LOG_WARNING, "You might have to change it accordingly before running again\n");
 	}
 
 	// Start Python
@@ -278,14 +277,6 @@ bool cServer::run( int argc, char** argv )
 
 	// Print a header and useful version informations
 	setupConsole();
-
-	// Load all subcomponents
-	try {
-		load();
-	} catch(wpException &e) {
-		Console::instance()->log(LOG_ERROR, e.error() + "\n");
-		return false;
-	}
 
 	// Start the QT translator
 	QString languageFile = Config::instance()->getString( "General", "Language File", "", true );
@@ -298,6 +289,18 @@ bool cServer::run( int argc, char** argv )
 		}
 		qApp->installTranslator( &translator );
 	}
+
+	// Load all subcomponents
+	try 
+	{
+		load();
+	} 
+	catch(wpException &e) 
+	{
+		Console::instance()->log(LOG_ERROR, e.error() + "\n");
+		return false;
+	}
+
 
 	try {
 		// Open the Worldsave and Account Database drivers.
@@ -374,7 +377,7 @@ bool cServer::run( int argc, char** argv )
 				Timing::instance()->poll();
 				Console::instance()->poll();
 			}
-			catch ( wpException e )
+			catch ( wpException& e )
 			{
 				Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
 			}

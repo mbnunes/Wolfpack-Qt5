@@ -2260,7 +2260,7 @@ static PyObject* wpQuery( PyObject* /*self*/, PyObject* args )
 	{
 		result = PersistentBroker::instance()->query( query );
 	}
-	catch ( QString e )
+	catch ( QString& e )
 	{
 		PyMem_Free( query );
 		PyErr_SetString( PyExc_RuntimeError, e.latin1() );

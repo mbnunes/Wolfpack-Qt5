@@ -450,7 +450,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 						try {
 							object->load( reader );
 							objects.append(object);
-						} catch (wpException e) {
+						} catch (wpException& e) {
 							Console::instance()->log( LOG_WARNING, e.error() + "\n" );
 						}
 					} else {
@@ -500,7 +500,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 						guild = new cGuild();
 						guild->load(reader, reader.version());
 						Guilds::instance()->registerGuild(guild);
-					} catch (wpException e) {
+					} catch (wpException& e) {
 						delete guild;
 					}
 				}
