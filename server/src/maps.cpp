@@ -299,7 +299,7 @@ StaticsIterator Maps::staticsIterator(uint id, ushort x, ushort y, bool exact /*
 {
 	iterator it = d.find( id );
 	if ( it == d.end() )
-		throw std::bad_exception((const char*)"Invalid map id");
+		throw std::bad_exception();
 	return StaticsIterator( x, y, it.data(), exact );
 }
 
