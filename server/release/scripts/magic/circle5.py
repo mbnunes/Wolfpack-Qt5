@@ -32,7 +32,6 @@ class BladeSpirits (Spell):
 			return
 
 		spirits = wolfpack.addnpc('summoned_blade_spirit', target)
-		spirits.controlslots = 1
 		spirits.owner = char
 		spirits.summontime = wolfpack.time.servertime() + 120000
 		spirits.summoned = 1
