@@ -1,15 +1,78 @@
-# MAINTAIN THE SEPARATORS!
-# This is needed by our configuration program
+# phpMyAdmin MySQL-Dump
+# version 2.3.3pl1
+# http://www.phpmyadmin.net/ (download page)
+#
+# Servidor: localhost
+# Tempo de Generação: Abr 13, 2003 at 12:46 AM
+# Versão do Servidor: 4.00.01
+# Versão do PHP: 4.2.2
+# Banco de Dados : `wolfpack`
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `boats`
+#
+
+CREATE TABLE boats (
+  serial int(11) NOT NULL default '0',
+  autosail tinyint(1) unsigned NOT NULL default '0',
+  boatdir tinyint(1) unsigned NOT NULL default '0',
+  itemserial1 int(11) NOT NULL default '-1',
+  itemserial2 int(11) NOT NULL default '-1',
+  itemserial3 int(11) NOT NULL default '-1',
+  itemserial4 int(11) NOT NULL default '-1',
+  multi1 smallint(6) unsigned default '0',
+  multi2 smallint(6) unsigned default '0',
+  multi3 smallint(6) unsigned default '0',
+  multi4 smallint(6) unsigned default '0',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='class cBoat';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `boats_itemids`
+#
+
+CREATE TABLE boats_itemids (
+  serial int(11) NOT NULL default '0',
+  a tinyint(1) unsigned NOT NULL default '0',
+  b tinyint(1) unsigned NOT NULL default '0',
+  id smallint(6) unsigned default '0',
+  KEY serial (serial)
+) TYPE=MyISAM COMMENT='ItemIDs of cBoat Components';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `boats_itemoffsets`
+#
+
+CREATE TABLE boats_itemoffsets (
+  serial int(11) NOT NULL default '0',
+  a tinyint(1) unsigned NOT NULL default '0',
+  b tinyint(1) unsigned NOT NULL default '0',
+  c tinyint(1) unsigned NOT NULL default '0',
+  offset smallint(6) default '0',
+  KEY serial (serial)
+) TYPE=MyISAM COMMENT='Itemoffsets of cBoat Components';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `bookpages`
+#
 
 CREATE TABLE bookpages (
-	serial int(11) NOT NULL default '0',
-	page tinyint(3) unsigned NOT NULL default '0',
-	text varchar(255) binary NOT NULL default '',
-	KEY page (page),
-	KEY serial (serial)
+  serial int(11) NOT NULL default '0',
+  page tinyint(3) unsigned NOT NULL default '0',
+  text varchar(255) binary NOT NULL default '',
+  KEY page (page),
+  KEY serial (serial)
 ) TYPE=MyISAM;
+# --------------------------------------------------------
 
-#!
+#
+# Estrutura da tabela `books`
+#
 
 CREATE TABLE books (
   serial int(11) NOT NULL default '0',
@@ -22,8 +85,11 @@ CREATE TABLE books (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='cBook class';
+# --------------------------------------------------------
 
-#!
+#
+# Estrutura da tabela `characters`
+#
 
 CREATE TABLE characters (
   serial int(11) NOT NULL default '0',
@@ -115,15 +181,108 @@ CREATE TABLE characters (
   food int(10) unsigned NOT NULL default '0',
   say smallint(5) unsigned default NULL,
   mana smallint(6) default NULL,
-  profile longtext NULL,
+  profile longtext,
   guarding int(11) NOT NULL default '-1',
   destination varchar(32) NOT NULL default '0,0,0,0',
-  sex TINYINT(1) UNSIGNED DEFAULT '0' NOT NULL,
+  sex tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='cChar';
+# --------------------------------------------------------
 
-#!
+#
+# Estrutura da tabela `corpses`
+#
+
+CREATE TABLE corpses (
+  serial int(11) NOT NULL default '0',
+  bodyid smallint(6) unsigned NOT NULL default '0',
+  hairstyle smallint(6) unsigned NOT NULL default '0',
+  haircolor smallint(6) unsigned NOT NULL default '0',
+  beardstyle smallint(6) unsigned NOT NULL default '0',
+  beardcolor smallint(6) unsigned NOT NULL default '0',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='class cCorpse';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `corpses_equipment`
+#
+
+CREATE TABLE corpses_equipment (
+  serial int(11) NOT NULL default '0',
+  item int(11) NOT NULL default '-1',
+  layer tinyint(3) unsigned NOT NULL default '0'
+) TYPE=MyISAM COMMENT='Equipment of corpses.';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `guildstones`
+#
+
+CREATE TABLE guildstones (
+  serial int(11) NOT NULL default '0',
+  guildname varchar(255) NOT NULL default '',
+  abbreviation varchar(255) NOT NULL default '',
+  guildtype tinyint(1) NOT NULL default '0',
+  charter longtext NOT NULL,
+  webpage varchar(255) NOT NULL default 'http://www.wpdev.org',
+  master int(11) NOT NULL default '-1',
+  priv int(11) NOT NULL default '-1',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='class cGuildStone';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `guildstones_members`
+#
+
+CREATE TABLE guildstones_members (
+  serial int(11) NOT NULL default '0',
+  member int(11) NOT NULL default '-1'
+) TYPE=MyISAM COMMENT='Members in this guild.';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `guildstones_recruits`
+#
+
+CREATE TABLE guildstones_recruits (
+  serial int(11) NOT NULL default '0',
+  recruit int(11) NOT NULL default '-1'
+) TYPE=MyISAM COMMENT='Recruitees of this guild.';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `guildstones_war`
+#
+
+CREATE TABLE guildstones_war (
+  serial int(11) NOT NULL default '0',
+  enemy int(11) NOT NULL default '-1'
+) TYPE=MyISAM COMMENT='Other guildstones this guild is at war with.';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `houses`
+#
+
+CREATE TABLE houses (
+  serial int(11) NOT NULL default '0',
+  nokey tinyint(1) NOT NULL default '0',
+  charpos_x smallint(6) NOT NULL default '0',
+  charpos_y smallint(6) NOT NULL default '0',
+  charpos_z smallint(6) NOT NULL default '0',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='class cHouse';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `items`
+#
 
 CREATE TABLE items (
   serial int(11) NOT NULL default '0',
@@ -134,10 +293,10 @@ CREATE TABLE items (
   sk_name tinyint(3) unsigned NOT NULL default '0',
   color smallint(5) unsigned NOT NULL default '0',
   cont int(11) NOT NULL default '-1',
-  layer tinyint(3) NOT NULL default '0',
-  type int(11) NOT NULL default '0',
-  type2 int(11) NOT NULL default '0',
-  offspell int(11) NOT NULL default '0',
+  layer tinyint(3) unsigned NOT NULL default '0',
+  type smallint(5) unsigned NOT NULL default '0',
+  type2 smallint(5) unsigned NOT NULL default '0',
+  offspell tinyint(3) unsigned NOT NULL default '0',
   more1 tinyint(3) unsigned NOT NULL default '0',
   more2 tinyint(3) unsigned NOT NULL default '0',
   more3 tinyint(3) unsigned NOT NULL default '0',
@@ -146,19 +305,19 @@ CREATE TABLE items (
   moreb2 tinyint(3) unsigned NOT NULL default '0',
   moreb3 tinyint(3) unsigned NOT NULL default '0',
   moreb4 tinyint(3) unsigned NOT NULL default '0',
-  morex int(11) NOT NULL default '0',
-  morey int(11) NOT NULL default '0',
-  morez int(11) NOT NULL default '0',
-  amount int(11) NOT NULL default '0',
+  morex int(10) unsigned NOT NULL default '0',
+  morey int(10) unsigned NOT NULL default '0',
+  morez int(10) unsigned NOT NULL default '0',
+  amount smallint(5) unsigned NOT NULL default '0',
   doordir tinyint(3) unsigned NOT NULL default '0',
-  dye int(11) NOT NULL default '0',
-  decaytime int(11) NOT NULL default '0',
-  att int(11) NOT NULL default '0',
-  def int(11) NOT NULL default '0',
+  dye tinyint(3) unsigned NOT NULL default '0',
+  decaytime int(10) unsigned NOT NULL default '0',
+  att int(10) unsigned NOT NULL default '0',
+  def int(10) unsigned NOT NULL default '0',
   hidamage smallint(6) NOT NULL default '0',
   lodamage smallint(6) NOT NULL default '0',
   st smallint(6) NOT NULL default '0',
-  time_unused int(11) NOT NULL default '0',
+  time_unused int(10) unsigned NOT NULL default '0',
   weight int(11) NOT NULL default '0',
   hp smallint(6) NOT NULL default '0',
   maxhp smallint(6) NOT NULL default '0',
@@ -169,31 +328,66 @@ CREATE TABLE items (
   intelligence smallint(6) NOT NULL default '0',
   intelligence2 smallint(6) NOT NULL default '0',
   speed int(11) NOT NULL default '0',
-  poisoned int(11) unsigned NOT NULL default '0',
-  magic int(11) NOT NULL default '0',
+  poisoned int(10) unsigned NOT NULL default '0',
+  magic tinyint(3) unsigned NOT NULL default '0',
   owner int(11) NOT NULL default '-1',
-  visible int(11) NOT NULL default '0',
+  visible tinyint(3) unsigned NOT NULL default '0',
   spawn int(11) NOT NULL default '-1',
-  dir int(11) NOT NULL default '0',
-  priv int(11) NOT NULL default '0',
+  dir tinyint(3) unsigned NOT NULL default '0',
+  priv tinyint(3) unsigned NOT NULL default '0',
   sellprice int(11) NOT NULL default '0',
   buyprice int(11) NOT NULL default '0',
   price int(11) NOT NULL default '0',
-  restock int(11) NOT NULL default '0',
-  disabled int(11) unsigned NOT NULL default '0',
-  spawnregion int(11) NOT NULL default '0',
+  restock smallint(5) unsigned NOT NULL default '0',
+  disabled int(10) unsigned NOT NULL default '0',
+  spawnregion varchar(255) binary default NULL,
   good int(11) NOT NULL default '0',
-  glow int(11) NOT NULL default '0',
-  glow_color smallint(5) unsigned NOT NULL default '0',
-  glowtype int(11) NOT NULL default '0',
-  `desc` varchar(255) default NULL,
+  desc varchar(255) default NULL,
   carve varchar(255) default NULL,
-  accuracy int(11) NOT NULL default '0',
+  accuracy smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='cItem';
+# --------------------------------------------------------
 
-#!
+#
+# Estrutura da tabela `multis`
+#
+
+CREATE TABLE multis (
+  serial int(11) NOT NULL default '0',
+  coowner int(11) NOT NULL default '-1',
+  deedsection varchar(255) NOT NULL default '',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='class cMulti';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `multis_bans`
+#
+
+CREATE TABLE multis_bans (
+  serial int(11) NOT NULL default '0',
+  ban int(11) NOT NULL default '-1',
+  KEY serial (serial)
+) TYPE=MyISAM COMMENT='Bans of cMulti';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `multis_friends`
+#
+
+CREATE TABLE multis_friends (
+  serial int(11) NOT NULL default '0',
+  friend int(11) NOT NULL default '-1',
+  KEY serial (serial)
+) TYPE=MyISAM COMMENT='Friends of cMulti';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `skills`
+#
 
 CREATE TABLE skills (
   serial int(11) NOT NULL default '0',
@@ -204,8 +398,36 @@ CREATE TABLE skills (
   KEY skill (skill),
   KEY serial (serial)
 ) TYPE=MyISAM PACK_KEYS=0 COMMENT='Skills from characters';
+# --------------------------------------------------------
 
-#!
+#
+# Estrutura da tabela `spellbooks`
+#
+
+CREATE TABLE spellbooks (
+  serial int(11) NOT NULL default '0',
+  spells1 int(11) unsigned NOT NULL default '0',
+  spells2 int(11) unsigned NOT NULL default '0',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='class cSpellBook';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `tags`
+#
+
+CREATE TABLE tags (
+  serial int(11) NOT NULL default '0',
+  name varchar(64) NOT NULL default '',
+  type varchar(6) NOT NULL default '',
+  value longtext NOT NULL
+) TYPE=MyISAM COMMENT='class cCustomTags';
+# --------------------------------------------------------
+
+#
+# Estrutura da tabela `uobject`
+#
 
 CREATE TABLE uobject (
   name varchar(255) default NULL,
@@ -220,8 +442,11 @@ CREATE TABLE uobject (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='class cUObject';
+# --------------------------------------------------------
 
-#!
+#
+# Estrutura da tabela `uobjectmap`
+#
 
 CREATE TABLE uobjectmap (
   serial int(11) NOT NULL default '0',
@@ -229,150 +454,6 @@ CREATE TABLE uobjectmap (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM;
-
-#!
-
-CREATE TABLE spellbooks (
-  serial int(11) NOT NULL default '0',
-  spells1 int(11) UNSIGNED NOT NULL default '0',
-  spells2 int(11) UNSIGNED NOT NULL default '0',
-  PRIMARY KEY  (serial),
-  UNIQUE KEY serial (serial)
-) TYPE=MyISAM COMMENT='class cSpellBook';
-
-#!
-
-CREATE TABLE multis_bans (
-  serial int(11) NOT NULL default '0',
-  ban int(11) NOT NULL default '-1',
-  KEY  (serial)
-) TYPE=MyISAM COMMENT='Bans of cMulti';
-
-#!
-
-CREATE TABLE multis_friends (
-  serial int(11) NOT NULL default '0',
-  friend int(11) NOT NULL default '-1',
-  KEY  (serial)
-) TYPE=MyISAM COMMENT='Friends of cMulti';
-
-#!
-
-CREATE TABLE multis (
-  serial int(11) NOT NULL default '0',
-  coowner int(11) NOT NULL default '-1',
-  deedsection varchar(255) NOT NULL default '',
-  PRIMARY KEY  (serial),
-  UNIQUE KEY serial (serial)
-) TYPE=MyISAM COMMENT='class cMulti';
-
-#!
-
-CREATE TABLE boats_itemoffsets (
-  serial int(11) NOT NULL default '0',
-  a tinyint(1) UNSIGNED NOT NULL default '0',
-  b tinyint(1) UNSIGNED NOT NULL default '0',
-  c tinyint(1) UNSIGNED NOT NULL default '0',
-  offset smallint(6) default '0',
-  KEY (serial)
-) TYPE=MyISAM COMMENT='Itemoffsets of cBoat Components';
-
-#!
-
-CREATE TABLE boats_itemids (
-  serial int(11) NOT NULL default '0',
-  a tinyint(1) UNSIGNED NOT NULL default '0',
-  b tinyint(1) UNSIGNED NOT NULL default '0',
-  id smallint(6) unsigned default '0',
-  KEY (serial)
-) TYPE=MyISAM COMMENT='ItemIDs of cBoat Components';
-
-#!
-
-CREATE TABLE boats (
-  serial int(11) NOT NULL default '0',
-  autosail tinyint(1) UNSIGNED NOT NULL default '0',
-  boatdir tinyint(1) UNSIGNED NOT NULL default '0',
-  itemserial1 int(11) NOT NULL default '-1',
-  itemserial2 int(11) NOT NULL default '-1',
-  itemserial3 int(11) NOT NULL default '-1',
-  itemserial4 int(11) NOT NULL default '-1',
-  multi1 smallint(6) unsigned default '0',
-  multi2 smallint(6) unsigned default '0',
-  multi3 smallint(6) unsigned default '0',
-  multi4 smallint(6) unsigned default '0',
-  PRIMARY KEY  (serial),
-  UNIQUE KEY serial (serial)
-) TYPE=MyISAM COMMENT='class cBoat';
-
-#!
-
-CREATE TABLE houses (
-  serial int(11) NOT NULL default '0',
-  nokey tinyint(1) NOT NULL default '0',
-  charpos_x smallint(6) NOT NULL default '0',
-  charpos_y smallint(6) NOT NULL default '0',
-  charpos_z smallint(6) NOT NULL default '0',
-  PRIMARY KEY  (serial),
-  UNIQUE KEY serial (serial)
-) TYPE=MyISAM COMMENT='class cHouse';
-
-#!
-
-CREATE TABLE guildstones_war (
-  serial int(11) NOT NULL default '0',
-  enemy int(11) NOT NULL default '-1'
-) TYPE=MyISAM COMMENT='Other guildstones this guild is at war with.';
-
-#!
-
-CREATE TABLE guildstones_recruits (
-  serial int(11) NOT NULL default '0',
-  recruit int(11) NOT NULL default '-1'
-) TYPE=MyISAM COMMENT='Recruitees of this guild.';
-
-#!
-
-CREATE TABLE guildstones_members (
-  serial int(11) NOT NULL default '0',
-  member int(11) NOT NULL default '-1'
-) TYPE=MyISAM COMMENT='Members in this guild.';
-
-#!
-
-CREATE TABLE guildstones (
-  serial int(11) NOT NULL default '0',
-  guildname varchar(255) NOT NULL default '',
-  abbreviation varchar(255) NOT NULL default '',
-  guildtype tinyint(1) NOT NULL default '0',
-  charter longtext NOT NULL default '',
-  webpage varchar(255) NOT NULL default 'http://www.wpdev.org',
-  master int(11) NOT NULL default '-1',
-  priv int(11) NOT NULL default '-1',
-  PRIMARY KEY  (serial),
-  UNIQUE KEY serial (serial)
-) TYPE=MyISAM COMMENT='class cGuildStone';
-
-#!
-
-CREATE TABLE corpses_equipment (
-  serial int(11) NOT NULL default '0',
-  item int(11) NOT NULL default '-1',
-  layer tinyint(3) UNSIGNED NOT NULL default '0'
-) TYPE=MyISAM COMMENT='Equipment of corpses.';
-
-#!
-
-CREATE TABLE corpses (
-  serial int(11) NOT NULL default '0',
-  bodyid smallint(6) UNSIGNED NOT NULL default '0',
-  hairstyle smallint(6) UNSIGNED NOT NULL default '0',  
-  haircolor smallint(6) UNSIGNED NOT NULL default '0',
-  beardstyle smallint(6) UNSIGNED NOT NULL default '0',
-  beardcolor smallint(6) UNSIGNED NOT NULL default '0',
-  PRIMARY KEY  (serial),
-  UNIQUE KEY serial (serial)
-) TYPE=MyISAM COMMENT='class cCorpse';
 
 #!
 
@@ -396,4 +477,3 @@ CREATE TABLE `pages` (
   `category` int(11) NOT NULL default '0',
   `pageorder` int(11) NOT NULL default '0'
 ) TYPE=MyISAM COMMENT='class cPage';
-
