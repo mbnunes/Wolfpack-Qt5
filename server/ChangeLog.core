@@ -21,7 +21,7 @@ Wolfpack 12.9.11 Beta (CVS)
 	  pets not being reset.
 	- Added support for the Samurai Empire map.
 	- Fixed negative z values for spawnregion xml files.
-	- Improved NPC walking.
+	- Improved NPC walking functionality, greatly increased all character walking effieciency
 	- Fixed bug #0000317. (Server not refusing to load even when accounts db corrupt)
 	- Fixed bug #0000187. (Land and Static targets on height -1 were broken)
 	- Resolved an issue with extreme lag and NPC ai.
