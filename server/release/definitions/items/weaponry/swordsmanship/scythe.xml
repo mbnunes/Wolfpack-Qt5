@@ -15,7 +15,7 @@
 		<speed>32</speed>
 		<weight>10.0</weight>
 		<tag name="req_str" value="45" type="int" />
-		<type>1001</type>
+		<type>1002</type>
 		<events>equipment,weapons.blades</events>
 		<category>Weapons\Swords\Scythe (N/S)</category>
 	</item>

@@ -16,7 +16,7 @@
 		<weight>11.0</weight>
 		<tag name="req_str" value="50" type="int" />
 		<type>1001</type>
-		<events>equipment,tools.pickaxe</events>
+		<events>equipment</events>
 		<category>Weapons\Swords\Pickaxe (N/S)</category>
 		<category>Professions\Miner\Pickaxe (N/S)</category>
 	</item>

@@ -15,7 +15,7 @@
 		<speed>25</speed>
 		<weight>16.0</weight>
 		<tag name="req_str" value="95" type="int" />
-		<type>1001</type>
+		<type>1002</type>
 		<events>equipment,weapons.blades</events>
 		<category>Weapons\Swords\Halberd (N/S)</category>
 	</item>

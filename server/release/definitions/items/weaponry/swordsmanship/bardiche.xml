@@ -15,7 +15,7 @@
 		<speed>28</speed>
 		<weight>7.0</weight>
 		<tag name="req_str" value="45" type="int" />
-		<type>1001</type>
+		<type>1002</type>
 		<events>equipment,weapons.blades</events>
 		<category>Weapons\Swords\Bardiche (N/S)</category>
 	</item>
