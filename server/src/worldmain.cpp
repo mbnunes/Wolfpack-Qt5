@@ -127,21 +127,22 @@ void CWorldMain::loadnewworld(QString module) // Load world
 	
 	QStringList types = UObjectFactory::instance()->objectTypes();
 
+	QSqlQuery query;
+	query.setForwardOnly(true);
 	for( INT32 j = 0; j < types.count(); ++j )
 	{
 		QString type = types[j];
 
-		QSqlQuery query(UObjectFactory::instance()->findSqlQuery( type ) );
+		query.exec(UObjectFactory::instance()->findSqlQuery( type ) );
 		while( query.isActive() && query.next() )
 		{
 			cUObject *object = UObjectFactory::instance()->createObject( type );
 			UINT16 offset = 2; // Skip the first two fields
 			object->load( &query, offset );
 		}
-		qWarning(QString::number(query.numRowsAffected()));
 	}
 	
-	printf( " done in %0.02fs\n", startTime.msecsTo( QTime::currentTime() ) / 1000 );	
+	printf( " done in %0.02fs\n", startTime.msecsTo( QTime::currentTime() ) / 1000.0f );	
 
 	// Load Temporary Effects
 	archive = cPluginFactory::serializationArchiver(module);
