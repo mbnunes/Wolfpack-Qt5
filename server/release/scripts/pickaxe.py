@@ -10,7 +10,7 @@ import wolfpack.time
 import skills
 import whrandom
 import wolfpack.utilities
-from wolfpack.consts import GRAY, LAYER_MOUNT
+from wolfpack.consts import GRAY, LAYER_MOUNT, MINING
 
 def onUse( char, tool ):
 	#Already digging ?
@@ -41,3 +41,34 @@ def onUse( char, tool ):
 		return True
 
 	return True
+
+
+def onContextCheckVisible( char, target, tag ):
+	if char.hastag( 'stonemining' ) and not char.skill[MINING] < 1000:
+		return True # visible
+
+	return False # not visible
+
+def onContextCheckEnabled( char, target, tag ):
+	if tag == 300:
+		if char.hastag( "mining" ) and char.gettag( "mining" ) == "ore":
+			return False # disabled
+	if tag == 301:
+		if char.gettag( "mining" ) == "ore,stone":
+			return False # disabled
+	return True # enabled
+
+def onContextEntry( char, target, tag  ):
+	if tag == 300:
+		if char.hastag( "mining" ) and char.gettag( "mining" ) == "ore":
+			char.socket.clilocmessage( 1054021 ) # You are already set to mine only ore!
+			return True
+		char.settag( "mining", "ore" )
+		char.socket.clilocmessage( 1054020 ) # You are now set to mine only ore.
+		
+	if tag == 301:
+		if char.hastag( "mining" ) and char.gettag( "mining" ) == "ore,stone":
+			char.socket.clilocmessage( 1054023 ) # You are already set to mine both ore and stone!
+			return True
+		char.settag( "mining", "ore,stone" )
+		char.socket.clilocmessage( 1054022 ) # You are now set to mine both ore and stone
