@@ -25,8 +25,8 @@ fishingItems = [
 	# You specify M and I plus a minimum skill level here
 	# At the moment only linear graphs are possible
 	# Minimum Skill (0-1000), M, I, List of IDs
-	[ 0, -1, 110, [ 'item1', 'item2' ], 'shoes' ], # If the value becomes negative we don't care it's omitted then
-	[ 0,  1, 0, [ 'fish1', 'fish2' ], 'fish' ]
+	[ 0, -1, 110, [ '170f', '1710', '1711', '1712', '170b', '170c' ], 'shoes' ], # If the value becomes negative we don't care it's omitted then
+	[ 0,  1, 0, [ '9cc', '9cd', '9ce', '9cf' ], 'a fish' ]
 ]
 
 def onUse( char, item ):
@@ -191,8 +191,8 @@ def getFish( fishSkill, deepwater ):
 	return ( itemid, itemname )
 	
 def findResourceGem( pos ):
-	xBlock = int( floor( pos.x / 8 ) )
-	yBlock = int( floor( pos.y / 8 ) )
+	xBlock = int( floor( pos.x / 8 ) ) * 8
+	yBlock = int( floor( pos.y / 8 ) ) * 8
 	
 	items = wolfpack.items( xBlock, yBlock, pos.map, 1 ) # 1: Exact
 
@@ -248,8 +248,7 @@ def itemtimer( char, args ):
 			resource.visible = 0 # GM Visible only
 			
 			pos = args[ 0 ]
-
-			resource.moveto( wolfpack.coord( int( floor( pos.x / 8 ) ), int( floor( pos.y / 8 ) ), z, map ) )
+			resource.moveto( wolfpack.coord( int( floor( pos.x / 8 ) ) * 8, int( floor( pos.y / 8 ) ) * 8, pos.z, pos.map ) )
 			resource.decay = 1
 			resource.decaytime = wolfpack.time.servertime() + ( FISHING_REFILLTIME * 1000 )
 			resource.update() # Send to GMs
