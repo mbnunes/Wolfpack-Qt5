@@ -276,6 +276,7 @@ int main( int argc, char **argv )
 
 #ifdef Q_OS_UNIX
 	bool run_background = false;
+	bool use_pidfile = false;
 	char *pidfile;
 
 	for( i = 1; i < argc; i++ )
@@ -296,8 +297,9 @@ int main( int argc, char **argv )
 					break;
 
 				case 'p':
-					if( run_background == true )
+					if( run_background == true && use_pidfile == false )
 					{
+						use_pidfile = true;
 						pidfile = argv[i+1];
 						pidfile_add( pidfile );
 					}
@@ -627,7 +629,8 @@ int main( int argc, char **argv )
 	Console::instance()->stop(); // Stop the Console
 
 #ifdef Q_OS_UNIX
-	pidfile_del( pidfile );
+	if( use_pidfile == true )
+		pidfile_del( pidfile );
 #endif
 
 	return 0;
