@@ -7,22 +7,20 @@
 =================================================================
 -->
 <definitions>
+
 	<list id="carve_chicken">
 		<item>9f1,1</item> <!-- meat -->
 		<item>1bd1,25</item> <!-- feather -->
 	</list>
-	
+
 	<list id="carve_bird">
 		<item>9f1,1</item> <!-- meat -->
 		<item>1bd1,25</item> <!-- feather -->
 	</list>
-	
+
 	<list id="carve_eagle">
 		<item>9b9,1</item> <!-- raw bird -->
 		<item>1bd1,36</item> <!-- feather -->
 	</list>
 
-	
-	
-	
 </definitions>

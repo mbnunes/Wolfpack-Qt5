@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<menu id="CRAFTMENU_CARTOGRAPHY">
 		<name>Cartography</name>
 		<menu inherit="CARTOGRAPHY_WORLD"/>
@@ -15,6 +16,7 @@
 		<menu inherit="CARTOGRAPHY_DETAL"/>
 		<menu inherit="CARTOGRAPHY_CITY"/>
 	</menu>
+
 	<menu id="CARTOGRAPHY_CITY">
 		<name>City maps</name>
 		<menu inherit="CARTOGRAPHY_CITY_BRITAIN"/>
@@ -734,4 +736,5 @@
 			<success>You succeded in making the map</success>
 		</action>
 	</menu>
+
 </definitions>

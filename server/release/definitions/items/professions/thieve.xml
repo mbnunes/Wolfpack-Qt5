@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="14fb">
 		<id>0x14fb</id>
 		<category>Professions\Thieve\Lockpick (W/E)</category>
@@ -43,4 +44,5 @@
 		<events>pickpocket_dip</events>
 		<category>Professions\Thieve\Pickpocket Dip (Animated)</category>
 	</item>
+
 </definitions>

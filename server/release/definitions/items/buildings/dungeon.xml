@@ -377,7 +377,7 @@
 		<category>Dungeon\Spiderwebs\Spiderweb 1</category>
 		<events>spiderweb</events>
 		<maxhealth>100</maxhealth>
-		<health>100</health>		
+		<health>100</health>
 	</item>
 
 	<item id="ee4" inherit="ee4">
@@ -4689,4 +4689,5 @@
 		<nodecay />
 		<category>Dungeon\Pentagram\Pentagram 9</category>
 	</item>
+
 </definitions>

@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="e24">
 		<id>0x0e24</id>
 		<category>Professions\Alchemist\Empty Vials</category>
@@ -586,4 +587,5 @@
 		<events>potionkeg</events>
 		<movable /> <!-- Always movable -->
 	</item>
+
 </definitions>

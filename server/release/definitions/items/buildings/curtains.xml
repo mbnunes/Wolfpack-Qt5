@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- Red Curtains -->
 	<item id="980">
 		<id>0x0980</id>
@@ -291,4 +292,5 @@
 		<nodecay />
 		<categories>Decoration\Curtains\Small Red Curtain\Red Curtain 2</categories>
 	</item>
+
 </definitions>

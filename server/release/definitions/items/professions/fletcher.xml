@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="dfa">
 		<id>0x0dfa</id>
 		<category>Professions\Fletcher\Decorative Feathers 1</category>
@@ -76,7 +77,7 @@
 	<item id="1bfb">
 		<id>0x1bfb</id>
     <weight>0.1</weight>
-		<category>Professions\Fletcher\Crossbow Bolt</category>		
+		<category>Professions\Fletcher\Crossbow Bolt</category>
 	</item>
 
 	<item id="1bfc">
@@ -91,7 +92,7 @@
 
 	<item id="1bd1">
 		<id>0x1bd1</id>
-		<category>Professions\Fletcher\Feather</category>		
+		<category>Professions\Fletcher\Feather</category>
     <weight>0.1</weight>
 	</item>
 
@@ -119,4 +120,6 @@
 		<id>0x1bd6</id>
 		<category>Professions\Fletcher\Shafts 2</category>
 	</item>
+
 </definitions>
+

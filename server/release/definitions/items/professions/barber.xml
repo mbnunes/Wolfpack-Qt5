@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="dfc">
 		<id>0x0dfc</id>
 		<category>Professions\Barber\Barber Scissors (W/E)</category>
@@ -104,10 +105,10 @@
 		<category>Professions\Barber\Wig 6 (W/E)</category>
 	</item>
 
-  <item id="hairstyle_deed">
-    <id>0x14f0</id>
-    <category>Professions\Barber\Hairstyle Deed</category>
-    <events>deeds.hairstyle</events>
-  </item>
+	<item id="hairstyle_deed">
+		<id>0x14f0</id>
+		<category>Professions\Barber\Hairstyle Deed</category>
+		<events>deeds.hairstyle</events>
+	</item>
 
 </definitions>

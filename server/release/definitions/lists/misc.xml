@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<list id="TEST_CARVE">
 		<item>9f1,10</item>
 	</list>
@@ -18,4 +19,5 @@
 		<item>GAMEPLAY</item>
 		<item>BUILD</item>
 	</list>
+
 </definitions>

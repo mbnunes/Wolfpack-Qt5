@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- Dont create this as a normal item -->
 	<item id="base_book">
 		<value>130</value>
@@ -14,7 +15,7 @@
 		<weight>1.0</weight> <!-- A bit low i think -->
 		<type>11</type>
 		<events>book</events>
-	</item>	
+	</item>
 
 	<!-- Book 1 -->
 	<item id="fef">
@@ -100,4 +101,5 @@
 		<id>0x1e25</id>
 		<category>Equipment\Books\Books 5</category>
 	</item>
+
 </definitions>

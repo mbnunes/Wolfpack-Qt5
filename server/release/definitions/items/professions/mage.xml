@@ -42,7 +42,7 @@
 		<sellprice>1250</sellprice>
 		<category>Professions\Mage\Runebook </category>
 		<events>magic.runebook</events>
-	</item>		
+	</item>
 
 	<!-- Recall Runes -->
 	<item id="1f14">
@@ -72,9 +72,9 @@
 		<id>0x1f17</id>
 		<category>Professions\Mage\Runes\Recall Rune (4)</category>
 	</item>
-	
+
 	<!-- Scrolls -->
-	
+
 	<!-- Clumsy Scroll -->
 	<item id="1f2e">
 		<id>0x1f2e</id>
@@ -86,7 +86,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Clumsy</category>
 	</item>
-	
+
 	<!-- Create Food Scroll -->
 	<item id="1f2f">
 		<id>0x1f2f</id>
@@ -98,7 +98,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Create Food</category>
 	</item>
-	
+
 	<!-- Feeblemind Scroll -->
 	<item id="1f30">
 		<id>0x1f30</id>
@@ -110,7 +110,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Feeblemind</category>
 	</item>
-	
+
 	<!-- Heal Scroll -->
 	<item id="1f31">
 		<id>0x1f31</id>
@@ -120,9 +120,9 @@
 		<buyprice>12</buyprice>
 		<sellprice>6</sellprice>
 		<weight>0.02</weight>
-		<category>Professions\Mage\Scrolls\Heal</category>		
+		<category>Professions\Mage\Scrolls\Heal</category>
 	</item>
-	
+
 	<!-- Magic Arrow Scroll -->
 	<item id="1f32">
 		<id>0x1f32</id>
@@ -134,7 +134,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Magic Arrow</category>
 	</item>
-	
+
 	<!-- Night Site Scroll -->
 	<item id="1f33">
 		<id>0x1f33</id>
@@ -146,7 +146,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Night Sight</category>
 	</item>
-	
+
 	<!-- Reactive Armor Scroll -->
 	<item id="1f2d">
 		<id>0x1f2d</id>
@@ -158,7 +158,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Reactive Armor</category>
 	</item>
-	
+
 	<!-- Weaken Scroll -->
 	<item id="1f34">
 		<id>0x1f34</id>
@@ -170,7 +170,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Weaken</category>
 	</item>
-	
+
 	<!-- Agility Scroll -->
 	<item id="1f35">
 		<id>0x1f35</id>
@@ -182,7 +182,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Agility</category>
 	</item>
-	
+
 	<!-- Cunning Scroll -->
 	<item id="1f36">
 		<id>0x1f36</id>
@@ -194,7 +194,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Cunning</category>
 	</item>
-	
+
 	<!-- Cure Scroll -->
 	<item id="1f37">
 		<id>0x1f37</id>
@@ -206,7 +206,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Cure</category>
 	</item>
-	
+
 	<!-- Harm Scroll -->
 	<item id="1f38">
 		<id>0x1f38</id>
@@ -216,9 +216,9 @@
 		<buyprice>22</buyprice>
 		<sellprice>11</sellprice>
 		<weight>0.02</weight>
-		<category>Professions\Mage\Scrolls\Harm</category>		
+		<category>Professions\Mage\Scrolls\Harm</category>
 	</item>
-	
+
 	<!-- Magic Trap Scroll -->
 	<item id="1f39">
 		<id>0x1f39</id>
@@ -230,7 +230,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Magic Trap</category>
 	</item>
-	
+
 	<!-- Magic Untrap Scroll -->
 	<item id="1f3a">
 		<id>0x1f3a</id>
@@ -242,7 +242,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Magic Untrap</category>
 	</item>
-	
+
 	<!-- Protection Scroll -->
 	<item id="1f3b">
 		<id>0x1f3b</id>
@@ -254,7 +254,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Protection</category>
 	</item>
-	
+
 	<!-- Strength Scroll -->
 	<item id="1f3c">
 		<id>0x1f3c</id>
@@ -266,7 +266,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Strength</category>
 	</item>
-	
+
 	<!-- Bless Scroll -->
 	<item id="1f3d">
 		<id>0x1f3d</id>
@@ -278,7 +278,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Bless</category>
 	</item>
-	
+
 	<!-- Fireball Scroll -->
 	<item id="1f3e">
 		<id>0x1f3e</id>
@@ -290,7 +290,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Fireball</category>
 	</item>
-	
+
 	<!-- Magic Lock Scroll -->
 	<item id="1f3f">
 		<id>0x1f3f</id>
@@ -302,7 +302,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Magic Lock</category>
 	</item>
-	
+
 	<!-- Poison Scroll -->
 	<item id="1f40">
 		<id>0x1f40</id>
@@ -314,7 +314,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Poison</category>
 	</item>
-	
+
 	<!-- Telekinesis Scroll -->
 	<item id="1f41">
 		<id>0x1f41</id>
@@ -326,7 +326,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Telekinesis</category>
 	</item>
-	
+
 	<!-- Teleport Scroll -->
 	<item id="1f42">
 		<id>0x1f42</id>
@@ -338,7 +338,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Teleport</category>
 	</item>
-	
+
 	<!-- Unlock Scroll -->
 	<item id="1f43">
 		<id>0x1f43</id>
@@ -350,7 +350,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Unlock</category>
 	</item>
-	
+
 	<!-- Wall of Stone Scroll -->
 	<item id="1f44">
 		<id>0x1f44</id>
@@ -362,7 +362,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Wall of Stone</category>
 	</item>
-	
+
 	<!-- Archcure Scroll -->
 	<item id="1f45">
 		<id>0x1f45</id>
@@ -374,7 +374,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Arch Cure</category>
 	</item>
-	
+
 	<!-- Arch Protection Scroll -->
 	<item id="1f46">
 		<id>0x1f46</id>
@@ -386,7 +386,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Arch Protection</category>
 	</item>
-	
+
 	<!-- Curse Scroll -->
 	<item id="1f47">
 		<id>0x1f47</id>
@@ -398,7 +398,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Curse</category>
 	</item>
-	
+
 	<!-- Fire Field Scroll -->
 	<item id="1f48">
 		<id>0x1f48</id>
@@ -410,7 +410,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Fire Field</category>
 	</item>
-	
+
 	<!-- Greater Heal Scroll -->
 	<item id="1f49">
 		<id>0x1f49</id>
@@ -422,7 +422,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Greater Heal</category>
 	</item>
-	
+
 	<!-- Lightning Scroll -->
 	<item id="1f4a">
 		<id>0x1f4a</id>
@@ -434,7 +434,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Lightning</category>
 	</item>
-	
+
 	<!-- Mana Drain Scroll -->
 	<item id="1f4b">
 		<id>0x1f4b</id>
@@ -446,7 +446,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Mana Drain</category>
 	</item>
-	
+
 	<!-- Recall Scroll -->
 	<item id="1f4c">
 		<id>0x1f4c</id>
@@ -458,7 +458,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Recall</category>
 	</item>
-	
+
 	<!-- Blade Spirits Scroll -->
 	<item id="1f4d">
 		<id>0x1f4d</id>
@@ -470,7 +470,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Blade Spirits</category>
 	</item>
-	
+
 	<!-- Dispel Field Scroll -->
 	<item id="1f4e">
 		<id>0x1f4e</id>
@@ -482,7 +482,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Dispel Field</category>
 	</item>
-	
+
 	<!-- Incognito Scroll -->
 	<item id="1f4f">
 		<id>0x1f4f</id>
@@ -494,7 +494,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Incognito</category>
 	</item>
-	
+
 	<!-- Magic Reflection Scroll -->
 	<item id="1f50">
 		<id>0x1f50</id>
@@ -506,7 +506,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Magic Reflection</category>
 	</item>
-	
+
 	<!-- Mind Blast Scroll -->
 	<item id="1f51">
 		<id>0x1f51</id>
@@ -518,7 +518,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Mind Blast</category>
 	</item>
-	
+
 	<!-- Paralyze Scroll -->
 	<item id="1f52">
 		<id>0x1f52</id>
@@ -530,7 +530,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Paralyze</category>
 	</item>
-	
+
 	<!-- Poison Field Scroll -->
 	<item id="1f53">
 		<id>0x1f53</id>
@@ -542,7 +542,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Poison Field</category>
 	</item>
-	
+
 	<!-- Summon Creature Scroll -->
 	<item id="1f54">
 		<id>0x1f54</id>
@@ -554,7 +554,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Summon Creature</category>
 	</item>
-	
+
 	<!-- Dispel Scroll -->
 	<item id="1f55">
 		<id>0x1f55</id>
@@ -566,7 +566,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Dispel Scroll</category>
 	</item>
-	
+
 	<!-- Energy Bolt Scroll -->
 	<item id="1f56">
 		<id>0x1f56</id>
@@ -578,7 +578,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Energy Bolt</category>
 	</item>
-	
+
 	<!-- Explosion Scroll -->
 	<item id="1f57">
 		<id>0x1f57</id>
@@ -590,7 +590,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Explosion</category>
 	</item>
-	
+
 	<!-- Invisibility Scroll -->
 	<item id="1f58">
 		<id>0x1f58</id>
@@ -602,7 +602,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Invisibility</category>
 	</item>
-	
+
 	<!-- Mark Scroll -->
 	<item id="1f59">
 		<id>0x1f59</id>
@@ -614,7 +614,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Mark</category>
 	</item>
-	
+
 	<!-- Mass Curse Scroll -->
 	<item id="1f5a">
 		<id>0x1f5a</id>
@@ -626,7 +626,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Mass Curse</category>
 	</item>
-	
+
 	<!-- Paralyze Field Scroll -->
 	<item id="1f5b">
 		<id>0x1f5b</id>
@@ -638,7 +638,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Paralyze Field</category>
 	</item>
-	
+
 	<!-- Reveal Scroll -->
 	<item id="1f5c">
 		<id>0x1f5c</id>
@@ -650,7 +650,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Reveal</category>
 	</item>
-	
+
 	<!-- Chain Lightning Scroll -->
 	<item id="1f5d">
 		<id>0x1f5d</id>
@@ -662,7 +662,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Chain Lightning</category>
 	</item>
-	
+
 	<!-- Energy Field Scroll -->
 	<item id="1f5e">
 		<id>0x1f5e</id>
@@ -674,7 +674,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Energy Field</category>
 	</item>
-	
+
 	<!-- Flamestrike Scroll -->
 	<item id="1f5f">
 		<id>0x1f5f</id>
@@ -686,7 +686,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Flamestrike</category>
 	</item>
-	
+
 	<!-- Gate Travel Scroll -->
 	<item id="1f60">
 		<id>0x1f60</id>
@@ -698,7 +698,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Gate Travel</category>
 	</item>
-	
+
 	<!-- Mana Vampire Scroll -->
 	<item id="1f61">
 		<id>0x1f61</id>
@@ -710,7 +710,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Mana Vampire</category>
 	</item>
-	
+
 	<!-- Mass Dispel Scroll -->
 	<item id="1f62">
 		<id>0x1f62</id>
@@ -722,7 +722,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Mass Dispel</category>
 	</item>
-	
+
 	<!-- Meteor Swarm Scroll -->
 	<item id="1f63">
 		<id>0x1f63</id>
@@ -734,7 +734,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Meteor Swarm</category>
 	</item>
-	
+
 	<!-- Polymorph Scroll -->
 	<item id="1f64">
 		<id>0x1f64</id>
@@ -746,7 +746,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Polymorph</category>
 	</item>
-	
+
 	<!-- Earthquake Scroll -->
 	<item id="1f65">
 		<id>0x1f65</id>
@@ -758,7 +758,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Earthquake</category>
 	</item>
-	
+
 	<!-- Energy Vortex Scroll -->
 	<item id="1f66">
 		<id>0x1f66</id>
@@ -770,7 +770,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Energy Vortex</category>
 	</item>
-	
+
 	<!-- Resurrection Scroll -->
 	<item id="1f67">
 		<id>0x1f67</id>
@@ -782,7 +782,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Resurrection</category>
 	</item>
-	
+
 	<!-- Summon Air Elemental Scroll -->
 	<item id="1f68">
 		<id>0x1f68</id>
@@ -794,7 +794,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Summon Air Elemental</category>
 	</item>
-	
+
 	<!-- Summon Daemon Scroll -->
 	<item id="1f69">
 		<id>0x1f69</id>
@@ -806,7 +806,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Summon Daemon</category>
 	</item>
-	
+
 	<!-- Summon Earth Elemental Scroll -->
 	<item id="1f6a">
 		<id>0x1f6a</id>
@@ -818,7 +818,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Summon Earth Elemental</category>
 	</item>
-	
+
 	<!-- Summon Fire Elemental Scroll -->
 	<item id="1f6b">
 		<id>0x1f6b</id>
@@ -830,7 +830,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Summon Fire Elemental</category>
 	</item>
-	
+
 	<!-- Summon Water Elemental Scroll -->
 	<item id="1f6c">
 		<id>0x1f6c</id>
@@ -842,7 +842,7 @@
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Summon Water Elemental</category>
 	</item>
-	
+
 	<!-- Wands -->
 	<item id="df2">
 		<id>0x0df2</id>
@@ -971,11 +971,12 @@
 		<id>0x1f72</id>
 		<category>Professions\Mage\Scroll 9 (W/E)</category>
 	</item>
-	
+
 	<!-- Inscription Tool ? -->
 	<item id="scribes_pen">
 		<name>#1044168</name>
 		<id>0x0fbf</id>
 		<category>Professions\Mage\Pen &amp; Ink (N/S)</category>
-	</item>	
+	</item>
+
 </definitions>

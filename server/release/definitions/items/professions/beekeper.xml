@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="91a">
 		<id>0x091a</id>
 		<category>Professions\Beekeper\Beehive</category>
@@ -83,4 +84,5 @@
 		<id>0x142b</id>
 		<category>Professions\Beekeper\Pot of Wax 2</category>
 	</item>
+
 </definitions>

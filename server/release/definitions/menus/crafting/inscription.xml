@@ -7,9 +7,9 @@
 =================================================================
 -->
 <definitions>
+
 	<menu id="CRAFTMENU_INSCRIPTION">
 		<name>Inscription</name>
-		
 		<menu inherit="INSCRIPTION_1st" />
 		<menu inherit="INSCRIPTION_2nd" />
 		<menu inherit="INSCRIPTION_3rd" />
@@ -20,15 +20,15 @@
 		<menu inherit="INSCRIPTION_8th" />
 		<menu inherit="INSCRIPTION_other" />
 	</menu>
-	
-	<!-- 
+
+	<!--
 	All of the inscription needs to have the coresponding spell in spellbook.
 	and uses mana.
 	: we will go to python script
 	-->
 	<menu id="INSCRIPTION_1st">
 		<name>1st Circle</name>
-		
+
 		<action type="script">
 			<name>Clumsy</name>
 			<model>0x1f2e</model>
@@ -485,7 +485,7 @@
 			<description>a summon daemon scroll</description>
 			<make script="skills.inscription.summondaemon" />
 		</action>
-		
+
 		<action type="script">
 			<name>Summon Earth Elemental</name>
 			<model>0x1f6a</model>
@@ -510,7 +510,6 @@
 
 	<menu id="INSCRIPTION_other">
 		<name>Others</name>
-		
 		<!--
 		the 'charge' is not calculated at python script : going to python script
 		-->
@@ -532,4 +531,5 @@
 			-->
 		</action>
 	</menu>
+
 </definitions>

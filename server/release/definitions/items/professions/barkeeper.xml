@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="e12">
 		<id>0x0e12</id>
 		<category>Professions\Barkeeper\Chessmen 1</category>
@@ -143,4 +144,5 @@
 		<id>0x1e33</id>
 		<category>Professions\Barkeeper\Dartboard 3 (W/E)</category>
 	</item>
+
 </definitions>

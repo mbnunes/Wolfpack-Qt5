@@ -7,82 +7,96 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="shrink_pig">
 		<id>0x2101</id>
 		<events>shrink</events>
 		<name>shrink pig</name>
 		<weight>0.1</weight>
 	</item>
+
 	<item id="shrink_cow">
 		<id>0x2103</id>
 		<events>shrink</events>
 		<name>shrink cow</name>
 		<weight>0.1</weight>
 	</item>
+
 	<item id="shrink_llama">
 		<id>0x20f6</id>
 		<events>shrink</events>
 		<name>shrink llama</name>
 		<weight>0.1</weight>
 	</item>
+
 	<item id="shrink_sheep">
 		<id>0x20e6</id>
 		<events>shrink</events>
 		<name>shrink sheep</name>
 		<weight>0.1</weight>
 	</item>
+
 	<item id="shrink_cat">
 		<id>0x211b</id>
 		<events>shrink</events>
 		<name>shrink cat</name>
 		<weight>0.1</weight>
 	</item>
+
 	<item id="shrink_dog">
 		<id>0x211c</id>
 		<events>shrink</events>
 		<name>shrink dog</name>
 		<weight>0.1</weight>
 	</item>
+
 	<item id="shrink_horse_1">
 		<id>0x211f</id>
 		<events>shrink</events>
 		<name>shrink horse 1</name>
 		<weight>0.1</weight>
 	</item>
+
 	<item id="shrink_horse_2">
 		<id>0x2120</id>
 		<events>shrink</events>
 		<name>shrink horse 2</name>
 		<weight>0.1</weight>
 	</item>
+
 	<item id="shrink_horse_3">
 		<id>0x2121</id>
 		<events>shrink</events>
 		<name>shrink horse 3</name>
 		<weight>0.1</weight>
 	</item>
+
 	<item id="shrink_horse_4">
 		<id>0x2124</id>
 		<events>shrink</events>
 		<name>shrink horse 4</name>
 		<weight>0.1</weight>
 	</item>
+
 	<item id="shrink_packhorse">
 		<id>0x2126</id>
 		<events>shrink</events>
 		<name>shrink packhorse</name>
 		<weight>0.1</weight>
 	</item>
+
 	<item id="shrink_packllama">
 		<id>0x2127</id>
 		<events>shrink</events>
 		<name>shrink packllama</name>
 		<weight>0.1</weight>
 	</item>
+
 	<item id="shrink_wooly_sheep">
 		<id>0x20eb</id>
 		<events>shrink</events>
 		<name>shrink wooly sheep</name>
 		<weight>0.1</weight>
 	</item>
+
 </definitions>

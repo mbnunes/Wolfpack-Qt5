@@ -13,38 +13,38 @@
 <definitions>
 	<!-- Reagent Bag -->
 	<item id="reagentbag" inherit="e76">
-	  <name>Reagent Bag</name>
-	  <color>0x8AB</color>
-	  <newbie />
-	  <content>
-	    <item id="f7a"><amount>5000</amount></item>
-	    <item id="f7b"><amount>5000</amount></item>
-	    <item id="f84"><amount>5000</amount></item>
-	    <item id="f85"><amount>5000</amount></item>
-	    <item id="f86"><amount>5000</amount></item>
-	    <item id="f88"><amount>5000</amount></item>
-	    <item id="f8c"><amount>5000</amount></item>
-	    <item id="f8d"><amount>5000</amount></item>
-	  </content>
-	  <category>GM Items\Reagent Bag (5000)</category>
+		<name>Reagent Bag</name>
+		<color>0x8AB</color>
+		<newbie />
+		<content>
+		<item id="f7a"><amount>5000</amount></item>
+		<item id="f7b"><amount>5000</amount></item>
+		<item id="f84"><amount>5000</amount></item>
+		<item id="f85"><amount>5000</amount></item>
+		<item id="f86"><amount>5000</amount></item>
+		<item id="f88"><amount>5000</amount></item>
+		<item id="f8c"><amount>5000</amount></item>
+		<item id="f8d"><amount>5000</amount></item>
+		</content>
+		<category>GM Items\Reagent Bag (5000)</category>
 	</item>
-	
+
 	<!-- Alchemy Kit -->
 	<item id="alchemykit" inherit="e76">
-	  <name>Alchemy Bag</name>
-	  <color>0x21</color>
-	  <newbie />
-	  <content>
-	  	<!-- Mortar a. Pestle w. 1000 remaining uses. -->
-	  	<item id="e9b">
-	  		<tag name="remaining_uses" type="int" value="1000" />
-	  	</item>
-	  	<item id="f0e"><amount>1000</amount></item> <!-- 1000 Empty Bottles -->
+		<name>Alchemy Bag</name>
+		<color>0x21</color>
+		<newbie />
+		<content>
+			<!-- Mortar a. Pestle w. 1000 remaining uses. -->
+			<item id="e9b">
+				<tag name="remaining_uses" type="int" value="1000" />
+			</item>
+			<item id="f0e"><amount>1000</amount></item> <!-- 1000 Empty Bottles -->
 			<item id="reagentbag" />
-	  </content>
-	  <category>GM Items\Alchemy Kit</category>
+		</content>
+		<category>GM Items\Alchemy Kit</category>
 	</item>
-	
+
 	<!-- Potion Bag -->
 	<item id="potionbag" inherit="e76">
 		<name>Potion Bag</name>
@@ -65,42 +65,42 @@
 				<tag name="itemdef" value="potion_lesserheal" />
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
-			</item>			
+			</item>
 			<item id="e76">
 				<name>Heal Potions</name>
 				<color>0x8A5</color>
 				<tag name="itemdef" value="potion_heal" />
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
-			</item>					
+			</item>
 			<item id="e76">
 				<name>Greater Heal Potions</name>
 				<color>0x8A5</color>
 				<tag name="itemdef" value="potion_greaterheal" />
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
-			</item>					
+			</item>
 			<item id="e76">
 				<name>Lesser Cure Potions</name>
 				<color>0x2C</color>
 				<tag name="itemdef" value="potion_lessercure" />
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
-			</item>					
+			</item>
 			<item id="e76">
 				<name>Cure Potions</name>
 				<color>0x2C</color>
 				<tag name="itemdef" value="potion_cure" />
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
-			</item>								
+			</item>
 			<item id="e76">
 				<name>Greater Cure Potions</name>
 				<color>0x2C</color>
 				<tag name="itemdef" value="potion_greatercure" />
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
-			</item>								
+			</item>
 			<item id="e76">
 				<name>Agility Potions</name>
 				<color>0xC4</color>
@@ -121,14 +121,14 @@
 				<tag name="itemdef" value="potion_strength" />
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
-			</item>			
+			</item>
 			<item id="e76">
 				<name>Greater Strength Potions</name>
 				<color>0x835</color>
 				<tag name="itemdef" value="potion_greaterstrength" />
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
-			</item>			
+			</item>
 			<item id="e76">
 				<name>Lesser Explosion Potions</name>
 				<color>0x79</color>
@@ -142,7 +142,7 @@
 				<tag name="itemdef" value="potion_explosion" />
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
-			</item>			
+			</item>
 			<item id="e76">
 				<name>Greater Explosion Potions</name>
 				<color>0x79</color>
@@ -163,7 +163,7 @@
 				<tag name="itemdef" value="potion_poison" />
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
-			</item>						
+			</item>
 			<item id="e76">
 				<color>0x44</color>
 				<name>Greater Poison Potions</name>
@@ -178,9 +178,9 @@
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
 			</item>
-			<item id="e76">			
+			<item id="e76">
 				<color>0x21</color>
-				<name>Refresh Potions</name>				
+				<name>Refresh Potions</name>
 				<tag name="itemdef" value="potion_refresh" />
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
@@ -194,7 +194,7 @@
 			</item>
 		</content>
 	</item>
-	
+
 	<!-- Weapon Bag -->
 	<item id="weaponbag" inherit="e76">
 		<name>Weapon Bag</name>
@@ -203,8 +203,8 @@
 		<content>
 			<!-- Arrows + Bolts -->
 			<item id="f3f"><amount>1000</amount></item>
-			<item id="1bfb"><amount>1000</amount></item>						
-		
+			<item id="1bfb"><amount>1000</amount></item>
+
 			<!-- Archery Weapons -->
 			<item id="e76">
 				<name>Archery Weapons</name>
@@ -215,7 +215,7 @@
 					<item id="f4f" />  <!-- Crossbow -->
 					<item id="13fd" /> <!-- Heavy Crossbow -->
 				</content>
-			</item>			
+			</item>
 			<!-- Fencing Weapons -->
 			<item id="e76">
 				<name>Fencing Weapons</name>
@@ -230,7 +230,7 @@
 					<item id="f62" /> <!-- Spear -->
 					<item id="1403" /> <!-- Short Spear -->
 				</content>
-			</item>			
+			</item>
 			<!-- Macefighting Weapons -->
 			<item id="e76">
 				<name>Macefighting Weapons</name>
@@ -250,7 +250,7 @@
 					<item id="13b0" /> <!-- War Axe -->
 					<item id="1439" /> <!-- War Hammer -->
 				</content>
-			</item>					
+			</item>
 			<!-- Macefighting Weapons -->
 			<item id="e76">
 				<name>Swordsmanship Weapons</name>
@@ -276,15 +276,15 @@
 					<item id="f61" /> <!-- LongSword -->
 					<item id="26cf" /> <!-- Paladin Sword -->
 					<item id="e86" /> <!-- Pickaxe -->
-					<item id="13b6" /> <!-- Scimitar -->					
+					<item id="13b6" /> <!-- Scimitar -->
 					<item id="26c4" /> <!-- Scythe -->
 					<item id="ec4" /> <!-- Skinning Knife -->
 					<item id="1443" /> <!-- Two Handed Axe -->
 				</content>
-			</item>				
+			</item>
 		</content>
 	</item>
-	
+
 	<!-- A small selection of food products -->
 	<item id="foodbag" inherit="e76">
 		<name>Foodbag</name>
@@ -303,4 +303,5 @@
 			<item id="c77"><amount>100</amount></item>
 		</content>
 	</item>
+
 </definitions>

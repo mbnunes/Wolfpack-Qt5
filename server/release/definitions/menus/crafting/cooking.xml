@@ -7,18 +7,18 @@
 =================================================================
 -->
 <definitions>
+
 	<menu id="CRAFTMENU_COOKING">
 		<name>Cooker Menu</name>
-		
 		<menu inherit="COOKING_resources1" />
 		<menu inherit="COOKING_resources2" />
 		<menu inherit="COOKING_bake" />
 		<menu inherit="COOKING_barbecue" />
 	</menu>
-	
+
 	<menu id="COOKING_resources1">
 		<name>Cooking Resource</name>
-		
+
 		<action type="script">
 			<name>Sack of Flour</name>
 			<model>0x1039</model>
@@ -277,4 +277,5 @@
 
 	<menu id="COOKING_barbecue">
 	</menu>
+
 </definitions>

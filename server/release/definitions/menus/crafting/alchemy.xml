@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<menu id="ALCHEMY" name="Alchemy">
 		<menu id="ALCHEMY_REFRESH" />
 		<menu id="ALCHEMY_AGILITY" />
@@ -17,7 +18,7 @@
 		<menu id="ALCHEMY_CURE" />
 		<menu id="ALCHEMY_EXPLOSION" />
 	</menu>
-	
+
 	<menu id="ALCHEMY_REFRESH" name="Refresh">
 		<craft definition="potion_refresh" name="Refresh Potion">
 			<alchemy min="-250" max="250" />
@@ -30,7 +31,7 @@
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
 	</menu>
-	
+
 	<menu id="ALCHEMY_AGILITY" name="Agility">
 		<craft definition="potion_agility" name="Agility Potion">
 			<alchemy min="150" max="650" />
@@ -43,7 +44,7 @@
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
 	</menu>
-	
+
 	<menu id="ALCHEMY_NIGHTSIGHT" name="Nightsight">
 		<craft definition="potion_nightsight" name="Nightsight Potion">
 			<alchemy min="-250" max="250" />
@@ -51,7 +52,7 @@
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
 	</menu>
-	
+
 	<menu id="ALCHEMY_HEAL" name="Heal">
 		<craft definition="potion_lesserheal" name="Lesser Heal Potion">
 			<alchemy min="-250" max="250" />
@@ -69,7 +70,7 @@
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
 	</menu>
-	
+
 	<menu id="ALCHEMY_STRENGTH" name="Strength">
 		<craft definition="potion_strength" name="Strength Potion">
 			<alchemy min="250" max="750" />
@@ -105,7 +106,7 @@
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
 	</menu>
-	
+
 	<menu id="ALCHEMY_CURE" name="Cure">
 		<craft definition="potion_lessercure" name="Lesser Cure Potion">
 			<alchemy min="-100" max="400" />
@@ -123,7 +124,7 @@
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
 	</menu>
-	
+
 	<menu id="ALCHEMY_EXPLOSION" name="Explosion">
 		<craft definition="potion_lesserexplosion" name="Lesser Explosion Potion">
 			<alchemy min="50" max="550" />
@@ -141,4 +142,5 @@
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
 	</menu>
+
 </definitions>

@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- Metal Door 1-->
 	<item id="675">
 		<id>0x675</id>
@@ -1068,4 +1069,5 @@
 		<nodecay />
 		<events>door</events>
 	</item>
+
 </definitions>

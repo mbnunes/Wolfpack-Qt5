@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="f65">
 		<id>0x0f65</id>
 		<category>Professions\Artist\Canvas 1</category>
@@ -68,7 +69,7 @@
 		<id>0x0f76</id>
 		<category>Professions\Artist\Rack of Canvases 6</category>
 	</item>
-	
+
 	<item id="fbf">
 		<id>0x0fbf</id>
 		<category>Professions\Artist\Pen &amp; Ink (W/E)</category>

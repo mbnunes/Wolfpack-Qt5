@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="faf" inherit="ITEM_NO_DECAY">
 		<id>0x0faf</id>
 		<category>Professions\Blacksmith\Anvil (N/S)</category>

@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="e2d">
 		<id>0x0e2d</id>
 		<category>Professions\Gipsy\Crystal Ball 1</category>
@@ -68,4 +69,5 @@
 		<id>0x12ac</id>
 		<category>Professions\Gipsy\Tarot 8</category>
 	</item>
+
 </definitions>

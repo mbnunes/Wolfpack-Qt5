@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-    <!-- Copper Coins -->
+	<!-- Copper Coins -->
 	<item id="eea">
 		<id>0xeea</id>
 		<category>Equipment\Coins\Copper Coin</category>
@@ -24,7 +24,7 @@
 		<category>Equipment\Coins\Copper Coins 2</category>
 	</item>
 
-    <!-- Gold Coins -->
+	<!-- Gold Coins -->
 	<item id="eed">
 		<id>0xeed</id>
 		<category>Equipment\Coins\Gold Coin</category>

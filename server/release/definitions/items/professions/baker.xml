@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="1039">
 		<id>0x1039</id>
 		<category>Professions\Baker\Sack of Flour (W/E)</category>
@@ -241,6 +242,7 @@
 
 	<item id="1ebd">
 		<id>0x1ebd</id>
-        <category>Professions\Baker\Sheaf of Wheat</category>
+		<category>Professions\Baker\Sheaf of Wheat</category>
 	</item>
+
 </definitions>

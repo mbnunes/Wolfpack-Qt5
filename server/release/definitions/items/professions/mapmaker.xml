@@ -78,10 +78,11 @@
 		<id>0x14f6</id>
 		<category>Professions\Mapmaker\Spyglass (N/S)</category>
 	</item>
-	
+
 	<item id="mapmakers_pen">
 		<id>0x0fbf</id>
 		<name>#1044167</name>
 		<category>Professions\Mapmaker\Pen &amp; Ink</category>
 	</item>
+
 </definitions>

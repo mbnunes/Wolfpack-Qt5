@@ -2438,7 +2438,7 @@
 		<category>Misc\Cannon\Short Cannon (E/W) (2/2)</category>
 	</item>
 
-		<!-- Ammunition -->
+	<!-- Ammunition -->
 	<item id="e73">
 		<id>0xe73</id>
 		<nodecay />

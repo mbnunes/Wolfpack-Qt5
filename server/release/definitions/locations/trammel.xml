@@ -20,46 +20,46 @@
 	<location id="trammel britain hall of virtues" category="Trammel\Towns\Britain\Hall of Virtues">1554,1610,11,1</location>
 	<location id="trammel lord blackthorns castle" category="Trammel\Towns\Britain\Lord Blackthornes Castle">1523,1456,15,1</location>
 	<location id="trammel lord british castle" category="Trammel\Towns\Britain\Lord British Castle">1401,1625,28,1</location>
-	
+
 	<!-- Bucaneers Den -->
 	<location id="trammel bucaneers den bathouse" category="Trammel\Towns\Bucaneers Den\Bath House">2667,2084,5,1</location>
 	<location id="trammel bucaneers den docks" category="Trammel\Towns\Bucaneers Den\Docks">2736,2166,1,1</location>
 	<location id="trammel bucaneers den" category="Trammel\Towns\Bucaneers Den\Tavern">2691,2233,2,1</location>
-	
+
 	<!-- Cove -->
 	<location id="trammel cove cemetary" category="Trammel\Towns\Cove\Cemetary">2437,1098,8,1</location>
 	<location id="trammel cove" category="Trammel\Towns\Cove\Center">2246,1214,0,1</location>
-	
+
 	<!-- Jhelom -->
 	<location id="trammel jhelom docks" category="Trammel\Towns\Jhelom\Docks">1485,3695,0,1</location>
 	<location id="trammel jhelom farm" category="Trammel\Towns\Jhelom\Farm">1131,3606,0,1</location>
 	<location id="trammel jhelom fighting pit" category="Trammel\Towns\Jhelom\Fighting Pit">1397,3745,-20,1</location>
 	<location id="trammel jhelom tailor" category="Trammel\Towns\Jhelom\Jheloms Fine Tailoring">1460,4011,0,1</location>
 	<location id="trammel jhelom inn" category="Trammel\Towns\Jhelom\Inn">1376,3817,0,1</location>
-	
+
 	<!-- Minoc -->
 	<location id="trammel minoc" category="Trammel\Towns\Minoc\Center">2466,443,15,1</location>
 	<location id="trammel minoc mining camp" category="Trammel\Towns\Minoc\Mining Camp">2585,528,15,1</location>
 	<location id="trammel minoc stables" category="Trammel\Towns\Minoc\Stables">2527,378,23,1</location>
-	
+
 	<!-- Moonglow -->
 	<location id="trammel moonglow cemetary" category="Trammel\Towns\Moonglow\Cemetary">4549,1330,8,1</location>
 	<location id="trammel moonglow lycaeum" category="Trammel\Towns\Moonglow\Lycaeum">4310,1007,0,1</location>
 	<location id="trammel moonglow bank" category="Trammel\Towns\Moonglow\Bank">4471,1178,0,1</location>
-	
+
 	<!-- Njuhelm -->
 	<location id="trammel njuhelm" category="Trammel\Towns\Njuhelm\Center">3756,1244,0,1</location>
 	<location id="trammel njuhelm market" category="Trammel\Towns\Njuhelm\Market">3554,1187,0,1</location>
 	<location id="trammel njuhelm palace" category="Trammel\Towns\Njuhelm\Palace">3703,1282,20,1</location>
-	
+
 	<!-- Occlo -->
 	<location id="trammel occlo" category="Trammel\Towns\Occlo\Bank">3686,2519,0,1</location>
 	<location id="trammel occlo smithy" category="Trammel\Towns\Occlo\Smithy">3642,2595,0,1</location>
-	
+
 	<!-- Serpents Hold -->
 	<location id="trammel serpents hold" category="Trammel\Towns\Serpents Hold\Center">3021,3397,15,1</location>
 	<location id="trammel serpents hold entrance" category="Trammel\Towns\Serpents Hold\Outside Gates">2980,3387,15,1</location>
-	
+
 	<!-- Skara Brae -->
 	<location id="trammel skara brae" category="Trammel\Towns\Skara Brae\Bank">591,2147,0,1</location>
 	<location id="trammel skara brae guild hall" category="Trammel\Towns\Skara Brae\Guild Hall">619,2131,0,1</location>
@@ -67,7 +67,7 @@
 	<location id="trammel skara brae pleasure" category="Trammel\Towns\Skara Brae\Shear Pleasure">650,2184,0,1</location>
 	<location id="trammel skara brae supplies" category="Trammel\Towns\Skara Brae\Sundry Supplies">584,2227,0,1</location>
 	<location id="trammel skara brae Bowman" category="Trammel\Towns\Skara Brae\Bowman">595,2211,0,1</location>
-	
+
 	<!-- Trinsic -->
 	<location id="trammel trinsic bank" category="Trammel\Towns\Trinsic\Bank">1815,2822,0,1</location>
 	<location id="trammel trinsic provisions" category="Trammel\Towns\Trinsic\Britannia Provisions">1852,2792,-8,1</location>
@@ -75,33 +75,33 @@
 	<location id="trammel trinsic arms" category="Trammel\Towns\Trinsic\Honourable Arms">1934,2772,10,1</location>
 	<location id="trammel trinsic entrance" category="Trammel\Towns\Trinsic\Outside Gates">1827,2779,0,1</location>
 	<location id="trammel trinsic jail" category="Trammel\Towns\Trinsic\Jail">1851,2770,0,1</location>
-	
+
 	<!-- Vesper -->
 	<location id="trammel vesper cemetary" category="Trammel\Towns\Vesper\Cemetary">2782,867,0,1</location>
 	<location id="trammel vesper docks" category="Trammel\Towns\Vesper\Docks">3003,830,0,1</location>
 	<location id="trammel vesper" category="Trammel\Towns\Vesper\Bank">2895,688,0,1</location>
 	<location id="trammel vesper friend" category="Trammel\Towns\Vesper\The Adventurers Friend">2842,876,0,1</location>
-	
+
 	<!-- Wind -->
 	<location id="trammel wind entrance" category="Trammel\Towns\Wind\Entrance">5167,243,15,1</location>
 	<location id="trammel wind garden" category="Trammel\Towns\Wind\Garden">5214,24,16,1</location>
 	<location id="trammel wind outside entrance" category="Trammel\Towns\Wind\Outside">1361,895,0,1</location>
-	
+
 	<!-- Yew -->
 	<location id="trammel yew cemetary" category="Trammel\Towns\Yew\Cemetary">724,1136,0,1</location>
 	<location id="trammel yew center" category="Trammel\Towns\Yew\Center">546,991,0,1</location>
 	<location id="trammel yew abbey" category="Trammel\Towns\Yew\Abbey">635,818,0,1</location>
-	
+
 	<!-- Councelor Halls -->
 	<location id="trammel glow chall" category="Trammel\Misc\Councelor Halls\Moonglow">4479,1126,0,1</location>
 	<location id="trammel skara chall" category="Trammel\Misc\Councelor Halls\Skara Brae">619,2131,0,1</location>
-	
+
 	<!-- Forts -->
 	<location id="trammel cove orc fort" category="Trammel\Misc\Forts\Cove Orc Fort">2171,1332,0,1</location>
 	<location id="trammel yew brigand camp" category="Trammel\Misc\Forts\Yew Brigand Camp">885,1682,0,1</location>
 	<location id="trammel yew damned fort" category="Trammel\Misc\Forts\Yew Fort of the Damned">972,768,0,1</location>
 	<location id="trammel yew orc fort" category="Trammel\Misc\Forts\Yew Orc Fort">634,1500,0,1</location>
-	
+
 	<!-- Moongates -->
 	<location id="trammel britain moongate" category="Trammel\Misc\Moongates\Britain">1338,1991,0,1</location>
 	<location id="trammel jhelom moongate" category="Trammel\Misc\Moongates\Jhelom">1502,3769,0,1</location>
@@ -111,7 +111,7 @@
 	<location id="trammel skara brae moongate" category="Trammel\Misc\Moongates\Skara Brae">647,2067,0,1</location>
 	<location id="trammel trinsic moongate" category="Trammel\Misc\Moongates\Trinsic">1826,2944,-25,1</location>
 	<location id="trammel yew moongate" category="Trammel\Misc\Moongates\Yew">769,747,0,1</location>
-	
+
 	<!-- Shrines -->
 	<location id="trammel chaos shrine" category="Trammel\Misc\Shrines\Chaos">1456,854,0,1</location>
 	<location id="trammel compassion shrine" category="Trammel\Misc\Shrines\Compassion">1856,872,2,1</location>
@@ -122,7 +122,7 @@
 	<location id="trammel sacrifice shrine" category="Trammel\Misc\Shrines\Sacrifice">3355,299,9,1</location>
 	<location id="trammel spirituality shrine" category="Trammel\Misc\Shrines\Spirituality">1589,2485,5,1</location>
 	<location id="trammel valor shrine" category="Trammel\Misc\Shrines\Valor">2496,3932,0,1</location>
-	
+
 	<!-- Sightings -->
 	<location id="trammel sight trinsic ancient ruins" category="Trammel\Misc\Sightings\Ancient Ruins north of Trinsic">1814,2421,0,1</location>
 	<location id="trammel sight brit west xroads" category="Trammel\Misc\Sightings\Crossroads west of Britain">1012,1937,0,1</location>
@@ -134,7 +134,7 @@
 	<location id="trammel sight fire temple" category="Trammel\Misc\Sightings\Temple of Fire">4595,3600,30,1</location>
 	<location id="trammel sight great waterfall" category="Trammel\Misc\Sightings\The great Waterfall">1322,544,30,1</location>
 	<location id="trammel sight trappers camp" category="Trammel\Misc\Sightings\Trappers Camp">3347,572,0,1</location>
-	
+
 	<!-- Dungeons: Covetous -->
 	<location id="trammel covetous level 1" category="Trammel\Dungeons\Covetous\Level 1">5456,1862,0,1</location>
 	<location id="trammel covetous level 2" category="Trammel\Dungeons\Covetous\Level 2">5613,1998,0,1</location>
@@ -142,47 +142,47 @@
 	<location id="trammel covetous level 4" category="Trammel\Dungeons\Covetous\Lake Area">5467,1809,0,1</location>
 	<location id="trammel covetous entrance" category="Trammel\Dungeons\Covetous\Entrance">2499,922,0,1</location>
 	<location category="Trammel\Dungeons\Covetous\Torture Rooms">5553,1808,0,1</location>
-	
+
 	<!-- Dungeons: Deceit -->
 	<location id="trammel deceit level 1" category="Trammel\Dungeons\Deceit\Level 1">5189,637,0,1</location>
 	<location id="trammel deceit level 2" category="Trammel\Dungeons\Deceit\Level 2">5310,531,0,1</location>
 	<location id="trammel deceit level 3" category="Trammel\Dungeons\Deceit\Level 3">5141,651,0,1</location>
 	<location id="trammel deceit level 4" category="Trammel\Dungeons\Deceit\Level 4">5307,655,0,1</location>
 	<location id="trammel deceit entrance" category="Trammel\Dungeons\Deceit\Outside Entrance">4111,434,5,1</location>
-	
+
 	<!-- Dungeons: Despise -->
 	<location id="trammel despise entrance room" category="Trammel\Dungeons\Despise\Entrance Room">5579,632,30,1</location>
 	<location id="trammel despise level 1" category="Trammel\Dungeons\Despise\Level 1">5499,571,59,1</location>
 	<location id="trammel despise level 2" category="Trammel\Dungeons\Despise\Level 2">5518,673,20,1</location>
 	<location id="trammel despise level 3" category="Trammel\Dungeons\Despise\Level 3">5405,860,45,1</location>
 	<location id="trammel despise entrance" category="Trammel\Dungeons\Despise\Entrance">1301,1080,0,1</location>
-	
+
 	<!-- Dungeons: Destard -->
 	<location id="trammel destard level 1" category="Trammel\Dungeons\Destard\Level 1">5243,1004,0,1</location>
 	<location id="trammel destard level 2" category="Trammel\Dungeons\Destard\Level 2">5148,805,0,1</location>
 	<location id="trammel destard level 3" category="Trammel\Dungeons\Destard\Level 3">5140,983,0,1</location>
 	<location id="trammel destard" category="Trammel\Dungeons\Destard\Entrance">1176,2639,0,1</location>
-	
+
 	<!-- Dungeons: Hythloth -->
 	<location id="trammel hythloth level 1" category="Trammel\Dungeons\Hythloth\Level 1">5907,28,44,1</location>
 	<location id="trammel hythloth level 2" category="Trammel\Dungeons\Hythloth\Level 2">5978,171,0,1</location>
 	<location id="trammel hythloth level 3" category="Trammel\Dungeons\Hythloth\Level 3">6083,148,-22,1</location>
 	<location id="trammel hythloth level 4" category="Trammel\Dungeons\Hythloth\Level 4">6059,92,22,1</location>
 	<location id="trammel hythloth" category="Trammel\Dungeons\Hythloth\Entrance">4722,3825,0,1</location>
-	
+
 	<!-- Dungeons: Shame -->
 	<location id="trammel shame level 1" category="Trammel\Dungeons\Shame\Level 1">5395,126,0,1</location>
 	<location id="trammel shame level 2" category="Trammel\Dungeons\Shame\Level 2">5515,15,5,1</location>
 	<location id="trammel shame level 3" category="Trammel\Dungeons\Shame\Level 3">5516,142,25,1</location>
 	<location id="trammel shame level 4" category="Trammel\Dungeons\Shame\Level 4">5876,22,-10,1</location>
 	<location id="trammel shame" category="Trammel\Dungeons\Shame\Entrance">514,1561,0,1</location>
-	
+
 	<!-- Dungeons: Wrong -->
 	<location id="trammel wrong level 1" category="Trammel\Dungeons\Wrong\Level 1">5825,630,0,1</location>
 	<location id="trammel wrong level 2" category="Trammel\Dungeons\Wrong\Level 2">5694,569,20,1</location>
 	<location id="trammel wrong level 3" category="Trammel\Dungeons\Wrong\Level 3">5703,630,0,1</location>
 	<location id="trammel wrong" category="Trammel\Dungeons\Wrong\Entrance">2044,238,10,1</location>
-	
+
 	<!-- Jails -->
 	<location id="trammel jail 1" category="Trammel\Gamemaster\Jails\Cell 1">5276,1164,0,1</location>
 	<location id="trammel jail 2" category="Trammel\Gamemaster\Jails\Cell 2">5286,1164,0,1</location>
@@ -194,17 +194,17 @@
 	<location id="trammel jail 8" category="Trammel\Gamemaster\Jails\Cell 8">5306,1174,0,1</location>
 	<location id="trammel jail 9" category="Trammel\Gamemaster\Jails\Cell 9">5283,1184,0,1</location>
 	<location id="trammel jail" category="Trammel\Gamemaster\Jails\Cell 10">5304,1184,0,1</location>
-	
+
 	<!-- Dungeons: Others -->
 	<location id="trammel green acres" category="Trammel\Others\Green Acres">5434,1102,0,1</location>
 	<location id="trammel star chamber" category="Trammel\Others\Star Chamber">5152,1761,0,1</location>
 	<location id="trammel green acres 2" category="Trammel\Gamemaster\Others\T2A Green Acres">5972,1678,0,1</location>
-	
+
 	<!-- The Second Age Dungeons -->
 	<location id="trammel fire dungeon" category="Trammel\Dungeons\Fire Dungeon Entrance">5760,2907,17,1</location>
 	<location id="trammel ice dungeon" category="Trammel\Dungeons\Ice Dungeon Entrance (From Old Lands)">1999,81,5,1</location>
 	<location id="trammel ice dungeon entrance" category="Trammel\Dungeons\Ice Dungeon Entrance (From Snow Lands)">5209,2322,33,1</location>
-	
+
 	<!-- The Second Age Entrances -->
 	<location id="trammel t2a entrance 1" category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Britain (Sewers)">1490,1641,24,1</location>
 	<location id="trammel t2a entrance 2" category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Cave (Minoc)">2401,201,0,1</location>
@@ -212,7 +212,7 @@
 	<location id="trammel t2a entrance 4" category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Serpents Hold">2923,3407,8,1</location>
 	<location id="trammel t2a entrance 5" category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Trinsic (Island)">1984,2068,-40,1</location>
 	<location id="trammel t2a entrance 6" category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Vesper (Cemetary)">2778,894,-23,1</location>
-	
+
 	<!-- The Second Age Exits -->
 	<location id="trammel t2a exit 1" category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Britain (Sewers)">6032,1501,31,1</location>
 	<location id="trammel t2a exit 2" category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Cave (Minoc)">6088,3676,18,1</location>
@@ -220,18 +220,17 @@
 	<location id="trammel t2a exit 4" category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Serpents Hold">5687,1422,38,1</location>
 	<location id="trammel t2a exit 5" category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Trinsic (Island)">5128,3144,97,1</location>
 	<location id="trammel t2a exit 6" category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Vesper (Cemetary)">5697,3656,0,1</location>
-	
+
 	<!-- The Second Age Forts and Ruins -->
 	<location id="trammel city of the dead" category="Trammel\Forts &amp; Ruins\City of the Dead">5213,3667,-3,1</location>
 	<location id="trammel delucia orc fort" category="Trammel\Forts &amp; Ruins\Delucia Orc Fort">5211,3630,3,1</location>
 	<location id="trammel ruins in the woods" category="Trammel\Forts &amp; Ruins\Ruins in the Woods">5389,3233,-5,1</location>
 	<location id="trammel terathen fort" category="Trammel\Forts &amp; Ruins\Terathen Fort Entrance">5451,3140,-60,1</location>
 	<location id="trammel terathen fort underground" category="Trammel\Forts &amp; Ruins\Terathen Underground Entrance">5427,3119,-60,1</location>
-	
+
 	<!-- The Second Age Towns -->
 	<location id="trammel delucia" category="Trammel\Towns\Delucia\Bank">5270,3993,37,1</location>
 	<location id="trammel papua" category="Trammel\Towns\Papua\The Just Inn">5771,3162,14,1</location>
 	<location id="trammel papua2" category="Trammel\Towns\Papua\Tricks of the Trade">5730,3206,-7,1</location>
 
 </definitions>
-
