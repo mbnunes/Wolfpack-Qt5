@@ -169,8 +169,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	switch (pi->type())
 	{
 	case 1: // normal containers
-	case 65: // nodecay item spawner..Ripper
-	case 66: // decaying item spawner..Ripper
 		{
 			pc_currchar->setObjectDelay( 0 );	// no delay for opening containers
 			
@@ -295,19 +293,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		}
 		return;
 	
-	case 402: // Blackwinds Reputation ball 
-		{ 
-			pc_currchar->soundEffect( 0x01ec ); // Play sound effect for player 
-            socket->sysMessage(tr("Your karma is %1").arg(pc_currchar->karma())); 
-            socket->sysMessage(tr("Your fame is %1").arg(pc_currchar->fame())); 
-            socket->sysMessage(tr("Your Kill count is %1 ").arg(pc_currchar->kills())); 
-            socket->sysMessage(tr("You died %1 times.").arg(pc_currchar->deaths()));
-			pc_currchar->effect( 0x372A, 0x09, 0x06 );
-			socket->sysMessage(tr("*The crystal ball seems to have vanished*"));
-            pi->reduceAmount(1); 
-            return; 
-		}
-	
 	// Dyes
 	case 405:
 		{
@@ -335,61 +320,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	// 1008: Shields
 	case 1008:
 		break;
-
-	/* Skill related types */
-	// 1100: Blacksmithing Tools
-	case 1100:
-		Skills->Blacksmithing( socket );
-		return;
-
-	// 1101: Anvil
-	case 1101:
-		if( !pc_currchar->inRange( pi, 3 ) )
-			socket->sysMessage( tr( "Must be closer to use this!" ) );
-		else
-			socket->sysMessage( "Select item to be repaired." );
-			// TODO: Reimplement repairing items.
-		return;
-
-	// 1102: Ore
-	case 1102:
-		socket->sysMessage( "Where do you want to smelt the ore?" );
-		socket->attachTarget( new cConvertResource( QString("RESOURCE_INGOT"), pi ) );
-		return;
-
-	// 1103: Carpentry Tools
-	case 1103:
-		Skills->Carpentry( socket );
-		return;
-
-	// 1104: Mining Tools
-	case 1104:
-		if( !pi->wearOut() )
-		{
-			socket->sysMessage( tr( "Where do you want to dig?" ) );
-			socket->attachTarget( new cFindResource( "RESOURCE_ORE" ) );
-		}
-		return;
-
-	// 1105: Spell Scroll
-	case 1105:
-		socket->sysMessage( tr( "Casting from scrolls is currently not supported." ) );
-		return;
-
-	// 1106: Tailoring Tools
-	case 1106:
-		Skills->Tailoring( socket );
-		return;
-
-	// 1107: Alchemy Tools
-	case 1107:
-		MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_ALCHEMY" );
-		return;
-
-	// 1108: Tailoring Tools
-	case 1108:
-		Skills->Fletching( socket );
-		return;
 
 	default:						
 		break;

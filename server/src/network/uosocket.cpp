@@ -2021,7 +2021,12 @@ void cUOSocket::bounceItem( P_ITEM pItem, UINT8 reason )
 	// Only bounce it back if it's on the hand of the char
 	if( dragging() == pItem )
 	{
-		pItem->toBackpack( player() );
+		P_PLAYER player = this->player();
+		if (pItem == player->atLayer(cBaseChar::Dragging)) {
+			player->removeItem(cBaseChar::Dragging);
+		}
+
+		pItem->toBackpack(player);
 		
 		if( pItem->isInWorld() )
 			pItem->soundEffect( 0x42 );
