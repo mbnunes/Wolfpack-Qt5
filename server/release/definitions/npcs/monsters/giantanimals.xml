@@ -8,54 +8,11 @@
 =================================================================
 -->
 <definitions>
-	<!-- a ret (giant) weak-->
-	<npc id="ret_giant_weak">
-		<name>a ret (giant)</name>
+	<!-- a rat (giant) -->
+	<npc id="rat_giant">
+		<name>a giant rat</name>
 		<id>0x0d7</id>
-		<category>Monsters\giantanimals\ret giant weak</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="15" max="15"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>6</hidamage>
-		<!-- Stats -->
-		<str>
-			<random min="27" max="59"/>
-		</str>
-		<dex>
-			<random min="39" max="55"/>
-		</dex>
-		<int>
-			<random min="13" max="24"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="314" max="363"/>
-		</wrestling>
-		<tactics>
-			<random min="229" max="373"/>
-		</tactics>
-		<magicresistance>
-			<random min="213" max="255"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_ret_giant_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a ret (giant) medium-->
-	<npc id="ret_giant_medium">
-		<name>a ret (giant)</name>
-		<id>0x0d7</id>
-		<category>Monsters\giantanimals\ret giant medium</category>
+		<category>Monsters\giantanimals\ret giant </category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -91,14 +48,17 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-		<carve>carve_ret_giant_medium</carve>
+		<carve>carve_ret_giant</carve>
+		<totame>291</totame>
+		<food>1</food>
 		<!-- Priv -->
 	</npc>
-	<!-- a ret (giant) hard-->
-	<npc id="ret_giant_hard">
-		<name>a ret (giant)</name>
-		<id>0x0d7</id>
-		<category>Monsters\giantanimals\ret giant hard</category>
+
+	<!-- a spider (gaint) -->
+	<npc id="spider_gaint">
+		<name>a giant spider</name>
+		<id>0x01c</id>
+		<category>Monsters\giantanimals\spider gaint </category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -107,240 +67,10 @@
 			<random min="0" max="1249"/>
 		</fame>
 		<defense>
-			<random min="20" max="20"/>
+			<random min="16" max="16"/>
 		</defense>
 		<lodamage>2</lodamage>
-		<hidamage>9</hidamage>
-		<!-- Stats -->
-		<str>
-			<random min="36" max="80"/>
-		</str>
-		<dex>
-			<random min="52" max="74"/>
-		</dex>
-		<int>
-			<random min="18" max="33"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="425" max="492"/>
-		</wrestling>
-		<tactics>
-			<random min="310" max="504"/>
-		</tactics>
-		<magicresistance>
-			<random min="288" max="345"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_ret_giant_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a snake weak-->
-	<npc id="snake_weak">
-		<name>a snake</name>
-		<id>0x034</id>
-		<category>Monsters\giantanimals\snake weak</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="13" max="13"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<!-- Stats -->
-		<str>
-			<random min="19" max="26"/>
-		</str>
-		<dex>
-			<random min="13" max="21"/>
-		</dex>
-		<int>
-			<random min="8" max="8"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="198" max="286"/>
-		</wrestling>
-		<tactics>
-			<random min="175" max="266"/>
-		</tactics>
-		<magicresistance>
-			<random min="125" max="169"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<poisoning>
-			<random min="427" max="591"/>
-		</poisoning>
-		<carve>carve_snake_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a snake medium-->
-	<npc id="snake_medium">
-		<name>a snake</name>
-		<id>0x034</id>
-		<category>Monsters\giantanimals\snake medium</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="16" max="16"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<!-- Stats -->
-		<str>
-			<random min="23" max="31"/>
-		</str>
-		<dex>
-			<random min="16" max="25"/>
-		</dex>
-		<int>
-			<random min="10" max="10"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="233" max="337"/>
-		</wrestling>
-		<tactics>
-			<random min="206" max="314"/>
-		</tactics>
-		<magicresistance>
-			<random min="148" max="199"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<poisoning>
-			<random min="503" max="696"/>
-		</poisoning>
-		<carve>carve_snake_medium</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a snake hard-->
-	<npc id="snake_hard">
-		<name>a snake</name>
-		<id>0x034</id>
-		<category>Monsters\giantanimals\snake hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="18" max="18"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<!-- Stats -->
-		<str>
-			<random min="26" max="35"/>
-		</str>
-		<dex>
-			<random min="18" max="28"/>
-		</dex>
-		<int>
-			<random min="11" max="11"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="267" max="387"/>
-		</wrestling>
-		<tactics>
-			<random min="236" max="361"/>
-		</tactics>
-		<magicresistance>
-			<random min="170" max="228"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<poisoning>
-			<random min="578" max="800"/>
-		</poisoning>
-		<carve>carve_snake_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a spider (gaint) weak-->
-	<npc id="spider_gaint_weak">
-		<name>a spider (gaint)</name>
-		<id>0x01c</id>
-		<category>Monsters\giantanimals\spider gaint weak</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="13" max="13"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="64" max="85"/>
-		</str>
-		<dex>
-			<random min="64" max="79"/>
-		</dex>
-		<int>
-			<random min="30" max="50"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="457" max="570"/>
-		</wrestling>
-		<tactics>
-			<random min="312" max="424"/>
-		</tactics>
-		<magicresistance>
-			<random min="214" max="338"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<poisoning>
-			<random min="513" max="673"/>
-		</poisoning>
-		<carve>carve_spider_gaint_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a spider (gaint) medium-->
-	<npc id="spider_gaint_medium">
-		<name>a spider (gaint)</name>
-		<id>0x01c</id>
-		<category>Monsters\giantanimals\spider gaint medium</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="16" max="16"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
+		<hidamage>14</hidamage>
 		<gold>
 			<random min="0" max="50"/>
 		</gold>
@@ -370,112 +100,17 @@
 		<poisoning>
 			<random min="604" max="792"/>
 		</poisoning>
-		<carve>carve_spider_gaint_medium</carve>
+		<carve>carve_spider_gaint</carve>
+		<totame>591</totame>
+		<food>1</food>
 		<!-- Priv -->
 	</npc>
-	<!-- a spider (gaint) hard-->
-	<npc id="spider_gaint_hard">
-		<name>a spider (gaint)</name>
-		<id>0x01c</id>
-		<category>Monsters\giantanimals\spider gaint hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="18" max="18"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="87" max="115"/>
-		</str>
-		<dex>
-			<random min="87" max="108"/>
-		</dex>
-		<int>
-			<random min="41" max="67"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="618" max="771"/>
-		</wrestling>
-		<tactics>
-			<random min="423" max="573"/>
-		</tactics>
-		<magicresistance>
-			<random min="289" max="457"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<poisoning>
-			<random min="694" max="910"/>
-		</poisoning>
-		<carve>carve_spider_gaint_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a scorpion (gaint) weak-->
-	<npc id="scorpion_gaint_weak">
-		<name>a scorpion (gaint)</name>
+
+	<!-- a scorpion -->
+	<npc id="scorpion">
+		<name>a scorpion</name>
 		<id>0x030</id>
-		<category>Monsters\giantanimals\scorpion gaint weak</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="23" max="23"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="69" max="91"/>
-		</str>
-		<dex>
-			<random min="66" max="79"/>
-		</dex>
-		<int>
-			<random min="14" max="24"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="489" max="561"/>
-		</wrestling>
-		<tactics>
-			<random min="530" max="624"/>
-		</tactics>
-		<magicresistance>
-			<random min="255" max="296"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<poisoning>
-			<random min="708" max="842"/>
-		</poisoning>
-		<carve>carve_scorpion_gaint_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a scorpion (gaint) medium-->
-	<npc id="scorpion_gaint_medium">
-		<name>a scorpion (gaint)</name>
-		<id>0x030</id>
-		<category>Monsters\giantanimals\scorpion gaint medium</category>
+		<category>Monsters\giantanimals\scorpion </category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -486,8 +121,8 @@
 		<defense>
 			<random min="28" max="28"/>
 		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
+		<lodamage>3</lodamage>
+		<hidamage>12</hidamage>
 		<gold>
 			<random min="0" max="50"/>
 		</gold>
@@ -517,112 +152,17 @@
 		<poisoning>
 			<random min="834" max="991"/>
 		</poisoning>
-		<carve>carve_scorpion_gaint_medium</carve>
+		<carve>carve_scorpion_gaint</carve>
+		<totame>471</totame>
+		<food>1</food>
 		<!-- Priv -->
 	</npc>
-	<!-- a scorpion (gaint) hard-->
-	<npc id="scorpion_gaint_hard">
-		<name>a scorpion (gaint)</name>
-		<id>0x030</id>
-		<category>Monsters\giantanimals\scorpion gaint hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="32" max="32"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="94" max="124"/>
-		</str>
-		<dex>
-			<random min="89" max="108"/>
-		</dex>
-		<int>
-			<random min="19" max="33"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="662" max="759"/>
-		</wrestling>
-		<tactics>
-			<random min="717" max="845"/>
-		</tactics>
-		<magicresistance>
-			<random min="346" max="401"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<poisoning>
-			<random min="959" max="1139"/>
-		</poisoning>
-		<carve>carve_scorpion_gaint_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a serpent (gaint) weak-->
-	<npc id="serpent_gaint_weak">
-		<name>a serpent (gaint)</name>
+
+	<!-- a serpent (gaint) -->
+	<npc id="serpent_gaint">
+		<name>a giant serpent</name>
 		<id>0x015</id>
-		<category>Monsters\giantanimals\serpent gaint weak</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="27" max="27"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="1250" max="2499"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="159" max="182"/>
-		</str>
-		<dex>
-			<random min="47" max="67"/>
-		</dex>
-		<int>
-			<random min="58" max="72"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="554" max="688"/>
-		</wrestling>
-		<tactics>
-			<random min="555" max="595"/>
-		</tactics>
-		<magicresistance>
-			<random min="216" max="340"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<poisoning>
-			<random min="666" max="847"/>
-		</poisoning>
-		<carve>carve_serpent_gaint_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a serpent (gaint) medium-->
-	<npc id="serpent_gaint_medium">
-		<name>a serpent (gaint)</name>
-		<id>0x015</id>
-		<category>Monsters\giantanimals\serpent gaint medium</category>
+		<category>Monsters\giantanimals\serpent gaint </category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -664,106 +204,15 @@
 		<poisoning>
 			<random min="784" max="997"/>
 		</poisoning>
-		<carve>carve_serpent_gaint_medium</carve>
+		<carve>carve_serpent_gaint</carve>
 		<!-- Priv -->
 	</npc>
-	<!-- a serpent (gaint) hard-->
-	<npc id="serpent_gaint_hard">
-		<name>a serpent (gaint)</name>
-		<id>0x015</id>
-		<category>Monsters\giantanimals\serpent gaint hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="36" max="36"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="1250" max="2499"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="216" max="247"/>
-		</str>
-		<dex>
-			<random min="64" max="90"/>
-		</dex>
-		<int>
-			<random min="79" max="97"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="749" max="931"/>
-		</wrestling>
-		<tactics>
-			<random min="750" max="805"/>
-		</tactics>
-		<magicresistance>
-			<random min="293" max="460"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<poisoning>
-			<random min="901" max="1146"/>
-		</poisoning>
-		<carve>carve_serpent_gaint_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a gaint toad weak-->
-	<npc id="gaint_toad_weak">
+
+	<!-- a gaint toad -->
+	<npc id="gaint_toad">
 		<name>a gaint toad</name>
 		<id>0x050</id>
-		<category>Monsters\giantanimals\gaint toad weak</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1259"/>
-		</fame>
-		<defense>
-			<random min="20" max="20"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<!-- Stats -->
-		<str>
-			<random min="67" max="84"/>
-		</str>
-		<dex>
-			<random min="8" max="19"/>
-		</dex>
-		<int>
-			<random min="8" max="21"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="378" max="518"/>
-		</wrestling>
-		<tactics>
-			<random min="351" max="495"/>
-		</tactics>
-		<magicresistance>
-			<random min="222" max="334"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_gaint_toad_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a gaint toad medium-->
-	<npc id="gaint_toad_medium">
-		<name>a gaint toad</name>
-		<id>0x050</id>
-		<category>Monsters\giantanimals\gaint toad medium</category>
+		<category>Monsters\giantanimals\gaint toad </category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -774,8 +223,8 @@
 		<defense>
 			<random min="24" max="24"/>
 		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
+		<lodamage>2</lodamage>
+		<hidamage>8</hidamage>
 		<!-- Stats -->
 		<str>
 			<random min="79" max="99"/>
@@ -799,51 +248,9 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-		<carve>carve_gaint_toad_medium</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a gaint toad hard-->
-	<npc id="gaint_toad_hard">
-		<name>a gaint toad</name>
-		<id>0x050</id>
-		<category>Monsters\giantanimals\gaint toad hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1259"/>
-		</fame>
-		<defense>
-			<random min="27" max="27"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<!-- Stats -->
-		<str>
-			<random min="90" max="113"/>
-		</str>
-		<dex>
-			<random min="11" max="26"/>
-		</dex>
-		<int>
-			<random min="11" max="28"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="511" max="701"/>
-		</wrestling>
-		<tactics>
-			<random min="474" max="670"/>
-		</tactics>
-		<magicresistance>
-			<random min="301" max="453"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_gaint_toad_hard</carve>
+		<carve>carve_gaint_toad</carve>
+		<totame>771</totame>
+		<food>1</food>
 		<!-- Priv -->
 	</npc>
 </definitions>
-
