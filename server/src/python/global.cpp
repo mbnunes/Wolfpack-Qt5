@@ -1383,6 +1383,30 @@ static PyObject* wpCharCount( PyObject* self, PyObject* args )
 }
 
 /*
+	\function wolfpack.npccount
+	\return An integer value.
+	\description This function returns the number of registered NPCs in the world.
+*/ 
+static PyObject* wpNpcCount( PyObject* self, PyObject* args )
+{
+	Q_UNUSED( self );
+	Q_UNUSED( args );
+	return PyLong_FromLong( World::instance()->npcCount() );
+}
+
+/*
+	\function wolfpack.playercount
+	\return An integer value.
+	\description This function returns the number of registered player characters in the world.
+*/ 
+static PyObject* wpPlayerCount( PyObject* self, PyObject* args )
+{
+	Q_UNUSED( self );
+	Q_UNUSED( args );
+	return PyLong_FromLong( World::instance()->playerCount() );
+}
+
+/*
 	\function wolfpack.itemcount
 	\return An integer value.
 	\description This function returns the number of registered items in the world.
@@ -1744,6 +1768,8 @@ static PyObject* wpCharBase(PyObject* self, PyObject* args) {
 
 static PyMethodDef wpGlobal[] =
 {
+	{ "npccount",			wpNpcCount,						METH_VARARGS, 0 },
+	{ "playercount",		wpPlayerCount,					METH_VARARGS, 0 },
 	{ "charbase",			wpCharBase,						METH_VARARGS, 0 },
 	{ "getoption",			wpGetOption,					METH_VARARGS, "Reads a string value from the database." },
 	{ "setoption",			wpSetOption,					METH_VARARGS, "Sets a string value and a key to the database." },
@@ -1849,6 +1875,15 @@ static PyMethodDef wpSockets[] =
 	{ NULL, NULL, 0, NULL } // Terminator
 
 };
+
+/*
+	\function wolfpack.accounts.count
+	\return An integer value.
+	\description This function returns the number of accounts on the server.
+*/
+static PyObject *wpAccountsCount( PyObject *self, PyObject *args ) {
+	return PyInt_FromLong(Accounts::instance()->count());
+}
 
 /*
 	\function wolfpack.accounts.find
@@ -2032,6 +2067,7 @@ static PyObject* wpAccountsSave( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpAccounts[] =
 {
+	{ "count",		wpAccountsCount,    METH_VARARGS, "" },
 	{ "find",		wpAccountsFind,		METH_VARARGS, "Finds an account object." },
 	{ "list",		wpAccountsList,		METH_NOARGS, "Gets a list of Account names." },
 	{ "acls",		wpAccountsAcls,		METH_NOARGS, "Gets a list of valid ACL names." },

@@ -336,6 +336,8 @@ cWorld::cWorld()
 	// Create our private implementation
 	p = new cWorldPrivate;
 
+	_npcCount = 0;
+	_playerCount = 0;
 	_charCount = 0;
 	_itemCount = 0;
 	lastTooltip = 0;
@@ -947,6 +949,12 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 
 		if ( serial > _lastCharSerial )
 			_lastCharSerial = serial;
+
+		if (pChar->objectType() == enPlayer) {
+			++_playerCount;
+		} else if (pChar->objectType() == enNPC) {
+			++_npcCount;
+		}
 	}
 	else
 	{
@@ -992,6 +1000,13 @@ void cWorld::unregisterObject( SERIAL serial )
 		{
 			Console::instance()->log( LOG_ERROR, QString( "Trying to unregister a non-existing character with the serial 0x%1." ).arg( serial, 0, 16 ) );
 			return;
+		}
+
+		P_CHAR pChar = it->second;
+		if (pChar->objectType() == enPlayer) {
+			--_playerCount;
+		} else if (pChar->objectType() == enNPC) {
+			--_npcCount;
 		}
 
 		p->chars.erase( it );

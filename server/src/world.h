@@ -73,6 +73,7 @@ private:
 	unsigned int _itemCount;
 	unsigned int lastTooltip;
 	SERIAL _lastCharSerial, _lastItemSerial;
+	unsigned int _playerCount, _npcCount;
 
 public:
 	// Constructor/Destructor
@@ -120,6 +121,14 @@ public:
 	unsigned int itemCount() const
 	{
 		return _itemCount;
+	}
+
+	unsigned int npcCount() const {
+		return _npcCount;
+	}
+
+	unsigned int playerCount() const {
+		return _playerCount;
 	}
 
 	unsigned int getUnusedTooltip()

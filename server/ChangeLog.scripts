@@ -57,6 +57,9 @@ Wolfpack 12.9.8 Beta (CVS)
 		- New script: system.regionchange
 			This overrides the core region change messages.
 		- Updates to the food script.
+		- New function: wolfpack.playercount()
+		- New function: wolfpack.npccount()
+		- New function: wolfpack.accounts.count()
 		- Export command updates.
 			Checks for doors and corpses.
 			Doesn't save spawnregion items.
