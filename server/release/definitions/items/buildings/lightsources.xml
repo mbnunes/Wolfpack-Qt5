@@ -202,6 +202,12 @@
 		<category>Decoration\Lightsources\Big Candlabra (On)</category>
 	</item>
 
+	<item id="b27" inherit="b26">
+	</item>
+
+	<item id="b28" inherit="b26">
+	</item>
+
 	<item id="b21">
 		<id>0xb21</id>
 		<nodecay />

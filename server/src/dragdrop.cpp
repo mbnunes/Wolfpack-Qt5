@@ -758,7 +758,7 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 	// Item matching needs to be extended !!! at least Color! (for certain types)
 	else if ( pCont->isPileable() && pItem->isPileable() && ( pCont->id() == pItem->id() ) )
 	{
-		if( pCont->amount() + pItem->amount() <= 65535 )
+		if( pCont->amount() + pItem->amount() <= 60000 )
 		{
 			pCont->setAmount( pCont->amount() + pItem->amount() );
 			
@@ -769,12 +769,12 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 		// We have to *keep* our current item
 		else
 		{
-			pCont->setAmount( 65535 ); // Max out the amount
-			pCont->update();
-
-			// The delta between 65535 and pCont->amount() sub our Amount is the
+			// The delta between 60000 and pCont->amount() sub our Amount is the
 			// new amount
-			pItem->setAmount( pItem->amount() - ( 65535 - pCont->amount() ) );
+			pItem->setAmount( pItem->amount() - ( 60000 - pCont->amount() ) );
+
+			pCont->setAmount( 60000 ); // Max out the amount
+			pCont->update();
 		}
 	}
 

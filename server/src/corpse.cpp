@@ -42,8 +42,6 @@
 #include <algorithm>
 #include <map>
 
-#include <qdom.h>
-
 using namespace std;
 
 static cUObject* productCreator()

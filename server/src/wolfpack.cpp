@@ -314,7 +314,7 @@ int main( int argc, char **argv )
 	serverState = STARTUP;
 
 	Console::instance()->setAttributes( true, false, true, 60, 140, 70, 12, FONT_NOSERIF );
-	Console::instance()->send( QString( "\n%1 %2 %3\n\n" ).arg( wp_version.productstring.latin1() ).arg( wp_version.betareleasestring.latin1() ).arg( wp_version.verstring.latin1() ) );
+	Console::instance()->send( QString( "\n%1 %2 %3\n\n" ).arg( wp_version.productstring, wp_version.betareleasestring, wp_version.verstring ) );
 	Console::instance()->setAttributes( false, false, false, 0xAF, 0xAF, 0xAF, 0, FONT_FIXEDWIDTH );
 
 	Console::instance()->send("Copyright (C) 2000-2004 Wolfpack Development Team\n");
@@ -324,7 +324,7 @@ int main( int argc, char **argv )
 	Console::instance()->send("Compiled for QT " QT_VERSION_STR "\n");
 	Console::instance()->send("\n");
 	
-	QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.latin1() ).arg( wp_version.betareleasestring.latin1() ).arg( wp_version.verstring.latin1() );
+	QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring, wp_version.betareleasestring, wp_version.verstring );
 	Console::instance()->setConsoleTitle( consoleTitle );
 
 	// Startup normal Classes

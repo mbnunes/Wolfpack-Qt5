@@ -64,7 +64,7 @@
 	<script>wolfpack.commands.stat</script>
 	<script>wolfpack.commands.sound</script>
 	<script>wolfpack.commands.travel</script>
-	<!-- <script>wolfpack.commands.rippeddecoration</script>-->
+	<script>wolfpack.commands.rippeddecoration</script>
 	<script>wolfpack.commands.serverinfo</script>
 
 	<!-- Magic -->

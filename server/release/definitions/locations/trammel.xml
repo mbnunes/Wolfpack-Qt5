@@ -203,7 +203,7 @@
 	<!-- The Second Age Dungeons -->
 	<location id="trammel fire dungeon" category="Trammel\Dungeons\Fire Dungeon Entrance">5760,2907,17,1</location>
 	<location id="trammel ice dungeon" category="Trammel\Dungeons\Ice Dungeon Entrance (From Old Lands)">1999,81,5,1</location>
-	<location id="trammel ice dungeon entrance"=category="Trammel\Dungeons\Ice Dungeon Entrance (From Snow Lands)">5209,2322,33,1</location>
+	<location id="trammel ice dungeon entrance" category="Trammel\Dungeons\Ice Dungeon Entrance (From Snow Lands)">5209,2322,33,1</location>
 	
 	<!-- The Second Age Entrances -->
 	<location id="trammel t2a entrance 1" category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Britain (Sewers)">1490,1641,24,1</location>

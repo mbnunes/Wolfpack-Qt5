@@ -23,7 +23,7 @@
 		<name>a snow leopard</name>
 		<id>0xd6</id>
 		<ai>Animal_Wild</ai>
-		<skin><random list="SKINS_SNOW_LEOPARD" />
+		<skin><random list="SKINS_SNOW_LEOPARD" /></skin>
 		<category>Animals\Feline\Snow Leopard</category>
 		<inherit id="animal_base" />
 		<karma><random min="0" max="-624" /></karma>
@@ -41,7 +41,7 @@
 		<magicresistance><random min="251" max="350" /></magicresistance>
 		<totame>531</totame>
 		<food>1</food>
-		<carve></carve>
+		<carve />
 	</npc>
 
 </definitions>

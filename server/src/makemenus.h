@@ -39,7 +39,6 @@
 
 // Library includes
 #include <qstringlist.h>
-//#include <qdom.h>
 #include <qptrlist.h>
 #include <qvaluevector.h>
 

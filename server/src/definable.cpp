@@ -37,7 +37,6 @@
 //#include "console.h"
 
 // Qt Includes
-#include <qdom.h>
 #include <qstringlist.h>
 
 void cDefinable::applyDefinition( const cElement* sectionNode )
