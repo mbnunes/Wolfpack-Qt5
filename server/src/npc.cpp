@@ -365,7 +365,7 @@ void cNPC::talk( const UINT32 MsgID, const QString& params /*= 0*/, UI16 color /
 		{
 			if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 			{
-				mSock->clilocMessage( MsgID, 0, color, 3, this );
+				mSock->clilocMessage( MsgID, params, color, 3, this );
 			}
 		}
 	}

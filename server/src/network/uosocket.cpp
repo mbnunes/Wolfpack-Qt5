@@ -2146,7 +2146,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
 		sendStats.setSex( pChar->gender() );
 		sendStats.setPets( _player->pets().size() );
-		sendStats.setMaxPets( 0xFF );
+		sendStats.setMaxPets( 5 );
 		sendStats.setStatCap( SrvParams->statcap() );
 	}
 

@@ -64,6 +64,7 @@ HICON iconRed = 0, iconGreen = 0;
 HBITMAP hLogo = 0;
 HWND lblUptime = 0, bmpLogo;
 HBRUSH hbSeparator = 0, hbBackground = 0;
+HWND statusIcon = 0;
 HWND logWindow = 0;			// Log Window
 HWND inputWindow = 0;		// Input Textfield
 HWND mainWindow = 0;		// Main Window
@@ -202,8 +203,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 	switch( msg )
 	{
 	case WM_CTLCOLORSTATIC:
-		if( (HWND)lparam == lblUptime )
-		{
+		if ((HWND)lparam == lblUptime) {
 			dc = (HDC)wparam;
 
 			//SelectObject( dc, GetStockObject(ANSI_VAR_FONT) );			
@@ -212,8 +212,12 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 			SetBkMode( dc, TRANSPARENT );
 			//SelectObject( dc, GetStockObject( SYSTEM_FONT ) );
 			return (LRESULT)hbBackground;
+		} else if ((HWND)lparam == statusIcon) {
+			dc = (HDC)wparam;
+			SetBkMode( dc, TRANSPARENT );
+			return (LRESULT)hbBackground;
 		}
-		return DefWindowProc( hwnd, msg, wparam, lparam ); 
+		return DefWindowProc( hwnd, msg, wparam, lparam );
 
 	case WM_COMMAND:
 		if( handleMenuSelect( wparam ) )
@@ -239,6 +243,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		ZeroMemory(&lfont, sizeof(LOGFONT));
 		qstrcpy(lfont.lfFaceName, "Arial");
 		lfont.lfQuality = ANTIALIASED_QUALITY;
+		lfont.lfHeight = -MulDiv(10, GetDeviceCaps(GetWindowDC(hwnd), LOGPIXELSY), 72);
 		arialFont = CreateFontIndirect( &lfont );
 
 		ZeroMemory( &lfont, sizeof( LOGFONT ) );
@@ -271,6 +276,9 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 
 		bmpLogo = CreateWindow( "STATIC", 0, SS_BITMAP|WS_CHILD|WS_VISIBLE, 0, 0, 586, 87, hwnd, 0, appInstance, 0 );
 		SendMessage( bmpLogo, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)hLogo );
+
+		statusIcon = CreateWindow("STATIC", 0, SS_ICON|WS_CHILD|WS_VISIBLE, 380, 15, 0, 0, hwnd, 0, appInstance, 0);
+		SendMessage(statusIcon, STM_SETIMAGE, IMAGE_ICON, (LPARAM)iconRed);
 
 		lblUptime = CreateWindow( "STATIC", 0, WS_CHILD|WS_VISIBLE, 400, 15, 250, 25, hwnd, 0, appInstance, 0 );
 		SendMessage( lblUptime, WM_SETFONT, (WPARAM)arialFont, 0 );
@@ -540,8 +548,10 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 			if (lastState != serverState) {
 				if (serverState == RUNNING) {
 					SendMessage(mainWindow, WM_SETICON, ICON_SMALL, (WPARAM)iconGreen);
+					SendMessage(statusIcon, STM_SETIMAGE, IMAGE_ICON, (LPARAM)iconGreen);
 				} else {
 					SendMessage(mainWindow, WM_SETICON, ICON_SMALL, (WPARAM)iconRed);
+					SendMessage(statusIcon, STM_SETIMAGE, IMAGE_ICON, (LPARAM)iconRed);
 				}
 			}
 

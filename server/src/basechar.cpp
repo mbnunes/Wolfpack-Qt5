@@ -1772,7 +1772,6 @@ void cBaseChar::showPaperdoll(cUOSocket *source, bool hotkey) {
 	// Is that faster ??
 	switch( bodyID_ )
 	{
-	case 0x0034:
 	case 0x004E:
 	case 0x0050:
 	case 0x003A:
@@ -1807,15 +1806,13 @@ void cBaseChar::showPaperdoll(cUOSocket *source, bool hotkey) {
 		// Try to mount the rideable animal
 		if( dist( pChar ) <  2 || pChar->isGM() )
 		{
-			if( !pChar->isHuman() )
-			{
-				source->sysMessage( tr( "You are unable to ride an animal." ) );
+			if (!pChar->isHuman()) {
+				source->clilocMessage(1061628); // You can't do that while polymorphed
 				return;
 			}
 
-			if( pChar->isDead() )
-			{
-				source->clilocMessage( 0x7A4D5, "", 0x3b2 ); // You can't do that when you're dead.
+			if (pChar->isDead()) {
+				source->clilocMessage(500949);
 				return;
 			}
 
@@ -1823,9 +1820,9 @@ void cBaseChar::showPaperdoll(cUOSocket *source, bool hotkey) {
 				source->sysMessage( tr( "Your pet is in battle right now!" ) );
 			else
 				pChar->mount( dynamic_cast<P_NPC>( this ) );
+		} else {
+			source->clilocMessage(500206);
 		}
-		else
-			source->sysMessage( tr( "This is too far away" ) );
 
 		break;
 	case 0x123:
