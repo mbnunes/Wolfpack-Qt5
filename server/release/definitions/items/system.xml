@@ -37,7 +37,7 @@
 	<!-- Trash Can -->
 	<item id="trashcan">
 		<id>0xe77</id>
-		<name>trashcan</name>
+		<name>#1041064</name>
 		<basescripts>trashcan</basescripts>
 		<color>0x430</color>
 		<nodecay />
