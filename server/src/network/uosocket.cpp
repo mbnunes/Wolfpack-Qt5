@@ -107,6 +107,9 @@ cUOSocket::cUOSocket( QSocketDevice *sDevice ):
 	_lastActivity = getNormalizedTime();
 }
 
+#include <functional>
+
+
 /*!
   Destructs the cUOSocket instance.
 */

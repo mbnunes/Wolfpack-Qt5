@@ -39,6 +39,8 @@
 // Platfrom specifics
 #include "platform.h"
 
+#include <functional>
+
 // Forward definitions
 
 class Coord_cl;
@@ -81,7 +83,16 @@ int RandomNum(int nLowNum, int nHighNum);
 QString hex2dec( const QString& value );
 
 float RandomFloatNum(float nLowNum, float nHighNum);
-
 unsigned int getNormalizedTime();
 
+template<class T>
+struct destroy : std::unary_function<T, void> {
+	void operator()(T& d) const
+	{ 
+		delete d; 
+		d = 0;
+	}
+};
+
 #endif 
+

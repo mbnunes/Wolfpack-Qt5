@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /GR /GX /O2 /I "lib/Python/PC" /I "sqlite" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /Fr /FD /c
+# ADD CPP /nologo /MD /GR /GX /O2 /I "lib/Python/PC" /I "sqlite" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /D "MYSQL_DRIVER" /Fr /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
@@ -51,7 +51,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt320.lib shell32.lib /nologo /subsystem:windows /map /machine:I386 /out:"Release\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib shell32.lib /nologo /subsystem:windows /map /machine:I386 /out:"c:\wolfpack\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
@@ -63,7 +63,7 @@ LINK32=link.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "C:\Software Engineering\wolfpack\"
+# PROP Output_Dir "C:\wolfpack\"
 # PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
@@ -76,7 +76,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt320.lib shell32.lib /nologo /version:12.9 /subsystem:windows /map /debug /machine:I386 /out:"C:\Software Engineering\wolfpack\wolfpack.exe" /pdbtype:sept /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib shell32.lib /nologo /version:12.9 /subsystem:windows /map /debug /machine:I386 /out:"C:\wolfpack\wolfpack.exe" /pdbtype:sept /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -403,35 +403,7 @@ SOURCE=.\combat.h
 # Begin Source File
 
 SOURCE=.\commands.h
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
 # PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing commands.h...
-InputDir=.
-InputPath=.\commands.h
-InputName=commands
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing commands.h...
-InputDir=.
-InputPath=.\commands.h
-InputName=commands
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -1161,19 +1133,6 @@ SOURCE=.\python\worlditerator.h
 # Begin Group "Generated"
 
 # PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\moc_commands.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /GR
-
-!ENDIF 
-
-# End Source File
 # Begin Source File
 
 SOURCE=.\moc_gumps.cpp

@@ -54,7 +54,7 @@ class cAsyncNetIO : public QThread
 
 public:
 	cAsyncNetIO() : canceled_(false) {}
-	~cAsyncNetIO() throw() {}	
+	~cAsyncNetIO() throw();
 
 	bool registerSocket(QSocketDevice*, bool loginSocket);
 	bool unregisterSocket(QSocketDevice*);

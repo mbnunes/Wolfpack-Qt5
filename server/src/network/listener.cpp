@@ -29,6 +29,9 @@
 //==================================================================================
 
 #include "listener.h"
+#include "../basics.h"
+
+#include <algorithm>
 
 /*****************************************************************************
   cListener member functions
@@ -62,6 +65,7 @@ cListener::cListener( Q_UINT16 port )
 
 cListener::~cListener() throw()
 {
+	std::for_each( readyConnections.begin(), readyConnections.end(), destroy<QSocketDevice*>() );
 }
 
 void cListener::run() throw()

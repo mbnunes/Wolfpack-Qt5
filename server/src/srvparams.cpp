@@ -28,10 +28,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#ifndef __unix__
-#include "winsock.h"
-#endif
-
 #include "srvparams.h"
 #include "globals.h"
 #include "verinfo.h"
@@ -46,12 +42,14 @@
 
 const char preferencesFileVersion[] = "1.0";
 
-#ifdef __unix__
-#include <arpa/inet.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h> 
+#if defined( Q_OS_WIN32 )
+# include <winsock.h>
+#elif defined ( Q_OS_UNIX )
+# include <arpa/inet.h>
+# include <sys/types.h>
+# include <sys/socket.h>
+# include <netinet/in.h>
+# include <netdb.h> 
 #endif
 
 #ifndef INADDR_NONE
@@ -229,12 +227,11 @@ std::vector<StartLocation_st>& cSrvParams::startLocation()
 {
 	if ( startLocation_.empty() ) // Empty? Try to load
 	{
-		setGroup("StartLocation");
 		bool bKeepLooping = true;
 		unsigned int i = 1;
 		do
 		{
-			QString tmp = getString(QString("Location %1").arg(i++), "").simplifyWhiteSpace();
+			QString tmp = getString("StartLocation", QString("Location %1").arg(i++), "").simplifyWhiteSpace();
 			bKeepLooping = ( tmp != "" );
 			if ( bKeepLooping ) // valid data.
 			{
@@ -331,6 +328,12 @@ void cSrvParams::setLogPath( const QString &data )
 unsigned char& cSrvParams::worldCurrentLevel()
 {
 	return worldCurrentLevel_;
+}
+
+void cSrvParams::guardsActive(bool enabled)
+{
+	guardsActive_ = enabled;
+	setBool("General", "Guards Enabled", enabled);
 }
 
 

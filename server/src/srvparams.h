@@ -39,14 +39,11 @@
 // Our own headers
 #include "structs.h"
 #include "coord.h"
+#include "preferences.h"
 
 // Library Headers
-#include "qstring.h"
-#include "preferences.h"
-#include "qstringlist.h"
-
-// Forward Declarations
-class Preferences;
+#include <qstring.h>
+#include <qstringlist.h>
 
 // Structs
 
@@ -340,12 +337,6 @@ inline bool cSrvParams::stealingEnabled() const
 inline bool cSrvParams::guardsActive() const
 {
 	return guardsActive_;
-}
-
-inline void cSrvParams::guardsActive(bool enabled)
-{
-	guardsActive_ = enabled;
-	setBool("General" "Guards Enabled", enabled);
 }
 
 inline unsigned short cSrvParams::objectDelay() const

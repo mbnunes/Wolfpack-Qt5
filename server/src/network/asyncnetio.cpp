@@ -33,11 +33,14 @@
 #include "uopacket.h"
 #include "../srvparams.h"
 #include "../globals.h"
+#include "../basics.h"
 
 // Library Includes
 #include <qsocketdevice.h>
 #include <qptrlist.h>
 #include <qmap.h>
+
+#include <algorithm>
 
 #undef CONST
 
@@ -114,9 +117,9 @@ public:
     Q_ULONG			rsize, wsize;		// read/write total buf size
     Q_ULONG			rindex, windex;		// read/write index
 	QMutex			wmutex;				// write mutex
-	bool			skippedUOHeader;		// Skip crypt key junk
+	bool			skippedUOHeader;	// Skip crypt key junk
 
-	std::deque<cUOPacket*>* packets; // Complete UOPackets
+	std::deque<cUOPacket*> packets;		// Complete UOPackets
 	QMutex			packetsMutex;
 	QMutex			cryptMutex;
 
@@ -138,18 +141,16 @@ cAsyncNetIOPrivate::cAsyncNetIOPrivate()
 {
     rba.setAutoDelete( TRUE );
     wba.setAutoDelete( TRUE );
-	packets = new std::deque<cUOPacket*>;
 }
 
 cAsyncNetIOPrivate::~cAsyncNetIOPrivate()
 {
-	for ( uint i = 0; i < packets->size(); ++i )
+	for ( uint i = 0; i < packets.size(); ++i )
 	{
 		/// QMutexLocker lock( &packetsMutex ); I think it's safe not to lock here.
-		delete packets->front();
-		packets->pop_front();
+		delete packets.front();
+		packets.pop_front();
 	}
-	delete packets;
 	delete encryption;
 }
 
@@ -342,6 +343,16 @@ bool cAsyncNetIOPrivate::consumeReadBuf( Q_ULONG nbytes, char *sink )
   \ingroup mainclass
   \sa cUOPacket
 */
+
+/*!
+	Frees allocated buffer memory for the sockets
+*/
+cAsyncNetIO::~cAsyncNetIO() throw()
+{
+	QMap<QSocketDevice*, cAsyncNetIOPrivate*>::iterator it = buffers.begin();
+	for (; it != buffers.end(); ++it)
+		delete it.data();
+}
 
 /*!
   Registers a \a socket for asyncronous services.
@@ -595,7 +606,7 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 					if( !packet )
 						d->socket->close();
 					QMutexLocker lock(&d->packetsMutex);
-					d->packets->push_back( packet );
+					d->packets.push_back( packet );
 				}
 				else
 					keepExtracting = false; // we have to wait some more.
@@ -627,7 +638,7 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 				if( !packet )
 					d->socket->close();
 				QMutexLocker lock(&d->packetsMutex);
-				d->packets->push_back( packet );
+				d->packets.push_back( packet );
 			}
 		}
 		else
@@ -716,11 +727,11 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 cUOPacket* cAsyncNetIO::recvPacket( QSocketDevice* socket )
 {
 	iterator it = buffers.find( socket );
-	if ( it.data()->packets->size() )
+	if ( it.data()->packets.size() )
 	{
 		QMutexLocker lock(&(it.data()->packetsMutex));
-		cUOPacket* p = it.data()->packets->front();
-		it.data()->packets->pop_front();
+		cUOPacket* p = it.data()->packets.front();
+		it.data()->packets.pop_front();
 		return p;
 	}
 	else

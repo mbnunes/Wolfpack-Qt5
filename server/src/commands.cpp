@@ -60,8 +60,6 @@
 // Main Command processing function
 void cCommands::process( cUOSocket *socket, const QString &command )
 {
-	socket->log( QString( "Used command '%1'.\n" ).arg( command ) );
-
 	if( !socket->player() )
 		return;
 
@@ -81,11 +79,13 @@ void cCommands::process( cUOSocket *socket, const QString &command )
 	if( !pChar->account()->authorized("command", pCommand ))
 	{
 		socket->sysMessage( tr( "Access to command '%1' was denied" ).arg( pCommand.lower() ) );
+		socket->log( QString("Access to command '%1' was denied").arg(pCommand.lower()) );
 		return;
 	}
 
 	// Dispatch the command
 	dispatch( socket, pCommand, pArgs );
+	socket->log( QString( "Used command '%1'.\n" ).arg( command ) );
 }
 
 // Selects the right command Stub

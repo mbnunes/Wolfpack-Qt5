@@ -30,6 +30,7 @@
 
 #include "srvparams.h"
 #include "globals.h"
+#include "console.h"
 
 // Qt Includes
 #include <qdir.h>
@@ -50,20 +51,20 @@ static QString getUOPath()
 	// Search for T3D preferably
 	const char* Registry3d = "Software\\Origin Worlds Online\\Ultima Online Third Dawn\\1.0";
 	const char* Registry2d = "Software\\Origin Worlds Online\\Ultima Online\\1.0";
-	unsigned char exePath[MAX_PATH];
+	unsigned char exePath[MAX_PATH] = {0,};
 	unsigned long pathLen;
 
 	HKEY tempKey;
 
 	// Look for 3D Client Path
-	if( RegOpenKeyEx( HKEY_LOCAL_MACHINE, Registry3d, 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
+	if( RegOpenKeyExA( HKEY_LOCAL_MACHINE, Registry3d, 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
 	{
-		if( RegQueryValueEx( tempKey, "ExePath", 0, 0, &exePath[0], &pathLen ) == ERROR_SUCCESS )
+		if( RegQueryValueExA( tempKey, "ExePath", 0, 0, &exePath[0], &pathLen ) == ERROR_SUCCESS )
 		{
 			// We found a valid registry key
 			RegCloseKey( tempKey );
 
-			QString path = (char*)&exePath;
+			QString path((char*)&exePath);
 			path = path.left( path.findRev( "\\" ) + 1 );
 			return path;
 		}
@@ -71,14 +72,14 @@ static QString getUOPath()
 	}
 
 	// Look for 2D Client Path
-	if( RegOpenKeyEx( HKEY_LOCAL_MACHINE, Registry2d, 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
+	if( RegOpenKeyExA( HKEY_LOCAL_MACHINE, Registry2d, 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
 	{
-		if( RegQueryValueEx( tempKey, "ExePath", 0, 0, &exePath[0], &pathLen ) == ERROR_SUCCESS )
+		if( RegQueryValueExA( tempKey, "ExePath", 0, 0, &exePath[0], &pathLen ) == ERROR_SUCCESS )
 		{
 			// We found a valid registry key
 			RegCloseKey( tempKey );
 			
-			QString path = (char*)&exePath;
+			QString path((char*)&exePath);
 			path = path.left( path.findRev( "\\" ) + 1 );
 			return path;
 		}
@@ -99,15 +100,16 @@ QString cSrvParams::mulPath() const
 	QDir thePath( mulPath_ );
 	if( !thePath.exists() || thePath.entryList("*.mul").isEmpty() )
 	{
+		Console::instance()->log( LOG_WARNING, QString("UO Mul files not found at '%1', trying to locate...\n").arg(mulPath_));
 		QString uoPath(getUOPath());
-		if( uoPath != QString::null )
+		if( !uoPath.isEmpty() )
 		{
 			//mulPath_ = uoPath;
 			cSrvParams* that = const_cast<cSrvParams*>(this); // perhaps not so const ;)
 			that->setMulPath( uoPath );
 		}
 		else
-			qWarning( "Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"" );
+			Console::instance()->log( LOG_ERROR, "Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"");
 	}
 	return mulPath_;
 }

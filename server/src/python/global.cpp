@@ -1416,90 +1416,106 @@ static PyMethodDef wpAccounts[] =
 };
 
 /*!
-	Reads a boolean value from wolfpack.xml
- */
+	Reads the boolean entry specified by key and group. 
+	The key is created if it doesn't exist, using the default argument.
+	If an error occurs the settings are left unchanged and FALSE is returned; 
+	otherwise TRUE is returned
+*/
 static PyObject *wpSettingsGetBool( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
-	if( !checkArgStr( 0 ) && !checkArgStr( 1 ) && !checkArgInt( 2 ) )
-	{
-		PyErr_BadArgument();
+	char *pyGroup, *pyKey, pyDef, create = 0;
+	if ( !PyArg_ParseTuple(args, "ssb|b:getBool(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
 		return 0;
-	}
 
-	return PyInt_FromLong( SrvParams->getBool( getArgStr(0), getArgStr(1), getArgInt(2) ) );
+	return SrvParams->getBool( pyGroup, pyKey, pyDef, create ) ? PyTrue : PyFalse;
 }
 
 /*!
-	Writes a boolean value to wolfpack.xml
+	Writes the boolean entry value into specified key and group. 
+	The key is created if it doesn't exist. Any previous value is overwritten by value. 
+	If an error occurs the settings are left unchanged and FALSE is returned; 
+	otherwise TRUE is returned
 */
 static PyObject *wpSettingsSetBool( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
-	if ( !checkArgStr(0) && !checkArgStr( 1 ) && !checkArgInt( 2 ) )
-	{
-		PyErr_BadArgument();
-		return PyFalse;
-	}
-	SrvParams->setBool( getArgStr(0), getArgStr(1), getArgInt(2) );
+	char *pyGroup, *pyKey, pyValue;
+	if ( !PyArg_ParseTuple(args, "ssb:setBool(group, key, value)", &pyGroup, &pyKey, &pyValue ) )
+		return 0;
+
+	SrvParams->setBool( pyGroup, pyKey, pyValue );
 	return PyTrue;
 }
 
 /*!
-	Reads a numeric value from wolfpack.xml
- */
+	Reads the numeric entry specified by key and group. 
+	The key is created if it doesn't exist using the default argument, provided
+	that \a create argument is true. 
+	If an error occurs the settings are left unchanged and FALSE is returned; 
+	otherwise TRUE is returned
+*/
 static PyObject *wpSettingsGetNumber( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
-	if( !checkArgStr( 0 ) && !checkArgStr( 1 ) && !checkArgInt( 2 ) )
-	{
-		PyErr_BadArgument();
+	char *pyGroup, *pyKey, create = 0;
+	int pyDef;
+	if ( !PyArg_ParseTuple(args, "ssi|b:getNumber(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
 		return 0;
-	}
-	return PyInt_FromLong( SrvParams->getNumber( getArgStr(0), getArgStr(1), getArgInt(2) ) );
+
+	return PyInt_FromLong( SrvParams->getNumber( pyGroup, pyKey, pyDef, create ) );
 }
 
 /*!
-	Writes a boolean value to wolfpack.xml
+	Writes the numeric entry value into specified key and group. 
+	The key is created if it doesn't exist. Any previous value is overwritten by value. 
+	If an error occurs the settings are left unchanged and FALSE is returned; 
+	otherwise TRUE is returned
 */
 static PyObject *wpSettingsSetNumber( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
-	if ( !checkArgStr(0) && !checkArgStr( 1 ) && !checkArgInt( 2 ) )
-	{
-		PyErr_BadArgument();
-		return PyFalse;
-	}
-	SrvParams->setNumber( getArgStr(0), getArgStr(1), getArgInt(2) );
+	char *pyGroup, *pyKey;
+	int pyValue;
+	if ( !PyArg_ParseTuple(args, "ssi:setNumber(group, key, value)", &pyGroup, &pyKey, &pyValue ) )
+		return 0;
+
+	SrvParams->setNumber( pyGroup, pyKey, pyValue );
 	return PyTrue;
 }
 
 /*!
-	Reads a numeric value from wolfpack.xml
- */
+	getString( group, key, default, create )
+	Reads the string entry specified by key and group. 
+	The key is created if it doesn't exist using the default argument, provided that
+	\a create argument is true.
+	If an error occurs the settings are left unchanged and FALSE is returned; 
+	otherwise TRUE is returned
+*/
 static PyObject *wpSettingsGetString( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
-	if( !checkArgStr( 0 ) && !checkArgStr( 1 ) && !checkArgStr( 2 ) )
-	{
-		PyErr_BadArgument();
+	char *pyGroup, *pyKey, *pyDef, create = 0;
+	if ( !PyArg_ParseTuple(args, "sss|b:getString(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
 		return 0;
-	}
-	return PyString_FromString( SrvParams->getString( getArgStr(0), getArgStr(1), getArgStr(2) ) );
+	
+	return PyString_FromString( SrvParams->getString( pyGroup, pyKey, pyDef, create ) );
 }
 
 /*!
-	Writes a boolean value to wolfpack.xml
+	Writes the string entry value into specified key and group. 
+	The key is created if it doesn't exist. Any previous value is overwritten by value. 
+	If an error occurs the settings are left unchanged and FALSE is returned; 
+	otherwise TRUE is returned
 */
 static PyObject *wpSettingsSetString( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
-	if ( !checkArgStr(0) && !checkArgStr( 1 ) && !checkArgStr( 2 ) )
-	{
-		PyErr_BadArgument();
-		return PyFalse;
-	}
-	SrvParams->setString( getArgStr(0), getArgStr(1), getArgStr(2) );
+	char *pyGroup, *pyKey, *pyValue;
+	if ( !PyArg_ParseTuple(args, "sss:setString(group, key, value)", &pyGroup, &pyKey, &pyValue ) )
+		return 0;
+
+	SrvParams->setString( pyGroup, pyKey, pyValue );
 	return PyTrue;
 }
 
