@@ -128,7 +128,7 @@ void cUOSocket::registerPacketHandler( unsigned char packet, PyObject* handler )
 
 void cUOSocket::clearPacketHandlers()
 {
-	for ( int i = 0; i < 256; ++i )
+	for ( int i = 0; i < 255; ++i )
 	{
 		if ( handlers[i] )
 		{
