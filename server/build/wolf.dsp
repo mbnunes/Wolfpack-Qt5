@@ -790,5 +790,61 @@ SOURCE=.\network\uotxpackets.cpp
 SOURCE=.\network\uotxpackets.h
 # End Source File
 # End Group
+# Begin Group "Python"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\python\char.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\char.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\engine.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\engine.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\global.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\item.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\item.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\skills.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\socket.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\socket.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\utilities.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\wppythonscript.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\wppythonscript.h
+# End Source File
+# End Group
 # End Target
 # End Project
