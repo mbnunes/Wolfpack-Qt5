@@ -122,6 +122,17 @@ DEFENCECHANCE = 4  #Defence chance
 CASTSPEED = 5	   #Faster casting
 CASTRECOVERY = 6   #Faster cast recovery
 
+#Advanced properties ID's
+REGEN = 1	
+BONUS = 2	
+DAMAGE = 3
+ENH = 4	
+HIT = 5	
+REQ = 6	
+RESIST = 7
+REFLECT = 8
+
+
 # Constants for char.sound
 SND_STARTATTACK = 0
 SND_IDLE = 1
