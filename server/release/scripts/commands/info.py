@@ -803,7 +803,8 @@ def iteminfo( socket, item ):
 	# 6
 	gump.addText( 113, 260, "Weight:", 0x834 )
 	gump.addResizeGump( 280, 260, 0xBB8, 215, 20 )
-	gump.addInputField( 284, 260, 200, 16, 0x834,  6, unicode( item.weight ) )
+	#gump.addInputField( 284, 260, 200, 16, 0x834,  6, unicode( item.weight ) )
+	gump.addText( 284, 260, 200, 16, 0x834, unicode( item.weight ) )
 	# 7
 	gump.addText( 113, 280, "Layer:", 0x834 )
 	gump.addResizeGump( 280, 280, 0xBB8, 215, 20 )
@@ -1080,8 +1081,8 @@ def iteminfo_response( player, args, choice ):
 			item.color = int( hex2dec( textentries[ key ] ) )
 		elif key == 5:
 			item.amount = int( hex2dec( textentries[ key ] ) )
-		elif key == 6:
-			item.weight = float( textentries[ key ] )
+		#elif key == 6:
+		#	item.weight = float( textentries[ key ] )
 		elif key == 7:
 			item.layer = int( hex2dec( textentries[ key ] ) )
 		#elif key == 8:

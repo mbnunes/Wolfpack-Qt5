@@ -58,10 +58,12 @@ def onDropOnItem( cont, item ):
 
 				if item.amount > 1:
 					item.amount -= 1
-					item.update()
+					if not wolfpack.utilities.tobackpack(item, char):
+						item.update()
+					
 				else:
 					item.delete() # Consume the scroll
-				return False
+				return True # Do nothing else.
 			else:
 				return False
 
