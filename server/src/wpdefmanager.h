@@ -32,11 +32,11 @@
 #if !defined(AFX_WPDEFMANAGER_H__59377C90_C75A_4AC7_8B5B_517354DC8E76__INCLUDED_)
 #define AFX_WPDEFMANAGER_H__59377C90_C75A_4AC7_8B5B_517354DC8E76__INCLUDED_
 
-#include <map>
-#include <qdom.h>
-#include <qmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
+// Library Includes
+#include "qdom.h"
+#include "qmap.h"
+#include "qstring.h"
+#include "qstringlist.h"
 
 typedef QMap< QString, QDomElement > DefSections;
 

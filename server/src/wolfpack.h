@@ -53,10 +53,6 @@
 // Wolfpack includes
 #endif
 
-#include <vector>
-#include <qdom.h>
-#include <map>
-
 using namespace std;
 
 // Forward class declarations
