@@ -19,6 +19,7 @@ import cStringIO
 import traceback
 import web.sessions
 import wolfpack
+import wolfpack.console
 
 # Just override handle_error for nicer error handling
 class Webserver( HTTPServer ):
@@ -229,32 +230,32 @@ class WebserverThread(Thread):
 	self.httpd = None
 
     def cancel( self ):
-	self.stopped.set()
-	self.httpd.server_close()
+      self.stopped.set()
+      self.httpd.server_close()
 
     def run( self ):
-	# Wait with binding the webserver for 5 Seconds
-	server_address = ( '', self.port )
-	time.sleep( 5 )	
+      # Wait with binding the webserver for 5 Seconds
+      server_address = ( '', self.port )
 
-	# Starting up
-	print "Remote Admin running on port %u\n" % self.port
+      # Starting up
+      if not wolfpack.isreloading():
+            wolfpack.console.send( "Remote Admin running on port %u\n" % self.port )
 
-	try:
-	    filepath = os.path.normpath( os.path.abspath( 'web/' ) )
-	    self.httpd = Webserver( ( '', self.port ), filepath )
-	except:
-	    traceback.print_exc()
-	    return
+      try:
+            filepath = os.path.normpath( os.path.abspath( 'web/' ) )
+            self.httpd = Webserver( ( '', self.port ), filepath )
+      except:
+            traceback.print_exc()
+            return
 
-	while 1:
-	    self.httpd.handle_request()
+      while 1:
+            self.httpd.handle_request()
+            self.stopped.wait( 0.05 )
+            
+            if self.stopped.isSet():
+                  break
 
-	    self.stopped.wait( 0.05 )
-	    if self.stopped.isSet():
-		break
-
-	print "Shutting down the Remote Admin.\n"
+      wolfpack.console.send( "Shutting down the Remote Admin.\n" )
 
 thread = None
 
