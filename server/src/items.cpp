@@ -565,10 +565,12 @@ void cItem::Init( bool createSerial )
 void cItem::remove()
 {
 	// Already Deleted
-	if ( free )
-	{
+	if ( free ) {
 		return;
 	}
+
+	removeFromView( false ); // Remove it from all clients in range
+	free = true;
 
 	if ( canHandleEvent( EVENT_DELETE ) )
 	{
@@ -578,9 +580,6 @@ void cItem::remove()
 	}
 
 	clearScripts();
-	removeFromView( false ); // Remove it from all clients in range
-	free = true;
-
 	SetOwnSerial( -1 );
 
 	// Check if this item is registered as a guildstone and remove it from the guild

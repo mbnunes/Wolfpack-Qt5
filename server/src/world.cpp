@@ -1367,9 +1367,17 @@ void cWorld::deleteObject( cUObject* object )
 
 	// Mark it as Free
 	object->free = true;
-
-	p->pendingObjects.push_back( object );
 	unregisterObject( object );
+
+	std::list<cUObject*>::const_iterator it;
+	for ( it = p->pendingObjects.begin(); it != p->pendingObjects.end(); ++it )
+	{
+		if (*it == object) {
+			Console::instance()->log(LOG_ERROR, tr("Trying to delete an object that has already been deleted: 0x%1").arg(object->serial(), 0, 16));
+			return;
+		}
+	}
+	p->pendingObjects.push_back( object );
 }
 
 // "Really" delete objects that are pending to be deleted.
