@@ -1695,7 +1695,7 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
     // if there's a static block here in our way, return false
 	StaticsIterator msi = Map->staticsIterator( pos );
 	
-	while ( !msi.atEnd() )
+	while( !msi.atEnd() )
 	{
 		tile_st tile = TileCache::instance()->getTile( msi->itemid );
 		const INT32 elev = msi->zoff + cTileCache::tileHeight(tile);
@@ -1704,6 +1704,7 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 			if (tile.isBlocking() || tile.isWet()) 
 				return false;
 		}
+		msi++;
 	}
     return true;
 }

@@ -354,7 +354,8 @@ void cSpawnRegion::checkForDeleted( void )
 	std::vector< SERIAL >::iterator it = this->npcSerials_.begin();
 	while( it != this->npcSerials_.end() )
 	{
-		if( FindCharBySerial( *it ) )
+		P_CHAR pChar = FindCharBySerial( *it );
+		if( pChar && !pChar->free && pChar->spawnregion() == name_ )
 			foundSerials.push_back( (*it) );
 		it++;
 	}

@@ -1207,6 +1207,32 @@ void commandRestock( cUOSocket *socket, const QString &command, QStringList &arg
 	socket->attachTarget( new cRestockTarget );
 }
 
+void commandAllSkills( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( args.count() < 1 )
+	{
+		socket->sysMessage( tr( "Usage: allskills <value>" ) );
+		return;
+	}
+
+	P_CHAR pChar = socket->player();
+	UINT32 value = args[0].toInt();
+
+	if( pChar )
+	{
+		for( int i = 0; i < ALLSKILLS; ++i )
+		{
+			pChar->setBaseSkill( i, value );
+			Skills->updateSkillLevel( pChar, i );
+		}
+	}
+}
+
+void commandBroadcast( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	sysbroadcast( args.join( " " ).latin1() );
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1218,8 +1244,10 @@ stCommand cCommands::commands[] =
 	{ "ADDNPC",			commandAddNpc },
 	{ "ADDSPELL",		commandAddSpell },
 	{ "ALLMOVE",		commandAllMove },
-	{ "ALLSHOW",		commandAllShow },	
+	{ "ALLSHOW",		commandAllShow },
+	{ "ALLSKILLS",		commandAllSkills },
 	{ "BANK",			commandBank },
+	{ "BROADCAST",		commandBroadcast },
 	{ "FIX",			commandFix },
 	{ "GO",				commandGo },
 	{ "INFO",			commandInfo },

@@ -1718,15 +1718,36 @@ void cSkills::Blacksmithing( cUOSocket* socket )
 {
 	P_CHAR pc = socket->player();
 	bool foundAnvil = false;
-	AllItemsIterator iterItems;
-	for (iterItems.Begin(); !iterItems.atEnd() && !foundAnvil;iterItems++)
+	
+	RegionIterator4Items rIter( pc->pos );
+	for( rIter.Begin(); !rIter.atEnd(); rIter++ )
 	{
-		P_ITEM pi = iterItems.GetData();
-		foundAnvil = ( pi && IsAnvil( pi->id() ) && pc->inRange( pi, 3 ) );
+		P_ITEM pi = rIter.GetData();
+
+		if( IsAnvil( pi->id() ) && pc->inRange( pi, 3 ) )
+		{
+			foundAnvil = true;
+			break;
+		}
 	}
+
 	if( !foundAnvil )
 	{
-		socket->sysMessage( tr("You must stand in range of an anvil!") );
+		StaticsIterator sIter = Map->staticsIterator( pc->pos, false );
+		while( !sIter.atEnd() )
+		{
+			if( IsAnvil( sIter->itemid ) )
+			{
+				foundAnvil = true;
+				break;
+			}
+			sIter++;
+		}
+	}
+
+	if( !foundAnvil )
+	{
+		socket->sysMessage( tr( "You must stand in range of an anvil!" ) );
 		return;
 	}
 
