@@ -243,7 +243,7 @@ def successmining( char, gem, table, resname, amount, ore ):
 	if type(message) == int:
 		socket.clilocmessage( message, "", GRAY )
 	else:
-		socket.systemmessage(unicode(message))
+		socket.sysmessage(unicode(message))
 	return OK
 
 def respawnvein( time, args ):
