@@ -10,11 +10,10 @@
 
 	<!-- a kraken -->
 	<npc id="kraken" inherit="monster_base">
-		<name>a kraken</name>
-		<id>0x8</id>
+		<name>kraken</name>
+		<id>8</id>
 		<karma>-11000</karma>
 		<fame>11000</fame>
-		<gold><random min="300" max="600"/></gold>
 		<!-- Stats -->
 		<str><random min="756" max="780"/></str>
 		<dex><random min="226" max="245"/></dex>
@@ -24,8 +23,8 @@
 		<tactics><random min="451" max="600"/></tactics>
 		<wrestling><random min="451" max="600"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="19" type="int" />
-		<tag name="maxdamage" value="33" type="int" />
+		<mindamage>19</mindamage>
+		<maxdamage>33</maxdamage>
 		<tag name="dmg_cold" value="30" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="30,40" type="int" />
@@ -34,7 +33,7 @@
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
-		<desc>In the swirling torrents and waves of the embroiled deep waters ofBritannia, a darkening of the water oft heralds the arrival of theKraken. The Kraken is related to the Sea Serpent, but the similarityends with the visual aspect, for the Kraken is a master of theelements. Able to hurl lightning and fire, the Kraken will call downthe full fury of nature upon the fairer of its demesne. If the sea isan unforgiving mistress, then surely the Kraken is the whip with whichshe metes out her punishment. Should your lookout scream the warningcry of the Kraken, turn thy ship with all haste and make for thenearest port.</desc>
+		<desc>In the swirling torrents and waves of the embroiled deep waters of Britannia, a darkening of the water oft heralds the arrival of the Kraken. The Kraken is related to the Sea Serpent, but the similarity ends with the visual aspect, for the Kraken is a master of the elements. Able to hurl lightning and fire, the Kraken will call down the full fury of nature upon the fairer of its demesne. If the sea is an unforgiving mistress, then surely the Kraken is the whip with which she metes out her punishment. Should your lookout scream the warning cry of the Kraken, turn thy ship with all haste and make for the nearest port.</desc>
 		<category>Monsters\Sea Monsters\Kraken</category>
 	</npc>
 

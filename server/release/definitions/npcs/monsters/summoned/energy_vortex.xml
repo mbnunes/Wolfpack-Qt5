@@ -10,10 +10,10 @@
 
 	<!-- Energy Vortex -->
 	<npc id="energy_vortex">
-		<name>an energy vortex</name>
+		<name>energy vortex</name>
 		<wandertype>1</wandertype>
 		<ai>Monster_Berserk</ai>
-		<id>0xA4</id>
+		<id>164</id>
 		<karma>0</karma>
 		<fame>0</fame>
 		<!-- Stats -->
@@ -25,8 +25,8 @@
 		<tactics>900</tactics>
 		<wrestling>900</wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="20" type="int" />
-		<tag name="maxdamage" value="28" type="int" />
+		<mindamage>20</mindamage>
+		<maxdamage>28</maxdamage>
 		<tag name="dmg_energy" value="100" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="30,40" type="int" />

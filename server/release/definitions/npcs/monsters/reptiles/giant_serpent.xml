@@ -10,11 +10,10 @@
 
 	<!-- a serpent (gaint) -->
 	<npc id="serpent_gaint" inherit="monster_base">
-		<name>a giant serpent</name>
-		<id>0x15</id>
+		<name>giant serpent</name>
+		<id>21</id>
 		<karma>-2500</karma>
 		<fame>2500</fame>
-		<gold><random min="1250" max="2499"/></gold>
 		<!-- Stats -->
 		<str><random min="186" max="215"/></str>
 		<dex><random min="56" max="80"/></dex>
@@ -25,8 +24,8 @@
 		<tactics><random min="651" max="700"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="7" type="int" />
-		<tag name="maxdamage" value="17" type="int" />
+		<mindamage>7</mindamage>
+		<maxdamage>17</maxdamage>
 		<tag name="dmg_poison" value="60" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />
@@ -35,7 +34,7 @@
 		<tag name="res_physical" value="30,35" type="int" />
 		<tag name="res_poison" value="70,90" type="int" />
 		<!-- Misc. -->
-		<desc>These serpents are unnaturally large, easily able to devour a grownman whole. They are found in the deepest forests and jungles, wherethey wait in hiding for their prey to walk by. They produce a sweetmeat with a flavor not unlike chicken, but they are most earnestlyhunted for their scales, which are sought by mages and alchemists fortheir useful properties in the brewing of thaumaturgical substances.</desc>
+		<desc>These serpents are unnaturally large, easily able to devour a grownman whole. They are found in the deepest forests and jungles, where they wait in hiding for their prey to walk by. They produce a sweet meat with a flavor not unlike chicken, but they are most earnestly hunted for their scales, which are sought by mages and alchemists for their useful properties in the brewing of thaumaturgical substances.</desc>
 		<carve>carve_serpent_gaint</carve>
 		<category>Monsters\Reptiles\Gaint Serpent</category>
 	</npc>

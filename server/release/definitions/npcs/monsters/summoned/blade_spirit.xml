@@ -10,11 +10,11 @@
 
 	<!-- Blade Spirit -->
 	<npc id="blade_spirit">
-		<name>a blade spirit</name>
+		<name>blade spirit</name>
 		<totame>1100</totame>
 		<wandertype>1</wandertype>
 		<ai>Monster_Berserk</ai>
-		<id>0x23e</id>
+		<id>574</id>
 		<karma>0</karma>
 		<fame>0</fame>
 		<!-- Stats -->
@@ -26,8 +26,8 @@
 		<tactics>900</tactics>
 		<wrestling>900</wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="10" type="int" />
-		<tag name="maxdamage" value="18" type="int" />
+		<mindamage>10</mindamage>
+		<maxdamage>18</maxdamage>
 		<tag name="dmg_energy" value="20" type="int" />
 		<tag name="dmg_poison" value="20" type="int" />
 		<!-- Resists -->

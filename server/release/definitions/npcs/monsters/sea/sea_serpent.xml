@@ -10,8 +10,8 @@
 
 	<!-- sea serpent -->
 	<npc id="sea_serpent" inherit="monster_base">
-		<name>a sea serpent</name>
-		<id>0x91</id>
+		<name>sea serpent</name>
+		<id>145</id>
 		<karma>-6000</karma>
 		<fame>6000</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="601" max="700"/></tactics>
 		<wrestling><random min="601" max="700"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="7" type="int" />
-		<tag name="maxdamage" value="13" type="int" />
+		<mindamage>7</mindamage>
+		<maxdamage>13</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="30,40" type="int" />
 		<tag name="res_energy" value="15,20" type="int" />
@@ -32,7 +32,7 @@
 		<tag name="res_physical" value="25,35" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
-		<desc>Perhaps the greatest of all Britannia's creatures, the sea serpent canenwrap and crush a warship whole. Despite these serpents' terriblesize, they are actively hunted for their scales, which are needed inthe performance of certain Magical spells.</desc>
+		<desc>Perhaps the greatest of all Britannia's creatures, the sea serpent can enwrap and crush a warship whole. Despite these serpents' terrible size, they are actively hunted for their scales, which are needed in the performance of certain Magical spells.</desc>
 		<category>Monsters\Sea Monsters\Sea Serpent</category>
 	</npc>
 

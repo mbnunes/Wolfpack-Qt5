@@ -22,8 +22,8 @@
 		<tactics><random min="501" max="750"/></tactics>
 		<wrestling><random min="501" max="750"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="4" type="int" />
-		<tag name="maxdamage" value="5" type="int" />
+		<mindamage>4</mindamage>
+		<maxdamage>5</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />
@@ -31,24 +31,24 @@
 		<tag name="res_physical" value="25,30" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
-		<desc>Surely the product of some foul sorcery, the rat man truly has thefeatures of a rat, but walks about like a man. Rat men wear garments,wield weapons and give every sign of possessing intelligence. They arevicious, thieving creatures, and cowards if pressed in battle.</desc>
+		<desc>Surely the product of some foul sorcery, the rat man truly has the features of a rat, but walks about like a man. Rat men wear garments, wield weapons and give every sign of possessing intelligence. They arevicious, thieving creatures, and cowards if pressed in battle.</desc>
 	</npc>
 
 	<!-- a ratman -->
 	<npc id="ratman_1" inherit="ratmen_base">
-		<id>0x2d</id>
+		<id>45</id>
 		<category>Monsters\Ratmen\Ratman 1</category>
 	</npc>
 
 	<!-- a ratman -->
 	<npc id="ratman_2" inherit="ratmen_base">
-		<id>0x2a</id>
+		<id>42</id>
 		<category>Monsters\Ratmen\Ratman 2</category>
 	</npc>
 
 	<!-- a ratman -->
 	<npc id="ratman_3" inherit="ratmen_base">
-		<id>0x2c</id>
+		<id>44</id>
 		<category>Monsters\Ratmen\Ratman 3</category>
 	</npc>
 

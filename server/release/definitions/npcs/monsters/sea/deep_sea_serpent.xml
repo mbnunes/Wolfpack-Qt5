@@ -10,8 +10,8 @@
 
 	<!-- deep sea serpent -->
 	<npc id="deep_sea_serpent" inherit="monster_base">
-		<name>a deep sea serpent</name>
-		<id>0x96</id>
+		<name>deep sea serpent</name>
+		<id>150</id>
 		<karma>-6000</karma>
 		<fame>6000</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="601" max="700"/></tactics>
 		<wrestling><random min="601" max="700"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="14" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>14</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />
 		<tag name="res_energy" value="15,20" type="int" />

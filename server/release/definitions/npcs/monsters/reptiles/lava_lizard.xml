@@ -10,11 +10,10 @@
 
 	<!-- a lava lizard -->
 	<npc id="lava_lizard" inherit="monster_base">
-		<name>a lava lizard</name>
-		<id>0xcf</id>
+		<name>lava lizard</name>
+		<id>207</id>
 		<karma>-3000</karma>
 		<fame>3000</fame>
-		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="126" max="150"/></str>
 		<dex><random min="56" max="75"/></dex>
@@ -24,15 +23,15 @@
 		<tactics><random min="601" max="800"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="6" type="int" />
-		<tag name="maxdamage" value="24" type="int" />
+		<mindamage>6</mindamage>
+		<maxdamage>24</maxdamage>
 		<!-- Resists -->
 		<tag name="res_energy" value="25,35" type="int" />
 		<tag name="res_fire" value="30,45" type="int" />
 		<tag name="res_physical" value="35,45" type="int" />
 		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Misc. -->
-		<desc>The red skin of the lava lizard should serve as a warning to all whopass nearby. Any creature who bathes in the fiery liquid form of theearth herself is a hearty beast worthy of a wide berth. Lava lizardsshare the fearsome jaws of their cousin, the crocodile, though theirteeth are black and harder than obsidian. Those lava lizards foundabove ground are most likely mothers guarding a nest. Although smallerthan their male counterparts, the female lava lizards are prone toattack with higher frequency and greater ferocity. It is best to avoidthe lairs of a lava lizard, for there is little to gain from them, butmuch to lose.</desc>
+		<desc>The red skin of the lava lizard should serve as a warning to all who pass nearby. Any creature who bathes in the fiery liquid form of the earth herself is a hearty beast worthy of a wide berth. Lava lizards share the fearsome jaws of their cousin, the crocodile, though their teeth are black and harder than obsidian. Those lava lizards found above ground are most likely mothers guarding a nest. Although smaller than their male counterparts, the female lava lizards are prone to attack with higher frequency and greater ferocity. It is best to avoid the lairs of a lava lizard, for there is little to gain from them, but much to lose.</desc>
 		<carve>carve_lava_lizard</carve>
 		<totame>807</totame>
 		<category>Monsters\Reptiles\lava lizard</category>

@@ -10,8 +10,8 @@
 
 	<!-- Giant Ice Worm -->
 	<npc id="giant_ice_worm" inherit="monster_base">
-		<name>a giant ice worm</name>
-		<id>0x59</id>
+		<name>giant ice worm</name>
+		<id>89</id>
 		<karma>-900</karma>
 		<fame>900</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="393" max="540"/></tactics>
 		<wrestling><random min="393" max="540"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="4" type="int" />
-		<tag name="maxdamage" value="12" type="int" />
+		<mindamage>4</mindamage>
+		<maxdamage>12</maxdamage>
 		<tag name="dmg_cold" value="25" type="int" />
 		<tag name="dmg_poison" value="50" type="int" />
 		<!-- Resists -->

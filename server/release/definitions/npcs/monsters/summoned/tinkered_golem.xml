@@ -10,14 +10,9 @@
 
 	<!-- tinker's golem -->
 	<npc id="tinkered_golem" inherit="golem">
-		<name>a golem</name>
-		<id>0x2f0</id>
 		<category>Monsters\Summoned\Golem (Tinkered)</category>
 		<karma>-3500</karma>
 		<fame>3500</fame>
-		<defense><random min="35" max="55" /></defense>
-		<lodamage>31</lodamage>
-		<hidamage>64</hidamage>
 		<!-- Stats -->
 		<str><random min="251" max="350" /></str>
 		<dex><random min="76" max="100" /></dex>
