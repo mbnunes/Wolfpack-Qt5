@@ -342,7 +342,6 @@ def onUse(player, item):
 	if layer == 0 or not (tile['flag3'] & 0x40):
 		return 0
 
-	backpack = player.getbackpack()
 	previous = player.itemonlayer(layer)
 	if previous:
 		tobackpack(previous, player)
@@ -354,13 +353,13 @@ def onUse(player, item):
 		righthand = player.itemonlayer(LAYER_RIGHTHAND)
 		lefthand = player.itemonlayer(LAYER_LEFTHAND)
 
-		if righthand and righthand.twohanded:
-			tobackpack(righthand, backpack)
+		if righthand and (righthand.twohanded or (layer == 2 and item.twohanded)):
+			tobackpack(righthand, player)
 			righthand.update()
 			righthand.soundeffect(0x57)
 
-		if lefthand and lefthand.twohanded:
-			tobackpack(lefthand, backpack)
+		if lefthand and (lefthand.twohanded or (layer == 1 and item.twohanded)):
+			tobackpack(lefthand, player)
 			lefthand.update()
 			lefthand.soundeffect(0x57)
 

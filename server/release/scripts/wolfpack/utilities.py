@@ -84,9 +84,9 @@ def itemsmatch(a, b):
 	\return Boolean
 	\description Moves an object into a character's backpack.
 """
-def tobackpack( item, char ):
+def tobackpack(item, char):
 	backpack = char.getbackpack()
-	return tocontainer( item, backpack )
+	return tocontainer(item, backpack)
 
 """
 	\function wolfpack.utilities.tocontainer
@@ -98,7 +98,7 @@ def tobackpack( item, char ):
 def tocontainer( item, container ):
 	for content in container.content:
 		# Found an item to stack with
-		if itemsmatch( content, item ):
+		if itemsmatch(content, item):
 			if content.amount + item.amount <= 60000:
 				content.amount = content.amount + item.amount
 				content.update()
