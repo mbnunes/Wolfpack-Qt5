@@ -572,6 +572,13 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	if (MapTileHeight<300) world[5]=0x02;
 	Xsend(s, world, 6);
 
+	unsigned char features[3];
+	features[0]=0xb9;
+	features[1]=0x0;
+	features[2]=0x3;
+
+	Xsend(s, features,3);
+
 	int i,serial;
 
 	perm[s]=1;
