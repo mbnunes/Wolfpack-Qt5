@@ -107,7 +107,7 @@ SOURCES		= CharWrap.cpp \
 		  combat.cpp \
 		  commands.cpp \
 		  coord.cpp \
-		  cweather.cpp \
+		  cWeather.cpp \
 		  dbl_single_click.cpp \
 		  debug.cpp \
 		  dragdrop.cpp \
