@@ -32,7 +32,11 @@
 #include "../network/uopacket.h"
 #include "../network/uosocket.h"
 
-// Object Information
+/*
+	\object packet
+	\description This object type represents a packet received from the client or one that should
+	be sent to the client.
+*/
 struct wpPacket
 {
 	PyObject_HEAD;
@@ -68,7 +72,12 @@ static PyTypeObject wpPacketType =
 
 };
 
-// Resize the packet
+/*
+	\method packet.resize
+	\param size The new size in bytes of the packet.
+	\description This method resizes the packet and either truncates to the new size or
+	fills newly added bytes with zeros.
+*/
 static PyObject* wpPacket_resize( PyObject* self, PyObject* args )
 {
 	int size;
@@ -82,7 +91,12 @@ static PyObject* wpPacket_resize( PyObject* self, PyObject* args )
 	return Py_None;
 }
 
-// Set a byte
+/*
+	\method packet.setbyte
+	\param offset The byte offset within the packet.
+	\param value The integer value that should be set.
+	\description This method sets a byte (8 bit) value within the packet.
+*/
 static PyObject* wpPacket_setbyte( PyObject* self, PyObject* args )
 {
 	unsigned int pos, value;
@@ -96,7 +110,12 @@ static PyObject* wpPacket_setbyte( PyObject* self, PyObject* args )
 	return Py_None;
 }
 
-// Set a short
+/*
+	\method packet.setshort
+	\param offset The byte offset within the packet.
+	\param value The integer value that should be set.
+	\description This method sets a short (16 bit) value within the packet.
+*/
 static PyObject* wpPacket_setshort( PyObject* self, PyObject* args )
 {
 	unsigned int pos, value;
@@ -110,7 +129,12 @@ static PyObject* wpPacket_setshort( PyObject* self, PyObject* args )
 	return Py_None;
 }
 
-// Set an integer
+/*
+	\method packet.setint
+	\param offset The byte offset within the packet.
+	\param value The integer value that should be set.
+	\description This method sets a integer (32 bit) value within the packet.
+*/
 static PyObject* wpPacket_setint( PyObject* self, PyObject* args )
 {
 	unsigned int pos, value;
@@ -124,7 +148,12 @@ static PyObject* wpPacket_setint( PyObject* self, PyObject* args )
 	return Py_None;
 }
 
-// Get a byte
+/*
+	\method packet.getbyte
+	\param offset The byte offset within the packet.
+	\return An integer value.
+	\description This methods get an 8-bit value from the packet.
+*/
 static PyObject* wpPacket_getbyte( PyObject* self, PyObject* args )
 {
 	unsigned int pos;
@@ -135,7 +164,12 @@ static PyObject* wpPacket_getbyte( PyObject* self, PyObject* args )
 	return PyInt_FromLong( ( ( unsigned char ) ( ( *( ( wpPacket * ) self )->packet )[( unsigned short ) pos] ) ) );
 }
 
-// Get a short
+/*
+	\method packet.getshort
+	\param offset The byte offset within the packet.
+	\return An integer value.
+	\description This methods get a 16-bit value from the packet.
+*/
 static PyObject* wpPacket_getshort( PyObject* self, PyObject* args )
 {
 	unsigned int pos;
@@ -146,7 +180,12 @@ static PyObject* wpPacket_getshort( PyObject* self, PyObject* args )
 	return PyInt_FromLong( ( ( wpPacket * ) self )->packet->getShort( ( unsigned short ) pos ) );
 }
 
-// Get an integer
+/*
+	\method packet.getint
+	\param offset The byte offset within the packet.
+	\return An integer value.
+	\description This methods get a 32-bit value from the packet.
+*/
 static PyObject* wpPacket_getint( PyObject* self, PyObject* args )
 {
 	unsigned int pos;
@@ -157,8 +196,12 @@ static PyObject* wpPacket_getint( PyObject* self, PyObject* args )
 	return PyInt_FromLong( ( ( wpPacket * ) self )->packet->getInt( ( unsigned short ) pos ) );
 }
 
-
-// Set raw data in the packet buffer
+/*
+	\method packet.setascii
+	\param offset The byte offset within the packet.
+	\param value The string value.
+	\description This method copies an ASCII string into the packet including the null termination byte.
+*/
 static PyObject* wpPacket_setascii( PyObject* self, PyObject* args )
 {
 	unsigned short pos;
@@ -184,7 +227,12 @@ static PyObject* wpPacket_setascii( PyObject* self, PyObject* args )
 	return Py_None;
 }
 
-// Set data in unicode encoding
+/*
+	\method packet.setunicode
+	\param offset The byte offset within the packet.
+	\param value The unicode or utf-8 value.
+	\description This method copies an unicode string into the packet including the null termination byte.
+*/
 static PyObject* wpPacket_setunicode( PyObject* self, PyObject* args )
 {
 	int pos;
@@ -203,6 +251,12 @@ static PyObject* wpPacket_setunicode( PyObject* self, PyObject* args )
 	return Py_None;
 }
 
+/*
+	\method packet.getunicode
+	\param offset The byte offset within the packet.
+	\param length The maximum length.
+	\description This method gets an unicode string from the packet.
+*/
 static PyObject* wpPacket_getunicode( PyObject* self, PyObject* args )
 {
 	int pos;
@@ -219,6 +273,12 @@ static PyObject* wpPacket_getunicode( PyObject* self, PyObject* args )
 	return QString2Python( string );
 }
 
+/*
+	\method packet.getascii
+	\param offset The byte offset within the packet.
+	\param length The maximum length.
+	\description This method gets an ASCII string from the packet.
+*/
 static PyObject* wpPacket_getascii( PyObject* self, PyObject* args )
 {
 	int pos;
@@ -242,7 +302,11 @@ static PyObject* wpPacket_getascii( PyObject* self, PyObject* args )
 	}
 }
 
-// Send the packet
+/*
+	\method packet.send
+	\param socket A <object id="socket">socket</object> object.
+	\description This method sends this packet to a given socket.
+*/
 static PyObject* wpPacket_send( PyObject* self, PyObject* args )
 {
 	cUOSocket* socket;
@@ -256,7 +320,11 @@ static PyObject* wpPacket_send( PyObject* self, PyObject* args )
 	return Py_None;
 }
 
-// Return a Packet Dump
+/*
+	\method packet.dump
+	\return A string.
+	\description This method creates a dump of the packet and returns it as a human readable string.
+*/
 static PyObject* wpPacket_dump( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( args );
@@ -286,6 +354,9 @@ PyMethodDef wpPacketMethods[] =
 
 static PyObject* wpPacket_getattr( PyObject* self, char* name )
 {
+	/*
+	\rproperty packet.size The current size of this packet.
+	*/
 	if ( !strcmp( name, "size" ) )
 	{
 		return PyInt_FromLong( ( ( wpPacket * ) self )->packet->size() );
