@@ -66,6 +66,8 @@ tickcount = _wolfpack.tickcount
 packet = _wolfpack.packet
 getoption = _wolfpack.getoption
 setoption = _wolfpack.setoption
+playercount = _wolfpack.playercount
+npccount = _wolfpack.npccount
 
 """
 	\function wolfpack.findobject

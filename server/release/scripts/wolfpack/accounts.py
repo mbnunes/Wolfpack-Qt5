@@ -14,3 +14,4 @@ acl = _wolfpack.accounts.acl
 add = _wolfpack.accounts.add
 save = _wolfpack.accounts.save
 reload = _wolfpack.accounts.reload
+count = _wolfpack.accounts.count
