@@ -197,7 +197,7 @@ def checkPython(options):
 	elif sys.platform == "darwin":
 		PYTHONINCSEARCHPATH = [ "/System/Library/Frameworks/Python.framework/Versions/Current/Headers/Python.h" ]
 		PYTHONLIBSEARCHPATH = [ ]
-		PYTHONLIBSTATICSEARCHPATH = ["/System/Library/Frameworks/Python.framework/Versions/Current/Python", \ 
+		PYTHONLIBSTATICSEARCHPATH = ["/System/Library/Frameworks/Python.framework/Versions/Current/Python", \
 					  "/System/Library/Frameworks/Python.framework/Versions/Current/lib/[Pp]ython*/config/libpython*.a", \
 					  "/usr/local/lib/[Pp]ython*/config/libpython*.a"]
 	else:
