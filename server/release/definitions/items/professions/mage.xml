@@ -25,6 +25,8 @@
 		<onehanded />
 		<newbie />
 		<decay />
+		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
 		<value>30</value>
 		<category>Professions\Mage\Spellbook (N/S)</category>
 		<events>spellbook</events>
@@ -36,6 +38,8 @@
 		<onehanded />
 		<decay />
 		<newbie />
+		<buyprice>2500</buyprice>
+		<sellprice>1250</sellprice>
 		<category>Professions\Mage\Runebook </category>
 		<events>runebook</events>
 	</item>		
@@ -47,6 +51,8 @@
 		<weight>1</weight>
 		<newbie />
 		<decay />
+		<buyprice>15</buyprice>
+		<sellprice>8</sellprice>
 		<events>recall_rune</events>
 	</item>
 
@@ -76,6 +82,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>15</value>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Clumsy</category>
 	</item>
@@ -86,6 +94,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>15</value>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Create Food</category>
 	</item>
@@ -96,6 +106,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>15</value>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Feeblemind</category>
 	</item>
@@ -106,6 +118,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>15</value>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Heal</category>		
 	</item>
@@ -116,6 +130,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>15</value>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Magic Arrow</category>
 	</item>
@@ -126,6 +142,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>15</value>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Night Sight</category>
 	</item>
@@ -136,6 +154,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>15</value>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Reactive Armor</category>
 	</item>
@@ -146,6 +166,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>15</value>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Weaken</category>
 	</item>
@@ -156,6 +178,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>30</value>
+		<buyprice>22</buyprice>
+		<sellprice>11</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Agility</category>
 	</item>
@@ -166,6 +190,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>30</value>
+		<buyprice>22</buyprice>
+		<sellprice>11</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Cunning</category>
 	</item>
@@ -176,6 +202,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>30</value>
+		<buyprice>22</buyprice>
+		<sellprice>11</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Cure</category>
 	</item>
@@ -186,6 +214,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>30</value>
+		<buyprice>22</buyprice>
+		<sellprice>11</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Harm</category>		
 	</item>
@@ -196,6 +226,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>30</value>
+		<buyprice>22</buyprice>
+		<sellprice>11</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Magic Trap</category>
 	</item>
@@ -206,6 +238,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>30</value>
+		<buyprice>22</buyprice>
+		<sellprice>11</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Magic Untrap</category>
 	</item>
@@ -216,6 +250,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>30</value>
+		<buyprice>22</buyprice>
+		<sellprice>11</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Protection</category>
 	</item>
@@ -226,6 +262,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>30</value>
+		<buyprice>22</buyprice>
+		<sellprice>11</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Strength</category>
 	</item>
@@ -236,6 +274,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>45</value>
+		<buyprice>32</buyprice>
+		<sellprice>16</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Bless</category>
 	</item>
@@ -246,6 +286,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>45</value>
+		<buyprice>32</buyprice>
+		<sellprice>16</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Fireball</category>
 	</item>
@@ -256,6 +298,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>45</value>
+		<buyprice>32</buyprice>
+		<sellprice>16</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Magic Lock</category>
 	</item>
@@ -266,6 +310,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>45</value>
+		<buyprice>32</buyprice>
+		<sellprice>16</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Poison</category>
 	</item>
@@ -276,6 +322,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>45</value>
+		<buyprice>32</buyprice>
+		<sellprice>16</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Telekinesis</category>
 	</item>
@@ -286,6 +334,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>45</value>
+		<buyprice>32</buyprice>
+		<sellprice>16</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Teleport</category>
 	</item>
@@ -296,6 +346,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>45</value>
+		<buyprice>32</buyprice>
+		<sellprice>16</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Unlock</category>
 	</item>
@@ -306,6 +358,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>45</value>
+		<buyprice>32</buyprice>
+		<sellprice>16</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Wall of Stone</category>
 	</item>
@@ -316,6 +370,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>60</value>
+		<buyprice>42</buyprice>
+		<sellprice>21</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Arch Cure</category>
 	</item>
@@ -326,6 +382,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>60</value>
+		<buyprice>42</buyprice>
+		<sellprice>21</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Arch Protection</category>
 	</item>
@@ -336,6 +394,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>60</value>
+		<buyprice>42</buyprice>
+		<sellprice>21</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Curse</category>
 	</item>
@@ -346,6 +406,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>60</value>
+		<buyprice>42</buyprice>
+		<sellprice>21</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Fire Field</category>
 	</item>
@@ -356,6 +418,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>60</value>
+		<buyprice>42</buyprice>
+		<sellprice>21</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Greater Heal</category>
 	</item>
@@ -366,6 +430,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>60</value>
+		<buyprice>42</buyprice>
+		<sellprice>21</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Lightning</category>
 	</item>
@@ -376,6 +442,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>60</value>
+		<buyprice>42</buyprice>
+		<sellprice>21</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Mana Drain</category>
 	</item>
@@ -386,6 +454,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>60</value>
+		<buyprice>42</buyprice>
+		<sellprice>21</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Recall</category>
 	</item>
@@ -396,6 +466,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>75</value>
+		<buyprice>52</buyprice>
+		<sellprice>26</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Blade Spirits</category>
 	</item>
@@ -406,6 +478,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>75</value>
+		<buyprice>52</buyprice>
+		<sellprice>26</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Dispel Field</category>
 	</item>
@@ -416,6 +490,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>75</value>
+		<buyprice>52</buyprice>
+		<sellprice>26</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Incognito</category>
 	</item>
@@ -426,6 +502,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>75</value>
+		<buyprice>52</buyprice>
+		<sellprice>26</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Magic Reflection</category>
 	</item>
@@ -436,6 +514,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>75</value>
+		<buyprice>52</buyprice>
+		<sellprice>26</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Mind Blast</category>
 	</item>
@@ -446,6 +526,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>75</value>
+		<buyprice>52</buyprice>
+		<sellprice>26</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Paralyze</category>
 	</item>
@@ -456,6 +538,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>75</value>
+		<buyprice>52</buyprice>
+		<sellprice>26</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Poison Field</category>
 	</item>
@@ -466,6 +550,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>75</value>
+		<buyprice>52</buyprice>
+		<sellprice>26</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Summon Creature</category>
 	</item>
@@ -476,6 +562,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>90</value>
+		<buyprice>62</buyprice>
+		<sellprice>31</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Dispel Scroll</category>
 	</item>
@@ -486,6 +574,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>90</value>
+		<buyprice>62</buyprice>
+		<sellprice>31</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Energy Bolt</category>
 	</item>
@@ -496,6 +586,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>90</value>
+		<buyprice>62</buyprice>
+		<sellprice>31</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Explosion</category>
 	</item>
@@ -506,6 +598,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>90</value>
+		<buyprice>62</buyprice>
+		<sellprice>31</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Invisibility</category>
 	</item>
@@ -516,6 +610,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>90</value>
+		<buyprice>62</buyprice>
+		<sellprice>31</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Mark</category>
 	</item>
@@ -526,6 +622,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>90</value>
+		<buyprice>62</buyprice>
+		<sellprice>31</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Mass Curse</category>
 	</item>
@@ -536,6 +634,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>90</value>
+		<buyprice>62</buyprice>
+		<sellprice>31</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Paralyze Field</category>
 	</item>
@@ -546,6 +646,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>90</value>
+		<buyprice>62</buyprice>
+		<sellprice>31</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Reveal</category>
 	</item>
@@ -556,6 +658,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>105</value>
+		<buyprice>72</buyprice>
+		<sellprice>36</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Chain Lightning</category>
 	</item>
@@ -566,6 +670,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>105</value>
+		<buyprice>72</buyprice>
+		<sellprice>36</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Energy Field</category>
 	</item>
@@ -576,6 +682,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>105</value>
+		<buyprice>72</buyprice>
+		<sellprice>36</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Flamestrike</category>
 	</item>
@@ -586,6 +694,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>105</value>
+		<buyprice>72</buyprice>
+		<sellprice>36</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Gate Travel</category>
 	</item>
@@ -596,6 +706,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>105</value>
+		<buyprice>72</buyprice>
+		<sellprice>36</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Mana Vampire</category>
 	</item>
@@ -606,6 +718,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>105</value>
+		<buyprice>72</buyprice>
+		<sellprice>36</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Mass Dispel</category>
 	</item>
@@ -616,6 +730,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>105</value>
+		<buyprice>72</buyprice>
+		<sellprice>36</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Meteor Swarm</category>
 	</item>
@@ -626,6 +742,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>105</value>
+		<buyprice>72</buyprice>
+		<sellprice>36</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Polymorph</category>
 	</item>
@@ -636,6 +754,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>120</value>
+		<buyprice>82</buyprice>
+		<sellprice>41</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Earthquake</category>
 	</item>
@@ -646,6 +766,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>120</value>
+		<buyprice>82</buyprice>
+		<sellprice>41</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Energy Vortex</category>
 	</item>
@@ -656,6 +778,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>120</value>
+		<buyprice>82</buyprice>
+		<sellprice>41</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Resurrection</category>
 	</item>
@@ -666,6 +790,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>120</value>
+		<buyprice>82</buyprice>
+		<sellprice>41</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Summon Air Elemental</category>
 	</item>
@@ -676,6 +802,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>120</value>
+		<buyprice>82</buyprice>
+		<sellprice>41</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Summon Daemon</category>
 	</item>
@@ -686,6 +814,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>120</value>
+		<buyprice>82</buyprice>
+		<sellprice>41</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Summon Earth Elemental</category>
 	</item>
@@ -696,6 +826,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>120</value>
+		<buyprice>82</buyprice>
+		<sellprice>41</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Summon Fire Elemental</category>
 	</item>
@@ -706,6 +838,8 @@
 		<decay/>
 		<events>scroll</events>
 		<value>120</value>
+		<buyprice>82</buyprice>
+		<sellprice>41</sellprice>
 		<weight>0.02</weight>
 		<category>Professions\Mage\Scrolls\Summon Water Elemental</category>
 	</item>

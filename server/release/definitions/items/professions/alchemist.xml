@@ -486,12 +486,16 @@
 	<!-- Mortar & pestle -->
 	<item id="e9b">
 		<id>0x0e9b</id>
+		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Alchemist\Mortar &amp; Pestle</category>
 		<type>1107</type>
 	</item>
 
 	<item id="f0e">
 		<id>0x0f0e</id>
+		<buyprice>5</buyprice>
+		<sellprice>3</sellprice>
 		<category>Professions\Alchemist\Empty Bottle</category>
 	</item>
 
@@ -556,11 +560,15 @@
 
 	<item id="f7a">
 		<id>0x0f7a</id>
+		<buyprice>5</buyprice>
+		<sellprice>3</sellprice>
 		<category>Professions\Alchemist\Reagents\Black Pearl</category>
 	</item>
 
 	<item id="f7b">
 		<id>0x0f7b</id>
+		<buyprice>5</buyprice>
+		<sellprice>3</sellprice>
 		<category>Professions\Alchemist\Reagents\Blood Moss</category>
 	</item>
 
@@ -606,16 +614,22 @@
 
 	<item id="f84">
 		<id>0x0f84</id>
+		<buyprice>3</buyprice>
+		<sellprice>2</sellprice>
 		<category>Professions\Alchemist\Reagents\Garlic</category>
 	</item>
 
 	<item id="f85">
 		<id>0x0f85</id>
+		<buyprice>3</buyprice>
+		<sellprice>2</sellprice>
 		<category>Professions\Alchemist\Reagents\Ginseng</category>
 	</item>
 
 	<item id="f86">
 		<id>0x0f86</id>
+		<buyprice>3</buyprice>
+		<sellprice>2</sellprice>
 		<category>Professions\Alchemist\Reagents\Mandrake Root</category>
 	</item>
 
@@ -626,6 +640,8 @@
 
 	<item id="f88">
 		<id>0x0f88</id>
+		<buyprice>3</buyprice>
+		<sellprice>2</sellprice>
 		<category>Professions\Alchemist\Reagents\Nightshade</category>
 	</item>
 
@@ -646,11 +662,15 @@
 
 	<item id="f8c">
 		<id>0x0f8c</id>
+		<buyprice>3</buyprice>
+		<sellprice>2</sellprice>
 		<category>Professions\Alchemist\Reagents\Sulfurous Ash</category>
 	</item>
 
 	<item id="f8d">
 		<id>0x0f8d</id>
+		<buyprice>3</buyprice>
+		<sellprice>2</sellprice>
 		<category>Professions\Alchemist\Reagents\Spider's Silk</category>
 	</item>
 

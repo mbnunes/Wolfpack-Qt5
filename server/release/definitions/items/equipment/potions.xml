@@ -20,6 +20,8 @@
 		<category>Equipment\Potions\Nightsight</category>
 
 		<!-- Pricing information -->
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<!-- Lesser Heal -->
@@ -33,6 +35,8 @@
 		<category>Equipment\Potions\Heal (lesser)</category>
 
 		<!-- Pricing information -->
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<!-- Heal -->
@@ -72,6 +76,8 @@
 		<category>Equipment\Potions\Poison (lesser)</category>
 
 		<!-- Pricing information -->
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>	
 
 	<!-- Poison -->
