@@ -264,6 +264,12 @@ def dosmelt(char, args):
 		return False
 
 	if ore.amount >= 1 and char.skill[ MINING ] >= reqskill:
+		# Exploit fix. Otherwise the skillcheck would be before
+		# consuming items.
+		if ore.baseid == DEF_ORES[0] and ore.amount <= 1:
+			char.socket.clilocmessage( 501987, '', GRAY )
+			return False
+	
 		if not skills.checkskill(char, MINING, chance):
 			success = 0
 		else:
