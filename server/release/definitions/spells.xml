@@ -3,8 +3,6 @@
 	script definitions. Please keep that in mind.
 -->
 <definitions>
-	<script id="spell_recall" type="python" module="spells.recall" />
-	<script id="spell_mark" type="python" module="spells.mark" />
 
 	<!-- Clumsy -->
 	<spell id="1">
@@ -231,7 +229,10 @@
 			<mandrake>1</mandrake>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<script>spell_agility</script>
 	</spell>
+
+	<script id="spell_agility" type="python" module="spells.circle2.agility" />
 
 <!-- // Cunning -->
 	<spell id="10">
@@ -249,8 +250,11 @@
 			<mandrake>1</mandrake>
 			<nightshade>1</nightshade>
 		</reagents>
+		<script>spell_cunning</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_cunning" type="python" module="spells.circle2.cunning" />
 
 <!-- // Cure -->
 	<spell id="11">
@@ -267,7 +271,10 @@
 			<garlic>1</garlic>
 			<ginseng>1</ginseng>
 		</reagents>
+		<script>spell_cure</script>
 	</spell>
+
+	<script id="spell_cure" type="python" module="spells.circle2.cure" />
 
 <!-- // Harm -->
 	<spell id="12">
@@ -285,8 +292,11 @@
 			<nightshade>1</nightshade>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_harm</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_harm" type="python" module="spells.circle2.harm" />
 
 <!-- // Magic Trap -->
 	<spell id="13">
@@ -304,8 +314,11 @@
 			<garlic>1</garlic>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_magictrap</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_magictrap" type="python" module="spells.circle2.magictrap" />
 
 <!-- // Magic Untrap -->
 	<spell id="14">
@@ -322,8 +335,11 @@
 			<ash>1</ash>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<script>spell_magicuntrap</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_magicuntrap" type="python" module="spells.circle2.magicuntrap" />
 
 <!-- // Protection -->
 	<spell id="15">
@@ -341,7 +357,10 @@
 			<garlic>1</garlic>
 			<ginseng>1</ginseng>
 		</reagents>
+		<script>spell_protection</script>
 	</spell>
+
+	<script id="spell_protection" type="python" module="spells.circle2.protection" />
 
 <!-- // Strength -->
 	<spell id="16">
@@ -358,7 +377,12 @@
 			<mandrake>1</mandrake>
 			<nightshade>1</nightshade>
 		</reagents>
+		<script>spell_strength</script>
 	</spell>
+
+	<script id="spell_strength" type="python" module="spells.circle2.strength" />
+
+	<!-- Circle 3 -->
 
 <!-- // Bless -->
 	<spell id="17">
@@ -375,7 +399,10 @@
 			<mandrake>1</mandrake>
 			<garlic>1</garlic>
 		</reagents>
+		<script>spell_bless</script>
 	</spell>
+
+	<script id="spell_bless" type="python" module="spells.circle3.bless" />
 
 <!-- // Fireball -->
 	<spell id="18">
@@ -393,8 +420,11 @@
 			<ash>1</ash>
 			<blackpearl>1</blackpearl>
 		</reagents>
+		<script>spell_fireball</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_fireball" type="python" module="spells.circle3.fireball" />
 
 <!-- // Magic Lock -->
 	<spell id="19">
@@ -412,8 +442,11 @@
 			<garlic>1</garlic>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<script>spell_magiclock</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_magiclock" type="python" module="spells.circle3.magiclock" />
 
 <!-- // Poison -->
 	<spell id="20">
@@ -430,8 +463,11 @@
 			<mana>9</mana>
 			<nightshade>1</nightshade>
 		</reagents>
+		<script>spell_poison</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_poison" type="python" module="spells.circle3.poison" />
 
 <!-- // Telekinesis -->
 	<spell id="21">
@@ -449,8 +485,11 @@
 			<mandrake>1</mandrake>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<script>spell_telekinesis</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_telekinesis" type="python" module="spells.circle3.telekinesis" />
 
 <!-- // Teleport -->
 	<spell id="22">
@@ -467,7 +506,10 @@
 			<mandrake>1</mandrake>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<script>spell_teleport</script>
 	</spell>
+
+	<script id="spell_teleport" type="python" module="spells.circle3.teleport" />
 
 <!-- // Unlock -->
 	<spell id="23">
@@ -484,8 +526,11 @@
 			<ash>1</ash>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<script>spell_unlock</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_unlock" type="python" module="spells.circle3.unlock" />
 
 <!-- // Wall of Stone -->
 	<spell id="24">
@@ -502,8 +547,13 @@
 			<garlic>1</garlic>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<script>spell_wallofstone</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_wallofstone" type="python" module="spells.circle3.wallofstone" />
+
+	<!-- Circle 4 -->
 
 <!-- // Arch Cure -->
 	<spell id="25">
@@ -521,7 +571,10 @@
 			<garlic>1</garlic>
 			<ginseng>1</ginseng>
 		</reagents>
+		<script>spell_archcure</script>
 	</spell>
+
+	<script id="spell_archcure" type="python" module="spells.circle4.archcure" />
 
 <!-- // Arch Protection -->
 	<spell id="26">
@@ -539,7 +592,10 @@
 			<garlic>1</garlic>
 			<ginseng>1</ginseng>
 		</reagents>
+		<script>spell_archprotection</script>
 	</spell>
+
+	<script id="spell_archprotection" type="python" module="spells.circle4.archprotection" />
 
 <!-- // Curse -->
 	<spell id="27">
@@ -558,8 +614,11 @@
 			<garlic>1</garlic>
 			<nightshade>1</nightshade>
 		</reagents>
+		<script>spell_curse</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_curse" type="python" module="spells.circle4.curse" />
 
 <!-- // Fire Field -->
 	<spell id="28">
@@ -577,8 +636,11 @@
 			<blackpearl>1</blackpearl>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_firefield</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_firefield" type="python" module="spells.circle4.firefield" />
 
 <!-- // Greater Heal -->
 	<spell id="29">
@@ -597,7 +659,10 @@
 			<ginseng>1</ginseng>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_greaterheal</script>
 	</spell>
+
+	<script id="spell_greaterheal" type="python" module="spells.circle4.greaterheal" />
 
 <!-- // Lightning -->
 	<spell id="30">
@@ -616,8 +681,11 @@
 			<mandrake>1</mandrake>
 			<blackpearl>1</blackpearl>
 		</reagents>
+		<script>spell_lightening</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_lightening" type="python" module="spells.circle4.lightening" />
 
 <!-- // Mana Drain -->
 	<spell id="31">
@@ -636,8 +704,11 @@
 			<blackpearl>1</blackpearl>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_manadrain</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_manadrain" type="python" module="spells.circle4.manadrain" />
 
 	<!-- Recall -->
 	<spell id="32">
@@ -662,6 +733,10 @@
 		<script>spell_recall</script>
 	</spell>
 
+	<script id="spell_recall" type="python" module="spells.circle4.recall" />
+
+	<!-- Circle 5 -->
+
 <!-- // Blade Spirits -->
 	<spell id="33">
 		<circle>5</circle>
@@ -678,8 +753,11 @@
 			<blackpearl>1</blackpearl>
 			<nightshade>1</nightshade>
 		</reagents>
+		<script>spell_bladespirits</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_bladespirits" type="python" module="spells.circle5.bladespirits" />
 
 <!-- // Dispel Field -->
 	<spell id="34">
@@ -698,8 +776,11 @@
 			<blackpearl>1</blackpearl>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_dispellfield</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_dispellfield" type="python" module="spells.circle5.dispellfield" />
 
 <!-- // Incognito -->
 	<spell id="35">
@@ -716,8 +797,11 @@
 			<bloodmoss>1</bloodmoss>
 			<nightshade>1</nightshade>
 		</reagents>
+		<script>spell_incognito</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_incognito" type="python" module="spells.circle5.incognito" />
 
 <!-- // Magic Reflection -->
 	<spell id="36">
@@ -734,7 +818,10 @@
 			<garlic>1</garlic>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_magicreflection</script>
 	</spell>
+
+	<script id="spell_magicreflection" type="python" module="spells.circle5.magicreflection" />
 
 <!-- // Mind Blast -->
 	<spell id="37">
@@ -754,8 +841,11 @@
 			<blackpearl>1</blackpearl>
 			<nightshade>1</nightshade>
 		</reagents>
+		<script>spell_mindblast</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_mindblast" type="python" module="spells.circle5.mindblast" />
 
 <!-- // Paralyze -->
 	<spell id="38">
@@ -774,8 +864,11 @@
 			<garlic>1</garlic>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_paralyze</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_paralyze" type="python" module="spells.circle5.paralyze" />
 
 <!-- // Poison Field -->
 	<spell id="39">
@@ -793,8 +886,11 @@
 			<nightshade>1</nightshade>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_poisonfield</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_poisonfield" type="python" module="spells.circle5.poisonfield" />
 
 <!-- // Summon Creature -->
 	<spell id="40">
@@ -811,7 +907,12 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_summoncreature</script>
 	</spell>
+
+	<script id="spell_summoncreature" type="python" module="spells.circle5.summoncreature" />
+
+	<!-- Circle 6 -->
 
 <!-- // Dispel -->
 	<spell id="41">
@@ -829,8 +930,11 @@
 			<mandrake>1</mandrake>
 			<garlic>1</garlic>
 		</reagents>
+		<script>spell_dispell</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_dispell" type="python" module="spells.circle6.dispell" />
 
 <!-- // Energy Bolt -->
 	<spell id="42">
@@ -848,8 +952,11 @@
 			<blackpearl>1</blackpearl>
 			<nightshade>1</nightshade>
 		</reagents>
+		<script>spell_energybolt</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_energybolt" type="python" module="spells.circle6.energybolt" />
 
 <!-- // Explosion -->
 	<spell id="43">
@@ -868,8 +975,11 @@
 			<mandrake>1</mandrake>
 			<blackpearl>1</blackpearl>
 		</reagents>
+		<script>spell_explosion</script>
 		<agressive />
 	</spell>
+
+	<script id="spell_explosion" type="python" module="spells.circle6.explosion" />
 
 <!-- // Invisibility -->
 	<spell id="44">
@@ -886,7 +996,10 @@
 			<bloodmoss>1</bloodmoss>
 			<nightshade>1</nightshade>
 		</reagents>
+		<script>spell_invisibility</script>
 	</spell>
+
+	<script id="spell_invisibility" type="python" module="spells.circle6.invisibility" />
 
 	<!-- Mark -->
 	<spell id="45">
@@ -911,6 +1024,8 @@
 		<script>spell_mark</script>
 	</spell>
 
+	<script id="spell_mark" type="python" module="spells.circle6.mark" />
+
 <!-- // Mass Curse -->
 	<spell id="46">
 		<circle>6</circle>
@@ -928,8 +1043,11 @@
 			<garlic>1</garlic>
 			<nightshade>1</nightshade>
 		</reagents>
+		<script>spell_masscurse</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_masscurse" type="python" module="spells.circle6.masscurse" />
 
 <!-- // Paralyze Field -->
 	<spell id="47">
@@ -947,8 +1065,11 @@
 			<blackpearl>1</blackpearl>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_paralyzefield</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_paralyzefield" type="python" module="spells.circle6.paralyzefield" />
 
 <!-- // Reveal -->
 	<spell id="48">
@@ -965,7 +1086,12 @@
 			<ash>1</ash>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<script>spell_reveal</script>
 	</spell>
+
+	<script id="spell_reveal" type="python" module="spells.circle6.reveal" />
+
+	<!-- Circle 7 -->
 
 <!-- // Chain Lightning -->
 	<spell id="49">
@@ -984,8 +1110,11 @@
 			<bloodmoss>1</bloodmoss>
 			<blackpearl>1</blackpearl>
 		</reagents>
+		<script>spell_chainlightening</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_chainlightening" type="python" module="spells.circle7.chainlightening" />
 
 <!-- // Energy Field -->
 	<spell id="50">
@@ -1004,8 +1133,11 @@
 			<blackpearl>1</blackpearl>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_energyfield</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_energyfield" type="python" module="spells.circle7.energyfield" />
 
 <!-- // Flamestrike -->
 	<spell id="51">
@@ -1023,8 +1155,11 @@
 			<ash>1</ash>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_flamestrike</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_flamestrike" type="python" module="spells.circle7.flamestrike" />
 
 <!-- // Gate Travel -->
 	<spell id="52">
@@ -1042,7 +1177,10 @@
 			<mandrake>1</mandrake>
 			<blackpearl>1</blackpearl>
 		</reagents>
+		<script>spell_gatetravel</script>
 	</spell>
+
+	<script id="spell_gatetravel" type="python" module="spells.circle7.gatetravel" />
 
 <!-- // Mana Vampire -->
 	<spell id="53">
@@ -1062,8 +1200,11 @@
 			<blackpearl>1</blackpearl>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_manavampire</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_manavampire" type="python" module="spells.circle7.manavampire" />
 
 <!-- // Mass Dispel -->
 	<spell id="54">
@@ -1082,8 +1223,11 @@
 			<garlic>1</garlic>
 			<blackpearl>1</blackpearl>
 		</reagents>
+		<script>spell_massdispell</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_massdispell" type="python" module="spells.circle7.massdispell" />
 
 <!-- // Meteor Swarm -->
 	<spell id="55">
@@ -1103,8 +1247,11 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_meteorswarm</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_meteorswarm" type="python" module="spells.circle7.meteorswarm" />
 
 <!-- // Polymorph -->
 	<spell id="56">
@@ -1121,7 +1268,12 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_polymorph</script>
 	</spell>
+
+	<script id="spell_polymorph" type="python" module="spells.circle7.polymorph" />
+
+	<!-- Circle 8 -->
 
 <!-- // Earthquake -->
 	<spell id="57">
@@ -1139,8 +1291,11 @@
 			<ginseng>1</ginseng>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<script>spell_earthquake</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_earthquake" type="python" module="spells.circle8.earthquake" />
 
 <!-- // Energy Vortex -->
 	<spell id="58">
@@ -1159,8 +1314,11 @@
 			<blackpearl>1</blackpearl>
 			<nightshade>1</nightshade>
 		</reagents>
+		<script>spell_energyvortex</script>
 		<agressive />		
 	</spell>
+
+	<script id="spell_energyvortex" type="python" module="spells.circle8.energyvortex" />
 
 <!-- // Resurrection -->
 	<spell id="59">
@@ -1178,7 +1336,10 @@
 			<ginseng>1</ginseng>
 			<bloodmoss>1</bloodmoss>
 		</reagents>
+		<script>spell_resurrection</script>
 	</spell>
+
+	<script id="spell_resurrection" type="python" module="spells.circle8.resurrection" />
 
 <!-- // Summon Air Elemental -->
 	<spell id="60">
@@ -1195,7 +1356,10 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_airelemental</script>
 	</spell>
+
+	<script id="spell_airelemental" type="python" module="spells.circle8.airelemental" />
 
 <!-- // Summon Daemon -->
 	<spell id="61">
@@ -1213,7 +1377,10 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_summondaemon</script>
 	</spell>
+
+	 <script id="spell_summondaemon" type="python" module="spells.circle8.summondaemon" />
 
 <!-- // Summon Earth Elemental -->
 	<spell id="62">
@@ -1230,7 +1397,10 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_earthelemental</script>
 	</spell>
+
+	<script id="spell_earthelemental" type="python" module="spells.circle8.earthelemental" />
 
 <!-- // Summon Fire Elemental -->
 	<spell id="63">
@@ -1248,7 +1418,10 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_fireelemental</script>
 	</spell>
+
+	<script id="spell_fireelemental" type="python" module="spells.circle8.fireelemental" />
 
 <!-- // Summon Water Elemental -->
 	<spell id="64">
@@ -1265,7 +1438,10 @@
 			<bloodmoss>1</bloodmoss>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_waterelemental</script>
 	</spell>
+
+	<script id="spell_waterelemental" type="python" module="spells.circle8.waterelemental" />
 
 <!-- // Summon Hero (Dupre The Hero) -->
 	<spell id="65">
