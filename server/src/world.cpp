@@ -90,46 +90,46 @@ struct
 } tableInfo[] =
 {
 	{ "guilds", "CREATE TABLE guilds ( \
-		serial unsigned int(11) NOT NULL default '0', \
+		serial unsigned int(10) NOT NULL default '0', \
 		name varchar(255) NOT NULL default '', \
 		abbreviation varchar(6) NOT NULL default '', \
 		charta LONGTEXT NOT NULL, \
 		website varchar(255) NOT NULL default 'http://www.wpdev.org', \
-		alignment int(2) NOT NULL default '0', \
-		leader unsigned int(11) NOT NULL default '0', \
+		alignment tinyint(2) NOT NULL default '0', \
+		leader unsigned int(10) NOT NULL default '0', \
 		founded int(11) NOT NULL default '0', \
-		guildstone unsigned int(11) NOT NULL default '0', \
+		guildstone unsigned int(10) NOT NULL default '0', \
 		PRIMARY KEY(serial) \
-	);" }, 
-	{ "guilds_members",	"CREATE TABLE guilds_members ( \
-		guild unsigned int(11) NOT NULL default '0', \
-		player unsigned int(11) NOT NULL default '0', \
-		showsign int(1) NOT NULL default '0', \
+	);" },
+	{ "guilds_members", "CREATE TABLE guilds_members ( \
+		guild unsigned int(10) NOT NULL default '0', \
+		player unsigned int(10) NOT NULL default '0', \
+		showsign unsigned tinyint(1) NOT NULL default '0', \
 		guildtitle varchar(255) NOT NULL default '', \
 		joined int(11) NOT NULL default '0', \
 		PRIMARY KEY(guild,player) \
-	);"}, 
+	);"},
 	{ "guilds_canidates", "CREATE TABLE guilds_canidates ( \
-		guild unsigned int(11) NOT NULL default '0', \
-		player unsigned int(11) NOT NULL default '0', \
+		guild unsigned int(10) NOT NULL default '0', \
+		player unsigned int(10) NOT NULL default '0', \
 		PRIMARY KEY(guild,player) \
-	);"}, 
+	);"},
 	{ "settings", "CREATE TABLE settings ( \
 		option varchar(255) NOT NULL default '', \
 		value varchar(255) NOT NULL default '', \
 		PRIMARY KEY (option) \
-	);" }, 
+	);" },
 	{ "characters", "CREATE TABLE characters (\
-		serial unsigned int(11) NOT NULL default '0',\
+		serial unsigned int(10) NOT NULL default '0',\
 		name varchar(255) default NULL,\
 		title varchar(255) default NULL,\
 		creationdate varchar(19) default NULL,\
-		body smallint(5)  NOT NULL default '0',\
-		orgbody smallint(5)  NOT NULL default '0',\
-		skin smallint(5)  NOT NULL default '0',\
-		orgskin smallint(5)  NOT NULL default '0',\
-		saycolor smallint(5)  NOT NULL default '0',\
-		emotecolor smallint(5)  NOT NULL default '0',\
+		body unsigned smallint(5)  NOT NULL default '0',\
+		orgbody unsigned smallint(5)  NOT NULL default '0',\
+		skin unsigned smallint(5)  NOT NULL default '0',\
+		orgskin unsigned smallint(5)  NOT NULL default '0',\
+		saycolor unsigned smallint(5)  NOT NULL default '0',\
+		emotecolor unsigned smallint(5)  NOT NULL default '0',\
 		strength smallint(6) NOT NULL default '0',\
 		strengthmod smallint(6) NOT NULL default '0',\
 		dexterity smallint(6) NOT NULL default '0',\
@@ -144,16 +144,16 @@ struct
 		mana smallint(6) default NULL,\
 		karma int(11) NOT NULL default '0',\
 		fame int(11) NOT NULL default '0',\
-		kills int(10)  NOT NULL default '0',\
-		deaths int(10)  NOT NULL default '0',\
-		hunger int(11) NOT NULL default '0',\
+		kills unsigned int(10) NOT NULL default '0',\
+		deaths unsigned int(10) NOT NULL default '0',\
+		hunger unsigned int(10) NOT NULL default '0',\
 		poison tinyint(2) NOT NULL default '-1',\
-		murderertime int(11)  NOT NULL default '0',\
-		criminaltime int(11)  NOT NULL default '0',\
-		gender tinyint(1)  NOT NULL default '0',\
+		murderertime unsigned int(10) NOT NULL default '0',\
+		criminaltime unsigned int(10) NOT NULL default '0',\
+		gender unsigned tinyint(1) NOT NULL default '0',\
 		propertyflags int(11)  NOT NULL default '0',\
-		murderer unsigned int(11) NOT NULL default '0',\
-		guarding unsigned int(11) NOT NULL default '0',\
+		murderer unsigned int(10) NOT NULL default '0',\
+		guarding unsigned int(10) NOT NULL default '0',\
 		hitpointsbonus smallint(6) NOT NULL default '0',\
 		staminabonus smallint(6) NOT NULL default '0',\
 		manabonus smallint(6) NOT NULL default '0',\
@@ -162,50 +162,50 @@ struct
 		intcap tinyint(4)  NOT NULL default '125',\
 		statcap tinyint(4)  NOT NULL default '225',\
 		baseid varchar(64) NOT NULL default '',\
-		direction char(1) NOT NULL default '0',\
+		direction unsigned tinyint(1) NOT NULL default '0',\
 		PRIMARY KEY (serial)\
-	);" }, 
+	);" },
 	{ "corpses", "CREATE TABLE corpses (\
-		serial unsigned int(11) NOT NULL default '0',\
-		bodyid smallint(6)  NOT NULL default '0',\
-		hairstyle smallint(6)  NOT NULL default '0',\
-		haircolor smallint(6)  NOT NULL default '0',\
-		beardstyle smallint(6)  NOT NULL default '0',\
-		beardcolor smallint(6)  NOT NULL default '0',\
-		direction char(1) NOT NULL default '0',\
+		serial unsigned int(10) NOT NULL default '0',\
+		bodyid unsigned smallint(5) NOT NULL default '0',\
+		hairstyle unsigned smallint(5) NOT NULL default '0',\
+		haircolor unsigned smallint(5) NOT NULL default '0',\
+		beardstyle unsigned smallint(5) NOT NULL default '0',\
+		beardcolor unsigned smallint(5) NOT NULL default '0',\
+		direction unsigned tinyint(1) NOT NULL default '0',\
 		charbaseid varchar(64) NOT NULL default '',\
-		murderer unsigned int(11) NOT NULL default '0',\
-		murdertime int(11) NOT NULL default '0',\
+		murderer unsigned int(10) NOT NULL default '0',\
+		murdertime unsigned int(10) NOT NULL default '0',\
 		PRIMARY KEY (serial)\
-	);" }, 
+	);" },
 	{ "corpses_equipment", "CREATE TABLE corpses_equipment (\
-		serial unsigned int(11) NOT NULL default '0',\
-		layer tinyint(3)  NOT NULL default '0',\
-		item unsigned int(11) NOT NULL default '0',  \
+		serial unsigned int(10) NOT NULL default '0',\
+		layer unsigned tinyint(3)  NOT NULL default '0',\
+		item unsigned int(10) NOT NULL default '0',  \
 		PRIMARY KEY (serial,layer)\
-	);" }, 
+	);" },
 	{ "items", "CREATE TABLE items (\
-		serial unsigned int(11) NOT NULL default '0',\
-		id smallint(5)  NOT NULL default '0',\
-		color smallint(5)  NOT NULL default '0',\
-		cont unsigned int(11) NOT NULL default '0',\
-		layer tinyint(3)  NOT NULL default '0',\
+		serial unsigned int(10) NOT NULL default '0',\
+		id unsigned smallint(5) NOT NULL default '0',\
+		color unsigned smallint(5) NOT NULL default '0',\
+		cont unsigned int(10) NOT NULL default '0',\
+		layer unsigned tinyint(3) NOT NULL default '0',\
 		amount smallint(5)  NOT NULL default '0',\
 		hp smallint(6) NOT NULL default '0',\
 		maxhp smallint(6) NOT NULL default '0',\
 		magic tinyint(3)  NOT NULL default '0',\
-		owner unsigned int(11) NOT NULL default '0',\
+		owner unsigned int(10) NOT NULL default '0',\
 		visible tinyint(3)  NOT NULL default '0',\
 		priv tinyint(3)  NOT NULL default '0',\
 		baseid varchar(64) NOT NULL default '',\
 		PRIMARY KEY (serial)\
 	);" },
 	{ "npcs", "CREATE TABLE npcs (\
-		serial unsigned int(11) NOT NULL default '0',\
+		serial unsigned int(10) NOT NULL default '0',\
 		summontime int(11)  NOT NULL default '0',\
 		additionalflags int(11)  NOT NULL default '0',\
-		owner unsigned int(11) NOT NULL default '0',\
-		stablemaster unsigned int(11) NOT NULL default '0',\
+		owner unsigned int(10) NOT NULL default '0',\
+		stablemaster unsigned int(10) NOT NULL default '0',\
 		ai varchar(255) default NULL,\
 		wandertype smallint(3) NOT NULL default '0',\
 		wanderx1 smallint(6) NOT NULL default '0',\
@@ -216,60 +216,60 @@ struct
 		PRIMARY KEY (serial)\
 	);" },
 	{ "players", "CREATE TABLE players (\
-		serial unsigned int(11) NOT NULL default '0',\
-		account varchar(255) default NULL,\
-		additionalflags int(10)  NOT NULL default '0',\
-		visualrange tinyint(3)  NOT NULL default '0',\
+		serial unsigned int(10) NOT NULL default '0',\
+		account varchar(16) default NULL,\
+		additionalflags int(10) NOT NULL default '0',\
+		visualrange unsigned tinyint(3) NOT NULL default '0',\
 		profile longtext,\
-		fixedlight tinyint(3)  NOT NULL default '0',\
-		strlock tinyint(4)  NOT NULL default '0',\
-		dexlock tinyint(4)  NOT NULL default '0',\
-		intlock tinyint(4)  NOT NULL default '0',\
+		fixedlight unsigned tinyint(3) NOT NULL default '0',\
+		strlock tinyint(4) NOT NULL default '0',\
+		dexlock tinyint(4) NOT NULL default '0',\
+		intlock tinyint(4) NOT NULL default '0',\
 		PRIMARY KEY (serial)\
-	);" }, 
+	);" },
 	{ "skills", "CREATE TABLE skills (\
-		serial unsigned int(11) NOT NULL default '0',\
-		skill tinyint(3)  NOT NULL default '0',\
+		serial unsigned int(10) NOT NULL default '0',\
+		skill unsigned tinyint(2) NOT NULL default '0',\
 		value smallint(6) NOT NULL default '0',\
 		locktype tinyint(4) default '0',\
 		cap smallint(6) default '0',\
 		PRIMARY KEY (serial,skill)\
-	);" }, 
+	);" },
 	{ "tags", "CREATE TABLE tags (\
-		serial unsigned int(11) NOT NULL default '0',\
+		serial unsigned int(10) NOT NULL default '0',\
 		name varchar(64) NOT NULL default '',\
 		type varchar(6) NOT NULL default '',\
 		value longtext NOT NULL,\
 		PRIMARY KEY (serial,name)\
-	);" }, 
+	);" },
 	{ "uobject", "CREATE TABLE uobject (\
 		name varchar(255) default NULL,\
-		serial unsigned int(11) NOT NULL default '0',\
-		multis unsigned int(11) NOT NULL default '0',\
-		pos_x smallint(6)  NOT NULL default '0',\
-		pos_y smallint(6)  NOT NULL default '0',\
-		pos_z smallint(6) NOT NULL default '0',\
-		pos_map tinyint(4) NOT NULL default '0',  \
+		serial unsigned int(10) NOT NULL default '0',\
+		multis unsigned int(10) NOT NULL default '0',\
+		pos_x unsigned smallint(5)  NOT NULL default '0',\
+		pos_y unsigned smallint(5)  NOT NULL default '0',\
+		pos_z tinyint(4) NOT NULL default '0',\
+		pos_map unsigned tinyint(1) NOT NULL default '0',  \
 		events varchar(255) default NULL,\
-		havetags tinyint(1) NOT NULL default '0',\
+		havetags unsigned tinyint(1) NOT NULL default '0',\
 		PRIMARY KEY (serial)\
 	);" },
 	{ "uobjectmap", "CREATE TABLE uobjectmap (\
-		serial unsigned int(11) NOT NULL default '0',\
+		serial unsigned int(10) NOT NULL default '0',\
 		type varchar(80)  NOT NULL default '',\
 		PRIMARY KEY (serial)\
 	);" },
 	{ "effects", "CREATE TABLE effects (\
-		id unsigned int(11) NOT NULL default '0',\
+		id unsigned int(10) NOT NULL default '0',\
 		objectid varchar(64) NOT NULL,\
-		expiretime int(11) NOT NULL,\
+		expiretime unsigned int(10) NOT NULL,\
 		dispellable tinyint(4) NOT NULL default '0',\
-		source unsigned int(11) NOT NULL default '0',\
-		destination unsigned int(11) NOT NULL default '0',\
+		source unsigned int(10) NOT NULL default '0',\
+		destination unsigned int(10) NOT NULL default '0',\
 		PRIMARY KEY (id)\
 	);" },
 	{ "effects_properties", "CREATE TABLE effects_properties (\
-		id unsigned int(11) NOT NULL default '0',\
+		id unsigned int(10) NOT NULL default '0',\
 		keyname varchar(64) NOT NULL,\
 		type varchar(64) NOT NULL,\
 		value text NOT NULL,\
@@ -277,7 +277,7 @@ struct
 	);" },
 	{ "spawnregions", "CREATE TABLE spawnregions (\
 		spawnregion varchar(64) NOT NULL,\
-		serial unsigned int(11) NOT NULL default '0',\
+		serial unsigned int(10) NOT NULL default '0',\
 		PRIMARY KEY (spawnregion, serial)\
 	);" },
 	{ NULL, NULL }
