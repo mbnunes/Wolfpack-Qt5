@@ -330,8 +330,14 @@ void cBaseChar::load( char** result, Q_UINT16& offset )
 	deaths_ = atoi( result[offset++] );
 	hunger_ = atoi( result[offset++] );
 	poison_ = ( char ) atoi( result[offset++] );
-	murdererTime_ = atoi( result[offset++] ) + Server::instance()->time();
-	criminalTime_ = atoi( result[offset++] ) + Server::instance()->time();
+	murdererTime_ = atoi( result[offset++] );
+	if (murdererTime_ != 0) {
+		 murdererTime_ += Server::instance()->time();
+	}
+	criminalTime_ = atoi( result[offset++] );
+	if (criminalTime_ != 0) {
+		 criminalTime_ += Server::instance()->time();
+	}
 	gender_ = atoi( result[offset++] );
 	propertyFlags_ = atoi( result[offset++] );
 	murdererSerial_ = atoi( result[offset++] );

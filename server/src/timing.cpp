@@ -386,7 +386,7 @@ void cTiming::checkPlayer( P_PLAYER player, unsigned int time )
 	cUOSocket* socket = player->socket();
 
 	// Criminal Flagging
-	if ( player->criminalTime() > 0 && player->criminalTime() <= time )
+	if ( player->criminalTime() != 0 && player->criminalTime() <= time )
 	{
 		socket->sysMessage( tr( "You are no longer criminal." ) );
 		player->setCriminalTime( 0 );
