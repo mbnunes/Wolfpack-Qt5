@@ -691,7 +691,7 @@ bool cPlayer::canPickUp( cItem* pi )
 {
 	if ( !pi )
 	{
-		Console::instance()->log( LOG_ERROR, "cChar::canPickUp() - bad parm" );
+		Console::instance()->log( LOG_ERROR, tr("cChar::canPickUp() - bad parm") );
 		return false;
 	}
 
@@ -844,7 +844,7 @@ void cPlayer::applyStartItemDefinition( const cElement* element )
 
 			if ( !pItem )
 			{
-				Console::instance()->log( LOG_ERROR, QString( "Invalid item tag without id or list in startitem definition '%1'" ).arg( element->getAttribute( "id" ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "Invalid item tag without id or list in startitem definition '%1'" ).arg( element->getAttribute( "id" ) ) );
 			}
 			else
 			{
@@ -880,13 +880,13 @@ void cPlayer::applyStartItemDefinition( const cElement* element )
 					}
 					else
 					{
-						Console::instance()->log( LOG_ERROR, QString( "Trying to equip invalid item (%1) in startitem definition '%2'" ).arg( pItem->id(), 0, 16 ).arg( element->getAttribute( "id" ) ) );
+						Console::instance()->log( LOG_ERROR, tr( "Trying to equip invalid item (%1) in startitem definition '%2'" ).arg( pItem->id(), 0, 16 ).arg( element->getAttribute( "id" ) ) );
 					}
 				}
 				else
 				{
 					pItem->remove();
-					Console::instance()->log( LOG_ERROR, QString( "Unrecognized startitem tag '%1' in definition '%2'." ).arg( node->name() ).arg( element->getAttribute( "id" ) ) );
+					Console::instance()->log( LOG_ERROR, tr( "Unrecognized startitem tag '%1' in definition '%2'." ).arg( node->name() ).arg( element->getAttribute( "id" ) ) );
 				}
 			}
 		}

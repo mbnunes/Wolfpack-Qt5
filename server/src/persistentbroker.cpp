@@ -154,7 +154,7 @@ bool cPersistentBroker::deleteObject( PersistentObject* object )
 bool cPersistentBroker::executeQuery( const QString& query )
 {
 	if ( !d->connection )
-		throw QString( "PersistentBroker not connected to database." );
+		throw tr( "PersistentBroker not connected to database." );
 
 	//qWarning( query );
 	bool result = d->connection->exec( query );

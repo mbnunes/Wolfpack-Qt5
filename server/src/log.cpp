@@ -86,7 +86,7 @@ bool cLog::checkLogFile()
 
 		if ( !logfile.open( IO_WriteOnly | IO_Append | IO_Translate ) )
 		{
-			Console::instance()->send( QString( "Couldn't open logfile '%1'\n" ).arg( path + filename ) );
+			Console::instance()->send( tr( "Couldn't open logfile '%1'\n" ).arg( path + filename ) );
 			return false;
 		}		
 	}
@@ -180,13 +180,13 @@ void cLog::print( eLogLevel loglevel, cUOSocket* sock, const QString& string, bo
 	{
 	case LOG_ERROR:
 		Console::instance()->changeColor( WPC_RED );
-		Console::instance()->send( "ERROR: " );
+		Console::instance()->send( tr("ERROR: ") );
 		Console::instance()->changeColor( WPC_NORMAL );
 		break;
 
 	case LOG_WARNING:
 		Console::instance()->changeColor( WPC_YELLOW );
-		Console::instance()->send( "WARNING: " );
+		Console::instance()->send( tr("WARNING: ") );
 		Console::instance()->changeColor( WPC_NORMAL );
 		break;
 

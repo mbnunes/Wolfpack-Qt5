@@ -1411,7 +1411,7 @@ cNPC* cNPC::createFromScript( const QString& section, const Coord_cl& pos )
 
 	if ( !DefSection )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Unable to create unscripted npc: %1\n" ).arg( section ) );
+		Console::instance()->log( LOG_ERROR, tr( "Unable to create unscripted npc: %1\n" ).arg( section ) );
 		return NULL;
 	}
 

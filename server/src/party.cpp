@@ -239,7 +239,7 @@ public:
 		// still invited to join the party
 		if ( leader && leader->party() && player && player->socket() && leader->party()->canidates().contains( player ) )
 		{
-			player->socket()->log( LOG_TRACE, QString( "Party invitation from '%1' timed out.\n" ).arg( leader->account()->login() ) );
+			player->socket()->log( LOG_TRACE, tr( "Party invitation from '%1' timed out.\n" ).arg( leader->account()->login() ) );
 			leader->party()->removeMember( player ); // This automatically resends and checks the party
 		}
 	}
@@ -314,7 +314,7 @@ public:
 
 				player->socket()->clilocMessageAffix( 1008089, 0, leader->name(), 0x3b2, 3, 0, false, true );
 				leader->party()->addCanidate( player );
-				socket->log( LOG_TRACE, QString( "Invited '%1' to join his party.\n" ).arg( player->account()->login() ) );
+				socket->log( LOG_TRACE, tr( "Invited '%1' to join his party.\n" ).arg( player->account()->login() ) );
 
 				// Send a party invitation request
 				cUOTxPartyInvitation invitation;
@@ -355,12 +355,12 @@ void cParty::handlePacket( cUOSocket* socket, cUOPacket* packet )
 			{
 				if ( player->party() == target->party() && player->party()->leader() == player )
 				{
-					socket->log( LOG_TRACE, QString( "Removed '%1' from the party.\n" ).arg( target->account()->login() ) );
+					socket->log( LOG_TRACE, tr( "Removed '%1' from the party.\n" ).arg( target->account()->login() ) );
 					player->party()->removeMember( target );
 				}
 				else if ( target == player )
 				{
-					socket->log( LOG_TRACE, QString( "Left the party.\n" ).arg( player->account()->login() ) );
+					socket->log( LOG_TRACE, tr( "Left the party.\n" ).arg( player->account()->login() ) );
 					player->party()->removeMember( target );
 				}
 			}
@@ -374,7 +374,7 @@ void cParty::handlePacket( cUOSocket* socket, cUOPacket* packet )
 			P_PLAYER target = dynamic_cast<P_PLAYER>( World::instance()->findChar( packet->getInt( 6 ) ) );
 			if ( target )
 			{
-				socket->log( LOG_TRACE, QString( "Told '%1' in party '%2'.\n" ).arg( target->account()->login() ).arg( message ) );
+				socket->log( LOG_TRACE, tr( "Told '%1' in party '%2'.\n" ).arg( target->account()->login() ).arg( message ) );
 				QString message = packet->getUnicodeString( 10, packet->size() - 10 );
 				player->party()->send( player, target, message );
 			}
@@ -386,7 +386,7 @@ void cParty::handlePacket( cUOSocket* socket, cUOPacket* packet )
 		if ( player->party() )
 		{
 			QString message = packet->getUnicodeString( 6, packet->size() - 6 );
-			socket->log( LOG_TRACE, QString( "Told the whole party: '%1'.\n" ).arg( message ) );
+			socket->log( LOG_TRACE, tr( "Told the whole party: '%1'.\n" ).arg( message ) );
 			player->party()->send( player, message );
 		}
 		break;
@@ -409,7 +409,7 @@ void cParty::handlePacket( cUOSocket* socket, cUOPacket* packet )
 		if ( leader && leader->party() && leader->party()->canidates().contains( player ) )
 		{
 			leader->party()->addMember( player );
-			socket->log( QString( "Accepted party invitation from '%1'.\n" ).arg( leader->account()->login() ) );
+			socket->log( tr( "Accepted party invitation from '%1'.\n" ).arg( leader->account()->login() ) );
 		}
 		break;
 
@@ -424,7 +424,7 @@ void cParty::handlePacket( cUOSocket* socket, cUOPacket* packet )
 			leader->party()->removeMember( player );
 			socket->clilocMessage( 1008092 );
 
-			socket->log( LOG_TRACE, QString( "Declined party invitation from '%1'.\n" ).arg( leader->account()->login() ) );
+			socket->log( LOG_TRACE, tr( "Declined party invitation from '%1'.\n" ).arg( leader->account()->login() ) );
 		}
 		break;
 

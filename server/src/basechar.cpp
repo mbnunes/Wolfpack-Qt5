@@ -1409,12 +1409,12 @@ void cBaseChar::processNode( const cElement* Tag )
 				}
 				else
 				{
-					Console::instance()->log( LOG_ERROR, QString( "Invalid equipped element missing id and list attribute in npc definition '%1'." ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
+					Console::instance()->log( LOG_ERROR, tr( "Invalid equipped element missing id and list attribute in npc definition '%1'." ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
 				}
 			}
 			else
 			{
-				Console::instance()->log( LOG_ERROR, QString( "Invalid equipped element '%1' in npc definition '%2'." ).arg( element->name() ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "Invalid equipped element '%1' in npc definition '%2'." ).arg( element->name() ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
 			}
 		}
 	}

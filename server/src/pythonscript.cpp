@@ -629,7 +629,7 @@ bool cPythonScript::load( const QCString& name )
 
 			if ( events[i] && !PyCallable_Check( events[i] ) )
 			{
-				Console::instance()->log( LOG_ERROR, QString( "Script %1 has non callable event: %1" ).arg( eventNames[i] ) );
+				Console::instance()->log( LOG_ERROR, tr( "Script %1 has non callable event: %1" ).arg( eventNames[i] ) );
 
 				Py_DECREF( events[i] );
 				events[i] = 0;

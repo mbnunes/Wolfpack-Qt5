@@ -148,7 +148,7 @@ void cScriptManager::load()
 
 		if ( scripts.contains( element->text().latin1() ) )
 		{
-			Console::instance()->log( LOG_WARNING, QString( "Duplicate Script: %1" ).arg( element->text() ) );
+			Console::instance()->log( LOG_WARNING, tr( "Duplicate Script: %1" ).arg( element->text() ) );
 			continue;
 		}
 

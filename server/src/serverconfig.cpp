@@ -365,16 +365,16 @@ struct stGroupDoc
 	const char* documentation;
 };
 
-static stGroupDoc group_doc[] =
-{
-{"AI", "This group configures the NPC AI."},
-{"Accounts", "This group configures the account management."},
-{"Database", "This group configures access to the worldsave database."},
-{0, 0}
-};
-
 QString cConfig::getGroupDoc( const QString& group )
 {
+	static stGroupDoc group_doc[] =
+	{
+		{"AI", QT_TR_NOOP("This group configures the NPC AI.")},
+		{"Accounts", QT_TR_NOOP("This group configures the account management.")},
+		{"Database", QT_TR_NOOP("This group configures access to the worldsave database.")},
+		{0, 0}
+	};
+
 	// Try to find documentation for a group in our table
 	unsigned int i = 0;
 
@@ -382,7 +382,7 @@ QString cConfig::getGroupDoc( const QString& group )
 	{
 		if ( group == group_doc[i].group )
 		{
-			return group_doc[i].documentation;
+			return tr(group_doc[i].documentation);
 		}
 		++i;
 	}
@@ -397,19 +397,19 @@ struct stEntryDoc
 	const char* documentation;
 };
 
-static stEntryDoc entry_doc[] =
-{
-{"Accounts", "Auto Create", "If active login attempts with non-existing login names will create a new account automatically\n"
-"This is very usefull for new shards without account policy\n"},
-{"Accounts", "Database Driver", "Possible values are: sqlite, mysql"},
-{"Accounts", "Maximum Number of Characters", "Should not be more than 6, due to client restrictions"},
-{"Accounts", "Use MD5 Hashed Passwords", "This will store hashed passwords, increasing password security."},
-{"Accounts", "Automatically Hash Loaded Passwords", "If active, will convert older plain text passwords into MD5 hash"},
-{0, 0, 0}
-};
-
 QString cConfig::getEntryDoc( const QString& group, const QString& entry )
 {
+	static stEntryDoc entry_doc[] =
+	{
+		{"Accounts", "Auto Create", QT_TR_NOOP("If active login attempts with non-existing login names will create a new account automatically\n"
+			"This is very usefull for new shards without account policy\n")},
+		{"Accounts", "Database Driver", QT_TR_NOOP("Possible values are: sqlite, mysql")},
+		{"Accounts", "Maximum Number of Characters", QT_TR_NOOP("Should not be more than 6, due to client restrictions")},
+		{"Accounts", "Use MD5 Hashed Passwords", QT_TR_NOOP("This will store hashed passwords, increasing password security.")},
+		{"Accounts", "Automatically Hash Loaded Passwords", QT_TR_NOOP("If active, will convert older plain text passwords into MD5 hash")},
+		{0, 0, 0}
+	};
+
 	// Try to find documentation for an entry in our table
 	unsigned int i = 0;
 
@@ -417,7 +417,7 @@ QString cConfig::getEntryDoc( const QString& group, const QString& entry )
 	{
 		if ( group == entry_doc[i].group && entry == entry_doc[i].entry )
 		{
-			return entry_doc[i].documentation;
+			return tr(entry_doc[i].documentation);
 		}
 		++i;
 	}

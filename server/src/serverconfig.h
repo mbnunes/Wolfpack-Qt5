@@ -65,6 +65,7 @@ const unsigned int FIRST_YEAR = 1970;
 
 class cConfig : public Preferences, public cComponent
 {
+	OBJECTDEF(cConfig)
 protected:
 	QString getGroupDoc( const QString& group );
 	QString getEntryDoc( const QString& group, const QString& entry );

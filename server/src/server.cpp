@@ -431,8 +431,8 @@ void cServer::setupConsole()
 
 	Console::instance()->send( "Copyright (C) 2000-2004 Wolfpack Development Team\n" );
 	Console::instance()->send( "Wolfpack Homepage: http://www.wpdev.org/\n" );
-	Console::instance()->send( "By using this software you agree to the license accompanying this release.\n" );
-	Console::instance()->send( "Compiled on " __DATE__ " " __TIME__ "\n" );
+	Console::instance()->send( tr("By using this software you agree to the license accompanying this release.\n") );
+	Console::instance()->send( tr("Compiled on %1 %2\n").arg( __DATE__ , __TIME__ ) );
 	Console::instance()->send( tr("Compiled for Qt %1 (Using: %2 %3)\n").arg(QT_VERSION_STR, qVersion(), qSharedBuild() ? " Shared" : " Static" ) );
 	QString pythonBuild = Py_GetVersion();
 	pythonBuild = pythonBuild.left( pythonBuild.find( ' ' ) );
@@ -449,11 +449,11 @@ void cServer::setupConsole()
 	QString UnicodeType("UCS-2");
 #endif
 	Console::instance()->send( tr("Compiled for Python %1 %2 (Using: %3)\n").arg(PY_VERSION, UnicodeType, pythonBuild) );
-	Console::instance()->send( "Compiled with SQLite " SQLITE_VERSION "\n" );
+	Console::instance()->send( tr("Compiled with SQLite %1\n" ).arg( SQLITE_VERSION ) );
 #if defined (MYSQL_DRIVER)
 	Console::instance()->send( tr( "Compiled for MySQL %1 (Using: %2)\n" ).arg( MYSQL_SERVER_VERSION, mysql_get_client_info() ) );
 #else
-	Console::instance()->send( "MySQL Support: disabled\n" );
+	Console::instance()->send( tr("MySQL Support: disabled\n") );
 #endif
 	Console::instance()->send( "\n" );
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( productString(), productBeta(), productVersion() );

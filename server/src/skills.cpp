@@ -387,14 +387,14 @@ QString cSkills::getSkillTitle( P_CHAR pChar ) const
 
 		if ( title >= skillRanks.size() )
 		{
-			pChar->log( LOG_ERROR, "Invalid skill rank information.\n" );
+			pChar->log( LOG_ERROR, tr("Invalid skill rank information.\n") );
 			return skillTitle;
 		}
 
 		// Skill not found
 		if ( skill >= skills.size() )
 		{
-			pChar->log( LOG_ERROR, QString( "Skill id out of range: %u.\n" ).arg( skill ) );
+			pChar->log( LOG_ERROR, tr( "Skill id out of range: %u.\n" ).arg( skill ) );
 			return skillTitle;
 		}
 
@@ -408,7 +408,7 @@ const QString& cSkills::getSkillName( Q_UINT16 skill ) const
 {
 	if ( skill >= skills.size() )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
+		Console::instance()->log( LOG_ERROR, tr( "Skill id out of range: %u" ).arg( skill ) );
 		return QString::null;
 	}
 
@@ -432,7 +432,7 @@ const QString& cSkills::getSkillDef( Q_UINT16 skill ) const
 {
 	if ( skill >= skills.size() )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
+		Console::instance()->log( LOG_ERROR, tr( "Skill id out of range: %u" ).arg( skill ) );
 		return QString::null;
 	}
 

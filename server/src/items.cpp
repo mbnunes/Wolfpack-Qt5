@@ -870,11 +870,11 @@ void cItem::processContainerNode( const cElement* tag )
 			}
 			else if ( element->hasAttribute( "list" ) )
 			{
-				qWarning( "cItem::processContainerNode <item list=\"myList\"/> not implemented!!!" );
+				Console::instance()->log( LOG_ERROR, tr( "cItem::processContainerNode <item list=\"myList\"/> not implemented!!!" ) );
 			}
 			else
 			{
-				Console::instance()->log( LOG_ERROR, QString( "Content element lacking id and list attribute in item definition '%1'." ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "Content element lacking id and list attribute in item definition '%1'." ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
 			}
 		}
 	}
@@ -1347,7 +1347,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 
 	if ( pItem == this )
 	{
-		Console::instance()->log( LOG_WARNING, QString( "Rejected putting an item into itself (%1)" ).arg( serial_, 0, 16 ) );
+		Console::instance()->log( LOG_WARNING, tr( "Rejected putting an item into itself (%1)" ).arg( serial_, 0, 16 ) );
 		return;
 	}
 
@@ -1969,7 +1969,7 @@ P_ITEM cItem::createFromScript( const QString& id )
 	}
 	else
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Unable to create unscripted item: %1\n" ).arg( id ) );
+		Console::instance()->log( LOG_ERROR, tr( "Unable to create unscripted item: %1\n" ).arg( id ) );
 	}
 
 	return nItem;

@@ -199,7 +199,7 @@ public:
 					{
 						if ( impl->unique[categories[i].key].contains( tagId ) && !Config::instance()->overwriteDefinitions() )
 						{
-							Console::instance()->log( LOG_WARNING, QString( "Duplicate %1: %2\n[File: %3, Line: %4]\n" ).arg( element->name() ).arg( tagId ).arg( filename ).arg( locator->lineNumber() ) );
+							Console::instance()->log( LOG_WARNING, tr( "Duplicate %1: %2\n[File: %3, Line: %4]\n" ).arg( element->name() ).arg( tagId ).arg( filename ).arg( locator->lineNumber() ) );
 							delete element;
 						}
 						else
@@ -217,7 +217,7 @@ public:
 				++i;
 			}
 
-			Console::instance()->log( LOG_WARNING, QString( "Unknown element: %1\n[File: %2, Line: %3]\n" ).arg( element->name() ).arg( filename ).arg( locator->lineNumber() ) );
+			Console::instance()->log( LOG_WARNING, tr( "Unknown element: %1\n[File: %2, Line: %3]\n" ).arg( element->name() ).arg( filename ).arg( locator->lineNumber() ) );
 			delete element;
 		}
 
@@ -239,17 +239,17 @@ public:
 	// error handling
 	bool warning( const QXmlParseException& exception )
 	{
-		Console::instance()->log( LOG_WARNING, QString( "%1\n[File: %2, Line: %3, Column: %4" ).arg( exception.message(), filename ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
+		Console::instance()->log( LOG_WARNING, tr( "%1\n[File: %2, Line: %3, Column: %4" ).arg( exception.message(), filename ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
 		return true; // continue
 	}
 	bool error( const QXmlParseException& exception )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "%1\n[File: %2, Line: %3, Column: %4" ).arg( exception.message(), filename ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
+		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4" ).arg( exception.message(), filename ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
 		return true; // continue
 	}
 	bool fatalError( const QXmlParseException& exception )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "%1\n[File: %2, Line: %3, Column: %4" ).arg( exception.message(), filename ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
+		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4" ).arg( exception.message(), filename ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
 		return true; // continue
 	}
 };
@@ -261,9 +261,7 @@ bool cDefinitions::ImportSections( const QString& FileName )
 
 	if ( !File.open( IO_ReadOnly ) )
 	{
-		Console::instance()->send( "Unable to open " );
-		Console::instance()->send( FileName );
-		Console::instance()->send( "!\n" );
+		Console::instance()->send( tr("Unable to open %1!\n").arg(FileName) );
 		return false;
 	}
 

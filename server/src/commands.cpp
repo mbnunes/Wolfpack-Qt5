@@ -132,7 +132,8 @@ void cCommands::loadACLs( void )
 
 	if ( ScriptSections.isEmpty() )
 	{
-		Console::instance()->log( LOG_WARNING, "No ACLs for players, counselors, gms and admins defined!\n" );
+		Console::instance()->log( LOG_WARNING, tr("No ACLs for players, counselors, gms and admins defined!\n"
+												   "Check your scripts, wolfpack.xml and make sure to run Wolfpack from the proper folder\n") );
 		return;
 	}
 
@@ -902,11 +903,11 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 
 	if ( !driver.open() )
 	{
-		socket->sysMessage( "Unable to open categories.db in your wolfpack directory." );
+		socket->sysMessage( tr("Unable to open categories.db in your wolfpack directory.") );
 		return;
 	}
 
-	Console::instance()->log( LOG_MESSAGE, QString( "Exporting definitions to %1.\n" ).arg( "categories.db" ) );
+	Console::instance()->log( LOG_MESSAGE, tr( "Exporting definitions to %1.\n" ).arg( "categories.db" ) );
 
 	try
 	{

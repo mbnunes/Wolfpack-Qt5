@@ -49,7 +49,7 @@ void cBaseDef::processNode( const cElement* node ) {
 			unsigned int intvalue = value.toInt(&ok);
 
 			if (!ok) {
-				Console::instance()->log(LOG_WARNING, QString("Basedef %1 has invalid integer property %2.\n").arg(id_).arg(name));
+				Console::instance()->log(LOG_WARNING, tr("Basedef %1 has invalid integer property %2.\n").arg(id_).arg(name));
 			}
 
 			intproperties.insert(name.lower(), intvalue, true);
@@ -198,7 +198,7 @@ void cCharBaseDef::load()
 		if ( !element )
 		{
 			if (!id_.isEmpty()) {
-				Console::instance()->log( LOG_WARNING, QString( "Missing npc definition '%1'.\n" ).arg( id_ ) );
+				Console::instance()->log( LOG_WARNING, tr( "Missing npc definition '%1'.\n" ).arg( id_ ) );
 			}
 			return;
 		}
@@ -228,7 +228,7 @@ void cCharBaseDefs::loadBodyInfo() {
 	QFile file(filename);
 
 	if (!file.open(IO_ReadOnly)) {
-		Console::instance()->log(LOG_WARNING, QString("Unable to load body information from %1.\n").arg(filename));
+		Console::instance()->log(LOG_WARNING, tr("Unable to load body information from %1.\n").arg(filename));
 	}
 
 	QDomDocument document;
@@ -248,7 +248,7 @@ void cCharBaseDefs::loadBodyInfo() {
 				// The body id (mandatory)
 				bodyinfo.body = id.toUShort(&ok);
 				if (!ok) {
-					Console::instance()->log(LOG_WARNING, QString("Invalid body id in bodyinfo file: %1.\n").arg(id));
+					Console::instance()->log(LOG_WARNING, tr("Invalid body id in bodyinfo file: %1.\n").arg(id));
 					continue;
 				}
 
@@ -257,7 +257,7 @@ void cCharBaseDefs::loadBodyInfo() {
 				if (!basesound.isNull()) {
 					bodyinfo.basesound = basesound.toUShort(&ok);
 					if (!ok) {
-						Console::instance()->log(LOG_WARNING, QString("Invalid basesound in bodyinfo file: %1.\n").arg(basesound));
+						Console::instance()->log(LOG_WARNING, tr("Invalid basesound in bodyinfo file: %1.\n").arg(basesound));
 						continue;
 					}
 				} else {
@@ -269,7 +269,7 @@ void cCharBaseDefs::loadBodyInfo() {
 				if (!figurine.isNull()) {
 					bodyinfo.figurine = figurine.toUShort(&ok);
 					if (!ok) {
-						Console::instance()->log(LOG_WARNING, QString("Invalid figurine in bodyinfo file: %1.\n").arg(figurine));
+						Console::instance()->log(LOG_WARNING, tr("Invalid figurine in bodyinfo file: %1.\n").arg(figurine));
 						continue;
 					}
 				} else {
@@ -281,7 +281,7 @@ void cCharBaseDefs::loadBodyInfo() {
 				if (!soundmode.isNull()) {
 					bodyinfo.soundmode = soundmode.toUShort(&ok);
 					if (!ok) {
-						Console::instance()->log(LOG_WARNING, QString("Invalid soundmode in bodyinfo file: %1.\n").arg(soundmode));
+						Console::instance()->log(LOG_WARNING, tr("Invalid soundmode in bodyinfo file: %1.\n").arg(soundmode));
 						continue;
 					}
 				} else {
@@ -293,7 +293,7 @@ void cCharBaseDefs::loadBodyInfo() {
 				if (!flags.isNull()) {
 					bodyinfo.flags = flags.toUShort(&ok);
 					if (!ok) {
-						Console::instance()->log(LOG_WARNING, QString("Invalid flags in bodyinfo file: %1.\n").arg(flags));
+						Console::instance()->log(LOG_WARNING, tr("Invalid flags in bodyinfo file: %1.\n").arg(flags));
 						continue;
 					}
 				} else {
@@ -305,7 +305,7 @@ void cCharBaseDefs::loadBodyInfo() {
 				if (!bodytype.isNull()) {
 					bodyinfo.type = bodytype.toUShort(&ok);
 					if (!ok) {
-						Console::instance()->log(LOG_WARNING, QString("Invalid bodytype in bodyinfo file: %1.\n").arg(bodytype));
+						Console::instance()->log(LOG_WARNING, tr("Invalid bodytype in bodyinfo file: %1.\n").arg(bodytype));
 						continue;
 					}
 				} else {
@@ -440,7 +440,7 @@ void cItemBaseDef::load()
 		if ( !element )
 		{
 			if (!id_.isEmpty()) {
-				Console::instance()->log( LOG_WARNING, QString( "Missing item definition '%1'.\n" ).arg( id_ ) );
+				Console::instance()->log( LOG_WARNING, tr( "Missing item definition '%1'.\n" ).arg( id_ ) );
 			}
 			return;
 		}

@@ -430,7 +430,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 			cBufferedReader reader( "WOLFPACK", DATABASE_VERSION );
 			reader.open( filename );
 
-			Console::instance()->log( LOG_MESSAGE, QString( "Loading %1 objects from %2.\n" ).arg( reader.objectCount() ).arg( filename ) );
+			Console::instance()->log( LOG_MESSAGE, tr( "Loading %1 objects from %2.\n" ).arg( reader.objectCount() ).arg( filename ) );
 			Console::instance()->send( "0%" );
 			Console::instance()->setProgress( "0%" );
 
@@ -512,7 +512,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 				}
 				else if ( type != 0xFF )
 				{
-					Console::instance()->log(LOG_ERROR, QString( "Invalid worldfile, unknown and unskippable type %1." ).arg( type ) );
+					Console::instance()->log(LOG_ERROR, tr( "Invalid worldfile, unknown and unskippable type %1." ).arg( type ) );
 					return;
 				}
 			}
@@ -550,7 +550,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 
 		if ( !PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() ) )
 		{
-			throw QString( "Unable to open the world database." );
+			throw tr( "Unable to open the world database." );
 		}
 
 		QString objectID;
@@ -590,7 +590,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 		if (db_version.toInt() != DATABASE_VERSION) {
 			cPythonScript *script = ScriptManager::instance()->getGlobalHook(EVENT_UPDATEDATABASE);
 			if (!script || !script->canHandleEvent(EVENT_UPDATEDATABASE)) {
-				throw wpException(QString("Unable to load world database. Version mismatch: %1 != %2.").arg(db_version.toInt()).arg(DATABASE_VERSION));
+				throw wpException(tr("Unable to load world database. Version mismatch: %1 != %2.").arg(db_version.toInt()).arg(DATABASE_VERSION));
 			}
 
 			PyObject *args = Py_BuildValue("(ii)", DATABASE_VERSION, db_version.toInt());
@@ -598,7 +598,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 			Py_DECREF(args);
 
 			if (!result) {
-				throw wpException(QString("Unable to load world database. Version mismatch: %1 != %2.").arg(db_version.toInt()).arg(DATABASE_VERSION));
+				throw wpException(tr("Unable to load world database. Version mismatch: %1 != %2.").arg(db_version.toInt()).arg(DATABASE_VERSION));
 			}
 		}
 
@@ -682,7 +682,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 				int max_y = Maps::instance()->mapTileHeight( pi->pos().map ) * 8;
 				if ( pi->pos().x > max_x || pi->pos().y > max_y )
 				{
-					Console::instance()->log( LOG_ERROR, QString( "Item with invalid position %1,%2,%3,%4.\n" ).arg( pi->pos().x ).arg( pi->pos().y ).arg( pi->pos().z ).arg( pi->pos().map ) );
+					Console::instance()->log( LOG_ERROR, tr( "Item with invalid position %1,%2,%3,%4.\n" ).arg( pi->pos().x ).arg( pi->pos().y ).arg( pi->pos().z ).arg( pi->pos().map ) );
 					deleteItems.append( pi );
 					continue;
 				}
@@ -704,7 +704,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 					}
 					else
 					{
-						Console::instance()->log( LOG_ERROR, QString( "Item with invalid container [0x%1].\n" ).arg( contserial, 0, 16 ) );
+						Console::instance()->log( LOG_ERROR, tr( "Item with invalid container [0x%1].\n" ).arg( contserial, 0, 16 ) );
 						deleteItems.append( pi ); // Queue this item up for deletion
 						continue; // Skip further processing
 					}
@@ -839,7 +839,7 @@ void cWorld::load()
 
 	unsigned int duration = getNormalizedTime() - loadStart;
 
-	Console::instance()->log( LOG_MESSAGE, QString( "The world loaded in %1 ms.\n" ).arg( duration ) );
+	Console::instance()->log( LOG_MESSAGE, tr( "The world loaded in %1 ms.\n" ).arg( duration ) );
 
 	cComponent::load();
 }
@@ -848,7 +848,7 @@ void cWorld::save() {
 	// Broadcast a message to all connected clients
 	Network::instance()->broadcast(tr("Worldsave Initialized"));
 
-	Console::instance()->send( "Saving World..." );
+	Console::instance()->send( tr("Saving World...") );
 	setOption("db_version", WP_DATABASE_VERSION); // Make SURE it's saved
 
 	// Send a nice status gump to all sockets if enabled
@@ -933,14 +933,14 @@ void cWorld::save() {
 			p->purgePendingObjects();
 		} else {
 			if (!PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver())) {
-				Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
+				Console::instance()->log( LOG_ERROR, tr( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
 				return;
 			}
 
 			try {
 				PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() );
 			} catch (QString& e) {
-				Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
+				Console::instance()->log( LOG_ERROR, tr( "Couldn't open the database: %1\n" ).arg( e ) );
 				return;
 			}
 
@@ -1020,20 +1020,20 @@ void cWorld::save() {
 		Server::instance()->refreshTime();
 
 		Console::instance()->changeColor( WPC_GREEN );
-		Console::instance()->send( " Done" );
+		Console::instance()->send( tr(" Done") );
 		Console::instance()->changeColor( WPC_NORMAL );
 
-		Console::instance()->send( QString( " [%1ms]\n" ).arg( Server::instance()->time() - startTime ) );
+		Console::instance()->send( tr( " [%1ms]\n" ).arg( Server::instance()->time() - startTime ) );
 	}
 	catch ( QString& e )
 	{
 		PersistentBroker::instance()->rollbackTransaction();
 
 		Console::instance()->changeColor( WPC_RED );
-		Console::instance()->send( " Failed\n" );
+		Console::instance()->send( tr(" Failed\n") );
 		Console::instance()->changeColor( WPC_NORMAL );
 
-		Console::instance()->log( LOG_ERROR, "Saving failed: " + e );
+		Console::instance()->log( LOG_ERROR, tr("Saving failed: %1").arg( e ) );
 	}
 
 	// Broadcast a message to all connected clients
@@ -1078,7 +1078,7 @@ void cWorld::registerObject( cUObject* object )
 {
 	if ( !object )
 	{
-		Console::instance()->log( LOG_ERROR, "Couldn't register a NULL object in the world." );
+		Console::instance()->log( LOG_ERROR, tr("Couldn't register a NULL object in the world.") );
 		return;
 	}
 
@@ -1089,7 +1089,7 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 {
 	if ( !object )
 	{
-		Console::instance()->log( LOG_ERROR, "Trying to register a null object in the World." );
+		Console::instance()->log( LOG_ERROR, tr("Trying to register a null object in the World.") );
 		return;
 	}
 
@@ -1100,7 +1100,7 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 
 		if ( it != p->items.end() )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Trying to register an item with the Serial 0x%1 which is already in use." ).arg( serial, 0, 16 ) );
+			Console::instance()->log( LOG_ERROR, tr( "Trying to register an item with the Serial 0x%1 which is already in use." ).arg( serial, 0, 16 ) );
 			return;
 		}
 
@@ -1109,7 +1109,7 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 
 		if ( !pItem )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Trying to register an object with an item serial (0x%1) which is no item." ).arg( serial, 0, 16 ) );
+			Console::instance()->log( LOG_ERROR, tr( "Trying to register an object with an item serial (0x%1) which is no item." ).arg( serial, 0, 16 ) );
 			return;
 		}
 
@@ -1125,7 +1125,7 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 
 		if ( it != p->chars.end() )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Trying to register a character with the Serial 0x%1 which is already in use." ).arg( QString::number( serial, 0, 16 ) ) );
+			Console::instance()->log( LOG_ERROR, tr( "Trying to register a character with the Serial 0x%1 which is already in use." ).arg( QString::number( serial, 0, 16 ) ) );
 			return;
 		}
 
@@ -1134,7 +1134,7 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 
 		if ( !pChar )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Trying to register an object with a character serial (0x%1) which is no character." ).arg( QString::number( serial, 0, 16 ) ) );
+			Console::instance()->log( LOG_ERROR, tr( "Trying to register an object with a character serial (0x%1) which is no character." ).arg( QString::number( serial, 0, 16 ) ) );
 			return;
 		}
 
@@ -1155,7 +1155,7 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 	}
 	else
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Tried to register an object with an invalid Serial (0x%1) in the World." ).arg( QString::number( serial, 0, 16 ) ) );
+		Console::instance()->log( LOG_ERROR, tr( "Tried to register an object with an invalid Serial (0x%1) in the World." ).arg( QString::number( serial, 0, 16 ) ) );
 		return;
 	}
 }
@@ -1164,7 +1164,7 @@ void cWorld::unregisterObject( cUObject* object )
 {
 	if ( !object )
 	{
-		Console::instance()->log( LOG_ERROR, "Trying to unregister a null object from the world." );
+		Console::instance()->log( LOG_ERROR, tr("Trying to unregister a null object from the world.") );
 		return;
 	}
 
@@ -1179,7 +1179,7 @@ void cWorld::unregisterObject( SERIAL serial )
 
 		if ( it == p->items.end() )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Trying to unregister a non-existing item with the serial 0x%1." ).arg( serial, 0, 16 ) );
+			Console::instance()->log( LOG_ERROR, tr( "Trying to unregister a non-existing item with the serial 0x%1." ).arg( serial, 0, 16 ) );
 			return;
 		}
 
@@ -1195,7 +1195,7 @@ void cWorld::unregisterObject( SERIAL serial )
 
 		if ( it == p->chars.end() )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Trying to unregister a non-existing character with the serial 0x%1." ).arg( serial, 0, 16 ) );
+			Console::instance()->log( LOG_ERROR, tr( "Trying to unregister a non-existing character with the serial 0x%1." ).arg( serial, 0, 16 ) );
 			return;
 		}
 
@@ -1217,7 +1217,7 @@ void cWorld::unregisterObject( SERIAL serial )
 	}
 	else
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Trying to unregister an object with an invalid serial (0x%1)." ).arg( serial, 0, 16 ) );
+		Console::instance()->log( LOG_ERROR, tr( "Trying to unregister an object with an invalid serial (0x%1)." ).arg( serial, 0, 16 ) );
 		return;
 	}
 }
@@ -1268,7 +1268,7 @@ void cWorld::deleteObject( cUObject* object )
 {
 	if ( !object )
 	{
-		Console::instance()->log( LOG_ERROR, "Tried to delete a null object from the worldsave." );
+		Console::instance()->log( LOG_ERROR, tr("Tried to delete a null object from the worldsave.") );
 		return;
 	}
 
@@ -1356,7 +1356,7 @@ void cWorld::backupWorld(const QString &filename, unsigned int count, bool compr
 		}
 
 		if (!backup.isNull() && !QFile::remove( backupName + backup )) {
-			Console::instance()->log(LOG_ERROR, QString("Unable to remove backup %1. No new backup has been created.\n").arg(backup));
+			Console::instance()->log(LOG_ERROR, tr("Unable to remove backup %1. No new backup has been created.\n").arg(backup));
 			return;
 		}
 	}

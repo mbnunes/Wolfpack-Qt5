@@ -53,7 +53,7 @@ void cDefinable::applyDefinition( const cElement* sectionNode )
 
 		if ( tInherit == sectionNode )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Circulary inheriting %1.\n" ).arg( sectionNode->getAttribute( "inherit", "" ) ) );
+			Console::instance()->log( LOG_ERROR, tr( "Circulary inheriting %1.\n" ).arg( sectionNode->getAttribute( "inherit", "" ) ) );
 			return;
 		}
 

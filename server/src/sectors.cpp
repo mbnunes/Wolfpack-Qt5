@@ -97,7 +97,7 @@ bool cSectorMap::init( unsigned int width, unsigned int height )
 {
 	if ( width == 0 || height == 0 )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Invalid Sectormap boundaries (Width: %1, Height: %2)." ).arg( width ).arg( height ) );
+		Console::instance()->log( LOG_ERROR, tr( "Invalid Sectormap boundaries (Width: %1, Height: %2)." ).arg( width ).arg( height ) );
 		return false;
 	}
 
@@ -583,7 +583,7 @@ cItemSectorIterator* cSectorMaps::findItems( unsigned char map, uint x, uint y )
 
 	if ( it == itemmaps.end() )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findItems)" ).arg( map ) );
+		Console::instance()->log( LOG_ERROR, tr( "Couldn't find a map with the id %1. (cSectorMaps::findItems)" ).arg( map ) );
 		return new cItemSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
@@ -596,7 +596,7 @@ cCharSectorIterator* cSectorMaps::findChars( unsigned char map, uint x, uint y, 
 
 	if ( it == charmaps.end() )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findChars)" ).arg( map ) );
+		Console::instance()->log( LOG_ERROR, tr( "Couldn't find a map with the id %1. (cSectorMaps::findChars)" ).arg( map ) );
 		return new cCharSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
@@ -613,7 +613,7 @@ cItemSectorIterator* cSectorMaps::findItems( unsigned char map, uint x1, uint y1
 
 	if ( it == itemmaps.end() )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findItems)" ).arg( map ) );
+		Console::instance()->log( LOG_ERROR, tr( "Couldn't find a map with the id %1. (cSectorMaps::findItems)" ).arg( map ) );
 		return new cItemSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
@@ -626,7 +626,7 @@ cItemSectorIterator* cSectorMaps::findMultis( unsigned char map, uint x1, uint y
 
 	if ( it == itemmaps.end() )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findMultis)" ).arg( map ) );
+		Console::instance()->log( LOG_ERROR, tr( "Couldn't find a map with the id %1. (cSectorMaps::findMultis)" ).arg( map ) );
 		return new cItemSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
@@ -639,7 +639,7 @@ cCharSectorIterator* cSectorMaps::findChars( unsigned char map, uint x1, uint y1
 
 	if ( it == charmaps.end() )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findChars)" ).arg( map ) );
+		Console::instance()->log( LOG_ERROR, tr( "Couldn't find a map with the id %1. (cSectorMaps::findChars)" ).arg( map ) );
 		return new cCharSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
