@@ -29,37 +29,21 @@ def onWearItem( player, wearer, item, layer ):
 
 def onEquip( char, item, layer ):
 	# Boni?
-	changed = 0
-	
 	if item.hastag( 'boni_str' ):
 		char.strength = char.strength + int( item.gettag( 'boni_str' ) )
-		changed = 1
 		
 	if item.hastag( 'boni_dex' ):
 		char.dexterity = char.dexterity + int( item.gettag( 'boni_dex' ) )
-		changed = 1
 		
 	if item.hastag( 'boni_int' ):
 		char.intelligence = char.intelligence + int( item.gettag( 'boni_int' ) )
-		changed = 1
-		
-	if changed and char.socket:
-		char.socket.resendstatus()
 	
 def onUnequip( char, item, layer ):
-	changed = 0
-	
 	if item.hastag( 'boni_str' ):
 		char.strength = char.strength - int( item.gettag( 'boni_str' ) )
-		changed = 1
 		
 	if item.hastag( 'boni_dex' ):
 		char.dexterity = char.dexterity - int( item.gettag( 'boni_dex' ) )
-		changed = 1
 		
 	if item.hastag( 'boni_int' ):
 		char.intelligence = char.intelligence - int( item.gettag( 'boni_int' ) )
-		changed = 1
-		
-	if changed and char.socket:
-		char.socket.resendstatus()
