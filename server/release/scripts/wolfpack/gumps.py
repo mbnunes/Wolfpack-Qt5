@@ -187,3 +187,6 @@ class cGump:
 
 	def addCheckerTrans( self, x, y, width, height ):
 		self.layout.append( "{checkertrans %i %i %u %u}" % ( x, y, width, height ) )
+
+	def add( self, line ):
+		self.layout.append( line )

@@ -145,6 +145,7 @@ def response( char, args, target ):
 
 def foundation( char, target, width, height ):
    multi = wolfpack.multi( CUSTOMHOUSE )
+   multi.decay = FALSE
    multi.moveto( target.pos )
 
    left = width/2
@@ -152,10 +153,22 @@ def foundation( char, target, width, height ):
    bottom = height/2
    top = bottom - ( height-1 )
 
+   #Draw floor
+   for y in xrange( top+1,bottom+1 ):
+      for x in xrange( right+1,left+1 ):
+         if x == 0 and y == 0:
+            multi.addchtile( 0x1, 0, 0, 0 )
+         multi.addchtile( 0x31f4, x, y, 7 )
+
+   #Draw corners
+   multi.addchtile( 0x66, right, top, 0 )
+   multi.addchtile( 0x65, left, bottom, 0 )
+
    #Draw sides
    for x in xrange( right+1,left+1 ):
       multi.addchtile( 0x63, x, top, 0 )
-      multi.addchtile( 0x63, x, bottom, 0 )
+      if x < left:
+         multi.addchtile( 0x63, x, bottom, 0 )
          
    for y in xrange( top+1, bottom+1 ):
       multi.addchtile( 0x64, right, y, 0 )
@@ -165,16 +178,32 @@ def foundation( char, target, width, height ):
    for x in xrange( right+1,left+1 ):
       multi.addchtile( 0x0751, x, bottom+1, 0 )
 
-   #Draw floor
-   for y in xrange( top+1,bottom+1 ):
-      for x in xrange( right+1,left+1 ):
-         multi.addchtile( 0x31f4, x, y, 7 )
-
-   #Draw corners
-   multi.addchtile( 0x65, left, bottom, 0 )
-   multi.addchtile( 0x66, right, top, 0 )
    
    multi.sendcustomhouse( char )
+   #woodenpost = wolfpack.additem( "9" )
+   signpost = wolfpack.additem( "b98" )
+   sign = wolfpack.additem( "bd2" )
+   #woodenpost.decay = FALSE
+   signpost.decay = FALSE
+   sign.decay = FALSE
+   x = multi.pos.x + right
+   y = multi.pos.y + bottom
+   z = multi.pos.z + 7
+   map = multi.pos.map
+   newpos = wolfpack.coord( x, y, z, map )
+   #woodenpost.moveto( newpos )
+   newpos.y += 1
+   signpost.moveto( newpos )
+   sign.moveto( newpos )
+   sign.morex = multi.serial
+   sign.morey = signpost.serial
+   #sign.morez = woodenpost.serial
+   sign.events = ["signpost"]
+   #woodenpost.update()
+   signpost.update()
+   sign.update()
+
+   
 
 #House type selection common/2-story/3-story
 def gump0( char, callback ):
