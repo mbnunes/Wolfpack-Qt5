@@ -2,8 +2,8 @@
 """
 	\command resurrect
 	\description Resurrects a character.
-	\notes If the character is standing on his corpse he will regain<br />
-		all his posessions and equipment.
+	\notes If the character is standing on his corpse he will regain
+	all his posessions and equipment.
 """
 
 import wolfpack
@@ -32,7 +32,7 @@ def response( char, args, target ):
 			char.turnto( target.char )
 		target.char.soundeffect( 0x215 )
 		target.char.resurrect()
-		char.log(LOG_MESSAGE, "0x%x resurrects character 0x%x.\n" % ( char.serial, target.char.serial ) )
+		char.log(LOG_MESSAGE, "Resurrects character 0x%x.\n" % target.char.serial)
 		# Restore the character as well, added bonus.
 		target.char.hitpoints = target.char.maxhitpoints
 		target.char.mana = target.char.maxmana
