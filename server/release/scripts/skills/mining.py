@@ -44,7 +44,7 @@ ORES = {
 }
 
 def mining( char, pos, tool ):
-	wolfpack.addtimer( 1300, "skills.mining.domining", [ char, SOUND_MINING, tool, pos ] )
+	char.addtimer( 1300, "skills.mining.domining", [ tool, pos ] )
 	char.socket.settag( 'is_mining', ( wolfpack.time.currenttime() + miningdelay ) )
 	char.turnto( pos )
 	char.action( ANIM_ATTACK3 )
@@ -136,13 +136,12 @@ def response( char, args, target ):
 	return True
 
 #Sound effect
-def domining(time, args):
-	char = args[0]
-	char.soundeffect(args[1])
-	tool = args[2]
-	pos = args[3]
+def domining(char, args):
+	char.soundeffect( SOUND_MINING )
+	tool = args[0]
+	pos = args[1]
 	socket = char.socket
-	socket.deltag('is_mining')
+	socket.deltag( 'is_mining' )
 
 	# Recheck distance
 	#if not char.canreach(pos, MINING_MAX_DISTANCE):
@@ -170,7 +169,7 @@ def domining(time, args):
 
 		if not veingem.hastag('resource_empty'):
 			duration = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
-			wolfpack.addtimer(duration, "skills.mining.respawnvein", [veingem], 1)
+			veingem.addtimer( duration, "skills.mining.respawnvein", 1 )
 			veingem.settag('resource_empty', 1)
 		return False
 
@@ -234,14 +233,14 @@ def successmining(char, gem, resname, size):
 	if not tobackpack(item, char):
 		item.update()
 
-	resourcecount = max(1, int(gem.gettag('resourcecount')))
+	resourcecount = max( 1, int( gem.gettag('resourcecount') ) )
 	gem.settag('resourcecount', resourcecount - 1)
 
 	# Start respawning the ore
 	if not gem.hastag('resource_empty') and resourcecount <= 1:
 		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
-		wolfpack.addtimer(delay, "skills.mining.respawnvein", [gem], 1)
-		gem.settag('resource_empty', 1)
+		gem.addtimer( delay, "skills.mining.respawnvein", 1 )
+		gem.settag( 'resource_empty', 1 )
 
 	message = ORES[resname][SUCCESSMESSAGE]
 	# You dig some %s and put it in your backpack.
@@ -251,8 +250,7 @@ def successmining(char, gem, resname, size):
 		char.socket.sysmessage(unicode(message))
 	return True
 
-def respawnvein( time, args ):
-	vein = args[0]
+def respawnvein( vein, args ):
 	if vein and vein.hastag('resource_empty') and vein.gettag('resourcecount') == 0:
 		vein.settag('resourcecount', random.randint( MINING_ORE[0], MINING_ORE[1] ) )
 		vein.deltag('resource_empty')

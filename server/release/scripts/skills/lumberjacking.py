@@ -110,9 +110,8 @@ def getvein( socket, pos, target ):
 
 # Delay for chopping trees and getting the logs
 # Animation Sequence
-def chop_tree( time, args ):
-	char = args[0]
-	pos = args[1]
+def chop_tree( char, args ):
+	pos = args[0]
 	socket = char.socket
 
 	if char.pos.map != pos.map or char.pos.distance( pos ) > chopdistance:
@@ -154,9 +153,9 @@ def hack_logs( char, target, tool, resource ):
 	# Let him hack
 	char.action( 0xd )
 	char.soundeffect( 0x13e )
-	wolfpack.addtimer( 2000, "skills.lumberjacking.chop_tree", [char, pos] )
-	wolfpack.addtimer( 3500, "skills.lumberjacking.chop_tree", [char, pos] )
-	wolfpack.addtimer( 4000, "skills.lumberjacking.successlumberjacking", [char, pos, resource, amount, tool, resname, woodtable ] )
+	char.addtimer( 2000, "skills.lumberjacking.chop_tree", [pos] )
+	char.addtimer( 3500, "skills.lumberjacking.chop_tree", [pos] )
+	char.addtimer( 4000, "skills.lumberjacking.successlumberjacking", [pos, resource, amount, tool, resname, woodtable ] )
 	return
 
 # HACK KINDLINGS
@@ -182,15 +181,14 @@ def hack_kindling( char, pos ):
 	char.soundeffect( 0x13e )
 	char.socket.clilocmessage( 0x7A30B ) # You put some kindlings in your pack
 
-def successlumberjacking( time, args ):
-	char = args[0]
-	pos = args[1] # Target POS
-	resource = args[2]
-	amount = args[3]
-	tool = args[4]
-	resname = args[5]
-	table = args[6]
+def successlumberjacking( char, args ):
 	socket = char.socket
+	pos = args[0] # Target POS
+	resource = args[1]
+	amount = args[2]
+	tool = args[3]
+	resname = args[4]
+	table = args[5]
 
 	# Lets make sure we stayed next to the tree
 	# Player can reach that ?
@@ -255,11 +253,10 @@ def successlumberjacking( time, args ):
 		elif resource.gettag( 'resourcecount' ) == 0:
 			if not resource.hastag ('resource_empty') and int( resource.gettag( 'resourcecount' ) ) == 0:
 				resource.settag( 'resource_empty', 'true' )
-				wolfpack.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", [ resource ], 1 )
+				resource.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", True )
 		return True
 
-def respawnvein( time, args ):
-	vein = args[0]
+def respawnvein( vein, args ):
 	if vein.hastag ('resource_empty') and int(vein.gettag( 'resourcecount' )) == 0:
 		vein.settag( 'resourcecount', int( woodspawnamount ) )
 		vein.deltag( 'resource_empty' )

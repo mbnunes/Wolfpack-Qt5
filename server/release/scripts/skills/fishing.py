@@ -219,7 +219,6 @@ def itemtimer( char, args ):
 		return 0
 
 	socket = char.socket
-
 	socket.deltag( 'is_fishing' )
 
 	if len( args ) != 2:
@@ -253,14 +252,15 @@ def itemtimer( char, args ):
 			# Create a resource gem
 			resource = wolfpack.additem( "1ea7" )
 			resource.name = 'Resource Item: fish'
-			resource.settag( 'resourcecount', amount - 1 )
+			resource.settag( 'resourcecount', int( amount - 1 ) )
 			resource.settag( 'resource', 'fish' )
 			resource.visible = 0 # GM Visible only
 
 			pos = args[ 0 ]
 			resource.moveto( wolfpack.coord( int( floor( pos.x / 8 ) ) * 8, int( floor( pos.y / 8 ) ) * 8, int( pos.z - 5 ), pos.map ) )
-			resource.decay = 1
-			resource.decaytime = wolfpack.time.servertime() + ( random.randint(FISHING_REFILLTIME[0], FISHING_REFILLTIME[1]) )
+			resource.decay = 0
+			decaytime = random.randint( FISHING_REFILLTIME[0], FISHING_REFILLTIME[1] )
+			resource.addtimer( decaytime, 'skills.fishing.resourceDecayTimer', True )
 			resource.update() # Send to GMs
 
 		else:
@@ -275,10 +275,14 @@ def itemtimer( char, args ):
 
 		# Otherwise try to stack it
 		elif not wolfpack.utilities.tobackpack( item, char ):
-				item.update()
+			item.update()
 
 	# Success!
 	if not spawnmonster:
 		socket.clilocmessage( 0xf61fc, "", 0x3b2, 3, 0, str(itemname) ) # You pull out an item :
 	else:
 		socket.clilocmessage( 0xf61fd, "", 0x3b2, 3, 0, str(itemname) ) # You pull out an item along with a monster :
+
+def resourceDecayTimer( resource, arguments ):
+	resource.delete()
+	return
