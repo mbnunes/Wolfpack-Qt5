@@ -106,11 +106,11 @@ class Spell:
 		socket = char.socket
 		
 		# Casting from a scroll and no scroll was passed
-		if mode == 1 and not item:
+		if mode == MODE_SCROLL and not item:
 			return
 		
 		# Casting from a wand and no wand was passed
-		if mode == 2 and not item:
+		if mode == MODE_WAND and not item:
 			return
 
 		# We are frozen
@@ -125,7 +125,7 @@ class Spell:
 
 		# If we are using a spellbook to cast, check if we do have
 		# the spell in our spellbook (0-based index)
-		if not self.inherent and mode == 0 and not hasSpell(char, self.spellid - 1):
+		if not self.inherent and mode == MODE_BOOK and not hasSpell(char, self.spellid - 1):
 			char.message("You don't know the spell you want to cast.")
 			return 0
 
@@ -154,6 +154,8 @@ class Spell:
 			source = 'scroll (0x%x)' % item
 		elif mode == MODE_WAND:
 			source = 'wand (0x%x)' % item
+		elif mode == MODE_CMD:
+                        source = 'command'
 
 		char.log(LOG_MESSAGE, "Casting spell %u (%s) from %s.\n" % (self.spellid, self.__class__.__name__, source))
 		char.addtimer(self.calcdelay(), 'magic.spell.callback', [self, mode, args, target, item], 0, 0, "cast_delay")

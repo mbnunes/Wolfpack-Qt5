@@ -13,7 +13,7 @@ from magic import *
 def CmdCast( socket, command, args ):
 	try:
 		args = int( args );
-		castSpell( socket.player, args, 1 )
+		castSpell( socket.player, args, MODE_CMD )
 	except:
 		socket.sysmessage( "Usage: cast <spell-id>" )
 	return True

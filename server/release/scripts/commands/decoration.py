@@ -66,8 +66,8 @@ class DecorationHandler( ContentHandler ):
             map = int( atts.getValue("map") )
             item.moveto( x, y, z, map )
             item.movable = 3 # not movable
-            item.update()
             item.decay = 0 # no decay
+            item.update()
 
 
 class DecorationSaveHandler:
@@ -100,13 +100,22 @@ class DecorationSaveHandler:
             file = open( "save_decoration.%i.xml" % map, "w" )
             file.write("<decoration>\n")
             for id in self.maps[map]:
-                tiledata = wolfpack.tiledata(id)
-                file.write("""\t<!-- %s -->\n""" % tiledata["name"] )
-                file.write("""\t<item id="0x%x">\n""" % id )
+                itemsbyhue = {}
                 for item in self.maps[map][id]:
-                    pos = item.pos
-                    file.write("""\t\t<pos x="%i" y="%i" z="%i" map="%i">\n""" % (pos.x, pos.y, pos.z, pos.map) )
-                file.write("\t</item>\n")
+                    if not itemsbyhue.has_key(item.color):
+                        itemsbyhue[item.color] = []
+                    itemsbyhue[item.color].append(item)
+                tiledata = wolfpack.tiledata(id)
+                for hue in itemsbyhue:
+                    file.write("""\t<!-- %s -->\n""" % tiledata["name"] )
+                    if hue != 0:
+                        file.write("""\t<item id="0x%x" hue="0x%x">\n""" % (id, hue) )
+                    else:
+                        file.write("""\t<item id="0x%x">\n""" % id )
+                    for item in itemsbyhue[hue]:
+                        pos = item.pos
+                        file.write("""\t\t<pos x="%i" y="%i" z="%i" map="%i">\n""" % (pos.x, pos.y, pos.z, pos.map) )
+                    file.write("\t</item>\n")
             file.write("</decoration>\n")
             file.close()
 

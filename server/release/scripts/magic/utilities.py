@@ -43,6 +43,7 @@ REAGENT_WYRMSHEART = 0xf91
 MODE_BOOK = 0
 MODE_SCROLL = 1
 MODE_WAND = 2
+MODE_CMD = 3
 
 #
 # Remove a possible timer/targetrequest
