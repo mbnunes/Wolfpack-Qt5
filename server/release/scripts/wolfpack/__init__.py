@@ -125,6 +125,9 @@ def registercommand( command, script ):
 def tiledata( id ):
 	return _wolfpack.tiledata( id )
 
+def landdata( id ):
+	return _wolfpack.landdata( id )
+
 def coord( x, y, z, map ):
 	return _wolfpack.coord( x, y, z, map )
 
