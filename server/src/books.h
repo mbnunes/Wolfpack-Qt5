@@ -59,6 +59,11 @@ public:
 	void load( char **, UINT16& );
 	void save();
 	bool del();
+
+	// FlatStore
+	void save( FlatStore::OutputFile*, bool first = false ) throw();
+	bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* ) throw();
+	bool postload() throw();
 	
 	// setters/getters
 	QString		title( void )	const;

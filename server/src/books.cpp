@@ -38,6 +38,10 @@
 #include "dbdriver.h"
 #include "globals.h"
 
+// Flatstore
+#include "flatstore_keys.h"
+#include "flatstore/flatstore.h"
+
 #include <qregexp.h>
 #include <qsqlcursor.h>
 
@@ -54,8 +58,10 @@ void cBook::registerInFactory()
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
 	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cBook' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
-	UObjectFactory::instance()->registerType("cBook", productCreator);
 	UObjectFactory::instance()->registerSqlQuery( "cBook", sqlString );
+
+	UObjectFactory::instance()->registerType("cBook", productCreator);
+	UObjectFactory::instance()->registerType( QString::number( CHUNK_BOOK ), productCreator );
 }
 
 cBook::cBook()
@@ -101,6 +107,104 @@ void cBook::load( char **result, UINT16 &offset )
 
 	res.free();
 	changed_ = false;
+}
+
+enum eChunkTypes
+{
+	BOOK_PREDEFINED = 0x00,	// flag
+	BOOK_READONLY,			// flag
+	BOOK_TITLE,				// utf8
+	BOOK_AUTHOR,			// author
+	BOOK_SECTION,			// utf8
+	BOOK_PAGES,				// unsigned short + count * utf8
+};
+
+void cBook::save( FlatStore::OutputFile *output, bool first ) throw()
+{
+	if( first )
+		output->startObject( serial_, CHUNK_BOOK );
+
+	cItem::save( output );
+
+	if( predefined_ )
+		output->startChunk( BOOK_PREDEFINED );
+
+	if( readonly_ )
+		output->startChunk( BOOK_READONLY );
+
+	if( !title_.isNull() && !title_.isEmpty() )
+		output->chunkData( BOOK_TITLE, (const char*)title_.utf8().data() );
+
+	if( !author_.isNull() && !author_.isEmpty() )
+		output->chunkData( BOOK_AUTHOR, (const char*)author_.utf8().data() );
+
+	if( !section_.isNull() && !section_.isEmpty() )
+		output->chunkData( BOOK_SECTION, (const char*)section_.utf8().data() );
+
+	// Write pages
+	output->chunkData( BOOK_PAGES, (unsigned short)pages_ );
+
+	unsigned int i;
+	for( i = 0; i < pages_; ++i )
+	{
+		if( i >= content_.count() )
+			output->writeString( "" );
+		else
+			output->writeString( content_[i].utf8().data() );
+	}
+
+	if( first )
+		output->finishObject();
+}
+
+bool cBook::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile *input ) throw()
+{
+	if( chunkGroup != CHUNK_BOOK )
+		return cItem::load( chunkGroup, chunkType, input );
+
+	unsigned int i;
+
+	switch( chunkType )
+	{
+	case BOOK_PREDEFINED:
+		predefined_ = true;
+		break;
+
+	case BOOK_READONLY:
+		readonly_ = true;
+		break;
+
+	case BOOK_TITLE:
+		title_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case BOOK_AUTHOR:
+		author_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case BOOK_SECTION:
+		section_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case BOOK_PAGES:
+		input->readUShort( pages_ );
+		content_.clear();
+
+		for( i = 0; i < pages_; ++i )
+			content_.push_back( QString::fromUtf8( input->readString() ) );
+
+		break;
+
+	default:
+		return false;
+	};
+
+	return true;
+}
+
+bool cBook::postload() throw()
+{
+	return cItem::postload();
 }
 
 void cBook::save()
