@@ -12,21 +12,22 @@
 	<npc id="giant_ice_worm" inherit="monster_base">
 		<name>giant ice worm</name>
 		<id>89</id>
-		<karma>-900</karma>
-		<fame>900</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
-		<str><random min="42" max="54"/></str>
-		<dex><random min="36" max="45"/></dex>
-		<int><random min="26" max="30"/></int>
+		<str><random min="216" max="245"/></str>
+		<dex><random min="76" max="100"/></dex>
+		<int><random min="66" max="85"/></int>
+		<maxmana>0</maxmana>
+		<maxhitpoints><random min="130" max="147"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="151" max="200"/></magicresistance>
 		<tactics><random min="393" max="540"/></tactics>
 		<wrestling><random min="393" max="540"/></wrestling>
 		<!-- Damage -->
-		<mindamage>4</mindamage>
-		<maxdamage>12</maxdamage>
-		<tag name="dmg_cold" value="25" type="int" />
-		<tag name="dmg_poison" value="50" type="int" />
+		<mindamage>15</mindamage>
+		<maxdamage>35</maxdamage>
+		<tag name="dmg_cold" value="90" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="80,90" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />

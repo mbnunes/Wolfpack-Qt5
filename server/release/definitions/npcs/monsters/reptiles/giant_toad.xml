@@ -12,19 +12,21 @@
 	<npc id="giant_toad" inherit="monster_base">
 		<name>giant toad</name>
 		<id>80</id>
-		<karma>-750</karma>
-		<fame>750</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="76" max="100"/></str>
 		<dex><random min="6" max="25"/></dex>
 		<int><random min="11" max="20"/></int>
+		<maxmana>0</maxmana>
+		<maxhitpoints><random min="46" max="60"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="251" max="400"/></magicresistance>
 		<tactics><random min="401" max="600"/></tactics>
 		<wrestling><random min="401" max="600"/></wrestling>
 		<!-- Damage -->
-		<mindamage>5</mindamage>
-		<maxdamage>17</maxdamage>
+		<mindamage>11</mindamage>
+		<maxdamage>27</maxdamage>
 		<!-- Resists -->
 		<tag name="res_energy" value="5,10" type="int" />
 		<tag name="res_fire" value="5,10" type="int" />

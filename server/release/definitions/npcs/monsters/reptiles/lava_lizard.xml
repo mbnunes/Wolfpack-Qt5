@@ -12,19 +12,21 @@
 	<npc id="lava_lizard" inherit="monster_base">
 		<name>lava lizard</name>
 		<id>207</id>
-		<karma>-3000</karma>
-		<fame>3000</fame>
+		<karma><random list="KARMA_L2" /></karma>
+		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
 		<str><random min="126" max="150"/></str>
 		<dex><random min="56" max="75"/></dex>
 		<int><random min="11" max="20"/></int>
+		<maxmana>0</maxmana>
+		<maxhitpoints><random min="76" max="90"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="551" max="700"/></magicresistance>
 		<tactics><random min="601" max="800"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
 		<!-- Damage -->
-		<mindamage>6</mindamage>
-		<maxdamage>24</maxdamage>
+		<mindamage>14</mindamage>
+		<maxdamage>45</maxdamage>
 		<!-- Resists -->
 		<tag name="res_energy" value="25,35" type="int" />
 		<tag name="res_fire" value="30,45" type="int" />

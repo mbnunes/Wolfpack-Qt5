@@ -12,20 +12,23 @@
 	<npc id="serpent_gaint" inherit="monster_base">
 		<name>giant serpent</name>
 		<id>21</id>
-		<karma>-2500</karma>
-		<fame>2500</fame>
+		<skin><random list="SKINS_SNAKE" /></skin>
+		<karma><random list="KARMA_L2" /></karma>
+		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
 		<str><random min="186" max="215"/></str>
 		<dex><random min="56" max="80"/></dex>
 		<int><random min="66" max="85"/></int>
+		<maxmana>0</maxmana>
+		<maxhitpoints><random min="112" max="129"/></maxhitpoints>
 		<!-- Skills -->
 		<poisoning><random min="701" max="1000"/></poisoning>
 		<magicresistance><random min="251" max="400"/></magicresistance>
 		<tactics><random min="651" max="700"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
 		<!-- Damage -->
-		<mindamage>7</mindamage>
-		<maxdamage>17</maxdamage>
+		<mindamage>19</mindamage>
+		<maxdamage>35</maxdamage>
 		<tag name="dmg_poison" value="60" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />
