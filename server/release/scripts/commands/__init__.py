@@ -1,4 +1,4 @@
-﻿
+
 import wolfpack
 from wolfpack import time
 from wolfpack.utilities import hex2dec
@@ -120,31 +120,90 @@ def multigems(socket, command, arguments):
 """
 	\command goname
 	\usage - <code>goname name</code>
-	\description Go to the first character found with the given name.
+	\description Go to the characters found with the given name.
+	\notes Use the command twice to go to the next char with the same name etc.
 """
 def goname(socket, command, arguments):
 	if len(arguments) == 0:
 		socket.sysmessage('Usage: goname <name>')
 		return
-	
+
 	chars = wolfpack.chariterator()
 
 	char = chars.first
-	found = None
 	name = hash(arguments.lower())
-	
+
+	found = []
 	while char:
 		if hash(char.name.lower()) == name:
-			found = char
-			break
+			if not char.rank > socket.player.rank:
+				found.append( char )
 
 		char = chars.next
-		
-	if not found or found.rank > socket.player.rank:
+
+	if socket.hastag( "goname" ):
+		i = socket.gettag( "goname" ) + 1
+		if i >= len(found):
+			# No more chars with the same name, start from the beginning
+			i = 0
+		socket.settag( "goname", i )
+	else:
+		socket.settag( "goname", 0 )
+		i = 0
+
+	if len(found) == 0:
 		socket.sysmessage('A character with the given name was not found.')
 	else:
-		socket.sysmessage("Going to character '%s' [Serial: 0x%x]." % (found.name, found.serial))
-		pos = found.pos
+		socket.sysmessage("Going to character '%s' [Serial: 0x%x]." % (found[i].name, found[i].serial))
+		pos = found[i].pos
+		socket.player.removefromview()
+		socket.player.moveto(pos)
+		socket.player.update()
+		socket.resendworld()
+
+"""
+	\command goitem
+	\usage - <code>goitem name</code>
+	\description Go to the item found with the given name.
+	\notes Use the command twice to go to the next item with the same name etc.
+"""
+def goitem(socket, command, arguments):
+	if len(arguments) == 0:
+		socket.sysmessage('Usage: goitem <name>')
+		return
+
+	items = wolfpack.itemiterator()
+
+	item = items.first
+	name = hash(arguments.lower())
+
+	found = []
+	while item:
+		if hash(item.name.lower()) == name:
+			found.append( item )
+
+		item = items.next
+
+	if socket.hastag( "goitem" ):
+		i = socket.gettag( "goitem" ) + 1
+		if i >= len(found):
+			# No more items with the same name, start from the beginning
+			i = 0
+		socket.settag( "goitem", i )
+	else:
+		socket.settag( "goitem", 0 )
+		i = 0
+
+	if len(found) == 0:
+		socket.sysmessage('A item with the given name was not found.')
+	else:
+		container = found[i].getoutmostitem()
+		
+		if container.container:
+			container = container.container
+			
+		socket.sysmessage("Going to item '%s' [Serial: 0x%x; Top: 0x%x]." % (found[i].name, found[i].serial, container.serial))
+		pos = found[i].pos
 		socket.player.removefromview()
 		socket.player.moveto(pos)
 		socket.player.update()
@@ -251,6 +310,7 @@ def onLoad():
 	wolfpack.registercommand("gouid", gouid)
 	wolfpack.registercommand("goname", goname)
 	wolfpack.registercommand("newlos", newlos)
+	wolfpack.registercommand("goitem", goitem)
 
 """
 	\command nightsight
