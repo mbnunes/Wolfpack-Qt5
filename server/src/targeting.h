@@ -129,7 +129,6 @@ private:
 	void SetPoisonTarget(int s);
 	void SetPoisonedTarget(int s);
 	void FullStatsTarget(int s);
-	void SetAdvObjTarget(int s);
 	void CanTrainTarget(int s);
 	void SetSplitTarget(int s);
 	void SetSplitChanceTarget(int s);

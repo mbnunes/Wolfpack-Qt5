@@ -1029,16 +1029,6 @@ void cTargets::FullStatsTarget(int s)
 	sysmessage(s,"That is not a person.");
 }
 
-void cTargets::SetAdvObjTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		pc->setAdvobj(tempint[s]);
-	}
-}
-
 ////////////////
 // name:		CanTrainTarget
 // history:		by Antrhacks 1-3-99
@@ -1783,7 +1773,6 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 		case 175: Targ->SetPoisonTarget(s); break;
 		case 176: Targ->SetPoisonedTarget(s); break;
 		case 177: Targ->SetSpaDelayTarget(s); break;
-		case 178: Targ->SetAdvObjTarget(s); break;
 
 		case 183: Skills->TinkerAxel(s); break;
 		case 184: Skills->TinkerAwg(s); break;

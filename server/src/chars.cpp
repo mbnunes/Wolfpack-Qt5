@@ -60,6 +60,7 @@
 #include "walking.h"
 #include "persistentbroker.h"
 #include "territories.h"
+#include "worldmain.h"
 
 #include <qsqlcursor.h>
 
@@ -253,8 +254,6 @@ void cChar::Init(bool ser)
 	this->trackingTarget_ = INVALID_SERIAL;
 	this->setFishingtimer(0); // Timer used to delay the catching of fish
 
-	this->setAdvobj(0); //Has used advance gate?
-	
 	this->setPoison(0); // used for poison skill 
 	this->setPoisoned(0); // type of poison
 	this->setPoisontime(0); // poison damage timer
@@ -673,15 +672,130 @@ bool cChar::canPickUp(cItem* pi)
 void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	//fields.push_back( "" );
-	//tables.push_back( "boats" );
-	//conditions.push_back( "uobjectmap.serial = boats.serial" );
+	fields.push_back( "characters.name,characters.title,characters.account,characters.creationday,characters.guildtype,characters.guildtraitor,characters.cell,characters.dir,characters.body,characters.xbody,characters.skin,characters.xskin,characters.priv,characters.stablemaster,characters.npctype,characters.time_unused,characters.allmove,characters.font,characters.say,characters.emote,characters.strength,characters.strength2,characters.dexterity,characters.dexterity2,characters.intelligence,characters.intelligence2,characters.hitpoints,characters.spawnregion,characters.stamina,characters.mana,characters.npc,characters.holdgold,characters.shop,characters.own,characters.robe,characters.karma,characters.fame,characters.kills,characters.deaths,characters.dead,characters.fixedlight,characters.speech,characters.disablemsg,characters.cantrain,characters.def,characters.lodamage,characters.hidamage,characters.war,characters.npcwander,characters.oldnpcwander,characters.carve,characters.fx1,characters.fy1,characters.fz1,characters.fx2,characters.fy2,characters.spawn,characters.hidden,characters.hunger,characters.npcaitype,characters.spattack,characters.spadelay,characters.taming,characters.summontimer,characters.advobj,characters.poison,characters.poisoned,characters.fleeat,characters.reattackat,characters.split,characters.splitchance,characters.guildtoggle,characters.guildstone,characters.guildtitle,characters.guildfealty,characters.murderrate,characters.menupriv,characters.questtype,characters.questdestregion,characters.questorigregion,characters.questbountypostserial,characters.questbountyreward,characters.jailtimer,characters.jailsecs,characters.lootlist,characters.food" );
+	tables.push_back( "characters" );
+	conditions.push_back( "uobjectmap.serial = characters.serial" );
 }
 
 void cChar::load( char **result, UINT16 &offset )
 {
 	cUObject::load( result, offset );
+
+	orgname_ = result[offset++];
+	title_ = result[offset++];
+	QString login = result[offset++];
+	setAccount( Accounts::instance()->getRecord( result[offset++] ) );
+	creationday_ = atoi( result[offset++] );
+	GuildType = atoi( result[offset++] );
+	GuildTraitor = atoi( result[offset++] );
+	cell_ = atoi( result[offset++] );
+	dir_ = atoi( result[offset++] );
+	xid_ = atoi( result[offset++] ); setId( xid_ );
+	xid_ = atoi( result[offset++] );
+	skin_ = atoi( result[offset++] );
+	xskin_ = atoi( result[offset++] );
+	priv = atoi( result[offset++] );
+	stablemaster_serial_ = atoi( result[offset++] );
+	npc_type_ = atoi( result[offset++] );
+	time_unused_ = atoi( result[offset++] );
+	priv2_ = atoi( result[offset++] );
+	fonttype_ = atoi( result[offset++] );
+	saycolor_ = atoi( result[offset++] );
+	emotecolor_ = atoi( result[offset++] );
+	st_ = atoi( result[offset++] );
+	st2_ = atoi( result[offset++] );
+	dx = atoi( result[offset++] );
+	dx2 = atoi( result[offset++] );
+	in_ = atoi( result[offset++] );
+	in2_ = atoi( result[offset++] );
+	hp_ = atoi( result[offset++] );
+	spawnregion_ = result[offset++];
+	stm_ = atoi( result[offset++] );
+	mn_ = atoi( result[offset++] );
+	npc_ = atoi( result[offset++] );
+	holdg_ = atoi( result[offset++] );
+	shop_ = atoi( result[offset++] );
+	ownserial_ = atoi( result[offset++] );
+	robe_ = atoi( result[offset++] );
+	karma_ = atoi( result[offset++] );
+	fame_ = atoi( result[offset++] );
+	kills_ = atoi( result[offset++] );
+	deaths_ = atoi( result[offset++] );
+	dead_ = atoi( result[offset++] );
+	fixedlight_ = atoi( result[offset++] );
+	speech_ = atoi( result[offset++] );
+	disabledmsg_ = result[offset++];
+	cantrain_ = atoi( result[offset++] );
+	def_ = atoi( result[offset++] );
+	lodamage_ = atoi( result[offset++] );
+	hidamage_ = atoi( result[offset++] );
+	war_ = atoi( result[offset++] );
+	npcWander_ = atoi( result[offset++] );
+	oldnpcWander_ = atoi( result[offset++] );
+	carve_ = atoi( result[offset++] );
+	fx1_ = atoi( result[offset++] );
+	fy1_ = atoi( result[offset++] );
+	fz1_ = atoi( result[offset++] );
+	fx2_ = atoi( result[offset++] );
+	fy2_ = atoi( result[offset++] );
+	spawnserial_ = atoi( result[offset++] );
+	hidden_ = atoi( result[offset++] );
+	hunger_ = atoi( result[offset++] );
+	npcaitype_ = atoi( result[offset++] );
+	spattack_ = atoi( result[offset++] );
+	spadelay_ = atoi( result[offset++] );
+	taming_ = atoi( result[offset++] );
+	summontimer_ = atoi( result[offset++] );
+	if( summontimer_ )
+		summontimer_ += uiCurrentTime;
+
+	poison_ = atoi( result[offset++] );
+	poisoned_ = atoi( result[offset++] );
+	fleeat_ = atoi( result[offset++] );
+	reattackat_ = atoi( result[offset++] );
+	split_ = atoi( result[offset++] );
+	splitchnc_ = atoi( result[offset++] );
+	guildtoggle_ = atoi( result[offset++] );
+	guildstone_ = atoi( result[offset++] );
+	guildtitle_ = result[offset++];
+	guildfealty_ = atoi( result[offset++] );
+	murderrate_ = atoi( result[offset++] );
+	menupriv_ = atoi( result[offset++] );
+	questType_ = atoi( result[offset++] );
+	questDestRegion_ = atoi( result[offset++] );
+	questOrigRegion_ = atoi( result[offset++] );
+	questBountyPostSerial_ = atoi( result[offset++] );
+	questBountyReward_ = atoi( result[offset++] );
+	jailtimer_ = atoi( result[offset++] );
+	if (jailtimer_ != 0)
+		jailtimer_ += uiCurrentTime;
+
+	jailsecs_ = atoi( result[offset++] );
+	loot_ = atoi( result[offset++] );
+	food_ = atoi( result[offset++] );
 	
+	SetOwnSerial( ownserial_ );
+	SetSpawnSerial( spawnserial_ );
+
+	// Query the Skills for this character
+	QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial ) + "'";
+
+	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
+		throw mysql_error( cwmWorldState->mysql );
+
+	MYSQL_RES *mResult = mysql_use_result( cwmWorldState->mysql );
+
+	// Fetch row-by-row
+	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+	{
+		// row[0] = skill
+		// row[1] = value
+		// row[2] = locktype
+		// row[3] = cap (unused!)
+		UINT16 i = atoi( row[0] );
+		baseSkill_[i] = atoi( row[1] );
+		lockSkill_[i] = atoi( row[2] );
+	}
 }
 
 void cChar::save( const QString &s  )
@@ -694,255 +808,6 @@ bool cChar::del ( const QString &s )
 	// Not decided how to do that yet
 	return cUObject::del( s );
 }
-
-/*void cChar::Serialize(ISerialization &archive)
-{
-	if (archive.isReading())
-	{
-		archive.read("name",			orgname_);
-		archive.read("title",			title_);
-		QString login;
-		archive.read("account",			login);
-		setAccount( Accounts::instance()->getRecord( login ) );
-		archive.read("creationday",		creationday_);
-		archive.read("gmmoveeff",		gmMoveEff_);
-		archive.read("guildtype",		GuildType);
-		archive.read("guildtraitor",	GuildTraitor);
-		archive.read("dispz",			dispz_ );
-		archive.read("cell",			cell_);
-		archive.read("dir",				dir_);
-		archive.read("body",			xid_);	setId(xid_);
-		archive.read("xbody",			xid_);
-		archive.read("skin",			skin_);	
-		archive.read("xskin",           xskin_);
-		archive.read("priv",			priv);
-		
-		archive.read("stablemaster",	stablemaster_serial_);
-		archive.read("npctype",			npc_type_);
-		archive.read("time_unused",		time_unused_);
-		
-		archive.read("allmove",			priv2_);
-		archive.read("font",			fonttype_);
-		archive.read("say",				saycolor_);
-		archive.read("emote",			emotecolor_);
-		archive.read("strength",		st_);
-		archive.read("strength2",		st2_);
-		archive.read("dexterity",		dx);
-		archive.read("dexterity2",		dx2);
-		archive.read("intelligence",	in_);
-		archive.read("intelligence2",	in2_);
-		archive.read("hitpoints",		hp_);
-		archive.read("spawnregion",		spawnregion_);
-		archive.read("stamina",			stm_);
-		archive.read("mana",			mn_);
-		archive.read("npc",				npc_);
-		archive.read("holdgold",		holdg_);
-		archive.read("shop",			shop_);
-		archive.read("own",				ownserial_);
-		archive.read("robe",			robe_);
-		archive.read("karma",			karma_);
-		archive.read("fame",			fame_);
-		archive.read("kills",			kills_);
-		archive.read("deaths",			deaths_);
-		archive.read("dead",			dead_);
-		archive.read("fixedlight",		fixedlight_);
-		archive.read("speech",			speech_);
-
-		archive.read("disablemsg",		disabledmsg_);
-		register unsigned int j;
-		for ( j = 0; j < TRUESKILLS; j++ )
-		{
-			archive.read( (char*)QString( "skill%1" ).arg( j ).latin1(), baseSkill_[j] );
-			archive.read( (char*)QString( "skl%1" ).arg( j ).latin1(), lockSkill_[j] );
-		}
-		archive.read("cantrain",		cantrain_);
-		
-		archive.read("def",				def_);
-		archive.read("lodamage",		lodamage_);
-		archive.read("hidamage",		hidamage_);
-		archive.read("war",				war_);
-		archive.read("npcwander",		npcWander_);
-		archive.read("oldnpcwander",	oldnpcWander_);
-		archive.read("carve",			carve_);
-		archive.read("fx1",				fx1_);
-		archive.read("fy1",				fy1_);
-		archive.read("fz1",				fz1_);
-		archive.read("fx2",				fx2_);
-		archive.read("fy2",				fy2_);
-		archive.read("spawn",			spawnserial_);
-		archive.read("hidden",			hidden_);
-		archive.read("hunger",			hunger_);
-		archive.read("npcaitype",		npcaitype_);
-		archive.read("spattack",		spattack_);
-		archive.read("spadelay",		spadelay_);
-		archive.read("taming",			taming_);
-
-		archive.read("summontimer",		summontimer_);
-		if (summontimer_ != 0)
-			summontimer_ += uiCurrentTime;
-		archive.read("advobj",			advobj_);
-		archive.read("poison",			poison_);
-		archive.read("poisoned",		poisoned_);
-		archive.read("fleeat",			fleeat_);
-		archive.read("reattackat",		reattackat_);
-		archive.read("split",			split_);
-		archive.read("splitchance",		splitchnc_);
-		// Begin of Guild related things (DasRaetsel)
-		archive.read("guildtoggle",		guildtoggle_);  
-		archive.read("guildstone",		guildstone_);  
-		archive.read("guildtitle",		guildtitle_);  
-		archive.read("guildfealty",		guildfealty_);  
-		archive.read("murderrate",		murderrate_);
-		archive.read("menupriv",		menupriv_);
-		archive.read("questtype",		questType_);
-		archive.read("questdestregion",	questDestRegion_);
-		archive.read("questorigregion",	questOrigRegion_);
-		archive.read("questbountypostserial", questBountyPostSerial_);
-		archive.read("questbountyreward", questBountyReward_);
-		archive.read("jailtimer",		jailtimer_);
-		if (jailtimer_ != 0)
-			jailtimer_ += uiCurrentTime;
-		archive.read("jailsecs",		jailsecs_); 
-		archive.read("lootlist",		loot_ );
-		archive.read("food",			food_ );
-		SetOwnSerial(ownserial_);
-		SetSpawnSerial(spawnserial_);
-		setAccount( account_ );
-	}
-	else if ( archive.isWritting())
-	{
-		if(incognito())
-		{//save original name
-			archive.write("name", orgname());
-		} 
-		else
-		{
-			archive.write("name", name);
-		}
-
-		archive.write("title",			title_);
-		if( account_ )
-			archive.write( "account", account_->login() );
-		else
-			archive.write( "account", QString( "" ) );
-		archive.write("creationday",	creationday_);
-		archive.write("gmmoveeff",		gmMoveEff_);
-		archive.write("guildtype",		GuildType);
-		archive.write("guildtraitor",	GuildTraitor);
-		archive.write("dispz",			dispz_);
-		archive.write("cell",			cell_);
-		archive.write("dir",			dir_);
-		//AntiChrist - incognito and polymorph spell special stuff - 12/99
-		if(incognito() || polymorph())
-		{//if under incognito spell, don't save BODY but the original XBODY
-			archive.write("body", xid_);
-		} 
-		else
-		{//else backup body normally
-			archive.write("body", id());
-		}
-		archive.write("xbody", xid_);
-		//AntiChrist - incognito spell special stuff - 12/99
-		if(incognito())
-		{//if under incognito spell, don't save SKIN but the original XSKIN
-			archive.write("skin", xskin_);
-		} 
-		else
-		{//else backup skin normally
-			archive.write("skin", skin_);
-		}
-		
-		archive.write("xskin",			xskin_);
-		archive.write("priv",			priv);
-		
-		archive.write("stablemaster",	stablemaster_serial_);
-		archive.write("npctype",		npc_type_);
-		archive.write("time_unused",	time_unused_);
-		
-		archive.write("allmove",		priv2_);
-		archive.write("font",			fonttype_);
-		archive.write("say",			saycolor_);
-		archive.write("emote",			emotecolor_);
-		archive.write("strength",		st_);
-		archive.write("strength2",		st2_);
-		archive.write("dexterity",		dx);
-		archive.write("dexterity2",		dx2);
-		archive.write("intelligence",	in_);
-		archive.write("intelligence2",	in2_);
-		archive.write("hitpoints",		hp_);
-		archive.write("spawnregion",	spawnregion_);
-		archive.write("stamina",		stm_);
-		archive.write("mana",			mn_);
-		archive.write("npc",			npc_);
-		archive.write("holdgold",		holdg_);
-		archive.write("shop",			shop_);
-		archive.write("own",			ownserial_);
-		archive.write("robe",			robe_);
-		archive.write("karma",			karma_);
-		archive.write("fame",			fame_);
-		archive.write("kills",			kills_);
-		archive.write("deaths",			deaths_);
-		archive.write("dead",			dead_);
-		archive.write("fixedlight",		fixedlight_);
-		archive.write("speech",			speech_);
-		archive.write("disablemsg",		disabledmsg_);
-		register unsigned int j;
-		for( j = 0; j < TRUESKILLS; j++ )
-		{
-			archive.write( (char*)QString( "skill%1" ).arg( j ).latin1(), baseSkill_[j] );
-			archive.write( (char*)QString( "skl%1" ).arg( j ).latin1(), lockSkill_[j] );
-		}
-		archive.write("cantrain", cantrain_);
-		
-		archive.write("def",			def_);
-		archive.write("lodamage",		lodamage_);
-		archive.write("hidamage",		hidamage_);
-		archive.write("war",			war_);
-		archive.write("npcwander",		npcWander_);
-		archive.write("oldnpcwander",	oldnpcWander_);
-		archive.write("carve",			carve_);
-		archive.write("fx1",			fx1_);
-		archive.write("fy1",			fy1_);
-		archive.write("fz1",			fz1_);
-		archive.write("fx2",			fx2_);
-		archive.write("fy2",			fy2_);
-		archive.write("spawn",			spawnserial_);
-		archive.write("hidden",			hidden_);
-		archive.write("hunger",			hunger_);
-		archive.write("npcaitype",		npcaitype_);
-		archive.write("spattack",		spattack_);
-		archive.write("spadelay",		spadelay_);
-		archive.write("taming",			taming_);
-		unsigned int summtimer = summontimer_ - uiCurrentTime;
-		archive.write("summonremainingseconds", summtimer);
-		
-		archive.write("advobj",			advobj_);
-		archive.write("poison",			poison_);
-		archive.write("poisoned",		poisoned_);
-		archive.write("fleeat",			fleeat_);
-		archive.write("reattackat",		reattackat_);
-		archive.write("split",			split_);
-		archive.write("splitchance",	splitchnc_);
-		// Begin of Guild related things (DasRaetsel)
-		archive.write("guildtoggle",	guildtoggle_);  
-		archive.write("guildnumber",	guildstone_);  
-		archive.write("guildtitle",		guildtitle_);  
-		archive.write("guildfealty",	guildfealty_);  
-		archive.write("murderrate",		murderrate_);
-		archive.write("menupriv",		menupriv_);
-		archive.write("questtype",		questType_);
-		archive.write("questdestregion",questDestRegion_);
-		archive.write("questorigregion",questOrigRegion_);
-		archive.write("questbountypostserial", questBountyPostSerial_);
-		archive.write("questbountyreward", questBountyReward_);
-		unsigned int jtimer = jailtimer_-uiCurrentTime;
-		archive.write("jailtimer",		jtimer); 
-		archive.write("jailsecs",		jailsecs_); 
-		archive.write("lootlist",		loot_);
-		archive.write("food",			food_);
-	}
-	cUObject::Serialize(archive);
-}*/
 
 /*void cChar::save( const QString& s )
 {

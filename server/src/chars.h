@@ -148,7 +148,6 @@ protected:
 	int						playercallnum_; //GM Paging
 
 	unsigned int			fishingtimer_; // Timer used to delay the catching of fish
-	int						advobj_; //Has used advance gate?
 	int						poison_; // used for poison skill 
 	unsigned int			poisoned_; // type of poison
 	unsigned int			poisontime_; // poison damage timer
@@ -264,12 +263,7 @@ protected:
 	int						taming_; //Skill level required for taming
 	unsigned int			summontimer_; //Timer for summoned creatures.
 	unsigned char			lockSkill_[ALLSKILLS+1]; // LB, client 1.26.2b skill managment
-    // commands shows 
-    // 0 = off 
-    // 1 = FlameStrike 
-    // 2-6 = Sparkles
-    int						gmMoveEff_;
-	int						VisRange_;
+	UINT8					VisRange_;
 
 	QMap< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 	unsigned int			food_;
@@ -359,7 +353,6 @@ public:
 	int						callnum() const { return callnum_; }
 	int						playercallnum() const { return playercallnum_; }
 	unsigned int			fishingtimer() const {return fishingtimer_;}
-	int						advobj() const { return advobj_;}
 	int						poison() const { return poison_;}
 	unsigned int			poisoned() const { return poisoned_; }
 	unsigned int			poisontime() const { return poisontime_;}
@@ -471,7 +464,6 @@ public:
 	int						taming() const { return taming_; }
 	unsigned int			summontimer() const { return summontimer_; }
 	unsigned char			lockSkill( int data ) const { return lockSkill_[data]; }// LB, client 1.26.2b skill managment
-    int						gmMoveEff() const { return gmMoveEff_; }
 	int						VisRange() const { return VisRange_; }
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu );
 	cMakeSection*			lastSection( cMakeMenu* basemenu );
@@ -540,7 +532,6 @@ public:
 	void					setPlayerCallNum ( int data ) { playercallnum_ = data;}
 
 	void					setFishingtimer( unsigned int data ) { fishingtimer_ = data;}
-	void					setAdvobj( int data ) { advobj_ = data; }
 	void					setPoison( int data ) { poison_ = data;}
 	void					setPoisoned( unsigned int data ) {poisoned_ = data;}
 	void					setPoisontime( unsigned int data ) { poisontime_ = data;}
@@ -653,7 +644,6 @@ public:
 	void					setTaming( int data ) { taming_ = data; }
 	void					setSummonTimer( unsigned int data ) { summontimer_ = data; }
 	void					setLockSkill( int index, unsigned char val ) { lockSkill_[index] = val; }
-    void					setGmMoveEff( int data ) { gmMoveEff_ = data; }
 	void					setVisRange( int data ) { VisRange_ = data; }
 	void					clearLastSelections( void );
 
