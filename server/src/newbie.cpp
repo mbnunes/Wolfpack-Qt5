@@ -154,6 +154,7 @@ void newbieitems(UOXSOCKET s, P_CHAR pc)
 					goldamount = str2num(script2);
 					pos = ftell(scpfile);
 					closescript();
+					if (goldamount <= 0) break;
 				    P_ITEM pi_n =Items->SpawnItem(s, pc,goldamount,"#",1,0x0E,0xED,0,1,0);
 	                if(pi_n==NULL) return;
 					pi_n->priv |= 0x02; // Mark as a newbie item

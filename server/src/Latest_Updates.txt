@@ -110,3 +110,4 @@ done thru Wolfpack Runtime Library ( Correa )
 90) Added: LBR ridable mounts. (Ripper)
 91) changed: tweaked combat animations further.
 added hopefully better looking extra animations if you are fighting on kirins, ostards, llamas, ridgebacks.(LB)
+92) Fixed: bug where if you didnt have a start gold amount it showed a coin 0 gold.(Ripper)
