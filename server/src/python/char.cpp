@@ -519,12 +519,6 @@ static PyObject* wpChar_damage( wpChar* self, PyObject* args )
 	if( !PyArg_ParseTuple( args, "ii|O:char.damage( type, amount, source )", &type, &amount, &source ) )
 		return 0;
 
-	if( amount < 1 )
-	{
-		PyErr_BadArgument();
-		return 0;
-	}
-
 	cUObject *pSource = 0;
 	if( checkWpItem( source ) )
 		pSource = getWpItem( source );
