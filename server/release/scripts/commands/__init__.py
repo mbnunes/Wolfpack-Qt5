@@ -1,4 +1,4 @@
-
+﻿
 import wolfpack
 from wolfpack import time
 from wolfpack.utilities import hex2dec
@@ -184,6 +184,24 @@ def test(socket, command, arguments):
 	gump.addText(0, 0, "਎Here is your bank box,".decode('utf-8'), 2)
 	gump.send(socket)	
 
+def newlostarget(char, arguments, target):
+	targpos = target.pos
+	
+	if target.item:
+		targpos = target.item.pos
+	elif target.char:
+		targpos = target.item.char
+		targpos.z += 10
+		
+	srcpos = char.pos
+	srcpos.z += 15
+	
+	srcpos.lineofsightnew(targpos)
+
+def newlos(socket, command, arguments):
+	socket.attachtarget('commands.newlostarget', [])
+	socket.sysmessage('Select NEWLOS target.')
+	
 def onLoad():
 	wolfpack.registercommand("test", test)
 	wolfpack.registercommand("resendtooltip", resendtooltip)
@@ -196,6 +214,7 @@ def onLoad():
 	wolfpack.registercommand("multigems", multigems)
 	wolfpack.registercommand("followers", followers)
 	wolfpack.registercommand("gouid", gouid)
+	wolfpack.registercommand("newlos", newlos)
 
 """
 	\command nightsight
