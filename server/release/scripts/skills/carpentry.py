@@ -105,17 +105,11 @@ class CarpItemAction(CraftItemAction):
 				if item.baseid == '9aa' or item.baseid == '9a9' or item.baseid == 'e3f' or item.baseid == 'e3d' or item.baseid == 'e42' or item.baseid == 'a4d' or item.baseid == 'a4f':
 					createlockandkey( item )
 
-		# Reduce the uses remain count
-		checktool(player, wolfpack.finditem(arguments[0]), 1)
-
 	#
 	# Check for the used tool.
 	#
 	def make(self, player, arguments, nodelay=0):
 		assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
-
-		if not checktool(player, wolfpack.finditem(arguments[0])):
-			return False
 
 		return CraftItemAction.make(self, player, arguments, nodelay)
 
