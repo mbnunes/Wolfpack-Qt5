@@ -62,7 +62,6 @@ STAMINARATE = 29
 MANARATE = 30
 SPELLDAMAGEBONUS = 31
 SWING = 32
-MNTSWING = 33
 
 # Checks for certain item types
 ITEM_ARMOR = 1 # Armor

@@ -54,8 +54,7 @@ PROPERTIES = {
 	AMMUNITION: ['ammunition', '', 0],
 	PROJECTILE: ['projectile', 0, 0],
 	PROJECTILEHUE: ['projectilehue', 0, 0],
-	SWING: ['swing', [0xa, 0x9, 0x1f] ],
-	MNTSWING: ['mountswing', [0x1a] ]
+	SWING: ['swing', [0xa, 0x9, 0x1f] ]
 }
 
 #

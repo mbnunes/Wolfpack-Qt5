@@ -90,7 +90,6 @@ WEAPONINFO = {
     PROJECTILE: 0xf42,
     AMMUNITION: 'f3f',
     SWING: [ 0x12 ],
-    MNTSWING: [ 0x1b ],
     HITSOUND: [ 0x234 ],
     MISSSOUND: [ 0x238 ]
   },
@@ -102,7 +101,6 @@ WEAPONINFO = {
     PROJECTILE: 0xf42,
     AMMUNITION: 'f3f',
     SWING: [ 0x12 ],
-    MNTSWING: [ 0x1b ],
     HITSOUND: [ 0x234 ],
     MISSSOUND: [ 0x238 ]
   },
@@ -114,7 +112,6 @@ WEAPONINFO = {
     PROJECTILE: 0x1bfe,
     AMMUNITION: '1bfb',
     SWING: [ 0x13 ],
-    MNTSWING: [ 0x1c ],
     HITSOUND: [ 0x234 ],
     MISSSOUND: [ 0x238 ]
   },
@@ -126,7 +123,6 @@ WEAPONINFO = {
     PROJECTILE: 0x1bfe,
     AMMUNITION: '1bfb',
     SWING: [ 0x13 ],
-    MNTSWING: [ 0x1c ],
     HITSOUND: [ 0x234 ],
     MISSSOUND: [ 0x238 ]
   },
@@ -138,7 +134,6 @@ WEAPONINFO = {
     PROJECTILE: 0x1bfe,
     AMMUNITION: '1bfb',
     SWING: [ 0x13 ],
-    MNTSWING: [ 0x1c ],
     HITSOUND: [ 0x234 ],
     MISSSOUND: [ 0x238 ]
   },
@@ -150,7 +145,6 @@ WEAPONINFO = {
     PROJECTILE: 0x1bfe,
     AMMUNITION: '1bfb',
     SWING: [ 0x13 ],
-    MNTSWING: [ 0x1c ],
     HITSOUND: [ 0x234 ],
     MISSSOUND: [ 0x238 ]
   },
@@ -162,7 +156,6 @@ WEAPONINFO = {
     PROJECTILE: 0xf42,
     AMMUNITION: 'f3f',
     SWING: [ 0x12 ],
-    MNTSWING: [ 0x1b ],
     HITSOUND: [ 0x234 ],
     MISSSOUND: [ 0x238 ]
   },
@@ -174,7 +167,6 @@ WEAPONINFO = {
     PROJECTILE: 0xf42,
     AMMUNITION: 'f3f',
     SWING: [ 0x12 ],
-    MNTSWING: [ 0x1b ],
     HITSOUND: [ 0x234 ],
     MISSSOUND: [ 0x238 ]
   },
@@ -186,7 +178,6 @@ WEAPONINFO = {
     PROJECTILE: 0x1bfe,
     AMMUNITION: '1bfb',
     SWING: [ 0x13 ],
-    MNTSWING: [ 0x1c ],
     HITSOUND: [ 0x234 ],
     MISSSOUND: [ 0x238 ]
   },
@@ -198,7 +189,6 @@ WEAPONINFO = {
     PROJECTILE: 0x1bfe,
     AMMUNITION: '1bfb',
     SWING: [ 0x13 ],
-    MNTSWING: [ 0x1c ],
     HITSOUND: [ 0x234 ],
     MISSSOUND: [ 0x238 ]
   },
@@ -208,7 +198,6 @@ WEAPONINFO = {
     MAXDAMAGE: 13,
     SPEED: 46,
     SWING: [ 0x9 ],
-    MNTSWING: [ 0x1a ],
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
   },
@@ -218,7 +207,6 @@ WEAPONINFO = {
     MAXDAMAGE: 13,
     SPEED: 46,
     SWING: [ 0x9 ],
-    MNTSWING: [ 0x1a ],
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
   },
@@ -227,8 +215,7 @@ WEAPONINFO = {
     MINDAMAGE: 14,
     MAXDAMAGE: 16,
     SPEED: 37,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -237,8 +224,7 @@ WEAPONINFO = {
     MINDAMAGE: 14,
     MAXDAMAGE: 16,
     SPEED: 37,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -263,8 +249,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 31,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -273,8 +258,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 31,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -401,8 +385,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 33,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -411,8 +394,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 33,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -421,8 +403,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 33,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -431,8 +412,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 33,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -457,8 +437,7 @@ WEAPONINFO = {
     MINDAMAGE: 13,
     MAXDAMAGE: 15,
     SPEED: 41,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -467,8 +446,7 @@ WEAPONINFO = {
     MINDAMAGE: 13,
     MAXDAMAGE: 15,
     SPEED: 41,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -477,8 +455,7 @@ WEAPONINFO = {
     MINDAMAGE: 16,
     MAXDAMAGE: 17,
     SPEED: 29,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -487,8 +464,7 @@ WEAPONINFO = {
     MINDAMAGE: 16,
     MAXDAMAGE: 17,
     SPEED: 29,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -609,8 +585,7 @@ WEAPONINFO = {
     MINDAMAGE: 16,
     MAXDAMAGE: 17,
     SPEED: 31,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -619,8 +594,7 @@ WEAPONINFO = {
     MINDAMAGE: 16,
     MAXDAMAGE: 17,
     SPEED: 31,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -933,8 +907,7 @@ WEAPONINFO = {
     MINDAMAGE: 14,
     MAXDAMAGE: 15,
     SPEED: 33,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -943,8 +916,7 @@ WEAPONINFO = {
     MINDAMAGE: 14,
     MAXDAMAGE: 15,
     SPEED: 33,
-    SWING: [ 13 ],
-    MNTSWING: [ 0x31, 0x3b ],
+    SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
