@@ -29,6 +29,8 @@ def itemid(char, skill):
 
 def response(char, args, target):
 	socket = char.socket
+	
+	socket.settag('skill_delay', servertime() + ITEMID_DELAY)
 
 	# Identify an item and send the buy and sellprice.
 	if target.item:
@@ -36,7 +38,7 @@ def response(char, args, target):
 			socket.clilocmessage(500344)
 			return
 			
-		if not char.checkskill(ITEMID, 0, 1200):
+		if not char.checkskill(ITEMID, 0, 1000):
 			socket.clilocmessage(500353)
 			return
 			
