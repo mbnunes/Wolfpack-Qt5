@@ -21,16 +21,8 @@ import re
 
 amountre = re.compile( '(\d+)' )
 
-def onLoad():
-	setCatchAll( 'speech.banker', 0 )
-	addKeyword( 'speech.banker', 0x0 )
-	addKeyword( 'speech.banker', 0x1 )
-	addKeyword( 'speech.banker', 0x2 )
-	addKeyword( 'speech.banker', 0x3 )	
-
 def onSpeech( listener, speaker, text, keywords ):
 	for keyword in keywords:
-
 		# withdraw
 		if keyword == 0x0:
 			# Search for the amount we want to withdraw (should be the only digits in there)

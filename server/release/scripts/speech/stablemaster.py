@@ -111,12 +111,6 @@ idshrink = {
 	0x20eb:	'shrink_wooly_sheep'
 	}
 
-
-def onLoad():
-	setCatchAll( 'speech.stablemaster', 0 )
-	addKeyword( 'speech.stablemaster', 0x171 )
-
-
 def onSpeech( listener, speaker, text, keywords ):
 	# Check if our name is in the beginning of the string
 	#if not text.lower().startswith( listener.name.lower() ):

@@ -9,13 +9,11 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 from wolfpack.time import *
 import wolfpack
+import skills
 
 ITEMID_DELAY = 5000
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.itemid" )
-
-def onSkillUse( char, skill ):
+def itemid( char, skill ):
 	if skill != ITEMID:
 		return 0
 
@@ -69,3 +67,7 @@ def response( char, args, target ):
 		char.socket.clilocmessage( 0xFE3C5, "", 0x3b2, 3, char, " %s" %name )
 		return 1
 
+
+def onLoad():
+	skills.register( ITEMID, itemid )
+	

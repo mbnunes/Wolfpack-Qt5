@@ -9,11 +9,9 @@ import wolfpack
 from wolfpack.consts import *
 from math import floor
 from wolfpack.utilities import *
+import skills
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.provocation" )
-
-def onSkillUse( char, skill ):
+def provocation( char, skill ):
 	# Only handle provocation
 	if skill != PROVOCATION:
 		return
@@ -216,3 +214,6 @@ def skilltotal( char ):
 
 	total /= 10.0
 	return total
+
+def onLoad():
+	skills.register( PROVOCATION, provocation )

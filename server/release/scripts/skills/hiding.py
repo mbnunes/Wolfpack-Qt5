@@ -9,13 +9,11 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 from wolfpack.time import *
 import wolfpack
+import skills
 
 HIDING_DELAY = 5000
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.hiding" )
-
-def onSkillUse( char, skill ):
+def hiding( char, skill ):
 	if skill != HIDING:
 		return 0
 
@@ -41,3 +39,5 @@ def onSkillUse( char, skill ):
 
 	return 1
 
+def onLoad():
+	skills.register( HIDING, hiding )

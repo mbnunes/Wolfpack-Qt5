@@ -4,7 +4,7 @@ from wolfpack.gumps import cGump
 
 # Register as a global script
 def onLoad():
-   wolfpack.registerglobal( HOOK_CHAR, EVENT_CHLEVELCHANGE, "signpost" )
+   wolfpack.registerglobal( EVENT_CHLEVELCHANGE, "signpost" )
 
 def onCHLevelChange( char, level ):
    if not char.hastag( 'customizing' ):

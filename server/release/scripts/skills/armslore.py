@@ -9,13 +9,11 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 from wolfpack.time import *
 import wolfpack
+import skills
 
 ARMSLORE_DELAY = 5000
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.armslore" )
-
-def onSkillUse( char, skill ):
+def armslore( char, skill ):
 	# only handle armslore
 	if skill != ARMSLORE:
 		return 0
@@ -73,3 +71,5 @@ def response( char, args, target ):
 		char.socket.clilocmessage( 0x7A280, "", 0x3b2, 3 )
 		return 0
 
+def onLoad():
+	skills.register( ARMSLORE, armslore )

@@ -8,6 +8,7 @@
 from wolfpack.consts import *
 from wolfpack.utilities import *
 import wolfpack
+import skills
 
 # mana used when we create a scroll
 mana_coast = [ 4, 6, 9, 11, 14, 20, 40, 50 ]
@@ -19,12 +20,9 @@ reagents =	{ 'ginseng':0xf85, 'bloodmoss':0xf7b, 'mandrake':0xf86, 'blackperl':0
 INS_RUNEBOOK = 450
 INS_EXCEPTIONAL = 750
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.inscription" )
-
 # skill is used via the blue button on skill gump
 # this will copy a book
-def onSkillUse( char, skill ):
+def inscription( char, skill ):
 	if skill != INSCRIPTION:
 		return 0
 	char.socket.sysmessage( "copying a book is not implemented yet" )
@@ -393,3 +391,6 @@ def runebook( char ):
 	backpack.additem( book )
 	book.update()
 	return 1
+
+def onLoad():
+	skills.register( INSCRIPTION, inscription )

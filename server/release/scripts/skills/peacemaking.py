@@ -9,15 +9,11 @@ import wolfpack
 from wolfpack.consts import *
 from wolfpack.utilities import *
 from wolfpack.time import *
-#import skills
-from skills import *
+import skills
 
 PEACE_DELAY = 5000
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.peacemaking" )
-
-def onSkillUse( char, skill ):
+def peacemaking( char, skill ):
 	if skill != PEACEMAKING:
 		return 0
 
@@ -131,3 +127,5 @@ def release( char, args ):
 	if char.hastag( 'peacemaking' ):
 		char.deltag( 'peacemaking' )
 
+def onLoad():
+	skills.register( PEACEMAKING, peacemaking )

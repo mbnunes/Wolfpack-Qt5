@@ -12,10 +12,9 @@ import re
 
 # Register as a global script
 def onLoad():
-   wolfpack.registerglobal( HOOK_CHAR, EVENT_SHOWTOOLTIP, "tooltip" )
-   wolfpack.registerglobal( HOOK_ITEM, EVENT_SHOWTOOLTIP, "tooltip" )
+   wolfpack.registerglobal( EVENT_SHOWTOOLTIP, "tooltip" )
 
-def onShowToolTip( sender, target, tooltip ):  
+def onShowTooltip( sender, target, tooltip ):  
 
 	if target.isitem():
 		name = target.getname()

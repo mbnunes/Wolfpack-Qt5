@@ -9,6 +9,7 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 from wolfpack.time import *
 import wolfpack
+import skills
 
 # from UO Stratics:
 # 1. Initially, your skill affects ONLY your success in begging. Meaning, it determines whether you will be given some money or not. It does NOT determine the amount of gold you receive. If you manage to get beyond 90 skill, shopkeepers will begin to give you gold and things change a bit. 
@@ -25,10 +26,7 @@ BEGGING_RANGE = 3
 
 BEGGING_DELAY = 5000
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.begging" )
-
-def onSkillUse( char, skill ):
+def begging( char, skill ):
 	if skill != BEGGING:
 		return 0
 
@@ -111,3 +109,5 @@ def response( char, args, target ):
 	else:
 		char.socket.clilocmessage( 500404, "", 0x3b2, 3, npc )
 
+def onLoad():
+	skills.register( BEGGING, begging )

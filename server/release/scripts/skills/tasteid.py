@@ -9,6 +9,7 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 from wolfpack.time import *
 import wolfpack
+import skills
 
 TASTEID_DELAY = 5000
 TASTE_RANGE = 4
@@ -17,7 +18,7 @@ potion_keg = [ 0x0e7f, 0x1ad6, 0x1ad7 ]
 def onLoad():
 	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.tasteid" )
 
-def onSkillUse( char, skill ):
+def tasteid( char, skill ):
 	if skill != TASTEID:
 		return 0
 
@@ -89,3 +90,6 @@ def response( char, args, target ):
 					if item.poisoned > char.poisoned:
 						char.poisoned = item.poisoned
 
+def onLoad():
+	skills.register( TASTEID, tasteid )
+	

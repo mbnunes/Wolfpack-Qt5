@@ -9,14 +9,11 @@ from wolfpack.consts import *
 import wolfpack
 from wolfpack.time import *
 from wolfpack.gumps import cGump
+import skills
 
 ANIMALLORE_DELAY = 5000
 
-# Register as a global script
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.animallore" )
-
-def onSkillUse( char, skill ):
+def animallore( char, skill ):
 	if skill != ANIMALLORE:
 	        return 0
 
@@ -224,3 +221,5 @@ def sendGump( char, args, target ):
 	cur_time = servertime()
 	char.settag( 'skill_delay', cur_time + ANIMALLORE_DELAY )
 
+def onLoad():
+	skills.register( ANIMALLORE, animallore )

@@ -10,15 +10,13 @@ from wolfpack.utilities import *
 from wolfpack.time import *
 from wolfpack.gumps import *
 import wolfpack
+import skills
 
 STEALTH_DELAY = 5000
 # the hiding skill before you can use the stealth skill
 MIN_HIDING = 800
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.tracking" )
-
-def onSkillUse( char, skill ):
+def tracking( char, skill ):
 	if skill != TRACKING:
 		return 0
 
@@ -65,3 +63,6 @@ def onSkillUse( char, skill ):
 def trackWhatResponse( char, args, target ):
     return 1
 
+def onLoad():
+	skills.register( TRACKING, tracking )
+	

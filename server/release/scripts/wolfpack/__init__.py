@@ -114,8 +114,8 @@ def list( id ):
 	return _wolfpack.list( id )
 
 # Register a global hook
-def registerglobal( object, event, script ):
-	return _wolfpack.registerglobal( object, event, script )
+def registerglobal( event, script ):
+	return _wolfpack.registerglobal( event, script )
 
 # Register this script to fetch a specific command
 def registercommand( command, script ):

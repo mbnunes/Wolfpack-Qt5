@@ -10,51 +10,50 @@
 from math import floor,ceil
 import wolfpack
 
+def commandAddSpell( socket, command, arguments ):
+	if arguments != 'all':
+		try:
+			if len( arguments ) < 1:
+				raise Exception
+
+			spell = int( arguments )
+		except:
+			socket.sysmessage( 'Usage: addspell <spell> or addspell all' )
+			return
+			
+		if spell >= 64:
+			socket.sysmessage( 'Values between 0 and 63 are valid.' )
+			return				
+	else:
+		spell = 'all'
+
+	socket.sysmessage( 'Select the spellbook you want to add the spell to.' )
+	socket.attachtarget( "spellbook.addspelltarget", [ spell ] )
+
+def commandRemoveSpell( socket, command, arguments ):
+	if arguments != 'all':
+		try:
+			if len( arguments ) < 1:
+				raise Exception
+
+			spell = int( arguments )
+		except:
+			socket.sysmessage( 'Usage: removespell <spell> or removespell all' )
+			return
+			
+		if spell >= 64:
+			socket.sysmessage( 'Values between 0 and 63 are valid.' )
+			return				
+	else:
+		spell = 'all'
+
+	socket.sysmessage( 'Select the spellbook you want to add the spell to.' )
+	socket.attachtarget( "spellbook.addspelltarget", [ spell ] )
+
 def onLoad():
 	# Register .addspell, .removespell, .editspells (?)
-	wolfpack.registercommand( "addspell", "spellbook" )
-	wolfpack.registercommand( "removespell", "spellbook" )
-
-def onCommand( socket, command, arguments ):
-	if command == "ADDSPELL":
-		if arguments != 'all':
-			try:
-				if len( arguments ) < 1:
-					raise Exception
-	
-				spell = int( arguments )
-			except:
-				socket.sysmessage( 'Usage: addspell <spell> or addspell all' )
-				return
-				
-			if spell >= 64:
-				socket.sysmessage( 'Values between 0 and 63 are valid.' )
-				return				
-		else:
-			spell = 'all'
-
-		socket.sysmessage( 'Select the spellbook you want to add the spell to.' )
-		socket.attachtarget( "spellbook.addspelltarget", [ spell ] )
-		
-	elif command == "REMOVESPELL":
-		if arguments != 'all':
-			try:
-				if len( arguments ) < 1:
-					raise Exception
-	
-				spell = int( arguments )
-			except:
-				socket.sysmessage( 'Usage: removespell <spell> or removespell all' )
-				return
-				
-			if spell >= 64:
-				socket.sysmessage( 'Values between 0 and 63 are valid.' )
-				return				
-		else:
-			spell = 'all'
-			
-		socket.sysmessage( 'Select the spellbook you want to remove the spell from.' )
-		socket.attachtarget( "spellbook.removespelltarget", [ spell ] )
+	wolfpack.registercommand( "addspell", commandAddSpell )
+	wolfpack.registercommand( "removespell", commandRemoveSpell )
 		
 # Does the Spellbook have a specific spell?
 def hasspell( item, spell ):

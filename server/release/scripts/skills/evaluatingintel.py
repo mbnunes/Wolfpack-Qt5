@@ -1,32 +1,19 @@
 #################################################################
 #   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
-#  ((    _/{  "-;  # Created by: Viper                          #
+#  ((    _/{  "-;  # Created by: DarkStorm                      #
 #   )).-' {{ ;'`   # Revised by:                                #
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
-
+	
 import wolfpack
 from wolfpack.consts import *
-from wolfpack.time import *
 from math import floor
+import skills
 
-EVALINT_DELAY = 5000
-
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.evaluatingintel" )
-
-def onSkillUse( char, skill ):
+def evaluatingintel( char, skill ):
 	#Only Handle Evalint
 	if skill != EVALUATINGINTEL:
 		return 0
-
-	if char.hastag( 'skill_delay' ):
-		cur_time = servertime()
-		if cur_time < char.gettag( 'skill_delay' ):
-			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-			return 1
-		else:
-			char.deltag( 'skill_delay' )
 
 	char.socket.clilocmessage( 0x7A4AA, "", 0x3b2, 3 ) # What would you like to evaluate
 	char.socket.attachtarget( "skills.evaluatingintel.response" )
@@ -40,15 +27,16 @@ def response( char, args, target ):
 		return 0
 
 	if not char.canreach( target.char, 8 ):
+		# No Cliloc when failing LoS or Distance Check
 		return 0
 
-	cur_time = servertime()
-	char.settag( 'skill_delay', cur_time + EVALINT_DELAY )
+	# Vendors: 0x7A4AD That person could probably calculate the cost of what you buy from them.
+	# Town Criers: 0x7A4AB He looks smart enough to remember the news.  Ask him about it.
 
-	#if target.char == char:
+	if target.char == char:
 		# Hmm, that person looks really silly.
-		#char.socket.clilocmessage( 0x7A4AE, "", 0x3b2, 3, target.char )
-		#return 0
+		char.socket.clilocmessage( 0x7A4AE, "", 0x3b2, 3, target.char )
+		return 0
 
 	if not char.checkskill( EVALUATINGINTEL, 0, 1000 ):
 		char.socket.clilocmessage( 0xFD756, "", 0x3b2, 3, target.char )
@@ -70,3 +58,7 @@ def response( char, args, target ):
 	char.socket.clilocmessage( msgId, "", 0x3b2, 3, target.char )
 	char.socket.clilocmessage( msgId2, "", 0x3b2, 3, target.char )
 	return 1
+
+def onLoad():
+	skills.register( EVALUATINGINTEL, evaluatingintel )
+	

@@ -10,15 +10,14 @@ from wolfpack.time import *
 import wolfpack
 from math import floor
 import random
+import skills
 
 SPSPEAK_DELAY = 5000
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.spiritspeak" )
-
-def onSkillUse( char, skill ):
+def spiritspeak( char, skill ):
 	if skill != SPIRITSPEAK:
 		return 0
+
 	socket = char.socket
 
 	if char.hastag( 'skill_delay' ):
@@ -84,3 +83,5 @@ def effect( char, args ):
 		char.updatemana()
 		return 1
 
+def onLoad():
+	skills.register( SPIRITSPEAK, spiritspeak )

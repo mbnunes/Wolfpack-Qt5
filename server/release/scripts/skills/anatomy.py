@@ -7,17 +7,14 @@
 
 from wolfpack.consts import *
 import wolfpack
+import skills
 from wolfpack.time import *
 from math import floor
 
 ANATOMY_DELAY = 5000
 
-# Register as a global script
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.anatomy" )
-
 # Button for Anatomy pressed on skill gump
-def onSkillUse( char, skill ):
+def anatomy( char, skill ):
 	# We only handle anatomy
 	if skill != ANATOMY:
 		return 0
@@ -83,3 +80,6 @@ def response( char, args, target ):
 	socket.clilocmessage( msgId, "", 0x3b2, 3, target.char )
 	socket.clilocmessage( msgId2, "", 0x3b2, 3, target.char )
 	
+# Register as a global script
+def onLoad():
+	skills.register( ANATOMY, anatomy )

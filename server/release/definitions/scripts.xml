@@ -23,9 +23,7 @@
 	<script>commoditydeed</script>
 	<script>clothing_bless_deed</script>
 	<script>item_bless_deed</script>
-	<script>carpentry_deed</script>
-	<script>scroll</script>
-	<script>spellbook</script>
+	<script>carpentry_deed</script>	
 	<script>environment</script>
 	<script>door</script>
 	<script>book</script>
@@ -44,9 +42,12 @@
 	<script>wolfpack.commands.wipe</script>
 
 	<!-- Magic -->
+	<script>spellbook</script>
 	<script>recall_rune</script>
-	<script>wolfpack.magic</script>
 	<script>runebook</script>
+	<script>scroll</script>
+	<script>wolfpack.magic</script>
+	<script>wolfpack.magic.circle1</script>
 
 	<!-- Multis -->
 	<script>multideed</script>
@@ -70,8 +71,10 @@
 	<script>tooltip</script>
 
 	<!-- Skills -->
+	<script>skills</script>
 	<script>skills.anatomy</script>
 	<script>skills.animallore</script>
+	<script>skills.evaluatingintel</script>
 	<script>skills.fishing</script>
 	<script>skills.armslore</script>
 	<script>skills.animaltaming</script>

@@ -37,12 +37,7 @@ prices = {
 			0x204C: 50000,
 			0x204D: 50000
 		}
-
-# 0x0171 *buy*
-def onLoad():
-	setCatchAll( 'speech.barber', 0 )
-	addKeyword( 'speech.barber', 0x171 )
-
+		
 def onSpeech( listener, speaker, text, keywords ):
 	# Check if our name is in the beginning of the string
 	if not text.lower().startswith( listener.name.lower() ):

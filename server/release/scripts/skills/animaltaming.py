@@ -7,6 +7,7 @@
 
 from wolfpack.consts import *
 from wolfpack.time import *
+import skills
 import wolfpack
 import whrandom
 
@@ -23,12 +24,8 @@ TAMING_DURATION = 1500
 
 TAMING_DELAY = 10000
 
-# Register as a global script
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.animaltaming" )
-
 # Button for AnimalTaming pressed on skill gump
-def onSkillUse( char, skill ):
+def animaltaming( char, skill ):
 	# We only handle animaltaming
 	if skill != TAMING:
 		return 0
@@ -223,3 +220,6 @@ def removetags( char ):
 		char.deltag( 'taming' )
 	if char.hastag( 'angry' ):
 		char.deltag( 'angry' )
+
+def onLoad():
+	skills.register( TAMING, animaltaming )

@@ -9,6 +9,7 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 from wolfpack.time import *
 import wolfpack
+import skills
 
 # UOSS : All dungeons can spawn the following traps at random locations: Floor saw trap, floor spike trap, poison gas trap and exploding mushroom trap.
 # Boxes, Chests, Crates, Barrels, Kegs and Fruit Bowls(!) can be trapped. (Rule of thumb: If it is a container, it might be trapped)
@@ -22,10 +23,7 @@ FACTION_TRAP_REVEAL_DURATION = 1*60*1000
 
 DETECTHIDDEN_DELAY = 5000
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.detectinghidden" )
-
-def onSkillUse( char, skill ):
+def detectinghidden( char, skill ):
 	# only handle detect hidden
 	if skill != DETECTINGHIDDEN:
 		return 0
@@ -130,3 +128,5 @@ def hide_trap( self, args ):
 	self.visible = args[ 0 ]
 	self.update()
 
+def onLoad():
+	skills.register( DETECTINGHIDDEN, detectinghidden )
