@@ -18,24 +18,18 @@ def onLoad():
 
 # Handles the password command
 def commandPassword( socket, cmd, args ):
-	account = None
-	password = None
 	char = socket.player
-	args = args.strip()
+	password = str( args.strip() )
 	account = wolfpack.accounts.find( char.account.name )
-	password = str( args )
+
 	if len( password ) == 0:
 		socket.sysmessage( "Usage: password <newpassword>" )
 		return False
-	elif len( password ) > 0:
-		if len( password ) > 16:
-			socket.sysmessage( "Your password can have a maximum of 16 characters." )
-			return False
-		else:
-			account.password = str( password )
-			socket.sysmessage( "Your password has been changed." )
-			char.log( LOG_MESSAGE, "Account %s changed their password.\n" % char.serial )
-			return True
-	else:
-		socket.sysmessage( "Usage: password <newpassword>" )
+	elif len( password ) > 16:
+		socket.sysmessage( "Your password can have a maximum of 16 characters." )
 		return False
+
+	account.password = str( password )
+	socket.sysmessage( "Your password has been changed." )
+	char.log( LOG_MESSAGE, "Account %s changed their password.\n" % char.serial )
+	return True

@@ -89,8 +89,7 @@ def resendtooltip(socket, command, arguments):
 
 def nightsight(socket, command, arguments):
 	player = socket.player
-	if player.hastag( 'magic.nightsight'):
-		player.removeevent('magic.nightsight')
+	player.removeevent('magic.nightsight')
 
 	if player.hastag('nightsight'):
 		bonus = player.gettag('nightsight')
