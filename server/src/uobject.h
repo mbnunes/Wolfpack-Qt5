@@ -211,7 +211,7 @@ protected:
 
 
 	std::vector< WPDefaultScript* > scriptChain;
-	QStringList eventList_; // Important for recreating the scriptChain on reloading
+	QString eventList_; // Important for recreating the scriptChain on reloading
 	void init();
 };
 

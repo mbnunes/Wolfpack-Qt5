@@ -58,7 +58,13 @@
 #define DBGFILE "uobject.cpp"
 
 cUObject::cUObject() :
-	serial_( INVALID_SERIAL ), multis_( INVALID_SERIAL ), free( false ), bindmenu_( QString::null ), changed_(true), tooltip_( 0xFFFFFFFF )
+	serial_( INVALID_SERIAL ), 
+	multis_( INVALID_SERIAL ), 
+	free( false ), 
+	bindmenu_( QString::null ), 
+	changed_(true), 
+	tooltip_( 0xFFFFFFFF ),
+	eventList_( QString::null )
 {
 }
 
@@ -112,7 +118,8 @@ void cUObject::load( char **result, UINT16 &offset )
 	pos_.y = atoi(result[offset++]);
 	pos_.z = atoi(result[offset++]);
 	pos_.map = atoi(result[offset++]);
-	eventList_ = QStringList::split( ",", result[offset++] );
+	eventList_ = strlen( result[offset] ) == 0 ? QString::null : result[offset];
+	offset++;
 	bindmenu_ = result[offset++];
 	bool havetags_ = atoi( result[offset++] );
 
@@ -159,7 +166,7 @@ void cUObject::save()
 		addField( "pos_y", pos_.y );
 		addField( "pos_z", pos_.z );
 		addField( "pos_map", pos_.map );
-		addStrField( "events", eventList_.join( "," ) );
+		addStrField( "events", eventList_ == QString::null ? QString( "" ) : eventList_ );
 		addStrField( "bindmenu", bindmenu_ );
 		addCondition( "serial", serial_ );
 		addField( "havetags", havetags_ );
@@ -212,7 +219,7 @@ void cUObject::buildSqlString( QStringList &fields, QStringList &tables, QString
 void cUObject::clearEvents()
 {
 	scriptChain.clear();
-	eventList_.clear();
+	eventList_ = QString::null;
 	changed( SAVE );
 }
 
@@ -220,7 +227,7 @@ void cUObject::clearEvents()
 void cUObject::setEvents( std::vector< WPDefaultScript* > List )
 {
 	scriptChain.clear();
-	eventList_.clear();
+	eventList_ = QString::null;
 
 	// "Reset" the events
 	if( List.size() == 0 )
@@ -231,7 +238,11 @@ void cUObject::setEvents( std::vector< WPDefaultScript* > List )
 		if( List[ i ] != NULL )
 		{
 			scriptChain.push_back( List[ i ] );
-			eventList_.push_back( List[ i ]->getName() );
+
+			if( eventList_ == QString::null )
+				eventList_ = List[ i ]->getName();
+			else 
+				eventList_.append( "," + List[ i ]->getName() );
 		}
 	changed( SAVE );
 }
@@ -250,10 +261,9 @@ const std::vector< WPDefaultScript* > &cUObject::getEvents( void )
 // Checks if the object has a specific event
 bool cUObject::hasEvent( const QString& Name ) const
 {
-	QStringList::const_iterator it(eventList_.find( Name ));
-	if ( it == eventList_.end() )
-		return false;
-	return true;
+	QStringList eventList = QStringList::split( ",", eventList_ );
+
+	return eventList.find( Name ) != eventList.end();
 }
 
 void cUObject::addEvent( WPDefaultScript *Event )
@@ -262,7 +272,12 @@ void cUObject::addEvent( WPDefaultScript *Event )
 		return;
 
 	scriptChain.push_back( Event );
-	eventList_.push_back( Event->getName() );
+
+	if( eventList_ == QString::null )
+		eventList_ = Event->getName();
+	else
+		eventList_.append( "," + Event->getName() );
+
 	changed( SAVE );
 }
 
@@ -280,7 +295,13 @@ void cUObject::removeEvent( const QString& Name )
 	}
  
 	// I hope this works
-	eventList_.remove( Name );
+	QStringList eventList = QStringList::split( ",", eventList_ );
+	eventList.remove( Name );
+	eventList_ = eventList.join( "," );
+
+	if( eventList_.isEmpty() )
+		eventList_ = QString::null;
+
 	changed( SAVE );
 }
 
@@ -441,18 +462,22 @@ bool cUObject::onCollide( cUObject* Obstacle )
 // Returns the list of events
 QString cUObject::eventList( void ) const
 {
-	return eventList_.join( "," );
+	return eventList_;
 }
 
 // If the scripts are reloaded call that for each and every existing object
 void cUObject::recreateEvents( void )
 {
-	// Walk the eventList and recreate 
-	QStringList::const_iterator myIter;
-
 	scriptChain.clear();
 
-	for( myIter = eventList_.begin(); myIter != eventList_.end(); ++myIter )
+	if( eventList_ == QString::null )
+		return;
+	
+	// Walk the eventList and recreate 
+	QStringList::const_iterator myIter;
+	QStringList eventList = QStringList::split( ",", eventList_ );
+
+	for( myIter = eventList.begin(); myIter != eventList.end(); ++myIter )
 	{
 		WPDefaultScript *myScript = ScriptManager->find( *myIter );
 
@@ -505,7 +530,11 @@ void cUObject::processNode( const QDomElement &Tag )
 	// <events>a,b,c</events>
 	else if( TagName == "events" )
 	{
-		eventList_ = QStringList::split( ",", Value );
+		if( Value.isEmpty() )
+			eventList_ = QString::null;
+		else
+			eventList_ = Value;
+
 		recreateEvents();
 	}
 }
@@ -676,7 +705,7 @@ stError *cUObject::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "free", free ? 1 : 0 )
 	else GET_PROPERTY( "name", this->name() )
 	else GET_PROPERTY( "pos", pos() )
-	else GET_PROPERTY( "eventlist", eventList_.join(",") );
+	else GET_PROPERTY( "eventlist", eventList_ == QString::null ? QString( "" ) : eventList_ );
 
 	PROPERTY_ERROR( -1, QString( "Property not found: '%1'" ).arg( name ) )
 }

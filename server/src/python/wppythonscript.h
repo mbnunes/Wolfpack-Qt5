@@ -92,6 +92,8 @@ public:
 
 	bool onCommand( cUOSocket *socket, const QString &name, const QString &args );
 
+	unsigned int onDamage( P_CHAR pChar, unsigned char type, unsigned int amount, cUObject *source );
+
 	// Magic System (This should be reduced eventually. It's a bit much)
 	// But as soon as the flag-system is introduced for python-script 
 	// It shouldn't be that much.

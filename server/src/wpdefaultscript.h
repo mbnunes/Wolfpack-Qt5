@@ -108,6 +108,7 @@ public:
 	virtual bool onLogout( P_CHAR pChar ) { Q_UNUSED(pChar); return false; }
 	virtual bool onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ) { Q_UNUSED(Character); Q_UNUSED(speechType); Q_UNUSED(speechColor); Q_UNUSED(speechFont); Q_UNUSED(Text); Q_UNUSED(Lang); return false; }
 	virtual bool onWarModeToggle( P_CHAR Character, bool War ) { Q_UNUSED(Character); Q_UNUSED(War); return false; }
+	virtual unsigned int onDamage( P_CHAR pChar, unsigned char type, unsigned int amount, cUObject *source ) { Q_UNUSED( pChar ); Q_UNUSED( type ); Q_UNUSED( source ); return amount; }
 	virtual bool onHelp( P_CHAR Character ) { Q_UNUSED(Character); return false; }
 	virtual bool onChat( P_CHAR Character ) { Q_UNUSED(Character); return false; }
 	virtual bool onSkillUse( P_CHAR Character, UI08 Skill ) { Q_UNUSED(Character); Q_UNUSED(Skill); return false; }

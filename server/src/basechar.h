@@ -47,6 +47,13 @@
 
 class cUOTxTooltipList;
 
+enum eDamageType
+{
+	DAMAGE_PHYSICAL = 0,
+	DAMAGE_MAGICAL = 1,
+	DAMAGE_GODLY
+};
+
 // This class is the base interface for all char objects. 
 class cBaseChar : public cUObject
 {
@@ -92,6 +99,7 @@ public:
 	virtual void soundEffect( UI16 soundId, bool hearAll = true ) = 0;
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false ) = 0;
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false ) = 0;
+	unsigned int damage( eDamageType type, unsigned int amount, cUObject *source = 0 );
 
 	// other public methods
 	// Simple Property setting and getting for script engines.

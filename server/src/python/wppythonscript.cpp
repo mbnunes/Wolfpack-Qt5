@@ -345,6 +345,38 @@ bool WPPythonScript::onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxToolti
 	PyEvalMethod( "onShowToolTip" )
 }
 
+unsigned int WPPythonScript::onDamage( P_CHAR pChar, unsigned char type, unsigned int amount, cUObject *source )
+{
+	if( !codeModule || !PyObject_HasAttr( codeModule, PyString_FromString( "onDamage" ) ) )
+		return amount;
+
+	PyObject *method = PyObject_GetAttr( codeModule, PyString_FromString( "onDamage" ) );
+	
+	if( !method || !PyCallable_Check( method ) )
+		return amount;
+
+	PyObject *args = PyTuple_New( 4 );
+	
+	PyTuple_SetItem( args, 0, PyGetCharObject( pChar ) );
+	PyTuple_SetItem( args, 1, PyInt_FromLong( type ) );
+	PyTuple_SetItem( args, 2, PyInt_FromLong( amount ) );
+	
+	if( source && source->isItem() )
+		PyTuple_SetItem( args, 3, PyGetItemObject( dynamic_cast< P_ITEM >( source ) ) );
+	else
+		PyTuple_SetItem( args, 3, PyGetCharObject( dynamic_cast< P_CHAR >( source ) ) );
+
+
+	PyObject *returnValue = PyObject_CallObject( method, args ); 
+	
+	PyReportError(); 
+	
+	if( !returnValue || !PyInt_Check( returnValue ) ) 
+		return amount; 
+
+	return PyInt_AsLong( returnValue );	
+}
+
 bool WPPythonScript::onCastSpell( cPlayer *player, unsigned int spell )
 {
 	PyHasMethod( "onCastSpell" )

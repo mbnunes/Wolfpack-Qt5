@@ -1927,4 +1927,22 @@ bool cBaseChar::onStatGain( UI08 stat, SI08 amount )
 	return false;
 }
 
+unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject *source )
+{
+	//
+	// First of all, call onDamage with the damage-type, amount and source
+	// to modify the damage if needed
+	//
 
+	for( UINT8 i = 0; i < scriptChain.size(); ++i )
+		amount = scriptChain[ i ]->onDamage( this, type, amount, source );
+
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_DAMAGE );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		amount = (*it)->onDamage( this, type, amount, source );
+
+	return amount;
+}
