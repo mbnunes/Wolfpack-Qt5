@@ -39,9 +39,8 @@ class cUORxDropItem;
 class cUORxDragItem;
 class cUORxWearItem;
 
-class cDragItems
+namespace DragAndDrop
 {
-public:
 	void	grabItem( cUOSocket*, cUORxDragItem* );
 	void	equipItem( cUOSocket*, cUORxWearItem* );
 	void	dropItem( cUOSocket*, cUORxDropItem* );
@@ -59,12 +58,6 @@ public:
 	void	dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer );
 
 	void	bounceItem( cUOSocket* socket, P_ITEM pi, bool denyMove = false );
-
-	static cDragItems *getInstance( void )
-	{
-		static cDragItems instance;
-		return &instance;
-	}
 };
 
 void equipItem( P_CHAR wearer, P_ITEM item );

@@ -53,7 +53,7 @@
 
 
 // New Class implementation
-void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
+void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 {
 	// Get our character
 	P_PLAYER pChar = socket->player();
@@ -252,7 +252,7 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 	wearer->addItem( static_cast<cBaseChar::enLayer>(item->layer()), item );
 }
 
-void cDragItems::bounceItem( cUOSocket* socket, P_ITEM pItem, bool denyMove )
+void DragAndDrop::bounceItem( cUOSocket* socket, P_ITEM pItem, bool denyMove )
 {
 	// Reject the move of the item
 	socket->bounceItem( pItem, BR_NO_REASON );
@@ -276,7 +276,7 @@ void cDragItems::bounceItem( cUOSocket* socket, P_ITEM pItem, bool denyMove )
 		socket->soundEffect( 0x57, pItem );
 }
 
-void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
+void DragAndDrop::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 {
 	P_ITEM pItem = FindItemBySerial( packet->serial() );
 	P_CHAR pWearer = FindCharBySerial( packet->wearer() );
@@ -418,7 +418,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 }
 
-void cDragItems::dropItem( cUOSocket *socket, cUORxDropItem *packet )
+void DragAndDrop::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 {
 	P_PLAYER pChar = socket->player();
 
@@ -474,7 +474,7 @@ void cDragItems::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 		socket->sendStatWindow();
 }
 
-void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar )
+void DragAndDrop::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar )
 {
 	// Three possibilities:
 	// If we're dropping it on ourself: packintobackpack
@@ -584,7 +584,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 	return;
 }
 
-void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &pos )
+void DragAndDrop::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &pos )
 {
 	P_PLAYER pChar = socket->player();
 
@@ -633,7 +633,7 @@ inline char calcSpellId( cItem *item )
 		return tile.unknown1 - 1;
 }
 
-void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos )
+void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos )
 {
 	P_PLAYER pChar = socket->player();
 	
@@ -794,7 +794,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 }
 
 // Food was dropped on a pet
-void cDragItems::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
+void DragAndDrop::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 {
 	// Feed our pets
 	if( pChar->hunger() >= 6 || pItem->type2() == 0 || !( pChar->nutriment() & ( 1 << (pItem->type2()-1) ) ) )
@@ -842,7 +842,7 @@ void cDragItems::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 	pItem->remove();
 }
 
-void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
+void DragAndDrop::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 {
 	int tempint;
 	
@@ -916,7 +916,7 @@ void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 	pItem->remove();
 }
 
-void cDragItems::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker )
+void DragAndDrop::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker )
 {
 	// For House and Boat deeds we should pay back 75% of the value
 	if( pItem->id() == 0x14EF )
@@ -937,10 +937,10 @@ void cDragItems::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker )
 	bounceItem( socket, pItem );
 }
 
-void cDragItems::dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker )
+void DragAndDrop::dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker )
 {
 }
 
-void cDragItems::dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer )
+void DragAndDrop::dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer )
 {
 }

@@ -39,6 +39,7 @@
 // wolfpack includes
 #include "factory.h"
 #include "definable.h"
+#include "singleton.h"
 
 // library includes
 #include "qptrlist.h"
@@ -128,17 +129,13 @@ protected:
 	unsigned char	notorityOverride_;
 };
 
-class AIFactory : public Factory< AbstractAI, QString >
+class cAIFactory : public Factory< AbstractAI, QString >
 {
 public:
-	static AIFactory* instance()
-	{
-		static AIFactory factory;
-		return &factory;
-	}
-
 	void checkScriptAI( const QStringList &oldSections, const QStringList &newSections );
 };
+
+typedef SingletonHolder< cAIFactory > AIFactory;
 
 class Action_Wander : public AbstractAction
 {

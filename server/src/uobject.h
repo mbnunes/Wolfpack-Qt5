@@ -36,6 +36,7 @@
 #include "coord.h"
 #include "persistentobject.h"
 #include "definable.h"
+#include "singleton.h"
 #include "customtags.h"
 #include "factory.h"
 
@@ -176,15 +177,9 @@ protected:
 };
 
 
-class UObjectFactory : public Factory<cUObject, QString>
+class cUObjectFactory : public Factory<cUObject, QString>
 {
 public:
-	static UObjectFactory* instance()
-	{
-		static UObjectFactory factory;
-		return &factory;
-	}
-
 	void registerSqlQuery( const QString &type, const QString &query )
 	{
 		sql_queries.insert( std::make_pair( type, query ) );
@@ -211,6 +206,7 @@ private:
 	QStringList sql_keys;
 };
 
+typedef SingletonHolder< cUObjectFactory > UObjectFactory;
 
 struct stError 
 {

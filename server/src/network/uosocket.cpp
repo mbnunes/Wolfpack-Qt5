@@ -236,15 +236,15 @@ void cUOSocket::recieve()
 		handleDoubleClick( dynamic_cast< cUORxDoubleClick*>( packet ) );
 		break;
 	case 0x07:
-		cDragItems::getInstance()->grabItem( this, dynamic_cast< cUORxDragItem* >( packet ) ); break;
+		DragAndDrop::grabItem( this, dynamic_cast< cUORxDragItem* >( packet ) ); break;
 	case 0x08:
-		cDragItems::getInstance()->dropItem( this, dynamic_cast< cUORxDropItem* >( packet ) ); break;
+		DragAndDrop::dropItem( this, dynamic_cast< cUORxDropItem* >( packet ) ); break;
 	case 0x09:
 		handleRequestLook( dynamic_cast< cUORxRequestLook* >( packet ) ); break;
 	case 0x12:
 		handleAction( dynamic_cast< cUORxAction* >( packet ) ); break;
 	case 0x13:
-		cDragItems::getInstance()->equipItem( this, dynamic_cast< cUORxWearItem* >( packet ) ); break;
+		DragAndDrop::equipItem( this, dynamic_cast< cUORxWearItem* >( packet ) ); break;
 	case 0x22:
 		resync(); break;
 	case 0x2C:

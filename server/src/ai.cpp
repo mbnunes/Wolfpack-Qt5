@@ -47,7 +47,7 @@
 #include <math.h>
 #include <vector>
 
-void AIFactory::checkScriptAI( const QStringList &oldSections, const QStringList &newSections )
+void cAIFactory::checkScriptAI( const QStringList &oldSections, const QStringList &newSections )
 {
 	QStringList::const_iterator aiit = oldSections.begin();
 	while( aiit != oldSections.end() )
