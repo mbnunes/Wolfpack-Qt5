@@ -116,7 +116,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	this->setId( multiids_[0] );
 	this->pos.x = posx;
 	this->pos.y = posy;
-	this->pos.z = Map->MapElevation( Coord_cl( pos.x, pos.y, pos.z ) );
+	this->pos.z = posz;
 
 	for( int i = 0; i < 4; i++ )
 	{

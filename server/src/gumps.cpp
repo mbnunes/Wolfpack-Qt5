@@ -1273,10 +1273,20 @@ void cWhoMenuGump::handleResponse( cUOSocket *socket, gumpChoice_st choice )
 
 cWhoChildGump::cWhoChildGump( cUOSocket* socket )
 {
+	if( !socket )
+		return;
+
 	socket_ = socket;
 	P_CHAR pChar = socket->player();
 
-	if( socket && pChar )
+	bool contains = false;
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( mSock = socket )
+			contains = true;
+	}
+
+	if( contains && pChar )
 	{
 		startPage();
 		
@@ -1324,9 +1334,19 @@ cWhoChildGump::cWhoChildGump( cUOSocket* socket )
 
 void cWhoChildGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 {
+	if( !socket_ )
+		return;
+
+	bool contains = false;
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( mSock = socket_ )
+			contains = true;
+	}
+	
 	if( choice.button == 0 )
 		return;
-	else if( socket_ && socket_->player() )
+	else if( contains && socket_->player() )
 	{
 		cChar* pChar = socket_->player();
 		cChar* mChar = socket->player();
@@ -1396,7 +1416,7 @@ void cWhoChildGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		}
 	}
 	else
-		socket->sysMessage( tr("ERROR: Socket has disconnected or changed character!") );
+		socket->sysMessage( tr("ERROR: Socket has disconnected or changed character in the meantime!") );
 }
 
 cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
@@ -1660,6 +1680,6 @@ void cPageInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		socket->send( pGump );
 	}
 	else
-		socket->sysMessage( tr("ERROR: Socket has disconnected or changed character in the meantime!") );
+		socket->sysMessage( tr("ERROR: Page has been deleted in the meantime!") );
 }
 

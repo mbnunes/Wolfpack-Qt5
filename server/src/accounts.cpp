@@ -40,7 +40,7 @@
 
 AccountRecord::AccountRecord()
 {
-	aclName_ = "";
+	aclName_ = QString();
 	acl_ = 0; // Null it out
 	blocked_ = false;
 }

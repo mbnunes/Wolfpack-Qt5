@@ -258,7 +258,7 @@ void commandWhere( cUOSocket *socket, const QString &command, QStringList &args 
 	if( mRegion )
 		message.append( tr( "in %1 " ).arg( mRegion->name() ) );
 
-	message.append( tr( "at %1,%2,%3 on plane %4" ).arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.map ) );
+	message.append( tr( "at %1,%2,%3 on map %4" ).arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.map ) );
 	pChar->message( message );
 }
 
