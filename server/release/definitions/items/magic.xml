@@ -16,8 +16,9 @@
 	</item>
 
 	<!-- Blue Moongate -->
-	<item id="f6c">
+	<item id="moongate">
 		<id>0x0f6c</id>
+		<events>moongate</events>
 		<category>Misc\Moongates\Blue Moongate</category>
 	</item>
 
