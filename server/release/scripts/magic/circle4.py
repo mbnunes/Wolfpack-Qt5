@@ -126,7 +126,6 @@ class Recall (Spell):
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_SULFURASH: 1, REAGENT_GARLIC: 1}
 		self.mantra = 'Kal Ort Por'
 		self.validtarget = TARGET_ITEM
-		self.casttime = 2250
 
 	def cast(self, char, mode, args=[], target=None, item=None):
 		if not char.gm:

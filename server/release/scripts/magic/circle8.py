@@ -59,7 +59,10 @@ class EnergyVortex(Spell):
 		self.reagents = {REAGENT_BLACKPEARL: 1, REAGENT_MANDRAKE: 1, REAGENT_BLOODMOSS: 1, REAGENT_NIGHTSHADE: 1}
 		self.mantra = 'Vas Corp Por'
 		self.validtarget = TARGET_GROUND
-		self.casttime *= 5
+	
+	# Takes 5 times the normal time to cast
+	def calcdelay(self, char, mode):
+		return Spell.calcdelay(self, char, mode) * 5
 
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
@@ -105,7 +108,6 @@ class SummonElementBase(Spell):
 		self.elementid = ''
 		self.validtarget = TARGET_GROUND
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1}
-		self.casttime = 6000
 
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
@@ -136,14 +138,12 @@ class SummonAirElement(SummonElementBase):
 		SummonElementBase.__init__(self)
 		self.mantra = 'Kal Vas Xen Hur'
 		self.elementid = 'summoned_air_elemental'
-		self.casttime = 6000
 
 class SummonEarthElement(SummonElementBase):
 	def __init__(self):
 		SummonElementBase.__init__(self)
 		self.mantra = 'Kal Vas Xen Ylem'
 		self.elementid = 'summoned_earth_elemental'
-		self.casttime = 6000
 
 class SummonFireElement(SummonElementBase):
 	def __init__(self):
@@ -151,14 +151,12 @@ class SummonFireElement(SummonElementBase):
 		self.mantra = 'Kal Vas Xen Flam'
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1}
 		self.elementid = 'summoned_fire_elemental'
-		self.casttime = 6000
 
 class SummonWaterElement(SummonElementBase):
 	def __init__(self):
 		SummonElementBase.__init__(self)
 		self.mantra = 'Kal Vas Xen An Flam'
 		self.elementid = 'summoned_water_elemental'
-		self.casttime = 6000
 
 class SummonDaemon(SummonElementBase):
 	def __init__(self):
@@ -166,4 +164,3 @@ class SummonDaemon(SummonElementBase):
 		self.mantra = 'Kal Vas Xen Corp'
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1}
 		self.elementid = 'summoned_daemon'
-		self.casttime = 6000

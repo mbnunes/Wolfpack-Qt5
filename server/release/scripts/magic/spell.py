@@ -95,7 +95,6 @@ class Spell:
 		self.inherent = 0
 		mana_table = [ 4, 6, 9, 11, 14, 20, 40, 50 ]
 		self.mana = mana_table[ self.circle - 1 ]
-		#self.casttime = 500 + (250 * self.circle)
 		self.castaction = ANIM_CASTDIRECTED
 		self.castspeed = circle
 
