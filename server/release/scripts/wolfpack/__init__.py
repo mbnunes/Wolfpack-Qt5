@@ -63,6 +63,7 @@ newnpc = _wolfpack.newnpc
 newitem = _wolfpack.newitem
 newplayer = _wolfpack.newplayer
 tickcount = _wolfpack.tickcount
+currenttime = _wolfpack.currenttime
 packet = _wolfpack.packet
 getoption = _wolfpack.getoption
 setoption = _wolfpack.setoption
