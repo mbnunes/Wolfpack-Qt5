@@ -500,11 +500,6 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 
 	if( !pc->free )
 	{
-		if( pc->disabled() && ( pc->disabled() <= currenttime ) )
-		{
-			pc->setDisabled(0);
-		}
-
 		if( pc->summontimer() && ( pc->summontimer() <= currenttime ) )
 		{
 			// Dupois - Added Dec 20, 1999

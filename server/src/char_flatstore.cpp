@@ -1,6 +1,8 @@
 
 #include "accounts.h"
+#include "globals.h"
 #include "chars.h"
+#include "srvparams.h"
 #include "flatstore/flatstore.h"
 #include "flatstore_keys.h"
 
@@ -46,8 +48,6 @@ enum eCharKeys
 	CHAR_DEATHS,
 	CHAR_DEAD,
 	CHAR_FIXEDLIGHT,
-	CHAR_SPEECH,
-	CHAR_DISABLEDMSG,
 	CHAR_CANTRAIN,
 	CHAR_DEFENSE,
 	CHAR_LODAMAGE,
@@ -76,9 +76,8 @@ enum eCharKeys
 	CHAR_GUILDTOGGLE,
 	CHAR_GUILDSTONE,
 	CHAR_GUILDTITLE,
-	CHAR_GUILDFEATLY,
+	CHAR_GUILDFEALTY,
 	CHAR_MURDERRATE,
-	CHAR_MENUPRIV,
 	CHAR_LOOTLIST,
 	CHAR_FOOD,
 	CHAR_PROFILE,
@@ -177,57 +176,151 @@ void cChar::save( FlatStore::OutputFile *output, bool first )
 
 	if( !spawnregion().isNull() && !spawnregion().isEmpty() )
 		output->chunkData( CHAR_SPAWNREGION, (const char*)spawnregion().utf8().data() );
-/*
-	CHAR_STAMINA,
-	CHAR_MANA,
-	CHAR_HOLDGOLD,
-	CHAR_SHOP,
-	CHAR_OWNER,
-	CHAR_KARMA,
-	CHAR_FAME,
-	CHAR_KILLS,
-	CHAR_DEATHS,
-	CHAR_DEAD,
-	CHAR_FIXEDLIGHT,
-	CHAR_SPEECH,
-	CHAR_DISABLEDMSG,
-	CHAR_CANTRAIN,
-	CHAR_DEFENSE,
-	CHAR_LODAMAGE,
-	CHAR_HIDAMAGE,
-	CHAR_WAR,
-	CHAR_NPCWANDER,
-	CHAR_OLDNPCWANDER,
-	CHAR_CARVE,
-	CHAR_FX1,
-	CHAR_FY1,
-	CHAR_FX2,
-	CHAR_FY2,
-	CHAR_FZ1,
-	CHAR_SPAWN,
-	CHAR_HIDDEN,
-	CHAR_HUNGER,
-	CHAR_NPCAITYPE,
-	CHAR_TAMING,
-	CHAR_UNSUMMONTIMER,
-	CHAR_POISON,
-	CHAR_POISONED,
-	CHAR_FLEEAT,
-	CHAR_REATTACKAT,
-	CHAR_SPLIT,
-	CHAR_SPLITCHANCE,
-	CHAR_GUILDTOGGLE,
-	CHAR_GUILDSTONE,
-	CHAR_GUILDTITLE,
-	CHAR_GUILDFEATLY,
-	CHAR_MURDERRATE,
-	CHAR_MENUPRIV,
-	CHAR_LOOTLIST,
-	CHAR_FOOD,
-	CHAR_PROFILE,
-	CHAR_DESTINATION,
-	CHAR_SEX
-*/
+
+	if( stm() != 50 )
+		output->chunkData( CHAR_STAMINA, (short)stm() );
+
+	if( mn() != 50 )
+		output->chunkData( CHAR_MANA, (short)mn() );
+
+	if( holdg() )
+		output->chunkData( CHAR_HOLDGOLD, (unsigned int)holdg() );
+
+	if( shop() )
+		output->startChunk( CHAR_SHOP );
+
+	if( owner() )
+		output->chunkData( CHAR_OWNER, (unsigned int)owner()->serial() );
+
+	if( karma() )
+		output->chunkData( CHAR_KARMA, (int)karma() );
+
+	if( fame() )
+		output->chunkData( CHAR_FAME, (int)fame() );
+
+	if( kills() )
+		output->chunkData( CHAR_KILLS, (unsigned int)kills() );
+
+	if( deaths() )
+		output->chunkData( CHAR_DEATHS, (unsigned int)deaths() );
+	
+	if( dead() )
+		output->startChunk( CHAR_DEAD );
+
+	if( fixedlight() )
+		output->chunkData( CHAR_FIXEDLIGHT, (unsigned char)fixedlight() );
+
+	if( cantrain() )
+		output->startChunk( CHAR_CANTRAIN );
+
+	if( def() )
+		output->chunkData( CHAR_DEFENSE, (unsigned int)def() );
+
+	if( lodamage() )
+		output->chunkData( CHAR_LODAMAGE, (int)lodamage() );
+
+	if( hidamage() )
+		output->chunkData( CHAR_HIDAMAGE, (int)hidamage() );
+	
+	if( war() )
+		output->startChunk( CHAR_WAR );
+
+	if( npcWander() )
+		output->chunkData( CHAR_NPCWANDER, (unsigned char)npcWander() );
+
+	if( oldnpcWander() )
+		output->chunkData( CHAR_OLDNPCWANDER, (unsigned char)oldnpcWander() );
+
+	if( !carve().isNull() && !carve().isEmpty() )
+		output->chunkData( CHAR_CARVE, (const char*)carve().utf8().data() );
+
+	if( fx1() )
+		output->chunkData( CHAR_FX1, (int)fx1() );
+
+	if( fx2() )
+		output->chunkData( CHAR_FX2, (int)fx2() );
+
+	if( fy1() )
+		output->chunkData( CHAR_FY1, (int)fy1() );
+
+	if( fy2() )
+		output->chunkData( CHAR_FY2, (int)fy2() );
+
+	if( fz1() )
+		output->chunkData( CHAR_FZ1, (char)fz1() );
+
+	if( spawnSerial() != INVALID_SERIAL )
+		output->chunkData( CHAR_SPAWN, (unsigned int)spawnSerial() );
+
+	if( hidden() )
+		output->chunkData( CHAR_HIDDEN, (unsigned char)hidden() );
+
+	if( hunger() != 6 )
+		output->chunkData( CHAR_HUNGER, (int)hunger() );
+
+	if( npcaitype() )
+		output->chunkData( CHAR_NPCAITYPE, (int)npcaitype() );
+
+	if( taming() )
+		output->chunkData( CHAR_TAMING, (int)taming() );
+
+	if( summontimer() )
+		output->chunkData( CHAR_UNSUMMONTIMER, (unsigned int)( summontimer() - uiCurrentTime ) );
+
+	if( poison() )
+		output->chunkData( CHAR_POISON, (int)poison() );
+
+	if( poisoned() )
+		output->chunkData( CHAR_POISONED, (unsigned int)poisoned() );
+
+	if( fleeat() != SrvParams->npc_base_fleeat() )
+		output->chunkData( CHAR_FLEEAT, (short)fleeat() );
+
+	if( reattackat() != SrvParams->npc_base_reattackat() )
+		output->chunkData( CHAR_REATTACKAT, (short)reattackat() );
+
+	if( split() )
+		output->chunkData( CHAR_SPLIT, (unsigned char)split() );
+
+	if( splitchnc() )
+		output->chunkData( CHAR_SPLITCHANCE, (unsigned char)splitchnc() );
+
+	if( guildtoggle() )
+		output->startChunk( CHAR_GUILDTOGGLE );
+
+	if( guildstone() != INVALID_SERIAL )
+		output->chunkData( CHAR_GUILDSTONE, (unsigned int)guildstone() );
+
+	if( !guildtitle().isNull() && !guildtitle().isEmpty() )
+		output->chunkData( CHAR_GUILDTITLE, (const char*)guildtitle().utf8().data() );
+
+	if( guildfealty() != INVALID_SERIAL )
+		output->chunkData( CHAR_GUILDFEALTY, (unsigned int)guildfealty() );
+
+	if( murderrate() )
+		output->chunkData( CHAR_MURDERRATE, (unsigned int)( murderrate() - uiCurrentTime ) );
+
+	if( !lootList().isNull() && !lootList().isEmpty() )
+		output->chunkData( CHAR_LOOTLIST, (const char*)lootList().utf8().data() );
+
+	if( food() )
+		output->chunkData( CHAR_FOOD, (unsigned int)food() );
+
+	if( !profile().isNull() && !profile().isEmpty() )
+		output->chunkData( CHAR_PROFILE, (const char*)profile().utf8().data() );
+
+	if( ptarg().x || ptarg().y || ptarg().z || ptarg().map )
+	{
+		output->startChunk( CHAR_DESTINATION );
+		output->writeUShort( ptarg().x );
+		output->writeUShort( ptarg().y );
+		output->writeChar( ptarg().z );
+		output->writeUChar( ptarg().map );
+	}
+
+	if( sex() )
+		output->startChunk( CHAR_SEX );
+
 	output->finishChunkGroup();
 
 	output->startChunkGroup( CHUNK_SKILLS );

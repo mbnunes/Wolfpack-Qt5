@@ -137,7 +137,6 @@ cChar::cChar( const P_CHAR mob )
 	this->swingtarg_ = mob->swingtarg();
 	this->holdg_ = mob->holdg();
 	this->fly_steps_ = mob->fly_steps();
-	this->menupriv_ = mob->menupriv();
 	this->tamed_ = mob->tamed();
 	this->casting_ = mob->casting();
 	this->smoketimer_ = mob->smoketimer();
@@ -179,8 +178,6 @@ cChar::cChar( const P_CHAR mob )
 	this->poisonwearofftime_ = mob->poisonwearofftime();
 	this->fleeat_ = mob->fleeat();
 	this->reattackat_ = mob->reattackat();
-	this->disabled_ = mob->disabled();
-	this->disabledmsg_ = mob->disabledmsg();
 	this->envokeid_ = mob->envokeid();
 	this->envokeitem_ = mob->envokeitem();
 	this->split_ = mob->split();
@@ -253,7 +250,6 @@ cChar::cChar( const P_CHAR mob )
 	this->deaths_ = mob->deaths();
 	this->dead_ = mob->dead();
 	this->fixedlight_ = mob->fixedlight();
-	this->speech_ = mob->speech();
 	this->def_ = mob->def();
 	this->war_ = mob->war();
 	this->targ_ = mob->targ();
@@ -406,7 +402,6 @@ void cChar::Init( bool createSerial )
 	this->dead_ = false; // Is character dead
 	this->fixedlight_ = 255; // Fixed lighting level (For chars in dungeons, where they dont see the night)
 	// changed to -1, LB, bugfix
-	this->speech_ = 0; // For NPCs: Number of the assigned speech block
 	this->setWeight( 0 );
 	this->def_ = 0; // Intrinsic defense
 	this->war_ = false; // War Mode
@@ -458,8 +453,6 @@ void cChar::Init( bool createSerial )
 	
 	this->setFleeat(SrvParams->npc_base_fleeat());
 	this->setReattackat(SrvParams->npc_base_reattackat());
-	this->setDisabled(0); //Character is disabled for n cicles, cant trigger.
-	this->setDisabledmsg(QString::null); //Character disabled message. -- by Magius(CHE) §
 	this->setEnvokeid(0x00); //ID of item user envoked
 	this->setEnvokeitem(INVALID_SERIAL);
 	this->setSplit(0);
@@ -495,7 +488,6 @@ void cChar::Init( bool createSerial )
 	this->setSwingTarg(-1); //Tagret they are going to hit after they swing
 	this->setHoldg(0); // Gold a player vendor is holding for Owner
 	this->setFlySteps(0); //LB -> used for flyging creatures
-	this->setMenupriv(0); // Lb -> menu priv
 	this->setSmokeTimer(0);
 	this->setSmokeDisplayTimer(0);
 	this->setAntiguardstimer(0); // AntiChrist - for "GUARDS" call-spawn
@@ -845,7 +837,7 @@ void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	fields.push_back( "characters.mana,characters.npc,characters.holdgold,characters.shop" );
 	fields.push_back( "characters.owner,characters.robe,characters.karma,characters.fame" );
 	fields.push_back( "characters.kills,characters.deaths,characters.dead,characters.fixedlight" );
-	fields.push_back( "characters.speech,characters.disablemsg,characters.cantrain,characters.def" );
+	fields.push_back( "characters.cantrain,characters.def" );
 	fields.push_back( "characters.lodamage,characters.hidamage,characters.war,characters.npcwander" );
 	fields.push_back( "characters.oldnpcwander,characters.carve,characters.fx1,characters.fy1,characters.fz1" );
 	fields.push_back( "characters.fx2,characters.fy2,characters.spawn,characters.hidden,characters.hunger" );
@@ -853,7 +845,7 @@ void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	fields.push_back( "characters.summontimer,characters.poison,characters.poisoned" );
 	fields.push_back( "characters.fleeat,characters.reattackat,characters.split,characters.splitchance" );
 	fields.push_back( "characters.guildtoggle,characters.guildstone,characters.guildtitle,characters.guildfealty" );
-	fields.push_back( "characters.murderrate,characters.menupriv,characters.questtype,characters.questdestregion" );
+	fields.push_back( "characters.murderrate,characters.questtype,characters.questdestregion" );
 	fields.push_back( "characters.questorigregion,characters.questbountypostserial,characters.questbountyreward,characters.jailtimer" );
 	fields.push_back( "characters.jailsecs,characters.lootlist,characters.food,characters.profile,characters.guarding,characters.destination" );
 	tables.push_back( "characters" );
@@ -919,8 +911,6 @@ void cChar::load( char **result, UINT16 &offset )
 	deaths_ = atoi( result[offset++] );
 	dead_ = atoi( result[offset++] );
 	fixedlight_ = atoi( result[offset++] );
-	speech_ = atoi( result[offset++] );
-	disabledmsg_ = result[offset++];
 	cantrain_ = atoi( result[offset++] );
 	def_ = atoi( result[offset++] );
 	lodamage_ = atoi( result[offset++] );
@@ -956,7 +946,6 @@ void cChar::load( char **result, UINT16 &offset )
 	guildtitle_ = result[offset++];
 	guildfealty_ = atoi( result[offset++] );
 	murderrate_ = atoi( result[offset++] );
-	menupriv_ = atoi( result[offset++] );
 	questType_ = atoi( result[offset++] );
 	questDestRegion_ = atoi( result[offset++] );
 	questOrigRegion_ = atoi( result[offset++] );
@@ -1073,8 +1062,6 @@ void cChar::save()
 		addField( "deaths", deaths_);
 		addField( "dead", dead_);
 		addField( "fixedlight", fixedlight_);
-		addField( "speech", speech_);
-		addStrField( "disablemsg", disabledmsg_ );
 		addField( "cantrain", cantrain_);
 		addField( "def", def_);
 		addField( "lodamage", lodamage_);
@@ -1108,7 +1095,6 @@ void cChar::save()
 		addField( "guildtitle", guildtitle_);  
 		addField( "guildfealty", guildfealty_);  
 		addField( "murderrate", murderrate_);
-		addField( "menupriv", menupriv_);
 		addField( "questtype", questType_);
 		addField( "questdestregion", questDestRegion_);
 		addField( "questorigregion", questOrigRegion_);
@@ -1666,10 +1652,6 @@ void cChar::processNode( const QDomElement &Tag )
 	//<spattack>3</spattack>
 	else if( TagName == "spattack" )
 		this->spattack_ = Value.toInt();
-
-	//<speech>13</speech>
-	else if( TagName == "speech" )
-		this->speech_ = Value.toUShort();
 
 	//<split>1</split>
 	else if( TagName == "split" )
@@ -4063,7 +4045,6 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	SET_INT_PROPERTY( "swingtarget", swingtarg_ )
 	SET_INT_PROPERTY( "holdgold", holdg_ )
 	SET_INT_PROPERTY( "flysteps", fly_steps_ )
-	SET_INT_PROPERTY( "menupriv", menupriv_ )
 	SET_INT_PROPERTY( "tamed", tamed_ )
 	SET_INT_PROPERTY( "antispamtimer", antispamtimer_ )
 	SET_INT_PROPERTY( "antiguardstimer", antiguardstimer_ )
@@ -4092,8 +4073,6 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	SET_INT_PROPERTY( "poisonwearofftime", poisonwearofftime_ )
 	SET_INT_PROPERTY( "fleeat", fleeat_ )
 	SET_INT_PROPERTY( "reattackat", reattackat_ )
-	SET_INT_PROPERTY( "disabled", disabled_ )
-	SET_STR_PROPERTY( "disabledmsg", disabledmsg_ )
 	SET_INT_PROPERTY( "split", split_ )
 	SET_INT_PROPERTY( "splitchance", splitchnc_ )
 	SET_INT_PROPERTY( "ra", ra_ )
@@ -4257,7 +4236,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "swingtarget", FindCharBySerial( swingtarg_ ) )
 	GET_PROPERTY( "holdgold", (int)holdg_ )
 	GET_PROPERTY( "flysteps", fly_steps_ )
-	GET_PROPERTY( "menupriv", menupriv_ )
 	GET_PROPERTY( "tamed", tamed_ )
 	GET_PROPERTY( "antispamtimer", (int)antispamtimer_ )
 	GET_PROPERTY( "antiguardstimer", (int)antiguardstimer_ )
@@ -4286,8 +4264,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "poisonwearofftime", (int)poisonwearofftime_ )
 	GET_PROPERTY( "fleeat", fleeat_ )
 	GET_PROPERTY( "reattackat", reattackat_ )
-	GET_PROPERTY( "disabled", (int)disabled_ )
-	GET_PROPERTY( "disabledmsg", disabledmsg_ )
 	GET_PROPERTY( "split", split_ )
 	GET_PROPERTY( "splitchance", splitchnc_ )
 	GET_PROPERTY( "ra", ra_ )

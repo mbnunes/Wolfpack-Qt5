@@ -124,7 +124,6 @@ protected:
 	SERIAL					swingtarg_; //Tagret they are going to hit after they swing
 	unsigned int			holdg_; // Gold a player vendor is holding for Owner
 	unsigned char			fly_steps_; // number of step the creatures flies if it can fly
-	int						menupriv_; // needed fro LB's menu priv system
 	bool					tamed_;
 	bool					casting_; // 0/1 is the cast casting a spell?
     unsigned int			smoketimer_; // LB
@@ -254,7 +253,6 @@ protected:
 	unsigned int			deaths_;
 	bool					dead_; // Is character dead
 	unsigned char			fixedlight_; // Fixed lighting level (For chars in dungeons, where they dont see the night)
-	unsigned char			speech_; // For NPCs: Number of the assigned speech block
 	unsigned int			def_; // Intrinsic defense
 	bool					war_; // War Mode
 	SERIAL					targ_; // Current combat target
@@ -345,7 +343,6 @@ public:
 	SERIAL					swingtarg() const { return swingtarg_; }
 	unsigned int			holdg() const {return holdg_;}
 	unsigned char			fly_steps() const {return fly_steps_;} // number of step the creatures flies if it can fly
-	int						menupriv() const {return menupriv_;}
 	bool					tamed() const {return tamed_;}
     unsigned int			smoketimer() const {return smoketimer_;}
 	unsigned int			smokedisplaytimer() const {return smokedisplaytimer_;}
@@ -389,8 +386,6 @@ public:
 	unsigned int			poisonwearofftime() const { return poisonwearofftime_;}
 	short					fleeat() const { return fleeat_;}
 	short					reattackat() const { return reattackat_; }
-	unsigned int			disabled() const { return disabled_; }
-	QString					disabledmsg() const { return disabledmsg_; }
 	unsigned short			envokeid() const { return envokeid_;}
 	SERIAL					envokeitem() const { return envokeitem_;}
 	unsigned char			split() const { return split_;}
@@ -455,7 +450,6 @@ public:
 	unsigned int			deaths() const { return deaths_; }
 	bool					dead() const { return dead_; }
 	unsigned char			fixedlight() const { return fixedlight_; }
-	unsigned char			speech() const { return speech_; }
 	unsigned int			def() const { return def_; }
 	bool					war() const { return war_; }
 	SERIAL					targ() const { return targ_; }
@@ -524,7 +518,6 @@ public:
 	void					setSwingTarg( SERIAL d ) { swingtarg_ = d; changed( SAVE );}
 	void					setHoldg( unsigned int d ) {holdg_ = d; changed( SAVE );}
 	void					setFlySteps( unsigned char d) {fly_steps_ = d; changed( SAVE );}
-	void					setMenupriv(int d) { menupriv_ = d; changed( SAVE );}
 	void					setTamed( bool d ) { tamed_ = d; changed( SAVE+TOOLTIP );}
     void					setSmokeTimer( unsigned int d ) { smoketimer_ = d; changed( SAVE );}
 	void					setSmokeDisplayTimer ( unsigned int d ) { smokedisplaytimer_ = d; changed( SAVE );}
@@ -568,8 +561,6 @@ public:
 	void					setPoisonwearofftime( unsigned int d ) {poisonwearofftime_ = d; changed( SAVE );}
 	void					setFleeat( short d ) { fleeat_ = d; changed( SAVE );}
 	void					setReattackat(short d) { reattackat_ = d; changed( SAVE );}
-	void					setDisabled( unsigned int d ) { disabled_ = d; changed( SAVE );}
-	void					setDisabledmsg( const QString& d ) { disabledmsg_ = d; changed( SAVE );}
 	void					setEnvokeid( unsigned short d ) { envokeid_ = d; changed( SAVE );}
 	void					setEnvokeitem( SERIAL d ) { envokeitem_ = d; changed( SAVE );}
 	void					setSplit(unsigned char d) {split_ = d; changed( SAVE );}
@@ -634,7 +625,6 @@ public:
 	void					setDeaths( unsigned int d ) { deaths_ = d; changed( SAVE );}
 	void					setDead( bool d ) { dead_ = d; changed( SAVE+TOOLTIP );}
 	void					setFixedLight( unsigned char d ) { fixedlight_ = d; changed( SAVE );}
-	void					setSpeech( unsigned char d ) { speech_ = d; changed( SAVE );}
 	void					setDef( unsigned int d ) { def_ = d; changed( SAVE );}
 	void					setWar( bool d ) { war_ = d; changed( SAVE );}
 	void					setFood( unsigned int d ) { food_ = d; changed( SAVE );}
