@@ -39,16 +39,16 @@
 		<category>Monsters\Undead\Shade</category>
 		<strproperty name="slayer_group" value="undeads" />
 		<ai>Monster_Mage</ai>
-		
+
 		<intproperty name="poison_immunity" value="4" />
 	</npc>
 
-	<npc name="spectre" inherit="shade">
+	<npc id="spectre" inherit="shade">
 		<name>spectre</name>
 		<category>Monsters\Undead\Spectre</category>
 	</npc>
 
-	<npc name="wraith" inherit="shade">
+	<npc id="wraith" inherit="shade">
 		<name>wraith</name>
 		<category>Monsters\Undead\Wraith</category>
 	</npc>
