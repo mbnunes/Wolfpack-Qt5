@@ -695,7 +695,7 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	
 	if (pi->id() == 0x14F0 && pi->type == 1000)
 	{
-		 const P_ITEM pi_n = Items->SpawnItem(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar),value,"#",1,0x0E,0xED,0,0,0,0);
+		 const P_ITEM pi_n = Items->SpawnItem(s, pc_currchar, value, "#", 1, 0x0E, 0xED, 0, 0, 0, 0);
 	     if(pi_n == NULL) return false;
 		 sprintf((char*)temp,"%s I have cashed your check and deposited %i gold.",pc_currchar->name, value);
 		 npctalk(s,target,(char*)temp,0);
@@ -897,7 +897,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		else // dropped on another player
 		{
 			// By Polygon: Avoid starting the trade if GM drops item on logged on char (crash fix)
-			if ((pc_currchar->isGM()) && !online(DEREF_P_CHAR(pTC)))
+			if ((pc_currchar->isGM()) && !online(pTC))
 			{
 				// Drop the item in the players pack instead
 				// Get the pack

@@ -406,7 +406,7 @@ P_ITEM cTrade::tradestart(int s, int i)
 
 	P_ITEM pi_bps = Packitem(pc_currchar);
 	P_ITEM pi_bpi = Packitem(pc_i);
-	UOXSOCKET s2 = calcSocketFromChar(DEREF_P_CHAR(pc_i));
+	UOXSOCKET s2 = calcSocketFromChar(pc_i);
 
 	if (pi_bps == NULL) //LB
 	{
@@ -421,7 +421,7 @@ P_ITEM cTrade::tradestart(int s, int i)
 		return 0;
 	}
 
-	P_ITEM pi_ps = Items->SpawnItem(s2, DEREF_P_CHAR(pc_currchar), 1, "#", 0, 0x1E, 0x5E, 0, 0, 0, 0);
+	P_ITEM pi_ps = Items->SpawnItem(s2, pc_currchar, 1, "#", 0, 0x1E, 0x5E, 0, 0, 0, 0);
 	if(pi_ps == NULL) 
 		return 0;
 	pi_ps->pos = Coord_cl(26, 0, 0);
@@ -433,7 +433,7 @@ P_ITEM cTrade::tradestart(int s, int i)
 	if (s2 != INVALID_UOXSOCKET) 
 		sendbpitem(s2, pi_ps);
 
-	P_ITEM pi_pi = Items->SpawnItem(s2,i,1,"#",0,0x1E,0x5E,0,0,0,0);
+	P_ITEM pi_pi = Items->SpawnItem(s2,pc_i,1,"#",0,0x1E,0x5E,0,0,0,0);
 	if (pi_pi == NULL) 
 		return 0;
 	pi_pi->pos = Coord_cl(26, 0, 0);

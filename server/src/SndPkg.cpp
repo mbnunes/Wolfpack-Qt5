@@ -1076,10 +1076,10 @@ void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2)
 	if (pc_currchar->isGM()) sendit=1; else // gm ? -> yes, send everything :)
 	{ // no, -> dont show hidden & logged out chars
 		if (pc->isHidden() && pc != currchar[s]) sendit=0; else sendit=1; // dont show hidden persons, even lsd'ed
-		if ( (pc->isPlayer()) && !online(i)) sendit=0;
+		if ( (pc->isPlayer()) && !online(pc)) sendit=0;
 	}
 
-	if (!online(i) && (pc->isPlayer()) && (pc_currchar->isGM())==0 ) 
+	if (!online(pc) && (pc->isPlayer()) && (pc_currchar->isGM())==0 ) 
 	{
 		sendit=0;
 		removeitem[1]=pc->ser1;
@@ -1492,7 +1492,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 					P_ITEM mapitem = FindItemBySerial(vecEntries[w]);
 					if (mapchar != NULL)
 					{
-						if ((mapchar->isNpc()||online(DEREF_P_CHAR(mapchar))||pc->isGM())&&(pc != mapchar)&&(inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(mapchar))))
+						if ((mapchar->isNpc()||online(mapchar)||pc->isGM())&&(pc != mapchar)&&(inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(mapchar))))
 						{
 							impowncreate(k, DEREF_P_CHAR(mapchar), 1);
 						}
@@ -1567,7 +1567,7 @@ void teleport2(CHARACTER s) // used for /RESEND only - Morrolan, so people can f
 			for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
 			{ //Tauriel only send inrange people (walking takes care of out of view)
 				P_CHAR pc_i = iter_char.GetData();
-				if ( ( online(DEREF_P_CHAR(pc_i)) || pc_i->isNpc() || pc->isGM()) && (pc->serial!= pc_i->serial) && (inrange1p(s, DEREF_P_CHAR(pc_i))))
+				if ( ( online(pc_i) || pc_i->isNpc() || pc->isGM()) && (pc->serial!= pc_i->serial) && (inrange1p(s, DEREF_P_CHAR(pc_i))))
 				{
 					impowncreate(k, DEREF_P_CHAR(pc_i), 1);
 				}
@@ -2850,7 +2850,7 @@ void impowncreate(int s, int i, int z) //socket, player to send
 	int sendit;
 	if (pc->isHidden() && pc!=currchar[s] && (pc_currchar->isGM())==0) sendit=0; else sendit=1;
 
-	if (!online(DEREF_P_CHAR(pc)) && (pc->isPlayer()) && (pc_currchar->isGM())==0 ) 
+	if (!online(pc) && (pc->isPlayer()) && (pc_currchar->isGM())==0 ) 
 	{
 		sendit=0;
 		removeitem[1]=pc->ser1;
@@ -2880,7 +2880,7 @@ void impowncreate(int s, int i, int z) //socket, player to send
 	oc[14]=pc->dir; // Character direction
 	ShortToCharPtr(pc->skin, &oc[15]); // Character skin color
 	oc[17]=0; // Character flags
-	if (pc->isHidden() || !(online(i)||pc->isNpc())) oc[17]=oc[17]|0x80; // Show hidden state correctly
+	if (pc->isHidden() || !(online(pc)||pc->isNpc())) oc[17]=oc[17]|0x80; // Show hidden state correctly
 	if (pc->poisoned) oc[17]=oc[17]|0x04; //AntiChrist -- thnx to SpaceDog
 
 	k=19;

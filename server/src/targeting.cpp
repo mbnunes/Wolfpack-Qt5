@@ -679,13 +679,14 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 {
 	P_ITEM pPack = Packitem(pc);
+	P_CHAR pc_c = MAKE_CHAR_REF(c);
 	if (pPack == NULL)
 	{
-		pPack = Items->SpawnItem(calcSocketFromChar(c),c,1,"#",0,0x0E,0x75,0,0,0,0);
+		pPack = Items->SpawnItem(calcSocketFromChar(DEREF_P_CHAR(pc_c)),pc_c,1,"#",0,0x0E,0x75,0,0,0,0);
 		if (pPack == NULL)
 			return;
 		pc->packitem = pPack->serial; 
-		pPack->SetContSerial(chars[c].serial);
+		pPack->SetContSerial(pc_c->serial);
 		pPack->layer=0x15;
 		pPack->type=1;
 		pPack->dye=1;
@@ -702,7 +703,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 		{
 			if ((pi->trigon==1) && (pi->trigtype==2) && (pi->layer<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
-				Trig->triggerwitem(c, pi, 1); // trigger is fired
+				Trig->triggerwitem(DEREF_P_CHAR(pc_c), pi, 1); // trigger is fired
 			}
 			pi->pos.x=(rand()%80)+50;
 			pi->pos.y=(rand()%80)+50;
@@ -718,7 +719,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 			Items->DeleItem(pi);
 		}
 	}
-	updatechar(c);
+	updatechar(DEREF_P_CHAR(pc_c));
 }
 
 static void GMTarget(P_CLIENT ps, P_CHAR pc)
@@ -1450,27 +1451,27 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 //	int c;
 	if (feat)
 	{
-		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),feat,"feather",1,0x1B,0xD1,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s, pc_currchar,feat,"feather",1,0x1B,0xD1,0,0,1,1);
 		if(pi == NULL) return;
 		sysmessage(s,"You pluck the bird and get some feathers.");
 	}
 	if (ribs)
 	{
-		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),ribs,"raw rib",1,0x09,0xF1,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s,pc_currchar,ribs,"raw rib",1,0x09,0xF1,0,0,1,1);
 		if(pi == NULL) return;
 		sysmessage(s,"You carve away some meat.");
 	}
 
 	if (hides)
 	{
-		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),hides,"hide",1,0x10,0x78,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s,pc_currchar,hides,"hide",1,0x10,0x78,0,0,1,1);
 		if(pi == NULL) return;
 		sysmessage(s,"You skin the corpse and get the hides.");
 	}
 
 	if (fur)
 	{	// animals with fur now yield hides (OSI). Duke, 7/17/00
-		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),fur,"hide",1,0x10,0x78,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s, pc_currchar,fur,"hide",1,0x10,0x78,0,0,1,1);
 		if(pi == NULL) return;
 		sysmessage(s,"You skin the corpse and get the hides.");
 /*		c=Items->SpawnItem(s,fur,"fur",1,0x11,0xFA,0,0,1,1);
@@ -1480,13 +1481,13 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 
 	if (wool)
 	{
-		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),wool,"unspun wool",1,0x0D,0xF8,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s, pc_currchar,wool,"unspun wool",1,0x0D,0xF8,0,0,1,1);
 		if(pi == NULL) return;
 		sysmessage(s, "You skin the corpse and get some unspun wool.");
 	}
 	if (bird)
 	{
-		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),bird,"raw bird",1,0x09,0xB9,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s, pc_currchar,bird,"raw bird",1,0x09,0xB9,0,0,1,1);
 		if(pi == NULL) return;
 		sysmessage(s, "You carve away some raw bird.");
 	}
@@ -1523,7 +1524,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		criminal(DEREF_P_CHAR(pc_currchar));
 		//create the Head
 		sprintf((char*)temp,"the head of %s",pi3->name2);
-		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1D,0xA0,0,0,0,0);
+		P_ITEM pi = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA0,0,0,0,0);
 		if(pi == NULL) return;
 		pi->SetContSerial(pi3->serial);
 		pi->layer=0x01;
@@ -1535,7 +1536,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 		//create the Body
 		sprintf((char*)temp,"the heart of %s",pi3->name2);
-		P_ITEM pi4 = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1C,0xED,0,0,0,0);
+		P_ITEM pi4 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1C,0xED,0,0,0,0);
 		if(pi4 == NULL) return;
 		pi4->SetContSerial(pi3->serial);
 		pi4->layer=0x01;
@@ -1544,7 +1545,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 		//create the Heart
 		sprintf((char*)temp,"the body of %s",pi3->name2);
-		P_ITEM pi5 = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1D,0xAD,0,0,0,0);
+		P_ITEM pi5 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xAD,0,0,0,0);
 		if(pi5 == NULL) return;
 		pi5->SetContSerial(pi3->serial);
 		pi5->layer=0x01;
@@ -1553,7 +1554,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 		//create the Left Arm
 		sprintf((char*)temp,"the left arm of %s",pi3->name2);
-		P_ITEM pi6 = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1D,0xA1,0,0,0,0);
+		P_ITEM pi6 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA1,0,0,0,0);
 		if(pi6==NULL) return;
 		pi6->SetContSerial(pi3->serial);
 		pi6->layer=0x01;
@@ -1562,7 +1563,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 		//create the Right Arm
 		sprintf((char*)temp,"the right arm of %s",pi3->name2);
-		P_ITEM pi7 = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1D,0xA2,0,0,0,0);
+		P_ITEM pi7 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA2,0,0,0,0);
 		if(pi7==NULL) return;//AntiChrist to preview crashes
 		pi7->SetContSerial(pi3->serial);
 		pi7->layer=0x01;
@@ -1571,7 +1572,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 		//create the Left Leg
 		sprintf((char*)temp,"the left leg of %s",pi3->name2);
-		P_ITEM pi8 = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1D,0xA3,0,0,0,0);
+		P_ITEM pi8 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA3,0,0,0,0);
 		if(pi8 == NULL) return;//AntiChrist to preview crashes
 		pi8->SetContSerial(pi3->serial);
 		pi8->layer=0x01;
@@ -1580,7 +1581,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 		//create the Rigth Leg
 		sprintf((char*)temp,"the right leg of %s",pi3->name2);
-		P_ITEM pi9=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1D,0xA4,0,0,0,0);
+		P_ITEM pi9=Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA4,0,0,0,0);
 		if(pi9==NULL) return;
 		
 		pi9->SetContSerial(pi3->serial);
@@ -2250,7 +2251,7 @@ void cTargets::permHideTarget(int s)
 		// staticeffect(i, 0x37, 0x09, 0x09, 0x19); 
 		staticeffect3(pc->pos.x + 1, pc->pos.y + 1, pc->pos.z + 10, 0x37, 0x09, 0x09, 0x19, 0); 
 		soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x08); 
-		tempeffect(DEREF_P_CHAR(pc), DEREF_P_CHAR(pc), 33, 1, 0, 0); 
+		tempeffect(pc, pc, 33, 1, 0, 0); 
 		return; 
 	} 
 } 
@@ -2284,7 +2285,7 @@ void cTargets::unHideTarget(int s)
 		// staticeffect(i, 0x37, 0x09, 0x09, 0x19); 
 		staticeffect3(pc->pos.x + 1, pc->pos.y + 1, pc->pos.z + 10, 0x37, 0x09, 0x09, 0x19, 0); 
 		soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x08); 
-		tempeffect(DEREF_P_CHAR(pc), DEREF_P_CHAR(pc), 34, 1, 0, 0); 
+		tempeffect(pc, pc, 34, 1, 0, 0); 
 		return; 
 	} 
 } 
@@ -2680,7 +2681,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	P_ITEM pi3=NULL;
 	if(os!=-1)
 	{
-		pi3 = Items->SpawnItem(os, DEREF_P_CHAR(pc), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else
+		pi3 = Items->SpawnItem(os, pc, 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else
 		if(pi3 == NULL) return;
 	}
 	else
@@ -3070,7 +3071,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	pi1->color1=c<<8; // set new color to yellow
 	pi1->color2=c%256;
 
-	P_ITEM pi2 = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"glower",0,0x16,0x47,0,0,0,1); // new client 1.26.2 glower object
+	P_ITEM pi2 = Items->SpawnItem(s, pc_currchar,1,"glower",0,0x16,0x47,0,0,0,1); // new client 1.26.2 glower object
 
 	if(pi2 == NULL) return;
 	pi2->dir=29; // set light radius maximal

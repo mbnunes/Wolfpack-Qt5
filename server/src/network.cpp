@@ -229,7 +229,7 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 
 	//Instalog
 	char val=0;
-	if (!currchar[s]->free && online(DEREF_P_CHAR(currchar[s]))) val=LogOut(s);
+	if (!currchar[s]->free && online(currchar[s])) val=LogOut(s);
 
 	if (val)
 	{
@@ -561,13 +561,13 @@ void cNetworkStuff::charplay (int s) // After hitting "Play Character" button //
 
 		if (pc_selected != NULL)
 		{
-			if (Accounts->GetInWorld(acctno[s])>=0) //JM's crashfix
+			if (Accounts->GetInWorld(acctno[s]) != INVALID_SERIAL) //JM's crashfix
 			{
 				if ((pc_selected->logout<=getPlatformTime() || overflow)) 
 					Accounts->SetOffline(acctno[s]);
 			} else Accounts->SetOffline(acctno[s]);
 
-			if (Accounts->GetInWorld(acctno[s]) == -1 || pc_selected->isGM())//AntiChrist
+			if (Accounts->GetInWorld(acctno[s]) == INVALID_SERIAL || pc_selected->isGM())//AntiChrist
 			{
 				Accounts->SetOnline(acctno[s], pc_selected->serial);
 				pc_selected->logout=-1;

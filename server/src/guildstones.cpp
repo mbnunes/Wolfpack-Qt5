@@ -775,7 +775,7 @@ void cGuilds::StoneMove(int s)
 
 	sprintf(stonename,"a guildstone teleporter for %s",guilds[guildnumber].name);
 															// Give it a name
-	newstone = Items->SpawnItem(s, DEREF_P_CHAR(currchar[s]), 1, stonename, 0, 0x18, 0x69, 0, 0, 1, 1);	// Spawn the stone in the masters backpack
+	newstone = Items->SpawnItem(s, currchar[s], 1, stonename, 0, 0x18, 0x69, 0, 0, 1, 1);	// Spawn the stone in the masters backpack
 	if (newstone == NULL) return; //AntiChrist
 	newstone->type=202;										// Set Guildstone to Type 'Guild Related'
 	guilds[guildnumber].stone=newstone->serial;				// Remember its serial number
@@ -943,8 +943,8 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 						P_CHAR pc_member = FindCharBySerial(guilds[guildnumber].member[member]);
 						Guilds->EraseMember(DEREF_P_CHAR(pc_member));
 						sysmessage(s,"Kicked that member out of the guild.");
-						if (online(DEREF_P_CHAR(pc_member)))
-							sysmessage(DEREF_P_CHAR(pc_member),"You got dismissed out of your guild.");
+						if (online(pc_member))
+							sysmessage(calcSocketFromChar(pc_member),"You got dismissed out of your guild.");
 					}
 					break;
 				}
@@ -1311,8 +1311,8 @@ void cGuilds::Broadcast(int guildnumber, char *text)
 		if (guilds[guildnumber].member[member]!=0)
 		{
 			P_CHAR pc = FindCharBySerial(guilds[guildnumber].member[member]);
-			s = calcSocketFromChar( DEREF_P_CHAR( pc ) );
-			if ( online( DEREF_P_CHAR ( pc ) ) ) 
+			s = calcSocketFromChar( pc );
+			if ( online( pc ) ) 
 				sysmessage(s,text);
 		}
 	}

@@ -203,7 +203,6 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 					sysmessage(nSocket,"That individual is not anywhere near you.");
 					return;
 				}
-				int vv=DEREF_P_CHAR(Victim);
 				if (Victim->npc)
 				{
 					if( Victim->id1==0x00 &&( Victim->id2==0x0c || (Victim->id2>=0x3b && Victim->id2<=0x3d) ))
@@ -215,10 +214,10 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 				else
 				{
 					sprintf(temp,"%s has pricked you with a dagger and sampled your blood.",Player->name);
-					sysmessage(calcSocketFromChar(vv),temp);
+					sysmessage(calcSocketFromChar(Victim),temp);
 					// flag criminal						
 				}
-				Karma(DEREF_P_CHAR(Player),vv,(0-(Victim->karma)));
+				Karma(Player,Victim,(0-(Victim->karma)));
 			}
 			Victim->hp -= (rand()%6)+2;
 			MakeNecroReg(nSocket,Vial,0x0E24);
@@ -234,7 +233,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 		else
 		{
 			Vial->more1=Corpse->more1;
-			Karma(DEREF_P_CHAR(Player),-1,-1000);
+			Karma(Player, NULL,-1000);
 			if (Corpse->more2<4)
 			{
 				sysmessage(nSocket,"You take a sample of blood from the corpse.");
@@ -256,11 +255,11 @@ void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 	{
 		sprintf((char*)temp,"%s is grinding some bone into powder.", pc_currchar->name);
 		npcemoteall(DEREF_P_CHAR(pc_currchar), (char*)temp,1);
-		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 0, 0);
-		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 3, 0);
-		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 6, 0);
-		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 9, 0);
-		pItem = Items->SpawnItem(nSocket,DEREF_P_CHAR(pc_currchar),1,"bone powder",1,0x0F,0x8F,0,0,1,1);
+		tempeffect(pc_currchar, pc_currchar, 9, 0, 0, 0);
+		tempeffect(pc_currchar, pc_currchar, 9, 0, 3, 0);
+		tempeffect(pc_currchar, pc_currchar, 9, 0, 6, 0);
+		tempeffect(pc_currchar, pc_currchar, 9, 0, 9, 0);
+		pItem = Items->SpawnItem(nSocket, pc_currchar, 1, "bone powder", 1, 0x0F, 0x8F, 0, 0, 1, 1);
 		if(pItem == NULL) return;//AntiChrist to preview crashes
 		pItem->morex = 666;
 		pItem->more1=1; // this will fill more with info to tell difference between ash and bone
@@ -271,14 +270,14 @@ void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 	{
 		if(pMat->more1==1)
 		{
-			pItem = Items->SpawnItem(nSocket,DEREF_P_CHAR(pc_currchar),1,"#",1,0x0F,0x82,0,0,1,1);
+			pItem = Items->SpawnItem(nSocket, pc_currchar,1,"#",1,0x0F,0x82,0,0,1,1);
 			if(pItem==NULL) return;//AntiChrist to preview crashes
 			pItem->value=15;
 			pItem->morex=666;
 		}
 		else
 		{
-			pItem = Items->SpawnItem(nSocket,DEREF_P_CHAR(pc_currchar),1,"#",1,0x0F,0x7D,0,0,1,1);
+			pItem = Items->SpawnItem(nSocket, pc_currchar,1,"#",1,0x0F,0x7D,0,0,1,1);
 			if(pItem==NULL) return;//AntiChrist to preview crashes
 			pItem->value=10;
 			pItem->morex=666;

@@ -811,7 +811,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							// AntiChrist
 							pos = ftell(scpfile);
 							closescript();
-							pi_itemnum = Items->SpawnItem(ts,DEREF_P_CHAR(currchar[ts]), r, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1);
+							pi_itemnum = Items->SpawnItem(ts,currchar[ts], r, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1);
 							if (pi_itemnum == NULL)
 							{
 								closescript();
@@ -2555,7 +2555,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 							splitline();
 							pos = ftell(scpfile);
 							closescript();
-							P_ITEM pi_c = Items->SpawnItem(ts, DEREF_P_CHAR(pc_ts), 1, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1);
+							P_ITEM pi_c = Items->SpawnItem(ts, pc_ts, 1, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1);
 							if (pi_c == NULL)
 								return;// AntiChrist to preview crashes
 							// Added colormem token here! by Magius(CHE) §

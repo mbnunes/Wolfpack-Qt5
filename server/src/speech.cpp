@@ -750,7 +750,7 @@ void PlVGetgold(int s, cChar* pVendor)//PlayerVendors
 			give=58981;
 		}
 		if (give)
-			Items->SpawnItem(s,DEREF_P_CHAR(currchar[s]),give,"#",1,0x0E,0xED,0,0,1,1);
+			Items->SpawnItem(s, currchar[s],give,"#",1,0x0E,0xED,0,0,1,1);
 		sprintf((char*)temp, "Today's purchases total %i gold. I am keeping %i gold for my self. Here is the remaining %i gold. Have a nice day.",pVendor->holdg,pay,give);
 		npctalk(s,pVendor,(char*)temp,0);
 		pVendor->holdg=t;
@@ -869,13 +869,13 @@ int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, char* SpeechUpr)
 {
 	char *comm=SpeechUpr;
 
-    if (strstr( comm, "#EMPTY") && online(DEREF_P_CHAR(currchar[s])) && !pPlayer->dead && pPlayer->isGM())
+    if (strstr( comm, "#EMPTY") && online(currchar[s]) && !pPlayer->dead && pPlayer->isGM())
 	{ // restricted to GMs for now. It's too powerful (Duke, 5.6.2001)
 		target(s, 0, 1, 0, 71, "Select container to empty:");
 		return 1;
 	}
 
-    if (!online(DEREF_P_CHAR(pPlayer)) || pPlayer->dead)
+    if (!online(pPlayer) || pPlayer->dead)
 		return 0;
 
 	P_CHAR pc;

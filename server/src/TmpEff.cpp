@@ -409,18 +409,22 @@ void cTmpEff::Expire()
 		break;
 		
 	case 20: // LSD potions, LB 5'th nov 1999
-		k=calcSocketFromChar((pc_s));
-		if (k==-1) return;
-		LSD[k]=0;
-		sysmessage(k,"LSD has worn off");
-		pc_s->stm=3; // stamina near 0
-		pc_s->mn=3;
-		pc_s->hp=pc_s->hp/7;
-		impowncreate(k,DEREF_P_CHAR(pc_s),0);
-		all_items(k); // absolutely necassairy here !!!
-		for (ccc =0; ccc<charcount; ccc++) // that hurts, but there's no other good way
 		{
-			if (chardist(DEREF_P_CHAR(pc_s),ccc)<15 && ( online(ccc) || chars[ccc].isNpc() ) ) updatechar(ccc);
+			k=calcSocketFromChar((pc_s));
+			if (k==-1) return;
+			LSD[k]=0;
+			sysmessage(k,"LSD has worn off");
+			pc_s->stm=3; // stamina near 0
+			pc_s->mn=3;
+			pc_s->hp=pc_s->hp/7;
+			impowncreate(k,DEREF_P_CHAR(pc_s),0);
+			all_items(k); // absolutely necassairy here !!!
+			AllCharsIterator it;
+			for (it.Begin(); !it.atEnd(); it++) // that hurts, but there's no other good way
+			{
+				P_CHAR pc = it.GetData();
+				if (chardist(DEREF_P_CHAR(pc_s), DEREF_P_CHAR(pc))<15 && ( online(pc) || pc->isNpc() ) ) updatechar(DEREF_P_CHAR(pc));
+			}
 		}
 		break;
 		
@@ -454,7 +458,7 @@ void cTmpEff::Expire()
 		pc_s->hp+=iHp;
 		updatestats(pc_s, 0);
 		if (!more2)
-			tempeffect(DEREF_P_CHAR(pc_s),DEREF_P_CHAR(pc_s),35,more1+1,1,more3,0);
+			tempeffect(pc_s, pc_s, 35, more1+1, 1, more3, 0);
 		break;
 		
 	default:
@@ -503,16 +507,17 @@ void cAllTmpEff::Check()
 	}
 }
 
-bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
+bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {
 	unsigned int ic; // antichrist' changes
 	int color, color1, color2, socket; //used for incognito spell
 	int	loopexit=0;
 
-	P_CHAR pc_source = MAKE_CHARREF_LRV(source, 0);
-	P_CHAR pc_dest   = MAKE_CHARREF_LRV(dest, 0); 
+	if ( pc_source == NULL || pc_dest == NULL )
+		return false;
+
 	if (teffectcount>=cmem*5)
-		return 0;
+		return false;
 
 	cTmpEff *pTE;
 	for (ic=0;ic<teffectcount;ic++)	// If there is already an effect of the same or similar kind, reverse it first (Duke)
@@ -923,13 +928,13 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		break;
 
 	case 20: // LSD potions, LB 5'th nov 1999
-		k=calcSocketFromChar(source);
+		k=calcSocketFromChar(pc_source);
 		if (k==-1) return 0;
 		sysmessage(k,"Hmmm, tasty, LSD");
 		LSD[k]=1;
 		pc_source->hp=pc_source->st;
 		pc_source->mn=pc_source->in;
-		impowncreate(k,source,0);
+		impowncreate(k,DEREF_P_CHAR(pc_source),0);
 		pTE->setExpiretime_s(90);
 		break;
 
@@ -952,7 +957,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 
 	case 35:
 	    //heals some hp in 9 seconds - Solarin
-		k=calcSocketFromChar(source);
+		k=calcSocketFromChar(pc_source);
 		pTE->setExpiretime_s(more3);
 		if (!more2)
 			sysmessage(k,"You start healing yourself...");
@@ -1063,9 +1068,9 @@ void cAllTmpEff::Remove(cTmpEff* pTE)
 	teffectcount--;
 }
 
-unsigned char tempeffect(int source, int dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
+unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {
-	return AllTmpEff->Add(source, dest, num, more1, more2, more3, dur);
+	return AllTmpEff->Add(pc_source, pc_dest, num, more1, more2, more3, dur);
 }
 
 unsigned char tempeffect2(int source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)

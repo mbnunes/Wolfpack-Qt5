@@ -1033,20 +1033,20 @@ P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket,
 	}
 	else
 	{
-		return SpawnItem(nSocket, DEREF_P_CHAR(currchar[nSocket]), nAmount, cName, nStackable, cItemId1, cItemId2, cColorId1, cColorId2, nPack, nSend);
+		return SpawnItem(nSocket, currchar[nSocket], nAmount, cName, nStackable, cItemId1, cItemId2, cColorId1, cColorId2, nPack, nSend);
 	}
 }
 
-P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, CHARACTER ch,
+P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
 					int nAmount, char* cName, int nStackable,
 					unsigned char cItemId1, unsigned char cItemId2,
 					unsigned char cColorId1, unsigned char cColorId2,
 					int nPack, int nSend)
 {
-	P_ITEM pi = SpawnItem(ch, nAmount, cName, nStackable,(short)((cItemId1<<8)+cItemId2), (short)((cColorId1<<8)+cColorId2), nPack);
+	P_ITEM pi = SpawnItem(DEREF_P_CHAR(ch), nAmount, cName, nStackable,(short)((cItemId1<<8)+cItemId2), (short)((cColorId1<<8)+cColorId2), nPack);
 	if (pi==NULL) return NULL;
 	if (nSend && nSocket>=0)
-		statwindow(nSocket,ch);
+		statwindow(nSocket, DEREF_P_CHAR(ch));
 	return pi;
 }
 

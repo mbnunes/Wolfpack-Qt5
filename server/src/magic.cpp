@@ -777,6 +777,7 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, CHARACTER c,char timec
 	// - Tauriel's region stuff 3/6/99
 
 	int j;
+	P_CHAR pc = MAKE_CHAR_REF(c);
 
 	if (timecheck)
 	{
@@ -785,40 +786,40 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, CHARACTER c,char timec
 
 	if (j)
 	{
-		cRegion::RegionIterator4Items ri(chars[c].pos);
+		cRegion::RegionIterator4Items ri(pc->pos);
 		for ( ri.Begin(); ri.GetData() != ri.End(); ri++)
 		{
 			P_ITEM mapitem = ri.GetData();
 			if (mapitem != NULL)
 			{
 				//clConsole.send("itemname: %s\n",items[mapitem].name);// perfect for mapregion debugging, LB
-				if ((mapitem->pos.x==chars[c].pos.x)&&(mapitem->pos.y==chars[c].pos.y))	// lb
+				if ((mapitem->pos.x==pc->pos.x)&&(mapitem->pos.y==pc->pos.y))	// lb
 				{
 					if (mapitem->id()==0x3996 || mapitem->id()==0x398C)
 					{
-						if (!CheckResist(-1, c, 4))
-							MagicDamage(c, mapitem->morex/100);
+						if (!CheckResist(-1, DEREF_P_CHAR(pc), 4))
+							MagicDamage(DEREF_P_CHAR(pc), mapitem->morex/100);
 						else
-							MagicDamage(c, mapitem->morex/200);
-						soundeffect2(c, 2, 8);
+							MagicDamage(DEREF_P_CHAR(pc), mapitem->morex/200);
+						soundeffect2(DEREF_P_CHAR(pc), 2, 8);
 						return; //Ripper
 					} else if (mapitem->id()==0x3915 || mapitem->id()==0x3920)
 					{//Poison Field
-						if (!CheckResist(-1, c, 5))
+						if (!CheckResist(-1, DEREF_P_CHAR(pc), 5))
 						{
 							if ((mapitem->morex<997))
-								PoisonDamage(c,2);
+								PoisonDamage(DEREF_P_CHAR(pc),2);
 							else
-								PoisonDamage(c,3); // gm mages can cast greater poison field, LB
-						} else PoisonDamage(c,1); // cant be completly resited
+								PoisonDamage(DEREF_P_CHAR(pc),3); // gm mages can cast greater poison field, LB
+						} else PoisonDamage(DEREF_P_CHAR(pc),1); // cant be completly resited
 						
-						soundeffect2(c, 2, 8);
+						soundeffect2(DEREF_P_CHAR(pc), 2, 8);
 						return; //Ripper
 					} else if (mapitem->id()==0x3979 || mapitem->id()==0x3967)
 					{//Para Field
-						if (!CheckResist(-1, c, 6))
-							tempeffect(c, c, 1, 0, 0, 0);
-						soundeffect2(c, 0x02, 0x04);
+						if (!CheckResist(-1, DEREF_P_CHAR(pc), 6))
+							tempeffect(pc, pc, 1, 0, 0, 0);
+						soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x04);
 						return; //Ripper
 					}
 					break;
@@ -1265,7 +1266,7 @@ void cMagic::ClumsySpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 	doStaticEffect(defender, 1);
 	soundeffect2(defender, 0x01, 0xDF);
 	if (CheckResist(attacker, defender, 1)) return;
-	tempeffect(attacker, defender, 3, pc_attacker->skill[MAGERY]/100, 0, 0);
+	tempeffect(pc_attacker, pc_defender, 3, pc_attacker->skill[MAGERY]/100, 0, 0);
 	return;
 }
 
@@ -1280,15 +1281,13 @@ void cMagic::FeebleMindSpell(CHARACTER attacker, CHARACTER defender, bool useman
 	P_CHAR pc_defender = MAKE_CHARREF_LR(defender);
 	P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
 	
-	CHARACTER trg = DEREF_P_CHAR(pc_target);
-
 	if (usemana)
 		SubtractMana(pc_attacker, 4);
 
-	doStaticEffect(trg, 3);
-	soundeffect2(trg, 0x01, 0xE4);
-	if (CheckResist(attacker, trg, 1)) return;
-	tempeffect(attacker, trg, 4, pc_attacker->skill[MAGERY]/100, 0, 0);
+	doStaticEffect(DEREF_P_CHAR(pc_target), 3);
+	soundeffect2(DEREF_P_CHAR(pc_target), 0x01, 0xE4);
+	if (CheckResist(attacker, DEREF_P_CHAR(pc_target), 1)) return;
+	tempeffect(pc_attacker, pc_target, 4, pc_attacker->skill[MAGERY]/100, 0, 0);
 	return;
 }
 
@@ -1303,15 +1302,13 @@ void cMagic::WeakenSpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 	P_CHAR pc_defender = MAKE_CHARREF_LR(defender);
 	P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
 	
-	CHARACTER trg = DEREF_P_CHAR(pc_target);
-
 	if (usemana)
 		SubtractMana(pc_attacker, 4);
 	
-	doStaticEffect(trg, 8);
-	soundeffect2(trg, 0x01, 0xE6);
-	if(CheckResist(attacker, trg, 1)) return;
-	tempeffect(attacker, trg, 5, pc_attacker->skill[MAGERY]/100, 0, 0);
+	doStaticEffect(DEREF_P_CHAR(pc_target), 8);
+	soundeffect2(DEREF_P_CHAR(pc_target), 0x01, 0xE6);
+	if(CheckResist(attacker, DEREF_P_CHAR(pc_target), 1)) return;
+	tempeffect(pc_attacker, pc_target, 5, pc_attacker->skill[MAGERY]/100, 0, 0);
 	return;
 }
 
@@ -1326,14 +1323,12 @@ void cMagic::HarmSpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 	P_CHAR pc_defender = MAKE_CHARREF_LR(defender);
 	P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
 	
-	CHARACTER trg = DEREF_P_CHAR(pc_target);
-
 	if (usemana)
 		SubtractMana(pc_attacker, 6);
 
-	doStaticEffect(trg, 12);
-	soundeffect2(trg, 0x01, 0xF1);
-	if (CheckResist(attacker, trg, 2))
+	doStaticEffect(DEREF_P_CHAR(pc_target), 12);
+	soundeffect2(DEREF_P_CHAR(pc_target), 0x01, 0xF1);
+	if (CheckResist(DEREF_P_CHAR(pc_attacker), DEREF_P_CHAR(pc_target), 2))
 	{
 		MagicDamage(defender, pc_attacker->skill[MAGERY]/500+1);
 	}
@@ -1383,16 +1378,14 @@ void cMagic::CurseSpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 	P_CHAR pc_defender = MAKE_CHARREF_LR(defender);
 	P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
 	
-	CHARACTER trg = DEREF_P_CHAR(pc_target);
-
 	if (usemana)
 		SubtractMana(pc_attacker, 11);
 
-	doStaticEffect(trg, 27);
-	soundeffect2(trg, 0x01, 0xE1);
-	if(CheckResist(attacker, trg, 1)) return;
+	doStaticEffect(DEREF_P_CHAR(pc_target), 27);
+	soundeffect2(DEREF_P_CHAR(pc_target), 0x01, 0xE1);
+	if(CheckResist(attacker, DEREF_P_CHAR(pc_target), 1)) return;
 	j = pc_attacker->skill[MAGERY]/100;
-	tempeffect(attacker, trg, 12, j, j, j);
+	tempeffect(pc_attacker, pc_target, 12, j, j, j);
 	return;
 }
 
@@ -1479,15 +1472,13 @@ void cMagic::ParalyzeSpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 	P_CHAR pc_defender = MAKE_CHARREF_LR(defender);
 	P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
 	
-	CHARACTER trg = DEREF_P_CHAR(pc_target);
-
 	if (usemana)
 		SubtractMana(pc_attacker, 14);
 
-	if (CheckResist(attacker, trg, 5)) return;
-	doStaticEffect(trg, 38);
-	soundeffect2(trg, 0x02, 0x04);
-	tempeffect(attacker, trg, 1, 0, 0, 0);
+	if (CheckResist(attacker, DEREF_P_CHAR(pc_target), 5)) return;
+	doStaticEffect(DEREF_P_CHAR(pc_target), 38);
+	soundeffect2(DEREF_P_CHAR(pc_target), 0x02, 0x04);
+	tempeffect(pc_attacker, pc_target, 1, 0, 0, 0);
 	return;
 }
 
@@ -1847,7 +1838,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								for (n=0;n<2;n++)
 								{
 									strcpy((char*)temp,"a blue moongate");
-									P_ITEM pi_c = Items->SpawnItem(-1,s,1,"#",0,0x0f,0x6c,0,0,0,0);
+									P_ITEM pi_c = Items->SpawnItem(-1, pc_currchar, 1,"#",0,0x0f,0x6c,0,0,0,0);
 									if(pi_c != NULL)	//AntiChrist - to prevent crashes
 									{
 										pi_c->type=51+n;
@@ -1939,11 +1930,11 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					{
 						//////////// (1) CLUMSY /////////////////
 					case 1:
-						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 3, pc_currchar->skill[MAGERY]/100, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 3, pc_currchar->skill[MAGERY]/100, 0, 0);
 						break;
 						//////////// (3) FEEBLEMIND /////////////
 					case 3:
-						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 4, pc_currchar->skill[MAGERY]/100, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 4, pc_currchar->skill[MAGERY]/100, 0, 0);
 						break;
 						//////////// (4) HEAL ///////////////////
 					case 4:
@@ -1974,7 +1965,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						break;
 						//////////// (6) NIGHT SIGHT ////////////
 					case 6:
-						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 2, 0, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 2, 0, 0, 0);
 						break;
 						//////////// (7) REACTIVE ARMOR /////////
 					case 7:
@@ -1983,20 +1974,20 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							sysmessage(s,"Spell fails due to the armor on target!");
 							break;
 						}
-						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 15, pc_currchar->skill[MAGERY]/100, 0, 0 );
+						tempeffect( pc_currchar, pc_defender, 15, pc_currchar->skill[MAGERY]/100, 0, 0 );
 						pc_defender->ra=1;
 						break;
 						//////////// (8) WEAKEN /////////////////
 					case 8:
-						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 5, pc_currchar->skill[MAGERY]/100, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 5, pc_currchar->skill[MAGERY]/100, 0, 0);
 						break;
 						//////////// (9) AGILITY ////////////////
 					case 9:
-						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 6, pc_currchar->skill[MAGERY]/100, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 6, pc_currchar->skill[MAGERY]/100, 0, 0);
 						break;
 						//////////// (10) CUNNING ///////////////
 					case 10:
-						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7, pc_currchar->skill[MAGERY]/100, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 7, pc_currchar->skill[MAGERY]/100, 0, 0);
 						break;
 						//////////// (11) CURE //////////////////
 					case 11:
@@ -2018,16 +2009,16 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							sysmessage(s,"Spell fails due to the armor on target!");
 							break;
 						}
-						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 21, pc_currchar->skill[MAGERY]/100, 0, 0 );
+						tempeffect( pc_currchar, pc_defender, 21, pc_currchar->skill[MAGERY]/100, 0, 0 );
 						break;
 						//////////// (16) STRENGTH //////////////
 					case 16:
-						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 8, pc_currchar->skill[MAGERY]/100, 0, 0);
+						tempeffect( pc_currchar, pc_defender, 8, pc_currchar->skill[MAGERY]/100, 0, 0);
 						break;
 						//////////// (17) BLESS /////////////////
 					case 17:
 						j=pc_currchar->skill[MAGERY]/100;
-						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 11, j, j, j);
+						tempeffect( pc_currchar, pc_defender, 11, j, j, j);
 						break;
 						//////////// (18) FIREBALL //////////////
 					case 18:
@@ -2050,7 +2041,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						if(!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 1))
 						{
 							j=pc_currchar->skill[MAGERY]/100;
-							tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 12, j, j, j);
+							tempeffect(pc_currchar, pc_defender, 12, j, j, j);
 						}
 						break;
 						//////////// (29) GREATER HEAL //////////
@@ -2104,7 +2095,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						//////////// (38) PARALYZE //////////////
 					case 38:
 						if (!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7))
-							tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 1, 0, 0, 0);
+							tempeffect(pc_currchar, pc_defender, 1, 0, 0, 0);
 						break;
 						//////////// (41) DISPEL ////////////////
 					case 41:
@@ -2167,7 +2158,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						break;
 						//////////// (59) RESURRECTION //////////
 					case 59:
-						if (pc_defender->dead && online(DEREF_P_CHAR(pc_defender)))
+						if (pc_defender->dead && online(pc_defender))
 						{
 							cMagic::doStaticEffect(DEREF_P_CHAR(pc_defender), curSpell);
 							b=Targ->NpcResurrectTarget(DEREF_P_CHAR(pc_defender));		
@@ -2314,7 +2305,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							P_CHAR mapchar = ri.GetData();
 							if (mapchar != NULL)
 							{
-								if ((online(DEREF_P_CHAR(mapchar)) || (mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
+								if ((online(mapchar) || (mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
 								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
 								(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
 								{
@@ -2347,7 +2338,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							P_CHAR mapchar = ri.GetData();
 							if( mapchar != NULL )
 							{
-								if (( online( DEREF_P_CHAR(mapchar) ) || ( mapchar->isNpc() )) && ( mapchar->pos.x >= x1 && mapchar->pos.x <= x2 ) &&
+								if (( online( mapchar ) || ( mapchar->isNpc() )) && ( mapchar->pos.x >= x1 && mapchar->pos.x <= x2 ) &&
 								( mapchar->pos.y >= y1 && mapchar->pos.y <= y2 ) /*&&
 								( chars[ii].pos.z >= z1 && chars[ii].pos.z <= z2 )*/)
 								{
@@ -2356,7 +2347,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									{
 										playSound( DEREF_P_CHAR(mapchar), curSpell );
 										doStaticEffect( DEREF_P_CHAR(mapchar), 26 );	// protection
-										tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar), 21, pc_currchar->skill[MAGERY]/100, 0, 0 );
+										tempeffect( pc_currchar, mapchar, 21, pc_currchar->skill[MAGERY]/100, 0, 0 );
 									}
 									else
 									{
@@ -2438,7 +2429,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							P_CHAR mapchar = ri.GetData();
 							if (mapchar != NULL)
 							{
-								if ((online(DEREF_P_CHAR(mapchar))||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
+								if ((online(mapchar)||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
 								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
 								(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
 								{
@@ -2457,7 +2448,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										soundeffect2(DEREF_P_CHAR(mapchar), 0x01, 0xFB);
 										if(CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar), 6)) j=pc_currchar->skill[MAGERY]/200;
 										else j=pc_currchar->skill[MAGERY]/75;
-										tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar), 12, j, j, j);
+										tempeffect(pc_currchar, mapchar, 12, j, j, j);
 									}
 									else
 									{
@@ -2542,7 +2533,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							P_CHAR mapchar = ri.GetData();
 							if (mapchar != NULL)
 							{
-								if ((online(DEREF_P_CHAR(mapchar))||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
+								if ((online(mapchar)||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
 								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
 								(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
 								{
@@ -2617,8 +2608,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							P_CHAR mapchar = ri.GetData();
 							if (mapchar != NULL)
 							{
-								ii = DEREF_P_CHAR(mapchar);
-								if ((online(DEREF_P_CHAR(mapchar))||(mapchar->isNpc())) && (mapchar->priv2&0x20)&&
+								//ii = DEREF_P_CHAR(mapchar);
+								if ((online(mapchar)||(mapchar->isNpc())) && (mapchar->priv2&0x20)&&
 									(mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
 									(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
 									(mapchar->pos.z>=z1&&mapchar->pos.z<=z2)*/)
@@ -2655,7 +2646,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if (mapchar != NULL)
 							{
 								ii = DEREF_P_CHAR(mapchar);
-								if ((online(DEREF_P_CHAR(mapchar))||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
+								if ((online(mapchar)||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
 								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
 								(mapchar->pos.z>=z1&&mapchar->pos.z<=z2)*/)
 								{
@@ -2875,7 +2866,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			//////////// (2) CREATE FOOD ////////////////
 		case 2:
 			{
-				P_ITEM pi_j = Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "#", 1, 0x09, 0xD3, 0x00, 0x00, 1, 1 );
+				P_ITEM pi_j = Items->SpawnItem(s, pc_currchar, 1, "#", 1, 0x09, 0xD3, 0x00, 0x00, 1, 1 );
 				if(pi_j != NULL)//AntiChrist - to prevent crashes
 				{
 					pi_j->type=14;
@@ -2889,7 +2880,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			break;
 			//////////// (35) INCOGNITO ////////////
 		case 35:
-			tempeffect(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_currchar),19,0,0,0);//Incognito temp effect
+			tempeffect(pc_currchar, pc_currchar,19,0,0,0);//Incognito temp effect
 			cMagic::doStaticEffect(DEREF_P_CHAR(pc_currchar), curSpell);
 			break;
 			//////////// (36) MAGIC REFLECTION /////////
@@ -2925,10 +2916,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								continue;
 							if (pc->isSameAs(pc_currchar))				// nor the caster
 								continue;
-							ii=DEREF_P_CHAR(pc);
 							distx=abs(pc->pos.x - pc_currchar->pos.x);
 							disty=abs(pc->pos.y - pc_currchar->pos.y);
-							if(distx<=15 && disty<=15 && (pc->isNpc() || online(ii)))
+							if(distx<=15 && disty<=15 && (pc->isNpc() || online(pc)))
 							{
 								if(pc->isInnocent()) criminal(DEREF_P_CHAR(currchar[s]));
 								
@@ -2941,23 +2931,23 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								if(pc->stm<0)  pc->stm=0;
 								if(pc->hp<0) pc->hp=0;						 							
 								
-								if (pc->isPlayer() && online(ii))
+								if (pc->isPlayer() && online(pc))
 								{
-									if(rand()%2) npcaction(ii, 0x15); else npcaction(ii, 0x16);
-									if((pc->isNpc() || online(ii)) && pc->hp==0)
+									if(rand()%2) npcaction(ii, 0x15); else npcaction(DEREF_P_CHAR(pc), 0x16);
+									if((pc->isNpc() || online(pc)) && pc->hp==0)
 									{
-										deathstuff(ii);                              
+										deathstuff(DEREF_P_CHAR(pc));                              
 									}
 								}	
 								else
 								{ 
-									if (pc->hp<=0) deathstuff(ii); 
+									if (pc->hp<=0) deathstuff(DEREF_P_CHAR(pc)); 
 									else
 									{ 
 										if (pc->isNpc())
 										{
-											npcaction(ii, 0x2); 
-											npcattacktarget(DEREF_P_CHAR(currchar[s]),ii); 
+											npcaction(DEREF_P_CHAR(pc), 0x2); 
+											npcattacktarget(DEREF_P_CHAR(currchar[s]),DEREF_P_CHAR(pc)); 
 										}
 									}
 								}	
@@ -3965,7 +3955,7 @@ void cMagic::Polymorph(int s, int gmindex, int creaturenumber)
 //	int cc=currchar[s];
 	P_CHAR pc_currchar = currchar[s];
 	//	soundeffect2(DEREF_P_CHAR(pc_currchar), 0x02, 0x0F); Deleted by Paul77 - Polymorph doesn't have a sound
-	tempeffect(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_currchar),18,id1,id2,0);
+	tempeffect(pc_currchar, pc_currchar, 18, id1, id2, 0);
 
 	teleport((pc_currchar));
 }
@@ -4065,7 +4055,7 @@ void cMagic::BuildCannon(int s)
 	soundeffect(s, 0x02, 0x45);
 	soundeffect(s, 0x02, 0x46);
 	
-	P_ITEM pi_k = Items->SpawnItem(-1,s,1,"#",0,0x0E,0x91,0,0,0,1);
+	P_ITEM pi_k = Items->SpawnItem(-1, currchar[s] , 1,"#",0,0x0E,0x91,0,0,0,1);
 	pi_k->type=15;
 	pi_k->morex=8;
 	pi_k->morey=10;
@@ -4106,7 +4096,7 @@ void cMagic::Gate(UOXSOCKET s)
 			for (n=0;n<2;n++)
 			{
 				strcpy((char*)temp,"a blue moongate");
-				P_ITEM pi_c = Items->SpawnItem(-1,s,1,"#",0,0x0f,0x6c,0,0,0,0);
+				P_ITEM pi_c = Items->SpawnItem(-1,currchar[s],1,"#",0,0x0f,0x6c,0,0,0,0);
 				if(pi_c != NULL)//AntiChrist - to prevent crashes
 				{
 					pi_c->type=51+n;

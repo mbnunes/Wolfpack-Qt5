@@ -208,7 +208,7 @@ void cRaces::SetRace(P_CHAR pc, int race)
 					}
 			}
 			int beardstyle=RandomBeardStyle();
-			P_ITEM pi = Items->SpawnItem(so,DEREF_P_CHAR(pc),1, "#", 0, 0x20, beardstyle, 0x04, 0x62,0,0);
+			P_ITEM pi = Items->SpawnItem(so,pc,1, "#", 0, 0x20, beardstyle, 0x04, 0x62,0,0);
 			if(pi == NULL) return;//AntiChrist to preview crashes
 			pi->setColor(colorlist);
 			pi->SetContSerial(pc->serial);
@@ -231,7 +231,7 @@ void cRaces::SetRace(P_CHAR pc, int race)
 					}
 			}
 			int hairstyle = RandomHairStyle();
-			P_ITEM pi = Items->SpawnItem( so, DEREF_P_CHAR(pc), 1, "#", 0, 0x20, hairstyle, 0x04, 0x62, 0, 0 );
+			P_ITEM pi = Items->SpawnItem( so, pc, 1, "#", 0, 0x20, hairstyle, 0x04, 0x62, 0, 0 );
 			if (pi == NULL)
 				return;
 			pi->setColor(colorlist);

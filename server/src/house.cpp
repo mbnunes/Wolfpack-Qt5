@@ -286,9 +286,9 @@ void cHouseManager::AddHome(int s, int i)
 		House[houseSize]->LockAmount=lockamount;
 		House[houseSize]->SecureAmount=secureamount;
 	
-		if (id2>=112&&id2<=115) pKey = Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a tent key", 0, 0x10, 0x10,0, 0,1,1);//iron key for tents
-		else if(id2<=0x18) pKey = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"a ship key",0,0x10,0x13,0,0,1,1);//Boats -Rusty Iron Key
-		else pKey = Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else;
+		if (id2>=112&&id2<=115) pKey = Items->SpawnItem(s, pc_currchar, 1, "a tent key", 0, 0x10, 0x10,0, 0,1,1);//iron key for tents
+		else if(id2<=0x18) pKey = Items->SpawnItem(s, pc_currchar, 1, "a ship key",0,0x10,0x13,0,0,1,1);//Boats -Rusty Iron Key
+		else pKey = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else;
 		
 		pKey->more1=pMulti->ser1;//use the house's serial for the more on the key to keep it unique
 		pKey->more2=pMulti->ser2;
@@ -297,7 +297,7 @@ void cHouseManager::AddHome(int s, int i)
 		pKey->type=7;
 		pKey->priv=2; // Newbify key..Ripper
         
-		P_ITEM pKey2 = Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);
+		P_ITEM pKey2 = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);
 		P_ITEM bankbox = pc_currchar->GetBankBox();
 		pKey2->more1=pMulti->ser1;
 		pKey2->more2=pMulti->ser2;

@@ -108,7 +108,7 @@ void vialtarget(int nSocket);
 void MakeNecroReg(int nSocket,P_ITEM pMat, short id);
 void usepotion(int p, P_ITEM pi);
 
-unsigned char tempeffect(int source, int dest, int num, unsigned char more1, unsigned char more2, unsigned char more3,short dur=-1);
+unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3,short dur=-1);
 unsigned char tempeffect2(int source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
 
 void checkauto();	// Check automatic/timer controlled stuff (Like fighting and regeneration)

@@ -1375,7 +1375,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						else 
 							action(s, 0x1d);
 						soundeffect(s, 0x01, 0x3E);
-						P_ITEM p_cotton = Items->SpawnItem(-1, DEREF_P_CHAR(pc_currchar), 1, "#", 1, 0x0D, 0xF9, 0, 0, 1, 1);
+						P_ITEM p_cotton = Items->SpawnItem(-1, pc_currchar, 1, "#", 1, 0x0D, 0xF9, 0, 0, 1, 1);
 						if ( p_cotton == NULL )
 							return;
 						p_cotton->SetContSerial(Packitem(pc_currchar)->serial);
@@ -1421,7 +1421,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					if (Skills->CheckSkill(currchar[s], TINKERING, 500, 1000))
 					{
 						sysmessage(s, "You create the sextant.");
-						P_ITEM pi_sextant = Items->SpawnItem(s, DEREF_P_CHAR(currchar[s]), 1, "a sextant", 0, 0x10, 0x57, 0, 0, 1, 1);
+						P_ITEM pi_sextant = Items->SpawnItem(s, currchar[s], 1, "a sextant", 0, 0x10, 0x57, 0, 0, 1, 1);
 						if (pi_sextant != NULL)
 							pi_sextant->priv |= 0x01;
 						pi->ReduceAmount(1);

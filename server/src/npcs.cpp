@@ -1029,7 +1029,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 				if (pBackpack == NULL)
 				{
 					scpMark m=pScp->Suspend();
-					pBackpack = Items->SpawnItem(-1,DEREF_P_CHAR(pc_c),1,"Backpack",0,0x0E,0x75,0,0,0,0);
+					pBackpack = Items->SpawnItem(-1, pc_c,1,"Backpack",0,0x0E,0x75,0,0,0,0);
 					if(pBackpack == NULL)
 					{
 						Npcs->DeleteChar(DEREF_P_CHAR(pc_c));
@@ -1824,7 +1824,7 @@ void cChar::unhide()
 		this->hidden=0;
 		updatechar(DEREF_P_CHAR(this));	// LB, necassary for client 1.26.2
 		if (this->isGM())
-			tempeffect(DEREF_P_CHAR(this), DEREF_P_CHAR(this), 34, 3, 0, 0); 
+			tempeffect(this, this, 34, 3, 0, 0); 
 	}
 }
 

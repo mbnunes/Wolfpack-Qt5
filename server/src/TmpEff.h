@@ -98,7 +98,7 @@ public:
 	void On();
 	void Off();
 	void Check();
-	bool Add(int source, int dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur);
+	bool Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur);
 	bool Add(int source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
 	void Insert(cTmpEff* pTE);
 	void Remove(cTmpEff* pTE);

@@ -240,7 +240,7 @@ bool cAccount::IsOnline( int acctnum )
 		return false;
 }
 
-CHARACTER cAccount::GetInWorld( int acctnum )
+SERIAL cAccount::GetInWorld( int acctnum )
 {
 	if (acctnum < 0)
 		return -1;
@@ -249,8 +249,9 @@ CHARACTER cAccount::GetInWorld( int acctnum )
 	{
 		acctman_st dummy = iter_acctman->second;
 		P_CHAR pc = FindCharBySerial(dummy.character);
-		return DEREF_P_CHAR(pc);
-	} else return -1;
+		return pc->serial;
+	} else 
+		return INVALID_SERIAL;
 }
 
 void cAccount::SetOnline( int acctnum, SERIAL serial)

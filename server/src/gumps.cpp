@@ -176,7 +176,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				}
 				else
 				{
-					if (!online(DEREF_P_CHAR(pc_c))) 
+					if (!online(pc_c)) 
 					{ 
 						sysmessage(s,"you cant kick an offline player");
 						break;
@@ -605,7 +605,6 @@ void cGump::Menu(UOXSOCKET s, int m, P_ITEM it)
 
 
 void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me on this
-// added also logged out chars+bugfixing , LB
 {
 	char sect[512];
 	short int length, length2, textlines;
@@ -617,142 +616,148 @@ void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me 
 	unsigned int linecount1=0,pagenum=1,position=40,linenum=1,buttonnum=7;
 	
 	j=0;
-	for (k=0;k<now;k++) if(online(DEREF_P_CHAR(currchar[k]))) j++;
-			   
-		//--static pages
-		strcpy(menuarray[linecount++], "nomove");
-		strcpy(menuarray[linecount++], "noclose");
-		strcpy(menuarray[linecount++], "page 0");
-		strcpy(menuarray[linecount++], "resizepic 0 0 5120 320 340");    //The background
-		strcpy(menuarray[linecount++], "button 20 300 2130 2129 1 0 1"); //OKAY
-		strcpy(menuarray[linecount++], "text 20 10 300 0");           //text <Spaces from Left> <Space from top> <Length, Color?> <# in order>		
-		sprintf(menuarray[linecount++], "page %i",pagenum);
-		//--Start User List
-
-		k=0;
-		AllCharsIterator iter_char;
-		for(iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	for (k=0;k<now;k++)
+	{
+		if(online(currchar[k])) 
+			j++;
+	}
+	
+	//--static pages
+	strcpy(menuarray[linecount++], "nomove");
+	strcpy(menuarray[linecount++], "noclose");
+	strcpy(menuarray[linecount++], "page 0");
+	strcpy(menuarray[linecount++], "resizepic 0 0 5120 320 340");    //The background
+	strcpy(menuarray[linecount++], "button 20 300 2130 2129 1 0 1"); //OKAY
+	strcpy(menuarray[linecount++], "text 20 10 300 0");           //text <Spaces from Left> <Space from top> <Length, Color?> <# in order>		
+	sprintf(menuarray[linecount++], "page %i",pagenum);
+	//--Start User List
+	
+	k=0;
+	AllCharsIterator iter_char;
+	for(iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	{
+		P_CHAR toCheck = iter_char.GetData();
+		if (toCheck->account!=-1 && !toCheck->free)
 		{
-			P_CHAR toCheck = iter_char.GetData();
-			if (toCheck->account!=-1 && !toCheck->free)
+			if(k>0 && (!(k%10)))
 			{
-			  if(k>0 && (!(k%10)))
-			  {
 				position=40;
 				pagenum++;
 				sprintf(menuarray[linecount++], "page %i",pagenum);
-			  }
-
-			  k++;
-
-			  sprintf(menuarray[linecount++], "text 40 %i 300 %i",position,linenum); //usernames
-			  sprintf(menuarray[linecount++], "button 20 %i 1209 1210 1 0 %i",position,buttonnum);
-			  position+=20;
-			  linenum++;
-			  buttonnum++;
 			}
+			
+			k++;
+			
+			sprintf(menuarray[linecount++], "text 40 %i 300 %i",position,linenum); //usernames
+			sprintf(menuarray[linecount++], "button 20 %i 1209 1210 1 0 %i",position,buttonnum);
+			position+=20;
+			linenum++;
+			buttonnum++;
 		}
+	}
 	
-
-		//clConsole.send("k:%i pages: %i\n",k,pagenum);
-
-		pagenum=1; //lets make some damn buttons
-		for (i=0;i<k;i+=10)
-		{			
-			   sprintf(menuarray[linecount++], "page %i", pagenum);
-			   if (i>=10)
-				sprintf(menuarray[linecount++], "button 150 300 2223 2223  0 %i",pagenum-1); //back button
-			   if ((k>10) && ((i+10)<k))
-			   sprintf(menuarray[linecount++], "button %i 300 2224 2224  0 %i", 150+(20*(pagenum>1)),pagenum+1); //forward button
-			   pagenum++;
-		}		
-						
-		length=21;
-		length2=1;
+	
+	//clConsole.send("k:%i pages: %i\n",k,pagenum);
+	
+	pagenum=1; //lets make some damn buttons
+	for (i=0;i<k;i+=10)
+	{			
+		sprintf(menuarray[linecount++], "page %i", pagenum);
+		if (i>=10)
+			sprintf(menuarray[linecount++], "button 150 300 2223 2223  0 %i",pagenum-1); //back button
+		if ((k>10) && ((i+10)<k))
+			sprintf(menuarray[linecount++], "button %i 300 2224 2224  0 %i", 150+(20*(pagenum>1)),pagenum+1); //forward button
+		pagenum++;
+	}		
+	
+	length=21;
+	length2=1;
+	
+	for(line=0;line<linecount;line++)
+	{
 		
-		for(line=0;line<linecount;line++)
+		if (strlen(menuarray[line])==0)
+			break;
 		{
-			
-			if (strlen(menuarray[line])==0)
-				break;
-			{
-				length+=strlen(menuarray[line])+4;
-				length2+=strlen(menuarray[line])+4;
-			}
+			length+=strlen(menuarray[line])+4;
+			length2+=strlen(menuarray[line])+4;
 		}
-		
-		length+=3;
-		textlines=0;
-		line=0;
-		
-		sprintf(menuarray1[linecount1++], "Users currently online: %i",j);
+	}
+	
+	length+=3;
+	textlines=0;
+	line=0;
+	
+	sprintf(menuarray1[linecount1++], "Users currently online: %i",j);
 				
-		//Start user list
-
-		x=0;
-		for (i=0;i<now;i++)
-			if (i!=-1 && online(DEREF_P_CHAR(currchar[i]))) {
-				sprintf(menuarray1[linecount1++], "Player %s [online]",currchar[i]->name);
-				whomenudata[x++]=currchar[i]->serial;
-			}
-
-		for(iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	//Start user list
+	
+	x=0;
+	for (i=0;i<now;i++)
+	{
+		if (online(currchar[i])) 
 		{
-			P_CHAR toCheck = iter_char.GetData();
-			if (toCheck->account!=-1 && !toCheck->free && !online(DEREF_P_CHAR(toCheck))) { 
-				sprintf(menuarray1[linecount1++], "Player: %s [offline]",toCheck->name);
-				whomenudata[x++]=toCheck->serial;
-				//clConsole.send("name: %s\n",chars[i].name);
-			}
+			sprintf(menuarray1[linecount1++], "Player %s [online]",currchar[i]->name);
+			whomenudata[x++]=currchar[i]->serial;
 		}
-		for(line=0;line<linecount1;line++)
+	}		
+	for(iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	{
+		P_CHAR toCheck = iter_char.GetData();
+		if (toCheck->account!=-1 && !toCheck->free && !online(toCheck)) { 
+			sprintf(menuarray1[linecount1++], "Player: %s [offline]",toCheck->name);
+			whomenudata[x++]=toCheck->serial;
+			//clConsole.send("name: %s\n",chars[i].name);
+		}
+	}
+	for(line=0;line<linecount1;line++)
+	{
+		
+		if (strlen(menuarray1[line])==0)
+			break;
 		{
-			
-			if (strlen(menuarray1[line])==0)
-				break;
+			length+=strlen(menuarray1[line])*2 +2;
+			textlines++;
+		}
+	}
+	
+	gump1[1]=length>>8;
+	gump1[2]=length%256;
+	gump1[7]=0;
+	gump1[8]=0;
+	gump1[9]=0;
+	gump1[10]=type; // Gump Number
+	gump1[19]=length2>>8;
+	gump1[20]=length2%256;
+	Xsend(s, gump1, 21);
+	
+	for(line=0;line<linecount;line++)
+	{
+		sprintf(sect, "{ %s }", menuarray[line]);
+		Xsend(s, sect, strlen(sect));
+	}
+	
+	gump2[1]=textlines>>8;
+	gump2[2]=textlines%256;
+	
+	Xsend(s, gump2, 3);
+	
+	for(line=0;line<linecount1;line++)
+	{
+		if (strlen(menuarray1[line])==0)
+			break;
+		{
+			gump3[0]=strlen(menuarray1[line])>>8;
+			gump3[1]=strlen(menuarray1[line])%256;
+			Xsend(s, gump3, 2);
+			gump3[0]=0;
+			for (i=0;i<strlen(menuarray1[line]);i++)
 			{
-				length+=strlen(menuarray1[line])*2 +2;
-				textlines++;
-			}
-		}
-		
-		gump1[1]=length>>8;
-		gump1[2]=length%256;
-		gump1[7]=0;
-		gump1[8]=0;
-		gump1[9]=0;
-		gump1[10]=type; // Gump Number
-		gump1[19]=length2>>8;
-		gump1[20]=length2%256;
-		Xsend(s, gump1, 21);
-		
-		for(line=0;line<linecount;line++)
-		{
-			sprintf(sect, "{ %s }", menuarray[line]);
-			Xsend(s, sect, strlen(sect));
-		}
-		
-		gump2[1]=textlines>>8;
-		gump2[2]=textlines%256;
-		
-		Xsend(s, gump2, 3);
-		
-		for(line=0;line<linecount1;line++)
-		{
-			if (strlen(menuarray1[line])==0)
-				break;
-			{
-				gump3[0]=strlen(menuarray1[line])>>8;
-				gump3[1]=strlen(menuarray1[line])%256;
+				gump3[1]=menuarray1[line][i];
 				Xsend(s, gump3, 2);
-				gump3[0]=0;
-				for (i=0;i<strlen(menuarray1[line]);i++)
-				{
-					gump3[1]=menuarray1[line][i];
-					Xsend(s, gump3, 2);
-				}
 			}
 		}
+	}
 }
 
 void playermenu(int s, int type) //WhoList2 with offline players--By Ripper
@@ -768,7 +773,11 @@ void playermenu(int s, int type) //WhoList2 with offline players--By Ripper
 	unsigned int linecount1=0,pagenum=1,position=40,linenum=1,buttonnum=7;
 	
 	j=0;
-	for (k=0;k<now;k++) if(online(DEREF_P_CHAR(currchar[k]))) j++;
+	for (k=0;k<now;k++)
+	{
+		if(online(currchar[k])) 
+			j++;
+	}
 			   
 		//--static pages
 		strcpy(menuarray[linecount++], "nomove");
@@ -783,7 +792,7 @@ void playermenu(int s, int type) //WhoList2 with offline players--By Ripper
 		k=0;
 		for(i=0;i<now;i++)
 		{
-			if ((currchar[i]->account!=-1 && !currchar[i]->free && online(DEREF_P_CHAR(currchar[i]))))
+			if ((currchar[i]->account!=-1 && !currchar[i]->free && online(currchar[i])))
 			{
 			  if(k>0 && (!(k%10)))
 			  {
@@ -840,7 +849,7 @@ void playermenu(int s, int type) //WhoList2 with offline players--By Ripper
 
 		x=0;
 		for (i=0;i<now;i++)
-			if (online(DEREF_P_CHAR(currchar[i]))) { 
+			if (online(currchar[i])) { 
 				sprintf(menuarray1[linecount1++], "Player %s [online]",currchar[i]->name);
 				whomenudata[x++]=currchar[i]->serial;
 			}	

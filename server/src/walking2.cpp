@@ -470,7 +470,7 @@ bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, si
 				P_CHAR pc_i = FindCharBySerial(vecEntries[k]);
 				if (pc_i != NULL)
 				{
-					if (pc_i != pc && (online(DEREF_P_CHAR(pc_i)) || pc_i->isNpc()))
+					if (pc_i != pc && (online(pc_i) || pc_i->isNpc()))
 					{
 						// x=x,y=y, and distance btw z's <= MAX STEP
 						if ((pc_i->pos.x == cx) && (pc_i->pos.y == cy) && (abs(pc_i->pos.z-cz) <= P_M_MAX_Z_CLIMB))
@@ -1038,7 +1038,7 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 				printf("DEBUG: Mapchar %i [%i]\n",mapchar,mapitem);
 #endif
 				//Let GMs see logged out players
-				if ( online(DEREF_P_CHAR(mapchar)) || mapchar->isNpc() || pc->isGM())
+				if ( online(mapchar) || mapchar->isNpc() || pc->isGM())
 				{
 					if (
 						(((abs(newx-mapchar->pos.x)== visibleRange )||(abs(newy-mapchar->pos.y)== visibleRange )) &&
@@ -1058,7 +1058,7 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 				pc->isGMorCounselor()
 				))
 				{
-					if (mapchar != pc && (online(DEREF_P_CHAR(mapchar)) || mapchar->isNpc()))
+					if (mapchar != pc && (online(mapchar) || mapchar->isNpc()))
 					{
 						if (mapchar->pos.x == pc->pos.x && mapchar->pos.y == pc->pos.y && mapchar->pos.z == pc->pos.z)
 						{
@@ -1173,7 +1173,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 						{
 							if (!Magic->CheckResist(-1, DEREF_P_CHAR(pc), 6))
 							{
-								tempeffect(DEREF_P_CHAR(pc), DEREF_P_CHAR(pc), 1, 0, 0, 0);
+								tempeffect(pc, pc, 1, 0, 0, 0);
 							}
 							soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x04);
 						}
@@ -1264,7 +1264,7 @@ void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, short int oldx, s
 /********* start of LB's no rain & snow in buildings stuff ***********/
 void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 {
-	if (pc->isPlayer() && online(DEREF_P_CHAR(pc))) // check for being in buildings (for weather) only for PC's
+	if (pc->isPlayer() && online(pc)) // check for being in buildings (for weather) only for PC's
 	{
 		// ok, this is already a bug, because the new weather stuff doesn't use this global
 		// for the weather.
@@ -1298,7 +1298,7 @@ void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
 // PARAM WARNING: unreferenced paramater socket
 {
 	// i guess things only glow if you are online, i dunno what that means        
-	if( online( DEREF_P_CHAR(pc) ))
+	if( online( pc ))
 	{
 		vector<SERIAL> vecGlowItems = glowsp.getData(pc->serial);
 		for( unsigned int ci = 0; ci < vecGlowItems.size(); ci++ )
@@ -1590,7 +1590,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
             {
                 if ( chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_attacker)) > 1 /* || chardir(i, l)!=chars[i].dir // by Thyme: causes problems, will fix */)
                 {
-                    if ( online( DEREF_P_CHAR(pc_attacker) ) || pc_attacker->isNpc() )
+                    if ( online( pc_attacker ) || pc_attacker->isNpc() )
                     {
 						PathFind(pc_i, pc_attacker->pos.x, pc_attacker->pos.y);
                         j = chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
@@ -1614,7 +1614,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 				{
 					P_CHAR pc_target = FindCharBySerial(pc_i->ftarg);
 	                if (pc_target == NULL) return;
-		            if ( online(DEREF_P_CHAR(pc_target)) || pc_target->isNpc() )
+		            if ( online(pc_target) || pc_target->isNpc() )
 			        {
 				        if ( chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_target)) > 1 /* || chardir(i, k)!=chars[i].dir // by THyme: causes problems, will fix */)
 					    {

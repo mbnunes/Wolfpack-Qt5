@@ -72,7 +72,7 @@ void explodeitem(int s, P_ITEM pi);
 void monstergate(int s, int x);
 //void npcMovement2(unsigned int, int);//Lag fix -- Zippy
 //void npcMovement(unsigned int);
-void Karma(int nCharID,int nKilledID, int nKarma);
+void Karma(P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma);
 void npctalkall_runic(int npc, char *txt,char antispam);
 void Fame(int nCharID, int nFame);
 void charstartup(int s);
@@ -196,7 +196,7 @@ bool inVisRange(int x1, int y1, int x2, int y2);
 int inrange1(UOXSOCKET a, UOXSOCKET b);
 int inrange1p (CHARACTER a, CHARACTER b);
 void deathstuff(int i);
-bool online(CHARACTER c);
+bool online(P_CHAR pc);
 void loadserverscript(void);
 void loadremote_admin();
 void saveserverscript(void);

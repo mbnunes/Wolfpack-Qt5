@@ -69,14 +69,14 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(DEREF_P_CHAR(pc));
-						d = chardist(i, DEREF_P_CHAR(pc));
+						onl = online(pc);
+						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						if (d > 3)
 							continue;
 						if (pc->isInvul() || pc->isNpc() || pc->dead || !pc->isInnocent() || !onl)
 							continue;
 						sprintf((char*)temp, "Hello %s, Welcome to my shop, How may i help thee?.", pc->name);
-						npctalkall(i, (char*)temp, 1);
+						npctalkall(DEREF_P_CHAR(pc_i), (char*)temp, 1);
 						pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
 					}
 				}
@@ -91,7 +91,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(DEREF_P_CHAR(pc));
+						onl = online(pc);
 						d = chardist(i, DEREF_P_CHAR(pc));
 						if (!pc->dead || d > 3 || pc->isNpc() || !onl)
 							continue;
@@ -142,7 +142,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(DEREF_P_CHAR(pc));
+						onl = online(pc);
 						d = chardist(i, DEREF_P_CHAR(pc));
 						chance = RandomNum(1, 100);
 						if (DEREF_P_CHAR(pc) == i)
@@ -190,7 +190,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(DEREF_P_CHAR(pc));
+						onl = online(pc);
 						d = chardist(i, DEREF_P_CHAR(pc));
 						if (!pc->dead || d > 3 || pc->isNpc() || !onl)
 							continue;
@@ -237,14 +237,14 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(DEREF_P_CHAR(pc));
-						d = chardist(i, DEREF_P_CHAR(pc));
+						onl = online(pc);
+						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						if (d > 10 || pc->isInvul() || pc->dead || !onl || pc->isHidden())
 							continue;
 						if(pc->isCriminal() || pc->isMurderer())
 						{
-							npcattacktarget(i, DEREF_P_CHAR(pc));
-							npctalkall(i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
+							npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+							npctalkall(DEREF_P_CHAR(pc_i), "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
 						}
 					}
 				}
@@ -259,7 +259,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(DEREF_P_CHAR(pc));
+						onl = online(pc);
 						d = chardist(i, DEREF_P_CHAR(pc));
 						if (d > 3 || pc->isInvul() || pc->isNpc() || pc->dead || !onl || !pc->isInnocent())
 							continue;
@@ -303,7 +303,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(DEREF_P_CHAR(pc));
+						onl = online(pc);
 						d = chardist(i, DEREF_P_CHAR(pc));
 						if (i == DEREF_P_CHAR(pc) || d > 3 || pc->isInvul() || pc->dead || !onl)
 							continue;
@@ -347,7 +347,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(DEREF_P_CHAR(pc));
+						onl = online(pc);
 						d = chardist(i, DEREF_P_CHAR(pc));
 						if (d > 10 || pc->isPlayer() || pc->npcaitype != 61)
 							continue;
@@ -366,7 +366,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(DEREF_P_CHAR(pc));
+						onl = online(pc);
 						d = chardist(i, DEREF_P_CHAR(pc));
 						if (d > 10 || pc->isInvul() || pc->dead)
 							continue;
@@ -390,7 +390,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 				P_CHAR pc = ri.GetData();
 				if (pc != NULL)
 				{
-				    onl = online(DEREF_P_CHAR(pc));
+				    onl = online(pc);
 				    d = chardist(i, DEREF_P_CHAR(pc));
 				    if (d > 10 || pc->isNpc() || pc->isInvul() || pc->dead || (pc->isPlayer() && !onl))
 					    continue;
@@ -412,7 +412,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(DEREF_P_CHAR(pc));
+						onl = online(pc);
 						d = chardist(i, DEREF_P_CHAR(pc));
 						if (d > 10 || pc->isInvul() || pc->dead || pc->npcaitype != 2 || !onl)
 							continue;
@@ -431,7 +431,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(DEREF_P_CHAR(pc));
+						onl = online(pc);
 						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						if (d > 10 || pc->isNpc() || pc->dead || !pc->guarded || !onl)
 							continue;
@@ -454,7 +454,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(DEREF_P_CHAR(pc));
+						onl = online(pc);
 						d = chardist(i, DEREF_P_CHAR(pc));
 						if (d > 10 || pc->isInvul() || pc->dead || !onl)
 							continue;
@@ -497,7 +497,7 @@ void cCharStuff::cDragonAI::DoAI(int i, int currenttime)
 			if (pc != NULL)
 			{
 				distance = chardist(i, DEREF_P_CHAR(pc));
-				if (!pc->npc && !online(DEREF_P_CHAR(pc)))	// no offline players (Duke)
+				if (!pc->npc && !online(pc))	// no offline players (Duke)
 					continue;
 				if (Races.CheckRelation(pc,pc_i)==1)
 							continue;
@@ -716,7 +716,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, int i, char *comm)
 		}
 		if (d >= goldcount)
 		{
-			const P_ITEM pi = Items->SpawnItem(c, DEREF_P_CHAR(pc_currchar), 1, "bank check", 0, 0x14, 0xF0, 0, 0, 0, 0); // bank check
+			const P_ITEM pi = Items->SpawnItem(c, pc_currchar, 1, "bank check", 0, 0x14, 0xF0, 0, 0, 0, 0); // bank check
 			if (pi != NULL)
 			pi->type = 1000;
 			pi->setId(0x14F0);

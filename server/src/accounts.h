@@ -99,7 +99,7 @@ public:
 	~cAccount( void );
 	void SetSaveRatio ( int );
 	bool IsOnline( int );
-	CHARACTER GetInWorld( int );
+	SERIAL GetInWorld( int );
 	void SetOnline( int, CHARACTER );
 	void SetOffline( int acctnum );
 	void LoadAccounts( void );

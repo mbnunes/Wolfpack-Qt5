@@ -466,12 +466,12 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 					}
 					if ((fightskill==FENCING) && (IsFencing2H(pWeapon->id())) && (pc_deffender->isPlayer()))// Paralyzing -Fraz-
 					{ 
-						tempeffect(a, DEREF_P_CHAR(pc_deffender), 44, 0, 0, 0);
+						tempeffect(pc_attacker, pc_deffender, 44, 0, 0, 0);
 						sysmessage(s1,"You delivered a paralyzing blow");
 											}
 					if ((fightskill==SWORDSMANSHIP) && (IsAxe(pWeapon->id())) && (pc_deffender->isPlayer()))// Concussion Hit -Fraz-
 					{ 
-						tempeffect(a, DEREF_P_CHAR(pc_deffender), 45, 0, 0, 0);
+						tempeffect(pc_attacker, pc_deffender, 45, 0, 0, 0);
 						//pc_attacker->mn-=(pc_attacker->mn/2); //-Fraz- temp use of this for concussion
 					}
 					updatestats((pc_deffender), 0);
@@ -738,7 +738,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
         sysmessage(calcSocketFromChar(a), "You are frozen and cannot attack."); 
         return; 
 	}
-	if ((pc_defender == NULL) || (pc_defender->isPlayer() && !online(DEREF_P_CHAR(pc_defender)) || pc_defender->isHidden()) && pc_attacker->war)
+	if ((pc_defender == NULL) || (pc_defender->isPlayer() && !online(pc_defender) || pc_defender->isHidden()) && pc_attacker->war)
 	{
 		pc_attacker->war=0; // LB
 		pc_attacker->timeout=0;
@@ -746,14 +746,14 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 		pc_attacker->resetAttackFirst();
 		return;
 	}
-	if (( pc_attacker->isNpc() || online(DEREF_P_CHAR(pc_attacker)) ) && pc_defender != NULL )
+	if (( pc_attacker->isNpc() || online(pc_attacker) ) && pc_defender != NULL )
 	{			
 		if (pc_defender == NULL) return;
 		if (pc_defender->free) return;
 		if (pc_attacker->dispz > (pc_defender->dispz +10)) return;//FRAZAI
 		if (pc_attacker->dispz < (pc_defender->dispz -10)) return;//FRAZAI
 		
-		if ((pc_defender->isNpc() && pc_defender->npcaitype!=17) || (online(DEREF_P_CHAR(pc_defender)) && !pc_defender->dead) ) // ripper		
+		if ((pc_defender->isNpc() && pc_defender->npcaitype!=17) || (online(pc_defender) && !pc_defender->dead) ) // ripper		
 		{
 			if (chardist(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender)) > SrvParms->attack_distance)
 			{

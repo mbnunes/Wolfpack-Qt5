@@ -343,7 +343,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 
 	if (LSD[s]) do_lsd(s); //LB's LSD potion-stuff
 
-	if (pc->isPlayer() && online(DEREF_P_CHAR(pc)) && pc->squelched==2)
+	if (pc->isPlayer() && online(pc) && pc->squelched==2)
 	{
 		if (pc->mutetime!=-1)
 		{
@@ -356,7 +356,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 		}
 	}
 
-	if (pc->isPlayer() && online(DEREF_P_CHAR(pc)))
+	if (pc->isPlayer() && online(pc))
 	{
 		if ( pc->crimflag > 0 && ( pc->crimflag <= currenttime || overflow ) &&  pc->isCriminal() )//AntiChrist
 		{
@@ -404,7 +404,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 		if(SrvParms->bg_sounds>10) SrvParms->bg_sounds=10;
 		timer=SrvParms->bg_sounds*100;
 		if (timer==0) timer=1;
-		if( online(DEREF_P_CHAR(pc)) && pc->isPlayer() && !pc->dead && ((rand()%(timer))==(timer/2))) bgsound(pc); //lb, bgsound uses array positions not sockets !
+		if( online(pc) && pc->isPlayer() && !pc->dead && ((rand()%(timer))==(timer/2))) bgsound(pc); //lb, bgsound uses array positions not sockets !
 	}
 	if( pc->spiritspeaktimer > 0 && pc->spiritspeaktimer <= uiCurrentTime)
 		pc->spiritspeaktimer = 0;
@@ -448,7 +448,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 	
 
 		// LB, changed to seconds instead of crappy #of checks, 21/9/99
-	if(pc->trackingtimer > currenttime && online(DEREF_P_CHAR(pc)))
+	if(pc->trackingtimer > currenttime && online(pc))
 	{
 		if(pc->trackingdisplaytimer<=currenttime)
 		{
@@ -514,7 +514,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 
 	// new math + poison wear off timer added by lord binary !
 
-	if ( pc->poisoned && (online(DEREF_P_CHAR(pc)) || pc->isNpc()) && !pc->isInvul() )
+	if ( pc->poisoned && (online(pc) || pc->isNpc()) && !pc->isInvul() )
 	{
 		if (pc->poisontime<=currenttime || (overflow))
 		{
@@ -602,7 +602,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 		} // end if poison-wear off-timer
 	} // end if poison-damage timer
 
-	if ( pc->poisoned && pc->poisonwearofftime<=currenttime && online(DEREF_P_CHAR(pc)) )
+	if ( pc->poisoned && pc->poisonwearofftime<=currenttime && online(pc) )
 	{
 		pc->poisoned = 0;
 		impowncreate(s,DEREF_P_CHAR(pc),1); // updating to blue stats-bar ...
@@ -976,7 +976,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	if(lighttime<=currenttime || (overflow))
 	{
 		doworldlight(); //Changes lighting, if it is currently time to.
-		for (i=0;i<now;i++) if (online(DEREF_P_CHAR(currchar[i]))) dolight(i,worldcurlevel); // bandwidth fix, LB
+		for (i=0;i<now;i++) if (online(currchar[i])) dolight(i,worldcurlevel); // bandwidth fix, LB
 		lighttime=currenttime+30*MY_CLOCKS_PER_SEC;
 	}
 	static unsigned int itemlooptime = 0;
@@ -1001,7 +1001,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	}
 	for(i=0;i<now;i++)
 	{
-		if (online(DEREF_P_CHAR(currchar[i])) && currchar[i]->account==acctno[i])
+		if (online(currchar[i]) && currchar[i]->account==acctno[i])
 		{
 
 			genericCheck(DEREF_P_CHAR(currchar[i]),currenttime);
@@ -1032,7 +1032,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 								if (chardist(DEREF_P_CHAR(currchar[i]), DEREF_P_CHAR(mapchar))<=24 && mapchar->isNpc()) //Morrolan tweak from 30 to 24 tiles
 									checkNPC(mapchar, currenttime);
 								else if (mapchar->isPlayer() &&
-									Accounts->GetInWorld(mapchar->account) == DEREF_P_CHAR(mapchar) && mapchar->logout>0 &&
+									Accounts->GetInWorld(mapchar->account) == mapchar->serial && mapchar->logout>0 &&
 									(mapchar->logout<=currenttime || (overflow)))
 								{										
 									Accounts->SetOffline(mapchar->account);

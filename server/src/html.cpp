@@ -118,7 +118,7 @@ void updatehtml()//HTML
 		else if(!(strcmp((char*)script1,"TIME"))) fprintf(html,"%s <BR>",(getRealTimeString()).c_str());
 		else if(!(strcmp((char*)script1,"NOW")))
 		{
-			if(online(DEREF_P_CHAR(currchar[n]))) //bugfix LB
+			if(online(currchar[n])) //bugfix LB
 			{
 				fprintf(html, currchar[n]->name);
 				n++;
@@ -129,7 +129,7 @@ void updatehtml()//HTML
 			a=0;
 			for (n=0;n<now;n++)
 			{ 
-				if (online(DEREF_P_CHAR(currchar[n]))) // bugfix, LB
+				if (online(currchar[n])) // bugfix, LB
 				{
 					a++;
 					fprintf(html,"%i) %s <BR>\n",a, currchar[n]->name); // bugfix lb

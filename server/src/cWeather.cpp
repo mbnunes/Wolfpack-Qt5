@@ -146,7 +146,7 @@ void cWeather::CTimer()
 	for(s=0;s<now_old;s++)
 	{	
 //		player_index=currchar[s];
-		if ( online( DEREF_P_CHAR(currchar[s]) ) )  
+		if ( online( currchar[s] ) )  
 		{		   
 		   r=currchar[s]->region;
 		   /*if(noweather[s])

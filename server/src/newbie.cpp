@@ -152,7 +152,7 @@ void newbieitems(UOXSOCKET s, CHARACTER c)
 					goldamount = str2num(script2);
 					pos = ftell(scpfile);
 					closescript();
-				    P_ITEM pi_n =Items->SpawnItem(s,DEREF_P_CHAR(pc),goldamount,"#",1,0x0E,0xED,0,0,1,0);
+				    P_ITEM pi_n =Items->SpawnItem(s, pc,goldamount,"#",1,0x0E,0xED,0,0,1,0);
 	                if(pi_n==NULL) return;
 					pi_n->priv |= 0x02; // Mark as a newbie item
 					strcpy((char*)script1, "DUMMY");

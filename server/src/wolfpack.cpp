@@ -317,19 +317,20 @@ unsigned int itemdist(CHARACTER a, P_ITEM pi)// calculates distance between item
 	return dist(chars[a].pos, pi->pos);
 }
 
-bool online(CHARACTER c) // Is the player owning the character c online
+bool online(P_CHAR pc) // Is the player owning the character c online
 {
 	int i;
 
-	int k=calcSocketFromChar(c); //LB crashfix
-	if (k==-1 || chars[c].isNpc()) 
+	UOXSOCKET k = calcSocketFromChar(pc); //LB crashfix
+	if (k == -1 || pc->isNpc()) 
 		return false;
-	if(c!=-1 && Accounts->GetInWorld(chars[c].account) == c) 
+	if(pc != NULL && Accounts->GetInWorld(pc->account) == pc->serial) 
 		return true;//Instalog
 	else
 	{
 		for (i=0;i<now;i++)
-			if ((DEREF_P_CHAR(currchar[i]) == c)&&(perm[i])) return true;
+			if ((currchar[i] == pc) && (perm[i])) 
+				return true;
 	}
 	return false;
 }
@@ -952,7 +953,7 @@ void showcname (int s, int i, char b) // Singleclick text for a character
 				sprintf((char*)temp, "[%x %x %x %x]",a1,a2,a3,a4);
 				itemmessage(s,(char*)temp, pc_i->serial);
 			}
-			if (!online(i)) sprintf((char*)temp, "%s (%s)",title[8].other, pc_i->name);
+			if (!online(pc_i)) sprintf((char*)temp, "%s (%s)",title[8].other, pc_i->name);
 			else strcpy((char*)temp,pc_i->name);
 			if (!strcmp(title[8].other,"")) temp[0] = 0;
 		}
@@ -1048,7 +1049,7 @@ void deathstuff(int i)
 
 			if(pc_t->isPlayer() && !pc_t->inGuardedArea())
 			{//AntiChrist
-				Karma(DEREF_P_CHAR(pc_t),DEREF_P_CHAR(pc_player),(0-(pc_player->karma)));
+				Karma(pc_t, pc_player, (0-(pc_player->karma)));
 				Fame(DEREF_P_CHAR(pc_t),pc_player->fame);
 				//murder count \/
 				if ((pc_player->isPlayer())&&(pc_t->isPlayer()))//Player vs Player
@@ -1246,7 +1247,7 @@ void deathstuff(int i)
 	if (pc_player->isPlayer())
 	{
 		strcpy((char*)temp,"a Death Shroud");
-		const P_ITEM pi_c = Items->SpawnItem(z, DEREF_P_CHAR(pc_player), 1, (char*)temp, 0, 0x20, 0x4E, 0, 0, 0, 0);
+		const P_ITEM pi_c = Items->SpawnItem(z, pc_player, 1, (char*)temp, 0, 0x20, 0x4E, 0, 0, 0, 0);
 		if(pi_c == NULL) return;
 		pc_player->robe = pi_c->serial; 
 		pi_c->SetContSerial(pc_player->serial);
@@ -1442,7 +1443,7 @@ void explodeitem(int s, P_ITEM pi)
 		{
 			if (pc->isInvul() || pc->npcaitype==17)		// don't affect vendors
 				continue;
-			if(pc->isGM() || (pc->isPlayer() && !online(c)))
+			if(pc->isGM() || (pc->isPlayer() && !online(pc)))
 				continue;
 			dx=abs(pc->pos.x-pi->pos.x);
 			dy=abs(pc->pos.y-pi->pos.y);
@@ -1877,7 +1878,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	if (validhair(buffer[s][0x52],buffer[s][0x53]))
 	{
-		const P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, buffer[s][0x52], buffer[s][0x53], buffer[s][0x54], buffer[s][0x55],0,0);
+		const P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, buffer[s][0x52], buffer[s][0x53], buffer[s][0x54], buffer[s][0x55],0,0);
 		if(pi == NULL) return;
 		if ((((pi->color1<<8)+pi->color2)<0x044E) ||
 			(((pi->color1<<8)+pi->color2)>0x04AD) )
@@ -1891,7 +1892,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	if ( (validbeard(buffer[s][0x56],buffer[s][0x57])) && (pc->id2==0x90) )
 	{
-		const P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, buffer[s][0x56], buffer[s][0x57], buffer[s][0x58], buffer[s][0x59],0,0);
+		const P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, buffer[s][0x56], buffer[s][0x57], buffer[s][0x58], buffer[s][0x59],0,0);
 		if(pi == NULL) return;//AntiChrist to preview crashes
 		if ((((pi->color1<<8)+pi->color2)<0x044E) ||
 			(((pi->color1<<8)+pi->color2)>0x04AD) )
@@ -1905,7 +1906,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	{	// just to limit the scope of pi
 	// - create the backpack
-	P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, 0x0E, 0x75, 0, 0,0,0);
+	P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, 0x0E, 0x75, 0, 0,0,0);
 	if (pi == NULL)
 		return;
 	pc->packitem = pi->serial;
@@ -1916,7 +1917,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	const P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x09,0x15,0,0,0,0);
+	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x09,0x15,0,0,0,0);
 	if(pi == NULL) return;//AntiChrist to preview crashes
 
 	switch (RandomNum(0, 1))
@@ -1955,7 +1956,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	const P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x09,0x15,0,0,0,0); // spawn pants
+	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x09,0x15,0,0,0,0); // spawn pants
 	if(pi == NULL) return;//AntiChrist to preview crashes
 	if (!(rand()%2))
 	{
@@ -1977,7 +1978,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	const P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x17,0x0F,0x02,0x87,0,0); // shoes
+	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x17,0x0F,0x02,0x87,0,0); // shoes
 	if(pi == NULL) return;//AntiChrist to preview crashes
 	pi->SetContSerial(pc->serial);
 	pi->layer=0x03;
@@ -1988,7 +1989,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	const P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x0F,0x51,0,0,0,0); // dagger
+	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x0F,0x51,0,0,0,0); // dagger
 	if(pi == NULL) return;
 	pi->SetContSerial(pc->serial);
 	pi->layer=0x01;
@@ -3718,8 +3719,9 @@ void npcsimpleattacktarget(int target2, int target)
 
 void openbank(int s, int i)
 {
-	int serhash,ci;
-	int serial=chars[i].serial;
+	P_CHAR pc_i = MAKE_CHAR_REF(i);
+	unsigned int ci;
+	SERIAL serial = pc_i->serial;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
 	for (ci=0;ci<vecOwn.size();ci++)
 	{
@@ -3751,11 +3753,11 @@ void openbank(int s, int i)
 	} // end of !=-1
 
 	sprintf((char*)temp, "%s's bank box.", chars[i].name);
-	const P_ITEM pic = Items->SpawnItem(s,i,1,(char*)temp,0,0x09,0xAB,0,0,0,0);
+	const P_ITEM pic = Items->SpawnItem(s, pc_i, 1, (char*)temp,0,0x09,0xAB,0,0,0,0);
 	if ( pic == NULL ) return;
 	pic->layer=0x1d;
-	pic->SetOwnSerial(chars[i].serial);
-	pic->SetContSerial(chars[i].serial);
+	pic->SetOwnSerial(pc_i->serial);
+	pic->SetContSerial(pc_i->serial);
 	pic->morex=1;
 	if(SrvParms->usespecialbank)//AntiChrist - Special Bank
 		pic->morey=123;//gold only bank
@@ -3808,7 +3810,7 @@ void openspecialbank(int s, int i)
 	} // end of !=-1
 
 	sprintf((char*)temp, "%s's items bank box.", pc->name);
-	const P_ITEM pic = Items->SpawnItem(s,DEREF_P_CHAR(pc),1,(char*)temp,0,0x09,0xAB,0,0,0,0);
+	const P_ITEM pic = Items->SpawnItem(s, pc,1,(char*)temp,0,0x09,0xAB,0,0,0,0);
 	if(pic == NULL) return;
 	pic->layer=0x1d;
 	pic->SetOwnSerial(pc->serial);
@@ -4023,7 +4025,7 @@ void playmonstersound(int monster, int id1, int id2, int sfx)
 
 void addgold(int s, int totgold)
 {
-	Items->SpawnItem(s, DEREF_P_CHAR(currchar[s]), totgold,"#",1,0x0E,0xED,0,0,1,1);
+	Items->SpawnItem(s, currchar[s], totgold,"#",1,0x0E,0xED,0,0,1,1);
 }
 
 void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
@@ -4049,22 +4051,22 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 	switch(pi->morey)
 	{
 	case 1: // Agility Potion
-		staticeffect(p, 0x37, 0x3a, 0, 15);
+		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x3a, 0, 15);
 		switch(pi->morez)
 		{
 		case 1:
-			tempeffect(DEREF_P_CHAR(currchar[s]), p, 6, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
+			tempeffect(currchar[s], pc_p, 6, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
 			sysmessage(s, "You feel more agile!");
 			break;
 		case 2:
-			tempeffect(DEREF_P_CHAR(currchar[s]), p, 6, 10+RandomNum(1,20), 0, 0, 120);
+			tempeffect(currchar[s], pc_p, 6, 10+RandomNum(1,20), 0, 0, 120);
 			sysmessage(s, "You feel much more agile!");
 			break;
 		default:
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 			return;
 		}
-		soundeffect2(p, 0x01, 0xE7);
+		soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xE7);
 		if (s!=-1) updatestats(pc_p, 2);
 		break;
 
@@ -4102,12 +4104,12 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			}
 			if (pc_p->poisoned) sysmessage(s,"The potion was not able to cure this poison."); else
 			{
-				staticeffect(p, 0x37, 0x3A, 0, 15);
-				soundeffect2(p, 0x01, 0xE0); //cure sound - SpaceDog
+				staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x3A, 0, 15);
+				soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xE0); //cure sound - SpaceDog
 				sysmessage(s,"The poison was cured.");
 			}
 		}
-		impowncreate(calcSocketFromChar(p), DEREF_P_CHAR(pc_p),1); //Lb, makes the green bar blue or the blue bar blue !
+		impowncreate(calcSocketFromChar(pc_p), DEREF_P_CHAR(pc_p),1); //Lb, makes the green bar blue or the blue bar blue !
 		break;
 
 	case 3: // Explosion Potion
@@ -4121,9 +4123,9 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 		addid3[s]=pi->ser3;
 		addid4[s]=pi->ser4;
 		sysmessage(s, "Now would be a good time to throw it!");
-		tempeffect(DEREF_P_CHAR(currchar[s]), DEREF_P_CHAR(currchar[s]), 16, 0, 1, 3);
-		tempeffect(DEREF_P_CHAR(currchar[s]), DEREF_P_CHAR(currchar[s]), 16, 0, 2, 2);
-		tempeffect(DEREF_P_CHAR(currchar[s]), DEREF_P_CHAR(currchar[s]), 16, 0, 3, 1);
+		tempeffect(currchar[s], currchar[s], 16, 0, 1, 3);
+		tempeffect(currchar[s], currchar[s], 16, 0, 2, 2);
+		tempeffect(currchar[s], currchar[s], 16, 0, 3, 1);
 		tempeffect2(DEREF_P_CHAR(currchar[s]), pi, 17, 0, 4, 0);
 		target(s,0,1,0,207,"*throw*");
 		return; // lb bugfix, break is wronh here because it would delete bottle
@@ -4148,20 +4150,20 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			return;
 		}
 		if (s!=-1) updatestats(pc_p, 0);
-		staticeffect(p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
-		soundeffect2(p, 0x01, 0xF2); //Healing Sound - SpaceDog
+		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
+		soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xF2); //Healing Sound - SpaceDog
 		break;
 	case 5: // Night Sight Potion
-		staticeffect(p, 0x37, 0x6A, 0x09, 0x06);
-		tempeffect(DEREF_P_CHAR(currchar[s]), p, 2, 0, 0, 0,(720*secondsperuominute*MY_CLOCKS_PER_SEC)); // should last for 12 UO-hours
-		soundeffect2(p, 0x01, 0xE3);
+		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06);
+		tempeffect(currchar[s], pc_p, 2, 0, 0, 0,(720*secondsperuominute*MY_CLOCKS_PER_SEC)); // should last for 12 UO-hours
+		soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xE3);
 		break;
 	case 6: // Poison Potion
 		if(pc_p->poisoned < pi->morez) pc_p->poisoned=pi->morez;
 		if(pi->morez>4) pi->morez=4;
 		pc_p->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // lb, poison wear off timer setting
-		impowncreate(calcSocketFromChar(p),p,1); //Lb, sends the green bar !
-		soundeffect2(p, 0x02, 0x46); //poison sound - SpaceDog
+		impowncreate(calcSocketFromChar(pc_p),DEREF_P_CHAR(pc_p),1); //Lb, sends the green bar !
+		soundeffect2(DEREF_P_CHAR(pc_p), 0x02, 0x46); //poison sound - SpaceDog
 		sysmessage(s, "You poisoned yourself! *sigh*"); //message -SpaceDog
 		break;
 	case 7: // Refresh Potion
@@ -4180,26 +4182,26 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			return;
 		}
 		if (s!=-1) updatestats(pc_p, 2);
-		staticeffect(p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
-		soundeffect2(p, 0x01, 0xF2); //Healing Sound
+		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
+		soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xF2); //Healing Sound
 		break;
 	case 8: // Strength Potion
-		staticeffect(p, 0x37, 0x3a, 0, 15);
+		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x3a, 0, 15);
 		switch(pi->morez)
 		{
 		case 1:
-			tempeffect(DEREF_P_CHAR(currchar[s]), p, 8, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
+			tempeffect(currchar[s], pc_p, 8, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
 			sysmessage(s, "You feel more strong!");
 			break;
 		case 2:
-			tempeffect(DEREF_P_CHAR(currchar[s]), p, 8, 10+RandomNum(1,20), 0, 0, 120);
+			tempeffect(currchar[s], pc_p, 8, 10+RandomNum(1,20), 0, 0, 120);
 			sysmessage(s, "You feel much more strong!");
 			break;
 		default:
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 			return;
 		}
-		soundeffect2(p, 0x01, 0xEE);
+		soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xEE);
 		break;
 
 	case 9: // Mana Potion
@@ -4220,8 +4222,8 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			return;
 		}
 		if (s!=-1) updatestats(pc_p, 1);
-		staticeffect(p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
-		soundeffect2(p, 0x01, 0xE7); //agility sound - SpaceDog
+		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
+		soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xE7); //agility sound - SpaceDog
 		break;
 
 	case 10: //LB's LSD potion, 5'th november 1999
@@ -4232,17 +4234,18 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			sysmessage(s,"no,no,no,cant you get enough ?");
 			return;
 		}
-		tempeffect(p, p, 20, 60+RandomNum(1,120), 0, 0); // trigger effect
-		staticeffect(p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
-		soundeffect5(calcSocketFromChar(p), 0x00, 0xF8); // lsd sound :)
+		tempeffect(pc_p, pc_p, 20, 60+RandomNum(1,120), 0, 0); // trigger effect
+		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
+		soundeffect5(calcSocketFromChar(pc_p), 0x00, 0xF8); // lsd sound :)
 		break;
 
 	default:
 		clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 		return;
 	}
-	soundeffect2(p, 0x00, 0x30);
-	if (pc_p->id1>=1 && pc_p->id2>90 && pc_p->onhorse==0) npcaction(p, 0x22);
+	soundeffect2(DEREF_P_CHAR(pc_p), 0x00, 0x30);
+	if (pc_p->id1>=1 && pc_p->id2>90 && pc_p->onhorse==0) 
+		npcaction(DEREF_P_CHAR(pc_p), 0x22);
 	//empty bottle after drinking - Tauriel
 	if (pi->amount!=1)
 	{
@@ -4993,11 +4996,11 @@ void bgsound(P_CHAR pc)
 	}
 }
 
-void Karma(int nCharID,int nKilledID, int nKarma)
+void Karma(P_CHAR pc_toChange,P_CHAR pc_Killed, int nKarma)
 {	// nEffect = 1 positive karma effect
 	int nCurKarma=0, nChange=0, nEffect=0;
-	P_CHAR pc_toChange = MAKE_CHAR_REF(nCharID);
-	P_CHAR pc_Killed = MAKE_CHAR_REF(nKilledID);
+//	P_CHAR pc_toChange = MAKE_CHAR_REF(nCharID);
+//	P_CHAR pc_Killed = MAKE_CHAR_REF(nKilledID);
 
 	nCurKarma = pc_toChange->karma;
 
@@ -5018,7 +5021,7 @@ void Karma(int nCharID,int nKilledID, int nKarma)
 	//the nKilledID==-1 check and the chars[nKilledID] check were in the same line
 	//That may cause some crash with some compilator caus there's no a defined
 	//order in executing these if checks
-	if((nCurKarma>nKarma)&&(nKilledID==-1))
+	if((nCurKarma>nKarma)&&(pc_Killed == NULL))
 	{
 		nChange=((nCurKarma-nKarma)/50);
 		pc_toChange->karma=(nCurKarma-nChange);
@@ -5036,52 +5039,52 @@ void Karma(int nCharID,int nKilledID, int nKarma)
 	if(nChange<=25)
 		if(nEffect)
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have gained a little karma.");
 			return;
 		}
 		else
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have lost a little karma.");
 			return;
 		}
 	if(nChange<=75)
 		if(nEffect)
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have gained some karma.");
 			return;
 		}
 		else
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have lost some karma.");
 			return;
 		}
 	if(nChange<=100)
 		if(nEffect)
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have gained alot of karma.");
 			return;
 		}
 		else
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have lost alot of karma.");
 			return;
 		}
 	if(nChange>100)
 		if(nEffect)
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have gained a huge amount of karma.");
 			return;
 		}
 		else
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have lost a huge amount of karma.");
 			return;
 		}

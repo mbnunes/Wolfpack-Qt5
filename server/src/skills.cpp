@@ -690,7 +690,7 @@ void cSkills::Hide(int s)
 		// 
 		staticeffect(DEREF_P_CHAR(pc_currchar), 0x37, 0x09, 0x09, 0x19); 
 		soundeffect2(DEREF_P_CHAR(pc_currchar), 0x02, 0x08); 
-		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 33, 1, 0, 0); 
+		tempeffect(pc_currchar, pc_currchar, 33, 1, 0, 0); 
 		// immediate hiding overwrites the effect. 
 		// so lets hide after 4 secs. 
 		// 1 sec works fine now so changed to this. 
@@ -891,10 +891,10 @@ void cSkills::DoPotion(int s, int type, int sub, P_ITEM mortar)
 	if (success)
 	{
 		P_CHAR pc_currchar = currchar[s];
-		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 0, 0);	// make grinding sound for a while
-		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 3, 0);
-		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 6, 0);
-		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 9, 0);
+		tempeffect(pc_currchar, pc_currchar, 9, 0, 0, 0);	// make grinding sound for a while
+		tempeffect(pc_currchar, pc_currchar, 9, 0, 3, 0);
+		tempeffect(pc_currchar, pc_currchar, 9, 0, 6, 0);
+		tempeffect(pc_currchar, pc_currchar, 9, 0, 9, 0);
 		tempeffect2(DEREF_P_CHAR(pc_currchar), mortar, 10, type, sub, 0);	// this will indirectly call CreatePotion()
 	}
 }
@@ -1032,7 +1032,7 @@ void cSkills::PotionToBottle(CHARACTER s, P_ITEM pi_mortar)
 		return;
 	}
 	
-	P_ITEM pi_potion = Items->SpawnItem(calcSocketFromChar(s),s,1,"#",0, id1, id2,0,0,1,0);
+	P_ITEM pi_potion = Items->SpawnItem(calcSocketFromChar(DEREF_P_CHAR(pc)), pc, 1,"#",0, id1, id2,0,0,1,0);
 	if (pi_potion == NULL) 
 		return;
 	
@@ -1106,7 +1106,7 @@ char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 			if(Skills->AdvanceSkill(DEREF_P_CHAR(pc), sk, skillused))
 			{
 				Skills->updateSkillLevel(DEREF_P_CHAR(pc), sk); 
-				if(pc->isPlayer() && online(DEREF_P_CHAR(pc))) updateskill(s, sk);
+				if(pc->isPlayer() && online(pc)) updateskill(s, sk);
 			}
 		}
 	}
@@ -1697,7 +1697,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 			d = chardist(DEREF_P_CHAR(mapchar), DEREF_P_CHAR(currchar[s]));
 			
 			id = mapchar->id();
-			if((d<=distance)&&(!mapchar->dead)&&(id>=id1&&id<=id2)&&calcSocketFromChar(DEREF_P_CHAR(mapchar))!=s&&(online(DEREF_P_CHAR(mapchar))||mapchar->isNpc()))
+			if((d<=distance)&&(!mapchar->dead)&&(id>=id1&&id<=id2)&&calcSocketFromChar(mapchar) != s&&(online(mapchar)||mapchar->isNpc()))
 			{
 				pc_currchar->trackingtargets[MaxTrackingTargets] = mapchar->serial;
 				MaxTrackingTargets++;
@@ -2292,7 +2292,7 @@ void CollectAmmo(int s, int a, int b)
 	
 	if (a)
 	{
-		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(currchar[s]),a,"#",1,0x0F,0x3F,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s, currchar[s],a,"#",1,0x0F,0x3F,0,0,1,1);
 		if(pi == NULL) return;
 		pi->att=0;
 		sysmessage(s, "You collect the arrows.");
@@ -2300,7 +2300,7 @@ void CollectAmmo(int s, int a, int b)
 	
 	if (b)
 	{
-		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(currchar[s]),b,"#",1,'\x1B','\xFB',0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s, currchar[s], b,"#",1,'\x1B','\xFB',0,0,1,1);
 		if(pi == NULL) return;
 		pi->att=0;
 		sysmessage(s, "You collect the bolts.");
@@ -2330,14 +2330,14 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 	{
 		if(pButte->more1>0)
 		{
-			P_ITEM pi = Items->SpawnItem(s1,DEREF_P_CHAR(pc_currchar),pButte->more1/2,"#",1,0x0F,0x3F,0,0,1,0);
+			P_ITEM pi = Items->SpawnItem(s1, pc_currchar,pButte->more1/2,"#",1,0x0F,0x3F,0,0,1,0);
 			if(pi == NULL) return;
 			RefreshItem(pi);
 		}
 		
 		if(pButte->more2>0)
 		{
-			P_ITEM pi = Items->SpawnItem(s1,DEREF_P_CHAR(pc_currchar),pButte->more2/2,"#",1,0x1B,0xFB,0,0,1,0);
+			P_ITEM pi = Items->SpawnItem(s1,pc_currchar,pButte->more2/2,"#",1,0x1B,0xFB,0,0,1,0);
 			if(pi == NULL) return;
 			RefreshItem(pi);
 		}
