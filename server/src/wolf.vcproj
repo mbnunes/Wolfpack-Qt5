@@ -48,8 +48,8 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386 /FIXED:NO"
-				AdditionalDependencies="ws2_32.lib ZThread-2.2.10.lib qt-mt311.lib libmysql.lib flatstore\debug\flatstore.lib"
-				ShowProgress="2"
+				AdditionalDependencies="ws2_32.lib ZThread.lib qt-mt.lib libmysql.lib flatstore\debug\flatstore.lib"
+				ShowProgress="0"
 				OutputFile="C:\Wolfpack\Wolfpack.exe"
 				Version="12.9"
 				LinkIncremental="2"
@@ -228,9 +228,6 @@
 				RelativePath=".\house.cpp">
 			</File>
 			<File
-				RelativePath=".\html.cpp">
-			</File>
-			<File
 				RelativePath=".\iserialization.cpp">
 			</File>
 			<File
@@ -352,9 +349,6 @@
 			</File>
 			<File
 				RelativePath=".\walking.cpp">
-			</File>
-			<File
-				RelativePath=".\weight.cpp">
 			</File>
 			<File
 				RelativePath=".\wolfpack.cpp">
@@ -518,6 +512,24 @@
 			</File>
 			<File
 				RelativePath=".\corpse.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing corpse.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing corpse.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\customtags.h">
@@ -575,6 +587,24 @@
 			</File>
 			<File
 				RelativePath=".\house.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing house.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing house.h..."
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\inlines.h">
@@ -1046,6 +1076,9 @@
 				RelativePath=".\python\item.cpp">
 			</File>
 			<File
+				RelativePath="python\multi.cpp">
+			</File>
+			<File
 				RelativePath=".\python\pyaccount.cpp">
 			</File>
 			<File
@@ -1095,7 +1128,13 @@
 				RelativePath=".\moc_commands.cpp">
 			</File>
 			<File
+				RelativePath="moc_corpse.cpp">
+			</File>
+			<File
 				RelativePath=".\moc_gumps.cpp">
+			</File>
+			<File
+				RelativePath="moc_house.cpp">
 			</File>
 			<File
 				RelativePath=".\moc_iserialization.cpp">

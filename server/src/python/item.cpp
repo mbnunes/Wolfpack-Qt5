@@ -28,6 +28,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
+#include "python.h"
+
 #include "../items.h"
 #include "../tilecache.h"
 #include "../prototypes.h"

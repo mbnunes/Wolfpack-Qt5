@@ -28,6 +28,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
+#include "Python.h"
+
 // Wolfpack Includes
 #include "pfactory.h"
 #include "world.h"

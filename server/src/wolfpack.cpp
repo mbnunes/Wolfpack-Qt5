@@ -29,6 +29,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
+#include "Python.h"
+
 // Platform Includes
 #ifndef __unix__
 #include <conio.h>
