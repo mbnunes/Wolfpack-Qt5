@@ -626,6 +626,7 @@
 	<item id="e5c">
 		<id>0xe5c</id>
 		<nodecay />
+		<lightsource>0x2</lightsource>
 		<category>Decoration\Glowing Runes\Rune 1</category>
 	</item>
 
@@ -641,7 +642,8 @@
 
 	<item id="e5f">
 		<id>0xe5f</id>
-		nodecay />
+		<nodecay />
+		<lightsource>0x2</lightsource>
 		<category>Decoration\Glowing Runes\Rune 2</category>
 	</item>
 
@@ -658,6 +660,7 @@
 	<item id="e62">
 		<id>0xe62</id>
 		<nodecay />
+		<lightsource>0x2</lightsource>
 		<category>Decoration\Glowing Runes\Rune 3</category>
 	</item>
 
@@ -674,6 +677,7 @@
 	<item id="e65">
 		<id>0xe65</id>
 		<nodecay />
+		<lightsource>0x2</lightsource>
 		<category>Decoration\Glowing Runes\Rune 4</category>
 	</item>
 
@@ -690,6 +694,7 @@
 	<item id="e68">
 		<id>0xe68</id>
 		<nodecay />
+		<lightsource>0x2</lightsource>
 		<category>Decoration\Glowing Runes\Rune 5</category>
 	</item>
 
