@@ -3855,7 +3855,7 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	SET_INT_PROPERTY( "unicode", unicode_ )
 	if( name == "account" )
 	{
-		account_ = Accounts::instance()->getRecord( value.toString() );
+		setAccount( Accounts::instance()->getRecord( value.toString() ) );
 		npc_ = ( account() == 0 );
 		return 0;
 	}

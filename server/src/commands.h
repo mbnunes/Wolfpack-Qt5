@@ -79,6 +79,9 @@ public:
 		return &instance_;
 	}
 
+	QMap< QString, cAcl* >::const_iterator aclbegin() const { return _acls.begin(); }
+	QMap< QString, cAcl* >::const_iterator aclend() const { return _acls.end(); }
+
 	// Privlevel System
 	void loadACLs( void );
 	cAcl *getACL( const QString& );

@@ -122,8 +122,6 @@ class cAccounts
 private:
 	QMap<QString, AccountRecord*> accounts;
 	typedef QMap<QString, AccountRecord*>::iterator iterator;
-	typedef QMap<QString, AccountRecord*>::const_iterator const_iterator;
-
 public:
 	enum enErrorCode {LoginNotFound, BadPassword, Banned, Wipped, AlreadyInUse, NoError};
 
@@ -140,6 +138,10 @@ public:
 	void load();
 	void reload();
 	void clear();
+
+	typedef QMap<QString, AccountRecord*>::const_iterator const_iterator;
+	const_iterator begin() const { return accounts.begin(); }
+	const_iterator end() const { return accounts.end(); }
 };
 
 // inline members

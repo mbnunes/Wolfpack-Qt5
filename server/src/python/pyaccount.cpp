@@ -34,6 +34,7 @@
 #include "Python.h"
 #include "utilities.h"
 #include "../accounts.h"
+#include "../chars.h"
 #include "qvaluevector.h"
 
 /*!
@@ -63,6 +64,91 @@ static PyTypeObject wpAccountType = {
     (setattrfunc)wpAccount_setAttr,
 };
 
+PyObject *wpAccount_delete( wpAccount *self, PyObject *args )
+{
+	if( self->account == 0 )
+		return PyFalse;
+
+	QValueVector< cChar* > chars = self->account->caracterList();
+	for( int i = 0; i < chars.size(); ++i )
+		cCharStuff::DeleteChar( chars[i] );
+
+	self->account->remove();
+	self->account = 0;
+
+	return PyTrue;
+}
+
+PyObject *wpAccount_block( wpAccount *self, PyObject *args )
+{
+	if( self->account == 0 )
+		return PyFalse;
+
+	self->account->setBlocked( true );
+	return PyTrue;
+}
+
+PyObject *wpAccount_unblock( wpAccount *self, PyObject *args )
+{
+	if( self->account == 0 )
+		return PyFalse;
+
+	self->account->setBlocked( false );
+	return PyTrue;
+}
+
+PyObject *wpAccount_addcharacter( wpAccount *self, PyObject *args )
+{
+	if( !self->account )
+		return PyFalse;
+
+	if( !checkArgChar( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	P_CHAR pChar = getArgChar( 0 );
+
+	if( pChar )
+	{
+		pChar->setAccount( self->account );
+	}
+
+	return PyTrue;
+}
+
+PyObject *wpAccount_removecharacter( wpAccount *self, PyObject *args )
+{
+	if( !self->account )
+		return PyFalse;
+
+	if( !checkArgChar( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	P_CHAR pChar = getArgChar( 0 );
+
+	if( pChar )
+	{
+		pChar->setAccount( 0 );
+	}
+
+	return PyTrue;
+}
+
+static PyMethodDef wpAccountMethods[] = 
+{
+	{ "delete", (getattrofunc)wpAccount_delete, METH_VARARGS, "Delete this account." },
+	{ "block", (getattrofunc)wpAccount_block, METH_VARARGS, "Shortcut for blocking the account." },
+	{ "unblock", (getattrofunc)wpAccount_unblock, METH_VARARGS, "Shortcut for unblocking the account." },
+	{ "addcharacter", (getattrofunc)wpAccount_addcharacter, METH_VARARGS, "Adds a character to this account." },
+	{ "removecharacter", (getattrofunc)wpAccount_removecharacter, METH_VARARGS, "Removes a character from this account." },
+    { NULL, NULL, 0, NULL }
+};
+
 PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 {
 	if( !strcmp( name, "acl" ) )
@@ -81,25 +167,21 @@ PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 			PyList_Append( list, PyGetCharObject( characters[i] ) );
 		return list;
 	}
-
-	return 0;
+	else if( !strcmp( name, "lastlogin" ) )
+		return PyString_FromString( self->account->lastLogin().toString().latin1() );
+	else
+		return Py_FindMethod( wpAccountMethods, (PyObject*)self, name );
 }
 
 int wpAccount_setAttr( wpAccount *self, char *name, PyObject *value )
 {
-/*	// I only have integer params in mind
-	if( !PyInt_Check( value ) )
-		return 1;
+	if( !strcmp( name, "acl" ) && PyString_Check( value ) )
+		self->account->setAcl( PyString_AsString( value ) );
+	else if( !strcmp( name, "password" ) && PyString_Check( value ) )
+		self->account->setPassword( PyString_AsString( value ) );
+	else if( !strcmp( name, "flags" ) && PyInt_Check( value ) )
+		self->account->setFlags( PyInt_AsLong( value ) );
 
-	if( !strcmp( name, "x" ) )
-		self->coord.x = PyInt_AsLong( value );
-	else if( !strcmp( name, "y" ) )
-		self->coord.y = PyInt_AsLong( value );
-	else if( !strcmp( name, "z" ) )
-		self->coord.z = PyInt_AsLong( value );
-	else if( !strcmp( name, "map" ) )
-		self->coord.map = PyInt_AsLong( value );
-*/
 	return 0;
 }
 

@@ -41,6 +41,7 @@
 #include "../maps.h"
 #include "../tilecache.h"
 #include "../accounts.h"
+#include "../commands.h"
 #include "../wpscriptmanager.h"
 #include "../wpdefmanager.h"
 #include "../wpdefaultscript.h"
@@ -691,12 +692,108 @@ PyObject *wpAccountsFind( PyObject* self, PyObject* args )
 }
 
 /*!
+	Gets a list of Account names.
+ */
+PyObject *wpAccountsList( PyObject* self, PyObject* args )
+{
+	PyObject *list = PyList_New( 0 );
+
+	cAccounts::const_iterator it = Accounts::instance()->begin();
+	while( it != Accounts::instance()->end() )
+	{
+		QString login = (*it)->login();
+		if( login != QString::null )
+			PyList_Append( list, PyString_FromString( login.latin1() ) );
+		++it;
+	}
+
+	return list;
+}
+
+/*!
+	Gets a list of ACL names.
+ */
+PyObject *wpAccountsAcls( PyObject* self, PyObject* args )
+{
+	PyObject *list = PyList_New( 0 );
+
+	QMap< QString, cAcl* >::const_iterator it = cCommands::instance()->aclbegin();
+	while( it != cCommands::instance()->aclend() )
+	{
+		QString name = it.key();
+		if( name != QString::null )
+			PyList_Append( list, PyString_FromString( name.latin1() ) );
+		++it;
+	}
+
+	return list;
+}
+
+/*!
+	Returns an ACL as a dictionary.
+ */
+PyObject *wpAccountsAcl( PyObject* self, PyObject* args )
+{
+	if( !checkArgStr( 0 ) )
+		return Py_None;
+
+	cAcl *acl = cCommands::instance()->getACL( getArgStr( 0 ) );
+	if( !acl )
+		return Py_None;
+
+	PyObject *dict = PyDict_New();
+	
+	QMap< QString, QMap< QString, bool > >::iterator git;
+	for( git = acl->groups.begin(); git != acl->groups.end(); ++git )
+	{
+		PyObject *dict2 = PyDict_New();
+
+		for( QMap< QString, bool >::iterator it = (*git).begin(); it != (*git).end(); ++it )
+			PyDict_SetItem( dict2, PyString_FromString( it.key().latin1() ), it.data() ? PyTrue : PyFalse );
+
+		PyDict_SetItem( dict, PyString_FromString( git.key().latin1() ), dict2 );
+	}
+
+	return dict;
+}
+
+/*!
+	Creates an account (username + password is enough)
+ */
+PyObject *wpAccountsAdd( PyObject* self, PyObject* args )
+{
+	if( !checkArgStr( 0 ) && !checkArgStr( 1 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	QString login = getArgStr( 0 );
+	QString password = getArgStr( 1 );
+
+	if( login.length() < 1 && password.length() < 1 )
+		return PyFalse;
+
+	AccountRecord *account = Accounts::instance()->getRecord( login );
+
+	if( account )
+		return PyFalse;
+
+	account = Accounts::instance()->createAccount( login, password );
+	return PyGetAccountObject( account );
+}
+
+/*!
 	wolfpack.accounts
 	account related functions
 */
 static PyMethodDef wpAccounts[] = 
 {
     { "find",		wpAccountsFind, METH_VARARGS, "Finds an account object." },
+	{ "list",		wpAccountsList, METH_VARARGS, "Gets a list of Account names." },
+	{ "acls",		wpAccountsAcls,	METH_VARARGS, "Gets a list of valid ACL names." },
+	{ "acl",		wpAccountsAcl,	METH_VARARGS, "Returns an acl as a double dictionary." },
+	{ "add",		wpAccountsAdd,	METH_VARARGS, "Creates an account." },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 
