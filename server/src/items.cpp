@@ -2528,9 +2528,9 @@ void cItem::removeFromCont( bool handleWeight )
 	{
 		P_CHAR pChar = dynamic_cast< P_CHAR >( container_ );
 		if( pChar )
-			pChar->removeItem( this, handleWeight );
+			pChar->removeItem( (cChar::enLayer)layer_, handleWeight );
 	}
-	else if( container->isItem() )
+	else if( container_->isItem() )
 	{
 		P_ITEM pCont = dynamic_cast< P_ITEM >( pCont );
 		if( pCont )
