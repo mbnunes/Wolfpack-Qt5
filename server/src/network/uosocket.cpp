@@ -58,19 +58,44 @@
 
 using namespace std;
 
+
+/*****************************************************************************
+  cUOSocket member functions
+ *****************************************************************************/
+
+/*!
+  \class cUOSocket uosocket.h
+
+  \brief The cUOSocket class provides an abstraction of Ultima Online network 
+  connected sockets. It works with Application level packets provided by \sa cAsyncNetIO.
+
+  \ingroup network
+  \ingroup mainclass
+*/
+
+/*!
+  Constructs a cUOSocket attached to \a sDevice system socket.
+  Ownership of \a sDevice will be transfered to cUOSocket, that is,
+  cUOSocket will call delete on the given pointer when it's destructed.
+*/
 cUOSocket::cUOSocket( QSocketDevice *sDevice ): 
 		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
 		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) 
 {
 }
 
+/*!
+  Destructs the cUOSocket instance.
+*/
 cUOSocket::~cUOSocket(void)
 {
 	delete _socket;
 	delete targetRequest;
 }
 
-// Send a packet to our ioHandle
+/*!
+  Sends \a packet to client.
+*/
 void cUOSocket::send( cUOPacket *packet )
 {
 	// Don't send when we're already disconnected
@@ -80,7 +105,9 @@ void cUOSocket::send( cUOPacket *packet )
 	cNetwork::instance()->netIo()->sendPacket( _socket, packet, ( _state != LoggingIn ) );
 }
 
-// Tries to recieve and process a packet
+/*!
+  Tries to receive and dispatch a packet.
+*/
 void cUOSocket::recieve()
 {
 	cUOPacket *packet = cNetwork::instance()->netIo()->recvPacket( _socket );
@@ -164,7 +191,10 @@ void cUOSocket::recieve()
 	delete packet;
 }
 
-// Packet Handler
+/*!
+  This method handles cUORxLoginRequest packet types.
+  \sa cUORxLoginRequest
+*/
 void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
 {
 	// If we dont authenticate disconnect us
@@ -186,6 +216,10 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
 	delete shardList;
 }
 
+/*!
+  This method handles cUORxHardwareInfo packet types.
+  \sa cUORxHardwareInfo
+*/
 void cUOSocket::handleHardwareInfo( cUORxHardwareInfo *packet )
 {
 	// Do something with the retrieved hardware information here
@@ -194,11 +228,19 @@ void cUOSocket::handleHardwareInfo( cUORxHardwareInfo *packet )
 	//cout << hardwareMsg.latin1() << endl;
 }
 
+/*!
+  This method provides a way of interrupting the client's connection
+  to this server.
+*/
 void cUOSocket::disconnect( void )
 {
 	_socket->close();
 }
 
+/*!
+  This method handles cUORxSelectShard packet types.
+  \sa cUORxSelectShard
+*/
 void cUOSocket::handleSelectShard( cUORxSelectShard *packet )
 {
 	// Relay him - save an auth-id so we recog. him when he relays locally
@@ -220,6 +262,10 @@ void cUOSocket::handleSelectShard( cUORxSelectShard *packet )
 	delete relay;
 }
 
+/*!
+  This method handles cUORxServerAttach packet types.
+  \sa cUORxServerAttach
+*/
 void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 {
 	// Re-Authenticate the user !!
@@ -229,6 +275,11 @@ void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 		sendCharList();
 }
 
+/*!
+  This method sends the list of Characters this account have
+  during the login process. 
+  \sa cUOTxCharTownList
+*/
 void cUOSocket::sendCharList()
 {
 	cUOTxCharTownList *charList = new cUOTxCharTownList;
@@ -249,13 +300,22 @@ void cUOSocket::sendCharList()
 	delete charList;
 }
 
+/*!
+  This method handles cUORxDeleteCharacter packet types.
+  It will also resend the updated character list
+  \sa cUORxDeleteCharacter
+  \todo Implement delete code to cUOSocket::handleDeleteCharacter
+*/
 void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 {
 	// TODO: Implement code here
 	updateCharList();
 }
 
-// When a user selects a character to play this is the handler
+/*!
+  This method handles cUORxPlayCharacter packet types.
+  \sa cUORxPlayCharacter
+*/
 void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 {
 	// Check the character the user wants to play
@@ -361,6 +421,10 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 // Notes from Lord Binaries packet documentation:
 #define cancelCreate( message ) cUOTxDenyLogin denyLogin; denyLogin.setReason( DL_BADCOMMUNICATION ); send( &denyLogin ); sysMessage( message ); disconnect(); return;
 
+/*!
+  This method handles cUORxCreateChar packet types.
+  \sa cUORxCreateChar
+*/
 void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 {
 	// Several security checks
@@ -532,6 +596,11 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
     playChar( pChar );
 }
 
+/*!
+  This method handles cUORxHardwareInfo packet types creating the
+  required newbie items.
+  \sa cUORxHardwareInfo
+*/
 void cUOSocket::giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill ) 
 {
 	QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill = 0xFF ) ? "default" : QString::number( skill ) );
@@ -586,6 +655,10 @@ void cUOSocket::giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill )
 	}
 }
 
+/*!
+  This method sends a system \a message at the botton of the screen
+  \sa cUOTxUnicodeSpeech
+*/
 void cUOSocket::sysMessage( const QString &message, Q_UINT16 color )
 {
 	// Color: 0x0037
@@ -614,6 +687,10 @@ void cUOSocket::updateCharList()
 }
 
 // Sends either a stat or a skill packet
+/*!
+  This method handles cUORxQuery packet types.
+  \sa cUORxQuery
+*/
 void cUOSocket::handleQuery( cUORxQuery *packet )
 {
 	P_CHAR pChar = FindCharBySerial( packet->serial() );
@@ -660,6 +737,10 @@ void cUOSocket::handleQuery( cUORxQuery *packet )
 	}
 }
 
+/*!
+  This method handles cUORxUpdateRange packet types.
+  \sa cUORxUpdateRange
+*/
 void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 {
 	if( packet->range() > 20 )
@@ -669,6 +750,10 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 		_player->VisRange = packet->range();
 }
 
+/*!
+  This method handles cUORxRequestLook packet types.
+  \sa cUORxRequestLook
+*/
 void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
 {
 	// Check if it's a singleclick on items or chars
@@ -691,6 +776,10 @@ void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
 	}
 }
 
+/*!
+  This method handles cUORxMultiPorpuse packet types.
+  \sa cUORxMultiPorpuse
+*/
 void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 {
 	cUOPacket *mPacket = packet->packet();
@@ -707,6 +796,10 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 }
 
 // Show a context menu
+/*!
+  This method handles cUORxContextMenuRequest packet types.
+  \sa cUORxContextMenuRequest
+*/
 void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 {
 	// The dumps below didn't have ANY effect so it's removed for now
@@ -732,6 +825,10 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 
 }
 
+/*!
+  This method prints \a message on top of \a object using the given \a color and \a speechType
+  \sa cUObject, cUOTxUnicodeSpeech, cUOTxUnicodeSpeech::eSpeechType
+*/
 void cUOSocket::showSpeech( cUObject *object, const QString &message, Q_UINT16 color, Q_UINT16 font, cUOTxUnicodeSpeech::eSpeechType speechType )
 {
 	cUOTxUnicodeSpeech speech;
@@ -744,6 +841,10 @@ void cUOSocket::showSpeech( cUObject *object, const QString &message, Q_UINT16 c
 	send( &speech );
 }
 
+/*!
+  This method sends an moviment acknowleadge allowing the client to move.
+  \sa cUOTxAcceptMove.
+*/
 void cUOSocket::allowMove( Q_UINT8 sequence )
 {
 	cUOTxAcceptMove acceptMove;
@@ -753,6 +854,10 @@ void cUOSocket::allowMove( Q_UINT8 sequence )
 	_walkSequence = ( sequence < 255 ) ? sequence : 0;
 }
 
+/*!
+  This method informs the client that the requested movement is not permited.
+  \sa cUOTxDenyMove.
+*/
 void cUOSocket::denyMove( Q_UINT8 sequence )
 {
 	cUOTxDenyMove deny;
@@ -761,6 +866,10 @@ void cUOSocket::denyMove( Q_UINT8 sequence )
 	send( &deny );
 }
 
+/*!
+  This method handles cUORxWalkRequest packet types.
+  \sa cUORxWalkRequest
+*/
 void cUOSocket::handleWalkRequest( cUORxWalkRequest* packet )
 {
 	Movement->Walking( _player, packet->direction(), packet->key());
@@ -782,6 +891,10 @@ void cUOSocket::sendChar( P_CHAR pChar )
 	send( &drawChar );
 }
 
+/*!
+  This method handles cUORxSetLanguage packet types.
+  \sa cUORxSetLanguage
+*/
 void cUOSocket::handleSetLanguage( cUORxSetLanguage* packet )
 {
 	_lang = packet->language();
@@ -823,6 +936,10 @@ void cUOSocket::setPlayer( P_CHAR pChar )
 	_state = InGame;
 }
 
+/*!
+  This method handles cUORxSpeechRequest packet types.
+  \sa cUORxSpeechRequest
+*/
 void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 {
 	if( !_player )
@@ -845,6 +962,10 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 		Speech->talking( _player, speech, color, type );
 }
 	
+/*!
+  This method handles cUORxDoubleClick packet types.
+  \sa cUORxDoubleClick
+*/
 void cUOSocket::handleDoubleClick( cUORxDoubleClick* packet )
 {
 	if ( isCharSerial(packet->serial() ) )
@@ -855,6 +976,10 @@ void cUOSocket::handleDoubleClick( cUORxDoubleClick* packet )
 	}
 }
 
+/*!
+  This method handles cUORxGetTip packet types.
+  \sa cUORxGetTip
+*/
 void cUOSocket::handleGetTip( cUORxGetTip* packet )
 {
 	if ( packet->isTip() )
@@ -872,6 +997,10 @@ void cUOSocket::sendPaperdoll( P_CHAR pChar, bool detailed )
 	send( &oPaperdoll );
 }
 
+/*!
+  This method handles cUORxChangeWarmode packet types.
+  \sa cUORxChangeWarmode
+*/
 void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 {
 	_player->targ = INVALID_SERIAL;
@@ -1097,6 +1226,10 @@ void cUOSocket::attachTarget( cTargetRequest *request )
 	send( &target );
 }
 
+/*!
+  This method handles cUORxTarget packet types.
+  \sa cUORxTarget
+*/
 void cUOSocket::handleTarget( cUORxTarget *packet )
 {
 	if( !_player )

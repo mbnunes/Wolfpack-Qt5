@@ -49,6 +49,11 @@
 
   \ingroup network
   \ingroup mainclass
+
+  cUOPacket is the base class for all incomming and outgoing application level
+  packets from Ultima Online. It provides methods for accessing basic type fields
+  inside the package given an start offset.
+
 */
 
 /*!
@@ -356,7 +361,8 @@ void cUOPacket::print( ostream* s )
 /*!
   This is a debug method. It will dump a numerical hexa and ascii representation of the packet
   at \a data as well as a right table of offsets and return that as a QString.
-  This method behaves just like \sa print.
+  This method behaves just like print method.
+  \sa print()
 */
 QString cUOPacket::dump( const QByteArray &data )
 {

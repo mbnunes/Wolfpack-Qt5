@@ -264,10 +264,24 @@ bool cAsyncNetIOPrivate::consumeReadBuf( Q_ULONG nbytes, char *sink )
     return true;
 }
 
-//
-// cAsyncNetIO
-// =========================================================================================
+/*****************************************************************************
+  cAsyncNetIO member functions
+ *****************************************************************************/
 
+/*!
+  \class cAsyncNetIO asyncnetio.h
+
+  \brief The cAsyncNetIO class asyncronous low-level network handling, buffering,
+  compressing, slicing and building higher level application packets.
+
+  \ingroup network
+  \ingroup mainclass
+  \sa cUOPacket
+*/
+
+/*!
+  Registers a \a socket for asyncronous services
+*/
 bool cAsyncNetIO::registerSocket( QSocketDevice* socket )
 {
 	mapsMutex.acquire();
@@ -278,6 +292,10 @@ bool cAsyncNetIO::registerSocket( QSocketDevice* socket )
 	return true;
 }
 
+/*!
+  Unregisters a \a socket for asyncronous services.
+  The \a socket parameter is not modified in any way.
+*/
 bool cAsyncNetIO::unregisterSocket( QSocketDevice* socket )
 {
 	mapsMutex.acquire();
@@ -378,12 +396,22 @@ void cAsyncNetIO::run() throw()
 	}
 }
 
+/*!
+  Informs the amount of data valiable into internal buffers
+*/
 Q_ULONG cAsyncNetIO::bytesAvailable( QSocketDevice* socket ) const
 {
 	const_iterator it = buffers.find( socket );
 	return it.data()->rsize;
 }
 
+/*!
+  \internal
+  This method will check the buffer for the next packet ID and try
+  to build it if it have already been fully received. If the packet
+  have arrived incomplete it will leave the data in buffer.
+  Built packets are queued for core's retrieve.
+*/
 void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 {
 	bool keepExtracting = d->rsize > 1;
@@ -447,6 +475,12 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 	}
 }
 
+/*!
+  Tries to receive a cUOPacket from \a socket if one is avaliable. 
+  If no packet is avaliable at this time, the result will be 0.
+  Packets retrieved from this method should be freed by
+  the caller.
+*/
 cUOPacket* cAsyncNetIO::recvPacket( QSocketDevice* socket )
 {
 	iterator it = buffers.find( socket );
@@ -456,6 +490,12 @@ cUOPacket* cAsyncNetIO::recvPacket( QSocketDevice* socket )
 		return 0;
 }
 
+/*!
+  Queues \packet for sending to \socket. UO Huffman compression will
+  be applied if \compress is true.
+  Notice \packet ownership is transfered to cAsyncNetIO and it's memory
+  will be freed once the packet have been transmited.
+*/
 void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet, bool compress )
 {
 	iterator it = buffers.find( socket );

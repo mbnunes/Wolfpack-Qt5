@@ -80,11 +80,18 @@ void cListener::run() throw()
 	}
 }
 
+/*!
+  Retrieves stabilished connections from queue.
+*/
 QSocketDevice* cListener::getNewConnection()
 {
 	return readyConnections.next();
 }
 
+/*!
+  Queries if there are any stabilished connections for retrieve
+  \sa getNewConnection().
+*/
 bool cListener::haveNewConnection()
 {
 	return !readyConnections.empty();
