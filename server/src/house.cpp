@@ -288,7 +288,7 @@ void BuildHouse(UOXSOCKET s, int i)
 		{
 			teleport(pc_currchar);
 			cRegion::RegionIterator4Items rii(pMulti->pos);
-			for(rii.Begin(); rii.GetData() != rii.End(); rii++)
+			for(rii.Begin(); !rii.atEnd(); rii++)
 			{
 				P_ITEM sii = rii.GetData();
 				senditem(s, sii);
@@ -428,7 +428,7 @@ void BuildHouse(UOXSOCKET s, int i)
 			}
 		}
 		cRegion::RegionIterator4Items ri(pMulti->pos);
-		for(ri.Begin();ri.GetData() != ri.End(); ri++)
+		for(ri.Begin(); !ri.atEnd(); ri++)
 		{
 			P_ITEM si = ri.GetData();
 			sendinrange(si);
@@ -497,7 +497,7 @@ void RemoveHouse(P_ITEM pHouse)
 			Npcs->DeleteChar(pc);
 	}
 	cRegion::RegionIterator4Items rii(pHouse->pos);
-	for(rii.Begin(); rii.GetData() != rii.End(); ri++)
+	for(rii.Begin(); !rii.atEnd(); ri++)
 	{
 		P_ITEM pi = rii.GetData();
 		if(pi->multis == pHouse->serial && pi->type != 202)

@@ -797,8 +797,6 @@ void cMovement::GetBlockingMap(SI16 x, SI16 y, unitile_st *xyblock, int &xycount
 	}
 }
 
-
-//##ModelId=3C5D92AD0389
 void cMovement::GetBlockingStatics(SI16 x, SI16 y, unitile_st *xyblock, int &xycount)
 {
 	MapStaticIterator msi(x, y);
@@ -821,12 +819,11 @@ void cMovement::GetBlockingStatics(SI16 x, SI16 y, unitile_st *xyblock, int &xyc
 	}
 }
 
-//##ModelId=3C5D92AD03BB
 void cMovement::GetBlockingDynamics(SI16 x, SI16 y, unitile_st *xyblock, int &xycount)
 {
 	Coord_cl position(x, y, 0);
 	cRegion::RegionIterator4Items ri(position);
-	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_ITEM mapitem = ri.GetData();
 		if (mapitem != NULL)
@@ -890,7 +887,6 @@ void cMovement::GetBlockingDynamics(SI16 x, SI16 y, unitile_st *xyblock, int &xy
 } //- end of itemcount for loop
 
 // checkout everything we might need to take into account and fill it into the xyblock array
-//##ModelId=3C5D92AD0325
 void cMovement::FillXYBlockStuff(short int x, short int y, unitile_st *xyblock, int &xycount)
 {
 
@@ -903,7 +899,6 @@ void cMovement::FillXYBlockStuff(short int x, short int y, unitile_st *xyblock, 
 
 // so we are going to move, lets update the regions
 // FYI, Items equal to or greater than 1000000 are considered characters...
-//##ModelId=3C5D92AE02D6
 void cMovement::HandleRegionStuffAfterMove(P_CHAR pc, short int oldx, short int oldy)
 {
 	// save where we were moving to
@@ -1130,7 +1125,6 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc,P_CHAR us, int dir, short int o
 }
 */
 // see if we should mention that we shove something out of the way
-//##ModelId=3C5D92AE0350
 void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy)
 {
 	if (socket!=INVALID_UOXSOCKET)
@@ -1209,7 +1203,6 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 
 // Umm... we need to split this up...
 
-//##ModelId=3C5D92AE03A0
 void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 {
 	// apparently we don't want NPCs to be affected by any of this stuff,
@@ -1360,7 +1353,6 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 	}
 }
 
-//##ModelId=3C5D92AE03C7
 void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy)
 // PARAM WARNING: unreferenced paramater socket
 {
@@ -1376,7 +1368,6 @@ void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, short int oldx, s
 
 
 /********* start of LB's no rain & snow in buildings stuff ***********/
-//##ModelId=3C5D92AF0039
 void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 {
 	if (pc->isPlayer() && online(pc)) // check for being in buildings (for weather) only for PC's
@@ -1409,7 +1400,6 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 	}
 }
 
-//##ModelId=3C5D92AF0057
 void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
 // PARAM WARNING: unreferenced paramater socket
 {
@@ -1432,7 +1422,6 @@ void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
 }
 
 // return whether someone is a GM Body
-//##ModelId=3C5D92AF0075
 bool cMovement::IsGMBody(P_CHAR pc)
 {
 	if (
@@ -1445,8 +1434,6 @@ bool cMovement::IsGMBody(P_CHAR pc)
     return false;
 }
 
-
-//##ModelId=3C5D92AD0072
 void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
 {
     for (int i=0;i<now;i++)
@@ -1502,8 +1489,6 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
     }
 }
 
-
-//##ModelId=3C5D92AE0132
 void cMovement::NpcWalk(P_CHAR pc_i, int j, int type)   //type is npcwalk mode (0 for normal, 1 for box, 2 for circle)
 {
 	// sometimes the NPC movement code comes up with -1, for example, if we are following someone
@@ -1557,7 +1542,6 @@ void cMovement::NpcWalk(P_CHAR pc_i, int j, int type)   //type is npcwalk mode (
 // Revision Date : 2000.09.15
 // Purpose       : Return the new y from given dir
 
-//##ModelId=3C5D92AE018C
 unsigned short cMovement::GetYfromDir(int dir, unsigned short y)
 {
 
@@ -1583,7 +1567,6 @@ unsigned short cMovement::GetYfromDir(int dir, unsigned short y)
 // Revision Date : 2000.09.15
 // Purpose       : Return the new x from given dir
 
-//##ModelId=3C5D92AE015A
 unsigned short cMovement::GetXfromDir(int dir, unsigned short x)
 {
 
@@ -1622,8 +1605,6 @@ unsigned short cMovement::GetXfromDir(int dir, unsigned short x)
 // in chars_st... all we need is to hold the directions, not the x and y... Hopefully this will
 // save memory.
 
-
-//##ModelId=3C5D92AE01AA
 void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 {
 
@@ -1687,9 +1668,7 @@ printf("Character stuck!\n");
 
 }
 
-
 //NEW NPCMOVEMENT ZIPPY CODE STARTS HERE -- AntiChrist meging codes --
-//##ModelId=3C5D92AD00EA
 void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 {
 //    register int k;
@@ -1844,7 +1823,6 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 // in the calculation. This calculation does not take into account any blocking objects.
 // It will be used as a heuristic in determining priority of movement.
 
-//##ModelId=3C5D92AE0010
 short int cMovement::Distance(short int sx, short int sy, short int dx, short int dy)
 {
 	return ( ( abs(sx-dx) < abs(sy-dy) ) ? abs(sy-dy) : abs(sx-dx) );

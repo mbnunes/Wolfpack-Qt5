@@ -191,7 +191,7 @@ the line of sight.
 	
 	// - This needs to use a pointer/array to cut down on walking lag...
 	cRegion::RegionIterator4Items ri(source);
-	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_ITEM mapitem = ri.GetData();
 		if (mapitem != NULL)

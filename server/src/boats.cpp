@@ -95,7 +95,7 @@ P_ITEM findmulti(Coord_cl pos) //Sortta like getboat() only more general... use 
 
 	cRegion::RegionIterator4Items ri(pos);
 	
-	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_ITEM mapitem = ri.GetData();
 		if (mapitem != NULL)

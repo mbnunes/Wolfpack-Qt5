@@ -1552,7 +1552,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							P_ITEM pi_c = NULL;
 							
 							cRegion::RegionIterator4Items ri(pc_ts->pos);
-							for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+							for (ri.Begin(); !ri.atEnd(); ri++)
 							{
 								P_ITEM mapitem = ri.GetData();
 								if (mapitem != NULL)

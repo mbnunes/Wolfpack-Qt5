@@ -95,15 +95,17 @@ public:
 	protected:
 		P_ITEM currentItem;
 		UI32 cell;
+		UI32 endCell;
 		UI32 currentCell;
 		UI32 currentIndex;
+		Coord_cl position;
 		vector<SERIAL> vecEntries;
 
-		P_ITEM NextCell(void);
+		bool NextCell(void);
 	public:
 		RegionIterator4Items(const Coord_cl&); 
-		P_ITEM Begin(void);
-		P_ITEM End(void);
+		void Begin(void);
+		bool atEnd(void);
 		P_ITEM GetData(void);
 		// Operators
 		RegionIterator4Items& operator++(int);

@@ -780,7 +780,7 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, P_CHAR pc, char timech
 	if (j)
 	{
 		cRegion::RegionIterator4Items ri(pc->pos);
-		for ( ri.Begin(); ri.GetData() != ri.End(); ri++)
+		for ( ri.Begin(); !ri.atEnd(); ri++)
 		{
 			P_ITEM mapitem = ri.GetData();
 			if (mapitem != NULL)
