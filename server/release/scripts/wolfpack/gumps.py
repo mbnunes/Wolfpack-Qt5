@@ -51,6 +51,12 @@ class cGump:
 		self.layout.append( data )
 
 	def addRawText( self, data ):
+		# Find the text
+		for i in range( 0, len( self.texts ) -1 ):
+			if self.texts[i] == data:
+				return i
+
+		# Insert the text
 		self.texts.append( data )
 		return len( self.texts ) - 1
 
