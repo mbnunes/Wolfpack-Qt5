@@ -8,7 +8,8 @@ from wolfpack.consts import HEALING, ANATOMY, VETERINARY, ANIMALLORE
 def onUse( char, item ):
 	# Bandages have to be in backpack
 	if item.getoutmostchar() != char:
-		char.socket.clilocmessage(500295)
+		char.socket.clilocmessage(500294)
+		# you cannot use that
 		return 1
 
 	# Already Bandaging ??
@@ -19,6 +20,7 @@ def onUse( char, item ):
 	# Display Target
 	if item.id == 0xe21 or item.id == 0xee9:
 		char.socket.clilocmessage(500948)
+		#who will you use on
 		char.socket.attachtarget('bandages.bandage_response', [item.serial])
 
 	elif item.id == 0xe20 or item.id == 0xe22:
@@ -34,7 +36,7 @@ def wash_response( char, args, target ):
 		return
 
 	if (target.item and target.item.getoutmostchar() and target.item.getoutmostchar() != char) or not char.canreach(target.pos, 5):
-		char.socket.sysmessage("You can't reach that.")
+		char.socket.clilocmessage(500312)
 		return
 
 	# Did we target something wet?
@@ -66,16 +68,19 @@ def validCorpseTarget( char, target ):
 		return 0
 
 	if not char.gm and not char.canreach( target, 2 ):
-		char.socket.clilocmessage(500313)
+		char.socket.clilocmessage(500312)
+		# cannot reach
 		return 0
 
 	if target.id != 0x2006:
-		char.socket.clilocmessage(500971)
+		char.socket.clilocmessage(500970)
+		#bandages cannot be used on that
 		return 0
 
 	# Check Owner
 	if not target.owner or not target.owner.dead:
-		char.socket.clilocmessage(500971)
+		char.socket.clilocmessage(500970)
+		#bandages cannot be used on that
 		return 0
 
 	return 1
@@ -91,16 +96,19 @@ def validCharTarget( char, target ):
 		return 0
 
 	# Already at full health
-	if not target.poison and target.health >= target.maxhitpoints:
+	if not target.poison > -1 and target.health >= target.maxhitpoints:
 		if target == char:
-			char.socket.clilocmessage(1061289)
+			char.socket.clilocmessage(1061288)
 		else:
-			char.socket.clilocmessage(500956)
+			char.socket.clilocmessage(500955)
 		return 0
 
 	return 1
 
 def bandage_response( char, args, target ):
+	# char is healer
+	# target is pointer to healing target
+
 	corpse = None
 
 	if target.item:
@@ -117,15 +125,15 @@ def bandage_response( char, args, target ):
 		return
 
 	if corpse and ( char.skill[ HEALING ] < 800 or char.skill[ ANATOMY ] < 800 ):
-		char.socket.clilocmessage(1002086)
+		char.socket.sysmessage("1")
 		return
 
 	if target.char and target.char.dead and ( char.skill[ HEALING ] < 800 or char.skill[ ANATOMY ] < 800 ):
-		char.socket.clilocmessage(1002086)
+		char.socket.sysmessage("You are not skilled enough for that.")
 		return
 
-	if target.char and target.char.poison and ( char.skill[ HEALING ] < 600 or char.skill[ ANATOMY ] < 600 ):
-		char.socket.clilocmessage(1002086)
+	if target.char and target.poison > -1 and ( char.skill[ HEALING ] < 600 or char.skill[ ANATOMY ] < 600 ):
+		char.socket.sysmessage("You are not skilled enough for that.")
 		return
 
 	# Consume Bandages
@@ -146,7 +154,7 @@ def bandage_response( char, args, target ):
 	success = 0
 
 	# SkillCheck (0% to 80%)
-	if not corpse and not target.char.dead and not target.char.poison:
+	if not corpse and not target.char.dead and not target.char.poison > -1:
 		success = char.checkskill( HEALING, 0, 800 )
 	elif corpse or target.char.dead:
 		reschance = int( ( char.skill[ HEALING ] + char.skill[ ANATOMY ] ) * 0.17 )
@@ -168,16 +176,22 @@ def bandage_response( char, args, target ):
 	else:
 		if target.char.dead:
 			target.char.socket.sysmessage( char.name + ' begins applying a bandage to you.' )
-			char.addtimer( random.randint( 2500, 5000 ), 'bandages.bandage_timer', [ 2, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
+			char.addtimer( random.randint( 5000, 10000 ), 'bandages.bandage_timer', [ 2, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
 		elif char == target.char:
 			char.socket.sysmessage( 'You start applying bandages on yourself' )
-			char.addtimer( random.randint( 1500, 2500 ), 'bandages.bandage_timer', [ 0, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
+			if target.char.poison > -1:
+				char.addtimer( random.randint( 4000, 7000 ), 'bandages.bandage_timer', [ 0, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
+			else:
+				char.addtimer( random.randint( 3000, 6000 ), 'bandages.bandage_timer', [ 0, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
 		else:
 			char.socket.sysmessage( 'You start applying bandages on %s' % target.char.name )
 			if target.char.player:
 				target.char.socket.sysmessage( char.name + ' begins applying a bandage to you.' )
 			char.turnto( target.char )
-			char.addtimer( random.randint( 1500, 2500 ), 'bandages.bandage_timer', [ 0, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
+			if target.char.poison > -1:
+				char.addtimer( random.randint( 3000, 4000 ), 'bandages.bandage_timer', [ 0, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
+			else:
+				char.addtimer( random.randint( 1500, 3000 ), 'bandages.bandage_timer', [ 0, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
 
 	char.socket.settag( 'using_bandages', 1 )
 
@@ -199,7 +213,7 @@ def bandage_timer( char, args ):
 			return
 
 		if not success:
-			char.socket.clilocmessage(500967)
+			char.socket.clilocmessage(500966)
 			return
 
 		if target.owner:
@@ -218,7 +232,7 @@ def bandage_timer( char, args ):
 
 			target.delete()
 
-			char.socket.clilocmessage(500966)
+			char.socket.clilocmessage(500965)
 		else:
 			char.socket.sysmessage( 'You can''t help them anymore' )
 
@@ -232,29 +246,29 @@ def bandage_timer( char, args ):
 		
 		if target.dead:
 			if not success:
-				char.socket.clilocmessage(500967)
+				char.socket.clilocmessage(500966)
 				return
 
 			target.resurrect()
 			target.update()
 
-			char.socket.clilocmessage(500966)
-		elif target.poison:
+			char.socket.clilocmessage(500965)
+		elif target.poison > -1:
 			if not success:
-				char.socket.sysmessage( 'You fail to cure the target.' )
+				#char.socket.sysmessage( 'You fail to cure the target.' )
 				char.socket.clilocmessage(1010060)
 				return
 
 			target.poison=-1
 			target.update()
-
-			char.socket.sysmessage( 'You successfully cured ' + target.name )
+			if target <> char:
+				target.socket.clilocmessage(1010059)
+				target.soundeffect( 0x57,0 )
+			char.socket.clilocmessage(1010058)
+			char.soundeffect( 0x57,0 )
 		else:
 			if not success:
-				if target != char:
-					char.socket.clilocmessage(500969)
-				else:
-					char.socket.clilocmessage(500969)
+				char.socket.clilocmessage(500968)
 				return
 
 			# Human target ?
@@ -273,11 +287,10 @@ def bandage_timer( char, args ):
 
 			target.health = min( target.maxhitpoints, target.health + amount )
 			target.updatehealth()
-
-			if char == target:
-				char.socket.clilocmessage(500970)
-			else:
-				char.socket.clilocmessage(500970)
+			char.soundeffect( 0x57 )
+			if target <> char:
+				target.soundeffect( 0x57 )
+			char.socket.clilocmessage(500969)
 
 	# Create bloody bandages
 	# This is target independent
