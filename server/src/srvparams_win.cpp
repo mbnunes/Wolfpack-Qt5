@@ -167,11 +167,10 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 										( part1 == 127 ) || //this one is class A too.
 										( part1 == 10 ) || 
 										( ( part1 == 192 ) && ( part2 == 168 ) ) || 
-										( ( part1 == 172 ) && ( part2 == 16 ) ) 
+										( ( part1 == 172 ) && ( part2 >= 16 ) && ( part2 <= 31 ) )  ||
+										( ( part1 == 169 ) && ( part2 == 254 ) ) // DHCP Space Stuff
 										)
 									{
-										server.ip = ip;
-										inetIp = ip;
 										continue;
 									}
 
@@ -184,6 +183,10 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 						}
 						else if( inetIp )
 							server.sIP = inetIp;
+
+						// Fall back to localhost
+						if( !server.sIP )
+							server.sIP = 0x7F000001;
 					}
 					serverList_.push_back(server);
 				}
