@@ -320,9 +320,6 @@ void cUObject::processNode( const QDomElement &Tag )
 			else
 				this->tags.set( tkey, cVariant( tvalue ) );
 		}
-
-		if( !tags.get( tkey ).toString().isNull() )
-			clConsole.send( tags.get( tkey ).toString() );
 	}
 }
 
