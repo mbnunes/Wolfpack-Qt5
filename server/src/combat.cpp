@@ -944,13 +944,16 @@ int cCombat::CalcAtt(P_CHAR pc_p) // Calculate total attack powerer
 		pi = FindItemBySerial(vecContainer[ci]);
 		if( pi->layer() == 1 || pi->layer() == 2 )
 		{
-			if (pi->lodamage == pi->hidamage) total+=pi->lodamage;
-			else if ((pi->lodamage>0)&&(pi->hidamage>0))
+			if (pi->lodamage() == pi->hidamage()) 
+				total += pi->lodamage();
+			else if ((pi->lodamage()>0)&&(pi->hidamage()>0))
 			{
-				if (pi->hidamage-pi->lodamage!=0) total+=(rand()%(pi->hidamage-pi->lodamage))+(pi->lodamage); 
-				else total+=pi->lodamage;
+				if (pi->hidamage()-pi->lodamage()!=0) 
+					total += (rand()%(pi->hidamage()-pi->lodamage()))+(pi->lodamage());
+				else total+=pi->lodamage();
 			}
-			else if ((pi->lodamage==0)&&(pi->hidamage==0)) total+=pi->att;
+			else if ((pi->lodamage()==0)&&(pi->hidamage()==0)) 
+				total += pi->att;
 		}
 	}
 	if (total<1) total=1;
@@ -1304,7 +1307,7 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 		pi = FindItemBySerial(vecContainer[ci]);
 		if ( ( ( pi->layer() == 1 && pi->type() != 9 ) || (pi->layer() == 2 ) ) )
 		{
-			if( pi->offspell() && ( pi->att || pi->hidamage ) && pi->type() == 15 )
+			if( pi->offspell() && ( pi->att || pi->hidamage() ) && pi->type() == 15 )
 			{
 				switch( pi->offspell() )
 				{

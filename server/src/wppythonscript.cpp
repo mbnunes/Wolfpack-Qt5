@@ -788,8 +788,8 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "dye", Item->dye )
 	else getIntProperty( "corpse", Item->corpse )
 	else getIntProperty( "defense", Item->def )
-	else getIntProperty( "lodamage", Item->lodamage )
-	else getIntProperty( "hidamage", Item->hidamage )
+	else getIntProperty( "lodamage", Item->lodamage() )
+	else getIntProperty( "hidamage", Item->hidamage() )
 	else getIntProperty( "health", Item->hp )
 	else getIntProperty( "maxhealth", Item->maxhp )
 	else getIntProperty( "strength", Item->st )
@@ -893,8 +893,6 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else setIntProperty( "dye", Item->dye )
 	else setIntProperty( "corpse", Item->corpse )
 	else setIntProperty( "defense", Item->def )
-	else setIntProperty( "lodamage", Item->lodamage )
-	else setIntProperty( "hidamage", Item->hidamage )
 	else setIntProperty( "health", Item->hp )
 	else setIntProperty( "maxhealth", Item->maxhp )
 	else setIntProperty( "strength", Item->st )
@@ -906,6 +904,12 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 
 	else if( !strcmp( name, "speed" ) )
 		self->Item->setSpeed( PyInt_AS_LONG( value ) );
+
+	else if( !strcmp( name, "lodamage" ) )
+		self->Item->setLodamage( PyInt_AS_LONG( value ) );
+
+	else if( !strcmp( name, "hidamage" ) )
+		self->Item->setHidamage( PyInt_AS_LONG( value ) );
 
 	else setIntProperty( "smelt", Item->smelt )
 

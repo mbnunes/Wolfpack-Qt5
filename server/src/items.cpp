@@ -96,8 +96,8 @@ cItem::cItem( cItem &src )
 	this->carve = src.carve;
 	this->att = src.att;
 	this->def = src.def;
-	this->lodamage=src.lodamage;
-	this->hidamage=src.hidamage;
+	this->lodamage_=src.lodamage_;
+	this->hidamage_=src.hidamage_;
 	this->racehate=src.racehate;
 	this->smelt=src.smelt;
 	this->hp=src.hp;
@@ -462,8 +462,8 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("corpse",		corpse);
 		archive.read("att",			att);
 		archive.read("def",			def);
-		archive.read("hidamage",	hidamage);
-		archive.read("lodamage",	lodamage);
+		archive.read("hidamage",	hidamage_);
+		archive.read("lodamage",	lodamage_);
 		archive.read("racehate",	racehate);
 		archive.read("st",			st);
 		archive.read("time_unused",	time_unused);
@@ -532,8 +532,8 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("corpse",		corpse);
 		archive.write("att",		att);
 		archive.write("def",		def);
-		archive.write("hidamage",	hidamage);
-		archive.write("lodamage",	lodamage);
+		archive.write("hidamage",	hidamage_);
+		archive.write("lodamage",	lodamage_);
 		archive.write("racehate",	racehate);
 		archive.write("st",			st);
 		archive.write("time_unused",time_unused);
@@ -719,8 +719,8 @@ void cItem::Init(bool mkser)
 	this->carve=-1;//AntiChrist-for new carving system
 	this->att=0; // Item attack
 	this->def=0; // Item defense
-	this->lodamage=0; //Minimum Damage weapon inflicts
-	this->hidamage=0; //Maximum damage weapon inflicts
+	this->lodamage_=0; //Minimum Damage weapon inflicts
+	this->hidamage_=0; //Maximum damage weapon inflicts
 	this->racehate=-1; //race hating weapon -Fraz-
 	this->smelt=0; // for smelting items
 	this->hp=0; //Number of hit points an item has.
@@ -923,7 +923,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 				case 'H':
 				case 'h':
 					if (!(strcmp("HIDAMAGE", (char*)script1)))
-						pi->hidamage = str2num(script2);
+						pi->setHidamage( str2num( script2 ) );
 					else if (!(strcmp("HP", (char*)script1)))
 						pi->hp = str2num(script2);
 					break;
@@ -958,7 +958,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					if (!strcmp("LAYER", (char*)script1) && (so==-1))
 						pi->setLayer( str2num(script2) );
 					else if (!strcmp("LODAMAGE", (char*)script1))
-						pi->lodamage = str2num(script2);
+						pi->setLodamage( str2num( script2 ) );
 					break;
 					
 				case 'M':
@@ -1447,7 +1447,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 				case 'h':
 					if (!(strcmp("GOOD",(char*)script1))) pi->good=str2num(script2); // Added by Magius(CHE)
 					else if (!(strcmp("HP", (char*)script1))) pi->hp=str2num(script2);
-					else if (!(strcmp("HIDAMAGE", (char*)script1))) pi->hidamage=str2num(script2);
+					else if (!(strcmp("HIDAMAGE", (char*)script1))) pi->setHidamage( str2num( script2 ) );
 				break;
 				
 				case 'I':
@@ -1458,7 +1458,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 					else if (!(strcmp("INTADD", (char*)script1))) pi->in2=str2num(script2);
 					else if (!(strcmp("ITEMHAND",(char*)script1))) pi->setItemhand( str2num(script2) );
 					else if (!(strcmp("LAYER",(char*)script1))) pi->setLayer( str2num(script2) );
-					else if (!(strcmp("LODAMAGE", (char*)script1))) pi->lodamage=str2num(script2);
+					else if (!(strcmp("LODAMAGE", (char*)script1))) pi->setLodamage( str2num( script2 ) );
 				break;
 
 				case 'M':
@@ -1983,14 +1983,14 @@ void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 		else if( TagName == "attack" )
 		{
 			if( Tag.attributes().contains( "min" ) )
-				Item->lodamage = Tag.attributeNode( "min" ).nodeValue().toInt();
+				Item->setLodamage( Tag.attributeNode( "min" ).nodeValue().toInt() );
 
 			if( Tag.attributes().contains( "max" ) )
-				Item->hidamage = Tag.attributeNode( "max" ).nodeValue().toInt();
+				Item->setHidamage( Tag.attributeNode( "max" ).nodeValue().toInt() );
 
 			// Better...
-			if( Item->lodamage > Item->hidamage )
-				Item->hidamage = Item->lodamage;
+			if( Item->lodamage() > Item->hidamage() )
+				Item->setHidamage( Item->lodamage() );
 		}
 
 		// <defense>10</defense>

@@ -53,10 +53,10 @@ private:
 	SI08 layer_;
 	UI08 itemhand_;
 	QString murderer_;
-
+	SI16 lodamage_; 
+	SI16 hidamage_; 
 	UI16 type_;
 	UI16 type2_;
-
 	UI08 offspell_; // Whats that for ?!
 	SI16 speed_;
 
@@ -76,7 +76,9 @@ public:
 	UI08			offspell()	const { return offspell_; };
 	bool			secured()	const { return priv&0x08; };
 	SI16			speed()		const { return speed_; }; // Weapon speed
-
+	SI16			lodamage()	const { return lodamage_; }; // Minimum damage weapon inflicts
+	SI16			hidamage()	const { return hidamage_; }; // Maximum damage weapon inflicts
+	
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
 	void	setColor( UI16 nValue ) { color_ = nValue; };
@@ -93,6 +95,8 @@ public:
 	void	setSecured( bool nValue ) { ( nValue ) ? priv &= 0x08 : priv |= 0xF7; };
 	void	setSpeed( SI16 nValue ) { speed_ = nValue; };
 	void	setContSerial( UI32 nValue ); // Defined in items.cpp
+	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; };
+	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
@@ -125,8 +129,6 @@ public:
 	unsigned char corpse; // Is item a corpse
 	unsigned int att; // Item attack
 	unsigned int def; // Item defense
-	int lodamage; //Minimum Damage weapon inflicts
-	int hidamage; //Maximum damage weapon inflicts
 	int racehate; //Race # that weapon does x2 damage to -Fraz-
 	signed short hp; //Number of hit points an item has.
 	signed short maxhp; // Max number of hit points an item can have.

@@ -143,8 +143,8 @@ void cSkills::ApplyRank( int s, P_ITEM pi, int rank )
 	{
 		pi->rank=rank;
 		// Variables to change: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
-		if (pi->lodamage>0) pi->lodamage=(rank*pi->lodamage)/10;
-		if (pi->hidamage>0) pi->hidamage=(rank*pi->hidamage)/10;
+		if (pi->lodamage()>0) pi->setLodamage((rank*pi->lodamage())/10);
+		if (pi->hidamage()>0) pi->setHidamage((rank*pi->hidamage())/10);
 		if (pi->att>0) pi->att=(rank*pi->att)/10;
 		if (pi->def>0) pi->def=(rank*pi->def)/10;
 		if (pi->hp>0) pi->hp=(rank*pi->hp)/10;
@@ -432,8 +432,8 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 					pi->maxhp = pi->hp;
 					pi->def += pi->def / modifier;
 					pi->att += pi->att / modifier;
-					pi->lodamage += pi->lodamage / modifier;
-					pi->hidamage += pi->hidamage / modifier;
+					pi->setLodamage( pi->lodamage() + ( pi->lodamage() / modifier ) );
+					pi->setHidamage( pi->hidamage() + ( pi->hidamage() / modifier ) );
 				}
 			}
 		}
@@ -2031,7 +2031,7 @@ void TellScroll( char *menu_name, int s, long snum )
 		
 		Skills->MakeMenuTarget(s,snum,INSCRIPTION); //put it in your pack
 	}
-	else if ((pi->att>0)||(pi->def>0)||(pi->hidamage)) //or is it an item?
+	else if ((pi->att>0)||(pi->def>0)||(pi->hidamage())) //or is it an item?
 	{
 		part=0;
 		switch(cir)
@@ -2117,7 +2117,7 @@ int cSkills::Inscribe(int s,long snum)
 
 	P_ITEM pi = FindItemBySerPtr(buffer[s]+7);		// Find what they clicked on
 	if (pi == NULL || !((pi->id()==0x0E34)||  //its a scroll
-		(pi->att>0 || pi->def>0 || pi->hidamage>0)))	// its something else
+		(pi->att>0 || pi->def>0 || pi->hidamage()>0)))	// its something else
 	{
 		sysmessage(s,"You could not possibly engrave on that!");
 		currchar[s]->lastTarget = INVALID_SERIAL;

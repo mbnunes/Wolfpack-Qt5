@@ -325,8 +325,8 @@ void cGump::Input(int s)
 		case 14: 	k = str2num( text );	pj->pileable = k;	break;	// Pileable
 		case 15:	k = str2num( text );	pj->dye = k;		break;	// Dye
 		case 16:	k = str2num( text );	pj->corpse = k;		break;	// Corpse
-		case 17:	k = str2num( text );	pj->lodamage = k;	break;	// LoDamage
-		case 18:	k = str2num( text );	pj->hidamage = k;	break;	// HiDamage
+		case 17:	k = str2num( text );	pj->setLodamage(k); break;	// LoDamage
+		case 18:	k = str2num( text );	pj->setHidamage(k);	break;	// HiDamage
 		case 19:	k = str2num( text );	pj->def = k;		break;	// Def
 		case 20:	k = str2num( text );	pj->magic = k;		break;	// Magic
 		case 21:	k = str2num( text );	pj->visible = k;	break;	// Visible

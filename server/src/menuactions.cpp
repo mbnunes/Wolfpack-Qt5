@@ -83,11 +83,11 @@ void applyRank( UOXSOCKET Socket, P_ITEM Item, UI08 Rank )
 	QString Message;
 
 	// Variables to change: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
-	if( Item->lodamage > 0 ) 
-		Item->lodamage = ( Rank * Item->lodamage ) / 7;
+	if( Item->lodamage() > 0 ) 
+		Item->setLodamage( ( Rank * Item->lodamage() ) / 7 );
 
-	if( Item->hidamage > 0 ) 
-		Item->hidamage = ( Rank * Item->hidamage ) / 7;
+	if( Item->hidamage() > 0 ) 
+		Item->setHidamage( ( Rank * Item->hidamage() ) / 7 );
 
 	if( Item->att > 0 ) 
 		Item->att = ( Rank * Item->att ) / 7;

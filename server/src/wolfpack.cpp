@@ -1972,8 +1972,8 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	//pi->att=5;
 	pi->hp=10;
 	pi->setSpeed( 50 );
-	pi->lodamage=3;
-	pi->hidamage=15;
+	pi->setLodamage( 3 );
+	pi->setHidamage( 15 );
 	pi->setItemhand( 1 );
 	pi->priv |= 0x02; // Mark as a newbie item
 	}
@@ -2406,8 +2406,8 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		pi->moreb3 = pc_mount->realDex();
 		pi->moreb4 = pc_mount->in;
 		pi->hp = pc_mount->hp;
-		pi->lodamage = pc_mount->fame;
-		pi->hidamage = pc_mount->karma;
+		pi->setLodamage( pc_mount->fame );
+		pi->setHidamage( pc_mount->karma );
 		pi->poisoned = pc_mount->poisoned();
 		if (pc_mount->summontimer != 0)
 			pi->decaytime = pc_mount->summontimer;

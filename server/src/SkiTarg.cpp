@@ -1754,14 +1754,14 @@ void cSkills::ArmsLoreTarget(int s)
 	if (!pi) return;
 
 	if ( (pi->def==0 || pi->pileable)
-		&& ((pi->lodamage==0 && pi->hidamage==0) && (pi->rank<1 || pi->rank>9)))
+		&& ((pi->lodamage() == 0 && pi->hidamage() == 0) && (pi->rank<1 || pi->rank>9)))
 	{
 		sysmessage(s, tr("That does not appear to be a weapon.") );
 		return;
 	}
 	if(pc_currchar->isGM())
 	{
-		sysmessage(s, tr("Attack [%1] Defense [%2] Lodamage [%3] Hidamage [%4]").arg(pi->att).arg(pi->def).arg(pi->lodamage).arg(pi->hidamage) );
+		sysmessage(s, tr("Attack [%1] Defense [%2] Lodamage [%3] Hidamage [%4]").arg(pi->att).arg(pi->def).arg(pi->lodamage()).arg(pi->hidamage()) );
 		return;
 	}
 	
@@ -1792,9 +1792,9 @@ void cSkills::ArmsLoreTarget(int s)
 		}
 		if (CheckSkill(pc_currchar,ARMSLORE, 250, 510))
 		{
-			if (pi->hidamage)
+			if (pi->hidamage())
 			{
-				total = (pi->hidamage + pi->lodamage)/2;
+				total = (pi->hidamage() + pi->lodamage())/2;
 				if      ( total > 26) strcpy((char*)p2, tr(" Would be extraordinarily deadly.") );
 				else if ( total > 21) strcpy((char*)p2, tr(" Would be a superior weapon.") );
 				else if ( total > 16) strcpy((char*)p2, tr(" Would inflict quite a lot of damage and pain.") ); 
