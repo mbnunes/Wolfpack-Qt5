@@ -2,63 +2,83 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: DarkStorm                      |
-|   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+|   )).-' {{ ;'`   | Revised by: Viper                          |
+|  ( (  ;._ \\ ctr | Last Modification: Item Properties Added   |
 =================================================================
 -->
 <definitions>
-	<item id="144e">
-		<id>0x144e</id>
-		<category>Armor\Bone\Arms (N/S)</category>
-	</item>
-
 	<item id="1453">
-		<inherit id="144e" />
 		<id>0x1453</id>
-		<category>Armor\Bone\Arms (W/E)</category>
+  		<name>bone arms</name> 
+  		<decay /> 
+  		<nodye />   
+  		<requires type="str">40</requires>
+		<modifier type="dex">-2</modifier>  
+  		<defense>4.4</defense> 
+  		<durability>28</durability> 
+  		<restock>10</restock> 
+  		<weight>2.0</weight> 
+  		<value>0</value> 
+		<category>Armor\Bone\Bone Arms</category>
 	</item>
 
 	<item id="144f">
 		<id>0x144f</id>
-		<category>Armor\Bone\Breast (N/S)</category>
-	</item>
-
-	<item id="1454">
-		<inherit id="144f" />
-		<id>0x1454</id>
-		<category>Armor\Bone\Breast (W/E)</category>
-	</item>
-
-	<item id="1450">
-		<id>0x1450</id>
-		<category>Armor\Bone\Gloves (N/S)</category>
+  		<name>bone armor</name> 
+  		<decay /> 
+  		<nodye />   
+  		<requires type="str">40</requires>
+		<modifier type="dex">-6</modifier>  
+  		<defense>10.7</defense> 
+  		<durability>28</durability> 
+  		<restock>10</restock> 
+  		<weight>6.0</weight> 
+  		<value>0</value> 
+		<category>Armor\Bone\Bone Armor</category>
 	</item>
 
 	<item id="1455">
-		<inherit id="1450" />
 		<id>0x1455</id>
-		<category>Armor\Bone\Gloves (W/E)</category>
-	</item>
-
-	<item id="1451">
-		<id>0x1451</id>
-		<category>Armor\Bone\Helmet (N/S)</category>
+  		<name>bone gloves</name> 
+  		<decay /> 
+  		<nodye />   
+  		<requires type="str">40</requires>
+		<modifier type="dex">-1</modifier>  
+  		<defense>2.1</defense> 
+  		<durability>28</durability> 
+  		<restock>10</restock> 
+  		<weight>2.0</weight> 
+  		<value>0</value> 
+		<category>Armor\Bone\Bone Gloves</category>
 	</item>
 
 	<item id="1456">
-		<inherit id="1451" />
 		<id>0x1456</id>
-		<category>Armor\Bone\Helmet (W/E)</category>
+  		<name>bone helmet</name> 
+  		<decay /> 
+  		<nodye />   
+  		<requires type="str">40</requires> 
+  		<defense>4.1</defense> 
+  		<durability>28</durability> 
+  		<restock>10</restock> 
+  		<weight>3.0</weight> 
+  		<value>0</value> 
+		<category>Armor\Bone\Bone Helmet</category>
 	</item>
 
 	<item id="1452">
 		<id>0x1452</id>
-		<category>Armor\Bone\Leggings (N/S)</category>
+  		<name>bone leggings</name> 
+  		<decay /> 
+  		<nodye />   
+  		<requires type="str">40</requires>
+		<modifier type="dex">-4</modifier>  
+  		<defense>6.6</defense> 
+  		<durability>28</durability> 
+  		<restock>10</restock> 
+  		<weight>2.0</weight> 
+  		<value>0</value> 
+		<category>Armor\Bone\Leggings</category>
 	</item>
 
-	<item id="1457">
-		<inherit id="1452" />
-		<id>0x1457</id>
-		<category>Armor\Bone\Leggings (W/E)</category>
-	</item>
 </definitions>
