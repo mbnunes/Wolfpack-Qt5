@@ -56,10 +56,10 @@ void AccountRecord::Serialize( ISerialization& archive )
 		archive.read("password", password_);
 		archive.read("flags", flags_);
 		archive.read("acl", aclName_);
-		UINT32 temp;
+		QString temp;
 		archive.read("lastlogin", temp);
 		if( temp != 0 )
-			lastLogin_.setTime_t( temp );
+			lastLogin_ = QDateTime::fromString( temp, Qt::ISODate );
 
 		refreshAcl(); // Reload our ACL
 	}
@@ -70,12 +70,10 @@ void AccountRecord::Serialize( ISerialization& archive )
 		archive.write( "flags", flags_ );
 		archive.write( "acl", aclName_ );
 
-		UINT32 temp = 0;
-
 		if( lastLogin_.isValid() )
-			temp = lastLogin_.toTime_t();
-
-		archive.write( "lastlogin", temp );
+			archive.write( "lastlogin", lastLogin_.toString( Qt::ISODate ) );
+		else
+			archive.write( "lastlogin", QDateTime::currentDateTime().toString( Qt::ISODate ) );
 	}
 	cSerializable::Serialize( archive );
 }
