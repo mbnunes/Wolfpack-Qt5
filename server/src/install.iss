@@ -24,16 +24,11 @@ InfoAfterFile=C:\Wazzup.pse.txt
 
 [Files]
 Source: ..\python-dll\*.pyd; DestDir: {app}\python-dll\
-Source: ..\prerelease\libmySQL.dll; DestDir: {app}
-Source: ..\prerelease\bugreport.dll; DestDir: {app}
-Source: ..\prerelease\qt-mt312.dll; DestDir: {app}
-Source: ..\prerelease\python22_d.dll; DestDir: {app}
-Source: ..\wolfpack.pdb; DestDir: {app}
+Source: ..\libmySQL.dll; DestDir: {app}
+Source: ..\qt-mt312.dll; DestDir: {app}
+Source: ..\python22.dll; DestDir: {app}
 Source: ..\wolfpack.exe; DestDir: {app}
-Source: ..\..\WINNT\system32\MSVCRTD.DLL; DestDir: {app}
-Source: ..\..\WINNT\system32\MSVCRTD.PDB; DestDir: {app}
 Source: ..\xmlscripts\*.*; DestDir: {app}; Flags: recursesubdirs
-Source: ..\cvs.exe; DestDir: {app}
 
 [Dirs]
 Name: {app}\python-dll
