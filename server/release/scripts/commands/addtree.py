@@ -25,49 +25,35 @@ from random import randint
 """
 # Please leave the grayed out indexes for future reference incase itemtarget works better with multiple items.
 
-treeindex = ['cca','ccb','ccc','ccd','cd0','cd3','cd6','cda','cdd','ce0','ce3','ce6','cf8','cfe','d01', 'd94', 'd98', 'd9c', 'da0', 'da4', 'da8']
-
 jungletreeindex = [ 'jungle1', 'jungle2', 'jungle3', 'jungle4', 'jungle5', 'jungle6', 'jungle7' ]
 
-jungleindex = \
-{
-	'jungle1': [ 'jungle1', [[0xd43, 0, 0, 0, 0]] ],
-	'jungle2': [ 'jungle2', [[0xd43, 0, 0, 0, 0]] ],
-	'jungle3': [ 'jungle3', [[0xd59, 0, 0, 0, 0]] ],
-	'jungle4': [ 'jungle4', [[0xd70, 0, 0, 0, 0]] ],
-	'jungle5': [ 'jungle5', [[0xd70, 0, 0, 0, 0]] ],
-	'jungle6': [ 'jungle6', [[0xd85, 0, 0, 0, 0]] ],
-	'jungle7': [ 'jungle7', [[0xd85, 0, 0, 0, 0]] ]
-}
+treeindex = ['cca','ccb','ccc','ccd','cd0','cd3','cd6','cda','cdd','ce0','ce3','ce6','cf8','cfe','d01', 'd94', 'd98', 'd9c', 'da0', 'da4', 'da8']
 
 trees = \
 {
-	'cca': [ 'cca', 'cce', [[0xcca, 0, 0, 0, 0]] ],
-	'ccb': [ 'ccb', 'cce', [[0xccb, 0, 0, 0, 0]] ],
-	'ccc': [ 'ccc', 'cce', [[0xccc, 0, 0, 0, 0]] ],
-	'ccd': [ 'ccd', 'cce', [[0xccd, 0, 0, 0, 0]] ],
-	'cd0': [ 'cd0', 'cd1', [[0xcd0, 0, 0, 0, 0]] ],
-	'cd3': [ 'cd3', 'cd4', [[0xcd3, 0, 0, 0, 0]] ],
-	'cd6': [ 'cd6', 'cd7', [[0xcd6, 0, 0, 0, 0]] ],
-	'cd8': [ 'cd8', 'cd0', [[0xcd8, 0, 0, 0, 0]] ],
-	'cda': [ 'cda', 'cdb', [[0xcda, 0, 0, 0, 0]] ],
-	'cdd': [ 'cdd', 'cde', [[0xcdd, 0, 0, 0, 0]] ],
-	'ce0': [ 'ce0', 'ce1', [[0xce0, 0, 0, 0, 0]] ],
-	'ce3': [ 'ce3', 'ce4', [[0xce3, 0, 0, 0, 0]] ],
-	'ce6': [ 'ce6', 'ce7', [[0xce6, 0, 0, 0, 0]] ],
-	'cf8': [ 'cf8', 'cf9', [[0xcf8, 0, 0, 0, 0]] ], # Cypress
-	'cfe': [ 'cfe', 'cff', [[0xcfe, 0, 0, 0, 0]] ], # Cypress
-	'd01': [ 'd01', 'd02', [[0xd01, 0, 0, 0, 0]] ], # Cypress
-	'd94': [ 'd94', 'd95', [[0xd94, 0, 0, 0, 0]] ],
-	'd98': [ 'd98', 'd99', [[0xd98, 0, 0, 0, 0]] ],
-	'd9c': [ 'd9c', 'd9d', [[0xd9c, 0, 0, 0, 0]] ],
-	'da0': [ 'da0', 'da1', [[0xda0, 0, 0, 0, 0]] ],
-	'da4': [ 'da4', 'da5', [[0xda4, 0, 0, 0, 0]] ],
-	'da8': [ 'da8', 'da9', [[0xda8, 0, 0, 0, 0]] ]
+	'cca': [ 'cca', 'cce' ],
+	'ccb': [ 'ccb', 'cce' ],
+	'ccc': [ 'ccc', 'cce' ],
+	'ccd': [ 'ccd', 'cce' ],
+	'cd0': [ 'cd0', 'cd1' ],
+	'cd3': [ 'cd3', 'cd4' ],
+	'cd6': [ 'cd6', 'cd7' ],
+	'cd8': [ 'cd8', 'cd9' ],
+	'cda': [ 'cda', 'cdb' ],
+	'cdd': [ 'cdd', 'cde' ],
+	'ce0': [ 'ce0', 'ce1' ],
+	'ce3': [ 'ce3', 'ce4' ],
+	'ce6': [ 'ce6', 'ce7' ],
+	'cf8': [ 'cf8', 'cf9' ], # Cypress
+	'cfe': [ 'cfe', 'cff' ], # Cypress
+	'd01': [ 'd01', 'd02' ], # Cypress
+	'd94': [ 'd94', 'd95' ],
+	'd98': [ 'd98', 'd99' ],
+	'd9c': [ 'd9c', 'd9d' ],
+	'da0': [ 'da0', 'da1' ],
+	'da4': [ 'da4', 'da5' ],
+	'da8': [ 'da8', 'da9' ]
 }
-
-yewindex = [ [0x12ba, 0, 0, 0, 0] ]
-yewindex2 = [ [0x12b9, -1, 1, 0, 0] ]
 
 TREE = 0
 LEAVES = 1
@@ -259,12 +245,12 @@ def addtree(socket, command, arguments):
 	if len(arguments) > 0:
 		item = str( arguments.strip() )
 		if item == 'random':
-			randomtrees = [ randint( 0, 2 ), randint( 0, 12 ), randint( 2, 12 ), randint( 0, 20 ), randint( 13, 15 ), randint( 16, 20 ) ]
+			randomtrees = [ randint(0,2), randint(0,12), randint(2,12), randint(0,20), randint(13,15), randint(16,20) ]
 			item = treeindex[ randomtrees[ randint( 0, 5 ) ] ]
 			if trees[ item ]:
 				if wolfpack.getdefinition( WPDT_ITEM, trees[item][TREE] ) and wolfpack.getdefinition( WPDT_ITEM, trees[item][LEAVES] ):
 					socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES ]) )
-					socket.attachitemtarget( 'commands.addtree.createtree', trees[item][2], 0, 0, 0, [item] )
+					socket.attachtarget( 'commands.addtree.createtree', [ item ] )
 				return
 		elif item == 'yew':
 			socket.sysmessage( "Where do you want to place the yew tree?" )
@@ -273,10 +259,10 @@ def addtree(socket, command, arguments):
 		elif trees[item] and ( item not in jungletreeindex ):
 			if wolfpack.getdefinition( WPDT_ITEM, trees[item][TREE] ) and wolfpack.getdefinition( WPDT_ITEM, trees[item][LEAVES] ):
 				socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES]) )
-				socket.attachitemtarget( 'commands.addtree.createtree', [trees[item][2]], 0, 0, 0, [item] )
+				socket.attachtarget( 'commands.addtree.createtree', [ item ] )
 		elif item in jungletreeindex and jungleindex[item]:
-			socket.sysmessage( "Where do you want to place the jungle tree [%s]?" %(item) )
-			socket.attachitemtarget( 'commands.addtree.createjungletree', [jungleindex[item][1]], 0, 0, 0, [item] )
+			socket.sysmessage( "Where do you want to place the jungle tree [%s]?" %( item ) )
+			socket.attachtarget(  'commands.addtree.createjungletree', [ item ] )
 			return
 		else:
 			socket.sysmessage( "Usage: addtree [id, yew, jungle[1-7], random")
