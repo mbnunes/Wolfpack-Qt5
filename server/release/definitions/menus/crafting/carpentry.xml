@@ -208,7 +208,7 @@
 		<action>
 			<name>Vesper-Style Chair</name>
 			<model>0x0b4f</model>
-			<description>a Vesper-style chair</name>
+			<description>a Vesper-style chair</description>
 			<make>
 				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="15" />
 				<makeitem section="b4f" amount="1" />
@@ -221,7 +221,7 @@
 		<action>
 			<name>Trinsic-Style Chair</name>
 			<model>0x0b53</model>
-			<description>a Trinsic-style chair</name>
+			<description>a Trinsic-style chair</description>
 			<make>
 				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="15" />
 				<makeitem section="b53" amount="1" />
@@ -331,7 +331,7 @@
 		-->
 		<action>
 			<name>Wooden Box</name>
-			<model>0x09aa</name>
+			<model>0x09aa</model>
 			<description>a wooden box</description>
 			<make>
 				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="10" />

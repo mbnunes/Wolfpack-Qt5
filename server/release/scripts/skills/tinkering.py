@@ -9,7 +9,7 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 import wolfpack
 
-gems = [ 0xf0f:'star sapphire', 0xf10:'emerald', 0xf11:'sapphire',
+gems = { 0xf0f:'star sapphire', 0xf10:'emerald', 0xf11:'sapphire',
 	0xf12:'sapphire', 0xf13:'ruby', 0xf14:'ruby', 0xf15:'citrine',
 	0xf16:'amethyst', 0xf17:'amethyst', 0xf18:'tourmaline', 0xf19:'sapphire',
 	0xf1a:'ruby', 0xf1b:'star sapphire', 0xf1c:'rubby', 0xf1d:'ruby',
@@ -18,7 +18,7 @@ gems = [ 0xf0f:'star sapphire', 0xf10:'emerald', 0xf11:'sapphire',
 	0xf24:'citrine', 0xf25:'amber', 0xf26:'diamond', 0xf27:'diamond',
 	0xf28:'diamond', 0xf29:'diamond', 0xf2a:'ruby', 0xf2b:'ruby',
 	0xf2c:'citrine', 0xf2d:'tourmaline', 0xf2e:'amethyst', 0xf2f:'emerald',
-	0xf30:'diamond' ]
+	0xf30:'diamond' }
 
 def onLoad():
 	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.tinkering" )

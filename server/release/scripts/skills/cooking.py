@@ -7,6 +7,7 @@
 
 import wolfpack
 import wolfpack.utilities
+from wolfpack.consts import *
 from math import *
 
 MILL_RANGE = 2
@@ -93,7 +94,7 @@ def makedough( char ):
 			break
 	# we don't have any flour
 	if not flour:
-		break
+		return
 	# if we have no water in backpack, check around
 	if not water:
 		for i in ( -WATER_RANGE, WATER_RANGE ):
@@ -138,7 +139,7 @@ def makedough( char ):
 			water.delete()
 			new_pitcher = wolfpack.additem( pitcher )
 			if not new_pitcher:
-				break
+				return
 			backpack.additem( new_pitcher )
 			new_pitcher.update()
 		else:
