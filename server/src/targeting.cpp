@@ -2709,20 +2709,6 @@ void cTargets::ManaTarget(int s)
 	sysmessage(s,"That is not a person.");
 }
 
-void cTargets::MakeShopTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		Commands->MakeShop(pc);
-		teleport(pc);
-		sysmessage(s, "The buy containers have been added.");
-		return;
-	}
-	sysmessage(s, "Target character not found...");
-}
-
 void cTargets::JailTarget(int s, int c) 
 { 
 	SERIAL serial; 
@@ -4013,23 +3999,6 @@ void cTargets::LoadCannon(int s)
 	}
 }
 
-void cTargets::DupeTarget(int s)
-{
-	if (addid1[s]>=1)
-	{
-		int serial=LongFromCharPtr(buffer[s]+7);
-		P_ITEM pi = FindItemBySerial(serial);
-		if (pi != NULL)
-		{
-			for (int j=0;j<addid1[s];j++)
-			{
-				Commands->DupeItem(s, pi, 1); // lb bugfix
-				sysmessage(s,"DupeItem done.");//AntiChrist
-			}
-		}
-	}
-}
-
 void cTargets::MoveToBagTarget(int s)
 {
 	SERIAL serial=LongFromCharPtr(buffer[s]+7);
@@ -4082,10 +4051,10 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		}
 
 		// If the user cancels call timedout
-		if( pt->TxLoc == -1 && pt->TyLoc == -1 && pt->Tserial == 0 && pt->model == 0 )
+		/*if( pt->TxLoc == -1 && pt->TyLoc == -1 && pt->Tserial == 0 && pt->model == 0 )
 			targetRequests[ s ]->timedout( s );
 		else
-			targetRequests[ s ]->responsed( s, *pt );
+			targetRequests[ s ]->responsed( s, *pt );*/
 
 		delete targetRequests[ s ];
 		targetRequests.erase( targetRequests.find( s ) );
@@ -4234,13 +4203,11 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 107: Targ->xBankTarget(s); break;
 		case 108: Skills->AlchemyTarget(s); break;
 		case 109: Skills->BottleTarget(s); break;
-		case 110: Targ->DupeTarget(s); break;
 		case 111: ItemTarget(ps,pt); break;//MovableTarget
 		case 112: Targ->SellStuffTarget(s); break;
 		case 113: Targ->ManaTarget(s); break;
 		case 114: Targ->StaminaTarget(s); break;
 		case 115: Targ->GmOpenTarget(s); break;
-		case 116: Targ->MakeShopTarget(s); break;
 		case 117: Targ->FollowTarget(s); break;
 		case 118: Targ->AttackTarget(s); break;
 		case 119: Targ->TransferTarget(s); break;
@@ -4303,17 +4270,12 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 
 		case 198: Tiling(s,pt); break;
 		case 199: Targ->Wiping(s); break;
-		case 200: Commands->SetItemTrigger(s); break;
-		case 201: Commands->SetNPCTrigger(s); break;
-		case 202: Commands->SetTriggerType(s); break;
-		case 203: Commands->SetTriggerWord(s); break;
 		case 204: triggertarget(s); break; // Fixed by Magius(CHE)
 		case 205: Skills->StealingTarget(s); break;
 		case 206: Targ->CanTrainTarget(s); break;
 		case 207: ExpPotionTarget(s,pt); break;
 		case 209: Targ->SetSplitTarget(s); break;
 		case 210: Targ->SetSplitChanceTarget(s); break;
-		case 212: Commands->Possess(s); break;
 		case 213: Skills->PickPocketTarget(s); break;
 
 		case 220: 

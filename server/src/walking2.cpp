@@ -673,8 +673,9 @@ void cMovement::sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& o
 		socket->sendChar( pChar );
 
 	// This guy is already known to us
-	if( socket && ( newDistance <= pWalker->VisRange ) && ( oldDistance <= pWalker->VisRange ) )
-		visSocket->updateChar( pChar );
+	// So we dont need to send anything as HE didn't walk
+	//if( socket && ( newDistance <= pWalker->VisRange ) && ( oldDistance <= pWalker->VisRange ) )
+	//	socket->updateChar( pChar );
 
 	// We got into somone elses Range
 	if( visSocket && ( newDistance <= pChar->VisRange ) && ( oldDistance > pChar->VisRange ) )

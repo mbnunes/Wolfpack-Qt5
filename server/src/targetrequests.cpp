@@ -33,56 +33,80 @@
 #include "mapstuff.h"
 #include "regions.h"
 #include "wpdefmanager.h"
+#include "territories.h"
 #include "items.h"
 #include "itemsmgr.h"
 
-void cSetPrivLvlTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
+void cSetPrivLvlTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
-	if( !isCharSerial( targetInfo.Tserial ) )
+	if( !isCharSerial( target->serial() ) )
 		return;
 
-	P_CHAR pc = FindCharBySerial( targetInfo.Tserial );
-	if( pc == NULL )
+	P_CHAR pc = FindCharBySerial( target->serial() );
+	if( !pc )
 		return;
 
 	pc->setPrivLvl( plevel_ );
-	sysmessage( socket, QString("PrivLvl set to : %1").arg(plevel_) );
+	socket->sysMessage( tr( "PrivLvl set to : %1" ).arg( plevel_ ) );
 };
 
-void cAddNpcTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
+void cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
-	if( targetInfo.TxLoc == -1 || targetInfo.TyLoc == -1 || targetInfo.TzLoc == -1 )
+	if( target->x() == -1 || target->y() == -1 || target->z() == -1 )
 		return;
 
-	QStringList arguments = QStringList::split( " ", npc_ );
+	//QStringList arguments = QStringList::split( " ", npc_ );
+	QDomElement *node = DefManager->getSection( WPDT_NPC, npc_ );
 
-	if( arguments.size() == 1 ) // script section string
-		Npcs->createScriptNpc( socket, NULL, npc_, targetInfo.TxLoc, targetInfo.TyLoc, targetInfo.TzLoc + Map->TileHeight( targetInfo.model ) );
-	else if( arguments.size() == 2 ) // 2 partial hex numbers for art-id ?
+	// Check first if we even are able to create a char
+	if( !node )
 	{
-		P_CHAR pc = Npcs->MemCharFree ();
-		if ( pc == NULL )
+		bool ok = false;
+		hex2dec( npc_ ).toULong( &ok );
+		if( !ok )
+		{
+			socket->sysMessage( tr( "NPC Definition '%1' not found" ).arg( npc_ ) );
 			return;
-		pc->Init();
-		pc->name = "Dummy";
-		pc->id1=(unsigned char)arguments[0].toShort();
-		pc->id2=(unsigned char)arguments[1].toShort();
-		pc->xid = pc->id();
-		pc->setSkin(0);
-		pc->setXSkin(0);
-		pc->setPriv(0x10);
-		pc->pos.x=targetInfo.TxLoc;
-		pc->pos.y=targetInfo.TyLoc;
-		pc->dispz = pc->pos.z = targetInfo.TzLoc + Map->TileHeight(targetInfo.model);
-		mapRegions->Add(pc); // add it to da regions ...
-		pc->isNpc();
-		updatechar(pc);
+		}
 	}
+
+	// Otherwise create our character here
+	P_CHAR pChar = new cChar;
+	pChar->Init();
+	cCharsManager::getInstance()->registerChar( pChar );
+
+	pChar->setPriv( 0x10 ); // No skill titles
+	pChar->npc = 1;
+	Coord_cl newPos = socket->player()->pos;
+	newPos.x = target->x();
+	newPos.y = target->y();
+	newPos.z = target->z() + Map->TileHeight( target->model() ); // Model Could be an NPC as well i dont like the idea...
+	pChar->moveTo( newPos );
+
+	cTerritory* Region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+	if( Region != NULL )
+		pChar->region = Region->name();
+	else
+		pChar->region = QString();
+
+	if( node )
+	{
+		pChar->applyDefinition( (*node ) );
+	}
+	else
+	{
+		pChar->name = "Character";
+		pChar->setId( hex2dec( npc_ ).toULong() );
+		pChar->xid = pChar->id();
+	}
+
+	// Send the char to it's surroundings
+	pChar->resend( false ); // It's new so no need to remove it first
 };
 
-void cBuildMultiTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
+void cBuildMultiTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
-	if( targetInfo.TxLoc == -1 || targetInfo.TyLoc == -1 || targetInfo.TzLoc == -1 )
+	if( target->x() == -1 || target->y() == -1 || target->z() == -1 )
 		return;
 	
 	QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, multisection_ );
@@ -94,14 +118,14 @@ void cBuildMultiTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 		cHouse* pHouse = new cHouse();
 		cItemsManager::getInstance()->registerItem( pHouse );
 		
-		pHouse->build( *DefSection, targetInfo.TxLoc, targetInfo.TyLoc, targetInfo.TzLoc, senderserial_, deedserial_ );
+		pHouse->build( *DefSection, target->x(), target->y(), target->z(), senderserial_, deedserial_ );
 	}
 	else if( DefSection->attribute( "type" ) == "boat" )
 	{
 		cBoat* pBoat = new cBoat();
 		cItemsManager::getInstance()->registerItem( pBoat );
 
-		pBoat->build( *DefSection, targetInfo.TxLoc, targetInfo.TyLoc, targetInfo.TzLoc, senderserial_, deedserial_ );
+		pBoat->build( *DefSection, target->x(), target->y(), target->z(), senderserial_, deedserial_ );
 	}
 };
 

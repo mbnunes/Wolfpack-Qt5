@@ -92,6 +92,8 @@ void WPDefManager::ProcessNode( QDomElement Node )
 		Texts[ NodeID ] = Node;
 	else if( NodeName == "startitems" )
 		StartItems[ NodeID ] = Node;
+	else if( NodeName == "location" )
+		Locations[ NodeID ] = Node;
 }
 
 // Recursive Function for Importing Script Sections
@@ -170,6 +172,7 @@ void WPDefManager::unload( void )
 	clearNodes( Multis );
 	clearNodes( Texts );
 	clearNodes( StartItems );
+	clearNodes( Locations );
 }
 
 void WPDefManager::reload( void )
@@ -198,6 +201,7 @@ void WPDefManager::load( void )
 		clConsole.send( QString("Multi Sections:          %1\n").arg( Multis.size() ) );
 		clConsole.send( QString("Text Sections:           %1\n").arg( Texts.size() ) );
 		clConsole.send( QString("StartItem Sections:      %1\n").arg( StartItems.count() ) );
+		clConsole.send( QString("Locations:				  %1\n").arg( Locations.count() ) );
 	}
 	else
 		clConsole.ProgressFail();
@@ -256,6 +260,10 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 
 	case WPDT_STARTITEMS:
 		ListPointer = &StartItems;
+		break;
+
+	case WPDT_LOCATION:
+		ListPointer = &Locations;
 		break;
 
 	default:
@@ -320,6 +328,10 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 
 	case WPDT_STARTITEMS:
 		ListPointer = &StartItems;
+		break;
+
+	case WPDT_LOCATION:
+		ListPointer = &Locations;
 		break;
 
 	default:

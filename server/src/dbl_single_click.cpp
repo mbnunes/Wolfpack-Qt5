@@ -54,9 +54,9 @@ protected:
 	SERIAL cannonBall;
 public:
 	cLoadCannon( SERIAL nBall ) { cannonBall = nBall; };
-	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo )
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
 	{
-		sysmessage( socket, "You try to put the cannon ball into the cannon but fail" );
+		socket->sysMessage( "You try to put the cannon ball into the cannon but fail" );
 	}
 };
 

@@ -43,51 +43,6 @@
 class QString;
 class QStringList;
 
-struct stPrivEntry
-{
-	QStringList commands;
-	bool		implicit;
-	
-	stPrivEntry() { implicit = true; };
-};
-
-class cCommands
-{
-private:
-	std::map< QString, stPrivEntry >				privlvl_commands; // replaces old metagm array...
-public:
-	QString command_line;
-	QStringList params;
-	QString GetAllParams(void);
-	void NextCall(int s, int type);
-	void KillSpawn(int s, QString spawnRegion );
-	void RegSpawnMax(int s, QString spawnRegion );
-	void RegSpawnNum(int s, QString spawnRegion, int n);
-	void KillAll(int s, int percent, const char * sysmsg);
-	void AddHere(int s, char z);
-	void ShowGMQue(int s, int type);
-	void Wipe(int s);
-	void WhoCommand(int s, int type, int buttonnum);
-	void CPage(int s, char * reason);
-	void GMPage(int s, char * reason);
-	void MakePlace(int s, int i);
-	void Command( UOXSOCKET, string );
-	void MakeShop(P_CHAR pc_c);
-	void DyeItem(int s);
-	void SetItemTrigger(int s);
-	void SetTriggerType(int s);
-	void SetTriggerWord(int s);
-	void SetNPCTrigger(int s);
-	void DupeItem(int s, P_ITEM pi_target, int amount);
-	void Possess(int s);
-	int cmd_offset;
-
-	void addCmdToPrivLvl( QString privlvl, QString command );
-	void rmvCmdFromPrivLvl( QString privlvl, QString command );
-	bool containsCmd( QString privlvl, QString command );
-	void loadPrivLvlCmds( void );
-};
-
 #include "client.h"
 // use this value whereever you need to return an illegal z value
 const signed char illegal_z = -128;	// reduced from -1280 to -128, to fit in with a valid signed char

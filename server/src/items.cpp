@@ -1949,3 +1949,23 @@ void cItem::update()
 {
 	// TODO: INSERT CODE
 }
+
+P_ITEM cItem::dupe()
+{
+	if( corpse() )
+		return NULL;
+
+	P_ITEM nItem = new cItem( (*this) );
+	nItem->SetSerial( cItemsManager::getInstance()->getUnusedSerial() );
+	
+	// We wont dupe items on chars without proper handling
+	P_CHAR pWearer = FindCharBySerial( nItem->contserial );
+	if( pWearer )
+	{
+		nItem->setLayer( 0 );
+		nItem->setContSerial( INVALID_SERIAL );
+		nItem->moveTo( pWearer->pos );
+	}
+
+	return nItem;
+}

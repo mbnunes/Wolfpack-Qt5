@@ -44,6 +44,8 @@
 #include "../junk.h"
 #include "../territories.h"
 #include "../structs.h"
+#include "../speech.h"
+#include "../commands.h"
 #include "../srvparams.h"
 #include "../wpdefmanager.h"
 #include "../walking2.h"
@@ -57,7 +59,7 @@ using namespace std;
 
 cUOSocket::cUOSocket( QSocketDevice *sDevice ): 
 		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
-		_account(-1), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) 
+		targetRequest(0), _account(-1), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) 
 {
 }
 
@@ -144,6 +146,8 @@ void cUOSocket::recieve()
 		_version = dynamic_cast< cUORxSetVersion* >( packet )->version(); break;
 	case 0xAD:
 		handleSpeechRequest( dynamic_cast< cUORxSpeechRequest* >( packet ) ); break;
+	case 0x6c:
+		handleTarget( dynamic_cast< cUORxTarget* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -662,7 +666,11 @@ void cUOSocket::handleQuery( cUORxQuery *packet )
 
 void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 {
-	_viewRange = packet->range();
+	if( packet->range() > 20 )
+		return; // Na..
+
+	if( _player )
+		_player->VisRange = packet->range();
 }
 
 void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
@@ -772,15 +780,10 @@ void cUOSocket::updateChar( P_CHAR pChar )
 // Sends a foreign char including equipment
 void cUOSocket::sendChar( P_CHAR pChar )
 {
-	// Delete it from view first
-	cUOTxDeleteObject deleteObject;
-	deleteObject.setSerial( pChar->serial );
-	send( &deleteObject );
-
 	// Then completely resend it
-	cUOTxDrawObject drawObject;
-	drawObject.fromChar( pChar );
-	send( &drawObject );
+	cUOTxDrawChar drawChar;
+	drawChar.fromChar( pChar );
+	send( &drawChar );
 }
 
 void cUOSocket::handleSetLanguage( cUORxSetLanguage* packet )
@@ -805,9 +808,7 @@ void cUOSocket::setPlayer( P_CHAR pChar )
 		_player->setSocket( this );
 	}
 
-	cUOTxDrawPlayer drawPlayer;
-	drawPlayer.fromChar( _player );
-	send( &drawPlayer );
+	updatePlayer(); // Set our location
 
 	// Send our equipment
 	vector< SERIAL > equipment = contsp.getData( _player->serial );
@@ -841,12 +842,11 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 	// There is one special case. if the user has the body 0x3db and the first char
 	// of the speech is = then it's always a command
 	if( ( _player->id() == 0x3DB ) && speech.startsWith( SrvParams->commandPrefix() ) )
-		clConsole.send( QString( "Command: %1\n" ).arg( speech ) );
+		cCommands::instance()->process( this, speech.right( speech.length()-1 ) );
 	else if( speech.startsWith( SrvParams->commandPrefix() ) )
-		clConsole.send( QString( "Command: %1\n" ).arg( speech ) );
+		cCommands::instance()->process( this, speech.right( speech.length()-1 ) );
 	else
 		Speech->talking( _player, speech, color, type );
-	//clConsole.send( QString( "Speech: %1\n" ).arg( speech ) );
 }
 	
 void cUOSocket::handleDoubleClick( cUORxDoubleClick* packet )
@@ -1055,4 +1055,60 @@ void cUOSocket::removeObject( cUObject *object )
 	cUOTxRemoveObject rObject;
 	rObject.setSerial( object->serial );
 	send( &rObject );
+}
+
+// Updates OUR char when teleported around
+// and if flags etc. have changed
+void cUOSocket::updatePlayer()
+{
+	if( !_player )
+		return;
+
+	cUOTxDrawPlayer pUpdate;
+	pUpdate.fromChar( _player );
+	send( &pUpdate );
+
+	// Reset the walking sequence
+	_walkSequence = 0xFF;
+}
+
+// Do periodic stuff for this socket
+void cUOSocket::poll()
+{
+	// TODO: check for timed out target requests herei
+	if( targetRequest && ( targetRequest->timeout() > 1 ) && targetRequest->timeout() < uiCurrentTime )
+	{
+		targetRequest->timedout( this );
+		delete targetRequest;
+	}
+}
+
+void cUOSocket::attachTarget( cTargetRequest *request )
+{
+	// Let the old one time out
+	if( targetRequest )
+	{
+		targetRequest->timedout( this );
+		delete targetRequest;
+	}
+
+	// attach the new one
+	targetRequest = request;
+
+	cUOTxTarget target;
+	target.setTargSerial( 1 );
+	target.setAllowGround( true ); // Not sure how to handle this
+	send( &target );
+}
+
+void cUOSocket::handleTarget( cUORxTarget *packet )
+{
+	if( !_player )
+		return;
+	
+	if( !targetRequest )
+		return;
+
+	targetRequest->responsed( this, packet );
+	delete targetRequest;
 }

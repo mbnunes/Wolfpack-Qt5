@@ -289,8 +289,15 @@ public:
 	virtual void Serialize(ISerialization &archive);
 	virtual QString objectID() const;
 
-	void update( void );
-	void removeFromView( void );
+	// A typical sequence for the following could be:
+	// Remove from View( clean = false )
+	// Change coordinates for the char
+	// Resend( clean = false )
+	// This saves bandwith and CPU time !
+	void update( void ); // This is called when flags/name have been changed
+	void resend( bool clean = true ); // this is called when the char is being created or anything like that
+	void removeFromView( bool clean = true );
+	void makeShop( void );
 	QString fullName( void );
 
 	// Getters

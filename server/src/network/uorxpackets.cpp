@@ -100,5 +100,4 @@ QString cUORxSpeechRequest::message()
 	}
 	else
 		return getUnicodeString( 12, getShort( 1 ) - 12 );
-		//return QString( (QChar*)&rawPacket.data()[ 12 ], getShort( 1 ) - 12 );
 }

@@ -250,7 +250,6 @@ cSrvParams		*SrvParams;
 CWorldMain		*cwmWorldState;
 cRegion			*mapRegions;
 cCombat			*Combat;
-cCommands		*Commands;
 cAllItems		*Items;
 cMapStuff		*Map;
 cCharStuff		*Npcs;

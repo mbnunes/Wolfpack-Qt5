@@ -41,7 +41,7 @@ protected:
 public:
 	cSetPrivLvlTarget( const QString &plevel ) { plevel_ = plevel; };
 
-	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo );
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
 class cAddNpcTarget: public cTargetRequest
@@ -51,7 +51,7 @@ protected:
 public:
 	cAddNpcTarget( const QString &npc ) { npc_ = npc; };
 
-	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo );
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
 class cBuildMultiTarget: public cTargetRequest
@@ -63,7 +63,7 @@ protected:
 public:
 	cBuildMultiTarget( const QString &multisection, const SERIAL &senderserial, const SERIAL &deedserial ) { multisection_ = multisection; senderserial_ = senderserial; deedserial_ = deedserial; };
 
-	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo );
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
 #endif

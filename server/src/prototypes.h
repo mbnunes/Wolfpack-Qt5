@@ -129,7 +129,6 @@ int validtelepos(int s);
 void addhere(int s, signed char z);
 void whomenu(int s, int type);
 void playermenu(int s, int type);
-void scriptcommand (int s,  char *script1,  char *script2);
 void endmessage(int x);
 
 void goldsfx(int s, int goldtotal);
@@ -243,8 +242,6 @@ void doGmMoveEff(UOXSOCKET s); //gm movement effects
 // Guildstone related functions
 int chardirxyz(P_CHAR pc, int x, int y);	// direction from character a to char b
 
-
-void batchcheck(int s);
 //void readw2();
 //void readw3();
 

@@ -131,11 +131,11 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	nChar->Init( true );
 	cCharsManager::getInstance()->registerChar( nChar );
 
-	nChar->setPriv(0x10);
-	nChar->npc=1;
-	nChar->att=1;
-	nChar->def=1;
-	nChar->setSpawnSerial( INVALID_SERIAL );	
+	nChar->setPriv( 0x10 );
+	nChar->npc = 1;
+	nChar->att = 1;
+	nChar->def = 1;
+	nChar->setSpawnSerial( INVALID_SERIAL );
 
 	if (posx > 0 && posy > 0)
  		postype = 3;	// take position from parms

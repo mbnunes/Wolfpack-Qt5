@@ -128,11 +128,11 @@ void cGumps::Button(int s, int button, SERIAL serial, char type)
 			break;
 		}
 	case 4:			// Wholist
-		if(button<200)	
+		if( button < 200 )	
 		{		
 			button-=7;
 			pc_currchar->making=button;
-			Commands->WhoCommand(s,type,button);
+			// Commands->WhoCommand(s,type,button); << stupid stupid stupid
 		}
 		else
 		{ 

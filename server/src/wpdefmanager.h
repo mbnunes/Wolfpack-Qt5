@@ -53,7 +53,8 @@ enum WPDEF_TYPE
 	WPDT_REGION,
 	WPDT_MULTI,
 	WPDT_TEXT,
-	WPDT_STARTITEMS
+	WPDT_STARTITEMS,
+	WPDT_LOCATION
 };
 
 class WPDefManager  
@@ -72,6 +73,7 @@ private:
 	DefSections Multis;
 	DefSections Texts;
 	DefSections StartItems;
+	DefSections Locations;
 
 	bool ImportSections( const QString& FileName );
 	void ProcessNode( QDomElement Node );

@@ -56,7 +56,6 @@ class cSetAmountTarget ;
 //Wolfpack includes
 #include "wolfpack.h"
 #include "basics.h"
-#include "cmdtable.h"
 #include "itemid.h"
 #include "SndPkg.h"
 
@@ -123,13 +122,11 @@ private:
 	void NpcAITarget(int s);
 	void xBankTarget(int s);
 	void xSpecialBankTarget(int s);//AntiChrist
-	void DupeTarget(int s);
 	void MoveToBagTarget(int s);
 	void SellStuffTarget(int s);
 	void GmOpenTarget(int s);
 	void StaminaTarget(int s);
 	void ManaTarget(int s);
-	void MakeShopTarget(int s);
 	void AttackTarget(int s);
 	void FollowTarget(int s);
 	void TransferTarget(int s);

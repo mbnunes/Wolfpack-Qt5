@@ -42,10 +42,10 @@
 #endif
 
 #include "verinfo.h"
-#include "cmdtable.h"
 #include "speech.h"
 #include "SndPkg.h"
 #include "territories.h"
+#include "commands.h"
 #include "im.h"
 #include "remadmin.h"
 #include "utilsys.h"
@@ -229,7 +229,7 @@ void signal_handler(int signal)
 		DefManager->reload();
 		cAllSpawnRegions::getInstance()->reload();
 		cAllTerritories::getInstance()->reload();
-		Commands->loadPrivLvlCmds();
+		cCommands::instance()->loadPrivLvlCmds();
 		ScriptManager->reload();
 		break ;
 		
@@ -1658,204 +1658,6 @@ void illinst(int x=0) //Thunderstorm linux fix
 	endmessage(x);
 }
 
-void scriptcommand (int s, char *script1, char *script2) // Execute command from script
-{
-	char tstring[1024];
-	int total, ho, mi, se;
-	int tmp ;
-	int c;
-	P_CHAR pc_currchar = currchar[s];
-	strupr((char*)script1);
-	strupr((char*)script2);
-
-	if (!(strcmp("GMMENU", (char*) script1)))
-	{
-		ShowMenu(s, str2num( script2 ) );
-		return;
-	}
-	if (!(strcmp("ITEMMENU", (char*)script1)))
-	{
-		ShowMenu(s, str2num(script2));
-		return;
-	}
-	if (!(strcmp("WEBLINK", (char*)script1)))
-	{
-		weblaunch(s, (char*)script2);
-		return;
-	}
-	if (!(strcmp("SYSMESSAGE", (char*)script1)))
-	{
-		sysmessage(s, (char*)script2);
-		return;
-	}
-	if (!(strcmp("GMPAGE", (char*)script1)))
-	{
-		Commands->GMPage(s, (char*)script2);
-		return;
-	}
-	if (!(strcmp("CPAGE", (char*)script1)))
-	{
-		Commands->CPage(s, (char*)script2);
-		return;
-	}
-	if (!(strcmp("VERSION", (char*)script1)))
-	{
-		sysmessage(s, QString( "%1 %2 %3" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ));
-		return;
-	}
-	//AntiChrist - no need of skill type check
-	if (!(strcmp("ADDITEM", (char*)script1)))
-	{
-		addmitem[s]=str2num(script2);
-		Skills->MakeMenuTarget(s,addmitem[s],pc_currchar->making);
-		pc_currchar->making=0;
-		return;
-	}
-	if (!(strcmp("BATCH", (char*)script1)))
-	{
-		executebatch=str2num(script2);
-		return;
-	}
-	if (!(strcmp("INFORMATION", (char*)script1)))
-	{
-		total=(uiCurrentTime-starttime)/MY_CLOCKS_PER_SEC;
-		ho=total/3600;
-		total-=ho*3600;
-		mi=total/60;
-		total-=mi*60;
-		se=total;
-		total=0;
-		c=0;
-		int totaltotal=0;
-		int cc=0;
-		AllItemsIterator iterItems;
-		for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
-		{
-			P_ITEM pi = iterItems.GetData();
-			if (!pi->free)
-				total++;
-			totaltotal++;
-		}
-		AllCharsIterator iter_char;
-		for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
-		{
-			P_CHAR pc = iter_char.GetData();
-			if (!pc->free)
-				c++;
-			cc++;
-		}
-		sprintf(tstring, "Time up [%i:%i:%i] Connected players [%i out of %i accounts] Items [%i] Characters [%i]",
-			ho,mi,se,now,Accounts->Count(),total,c);
-
-		sysmessage(s, tstring);
-		sprintf(tstring, "Runtime lag factors: Corpses not freed from memory [%i] Decayed items still in memory [%i]",
-			cc-c,totaltotal-total);
-		sysmessage(s,tstring);
-		return;
-	}
-	if (!(strcmp("NPC", (char*)script1)))
-	{
-		addmitem[s]=str2num(script2);
-		sprintf(tstring, "Select location for NPC. [Number: %i]", addmitem[s]);
-		target(s, 0, 1, 0, 27, tstring);
-		return;
-	}
-	if (!(strcmp("POLY", (char*)script1)))
-	{
-		tmp = hex2num(script2);
-		pc_currchar->setId(tmp);
-		pc_currchar->xid = tmp;
-		teleport(pc_currchar);
-		return;
-	}
-	if (!(strcmp("SKIN", (char*)script1)))
-	{
-		pc_currchar->setSkin(static_cast<UI16>(hex2num(script2)));
-		pc_currchar->setXSkin( static_cast<UI16>(hex2num(script2)) );
-		return;
-	}
-	if (!(strcmp("LIGHT", (char*)script1)))
-	{
-		SrvParams->setWorldFixedLevel( hex2num(script2) );
-		if (SrvParams->worldFixedLevel() != 255) 
-			setabovelight(SrvParams->worldFixedLevel());
-		else 
-			setabovelight(SrvParams->worldCurrentLevel());
-		return;
-	}
-
-	if (!(strcmp("DRY", (char*)script1)))
-	{
-		return;
-	}
-
-	if (!(strcmp("RAIN", (char*)script1)))
-	{
-		return;
-	}
-	if (!(strcmp("SNOW", (char*)script1)))
-	{
-		return;
-	}
-
-	if (!(strcmp("GCOLLECT", (char*)script1)))
-	{
-		gcollect();
-		return;
-	}
-	if (!(strcmp("GOPLACE", (char*)script1)))
-	{
-		tmp=str2num(script2);
-		Commands->MakePlace (s, tmp);
-		if (addx[s]!=0)
-		{
-			Coord_cl pos(pc_currchar->pos);
-			pos.x = addx[s];
-			pos.y = addy[s];
-			pos.z = addz[s];
-			pc_currchar->moveTo(pos);
-			teleport(pc_currchar);
-		}
-		return;
-	}
-	if (!(strcmp("MAKEMENU", (char*)script1)))
-	{
-		Skills->MakeMenu(s, str2num(script2), pc_currchar->making);
-		return;
-	}
-	if (!(strcmp("CREATETRACKINGMENU", (char*)script1)))
-	{
-		Skills->CreateTrackingMenu(s, str2num(script2));
-		return;
-	}
-	if(!(strcmp("TRACKINGMENU", (char*)script1)))
-	{
-		Skills->TrackingMenu(s, str2num(script2));
-		return;
-	}
-}
-
-void batchcheck(int s) // Do we have to run a batch file
-{
-	sprintf((char*)temp, "BATCH %i", executebatch);
-	openscript("menus.scp");
-	if (!i_scripts[menus_script]->find((char*)temp))
-	{
-		closescript();
-		return;
-	}
-
-	unsigned long loopexit=0;
-	do
-	{
-		read2();
-		if (script1[0]!='}') scriptcommand(s, script1, script2);
-	}
-	while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
-	closescript();
-	executebatch=0;
-}
-
 void npctalkall_runic(P_CHAR npc, const char *txt,char antispam)
 {
 	if (npc == NULL) return;
@@ -2190,7 +1992,7 @@ void checkkey ()
 				DefManager->reload(); //Reload Definitions
 				cAllSpawnRegions::getInstance()->reload();
 				cAllTerritories::getInstance()->reload();
-				Commands->loadPrivLvlCmds();
+				cCommands::instance()->loadPrivLvlCmds();
 
 				ScriptManager->reload(); // Reload Scripts
 
@@ -2425,7 +2227,7 @@ int main( int argc, char *argv[] )
 	clConsole.send("\nLoading vital scripts:\n");
 	
 	read_in_teleport();
-	Commands->loadPrivLvlCmds();
+	cCommands::instance()->loadPrivLvlCmds();
 	CIAO_IF_ERROR;
 
 	serverstarttime = getNormalizedTime();
@@ -5330,7 +5132,6 @@ void StartClasses(void)
 	mapRegions		= NULL;
 	Accounts		= NULL;
 	Combat			= NULL;
-	Commands		= NULL;
 	Items			= NULL;
 	Map				= NULL;
 	Npcs			= NULL;
@@ -5353,7 +5154,6 @@ void StartClasses(void)
 	mapRegions		= new cRegion;
 	Accounts		= new cAccount;
 	Combat			= new cCombat;
-	Commands		= new cCommands;
 	Items			= new cAllItems;
 	Map				= new cMapStuff ( SrvParams->mulPath());
 	Npcs			= new cCharStuff;
@@ -5384,7 +5184,6 @@ void DeleteClasses()
 	delete mapRegions;
 	delete Accounts;
 	delete Combat;
-	delete Commands;
 	delete Items;
 	delete Map;
 	delete Npcs;

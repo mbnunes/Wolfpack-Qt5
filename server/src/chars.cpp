@@ -451,9 +451,10 @@ void cChar::fight(P_CHAR other)
 }
 
 
-cChar::cChar()
+cChar::cChar():
+	socket_(0)
 {
-	VisRange = VISRANGE ;
+	VisRange = VISRANGE;
 }
 ///////////////////////
 // Name:	CountItems
@@ -1309,8 +1310,7 @@ void cChar::processNode( const QDomElement &Tag )
 	//<id>0x11</id>
 	else if( TagName == "id" )
 	{
-		bool* ok = false;
-		this->setId( Value.toInt( ok, 16 ) );
+		this->setId( Value.toInt() );
 		this->xid = this->id();
 	}
 
@@ -1424,7 +1424,7 @@ void cChar::processNode( const QDomElement &Tag )
 	//</shopkeeper>
 	else if( TagName == "shopkeeper" )
 	{
-		Commands->MakeShop( this );
+		makeShop();
 		QDomNode childNode = Tag.firstChild();
 		while( !childNode.isNull() )
 		{
@@ -1713,11 +1713,10 @@ void cChar::emote( const QString &emote, UI16 color )
 
 void cChar::message( const QString &message, UI16 color )
 {
-	if( !online( this ) )
+	if( !socket_ )
 		return;
 
-	cUnicodeSpeech textSpeech( this, message, color, 3, "ENU", SP_REGULAR );
-	textSpeech.send( calcSocketFromChar( this ) );
+	socket_->showSpeech( this, message, color, 3 );
 }
 
 void cChar::setAccount( int data )
@@ -1762,7 +1761,7 @@ void cChar::showName( cUOSocket *socket )
 		charName.append( QString( " [0x]" ).arg( serial, 4, 16 ) );
 
 	// Append offline flag
-	if( !online( this ) )
+	if( !socket_ )
 		charName.append( " [offline]" );
 
 	// Invulnerability
@@ -1851,7 +1850,7 @@ void cChar::showName( cUOSocket *socket )
 	socket->showSpeech( this, charName, speechColor, 3, cUOTxUnicodeSpeech::System );
 }
 
-// Resend the char to all sockets in range
+// Update flags etc.
 void cChar::update( void )
 {
 	cRegion::RegionIterator4Chars ri( pos );
@@ -1860,11 +1859,53 @@ void cChar::update( void )
 	{
 		P_CHAR pChar = ri.GetData();
 
-		if( !pChar || !pChar->socket() || ( pChar == this ) )
+		if( !pChar || !pChar->socket() )
 			continue;
 
-		pChar->socket()->sendChar( this );
+		// Resend if in range
+		if( pChar->pos.distance( pos ) <= pChar->VisRange )
+			pChar->socket()->updateChar( this );
 	}
+
+	// Additionally resend ourself to ourself
+	if( socket_ )
+		socket_->updatePlayer();
+}
+
+// Resend the char to all sockets in range
+void cChar::resend( bool clean )
+{
+	// We are stabled and therefor we arent visible to others
+	if( stablemaster_serial() != INVALID_SERIAL )
+		return;
+
+	cRegion::RegionIterator4Chars ri( pos );
+
+	cUOTxDrawChar drawChar;
+	drawChar.fromChar( this );
+
+	for( ri.Begin(); !ri.atEnd(); ri++ )
+	{
+		P_CHAR pChar = ri.GetData();
+
+		if( !pChar || !pChar->socket() )
+			continue;
+
+        // Remove it ONLY before resending if we have to do it "clean"
+		if( clean )
+			pChar->socket()->removeObject( this );
+
+		if( isHidden() && !pChar->isGMorCounselor() )
+			return;
+
+		// Resend if in range
+		if( pChar->pos.distance( pos ) <= pChar->VisRange )
+			pChar->socket()->send( &drawChar );
+	}
+
+	// Update ourself
+	if( socket_ )
+		socket_->updatePlayer();
 }
 
 QString cChar::fullName( void )
@@ -1911,14 +1952,38 @@ QString cChar::fullName( void )
 	return fName;
 }
 
-// Remove it from all sockets
-void cChar::removeFromView( void )
+// Remove it from all in-range sockets
+void cChar::removeFromView( bool clean )
 {
 	for( cUOSocket *socket = cNetwork::instance()->first(); !socket; socket = cNetwork::instance()->next() )
-		socket->removeObject( this );
+		if( clean || ( socket->player() && ( socket->player()->pos.distance( pos ) <= socket->player()->VisRange ) ) )
+			socket->removeObject( this );
 }
 
 cGuildStone *cChar::getGuildstone()
 { 
 	return dynamic_cast<cGuildStone*>( FindItemBySerial( guildstone_ ) ); 
+}
+
+void cChar::makeShop( void )
+{
+	shop = true;
+
+	// We need to create the same item on several layers
+	for( UINT8 layer = 0x1A; layer <= 0x1C; ++layer )
+	{
+		// If there already is something we just skip
+		if( GetItemOnLayer( layer ) )
+			continue;
+
+		P_ITEM pItem = Items->SpawnItem( this, 1, "#", 0, 0x2AF8, 0, 0 );
+		
+		if( pItem )
+		{
+			pItem->setContSerial( serial);
+			pItem->setLayer( layer );
+			pItem->setType( 1 );
+			pItem->priv |= 0x02;
+		}
+	}
 }

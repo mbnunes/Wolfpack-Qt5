@@ -36,6 +36,8 @@
 //
 
 #include "basics.h"
+#include "qstringlist.h"
+#include "coord.h"
 
 int RandomNum(int nLowNum, int nHighNum)
 {
@@ -67,4 +69,46 @@ int str2num(char *s, int base) // Convert string to integer
 {
 	char* dummy; // ignore the stop pointer
 	return strtol(s, &dummy, base);
+}
+
+bool parseCoordinates( const QString &input, Coord_cl &coord )
+{
+	QStringList coords = QStringList::split( ",", input );
+	
+	// We at least need x, y, z
+	if( coords.size() < 3 )
+		return false;
+
+	bool ok = false;
+
+	UINT16 x = coords[0].toULong( &ok );
+	if( !ok )
+		return false;
+
+	UINT16 y = coords[1].toULong( &ok );
+	if( !ok )
+		return false;
+
+	INT8 z = coords[2].toShort( &ok );
+	if( !ok )
+		return false;
+
+	UINT8 plane = coord.plane; // Current by default
+
+	if( coords.size() > 3 )
+	{
+		plane = coords[3].toUShort( &ok );
+
+		if( !ok )
+			return false;
+	}
+
+	// They are 100% valid now, so let's move! 
+	// TODO: Add Mapbounds check here
+	coord.x = x;
+	coord.y = y;
+	coord.z = z;
+	coord.plane = plane;
+
+	return true;
 }

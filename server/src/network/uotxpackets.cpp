@@ -133,7 +133,7 @@ void cUOTxSendSkills::addSkill( Q_UINT16 skillId, Q_UINT16 skill, Q_UINT16 realS
 	setShort( offset+7, 0 ); // Terminator
 }
 
-void cUOTxDrawObject::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color )
+void cUOTxDrawChar::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color )
 {
 	// Overwrite the last 4 bytes (terminator) and readd them later
 	Q_INT32 offset = rawPacket.count() - 4;
@@ -260,11 +260,10 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 		}*/
 }
 
-void cUOTxDrawObject::fromChar( P_CHAR pChar )
+void cUOTxDrawChar::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial );
 	setModel( pChar->id() );
-	setAmount( 1 );
 	setX( pChar->pos.x );
 	setY( pChar->pos.y );
 	setZ( pChar->pos.z );
@@ -307,7 +306,6 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	setDirection( pChar->dir );
 	//void setFlags( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
 }
-
 
 void cUOTxTipWindow::setMessage( QString m )
 {

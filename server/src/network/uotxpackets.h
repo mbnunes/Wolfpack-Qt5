@@ -457,27 +457,26 @@ public:
 	void fromChar( P_CHAR pChar );
 };
 
-// 0x78 DrawObject
-class cUOTxDrawObject: public cUOPacket
+// 0x78 DrawChar
+class cUOTxDrawChar: public cUOPacket
 {
 public:
-	cUOTxDrawObject(): cUOPacket( 0x78, 26 ) {
-		setShort( 1, 26 );
+	cUOTxDrawChar(): cUOPacket( 0x78, 24 ) {
+		setShort( 1, 24 );
 	}
 	
-	void setSerial( Q_UINT32 data ) { setInt( 3, data | 0x80000000 ); }
-	void setModel( Q_UINT16 data ) { setInt( 7, data ); }
-	void setAmount( Q_UINT16 data ) { setShort( 11, data ); }
-	void setX( Q_UINT16 data ) { setShort( 13, data | 0x8000 ); }
-	void setY( Q_UINT16 data ) { setShort( 15, data ); }	
-	void setZ( Q_INT8 data ) { rawPacket[16] = data;  }
-	void setDirection( Q_UINT8 data ) { rawPacket[17] = data; }
-	void setColor( Q_UINT16 data ) { setShort( 18, data ); }
-    void setFlags( Q_UINT8 data ) { rawPacket[20] = data; }
-	void setHightlight( Q_UINT8 data ) { rawPacket[21] = data; }
+	void setSerial( Q_UINT32 data ) { setInt( 3, data ); }
+	void setModel( Q_UINT16 data ) { setShort( 7, data ); }
+	void setX( Q_UINT16 data ) { setShort( 9, data | 0x8000 ); }
+	void setY( Q_UINT16 data ) { setShort( 11, data ); }	
+	void setZ( Q_INT8 data ) { rawPacket[13] = data;  }
+	void setDirection( Q_UINT8 data ) { rawPacket[14] = data; }
+	void setColor( Q_UINT16 data ) { setShort( 15, data ); }
+    void setFlags( Q_UINT8 data ) { rawPacket[17] = data; }
+	void setHightlight( Q_UINT8 data ) { rawPacket[18] = data; }
 	void fromChar( P_CHAR pChar );
+	
 	// The last 4 bytes are the terminator
-
 	void addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color );
 };
 
@@ -636,6 +635,15 @@ class cUOTxRemoveObject: public cUOPacket
 public:
 	cUOTxRemoveObject(): cUOPacket( 0x1d, 5 ) {}
 	void setSerial( UINT32 data ) { setInt( 1, data ); }
+};
+
+// 0x6C Target
+class cUOTxTarget: public cUOPacket
+{
+public:
+	cUOTxTarget(): cUOPacket( 0x6c, 19 ) {}
+	void setAllowGround( bool data ) { rawPacket[1] = data ? 1 : 0; }
+	void setTargSerial( UINT32 data ) { setInt( 2, data ); }
 };
 
 #endif

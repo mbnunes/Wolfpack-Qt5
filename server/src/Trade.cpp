@@ -158,13 +158,16 @@ void cTrade::buyaction(int s)
 					{
 						if( pi->isPileable() )
 						{
-							Commands->DupeItem(s, buyit[i], amount[i]);
+							P_ITEM nItem = buyit[i]->dupe();
+							nItem->setAmount( amount[i] );
+							pc_currchar->getBackpack()->AddItem( nItem );
 						}
 						else
 						{
 							for (j=0;j<amount[i];j++)
 							{
-								Commands->DupeItem(s, buyit[i], 1);
+								P_ITEM nItem = buyit[i]->dupe();
+								pc_currchar->getBackpack()->AddItem( nItem );
 							}
 						}
 						pi->ReduceAmount( amount[i] );
@@ -177,13 +180,16 @@ void cTrade::buyaction(int s)
 						case 0x1A:
 							if( pi->isPileable() )
 							{
-								Commands->DupeItem(s, buyit[i], amount[i]);
+								P_ITEM nItem = buyit[i]->dupe();
+								nItem->setAmount( amount[i] );
+								pc_currchar->getBackpack()->AddItem( nItem );
 							}
 							else
 							{
 								for (j=0;j<amount[i];j++)
 								{
-									Commands->DupeItem(s, buyit[i], 1);
+									P_ITEM nItem = buyit[i]->dupe();
+									pc_currchar->getBackpack()->AddItem( nItem );
 								}
 							}
 							pi->ReduceAmount( amount[i] );
@@ -199,7 +205,8 @@ void cTrade::buyaction(int s)
 							{
 								for (j=0;j<amount[i]-1;j++)
 								{
-									Commands->DupeItem(s, buyit[i], 1);
+									P_ITEM nItem = buyit[i]->dupe();
+									pc_currchar->getBackpack()->AddItem( nItem );
 								}
 								pi->setContSerial(pi_pack->serial);
 								pi->setAmount( 1 );
@@ -296,6 +303,7 @@ void cTrade::sellaction(int s)
 	P_ITEM pRestock = NULL;
 	P_ITEM pNoRestock = NULL;
 	P_ITEM pSellCont = NULL;
+	P_CHAR pc_currchar = currchar[s];
 
 	if (buffer[s][8]!=0)
 	{
@@ -384,7 +392,11 @@ void cTrade::sellaction(int s)
 				pSell->setContSerial(pNoRestock->serial);
 				SndRemoveitem(pSell->serial);
 				if( pSell->amount() != amt )
-					Commands->DupeItem( s, pSell, pSell->amount() - amt );
+				{
+					P_ITEM nItem = pSell->dupe();
+					nItem->setAmount( pSell->amount() - amt );
+					pc_currchar->getBackpack()->AddItem( nItem );
+				}
 			}
 		}
 		addgold(s, totgold);

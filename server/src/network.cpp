@@ -111,7 +111,12 @@ void cNetwork::poll( void )
 			uoSockets.remove();
 		}
 		else
+		{
+			if( uiCurrentTime % 100 == 0 ) // Just every 100 ticks
+				uoSocket->poll();
+
 			uoSocket->recieve();
+		}
 	}
 
 	for ( uoSocket = loginSockets.first(); uoSocket; uoSocket = loginSockets.next())

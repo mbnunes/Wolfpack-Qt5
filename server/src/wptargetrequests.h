@@ -33,6 +33,7 @@
 
 #include "platform.h"
 #include "typedefs.h"
+#include "network/uosocket.h"
 #include "targeting.h"
 
 // System Include
@@ -50,8 +51,8 @@ public:
 	cTargetRequest( void ) { timeout_ = 0; }; // Never times out
 	virtual ~cTargetRequest( void ) { };
 
-	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo ) {}; // Request has been answered
-	virtual void timedout( UOXSOCKET socket ) {}; // Request is overwritten
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target ) {}; // Request has been answered
+	virtual void timedout( cUOSocket *socket ) {}; // Request is overwritten
 
 	UI32 targetId( void ) { return targetId_; }
 	void setTargetId( UI32 data ) { targetId_ = data; }
@@ -61,7 +62,6 @@ public:
 };
 
 // Several public functions
-void checkTimedOutTargets( void );
 void attachTargetRequest( UOXSOCKET socket, cTargetRequest *targetRequest, bool allowMapTarget = true );
 void attachPlaceRequest( UOXSOCKET socket, cTargetRequest *targetRequest, UI16 houseId );
 

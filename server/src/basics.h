@@ -48,6 +48,8 @@
 #include <cctype>
 #include <cstdio>
 
+class Coord_cl;
+
 using namespace std ;
 
 //////////////////////////////////////////////////////////////////////
@@ -113,5 +115,7 @@ inline int hex2num (string sz)
 {
 	return str2num(sz,BASE_HEX) ;
 }
+
+bool parseCoordinates( const QString &input, Coord_cl &coord );
 
 #endif 

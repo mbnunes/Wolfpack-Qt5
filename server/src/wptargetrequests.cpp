@@ -34,33 +34,10 @@
 
 map< UOXSOCKET, cTargetRequest* > targetRequests; // our global target-container
 
-// This is called by the mainloop
-// to garbage collect timed out target-requests
-void checkTimedOutTargets( void )
-{
-	map< UOXSOCKET, cTargetRequest* >::iterator trIterator;
-
-	for( trIterator = targetRequests.begin(); trIterator != targetRequests.end(); ++trIterator )
-	{
-		cTargetRequest *request = trIterator->second;
-
-		if( request->timeout() == 0 )
-			continue;
-
-		if( request->timeout() <= uiCurrentTime )
-		{
-			trIterator->second->timedout( trIterator->first );
-			delete trIterator->second;
-			targetRequests.erase( trIterator );
-			trIterator = targetRequests.begin();
-		}
-	}
-}
-
 // Attach a targetRequest to a specific socket
 void attachTargetRequest( UOXSOCKET socket, cTargetRequest *targetRequest, bool allowMapTarget )
 {
-	// Issue the timeout for the old socket
+	/*// Issue the timeout for the old socket
 	map< UOXSOCKET, cTargetRequest* >::iterator it = targetRequests.find( socket );
 	if( it != targetRequests.end() )
 	{
@@ -87,13 +64,13 @@ void attachTargetRequest( UOXSOCKET socket, cTargetRequest *targetRequest, bool 
 	Xsend( socket, byteArray, 19 );	
 
 	// Allow a target for the socket (quite useless...)
-	targetok[ socket ] = 1;
+	targetok[ socket ] = 1;*/
 }
 
 void attachPlaceRequest( UOXSOCKET socket, cTargetRequest *targetRequest, UI16 houseId )
 {
 	// Issue the timeout for the old socket
-	map< UOXSOCKET, cTargetRequest* >::iterator it = targetRequests.find( socket );
+	/*map< UOXSOCKET, cTargetRequest* >::iterator it = targetRequests.find( socket );
 	if( it != targetRequests.end() )
 	{
 		(*it).second->timedout( socket );
@@ -122,5 +99,5 @@ void attachPlaceRequest( UOXSOCKET socket, cTargetRequest *targetRequest, UI16 h
 	Xsend( socket, byteArray, 26 );	
 
 	// Allow a target for the socket (quite useless...)
-	targetok[ socket ] = 1;
+	targetok[ socket ] = 1;*/
 }

@@ -39,11 +39,13 @@
 
 // Forward Declarations
 class cUOPacket;
+class cTargetRequest;
 
 // Too many Forward Declarations
 #include "uorxpackets.h"
 #include "uotxpackets.h"
 #include "../typedefs.h"
+#include "../wptargetrequests.h"
 
 class cUOSocket
 {
@@ -56,6 +58,7 @@ private:
 	P_CHAR _player;
 	eSocketState _state;
 	UINT8 lastPacket, _viewRange, _walkSequence;
+	cTargetRequest *targetRequest;
 	QString _lang,_version;
 
 	bool authenticate( const QString &username, const QString &password );
@@ -69,8 +72,13 @@ public:
 	Q_UINT8 walkSequence( void ) const;
 	void setWalkSequence( Q_UINT8 data );
 
-	cUOSocket( QSocketDevice *sDevice ); 
-	virtual ~cUOSocket( void ) { delete _socket; }
+	cUOSocket( QSocketDevice *sDevice );
+
+	virtual ~cUOSocket( void ) 
+	{ 
+		delete _socket; 
+		if( targetRequest ) delete targetRequest; 	
+	}
 
 	QSocketDevice *socket( void ) const;
 	void setSocket( QSocketDevice *data );
@@ -113,6 +121,7 @@ public:
 	void handleDoubleClick( cUORxDoubleClick* packet );
 	void handleGetTip( cUORxGetTip* packet );
 	void handleChangeWarmode( cUORxChangeWarmode* packet );
+	void handleTarget( cUORxTarget *packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );
@@ -129,6 +138,9 @@ public:
 	void sendPaperdoll( P_CHAR pChar, bool detailed = false );
 	void playMusic( void );
 	void sendContainer( P_ITEM pCont );
+	void updatePlayer();
+	void poll();
+	void attachTarget( cTargetRequest *request );
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );
