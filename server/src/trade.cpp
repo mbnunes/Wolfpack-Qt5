@@ -93,13 +93,13 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		return;
 	}
 
-	P_ITEM pStock = pVendor->GetItemOnLayer( 0x1A );
+	P_ITEM pStock = pVendor->getItemOnLayer( 0x1A );
 	cItem::ContainerContent sContent;
 
 	if ( pStock )
 		sContent = pStock->content();
 
-	P_ITEM pBought = pVendor->GetItemOnLayer( 0x1B );
+	P_ITEM pBought = pVendor->getItemOnLayer( 0x1B );
 	cItem::ContainerContent bContent;
 
 	if ( pBought )
@@ -171,8 +171,8 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 	}
 
 	// Get our total gold at once
-	UINT32 bankGold = pChar->CountBankGold();
-	UINT32 packGold = pChar->CountGold();
+	UINT32 bankGold = pChar->countBankGold();
+	UINT32 packGold = pChar->countGold();
 	bool fromBank;
 
 	if ( !pChar->isGM() )
@@ -278,7 +278,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 		return;
 	}
 
-	P_ITEM pPurchase = pVendor->GetItemOnLayer( 0x1C );
+	P_ITEM pPurchase = pVendor->getItemOnLayer( 0x1C );
 	if ( !pPurchase )
 	{
 		socket->sysMessage( tr( "Invalid item sold." ) );

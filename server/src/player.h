@@ -101,8 +101,6 @@ public:
 	// other public methods
 	virtual stError* setProperty( const QString& name, const cVariant& value );
 	PyObject* getProperty( const QString& name );
-	void turnTo( cUObject* object ); // override
-	void turnTo( const Coord_cl& data ); // override
 	P_NPC unmount();
 	void mount( P_NPC pMount );
 	bool isGM() const;
@@ -110,7 +108,7 @@ public:
 	bool isGMorCounselor() const;
 	void makeCriminal();
 	void disturbMed();
-	int CountBankGold();
+	int countBankGold();
 	bool canPickUp( cItem* pi );
 	virtual bool inWorld();
 	void giveNewbieItems( Q_UINT8 skill = 0xFF );

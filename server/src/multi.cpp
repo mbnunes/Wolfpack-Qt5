@@ -33,6 +33,7 @@
 #include "log.h"
 #include "console.h"
 #include "sectors.h"
+#include "timers.h"
 
 void cMulti::remove()
 {
@@ -92,7 +93,8 @@ cMulti* cMulti::createFromScript( const QString& id )
 		multi->setSerial( World::instance()->findItemSerial() );
 		multi->setBaseid( id.latin1() );
 		multi->applyDefinition( section );
-		multi->onCreate( id );
+		cDelayedOnCreateCall* onCreateCall = new cDelayedOnCreateCall( multi, id );
+		Timers::instance()->insert( onCreateCall );
 	}
 	else
 	{

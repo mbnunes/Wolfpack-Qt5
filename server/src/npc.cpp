@@ -617,7 +617,7 @@ UINT32 cNPC::takeGold( UINT32 amount, bool useBank )
 	UINT32 dAmount = 0;
 
 	if ( pPack )
-		dAmount = pPack->DeleteAmount( amount, 0xEED, 0 );
+		dAmount = pPack->deleteAmount( amount, 0xEED, 0 );
 
 	return dAmount;
 }
@@ -684,7 +684,7 @@ void cNPC::processNode( const cElement* Tag )
 			else
 				continue;
 
-			P_ITEM contItem = this->GetItemOnLayer( contlayer );
+			P_ITEM contItem = this->getItemOnLayer( contlayer );
 			if ( contItem != NULL )
 				contItem->processContainerNode( currNode );
 		}
@@ -1198,7 +1198,7 @@ void cNPC::setAI( const QString& data )
 
 void cNPC::makeShop()
 {
-	P_ITEM currCont = GetItemOnLayer( BuyRestockContainer );
+	P_ITEM currCont = getItemOnLayer( BuyRestockContainer );
 	if ( !currCont )
 	{
 		currCont = cItem::createFromScript( "e75" );
@@ -1207,7 +1207,7 @@ void cNPC::makeShop()
 		currCont->update();
 	}
 
-	currCont = GetItemOnLayer( BuyNoRestockContainer );
+	currCont = getItemOnLayer( BuyNoRestockContainer );
 	if ( !currCont )
 	{
 		currCont = cItem::createFromScript( "e75" );
@@ -1216,7 +1216,7 @@ void cNPC::makeShop()
 		currCont->update();
 	}
 
-	currCont = GetItemOnLayer( SellContainer );
+	currCont = getItemOnLayer( SellContainer );
 	if ( !currCont )
 	{
 		currCont = cItem::createFromScript( "e75" );
@@ -1288,8 +1288,8 @@ void cNPC::awardFame( short amount )
 
 void cNPC::vendorBuy( P_PLAYER player )
 {
-	P_ITEM pContA = GetItemOnLayer( cBaseChar::BuyRestockContainer );
-	P_ITEM pContB = GetItemOnLayer( cBaseChar::BuyNoRestockContainer );
+	P_ITEM pContA = getItemOnLayer( cBaseChar::BuyRestockContainer );
+	P_ITEM pContB = getItemOnLayer( cBaseChar::BuyNoRestockContainer );
 
 	if ( player->isDead() )
 		return;
@@ -1306,7 +1306,7 @@ void cNPC::vendorBuy( P_PLAYER player )
 
 void cNPC::vendorSell( P_PLAYER player )
 {
-	P_ITEM pContC = GetItemOnLayer( cBaseChar::SellContainer );
+	P_ITEM pContC = getItemOnLayer( cBaseChar::SellContainer );
 
 	if ( !pContC || pContC->content().size() == 0 )
 	{
@@ -1414,7 +1414,8 @@ cNPC* cNPC::createFromScript( const QString& section, const Coord_cl& pos )
 	pChar->setOrgSkin( pChar->skin() );
 
 	// Now we call onCreate
-	pChar->onCreate( section );
+	cDelayedOnCreateCall* onCreateCall = new cDelayedOnCreateCall( pChar, section );
+	Timers::instance()->insert( onCreateCall );
 	pChar->resend( false );
 	return pChar;
 }

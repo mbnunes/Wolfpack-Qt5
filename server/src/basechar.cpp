@@ -678,7 +678,7 @@ P_ITEM cBaseChar::getShield() const
 void cBaseChar::setHairColor( UINT16 d )
 {
 	changed_ = true;
-	cItem* pHair = GetItemOnLayer( 11 );
+	cItem* pHair = getItemOnLayer( 11 );
 	if ( pHair )
 		pHair->setColor( d );
 	pHair->update();
@@ -689,7 +689,7 @@ void cBaseChar::setHairStyle( UINT16 d )
 	if ( !isHair( d ) )
 		return;
 	changed_ = true;
-	cItem* pHair = GetItemOnLayer( 11 );
+	cItem* pHair = getItemOnLayer( 11 );
 	if ( pHair )
 	{
 		pHair->setId( d );
@@ -710,7 +710,7 @@ void cBaseChar::setHairStyle( UINT16 d )
 void cBaseChar::setBeardColor( UINT16 d )
 {
 	changed_ = true;
-	cItem* pBeard = GetItemOnLayer( 16 );
+	cItem* pBeard = getItemOnLayer( 16 );
 	if ( pBeard )
 		pBeard->setColor( d );
 	pBeard->update();
@@ -721,7 +721,7 @@ void cBaseChar::setBeardStyle( UINT16 d )
 	if ( !isBeard( d ) )
 		return;
 	changed_ = true;
-	cItem* pBeard = GetItemOnLayer( 16 );
+	cItem* pBeard = getItemOnLayer( 16 );
 	if ( pBeard )
 		pBeard->setId( d );
 	else
@@ -972,13 +972,12 @@ void cBaseChar::unhide()
 	}
 }
 
-int cBaseChar::CountItems( short ID, short col )
+int cBaseChar::countItems( short ID, short col )
 {
 	// Dont you think it's better to search the char's equipment as well?
 	UINT32 number = 0;
-	ItemContainer container = content_;
-	ItemContainer::const_iterator it = container.begin();
-	ItemContainer::const_iterator end = container.end();
+	ItemContainer::const_iterator it(content_.begin());
+	ItemContainer::const_iterator end(content_.end());
 
 	for ( ; it != end; ++it )
 	{
@@ -994,16 +993,16 @@ int cBaseChar::CountItems( short ID, short col )
 	P_ITEM pi = getBackpack();
 
 	if ( pi )
-		number = pi->CountItems( ID, col );
+		number = pi->countItems( ID, col );
 	return number;
 }
 
-int cBaseChar::CountGold()
+int cBaseChar::countGold()
 {
-	return CountItems( 0x0EED );
+	return countItems( 0x0EED );
 }
 
-P_ITEM cBaseChar::GetItemOnLayer( unsigned char layer )
+P_ITEM cBaseChar::getItemOnLayer( unsigned char layer )
 {
 	return atLayer( static_cast<enLayer>( layer ) );
 }
@@ -1052,12 +1051,7 @@ void cBaseChar::setSerial( const SERIAL ser )
 	World::instance()->registerObject( this );
 }
 
-void cBaseChar::MoveTo( short newx, short newy, signed char newz )
-{
-	cUObject::moveTo( Coord_cl( newx, newy, newz, pos().map ) );
-}
-
-bool cBaseChar::Wears( P_ITEM pi )
+bool cBaseChar::wears( P_ITEM pi )
 {
 	return ( this == pi->container() );
 }
@@ -1156,7 +1150,7 @@ cItem* cBaseChar::atLayer( cBaseChar::enLayer layer ) const
 	return 0;
 }
 
-bool cBaseChar::Owns( P_ITEM pItem ) const
+bool cBaseChar::owns( P_ITEM pItem ) const
 {
 	if ( !pItem )
 		return false;
@@ -2852,7 +2846,7 @@ bool cBaseChar::kill( cUObject* source )
 		// Move possible equipment to the corpse
 		for ( unsigned char layer = SingleHandedWeapon; layer <= InnerLegs; ++layer )
 		{
-			P_ITEM item = GetItemOnLayer( layer );
+			P_ITEM item = getItemOnLayer( layer );
 
 			if ( item )
 			{

@@ -271,14 +271,13 @@ public:
 	bool isCriminal() const;
 	virtual bool isInnocent();
 	void unhide();
-	int CountItems( short ID, short col = -1 );
-	int CountGold();
-	P_ITEM GetItemOnLayer( unsigned char layer );
+	int countItems( short ID, short col = -1 );
+	int countGold();
+	P_ITEM getItemOnLayer( unsigned char layer );
 	P_ITEM getBackpack();
 	P_ITEM getBankbox();
 	void setSerial( SERIAL ser );
-	void MoveTo( short newx, short newy, signed char newz );
-	bool Wears( P_ITEM pi );
+	bool wears( P_ITEM pi );
 	unsigned int getSkillSum() const;
 	void Init( bool ser = true );
 	bool isSameAs( P_CHAR pc ) const;
@@ -291,7 +290,7 @@ public:
 	void showPaperdoll( cUOSocket* source, bool hotkey );
 	virtual bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true );
 	cItem* atLayer( enLayer layer ) const;
-	bool Owns( P_ITEM pi ) const;
+	bool owns( P_ITEM pi ) const;
 	virtual void callGuards();
 	virtual void flagUnchanged();
 	virtual void awardFame( short amount ) = 0;

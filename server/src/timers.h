@@ -160,6 +160,19 @@ public:
 	}
 };
 
+class cDelayedOnCreateCall : public cTimer
+{
+	cUObject* obj_;
+	const QString def_;
+public:
+	cDelayedOnCreateCall( cUObject*, const QString& definition );
+	void Expire();
+	QString objectID() const
+	{
+		return "cDelayedOnCreateCall";
+	}
+};
+
 class cTimers
 {
 private:

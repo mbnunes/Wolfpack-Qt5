@@ -179,6 +179,10 @@ private:
 	} // easier to debug, compiler should make it inline;
 
 public:
+	cItem();
+	cItem( const cItem& src ); // Copy constructor
+
+
 	unsigned char getClassid()
 	{
 		return cItem::classid;
@@ -351,8 +355,6 @@ public:
 		return basedef_ ? basedef_->bindmenu() : 0;
 	}
 
-	//***************************END ADDED GETTERS************
-
 	// Setters
 	void setId( ushort nValue )
 	{
@@ -403,21 +405,13 @@ public:
 	void setUnprocessed( bool nValue )
 	{
 		if ( nValue )
-		{
 			priv_ |= 0x40;
-		}
 		else
-		{
 			priv_ &= ~0x40;
-		}
 	}
 
 	void setOwner( P_CHAR nOwner );
 	void setTotalweight( float data );
-
-	cItem();
-	cItem( const cItem& src ); // Copy constructor
-	static void registerInFactory();
 
 	bool wearOut(); // The item wears out and true is returned if it's destroyed
 	void toBackpack( P_CHAR pChar );
@@ -465,37 +459,25 @@ public:
 	}
 	UINT16 getWeaponSkill();
 
-	void MoveTo( int newx, int newy, signed char newz );
 	void moveTo( const Coord_cl& pos, bool noremove = false );
 	long reduceAmount( short amount = 1 );
-	short GetContGumpType();
-	void SetRandPosInCont( cItem* pCont );
-	bool PileItem( cItem* pItem );
-	bool ContainerPileItem( cItem* pItem ); // try to find an item in the container to stack with
+	short containerGumpType() const;
+	void setRandPosInCont( cItem* pCont );
+	bool pileItem( cItem* pItem );
+	bool containerPileItem( cItem* pItem ); // try to find an item in the container to stack with
 	bool canStack( cItem* pItem ); // See if this item can stack with another.
-	void addItem( cItem* pItem, bool randomPos = true, bool handleWeight = true, bool noRemove = false ); // Add Item to container
+	void addItem( cItem* pItem, bool randomPos = true, bool handleWeight = true, bool noRemove = false, bool autoStack = true ); // Add Item to container
 	void removeItem( cItem*, bool handleWeight = true );
 	void removeFromCont( bool handleWeight = true );
 	ContainerContent content() const;
 	bool contains( const cItem* ) const;
-	/*!
-		\brief Counts the items in this container which match a list of
-				specific \p baseids.
-		\returns The amount of items found.
-	*/
-	unsigned int countItems( const QStringList& baseids );
+	unsigned int countItems( const QStringList& baseids ) const;
+	unsigned int countItems( short ID, short col = -1 ) const;
 
-	/*!
-		\brief Removes a certain amount of items from this container
-			recursively.
-		\param baseids The list of baseids that a item can have.
-		\param amount The amount of items to remove.
-		\returns The remaining amount of items to be removed.
-	*/
 	unsigned int removeItems( const QStringList& baseids, unsigned int amount );
+	void remove();
 
-	int CountItems( short ID, short col = -1 ) const;
-	int DeleteAmount( int amount, ushort _id, ushort _color = 0 );
+	int deleteAmount( int amount, ushort _id, ushort _color = 0 );
 	QString getName( bool shortName = false );
 	void setAllMovable()
 	{
@@ -562,7 +544,7 @@ public:
 	static P_ITEM createFromScript( const QString& section );
 	static P_ITEM createFromList( const QString& list );
 	static P_ITEM createFromId( unsigned short id );
-	void remove();
+	static void registerInFactory();
 
 protected:
 	// Methods

@@ -291,11 +291,6 @@ void cItem::SetOwnSerial( int ownser )
 	setOwnSerialOnly( ownser );
 }
 
-void cItem::MoveTo( int newx, int newy, signed char newz )
-{
-	moveTo( Coord_cl( newx, newy, newz, pos().z, pos().map ) );
-}
-
 /*
  * Author: LB purpose: returns the type of pack
  * to handle its x,y coord system corretly.
@@ -309,109 +304,69 @@ void cItem::MoveTo( int newx, int newy, signed char newz )
  * x-range 18 .. 118 for 1,2,3
  *  	   40 .. 140 for 4
  */
-short cItem::GetContGumpType()
+short cItem::containerGumpType() const
 {
 	switch ( id() )
 	{
 	case 0x09a8:
-		return 1;
-	case 0x09a9:
-		return 2;
 	case 0x09aa:
-		return 1;
-	case 0x09ab:
-		return 3;
 	case 0x09b0:
-		return 1;
-	case 0x09b2:
-		return 4;
-
-	case 0x0A2C:
-		return 1;	// chest of drawers
-	case 0x0A30:
-		return 1;	// chest of drawers
-	case 0x0A34:
-		return 1;	// chest of drawers
-	case 0x0A38:
-		return 1;	// chest of drawers
-
-	case 0x0A4D:
-		return 1;	// armoire
-	case 0x0A4F:
-		return 1;	// armoire
-	case 0x0A51:
-		return 1;	// armoire
-	case 0x0A53:
-		return 1;	// armoire
-
-	case 0x0A97:
-		return 1;	// bookshelf
-	case 0x0A98:
-		return 1;	// bookshelf
-	case 0x0A99:
-		return 1;	// bookshelf
-	case 0x0A9A:
-		return 1;	// bookshelf
-	case 0x0A9B:
-		return 1;	// bookshelf
-	case 0x0A9C:
-		return 1;	// bookshelf
-	case 0x0A9D:
-		return 1;	// bookshelf
-	case 0x0A9E:
-		return 1;	// bookshelf
-
-	case 0x0e3c:
-		return 2;
-	case 0x0e3d:
-		return 2;
-	case 0x0e3e:
-		return 2;
-	case 0x0e3f:
-		return 2;
-	case 0x0e40:
-		return 3;
-	case 0x0e41:
-		return 3;
-	case 0x0e42:
-		return 3;
-	case 0x0e43:
-		return 3;
-	case 0x0e75:
-		return 4;
-
+	case 0x0A2C:	// chest of drawers
+	case 0x0A30:	// chest of drawers
+	case 0x0A34:	// chest of drawers
+	case 0x0A38:	// chest of drawers
+	case 0x0A4D:	// armoire
+	case 0x0A4F:	// armoire
+	case 0x0A51:	// armoire
+	case 0x0A53:	// armoire
+	case 0x0A97:	// bookshelf
+	case 0x0A98:	// bookshelf
+	case 0x0A99:	// bookshelf
+	case 0x0A9A:	// bookshelf
+	case 0x0A9B:	// bookshelf
+	case 0x0A9C:	// bookshelf
+	case 0x0A9D:	// bookshelf
+	case 0x0A9E:	// bookshelf
 	case 0x0e76:
-		return 1;
-	case 0x0e77:
-		return 4;
-	case 0x0e78:
-		return 2;
 	case 0x0e79:
-		return 1;
 	case 0x0e7a:
-		return 1;
-
-	case 0x0e7c:
-		return 3;
 	case 0x0e7d:
-		return 1;
-	case 0x0e7e:
-		return 2;
-	case 0x0e7f:
-		return 4;
 	case 0x0e80:
 		return 1;
+
+	case 0x09a9:
+	case 0x0e3c:
+	case 0x0e3d:
+	case 0x0e3e:
+	case 0x0e3f:
+	case 0x0e78:
+	case 0x0e7e:
+		return 2;
+
+	case 0x09ab:
+	case 0x0e40:
+	case 0x0e41:
+	case 0x0e42:
+	case 0x0e43:
+	case 0x0e7c:
+		return 3;
+
+	case 0x09b2:
+	case 0x0e75:
+	case 0x0e77:
+	case 0x0e7f:
 	case 0x0e83:
 		return 4;
 
 	case 0x2006:
 		return 5; // a corpse/coffin
+
 	default:
 		return -1;
 	}
 }
 
-bool cItem::PileItem( cItem* pItem )
+bool cItem::pileItem( cItem* pItem )
 {
 	if ( !canStack( pItem ) )
 		return false;
@@ -432,22 +387,24 @@ bool cItem::PileItem( cItem* pItem )
 	}
 }
 
-// try to find an item in the container to stack with
-bool cItem::ContainerPileItem( cItem* pItem )
+/*!
+	Tries to find an item in the container to stack with
+*/
+bool cItem::containerPileItem( cItem* pItem )
 {
 	cItem::ContainerContent::const_iterator it( content_.begin() );
 	cItem::ContainerContent::const_iterator end( content_.end() );
 	for ( ; it != end; ++it )
 	{
-		if ( ( *it )->PileItem( pItem ) )
+		if ( ( *it )->pileItem( pItem ) )
 			return true;
 	}
 	return false;
 }
 
-void cItem::SetRandPosInCont( cItem* pCont )
+void cItem::setRandPosInCont( cItem* pCont )
 {
-	int k = pCont->GetContGumpType();
+	int k = pCont->containerGumpType();
 	Coord_cl position = pos();
 	position.x = RandomNum( 18, 118 );
 	position.z = 9;
@@ -477,26 +434,11 @@ void cItem::SetRandPosInCont( cItem* pCont )
 	setPos( position );
 }
 
-int cItem::CountItems( short id, short color ) const
-{
-	int total = 0;
-	QPtrList<cItem> content = getContainment();
-
-	for ( P_ITEM pi = content.first(); pi; pi = content.next() )
-	{
-		if ( !pi || pi->free )			// just to be sure ;-)
-			continue;
-		if ( pi->id() == id && ( color == -1 || pi->color() == color ) )
-			total += pi->amount();
-	}
-	return total;
-}
-
 /*!
 	Recurses through the container given by serial and deletes items of
 	the given id and color(if given) until the given amount is reached
 */
-int cItem::DeleteAmount( int amount, unsigned short _id, unsigned short _color )
+int cItem::deleteAmount( int amount, unsigned short _id, unsigned short _color )
 {
 	int rest = amount;
 	P_ITEM pi;
@@ -507,7 +449,7 @@ int cItem::DeleteAmount( int amount, unsigned short _id, unsigned short _color )
 	{
 		pi = *it;
 		if ( pi->type() == 1 )
-			rest = pi->DeleteAmount( rest, _id, _color );
+			rest = pi->deleteAmount( rest, _id, _color );
 		if ( pi->id() == _id && ( _color == 0 || ( pi->color() == _color ) ) )
 			rest = pi->reduceAmount( rest );
 		if ( rest <= 0 )
@@ -1160,7 +1102,7 @@ void cItem::update( cUOSocket* singlesocket )
 					{
 						flags |= 0x20;
 					}
-					else if ( isOwnerMovable() && player->Owns( this ) )
+					else if ( isOwnerMovable() && player->owns( this ) )
 					{
 						flags |= 0x20;
 					}
@@ -1191,7 +1133,7 @@ void cItem::update( cUOSocket* singlesocket )
 			{
 				flags |= 0x20;
 			}
-			else if ( isOwnerMovable() && player->Owns( this ) )
+			else if ( isOwnerMovable() && player->owns( this ) )
 			{
 				flags |= 0x20;
 			}
@@ -1551,7 +1493,7 @@ void cItem::buildSqlString( QStringList& fields, QStringList& tables, QStringLis
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
 
-void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRemove )
+void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRemove, bool autoStack )
 {
 	if ( !pItem )
 		return;
@@ -1578,7 +1520,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 
 	if ( randomPos )
 	{
-		if ( ContainerPileItem( pItem ) )
+		if ( autoStack && containerPileItem( pItem ) )
 		{
 			// If the Server is running and this happens, resend the tooltip of us and
 			// all our parent containers.
@@ -1597,7 +1539,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 		}
 		else
 		{
-			pItem->SetRandPosInCont( this );
+			pItem->setRandPosInCont( this );
 		}
 	}
 
@@ -2172,7 +2114,8 @@ P_ITEM cItem::createFromScript( const QString& id )
 		nItem->Init( true );
 		nItem->setBaseid( id.latin1() );
 		nItem->applyDefinition( section );
-		nItem->onCreate( id );
+		cDelayedOnCreateCall* onCreateCall = new cDelayedOnCreateCall( nItem, id );
+		Timers::instance()->insert( onCreateCall );
 	}
 	else
 	{
@@ -2273,7 +2216,11 @@ bool cItem::canStack( cItem* pItem )
 	return true;
 }
 
-unsigned int cItem::countItems( const QStringList& baseids )
+/*!
+	Counts the items in this container which match a list of
+	specific \p baseids.
+*/
+unsigned int cItem::countItems( const QStringList& baseids ) const
 {
 	unsigned int count = 0;
 	if ( baseids.contains( baseid() ) )
@@ -2281,15 +2228,37 @@ unsigned int cItem::countItems( const QStringList& baseids )
 		count += amount();
 	}
 
-	ContainerContent::iterator it = content_.begin();
-	while ( it != content_.end() )
+	ContainerContent::const_iterator it(content_.begin());
+	ContainerContent::const_iterator end(content_.end());
+	for ( ; it != end; ++it )
 	{
 		count += ( *it )->countItems( baseids );
-		++it;
 	}
 	return count;
 }
 
+unsigned int cItem::countItems( short id, short color ) const
+{
+	unsigned int total = 0;
+	QPtrList<cItem> content = getContainment();
+
+	for ( P_ITEM pi = content.first(); pi; pi = content.next() )
+	{
+		if ( !pi || pi->free )			// just to be sure ;-)
+			continue;
+		if ( pi->id() == id && ( color == -1 || pi->color() == color ) )
+			total += pi->amount();
+	}
+	return total;
+}
+
+/*!
+	\brief Removes a certain amount of items from this container
+	recursively.
+	\param baseids The list of baseids that a item can have.
+	\param amount The amount of items to remove.
+	\returns The remaining amount of items to be removed.
+*/
 unsigned int cItem::removeItems( const QStringList& baseids, unsigned int amount )
 {
 	// We can statisfy the need by removing from ourself

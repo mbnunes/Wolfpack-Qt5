@@ -464,6 +464,18 @@ void cDelayedHideChar::Expire()
 	pc->resend( true );
 }
 
+cDelayedOnCreateCall::cDelayedOnCreateCall( cUObject* obj, const QString& definition ) : 
+	obj_(obj), def_(definition)
+{
+	setSerializable( false );
+	expiretime = 0; // right on the next loop.
+}
+
+void cDelayedOnCreateCall::Expire()
+{
+	obj_->onCreate(def_);
+}
+
 void cTimers::insert( cTimer* pT )
 {
 	// If the tempeffect has a char it affects,

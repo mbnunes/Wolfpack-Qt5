@@ -434,16 +434,6 @@ UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another ch
 	return result;
 }
 
-void cPlayer::turnTo( cUObject* object )
-{
-	cBaseChar::turnTo( object->pos() );
-}
-
-void cPlayer::turnTo( const Coord_cl& pos )
-{
-	cBaseChar::turnTo( pos );
-}
-
 P_NPC cPlayer::unmount()
 {
 	P_ITEM pi = atLayer( Mount );
@@ -690,10 +680,10 @@ void cPlayer::disturbMed()
 	}
 }
 
-int cPlayer::CountBankGold()
+int cPlayer::countBankGold()
 {
 	P_ITEM pi = getBankbox(); //we want gold bankbox.
-	return pi->CountItems( 0x0EED );
+	return pi->countItems( 0x0EED );
 }
 
 bool cPlayer::canPickUp( cItem* pi )
@@ -712,7 +702,7 @@ bool cPlayer::canPickUp( cItem* pi )
 		return true;
 	}
 
-	if ( ( pi->isOwnerMovable() || pi->isLockedDown() ) && !this->Owns( pi ) )	// owner movable or locked down ?
+	if ( ( pi->isOwnerMovable() || pi->isLockedDown() ) && !this->owns( pi ) )	// owner movable or locked down ?
 		return false;
 
 	tile_st tile = TileCache::instance()->getTile( pi->id() );
@@ -779,14 +769,14 @@ UINT32 cPlayer::takeGold( UINT32 amount, bool useBank )
 	UINT32 dAmount = 0;
 
 	if ( pPack )
-		dAmount = pPack->DeleteAmount( amount, 0xEED, 0 );
+		dAmount = pPack->deleteAmount( amount, 0xEED, 0 );
 
 	if ( ( dAmount > 0 ) && useBank )
 	{
 		P_ITEM pBank = getBankbox();
 
 		if ( pBank )
-			dAmount += pBank->DeleteAmount( ( amount - dAmount ), 0xEED, 0 );
+			dAmount += pBank->deleteAmount( ( amount - dAmount ), 0xEED, 0 );
 	}
 
 	goldSound( amount, false );
