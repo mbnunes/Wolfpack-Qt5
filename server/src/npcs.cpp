@@ -709,13 +709,6 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 		else if( TagName == "spadelay" )
 			Char->spadelay = Value.toInt();
 
-		//<skinlist>1</skinlist>
-		else if( TagName == "skinlist" )
-		{
-			Char->setXSkin(addrandomcolor(Char,(char*)Value.latin1()));
-			Char->setSkin(Char->xskin());
-		}
-
 		//<stablemaster />
 		else if( TagName == "stablemaster" )
 			Char->setNpc_type(1);
