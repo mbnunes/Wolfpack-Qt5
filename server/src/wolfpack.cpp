@@ -955,9 +955,14 @@ void showcname (UOXSOCKET s, P_CHAR pc_i, char b) // Singleclick text for a char
 				{
 					if(c=='_')
 						c=' ';
-					sprintf((char*)temp, "%s%c", temp, c);
+					if (SrvParams->showNpcTitles() == 1)
+					{
+					    sprintf((char*)temp, "%s,%s", pc_i->name.c_str(),pc_i->title().latin1());
+					}else{
+					   sprintf((char*)temp, "%s%c", temp, c);
+					}
+				    x++;
 				}
-				x++;
 			}
 			while ((c!=0) && x<50 );
 		}
@@ -1026,12 +1031,6 @@ void deathstuff(P_CHAR pc_player)
 			}
 			pc_t->attacker = INVALID_SERIAL;
 			pc_t->resetAttackFirst();
-
-			if (pc_t->npcaitype()==4 || pc_t->npcaitype()==9) // Ripper...so non human npcs disapear if killed by guards.
-			{
-				if (pc_player->isNpc() && !pc_player->isHuman())
-					Npcs->DeleteChar(pc_player);
-			}
 
 			if(pc_t->isPlayer() && !pc_t->inGuardedArea())
 			{//AntiChrist
@@ -2364,7 +2363,6 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 			case 0xDC: pi->setId(0x3EA6); break; // LLama
 			case 0x34: pi->setId(0x3E9F); break; // Brown Horse
 			case 0x4E: pi->setId(0x3EA0); break; // Grey Horse
-			case 0x38: pi->setId(0x3EA2); break; // Dark Brown Horse
 			case 0x50: pi->setId(0x3EA1); break; // Tan Horse
 			case 0x74: pi->setId(0x3EB5); break; // Nightmare
 			case 0x75: pi->setId(0x3EA8); break; // Silver Steed
@@ -3478,74 +3476,69 @@ char indungeon(P_CHAR pc)
 	return 0;
 }
 
-void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
+void npcattacktarget(P_CHAR attacker, P_CHAR defender)
 {
-	if (pc_target == pc_target2) return;
-	if (pc_target == NULL || pc_target2 == NULL) return;
+	if (attacker == defender) return;
+	if (attacker == NULL || defender == NULL) return;
+	if (attacker->dead || defender->dead) return;
+	if (defender->dispz > (attacker->dispz +10)) return;//FRAZAI
+	if (defender->dispz < (attacker->dispz -10)) return;//FRAZAI
 
-	if (pc_target->dispz > (pc_target2->dispz +10)) return;//FRAZAI
-	if (pc_target->dispz < (pc_target2->dispz -10)) return;//FRAZAI
-	if (!(line_of_sight(-1,pc_target2->pos, pc_target->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) return; //From Leviathan - Morrolan
-	playmonstersound(pc_target, pc_target->id(), SND_STARTATTACK);
+	if (!(line_of_sight(-1,attacker->pos, defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) return; //From Leviathan - Morrolan
+	playmonstersound(defender, defender->id(), SND_STARTATTACK);
 	int i;
 	unsigned int cdist=0 ;
 
-	if (pc_target->dead || pc_target2->dead) return;
-
-	if (pc_target->targ != INVALID_SERIAL)
-		cdist = chardist( pc_target, FindCharBySerial(pc_target->targ));
+	if (defender->targ != INVALID_SERIAL)
+		cdist = chardist( defender, FindCharBySerial(defender->targ));
 	else cdist=30;
 
-	if (cdist>chardist(pc_target, pc_target2))
+	if (cdist>chardist(defender, attacker))
 	{
-		pc_target->targ = pc_target2->serial;
-		pc_target->attacker = pc_target2->serial;
-		pc_target->setAttackFirst();
+		defender->targ = attacker->serial;
+		defender->attacker = attacker->serial;
+		defender->setAttackFirst();
 	}
 
-	if (pc_target2->targ != INVALID_SERIAL)
-		cdist = chardist(pc_target2, FindCharBySerial(pc_target2->targ));
+	if (attacker->targ != INVALID_SERIAL)
+		cdist = chardist(attacker, FindCharBySerial(attacker->targ));
 	else cdist=30;
 
-	if ((cdist > chardist(pc_target, pc_target2))&&
-		((!(pc_target2->npcaitype()==4)||(!((pc_target2->targ==INVALID_SERIAL)))))) // changed from 0x40 to 4, LB
+	if ((cdist > chardist(defender, attacker))&&
+		((!(attacker->npcaitype()==4)||(!((attacker->targ==INVALID_SERIAL)))))) // changed from 0x40 to 4, LB
 	{
-		pc_target2->targ = pc_target->serial;
-		pc_target2->attacker = pc_target->serial;
-		pc_target2->resetAttackFirst();
+		attacker->targ = defender->serial;
+		attacker->attacker = defender->serial;
+		attacker->resetAttackFirst();
 	}
 
-	pc_target->unhide();
-	pc_target->disturbMed();
+	defender->unhide();
+	defender->disturbMed();
 
-	pc_target2->unhide();
-	pc_target2->disturbMed();
+	attacker->unhide();
+	attacker->disturbMed();
 
-	if (pc_target->isNpc())
+	if (defender->isNpc())
 	{
-		if (!(pc_target->war))
-			npcToggleCombat(pc_target);
-		pc_target->setNextMoveTime();
-
-		// Let's turn them toward our target
-		pc_target->dir = chardir(pc_target, pc_target2);
+		if (!(defender->war))
+			npcToggleCombat(defender);
+		defender->setNextMoveTime();
 	}
-
-	if ((pc_target2->isNpc())&&!(pc_target2->npcaitype()==4)) // changed from 0x40 to 4, LB
+	if ((attacker->isNpc())&&!(attacker->npcaitype()==4)) // changed from 0x40 to 4, LB
 	{
-		if (!(pc_target2->war))
-			npcToggleCombat(pc_target2);
-		pc_target2->setNextMoveTime();
+		if (!(attacker->war))
+			npcToggleCombat(attacker);
+		attacker->setNextMoveTime();
 	}
 	
-	sprintf((char*)temp, "You see %s attacking %s!", pc_target2->name.c_str(), pc_target->name.c_str());
+	sprintf((char*)temp, "You see %s attacking %s!", attacker->name.c_str(), defender->name.c_str());
 
 	for (i=0;i<now;i++)
 		{
-		 if (inrange1p(currchar[i], pc_target)&&perm[i])
+		 if (inrange1p(currchar[i], defender)&&perm[i])
 		 {
-			  pc_target->emotecolor = 0x0026;
-			  npcemote(i, pc_target2, (char*)temp,1);
+			  defender->emotecolor = 0x0026;
+			  npcemote(i, attacker, (char*)temp,1);
 		 }
 	}
 }
@@ -3628,18 +3621,16 @@ void getSextantCords(signed int x, signed int y, bool t2a, char *sextant)
 
 }
 
-void npcsimpleattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
+void npcsimpleattacktarget(P_CHAR attacker, P_CHAR defender)
 {
-	if (pc_target2 == NULL || pc_target == NULL)
-		return;
-	if ((pc_target->targ==pc_target2->serial)&&(pc_target2->targ==pc_target->serial)) return;
+	if (attacker == NULL || defender == NULL) return;
+	if (attacker == defender) return;
+	if (attacker->dead || defender->dead) return;
 
-	if (pc_target->dead || pc_target2->dead) return;
-
-	pc_target->fight(pc_target2);
-	pc_target->setAttackFirst();
-	pc_target2->fight(pc_target);
-	pc_target2->resetAttackFirst();
+	defender->fight(attacker);
+	defender->setAttackFirst();
+	attacker->fight(defender);
+	attacker->resetAttackFirst();
 }
 
 // streamlined by Duke 01.06.2000
@@ -5738,7 +5729,10 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 			case 7: // order guard
 			case 8: // banker
 			case 9: // town guard
+			case 11: // good npcs
 			case 17: // player vendor
+			case 18: // escort npcs
+			case 19: // real estate brokers
 				pc->setInnocent();
 				break;
 			default:
@@ -5747,14 +5741,14 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 					pc->setInnocent();
 					return;
 				}
-				if (SrvParams->animals_guarded() == 1 && pc->npcaitype() == 0 && !pc->tamed())
+				if (SrvParams->animals_guarded() == 1 && pc->npcaitype() == 0 && !pc->isHuman() && !pc->tamed())
 				{
 					if (pc->inGuardedArea())	// in a guarded region, with guarded animals, animals == blue
 						pc->setInnocent();
 					else				// if the region's not guarded, they're gray
 						pc->setCriminal();
 				}
-				else if (pc->ownserial>-1 && pc->tamed())
+				else if (pc->ownserial>-1 && !pc->isHuman() && pc->tamed())
 				{
 					P_CHAR pc_owner = FindCharBySerial(pc->ownserial);
 					if (pc_owner != NULL)
@@ -6079,5 +6073,345 @@ int check_house_decay()
 	
 	//delete Watch;
 	return decayed_houses;
+}
+
+//o---------------------------------------------------------------------------o
+//|	Function	-	void AutoFurnitureTurn( int s, int i)
+//|	Date		-	11/23/2001  Happy Thanksgiving!
+//|	Programmer	-	CyberSpud
+//o---------------------------------------------------------------------------o
+//|	Purpose		-	Takes a character's socket and an item and rotates that
+//|					item if the character is facing one of the cardinal
+//|					directions.  
+//o---------------------------------------------------------------------------o
+
+// Returns true if item was updated.
+bool autoFurnitureTurn( int s, P_ITEM pi ) // Auto turn furniture
+{
+	P_CHAR pc_currchar = currchar[s];
+	int CharDir = pc_currchar->dir;
+	int id = pi->id();
+	char direction[8];
+
+	switch (CharDir)
+	{
+		case 0:
+			strcpy(direction,"north");
+			break;
+		case 2:
+			strcpy(direction,"east");
+			break;
+		case 4:
+			strcpy(direction,"south");
+			break;
+		case 6:
+			strcpy(direction,"west");
+			break;
+		default:  //not facing one of the cardinal directions so go ahead and return
+			return false;
+	}
+	
+//***straw chair***
+	if (id == 0x0B5c	  //north
+		 ||  id == 0x0B5a	  //east
+		 ||  id == 0x0B5b	  //south
+		 ||  id == 0x0B5d) //west
+	{	
+		switch (CharDir)
+		{
+		case 0:
+			id = 0x0B5c;
+			break;
+		case 2:
+			id = 0x0B5a;
+			break;
+		case 4:
+			id = 0x0B5b;
+			break;
+		case 6:
+			id = 0x0B5d;
+			break;
+		}
+	}
+	
+//***fancy chair***
+	else if (id == 0x0B50    //north
+			||  id == 0x0B4e    //east
+			||  id == 0x0B4f    //south
+			||  id == 0x0B51)  //west
+	{	
+		switch (CharDir)
+		{
+		case 0:
+			id = 0x0B50;
+			break;
+		case 2:
+			id = 0x0B4e;
+			break;
+		case 4:
+			id = 0x0B4f;
+			break;
+		case 6:
+			id = 0x0B51;
+			break;
+		}
+	}
+//***Trinsic chair***
+	else if (id == 0x0B54    //north
+			||  id == 0x0B52    //east
+			||  id == 0x0B53    //south
+			||  id == 0x0B55)  //west
+	{	
+		switch (CharDir)
+		{
+		case 0:
+			id = 0x0B54;
+			break;
+		case 2:
+			id = 0x0B52;
+			break;
+		case 4:
+			id = 0x0B53;
+			break;
+		case 6:
+			id = 0x0B55;
+			break;
+		}
+	}
+//***wooden chair***
+	else if (id == 0x0B59    //north
+			||  id == 0x0B56    //east
+			||  id == 0x0B57    //south
+			||  id == 0x0B58)  //west
+	{	
+		switch (CharDir)
+		{
+		case 0:
+			id = 0x0B59;
+			break;
+		case 2:
+			id = 0x0B56;
+			break;
+		case 4:
+			id = 0x0B57;
+			break;
+		case 6:
+			id = 0x0B58;
+			break;
+		}
+	}
+//***wooden throne***
+	else if (id == 0x0B31    //north
+			||  id == 0x0B2f    //east
+			||  id == 0x0B2e    //south
+			||  id == 0x0B30)  //west
+	{	
+		switch (CharDir)
+		{
+		case 0:
+			id = 0x0B31;
+			break;
+		case 2:
+			id = 0x0B2f;
+			break;
+		case 4:
+			id = 0x0B2e;
+			break;
+		case 6:
+			id = 0x0B30;
+			break;
+		}
+	}
+//***stone throne***
+	else if (id == 0x121a    //north
+			||  id == 0x1219    //east
+			||  id == 0x1218    //south
+			||  id == 0x121b)  //west
+	{	
+		switch (CharDir)
+		{
+		case 0:
+			id = 0x121a;
+			break;
+		case 2:
+			id = 0x1219;
+			break;
+		case 4:
+			id = 0x1218;
+			break;
+		case 6:
+			id = 0x121b;
+			break;
+		}
+	}
+//***fancy throne***
+	else if (id == 0x0b32    //north
+			||  id == 0x0b33)  //east
+	{	
+		switch (CharDir)
+		{
+		case 0:
+		case 4:
+			id = 0x0b32;
+			break;
+		case 2:
+		case 6:
+			id = 0x0b33;
+			break;
+		}
+	}
+//***wooden bench***
+	else if (id == 0x0b2d    //north
+			||  id == 0x0b2c)  //east
+	{	
+		switch (CharDir)
+		{
+		case 0:
+		case 4:
+			id = 0x0b2d;
+			break;
+		case 2:
+		case 6:
+			id = 0x0b2c;
+			break;
+		}
+	}
+//***chest of drawers***
+	else if (id == 0x0a2c    //north
+			||  id == 0x0a34)  //east
+	{	
+		switch (CharDir)
+		{
+		case 0:
+		case 4:
+			id = 0x0a2c;
+			break;
+		case 2:
+		case 6:
+			id = 0x0a34;
+			break;
+		}
+	}
+//***stained chest of drawers***
+	else if (id == 0x0a30    //north
+			||  id == 0x0a38)  //east
+	{	
+		switch (CharDir)
+		{
+		case 0:
+		case 4:
+			id = 0x0a30;
+			break;
+		case 2:
+		case 6:
+			id = 0x0a38;
+			break;
+		}
+	}
+//***armiore***
+	else if (id == 0x0a4f    //north
+			|| id == 0x0a53)  //east
+	{	
+		switch (CharDir)
+		{
+		case 0:
+		case 4:
+			id = 0x0a4f;
+			break;
+		case 2:
+		case 6:
+			id = 0x0a53;
+			break;
+		}
+	}
+//***stained armiore***
+	else if ( id == 0x0a4d    //north
+			||  id == 0x0a51)  //east
+	{	
+		switch (CharDir)
+		{
+		case 0:
+		case 4:
+			id = 0x0a4d;
+			break;
+		case 2:
+		case 6:
+			id = 0x0a51;
+			break;
+		}
+	}
+//***empty bookcase***
+	else if ( id == 0x0a9d    //north
+			||  id == 0x0a9e)  //east
+	{	
+		switch (CharDir)
+		{
+		case 0:
+		case 4:
+			id = 0x0a9d;
+			break;
+		case 2:
+		case 6:
+			id = 0x0a9e;
+			break;
+		}
+	}
+//***wooden chest***
+	else if (id == 0x0e43    //north
+			|| id == 0x0e42)  //east
+	{	
+		switch (CharDir)
+		{
+		case 0:
+		case 4:
+			id = 0x0e43;
+			break;
+		case 2:
+		case 6:
+			id = 0x0e42;
+			break;
+		}
+	}
+//***metal chest***
+	else if (id == 0x0e41    //north
+			|| id == 0x0e40)  //east
+	{	
+		switch (CharDir)
+		{
+		case 0:
+		case 4:
+			id = 0x0e41;
+			break;
+		case 2:
+		case 6:
+			id = 0x0e40;
+			break;
+		}
+	}
+//***silver chest***
+	else if (id == 0x09ab ||  //north
+			 id == 0x0e7c)    //east
+	{	
+		switch (CharDir)
+		{
+		case 0:
+		case 4:
+			id = 0x09ab;
+			break;
+		case 2:
+		case 6:
+			id = 0x0e7c;
+			break;
+		}
+	}
+//***not a piece of furniture***
+	else	
+	{
+		return false;
+	}
+	
+	pi->setId(id);	//change the id and refresh the item
+	sysmessage(s, "You face the item to the %s", direction);
+	return true;
 }
 

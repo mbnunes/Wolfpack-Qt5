@@ -180,6 +180,7 @@ protected:
 	unsigned int rank_system_;
 	short checkBank_;
 	unsigned int vendorGreet_;
+	unsigned int showNpcTitles_;
 
 	// added by darkstorm: make-menus
 	bool belowminskillfails_;
@@ -356,6 +357,7 @@ public:
 	unsigned int rank_system() const;
 	short checkBank() const;
 	unsigned int vendorGreet() const;
+	unsigned int showNpcTitles() const;
 
 	bool BelowMinSkillFails() const;
 	bool HungerAffectsSkills() const;
@@ -1121,6 +1123,11 @@ inline int cSrvParams::defaultpriv2() const
 inline QString cSrvParams::mulPath() const
 {
 	return mulPath_;
+}
+
+inline unsigned int cSrvParams::showNpcTitles() const
+{
+	return showNpcTitles_;
 }
 
 #endif //__SRVPARAMS_H___

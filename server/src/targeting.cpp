@@ -2651,10 +2651,10 @@ void cTargets::ReleaseTarget(int s, int c)
 			pc->priv2 = 0; 
 			pc->jailsecs = 0; 
 			pc->jailtimer = 0; 
-			teleport(pc); 
-			soundeffect(c, 1, 0xfd); // Play sound effect for player 
-			sysmessage(c, "You are released.."); 
-			sysmessage(s, "Player %s released.", pc->name.c_str()); 
+			teleport(pc);
+			soundeffect(calcSocketFromChar(pc), 0x01, 0xfd); // Play sound effect for player 
+			sysmessage(calcSocketFromChar(pc), "You are released.."); 
+			sysmessage(s, "Player %s released.", pc->name.c_str());
 		} 
 	} 
 }
@@ -3547,9 +3547,15 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 // update: 5-8-00
 {
 	int ser = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc_currchar = currchar[s];
 	P_ITEM pi = FindItemBySerial(ser);
 	if( pi != NULL )
 	{
+		if (pi->secured() && !pc_currchar->Owns(pi))
+		{
+			sysmessage(s,"You cannot do that!");
+			return;
+		}
 		if (Items->isFieldSpellItem(pi))
 		{
 			sysmessage(s,"you cannot release this!");

@@ -948,7 +948,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
             else 
 			{ 
 	             sysmessage(s, "Crystall ball shatters.."); 
-	             pi->ReduceAmount(1); 
+	             pi->ReduceAmount(1);
+				 RefreshItem(pi);
 			}
             return;// End jailball
 	    case 402: // Blackwinds Reputation ball 
@@ -1689,7 +1690,6 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 	if ((target->isNpc())&&
 		(target->id() == 0x0034)||
 		(target->id() == 0x004E)||
-		(target->id() == 0x0038)||
 		(target->id() == 0x0050)||
 		(target->id() == 0x003A)||
 		(target->id() == 0x0039)||

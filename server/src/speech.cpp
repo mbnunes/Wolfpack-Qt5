@@ -50,19 +50,20 @@
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"
 
+bool InputSpeech(const QString& comm, cChar* pPlayer, UOXSOCKET s)
 //bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
-bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	int i;
 
 	if (pPlayer->inputmode != cChar::enNone)		// Speech is directly used to set a member
 	{
 		P_ITEM pTarget = FindItemBySerial(pPlayer->inputitem);
+		bool ok;
 		switch (pPlayer->inputmode)
 		{
 		case cChar::enPricing:// Pricing an item //PlayerVendors
-			i = str2num(comm);
-			if (i>0)
+			i = comm.toInt(&ok);
+			if (ok)
 			{
 				pTarget->value = i;
 				sysmessage(s, "This item's price has been set to %i.", i);
@@ -75,14 +76,14 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 			sysmessage(s, "Enter a description for this item.");
 			return true;
 		case cChar::enDescription:// Describing an item
-			pTarget->desc = comm;
-			sysmessage(s, "This item is now described as %s, ", comm.c_str());
+			pTarget->desc = comm.latin1();
+			sysmessage(s, QString("This item is now described as %1. ").arg(comm).latin1());
 			pPlayer->inputmode = cChar::enNone;
 			pPlayer->inputitem = INVALID_SERIAL;
 			return true;
 		case cChar::enRenameRune:
-			pTarget->setName( QString( "Rune to: %1" ).arg( comm.c_str() ) );
-			sysmessage(s, "Rune renamed to: Rune to %s", comm.c_str());
+			pTarget->setName( QString( "Rune to: %1" ).arg( comm ) );
+			sysmessage(s, "Rune renamed to: Rune to %s", comm.latin1());
 			pPlayer->inputmode = cChar::enNone;
 			pPlayer->inputitem = INVALID_SERIAL;
 			return true;
@@ -92,7 +93,7 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 				//strncpy(temp, comm, 49);
 				//pPlayer->name = temp;
 				pPlayer->name = comm ;
-				sysmessage(s, "Your new name is: %s", comm.c_str());
+				sysmessage(s, "Your new name is: %s", comm.latin1());
 				pPlayer->inputmode = cChar::enNone;
 				pPlayer->inputitem = INVALID_SERIAL;
 			}
@@ -102,8 +103,8 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 				//char temp[50] = {0,};
 				//strncpy(temp, comm, 49);
 				//pTarget->name = temp;
-				pTarget->setName( comm.c_str() ); 
-				sysmessage(s, "Renamed to: %s", comm.c_str());
+				pTarget->setName( comm ); 
+				sysmessage(s, "Renamed to: %s", comm.latin1());
 				pPlayer->inputmode = cChar::enNone;
 				pPlayer->inputitem=INVALID_SERIAL;
 			}
@@ -111,7 +112,7 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 		case cChar::enPageGM:
 			{
 				gmpages[pPlayer->playercallnum()].reason = comm;
-				sprintf(temp, "GM Page from %s [%x]: %s",pPlayer->name.c_str(), pPlayer->serial, comm.c_str());
+				sprintf(temp, "GM Page from %s [%x]: %s",pPlayer->name.c_str(), pPlayer->serial, comm.latin1());
 				int x = 0;
 				for (i = 0; i < now; i++)
 				{
@@ -131,7 +132,7 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 		case cChar::enPageCouns:
 			{
 				counspages[pPlayer->playercallnum()].reason = comm;
-				sprintf(temp, "Counselor Page from %s [%x]: %s", pPlayer->name.c_str(), pPlayer->serial, comm.c_str());
+				sprintf(temp, "Counselor Page from %s [%x]: %s", pPlayer->name.c_str(), pPlayer->serial, comm.latin1());
 				int x = 0;
 				for (i = 0; i < now; i++)
 				{
@@ -155,13 +156,13 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 	return false;
 }
 
-bool StableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
+bool StableSpeech(cChar* pMaster, const QString& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (pMaster->npc_type()!=1)	// is it a stablemaster ?
 		return 0;
 
     //if (!strstr( comm, "STABLE"))	// lets check if the keyword stable is in the commandstring, if not return !
-	if (comm.find("STABLE") == string::npos)
+	if (!comm.contains("STABLE"))
 		return 0;
       
 	/////////////////////////////////////////////////////////////////////
@@ -183,10 +184,8 @@ bool StableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 				//char pntmp[150];
 				//strcpy(pntmp, p_pet->name.c_str());
 				//strupr(pntmp);
-				string pntmp = p_pet->name ;
-				transform(pntmp.begin(), pntmp.end(), pntmp.begin(), ::toupper);
-				//if (strstr( comm, pntmp)) //if petname is in
-				if (comm.find(pntmp)!= string::npos)
+				QString pntmp = p_pet->name.c_str();
+				if (comm.contains(pntmp, false))
 				{
 					found=true;
 					break;
@@ -246,13 +245,13 @@ bool StableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 	return 1;
 }
 
-bool UnStableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
+bool UnStableSpeech(cChar* pMaster, const QString& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (pMaster->npc_type()!=1)	// is it a stablemaster ?
 		return 0;
 
 //    if (!(strstr( comm, "CLAIM") || strstr( comm, "RETRIEVE")))	// lets check if the keyword CLAIM is in the commandstring, if not return !
-	if ((comm.find("CLAIM") == string::npos) && (comm.find("RETRIEVE") == string::npos))
+	if (!comm.contains("CLAIM") && !comm.contains("RETRIEVE"))
 	
 		return 0;
 
@@ -272,13 +271,8 @@ bool UnStableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 		{
 			 if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial()!=INVALID_SERIAL) // already stabled and owned by claimer ?
 			 {
-			 	string search3 =p_pet->name ;
-				 transform(search3.begin(), search3.end(), search3.begin(), ::toupper);
-				//char search3[150];
-				//strcpy(search3,p_pet->name.c_str());
-		        //strupr(search3);
-		        	//if (strstr( comm, search3)) //if petname is in
-				if (comm.find(search3) != string::npos)
+			 	QString search3 = p_pet->name.c_str();
+				if (comm.contains(search3, false))
 				{
 					found=true;
 					break;
@@ -338,7 +332,7 @@ bool UnStableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 	return 1;
 }
 
-bool ShieldSpeech(cChar* pGuard, string& comm, cChar* pPlayer, UOXSOCKET s)
+bool ShieldSpeech(cChar* pGuard, const QString& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (pPlayer->dist(pGuard) > 3)	// lets be close to talk :)
 		return false;
@@ -346,7 +340,7 @@ bool ShieldSpeech(cChar* pGuard, string& comm, cChar* pPlayer, UOXSOCKET s)
 	if(pGuard->npcaitype() == 6)	// chaos guard
 	{
 		//if (strstr( comm, "CHAOS SHIELD")) //Ripper...if in chaos guild get a new shield.
-		if (comm.find("CHAOS SHIELD") != string::npos)
+		if (comm.contains("CHAOS SHIELD"))
 		{	// if they say chaos shield
 			if(pPlayer->guildstone() == INVALID_SERIAL)	// if not in a guild.
 			{
@@ -385,7 +379,7 @@ bool ShieldSpeech(cChar* pGuard, string& comm, cChar* pPlayer, UOXSOCKET s)
 	{
 		//if (strstr( comm, "ORDER SHIELD")) //Ripper...if in order guild get a new shield.
 			// if they say order shield
-		if (comm.find("ORDER SHIELD") != string::npos)
+		if (comm.contains("ORDER SHIELD"))
 		{
 			if(pPlayer->guildstone() == INVALID_SERIAL)	// if not in a guild.
 			{
@@ -423,13 +417,13 @@ bool ShieldSpeech(cChar* pGuard, string& comm, cChar* pPlayer, UOXSOCKET s)
 	return false;
 }
 
-bool QuestionSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
+bool QuestionSpeech(cChar* pc, const QString& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (pc->npcaitype()==2 || !pc->isHuman() || pPlayer->dist(pc) > 3)
 		return 0;
 	
     //if (strstr( comm, "NAME")) //Ripper...say name and a npc will tell you there name :).
-	if (comm.find("NAME")!=string::npos)
+	if (comm.contains("NAME"))
 	{
 		sprintf(temp, "hello my name is %s.", pc->name.c_str());
 		npctalkall(pc,temp,0);
@@ -437,7 +431,7 @@ bool QuestionSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
 	}
 	
     //if (strstr( comm, "TIME")) //Ripper...say time and the npc gives the time.
-	if (comm.find("TIME") != string::npos)
+	if (comm.contains("TIME"))
 	{
 		npctalkall(pc, (char*)tr("it is now %1").arg(uoTime.toString()).latin1(),0);
 		return 1;
@@ -445,7 +439,7 @@ bool QuestionSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
 	
     
     //if (strstr( comm, "LOCATION") || strstr( comm, "WHERE AM I")) //Ripper...gives location of char.
-	if (comm.find("LOCATION") != string::npos)
+	if (comm.contains("LOCATION"))
 	{
 		cTerritory* Region = cAllTerritories::getInstance()->region( pPlayer->region );
 		
@@ -461,7 +455,7 @@ bool QuestionSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
 	return 0;
 }
 
-bool TriggerSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
+bool TriggerSpeech(cChar* pc, const QString& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (abs(pPlayer->pos.x-pc->pos.x)<=4 &&
 		abs(pPlayer->pos.y-pc->pos.y)<=4 &&
@@ -471,12 +465,7 @@ bool TriggerSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
 		{
 			if (!pc->trigword().isEmpty())
 			{
-				//char twtmp[150];
-				//strcpy(twtmp, pc->trigword.c_str());
-				//strupr(twtmp);
-				QString twtmp = pc->trigword().upper();
-				//if (strstr( comm, twtmp))
-				if (comm.find(twtmp.latin1()) != string::npos)
+				if (comm.contains(pc->trigword(), false))
 				{
 					if (pc->disabled()>0 && pc->disabled()>uiCurrentTime)//AntiChrist
 					{
@@ -494,7 +483,7 @@ bool TriggerSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
 	return 0;
 }
 
-bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
+bool EscortSpeech(cChar* pEscortee, const QString& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	// Dupois - Added Dec 20, 1999
 	// Escort text matches
@@ -509,7 +498,7 @@ bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
 		// If this is a request for hire
 	//	if ( response1 )
 		bool bpunt = false ;
-		if (comm.find("I WILL TAKE THEE") != string::npos)
+		if (comm.contains("I WILL TAKE THEE"))
 		{
 			if ( pEscortee->ftarg == INVALID_SERIAL )
 			{
@@ -534,7 +523,7 @@ bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
 		// DESTINATION
 		// If this is a request to find out where a NPC wants to go and the PC is within range of the NPC and the NPC is waiting for an ESCORT
 		//if (response2)
-		if ((comm.find("DESTINATION") != string::npos) || bpunt)
+		if ((comm.contains("DESTINATION")) || bpunt)
 		{
 			if ( pEscortee->ftarg == currchar[s]->serial )
 			{
@@ -559,35 +548,34 @@ bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
 	return 0;	// speech was not handled
 }
 
-bool BankerSpeech(cChar* pBanker, string& comm, cChar* pPlayer, UOXSOCKET s)
+bool BankerSpeech(cChar* pBanker, const QString& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if( pBanker->npcaitype() != 8 )	// not a banker
-		return 0;
+		return false;
 	if (pPlayer->dist(pBanker) > 12)
-		return 0;
+		return false;
 	//if (strstr(comm,"BANK") || strstr(comm,"BALANCE") || strstr(comm,"WITHDRAW") || strstr(comm,"CHECK"))
-	if ((comm.find("BANK") != string::npos) || (comm.find("BALANCE")!=string::npos) | (comm.find("WITHDRAW")!=string::npos) || (comm.find("CHECK")!= string::npos))
+	if ((comm.contains("BANK")) || (comm.contains("BALANCE")) | (comm.contains("WITHDRAW")) || (comm.contains("CHECK")))
 	{
 	    BankerAI->DoAI(s, pBanker, comm);
-	    return 1;
+	    return true;
 	}
-    return 0;	// speech was NOT handled
+    return false;	// speech was NOT handled
 }
 
-bool TrainerSpeech(cChar* pTrainer, string& comm, cChar* pPlayer, UOXSOCKET s) 
+bool TrainerSpeech(cChar* pTrainer, const QString& comm, cChar* pPlayer, UOXSOCKET s) 
 {
 	if (pPlayer->dist(pTrainer) > 3 || !pTrainer->isHuman())
-		return 0;
-	//if (!(strstr(comm,"TRAIN") || strstr(comm,"TEACH") || strstr(comm,"LEARN"))) //if the player wants to train
-	if ((comm.find("TRAIN") == string::npos) && (comm.find("TEACH") == string::npos) && (comm.find("LEARN") == string::npos))
-		return 0;
+		return false;
+	if (!comm.contains("TRAIN") && !comm.contains("TEACH") && !comm.contains("LEARN"))
+		return false;
 
 	int i,skill=-1;
 	pPlayer->setTrainer(INVALID_SERIAL); //this is to prevent errors when a player says "train <skill>" then don't pay the npc
 	for(i=0;i<ALLSKILLS;i++)
 	{
 		//if(strstr(comm, skillname[i]))
-		if (comm.find(skillname[i]) != string::npos)
+		if (comm.contains(skillname[i], false))
 		{
 			skill=i;  //Leviathan fix
 			break;
@@ -662,10 +650,7 @@ bool TrainerSpeech(cChar* pTrainer, string& comm, cChar* pPlayer, UOXSOCKET s)
 	return 0;	// speech was NOT handled
 }
 
-
-
-
-bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
+bool PetCommand(cChar* pPet, const QString& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (!(pPlayer->Owns(pPet) || pPlayer->isGM())) //owner of the char || a GM
 		return 0;
@@ -677,26 +662,22 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 	//char petname[60];
 	//strcpy(petname,pPet->name.c_str());
 	//strupr(petname);
-	string petname ;
-	petname = pPet->name ;
-	transform(petname.begin(), petname.end(), petname.begin(), ::toupper);
+	QString petname = pPet->name.c_str();
 	bool bAllCommand = false;
 	//if ( !strstr( comm, petname) )	//if petname is not in
-	if (comm.find(petname) == string::npos)
-		//if ( strstr ( comm, "ALL") )
-		if (comm.find("ALL") != string::npos)
+	if (!comm.contains(petname, false))
+		if (comm.contains("ALL", false))
 			bAllCommand = true;
 		else
 			return false;
 	
 	bool bReturn = false;
 	
-	//if (strstr( comm, " FOLLOW"))
-	if (comm.find(" FOLLOW") != string::npos)
+	if (comm.contains(" FOLLOW"))
 	{
 		pPlayer->setGuarded(false);
 		//if (strstr( comm, " ME"))	//if me is in
-		if (comm.find(" ME") != string::npos)
+		if (comm.contains(" ME"))
 		{
 			pPet->ftarg = currchar[s]->serial;
 			pPet->npcWander=1;
@@ -709,8 +690,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 		}
 		bReturn = true;
 	}
-	//else if (strstr( comm, " KILL") || strstr( comm, " ATTACK"))
-	else if ((comm.find(" KILL") != string::npos) || (comm.find(" ATTACK") != string::npos))
+	else if ((comm.contains(" KILL")) || (comm.contains(" ATTACK")))
 	{
 		if (pPet->inGuardedArea()) // Ripper..No pet attacking in town.
 		{
@@ -722,16 +702,14 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 		target(s, 0, 1, 0, 118, "Select the target to attack.");//AntiChrist
 		bReturn = true;
 	}
-	//else if (strstr( comm, " FETCH") || strstr( comm, " GET"))
-	else if ((comm.find(" FETCH") != string::npos) || (comm.find(" GET") != string::npos))
+	else if ((comm.contains(" FETCH")) || (comm.contains(" GET")))
 	{
 		pPlayer->setGuarded(false);
 		addx[s]=pPet->serial;
 		target(s, 0, 1, 0, 124, "Click on the object to fetch.");
 		bReturn = true;
 	}
-	//else if (strstr( comm, " COME"))
-	else if (comm.find(" COME") !=string::npos)
+	else if (comm.contains(" COME"))
 	{
 		pPlayer->setGuarded(false);
 		pPet->ftarg = pPlayer->serial;
@@ -740,8 +718,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 		sysmessage(s, "Your pet begins following you.");
 		bReturn = true;
 	}
-	//else if (strstr(comm," GUARD")) //if guard
-	else if (comm.find(" GUARD") != string::npos)
+	else if (comm.contains(" GUARD"))
 	{
 		addx[s] = pPet->serial;	// the pet's serial
 		addy[s] = 0;
@@ -752,8 +729,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 		target(s, 0, 1, 0, 120, "Click on the char to guard.");
 		bReturn = true;
 	}
-	//else if (strstr( comm, " STOP")||strstr( comm, " STAY"))
-	else if ((comm.find(" STOP") != string::npos) || (comm.find(" STAY") != string::npos))
+	else if ((comm.contains(" STOP")) || (comm.contains(" STAY")))
 	{
 		pPlayer->setGuarded(false);
 		pPet->ftarg = INVALID_SERIAL;
@@ -763,16 +739,14 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 		pPet->npcWander=0;
 		bReturn = true;
 	}
-	//else if (strstr( comm, " TRANSFER"))
-	else if (comm.find(" TRANSFER") != string::npos)
+	else if (comm.contains(" TRANSFER"))
 	{
 		pPlayer->setGuarded(false);
 		addx[s]=pPet->serial;
 		target(s, 0, 1, 0, 119, "Select character to transfer your pet to.");
 		bReturn = true;
 	}
-	//else if (strstr( comm, " RELEASE"))
-	else if (comm.find(" RELEASE") != string::npos)
+	else if (comm.contains(" RELEASE"))
 	{
 		pPlayer->setGuarded(false);
 		if (pPet->summontimer)
@@ -842,9 +816,9 @@ void PlVGetgold(int s, cChar* pVendor)//PlayerVendors
 		npctalk(s,pVendor,"I don't work for you!",0);
 }
 
-bool VendorChkName(cChar* pVendor, string& comm)
+bool VendorChkName(cChar* pVendor, const QString& comm)
 {
-	if ((comm.find("VENDOR")!= string::npos) || (comm.find("SHOPKEEPER") != string::npos))
+	if ((comm.contains("VENDOR")) || (comm.contains("SHOPKEEPER")))
 		return true ;
 	else
 	{
@@ -852,16 +826,13 @@ bool VendorChkName(cChar* pVendor, string& comm)
 		//Convert the name to upper case
 		transform(name.begin(),name.end(),name.begin(),::toupper) ;
 		// ok, now see if in the substring
-		if (comm.find(name) != string::npos)
-			return true ;
+		if (comm.contains(name.c_str()) != string::npos)
+			return true;
 	}
-	return false ;
+	return false;
 }
 
-
-
-
-bool PlayerVendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET s)
+bool PlayerVendorSpeech(cChar* pVendor, const QString& comm, cChar* pPlayer, UOXSOCKET s)
 {
 
 	if (!(pVendor->npcaitype() == 17))
@@ -874,7 +845,7 @@ bool PlayerVendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET 
 		return false;
 
 	//if (strstr(comm, " BROWSE") || strstr(comm, " VIEW") || strstr(comm, " LOOK"))
-	if ((comm.find(" BROWSE") != string::npos) || (comm.find(" VIEW") != string::npos) || (comm.find(" LOOK") != string::npos))
+	if ((comm.contains(" BROWSE")) || (comm.contains(" VIEW")) || (comm.contains(" LOOK")))
 	{
 		npctalk(s,pVendor,"Take a look at my goods.",1);
 		P_ITEM pi_backpack = Packitem(pVendor);
@@ -885,7 +856,7 @@ bool PlayerVendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET 
 		}
 	}
 	//if (strstr(comm, " BUY") || strstr(comm, " PURCHASE"))
-	if ((comm.find(" BUY") != string::npos) || (comm.find(" PURCHASE") != string::npos))
+	if ((comm.contains(" BUY")) || (comm.contains(" PURCHASE")))
 	{
 		addx[s]=pVendor->serial;
 		npctalk(s,pVendor,"What would you like to buy?",0);
@@ -897,13 +868,13 @@ bool PlayerVendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET 
 			return 0;
 
 	//if (strstr( comm, " COLLECT") || strstr( comm, " GOLD") || strstr( comm, " GET"))
-	if ((comm.find(" COLLECT") != string::npos) || (comm.find(" GOLD") != string::npos) || (comm.find(" GET") != string::npos))
+	if ((comm.contains(" COLLECT")) || (comm.contains(" GOLD")) || (comm.contains(" GET")))
 	{
 		PlVGetgold(s, pVendor);
 		return true;
 	}
 	//if (strstr( comm, "PACKUP"))
-	if (comm.find("PACKUP") != string::npos)
+	if (comm.contains("PACKUP"))
 	{
 		P_ITEM pDeed = Items->SpawnItem(pPlayer, 1, "employment deed", 0, 0x14F0, 0, 1);
 		if (pDeed)
@@ -919,7 +890,7 @@ bool PlayerVendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET 
 	return false;
 }
 
-bool VendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET s)
+bool VendorSpeech(cChar* pVendor, const QString& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (pVendor->npcaitype() == 17)
 		return false;
@@ -930,14 +901,12 @@ bool VendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET s)
 	if (!VendorChkName(pVendor, comm))
 		return false;
 
-    //if (strstr(comm, " BUY"))
-	if (comm.find(" BUY") != string::npos)
+	if (comm.contains(" BUY"))
 	{
 	    Targ->BuyShop(s, pVendor);
 		return true;
 	}
-	//if (strstr( comm, " SELL"))
-	if (comm.find(" SELL") != string::npos)
+	if (comm.contains(" SELL"))
 	{
 		sellstuff(s, pVendor);						
 		return true;
@@ -946,7 +915,7 @@ bool VendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET s)
 }
 
 // Handles house commands from friends of the house. - Crackerjack 8/12/99
-void house_speech(int s, string& msg)	// msg must already be capitalized
+void house_speech(int s, QString& msg)	// msg must already be capitalized
 {
 	P_CHAR pc_currchar = currchar[s];
 	
@@ -964,7 +933,7 @@ void house_speech(int s, string& msg)	// msg must already be capitalized
 	else
 		return;	
 
-	if(msg.find("I BAN THEE")!=string::npos) 
+	if(msg.contains("I BAN THEE")) 
 	{ // house ban
 		addid1[s] = pMulti->serial>>24;
 		addid2[s] = pMulti->serial>>16;
@@ -972,7 +941,7 @@ void house_speech(int s, string& msg)	// msg must already be capitalized
 		addid4[s] = pMulti->serial%256;
 		target(s, 0, 1, 0, 229, "Select person to ban from house.");
 	}
-	else if(msg.find("REMOVE THYSELF")!=string::npos) 
+	else if(msg.contains("REMOVE THYSELF")) 
 	{ // kick out of house
 		addid1[s] = pMulti->serial>>24;
 		addid2[s] = pMulti->serial>>16;
@@ -980,15 +949,15 @@ void house_speech(int s, string& msg)	// msg must already be capitalized
 		addid4[s] = pMulti->serial%256;
 		target(s, 0, 1, 0, 228, "Select person to eject from house.");
 	}
-	else if (msg.find("I WISH TO LOCK THIS DOWN")!=string::npos) 
+	else if (msg.contains("I WISH TO LOCK THIS DOWN")) 
 	{ // lock down code AB/LB
          target(s, 0, 1, 0, 232, "Select item to lock down");
 	}
-	else if (msg.find("I WISH TO RELEASE THIS")!=string::npos) 
+	else if (msg.contains("I WISH TO RELEASE THIS")) 
 	{ // lock down code AB/LB
           target(s, 0, 1, 0, 233, "Select item to release");
 	}
-	else if (msg.find("I WISH TO SECURE THIS")!=string::npos) 
+	else if (msg.contains("I WISH TO SECURE THIS")) 
 	{ // lock down code AB/LB
 		target(s, 0, 1, 0, 234, "Select item to secure"); 
 	}
@@ -1003,12 +972,12 @@ void house_speech(int s, string& msg)	// msg must already be capitalized
 //			that they might be interested in.
 //			This is especially usefull in crowded places.
 
-int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, string& SpeechUpr)
+int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, const QString& SpeechUpr)
 {
-	string comm=SpeechUpr;
+	QString comm=SpeechUpr;
 
     //if (strstr( comm, "#EMPTY") && online(currchar[s]) && !pPlayer->dead && pPlayer->isGM())
-	if ((comm.find("#EMPTY") != string::npos) && online(currchar[s]) && !pPlayer->dead && pPlayer->isGM())
+	if ((comm.contains("#EMPTY")) && online(currchar[s]) && !pPlayer->dead && pPlayer->isGM())
 	{ // restricted to GMs for now. It's too powerful (Duke, 5.6.2001)
 		target(s, 0, 1, 0, 71, "Select container to empty:");
 		return 1;
@@ -1032,7 +1001,7 @@ int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, string& SpeechUpr)
 		if (pPlayer->isSameAs(pc))	// not talking to ourselves
 			continue;
 		
-		if ( pc->onTalkToNPC( pPlayer, comm.c_str() ) )
+		if ( pc->onTalkToNPC( pPlayer, comm ) )
 			return 1;
 
 		if (StableSpeech(pc, comm, pPlayer, s))
@@ -1074,7 +1043,7 @@ int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, string& SpeechUpr)
 
 
 
-void cSpeech::talking(int s, const QString& speech) // PC speech
+void cSpeech::talking(int s, QString speech) // PC speech
 {
 /*
 	Unicode speech format
@@ -1110,14 +1079,14 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 
 */
 	
-	char nonuni[512];
+	//char nonuni[512];
 	unsigned char talk2[19];
-	char unicodetext[512];
+	QByteArray unicodetext;
 	char lang[4];
 	char name[50] = {0,};	// it **IS** important to 0 out the remaining gaps
 	
 	P_CHAR pc_currchar = currchar[s];	
-	strcpy(nonuni, speech.latin1());
+//	strcpy(nonuni, speech.latin1());
 
 	// len+font+color+type = same postion for non unicode and unicode speech packets
 	// but 8 ... x DIFFER a lot for unicode and non unicode packets !!!
@@ -1139,7 +1108,7 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 		lang[2]=buffer[s][10];
 		lang[3]=buffer[s][11];
 		
-		memcpy(unicodetext, &buffer[s][12], ucl);
+		unicodetext.duplicate( (char*)&buffer[s][12], ucl );
 	}
 	else
 	{
@@ -1148,9 +1117,9 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 		lang[2]='U';
 		lang[3]=0;
 		
-		char2wchar(nonuni);		// we are sending unicode response no matter if the speech request was non unicode or not
-								// so convert to uni-text in case of non unicode
-		memcpy(unicodetext, temp, ucl);  
+		char2wchar(speech.latin1());		// we are sending unicode response no matter if the speech request was non unicode or not
+											// so convert to uni-text in case of non unicode
+		unicodetext.duplicate( (char*)&temp, ucl );
 	}
 
 	/*
@@ -1163,8 +1132,8 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 
 	//// Very important: do not use buffer[s][] anymore in this function !!!!
 	//// unicode text that gets send is in unicodetext, nonunicode text for normal string processing in non uni code
-	string punt(nonuni);
-	if (InputSpeech(punt, pc_currchar, s))	// handle things like renaming or describing an item
+//	string punt(nonuni);
+	if (InputSpeech(speech, pc_currchar, s))	// handle things like renaming or describing an item
 		return;
 
 	if (pc_currchar->squelched())					// not allowed to talk
@@ -1176,7 +1145,7 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 	// AntiChrist
 	pc_currchar->unhide();
 		
-	if (nonuni[0] == SrvParams->commandPrefix() )
+	if (speech[0] == (char)SrvParams->commandPrefix() )
 	{
 		Commands->Command(s, speech.latin1());
 		return;
@@ -1204,7 +1173,7 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 	
 	Xsend(s, talk2, 18);
 	Xsend(s, name, 30);   
-	Xsend(s, unicodetext, ucl);   
+	Xsend(s, unicodetext.data(), unicodetext.size());   
 	
 	if (speech_type == 0 || speech_type == 2)
 	{
@@ -1214,26 +1183,26 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 	{
 		char temp2[512];
 		sprintf(temp2, "%s.speech_log", pc_currchar->name.c_str());
-		sprintf((char*)temp, "%s [%x] [%i] said:\n%s\n", pc_currchar->name.c_str(), pc_currchar->serial, pc_currchar->account(), nonuni);
+		sprintf((char*)temp, "%s [%x] [%i] said:\n%s\n", pc_currchar->name.c_str(), pc_currchar->serial, pc_currchar->account(), speech.latin1());
 		savelog((char*)temp, (char*)temp2);
 	}
 	
 	//char SpeechUpr[512];
 	//strcpy(SpeechUpr, nonuni);
 	//strupr(SpeechUpr);
-	string SpeechUpr(nonuni) ;
-	transform(SpeechUpr.begin(), SpeechUpr.end(), SpeechUpr.begin(), ::toupper);
+	QString SpeechUpr = speech.upper();
+	//transform(SpeechUpr.begin(), SpeechUpr.end(), SpeechUpr.begin(), ::toupper);
 	//if (!strcmp(SpeechUpr, "I RESIGN FROM MY GUILD"))
-	if (SpeechUpr == string("I RESIGN FROM MY GUILD"))
+	if (SpeechUpr == "I RESIGN FROM MY GUILD")
 	{
 		GuildResign(s);
 	}
 	
-	if (response(s,pc_currchar,SpeechUpr))
+	if (response(s,pc_currchar, SpeechUpr))
 		return;  // Vendor responded already
 	
 	//if (strstr(SpeechUpr, "GUARDS"))
-	if (SpeechUpr.find("GUARDS") != string::npos)
+	if (SpeechUpr.contains("GUARDS"))
 		callguards(currchar[s]);
 
 	cRegion::RegionIterator4Items rj( currchar[s]->pos );
@@ -1244,7 +1213,7 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 		{
 			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial(pi->tags.get("boatserial").toUInt()));
 			if( pBoat != NULL )
-				pBoat->speechInput( s, QString("%1").arg(SpeechUpr.c_str()) );
+				pBoat->speechInput( s, SpeechUpr );
 		}
 	}
 
@@ -1264,7 +1233,7 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 				&& currchar[i]->spiritspeaktimer == 0)
 			{
 				unsigned char ghostspeech[512];
-				memcpy(&ghostspeech, &unicodetext, ucl);
+				memcpy(&ghostspeech, unicodetext.data(), unicodetext.size());
 				for (j = 1; j < ucl-2 ; j += 2)	// -2: dont override /0 /0 terminator !
 				{
 					if (ghostspeech[j] != 32)	// keep the blanks
@@ -1273,7 +1242,7 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 				Xsend(i, ghostspeech, ucl);		// send 'ghostified' speech "OOoooOo  Ooo"
 			}
 			else
-				Xsend(i, unicodetext, ucl);   
+				Xsend(i, unicodetext.data(), unicodetext.size());   
 		}
 	}
 	

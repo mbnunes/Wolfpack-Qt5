@@ -37,6 +37,11 @@
 
 #include "coord.h"
 
+// Forward class declarations
+
+class QString;
+
+
 // Function Declarations
 //
 void endScrn() ;
@@ -110,8 +115,8 @@ int unmounthorse(UOXSOCKET s);
 void telltime(int s);
 void impaction(int s, int act);
 int fielddir(P_CHAR pc, int x, int y, int z);
-void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target);
-void npcsimpleattacktarget(P_CHAR pc_target2, P_CHAR pc_target);
+void npcattacktarget(P_CHAR attacker, P_CHAR defender);
+void npcsimpleattacktarget(P_CHAR attacker, P_CHAR defender);
 int RandomNum(int nLowNum, int nHighNum);
 void enlist(UOXSOCKET s, UI32 listnum); // For enlisting in army
 
@@ -194,7 +199,7 @@ void getSextantCords(signed int x, signed int y, bool t2a, char *sextant);
 
 void usehairdye(int s, P_ITEM piDye);
 //
-void house_speech(int s, string& talk);
+void house_speech(int s, const QString& talk);
 void mtarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt);
 
 void lockpick(int s);
@@ -253,6 +258,7 @@ void criminal(P_CHAR pc);
 void callguards( P_CHAR pc_player );
 int recursestatcap(int chr); //Morrolan - stat/skill cap
 void skillfreq(int chr, int skill); //Morrolan - stat/skill cap
+bool autoFurnitureTurn(int s,P_ITEM pi);
 
 #endif
 

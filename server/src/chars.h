@@ -35,7 +35,6 @@
 // Platform Include
 #include "platform.h"
 
-
 // just temporary
 #include "debug.h"
 
@@ -43,6 +42,9 @@
 #include "structs.h"
 #include "defines.h"
 #include "uobject.h"
+
+// Forward class declaration
+class QString;
 
 #undef  DBGFILE
 #define DBGFILE "chars.h"
@@ -613,9 +615,9 @@ public:
 	class cBankerAI
 	{
 	public:
-		bool DoAI(int c, P_CHAR pBanker,string& comm);
-		bool Withdraw(int c, P_CHAR pBanker, string& comm);
-		bool BankCheck(int c, P_CHAR pBanker, string& comm);
+		bool DoAI(int c, P_CHAR pBanker, const QString& comm);
+		bool Withdraw(int c, P_CHAR pBanker, const string& comm);
+		bool BankCheck(int c, P_CHAR pBanker, const string& comm);
 		bool Balance(int c, P_CHAR pBanker);
 		void OpenBank(UOXSOCKET c);
 	};

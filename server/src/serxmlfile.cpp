@@ -358,6 +358,5 @@ void serXmlFile::read(const char* Key, double &data)
 		data = nodeList.item( 0 ).toElement().attribute("value").toDouble();
 		node.removeChild( nodeList.item(0) ); // Free up the memory
 	}
-
 }
 

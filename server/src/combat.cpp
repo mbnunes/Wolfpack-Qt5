@@ -427,12 +427,12 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 			{
 				if(pc_deffender->casting() && currentSpellType[s2]==0 )
 				{//if casting a normal spell (scroll: no concentration loosen)
+					Magic->SpellFail(s2);
 					currentSpellType[s2]=0;
 					pc_deffender->setSpell(-1);
 					pc_deffender->setCasting(false);
 					pc_deffender->setSpelltime(0);
 					pc_deffender->priv2 &= 0xfd; // unfreeze, bugfix LB
-					Magic->SpellFail(s2);
 				}
 			}
 
@@ -871,7 +871,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 			}			
 			if (pc_defender->hp<1)//Highlight //Repsys
 			{
-				if(pc_attacker->npcaitype()==4 && pc_defender->isNpc())
+				if((pc_attacker->npcaitype() == 4 || pc_attacker->npcaitype() == 9) && pc_defender->isNpc())
 				{
 					npcaction(pc_defender, 0x15);
 					

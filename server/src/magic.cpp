@@ -761,9 +761,10 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 	//spells[64]=spells[65];
 	//spells[65]=0;
 
-	for (i=0;i<64;i++)
+	for ( i = 0; i < 64; ++i )
 	{
-		if (spells[i]) scount++;
+		if (spells[i]) 
+			++scount;
 	}
 	char sbookinit[6]="\x3C\x00\x3E\x00\x03";
 	sbookinit[1]=((scount*19)+5)>>8;
@@ -857,7 +858,7 @@ char cMagic::GateCollision(P_CHAR pc_player)
 						}
 					}
 					// Set the characters destination
-					pc_player->MoveTo(gatex[mapitem->gatenumber][n], gatey[mapitem->gatenumber][n], gatez[mapitem->gatenumber][n]);
+					pc_player->MoveTo(gatex[mapitem->gatenumber][n], gatey[mapitem->gatenumber][n]+ 1, gatez[mapitem->gatenumber][n]);
 					teleport(pc_player);
 					soundeffect( calcSocketFromChar( pc_player ), 0x01, 0xFE );
 					staticeffect( pc_player, 0x37, 0x2A, 0x09, 0x06 );
@@ -2087,6 +2088,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		{
 			// mark, recall and gate go here
 			P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+			P_ITEM pi_multi = findmulti(pc_currchar->pos);		
+			
 			if(pi)
 			{
 				if( !pi->isInWorld() || line_of_sight( s, pc_currchar->pos, pi->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) || pc_currchar->isGM() ) // bugfix LB
@@ -2128,6 +2131,14 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							break;
 							//////////// (45) MARK //////////////////
 						case 45:
+							if (pi_multi != NULL)
+							{	
+				                if (IsHouse(pi_multi->id()))
+								{
+					                sysmessage(s, "You can`t mark a rune in a house!");
+				                    return;
+								}
+							}
 							pi->morex=pc_currchar->pos.x;
 							pi->morey=pc_currchar->pos.y;
 							pi->morez=pc_currchar->pos.z;

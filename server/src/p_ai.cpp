@@ -41,7 +41,7 @@
 
 void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zippy
 {
-	int d, onl;
+	int d;
 	unsigned int chance;
 	if ( pc_i == NULL )
 		return;
@@ -70,11 +70,12 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(pc);
 						d = chardist( pc_i, pc );
 						if (d > 3)
 							continue;
-						if (pc->isInvul() || pc->isNpc() || pc->dead || !pc->isInnocent() || !onl)
+						if (pc->isNpc() || !online(pc))
+							continue;
+						if (pc->isInvul() || pc->dead || !pc->isInnocent())
 							continue;
 						sprintf((char*)temp, "Hello %s, Welcome to my shop, How may i help thee?.", pc->name.c_str());
 						npctalkall(pc_i, (char*)temp, 1);
@@ -92,9 +93,12 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(pc);
 						d = chardist( pc_i, pc );
-						if (!pc->dead || d > 3 || pc->isNpc() || !onl)
+						if (d > 3)
+							continue;
+						if (pc->isNpc() || !online(pc))
+							continue;
+						if (!pc->dead)
 							continue;
 						if (pc->isMurderer()) 
 						{
@@ -214,9 +218,12 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(pc);
 						d = chardist( pc_i, pc );
-						if (!pc->dead || d > 3 || pc->isNpc() || !onl)
+						if (d > 3)
+							continue;
+						if (pc->isNpc() || !online(pc))
+							continue;
+						if (!pc->dead)
 							continue;
 						if (pc->isInnocent())
 						{
@@ -241,40 +248,66 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 				}
 			}
 			break;
-		case 4 : // Guards
-			if (!pc_i->war && pc_i->inGuardedArea())	// this region is guarded
-			{
-				P_CHAR Victim=NULL;
-			    int closest=999;
+		case 4 : // Teleporting Guards
+			if (!pc_i->war	// guard isnt busy 
+				&& pc_i->inGuardedArea())	// this region is guarded
+			{	// this bracket just to keep compiler happy
+
+				P_CHAR Victim = NULL;
+				UI32 minDist;
+
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						if (pc->isPlayer() && !online(pc))
-					       continue;					// logged out player
-				        if (pc_i->isSameAs(pc))
-					       continue;					// the guard himself
-				        if (!(pc->npcaitype() == 2 || pc->isMurderer()))
-					       continue;
-				        d = pc_i->dist(pc);
-				        if (d > SrvParams->attack_distance() || pc->isInvul() || pc->dead)
-					       continue;
-				        if ( closest > d)
+						d = chardist( pc_i, pc);
+
+						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
+						    continue;
+						if (pc_i == pc || d > SrvParams->attack_distance() || pc->isInvul() || pc->dead)
+							continue;
+						if (!pc->inGuardedArea())
+							continue;
+						// If the distance is below the minimal distance we found
+					    if( ( Victim == NULL ) || ( minDist > d ) )
 						{
-					       closest = d;
-					       Victim = pc;
+						   Victim = pc;
+						   minDist = d;
 						}
-					}
-			        if (Victim)
-					{
-				       npcattacktarget(pc_i, Victim);
-				       npctalkall(pc_i, "Thou shalt regret thine actions, swine!",1); // ANTISPAM !!! LB
+						if (pc->isPlayer() && pc->crimflag() > 0 && d <= 3)
+						{
+							sprintf((char*)temp, "You better watch your step %s, I am watching thee!!", pc->name.c_str());
+							npctalkall(pc_i, (char*)temp, 1);
+							pc_i->setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*30 );
+						}
+						else if (pc->isPlayer() && pc->isInnocent() && d <= 3)
+						{
+							sprintf((char*)temp, "%s is an upstanding citizen, I will protect thee in %s.", pc->name.c_str(), pc->region.latin1());
+							npctalkall(pc_i, (char*)temp, 1);
+							pc_i->setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*30 );
+						}
+						else if (d <= SrvParams->attack_distance() &&(
+							(pc->isNpc() &&(pc->npcaitype() == 2))	// evil npc
+							||(pc->isPlayer() && pc->isMurderer() && !(pc->isInnocent()) || pc->isCriminal()))	// a player,is murderer & not grey or blue
+							||(pc->attackfirst()))	// any agressor
+						{
+							pc_i->pos.x = pc->pos.x; // Ripper..guards teleport to enemies.
+							pc_i->pos.y = pc->pos.y;
+							pc_i->pos.z = pc->pos.z;
+							soundeffect2(pc_i, 0x01FE); // crashfix, LB
+							staticeffect(pc_i, 0x37, 0x2A, 0x09, 0x06);
+							// We found a victim
+				            if( Victim != NULL )
+							npcattacktarget(pc_i, Victim);
+							npctalkall(pc_i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
+							return;
+						}
 					}
 				}
 			}
-		break;
+			break;
 		case 5: // npc beggars
 			if (!pc_i->war)
 			{
@@ -284,9 +317,12 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(pc);
 						d = chardist( pc_i, pc );
-						if (d > 3 || pc->isInvul() || pc->isNpc() || pc->dead || !onl || !pc->isInnocent())
+						if (d > 3)
+							continue;
+						if (pc->isNpc() || !online(pc))
+							continue;
+						if (pc->isInvul() || pc->dead || !pc->isInnocent())
 							continue;
 						switch (RandomNum(0, 2))
 						{
@@ -309,31 +345,43 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			if (!pc_i->war	// guard isnt busy 
 				&& pc_i->inGuardedArea())	// this region is guarded
 			{	// this bracket just to keep compiler happy
+
+				P_CHAR Victim = NULL;
+				UI32 minDist;
+
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(pc);
 						d = chardist( pc_i, pc);
-						if (pc_i == pc || d > 3 || pc->isInvul() || pc->dead || !onl)
+
+						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
+						    continue;
+						if (pc_i == pc || d > SrvParams->attack_distance() || pc->isInvul() || pc->dead)
 							continue;
-						if (pc->isPlayer() && pc->crimflag() > 0)
+						// If the distance is below the minimal distance we found
+					    if( ( Victim == NULL ) || ( minDist > d ) )
+						{
+						   Victim = pc;
+						   minDist = d;
+						}
+						if (pc->isPlayer() && pc->crimflag() > 0 && d <= 3)
 						{
 							sprintf((char*)temp, "You better watch your step %s, I am watching thee!!", pc->name.c_str());
 							npctalkall(pc_i, (char*)temp, 1);
 							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
-						else if (pc->isPlayer() && !(pc->isInnocent() || pc->dead))
+						else if (pc->isPlayer() && pc->isInnocent() && d <= 3)
 						{
 							sprintf((char*)temp, "%s is an upstanding citizen, I will protect thee in %s.", pc->name.c_str(), pc->region);
 							npctalkall(pc_i, (char*)temp, 1);
 							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
-						else if (d <= 10 &&(
+						else if (d <= SrvParams->attack_distance() &&(
 							(pc->isNpc() &&(pc->npcaitype() == 2))	// evil npc
-							||(pc->isPlayer() && !(pc->isInnocent()) || pc->isCriminal()))	// a player, not grey or blue
+							||(pc->isPlayer() && pc->isMurderer() && !(pc->isInnocent()) || pc->isCriminal()))	// a player,is murderer & not grey or blue
 							||(pc->attackfirst()))	// any agressor
 						{
 							pc_i->pos.x = pc->pos.x; // Ripper..guards teleport to enemies.
@@ -341,7 +389,9 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 							pc_i->pos.z = pc->pos.z;
 							soundeffect2(pc_i, 0x01FE); // crashfix, LB
 							staticeffect(pc_i, 0x37, 0x2A, 0x09, 0x06);
-							npcattacktarget(pc_i, pc);
+							// We found a victim
+				            if( Victim != NULL )
+							npcattacktarget(pc_i, Victim);
 							npctalkall(pc_i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
 							return;
 						}
@@ -359,9 +409,12 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(pc);
 						d = chardist( pc_i, pc );
-						if (d > 10 || pc->isPlayer() || (pc->isNpc() && pc->npcaitype() != 2))
+						if (d > SrvParams->attack_distance())
+							continue;
+						if (pc->isPlayer())
+							continue;
+						if (pc->isNpc() && pc->npcaitype() != 2)
 							continue;
 						npcattacktarget(pc_i, pc);
 						return;
@@ -378,13 +431,14 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(pc);
 						d = chardist( pc_i, pc );
-						if (d > 10 || pc->isInvul() || pc->dead)
+						if (d > SrvParams->attack_distance())
+							continue;
+						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
+						    continue;
+						if (pc->isInvul() || pc->dead)
 							continue;
 						if (!(pc->npcaitype() == 2 || pc->isMurderer()))
-							continue;
-						if (pc->isPlayer() && !onl)
 							continue;
 						npcattacktarget(pc_i, pc);
 					}
@@ -402,9 +456,12 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 				P_CHAR pc = ri.GetData();
 				if (pc != NULL)
 				{
-				    onl = online(pc);
 				    d = chardist(pc_i, pc);
-				    if (d > 10 || pc->isNpc() || pc->isInvul() || pc->dead || (pc->isPlayer() && !onl))
+					if (d > 10)
+					    continue;
+					if( ( pc->isNpc() ) && ( !online( pc ) ) )
+						    continue;
+				    if (pc->dead)
 					    continue;
 
 				    sprintf((char*)temp,"I am waiting for my escort to %s, Will you take me?", QString("%1").arg(pc_i->questDestRegion()));
@@ -426,9 +483,14 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(pc);
 						d = chardist(pc_i, pc);
-						if (d > 10 || pc->isNpc() || pc->dead || !pc->guarded() || !onl)
+						if (d > SrvParams->attack_distance())
+							continue;
+						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
+						    continue;
+						if (pc->dead)
+							continue;
+						if (!pc->guarded())
 							continue;
 						if (pc->Owns(pc_i))
 						{
@@ -450,9 +512,12 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(pc);
 						d = chardist(pc_i, pc);
-						if (d > 10 || pc->isInvul() || pc->dead || !onl)
+						if (d > SrvParams->attack_distance())
+							continue;
+						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
+						    continue;
+						if (pc->isInvul() || pc->dead)
 							continue;
 						npcattacktarget(pc_i, pc);
 						return;
@@ -565,31 +630,30 @@ void cCharStuff::cDragonAI::DoneAI(P_CHAR pc_i, int currenttime)
 	return;
 }
 
-bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, string& comm)
+bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, const QString& comm)
 {
 	P_CHAR pc_currchar = currchar[c];
 
-	string search1("BANK") ;
 	string search2("BALANCE");
 	string search3("WITHDRAW") ;
 	string search4("CHECK") ;
 
-	if ((comm.find(search1)!=string::npos) &&(!(pc_currchar->dead)))
+    if ((comm.contains("BANK")) &&(!(pc_currchar->dead)))
 	{
 		OpenBank(c);
 		return true;
 	}
-    else if ((comm.find(search2)!=string::npos) &&(!(pc_currchar->dead)))
+    else if ((comm.contains("BALANCE")) &&(!(pc_currchar->dead)))
 	{
 		return Balance(c, pBanker);
 	}
-	else if ((comm.find(search3)!=string::npos) &&(!(pc_currchar->dead)))
+	else if ((comm.contains("WITHDRAW")) &&(!(pc_currchar->dead)))
 	{
-		return Withdraw(c, pBanker, comm);
+		return Withdraw(c, pBanker, comm.latin1());
 	}
-	else if ((comm.find(search4)!=string::npos) &&(!(pc_currchar->dead)))
+	else if ((comm.contains("CHECK")) &&(!(pc_currchar->dead)))
 	{
-		return BankCheck(c, pBanker, comm);
+		return BankCheck(c, pBanker, comm.latin1());
 	}
 	return true;
 }
@@ -608,7 +672,7 @@ bool cCharStuff::cBankerAI::Balance(int c, P_CHAR pBanker)
 	return true;
 }
 
-bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, string& comm)
+bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, const string& comm)
 {
 	P_CHAR pc_currchar = currchar[c];
 	int beginoffset ;
@@ -640,7 +704,7 @@ bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, string& comm)
 	return true;
 }
 
-bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, string& comm)
+bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, const string& comm)
 {
 	P_CHAR pc_currchar = currchar[c];
 	int beginoffset ;

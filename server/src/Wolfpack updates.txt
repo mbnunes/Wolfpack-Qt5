@@ -11,9 +11,126 @@ If you change scripts while the server is running it might crash.
 Freeze the server with the serversleep command while you 
 change scripts on the fly.
 
-For more of them look at: www.wpdev.com
+For more of them look at: www.wpdev.org
 
-Wolfpack Homepage: www.wpdev.com
+Wolfpack Homepage: www.wpdev.org
+
+-----------------------------------------------------------
+                        Wolfpack 12.8.0
+----------------------------------------------------------
+
+1) Added: password command allows players to change their passwords in-game (Correa)
+2) Added: Initial support to overlaping coordinates (x, y, z) - Needed by Ilshenar (Correa)
+3) Added: Criminal for looting an innocent corpse & unhidden if not owner. (Ripper)
+4) fixed: A problem I(!) have introduced in 12.5.6 beta :-(
+namely Wolfpack refusing to start on (some) W95 machines (LB)
+5) Fixed: kinda server freeze when saying 'bank' in a crowded area (Duke)
+6) Fixed: two bugs with player vendor PACKUP command (Duke)
+7) Fixed: player vendors didn't respond to "time" and "location" questions (Duke)
+8) Fixed: stablemasters didn't find the pet to stable if it was in another mapcell (Duke)
+9) Fixed: stablemasters didn't respond if they were in another mapcell than the player (Duke)
+10) Fixed: a BAD bug with inrange1p(). Might be responsible for dozens of problems (GonZo/Duke)
+11) Fixed: deep sea fishing is now possible (Duke)
+12) Fixed: msg house.cpp:504 invalid item index <-1> (Duke)
+13) Fixed: at least one reason for error "container of item 12345 not found" (Duke)
+14) Fixed: items that were beeing dragged during a worldsave did not get saved and thus disappeared (Duke)
+15) Fixed: error msg "combat.cpp:1185 invalid char index <-1>" (Duke)
+16) Fixed: error msg "skills.cpp:875 switch reached default for <50> (Duke)
+17) Fixed: warning msg when dropping on chest of drawers, bookshelf and armoire (Duke)
+18) Fixed: disabled msg "Spawning an item that is not truly pileable". Using default from .mul (Duke)
+19) Fixed: some places in trigger.cpp that caused "Script Manager ERROR" (Duke)
+20) Fixed: A log error for carving. (Ripper)
+21) Fixed: Compile error on gcc 2.91 series compiliers
+22) Added: Fixed it so when you get off your horse it dont run away :) (Ripper)
+23) Changed: added a tag GOLD # to newbie.scp. You just add it to the default section for
+the starting gold. NOTE: You MUST take the starting gold line out of the wolfpack.ini. It
+isnt needed anymore. (Ripper)
+24) Added: Made all the starting equipting including shirt/pants & dagger newbiefyed. (Ripper)
+25) Fixed: Minor Wrestling speed bug (not checking skill)
+26) Fixed: HouseEject, HouseBan and HouseTransfer all now work right ;) (Ripper)
+27) Added: Weather System! read the weather.txt for more information. (Skyfire)
+28) Added: Dragon AI. (Skyfire)
+29) Added: AI for Bankers, includes bank, balance & withdraw. (Skyfire/Ripper)
+30) Fixed: Redid the way that houses check their build sites. (Skyfire)
+31) Fixed: Some problems with not being able to walk over some bridges and other such walking fixes. (Skyfire/Ripper/Correa)
+32) Added: BadNpcsRed to the server.scp. set to 0 all bad npcs will highlight grey. set 1 (default) they
+will highlight red. (Ripper)
+33) Added: You can now drop gold on a banker and he will deposit it for you :) (Ripper)
+34) Fixed: A fix for Provocation.(Lonewolf)
+35) Changed: NPCs no longer have the prowess & skill titles.(Skyfire/Ripper)
+36) Added: So you cant entice or provoke healers,tele guards,city guards,chaos guards & order guards.(Ripper)
+37) Added: when singleclick on a item the white is brighter :) (Ripper)
+38) Fixed: 'makegm & 'makecns should work correctly again. (Ripper)
+39) Updated to new packet lenghts (Lord_Binary)
+40) Limited God Client support (Xanathar)
+41) Added: Check # to banker AI. say Check # to any banker to get a check for # amount. To
+cash check, just drop on any banker :) (Ripper)
+42) Changed: Bankers to hear at 12 tiles, instead of 6 tiles. This gives you allmost a
+screen away to open bank. helps to open from outsidebank. (Ripper)
+43) Added: Races!(Requires the new races.scp) (Skyfire/Correa)
+44) Fixed: slight differences in weapon speed did not matter (Lonewolf)
+45) Fixed: mutiple loss of stamina when walking through someone (Lonewolf)
+46) Fixed: wall of stone not decaying in houses (Lonewolf)
+47) Fixed: explosion potions affecting logged out players (Lonewolf)
+48) Fixed: ingots gained from smelting(items&ore) now have a weight of 0.2 stone (Lonewolf)
+49) Added: items that are too heavy can't be picked up anymore (Lonewolf)(VERY VERY VERY BUGGY! Skyfire, working on a new fix for it with Lord Binary)
+50) Fixed: the result of calculating the distance was way too high in several places (Lonewolf)
+51) Added: You can now change the house sign name thru the house menu. (Ripper)
+52) fixed: a HUGE bug with spell casting weapons :) This bug could cause almost *every* kind
+	of misbehaviour in LoneWolf. A big hand for Pokey :)  (Lonewolf)
+53) fixed: a *second* instance of type bug #45 in inscription (Lonewolf)
+54) Fixed: targeting.cpp:3111 invalid item index <-1> (Lonewolf)
+55) Fixed: jailing someone via 'wholist gave strange jailtime (Lonewolf)
+56) Fixed: when loading a jailed char, the cell# wasn't set correctly (potentially severe damage) (Lonewolf)
+57) Added: More commands for player vendors, now you can say vendor buy,purchase,gold,
+collect,get,look,view,browse and packup. A little code change for them also. (Ripper)
+58) Added: You can now say retrieve or claim with pets name to a stablemaster. (Ripper)
+59) Fixed: bad char index nnn in file necro.cpp line 178 / sampling blood from a corpse (Lonewolf)
+60) Fixed: duplicate and wrong messages plus a 'dead' item when dropping items on beggars or guards (Lonewolf)
+61) Fixed: npc_base_fleeat and _reattack in server.scp didn't work. NOTE: existing npcs and
+    those with their own setting in npc.scp will keep their fleeat-values (Lonewolf)
+62) Fixed: Fighting thru floors in houses & performance boost. (Fraz)
+63) Fixed: guards with AI 11/B attacking logged out players (Duke)
+64) Fixed: 3d clients 3.0.6g and above crashing when logging in. (LB)
+65) Added: Check for if you are paralized, you cant attack. (Ripper)
+66) Added: You cant evaluate int on yourself. (Ripper)
+67) Fixed: you get message "You don`t have that spell" when you do have the spell.
+Needs more testing.(Ripper)
+68) Added: Escorts will now yell out to players they need help. (Ripper)
+69) Changed & Added: Made Slotmachine cost put in the server.scp SLOTAMOUNT #.
+# = amount it cost to use the slotmachine. Also made it a type 187, so make any
+item type 187 and it will be a slotmachine. On singleclick it will show " 5 gold Slot"
+if amount is set to 5gp. else it shows whatever the slotamount is set to. NOTE:
+Right now it will also showthe items real name.(Ripper)
+70) Changed: bank checks on singleclick now show "value : #" instead of "# gold". (Ripper)
+71) Fixed: Logic error at criminal().
+72) Fixed: npcAI 4 guards was fubar (Duke/Ripper)
+73) Fixed: broken pipe error on free BSD (punt)
+74) Fixed: guards acting outside guarded regions (Pokey & Duke/Ripper)
+75) Fixed: can't target stabled/mounted pets with LastTarget macro anymore (Duke/Ripper)
+76) Fixed: losing fame when cutting up human corpses (Pokey & Duke/Ripper)
+77) Added: UO3d mounts to be ridable. (Ripper)
+78) Added: Create food spell now picks random food items from itemlist 75. (Ripper/Correa/Fallen)
+79) Fixed: Metagm script defaults are now used for GMs and players, not only counselors. (Correa)
+80) Added: nearby pets responds to "all" instead of their names. (Correa)
+81) Added: New Broker NPC that will buy house deeds. Just drop deed on him/herand the gold
+will be placed in the bank. Need new npc.scp with the brokers in it. They are NPCAI 13.(Ripper)
+82) Fixed: update issue when unmounting horses (bymer)
+83) Fixed: Tamed pets will now go on their own when their hunger gets to 0.(Ripper)
+84) Added: LBR support. Thanks to LB (Ripper)
+85) verdata.mul still required in ini file, but if not found, server continues (punt)
+86) fixed: spells have a delay again (Duke)
+87) changed: ALL monsters (approx 1000) have sounds now & corrected wrong ones (LB)
+88) Added: Internationalization support ( for languages that do not require UTF-16 ). Support
+done thru Wolfpack Runtime Library ( Correa )
+89) Added: GMs & Councilors no longer become criminal. (Ripper)
+90) Added: LBR ridable mounts. (Ripper)
+91) changed: tweaked combat animations further.
+added hopefully better looking extra animations if you are fighting on kirins, ostards, llamas, ridgebacks.(LB)
+92) Fixed: bug where if you didnt have a start gold amount it showed a coin 0 gold.(Ripper)
+93) Fixed: cancelling the menu for polymorph turned you into bear.(Ripper/Correa)
+94) Fixed: No more bad circles in the spellbook. (Ripper)
+95) Added & Fixed: Sounds for all monsters.Needs more testing. (LB & Ripper)
 
 -----------------------------------------------------------
                         Wolfpack 12.6

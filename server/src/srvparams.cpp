@@ -176,6 +176,7 @@ void cSrvParams::readData()
 	rank_system_	        = getNumber("Vendor", "Rank System", 0, true );
 	checkBank_	            = getNumber("Vendor", "Check Bank", 2000, true );
 	vendorGreet_	        = getNumber("Vendor", "Vendor Greet", 1, true );
+	showNpcTitles_			= getNumber("Vendor",  "Show Npc Titles", 1, true);
 
 	// Regenerate
 	hitpointrate_			= getNumber("Regenerate", "Hitpoints Regenerate", 8, true);
@@ -219,6 +220,7 @@ void cSrvParams::readData()
 	worldFixedLevel_		= getNumber("Light", "World Fixed Level", 0, true);
 	worldDarkLevel_			= getNumber("Light", "World Dark Level", 18, true);
 	dungeonLightLevel_		= getNumber("Light", "Dungeon Level", 18, true);
+	season_		            = getNumber("Light", "Set Season", 0, true);
 }
 
 void cSrvParams::reload()

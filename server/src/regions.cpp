@@ -176,7 +176,6 @@ unsigned int cRegion::StartGrid(const Coord_cl& pos)
 RegionIterator4Chars::RegionIterator4Chars(const Coord_cl& pos)
 {
 	cell = currentCell = ::cRegion::StartGrid( pos ); // they are centered.
-	currentIndex = 0;
 	position = pos; // remember where we started.
 	currentCharacter = NULL;
 }
