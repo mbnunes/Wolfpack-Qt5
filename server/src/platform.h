@@ -70,6 +70,7 @@ enum enByteOrder{ littleEndian, bigEndian };
 #endif
 */
 #endif
+
 #if !defined(vsnprintf)
 #define vsnprintf _vsnprintf
 #endif

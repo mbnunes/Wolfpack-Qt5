@@ -38,6 +38,7 @@
 #include "gumps.h"
 #include "guildstones.h"
 #include "srvparams.h"
+#include "MenuActions.h"
 
 #include "debug.h"
 
@@ -1337,344 +1338,311 @@ void entrygump(int s, SERIAL serial, unsigned char type, char index, short int m
 	Xsend(s, temp, strlen((char*)temp)+1);
 }
 
+// Parses an Action node
+bool DisposeAction( UOXSOCKET Socket, QDomElement Action )
+{
+	if( Action.nodeName() == "useitem" )
+		return useItem( Socket, Action );
 
-void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
-{ // This routine is changed by Magius(CHE) to add Rank_system!
-	int main, sub,loopexit=0;
-	char sect[512];
-	int i;
-	char lscomm[512],lsnum[512];  // Magius(CHE) for Rank-System
-	Script *script;
-	P_CHAR pc_currchar = currchar[s];
-	
-	main=(buffer[s][5]<<8)+buffer[s][6];
-	sub=(buffer[s][7]<<8)+buffer[s][8];
-	
-	if ( main >= 8000 && main <= 8100 )
-	{
-		cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pc_currchar->guildstone));
-		if ( pStone != NULL )
-			pStone->GumpChoice(s,main,sub);
-	}
-	
-	if( (main&0xFF00)==0xFF00)
-	{
-		if (im_choice(s, main, sub)==0) return;
-	}
+	else if( Action.nodeName() == "hasitem" )
+		return hasItem( Socket, Action );
 
-	if (main>1246 && main<1255)
-	{
-		Skills->DoPotion(s, main-1246, sub, FindItemBySerial(calcserial(addid1[s], addid2[s], addid3[s], addid4[s])));
-		return;
-	}
-	else if (main<ITEMMENUOFFSET) // GM Menus
-	{
-//		openscript("menus.scp");
-		sprintf(sect, "GMMENU %i", main);
-		script = i_scripts[menus_script];
-	}
-	else if ((main>=5256) && (main<8192)) // Tracking fix 12-30-98
-	{
-//		openscript("items.scp");
-		sprintf(sect, "ITEMMENU %i", main-2042);//256);
-		script = i_scripts[items_script];
-	}
-	else if(main>=ITEMMENUOFFSET && main<MAKEMENUOFFSET)
-	{
-//		openscript("items.scp");
-		sprintf(sect, "ITEMMENU %i", main-ITEMMENUOFFSET);
-		script = i_scripts[items_script];
-	}
-	else if(main>=MAKEMENUOFFSET && main<TRACKINGMENUOFFSET)
-	{
-//		openscript("create.scp");
-		sprintf(sect, "MAKEMENU %i", main-MAKEMENUOFFSET);
-		script = i_scripts[create_script];
-	}// PolyMorph spell menu (scriptable) by AntiChrist (9/99)
-	else if(main>=POLYMORPHMENUOFFSET && main<POLYMORPHMENUOFFSET+50)
-	{
-		if(sub != 0)
-		Magic->Polymorph(s,POLYMORPHMENUOFFSET,sub);
-		return;
-	}
-	else // Tracking
-	{
-		if((main-TRACKINGMENUOFFSET)>=TRACKINGMENUOFFSET+1&&(main-TRACKINGMENUOFFSET)<=TRACKINGMENUOFFSET+3)
-		{
-			if(!sub) return;
-			if(!Skills->CheckSkill(currchar[s], TRACKING, 0, 1000))
-			{
-				sysmessage(s,"You fail your attempt at tracking.");
-				return;
-			}
-			Skills->TrackingMenu(s,sub-1);
-		}
-//		openscript("tracking.scp");
-		sprintf(sect, "TRACKINGMENU %i", main-TRACKINGMENUOFFSET);
-		script = i_scripts[tracking_script];
-	}
+	else if( Action.nodeName() == "makeitem" )
+		return makeItem( Socket, Action );
 
-	script->Open();
-	if (!script->find(sect))
-	{
-		closescript();
-		if (n_scripts[custom_npc_script][0]!=0)
-		{
-			openscript(n_scripts[custom_npc_script]);
-			if (!i_scripts[custom_npc_script]->find(sect))
-			{
-				closescript(); //AntiChrist
-				return;
-			}
-		}
-		if (n_scripts[custom_item_script][0]!=0)
-		{
-			openscript(n_scripts[custom_item_script]);
-			if (!i_scripts[custom_item_script]->find(sect))
-			{
-				closescript(); //AntiChrist
-				return;
-			}
-		} else return;
-	}
+	else if( Action.nodeName() == "checkskill" )
+		return checkSkill( Socket, Action );
 
-	script->NextLine();
-//	read1();
-	i=0;
-	script->NextLineSplitted();
-//	read2(); // Moved by Magius(CHE) for Rank System
-
-	loopexit=0;
-	do
-	{
-		if (script1[0]!='}')
-		{
-			i++;
-			if (main>=MAKEMENUOFFSET && main<TRACKINGMENUOFFSET)
-			{
-				script->NextLineSplitted();
-				itemmake[s].needs=str2num(script2);
-				
-				script->NextLineSplitted();
-				itemmake[s].minskill=str2num(script2);
-				itemmake[s].maxskill=itemmake[s].minskill*SrvParams->skillLevel();
-				// clConsole.send("needs %i, has %i\nskillneed %i, skillhas %i\n",itemmake[s].need,itemmake[s].has,itemmake[s].minskill,pc_currchar->skill[pc_currchar->making]);
-				// Duke: we must count with the same criteria as in MakeMenu() !
-				if (    itemmake[s].has<itemmake[s].needs
-					|| (itemmake[s].has2 && itemmake[s].has2<itemmake[s].needs)
-					|| (pc_currchar->skill[pc_currchar->making] < itemmake[s].minskill))
-					i--;    // skip this item
-			}
-
-			script->NextLineSplitted();
-			strcpy(lscomm,script1);
-			strcpy(lsnum,script2);
-			itemmake[s].number=str2num(script2);
-
-			script->NextLineSplitted();
-			if (!strcmp((char*)script1,"RANK"))
-			{
-				gettokennum((char*)script2, 0);
-				itemmake[s].minrank=str2num(gettokenstr);
-				gettokennum((char*)script2, 1);
-				itemmake[s].maxrank=str2num(gettokenstr);
-				script->NextLineSplitted();		// found a rank line, so read one more
-			} else
-			{ // Set maximum rank if the item is not ranked!
-				itemmake[s].minrank=itemmake[s].maxrank=10;
-			}
-			if (SrvParams->rank_system()==0)
-			{
-				itemmake[s].minrank=itemmake[s].maxrank=10;
-			}			
-
-			if (i==sub)
-			{
-				script->Close();
-				scriptcommand(s, ( char*)lscomm,( char*)lsnum);
-				if (itemmake[s].maxskill<200) itemmake[s].maxskill=200;
-			}
-		}
-	}
-	while ((script1[0]!='}')&&(i!=sub) && (++loopexit < MAXLOOPS));
-
-	if (i!=sub) script->Close();
+	return true;
 }
 
-void gmmenu(int s, int m) // Open one of the gray GM Call menus
-{
-	int total, i;
-	int lentext;
-	char sect[2042];
-	static char gmtext[2042][2044];
-	int gmnumber=0;
-	int gmindex,loopexit=0;
-	P_CHAR pc_currchar = currchar[s];
-	
-	openscript("menus.scp");
-	sprintf(sect, "GMMENU %i", m);
-	if (!i_scripts[menus_script]->find(sect))
-	{
-		closescript();
-		return;
-	}
-	gmindex=m;
-	read1();
-	lentext=sprintf(gmtext[0], "%s", script1);
+// REWRITTEN BY DARKSTORM
+// \x7D, this packet is the reply
+// to the craft-menus
+void MenuChoice( UOXSOCKET Socket ) 
+{ 
+	P_CHAR pc_currchar = currchar[ Socket ];
 
-	loopexit=0;
-	do
-	{
-		read1();
-		if (script1[0]!='}')
-		{
-			gmnumber++;
-			strncpy(gmtext[gmnumber], script1, 2042);//256);
-			read1();
-		}
-	}
-	while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
+	UI16 Menu = ( buffer[ Socket ][5] << 8 ) + buffer[ Socket ][6];
+	UI16 Choice = ( buffer[ Socket ][7] << 8 ) + buffer[ Socket ][8];
 
-	closescript();
-	total=9+1+lentext+1;
-	for (i=1;i<=gmnumber;i++)
+	// Guildstone Menus
+	// Maybe we should change that to 0xFE so we can maintain a given style
+	if ( (UI08)( Menu >> 8 ) == 0xFE )
 	{
-		total+=4+1+strlen(gmtext[i]);
-	}
-	gmprefix[1]=total>>8;
-	gmprefix[2]=total%256;
-	LongToCharPtr(pc_currchar->serial, &gmprefix[3]);
-	gmprefix[7]=gmindex>>8;
-	gmprefix[8]=gmindex%256;
-	Xsend(s, gmprefix, 9);
-	Xsend(s, &lentext, 1);
-	Xsend(s, gmtext[0], lentext);
-	lentext=gmnumber;
-	Xsend(s, &lentext, 1);
-	for (i=1;i<=gmnumber;i++)
-	{
-		gmmiddle[0]=(i-1)>>8;
-		gmmiddle[1]=(i-1)%256;
-		Xsend(s, gmmiddle, 4);
-		lentext=strlen(gmtext[i]);
-		Xsend(s, &lentext, 1);
-		Xsend(s, gmtext[i], lentext);
-	}
-}
-
-void itemmenu(int s, int m) // Menus for item creation
-{
-	int total, i,y,ss,yy;
-	int lentext;
-	char sect[512];
-	static char gmtext[255][257]; // crashfix LB, was 30 !!!, increased to 255
-	int gmid[255]; // crashifx LB
-	int gmnumber=0;
-	int gmindex,loopexit=0;
-	
-	P_CHAR pc_currchar = currchar[s];
-	
-	openscript("items.scp");
-	sprintf(sect, "ITEMMENU %i", m);
-	if (!i_scripts[items_script]->find(sect))
-	{
-		closescript();
-		if (n_scripts[custom_item_script][0]!=0)
-		{
-			openscript(n_scripts[custom_item_script]);
-			if (!i_scripts[custom_item_script]->find(sect))
-			{
-				closescript(); //AntiChrist
-				return;
-			}
-		} else return;
-	}
-	gmindex=m;
-	
-	//clConsole.send("gmindex: %i\n",gmindex);
-
-	///////////////////////////////////////////////////
-	//           LB's menu priv system               //
-	///////////////////////////////////////////////////
-
-	y=-1;
-	if (pc_currchar->menupriv!=-1 || pc_currchar->menupriv!=1)  // account 0 users can use it always
-	{
-      y=-1;ss=0;yy=pc_currchar->menupriv;
-	  while(menupriv[yy][ss]!=-1 && ss<2042)//256)
-	  { 
-		  if (menupriv[yy][ss]==gmindex ) 
-		  {
-			  y=ss;
-			  break;
-		  }
-          ss++;
-	  }
-
-	}
+		// Get the Guildstone item
+		cGuildStone* pStone = dynamic_cast<cGuildStone*>( FindItemBySerial( pc_currchar->guildstone ) );
 		
-	if (pc_currchar->menupriv==-1 || pc_currchar->menupriv==1) yy=1; else yy=0;
-	//clConsole.send("y: %i z: %i yy: %i\n",y,pc_currchar->menupriv,yy);
-	if (yy==0) if (gmindex>990 && gmindex<999) yy=1; // alchemy uses itemmenus, so ignore alchemy targets for menupriv sys
-	if (y==-1 && yy==0) 
-	{
-		sysmessage(s,"Access denied. You have no Menupriv for this menu.\n");
-		closescript(); 
+		if ( pStone != NULL )
+			pStone->GumpChoice( Socket, Menu, Choice );
+		// ok, ok, not too much sphere ;)
+		// else
+		//	sysmessage( s, "Unexpected target info" );
+
+		// If it's a Guildstone Menu i dont think we need to process anyhing else
 		return;
 	}
 
-	////////////////////////////////////////////////
+	// we have nothing to do
+	if( Choice == 0 )
+		return;
 
+	// Retrieve our menu
+	Choice--;
+	QString MenuID;
+	MenuID.sprintf( "%i", Menu );
 
-	read1();
-	strcpy(gmtext[0], script1);
+	QDomElement *MenuNode = DefManager->getSection( WPDT_MENU, MenuID );
 
-
-	do
+	if( MenuNode->isNull() )
 	{
-		read2();
-		if (script1[0]!='}')
+		sysmessage( Socket, "No such menu: %i", Menu );
+		return;
+	}
+
+	// Get the Entry which was selected
+	if( Choice+1 > MenuNode->childNodes().count() ) 
+	{
+		sysmessage( Socket, "Invalid Choice (%i) selected for Menu %i", Choice, Menu );
+		return;
+	}
+	
+	QDomElement Entry = MenuNode->childNodes().item( Choice ).toElement();
+
+	if( Entry.isNull() )
+	{
+		sysmessage( Socket, "Invalid Choice (%i) selected for Menu %i", Choice, Menu );
+		return;
+	}
+
+	// Simple processing: Enter a new Submenu
+	if( Entry.nodeName() == "submenu" )
+	{
+		if( !Entry.attributes().contains( "id" ) )
 		{
-			gmnumber++;
-			gmid[gmnumber]=hex2num(script1);
-			strcpy(gmtext[gmnumber], script2);
-			read1();
+			sysmessage( Socket, "Invalid Submenu found in Menu %i", Menu );
+			return;
+		}
+
+		QString SubMenu = Entry.attributeNode( "id" ).nodeValue();
+		ShowMenu( Socket, SubMenu.toUShort() );
+		return;
+	}
+
+	// We now have only one choice left (actions)
+	if( Entry.nodeName() != "actions" )
+	{
+		sysmessage( Socket, "Invalid Entry (%s) selected in Menu %i", Entry.nodeName().latin1(), Menu );
+		return;
+	}
+
+	// Walk all required actions
+	// if one of them fails then quit the
+	// action-chain
+	for( UI32 i = 0; i < Entry.childNodes().count(); i++ )
+	{
+		if( !Entry.childNodes().item( i ).isElement() )
+			continue;
+
+		QDomElement Action = Entry.childNodes().item( i ).toElement();
+
+		if( Action.isNull() )
+			continue;
+
+		if( !DisposeAction( Socket, Action ) )
+			return;
+	}
+
+	// DO WE NEED THAT ANYMORE !?!
+	// A maximum of 256 Item-menus ->
+	// 0xFFxx -> Ss
+	/*if( (UI08)( Menu >> 8 ) == 0xFF )
+	{
+		if ( im_choice( s, Menu, Choice ) == 0 ) 
+			return;
+	}*/
+
+	// Polymorph:
+	// Magic->Polymorph(s,POLYMORPHMENUOFFSET,sub); 
+	
+	// Potions:
+	// Skills->DoPotion(s, main-1246, sub, FindItemBySerial(calcserial(addid1[s], addid2[s], addid3[s], addid4[s])));
+
+	// Tracking:
+	//	if(!Skills->CheckSkill(currchar[s], TRACKING, 0, 1000))
+	// {
+	//	sysmessage(s,"You fail your attempt at tracking.");
+	//	return;
+	// }
+	// Skills->TrackingMenu(s,sub-1);
+}
+
+void ShowMenu( UOXSOCKET Socket, UI16 Menu ) // Menus for item creation
+{
+	P_CHAR pc_currchar = currchar[ Socket ];
+
+	QString MenuID;
+	MenuID.sprintf( "%d", Menu );
+
+	// Get our node
+	QDomNode *NodePtr = DefManager->getSection( WPDT_MENU, MenuID );
+	QDomElement Node = NodePtr->toElement();
+	
+	if( Node.isNull() )
+	{
+		sysmessage( Socket, "There is no such menu: %i\n", Menu );
+		return;
+	}
+
+	// If the menu Requires special clearance make sure
+	// it requirements are met
+	if( Node.attributes().contains( "menupriv" ) )
+	{
+		bool Passed = false;
+
+		// If we're on account 0 you can always access the menu
+		if( pc_currchar->menupriv == -1 ) 
+			Passed = true;
+		else
+		{
+			QStringList MenuPrivs = QStringList::split( ",", Node.attributeNode( "menupriv" ).nodeValue() );
+
+			// No Priv requirements -> pass!
+			if( MenuPrivs.empty() )
+				Passed = true;
+
+			// Check if our character meets one of the requirements
+			for( UI08 i = 0; i < MenuPrivs.count(); i++ )
+				if( pc_currchar->menupriv == MenuPrivs[ i ].toInt() )
+					Passed = true;
+		}
+
+		if( !Passed )
+		{
+			sysmessage( Socket, "You do not meet the requirements to display this menu" );
+			return;
 		}
 	}
-	while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
 
-	closescript();
-
-	sprintf((char*)temp, "%i: %s", m, gmtext[0]);
-	lentext=sprintf(gmtext[0], "%s", temp);
-	total=9+1+lentext+1;
-	for (i=1;i<=gmnumber;i++)
+	// Get the Menu Name
+	if( !Node.attributes().contains( "name" ) )
 	{
-		total+=4+1+strlen(gmtext[i]);
+		sysmessage( Socket, "An error occured while parsing menu: %i\n", Menu );
+		return;
 	}
 
+	QString MenuName = Node.attributes().namedItem( "name" ).toAttr().nodeValue();
+	QByteArray ByteArray;
 
-	gmprefix[1]=total>>8;
-	gmprefix[2]=total%256;
-	LongToCharPtr(pc_currchar->serial, &gmprefix[3]);
-	gmprefix[7]=(gmindex+ITEMMENUOFFSET)>>8;
-	gmprefix[8]=(gmindex+ITEMMENUOFFSET)%256;
-	Xsend(s, gmprefix, 9);
-	Xsend(s, &lentext, 1);
-	Xsend(s, gmtext[0], lentext);
-	lentext=gmnumber;
-	Xsend(s, &lentext, 1);
+	// we've got 
+	// a 9 byte header, 1 byte stringlength and xx string
+	ByteArray.resize( 9 + 1 + MenuName.length() + 1 );
+	ByteArray.fill( 0 );
 
-	for (i=1;i<=gmnumber;i++)
+	// Basic Packet information
+	// Packet: x7C
+	// BYTE cmd = x7C
+	// BYTE[2] blockSize x0000
+	// BYTE[4] dialogID x01020304
+	// BYTE[2] menuid x0064
+	ByteArray[ 0 ] = 0x7C; // Packet ID
+
+	// Skip 2 bytes for the packet length
+	ByteArray[ 3 ] = (UI08)( pc_currchar->serial >> 24 );
+	ByteArray[ 4 ] = (UI08)( pc_currchar->serial >> 16 );
+	ByteArray[ 5 ] = (UI08)( pc_currchar->serial >> 8 );
+	ByteArray[ 6 ] = (UI08)( pc_currchar->serial );
+
+	// Menu-ID
+	UI16 RealID = MenuID.toULong();
+
+	ByteArray[ 7 ] = (UI08)( RealID >> 8 );
+	ByteArray[ 8 ] = (UI08)( RealID );
+
+	// BYTE length of question
+	// BYTE[length of question] question text
+	ByteArray[ 9 ] = (UI08)( MenuName.length() );
+
+        UI08 i;
+
+	for( i = 0; i < MenuName.length(); i++ )
 	{
-		gmmiddle[0]=gmid[i]>>8;
-		gmmiddle[1]=gmid[i]%256;
-		Xsend(s, gmmiddle, 4);
-		lentext=strlen(gmtext[i]);
-		Xsend(s, &lentext, 1);
-		Xsend(s, gmtext[i], lentext);
+		ByteArray[ 10 + i ] = MenuName.at( i ).latin1();
 	}
 
+	// Current Position = Length() - 1
+	int CurrentIndex = ByteArray.count();
+	UI08 Responses = 0;
+
+	// BYTE[2] model id # of shown item (if grey menu -- then always 0x00 as msb)
+	// BYTE[2] unknown2 (00 00 check or not?)
+	// BYTE response text length
+	// BYTE[response text length] response text
+	for( i = 0; i < Node.childNodes().count(); i++ )
+	{
+		QDomNode SubNode = Node.childNodes().item( i );
+
+		if( !SubNode.isElement() )
+			continue;
+
+		if( ( SubNode.toElement().tagName() != "submenu" ) && ( SubNode.toElement().tagName() != "actions" ) )
+			continue;
+
+		// Display the item __ONLY__ if the user meets the requirements
+		// I.e. Skill or Resources
+		//
+		// ^^^^ This is DISABLED as it uses up too much CPU time
+		//      to check for the requirements each time
+		UI16 ModelID = 0;
+		QString ResponseText;
+
+		// Small Icon in the horizontal scrolling menu
+		if( SubNode.toElement().attributes().contains( "model" ) )
+			ModelID = SubNode.toElement().attributeNode( "model" ).nodeValue().toUShort( NULL, 16 );
+		
+		// Response Text
+		if( SubNode.toElement().attributes().contains( "name" ) )
+			ResponseText = SubNode.toElement().attributeNode( "name" ).nodeValue();
+
+		// Resize the ByteArray to meet the new conditions
+		// Current Length + 2 model-id + 2 unknown + 1 textlength + textlength
+		ByteArray.resize( ByteArray.size() + 4 + 1 + ResponseText.length() );
+		
+		// Model ID
+		ByteArray[ CurrentIndex++ ] = (UI08)( ModelID >> 8 );
+		ByteArray[ CurrentIndex++ ] = (UI08)( ModelID );
+
+		// Model Hue
+		QString Hue = "0";
+
+		if( SubNode.toElement().attributes().contains( "hue" ) )
+			Hue = SubNode.toElement().attributeNode( "hue" ).nodeValue();
+
+		UI16 RealHue = Hue.toUShort( NULL, 16 );
+
+		ByteArray[ CurrentIndex++ ] = (UI08)( RealHue >> 8 );
+		ByteArray[ CurrentIndex++ ] = (UI08)( RealHue );
+
+		// "Copy" in the Response Text
+		ByteArray[ CurrentIndex++ ] = (UI08)( ResponseText.length() );
+
+		for( UI08 j = 0; j < ResponseText.length(); j++ )
+		{
+			ByteArray[ CurrentIndex++ ] = ResponseText.at( j ).latin1();
+		}
+
+		Responses++;
+	}
+
+	// Number of Responses
+	ByteArray[ (int)( 9 + 1 + MenuName.length() ) ] = Responses;
+
+	// Set the packet length
+	UI16 PacketLength = ByteArray.count();
+	ByteArray[ 1 ] = (UI08)( PacketLength >> 8 );
+	ByteArray[ 2 ] = (UI08)( PacketLength % 256 );
+
+	Xsend( Socket, ByteArray.data(), ByteArray.count() );
 }
 
 void cGump::Open(int s, P_CHAR pc, int num1, int num2)

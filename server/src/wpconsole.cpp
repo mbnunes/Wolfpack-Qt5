@@ -33,6 +33,10 @@
 
 #include "wpconsole.h"
 
+#ifndef __unix__
+#include <windows.h>
+#endif
+
 // Method Implementations
 
 //========================================================================================
@@ -143,4 +147,98 @@ UI08 WPConsole_cl::getkey(void)
 	return key;
 }
 
+//=========================================================================================
+// Prepare a "progess" line
+void WPConsole_cl::PrepareProgress( string sMessage )
+{
+	// We assume a console width of 70 chars here
+	while( sMessage.size() > 50 ) 
+	{
+		send( sMessage.substr( 0, 50 ) + "\n" );
+		sMessage = sMessage.substr( 0, 50 );
+	}
 
+	UI08 PrintedChars = sMessage.size() + 1; // one spacer
+
+	send( sMessage + " " );
+
+	ChangeColor( WPC_WHITE );
+	// Fill up the remaining chars with "....."
+	for( UI08 i = 0; i < 50 - PrintedChars; i++ )
+		send( "." );
+
+	ChangeColor( WPC_NORMAL );
+
+	send( " [____]" );
+}
+
+//=========================================================================================
+// Print Progress Done
+void WPConsole_cl::ProgressDone( void )
+{
+	send( "\b\b\b\b\b" ); // Go 5 Characters back
+	ChangeColor( WPC_GREEN );
+	send( "done" );
+	ChangeColor( WPC_NORMAL );
+	send( "]\n" );
+}
+
+//=========================================================================================
+// Print "Fail"
+void WPConsole_cl::ProgressFail( void )
+{
+	send( "\b\b\b\b\b" ); // Go 5 Characters back
+	ChangeColor( WPC_RED );
+	send( "fail" );
+	ChangeColor( WPC_NORMAL );
+	send( "]\n" );
+}
+
+//=========================================================================================
+// Print "Skip" (maps etc.)
+void WPConsole_cl::ProgressSkip( void )
+{
+	send( "\b\b\b\b\b" ); // Go 5 Characters back
+	ChangeColor( WPC_YELLOW );
+	send( "skip" );
+	ChangeColor( WPC_NORMAL );
+	send( "]\n" );
+}
+
+//=========================================================================================
+// Change the console Color
+void WPConsole_cl::ChangeColor( WPC_ColorKeys Color )
+{
+	#ifndef __unix__
+		HANDLE ConsoleHandle = GetStdHandle( STD_OUTPUT_HANDLE );
+		UI16 ColorKey = FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE;
+
+		switch( Color )
+		{
+		case WPC_GREEN:
+			ColorKey = FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+			break;
+
+		case WPC_RED:
+			ColorKey = FOREGROUND_RED | FOREGROUND_INTENSITY;
+			break;
+
+		case WPC_YELLOW:
+			ColorKey = FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY;
+			break;
+
+		case WPC_NORMAL:
+			ColorKey = FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE;
+			break;
+
+		case WPC_WHITE:
+			ColorKey = FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY;
+			break;
+
+		default:
+			break;
+		}
+
+		SetConsoleTextAttribute( ConsoleHandle, ColorKey );
+	#endif
+}

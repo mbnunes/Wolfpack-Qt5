@@ -93,6 +93,7 @@ typedef struct _PKGx6C
 class cTargets
 {
 private:
+	void AddItem( UOXSOCKET s );
 	void CharTarget(P_CLIENT ps, PKGx6C *pt);
 	void HouseSecureDown( UOXSOCKET s ); // Ripper
 	void HouseLockdown( UOXSOCKET s ); // Abaddon

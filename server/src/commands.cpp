@@ -98,9 +98,10 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 			(*((CMD_EXEC)command_table[y].cmd_extra)) (s);
 			break;
 		case CMD_ITEMMENU:
-			itemmenu(s, (int)command_table[y].cmd_extra);
+			ShowMenu(s, (int)command_table[y].cmd_extra);
 			break;
 		case CMD_TARGET:
+			SocketStrings[ s ] = speech;
 			_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			break;
 		case CMD_TARGETX:

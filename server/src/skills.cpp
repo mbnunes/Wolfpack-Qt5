@@ -47,6 +47,33 @@
 #define DBGFILE "skills.cpp"
 #include "debug.h"
 
+// Gets all items within the container recursively
+vector< P_ITEM > GetContainedItems( P_ITEM Container )
+{
+	std::vector< SERIAL > Contained = contsp.getData( Container->serial );
+	std::vector< P_ITEM > ItemList;
+
+	for( UI32 i = 0; i < Contained.size(); i++ )
+	{
+		P_ITEM Item = FindItemBySerial( Contained[ i ] );
+
+		// we'v got a container
+		if( Item->type == 1 )
+		{
+			vector< P_ITEM > SubContainer = GetContainedItems( Item );
+
+			// Transfer the items
+			for( UI32 j = 0; j < SubContainer.size(); j++ )
+				ItemList.push_back( SubContainer[ j ] );
+		}
+		// Or just put it into our list
+		else 
+			ItemList.push_back( Item );
+	}	
+
+	return ItemList;
+}
+
 //int goldsmithing;
 //1=iron, 2=golden, 3=agapite, 4=shadow, 5=mythril, 6=bronze, 7=verite, 8=merkite, 9=copper, 10=silver
 int ingottype=0;//will hold number of ingot type to be deleted
@@ -60,15 +87,18 @@ inline void SetSkillDelay(P_CHAR pc)
 // Function:	CalcRank
 // History:		24 Agoust 1999 created by Magius(CHE)
 //				16.9.2000 revamped a bit (Duke)
+//				31.3.2002 modified by darkstorm
 //
 // Purpose:		calculate item rank based on player' skill.
 //
-int cSkills::CalcRank(int s,int skill)
+UI08 cSkills::CalcRank( UOXSOCKET Socket, UI16 SkillValue, UI16 MinSkill, UI16 MaxSkill )
 {
-	int rk_range,rank;
+	return 10;
+
+	/*int rk_range,rank;
 	float sk_range,randnum,randnum1;
 
-	rk_range=itemmake[s].maxrank-itemmake[s].minrank;
+	rk_range=itemmake[s].maxrank-itemmake[Socket].minrank;
 	sk_range=(float) 50.00 + currchar[s]->skill[skill]-itemmake[s].minskill;
 	if (sk_range<=0)
 		rank=itemmake[s].minrank;
@@ -90,7 +120,7 @@ int cSkills::CalcRank(int s,int skill)
 		if (rank>itemmake[s].maxrank) rank=itemmake[s].maxrank;
 		if (rank<itemmake[s].minrank) rank=itemmake[s].minrank;
 	}
-	return rank;
+	return rank;*/
 }
 
 //////////////////////////
@@ -100,15 +130,15 @@ int cSkills::CalcRank(int s,int skill)
 //
 // Purpose:		modify variables base on item's rank.
 //
-void cSkills::ApplyRank(int s, P_ITEM pi, int rank)
+void cSkills::ApplyRank( int s, P_ITEM pi, int rank )
 {
 	char tmpmsg[512];
 	*tmpmsg='\0';
-	if(SrvParams->rank_system()==0) return;
-	if (pi == NULL)
+	if( SrvParams->rank_system() == 0 ) return;
+	if ( pi == NULL )
 		return;
 
-	if (SrvParams->rank_system()==1)
+	if( SrvParams->rank_system() == 1 )
 	{
 		pi->rank=rank;
 		// Variables to change: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
@@ -245,18 +275,17 @@ cMMT* cMMT::factory(short skill)
 
 void cSkills::MakeMenuTarget(int s, int x, int skill)
 {
-//	int cc=currchar[s];
-	P_CHAR pc_currchar = currchar[s];
-	int rank=10; // For Rank-System --- Magius§(çhe)
-	int tmpneed=0; // For Fixed Delquant -- Magius(CHE) §
-	cMMT *targ = cMMT::factory(skill);
+	P_CHAR pc_currchar = currchar[ s ];
+	int rank = 10; // For Rank-System --- Magius§(çhe)
+	cMMT *targ = cMMT::factory( skill );
 	
 	// exploit fix - detects if they took the material out of their
 	// backpack while the makemenu was active (Duke, 25.11.2000)
-	int amt=getamount(pc_currchar, itemmake[s].Mat1id);
-	if ( amt < itemmake[s].needs && !pc_currchar->isGM() )
+	int amt = getamount( pc_currchar, itemmake[ s ].Mat1id );
+
+	if( amt < itemmake[ s ].needs && !pc_currchar->isGM() )
 	{
-		sysmessage(s,"You do not have enough resources anymore!!");
+		sysmessage(s, "You lack the resources to make this." );
 		return;
 	}
 	
@@ -264,25 +293,29 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 	By Polygon:
 	When doing cartography, check if empty map is still there
 */
-	if (skill == CARTOGRAPHY)	// Is it carto?
+	// DS: This seems useless, normally it should check for the map as a resource
+	if( skill == CARTOGRAPHY )	// Is it carto?
 	{
-		if (!HasEmptyMap(pc_currchar))	// Did the map disappear?
+		if ( !HasEmptyMap( pc_currchar ) )	// Did the map disappear?
 		{
-			sysmessage(s,"You don't have your blank map anymore!!");
+			sysmessage(s,"You lack the resources to make this.");
 			return;
 		}
 	}
 //	END OF: By Polygon
 
-	if(!Skills->CheckSkill(pc_currchar,skill, itemmake[s].minskill, itemmake[s].maxskill) && !pc_currchar->isGM()) //GM cannot fail! - AntiChrist
+	// GM cannot fail! - AntiChrist
+	// DS: We use this for ADDITEM in GM Menus, what else would you think...
+	if( !Skills->CheckSkill( pc_currchar, skill, itemmake[s].minskill, itemmake[s].maxskill ) && !pc_currchar->isGM() ) 
 	{
 		// Magius(CHE) §
 		// With these 2 lines if you have a resouce item with
 		// Amount=1 and fail to work on it, this resouce will be
 		// Removed anyway. So noone can increase his skill using
 		// a single resource item.
-		tmpneed=itemmake[s].needs/2; // Magius(CHE) §
-		if (tmpneed==0) itemmake[s].needs++; // Magius(CHE) §
+		if( itemmake[ s ].needs / 2 == 0 )
+			itemmake[ s ].needs++;
+		
 		switch(skill) 
 		{
 		case BLACKSMITHING: targ->failure(s);break;
@@ -298,6 +331,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		Zero_Itemmake(s);
 		return;
 	}
+
 	switch(skill)
 	{	
 		case BLACKSMITHING:	targ->delonsuccess(s);	break;
@@ -321,8 +355,9 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		// Starting Rank System Addon, Identify Item and Store the Creator Name- by Magius(CHE)
 		if (pi->name2 != "#") 
 			pi->name = pi->name2; // Item identified! - }
-		if (SrvParams->rank_system()==1) rank=CalcRank(s,skill);
-		else if (SrvParams->rank_system()==0) rank=10;
+		//if (SrvParams->rank_system()==1) rank=CalcRank(s,skill);
+		//else if (SrvParams->rank_system()==0) rank=10;
+		rank = 10;
 		ApplyRank(s, pi, rank);
 
 		if(!pc_currchar->isGM())		//AntiChrist - do this only if not a GM! bugfix - to avoid "a door mixed by GM..."
@@ -403,16 +438,29 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		}
 
 		pc_currchar->making=0;
-		if (skill==MINING) soundeffect(s,0x00,0x54); // Added by Magius(CHE)
-		if (skill==BLACKSMITHING) soundeffect(s,0x00,0x2a);
-		if (skill==CARPENTRY) soundeffect(s,0x02,0x3d);
-		if (skill==INSCRIPTION) soundeffect(s,0x02,0x49);
-		if (skill==TAILORING) soundeffect(s,0x02,0x48);
-		if (skill==TINKERING) soundeffect(s,0x00,0x2A);
+		if ( skill == MINING ) 
+			soundeffect(s,0x00,0x54); // Added by Magius(CHE)
+
+		if ( skill == BLACKSMITHING ) 
+			soundeffect(s,0x00,0x2a);
+
+		if ( skill == CARPENTRY ) 
+				soundeffect(s,0x02,0x3d);
+
+		if ( skill==INSCRIPTION ) 
+			soundeffect(s,0x02,0x49);
+
+		if ( skill==TAILORING ) 
+			soundeffect(s,0x02,0x48);
+
+		if ( skill == TINKERING ) 
+			soundeffect(s,0x00,0x2A);
+
 		// Polygon: Do the cartography sound
-		if (skill==CARTOGRAPHY) soundeffect(s, 0x02, 0x49);
+		if ( skill==CARTOGRAPHY ) 
+			soundeffect(s, 0x02, 0x49);
 		
-		if (skill == TAILORING) // -Fraz- Implementing color remembrance for tailored items
+		if ( skill == TAILORING ) // -Fraz- Implementing color remembrance for tailored items
 		{
 			pi->color = itemmake[s].newcolor;
 			RefreshItem(pi);
@@ -1086,8 +1134,11 @@ char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 		sysmessage(s, (char*)temp );
 		return 0;
 	}
-	if (pc->isGM())
-		return 1;
+
+	// How should we test skills...
+	//if (pc->isGM())
+	//	return 1;
+
 	if(high>1200) high=1200;
 
 	int charrange=pc->skill[sk]-low;	// how far is the player's skill above the required minimum ?
@@ -2894,3 +2945,173 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 }
 
 // END OF: By Polygon
+
+// DS: Check if the User meets the Requirements stated in the menus
+bool cSkills::MeetRequirements( P_CHAR myChar, QDomElement Requirements, bool Notify )
+{
+	// If we're a GM or on Account 0 we always Succeed
+	if( myChar->isGM() )
+		return true;
+
+	// The XML contains something like this:
+
+	//		The specified Script needs to return true
+	//		in order to be able to make the thing
+	//		<scriptreturn id="myscript" />
+
+	//		It needs the specified amount of the
+	//		specified resource
+	//		<resource id="silver" amount="1" />
+
+	//		Max means the maximum we gain skills at -->
+	//		<skill id="2" min="220" max="12" /> 
+	
+	QDomNodeList NodeList = Requirements.childNodes();
+
+	// No Requirements are to be met
+	if( NodeList.count() == 0 )
+		return true;
+
+	// Walk the Requirements and check if every 
+	// Requirement is met
+	for( UI08 i = 0; i < NodeList.count(); i++ )
+	{
+		// we only want to process elements
+		if( !NodeList.item( i ).isElement() )
+			continue;
+
+		QDomElement Element = NodeList.item( i ).toElement();
+
+		// Decide what to check for based on the NodeName
+		if( Element.tagName() == "scriptreturn" )
+		{
+			// Skip if no script-id is specified
+			if( !Element.attributes().contains( "id" ) )
+				continue;
+
+			// Get the script and query
+			// onCheckMakeItem
+			WPDefaultScript *Script = ScriptManager->FindScript( Element.attributeNode( "id" ).nodeValue() );
+
+			if( Script == NULL )
+				continue;
+
+			// We need to pass something to it here
+			// I would suggest:
+			// Id, Character and a QStringList of all other nodes??
+			// Script->onMakeItem();
+
+			continue;
+		}
+		else if( Element.tagName() == "skill" )
+		{
+			// We need to have the Skill ID
+			if( !Element.attributes().contains( "id" ) )
+				continue;
+
+			UI08 Skill = Element.attributeNode( "id" ).nodeValue().toUShort();
+
+			// The Following Rules apply:
+			
+			// If the User does not have the required minimum skill
+			// then there is no skillcheck made
+			if( Element.attributes().contains( "min" ) )
+			{
+				UI32 MinimumSkill = Element.attributeNode( "min" ).nodeValue().toUInt();
+
+				// The Character does not have the required skill
+				if( myChar->baseskill[ Skill ] < MinimumSkill )
+				{
+					// Notify the user that he failed if it's requested
+					if( Notify )
+						sysmessage( calcSocketFromChar( myChar ), "You are too unskilled to make this item" );
+					
+					return false;
+				}
+			}
+
+			// The user can gain in the skill used
+			bool CanGain = true;
+
+			// Dont make a skillcheck if we're above the maximum skill
+			if( Element.attributes().contains( "max" ) )
+			{
+				UI32 MaximumSkill = Element.attributeNode( "max" ).nodeValue().toUInt();
+
+				// The Character has reached the maximum Skill
+				if( myChar->baseskill[ Skill ] >= MaximumSkill )
+					CanGain = false;
+			}
+
+			// Normally the Difficulty modifier is 0
+			SI08 Difficulty = 0;
+
+			// Get the Difficulty Modifier
+			if( Element.attributes().contains( "difficulty" ) )
+				Difficulty = Element.attributeNode( "difficulty" ).nodeValue().toUShort();
+
+			// Normally it does NOT affect the dice
+			// only if requested by the serv-admin
+			SI08 Hunger = 0;
+
+			if( SrvParams->HungerAffectsSkills() )
+				Hunger -= ( abs( myChar->hunger - 6 ) ^ 2 );
+
+			// The Skillcheck is made as follows:
+			SI16 Dice = RandomNum( 1, 100 );
+			Dice += Hunger; // Hunger is Negative
+			Dice -= Difficulty; // Difficulty is Positive
+
+			// Check if we reached our Skill
+			SI16 CheckSkill = abs( myChar->baseskill[ Skill ] - 1000 );
+
+			bool Success = false;
+
+			if( Dice > CheckSkill ) 
+			{
+				Success = true;
+			}
+
+			AdvanceSkill( myChar, Skill, Success );
+
+			if( !Success )
+			{
+				if( Notify )
+				{
+					sysmessage( calcSocketFromChar( myChar ), "You fail to make the item" );
+				}
+
+				return false;
+			}
+		}
+	}
+	
+	return true;
+
+	/*QStringList ResourceList = QStringList::split( ",", Resources );
+
+	std::map< QString, UI32 > NeededResources;
+	std::map< QString, QDomElement > ResourceMap;
+
+	for( UI08 i = 0; i < ResourceList.count(); i++ )
+	{
+		// Get the resource and check for it on myChar
+		QStringList Parts = QStringList::split( "=", ResourceList[ i ] );
+		if( Parts.count() != 2 )
+			continue;
+
+		// We have an amount and an id for each needed resource
+		NeededResources[ Parts[ 0 ] ] = Parts[ 1 ].toULong();
+		ResourceMap[ Parts[ 0 ] ] = DefManager->getSection( WPDT_RESOURCE, Parts[ 0 ] );
+	}
+
+	// Walk the backpack of the Skilluser
+	P_ITEM Backpack = Packitem( myChar );
+
+	if( Backpack == NULL )
+	{
+		sysmessage( calcSocketFromChar( myChar ), "You don't have a backpack" );
+		return false;
+	}*/
+
+}

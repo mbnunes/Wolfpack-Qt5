@@ -128,7 +128,6 @@ void showcname (UOXSOCKET s, P_CHAR pc_i, char b);
 void addhere(int s, signed char z);
 void whomenu(int s, int type);
 void playermenu(int s, int type);
-void gmmenu(int s, int m);
 void scriptcommand (int s,  char *script1,  char *script2);
 void endmessage(int x);
 
@@ -150,7 +149,7 @@ void gettokennum(char * s, int num);
 void setrandomname(P_CHAR pc_s, char * namelist);
 void donewithcall(int s, int type);
 void initque();
-void choice(int s);
+void MenuChoice( UOXSOCKET Socket );
 void mounthorse(UOXSOCKET s, P_CHAR pc_mount);
 char *title1(P_CHAR pc);
 char *title2(P_CHAR pc);
@@ -181,7 +180,7 @@ void xteleport(int s,int x);
 void wornitems(UOXSOCKET s, P_CHAR pc);
 void RefreshItem(P_ITEM pi);
 int MenuListGenerator();
-void itemmenu(int s, int m);
+void ShowMenu( UOXSOCKET s, UI16 Menu );
 void npcemoteall(P_CHAR npc, char *txt,unsigned char antispam);
 int findsection (unsigned char *s);
 void read1 ();
@@ -231,8 +230,6 @@ void readscript ();
 //For custom titles
 void loadcustomtitle();
 void loadskills();
-void loadmenuprivs();
-
 
 void advancementobjects(P_CHAR pc_s, int x, int always);
 void itemsfx(UOXSOCKET s, short item);

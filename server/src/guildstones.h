@@ -84,7 +84,7 @@ public:
 	void ToggleAbbreviation(UOXSOCKET s);
 	void Recruit(UOXSOCKET s);
 	void GumpInput(UOXSOCKET s, int type, int index, char *text);
-	void GumpChoice(UOXSOCKET s,int main,int sub);
+	void GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice );
 	void ChangeName(UOXSOCKET s, char *text);
 	void ChangeAbbreviation(UOXSOCKET s, char *text);
 	void ChangeTitle(UOXSOCKET s, char *text);

@@ -519,8 +519,8 @@ void racProcessInput(int s)
 			loadspawnregions();
 			loadregions();
 			loadmetagm();
-			loadmenuprivs();
 			SrvParams->reload();
+
 			racPrintf(s, " Done!\r\n");
 			racPrintf(s, "WOLFPACK: Reloading IP Blocking rules...");
 			Network->LoadHosts_deny();

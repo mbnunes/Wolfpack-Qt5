@@ -1520,14 +1520,14 @@ void cSkills::AlchemyTarget(int s)
 	
 	switch (pi->id())
 	{
-	case 0x0F7B: itemmenu(s, 991);break;	// Agility,
-	case 0x0F84: itemmenu(s, 992);break;	// Cure, Garlic
-	case 0x0F8C: itemmenu(s, 993);break;	// Explosion, Sulfurous Ash
-	case 0x0F85: itemmenu(s, 994);break;	// Heal, Ginseng
-	case 0x0F8D: itemmenu(s, 995);break;	// Night sight
-	case 0x0F88: itemmenu(s, 996);break;	// Poison, Nightshade
-	case 0x0F7A: itemmenu(s, 997);break;	// Refresh, 
-	case 0x0F86: itemmenu(s, 998);break;	// Strength,
+	case 0x0F7B: ShowMenu( s, 991 );break;	// Agility,
+	case 0x0F84: ShowMenu( s, 992 );break;	// Cure, Garlic
+	case 0x0F8C: ShowMenu( s, 993 );break;	// Explosion, Sulfurous Ash
+	case 0x0F85: ShowMenu( s, 994 );break;	// Heal, Ginseng
+	case 0x0F8D: ShowMenu( s, 995 );break;	// Night sight
+	case 0x0F88: ShowMenu( s, 996 );break;	// Poison, Nightshade
+	case 0x0F7A: ShowMenu( s, 997 );break;	// Refresh, 
+	case 0x0F86: ShowMenu( s, 998 );break;	// Strength,
 	case 0x0E9B: break;	// Mortar
 	default:
 		if ( pi->id()>=0x1B11 && pi->id()<=0x1B1C )

@@ -22,6 +22,7 @@
 //	LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
 //	A PARTICULAR PURPOSE ARE DISCLAIMED. .
 //========================================================================
+#define OBSOLETETIME
 #include "utilsys.h"
 //========================================================================
 // Begin getNormalizedTime

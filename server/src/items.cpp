@@ -1936,3 +1936,276 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 		}
 	}		
 }
+
+QString processNode( const QDomElement &Node )
+{
+	return "Worked";
+}
+
+// Applies a script-section to an item
+void cAllItems::applyItemSection( P_ITEM Item, QString Section )
+{
+	QDomElement *ItemSection = DefManager->getSection( WPDT_ITEM, Section );
+
+	if( ItemSection->isNull() )
+	{
+		clConsole.log( "Unable to create unscripted item: %s", Section.latin1() );
+		return;
+	}
+
+	// at least do the following:
+	// name + id
+
+	QDomNodeList Tags = ItemSection->childNodes();
+
+	for( UI16 i = 0; i < Tags.count(); i++ )
+	{
+		// as usual only elements are processed
+		if( !Tags.item( i ).isElement() )
+			continue;
+
+		// we do this as we're going to modify the element
+		QDomElement Tag = Tags.item( i ).toElement();
+		QString TagName = Tag.nodeName();
+		QString Value;
+		
+		// The node value is either the text or it's determined by it's subnodes
+		if( Tag.hasChildNodes() )
+			for( UI16 j = 0; j < Tag.childNodes().count(); j++ )
+			{
+				if( Tag.childNodes().item( j ).isText() )
+					Value += Tag.childNodes().item( j ).toText().data();
+				else if( Tag.childNodes().item( j ).isElement() )
+					Value += processNode( Tag.childNodes().item( j ).toElement() );
+			}
+			
+		// <name>my Item</name>
+		if( TagName == "name" )
+			Item->name = Value.latin1();
+
+		// <identified>my magic item</identified>
+		else if( TagName == "identified" )
+			Item->name2 = Value.latin1();
+
+		// <amount>120</amount>
+		else if( TagName == "amount" )
+			Item->amount = Value.toULong();
+
+		// <color>480</color>
+		else if( TagName == "color" )
+			Item->color = Value.toUShort( NULL, 16 );
+
+		// <events>a,b,c</events>
+		//else if( TagName == "color" )
+		//	Item->color = Value.toUShort( NULL, 16 );
+
+		// <attack min="1" max="2"/>
+		else if( TagName == "attack" )
+		{
+			if( Tag.attributes().contains( "min" ) )
+				Item->lodamage = Tag.attributeNode( "min" ).nodeValue().toInt();
+
+			if( Tag.attributes().contains( "max" ) )
+				Item->hidamage = Tag.attributeNode( "max" ).nodeValue().toInt();
+
+			// Better...
+			if( Item->lodamage > Item->hidamage )
+				Item->hidamage = Item->lodamage;
+		}
+
+		// <defense>10</defense>
+		else if( TagName == "defense" )
+			Item->def = Value.toInt();
+
+		// <type>10</type>
+		else if( TagName == "type" )
+			Item->type = Value.toUInt();
+
+		// <weight>10</weight>
+		else if( TagName == "weight" )
+			Item->weight = Value.toUInt();
+
+		// <value>10</value>
+		else if( TagName == "value" )
+			Item->value = Value.toInt();
+		
+		// <restock>10</restock>
+		else if( TagName == "restock" )
+			Item->restock = Value.toInt();
+
+		// <layer>10</layer>
+		else if( TagName == "layer" )
+			Item->layer = Value.toUShort();
+
+		// <durability>10</durabilty>
+		else if( TagName == "durability" )
+		{
+			Item->maxhp = Value.toLong();
+			Item->hp = Item->maxhp;
+		}
+
+		// <speed>10</speed>
+		else if( TagName == "speed" )
+			Item->spd = Value.toLong();
+
+		// <speed>10</speed>
+		else if( TagName == "good" )
+			Item->good = Value.toInt();
+
+		// <lightsource>10</lightsource>
+		else if( TagName == "lightsource" )
+			Item->dir = Value.toUShort();
+
+		// <morex>10</morex>
+		else if( TagName == "morex" )
+			Item->morex = Value.toInt();
+
+		// <morex>10</morex>
+		else if( TagName == "morex" )
+			Item->morex = Value.toInt();
+
+		// <morez>10</morez>
+		else if( TagName == "morez" )
+			Item->morez = Value.toInt();
+
+		// <morexyz>10</morexyz>
+		else if( TagName == "morexyz" )
+		{
+			QStringList Elements = QStringList::split( ",", Value );
+			if( Elements.count() == 3 )
+			{
+				Item->morex = Elements[ 0 ].toInt();
+				Item->morey = Elements[ 1 ].toInt();
+				Item->morez = Elements[ 2 ].toInt();
+			}
+		}
+
+		// <movable />
+		// <ownermovable />
+		// <immovable />
+		else if( TagName == "movable" )
+			Item->magic = 1;
+		else if( TagName == "immovable" )
+			Item->magic = 2;
+		else if( TagName == "ownermovable" )
+			Item->magic = 3;
+
+		// <decay />
+		// <nodecay />
+#pragma note( "Needs a closer look" )
+		else if( TagName == "decay" )
+			Item->priv &= 0x1F;
+		else if( TagName == "nodecay" )
+			Item->priv |= 0x1F;
+
+		// <itemhand>2</itemhand>
+		else if( TagName == "itemhand" )
+			Item->itmhand = Value.toInt();
+
+		// <requires type="xx">2</requires>
+		else if( TagName == "requires" )
+		{
+			if( !Tag.attributes().contains( "type" ) )
+				continue;
+
+			QString Type = Tag.attributeNode( "type" ).nodeValue();
+			
+			if( Type == "str" )
+				Item->st = Value.toULong();
+			else if( Type == "dex" )
+				Item->dx = Value.toULong();
+			else if( Type == "int" )
+				Item->in = Value.toULong();
+		}
+
+		// <visible />
+		// <invisible />
+		// <ownervisible />
+		else if( TagName == "invisible" )
+			Item->visible = 2;
+		else if( TagName == "visible" )
+			Item->visible = 0;
+		else if( TagName == "ownervisible" )
+			Item->visible = 1;
+
+		// <dispellable />
+		else if( TagName == "dispellable" )
+			Item->priv |= 0x04;
+
+		// <modifier type="xx">2</modifier>
+		else if( TagName == "modifier" )
+		{
+			if( !Tag.attributes().contains( "type" ) )
+				continue;
+
+			QString Type = Tag.attributeNode( "type" ).nodeValue();
+			
+			if( Type == "str" )
+				Item->st2 = Value.toULong();
+			else if( Type == "dex" )
+				Item->dx2 = Value.toULong();
+			else if( Type == "int" )
+				Item->in2 = Value.toULong();
+		}
+
+		// <dye />
+		// <nodye />
+		else if( TagName == "dye" )
+			Item->dye = 1;
+		else if( TagName == "nodye" )
+			Item->dye = 0;
+
+		// <id>12f9</id>
+		else if( TagName == "id" )
+			Item->setId( Value.toUShort( NULL, 16 ) );
+	}
+}
+
+// Retrieves the Item Information stored in Section
+// And creates an item based on it
+P_ITEM cAllItems::createScriptItem( QString Section )
+{
+	if( Section.length() == 0 )
+		return NULL;
+
+	// Get an Item and assign a serial to it
+	P_ITEM nItem = MemItemFree();
+	nItem->Init( true );
+	cItemsManager::getInstance()->registerItem( nItem );
+
+	applyItemSection( nItem, Section );	
+
+	return nItem;
+}
+
+// Creates an Item from an item-list
+// And applies additional sections to it (<amount><random min="" max="" /></amount>
+P_ITEM cAllItems::createListItem( QString Section )
+{
+	return NULL;
+}
+
+// Added by DarkStorm
+bool cItem::onShowItemName( P_CHAR Viewer )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onShowItemName( this, Viewer ) )
+			return true;
+
+	return false;
+
+}
+
+void cItem::onTalkToItem( P_CHAR Talker, const QString &Text )
+{
+	if( scriptChain.empty() )
+		return;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		scriptChain[ i ]->onTalkToItem( Talker, this, Text );
+}

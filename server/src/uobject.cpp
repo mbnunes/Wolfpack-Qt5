@@ -52,6 +52,9 @@ cUObject::cUObject()
 
 cUObject::cUObject( cUObject &src )
 {
+	// Copy Events
+	this->setEvents( src.getEvents() );
+
 	this->serial = src.serial;
 	this->multis = src.multis;
 	this->name = src.name;
@@ -119,4 +122,112 @@ void cUObject::Serialize(ISerialization &archive)
 inline string cUObject::objectID()
 {
 	return string("UOBJECT");
+}
+
+// Method for setting a list of WPDefaultScripts
+void cUObject::setEvents( std::vector< WPDefaultScript* > List )
+{
+	scriptChain.clear();
+
+	// "Reset" the events
+	if( List.size() == 0 )
+		return;
+
+	// Walk the List and add the events
+	for( UI08 i = 0; i < List.size(); i++ )
+		if( List[ i ] != NULL )
+			scriptChain.push_back( List[ i ] );
+}
+
+// Gets a vector of all assigned events
+std::vector< WPDefaultScript* > cUObject::getEvents( void )
+{
+	std::vector< WPDefaultScript* > List;
+
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		List.push_back( scriptChain[ i ] );
+
+	return List;
+}
+
+// Checks if the object has a specific event
+bool cUObject::hasEvent( QString Name )
+{
+	bool hasEvent = false;
+
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->getName() == Name )
+			hasEvent = true;
+
+	return hasEvent;
+}
+
+void cUObject::addEvent( WPDefaultScript *Event )
+{
+	if( hasEvent( Event->getName() ) )
+		return;
+
+	scriptChain.push_back( Event );
+}
+
+void cUObject::removeEvent( QString Name )
+{
+	std::vector< WPDefaultScript* >::iterator myIterator;
+
+	for( myIterator = scriptChain.begin(); myIterator != scriptChain.end(); ++myIterator )
+	{
+		if( (*myIterator)->getName() == Name )
+			scriptChain.erase( myIterator );
+	}
+}
+
+/****************************
+ * 
+ * Scripting events
+ *
+ ****************************/
+
+bool cUObject::onUse( cUObject *Target )
+{
+	// If we dont have any events assigned just skip processing
+	if( scriptChain.empty() )
+		return false;
+
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+	{
+		// If we're the Character pass us as the second param
+		// if not as the first
+		bool Handeled = false;
+
+		if( this->objectID() != "CHARACTER" )
+			Handeled = scriptChain[ i ]->onUse( (P_CHAR)Target, (P_ITEM)this );
+		else
+			Handeled = scriptChain[ i ]->onUse( (P_CHAR)this, (P_ITEM)Target );
+
+		if( Handeled )
+			return true;
+	}
+
+	return false;
+}
+
+void cUObject::onCollide( cUObject* Obstacle )
+{
+	// If we dont have any events assigned just skip processing
+	if( scriptChain.empty() )
+		return;
+
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+	{
+		// Items cannot collide with items
+		if( this->objectID() != "CHARACTER" ) // Item, so obstacle has to be character
+			scriptChain[ i ]->onCollideItem( (P_CHAR)Obstacle, (P_ITEM)this );
+		else
+			if( Obstacle->objectID() == "ITEM" )
+				scriptChain[ i ]->onCollideItem( (P_CHAR)this, (P_ITEM)Obstacle );
+			else // Character, Character
+				scriptChain[ i ]->onCollideChar( (P_CHAR)this, (P_CHAR)Obstacle );
+	}
 }

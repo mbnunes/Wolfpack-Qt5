@@ -60,7 +60,9 @@
 #include <io.h>
 #define _mkdir(a,b) _mkdir(a)
 #if defined(_MSC_VER)
+#ifndef S_ISDIR
 #define S_ISDIR(m) m&_S_IFDIR
+#endif
 #define mode_t int
 #endif
 #if defined(__BORLANDC__)

@@ -575,6 +575,9 @@ void cMapStuff::CacheVersion()
 	
 		clConsole.send("Caching version data..."); fflush(stdout);
 		versionMemory = maxRecordCount * sizeof(versionrecord);
+
+		bool unhandeledPatches = false;
+
 		for (UI32 i = 0; i < maxRecordCount; ++i)
     	{
 			if (verfile->eof())
@@ -599,28 +602,16 @@ void cMapStuff::CacheVersion()
 			case VERFILE_STATICS:
 				// at some point we may need to handle these cases, but OSI hasn't patched them as of
 				// yet, so no need slowing things down processing them
-				clConsole.send("Eeek! OSI has patched the static data and I don't know what to do!\n");
+				unhandeledPatches = true;
 				break;
 			default:
 				// otherwise its for a file we don't care about
 				break;
 			}
-		/*
-		if (ver->file == VERFILE_MAP)
-			clConsole.send("map0.mul patch!\n");
-		else if (ver->file == VERFILE_STAIDX)
-			clConsole.send("staidx0.mul index patch!\n");
-		else if (ver->file == VERFILE_STATICS)
-			clConsole.send("statics0.mul table patch!\n");
-		else if (ver->file == VERFILE_MULTIIDX)
-			clConsole.send("multi.idx table patch!\n");
-		else if (ver->file == VERFILE_MULTI)
-			clConsole.send("multi.mul table patch!\n");
-		else if (ver->file == VERFILE_TILEDATA)
-			clConsole.send("tiledata.mul table patch!\n");
-			*/
-    		}
-		clConsole.send("Done\n(Cached %ld patches out of %ld possible).\n", versionRecordCount, maxRecordCount);
+   		}
+
+		clConsole.send( "Warning: Map/Static Patches are not processed\n" );
+		clConsole.send( "Done\n(Cached %ld patches out of %ld possible).\n", versionRecordCount, maxRecordCount);
 	}
 }
 

@@ -34,6 +34,7 @@
 
 //#include "wolfpack.h" //for now.
 
+#include "WPDefaultScript.h"
 #include "uobject.h"
 #include "defines.h"
 
@@ -43,6 +44,7 @@ class ISerialization;
 class cItem : public cUObject
 {
 public:
+
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
 	virtual ~cItem() {}
@@ -204,6 +206,10 @@ public:
 	bool isOwnerMovable()       {return (magic==3);}
 	void setLockedDown()        {this->magic=4;} // set it locked down.
 	bool isLockedDown()			{return (magic==4);}
+
+	// Public event wrappers added by darkstorm
+	bool onShowItemName( P_CHAR Viewer );
+	void onTalkToItem( P_CHAR Talker, const QString &Text );	
 };
 
 
@@ -214,7 +220,15 @@ class cAllItems
 private:
 	cItem* CreateScriptRandomItem(int s, char *sItemList);
 	unsigned char PackType(unsigned char id1, unsigned char id2);
+	
+	// Added by DarkStorm
+	void applyItemSection( P_ITEM Item, QString Section );
+
 public:
+	// Added by DarkStorm
+	P_ITEM createScriptItem( QString Section ); // Creates an item from an item-section
+	P_ITEM createListItem( QString Section ); // Creates an Item from an item-list
+
 	cAllItems() {}
 	void DeleItem(P_ITEM pi);
 	P_ITEM  MemItemFree();

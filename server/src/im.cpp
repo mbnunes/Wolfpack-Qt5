@@ -192,7 +192,9 @@ int im_send( item_menu *menu, int player )
 	/* Player's character's serial number */
 	LongToCharPtr(currchar[player]->serial, &menu->gump_message[3]);
 	/* Special code for IM_ menu, read by choice() */
-	menu->gump_message[7] = (unsigned char) ~ ( (WAIT_MAX-1) >> 8 ); 
+	// menu->gump_message[7] = (unsigned char) ~ ( (WAIT_MAX-1) >> 8 ); 
+	menu->gump_message[ 7 ] = 0xFF; // by DarkStorm
+
 	/* Index for waiting table (internal) */
 	menu->gump_message[8] = (unsigned char)( waiting_firstfree & WAIT_MAX );
 	if( waiting_firstfree == WAIT_MAX )

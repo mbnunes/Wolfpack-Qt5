@@ -50,16 +50,18 @@
 #include <io.h>
 #include <climits>
 #include <conio.h>
-#include <vector>
-
+// Wolfpack includes
 #endif
+
+#include <vector>
+#include <qdom.h>
+#include <map>
 
 using namespace std;
 
 // Forward class declarations
 
 
-// Wolfpack includes
 
 
 
@@ -77,7 +79,6 @@ using namespace std;
 #include "cweather.h" // Weather System
 #include "house.h"    // Housing System
 #include "defines.h"
-
 #include "structs.h"
 
 #include "globals.h"
@@ -89,5 +90,8 @@ using namespace std;
 #include "junk.h"
 
 #include "inlines.h"
+
+#include "WPScriptManager.h" // Script System
+
 #endif // __WOLFPACK_H
 

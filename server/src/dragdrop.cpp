@@ -554,7 +554,8 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 				wornitems(j, pc_k);
 		}
 		
-		itemsfx(s, pi->id());	// Dupois - see itemsfx() for details	// Added Oct 09, 1998
+		//itemsfx(s, pi->id());	// Dupois - see itemsfx() for details	// Added Oct 09, 1998
+		soundeffect( s, 0x00, 0x57 );
 		Weight->NewCalc(pc_currchar);	// Ison 2-20-99
 		statwindow(s, pc_currchar);
 		
@@ -855,7 +856,9 @@ static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		
 		Weight->NewCalc(pc_currchar);//AntiChrist bugfixes
 		statwindow(s, pc_currchar);
-		itemsfx(s, pi->id());
+		// That leads to VERY strange noises
+		//itemsfx(s, pi->id());
+		soundeffect2( pc_currchar, 0x57 );
 	}
 	return true;
 }
@@ -1044,6 +1047,8 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 	
 	if (buffer[s][5]!=(unsigned char)'\xFF')
 	{
+		itemsfx( s, pi->id() ); // DS
+
 		pi->MoveTo(pp->TxLoc,pp->TyLoc,pp->TzLoc);
 		pi->SetContSerial(-1);
 		
@@ -1061,7 +1066,7 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 		
 		Weight->NewCalc(pc_currchar);  // Ison 2-20-99
 		statwindow(s, pc_currchar);
-		itemsfx(s, pi->id());	// Dupois - see itemsfx() for details// Added Oct 09, 1998
+		//itemsfx(s, pi->id());	// Dupois - see itemsfx() for details// Added Oct 09, 1998
 		
 		//Boats !
 		if (pc_currchar->multis>0) //How can they put an item in a multi if they aren't in one themselves Cut lag by not checking everytime something is put down
@@ -1264,7 +1269,8 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 
 		pCont->AddItem(pItem,xx,yy);
 		
-		itemsfx(s, pItem->id());// see itemsfx() for details - Dupois Added Oct 09, 1998
+		//itemsfx(s, pItem->id());// see itemsfx() for details - Dupois Added Oct 09, 1998
+		soundeffect2( pc_currchar, 0x57 );
 		statwindow(s, pc_currchar);
 	}
 	// end of player run vendors
@@ -1282,8 +1288,8 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			
 			SndRemoveitem(pItem->serial);
 			RefreshItem(pItem);//AntiChrist
-			itemsfx(s, pItem->id());
-			
+			//itemsfx(s, pItem->id());
+			soundeffect2( pc_currchar, 0x57 );			
 		}
 		else  // - Pileable
 			if (pCont->pileable && pItem->pileable && pCont->id()==pItem->id())

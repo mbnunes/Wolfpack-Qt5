@@ -69,7 +69,11 @@ void signal_handler(int) ;
 #include <ws2tcpip.h>
 // NETWORK defines
 #define SHUT_RDWR SD_BOTH
+
+#ifndef socklen_t
 #define socklen_t  int FAR 
+#endif
+
 #define in_addr_t  UI32
 #define bzero(ptr,n)				memset(ptr,0,n)
 #define gethostbyname2(host,family) gethostbyname(host)

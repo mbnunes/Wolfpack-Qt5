@@ -177,6 +177,10 @@ protected:
 	short checkBank_;
 	unsigned int vendorGreet_;
 
+	// added by darkstorm: make-menus
+	bool belowminskillfails_;
+	bool hungeraffectsskills_;
+
 	//Repsys
 	long int		murderdecay_;
 	unsigned int	maxkills_;
@@ -345,6 +349,9 @@ public:
 	unsigned int rank_system() const;
 	short checkBank() const;
 	unsigned int vendorGreet() const;
+
+	bool BelowMinSkillFails() const;
+	bool HungerAffectsSkills() const;
 
 	// Repsys
 	long int		murderdecay() const;
@@ -797,6 +804,16 @@ inline unsigned int cSrvParams::manarate() const
 inline char cSrvParams::armoraffectmana() const
 {
 	return armoraffectmana_;
+}
+
+inline bool cSrvParams::BelowMinSkillFails() const
+{
+	return belowminskillfails_; 
+}
+
+inline bool cSrvParams::HungerAffectsSkills() const
+{
+	return hungeraffectsskills_;
 }
 
 inline unsigned int cSrvParams::snoopdelay() const

@@ -186,7 +186,7 @@ vector<mapcache_st> MapCache_cl::get(UI16 uiX, UI16 uiY)
 		UI32 uiOffset ;
 		UI32 uiSize ;
 		UI32 uiDummy ;
-    } PACK ;
+    } /*PACK*/ ;
 	#include "end_pack.h"
 
 	tempidx_st stIdxInput ;
@@ -199,7 +199,7 @@ vector<mapcache_st> MapCache_cl::get(UI16 uiX, UI16 uiY)
 		UI08 uiYOffset ;
 		SI08 siZAxis ;
 		UI16 uiDummy ;
-	} PACK ;
+	} /*PACK*/ ;
 	#include "end_pack.h"
 
 //	tempstatic_st stStaInput ;
@@ -396,7 +396,7 @@ bool MapCache_cl::processVerdata()
 			SI32 siOffset ;
 			SI32 siSize ;
 			SI32 siExtra;
-   		} PACK ;
+   		} /*PACK*/ ;
 		#include "end_pack.h"
 
 		temp_st stData ;
@@ -448,7 +448,7 @@ bool MapCache_cl::processMap()
 
 		UI16 uiTileId ;
         SI08 siZAxis ;
-	} PACK ;
+	} /*PACK*/ ;
 	#include "end_pack.h"
 
 	tempmap_st stMapInput[64] ;
@@ -459,7 +459,7 @@ bool MapCache_cl::processMap()
 		UI32 uiOffset ;
 		UI32 uiSize ;
 		UI32 uiDummy ;
-    } PACK ;
+    } /*PACK*/ ;
 	#include "end_pack.h"
 
 	tempidx_st stIdxInput ;
@@ -472,7 +472,7 @@ bool MapCache_cl::processMap()
 		UI08 uiYOffset ;
 		SI08 siZAxis ;
 		UI16 uiDummy ;
-	} PACK ;
+	} /*PACK*/ ;
 	#include "end_pack.h"
 
 //	tempstatic_st stStaInput ;

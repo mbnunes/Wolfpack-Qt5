@@ -85,7 +85,7 @@ struct versionrecord
 	SI32 filepos;
 	SI32 length;
 	SI32 unknown;
-} PACK;
+} /*PACK*/;
 #include "end_pack.h"
 
 #include "start_pack.h"
@@ -97,7 +97,7 @@ struct staticrecord
 	unsigned char yoff;
 	signed char zoff;
 	unsigned char align;	// force word alignment by hand to avoid bus errors - fur
-} PACK;
+} /*PACK*/;
 #include "end_pack.h"
 
 // XYZZY
@@ -113,7 +113,7 @@ struct unitile_st
 	unsigned char flag4;
 	signed char height;
 	unsigned char weight;
-} PACK;
+}/* PACK*/;
 #include "end_pack.h"
 
 #include "start_pack.h"
@@ -122,7 +122,7 @@ struct st_multiidx
 	SI32 start;
 	SI32 length;
 	SI32 unknown;
-} PACK;
+}/* PACK*/;
 #include "end_pack.h"
 
 #include "start_pack.h"
@@ -134,7 +134,7 @@ struct st_multi
 	signed short int y;
 	signed char z;
 	signed char empty;
-} PACK;
+}/* PACK*/;
 #include "end_pack.h"
 
 struct location_st

@@ -38,6 +38,7 @@
 
 
 // Wolfpack includes
+#include "WPDefaultScript.h"
 #include "chars.h"
 #include "charsmgr.h"
 #include "items.h"
@@ -987,5 +988,124 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("gmrestrict",		gmrestrict); 
 	}
 	cUObject::Serialize(archive);
+}
+
+//========== WRAPPER EVENTS
+
+// Shows the name of a character to someone else
+bool cChar::onShowCharName( P_CHAR Viewer ) 
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onShowCharName( (P_CHAR)this, (P_CHAR)Viewer ) )
+			return true;
+
+	return false;
+}
+
+// Walks in a specific Direction
+bool cChar::onWalk( UI08 Direction, UI08 Sequence )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onWalk( (P_CHAR)this, Direction, Sequence ) )
+			return true;
+
+	return false;
+}
+
+// The character says something
+bool cChar::onTalk( QString Text )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onTalk( (P_CHAR)this, Text ) )
+			return true;
+
+	return false;
+}
+
+// Someone talks to the NPC, this is only triggered for the npc
+void cChar::onTalkToNPC( P_CHAR Talker, const QString &Text )
+{
+	if( scriptChain.empty() )
+		return;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		scriptChain[ i ]->onTalkToNPC( (P_CHAR)this, Talker, Text );
+}
+
+// The character switches warmode
+void cChar::onWarModeToggle( bool War )
+{
+	if( scriptChain.empty() )
+		return;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		scriptChain[ i ]->onWarModeToggle( this, War );
+}
+
+// The character enters the world
+void cChar::onEnterWorld( void )
+{
+	if( scriptChain.empty() )
+		return;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		scriptChain[ i ]->onEnterWorld( this );
+}
+
+// The character wants help
+bool cChar::onHelp( void )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onHelp( this ) )
+			return true;
+
+	return false;
+}
+
+// The character wants to chat
+bool cChar::onChat( void )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onChat( this ) )
+			return true;
+
+	return false;
+}
+
+// The character uses %Skill
+bool cChar::onSkillUse( UI08 Skill ) 
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onSkillUse( this, Skill ) )
+			return true;
+
+	return false;
 }
 

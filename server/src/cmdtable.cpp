@@ -151,6 +151,7 @@ TARGET_S target_showaccountcomment = { 0, 1, 0, 48, "Select character to show co
 TARGET_S target_sethome = { 0,1,0,256, "Set home location for a npc."};
 TARGET_S target_setwork = { 0,1,0,257, "Set work location for a npc."};
 TARGET_S target_setfood = { 0,1,0,258, "Set food location for a npc."};
+
 CMDTABLE_S command_table[] = {
 	{"SETGMMOVEEFF", 0, 21, CMD_FUNC, (CMD_DEFINE)&command_setGmMoveEff},
 	{"BOUNTY",  255,  0,  CMD_FUNC,   (CMD_DEFINE)&command_bounty},
@@ -514,7 +515,6 @@ void command_reloadcachedscripts(UOXSOCKET s)
 	Magic->InitSpells();
 	loadmetagm();
 	loadskills();
-	loadmenuprivs();
 	read_in_teleport(); // hope i've cought all  ...
 	Network->LoadHosts_deny();
 	
@@ -1199,7 +1199,7 @@ void command_add(UOXSOCKET s)
 		}
 	} else if (tnum==1)
 	{
-		itemmenu(s, 1);
+		ShowMenu(s, 1);
 	}
 	return;
 }
@@ -1501,14 +1501,14 @@ void command_snow(UOXSOCKET s)
 void command_gmmenu(UOXSOCKET s)
 // (d) Opens the specified GM Menu.
 {
-	if (tnum==2) gmmenu(s, makenumber(1));
+	if (tnum==2) ShowMenu(s, makenumber(1));
 	return;
 }
 
 void command_itemmenu(UOXSOCKET s)
 // (d) Opens the specified Item Menu from ITEMS.SCP.
 {
-	if (tnum==2) itemmenu(s, makenumber(1));
+	if (tnum==2) ShowMenu(s, makenumber(1));
 	return;
 	
 }
@@ -1516,12 +1516,21 @@ void command_itemmenu(UOXSOCKET s)
 void command_additem(UOXSOCKET s)
 // (d) Adds the specified item from ITEMS.SCP.
 {
-	if (tnum==2)
+	/*if (tnum==2)
 	{
 		addmitem[s] = makenumber(1); // Anthracks' fix
 		sprintf((char*)temp, "Select location for item. [Number: %i]", addmitem[s]);
 		target(s, 0, 1, 0, 26, (char*)temp);
+	}*/
+
+	// This sucks so bad *argh*
+	if( tnum == 2 )
+	{
+		strcpy(xtext[s], Commands->GetAllParams().c_str());
+		sprintf( (char*)temp, "Select location for item %s", xtext[ s ] );
+		target( s, 0, 1, 0, 26, (char*)temp );
 	}
+
 	return;
 	
 }
@@ -1616,7 +1625,19 @@ void command_hidehs(UOXSOCKET s)
 void command_set(UOXSOCKET s)
 // (text, d) Set STR/DEX/INT/Skills on yourself arguments are skill & amount.
 {
-	int i;
+	// DISABLED BY DARKSTORM FOR EVENT TESTING STUFF
+	// /SET EVENTS +A,-B
+	QString commandLine = Commands->GetAllParams().c_str();
+
+	SocketStrings[ s ] = commandLine.ascii();
+
+	char message[512];
+	sprintf( message, "Choose target to set '%s'", commandLine.ascii() );
+	target(s, 0, 1, 0, 36, message );	
+	
+	//QStringList parameters = QStringList::split( QChar( " " ) );
+
+/*	int i;
 	if (tnum == 3)
 	{
 		i=0;
@@ -1675,7 +1696,7 @@ void command_set(UOXSOCKET s)
 #endif
 		}
 	}
-	return;
+	return;*/
 }
 
 #ifdef UNRELEASED
@@ -2430,12 +2451,6 @@ void command_setmenupriv(UOXSOCKET s)
 	if (tnum==2)
 	{
 		i=makenumber(1); 
-		if (menupriv[i][0]==-1)
-		{
-			sysmessage(s, tr("invalid menu priv number"));
-			return;
-		}
-		
 		addid1[s]=i;	   
 		target(s,0,1,0,248,"Select character to set menu privs.");
 		return;

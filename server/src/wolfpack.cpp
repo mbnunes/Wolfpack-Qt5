@@ -30,9 +30,6 @@
 //========================================================================================
 
 // Platform Includes
-
-
-
 #ifndef __unix__
 
 #endif
@@ -67,6 +64,10 @@
 #include "qtranslator.h"
 #include "qstring.h"
 #include "qdatetime.h"
+
+extern "C" {
+	void init_socket( void );
+};
 
 #undef DBGFILE
 #define DBGFILE "wolfpack.cpp"
@@ -252,7 +253,6 @@ void signal_handler(int signal)
 		loadspawnregions();
 		loadregions();
 		loadmetagm();
-		loadmenuprivs();
 		SrvParams->reload();
 		Network->LoadHosts_deny();
 		break ;
@@ -732,52 +732,6 @@ void gcollect () // Remove items which were in deleted containers
 	
 	sprintf((char*)temp, " gc: Removed %i items", rtotal);
 	if (rtotal > 0) LogMessage((char*)temp);
-}
-
-void loadmenuprivs()
-{
-	int a,b;
-	char sect[512];
-	int i,k,m;
-
-	LogMessage("Loading add-menu privs...");
-
-	for (a=0;a<64;a++)	// initializing
-	{
-		for (b=0;b<256;b++)
-		{
-			menupriv[a][b]=-1;
-		}
-	}
-
-	// script loading ....
-	openscript("menupriv.scp");
-	i=-1;k=0;
-	unsigned long loopexit=0;
-	do
-	{
-		i++;
-		sprintf(sect, "MENU_CLEARANCE %i", i);
-		if (i_scripts[menupriv_script]->find(sect))
-		{
-			k++;m=-1;
-			loopexit=0;
-			do
-			{
-				read2();
-				if (script1[0] != '}')
-				{
-					m++;
-					menupriv[i][m] = str2num(script1);
-				}
-			} while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
-		}
-	} while (i<63);
-
-	char tmp[50];
-	sprintf(tmp,"%i menu-privs loaded",k-2);
-	LogMessage(tmp);
-	closescript();
 }
 
 void item_char_test()
@@ -2110,12 +2064,12 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 
 	if (!(strcmp("GMMENU", (char*) script1)))
 	{
-		gmmenu(s, str2num(script2));
+		ShowMenu(s, str2num( script2 ) );
 		return;
 	}
 	if (!(strcmp("ITEMMENU", (char*)script1)))
 	{
-		itemmenu(s, str2num(script2));
+		ShowMenu(s, str2num(script2));
 		return;
 	}
 	if (!(strcmp("WEBLINK", (char*)script1)))
@@ -2643,7 +2597,6 @@ void checkkey ()
 				loadspawnregions();
 				loadregions();
 				loadmetagm();
-				loadmenuprivs();
 				SrvParams->reload();
 				clConsole.send(" Done!\n");
 				clConsole.send("WOLFPACK: Reloading IP Blocking rules...");
@@ -2715,35 +2668,40 @@ void start_glow(void)	// better to make an extra function cauze in loaditem it c
 
 
 #if defined(__unix__)
-bool bDeamon = true ;
+	bool bDeamon = true ;
 #else
-bool bDeamon = false ;
+	bool bDeamon = false ;
 #endif
+
 void checkparm(string param)
 {
-	transform(param.begin(),param.end(),param.begin(),::toupper) ;
+	transform( param.begin(), param.end(), param.begin(), ::toupper );
 	//cout << "Console paramter is : " << param << endl;
+
 	if (param == "--NO-DEAMON")
 		bDeamon = false ;
 	else if (param =="--DEAMON")
 		bDeamon = true ;
+
 	// Add what ever paramters you want
 }
 
-int main(int argc, char *argv[])
+int main( int argc, char *argv[] )
 {
 	QApplication app( argc, argv ); // we need one instance
 
 	bDeamon = false ;
 	keeprun = 1; // First of all, we want to run :)
+
+	// Parse our arguments
 	if (argc > 1)
 		for (int index=1; index < argc ; index++)
 		{
-			string param(argv[index]) ;
-			checkparm(param) ;
+			string param( argv[ index ] );
+			checkparm( param );
 		}
 	
-	if (bDeamon)
+	if( bDeamon )
 	{
 		// Under unix we go to deamon mode
 		cout << "Going into deamon mode, returning local control to terminal" <<endl;
@@ -2754,6 +2712,7 @@ int main(int argc, char *argv[])
 		clConsole.setStreams(NULL, (dynamic_cast<ostream*>(&fconsole)), NULL, NULL);
 	
 	}
+
 	#if defined(__unix__)
 	// We can use SIGHUP, SIGINT, and SIGWINCH as we should never recive them
 	// So we will use SIGHUP to reload our scripts (kinda a standard for sighup to be reload)
@@ -2763,13 +2722,15 @@ int main(int argc, char *argv[])
 	signal(SIGHUP,&signal_handler) ;
 	signal(SIGUSR1,&signal_handler) ;
 	signal(SIGTERM,&signal_handler) ;
-// we have this here, because convient, but should be set regardless of deamon or not.
-// Keeps a disconnected socket from terminating the server.
-	
-#if !defined(__linux__)
-	signal(SIGPIPE,&signal_handler) ;
-#endif
-#endif	
+
+	// we have this here, because convient, but should be set regardless of deamon or not.
+	// Keeps a disconnected socket from terminating the server.	
+	#if !defined(__linux__)
+		signal(SIGPIPE,&signal_handler) ;
+	#endif
+
+	#endif	
+
 	#define CIAO_IF_ERROR if (error==1) { Network->SockClose(); im_clearmenus(); DeleteClasses(); exit(-1); }
 
 	int i;
@@ -2784,6 +2745,7 @@ int main(int argc, char *argv[])
 	uiCurrentTime = serverstarttime = getNormalizedTime();
 
 	#ifndef __unix__ // If X-Wolf mandatory flag is set don't start if wolfpack hasn't been started by X-Wolf
+
 #if 0
 //	if (0)
 
@@ -2842,20 +2804,23 @@ int main(int argc, char *argv[])
 			if (hInstLib!=NULL) FreeLibrary(hInstLib);		
 	  }
 	
-#endif
+	#endif
     #endif
 
 	//constart();
 
-	clConsole.send( "Starting WOLFPACK...\n" );
+	clConsole.send( "Starting up Wolfpack...\n" );
 	openings = 0;
 	scpfilename[0] = 0;
 
 	sprintf((char*)temp, "%s %s %s", wp_version.productstring.c_str() , wp_version.betareleasestring.c_str() , wp_version.verstring.c_str() );
+	
 	#ifndef __unix__
 	SetConsoleTitle((char*)temp);
 	#endif
+
 #if 1
+	
 	#ifndef __unix__ // wip stuff is currently only for windows stuff
 	  BOOL w = WIP_Init();
 	  // that's all :) no wip stuff in wp-core
@@ -2864,11 +2829,26 @@ int main(int argc, char *argv[])
 		  clConsole.send("Error starting WIP, WIP clients won't work");
 	  }
     #endif
+
 #endif
 
 	StartClasses();
-
+	
 	CIAO_IF_ERROR;
+
+	DefManager->Load();
+
+	Py_SetProgramName( argv[ 0 ] );
+	Py_SetPythonHome( "python" ); // Subdirectory "python"
+
+	//PyEval_InitThreads();
+	Py_Initialize(); // Initialize python finally
+	PySys_SetArgv( argc, argv );
+
+	init_socket();
+	initPythonExtensions();
+
+	ScriptManager->Load();
 
 	Map->Cache = 0;
 	Admin->ReadIni();
@@ -2948,7 +2928,6 @@ int main(int argc, char *argv[])
 	srand(uiCurrentTime); // initial randomization call
 	clConsole.send("Loading vital scripts...\n");
 	loadmetagm();
-	loadmenuprivs();
 
 	serverstarttime=getNormalizedTime();
 
@@ -3103,17 +3082,27 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 				clConsole.send(wp_version.clientsupportedstring.latin1());
 		}
 	}
+	
+	// Do a little Testing( ! )
+	PyObject *codeModule = PyImport_ImportModule( "wptest" );
+	PyObject_CallMethod( codeModule, "onServerStart", NULL );
 
-    clConsole.send("\n");
+	if( PyErr_Occurred() )
+		PyErr_Print();
+
+	PyThreadState *_save;
 
 	while (keeprun)
 	{
-
+		// Let other Python threads run
+	
 		// Uncomment by Dupois July 18, 2000! see note above about InitKbThread()
 		#if !defined(__unix__)
 		checkkey();
 		#endif
 
+		
+		_save = PyEval_SaveThread();
 		switch(SrvParams->niceLevel())
 		{
 			case 0: break;	// very unnice - hog all cpu time
@@ -3125,6 +3114,8 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 			default: Sleep(10); break;
 		}
+		PyEval_RestoreThread(_save);
+
 		if(loopTimeCount >= 1000)
 		{
 			loopTimeCount = 0;
@@ -3256,6 +3247,10 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 		if (SrvParams->serverLog()) savelog("Server Shutdown!\n=======================================================================\n\n\n","server.log");
 	}
 	//endScrn() ;
+
+	//Py_END_ALLOW_THREADS
+	Py_Finalize();
+
 	return 0;
 }
 
@@ -6233,60 +6228,68 @@ void InitServerSettings()
 
 void StartClasses(void)
 {
-	clConsole.send("Initializing classes...");
+	clConsole.PrepareProgress( "Initializing classes" );
 
 // NULL Classes out first....
-	SrvParams = NULL;
-	cwmWorldState = NULL;
-	mapRegions = NULL;
-	Accounts=NULL;
-	Admin=NULL;
-	Boats=NULL;
-	Combat=NULL;
-	Commands=NULL;
-	Gumps=NULL;
-	Items=NULL;
-	Map=NULL;
-	Npcs=NULL;
-	Skills=NULL;
-	Weight=NULL;
-	Targ=NULL;
-	Network=NULL;
-	Magic=NULL;
-	Books=NULL;
-	Respawn=NULL;
-	Movement = NULL;
-	Weather=NULL;
-	DragonAI=NULL;
-	BankerAI=NULL;
+	cwmWorldState	= NULL;
+	mapRegions		= NULL;
+	Accounts		= NULL;
+	Admin			= NULL;
+	Boats			= NULL;
+	Combat			= NULL;
+	Commands		= NULL;
+	Gumps			= NULL;
+	Items			= NULL;
+	Map				= NULL;
+	Npcs			= NULL;
+	Skills			= NULL;
+	Weight			= NULL;
+	Targ			= NULL;
+	Network			= NULL;
+	Magic			= NULL;
+	Books			= NULL;
+	Respawn			= NULL;
+	Movement		= NULL;
+	Weather			= NULL;
+	DragonAI		= NULL;
+	BankerAI		= NULL;
+	ScriptManager	= NULL;
+	DefManager		= NULL;
+	SrvParams		= NULL;
 
 	// Classes nulled now, lets get them set up :)
-	SrvParams = new cSrvParams("wolfpack.xml", "Wolfpack", "1.0");
-	cwmWorldState=new CWorldMain;
-	mapRegions = new cRegion;
-	Accounts = new cAccount;
-	Admin = new cAdmin;
-	Boats = new cBoat;
-	Combat = new cCombat;
-	Commands = new cCommands;
-	Gumps = new cGump;
-	Items = new cAllItems;
-	Map = new cMapStuff;
-	Npcs = new cCharStuff;
-	Skills = new cSkills;
-	Weight = new cWeight;
-	Targ = new cTargets;
-	Network = new cNetworkStuff;
-	Magic = new cMagic;
-	Books = new cBooks;
-	Respawn = new cRespawn;
-	AllTmpEff = new cAllTmpEff;
-	Movement = new cMovement;
+	SrvParams		= new cSrvParams("wolfpack.xml", "Wolfpack", "1.0");
+	cwmWorldState	= new CWorldMain;
+	mapRegions		= new cRegion;
+	Accounts		= new cAccount;
+	Admin			= new cAdmin;
+	Boats			= new cBoat;
+	Combat			= new cCombat;
+	Commands		= new cCommands;
+	Gumps			= new cGump;
+	Items			= new cAllItems;
+	Map				= new cMapStuff;
+	Npcs			= new cCharStuff;
+	Skills			= new cSkills;
+	Weight			= new cWeight;
+	Targ			= new cTargets;
+	Network			= new cNetworkStuff;
+	Magic			= new cMagic;
+	Books			= new cBooks;
+	Respawn			= new cRespawn;
+	AllTmpEff		= new cAllTmpEff;
+	Movement		= new cMovement;
+
 	//Weather = new cWeather;
 	// Sky's AI Stuff
-	DragonAI=new cCharStuff::cDragonAI;
-	BankerAI=new cCharStuff::cBankerAI;
-	clConsole.send(" Done\n");
+	DragonAI		= new cCharStuff::cDragonAI;
+	BankerAI		= new cCharStuff::cBankerAI;
+
+	// DarkStorm's ScriptManager
+	ScriptManager	= new WPScriptManager;
+	DefManager		= new WPDefManager;
+	
+	clConsole.ProgressDone();
 }
 
 void DeleteClasses(void)
@@ -6314,6 +6317,8 @@ void DeleteClasses(void)
 	delete Movement;
 	delete DragonAI;
 	delete BankerAI;
+	delete ScriptManager;
+	delete DefManager;
 	//delete Weather;
 }
 
@@ -6329,7 +6334,7 @@ void DeleteClasses(void)
 //
 //
 
-void doGmMoveEff(UOXSOCKET s)
+void doGmMoveEff( UOXSOCKET s )
 {
 	if (s == -1) // Just to make sure ;)
 		return;

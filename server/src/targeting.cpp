@@ -1051,8 +1051,55 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 
 void cTargets::AllSetTarget(int s)
 {
-	int j;
+	SERIAL serial = LongFromCharPtr( buffer[ s ] + 7 );
+	QString commandLine( SocketStrings[ s ].c_str() );
+	
+	QString commandStr;
+	QString parameterStr;
 
+	if( commandLine.find( " " ) == -1 )
+		commandStr = commandLine;
+	else
+	{
+		commandStr = commandLine.left( commandLine.find( " " ) );
+		parameterStr = commandLine.right( commandLine.length() - ( commandLine.find( " " ) + 1 ) );
+	}
+
+	commandStr = commandStr.lower();
+
+	// Events
+	if( commandStr == "events" )
+	{
+		QStringList events = QStringList::split( ",", parameterStr );
+
+		cUObject *Object = NULL;
+
+		if( serial > 0x40000000 )
+			Object = FindItemBySerial( serial );
+		else
+			Object = FindCharBySerial( serial );
+
+		if( Object == NULL )
+			return;
+
+		for( UI08 i = 0; i < events.count(); i++ )
+		{
+			QString eventName = events[ i ];
+
+			WPDefaultScript *scriptObj = ScriptManager->FindScript( eventName );
+
+			// No event with that name found
+			if( scriptObj == NULL )
+			{
+				sysmessage( s, "Could not find event: " + eventName );
+				continue;
+			}
+
+			Object->addEvent( scriptObj );
+		}
+	}
+
+	/*int j;
 	SERIAL serial=LongFromCharPtr(buffer[s]+7);
 	P_CHAR pc = FindCharBySerial(serial);
 	if(pc != NULL)
@@ -1114,7 +1161,7 @@ void cTargets::AllSetTarget(int s)
 		{
 			pc->karma=addy[s];
 		}
-	}
+	}*/
 }
 
 static void InfoTarget(int s, PKGx6C *pp) // rewritten to work also with map-tiles, not only static ones by LB
@@ -4142,7 +4189,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 				return;
 			}
 		case 25: Targ->CloseTarget(s); break;
-		case 26: Targ->AddMenuTarget(s, 1, addmitem[s]); break;
+		case 26: Targ->AddItem( s ); break;
 		case 27: Targ->NpcMenuTarget(s); break;
 		case 28: ItemTarget(ps,pt); break;//MovableTarget
 		case 29: Skills->ArmsLoreTarget(s); break;
@@ -4347,5 +4394,80 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 			LogErrorVar("Fallout of switch statement, multitarget(), value=(%i)",pt->Tnum);
 		}
 	}
+	else if ((buffer[s][2]==0)&&(buffer[s][3]==2)&&(buffer[s][4]==0))
+	{
+		cUObject *TargetObject = NULL;
+
+		if(buffer[s][7]>=0x40) // an item's serial ?
+		{
+			TargetObject = FindItemBySerial(pt->Tserial);
+		}
+		else
+		{
+			TargetObject = FindCharBySerial(pt->Tserial);
+		}
+
+		if( TargetObject == NULL )
+			return;
+
+		vector< mstring > Elements;
+		mstring Command = SocketStrings[ s ];
+		SocketStrings[ s ].resize( 0 );
+
+		Elements = Command.split( " ", 2 );
+
+		if( Elements.size() > 1 )
+			Command = Elements[ 1 ];
+		else
+			return;
+
+		Command.trim();
+
+		switch(pt->Tnum)
+		{
+		// Set Events
+		case 0: 
+			//TargetObject->setEvents( Command );
+		default:
+			LogErrorVar("Fallout of switch statement 2, multitarget(), value=(%i)",pt->Tnum);
+		}
+	}
 }
 
+void cTargets::AddItem( UOXSOCKET s )
+{
+	if( s == -1 )
+		return;
+
+	QString ItemID = xtext[ s ];
+	
+	QDomElement *ItemNode = DefManager->getSection( WPDT_ITEM, ItemID );
+	
+	// No Item found...
+	if( ItemNode->isNull() )
+	{
+		sysmessage( s, "There is no such item '%s'", xtext[ s ] );
+		return;
+	}
+
+	// ...Otherwise get x+y+z coordinates first
+	UI16 TargetX, TargetY;
+	SI08 TargetZ;
+
+	TargetX = ( buffer[s][11] << 8 ) + buffer[s][12];
+	TargetY = ( buffer[s][13] << 8 ) + buffer[s][14];
+	TargetZ = buffer[s][16] + Map->TileHeight( ( buffer[s][17] << 8) + buffer[s][18] );
+
+	P_ITEM Item = Items->createScriptItem( ItemID );
+
+	// No item created = fail
+	if( Item == NULL )
+	{
+		sysmessage( s, "Unable to create item '%s'", xtext[ s ] );
+		return;
+	}
+
+	Item->SetContSerial( -1 );
+	Item->MoveTo( TargetX, TargetY, TargetZ );
+	RefreshItem( Item );
+}

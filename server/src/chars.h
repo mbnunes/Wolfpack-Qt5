@@ -352,6 +352,18 @@ public:
 	unsigned int dist(cChar* pc);
 	unsigned int dist(cItem* pi);
 	int MyHome();
+
+	// Wrapper events! - darkstorm
+	bool onShowCharName( P_CHAR Viewer ); // Shows the name of a character to someone else
+	bool onWalk( UI08 Direction, UI08 Sequence ); // Walks in a specific Direction
+	bool onTalk( QString Text ); // The character says something
+	void onTalkToNPC( P_CHAR Talker, const QString &Text ); // Someone talks to the NPC
+	void onWarModeToggle( bool War ); // The character switches warmode
+	void onEnterWorld( void ); // The character enters the world
+	bool onHelp( void ); // The character wants help
+	bool onChat( void ); // The character wants to chat
+	bool onSkillUse( UI08 Skill ); // The character uses %Skill
+	void onCollideChar( P_CHAR Obstacle ); // This is called for the walking character first, then for the character walked on
 };
 
 class cCharStuff

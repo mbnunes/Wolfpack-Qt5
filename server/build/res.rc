@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// Englisch (USA) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -49,10 +49,13 @@ BEGIN
             VALUE "FileDescription", "joy12\0"
             VALUE "FileVersion", "1, 0, 0, 1\0"
             VALUE "InternalName", "joy12\0"
-            VALUE "LegalCopyright", "Copyright © 2001Wolfpack Dev. Team\0"
+            VALUE "LegalCopyright", "Copyright © 2002 Wolfpack Dev. Team\0"
+            VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "wolfpack.exe\0"
+            VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "Wolfpack Emu\0"
             VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
         END
     END
     BLOCK "VarFileInfo"
@@ -62,7 +65,6 @@ BEGIN
 END
 
 #endif    // !_MAC
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -77,7 +79,7 @@ IDI_ICON2               ICON    DISCARDABLE     "icon2.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////
-// German (Austria) resources
+// Deutsch (Österreich) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEA)
 #ifdef _WIN32

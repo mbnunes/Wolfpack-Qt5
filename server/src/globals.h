@@ -61,6 +61,8 @@ class QDateTime;
 #include "structs.h"
 #include "verinfo.h"
 #include "storage.h"
+#include "WPScriptManager.h"
+#include "WPDefManager.h"
 
 // Global Variables
 //	Instantiate our console object
@@ -182,7 +184,7 @@ enum  enScripts { items_script = 0,npc_script,create_script,regions_script,misc_
 			newbie_script,titles_script,advance_script,trigger_script,ntrigger_script,
 			wtrigger_script,necro_script,house_script,colors_script,spawn_script,
 			html_script,metagm_script,polymorph_script,hard_items,custom_npc_script,
-			custom_item_script,menupriv_script,carve_script,msgboard_script,
+			custom_item_script,carve_script,msgboard_script,
 			fishing_script, gump_script, NUM_SCRIPTS} ;
 
 extern Script *i_scripts[NUM_SCRIPTS]; // array of script references
@@ -242,6 +244,7 @@ extern unsigned char usedfree[MAXCLIENT];
 extern int binlength[MAXIMUM+1];
 extern int boutlength[MAXIMUM+1];
 extern unsigned char clientDimension[MAXCLIENT]; // stores if the client is the new 3d or old 2d one
+extern std::string SocketStrings[MAXCLIENT];
 
 //extern int spattackValue[MAXCLIENT];
 extern int clickx[MAXCLIENT];
@@ -300,7 +303,6 @@ extern advance_st wpadvance[1000];
 //extern spell_st spells[100];
 extern char spellname[71][25];
 extern unsigned int metagm[256][7]; // for meta gm script
-extern signed short int menupriv[64][256]; // for menu priv script
 extern int validEscortRegion[256];
 
 extern int freecharmem[301]; //stores pointers to deleted char struct memory
@@ -373,7 +375,8 @@ extern unsigned char particleSystem[49];
 extern termios termstate ;
 #endif
 
-
+extern WPScriptManager *ScriptManager;
+extern WPDefManager *DefManager;
 //
 
 #endif

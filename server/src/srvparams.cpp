@@ -126,6 +126,8 @@ void cSrvParams::readData()
 	shopRestock_            = getNumber("General",  "Shop Restock", 1, true);
 	badNpcsRed_             = getNumber("General",  "Bad Npcs Red", 1, true);
 	slotAmount_             = getNumber("General",  "Slot Amount", 5, true);
+	hungeraffectsskills_   = getBool("General",  "Hunger affects Skills", true, true);
+	belowminskillfails_    = getBool("General",  "Below Min Skill Fails", false, true);
 	escortactive_           = getNumber("General",  "Escort Active", 1, true);
 	escortinitexpire_       = getNumber("General",  "Escorting Expire", 86400, true);
 	escortactiveexpire_     = getNumber("General",  "Escort Active Expire", 1800, true);

@@ -154,6 +154,10 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 	// sometimes the NPC movement code comes up with -1, for example, if we are following someone
 	// and we are directly on top of them
 
+	// Scripting
+	if( pc->onWalk( dir, sequence ) )
+		return;
+
 	if ( ! isValidDirection(dir) )
 	{
 #if DEBUG_WALK_ERROR
@@ -1217,9 +1221,10 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 	for (int increment = 0; increment < 3; increment++)
 	{
 		checkgrid = StartGrid + (increment * mapRegions->GetColSize());
-		for (int i=0;i<3;i++)
+		for( int i = 0; i < 3; i++ )
 		{
 			P_ITEM mapitem = NULL;
+
 			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+i, enItemsOnly);
 			cRegion::rawIterator it = vecEntries.begin();
 			for (; it != vecEntries.end(); ++it)
@@ -1363,10 +1368,11 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 	{
 		// ok, this is already a bug, because the new weather stuff doesn't use this global
 		// for the weather.
-		if (wtype!=0) // check only neccasairy if it rains or snows ...
+		if( wtype != 0 ) // check only neccasairy if it rains or snows ...
 		{
 			int inDungeon = indungeon(pc); // dung-check
 			bool i = Map->IsUnderRoof(pc->pos); // static check
+
 			// dynamics-check
 			int x = Map->DynamicElevation(pc->pos);
 			if (x!=illegal_z)

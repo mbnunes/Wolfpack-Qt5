@@ -194,12 +194,14 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 	else
 		strcpy(toggle, "Off");
 
+	// our prefix is 0xFE (darkstorm)
+	gmprefix[7] = 0xFE;
+
 	switch(page)
 	{
 	case 1:
 		gumpnum=9;
-		gmprefix[7]=8001>>8;
-		gmprefix[8]=8001%256;
+		gmprefix[8] = 1;
 
 		if (guildmaster<0) return;
 
@@ -214,8 +216,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 	    if ((pc->serial == this->ownserial)|| (pc->isGM()))							// Guildmaster Access?
 		{															
 			gumpnum=10;
-			gmprefix[7]=8000>>8;
-			gmprefix[8]=8000%256;
+			gmprefix[8] = 0;
 			sprintf(mygump[8],"Access %s functions.", guildmaster->guildtitle.c_str());
 			sprintf(mygump[9],"View list of guild that %s has declared war on.", this->guildName.c_str());
 			sprintf(mygump[10],"View list of guilds that have declared war on %s.",this->guildName.c_str());
@@ -241,8 +242,8 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		strcpy(mygump[12],"Grant a title to another member.");
 		strcpy(mygump[13],"Move this guildstone.");
 		strcpy(mygump[14],"Return to the main menu.");
-		gmprefix[7]=8002>>8;
-		gmprefix[8]=8002%256;
+
+		gmprefix[8] = 2;
 		break;
 	case 3:														// guild type
 		gumpnum=4;
@@ -251,8 +252,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		strcpy(mygump[2], "Set to Standard.");
 		strcpy(mygump[3], "Set to Order.");
 		strcpy(mygump[4], "Set to Chaos.");
-		gmprefix[7]=8003>>8;
-		gmprefix[8]=8003%256;
+		gmprefix[8] = 3;
 		break;
 	case 4:														// edit charter
 		gumpnum=3;
@@ -260,16 +260,14 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		strcpy(mygump[1], "Select this to return to main menu.");
 		strcpy(mygump[2], "Set the charter.");
 		strcpy(mygump[3], "Set the webpage.");
-		gmprefix[7]=8004>>8;
-		gmprefix[8]=8004%256;
+		gmprefix[8] = 4;
 		break;
 	case 5:														// view charter
 		gumpnum=2;
 		lentext=sprintf(mygump[0], "%s charter.", this->guildName.c_str());
 		sprintf(mygump[1], "%s. Select this to return to the main menu.", this->charter.c_str());
 		sprintf(mygump[2], "Visit the guild website at %s", this->webpage.c_str());
-		gmprefix[7]=8005>>8;
-		gmprefix[8]=8005%256;
+		gmprefix[8] = 5;
 		break;
 	case 6:
 	{														// Candidates list
@@ -281,8 +279,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		{
 			strcpy(mygump[counter++], FindCharBySerial(this->recruit[i])->name.c_str());
 		}
-		gmprefix[7]=8006>>8;
-		gmprefix[8]=8006%256;
+		gmprefix[8] = 6;
 		break;
 	}
 	case 7:
@@ -297,8 +294,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 			counter++;
 			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.c_str());
 		}
-		gmprefix[7]=8007>>8;
-		gmprefix[8]=8007%256;
+		gmprefix[8] = 7;
 		break;
 	}
 	case 8:
@@ -313,8 +309,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 			counter++;
 			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.c_str());
 		}
-		gmprefix[7]=8008>>8;
-		gmprefix[8]=8008%256;
+		gmprefix[8] = 8;
 		break;
 	}
 	case 9:	
@@ -329,8 +324,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 			counter++;
 			strcpy(mygump[counter], FindCharBySerial(this->recruit[i])->name.c_str());
 		}
-		gmprefix[7]=8009>>8;
-		gmprefix[8]=8009%256;
+		gmprefix[8] = 9;
 		break;
 	}
 	case 10:														// Accept Candidates
@@ -345,8 +339,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 			counter++;
 			strcpy(mygump[counter], FindCharBySerial(this->recruit[i])->name.c_str());
 		}
-		gmprefix[7]=8010>>8;
-		gmprefix[8]=8010%256;
+		gmprefix[8] = 10;
 		break;
 	}
 	case 11:														// War list
@@ -362,8 +355,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 			cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(this->war[i]));
 			strcpy(mygump[counter], pStone->guildName.c_str());
 		}
-		gmprefix[7]=8011>>8;
-		gmprefix[8]=8011%256;
+		gmprefix[8] = 11;
 		break;
 	}
 	case 12:
@@ -378,8 +370,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 			counter++;
 			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.c_str());
 		}
-		gmprefix[7]=8012>>8;
-		gmprefix[8]=8012%256;
+		gmprefix[8] = 12;
 		break;
 	}
 	case 13:	
@@ -394,8 +385,8 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 			counter++;
 			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.c_str());
 		}
-		gmprefix[7]=8013>>8;
-		gmprefix[8]=8013%256;
+		
+		gmprefix[8] = 13;
 		break;
 	}
 	case 14:														// declare War list
@@ -421,8 +412,8 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 				}
 			}
 		}
-		gmprefix[7]=8014>>8;
-		gmprefix[8]=8014%256;
+
+		gmprefix[8] = 14;
 		break;
 	}
 	case 15:														// declare peace list
@@ -440,8 +431,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 				strcpy(mygump[++counter], pStone->name.c_str());
 			}
 		}
-		gmprefix[7]=8015>>8;
-		gmprefix[8]=8015%256;
+		gmprefix[8] = 15;
 		break;
 	}
 	case 16:														// War list 2
@@ -467,8 +457,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 				}
 			}
 		}
-		gmprefix[7]=8016>>8;
-		gmprefix[8]=8016%256;
+		gmprefix[8] = 16;
 		break;
 		}
 	}
@@ -714,7 +703,7 @@ void cGuildStone::GumpInput(UOXSOCKET s, int type, int index, char *text)
 
 // guildgumpchoice() branches the results of those checkbox gumps
 // Called by: choice() 
-void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
+void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 {
 //	int member, recruit, war, guild, counter, slot;
 	//int members[MAXGUILDMEMBERS];
@@ -722,13 +711,17 @@ void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 	P_CHAR pc_currchar = currchar[s];
 	int counter = 1;
 
-	if ( pc_currchar->guildstone != this->serial ) return;
+	// Truncate the first few bytes
+	UI08 Page = (UI08)MenuID;
 
-	switch(main)
+	if ( pc_currchar->guildstone != this->serial ) 
+		return;
+
+	switch( Page )
 	{
-	case 8000:
-	case 8001:									// main menu
-		switch( sub )
+	case 0:
+	case 1:									// main menu
+		switch( Choice )
 		{
 		case 1: target(s,0,1,0,220,"Select person to invite into the guild.");	break;
 		case 2:	Menu(s,7);														break;
@@ -739,17 +732,18 @@ void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 		case 7: Menu(s,6);														break;
 		case 8:
 		default:
-			if( sub == 8 && main == 8000 ) 
+			if( Choice == 8 && Page == 0 ) 
 				Menu( s, 2 );
-			else if( ( sub == 8 && main == 8001 ) || ( sub == 9 && main == 8000 ) ) 
+
+			else if( ( Choice == 8 && Page == 1 ) || ( Choice == 9 && Page == 0 ) ) 
 				Menu( s, 11 );
-			else if( ( sub == 9 && main == 8001 ) || ( sub == 10 && main == 8000 ) ) 
+			else if( ( Choice == 9 && Page == 1 ) || ( Choice == 10 && Page == 0 ) ) 
 				Menu( s, 16 );
 			break;
 		}
 		return;
-	case 8002:													// guildmaster menu
-		switch(sub)
+	case 2:													// guildmaster menu
+		switch( Choice )
 		{
 		case 1:  entrygump(s,pc_currchar->serial,100,1,40,"Enter a new guildname.");		break;
 		case 2:  entrygump(s,pc_currchar->serial,100,2,3,"Enter a new guild abbreviation.");break;
@@ -767,37 +761,40 @@ void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 		case 14: Menu(s,1);																	break;
 		}
 		return;
-	case 8003:													// set type menu
-//		if (sub >= 2 && sub <=4) 
-//			SetType(sub-2);
+	case 3:													// set type menu
 		Menu(s,2);
 		return;
-	case 8004:													// edit charter menu
-		switch( sub )
+	case 4:													// edit charter menu
+		switch( Choice )
 		{
 		case 1: Menu( s, 2 );																break;
 		case 2: entrygump( s, pc_currchar->serial, 100, 5, 50, "Enter a new charter." );	break;
 		case 3:	entrygump( s, pc_currchar->serial, 100, 6, 50, "Enter a new URL." );		break;
 		}
 		return;
-	case 8005:													// view charter menu
-		if (sub==1) Menu(s,1);
-		else if (sub==2) weblaunch(s, (char*)this->webpage.c_str());
+	case 5:													// view charter menu
+		if ( Choice == 1 ) 
+			Menu(s,1);
+		else if ( Choice == 2 ) 
+			weblaunch(s, (char*)this->webpage.c_str());
+
 		return;
-	case 8006:													// candidates menu
+	case 6:													// candidates menu
 		Menu(s,1);
 		return;
-	case 8007:													// roster menu
+	case 7:													// roster menu
 		Menu(s,1);
 		return;
-	case 8008:			// dismiss menu
-		if ( static_cast<unsigned int>(sub) >= member.size() )
+	case 8:			// dismiss menu
+		if ( static_cast<unsigned int>( Choice ) >= member.size() )
 			return;
-		if ( member[sub] == pc_currchar->serial)
+
+		if ( member[ Choice ] == pc_currchar->serial)
 			sysmessage( s, "You can not dismiss yourself, please resign from the guild instead");
+
 		else
 		{
-			P_CHAR pc_member = FindCharBySerial(member[sub]);
+			P_CHAR pc_member = FindCharBySerial( member[ Choice ] );
 			removeMember( pc_member );
 			sysmessage(s,"Kicked that member out of the guild.");
 			if (online(pc_member))
@@ -805,34 +802,34 @@ void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 		}
 		Menu(s,2);
 		return;
-	case 8009:													// refuse menu
+	case 9:													// refuse menu
 		counter=1;
-		if ( static_cast<unsigned int>(sub) >= recruit.size() )
+		if ( static_cast<unsigned int>( Choice ) >= recruit.size() )
 			return;
 		else
 		{
-			recruit.erase( recruit.begin() + sub );
+			recruit.erase( recruit.begin() + Choice );
 			sysmessage(s,"Removed candidate from the list.");
 		}
 		Menu(s,2);
 		return;
-	case 8010:													// accept
+	case 10:													// accept
 		counter=1;
-		if ( static_cast<unsigned int>(sub) >= recruit.size() )
+		if ( static_cast<unsigned int>( Choice ) >= recruit.size() )
 			return;
 		else
 		{
-			addMember( FindCharBySerial(recruit[sub]) );
-			recruit.erase( recruit.begin() + sub );
+			addMember( FindCharBySerial( recruit[ Choice ] ) );
+			recruit.erase( recruit.begin() + Choice );
 			sysmessage( s, "The candidate is now a guild member");
 		}
 		Menu(s,2);
 		return;
-	case 8011:													// warlist menu
+	case 11:													// warlist menu
 		Menu(s,1);
 		return;
-	case 8012:													// grant title menu
-		if (sub==1) Menu(s,2);
+	case 12:													// grant title menu
+		if ( Choice == 1 ) Menu( s, 2 );
 /*		counter=1;
 		for (member = 1; member < MAXGUILDMEMBERS; member++)
 		{
@@ -848,16 +845,16 @@ void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 			}		
 		}
 */		return;
-	case 8013:													// fealty menu
-		if ( static_cast<unsigned int>(sub) >= member.size() )
+	case 13:													// fealty menu
+		if ( static_cast<unsigned int>( Choice ) >= member.size() )
 			return;
 		else
 		{
-			pc_currchar->guildfealty = member[sub];
+			pc_currchar->guildfealty = member[ Choice ];
 		}
-		Menu(s,1);
+		Menu( s, 1 );
 		return;
-	case 8014:													// declare war menu
+	case 14:													// declare war menu
 		{
 			counter=1;
 			list<SERIAL>::iterator it;
@@ -866,7 +863,7 @@ void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 				if (this->serial != *it)
 				{
 					++counter;
-					if (sub == counter)
+					if ( Choice == counter)
 					{
 						if ( find(this->war.begin(), this->war.end(), *it ) != this->war.end() )
 							sysmessage(s,"This guild is already in our warlist.");
@@ -884,9 +881,11 @@ void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 				}
 			}
 		}
-		Menu(s,2);
+		Menu( s, 2 );
 		return;
-	case 8015:		// declare peace menu
+
+	// declare peace menu
+	case 15:		
 		{
 			counter = 1;
 			unsigned int i;
@@ -895,7 +894,7 @@ void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 				if (this->war[i] != INVALID_SERIAL) // we don't need a loop here, really.
 				{
 					++counter;
-					if (sub == counter)
+					if ( Choice == counter )
 					{
 						char text[256];
 						cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(this->war[i]));
@@ -909,8 +908,9 @@ void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 		}
 		Menu(s,2);
 		return;
-	case 8016:													// warlist menu 2
-		Menu(s,1);
+
+	case 16:													// warlist menu 2
+		Menu( s, 1 );
 		return;
 	}
 }

@@ -1483,11 +1483,15 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break; // Lord Binary !!!!
 
 				case 0x9B:// GM Page		
-					gmmenu(s, 1);
+					ShowMenu(s, 4096);
 					break;
 
 				case 0x7D:// Choice			
-					choice(s);
+					MenuChoice( s );
+					break;
+
+				case 0xB5:
+					sysmessage( s, "Sorry, but the Chat is not yet supported" );
 					break;
 
 				case 0x95:// Color Select			
@@ -1702,6 +1706,8 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							 // .... party system implemation (call) goes here :)
 							 // ....
 							 // ....
+							// we should at least notify the user that we dont support partys
+								sysmessage( s, "Sorry but the party system is not yet implemented" );
 							 break;
 
 						case 11: // client language, might be used for server localisation

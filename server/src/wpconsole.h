@@ -58,6 +58,17 @@ class WPConsole_cl;
 
 //Class definitions
 
+enum WPC_ColorKeys 
+{
+	WPC_NORMAL = 0,
+	WPC_RED,
+	WPC_GREEN,
+	WPC_YELLOW,
+	WPC_WHITE,
+};
+
+
+//##ModelId=3C5D9290034D
 class WPConsole_cl
 {
 public:
@@ -83,6 +94,16 @@ public:
 
         // Get input from the console
 	UI08 getkey(void);
+
+	// Prepare a 
+	// xxxxx -----------------------[         ]
+	// line
+	void PrepareProgress( string sMessage );
+	void ProgressDone( void );
+	void ProgressFail( void );
+	void ProgressSkip( void );
+
+	void ChangeColor( WPC_ColorKeys Color );
 
 private:
 

@@ -35,6 +35,9 @@
 #include "tilecache.h"
 #include "verinfo.h"
 #include "walking2.h"
+#include "WPScriptManager.h"
+#include "WPDefManager.h"
+
 #if defined(__unix__)
 termios termstate ;
 #endif
@@ -243,7 +246,7 @@ char n_scripts[NUM_SCRIPTS][512] =
 	"titles.scp", "advance.scp", "triggers.scp", "ntrigrs.scp",
 	"wtrigrs.scp", "necro.scp", "house.scp", "colors.scp",
 	"spawn.scp", "htmlstrm.scp", "metagm.scp", "polymorph.scp",
-	"harditems.scp", "", "", "menupriv.scp", "carve.scp", 
+	"harditems.scp", "", "", "carve.scp", 
 	"msgboard.scp", "fishing.scp", "gumps.scp"};//the two ""s are for custom scripts.
 Script *i_scripts[NUM_SCRIPTS];
 
@@ -281,7 +284,9 @@ cTrigger	    *Trig;
 cDragdrop       *Drag;
 cTrade	        *Trade;
 cBounty         *Bounty;
-// Sky's AI
+WPScriptManager	*ScriptManager;
+WPDefManager    *DefManager;
+
 cCharStuff::cDragonAI	*DragonAI;
 cCharStuff::cBankerAI	*BankerAI;	
 
@@ -337,6 +342,7 @@ char firstpacket[MAXCLIENT+1];
  unsigned char usedfree[MAXCLIENT];
  int binlength[MAXIMUM+1];
  int boutlength[MAXIMUM+1];
+ std::string SocketStrings[MAXCLIENT];
 
  int clickx[MAXCLIENT];
  int clicky[MAXCLIENT];
@@ -388,7 +394,6 @@ list<SERIAL> guilds;
  advance_st wpadvance[1000];
  //spell_st spells[100];
  unsigned int metagm[256][7]; // for meta gm script
- signed short int menupriv[64][256]; // for menu priv script
  int validEscortRegion[256];
  creat_st creatures[2048];
 

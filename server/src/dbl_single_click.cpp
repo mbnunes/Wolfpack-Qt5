@@ -161,6 +161,19 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	if (pi == NULL)
 		return;
 
+	// Eventually we want the users to script things like
+	// "v-cards" and others so we need them to check that
+	// the item is in their range on their own !!
+	//-------
+	// Call both events here
+	if( pc_currchar->onUse( pi ) )
+		return;
+
+	if( pi->onUse( pc_currchar ) )
+		return;
+
+	// -- end - DarkStorm
+
 	if (isItemSerial(pi->contserial) && pi->type != 1 && !pi->isInWorld())
 	{// Cant use stuff that isn't in your pack.
 		P_CHAR pc_p = GetPackOwner(FindItemBySerial(pi->contserial));

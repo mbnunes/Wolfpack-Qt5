@@ -42,7 +42,8 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MT /GR /GX /O2 /Oy- /Ob0 /I "lib\ZThread\include" /I "lib\wrl\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /Fr /YX /FD /c
+# ADD CPP /nologo /MT /GR /GX /O2 /Oy- /Ob0 /I "lib\Python\include" /I "lib\ZThread\include" /I "lib\wrl\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /YX /FD /c
+# SUBTRACT CPP /Fr
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -50,7 +51,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib wrl.lib /nologo /subsystem:console /incremental:yes /map /machine:I386 /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib"
+# ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib wrl.lib /nologo /subsystem:console /incremental:yes /map /machine:I386 /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib" /libpath:"lib\python\lib"
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
 
@@ -66,7 +67,7 @@ LINK32=xilink6.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /Gm /GR /GX /ZI /Od /I "lib\ZThread\include" /I "lib\wrl\include" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /Gm /GR /GX /ZI /Od /I "lib/Python/include" /I "lib\ZThread\include" /I "lib\wrl\include" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -74,7 +75,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib wrl.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib"
+# ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib ws2_32.lib kernel32.lib user32.lib advapi32.lib wrl.lib /nologo /subsystem:console /debug /machine:I386 /out:"C:\wolfpack\wolf.exe" /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib" /libpath:"lib\python\lib"
 
 !ENDIF 
 
@@ -219,6 +220,10 @@ SOURCE=.\mapstuff.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\MenuActions.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\msgboard.cpp
 # End Source File
 # Begin Source File
@@ -260,6 +265,10 @@ SOURCE=.\pfactory.cpp
 # Begin Source File
 
 SOURCE=.\pointer.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\PyExtensions.cpp
 # End Source File
 # Begin Source File
 
@@ -380,6 +389,22 @@ SOURCE=.\worldmain.cpp
 # Begin Source File
 
 SOURCE=.\wpconsole.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\WPDefaultScript.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\WPDefManager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\WPPythonScript.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\WPScriptManager.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -511,6 +536,10 @@ SOURCE=.\mapcache.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\MenuActions.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\msgboard.h
 # End Source File
 # Begin Source File
@@ -548,6 +577,10 @@ SOURCE=.\platform.h
 # Begin Source File
 
 SOURCE=.\prototypes.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\PyExtensions.h
 # End Source File
 # Begin Source File
 
@@ -688,6 +721,22 @@ SOURCE=.\worldmain.h
 # Begin Source File
 
 SOURCE=.\wpconsole.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\WPDefaultScript.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\WPDefManager.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\WPPythonScript.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\WPScriptManager.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

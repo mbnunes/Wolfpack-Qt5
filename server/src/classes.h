@@ -36,6 +36,7 @@
 
 #include "assert.h"
 #include "verinfo.h"
+#include <qdom.h>
 #include "mstring.h"
 
 struct ip_block_st
@@ -124,10 +125,12 @@ private:
 	void TellScroll(char *menu_name, int player, long item_param);
 	void CollectAmmo(int s, int a, int b);
 	void Meditation(int s);
-	int CalcRank(int s,int skill); // by Magius(CHE)
 	void ApplyRank(int s, P_ITEM pi,int rank); // by Magius(CHE)
 	void Zero_Itemmake(int s); // by Magius(CHE)
 public:
+	// Moved here by Storm
+	UI08 CalcRank( UOXSOCKET Socket, UI16 SkillValue, UI16 MinSkill, UI16 MaxSkill );
+
 	void RepairTarget(UOXSOCKET s); // Ripper
 	void SmeltItemTarget(UOXSOCKET s); // Ripper
 	void TasteIDTarget(int s);
@@ -197,6 +200,9 @@ public:
 	void Decipher(P_ITEM tmap, int s); // By Polygon - attempt to decipher a tattered treasure map
 	int GetAntiMagicalArmorDefence(P_CHAR pc); // blackwind meditation armor stuff
 	void Snooping(P_CHAR, P_ITEM);
+
+	// Added by Darkstorm
+	bool MeetRequirements( P_CHAR myChar, QDomElement Requirements, bool Notify );
 };
 
 class cWeight

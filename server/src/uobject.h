@@ -35,18 +35,34 @@
 #include "platform.h"
 #include "typedefs.h"
 #include "coord.h"
+#include "mstring.h"
+#include "WPDefaultScript.h"
 
 // System includes
 #include <string>
+#include <vector>
 
 // Forward class declarations
 class ISerialization;
 class Coord_cl;
+class WPDefaultScript;
 
 class cUObject
 {
 // Data Members
 public:
+	void setEvents( std::vector< WPDefaultScript* > List );
+	std::vector< WPDefaultScript* > getEvents( void );
+	void clearEvents( void );
+	void addEvent( WPDefaultScript *Event );
+	void removeEvent( QString Name );
+
+	bool hasEvent( QString Name );
+
+	// Events
+	bool onUse( cUObject *Target );
+	void onCollide( cUObject* Obstacle ); // This is called for the walking character first, then for the item walked on
+
 	SERIAL serial;
 	SERIAL multis;
 	bool free;
@@ -55,7 +71,9 @@ public:
 	Coord_cl pos;
 // Methods
 protected:
+	std::vector< WPDefaultScript* > scriptChain;	
 	void init();
+
 public:
 	cUObject();
 	cUObject( cUObject& ); // Copy constructor
