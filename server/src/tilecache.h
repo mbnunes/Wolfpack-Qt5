@@ -119,7 +119,7 @@ public:
 
     bool load( const QString &nPath );
 	bool unload();
-	bool reload() { unload(); load( path ); }
+	bool reload() { unload(); load( path ); return true; }
 
 	static cTileCache *instance()
 	{

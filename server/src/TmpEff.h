@@ -243,7 +243,7 @@ private:
 public:
 	cRepeatAction( P_CHAR mage, UINT8 anim, UINT32 delay );
 	virtual void Expire();
-	virtual QString objectID() { return "repeataction"; }
+	virtual QString objectID() const { return "repeataction"; }
 };
 
 #endif

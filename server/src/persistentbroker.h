@@ -81,7 +81,7 @@ inline QString __escapeReservedCharacters( const QString& d )
 		persistentBroker->executeQuery( SqlStatement + ";" ); 
 
 #define startLoadSqlStatement(table, keyfield, keyvalue) \
-	QSqlCursor cursor(table); \
+	static QSqlCursor cursor(table); \
 	cursor.setMode( QSqlCursor::ReadOnly ); \
 	cursor.select( QString("%1='%2'").arg(keyfield).arg(keyvalue) ); \
 	if ( cursor.first() ) 
