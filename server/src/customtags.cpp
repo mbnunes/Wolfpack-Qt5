@@ -729,7 +729,7 @@ void cCustomTags::load( SERIAL key )
 	{
 		QString name = result.getString( 0 );
 		QString type = result.getString( 1 );
-		QString value = QString::fromUtf8(result.getString( 2 ));
+		QString value = result.getString( 2 );
 
 		if( !tags_ )
 			tags_ = new QMap< QString, cVariant >;
