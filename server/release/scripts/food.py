@@ -2,6 +2,7 @@
 import random
 from wolfpack.consts import *
 from wolfpack.utilities import tobackpack
+from system import poison
 
 #
 # Feed the food
@@ -60,15 +61,22 @@ def onUse(player, item):
 
 	player.socket.clilocmessage(min(500872, 500868 + player.hunger))
 
+	# Fidget animation and munch munch sound
+	player.soundeffect(random.choice([0x03a, 0x03b, 0x03c]))
+	player.action(ANIM_FIDGET3)
+
+	player.hunger += 1
+
+	# poisoned food
+	if item.hastag( 'poisoning_char' ):
+		poison.poison( player, item.gettag( 'poisoning_strength' ) )
+		player.socket.clilocmessage( 1010512 )
+		skills.poisoning.wearoff( item )
+
 	if item.amount > 1:
 		item.amount -= 1
 		item.update()
 	else:
 		item.delete()
 
-	# Fidget animation and munch munch sound
-	player.soundeffect(random.choice([0x03a, 0x03b, 0x03c]))
-	player.action(ANIM_FIDGET3)
-
-	player.hunger += 1
 	return 1

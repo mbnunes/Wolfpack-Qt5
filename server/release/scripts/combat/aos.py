@@ -7,6 +7,7 @@ import combat.utilities
 import random
 from math import floor, ceil
 from system.debugging import DEBUG_COMBAT_INFO
+from skills import poisoning
 
 #
 # Check if a certain chance can be met using the skill
@@ -317,6 +318,9 @@ def hit(attacker, defender, weapon, time):
 
 	# Wear out the weapon
 	if weapon:
+		# poisoning
+		if weapon.hastag( 'poisoning_uses' ):
+			poisoning.hitEffect( defender, weapon )
 		# 4% chance for losing one hitpoint
 		if 0.04 >= random.random():
 			if weapon.health > 0:
