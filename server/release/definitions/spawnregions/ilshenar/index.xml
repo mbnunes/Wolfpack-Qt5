@@ -1,0 +1,36 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+
+<definitions>
+	<!-- Town Spawns -->
+	<include file="definitions/spawnregions/ilshenar/ancient_citadel.xml" />
+	<include file="definitions/spawnregions/ilshenar/gargoyle_city.xml" />
+	<include file="definitions/spawnregions/ilshenar/gypsy_camps.xml" />
+	<include file="definitions/spawnregions/ilshenar/lakeshire.xml" />
+	<include file="definitions/spawnregions/ilshenar/mistas.xml" />
+	<include file="definitions/spawnregions/ilshenar/montor.xml" />
+	<include file="definitions/spawnregions/ilshenar/reg_volon.xml" />
+	<include file="definitions/spawnregions/ilshenar/savage_camp.xml" />
+	<include file="definitions/spawnregions/ilshenar/terort_skitas.xml" />
+	<!-- Dungeon Spawns -->
+	<include file="definitions/spawnregions/ilshenar/ancient_lair.xml" />
+	<include file="definitions/spawnregions/ilshenar/ankh.xml" />
+	<include file="definitions/spawnregions/ilshenar/blood.xml" />
+	<include file="definitions/spawnregions/ilshenar/exodus.xml" />
+	<include file="definitions/spawnregions/ilshenar/lizard_passage.xml" />
+	<include file="definitions/spawnregions/ilshenar/mushroom_cave.xml" />
+	<include file="definitions/spawnregions/ilshenar/rat_cave.xml" />
+	<include file="definitions/spawnregions/ilshenar/rock.xml" />
+	<include file="definitions/spawnregions/ilshenar/sorcerers.xml" />
+	<include file="definitions/spawnregions/ilshenar/spectre.xml" />
+	<include file="definitions/spawnregions/ilshenar/spider_cave.xml" />
+	<include file="definitions/spawnregions/ilshenar/wisp.xml" />
+	<!-- Wilderness Spawns -->
+	<include file="definitions/spawnregions/ilshenar/wilderness.xml" />
+</definitions>

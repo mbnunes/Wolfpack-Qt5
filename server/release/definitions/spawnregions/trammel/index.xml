@@ -1,0 +1,47 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+
+<definitions>
+	<!-- Town Spawns -->
+	<include file="definitions/spawnregions/trammel/britain.xml" />
+	<include file="definitions/spawnregions/trammel/buccaneers_den.xml" />
+	<include file="definitions/spawnregions/trammel/cove.xml" />
+	<include file="definitions/spawnregions/trammel/delucia.xml" />
+	<include file="definitions/spawnregions/trammel/jhelom.xml" />
+	<include file="definitions/spawnregions/trammel/magincia.xml" />
+	<include file="definitions/spawnregions/trammel/minoc.xml" />
+	<include file="definitions/spawnregions/trammel/moonglow.xml" />
+	<include file="definitions/spawnregions/trammel/nujelm.xml" />
+	<include file="definitions/spawnregions/trammel/ocllo.xml" />
+	<include file="definitions/spawnregions/trammel/papua.xml" />
+	<include file="definitions/spawnregions/trammel/serpents_hold.xml" />
+	<include file="definitions/spawnregions/trammel/skara_brae.xml" />
+	<include file="definitions/spawnregions/trammel/trinsic.xml" />
+	<include file="definitions/spawnregions/trammel/vesper.xml" />
+	<include file="definitions/spawnregions/trammel/wind.xml" />
+	<include file="definitions/spawnregions/trammel/yew.xml" />
+	<!-- Dungeon Spawns -->
+	<include file="definitions/spawnregions/trammel/britain_passage.xml" />
+	<include file="definitions/spawnregions/trammel/covetous.xml" />
+	<include file="definitions/spawnregions/trammel/deceit.xml" />
+	<include file="definitions/spawnregions/trammel/despise.xml" />
+	<include file="definitions/spawnregions/trammel/destard.xml" />
+	<include file="definitions/spawnregions/trammel/fire_dungeon.xml" />
+	<include file="definitions/spawnregions/trammel/hythloth.xml" />
+	<include file="definitions/spawnregions/trammel/ice_dungeon.xml" />
+	<include file="definitions/spawnregions/trammel/khaldun.xml" />
+	<include file="definitions/spawnregions/trammel/orc_caves.xml" />
+	<include file="definitions/spawnregions/trammel/shame.xml" />
+	<include file="definitions/spawnregions/trammel/solen_hive.xml" />
+	<include file="definitions/spawnregions/trammel/terathan_keep.xml" />
+	<include file="definitions/spawnregions/trammel/trinsic_passage.xml" />
+	<include file="definitions/spawnregions/trammel/wrong.xml" />
+	<!-- Wilderness Spawns -->
+	<include file="definitions/spawnregions/trammel/wilderness.xml" />
+</definitions>

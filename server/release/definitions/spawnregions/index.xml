@@ -10,11 +10,8 @@
 	Spawn Regions Index File
 -->
 <definitions>
-	<!--<include file="definitions/spawnregions/spawntest.xml" />-->
-	<!--<include file="definitions/spawnregions/graveyards.xml" />-->
-	<!--<include file="definitions/spawnregions/shops.xml" />-->
-	<!--<include file="definitions/spawnregions/britain_fel.xml" />-->
-	<!--<include file="definitions/spawnregions/britain_tram.xml" />-->
-	<!--<include file="definitions/spawnregions/bucden_fel.xml" />-->
-	<!--<include file="definitions/spawnregions/bucden_tram.xml" />-->
+	<include file="definitions/spawnregions/felucca/index.xml" />
+	<include file="definitions/spawnregions/trammel/index.xml" />
+	<include file="definitions/spawnregions/ilshenar/index.xml" />
+	<include file="definitions/spawnregions/malas/index.xml" />
 </definitions>

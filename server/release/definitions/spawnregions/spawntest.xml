@@ -10,7 +10,8 @@
 
 	<spawnregion id="spawntest">
 		<maxnpcamount>2</maxnpcamount>
-		<mintime>2</mintime><maxtime>10</maxtime>
+		<mintime>2</mintime>
+		<maxtime>10</maxtime>
 		<npcs>
 			<npc>base_male</npc>
 		</npcs>
