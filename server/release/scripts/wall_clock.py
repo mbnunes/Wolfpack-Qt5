@@ -55,3 +55,4 @@ def onUse( char, item ):
 			time += " in the evening"		
 
 	char.message( time )
+  return 1
