@@ -1119,6 +1119,28 @@ const QValueList<cVariant> cVariant::toList() const
     return QValueList<cVariant>();
 }
 
+const P_CHAR cVariant::toCharacter() const
+{
+    if ( d->typ == Int )
+	return FindCharBySerial(d->value.i);
+    if ( d->typ == UInt )
+	return FindCharBySerial(d->value.u);
+    if ( d->typ != Character )
+	return 0;
+    return (P_CHAR)d->value.ptr;
+}
+
+const P_ITEM cVariant::toItem() const
+{
+    if ( d->typ == Int )
+	return FindItemBySerial(d->value.i);
+    if ( d->typ == UInt )
+	return FindItemBySerial(d->value.u);
+    if ( d->typ != Item )
+	return 0;
+    return (P_ITEM)d->value.ptr;
+}
+
 
 #define Q_VARIANT_AS( f ) Q##f& cVariant::as##f() { \
    if ( d->typ != f ) *this = cVariant( to##f() ); else detach(); return *((Q##f*)d->value.ptr);}

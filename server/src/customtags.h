@@ -109,8 +109,8 @@ public:
     double toDouble( bool * ok=0 ) const;
     const QValueList<cVariant> toList() const;
     const QMap<QString,cVariant> toMap() const;
-	P_CHAR toCharacter() const;
-	P_ITEM toItem() const;
+	const P_CHAR toCharacter() const;
+	const P_ITEM toItem() const;
 
     QValueListConstIterator<QString> stringListBegin() const;
     QValueListConstIterator<QString> stringListEnd() const;
