@@ -20,7 +20,7 @@
 	<include file="definitions/spawnregions/trammel/minoc.xml" />
 	<include file="definitions/spawnregions/trammel/moonglow.xml" />
 	<include file="definitions/spawnregions/trammel/nujelm.xml" />
-	<include file="definitions/spawnregions/trammel/ocllo.xml" />
+	<include file="definitions/spawnregions/trammel/haven.xml" />
 	<include file="definitions/spawnregions/trammel/papua.xml" />
 	<include file="definitions/spawnregions/trammel/serpents_hold.xml" />
 	<include file="definitions/spawnregions/trammel/skara_brae.xml" />
