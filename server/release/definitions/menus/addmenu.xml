@@ -1,56 +1,37 @@
 <definitions>
 	<menu id="ADD_MENU">
 		<name>Add Menu</name>
-		<model>0x1EBA</model>
-		<description>This is the Wolfpack 13.x series Add Menu! It's completely definable.</description>
-		
+	
 		<menu inherit="ADD_equipment" />
 		<menu inherit="ADD_magic" />
 		
 		<menu>
 			<name>Combat items</name>
-			<model>0x1BC4</model>
-			<description>Armor, weapons, shields, etc.</description>
 		</menu>
 		<menu>
 			<name>Decoration</name>
-			<model>0x0BD2</model>
-			<description>Candles, signs, bar equipment, etc.</description>
 		</menu>
 		<menu>
 			<name>Skill items</name>
-			<model>0x1EBC</model>
-			<description>Tools of any kind.</description>
 		</menu>
 		<menu>
 			<name>Building</name>
-			<model>0x07E0</model>
-			<description>Walls, floors, fences, etc.</description>
 		</menu>
 		
 		<menu inherit="ADD_deeds" />
 		
 		<menu>
 			<name>Vegetation</name>
-			<model>0x0C85</model>
-			<description>Plants, flowers, hedges, etc.</description>
 		</menu>
 		<menu>
 			<name>Python scripted special items</name>
-			<model>0x1E33</model>
-			<description>Training dummies, archery butes, etc.</description>
 		</menu>
 		<menu>
 			<name>Food</name>
-			<model>0x1722</model>
-			<description>Any kind of food.</description>
 		</menu> 
 		
 		<menu>
 			<name>Example Crafting Menu</name>
-			<model>0x0FB5</model>
-			<type>detail</type>
-			<description>Ability and flexibility of WP 13.x.</description>
 			
 			<action>
 				<name>Broad sword</name>
@@ -139,23 +120,16 @@
 
 	<menu id="ADD_equipment">
 		<name>Equipment</name>
-		<model>0x153A</model>
-		<description>Packs, clothes, hair/beards, etc.</description>
 		
 		<menu inherit="ADD_EQUIPMENT_clothes" />
 	</menu>
 
 	<menu id="ADD_magic">
 		<name>Magic</name>
-		<model>0x185E</model>
-		<description>Spells, reagents, etc.</description>
 	</menu>
 	
 	<menu id="ADD_EQUIPMENT_clothes">
 		<name>Clothes</name>
-		<model>0x153A</model>
-		<type>compact</type>
-		<description>Shirts, robes, trousers, etc.</description>
 		
 		<action>
 			<name>Shirt</name>
@@ -178,17 +152,12 @@
 	
 	<menu id="ADD_deeds">
 		<name>Deeds</name>
-		<model>0x14F0</model>
-		<description>Houses, boats, etc.</description>
 
 		<menu inherit="ADD_DEEDS_boats" />
 	</menu>
 	
 	<menu id="ADD_DEEDS_boats">
 		<name>Boat deeds</name>
-		<model>0x14F0</model>
-		<type>detail</type>
-		<description>Any kind of boats packed in a magic deed!</description>
 		
 		<menu inherit="ADD_magic" />
 
@@ -197,7 +166,6 @@
 			<model>0x14F0</model>
 			<description>A small boat to have some fun on.</description>
 			<make>
-				<model>0x14F0</model>
 				<makeitem section="deed_smallboat" amount="1" name="small boat deed" />
 			</make>
 		</action>
