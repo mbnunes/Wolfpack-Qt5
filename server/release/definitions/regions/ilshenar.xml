@@ -1,0 +1,58 @@
+<!-- Regions for Ilshenar, Map 2 -->
+<definitions>
+
+	<!-- Terort Skitas -->
+	<region id="Ilshenar Terort Skitas">
+		<rectangle x1="528" y1="376" x2="624" y2="464" map="2" />
+	</region>
+
+	<!-- Gargoyle City -->
+	<region id="Ilshenar Gargoyle City">
+		<rectangle x1="824" y1="552" x2="856" y2="728" map="2" />
+		<rectangle x1="752" y1="576" x2="824" y2="704" map="2" />
+		<rectangle x1="856" y1="576" x2="896" y2="704" map="2" />
+		<rectangle x1="904" y1="624" x2="928" y2="656" map="2" />
+	</region>
+
+	<!-- Montor -->
+	<region id="Ilshenar Montor">
+		<rectangle x1="1576" y1="272" x2="1720" y2="368" map="2" />
+		<rectangle x1="1616" y1="200" x2="1696" y2="272" map="2" />
+		<rectangle x1="1696" y1="144" x2="1736" y2="272" map="2" />
+		<rectangle x1="1736" y1="144" x2="1768" y2="208" map="2" />
+	</region>
+
+	<!-- Termir Flam -->
+	<region id="Ilshenar Termir Flam">
+		<rectangle x1="1520" y1="368" x2="1752" y2="496" map="2" />
+		<rectangle x1="1520" y1="296" x2="1576" y2="368" map="2" />
+		<rectangle x1="1752" y1="440" x2="1776" y2="480" map="2" />
+	</region>
+
+	<!-- Ancient Citadel -->
+	<region id="Ilshenar Ancient Citadel">
+		<rectangle x1="1448" y1="496" x2="1552" y2="600" map="2" />
+	</region>
+
+	<!-- Twin Oaks -->
+	<region id="Ilshenar Twin Oaks">
+		<rectangle x1="1536" y1="1032" x2="1584" y2="1072" map="2" />
+	</region>
+
+	<!-- Reg Volon -->
+	<region id="Ilshenar Reg Volon">
+		<rectangle x1="1328" y1="1008" x2="1408" y2="1120" map="2" />
+	</region>
+
+	<!-- Bet-Lem Reg -->
+	<region id="Ilshenar Bet-Lem Reg">
+		<rectangle x1="1232" y1="936" x2="1272" y2="984" map="2" />
+	</region>
+
+	<!-- Mistas -->
+	<region id="Ilshenar Mistas">
+		<rectangle x1="744" y1="984" x2="912" y2="1152" map="2" />
+		<rectangle x1="744" y1="1152" x2="792" y2="1176" map="2" />
+	</region>
+
+</definitions>
