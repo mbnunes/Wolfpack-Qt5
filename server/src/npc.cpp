@@ -573,10 +573,6 @@ void cNPC::kill()
 	{
 		P_ITEM pi_j = *iit;
 
-		if( !pi_j->newbie() )
-			removeItemBonus( pi_j );
-
-		// unequip trigger...
 		if( pi_j->layer() != 0x0B && pi_j->layer() != 0x10 )
 		{	// Let's check all items, except HAIRS and BEARD
 

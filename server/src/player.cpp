@@ -586,9 +586,6 @@ void cPlayer::kill()
 	{
 		P_ITEM pi_j = *iit;
 
-		if( !pi_j->newbie() )
-			removeItemBonus( pi_j );
-
 		// unequip trigger...
 		if( pi_j->layer() != 0x0B && pi_j->layer() != 0x10 )
 		{	// Let's check all items, except HAIRS and BEARD
@@ -1237,7 +1234,6 @@ void cPlayer::applyStartItemDefinition( const cElement *Tag )
 				{
 					// Put it onto the char
 					this->addItem( static_cast<cBaseChar::enLayer>( mLayer ), pItem );
-					giveItemBonus( pItem );
 				}
 			}
 		}

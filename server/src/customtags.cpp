@@ -657,14 +657,14 @@ bool cVariant::operator!=( const cVariant &v ) const
 cCustomTags::cCustomTags( const cCustomTags& d )
 {
 	if( d.tags_ )
-		tags_ = d.tags_;
-	else
 		tags_ = new QMap< QString, cVariant >( *d.tags_ );
+	else
+		tags_ = 0;		
 
 	changed = true;
 }
 
-cCustomTags& cCustomTags::operator=( const cCustomTags& tags)
+cCustomTags& cCustomTags::operator=( const cCustomTags& tags )
 {
 	changed = true;
 	if( tags.tags_ )

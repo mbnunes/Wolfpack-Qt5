@@ -755,24 +755,6 @@ unsigned int cBaseChar::getSkillSum() const
 	return sum;		// this *includes* the decimal digit ie. xxx.y
 }
 
-void cBaseChar::removeItemBonus(cItem* pi)
-{
-	changed( TOOLTIP );
-	changed_ = true;
-	strength_ -= pi->strengthMod();
-	dexterity_ -= pi->dexterityMod();
-	intelligence_ -= pi->intelligenceMod();
-}
-
-void cBaseChar::giveItemBonus(cItem* pi)
-{
-	changed( TOOLTIP );
-	changed_ = true;
-	strength_ += pi->strengthMod();
-	dexterity_ += pi->dexterityMod();
-	intelligence_ += pi->intelligenceMod();
-}
-
 void cBaseChar::Init( bool createSerial )
 {
 	changed( TOOLTIP );
@@ -918,8 +900,7 @@ UI16 cBaseChar::calcDefense( enBodyParts bodypart, bool wearout )
 		// important! this sometimes cause backpack destroy! 
 		if( pHitItem->layer() != 0x0B && pHitItem->layer() != 0x10 && pHitItem->layer() != 0x15 )
 		{
-			if( pHitItem->wearOut() )
-				removeItemBonus( pHitItem ); // remove BONUS STATS given by equipped special items
+			pHitItem->wearOut();
 		}
 	}
 	

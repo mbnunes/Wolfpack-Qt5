@@ -73,7 +73,7 @@ using namespace std;
 
 // constructor
 cItem::cItem(): container_(0), totalweight_(0), incognito(false),
-rndvaluerate_(0), dooropen_(0),timeused_last(0), sellprice_( 0 ), 
+rndvaluerate_(0), timeused_last(0), sellprice_( 0 ), 
 buyprice_( 0 ), restock_( 1 ), antispamtimer_( 0 )
 {
 	Init( false );
@@ -99,7 +99,6 @@ cItem::cItem( const cItem &src )
 	this->layer_ = src.layer_;
 	this->type_ = src.type_;
 	this->type2_ = src.type2_;
-	this->offspell_ = src.offspell_;
 	this->weight_ = src.weight_;
 	this->more1_ = src.more1_;
 	this->more2_ = src.more2_;
@@ -109,8 +108,6 @@ cItem::cItem( const cItem &src )
 	this->morey_ = src.morey_;;
 	this->morez_ = src.morez_;
 	this->amount_ = src.amount_;
-	this->doordir_ = src.doordir_;
-	this->dooropen_ = src.dooropen_;
 	this->dye_ = src.dye_;
 	this->att_ = src.att_;
 	this->def_ = src.def_;
@@ -118,12 +115,6 @@ cItem::cItem( const cItem &src )
 	this->hidamage_=src.hidamage_;
 	this->hp_ = src.hp_;
 	this->maxhp_ = src.maxhp_;
-	this->st_ = src.st_;
-	this->st2_ = src.st2_;
-	this->dx_ = src.dx_;
-	this->dx2_ = src.dx2_;
-	this->in_ = src.in_;
-	this->in2_ = src.in2_;
 	this->speed_=src.speed_;
 	this->magic_ = src.magic_;
 	this->decaytime_ = src.decaytime_;
@@ -468,7 +459,6 @@ void cItem::save()
 		addField("layer",			layer_);
 		addField("type",			type_);
 		addField("type2",			type2_);
-		addField("offspell",		offspell_);
 		addField("more1",			more1_);
 		addField("more2",			more2_);
 		addField("more3",			more3_);
@@ -477,24 +467,17 @@ void cItem::save()
 		addField("morey",			morey_);
 		addField("morez",			morez_);
 		addField("amount",		amount_);
-		addField("doordir",		doordir_);
 		addField("dye",			dye_);
 		addField("decaytime",	(decaytime_ > uiCurrentTime) ? decaytime_ - uiCurrentTime : 0	);
 		addField("att",			att_);
 		addField("def",			def_);
 		addField("hidamage",		hidamage_);
 		addField("lodamage",		lodamage_);
-		addField("st",			st_);
 		addField("time_unused",	time_unused);
 		addField("weight",		weight_);
 		addField("hp",			hp_);
 		addField("maxhp",			maxhp_);
 		addField("rank",			rank_);
-		addField("st2",			st2_);
-		addField("dx",			dx_);
-		addField("dx2",			dx2_);
-		addField("intelligence",	in_);
-		addField("intelligence2",	in2_);
 		addField("speed",			speed_);
 		addField("poisoned",		poisoned_);
 		addField("magic",			magic_);
@@ -617,7 +600,6 @@ void cItem::Init( bool createSerial )
 	this->layer_ = 0; // Layer if equipped on paperdoll
 	this->type_=0; // For things that do special things on doubleclicking
 	this->type2_=0;
-	this->offspell_ = 0;
 	this->weight_ = 0;
 	this->more1_=0; // For various stuff
 	this->more2_=0;
@@ -627,8 +609,6 @@ void cItem::Init( bool createSerial )
 	this->morey_=0;
 	this->morez_=0;
 	this->amount_ = 1; // Amount of items in pile
-	this->doordir_=0; // Reserved for doors
-	this->dooropen_=0;
 	this->dye_=0; // Reserved: Can item be dyed by dye kit
 	this->att_=0; // Item attack
 	this->def_=0; // Item defense
@@ -636,12 +616,6 @@ void cItem::Init( bool createSerial )
 	this->hidamage_=0; //Maximum damage weapon inflicts
 	this->hp_=0; //Number of hit points an item has.
 	this->maxhp_=0; // Max number of hit points an item can have.
-	this->st_=0; // The strength needed to equip the item
-	this->st2_=0; // The strength the item gives
-	this->dx_ = 0; // The dexterity needed to equip the item
-	this->dx2_ = 0; // The dexterity the item gives
-	this->in_ = 0; // The intelligence needed to equip the item
-	this->in2_ = 0; // The intelligence the item gives
 	this->speed_=0; //The speed of the weapon
 	this->magic_ = 0; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable.
 	this->decaytime_ = 0;
@@ -1324,22 +1298,6 @@ void cItem::processNode( const cElement *Tag )
 	else if( TagName == "singlehanded" )
 		this->setTwohanded( false );
 
-	// <requires type="xx">2</requires>
-	else if( TagName == "requires" )
-	{
-		if( !Tag->hasAttribute( "type" ) )
-			return;
-
-		QString Type = Tag->getAttribute( "type" );
-			
-		if( Type == "str" )
-			this->st_ = Value.toULong();
-		else if( Type == "dex" )
-			this->dx_ = Value.toULong();
-		else if( Type == "int" )
-			this->in_ = Value.toULong();
-	}
-
 	// <visible />
 	// <invisible />
 	// <ownervisible />
@@ -1349,22 +1307,6 @@ void cItem::processNode( const cElement *Tag )
 		this->visible_ = 0;
 	else if( TagName == "ownervisible" )
 		this->visible_ = 1;
-
-	// <modifier type="xx">2</modifier>
-	else if( TagName == "modifier" )
-	{
-		if( !Tag->hasAttribute( "type" ) )
-			return;
-
-		QString Type = Tag->getAttribute( "type" );
-			
-		if( Type == "str" )
-			this->st2_ = Value.toShort();
-		else if( Type == "dex" )
-			this->dx2_ = Value.toShort();
-		else if( Type == "int" )
-			this->in2_ = Value.toShort();
-	}
 
 	// <dye />
 	// <nodye />
@@ -1529,68 +1471,6 @@ void cItem::processModifierNode( const cElement *Tag )
 			setSpeed( (INT32)ceil((float)speed() * Value.toFloat()) );
 		else
 			setSpeed( speed() + Value.toLong() );
-	}
-
-	// <requires type="xx">2</requires>
-	else if( TagName == "requires" )
-	{
-		if( !Tag->hasAttribute( "type" ) )
-			return;
-
-		QString Type = Tag->getAttribute( "type" );
-			
-		if( Type == "str" )
-		{
-			if( Value.contains(".") || Value.contains(",") )
-				st_ = (INT32)ceil((float)st_ * Value.toFloat());
-			else
-				this->st_ += Value.toLong();
-		}
-		else if( Type == "dex" )
-		{
-			if( Value.contains(".") || Value.contains(",") )
-				dx_ = (INT32)ceil((float)dx_ * Value.toFloat());
-			else
-				this->dx_ += Value.toLong();
-		}
-		else if( Type == "int" )
-		{
-			if( Value.contains(".") || Value.contains(",") )
-				in_ = (INT32)ceil((float)in_ * Value.toFloat());
-			else
-				this->in_ += Value.toLong();
-		}
-	}
-
-	// <modifier type="xx">2</modifier>
-	else if( TagName == "modifier" )
-	{
-		if( !Tag->hasAttribute( "type" ) )
-			return;
-
-		QString Type = Tag->getAttribute( "type" );
-			
-		if( Type == "str" )
-		{
-			if( Value.contains(".") || Value.contains(",") )
-				st2_ = (INT32)ceil((float)st2_ * Value.toFloat());
-			else
-				this->st2_ += Value.toLong();
-		}
-		else if( Type == "dex" )
-		{
-			if( Value.contains(".") || Value.contains(",") )
-				dx2_ = (INT32)ceil((float)dx2_ * Value.toFloat());
-			else
-				this->dx2_ += Value.toLong();
-		}
-		else if( Type == "int" )
-		{
-			if( Value.contains(".") || Value.contains(",") )
-				in2_ = (INT32)ceil((float)in2_ * Value.toFloat());
-			else
-				this->in2_ += Value.toLong();
-		}
 	}
 
 	else
@@ -2064,7 +1944,7 @@ bool cItem::wearOut()
 			}
 		}
 
-		this->remove();
+		remove();
 		return true;
 	}
 
@@ -2161,7 +2041,6 @@ void cItem::load( char **result, UINT16 &offset )
 	layer_ = atoi( result[offset++] );
 	type_ = atoi( result[offset++] );
 	type2_ = atoi( result[offset++] );
-	offspell_ = atoi( result[offset++] );
 	more1_ = atoi( result[offset++] );
 	more2_ = atoi( result[offset++] );
 	more3_ = atoi( result[offset++] );
@@ -2170,7 +2049,6 @@ void cItem::load( char **result, UINT16 &offset )
 	morey_ = atoi( result[offset++] );
 	morez_ = atoi( result[offset++] );
 	amount_ = atoi( result[offset++] );
-	doordir_ = atoi( result[offset++] );
 	dye_ = atoi( result[offset++] );
 	decaytime_ = atoi( result[offset++] );
 	if( decaytime_ > 0 ) 
@@ -2179,17 +2057,11 @@ void cItem::load( char **result, UINT16 &offset )
 	def_ = atoi( result[offset++] );
 	hidamage_ = atoi( result[offset++] );
 	lodamage_ = atoi( result[offset++] );
-	st_ = atoi( result[offset++] );
 	time_unused = atoi( result[offset++] );
 	weight_ = atoi( result[offset++] );
 	hp_ = atoi( result[offset++] );
 	maxhp_ = atoi( result[offset++] );
 	rank_ = atoi( result[offset++] );
-	st2_ = atoi( result[offset++] );
-	dx_ = atoi( result[offset++] );
-	dx2_ = atoi( result[offset++] );
-	in_ = atoi( result[offset++] );
-	in2_ = atoi( result[offset++] );
 	speed_ = atoi( result[offset++] );
 	poisoned_ = atoi( result[offset++] );
 	magic_ = atoi( result[offset++] );
@@ -2213,7 +2085,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.good,items.accuracy" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.good,items.accuracy" ); // for now! later on we should specify each field
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2408,7 +2280,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "layer", layer_ )
 	else SET_INT_PROPERTY( "type", type_ )
 	else SET_INT_PROPERTY( "type2", type2_ )
-	else SET_INT_PROPERTY( "offspell", offspell_ )
 	else SET_INT_PROPERTY( "speed", speed_ )
 	else SET_INT_PROPERTY( "lodamage", lodamage_ )
 	else SET_INT_PROPERTY( "hidamage", hidamage_ )
@@ -2473,53 +2344,9 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "morex", morex_ )
 	else SET_INT_PROPERTY( "morey", morey_ )
 	else SET_INT_PROPERTY( "morez", morez_ )
-	else SET_INT_PROPERTY( "doordir", doordir_ )
-	else SET_INT_PROPERTY( "dooropen", dooropen_ )
 	else SET_INT_PROPERTY( "dye", dye_ )
 	else SET_INT_PROPERTY( "attack", att_ )
 	else SET_INT_PROPERTY( "defense", def_ )
-	else SET_INT_PROPERTY( "strength", st_ )
-	else SET_INT_PROPERTY( "dexterity", dx_ )
-	else SET_INT_PROPERTY( "intelligence", in_ )
-	else if( name == "strength2" )
-	{
-		P_CHAR pChar = dynamic_cast< P_CHAR >( container_ );
-		if( pChar )
-			pChar->removeItemBonus( this );
-
-		st2_ = value.toInt();
-
-		if( pChar )
-			pChar->giveItemBonus( this );
-		
-		return 0;
-	}
-	else if( name == "dexterity2" )
-	{
-		P_CHAR pChar = dynamic_cast< P_CHAR >( container_ );
-		if( pChar )
-			pChar->removeItemBonus( this );
-
-		dx2_ = value.toInt();
-
-		if( pChar )
-			pChar->giveItemBonus( this );
-
-		return 0;
-	}
-	else if( name == "intelligence2" )
-	{
-		P_CHAR pChar = dynamic_cast< P_CHAR >( container_ );
-		if( pChar )
-			pChar->removeItemBonus( this );
-
-		in2_ = value.toInt();
-
-		if( pChar )
-			pChar->giveItemBonus( this );
-
-		return 0;
-	}
 	else SET_INT_PROPERTY( "decaytime", decaytime_ )
 
 	else if( name == "visible" )
@@ -2629,7 +2456,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	// Flag properties are set elsewhere!!
 	else GET_PROPERTY( "type", type_ )
 	else GET_PROPERTY( "type2", type2_ )
-	else GET_PROPERTY( "offspell", offspell_ )
 	else GET_PROPERTY( "speed", speed_ )
 	else GET_PROPERTY( "lodamage", lodamage_ )
 	else GET_PROPERTY( "hidamage", hidamage_ )
@@ -2662,17 +2488,9 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "morex", (int)morex_ )
 	else GET_PROPERTY( "morey", (int)morey_ )
 	else GET_PROPERTY( "morez", (int)morez_ )
-	else GET_PROPERTY( "doordir", doordir_ )
-	else GET_PROPERTY( "dooropen", dooropen_ )
 	else GET_PROPERTY( "dye", dye_ )
 	else GET_PROPERTY( "attack", (int)att_ )
 	else GET_PROPERTY( "defense", (int)def_ )
-	else GET_PROPERTY( "strength", st_ )
-	else GET_PROPERTY( "strength2", st2_ )
-	else GET_PROPERTY( "dexterity", dx_ )
-	else GET_PROPERTY( "dexterity2", dx2_ )
-	else GET_PROPERTY( "intelligence", in_ )
-	else GET_PROPERTY( "intelligence2", in2_ )
 	else GET_PROPERTY( "decaytime", (int)decaytime_ )
 
 	// Visible

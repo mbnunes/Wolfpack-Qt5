@@ -191,9 +191,6 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	{
 		P_CHAR wearer = dynamic_cast<P_CHAR>( pItem->container() );
 
-		if( wearer )
-			wearer->removeItemBonus( pItem );
-
 		// resend the stat window
 		if( wearer && wearer->objectType() == enPlayer )
 		{
@@ -289,15 +286,10 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 		// Unequip the item and free the layer that way
 		if( equip && ( equip->layer() == tile.layer ) )
 			equip->toBackpack( wearer );
-
-		wearer->removeItemBonus( equip );
 	}
 
 	// *finally* equip the item
 	wearer->addItem( static_cast<cBaseChar::enLayer>(item->layer()), item );
-
-	// Add the item bonuses
-	wearer->giveItemBonus( item );
 }
 
 void cDragItems::bounceItem( cUOSocket* socket, P_ITEM pItem, bool denyMove )
@@ -390,42 +382,6 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 		return;
 	}
 
-	// Required Strength
-	if( pItem->strengthReq() > pWearer->strength() )
-	{
-		if( pWearer == pChar )
-			socket->sysMessage( tr( "You cannot wear that item, you seem not strong enough" ) );
-		else
-			socket->sysMessage( tr( "This person can't wear that item, seems not strong enough" ) );
-
-		socket->bounceItem( pItem, BR_NO_REASON );
-		return;
-	}
-
-	// Required Dexterity
-	if( pItem->dexterityReq() > pWearer->dexterity() )
-	{
-		if( pWearer == pChar )
-			socket->sysMessage( tr( "You cannot wear that item, you seem not agile enough" ) );
-		else
-			socket->sysMessage( tr( "This person can't wear that item, seems not agile enough" ) );
-
-		socket->bounceItem( pItem, BR_NO_REASON );
-		return;
-	}
-	
-	// Required Intelligence
-	if( pItem->intelligenceReq() > pWearer->intelligence() )
-	{
-		if( pWearer == pChar )
-			socket->sysMessage( tr( "You cannot wear that item, you seem not smart enough" ) );
-		else
-			socket->sysMessage( tr( "This person can't wear that item, seems not smart enough" ) );
-
-		socket->bounceItem( pItem, BR_NO_REASON );
-		return;
-	}
-
 	// Males can't wear female armor
 	if( ( pChar->bodyID() == 0x0190 ) && ( pItem->id() >= 0x1C00 ) && ( pItem->id() <= 0x1C0D ) )
 	{
@@ -470,9 +426,6 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 
 	// At this point we're certain that we can wear the item
 	pWearer->addItem( static_cast<cBaseChar::enLayer>(pTile.layer), pItem );
-
-	// Apply the bonuses
-	pWearer->giveItemBonus( pItem );
 
 	if( pWearer->objectType() == enPlayer )
 	{

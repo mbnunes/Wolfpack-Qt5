@@ -80,7 +80,6 @@ public:
 	bool			twohanded()		const { return priv_&0x20; }		// Is the weapon twohanded ?
 	UI32			type()			const { return type_; }			// Used for hardcoded behaviour
 	UI32			type2()			const { return type2_; }
-	uchar			offspell()		const { return offspell_; } 
 	bool			secured()		const { return priv_&0x08; }		// Is the container secured (houses)
 	SI16			speed()			const { return speed_; }		// Weapon speed
 	SI16			lodamage()		const { return lodamage_; }		// Minimum damage weapon inflicts
@@ -108,17 +107,9 @@ public:
 	uint			morex()			const { return morex_; }
 	uint			morey()			const { return morey_; }
 	uint			morez()			const { return morez_; }	
-	uchar			doordir()		const { return doordir_; }
-	uchar			dooropen()		const { return dooropen_; }
 	uchar			dye()			const { return dye_; }
 	uint			att()			const { return att_; }
 	uint			def()			const { return def_; }
-	short			strengthReq()	const { return st_; }
-	short			strengthMod()	const { return st2_; }
-	short			dexterityReq()	const { return dx_; }
-	short			dexterityMod()	const { return dx2_; }
-	short			intelligenceReq()	const { return in_; }
-	short			intelligenceMod()	const { return in2_; }
 	uchar			magic()			const { return magic_; }
 	uint			decaytime()		const { return decaytime_; }
 	uint			disabled()		const { return disabled_; } 
@@ -155,7 +146,6 @@ public:
 	void	setTwohanded( bool nValue ) { nValue ? priv_ &= 0x20 : priv_ |= 0xDF; flagChanged(); changed( TOOLTIP );};
 	void	setType( UI32 nValue ) { type_ = nValue; flagChanged();};
 	void	setType2( UI32 nValue ) { type2_ = nValue; flagChanged();};	
-	void	setOffspell( uchar nValue ) { offspell_ = nValue; flagChanged();};
 	void	setSecured( bool nValue ) { ( nValue ) ? priv_ &= 0x08 : priv_ |= 0xF7; flagChanged(); changed( TOOLTIP );};
 	void	setSpeed( SI16 nValue ) { speed_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; flagChanged(); changed( TOOLTIP );};
@@ -189,17 +179,9 @@ public:
 	void	setMoreX( uint data ) { morex_ = data; flagChanged();}
 	void	setMoreY( uint data ) { morey_ = data; flagChanged();}
 	void	setMoreZ( uint data ) { morez_ = data; flagChanged();}
-	void	setDoorDir( uchar data ) { doordir_ = data; flagChanged();}
-	void	setDoorOpen( uchar data ) { dooropen_ = data; flagChanged();}
 	void	setDye( uchar data ) { dye_ = data; flagChanged();}
 	void	setAtt(	uint data ) { att_ = data; flagChanged();}
 	void	setDef( uint data ) { def_ = data; 	flagChanged(); changed( TOOLTIP );}
-	void	setStrengthReq( short data ) { st_ = data; flagChanged(); changed( TOOLTIP );}
-	void	setStrengthMod( short data ) { st2_ = data; flagChanged(); changed( TOOLTIP );}
-	void	setDexterityReq( short data ) { dx_ = data; flagChanged(); changed( TOOLTIP );}
-	void	setDexterityMod( short data ) { dx2_ = data; flagChanged(); changed( TOOLTIP );}
-	void	setIntelligenceReq( short data ) { in_ = data; flagChanged(); changed( TOOLTIP );}
-	void	setIntelligenceMod( short data ) { in2_ = data; flagChanged(); changed( TOOLTIP );}
 	void	setMagic( uchar data ) { magic_ = data; flagChanged(); changed( TOOLTIP );}
 	void	setDecayTime( uint data ) { decaytime_ = data; }
 	void	setBuyprice( int data ) { buyprice_ = data; flagChanged(); changed( TOOLTIP );}
@@ -321,7 +303,6 @@ protected:
 	SI16		hidamage_; 
 	ushort		type_;
 	ushort		type2_;
-	uchar		offspell_; // Whats that for ?!
 	SI16		speed_;
 	SI16		weight_;
 	SI16		hp_;
@@ -342,17 +323,9 @@ protected:
 	uint		morex_;
 	uint		morey_;
 	uint		morez_;
-	uchar		doordir_; // Reserved for doors
-	uchar		dooropen_;
 	uchar		dye_; // Reserved: Can item be dyed by dye kit
 	uint		att_; // Item attack
 	uint		def_; // Item defense
-	short		st_; // The strength needed to equip the item
-	short		st2_; // The strength the item gives
-	short		dx_; // The dexterity needed to equip the item
-	short		dx2_; // The dexterity the item gives
-	short		in_; // The intelligence needed to equip the item
-	short		in2_; // The intelligence the item gives
 	uchar		magic_; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
 	uint		decaytime_;
 	uint		disabled_; //Item is disabled, cant trigger.

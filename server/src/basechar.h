@@ -133,8 +133,6 @@ public:
 	void MoveTo(short newx, short newy, signed char newz);
 	bool Wears(P_ITEM pi);
 	unsigned int getSkillSum() const;
-	void removeItemBonus(cItem* pi);
-	void giveItemBonus(cItem* pi);
 	void Init(bool ser = true);
 	bool isSameAs(P_CHAR pc);
 	bool inGuardedArea();
