@@ -1072,9 +1072,9 @@ void cSkills::PotionToBottle(CHARACTER s, int mortar)
 char cSkills::CheckSkill(int c, unsigned short int sk, int low, int high)
 {
 	char skillused=0;
-	P_CHAR pc=MAKE_CHARREF_LRV(c,0);
+	P_CHAR pc = MAKE_CHARREF_LRV(c,0);
     UOXSOCKET s=-1;
-    if(pc->isPlayer()) s=calcSocketFromChar(c);
+    if(pc->isPlayer()) s=calcSocketFromChar(DEREF_P_CHAR(pc));
 
 	if( pc->dead ) // fix for magic resistance exploit and probably others too, LB
 	{
@@ -1103,10 +1103,10 @@ char cSkills::CheckSkill(int c, unsigned short int sk, int low, int high)
 	{
 		if (sk!=MAGERY || (sk==MAGERY && pc->isPlayer() && currentSpellType[s]==0))
 		{
-			if(Skills->AdvanceSkill(c, sk, skillused))
+			if(Skills->AdvanceSkill(DEREF_P_CHAR(pc), sk, skillused))
 			{
-				Skills->updateSkillLevel(c, sk); 
-				if(pc->isPlayer() && online(c)) updateskill(s, sk);
+				Skills->updateSkillLevel(DEREF_P_CHAR(pc), sk); 
+				if(pc->isPlayer() && online(DEREF_P_CHAR(pc))) updateskill(s, sk);
 			}
 		}
 	}
@@ -1157,7 +1157,7 @@ char cSkills::AdvanceSkill(CHARACTER s, int sk, char skillused)
 		if (ges>SrvParms->skillcap && c==0) // skill capped and no skill is marked as fall down.
 		{
 			sprintf((char*)temp,"You have reached the skill-cap of %i and no skill can fall!", SrvParms->skillcap);
-			sysmessage(calcSocketFromChar(s),(char*)temp);
+			sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc)),(char*)temp);
 			return 0;
 		}
 
@@ -1199,8 +1199,8 @@ char cSkills::AdvanceSkill(CHARACTER s, int sk, char skillused)
 				{ 
 					if (d==1 && pc->baseskill[dsk]==0) d=0; // should never happen ...
 						pc->baseskill[dsk]-=d;
-					Skills->updateSkillLevel(s, dsk); 		// we HAVE to correct the skill-value
-					updateskill(calcSocketFromChar(s), dsk); // and send changed skill values packet so that client can re-draw correctly			
+					Skills->updateSkillLevel(DEREF_P_CHAR(pc), dsk); 		// we HAVE to correct the skill-value
+					updateskill(calcSocketFromChar(DEREF_P_CHAR(pc)), dsk); // and send changed skill values packet so that client can re-draw correctly			
 				}
 			// this is very important cauz this is ONLY done for the calling skill value automatically .
 			} 
@@ -1211,8 +1211,8 @@ char cSkills::AdvanceSkill(CHARACTER s, int sk, char skillused)
 				if (pc->baseskill[dsk]>=1) 
 				{
 					pc->baseskill[dsk]--;
-					Skills->updateSkillLevel(s, dsk); 	
-					updateskill(calcSocketFromChar(s), dsk); 				
+					Skills->updateSkillLevel(DEREF_P_CHAR(pc), dsk); 	
+					updateskill(calcSocketFromChar(DEREF_P_CHAR(pc)), dsk); 				
 				}
 
 				if (c!=0) d=rand()%c; else d=0;
@@ -1220,12 +1220,12 @@ char cSkills::AdvanceSkill(CHARACTER s, int sk, char skillused)
 				if (pc->baseskill[dsk]>=1) 
 				{
 					pc->baseskill[dsk]--;
-					Skills->updateSkillLevel(s, dsk); 	
-					updateskill(calcSocketFromChar(s), dsk); 			
+					Skills->updateSkillLevel(DEREF_P_CHAR(pc), dsk); 	
+					updateskill(calcSocketFromChar(DEREF_P_CHAR(pc)), dsk); 			
 				}
 			}
 		}
-		Skills->AdvanceStats(s, sk);
+		Skills->AdvanceStats(DEREF_P_CHAR(pc), sk);
 	}
 	return retval;
 }
@@ -1307,13 +1307,13 @@ void cSkills::AdvanceStats(CHARACTER s, int sk)
 		if (AdvanceOneStat(sk, i, &(pc->in), &(pc->in2), &update, isGM) && atCap && !isGM)
 			if (rand()%2) pc->chgRealDex(-1); else pc->st-=1;
 	
-	so=calcSocketFromChar(s);
+	so=calcSocketFromChar(DEREF_P_CHAR(pc));
 	if (update && (so!=-1))
 	{
-		statwindow(so, s);				// update client's status window
+		statwindow(so, DEREF_P_CHAR(pc));				// update client's status window
 		for (i=0; i<ALLSKILLS; i++)
 		{
-			updateSkillLevel(s, i);		// update client's skill window
+			updateSkillLevel(DEREF_P_CHAR(pc), i);		// update client's skill window
 		}
 		if (atCap && !isGM)
 		{
@@ -1525,10 +1525,11 @@ void cSkills::RandomSteal(int s)
 	int cansteal=2+pc_currchar->baseskill[STEALING]/100; // 0 stealing 2 stones, 10  3 stones, 99.9 12 stones, 100 17 stones !!!
 	if (pc_currchar->baseskill[STEALING]>999) cansteal=17;
 	
-	int npc=calcCharFromPtr(buffer[s]+7);
-	if (npc<0) return;
+	P_CHAR pc_npc = FindCharBySerPtr(buffer[s]+7);
+	if (pc_npc == NULL) 
+		return;
 
-	p=packitem(npc);
+	p = packitem(DEREF_P_CHAR(pc_npc));
 	if (p==-1) {sysmessage(s,"bad luck, your victim doesnt have a backpack"); return; } //LB
 	
 	item=-1;
@@ -1544,12 +1545,12 @@ void cSkills::RandomSteal(int s)
 		if (i>=50) return;
 	} while (( item!=-1) && (++loopexit < MAXLOOPS) );
 
-	if (npc==cc) {
+	if (pc_npc == pc_currchar) {
 		sysmessage(s,"You catch yourself red handed.");
 		return;
 	}
 	
-	if (chars[npc].npcaitype==17)
+	if (pc_npc->npcaitype==17)
 	{
 		sysmessage(s, "You cannot steal that.");
 		return;
@@ -1562,9 +1563,9 @@ void cSkills::RandomSteal(int s)
 		return;
 	}
 
-	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",chars[npc].name, items[item].name);
+	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name, items[item].name);
 	sysmessage(s, (char*)temp);
-	if (npcinrange(s,npc,1))
+	if (npcinrange(s,DEREF_P_CHAR(pc_npc),1))
 	{
 		if ((items[item].weight>cansteal) && (items[item].type!=1 && items[item].type!=63 &&
 			items[item].type!=65 && items[item].type!=87))//Containers
@@ -1577,7 +1578,7 @@ void cSkills::RandomSteal(int s)
 			sysmessage(s,"That is too heavy.");
 			return;
 		}
-		if (chars[npc].isGMorCounselor())
+		if (pc_npc->isGMorCounselor())
 		{
 			sysmessage(s, "You can't steal from gods.");
 			return;
@@ -1588,11 +1589,11 @@ void cSkills::RandomSteal(int s)
 			return;
 		}
 		
-		skill=Skills->CheckSkill(cc,STEALING,0,999);
+		skill=Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),STEALING,0,999);
 		if (skill)
 		{
-			//pack=packitem(cc);
-			items[item].SetContSerial(items[packitem(cc)].serial);
+			//pack=packitem(DEREF_P_CHAR(pc_currchar));
+			items[item].SetContSerial(items[packitem(DEREF_P_CHAR(pc_currchar))].serial);
 			sysmessage(s,"You successfully steal that item.");
 			all_items(s);
 		} else sysmessage(s, "You failed to steal that item.");
@@ -1601,19 +1602,19 @@ void cSkills::RandomSteal(int s)
 		{//Did they get cought? (If they fail 1 in 5 chance, other wise their skill away from 1000 out of 1000 chance)
 			sysmessage(s,"You have been cought!");
 			
-			if (chars[npc].isNpc()) npctalkall(npc, "Guards!! A thief is amoung us!",0);
+			if (pc_npc->isNpc()) npctalkall(DEREF_P_CHAR(pc_npc), "Guards!! A thief is amoung us!",0);
 			
-			if (chars[npc].isInnocent() && pc_currchar->attacker!=npc && Guilds->Compare(cc,npc)==0)//AntiChrist
-				criminal(cc);//Blue and not attacker and not guild
+			if (pc_npc->isInnocent() && pc_currchar->attacker != DEREF_P_CHAR(pc_npc) && Guilds->Compare(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_npc))==0)//AntiChrist
+				criminal(DEREF_P_CHAR(pc_currchar));//Blue and not attacker and not guild
 			
 			if (items[item].name[0] != '#')
 			{
 				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name,items[item].name);
-				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name,items[item].name,chars[npc].name);
+				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name,items[item].name,pc_npc->name);
 			} else {
 				Map->SeekTile(items[item].id(),&tile);
 				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name, tile.name);
-				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name,tile.name,chars[npc].name);
+				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name,tile.name,pc_npc->name);
 			}
 			sysmessage(s,(char*)temp); // bugfix, LB
 			
@@ -1621,7 +1622,7 @@ void cSkills::RandomSteal(int s)
 			{
 				if (perm[i])
 				{
-				    if((i!=s)&&(inrange1p(cc,currchar[i]))&&(rand()%10+10==17||(rand()%2==1 && chars[currchar[i]].in>=pc_currchar->in))) sysmessage(s,temp2);
+				    if((i!=s)&&(inrange1p(DEREF_P_CHAR(pc_currchar),currchar[i]))&&(rand()%10+10==17||(rand()%2==1 && chars[currchar[i]].in>=pc_currchar->in))) sysmessage(s,temp2);
 				}
 			}
 		}
@@ -1950,7 +1951,7 @@ void TellScroll( char *menu_name, int s, long snum )
 	cir=(int)((snum-800)/10);		// snum holds the circle/spell as used in inscribe.gmp
 	spl=(((snum-800)-(cir*10))+1);	// i.e. 800 + 1-based circle*10 + zero-based spell
 									// snum is also equals the item # in items.scp of the scrool to be created !
-	k=packitem(cc);
+	k=packitem(DEREF_P_CHAR(pc_currchar));
 	if (k<0) return;
 	
 	for (x = 0; x < itemcount; x++)		// find the spellbook
@@ -1971,10 +1972,10 @@ void TellScroll( char *menu_name, int s, long snum )
 	
 	if (spells[num].action)
 		impaction(s, spells[num].action);
-	npctalkall(cc, spells[num].mantra,0);
+	npctalkall(DEREF_P_CHAR(pc_currchar), spells[num].mantra,0);
 	
-	if(!Magic->CheckReagents(cc, spells[num].reagents)
-		|| !Magic->CheckMana(cc, num))
+	if(!Magic->CheckReagents(DEREF_P_CHAR(pc_currchar), spells[num].reagents)
+		|| !Magic->CheckMana(DEREF_P_CHAR(pc_currchar), num))
 	{
 		Magic->SpellFail(s);
 		return;
@@ -1985,11 +1986,11 @@ void TellScroll( char *menu_name, int s, long snum )
 	{
 		itemmake[s].Mat1id=0x0E34; 
 		itemmake[s].needs=1; 
-		itemmake[s].has=getamount(cc, 0x0E34); 
+		itemmake[s].has=getamount(DEREF_P_CHAR(pc_currchar), 0x0E34); 
 		itemmake[s].minskill=(cir-1)*100;	//set range values based on scroll level
 		itemmake[s].maxskill=(cir+2)*100;
 
-		Magic->DelReagents(cc, spells[num].reagents);
+		Magic->DelReagents(DEREF_P_CHAR(pc_currchar), spells[num].reagents);
 		
 		Skills->MakeMenuTarget(s,snum,INSCRIPTION); //put it in your pack
 	}
@@ -2338,9 +2339,8 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 {
 	int v1,i,c;
 	int arrowsquant=0;
-	CHARACTER cc=currchar[s1];
-	int type=Combat->GetBowType(cc);
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s1]);
+	int type=Combat->GetBowType(DEREF_P_CHAR(pc_currchar));
 	if(pButte->id()==0x100A)
 	{ // East Facing Butte
 		if ((pButte->pos.x > pc_currchar->pos.x)||(pButte->pos.y != pc_currchar->pos.y))
@@ -2358,14 +2358,14 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 	{
 		if(pButte->more1>0)
 		{
-			c=Items->SpawnItem(s1,cc,pButte->more1/2,"#",1,0x0F,0x3F,0,0,1,0);
+			c=Items->SpawnItem(s1,DEREF_P_CHAR(pc_currchar),pButte->more1/2,"#",1,0x0F,0x3F,0,0,1,0);
 			if(c==-1) return;
 			RefreshItem(c);
 		}
 		
 		if(pButte->more2>0)
 		{
-			c=Items->SpawnItem(s1,cc,pButte->more2/2,"#",1,0x1B,0xFB,0,0,1,0);
+			c=Items->SpawnItem(s1,DEREF_P_CHAR(pc_currchar),pButte->more2/2,"#",1,0x1B,0xFB,0,0,1,0);
 			if(c==-1) return;
 			RefreshItem(c);
 		}
@@ -2409,8 +2409,8 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 			sysmessage(s1, "You should empty the butte first!");
 			return;
 		}
-		if (type==1) arrowsquant=getamount(cc, 0x0F3F);
-		else arrowsquant=getamount(cc, 0x1BFB);
+		if (type==1) arrowsquant=getamount(DEREF_P_CHAR(pc_currchar), 0x0F3F);
+		else arrowsquant=getamount(DEREF_P_CHAR(pc_currchar), 0x1BFB);
 		if (arrowsquant==0) 
 		{
 			sysmessage(s1, "You have nothing to fire!");
@@ -2418,21 +2418,21 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 		}
 		if (type==1) 
 		{
-			delequan(cc, 0x0F3F, 1);
+			delequan(DEREF_P_CHAR(pc_currchar), 0x0F3F, 1);
 			pButte->more1++;
 			//add moving effect here to item, not character
 		}
 		else
 		{
-			delequan(cc, 0x1BFB, 1, NULL);
+			delequan(DEREF_P_CHAR(pc_currchar), 0x1BFB, 1, NULL);
 			pButte->more2++;
 			//add moving effect here to item, not character
 		} 
-		if (pc_currchar->onhorse) Combat->CombatOnHorse(cc);
-		else Combat->CombatOnFoot(cc);
+		if (pc_currchar->onhorse) Combat->CombatOnHorse(DEREF_P_CHAR(pc_currchar));
+		else Combat->CombatOnFoot(DEREF_P_CHAR(pc_currchar));
 		
 		if (pc_currchar->skill[ARCHERY] < 350)
-			Skills->CheckSkill(cc,ARCHERY, 0, 1000);
+			Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),ARCHERY, 0, 1000);
 		else
 			sysmessage(s1, "You learn nothing from practicing here");
 
@@ -2475,7 +2475,6 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 
 void cSkills::Meditation(UOXSOCKET s) // Morrolan - meditation(int socket)
 {
-	CHARACTER cc = currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	// blackwind warmode fix.
 	if (pc_currchar->war)
@@ -2483,7 +2482,7 @@ void cSkills::Meditation(UOXSOCKET s) // Morrolan - meditation(int socket)
 		sysmessage(s, "Your mind is too busy with the war thoughts.");
 		return;
 	}
-	if (Skills->GetAntiMagicalArmorDefence(cc)>15) // blackwind armor affect fix
+	if (Skills->GetAntiMagicalArmorDefence(DEREF_P_CHAR(pc_currchar))>15) // blackwind armor affect fix
 	{
 		sysmessage(s, "Regenerative forces cannot penetrate your armor.");
 		pc_currchar->med = 0;
@@ -2501,7 +2500,7 @@ void cSkills::Meditation(UOXSOCKET s) // Morrolan - meditation(int socket)
 		pc_currchar->med = 0;
 		return;
 	}
-	else if (!Skills->CheckSkill(cc, MEDITATION, 0, 1000))
+	else if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MEDITATION, 0, 1000))
 	{
 		sysmessage(s, "You cannot focus your concentration.");
 		pc_currchar->med = 0;
@@ -2822,6 +2821,7 @@ bool cSkills::DelEmptyMap(int cc)	// Delete an empty map from the player's backp
 void cSkills::Decipher(P_ITEM tmap, int s)
 {
 	int cc=currchar[s];		// Get the current character
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	char sect[500];			// Needed for script search
 	int regtouse;			// Stores the region-number of the TH-region
 	int i;					// Loop variable
@@ -2829,7 +2829,7 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 	int tlx, tly, lrx, lry;		// Stores the map borders
 	int x, y;					// Stores the final treasure location
 
-	if(chars[cc].skilldelay<=uiCurrentTime || chars[cc].isGM())	// Char doin something?
+	if(pc_currchar->skilldelay<=uiCurrentTime || pc_currchar->isGM())	// Char doin something?
 	{
 		if (CheckSkill(s, CARTOGRAPHY, tmap->morey * 10, 1000))	// Is the char skilled enaugh to decipher the map
 		{
@@ -2843,7 +2843,7 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 			nmap = MAKE_ITEMREF_LR(newmap);	// Get the item
 			sprintf(nmap->name, "a deciphered lvl.%d treasure map", tmap->morez);	// Give it the correct name
 			nmap->morez = tmap->morez;				// Give it the correct level
-			strcpy(nmap->creator, chars[cc].name);	// Store the creator
+			strcpy(nmap->creator, pc_currchar->name);	// Store the creator
 			Script *rscript=i_scripts[regions_script];	// Region script
 			if (!rscript->Open())
 			{
@@ -2923,7 +2923,7 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 		else
 			sysmessage(s, "You fail to decipher the map");		// Nope :P
 		// Set the skill delay, no matter if it was a success or not
-		SetTimerSec(&chars[cc].skilldelay,SrvParms->skilldelay);
+		SetTimerSec(&pc_currchar->skilldelay, SrvParms->skilldelay);
 		soundeffect(s, 0x02, 0x49);	// Do some inscription sound regardless of success or failure
 		sysmessage(s, "You put the deciphered tresure map in your pack");	// YAY
 	}

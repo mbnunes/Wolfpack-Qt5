@@ -68,7 +68,7 @@ void loadchar(int x) // Load a character from WSC
 	int j,a=0, loops=0;
 
 	x=Npcs->MemCharFree();
-	if (x==-1) return;
+	if (x == -1) return;
 	P_CHAR pc = MAKE_CHARREF_LR(x);
 	pc->Init(false);
 
@@ -241,7 +241,7 @@ void loadchar(int x) // Load a character from WSC
 				//taken from 6904t2(5/10/99) - AntiChrist
 				if (pc->ownserial!=-1)
 				{
-					setptr(&cownsp[i%HASHMAX], x); //Load into charsp array
+					setptr(&cownsp[i%HASHMAX], DEREF_P_CHAR(pc)); //Load into charsp array
 					pc->tamed = true;				// Abaddon	// bugfix JM/LB
 				}
 			}
@@ -290,7 +290,7 @@ void loadchar(int x) // Load a character from WSC
 				pc->ser3=i>>8;
 				pc->ser4=i%256;
 				pc->serial=i;
-				setptr(&charsp[i%HASHMAX], x); //Load into charsp array
+				setptr(&charsp[i%HASHMAX], DEREF_P_CHAR(pc)); //Load into charsp array
 			}
 			else if (!strcmp((char*)script1, "SAY"))				pc->saycolor = static_cast<UI16>(str2num(script2));
 			else if (!strcmp((char*)script1, "STRENGTH"))			pc->st=str2num(script2);
@@ -307,7 +307,7 @@ void loadchar(int x) // Load a character from WSC
 				(script1[3]=='L')&&(script1[4]=='L'))
 			{
 				pc->baseskill[j=str2num(&script1[5])]=str2num(script2);
-				Skills->updateSkillLevel(x, j);
+				Skills->updateSkillLevel(DEREF_P_CHAR(pc), j);
 			}
 			else if (!strcmp((char*)script1, "SKIN"))			  pc->skin = static_cast<UI16>(str2num(script2));
 			else if (!strcmp((char*)script1, "SPATTACK"))		  pc->spattack=str2num(script2);
@@ -330,14 +330,14 @@ void loadchar(int x) // Load a character from WSC
 			else if (!strcmp((char*)script1, "SPAWN"))
 			{
 				pc->spawnserial=str2num(script2);;
-				if (pc->spawnserial!=-1) setptr(&cspawnsp[pc->spawnserial%HASHMAX], x);
+				if (pc->spawnserial!=-1) setptr(&cspawnsp[pc->spawnserial%HASHMAX], DEREF_P_CHAR(pc));
 			}
 			else if (!strcmp((char*)script1, "STABLEMASTER"))
 			{
 				pc->stablemaster_serial=str2num(script2);
 				if (pc->stablemaster_serial>0)
 					stablesp.insert(pc->stablemaster_serial, pc->serial);
-				//setptr(&stablesp[pc->stablemaster_serial%HASHMAX], x);
+				//setptr(&stablesp[pc->stablemaster_serial%HASHMAX], DEREF_P_CHAR(pc));
 			}
 		break;
 
@@ -424,7 +424,7 @@ void loadchar(int x) // Load a character from WSC
  {
 	if (pc->account==-1)
 	{
-		Npcs->DeleteChar(x);
+		Npcs->DeleteChar(DEREF_P_CHAR(pc));
 	} else
 	{
 		pc->id1 = 0x01;
@@ -463,7 +463,7 @@ void loadchar(int x) // Load a character from WSC
 
  if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
  {
-	 Npcs->DeleteChar(x); //character in an invalid location
+	 Npcs->DeleteChar(DEREF_P_CHAR(pc)); //character in an invalid location
  }
  if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account !=-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account!=-1))
  {

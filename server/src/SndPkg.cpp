@@ -1655,19 +1655,18 @@ void target(UOXSOCKET s, int a1, int a2, int a3, int a4, char *txt) // Send targ
 
 void skillwindow(int s) // Opens the skills list, updated for client 1.26.2b by LB
 {
-	int i,k;
+	int i;
 	unsigned char skillstart[5]="\x3A\x01\x5d\x00"; // hack for that 3 new skills+1.26.2 client, LB 4'th dec 1999
 	unsigned char skillmid[8] = "\x00\x00\x00\x00\x00\x00\x00"; // changed for 1.26.2 clients [size 7 insted of 4]
 	unsigned char skillend[3]="\x00\x00";
 	char x;
 
-	k = currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 
 	Xsend(s, skillstart, 4);
 	for (i=0;i<TRUESKILLS;i++)
 	{
-		Skills->updateSkillLevel(k,i);
+		Skills->updateSkillLevel(DEREF_P_CHAR(pc_currchar), i);
 		skillmid[1]=i+1;
 		skillmid[2]=pc_currchar->skill[i]>>8;
 		skillmid[3]=pc_currchar->skill[i]%256;

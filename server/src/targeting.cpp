@@ -1067,14 +1067,14 @@ void cTargets::AllSetTarget(int s)
 
 	int serial=LongFromCharPtr(buffer[s]+7);
 	int i=calcCharFromSer(serial);
-	if(i!=-1)
+	P_CHAR pc = MAKE_CHARREF_LR(i);
+	if(pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
-		k=calcSocketFromChar(i);
+		k=calcSocketFromChar(DEREF_P_CHAR(pc));
 		if (addx[s]<TRUESKILLS)
 		{
 			pc->baseskill[addx[s]]=addy[s];
-			Skills->updateSkillLevel(i, addx[s]);
+			Skills->updateSkillLevel(DEREF_P_CHAR(pc), addx[s]);
 			if (k!=-1) updateskill(k, addx[s]);
 		}
 		else if (addx[s]==ALLSKILLS)
@@ -1082,7 +1082,7 @@ void cTargets::AllSetTarget(int s)
 			for (j=0;j<TRUESKILLS;j++)
 			{
 				pc->baseskill[j]=addy[s];
-				Skills->updateSkillLevel(i, j);
+				Skills->updateSkillLevel(DEREF_P_CHAR(pc), j);
 				if (k!=-1) updateskill(k,j);
 			}
 		}
@@ -1091,30 +1091,30 @@ void cTargets::AllSetTarget(int s)
 			pc->st=addy[s];
 			for (j=0;j<TRUESKILLS;j++)
 			{
-				Skills->updateSkillLevel(i,j);
+				Skills->updateSkillLevel(DEREF_P_CHAR(pc),j);
 				if (k!=-1) updateskill(k,j);
 			}
-			if (k!=-1) statwindow(k,i);
+			if (k!=-1) statwindow(k,DEREF_P_CHAR(pc));
 		}
 		else if (addx[s]==DEX)
 		{
 			pc->setDex(addy[s]);
 			for (j=0;j<TRUESKILLS;j++)
 			{
-				Skills->updateSkillLevel(i,j);
+				Skills->updateSkillLevel(DEREF_P_CHAR(pc),j);
 				if (k!=-1) updateskill(k,j);
 			}
-			if (k!=-1) statwindow(k,i);
+			if (k!=-1) statwindow(k,DEREF_P_CHAR(pc));
 		}
 		else if (addx[s]==INT)
 		{
 			pc->in=addy[s];
 			for (j=0;j<TRUESKILLS;j++)
 			{
-				Skills->updateSkillLevel(i,j);
+				Skills->updateSkillLevel(DEREF_P_CHAR(pc),j);
 				if (k!=-1) updateskill(k,j);
 			}
-			if (k!=-1) statwindow(k,i);
+			if (k!=-1) statwindow(k,DEREF_P_CHAR(pc));
 		}
 		else if (addx[s]==FAME)
 		{

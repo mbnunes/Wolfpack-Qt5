@@ -1889,12 +1889,12 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		if (ii==buffer[s][0x4a]) pc->baseskill[buffer[s][0x4a]]=buffer[s][0x4b]*10;
 		if (ii==buffer[s][0x4c]) pc->baseskill[buffer[s][0x4c]]=buffer[s][0x4d]*10;
 		if (ii==buffer[s][0x4e]) pc->baseskill[buffer[s][0x4e]]=buffer[s][0x4f]*10;
-		Skills->updateSkillLevel(c, i);
+		Skills->updateSkillLevel(DEREF_P_CHAR(pc), i);
 	}
 
 	if (validhair(buffer[s][0x52],buffer[s][0x53]))
 	{
-		n=Items->SpawnItem(s,c,1, "#", 0, buffer[s][0x52], buffer[s][0x53], buffer[s][0x54], buffer[s][0x55],0,0);
+		n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, buffer[s][0x52], buffer[s][0x53], buffer[s][0x54], buffer[s][0x55],0,0);
 		if(n==-1) return;//AntiChrist to preview crashes
 		const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
 		if ((((pi->color1<<8)+pi->color2)<0x044E) ||
@@ -1903,13 +1903,13 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 			pi->color1=0x04;
 			pi->color2=0x4E;
 		}
-		setserial(n, c, 4);
+		setserial(n, DEREF_P_CHAR(pc), 4);
 		pi->layer=0x0B;
 	}
 
 	if ( (validbeard(buffer[s][0x56],buffer[s][0x57])) && (pc->id2==0x90) )
 	{
-		n=Items->SpawnItem(s,c,1, "#", 0, buffer[s][0x56], buffer[s][0x57], buffer[s][0x58], buffer[s][0x59],0,0);
+		n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, buffer[s][0x56], buffer[s][0x57], buffer[s][0x58], buffer[s][0x59],0,0);
 		if(n==-1) return;//AntiChrist to preview crashes
 		const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
 		if ((((pi->color1<<8)+pi->color2)<0x044E) ||
@@ -1918,23 +1918,23 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 			pi->color1=0x04;
 			pi->color2=0x4E;
 		}
-		setserial(n, c, 4);
+		setserial(n, DEREF_P_CHAR(pc), 4);
 		pi->layer=0x10;
 	}
 
 	{	// just to limit the scope of pi
 	// - create the backpack
-	pc->packitem=n=Items->SpawnItem(s,c,1, "#", 0, 0x0E, 0x75, 0, 0,0,0);
+	pc->packitem=n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, 0x0E, 0x75, 0, 0,0,0);
 	if(n==-1) return;//AntiChrist to preview crashes
 	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
-	setserial(n, c, 4);
+	setserial(n, DEREF_P_CHAR(pc), 4);
 	pi->layer=0x15;
 	pi->type=1;
 	pi->dye=1;
 	}
 
 	{	// limit the scope of pi
-	n = Items->SpawnItem(s,c,1,"#",0,0x09,0x15,0,0,0,0);
+	n = Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x09,0x15,0,0,0,0);
 	if(n==-1) return;//AntiChrist to preview crashes
 	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
 
@@ -1966,14 +1966,14 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	// pant/skirt color -> old client code, random color
 	pi->color1=buffer[s][102];
 	pi->color2=buffer[s][103];
-	setserial(n, c, 4);
+	setserial(n, DEREF_P_CHAR(pc), 4);
 	pi->type=0;
 	pi->dye=1;
 	pi->hp=10;
 	}
 
 	{	// limit the scope of pi
-	n=Items->SpawnItem(s,c,1,"#",0,0x09,0x15,0,0,0,0); // spawn pants
+	n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x09,0x15,0,0,0,0); // spawn pants
 	if(n==-1) return;//AntiChrist to preview crashes
 	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
 	if (!(rand()%2))
@@ -1987,7 +1987,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->color1=buffer[s][100];
 	pi->color2=buffer[s][101];
 
-	setserial(n, c, 4);
+	setserial(n, DEREF_P_CHAR(pc), 4);
 	pi->layer=0x05;
 	pi->dye=1;
 	pi->hp=10;
@@ -1995,10 +1995,10 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	n=Items->SpawnItem(s,c,1,"#",0,0x17,0x0F,0x02,0x87,0,0); // shoes
+	n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x17,0x0F,0x02,0x87,0,0); // shoes
 	if(n==-1) return;//AntiChrist to preview crashes
 	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
-	setserial(n, c, 4);
+	setserial(n, DEREF_P_CHAR(pc), 4);
 	pi->layer=0x03;
 	pi->dye=1;
 	pi->hp=10;
@@ -2006,10 +2006,10 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	n=Items->SpawnItem(s,c,1,"#",0,0x0F,0x51,0,0,0,0); // dagger
+	n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x0F,0x51,0,0,0,0); // dagger
 	if(n==-1) return;//AntiChrist to preview crashes
 	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
-	setserial(n, c, 4);
+	setserial(n, DEREF_P_CHAR(pc), 4);
 	pi->layer=0x01;
 	//pi->att=5;
 	pi->hp=10;
@@ -2042,16 +2042,16 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	{	// limit the scope of pi
 	// Give the character some gold
-	n=Items->SpawnItem(s,c,goldamount,"#",1,0x0E,0xED,0,0,1,0);
+	n=Items->SpawnItem(s,DEREF_P_CHAR(pc),goldamount,"#",1,0x0E,0xED,0,0,1,0);
 	if(n==-1) return;//AntiChrist to preview crashes
 	//const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
-	//setserial(n, packitem(c), 1);
+	//setserial(n, packitem(DEREF_P_CHAR(pc)), 1);
 	//pi->layer=0x01;
 	//pi->att=5;
 	}
 
-	currchar[s]=c;
-	newbieitems(c);
+	currchar[s]=DEREF_P_CHAR(pc);
+	newbieitems(DEREF_P_CHAR(pc));
 
 	perm[s]=1;
 	Network->startchar(s);
@@ -2088,19 +2088,12 @@ int unmounthorse(int s) // Get off a horse (Remove horse item and spawn new hors
 			for (i = 0; i < pets.size(); i++) 
 			{ 
 				p_pet = FindCharBySerial(pets[i]);
-//				i = stablesp[serhash].pointer[ci]; 
 				if (p_pet != NULL) 
 				{ 
-//					p_pet = MAKE_CHARREF_LOGGED(i, err); 
-//					if (err)
-//						break; 
-					
 					// clConsole.send("%d = %d ... %d = %d\n", p_pet->ownserial, p_petowner->serial, p_pet->stablemaster_serial,stablemaster_serial); 
 					if ( p_petowner->Owns(p_pet) && p_pet->stablemaster_serial == stablemaster_serial) // already stabled and owned by claimer ? 
 					{ 
 						found = true; 
-//						pet = i; 
-						// clConsole.send("Pet found\n"); 
 						break; 
 					} 
 				} 

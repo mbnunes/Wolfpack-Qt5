@@ -365,12 +365,12 @@ void cFishing::Fish(CHARACTER i)
 
 	/**** end of exotic fish stuff stuff */
 
-	fishes_around_player=Items->Find_items_around_player(i, 0x09, idnum, 2, 2, max_fish_piles, fish_sers); // lets search for fish in a 2*2 rectangle around the player
+	fishes_around_player=Items->Find_items_around_player(DEREF_P_CHAR(pc_i), 0x09, idnum, 2, 2, max_fish_piles, fish_sers); // lets search for fish in a 2*2 rectangle around the player
 	
 	P_ITEM pFish;
 	if (fishes_around_player<=0) // no fish around -> spawn a new one
 	{
-		pFish=Items->SpawnItem(i,1,"#",1,0x0900+idnum,(c1<<8)+c2,0);
+		pFish=Items->SpawnItem(DEREF_P_CHAR(pc_i),1,"#",1,0x0900+idnum,(c1<<8)+c2,0);
 		if(!pFish) return;//AntiChrist to prevent crashes
 		pFish->type=14;
 		pFish->MoveTo(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z);
@@ -399,7 +399,7 @@ void cFishing::Fish(CHARACTER i)
 				return;
 			}
 			
-			P_ITEM pFish=Items->SpawnItem(i,1,"#",1,0x0900+idnum,(c1<<8)+c2,0);
+			P_ITEM pFish=Items->SpawnItem(DEREF_P_CHAR(pc_i),1,"#",1,0x0900+idnum,(c1<<8)+c2,0);
 			if(!pFish) return;
 			pFish->type=14;
 			pFish->MoveTo(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z);
