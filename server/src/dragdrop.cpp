@@ -505,14 +505,6 @@ void DragAndDrop::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar
 	// Dropped on ourself
 	if( pChar == pOtherChar )
 	{
-		// If we don't send this packet, the client creates some sort of "ghost image" in the container.
-		cUOPacket packet( 0x23, 26 );
-		packet.setShort( 1, pItem->id() );
-		packet.setShort( 6, pItem->amount() );
-		packet.setInt( 8, pChar->serial() );
-		packet.setInt( 17, pChar->getBackpack()->serial() );
-		socket->send( &packet );
-
 		pItem->toBackpack( pChar );
 		return;
 	}
