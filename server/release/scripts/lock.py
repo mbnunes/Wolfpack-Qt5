@@ -3,34 +3,73 @@ import wolfpack
 from wolfpack.gumps import cGump
 import random
 
+def createkey(char, id):
+  keys = ['100e', '100f', '1010', '1013']
+  key = wolfpack.additem(random.choice(keys))
+  key.settag('lock', id)
+  key.container = char.getbackpack()
+  key.update()
+  char.socket.sysmessage('A key has been added to your backpack.')
+
 def gump_response(char, args, response):
+  if len(args) < 1:
+    return
+
+  item = wolfpack.finditem(args[0])
+
+  if not item:
+    return
+
   # Add a lock to this item
-  if response.button == 1 and len(args) == 1:
-    item = wolfpack.finditem(args[0])
+  if response.button == 1:
+    # Prepend 'lock' to the event chain
+    if not 'lock' in item.events:
+      events = item.events
+      events[:0] = ['lock']
+      item.events = events
 
-    if item:
-      # Prepend 'lock' to the event chain
-      if not 'lock' in item.events:
-        events = item.events
-        events[:0] = ['lock']
-        item.events = events
+    # Set the lock id
+    item.settag('lock', response.text[1])
 
-      # Set the lock id
-      item.settag('lock', response.text[1])
+    char.socket.sysmessage('Added the lock to the item.')
 
-      char.socket.sysmessage('Added the lock to the item.')
+    # Should we create a key in the backpack of the user?
+    if 1 in response.switches:
+      createkey(char, response.text[1])
 
-      # Should we create a key in the backpack of the user?
-      if 1 in response.switches:
-        keys = ['100e', '100f', '1010', '1013']
-        key = wolfpack.additem(random.choice(keys))
-        key.settag('lock', response.text[1])
-        key.container = char.getbackpack()
-        key.update()
+  # Modify lock
+  elif response.button == 2:
+    # Set the lock id
+    item.settag('lock', response.text[1])
 
-        char.socket.sysmessage('A key has been added to your backpack.')
+    # Remove or Add the locked tag
+    if 1 in response.switches:
+      item.settag('locked', 1)
+    elif item.hastag('locked'):
+      item.deltag('locked')
 
-      return
+    char.socket.sysmessage('Modified the lock of this item.')
+
+  # Remove lock
+  elif response.button == 3:
+    item.deltag('lock')
+    item.deltag('locked')
+
+    # Remove the event from the eventlist
+    events = item.events
+    while 'lock' in events:
+      events.remove('lock')
+    item.events = events
+
+    char.socket.sysmessage('The lock has been removed from the item.')
+
+  # Create a key
+  elif response.button == 4:
+    if not item.hastag('lock'):
+      char.socket.sysmessage('This item has no lock.')
+    else:
+      lock = str(item.gettag('lock'))
+      createkey(char, lock)
 
 def lock_response(char, args, target):
   # Check if an item was targetted
@@ -44,15 +83,38 @@ def lock_response(char, args, target):
   
   # Check if the item already has a lock
   if 'lock' in target.item.events and target.item.hastag('lock'):
-    gump.addBackground(id=0x2436, width=450, height=350)	
+    gump.addBackground(id=0x2436, width=425, height=285)
 
     lock = str(target.item.gettag('lock'))
     locked = 0
+
     if target.item.hastag('locked') and int(target.item.gettag('locked')) != 0:
       locked = 1
 
-    text = '<basefont color="#FECECE"><h3>Manage Lock</h3><br><basefont color="#FEFEFE">This dialog will help you to manage the lock of this item.'
-    gump.addHtmlGump(x=20, y=20, width=410, height=200, html=text)
+    text = '<basefont color="#FECECE"><h3>Manage Lock</h3><br><basefont color="#FEFEFE">This dialog will help you to manage the lock and status of this item.'
+    gump.addHtmlGump(x=20, y=20, width=410, height=90, html=text)
+
+    # InputField for the key id
+    gump.addText(x=20, y=90, text='The id for this lock:', hue=0x835)
+    gump.addResizeGump(x=20, y=113, id=0xBB8, width=160, height=25)
+    gump.addInputField(x=25, y=115, width=150, height=20, hue=0x834, id=1, starttext=lock)
+
+    # "Locked? Unlocked?"
+    gump.addCheckbox(x=20, y=164, off=0x25f8, on=0x25fb, id=1, checked=locked)
+    gump.addText(x=55, y=168, text='Locked', hue=0x835)
+
+    # Add Button
+    gump.addText(x=50, y=212, text='Modify lock', hue=0x835)
+    gump.addButton(x=20, y=212, up=0x26af, down=0x26b1, returncode=2)
+
+    gump.addText(x=50, y=242, text='Cancel', hue=0x835)
+    gump.addButton(x=20, y=242, up=0x26af, down=0x26b1, returncode=0)
+
+    gump.addText(x=250, y=212, text='Remove lock', hue=0x835)
+    gump.addButton(x=220, y=212, up=0x26af, down=0x26b1, returncode=3)
+
+    gump.addText(x=250, y=242, text='Create key', hue=0x835)
+    gump.addButton(x=220, y=242, up=0x26af, down=0x26b1, returncode=4)
 
   # The targetted item is unlocked 
   else:
@@ -75,7 +137,7 @@ def lock_response(char, args, target):
 
     # "Create a key in my backpack"
     gump.addCheckbox(x=20, y=167, off=0x25f8, on=0x25fb, id=1)
-    gump.addText(x=55, y=171, text='Create a key in my backpack.', hue=0x835)
+    gump.addText(x=55, y=171, text='Create a key in my backpack', hue=0x835)
 
     # Add Button
     gump.addText( x=50, y=212, text='Add lock', hue=0x835 )
