@@ -2827,9 +2827,10 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 			if ( pItem->restock() <= 0 )
 			{
 				pItem->setAmount( pItem->amount() * 2 );
-				if ( pItem->amount() > 999 )
+				unsigned short maxamount = pItem->basedef() ? pItem->basedef()->getIntProperty("max_restock_amount", 999) : 999;
+				if ( maxamount > 0 && pItem->amount() > maxamount)
 				{
-					pItem->setAmount( 999 );
+					pItem->setAmount( maxamount );
 				}
 				// If more than half of the items were still in stock when restocking
 				// was issued, half the amount
@@ -2840,7 +2841,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 				{
 					pItem->setAmount( 640 );
 				}
-				else if ( pItem->amount() > 10 )
+				else if ( pItem->amount() > ( pItem->basedef() ? pItem->basedef()->getIntProperty("min_restock_amount", 10) : 10 )  )
 				{
 					pItem->setAmount( pItem->amount() / 2 );
 				}

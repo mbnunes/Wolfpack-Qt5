@@ -1,6 +1,10 @@
 Wolfpack 12.9.14 Beta (SVN)
  * Core Changes:
   - Fixed onDeath being called after the npc was already deleted.
+  - Added a basedef property "min_restock_amount" that is used by the restocking code to never let 
+  	the restock amount of a specific item type go below the given amount. (Integer property)
+  - Added a basedef property "max_restock_amount" that is used by the restocking code to never let
+    the restock amount of a specific item type go above the given amount. (Integer property)
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")
