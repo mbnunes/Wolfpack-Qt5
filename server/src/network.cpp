@@ -1211,7 +1211,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 			{
 				P_CHAR pc_currchar = currchar[s];
 				if ( pc_currchar != NULL && packet !=0x73 && packet!=0x80 && packet!=0xA4 && packet!=0xA0 && packet!=0x90 && packet!=0x91 )
-					pc_currchar->clientidletime=SrvParms->inactivitytimeout*MY_CLOCKS_PER_SEC+uiCurrentTime;
+					pc_currchar->clientidletime=SrvParams->inactivityTimeout()*MY_CLOCKS_PER_SEC+uiCurrentTime;
         		    // LB, client activity-timestamp !!! to detect client crashes, ip changes etc and disconnect in that case
         		    // 0x73 (idle packet) also counts towards client idle time
 

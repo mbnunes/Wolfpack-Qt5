@@ -124,7 +124,7 @@ void CheckPoisoning(UOXSOCKET sd, P_CHAR pc_attacker, P_CHAR pc_defender)
 		{
 			pc_defender->poisoned=pc_attacker->poison;
 			pc_defender->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_defender->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-			pc_defender->poisonwearofftime=pc_defender->poisontime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); //wear off starts after poison takes effect - AntiChrist
+			pc_defender->poisonwearofftime=pc_defender->poisontime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); //wear off starts after poison takes effect - AntiChrist
 			if (sd != -1) 
 			{
 				impowncreate(sd, pc_defender, 1); //Lb, sends the green bar ! 
@@ -225,7 +225,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 			{
 				   pc_deffender->poisoned=pWeapon->poisoned;
 				   pc_deffender->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_deffender->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-			       pc_deffender->poisonwearofftime=pc_deffender->poisontime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); //wear off starts after poison takes effect - AntiChrist
+			       pc_deffender->poisonwearofftime=pc_deffender->poisontime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); //wear off starts after poison takes effect - AntiChrist
 			}
 			CheckPoisoning(s2, pc_attacker, pc_deffender);	// attacker poisons defender
 			CheckPoisoning(s1, pc_deffender, pc_attacker); // and vice versa

@@ -1696,7 +1696,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 						return;
 					}
 				}
-				if( (pi->type == 1 && pi->corpse != 1 ) || (pi->GetOwnSerial() != -1 && pi->corpse) || (!SrvParms->lootdecayswithcorpse && pi->corpse ))
+				if( (pi->type == 1 && pi->corpse != 1 ) || (pi->GetOwnSerial() != -1 && pi->corpse) || (!SrvParams->lootdecayswithcorpse() && pi->corpse ))
 				{
 					serial=pi->serial;
 					vector<SERIAL> vecContainer = contsp.getData(serial);

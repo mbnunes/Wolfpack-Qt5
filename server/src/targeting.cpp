@@ -38,6 +38,7 @@
 #include "trigger.h"
 #include "guildstones.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"
@@ -2943,7 +2944,7 @@ void cTargets::SetPoisonedTarget(int s)
 	if (pc != NULL)
 	{
 		pc->poisoned=tempint[s];
-		pc->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // lb, poison wear off timer setting
+		pc->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); // lb, poison wear off timer setting
 		impowncreate(calcSocketFromChar(pc), pc, 1); //Lb, sends the green bar !
 	}
 }

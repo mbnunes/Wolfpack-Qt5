@@ -558,7 +558,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				soundeffect2(currchar[s], 0x0246); // poison sound - SpaceDog
 				pc_currchar->poisoned = pi->poisoned;
 				pc_currchar->poisontime = uiCurrentTime +(MY_CLOCKS_PER_SEC*(40/pc_currchar->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-				pc_currchar->poisonwearofftime = pc_currchar->poisontime +(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // wear off starts after poison takes effect - AntiChrist
+				pc_currchar->poisonwearofftime = pc_currchar->poisontime +(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); // wear off starts after poison takes effect - AntiChrist
 				impowncreate(s, currchar[s], 1); // Lb, sends the green bar ! 
 			}
 			

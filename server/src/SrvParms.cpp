@@ -89,32 +89,17 @@ void loadserverdefaults(void)
     clientsAllowed.push_back("SERVER_DEFAULT");
 	strcpy(server_data.specialbanktrigger,"WARE"); //AntiChrist - Special Bank word trigger
 	server_data.usespecialbank=0;	//AntiChrist - 1= Special Bank enabled
-	server_data.goldweight=0.005f;	//what a goldpiece weighs this is in hundreths of a stone! AntiChrist
-	server_data.poisontimer=180; // lb
-	//server_data.repairworldtimer=REPAIRWORLDTIMER; //Ripper
 
 	// Should we check character age for delete?
 	server_data.packetsendstyle=PSS_UOX3;
-
-	//taken from 6904t2(5/10/99) - AntiChrist
-	server_data.playercorpsedecaymultiplier=3;	// Player's corpse decays 3x the normal decay rate
-	server_data.lootdecayswithcorpse=1;			// JM - 0 Loot disappears with corpse, 1 loot gets left when corpse decays
-	
-	server_data.invisibiliytimer=INVISTIMER;
 	server_data.hungerrate=HUNGERRATE;
 	server_data.hungerdamagerate=10;			// every 10 seconds
 	server_data.snoopdelay=7;
 	server_data.hungerdamage=2;
-	server_data.skilldelay=SKILLDELAY;
-	server_data.bandagedelay=6;					// in seconds
-	server_data.bandageincombat=1;				// 0=no, 1=yes; can use bandages while healer and/or patient are in combat ?
-	server_data.inactivitytimeout=300;			// seconds of inactivity until player will be disconnected
 	server_data.hitpointrate=REGENRATE1;
 	server_data.staminarate=REGENRATE2;
 	server_data.manarate=REGENRATE3;
-	server_data.gatetimer=GATETIMER;
 	server_data.minecheck=2;
-	server_data.showdeathanim=1;				// 1 = yes/true
 	server_data.combathitmessage=1;
 	server_data.attackstamina=-2;				// AntiChrist - attacker looses stamina when hits
 	server_data.monsters_vs_animals=0;			// By default monsters won't attack animals;
@@ -125,7 +110,6 @@ void loadserverdefaults(void)
 	server_data.maxabsorbtion=20;				// 20 Arm (single armour piece) -- Magius(CHE)
 	server_data.maxnohabsorbtion=100;			// 100 Arm (total armour) -- Magius(CHE)
 	server_data.sellbyname=1;		// Values= 0(Disabled) or 1(Enabled) - The NPC Vendors buy from you if your item has the same name of his item! --- Magius(CHE)
-	server_data.skilllevel=5;		// Range from 1 to 10 - This value if the difficulty to create an item using a make command: 1 is easy, 10 is difficult! - Magius(CHE)
 	server_data.sellmaxitem=5;		// Set maximum amount of items that one player can sell at one time (5 is standard OSI) --- Magius(CHE)
 	server_data.npcdamage=2;
 	server_data.rank_system=1;		// Rank system to make various type of a single intem based on the creator's skill! - Magius(CHE)
@@ -367,32 +351,11 @@ void loadserver()
 			for(int unsigned i = 0; i < strlen(server_data.specialbanktrigger); i++)
 				server_data.specialbanktrigger[i] = toupper(server_data.specialbanktrigger[i]);
 		}
-
-		//AntiChrist
-		else if(!(strcmp((char*)script1,"GOLDWEIGHT"))) server_data.goldweight=atof((char*)script2);
-
-		//taken from 6904t2(5/10/99) - AntiChrist
-		else if(!(strcmp((char*)script1,"PLAYERCORPSEDECAYMULTIPLIER"))) server_data.playercorpsedecaymultiplier=str2num(script2);//JM
-		else if(!(strcmp((char*)script1,"LOOTDECAYSWITHCORPSE"))) server_data.lootdecayswithcorpse=str2num(script2);
-
-		else if(!(strcmp((char*)script1,"INVISTIMER"))) server_data.invisibiliytimer=str2num(script2);
-		else if(!(strcmp((char*)script1,"SKILLDELAY"))) server_data.skilldelay=str2num(script2);
-		else if(!(strcmp((char*)script1,"SKILLLEVEL"))) {
-			server_data.skilllevel=str2num(script2); //MAgius(CHE)
-			if (server_data.skilllevel<1 || server_data.skilllevel>10) server_data.skilllevel=5;
-		}
-		else if(!(strcmp((char*)script1,"BANDAGEDELAY"))) server_data.bandagedelay=str2num(script2);
-		else if(!(strcmp((char*)script1,"BANDAGEINCOMBAT"))) server_data.bandageincombat=str2num(script2);
-		else if(!(strcmp((char*)script1,"INACTIVITYTIMEOUT"))) server_data.inactivitytimeout=str2num(script2);
-		else if(!(strcmp((char*)script1,"GATETIMER"))) server_data.gatetimer=str2num(script2);
-		else if(!(strcmp((char*)script1,"SHOWDEATHANIM"))) server_data.showdeathanim=str2num(script2);
 		else if(!(strcmp((char*)script1,"ARCHIVEPATH"))) strcpy(server_data.archivepath,(char*)script2);
 		else if(!(strcmp((char*)script1,"BACKUP_SAVE_RATIO"))) { //LB
 			server_data.backup_save_ratio=str2num(script2);
 			if (server_data.backup_save_ratio<1) server_data.backup_save_ratio=1;
 		}
-        else if(!(strcmp((char*)script1,"POISONTIMER"))) server_data.poisontimer=str2num(script2); // lb
-		//if(!(strcmp(script1,"REPAIRWORLDTIMER"))) server_data.repairworldtimer=str2num(script2); //Ripper
 
 		else if(!(strcmp((char*)script1,"SERVER_LOG"))) server_data.server_log=str2num(script2);
 		else if(!(strcmp((char*)script1,"SPEECH_LOG"))) server_data.speech_log=str2num(script2);
@@ -435,14 +398,12 @@ void loadserver()
 		else if(!(strcmp((char*)script1,"DEFAULT_JAIL_TIME"))) server_data.default_jail_time=str2num(script2);// blackwind 
 		else if(!(strcmp((char*)script1,"BADNPCSRED"))) server_data.BadNpcsRed=str2num(script2); //Ripper
 		else if(!(strcmp((char*)script1,"SLOTAMOUNT"))) server_data.slotamount=str2num(script2); //Ripper
-		else if(!(strcmp((char*)script1,"PORT"))) wp_port = (short) str2num(script2);
 		else if(!(strcmp((char*)script1,"PACKETSENDSTYLE:"))) 
 		{
 			if ( (!strcmp ( script2, "UOX3") ) )           server_data.packetsendstyle = PSS_UOX3;
 			else if ( (!strcmp ( script2, "OSI") ) )       server_data.packetsendstyle = PSS_OSI;
 			else if ( (!strcmp ( script2, "SMARTWOLF") ) ) server_data.packetsendstyle = PSS_SMARTWOLF;
 			else server_data.packetsendstyle = PSS_UOX3;
-			//printf("PSS: %i\n", server_data.packetsendstyle);
 		}
 
 	}
@@ -589,8 +550,6 @@ void loadserverscript() // Load server script
 	loadserverscript("server.scp");
 	loadserverscript("shards_server.scp");
 }
-
-//void saveserverscript(char x)
 void saveserverscript(void)
 {
 	FILE *file;
@@ -612,9 +571,7 @@ void saveserverscript(void)
 
 	
 	fprintf(file, "SECTION SERVER\n");
-	fprintf(file, "{\n");		
-
-	fprintf(file, "PORT %i\n", wp_port);	// First entry, make it more visible.
+	fprintf(file, "{\n");
 
 	switch(server_data.packetsendstyle)
 	{
@@ -645,24 +602,8 @@ void saveserverscript(void)
 
 	fprintf(file, "USESPECIALBANK %i\n",server_data.usespecialbank);	//AntiChrist - specialbank
 	fprintf(file, "SPECIALBANKTRIGGER %s\n",server_data.specialbanktrigger);
-	fprintf(file, "GOLDWEIGHT %f\n",server_data.goldweight);//AntiChrist - gold weight
-
-	//taken from 6904t2(5/10/99) - AntiChrist
-	fprintf(file, "PLAYERCORPSEDECAYMULTIPLIER %i\n", server_data.playercorpsedecaymultiplier);
-	fprintf(file, "LOOTDECAYSWITHCORPSE %i\n", server_data.lootdecayswithcorpse);
-
-	fprintf(file, "INVISTIMER %i\n",server_data.invisibiliytimer);
-	fprintf(file, "SKILLDELAY %i\n",server_data.skilldelay);
-	fprintf(file, "SKILLLEVEL %i\n",server_data.skilllevel); // By Magius(CHE)
-	fprintf(file, "BANDAGEDELAY %i\n",server_data.bandagedelay);
-	fprintf(file, "BANDAGEINCOMBAT %i\n",server_data.bandageincombat);
-	fprintf(file, "INACTIVITYTIMEOUT %i\n",server_data.inactivitytimeout);
-	fprintf(file, "GATETIMER %i\n",server_data.gatetimer);
-	fprintf(file, "SHOWDEATHANIM %i\n",server_data.showdeathanim);
 	fprintf(file, "ARCHIVEPATH %s\n",server_data.archivepath);
 	fprintf(file, "BACKUP_SAVE_RATIO %i\n",server_data.backup_save_ratio);//LB
-	fprintf(file, "POISONTIMER %i\n",server_data.poisontimer); // lb
-	//fprintf(file,"REPAIRWORLDTIMER %i\n",server_data.repairworldtimer); //Ripper
 
 	fprintf(file, "SERVER_LOG %i\n",server_data.server_log); //Lb, splitt log to those 4
 	fprintf(file, "SPEECH_LOG %i\n",server_data.speech_log);

@@ -1144,7 +1144,7 @@ void deathstuff(P_CHAR pc_player)
 	if( pc_player->isPlayer() )
 	{
 		pi_c->SetOwnSerial(pc_player->serial);
-		pi_c->more4 = char( SrvParms->playercorpsedecaymultiplier&0xff ); // how many times longer for the player's corpse to decay
+		pi_c->more4 = char( SrvParams->playercorpsedecaymultiplier()&0xff ); // how many times longer for the player's corpse to decay
 	}
 
 	//AntiChrist -- stores the time and the murderer's name
@@ -1247,7 +1247,7 @@ void deathstuff(P_CHAR pc_player)
 		pi_c->layer=0x16;
 		pi_c->def=1;
 	}
-	if (SrvParms->showdeathanim)
+	if (SrvParams->showDeathAnim())
 		deathaction(pc_player, pi_c);
 	if (pc_player->account!=-1) // LB
 	{
@@ -3145,7 +3145,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 		if (CheckClientIdle<=uiCurrentTime)
 		{
-			CheckClientIdle=((SrvParms->inactivitytimeout/2)*MY_CLOCKS_PER_SEC)+uiCurrentTime;
+			CheckClientIdle=((SrvParams->inactivityTimeout()/2)*MY_CLOCKS_PER_SEC)+uiCurrentTime;
 
 			for (r=0;r<now;r++)
 			{
@@ -4129,7 +4129,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 	case 6: // Poison Potion
 		if(pc_p->poisoned < pi->morez) pc_p->poisoned=pi->morez;
 		if(pi->morez>4) pi->morez=4;
-		pc_p->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // lb, poison wear off timer setting
+		pc_p->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); // lb, poison wear off timer setting
 		impowncreate(calcSocketFromChar(pc_p), pc_p, 1); //Lb, sends the green bar !
 		soundeffect2(pc_p, 0x0246); //poison sound - SpaceDog
 		sysmessage(s, "You poisoned yourself! *sigh*"); //message -SpaceDog
@@ -5392,13 +5392,13 @@ void SetGlobalVars()
 	dosavewarning = 0;
 	
 	
-    server_data.invisibiliytimer = INVISTIMER ;
+    //server_data.invisibiliytimer = INVISTIMER ;
     server_data.hungerrate = HUNGERRATE ;
-    server_data.skilldelay = SKILLDELAY ;
+    //server_data.skilldelay = SKILLDELAY ;
     server_data.hitpointrate = REGENRATE1 ;
     server_data.staminarate = REGENRATE2 ;
     server_data.manarate = REGENRATE3 ;
-    server_data.gatetimer = GATETIMER;
+    //server_data.gatetimer = GATETIMER;
 	
 }
 

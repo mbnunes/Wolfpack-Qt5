@@ -53,7 +53,7 @@ int ingottype=0;//will hold number of ingot type to be deleted
 
 inline void SetSkillDelay(P_CHAR pc) 
 { 	
-	SetTimerSec(&pc->skilldelay,SrvParms->skilldelay);
+	SetTimerSec(&pc->skilldelay,SrvParams->skillDelay());
 }
 
 //////////////////////////
@@ -2891,7 +2891,7 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 		else
 			sysmessage(s, "You fail to decipher the map");		// Nope :P
 		// Set the skill delay, no matter if it was a success or not
-		SetTimerSec(&pc_currchar->skilldelay, SrvParms->skilldelay);
+		SetTimerSec(&pc_currchar->skilldelay, SrvParams->skillDelay());
 		soundeffect(s, 0x02, 0x49);	// Do some inscription sound regardless of success or failure
 		sysmessage(s, "You put the deciphered tresure map in your pack");	// YAY
 	}

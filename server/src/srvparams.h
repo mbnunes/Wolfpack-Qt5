@@ -39,7 +39,7 @@ protected:
 	unsigned int statsAdvanceModifier_;
 	unsigned short objectDelay_;
 	unsigned char bgSound_;
-	bool stealing;
+	bool stealing_;
 	bool guardsActive_;
 	bool partMsg_;
 	bool joinMsg_;
@@ -56,6 +56,19 @@ protected:
 	float checkTammedTime_;
 	unsigned int decayTime_;
 	int niceLevel_;
+	unsigned short port_;
+	float goldWeight_;
+	unsigned int playercorpsedecaymultiplier_;
+	unsigned short lootdecayswithcorpse_;
+	float invisTimer_;
+	unsigned short skillDelay_;
+	int skillLevel_;
+	unsigned short bandageDelay_;
+	bool bandageInCombat_;
+	float gateTimer_;
+	unsigned int inactivityTimeout_;
+	unsigned int showDeathAnim_;
+	unsigned int poisonTimer_;
 public:
     cSrvParams( const QString& filename, const QString& format, const QString& version );
 	std::vector<ServerList_st>& serverList(); // read-only
@@ -88,6 +101,19 @@ public:
 	float checkTammedTime() const;
 	int niceLevel() const;
 	unsigned int decayTime() const;
+	unsigned short port() const;
+	float goldWeight() const;
+	unsigned int playercorpsedecaymultiplier() const;
+	unsigned short lootdecayswithcorpse() const;
+	float invisTimer() const;
+	unsigned short skillDelay() const;
+	int skillLevel() const;
+	unsigned short bandageDelay() const;
+	bool bandageInCombat() const;
+	float gateTimer() const;
+	unsigned int inactivityTimeout() const;
+	unsigned int showDeathAnim() const;
+	unsigned int poisonTimer() const;
 };
 
 // inline members
@@ -119,7 +145,7 @@ inline unsigned int cSrvParams::statsAdvanceModifier() const
 
 inline bool cSrvParams::stealingEnabled() const
 {
-	return stealing;
+	return stealing_;
 }
 
 inline bool cSrvParams::guardsActive() const
@@ -222,6 +248,71 @@ inline int cSrvParams::niceLevel() const
 inline unsigned int cSrvParams::decayTime() const
 {
 	return decayTime_;
+}
+
+inline unsigned short cSrvParams::port() const
+{
+	return port_;
+}
+
+inline float cSrvParams::goldWeight() const
+{
+	return goldWeight_;
+}
+
+inline unsigned int cSrvParams::playercorpsedecaymultiplier() const
+{
+	return playercorpsedecaymultiplier_;
+}
+
+inline unsigned short cSrvParams::lootdecayswithcorpse() const
+{
+	return lootdecayswithcorpse_;
+}
+
+inline float cSrvParams::invisTimer() const
+{
+	return invisTimer_;
+}
+
+inline unsigned short cSrvParams::skillDelay() const
+{
+	return skillDelay_;
+}
+
+inline int cSrvParams::skillLevel() const
+{
+	return skillLevel_;
+}
+
+inline unsigned short cSrvParams::bandageDelay() const
+{
+	return bandageDelay_;
+}
+
+inline bool cSrvParams::bandageInCombat() const
+{
+	return bandageInCombat_;
+}
+
+inline float cSrvParams::gateTimer() const
+{
+	return gateTimer_;
+}
+
+inline unsigned int cSrvParams::inactivityTimeout() const
+{
+	return inactivityTimeout_;
+}
+
+inline unsigned int cSrvParams::showDeathAnim() const
+{
+	return showDeathAnim_;
+}
+
+inline unsigned int cSrvParams::poisonTimer() const
+{
+	return poisonTimer_;
 }
 
 #endif __SRVPARAMS_H___

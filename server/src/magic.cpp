@@ -45,6 +45,7 @@
 #include "debug.h"
 #include "guildstones.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef DBGFILE
 #define DBGFILE "magic.cpp"
@@ -754,7 +755,7 @@ void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 		if (poison>5) poison = 5;
 		else if (poison<0) poison = 1;
 		pc->poisoned=poison;
-		pc->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer);	// lb
+		pc->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer());	// lb
 		if (s != -1)
 			impowncreate(s, pc, 1); //Lb, sends the green bar !
 	}
@@ -1760,7 +1761,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										pi_c->pos.x=gatex[gatecount][n];
 										pi_c->pos.y=gatey[gatecount][n];
 										pi_c->pos.z=gatez[gatecount][n];
-										pi_c->gatetime=(uiCurrentTime+(SrvParms->gatetimer*MY_CLOCKS_PER_SEC));
+										pi_c->gatetime=(uiCurrentTime+(SrvParams->gateTimer()*MY_CLOCKS_PER_SEC));
 										//clConsole.send("GATETIME:%i UICURRENTTIME:%d GETCLOCK:%d\n",SrvParms->gatetimer,uiCurrentTime,getclock());
 										pi_c->gatenumber=gatecount;
 										pi_c->dir=1;
@@ -1947,7 +1948,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						if(CheckResist(pc_currchar, pc_defender, 1)) return;
 						{
 							pc_defender->poisoned=2;
-							pc_defender->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // LB
+							pc_defender->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); // LB
 							impowncreate( s, pc_defender, 1); //Lb, sends the green bar !
 						}
 						break;
@@ -2045,7 +2046,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						pc_defender->hidden=2;
 						updatechar(pc_defender);
-						pc_defender->invistimeout=uiCurrentTime+(SrvParms->invisibiliytimer*MY_CLOCKS_PER_SEC);
+						pc_defender->invistimeout=uiCurrentTime+(SrvParams->invisTimer()*MY_CLOCKS_PER_SEC);
 						break;
 						//////////// (51) FLAMESTRIKE ///////////
 					case 51:
@@ -4005,7 +4006,7 @@ void cMagic::Gate(UOXSOCKET s)
 					pi_c->pos.x=gatex[gatecount][n];
 					pi_c->pos.y=gatey[gatecount][n];
 					pi_c->pos.z=gatez[gatecount][n];
-					pi_c->gatetime=(uiCurrentTime+(SrvParms->gatetimer*MY_CLOCKS_PER_SEC));
+					pi_c->gatetime=(uiCurrentTime+(SrvParams->gateTimer()*MY_CLOCKS_PER_SEC));
 					//clConsole.send("GATETIME:%i UICURRENTTIME:%d GETCLOCK:%d\n",SrvParms->gatetimer,uiCurrentTime,getclock());
 					pi_c->gatenumber=gatecount;
 					pi_c->dir=1;

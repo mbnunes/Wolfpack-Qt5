@@ -54,40 +54,22 @@ void saveserverscript(void);
 #define ECLIPSETIMER .5
 
 #define DECAYTIMER 300  // 5 minute decay rate
-#define INVISTIMER 60 // invisibility spell lasts 1 minute
 #define HUNGERRATE 6000 // 15 minutes
-#define SKILLDELAY 5   // Skill usage delay     (5 seconds)
 #define REGENRATE1 8 // Seconds to heal ONE hp
 #define REGENRATE2 3 // Seconds to heal ONE stm
 #define REGENRATE3 5 // Seconds to heal ONE mn
-#define GATETIMER 30
 
 struct server_st
 {
 	unsigned int packetsendstyle; // LB .. defines the way packets are send
 	unsigned int eclipsemode;
 	unsigned int eclipsetimer;
-	unsigned int poisontimer;
-
- //taken from 6904t2(5/10/99) - AntiChrist
-	unsigned int playercorpsedecaymultiplier;
-	unsigned int lootdecayswithcorpse;
-	unsigned int invisibiliytimer;
 	unsigned int hungerrate;
-	unsigned int skilldelay;
 	unsigned int snoopdelay;
-	unsigned int bandagedelay;					// in seconds, on top of objectdelay
-	unsigned int bandageincombat;				// 0=no, 1=yes; can use bandages while healer and/or patient are in combat ?
-	unsigned int inactivitytimeout;			// seconds of inactivity until player will be disconnected (duke)
-			// LB: if no packet received from client in that time period, disconnection ! (except idle packet)
-			// thats necessary, cauz in case of client/OS crashes or IP changes on the fly players didnt get disconnected
-
 	unsigned int hitpointrate;
 	unsigned int staminarate;
 	unsigned int manarate;
-	unsigned int gatetimer;
 	unsigned int minecheck;
-	unsigned int showdeathanim;
 	unsigned int combathitmessage;
 	unsigned int monsters_vs_animals;
 	unsigned int animals_attack_chance;

@@ -20,7 +20,7 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	statsAdvanceModifier_	= getNumber("General",	"Stats Advance Modifier", 500, true);
 	objectDelay_			= getNumber("Game Speed", "ObjectDelay", 1, true);
 	bgSound_				= getNumber("General",	"BackGround Sound Chance", 2, true);
-	stealing				= getBool("General",	"Stealing Enabled",	true, true);			
+	stealing_				= getBool("General",	"Stealing Enabled",	true, true);			
 	guardsActive_			= getBool("General",	"Guards Enabled",	true, true);
 	partMsg_				= getBool("General",	"PartMessage",		true, true);
 	joinMsg_				= getBool("General",	"JoinMessage",		true, true);
@@ -34,6 +34,19 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	checkNPCTime_			= getDouble("Game Speed", "NPCs Check Time", 1.0, true);
 	checkAITime_			= getDouble("Game Speed", "AI Check Time", 1.2, true);
 	niceLevel_				= getNumber("Game Speed", "Nice Level", 2, true);
+	port_                   = getNumber("General",    "Port", 2593, true);
+	goldWeight_             = getDouble("General",    "Gold Weight", 0.001000, true);
+	playercorpsedecaymultiplier_ = getNumber("General", "Player Corpse Decay Multiplier", 0, true);
+	lootdecayswithcorpse_   = getNumber("General",    "Loot Decays With Corpse", 1, true);
+	invisTimer_             = getDouble("General",    "InvisTimer", 60, true);
+	skillDelay_			    = getNumber("Game Speed", "SkillDelay", 7, true);
+	skillLevel_				= getNumber("Game Speed", "SkillLevel", 3, true);
+	bandageDelay_			= getNumber("Game Speed", "BandageDelay", 6, true);
+	bandageInCombat_		= getBool("General",	"Bandage In Combat",	true, true);
+	gateTimer_              = getDouble("General",    "GateTimer", 30, true);
+	inactivityTimeout_		= getNumber("General",  "Inactivity Timeout", 300, true);
+	showDeathAnim_		    = getNumber("General",  "Show Death Animation", 1, true);
+	poisonTimer_		    = getNumber("General",  "PoisonTimer", 180, true);
 
 	flush(); // if any key created, save it.
 }
