@@ -186,10 +186,10 @@ def gateCallback( char, args, target ):
 		char.socket.sysmessage( "script error 1. contact GM." )
 		return 1
 	item = args[0]
-	if not item:
+	if not item and not char.gm :
 		char.socket.sysmessage( "script error 2. contact GM." )
 		return 1
-	if( char.distanceto( item ) > 3):
+	if not char.gm and ( char.distanceto( item ) > 3):
 		char.socket.sysmessage( "You are too far away to use it." )
 		return 1
 
