@@ -40,7 +40,7 @@ if not authenticated:
 		content += "<h4>%s</h4><br>" % message
 	
 	content += """<!-- Login -->
-		<form action="login.py" method="GET">
+		<form action="login.py" method="POST">
 			Username:<br />
 			<input type="text" name="username" /><br /><br />
 			Password:<br />

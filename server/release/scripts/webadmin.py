@@ -194,6 +194,13 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 	save_stderr = sys.stderr
 	try:
 	    try:
+                try:
+                    nbytes = int(length)
+                except (TypeError, ValueError):
+                    nbytes = 0
+                # throw away additional data [see bug #427345]
+                if self.command.lower() == "post" and nbytes > 0:
+                    self.rfile._rbufsize = nbytes + 2
 	        os.environ.update(env)
 		sys.argv = [scriptfile]
 		if '=' not in decoded_query:
