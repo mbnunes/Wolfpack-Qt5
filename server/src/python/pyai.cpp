@@ -37,8 +37,9 @@
 #include "tempeffect.h"
 #include "objectcache.h"
 
-/*!
-	The object for Wolfpack Python items
+/*
+	\object ai
+	\description This object type represents the ai assigned to a npc.
 */
 struct wpAI
 {
@@ -87,8 +88,13 @@ PyObject* PyGetAIObject( AbstractAI* ai )
 	return ( PyObject * ) returnVal;
 }
 
-// Method declarations
-
+/*
+	\method ai.onSpeechInput
+	\param from A <object id="char">char</object> object for the character the text is coming from.
+	\param text A string with the text that should be processed.
+	\description This method sends a text with a given source to the ai engine to proces it. This
+	could be used to force the banker engine to open the bankbox for instance.
+*/
 static PyObject* wpAI_onSpeechInput( wpAI* self, PyObject* args )
 {
 	if ( !checkArgChar( 0 ) )
