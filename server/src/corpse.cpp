@@ -191,7 +191,7 @@ void cCorpse::update( cUOSocket *mSock )
 	}
 	else
 	{
-		for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
 			if( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			{

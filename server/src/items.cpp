@@ -1064,7 +1064,7 @@ void cItem::update(cUOSocket *singlesocket)
 		// Send to one person only
 		if (!singlesocket)
 		{
-			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next())
+			for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next())
 			{
 				if (socket->canSee(this))
 				{
@@ -1148,7 +1148,7 @@ void cItem::update(cUOSocket *singlesocket)
 		}
 		else
 		{
-			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next())
+			for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next())
 			{
 				if (socket->canSee(this))
 				{
@@ -1172,7 +1172,7 @@ void cItem::update(cUOSocket *singlesocket)
 		}
 		else
 		{
-			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next())
+			for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next())
 			{
 				if (socket->canSee(this))
 				{
@@ -1216,7 +1216,7 @@ P_ITEM cItem::dupe()
 
 void cItem::soundEffect( UINT16 sound )
 {
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			mSock->soundEffect( sound, this );
 }
@@ -1298,7 +1298,7 @@ void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	else
 	{
 		// Send to all clients in range
-		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
 				if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 				{
@@ -1334,7 +1334,7 @@ bool cItem::wearOut()
 		// Show to all characters in range that the item has been destroyed and not just unequipped
 		if (owner)
 		{
-			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next())
+			for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next())
 			{
 				if (owner != socket->player() && socket->canSee(owner))
 				{

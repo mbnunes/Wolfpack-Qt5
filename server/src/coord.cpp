@@ -137,7 +137,7 @@ void Coord_cl::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT1
 	effect.setRenderMode( renderMode );
 
 	cUOSocket *mSock = 0;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		if( mSock->player() && ( mSock->player()->pos().distance( (*this) ) <= mSock->player()->visualRange() ) )
 			mSock->send( &effect );

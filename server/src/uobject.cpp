@@ -538,7 +538,7 @@ void cUObject::removeFromView( bool clean )
 
 	cUOTxRemoveObject remove;
 	remove.setSerial(serial_);
-	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+	for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next()) {
 		if (socket->player() != this && (clean || socket->canSee(this))) {
 			socket->send(&remove);
 		}
@@ -581,7 +581,7 @@ void cUObject::lightning( unsigned short hue )
 	effect.setHue( hue );
 
 	cUOSocket *mSock = 0;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		if( mSock->player() && dist( mSock->player() ) < mSock->player()->visualRange() )
 			mSock->send( &effect );
@@ -611,7 +611,7 @@ void cUObject::effect( UINT16 id, cUObject *target, bool fixedDirection, bool ex
 	effect.setRenderMode( renderMode );
 
 	cUOSocket *mSock = 0;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		if( !mSock->player() )
 			continue;
@@ -641,7 +641,7 @@ void cUObject::effect( UINT16 id, const Coord_cl &target, bool fixedDirection, b
 	effect.setRenderMode( renderMode );
 
 	cUOSocket *mSock = 0;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		if( !mSock->player() )
 			continue;
@@ -670,7 +670,7 @@ void cUObject::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT1
 	effect.setRenderMode( renderMode );
 
 	cUOSocket *mSock = 0;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			mSock->send( &effect );
@@ -820,7 +820,7 @@ void cUObject::resendTooltip() {
 		attach.setId(tooltip_);
 		attach.setSerial(serial_);
 
-		for (cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next()) {
+		for (cUOSocket *s = Network::instance()->first(); s; s = Network::instance()->next()) {
 			if (s->player() && s->player()->inRange(this, s->player()->visualRange())) {
 				s->addTooltip(tooltip_);
 				s->send(&attach);
@@ -829,7 +829,7 @@ void cUObject::resendTooltip() {
 	} else {
 		cUOTxTooltipList tooltip;
 
-		for (cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next()) {
+		for (cUOSocket *s = Network::instance()->first(); s; s = Network::instance()->next()) {
 			if (s->player() && s->player()->inRange(this, s->player()->visualRange())) {
 				createTooltip(tooltip, s->player());
 				s->send(&tooltip);

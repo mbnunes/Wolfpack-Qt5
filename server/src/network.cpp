@@ -47,13 +47,7 @@
 // Library Includes
 #include <qstringlist.h>
 
-cNetwork *cNetwork::instance_;
-
-cNetwork::cNetwork( void )
-{
-	loginSockets.setAutoDelete( true );
-	uoSockets.setAutoDelete( true );	
-
+void cNetwork::startup() {
 	if( SrvParams->enableLogin() )
 	{
 		loginServer_ = new cListener( SrvParams->loginPort() );
@@ -70,28 +64,34 @@ cNetwork::cNetwork( void )
 	else
 		gameServer_ = 0;
 
-	netIo_ = new cAsyncNetIO;
 	netIo_->start();
 }
 
-cNetwork::~cNetwork( void )
-{
-	if( loginServer_ )
-	{
+void cNetwork::shutdown() {
+	if (loginServer_) {
 		loginServer_->cancel();
 		loginServer_->wait();
-		delete loginServer_;
 	}
 
-	if( gameServer_ )
-	{
+	if (gameServer_) {
 		gameServer_->cancel();
 		gameServer_->wait();
-		delete gameServer_;
+
 	}
 
 	netIo_->cancel();
 	netIo_->wait();
+}
+
+cNetwork::cNetwork() {
+	loginSockets.setAutoDelete(true);
+	uoSockets.setAutoDelete(true);
+	netIo_ = new cAsyncNetIO;
+}
+
+cNetwork::~cNetwork() {
+	delete loginServer_;
+	delete gameServer_;
 	delete netIo_;
 }
 

@@ -37,6 +37,7 @@
 
 // System Includes
 #include <qmutex.h>
+#include "singleton.h"
 
 //Forward class Declaration
 class cNetworkStuff;
@@ -59,16 +60,6 @@ struct ip_block_st
 
 class cNetwork
 {
-private:
-	cNetwork();
-	~cNetwork();
-
-	//typedef gamesocketsIterator QPtrListIterator;
-	//typedef loginsocketsIterator QPtrListIterator;
-
-	static cNetwork *instance_;
-	
-//	std::vector<ip_block_st> hosts_deny;
 	QPtrList< cUOSocket > uoSockets;
 	QPtrList< cUOSocket > loginSockets;
 	cAsyncNetIO *netIo_;
@@ -77,16 +68,17 @@ private:
 	QMutex mutex;
 
 public:
+	cNetwork();
+	~cNetwork();
+
+	void startup();
+	void shutdown();
 
 	void load( void );
 	void unload( void );
 	void reload( void );
 	
 	bool CheckForBlockedIP( const QHostAddress& ip_address );
-
-	static void startup( void ) { instance_ = new cNetwork; }
-	static void shutdown( void ) { delete instance_; }
-	static cNetwork *instance( void ) { return instance_; }
 
 	void poll( void ); // called by the main loop
 
@@ -100,5 +92,7 @@ public:
 
 	void	broadcast( const QString &message, UINT16 color = 0x84d, UINT16 font = 0 );
 };
+
+typedef SingletonHolder<cNetwork> Network;
 
 #endif

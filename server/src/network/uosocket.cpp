@@ -169,11 +169,11 @@ void cUOSocket::send( cUOPacket *packet ) const
 	if( !_socket || !_socket->isOpen() )
 		return;
 
-	cNetwork::instance()->netIo()->sendPacket( _socket, packet, ( _state != LoggingIn ) );
+	Network::instance()->netIo()->sendPacket( _socket, packet, ( _state != LoggingIn ) );
 
 	// Once send, flush if in Debug mode
 #if defined(_DEBUG)
-	cNetwork::instance()->netIo()->flush( _socket );
+	Network::instance()->netIo()->flush( _socket );
 #endif
 }
 
@@ -231,7 +231,7 @@ void cUOSocket::send( cGump *gump )
 */
 void cUOSocket::recieve()
 {
-	cUOPacket *packet = cNetwork::instance()->netIo()->recvPacket( _socket );
+	cUOPacket *packet = Network::instance()->netIo()->recvPacket( _socket );
 
 	if (!packet) 
 		return;
@@ -437,7 +437,7 @@ void cUOSocket::disconnect( void )
 		}
 	}
 
-	cNetwork::instance()->netIo()->flush( _socket );
+	Network::instance()->netIo()->flush( _socket );
 	_socket->close();
 
 	if( _player )

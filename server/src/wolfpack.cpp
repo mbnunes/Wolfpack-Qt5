@@ -352,7 +352,7 @@ int main( int argc, char **argv )
 		Accounts::instance()->load();
 
 		Console::instance()->send( "Loading ip blocking rules...\n" );
-		cNetwork::instance()->load();
+		Network::instance()->load();
 
 		Console::instance()->send( "Loading regions...\n" );
 		AllTerritories::instance()->load();
@@ -432,26 +432,22 @@ int main( int argc, char **argv )
 		++aiit;
 	}
 
-#if !defined(_DEBUG)
-	try {
-#endif
+	/*try {*/
 		World::instance()->load();
-#if !defined(_DEBUG)
-	} catch( QString &error ) {
+	/*} catch( QString &error ) {
 		Console::instance()->log( LOG_ERROR, error );
 		return 1;
-	}
-	catch( ... )
-	{
+	} catch (wpException e) {
+		Console::instance()->log(LOG_ERROR, e.error() + "\n");
+	} catch (...) {
 		Console::instance()->log( LOG_ERROR, "An unknown error occured while loading the world.\n" );
 		return 1;
-	}
-#endif
+	}*/
 
 	uiCurrentTime = getNormalizedTime();
 
 	// network startup
-	cNetwork::startup();
+	Network::instance()->startup();
 
 	if( SrvParams->enableLogin() )
 	{
@@ -493,11 +489,11 @@ int main( int argc, char **argv )
 				switch( SrvParams->niceLevel() )
 				{
 					case 0: break;	// very unnice - hog all cpu time
-					case 1: if ( cNetwork::instance()->count() != 0) niceLevel.wait(10); else niceLevel.wait(100); break;
+					case 1: if ( Network::instance()->count() != 0) niceLevel.wait(10); else niceLevel.wait(100); break;
 					case 2: niceLevel.wait(10); break;
 					case 3: niceLevel.wait(40); break;// very nice
-					case 4: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(10); else niceLevel.wait(4000); break; // anti busy waiting
-					case 5: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(40); else niceLevel.wait(5000); break;
+					case 4: if ( Network::instance()->count() != 0 ) niceLevel.wait(10); else niceLevel.wait(4000); break; // anti busy waiting
+					case 5: if ( Network::instance()->count() != 0 ) niceLevel.wait(40); else niceLevel.wait(5000); break;
 					default: niceLevel.wait(10); break;
 				}
 				qApp->processEvents( 40 );
@@ -578,7 +574,7 @@ int main( int argc, char **argv )
 		lockDataMutex();
 
 		try {
-			cNetwork::instance()->poll();
+			Network::instance()->poll();
 		} catch(wpException e) {
 			Console::instance()->log(LOG_PYTHON, e.error() + "\n");
 		}
@@ -596,8 +592,8 @@ int main( int argc, char **argv )
 
 	ScriptManager::instance()->onServerStop();
 
-	cNetwork::instance()->broadcast( tr( "The server is shutting down." ) );
-	cNetwork::shutdown();
+	Network::instance()->broadcast( tr( "The server is shutting down." ) );
+	Network::instance()->shutdown();
 
 	SrvParams->flush(); // Save config options
 

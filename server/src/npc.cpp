@@ -255,7 +255,7 @@ void cNPC::update( bool excludeself )
 	cUOTxUpdatePlayer update;
 	update.fromChar(this);
 
-	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+	for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next()) {
 		if (socket->canSee(this)) {
 			update.setHighlight(notoriety(socket->player()));
 			socket->send(&update);
@@ -273,7 +273,7 @@ void cNPC::resend( bool clean)
 	cUOTxRemoveObject remove;
 	remove.setSerial(serial_);
 
-	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+	for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next()) {
 		if (socket->canSee(this)) {
 			cUOTxDrawChar drawChar;
 			drawChar.fromChar(this);
@@ -333,7 +333,7 @@ void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, 
 	else
 	{
 		// Send to all clients in range
-		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
 			if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 			{
@@ -359,7 +359,7 @@ void cNPC::talk( const UINT32 MsgID, const QString& params /*= 0*/, const QStrin
 	else
 	{
 		// Send to all clients in range
-		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
 			if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 			{
@@ -527,7 +527,7 @@ void cNPC::soundEffect( UI16 soundId, bool hearAll )
 	pSoundEffect.setCoord( pos() );
 
 	// Send the sound to all sockets in range
-	for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
+	for( cUOSocket *s = Network::instance()->first(); s; s = Network::instance()->next() )
 		if( s->player() && s->player()->inRange( this, s->player()->visualRange() ) )
 			s->send( &pSoundEffect );
 }

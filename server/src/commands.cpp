@@ -967,7 +967,7 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 			pChar->setRegion( region );
 		}
 
-		cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
+		Network::instance()->reload(); // This will be integrated into the normal definition system soon
 		socket->sysMessage("The configuration, definitions and python scripts have been reloaded.");
 	}
 	if( subCommand == "all" )
@@ -996,7 +996,7 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 			pChar->setRegion( region );
 		}
 
-		cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
+		Network::instance()->reload(); // This will be integrated into the normal definition system soon
 		socket->sysMessage("The accounts, configuration, definitions and python scripts have been reloaded.");
 	}
 }
@@ -1195,7 +1195,7 @@ void commandBroadcast( cUOSocket *socket, const QString &command, const QStringL
 {
 	Q_UNUSED(socket);
 	Q_UNUSED(command);
-	cNetwork::instance()->broadcast(args.join( " " ));
+	Network::instance()->broadcast(args.join( " " ));
 }
 
 /*
@@ -1285,7 +1285,7 @@ void commandGmtalk( cUOSocket *socket, const QString &command, const QStringList
 	QString message = "<" + socket->player()->name() + ">: " + args.join( " " );
 
 	cUOSocket *mSock = 0;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		if( mSock->player() && mSock->player()->isGM() )
 			mSock->sysMessage( message, 0x539 );

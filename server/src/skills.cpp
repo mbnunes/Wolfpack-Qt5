@@ -291,7 +291,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 
 		QString message = tr( "You notice %1 trying to steal %2 from %3." ).arg( pChar->name() ).arg( pItem->getName() ).arg( pVictim->name() );	
 
-		for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
+		for ( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next())
 		{
 			// Everyone within 7 Tiles notices us
 			if( mSock != socket && mSock->player() && mSock->player()->serial() != pVictim->serial() && mSock->player()->inRange( pChar, 7 ) ) 

@@ -666,7 +666,7 @@ static PyObject *wpEffect( PyObject* self, PyObject* args )
 	Coord_cl displaypos = getArgCoord( 1 );
 
 	cUOSocket *mSock;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		if( mSock->player() && mSock->player()->pos().distance( displaypos ) <= mSock->player()->visualRange() )
 			mSock->send( &effect );
@@ -1415,14 +1415,14 @@ static PyObject *wpSocketsFirst( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	return PyGetSocketObject( cNetwork::instance()->first() );
+	return PyGetSocketObject( Network::instance()->first() );
 }
 
 static PyObject *wpSocketsNext( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	return PyGetSocketObject( cNetwork::instance()->next() );  
+	return PyGetSocketObject( Network::instance()->next() );  
 }
 
 /*!
@@ -1432,7 +1432,7 @@ static PyObject *wpSocketsCount( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	return PyInt_FromLong( cNetwork::instance()->count() );
+	return PyInt_FromLong( Network::instance()->count() );
 }
 
 /*!

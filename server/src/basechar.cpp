@@ -330,20 +330,8 @@ bool cBaseChar::del()
 	return cUObject::del();
 }
 
-static void characterRegisterAfterLoading( P_CHAR pc )
-{
-	World::instance()->registerObject( pc );
-	pc->setRegion( AllTerritories::instance()->region( pc->pos().x, pc->pos().y, pc->pos().map ) );
-
-	UINT16 max_x = Map->mapTileWidth(pc->pos().map) * 8;
-	UINT16 max_y = Map->mapTileHeight(pc->pos().map) * 8;
-
-	// only > max_x and > max_y are invalid
-	if( pc->pos().x >= max_x || pc->pos().y >= max_y )
-	{
-		pc->remove();
-		return;
-	}
+static void characterRegisterAfterLoading(P_CHAR pc) {
+	World::instance()->registerObject(pc);
 }
 
 bool cBaseChar::isMurderer() const
@@ -502,7 +490,7 @@ void cBaseChar::action(unsigned char id, unsigned char speed, bool reverse)
 		action.setBackwards(1);
 	}
 
-	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
+	for( cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
 	{
 		if( socket->player() && socket->player()->inRange( this, socket->player()->visualRange() ) && ( !isHidden() || socket->player()->isGM() ) )
 			socket->send( &action );
@@ -782,7 +770,7 @@ void cBaseChar::wear( P_ITEM pi )
 	packet.setWearer( this->serial() );
 	packet.setSerial( pi->serial() );
 	packet.fromItem( pi );
-	for ( cUOSocket* socket = cNetwork::instance()->first(); socket != 0; socket = cNetwork::instance()->next() )
+	for ( cUOSocket* socket = Network::instance()->first(); socket != 0; socket = Network::instance()->next() )
 		if( socket->player() && socket->player()->inRange( this, socket->player()->visualRange() ) )
 			socket->send( &packet );
 }
@@ -930,7 +918,7 @@ void cBaseChar::emote( const QString &emote, UI16 color )
 	textSpeech.setColor( color );
 	textSpeech.setText( emote );
 
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			mSock->send( &textSpeech );
 }
@@ -2598,7 +2586,7 @@ bool cBaseChar::kill(cUObject *source) {
 	cUOTxRemoveObject rObject;
 	rObject.setSerial(serial_);
 	
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() ) 
+	for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() ) 
 	{
 		if (mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange())) 
 		{
@@ -2864,7 +2852,7 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 
 			// Show the You see XXX attacking YYY messages
 			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name() ).arg( pc_i->name() );
-			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+			for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 				if( mSock->player() && mSock->player() != pc_i && mSock->player()->inRange( pPet, mSock->player()->visualRange() ) )
 					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 			
@@ -2929,7 +2917,7 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 	// Send the "You see %1 attacking %2" string to all surrounding sockets
 	// Except the one being attacked
 	QString message = tr( "*You see %1 attacking %2*" ).arg(_player->name()).arg(pc_i->name());
-	for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
+	for( cUOSocket *s = Network::instance()->first(); s; s = Network::instance()->next() )
 		if( s->player() && s != this && s->player()->inRange( _player, s->player()->visualRange() ) && s->player() != pc_i )
 			s->showSpeech( _player, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 

@@ -152,16 +152,16 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 	case 'W':
 		Console::instance()->send( "Current Users in the World:\n" );
 
-		mSock = cNetwork::instance()->first();
+		mSock = Network::instance()->first();
 		i = 0;
 		
-		for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
 			if( mSock->player() )
 				Console::instance()->send( QString("%1) %2 [%3]\n").arg(++i).arg(mSock->player()->name()).arg(QString::number( mSock->player()->serial(), 16) ) );
 		}
 
-		Console::instance()->send( tr("Total Users Online: %1\n").arg(cNetwork::instance()->count()) );
+		Console::instance()->send( tr("Total Users Online: %1\n").arg(Network::instance()->count()) );
 		break;
 	case 'A': //reload the accounts file
 		queueAction( RELOAD_ACCOUNTS );

@@ -321,7 +321,7 @@ void WPDefManager::reload( void )
 		pChar->setRegion( region );
 	}
 
-	cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
+	Network::instance()->reload(); // This will be integrated into the normal definition system soon
 }
 
 // Load the Definitions

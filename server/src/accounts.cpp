@@ -467,7 +467,7 @@ void cAccounts::reload()
 	}
 
 	cUOSocket* mSock = NULL;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		if( mSock->account() )
 			sockaccnames.push_back( mSock->account()->login() );
@@ -487,7 +487,7 @@ void cAccounts::reload()
 	}
 
 	QStringList::iterator sit = sockaccnames.begin();
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		if( !(*sit).isNull() )
 			mSock->setAccount( getRecord( (*sit) ) );

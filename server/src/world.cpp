@@ -569,12 +569,19 @@ void cWorld::load()
 		P_ITEM pi = iter->second;
 		SERIAL contserial = reinterpret_cast<SERIAL>(pi->container());
 
+		SERIAL multiserial = (SERIAL)(pi->multi());
+		cMulti *multi = dynamic_cast<cMulti*>(findItem(multiserial));
+		pi->setMulti(multi);
+		if (multi) {
+			multi->addObject(pi);
+		}
+
 		if (!contserial) {
 			pi->setUnprocessed(false); // This is for safety reasons
 			int max_x = Map->mapTileWidth(pi->pos().map) * 8;
 			int max_y = Map->mapTileHeight(pi->pos().map) * 8;
 			if (pi->pos().x > max_x || pi->pos().y > max_y) {
-				Console::instance()->log(LOG_ERROR, QString("Item with invalid position %1,%2.\n").arg(pi->pos().x).arg(pi->pos().y));
+				Console::instance()->log(LOG_ERROR, QString("Item with invalid position %1,%2,%3,%4.\n").arg(pi->pos().x).arg(pi->pos().y).arg(pi->pos().z).arg(pi->pos().map));
 				deleteItems.append(pi);
 				continue;
 			} else {
@@ -588,7 +595,7 @@ void cWorld::load()
 				if (pCont) {
 					pCont->addItem(pi, false, true, true);
 				} else {
-					Console::instance()->log(LOG_ERROR, QString("Item with invalid container [%1].\n").arg(contserial));
+					Console::instance()->log(LOG_ERROR, QString("Item with invalid container [0x%1].\n").arg(contserial, 0, 16));
 					deleteItems.append(pi); // Queue this item up for deletion
 					continue; // Skip further processing
 				}
@@ -607,13 +614,6 @@ void cWorld::load()
 			}			
 
 			pi->setUnprocessed(false);
-		}
-
-		SERIAL multiserial = (SERIAL)(pi->multi());
-		cMulti *multi = dynamic_cast<cMulti*>(findItem(multiserial));
-		pi->setMulti(multi);
-		if (multi) {
-			multi->addObject(pi);
 		}
 
 		pi->flagUnchanged(); // We've just loaded, nothing changes.
@@ -653,7 +653,7 @@ void cWorld::load()
 			}
 		}
 
-		cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+		cTerritory *region = AllTerritories::instance()->region(pChar->pos().x, pChar->pos().y, pChar->pos().map);
 		pChar->setRegion(region);
 
 		SERIAL multiserial = (SERIAL)(pChar->multi());
@@ -720,7 +720,7 @@ void cWorld::save()
 		gump.addTilePic(3, 25, 4167);
 
 		// Send it to all connected ingame sockets
-		for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+		for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next()) {
 			socket->send(new cGump(gump));
 		}
 	}
@@ -808,7 +808,7 @@ void cWorld::save()
 		cUOTxCloseGump close;
 		close.setType(0x98FA2C10);
 
-		for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+		for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next()) {
 			socket->send(&close);
 		}
 	}

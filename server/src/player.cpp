@@ -203,7 +203,7 @@ void cPlayer::update(bool excludeself) {
 	cUOTxUpdatePlayer update;
 	update.fromChar(this);
 
-	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+	for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next()) {
 		if (socket != socket_ && socket->canSee(this)) {
 			update.setHighlight(notoriety(socket->player()));
 			socket->send(&update);
@@ -222,7 +222,7 @@ void cPlayer::resend(bool clean)
 	cUOTxRemoveObject remove;
 	remove.setSerial(serial());
 
-	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+	for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next()) {
 		// Don't send such a packet to ourself
 		if (socket->canSee(this)) {
 			if (socket == socket_) {
@@ -309,7 +309,7 @@ void cPlayer::talk( const QString &message, UI16 color, UINT8 type, bool autospa
 	else
 	{
 		// Send to all clients in range
-		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
 				if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 				{
@@ -628,7 +628,7 @@ void cPlayer::soundEffect( UI16 soundId, bool hearAll )
 	else
 	{
 		// Send the sound to all sockets in range
-		for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
+		for( cUOSocket *s = Network::instance()->first(); s; s = Network::instance()->next() )
 			if( s->player() && s->player()->inRange( this, s->player()->visualRange() ) )
 				s->send( &pSoundEffect );
 	}

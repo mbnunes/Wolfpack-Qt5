@@ -242,19 +242,19 @@ bool handleMenuSelect( unsigned int id )
 
 	case ID_SERVER_LISTUSERS:
 		// We simply do our thread safety manually here
-		cNetwork::instance()->lock();
+		Network::instance()->lock();
 
 		// Generate a list of Users
-		mSock = cNetwork::instance()->first();
+		mSock = Network::instance()->first();
 		i = 0;
 		
-		for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
 			if( mSock->player() )
 				Console::instance()->send( QString("%1) %2 [%3]\n").arg(++i).arg(mSock->player()->name()).arg(QString::number( mSock->player()->serial(), 16) ) );
 		}
 
-		cNetwork::instance()->unlock();
+		Network::instance()->unlock();
 
 		Console::instance()->send( QString( "Total Users Online: %1\n" ).arg( i ) );
 

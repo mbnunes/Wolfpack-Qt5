@@ -125,11 +125,11 @@ bool InputSpeech( cUOSocket *socket, P_PLAYER pChar, const QString &speech )
 			cPagesManager::getInstance()->push_back( pPage );
 			notification = tr( "GM Page from %1: %2" ).arg( pChar->name() ).arg( speech );
 			
-			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
+			for ( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next())
 				if( mSock->player() && mSock->player()->isGM() )
 					mSock->sysMessage( notification );
 				
-				if( cNetwork::instance()->count() > 0 )
+				if( Network::instance()->count() > 0 )
 					socket->sysMessage( tr( "Available Game Masters have been notified of your request." ) );
 				else
 					socket->sysMessage( tr( "There was no Game Master available, page queued." ) );
@@ -145,11 +145,11 @@ bool InputSpeech( cUOSocket *socket, P_PLAYER pChar, const QString &speech )
 			cPagesManager::getInstance()->push_back( pPage );
 			notification = tr( "Counselor Page from %1: %2" ).arg( pChar->name() ).arg( speech );
 			
-			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
+			for ( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next())
 				if( mSock->player() && (socket->player()->isCounselor() || socket->player()->isGM()) )
 					mSock->sysMessage( notification );
 				
-				if( cNetwork::instance()->count() > 0 )
+				if( Network::instance()->count() > 0 )
 					socket->sysMessage( tr( "Available Counselors have been notified of your request." ) );
 				else
 					socket->sysMessage( tr( "There was no Counselor available, page queued." ) );

@@ -269,7 +269,7 @@ void DragAndDrop::bounceItem( cUOSocket* socket, P_ITEM pItem, bool denyMove )
 	// to all in-range sockets
 	if( pItem->isInWorld() )
 	{
-		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 			if( mSock->inRange( socket ) )
 				mSock->soundEffect( 0x42, pItem );
 	}
@@ -419,7 +419,7 @@ void DragAndDrop::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 
 	// Send to all sockets in range
 	// ONLY the new equipped item and the sound-effect
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		if( mSock->player() && ( mSock->player()->dist( pWearer ) <= mSock->player()->visualRange() ) )
 		{

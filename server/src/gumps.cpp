@@ -284,7 +284,7 @@ cWhoMenuGump::cWhoMenuGump( UINT32 page )
 
 	sockets_.clear();
 
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		P_PLAYER pChar = mSock->player();
 		if( pChar )
@@ -373,7 +373,7 @@ cSocketInfoGump::cSocketInfoGump( cUOSocket* socket )
 	P_PLAYER pChar = socket->player();
 
 	bool contains = false;
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		if( mSock == socket )
 			contains = true;
@@ -431,7 +431,7 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 		return;
 
 	bool contains = false;
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock && !contains; mSock = cNetwork::instance()->next() )
+	for( cUOSocket *mSock = Network::instance()->first(); mSock && !contains; mSock = Network::instance()->next() )
 	{
 		if( mSock == socket_ )
 			contains = true;
@@ -942,7 +942,7 @@ void cHelpGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 		QString message = tr( "%1 Page from %2 [%3]: %4" ).arg( choice.switches[0] == 1 ? "GM" : "Counselor" ).arg( pChar->name() ).arg( account ).arg( lines.join( "\n" ) );
 
 		cUOSocket *mSock = 0;
-		for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		for( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		{
 			// Send a Message to this Character
 			if( mSock->account() && mSock->account()->isPageNotify() )

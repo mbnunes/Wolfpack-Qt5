@@ -144,7 +144,7 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				}
 				socket->sysMessage((char*)temp); //lb
 			}
-			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
+			for ( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next())
 			{
 				if( mSock != socket && mSock->player() && mSock->player()->inRange( pc_currchar, mSock->viewRange() ) && (rand()%10+10==17|| (rand()%2==1 && mSock->player()->intelligence() >= pc_currchar->intelligence()))) 
 					mSock->sysMessage(temp2);

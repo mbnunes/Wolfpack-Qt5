@@ -180,7 +180,7 @@ void cTiming::poll() {
 	QValueVector<Coord_cl> positions;
 
 	// Periodic checks for connected players
-	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+	for (cUOSocket *socket = Network::instance()->first(); socket; socket = Network::instance()->next()) {
 		if (!socket->player()) {
 			continue;
 		}

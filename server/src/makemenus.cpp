@@ -1748,7 +1748,7 @@ void cAllMakeMenus::unload()
 void cAllMakeMenus::reload()
 {
 	unload();
-	for ( cUOSocket* mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next()	)
+	for ( cUOSocket* mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next()	)
 	{
 		mSock->player()->clearLastSelections();
 	}
