@@ -1203,10 +1203,6 @@ void cBaseChar::processNode( const cElement *Tag )
 			setBindmenu(Value);
 	}
 
-	//<name>my this</name>
-	if( TagName == "name" )
-		this->setName(Value);
-		
 	//<backpack>
 	//	<color>0x132</color>
 	//	<item id="a">
@@ -1322,61 +1318,11 @@ void cBaseChar::processNode( const cElement *Tag )
 		mana_ = maxMana_;
 	}
 
-	//<defense>10</defense>
-	else if( TagName == "defense" )
-		this->bodyArmor_ = Value.toUInt();
-
-	//<emotecolor>0x482</emotecolor>
-	else if( TagName == "emotecolor" )
-		this->emoteColor_ = Value.toUShort();
-
-	//<fame>8000</fame>
-	else if( TagName == "fame" )
-		this->fame_ = Value.toInt();
-
-	//<food>3</food>
-	else if( TagName == "food" )
-	{
-		UI16 bit = Value.toUShort();
-		if( bit < 32 && bit > 0 )
-			this->nutriment_ |= ( 1 << (bit-1) );
-	}
-
 	//<gold>100</gold>
 	else if( TagName == "gold" )
 	{
 		giveGold( Value.toInt(), false );
 	}
-
-	//<id>0x11</id>
-	else if( TagName == "id" )
-	{
-		bodyID_ = Value.toInt();
-		orgBodyID_ = bodyID_;
-	}
-
-	//<karma>-500</karma>
-	else if( TagName == "karma" )
-		this->karma_ = Value.toInt();
-
-	//<poison>2</poison>
-	else if( TagName == "poison" )
-		this->setPoison( Value.toInt() );
-
-	//<skin>0x342</skin>
-	else if( TagName == "skin" )
-	{
-		skin_ = Value.toUShort();
-		orgSkin_ = Value.toUShort();
-	}
-		
-	//<saycolor>0x110</saycolor>
-	else if( TagName == "saycolor" )
-		saycolor_ = Value.toUShort();
-
-	//<title>the king</title>
-	else if( TagName == "title" )
-		this->setTitle( Value );
 
 	//<skill type="alchemy">100</skill>
 	//<skill type="1">100</skill>
@@ -1456,19 +1402,6 @@ void cBaseChar::processNode( const cElement *Tag )
 		}
 	}
 
-	else if( TagName == "inherit" )
-	{
-		QString inheritID;
-		if( Tag->hasAttribute( "id" ) )
-			inheritID = Tag->getAttribute( "id" );
-		else
-			inheritID = Value;
-
-		const cElement *element = DefManager->getDefinition( WPDT_NPC, inheritID );
-		if( element )
-			applyDefinition( element );
-	}
-
 	else
 	{
 		INT16 skillId = Skills->findSkillByDef( TagName );
@@ -1479,7 +1412,6 @@ void cBaseChar::processNode( const cElement *Tag )
 			setSkillValue( skillId, Value.toInt() );
 	}
 	
-//	cUObject::processNode( Tag );
 }
 
 void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight, bool noRemove )

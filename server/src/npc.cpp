@@ -918,17 +918,9 @@ void cNPC::processNode( const cElement *Tag )
 	QString Value = Tag->getValue();
 	QDomNodeList ChildTags;
 
-	//<carve>3</carve>
-	if( TagName == "carve" ) 
-		this->setCarve( Value );
-
-/*	//<cantrain />
-	else if( TagName == "cantrain" )
-		this->setCantrain( true );*/
-
 	//<attack min=".." max= "" />
 	//<attack>10</attack>
-	else if( TagName == "attack" )
+	if( TagName == "attack" )
 	{
 		if( Tag->hasAttribute("min") && Tag->hasAttribute("max") )
 		{
@@ -941,28 +933,6 @@ void cNPC::processNode( const cElement *Tag )
 			maxDamage_ = minDamage_;
 		}
 	}
-
-	//<fleeat>10</fleeat>
-	else if( TagName == "fleeat" )
-		this->setCriticalHealth( Value.toShort() );
-
-	//<hidamage>10</hidamage>
-	else if( TagName == "hidamage" )
-		this->minDamage_ = Value.toInt();
-
-	//<loot>lootlist</loot>
-	else if( TagName == "loot" )
-	{
-		this->setLootList( Value );
-	}
-
-	//<lodamage>10</lodamage>
-	else if( TagName == "lodamage" )
-		this->maxDamage_ = Value.toInt();
-
-/*	//<notrain />
-	else if( TagName == "notrain" )
-		this->setCantrain( false );*/
 
 	//<npcwander type="rectangle" x1="-10" x2="12" y1="5" y2="7" />
 	//<......... type="rect" ... />
@@ -1000,11 +970,6 @@ void cNPC::processNode( const cElement *Tag )
 		}
 	}
 
-	//<ai>Monster_Aggressive_L1</ai>
-	//<ai>Monster_Aggressive_L1,Monster_Aggr_L1_Wander</ai>
-	else if( TagName == "ai" )
-		this->setAI( Value );
-
 	//<shopkeeper>
 	//	<sellable>...handled like item-<contains>-section...</sellable>
 	//	<buyable>...see above...</buyable>
@@ -1036,20 +1001,21 @@ void cNPC::processNode( const cElement *Tag )
 				contItem->processContainerNode( currNode );
 		}		
 	}
-		
-/*	//<split>1</split>
-	else if( TagName == "split" )
-		this->setSplit( Value.toUShort() );
 
-	//<splitchance>10</splitchance>
-	else if( TagName == "splitchance" )
-		this->setSplitchnc( Value.toUShort() );*/
+	else if( TagName == "inherit" )
+	{
+		QString inheritID;
+		if( Tag->hasAttribute( "id" ) )
+			inheritID = Tag->getAttribute( "id" );
+		else
+			inheritID = Value;
 
-	//<totame>115</totame>
-	else if( TagName == "totame" )
-		tamingMinSkill_ = Value.toInt();
+		const cElement *element = DefManager->getDefinition( WPDT_NPC, inheritID );
+		if( element )
+			applyDefinition( element );
+	}
 
-	else
+	else 
 		cBaseChar::processNode( Tag );
 
 }
@@ -1066,6 +1032,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	else SET_STR_PROPERTY( "spawnregion", spawnregion_ )
 	else SET_INT_PROPERTY( "stablemaster", stablemasterSerial_ )
 	else SET_STR_PROPERTY( "lootlist", lootList_ )
+	else SET_STR_PROPERTY( "loot", lootList_ )
 	else SET_INT_PROPERTY( "maxdamage", maxDamage_ )
 	else SET_INT_PROPERTY( "mindamage", minDamage_ )
 	else SET_INT_PROPERTY( "hidamage", maxDamage_ )
@@ -1156,6 +1123,7 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "spawnregion", spawnregion_ )
 	else GET_PROPERTY( "stablemaster", FindCharBySerial( stablemasterSerial_ ) )
 	else GET_PROPERTY( "lootlist", lootList_ )
+	else GET_PROPERTY( "loot", lootList_ )
 	else GET_PROPERTY( "maxdamage", maxDamage_ )
 	else GET_PROPERTY( "mindamage", minDamage_ )
 	else GET_PROPERTY( "hidamage", maxDamage_ )

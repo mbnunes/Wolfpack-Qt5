@@ -89,8 +89,8 @@ public:
 	// methods for predefined books
 	void		refresh( void );
 
-	stError		*setProperty( const QString &name, const cVariant &value );
-	stError		*getProperty( const QString &name, cVariant &value ) const;
+	virtual stError		*setProperty( const QString &name, const cVariant &value );
+	virtual stError		*getProperty( const QString &name, cVariant &value ) const;
 private:
 	bool		predefined_;
 	bool		readonly_;

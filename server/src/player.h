@@ -79,8 +79,8 @@ public:
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
 
 	// other public methods
-	stError *setProperty( const QString &name, const cVariant &value );
-	stError *getProperty( const QString &name, cVariant &value ) const;
+	virtual stError *setProperty( const QString &name, const cVariant &value );
+	virtual stError *getProperty( const QString &name, cVariant &value ) const;
 	void turnTo( cUObject *object ); // override
 	void turnTo( const Coord_cl& data ); // override
 	P_NPC unmount();

@@ -104,8 +104,8 @@ public:
 
 	// other public methods
 	// Simple Property setting and getting for script engines.
-	stError *setProperty( const QString &name, const cVariant &value );
-	stError *getProperty( const QString &name, cVariant &value ) const;
+	virtual stError *setProperty( const QString &name, const cVariant &value );
+	virtual stError *getProperty( const QString &name, cVariant &value ) const;
 	void updateHealth( void );
 	void action( uchar id ); // Do an action
 	P_ITEM getWeapon() const;

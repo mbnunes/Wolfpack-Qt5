@@ -554,8 +554,9 @@ void cUObject::processNode( const cElement *Tag )
 
 		recreateEvents();
 	}
-	else
-		qWarning( tr("Unknown tag %1").arg(TagName) );
+	else 
+		setProperty( TagName, Value );
+//		qWarning( tr("Unknown tag %1").arg(TagName) );
 }
 
 // Remove it from all in-range sockets

@@ -1366,7 +1366,8 @@ static PyObject* wpChar_follow( wpChar* self, PyObject* args )
 		return PyFalse;
 
 	pChar->addPet( npc );
-	npc->setNextMoveTime();
+	npc->setWanderType( enFollowTarget );
+	npc->setWanderFollowTarget( pChar );
 
 	return PyTrue;
 }
@@ -1417,8 +1418,8 @@ static PyObject* wpChar_goto( wpChar* self, PyObject* args )
 	if ( !npc )
 		return PyFalse;
 
-	npc->findPath( pos );
-	npc->setNextMoveTime();
+	npc->setWanderType( enDestination );
+	npc->setWanderDestination( pos );
 
 	return PyTrue;
 }

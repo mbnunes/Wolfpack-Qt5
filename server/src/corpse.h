@@ -102,8 +102,8 @@ public:
 	// override update
 	virtual void update( cUOSocket *mSock = 0 );
 
-	stError *setProperty( const QString &name, const cVariant &value );
-	stError *getProperty( const QString &name, cVariant &value ) const;
+	virtual stError *setProperty( const QString &name, const cVariant &value );
+	virtual stError *getProperty( const QString &name, cVariant &value ) const;
 };
 
 // Inline members
