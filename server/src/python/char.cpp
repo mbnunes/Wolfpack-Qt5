@@ -2331,25 +2331,15 @@ static PyObject* wpChar_additem( wpChar* self, PyObject* args )
 	if ( self->pChar->free )
 		Py_RETURN_FALSE;
 
-	if ( !checkArgInt( 0 ) && !checkArgItem( 1 ) )
-	{
-		PyErr_BadArgument();
-		return 0;
-	}
-	bool handleWeight = true;
-	bool noRemove = false;
+	unsigned int layer;
+	P_ITEM pItem;
+	unsigned int handleweight = 1;
 
-	if ( PyTuple_Size( args ) > 2 && checkArgInt( 2 ) )
-		handleWeight = getArgInt( 2 ) > 0 ? true : false;
-
-	if ( PyTuple_Size( args ) > 2 && checkArgInt( 3 ) )
-		noRemove = getArgInt( 3 ) > 0 ? true : false;
-
-	int layer = getArgInt( 0 );
-	P_ITEM pItem = getArgItem( 1 );
+	if ( !PyArg_ParseTuple( args, "|O&:char.additem(layer, item, [handleweight], [noremove])", &layer, &PyConvertItem, &pItem, &handleweight ) )
+                return 0;
 
 	if ( pItem )
-		self->pChar->addItem( ( cBaseChar::enLayer ) layer, pItem, handleWeight, false );
+		self->pChar->addItem( ( cBaseChar::enLayer ) layer, pItem, handleweight != 0, false );
 
 	Py_RETURN_NONE;
 }
