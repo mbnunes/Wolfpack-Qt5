@@ -712,7 +712,7 @@ bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 	return true;
 }
 
-// see if a player has tried to move into a house they were banned from
+// see if a player has tried to move into a house they were banned from it
 bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
 {
     if ( !pc->npc ) // this code is also called from npcs-walking code, so only check for players to cut down lag!
