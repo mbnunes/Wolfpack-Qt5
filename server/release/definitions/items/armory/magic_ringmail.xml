@@ -10,71 +10,71 @@
 	<!-- Ringmail Gloves -->		
 		<!-- Durable -->
 	<item id="def_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<defense_neck_hands />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Defense\Ring Gloves</category>
 		</item>
 
 		<item id="guard_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<guarding_neck_hands />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Guarding\Ring Gloves</category>
 		</item>
 
 		<item id="hard_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<hardening_neck_hands />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Hardening\Ring Gloves</category>
 		</item>
 
 		<item id="fort_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<fortification_neck_hands />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Fortification\Ring Gloves</category>
 		</item>
 
 		<item id="invul_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<invulnerability_neck_hands />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Invulnerability\Ring Gloves</category>
 		</item>
 
 		<item id="durable_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<durable />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Durable\Ring Gloves</category>
 		</item>
 
 		<item id="dur_def_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<durable />
 			<defense_neck_hands />
 			<category>Armor\Magical\Ringmail\Durable\Defense\Ring Gloves</category>
 		</item>
 
 		<item id="dur_guard_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<durable />
 			<guarding_neck_hands />
 			<category>Armor\Magical\Ringmail\Durable\Guarding\Ring Gloves</category>
 		</item>
 
 		<item id="dur_hard_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<durable />
 			<hardening_neck_hands />
 			<category>Armor\Magical\Ringmail\Durable\Hardening\Ring Gloves</category>
 		</item>
 
 		<item id="dur_fort_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<durable />
 			<fortification_neck_hands />
 			<category>Armor\Magical\Ringmail\Durable\Fortification\Ring Gloves</category>
 		</item>
 
 		<item id="dur_invul_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<durable />
 			<invulnerability_neck_hands />
 			<category>Armor\Magical\Ringmail\Durable\Invulnerability\Ring Gloves</category>
@@ -82,41 +82,41 @@
 
 		<!-- Substantial -->
 		<item id="substantial_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<substantial />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Substantial\Ring Gloves</category>
 		</item>
 
 		<item id="sub_def_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<substantial />
 			<defense_neck_hands />
 			<category>Armor\Magical\Ringmail\Substantial\Defense\Ring Gloves</category>
 		</item>
 
 		<item id="sub_guard_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<substantial />
 			<guarding_neck_hands />
 			<category>Armor\Magical\Ringmail\Substantial\Guarding\Ring Gloves</category>
 		</item>
 
 		<item id="sub_hard_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<substantial />
 			<hardening_neck_hands />
 			<category>Armor\Magical\Ringmail\Substantial\Hardening\Ring Gloves</category>
 		</item>
 
 		<item id="sub_fort_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<substantial />
 			<fortification_neck_hands />
 			<category>Armor\Magical\Ringmail\Substantial\Fortification\Ring Gloves</category>
 		</item>
 
 		<item id="sub_invul_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<substantial />
 			<invulnerability_neck_hands />
 			<category>Armor\Magical\Ringmail\Substantial\Invulnerability\Ring Gloves</category>
@@ -124,41 +124,41 @@
 
 		<!-- Massive -->
 		<item id="massive_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<massive />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Massive\Ring Gloves</category>
 		</item>
 
 		<item id="mass_def_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<massive />
 			<defense_neck_hands />
 			<category>Armor\Magical\Ringmail\Massive\Defense\Ring Gloves</category>
 		</item>
 
 		<item id="mass_guard_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<massive />
 			<guarding_neck_hands />
 			<category>Armor\Magical\Ringmail\Massive\Guarding\Ring Gloves</category>
 		</item>
 
 		<item id="mass_hard_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<massive />
 			<hardening_neck_hands />
 			<category>Armor\Magical\Ringmail\Massive\Hardening\Ring Gloves</category>
 		</item>
 
 		<item id="mass_fort_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<massive />
 			<fortification_neck_hands />
 			<category>Armor\Magical\Ringmail\Massive\Fortification\Ring Gloves</category>
 		</item>
 
 		<item id="mass_invul_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<massive />
 			<invulnerability_neck_hands />
 			<category>Armor\Magical\Ringmail\Massive\Invulnerability\Ring Gloves</category>
@@ -166,41 +166,41 @@
 
 		<!-- Fortified -->
 		<item id="fortified_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<fortified />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Fortified\Ring Gloves</category>
 		</item>
 
 		<item id="fort_def_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<fortified />
 			<defense_neck_hands />
 			<category>Armor\Magical\Ringmail\Fortified\Defense\Ring Gloves</category>
 		</item>
 
 		<item id="fort_guard_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<fortified />
 			<guarding_neck_hands />
 			<category>Armor\Magical\Ringmail\Fortified\Guarding\Ring Gloves</category>
 		</item>
 
 		<item id="fort_hard_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<fortified />
 			<hardening_neck_hands />
 			<category>Armor\Magical\Ringmail\Fortified\Hardening\Ring Gloves</category>
 		</item>
 
 		<item id="fort_fort_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<fortified />
 			<fortification_neck_hands />
 			<category>Armor\Magical\Ringmail\Fortified\Fortification\Ring Gloves</category>
 		</item>
 
 		<item id="fort_invul_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<fortified />
 			<invulnerability_neck_hands />
 			<category>Armor\Magical\Ringmail\Fortified\Invulnerability\Ring Gloves</category>
@@ -208,41 +208,41 @@
 
 		<!-- Indestructible -->
 		<item id="indestructible_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<indestructible />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Indestructible\Ring Gloves</category>
 		</item>
 
 		<item id="indes_def_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<indestructible />
 			<defense_neck_hands />
 			<category>Armor\Magical\Ringmail\Indestructible\Defense\Ring Gloves</category>
 		</item>
 
 		<item id="indes_guard_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<indestructible />
 			<guarding_neck_hands />
 			<category>Armor\Magical\Ringmail\Indestructible\Guarding\Ring Gloves</category>
 		</item>
 
 		<item id="indes_hard_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<indestructible />
 			<hardening_neck_hands />
 			<category>Armor\Magical\Ringmail\Indestructible\Hardening\Ring Gloves</category>
 		</item>
 
 		<item id="indes_fort_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<indestructible />
 			<fortification_neck_hands />
 			<category>Armor\Magical\Ringmail\Indestructible\Fortification\Ring Gloves</category>
 		</item>
 
 		<item id="indes_invul_ring_gloves">
-			<inherit id="13f2" />
+			<inherit id="13eb" />
 			<indestructible />
 			<invulnerability_neck_hands />
 			<category>Armor\Magical\Ringmail\Indestructible\Invulnerability\Ring Gloves</category>
@@ -251,71 +251,71 @@
 	<!-- Ringmail Legs -->
 		<!-- Durable -->
 	<item id="def_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<defense_arms_legs_head />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Defense\Ring Legs</category>
 		</item>
 
 		<item id="guard_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<guarding_arms_legs_head />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Guarding\Ring Legs</category>
 		</item>
 
 		<item id="hard_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<hardening_arms_legs_head />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Hardening\Ring Legs</category>
 		</item>
 
 		<item id="fort_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<fortification_arms_legs_head />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Fortification\Ring Legs</category>
 		</item>
 
 		<item id="invul_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<invulnerability_arms_legs_head />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Invulnerability\Ring Legs</category>
 		</item>
 
 		<item id="durable_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<durable />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Durable\Ring Legs</category>
 		</item>
 
 		<item id="dur_def_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<durable />
 			<defense_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Durable\Defense\Ring Legs</category>
 		</item>
 
 		<item id="dur_guard_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<durable />
 			<guarding_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Durable\Guarding\Ring Legs</category>
 		</item>
 
 		<item id="dur_hard_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<durable />
 			<hardening_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Durable\Hardening\Ring Legs</category>
 		</item>
 
 		<item id="dur_fort_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<durable />
 			<fortification_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Durable\Fortification\Ring Legs</category>
 		</item>
 
 		<item id="dur_invul_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<durable />
 			<invulnerability_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Durable\Invulnerability\Ring Legs</category>
@@ -323,41 +323,41 @@
 
 		<!-- Substantial -->
 		<item id="substantial_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<substantial />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Substantial\Ring Legs</category>
 		</item>
 
 		<item id="sub_def_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<substantial />
 			<defense_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Substantial\Defense\Ring Legs</category>
 		</item>
 
 		<item id="sub_guard_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<substantial />
 			<guarding_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Substantial\Guarding\Ring Legs</category>
 		</item>
 
 		<item id="sub_hard_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<substantial />
 			<hardening_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Substantial\Hardening\Ring Legs</category>
 		</item>
 
 		<item id="sub_fort_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<substantial />
 			<fortification_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Substantial\Fortification\Ring Legs</category>
 		</item>
 
 		<item id="sub_invul_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<substantial />
 			<invulnerability_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Substantial\Invulnerability\Ring Legs</category>
@@ -365,41 +365,41 @@
 
 		<!-- Massive -->
 		<item id="massive_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<massive />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Massive\Ring Legs</category>
 		</item>
 
 		<item id="mass_def_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<massive />
 			<defense_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Massive\Defense\Ring Legs</category>
 		</item>
 
 		<item id="mass_guard_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<massive />
 			<guarding_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Massive\Guarding\Ring Legs</category>
 		</item>
 
 		<item id="mass_hard_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<massive />
 			<hardening_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Massive\Hardening\Ring Legs</category>
 		</item>
 
 		<item id="mass_fort_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<massive />
 			<fortification_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Massive\Fortification\Ring Legs</category>
 		</item>
 
 		<item id="mass_invul_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<massive />
 			<invulnerability_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Massive\Invulnerability\Ring Legs</category>
@@ -407,41 +407,41 @@
 
 		<!-- Fortified -->
 		<item id="fortified_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<fortified />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Fortified\Ring Legs</category>
 		</item>
 
 		<item id="fort_def_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<fortified />
 			<defense_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Fortified\Defense\Ring Legs</category>
 		</item>
 
 		<item id="fort_guard_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<fortified />
 			<guarding_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Fortified\Guarding\Ring Legs</category>
 		</item>
 
 		<item id="fort_hard_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<fortified />
 			<hardening_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Fortified\Hardening\Ring Legs</category>
 		</item>
 
 		<item id="fort_fort_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<fortified />
 			<fortification_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Fortified\Fortification\Ring Legs</category>
 		</item>
 
 		<item id="fort_invul_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<fortified />
 			<invulnerability_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Fortified\Invulnerability\Ring Legs</category>
@@ -449,41 +449,41 @@
 
 		<!-- Indestructible -->
 		<item id="indestructible_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<indestructible />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Indestructible\Ring Legs</category>
 		</item>
 
 		<item id="indes_def_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<indestructible />
 			<defense_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Indestructible\Defense\Ring Legs</category>
 		</item>
 
 		<item id="indes_guard_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<indestructible />
 			<guarding_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Indestructible\Guarding\Ring Legs</category>
 		</item>
 
 		<item id="indes_hard_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<indestructible />
 			<hardening_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Indestructible\Hardening\Ring Legs</category>
 		</item>
 
 		<item id="indes_fort_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<indestructible />
 			<fortification_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Indestructible\Fortification\Ring Legs</category>
 		</item>
 
 		<item id="indes_invul_ring_legs">
-			<inherit id="13f1" />
+			<inherit id="13f0" />
 			<indestructible />
 			<invulnerability_arms_legs_head />
 			<category>Armor\Magical\Ringmail\Indestructible\Invulnerability\Ring Legs</category>
@@ -731,71 +731,71 @@
 
 	<!-- Ringmail Tunic -->
 	<item id="def_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<defense_body />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Defense\Ring Tunic</category>
 		</item>
 
 		<item id="guard_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<guarding_body />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Guarding\Ring Tunic</category>
 		</item>
 
 		<item id="hard_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<hardening_body />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Hardening\Ring Tunic</category>
 		</item>
 
 		<item id="fort_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<fortification_body />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Fortification\Ring Tunic</category>
 		</item>
 
 		<item id="invul_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<invulnerability_body />
 			<category>Armor\Magical\Ringmail\AR Modified Only\Invulnerability\Ring Tunic</category>
 		</item>
 
 		<item id="durable_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<durable />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Durable\Ring Tunic</category>
 		</item>
 
 		<item id="dur_def_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<durable />
 			<defense_body />
 			<category>Armor\Magical\Ringmail\Durable\Defense\Ring Tunic</category>
 		</item>
 
 		<item id="dur_guard_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<durable />
 			<guarding_body />
 			<category>Armor\Magical\Ringmail\Durable\Guarding\Ring Tunic</category>
 		</item>
 
 		<item id="dur_hard_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<durable />
 			<hardening_body />
 			<category>Armor\Magical\Ringmail\Durable\Hardening\Ring Tunic</category>
 		</item>
 
 		<item id="dur_fort_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<durable />
 			<fortification_body />
 			<category>Armor\Magical\Ringmail\Durable\Fortification\Ring Tunic</category>
 		</item>
 
 		<item id="dur_invul_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<durable />
 			<invulnerability_body />
 			<category>Armor\Magical\Ringmail\Durable\Invulnerability\Ring Tunic</category>
@@ -803,41 +803,41 @@
 
 		<!-- Substantial -->
 		<item id="substantial_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<substantial />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Substantial\Ring Tunic</category>
 		</item>
 
 		<item id="sub_def_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<substantial />
 			<defense_body />
 			<category>Armor\Magical\Ringmail\Substantial\Defense\Ring Tunic</category>
 		</item>
 
 		<item id="sub_guard_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<substantial />
 			<guarding_body />
 			<category>Armor\Magical\Ringmail\Substantial\Guarding\Ring Tunic</category>
 		</item>
 
 		<item id="sub_hard_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<substantial />
 			<hardening_body />
 			<category>Armor\Magical\Ringmail\Substantial\Hardening\Ring Tunic</category>
 		</item>
 
 		<item id="sub_fort_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<substantial />
 			<fortification_body />
 			<category>Armor\Magical\Ringmail\Substantial\Fortification\Ring Tunic</category>
 		</item>
 
 		<item id="sub_invul_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<substantial />
 			<invulnerability_body />
 			<category>Armor\Magical\Ringmail\Substantial\Invulnerability\Ring Tunic</category>
@@ -845,41 +845,41 @@
 
 		<!-- Massive -->
 		<item id="massive_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<massive />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Massive\Ring Tunic</category>
 		</item>
 
 		<item id="mass_def_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<massive />
 			<defense_body />
 			<category>Armor\Magical\Ringmail\Massive\Defense\Ring Tunic</category>
 		</item>
 
 		<item id="mass_guard_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<massive />
 			<guarding_body />
 			<category>Armor\Magical\Ringmail\Massive\Guarding\Ring Tunic</category>
 		</item>
 
 		<item id="mass_hard_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<massive />
 			<hardening_body />
 			<category>Armor\Magical\Ringmail\Massive\Hardening\Ring Tunic</category>
 		</item>
 
 		<item id="mass_fort_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<massive />
 			<fortification_body />
 			<category>Armor\Magical\Ringmail\Massive\Fortification\Ring Tunic</category>
 		</item>
 
 		<item id="mass_invul_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<massive />
 			<invulnerability_body />
 			<category>Armor\Magical\Ringmail\Massive\Invulnerability\Ring Tunic</category>
@@ -887,41 +887,41 @@
 
 		<!-- Fortified -->
 		<item id="fortified_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<fortified />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Fortified\Ring Tunic</category>
 		</item>
 
 		<item id="fort_def_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<fortified />
 			<defense_body />
 			<category>Armor\Magical\Ringmail\Fortified\Defense\Ring Tunic</category>
 		</item>
 
 		<item id="fort_guard_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<fortified />
 			<guarding_body />
 			<category>Armor\Magical\Ringmail\Fortified\Guarding\Ring Tunic</category>
 		</item>
 
 		<item id="fort_hard_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<fortified />
 			<hardening_body />
 			<category>Armor\Magical\Ringmail\Fortified\Hardening\Ring Tunic</category>
 		</item>
 
 		<item id="fort_fort_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<fortified />
 			<fortification_body />
 			<category>Armor\Magical\Ringmail\Fortified\Fortification\Ring Tunic</category>
 		</item>
 
 		<item id="fort_invul_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<fortified />
 			<invulnerability_body />
 			<category>Armor\Magical\Ringmail\Fortified\Invulnerability\Ring Tunic</category>
@@ -929,41 +929,41 @@
 
 		<!-- Indestructible -->
 		<item id="indestructible_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<indestructible />
 			<category>Armor\Magical\Ringmail\Durability Modified Only\Indestructible\Ring Tunic</category>
 		</item>
 
 		<item id="indes_def_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<indestructible />
 			<defense_body />
 			<category>Armor\Magical\Ringmail\Indestructible\Defense\Ring Tunic</category>
 		</item>
 
 		<item id="indes_guard_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<indestructible />
 			<guarding_body />
 			<category>Armor\Magical\Ringmail\Indestructible\Guarding\Ring Tunic</category>
 		</item>
 
 		<item id="indes_hard_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<indestructible />
 			<hardening_body />
 			<category>Armor\Magical\Ringmail\Indestructible\Hardening\Ring Tunic</category>
 		</item>
 
 		<item id="indes_fort_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<indestructible />
 			<fortification_body />
 			<category>Armor\Magical\Ringmail\Indestructible\Fortification\Ring Tunic</category>
 		</item>
 
 		<item id="indes_invul_ring_tunic">
-			<inherit id="13ed" />
+			<inherit id="13ec" />
 			<indestructible />
 			<invulnerability_body />
 			<category>Armor\Magical\Ringmail\Indestructible\Invulnerability\Ring Tunic</category>

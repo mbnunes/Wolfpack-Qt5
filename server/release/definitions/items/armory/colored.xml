@@ -167,122 +167,122 @@
 
 	<!-- chainmail leggings -->
 	<item id="iron_armor_chain_leggings">
-		<inherit id="13c3" />
+		<inherit id="13be" />
 		<iron_armor />
 		<category>Armor\Iron\Chainmail\Leggings</category>		
 	</item>
 
 	<item id="shadow_armor_chain_leggings">
-		<inherit id="13c3" />
+		<inherit id="13be" />
 		<shadow_armor />
 		<category>Armor\Shadow\Chainmail\Leggings</category>		
 	</item>
 
 	<item id="merkite_armor_chain_leggings">
-		<inherit id="13c3" />
+		<inherit id="13be" />
 		<merkite_armor />
 		<category>Armor\Merkite\Chainmail\Leggings</category>
 	</item>
 
 	<item id="copper_armor_chain_leggings">
-		<inherit id="13c3" />
+		<inherit id="13be" />
 		<copper_armor />
 		<category>Armor\Copper\Chainmail\Leggings</category>
 	</item>
 
 	<item id="silver_armor_chain_leggings">
-		<inherit id="13c3" />
+		<inherit id="13be" />
 		<silver_armor />
 		<category>Armor\Silver\Chainmail\Leggings</category>
 	</item>
 
 	<item id="bronze_armor_chain_leggings">
-		<inherit id="13c3" />
+		<inherit id="13be" />
 		<bronze_armor />
 		<category>Armor\Bronze\Chainmail\Leggings</category>
 	</item>
 
 	<item id="golden_armor_chain_leggings">
-		<inherit id="13c3" />
+		<inherit id="13be" />
 		<golden_armor />
 		<category>Armor\Golden\Chainmail\Leggings</category>
 	</item>
 
 	<item id="agapite_armor_chain_leggings">
-		<inherit id="13c3" />
+		<inherit id="13be" />
 		<agapite_armor />
 		<category>Armor\Agapite\Chainmail\Leggings</category>
 	</item>
 
 	<item id="verite_armor_chain_leggings">
-		<inherit id="13c3" />
+		<inherit id="13be" />
 		<verite_armor />
 		<category>Armor\Verite\Chainmail\Leggings</category>
 	</item>
 
 	<item id="mythril_armor_chain_leggings">
-		<inherit id="13c3" />
+		<inherit id="13be" />
 		<mythril_armor />
 		<category>Armor\Mythril\Chainmail\Leggings</category>
 	</item>
 
 	<!-- chainmail tunic -->
 	<item id="iron_armor_chain_tunic">
-		<inherit id="13c4" />
+		<inherit id="13bf" />
 		<iron_armor />
 		<category>Armor\Iron\Chainmail\Tunic</category>
 	</item>
 
 	<item id="shadow_armor_chain_tunic">
-		<inherit id="13c4" />
+		<inherit id="13bf" />
 		<shadow_armor />
 		<category>Armor\Shadow\Chainmail\Tunic</category>
 	</item>
 
 	<item id="merkite_armor_chain_tunic">
-		<inherit id="13c4" />
+		<inherit id="13bf" />
 		<merkite_armor />
 		<category>Armor\Merkite\Chainmail\Tunic</category>
 	</item>
 
 	<item id="copper_armor_chain_tunic">
-		<inherit id="13c4" />
+		<inherit id="13bf" />
 		<copper_armor />
 		<category>Armor\Copper\Chainmail\Tunic</category>
 	</item>
 
 	<item id="silver_armor_chain_tunic">
-		<inherit id="13c4" />
+		<inherit id="13bf" />
 		<silver_armor />
 		<category>Armor\Silver\Chainmail\Tunic</category>
 	</item>
 
 	<item id="bronze_armor_chain_tunic">
-		<inherit id="13c4" />
+		<inherit id="13bf" />
 		<bronze_armor />
 		<category>Armor\Bronze\Chainmail\Tunic</category>
 	</item>
 
 	<item id="golden_armor_chain_tunic">
-		<inherit id="13c4" />
+		<inherit id="13bf" />
 		<golden_armor />
 		<category>Armor\Golden\Chainmail\Tunic</category>
 	</item>
 
 	<item id="agapite_armor_chain_tunic">
-		<inherit id="13c4" />
+		<inherit id="13bf" />
 		<agapite_armor />
 		<category>Armor\Agapite\Chainmail\Tunic</category>
 	</item>
 
 	<item id="verite_armor_chain_tunic">
-		<inherit id="13c4" />
+		<inherit id="13bf" />
 		<verite_armor />
 		<category>Armor\Verite\Chainmail\Tunic</category>
 	</item>
 
 	<item id="mythril_armor_chain_tunic">
-		<inherit id="13c4" />
+		<inherit id="13bf" />
 		<mythril_armor />
 		<category>Armor\Mythril\Chainmail\Tunic</category>
 	</item>
@@ -351,61 +351,61 @@
 
 	<!-- male plate armor -->
 	<item id="iron_armor_plate_male">
-		<inherit id="1416" />
+		<inherit id="1415" />
 		<iron_armor />
 		<category>Armor\Iron\Platemail\Breastplate</category>
 	</item>
 	
 	<item id="shadow_armor_plate_male">
-		<inherit id="1416" />
+		<inherit id="1415" />
 		<shadow_armor />
 		<category>Armor\Shadow\Platemail\Breastplate</category>
 	</item>
 
 	<item id="merkite_armor_plate_male">
-		<inherit id="1416" />
+		<inherit id="1415" />
 		<merkite_armor />
 		<category>Armor\Merkite\Platemail\Breastplate</category>
 	</item>
 
 	<item id="copper_armor_plate_male">
-		<inherit id="1416" />
+		<inherit id="1415" />
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Breastplate</category>
 	</item>
 
 	<item id="silver_armor_plate_male">
-		<inherit id="1416" />
+		<inherit id="1415" />
 		<silver_armor />
 		<category>Armor\Silver\Platemail\Breastplate</category>
 	</item>
 
 	<item id="bronze_armor_plate_male">
-		<inherit id="1416" />
+		<inherit id="1415" />
 		<bronze_armor />
 		<category>Armor\Bronze\Platemail\Breastplate</category>
 	</item>
 
 	<item id="golden_armor_plate_male">
-		<inherit id="1416" />
+		<inherit id="1415" />
 		<golden_armor />
 		<category>Armor\Golden\Platemail\Breastplate</category>
 	</item>
 
 	<item id="agapite_armor_plate_male">
-		<inherit id="1416" />
+		<inherit id="1415" />
 		<agapite_armor />
 		<category>Armor\Agapite\Platemail\Breastplate</category>
 	</item>
 
 	<item id="verite_armor_plate_male">
-		<inherit id="1416" />
+		<inherit id="1415" />
 		<verite_armor />
 		<category>Armor\Verite\Platemail\Breastplate</category>
 	</item>
 
 	<item id="mythril_armor_plate_male">
-		<inherit id="1416" />
+		<inherit id="1415" />
 		<mythril_armor />
 		<category>Armor\Mythril\Platemail\Breastplate</category>
 	</item>
@@ -656,61 +656,61 @@
 
 	<!-- plate leggings -->
 	<item id="iron_armor_plate_leggings">
-		<inherit id="141a" />
+		<inherit id="1411" />
 		<iron_armor />
 		<category>Armor\Iron\Platemail\Leggings</category>
 	</item>
 	
 	<item id="shadow_armor_plate_leggings">
-		<inherit id="141a" />
+		<inherit id="1411" />
 		<shadow_armor />
 		<category>Armor\Shadow\Platemail\Leggings</category>
 	</item>
 
 	<item id="merkite_armor_plate_leggings">
-		<inherit id="141a" />
+		<inherit id="1411" />
 		<merkite_armor />
 		<category>Armor\Merkite\Platemail\Leggings</category>
 	</item>
 
 	<item id="copper_armor_plate_leggings">
-		<inherit id="141a" />
+		<inherit id="1411" />
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Leggings</category>
 	</item>
 
 	<item id="silver_armor_plate_leggings">
-		<inherit id="141a" />
+		<inherit id="1411" />
 		<silver_armor />
 		<category>Armor\Silver\Platemail\Leggings</category>
 	</item>
 
 	<item id="bronze_armor_plate_leggings">
-		<inherit id="141a" />
+		<inherit id="1411" />
 		<bronze_armor />
 		<category>Armor\Bronze\Platemail\Leggings</category>
 	</item>
 
 	<item id="golden_armor_plate_leggings">
-		<inherit id="141a" />
+		<inherit id="1411" />
 		<golden_armor />
 		<category>Armor\Golden\Platemail\Leggings</category>
 	</item>
 
 	<item id="agapite_armor_plate_leggings">
-		<inherit id="141a" />
+		<inherit id="1411" />
 		<agapite_armor />
 		<category>Armor\Agapite\Platemail\Leggings</category>
 	</item>
 
 	<item id="verite_armor_plate_leggings">
-		<inherit id="141a" />
+		<inherit id="1411" />
 		<verite_armor />
 		<category>Armor\Verite\Platemail\Leggings</category>
 	</item>
 
 	<item id="mythril_armor_plate_leggings">
-		<inherit id="141a" />
+		<inherit id="1411" />
 		<mythril_armor />
 		<category>Armor\Mythril\Platemail\Leggings</category>
 	</item>
@@ -718,122 +718,122 @@
 	<!-- ring armor -->
 	<!-- ring gloves -->
 	<item id="iron_armor_ring_gloves">
-		<inherit id="13f2" />
+		<inherit id="13eb" />
 		<iron_armor />
 		<category>Armor\Iron\Ringmail\Gloves</category>
 	</item>
 	
 	<item id="shadow_armor_ring_gloves">
-		<inherit id="13f2" />
+		<inherit id="13eb" />
 		<shadow_armor />
 		<category>Armor\Shadow\Ringmail\Gloves</category>
 	</item>
 
 	<item id="merkite_armor_ring_gloves">
-		<inherit id="13f2" />
+		<inherit id="13eb" />
 		<merkite_armor />
 		<category>Armor\Merkite\Ringmail\Gloves</category>
 	</item>
 
 	<item id="copper_armor_ring_gloves">
-		<inherit id="13f2" />
+		<inherit id="13eb" />
 		<copper_armor />
 		<category>Armor\Copper\Ringmail\Gloves</category>
 	</item>
 
 	<item id="silver_armor_ring_gloves">
-		<inherit id="13f2" />
+		<inherit id="13eb" />
 		<silver_armor />
 		<category>Armor\Silver\Ringmail\Gloves</category>
 	</item>
 
 	<item id="bronze_armor_ring_gloves">
-		<inherit id="13f2" />
+		<inherit id="13eb" />
 		<bronze_armor />
 		<category>Armor\Bronze\Ringmail\Gloves</category>
 	</item>
 
 	<item id="golden_armor_ring_gloves">
-		<inherit id="13f2" />
+		<inherit id="13eb" />
 		<golden_armor />
 		<category>Armor\Golden\Ringmail\Gloves</category>
 	</item>
 
 	<item id="agapite_armor_ring_gloves">
-		<inherit id="13f2" />
+		<inherit id="13eb" />
 		<agapite_armor />
 		<category>Armor\Agapite\Ringmail\Gloves</category>
 	</item>
 
 	<item id="verite_armor_ring_gloves">
-		<inherit id="13f2" />
+		<inherit id="13eb" />
 		<verite_armor />
 		<category>Armor\Verite\Ringmail\Gloves</category>
 	</item>
 
 	<item id="mythril_armor_ring_gloves">
-		<inherit id="13f2" />
+		<inherit id="13eb" />
 		<mythril_armor />
 		<category>Armor\Mythril\Ringmail\Gloves</category>
 	</item>
 
 	<!-- ring leggings -->
 	<item id="iron_armor_ring_leggings">
-		<inherit id="13f1" />
+		<inherit id="13f0" />
 		<iron_armor />
 		<category>Armor\Iron\Ringmail\Leggings</category>
 	</item>
 	
 	<item id="shadow_armor_ring_leggings">
-		<inherit id="13f1" />
+		<inherit id="13f0" />
 		<shadow_armor />
 		<category>Armor\Shadow\Ringmail\Leggings</category>
 	</item>
 
 	<item id="merkite_armor_ring_leggings">
-		<inherit id="13f1" />
+		<inherit id="13f0" />
 		<merkite_armor />
 		<category>Armor\Merkite\Ringmail\Leggings</category>
 	</item>
 
 	<item id="copper_armor_ring_leggings">
-		<inherit id="13f1" />
+		<inherit id="13f0" />
 		<copper_armor />
 		<category>Armor\Copper\Ringmail\Leggings</category>
 	</item>
 
 	<item id="silver_armor_ring_leggings">
-		<inherit id="13f1" />
+		<inherit id="13f0" />
 		<silver_armor />
 		<category>Armor\Silver\Ringmail\Leggings</category>
 	</item>
 
 	<item id="bronze_armor_ring_leggings">
-		<inherit id="13f1" />
+		<inherit id="13f0" />
 		<bronze_armor />
 		<category>Armor\Bronze\Ringmail\Leggings</category>
 	</item>
 
 	<item id="golden_armor_ring_leggings">
-		<inherit id="13f1" />
+		<inherit id="13f0" />
 		<golden_armor />
 		<category>Armor\Golden\Ringmail\Leggings</category>
 	</item>
 
 	<item id="agapite_armor_ring_leggings">
-		<inherit id="13f1" />
+		<inherit id="13f0" />
 		<agapite_armor />
 		<category>Armor\Agapite\Ringmail\Leggings</category>
 	</item>
 
 	<item id="verite_armor_ring_leggings">
-		<inherit id="13f1" />
+		<inherit id="13f0" />
 		<verite_armor />
 		<category>Armor\Verite\Ringmail\Leggings</category>
 	</item>
 
 	<item id="mythril_armor_ring_leggings">
-		<inherit id="13f1" />
+		<inherit id="13f0" />
 		<mythril_armor />
 		<category>Armor\Mythril\Ringmail\Leggings</category>
 	</item>
@@ -901,61 +901,61 @@
 
 	<!-- ring tunic -->
 	<item id="iron_armor_ring_tunic">
-		<inherit id="13ed" />
+		<inherit id="13ec" />
 		<iron_armor />
 		<category>Armor\Iron\Ringmail\Tunic</category>
 	</item>
 	
 	<item id="shadow_armor_ring_tunic">
-		<inherit id="13ed" />
+		<inherit id="13ec" />
 		<shadow_armor />
 		<category>Armor\Shadow\Ringmail\Tunic</category>
 	</item>
 
 	<item id="merkite_armor_ring_tunic">
-		<inherit id="13ed" />
+		<inherit id="13ec" />
 		<merkite_armor />
 		<category>Armor\Merkite\Ringmail\Tunic</category>
 	</item>
 
 	<item id="copper_armor_ring_tunic">
-		<inherit id="13ed" />
+		<inherit id="13ec" />
 		<copper_armor />
 		<category>Armor\Copper\Ringmail\Tunic</category>
 	</item>
 
 	<item id="silver_armor_ring_tunic">
-		<inherit id="13ed" />
+		<inherit id="13ec" />
 		<silver_armor />
 		<category>Armor\Silver\Ringmail\Tunic</category>
 	</item>
 
 	<item id="bronze_armor_ring_tunic">
-		<inherit id="13ed" />
+		<inherit id="13ec" />
 		<bronze_armor />
 		<category>Armor\Bronze\Ringmail\Tunic</category>
 	</item>
 
 	<item id="golden_armor_ring_tunic">
-		<inherit id="13ed" />
+		<inherit id="13ec" />
 		<golden_armor />
 		<category>Armor\Golden\Ringmail\Tunic</category>
 	</item>
 
 	<item id="agapite_armor_ring_tunic">
-		<inherit id="13ed" />
+		<inherit id="13ec" />
 		<agapite_armor />
 		<category>Armor\Agapite\Ringmail\Tunic</category>
 	</item>
 
 	<item id="verite_armor_ring_tunic">
-		<inherit id="13ed" />
+		<inherit id="13ec" />
 		<verite_armor />
 		<category>Armor\Verite\Ringmail\Tunic</category>
 	</item>
 
 	<item id="mythril_armor_ring_tunic">
-		<inherit id="13ed" />
+		<inherit id="13ec" />
 		<mythril_armor />
 		<category>Armor\Mythril\Ringmail\Tunic</category>
 	</item>
@@ -963,183 +963,183 @@
 	<!-- helmets -->
 	<!-- bascinet helmet -->
 	<item id="iron_helmets_bascinet">
-		<inherit id="140d" />
+		<inherit id="140c" />
 		<iron_armor />
 		<category>Armor\Iron\Helmets\Bascinet</category>
 	</item>
 	
 	<item id="shadow_helmets_bascinet">
-		<inherit id="140d" />
+		<inherit id="140c" />
 		<shadow_armor />
 		<category>Armor\Shadow\Helmets\Bascinet</category>
 	</item>
 
 	<item id="merkite_helmets_bascinet">
-		<inherit id="140d" />
+		<inherit id="140c" />
 		<merkite_armor />
 		<category>Armor\Merkite\Helmets\Bascinet</category>
 	</item>
 
 	<item id="copper_helmets_bascinet">
-		<inherit id="140d" />
+		<inherit id="140c" />
 		<copper_armor />
 		<category>Armor\Copper\Helmets\Bascinet</category>
 	</item>
 
 	<item id="silver_helmets_bascinet">
-		<inherit id="140d" />
+		<inherit id="140c" />
 		<silver_armor />
 		<category>Armor\Silver\Helmets\Bascinet</category>
 	</item>
 
 	<item id="bronze_helmets_bascinet">
-		<inherit id="140d" />
+		<inherit id="140c" />
 		<bronze_armor />
 		<category>Armor\Bronze\Helmets\Bascinet</category>
 	</item>
 
 	<item id="golden_helmets_bascinet">
-		<inherit id="140d" />
+		<inherit id="140c" />
 		<golden_armor />
 		<category>Armor\Golden\Helmets\Bascinet</category>
 	</item>
 
 	<item id="agapite_helmets_bascinet">
-		<inherit id="140d" />
+		<inherit id="140c" />
 		<agapite_armor />
 		<category>Armor\Agapite\Helmets\Bascinet</category>
 	</item>
 
 	<item id="verite_helmets_bascinet">
-		<inherit id="140d" />
+		<inherit id="140c" />
 		<verite_armor />
 		<category>Armor\Verite\Helmets\Bascinet</category>
 	</item>
 
 	<item id="mythril_helmets_bascinet">
-		<inherit id="140d" />
+		<inherit id="140c" />
 		<mythril_armor />
 		<category>Armor\Mythril\Helmets\Bascinet</category>
 	</item>
 
 	<!-- nose helmet -->
 	<item id="iron_helmets_nose">
-		<inherit id="140f" />
+		<inherit id="140e" />
 		<iron_armor />
 		<category>Armor\Iron\Helmets\Nose</category>
 	</item>
 	
 	<item id="shadow_helmets_nose">
-		<inherit id="140f" />
+		<inherit id="140e" />
 		<shadow_armor />
 		<category>Armor\Shadow\Helmets\Nose</category>
 	</item>
 
 	<item id="merkite_helmets_nose">
-		<inherit id="140f" />
+		<inherit id="140e" />
 		<merkite_armor />
 		<category>Armor\Merkite\Helmets\Nose</category>
 	</item>
 
 	<item id="copper_helmets_nose">
-		<inherit id="140f" />
+		<inherit id="140e" />
 		<copper_armor />
 		<category>Armor\Copper\Helmets\Nose</category>
 	</item>
 
 	<item id="silver_helmets_nose">
-		<inherit id="140f" />
+		<inherit id="140e" />
 		<silver_armor />
 		<category>Armor\Silver\Helmets\Nose</category>
 	</item>
 
 	<item id="bronze_helmets_nose">
-		<inherit id="140f" />
+		<inherit id="140e" />
 		<bronze_armor />
 		<category>Armor\Bronze\Helmets\Nose</category>
 	</item>
 
 	<item id="golden_helmets_nose">
-		<inherit id="140f" />
+		<inherit id="140e" />
 		<golden_armor />
 		<category>Armor\Golden\Helmets\Nose</category>
 	</item>
 
 	<item id="agapite_helmets_nose">
-		<inherit id="140f" />
+		<inherit id="140e" />
 		<agapite_armor />
 		<category>Armor\Agapite\Helmets\Nose</category>
 	</item>
 
 	<item id="verite_helmets_nose">
-		<inherit id="140f" />
+		<inherit id="140e" />
 		<verite_armor />
 		<category>Armor\Verite\Helmets\Nose</category>
 	</item>
 
 	<item id="mythril_helmets_nose">
-		<inherit id="140f" />
+		<inherit id="140e" />
 		<mythril_armor />
 		<category>Armor\Mythril\Helmets\Nose</category>
 	</item>
 
 	<!-- normal helmet -->
 	<item id="iron_helmets_helmet">
-		<inherit id="140b" />
+		<inherit id="140a" />
 		<iron_armor />
 		<category>Armor\Iron\Helmets\Helmet</category>
 	</item>
 	
 	<item id="shadow_helmets_helmet">
-		<inherit id="140b" />
+		<inherit id="140a" />
 		<shadow_armor />
 		<category>Armor\Shadow\Helmets\Helmet</category>
 	</item>
 
 	<item id="merkite_helmets_helmet">
-		<inherit id="140b" />
+		<inherit id="140a" />
 		<merkite_armor />
 		<category>Armor\Merkite\Helmets\Helmet</category>
 	</item>
 
 	<item id="copper_helmets_helmet">
-		<inherit id="140b" />
+		<inherit id="140a" />
 		<copper_armor />
 		<category>Armor\Copper\Helmets\Helmet</category>
 	</item>
 
 	<item id="silver_helmets_helmet">
-		<inherit id="140b" />
+		<inherit id="140a" />
 		<silver_armor />
 		<category>Armor\Silver\Helmets\Helmet</category>
 	</item>
 
 	<item id="bronze_helmets_helmet">
-		<inherit id="140b" />
+		<inherit id="140a" />
 		<bronze_armor />
 		<category>Armor\Bronze\Helmets\Helmet</category>
 	</item>
 
 	<item id="golden_helmets_helmet">
-		<inherit id="140b" />
+		<inherit id="140a" />
 		<golden_armor />
 		<category>Armor\Golden\Helmets\Helmet</category>
 	</item>
 
 	<item id="agapite_helmets_helmet">
-		<inherit id="140b" />
+		<inherit id="140a" />
 		<agapite_armor />
 		<category>Armor\Agapite\Helmets\Helmet</category>
 	</item>
 
 	<item id="verite_helmets_helmet">
-		<inherit id="140b" />
+		<inherit id="140a" />
 		<verite_armor />
 		<category>Armor\Verite\Helmets\Helmet</category>
 	</item>
 
 	<item id="mythril_helmets_helmet">
-		<inherit id="140b" />
+		<inherit id="140a" />
 		<mythril_armor />
 		<category>Armor\Mythril\Helmets\Helmet</category>
 	</item>

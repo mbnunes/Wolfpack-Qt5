@@ -250,71 +250,71 @@
 	<!-- Male Platemail -->
 
 	<item id="def_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<defense_body />
 			<category>Armor\Magical\Platemail\AR Modified Only\Defense\Male Plate</category>
 		</item>
 
 		<item id="guard_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<guarding_body />
 			<category>Armor\Magical\Platemail\AR Modified Only\Guarding\Male Plate</category>
 		</item>
 
 		<item id="hard_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<hardening_body />
 			<category>Armor\Magical\Platemail\AR Modified Only\Hardening\Male Plate</category>
 		</item>
 
 		<item id="fort_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<fortification_body />
 			<category>Armor\Magical\Platemail\AR Modified Only\Fortification\Male Plate</category>
 		</item>
 
 		<item id="invul_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<invulnerability_body />
 			<category>Armor\Magical\Platemail\AR Modified Only\Invulnerability\Male Plate</category>
 		</item>
 
 		<item id="durable_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<durable />
 			<category>Armor\Magical\Platemail\Durability Modified Only\Durable\Male Plate</category>
 		</item>
 
 		<item id="dur_def_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<durable />
 			<defense_body />
 			<category>Armor\Magical\Platemail\Durable\Defense\Male Plate</category>
 		</item>
 
 		<item id="dur_guard_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<durable />
 			<guarding_body />
 			<category>Armor\Magical\Platemail\Durable\Guarding\Male Plate</category>
 		</item>
 
 		<item id="dur_hard_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<durable />
 			<hardening_body />
 			<category>Armor\Magical\Platemail\Durable\Hardening\Male Plate</category>
 		</item>
 
 		<item id="dur_fort_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<durable />
 			<fortification_body />
 			<category>Armor\Magical\Platemail\Durable\Fortification\Male Plate</category>
 		</item>
 
 		<item id="dur_invul_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<durable />
 			<invulnerability_body />
 			<category>Armor\Magical\Platemail\Durable\Invulnerability\Male Plate</category>
@@ -322,41 +322,41 @@
 
 		<!-- Substantial -->
 		<item id="substantial_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<substantial />
 			<category>Armor\Magical\Platemail\Durability Modified Only\Substantial\Male Plate</category>
 		</item>
 
 		<item id="sub_def_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<substantial />
 			<defense_body />
 			<category>Armor\Magical\Platemail\Substantial\Defense\Male Plate</category>
 		</item>
 
 		<item id="sub_guard_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<substantial />
 			<guarding_body />
 			<category>Armor\Magical\Platemail\Substantial\Guarding\Male Plate</category>
 		</item>
 
 		<item id="sub_hard_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<substantial />
 			<hardening_body />
 			<category>Armor\Magical\Platemail\Substantial\Hardening\Male Plate</category>
 		</item>
 
 		<item id="sub_fort_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<substantial />
 			<fortification_body />
 			<category>Armor\Magical\Platemail\Substantial\Fortification\Male Plate</category>
 		</item>
 
 		<item id="sub_invul_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<substantial />
 			<invulnerability_body />
 			<category>Armor\Magical\Platemail\Substantial\Invulnerability\Male Plate</category>
@@ -364,41 +364,41 @@
 
 		<!-- Massive -->
 		<item id="massive_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<massive />
 			<category>Armor\Magical\Platemail\Durability Modified Only\Massive\Male Plate</category>
 		</item>
 
 		<item id="mass_def_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<massive />
 			<defense_body />
 			<category>Armor\Magical\Platemail\Massive\Defense\Male Plate</category>
 		</item>
 
 		<item id="mass_guard_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<massive />
 			<guarding_body />
 			<category>Armor\Magical\Platemail\Massive\Guarding\Male Plate</category>
 		</item>
 
 		<item id="mass_hard_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<massive />
 			<hardening_body />
 			<category>Armor\Magical\Platemail\Massive\Hardening\Male Plate</category>
 		</item>
 
 		<item id="mass_fort_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<massive />
 			<fortification_body />
 			<category>Armor\Magical\Platemail\Massive\Fortification\Male Plate</category>
 		</item>
 
 		<item id="mass_invul_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<massive />
 			<invulnerability_body />
 			<category>Armor\Magical\Platemail\Massive\Invulnerability\Male Plate</category>
@@ -406,41 +406,41 @@
 
 		<!-- Fortified -->
 		<item id="fortified_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<fortified />
 			<category>Armor\Magical\Platemail\Durability Modified Only\Fortified\Male Plate</category>
 		</item>
 
 		<item id="fort_def_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<fortified />
 			<defense_body />
 			<category>Armor\Magical\Platemail\Fortified\Defense\Male Plate</category>
 		</item>
 
 		<item id="fort_guard_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<fortified />
 			<guarding_body />
 			<category>Armor\Magical\Platemail\Fortified\Guarding\Male Plate</category>
 		</item>
 
 		<item id="fort_hard_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<fortified />
 			<hardening_body />
 			<category>Armor\Magical\Platemail\Fortified\Hardening\Male Plate</category>
 		</item>
 
 		<item id="fort_fort_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<fortified />
 			<fortification_body />
 			<category>Armor\Magical\Platemail\Fortified\Fortification\Male Plate</category>
 		</item>
 
 		<item id="fort_invul_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<fortified />
 			<invulnerability_body />
 			<category>Armor\Magical\Platemail\Fortified\Invulnerability\Male Plate</category>
@@ -448,41 +448,41 @@
 
 		<!-- Indestructible -->
 		<item id="indestructible_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<indestructible />
 			<category>Armor\Magical\Platemail\Durability Modified Only\Indestructible\Male Plate</category>
 		</item>
 
 		<item id="indes_def_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<indestructible />
 			<defense_body />
 			<category>Armor\Magical\Platemail\Indestructible\Defense\Male Plate</category>
 		</item>
 
 		<item id="indes_guard_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<indestructible />
 			<guarding_body />
 			<category>Armor\Magical\Platemail\Indestructible\Guarding\Male Plate</category>
 		</item>
 
 		<item id="indes_hard_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<indestructible />
 			<hardening_body />
 			<category>Armor\Magical\Platemail\Indestructible\Hardening\Male Plate</category>
 		</item>
 
 		<item id="indes_fort_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<indestructible />
 			<fortification_body />
 			<category>Armor\Magical\Platemail\Indestructible\Fortification\Male Plate</category>
 		</item>
 
 		<item id="indes_invul_male_plate">
-			<inherit id="1416" />
+			<inherit id="1415" />
 			<indestructible />
 			<invulnerability_body />
 			<category>Armor\Magical\Platemail\Indestructible\Invulnerability\Male Plate</category>
@@ -1453,71 +1453,71 @@
 <!-- Platemail Leggings -->
 
 	<item id="def_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<defense_arms_legs_head />
 			<category>Armor\Magical\Platemail\AR Modified Only\Defense\Plate Legs</category>
 		</item>
 
 		<item id="guard_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<guarding_arms_legs_head />
 			<category>Armor\Magical\Platemail\AR Modified Only\Guarding\Plate Legs</category>
 		</item>
 
 		<item id="hard_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<hardening_arms_legs_head />
 			<category>Armor\Magical\Platemail\AR Modified Only\Hardening\Plate Legs</category>
 		</item>
 
 		<item id="fort_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<fortification_arms_legs_head />
 			<category>Armor\Magical\Platemail\AR Modified Only\Fortification\Plate Legs</category>
 		</item>
 
 		<item id="invul_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<invulnerability_arms_legs_head />
 			<category>Armor\Magical\Platemail\AR Modified Only\Invulnerability\Plate Legs</category>
 		</item>
 
 		<item id="durable_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<durable />
 			<category>Armor\Magical\Platemail\Durability Modified Only\Durable\Plate Legs</category>
 		</item>
 
 		<item id="dur_def_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<durable />
 			<defense_arms_legs_head />
 			<category>Armor\Magical\Platemail\Durable\Defense\Plate Legs</category>
 		</item>
 
 		<item id="dur_guard_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<durable />
 			<guarding_arms_legs_head />
 			<category>Armor\Magical\Platemail\Durable\Guarding\Plate Legs</category>
 		</item>
 
 		<item id="dur_hard_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<durable />
 			<hardening_arms_legs_head />
 			<category>Armor\Magical\Platemail\Durable\Hardening\Plate Legs</category>
 		</item>
 
 		<item id="dur_fort_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<durable />
 			<fortification_arms_legs_head />
 			<category>Armor\Magical\Platemail\Durable\Fortification\Plate Legs</category>
 		</item>
 
 		<item id="dur_invul_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<durable />
 			<invulnerability_arms_legs_head />
 			<category>Armor\Magical\Platemail\Durable\Invulnerability\Plate Legs</category>
@@ -1525,41 +1525,41 @@
 
 		<!-- Substantial -->
 		<item id="substantial_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<substantial />
 			<category>Armor\Magical\Platemail\Durability Modified Only\Substantial\Plate Legs</category>
 		</item>
 
 		<item id="sub_def_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<substantial />
 			<defense_arms_legs_head />
 			<category>Armor\Magical\Platemail\Substantial\Defense\Plate Legs</category>
 		</item>
 
 		<item id="sub_guard_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<substantial />
 			<guarding_arms_legs_head />
 			<category>Armor\Magical\Platemail\Substantial\Guarding\Plate Legs</category>
 		</item>
 
 		<item id="sub_hard_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<substantial />
 			<hardening_arms_legs_head />
 			<category>Armor\Magical\Platemail\Substantial\Hardening\Plate Legs</category>
 		</item>
 
 		<item id="sub_fort_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<substantial />
 			<fortification_arms_legs_head />
 			<category>Armor\Magical\Platemail\Substantial\Fortification\Plate Legs</category>
 		</item>
 
 		<item id="sub_invul_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<substantial />
 			<invulnerability_arms_legs_head />
 			<category>Armor\Magical\Platemail\Substantial\Invulnerability\Plate Legs</category>
@@ -1567,41 +1567,41 @@
 
 		<!-- Massive -->
 		<item id="massive_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<massive />
 			<category>Armor\Magical\Platemail\Durability Modified Only\Massive\Plate Legs</category>
 		</item>
 
 		<item id="mass_def_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<massive />
 			<defense_arms_legs_head />
 			<category>Armor\Magical\Platemail\Massive\Defense\Plate Legs</category>
 		</item>
 
 		<item id="mass_guard_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<massive />
 			<guarding_arms_legs_head />
 			<category>Armor\Magical\Platemail\Massive\Guarding\Plate Legs</category>
 		</item>
 
 		<item id="mass_hard_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<massive />
 			<hardening_arms_legs_head />
 			<category>Armor\Magical\Platemail\Massive\Hardening\Plate Legs</category>
 		</item>
 
 		<item id="mass_fort_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<massive />
 			<fortification_arms_legs_head />
 			<category>Armor\Magical\Platemail\Massive\Fortification\Plate Legs</category>
 		</item>
 
 		<item id="mass_invul_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<massive />
 			<invulnerability_arms_legs_head />
 			<category>Armor\Magical\Platemail\Massive\Invulnerability\Plate Legs</category>
@@ -1609,41 +1609,41 @@
 
 		<!-- Fortified -->
 		<item id="fortified_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<fortified />
 			<category>Armor\Magical\Platemail\Durability Modified Only\Fortified\Plate Legs</category>
 		</item>
 
 		<item id="fort_def_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<fortified />
 			<defense_arms_legs_head />
 			<category>Armor\Magical\Platemail\Fortified\Defense\Plate Legs</category>
 		</item>
 
 		<item id="fort_guard_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<fortified />
 			<guarding_arms_legs_head />
 			<category>Armor\Magical\Platemail\Fortified\Guarding\Plate Legs</category>
 		</item>
 
 		<item id="fort_hard_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<fortified />
 			<hardening_arms_legs_head />
 			<category>Armor\Magical\Platemail\Fortified\Hardening\Plate Legs</category>
 		</item>
 
 		<item id="fort_fort_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<fortified />
 			<fortification_arms_legs_head />
 			<category>Armor\Magical\Platemail\Fortified\Fortification\Plate Legs</category>
 		</item>
 
 		<item id="fort_invul_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<fortified />
 			<invulnerability_arms_legs_head />
 			<category>Armor\Magical\Platemail\Fortified\Invulnerability\Plate Legs</category>
@@ -1651,41 +1651,41 @@
 
 		<!-- Indestructible -->
 		<item id="indestructible_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<indestructible />
 			<category>Armor\Magical\Platemail\Durability Modified Only\Indestructible\Plate Legs</category>
 		</item>
 
 		<item id="indes_def_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<indestructible />
 			<defense_arms_legs_head />
 			<category>Armor\Magical\Platemail\Indestructible\Defense\Plate Legs</category>
 		</item>
 
 		<item id="indes_guard_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<indestructible />
 			<guarding_arms_legs_head />
 			<category>Armor\Magical\Platemail\Indestructible\Guarding\Plate Legs</category>
 		</item>
 
 		<item id="indes_hard_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<indestructible />
 			<hardening_arms_legs_head />
 			<category>Armor\Magical\Platemail\Indestructible\Hardening\Plate Legs</category>
 		</item>
 
 		<item id="indes_fort_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<indestructible />
 			<fortification_arms_legs_head />
 			<category>Armor\Magical\Platemail\Indestructible\Fortification\Plate Legs</category>
 		</item>
 
 		<item id="indes_invul_plate_legs">
-			<inherit id="141a" />
+			<inherit id="1411" />
 			<indestructible />
 			<invulnerability_arms_legs_head />
 			<category>Armor\Magical\Platemail\Indestructible\Invulnerability\Plate Legs</category>
