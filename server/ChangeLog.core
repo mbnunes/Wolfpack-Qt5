@@ -33,6 +33,7 @@ Wolfpack 12.9.13 Beta (CVS)
 	- Fixed the pythonscript* <-> integer conversion warnings by using size_t instead.
 	- Fixed adding items to the MapObjects.
 	- Fixed a bug in the new ContainerCopyIterator.
+	- Fixed movement not correctly being sent to other characters.
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error

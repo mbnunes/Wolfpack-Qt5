@@ -629,39 +629,43 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// set the player direction to contain only the cardinal direction bits
 	pChar->setDirection( dir );
 
-	MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( pChar->pos(), VISRANGE );
+	Coord upperLeft = pChar->pos() + Coord(- (VISRANGE + 1), - (VISRANGE + 1));
+	Coord lowerRight = pChar->pos() + Coord(VISRANGE + 1, VISRANGE + 1);
+
+	MapCharsIterator ri = MapObjects::instance()->listCharsInRect(upperLeft, lowerRight);
 	for( P_CHAR observer = ri.first(); observer; observer = ri.next() )
 	{
 		if( observer == pChar )
 			continue;
 
-		unsigned int oldDistance = observer->pos().distance( oldpos );
+		bool wasVisible = observer->pos().distance(oldpos) <= VISRANGE; // We were previously in range
+		bool isVisible = player->dist(observer) <= VISRANGE; // We are now in range
 
 		// If we are a player, send us new characters
-		if( player && player->socket() )
-		{
-			// was that observer previously out of range?
-			if( oldDistance >= player->visualRange() )
-			{
-				player->socket()->sendChar( observer );
+		if( player && player->socket() ) {
+			// Send the observer to us if he was previously not visible and came into range recently
+			if( !wasVisible && isVisible ) {
+				player->socket()->sendChar(observer);
 			}
 		}
 
 		// Send our movement to the observer
-		P_PLAYER otherplayer = dynamic_cast<P_PLAYER>( observer );
+		P_PLAYER otherplayer = dynamic_cast<P_PLAYER>(observer);
 
-		if( otherplayer && otherplayer->socket() )
-		{
-			if( oldDistance > otherplayer->visualRange() )
-			{
-				// previously we were out of range
-				otherplayer->socket()->sendChar( pChar ); 
+		if (!otherplayer || !otherplayer->socket()) {
+			continue; // Skip this character, it's a player.
+			// TODO: OnSeePlayer, OnLoosePlayer
+		}
+
+		if (wasVisible) {
+			if (isVisible) {
+				otherplayer->socket()->updateChar(pChar); // We walked inside the visible range
+			} else {
+				otherplayer->socket()->removeObject(pChar); // We walked out of visible range
 			}
-			else
-			{
-				// previously we were already known
-				otherplayer->socket()->updateChar( pChar );
-			}
+
+		} else if (isVisible) {
+			otherplayer->socket()->sendChar(pChar); // We walked into visible range
 		}
 	}
 
