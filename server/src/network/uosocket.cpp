@@ -905,7 +905,8 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 	case cUORxMultiPurpose::setLanguage: 
 		handleSetLanguage( dynamic_cast< cUORxSetLanguage* >( packet ) ); break; 
 	case cUORxMultiPurpose::contextMenuRequest: 
-		handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( packet ) ); break; 
+		//handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( packet ) ); break; 
+		break;
 	case cUORxMultiPurpose::contextMenuSelection: 
 		handleContextMenuSelection( dynamic_cast< cUORxContextMenuSelection* >( packet ) ); break; 
 	default: 
@@ -1829,8 +1830,12 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 
 	// TODO: extended packet information
 	sendStats.setFullMode( pChar == _player, _version.left(1).toInt() == 3 );
+	sendStats.setMaxPets( 5 ); // Set to 5 for now
+	sendStats.setPets( 0 ); // Just so it looks nice ^^
+	sendStats.setStatCap( SrvParams->statcap() );
 
-	sendStats.setAllowRename( _player->Owns( pChar ) || _player->isGM() );
+	// Dont allow rename-self
+	sendStats.setAllowRename( ( _player->Owns( pChar ) || _player->isGM() ) && ( _player != pChar ) );
 	
 	sendStats.setMaxHp( pChar->st() );
 	sendStats.setHp( pChar->hp() );

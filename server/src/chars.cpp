@@ -144,8 +144,8 @@ void cChar::Init(bool ser)
 	this->animated = false;
 	this->multis=-1;//Multi serial
 	this->free = false;
-	this->name = "Mr. noname";
-	this->setOrgname("Mr. noname");
+	this->name = "Man";
+	this->setOrgname( "Man" );
 	this->title_ = "";
 	this->socket_ = 0;
 	this->setAntispamtimer(0);//LB - anti spam
@@ -306,7 +306,6 @@ void cChar::Init(bool ser)
 	this->setGuarded(false); // True if CHAR is guarded by some NPC
 	this->setSmokeTimer(0);
 	this->setSmokeDisplayTimer(0);
-	this->setCarve( (char*)0 ); // carving system
 	this->setAntiguardstimer(0); // AntiChrist - for "GUARDS" call-spawn
 	this->setPolymorph(false);//polymorph - AntiChrist
 	this->setIncognito(false);//incognito - AntiChrist
@@ -750,7 +749,7 @@ void cChar::load( char **result, UINT16 &offset )
 	war_ = atoi( result[offset++] );
 	npcWander_ = atoi( result[offset++] );
 	oldnpcWander_ = atoi( result[offset++] );
-	carve_ = atoi( result[offset++] );
+	carve_ = result[offset++];
 	fx1_ = atoi( result[offset++] );
 	fy1_ = atoi( result[offset++] );
 	fz1_ = atoi( result[offset++] );
@@ -789,7 +788,7 @@ void cChar::load( char **result, UINT16 &offset )
 		jailtimer_ += uiCurrentTime;
 
 	jailsecs_ = atoi( result[offset++] );
-	loot_ = atoi( result[offset++] );
+	loot_ = result[offset++];
 	food_ = atoi( result[offset++] );
 	
 	SetOwnSerial( ownserial_ );
@@ -882,7 +881,7 @@ void cChar::save()
 	addField( "war", war_);
 	addField( "npcwander", npcWander_);
 	addField( "oldnpcwander", oldnpcWander_);
-	addField( "carve", carve_);
+	addStrField( "carve", carve_);
 	addField( "fx1", fx1_);
 	addField( "fy1", fy1_);
 	addField( "fz1", fz1_);
@@ -917,7 +916,7 @@ void cChar::save()
 	unsigned int jtimer = jailtimer_-uiCurrentTime;
 	addField( "jailtimer", jtimer); 
 	addField( "jailsecs", jailsecs_); 
-	addField( "lootlist", loot_);
+	addStrField( "lootlist", loot_);
 	addField( "food", food_);
 	addCondition( "serial", serial );
 	saveFields;

@@ -94,7 +94,7 @@ void WPScriptManager::reload( void )
 
 	AllItemsIterator iter_items;
 	
-	for( iter_items.Begin(); !iter_items.atEnd(); iter_items.Next() )
+	for( iter_items.Begin(); !iter_items.atEnd(); ++iter_items )
 	{
 		P_ITEM pi = iter_items.GetData();
 		
@@ -106,7 +106,7 @@ void WPScriptManager::reload( void )
 
 	AllCharsIterator iter_chars;
 	
-	for( iter_chars.Begin(); !iter_chars.atEnd(); iter_chars.Next() )
+	for( iter_chars.Begin(); !iter_chars.atEnd(); ++iter_chars )
 	{
 		P_CHAR pc = iter_chars.GetData();
 		

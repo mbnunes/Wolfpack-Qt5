@@ -303,7 +303,6 @@ public:
 	bool contains( const cItem* ) const;
 	int  CountItems(short ID, short col= -1) const;
 	int  DeleteAmount(int amount, unsigned short _id, unsigned short _color = 0);
-	int getName(char* itemname);
 	QString getName(void);
 	void startDecay();
 	void setAllMovable()		{this->magic=1;} // set it all movable..

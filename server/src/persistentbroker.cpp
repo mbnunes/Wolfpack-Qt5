@@ -108,10 +108,11 @@ bool PersistentBroker::executeQuery( const QString& query )
 	bool result = connection->execute(query);
 	if( !result )
 	{
+		qWarning( query );
 		clConsole.ChangeColor( WPC_RED );
 		clConsole.send( "ERROR" );
 		clConsole.ChangeColor( WPC_NORMAL );
-		clConsole.send( ":" + connection->error() );
+		clConsole.send( ":" + connection->error() + "\n" );
 	}
 	return result;
 }

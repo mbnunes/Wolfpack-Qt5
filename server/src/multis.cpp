@@ -37,6 +37,7 @@
 #include "network/uosocket.h"
 #include "multiscache.h"
 #include "dbdriver.h"
+#include "persistentbroker.h"
 
 #undef DBGFILE
 #define DBGFILE "multis.cpp" 
@@ -59,7 +60,7 @@ void cMulti::buildSqlString( QStringList &fields, QStringList &tables, QStringLi
 
 void cMulti::load( char **result, UINT16 &offset )
 {
-/*	cItem::load( result, offset );
+	cItem::load( result, offset );
 	
 	coowner_ = atoi( result[offset++] );
 	deedsection_ = result[offset++];
@@ -68,121 +69,78 @@ void cMulti::load( char **result, UINT16 &offset )
 	QString sql = "SELECT multis_bans.serial,multis_bans.ban FROM multis_bans WHERE multis_bans.serial = '" + QString::number( serial ) + "'";
 
 	cDBDriver driver;
-	
-	if( !driver.query( sql ) )
-		throw driver.error();
+	cDBResult res = driver.query( sql );	
 
-	while( driver.fetchrow() )
+	while( res.fetchrow() )
 	{
 		// row[1] is our serial
-		SERIAL banned = driver.getInt( 1 );
+		SERIAL banned = res.getInt( 1 );
 		P_CHAR pChar = FindCharBySerial( banned );
 
 		if( pChar )
 			addBan( pChar );
 	}
 
-	driver.free();
+	res.free();
 
 	sql = "SELECT multis_friends.serial,multis_friends.friend FROM multis_friends WHERE multis_friends.serial = '" + QString::number( serial ) + "'";
 
-	if( !driver.query( sql ) )
-		throw driver.error();
+	res = driver.query( sql );
 
-	while( driver.fetchrow() )
+	while( res.fetchrow() )
 	{
 		// row[1] is our serial
-		SERIAL friendserial = driver.getInt( 1 );
+		SERIAL friendserial = res.getInt( 1 );
 		P_CHAR pChar = FindCharBySerial( friendserial );
 
 		if( pChar )
 			addFriend( pChar );
 	}
 
-	driver.free();*/
+	res.free();
 }
 
 void cMulti::save()
 {
+	initSave;
+	setTable( "multis" );
+	
+	addField( "serial", serial );
+	addField( "coowner", coowner_ );
+	addStrField( "deedsection", deedsection_ );
+
+	addCondition( "serial", serial );
+	saveFields;
+
+	// Reset Bans+Friends
+	if( isPersistent )
+	{
+		persistentBroker->executeQuery( QString( "DELETE FROM multis_bans WHERE serial = '%1'" ).arg( serial ) );
+		persistentBroker->executeQuery( QString( "DELETE FROM multis_friends WHERE serial = '%1'" ).arg( serial ) );
+	}
+	
+	// Friends + Bans
+	INT32 i;
+	for ( i = 0; i < bans_.size(); ++i )
+		persistentBroker->executeQuery( QString( "INSERT INTO multis_bans SET serial = '%1', ban = '%2'" ).arg( serial ).arg( bans_[i] ) );
+
+	for ( i = 0; i < friends_.size(); ++i )
+		persistentBroker->executeQuery( QString( "INSERT INTO multis_friends SET serial = '%1', friend = '%2'" ).arg( serial ).arg( friends_[i] ) );
+
 	cItem::save();
 }
 
 bool cMulti::del()
 {
+	if( !isPersistent )
+		return false;
+
+	persistentBroker->executeQuery( QString( "DELETE FROM multis WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->executeQuery( QString( "DELETE FROM multis_bans WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->executeQuery( QString( "DELETE FROM multis_friends WHERE serial = '%1'" ).arg( serial ) );
+
 	return cItem::del();
 }
-
-/*void cMulti::Serialize( ISerialization &archive )
-{
-	if( archive.isReading() )
-	{
-		archive.read( "multi.deedid", deedsection_ );
-		unsigned int size = 0;
-		register unsigned int i;
-		archive.read( "multi.charcount", size );
-		for( i = 0; i < size; ++i )
-		{
-			SERIAL charserial = INVALID_SERIAL;
-			archive.read( (char*)QString("multi.char.%1").arg(i).latin1(), charserial );
-			chars_.append( charserial );
-		}
-		archive.read( "multi.itemcount", size );
-		for( i = 0; i < size; ++i )
-		{
-			SERIAL itemserial = INVALID_SERIAL;
-			archive.read( (char*)QString("multi.item.%1").arg(i).latin1(), itemserial );
-			items_.append( itemserial );
-		}
-
-		SERIAL readData;
-		archive.read( "multi.bancount", size );
-		for( i = 0; i < size; ++i )
-		{
-			archive.read( (char*)QString("multi.ban.%1").arg(i).latin1(), readData );
-			bans_.push_back( readData );			
-		}
-		archive.read( "multi.friendcount", size);
-		for( i = 0; i < size; ++i )
-		{
-			archive.read( (char*)QString("multi.friend.%1").arg(i).latin1(), readData );
-			friends_.push_back( readData );
-		}
-		archive.read( "multi.coowner", coowner_ );
-	}
-	else
-	{
-		archive.write( "multi.deedid", deedsection_ );
-		register unsigned int i = 0;
-		archive.write( "multi.charcount", chars_.size() );
-		QValueList< SERIAL >::iterator it = chars_.begin();
-		while( it != chars_.end() )
-		{
-			archive.write( (char*)QString("multi.char.%1").arg(i).latin1(), (*it) );
-			++i;
-			++it;
-		}
-		archive.write( "multi.itemcount", items_.size() );
-		it = items_.begin();
-		i = 0;
-		while( it != items_.end() )
-		{
-			archive.write( (char*)QString("multi.item.%1").arg(i).latin1(), (*it) );
-			++i;
-			++it;
-		}
-
-		archive.write( "multi.bancount", bans_.size() );
-		for ( i = 0; i < bans_.size(); ++i )
-			archive.write( (char*)QString("multi.ban.%1").arg(i).latin1(), bans_[i] );
-		archive.write( "multi.friendcount", friends_.size() );
-		for ( i = 0; i < friends_.size(); ++i )
-			archive.write( (char*)QString("multi.friend.%1").arg(i).latin1(), friends_[i] );
-
-		archive.write( "multi.coowner", coowner_ );
-	}
-	cItem::Serialize( archive );
-}*/
-
 
 void cMulti::processNode( const QDomElement &Tag )
 {

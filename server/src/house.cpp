@@ -33,7 +33,7 @@
 
 //#include "wolfpack.h"
 #include "house.h"
-#include "iserialization.h"
+#include "persistentbroker.h"
 #include "mapobjects.h"
 #include "srvparams.h"
 #include "maps.h"
@@ -326,33 +326,30 @@ void cHouse::load( char **result, UINT16 &offset )
 
 void cHouse::save()
 {
+	initSave;
+	setTable( "houses" );
+	
+	addField( "serial", serial );
+	addField( "nokey", nokey_ );
+	addField( "charpos_x", charpos_.x );
+	addField( "charpos_y", charpos_.y );
+	addField( "charpos_z", charpos_.z );
+
+	addCondition( "serial", serial );
+	saveFields;
+
 	cMulti::save();
 }
 
 bool cHouse::del()
 {
-	// Not decided how to do that yet
+	if( !isPersistent )
+		return false;
+
+	persistentBroker->executeQuery( QString( "DELETE FROM houses WHERE serial = '%1'" ).arg( serial ) );
+
 	return cMulti::del();
 }
-
-/*void cHouse::Serialize(ISerialization &archive)
-{
-	if (archive.isReading())
-	{
-		archive.read( "nokey", nokey_ );
-		archive.read( "charpos.x", charpos_.x );
-		archive.read( "charpos.y", charpos_.y );
-		archive.read( "charpos.z", charpos_.z );
-	}
-	else if ( archive.isWritting())
-	{
-		archive.write( "nokey", nokey_ );
-		archive.write( "charpos.x", charpos_.x );
-		archive.write( "charpos.y", charpos_.y );
-		archive.write( "charpos.z", charpos_.z );
-	}
-	cMulti::Serialize(archive); // Call base class method too.
-}*/
 
 QString cHouse::objectID() const
 {

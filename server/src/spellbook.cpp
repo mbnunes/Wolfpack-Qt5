@@ -35,7 +35,6 @@
 #include "network/uosocket.h"
 #include "newmagic.h"
 #include "persistentbroker.h"
-#include <qsqlcursor.h>
 
 void cSpellBook::Init( bool mkser )
 {
@@ -95,23 +94,6 @@ bool cSpellBook::hasSpell( UINT8 spell )
 
 	return found;
 }
-
-// abstract cSerializable
-/*void cSpellBook::Serialize( ISerialization &archive )
-{
-	if( archive.isReading() )
-	{
-		archive.read( "spells1", spells1_ );
-		archive.read( "spells2", spells2_ );
-	}
-	else if( archive.isWritting() )
-	{
-		archive.write( "spells1", spells1_ );
-		archive.write( "spells2", spells2_ );
-	}
-
-	cItem::Serialize( archive );
-}*/
 
 // abstract cDefinable
 void cSpellBook::processNode( const QDomElement &Tag )
@@ -202,44 +184,6 @@ void cSpellBook::registerInFactory()
 	UObjectFactory::instance()->registerSqlQuery( "cSpellBook", sqlString );
 }
 
-/*void cSpellBook::save( const QString& s )
-{
-	startSaveSqlStatement("spellbooks");
-	savePersistentIntValue( "serial", serial );
-	savePersistentIntValue( "spells1", spells1_ );
-	savePersistentIntValue( "spells2", spells2_ );
-	endSaveSqlStatement(QString("serial='%1'").arg(serial));
-	cItem::save( s );
-}*/
-
-/*void cSpellBook::load( const QString& s )
-{
-	startLoadSqlStatement("spellbooks", "serial", s)
-	{
-		loadPersistentUIntValue( "spells1", spells1_ );
-		loadPersistentUIntValue( "spells2", spells2_ );
-	}
-
-	endLoadSqlStatement(s);
-	cItem::load(s);
-}*/
-
-/*bool cSpellBook::del( const QString& s )
-{
-	QSqlCursor cursor("spellbooks");
-	cursor.select(QString("serial='%1'").arg(serial));
-	while ( cursor.next() )
-	{
-		cursor.primeDelete();
-		if ( cursor.del() > 1 )
-		{
-			qWarning("More than one record was deleted in table Spellbooks when only 1 was expected, delete criteria was:");
-			qWarning(cursor.filter());
-		}
-	}
-	return cItem::del( s );
-}*/
-
 void cSpellBook::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cItem::buildSqlString( fields, tables, conditions );
@@ -257,12 +201,26 @@ void cSpellBook::load( char **result, UINT16 &offset )
 
 void cSpellBook::save()
 {
+	initSave;
+	setTable( "spellbooks" );
+	addField( "serial", serial );
+
+	addField( "spells1", spells1_ );
+	addField( "spells2", spells2_ );
+
+	addCondition( "serial", serial );
+	saveFields;
+
 	cItem::save();
 }
 
 bool cSpellBook::del()
 {
-	// Not decided how to do that yet
+	if( !isPersistent )
+		return false;
+
+	persistentBroker->executeQuery( QString( "DELETE FROM spellbooks WHERE serial = '%1'" ).arg( serial ) );
+
 	return cItem::del();
 }
 

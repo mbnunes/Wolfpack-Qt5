@@ -484,7 +484,7 @@ void cItem::save()
 	
 	addField("serial",		serial);
 	addField("id",			id());
-	addStrField("name",			name_); // warning: items do not use cUObject name!
+	addStrField("name",			name_); // warning: items do not use cUObject name! (nuts, remove it)
 	addStrField("name2",			name2_);
 	addStrField("creator",		creator);
 	addField("sk_name",		madewith);
@@ -558,58 +558,48 @@ bool cItem::del()
 	return cUObject::del();
 }
 
-static int getname(P_ITEM pi, char* itemname)
-{
-	int j, len, mode, used, ok, namLen;
-	if (pi == NULL)
-		return 1;
-	if (pi->name() != "#")
-	{
-		strcpy((char*)itemname, pi->name().ascii());
-		return strlen((char*)itemname)+1;
-	}
-
-	tile_st tile = cTileCache::instance()->getTile( pi->id() );
-
-	if (tile.flag2&0x80) strcpy((char*)itemname, "an ");
-	else if (tile.flag2&0x40) strcpy((char*)itemname, "a ");
-	else itemname[0]=0;
-	namLen = strlen( (char*)itemname );
-	mode=0;
-	used=0;
-	len=strlen((char *) tile.name);
-	for (j=0;j<len;j++)
-	{
-		ok=0;
-		if ((tile.name[j]=='%')&&(mode==0)) mode=2;
-		else if ((tile.name[j]=='%')&&(mode!=0)) mode=0;
-		else if ((tile.name[j]=='/')&&(mode==2)) mode=1;
-		else if (mode==0) ok=1;
-		else if ( ( mode == 1 ) && ( pi->amount() == 1 ) ) ok = 1;
-		else if ( ( mode == 2 ) && ( pi->amount() > 1 ) ) ok = 1;
-		if (ok)
-		{
-			itemname[namLen++] = tile.name[j];
-			itemname[namLen] = '\0';
-			if (mode) used=1;
-		}
-	}
-	return strlen((char*)itemname)+1;
-}
-
-int cItem::getName(char* itemname)
-{
-	return getname(this, itemname);
-}
-
 QString cItem::getName(void)
 {
+	// Book Titles
+	if( type_ == 11 )
+	{
+		cBook *pBook = dynamic_cast< cBook* >( this );
+		if( pBook && !pBook->title().isEmpty() )
+		{
+			QString bookname = pBook->title();
+
+			// Append author
+			if( !pBook->author().isEmpty() )
+				bookname.append( tr( " by %1" ).arg( pBook->author() ) );
+
+			return bookname;
+		}
+	}
+
 	if( name_ != "#" )
 		return name_;
 
-	char itemname[256] = {0,};
-	cItem::getName(itemname);
-	return QString(itemname);
+	tile_st tile = cTileCache::instance()->getTile( id_ );
+
+	QString itemname = tile.name;
+	
+	if( tile.flag2 & 0x80 )
+		itemname.prepend( "an " );
+	else
+		itemname.prepend( "a " );
+
+	// Now "parse" the %/% information
+	if( itemname.contains( "%" ) )
+	{
+		// Test if we have a %.../...% form or a simple %
+		QRegExp simple( "%([^/]+)%" );
+		simple.setMinimal( TRUE ); 
+
+		if( itemname.contains( simple ) )
+			itemname.replace( simple, simple.cap( 1 ) );
+	}
+
+	return itemname;
 }
 
 void cItem::SetSerial(long ser)
@@ -1245,7 +1235,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 		{
 			if ( pc_p->socket() )
 			{
-				pc_p->socket()->sysMessage( tr("You are not strong enough to keep %1 equipped!").arg(pi->name()) );
+				pc_p->socket()->sysMessage( tr("You are not strong enough to keep %1 equipped!").arg( pi->getName() ) );
 				itemsfx(calcSocketFromChar(pc_p), pi->id());
 			}
 			
@@ -1877,83 +1867,53 @@ void cItem::showName( cUOSocket *socket )
     if( onSingleClick( socket->player() ) )
         return;        
 	
-	name_ = getName();
-	UOXSOCKET s = calcSocketFromChar( socket->player() ); // for Legacy code
+	QString itemname = getName();
 
-	if (type() == 1000) // Ripper...used for bank checks.
+	// Add creator's mark (if any)
+	if( !creator.isEmpty() && madewith )
+		itemname.append( tr( " %1 by %2" ).arg( skill[ madewith - 1 ].madeword ).arg( creator ) );
+
+	// Amount information
+	if( amount_ > 1 )
+		itemname.append( tr( ": %1" ).arg( amount_ ) );
+
+	// Show serials
+	if( socket->player() && socket->player()->getPriv() & 8 )
+		itemname.append( tr( " [%1]" ).arg( serial, 8, 16 ) );
+
+	// Pages
+	if( type_ == 11 )
 	{
-		sprintf((char*)temp, "value : %i", value);
-		itemmessage(s, (char*)temp, serial,0x0481);
+		cBook *pBook = dynamic_cast< cBook* >( this );
+
+		// Append pages
+		if( pBook )
+			itemname.append( tr( " [pages: %1]" ).arg( pBook->pages() ) );
 	}
 
-	if (type() == 187) // Ripper...used for slotmachine.
-	{
-		sprintf((char*)temp, "[%i gold Slot]", SrvParams->slotAmount());
-		itemmessage(s, (char*)temp, serial,0x0481);
-	}
+	// Show charges for wands only if they are identified
+	if( type() == 15 && name_ == name2_ )
+			itemname.append( tr( " [%1 charge%2]" ).arg( morez ).arg( ( morez > 1 ) ? "s" : "" ) );
+	else if( type() == 404 || type() == 181 )
+		itemname.append( tr( " [%1 charge%2]" ).arg( morex ).arg( ( morex > 1 ) ? "s" : "" ) );
 	
-	if (socket->player()->getPriv()&8)
-	{
-		if (amount() > 1)
-			sprintf((char*)temp, "%s [%x]: %i", name_.latin1(), serial, amount());
-		else
-			sprintf((char*)temp, "%s [%x]", name_.latin1(), serial);
-		itemmessage(s, (char*)temp, serial);
-		return;
-	}
+	// Show the name here
+	socket->showSpeech( this, itemname );
+
+	// Show the amount for banque cheques
+	if( type() == 1000 )
+		socket->showSpeech( this, tr( "[value: %1]" ).arg( value ) );
 	
-	// Click in a Player Vendor item, show description, price and return
+	// When we click on a player vendors item,
+	// we show the price as well
 	if( container_ && container_->isItem() )
 	{
 		P_CHAR pc_j = getOutmostChar();
 		if( pc_j && pc_j->npcaitype() == 17 )
-		{
-			char temp2[256];
-			if (creator.length() > 0 && madewith>0)
-				sprintf((char*)temp2, "%s %s by %s", desc.latin1(), skill[madewith - 1].madeword.latin1(), creator.latin1()); 
-			else
-				strcpy((char*)temp2, desc.latin1()); // LB bugfix
-			
-			sprintf((char*)temp, "%s at %igp", temp2, value);
-			itemmessage(s, (char*)temp, serial);
-			return;
-		}
-	}
-	
-	// From now on, we will build the message into temp, and let itemname with just the name info
-	// Add amount info.
-	if (!isPileable() || amount() == 1)
-		strncpy((char*)temp, name_.latin1(), 100);
-	else 
-		if (name_.right(1) != "s") // avoid iron ingotss : x
-			sprintf((char*)temp, "%ss : %i", name_.latin1(), amount());
-		else
-			sprintf((char*)temp, "%s : %i", name_.latin1(), amount());
-		
-	// Add creator's mark (if any)
-	if( creator.length() > 0 && madewith > 0 )
-		sprintf((char*)temp, "%s %s by %s", temp, skill[madewith - 1].madeword.latin1(), creator.latin1());
-	
-	if( type() == 15 )
-	{
-		if (name2() == name())
-		{
-			sprintf((char*)temp, "%s %i charge", temp, morez);
-			if (morez != 1)
-			strcat(temp, "s");
-		}
-	}
-	else if( type() == 404 || type() == 181 )
-	{
-		if (name2() == name())
-		{
-			sprintf( (char*)temp, "%s %i charge", temp, morex);
-			if( morex != 1 )
-				strcat(temp, "s");
-		}
+			socket->showSpeech( this, tr( "at %1gp" ).arg( value ) );
 	}
 
-	// Corpse highlighting...Ripper
+	// Show RepSys Settings of Victim when killed
 	if( corpse() )
 	{
 		if( more2_ == 1 )
@@ -1965,16 +1925,14 @@ void cItem::showName( cUOSocket *socket )
 	}
 
 	// Let's handle secure/locked down stuff.
-	if (isLockedDown() && type() != 12 && type() != 13 && type() != 203)
+	if ( isLockedDown() && type() != 12 && type() != 13 && type() != 203 )
 	{
 		if ( !secured() )
-			itemmessage(s, "[locked down]", serial, 0x0481);
-		if ( secured() && isLockedDown())
-			itemmessage(s, "[locked down & secure]", serial, 0x0481);				
+			socket->showSpeech( this, tr( "[locked down]" ), 0x481 );
+		else
+			socket->showSpeech( this, tr( "[locked down & secure]" ), 0x481 );
 	}
-	
-	itemmessage(s, (char*)temp, serial);
-	
+
 	// Send the item/weight as the last line in case of containers
 	if( type() == 1 || type() == 63 || type() == 65 || type() == 87 )
 	{
