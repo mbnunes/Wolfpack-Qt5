@@ -1582,10 +1582,11 @@ void teleport2(CHARACTER s) // used for /RESEND only - Morrolan, so people can f
 }
 
 
-void updatechar(CHARACTER c) // If character status has been changed (Polymorph), resend him
+void updatechar(P_CHAR pc) // If character status has been changed (Polymorph), resend him
 {
 	int i;
-	P_CHAR pc = MAKE_CHARREF_LR(c);
+	if (pc == NULL)
+		return;
 	setcharflag(pc);//AntiChrist - bugfix for highlight color not being updated
 
 	for (i=0;i<now;i++)

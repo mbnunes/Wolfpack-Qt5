@@ -3045,13 +3045,13 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 							{
 								cline = &script2[0];
 								splitline();
-								chars[ti].id1 = hexnumber(0);
-								chars[ti].id2 = hexnumber(1);
-								chars[ti].xid1 = hexnumber(0);
-								chars[ti].xid2 = hexnumber(1);
+								pc_ts->id1 = hexnumber(0);
+								pc_ts->id2 = hexnumber(1);
+								pc_ts->xid1 = hexnumber(0);
+								pc_ts->xid2 = hexnumber(1);
 								for (j = 0; j < now; j++)
 									if (perm[j] && inrange1p(currchar[j], pc_ts))
-										updatechar(ti);
+										updatechar(pc_ts);
 							}
 						}
 						else if (!(strcmp("STAM", (char*)script1)))  // Do math on players stamina

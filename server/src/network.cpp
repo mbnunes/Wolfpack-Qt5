@@ -1420,7 +1420,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					Xsend(s, buffer[s], 5);
 					if (pc_currchar->dead && pc_currchar->war) // Invisible ghost, resend.
 					{
-						updatechar(DEREF_P_CHAR(pc_currchar));
+						updatechar(pc_currchar);
 					}
 					Movement->CombatWalk(pc_currchar);
 					dosocketmidi(s);

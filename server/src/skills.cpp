@@ -705,7 +705,7 @@ void cSkills::Hide(int s)
 	} 
 	sysmessage(s, "You have hidden yourself well."); 
 	pc_currchar->hidden = 1; 
-	updatechar(DEREF_P_CHAR(pc_currchar)); 
+	updatechar(pc_currchar); 
 }
 
 void cSkills::Stealth(int s)//AntiChrist
@@ -732,7 +732,7 @@ void cSkills::Stealth(int s)//AntiChrist
 	sysmessage(s,(char*)temp);
 	pc_currchar->hidden=1;
 	pc_currchar->stealth=0; //AntiChrist -- init. steps already done
-	updatechar(DEREF_P_CHAR(pc_currchar));
+	updatechar(pc_currchar);
 }
 
 void cSkills::PeaceMaking(int s)

@@ -1240,7 +1240,7 @@ void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, sig
 		soundeffect2(DEREF_P_CHAR(pc_guard), 0x01, 0xFE);  // Tauriel 1-9-99 changed to stop crashing used to call soundeffect (expeted socket)
 		staticeffect(DEREF_P_CHAR(pc_guard), 0x37, 0x2A, 0x09, 0x06);
 		
-		updatechar(DEREF_P_CHAR(pc_guard));
+		updatechar(pc_guard);
 		switch (RandomNum(0,1))
 		{
 		case 0:		npctalkall(pc_guard, "Thou shalt regret thine actions, swine!", 1);	break;

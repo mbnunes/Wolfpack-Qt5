@@ -288,7 +288,7 @@ void genericCheck(int i, unsigned int currenttime)// Char mapRegions
 			{// only if not permanently hidden - AntiChrist
 				pc->hidden = 0;
 				pc->stealth=-1;
-				updatechar(DEREF_P_CHAR(pc));
+				updatechar(pc);
 			}
 	}
 	if (pc->hp <= 0 && !pc->dead)
@@ -1037,7 +1037,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 								{										
 									Accounts->SetOffline(mapchar->account);
 									mapchar->logout=-1;
-									updatechar(DEREF_P_CHAR(mapchar));
+									updatechar(mapchar);
 								}
 							}
 						}

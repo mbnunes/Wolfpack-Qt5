@@ -178,7 +178,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		if (pc_currchar->hidden==1 && !pc_currchar->Owns(pi) && !pc_currchar->isGM())
 		{
 			pc_currchar->hidden=0;
-			updatechar(DEREF_P_CHAR(pc_currchar));
+			updatechar(pc_currchar);
 		}
 		if (!pc_currchar->Owns(pi) && !pc_currchar->isGM() && pc_currchar->isInnocent())
 		{
@@ -825,8 +825,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						Items->DeleItem(pi);
 						sprintf((char*)temp, "Hello sir! My name is %s and i will be working for you.", pc_vendor->name);
 						npctalk(s, pc_vendor, (char*)temp, 1);
-						updatechar(DEREF_P_CHAR(pc_vendor));
-						teleport((pc_vendor));
+						updatechar(pc_vendor);
+						teleport(pc_vendor);
 					}
 					else 
 						sysmessage(s, "You must be close to a house and have a key in your pack to place that.");

@@ -355,7 +355,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->SetOwnSerial(pc_currchar->serial);
 		pc_monster->MoveTo(pc_currchar->pos.x+rand()%2, pc_currchar->pos.y+rand()%2, pc_currchar->pos.z);
  		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
- 		updatechar(DEREF_P_CHAR(pc_monster));
+ 		updatechar(pc_monster);
  		npcaction(DEREF_P_CHAR(pc_monster), 0x0C);
 		doStaticEffect(DEREF_P_CHAR(pc_monster), spellnum);
  		return;
@@ -507,7 +507,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 
 	pc_monster->spadelay=10;
 	pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
-	updatechar(DEREF_P_CHAR(pc_monster));
+	updatechar(pc_monster);
 	npcaction(DEREF_P_CHAR(pc_monster), 0x0C);
 	doStaticEffect(DEREF_P_CHAR(pc_monster), spellnum);
 
@@ -2126,7 +2126,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_defender), curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z+12);
 						
 						pc_defender->hidden=2;
-						updatechar(DEREF_P_CHAR(pc_defender));
+						updatechar(pc_defender);
 						pc_defender->invistimeout=uiCurrentTime+(SrvParms->invisibiliytimer*MY_CLOCKS_PER_SEC);
 						break;
 						//////////// (51) FLAMESTRIKE ///////////

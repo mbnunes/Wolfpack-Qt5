@@ -713,7 +713,7 @@ void cCommands::DyeItem(int s) // Rehue an item
 		 {	
 		 
 			pc->skin = pc->xskin = k;
-			updatechar(DEREF_P_CHAR(pc));
+			updatechar(pc);
          }
 	}
 	soundeffect( s, 0x02, 0x3e ); // plays the dye sound, LB

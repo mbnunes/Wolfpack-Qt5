@@ -367,7 +367,7 @@ void DyeTarget(int s)
 			if (k!=0x8000) // 0x8000 also crashes client ...
 			{
 				pc->skin = pc->xskin = k;
-				updatechar(DEREF_P_CHAR(pc));
+				updatechar(pc);
 			}
 		}
 	}
@@ -412,7 +412,7 @@ void cTargets::IDtarget(int s)
 		pc->id2=addy[s];
 		pc->xid1=addx[s];
 		pc->xid2=addy[s];
-		updatechar(DEREF_P_CHAR(pc));
+		updatechar(pc);
 	}
 }
 
@@ -452,7 +452,7 @@ void cTargets::XTeleport(int s, int x)
 	if (pc != NULL)
 	{
 		pc->MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
-		updatechar(DEREF_P_CHAR(pc));
+		updatechar(pc);
 		return;// Zippy
 	}
 	P_ITEM pi = FindItemBySerial(serial);
@@ -470,7 +470,7 @@ void XgoTarget(int s)
 	if (pc != NULL)
 	{
 		pc->MoveTo(addx[s],addy[s],addz[s]);
-		updatechar(DEREF_P_CHAR(pc));
+		updatechar(pc);
 	}
 }
 
@@ -719,7 +719,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 			Items->DeleItem(pi);
 		}
 	}
-	updatechar(DEREF_P_CHAR(pc_c));
+	updatechar(pc_c);
 }
 
 static void GMTarget(P_CLIENT ps, P_CHAR pc)
@@ -935,7 +935,7 @@ void cTargets::VisibleTarget (int s)
 		if(pc != NULL)
 		{
 			pc->hidden=addx[s];
-			updatechar(DEREF_P_CHAR(pc));
+			updatechar(pc);
 		}
 	}
 }
@@ -1045,7 +1045,7 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	pc->dispz=pc->pos.z=pp->TzLoc+Map->TileHeight(pp->model);
 	mapRegions->Add(pc); // add it to da regions ...
 	pc->isNpc();
-	updatechar(c);
+	updatechar(pc);
 }
 
 void cTargets::AllSetTarget(int s)
@@ -2443,7 +2443,7 @@ void cTargets::SetDirTarget(int s)
 		if (pc != NULL)
 		{
 			pc->dir=addx[s];
-			updatechar(DEREF_P_CHAR(pc));
+			updatechar(pc);
 			return;
 		}
 	}

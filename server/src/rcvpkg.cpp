@@ -99,7 +99,7 @@ void RcvAttack(P_CLIENT ps)
  
 		pc_currchar->dir = chardir(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_i));	// turn to attacker, LB (& Duke)
 
-		updatechar(DEREF_P_CHAR(pc_currchar));
+		updatechar(pc_currchar);
 
 		if( pc_i->guarded )
 		{

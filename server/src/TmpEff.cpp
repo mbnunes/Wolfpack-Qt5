@@ -423,7 +423,8 @@ void cTmpEff::Expire()
 			for (it.Begin(); !it.atEnd(); it++) // that hurts, but there's no other good way
 			{
 				P_CHAR pc = it.GetData();
-				if (chardist(DEREF_P_CHAR(pc_s), DEREF_P_CHAR(pc))<15 && ( online(pc) || pc->isNpc() ) ) updatechar(DEREF_P_CHAR(pc));
+				if (chardist(DEREF_P_CHAR(pc_s), DEREF_P_CHAR(pc))<15 && ( online(pc) || pc->isNpc() ) ) 
+					updatechar(pc);
 			}
 		}
 		break;
@@ -441,7 +442,7 @@ void cTmpEff::Expire()
 		k=calcSocketFromChar((pc_s));
 		sysmessage(k,"You have hidden yourself well.");
 		pc_s->hidden=1;
-		updatechar(DEREF_P_CHAR(pc_s));
+		updatechar(pc_s);
 		break;
 		
 	case 34: // delayed unhide for gms
@@ -449,7 +450,7 @@ void cTmpEff::Expire()
 		k = calcSocketFromChar((pc_s)); 
 		sysmessage(k, "You are now visible."); 
 		pc_s->hidden = 0; 
-		updatechar(DEREF_P_CHAR(pc_s)); 
+		updatechar(pc_s); 
 		break;
 		
 	case 35: //heals some pf - solarin

@@ -712,7 +712,7 @@ void monstergate(int s, int x)
  {
 	 Skills->updateSkillLevel(s,z);
  }
- updatechar(s);
+ updatechar(pc_s);
  staticeffect(s, 0x37, 0x3A, 0, 15);
  soundeffect2(pc_s, 0x01E9);
 }
@@ -766,7 +766,7 @@ void polycolorgate(int s, int x)
 	while ((script1[0] != '}') &&(++loopexit < MAXLOOPS)); 
 	pScp->Close(); 
   
-	updatechar(s); 
+	updatechar(pc_s); 
 	staticeffect(s, 0x37, 0x3A, 0, 15); 
 	soundeffect2(pc_s, 0x01E9); 
 } 

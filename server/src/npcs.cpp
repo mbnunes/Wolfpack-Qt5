@@ -1675,7 +1675,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 	   Skills->updateSkillLevel(DEREF_P_CHAR(pc_c),z);
    }
    
-   updatechar(DEREF_P_CHAR(pc_c));
+   updatechar(pc_c);
 
    // Dupois - Added April 4, 1999
    // After the NPC has been fully initialized, then post the message (if its a quest spawner) type==125
@@ -1714,7 +1714,7 @@ void cCharStuff::Split(int k) // For NPCs That Split during combat
 	pc_c->mn=pc_k->in;
 	z=rand()%35;
 	if (z==5) pc_c->split=1; else pc_c->split=0;	
-	updatechar(DEREF_P_CHAR(pc_c));
+	updatechar(pc_c);
 }
 
 ///////////////////////
@@ -1822,7 +1822,7 @@ void cChar::unhide()
 	{
 		this->stealth=-1;
 		this->hidden=0;
-		updatechar(DEREF_P_CHAR(this));	// LB, necassary for client 1.26.2
+		updatechar(this);	// LB, necassary for client 1.26.2
 		if (this->isGM())
 			tempeffect(this, this, 34, 3, 0, 0); 
 	}

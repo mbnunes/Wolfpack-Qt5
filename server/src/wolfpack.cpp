@@ -1461,7 +1461,7 @@ void explodeitem(int s, P_ITEM pi)
 				else
 				{
 					npcattacktarget(DEREF_P_CHAR(pc), DEREF_P_CHAR(pc_currchar));
-					updatechar(DEREF_P_CHAR(pc));
+					updatechar(pc);
 				}
 			}
 		}
@@ -2137,7 +2137,7 @@ int unmounthorse(int s) // Get off a horse (Remove horse item and spawn new hors
 				if (pi->decaytime != 0) 
 					pc_pet->summontimer = pi->decaytime; 
 				pc_pet->npcaitype = 0; 
-				updatechar(c); 
+				updatechar(pc_pet); 
 			} 
 			
 			// 

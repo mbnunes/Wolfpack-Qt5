@@ -670,7 +670,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 		if (pc->stealth!=-1) { //AntiChrist - Stealth - stop hiding if player runs
 			pc->stealth=-1;
 			pc->hidden=0;
-			updatechar(DEREF_P_CHAR(pc));
+			updatechar(pc);
 		}
 
 
@@ -708,13 +708,13 @@ bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 			{
 				pc->stealth=-1;
 				pc->hidden=0;
-				updatechar( DEREF_P_CHAR(pc) );
+				updatechar( pc );
 			}
 		}
 		else
 		{
 			pc->hidden=0;
-			updatechar( DEREF_P_CHAR(pc) );
+			updatechar( pc );
 		}
 	}
 	return true;
