@@ -2962,8 +2962,8 @@
 		<karma><random min="0" max="624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<defense><random min="16" max="16" /></defense>
-		<lodamage></lodamage>
-		<hidamage></hidamage>
+		<lodamage>10</lodamage>
+		<hidamage>15</hidamage>
 		<gold><random min="0" max="50" /></gold>
 		<!-- Stats -->
 		<str><random min="61" max="76" /></str>
