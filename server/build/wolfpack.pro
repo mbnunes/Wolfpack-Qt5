@@ -15,7 +15,7 @@ win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES +=  _CONSOLE _MBCS
 win32:INCLUDEPATH += lib/Python/PC
 unix:INCLUDEPATH += lib/Python/Include lib/ZThread/include lib/Python /usr/include/mysql
-unix:LIBS  = -Llib/ZThread/lib -Llib/Python -ldl -lZThread -lpython2.2 -lmysql/mysqlclient -lutil
+unix:LIBS  = -Llib/ZThread/lib -Llib/Python -Lmysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil
 
 
 
