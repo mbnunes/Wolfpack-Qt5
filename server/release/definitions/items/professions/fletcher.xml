@@ -20,6 +20,14 @@
 		<category>Professions\Fletcher\Decorative Feathers 2</category>
 	</item>
 
+	<!-- arrows -->
+	<item id="f3f">
+		<id>0xf3f</id>
+		<weight>0.1</weight>
+		<category>Professions\Fletcher\Arrow</category>
+		<buyprice value="12" />
+	</item>
+
 	<item id="f40">
 		<id>0xf40</id>
 		<category>Professions\Fletcher\Arrows 1</category>
@@ -69,20 +77,14 @@
 		<weight>0.1</weight>
 	</item>
 
-	<!-- arrows -->
-	<item id="f3f">
-		<id>0xf3f</id>
-		<weight>0.1</weight>
-		<category>Professions\Fletcher\Arrow</category>
-		<buyprice>3</buyprice>
-	</item>
+
 
 	<!-- crossbow bolts -->
 	<item id="1bfb">
 		<id>0x1bfb</id>
 		<weight>0.1</weight>
 		<category>Professions\Fletcher\Crossbow Bolt</category>
-		<buyprice>6</buyprice>
+		<buyprice value="16" />
 	</item>
 
 	<item id="1bfc">
