@@ -310,9 +310,8 @@ def main():
 		PY_LIBDIR = distutils.sysconfig.get_config_vars("LINKFORSHARED")[0]
 	else:
 		PY_LIBDIR = buildLibLine( py_libpath, py_libfile ) 
-		config.write("PY_INCDIR = %s\n" % ( py_incpath ) )
 		config.write("PY_LIBDIR = %s\n" % PY_LIBDIR)
-
+	config.write("PY_INCDIR = %s\n" % py_incpath )
 
 	# Build MySQL Libs and Includes
 	MySQL_LIBDIR = buildLibLine( mysql_libpath, mysql_libfile )
