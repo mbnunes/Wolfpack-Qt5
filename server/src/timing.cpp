@@ -106,7 +106,7 @@ void cTiming::poll()
 		QValueVector<SERIAL>::iterator sit;
 		for (sit = toRemove.begin(); sit != toRemove.end(); ++sit) {
 			P_ITEM item = FindItemBySerial(*sit);
-			if (item && item->isInWorld()) {
+			if (item && item->isInWorld() && !item->nodecay()) {
 				item->remove(); // Auto removes from the decaylist
 			} else {
 				removeDecaySerial(*sit);
