@@ -1229,13 +1229,5 @@ void cTimedAction::Expire()
 {
 }
 
-// Singleton implementation
-cTempEffects *cTempEffects::instance = 0;
-
-cTempEffects *cTempEffects::getInstance( void )
-{
-	if( !instance )
-		instance = new cTempEffects;
-
-	return instance;
-}
+// Singleton
+cTempEffects cTempEffects::instance;

@@ -140,7 +140,7 @@ private:
 	};
 
 	std::vector<cTempEffect*> teffects;
-	static cTempEffects* instance;
+	static cTempEffects instance;
 
 protected:
 	cTempEffects()	{}  // No temp effects to start with
@@ -155,7 +155,7 @@ public:
 	void Dispel( P_CHAR pc_dest );
 	unsigned int size( void );
 
-	static cTempEffects *getInstance( void );
+	static cTempEffects *getInstance( void ) { return &instance; }
 };
 
 #endif
