@@ -55,6 +55,8 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed bandages for logged out chars.
 		- Rewrote the bandages script.
 		- Added macro support for bowing and salutes.
+		- Removed the deprecated WEIGHTBONUS property.
+		- Fixed clientcrashs related to the page menu.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
