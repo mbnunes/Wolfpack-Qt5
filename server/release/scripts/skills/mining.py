@@ -28,22 +28,21 @@ oredefs = [ '_ore_1', '_ore_2', '_ore_4', '_ore_3' ]
 # Mining Harvest Table Items
 REQSKILL = 0
 MINSKILL = 1
-MAXSKILL = 2
-SUCCESSCLILOC = 3
-COLORID = 4
-RESOURCENAME = 5
-# resname, reqSkill, minSkill, maxSkill, successClilocId, color, 'ore name'
+SUCCESSCLILOC = 2
+COLORID = 3
+RESOURCENAME = 4
+# resname, reqSkill, minSkill, successClilocId, color, 'ore name'
 oretable = \
 {
-	'iron':			[ 0, 0, 1000, 1007072, 0x0, 'iron ore' ],
-	'dullcopper':	[ 650, 250, 1050, 1007073, 0x973, 'dull copper ore' ],
-	'shadowiron':	[ 700, 300, 1100, 1007074, 0x966, 'shadow iron ore' ],
-	'copper':		[ 750, 350, 1150, 1007075, 0x96d, 'copper ore' ],
-	'bronze':		[ 800, 400, 1200, 1007076, 0x972, 'bronze ore' ],
-	'gold':			[ 850, 450, 1250, 1007077, 0x8a5, 'gold ore' ],
-	'agapite':		[ 900, 500, 1300, 1007078, 0x979, 'agapite ore' ],
-	'verite':			[ 950, 550, 1350, 1007079, 0x89f, 'verite ore' ],
-	'valorite':		[ 990, 590, 1390, 1007080, 0x8ab, 'valorite ore' ]
+	'iron':			[ 0, 0, 1007072, 0x0, 'iron ore' ],
+	'dullcopper':	[ 650, 0, 1007073, 0x973, 'dull copper ore' ],
+	'shadowiron':	[ 700, 0, 1007074, 0x966, 'shadow iron ore' ],
+	'copper':		[ 750, 0, 1007075, 0x96d, 'copper ore' ],
+	'bronze':		[ 800, 80, 1007076, 0x972, 'bronze ore' ],
+	'gold':			[ 850, 170, 1007077, 0x8a5, 'gold ore' ],
+	'agapite':		[ 900, 270, 1007078, 0x979, 'agapite ore' ],
+	'verite':			[ 950, 380, 1007079, 0x89f, 'verite ore' ],
+	'valorite':		[ 990, 475, 1007080, 0x8ab, 'valorite ore' ]
 }
 
 def mining( char, pos, tool ):
@@ -58,22 +57,22 @@ def createoregem( pos ):
 	gem.settag( 'resourcecount', orespawnamount ) # 10 - 34 ore
 	gem.settag( 'resname', 'iron' ) # All veins should default to iron ore.
 	# This will give it a chance to be a random ore type, this can change later.
-	colorchance = randint( 1, 100 )
+	colorchance = randint( 0, 100 )
 	if colorchance >= 100 and colorchance <= 99: # 2% chance for valorite (99 - 100)
 		gem.settag( 'resname2', 'valorite' )
 	elif colorchance >= 96 and colorchance <= 98: # 3% chance for verite (96 - 98)
 		gem.settag( 'resname2', 'verite')
 	elif colorchance >= 92 and colorchance <= 95: # 4% chance for agapite (92 - 95)
 		gem.settag( 'resname2', 'agapite')
-	elif colorchance >= 87 and colorchance <= 91: # 5% chance for gold (87 - 91)
+	elif colorchance >= 86 and colorchance <= 91: # 6% chance for gold (87 - 91)
 		gem.settag( 'resname2', 'gold')
-	elif colorchance >= 81 and colorchance <= 86: # 6% chance for bronze (81 - 86)
+	elif colorchance >= 79 and colorchance <= 85: # 7% chance for bronze (81 - 86)
 		gem.settag( 'resname2', 'bronze')
-	elif colorchance >= 73 and colorchance <= 80: # 8% chance for copper (73 - 80)
+	elif colorchance >= 71 and colorchance <= 78: # 8% chance for copper (73 - 80)
 		gem.settag( 'resname2', 'copper')
-	elif colorchance >= 63 and colorchance <= 72: # 10% chance for shadow iron (63 - 72)
+	elif colorchance >= 61 and colorchance <= 70: # 10% chance for shadow iron (63 - 72)
 		gem.settag( 'resname2', 'shadowiron')
-	elif colorchance >= 51 and colorchance <= 62: # 12% chance for dull copper (51 - 62)
+	elif colorchance >= 50 and colorchance <= 60: # 11% chance for dull copper (51 - 62)
 		gem.settag( 'resname2', 'dullcopper')
 	gem.moveto( pos )
 	gem.visible = 0
@@ -184,6 +183,11 @@ def domining( time, args ):
 
 	resourcecount = veingem.gettag( 'resourcecount' )
 	reqskill = oretable[ resname ][ REQSKILL ]
+	chance = int( ( oretable[ resname ][ REQSKILL ] - oretable[ resname ][ MINSKILL ] ) / 10 )
+	if chance > 100:
+		chance = 100
+	elif chance < 0:
+		chance = 0
 
 	success = 0
 
@@ -198,7 +202,7 @@ def domining( time, args ):
 			socket.clilocmessage( 501869, "", GRAY )
 			success = 0
 			return
-		else:
+		elif chance >= randint(1, 100):
 			if resourcecount >= 5: # Digs up the large ore.
 				successmining( char, veingem, oretable, resname, 1, oredefs[3] )
 			elif resourcecount == 3 or resourcecount == 4: # Picks one of the smaller ore types
@@ -210,8 +214,8 @@ def domining( time, args ):
 			if not tool.hastag( 'remaining_uses' ):
 				tool.settag( 'remaining_uses', tool.health )
 			else:
-				if tool.gettag( 'remaining_uses' ) > 1:
-					tool.settag( 'remaining_uses', ( tool.gettag( 'remaining_uses' ) - 1 ) )
+				if int( tool.gettag( 'remaining_uses' ) ) > 1:
+					tool.settag( 'remaining_uses', int( int( tool.gettag( 'remaining_uses' ) ) - 1 ) )
 					tool.resendtooltip()
 				elif tool.gettag( 'remaining_uses' ) == 1:
 					tool.delete()
@@ -219,6 +223,8 @@ def domining( time, args ):
 					socket.clilocmessage( 1044038, '', GRAY )
 				char.socket.deltag( 'ore_gem' ) # To save memory, we don't really need this.
 			success = 1
+		else:
+			success = 0
 
 	elif resourcecount == 0:
 		socket.sysmessage( "There is no metal here to mine.", GRAY )

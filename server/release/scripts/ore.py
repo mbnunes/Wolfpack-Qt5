@@ -8,7 +8,7 @@ import wolfpack
 import skills
 from wolfpack.time import *
 from wolfpack.utilities import *
-from random import randrange
+from random import randrange, randint
 
 # 0x19b7, 0x19b8, 0x19ba give 1 ingot.
 # 0x19b9 gives 2 ingots.
@@ -23,25 +23,24 @@ forgeids = [ 0xfb1, 0x197a, 0x197b, 0x197c, 0x197d, 0x197e, 0x197f, 0x1980,
 				0x19a1, 0x19a2, 0x19a3, 0x19a4, 0x19a5, 0x19a6, 0x19a7, 0x19a8,
 				0x19a9 ]
 
-# Name, reqSkill, minSkill, maxSkill, color, item name
+# Name, reqSkill, minSkill, color, item name
 ingottable = \
 {
-	'iron':			[ 0, 0, 1000, 0x0, 'iron ingot' ],
-	'dullcopper':	[ 650, 250, 1050, 0x973, 'dull copper ingot' ],
-	'shadowiron':	[ 700, 300, 1100, 0x966, 'shadow iron ingot' ],
-	'copper':		[ 750, 350, 1150, 0x96d, 'copper ingot' ],
-	'bronze':		[ 800, 400, 1200, 0x972, 'bronze ingot' ],
-	'gold':			[ 850, 450, 1250, 0x8a5, 'gold ingot' ],
-	'agapite':		[ 900, 500, 1300, 0x979, 'agapite ingot' ],
-	'verite':			[ 950, 550, 1350, 0x89f, 'verite ingot' ],
-	'valorite':		[ 990, 590, 1390, 0x8ab, 'valorite ingot' ]
+	'iron':			[ 0, 0, 0x0, 'iron ingot' ],
+	'dullcopper':	[ 650, 0, 0x973, 'dull copper ingot' ],
+	'shadowiron':	[ 700, 0, 0x966, 'shadow iron ingot' ],
+	'copper':		[ 750, 0, 0x96d, 'copper ingot' ],
+	'bronze':		[ 800, 80, 0x972, 'bronze ingot' ],
+	'gold':			[ 850, 170, 0x8a5, 'gold ingot' ],
+	'agapite':		[ 900, 270, 0x979, 'agapite ingot' ],
+	'verite':			[ 950, 380, 0x89f, 'verite ingot' ],
+	'valorite':		[ 990, 475, 0x8ab, 'valorite ingot' ]
 }
 
 REQSKILL = 0
 MINSKILL = 1
-MAXSKILL = 2
-COLORID = 3
-NAME = 4
+COLORID = 2
+NAME = 3
 
 def onUse( char, ore ):
 	if ore.id in oreids:
@@ -269,6 +268,12 @@ def dosmelt ( char, args ):
 	resname = args[2]
 	success = 0
 	reqskill = ingottable[ resname ][ REQSKILL ]
+	chance =  int( ( char.skill[ MINING ] - ingottable[ resname ][ MINSKILL ] )  / 10 )
+	if chance > 100:
+		chance = 100
+	elif chance < 0:
+		chance  = 0
+
 
 	if not char.skill[ MINING ] >= reqskill:
 		# You have no idea how to smelt this strange ore!
@@ -276,10 +281,10 @@ def dosmelt ( char, args ):
 		return OOPS
 
 	if ore.amount >= 1 and char.skill[ MINING ] >= reqskill:
-		if not skills.checkskill( char, forge, MINING, 0 ):
+		if not skills.checkskill( char, forge, MINING, chance ):
 			success = 0
 			return
-		else:
+		elif chance >= randint(1, 100):
 			if ore.id == oreids[3]:
 				amount = ( ore.amount * 2 )
 				successsmelt( char, ingottable, resname, amount )
@@ -302,9 +307,9 @@ def dosmelt ( char, args ):
 					# There is not enough metal-bearing ore in this pile to make an ingot.
 					char.socket.clilocmessage( 501987, '', GRAY )
 					return OOPS
-
-
 			success = 1
+		else:
+			success = 0
 
 	if success == 0:
 		if ore.amount >= 2:
