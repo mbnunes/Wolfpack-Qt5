@@ -45,15 +45,13 @@ void cTerritory::Init( void )
 {
 	cBaseRegion::Init();
 	midilist_ = 0;
-	guarded_ = false;
-	mark_ = true;
-	gate_ = true;
-	recall_ = true;
-	rain_ = true;
-	snow_ = true;
-	magicdamage_ = true;
-	escort_ = false;
-	magic_ = true;
+	setGuarded( false );
+	setMark( true );
+	setGate( true );
+	setRecall( true );
+	setMagicDamage( true );
+	setEscortRegion( false );
+	setMagic( true );
 	guardowner_ = QString();
 	snowchance_ = 50;
 	rainchance_ = 50;
@@ -105,7 +103,7 @@ void cTerritory::processNode( const QDomElement &Tag )
 
 	// <escortregion />
 	else if( TagName == "escortregion" )
-		this->escort_ = true;
+		this->setEscortRegion( true );
 	// scps:	validEscortRegion[escortRegions] = i;
 	// should be implemented as a method of cAllTerritories to check for the tag!
 
@@ -119,27 +117,27 @@ void cTerritory::processNode( const QDomElement &Tag )
 
 	// <guarded />
 	else if( TagName == "guarded" )
-		this->guarded_ = false;
+		this->setGuarded( true );
 
 	// <nomagicdamage />
 	else if( TagName == "nomagicdamage" )
-		this->magicdamage_ = false;
+		this->setMagicDamage( false );
 
 	// <nomagic />
 	else if( TagName == "nomagic" )
-		this->magic_ = false;
+		this->setMagic( false );
 
 	// <nomark />
 	else if( TagName == "nomark" )
-		this->mark_ = false;
+		this->setMark( false );
 
 	// <nogate />
 	else if( TagName == "nogate" )
-		this->gate_ = false;
+		this->setGate( false );
 
 	// <norecall />
 	else if( TagName == "norecall" )
-		this->recall_ = false;
+		this->setRecall( false );
 
 	// <snowchance>50</snowchance>
 	else if( TagName == "snowchance" )

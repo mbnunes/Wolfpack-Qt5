@@ -59,36 +59,35 @@ public:
 	// Getters
 	QString		name( void )			{ return name_; }
 	UI32		midilist( void )		{ return midilist_; }
-	bool		isGuarded( void )		{ return guarded_; }
-	bool		allowsMark( void )		{ return mark_; }
-	bool		allowsGate( void )		{ return gate_; }
-	bool		allowsRecall( void )	{ return recall_; }
-	bool		canRain( void )			{ return rain_; }
-	bool		canSnow( void )			{ return snow_; }
-	bool		allowsMagicDamage()		{ return magicdamage_; }
-	bool		isValidEscortRegion()	{ return escort_; }
-	bool		allowsMagic( void )		{ return magic_; }
+	bool		isGuarded( void )		{ return flags_ & 0x01; }
+	bool		allowsMark( void )		{ return flags_ & 0x02; }
+	bool		allowsGate( void )		{ return flags_ & 0x04; }
+	bool		allowsRecall( void )	{ return flags_ & 0x08; }
+	bool		allowsMagicDamage()		{ return flags_ & 0x40; }
+	bool		isValidEscortRegion()	{ return flags_ & 0x80; }
+	bool		allowsMagic( void )		{ return flags_ & 0x100; }
 	QString		guardOwner( void )		{ return guardowner_; }
 	UI08		snowChance( void )		{ return snowchance_; }
 	UI08		rainChance( void )		{ return rainchance_; }
 
 	QString		getGuardSect( void );
 private:
+	// Setters to ease up the flag meanings
+	void		setGuarded( bool data )		{ flags_ |= 0x01; }
+	void		setMark( bool data )		{ flags_ |= 0x02; }
+	void		setGate( bool data )		{ flags_ |= 0x04; }
+	void		setRecall( bool data )		{ flags_ |= 0x08; }
+	void		setMagicDamage( bool data ) { flags_ |= 0x10; }
+	void		setEscortRegion( bool data) { flags_ |= 0x20; }
+	void		setMagic( bool data )		{ flags_ |= 0x40; }
+
 	virtual void processNode( const QDomElement &Tag );
 
 private:
 	UI32					midilist_;		// midilist to play
-	
-	bool					guarded_;		// guarded area
-	bool					mark_;			// mark allowed
-	bool					gate_;			// gate allowed
-	bool					recall_;		// recall
-	bool					rain_;			// raining
-	bool					snow_;			// snowing
-	bool					magicdamage_;	// magic damage?
-	bool					escort_;		// valid escort region
-	bool					magic_;			// magic allowed
 
+	UI08					flags_;			// flags like guarded, mark allowed, etc. (see getters)
+	
 	QString					guardowner_;
 	UI08					snowchance_;
 	UI08					rainchance_;
