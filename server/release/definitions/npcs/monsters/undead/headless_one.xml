@@ -13,6 +13,7 @@
 		<karma>-450</karma>
 		<fame>450</fame>
 		<!-- Stats -->
+		<maxhitpoints><random min="16" max="30"/></maxhitpoints>
 		<str><random min="26" max="50"/></str>
 		<dex><random min="36" max="55"/></dex>
 		<int><random min="16" max="30"/></int>

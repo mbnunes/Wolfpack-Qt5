@@ -15,6 +15,7 @@
 		<karma>-4000</karma>
 		<fame>4000</fame>
 		<!-- Stats -->
+		<maxhitpoints><random min="208" max="222"/></maxhitpoints>
 		<str><random min="346" max="370"/></str>
 		<dex><random min="71" max="90"/></dex>
 		<int><random min="26" max="40"/></int>
