@@ -33,6 +33,7 @@
 #include "item.h"
 #include "char.h"
 #include "socket.h"
+#include "coord.h"
 #include "skills.h"
 #include "../chars.h"
 #include "../prototypes.h"
@@ -138,6 +139,12 @@ PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
+	if( PyTuple_Size( args ) == 1 && checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
+	{
+		self->pChar->moveTo( getWpCoord( PyTuple_GetItem( args, 0 ) ) );
+		return PyTrue;
+	}
+
 	// Gather parameters
 	Coord_cl pos = self->pChar->pos;
 
@@ -215,6 +222,9 @@ PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 	{
 		PyObject *pObj = PyTuple_GetItem( args, 0 );
 
+		if( checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
+			return PyInt_FromLong( self->pChar->pos.distance( getWpCoord( pObj ) ) );
+
 		// Item
 		P_ITEM pItem = getWpItem( pObj );
 		if( pItem )
@@ -269,6 +279,12 @@ PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 	if( PyTuple_Size( args ) == 1 )
 	{
 		PyObject *pObj = PyTuple_GetItem( args, 0 );
+
+		if( checkWpCoord( pObj ) )
+		{
+			Coord_cl pos = getWpCoord( pObj );
+			return PyInt_FromLong( chardirxyz( self->pChar, pos.x, pos.y ) );
+		}
 
 		// Item
 		P_ITEM pItem = getWpItem( pObj );
@@ -480,10 +496,8 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else getIntProperty( "dex", pChar->effDex() )
 	else getIntProperty( "int", pChar->in )
 
-	else getIntProperty( "x", pChar->pos.x )
-	else getIntProperty( "y", pChar->pos.y )
-	else getIntProperty( "z", pChar->pos.z )
-	else getIntProperty( "map", pChar->pos.map )
+	else if( !strcmp( "pos", name ) )
+		return PyGetCoordObject( self->pChar->pos );
 
 	else getIntProperty( "direction", pChar->dir )
 	else getIntProperty( "flags2", pChar->priv2 )
@@ -565,6 +579,8 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 	else setIntProperty( "hidamage", pChar->hidamage )
 	else setIntProperty( "lodamage", pChar->lodamage )
 	else setIntProperty( "objectdelay", pChar->objectdelay )
+	else if( !strcmp( name, "pos" ) && checkWpCoord( value ) )
+		self->pChar->moveTo( getWpCoord( value ) );
 
 	return 0;
 }

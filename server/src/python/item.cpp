@@ -197,7 +197,7 @@ PyObject* wpItem_soundeffect( wpItem* self, PyObject* args )
 /*!
 	Returns the distance towards a given object or position
 */
-PyObject* wpItem_distance( wpItem* self, PyObject* args )
+PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyInt_FromLong( -1 );
@@ -417,7 +417,7 @@ static PyMethodDef wpItemMethods[] =
 	{ "delete",				(getattrofunc)wpItem_delete, METH_VARARGS, "Deletes the item and the underlying reference." },
 	{ "moveto",				(getattrofunc)wpItem_moveto, METH_VARARGS, "Moves the item to the specified location." },
 	{ "soundeffect",		(getattrofunc)wpItem_soundeffect, METH_VARARGS, "Sends a soundeffect to the surrounding sockets." },
-	{ "distance",			(getattrofunc)wpItem_distance, METH_VARARGS, "Distance to another object or a given position." },
+	{ "distanceto",			(getattrofunc)wpItem_distanceto, METH_VARARGS, "Distance to another object or a given position." },
 	{ "weaponskill",		(getattrofunc)wpItem_weaponskill, METH_VARARGS, "Returns the skill used with this weapon. -1 if it isn't a weapon." },
 	{ "useresource",		(getattrofunc)wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." },
 	{ "countresource",		(getattrofunc)wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." },
