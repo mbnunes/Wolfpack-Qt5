@@ -31,12 +31,12 @@
 				BrowseInformation="1"
 				WarningLevel="1"
 				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qt-mt322.lib ws2_32.lib comctl32.lib"
+				AdditionalDependencies="qt-mt331.lib ws2_32.lib comctl32.lib"
 				OutputFile="../wolfpack.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -94,7 +94,7 @@
 				StructMemberAlignment="3"
 				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="FALSE"
-				EnableEnhancedInstructionSet="1"
+				EnableEnhancedInstructionSet="0"
 				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"

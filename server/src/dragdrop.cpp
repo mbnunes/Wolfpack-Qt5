@@ -170,19 +170,22 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 			if ( pContainer )
 				pContainer->addItem( splitItem, false );
 			splitItem->SetOwnSerial( pItem->ownSerial() );
-			splitItem->setSpawnregion(pItem->spawnregion());
+			
+			splitItem->setSpawnregion(pItem->spawnregion());			
 
 			// He needs to see the new item
 			splitItem->update();
 
 			// If we're taking something out of a spawn-region it's spawning "flag" is removed isn't it?
-			pItem->setSpawnregion(0);
 			pItem->setAmount( pickedAmount );
 		}
 	}
 
 	// *normally* we should exclude the dragging socket here. but it works so as well.
 	pItem->removeFromView( true );
+
+	// Remove from spawnregion
+	pItem->setSpawnregion(0);
 
 	// Remove it from the World if it is in world, otherwise remove it from it's current container
 	if ( pItem->isInWorld() )

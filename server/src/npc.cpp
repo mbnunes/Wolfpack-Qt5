@@ -185,14 +185,8 @@ bool cNPC::isInnocent()
 	return notoriety() == 1;
 }
 
-void cNPC::setOwner( P_PLAYER data, bool nochecks )
-{
-	// We CANT be our own owner
-	if ( data && ( data->serial() == this->serial() ) )
-		return;
-
-	if ( !nochecks && owner_ )
-	{
+void cNPC::setOwner(P_PLAYER data, bool nochecks) {
+	if (!nochecks && owner_) {
 		owner_->removePet( this, true );
 	}
 
@@ -200,9 +194,9 @@ void cNPC::setOwner( P_PLAYER data, bool nochecks )
 	changed( TOOLTIP );
 	changed_ = true;
 
-	if ( !nochecks && owner_ )
-	{
-		owner_->addPet( this, true );
+	if (!nochecks && owner_) {
+		owner_->addPet(this, true);
+		setSpawnregion(0);
 	}
 }
 
