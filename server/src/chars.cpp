@@ -85,6 +85,13 @@ unsigned int cChar::dist(cChar* pc)		{	return pos.distance(pc->pos);		}
 unsigned int cChar::dist(cItem* pi)		{	return pos.distance(pi->pos);		}
 QString cChar::objectID() const			{	return "cChar";						}
 
+cChar::cChar():
+	socket_(0), account_(0)
+{
+	VisRange_ = VISRANGE;
+	Init( false );
+}
+
 void cChar::giveGold( Q_UINT32 amount, bool inBank )
 {
 	P_ITEM pCont = NULL;
@@ -147,9 +154,6 @@ void cChar::Init(bool ser)
 	this->pos.x=100;
 	this->pos.y=100;
 	this->dispz_ = this->pos.z = 0;	
-//	this->oldpos.x=0; // fix for jail bug
-//	this->oldpos.y=0; // fix for jail bug
-//	this->oldpos.z=0; // LB, experimental, change back to unsignbed if this give sproblems
 	this->dir_=0; //&0F=Direction
 	this->xid_ = 0x0190;
 	this->setId(0x0190);
@@ -439,12 +443,6 @@ void cChar::fight(P_CHAR other)
 	}
 }
 
-
-cChar::cChar():
-	socket_(0), account_(0)
-{
-	VisRange_ = VISRANGE;
-}
 ///////////////////////
 // Name:	CountItems
 // history:	by Duke, 26.3.2001
@@ -3344,13 +3342,12 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 		if (pc->lockSkill(zeta) != 0 && pc->lockSkill(zeta) != 1 && pc->lockSkill(zeta) != 2)
 			pc->setLockSkill(zeta, 0);
 	
+	// WTF Are these two doing here
 	pc->setPriv2(pc->priv2() & 0xf7);
+	pc->setPriv2(pc->priv2() & 0xBF);
+
 	pc->setHidden( 0 );
 	pc->setStealth( -1 );
-	
-	//AntiChrist bugfix for magic reflect
-	//		pc->priv2 &= 0xBF;
-	pc->setPriv2(pc->priv2() & 0xBF);
 	pc->SetSpawnSerial( pc->spawnSerial() );
 	
 	pc->setRegion( cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y ) );
@@ -3379,6 +3376,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 		if (pc->account() == 0)
 		{
 			cCharStuff::DeleteChar(pc);
+			return;
 		} 
 		else
 		{
@@ -3387,32 +3385,24 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 		}
 	}
 	
-	if(pc->stablemaster_serial() == INVALID_SERIAL)
+	if( pc->stablemaster_serial() == INVALID_SERIAL )
 	{ 
 		cMapObjects::getInstance()->add(pc); 
 	} 
 	else
 		stablesp.insert(pc->stablemaster_serial(), pc->serial);
 	
-	if (pc->isPlayer() && pc->account() == 0) pc->setMenupriv(-1);
-	
-	
-	int max_x = Map->mapTileWidth(pc->pos.map) * 8;
-	int max_y = Map->mapTileHeight(pc->pos.map) * 8;
-	if( ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account() ==0) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account() == 0))
-		&& !( pc->pos.x == 0 && pc->pos.y == 0 && pc->pos.z == 0 ) ) // the last are mounted animals
+	UINT16 max_x = Map->mapTileWidth(pc->pos.map) * 8;
+	UINT16 max_y = Map->mapTileHeight(pc->pos.map) * 8;
+
+	// only > max_x and > max_y are invalid
+	if( pc->pos.x >= max_x || pc->pos.y >= max_y )
 	{
-		cCharStuff::DeleteChar(pc); //character in an invalid location
+		cCharStuff::DeleteChar( pc );
+		return;
 	}
-	if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account() != 0) || (( pc->pos.x>max_x || pc->pos.y>max_y ) && pc->account() !=0))
-	{
-		Coord_cl pos(pc->pos);
-		pos.x = 900;
-		pos.y = 300;
-		pos.z = 30;
-		pc->moveTo(pos); //player in an invalid location
-	}
-	setcharflag(pc);//AntiChrist
+
+	setcharflag( pc ); //AntiChrist
 }
 
 bool cChar::onShowContext( cUObject *object )

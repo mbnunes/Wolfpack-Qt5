@@ -185,7 +185,7 @@ public:
 	void	setAntispamtimer ( unsigned int data ) { antispamtimer_ = data;}
 	void	setAccuracy( UI16 data ) { accuracy_ = data; }
 
-	cItem() : container_(0) { totalweight_ = 0; };
+	cItem();
 	cItem( cItem& src); // Copy constructor
 	virtual QString objectID() const;
 	static void registerInFactory();

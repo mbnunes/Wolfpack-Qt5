@@ -71,54 +71,12 @@ void cItem::registerInFactory()
 	UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
 }
 
-P_CHAR cItem::owner( void )
-{
-	return FindCharBySerial( ownserial ); 
-}
-
-void cItem::setOwner( P_CHAR nOwner )
-{
-	ownserial = ( nOwner == NULL ) ? INVALID_SERIAL : nOwner->serial;
-}
-
-// Is the Item pileable?
-bool cItem::isPileable()
-{
-	tile_st tile = cTileCache::instance()->getTile( id_ );
-	return tile.flag2&0x08;
-}
-
-void cItem::toBackpack( P_CHAR pChar )
-{
-	P_ITEM pPack = pChar->getBackpack();
-	
-	// Pack it to the ground
-	if( !pPack )
-	{
-		container_ = 0;
-		moveTo( pChar->pos );
-		update();
-	}
-	// Or to the backpack
-	else
-		pPack->addItem( this );
-}
-
-// Gets the corpse an item is in
-P_ITEM cItem::getCorpse( void )
-{
-	if( isInWorld() || ( container_ && container_->isChar() ) )
-		return 0;
-
-	P_ITEM Cont = GetOutmostCont( this );
-
-	if( !Cont || !Cont->corpse() )
-		return 0;
-
-	return Cont;
-}
-
 // constructor
+cItem::cItem(): 
+container_(0), totalweight_(0), incognito(false),rndvaluerate(0),free(false),
+dooropen(0),gatetime(0),gatenumber(-1),disabledmsg(""),murdertime(0),
+timeused_last(0) {};
+
 cItem::cItem( cItem &src )
 {
 	this->name_ = src.name_;
@@ -196,6 +154,53 @@ cItem::cItem( cItem &src )
 	this->tags = src.tags;
 	this->accuracy_ = 100;
 	this->container_ = src.container_;
+}
+
+P_CHAR cItem::owner( void )
+{
+	return FindCharBySerial( ownserial ); 
+}
+
+void cItem::setOwner( P_CHAR nOwner )
+{
+	ownserial = ( nOwner == NULL ) ? INVALID_SERIAL : nOwner->serial;
+}
+
+// Is the Item pileable?
+bool cItem::isPileable()
+{
+	tile_st tile = cTileCache::instance()->getTile( id_ );
+	return tile.flag2&0x08;
+}
+
+void cItem::toBackpack( P_CHAR pChar )
+{
+	P_ITEM pPack = pChar->getBackpack();
+	
+	// Pack it to the ground
+	if( !pPack )
+	{
+		container_ = 0;
+		moveTo( pChar->pos );
+		update();
+	}
+	// Or to the backpack
+	else
+		pPack->addItem( this );
+}
+
+// Gets the corpse an item is in
+P_ITEM cItem::getCorpse( void )
+{
+	if( isInWorld() || ( container_ && container_->isChar() ) )
+		return 0;
+
+	P_ITEM Cont = GetOutmostCont( this );
+
+	if( !Cont || !Cont->corpse() )
+		return 0;
+
+	return Cont;
 }
 
 inline QString cItem::objectID() const
