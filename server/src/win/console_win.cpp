@@ -49,6 +49,10 @@
 #include <qthread.h>
 #include "../verinfo.h"
 
+#if !defined(CFM_WEIGHT)
+# define CFM_WEIGHT 0x00400000
+#endif 
+
 /*
 	This file includes the Windows GUI implementation of our Console.
  */

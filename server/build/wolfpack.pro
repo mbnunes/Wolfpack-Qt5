@@ -16,6 +16,8 @@ unix {
 	# Lets try to figure some paths
 	message("HINT: use ./configure script!")
 
+	CONFIG += console
+
 	# MySQL
 	LIBS += $$MYSQL_LIB
 	INCLUDEPATH += $$MYSQL_INC
