@@ -527,7 +527,7 @@ void cItem::remove()
 	if (free) {
 		return;
 	}
-	
+
 	if (cPythonScript::canChainHandleEvent(EVENT_DELETE, scriptChain)) {
 		PyObject *args = Py_BuildValue("(N)", getPyObject());
 		cPythonScript::callChainedEventHandler(EVENT_DELETE, scriptChain, args);
@@ -539,35 +539,35 @@ void cItem::remove()
 	clearEvents();
 
 	removeFromView(false); // Remove it from all clients in range
-	
+
 	// Update Top Objects
 	setSpawnRegion(QString::null);
 	SetOwnSerial(-1);
 
 	// Check if this item is registered as a guildstone and remove it
 	// from the container if neccesary.
-	for ( cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it ) 
+	for ( cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it )
 	{
 		cGuild *guild = it.data();
-		if (guild->guildstone() == this) 
+		if (guild->guildstone() == this)
 			guild->setGuildstone(0);
 	}
 
 	// Remove from the sector map if its a world item
 	// Otherwise check if there is a top container
-	if (container() && !container()->free) 
+	if (container() && !container()->free)
 	{
 		removeFromCont();
-	} 
+	}
 	else
 	{
 		SectorMaps::instance()->remove(this);
 	}
 
 	// Create a copy of the content so we don't accidently change our working copy
-	ContainerContent container(content()); 
+	ContainerContent container(content());
 	ContainerContent::const_iterator it2;
-	for (it2 = container.begin(); it2 != container.end(); ++it2) 
+	for (it2 = container.begin(); it2 != container.end(); ++it2)
 		(*it2)->remove();
 
 	// Remove us from a multi container
@@ -608,7 +608,7 @@ void cItem::decay( unsigned int currenttime )
 	// Locked Down Items, NoDecay Items and Items in Containers can never decay
 	// And ofcourse items in multis cannot
 	// Static/Nevermovable items can't decay too
-	if (container() || nodecay() || isLockedDown() || multis() != INVALID_SERIAL || magic_ >= 2) 
+	if (container() || nodecay() || isLockedDown() || multis() != INVALID_SERIAL || magic_ >= 2)
 		return;
 
 	// Start decaying
@@ -1023,16 +1023,16 @@ void cItem::processContainerNode( const cElement *tag )
 	}
 }
 
-void cItem::showName(cUOSocket *socket) 
+void cItem::showName(cUOSocket *socket)
 {
-	if (!onSingleClick(socket->player())) 
+	if (!onSingleClick(socket->player()))
 	{
 		unsigned int message;
 		QString params = QString::null;
 
-		if (amount_ > 1) 
+		if (amount_ > 1)
 		{
-			if (name_.isEmpty()) 
+			if (name_.isEmpty())
 			{
 				message = 1050039;
 				params = QString("%1\t#%2").arg(amount_).arg(1020000 + id_);
@@ -1042,15 +1042,15 @@ void cItem::showName(cUOSocket *socket)
 				message = 1050039;
 				params = QString("%1\t%2").arg(amount_).arg(name_);
 			}
-		} 
+		}
 		else
 		{
-			if (name_.isEmpty()) 
+			if (name_.isEmpty())
 			{
 				message = 1042971;
 				params = QString("#%2").arg(1020000 + id_);
 			}
-			else 
+			else
 			{
 				message = 1042971;
 				params = name_;
@@ -1068,7 +1068,7 @@ void cItem::update(cUOSocket *singlesocket)
 		return;
 
 	// Items on Ground
-	if (!container_) 
+	if (!container_)
 	{
 		// we change the packet during iteration, so we have to
 		// recompress it
@@ -1081,31 +1081,31 @@ void cItem::update(cUOSocket *singlesocket)
 		sendItem.setDirection(dir_);
 
 		// Send to one person only
-		if (!singlesocket) 
+		if (!singlesocket)
 		{
-			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) 
+			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next())
 			{
-				if (socket->canSee(this)) 
+				if (socket->canSee(this))
 				{
 					P_PLAYER player = socket->player();
 					unsigned char flags = 0;
 					cUOTxSendItem packetCopy(sendItem);
 
 					// Always Movable Flag
-					if (isAllMovable()) 
+					if (isAllMovable())
 					{
 						flags |= 0x20;
 					}
-					else if (player->account()->isAllMove()) 
+					else if (player->account()->isAllMove())
 					{
 						flags |= 0x20;
 					}
-					else if (isOwnerMovable() && player->Owns(this)) 
+					else if (isOwnerMovable() && player->Owns(this))
 					{
 						flags |= 0x20;
 					}
 
-					if (visible_ != 0) 
+					if (visible_ != 0)
 					{
 						flags |= 0x80;
 					}
@@ -1116,22 +1116,22 @@ void cItem::update(cUOSocket *singlesocket)
 					sendTooltip(socket);
 				}
 			}
-		} 
-		else if (singlesocket && singlesocket->canSee(this)) 
+		}
+		else if (singlesocket && singlesocket->canSee(this))
 		{
 			P_PLAYER player = singlesocket->player();
 			unsigned char flags = 0;
 
 			// Always Movable Flag
-			if (isAllMovable()) 
+			if (isAllMovable())
 			{
 				flags |= 0x20;
 			}
-			else if (player->account()->isAllMove()) 
+			else if (player->account()->isAllMove())
 			{
 				flags |= 0x20;
 			}
-			else if (isOwnerMovable() && player->Owns(this)) 
+			else if (isOwnerMovable() && player->Owns(this))
 			{
 				flags |= 0x20;
 			}
@@ -1157,35 +1157,35 @@ void cItem::update(cUOSocket *singlesocket)
 			singlesocket->send(&equipItem);
 			sendTooltip(singlesocket);
 		}
-		else 
+		else
 		{
-			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) 
+			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next())
 			{
-				if (socket->canSee(this)) 
+				if (socket->canSee(this))
 				{
 					socket->send(&equipItem);
 					sendTooltip(socket);
 				}
 			}
 		}
-	
+
 	// items in containers
-	} 
-	else if (container_ && container_->isItem()) 
+	}
+	else if (container_ && container_->isItem())
 	{
 		cUOTxAddContainerItem contItem;
 		contItem.fromItem(this);
 
-		if (singlesocket) 
+		if (singlesocket)
 		{
 			singlesocket->send(&contItem);
 			sendTooltip(singlesocket);
-		} 
+		}
 		else
 		{
-			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) 
+			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next())
 			{
-				if (socket->canSee(this)) 
+				if (socket->canSee(this))
 				{
 					socket->send(&contItem);
 					sendTooltip(socket);
@@ -1200,24 +1200,24 @@ P_ITEM cItem::dupe()
 	P_ITEM nItem = new cItem(*this);
 	nItem->setSerial(World::instance()->findItemSerial());
 
-	if (container_) 
+	if (container_)
 	{
 		P_CHAR pchar = dynamic_cast<P_CHAR>(container_);
 
-		if (pchar) 
+		if (pchar)
 		{
 			nItem->container_ = 0;
 			nItem->moveTo(pchar->pos(), true);
 		}
-		else 
+		else
 		{
 			P_ITEM item = dynamic_cast<P_ITEM>(container_);
-	
-			if (item) 
+
+			if (item)
 				item->addItem(nItem, false, true, true);
 		}
 	}
-	else 
+	else
 	{
 		nItem->moveTo(pos_);
 	}
@@ -1319,20 +1319,20 @@ void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	}
 }
 
-bool cItem::wearOut() 
+bool cItem::wearOut()
 {
-	if (RandomNum(1, 4) == 4) 
+	if (RandomNum(1, 4) == 4)
 		setHp(hp() - 1);
 
-	if (hp() <= 0) 
+	if (hp() <= 0)
 	{
 		// Get the owner of the item
 		P_CHAR owner = getOutmostChar();
 		P_PLAYER pOwner = dynamic_cast<P_PLAYER>(owner);
 
-		if(pOwner && pOwner->socket()) 
+		if(pOwner && pOwner->socket())
 		{
-			if (!name_.isEmpty()) 
+			if (!name_.isEmpty())
 			{
 				pOwner->socket()->clilocMessageAffix(1008129, QString::null, name_);
 			}
@@ -1343,11 +1343,11 @@ bool cItem::wearOut()
 		}
 
 		// Show to all characters in range that the item has been destroyed and not just unequipped
-		if (owner) 
+		if (owner)
 		{
-			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) 
+			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next())
 			{
-				if (owner != socket->player() && socket->canSee(owner)) 
+				if (owner != socket->player() && socket->canSee(owner))
 				{
 					socket->clilocMessageAffix(0xf9060 + id_, "", tr("You see %1 destroy his ").arg(owner->name()), 0x23, 3, owner, false, true);
 				}
@@ -1506,7 +1506,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 	if (serverState == RUNNING) {
 		P_ITEM cont = this;
 
-		while (cont) 
+		while (cont)
 		{
 			cont->resendTooltip();
 			cont = dynamic_cast<P_ITEM>(cont->container());
@@ -1518,12 +1518,12 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 {
 	//ContainerContent::iterator it = std::find(content_.begin(), content_.end(), pItem);
 	ContainerContent::iterator it = content_.begin();
-	while (it != content_.end()) 
+	while (it != content_.end())
 	{
-		if ((*it) == pItem) 
+		if ((*it) == pItem)
 		{
 			content_.erase(it);
-			if (handleWeight) 
+			if (handleWeight)
 			{
 				setTotalweight(this->totalweight() - pItem->totalweight());
 			}
@@ -1538,11 +1538,11 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 
 	// If the Server is running and this happens, resend the tooltip of us and
 	// all our parent containers.
-	if (serverState == RUNNING) 
+	if (serverState == RUNNING)
 	{
 		P_ITEM cont = this;
 
-		while (cont) 
+		while (cont)
 		{
 			cont->resendTooltip();
 			cont = dynamic_cast<P_ITEM>(cont->container());
@@ -1603,15 +1603,15 @@ P_CHAR cItem::getOutmostChar()
 {
 	P_CHAR result = 0;
 
-	if (container_) 
+	if (container_)
 	{
 		result = dynamic_cast<P_CHAR>(container_);
 
-		if (!result) 
+		if (!result)
 		{
 			P_ITEM container = dynamic_cast<P_ITEM>(container_);
 
-			if (container) 
+			if (container)
 			{
 				result = container->getOutmostChar();
 			}
@@ -1625,7 +1625,7 @@ P_CHAR cItem::getOutmostChar()
 void cItem::setAmount( UI16 nValue )
 {
 	setTotalweight( totalweight_ + ( nValue - amount_ ) * weight_  );
-	amount_ = nValue;	
+	amount_ = nValue;
 	changed( TOOLTIP );
 	flagChanged();
 }
@@ -1670,15 +1670,24 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 {
 	changed( TOOLTIP );
 	flagChanged();
-
+	/*
+		\property item.id The artwork id of the object.
+	*/
 	SET_INT_PROPERTY( "id", id_ )
+	/*
+		\property item.color The hue id of the artwork.
+	*/
 	else SET_INT_PROPERTY( "color", color_ )
-
+	/*
+		\property item.baseid The base-id refering to the definition from which the object was created.
+	*/
 	else if( name == "baseid" )
 	{
 		baseid_ = value.toString();
 	}
-
+	/*
+		\property item.amount The amount of objects in a stack.
+	*/
 	// Amount needs weight handling
 	else if( name == "amount" )
 	{
@@ -1694,20 +1703,42 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		amount_ = val;
 		return 0;
 	}
-
+	/*
+		\property item.layer The layer of the object, used with equipable objects.
+	*/
 	else SET_INT_PROPERTY( "layer", layer_ )
+	/*
+		\property item.type The type value of an object. Used to group weapons,
+		armor and other equipables, as well as usable objects.
+	*/
 	else SET_INT_PROPERTY( "type", type_ )
+	/*
+		\property item.weight The weight value of the object.
+	*/
 	else SET_FLOAT_PROPERTY( "weight", weight_ )
+	/*
+		\property item.health The current health or durability of the object.
+	*/
 	else SET_INT_PROPERTY( "health", hp_ )
+	/*
+		\property item.maxhealth The maximum health or durability value of the object.
+	*/
 	else SET_INT_PROPERTY( "maxhealth", maxhp_ )
+	/*
+		\property item.owner The character serial to which the object belongs to.
+	*/
 	else SET_INT_PROPERTY( "owner", ownserial_ )
-
+	/*
+		\property item.totalweight The total weight of stacked objcets.
+	*/
 	else if( name == "totalweight" )
 	{
 		setTotalweight( static_cast<QString>( value.toString() ).toFloat() );
 		return 0;
 	}
-
+	/*
+		\property item.container The container's serial which this item is contained in.
+	*/
 	else if( name == "container" )
 	{
 		// To int and Check for Serial type (makes it safer as well)
@@ -1739,9 +1770,18 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 			MapObjects::instance()->add( this );
 		}
 	}
-
+	/*
+		\property item.decaytime The amount of time before the object decays.
+	*/
 	else SET_INT_PROPERTY( "decaytime", decaytime_ )
-
+	/*
+		\property item.visible The visibile level of the object.
+		Values:
+		<code>0 - Everyone
+			1 - Owner
+			2 - Invisible
+		</code>
+	*/
 	else if( name == "visible" )
 	{
 		if( value.toInt() )
@@ -1751,7 +1791,13 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 
 		return 0;
 	}
-
+	/*
+		\property item.ownervisible Overrides visible 2
+		Values:
+		<code>1 - Owner can see
+		0 - Owner can not see.
+		</code>
+	*/
 	else if( name == "ownervisible" )
 	{
 		if( value.toInt() )
@@ -1761,15 +1807,44 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 
 		return 0;
 	}
-
+	/*
+		\property item.spawnregion The region definition name that spawned this object.
+	*/
 	else SET_STR_PROPERTY( "spawnregion", spawnregion_ )
+	/*
+		\property item.sellprice The value at which this object can sell.
+	*/
 	else SET_INT_PROPERTY( "sellprice", sellprice_ )
+	/*
+		\property item.buyprice The value at which this object is bought.
+	*/
 	else SET_INT_PROPERTY( "buyprice", buyprice_ )
+	/*
+		\property item.restock The amount of this object currently in stock.
+	*/
 	else SET_INT_PROPERTY( "restock", restock_ )
+	/*
+		\property item.magic The movable permission for the object.
+		Values:
+		<code>0 - Anyone
+		1 - Owner
+		2 - Nobody
+		</code>
+	*/
 	else SET_INT_PROPERTY( "magic", magic_ )
+	/*
+		\property item.visible The artwork id of the object.
+	*/
 	else SET_INT_PROPERTY( "visible", visible_ )
 
 	// Flags
+	/*
+		\property item.decay Enable or disable the decay of the object.
+		Values:
+		<code>0 - No Decay
+		1 - Decay
+		</code>
+	*/
 	else if( name == "decay" )
 	{
 		if( value.toInt() )
@@ -1778,6 +1853,13 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 			setNoDecay( true );
 		return 0;
 	}
+	/*
+		\property item.newbie Enable or disable the object's newbie flag.
+		Values:
+		<code>0 - False
+		1 - True
+		</code>
+	*/
 	else if( name == "newbie" )
 	{
 		if( value.toInt() )
@@ -1786,6 +1868,13 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 			priv_ &= ~0x02;
 		return 0;
 	}
+	/*
+		\property item.dispellable Enable or disable dispelling of this object.
+		Values:
+		<code>0 - False
+		1 - True
+		</code>
+	*/
 	else if( name == "dispellable" )
 	{
 		if( value.toInt() )
@@ -1794,6 +1883,13 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 			priv_ &= ~0x04;
 		return 0;
 	}
+	/*
+		\property item.secured Enable or disable as a secured object.
+		Values:
+		<code>0 - False
+		1 - True
+		</code>
+	*/
 	else if( name == "secured" )
 	{
 		if( value.toInt() )
@@ -1802,6 +1898,13 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 			priv_ &= ~0x08;
 		return 0;
 	}
+	/*
+		\property item.allowmeditation Enable or disable the use of the meditation skill with this object.
+		Values:
+		<code>0 - Disallow Meditation
+		1 - Allow Meditation
+		</code>
+	*/
 	else if( name == "allowmeditation" )
 	{
 		if( value.toInt() )
@@ -1810,6 +1913,13 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 			priv_ &= ~0x10;
 		return 0;
 	}
+	/*
+		\property item.twohanded Defines if the object a two handed weapon.
+		Values:
+		<code>0 - One Handed
+		1 - Two Handed
+		</code>
+	*/
 	else if( name == "twohanded" )
 	{
 		if( value.toInt() )
@@ -1818,10 +1928,20 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 			priv_ &= ~0x20;
 		return 0;
 	}
+	/*
+		\property item.dye Defines if the object can be dyed or not.
+		Values:
+		<code>0 - No
+		1 - Yes
+		</code>
+	*/
 	else if( name == "dye" )
 	{
 		setDye( value.toInt() != 0 ? true : false );
 	}
+	/*
+		\property item.corpse The corpse's serial id to which this object is contained.
+	*/
 	else if( name == "corpse" )
 	{
 		if( value.toInt() )
@@ -1886,7 +2006,7 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else return cUObject::getProperty( name, value );
 }
 
-void cItem::sendTooltip(cUOSocket* mSock) 
+void cItem::sendTooltip(cUOSocket* mSock)
 {
 	// There is a list of statically overridden items in the client (@50A1C0 for 4.0.0o)
 	unsigned short id = this->id();
@@ -1910,9 +2030,9 @@ void cItem::sendTooltip(cUOSocket* mSock)
 
 	// If the item is not movable for the client, the item should not have a tooltip
 	// Exceptions are noted above and containers
-	if (tile.weight == 255 && !isAllMovable()) 
+	if (tile.weight == 255 && !isAllMovable())
 	{
-		if (tile.flag3 & 0x20 == 0) 
+		if (tile.flag3 & 0x20 == 0)
 			return;
 	}
 
@@ -1969,23 +2089,23 @@ P_ITEM cItem::createFromId( unsigned short id )
 	return pItem;
 }
 
-void cItem::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) 
+void cItem::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player)
 {
 	cUObject::createTooltip(tooltip, player);
 
 	// Add the object name.
-	if (amount_ > 1) 
+	if (amount_ > 1)
 	{
-		if (name_.isEmpty()) 
+		if (name_.isEmpty())
 			tooltip.addLine(1050039, QString("%1\t#%2").arg(amount_).arg(1020000 + id_));
-		else 
+		else
 			tooltip.addLine(1050039, QString("%1\t%2").arg(amount_).arg(name_));
-	} 
-	else 
+	}
+	else
 	{
-		if (name_.isEmpty()) 
+		if (name_.isEmpty())
 			tooltip.addLine(1042971, QString("#%2").arg(1020000 + id_));
-		else 
+		else
 			tooltip.addLine(1042971, name_);
 	}
 
@@ -1996,30 +2116,30 @@ void cItem::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player)
 		unsigned int weight = (unsigned int)floor(totalweight_);
 
 		// static items weight doesnt count
-		if (weight_ == 255) 
+		if (weight_ == 255)
 			weight -= 255;
 
 		tooltip.addLine(1050044, QString("%1\t%2").arg(count).arg(weight));
 	}
 
 	// Newbie Items
-	if (newbie()) 
+	if (newbie())
 		tooltip.addLine(1038021, "");
 
 	// Invisible to others
-	if (player->isGM() && visible() > 0) 
+	if (player->isGM() && visible() > 0)
 		tooltip.addLine(3000507, "");
 
 	onShowTooltip(player, &tooltip);
 }
 
 // Python implementation
-PyObject *cItem::getPyObject() 
+PyObject *cItem::getPyObject()
 {
 	return PyGetItemObject(this);
 }
 
-const char *cItem::className() const 
+const char *cItem::className() const
 {
 	return "item";
 }
@@ -2027,7 +2147,7 @@ const char *cItem::className() const
 bool cItem::canStack(cItem *pItem) {
 	// Do some basic checks and see if the item is a
 	// container (they never stack).
-	if (id() != pItem->id() || color() != pItem->color() 
+	if (id() != pItem->id() || color() != pItem->color()
 		|| type() != pItem->type() || type() == 1) {
 		return false;
 	}
