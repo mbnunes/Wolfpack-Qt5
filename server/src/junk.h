@@ -56,6 +56,7 @@ struct statcap_st
 
 extern cCharArray *CharArray;
 #include "books.h"
+#include "speech.h"
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cBoat			*Boats;
 extern CWorldMain		*cwmWorldState;
@@ -77,6 +78,7 @@ extern cMagic			*Magic;
 extern cBooks           *Books;
 extern cAllTmpEff       *AllTmpEff;
 extern cMovement		*Movement;
+extern cSpeech	        *Speech;
 // Skys AI 
 extern cCharStuff::cDragonAI	*DragonAI;
 extern cCharStuff::cBankerAI	*BankerAI;

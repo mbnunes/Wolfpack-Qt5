@@ -1307,7 +1307,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 				case 0x03:// Speech			
 					pc_currchar->unicode = false;
 					strcpy((char*)nonuni, (char*)&buffer[s][8]);
-					talking(s, (char*)nonuni);
+					Speech->talking(s, (char*)nonuni);
 					break;
 
 
@@ -1383,9 +1383,9 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						buffer[s][2] = static_cast<unsigned char> ( iWord & 0x00FF ) ;															
 					}	
 	
-					wchar2char((char*)&buffer[s][13]);
+					Speech->wchar2char((char*)&buffer[s][13]);
 					strncpy((char*)nonuni, temp, ((buffer[s][1]<<8)+buffer[s][2])/2);
-					talking(s, (char*)nonuni);
+					Speech->talking(s, (char*)nonuni);
 					break;    
 
 				case 0x06:// Doubleclick			

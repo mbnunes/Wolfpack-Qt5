@@ -864,7 +864,7 @@ bool VendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 //			that they might be interested in.
 //			This is especially usefull in crowded places.
 
-int response(UOXSOCKET s, P_CHAR pPlayer, char* SpeechUpr)
+int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, char* SpeechUpr)
 {
 	char *comm=SpeechUpr;
 
@@ -925,7 +925,7 @@ int response(UOXSOCKET s, P_CHAR pPlayer, char* SpeechUpr)
 	return 0;
 }
 
-void talking(int s, string speech) // PC speech
+void cSpeech::talking(int s, string speech) // PC speech
 {
 /*
 	Unicode speech format
@@ -1199,7 +1199,7 @@ void talking(int s, string speech) // PC speech
 /* wchar2char and char2wchar converts between ANSI char and Wide Chars
 used by UO Client. Be aware, those functions returns their results in
 temp[1024] global variable */
-void wchar2char (const char* str)
+void cSpeech::wchar2char (const char* str)
 {
 	memset(&temp[0], 0, 1024);
 	bool end = false;
@@ -1210,7 +1210,7 @@ void wchar2char (const char* str)
 	}
 }
 
-void char2wchar (const char* str)
+void cSpeech::char2wchar (const char* str)
 {
 	memset(&temp[0], 0, 1024);
 	unsigned int size = strlen(str);

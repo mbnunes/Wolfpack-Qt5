@@ -47,6 +47,7 @@
 using namespace std ;
 
 // Class Declaration
+class cSpeech;
 
 //Wolfpack Includes
 #include "wolfpack.h"
@@ -55,12 +56,17 @@ using namespace std ;
 #include "speech.h"
 #include "utilsys.h"
 
+//void responsevendor(UOXSOCKET s, int vendor);
+class cSpeech
+{
+public:
+	int response(UOXSOCKET s, P_CHAR pPlayer, char* SpeechUpr);
+    void talking(UOXSOCKET, string);
+    void wchar2char (const char* str);
+    void char2wchar (const char* str);
+};
 
-void responsevendor(UOXSOCKET s, int vendor);
-void talking(UOXSOCKET, string);
-
-void wchar2char (const char* str);
-void char2wchar (const char* str);
+extern cSpeech	*Speech;
 
 
 #endif

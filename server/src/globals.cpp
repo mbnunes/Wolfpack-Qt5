@@ -300,6 +300,7 @@ cAllTmpEff		*AllTmpEff;
 cMovement		*Movement;
 cWeather		*Weather;
 cHouseManager   *HouseManager;
+cSpeech	        *Speech;
 cRaces			Races;
 // Sky's AI
 cCharStuff::cDragonAI	*DragonAI;
