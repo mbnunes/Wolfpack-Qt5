@@ -1046,7 +1046,17 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 	if( speech.contains( "guards", false ) )
 		callguards( pChar );
 
+	// well,i had a strange problem with duplicate speech input
+	// its quite easy to understand....
+	// the former loop searched for the tiller man and when it
+	// was found, the speechInput method of that boat was called.
+	// in this method the tiller had been removed from the mapregion
+	// and appended to the end of the cell vector... hence, the
+	// tiller was found twice...
+	// therefore we produce a QPtrList of cBoat* pointers and 
+	// then go through it for appliing speech --- sereg
 	cRegion::RegionIterator4Items rj( pChar->pos );
+	QPtrList< cBoat >	pboats;
 	for( rj.Begin(); !rj.atEnd(); rj++ )
 	{
 		P_ITEM pi = rj.GetData();
@@ -1057,14 +1067,19 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 		if( pi->type() == 117 && pi->tags.get( "tiller" ).toInt() == 1 )
 		{
 			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags.get("boatserial").toUInt() ));
-			// >> LEGACY
-			//if( pBoat )
-				//pBoat->speechInput( s, SpeechUpr );
+			if( pBoat )
+				pboats.append( pBoat );
 		}
+	}
+	QPtrListIterator< cBoat >	pit( pboats );
+	while( pit.current() )
+	{
+		pit.current()->speechInput( socket, speechUpr );
+		++pit;
 	}
 
 	// >> LEGACY
-	// house_speech( s, SpeechUpr );
+	//house_speech( s, SpeechUpr );
 
 	// this makes it so npcs do not respond to dead people - HEALERS ??
 	if( pChar->dead )

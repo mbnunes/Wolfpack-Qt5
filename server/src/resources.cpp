@@ -1116,7 +1116,7 @@ cResourceItem::cResourceItem( QString resource, UINT32 amount, UINT32 vein )
 	}
 	morex = amount;
 	morey = vein;
-	this->setId( 0x1f1e );
+	this->setId( 0x1ea7 );
 	this->amount_ = 1;
 	this->setName( tr("resitem: %1").arg(resource) );
 	this->setName2(tr("#"));
