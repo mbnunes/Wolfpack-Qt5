@@ -465,6 +465,10 @@ void Action_Wander::execute() {
 	}
 	m_npc->setNextMoveTime();
 
+	if (m_npc->wanderType() == enHalt) {
+		return;
+	}
+
 	switch( m_npc->wanderType() )
 	{
 	case enFreely:
