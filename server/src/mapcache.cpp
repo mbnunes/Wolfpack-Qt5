@@ -421,7 +421,7 @@ bool MapCache_cl::processVerdata()
 			stStore.siSize = stData.siSize ;
 			stStore.siExtra = stData.siExtra ;
 			switch( stData.uiFileID)
-            {
+            		{
 				case 0x00:
 
 					mapVerdataMap.insert(make_pair(stData.siBlock,  stStore)) ;
@@ -442,7 +442,7 @@ bool MapCache_cl::processVerdata()
 	}
 	else
 	{
-		cerr << "error opening verdata:"<<sVerdata <<endl;
+		cerr << "No verdata.mul found, continuing:"<<sVerdata <<endl;
 	}
 
 	return bReturn ;

@@ -130,10 +130,10 @@ void cMapStuff::Load()
 	verfile= new UOXFile(vername,"rb");
 	if (verfile==NULL || !verfile->ready())
     {
-		sprintf((char*)temp,"ERROR: Version File %s not found...\n",vername);
+		sprintf((char*)temp,"WARNING: Version File %s not found...\n",vername);
 		LogCritical((char*)temp);
-		keeprun=0;
-		return;
+	//	keeprun=0;
+	//	return;
     }
 	clConsole.send("	%s\n", tilename);
 	tilefile= new UOXFile(tilename,"rb");
@@ -563,47 +563,49 @@ char cMapStuff::MapType(int x, int y) // type of MAP0.MUL at given coordinates
 //##ModelId=3C5D92DF00EC
 void cMapStuff::CacheVersion()
 {
-	verfile->seek(0, SEEK_SET);
-	UI32 maxRecordCount = 0;
-	verfile->getULong(&maxRecordCount);
+	if (verfile != NULL)
+	{
+		verfile->seek(0, SEEK_SET);
+		UI32 maxRecordCount = 0;
+		verfile->getULong(&maxRecordCount);
 	
-	if (0 == maxRecordCount)
-		return;
-	if (NULL == (versionCache = new versionrecord[maxRecordCount]))
-		return;
-	
-	clConsole.send("Caching version data..."); fflush(stdout);
-	versionMemory = maxRecordCount * sizeof(versionrecord);
-	for (UI32 i = 0; i < maxRecordCount; ++i)
-    {
-		if (verfile->eof())
-		{
-			clConsole.send("Error: Avoiding bad read crash with verdata.mul.\n");
+		if (0 == maxRecordCount)
 			return;
-		}
-		versionrecord *ver = versionCache + versionRecordCount;
-		assert(ver);
-		verfile->get_versionrecord(ver);
+		if (NULL == (versionCache = new versionrecord[maxRecordCount]))
+			return;
+	
+		clConsole.send("Caching version data..."); fflush(stdout);
+		versionMemory = maxRecordCount * sizeof(versionrecord);
+		for (UI32 i = 0; i < maxRecordCount; ++i)
+    	{
+			if (verfile->eof())
+			{
+				clConsole.send("Error: Avoiding bad read crash with verdata.mul.\n");
+				return;
+			}
+			versionrecord *ver = versionCache + versionRecordCount;
+			assert(ver);
+			verfile->get_versionrecord(ver);
 		
-		// see if its a record we care about
-		switch(ver->file)
-		{
-		case VERFILE_MULTIIDX:
-		case VERFILE_MULTI:
-		case VERFILE_TILEDATA:
-			++versionRecordCount;
-			break;
-		case VERFILE_MAP:
-		case VERFILE_STAIDX:
-		case VERFILE_STATICS:
-			// at some point we may need to handle these cases, but OSI hasn't patched them as of
-			// yet, so no need slowing things down processing them
-			clConsole.send("Eeek! OSI has patched the static data and I don't know what to do!\n");
-			break;
-		default:
-			// otherwise its for a file we don't care about
-			break;
-		}
+			// see if its a record we care about
+			switch(ver->file)
+			{
+			case VERFILE_MULTIIDX:
+			case VERFILE_MULTI:
+			case VERFILE_TILEDATA:
+				++versionRecordCount;
+				break;
+			case VERFILE_MAP:
+			case VERFILE_STAIDX:
+			case VERFILE_STATICS:
+				// at some point we may need to handle these cases, but OSI hasn't patched them as of
+				// yet, so no need slowing things down processing them
+				clConsole.send("Eeek! OSI has patched the static data and I don't know what to do!\n");
+				break;
+			default:
+				// otherwise its for a file we don't care about
+				break;
+			}
 		/*
 		if (ver->file == VERFILE_MAP)
 			clConsole.send("map0.mul patch!\n");
@@ -618,8 +620,9 @@ void cMapStuff::CacheVersion()
 		else if (ver->file == VERFILE_TILEDATA)
 			clConsole.send("tiledata.mul table patch!\n");
 			*/
-    }
-	clConsole.send("Done\n(Cached %ld patches out of %ld possible).\n", versionRecordCount, maxRecordCount);
+    		}
+		clConsole.send("Done\n(Cached %ld patches out of %ld possible).\n", versionRecordCount, maxRecordCount);
+	}
 }
 
 
