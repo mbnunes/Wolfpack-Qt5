@@ -29,11 +29,13 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#include "structs.h"
-#include "hCache.h"
-
 #if !defined(__MAPSTUFF_H__)
 #define __MAPSTUFF_H__
+
+#include "structs.h"
+#include "hCache.h"
+#include "qintcache.h"
+
 
 #if ILSHENAR == 1
   const int MapTileWidth  = 288;
@@ -64,17 +66,7 @@ private:
 		unsigned short CacheLen;   // i've seen this goto to at least 273 - fur 10/29/1999
 	};
 
-	// map caching items
-	struct MapCache
-	{
-		unsigned short xb;
-		unsigned short yb;
-		unsigned char  xo;
-		unsigned char  yo;
-		map_st Cache;
-	};
-
-	MapCache Map0Cache[MAP0CACHE];
+	QIntCache<map_st>* MapCache;
 
 	// version caching items
 	versionrecord *versionCache;
@@ -98,7 +90,7 @@ public:
 // Functions
 private:
 	char VerLand(int landnum, land_st *land);
-	signed char MultiHeight(P_ITEM pi, short int x, short int y, signed char oldz);
+	signed char MultiHeight(P_ITEM pi, const Coord_cl&);
 	int MultiTile(P_ITEM pi, short int x, short int y, signed char oldz);
 	SI32 VerSeek(SI32 file, SI32 block);
 	char VerTile(int tilenum, tile_st *tile);
@@ -107,7 +99,7 @@ private:
 	void CacheVersion();
 
 	int DynTile( short int x, short int y, signed char oldz );
-	bool DoesStaticBlock(short int x, short int y, signed char oldz);
+	bool DoesStaticBlock( const Coord_cl& pos );
 
 public:
 	cMapStuff();
@@ -116,26 +108,26 @@ public:
 	void Load();
 
 	// height functions
-	bool IsUnderRoof(short int x, short int y, signed char z);
-	signed char StaticTop(short int x, short int y, signed char oldz);
-	signed char DynamicElevation(short int x, short int y, signed char oldz);
-	signed char MapElevation(short int x, short int y);
-	signed char AverageMapElevation(short int x, short int y, int &id);
+	bool IsUnderRoof(const Coord_cl&);
+	signed char StaticTop(const Coord_cl&);
+	signed char DynamicElevation(const Coord_cl&);
+	signed char MapElevation(const Coord_cl&);
+	signed char AverageMapElevation(const Coord_cl&, int &id);
 	signed char TileHeight( int tilenum );
-	signed char Height(short int x, short int y, signed char oldz);
+	signed char Height(const Coord_cl&);
 
 	// look at tile functions
 	void MultiArea(P_ITEM pi, int *x1, int *y1, int *x2, int *y2);
 	void SeekTile(int tilenum, tile_st *tile);
 	void SeekMulti(int multinum, UOXFile **mfile, SI32 *length);
 	void SeekLand(int landnum, land_st *land);
-	map_st SeekMap0( unsigned short x, unsigned short y );
+	map_st SeekMap( const Coord_cl& );
 	bool IsRoofOrFloorTile( tile_st *tile );
 	bool IsRoofOrFloorTile( unitile_st *tile );
 	bool DoesTileBlock(int tilenum);
 
 	// misc functions
-	bool CanMonsterMoveHere( short int x, short int y, signed char z );
+	bool CanMonsterMoveHere( const Coord_cl& );
 
 	// Map size related
 	static unsigned int mapTileWidth( const Coord_cl& );
@@ -157,7 +149,7 @@ private:
 	bool exactCoords;
 
 public:
-	MapStaticIterator(unsigned int x, unsigned int y, bool exact = true);
+	MapStaticIterator(const Coord_cl& pos, bool exact = true);
 	~MapStaticIterator() { };
 
 	staticrecord *First();

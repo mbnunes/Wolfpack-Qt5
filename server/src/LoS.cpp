@@ -341,7 +341,7 @@ the line of sight.
 			//source.ycheck=ycheck/8;
 			//xoff=(xcheck-(source.xcheck*8)); // Offset
 			//yoff=(ycheck-(y1check*8));
-			map1 = Map->SeekMap0( xcheck, ycheck );
+			map1 = Map->SeekMap( Coord_cl(xcheck, ycheck, source.map) );
 			if (map1.id!=2)
 			{
 				if ( // Mountain walls
@@ -361,7 +361,7 @@ the line of sight.
 			}
 			
 			// Statics
-			MapStaticIterator msi(xcheck, ycheck);
+			MapStaticIterator msi(Coord_cl(xcheck, ycheck, source.z, source.map));
 			tile_st tile;
 			staticrecord *stat;
 			loopexit=0;

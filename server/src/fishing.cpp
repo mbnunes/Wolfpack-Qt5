@@ -190,7 +190,7 @@ void cFishing::FishTarget(P_CLIENT ps)
 		ok = true;
 	else
 	{	// it might be offshore fishing (client returns id=0 for deep sea ) Duke, Thx for the hint goes to Avanoon guys
-		map_st map = Map->SeekMap0(px, py);	// search the ground tile where they casted
+		map_st map = Map->SeekMap(Coord_cl(px, py, pPlayer->pos.map));	// search the ground tile where they casted
 		if ( map.id == 0x00A8 || map.id == 0x00A9 || map.id == 0x00AA || map.id == 0x00AB )
 			ok = true;
 	}

@@ -1049,7 +1049,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 				   else lb = Movement->validNPCMove(pi_i->pos.x+xos,pi_i->pos.y+yos,pi_i->pos.z, pc_c);				 
 				   
 				   //Bug fix Monsters spawning on water:
-				   MapStaticIterator msi(pi_i->pos.x + xos, pi_i->pos.y + yos);
+				   MapStaticIterator msi(pi_i->pos + Coord_cl(xos, yos, 0));
 
 				   staticrecord *stat;
 				   loopexit=0;

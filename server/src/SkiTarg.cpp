@@ -579,7 +579,7 @@ void cSkills::Mine(int s)
 			// sorry, had to correct this because it cant and didnt work, LB 4'th JULY 2000
 			// mountains are "map0's" and no statics !!!
 
-			map=Map->SeekMap0(x,y);
+			map=Map->SeekMap(Coord_cl(x,y, pc->pos.map));
 			Map->SeekLand(map.id, &land);
 			if ( !strcmp(land.name,"rock") || !(strcmp(land.name, "mountain"))) mountain=1; else mountain=0;
 		}

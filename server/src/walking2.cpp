@@ -768,10 +768,11 @@ void cMovement::MoveCharForDirection(P_CHAR pc, int dir)
 }
 
 // Split up of FillXYBlockStuff
-void cMovement::GetBlockingMap(SI16 x, SI16 y, unitile_st *xyblock, int &xycount)
+
+void cMovement::GetBlockingMap( const Coord_cl pos, unitile_st *xyblock, int &xycount)
 {
 	int mapid = 0;
-	signed char mapz = Map->MapElevation(x,y);  //Map->AverageMapElevation(x, y, mapid);
+	signed char mapz = Map->MapElevation(pos);  //Map->AverageMapElevation(x, y, mapid);
 	if (mapz != illegal_z)
 	{
 		land_st land;
@@ -790,9 +791,9 @@ void cMovement::GetBlockingMap(SI16 x, SI16 y, unitile_st *xyblock, int &xycount
 	}
 }
 
-void cMovement::GetBlockingStatics(SI16 x, SI16 y, unitile_st *xyblock, int &xycount)
+void cMovement::GetBlockingStatics(const Coord_cl pos, unitile_st *xyblock, int &xycount)
 {
-	MapStaticIterator msi(x, y);
+	MapStaticIterator msi(pos);
 	staticrecord *stat;
  	while (stat = msi.Next())
 	{
@@ -812,9 +813,8 @@ void cMovement::GetBlockingStatics(SI16 x, SI16 y, unitile_st *xyblock, int &xyc
 	}
 }
 
-void cMovement::GetBlockingDynamics(SI16 x, SI16 y, unitile_st *xyblock, int &xycount)
+void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock, int &xycount)
 {
-	Coord_cl position(x, y, 0);
 	cRegion::RegionIterator4Items ri(position);
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
@@ -823,7 +823,7 @@ void cMovement::GetBlockingDynamics(SI16 x, SI16 y, unitile_st *xyblock, int &xy
 		{
 			if (mapitem->id1<0x40)
 			{
-				if ((mapitem->pos.x == x) && (mapitem->pos.y == y))
+				if ((mapitem->pos.x == position.x) && (mapitem->pos.y == position.y))
 				{
 					tile_st tile;
 					Map->SeekTile(mapitem->id(), &tile);
@@ -840,8 +840,8 @@ void cMovement::GetBlockingDynamics(SI16 x, SI16 y, unitile_st *xyblock, int &xy
 				}
 			}
 			else if (
-				(abs(mapitem->pos.x- x)<=BUILDRANGE)&&
-				(abs(mapitem->pos.y- y)<=BUILDRANGE)
+				(abs(mapitem->pos.x - position.x)<=BUILDRANGE)&&
+				(abs(mapitem->pos.y - position.y)<=BUILDRANGE)
 				)
 			{
 				UOXFile *mfile = NULL;
@@ -858,7 +858,7 @@ void cMovement::GetBlockingDynamics(SI16 x, SI16 y, unitile_st *xyblock, int &xy
 				{
 					st_multi multi;
 					mfile->get_st_multi(&multi);
-					if (multi.visible && (mapitem->pos.x+multi.x == x) && (mapitem->pos.y+multi.y == y))
+					if (multi.visible && (mapitem->pos.x+multi.x == position.x) && (mapitem->pos.y+multi.y == position.y))
 					{
 						tile_st tile;
 						Map->SeekTile(multi.tile, &tile);
@@ -880,15 +880,14 @@ void cMovement::GetBlockingDynamics(SI16 x, SI16 y, unitile_st *xyblock, int &xy
 } //- end of itemcount for loop
 
 // checkout everything we might need to take into account and fill it into the xyblock array
+/*
 void cMovement::FillXYBlockStuff(short int x, short int y, unitile_st *xyblock, int &xycount)
 {
-
 	GetBlockingMap(x, y, xyblock, xycount);
 	GetBlockingStatics(x, y, xyblock, xycount);
 	GetBlockingDynamics(x, y, xyblock, xycount);
-
 }
-
+*/
 
 // so we are going to move, lets update the regions
 // FYI, Items equal to or greater than 1000000 are considered characters...
@@ -1367,9 +1366,9 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 		if (wtype!=0) // check only neccasairy if it rains or snows ...
 		{
 			int inDungeon = indungeon(pc); // dung-check
-			bool i = Map->IsUnderRoof(pc->pos.x, pc->pos.y, pc->pos.z); // static check
+			bool i = Map->IsUnderRoof(pc->pos); // static check
 			// dynamics-check
-			int x = Map->DynamicElevation(pc->pos.x, pc->pos.y, pc->pos.z);
+			int x = Map->DynamicElevation(pc->pos);
 			if (x!=illegal_z)
 				if (Boats->GetBoat(pc) != NULL)
 					x=illegal_z; // check for dynamic buildings except boats
@@ -1513,8 +1512,8 @@ void cMovement::NpcWalk(P_CHAR pc_i, int j, int type)   //type is npcwalk mode (
 // check it twice? Just walk! Normal walking code will do the rest.
 		if (
 		    (!type)||
-		    ((type==1)&&(checkBoundingBox(newx, newy, pc_i->fx1, pc_i->fy1, pc_i->fz1, pc_i->fx2, pc_i->fy2)))||
-		    ((type==2)&&(checkBoundingCircle(newx, newy, pc_i->fx1, pc_i->fy1, pc_i->fz1, pc_i->fx2)))
+		    ((type==1)&&(checkBoundingBox(Coord_cl(newx, newy, pc_i->fz1, pc_i->pos.map), pc_i->fx1, pc_i->fy1,  pc_i->fx2, pc_i->fy2)))||
+		    ((type==2)&&(checkBoundingCircle(Coord_cl(newx, newy, pc_i->fz1, pc_i->pos.map), pc_i->fx1, pc_i->fy1, pc_i->fx2)))
 		   )
 			Walking(pc_i, j & 0x07, 256); // arm code
 //	}
@@ -1534,7 +1533,6 @@ void cMovement::NpcWalk(P_CHAR pc_i, int j, int type)   //type is npcwalk mode (
 
 unsigned short cMovement::GetYfromDir(int dir, unsigned short y)
 {
-
 	switch ( dir & 0x07 )
 	{
 	case 0x00 :
@@ -1548,7 +1546,6 @@ unsigned short cMovement::GetYfromDir(int dir, unsigned short y)
 	}
 
     return y;
-
 }
 
 // Function      : cMovement::GetXfromDir
@@ -1863,13 +1860,13 @@ bool cMovement::CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z)
 		switch (cnt)
 		{
 		case 0:
-			GetBlockingMap(x, y, xyblock, xycount);
+			GetBlockingMap( Coord_cl(x, y, z, pc->pos.map), xyblock, xycount);
 			break;
 		case 1:
-			GetBlockingStatics(x, y, xyblock, xycount);
+			GetBlockingStatics( Coord_cl(x, y, z, pc->pos.map), xyblock, xycount);
 			break;
 		case 2:
-			GetBlockingDynamics(x, y, xyblock, xycount);
+			GetBlockingDynamics( Coord_cl(x, y, z, pc->pos.map), xyblock, xycount);
 			break;
 		default:
 #if DEBUG_WALK_ERROR
@@ -2096,9 +2093,9 @@ int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int
 
 	int xycount = 0;
 	unitile_st xyblock[XYMAX];
-	GetBlockingMap( x, y, xyblock, xycount );
-	GetBlockingStatics( x, y, xyblock, xycount );
-	GetBlockingDynamics( x, y, xyblock, xycount );
+	GetBlockingMap( Coord_cl(x, y, pc->pos.z, pc->pos.map), xyblock, xycount );
+	GetBlockingStatics( Coord_cl(x, y, pc->pos.z, pc->pos.map), xyblock, xycount );
+	GetBlockingDynamics( Coord_cl(x, y,pc->pos.z, pc->pos.map), xyblock, xycount );
 
 	int i;
 	// first calculate newZ value
@@ -2218,6 +2215,7 @@ int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int
 int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_s )
 {
 	const int getcell=mapRegions->GetCell(Coord_cl(x,y, z));
+	const Coord_cl pos(x, y, z, pc_s->pos.map);
 
 	if ( pc_s == NULL ) return 0;
 
@@ -2257,7 +2255,7 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
 
 	// experimental check for bad spawning/walking places, not optimized in any way (Duke, 3.9.01)
 	int mapid = 0;
-	signed char mapz = Map->MapElevation(x, y);	// just to get the map-ID
+	signed char mapz = Map->MapElevation(pos);	// just to get the map-ID
 	if (mapz != illegal_z)
 	{
 		if ((mapid >= 0x25A && mapid <= 0x261) ||	// cave wall
@@ -2271,7 +2269,7 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
 	}
 		
     // see if the map says its ok to move here
-    if (Map->CanMonsterMoveHere(x, y, z))
+    if (Map->CanMonsterMoveHere(pos))
     {
 		pc_s->blocked = 0;
 		return 1;
@@ -2295,3 +2293,19 @@ void cMovement::getXYfromDir(int dir, int *x, int *y)
 	}
 }
 
+bool cMovement::checkBoundingBox(const Coord_cl pos, int fx1, int fy1, int fx2, int fy2)
+{
+	if (pos.x>=((fx1<fx2)?fx1:fx2) && pos.x<=((fx1<fx2)?fx2:fx1))
+		if (pos.y>=((fy1<fy2)?fy1:fy2) && pos.y<=((fy1<fy2)?fy2:fy1))
+			if (pos.z == -1 || abs(pos.z - Map->Height(pos))<=5)
+				return true;
+			return false;
+}
+
+bool cMovement::checkBoundingCircle(const Coord_cl pos, int fx1, int fy1, int radius)
+{
+	if ( (pos.x-fx1)*(pos.x-fx1) + (pos.y-fy1)*(pos.y-fy1) <= radius * radius)
+		if (pos.z == -1 || abs(pos.z-Map->Height(pos))<=5)
+			return true;
+		return false;
+}

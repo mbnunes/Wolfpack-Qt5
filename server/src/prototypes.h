@@ -108,8 +108,6 @@ void InitServerSettings();
 void DeleteClasses();
 void npcToggleCombat(P_CHAR pc);
 int chardir(P_CHAR a, P_CHAR b);
-int checkBoundingBox(int xPos, int yPos, int fx1, int fy1, int fz1, int fx2, int fy2);
-int checkBoundingCircle(int xPos, int yPos, int fx1, int fy1, int fz1, int radius);
 int unmounthorse(UOXSOCKET s);
 void telltime(int s);
 void impaction(int s, int act);

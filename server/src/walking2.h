@@ -75,9 +75,9 @@ private:
 	bool CanBirdWalk(unitile_st xyb);
 
 	void FillXYBlockStuff(short int x, short int y, unitile_st *xyblock, int &xycount);
-	void GetBlockingMap(SI16 x, SI16 y, unitile_st *xyblock, int &xycount);
-	void GetBlockingStatics(SI16 x, SI16 y, unitile_st *xyblock, int &xycount);
-	void GetBlockingDynamics(SI16 x, SI16 y, unitile_st *xyblock, int &xycount);
+	void GetBlockingMap(const Coord_cl, unitile_st *xyblock, int &xycount);
+	void GetBlockingStatics(const Coord_cl, unitile_st *xyblock, int &xycount);
+	void GetBlockingDynamics(const Coord_cl, unitile_st *xyblock, int &xycount);
 
 	short int Distance(short int sx, short int sy, short int dx, short int dy);
 	short int Direction(short int sx, short int sy, short int dx, short int dy);
@@ -111,6 +111,9 @@ private:
 	void FillXYBlockStuff(P_CHAR pc, unitile_st *xyblock, int &xycount, unsigned short oldx, unsigned short oldy );
 
 	void deny(UOXSOCKET k, P_CHAR pc, int sequence);
+	static bool checkBoundingBox(const Coord_cl pos, int fx1, int fy1, int fx2, int fy2);
+	static bool checkBoundingCircle(const Coord_cl pos, int fx1, int fy1, int radius);
+
 };
 
 #endif // __WALKING2_H__

@@ -42,26 +42,27 @@
 
 cRespawn	*Respawn;
 
-bool FindSpotForItem(int r, int &x, int &y, int &z)
+// Important: Map# inside Coord_cl is input here.
+bool FindSpotForItem(int r, Coord_cl& pos )
 {
 	int a=0;
 	do
 	{
-		x=RandomNum(spawnregion[r].x1,spawnregion[r].x2);
-		y=RandomNum(spawnregion[r].y1,spawnregion[r].y2);
-		z=Map->MapElevation( x, y );
+		pos.x=RandomNum(spawnregion[r].x1,spawnregion[r].x2);
+		pos.y=RandomNum(spawnregion[r].y1,spawnregion[r].y2);
+		pos.z=Map->MapElevation( pos );
 
-		if (Map->CanMonsterMoveHere(x, y, z))
+		if (Map->CanMonsterMoveHere(pos))
 		{
 #if 1		// disabled for now
 			return true;
 #else
 			for (int dir=0;dir<=7;dir++)		// check if we can move FROM here
 			{
-				int newX = x;
-				int newY = y;
+				int newX = pos.x;
+				int newY = pos.y;
 				cMovement::getXYfromDir(dir,&newX,&newY);	// get coords of the location we want to walk
-				if (Movement->validNPCMove(newX, newY, z, dir))
+				if (Movement->validNPCMove(newX, newY, pos.z, dir))
 					return true;
 			}
 #endif
@@ -88,7 +89,7 @@ bool doregionspawn(int r)//Regionspawns
 //		for( counter = 0; counter < spawnregion[r].totalnpclists; counter++ )
 		counter = rand()%spawnregion[r].totalnpclists;
 		{
-			if (FindSpotForItem(r, x, y, z))
+			if (FindSpotForItem(r, Coord_cl(x, y, z)))
 			{
 				P_CHAR npc = Npcs->AddNPCxyz( -1, spawnregion[r].npclists[counter], 0,x,y,z );
 				if (npc != NULL)
@@ -106,7 +107,8 @@ bool doregionspawn(int r)//Regionspawns
 //		for( counter = 0; counter < spawnregion[r].totalitemlists; counter++ )
 		counter = rand()%spawnregion[r].totalitemlists;
 		{
-			if (FindSpotForItem(r, x, y, z))
+			Coord_cl pos;
+			if (FindSpotForItem(r, pos))
 			{
 				char list[512];
 				sprintf( list, "%i", spawnregion[r].itemlists[counter] ); // morrolan
@@ -114,7 +116,7 @@ bool doregionspawn(int r)//Regionspawns
 				const P_ITEM pi = Items->CreateScriptItem( -1, num, 0 );
 				if (pi == NULL)
 					return false;
-				pi->MoveTo(x,y,z);
+				pi->moveTo(pos);
 				pi->spawnregion=r;
 				RefreshItem(pi);
 				spawnregion[r].current++;
@@ -128,9 +130,10 @@ bool doregionspawn(int r)//Regionspawns
 //		for (counter=0; counter < spawnregion[r].totalnpcs; counter++)
 		counter = rand()%spawnregion[r].totalnpcs;
 		{
-			if (FindSpotForItem(r, x, y, z))
+			Coord_cl pos;
+			if (FindSpotForItem(r, pos))
 			{
-				P_CHAR npc = Npcs->AddNPCxyz( -1, spawnregion[r].npcs[counter], 0,x,y,z );
+				P_CHAR npc = Npcs->AddNPCxyz( -1, spawnregion[r].npcs[counter], 0, pos.x, pos.y, pos.z );
 				if (npc != NULL)
 				{
 					spawnregion[r].current++;

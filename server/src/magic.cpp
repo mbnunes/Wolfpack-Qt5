@@ -2632,7 +2632,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								pi->priv |= 0x05;
 								pi->decaytime=uiCurrentTime+((pc_currchar->skill[MAGERY]/15)*MY_CLOCKS_PER_SEC);
 								pi->morex=pc_currchar->skill[MAGERY]; // remember casters magery skill for damage, LB
-								pi->MoveTo(fx[j], fy[j], Map->Height( fx[j], fy[j], z ));
+								pi->MoveTo(fx[j], fy[j], Map->Height( Coord_cl( fx[j], fy[j], z, pi->pos.map )));
 								pi->dir=29;
 								pi->magic=2;
 								RefreshItem(pi);

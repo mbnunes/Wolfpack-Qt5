@@ -149,7 +149,7 @@ void loadQnpc(FILE *fp,char *fn)
 
 	if (npc_scp_no > 0 && pos.x > 0 && pos.y > 0)	// seems to be a valid entry :)
 	{
-		signed char zmap = Map->MapElevation(pos.x, pos.y);
+		signed char zmap = Map->MapElevation(pos);
 		Npcs->AddNPCxyz(-1,npc_scp_no,0,pos.x,pos.y,zmap);
 	}
 }

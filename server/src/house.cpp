@@ -64,21 +64,21 @@ void HomeTarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *t
 	Xsend(s, multitarcrs, 26);
 }
 
-bool CheckBuildSite(int x, int y, int z, int sx, int sy)
+bool CheckBuildSite(const Coord_cl& pos, int sx, int sy)
 {
 	signed int checkz;
 	//char statc;
 	int checkx;
 	int checky;
 	int ycount=0;
-	checkx=x-abs(sx/2);
-	for (;checkx<(x+abs(sx/2));checkx++)
+	checkx=pos.x-abs(sx/2);
+	for (;checkx<(pos.x+abs(sx/2));checkx++)
 	{
-		checky=y-(sy/2);
-		for (;checky<(y+(sy/2));checky++)
+		checky=pos.y-(sy/2);
+		for (;checky<(pos.y+(sy/2));checky++)
 		{
-			checkz=Map->MapElevation(checkx,checky);
-			if ((checkz<(z-7)) || (checkz>(z+7)))
+			checkz=Map->MapElevation( Coord_cl( checkx,checky, pos.z, pos.map));
+			if ((checkz<(pos.z-7)) || (checkz>(pos.z+7)))
 			{
 				return false;
 			}
@@ -245,7 +245,7 @@ void BuildHouse(UOXSOCKET s, int i)
 		
 		if (ishouse(id)) // strict checking only for houses ! LB
 		{
-			if(!CheckBuildSite(x,y,z,sx,sy))
+			if(!CheckBuildSite(Coord_cl(x,y,z,pc_currchar->pos.map),sx,sy))
 			{
 				sysmessage(s,"Can not build a house at that location (CBS)!");
 				return;
@@ -571,9 +571,10 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 			}
 		}
 		Items->DeleItem(pHouse);
+//		killkeys( pHouse->serial );
 		sysmessage(s, "All house items and keys removed.");
 		
-		pc->pos.z = pc->dispz = Map->MapElevation(pc->pos.x, pc->pos.y);
+		pc->pos.z = pc->dispz = Map->MapElevation(pc->pos);
 		teleport(pc);
 		return;
 	}

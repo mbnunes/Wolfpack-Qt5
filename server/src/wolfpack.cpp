@@ -3301,23 +3301,6 @@ void npcToggleCombat(P_CHAR pc)
 	Movement->CombatWalk(pc);
 }
 
-int checkBoundingBox(int xPos, int yPos, int fx1, int fy1, int fz1, int fx2, int fy2)
-{
-	if (xPos>=((fx1<fx2)?fx1:fx2) && xPos<=((fx1<fx2)?fx2:fx1))
-		if (yPos>=((fy1<fy2)?fy1:fy2) && yPos<=((fy1<fy2)?fy2:fy1))
-			if (fz1==-1 || abs(fz1-Map->Height(xPos, yPos, fz1))<=5)
-				return 1;
-			return 0;
-}
-
-int checkBoundingCircle(int xPos, int yPos, int fx1, int fy1, int fz1, int radius)
-{
-	if ( (xPos-fx1)*(xPos-fx1) + (yPos-fy1)*(yPos-fy1) <= radius * radius)
-		if (fz1==-1 || abs(fz1-Map->Height(xPos, yPos, fz1))<=5)
-			return 1;
-		return 0;
-}
-
 void setabovelight(unsigned char lightchar)
 {
 	int i;

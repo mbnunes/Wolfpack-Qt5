@@ -217,9 +217,9 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 	{
 		for(y=y2-2;y<y2+3;y++)
 		{
-			sz = Map->StaticTop(x,y,z); // MapElevation() doesnt work cauz we are in a multi !!
+			sz = Map->StaticTop(Coord_cl(x,y,z, pi_plank->pos.map ) ); // MapElevation() doesnt work cauz we are in a multi !!
 			
-			mz = Map->MapElevation(x,y);
+			mz = Map->MapElevation(Coord_cl(x,y, z, pi_plank->pos.map ) );
 			if (sz == illegal_z) 
 				typ=0;
 			else 
@@ -307,7 +307,7 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 	}
 	//Start checking for a valid possition:
 
-	map = Map->SeekMap0(pBoat->pos.x, pBoat->pos.y);
+	map = Map->SeekMap(pBoat->pos);
 	switch(map.id)
 	{
 	//water tiles:
@@ -569,7 +569,7 @@ bool cBoat::Block(P_ITEM pBoat, short int xmove, short int ymove, int dir)//Chec
 			y++;
 		}
 
-		sz = Map->StaticTop(x,y, pBoat->pos.z);
+		sz = Map->StaticTop(Coord_cl(x,y, pBoat->pos.z, pBoat->pos.map ) );
 
 		if (sz==illegal_z) 
 			typ=0; //0: map-tile 
@@ -578,13 +578,13 @@ bool cBoat::Block(P_ITEM pBoat, short int xmove, short int ymove, int dir)//Chec
 		
 		if (typ==0)
 		{
-			map=Map->SeekMap0( x, y );
+			map=Map->SeekMap( Coord_cl( x, y, 0, pBoat->pos.map ) );
 			Map->SeekLand(map.id, &land);
 			//clConsole.send("map type, water bit: %i\n",land.flag1&0x80);
 			if (!(land.flag1&0x80)) 
 				blocked = true;
 		} else { // go through all statics of a given x,y...
-			MapStaticIterator msi(x, y);
+			MapStaticIterator msi(Coord_cl( x, y, 0, pBoat->pos.map ));
 			staticrecord *stat;
 
 			while ( (stat = msi.Next()) && (++loopexit < MAXLOOPS) )

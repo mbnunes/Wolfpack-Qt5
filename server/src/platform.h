@@ -57,6 +57,7 @@ enum enByteOrder{ littleEndian, bigEndian };
 // The intel compilier doesnt like this one
 #pragma warning(disable: 985) 
 //#pragma optimize("y", off)
+#define OBSOLETETIME
 
 //DIRECTIVES
 #if defined(_MSC_VER)
@@ -68,7 +69,6 @@ enum enByteOrder{ littleEndian, bigEndian };
 #define max(x,y) _MAX(x,y)
 #endif
 */
-#define OBSOLETETIME
 #endif
 #if !defined(vsnprintf)
 #define vsnprintf _vsnprintf

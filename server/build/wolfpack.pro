@@ -70,7 +70,6 @@ HEADERS         = Client.h \
 		  mstring.h \
 		  netsys.h \
 		  network.h \
-		  oem.h \
 		  platform.h \
 		  prototypes.h \
                   races.h \

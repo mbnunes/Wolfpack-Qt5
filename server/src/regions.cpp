@@ -196,9 +196,9 @@ P_CHAR RegionIterator4Chars::GetData(void)
 {
 	if ( currentCharacter == NULL && !vecEntries.empty() )
 		currentCharacter =  FindCharBySerial(*currentIndex);
-	else if (currentCharacter->serial != *currentIndex)
+	else if (currentCharacter != NULL && currentCharacter->serial != *currentIndex)
 		currentCharacter =  FindCharBySerial(*currentIndex);
-	if (currentCharacter == NULL && currentIndex != vecEntries.end())
+	if (currentCharacter == NULL && currentIndex != vecEntries.end() && !atEnd())
 	{	// Dam, invalid entrie!
 		// go next and recurse.
 		(*this)++;
@@ -267,9 +267,9 @@ P_ITEM RegionIterator4Items::GetData(void)
 {
 	if (currentItem == NULL && !vecEntries.empty())
 		currentItem = FindItemBySerial(*currentIndex);
-	else if (currentItem->serial != *currentIndex)
+	else if (currentItem != NULL && currentItem->serial != *currentIndex)
 		currentItem =  FindItemBySerial(*currentIndex);
-	if (currentItem == NULL && currentIndex != vecEntries.end())
+	if (currentItem == NULL && currentIndex != vecEntries.end() && !atEnd())
 	{	// Dam, invalid entrie!
 		// go next and recurse.
 		(*this)++;
