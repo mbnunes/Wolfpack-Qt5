@@ -7,6 +7,14 @@
 =================================================================
 -->
 <definitions>
+	<!-- Page Categories -->
+	<list id="PAGE_CATEGORIES">
+		<item>BUG</item>
+		<item>STUCK</item>
+		<item>GAMEPLAY</item>
+		<item>BUILD</item>
+	</list>
+
 	<!-- IDs of Pants -->
 	<list id="PANTS">
 		<item>152e</item> <!-- Short -->

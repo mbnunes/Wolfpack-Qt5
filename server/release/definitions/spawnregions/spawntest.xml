@@ -11,7 +11,7 @@
 		<maxnpcamount>2</maxnpcamount>
 		<mintime>2</mintime><maxtime>10</maxtime>
 		<npcs>
-			<getlist>UNDEADS_WEAK</getlist>
+			<npc>base_male</npc>
 		</npcs>
 		<npcspercycle>1</npcspercycle>
 		<rectangle x1="2010" x2="2020" y1="3010" y2="3020" />
@@ -21,7 +21,7 @@
 		<mintime>2</mintime>
 		<maxtime>10</maxtime>
 		<npcs>
-			<npc>headless</npc>
+			<npc>base_male</npc>
 		</npcs>
 		<npcspercycle>2</npcspercycle>
 		<rectangle x1="2050" x2="2054" y1="3000" y2="3004" />
