@@ -1415,6 +1415,8 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 				// pc_i->pathnum += P_PF_MRV;
 			}
 	    }
+		else
+			pc_i->targ = INVALID_SERIAL;
 		return;
     }
 

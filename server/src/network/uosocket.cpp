@@ -335,11 +335,32 @@ void cUOSocket::handleHardwareInfo( cUORxHardwareInfo *packet )
 */
 void cUOSocket::disconnect( void )
 {
+//	if( !_socket->isOpen() )
+//		return;
+
 	if( _account )
 		_account->setInUse( false );
 
 	if( _player )
+	{
+		// TODO: network iteration causes crash!
+		// CORREA: please check this issue, allcharsiterator is sub-optimal
+		// first i thought it could be a packet from the sysmessage call
+		// but mSock != this excludes this issue :/ - sereg
+		AllCharsIterator iter_chars;
+		for( iter_chars.Begin(); !iter_chars.atEnd(); iter_chars.Next() )
+		{
+			P_CHAR pc = iter_chars.GetData();
+			
+			if( pc && pc->socket() && pc->socket() != this )
+			{
+				pc->socket()->sysMessage( tr("%1 left the world!").arg( _player->name.c_str() ), 0x25 );
+			}
+		}
+//		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+//			if( mSock != this && SrvParams->joinMsg() && mSock->player() && mSock->player()->isGMorCounselor() )
 		_player->setSocket( NULL );
+	}
 
 	cNetwork::instance()->netIo()->flush( _socket );
 	_socket->close();
@@ -526,6 +547,10 @@ void cUOSocket::playChar( P_CHAR pChar )
 	setPlayer( pChar );
 	resendWorld( false );
 	pChar->resend( true ); // Send us to others
+	
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		if( mSock != this && SrvParams->joinMsg() && mSock->player() && mSock->player()->isGMorCounselor() )
+			mSock->sysMessage( tr("%1 entered the world!").arg( pChar->name.c_str() ), 0x48 );
 }
 
 bool cUOSocket::authenticate( const QString &username, const QString &password )
