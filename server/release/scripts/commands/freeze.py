@@ -15,6 +15,7 @@
 
 import wolfpack
 from wolfpack.utilities import booleantoggle
+from wolfpack.consts import GRAY
 
 def freeze( socket, command, arguments ):
 	try:
