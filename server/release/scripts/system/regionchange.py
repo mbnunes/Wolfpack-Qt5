@@ -6,6 +6,7 @@
 ###########################################################
 
 import wolfpack
+import string
 
 def onChangeRegion( char, oldregion, newregion ):
 	socket = char.socket
@@ -121,13 +122,19 @@ def onChangeRegion( char, oldregion, newregion ):
 
 # Region Enter Message
 def areaEnterMessage( socket, name ):
-	if name != None or len( name ) > 0:
+	name = name.strip()
+	if name == None or len( name ) == 0 or name == "":
+		return True
+	else:
 		socket.sysmessage( "You have entered %s." % name )
 		return True
 
 # Region Leave Message
 def areaLeaveMessage( socket, name ):
-	if name != None or len( name ) > 0:
+	name = name.strip()
+	if name == None or len( name ) == 0 or name == "":
+		return True
+	else:
 		socket.sysmessage( "You have left %s." % name )
 		return True
 
