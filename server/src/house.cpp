@@ -523,7 +523,7 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 		
 		P_ITEM pDeed = Items->SpawnItemBackpack2(s, pHouse->morex, 0);        // need to make before delete
 		if( pDeed == NULL ) return;
-		sprintf((char*)temp, "Demolishing House %s", pHouse->name.c_str());
+		sprintf((char*)temp, "Demolishing %s", pHouse->name.c_str());
 		sysmessage( s, (char*)temp );
 		sprintf((char*)temp, "Converted into a %s.", pDeed->name.c_str());
 		sysmessage(s, (char*)temp); 
