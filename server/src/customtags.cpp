@@ -4,7 +4,7 @@
 //	UO Server Emulation Program
 //
 //	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001 by holders identified in authors.txt
+//  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -16,8 +16,8 @@
 //	GNU General Public License for more details.
 //
 //	You should have received a copy of the GNU General Public License
-//	ag with this program; if not, write to the Free Software
-//	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//	along with this program; if not, write to the Free Software
+//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
 //
 //	* In addition to that license, if you are running this program or modified
 //	* versions of it on a public system you HAVE TO make the complete source of
@@ -27,7 +27,7 @@
 //
 //
 //	Wolfpack Homepage: http://wpdev.sf.net/
-//========================================================================================
+//==================================================================================
 
 #include "customtags.h"
 #include "chars.h"

@@ -229,10 +229,6 @@ SOURCE=.\multiscache.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\necro.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\network.cpp
 # End Source File
 # Begin Source File
