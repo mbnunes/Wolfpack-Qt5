@@ -9,6 +9,7 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- Palms -->
 	<item id="c95">
 		<id>0xC95</id>
@@ -1318,6 +1319,164 @@
 		<id>0x224d</id>
 		<nodecay />
 		<category>Vegetation\Trees\AoS\Oak Tree 2</category>
+	</item>
+
+	<!-- Samurai Empire -->
+
+	<item id="246c">
+		<id>0x24c6</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Bamboo 01</category>
+	</item>
+
+	<item id="246d">
+		<id>0x246d</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Bamboo 02</category>
+	</item>
+
+	<item id="246e">
+		<id>0x246e</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Bamboo 03</category>
+	</item>
+
+	<item id="246f">
+		<id>0x246f</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Bamboo 04</category>
+	</item>
+
+	<item id="2470">
+		<id>0x2470</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Bamboo 05</category>
+	</item>
+
+	<item id="2471">
+		<id>0x2471</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Cherry Blossoms 01</category>
+	</item>
+
+	<item id="2472">
+		<id>0x2472</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Cherry Blossoms 02</category>
+	</item>
+
+	<item id="2473">
+		<id>0x2473</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Cherry Blossoms 03</category>
+	</item>
+
+	<item id="2474">
+		<id>0x2474</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Cherry Blossoms 04</category>
+	</item>
+
+	<item id="2475">
+		<id>0x2475</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Cherry Blossoms 05</category>
+	</item>
+
+	<item id="2476">
+		<id>0x2476</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Cherry Tree 01</category>
+	</item>
+
+	<item id="2477">
+		<id>0x2477</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Cherry Tree 02</category>
+	</item>
+
+	<item id="2478">
+		<id>0x2478</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Maple Leaves 01</category>
+	</item>
+
+	<item id="2479">
+		<id>0x2479</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Maple Leaves 02</category>
+	</item>
+
+	<item id="247a">
+		<id>0x247a</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Maple Leaves 03</category>
+	</item>
+
+	<item id="247b">
+		<id>0x247b</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Maple Leaves 04</category>
+	</item>
+
+	<item id="247c">
+		<id>0x247c</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Maple Leaves 05</category>
+	</item>
+
+	<item id="247d">
+		<id>0x247d</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Maple Tree 01</category>
+	</item>
+
+	<item id="247e">
+		<id>0x247e</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Maple Tree 02</category>
+	</item>
+
+	<item id="26ed">
+		<id>0x26ed</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Plum Tree 01</category>
+	</item>
+
+	<item id="26ee">
+		<id>0x26ee</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Plum Tree 02</category>
+	</item>
+
+	<item id="26ef">
+		<id>0x26ef</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Plum Blossoms 01</category>
+	</item>
+
+	<item id="26f0">
+		<id>0x26f0</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Plum Blossoms 02</category>
+	</item>
+
+	<item id="26f1">
+		<id>0x26f1</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Plum Blossoms 03</category>
+	</item>
+
+	<item id="26f2">
+		<id>0x26f2</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Plum Blossoms 04</category>
+	</item>
+
+	<item id="26f3">
+		<id>0x26f3</id>
+		<nodecay />
+		<category>Vegetation\Trees\Samurai\Plum Blossoms 05</category>
 	</item>
 
 </definitions>

@@ -1988,4 +1988,1368 @@
 		<category>Buildings\Roofs\Stone Tile Roof\Roof 6</category>
 	</item>
 
+	<!-- Samurai Empire -->
+
+	<item id="23be">
+		<id>0x23be</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 01</category>
+	</item>
+
+	<item id="23bf">
+		<id>0x23bf</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 02</category>
+	</item>
+
+	<item id="23c0">
+		<id>0x23c0</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 03</category>
+	</item>
+
+	<item id="23c1">
+		<id>0x23c1</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 04</category>
+	</item>
+
+	<item id="23c2">
+		<id>0x23c2</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 05</category>
+	</item>
+
+	<item id="23c3">
+		<id>0x23c3</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 06</category>
+	</item>
+
+	<item id="23c4">
+		<id>0x23c4</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 07</category>
+	</item>
+
+	<item id="23c5">
+		<id>0x23c5</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 08</category>
+	</item>
+
+	<item id="23c6">
+		<id>0x23c6</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 09</category>
+	</item>
+
+	<item id="23c7">
+		<id>0x23c7</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 10</category>
+	</item>
+
+	<item id="23c8">
+		<id>0x23c8</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 11</category>
+	</item>
+
+	<item id="23c9">
+		<id>0x</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 12</category>
+	</item>
+
+	<item id="23ca">
+		<id>0x23c9</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 13</category>
+	</item>
+
+	<item id="23cb">
+		<id>0x23cb</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 14</category>
+	</item>
+
+	<item id="23cc">
+		<id>0x23cc</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 15</category>
+	</item>
+
+	<item id="23cd">
+		<id>0x23cd</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 16</category>
+	</item>
+
+	<item id="23ce">
+		<id>0x23ce</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 17</category>
+	</item>
+
+	<item id="23cf">
+		<id>0x23cf</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 18</category>
+	</item>
+
+	<item id="23d0">
+		<id>0x23d0</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 19</category>
+	</item>
+
+	<item id="23d1">
+		<id>0x23d1</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 20</category>
+	</item>
+
+	<item id="23d2">
+		<id>0x23d2</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 21</category>
+	</item>
+
+	<item id="23d3">
+		<id>0x23d3</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Black\Black 22</category>
+	</item>
+
+	<item id="23d4">
+		<id>0x23d4</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 01</category>
+	</item>
+
+	<item id="23d5">
+		<id>0x23d5</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 02</category>
+	</item>
+
+	<item id="23d6">
+		<id>0x23d6</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 03</category>
+	</item>
+
+	<item id="23d7">
+		<id>0x23d7</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 04</category>
+	</item>
+
+	<item id="23d8">
+		<id>0x23d8</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 05</category>
+	</item>
+
+	<item id="23d9">
+		<id>0x23d9</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 06</category>
+	</item>
+
+	<item id="23da">
+		<id>0x23da</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 07</category>
+	</item>
+
+	<item id="23db">
+		<id>0x23db</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 08</category>
+	</item>
+
+	<item id="23dc">
+		<id>0x23dc</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 09</category>
+	</item>
+
+	<item id="23dd">
+		<id>0x23dd</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 10</category>
+	</item>
+
+	<item id="23de">
+		<id>0x23de</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 11</category>
+	</item>
+
+	<item id="23df">
+		<id>0x23df</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 12</category>
+	</item>
+
+	<item id="23e0">
+		<id>0x23e0</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 13</category>
+	</item>
+
+	<item id="23e1">
+		<id>0x23e1</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 14</category>
+	</item>
+
+	<item id="23e2">
+		<id>0x23e2</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 15</category>
+	</item>
+
+	<item id="23e3">
+		<id>0x23e3</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 16</category>
+	</item>
+
+	<item id="23e4">
+		<id>0x23e4</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 17</category>
+	</item>
+
+	<item id="23e5">
+		<id>0x23e5</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 18</category>
+	</item>
+
+	<item id="23e6">
+		<id>0x23e6</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red 19</category>
+	</item>
+
+	<item id="23e7">
+		<id>0x23e7</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red\Red 20</category>
+	</item>
+
+	<item id="23e8">
+		<id>0x23e8</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red\Red 21</category>
+	</item>
+
+	<item id="23e9">
+		<id>0x23e9</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Red\Red\Red 22</category>
+	</item>
+
+	<item id="23ea">
+		<id>0x23ea</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 01</category>
+	</item>
+
+	<item id="23eb">
+		<id>0x23eb</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 02</category>
+	</item>
+
+	<item id="23ec">
+		<id>0x23ec</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 03</category>
+	</item>
+
+	<item id="23ed">
+		<id>0x23ed</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 04</category>
+	</item>
+
+	<item id="23ee">
+		<id>0x23ee</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 05</category>
+	</item>
+
+	<item id="23ef">
+		<id>0x23ef</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 06</category>
+	</item>
+
+	<item id="23f0">
+		<id>0x23f0</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 07</category>
+	</item>
+
+	<item id="23f1">
+		<id>0x23f1</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 08</category>
+	</item>
+
+	<item id="23f2">
+		<id>0x23f2</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 09</category>
+	</item>
+
+	<item id="23f3">
+		<id>0x23f3</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 10</category>
+	</item>
+
+	<item id="23f4">
+		<id>0x23f4</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 11</category>
+	</item>
+
+	<item id="23f5">
+		<id>0x23f5</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 12</category>
+	</item>
+
+	<item id="23f6">
+		<id>0x23f6</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 13</category>
+	</item>
+
+	<item id="23f7">
+		<id>0x23f7</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 14</category>
+	</item>
+
+	<item id="23f8">
+		<id>0x23f8</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 15</category>
+	</item>
+
+	<item id="23f9">
+		<id>0x23f9</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 16</category>
+	</item>
+
+	<item id="23fa">
+		<id>0x23fa</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 17</category>
+	</item>
+
+	<item id="23fb">
+		<id>0x23fb</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 18</category>
+	</item>
+
+	<item id="23fc">
+		<id>0x23fc</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 19</category>
+	</item>
+
+	<item id="23fd">
+		<id>0x23fd</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 20</category>
+	</item>
+
+	<item id="23fe">
+		<id>0x23fe</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 21</category>
+	</item>
+
+	<item id="23ff">
+		<id>0x23ff</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Blue\Blue 22</category>
+	</item>
+
+	<item id="26da">
+		<id>0x26da</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 01</category>
+	</item>
+
+	<item id="26db">
+		<id>0x26db</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 02</category>
+	</item>
+
+	<item id="26dc">
+		<id>0x26dc</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 03</category>
+	</item>
+
+	<item id="26dd">
+		<id>0x26dd</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 04</category>
+	</item>
+
+	<item id="26de">
+		<id>0x26de</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 05</category>
+	</item>
+
+	<item id="26df">
+		<id>0x26df</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 06</category>
+	</item>
+
+	<item id="26e0">
+		<id>0x26e0</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 07</category>
+	</item>
+
+	<item id="26e1">
+		<id>0x26e1</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 08</category>
+	</item>
+
+	<item id="26e2">
+		<id>0x26e2</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 09</category>
+	</item>
+
+	<item id="26e3">
+		<id>0x26e3</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 10</category>
+	</item>
+
+	<item id="26e4">
+		<id>0x26e4</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 11</category>
+	</item>
+
+	<item id="26e5">
+		<id>0x26e5</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 12</category>
+	</item>
+
+	<item id="26e6">
+		<id>0x26e6</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 13</category>
+	</item>
+
+	<item id="26e7">
+		<id>0x26e7</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 14</category>
+	</item>
+
+	<item id="26e8">
+		<id>0x26e8</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 15</category>
+	</item>
+
+	<item id="26e9">
+		<id>0x26e9</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 16</category>
+	</item>
+
+	<item id="26ea">
+		<id>0x26ea</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 17</category>
+	</item>
+
+	<item id="26eb">
+		<id>0x26eb</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 19</category>
+	</item>
+
+	<item id="26ec">
+		<id>0x26ec</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Hay\Hay 20</category>
+	</item>
+
+	<item id="26f8">
+		<id>0x26f8</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 01</category>
+	</item>
+
+	<item id="26f9">
+		<id>0x26f9</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 02</category>
+	</item>
+
+	<item id="26fa">
+		<id>0x26fa</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 03</category>
+	</item>
+
+	<item id="26fb">
+		<id>0x26fb</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 04</category>
+	</item>
+
+	<item id="26fc">
+		<id>0x26fc</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 05</category>
+	</item>
+
+	<item id="26fd">
+		<id>0x26fd</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 06</category>
+	</item>
+
+	<item id="26fe">
+		<id>0x26fe</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 07</category>
+	</item>
+
+	<item id="26ff">
+		<id>0x26ff</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 08</category>
+	</item>
+
+	<item id="2700">
+		<id>0x2700</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 09</category>
+	</item>
+
+	<item id="2701">
+		<id>0x2701</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 10</category>
+	</item>
+
+	<item id="2702">
+		<id>0x2702</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 11</category>
+	</item>
+
+	<item id="2703">
+		<id>0x2703</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 12</category>
+	</item>
+
+	<item id="2704">
+		<id>0x2704</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 13</category>
+	</item>
+
+	<item id="2705">
+		<id>0x2705</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 14</category>
+	</item>
+
+	<item id="2706">
+		<id>0x2706</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 15</category>
+	</item>
+
+	<item id="2707">
+		<id>0x2707</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 16</category>
+	</item>
+
+	<item id="2708">
+		<id>0x2708</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 17</category>
+	</item>
+
+	<item id="2709">
+		<id>0x2709</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 18</category>
+	</item>
+
+	<item id="270a">
+		<id>0x270a</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 19</category>
+	</item>
+
+	<item id="270b">
+		<id>0x270b</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 20</category>
+	</item>
+
+	<item id="270c">
+		<id>0x270c</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Bark\Bark 21</category>
+	</item>
+
+	<item id="28b0">
+		<id>0x28b0</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 01</category>
+	</item>
+
+	<item id="28b1">
+		<id>0x28b1</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 02</category>
+	</item>
+
+	<item id="28b2">
+		<id>0x28b2</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 03</category>
+	</item>
+
+	<item id="28b3">
+		<id>0x28b3</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 04</category>
+	</item>
+
+	<item id="28b4">
+		<id>0x28b4</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 05</category>
+	</item>
+
+	<item id="28b5">
+		<id>0x28b5</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 06</category>
+	</item>
+
+	<item id="28b6">
+		<id>0x28b6</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 07</category>
+	</item>
+
+	<item id="28b7">
+		<id>0x28b7</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 08</category>
+	</item>
+
+	<item id="28b8">
+		<id>0x28b8</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 09</category>
+	</item>
+
+	<item id="28b9">
+		<id>0x28b9</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 10</category>
+	</item>
+
+	<item id="28ba">
+		<id>0x28ba</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 11</category>
+	</item>
+
+	<item id="28bb">
+		<id>0x28bb</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 12</category>
+	</item>
+
+	<item id="28bc">
+		<id>0x28bc</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 13</category>
+	</item>
+
+	<item id="28bd">
+		<id>0x28bd</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 14</category>
+	</item>
+
+	<item id="28be">
+		<id>0x28be</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 15</category>
+	</item>
+
+	<item id="28bf">
+		<id>0x28bf</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 16</category>
+	</item>
+
+	<item id="28c0">
+		<id>0x28c0</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 17</category>
+	</item>
+
+	<item id="28c1">
+		<id>0x28c1</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 18</category>
+	</item>
+
+	<item id="28c2">
+		<id>0x28c2</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 19</category>
+	</item>
+
+	<item id="28c3">
+		<id>0x28c3</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 20</category>
+	</item>
+
+	<item id="28c4">
+		<id>0x28c4</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 21</category>
+	</item>
+
+	<item id="28c5">
+		<id>0x28c5</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 22</category>
+	</item>
+
+	<item id="28eb">
+		<id>0x28eb</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 23</category>
+	</item>
+
+	<item id="28ec">
+		<id>0x28ec</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 24</category>
+	</item>
+
+	<item id="28ed">
+		<id>0x28ed</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 25</category>
+	</item>
+
+	<item id="28ee">
+		<id>0x28ee</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 26</category>
+	</item>
+
+	<item id="28c6">
+		<id>0x28c6</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 01</category>
+	</item>
+
+	<item id="28c7">
+		<id>0x28c7</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 02</category>
+	</item>
+
+	<item id="28c8">
+		<id>0x28c8</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 03</category>
+	</item>
+
+	<item id="28c9">
+		<id>0x28c9</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 04</category>
+	</item>
+
+	<item id="28ca">
+		<id>0x28ca</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 05</category>
+	</item>
+
+	<item id="28cb">
+		<id>0x28cb</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 06</category>
+	</item>
+
+	<item id="28cc">
+		<id>0x28cc</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 07</category>
+	</item>
+
+	<item id="28cd">
+		<id>0x28cd</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 08</category>
+	</item>
+
+	<item id="28ce">
+		<id>0x28ce</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 09</category>
+	</item>
+
+	<item id="28cf">
+		<id>0x28cf</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 10</category>
+	</item>
+
+	<item id="28d0">
+		<id>0x28d0</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 11</category>
+	</item>
+
+	<item id="28d1">
+		<id>0x28d2</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 12</category>
+	</item>
+
+	<item id="28d2">
+		<id>0x28d2</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 13</category>
+	</item>
+
+	<item id="28d3">
+		<id>0x28d3</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 14</category>
+	</item>
+
+	<item id="28d4">
+		<id>0x28d4</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 15</category>
+	</item>
+
+	<item id="28d5">
+		<id>0x28d5</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 16</category>
+	</item>
+
+	<item id="d8d6">
+		<id>0x28d6</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 17</category>
+	</item>
+
+	<item id="28d7">
+		<id>0x28d7</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 18</category>
+	</item>
+
+	<item id="28d8">
+		<id>0x28d8</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 19</category>
+	</item>
+
+	<item id="28d9">
+		<id>0x28d9</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 20</category>
+	</item>
+
+	<item id="28da">
+		<id>0x28da</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 21</category>
+	</item>
+
+	<item id="28db">
+		<id>0x28db</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 22</category>
+	</item>
+
+	<item id="28e4">
+		<id>0x28e4</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 23</category>
+	</item>
+
+	<item id="28e5">
+		<id>0x28e5</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 24</category>
+	</item>
+
+	<item id="28e6">
+		<id>0x28e6</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 25</category>
+	</item>
+
+	<item id="28e7">
+		<id>0x28e7</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 26</category>
+	</item>
+
+	<item id="28e8">
+		<id>0x28e8</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 27</category>
+	</item>
+
+	<item id="28e9">
+		<id>0x28e9</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 28</category>
+	</item>
+
+	<item id="28ea">
+		<id>0x28ea</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Wood Slate\Slate 29</category>
+	</item>
+
+	<item id="28f0">
+		<id>0x28f0</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 01</category>
+	</item>
+
+	<item id="28f1">
+		<id>0x28f1</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 02</category>
+	</item>
+
+	<item id="28f2">
+		<id>0x28f2</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 03</category>
+	</item>
+
+	<item id="28f3">
+		<id>0x28f3</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 04</category>
+	</item>
+
+	<item id="28f4">
+		<id>0x28f4</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 05</category>
+	</item>
+
+	<item id="28f5">
+		<id>0x28f5</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 06</category>
+	</item>
+
+	<item id="28f6">
+		<id>0x28f6</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 07</category>
+	</item>
+
+	<item id="28f7">
+		<id>0x28f7</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 08</category>
+	</item>
+
+	<item id="28f8">
+		<id>0x28f8/id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 09</category>
+	</item>
+
+	<item id="28f9">
+		<id>0x28f9</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 10</category>
+	</item>
+
+	<item id="28fa">
+		<id>0x28fa</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 11</category>
+	</item>
+
+	<item id="28fb">
+		<id>0x28fb</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 12</category>
+	</item>
+
+	<item id="28fc">
+		<id>0x28fc</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 13</category>
+	</item>
+
+	<item id="28fd">
+		<id>0x28fd</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 14</category>
+	</item>
+
+	<item id="28fe">
+		<id>0x28fe</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 15</category>
+	</item>
+
+	<item id="28ff">
+		<id>0x28ff</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 16</category>
+	</item>
+
+	<item id="2900">
+		<id>0x2900</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 17</category>
+	</item>
+
+	<item id="2901">
+		<id>0x2901</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 18</category>
+	</item>
+
+	<item id="2902">
+		<id>0x2902</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 19</category>
+	</item>
+
+	<item id="2903">
+		<id>0x2903</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 20</category>
+	</item>
+
+	<item id="2904">
+		<id>0x2904</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 21</category>
+	</item>
+
+	<item id="2905">
+		<id>0x2905</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Yellow\Yellow 22</category>
+	</item>
+
+	<item id="2906">
+		<id>0x2906</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 01</category>
+	</item>
+
+	<item id="2907">
+		<id>0x2907</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 02</category>
+	</item>
+
+	<item id="2908">
+		<id>0x2908</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 03</category>
+	</item>
+
+	<item id="2909">
+		<id>0x2909</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 04</category>
+	</item>
+
+	<item id="290a">
+		<id>0x290a</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 05</category>
+	</item>
+
+	<item id="290b">
+		<id>0x290b</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 06</category>
+	</item>
+
+	<item id="290c">
+		<id>0x290c</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 07</category>
+	</item>
+
+	<item id="290d">
+		<id>0x290d</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 08</category>
+	</item>
+
+	<item id="290e">
+		<id>0x290e</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 09</category>
+	</item>
+
+	<item id="290f">
+		<id>0x290f</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 10</category>
+	</item>
+
+	<item id="2910">
+		<id>0x2910</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 11</category>
+	</item>
+
+	<item id="2911">
+		<id>0x2911</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 12</category>
+	</item>
+
+	<item id="2912">
+		<id>0x2912</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 13</category>
+	</item>
+
+	<item id="2913">
+		<id>0x2913</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 14</category>
+	</item>
+
+	<item id="2914">
+		<id>0x2914</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 15</category>
+	</item>
+
+	<item id="2915">
+		<id>0x2915</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 16</category>
+	</item>
+
+	<item id="2916">
+		<id>0x2916</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 17</category>
+	</item>
+
+	<item id="2917">
+		<id>0x2917</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 18</category>
+	</item>
+
+	<item id="2918">
+		<id>0x2918</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 19</category>
+	</item>
+
+	<item id="2919">
+		<id>0x2919</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 20</category>
+	</item>
+
+	<item id="291a">
+		<id>0x291a</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 21</category>
+	</item>
+
+	<item id="291b">
+		<id>0x291b</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic White\White 22</category>
+	</item>
+
+	<item id="2920">
+		<id>0x2920</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 01</category>
+	</item>
+
+	<item id="2921">
+		<id>0x2921</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 02</category>
+	</item>
+
+	<item id="2922">
+		<id>0x2922</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 03</category>
+	</item>
+
+	<item id="2923">
+		<id>0x2923</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 04</category>
+	</item>
+
+	<item id="2924">
+		<id>0x2924</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 05</category>
+	</item>
+
+	<item id="2925">
+		<id>0x2925</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 06</category>
+	</item>
+
+	<item id="2926">
+		<id>0x2926</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 07</category>
+	</item>
+
+	<item id="2927">
+		<id>0x2927</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 08</category>
+	</item>
+
+	<item id="2928">
+		<id>0x2928</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 09</category>
+	</item>
+
+	<item id="2929">
+		<id>0x2929</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 10</category>
+	</item>
+
+	<item id="292a">
+		<id>0x292a</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 11</category>
+	</item>
+
+	<item id="292b">
+		<id>0x292b</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 12</category>
+	</item>
+
+	<item id="292c">
+		<id>0x292c</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 13</category>
+	</item>
+
+	<item id="292d">
+		<id>0x292d</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 14</category>
+	</item>
+
+	<item id="292e">
+		<id>0x292e</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 15</category>
+	</item>
+
+	<item id="292f">
+		<id>0x292f</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 16</category>
+	</item>
+
+	<item id="2930">
+		<id>0x2930</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 17</category>
+	</item>
+
+	<item id="2931">
+		<id>0x2931</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 18</category>
+	</item>
+
+	<item id="2932">
+		<id>0x2932</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 19</category>
+	</item>
+
+	<item id="2933">
+		<id>0x2933</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 20</category>
+	</item>
+
+	<item id="2934">
+		<id>0x2934</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 21</category>
+	</item>
+
+	<item id="2935">
+		<id>0x2935</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 22</category>
+	</item>
+
 </definitions>

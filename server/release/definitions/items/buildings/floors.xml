@@ -1252,4 +1252,288 @@
 		<category>Buildings\Floors\Dark Wooden Planks\Dark Wooden Plank 8</category>
 	</item>
 
+	<!-- Samurai Empire -->
+
+	<item id="2439">
+		<id>0x2439</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 01\01</category>
+	</item>
+
+	<item id="243a">
+		<id>0x243a</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 01\02</category>
+	</item>
+
+	<item id="2425">
+		<id>0x2425</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\01</category>
+	</item>
+
+	<item id="2426">
+		<id>0x2426</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\02</category>
+	</item>
+
+	<item id="2427">
+		<id>0x2427</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\03</category>
+	</item>
+
+	<item id="2428">
+		<id>0x2428</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\04</category>
+	</item>
+
+	<item id="2429">
+		<id>0x2429</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\05</category>
+	</item>
+
+	<item id="242a">
+		<id>0x242a</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\06</category>
+	</item>
+
+	<item id="242b">
+		<id>0x242b</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\07</category>
+	</item>
+
+	<item id="242c">
+		<id>0x242c</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\08</category>
+	</item>
+
+	<item id="242d">
+		<id>0x242d</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\09</category>
+	</item>
+
+	<item id="24de">
+		<id>0x24de</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\10</category>
+	</item>
+
+	<item id="242f">
+		<id>0x242f</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\11</category>
+	</item>
+
+	<item id="2430">
+		<id>0x2430</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\12</category>
+	</item>
+
+	<item id="2431">
+		<id>0x2431</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\13</category>
+	</item>
+
+	<item id="2432">
+		<id>0x2432</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\14</category>
+	</item>
+
+	<item id="2433">
+		<id>0x2433</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\15</category>
+	</item>
+
+	<item id="2434">
+		<id>0x2434</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\16</category>
+	</item>
+
+	<item id="2435">
+		<id>0x2435</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\17</category>
+	</item>
+
+	<item id="2436">
+		<id>0x2436</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\18</category>
+	</item>
+
+	<item id="2437">
+		<id>0x2437</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\19</category>
+	</item>
+
+	<item id="2438">
+		<id>0x2438</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 02\20</category>
+	</item>
+
+	<item id="243b">
+		<id>0x243b</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\01</category>
+	</item>
+
+	<item id="243c">
+		<id>0x243c</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\02</category>
+	</item>
+
+	<item id="243d">
+		<id>0x243d</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\03</category>
+	</item>
+
+	<item id="243f">
+		<id>0x243f</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\04</category>
+	</item>
+
+	<item id="2440">
+		<id>0x2440</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\05</category>
+	</item>
+
+	<item id="2441">
+		<id>0x2441</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\06</category>
+	</item>
+
+	<item id="2442">
+		<id>0x2442</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\07</category>
+	</item>
+
+	<item id="2443">
+		<id>0x2443</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\08</category>
+	</item>
+
+	<item id="2444">
+		<id>0x2444</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\09</category>
+	</item>
+
+	<item id="2445">
+		<id>0x2445</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\10</category>
+	</item>
+
+	<item id="2446">
+		<id>0x2446</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\11</category>
+	</item>
+
+	<item id="2447">
+		<id>0x2447</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\12</category>
+	</item>
+
+	<item id="2448">
+		<id>0x2448</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\13</category>
+	</item>
+
+	<item id="2449">
+		<id>0x2449</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\14</category>
+	</item>
+
+	<item id="244a">
+		<id>0x244a</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\15</category>
+	</item>
+
+	<item id="244b">
+		<id>0x244b</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\16</category>
+	</item>
+
+	<item id="244c">
+		<id>0x244c</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\17</category>
+	</item>
+
+	<item id="244d">
+		<id>0x244d</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\18</category>
+	</item>
+
+	<item id="244e">
+		<id>0x244e</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\19</category>
+	</item>
+
+	<item id="244f">
+		<id>0x244f</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\20</category>
+	</item>
+
+	<item id="2450">
+		<id>0x2450</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\21</category>
+	</item>
+
+	<item id="2451">
+		<id>0x2451</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\22</category>
+	</item>
+
+	<item id="2452">
+		<id>0x2452</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 03\23</category>
+	</item>
+
+	<item id="2720">
+		<id>0x2720</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 04\01<category>
+	</item>
+
+	<item id="2721">
+		<id>0x2721</id>
+		<nodecay />
+		<category>Buildings\Floors\Samurai\Wooden Floor 05\01<category>
+	</item>
+
 </definitions>

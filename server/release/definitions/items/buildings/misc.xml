@@ -649,8 +649,7 @@
 	<item id="de3">
 		<id>0xde3</id>
 		<nodecay />
-		<decaytime>120</decaytime>
-		<lightsource>0x1d</lightsource>
+		<decaytime>120000</decaytime>
 		<category>Decoration\Campfire\Campfire</category>
 	</item>
 
@@ -1943,6 +1942,68 @@
 		<id>0x1e6d</id>
 		<nodecay />
 		<category>Decoration\Trophies\Troll (W/E)</category>
+	</item>
+
+	<!-- Samurai Empire -->
+
+	<item id="2453">
+		<id>0x2453</id>
+		<nodecay />
+		<category>Buildings\Samurai\Pond\Pond 01</category>
+	</item>
+
+	<item id="2454">
+		<id>0x2454</id>
+		<nodecay />
+		<category>Buildings\Samurai\Pond\Pond 02</category>
+	</item>
+
+	<item id="2455">
+		<id>0x2455</id>
+		<nodecay />
+		<category>Buildings\Samurai\Pond\Pond 03</category>
+	</item>
+
+	<item id="2456">
+		<id>0x2456</id>
+		<nodecay />
+		<category>Buildings\Samurai\Pond\Pond 04</category>
+	</item>
+
+	<item id="2457">
+		<id>0x2457</id>
+		<nodecay />
+		<category>Buildings\Samurai\Pond\Pond Stone, Light</category>
+	</item>
+
+	<item id="2458">
+		<id>0x2458</id>
+		<nodecay />
+		<category>Buildings\Samurai\Pond\Pond Stone, Dark</category>
+	</item>
+
+	<item id="2459">
+		<id>0x2459</id>
+		<nodecay />
+		<category>Buildings\Samurai\Pond\Pond 05</category>
+	</item>
+
+	<item id="245a">
+		<id>0x245a</id>
+		<nodecay />
+		<category>Buildings\Samurai\Pond\Pond 06</category>
+	</item>
+
+	<item id="245b">
+		<id>0x245b</id>
+		<nodecay />
+		<category>Buildings\Samurai\Pond\Pond 07</category>
+	</item>
+
+	<item id="245c">
+		<id>0x245c</id>
+		<nodecay />
+		<category>Buildings\Samurai\Pond\Pond 08</category>
 	</item>
 
 </definitions>

@@ -13,123 +13,123 @@
 
 	<!-- Unlabeled -->
 	<item id="40b" inherit="ITEM_NO_DECAY">
-		<id>0x040b</id>
+		<id>0x40b</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 1</category>
 	</item>
 
 	<item id="40c" inherit="ITEM_NO_DECAY">
-		<id>0x040c</id>
+		<id>0x40c</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 2</category>
 	</item>
 
 	<item id="40d" inherit="ITEM_NO_DECAY">
-		<id>0x040d</id>
+		<id>0x40d</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 3</category>
 	</item>
 
 	<item id="40e" inherit="ITEM_NO_DECAY">
-		<id>0x040e</id>
+		<id>0x40e</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 4</category>
 	</item>
 
 	<item id="40f" inherit="ITEM_NO_DECAY">
-		<id>0x040f</id>
+		<id>0x40f</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 5</category>
 	</item>
 
 	<item id="410" inherit="ITEM_NO_DECAY">
-		<id>0x0410</id>
+		<id>0x410</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 6</category>
 	</item>
 
 	<item id="411" inherit="ITEM_NO_DECAY">
-		<id>0x0411</id>
+		<id>0x411</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 7</category>
 	</item>
 
 	<item id="412" inherit="ITEM_NO_DECAY">
-		<id>0x0412</id>
+		<id>0x412</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 8</category>
 	</item>
 
 	<item id="413" inherit="ITEM_NO_DECAY">
-		<id>0x0413</id>
+		<id>0x413</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 9</category>
 	</item>
 
 	<item id="414" inherit="ITEM_NO_DECAY">
-		<id>0x0414</id>
+		<id>0x414</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 10</category>
 	</item>
 
 	<item id="415" inherit="ITEM_NO_DECAY">
-		<id>0x0415</id>
+		<id>0x415</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 11</category>
 	</item>
 
 	<item id="416" inherit="ITEM_NO_DECAY">
-		<id>0x0416</id>
+		<id>0x416</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 12</category>
 	</item>
 
 	<item id="417" inherit="ITEM_NO_DECAY">
-		<id>0x0417</id>
+		<id>0x417</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 13</category>
 	</item>
 
 	<item id="418" inherit="ITEM_NO_DECAY">
-		<id>0x0418</id>
+		<id>0x418</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 14</category>
 	</item>
 
 	<item id="419" inherit="ITEM_NO_DECAY">
-		<id>0x0419</id>
+		<id>0x419</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 15</category>
 	</item>
 
 	<item id="41a" inherit="ITEM_NO_DECAY">
-		<id>0x041a</id>
+		<id>0x41a</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 16</category>
 	</item>
 
 	<item id="41b" inherit="ITEM_NO_DECAY">
-		<id>0x041b</id>
+		<id>0x41b</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 17</category>
 	</item>
 
 	<item id="41c" inherit="ITEM_NO_DECAY">
-		<id>0x041c</id>
+		<id>0x41c</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 18</category>
 	</item>
 
 	<item id="41d" inherit="ITEM_NO_DECAY">
-		<id>0x041d</id>
+		<id>0x41d</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 19</category>
 	</item>
 
 	<item id="41e" inherit="ITEM_NO_DECAY">
-		<id>0x041e</id>
+		<id>0x41e</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 20</category>
 	</item>
 
 	<!-- Dirt Patches -->
 	<item id="911" inherit="ITEM_NO_DECAY">
-		<id>0x0911</id>
+		<id>0x911</id>
 		<category>Ground Tiles\Dirt Patches\Dirt Patch 1</category>
 	</item>
 
 	<item id="912" inherit="ITEM_NO_DECAY">
-		<id>0x0912</id>
+		<id>0x912</id>
 		<category>Ground Tiles\Dirt Patches\Dirt Patch 2</category>
 	</item>
 
 	<item id="913" inherit="ITEM_NO_DECAY">
-		<id>0x0913</id>
+		<id>0x913</id>
 		<category>Ground Tiles\Dirt Patches\Dirt Patch 3</category>
 	</item>
 
 	<item id="914" inherit="ITEM_NO_DECAY">
-		<id>0x0914</id>
+		<id>0x914</id>
 		<category>Ground Tiles\Dirt Patches\Dirt Patch 4</category>
 	</item>
 
@@ -3187,6 +3187,92 @@
 	<item id="337a" inherit="ITEM_NO_DECAY">
 		<id>0x337a</id>
 		<category>Ground Tiles\Misc\Forest</category>
+	</item>
+
+	<!-- Samurai Empire -->
+
+	<item id="245e">
+		<id>0x245e</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand 01</category>
+	</item>
+
+	<item id="245f">
+		<id>0x245f</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand 02</category>
+	</item>
+
+	<item id="2460">
+		<id>0x2460</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand 03</category>
+	</item>
+
+	<item id="2461">
+		<id>0x2461</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand 04</category>
+	</item>
+
+	<item id="2462">
+		<id>0x2462</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand 05</category>
+	</item>
+
+	<item id="2463">
+		<id>0x2463</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand 06</category>
+	</item>
+
+	<item id="2464">
+		<id>0x2464</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand (Stones) 01</category>
+	</item>
+
+	<item id="2465">
+		<id>0x2465</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand (Stones) 02</category>
+	</item>
+
+	<item id="2466">
+		<id>0x2466</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand (Stones) 03</category>
+	</item>
+
+	<item id="2467">
+		<id>0x2467</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand (Stones) 04</category>
+	</item>
+
+	<item id="2468">
+		<id>0x2468</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand 07</category>
+	</item>
+
+	<item id="2469">
+		<id>0x2469</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand 08</category>
+	</item>
+
+	<item id="246a">
+		<id>0x246a</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand 09</category>
+	</item>
+
+	<item id="246b">
+		<id>0x246b</id>
+		<nodecay />
+		<category>Ground Tiles\Samurai\Sand\Sand 10</category>
 	</item>
 
 </definitions>

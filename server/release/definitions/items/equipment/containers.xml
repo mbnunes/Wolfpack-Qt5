@@ -246,4 +246,138 @@
 		<category>Equipment\Containers\Barrel 3</category>
 	</item>
 
+	<!-- Samurai Empire -->
+
+	<item id="280b">
+		<id>0x280b</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Chest 01</category>
+	</item>
+
+	<item id="280c">
+		<id>0x280c</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Chest 02</category>
+	</item>
+
+	<item id="280d">
+		<id>0x280d</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Chest 03</category>
+	</item>
+
+	<item id="280e">
+		<id>0x280e</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Chest 04</category>
+	</item>
+
+	<item id="280f">
+		<id>0x280f</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Chest 05</category>
+	</item>
+
+	<item id="2810">
+		<id>0x2810</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Chest 06</category>
+	</item>
+
+	<item id="2811">
+		<id>0x2811</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Chest 07</category>
+	</item>
+
+	<item id="2812">
+		<id>0x2812</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Chest 08</category>
+	</item>
+
+	<item id="2813">
+		<id>0x2813</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Chest 09</category>
+	</item>
+
+	<item id="2814">
+		<id>0x2814</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Chest 10</category>
+	</item>
+
+	<item id="2815">
+		<id>0x2815</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Cabinent 01</category>
+	</item>
+
+	<item id="2816">
+		<id>0x2816</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Cabinent 02</category>
+	</item>
+
+	<item id="2817">
+		<id>0x2817</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Cabinent 03</category>
+	</item>
+
+	<item id="2818">
+		<id>0x2818</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Cabinent 04</category>
+	</item>
+
+	<item id="2857">
+		<id>0x2857</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Armoire 01</category>
+	</item>
+
+	<item id="2858">
+		<id>0x2858</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Armoire 02</category>
+	</item>
+
+	<item id="2859">
+		<id>0x2859</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Armoire 03</category>
+	</item>
+
+	<item id="285a">
+		<id>0x285a</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Armoire 04</category>
+	</item>
+
+	<item id="285b">
+		<id>0x285b</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Armoire 05</category>
+	</item>
+
+	<item id="285c">
+		<id>0x285c</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Armoire 06</category>
+	</item>
+
+	<item id="285d">
+		<id>0x285d</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Armoire 07</category>
+	</item>
+
+	<item id="285e">
+		<id>0x285e</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Armoire 08</category>
+	</item>
+
 </definitions>
