@@ -296,7 +296,6 @@ public:
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
 	
-//	inline unsigned short color()		{return (unsigned short)((color1<<8)+color2);}
 	void MoveTo(int newx, int newy, signed char newz);
 	long ReduceAmount(const short amount = 1);
 	short GetContGumpType();

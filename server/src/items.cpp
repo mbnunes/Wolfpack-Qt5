@@ -199,6 +199,7 @@ cItem::cItem( cItem &src )
 
 	this->tags = src.tags;
 	this->accuracy_ = 100;
+	this->container_ = src.container_;
 }
 
 inline QString cItem::objectID() const
@@ -2218,11 +2219,11 @@ void cItem::update( cUOSocket *mSock )
 		}
 	}
 	// equipped items
-	else if( isCharSerial( contserial ) )
+	else if( container_ && container_->isChar() )
 	{
 		cUOTxCharEquipment equipItem;
 		equipItem.fromItem( this );
-		P_CHAR pOwner = FindCharBySerial( contserial );
+		P_CHAR pOwner = dynamic_cast<P_CHAR>( container_ );
 
 		if( !pOwner )
 			return;
@@ -2247,7 +2248,7 @@ void cItem::update( cUOSocket *mSock )
 		P_ITEM iCont = GetOutmostCont( this, 0xFF );
 		cUObject *oCont = iCont;
 
-		if( iCont && iCont->isChar() )
+		if( iCont && iCont->container() && iCont->container()->isChar() )
 			oCont = dynamic_cast<P_CHAR>( iCont->container() );
 
 		if( !oCont )
@@ -2665,7 +2666,7 @@ void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight )
 {
 	content_.push_back( pItem );
-	if( !this->ContainerPileItem( pItem ) ) // try to pile
+	if( randomPos && !this->ContainerPileItem( pItem ) ) // try to pile
 	{
 		if (randomPos)
 			pItem->SetRandPosInCont( this ); // not piled, random pos
@@ -2685,7 +2686,7 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 		if (handleWeight)
 			setTotalweight(	this->totalweight() - pItem->totalweight() );
 	}
-	pItem->container_ = this;
+	pItem->container_ = 0;
 	pItem->contserial = INVALID_SERIAL;
 }
 
