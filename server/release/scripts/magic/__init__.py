@@ -207,3 +207,4 @@ def onWarModeToggle(char, warmode):
 
 def onLogin(char):
 	fizzle(char)
+	return False

@@ -66,6 +66,8 @@ def onLogin(player):
 
         player.deltag(tag)
 
+  return False
+
 # Notify all guild members that this member has been
 # removed from the guild because he has been deleted
 def onDelete(player):

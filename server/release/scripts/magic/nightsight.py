@@ -25,12 +25,14 @@ def wearout(player):
 #
 def onLogout(player):
 	wearout(player)
+	return False
 
 #
 # Wear out the nightsight
 #
 def onLogin(player):
 	wearout(player)
+	return False
 
 #
 # See if the nightsight expired

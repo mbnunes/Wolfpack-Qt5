@@ -26,6 +26,7 @@ def onLogin( player ):
 	player.deltag('trade_partner')
 	player.deltag('trade_button')
 	player.removescript('system.trading')
+	return False
 
 #
 # Disallow using items in trade containers

@@ -51,7 +51,7 @@ def stroke(char, arguments):
 
 	damage = 1 + int(char.hitpoints * poison[3])
 	damage = min(poison[2], max(poison[1], damage))
-	energydamage(char, char, damage, poison=100)
+	energydamage(char, None, damage, poison=100)
 
 	# See if we should add another timer
 	strokes += 1
@@ -123,6 +123,7 @@ def onLogin(char):
 			raise
 
 	char.deltag('poison_strokes')
+	return False
 
 def poison_target(player, arguments, target):
 	if not target.char:

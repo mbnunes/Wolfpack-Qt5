@@ -9,6 +9,7 @@ def onLogin( player ):
 	player.hidden = False
 	player.update()
 	socket.resendplayer()
+	return False
 
 def onLogout( player ):
 	socket = player.socket
