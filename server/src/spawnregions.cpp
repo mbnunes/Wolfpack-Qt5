@@ -100,7 +100,7 @@ public:
 		// Simply select one random point within the rectangle
 		Coord_cl pos = Coord_cl(RandomNum(x1, x2), RandomNum(y1, y2), z, map);
 
-		// If a fixed z value should not be used, make sure to 
+		// If a fixed z value should not be used, make sure to
 		// find a good one.
 		if (!fixedZ) {
 			pos.z = Maps::instance()->mapElevation(pos);
@@ -149,7 +149,7 @@ public:
 
 	Coord_cl findSpot() {
 		Coord_cl pos;
-		
+
 		// now get a point on this circle around the m_npc
 		float rnddist = (float)RandomNum(0, radius);
 		float rndphi = (float)RandomNum(0, 100) / 100.0f * 2.0f * 3.14159265358979323846f;
@@ -158,7 +158,7 @@ public:
 		pos.y = y + (unsigned short)floor(sin(rndphi) * rnddist);
 		pos.map = map;
 
-		// If a fixed z value should not be used, make sure to 
+		// If a fixed z value should not be used, make sure to
 		// find a good one.
 		if (!fixedZ) {
 			pos.z = Maps::instance()->mapElevation(pos);
@@ -181,7 +181,7 @@ cSpawnRegion::cSpawnRegion(const cElement *tag) {
 	itemsPerCycle_ = 1;
 	minTime_ = 0;
 	maxTime_ = 600;
-	nextTime_ = 0;	
+	nextTime_ = 0;
 	id_ = tag->getAttribute("id");
 	positions_.setAutoDelete(true);
 	checkFreeSpot_ = false;
@@ -267,9 +267,6 @@ void cSpawnRegion::processNode( const cElement *tag )
 		itemNodeFrequencies_.append(value);
 		itemNodesTotal_ += value;
 	}
-	// <maxnpcamount>10</maxnpcamount>
-	else if ( name == "maxnpcamount" )
-		this->maxNpcAmt_ = value.toUShort();
 
 	else if ( name == "checkfreespot" )
 		this->checkFreeSpot_ = true;
@@ -277,17 +274,21 @@ void cSpawnRegion::processNode( const cElement *tag )
 	else if ( name == "nocheckfreespot" )
 		this->checkFreeSpot_ = false;
 
-	// <maxitemamount>5</maxitemamount>
-	else if ( name == "maxitemamount" )
-		this->maxItemAmt_ = value.toUShort();
+	// <maxnpcamount value="10" />
+	else if ( name == "maxnpcamount" && tag->hasAttribute("value")  )
+		this->maxNpcAmt_ = tag->getAttribute("value").toUInt();
 
-	// <npcspercycle>3</npcspercycle>
-	else if ( name == "npcspercycle" )
-		this->npcsPerCycle_ = value.toUShort();
+	// <maxitemamount value="5 " />
+	else if ( name == "maxitemamount" && tag->hasAttribute("value")  )
+		this->maxItemAmt_ = tag->getAttribute("value").toUInt();
 
-	// <itemspercycle>3</itemspercycle>
-	else if ( name == "itemspercycle" )
-		this->itemsPerCycle_ = value.toUShort();
+	// <npcspercycle value="3 " />
+	else if ( name == "npcspercycle" && tag->hasAttribute("value" ) )
+		this->npcsPerCycle_ = tag->getAttribute("value").toUInt();
+
+	// <itemspercycle value="3" />
+	else if ( name == "itemspercycle" && tag->hasAttribute("value" ) )
+		this->itemsPerCycle_ = tag->getAttribute("value").toUInt();
 
 	// <delay min="xx" max="xx" />
 	// <delay value="" />
@@ -297,30 +298,22 @@ void cSpawnRegion::processNode( const cElement *tag )
 		maxTime_ = delay;
 	}
 
-	else if ( name == "delay" && tag->hasAttribute("min") && tag->hasAttribute("max")) {
+	else if ( name == "delay" && tag->hasAttribute("min") && tag->hasAttribute("max") ) {
 		minTime_ = tag->getAttribute("min").toUInt();
 		maxTime_ = tag->getAttribute("max").toUInt();
 	}
 
 	// <active />
-	// <inactive />
 	else if ( name == "active" )
 		this->active_ = true;
 
+	// <inactive />
 	else if ( name == "inactive" )
 		this->active_ = false;
 
 	// Add this to a spawngroup
 	else if ( name == "group" )
 		this->groups_.append(value);
-
-	// <mintime>10</mintime>
-	else if ( name == "mintime" )
-		this->minTime_ = value.toInt();
-
-	// <maxtime>20</maxtime>
-	else if ( name == "maxtime" )
-		this->maxTime_ = value.toInt();
 
 	// <rectangle from="0,1000" to="0,1000" map="" z="" />
 	else if ( name == "rectangle" && tag->hasAttribute("from") && tag->hasAttribute("to") && tag->hasAttribute("map") ) {
@@ -442,7 +435,7 @@ unsigned int cSpawnRegion::countPoints() {
 	return total;
 }
 
-bool cSpawnRegion::findValidSpot(Coord_cl& result, int tries) {	
+bool cSpawnRegion::findValidSpot(Coord_cl& result, int tries) {
 	if (tries == -1) {
 		tries = 20; // Try 20 times (should be a config option instead)
 	} else if (tries == 0) {
@@ -450,13 +443,13 @@ bool cSpawnRegion::findValidSpot(Coord_cl& result, int tries) {
 	}
 
 	unsigned int points = countPoints(); // Count the number of available points
-	
+
 	if (points == 0) {
 		return false; // No points available
 	}
 
 	unsigned int chosen = RandomNum(0, points - 1); // Chose one random point
-	unsigned int offset = 0; // Initialize the offset	
+	unsigned int offset = 0; // Initialize the offset
 	cSpawnPosition *position; // Current partition
 
 	// Search for a random position from out positions list.
@@ -488,11 +481,11 @@ bool cSpawnRegion::findValidSpot(Coord_cl& result, int tries) {
 						return findValidSpot(result, tries - 1); // Invalid spot, search for another one
 					}
 				}
-			}		
+			}
 
 			result = rndPos;
 			return true;
-		}		
+		}
 	}
 
 	return false;
@@ -503,7 +496,7 @@ void cSpawnRegion::spawnSingleNPC()
 	Coord_cl pos;
 	if ( findValidSpot( pos ) )
 	{
-		// This is a little tricky. 
+		// This is a little tricky.
 		// There are some regions where one NPC should be spawned more often than others
 		// So we treat every NPC section as a 1 point section and then select accordingly...
 		// The frequency="" attribute is used for this
@@ -512,7 +505,7 @@ void cSpawnRegion::spawnSingleNPC()
 		unsigned int offset = 0; // Random offset
 		unsigned int i = 0; // Index for the npcNodeFrequencies
 		const cElement *tag = 0;
-		
+
 		// Search the selected element
 		for (node = npcNodes_.first(); node; node = npcNodes_.next()) {
 			unsigned int value = npcNodeFrequencies_[i++];
@@ -551,7 +544,7 @@ void cSpawnRegion::spawnSingleNPC()
 		pChar->setSpawnregion(this);
 		pChar->setBaseid(id.latin1());
 		pChar->moveTo( pos );
-				
+
 		pChar->applyDefinition( parent ); // Apply the definition from the id first
 
 		// Apply these settings between the inherited npc and the custom settings in the spawnregion
@@ -585,7 +578,7 @@ void cSpawnRegion::spawnSingleItem()
 	Coord_cl pos;
 	if ( findValidSpot( pos ) )
 	{
-		// This is a little tricky. 
+		// This is a little tricky.
 		// There are some regions where one item should be spawned more often than others
 		// So we treat every item section as a 1 point section and then select accordingly...
 		// The frequency="" attribute is used for this
@@ -594,7 +587,7 @@ void cSpawnRegion::spawnSingleItem()
 		unsigned int offset = 0; // Random offset
 		unsigned int i = 0; // Index for the npcNodeFrequencies
 		const cElement *tag = 0;
-		
+
 		// Search the selected element
 		for (node = itemNodes_.first(); node; node = itemNodes_.next()) {
 			unsigned int value = itemNodeFrequencies_[i++];
@@ -633,7 +626,7 @@ void cSpawnRegion::spawnSingleItem()
 		pItem->setSpawnregion(this);
 		pItem->setBaseid(id.latin1());
 		pItem->moveTo( pos );
-				
+
 		pItem->applyDefinition( parent ); // Apply the definition from the id first
 		pItem->applyDefinition( tag ); // Now apply the given tag
 
@@ -680,10 +673,10 @@ void cSpawnRegion::reSpawnToMax( void )
 	if (active_) {
 		while ( npcs() < maxNpcAmt_ )
 			spawnSingleNPC();
-	
+
 		while ( items() < maxItemAmt_ )
 			spawnSingleItem();
-	
+
 		this->nextTime_ = Server::instance()->time() + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
 	}
 }
