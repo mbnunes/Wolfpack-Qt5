@@ -10,8 +10,8 @@
 
 	<!-- an acid elemental -->
 	<npc id="acid_elemental" inherit="monster_base">
-		<name>an acid elemental</name>
-		<id>0x9e</id>
+		<name>acid elemental</name>
+		<id>158</id>
 		<karma>-10000</karma>
 		<fame>10000</fame>
 		<!-- Stats -->
@@ -26,8 +26,8 @@
 		<tactics><random min="801" max="900"/></tactics>
 		<wrestling><random min="701" max="900"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="9" type="int" />
-		<tag name="maxdamage" value="15" type="int" />
+		<mindamage>9</mindamage>
+		<maxdamage>15</maxdamage>
 		<tag name="dmg_energy" value="25" type="int" />
 		<tag name="dmg_fire" value="50" type="int" />
 		<!-- Resists -->

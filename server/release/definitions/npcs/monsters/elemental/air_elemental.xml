@@ -10,8 +10,8 @@
 
 	<!-- an air elemental -->
 	<npc id="air_elemental" inherit="monster_base">
-		<id>0xd</id>
-		<name>an air elemental</name>
+		<id>13</id>
+		<name>air elemental</name>
 		<!-- Attributes -->
 		<karma>-4500</karma>
 		<fame>4500</fame>
@@ -26,8 +26,8 @@
 		<tactics><random min="601" max="800"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
 		<!-- Combat -->
-		<tag name="mindamage" value="8" type="int" />
-		<tag name="maxdamage" value="10" type="int" />
+		<mindamage>8</mindamage>
+		<maxdamage>10</maxdamage>
 		<tag name="dmg_cold" value="40" type="int" />
 		<tag name="dmg_energy" value="40" type="int" />
 		<!-- Resists -->

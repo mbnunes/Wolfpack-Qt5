@@ -10,8 +10,8 @@
 
 	<!-- sand vortex -->
 	<npc id="sand_vortex" inherit="monster_base">
-		<name>a sand vortex</name>
-		<id>0x316</id>
+		<name>sand vortex</name>
+		<id>790</id>
 		<karma>-4500</karma>
 		<fame>4500</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics>700</tactics>
 		<wrestling>800</wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="3" type="int" />
-		<tag name="maxdamage" value="16" type="int" />
+		<mindamage>3</mindamage>
+		<maxdamage>16</maxdamage>
 		<tag name="dmg_fire" value="10" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="60,70" type="int" />

@@ -10,8 +10,8 @@
 
 	<!-- a copper elemental -->
 	<npc id="copper_elemental" inherit="monster_base">
-		<name>a copper elemental</name>
-		<id>0x6d</id>
+		<name>copper elemental</name>
+		<id>109</id>
 		<karma>-4800</karma>
 		<fame>4800</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="601" max="1000"/></tactics>
 		<wrestling><random min="601" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="9" type="int" />
-		<tag name="maxdamage" value="16" type="int" />
+		<mindamage>9</mindamage>
+		<maxdamage>16</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="30,40" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />

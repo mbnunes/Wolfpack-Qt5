@@ -10,8 +10,8 @@
 
 	<!-- a valorite elemental -->
 	<npc id="valorite_elemental" inherit="monster_base">
-		<name>a valorite elemental</name>
-		<id>0x70</id>
+		<name>valorite elemental</name>
+		<id>112</id>
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="601" max="1000"/></tactics>
 		<wrestling><random min="601" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="25" type="int" />
-		<tag name="maxdamage" value="28" type="int" />
+		<mindamage>25</mindamage>
+		<maxdamage>28</maxdamage>
 		<tag name="dmg_cold" value="25" type="int" />
 		<tag name="dmg_energy" value="25" type="int" />
 		<tag name="dmg_fire" value="25" type="int" />

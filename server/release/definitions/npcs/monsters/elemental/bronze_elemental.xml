@@ -10,8 +10,8 @@
 
 	<!-- a bronze elemental -->
 	<npc id="bronze_elemental" inherit="monster_base">
-		<name>a bronze elemental</name>
-		<id>0x6c</id>
+		<name>bronze elemental</name>
+		<id>108</id>
 		<karma>-5000</karma>
 		<fame>5000</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="601" max="1000"/></tactics>
 		<wrestling><random min="601" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="9" type="int" />
-		<tag name="maxdamage" value="16" type="int" />
+		<mindamage>9</mindamage>
+		<maxdamage>16</maxdamage>
 		<tag name="dmg_fire" value="70" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />

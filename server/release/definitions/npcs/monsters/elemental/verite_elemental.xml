@@ -10,8 +10,8 @@
 
 	<!-- a verite elemental -->
 	<npc id="verite_elemental" inherit="monster_base">
-		<name>a verite elemental</name>
-		<id>0x71</id>
+		<name>verite elemental</name>
+		<id>113</id>
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="601" max="1000"/></tactics>
 		<wrestling><random min="601" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="9" type="int" />
-		<tag name="maxdamage" value="16" type="int" />
+		<mindamage>9</mindamage>
+		<maxdamage>16</maxdamage>
 		<tag name="dmg_energy" value="50" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="50,60" type="int" />

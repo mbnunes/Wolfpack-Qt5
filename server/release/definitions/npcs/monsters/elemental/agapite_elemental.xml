@@ -10,8 +10,8 @@
 
 	<!-- an agapite elemental -->
 	<npc id="agapite_elemental" inherit="monster_base">
-		<name>an agapite elemental</name>
-		<id>0x6b</id>
+		<name>agapite elemental</name>
+		<id>107</id>
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="601" max="1000"/></tactics>
 		<magicresistance><random min="501" max="950"/></magicresistance>
 		<!-- Damage -->
-		<tag name="mindamage" value="28" type="int" />
-		<tag name="maxdamage" value="29" type="int" />
+		<mindamage>28</mindamage>
+		<maxdamage>29</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />

@@ -10,8 +10,8 @@
 
 	<!-- a snow elemental -->
 	<npc id="snow_elemental" inherit="monster_base">
-		<name>a snow elemental</name>
-		<id>0xa3</id>
+		<name>snow elemental</name>
+		<id>163</id>
 		<karma>-5000</karma>
 		<fame>5000</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="801" max="1000"/></tactics>
 		<wrestling><random min="801" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="11" type="int" />
-		<tag name="maxdamage" value="17" type="int" />
+		<mindamage>11</mindamage>
+		<maxdamage>17</maxdamage>
 		<tag name="dmg_cold" value="80" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="60,70" type="int" />

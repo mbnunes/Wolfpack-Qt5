@@ -10,8 +10,8 @@
 
 	<!-- a fire elemental -->
 	<npc id="fire_elemental" inherit="monster_base">
-		<name>a fire elemental</name>
-		<id>0xf</id>
+		<name>fire elemental</name>
+		<id>15</id>
 		<karma>-4500</karma>
 		<fame>4500</fame>
 		<!-- Stats -->
@@ -25,8 +25,8 @@
 		<tactics><random min="801" max="1000"/></tactics>
 		<wrestling><random min="701" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="7" type="int" />
-		<tag name="maxdamage" value="9" type="int" />
+		<mindamage>7</mindamage>
+		<maxdamage>9</maxdamage>
 		<tag name="dmg_fire" value="75" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="5,10" type="int" />
