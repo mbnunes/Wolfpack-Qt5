@@ -31,4 +31,9 @@
 		<category>Monsters\Giants\Ettin</category>
 	</npc>
 
+  <npc id="ettin2" inherit="ettin">
+    <id>18</id>
+    <category>Monsters\Giants\Ettin (With Axe)</category>
+  </npc>
+
 </definitions>

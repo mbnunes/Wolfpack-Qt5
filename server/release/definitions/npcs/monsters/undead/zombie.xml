@@ -4,7 +4,7 @@
 	<!-- a zombie-->
 	<npc id="zombie" inherit="undead_base">
 		<name>a zombie</name>
-		<id>0x2</id>
+		<id>3</id>
 		<karma>-600</karma>
 		<fame>600</fame>
 		<!-- Stats -->

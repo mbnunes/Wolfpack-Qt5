@@ -1,9 +1,9 @@
 
 <definitions>
 
-	<!-- a gaint toad -->
-	<npc id="gaint_toad" inherit="monster_base">
-		<name>a gaint toad</name>
+	<!-- a giant toad -->
+	<npc id="giant_toad" inherit="monster_base">
+		<name>a giant toad</name>
 		<id>80</id>
 		<karma>-750</karma>
 		<fame>750</fame>
@@ -24,9 +24,9 @@
 		<tag name="res_physical" value="20,25" type="int" />
 		<!-- Misc. -->
 		<desc>These toads are nine feet in length and they are very aggressive. Ableto secrete a lethal poison, these toads can kill a healthy adult.Normally they do not attack such a large opponent, but they willdefend if attacked.</desc>
-		<carve>carve_gaint_toad</carve>
+		<carve>carve_giant_toad</carve>
 		<totame>771</totame>
-		<category>Monsters\Reptiles\Gaint Toad</category>
+		<category>Monsters\Reptiles\giant Toad</category>
 	</npc>
 
 </definitions>

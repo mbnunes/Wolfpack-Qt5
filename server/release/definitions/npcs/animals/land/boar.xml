@@ -29,5 +29,33 @@
 		<food>5</food>
 		<carve>carve_boar</carve>
 	</npc>
+	
+	<npc id="pig" inherit="animal_base">
+		<name>a pig</name>
+		<id>203</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Land\Pig</category>
+		<karma>0</karma>
+		<fame>300</fame>
+		<!-- Damage -->
+		<tag name="mindamage" value="3" type="int" />
+		<tag name="maxdamage" value="7" type="int" />
+		<!-- Defense -->
+		<tag name="res_physical" value="10,15" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_poison" value="5,10" type="int" />
+		<!-- Stats -->
+		<str>25</str>
+		<dex>15</dex>
+		<int>5</int>
+		<!-- Skills -->
+		<wrestling>90</wrestling>
+		<tactics>90</tactics>
+		<magicresistance>90</magicresistance>
+		<anatomy>0</anatomy>
+		<totame>291</totame>
+		<food>5</food>
+		<carve>carve_boar</carve>
+	</npc>	
 
 </definitions>

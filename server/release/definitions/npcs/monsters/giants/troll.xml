@@ -30,5 +30,14 @@
 		<carve>carve_troll</carve>
 		<category>Monsters\Giants\Troll</category>
 	</npc>
-
+	
+	<npc id="troll2" inherit="troll">
+	  <id>0x36</id>
+	  <category>Monsters\Giants\Troll (Unarmed)</category>
+	</npc>
+	
+	<npc id="troll3" inherit="troll">
+	  <id>0x37</id>
+	  <category>Monsters\Giants\Troll (With Mace)</category>
+	</npc>
 </definitions>

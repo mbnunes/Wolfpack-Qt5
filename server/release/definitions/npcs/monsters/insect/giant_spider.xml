@@ -1,8 +1,8 @@
 
 <definitions>
 
-	<!-- a spider (gaint) -->
-	<npc id="spider_gaint" inherit="monster_base">
+	<!-- a spider (giant) -->
+	<npc id="spider_giant" inherit="monster_base">
 		<name>a giant spider</name>
 		<id>0x1c</id>
 		<karma>-600</karma>
@@ -25,7 +25,7 @@
 		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Misc. -->
 		<desc>Nearly the size of a man, the great spiders are nearly as clever as man as well. I do not know what may pass among them as language, but they lay their traps and defenses with great cunning. As well they might, for the silk of their webs is necessary for the casting of certain spells, and despite their formidable nature, they are earnestly sought for their silk.</desc>
-		<carve>carve_spider_gaint</carve>
+		<carve>carve_spider_giant</carve>
 		<totame>591</totame>
 		<category>Monsters\Insects\Giant Spider</category>
 		<!-- Priv -->

@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Great Hart -->
-	<npc id="great_heart" inherit="animal_base">
+	<npc id="great_hart" inherit="animal_base">
 		<name>a great hart</name>
 		<id>234</id>
 		<ai>Animal_Wild</ai>

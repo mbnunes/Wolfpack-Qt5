@@ -4,7 +4,7 @@
 	<!-- a lava lizard -->
 	<npc id="lava_lizard" inherit="monster_base">
 		<name>a lava lizard</name>
-		<id>0xce</id>
+		<id>0xcf</id>
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<gold><random min="25" max="50"/></gold>
