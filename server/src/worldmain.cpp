@@ -874,7 +874,7 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 
 		//AntiChrist bugfix for magic reflect
 		pc->priv2 &= 0xBF;
-
+		pc->SetSpawnSerial( pc->spawnserial );
 
 		pc->region = calcRegionFromXY(pc->pos.x, pc->pos.y); //LB bugfix
 

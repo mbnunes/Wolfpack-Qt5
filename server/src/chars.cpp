@@ -579,38 +579,38 @@ void cChar::setOwnSerialOnly(long ownser)
 
 void cChar::SetOwnSerial(long ownser)
 {
-	if (ownserial!=-1)	// if it was set, remove the old one
+	if (ownserial != INVALID_SERIAL)	// if it was set, remove the old one
 		cownsp.remove(ownserial, serial);
 	
 	setOwnSerialOnly(ownser);
-	if (ownser != serial && ownser != -1)
+	if (ownser != serial && ownser != INVALID_SERIAL)
 		tamed = true;
 	else
 		tamed = false;
 
-	if (ownser!=-1)		// if there is an owner, add it
+	if (ownser != INVALID_SERIAL)		// if there is an owner, add it
 		cownsp.insert(ownserial, serial);
 }
 
 void cChar::SetSpawnSerial(long spawnser)
 {
-	if (spawnserial!=-1)	// if it was set, remove the old one
+	if (spawnserial != INVALID_SERIAL)	// if it was set, remove the old one
 		cspawnsp.remove(spawnserial, serial);
 
-	spawnserial=spawnser;
+	spawnserial = spawnser;
 
-	if (spawnser!=-1)		// if there is a spawner, add it
+	if (spawnser != INVALID_SERIAL)		// if there is a spawner, add it
 		cspawnsp.insert(spawnserial, serial);
 }
 
 void cChar::SetMultiSerial(long mulser)
 {
-	if (multis!=-1)	// if it was set, remove the old one
+	if (multis != INVALID_SERIAL)	// if it was set, remove the old one
 		cmultisp.remove(multis, this->serial);
 
 	this->multis = mulser;
 
-	if (mulser!=-1)		// if there is multi, add it
+	if (mulser != INVALID_SERIAL)		// if there is multi, add it
 		cmultisp.insert(multis, this->serial);
 }
 
