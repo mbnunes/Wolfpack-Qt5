@@ -191,6 +191,18 @@
 	<!--  Magery -->
 	<startitems id="magery">
 	        <inherit id="default" />
+	        <!--Spellbook --><equipment id="efa"></equipment>
+	        <!--Random 1-4 Circle Scrolls--><item><inherit><random list="1_THRU_4_CIRCLE" /></inherit></item>
+	        <!--Random 1-4 Circle Scrolls--><item><inherit><random list="1_THRU_4_CIRCLE" /></inherit></item>
+	        <!--Random 1-4 Circle Scrolls--><item><inherit><random list="1_THRU_4_CIRCLE" /></inherit></item>
+	        <!--Black Pearl --><item id="f7a"><amount>30</amount></item>
+	        <!--Bloodmoss --><item id="f7b"><amount>30</amount></item>
+	        <!--Garlic --><item id="f84"><amount>30</amount></item>
+	        <!--Gensing --><item id="f85"><amount>30</amount></item>
+	        <!--Mandrake Root --><item id="f86"><amount>30</amount></item>
+	        <!--Nightshade --><item id="f88"><amount>30</amount></item>
+	        <!--Sulfurous Ash --><item id="f8c"><amount>30</amount></item>
+	        <!--Spider Silk --><item id="f8d"><amount>30</amount></item>
 	</startitems>
 
 	<!--  Magic Resistance -->
@@ -201,6 +213,7 @@
 	<!--  Tactics -->
 	<startitems id="tactics">
 	        <inherit id="default" />
+	        <!--Katana --><equipment id="13ff"></equipment>
 	</startitems>
 
 	<!--  Snooping -->
@@ -229,6 +242,7 @@
 	<!--  Spiritspeak -->
 	<startitems id="spiritspeak">
 	        <inherit id="default" />
+	        <!--Cloak --><equipment id="1515"></equipment>
 	</startitems>
 
 	<!--  Stealing -->
@@ -245,6 +259,7 @@
 	<!--  Taming -->
 	<startitems id="taming">
 	        <inherit id="default" />
+	        <!--Sheperd crook --><equipment id="e81"></equipment>
 	</startitems>
 
 	<!--  Tasteid -->
@@ -258,11 +273,14 @@
 	<!--  Tinkering -->
 	<startitems id="tinkering">
 	        <inherit id="default" />
+	        <!--Tinker Tools --><item id="1ebc"></item>
 	</startitems>
 
 	<!--  Tracking -->
 	<startitems id="tracking">
 	        <inherit id="default" />
+	        <!--Boots --><equipment id="170b"></equipment>
+	        <!--Skinning Knife --><equipment id="ec4"></equipment>
 	</startitems>
 
 	<!--  Veterinary -->
@@ -275,6 +293,7 @@
 	<!--  Swordsmanship -->
 	<startitems id="swordsmanship">
 	        <inherit id="default" />
+	        <!--Katana --><equipment id="13ff"></equipment>
 	</startitems>
 
 	<!--  Macefighting -->
@@ -295,6 +314,7 @@
 	<!--  Lumberjacking -->
 	<startitems id="lumberjacking">
 	        <inherit id="default" />
+	        <!--Hatchet --><equipment id="f43"></equipment>
 	</startitems>
 
 	<!--  Mining -->

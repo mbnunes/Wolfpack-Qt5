@@ -189,4 +189,40 @@
 		<item>1f6b</item>
 		<item>1f6c</item>
 	</list>
+	
+	<!-- IDs of 1 thru 4 Circle Scrolls -->
+	<list id="1_THRU_4_CIRCLE">
+		<item>1f2e</item>
+		<item>1f2f</item>
+		<item>1f30</item>
+		<item>1f31</item>
+		<item>1f32</item>
+		<item>1f33</item>
+		<item>1f2d</item>
+		<item>1f34</item>
+		<item>1f35</item>
+		<item>1f36</item>
+		<item>1f37</item>
+		<item>1f38</item>
+		<item>1f39</item>
+		<item>1f3a</item>
+		<item>1f3b</item>
+		<item>1f3c</item>
+		<item>1f3d</item>
+		<item>1f3e</item>
+		<item>1f3f</item>
+		<item>1f40</item>
+		<item>1f41</item>
+		<item>1f42</item>
+		<item>1f43</item>
+		<item>1f44</item>
+		<item>1f45</item>
+		<item>1f46</item>
+		<item>1f47</item>
+		<item>1f48</item>
+		<item>1f49</item>
+		<item>1f4a</item>
+		<item>1f4b</item>
+		<item>1f4c</item>
+	</list>
 </definitions>

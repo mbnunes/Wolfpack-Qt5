@@ -80,12 +80,19 @@
 		<value>2</value>
 		<weight>.2</weight>
 	</item>
+	
+	<!-- Tinker Tools -->
+	<item id="1ebc">
+		<id>0x1ebc</id>
+		<decay/>
+		<value>35</value>
+		<weight>2.0</weight>
+	</item>
 
         <!-- Dagger -->
 	<item id="f51">
 		<bindmenu id="ITEM_MENU"/>
 		<id>0xf51</id>
-		<layer>1</layer>
 		<itemhand>1</itemhand>
 		<decay />
 		<value>15</value>
@@ -93,6 +100,33 @@
 		<durability>35</durability>
 		<speed>55</speed>
 		<weight>1.0</weight>
+	</item>
+	
+	<!-- Skinning Knife -->
+	<item id="ec4">
+		<id>0x0ec4</id>
+		<itemhand>1</itemhand>
+		<decay />
+		<value>20</value>
+		<attack min="1" max="10" />
+		<durability>35</durability>
+		<requires type="str">5</requires>
+		<speed>40</speed>
+		<weight>1.0</weight>
+	</item>
+	
+	<!-- Katana -->
+	<item id="13ff">
+		<id>0x13ff</id>
+		<itemhand>1</itemhand>
+		<defense>5</defense>
+		<decay />
+		<value>75</value>
+		<attack min="5" max="26" />
+		<durability>45</durability>
+		<requires type="str">10</requires>
+		<speed>50</speed>
+		<weight>3.0</weight>
 	</item>
 
 	<!-- longsword -->
@@ -119,6 +153,19 @@
 		<value>80</value>
 		<requires type="str">50</requires>
 		<speed>45</speed>
+		<weight>3.0</weight>
+	</item>
+	
+	<!-- Hatchet -->
+	<item id="f43">
+		<id>0x0f43</id>
+		<itemhand>2</itemhand>
+		<attack min="2" max="17" />
+		<durability>50</durability>
+		<decay />
+		<value>35</value>
+		<requires type="str">15</requires>
+		<speed>15</speed>
 		<weight>3.0</weight>
 	</item>
 
@@ -1021,6 +1068,15 @@
 		<id>0x1057</id>
 		<value>30</value>
 		<weight>2.0</weight>
+	</item>
+	
+	<!-- Spellbook -->
+	<item id="efa">
+		<id>0xefa</id>
+		<type>9</type>
+		<itemhand>2</itemhand>
+		<decay/>
+		<value>30</value>
 	</item>
 
 	<!-- Hair -->
