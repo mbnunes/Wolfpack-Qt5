@@ -290,4 +290,87 @@ public:
 	void setT2a( bool enable ) { enable ? rawPacket[ 2 ] |= 0x01 : rawPacket[ 2 ] &= 0xFE; }
 };
 
+// 0x24 Draw Container
+class cUOTxDrawContainer: public cUOPacket
+{
+public:
+        cUOTxDrawContainer(): cUOPacket( 7 ) {
+		rawPacket[ 0 ] = static_cast<uchar>(0x24);
+	}
+                                
+        void setSerial( Q_UINT32 serial ) { setInt( 1, serial ); }
+        void setGump( Q_UINT16 gump ) { setShort( 5, gump ); }
+};
+                                           
+// 0x25 AddContainerItem
+class cUOTxAddContainerItem: public cUOPacket
+{
+public:
+	cUOTxAddContainerItem(): cUOPacket( 20 ) {
+		rawPacket.fill( (char)0 );
+	        rawPacket[ 0 ] = static_cast<uchar>(0x25);
+	}
+	
+	void setSerial( Q_UINT32 serial ) { setInt( 1, serial ); }
+	void setModel( Q_UINT16 model ) { setShort( 5, model ); }
+	void setUnknown1( Q_UINT8 data ) { rawPacket[ 7 ] = data; }
+	void setAmount( Q_UINT16 amount ) { setShort( 8, amount ); }
+	void setX( Q_UINT16 data ) { setShort( 10, data ); }
+	void setY( Q_UINT16 data ) { setShort( 12, data ); }
+	void setContainer( Q_UINT32 data ) { setInt( 14, data ); }
+	void setColor( Q_UINT16 data ) { setShort( 18, data ); }	
+};
+
+// 0x26 KickPlayer
+
+// 0x27 RejectDrag
+class cUOTxRejectDrag: public cUOPacket
+{
+public:
+	enum eRejectType
+	{
+		RejectDrag = 0,
+		RejectDrop = 5
+	};
+
+	cUOTxRejectDrag(): cUOPacket( 2 ) {
+		rawPacket[0] = static_cast<uchar>(0x27);
+	}
+	
+	void setRejectType( eRejectType type ) { rawPacket[1] = type; }
+};
+
+// 0x28 ClearSquare
+class cUOTxClearSquare: public cUOPacket
+{
+public:
+	cUOTxClearSquare(): cUOPacket( 5 )
+	{
+		rawPacket[ 0 ] = static_cast<uchar>(0x28);
+	}
+	
+	void setX( Q_UINT16 x ) { setShort( 1, x ); }
+	void setY( Q_UINT16 y ) { setShort( 3, x ); }
+};
+
+// 0x29 Resurrection Menu
+
+// 0x2E CharEquipment
+class cUOTxCharEquipment: public cUOPacket
+{
+public: 
+	cUOTxCharEquipment(): cUOPacket( 15 )
+	{
+		rawPacket[ 0 ] = static_cast<uchar>(0x2E);
+		rawPacket[ 6 ] = 0;
+	}
+		
+	void setSerial( Q_UINT32 data ) { setInt( 1, data ); }
+	void setModel( Q_UINT16 model ) { setShort( 5, model ); }
+	void setUnknown1( Q_UINT8 data ) { rawPacket[ 6 ] = data; }
+	void setLayer( Q_UINT8 layer ) { rawPacket[ 7 ] = layer; }
+	void setWearer( Q_UINT32 serial ) { setInt( 8, serial ); }
+	void setColor( Q_UINT16 data ) { setShort( 12, data ); }
+}
+
 #endif
