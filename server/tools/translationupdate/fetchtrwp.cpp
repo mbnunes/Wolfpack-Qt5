@@ -27,7 +27,7 @@ void fetchtr_py( const char* fileName, MetaTranslator* tor, const char* /*defaul
 	if ( !f.open( IO_ReadOnly ) )
 	{
 		if ( mustExist )
-			fprintf( stderr, "translationUpdate error: Cannot open Python source file '%s': %s\n", fileName, f.errorString() );
+			fprintf( stderr, "translationUpdate error: Cannot open Python source file '%s': %s\n", fileName, f.errorString().latin1() );
 		return;
 	}
 	QString content = QString( f.readAll() );
