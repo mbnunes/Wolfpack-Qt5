@@ -273,7 +273,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	setHightlight( 0 ); // NEED TO SET HIGHLIGHT
 
 	// Add our equipment
-	vector< SERIAL > equipment = contsp.getData( pChar->serial );
+	/*vector< SERIAL > equipment = contsp.getData( pChar->serial );
 	for( Q_UINT32 i = 0; i < equipment.size(); ++i )
 	{
 		P_ITEM pItem = FindItemBySerial( equipment[i] );
@@ -281,7 +281,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 			continue;
 
 		addEquipment( pItem->serial, pItem->id(), pItem->layer(), pItem->color() );
-	}
+	}*/
 }
 
 void cUOTxCharEquipment::fromItem( P_ITEM pItem )

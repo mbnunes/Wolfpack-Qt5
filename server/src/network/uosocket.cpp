@@ -363,7 +363,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 
 	// Change the map after the client knows about the char
 	cUOTxChangeMap changeMap;
-	changeMap.setMap( pChar->pos.map );
+	changeMap.setMap( pChar->pos.plane );
 	send( &changeMap );
 
 	// Start the game!
@@ -378,7 +378,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 	// We're now playing this char:
 	setPlayer( pChar );
 	resendWorld( false );
-	pChar->resend(); // Send us to others
+	pChar->resend( false ); // Send us to others
 }
 
 bool cUOSocket::authenticate( const QString &username, const QString &password )
@@ -432,6 +432,8 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 */
 void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 {
+	clConsole.send( cUOPacket::dump( packet->uncompressed() ) );
+
 	// Several security checks
 	QValueVector<cChar*> characters = _account->caracterList();
 

@@ -2154,6 +2154,9 @@ int main( int argc, char *argv[] )
 	clConsole.setConsoleTitle( consoleTitle );
 
 	StartClasses();
+	clConsole.PrepareProgress( "Starting up Network" );
+	cNetwork::startup();
+	clConsole.ProgressDone();
 	CIAO_IF_ERROR;
 
 	DefManager->load();
@@ -2290,10 +2293,6 @@ int main( int argc, char *argv[] )
 
 	clConsole.PrepareProgress( "Loading custom tiles" );
 	loadcustomtitle();
-	clConsole.ProgressDone();
-
-	clConsole.PrepareProgress( "Starting up Network" );
-	cNetwork::startup();
 	clConsole.ProgressDone();
 
 	cwmWorldState->announce(SrvParams->announceWorldSaves());

@@ -40,7 +40,7 @@
 
 AccountRecord::AccountRecord()
 {
-	acl_ = cCommands::instance()->getACL("");
+	acl_ = cCommands::instance()->getACL( "" );
 	blocked_ = false;
 }
 

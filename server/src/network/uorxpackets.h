@@ -53,9 +53,9 @@ public:
 
 	cUORxQuery( const QByteArray &data ): cUOPacket( data ) {}
 
-	Q_UINT32 pattern( void ) { return getInt( 1 ); }
+	UINT32 pattern( void ) { return getInt( 1 ); }
 	eType type( void ) { return ( rawPacket[5] == 0x05 ) ? Skills : Stats; }
-	Q_UINT32 serial( void ) { return getInt( 6 ); }
+	UINT32 serial( void ) { return getInt( 6 ); }
 };
 
 // 0x00: Create Char
@@ -63,32 +63,33 @@ class cUORxCreateChar: public cUOPacket
 {
 public:
 	cUORxCreateChar( const QByteArray &data ): cUOPacket( data ) {}
-	Q_UINT32 pattern1( void )		{ return getInt( 1 ); }
-	Q_UINT32 pattern2( void )		{ return getInt( 5 ); }
-	Q_UINT8 pattern3( void )		{ return rawPacket[ 9 ]; }
+	UINT32 pattern1( void )		{ return getInt( 1 ); }
+	UINT32 pattern2( void )		{ return getInt( 5 ); }
+	UINT8 pattern3( void )		{ return rawPacket[ 9 ]; }
 	QString name( void )			{ return &rawPacket.data()[10]; }
 	QString password( void )		{ return &rawPacket.data()[40]; }
-	Q_UINT8 gender( void )			{ return rawPacket[70]; } // 0 = male, 1 = female
-	Q_UINT8 strength( void )		{ return rawPacket[71]; }
-	Q_UINT8 dexterity( void )		{ return rawPacket[72]; }
-	Q_UINT8 intelligence( void )	{ return rawPacket[73]; }
-	Q_UINT8 skillId1( void )		{ return rawPacket[74]; }
-	Q_UINT8 skillValue1( void )		{ return rawPacket[75]; }
-	Q_UINT8 skillId2( void )		{ return rawPacket[76]; }
-	Q_UINT8 skillValue2( void )		{ return rawPacket[77]; }
-	Q_UINT8 skillId3( void )		{ return rawPacket[78]; }
-	Q_UINT8 skillValue3( void )		{ return rawPacket[79]; }
-	Q_INT16 skinColor( void )		{ return getShort( 80 ); }
-	Q_INT16 hairStyle( void )		{ return getShort( 82 ); }
-	Q_INT16 hairColor( void )		{ return getShort( 84 ); }
-	Q_INT16 beardStyle( void )		{ return getShort( 86 ); }
-	Q_INT16 beardColor( void )		{ return getShort( 88 ); }
-	Q_UINT16 startTown( void )		{ return getShort( 90 ); }
-	Q_UINT16 unknown1( void )		{ return getShort( 92 ); }
-	Q_UINT16 slot( void )			{ return getShort( 94 ); }
-	Q_UINT32 ip( void )				{ return getInt( 96 ); }
-	Q_INT16 shirtColor( void )		{ return getShort( 100 ); }
-	Q_INT16 pantsColor( void )		{ return getShort( 102 ); }
+	UINT8 gender( void )			{ return rawPacket[70]; } // 0 = male, 1 = female
+	UINT8 strength( void )		{ return rawPacket[71]; }
+	UINT8 dexterity( void )		{ return rawPacket[72]; }
+	UINT8 intelligence( void )	{ return rawPacket[73]; }
+	UINT8 skillId1( void )		{ return rawPacket[74]; }
+	UINT8 skillValue1( void )		{ return rawPacket[75]; }
+	UINT8 skillId2( void )		{ return rawPacket[76]; }
+	UINT8 skillValue2( void )		{ return rawPacket[77]; }
+	UINT8 skillId3( void )		{ return rawPacket[78]; }
+	UINT8 skillValue3( void )		{ return rawPacket[79]; }
+	INT16 skinColor( void )		{ return getShort( 80 ); }
+	INT16 hairStyle( void )		{ return getShort( 82 ); }
+	INT16 hairColor( void )		{ return getShort( 84 ); }
+	INT16 beardStyle( void )		{ return getShort( 86 ); }
+	INT16 beardColor( void )		{ return getShort( 88 ); }
+	// Here is an unkown byte (!)
+	UINT8 startTown( void )			{ return rawPacket[91]; }
+	UINT16 unknown1( void )		{ return getShort( 92 ); }
+	UINT16 slot( void )			{ return getShort( 94 ); }
+	UINT32 ip( void )				{ return getInt( 96 ); }
+	INT16 shirtColor( void )		{ return getShort( 100 ); }
+	INT16 pantsColor( void )		{ return getShort( 102 ); }
 };
 
 // 0xC8: UpdateRange
@@ -96,7 +97,7 @@ class cUORxUpdateRange: public cUOPacket
 {
 public:
 	cUORxUpdateRange( const QByteArray &data ): cUOPacket( data ) {}
-	Q_UINT8 range( void ) { return rawPacket[1]; }
+	UINT8 range( void ) { return rawPacket[1]; }
 };
 
 // 0x01: NotifyDisconnect
@@ -104,7 +105,7 @@ class cUORxNotifyDisconnect: public cUOPacket
 {
 public:
 	cUORxNotifyDisconnect( const QByteArray &data ): cUOPacket( data ) {}
-	Q_UINT32 pattern( void ) { return getInt( 1 ); }
+	UINT32 pattern( void ) { return getInt( 1 ); }
 };
 
 // 0x80: Login Request
@@ -121,16 +122,16 @@ class cUORxHardwareInfo: public cUOPacket
 {
 public:
 	cUORxHardwareInfo( const QByteArray &data ): cUOPacket( data ) {}
-	Q_UINT8 processorType( void ) { return rawPacket[ 0x01 ]; }
-	Q_UINT16 processorSpeed( void ) { return getShort( 0x02 ); }
-	Q_UINT8 processorCount( void ) { return rawPacket[ 0x04 ]; }
+	UINT8 processorType( void ) { return rawPacket[ 0x01 ]; }
+	UINT16 processorSpeed( void ) { return getShort( 0x02 ); }
+	UINT8 processorCount( void ) { return rawPacket[ 0x04 ]; }
 	// QString directory -- unicode ? -- > 20 bytes useless trash
 	// Video Card descritor: -- unicode ? -- > 20 bytes useless trash
 	// ??? > another 20 byte trash field
 	// ??? > ANOTHER 20 byte trash field
-	Q_UINT16 memoryInMb( void ) { return getShort( 0x85 ); }
-	Q_UINT16 largestPartitionInMb( void ) { return getShort( 0x87 ); }
-	Q_INT32 timezoneBias( void ) { return getInt( 0x8C ); }
+	UINT16 memoryInMb( void ) { return getShort( 0x85 ); }
+	UINT16 largestPartitionInMb( void ) { return getShort( 0x87 ); }
+	INT32 timezoneBias( void ) { return getInt( 0x8C ); }
 };
 
 // 0xA0: Select Shard
@@ -138,7 +139,7 @@ class cUORxSelectShard: public cUOPacket
 {
 public:
 	cUORxSelectShard( const QByteArray &data ): cUOPacket( data ) {}
-	Q_UINT16 shardId( void ) { return getShort( 1 ); }
+	UINT16 shardId( void ) { return getShort( 1 ); }
 };
 
 // 0x91: Charlist Request
@@ -146,7 +147,7 @@ class cUORxServerAttach: public cUOPacket
 {
 public:
 	cUORxServerAttach( const QByteArray &data ): cUOPacket( data ) {}
-	Q_UINT32 authId( void ) { return getInt( 1 ); }
+	UINT32 authId( void ) { return getInt( 1 ); }
 	QString username( void ) { return &rawPacket.data()[5]; }
 	QString password( void ) { return &rawPacket.data()[35]; }
 };
@@ -165,8 +166,8 @@ public:
 	cUORxDeleteCharacter( const QByteArray &data ): cUOPacket( data ) {}
 
 	QString password( void ) { return &rawPacket.data()[1]; }
-	Q_UINT32 index( void ) { return getInt( 31 ); }
-	Q_UINT32 ip( void ) { return getInt( 35 ); }
+	UINT32 index( void ) { return getInt( 31 ); }
+	UINT32 ip( void ) { return getInt( 35 ); }
 };
 
 // 0x5D Play Character
@@ -177,8 +178,8 @@ public:
 
 	QString character( void ) { return &rawPacket.data()[5]; }
 	QString password( void ) { return &rawPacket.data()[35]; }
-	Q_UINT32 slot( void ) { return getInt( 65 ); }
-	Q_UINT32 ip( void ) { return getInt( 69 ); }
+	UINT32 slot( void ) { return getInt( 65 ); }
+	UINT32 ip( void ) { return getInt( 69 ); }
 };
 
 // 0x05 Request Use
@@ -187,7 +188,7 @@ class cUORxRequestAttack: public cUOPacket
 public:
 	cUORxRequestAttack( const QByteArray &data ): cUOPacket( data ) {}
 
-	Q_UINT32 serial( void ) { return getInt( 1 ); }
+	UINT32 serial( void ) { return getInt( 1 ); }
 };
 
 // 0x09 Request Look
@@ -196,7 +197,7 @@ class cUORxRequestLook: public cUOPacket
 public:
 	cUORxRequestLook( const QByteArray &data ): cUOPacket( data ) {}
 
-	Q_UINT32 serial( void ) { return getInt( 1 ); }
+	UINT32 serial( void ) { return getInt( 1 ); }
 };
 
 // 0x2C Resurrection Menu
@@ -234,7 +235,7 @@ class cUORxContextMenuRequest: public cUOPacket
 {
 public:
 	cUORxContextMenuRequest( const QByteArray &data ): cUOPacket( data ) {}
-	Q_UINT32 serial( void ) { return getInt( 5 ); }
+	UINT32 serial( void ) { return getInt( 5 ); }
 };
 
 // 0xBF 0x0B Set Client Language

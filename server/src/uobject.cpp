@@ -295,7 +295,7 @@ void cUObject::processNode( const QDomElement &Tag )
 // Remove it from all in-range sockets
 void cUObject::removeFromView( bool clean )
 {
-	for( cUOSocket *socket = cNetwork::instance()->first(); !socket; socket = cNetwork::instance()->next() )
+	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
 		if( clean || ( socket->player() && ( socket->player()->pos.distance( pos ) <= socket->player()->VisRange ) ) )
 			socket->removeObject( this );
 }

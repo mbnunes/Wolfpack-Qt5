@@ -194,8 +194,44 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 		push_heap( blockList.begin(), blockList.end(), compareTiles() );
 	}
 
+	RegionIterator4Items iIter( pos );
+	for( iIter.Begin(); !iIter.atEnd(); iIter++ )
+	{
+		P_ITEM pItem = iIter.GetData();
+
+		if( !pItem )
+			continue;
+
+		// TODO: Handle Multis
+		if( pItem->id() >= 0x4000 )
+			continue;
+
+		// They need to be at the same x,y,plane coords
+		if( ( pItem->pos.x != pos.x ) || ( pItem->pos.y != pos.y ) || ( pItem->pos.plane != pos.plane ) )
+			continue;
+
+		tile_st tTile = cTileCache::instance()->getTile( pItem->id() );
+
+		// Se above for what the flags mean
+		if( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
+			continue;
+
+		stBlockItem blockItem;
+		blockItem.height = tTile.height;
+		blockItem.z = pItem->pos.z;
+
+		// Once again: see above for a description of this part
+		if( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
+			blockItem.walkable = true;
+		else
+			blockItem.walkable = checkWalkable( pChar, pItem->id() );
+
+		blockList.push_back( blockItem );
+		push_heap( blockList.begin(), blockList.end(), compareTiles() );
+	}
+
 	// Now we need to evaluate dynamic items [...] (later)
-	// TODO: Multis + Dynamic Items
+	// TODO: Multis here
 	sort_heap( blockList.begin(), blockList.end(), compareTiles() );
 
 	return blockList;

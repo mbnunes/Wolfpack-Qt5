@@ -1888,7 +1888,7 @@ void cChar::update( void )
 // Resend the char to all sockets in range
 void cChar::resend( bool clean )
 {
-	// We are stabled and therefor we arent visible to others
+	// We are stabled and therefore we arent visible to others
 	if( stablemaster_serial() != INVALID_SERIAL )
 		return;
 
@@ -1901,7 +1901,7 @@ void cChar::resend( bool clean )
 	{
 		P_CHAR pChar = ri.GetData();
 
-		if( !pChar || !pChar->socket() )
+		if( !pChar || !pChar->socket() || pChar == this )
 			continue;
 
         // Remove it ONLY before resending if we have to do it "clean"
