@@ -260,9 +260,11 @@ bool Coord_cl::lineOfSight(const Coord_cl &target, bool debug) const {
 
 		// Play an effect for the tile
 		if (blocked) {
-			point.effect(0x181D, 10, 50, 0x21);
+			if (debug) {
+				point.effect(0x181D, 10, 50, 0x21);
+			}
 			return false;
-		} else {
+		} else if (debug) {
 			point.effect(0x181D, 10, 50, 0x44);
 		}
 	}
