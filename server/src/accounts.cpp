@@ -58,7 +58,7 @@ void AccountRecord::Serialize( ISerialization& archive )
 		archive.read("acl", aclName_);
 		QString temp;
 		archive.read("lastlogin", temp);
-		lastLogin_.fromString(temp, Qt::ISODate);
+		lastLogin_ = lastLogin_.fromString(temp, Qt::ISODate);
 		refreshAcl(); // Reload our ACL
 	}
 	else // Writting

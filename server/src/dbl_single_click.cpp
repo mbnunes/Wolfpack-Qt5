@@ -46,6 +46,7 @@
 #include "network/uosocket.h"
 #include "resources.h"
 #include "multis.h"
+#include "targetactions.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
@@ -1199,8 +1200,11 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					target(s, 0, 1, 0, 128, "What cloth should I use these scissors on?");
 					return;
 				case 0x0E21: // healing
-					addmitem[s] = pi->serial;
-					target(s, 0, 1, 0, 130, "Who will you use the bandages on?");
+					{
+						cSkHealing* target = new cSkHealing( pi->serial );
+						socket->attachTarget( target );
+						socket->sysMessage( tr("Who will you use the bandages on?") );
+					}
 					return;
 				case 0x1057:
 				case 0x1058: // sextants
@@ -1217,28 +1221,11 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x14FC:
 				case 0x14FD:
 				case 0x14FE: // lockpicks
-					addmitem[s] = pi->serial;
-					target(s, 0, 1, 0, 162, "What lock would you like to pick?");
-					return;
-				case 0x097A: // Raw Fish steaks
-					addmitem[s] = pi->serial;
-					target(s, 0, 1, 0, 49, "What would you like to cook this on?");
-					return;
-				case 0x09b9: // Raw Bird
-					addmitem[s] = pi->serial;
-					target(s, 0, 1, 0, 54, "What would you like to cook this on?");
-					return;
-				case 0x1609: // Raw Lamb
-					addmitem[s] = pi->serial;
-					target(s, 0, 1, 0, 55, "What would you like to cook this on?");
-					return;
-				case 0x09F1: // Raw Ribs
-					addmitem[s] = pi->serial;
-					target(s, 0, 1, 0, 68, "What would you like to cook this on?");
-					return;
-				case 0x1607: // Raw Chicken Legs
-					addmitem[s] = pi->serial;
-					target(s, 0, 1, 0, 69, "What would you like to cook this on?");
+					{
+						cSkLockpicking* target = new cSkLockpicking( pi->serial );
+						socket->attachTarget( target );
+						socket->sysMessage( tr("What lock would you like to pick?") );
+					}
 					return;
 				case 0x0C4F:
 				case 0x0C50:

@@ -36,10 +36,6 @@
 #include "network/uosocket.h"
 #include "targeting.h"
 
-// System Include
-#include <map>
-//#include "wolfpack.h"
-
 // Abstract base-class for target requests
 class cTargetRequest
 {
@@ -48,24 +44,38 @@ protected:
 	UI32 targetId_; // Target id so no overlapping targets are processed
 
 public:
-	cTargetRequest( void ) { timeout_ = 0; }; // Never times out
-	virtual ~cTargetRequest( void ) { };
+	cTargetRequest( void ) : timeout_(0) {} // Never times out
+	virtual ~cTargetRequest( void ) {}
 
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target ) = 0; // Request has been answered
 	virtual void timedout( cUOSocket *socket ) {}; // Request is overwritten
 
-	UI32 targetId( void ) { return targetId_; }
-	void setTargetId( UI32 data ) { targetId_ = data; }
+	UI32 targetId( void ) const;
+	void setTargetId( UI32 data );
 
-	UI32 timeout( void ) { return timeout_; }; // Get the timeout-value
-	void setTimeout( UI32 data ) { timeout_ = data; }; // Set the timeout-value
+	UI32 timeout( void ) const;
+	void setTimeout( UI32 data );
 };
 
-// Several public functions
-void attachTargetRequest( UOXSOCKET socket, cTargetRequest *targetRequest, bool allowMapTarget = true );
-void attachPlaceRequest( UOXSOCKET socket, cTargetRequest *targetRequest, UI16 houseId );
+// Inline members
+inline UI32 cTargetRequest::targetId( void ) const
+{ 
+	return targetId_; 
+}
 
-// We have that as only one targetting request is possible per socket
-extern std::map< UOXSOCKET, cTargetRequest* > targetRequests;
+inline void cTargetRequest::setTargetId( UI32 data ) 
+{ 
+	targetId_ = data; 
+}
+
+inline UI32 cTargetRequest::timeout( void ) const
+{ 
+	return timeout_; 
+}
+
+inline void cTargetRequest::setTimeout( UI32 data ) 
+{ 
+	timeout_ = data; 
+}
 
 #endif

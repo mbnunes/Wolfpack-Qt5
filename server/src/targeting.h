@@ -107,8 +107,6 @@ private:
 	void CloseTarget(int s);
 	void VisibleTarget(int s);
 	void DvatTarget(int s);
-	void AllSetTarget(int s);
-	void TweakTarget(int s);
 	void LoadCannon(int s);
 //	void SetInvulFlag(int s);
 	void SquelchTarg(int s);
@@ -153,8 +151,6 @@ private:
 	void HouseFriendTarget(int s);
 	void HouseUnBanTarget(int s);
 	void HouseUnFriendTarget(int s);
-	void BanTarg(int s);
-	void triggertarget(int ts); // By Magius(CHE)
 	void GlowTarget(int s);
     void UnglowTaget(int s); 
 	void TargetsMenuPrivTarg(int s);

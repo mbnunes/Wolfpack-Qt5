@@ -2320,8 +2320,8 @@ void npcattacktarget( P_CHAR attacker, P_CHAR defender )
 	if (attacker == defender) return;
 	if (attacker == NULL || defender == NULL) return;
 	if (attacker->dead || defender->dead) return;
-	if (defender->dispz() > (attacker->dispz() +10)) return;//FRAZAI
-	if (defender->dispz() < (attacker->dispz() -10)) return;//FRAZAI
+	if (defender->pos.z > (attacker->pos.z +10)) return;//FRAZAI
+	if (defender->pos.z < (attacker->pos.z -10)) return;//FRAZAI
 
 	if( !lineOfSight( attacker->pos, defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
 		return;

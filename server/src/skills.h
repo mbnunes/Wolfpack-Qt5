@@ -95,7 +95,6 @@ public:
 	void Loom(int s);
 	void CookOnFire(int s, short id1, short id2, char* matname);
 	void TreeTarget(int s);
-	void DetectHidden(UOXSOCKET s);
 	void EnticementTarget1(UOXSOCKET s);
 	void EnticementTarget2(UOXSOCKET s);
 	void AlchemyTarget(int s);
@@ -107,7 +106,6 @@ public:
 	void SpiritSpeak(int s);
 	void ArmsLoreTarget(int s);
 	void ItemIdTarget(int s);
-	void AnatomyTarget(int s);
 	int GetCombatSkill(P_CHAR pc);
 	void SkillUse( cUOSocket*, UINT16 );
 	void CreateTrackingMenu(int s, int m);
@@ -115,7 +113,6 @@ public:
 	int Inscribe(int s, long snum);
 	int EngraveAction(int s, P_ITEM pi, int cir, int spl);
 	void updateSkillLevel(P_CHAR pc, int s);
-	void LockPick(int s);
 	void Persecute(cUOSocket*);//AntiChrist persecute stuff
 	void Decipher(P_ITEM tmap, int s); // By Polygon - attempt to decipher a tattered treasure map
 	int GetAntiMagicalArmorDefence(P_CHAR pc); // blackwind meditation armor stuff

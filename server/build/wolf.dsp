@@ -22,7 +22,7 @@ CFG=wolf - Win32 Debug
 !MESSAGE 
 
 # Begin Project
-# PROP AllowPerConfigDependencies 1
+# PROP AllowPerConfigDependencies 0
 # PROP Scc_ProjName "wolf"
 # PROP Scc_LocalPath "."
 CPP=cl.exe
@@ -62,8 +62,8 @@ LINK32=link.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "c:\wolfpack"
-# PROP Intermediate_Dir "c:\wolfpack\intermediate"
+# PROP Output_Dir "Debug"
+# PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
@@ -318,6 +318,10 @@ SOURCE=.\srvparams.cpp
 # Begin Source File
 
 SOURCE=.\storage.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\targetactions.cpp
 # End Source File
 # Begin Source File
 
@@ -649,6 +653,10 @@ SOURCE=.\structs.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\targetactions.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\targeting.h
 # End Source File
 # Begin Source File
@@ -754,13 +762,6 @@ SOURCE=.\icon2.ico
 # Begin Source File
 
 SOURCE=.\res.rc
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-!ENDIF 
-
 # End Source File
 # End Group
 # Begin Group "Network"

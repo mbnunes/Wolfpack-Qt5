@@ -186,34 +186,6 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 }
 
 ////////////////
-// name:		triggertarget
-// history:		by Magius(CHE),24 August 1999
-// Purpose:		Select an item or an npc to set with new trigger.
-//
-void cTargets::triggertarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)//Char
-	{
-			//triggerwitem(i,-1,1); is this used also for npcs?!?!
-	} 
-	else
-	{//item
-		P_ITEM pi = FindItemBySerial(serial);
-		if(pi != NULL)
-		{
-//			Trig->triggerwitem(s, pi,1);
-		}
-	}
-}
-
-void cTargets::BanTarg(int s)
-{
-
-}
-
-////////////////
 // name:		addtarget
 // history:		UnKnown (Touched tabstops by Tauriel Dec 29, 1998)
 // Purpose:		Adds an item when using /add # # .
@@ -252,8 +224,8 @@ static void AddTarget(int s, PKGx6C *pp)
 						houseid = childNode.toElement().text().toUInt();
 					childNode = childNode.nextSibling();
 				}
-				if( houseid != 0 )
-					attachPlaceRequest( s, new cBuildMultiTarget( QString("%1").arg(addid3[s]), currchar[s]->serial, INVALID_SERIAL ), houseid );
+//				if( houseid != 0 )
+//					attachPlaceRequest( s, new cBuildMultiTarget( QString("%1").arg(addid3[s]), currchar[s]->serial, INVALID_SERIAL ), houseid );
 			}
 			return; // Morrolan, here we WANT fall-thru, don't mess with this switch
 		}
@@ -289,25 +261,6 @@ public:
 			pi->setName( xtext[s] );
 	}
 };
-
-static void TeleTarget(int s, PKGx6C *pp) 
-{ 
-	if(pp->TxLoc==-1 || pp->TyLoc==-1) return; 
-	P_CHAR pc_currchar = currchar[s]; 
-	int x=pp->TxLoc; 
-	int y=pp->TyLoc; 
-	signed char z=pp->TzLoc; 
-	Coord_cl clTemp3(x,y,z) ;
-	if ((pc_currchar->isGM()) || (lineOfSight( pc_currchar->pos, clTemp3,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) 
-	{ 
-		doGmMoveEff(s); 
-		
-		pc_currchar->MoveTo(x,y,z+Map->TileHeight(pp->model)); 
-		teleport(pc_currchar); 
-		
-		doGmMoveEff(s); 
-	} 
-}
 
 void DyeTarget(int s)
 {
@@ -383,7 +336,7 @@ public:
 	cNewzTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
 	void CharSpecific()
 	{
-		pc->setDispz(pc->pos.z=addx[s]);
+		pc->pos.z=addx[s];
 		teleport(pc);
 	}
 	void ItemSpecific()
@@ -1020,201 +973,9 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	pc->pos.x=pp->TxLoc;
 	pc->pos.y=pp->TyLoc;
 	pc->pos.z=pp->TzLoc+Map->TileHeight(pp->model);
-	pc->setDispz(pc->pos.z);
 	mapRegions->Add(pc); // add it to da regions ...
 	pc->isNpc();
 	updatechar(pc);
-}
-
-void cTargets::AllSetTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr( buffer[ s ] + 7 );
-	QString commandLine( SocketStrings[ s ].c_str() );
-	
-	QString commandStr;
-	QString parameterStr;
-
-	if( commandLine.find( " " ) == -1 )
-		commandStr = commandLine;
-	else
-	{
-		commandStr = commandLine.left( commandLine.find( " " ) );
-		parameterStr = commandLine.right( commandLine.length() - ( commandLine.find( " " ) + 1 ) );
-	}
-
-	commandStr = commandStr.lower();
-
-	// Events
-	if( commandStr == "events" )
-	{
-		QStringList events = QStringList::split( ",", parameterStr );
-
-		cUObject *Object = NULL;
-
-		if( serial > 0x40000000 )
-			Object = FindItemBySerial( serial );
-		else
-			Object = FindCharBySerial( serial );
-
-		if( Object == NULL )
-			return;
-
-		for( UI08 i = 0; i < events.count(); i++ )
-		{
-			QString eventName = events[ i ];
-
-			WPDefaultScript *scriptObj = ScriptManager->find( eventName );
-
-			// No event with that name found
-			if( scriptObj == NULL )
-			{
-				sysmessage( s, "Could not find event: " + eventName );
-				continue;
-			}
-
-			Object->addEvent( scriptObj );
-		}
-	}
-
-	/*int j;
-	SERIAL serial=LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if(pc != NULL)
-	{
-		UOXSOCKET k = calcSocketFromChar(pc);
-		if (addx[s]<TRUESKILLS)
-		{
-			pc->baseskill[addx[s]]=addy[s];
-			Skills->updateSkillLevel(pc, addx[s]);
-			if (k!=-1) updateskill(k, addx[s]);
-		}
-		else if (addx[s]==ALLSKILLS)
-		{
-			for (j=0;j<TRUESKILLS;j++)
-			{
-				pc->baseskill[j]=addy[s];
-				Skills->updateSkillLevel(pc, j);
-				if (k!=-1) updateskill(k,j);
-			}
-		}
-		else if (addx[s]==STR)
-		{
-			pc->st=addy[s];
-			for (j=0;j<TRUESKILLS;j++)
-			{
-				Skills->updateSkillLevel(pc,j);
-				if (k!=-1) updateskill(k,j);
-			}
-			if (k!=-1) 
-				statwindow(k, pc);
-		}
-		else if (addx[s]==DEX)
-		{
-			pc->setDex(addy[s]);
-			for (j=0;j<TRUESKILLS;j++)
-			{
-				Skills->updateSkillLevel(pc,j);
-				if (k!=-1) updateskill(k,j);
-			}
-			if (k!=-1) 
-				statwindow(k, pc);
-		}
-		else if (addx[s]==INT)
-		{
-			pc->in=addy[s];
-			for (j=0;j<TRUESKILLS;j++)
-			{
-				Skills->updateSkillLevel(pc,j);
-				if (k!=-1) updateskill(k,j);
-			}
-			if (k!=-1) 
-				statwindow(k, pc);
-		}
-		else if (addx[s]==FAME)
-		{
-			pc->fame=addy[s];
-		}
-		else if (addx[s]==KARMA)
-		{
-			pc->karma=addy[s];
-		}
-	}*/
-}
-
-static void InfoTarget(int s, PKGx6C *pp) // rewritten to work also with map-tiles, not only static ones by LB
-{
-	int tilenum,x1,y1,x2,y2,x,y;
-	signed char z;
-	unsigned long int pos;
-	tile_st tile;
-	map_st map1;
-	land_st land;
-
-	if(pp->TxLoc==-1 || pp->TyLoc==-1) return;
-	x=pp->TxLoc;
-	y=pp->TyLoc;
-	z=pp->TzLoc;
-
-	if (pp->model==0)	// damn osi not me why the tilenum is only send for static tiles, LB
-	{	// manually calculating the ID's if it's a maptype
-		/*x1=x/8;
-		y1=y/8;
-		x2=(x-(x1*8));
-		y2=(y-(y1*8));
-		pos=(x1*512*196)+(y1*196)+(y2*24)+(x2*3)+4;
-		fseek(mapfile, pos, SEEK_SET);
-		fread(&map1, 3, 1, mapfile);
-		Map->SeekLand(map1.id, &land);
-		clConsole.send("type: map-tile\n");
-		clConsole.send("tilenum: %i\n",map1.id);
-		clConsole.send("Flag1:%x\n", land.flag1);
-		clConsole.send("Flag2:%x\n", land.flag2);
-		clConsole.send("Flag3:%x\n", land.flag3);
-		clConsole.send("Flag4:%x\n", land.flag4);
-		clConsole.send("Unknown1:%lx\n", land.unknown1);
-		clConsole.send("Unknown2:%x\n", land.unknown2);
-		clConsole.send("Name:%s\n", land.name);*/
-	}
-	else
-	{
-		/*tilenum=pp->model; // lb, bugfix
-		Map->SeekTile(tilenum, &tile);
-		clConsole.send("type: static-tile\n");
-		clConsole.send("tilenum: %i\n",tilenum);
-		clConsole.send("Flag1:%x\n", tile.flag1);
-		clConsole.send("Flag2:%x\n", tile.flag2);
-		clConsole.send("Flag3:%x\n", tile.flag3);
-		clConsole.send("Flag4:%x\n", tile.flag4);
-		clConsole.send("Weight:%x\n", tile.weight);
-		clConsole.send("Layer:%x\n", tile.layer);
-		clConsole.send("Anim:%lx\n", tile.animation);
-		clConsole.send("Unknown1:%lx\n", tile.unknown1);
-		clConsole.send("Unknown2:%x\n", tile.unknown2);
-		clConsole.send("Unknown3:%x\n", tile.unknown3);
-		clConsole.send("Height:%x\n", tile.height);
-		clConsole.send("Name:%s\n", tile.name);*/
-	}
-	sysmessage(s, "Item info has been dumped to the console.");
-	clConsole.send("\n");
-}
-
-void cTargets::TweakTarget(int s)//Lag fix -- Zippy
-{
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if (serial == 0) //Client sends zero if invalid!
-		return;
-	if (isCharSerial(serial))//Char
-	{
-		if (FindCharBySerial(serial) == NULL) // but let's make sure
-			return;
-//		tweakmenu(s, serial);
-	} 
-	else
-	{//item
-		if (FindItemBySerial(serial) == NULL)
-			return;
-//		tweakmenu(s, serial);
-	}
 }
 
 static void SetInvulFlag(P_CLIENT ps, P_CHAR pc)
@@ -3932,7 +3693,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 	pt->model = ShortFromCharPtr(buffer[s]+17);
 
 	// targetRequest
-	if( buffer[s][2] == 0xFE )
+/*	if( buffer[s][2] == 0xFE )
 	{
 		// Unrequested Target info
 		if( targetRequests.find( s ) == targetRequests.end() )
@@ -3952,14 +3713,14 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		/*if( pt->TxLoc == -1 && pt->TyLoc == -1 && pt->Tserial == 0 && pt->model == 0 )
 			targetRequests[ s ]->timedout( s );
 		else
-			targetRequests[ s ]->responsed( s, *pt );*/
+			targetRequests[ s ]->responsed( s, *pt );* //
 
 		delete targetRequests[ s ];
 		targetRequests.erase( targetRequests.find( s ) );
 
 		return; // No further processing
 	}
-
+*/
 	if (pt->TxLoc==-1 && pt->TyLoc==-1) // do nothing if user cancelled
 		if (pt->Tserial==0 && pt->model==0) // this seems to be the complete 'cancel'-criteria (Duke)
 			return;
@@ -3988,7 +3749,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		{
 		case 0: AddTarget(s,pt); break;
 		case 1: { cRenameTarget		T(ps);		T.process();} break;
-		case 2: TeleTarget(s,pt); break; // LB, bugfix, we need it for the /tele command
 		case 4: DyeTarget(s); break;
 		case 5: { cNewzTarget		T(ps);		T.process();} break;
 		case 6: if (Iready) pi->setType( addid1[s] ); break; //Typetarget
@@ -4044,8 +3804,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 34: if (Cready) pc->setPriv2(pc->priv2() | 2); break;
 //		case 35: if (Cready) pc->priv2&=0xfd; break; // unfreeze, AntiChris used LB bugfix
 		case 35: if (Cready) pc->setPriv2(pc->priv2() & 0xfd);
-		case 36: Targ->AllSetTarget(s); break;
-		case 37: Skills->AnatomyTarget(s); break;
 		case 38: Magic->Recall(s); break;
 		case 39: Magic->Mark(s); break;
 		case 40: Skills->ItemIdTarget(s); break;
@@ -4054,36 +3812,26 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 43: Magic->Gate(s); break;
 		case 44: Magic->Heal(s); break; // we need this for /heal command
 		case 45: Fishing->FishTarget(ps); break;
-		case 46: InfoTarget(s,pt); break;
 		case 47: if (Cready) pc->setTitle( xtext[s] ); break;//TitleTarget
 		case 48: Targ->ShowAccountCommentTarget(s); break;
-		case 49: Skills->CookOnFire(s,0x09,0x7B,"fish steaks"); break;
-//		case 50: Skills->Smith(s); break;
-//		case 51: Skills->Mine(s); break;
 		case 52: Skills->SmeltOre(s); break;
 		case 53: npcact(s); break;
-		case 54: Skills->CookOnFire(s,0x09,0xB7,"bird"); break;
-		case 55: Skills->CookOnFire(s,0x16,0x0A,"lamb"); break;
 		case 56: Targ->NpcTarget(s); break;
 		case 57: Targ->NpcTarget2(s); break;
 		case 58: Targ->NpcResurrectTarget(currchar[s]); break;
 		case 59: Targ->NpcCircleTarget(s); break;
 		case 60: Targ->NpcWanderTarget(s); break;
 		case 61: Targ->VisibleTarget(s); break;
-		case 62: Targ->TweakTarget(s); break;
 		case 63: //MoreXTarget
 		case 64: //MoreYTarget
 		case 65: //MoreZTarget
 		case 66: ItemTarget(ps,pt); break;//MoreXYZTarget
 		case 67: Targ->NpcRectTarget(s); break;
-		case 68: Skills->CookOnFire(s,0x09,0xF2,"ribs"); break;
-		case 69: Skills->CookOnFire(s,0x16,0x08,"chicken legs"); break;
 		case 70: Skills->TasteIDTarget(s); break;
 		case 71: if (Iready) ContainerEmptyTarget1(ps,pi); break;
 		case 72: if (Iready) ContainerEmptyTarget2(ps,pi); break;
 		case 75: Targ->TargIdTarget(s); break;
 //		case 76: AxeTarget(ps,pt); break;
-		case 77: Skills->DetectHidden(s); break;
 
 //		case 79: Skills->ProvocationTarget1(s); break;
 //		case 80: Skills->ProvocationTarget2(s); break;
@@ -4118,7 +3866,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 127: Targ->ReleaseTarget(s,-1); break;
 		case 128: Skills->CreateBandageTarget(s); break;
 		case 129: ItemTarget(ps,pt); break;//SetAmount2Target
-		case 130: Skills->HealingSkillTarget(s); break;
 		case 131: if (currchar[s]->isGM()) Targ->permHideTarget(s); break; /* not used */
 		case 132: if (currchar[s]->isGM()) Targ->unHideTarget(s); break; /* not used */
 		case 133: ItemTarget(ps,pt); break;//SetWipeTarget
@@ -4140,8 +3887,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 //		case 156: Skills->PoisoningTarget(s); break;
 
 		case 160: Skills->Inscribe(s,0); break;
-
-		case 162: Skills->LockPick(s); break;
 
 		case 164: Skills->Wheel(s, YARN); break;
 		case 165: Skills->Loom(s); break;
@@ -4167,7 +3912,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 
 		case 198: Tiling(s,pt); break;
 		case 199: Targ->Wiping(s); break;
-		case 204: triggertarget(s); break; // Fixed by Magius(CHE)
 //		case 205: Skills->StealingTarget(s); break;
 		case 206: Targ->CanTrainTarget(s); break;
 		case 207: ExpPotionTarget(s,pt); break;
@@ -4201,7 +3945,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 232: Targ->HouseLockdown( s ); break; // Abaddon 17th December 1999
 		case 233: Targ->HouseRelease( s ); break; // Abaddon 17th December 1999
 		case 234: Targ->HouseSecureDown( s ); break; // Ripper
-		case 235: Targ->BanTarg(s); break;
 		case 236: Skills->RepairTarget(s); break; //Ripper..Repairing item
 		case 237: Skills->SmeltItemTarget(s); break; //Ripper..Smelting item
 		//taken from 6904t2(5/10/99) - AntiChrist
@@ -4220,8 +3963,8 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 						houseid = childNode.toElement().text().toUInt();
 					childNode = childNode.nextSibling();
 				}
-				if( houseid != 0 )
-					attachPlaceRequest( s, new cBuildMultiTarget( QString("%1").arg(addid3[s]), currchar[s]->serial, INVALID_SERIAL ), houseid );
+//				if( houseid != 0 )
+//					attachPlaceRequest( s, new cBuildMultiTarget( QString("%1").arg(addid3[s]), currchar[s]->serial, INVALID_SERIAL ), houseid );
 			}
 		}
 			break;

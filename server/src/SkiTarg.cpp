@@ -715,45 +715,6 @@ void cSkills::Loom(int s)
 		sysmessage(s, tr("You cant tailor here.") );*/
 }
 
-////////////
-// Name:	CookOnFire
-// By:		Ripper & Duke, 07/20/00
-// Purpose: so you can use raw meat on fire
-
-void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
-{
-/*	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = currchar[s];
-	if (pi && !pi->isLockedDown()) // Ripper
-	{
-		P_ITEM piRaw = FindItemBySerial(addmitem[s]);
-		if (CheckInPack(s,piRaw))
-		{
-			if(IsCookingPlace(pi->id()) )
-			{
-				if(iteminrange(s,pi,3))
-				{
-					//soundeffect(s,0x01,0xDD);	// cooking sound
-					if (!Skills->CheckSkill(pc_currchar,COOKING, 0, 1000)) 
-					{
-						sysmessage(s, tr("You failed to cook the %1 and drop some into the ashes.").arg(matname) );
-						piRaw->ReduceAmount( 1 + ( rand() % (piRaw->amount()) ) );
-					}
-					else
-					{
-						sysmessage(s, tr("You have cooked the %1, and it smells great.").arg(matname) );
-						P_ITEM pi_c = Items->SpawnItem(s, pc_currchar, piRaw->amount(),"#",1,id1,id2,0,1,1);
-						if(pi_c == NULL) return;
-						pi_c->setType( 14 );
-						pi_c->update();
-						Items->DeleItem(piRaw);
-					}
-				}
-			}
-		}
-	} */
-}
-
 void cSkills::MakeDough(int s)
 {
 /*	bool tailme = false;
@@ -838,11 +799,6 @@ void cSkills::MakePizza(int s)
 * the edges of the detect circle. Also low skill detecters cannot find high skilled
 * hiders as easily as low skilled hiders.
 */
-
-void cSkills::DetectHidden(UOXSOCKET s)
-{
-
-}
 
 void cSkills::EnticementTarget1(UOXSOCKET s)
 {
@@ -1156,10 +1112,6 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 	}
 }
 
-void cSkills::ArmsLoreTarget(int s)
-{
-}
-
 void cSkills::ItemIdTarget(int s)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -1236,64 +1188,6 @@ void cSkills::ItemIdTarget(int s)
 }
 
 
-
-///////////////
-// Name:	AnatomyTarget
-// history:	unknown, revamped by Duke, 2.10.2000
-// Purpose:	implements the 'evaluate anatomy' skill
-
-void cSkills::AnatomyTarget(int s)
-{
-}
-
-void cSkills::LockPick(int s)
-{
- 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = currchar[s];
-	if (pi && !pi->isLockedDown()) // Ripper
-	{
-		P_ITEM piPick = FindItemBySerial(addmitem[s]);
-		if (piPick == NULL)
-			return;
-		if(pi->type()==1 || pi->type()==12 || pi->type()==63) 
-		{
-			sysmessage(s, tr("That is not locked.") );
-			return;
-		}
-		
-		if(pi->type()==8 || pi->type()==13 || pi->type()==64)
-		{
-			if(pi->more1==0 && pi->more2==0 && pi->more3==0 && pi->more4==0)
-			{ //Make sure it isn't an item that has a key (i.e. player house, chest..etc)
-				if(Skills->CheckSkill(pc_currchar, LOCKPICKING, 0, 1000))
-				{
-					switch(pi->type())
-					{
-					case 8:  pi->setType( 1 );  break;
-					case 13: pi->setType( 12 ); break;
-					case 64: pi->setType( 63 ); break;
-					default:
-						LogError("switch reached default");
-						return;
-					}
-					pi->soundEffect( 0x241 );
-				} 
-				else
-				{
-					if((rand()%100)>50) 
-					{
-						sysmessage(s, tr("You broke your lockpick!") );
-						piPick->ReduceAmount( 1 );
-					} else
-						sysmessage(s, tr("You fail to open the lock."));
-				}
-			} else
-			{
-				sysmessage(s, tr("That cannot be unlocked without a key."));
-			}
-		}
-	}
-}
 
 //////////////////////////////////
 // name:	cTinkerCombine

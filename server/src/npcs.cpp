@@ -211,7 +211,6 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 			nChar->pos.x=triggerx;
 			nChar->pos.y=triggery;
 			nChar->pos.z=triggerz;
-			nChar->setDispz(nChar->pos.z);
 			triggerx = nChar->serial;
 		} else
 		{
@@ -265,7 +264,6 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 			nChar->pos.x=pi_i->pos.x+xos;
 			nChar->pos.y=pi_i->pos.y+yos;
 			nChar->pos.z=pi_i->pos.z;
-			nChar->setDispz(nChar->pos.z);
 			nChar->SetSpawnSerial(pi_i->serial);
 			if ( pi_i->type() == 125 )
 			{
@@ -279,14 +277,12 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 			nChar->pos.x=(buffer[s][11]<<8)+buffer[s][12];
 			nChar->pos.y=(buffer[s][13]<<8)+buffer[s][14];
 			nChar->pos.z=buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]);
-			nChar->setDispz(nChar->pos.z);
 		}
 		break;
 	case 3: // take position from Parms
 		nChar->pos.x=posx;
 		nChar->pos.y=posy;
 		nChar->pos.z=posz;
-		nChar->setDispz(nChar->pos.z);
 		break;
 	} // no default coz we tested on entry to function
    
