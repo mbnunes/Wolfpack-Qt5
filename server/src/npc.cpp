@@ -278,8 +278,9 @@ void cNPC::resend( bool clean)
 			cUOTxDrawChar drawChar;
 			drawChar.fromChar(this);
 			drawChar.setHighlight(notoriety(socket->player()));
-			sendTooltip(socket);
 			socket->send(&drawChar);
+			
+			sendTooltip(socket);
 			
 			for (ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it) {
 				it.data()->sendTooltip(socket);

@@ -180,7 +180,11 @@ void cCorpse::update( cUOSocket *mSock )
 	sendItem.setSerial( serial() );
 	sendItem.setCoord( pos() );
 	sendItem.setDirection( direction() );
-	sendItem.setColor( color() | 0x8000 );
+	if (bodyId_ >= 0x190) {
+		sendItem.setColor(color_ | 0x8000);
+	} else {
+		sendItem.setColor(color_);
+	}
 
 	if( mSock )
 	{

@@ -22,6 +22,8 @@ CONDITIONAL COMPILATION :
 
 #if defined(CRASHHANDLER)
 
+#pragma comment(lib,"imagehlp.lib")
+
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <wintrust.h>
