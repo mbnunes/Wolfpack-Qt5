@@ -84,7 +84,7 @@ public:
 	INT16 findSkillByDef( const QString &defname ) const; // -1 = Not Found
 
 	bool advanceSkill( P_CHAR pChar, UINT16 skill, SI32 min, SI32 max, bool success ) const;
-	bool advanceStats( P_CHAR pChar, UINT16 skill ) const;
+	bool advanceStats( P_PLAYER pChar, UINT16 skill ) const;
 
 	// Skill Usage methods
 	void PlayInstrumentWell(cUOSocket*, P_ITEM pi);

@@ -298,6 +298,12 @@ struct {
 	visualrange tinyint(3)  NOT NULL default '0',\
 	profile longtext,\
 	fixedlight tinyint(3)  NOT NULL default '0',\
+	strcap tinyint(4)  NOT NULL default '100',\
+	dexcap tinyint(4)  NOT NULL default '100',\
+	intcap tinyint(4)  NOT NULL default '100',\
+	strlock tinyint(4)  NOT NULL default '0',\
+	dexlock tinyint(4)  NOT NULL default '0',\
+	intlock tinyint(4)  NOT NULL default '0',\
 	PRIMARY KEY (serial)\
 	);" },
 

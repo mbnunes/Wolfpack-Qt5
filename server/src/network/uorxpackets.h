@@ -303,6 +303,18 @@ public:
 	static cUOPacket *packet( const QByteArray& data );
 };
 
+class cUORxExtendedStats : public cUORxMultiPurpose {
+public:
+	cUORxExtendedStats( const QByteArray &data ): cUORxMultiPurpose( data ) {}
+	unsigned char stat() const {
+		return (*this)[5];
+	}
+
+	unsigned char lock() const {
+		return (*this)[6];
+	}
+};
+
 // 0xBF 0x1C
 class cUORxCastSpell : public cUORxMultiPurpose
 {

@@ -97,22 +97,18 @@ cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data )
 	switch (temp.getShort(3)) { 
 	case setLanguage: 
 		return new cUORxSetLanguage(data);
-		break;
 	case contextMenuRequest: 
 		return new cUORxContextMenuRequest(data);
-		break;
 	case contextMenuSelection: 
 		return new cUORxContextMenuSelection(data);
-		break;
 	case castSpell:
 		return new cUORxCastSpell(data);
-		break;
 	case toolTip:
 		return new cUORxRequestToolTip(data);
-		break;
 	case customHouseRequest:
 		return new cUORxCustomHouseRequest(data);
-		break;
+	case extendedStats:
+		return new cUORxExtendedStats(data);
 	default:
 		return new cUORxMultiPurpose(data);
 	}; 

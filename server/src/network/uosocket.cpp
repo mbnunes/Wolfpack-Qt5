@@ -1122,6 +1122,10 @@ void cUOSocket::handleMultiPurpose(cUORxMultiPurpose *packet) {
 		handleToolTip(dynamic_cast<cUORxRequestToolTip*>(packet));
 		return;
 
+	case cUORxMultiPurpose::extendedStats:
+		handleExtendedStats(dynamic_cast<cUORxExtendedStats*>(packet));
+		return;
+
 	case cUORxMultiPurpose::customHouseRequest:
 		handleCustomHouseRequest(dynamic_cast<cUORxCustomHouseRequest*>(packet));
 		return;
@@ -2178,14 +2182,22 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	send( &sendStats );
 
 	// Send the packet to our party members too
-	if (pChar == _player && _player->party()) {
-		QPtrList<cPlayer> members = _player->party()->members();
+	if (pChar == _player) {
+		if (_player->party()) {
+			QPtrList<cPlayer> members = _player->party()->members();
 
-		for (P_PLAYER member = members.first(); member; member = members.next()) {
-			if (member->socket() && member != _player) {
-				member->socket()->send(&sendStats);
+			for (P_PLAYER member = members.first(); member; member = members.next()) {
+				if (member->socket() && member != _player) {
+					member->socket()->send(&sendStats);
+				}
 			}
 		}
+
+		// Send the extended stat information
+		cUOTxExtendedStats extended;
+		extended.setSerial(_player->serial());
+		extended.setLocks(_player->strengthLock(), _player->dexterityLock(), _player->intelligenceLock());
+		send(&extended);
 	}
 }
 
@@ -2702,5 +2714,33 @@ bool cUOSocket::canSee(cUObject *object, bool lineOfSight) {
 		return false;
 	} else {
 		return _player->canSee(object, lineOfSight);
+	}
+}
+
+void cUOSocket::handleExtendedStats(cUORxExtendedStats *packet) {
+	unsigned char lock = packet->lock();
+	unsigned char stat = packet->stat();
+
+	if (lock > 2) {
+		log(LOG_WARNING, QString("Wrong lock value for extended stats packet: %1\n").arg(lock));
+		return;
+	}
+
+	switch (stat) {
+		case 0:
+			_player->setStrengthLock(lock);
+			break;
+
+		case 1:
+			_player->setDexterityLock(lock);
+			break;
+
+		case 2:
+			_player->setIntelligenceLock(lock);
+			break;
+			
+		default:
+			log(LOG_WARNING, QString("Wrong stat value for extended stats packet: %1\n").arg(stat));
+			break;
 	}
 }

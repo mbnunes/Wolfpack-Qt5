@@ -183,6 +183,7 @@ public:
 	void handleRequestAttack( cUORxRequestAttack* packet );
 	void handleBookPage( cUORxBookPage* packet );
 	void handleUpdateBook( cUORxBookInfo* packet );
+	void handleExtendedStats( cUORxExtendedStats* packet);
 	void handleAction( cUORxAction* packet );
 	void handleGumpResponse( cUORxGumpResponse* packet );
 	void handleHelpRequest( cUORxHelpRequest* packet );

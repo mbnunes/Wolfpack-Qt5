@@ -69,8 +69,13 @@ cPlayer::cPlayer()
 	fixedLightLevel_	= 0xFF;
 	party_				= 0;
 	guild_				= 0;
+	strengthCap_		= 100;
+	dexterityCap_		= 100;
+	intelligenceCap_	= 100;
+	strengthLock_		= 0;
+	dexterityLock_		= 0;
+	intelligenceLock_	= 0;
 }
-
 
 cPlayer::cPlayer(const cPlayer& right)
 {
@@ -104,6 +109,8 @@ void cPlayer::buildSqlString( QStringList &fields, QStringList &tables, QStringL
 	cBaseChar::buildSqlString( fields, tables, conditions );
 	fields.push_back( "players.account,players.additionalflags,players.visualrange" );
 	fields.push_back( "players.profile,players.fixedlight" );
+	fields.push_back( "players.strcap,players.dexcap,players.intcap" );
+	fields.push_back( "players.strlock,players.dexlock,players.intlock");
 	tables.push_back( "players" );
 	conditions.push_back( "uobjectmap.serial = players.serial" );
 }
@@ -119,6 +126,12 @@ void cPlayer::load( char **result, UINT16 &offset )
 	visualRange_ = atoi( result[offset++] );
 	profile_ = result[offset++];
 	fixedLightLevel_ = atoi( result[offset++] );
+	strengthCap_ = atoi(result[offset++]);
+	dexterityCap_ = atoi(result[offset++]);
+	intelligenceCap_ = atoi(result[offset++]);
+	strengthLock_ = atoi(result[offset++]);
+	dexterityLock_ = atoi(result[offset++]);
+	intelligenceLock_ = atoi(result[offset++]);
 
 	playerRegisterAfterLoading( this );
 	changed_ = false;
@@ -146,6 +159,12 @@ void cPlayer::save()
 		addField( "visualrange", visualRange_ );
 		addStrField( "profile", profile_ );
 		addField( "fixedlight", fixedLightLevel_ );
+		addField( "strcap", strengthCap_ );
+		addField( "dexcap", dexterityCap_ );
+		addField( "intcap", intelligenceCap_ );
+		addField( "strlock", strengthLock_ );
+		addField( "dexlock", dexterityLock_ );
+		addField( "intlock", intelligenceLock_ );
 
 		addCondition( "serial", serial() );
 		saveFields;
@@ -1139,6 +1158,13 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "visrange", visualRange_ )
 	else SET_STR_PROPERTY( "profile", profile_ )
 
+	else SET_INT_PROPERTY( "strengthcap", strengthCap_ )
+	else SET_INT_PROPERTY( "dexteritycap", dexterityCap_ )
+	else SET_INT_PROPERTY( "intelligencecap", intelligenceCap_ )
+	else SET_INT_PROPERTY( "strengthlock", strengthLock_ )
+	else SET_INT_PROPERTY( "dexteritylock", dexterityLock_ )
+	else SET_INT_PROPERTY( "intelligencelock", intelligenceLock_ )
+
 	// skill.
 	else if( name.left( 6 ) == "skill." )
 	{
@@ -1168,6 +1194,12 @@ stError *cPlayer::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "objectdelay", (int)objectDelay_ )
 	else GET_PROPERTY( "visrange", visualRange_ )
 	else GET_PROPERTY( "profile", profile_ )
+	else GET_PROPERTY( "strengthcap", strengthCap_ )
+	else GET_PROPERTY( "dexteritycap", dexterityCap_ )
+	else GET_PROPERTY( "intelligencecap", intelligenceCap_ )
+	else GET_PROPERTY( "strengthlock", strengthLock_ )
+	else GET_PROPERTY( "dexteritylock", dexterityLock_ )
+	else GET_PROPERTY( "intelligencelock", intelligenceLock_ )
 
 	return cBaseChar::getProperty( name, value );
 }

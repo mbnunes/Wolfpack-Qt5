@@ -185,6 +185,28 @@ public:
 	void fromChar(P_CHAR pChar);
 };
 
+// 0xBF Extended Stat (Subcommand: 0x19)
+class cUOTxExtendedStats : public cUOPacket {
+public:
+	cUOTxExtendedStats(): cUOPacket(0xBF, 12) {
+		setShort(1, 12);
+		setShort(3, 0x19);
+		(*this)[5] = 2;
+	}
+
+	void setSerial(unsigned int data) {
+		setInt(6, data);
+	}
+
+	void setUnknown(unsigned char data) {
+		(*this)[10] = data;
+	}
+
+	void setLocks(unsigned char strength, unsigned char dexterity, unsigned char intelligence) {
+		(*this)[11] = ((strength & 0x3) << 4) | ((dexterity & 0x3) << 2) | (intelligence & 0x3);
+	}
+};
+
 // 0xBF Change Map (Subcommand: 0x08)
 class cUOTxChangeMap: public cUOPacket
 {

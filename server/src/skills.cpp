@@ -857,20 +857,12 @@ const QString &cSkills::getSkillDef( UINT16 skill ) const
 	return skills[skill].defname;
 }
 
-bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
-{
-	if( !pChar )
-		return false;
-
+bool cSkills::advanceStats(P_PLAYER pChar, UINT16 skill) const {
 	UINT16 realStr = pChar->strength() - pChar->strengthMod();
 	UINT16 realDex = pChar->dexterity() - pChar->dexterityMod();
 	UINT16 realInt = pChar->intelligence() - pChar->intelligenceMod();
 
 	UINT32 statSum = realDex + realStr + realInt;
-
-	// Check if we reached the StatCap
-	if( SrvParams->statcap() && statSum >= SrvParams->statcap() )
-		return false;
 
 	// First of all determine which stat can be raised using this skill
 	// 1: Strength, 2: Dexterity: 3: Intelligence
@@ -878,15 +870,18 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 	UINT8 strChance = 0, dexChance = 0, intChance = 0;
 
 	// Strength can be risen
-	if( realStr < 120 && realStr < skills[ skill ].strength )
+	if( realStr < pChar->strengthCap() && realStr < skills[ skill ].strength
+		&& pChar->strengthLock() == 0)
 		strChance = skills[ skill ].strength - realStr;
 
 	// Dexterity can be risen
-	if( realDex < 120 && realDex < skills[ skill ].dexterity )
+	if( realDex < pChar->dexterityCap() && realDex < skills[ skill ].dexterity 
+		&& pChar->dexterityLock() == 0)
 		dexChance = skills[ skill ].dexterity - realDex;
 
 	// Intelligence can be risen
-	if( realInt < 120 && realInt < skills[ skill ].intelligence )
+	if( realInt < pChar->intelligenceCap() && realInt < skills[ skill ].intelligence 
+		&& pChar->intelligenceLock() == 0)
 		intChance = skills[ skill ].intelligence - realInt;
 
 	// No Stat can be risen by using this skill!
@@ -899,15 +894,25 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 	bool gained = false;
 
 	// 0 - strChance, strChance - ( strChance + dexChance ), ( strChance + dexChance ) - ( strChance + dexChance + intChance )
-	if( choice <= strChance )
-	{
-		// Raise Str
+	if (choice <= strChance) {
 		for( INT32 i = advStrength.size() - 1; i >= 0 ; --i )
 		{
-			if( advStrength[i].base <= realStr && ( advStrength[ i ].success >= RandomNum( 0, 10000 ) ) )
-			{
-				if( !pChar->onStatGain(0) ) 
-				{
+			if( advStrength[i].base <= realStr && ( advStrength[ i ].success >= RandomNum( 0, 10000 ) ) ) {
+				if (!pChar->onStatGain(0)) {
+					if (statSum >= SrvParams->statcap()) {
+						// See if we can lower another stat to advance in this stat.
+						if (pChar->dexterityLock() == 1 && pChar->dexterity() > 1) {
+							pChar->setDexterity(pChar->dexterity() - 1);
+
+							pChar->setMaxStamina(std::max(1, pChar->maxStamina() - 1));
+						} else if (pChar->intelligenceLock() == 1 && pChar->intelligence() > 1) {
+							pChar->setIntelligence(pChar->intelligence() - 1);
+							pChar->setMaxMana(std::max(1, pChar->maxMana() - 1));
+						} else {
+							return false;
+						}
+					}
+
 					pChar->setStrength( pChar->strength() + 1 );
 					pChar->setMaxHitpoints( pChar->maxHitpoints() + 1 );
 				}
@@ -915,9 +920,7 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 				break;
 			}
 		}
-	}
-	else if( choice > strChance && ( choice - strChance ) < dexChance )
-	{
+	} else if (( choice - strChance ) < dexChance) {
 		// Raise Dex
 		for( INT32 i = advDexterity.size() - 1; i >= 0 ; --i )
 		{
@@ -925,6 +928,19 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 			{
 				if( !pChar->onStatGain(1) ) 
 				{
+					if (statSum >= SrvParams->statcap()) {
+						// See if we can lower another stat to advance in this stat.
+						if (pChar->strengthLock() == 1 && pChar->strength() > 1) {
+							pChar->setStrength(pChar->strength() - 1);
+							pChar->setMaxHitpoints(std::max(pChar->maxHitpoints() - 1, 1));
+						} else if (pChar->intelligenceLock() == 1 && pChar->intelligence() > 1) {
+							pChar->setIntelligence(pChar->intelligence() - 1);
+							pChar->setMaxMana(std::max(pChar->maxMana() - 1, 1));
+						} else {
+							return false;
+						}
+					}
+
 					pChar->setDexterity( pChar->dexterity() + 1 );
 					pChar->setMaxStamina( pChar->maxStamina() + 1 );
 				}
@@ -932,9 +948,7 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 				break;
 			}
 		}
-	}
-	else if( choice > strChance + dexChance && ( choice - ( strChance + dexChance ) ) < intChance )
-	{
+	} else if (choice - ( strChance + dexChance ) < intChance) {
 		// Raise Int
 		for( INT32 i = advIntelligence.size() - 1; i >= 0 ; --i )
 		{
@@ -942,8 +956,21 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 			{
 				if( !pChar->onStatGain(2) ) 
 				{
-					pChar->setIntelligence( pChar->intelligence() + 1 );
-					pChar->setMaxMana( pChar->maxMana() + 1 );
+					if (statSum >= SrvParams->statcap()) {
+						// See if we can lower another stat to advance in this stat.
+						if (pChar->dexterityLock() == 1 && pChar->dexterity() > 1) {
+							pChar->setDexterity(pChar->dexterity() - 1);
+							pChar->setMaxStamina(std::max(pChar->maxStamina() - 1, 1));
+						} else if (pChar->strengthLock() == 1 && pChar->strength() > 1) {
+							pChar->setStrength(pChar->strength() - 1);
+							pChar->setMaxHitpoints(std::max(pChar->maxHitpoints() - 1, 1));
+						} else {
+							return false;
+						}
+					}
+
+					pChar->setIntelligence(pChar->intelligence() + 1);
+					pChar->setMaxMana(pChar->maxMana() + 1);
 				}
 				gained = true;
 				break;
@@ -980,7 +1007,7 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, SI32 min, SI32 max, bool
 	// NOTE:
 	// Before this change, if you used locked skills you couldn't gain
 	// in stats. This is removed now
-	if( advanceStats( pChar, skill ) )
+	if( pPlayer && advanceStats( pPlayer, skill ) )
 		return false;
 
 	// We don't gain in locked or lowered skills
