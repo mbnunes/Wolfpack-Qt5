@@ -217,6 +217,49 @@ extern long int oldtime, newtime;
 #define WEIGHT_PER_STR 4
 #define MAXGATES 100
 
+enum enStats {
+	Mana = 1,
+	Stamina,
+	HitPoints,
+	Dexterity,
+	Intelligence,
+	Strength
+};
+
+enum enRequirement {
+	LowManaCost = 1,
+	LowReagentCost,
+	GlobalRequirement
+};
+
+enum enHit {
+	Spell = 1,
+	HitChance,
+	Cold,
+	Dispel,
+	Energy,
+	Fire,
+	Fireball,
+	Harm,
+	LifeLeech,
+	Lighting,
+	LowerAttack,
+	LowerDefence,
+	MagicArrow,
+	ManaLeech,
+	PhysicalArea,
+	PoisonArea,
+	StaminaLeech
+};
+
+enum enEnh {
+	Gold = 1,
+	SwingSpeed,
+	Potions,
+	SelfRepair,
+	DefenceChance
+};
+
 enum enDirection
 {
 	North = 1, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest
