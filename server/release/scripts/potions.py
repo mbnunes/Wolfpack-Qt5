@@ -12,30 +12,30 @@ from wolfpack.consts import RED, ALCHEMY, STRENGTH_TIME, ANIM_FIDGET3, \
 
 
 # potion [ return_bottle, aggressive, target, name ]
-potions = \
+POTIONS = \
 {
-	0:		[ 1, 0, 0, '#1044542', '#1041620', 'potion_nightsight' ], # nightsight
-	1:		[ 1, 0, 0, '#1044543', '#1041634', 'potion_lesserheal' ], # lesser heal
-	2:		[ 1, 0, 0, '#1044544', '#1041635', 'potion_heal' ], # heal
-	3:		[ 1, 0, 0, '#1044545', '#1041636', 'potion_greaterheal' ], # greater heal
-	4:		[ 1, 0, 0, '#1044552', '#1041621', 'potion_lessercure' ], # lesser cure
-	5:		[ 1, 0, 0, '#1044553', '#1041622', 'potion_cure' ], # cure
-	6:		[ 1, 0, 0, '#1044554', '#1041623', 'potion_greatercure' ], # greater cure
-	7:		[ 1, 0, 0, '#1044540', '#1041624', 'potion_agility' ], # agility
-	8:		[ 1, 0, 0, '#1044541', '#1041625', 'potion_greateragility' ], # greater agility
-	9:		[ 1, 0, 0, '#1044546', '#1041626', 'potion_strength' ], # strength
-	10:	[ 1, 0, 0, '#1044547', '#1041627', 'potion_greaterstrength' ], # greater strength
-	11:	[ 0, 1, 1, '#1044555', '#1041637', 'potion_lesserexplosion' ], # lesser explosion
-	12:	[ 0, 1, 1, '#1044556', '#1041638', 'potion_explosion' ], # explosion
-	13:	[ 0, 1, 1, '#1044557', '#1041639', 'potion_greaterexplosion' ], # greater explosion
-	14:	[ 1, 0, 0, '#1044548', '#1041628', 'potion_lesserpoison' ], # lesser poison
-	15:	[ 1, 0, 0, '#1044549', '#1041629', 'potion_poison' ], # poison
-	16:	[ 1, 0, 0, '#1044550', '#1041630', 'potion_greaterpoison' ], # greater poison
-	17:	[ 1, 0, 0, '#1044551', '#1041631', 'potion_deadlypoison' ], # deadly poison
-	18:	[ 1, 0, 0, '#1044538', '#1041632', 'potion_refresh' ], # refresh
-	19:	[ 1, 0, 0, '#1044539', '#1041633', 'potion_totalrefresh' ], # total refresh
-	20:	[ 1, 0, 0, 'Intellegence', 'A keg of Intellegence potions', 'potion_intelligence' ], # intelligence
-	21:	[ 1, 0, 0, 'Greater Intellegence', 'A keg of Greater Intellegence potions', 'potion_greaterintelligence' ], # greater intelligence
+	0:		[ True, 0, 0, '#1044542', '#1041620', 'potion_nightsight' ], # nightsight
+	1:		[ True, 0, 0, '#1044543', '#1041634', 'potion_lesserheal' ], # lesser heal
+	2:		[ True, 0, 0, '#1044544', '#1041635', 'potion_heal' ], # heal
+	3:		[ True, 0, 0, '#1044545', '#1041636', 'potion_greaterheal' ], # greater heal
+	4:		[ True, 0, 0, '#1044552', '#1041621', 'potion_lessercure' ], # lesser cure
+	5:		[ True, 0, 0, '#1044553', '#1041622', 'potion_cure' ], # cure
+	6:		[ True, 0, 0, '#1044554', '#1041623', 'potion_greatercure' ], # greater cure
+	7:		[ True, 0, 0, '#1044540', '#1041624', 'potion_agility' ], # agility
+	8:		[ True, 0, 0, '#1044541', '#1041625', 'potion_greateragility' ], # greater agility
+	9:		[ True, 0, 0, '#1044546', '#1041626', 'potion_strength' ], # strength
+	10:	[ True, 0, 0, '#1044547', '#1041627', 'potion_greaterstrength' ], # greater strength
+	11:	[ False, 1, 1, '#1044555', '#1041637', 'potion_lesserexplosion' ], # lesser explosion
+	12:	[ False, 1, 1, '#1044556', '#1041638', 'potion_explosion' ], # explosion
+	13:	[ False, 1, 1, '#1044557', '#1041639', 'potion_greaterexplosion' ], # greater explosion
+	14:	[ True, 0, 0, '#1044548', '#1041628', 'potion_lesserpoison' ], # lesser poison
+	15:	[ True, 0, 0, '#1044549', '#1041629', 'potion_poison' ], # poison
+	16:	[ True, 0, 0, '#1044550', '#1041630', 'potion_greaterpoison' ], # greater poison
+	17:	[ True, 0, 0, '#1044551', '#1041631', 'potion_deadlypoison' ], # deadly poison
+	18:	[ True, 0, 0, '#1044538', '#1041632', 'potion_refresh' ], # refresh
+	19:	[ True, 0, 0, '#1044539', '#1041633', 'potion_totalrefresh' ], # total refresh
+	20:	[ True, 0, 0, 'Intellegence', 'A keg of Intellegence potions', 'potion_intelligence' ], # intelligence
+	21:	[ True, 0, 0, 'Greater Intellegence', 'A keg of Greater Intellegence potions', 'potion_greaterintelligence' ], # greater intelligence
 	22:	[ 1, 0, 0, 'Lesser Mana', 'A keg of Lesser Mana potions', 'potion_lessermana' ], # lesser mana
 	23:	[ 1, 0, 0, 'Mana', 'A keg of Mana potions', 'potion_mana' ], # mana
 	24:	[ 1, 0, 0, 'Greater Mana', 'A keg of Greater Mana potions', 'potion_greatermana' ] # greater mana
@@ -69,7 +69,7 @@ def onUse( char, item ):
 			return False
 
 		# Do we throw this thing?
-		if potions[ potiontype ][ POT_TARGET ] == True:
+		if POTIONS[ potiontype ][ POT_TARGET ] == True:
 			# Explosion Potion
 			if potiontype in [ 11, 12, 13 ]:
 				# char, potion, counter value
@@ -346,7 +346,7 @@ def canUsePotion( char, item ):
 	return False
 
 # Consume the potion
-def consumePotion( char, potion, givebottle ):
+def consumePotion( char, potion, givebottle=True ):
 
 	if potion.amount == 1:
 		potion.delete()
@@ -354,7 +354,7 @@ def consumePotion( char, potion, givebottle ):
 		potion.amount -= 1
 		potion.update()
 
-	if givebottle == True: # Lets add an empty bottle!
+	if givebottle: # Lets add an empty bottle!
 		bottle = wolfpack.additem( 'f0e' ) # Empty Bottle Definition
 		if not wolfpack.utilities.tocontainer( bottle, char.getbackpack() ):
 			bottle.update()
@@ -386,7 +386,7 @@ def nightsightPotion( char, potion ):
 
 	char.soundeffect(0x1e3)
 	char.effect(0x376a, 9, 32)
-	consumePotion( char, potion, potions[ potion.gettag('potiontype') ][ POT_RETURN_BOTTLE ] )
+	consumePotion( char, potion, POTIONS[ potion.gettag('potiontype') ][ POT_RETURN_BOTTLE ] )
 	return True
 
 # Heal Potions
@@ -438,7 +438,7 @@ def healPotion( char, potion, healtype ):
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
-	consumePotion( char, potion, potions[ healtype ][ POT_RETURN_BOTTLE ] )
+	consumePotion( char, potion, POTIONS[ healtype ][ POT_RETURN_BOTTLE ] )
 
 	return True
 
@@ -477,7 +477,7 @@ def curePotion( char, potion, curetype ):
 	# Drinking and consume
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
-	consumePotion( char, potion, potions[ curetype ][ POT_RETURN_BOTTLE ] )
+	consumePotion( char, potion, POTIONS[ curetype ][ POT_RETURN_BOTTLE ] )
 	# If we succeeded, special effects
 	if char.poison == -1:
 		char.effect(0x373a, 10, 15)
@@ -527,7 +527,7 @@ def agilityPotion( char, potion, agilitytype ):
 	char.soundeffect( SOUND_DRINK1 )
 	char.effect( 0x375a, 10, 15 )
 	char.soundeffect( SOUND_AGILITY_UP )
-	consumePotion( char, potion, potions[ agilitytype ][ POT_RETURN_BOTTLE ] )
+	consumePotion( char, potion, POTIONS[ agilitytype ][ POT_RETURN_BOTTLE ] )
 
 	return True
 
@@ -574,7 +574,7 @@ def strengthPotion( char, potion, strengthtype ):
 	char.soundeffect( SOUND_DRINK1 )
 	char.effect( 0x375a, 10, 15 )
 	char.soundeffect( SOUND_STRENGTH_UP )
-	consumePotion( char, potion, potions[ strengthtype ][ POT_RETURN_BOTTLE ] )
+	consumePotion( char, potion, POTIONS[ strengthtype ][ POT_RETURN_BOTTLE ] )
 
 	return True
 
@@ -595,7 +595,7 @@ def poisonPotion( char, potion, poisontype ):
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
-	consumePotion( char, potion, potions[ poisontype ][ POT_RETURN_BOTTLE ] )
+	consumePotion( char, potion, POTIONS[ poisontype ][ POT_RETURN_BOTTLE ] )
 	return True
 
 def refreshPotion( char, potion, refreshtype ):
@@ -618,7 +618,7 @@ def refreshPotion( char, potion, refreshtype ):
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
-	consumePotion( char, potion, potions[ refreshtype ][ POT_RETURN_BOTTLE ] )
+	consumePotion( char, potion, POTIONS[ refreshtype ][ POT_RETURN_BOTTLE ] )
 	return True
 
 # INVIS POTION

@@ -22,13 +22,13 @@ def onDropOnChar(char, item):
 
 		if not player.canreach(char, 2):
 			player.socket.clilocmessage(500312)
-			if not tobackpack(item, player):
+			if not tobackpack( item, player ):
 				item.update()
 			return 1
 
 		if char.hunger >= 6:
 			player.message('They don''t seem to be hungry.')
-			if not tobackpack(item, player):
+			if not tobackpack( item, player ):
 				item.update()
 			return 1
 
@@ -43,11 +43,11 @@ def onDropOnChar(char, item):
 			item.delete()
 
 		# Fidget animation and munch munch sound
-		char.soundeffect(random.choice([0x03a, 0x03b, 0x03c]))
+		char.soundeffect( random.choice([0x03a, 0x03b, 0x03c]), 1 )
 		char.action(ANIM_FIDGET3)
 		return 1
 
-	char.say('Dropped item on char')
+	#char.say('Dropped item on char')
 	return 0
 
 #
