@@ -420,7 +420,7 @@ class Disarm (BaseAbility):
 				attacker.socket.clilocmessage(1060849) # Already unarmed ...
 
 		# The weapon is immovable
-		elif weapon.movable > 1:
+		elif weapon.lockeddown or weapon.movable > 1:
 			if attacker.socket:
 				attacker.socket.clilocmessage(1004001) # You cannot disarm ...
 

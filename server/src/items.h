@@ -401,13 +401,18 @@ public:
 	{
 		return ( movable_ == 3 );
 	}
-	void setLockedDown()
+	
+	void setLockedDown(bool data)
 	{
-		this->movable_ = 4; flagChanged();
-	} // set it locked down.
+		if (data) {
+			priv_ |= 0x04;
+		} else {
+			priv_ &= ~ 0x04;
+		}
+	}
 	bool isLockedDown()
 	{
-		return ( movable_ == 4 );
+		return priv_ & 0x04 != 0;
 	}
 
 	// Public event wrappers added by darkstorm
@@ -486,7 +491,7 @@ protected:
 	//===================
 	//   0 |  01 | NoDecay
 	//   1 |  02 | Newbie
-	//   2 |  04 |
+	//   2 |  04 | Locked Down
 	//   3 |  08 | Secured (Chests)
 	//   4 |  10 | Allow meditation
 	//   5 |  20 | Twohanded

@@ -1021,7 +1021,7 @@ void cItem::update( cUOSocket* singlesocket )
 					}
 
 					// Always Movable Flag
-					if ( isAllMovable() )
+					if ( !isLockedDown() && isAllMovable() )
 					{
 						flags |= 0x20;
 					}
@@ -1029,7 +1029,7 @@ void cItem::update( cUOSocket* singlesocket )
 					{
 						flags |= 0x20;
 					}
-					else if ( isOwnerMovable() && player->owns( this ) )
+					else if ( !isLockedDown() && isOwnerMovable() && player->owns( this ) )
 					{
 						flags |= 0x20;
 					}
@@ -1052,7 +1052,7 @@ void cItem::update( cUOSocket* singlesocket )
 			unsigned char flags = 0;
 
 			// Always Movable Flag
-			if ( isAllMovable() )
+			if ( !isLockedDown() && isAllMovable() )
 			{
 				flags |= 0x20;
 			}
@@ -1060,7 +1060,7 @@ void cItem::update( cUOSocket* singlesocket )
 			{
 				flags |= 0x20;
 			}
-			else if ( isOwnerMovable() && player->owns( this ) )
+			else if ( !isLockedDown() && isOwnerMovable() && player->owns( this ) )
 			{
 				flags |= 0x20;
 			}
@@ -1643,6 +1643,11 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 		setBaseid( value.toString().latin1() );
 		return 0;
 	}
+	else if ( name == "lockeddown" ) 
+	{
+		setLockedDown( value.toInt() != 0 );
+		return 0;
+	}
 	/*
 		\property item.amount The amount of objects in a stack.
 	*/
@@ -1948,6 +1953,12 @@ PyObject* cItem::getProperty( const QString& name )
 	PY_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
 	PY_PROPERTY( "movable", movable_ )
 	/*
+	\property item.lockeddown This property indicates that the item has been locked down by a
+		player.
+	*/
+	PY_PROPERTY( "lockeddown", isLockedDown() )
+
+	/*
 	\rproperty item.watersource This property indicates that this type of item is a source of
 	water. If there is a "quantity" tag for the item, it should be used, otherwise the source
 	is indepletable.
@@ -2067,6 +2078,11 @@ void cItem::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 			tooltip.addLine( 1042971, QString( "#%2" ).arg( 1020000 + id_ ) );
 		else
 			tooltip.addLine( 1042971, name_ );
+	}
+
+	// Add tooltip for locked down items
+	if (isLockedDown()) {
+		tooltip.addLine(501643, "");
 	}
 
 	// For containers (hardcoded type), add count of items and total weight.

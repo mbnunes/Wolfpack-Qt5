@@ -707,7 +707,7 @@ def onUse(player, item):
 
 	tile = wolfpack.tiledata(item.id)
 	
-	if not player.gm and (item.movable > 1 or tile['weight'] == 255):
+	if not player.gm and (item.lockeddown or item.movable > 1 or tile['weight'] == 255):
 		player.objectdelay = 0
 		return True
 	

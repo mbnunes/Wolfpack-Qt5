@@ -639,21 +639,16 @@ int cPlayer::countBankGold()
 
 bool cPlayer::canPickUp( cItem* pi )
 {
-	if ( !pi )
-	{
-		Console::instance()->log( LOG_ERROR, tr( "cChar::canPickUp() - bad parm" ) );
-		return false;
-	}
-
 	if ( account_ && account_->isAllMove() )
 		return true;
 
-	if ( pi->isAllMovable() )
-	{
+	if ( pi->isLockedDown() )
+		return false;
+	
+	else if ( pi->isAllMovable() )
 		return true;
-	}
 
-	if ( ( pi->isOwnerMovable() || pi->isLockedDown() ) && !this->owns( pi ) )	// owner movable or locked down ?
+	else if ( pi->isOwnerMovable() && !this->owns( pi ) )	// owner movable or locked down ?
 		return false;
 
 	tile_st tile = TileCache::instance()->getTile( pi->id() );
