@@ -240,7 +240,7 @@
 		<anatomy><random min="0" max="0"/></anatomy>
 		<magery><random min="858" max="993" /></magery>
 		<meditation><random min="617" max="644" /></meditation>
-		<evaluatingintel><random min="728" max="782" /><evaluatingintel>
+		<evaluatingintel><random min="728" max="782" /></evaluatingintel>
 		<carve></carve>
 		</npc>
 
@@ -267,7 +267,7 @@
 		<anatomy><random min="0" max="0" /></anatomy>
 		<magery><random min="1107" max="1195" /></magery>
 		<evaluatingintel><random min="1000" max="1000" /></evaluatingintel>
-		<meditation><random min="1000 max="1000" /></meditation>
+		<meditation><random min="1000" max="1000" /></meditation>
         </npc>
 
         <!-- shadow wyrm -->
@@ -293,7 +293,7 @@
 		<anatomy><random min="0" max="0" /></anatomy>
 		<magery><random min="948" max="988" /></magery>
 		<evaluatingintel><random min="747" max="795" /></evaluatingintel>
-		<meditation><random min="615 max="697" /></meditation>
+		<meditation><random min="615" max="697" /></meditation>
         </npc>
 
         <!-- white wyrm hazy white -->
@@ -319,7 +319,7 @@
 		<anatomy><random min="0" max="0" /></anatomy>
 		<magery><random min="992" max="1000" /></magery>
 		<evaluatingintel><random min="0" max="0" /></evaluatingintel>
-		<meditation><random min="0 max="0" /></meditation>
+		<meditation><random min="0" max="0" /></meditation>
 		<totame>963</totame>
 		<food>1</food>
         </npc>

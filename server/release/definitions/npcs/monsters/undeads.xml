@@ -330,7 +330,7 @@
 		<tactics><random min="508" max="691"/></tactics>
 		<magicresistance><random min="1582" max="1822"/></magicresistance>
 		<magery><random min="920" max="994" /></magery>
-		<evaluatingintel><random min="342 max="524" /></evaluatingintel>
+		<evaluatingintel><random min="342" max="524" /></evaluatingintel>
 		<meditation><random min="302" max="455" /></meditation>
 		<category>Monsters\Undead\Lich Lord</category>
 	</npc>
@@ -404,7 +404,7 @@
 		<anatomy><random min="0" max="0" /></anatomy>
 		<magery><random min="894" max="998" /></magery>
 		<evaluatingintel><random min="729" max="768" /></evaluatingintel>
-		<meditation><random min="624 max="673" /></meditation>
+		<meditation><random min="624" max="673" /></meditation>
         </npc>
 
         <!-- skeletal mage -->
@@ -429,6 +429,6 @@
                 <magicresistance><random min="566" max="700" /></magicresistance>
 		<anatomy><random min="0" max="0" /></anatomy>
 		<magery><random min="676" max="741" /></magery>
-		<meditation><random min="0 max="0" /></meditation>
+		<meditation><random min="0" max="0" /></meditation>
         </npc>
 </definitions>

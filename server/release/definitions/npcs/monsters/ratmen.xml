@@ -34,6 +34,7 @@
 		<inerit id="ratman_1" />
                 <id>0x2c</id>
                 <category>Monsters\Ratmen\Ratman 1</category>
+	</npc>
 
         <!-- a ratman archer-->
         <npc id="ratman_archer">

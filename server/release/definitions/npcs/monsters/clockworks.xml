@@ -6,7 +6,7 @@
 |  ( (  ;._ \\ ctr | Last Modification:                         |
 =================================================================
 -->
-<defintions>
+<definitions>
 	<!-- betrayer -->
 	<npc id="betrayer">
 		<name>a betrayer</name>
@@ -28,7 +28,7 @@
 		<magicresistance><random min="1201" max="1292"/></magicresistance>
 		<anatomy><random min="0" max="0"/></anatomy>
 		<magery><random min="630" max="916" /></magery>
-		<evaluatingintel><random min="943" max="996" /><evaluatingintel>
+		<evaluatingintel><random min="943" max="996" /></evaluatingintel>
 		</npc>
 
 	<!-- juggernaut -->
@@ -91,7 +91,7 @@
 		<dex><random min="72" max="78"/></dex>
 		<int><random min="73" max="85"/></int>
 		<!-- Skills -->
-		<wrestling><random min="929" max="987"/>
+		<wrestling><random min="929" max="987"/></wrestling>
 		<tactics><random min="910" max="987" /></tactics>
 		<magicresistance><random min="903" max="976"/></magicresistance>
 		<anatomy><random min="0" max="0"/></anatomy>

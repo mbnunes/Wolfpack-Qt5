@@ -6,7 +6,7 @@
 |  ( (  ;._ \\ ctr | Last Modification:                         |
 =================================================================
 -->
-<defintions>
+<definitions>
 	<!-- black solen infiltrator queen -->
 	<npc id="black_solen_infiltrator_queen">
 		<name>a black solen infiltrator</name>
@@ -28,7 +28,7 @@
 		<magicresistance><random min="900" max="900"/></magicresistance>
 		<anatomy><random min="0" max="0"/></anatomy>
 		<magery><random min="0" max="0" /></magery>
-		<evaluatingintel><random min="0" max="0" /><evaluatingintel>
+		<evaluatingintel><random min="0" max="0" /></evaluatingintel>
 		<carve></carve>
 		</npc>
 
@@ -145,7 +145,7 @@
 		<magicresistance><random min="900" max="900"/></magicresistance>
 		<anatomy><random min="0" max="0"/></anatomy>
 		<magery><random min="0" max="0" /></magery>
-		<evaluatingintel><random min="0" max="0" /><evaluatingintel>
+		<evaluatingintel><random min="0" max="0" /></evaluatingintel>
 		<carve></carve>
 		</npc>
 

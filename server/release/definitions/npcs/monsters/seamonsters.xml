@@ -49,7 +49,7 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-		<category>Monsters\Sea Monsters\Kraken
+		<category>Monsters\Sea Monsters\Kraken</category>
 		<!-- Priv -->
 	</npc>
 
