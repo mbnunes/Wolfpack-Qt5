@@ -138,3 +138,34 @@ def getdamage(char):
     maxdamage = fromitem(weapon, MAXDAMAGE)
 
   return (mindamage, maxdamage)
+
+#
+# See if the given item has a specific property
+# This is used more as a type check. 
+# To see if an item is an armor, a bashing weapon, a ranged weapon. etc.
+#
+def itemcheck(item, check):
+  if not item:
+    return 0
+
+  # No real check for this yet
+  if check == ITEM_ARMOR:
+    return 1
+
+  # Only type check yet.
+  if check == ITEM_SHIELD:
+    return item.type == 1008
+
+  # Only type check yet.
+  if check == ITEM_WEAPON:
+    return item.type >= 1001 and item.type <= 1007
+
+  # Only type check yet.
+  if check == ITEM_MELEE:
+    return item.type >= 1001 and item.type <= 1005
+
+  # Only type check yet.
+  if check == ITEM_RANGED:
+    return item.type == 1006 or item.type == 1007
+
+  return 0

@@ -45,6 +45,13 @@ SPEED = 17
 MISSSOUND = 18
 HITSOUND = 19
 
+# Checks for certain item types
+ITEM_ARMOR = 1 # Armor
+ITEM_WEAPON = 2 # Weapon
+ITEM_SHIELD = 3 # Shield
+ITEM_MELEE = 4 # Melee weapon
+ITEM_RANGED = 5 # Ranged weapon
+
 # Money Resource Types
 GOLD_COIN = 0xeed
 COPPER_COIN = 0xeea
