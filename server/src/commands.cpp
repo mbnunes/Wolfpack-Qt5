@@ -44,6 +44,7 @@
 #include "contextmenu.h"
 #include "pythonscript.h"
 #include "network/network.h"
+#include "walking.h"
 #include "dbdriver.h"
 
 // System Includes
@@ -1286,6 +1287,25 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 }
 
 /*
+	\command walktest
+	\description Checks if the character could walk into the direction he is facing if he was a npc.
+	\notes This command is very useful for testing npc movement as a staff member.
+*/
+void commandWalkTest( cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/ ) throw()
+{
+	Coord_cl newpos = socket->player()->pos();
+	newpos = Movement::instance()->calcCoordFromDir(socket->player()->direction(), newpos);
+
+	bool result = mayWalk(socket->player(), newpos);
+
+	if (!result) {
+		socket->sysMessage(tr("You may not walk in that direction."), 0x26);
+	} else {
+		socket->sysMessage(tr("You may walk in that direction. (New Z: %1)").arg(newpos.z), 0x3a);
+	}
+}
+
+/*
 	\command doorgen
 	\description Generate doors in passage ways.
 	\notes This command is not guranteed to work correctly. Please see if
@@ -1549,5 +1569,6 @@ stCommand cCommands::commands[] =
 { "SHUTDOWN", commandShutDown },
 { "STAFF", commandStaff },
 { "SPAWNREGION", commandSpawnRegion },
+{ "WALKTEST", commandWalkTest },
 { NULL, NULL }
 };

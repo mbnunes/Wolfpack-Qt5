@@ -7,6 +7,8 @@ Wolfpack 12.9.13 Beta (CVS)
 	- Implemented the onDoDamage event.
 	- Stablemasters now remove the stabled pets from the follower list.
 	- Corpses now decay in multis too.
+	- Implemented a walktest command for testing walking.
+	- Fixed several other walking bugs.
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error

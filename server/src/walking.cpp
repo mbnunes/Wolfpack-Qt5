@@ -135,8 +135,8 @@ struct compareTiles : public std::binary_function<stBlockItem, stBlockItem, bool
 	bool operator()( stBlockItem a, stBlockItem b )
 	{
 		// If the items have the same top, the one with the surface flag has precedence
-		unsigned int itemTopA = a.height + a.z;
-		unsigned int itemTopB = b.height + b.z;
+		int itemTopA = a.height + a.z;
+		int itemTopB = b.height + b.z;
 
 		if (itemTopA == itemTopB) {
 			if (a.height == 0 && a.walkable) {
@@ -144,11 +144,11 @@ struct compareTiles : public std::binary_function<stBlockItem, stBlockItem, bool
 			}
 
 			if (b.height == 0 && b.walkable) {
-				return true;
+				return false;
 			}
 		}
 
-		return ( ( a.height + a.z ) > ( b.height + b.z ) );
+		return ( itemTopA > itemTopB );
 	}
 };
 
@@ -334,7 +334,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 		// If we encounter any object with itemTop <= pos.z which is NOT walkable
 		// Then we can as well just return false as while falling we would be
 		// blocked by that object
-		if ( !item.walkable && !priviledged && itemTop < pos.z )
+		if ( !item.walkable && !priviledged && itemTop <= pos.z )
 			return false;
 
 		if ( item.walkable || priviledged ) {
@@ -423,6 +423,10 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 
 		// Or does it spread the whole range ?
 		if ( ( item.z <= oldz ) && ( itemTop >= oldz + P_M_MAX_Z_BLOCKS / 2 ) )
+			return false;
+
+		// Is it at the new position ?
+		 if ( ( item.z >= pos.z ) && ( item.z < pos.z + P_M_MAX_Z_BLOCKS ) )
 			return false;
 	}
 
