@@ -1,0 +1,31 @@
+
+<definitions>
+
+	<!-- a spider (gaint) -->
+	<npc id="spider_gaint">
+		<name>a giant spider</name>
+		<id>0x01c</id>
+		<category>Monsters\Giant Animals\Giant Spider</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+		<defense><random min="15" max="20"/></defense>
+		<lodamage>7</lodamage>
+		<hidamage>19</hidamage>
+		<gold><random min="0" max="25"/></gold>
+		<!-- Stats -->
+		<str><random min="76" max="100"/></str>
+		<dex><random min="76" max="95"/></dex>
+		<int><random min="36" max="60"/></int>
+		<!-- Skills -->
+		<wrestling><random min="501" max="650"/></wrestling>
+		<tactics><random min="351" max="500"/></tactics>
+		<magicresistance><random min="251" max="400"/></magicresistance>
+		<poisoning><random min="601" max="800"/></poisoning>
+		<carve>carve_spider_gaint</carve>
+		<totame>591</totame>
+		<food>1</food>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

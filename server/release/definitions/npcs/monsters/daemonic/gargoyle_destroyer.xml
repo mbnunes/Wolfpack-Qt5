@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- a gargoyle destroyer -->
+	<npc id="gargoyle_destroyer">
+		<name>a gargoyle destroyer</name>
+		<id>0x48</id>
+		<category>Monsters\Deamons\Gargoyle Destroyer</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-10000" max="-15000" /></karma>
+		<fame><random min="10000" max="15000" /></fame>
+		<defense><random min="40" max="60" /></defense>
+		<lodamage>31</lodamage>
+		<hidamage>64</hidamage>
+		<!-- Stats -->
+		<str><random min="760" max="850" /></str>
+		<dex><random min="102" max="150" /></dex>
+		<int><random min="152" max="200" /></int>
+		<!-- Skills -->
+		<wrestling><random min="901" max="1000" /></wrestling>
+		<tactics><random min="901" max="1000" /></tactics>
+		<magicresistance><random min="1204" max="1600" /></magicresistance>
+		<anatomy><random min="505" max="1000" /></anatomy>
+		<magery><random min="910" max="1000" /></magery>
+		<evaluatingintel><random min="910" max="1000"/></evaluatingintel>
+		<meditation><random min="910" max="1000"/></meditation>
+	</npc>
+
+</definitions>

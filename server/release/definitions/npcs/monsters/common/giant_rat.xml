@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- a rat (giant) -->
+	<npc id="rat_giant">
+		<name>a giant rat</name>
+		<id>0x0d7</id>
+		<category>Monsters\Giant Animals\Giant Rat </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+		<defense><random min="15" max="20"/></defense>
+		<lodamage>5</lodamage>
+		<hidamage>11</hidamage>
+		<!-- Stats -->
+		<str><random min="32" max="74"/></str>
+		<dex><random min="46" max="65"/></dex>
+		<int><random min="16" max="30"/></int>
+		<!-- Skills -->
+		<wrestling><random min="293" max="440"/></wrestling>
+		<tactics><random min="293" max="440"/></tactics>
+		<magicresistance><random min="251" max="300"/></magicresistance>
+		<carve>carve_ret_giant</carve>
+		<totame>291</totame>
+		<food>1</food>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

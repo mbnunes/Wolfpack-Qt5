@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- frost spider -->
+	<npc id="frost_spider">
+		<name>a frost spider</name>
+		<id>0x14</id>
+		<category>Monsters\Giant Animals\Frost Spider</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="-0" max="-624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense><random min="25" max="30" /></defense>
+		<lodamage>9</lodamage>
+		<hidamage>28</hidamage>
+		<!-- Stats -->
+		<str><random min="76" max="100" /></str>
+		<dex><random min="126" max="145" /></dex>
+		<int><random min="36" max="60" /></int>
+		<!-- Skills -->
+		<wrestling><random min="501" max="650" /></wrestling>
+		<tactics><random min="351" max="500" /></tactics>
+		<magicresistance><random min="251" max="400" /></magicresistance>
+		<totame>747</totame>
+		<food>1</food>
+	</npc>
+
+</definitions>

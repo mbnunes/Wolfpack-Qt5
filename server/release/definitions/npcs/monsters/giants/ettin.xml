@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- an ettin -->
+	<npc id="ettin">
+		<name>an ettin</name>
+		<id>0x11</id>
+		<category>Monsters\Giants\Ettin</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="35" max="40" /></defense>
+		<lodamage>13</lodamage>
+		<hidamage>35</hidamage>
+		<gold><random min="100" max="150"/></gold>
+		<!-- Stats -->
+		<str><random min="136" max="165"/></str>
+		<dex><random min="56" max="75"/></dex>
+		<int><random min="31" max="55"/></int>
+		<!-- Skills -->
+		<wrestling><random min="501" max="600"/></wrestling>
+		<tactics><random min="501" max="700"/></tactics>
+		<magicresistance><random min="401" max="550"/></magicresistance>
+		<carve>carve_ettin</carve>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

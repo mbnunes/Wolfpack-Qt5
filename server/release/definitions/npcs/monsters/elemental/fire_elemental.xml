@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- a fire elemental -->
+	<npc id="fire_elemental">
+		<name>a fire elemental</name>
+		<id>0x00f</id>
+		<category>Monsters\Elementals\Fire Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="35" max="45"/></defense>
+		<lodamage>14</lodamage>
+		<hidamage>18</hidamage>
+		<!-- Stats -->
+		<str><random min="126" max="155"/></str>
+		<dex><random min="166" max="185"/></dex>
+		<int><random min="101" max="125"/></int>
+		<!-- Skills -->
+		<wrestling><random min="701" max="1000"/></wrestling>
+		<tactics><random min="801" max="1000"/></tactics>
+		<magicresistance><random min="752" max="1050"/></magicresistance>
+		<magery><random min="601" max="750" /></magery>
+		<evaluatingint><random min="601" max="750"/></evaluatingint>
+	</npc>
+
+</definitions>

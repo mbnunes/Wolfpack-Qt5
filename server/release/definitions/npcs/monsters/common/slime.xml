@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- a slime -->
+	<npc id="slime">
+		<name>a slime</name>
+		<id>0x033</id>
+		<inherit id="monster_base"/>
+		<category>Monsters\Common Monsters\Slime</category>
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+		<defense><random min="5" max="10"/></defense>
+		<lodamage>1</lodamage>
+		<hidamage>6</hidamage>
+		<!-- Stats -->
+		<str><random min="22" max="34"/></str>
+		<dex><random min="16" max="21"/></dex>
+		<int><random min="16" max="20"/></int>
+		<!-- Skills -->
+		<wrestling><random min="193" max="340"/></wrestling>
+		<tactics><random min="193" max="340"/></tactics>
+		<magicresistance><random min="151" max="200"/></magicresistance>
+		<poisoning><random min="301" max="500"/></poisoning>
+		<totame>231</totame>
+		<food>1</food>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

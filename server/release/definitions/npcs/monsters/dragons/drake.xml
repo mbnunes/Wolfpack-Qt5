@@ -1,0 +1,38 @@
+
+<definitions>
+
+	<!-- a drake (gray) -->
+	<npc id="drake_gray">
+		<name>a drake</name>
+		<id>0x3b</id>
+		<category>Monsters\Dragons\Drake (Gray)</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-5000" max="-9999"/></karma>
+		<fame><random min="5000" max="9999"/></fame>
+		<defense><random min="45" max="50"/></defense>
+		<lodamage>30</lodamage>
+		<hidamage>46</hidamage>
+		<gold><random min="180" max="220"/></gold>
+		<!-- Stats -->
+		<str><random min="401" max="430"/></str>
+		<dex><random min="133" max="152"/></dex>
+		<int><random min="101" max="140"/></int>
+		<!-- Skills -->
+		<wrestling><random min="651" max="800"/></wrestling>
+		<tactics><random min="651" max="900"/></tactics>
+		<magicresistance><random min="651" max="800"/></magicresistance>
+		<carve>carve_drake_gray</carve>
+		<!-- Priv -->
+		<totame>843</totame>
+	</npc>
+
+	<!-- a drake (red) -->
+	<npc id="drake_red">
+		<inherit id="drake_gray" />
+		<name>a drake</name>
+		<id>0x3c</id>
+		<category>Monsters\Dragons\Drake (Red)</category>
+		<carve>carve_drake_red</carve>
+	</npc>
+
+</definitions>

@@ -1,0 +1,26 @@
+
+<definitions>
+
+	<!-- Ophidian Enforcer -->
+	<npc id="ophidian_enforcer">
+		<name>an ophidian enforcer</name>
+		<id>0x2f2</id>
+		<category>Monsters\Ophidians\Ophidian Enforcer</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-2500" max="-4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="35" max="40" /></defense>
+		<lodamage>11</lodamage>
+		<hidamage>24</hidamage>
+		<gold><random min="100" max="140"/></gold>
+		<!-- Stats -->
+		<str><random min="150" max="320" /></str>
+		<dex><random min="94" max="190" /></dex>
+		<int><random min="64" max="160" /></int>
+		<!-- Skills -->
+		<tactics><random min="751" max="900" /></tactics>
+		<magicresistance><random min="701" max="850" /></magicresistance>
+	</npc>
+
+</definitions>

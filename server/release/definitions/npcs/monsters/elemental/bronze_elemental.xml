@@ -1,0 +1,25 @@
+
+<definitions>
+
+	<!-- a bronze elemental -->
+	<npc id="bronze_elemental">
+		<name>a bronze elemental</name>
+		<id>0x06C</id>
+		<category>Monsters\Elementals\Bronze Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="30" max="40"/></defense>
+		<lodamage>20</lodamage>
+		<hidamage>37</hidamage>
+		<!-- Stats -->
+		<str><random min="226" max="255"/></str>
+		<dex><random min="126" max="145"/></dex>
+		<int><random min="71" max="92"/></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="1000"/></wrestling>
+		<tactics><random min="601" max="1000"/></tactics>
+		<magicresistance><random min="501" max="950"/></magicresistance>
+	</npc>
+
+</definitions>

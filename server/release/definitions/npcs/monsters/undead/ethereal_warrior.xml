@@ -1,0 +1,32 @@
+
+<definitions>
+
+	<!-- ethereal warrior -->
+	<npc id="ethereal_warrior">
+		<name>an ethereal warrior</name>
+		<id>0x7B</id>
+		<category>Monsters\Giants\Ethereal Warrior</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="5000" max="9999" /></karma>
+		<fame><random min="5000" max="9999" /></fame>
+		<defense><random min="80" max="90" /></defense>
+		<lodamage>47</lodamage>
+		<hidamage>74</hidamage>
+		<gold><random min="550" max="650"/></gold>
+		<!-- Stats -->
+		<str><random min="586" max="785" /></str>
+		<dex><random min="177" max="255" /></dex>
+		<int><random min="351" max="450" /></int>
+		<!-- Skills -->
+		<wrestling><random min="976" max="1000" /></wrestling>
+		<tactics><random min="901" max="1000" /></tactics>
+		<magicresistance><random min="901" max="1000" /></magicresistance>
+		<anatomy><random min="501" max="750" /></anatomy>
+		<magery><random min="991" max="1000" /></magery>
+		<evaluatingintel><random min="901" max="1000" /></evaluatingintel>
+		<meditation><random min="901" max="1000" /></meditation>
+		<carve></carve>
+	</npc>
+
+</definitions>

@@ -1,0 +1,38 @@
+
+<definitions>
+
+	<!-- white wyrm hazy white -->
+	<npc id="white_wyrm_1">
+		<name>a white wyrm</name>
+		<id>0x31</id>
+		<category>Monsters\Dragons\White Wyrm (Hazy)</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-10000" max="-15000" /></karma>
+		<fame><random min="10000" max="15000" /></fame>
+		<defense><random min="55" max="70" /></defense>
+		<lodamage>67</lodamage>
+		<hidamage>98</hidamage>
+		<gold><random min="550" max="750"/></gold>
+		<!-- Stats -->
+		<str><random min="721" max="760" /></str>
+		<dex><random min="101" max="130" /></dex>
+		<int><random min="386" max="425" /></int>
+		<!-- Skills -->
+		<wrestling><random min="901" max="1000" /></wrestling>
+		<tactics><random min="976" max="1000" /></tactics>
+		<magicresistance><random min="991" max="1000" /></magicresistance>
+		<magery><random min="991" max="1000" /></magery>
+		<evaluatingintel><random min="991" max="1000" /></evaluatingintel>
+		<totame>963</totame>
+		<food>1</food>
+	</npc>
+
+	<!-- white wyrm (Pure) -->
+	<npc id="white_wyrm_2">
+		<inherit id="white_wyrm_1" />
+		<id>0xB4</id>
+		<category>Monsters\Dragons\White Wyrm (Pure)</category>
+	</npc>
+
+</definitions>

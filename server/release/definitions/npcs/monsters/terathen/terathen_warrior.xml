@@ -1,0 +1,26 @@
+
+<definitions>
+
+	<!-- a terathen warrior -->
+	<npc id="terathen_warrior">
+		<name>a terathen warrior</name>
+		<id>0x046</id>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="30" max="35"/></defense>
+		<lodamage>16</lodamage>
+		<hidamage>38</hidamage>
+		<gold><random min="60" max="90"/></gold>
+		<!-- Stats -->
+		<str><random min="166" max="215"/></str>
+		<dex><random min="191" max="145"/></dex>
+		<int><random min="41" max="65"/></int>
+		<!-- Skills -->
+		<wrestling><random min="801" max="900"/></wrestling>
+		<tactics><random min="801" max="1000"/></tactics>
+		<magicresistance><random min="601" max="750"/></magicresistance>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

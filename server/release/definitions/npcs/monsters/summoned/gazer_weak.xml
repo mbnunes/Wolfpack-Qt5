@@ -1,0 +1,31 @@
+
+<definitions>
+
+	<!-- a gazer weak-->
+	<npc id="gazer_weak">
+		<name>a gazer</name>
+		<id>0x016</id>
+		<category>Monsters\magicals_summoned\Gazer (Weak)</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense>30</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>	<random min="50" max="150"/></gold>
+		<!-- Stats -->
+		<str><random min="82" max="103"/></str>
+		<dex><random min="73" max="87"/></dex>
+		<int><random min="90" max="140"/></int>
+		<!-- Skills -->
+		<wrestling><random min="473" max="617"/></wrestling>
+		<tactics><random min="448" max="569"/></tactics>
+		<magicresistance><random min="514" max="637"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<magery><random min="488" max="582"/></magery>
+		<evaluatingint><random min="0" max="0"/></evaluatingint>
+		<meditation><random min="0" max="0"/></meditation>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- a fire gargoyle -->
+	<npc id="fire_gargoyle">
+		<name><random list="NAMES_GARGOYLE" /></name>
+		<id>0x10</id>
+		<category>Monsters\Deamons\Fire Gargoyle</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-5000" max="-9999" /></karma>
+		<fame><random min="5000" max="9999" /></fame>
+		<defense><random min="30" max="35" /></defense>
+		<lodamage>22</lodamage>
+		<hidamage>45</hidamage>
+		<!-- Stats -->
+		<str><random min="351" max="400" /></str>
+		<dex><random min="126" max="145" /></dex>
+		<int><random min="226" max="250" /></int>
+		<!-- Skills -->
+		<wrestling><random min="401" max="800" /></wrestling>
+		<tactics><random min="801" max="1000" /></tactics>
+		<magicresistance><random min="901" max="1050" /></magicresistance>
+		<anatomy><random min="751" max="843" /></anatomy>
+		<magery><random min="927" max="1050" /></magery>
+		<evaluatingintel><random min="901" max="1050"/></evaluatingintel>
+		<meditation><random min="901" max="1050"/></meditation>
+	</npc>
+
+</definitions>

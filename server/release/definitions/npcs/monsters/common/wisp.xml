@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- wisp -->
+	<npc id="wisp">
+		<name>a wisp</name>
+		<id>0x3a</id>
+		<category>Monsters\Common Monsters\Wisp</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="0" /></karma>
+		<fame><random min="0" max="0" /></fame>
+		<defense><random min="35" max="45" /></defense>
+		<lodamage>36</lodamage>
+		<hidamage>40</hidamage>
+		<!-- Stats -->
+		<str><random min="196" max="225" /></str>
+		<dex><random min="196" max="225" /></dex>
+		<int><random min="196" max="225" /></int>
+		<!-- Skills -->
+		<wrestling>800</wrestling>
+		<tactics>800</tactics>
+		<magicresistance>800</magicresistance>
+		<evaluatingintel>800</evaluatingintel>
+	</npc>
+
+</definitions>

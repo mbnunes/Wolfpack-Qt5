@@ -1,0 +1,25 @@
+
+<definitions>
+
+	<!-- red solen warrior -->
+	<npc id="red_solen_warrior">
+		<name>a red solen warrior</name>
+		<id>0x30e</id>
+		<category>Monsters\Solen\Red Solen Warrior </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="52" max="52"/></defense>
+		<lodamage>11</lodamage>
+		<hidamage>33</hidamage>
+		<!-- Stats -->
+		<str><random min="196" max="220"/></str>
+		<dex><random min="101" max="125"/></dex>
+		<int><random min="36" max="60"/></int>
+		<!-- Skills -->
+		<wrestling>800</wrestling>
+		<tactics>800</tactics>
+		<magicresistance>600</magicresistance>
+	</npc>
+
+</definitions>

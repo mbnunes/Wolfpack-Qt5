@@ -1,0 +1,59 @@
+
+<definitions>
+
+	<!-- a elemental (water) weak-->
+	<npc id="elemental_water_weak">
+		<name>a water elemental</name>
+		<id>0x010</id>
+		<category>Monsters\magicals_summoned\Water Elemental (Weak)</category>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="-2500" max="-4999"/>
+		</karma>
+		<fame>
+			<random min="2500" max="4999"/>
+		</fame>
+		<defense>
+			<random min="34" max="34"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="200" max="250"/>
+		</gold>
+		<!-- Stats -->
+		<str>
+			<random min="107" max="130"/>
+		</str>
+		<dex>
+			<random min="56" max="68"/>
+		</dex>
+		<int>
+			<random min="86" max="105"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="468" max="587"/>
+		</wrestling>
+		<tactics>
+			<random min="431" max="575"/>
+		</tactics>
+		<magicresistance>
+			<random min="863" max="975"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<magery>
+			<random min="563" max="668"/>
+		</magery>
+		<evaluatingint>
+			<random min="0" max="0"/>
+		</evaluatingint>
+		<meditation>
+			<random min="0" max="0"/>
+		</meditation>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

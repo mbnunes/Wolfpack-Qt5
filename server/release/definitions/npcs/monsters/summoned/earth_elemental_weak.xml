@@ -1,0 +1,50 @@
+
+<definitions>
+
+	<!-- a elemental (earth) weak-->
+	<npc id="elemental_earth_weak">
+		<name>an earth elemental</name>
+		<id>0xe</id>
+		<category>Monsters\magicals_summoned\Earth Elemental (Weak)</category>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="-2500" max="-4999"/>
+		</karma>
+		<fame>
+			<random min="2500" max="4999"/>
+		</fame>
+		<defense>
+			<random min="28" max="28"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="200" max="300"/>
+		</gold>
+		<!-- Stats -->
+		<str>
+			<random min="111" max="129"/>
+		</str>
+		<dex>
+			<random min="56" max="71"/>
+		</dex>
+		<int>
+			<random min="62" max="78"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="558" max="789"/>
+		</wrestling>
+		<tactics>
+			<random min="556" max="778"/>
+		</tactics>
+		<magicresistance>
+			<random min="449" max="739"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

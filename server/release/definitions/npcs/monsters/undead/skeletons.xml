@@ -1,0 +1,37 @@
+
+<definitions>
+
+	<npc id="skeleton_base">
+		<name>a skeleton</name>
+		<inherit id="undead_base" />
+		<inherit id="undead_loot_small" />
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+		<defense><random min="15" max="20"/></defense>
+		<lodamage>5</lodamage>
+		<hidamage>11</hidamage>
+		<!-- Stats -->
+		<str><random min="56" max="80"/></str>
+		<dex><random min="56" max="75"/></dex>
+		<int><random min="16" max="40"/></int>
+		<!-- Skills -->
+		<wrestling><random min="451" max="550"/></wrestling>
+		<tactics><random min="451" max="600"/></tactics>
+		<magicresistance><random min="451" max="600"/></magicresistance>
+	</npc>
+
+	<!-- skeleton -->
+	<npc id="skeleton">
+		<inherit id="skeleton_base" />
+		<id>0x32</id>
+		<category>Monsters\Undead\Skeleton</category>
+	</npc>
+
+	<!-- skeleton (with axe) -->
+	<npc id="skeleton_axe">
+		<inherit id="skeleton_base" />
+		<id>0x38</id>
+		<category>Monsters\Undead\Skeleton (with Axe)</category>
+	</npc>
+
+</definitions>

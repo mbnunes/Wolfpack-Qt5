@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- Ophidian Apprentice Mage -->
+	<npc id="ophidian_apprentice_mage">
+		<name>an ophidian apprentice mage</name>
+		<id>0x55</id>
+		<category>Monsters\Ophidians\Ophidian Apprentice Mage</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="25" max="35"/></defense>
+		<lodamage>10</lodamage>
+		<hidamage>20</hidamage>
+		<gold><random min="30" max="90"/></gold>
+		<!-- Stats -->
+		<str><random min="181" max="205"/></str>
+		<dex><random min="193" max="215"/></dex>
+		<int><random min="96" max="120"/></int>
+		<!-- Skills -->
+		<wrestling><random min="202" max="600"/></wrestling>
+		<tactics><random min="650" max="875"/></tactics>
+		<magicresistance><random min="750" max="975"/></magicresistance>
+		<magery><random min="851" max="1000"/></magery>
+		<evaluatingint><random min="851" max="1000"/></evaluatingint>
+		<carve>carve_ophidian_mage_medium</carve>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- rotting corpse -->
+	<npc id="rotting_corpse">
+		<name>a rotting corpse</name>
+		<id>0x9B</id>
+		<category>Monsters\Undead\Rotting Corpse</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-5000" max="-9999" /></karma>
+		<fame><random min="5000" max="9999" /></fame>
+		<defense><random min="35" max="45" /></defense>
+		<lodamage>21</lodamage>
+		<hidamage>26</hidamage>
+		<gold><random mix="200" max="400" /></gold>
+		<!-- Stats -->
+		<str><random min="301" max="350" /></str>
+		<dex><random min="75" max="75" /></dex>
+		<int><random min="151" max="200" /></int>
+		<!-- Skills -->
+		<wrestling><random min="901" max="1000" /></wrestling>
+		<tactics>1000</tactics>
+		<magicresistance>2500</magicresistance>
+		<poisoning>1200</poisoning>
+	</npc>
+
+</definitions>

@@ -1,0 +1,25 @@
+
+<definitions>
+
+	<!-- an earth elemental -->
+	<npc id="earth_elemental">
+		<name>an earth elemental</name>
+		<id>0x00e</id>
+		<category>Monsters\Elementals\Earth Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="30" max="35"/></defense>
+		<lodamage>17</lodamage>
+		<hidamage>32</hidamage>
+		<!-- Stats -->
+		<str><random min="126" max="155"/></str>
+		<dex><random min="66" max="85"/></dex>
+		<int><random min="71" max="92"/></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="1000"/></wrestling>
+		<tactics><random min="601" max="1000"/></tactics>
+		<magicresistance><random min="501" max="950"/></magicresistance>
+	</npc>
+
+</definitions>

@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- a titan-->
+	<npc id="titan">
+		<name>a titan</name>
+		<id>0x4a</id>
+		<category>Monsters\Giants\Titan</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-20000"/></karma>
+		<fame><random min="10000" max="20000"/></fame>
+		<defense><random min="35" max="45"/></defense>
+		<lodamage>41</lodamage>
+		<hidamage>50</hidamage>
+		<gold><random min="300" max="450"/></gold>
+		<!-- Stats -->
+		<str><random min="556" max="585"/></str>
+		<dex><random min="126" max="145"/></dex>
+		<int><random min="281" max="305"/></int>
+		<!-- Skills -->
+		<wrestling><random min="401" max="500"/></wrestling>
+		<tactics><random min="601" max="800"/></tactics>
+		<magicresistance><random min="802" max="1100"/></magicresistance>
+		<magery><random min="851" max="1000"/></magery>
+		<evaluatingint><random min="851" max="1000"/></evaluatingint>
+		<carve>carve_titan</carve>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

@@ -1,0 +1,26 @@
+
+<definitions>
+
+	<!-- stone gargoyle -->
+	<npc id="stone_gargoyle">
+		<name>a stone gargoyle</name>
+		<id>0x45</id>
+		<category>Monsters\Deamons\Stone Gargoyle</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-2500" max="-4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="45" max="55" /></defense>
+		<lodamage>25</lodamage>
+		<hidamage>40</hidamage>
+		<!-- Stats -->
+		<str><random min="246" max="275" /></str>
+		<dex><random min="76" max="95" /></dex>
+		<int><random min="81" max="105" /></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="1000" /></wrestling>
+		<tactics><random min="801" max="1000" /></tactics>
+		<magicresistance><random min="851" max="1000" /></magicresistance>
+	</npc>
+
+</definitions>

@@ -1,0 +1,25 @@
+
+<definitions>
+
+	<!-- an ant lion -->
+	<npc id="ant_lion">
+		<name>an ancient wyrm</name>
+		<id>0x313</id>
+		<category>Monsters\Common Monsters\Ant Lion </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="45" max="60"/></defense>
+		<lodamage>21</lodamage>
+		<hidamage>54</hidamage>
+		<!-- Stats -->
+		<str><random min="296" max="320"/></str>
+		<dex><random min="81" max="105"/></dex>
+		<int><random min="36" max="60"/></int>
+		<!-- Skills -->
+		<wrestling>900</wrestling>
+		<tactics>900</tactics>
+		<magicresistance>700</magicresistance>
+	</npc>
+
+</definitions>

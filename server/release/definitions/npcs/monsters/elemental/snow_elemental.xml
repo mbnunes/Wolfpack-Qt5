@@ -1,0 +1,25 @@
+
+<definitions>
+
+	<!-- a snow elemental -->
+	<npc id="snow_elemental">
+		<name>a snow elemental</name>
+		<id>0x0A3</id>
+		<category>Monsters\Elementals\Snow Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="45" max="55"/></defense>
+		<lodamage>31</lodamage>
+		<hidamage>45</hidamage>
+		<!-- Stats -->
+		<str><random min="326" max="355"/></str>
+		<dex><random min="166" max="185"/></dex>
+		<int><random min="71" max="95"/></int>
+		<!-- Skills -->
+		<wrestling><random min="801" max="1000"/></wrestling>
+		<tactics><random min="801" max="1000"/></tactics>
+		<magicresistance><random min="501" max="650"/></magicresistance>
+	</npc>
+
+</definitions>

@@ -1,0 +1,24 @@
+
+<definitions>
+
+	<!-- Ice Snake -->
+	<npc id="ice_snake">
+		<name>an ice snake</name>
+		<id>0x345</id>
+		<category>Monsters\Common Monsters\Ice Snake</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="0" max="-624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense><random min="20" max="25" /></defense>
+		<lodamage>5</lodamage>
+		<hidamage>17</hidamage>
+		<str><random min="42" max="54" /></str>
+		<dex><random min="36" max="45" /></dex>
+		<int><random min="26" max="30" /></int>
+		<wrestling><random min="393" max="540" /></wrestling>
+		<tactics><random min="393" max="540" /></tactics>
+		<magicresistance><random min="151" max="200" /></magicresistance>
+	</npc>
+
+</definitions>

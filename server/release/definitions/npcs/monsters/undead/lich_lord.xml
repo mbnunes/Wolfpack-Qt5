@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- lich lord -->
+	<npc id="lich_lord">
+		<name>a lich lord</name>
+		<id>0x4e</id>
+		<inherit id="undead_base" />
+		<inherit id="undead_loot_small" />
+		<karma><random min="-10000" max="-15000"/></karma>
+		<fame><random min="10000" max="15000"/></fame>
+		<defense><random min="40" max="50"/></defense>
+		<lodamage>30</lodamage>
+		<hidamage>38</hidamage>
+		<!-- Stats -->
+		<str><random min="416" max="505"/></str>
+		<dex><random min="146" max="165"/></dex>
+		<int><random min="566" max="655"/></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="800"/></wrestling>
+		<tactics><random min="501" max="700"/></tactics>
+		<magicresistance><random min="1505" max="2000"/></magicresistance>
+		<magery><random min="901" max="1000" /></magery>
+		<evaluatingintel><random min="901" max="1000" /></evaluatingintel>
+		<category>Monsters\Undead\Lich Lord</category>
+	</npc>
+
+</definitions>

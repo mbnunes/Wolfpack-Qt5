@@ -1,0 +1,31 @@
+
+<definitions>
+
+	<!-- skeletal Dragon -->
+	<npc id="skeletal_dragon">
+		<name>a skeletal dragon</name>
+		<id>0x68</id>
+		<category>Monsters\Undead\Skeletal Dragon</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-10000" max="-15000" /></karma>
+		<fame><random min="10000" max="15000" /></fame>
+		<defense><random min="75" max="80" /></defense>
+		<lodamage>127</lodamage>
+		<hidamage>166</hidamage>
+		<gold><random min="1000" max="1200" /></gold>
+		<!-- Stats -->
+		<str><random min="898" max="1030" /></str>
+		<dex><random min="68" max="200" /></dex>
+		<int><random min="488" max="620" /></int>
+		<!-- Skills -->
+		<wrestling><random min="984" max="997" /></wrestling>
+		<tactics><random min="981" max="992" /></tactics>
+		<magicresistance><random min="1175" max="1224" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<magery><random min="894" max="998" /></magery>
+		<evaluatingintel><random min="729" max="768" /></evaluatingintel>
+		<meditation><random min="624" max="673" /></meditation>
+	</npc>
+
+</definitions>

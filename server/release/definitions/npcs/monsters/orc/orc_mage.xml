@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- orc mage -->
+	<npc id="orc_mage">
+		<name>an orc mage</name>
+		<id>0x8c</id>
+		<category>Monsters\Orcs\Orc Mage</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-2500" max="-4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="25" max="35" /></defense>
+		<lodamage>8</lodamage>
+		<hidamage>25</hidamage>
+		<!-- Stats -->
+		<str><random min="116" max="150" /></str>
+		<dex><random min="91" max="115" /></dex>
+		<int><random min="161" max="184" /></int>
+		<!-- Skills -->
+		<wrestling><random min="401" max="500" /></wrestling>
+		<tactics><random min="501" max="650" /></tactics>
+		<magicresistance><random min="601" max="750" /></magicresistance>
+		<magery><random min="601" max="725" /></magery>
+		<evaluatingint><random min="601" max="725"/></evaluatingint>
+	</npc>
+
+</definitions>

@@ -1,0 +1,45 @@
+
+<definitions>
+
+	<!-- Ratman Base -->
+	<npc id="ratmen_base">
+		<name><random list="NAMES_RATMAN" /></name>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-1250" max="-2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="25" max="30" /></defense>
+		<lodamage>7</lodamage>
+		<hidamage>9</hidamage>
+		<!-- Stats -->
+		<str><random min="96" max="120" /></str>
+		<dex><random min="81" max="99" /></dex>
+		<int><random min="36" max="60" /></int>
+		<!-- Skills -->
+		<wrestling><random min="501" max="750" /></wrestling>
+		<tactics><random min="501" max="750" /></tactics>
+		<magicresistance><random min="351" max="600" /></magicresistance>
+	</npc>
+
+	<!-- a ratman -->
+	<npc id="ratman_1">
+		<inherit id="ratmen_base" />
+		<id>0x2d</id>
+		<category>Monsters\Ratmen\Ratman 1</category>
+	</npc>
+
+	<!-- a ratman -->
+	<npc id="ratman_2">
+		<inherit id="ratmen_base" />
+		<id>0x2a</id>
+		<category>Monsters\Ratmen\Ratman 2</category>
+	</npc>
+
+	<!-- a ratman -->
+	<npc id="ratman_3">
+		<inerit id="ratmen_base" />
+		<id>0x2c</id>
+		<category>Monsters\Ratmen\Ratman 3</category>
+	</npc>
+
+</definitions>

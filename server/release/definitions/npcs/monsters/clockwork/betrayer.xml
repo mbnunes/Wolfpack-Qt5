@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Betrayer -->
+	<npc id="betrayer">
+		<name>a betrayer</name>
+		<id>0x2ff</id>
+		<category>Monsters\Clockworks\Betrayer</category>
+		<inherit id="monster_base"/>
+		<karma>-15000</karma>
+		<fame>15000</fame>
+		<defense><random min="60" max="70"/></defense>
+		<lodamage>54</lodamage>
+		<hidamage>81</hidamage>
+		<!-- Stats -->
+		<str><random min="401" max="500"/></str>
+		<dex><random min="81" max="100"/></dex>
+		<int><random min="151" max="200"/></int>
+		<!-- Skills -->
+		<wrestling><random min="901" max="1000"/></wrestling>
+		<tactics><random min="901" max="1000"/></tactics>
+		<magicresist><random min="1201" max="1300"/></magicresist>
+		<anatomy><random min="901" max="1000"/></anatomy>
+		<magery><random min="501" max="1000" /></magery>
+		<evaluatingintelligence><random min="901" max="1000" /></evaluatingintelligence>
+		<meditation><random min="901" max="1000" /></meditation>
+	</npc>
+
+</definitions>

@@ -1,0 +1,31 @@
+
+<definitions>
+
+	<!-- a scorpion -->
+	<npc id="scorpion">
+		<name>a scorpion</name>
+		<id>0x030</id>
+		<category>Monsters\Giant Animals\Scorpion</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-1250" max="-2499"/></karma>
+		<fame><random min="1250" max="2499"/></fame>
+		<defense><random min="20" max="25"/></defense>
+		<lodamage>8</lodamage>
+		<hidamage>17</hidamage>
+		<gold><random min="25" max="50"/></gold>
+		<!-- Stats -->
+		<str><random min="73" max="115"/></str>
+		<dex><random min="76" max="95"/></dex>
+		<int><random min="16" max="30"/></int>
+		<!-- Skills -->
+		<wrestling>	<random min="503" max="650"/></wrestling>
+		<tactics><random min="603" max="750"/></tactics>
+		<magicresistance><random min="301" max="350"/></magicresistance>
+		<poisoning><random min="801" max="1000"/></poisoning>
+		<carve>carve_scorpion_gaint</carve>
+		<totame>471</totame>
+		<food>1</food>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

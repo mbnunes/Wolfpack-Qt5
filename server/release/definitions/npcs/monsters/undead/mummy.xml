@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- mummy -->
+	<npc id="mummy">
+		<name>a mummy</name>
+		<id>0x9A</id>
+		<category>Monsters\Undead\Mummy</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-2500" max="-4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="45" max="55" /></defense>
+		<gold><random min="190" max="220" /></gold>
+		<lodamage>31</lodamage>
+		<hidamage>55</hidamage>
+		<!-- Stats -->
+		<str><random min="346" max="370" /></str>
+		<dex><random min="71" max="90" /></dex>
+		<int><random min="26" max="40" /></int>
+		<!-- Skills -->
+		<wrestling><random min="351" max="500" /></wrestling>
+		<tactics><random min="351" max="500" /></tactics>
+		<magicresistance><random min="151" max="400" /></magicresistance>
+	</npc>
+
+</definitions>

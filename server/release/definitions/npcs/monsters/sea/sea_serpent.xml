@@ -1,0 +1,26 @@
+
+<definitions>
+
+	<!-- sea serpent -->
+	<npc id="sea_serpent">
+		<name>a sea serpent</name>
+		<id>0x91</id>
+		<category>Monsters\Sea Monsters\Sea Serpent</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-5000" max="-9999" /></karma>
+		<fame><random min="5000" max="9999" /></fame>
+		<defense><random min="25" max="35" /></defense>
+		<lodamage>16</lodamage>
+		<hidamage>26</hidamage>
+		<!-- Stats -->
+		<str><random min="168" max="225" /></str>
+		<dex><random min="58" max="85" /></dex>
+		<int><random min="53" max="95" /></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="700" /></wrestling>
+		<tactics><random min="601" max="700" /></tactics>
+		<magicresistance><random min="601" max="750" /></magicresistance>
+	</npc>
+
+</definitions>

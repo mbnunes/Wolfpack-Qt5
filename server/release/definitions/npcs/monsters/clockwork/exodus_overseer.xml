@@ -1,0 +1,26 @@
+
+<definitions>
+
+	<!-- Exodus Overseer -->
+	<npc id="exodus_overseer">
+		<name>an exodus overseer</name>
+		<id>0x2f4</id>
+		<category>Monsters\Clockworks\Exodus Overseer </category>
+		<inherit id="monster_base"/>
+		<karma>-10000"</karma>
+		<fame>10000</fame>
+		<defense><random min="45" max="55"/></defense>
+		<lodamage>43</lodamage>
+		<hidamage>67</hidamage>
+		<!-- Stats -->
+		<str><random min="551" max="650"/></str>
+		<dex><random min="76" max="95"/></dex>
+		<int><random min="61" max="90"/></int>
+		<!-- Skills -->
+		<wrestling><random min="802" max="980"/></wrestling>
+		<tactics><random min="802" max="980"/></tactics>
+		<magicresist><random min="802" max="980"/></magicresist>
+		<anatomy><random min="0" max="0"/></anatomy>
+	</npc>
+
+</definitions>

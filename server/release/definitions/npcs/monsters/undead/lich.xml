@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- a lich -->
+	<npc id="lich">
+		<name>lich</name>
+		<id>0x18</id>
+		<inherit id="undead_base"/>
+		<karma><random min="-5000" max="-9999"/></karma>
+		<fame><random min="5000" max="9999"/></fame>
+		<defense><random min="50" max="50"/></defense>
+		<lodamage>50</lodamage>
+		<hidamage>55</hidamage>
+		<gold><random min="180" max="220"/></gold>
+		<!-- Stats -->
+		<str><random min="171" max="200"/></str>
+		<dex><random min="126" max="145"/></dex>
+		<int><random min="276" max="305"/></int>
+		<!-- Skills -->
+		<tactics><random min="701" max="900"/></tactics>
+		<magicresistance><random min="801" max="1000"/></magicresistance>
+		<magery><random min="701" max="800"/></magery>
+		<evaluatingint>1000</evaluatingint>
+		<meditation><random min="851" max="950"/></meditation>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

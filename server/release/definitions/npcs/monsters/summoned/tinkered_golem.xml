@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- tinker's golem -->
+	<npc id="tinkered_golem">
+		<name>a golem</name>
+		<id>0x2f0</id>
+		<category>Monsters\Clockworks\Golem (Tinkered)</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma>-3500</karma>
+		<fame>3500</fame>
+		<defense><random min="35" max="55" /></defense>
+		<lodamage>31</lodamage>
+		<hidamage>64</hidamage>
+		<!-- Stats -->
+		<str><random min="251" max="350" /></str>
+		<dex><random min="76" max="100" /></dex>
+		<int><random min="101" max="150" /></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="1000" /></wrestling>
+		<tactics><random min="601" max="1000" /></tactics>
+		<magicresist><random min="1501" max="1900" /></magicresist>
+		<anatomy><random min="0" max="0" /></anatomy>
+	</npc>
+
+</definitions>

@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Ogre Lord -->
+	<npc id="ogre_lord">
+		<name>an ogre lord</name>
+		<id>0x53</id>
+		<category>Monsters\Giants\Ogre Lord</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-10000" max="-15000" /></karma>
+		<fame><random min="10000" max="15000" /></fame>
+		<defense><random min="45" max="55" /></defense>
+		<lodamage>84</lodamage>
+		<hidamage>111</hidamage>
+		<gold><random min="600" max="750"/></gold>
+		<!-- Stats -->
+		<str><random min="767" max="945" /></str>
+		<dex><random min="66" max="75" /></dex>
+		<int><random min="46" max="70" /></int>
+		<!-- Skills -->
+		<wrestling><random min="901" max="1000" /></wrestling>
+		<tactics><random min="901" max="1000" /></tactics>
+		<magicresistance><random min="1251" max="1400" /></magicresistance>
+	</npc>
+
+</definitions>

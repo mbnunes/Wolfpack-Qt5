@@ -1,0 +1,40 @@
+
+<definitions>
+
+	<!-- a dragon (gray) -->
+	<npc id="dragon_gray">
+		<name>a dragon</name>
+		<id>0xc</id>
+		<category>Monsters\Dragons\Dragon (Gray)</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-20000"/></karma>
+		<fame><random min="10000" max="20000"/></fame>
+		<defense><random min="55" max="65"/></defense>
+		<lodamage>65</lodamage>
+		<hidamage>90</hidamage>
+		<gold><random min="400" max="700"/></gold>
+		<!-- Stats -->
+		<str><random min="796" max="825"/></str>
+		<dex><random min="86" max="105"/></dex>
+		<int><random min="436" max="475"/></int>
+		<!-- Skills -->
+		<wrestling><random min="901" max="925"/></wrestling>
+		<tactics><random min="976" max="1000"/></tactics>
+		<magicresistance><random min="991" max="1000"/></magicresistance>
+		<magery><random min="301" max="400"/></magery>
+		<evaluatingint><random min="301" max="400"/></evaluatingint>
+		<carve>carve_dragon_gray</carve>
+		<!-- Priv -->
+		<totame>939</totame>
+	</npc>
+
+	<!-- a dragon (red) -->
+	<npc id="dragon_red">
+		<inherit id="dragon_gray" />
+		<name>a dragon</name>
+		<id>0x3b</id>
+		<category>Monsters\Dragons\Dragon (Red)</category>
+		<carve>carve_dragon_red</carve>
+	</npc>
+
+</definitions>

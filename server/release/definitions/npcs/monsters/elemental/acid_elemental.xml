@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- an acid elemental -->
+	<npc id="acid_elemental">
+		<name>an acid elemental</name>
+		<id>0x09E</id>
+		<category>Monsters\Elementals\Acid Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-12000"/></karma>
+		<fame><random min="10000" max="12000"/></fame>
+		<defense><random min="45" max="55"/></defense>
+		<lodamage>26</lodamage>
+		<hidamage>42</hidamage>
+		<!-- Stats -->
+		<str><random min="326" max="355"/></str>
+		<dex><random min="66" max="85"/></dex>
+		<int><random min="271" max="295"/></int>
+		<!-- Skills -->
+		<wrestling><random min="701" max="900"/></wrestling>
+		<tactics><random min="801" max="900"/></tactics>
+		<magicresistance><random min="601" max="750"/></magicresistance>
+		<anatomy><random min="303" max="600"/></anatomy>
+		<magery><random min="701" max="850" /></magery>
+		<evaluatingint><random min="701" max="850"/></evaluatingint>
+	</npc>
+
+</definitions>

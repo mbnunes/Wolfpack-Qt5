@@ -1,0 +1,25 @@
+
+<definitions>
+
+	<!-- red solen worker -->
+	<npc id="red_solen_worker">
+		<name>a red solen worker</name>
+		<id>0x30d</id>
+		<category>Monsters\Solen\Red Solen Worker</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="25" max="30"/></defense>
+		<lodamage>8</lodamage>
+		<hidamage>12</hidamage>
+		<!-- Stats -->
+		<str><random min="96" max="120"/></str>
+		<dex><random min="81" max="105"/></dex>
+		<int><random min="36" max="60"/></int>
+		<!-- Skills -->
+		<wrestling>600</wrestling>
+		<tactics>650</tactics>
+		<magicresistance>600</magicresistance>
+	</npc>
+
+</definitions>

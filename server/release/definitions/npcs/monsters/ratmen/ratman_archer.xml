@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- a ratman archer-->
+	<npc id="ratman_archer">
+		<name><random list="NAMES_RATMAN" /></name>
+		<id>0x8E</id>
+		<category>Monsters\Ratmen\Ratman Archer</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-2500" max="-4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="40" max="55" /></defense>
+		<lodamage>36</lodamage>
+		<hidamage>42</hidamage>
+		<!-- Stats -->
+		<str><random min="146" max="180" /></str>
+		<dex><random min="101" max="130" /></dex>
+		<int><random min="116" max="140" /></int>
+		<!-- Skills -->
+		<wrestling><random min="501" max="750" /></wrestling>
+		<tactics><random min="501" max="750" /></tactics>
+		<magicresistance><random min="651" max="900" /></magicresistance>
+		<anatomy><random min="602" max="1000" /></anatomy>
+	</npc>
+
+</definitions>

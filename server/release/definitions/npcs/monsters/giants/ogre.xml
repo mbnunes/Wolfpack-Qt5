@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- an ogre -->
+	<npc id="ogre">
+		<name>an ogre</name>
+		<id>0x001</id>
+		<category>Monsters\Giants\Ogre</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="30" max="35"/></defense>
+		<lodamage>18</lodamage>
+		<hidamage>22</hidamage>
+		<gold><random min="60" max="90"/></gold>
+		<!-- Stats -->
+		<str><random min="166" max="195"/></str>
+		<dex><random min="46" max="65"/></dex>
+		<int><random min="46" max="70"/></int>
+		<!-- Skills -->
+		<wrestling><random min="701" max="800"/></wrestling>
+		<tactics><random min="601" max="700"/></tactics>
+		<magicresistance><random min="551" max="700"/></magicresistance>
+		<carve>carve_ogr</carve>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

@@ -1,0 +1,24 @@
+
+<definitions>
+
+	<!-- Lava Snake -->
+	<npc id="lava_snake">
+		<name>a lava snake</name>
+		<id>0x346</id>
+		<category>Monsters\Common Monsters\Lava Snake</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="0" max="-624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense><random min="20" max="25" /></defense>
+		<lodamage>1</lodamage>
+		<hidamage>10</hidamage>
+		<str><random min="43" max="55" /></str>
+		<dex><random min="16" max="25" /></dex>
+		<int><random min="6" max="10" /></int>
+		<wrestling><random min="193" max="340" /></wrestling>
+		<tactics><random min="193" max="340" /></tactics>
+		<magicresistance><random min="151" max="200" /></magicresistance>
+	</npc>
+
+</definitions>

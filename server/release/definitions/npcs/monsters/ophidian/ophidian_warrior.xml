@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Ophidian Warrior -->
+	<npc id="ophidian_warrior">
+		<name>an ophidian warrior</name>
+		<id>0x056</id>
+		<category>Monsters\Ophidians\Ophidian Warrior</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="35" max="40"/></defense>
+		<lodamage>11</lodamage>
+		<hidamage>24</hidamage>
+		<gold><random min="100" max="140"/></gold>
+		<!-- Stats -->
+		<str><random min="150" max="320"/></str>
+		<dex><random min="94" max="190"/></dex>
+		<int><random min="64" max="160"/></int>
+		<!-- Skills -->
+		<tactics><random min="751" max="900"/></tactics>
+		<magicresistance><random min="701" max="850"/></magicresistance>
+		<carve>carve_ophidian_warrior_medium</carve>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

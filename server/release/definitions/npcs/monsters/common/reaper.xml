@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- a reaper -->
+	<npc id="reaper">
+		<name>a reaper</name>
+		<id>0x02f</id>
+		<inherit id="monster_base"/>
+		<category>Monsters\Common Monsters\Reaper</category>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="40" max="40"/></defense>
+		<lodamage>17</lodamage>
+		<hidamage>20</hidamage>
+		<gold><random min="60" max="90"/></gold>
+		<!-- Stats -->
+		<str><random min="66" max="215"/></str>
+		<dex><random min="66" max="75"/></dex>
+		<int><random min="101" max="250"/></int>
+		<!-- Skills -->
+		<wrestling><random min="501" max="600"/></wrestling>
+		<tactics><random min="451" max="600"/></tactics>
+		<magicresistance><random min="1001" max="1250"/></magicresistance>
+		<magery><random min="901" max="1000"/></magery>
+		<evaluatingint><random min="901" max="1000"/></evaluatingint>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

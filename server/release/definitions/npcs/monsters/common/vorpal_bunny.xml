@@ -1,0 +1,24 @@
+
+<definitions>
+
+	<!-- vorpal bunny -->
+	<npc id="vorpal_bunny">
+		<name>a vorpal bunny</name>
+		<id>0xCD</id>
+		<category>Monsters\Common Monsters\Vorpal Bunny</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="0" max="-624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense>0</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<str>15</str>
+		<dex>2000</dex>
+		<int>1000</int>
+		<wrestling>5</wrestling>
+		<tactics>5</tactics>
+		<magicresistance>200</magicresistance>
+	</npc>
+
+</definitions>

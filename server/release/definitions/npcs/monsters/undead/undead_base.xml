@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- undead_base-->
+	<npc id="undead_base">
+		<ai>Monster_Aggressive_L1</ai>
+		<wandertype>"circle" radius="20"</wandertype>
+		<totame>1100</totame>
+	</npc>
+
+	<!-- undead_loot_small -->
+	<npc id="undead_loot_small">
+		<gold><random min="25" max="50"/></gold>
+	</npc>
+
+	<npc id="undead_loot_medium">
+		<gold><random min="0" max="50"/></gold>
+	</npc>
+
+	<npc id="undead_loot_big">
+		<gold><random min="0" max="50"/></gold>
+	</npc>
+
+	<!-- headless -->
+	<list id="CARVE_HEADLESS">
+		<item>9f1,1</item> <!-- 1 meat -->
+	</list>
+
+</definitions>

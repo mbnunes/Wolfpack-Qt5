@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- a rat -->
+	<npc id="sewer_rat">
+		<name>a sewer rat</name>
+		<id>0xee</id>
+		<skin>0</skin>
+		<inherit id="monster_base"/>
+		<karma><random min="0" max="-624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense><random min="5" max="10" /></defense>
+		<lodamage>1</lodamage>
+		<hidamage>2</hidamage>
+		<!-- Stats -->
+		<str>9</str>
+		<dex>25</dex>
+		<int><random min="6" max="10" /></int>
+		<!-- Skills -->
+		<wrestling>50</wrestling>
+		<tactics>50</tactics>
+		<magicresistance>50</magicresistance>
+		<totame>0</totame>
+		<food>1</food>
+		<!-- Priv -->
+		<category>Monsters\Common Monsters\Sewer Rat</category>
+	</npc>
+
+</definitions>

@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- a troll -->
+	<npc id="troll">
+		<name>a troll</name>
+		<id>0x36</id>
+		<category>Monsters\Giants\Troll</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="35" max="45"/></defense>
+		<lodamage>16</lodamage>
+		<hidamage>28</hidamage>
+		<gold><random min="50" max="100"/></gold>
+		<!-- Stats -->
+		<str><random min="176" max="205"/></str>
+		<dex><random min="46" max="65"/></dex>
+		<int><random min="46" max="70"/></int>
+		<!-- Skills -->
+		<wrestling><random min="501" max="700"/></wrestling>
+		<tactics><random min="501" max="700"/></tactics>
+		<magicresistance><random min="451" max="600"/></magicresistance>
+		<carve>carve_troll</carve>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

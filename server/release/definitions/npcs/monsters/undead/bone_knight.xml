@@ -1,0 +1,26 @@
+
+<definitions>
+
+	<!-- bone knight -->
+	<npc id="bone_knight">
+		<name>a bone knight</name>
+		<id>0x39</id>
+		<inherit id="undead_base" />
+		<gold><random min="100" max="130"/></gold>
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+		<defense><random min="35" max="45"/></defense>
+		<lodamage>18</lodamage>
+		<hidamage>43</hidamage>
+		<!-- Stats -->
+		<str><random min="196" max="250"/></str>
+		<dex><random min="76" max="95"/></dex>
+		<int><random min="36" max="60"/></int>
+		<!-- Skills -->
+		<wrestling><random min="451" max="550"/></wrestling>
+		<tactics><random min="451" max="600"/></tactics>
+		<magicresistance><random min="451" max="600"/></magicresistance>
+		<category>Monsters\Undead\Bone Knight</category>
+	</npc>
+
+</definitions>

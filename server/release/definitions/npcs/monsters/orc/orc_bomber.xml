@@ -1,0 +1,26 @@
+
+<definitions>
+
+	<!-- orc bomber -->
+	<npc id="orc_bomber">
+		<name>an orc bomber</name>
+		<id>0xb6</id>
+		<category>Monsters\Orcs\Orc Bomber</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-1250" max="-2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="25" max="35" /></defense>
+		<lodamage>2</lodamage>
+		<hidamage>17</hidamage>
+		<!-- Stats -->
+		<str><random min="147" max="215" /></str>
+		<dex><random min="91" max="115" /></dex>
+		<int><random min="61" max="85" /></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="850" /></wrestling>
+		<tactics><random min="751" max="900" /></tactics>
+		<magicresistance><random min="701" max="850" /></magicresistance>
+	</npc>
+
+</definitions>

@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- an ancient wyrm -->
+	<npc id="ancient_wyrm">
+		<name>an ancient wyrm</name>
+		<id>0x2e</id>
+		<category>Monsters\Dragons\Ancient Wyrm </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-15000"/></karma>
+		<fame><random min="10000" max="15000"/></fame>
+		<defense><random min="65" max="75"/></defense>
+		<lodamage>146</lodamage>
+		<hidamage>182</hidamage>
+		<gold><random min="700" max="1100"/></gold>
+		<!-- Stats -->
+		<str><random min="1096" max="1185"/></str>
+		<dex><random min="86" max="175"/></dex>
+		<int><random min="686" max="775"/></int>
+		<!-- Skills -->
+		<wrestling><random min="976" max="1000"/></wrestling>
+		<tactics><random min="976" max="1000"/></tactics>
+		<magicresistance><random min="1005" max="1500"/></magicresistance>
+		<magery><random min="801" max="1000" /></magery>
+		<meditation><random min="801" max="1000" /></meditation>
+		<evaluatingintel><random min="525" max="750" /></evaluatingintel>
+		<carve></carve>
+	</npc>
+
+</definitions>

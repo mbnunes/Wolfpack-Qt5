@@ -1,0 +1,25 @@
+
+<definitions>
+
+	<!-- black solen queen -->
+	<npc id="black_solen_queen">
+		<name>a black solen infiltrator</name>
+		<id>0x327</id>
+		<category>Monsters\Solen\Black Solen Queen</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-5000" max="-9999"/></karma>
+		<fame><random min="5000" max="9999"/></fame>
+		<defense><random min="30" max="40"/></defense>
+		<lodamage>26</lodamage>
+		<hidamage>39</hidamage>
+		<!-- Stats -->
+		<str><random min="296" max="320"/></str>
+		<dex><random min="121" max="145"/></dex>
+		<int><random min="76" max="100"/></int>
+		<!-- Skills -->
+		<wrestling>900</wrestling>
+		<tactics>900</tactics>
+		<magicresistance>700</magicresistance>
+	</npc>
+
+</definitions>

@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- an orc captain -->
+	<npc id="orc_captain">
+		<name>an orc captain</name>
+		<id>0x007</id>
+		<category>Monsters\Orcs\Orc Captain</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-1250" max="-2499"/></karma>
+		<fame><random min="1250" max="2499"/></fame>
+		<defense><random min="30" max="35"/></defense>
+		<lodamage>11</lodamage>
+		<hidamage>31</hidamage>
+		<gold><random min="50" max="100"/></gold>
+		<!-- Stats -->
+		<str><random min="111" max="145"/></str>
+		<dex><random min="101" max="135"/></dex>
+		<int><random min="86" max="110"/></int>
+		<!-- Skills -->
+		<wrestling>0</wrestling>
+		<tactics><random min="851" max="1000"/></tactics>
+		<magicresistance><random min="701" max="850"/></magicresistance>
+		<carve>carve_orc</carve>
+		<!-- Priv -->
+	</npc>
+
+</definitions>

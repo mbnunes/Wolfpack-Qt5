@@ -1,0 +1,25 @@
+
+<definitions>
+
+	<!-- red solen infiltrator warrior -->
+	<npc id="red_solen_infiltrator_warrior">
+		<name>a red solen infiltrator</name>
+		<id>0x30e</id>
+		<category>Monsters\Solen\Red Solen Infiltrator (Warrior) </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="20" max="35"/></defense>
+		<lodamage>11</lodamage>
+		<hidamage>33</hidamage>
+		<!-- Stats -->
+		<str><random min="206" max="230"/></str>
+		<dex><random min="121" max="145"/></dex>
+		<int><random min="66" max="90"/></int>
+		<!-- Skills -->
+		<wrestling>800</wrestling>
+		<tactics>800</tactics>
+		<magicresistance>800</magicresistance>
+	</npc>
+
+</definitions>

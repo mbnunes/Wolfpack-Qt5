@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- a hell cat (small) -->
+	<npc id="hellcat">
+		<name>a hell cat</name>
+		<id>0xc9</id>
+		<category>Monsters\Deamons\Hell Cat (Small)</category>
+		<inherit id="monster_base"/>
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+		<defense><random min="25" max="35"/></defense>
+		<lodamage>9</lodamage>
+		<hidamage>18</hidamage>
+		<!-- Stats -->
+		<str><random min="51" max="100"/></str>
+		<dex><random min="52" max="150"/></dex>
+		<int><random min="13" max="85"/></int>
+		<!-- Skills -->
+		<wrestling><random min="301" max="400"/></wrestling>
+		<tactics><random min="401" max="550"/></tactics>
+		<magicresistance><random min="451" max="600"/></magicresistance>
+		<carve>carve_hellcat</carve>
+		<totame>711</totame>
+		<food>1</food>
+	</npc>
+
+</definitions>

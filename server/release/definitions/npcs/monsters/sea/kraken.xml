@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- a kraken -->
+	<npc id="kraken">
+		<name>a kraken</name>
+		<id>0x8</id>
+		<inherit id="monster_base"/>
+		<karma><random min="-5000" max="-9999"/></karma>
+		<fame><random min="5000" max="9999"/></fame>
+		<defense><random min="45" max="55"/></defense>
+		<lodamage>75</lodamage>
+		<hidamage>121</hidamage>
+		<gold><random min="300" max="600"/></gold>
+		<!-- Stats -->
+		<str><random min="756" max="780"/></str>
+		<dex><random min="226" max="245"/></dex>
+		<int><random min="26" max="40"/></int>
+		<!-- Skills -->
+		<wrestling><random min="451" max="600"/></wrestling>
+		<tactics><random min="451" max="600"/></tactics>
+		<magicresistance><random min="151" max="200"/></magicresistance>
+		<category>Monsters\Sea Monsters\Kraken</category>
+		<!-- Priv -->
+	</npc>
+
+</definitions>
