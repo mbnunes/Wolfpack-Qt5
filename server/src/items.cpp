@@ -1902,9 +1902,9 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "newbie" )
 	{
 		if ( value.toInt() )
-			priv_ |= 0x02;
+			setNewbie(true);
 		else
-			priv_ &= ~0x02;
+			setNewbie(false);
 		return 0;
 	}
 	/*

@@ -8,7 +8,7 @@
 PROJECT = wolfpack
 TARGET = wolfpack
 TEMPLATE = app
-CONFIG += qt console thread exceptions rtti
+CONFIG += qt thread exceptions rtti
 
 unix {
 
@@ -45,6 +45,8 @@ win32:DEFINES -= UNICODE
 # Precompiled header
 precompile_header:PRECOMPILED_HEADER = wolfpack_pch.h
 
+# Include configure's settings
+include(config.pri)
 
 # Common files
 
