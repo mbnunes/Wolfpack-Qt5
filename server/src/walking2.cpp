@@ -1242,7 +1242,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 						}
 					}
 				}
-			} while (mapitem != NULL);
+			} // while (mapitem != NULL);
 #pragma note("This while is strange, need some further investigation")
 		}
 	}

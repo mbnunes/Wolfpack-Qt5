@@ -728,9 +728,8 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 char cNetworkStuff::LogOut(int s)//Instalog
 {
 	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],0);
-	int i, p=currchar[s], a, valid=0;
-	int x=pc_currchar->pos.x, y=pc_currchar->pos.y;
-	int b, ci;
+	int i, a, valid=0;
+	int x = pc_currchar->pos.x, y = pc_currchar->pos.y;
 	P_ITEM pi_multi = NULL;
 	for(a=0;a<logoutcount;a++)
 	{
@@ -752,17 +751,17 @@ char cNetworkStuff::LogOut(int s)//Instalog
 	
 	if (pi_multi != NULL && !valid)//It they are in a multi... and it's not already valid (if it is why bother checking?)
 	{
-		b = packitem(p);
-		if (b!=-1)
+		P_ITEM pPack = Packitem(pc_currchar);
+		if (pPack != NULL)
 		{
-			vector<SERIAL> vecContainer = contsp.getData(items[b].serial);
-			for (a=0;a<vecContainer.size();a++)
+			vector<SERIAL> vecContainer = contsp.getData(pPack->serial);
+			for (a = 0; a < vecContainer.size(); a++)
 			{
-				ci=calcItemFromSer(vecContainer[a]);
-				if (ci!=-1)
-				if (items[ci].type==7 && (
-					items[ci].more1==pi_multi->ser1 && items[ci].more2==pi_multi->ser2 &&
-					items[ci].more3==pi_multi->ser3 && items[ci].more4==pi_multi->ser4))
+				P_ITEM pi_ci = FindItemBySerial(vecContainer[a]);
+				if (pi_ci != NULL)
+				if (pi_ci->type==7 && (
+					pi_ci->more1 == pi_multi->ser1 && pi_ci->more2 == pi_multi->ser2 &&
+					pi_ci->more3 == pi_multi->ser3 && pi_ci->more4 == pi_multi->ser4))
 				{//a key to this multi
 					valid=1;//Log 'em out now!
 					break;
@@ -785,8 +784,8 @@ char cNetworkStuff::LogOut(int s)//Instalog
 
 	for (i=0;i<now;i++) 
 	{
-		if(perm[i] && i!=s && inrange1p(currchar[i],p))
-			impowncreate(i,p,0);
+		if(perm[i] && i!=s && inrange1p(currchar[i],DEREF_P_CHAR(pc_currchar)))
+			impowncreate(i,DEREF_P_CHAR(pc_currchar),0);
 	}
 
 	return valid;
