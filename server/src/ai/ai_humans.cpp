@@ -138,11 +138,16 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 						P_NPC pPet = dynamic_cast<P_NPC>( World::instance()->findChar( ( *it )->getTag( "pet" ).toInt() ) );
 						if ( pPet )
 						{
-							pPet->free = false;
-							// we need this for db saves
-							pPet->setStablemasterSerial( INVALID_SERIAL );
-							pPet->moveTo( m_npc->pos() );
-							pPet->resend();
+							if (pTalker->pets().count() + pPet->controlSlots() > pTalker->maxControlSlots()) {
+								m_npc->talk(1049612, pPet->name());
+							} else {
+								pPet->free = false;
+								// we need this for db saves
+								pPet->setStablemasterSerial( INVALID_SERIAL );
+								pPet->setOwner( pTalker ); // This is important...
+								pPet->moveTo( m_npc->pos() );
+								pPet->resend();
+							}
 						}
 						( *it )->remove();
 					}
@@ -151,6 +156,8 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 
 				pPack->update();
 				m_npc->talk( 1042559 ); // Here you go... and good day to you!;
+			} else {
+				m_npc->talk( 502671 ); // But I have no animals stabled with me at the moment!
 			}
 		}
 	}
@@ -178,7 +185,7 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget* target
 	P_NPC pPet = dynamic_cast<P_NPC>( World::instance()->findChar( target->serial() ) );
 	if ( !pPet )
 	{
-		m_npc->talk( 1048053 ); // You can't stable that!
+		m_npc->talk( 502672 ); // HA HA HA! Sorry, I am not an inn.
 	}
 	else if ( pPet->owner() != player )
 	{
@@ -214,6 +221,7 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget* target
 			//pPet->free = true;
 			MapObjects::instance()->remove( pPet );
 			pPet->setStablemasterSerial( this->m_npc->serial() );
+			pPet->setOwner(0); // Remove ownership from this player since it's stabled
 			pPet->removeFromView();
 			m_npc->talk( 502679 ); // Very well, thy pet is stabled. Thou mayst recover it by saying 'claim' to me. In one real world week, I shall sell it off if it is not claimed!
 		}
