@@ -96,7 +96,10 @@ st_mysql *cDBDriver::getConnection()
 				break; 
 			} // let it fall
 		default:
-			throw QString( "Connection to DB failed: %1" ).arg( mysql_error( mysql ) );
+			if ( !mysql_real_connect(mysql, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
+			{ // for *nix users who's mysql does not have the named pipe option
+				throw QString( "Connection to DB failed: %1" ).arg( mysql_error( mysql ) );
+			}
 		}
 	}
 
