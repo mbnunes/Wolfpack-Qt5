@@ -611,10 +611,10 @@ def createlockandkey( container ):
 	\return none
 	\description Animates a character's throwing of an object at a given target.
 """
-def throwobject(char, object, pos, sendobject=0, movable=1, speed=10, fixeddir=0, explodes=0, hue=0, rendermode=0):
+def throwobject(char, object, pos, sendobject=0, movable=-1, speed=10, fixeddir=0, explodes=0, hue=0, rendermode=0):
 	# This will make the object leave the character's pack and land at the target location.
 	if sendobject > 0:
-		if movable:
+		if not movable == object.magic and movable >= 0:
 			object.magic = movable
 
 		object.container = 0
