@@ -1,4 +1,3 @@
-
 """
 	\command account
 	\description This command will modify account information.
