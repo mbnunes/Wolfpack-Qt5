@@ -69,7 +69,7 @@ def fromitem(item, property):
 
   # Tag overrides properties
   if item.hastag(info[0]):
-    # HITSOUND and MISSSOUND need special treatment beacuse of 
+    # HITSOUND and MISSSOUND need special treatment beacuse of
     # the list character.
     if property == HITSOUND or property == MISSSOUND:
       return str(item.gettag(info[0])).split(',')
@@ -87,7 +87,7 @@ def fromitem(item, property):
     return info[1]
 
 #
-# Calculates a certain property for the character by 
+# Calculates a certain property for the character by
 # recursing trough all of his equipment.
 #
 def fromchar(char, property):
@@ -119,9 +119,9 @@ def fromchar(char, property):
 def getdamage(char):
   weapon = char.getweapon()
 
-  # See if it's a npc with special min and maxdamage settings  
+  # See if it's a npc with special min and maxdamage settings
   if char.npc:
-    # If the npc has mindamage and maxdamage tags, they 
+    # If the npc has mindamage and maxdamage tags, they
     # override all other settings
     if char.hastag('mindamage') and char.hastag('maxdamage'):
       mindamage = int(char.gettag('mindamage'))
@@ -131,7 +131,7 @@ def getdamage(char):
     # Special treatment for fists.
     if not weapon:
       mindamage = char.strength / 28
-      maxdamage = mindamage
+      maxdamage = mindamage + 7
     else:
       mindamage = fromitem(weapon, MINDAMAGE)
       maxdamage = fromitem(weapon, MAXDAMAGE)
@@ -143,7 +143,7 @@ def getdamage(char):
 
 #
 # See if the given item has a specific property
-# This is used more as a type check. 
+# This is used more as a type check.
 # To see if an item is an armor, a bashing weapon, a ranged weapon. etc.
 #
 def itemcheck(item, check):
