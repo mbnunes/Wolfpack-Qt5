@@ -38,6 +38,7 @@
 
 // Platfrom specifics
 #include "platform.h"
+#include "qstring.h"
 
 // System includes
 
@@ -93,6 +94,9 @@ inline void hextostr(int i, char *ourstring)       { sprintf (ourstring, "%x",i)
 #define BASE_OCT 8
 #define BASE_DEC 10
 #define BASE_HEX 16
+
+// sereg : roll dices d&d style
+int rollDice( QString dicePattern );
 
 // Xan : conversion from sz to numbers
 int str2num (char *sz, int base = BASE_AUTO);

@@ -270,8 +270,9 @@ const QString processNode( QDomElement &Node )
 			return RandValues[ RandomNum(0,RandValues.size()) ];
 		}
 		else if( Node.attributes().contains("dice") )
-		{}
-		return QString("0");
+			return QString("%1").arg(rollDice(Node.attributeNode("dice").nodeValue()));
+		else
+			return QString("0");
 	}
 
 	if( !Node.hasChildNodes() )

@@ -45,6 +45,19 @@ int RandomNum(int nLowNum, int nHighNum)
 		return nLowNum;
 }
 
+int rollDice( QString dicePattern ) // roll dices d&d style
+{
+	// dicePattern looks like "xdy+z"
+	// which equals RandomNum(x,y)+z
+
+	int x,y,z, doffset = dicePattern.find("d"), poffset = dicePattern.find("+");
+	x = dicePattern.left( doffset ).toInt();
+	z = dicePattern.right( dicePattern.length()-1 - poffset ).toInt();
+	y = dicePattern.mid( doffset+1, poffset-doffset-1 ).toInt();
+
+	return RandomNum(x,y)+z;
+}
+
 int str2num( string s, int base)
 {
 	return str2num((char*)s.c_str(),base) ;
