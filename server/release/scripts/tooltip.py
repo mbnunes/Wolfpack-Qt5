@@ -62,7 +62,7 @@ def onShowTooltip( sender, target, tooltip ):
       if target.amount > 1:
         tooltip.add(1050039, str(target.amount) + "\t" + labelname)
       else:
-        tooltip.add(1050039, " \t" + labelname)
+        tooltip.add(1042971, labelname)
 
       if target.visible == 0 and sender.gm:
           tooltip.add(3000507, "")
@@ -76,12 +76,25 @@ def onShowTooltip( sender, target, tooltip ):
       	if target.hastag('lock'):
       		lock = str(target.gettag('lock'))
         
-      	tooltip.add(1050045, " \t" + "Lock: " + lock + "\t ")
+        if target.hastag('locked') and int(target.gettag('locked')) != 0:
+          suffix = '<br>Locked'
+        else:
+          suffix = '<br>Unlocked'
+
+      	tooltip.add(1050045, " \tLock: " + lock + suffix + "\t ")
       
       if isspellbook( target ):
-      	tooltip.add( 1042886, str( target.spellscount() ) )
+      	tooltip.add(1042886, str(target.spellscount()))
   else:
-    tooltip.add(1050045, " \t%s\t " % target.name)
+    affix = []
+
+    if target.npc and len(target.title) > 0:
+      affix.append(target.title)
+
+    if target.frozen:
+      affix.append('(frozen)')
+
+    tooltip.add(1050045, " \t%s\t %s" % (target.name, " ".join(affix)))
   
     # Tame = 502006
     if target.tamed:
@@ -89,17 +102,16 @@ def onShowTooltip( sender, target, tooltip ):
 
     additional = []
 
-    if target.invulnerable and sender.gm:
-      additional.append('(invulnerable)')
-
-    if target.frozen:
-      additional.append('(frozen)')
-      
-    if target.iscriminal():
-      additional.append('(criminal)')
-
-    if target.ismurderer():
-      additional.append('(murderer)')
+    # These are only available to GMs
+    if sender.gm:
+      if target.invulnerable:
+        additional.append('(invulnerable)')
+        
+      if target.iscriminal():
+        additional.append('(criminal)')
+  
+      if target.ismurderer():
+        additional.append('(murderer)')
 
     if len(additional) > 0:
       tooltip.add(1042971, "<br>".join(additional))
@@ -168,6 +180,7 @@ def modifiers( target, tooltip ):
 	"dmg_cold"	: [1060404,1],
 	"dmg_poison"	: [1060406,1],
 	"dmg_energy"	: [1060407,1],
+  "remaining_uses" : [1060584,1],
 	}
 
 	for tagname in modifiers.keys():
