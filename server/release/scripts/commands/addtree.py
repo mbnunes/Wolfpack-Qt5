@@ -28,7 +28,10 @@ from wolfpack import console
 
 jungletreeindex = [ 'jungle1', 'jungle2', 'jungle3', 'jungle4', 'jungle5', 'jungle6', 'jungle7' ]
 
-treeindex = ['cca','ccb','ccc','ccd','cd0','cd3','cd6','cd8','cda','cdd','ce0','ce3','ce6','cf8','cfe','d01', 'd94', 'd98', 'd9c', 'da0', 'da4', 'da8']
+treeindex = ['cca','ccb','ccc','ccd','cd0','cd3','cd6','cd8','cda','cdd','ce0','ce3','ce6','cf8','cfe','d01','d94','d98','d9c','da0','da4','da8']
+forestlist = ['ccd','cd0','cd3','cd6','cd8','cda','cdd','ce0','ce3','ce6']
+swamplist = ['cf8','cfe','d01']
+fruitlist = ['d94', 'd98', 'd9c', 'da0', 'da4', 'da8']
 
 trees = \
 {
@@ -246,28 +249,48 @@ def addtree(socket, command, arguments):
 	if len(arguments) > 0:
 		item = str( arguments.strip() )
 		if item == 'forest':
-			item = treeindex[ random.randint(0, 12) ]
+			if socket.hastag( 'last_foresttree' ):
+				templist = []
+				for choice in forestlist:
+					if choice != str( socket.gettag( 'last_foresttree' ) ):
+						templist += [ choice ]
+				item = random.choice( templist )
+				socket.settag( 'last_foresttree', str( item ) )
+			else:
+				item = random.choice( forestlist )
+				socket.settag( 'last_foresttree', str( item ) )
+
 			if item in trees:
 				if wolfpack.getdefinition( WPDT_ITEM, trees[item][TREE] ) and wolfpack.getdefinition( WPDT_ITEM, trees[item][LEAVES] ):
 					socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES ]) )
 					socket.attachtarget( 'commands.addtree.createtree', [ item ] )
 				return
 		elif item == 'fruit':
-			item = treeindex[ random.randint( 16, 21 ) ]
+			item = random.choice( fruitlist )
 			if item in trees:
 				if wolfpack.getdefinition( WPDT_ITEM, trees[item][TREE] ) and wolfpack.getdefinition( WPDT_ITEM, trees[item][LEAVES] ):
 					socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES ]) )
 					socket.attachtarget( 'commands.addtree.createtree', [ item ] )
 				return
 		elif item == 'swamp':
-			item = treeindex[ random.randint(13, 15) ]
+			item = random.choice( swamplist )
 			if item in trees:
 				if wolfpack.getdefinition( WPDT_ITEM, trees[item][TREE] ) and wolfpack.getdefinition( WPDT_ITEM, trees[item][LEAVES] ):
 					socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES ]) )
 					socket.attachtarget( 'commands.addtree.createtree', [ item ] )
 				return
 		elif item == 'random':
-			item = random.choice( treeindex )
+			if socket.hastag( 'last_randomtree' ):
+				templist = []
+				for choice in treeindex:
+					if choice != str( socket.gettag( 'last_randomtree' ) ):
+						templist += [ choice ]
+				item = random.choice( templist )
+				socket.settag( 'last_randomtree', str( item ) )
+			else:
+				item = random.choice( treeindex )
+				socket.settag( 'last_randomtree', str( item ) )
+
 			if item in trees:
 				if wolfpack.getdefinition( WPDT_ITEM, trees[item][TREE] ) and wolfpack.getdefinition( WPDT_ITEM, trees[item][LEAVES] ):
 					socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES ]) )
