@@ -56,6 +56,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - Added a warning in the console if translation file could not be found.
   - Fixed monsters not attacking players pets.
   - Fixed bug #0000363. (Pets don't attack a target if it's already fighting)
+  - Added support for value="" in many simple definition tags.
+    Examples: <mintaming value="555" /> <controlslots value="3" />
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.
