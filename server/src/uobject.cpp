@@ -498,7 +498,9 @@ void cUObject::processNode( const cElement* Tag )
 	}
 }
 
-// Remove it from all in-range sockets
+/*!
+	Remove it from all in-range sockets
+*/
 void cUObject::removeFromView( bool clean )
 {
 	// Get Real pos
@@ -528,7 +530,9 @@ void cUObject::removeFromView( bool clean )
 	}
 }
 
-// Checks if the specified object is in range
+/*!
+	Checks if the specified object is in given range
+*/
 bool cUObject::inRange( cUObject* object, UINT32 range ) const
 {
 	if ( !object )
@@ -689,7 +693,7 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 		return 0;
 	}
 
-	// \property object.pos This string property contains a comma separated list of the names of the scripts that are assigned to this object.
+	// \property object.eventlist This string property contains a comma separated list of the names of the scripts that are assigned to this object.
 	else if ( name == "eventlist" )
 	{
 		clearEvents();
