@@ -206,8 +206,8 @@ public:
 			}
 
 			Console::instance()->ProgressFail();
-			Console::instance()->log( LOG_WARNING, QString( "Unknown element: %1 [File: %1, Line: %2]\n" ).arg( element->name() ).arg( filename ).arg( locator->lineNumber() ) );
-			Console::instance()->PrepareProgress( "Parsing Definitions" );
+			Console::instance()->log(LOG_WARNING, QString("Unknown element: %1\n[File: %1, Line: %2]\n").arg(element->name()).arg(filename).arg(locator->lineNumber()));
+			Console::instance()->PrepareProgress("Parsing Definitions");
 			
 			delete element;
 		}

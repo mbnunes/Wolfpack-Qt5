@@ -1726,6 +1726,19 @@ static PyObject* wpChar_aiengine( wpChar* self, PyObject* args )
 	return Py_None;
 }
 
+static PyObject *wpChar_log(wpChar *self, PyObject *args) {	
+	char *message;
+	unsigned int loglevel;
+
+	if (!PyArg_ParseTuple(args, "ies:char.log(level, message)", &loglevel, "utf-8", &message)) {
+		return 0;
+	}
+
+	self->pChar->log((eLogLevel)loglevel, message);
+	PyMem_Free(message);
+	return PyTrue;
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto,			METH_VARARGS, "Moves the character to the specified location." },
@@ -1759,6 +1772,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "canpickup",		(getattrofunc)wpChar_canpickup,			METH_VARARGS, NULL },
 	{ "cansee",			(getattrofunc)wpChar_cansee,			METH_VARARGS, NULL },
 	{ "lightning",		(getattrofunc)wpChar_lightning,			METH_VARARGS, NULL },
+	{ "log",			(getattrofunc)wpChar_log,				METH_VARARGS, NULL },
 	{ "additem",		(getattrofunc)wpChar_additem,			METH_VARARGS, "Creating item on specified layer."},
 	{ "isdead",			(getattrofunc)wpChar_isdead,			METH_VARARGS, "Checks if the character is alive or not."},
 	

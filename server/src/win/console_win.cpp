@@ -711,6 +711,10 @@ void cConsole::send(const QString &sMessage)
 
 void cConsole::ChangeColor( WPC_ColorKeys color )
 {
+	// Move the selection to the end of the field
+	unsigned int tLength = GetWindowTextLength(logWindow);
+	SendMessage(logWindow, EM_SETSEL, tLength, tLength);
+
 	CHARFORMAT cf;
 	ZeroMemory( &cf, sizeof( CHARFORMAT ) );
 	cf.cbSize = sizeof( CHARFORMAT );
