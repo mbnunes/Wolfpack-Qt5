@@ -41,11 +41,13 @@
 
 	<item id="fbb">
 		<id>0x0fbb</id>
+		<type>1100</type>
 		<category>Professions\Blacksmith\Tongs (W/E)</category>
 	</item>
 
 	<item id="fbc">
 		<id>0x0fbc</id>
+		<type>1100</type>
 		<category>Professions\Blacksmith\Tongs (N/S)</category>
 	</item>
 
@@ -162,6 +164,7 @@
 	<!-- Sledge Hammer -->
 	<item id="fb4">
 		<id>0x0FB4</id>
+		<type>1100</type>
 		<category>Professions\Blacksmith\Sledge Hammer (W/E)</category>
 	</item>
 	
@@ -175,6 +178,7 @@
 	<!-- Smith's Hammer -->
 	<item id="13e3">
 		<id>0x13e3</id>
+		<type>1100</type>
 		<category>Professions\Blacksmith\Smith's Hammer (W/E)</category>
 	</item>
 
