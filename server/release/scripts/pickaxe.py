@@ -72,3 +72,4 @@ def onContextEntry( char, target, tag  ):
 			return True
 		char.settag( "mining", "ore,stone" )
 		char.socket.clilocmessage( 1054022 ) # You are now set to mine both ore and stone
+	return True

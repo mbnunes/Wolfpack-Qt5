@@ -129,8 +129,8 @@ class MasonryMenu(MakeMenu):
 		if not MakeMenu.checktool(self, player, item, wearout):
 			return False
 		
-		if not player.hastag( 'stonecrafting' ):
-			player.socket.clilocmessage(1044633) # You havent learned stonecraft.
+		if not player.hastag( 'masonry' ):
+			player.socket.clilocmessage(1044633) # You havent learned masonry.
 			return False
 			
 		return True
