@@ -64,7 +64,6 @@ Q_INT32 resolveName( const QString& data )
 //	we do a dns lookup on this
 
 	Q_INT32 uiValue = inet_addr((char*)data.latin1()) ;
-//#ifndef __unix__
 	if (uiValue == INADDR_NONE)
 	{
 		hostent* ptrHost = gethostbyname((char*)data.latin1());
@@ -79,7 +78,6 @@ Q_INT32 resolveName( const QString& data )
 		    }
 		}
 	}
-//#endif
 
 	// inet_addr returns the ip in reverse order
 	Q_INT32 part1 = 0, part2 = 0, part3 = 0, part4 = 0;

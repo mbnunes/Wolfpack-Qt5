@@ -29,14 +29,16 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-// WARNING: This file should only be compiled on windows machines
-// it's not included in the linux makefile.
+#include "srvparams.h"
 
-#include "win_registry.h"
-#include "windows.h"
-#include "QRegExp.h"
+// Qt Includes
+#include <qdir.h>
+#include <qstring.h>
 
-QString getUOPath()
+// System Includes
+#include <windows.h>
+
+static QString getUOPath()
 {
 	// Search for T3D preferably
 	const QString Registry3d = "Software\\Origin Worlds Online\\Ultima Online Third Dawn\\1.0";
@@ -77,4 +79,21 @@ QString getUOPath()
 	}
 
 	return QString::null;
+}
+
+
+QString cSrvParams::mulPath() const
+{
+	QDir thePath( mulPath_ );
+	if( !thePath.exists() )
+	{
+		QString uoPath(getUOPath());
+		if( uoPath != QString::null )
+		{
+			//mulPath_ = uoPath;
+			cSrvParams* that = const_cast<cSrvParams*>(this); // perhaps not so const ;)
+			that->setMulPath( uoPath );
+		}
+	}
+	return mulPath_;
 }

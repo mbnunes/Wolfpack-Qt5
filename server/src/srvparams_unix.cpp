@@ -29,19 +29,10 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if !defined(__WIN_REGISTRY_H__)
-#define __WIN_REGISTRY_H__
 
-// Platfrom specifics
-#include "qstring.h"
+#include "srvparams.h"
 
-#if defined(__unix__)
-	QString getUOPath()
-	{
-		return QString::null;
-	}
-#else
-	QString getUOPath();
-#endif
-
-#endif 
+QString cSrvParams::mulPath() const
+{
+	return mulPath_;
+}

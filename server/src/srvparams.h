@@ -1060,11 +1060,6 @@ inline int cSrvParams::defaultpriv2() const
 	return defaultpriv2_;
 }
 
-inline QString cSrvParams::mulPath() const
-{
-	return mulPath_;
-}
-
 inline unsigned int cSrvParams::showNpcTitles() const
 {
 	return showNpcTitles_;

@@ -73,7 +73,6 @@
 #include "spellbook.h"
 #include "persistentbroker.h"
 #include "corpse.h"
-#include "win_registry.h"
 #include "weight.h"
 
 // Library Includes
@@ -83,7 +82,6 @@
 #include <qlibrary.h>
 #include <qdatetime.h>
 #include <zthread/Thread.h>
-#include <qdir.h>
 #include <zthread/FastMutex.h>
 #include <fstream>
 
@@ -1306,19 +1304,6 @@ int main( int argc, char *argv[] )
 	cNetwork::startup();
 	clConsole.ProgressDone();
 	CIAO_IF_ERROR;
-
-	// Check out the MULPath
-	QDir mulPath( SrvParams->mulPath() );
-	if( !mulPath.exists() )
-	{
-		QString uoPath = getUOPath();
-		if( uoPath != QString::null )
-		{
-			SrvParams->setMulPath( uoPath );
-			delete Map;
-			Map = new Maps( uoPath );
-		}
-	}
 
 	DefManager->load();
 
