@@ -708,15 +708,6 @@ void updatechar(P_CHAR pc) // If character status has been changed (Polymorph), 
 
 void target(UOXSOCKET s, int a1, int a2, int a3, int a4, const QString& txt) // Send targetting cursor to client
 {
-	unsigned char tarcrs[20]="\x6C\x01\x40\x01\x02\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-
-	targetok[s]=1;
-	tarcrs[2]=a1;
-	tarcrs[3]=a2;
-	tarcrs[4]=a3;
-	tarcrs[5]=a4;
-	sysmessage(s, txt);
-	Xsend(s, tarcrs, 19);
 }
 
 void skillwindow(int s) // Opens the skills list, updated for client 1.26.2b by LB

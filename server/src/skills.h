@@ -68,7 +68,6 @@ public:
 	void TellScroll(char *menu_name, int player, long item_param);
 	void CollectAmmo(int s, int a, int b);
 	void Meditation(cUOSocket* s);
-public:
 	// skills using crafting menus
 	void Blacksmithing( cUOSocket* socket );
 	void Carpentry( cUOSocket* socket );
@@ -87,24 +86,15 @@ public:
 	void TinkerAxel(int s);
 	void TinkerAwg(int s);
 	void TinkerClock(int s);
-	void MakeDough(int s);
-	void MakePizza(int s);
 	void Track(P_CHAR pc_i);
 	void DoPotion(int s, int type, int sub, P_ITEM mortar);
-	void GraveDig(int s);
-	void Wheel(int s, int mat);
-	void Loom(int s);
 	void CookOnFire(int s, short id1, short id2, char* matname);
-//	void EnticementTarget1(UOXSOCKET s);
-//	void EnticementTarget2(UOXSOCKET s);
-	void AlchemyTarget(int s);
 	void BottleTarget(int s);
 	void PotionToBottle(P_CHAR pc, P_ITEM pi_mortar);
 	void CreateBandageTarget(int s);
 	void HealingSkillTarget(UOXSOCKET s);
 	void SpiritSpeak(int s);
 	void ArmsLoreTarget(int s);
-//	void ItemIdTarget(int s);
 	void SkillUse( cUOSocket*, UINT16 );
 	void CreateTrackingMenu(int s, int m);
 	void TrackingMenu(int s, int gmindex);

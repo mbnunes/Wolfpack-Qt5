@@ -2304,7 +2304,7 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 		tempeffect(currchar[s], currchar[s], 16, 0, 2, 2);
 		tempeffect(currchar[s], currchar[s], 16, 0, 3, 1);
 		tempeffect2(currchar[s], pi, 17, 0, 4, 0);
-		target(s,0,1,0,207,"*throw*");
+//		target(s,0,1,0,207,"*throw*");
 		return; // lb bugfix, break is wronh here because it would delete bottle
 
 	case 4: // Heal Potion

@@ -385,7 +385,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		}
 		return;// chaos gates
 	case 6: // teleport item (ring?)
-		target(s, 0, 1, 0, 2, "Select teleport target.");
+//		target(s, 0, 1, 0, 2, "Select teleport target.");
 		return;// case 6
 	case 7: // key
 		addid1[s] = pi->more1;
@@ -396,7 +396,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		if (pi->more1 == 255)
 			addid1[s] = 255;
 		
-		target(s, 0, 1, 0, 11, "Select item to use the key on.");
+//		target(s, 0, 1, 0, 11, "Select item to use the key on.");
 		return;// case 7 (keys)
 	case 8: // locked item spawner
 	case 64: // locked container //Morrolan traps?
@@ -863,7 +863,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						pi->morex--;
 						sprintf((char*)temp, "Your wand now has %i charges left", pi->morex);
 						socket->sysMessage((char*) temp);
-						target(s, 0, 1, 0, 75, "What do you wish to identify?");
+//						target(s, 0, 1, 0, 75, "What do you wish to identify?");
 					}
 					else
 					{
@@ -898,7 +898,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						socket->sysMessage(tr("Must be closer to use this!"));
 						return;
 					}
-					target(s, 0, 1, 0, 236, "Select item to be repaired.");
+//					target(s, 0, 1, 0, 236, "Select item to be repaired.");
 					return;
 				case 0x0FB1: // small forge
 				case 0x1982: // partial lg forge
@@ -917,7 +917,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x0FAB:// dye vat
 					addid1[s] = static_cast<unsigned char>(pi->color()>>8);
 					addid2[s] = static_cast<unsigned char>(pi->color()%256);
-					target(s, 0, 1, 0, 32, "Select the clothing to use this on.");
+//					target(s, 0, 1, 0, 32, "Select the clothing to use this on.");
 					return;// dye vat
 				case 0x14F0:// deeds
 					if ((pi->type() != 103) &&(pi->type() != 202))
@@ -1013,7 +1013,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						if (pi->contserial == pBackpack->serial)
 						{
 							addmitem[s] = pi->serial; // save the vials number, LB
-							target(s, 0, 1, 0, 186, "What do you want to fill the vial with?");
+//							target(s, 0, 1, 0, 186, "What do you want to fill the vial with?");
 						}
 						else 
 							socket->sysMessage(tr("The vial is not in your pack"));
@@ -1021,7 +1021,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					}
 				case 0x0DF9: 
 					pc_currchar->setTailItem( pi->serial );
-					target(s, 0, 1, 0, 166, "Select spinning wheel to spin cotton.");
+//					target(s, 0, 1, 0, 166, "Select spinning wheel to spin cotton.");
 					return;
 					/*
 					case 0x09F1: // Raw meat to Cooked
@@ -1035,7 +1035,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x0E1F:
 				case 0x0E1E:  // yarn to cloth
 					pc_currchar->setTailItem(  pi->serial );
-					target(s, 0, 1, 0, 165, "Select loom to make your cloth");
+//					target(s, 0, 1, 0, 165, "Select loom to make your cloth");
 					return;
 				case 0x1BD1:
 				case 0x1BD2:
@@ -1044,28 +1044,28 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x1BD5:
 				case 0x1BD6:	// make shafts
 					itemmake[s].Mat1id = pi->id();
-					target(s, 0, 1, 0, 172, "What would you like to use this with?"); 
+//					target(s, 0, 1, 0, 172, "What would you like to use this with?"); 
 					return;
 				case 0x0E73: // cannon ball
-					target(s, 0, 1, 0, 170, "Select cannon to load."); 
+//					target(s, 0, 1, 0, 170, "Select cannon to load."); 
 					Items->DeleItem(pi);
 					return;
 				case 0x0FF8:
 				case 0x0FF9: // pitcher of water to flour
 					pc_currchar->setTailItem( pi->serial );
-					target(s, 0, 1, 0, 173, "Select flour to pour this on.");  
+//					target(s, 0, 1, 0, 173, "Select flour to pour this on.");  
 					return;
 				case 0x09C0:
 				case 0x09C1: // sausages to dough
 					pc_currchar->setTailItem( pi->serial );
-					target(s, 0, 1, 0, 174, "Select dough to put this on.");  
+//					target(s, 0, 1, 0, 174, "Select dough to put this on.");  
 					return;
 				case 0x0DF8: // wool to yarn 
 					pc_currchar->setTailItem( pi->serial );
-					target(s, 0, 1, 0, 164, "Select your spin wheel to spin wool.");      
+//					target(s, 0, 1, 0, 164, "Select your spin wheel to spin wool.");      
 					return;
 				case 0x0F9D: // sewing kit for tailoring
-					target(s, 0, 1, 0, 167, "Select material to use.");
+//					target(s, 0, 1, 0, 167, "Select material to use.");
 					return;
 				case 0x19B7:
 				case 0x19B9:
@@ -1095,7 +1095,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x1401:// Kryss
 				case 0x1440:
 				case 0x1441:
-					target(s, 0, 1, 0, 86, "What would you like to use that on ?");
+//					target(s, 0, 1, 0, 86, "What would you like to use that on ?");
 					return;
 				case 0x1508: // magic statue?
 					if( currchar[s]->checkSkill( ITEMID, 0, 10))
@@ -1153,7 +1153,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				case 0x0DBF:
 				case 0x0DC0:// fishing
-					target(s, 0, 1, 0, 45, "Fish where?");
+//					target(s, 0, 1, 0, 45, "Fish where?");
 					return;
 				case 0x0E9B: // Mortar for Alchemy
 					if (pi->type() == 17)
@@ -1162,7 +1162,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
 						addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
 						addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
-						target(s, 0, 1, 0, 109, "Where is an empty bottle for your potion?");
+//						target(s, 0, 1, 0, 109, "Where is an empty bottle for your potion?");
 					}
 					else
 					{
@@ -1170,12 +1170,12 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
 						addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
 						addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
-						target(s, 0, 1, 0, 108, "What do you wish to grind with your mortar and pestle?");
+//						target(s, 0, 1, 0, 108, "What do you wish to grind with your mortar and pestle?");
 					}
 					return; // alchemy
 				case 0x0F9E:
 				case 0x0F9F: // scissors
-					target(s, 0, 1, 0, 128, "What cloth should I use these scissors on?");
+//					target(s, 0, 1, 0, 128, "What cloth should I use these scissors on?");
 					return;
 				case 0x0E21: // healing
 					{
@@ -1233,7 +1233,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
 					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
 					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
-					target(s, 0, 1, 0, 183, "Select part to combine that with.");
+//					target(s, 0, 1, 0, 183, "Select part to combine that with.");
 					return;
 				case 0x1051:
 				case 0x1052:
@@ -1247,7 +1247,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 					// itemmake[s].materialid1=pi->id1;
 					// itemmake[s].materialid2=pi->id2;
-					target(s, 0, 1, 0, 184, "Select part to combine it with.");
+//					target(s, 0, 1, 0, 184, "Select part to combine it with.");
 					return;
 				case 0x104F:
 				case 0x1050:
@@ -1257,7 +1257,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
 					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
 					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
-					target(s, 0, 1, 0, 185, "Select part to combine with");
+//					target(s, 0, 1, 0, 185, "Select part to combine with");
 					return;
 				case 0x1059:
 				case 0x105A:// tinker sextant

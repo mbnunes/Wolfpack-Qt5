@@ -478,8 +478,8 @@ void cTargets::Wiping(int s) // Clicking the corners of wiping calls this functi
 	if (clickx[s]==-1 && clicky[s]==-1) {
 		clickx[s]=(buffer[s][11]<<8)+buffer[s][12];
 		clicky[s]=(buffer[s][13]<<8)+buffer[s][14];
-		if (addid1[s]) target(s,0,1,0,199,"Select second corner of inverse wiping box.");
-		else target(s,0,1,0,199,"Select second corner of wiping box.");
+//		if (addid1[s]) target(s,0,1,0,199,"Select second corner of inverse wiping box.");
+//		else target(s,0,1,0,199,"Select second corner of wiping box.");
 		return;
 	}
 
@@ -1914,31 +1914,6 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 		case 19: if (Cready) pc->setFontType( addid1[s] ); break;
 //		case 20: Targ->GhostTarget(s); break;
 		case 21: Targ->ResurrectionTarget(s); break; // needed for /resurrect command
-		case 24:
-			{
-				SERIAL serial=LongFromCharPtr(buffer[s]+7);
-				P_ITEM pi = FindItemBySerial(serial);
-				P_CHAR pc_currchar = currchar[s];
-				if ( pi != NULL )
-				{
-//					Trig->triggerwitem(s, pi, 0);
-					pc_currchar->setEnvokeid(0x00);
-					return;
-				}
-				// Checking if target is an NPC	--- By Magius(CHE) §
-				P_CHAR pc_i = FindCharBySerial(serial);
-				if(pc_i != NULL)
-				{
-//					Trig->triggernpc(s, pc_i, 0);
-					pc_currchar->setEnvokeid(0x00);
-					return;
-				}
-				// End Addons by Magius(CHE) §
-//				Trig->triggerwitem(s, NULL, 0);
-				pc_currchar->setEnvokeid(0x00);
-				return;
-			}
-//		case 25: Targ->CloseTarget(s); break;
 		case 26: Targ->AddItem( s ); break;
 		case 27: Targ->NpcMenuTarget(s); break;
 //		case 28: ItemTarget(ps,pt); break;//MovableTarget
@@ -1966,73 +1941,32 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 		case 63: //MoreXTarget
 		case 64: //MoreYTarget
 		case 65: //MoreZTarget
-//		case 66: ItemTarget(ps,pt); break;//MoreXYZTarget
-//		case 71: if (Iready) ContainerEmptyTarget1(ps,pi); break;
-//		case 72: if (Iready) ContainerEmptyTarget2(ps,pi); break;
-//		case 75: Targ->TargIdTarget(s); break;
-
-//		case 79: Skills->ProvocationTarget1(s); break;
-//		case 80: Skills->ProvocationTarget2(s); break;
-//		case 81: Skills->EnticementTarget1(s); break;
-//		case 82: Skills->EnticementTarget2(s); break;
-
-//		case 86: Targ->SwordTarget(ps,pt); break;
 		case 87: Magic->SbOpenContainer(s); break;
 		case 88: Targ->SetDirTarget(s); break;
-//		case 89: ItemTarget(ps,pt); break;//ObjPrivTarget
 
 		case 100: Magic->NewCastSpell( s ); break;	// we now have this as our new spell targeting location
-		case 108: Skills->AlchemyTarget(s); break;
 		case 109: Skills->BottleTarget(s); break;
-//		case 111: ItemTarget(ps,pt); break;//MovableTarget
 		case 118: Targ->AttackTarget(s); break;
 		case 119: Targ->TransferTarget(s); break;
 		case 120: Targ->GuardTarget( s ); break;
 		case 121: Targ->BuyShopTarget(s); break;
-//		case 122: ItemTarget(ps,pt); break;//SetValueTarget
-//		case 123: ItemTarget(ps,pt); break;//SetRestockTarget
 		case 124: Targ->FetchTarget(s); break;
 
 		case 128: Skills->CreateBandageTarget(s); break;
-//		case 129: ItemTarget(ps,pt); break;//SetAmount2Target
 		case 131: if (currchar[s]->isGM()) Targ->permHideTarget(s); break; /* not used */
 		case 132: if (currchar[s]->isGM()) Targ->unHideTarget(s); break; /* not used */
-//		case 133: ItemTarget(ps,pt); break;//SetWipeTarget
 		case 134: Skills->Carpentry( socket ); break;
 		case 135: Targ->SetSpeechTarget(s); break;
-//		case 136: Targ->XTeleport(s,0); break;
 
 		case 150: SetSpAttackTarget(s); break;
 		case 151: Targ->FullStatsTarget(s); break;
-//		case 152: Skills->BeggingTarget(s); break;
-//		case 153: Skills->AnimalLoreTarget(s); break;
-//		case 154: Skills->ForensicsTarget(s); break;
-//		case 155:
-//			{
-//				currchar[s]->setPoisonserial(LongFromCharPtr(buffer[s]+7));
-//				target(s, 0, 1, 0, 156, "What item do you want to poison?");
-//				return;
-//			}
-//		case 156: Skills->PoisoningTarget(s); break;
 
-//		case 160: Skills->Inscribe(s,0); break;
-
-		case 164: Skills->Wheel(s, YARN); break;
-		case 165: Skills->Loom(s); break;
-		case 166: Skills->Wheel(s, THREAD); break;
-//		case 167: Skills->Tailoring(s); break;
 
 		case 170: Targ->LoadCannon(s); break;
-//		case 172: Skills->Fletching(s); break;
-		case 173: Skills->MakeDough(s); break;
-		case 174: Skills->MakePizza(s); break;
 		case 175: Targ->SetPoisonTarget(s); break;
 		case 176: Targ->SetPoisonedTarget(s); break;
 		case 177: Targ->SetSpaDelayTarget(s); break;
 		case 178: Targ->SetAdvObjTarget(s); break;
-//		case 179: if (Cready) SetInvulFlag(ps,pc); break;
-//		case 180: Skills->Tinkering(s); break;
-//		case 181: Skills->PoisoningTarget(s); break;
 
 		case 183: Skills->TinkerAxel(s); break;
 		case 184: Skills->TinkerAwg(s); break;
@@ -2041,12 +1975,10 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 
 		case 198: Tiling(s,pt); break;
 		case 199: Targ->Wiping(s); break;
-//		case 205: Skills->StealingTarget(s); break;
 		case 206: Targ->CanTrainTarget(s); break;
 		case 207: ExpPotionTarget(s,pt); break;
 		case 209: Targ->SetSplitTarget(s); break;
 		case 210: Targ->SetSplitChanceTarget(s); break;
-//		case 213: Skills->PickPocketTarget(s); break;
 
 		case 220: 
 			{

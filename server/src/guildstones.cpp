@@ -726,7 +726,7 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 	case 1:									// main menu
 		switch( Choice )
 		{
-		case 1: target(s,0,1,0,220,"Select person to invite into the guild.");	break;
+//		case 1: target(s,0,1,0,220,"Select person to invite into the guild.");	break;
 		case 2:	Menu(s,7);														break;
 		case 3: Menu(s,5);														break;
 		case 4: Menu(s,13);														break;
@@ -754,7 +754,7 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 		case 4:  Menu(s,4);																	break;
 		case 5:  Menu(s,8);																	break;
 		case 6:  Menu(s,14);																break;
-		case 7:  target(s,0,1,0,221,"Select person to declare war to.");					break;
+//		case 7:  target(s,0,1,0,221,"Select person to declare war to.");					break;
 		case 8:  Menu(s,15);																break;
 		case 9:	 Menu(s,10);																break;
 		case 10: Menu(s,9);																	break;

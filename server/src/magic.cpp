@@ -4434,7 +4434,7 @@ void cMagic::AfterSpellDelay(UOXSOCKET s, P_CHAR pc)
 {
 	if( Magic->requireTarget( pc->spell() ) )
 	{
-		target(s,0,1,0,100, spells[pc->spell()].strToSay );
+//		target(s,0,1,0,100, spells[pc->spell()].strToSay );
 	}
 	else
 	{
