@@ -94,7 +94,7 @@ void cAllConMenus::load( void )
 	QStringList::const_iterator it = sections.begin();
 	while( it != sections.end() )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_CONTEXTMENU, (*it) );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_CONTEXTMENU, (*it) );
 		if( !DefSection->isNull() )
 		{
 			menus_.insert( (*it), cConMenu( *DefSection ) );

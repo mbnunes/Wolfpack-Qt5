@@ -103,15 +103,13 @@ public:
 	void load( void );
 	void unload( void );
 
-	void ProcessNode( QDomElement Node );
+	void ProcessNode( const QDomElement& Node );
 
-	QDomElement *getSection( WPDEF_TYPE Type, QString Section );
-	QStringList getSections( WPDEF_TYPE Type );
-	QString		getRandomListEntry( QString ListSection );
-	QStringList	getList( QString ListSection );
-	QString		getText( QString TextSection );
+	const QDomElement*	getSection( WPDEF_TYPE Type, QString Section ) const;
+	QStringList			getSections( WPDEF_TYPE Type ) const;
+	QString				getRandomListEntry( const QString& ListSection ) const;
+	QStringList			getList( const QString& ListSection ) const;
+	QString				getText( const QString& TextSection ) const;
 };
-
-const QString processNode( QDomElement Node );
 
 #endif // !defined(AFX_WPDEFMANAGER_H__59377C90_C75A_4AC7_8B5B_517354DC8E76__INCLUDED_)

@@ -1,7 +1,37 @@
+//==================================================================================
+//
+//      Wolfpack Emu (WP)
+//	UO Server Emulation Program
+//
+//	Copyright 1997, 98 by Marcus Rating (Cironian)
+//  Copyright 2001 by holders identified in authors.txt
+//	This program is free software; you can redistribute it and/or modify
+//	it under the terms of the GNU General Public License as published by
+//	the Free Software Foundation; either version 2 of the License, or
+//	(at your option) any later version.
+//
+//	This program is distributed in the hope that it will be useful,
+//	but WITHOUT ANY WARRANTY; without even the implied warranty of
+//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+//	GNU General Public License for more details.
+//
+//	You should have received a copy of the GNU General Public License
+//	along with this program; if not, write to the Free Software
+//	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+//	* In addition to that license, if you are running this program or modified
+//	* versions of it on a public system you HAVE TO make the complete source of
+//	* the version used by you available or provide people with a location to
+//	* download it.
+//
+//
+//
+//	Wolfpack Homepage: http://wpdev.sf.net/
+//========================================================================================
 
 // Library Includes
-#include "qstringlist.h"
-#include "qdom.h"
+#include <qstringlist.h>
+#include <qdom.h>
 
 // Wolfpack Includes
 #include "newmagic.h"
@@ -41,10 +71,10 @@ public:
 			return true;
 
 		// Target information:
-		socket->sysMessage( "Target information:" );
-		socket->sysMessage( QString( "SERIAL: %1" ).arg( target->serial() ) );
-		socket->sysMessage( QString( "Pos: %1,%2,%3" ).arg( target->x() ).arg( target->y() ).arg( target->z() ) );
-		socket->sysMessage( QString( "Model: %1" ).arg( target->model() ) );
+		socket->sysMessage( tr("Target information:") );
+		socket->sysMessage( tr( "SERIAL: %1" ).arg( target->serial() ) );
+		socket->sysMessage( tr( "Pos: %1,%2,%3" ).arg( target->x() ).arg( target->y() ).arg( target->z() ) );
+		socket->sysMessage( tr( "Model: %1" ).arg( target->model() ) );
 
 		stNewSpell *sInfo = NewMagic->findSpell( spell );
 
@@ -126,7 +156,7 @@ void cNewMagic::load()
 
 	for( UINT8 i = 0; i < sList.count(); ++i )
 	{
-		QDomElement *elem = DefManager->getSection( WPDT_SPELL, sList[i] );
+		const QDomElement *elem = DefManager->getSection( WPDT_SPELL, sList[i] );
 
 		UINT8 id = elem->attribute( "id", "0" ).toUShort();
 
@@ -272,32 +302,23 @@ UINT16 cNewMagic::calcScrollId( UINT8 spell )
 	
 	// Decided this would be fastest
 	else switch( spell )
-		{
-		case 0:
-			return 0x1F2E;
-		case 1:
-			return 0x1F2F;
-		case 2:
-			return 0x1F30;
-		case 3:
-			return 0x1F31;
-		case 4:
-			return 0x1F32;
-		case 5:
-			return 0x1F33;
-		case 6:
-			return 0x1F2D;
-		case 7:
-			return 0x1F34;
-		}
-	
+	{
+		case 0:			return 0x1F2E;
+		case 1:			return 0x1F2F;
+		case 2:			return 0x1F30;
+		case 3:			return 0x1F31;
+		case 4:			return 0x1F32;
+		case 5:			return 0x1F33;
+		case 6:			return 0x1F2D;
+		case 7:			return 0x1F34;
+	}
 	return 0;
 }
 
 /*!
-	This ends the casting of a specified character.
-	If the second parameter is not false, it 
-	displays the fizzle animation and the fizzle sound.
+This ends the casting of a specified character.
+If the second parameter is not false, it 
+displays the fizzle animation and the fizzle sound.
 */
 void cNewMagic::disturb( P_CHAR pMage, bool fizzle, INT16 chance )
 {

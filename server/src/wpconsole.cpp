@@ -41,6 +41,8 @@
 #include <windows.h>
 #endif
 
+#include <iostream>
+
 using namespace std;
 
 // Method Implementations
@@ -84,26 +86,17 @@ void WPConsole_cl::send(char* szMessage, ...)
 	vsnprintf(msg, 512, szMessage, argptr);
 	va_end(argptr);
 	
-	string sMessage(msg);
+	QString sMessage(msg);
 	send(sMessage);
 }
 
 //========================================================================================
 // Send a message to the console
-void WPConsole_cl::send(string sMessage)
-{
-	if (outputstrm != NULL)
-	{
-		(*outputstrm) << sMessage;
-		flush((*outputstrm));
-	}
-}
-
 void WPConsole_cl::send(const QString &sMessage)
 {
 	if( outputstrm != NULL )
 	{
-		(*outputstrm) << sMessage.ascii();
+		(*outputstrm) << sMessage.latin1();
 		flush( *outputstrm );
 	}
 }
@@ -119,12 +112,12 @@ void WPConsole_cl::log(char* szMessage, ...)
 	vsnprintf(msg, 512, szMessage, argptr);
 	va_end(argptr);
 	
-	string sMessage(msg);
+	QString sMessage(msg);
 	log(sMessage);
 }
 //========================================================================================
 // Send a message to the log
-void WPConsole_cl::log(string sMessage)
+void WPConsole_cl::log(const QString& sMessage)
 {
 	if (logstrm != NULL)
 		(*logstrm) << sMessage;
@@ -140,12 +133,12 @@ void WPConsole_cl::error(char* szMessage, ...)
 	vsnprintf(msg, 512,szMessage, argptr);
 	va_end(argptr);
 	
-	string sMessage(msg);
+	QString sMessage(msg);
 	error(sMessage);
 }
 //========================================================================================
 // Send a message to the console
-void WPConsole_cl::error(string sMessage)
+void WPConsole_cl::error(const QString& sMessage)
 {
 	if (errorstrm != NULL)
 		(*errorstrm) << sMessage;

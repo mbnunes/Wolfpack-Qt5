@@ -50,7 +50,8 @@
 #include "network.h"
 #include "maps.h"
 #include "network/uosocket.h"
-#include "classes.h"
+#include "weight.h"
+#include "magic.h"
 
 // System Includes
 #include <math.h>
@@ -2100,15 +2101,15 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 		return;
 	}
 
-	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name.latin1(), item->name().latin1());
-	socket->sysMessage( (char*)temp );
+	socket->sysMessage( tr("You reach into %1's pack and try to take something...%2").arg(pc_npc->name).arg(item->name()) );
 	if( pc_currchar->inRange( pc_npc, 1 ) )
 	{
 		if( ( (item->totalweight()/10) > cansteal ) && (item->type()!=1 && item->type()!=63 && item->type()!=65 && item->type()!=87))//Containers
 		{
 			socket->sysMessage( tr("That is too heavy.") );
 			return;
-		} else if((item->type() == 1 || item->type() == 63 || item->type() == 65 || item->type() == 87) && (Weight->RecursePacks(item) > cansteal))
+		} 
+		else if((item->type() == 1 || item->type() == 63 || item->type() == 65 || item->type() == 87) && (Weight->RecursePacks(item) > cansteal))
 		{
 			socket->sysMessage( tr("That is too heavy.") );
 			return;
@@ -2165,7 +2166,8 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 					mSock->sysMessage(temp2);
 			}
 		}
-	} else socket->sysMessage( tr("You are too far away to steal that item.") );
+	} 
+	else socket->sysMessage( tr("You are too far away to steal that item.") );
 }
 
 // Redone by LB on dec 28'th 1999
@@ -2742,7 +2744,7 @@ void loadskills()
 		if( !ok || skillId > SKILLS ) 
 			continue;
 
-        QDomElement *skillNode = DefManager->getSection( WPDT_SKILL, skills[i] );
+        const QDomElement *skillNode = DefManager->getSection( WPDT_SKILL, skills[i] );
 		if( skillNode->isNull() )
 			skillNode = DefManager->getSection( WPDT_SKILL, QString( skillname[i] ).lower() );
 		if( skillNode->isNull() )

@@ -298,7 +298,7 @@ void cBook::processNode( const QDomElement &Tag )
 
 void cBook::refresh( void )
 {
-	QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, section_ );
+	const QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, section_ );
 	if( !DefSection->isNull() )
 	{
 		QDomNode childNode = DefSection->firstChild();

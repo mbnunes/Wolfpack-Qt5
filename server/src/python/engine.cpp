@@ -76,7 +76,7 @@ void startPython( int argc, char* argv[] )
 	
 	// Sorry but we can't use our DefManager for this
 	QDomDocument Document( "python" );
-	QFile File( QString( "python.xml" ) );
+	QFile File( "python.xml" );
 
     if ( !File.open( IO_ReadOnly ) )
 	{
@@ -112,21 +112,21 @@ void startPython( int argc, char* argv[] )
 
 		PyList_Append( searchPath, PyString_FromString( element.text().ascii() ) );
 	}
-
-        // Import site now
-        PyObject *m = PyImport_ImportModule("site");
-        if( m == NULL )
-        {
-                clConsole.ProgressFail();
-                if( PyErr_Occurred() )
-                        PyErr_Print();
-                return;
-        }
-        else
-        {
-                Py_XDECREF( m );
-        }
-
+	
+	// Import site now
+	PyObject *m = PyImport_ImportModule("site");
+	if( m == NULL )
+	{
+		clConsole.ProgressFail();
+		if( PyErr_Occurred() )
+			PyErr_Print();
+		return;
+	}
+	else
+	{
+		Py_XDECREF( m );
+    }
+	
 	try
 	{
 		

@@ -44,8 +44,7 @@ public:
 	void applyDefinition( const QDomElement &sectionNode );
 protected:
 	virtual void processNode( const QDomElement &Tag ) = 0;
-	QString getNodeValue( const QDomElement &Tag );
-
+	QString getNodeValue( const QDomElement &Tag ) const;
 	void processModifierNode( const QDomElement &Tag ) {};
 };
 

@@ -942,7 +942,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x14F0:// deeds
 					if ((pi->type() != 103) &&(pi->type() != 202))
 					{  
-						QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, pi->tags.get( "multisection" ).toString() );
+						const QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, pi->tags.get( "multisection" ).toString() );
 						if( !DefSection->isNull() )
 						{
 							UI32 houseid = 0;

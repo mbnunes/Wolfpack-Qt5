@@ -201,15 +201,12 @@ const std::vector< WPDefaultScript* > &cUObject::getEvents( void )
 }
 
 // Checks if the object has a specific event
-bool cUObject::hasEvent( QString Name )
+bool cUObject::hasEvent( const QString& Name ) const
 {
-	bool hasEvent = false;
-
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->getName() == Name )
-			hasEvent = true;
-
-	return hasEvent;
+	QStringList::const_iterator it(eventList_.find( Name ));
+	if ( it == eventList_.end() )
+		return false;
+	return true;
 }
 
 void cUObject::addEvent( WPDefaultScript *Event )
@@ -221,7 +218,7 @@ void cUObject::addEvent( WPDefaultScript *Event )
 	eventList_.push_back( Event->getName() );
 }
 
-void cUObject::removeEvent( QString Name )
+void cUObject::removeEvent( const QString& Name )
 {
 	std::vector< WPDefaultScript* >::iterator myIterator;
 
@@ -295,7 +292,7 @@ bool cUObject::onCollide( cUObject* Obstacle )
 }
 
 // Returns the list of events
-QString cUObject::eventList( void )
+QString cUObject::eventList( void ) const
 {
 	return eventList_.join( "," );
 }
@@ -386,7 +383,7 @@ void cUObject::removeFromView( bool clean )
 }
 
 // Checks if the specified object is in range
-bool cUObject::inRange( cUObject *object, UINT32 range )
+bool cUObject::inRange( const cUObject *object, UINT32 range ) const
 {
 	if( !object ) 
 		return false;

@@ -122,7 +122,7 @@ void cCommands::loadACLs( void )
 	// In each loop we create one acl
 	for( QStringList::iterator it = ScriptSections.begin(); it != ScriptSections.end(); ++it )
 	{
-		QDomElement *Tag = DefManager->getSection( WPDT_PRIVLEVEL, *it );
+		const QDomElement *Tag = DefManager->getSection( WPDT_PRIVLEVEL, *it );
 
 		if( Tag->isNull() )
 			continue;
@@ -218,7 +218,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 		}
 
 		// When we reached this point it's clear that we didn't find any valid coordinates in our arguments
-		QDomElement *node = DefManager->getSection( WPDT_LOCATION, argument );
+		const QDomElement *node = DefManager->getSection( WPDT_LOCATION, argument );
 
 		if( !node->isNull() && parseCoordinates( node->text(), newPos ) )
 		{
@@ -316,7 +316,7 @@ void commandAddItem( cUOSocket *socket, const QString &command, QStringList &arg
 {
 	QString param = args.join( " " ).stripWhiteSpace();
 
-	QDomElement *node = DefManager->getSection( WPDT_ITEM, param );
+	const QDomElement *node = DefManager->getSection( WPDT_ITEM, param );
 
 	if( node && !node->isNull() )
 	{
@@ -331,7 +331,7 @@ void commandAddNpc( cUOSocket *socket, const QString &command, QStringList &args
 {
 	QString param = args.join( " " ).stripWhiteSpace();
 
-	QDomElement *node = DefManager->getSection( WPDT_NPC, param );
+	const QDomElement *node = DefManager->getSection( WPDT_NPC, param );
 
 	if( node && !node->isNull() )
 	{
@@ -353,7 +353,7 @@ void commandAdd( cUOSocket *socket, const QString &command, QStringList &args )
 
 	QString param = args.join( " " ).stripWhiteSpace();
     
-	QDomElement *node = DefManager->getSection( WPDT_ITEM, param );
+	const QDomElement *node = DefManager->getSection( WPDT_ITEM, param );
 
 	// An item definition with that name exists
 	if( node && !node->isNull() )

@@ -73,6 +73,7 @@
 #include "spellbook.h"
 #include "persistentbroker.h"
 #include "corpse.h"
+#include "weight.h"
 
 // Library Includes
 #include <qapplication.h>
@@ -1283,7 +1284,6 @@ int main( int argc, char *argv[] )
 	CIAO_IF_ERROR;
 
 	// Try to cache the tiledata.mul
-	clConsole.PrepareProgress("Loading tile cache");
 	if( !TileCache::instance()->load( SrvParams->mulPath() ) )
 	{
 		error = 1;
@@ -1291,7 +1291,6 @@ int main( int argc, char *argv[] )
 	}
 
 	cAllTerritories::getInstance()->load();
-	clConsole.ProgressDone();
 
 	CIAO_IF_ERROR;
 
@@ -1359,7 +1358,7 @@ int main( int argc, char *argv[] )
 	QPtrList< cItem > deleteItems;
 
 	AllItemsIterator iter;
-	for( iter.Begin(); !iter.atEnd(); iter++ )
+	for( iter.Begin(); !iter.atEnd(); ++iter )
 	//for( iter = cwmWorldState->contmap.begin(); iter != cwmWorldState->contmap.end(); ++iter )
 	{
 		pi = iter.GetData();

@@ -122,7 +122,7 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 	if( section.isNull() || section.isEmpty() )
 		return NULL;
 
-	QDomElement* DefSection = DefManager->getSection( WPDT_NPC, section );
+	const QDomElement* DefSection = DefManager->getSection( WPDT_NPC, section );
 
 	if( !DefSection || DefSection->isNull() )
 	{
@@ -156,7 +156,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	if( Section.length() == 0 )
 		return NULL;
 
-	QDomElement* DefSection = DefManager->getSection( WPDT_NPC, Section );
+	const QDomElement* DefSection = DefManager->getSection( WPDT_NPC, Section );
 
 	if( DefSection->isNull() )
 	{

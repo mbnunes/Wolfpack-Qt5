@@ -42,7 +42,7 @@
 #include <qregexp.h>
 
 // Method for processing one node
-void WPDefManager::ProcessNode( QDomElement Node )
+void WPDefManager::ProcessNode( const QDomElement& Node )
 {
 	if( Node.isNull() ) 
 		return;
@@ -188,14 +188,14 @@ bool WPDefManager::ImportSections( const QString& FileName )
 // Clears nodes within the specified nodeMap
 void clearNodes( DefSections &nodeMap )
 {
-	DefSections::iterator myIter;
+/*	DefSections::iterator myIter;
 
 	for( myIter = nodeMap.begin(); myIter != nodeMap.end(); ++myIter )
 	{
 		QDomElement node = myIter.data();
 		node.clear(); // Delete all subnodes - i'm unsure if this delets all data
 	}
-
+*/
 	nodeMap.clear(); // Delete it's contents
 }
 
@@ -243,209 +243,74 @@ void WPDefManager::load( void )
 }
 
 // Returns one Section
-QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
+const QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section ) const
 {
-	DefSections *ListPointer;
+	const DefSections *ListPointer;
 
 	switch( Type )
 	{
-	case WPDT_ITEM:
-		ListPointer = &Items;
-		break;
-	
-	case WPDT_SCRIPT:
-		ListPointer = &Scripts;
-		break;
-
-	case WPDT_NPC:
-		ListPointer = &NPCs;
-		break;
-
-	case WPDT_LIST:
-		ListPointer = &StringLists;
-		break;
-
-	case WPDT_MENU:
-		ListPointer = &Menus;
-		break;
-
-	case WPDT_SPELL:
-		ListPointer = &Spells;
-		break;
-
-	case WPDT_PRIVLEVEL:
-		ListPointer = &PrivLevels;
-		break;
-
-	case WPDT_SPAWNREGION:
-		ListPointer = &SpawnRegions;
-		break;
-
-	case WPDT_REGION:
-		ListPointer = &Regions;
-		break;
-
-	case WPDT_MULTI:
-		ListPointer = &Multis;
-		break;
-
-	case WPDT_TEXT:
-		ListPointer = &Texts;
-		break;
-
-	case WPDT_STARTITEMS:
-		ListPointer = &StartItems;
-		break;
-
-	case WPDT_LOCATION:
-		ListPointer = &Locations;
-		break;
-
-	case WPDT_SKILL:
-		ListPointer = &Skills;
-		break;
-
-	case WPDT_ACTION:
-		ListPointer = &Actions;
-		break;
-
-	case WPDT_MAKESECTION:
-		ListPointer = &MakeSections;
-		break;
-
-	case WPDT_MAKEITEM:
-		ListPointer = &MakeItems;
-		break;
-
-	case WPDT_USEITEM:
-		ListPointer = &UseItems;
-		break;
-
-	case WPDT_SKILLCHECK:
-		ListPointer = &SkillChecks;
-		break;
-
-	case WPDT_DEFINE:
-		ListPointer = &Defines;
-		break;
-
-	case WPDT_RESOURCE:
-		ListPointer = &Resources;
-		break;
-
-	case WPDT_CONTEXTMENU:
- 		ListPointer = &ContextMenus;
- 		break;
-
-	default:
-		return 0;
+	case WPDT_ITEM:			ListPointer = &Items;			break;
+	case WPDT_SCRIPT:		ListPointer = &Scripts;			break;
+	case WPDT_NPC:			ListPointer = &NPCs;			break;
+	case WPDT_LIST:			ListPointer = &StringLists;		break;
+	case WPDT_MENU:			ListPointer = &Menus;			break;
+	case WPDT_SPELL:		ListPointer = &Spells;			break;
+	case WPDT_PRIVLEVEL:	ListPointer = &PrivLevels;		break;
+	case WPDT_SPAWNREGION:	ListPointer = &SpawnRegions;	break;
+	case WPDT_REGION:		ListPointer = &Regions;			break;
+	case WPDT_MULTI:		ListPointer = &Multis;			break;
+	case WPDT_TEXT:			ListPointer = &Texts;			break;
+	case WPDT_STARTITEMS:	ListPointer = &StartItems;		break;
+	case WPDT_LOCATION:		ListPointer = &Locations;		break;
+	case WPDT_SKILL:		ListPointer = &Skills;			break;
+	case WPDT_ACTION:		ListPointer = &Actions;			break;
+	case WPDT_MAKESECTION:	ListPointer = &MakeSections;	break;
+	case WPDT_MAKEITEM:		ListPointer = &MakeItems;		break;
+	case WPDT_USEITEM:		ListPointer = &UseItems;		break;
+	case WPDT_SKILLCHECK:	ListPointer = &SkillChecks;		break;
+	case WPDT_DEFINE:		ListPointer = &Defines;			break;
+	case WPDT_RESOURCE:		ListPointer = &Resources;		break;
+	case WPDT_CONTEXTMENU:	ListPointer = &ContextMenus;	break;
+	default:				return 0;
 	};
 
 	return &( ListPointer->find( Section ).data() );
 }
 
 // Returns a list of section-names found
-QStringList WPDefManager::getSections( WPDEF_TYPE Type )
+QStringList WPDefManager::getSections( WPDEF_TYPE Type ) const
 {
-	QStringList SectionList;
-	DefSections *ListPointer;
-	DefSections::iterator MyIter;
-
+	const DefSections *ListPointer;
 	switch( Type )
 	{
-	case WPDT_ITEM:
-		ListPointer = &Items;
-		break;
-	
-	case WPDT_SCRIPT:
-		ListPointer = &Scripts;
-		break;
-
-	case WPDT_NPC:
-		ListPointer = &NPCs;
-		break;
-
-	case WPDT_MENU:
-		ListPointer = &Menus;
-		break;
-
-	case WPDT_SPELL:
-		ListPointer = &Spells;
-		break;
-
-	case WPDT_LIST:
-		ListPointer = &StringLists;
-		break;
-
-	case WPDT_PRIVLEVEL:
-		ListPointer = &PrivLevels;
-		break;
-
-	case WPDT_SPAWNREGION:
-		ListPointer = &SpawnRegions;
-		break;
-
-	case WPDT_REGION:
-		ListPointer = &Regions;
-		break;
-
-	case WPDT_MULTI:
-		ListPointer = &Multis;
-		break;
-
-	case WPDT_TEXT:
-		ListPointer = &Texts;
-		break;
-
-	case WPDT_STARTITEMS:
-		ListPointer = &StartItems;
-		break;
-
-	case WPDT_LOCATION:
-		ListPointer = &Locations;
-		break;
-
-	case WPDT_SKILL:
-		ListPointer = &Skills;
-		break;
-
-	case WPDT_ACTION:
-		ListPointer = &Actions;
-		break;
-
-	case WPDT_MAKESECTION:
-		ListPointer = &MakeSections;
-		break;
-
-	case WPDT_MAKEITEM:
-		ListPointer = &MakeItems;
-		break;
-
-	case WPDT_USEITEM:
-		ListPointer = &UseItems;
-		break;
-
-	case WPDT_SKILLCHECK:
-		ListPointer = &SkillChecks;
-		break;
-
-	case WPDT_DEFINE:
-		ListPointer = &Defines;
-		break;
-
-	case WPDT_RESOURCE:
-		ListPointer = &Resources;
-		break;
-
-	case WPDT_CONTEXTMENU:
- 		ListPointer = &ContextMenus;
- 		break;
-
-	default:
-		// Return an empty list
-		return SectionList;
+	case WPDT_ITEM:			ListPointer = &Items;			break;
+	case WPDT_SCRIPT:		ListPointer = &Scripts;			break;
+	case WPDT_NPC:			ListPointer = &NPCs;			break;
+	case WPDT_MENU:			ListPointer = &Menus;			break;
+	case WPDT_SPELL:		ListPointer = &Spells;			break;
+	case WPDT_LIST:			ListPointer = &StringLists;		break;
+	case WPDT_PRIVLEVEL:	ListPointer = &PrivLevels;		break;
+	case WPDT_SPAWNREGION:	ListPointer = &SpawnRegions;	break;
+	case WPDT_REGION:		ListPointer = &Regions;			break;
+	case WPDT_MULTI:		ListPointer = &Multis;			break;
+	case WPDT_TEXT:			ListPointer = &Texts;			break;
+	case WPDT_STARTITEMS:	ListPointer = &StartItems;		break;
+	case WPDT_LOCATION:		ListPointer = &Locations;		break;
+	case WPDT_SKILL:		ListPointer = &Skills;			break;
+	case WPDT_ACTION:		ListPointer = &Actions;			break;
+	case WPDT_MAKESECTION:	ListPointer = &MakeSections;	break;
+	case WPDT_MAKEITEM:		ListPointer = &MakeItems;		break;
+	case WPDT_USEITEM:		ListPointer = &UseItems;		break;
+	case WPDT_SKILLCHECK:	ListPointer = &SkillChecks;		break;
+	case WPDT_DEFINE:		ListPointer = &Defines;			break;
+	case WPDT_RESOURCE:		ListPointer = &Resources;		break;
+	case WPDT_CONTEXTMENU:	ListPointer = &ContextMenus;	break;
+	default:		// Return an empty list
+		return QStringList();
 	};
 
+	DefSections::const_iterator MyIter;
+	QStringList SectionList;
 	for( MyIter = ListPointer->begin(); MyIter != ListPointer->end(); ++MyIter )
 	{
 		SectionList.push_back( MyIter.key() );
@@ -454,7 +319,7 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 	return SectionList;
 }
 
-QString	WPDefManager::getRandomListEntry( QString ListSection )
+QString	WPDefManager::getRandomListEntry( const QString& ListSection ) const
 {
 	QStringList list = this->getList( ListSection );
 	if( list.isEmpty() )
@@ -463,10 +328,10 @@ QString	WPDefManager::getRandomListEntry( QString ListSection )
 		return list[ RandomNum( 0, list.size()-1 ) ];
 }
 
-QStringList	WPDefManager::getList( QString ListSection )
+QStringList	WPDefManager::getList( const QString& ListSection ) const
 {
-	QDomElement* DefSection = this->getSection( WPDT_LIST, ListSection );
-	QStringList list = QStringList();
+	const QDomElement* DefSection = this->getSection( WPDT_LIST, ListSection );
+	QStringList list;
 	QString data;
 
 	if( !DefSection->isNull() )
@@ -493,7 +358,7 @@ QStringList	WPDefManager::getList( QString ListSection )
 				while( i < mult )
 				{
 					list.push_back( data );
-					i++;
+					++i;
 				}
 			}
 			childNode = childNode.nextSibling();
@@ -502,9 +367,9 @@ QStringList	WPDefManager::getList( QString ListSection )
 	return list;
 }
 
-QString WPDefManager::getText( QString TextSection )
+QString WPDefManager::getText( const QString& TextSection ) const
 {
-	QDomElement* DefSection = this->getSection( WPDT_TEXT, TextSection );
+	const QDomElement* DefSection = this->getSection( WPDT_TEXT, TextSection );
 	if( DefSection->isNull() )
 		return QString();
 	else

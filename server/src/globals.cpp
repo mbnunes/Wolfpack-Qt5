@@ -234,7 +234,6 @@ list<SERIAL> guilds;
  skill_st skill[SKILLS+1];
  int gatex[MAXGATES][2],gatey[MAXGATES][2];
  signed char gatez[MAXGATES][2];
- unitile_st xyblock[XYMAX];
  std::multimap <int, tele_locations_st> tele_locations; // can't use a map here, so using a multimap with x as the key :(
  title_st title[ALLSKILLS+1];
 

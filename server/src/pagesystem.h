@@ -92,7 +92,7 @@ public:
 		while( it != end() )
 		{
 			delete (*it);
-			it++;
+			++it;
 		}
 	}
 
@@ -119,14 +119,14 @@ public:
 			push_back( page );
 	}*/
 
-	bool contains( cPage* page )
+	bool contains( const cPage* page ) const
 	{
-		cPagesManager::iterator it = begin();
+		cPagesManager::const_iterator it = begin();
 		while( it != end() )
 		{
 			if( (*it) == page )
 				return true;
-			it++;
+			++it;
 		}
 		return false;
 	}
@@ -156,19 +156,19 @@ public:
 				erase( it );
 				break;
 			}
-			it++;
+			++it;
 		}
 		delete page;		
 	}
 
-	cPage* find( SERIAL charserial )
+	cPage* find( SERIAL charserial ) const
 	{
-		cPagesManager::iterator it = begin();
+		cPagesManager::const_iterator it = begin();
 		while( it != end() )
 		{
 			if( (*it)->charSerial() == charserial )
 				return (*it);
-			it++;
+			++it;
 		}
 		return NULL;
 	}

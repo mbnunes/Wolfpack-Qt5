@@ -128,7 +128,7 @@ public:
 
 	// Setters are not required as we're loading ourself into memory by 
 	// load( QDomElement &node );
-	void			load( QDomElement &node );	// Loads the spell from a XML node
+	void			load( const QDomElement &node );	// Loads the spell from a XML node
 
 	// Spell is cast by the specified character
 	// SOURCE | DESCRIPTION

@@ -1512,7 +1512,7 @@ void cChar::processNode( const QDomElement &Tag )
 		else
 			inheritID = Value;
 
-		QDomElement* DefSection = DefManager->getSection( WPDT_NPC, inheritID );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_NPC, inheritID );
 		if( !DefSection->isNull() )
 			this->applyDefinition( *DefSection );
 	}
@@ -2164,7 +2164,7 @@ void cChar::kill()
 	cCorpse *corpse = new cCorpse( true );
 	ItemsManager::instance()->registerItem( corpse );
 
-	QDomElement *elem = DefManager->getSection( WPDT_ITEM, "2006" );
+	const QDomElement *elem = DefManager->getSection( WPDT_ITEM, "2006" );
 	
 	if( elem && !elem->isNull() )
 		corpse->applyDefinition( (*elem) );
@@ -2685,7 +2685,7 @@ void cChar::mount( P_CHAR pMount )
 
 void cChar::giveNewbieItems( Q_UINT8 skill ) 
 {
-	QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : QString( skillname[ skill ] ).lower() );
+	const QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : QString( skillname[ skill ] ).lower() );
 
 	// No Items defined
 	if( !startItems || startItems->isNull() )
@@ -2710,7 +2710,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 			if( node.nodeName() == "item" )
 			{
 				P_ITEM pItem = NULL;
-				QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
+				const QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
 				if( DefSection && !DefSection->isNull() )
 				{
 					// books wont work without this
@@ -2744,7 +2744,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 			else if( node.nodeName() == "bankitem" )
 			{
 				P_ITEM pItem = NULL;
-				QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
+				const QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
 				if( DefSection && !DefSection->isNull() )
 				{
 					// books wont work without this
@@ -2778,7 +2778,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 			else if( node.nodeName() == "equipment" )
 			{
 				P_ITEM pItem = NULL;
-				QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
+				const QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
 				if( DefSection && !DefSection->isNull() )
 				{
 					// books wont work without this
@@ -2820,7 +2820,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 			}
 			else if( node.nodeName() == "inherit" )
 			{
-				QDomElement* inheritNode = DefManager->getSection( WPDT_STARTITEMS, node.attribute("id") );
+				const QDomElement* inheritNode = DefManager->getSection( WPDT_STARTITEMS, node.attribute("id") );
 				if( inheritNode && !inheritNode->isNull() )
 					applyStartItemDefinition( *inheritNode );
 			}

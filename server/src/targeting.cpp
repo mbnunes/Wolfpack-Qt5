@@ -49,6 +49,7 @@
 #include "network.h"
 #include "skills.h"
 #include "multis.h"
+#include "weight.h"
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"
@@ -128,7 +129,7 @@ static void AddTarget(int s, PKGx6C *pp)
 		case 124:
 		case 126:
 		case 140:
-			QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, QString("%1").arg(addid3[s]) );
+			const QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, QString("%1").arg(addid3[s]) );
 			if( !DefSection->isNull() )
 			{
 				UI32 houseid = 0;
@@ -1760,7 +1761,7 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 
 		case 245: 
 		{
-			QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, QString("%1").arg(addid3[s]) );
+			const QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, QString("%1").arg(addid3[s]) );
 			if( !DefSection->isNull() )
 			{
 				UI32 houseid = 0;
@@ -1797,7 +1798,7 @@ void cTargets::AddItem( UOXSOCKET s )
 
 	QString ItemID = xtext[ s ];
 	
-	QDomElement *ItemNode = DefManager->getSection( WPDT_ITEM, ItemID );
+	const QDomElement *ItemNode = DefManager->getSection( WPDT_ITEM, ItemID );
 	
 	// No Item found...
 	if( ItemNode->isNull() )

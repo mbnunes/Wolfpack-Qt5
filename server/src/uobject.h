@@ -48,11 +48,11 @@
 // Library includes
 #include "qstring.h"
 #include "qstringlist.h"
-#include "qdom.h"
+//#include "qdom.h"
 #include "qmap.h"
 
 // Forward class declarations
-//class ISerialization;
+class QDomElement;
 class Coord_cl;
 class WPDefaultScript;
 class cUOSocket;
@@ -61,9 +61,6 @@ class cItem;
 
 class cUObject : public PersistentObject, public cDefinable
 {
-//	friend cItem;
-	
-//	Q_OBJECT
 // Data Members
 private:
 	QString bindmenu_;
@@ -77,18 +74,18 @@ public:
 	void setEvents( std::vector< WPDefaultScript* > List );
 	void clearEvents( void );
 	void addEvent( WPDefaultScript *Event );
-	void removeEvent( QString Name );
+	void removeEvent( const QString& Name );
 	void removeFromView( bool clean = true );
-	bool hasEvent( QString Name );
+	bool hasEvent( const QString& Name ) const;
 	
 	// New Load (Query: result, offset: current field offset)
 	void load( char **, UINT16& );
 	void save();
 	bool del();
 
-	QString eventList( void ); // Returns the list of events
+	QString eventList( void ) const; // Returns the list of events
 	void recreateEvents( void ); // If the scripts are reloaded call that for each and every existing object
-	bool inRange( cUObject *object, UINT32 range );
+	bool inRange( const cUObject *object, UINT32 range ) const;
 
 	// Events
 	virtual bool onUse( cUObject *Target );

@@ -145,13 +145,12 @@ void WPScriptManager::load( void )
 	// Each Section is a Script identifier
 	for( UI32 i = 0; i < SectionList.count(); ++i )
 	{
-		QDomNode *NodePtr = DefManager->getSection( WPDT_SCRIPT, SectionList[ i ] );
-		QDomElement Node = NodePtr->toElement();
+		const QDomElement *NodePtr = DefManager->getSection( WPDT_SCRIPT, SectionList[ i ] );
 
-		if( !Node.attributes().contains( QString( "type" ) ) )
+		if( !NodePtr->attributes().contains( QString( "type" ) ) )
 			continue;
 
-		QString ScriptType = Node.attributes().namedItem( QString( "type" ) ).nodeValue();
+		QString ScriptType = NodePtr->attributes().namedItem( QString( "type" ) ).nodeValue();
 
 		WPDefaultScript *Script = 0;
 
@@ -163,7 +162,7 @@ void WPScriptManager::load( void )
 		else
 			continue;
 	
-		Script->load( Node );
+		Script->load( *NodePtr );
 		add( SectionList[ i ].latin1(), Script );
 		++ScriptsLoaded;
 	}

@@ -47,6 +47,7 @@
 
 // Library Includes
 #include <qdatetime.h>
+#include <qfile.h>
 
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"

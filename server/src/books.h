@@ -33,15 +33,15 @@
 #define __BOOKS_H__
 
 // Library includes
-#include "qdom.h"
-#include "qstring.h"
-#include "qstringlist.h"
+#include <qstring.h>
 
 // Wolfpack includes
 #include "items.h"
 
 // Forward Declarations
 class ISerialization;
+class QDomElement;
+class QStringList;
 
 class cBook : public cItem
 {

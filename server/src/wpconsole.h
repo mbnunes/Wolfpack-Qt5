@@ -37,8 +37,7 @@
 
 // System Includes
 
-#include <iostream>
-#include <string>
+#include <iosfwd>
 #include <cstdarg>
 #include <cstdio>
 
@@ -76,17 +75,16 @@ public:
 
 	// Send a message to the console
 	void send(char* szMessage, ...);
-	void send(std::string sMessage);
 	void send(const QString &sMessage);
 
 
 	// Log a message
 	void log(char* szMessage, ...);
-	void log(std::string sMessage);
+	void log(const QString& );
 
 	// Flag an error
 	void error(char* szMessage, ...);
-	void error(std::string sMessage);
+	void error(const QString&);
 
         // Get input from the console
 	UI08 getkey(void);

@@ -60,7 +60,7 @@ bool tile_st::isRoofOrFloorTile() const
 
 bool cTileCache::load( const QString &nPath )
 {
-	clConsole.PrepareProgress( "Preloading Tiledata.mul" );
+	clConsole.PrepareProgress( "Loading tile cache" );
 
 	path = nPath;
 

@@ -44,7 +44,7 @@ bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 
 	//QStringList arguments = QStringList::split( " ", npc_ );
-	QDomElement *node = DefManager->getSection( WPDT_ITEM, item_ );
+	const QDomElement *node = DefManager->getSection( WPDT_ITEM, item_ );
 
 	// Check first if we even are able to create a char
 	if( !node )
@@ -92,7 +92,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 
 	//QStringList arguments = QStringList::split( " ", npc_ );
-	QDomElement *node = DefManager->getSection( WPDT_NPC, npc_ );
+	const QDomElement *node = DefManager->getSection( WPDT_NPC, npc_ );
 
 	// Check first if we even are able to create a char
 	if( !node )
@@ -143,7 +143,7 @@ bool cBuildMultiTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( target->x() == 0xFFFF || target->y() == 0xFFFF || target->z() == 0xFF )
 		return true;
 	
-	QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, multisection_ );
+	const QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, multisection_ );
 	if( DefSection->isNull() )
 		return true;
 

@@ -1262,7 +1262,7 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 	P_ITEM nItem = NULL;
 
 	// Get an Item and assign a serial to it
-	QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, Section );
+	const QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, Section );
 	
 	if( DefSection->isNull() ) // section not found 
 	{
@@ -1347,7 +1347,7 @@ void cItem::processNode( const QDomElement& Tag )
 	// we do this as we're going to modify the element
 	QString TagName = Tag.nodeName();
 	QString Value = this->getNodeValue( Tag );
-	QDomElement* DefSection = DefManager->getSection( WPDT_DEFINE, TagName );
+	const QDomElement* DefSection = DefManager->getSection( WPDT_DEFINE, TagName );
 
 	// <bindmenu>contextmenu</bindmenu>
 	// <bindmenu id="contextmenu" />
@@ -1606,7 +1606,7 @@ void cItem::processNode( const QDomElement& Tag )
 	// <inherit>f23</inherit>
 	else if( TagName == "inherit" && Tag.attributes().contains( "id" ) )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, Tag.attribute( "id" ) );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, Tag.attribute( "id" ) );
 		if( !DefSection->isNull() )
 			applyDefinition( *DefSection );
 	}
@@ -1614,7 +1614,7 @@ void cItem::processNode( const QDomElement& Tag )
 	else if( TagName == "inherit" )
 	{
 		QString nodeValue = getNodeValue( Tag );
-		QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, nodeValue );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, nodeValue );
 		if( !DefSection->isNull() )
 			applyDefinition( *DefSection );
 	}

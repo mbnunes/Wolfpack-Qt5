@@ -41,16 +41,6 @@
 // use this value whereever you need to return an illegal z value
 const signed char illegal_z = -128;	// reduced from -1280 to -128, to fit in with a valid signed char
 
-class cWeight
-{
-public:
-	bool CheckWeight( P_CHAR pChar );
-	float RecursePacks(P_ITEM bp);
-	int CheckWeight2(int s);
-	void NewCalc(P_CHAR pc);
-	float LockeddownWeight(P_ITEM pItem, int *total, int *total2 );
-};
-
 #include "targeting.h"
 #include "magic.h"
 

@@ -51,7 +51,7 @@ void cDefinable::applyDefinition( const QDomElement& sectionNode )
 		else if( sectionNode.nodeName() == "region" )
 			wpType = WPDT_REGION;
 
-		QDomElement *tInherit = DefManager->getSection( wpType, sectionNode.attribute( "inherit", "" ) );
+		const QDomElement *tInherit = DefManager->getSection( wpType, sectionNode.attribute( "inherit", "" ) );
 		if( tInherit && !tInherit->isNull() )
 			applyDefinition( (*tInherit) );
 	}
@@ -67,7 +67,7 @@ void cDefinable::applyDefinition( const QDomElement& sectionNode )
 			wpType = WPDT_NPC;
 
 		QString iSection = DefManager->getRandomListEntry( sectionNode.attribute( "inheritlist", "" ) );
-		QDomElement *tInherit = DefManager->getSection( wpType, iSection );
+		const QDomElement *tInherit = DefManager->getSection( wpType, iSection );
 		if( tInherit && !tInherit->isNull() )
 			applyDefinition( (*tInherit) );
 	}
@@ -82,10 +82,9 @@ void cDefinable::applyDefinition( const QDomElement& sectionNode )
 	}
 }
 
-QString cDefinable::getNodeValue( const QDomElement &Tag )
+QString cDefinable::getNodeValue( const QDomElement &Tag ) const 
 {
-	QString Value = QString();
-	
+	QString Value;
 	if( !Tag.hasChildNodes() )
 		return "";
 	else
@@ -105,9 +104,9 @@ QString cDefinable::getNodeValue( const QDomElement &Tag )
 			{
 				if( childTag.attributes().contains("min") && childTag.attributes().contains("max") )
 					if( childTag.attribute( "min", "0" ).contains( "." ) || childTag.attribute( "max", "0" ).contains( "." ) )
-						Value += QString("%1").arg( RandomNum( childTag.attributeNode("min").nodeValue().toFloat(), childTag.attributeNode("max").nodeValue().toFloat() ) );
+						Value += QString::number( RandomNum( childTag.attributeNode("min").nodeValue().toFloat(), childTag.attributeNode("max").nodeValue().toFloat() ) );
 					else
-						Value += QString("%1").arg( RandomNum( childTag.attributeNode("min").nodeValue().toInt(), childTag.attributeNode("max").nodeValue().toInt() ) );
+						Value += QString::number( RandomNum( childTag.attributeNode("min").nodeValue().toInt(), childTag.attributeNode("max").nodeValue().toInt() ) );
 				else if( childTag.attributes().contains("valuelist") )
 				{
 					QStringList RandValues = QStringList::split(",", childTag.attributeNode("list").nodeValue());
@@ -118,7 +117,7 @@ QString cDefinable::getNodeValue( const QDomElement &Tag )
 					Value += DefManager->getRandomListEntry( childTag.attribute( "list" ) );
 				}
 				else if( childTag.attributes().contains("dice") )
-					Value += QString("%1").arg(rollDice(childTag.attributeNode("dice").nodeValue()));
+					Value += QString::number(rollDice(childTag.attributeNode("dice").nodeValue()));
 				else if( childTag.attributes().contains( "value" ) )
 				{
 					QStringList parts = QStringList::split( "-", childTag.attribute( "value", "0-0" ) );
@@ -128,9 +127,9 @@ QString cDefinable::getNodeValue( const QDomElement &Tag )
 						QString max = parts[1];
 
 						if( max.contains( "." ) || min.contains( "." ) )
-							Value += QString( "%1" ).arg( RandomNum( min.toFloat(), max.toFloat() ) );
+							Value += QString::number( RandomNum( min.toFloat(), max.toFloat() ) );
 						else
-							Value += QString( "%1" ).arg( RandomNum( min.toInt(), max.toInt() ) );
+							Value += QString::number( RandomNum( min.toInt(), max.toInt() ) );
 
 					}
 				}
@@ -152,15 +151,5 @@ QString cDefinable::getNodeValue( const QDomElement &Tag )
 		}
 	}
 	return hex2dec( Value );
-}
-
-// global
-QString hex2dec( QString value )
-{
-	bool ok;
-	if( (value.left( 2 ) == "0x" || value.left( 2 ) == "0X") )
-		return QString("%1").arg(value.right( value.length()-2 ).toInt( &ok, 16 ));
-	else 
-		return value;
 }
 

@@ -57,7 +57,7 @@ cMakeItem::cMakeItem( const QDomElement &Tag )
 	amount_ = hex2dec( Tag.attribute( "amount" ) ).toUShort();
 	if( Tag.hasAttribute( "inherit" ) )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_MAKEITEM, Tag.attribute( "inherit" ) );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_MAKEITEM, Tag.attribute( "inherit" ) );
 		applyDefinition( *DefSection );
 	}
 	applyDefinition( Tag );
@@ -118,7 +118,7 @@ cUseItem::cUseItem( const QDomElement &Tag )
 	amount_ = hex2dec( Tag.attribute( "amount" ) ).toUShort();
 	if( Tag.hasAttribute( "inherit" ) )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_USEITEM, Tag.attribute( "inherit" ) );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_USEITEM, Tag.attribute( "inherit" ) );
 		applyDefinition( *DefSection );
 	}
 	applyDefinition( Tag );
@@ -264,7 +264,7 @@ cSkillCheck::cSkillCheck( const QDomElement &Tag )
 	max_ = hex2dec( Tag.attribute( "max" ) ).toUShort();
 	if( Tag.hasAttribute( "inherit" ) )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_SKILLCHECK, Tag.attribute( "inherit" ) );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_SKILLCHECK, Tag.attribute( "inherit" ) );
 		applyDefinition( *DefSection );
 	}
 	applyDefinition( Tag );
@@ -326,7 +326,7 @@ cMakeSection::cMakeSection( const QDomElement &Tag, cMakeAction* baseaction )
 	name_ = Tag.attribute( "name" );
 	if( Tag.hasAttribute( "inherit" ) )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_MAKESECTION, Tag.attribute( "inherit" ) );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_MAKESECTION, Tag.attribute( "inherit" ) );
 		applyDefinition( *DefSection );
 	}
 	applyDefinition( Tag );
@@ -675,7 +675,7 @@ cMakeAction::cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu )
 	}
 	if( Tag.hasAttribute( "inherit" ) )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_ACTION, Tag.attribute( "inherit" ) );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_ACTION, Tag.attribute( "inherit" ) );
 		applyDefinition( *DefSection );
 	}
 	applyDefinition( Tag );
@@ -879,12 +879,12 @@ cMakeMenu::cMakeMenu( const QDomElement &Tag, cMakeMenu* previous )
 	if( Tag.hasAttribute( "link" ) )
 	{
 		link_ = Tag.attribute( "link" );
-		QDomElement* DefSection = DefManager->getSection( WPDT_MENU, Tag.attribute( "link" ) );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_MENU, Tag.attribute( "link" ) );
 		applyDefinition( *DefSection );
 	}
 	if( Tag.hasAttribute( "inherit" ) )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_MENU, Tag.attribute( "inherit" ) );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_MENU, Tag.attribute( "inherit" ) );
 		applyDefinition( *DefSection );
 	}
 	prev_ = previous;
@@ -1436,7 +1436,7 @@ void cAllMakeMenus::load()
 	QStringList::const_iterator it = sections.begin();
 	while( it != sections.end() )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_MENU, (*it) );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_MENU, (*it) );
 		if( !DefSection->isNull() )
 		{
 			cMakeMenu* pMakeMenu = new cMakeMenu( *DefSection );

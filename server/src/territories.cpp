@@ -245,9 +245,9 @@ void cAllTerritories::load( void )
 	QStringList::iterator it = DefSections.begin();
 	while( it != DefSections.end() )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_REGION, *it );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_REGION, *it );
 		this->topregion_ = new cTerritory( *DefSection );
-		it++;
+		++it;
 	}
 
 	UI32 endtime = getNormalizedTime();

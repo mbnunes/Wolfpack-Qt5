@@ -29,7 +29,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#ifndef __NEWMAGIC_H__
+#if !defined (__NEWMAGIC_H__)
 #define __NEWMAGIC_H__
 
 #include "typedefs.h"

@@ -402,14 +402,14 @@ void cAllSpawnRegions::load( void )
 	QStringList::iterator it = DefSections.begin();
 	while( it != DefSections.end() )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_SPAWNREGION, *it );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_SPAWNREGION, *it );
 
 		cSpawnRegion* toinsert_ = new cSpawnRegion( *DefSection );
 		pair< QString, cSpawnRegion* > toInsert( *it, toinsert_ );
 		this->insert( toInsert );
 		this->topregion_ = toinsert_;
 
-		it++;
+		++it;
 	}
 
 	AllCharsIterator iter_char;

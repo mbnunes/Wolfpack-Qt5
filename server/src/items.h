@@ -156,11 +156,11 @@ public:
 	void	setColor( UI16 nValue ) { color_ = nValue; };
 	void	setAmount( UI16 nValue );
 	void	setAmount2( UI16 nValue ) { amount2_ = nValue; }; //Used to track things like number of yards left in a roll of cloth
-	void	setName( const QString nValue ) { name_ = nValue; };
-	void	setName2( const QString nValue ) { name2_ = nValue; };
+	void	setName( const QString& nValue ) { name_ = nValue; };
+	void	setName2( const QString& nValue ) { name2_ = nValue; };
 	void	setLayer( SI08 nValue ) { layer_ = nValue; };
 	void	setTwohanded( bool nValue ) { nValue ? priv &= 0x20 : priv |= 0xDF; };
-	void	setMurderer( const QString nValue ) { murderer_ = nValue; };
+	void	setMurderer( const QString& nValue ) { murderer_ = nValue; };
 	void	setType( UI32 nValue ) { type_ = nValue; };
 	void	setType2( UI32 nValue ) { type2_ = nValue; };	
 	void	setOffspell( UI08 nValue ) { offspell_ = nValue; };
@@ -172,7 +172,7 @@ public:
 	void	setWeight( SI16 nValue );
 	void	setHp( SI16 nValue ) { hp_ = nValue; };
 	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; };
-	void	setSpawnRegion( QString nValue ) { spawnregion_ = nValue; };
+	void	setSpawnRegion( const QString& nValue ) { spawnregion_ = nValue; };
 	void	setMoreb1( UI08 nValue ) { moreb1_ = nValue; };
 	void	setMoreb2( UI08 nValue ) { moreb2_ = nValue; };
 	void	setMoreb3( UI08 nValue ) { moreb3_ = nValue; };
@@ -181,7 +181,7 @@ public:
 	void	setNewbie( bool nValue ) { ( nValue ) ? priv |= 0x02 : priv &= 0xFD; }
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( INT32 data );
-	void	setCarve( QString data ) { carve_ = data; }
+	void	setCarve( const QString& data ) { carve_ = data; }
 	void	setAntispamtimer ( unsigned int data ) { antispamtimer_ = data;}
 	void	setAccuracy( UI16 data ) { accuracy_ = data; }
 

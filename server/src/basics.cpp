@@ -104,7 +104,6 @@ bool parseCoordinates( const QString &input, Coord_cl &coord )
 		return false;
 
 	UINT8 map = coord.map; // Current by default
-
 	if( coords.size() > 3 )
 	{
 		map = coords[3].toUShort( &ok );
@@ -121,4 +120,14 @@ bool parseCoordinates( const QString &input, Coord_cl &coord )
 	coord.map = map;
 
 	return true;
+}
+
+// global
+QString hex2dec( const QString& value )
+{
+	bool ok;
+	if( (value.left( 2 ) == "0x" || value.left( 2 ) == "0X") )
+		return QString::number(value.right( value.length()-2 ).toInt( &ok, 16 ));
+	else 
+		return value;
 }

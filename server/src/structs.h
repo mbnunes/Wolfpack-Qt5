@@ -40,15 +40,13 @@
 #include <map>
 
 // Library Headers
-#include "qstring.h"
+#include <qstring.h>
 
 // Wolfpack Headers
 #include "defines.h"
 #include "typedefs.h"
 #include "coord.h"
 
-// Library includes
-#include "qstring.h"
 
 struct move_st
 {
@@ -79,54 +77,6 @@ struct creat_st
 	int icon;
 	unsigned char type;
 };
-
-#include "start_pack.h"
-struct versionrecord
-{
-	SI32 file;
-	SI32 block;
-	SI32 filepos;
-	SI32 length;
-	SI32 unknown;
-} /*PACK*/;
-#include "end_pack.h"
-
-// XYZZY
-#include "start_pack.h"
-struct unitile_st
-{
-	signed char basez;
-	unsigned char type; // 0=Terrain, 1=Item
-	unsigned short int id;
-	unsigned char flag1;
-	unsigned char flag2;
-	unsigned char flag3;
-	unsigned char flag4;
-	signed char height;
-	unsigned char weight;
-}/* PACK*/;
-#include "end_pack.h"
-
-#include "start_pack.h"
-struct st_multiidx
-{
-	SI32 start;
-	SI32 length;
-	SI32 unknown;
-}/* PACK*/;
-#include "end_pack.h"
-
-#include "start_pack.h"
-struct st_multi
-{
-	SI32 visible;  // this needs to be first so it is word aligned to avoid bus errors - fur
-	short int tile;
-	signed short int x;
-	signed short int y;
-	signed char z;
-	signed char empty;
-}/* PACK*/;
-#include "end_pack.h"
 
 struct location_st
 {

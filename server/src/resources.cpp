@@ -1110,7 +1110,7 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 
 // class cResourceItem
 
-cResourceItem::cResourceItem( QString resource, UINT32 amount, UINT32 vein )
+cResourceItem::cResourceItem( const QString& resource, UINT32 amount, UINT32 vein )
 {
 	cItem::Init( false );
 	resource_ = resource;
@@ -1126,7 +1126,7 @@ cResourceItem::cResourceItem( QString resource, UINT32 amount, UINT32 vein )
 	this->setId( 0x1ea7 );
 	this->amount_ = 1;
 	this->setName( tr("resitem: %1").arg(resource) );
-	this->setName2(tr("#"));
+	this->setName2("#");
 	this->visible = 2; // gm visible
 }
 
@@ -1157,7 +1157,7 @@ void cAllResources::load()
 	QStringList::const_iterator it = sections.begin();
 	while( it != sections.end() )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_RESOURCE, (*it) );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_RESOURCE, (*it) );
 		cResource* pResource = new cResource( *DefSection );
 		if( pResource )
 		{

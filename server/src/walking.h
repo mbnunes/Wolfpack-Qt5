@@ -36,6 +36,21 @@
 
 class cUOSocket;
 
+#include "start_pack.h"
+struct unitile_st
+{
+	signed char basez;
+	unsigned char type; // 0=Terrain, 1=Item
+	unsigned short int id;
+	unsigned char flag1;
+	unsigned char flag2;
+	unsigned char flag3;
+	unsigned char flag4;
+	signed char height;
+	unsigned char weight;
+}/* PACK*/;
+#include "end_pack.h"
+
 class cMovement
 {
 private:

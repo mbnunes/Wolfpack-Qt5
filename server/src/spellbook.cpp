@@ -76,7 +76,7 @@ void cSpellBook::removeSpell( UINT8 spell )
 	}
 }
 
-bool cSpellBook::hasSpell( UINT8 spell )
+bool cSpellBook::hasSpell( UINT8 spell ) const
 {
 	bool found = false;
 	UINT32 bitmask;
@@ -159,7 +159,7 @@ bool cSpellBook::onSingleClick( P_CHAR Viewer )
 	return false;
 }
 
-UINT8 cSpellBook::spellCount()
+UINT8 cSpellBook::spellCount() const
 {
 	UINT8 count = 0;
 

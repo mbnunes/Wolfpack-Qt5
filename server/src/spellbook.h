@@ -35,8 +35,10 @@
 #include "items.h"
 
 // Library Includes
-#include "qstring.h"
-#include <qstringlist.h>
+#include <qstring.h>
+
+// Forward Defines
+class QStringList;
 
 class cSpellBook: public cItem
 {
@@ -59,8 +61,8 @@ public:
 	*/
 	void addSpell( UINT8 spell );
 	void removeSpell( UINT8 spell );
-	bool hasSpell( UINT8 spell );
-	UINT8 spellCount();
+	bool hasSpell( UINT8 spell ) const;
+	UINT8 spellCount() const;
 
 	UINT32 spells1() const;
 	UINT32 spells2() const;

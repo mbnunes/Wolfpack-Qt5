@@ -47,6 +47,7 @@
 #include "network/uosocket.h"
 #include "multiscache.h"
 #include "tilecache.h"
+#include "weight.h"
 
 // Library Includes
 #include <qvaluevector.h>
@@ -56,6 +57,8 @@
 
 #undef  DBGFILE
 #define DBGFILE "walking.cpp"
+
+unitile_st xyblock[XYMAX];
 
 
 // DEFINES (Some of these should probably be moved to typedefs.h in the future)

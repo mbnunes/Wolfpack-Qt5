@@ -41,9 +41,10 @@
 #include "qstring.h"
 #include "qstringlist.h"
 #include "qdom.h"
-#include "qfile.h"
 
 #include <vector>
+
+// Forward Definitions
 
 class cBaseRegion : public cDefinable
 {
@@ -63,7 +64,7 @@ public:
 		while( it != this->subregions_.end() )
 		{
 			delete (*it);
-			it++;
+			++it;
 		}
 	}
 
@@ -72,9 +73,9 @@ public:
 		name_ = "the wilderness";
 	}
 
-	bool	contains( UI16 posx, UI16 posy )
+	bool	contains( UI16 posx, UI16 posy ) const
 	{
-		std::vector< rect_st >::iterator it = this->rectangles_.begin();
+		std::vector< rect_st >::const_iterator it = this->rectangles_.begin();
 		while( it != this->rectangles_.end() )
 		{
 			if( ( ( posx >= (*it).x1 && posx <= (*it).x2 )   ||
@@ -82,12 +83,12 @@ public:
 				( ( posy >= (*it).y1 && posy <= (*it).y2 )   ||
 				  ( posy >= (*it).y2 && posy <= (*it).y1 ) ) )
 				  return true;
-			it++;
+			++it;
 		}
 		return false;
 	}
 
-	cBaseRegion*				region( QString regName )
+	cBaseRegion*				region( const QString& regName )
 	{
 		if( this->name_ == regName )
 			return this;
@@ -96,47 +97,47 @@ public:
 			std::vector< cBaseRegion* >::iterator it = this->subregions_.begin();
 			while( it != this->subregions_.end() )
 			{
-				cBaseRegion* currRegion = NULL;
-				if( *it != NULL )
+				cBaseRegion* currRegion = 0;
+				if( *it != 0 )
 					currRegion = (*it)->region( regName );
-				if( currRegion != NULL )
+				if( currRegion != 0 )
 					return currRegion;
-				it++;
+				++it;
 			}
 		}
-		return NULL;
+		return 0;
 	}
 
 	cBaseRegion*				region( UI16 posx, UI16 posy )
 	{
-		cBaseRegion* foundRegion = NULL;
+		cBaseRegion* foundRegion = 0;
 		if( this->contains( posx, posy ) )
 			foundRegion = this;
 		else
-			return NULL;
+			return 0;
 		
 		std::vector< cBaseRegion* >::iterator it = this->subregions_.begin();
 		while( it != this->subregions_.end() )
 		{
-			cBaseRegion* currRegion = NULL;
-			if( *it != NULL )
+			cBaseRegion* currRegion = 0;
+			if( *it != 0 )
 				currRegion = (*it)->region( posx, posy );
-			if( currRegion != NULL )
+			if( currRegion != 0 )
 				foundRegion = currRegion;
-			it++;
+			++it;
 		}
 		return foundRegion;
 	}
 
-	UI32							count( void )
+	UI32						count( void ) const
 	{
 		UI32 result = 1;
-		std::vector< cBaseRegion* >::iterator it = this->subregions_.begin();
+		std::vector< cBaseRegion* >::const_iterator it(this->subregions_.begin());
 		while( it != this->subregions_.end() )
 		{
 			if( *it != NULL )
 				result += (*it)->count();
-			it++;
+			++it;
 		}
 		return result;
 	}
@@ -190,7 +191,7 @@ public:
 		this->load();
 	}
 
-	cBaseRegion*	region( QString regName )
+	cBaseRegion*	region( const QString& regName )
 	{
 		if( topregion_ )
 			return topregion_->region( regName );
@@ -206,7 +207,7 @@ public:
 			return 0;
 	}
 
-	UI32			count( void )
+	UI32			count( void ) const
 	{
 		if( topregion_ )
 			return topregion_->count();

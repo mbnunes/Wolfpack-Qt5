@@ -80,7 +80,7 @@ scrollHighSkill_( 1000 ), action_( 0x10 ), delay_( 0 )
 {
 }
 
-void cSpell::load( QDomElement &node )
+void cSpell::load( const QDomElement &node )
 {
 	id_ = node.attribute( "id", "1" ).toInt();
 
@@ -198,7 +198,7 @@ void cMagic::load( void )
 
 	for( UI08 i = 0; i < sections.count(); i++ )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_SPELL, sections[ i ] );
+		const QDomElement* DefSection = DefManager->getSection( WPDT_SPELL, sections[ i ] );
 		// Check if it's a valid spell-id
 		bool ok = true;
 		UI32 spellID = sections[ i ].toInt( &ok );

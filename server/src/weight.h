@@ -35,22 +35,21 @@
 // Platform specifics
 #include "platform.h"
 
-
-//system includes
-
-#include <iostream>
+// Wolfpack Includes
+#include "typedefs.h"
 
 // Forward  class declaration
+class cWeight;
 
-
-class cWeight ;
-
-
-// Wolfpack Includes
-
-#include "wolfpack.h"
-#include "SndPkg.h"
-#include "debug.h"
+class cWeight
+{
+public:
+	bool CheckWeight( P_CHAR pChar );
+	float RecursePacks(P_ITEM bp);
+	int CheckWeight2(int s);
+	void NewCalc(P_CHAR pc);
+	float LockeddownWeight(P_ITEM pItem, int *total, int *total2 );
+};
 
 #endif 
 

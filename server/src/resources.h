@@ -40,9 +40,9 @@
 #include "singleton.h"
 
 // Library includes
-#include "qvaluevector.h"
-#include "qstring.h"
-#include "qstringlist.h"
+#include <qvaluevector.h>
+#include <qstring.h>
+#include <qstringlist.h>
 #include <set>
 
 class cResource : public cDefinable
@@ -121,7 +121,7 @@ private:
 class cResourceItem : public cItem
 {
 public:
-	cResourceItem( QString resource, UINT32 amount, UINT32 vein );
+	cResourceItem( const QString& resource, UINT32 amount, UINT32 vein );
 	~cResourceItem();
 
 	// implements cSerializable
