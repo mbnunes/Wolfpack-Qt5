@@ -15,18 +15,18 @@ from wolfpack.properties import itemcheck, fromitem
 import random
 
 # Metals used by Blacksmithing
-# The first four values are requied by the makemenu system.
+# The first four values are required by the makemenu system.
 # The last value is the resname to use for newly crafted items
 METALS = [
-	['Iron',				BLACKSMITHING, 0, ['iron_ingot'], 0x0, 'iron'],
+	['Iron',	BLACKSMITHING, 0, ['iron_ingot'], 0x0, 'iron'],
 	['Dull Copper', BLACKSMITHING, 650, ['dullcopper_ingot'], 0x973, 'dullcopper'],
 	['Shadow Iron', BLACKSMITHING, 700, ['shadowiron_ingot'], 0x966, 'shadowiron'],
-	['Copper',			BLACKSMITHING, 750, ['copper_ingot'], 0x96d, 'copper'],
-	['Bronze',			BLACKSMITHING, 800, ['bronze_ingot'], 0x972, 'bronze'],
-	['Gold',				BLACKSMITHING, 850, ['gold_ingot'], 0x8a5, 'gold'],
-	['Agapite',		 BLACKSMITHING, 900, ['agapite_ingot'], 0x979, 'agapite'],
-	['Verite',			BLACKSMITHING, 950, ['verite_ingot'], 0x89f, 'verite'],
-	['Valorite',		BLACKSMITHING, 990, ['valorite_ingot'], 0x8ab, 'valorite'],
+	['Copper',	BLACKSMITHING, 750, ['copper_ingot'], 0x96d, 'copper'],
+	['Bronze',	BLACKSMITHING, 800, ['bronze_ingot'], 0x972, 'bronze'],
+	['Gold',	BLACKSMITHING, 850, ['gold_ingot'], 0x8a5, 'gold'],
+	['Agapite',	BLACKSMITHING, 900, ['agapite_ingot'], 0x979, 'agapite'],
+	['Verite',	BLACKSMITHING, 950, ['verite_ingot'], 0x89f, 'verite'],
+	['Valorite',	BLACKSMITHING, 990, ['valorite_ingot'], 0x8ab, 'valorite'],
 ]
 
 #

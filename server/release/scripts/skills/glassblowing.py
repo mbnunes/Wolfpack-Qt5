@@ -1,6 +1,6 @@
 #===============================================================#
 #   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
-#  ((    _/{  "-;  | Created by: DarkStorm                      #
+#  ((    _/{  "-;  | Created by: Naddel                         #
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
@@ -13,27 +13,19 @@ from system.makemenus import CraftItemAction, MakeMenu, findmenu
 from wolfpack.utilities import hex2dec, tobackpack
 from wolfpack.properties import itemcheck, fromitem
 import random
+from skills.blacksmithing import checkanvilandforge
 
-# Granites used by masonry
+# Sand used by Glassblowing
 # The first four values are required by the makemenu system.
-GRANITES = [
-	['Granite',	BLACKSMITHING, 0, ['granite'], 0x0],
-	['Dull Copper', BLACKSMITHING, 0, ['dullcopper_granite'], 0x973],
-	['Shadow Iron', BLACKSMITHING, 0, ['shadowiron_granite'], 0x966],
-	['Copper',	BLACKSMITHING, 0, ['copper_granite'], 0x96d],
-	['Bronze',	BLACKSMITHING, 0, ['bronze_granite'], 0x972],
-	['Gold',	BLACKSMITHING, 0, ['gold_granite'], 0x8a5],
-	['Agapite',	BLACKSMITHING, 0, ['agapite_granite'], 0x979],
-	['Verite',	BLACKSMITHING, 0, ['verite_granite'], 0x89f],
-	['Valorite',	BLACKSMITHING, 0, ['valorite_granite'], 0x8ab],
+SAND = [
+	['Sand', ALCHEMY, 0, ['sand'], 0x0]
 ]
 
-
 #
-# Bring up the masonry menu
+# Bring up the glassblowing menu
 #
 def onUse(char, item):
-	menu = findmenu('MASONRY')
+	menu = findmenu('GLASSBLOWING')
 	if menu:
 		menu.send(char, [item.serial])
 	return True
@@ -41,10 +33,10 @@ def onUse(char, item):
 #
 # Craft an item.
 #
-class StonecrafterItemAction(CraftItemAction):
+class GlassblowerItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
-		self.markable = 0 # All masonry items are not markable
+		self.markable = 0 # All glassblowing items are not markable
 		
 	def visible(self, player, arguments):
 		return True
@@ -103,37 +95,48 @@ class StonecrafterItemAction(CraftItemAction):
 	# Play a simple soundeffect
 	#
 	def playcrafteffect(self, player, arguments):
-		player.soundeffect(0x2a)
+		player.soundeffect(0x2b)
+
+	def fail(self, player, arguments, lostmaterials=0):
+		if lostmaterials:
+			player.socket.clilocmessage(1044043)
+		else:
+			player.socket.clilocmessage(1044157)
+		player.soundeffect(0x41)
 
 #
-# A masonry menu. The most notable difference is the
-# button for selecting another granite.
+# A glassblowing menu.
 #
-class MasonryMenu(MakeMenu):
+class GlassblowingMenu(MakeMenu):
 	def __init__(self, id, parent, title):
 		MakeMenu.__init__(self, id, parent, title)
 		self.allowmark = False
 		self.allowrepair = False
 		self.allowenhance = False
 		self.allowsmelt = False
-		self.submaterials1 = GRANITES
+		self.submaterials1 = SAND
+		self.submaterial1missing = 1053098
 		self.submaterial1noskill = 1044268
-		self.gumptype = 0x4f1ba414 # This should be unique
+		self.gumptype = 0x4f1ba419 # This should be unique
 		self.requiretool = True
 		self.checklearned = True
 
 	#
-	# Check for the tool and if the player has learned stonecraft
+	# Check for the tool and if the player has learned glassblowing
 	#
 	def checktool(self, player, item, wearout = False):
 		if not MakeMenu.checktool(self, player, item, wearout):
-			return False			
+			return False
+
+		if not checkanvilandforge(player):
+			player.socket.clilocmessage(1044267)
+			return False
 		return True
 
-	# Check if player has learned masonry
+	# Check if player has learned glassblowing
 	def haslearned(self, player, item):
-		if not player.hastag( 'masonry' ):
-			player.socket.clilocmessage(1044633) # You havent learned masonry.
+		if not player.hastag( 'glassblowing' ):
+			player.socket.clilocmessage(1044634) # You havent learned glassblowing.
 			return False
 		return True
 
@@ -141,10 +144,10 @@ class MasonryMenu(MakeMenu):
 	# Get the material used by the character from the tags
 	#
 	def getsubmaterial1used(self, player, arguments):
-		if not player.hastag('masonry_granite'):
+		if not player.hastag('glassblowing_sand'):
 			return False
 		else:
-			material = int(player.gettag('masonry_granite'))
+			material = int(player.gettag('glassblowing_sand'))
 			if material < len(self.submaterials1):
 				return material
 			else:
@@ -154,7 +157,7 @@ class MasonryMenu(MakeMenu):
 	# Save the material preferred by the user in a tag
 	#
 	def setsubmaterial1used(self, player, arguments, material):
-		player.settag('masonry_granite', material)
+		player.settag('glassblowing_sand', material)
 
 #
 # Load a menu with a given id and
@@ -170,7 +173,7 @@ def loadMenu(id, parent = None):
 		return
 
 	name = definition.getattribute('name', '')
-	menu = MasonryMenu(id, parent, name)
+	menu = GlassblowingMenu(id, parent, name)
 
 	# See if we have any submenus
 	for i in range(0, definition.childcount):
@@ -183,9 +186,9 @@ def loadMenu(id, parent = None):
 				loadMenu(child.getattribute('id'), menu)
 
 		# Craft an item
-		elif child.name == 'masonry':
+		elif child.name == 'glassblowing':
 			if not child.hasattribute('definition') or not child.hasattribute('name'):
-				console.log(LOG_ERROR, "Masonry action without definition or name in menu %s.\n" % menu.id)
+				console.log(LOG_ERROR, "Glassblowing action without definition or name in menu %s.\n" % menu.id)
 			else:
 				itemdef = child.getattribute('definition')
 				name = child.getattribute('name')
@@ -200,9 +203,9 @@ def loadMenu(id, parent = None):
 								itemid = itemchild.value
 					else:
 						itemid = hex2dec(child.getattribute('itemid', '0'))
-					action = StonecrafterItemAction(menu, name, int(itemid), itemdef)
+					action = GlassblowerItemAction(menu, name, int(itemid), itemdef)
 				except:
-					console.log(LOG_ERROR, "Masonry action with invalid item id in menu %s.\n" % menu.id)
+					console.log(LOG_ERROR, "Glassblowing action with invalid item id in menu %s.\n" % menu.id)
 
 				# Process subitems
 				for j in range(0, child.childcount):
@@ -216,4 +219,4 @@ def loadMenu(id, parent = None):
 # Load the masonry menu.
 #
 def onLoad():
-	loadMenu('MASONRY')
+	loadMenu('GLASSBLOWING')

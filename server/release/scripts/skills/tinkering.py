@@ -1,10 +1,10 @@
 
-#################################################################
-#	 )			(\_		 # WOLFPACK 13.0.0 Scripts										#
-#	((		_/{	"-;	# Created by: DarkStorm											#
-#	 )).-' {{ ;'`	 # Revised by:																#
-#	( (	;._ \\ ctr # Last Modification: Created								 #
-#################################################################
+#===============================================================#
+#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
+#  ((    _/{  "-;  | Created by: DarkStorm                      #
+#   )).-' {{ ;'`   | Revised by:                                #
+#  ( (  ;._ \\ ctr | Last Modification: Created                 #
+#===============================================================#
 
 from wolfpack import console
 from wolfpack.consts import *
@@ -18,9 +18,9 @@ from skills import blacksmithing
 
 GEMS = [
 		['Star Sapphire', 0, 0, ['f0f', 'f1b', 'f21'], 0x0, 'starsapphire'],
-		['Emerald', 0, 0, ['f10', 'f2f'], 0, 'emerald'],
-		['Sapphire', 0, 0, ['f11', 'f12', 'f19', 'f1f'], 0, 'sapphire'],
-		['Ruby', 0, 0, ['f13', 'f14', 'f1a', 'f1c', 'f1d', 'f2a', 'f2b'], 0, 'ruby'],
+		['Emerald', 0, 0, ['f10', 'f2f'], 0x0, 'emerald'],
+		['Sapphire', 0, 0, ['f11', 'f12', 'f19', 'f1f'], 0x0, 'sapphire'],
+		['Ruby', 0, 0, ['f13', 'f14', 'f1a', 'f1c', 'f1d', 'f2a', 'f2b'], 0x0, 'ruby'],
 		['Bronze',			0, 0, ['bronze_ingot'], 0x972, 'bronze'],
 		['Gold',				0, 0, ['gold_ingot'], 0x8a5, 'gold'],
 		['Agapite',		 	0, 0, ['agapite_ingot'], 0x979, 'agapite'],

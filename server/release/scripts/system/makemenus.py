@@ -229,7 +229,7 @@ class CraftItemAction(MakeItemAction):
 	#
 	def processnode(self, node, menu):
 		# Define several common names for submaterial1
-		submaterial1names = ['leather', 'ingots', 'granite']
+		submaterial1names = ['leather', 'ingots', 'granite', 'sand']
 		submaterial2names = ['scales']
 		
 		if node.name in submaterial1names:
@@ -322,8 +322,8 @@ class CraftItemAction(MakeItemAction):
 					else:
 						player.socket.clilocmessage(1044153)
 				return False
-				
-			submaterial1amount = self.submaterial1 # Make a copy of the amount that has to be consumed
+
+			submaterial1amount = self.submaterial1
 			submaterial1baseids = material[3] # This is a list of baseids that are accepted for this material
 
 		if self.submaterial2 > 0:
@@ -344,13 +344,13 @@ class CraftItemAction(MakeItemAction):
 						player.socket.clilocmessage(1044153)
 				return False
 
-			submaterial2amount = self.submaterial2 # Make a copy of the amount that has to be consumed
+			submaterial2amount = self.submaterial2
 			submaterial2baseids = material[3] # This is a list of baseids that are accepted for this material
 
 		materials = [] # Local copy of material list
 		for material in self.materials:
 			materials.append(material[:2]) # Last element is the amount left to find
-
+		
 		# This loop checks for all required materials at once.
 		for item in backpack.content:		
 			# Check if the pile is used by the main material
@@ -368,26 +368,39 @@ class CraftItemAction(MakeItemAction):
 					material[1] -= item.amount
 					break # Break the inner loop
 
-		# We didn't succeed in finding enough of submaterial1
-		if submaterial1amount > 0:
+		# We didn't find any submaterial1
+		if submaterial1amount == self.submaterial1:
 			if not silent:
 				if self.parent.submaterial1missing != 0:
 					player.socket.clilocmessage(self.parent.submaterial1missing)
 				else:
-					player.socket.sysmessage(self.lackmaterial)
+					player.socket.clilocmessage(1053098)
 			return False
-			
-		# We didn't succeed in finding enough of submaterial2
-		if submaterial2amount > 0:
+
+		# We didn't succeed in finding enough of submaterial1
+		if submaterial1amount > 0 and submaterial1amount < self.submaterial1:
+			if not silent:
+				player.socket.sysmessage(self.lackmaterial)
+			return False
+
+		# We didn't find any submaterial2
+		if self.submaterial2 > 0 and submaterial2amount == self.submaterial2:
 			if not silent:
 				if self.parent.submaterial2missing != 0:
 					player.socket.clilocmessage(self.parent.submaterial2missing)
 				else:
-					player.socket.sysmessage(self.lackmaterial)
+					player.socket.clilocmessage(1053098)
+			return False
+
+		# We didn't succeed in finding enough of submaterial2
+		if submaterial2amount > 0 and submaterial2amount < self.submaterial2:
+			if not silent:
+				player.socket.sysmessage(self.lackmaterial)
 			return False
 
 		# Check if we found all the normal material we need to produce this item.
 		for material in materials:
+			player.socket.sysmessage(str(material))
 			if material[1] > 0:
 				player.socket.sysmessage(self.lackmaterial)
 				return False
@@ -409,22 +422,9 @@ class CraftItemAction(MakeItemAction):
 		if self.submaterial1 > 0:
 			materials = self.parent.submaterials1
 			material = self.parent.getsubmaterial1used(player, arguments)
-			if material >= len(materials):
-				if not silent:
-					player.socket.sysmessage(tr("You try to craft with an invalid material."))
-				return False
 
 			material = materials[material]
 
-			# Check the skill requirement of the material.
-			if material[2] and player.skill[material[1]] < material[2]:
-				if not silent:
-					if self.parent.submaterial1noskill != 0:
-						player.socket.clilocmessage(self.parent.submaterial1noskill)
-					else:
-						player.socket.clilocmessage(1044153)
-				return False
-				
 			submaterial1amount = self.submaterial1 # Make a copy of the amount that has to be consumed
 			if half:
 				submaterial1amount = int(math.ceil(submaterial1amount * 0.5))
@@ -433,20 +433,7 @@ class CraftItemAction(MakeItemAction):
 		if self.submaterial2 > 0:
 			materials = self.parent.submaterials2
 			material = self.parent.getsubmaterial2used(player, arguments)
-			if material >= len(materials):
-				if not silent:
-					player.socket.sysmessage(tr("You try to craft with an invalid material."))
-				return False
 			material = materials[material]
-
-			# Check the skill requirement of the material.
-			if material[2] and player.skill[material[1]] < material[2]:
-				if not silent:
-					if self.parent.submaterial2noskill != 0:
-						player.socket.clilocmessage(self.parent.submaterial2noskill)
-					else:
-						player.socket.clilocmessage(1044153)
-				return False
 
 			submaterial2amount = self.submaterial2 # Make a copy of the amount that has to be consumed
 			if half:
@@ -472,7 +459,7 @@ class CraftItemAction(MakeItemAction):
 					item.update()
 					submaterial1amount = 0
 				continue
-			
+
 			# Check if the pile is used by the secondary material	
 			if item.baseid in submaterial2baseids:
 				if item.amount < submaterial2amount: # We have less or equal than we need
@@ -483,7 +470,7 @@ class CraftItemAction(MakeItemAction):
 					item.update()
 					submaterial2amount = 0
 				continue
-				
+
 			for material in materials:
 				if item.baseid in material[0]:
 					if item.amount < material[1]: # We have less or equal than we need
@@ -494,30 +481,6 @@ class CraftItemAction(MakeItemAction):
 						item.update()
 						material[1] = 0
 					break # Break the inner loop
-
-		# We didn't succeed in finding enough of submaterial1
-		if submaterial1amount > 0:
-			if not silent:
-				if self.parent.submaterial1missing != 0:
-					player.socket.clilocmessage(self.parent.submaterial1missing)
-				else:
-					player.socket.sysmessage(self.lackmaterial)
-			return False
-			
-		# We didn't succeed in finding enough of submaterial2
-		if submaterial2amount > 0:
-			if not silent:
-				if self.parent.submaterial2missing != 0:
-					player.socket.clilocmessage(self.parent.submaterial2missing)
-				else:
-					player.socket.sysmessage(self.lackmaterial)
-			return False
-			
-		# Check if we found all the normal material we need to produce this item.
-		for material in materials:
-			if material[1] > 0:
-				player.socket.sysmessage(self.lackmaterial)
-				return False
 
 		return True
 
@@ -810,6 +773,7 @@ class MakeMenu:
 		self.name_makelast = tr("Make Last")
 		self.delay = 0 # Delay in ms until item is crafted.
 		self.requiretool = False # Don't check for a craft tool in arguments[0] by default
+		self.checklearned = False # Don't check for special skill (masonry..) learned by default
 		
 		self.repairsound = 0 # The soundeffect played for repairing an item
 
@@ -1395,13 +1359,13 @@ class MakeMenu:
 			gump.addText(200, 353, message, 0x480)
 
 		# Button for the primary submaterial
-		if len(self.submaterials1) > 0:
+		if len(self.submaterials1) > 1:
 			gump.addButton(165, 310, 4005, 4007, 7) # Display change res1 type gump
 			index = self.getsubmaterial1used(player, arguments)
 			gump.addText(200, 313, self.submaterials1[index][0], 0x480)
 
 		# Button for the secondary submaterial
-		if len(self.submaterials2) > 0:
+		if len(self.submaterials2) > 1:
 			gump.addButton(165, 330, 4005, 4007, 8) # Display change res2 type gump
 			index = self.getsubmaterial2used(player, arguments)
 			gump.addText(200, 333, self.submaterials2[index][0], 0x480)
@@ -1620,6 +1584,9 @@ class MakeMenu:
 		gump.addHtmlGump(215, 39, 305, 20, centerhtml % tr("SELECTIONS"))
 
 		return gump
+	
+	def haslearned(self, player, item):
+		pass
 
 	#
 	# Send this menu to a character. If the gump
@@ -1630,7 +1597,11 @@ class MakeMenu:
 	def send(self, player, args = []):
 		if self.requiretool and not self.checktool(player, wolfpack.finditem(args[0])):
 			return
-		
+
+		# Check if learned special skill
+		if self.checklearned and not self.haslearned(player, wolfpack.finditem(args[0])):
+			return
+
 		# Close gumps of the same type
 		if self.gumptype != 0:
 			player.socket.closegump(self.gumptype, 0xFFFF)
