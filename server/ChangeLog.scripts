@@ -15,12 +15,11 @@ Wolfpack 12.9.8 Beta (CVS)
 			Item baseid 'eed' should be used instead.
 		- Documentation Updates
 		- More warning fixes
-		- Guards can no longer be called if dead.
-		- There is a new configuration option (Default: true) that prevents spawned npcs and items from stacking
-		  within a spawnregion (they simply no longer spawn on top of each other).
-		- Detailed version information for the (optional) MySQL library and the SQLite library is now
-		  displayed on startup.
-		- Improved the speed of the internal getProperty method.
+		- Added Py_RETURN_NONE/TRUE/FALSE as in Python 2.4
+		- Added status on MySQL/SQLite modules.
+		- New Python getProperty method.
+		- Fixed a possible bug with the Python interface ( possibly source of crashing bugs )
+		- Property item.magic is now item.movable
 	* Definition Changes:
 		- Fixed Sheep definitions
 		- Regions are split up facet/type/name.xml
@@ -35,26 +34,30 @@ Wolfpack 12.9.8 Beta (CVS)
 	* Python Script Changes:
 		- New Function: wolfpack.findobject(serial)
 		- New Function: wolfpack.charbase(baseid)
-		- New commands: taginfo, addevent, removeevent, account,
-			resurrect, password, tele, invis, kill, fix, resend,
-			allskills, remove, move, who
-		- Fixed carving
-		- Fixed sheering of sheeps and wool regrowing
-		- Rudimentarily Implemented Map Plotting
-		- new wolfpack.utilities function: booleantoggle( boolean )
-		- Cleanups to help reduce memory consumption.
-		- New script: system.regionchange
-			This overrides the core region change messages.
-		- Updates to the food script.
 		- New function: wolfpack.playercount()
 		- New function: wolfpack.npccount()
 		- New function: wolfpack.accounts.count()
+		- New function: wolfpack.utilities.booleantoggle( boolean )
 		- New property: socket.address
-		- Export command updates.
-			Checks for doors and corpses.
-			Doesn't save spawnregion items.
+		- Changed property: item.magic -> item.movable
+		- Moved wolfpack.servertime() / wolfpack.currenttime() to
+			wolfpack.time.servertime() / wolfpack.currenttime()
+		- New commands: taginfo, addevent, removeevent, account,
+			resurrect, password, tele, invis, kill, fix, resend,
+			allskills, remove, move, who
+		- Cleanups to help reduce memory consumption.
+		- Fixed carving
+		- Fixed sheering of sheeps and wool regrowing
+		- Rudimentarily Implemented Map Plotting
+		- New script: trashcan
+		- New script: system.regionchange
+			This overrides the core region change messages.
 		- New script: system.hunger
 			This allows players to suffer from hunger once again.
+		- Updates to the food script.
+		- Export command updates.
+			Checks for doors and corpses.
+			Does not save spawnregion items.
 		- Potion Kegs now work.
 		- Door improvements.
 			Speed in which blocks are checked improved.
@@ -65,14 +68,12 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Made runebooks function again.
 			Gate/Recall still not functional, charges work however.
 		- Fixed a bug with melting ore.
-		- New script: trashcan
 		- Skill Fixes:
 			Provocation - Thanks to Kid_Sk8
 			Inscription - Thanks to khpae
 		- Decoration Saving
-		- A HTML status will now be generated,
-		  see web/status_template.html (and take care of the intendation for the python scripts within).
-		  The generation interval can be specified in the configuration.
+		- Magic fixes: Fire, Poison, Energy and Paralyze fields should work better.
+			Mass dispell can now wipe out these fields.
 	* Misc. Changes:
 		- New Features:
 			Farm animals will eat spawned crops!
@@ -81,10 +82,13 @@ Wolfpack 12.9.8 Beta (CVS)
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
 		- Spawn regions are incomplete.
+			We welcome donated OSI-like spawn scripts!
 		- Town/World regions are incomplete.
+			We welcome donated OSI-like region scripts!
 		- Teleport Scripts are incomplete.
+			We welcome donated OSI-like teleport scripts!
 		- Possible that a few monsters are missing.
-		- Reloading python too many times can crash the server.
+		- Reloading Python too many times can crash the server.
 		- There are still some memory leaks.
 		- Healers do not resurrect.
 		- Large gumps can potentially crash remote clients.
