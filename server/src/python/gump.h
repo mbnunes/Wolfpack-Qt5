@@ -142,7 +142,7 @@ public:
 		if ( !callback.isNull() && !callback.isEmpty() && callback.contains( "." ) )
 		{
 			// Find the last dot
-			INT32 position = callback.findRev( "." );
+			Q_INT32 position = callback.findRev( "." );
 			QString sModule = callback.left( position );
 			QString sFunction = callback.right( callback.length() - ( position + 1 ) );
 

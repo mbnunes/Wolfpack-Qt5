@@ -1528,7 +1528,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "haircolor" )
 	{
 		bool ok;
-		INT32 data = value.toInt( &ok );
+		Q_INT32 data = value.toInt( &ok );
 		if ( !ok )
 			PROPERTY_ERROR( -2, "Integer expected" )
 			setHairColor( data );
@@ -1541,7 +1541,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "hairstyle" )
 	{
 		bool ok;
-		INT32 data = value.toInt( &ok );
+		Q_INT32 data = value.toInt( &ok );
 		if ( !ok )
 			PROPERTY_ERROR( -2, "Integer expected" )
 			setHairStyle( data );
@@ -1554,7 +1554,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "beardcolor" )
 	{
 		bool ok;
-		INT32 data = value.toInt( &ok );
+		Q_INT32 data = value.toInt( &ok );
 		if ( !ok )
 			PROPERTY_ERROR( -2, "Integer expected" )
 			setBeardColor( data );
@@ -1567,7 +1567,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "beardstyle" )
 	{
 		bool ok;
-		INT32 data = value.toInt( &ok );
+		Q_INT32 data = value.toInt( &ok );
 		if ( !ok )
 			PROPERTY_ERROR( -2, "Integer expected" )
 			setBeardStyle( data );

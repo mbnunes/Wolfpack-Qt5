@@ -97,7 +97,7 @@ public:
 		if ( dispelFunc_.contains( "." ) )
 		{
 			// Find the last dot
-			INT32 position = dispelFunc_.findRev( "." );
+			Q_INT32 position = dispelFunc_.findRev( "." );
 			QString sModule = dispelFunc_.left( position );
 			QString sFunction = dispelFunc_.right( dispelFunc_.length() - ( position + 1 ) );
 
@@ -145,7 +145,7 @@ public:
 		if ( functionName.contains( "." ) )
 		{
 			// Find the last dot
-			INT32 position = functionName.findRev( "." );
+			Q_INT32 position = functionName.findRev( "." );
 			QString sModule = functionName.left( position );
 			QString sFunction = functionName.right( functionName.length() - ( position + 1 ) );
 

@@ -1979,7 +1979,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 
 	// Add all items to the container
 	cUOTxItemContent itemContent;
-	INT32 count = 0;
+	Q_INT32 count = 0;
 
 	cItem::ContainerContent container = pCont->content();
 	cItem::ContainerContent::const_iterator it( container.begin() );

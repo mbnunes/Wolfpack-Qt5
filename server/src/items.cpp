@@ -976,7 +976,7 @@ void cItem::processModifierNode( const cElement* Tag )
 	else if ( TagName == "durability" )
 	{
 		if ( Value.contains( "." ) || Value.contains( "," ) )
-			setMaxhp( ( INT32 ) ceil( ( float ) maxhp() * Value.toFloat() ) );
+			setMaxhp( ( Q_INT32 ) ceil( ( float ) maxhp() * Value.toFloat() ) );
 		else
 			setMaxhp( maxhp() + Value.toLong() );
 		setHp( maxhp() );

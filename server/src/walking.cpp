@@ -801,7 +801,7 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 	// get the tile id of any dynamic tiles at this spot
 	Coord_cl mPos = pos;
 	mPos.z = elev;
-	const INT32 dt = DynTile( mPos );
+	const Q_INT32 dt = DynTile( mPos );
 
 	// if there is a dynamic tile at this spot, check to see if its a blocker
 	// if it does block, might as well Q_INT16-circuit and return right away
@@ -817,7 +817,7 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 	while ( !msi.atEnd() )
 	{
 		tile_st tile = TileCache::instance()->getTile( msi->itemid );
-		const INT32 elev = msi->zoff + cTileCache::tileHeight( tile );
+		const Q_INT32 elev = msi->zoff + cTileCache::tileHeight( tile );
 		if ( ( elev >= pos.z ) && ( msi->zoff <= pos.z ) )
 		{
 			if ( tile.isBlocking() || tile.isWet() )
@@ -831,7 +831,7 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 	{
 		P_ITEM item = items.GetData();
 		tile_st tile = TileCache::instance()->getTile( item->id() );
-		const INT32 elev = item->pos().z + cTileCache::tileHeight( tile );
+		const Q_INT32 elev = item->pos().z + cTileCache::tileHeight( tile );
 		if ( ( elev >= pos.z ) && ( item->pos().z <= pos.z ) )
 		{
 			if ( tile.isBlocking() || tile.isWet() )

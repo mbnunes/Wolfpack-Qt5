@@ -236,7 +236,7 @@ void ScriptAI::onSpeechInput( P_PLAYER pTalker, const QString& comm )
 		if ( onspeech.contains( "." ) )
 		{
 			// Find the last dot
-			INT32 position = onspeech.findRev( "." );
+			Q_INT32 position = onspeech.findRev( "." );
 			QString sModule = onspeech.left( position );
 			QString sFunction = onspeech.right( onspeech.length() - ( position + 1 ) );
 
@@ -276,7 +276,7 @@ float ScriptAction::preCondition()
 		if ( precond.contains( "." ) )
 		{
 			// Find the last dot
-			INT32 position = precond.findRev( "." );
+			Q_INT32 position = precond.findRev( "." );
 			QString sModule = precond.left( position );
 			QString sFunction = precond.right( precond.length() - ( position + 1 ) );
 
@@ -329,7 +329,7 @@ float ScriptAction::postCondition()
 		if ( postcond.contains( "." ) )
 		{
 			// Find the last dot
-			INT32 position = postcond.findRev( "." );
+			Q_INT32 position = postcond.findRev( "." );
 			QString sModule = postcond.left( position );
 			QString sFunction = postcond.right( postcond.length() - ( position + 1 ) );
 
@@ -382,7 +382,7 @@ void ScriptAction::execute()
 		if ( exec.contains( "." ) )
 		{
 			// Find the last dot
-			INT32 position = exec.findRev( "." );
+			Q_INT32 position = exec.findRev( "." );
 			QString sModule = exec.left( position );
 			QString sFunction = exec.right( exec.length() - ( position + 1 ) );
 
