@@ -81,7 +81,7 @@ def response( char, args, target ):
 
 	# We go onto creating ingots here.
 	if target.item.baseid in forgeids:
-		if item.baseid in oreids:
+		if item.baseid in DEF_ORES:
 			if char.pos.distance( target.pos ) > 3:
 				char.socket.clilocmessage( 0x7A258 ) # You can't reach...
 				return OK
@@ -90,7 +90,7 @@ def response( char, args, target ):
 				return OK
 
 	# This is for merging the ore piles
-	elif target.item.baseid in oreids:
+	elif target.item.baseid in DEF_ORES:
 		if targetitem.serial == item.serial:
 			return OOPS
 		if not targetitem.hastag('resname'):

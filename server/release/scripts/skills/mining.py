@@ -10,9 +10,8 @@ from wolfpack import console
 import wolfpack
 import skills
 from wolfpack.time import *
-from wolfpack.utilities import *
+from wolfpack.utilities import ismountainorcave, tobackpack
 import random
-from random import randint
 
 #mining calling from pickaxe.py and shovel.py
 
@@ -47,18 +46,18 @@ def mining( char, pos, tool ):
 	char.socket.settag( 'is_mining', ( servertime() + miningdelay ) )
 	char.turnto( pos )
 	char.action( ANIM_ATTACK3 )
-	return OK
+	return 1
 
 def createoregem(pos):
 	gem = wolfpack.additem('ore_gem')
-	gem.settag('resourcecount', randint(MINING_ORE[0], MINING_ORE[1])) # 10 - 34 ore
+	gem.settag('resourcecount', random.randint(MINING_ORE[0], MINING_ORE[1])) # 10 - 34 ore
 	gem.settag('resname', 'iron') # All veins should default to iron ore.
 
 	# This will give it a chance to be a random ore type, this can change later.
 	totalchance = 0
 	for ore in ORES.values():
 		totalchance += ore[FINDCHANCE]
-	colorchance = randint(0, totalchance - 1)
+	colorchance = random.randint(0, totalchance - 1)
 	offset = 0
 
 	for (resname, ore) in ORES.items():
@@ -91,7 +90,7 @@ def getvein(socket, pos):
 def response( char, args, target ):
 	socket = char.socket
 	if not socket:
-		return OOPS
+		return 0
 
 	pos = target.pos
 
@@ -99,7 +98,7 @@ def response( char, args, target ):
 	if char.pos.map != pos.map or char.pos.distance( pos ) > MINING_MAX_DISTANCE:
 		# That is too far away
 		socket.clilocmessage( 500446, "", GRAY )
-		return OK
+		return 1
 
 	tool = args[0]
 
@@ -108,7 +107,7 @@ def response( char, args, target ):
 	if target.char:
 		# You can't mine that.
 		socket.clilocmessage( 501863, "", GRAY )
-		return OK
+		return 1
 
 	#Find tile by it's position if we haven't model
 	elif target.model == 0:
@@ -118,7 +117,7 @@ def response( char, args, target ):
 		else:
 			# You can't mine there.
 			socket.clilocmessage( 501862, "", GRAY )
-		return OK
+		return 1
 
 	#Find tile by it's model
 	elif target.model != 0:
@@ -127,12 +126,12 @@ def response( char, args, target ):
 			mining( char, target.pos, tool )
 		else:
 			socket.clilocmessage( 501862, "", GRAY ) # You can't mine there.
-		return OK
+		return 1
 
 	else:
-		return OOPS
+		return 0
 
-	return OK
+	return 1
 
 #Sound effect
 def domining(time, args):
@@ -144,9 +143,9 @@ def domining(time, args):
 	socket.deltag('is_mining')
 
 	# Recheck distance
-	if not char.canreach(pos, MINING_MAX_DISTANCE):
-		socket.clilocmessage(501867)
-		return 0
+	#if not char.canreach(pos, MINING_MAX_DISTANCE):
+	#	socket.clilocmessage(501867)
+	#	return 0
 
 	veingem = getvein(socket, pos)
 
@@ -168,7 +167,7 @@ def domining(time, args):
 		socket.sysmessage("There is no ore here to mine.")
 
 		if not veingem.hastag('resource_empty'):
-			duration = randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
+			duration = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
 			wolfpack.addtimer(duration, "skills.mining.respawnvein", [veingem], 1)
 			veingem.settag('resource_empty', 1)
 		return 0
@@ -230,7 +229,7 @@ def successmining(char, gem, resname, size):
 	else:
 		item.amount = 1
 
-	if not wolfpack.utilities.tobackpack(item, char):
+	if not tobackpack(item, char):
 		item.update()
 
 	resourcecount = max(1, int(gem.gettag('resourcecount')))
@@ -238,7 +237,7 @@ def successmining(char, gem, resname, size):
 
 	# Start respawning the ore
 	if not gem.hastag('resource_empty') and resourcecount <= 1:
-		delay = randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
+		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
 		wolfpack.addtimer(delay, "skills.mining.respawnvein", [gem], 1)
 		gem.settag('resource_empty', 1)
 
@@ -248,11 +247,11 @@ def successmining(char, gem, resname, size):
 		char.socket.clilocmessage(message, "", GRAY)
 	else:
 		char.socket.sysmessage(unicode(message))
-	return OK
+	return 1
 
 def respawnvein( time, args ):
 	vein = args[0]
 	if vein and vein.hastag('resource_empty') and vein.gettag('resourcecount') == 0:
-		vein.settag('resourcecount', randint(MINING_ORE[0], MINING_ORE[1]))
+		vein.settag('resourcecount', random.randint(MINING_ORE[0], MINING_ORE[1]))
 		vein.deltag('resource_empty')
-	return OK
+	return 1
