@@ -323,11 +323,10 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 				case 'C':
 					if (!(strcmp("CADD", (char*)script1)))  // add item into triggered container
 					{
-						CHARACTER cc = currchar[ts];
-						int i = Targ->AddMenuTarget(ts, 1, str2num(script2));
-						pi->AddItem(&items[i]);
-						Weight->NewCalc(cc);
-						statwindow(ts, cc);
+						P_ITEM pi_temp = MAKE_ITEM_REF(Targ->AddMenuTarget(ts, 1, str2num(script2)));
+						pi->AddItem(pi_temp);
+						Weight->NewCalc(DEREF_P_CHAR(pc_ts));
+						statwindow(ts, DEREF_P_CHAR(pc_ts));
 					}
 					else if (!(strcmp("CMSG", (char*)script1)))  // Set Token Completed message
 					{

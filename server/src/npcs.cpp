@@ -309,7 +309,7 @@ void cChar::Init(bool ser)
 	this->kills=0; //PvP Kills
 	this->deaths=0;
 	this->dead = false; // Is character dead
-	this->packitem=-1; // Only used during character creation
+	this->packitem=INVALID_SERIAL; // Only used during character creation
 	this->fixedlight=255; // Fixed lighting level (For chars in dungeons, where they dont see the night)
 	// changed to -1, LB, bugfix
 	this->speech=0; // For NPCs: Number of the assigned speech block
@@ -1032,22 +1032,23 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 				if (mypack==-1)
 				{
 					scpMark m=pScp->Suspend();
-					pc_c->packitem=n=Items->SpawnItem(-1,DEREF_P_CHAR(pc_c),1,"Backpack",0,0x0E,0x75,0,0,0,0);
-					if(n==-1)
+					P_ITEM pBackpack = MAKE_ITEM_REF(Items->SpawnItem(-1,DEREF_P_CHAR(pc_c),1,"Backpack",0,0x0E,0x75,0,0,0,0));
+					if(pBackpack == NULL)
 					{
 						Npcs->DeleteChar(DEREF_P_CHAR(pc_c));
 						return -1;
 					}
-					items[n].pos.x=0;
-					items[n].pos.y=0;
-					items[n].pos.z=0;
-					items[n].SetContSerial(pc_c->serial);
-					items[n].layer=0x15;
-					items[n].type=1;
-					items[n].dye=1;
-					mypack=n;
+					pc_c->packitem = pBackpack->serial;
+					pBackpack->pos.x=0;
+					pBackpack->pos.y=0;
+					pBackpack->pos.z=0;
+					pBackpack->SetContSerial(pc_c->serial);
+					pBackpack->layer=0x15;
+					pBackpack->type=1;
+					pBackpack->dye=1;
+					mypack=DEREF_P_ITEM(pBackpack);
 					
-					retitem = MAKE_ITEM_REF(n);
+					retitem = pBackpack;
 					pScp->Resume(m);
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				}
@@ -1964,11 +1965,11 @@ P_ITEM cChar::getShield()
 
 P_ITEM Packitem(P_CHAR pc) // Find packitem
 {
-	if(pc==NULL) return NULL;
-	int i=pc->packitem;
-	if (i>-1)
+	if(pc == NULL) 
+		return NULL;
+	P_ITEM pi = FindItemBySerial(pc->packitem);
+	if (pi != NULL)
 	{
-		const P_ITEM pi=MAKE_ITEMREF_LRV(i,NULL);	// on error return -1
 		if (pc->Wears(pi) && pi->layer==0x15)
 		{
 			return pi;
@@ -1976,15 +1977,14 @@ P_ITEM Packitem(P_CHAR pc) // Find packitem
 	}
 
 	// - For some reason it's not defined, so go look for it.
-	int ci=0,loopexit=0;
-	P_ITEM pi;
+	unsigned int ci = 0;
 	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
-		pi = FindItemBySerial(vecContainer[ci]);
+		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer==0x15)
 		{
-			pc->packitem=DEREF_P_ITEM(pi);	//Record it for next time
+			pc->packitem = pi->serial;	//Record it for next time
 			return (pi);
 		}
 	}

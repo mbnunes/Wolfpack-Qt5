@@ -1804,7 +1804,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	signed int ii ;
 	int totalstats,totalskills;
 	unsigned int c;
-	c=Npcs->MemCharFree ();
+	c=Npcs->MemCharFree();
 	P_CHAR pc = MAKE_CHARREF_LR(c);
 
 	pc->Init();
@@ -1915,9 +1915,10 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	{	// just to limit the scope of pi
 	// - create the backpack
-	pc->packitem=n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, 0x0E, 0x75, 0, 0,0,0);
-	if(n==-1) return;//AntiChrist to preview crashes
-	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
+	P_ITEM pi = MAKE_ITEM_REF(Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, 0x0E, 0x75, 0, 0,0,0));
+	if (pi == NULL)
+		return;
+	pc->packitem = pi->serial;
 	pi->SetContSerial(pc->serial);
 	pi->layer=0x15;
 	pi->type=1;

@@ -964,21 +964,24 @@ void cCommands::MakePlace(int s, int i) // Decode a teleport location number int
 
 void cCommands::DupeItem(int s, int i, int amount)
 {
-	int p;
-	if (items[i].corpse) return;
-	p = packitem(currchar[s]);
-	if(p==-1) return;//AntiChrist
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_ITEM pi_target = MAKE_ITEM_REF(i);
+	if (pi_target->corpse) 
+		return;
+	P_ITEM pPack = Packitem(pc_currchar);
+	if(pPack == NULL) 
+		return;//AntiChrist
 
-	P_ITEM pi_c=Items->MemItemFree();
+	P_ITEM pi_c = Items->MemItemFree();
 	pi_c->Init(0);
 #pragma note("Replace by a copy constructor before finishing items[]")
-	memcpy(pi_c, &items[i], sizeof(cItem));
+	memcpy(pi_c, pi_target, sizeof(cItem));
 	pi_c->SetSerial(itemcount2);
 	itemcount2++;
 	
-	pi_c->SetContSerial(items[p].serial);
-	pi_c->SetOwnSerial(items[i].ownserial);
-	pi_c->SetSpawnSerial(items[i].spawnserial);
+	pi_c->SetContSerial(pPack->serial);
+	pi_c->SetOwnSerial(pi_target->ownserial);
+	pi_c->SetSpawnSerial(pi_target->spawnserial);
 	pi_c->layer=0;	// it's created in a backpack
 	pi_c->amount=amount;
 	

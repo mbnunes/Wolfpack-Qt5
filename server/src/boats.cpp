@@ -87,67 +87,32 @@ void sendinrange(ITEM i)//Send this item to all online people in range
 	}
 }
 
-
-int dist(int a, int b, int type)//Distance from A to B (type = 1 (a is a char) type=0 (a is an item))
-{
-	int xa,ya;
-
-	if(type)
-	{
-		P_CHAR pcc_a = MAKE_CHARREF_LOGGED(a,err);	
-        if (err) 
-		{
-          return 100;
-		}
-
-		xa = pcc_a->pos.x;
-		ya = pcc_a->pos.y;
-
-	} else {
-		P_ITEM pcc_a = MAKE_ITEM_REF(a);
-		if (pcc_a == NULL)
-			return ~0;
-		xa = pcc_a->pos.x;
-		ya = pcc_a->pos.y;
-	}
-	int dx = abs(xa - items[b].pos.x);
-	int dy = abs(ya - items[b].pos.y);
-	return (int) (hypot(dx, dy));
-}
-
 P_ITEM findmulti(Coord_cl pos) //Sortta like getboat() only more general... use this for other multi stuff!
 {
-	int lastdist=30;
+	int lastdist = 30;
 	P_ITEM multi = NULL;
 	int ret;
 
-	int	StartGrid=mapRegions->StartGrid(pos.x,pos.y);
-			
-	unsigned int increment=0;
-	for (unsigned int checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
+	cRegion::RegionIterator4Items ri(pos);
+	
+	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 	{
-		for (int a=0;a<3;a++)
+		P_ITEM mapitem = ri.GetData();
+		if (mapitem != NULL)
 		{
-			vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-			for ( unsigned int k = 0; k < vecEntries.size(); k++)
+			if (mapitem->isMulti())
 			{
-				P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
-				if (mapitem != NULL)
+				ret = pos.distance(mapitem->pos);
+				if (ret <= lastdist)
 				{
-					if (mapitem->id1>=0x40)
-					{
-						ret = pos.distance(mapitem->pos);
-						if (ret<=lastdist)
-						{
-							lastdist=ret;
-							if (inmulti(pos, mapitem))
-								multi = mapitem;
-						}
-					}
+					lastdist = ret;
+					if (inmulti(pos, mapitem))
+						multi = mapitem;
 				}
 			}
-		}//For a
-	}//For checkgrid
+		}
+	}
+
 	return multi;
 }
 
@@ -176,22 +141,11 @@ bool inmulti(Coord_cl pos, P_ITEM pi)//see if they are in the multi at these cho
 	return false;
 }
 
-
-cBoat::cBoat()//Consturctor
-{
-	return;
-}
-
-cBoat::~cBoat()//Destructor
-{
-}
-
-void cBoat::PlankStuff(UOXSOCKET s, ITEM p)//If the plank is opened, double click Will send them here
+void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, double click Will send them here
 {
 	P_CHAR pc_cs,pc_b;
 
 	pc_cs=MAKE_CHARREF_LR(currchar[s]);
-	P_ITEM pi_plank = MAKE_ITEM_REF(p);
 
 	int a,b,serhash=pc_cs->serial%HASHMAX;
 	P_ITEM boat = GetBoat(pc_cs);
@@ -229,7 +183,7 @@ void cBoat::PlankStuff(UOXSOCKET s, ITEM p)//If the plank is opened, double clic
 		}
 	
 
-        OpenPlank(p); //lb
+        OpenPlank(pi_plank); //lb
 
 		if (boat2 != NULL) // now set the char coords to the boat !!!
 		{
@@ -239,23 +193,23 @@ void cBoat::PlankStuff(UOXSOCKET s, ITEM p)//If the plank is opened, double clic
 		sysmessage(s,"you entered a boat");
         pc_cs->SetMultiSerial(boat2->serial);
 	} else {
-		LeaveBoat(s,p);//They are on a boat, get off
+		LeaveBoat(s, pi_plank);//They are on a boat, get off
 	}
 	teleport(DEREF_P_CHAR(pc_cs));//Show them they moved.
 }
 
 
-void cBoat::LeaveBoat(UOXSOCKET s, ITEM p)//Get off a boat (dbl clicked an open plank while on the boat.
+void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked an open plank while on the boat.
 {
 	P_CHAR pc_cs,pc_b;
 	
 	pc_cs=MAKE_CHARREF_LR(currchar[s]);
-	P_ITEM pi_plank = MAKE_ITEM_REF(p);
+//	P_ITEM pi_plank = MAKE_ITEM_REF(p);
 
 	//long int pos, pos2, length;
 	int x,x2=pi_plank->pos.x;
 	int y,y2=pi_plank->pos.y;
-	signed char z=pi_plank->pos.z,mz,sz,typ;
+	signed char z = pi_plank->pos.z, mz, sz, typ;
 	P_ITEM pBoat = GetBoat(pc_cs);
 	int a,b,serhash=pc_cs->serial%HASHMAX;
 	// char o;
@@ -321,9 +275,8 @@ void cBoat::LeaveBoat(UOXSOCKET s, ITEM p)//Get off a boat (dbl clicked an open 
 	sysmessage(s,"You cannot get off here!");
 }
 
-void cBoat::OpenPlank(ITEM p)//Open, or close the plank (called from keytarget() )
+void cBoat::OpenPlank(P_ITEM pi_p)//Open, or close the plank (called from keytarget() )
 {
-	P_ITEM pi_p = MAKE_ITEM_REF(p);
 	switch(pi_p->id2)
 	{
 		//Open plank->
@@ -337,7 +290,7 @@ void cBoat::OpenPlank(ITEM p)//Open, or close the plank (called from keytarget()
 		case (unsigned char)0xD5: pi_p->id2=(unsigned char)0xB1; break;
 		case (unsigned char)0xD4: pi_p->id2=(unsigned char)0xB2; break;
 		case (unsigned char)0x89: pi_p->id2=(unsigned char)0x8A; break;
-		default: { sprintf((char*)temp,"WARNING: Invalid plank ID called! Plank %i '%s' [%x %x]\n",p,pi_p->name,pi_p->id1,pi_p->id2); LogWarning( (char*)temp ); break; }
+		default: { sprintf((char*)temp,"WARNING: Invalid plank ID called! Plank %x '%s' [%x %x]\n",pi_p->serial,pi_p->name,pi_p->id1,pi_p->id2); LogWarning( (char*)temp ); break; }
 	}
 }
 

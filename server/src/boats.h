@@ -75,18 +75,15 @@ extern unsigned char cShipItems[4][6];
 class cBoat 
 {
 	private:
-		void LeaveBoat(int, int);		
+		void LeaveBoat(int, P_ITEM);		
 		bool Block(int, short int, short int,int);
 		void TurnStuff(int, int, int, int);
 
 	public:
-		cBoat();
-		virtual ~cBoat();
 		P_ITEM GetBoat(P_CHAR);
 		char Speech(int, char *);
-		//void Speech(int, char *);
-		void OpenPlank(int);
-		void PlankStuff(int, int);
+		void OpenPlank(P_ITEM);
+		void PlankStuff(UOXSOCKET, P_ITEM);
 		bool Build(int, int, char);
 		void Move(int, int, int);
 		void Turn(int, int);

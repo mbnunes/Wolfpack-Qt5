@@ -582,7 +582,7 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 			//Boats ->
 			else if(pi->type==117 && pi->type2==3)
 			{
-				Boats->OpenPlank(DEREF_P_ITEM(pi));
+				Boats->OpenPlank(pi);
 				RefreshItem(pi);
 			}
 			//End Boats --^
@@ -705,9 +705,10 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 	P_ITEM pPack = Packitem(pc);
 	if (pPack == NULL)
 	{
-		pc->packitem=n=Items->SpawnItem(calcSocketFromChar(c),c,1,"#",0,0x0E,0x75,0,0,0,0);
-		pPack=MAKE_ITEMREF_LR(n);
-		if(n==-1) return;
+		pPack = MAKE_ITEM_REF(Items->SpawnItem(calcSocketFromChar(c),c,1,"#",0,0x0E,0x75,0,0,0,0));
+		if (pPack == NULL)
+			return;
+		pc->packitem = pPack->serial; 
 		pPack->SetContSerial(chars[c].serial);
 		pPack->layer=0x15;
 		pPack->type=1;
@@ -725,7 +726,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 		{
 			if ((pi->trigon==1) && (pi->trigtype==2) && (pi->layer<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
-			triggerwitem(c, DEREF_P_ITEM(pi), 1); // trigger is fired
+				triggerwitem(c, DEREF_P_ITEM(pi), 1); // trigger is fired
 			}
 			pi->pos.x=(rand()%80)+50;
 			pi->pos.y=(rand()%80)+50;
@@ -2507,8 +2508,6 @@ void cTargets::SetDirTarget(int s)
 bool cTargets::NpcResurrectTarget(CHARACTER i)
 {
 	unsigned int j ;
-	int k=calcSocketFromChar(i);
-	if (k<=-1) return false;
 	P_CHAR pc = MAKE_CHARREF_LRV(i,true);
 
 	if (pc->dead)
@@ -2532,7 +2531,7 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 			if (pc->Wears(pj) && pj->layer==0x1A)
 			{
 				pj->layer=0x15;
-				pc->packitem=j;	//Tauriel packitem speedup
+				pc->packitem = pj->serial;	//Tauriel packitem speedup
 				//break;
 			}
 		}
@@ -2541,7 +2540,7 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 			P_ITEM pj = MAKE_ITEMREF_LRV(j,true);
 			if (pj->serial == pc->robe)
 			{
-				Items->DeleItem(j);
+				Items->DeleItem(pj);
 
 				P_ITEM pi=Items->SpawnItem(i,1,"a robe",0,0x1F03,0,0);
 				if(!pi) return false;
@@ -2554,6 +2553,9 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 		teleport(i);
 		return true;
 	}
+
+	UOXSOCKET k = calcSocketFromChar(i);
+	if (k <= -1) return false;
 
 	sysmessage(k,"That person isn't dead");
 	return false;

@@ -415,17 +415,19 @@ void monstergate(int s, int x)
 			if (mypack==-1)
 			{
 				scpMark m=pScp->Suspend();
-				pc_s->packitem=n=Items->SpawnItem(calcSocketFromChar(s),s,1,"#",0,0x0E,0x75,0,0,0,0);
-				if(n==-1) return;//AntiChrist to preview crashes
+				P_ITEM pPack = MAKE_ITEM_REF(Items->SpawnItem(calcSocketFromChar(s),s,1,"#",0,0x0E,0x75,0,0,0,0));
+				if (pPack == NULL)
+					return;
+				pc_s->packitem = pPack->serial;
 				pScp->Resume(m);
 
-				items[n].SetContSerial(chars[s].serial);
-				items[n].layer=0x15;
-				items[n].type=1;
-				items[n].dye=1;
-				mypack=n;
+				pPack->SetContSerial(chars[s].serial);
+				pPack->layer=0x15;
+				pPack->type=1;
+				pPack->dye=1;
+				mypack = DEREF_P_ITEM(pPack);
 				
-				retitem=n;
+				retitem = DEREF_P_ITEM(pPack);
 			}
 			items[z].pos.x = RandomNum(50, 130);
 			items[z].pos.y = RandomNum(50, 130);

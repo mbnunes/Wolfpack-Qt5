@@ -312,7 +312,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			if (iteminrange(s, pi, 3))
 			{
 				if (pi->id2 == 0x84 || pi->id2 == 0xD5 || pi->id2 == 0xD4 || pi->id2 == 0x89)
-					Boats->PlankStuff(s, DEREF_P_ITEM(pi));
+					Boats->PlankStuff(s, pi);
 				else 
 					sysmessage(s, "That is locked.");
 			}
@@ -380,14 +380,14 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				{
 					pj->morez = 2;
 					pj->pos.z = pj->pos.z + 17;
-					RefreshItem(j);// AntiChrist
+					RefreshItem(pj);// AntiChrist
 					w = 1;
 				}
 				else if (pj->morez == 2)
 				{
 					pj->morez = 1;
 					pj->pos.z = pj->pos.z - 17;
-					RefreshItem(j);// AntiChrist
+					RefreshItem(pj);// AntiChrist
 					w = 0;
 				}
 			}
@@ -403,14 +403,14 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				{
 					pj->morez = 4;
 					pj->pos.z = pj->pos.z + 17;							
-					RefreshItem(j);// AntiChrist
+					RefreshItem(pj);// AntiChrist
 					w = 1;
 				}
 				else if (pj->morez == 4)
 				{
 					pj->morez = 3;
 					pj->pos.z = pj->pos.z - 17;							
-					RefreshItem(j);// AntiChrist
+					RefreshItem(pj);// AntiChrist
 					w = 0;
 				}
 			}
@@ -501,26 +501,29 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		dooruse(s, DEREF_P_ITEM(pi));
 		return; // doors
 	case 13: // locked door
-		p = packitem(currchar[s]);
-		if (p>-1) // LB
 		{
-			for (j = 0; j < itemcount; j++) // Morrolan come back here and change this to search only backpack items 
+			P_ITEM pPack = Packitem(pc_currchar);
+			if (pPack != NULL) // LB
 			{
-				P_ITEM pj = &items[j];
-				if (pj->type == 7 && p!=-1)
-					if (((pj->more1 == pi->more1) &&(pj->more2 == pi->more2)&&
-						(pj->more3 == pi->more3) &&(pj->more4 == pi->more4))&&
-						pj->contserial == items[p].serial)
-					{
-						sysmessage(s, "You quickly unlock, use, and then relock the door.");
-						pc_currchar->objectdelay = 0;
-						dooruse(s, DEREF_P_ITEM(pi));
-						return;
-					}// if
-			}// for
-		} // end if p!=-1
-		sysmessage(s, "This door is locked.");
-		return;// case 13 (locked door)
+				vector<SERIAL> vecContainer = contsp.getData(pPack->serial);
+				unsigned int j;
+				for (j = 0; j < vecContainer.size(); j++) // Morrolan come back here and change this to search only backpack items 
+				{
+					P_ITEM pj = FindItemBySerial(vecContainer[j]);
+					if (pj != NULL && pj->type == 7)
+						if (((pj->more1 == pi->more1) &&(pj->more2 == pi->more2)&&
+							(pj->more3 == pi->more3) &&(pj->more4 == pi->more4)))
+						{
+							sysmessage(s, "You quickly unlock, use, and then relock the door.");
+							pc_currchar->objectdelay = 0;
+							dooruse(s, DEREF_P_ITEM(pi));
+							return;
+						}// if
+				}// for
+			} // end if p!=-1
+			sysmessage(s, "This door is locked.");
+			return;// case 13 (locked door)
+		}
 	case 14: // For eating food
 		pc_currchar->objectdelay = 0;
 		if (pi->magic == 4)
@@ -629,7 +632,6 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			// taken from 6904t2(5/10/99) - AntiChrist
 		case 181: // Fireworks wands
 			int wx, wy, wi;
-			srand(uiCurrentTime);
 			if (pi->morex <= 0)
 			{
 				sysmessage(s,  "That is out of charges.");
