@@ -5,7 +5,7 @@ def onLogin( player ):
 	socket = player.socket
 	socket.sysmessage( "Welcome to Wolfpack %s" % ( wolfpack.serverversion )  )
 	socket.sysmessage( "Please refer to http://www.wpdev.org for bug reporting." )
-	char.hidden = 0
+	player.hidden = 0
 	player.update()
 	return True
 
