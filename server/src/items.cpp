@@ -357,7 +357,6 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 	return true;
 }
 
-//##ModelId=3C5D92EC014F
 bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the container to stack with
 {
 	unsigned int ci;
@@ -365,7 +364,7 @@ bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the contai
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->id() == pItem->id() && !pi->free && pi->color == pItem->color)
+		if (!pi && pi->id() == pItem->id() && !pi->free && pi->color == pItem->color)
 			if (pi->PileItem(pItem))
 				return true;
 	}
