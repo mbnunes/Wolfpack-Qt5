@@ -13,7 +13,7 @@
 		<tag name="resname" value="iron" />
 		<durability><random min="30" max="39" /></durability>
 		<weight>1.0</weight>
-		<events>equipment,weapons.blades</events>
+		<events>equipment,blades</events>
 		<type>1005</type>
 		<category>Weapons\Fencing\Dagger (N/S)</category>
 	</item>

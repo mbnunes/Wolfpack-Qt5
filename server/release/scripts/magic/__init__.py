@@ -29,7 +29,7 @@ def registerspell( id, spell ):
 # Set up our global hook on script load
 #
 def onLoad():
-	wolfpack.registerglobal( EVENT_CASTSPELL, "magic" )
+	wolfpack.registerglobal(EVENT_CASTSPELL, "magic")
 
 #
 # A Spell has been Selected from our SpellBook
@@ -43,22 +43,22 @@ def castSpell( char, spell, mode = 0, args = [] ):
 	socket = char.socket
 	eventlist = char.events
 
-	if not spells.has_key( spell ):
+	if not spells.has_key(spell):
 		if socket:
-			socket.log( LOG_ERROR, "Trying to cast unknown spell: %d\n" % spell )
+			socket.log(LOG_ERROR, "Trying to cast unknown spell: %d\n" % spell)
 			socket.sysmessage( 'ERROR: Unknown Spell' )
 		return
 
 	# We are frozen
 	if char.frozen:
-		char.message( 502643 )
+		char.socket.sysmessage(502643)
 		return
-	
+
 	# We are already casting a spell
 	if 'magic' in eventlist or ( socket and socket.hastag( 'cast_target' ) ):
-		char.message( 502642 )
+		char.socket.message(502642)
 		return
-		
+
 	# If we are using a spellbook to cast, check if we do have
 	# the spell in our spellbook (0-based index)
 	if mode == 0 and not hasSpell( char, spell - 1 ):
@@ -80,63 +80,63 @@ def castSpell( char, spell, mode = 0, args = [] ):
 		char.say( spell.mantra )
 	
 	# Precasting
-	char.events =  [ 'magic' ] + eventlist	
-	char.action( ANIM_CASTAREA )	
-	char.addtimer( spell.calcdelay(), 'magic.callback', [ spell.spellid, mode ], 0, 0, "cast_delay" )
+	char.events = ['magic'] + eventlist
+	char.action(ANIM_CASTAREA)	
+	char.addtimer(spell.calcdelay(), 'magic.callback', [spell.spellid, mode], 0, 0, "cast_delay")
 
 def callback( char, args ):
 	eventlist = char.events
-	eventlist.remove( 'magic' )
+	eventlist.remove('magic')
 	char.events = eventlist
 
-	spell = spells[ args[0] ]
-	spell.cast( char, args[1] )
+	spell = spells[args[0]]
+	spell.cast(char, args[1])
 
 # Target Cancel
-def target_cancel( char ):
-	if char.socket.hastag( 'cast_target' ):
-		char.socket.deltag( 'cast_target' )
+def target_cancel(char):
+	if char.socket.hastag('cast_target'):
+		char.socket.deltag('cast_target')
 		
 # Target Timeout
-def target_timeout( char ):
-	char.socket.deltag( 'cast_target' )
-	char.message( 'You loose your concentration.' )	
-	fizzle( char )
+def target_timeout(char):
+	char.socket.deltag('cast_target')
+	char.socket.sysmessage(500641)
+	fizzle(char)
 
 # Target Response
 def target_response( char, args, target ):
 	# No more npc saftey from here
 	char.socket.deltag( 'cast_target' )
 	
-	spell = spells[ args[0] ]
+	spell = spells[args[0]]
 	mode = args[1]
 	
 	# Char Targets
 	if target.char and ( spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_CHAR ):
-		spell.target( char, mode, TARGET_CHAR, target.char )
+		spell.target(char, mode, TARGET_CHAR, target.char)
 		
 	# Item Target
 	elif target.item and ( spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_ITEM ):
-		spell.target( char, mode, TARGET_ITEM, target.item )
+		spell.target(char, mode, TARGET_ITEM, target.item)
 		
 	# Ground Target
-	elif ( target.item or target.char or target.pos ) and ( spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_GROUND ):
+	elif (target.item or target.char or target.pos) and (spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_GROUND):
 		pos = target.pos
 		if target.item:
 			pos = target.item.pos
 		elif target.char:
 			pos = target.char.pos
-		spell.target( char, mode, TARGET_GROUND, pos )
-		
-	else:
-		char.message( 501857 )	
+		spell.target(char, mode, TARGET_GROUND, pos)
 
-def onCastSpell( char, spell ):
-	castSpell( char, spell )
+	else:
+		char.socket.sysmessage(501857)
+
+def onCastSpell(char, spell):
+	castSpell(char, spell)
 
 # These Events happen for characters  who are casting a spell right now
-def onDamage( char, type, amount, source ):
-	char.message( 500641 )
+def onDamage(char, type, amount, source):
+	char.socket.sysmessage(500641)
 	fizzle( char )
 
 def onWalk( char, direction, sequence ):	
@@ -146,13 +146,13 @@ def onWalk( char, direction, sequence ):
 	# Just turning
 	if direction != char.direction:
 		return
+
+	char.socket.sysmessage(500641)
+	fizzle(char)
 	
-	char.message( 500641 )
-	fizzle( char )
+def onWarModeToggle(char, warmode):
+	char.socket.sysmessage(500641)
+	fizzle(char)
 	
-def onWarModeToggle( char, warmode ):
-	char.message( 500641 )
-	fizzle( char )
-	
-def onLogin( char ):
-	fizzle( char )
+def onLogin(char):
+	fizzle(char)

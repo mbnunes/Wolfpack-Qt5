@@ -75,7 +75,7 @@ class Recall ( Spell ):
     char.turnto( target )
     
     # We can only recall from recall runes
-    if not 'recall_rune' in target.events:
+    if not 'magic.rune' in target.events:
       char.message( 502357 )
       return
 

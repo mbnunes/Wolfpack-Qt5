@@ -7,7 +7,7 @@
 # Script for Spell Scrolls                                      #
 #===============================================================#
 
-from spellbook import addspell
+from magic.spellbook import addspell
 import wolfpack
 
 # calculate the spell-id of a scroll

@@ -13,7 +13,7 @@
 		<weight>10.0</weight>
 		<tag name="req_str" value="50" type="int" />
 		<tag name="resname" value="iron" />
-		<events>equipment,weapons.blades</events>
+		<events>equipment,blades</events>
 		<type>1005</type>
 		<category>Weapons\Fencing\Pike (N/S)</category>
 	</item>

@@ -7,7 +7,7 @@
 
 from wolfpack.gumps import cGump
 import wolfpack
-from recall_rune import isrune
+from magic.rune import isrune
 from wolfpack.utilities import fizzle
 import whrandom
 

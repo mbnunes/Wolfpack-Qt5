@@ -14,7 +14,7 @@
 		<tag name="req_str" value="20" type="int" />
 		<tag name="resname" value="iron" />
 		<tag name="remaining_uses" type="int" value="35" />
-		<events>equipment,weapons.blades</events>
+		<events>equipment,blades</events>
 		<category>Weapons\Axes\Hatchet (N/S)</category>
 		<type>1002</type>
 	</item>
