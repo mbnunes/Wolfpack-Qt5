@@ -1,7 +1,7 @@
 #!/bin/sh
 CONFIG_FILE="setup.cf";
 SETUP_BASEDIR="setup.d";
-NECESSARY_COMMANDS="bash seq run-parts expr grep sed cut head tail chmod dirname basename";
+NECESSARY_COMMANDS="bash seq expr grep sed cut head tail chmod dirname basename";
 
 #
 # old sh didn't support functions. so don't use them at first!
@@ -206,4 +206,10 @@ echo -e "\e[1;32mOkay, starting setup scripts:\e[m";
 
 export CONFIG_FILE;
 
-run-parts "$SETUP_BASEDIR";
+for SETUP_FILE in $SETUP_BASEDIR/*;
+do
+	if [ -f "$SETUP_FILE" ];
+	then
+		"$SETUP_FILE";
+	fi;
+done;
