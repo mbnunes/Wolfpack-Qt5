@@ -48,6 +48,7 @@
 		<intproperty name="carve_meat" value="19" />
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>
+		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 	</npc>
 
 </definitions>
