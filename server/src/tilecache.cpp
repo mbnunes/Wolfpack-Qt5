@@ -32,6 +32,7 @@
 //Wolfpack Includes
 
 #include "tilecache.h"
+#include "win_registry.h"
 
 using namespace std;
 
@@ -68,8 +69,17 @@ bool cTileCache::load( const QString &nPath )
 	memset( &emptyLandTile, 0, sizeof( land_st ) );
 	memset( &emptyStaticTile, 0, sizeof( tile_st ) );
 
-	QFile input( path + "tiledata.mul"  );
+	QFile input( path + "tiledata.mul" );
 	
+	// try to use the registry path
+	if( !input.exists() )
+	{
+		QString uopath = getUOPath();
+
+		if( !uopath.isNull() )
+			input.setName( uopath + "tiledata.mul" );
+	}
+
 	if( !input.open( IO_ReadOnly ) )
 	{
 		clConsole.ProgressFail();

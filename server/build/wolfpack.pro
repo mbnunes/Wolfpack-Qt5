@@ -110,7 +110,8 @@ HEADERS         = \
 		  corpse.h \
 		  python/content.h \
 		  spellbook.h \
-		  newmagic.h 
+		  newmagic.h \
+		  win_registry.h
 		  
 SOURCES         = \
 		  LoS.cpp \

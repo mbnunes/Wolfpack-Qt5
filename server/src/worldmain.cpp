@@ -52,7 +52,6 @@
 #include "dbdriver.h"
 
 // Library Includes
-#include <qsqlcursor.h>
 #include <qcstring.h>
 
 #undef  DBGFILE
