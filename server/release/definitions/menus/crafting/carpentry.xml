@@ -200,7 +200,7 @@
 		</craft>
 		<craft definition="dbf" name="Fishing Pole">
 			<carpentry min="684" max="1284" />
-			<fishing min="400" max="900" />
+			<tailoring min="400" max="900" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 			<cloth id="1765;1766;1767;1768" amount="5" name="Cloth" />
 		</craft>
