@@ -37,7 +37,7 @@
 //
 
 #include "telport.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "network.h"
 #include "classes.h"
 #include "wpdefmanager.h"
@@ -520,15 +520,15 @@ void objTeleporters(P_CHAR pc_s)
 
 	int x = pc_s->pos.x, y = pc_s->pos.y;
 	
-	int	StartGrid = mapRegions->StartGrid(pc_s->pos);
-	//	int	getcell=mapRegions->GetCell(pc_s->x,pc_s->y);
+	int	StartGrid = cMapObjects::getInstance()->StartGrid(pc_s->pos);
+	//	int	getcell=cMapObjects::getInstance()->GetCell(pc_s->x,pc_s->y);
 #pragma note("replace by item region iterator")	
 	unsigned int increment = 0;
-	for (unsigned int checkgrid = StartGrid + (increment*mapRegions->GetColSize()); increment < 3; increment++, checkgrid = StartGrid + (increment*mapRegions->GetColSize()))
+	for (unsigned int checkgrid = StartGrid + (increment*cMapObjects::getInstance()->GetColSize()); increment < 3; increment++, checkgrid = StartGrid + (increment*cMapObjects::getInstance()->GetColSize()))
 	{
 		for (int a = 0; a < 3; a++)
 		{
-			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid + a);
+			cRegion::raw vecEntries = cMapObjects::getInstance()->GetCellEntries(checkgrid + a);
 			cRegion::rawIterator it = vecEntries.begin();
 			for ( ; it != vecEntries.end(); ++it )
 			{

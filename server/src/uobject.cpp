@@ -38,7 +38,7 @@
 #include "iserialization.h"
 #include "globals.h"
 #include "network.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "junk.h"
 #include "defines.h"
 #include "wpdefaultscript.h"
@@ -75,15 +75,8 @@ void cUObject::init()
 
 void cUObject::moveTo( const Coord_cl& newpos )
 {
-	bool regionChanged = false;
-	if ( cRegion::GetCell(pos) != cRegion::GetCell(newpos) )
-	{
-		mapRegions->Remove( this );
-		regionChanged = true;
-	}
-	pos = newpos;
-	if ( regionChanged )
-		mapRegions->Add( this );
+	cMapObjects::getInstance()->remove( this );
+	cMapObjects::getInstance()->add( this );
 }
 
 /*!

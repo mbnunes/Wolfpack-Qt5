@@ -37,7 +37,7 @@
 #include "globals.h"
 #include "junk.h"
 #include "TmpEff.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "gumps.h"
 
 //pc_currchar->trackingtarget = pc_currchar->trackingtargets[selection]; // sets trackingtarget that was selected in the gump

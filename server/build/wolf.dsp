@@ -229,6 +229,10 @@ SOURCE=.\makemenus.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\mapobjects.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\mapstuff.cpp
 # End Source File
 # Begin Source File
@@ -266,10 +270,6 @@ SOURCE=.\packlen.cpp
 # Begin Source File
 
 SOURCE=.\pfactory.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\regions.cpp
 # End Source File
 # Begin Source File
 
@@ -553,6 +553,10 @@ SOURCE=.\mapcache.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\mapobjects.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\msgboard.h
 # End Source File
 # Begin Source File
@@ -594,10 +598,6 @@ SOURCE=.\platform.h
 # Begin Source File
 
 SOURCE=.\prototypes.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\regions.h
 # End Source File
 # Begin Source File
 

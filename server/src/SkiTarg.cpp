@@ -38,7 +38,7 @@
 #include "SndPkg.h"
 #include "guildstones.h"
 #include "combat.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "tilecache.h"
 #include "classes.h"
@@ -81,14 +81,14 @@ static bool ForgeInRange(int s)
 /*	P_CHAR pc = currchar[s];
 	bool rc = false;
 
-	unsigned int StartGrid=mapRegions->StartGrid(pc->pos);
+	unsigned int StartGrid=cMapObjects::getInstance()->StartGrid(pc->pos);
 	unsigned int increment=0, checkgrid, a;
 #pragma note("Replace by Region Item iterator")
-	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
+	for (checkgrid=StartGrid+(increment*cMapObjects::getInstance()->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*cMapObjects::getInstance()->GetColSize()))
 	{
 		for (a=0;a<3;a++)
 		{
-			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
+			cRegion::raw vecEntries = cMapObjects::getInstance()->GetCellEntries(checkgrid+a);
 			cRegion::rawIterator it = vecEntries.begin();
 			for (; it != vecEntries.end(); ++it)
 			{
@@ -109,14 +109,14 @@ static bool AnvilInRange(int s)
 /*	P_CHAR pc = currchar[s];
 	bool rc = false;
 
-	unsigned int StartGrid=mapRegions->StartGrid(pc->pos);
+	unsigned int StartGrid=cMapObjects::getInstance()->StartGrid(pc->pos);
 	unsigned int increment=0, checkgrid, a;
 #pragma note("Replace by region item iterator")
-	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
+	for (checkgrid=StartGrid+(increment*cMapObjects::getInstance()->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*cMapObjects::getInstance()->GetColSize()))
 	{
 		for (a=0;a<3;a++)
 		{
-			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
+			cRegion::raw vecEntries = cMapObjects::getInstance()->GetCellEntries(checkgrid+a);
 			cRegion::rawIterator it = vecEntries.begin();
 			for (; it != vecEntries.end(); ++it)
 			{

@@ -34,7 +34,7 @@
 //#include "wolfpack.h"
 #include "house.h"
 #include "iserialization.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "mapstuff.h"
 #include "debug.h"
@@ -162,7 +162,7 @@ bool cHouse::onValidPlace()
 			stat = msi.Next();
 		}
 		
-		cRegion::RegionIterator4Items ri( multipos );
+		RegionIterator4Items ri( multipos );
 		for( ri.Begin(); !ri.atEnd(); ri++ ) 
 		{
 			P_ITEM pi = ri.GetData();
@@ -241,7 +241,7 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 		createKeys( pc_currchar, tr("house key") );
 	}
 
-	cRegion::RegionIterator4Items ri(this->pos);
+	RegionIterator4Items ri(this->pos);
 	for(ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_ITEM si = ri.GetData();
@@ -255,14 +255,14 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 void cHouse::remove( void )
 {
 	removeKeys();
-	cRegion::RegionIterator4Chars ri(this->pos);
+	RegionIterator4Chars ri(this->pos);
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
 		if(pc->npcaitype() == 17 && pc->multis == this->serial)
 			Npcs->DeleteChar(pc);
 	}
-	cRegion::RegionIterator4Items rii(this->pos);
+	RegionIterator4Items rii(this->pos);
 	for(rii.Begin(); !rii.atEnd(); rii++)
 	{
 		P_ITEM pi = rii.GetData();
@@ -278,7 +278,7 @@ void cHouse::toDeed( cUOSocket* socket )
 		return;
 	P_ITEM pBackpack = pc_currchar->getBackpack();
 
-	cRegion::RegionIterator4Chars ri(this->pos);
+	RegionIterator4Chars ri(this->pos);
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();

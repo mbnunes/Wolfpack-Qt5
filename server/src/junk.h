@@ -82,7 +82,6 @@ class cSpeech;
 class cTrigger;
 class cTrade;
 class cBounty;
-class cRegion;
 class cAccounts;
 
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
@@ -103,7 +102,6 @@ extern cSpeech	        *Speech;
 extern cTrigger	        *Trig;
 extern cTrade	        *Trade;
 extern cBounty          *Bounty;
-extern cRegion			*mapRegions; //setup map regions Tauriel
 // Skys AI 
 extern cCharStuff::cDragonAI	*DragonAI;
 extern cCharStuff::cBankerAI	*BankerAI;

@@ -37,7 +37,7 @@
 #include "walking.h"
 #include "TmpEff.h"
 #include "combat.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "classes.h"
 #include "network/uosocket.h"
@@ -95,7 +95,7 @@ void restockNPC( UINT32 currenttime, P_CHAR pc_i )
 	}
 }
 
-void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
+void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getInstance()
 {
 	if( !pc )
 		return;
@@ -243,7 +243,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 		pc->kill();
 }
 
-void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
+void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInstance()
 {
 	cUOSocket *socket = pc->socket();
 

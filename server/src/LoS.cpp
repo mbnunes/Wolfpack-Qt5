@@ -37,7 +37,7 @@
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "debug.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "mapstuff.h"
 #include "tilecache.h"
 
@@ -192,7 +192,7 @@ the line of sight.
 	unsigned long loopexit=0;
 	
 	// - This needs to use a pointer/array to cut down on walking lag...
-	cRegion::RegionIterator4Items ri(source);
+	RegionIterator4Items ri(source);
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_ITEM mapitem = ri.GetData();

@@ -37,7 +37,7 @@
 #include "wolfpack.h"
 #include "debug.h"
 #include "guildstones.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "network.h"
 #include "classes.h"
@@ -535,7 +535,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		}
         
 		// Check if we're going to collide with characters
-		if( pChar->isNpc() && CheckForCharacterAtXYZ( pChar, newCoord.x, newCoord.y, newCoord.z ) )
+		if( pChar->isNpc() && CheckForCharacterAtXYZ( pChar, newCoord ) )
 		{
 //			pChar->pathnum += P_PF_MRV;
 			pChar->setPathNum( pChar->pathnum() + P_PF_MRV);
@@ -570,7 +570,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	if( socket )
 		socket->allowMove( sequence );
 
-	cRegion::RegionIterator4Chars ri( pChar->pos );
+	RegionIterator4Chars ri( pChar->pos );
 
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
@@ -628,29 +628,20 @@ short int cMovement::CheckMovementType(P_CHAR pc)
 	return retval;
 }
 
-bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, signed char cz)
+bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos )
 {
-	unsigned int StartGrid=mapRegions->StartGrid(Coord_cl(cx, cy, cz));
-	unsigned int increment=0, checkgrid, a;
-	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
+	RegionIterator4Chars ri( pos );
+	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
-		for (a=0;a<3;a++)
+		P_CHAR pc_i = ri.GetData();
+		if (pc_i != NULL)
 		{
-			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-			cRegion::rawIterator it = vecEntries.begin();
-			for (; it != vecEntries.end(); ++it)
+			if (pc_i != pc && (online(pc_i) || pc_i->isNpc()))
 			{
-				P_CHAR pc_i = FindCharBySerial(*it);
-				if (pc_i != NULL)
+				// x=x,y=y, and distance btw z's <= MAX STEP
+				if ((pc_i->pos.x == pos.x) && (pc_i->pos.y == pos.y) && (abs(pc_i->pos.z-pos.z) <= P_M_MAX_Z_CLIMB))
 				{
-					if (pc_i != pc && (online(pc_i) || pc_i->isNpc()))
-					{
-						// x=x,y=y, and distance btw z's <= MAX STEP
-						if ((pc_i->pos.x == cx) && (pc_i->pos.y == cy) && (abs(pc_i->pos.z-cz) <= P_M_MAX_Z_CLIMB))
-						{
-							return true;
-						}
-					}
+					return true;
 				}
 			}
 		}
@@ -870,7 +861,7 @@ void cMovement::GetBlockingStatics(const Coord_cl pos, unitile_st *xyblock, int 
 
 void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock, int &xycount)
 {
-	cRegion::RegionIterator4Items ri(position);
+	RegionIterator4Items ri(position);
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_ITEM mapitem = ri.GetData();
@@ -980,7 +971,7 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 	const int visibleRange = VISRANGE;
 	signed short tempshort;
 
-	cRegion::RegionIterator4Chars ri( pChar->pos );
+	RegionIterator4Chars ri( pChar->pos );
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR mapChar = ri.GetData();
@@ -1041,17 +1032,17 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 	const short int oldy = GetYfromDir(pc->dir + 4, newy);
 	
 	// - Tauriel's region stuff 3/6/99
-	const int StartGrid = mapRegions->StartGrid(pc->pos);
+	const int StartGrid = cMapObjects::getInstance()->StartGrid(pc->pos);
 
 	int checkgrid = 0;
 	for (int increment = 0; increment < 3; increment++)
 	{
-		checkgrid = StartGrid + (increment * mapRegions->GetColSize());
+		checkgrid = StartGrid + (increment * cMapObjects::getInstance()->GetColSize());
 		for( int i = 0; i < 3; i++ )
 		{
 			P_ITEM mapitem = NULL;
 
-			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+i, enItemsOnly);
+			cRegion::raw vecEntries = cMapObjects::getInstance()->GetCellEntries(checkgrid+i, enItemsOnly);
 			cRegion::rawIterator it = vecEntries.begin();
 			for (; it != vecEntries.end(); ++it)
 			{
@@ -1364,7 +1355,7 @@ void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 
 			if( mayWalk( pc, newCoord ) )
 			{
-				if ( ( pn < P_PF_MRV ) && CheckForCharacterAtXYZ( pc, newCoord.x, newCoord.y, newCoord.z ) )
+				if ( ( pn < P_PF_MRV ) && CheckForCharacterAtXYZ( pc, newCoord ) )
 					continue;
 
 				newpath[pn].x = newCoord.x;
@@ -1556,68 +1547,6 @@ short int cMovement::Direction(short int sx, short int sy, short int dx, short i
 	else dir=-1;
 	
 	return dir;
-}
-
-// knox, reinserted it since some other files access it,
-//       100% sure this is wrong, however the smaller ill.
-int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_s )
-{
-	const int getcell=mapRegions->GetCell(Coord_cl(x,y, z));
-	const Coord_cl pos(x, y, z, pc_s->pos.map);
-
-	if ( pc_s == NULL ) return 0;
-
-    ++pc_s->blocked;
-	cRegion::raw vecEntries = mapRegions->GetCellEntries(getcell);
-	cRegion::rawIterator it = vecEntries.begin();
-    for (; it != vecEntries.end(); ++it)
-    {
-		P_ITEM mapitem = FindItemBySerial(*it);
-        if (mapitem != NULL)
-        {
-			tile_st tile = cTileCache::instance()->getTile( mapitem->id() );
-            if (mapitem->pos.x==x && mapitem->pos.y==y && mapitem->pos.z+tile.height>z+1 && mapitem->pos.z<z+MaxZstep)
-            {
-                // bugfix found by JustMichael, moved by crackerjack
-                // 8/2/99 makes code run faster too - one less loop :)
-                if ( mapitem->id() == 0x3946 || mapitem->id() == 0x3956 ) return 0;
-                if ( mapitem->id() < 0x0200 || ( mapitem->id() >= 0x0300 && mapitem->id() <= 0x03E2 ) ) return 0;
-                if ( mapitem->id() > 0x0854 && mapitem->id() < 0x0866 ) return 0;
-
-                if( mapitem->type() == 12 )
-                {
-                    if (pc_s->isNpc() && (!pc_s->title().isEmpty() || pc_s->npcaitype() != 0))
-                    {
-                        dooruse( NULL, mapitem );
-                    }
-                    pc_s->blocked=0;
-                    return 0;
-                }
-
-            }
-        }
-    }
-
-	// experimental check for bad spawning/walking places, not optimized in any way (Duke, 3.9.01)
-	int mapid = 0;
-	signed char mapz = Map->MapElevation(pos);	// just to get the map-ID
-	if (mapz != illegal_z)
-	{
-		if ((mapid >= 0x25A && mapid <= 0x261) ||	// cave wall
-			(mapid >= 0x266 && mapid <= 0x26D) ||	// cave wall
-			(mapid >= 0x2BC && mapid <= 0x2CB) )	// cave wall
-			return 0;
-		if ( mapid >= 0x0A8 && mapid <= 0x0AB) 	// water (ocean ?)
-			return 0;
-	}
-		
-    // see if the map says its ok to move here
-    if (Map->CanMonsterMoveHere(pos))
-    {
-		pc_s->blocked = 0;
-		return 1;
-    }
-    return 0;
 }
 
 bool cMovement::checkBoundingBox(const Coord_cl pos, int fx1, int fy1, int fx2, int fy2)

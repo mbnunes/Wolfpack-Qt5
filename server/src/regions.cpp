@@ -35,7 +35,7 @@
 
 
 #include "wolfpack.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "debug.h"
 #include "mapstuff.h"
 
@@ -187,7 +187,7 @@ bool RegionIterator4Chars::NextCell(void)
 		currentCell += cRegion::GetColSize()-3;	//next col
 	if (atEnd())
 		return false;	// upper right corner of the box reached
-	vecEntries = mapRegions->GetCellEntries(currentCell, enCharsOnly);
+	vecEntries = cMapObjects::getInstance()->GetCellEntries(currentCell, enCharsOnly);
 	currentIndex = vecEntries.begin();
 	return true;
 }
@@ -212,7 +212,7 @@ void RegionIterator4Chars::Begin(void)
 	currentCell = cell;
 	Coord_cl lastmapPos( cMapStuff::mapTileWidth(position)*8, cMapStuff::mapTileHeight(position)*8, position.z, position.map );
 	endCell = QMIN( cell + 2 * cRegion::GetColSize() + 2, static_cast<long unsigned int>(cRegion::GetCell(lastmapPos))); // Find out where we stop.
-	vecEntries = mapRegions->GetCellEntries(currentCell, enCharsOnly);
+	vecEntries = cMapObjects::getInstance()->GetCellEntries(currentCell, enCharsOnly);
 	currentIndex = vecEntries.begin();
 	while ( vecEntries.empty() && !atEnd() ) // make sure we start with something at least.
 		(*this)++;
@@ -258,7 +258,7 @@ bool RegionIterator4Items::NextCell(void)
 		currentCell += cRegion::GetColSize()-3;	//next col
 	if (atEnd())
 		return false;	// upper right corner of the box reached
-	vecEntries = mapRegions->GetCellEntries(currentCell, enItemsOnly);
+	vecEntries = cMapObjects::getInstance()->GetCellEntries(currentCell, enItemsOnly);
 	currentIndex = vecEntries.begin();
 	return true;
 }
@@ -283,7 +283,7 @@ void RegionIterator4Items::Begin(void)
 	currentCell = cell;
 	Coord_cl lastmapPos( cMapStuff::mapTileWidth(position)*8, cMapStuff::mapTileHeight(position)*8, position.z, position.map );
 	endCell = QMIN( cell + 2 * cRegion::GetColSize() + 2, static_cast<long unsigned int>(cRegion::GetCell(lastmapPos))); // Find out where we stop.
-	vecEntries = mapRegions->GetCellEntries(currentCell, enItemsOnly);
+	vecEntries = cMapObjects::getInstance()->GetCellEntries(currentCell, enItemsOnly);
 	currentIndex = vecEntries.begin();
 	while ( vecEntries.empty() && !atEnd() ) // make sure we start with something at least.
 		(*this)++;

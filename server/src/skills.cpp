@@ -44,7 +44,7 @@
 #include "tilecache.h"
 #include "combat.h"
 #include "targetrequests.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "wpscriptmanager.h"
 #include "skills.h"
@@ -336,7 +336,7 @@ public:
 		UINT16 dSkill = pChar->skill( DETECTINGHIDDEN );		
 		double range = ( dSkill * dSkill / 1.0E6 ) * VISRANGE; // this seems like an ok formula
 		
-		cRegion::RegionIterator4Chars ri( dPos );
+		RegionIterator4Chars ri( dPos );
         bool found = false;
 
 		for( ri.Begin(); !ri.atEnd(); ri++ )
@@ -1258,8 +1258,8 @@ void cSkills::PeaceMaking(cUOSocket* socket)
 		Skills->PlayInstrumentWell(socket, p_inst);
 		socket->sysMessage( tr( "You play your hypnotic music, stopping the battle.") );
 		
-		//Char mapRegions
-		cRegion::RegionIterator4Chars ri(pc_currchar->pos);
+		//Char cMapObjects::getInstance()
+		RegionIterator4Chars ri(pc_currchar->pos);
 		for (ri.Begin(); !ri.atEnd(); ri++)
 		{
 			P_CHAR mapchar = ri.GetData();

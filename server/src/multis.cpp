@@ -31,7 +31,7 @@
 
 #include "multis.h"
 
-#include "regions.h"
+#include "mapobjects.h"
 #include "tilecache.h"
 #include "mapstuff.h"
 #include "network/uosocket.h"
@@ -173,7 +173,7 @@ cMulti* cMulti::findMulti( const Coord_cl &pos )
 	cMulti* pMulti = NULL;
 	SI32 currdistance;
 
-	cRegion::RegionIterator4Items ri( pos );
+	RegionIterator4Items ri( pos );
 	
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{

@@ -55,7 +55,7 @@
 #include "TmpEff.h"
 #include "guildstones.h"
 #include "combat.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "network.h"
 #include "classes.h"
@@ -698,7 +698,7 @@ void item_char_test()
 					p_pet->setStablemaster_serial(INVALID_SERIAL);
 					p_pet->setTimeused_last(getNormalizedTime());
 					p_pet->setTime_unused(0);
-					mapRegions->Add(p_pet);
+					cMapObjects::getInstance()->add(p_pet);
 					LogMessage("Stabled animal got freed because stablemaster died");
 					clConsole.send("stabled animal got freed because stablemaster died");
 				}
@@ -952,7 +952,7 @@ void explodeitem(int s, P_ITEM pi)
 	if (len<2) len=2;	// 2 square min damage range
 
 	unsigned long loopexit=0;
-	cRegion::RegionIterator4Chars ri(pi->pos);
+	RegionIterator4Chars ri(pi->pos);
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
@@ -986,38 +986,27 @@ void explodeitem(int s, P_ITEM pi)
 	}
 
 	int chain=0;
-	P_ITEM piMap;
 	loopexit=0;
 
-	int StartGrid = mapRegions->StartGrid(pi->pos);
-	int increment=0;
-	int checkgrid, a;
-	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
+	RegionIterator4Items rj( pi->pos );
+	for( rj.Begin(); !rj.atEnd(); rj++ )
 	{
-		for (a=0;a<3;a++)
+		P_ITEM piMap = rj.GetData();
+		if (piMap != NULL)
 		{
-			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-			cRegion::rawIterator it = vecEntries.begin();
-			for (; it != vecEntries.end(); ++it)
+			if( piMap->id() == 0x0F0D && piMap->type() == 19 ) // check for expl-potions
 			{
-				piMap = FindItemBySerial(*it);
-				if (piMap != NULL)
-				{
-					if( piMap->id() == 0x0F0D && piMap->type() == 19 ) // check for expl-potions
-					{
-						dx=abs(pi->pos.x - piMap->pos.x);
-						dy=abs(pi->pos.y - piMap->pos.y);
-						dz=abs(pi->pos.z - piMap->pos.z);
+				dx=abs(pi->pos.x - piMap->pos.x);
+				dy=abs(pi->pos.y - piMap->pos.y);
+				dz=abs(pi->pos.z - piMap->pos.z);
 
-						if (dx<=2 && dy<=2 && dz<=2 && chain==0) // only trigger if in 2*2*2 cube
-						{
-							if (!(dx==0 && dy==0 && dz==0))
-							{
-								//chain=1; // maximum: one additional trigerred per check ..
-								if (rand()%2==1) chain=1; // LB - more aggressive - :)
-								tempeffect2(pc_currchar, piMap, 17, 0, 1, 0); // trigger ...
-							}
-						}
+				if (dx<=2 && dy<=2 && dz<=2 && chain==0) // only trigger if in 2*2*2 cube
+				{
+					if (!(dx==0 && dy==0 && dz==0))
+					{
+						//chain=1; // maximum: one additional trigerred per check ..
+						if (rand()%2==1) chain=1; // LB - more aggressive - :)
+						tempeffect2(pc_currchar, piMap, 17, 0, 1, 0); // trigger ...
 					}
 				}
 			}
@@ -1370,7 +1359,7 @@ void callguards( P_CHAR pc_player )
 	if (!pc_player->inGuardedArea() || !SrvParams->guardsActive() )
 		return;
 
-	cRegion::RegionIterator4Chars ri(pc_player->pos);
+	RegionIterator4Chars ri(pc_player->pos);
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR pc = ri.GetData();
@@ -1507,7 +1496,7 @@ void mounthorse(cUOSocket* socket, P_CHAR pc_mount) // Remove horse char and giv
 		pc_mount->attacker = INVALID_SERIAL;
 		pc_mount->pos = Coord_cl(xx, yy, zz);
 		
-		mapRegions->Remove(pc_mount);
+		cMapObjects::getInstance()->remove(pc_mount);
 		
 		pc_mount->setStablemaster_serial( stablemaster_serial );
 		
@@ -4167,7 +4156,7 @@ void bgsound(P_CHAR pc)
 	if (pc == NULL) return;
 
 	int y=0;
-	cRegion::RegionIterator4Chars ri(pc->pos);
+	RegionIterator4Chars ri(pc->pos);
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
@@ -4609,7 +4598,6 @@ void StartClasses(void)
 
 // NULL Classes out first....
 	cwmWorldState	= NULL;
-	mapRegions		= NULL;
 	Accounts		= NULL;
 	Combat			= NULL;
 	Items			= NULL;
@@ -4630,7 +4618,6 @@ void StartClasses(void)
 	// Classes nulled now, lets get them set up :)
 	SrvParams		= new cSrvParams("wolfpack.xml", "Wolfpack", "1.0");
 	cwmWorldState	= new CWorldMain;
-	mapRegions		= new cRegion;
 	Accounts		= new cAccounts;
 	Combat			= new cCombat;
 	Items			= new cAllItems;
@@ -4659,7 +4646,6 @@ void DeleteClasses()
 	//Weather->kill();
 	delete SrvParams;
 	delete cwmWorldState;
-	delete mapRegions;
 	delete Accounts;
 	delete Combat;
 	delete Items;

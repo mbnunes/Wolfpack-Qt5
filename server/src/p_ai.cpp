@@ -32,7 +32,7 @@
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "debug.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "classes.h"
 
@@ -65,7 +65,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 0: // Shopkeepers greet players..Ripper
 			if (SrvParams->vendorGreet() == 1 && pc_i->isNpc() && pc_i->shop() && pc_i->isHuman())
 			{
-				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -87,7 +87,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 1: // good healers
 			if( !pc_i->war )
 			{
-				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -145,7 +145,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 				P_CHAR Victim = NULL;
 				UI32 minDist;
 
-				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -212,7 +212,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 3 : // Evil Healers
 			if (!pc_i->war)
 			{
-				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -256,7 +256,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 				P_CHAR Victim = NULL;
 				UI32 minDist;
 
-				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -309,7 +309,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 5: // npc beggars
 			if (!pc_i->war)
 			{
-				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -347,7 +347,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 				P_CHAR Victim = NULL;
 				UI32 minDist;
 
-				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -399,7 +399,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			// so regular dragons attack reds on sight while tamed.
 			if (pc_i->isNpc() && pc_i->tamed())
 			{
-				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -421,7 +421,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 11 : // add NPCAI B in scripts to make them attack reds. (Ripper)
 			if (!pc_i->war)
 			{
-				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -446,7 +446,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 18: // Ripper.. Escort speech.
 		if (!pc_i->war && pc_i->questType() == ESCORTQUEST)
 		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
+			RegionIterator4Chars ri(pc_i->pos);
 			for (ri.Begin(); !ri.atEnd(); ri++)
 			{
 				P_CHAR pc = ri.GetData();
@@ -472,7 +472,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 32: // Pets Guarding..Ripper
 			if (pc_i->isNpc() && pc_i->tamed())
 			{
-				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -501,7 +501,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		   case 50:// EV/BS
 			if (!pc_i->war)
 			{
-				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -538,7 +538,7 @@ void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 	if (pc_i->war)
 	{
 		pc_i->talk( tr("Who dares disturbe me?!?!"), -1, 0 );
-		cRegion::RegionIterator4Chars ri(pc_i->pos);
+		RegionIterator4Chars ri(pc_i->pos);
 		for (ri.Begin(); !ri.atEnd(); ri++)
 		{
 			P_CHAR pc = ri.GetData();

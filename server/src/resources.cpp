@@ -37,7 +37,7 @@
 #include "chars.h"
 #include "network/uosocket.h"
 #include "mapstuff.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "itemsmgr.h"
 #include "skills.h"
 #include "srvparams.h"
@@ -664,7 +664,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		return;
 
 	cResourceItem* pResItem = NULL;
-	cRegion::RegionIterator4Items ri( pos );
+	RegionIterator4Items ri( pos );
 	for (ri.Begin(); !ri.atEnd() && !pResItem; ri++)
 	{
 		P_ITEM pi = ri.GetData();
@@ -777,7 +777,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 				pResItem->serial = cItemsManager::getInstance()->getUnusedSerial();
 				cItemsManager::getInstance()->registerItem( pResItem );
 				pResItem->pos = pos;
-				mapRegions->Add( pResItem );
+				cMapObjects::getInstance()->add( pResItem );
 				pResItem->update();
 			}
 		}

@@ -73,7 +73,7 @@ HEADERS         = client.h \
                   pfactory.h \
 		  platform.h \
 		  prototypes.h \
-		  regions.h \
+		  mapobjects.h \
 		  remadmin.h \
 		  resource.h \
 		  resources.h \

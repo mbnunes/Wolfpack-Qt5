@@ -37,7 +37,7 @@
 #include "speech.h"
 #include "worldmain.h"
 #include "guildstones.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "network.h"
 #include "classes.h"
@@ -177,7 +177,7 @@ bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QStr
 	
 	bool found = false;
 	P_CHAR p_pet = NULL;
-	cRegion::RegionIterator4Chars ri( pPlayer->pos );
+	RegionIterator4Chars ri( pPlayer->pos );
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		p_pet = ri.GetData();
@@ -214,7 +214,7 @@ bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QStr
 	pPlayer->war = false;
 	pPlayer->targ = INVALID_SERIAL;
 
-	mapRegions->Remove( p_pet );
+	cMapObjects::getInstance()->remove( p_pet );
 	p_pet->setStablemaster_serial( pMaster->serial );
 
 	// set timer for fee calculation
@@ -290,8 +290,8 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 	pPet->setTimeused_last(getNormalizedTime());
 	pPet->setTime_unused(0);
 
-	mapRegions->Remove( pPet );
-	mapRegions->Add( pPet );
+	cMapObjects::getInstance()->remove( pPet );
+	cMapObjects::getInstance()->add( pPet );
 	pPet->resend( false ); // Resend
 		
 	pMaster->talk( tr( "Here's your pet. Treat it well." ) );
@@ -932,7 +932,7 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm )
     if( !pPlayer->socket() || pPlayer->dead )
 		return false;
 
-	cRegion::RegionIterator4Chars ri( pPlayer->pos );
+	RegionIterator4Chars ri( pPlayer->pos );
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR pNpc = ri.GetData();
@@ -1055,7 +1055,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 	// tiller was found twice...
 	// therefore we produce a QPtrList of cBoat* pointers and 
 	// then go through it for appliing speech --- sereg
-	cRegion::RegionIterator4Items rj( pChar->pos );
+	RegionIterator4Items rj( pChar->pos );
 	QPtrList< cBoat >	pboats;
 	for( rj.Begin(); !rj.atEnd(); rj++ )
 	{
@@ -1087,7 +1087,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 	
 	cChar* pc = NULL;
 	cChar* pNpc = NULL;
-	cRegion::RegionIterator4Chars ri( pChar->pos );
+	RegionIterator4Chars ri( pChar->pos );
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{	
 		pc = ri.GetData();

@@ -36,7 +36,7 @@
 //#include "cmdtable.h" // who took this out and why?? cj 8/11/99
 #include "targeting.h"
 #include "guildstones.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "wpdefmanager.h"
 #include "tilecache.h"
@@ -973,7 +973,7 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	pc->pos.x=pp->TxLoc;
 	pc->pos.y=pp->TyLoc;
 	pc->pos.z=pp->TzLoc+Map->TileHeight(pp->model);
-	mapRegions->Add(pc); // add it to da regions ...
+	cMapObjects::getInstance()->add(pc); // add it to da regions ...
 	pc->isNpc();
 	updatechar(pc);
 }
@@ -3294,7 +3294,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 
 	pi2->setOwnerMovable();
 
-	mapRegions->Remove(pi2); // remove if add in spawnitem
+	cMapObjects::getInstance()->remove(pi2); // remove if add in spawnitem
 	pi2->setLayer( pi1->layer() );
 	if( pi2->layer() == 0 ) // if not equipped -> coords of the light-object = coords of the
 	{

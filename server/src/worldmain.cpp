@@ -39,7 +39,7 @@
 #include "itemsmgr.h"
 #include "TmpEff.h"
 #include "guildstones.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "chars.h"
 #include "pfactory.h"
@@ -193,7 +193,7 @@ void CWorldMain::loadnewworld(QString module) // Load world
 
 		if(pc->stablemaster_serial() == INVALID_SERIAL)
 		{ 
-			mapRegions->Add(pc); 
+			cMapObjects::getInstance()->add(pc); 
 		} 
 		else
 			stablesp.insert(pc->stablemaster_serial(), pc->serial);
@@ -287,7 +287,7 @@ void CWorldMain::loadnewworld(QString module) // Load world
 				Items->DeleItem(pi);	//these are invalid locations, delete them!
 			}
 			else
-				mapRegions->Add(pi);
+				cMapObjects::getInstance()->add(pi);
 		}
 	}
 	clConsole.send(" Done.\n");

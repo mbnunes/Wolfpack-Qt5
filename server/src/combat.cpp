@@ -39,7 +39,7 @@
 #include "SndPkg.h"
 #include "utilsys.h"
 #include "guildstones.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "combat.h"
 #include "srvparams.h"
 #include "skills.h"

@@ -44,7 +44,7 @@
 #include "../globals.h"
 #include "../junk.h"
 #include "../territories.h"
-#include "../regions.h"
+#include "../mapobjects.h"
 #include "../structs.h"
 #include "../speech.h"
 #include "../commands.h"

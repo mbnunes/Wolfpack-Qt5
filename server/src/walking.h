@@ -45,7 +45,6 @@ public:
 	void Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence );
 	void CombatWalk( P_CHAR pc );
 	void NpcMovement( unsigned int currenttime, P_CHAR pc_i );
-	int validNPCMove( short int x, short int y, signed char z, P_CHAR pc_s );
 private:
 	inline bool isValidDirection( Q_UINT8 dir );
 	inline bool isOverloaded( P_CHAR );
@@ -64,7 +63,7 @@ private:
 	short int Direction(short int sx, short int sy, short int dx, short int dy);
 
 	short int CheckMovementType(P_CHAR pc);
-	bool CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, signed char cz);
+	bool CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos );
 
 	void randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type );
 	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords );

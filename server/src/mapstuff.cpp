@@ -35,7 +35,7 @@
 #include "progress.h"
 #include "tilecache.h"
 #include "debug.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "classes.h"
 
 #include <assert.h>
@@ -345,12 +345,10 @@ INT8 cMapStuff::DynamicElevation(const Coord_cl& pos)
 {
 	//INT32 z = illegal_z;
 	INT8 z = illegal_z;
-	const INT32 getcell = mapRegions->GetCell(pos);
-	cRegion::raw vecEntries = mapRegions->GetCellEntries(getcell);
-	cRegion::rawIterator it = vecEntries.begin();
-	for (; it != vecEntries.end(); ++it )
+	RegionIterator4Items ri( pos );
+	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
-		P_ITEM mapitem = FindItemBySerial(*it);
+		P_ITEM mapitem = ri.GetData();
 		if (mapitem != NULL)
 		{
 			if(mapitem->isMulti())
@@ -405,12 +403,10 @@ UINT16 cMapStuff::MultiTile( P_ITEM pi, const Coord_cl &pos )
 // originally by LB & just michael
 UINT16 cMapStuff::DynTile( const Coord_cl &pos )
 {
-	const INT32 getcell = mapRegions->GetCell( pos );
-	cRegion::raw vecEntries = mapRegions->GetCellEntries( getcell );
-	cRegion::rawIterator it = vecEntries.begin();
-	for(; it != vecEntries.end(); ++it )
-    {
-		P_ITEM mapitem = FindItemBySerial(*it);
+	RegionIterator4Items ri( pos );
+	for( ri.Begin(); !ri.atEnd(); ri++ )
+	{
+		P_ITEM mapitem = ri.GetData();
 		if( mapitem )
 		{
 			if( mapitem->isMulti() )

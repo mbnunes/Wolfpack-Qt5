@@ -46,7 +46,7 @@
 #include "globals.h"
 #include "wolfpack.h"
 #include "iserialization.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "utilsys.h"
 #include "network.h"
@@ -690,12 +690,12 @@ void cChar::MoveTo(short newx, short newy, signed char newz)
 	if (newx < 1 || newy < 1)
 		return;
 
-	mapRegions->Remove(this);
+	cMapObjects::getInstance()->remove(this);
 	pos.x = newx;
 	pos.y = newy;
 	setDispz( newz );
 	pos.z = dispz_;
-	mapRegions->Add(this);
+	cMapObjects::getInstance()->add(this);
 }
 
 unsigned int cChar::getSkillSum()
@@ -1907,7 +1907,7 @@ void cChar::resend( bool clean )
 	if( stablemaster_serial() != INVALID_SERIAL )
 		return;
 
-	cRegion::RegionIterator4Chars ri( pos );
+	RegionIterator4Chars ri( pos );
 
 	cUOTxDrawChar drawChar;
 	drawChar.fromChar( this );

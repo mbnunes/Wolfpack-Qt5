@@ -32,7 +32,7 @@
 // rewritten, 14.06.2002, sereg
 #include "boats.h"
 #include "network.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "tilecache.h"
 #include "mapstuff.h"
 #include "srvparams.h"
@@ -222,11 +222,11 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 
 	this->autosail_ = 0;	// khpae : not moving 0, 1-8 : moving boatdirection+1
 
-	mapRegions->Add(pTiller);//Make sure everything is in da regions!
-	mapRegions->Add(pPlankL);
-	mapRegions->Add(pPlankR);
-	mapRegions->Add(pHold);
-	mapRegions->Add(this);
+	cMapObjects::getInstance()->add(pTiller);//Make sure everything is in da regions!
+	cMapObjects::getInstance()->add(pPlankL);
+	cMapObjects::getInstance()->add(pPlankR);
+	cMapObjects::getInstance()->add(pHold);
+	cMapObjects::getInstance()->add(this);
 
 	pTiller->update();
 	pPlankL->update();
@@ -454,7 +454,7 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 			return false;
 		
 		/*
-		cRegion::RegionIterator4Items ri( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
+		RegionIterator4Items ri( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
 		for( ri.Begin(); !ri.atEnd(); ri++ ) 
 		{
 			P_ITEM pi = ri.GetData();
@@ -510,7 +510,7 @@ void cBoat::turn( SI08 turn )
 	// first pause all clients in visrange
 	QPtrList< cUOSocket > socketsinrange; // sockets of the chars in visrange
 
-	cRegion::RegionIterator4Chars ri( pos );
+	RegionIterator4Chars ri( pos );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) 
 	{
 		P_CHAR pc = ri.GetData();
@@ -608,7 +608,7 @@ void cBoat::turn( SI08 turn )
 		}
 
 		SI08 dx = 0, dy = 0;
-		mapRegions->Remove( pi );
+		cMapObjects::getInstance()->remove( pi );
 		dx = pi->pos.x - this->pos.x;
 		dy = pi->pos.y - this->pos.y;
 
@@ -622,7 +622,7 @@ void cBoat::turn( SI08 turn )
 			pi->pos.x += dy;
 			pi->pos.y += dx * (-1);
 		}
-		mapRegions->Add( pi );
+		cMapObjects::getInstance()->add( pi );
 
 		QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 		while( iter_sock.current() )
@@ -749,7 +749,7 @@ bool cBoat::move( void )
 	// first pause all clients in visrange
 	QPtrList< cUOSocket > socketsinrange; // sockets of the chars in visrange
 
-	cRegion::RegionIterator4Chars ri( pos );
+	RegionIterator4Chars ri( pos );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) 
 	{
 		P_CHAR pc = ri.GetData();

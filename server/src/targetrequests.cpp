@@ -31,7 +31,7 @@
 
 #include "targetrequests.h"
 #include "mapstuff.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "wpdefmanager.h"
 #include "territories.h"
 #include "items.h"

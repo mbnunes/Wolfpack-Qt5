@@ -40,7 +40,7 @@
 #include "debug.h"
 #include "utilsys.h"
 #include "walking.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "wpdefmanager.h"
 #include "wpdefaultscript.h"
 #include "network.h"
@@ -90,7 +90,7 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	
 
 	pc_k->removeFromView( false ); // Remove the character from all in-range sockets view
-	mapRegions->Remove( pc_k ); // taking it out of mapregions BEFORE x,y changed
+	cMapObjects::getInstance()->remove( pc_k ); // taking it out of mapregions BEFORE x,y changed
 
 	pc_k->free = true;
 	cCharsManager::getInstance()->deleteChar( pc_k );
@@ -206,7 +206,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	switch (postype)
 	{
 	case 1:					// take position from (spawning) item
-		if (triggerx)
+/*		if (triggerx)
 		{
 			nChar->pos.x=triggerx;
 			nChar->pos.y=triggery;
@@ -214,13 +214,13 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 			triggerx = nChar->serial;
 		} else
 		{
-	   /*Zippy's Code chages for area spawns --> (Type 69) xos and yos (X OffSet, Y OffSet) 
+	   Zippy's Code chages for area spawns --> (Type 69) xos and yos (X OffSet, Y OffSet) 
 	   are used to find a random number that is then added to the spawner's x and y (Using 
 	   the spawner's z) and then place the NPC anywhere in a square around the spawner. 
 	   This square is random anywhere from -10 to +10 from the spawner's location (for x and 
 	   y) If the place chosen is not a valid position (the NPC can't walk there) then a new 
 	   place will be chosen, if a valid place cannot be found in a certain # of tries (50), 
-		   the NPC will be placed directly on the spawner and the server op will be warned. */
+		   the NPC will be placed directly on the spawner and the server op will be warned. 
 			if ((pi_i->type() == 69 || pi_i->type() == 125)&& pi_i->isInWorld())
 			{
 				if (pi_i->more3==0) pi_i->more3=10;
@@ -239,9 +239,11 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 					}
 					xos=RandomNum(-pi_i->more3,pi_i->more3);
 					yos=RandomNum(-pi_i->more4,pi_i->more4);
-					// clConsole.send("Spawning at Offset %i,%i (%i,%i,%i) [-%i,%i <-> -%i,%i]. [Loop #: %i]\n",xos,yos,pi_i->x+xos,pi_i->y+yos,pi_i->z,pi_i->more3,pi_i->more3,pi_i->more4,pi_i->more4,k); /** lord binary, changed %s to %i, crash when uncommented ! **/
+					// clConsole.send("Spawning at Offset %i,%i (%i,%i,%i) [-%i,%i <-> -%i,%i]. [Loop #: %i]\n",xos,yos,pi_i->x+xos,pi_i->y+yos,pi_i->z,pi_i->more3,pi_i->more3,pi_i->more4,pi_i->more4,k); 
+					//lord binary, changed %s to %i, crash when uncommented !
 					k++;
-					if ((pi_i->pos.x+xos<1) || (pi_i->pos.y+yos<1)) lb=0; /* lord binary, fixes crash when calling npcvalid with negative coordiantes */
+					if ((pi_i->pos.x+xos<1) || (pi_i->pos.y+yos<1)) lb=0; 
+					//lord binary, fixes crash when calling npcvalid with negative coordiantes
 					else lb = Movement->validNPCMove(pi_i->pos.x+xos,pi_i->pos.y+yos,pi_i->pos.z, nChar);				 
 				   
 					//Bug fix Monsters spawning on water:
@@ -269,7 +271,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 			{
 				MsgBoardQuestEscortCreate( nChar );
 			}
-		} // end of if !triggerx
+		} // end of if !triggerx*/
 		break;
 	case 2: // take position from Socket
 		if (s!=-1)
@@ -293,7 +295,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 		nChar->region = QString();
 
 	nChar->applyDefinition( *DefSection );
-	mapRegions->Add( nChar );
+	cMapObjects::getInstance()->add( nChar );
 	nChar->resend( false );
 
 	return nChar;

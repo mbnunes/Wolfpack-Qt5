@@ -36,7 +36,7 @@
 #include "../junk.h"
 #include "../wpconsole.h"
 #include "../TmpEff.h"
-#include "../regions.h"
+#include "../mapobjects.h"
 
 /*!
 	Sends a string to the wolfpack console.

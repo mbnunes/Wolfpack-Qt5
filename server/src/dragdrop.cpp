@@ -42,7 +42,7 @@
 #include "itemid.h"
 #include "bounty.h"
 #include "guildstones.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "skills.h"
 #include "classes.h"
@@ -219,7 +219,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		}
 	}
 	
-	//mapRegions->Remove( pItem );
+	//cMapObjects::getInstance()->remove( pItem );
 	pItem->setContSerial( pChar->serial );
 	if( pItem->multis != INVALID_SERIAL )
 	{

@@ -41,7 +41,7 @@
 #include "debug.h"
 #include "items.h"
 #include "books.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "tilecache.h"
 #include "srvparams.h"
 #include "wpdefmanager.h"
@@ -334,11 +334,11 @@ void cItem::SetMultiSerial(long mulser)
 
 void cItem::MoveTo(int newx, int newy, signed char newz)
 {
-	mapRegions->Remove(this);
+	cMapObjects::getInstance()->remove(this);
 	pos.x=newx;
 	pos.y=newy;
 	pos.z=newz;
-	mapRegions->Add(this);
+	cMapObjects::getInstance()->add(this);
 }
 
 // author: LB purpose: returns the type of pack
@@ -893,10 +893,10 @@ void cAllItems::DeleItem(P_ITEM pi)
 		pi->SetSpawnSerial(-1);
 		pi->SetOwnSerial(-1);
 
-		// - remove from mapRegions if a world item
+		// - remove from cMapObjects::getInstance() if a world item
 		if( pi->isInWorld() ) 
 		{
-			mapRegions->Remove(pi);
+			cMapObjects::getInstance()->remove(pi);
 		}
 		else
 		{
@@ -1484,7 +1484,7 @@ P_ITEM cAllItems::createScriptItem( UOXSOCKET s, QString Section, UI32 nSpawned 
 	else
 	{
 		if( nItem->isInWorld() )
-			mapRegions->Add( nItem );
+			cMapObjects::getInstance()->add( nItem );
 		nItem->update();
 	}
 

@@ -38,7 +38,7 @@
 #include "tilecache.h"
 #include "debug.h"
 #include "guildstones.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "globals.h"
 #include "wpdefmanager.h"
@@ -790,7 +790,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 char cMagic::GateCollision(P_CHAR pc_player)
 {
 	unsigned int n;
-//	extern cRegion *mapRegions;
+//	extern cRegion *cMapObjects::getInstance();
 
 	// Check to make sure that this isn't a NPC (they shouldn't go throught gates)
 	if( pc_player->isNpc() )
@@ -802,18 +802,10 @@ char cMagic::GateCollision(P_CHAR pc_player)
 	if( pc_player->pos == pc_player->prevPos() )
 		return 0;
 
-	// - Tauriel's region stuff 3/6/99
-	int getcell = mapRegions->GetCell(pc_player->pos);
-
-	cRegion::raw vecEntries = mapRegions->GetCellEntries(getcell, enItemsOnly);
-	cRegion::rawIterator it = vecEntries.begin();
-	for (; it != vecEntries.end(); ++it )
+	RegionIterator4Items ri( pc_player->pos );
+	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
-		if (vecEntries.size() == 0)
-			break;
-		if (!isItemSerial(*it))
-			continue;
-		P_ITEM mapitem = FindItemBySerial(*it);
+		P_ITEM mapitem = ri.GetData();
 		if (mapitem != NULL)
 		{
 			if (mapitem->type() == 51 || (mapitem->type()==52))
@@ -831,7 +823,7 @@ char cMagic::GateCollision(P_CHAR pc_player)
 					if ( pc_player->isPlayer() )
 					{
 						// Look for an NPC
-						cRegion::RegionIterator4Chars rg(pc_player->pos);
+						RegionIterator4Chars rg(pc_player->pos);
 						for ( rg.Begin(); !rg.atEnd(); rg++ )
 						{
 							P_CHAR pc = rg.GetData();
@@ -1345,7 +1337,7 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, P_CHAR pc, char timech
 
 	if (j)
 	{
-		cRegion::RegionIterator4Items ri(pc->pos);
+		RegionIterator4Items ri(pc->pos);
 		for ( ri.Begin(); !ri.atEnd(); ri++)
 		{
 			P_ITEM mapitem = ri.GetData();
@@ -2185,7 +2177,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										pi_c->gatenumber=gatecount;
 										pi_c->dir=1;
 										
-										mapRegions->Add(pi_c);	//add gate to list of items in the region
+										cMapObjects::getInstance()->add(pi_c);	//add gate to list of items in the region
 										pi_c->update();//AntiChrist
 									}
 									if (n==1)
@@ -2578,7 +2570,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					playSound( pc_currchar, curSpell );
 					if (curSpell != 33 && curSpell !=58) doStaticEffect( pc_currchar, curSpell );
 					
-					cRegion::RegionIterator4Chars ri(pc_currchar->pos);
+					RegionIterator4Chars ri(pc_currchar->pos);
 					Coord_cl clTemp2(x,y,z) ;
 					
 					switch( curSpell )
@@ -2615,7 +2607,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							     return;                            
 							}
 							
-							mapRegions->Remove(pc_currchar); //LB
+							cMapObjects::getInstance()->remove(pc_currchar); //LB
 							
 							xo=pc_currchar->pos.x;
 							yo=pc_currchar->pos.y;
@@ -2644,7 +2636,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						BoxSpell(s, x1, x2, y1, y2, z1, z2);
 						
-						//Char mapRegions
+						//Char cMapObjects::getInstance()
 						ri = pc_currchar->pos;
 						for (ri.Begin(); !ri.atEnd(); ri++)
 						{
@@ -2768,7 +2760,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						BoxSpell(s, x1, x2, y1, y2, z1, z2);
 						
-						//Char mapRegions
+						//Char cMapObjects::getInstance()
 						ri = pc_currchar->pos;
 						for (ri.Begin(); !ri.atEnd(); ri++)
 						{
@@ -2832,12 +2824,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							//If the caster has a Magery of 26.1 (min to cast reveal w/ scroll), range radius is
 							//5 tiles, if magery is maxed out at 100.0 (except for gms I suppose), range is 20
 							
-							//Char mapRegions
-							StartGrid=mapRegions->StartGrid(pc_currchar->pos);
-							getcell=mapRegions->GetCell(pc_currchar->pos);
-							
-							increment=0;
-							cRegion::RegionIterator4Chars ri(pc_currchar->pos);
+							increment = 0;
+							RegionIterator4Chars ri(pc_currchar->pos);
 							for (ri.Begin(); !ri.atEnd(); ri++)
 							{
 								P_CHAR mapchar = ri.GetData();
@@ -2872,7 +2860,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						if (terrain_selected || item_selected) { sysmessage(s, "This spell can be used only on characters");  return; }
 						
-						//Char mapRegions
+						//Char cMapObjects::getInstance()
 						ri = pc_currchar->pos;
 						for (ri.Begin(); !ri.atEnd(); ri++)
 						{
@@ -2947,7 +2935,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						//if (char_selected) { sysmessage(s, "This spell can't be used on characters");  return; }
 						
-						//Char mapRegions
+						//Char cMapObjects::getInstance()
 						ri = pc_currchar->pos;
 						for (ri.Begin(); !ri.atEnd(); ri++)
 						{
@@ -2983,7 +2971,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						BoxSpell(s, x1, x2, y1, y2, z1, z2);
 						
-						//Char mapRegions
+						//Char cMapObjects::getInstance()
 						ri = pc_currchar->pos;
 						for (ri.Begin(); !ri.atEnd(); ri++)
 						{
@@ -3241,74 +3229,62 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			break;
 			//////////// (57) EARTHQUAKE ///////////////
 		case 57:
-			
+		{
 			dmg=(pc_currchar->skill(MAGERY)/40)+(rand()%20-10);
 			dmgmod = 0;
 			
-			//Char mapRegions
 			loopexit=0;
-			StartGrid=mapRegions->StartGrid(pc_currchar->pos);
-			getcell=mapRegions->GetCell(pc_currchar->pos);
-			increment=0;
-#pragma note("Replace by Char region iterator")
-
-			for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
+			RegionIterator4Chars ri( pc_currchar->pos );
+			for( ri.Begin(); !ri.atEnd(); ri++ )
 			{
-				for (a=0;a<3;a++)
+				P_CHAR pc = ri.GetData();
+				if (pc != NULL)
 				{
-					cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-					cRegion::rawIterator it = vecEntries.begin();
-					for (; it != vecEntries.end(); ++it )
+					if (pc->isInvul() || pc->npcaitype()==17)		// don't affect vendors
+						continue;
+					if (pc->isSameAs(pc_currchar))				// nor the caster
+						continue;
+					distx=abs(pc->pos.x - pc_currchar->pos.x);
+					disty=abs(pc->pos.y - pc_currchar->pos.y);
+					if(distx<=15 && disty<=15 && (pc->isNpc() || online(pc)))
 					{
-						P_CHAR pc = FindCharBySerial(*it);
-						if (pc != NULL)
-						{
-							if (pc->isInvul() || pc->npcaitype()==17)		// don't affect vendors
-								continue;
-							if (pc->isSameAs(pc_currchar))				// nor the caster
-								continue;
-							distx=abs(pc->pos.x - pc_currchar->pos.x);
-							disty=abs(pc->pos.y - pc_currchar->pos.y);
-							if(distx<=15 && disty<=15 && (pc->isNpc() || online(pc)))
-							{
-								if(pc->isInnocent()) criminal(currchar[s]);
-								
-								if (!pc->isGM() && pc->account()!=0)
-									dmgmod = QMIN(distx,disty);
-								dmgmod = -(dmgmod - 7);
+						if(pc->isInnocent()) criminal(currchar[s]);
+						
+						if (!pc->isGM() && pc->account()!=0)
+							dmgmod = QMIN(distx,disty);
+						dmgmod = -(dmgmod - 7);
 //								pc->hp -=  dmg+dmgmod;
-								pc->setHp(pc->hp() - dmg+dmgmod);
+						pc->setHp(pc->hp() - dmg+dmgmod);
 //								pc->stm -= rand()%10+5;
-								pc->setStm(pc->stm() - rand()%10+5);									
-								if(pc->stm()<0)  pc->setStm(0);
-								if(pc->hp()<0) pc->setHp(0);						 							
-								
-								if (pc->isPlayer() && online(pc))
+						pc->setStm(pc->stm() - rand()%10+5);									
+						if(pc->stm()<0)  pc->setStm(0);
+						if(pc->hp()<0) pc->setHp(0);						 							
+						
+						if (pc->isPlayer() && online(pc))
+						{
+							if(rand()%2) npcaction(pc, 0x15); else npcaction(pc, 0x16);
+							if((pc->isNpc() || online(pc)) && pc->hp==0)
+							{
+								pc->kill();
+							}
+						}	
+						else
+						{
+							if (pc->hp()<=0)
+								pc->kill();
+							else
+							{
+								if (pc->isNpc())
 								{
-									if(rand()%2) npcaction(pc, 0x15); else npcaction(pc, 0x16);
-									if((pc->isNpc() || online(pc)) && pc->hp==0)
-									{
-										pc->kill();
-									}
-								}	
-								else
-								{
-									if (pc->hp()<=0)
-										pc->kill();
-									else
-									{
-										if (pc->isNpc())
-										{
-											npcaction(pc, 0x2);
-											npcattacktarget(currchar[s],pc);
-										}
-									}
-								}	
-							} //if Distance
-						}
-					}
+									npcaction(pc, 0x2);
+									npcattacktarget(currchar[s],pc);
+								}
+							}
+						}	
+					} //if Distance
 				}
 			}
+		}
 			break;			//////////// (60) SUMMON AIR ELEMENTAL /////
 		case 60:
 			SummonMonster( s, 0x00, 0x0d, "Air", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
@@ -4426,7 +4402,7 @@ void cMagic::Gate(UOXSOCKET s)
 					//clConsole.send("GATETIME:%i UICURRENTTIME:%d GETCLOCK:%d\n",SrvParms->gatetimer,uiCurrentTime,getclock());
 					pi_c->gatenumber=gatecount;
 					pi_c->dir=1;
-					mapRegions->Add(pi_c);	//add gate to list of items in the region
+					cMapObjects::getInstance()->add(pi_c);	//add gate to list of items in the region
 					pi_c->update();//AntiChrist
 				}
 				if (n==1)

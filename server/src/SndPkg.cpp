@@ -44,7 +44,7 @@
 #include "itemid.h"
 #include "guildstones.h"
 #include "combat.h"
-#include "regions.h"
+#include "mapobjects.h"
 #include "srvparams.h"
 #include "network.h"
 #include "classes.h"
