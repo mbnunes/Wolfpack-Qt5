@@ -170,43 +170,44 @@ public:
 		return true;
 	}
 
-	bool endElement ( const QString & namespaceURI, const QString & localName, const QString & qName )
-	{
-		if( stack.isEmpty() )
+	bool endElement(const QString & namespaceURI, const QString & localName, const QString & qName) {
+		if (stack.isEmpty()) {
 			return true;
+		}
 				
 		cElement *element = stack.pop();
 
 		// Did we complete a parent node?
-		if( stack.isEmpty() )
-		{
+		if (stack.isEmpty()) {
 			// Find a category node
 			unsigned int i = 0;
 			
-			while( categories[i].name != 0 )
-			{
-				if( element->name() == categories[i].name )
-				{
+			// Sort it into a category.
+			while(categories[i].name != 0) {
+				if (element->name() == categories[i].name) {
 					QString tagId = element->getAttribute( "id" );
 
-					if( !tagId.isEmpty() )
-					{
-						// <script id="XXXX">...</script>
-						impl->unique[ categories[i].key ].insert( tagId, element );
-					}
-					else
-					{
-						impl->nonunique[ categories[i].key ].push_back( element );
+					// If the element has an id, 
+					if (!tagId.isEmpty()) {
+						if (impl->unique[categories[i].key].contains(tagId)) {
+							Console::instance()->ProgressFail();
+							Console::instance()->log(LOG_WARNING, QString("Duplicate %1: %2\n[File: %3, Line: %4]\n").arg(element->name()).arg(tagId).arg(filename).arg(locator->lineNumber()));
+							Console::instance()->PrepareProgress("Parsing Definitions");
+							delete element;
+						} else {
+							impl->unique[categories[i].key].insert(tagId, element);
+						}
+					} else {
+						impl->nonunique[categories[i].key].push_back(element);
 					}
 
 					return true;
 				}
-
 				++i;
 			}
 
 			Console::instance()->ProgressFail();
-			Console::instance()->log(LOG_WARNING, QString("Unknown element: %1\n[File: %1, Line: %2]\n").arg(element->name()).arg(filename).arg(locator->lineNumber()));
+			Console::instance()->log(LOG_WARNING, QString("Unknown element: %1\n[File: %2, Line: %3]\n").arg(element->name()).arg(filename).arg(locator->lineNumber()));
 			Console::instance()->PrepareProgress("Parsing Definitions");
 			
 			delete element;

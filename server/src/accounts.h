@@ -77,8 +77,7 @@ public:
 	QString login() const;
 	QString password() const;
 	unsigned int rank() const;
-	void remove();
-	void setPassword( const QString& );
+	void remove();	
 	QValueVector<P_PLAYER> caracterList() const;
 	bool authorized( const QString& action, const QString& value ) const;
 	bool addCharacter( P_PLAYER );
@@ -97,6 +96,7 @@ public:
 	void refreshAcl();
 	void setInUse( bool data );
 	void setFlags( UINT32 data );
+	void setPassword(const QString&);
 	UINT32 flags() const;
 	QDateTime blockedUntil() const { return blockUntil; }
 
@@ -159,11 +159,6 @@ inline QString cAccount::login() const
 inline QString cAccount::password() const
 {
 	return password_;
-}
-
-inline void cAccount::setPassword( const QString& data )
-{
-	password_ = data;
 }
 
 inline QValueVector<P_PLAYER> cAccount::caracterList() const

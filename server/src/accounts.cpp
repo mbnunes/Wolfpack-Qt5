@@ -40,6 +40,7 @@
 #include "globals.h"
 #include "persistentbroker.h"
 #include "world.h"
+#include "md5.h"
 
 // DB AutoCreation
 const char *createSql = "CREATE TABLE accounts (\
@@ -58,6 +59,14 @@ const char *createSql = "CREATE TABLE accounts (\
 
 cAccount::cAccount() : acl_(0), flags_(0), attempts_(0), inUse_(false)
 {
+}
+
+void cAccount::setPassword(const QString &password) {
+	if (SrvParams->hashAccountPasswords()) {
+		password_ = cMd5::fastDigest(password);
+	} else {
+		password_ = password;
+	}
 }
 
 bool cAccount::isBlocked() const
@@ -261,9 +270,17 @@ cAccount* cAccounts::authenticate(const QString& login, const QString& password,
 			return 0;
 		}
 
+		bool authorized = false;
+
+		// Regard hashed passwords
+		if (SrvParams->hashAccountPasswords()) {
+			authorized = it.data()->password() == cMd5::fastDigest(password);
+		} else {
+			authorized = it.data()->password() == password;
+		}		
+
 		// Ok, lets continue.
-		if (it.data()->password() == password)
-		{
+		if(authorized) {
 			it.data()->setLastLogin( QDateTime::currentDateTime() );
 			it.data()->resetLoginAttempts();
 			return it.data();
@@ -278,8 +295,10 @@ cAccount* cAccounts::authenticate(const QString& login, const QString& password,
 	}
 	else
 	{
-		if( error )
+		if (error) {
 			*error = LoginNotFound;
+		}
+
 		return 0;
 	}
 }
@@ -385,6 +404,17 @@ void cAccounts::load()
 			if( result.getInt( 5 ) != 0 )
 				account->blockUntil.setTime_t( result.getInt( 5  ) );
 
+			// See if the password can and should be hashed, 
+			// Md5 hashes are 32 characters long.
+			if (SrvParams->hashAccountPasswords() && account->password_.length() != 32) {
+				if (SrvParams->convertUnhashedPasswords()) {
+					account->password_ = cMd5::fastDigest(account->password_);
+					Console::instance()->log(LOG_NOTICE, QString("Hashed account password for '%1'.\n").arg(account->login_));
+				} else {
+					Console::instance()->log(LOG_NOTICE, QString("Account '%1' has an unhashed password.\n").arg(account->login_));
+				}
+			}
+
 			accounts.insert( account->login_.lower(), account );
 		}
 	}
@@ -455,7 +485,7 @@ cAccount* cAccounts::createAccount( const QString& login, const QString& passwor
 {
 	cAccount* d = new cAccount;
 	d->login_ = login.lower();
-	d->password_ = password;
+	d->setPassword(password);
 	accounts.insert(d->login(), d);
 	if ( accounts.count() == 1 ) // first account, it must be admin!
 		d->setAcl( "admin" );

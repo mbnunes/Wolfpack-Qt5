@@ -65,6 +65,8 @@ protected:
 	std::vector<StartLocation_st> startLocation_;
 	
 	// loaded data
+	bool hashAccountPasswords_;
+	bool convertUnhashedPasswords_;
 	bool allowUnencryptedClients_;
 	bool allowStatRequest_;
 	unsigned int skillcap_;
@@ -177,6 +179,8 @@ public:
 	std::vector<StartLocation_st>& startLocation();
 
 	// gets
+	bool hashAccountPasswords() const;
+	bool convertUnhashedPasswords() const;
 	bool showSkillTitles() const;
 	bool allowUnencryptedClients() const;
 	bool allowStatRequest() const;
@@ -717,6 +721,12 @@ inline unsigned int cSrvParams::guardDispelTime() const
 	return guardDispelTime_;
 }
 
+inline bool cSrvParams::hashAccountPasswords() const {
+	return hashAccountPasswords_;
+}
+
+inline bool cSrvParams::convertUnhashedPasswords() const {
+	return convertUnhashedPasswords_;
+}
+
 #endif //__SRVPARAMS_H___
-
-

@@ -95,8 +95,7 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	flush(); // if any key created, save it.
 }
 
-void cSrvParams::readData()
-{
+void cSrvParams::readData() {
 	// Account Group
 	autoAccountCreate_		= getBool("Accounts",	"Auto Create",		false, true );
 	accountsDriver_			= getString( "Accounts", "Database Driver", "sqlite", true );
@@ -104,6 +103,8 @@ void cSrvParams::readData()
 	accountsName_			= getString( "Accounts", "Database Name", "accounts.db", true );
 	accountsUsername_		= getString( "Accounts", "Database Username", "", true );
 	accountsPassword_		= getString( "Accounts", "Database Password", "", true );
+	hashAccountPasswords_   = getBool("Accounts", "Use MD5 Hashed Passwords", false, true);
+	convertUnhashedPasswords_ = getBool("Accounts", "Automatically Hash Loaded Passwords", false, true);
 	
 	// AI
 	checkAITime_			=		getDouble( "AI", "Default AI Check Time", 1.2, true );
