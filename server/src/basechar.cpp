@@ -2515,9 +2515,15 @@ bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
 
 bool cBaseChar::onShowSkillGump()
 {
-	PyObject* args = Py_BuildValue( "(N)", getPyObject() );
-	bool result = cPythonScript::callChainedEventHandler( EVENT_SHOWSKILLGUMP, scriptChain );
-	Py_DECREF( args );
+	bool result = false;
+
+	if ( scriptChain )
+	{	
+		PyObject* args = Py_BuildValue( "(N)", getPyObject() );
+		result = cPythonScript::callChainedEventHandler( EVENT_SHOWSKILLGUMP, scriptChain, args );
+		Py_DECREF( args );
+	}
+	
 	return result;
 }
 
