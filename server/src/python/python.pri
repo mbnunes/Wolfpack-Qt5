@@ -28,5 +28,6 @@ SOURCES += $$PYTHON_CPP/char.cpp \
            $$PYTHON_CPP/pytooltip.cpp \
            $$PYTHON_CPP/region.cpp \
            $$PYTHON_CPP/socket.cpp \
+           $$PYTHON_CPP/target.cpp \
            $$PYTHON_CPP/worlditerator.cpp \
 

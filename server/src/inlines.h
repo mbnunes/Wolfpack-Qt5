@@ -29,6 +29,8 @@
 #define _INLINES_H__
 
 // library Includes
+#include <algorithm>
+#include <math.h>
 #include "qapplication.h"
 #include "qstring.h"
 
@@ -60,6 +62,24 @@ inline bool isSkinColor( Q_UINT16 color )
 inline bool isHairColor( Q_UINT16 color )
 {
 	return ( ( color >= 0x44E ) && ( color <= 0x47D ) ) ? true : false;
+}
+
+inline int round(double n) {
+    double f = n - floor(n);
+	if (f >= 0.50) {
+		return (int)ceil(n);
+	} else {
+		return (int)floor(n);
+	}
+}
+
+inline bool isBetween(double n, int lower, int higher, double tolerance = 0.5) {
+	// Swap the bounds if they are out of order
+	if (lower > higher) {
+		std::swap(lower, higher);
+	}
+
+	return (n > lower - tolerance) && (n < higher + tolerance);
 }
 
 #endif

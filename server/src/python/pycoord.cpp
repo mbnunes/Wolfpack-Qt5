@@ -162,59 +162,19 @@ static PyObject* wpCoord_validspawnspot( wpCoord* self, PyObject* args )
 /*
 	\method coord.lineofsight
 	\param coord Another <object id="coord">coord</object> object.
-	\param targetheight The height of the line of sight target.
-	Can be 0.
-	\param touch A boolean value. Defaults to false.
+	\param debug A boolean value. Defaults to false.
 	\description Returns true if an object at the given coordinate with the given height can be seen from this coordinate.
 	Touch determines whether the target needs to be touched or only be seen.
 */
 static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
 {
 	Coord_cl pos;
-	ushort targetheight;
-	char touch = 0;
-	if ( !PyArg_ParseTuple( args, "O&i|b:coord.lineofsight(coord, targetheight, [touch=0])", &PyConvertCoord, &pos, &targetheight, &touch ) )
+	char debug = 0;
+	if ( !PyArg_ParseTuple( args, "O&|b:coord.lineofsight(coord, [debug=0])", &PyConvertCoord, &pos, &debug ) )
 		return 0;
-	if ( self->coord.lineOfSight( pos, targetheight, touch ) )
+	if ( self->coord.lineOfSight( pos, debug != 0 ) )
 		Py_RETURN_TRUE;
 	Py_RETURN_FALSE;
-}
-
-extern bool lineOfSightNew(Coord_cl origin, Coord_cl target);
-extern void getMapTileSpan(const Coord_cl &pos, unsigned short &id, int &bottom, int &top);
-extern Coord_cl getItemLosCoord(P_ITEM pItem);
-extern Coord_cl getCharLosCoord(P_CHAR pChar, bool eye);
-
-static PyObject* wpCoord_lineofsightnew( wpCoord* self, PyObject* args )
-{
-	PyObject *object;
-	if ( !PyArg_ParseTuple( args, "O:coord.lineofsight(obj)", &object ) )
-		return 0;
-
-	Coord_cl pos;
-
-	if (checkWpCoord(object)) {
-		pos = getWpCoord(object);
-		
-		// Get the average elevation
-        int bottom, top;
-		unsigned short id;
-		getMapTileSpan(pos, id, bottom, top);
-
-		// Use the top
-		pos.z = top;
-	} else if ( checkWpItem(object) ) {
-		pos = getItemLosCoord(getWpItem(object));
-	} else if ( checkWpChar(object) ) {
-		pos = getCharLosCoord(getWpChar(object), false);
-	}
-	
-	if ( lineOfSightNew( self->coord, pos ) )
-	{
-		Py_RETURN_TRUE;
-	} else {
-		Py_RETURN_FALSE;
-	}	
 }
 
 static PyMethodDef wpCoordMethods[] =
@@ -223,7 +183,6 @@ static PyMethodDef wpCoordMethods[] =
 { "direction", ( getattrofunc ) wpCoord_direction, METH_VARARGS, NULL },
 { "validspawnspot",	( getattrofunc ) wpCoord_validspawnspot, METH_VARARGS, NULL },
 { "lineofsight", ( getattrofunc ) wpCoord_lineofsight, METH_VARARGS, NULL },
-{ "lineofsightnew", ( getattrofunc ) wpCoord_lineofsightnew, METH_VARARGS, NULL },
 { 0, 0, 0, 0 }
 };
 

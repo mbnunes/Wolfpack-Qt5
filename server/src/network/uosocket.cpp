@@ -3165,7 +3165,7 @@ bool cUOSocket::useItem( P_ITEM item )
 					clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
 					return false;
 				}
-				else if ( !_player->lineOfSight( item, true ) )
+				else if ( !_player->lineOfSight( item ) )
 				{
 					clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
 					return false;

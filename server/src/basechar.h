@@ -137,9 +137,26 @@ public:
 	virtual bool canSeeChar( P_CHAR character );
 	virtual bool canSeeItem( P_ITEM item );
 	virtual void moveTo( const Coord_cl& pos, bool noremove = false );
-	bool lineOfSight( P_ITEM item, bool touch = false );
-	bool lineOfSight( const Coord_cl& position, bool touch = false );
-	bool lineOfSight( P_CHAR character, bool touch = false );
+
+	/*
+		Line of sight check for an item.
+	*/
+	bool lineOfSight( P_ITEM item, bool debug = false );
+
+	/*
+		Line of sight check for a static item
+	*/
+	bool lineOfSight( const Coord_cl& position, unsigned short id, bool debug = false );
+
+	/*
+		Line of Sight check for a map tile
+	*/
+	bool lineOfSight( const Coord_cl& position, bool debug = false );
+
+	/*
+		Line of Sight check for another character.
+	*/
+	bool lineOfSight( P_CHAR character, bool debug = false );
 
 	/*!
 		\brief This enumeration contains values that specify what events should be processed

@@ -31,6 +31,7 @@
 #include "network/network.h"
 #include "sectors.h"
 #include "items.h"
+#include "inlines.h"
 #include "muls/multiscache.h"
 #include "muls/maps.h"
 #include "multi.h"
@@ -43,38 +44,6 @@
 // System Includes
 #include <math.h>
 #include <set>
-
-// New Line Of Sight Code
-Coord_cl getCharLosCoord(P_CHAR pChar, bool eye) {
-	Coord_cl result = pChar->pos();
-	result.z += eye ? 15 : 10;
-	return result;
-}
-
-Coord_cl getItemLosCoord(P_ITEM pItem) {
-	Coord_cl pos = pItem->getOutmostPos();
-	tile_st tile = TileCache::instance()->getTile(pItem->id());
-	pos.z += tile.height / 2 + 1;
-	return pos;
-}
-
-inline bool isBetween(double n, int lower, int higher, double tolerance = 0.5) {
-	// Swap the bounds if they are out of order
-	if (lower > higher) {
-		std::swap(lower, higher);
-	}
-
-	return (n > lower - tolerance) && (n < higher + tolerance);
-}
-
-inline int round(double n) {
-    double f = n - floor(n);
-	if (f >= 0.50) {
-		return (int)ceil(n);
-	} else {
-		return (int)floor(n);
-	}
-}
 
 inline QValueList<Coord_cl> getPointList(const Coord_cl &origin, const Coord_cl &target) {
 	// Create a list of coordinates we are going to "touch" when looking
@@ -97,8 +66,8 @@ inline QValueList<Coord_cl> getPointList(const Coord_cl &origin, const Coord_cl 
 	}
 
 	// Calculate the stepsize for each coordinate
-	double xStep = yDiff / lineLength;
-	double yStep = xDiff / lineLength;
+	double xStep = xDiff / lineLength;
+	double yStep = yDiff / lineLength;
     double zStep = zDiff / lineLength;
 
 	// Initialize loop variables
@@ -132,38 +101,6 @@ inline QValueList<Coord_cl> getPointList(const Coord_cl &origin, const Coord_cl 
 	return pointList;
 }
 
-void getMapTileSpan(const Coord_cl &pos, unsigned short &id, int &bottom, int &top) {
-	int topZ, bottomZ, leftZ, rightZ;
-	Coord_cl tempPos = pos;
-
-	// Get the elevation of the tile itself
-	map_st tile = Maps::instance()->seekMap(tempPos);
-	topZ = tile.z;
-	id = tile.id;
-
-	// Get the elevation of the tile on the lower left
-	tempPos = pos;
-	tempPos.y += 1;
-	leftZ = Maps::instance()->seekMap(tempPos).z;
-
-	// Get the elevation of the tile on the lower right
-	tempPos = pos;
-	tempPos.x += 1;
-	rightZ = Maps::instance()->seekMap(tempPos).z;
-
-	// Get the elevation of the tile below
-	tempPos = pos;
-	tempPos.x += 1;
-	tempPos.y += 1;
-	bottomZ = Maps::instance()->seekMap(tempPos).z;	
-
-	// Get the smallest of the z values
-	bottom = QMIN( QMIN( QMIN(topZ, leftZ), rightZ), bottomZ);
-    
-	// Get the highest of the z values
-	top = QMAX( QMAX( QMAX(topZ, leftZ), rightZ), bottomZ);
-}
-
 // A small structure used to check for blocking dynamics at the given position
 struct stBlockingItem {
 	unsigned short id;
@@ -177,7 +114,7 @@ void getBlockingTiles(const Coord_cl &pos, QValueList<stBlockingItem> &items) {
 	stBlockingItem item;
 
 	// Maptiles first
-	getMapTileSpan(pos, item.id, item.bottom, item.top);
+	Maps::instance()->mapTileSpan(pos, item.id, item.bottom, item.top);
 	item.maptile = true;
 
     // Only include this maptile if it's relevant for our line of sight
@@ -196,10 +133,10 @@ void getBlockingTiles(const Coord_cl &pos, QValueList<stBlockingItem> &items) {
 		
 		tile_st tile = TileCache::instance()->getTile(sitem.itemid);
 
-		if (tile.flag2 & 0x30) {			
+		if (tile.flag2 & 0x30) {
 			item.bottom = sitem.zoff;
 			// Bridges are only half as high
-			item.top = item.bottom + (tile.flag2 & 0x04) ? (tile.height / 2) : tile.height;			
+			item.top = item.bottom + ((tile.flag2 & 0x04) ? (tile.height / 2) : tile.height);
 			item.id = sitem.itemid;
 			items.append(item);
         }
@@ -221,7 +158,7 @@ void getBlockingTiles(const Coord_cl &pos, QValueList<stBlockingItem> &items) {
 			item.id = ditem->id();
 			item.bottom = ditem->pos().z;
 			// Bridges are only half as high
-			item.top = item.bottom + (tile.flag2 & 0x04) ? (tile.height / 2) : tile.height;
+			item.top = item.bottom + ((tile.flag2 & 0x04) ? (tile.height / 2) : tile.height);
 			items.append(item);
 		}
 	}
@@ -252,7 +189,7 @@ void getBlockingTiles(const Coord_cl &pos, QValueList<stBlockingItem> &items) {
 				// Has to be blocking
 				if (tile.flag2 & 0x30) {
 					item.bottom = mitem.z + multi->pos().z;
-					item.top = item.bottom + (tile.flag2 & 0x04) ? (tile.height / 2) : tile.height;
+					item.top = item.bottom + ((tile.flag2 & 0x04) ? (tile.height / 2) : tile.height);
 					item.id = mitem.tile;
 					items.append(item);
 				}
@@ -289,19 +226,19 @@ inline bool checkBlockingTiles(const QValueList<stBlockingItem> &items, const Co
 }
 
 // Check the line of sight from a source to a target coordinate.
-bool lineOfSightNew(Coord_cl origin, Coord_cl target) {
+bool Coord_cl::lineOfSight(const Coord_cl &target, bool debug) const {
 	// If the target is out of range, save cpu time by not calculating the
 	// line of sight
-	if (origin.map != target.map || origin.distance(target) > 25) {
+	if (map != target.map || distance(target) > 25) {
         return false;
 	}
 
 	// LoS always succeeds for the same points
-	if (origin == target) {
+	if (*this == target) {
 		return true;
 	}
 
-	QValueList<Coord_cl> pointList = getPointList(origin, target);
+	QValueList<Coord_cl> pointList = getPointList(*this, target);
 
 	bool result = true;
 
@@ -316,6 +253,8 @@ bool lineOfSightNew(Coord_cl origin, Coord_cl target) {
 		if (point.x != lastX || point.y != lastY) {
 			blockingItems.clear();
 			getBlockingTiles(point, blockingItems);
+			lastX = point.x;
+			lastY = point.y;
 		}
 
 		// Check if there are blocking map, static or dynamic items.
@@ -410,7 +349,7 @@ Coord_cl Coord_cl::operator-( const Coord_cl& src ) const
 	return Coord_cl( this->x - src.x, this->y - src.y, this->z - src.z, this->map );
 }
 
-void Coord_cl::effect( Q_UINT16 id, Q_UINT8 speed, Q_UINT8 duration, Q_UINT16 hue, Q_UINT16 renderMode )
+void Coord_cl::effect( Q_UINT16 id, Q_UINT8 speed, Q_UINT8 duration, Q_UINT16 hue, Q_UINT16 renderMode ) const
 {
 	cUOTxEffect effect;
 	effect.setType( ET_STAYSOURCEPOS );
@@ -460,1155 +399,52 @@ unsigned int Coord_cl::direction( const Coord_cl& dest ) const
 	return dir;
 }
 
-
-bool Coord_cl::lineOfSight( const Coord_cl& target, bool touch )
-{
-	return lineOfSight( target, 0, touch );
+Coord_cl Coord_cl::losCharPoint(bool eye) const {
+	Coord_cl result = *this;
+	result.z += (eye ? 15 : 10);
+	return result;
 }
 
-/*
-	idea:
-	we try if there is a line of sight between one point and any point of a large object
-	problem:
-	"shifted gabs" have to be handled correctly
-	solution:
-	the line to each point of the object ( each z-level ) has to be calculated itself
-	there we stop after we know, that one line is open, or all closed
-	we start from above, because walls usually are in the way in the area of our feets,
-	not our heads
-	so we create a list of all x- and y- coordinates we have to pass and then draw
-	straight lines in z-direction with different gradients
+Coord_cl Coord_cl::losItemPoint(unsigned short id) const {
+	Coord_cl result = *this;
 
-	comments:
-	an object denies line of sight, if it has no-shoot flag
-	mountains always deny line of sight
-	an object cannot be touched, if there is anything impassable or floor/roof in the way
+	tile_st tile = TileCache::instance()->getTile(id);
+	result.z += tile.height / 2 + 1;
 
-	as coordinate of the source we use the point, where chars have there eyes,
-	sourceheight is only used for touch = true
-	the coordinate of the target is the one of the bottom of the object
-
-*/
-
-double Coord_cl::specialFloor( const double value ) const
-{
-	double dblvalue = value * 2;
-	if ( fabs( dblvalue - floor( dblvalue ) ) < 0.0001 )
-	{
-		return floor( dblvalue ) / 2;
-	}
-	else if ( fabs( dblvalue - floor( dblvalue ) ) > 0.9999 )
-	{
-		return ceil( dblvalue ) / 2;
-	}
-	else
-	{
-		return dblvalue / 2;
-	}
+	return result;
 }
 
+Coord_cl Coord_cl::losMapPoint() const {
+	Coord_cl result = *this;
 
-bool Coord_cl::lineOfSight( const Coord_cl& target, UI16 targetheight, bool touch )
-{
-	//Console::instance()->send( QString( "LOScheck: Source:%1,Target:%2,Targetheight:%3\n" ).arg( z ).arg( target.z ).arg( targetheight ) );
-	if ( target.map != map )
-		return false;
+    int bottom, top;
+	unsigned short id;
+	Maps::instance()->mapTileSpan(result, id, bottom, top);
 
-	if ( ( x == target.x ) && ( y == target.y ) && ( z == target.z ) )
-		return true;		// if source and target are on the same position
-
-	SI32 n = ( target.x - x ), m = ( target.y - y ), i = 0;
-	SI08 sgn_x = ( x <= target.x ) ? 1 : ( -1 ); // signum for x
-	SI08 sgn_y = ( y <= target.y ) ? 1 : ( -1 ); // signum for y
-	SI08 sgn_z = ( z <= target.z ) ? 1 : ( -1 ); // signum for z
-	if ( x == target.x )
-		sgn_x = 0;
-	if ( y == target.y )
-		sgn_y = 0;
-	if ( z == target.z )
-		sgn_z = 0;
-
-	QValueList<Coord_cl> collisions;
-
-	//first we get our x-y-coordinates
-	if ( sgn_x == 0 && sgn_y == 0 && !sgn_z == 0 ) // should fix shooting through floor issues
-	{
-		collisions.push_back( Coord_cl( x, y, 0, map ) );
-	}
-	else if ( sgn_x == 0 ) // if we are on the same x-level, just push every x/y coordinate in y-direction from src to trg into the array
-		for ( i = 0; i <= ( sgn_y*m ); ++i )
-		{
-			collisions.push_back( Coord_cl( x, y + ( sgn_y * i ), 0, map ) );
-		}
-	else if ( sgn_y == 0 ) // if we are on the same y-level, just push every x/y coordinate in x-direction from src to trg into the array
-		for ( i = 0; i <= ( sgn_x*n ); ++i )
-		{
-			collisions.push_back( Coord_cl( x + ( sgn_x * i ), y, 0, map ) );
-		}
-	else
-	{
-		SI32 oldpos = y;
-		bool exaktpos = false;
-		for ( i = 0; ( sgn_x*n >= sgn_y*m ) && ( i <= ( sgn_x*n ) ); i++ )
-		{
-			//Console::instance()->send( QString( "x:%1\n" ).arg( i ) );
-			SI32 gridx = x + ( sgn_x* i );
-			if ( ( ( n == 0 ) && ( gridx == 0 ) ) || ( ( n + ( gridx * m ) == 0 ) ) )
-				continue;
-			else
-			{
-				if ( exaktpos )
-				{
-					collisions.push_back( Coord_cl( gridx, oldpos - sgn_y, 0, map ) );
-					//Console::instance()->send( QString( "add exaktpos coordinate %1,%2\n" ).arg( gridx ).arg( oldpos-sgn_y ) );
-					exaktpos = false;
-				}
-
-				// linear evaluation of extended 2x2 matrix, abbreviated
-				double t = ( double ) sgn_x * ( ( double ) i + 0.5 ) * ( double ) m / ( double ) n + ( double ) y;
-				//Console::instance()->send( QString( "t:%1\n" ).arg( t ) );
-
-				if ( ( ( sgn_y > 0 ) && ( specialFloor( t ) == oldpos + 0.5 ) ) || ( ( sgn_y < 0 ) && ( specialFloor( t ) == oldpos - 0.5 ) ) )
-				{
-					exaktpos = true;
-				}
-
-				if ( ( ( sgn_y > 0 ) && ( t < oldpos + 0.5 ) ) || ( ( sgn_y < 0 ) && ( t > oldpos - 0.5 ) ) || ( oldpos == target.y ) )
-				{
-					collisions.push_back( Coord_cl( gridx, oldpos, 0, map ) );
-					//Console::instance()->send( QString( "add coordinate %1,%2\n" ).arg( gridx ).arg( oldpos ) );
-				}
-				// but if not, we have to take BOTH coordinates, which the calculated collision is between!
-				else
-				{
-					collisions.push_back( Coord_cl( gridx, oldpos, 0, map ) );
-					//Console::instance()->send( QString( "add coordinate %1,%2\n" ).arg( gridx ).arg( oldpos ) );
-					oldpos += sgn_y;
-					collisions.push_back( Coord_cl( gridx, oldpos, 0, map ) );
-					//Console::instance()->send( QString( "add coordinate %1,%2\n" ).arg( gridx ).arg( oldpos ) );
-				}
-			}
-		}
-
-		oldpos = x;
-		exaktpos = false;
-		for ( i = 0; ( sgn_y*m >= sgn_x*n ) && ( i <= ( sgn_y*m ) ); ++i )
-		{
-			//Console::instance()->send( QString( "y:%1\n" ).arg( i ) );
-			SI32 gridy = y + ( sgn_y* i );
-			if ( ( ( m == 0 ) && ( gridy == 0 ) ) || ( ( m + ( gridy * n ) == 0 ) ) )
-				continue;
-			else
-			{
-				if ( exaktpos )
-				{
-					collisions.push_back( Coord_cl( oldpos - sgn_x, gridy, 0, map ) );
-					//Console::instance()->send( QString( "add exaktpos coordinate %1,%2\n" ).arg( oldpos-sgn_x ).arg( gridy ) );
-					exaktpos = false;
-				}
-
-				double t = ( double ) x + ( double ) n / ( double ) m * ( double ) sgn_y * ( ( double ) i + 0.5 );
-				//Console::instance()->send( QString( "t:%1\n" ).arg( t ) );
-
-				if ( ( ( sgn_x > 0 ) && ( specialFloor( t ) == oldpos + 0.5 ) ) || ( ( sgn_x < 0 ) && ( specialFloor( t ) == oldpos - 0.5 ) ) )
-				{
-					exaktpos = true;
-				}
-
-				if ( ( ( sgn_x > 0 ) && ( t < oldpos + 0.5 ) ) || ( ( sgn_x < 0 ) && ( t > oldpos - 0.5 ) ) || ( oldpos == target.x ) )
-				{
-					collisions.push_back( Coord_cl( oldpos, gridy, 0, map ) );
-					//Console::instance()->send( QString( "add coordinate %1,%2\n" ).arg( oldpos ).arg( gridy ) );
-				}
-				// but if not, we have to take BOTH coordinates, which the calculated collision is between!
-				else
-				{
-					collisions.push_back( Coord_cl( oldpos, gridy, 0, map ) );
-					//Console::instance()->send( QString( "add coordinate %1,%2\n" ).arg( oldpos ).arg( gridy ) );
-					oldpos += sgn_x;;
-					collisions.push_back( Coord_cl( oldpos, gridy, 0, map ) );
-					//Console::instance()->send( QString( "add coordinate %1,%2\n" ).arg( oldpos ).arg( gridy ) );
-				}
-			}
-		}
+	// Use the top
+	if (result.z >= bottom && result.z <= top) {		
+		result.z = top;
 	}
 
-	// the next will search for multis
-	QPtrList<cItem> multis;
-	RegionIterator4Items ri( *this );
-	for ( ri.Begin(); !ri.atEnd(); ri++ )
-	{
-		P_ITEM pi = ri.GetData();
-		if ( pi && pi->id() >= 0x4000 )
-		{
-			multis.append( pi );
+	return result;
+}
+
+Coord_cl Coord_cl::losTargetPoint(cUORxTarget *target, unsigned char map) {
+	SERIAL serial = target->serial();
+	P_ITEM pItem = World::instance()->findItem(serial);
+	P_CHAR pChar = World::instance()->findChar(serial);
+
+	if (pItem) {
+		pItem = pItem->getOutmostItem();
+
+		if (pItem->container() && pItem->container()->isChar()) {
+			return pItem->container()->pos().losCharPoint();
+		} else {
+			return pItem->pos().losItemPoint(pItem->id());
 		}
-	}
-
-	//touch wird von notouch getrennt, da der notouch algorithmus wesentlich aufw�diger
-	//ist (touch ben�igt die erste for-schleife nicht), macht den code zwar bisserl
-	//unbersichtlicher, aber ist wesentlich effizienter
-
-	//touch is separated from notouch, because the notouch calculation is much more to do
-	//( one additional for-loop )
-
-	if ( targetheight > 0 )
-	{
-		--targetheight;
-	}
-
-	if ( !touch )
-	{
-		for ( i = target.z + targetheight; i >= target.z; --i )
-		{
-			bool blocked = false;
-			//Console::instance()->send( QString( "i:%1\n" ).arg( i ) );
-			double dz;
-			double gradient;
-			double offset;
-			if ( ( sgn_x == 0 ) && ( sgn_y == 0 ) )
-			{
-				dz = ( double ) i - ( double ) z;
-				gradient = 1; //only to avoid problems, isnt used
-				offset = 1;
-			}
-			else
-			{
-				dz = ( ( double ) i - ( double ) z ) / sqrt( ( ( double ) target.x - ( double ) x ) * ( ( double ) target.x - ( double ) x ) + ( ( double ) target.y - ( double ) y ) * ( ( double ) target.y - ( double ) y ) );
-				gradient = ( double ) m / ( double ) n;
-				offset = 0.5 * ( ( double ) y + ( double ) target.y - gradient * ( x + target.x ) );
-			}
-
-			map_st map1, map2;
-
-			bool posHigherThanMap;
-			map1 = Maps::instance()->seekMap( ( *this ) );
-			if ( map1.z > z )
-			{
-				posHigherThanMap = false;
-			}
-			else
-			{
-				posHigherThanMap = true;
-			}
-
-			//Console::instance()->send( QString( "after first things\n" ) );
-			QValueList<Coord_cl>::iterator pit = collisions.begin();
-			while ( pit != collisions.end() )
-			{
-				//Console::instance()->send( QString( "coordinate:%1,%2 dz:%3\n" ).arg( (*pit).x ).arg( (*pit).y ).arg( dz ) );
-				//lets see what z-coordinates we have to test
-				//we do our calculations exakt, because its the only way to solve all problems
-				//of floor
-				//"minimum" ist am anfang der platte, "maximum" am ende
-				//our line is y = gradient * x + offset
-				//or x = ( y - offset ) / gradient
-				//we now have to test, where the line cuts one position
-				//start and endposition has to be done alone
-
-				double z1 = -300;
-				double z2 = -300;
-				SI08 zmin, zmax;
-
-				if ( ( sgn_x == 0 ) && ( sgn_y == 0 ) )
-				{
-					if ( dz > 0 )
-					{
-						zmin = z + 1;
-						zmax = i;
-					}
-					else
-					{
-						zmin = i + 1;
-						zmax = z;
-					}
-				}
-				else if ( sgn_x == 0 )
-				{
-					//gradient only in y-direction
-					z1 = ( double ) i - dz * ( fabs( ( double ) target.y - ( double ) ( ( *pit ).y ) ) - 0.5 );
-					z2 = ( double ) i - dz * ( fabs( ( double ) target.y - ( double ) ( ( *pit ).y ) ) + 0.5 );
-					//Console::instance()->send( QString( "i:%1,ty:%2,cy:%3\n" ).arg( i ).arg( target.y ).arg( (*pit).y ) );
-					//Console::instance()->send( QString( "z1:%1,z2:%2\n" ).arg( z1 ).arg( z2 ) );
-
-					if ( z1 > z2 )
-					{
-						zmin = ( SI08 ) floor( z2 );
-						zmax = ( SI08 ) ceilf( z1 );
-					}
-					else
-					{
-						zmin = ( SI08 ) floor( z1 );
-						zmax = ( SI08 ) ceilf( z2 );
-					}
-
-					/*another try, but i think its needed for all positions, not only start and end...
-											//target
-											if( (*pit).y == target.y )
-											{
-												if( dz > 0 )
-												{
-													zmax = QMIN( zmax, i );
-													//Console::instance()->send( QString( "TargetY, zmax:%1, i:%2\n" ).arg( zmax ).arg( i ) );
-												}
-												else
-												{
-													zmin = QMAX( zmin, i+1 );
-													//Console::instance()->send( QString( "TargetY, zmin:%1, i:%2\n" ).arg( zmin ).arg( i ) );
-												}
-											}
-											//source
-											if( (*pit).y == y )
-											{
-												if( dz > 0 )
-												{
-													zmin = QMAX( zmin, z );
-													//Console::instance()->send( QString( "SourceY, zmin:%1, i:%2\n" ).arg( zmax ).arg( i ) );
-												}
-												else
-												{
-													zmax = QMIN( zmax, z );
-													//Console::instance()->send( QString( "SourceY, zmax:%1, i:%2\n" ).arg( zmax ).arg( i ) );
-												}
-											}*/
-					if ( dz > 0 )
-					{
-						zmax = QMIN( zmax, i );
-						zmin = QMAX( zmin, z );
-					}
-					else
-					{
-						zmin = QMAX( zmin, i + 1 );
-						zmax = QMIN( zmax, z );
-					}
-				}
-				else if ( sgn_y == 0 )
-				{
-					//gradient only in y-direction
-					z1 = ( double ) i - dz * ( fabs( ( double ) target.x - ( double ) ( ( *pit ).x ) ) - 0.5 );
-					z2 = ( double ) i - dz * ( fabs( ( double ) target.x - ( double ) ( ( *pit ).x ) ) + 0.5 );
-					//Console::instance()->send( QString( "i:%1,tx:%2,cx:%3\n" ).arg( i ).arg( target.x ).arg( (*pit).x ) );
-					//Console::instance()->send( QString( "z1:%1,z2:%2\n" ).arg( z1 ).arg( z2 ) );
-
-					if ( z1 > z2 )
-					{
-						zmin = ( SI08 ) floor( z2 );
-						zmax = ( SI08 ) ceilf( z1 );
-					}
-					else
-					{
-						zmin = ( SI08 ) floor( z1 );
-						zmax = ( SI08 ) ceilf( z2 );
-					}
-
-					if ( dz > 0 )
-					{
-						zmax = QMIN( zmax, i );
-						zmin = QMAX( zmin, z );
-					}
-					else
-					{
-						zmin = QMAX( zmin, i + 1 );
-						zmax = QMIN( zmax, z );
-					}
-				}
-				else
-				{
-					//4 lines to test
-					double gradx = ( ( double ) target.y*( double ) z - ( double ) y*( double ) i ) / ( ( double ) target.y*( double ) x - ( double ) y*( double ) target.x );
-					double grady = ( ( double ) target.x*( double ) z - ( double ) x*( double ) i ) / ( ( double ) y*( double ) target.x - ( double ) target.y*( double ) x );
-
-					//Console::instance()->send( QString( "gradx:%1,grady:%2\n" ).arg( gradx ).arg( grady ) );
-					//Console::instance()->send( QString( "Gradient:%1,Offset:%2\n" ).arg( gradient ).arg( offset ) );
-					double temp;
-					temp = specialFloor( gradient * ( ( double ) ( ( *pit ).x ) - 0.5 ) + offset );
-					//Console::instance()->send( QString( "temp1:%1\n" ).arg( temp ) );
-					if ( ( temp >= ( ( double ) ( ( *pit ).y ) - 0.5 ) ) && ( temp <= ( ( double ) ( ( *pit ).y ) + 0.5 ) ) )
-					{
-						if ( z1 > -300 )
-						{
-							z2 = gradx * ( ( double ) ( ( *pit ).x ) - 0.5 ) + grady * temp;
-						}
-						else
-						{
-							z1 = gradx * ( ( double ) ( ( *pit ).x ) - 0.5 ) + grady * temp;
-						}
-						//Console::instance()->send( QString( "1:i:%1,tx:%2,ty:%3,cy:%4,cy:%5\n" ).arg( i ).arg( target.x ).arg( target.y ).arg( (*pit).x ).arg( (*pit).y ) );
-						//Console::instance()->send( QString( "z1:%1,z2:%2\n" ).arg( z1 ).arg( z2 ) );
-					}
-					temp = specialFloor( gradient * ( ( double ) ( ( *pit ).x ) + 0.5 ) + offset );
-					//Console::instance()->send( QString( "temp2:%1\n" ).arg( temp ) );
-					if ( ( temp >= ( ( double ) ( ( *pit ).y ) - 0.5 ) ) && ( temp <= ( ( double ) ( ( *pit ).y ) + 0.5 ) ) )
-					{
-						if ( z1 > -300 )
-						{
-							z2 = gradx * ( ( double ) ( ( *pit ).x ) + 0.5 ) + grady * temp;
-						}
-						else
-						{
-							z1 = gradx * ( ( double ) ( ( *pit ).x ) + 0.5 ) + grady * temp;
-						}
-						//Console::instance()->send( QString( "2:i:%1,tx:%2,ty:%3,cy:%4,cy:%5\n" ).arg( i ).arg( target.x ).arg( target.y ).arg( (*pit).x ).arg( (*pit).y ) );
-						//Console::instance()->send( QString( "z1:%1,z2:%2\n" ).arg( z1 ).arg( z2 ) );
-					}
-					temp = specialFloor( ( double ) ( ( *pit ).y ) - 0.5 - offset ) / gradient;
-					//Console::instance()->send( QString( "temp3:%1\n" ).arg( temp ) );
-					if ( ( temp > ( ( double ) ( ( *pit ).x ) - 0.5 ) ) && ( temp < ( ( double ) ( ( *pit ).x ) + 0.5 ) ) )
-					{
-						if ( z1 > -300 )
-						{
-							z2 = gradx * temp + grady * ( ( double ) ( ( *pit ).y ) - 0.5 );
-						}
-						else
-						{
-							z1 = gradx * temp + grady * ( ( double ) ( ( *pit ).y ) - 0.5 );
-						}
-						//Console::instance()->send( QString( "3:i:%1,tx:%2,ty:%3,cy:%4,cy:%5\n" ).arg( i ).arg( target.x ).arg( target.y ).arg( (*pit).x ).arg( (*pit).y ) );
-						//Console::instance()->send( QString( "z1:%1,z2:%2\n" ).arg( z1 ).arg( z2 ) );
-					}
-					temp = specialFloor( ( double ) ( ( *pit ).y ) + 0.5 - offset ) / gradient;
-					//Console::instance()->send( QString( "temp4:%1\n" ).arg( temp ) );
-					if ( ( temp > ( ( double ) ( ( *pit ).x ) - 0.5 ) ) && ( temp < ( ( double ) ( ( *pit ).x ) + 0.5 ) ) )
-					{
-						if ( z1 > -300 )
-						{
-							z2 = gradx * temp + grady * ( ( double ) ( ( *pit ).y ) + 0.5 );
-						}
-						else
-						{
-							z1 = gradx * temp + grady * ( ( double ) ( ( *pit ).y ) + 0.5 );
-						}
-						//Console::instance()->send( QString( "4:i:%1,tx:%2,ty:%3,cy:%4,cy:%5\n" ).arg( i ).arg( target.x ).arg( target.y ).arg( (*pit).x ).arg( (*pit).y ) );
-						//Console::instance()->send( QString( "z1:%1,z2:%2\n" ).arg( z1 ).arg( z2 ) );
-					}
-
-					//Console::instance()->send( QString( "z1:%1,z2:%2\n" ).arg( z1 ).arg( z2 ) );
-					if ( z1 > z2 )
-					{
-						zmin = ( SI08 ) floor( z2 );
-						zmax = ( SI08 ) ceilf( z1 );
-					}
-					else
-					{
-						zmin = ( SI08 ) floor( z1 );
-						zmax = ( SI08 ) ceilf( z2 );
-					}
-
-					if ( z2 == -300 )
-					{
-						zmin = ( SI08 ) floor( z1 );
-					}
-
-					if ( dz > 0 )
-					{
-						zmax = QMIN( zmax, i );
-						zmin = QMAX( zmin, z );
-					}
-					else
-					{
-						zmin = QMAX( zmin, i + 1 );
-						zmax = QMIN( zmax, z );
-					}
-					//Console::instance()->send( QString( "zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
-				}
-
-				/*SI08 zmin = (SI08)floor( i - dz*sqrt( ((double)target.x - (double)(*pit).x)*((double)target.x - (double)(*pit).x) + ((double)target.y - (double)(*pit).y)*((double)target.y - (double)(*pit).y) ) );
-								SI08 zmax;
-								//Console::instance()->send( QString( "zmin:%1,dz:%2\n" ).arg( zmin ).arg( dz ) );
-								if( dz > 0 )
-								{
-									zmin = QMAX( (SI08)floor( zmin - dz/2 ), z+1 );
-									zmax = QMIN( zmin + dz + 1, target.z+targetheight+1 );	//to prevent floor-mistakes
-								}
-								else
-								{
-									zmin = QMIN( (SI08)floor( zmin + dz/2 ), target.z+1 );
-									zmax = QMAX( zmin - dz + 1, z );	//to prevent floor-mistakes
-								}*/
-
-				// Texture mapping
-				map1 = Maps::instance()->seekMap( *pit );
-				map2 = Maps::instance()->seekMap( Coord_cl( ( *pit ).x + sgn_x, ( *pit ).y + sgn_y, ( *pit ).z, map ) );
-
-				//Console::instance()->send( QString( "maphoehe:%1\n" ).arg( map1.z ) );
-				StaticsIterator msi = Maps::instance()->staticsIterator( *pit );
-				if ( ( map1.id != 2 ) && ( map2.id != 2 ) )
-				{
-					if ( ( map1.z >= zmin ) && ( map1.z <= zmax ) )
-					{
-						//its just in our way
-						//Console::instance()->send( QString( "Map gescheitert\n" ) );
-						blocked = true;
-						break;
-					}
-
-					//now we have to test, if this tile is under our line and the next above or
-					//vice verse
-					//in this case, both dont cut our line, but the mapconnection between them
-					//should do
-					if ( ( ( map1.z < map2.z ) && ( map1.z < zmin ) && ( map2.z > zmax + dz ) ) ||  						// 1) lineofsight collides with a map "wall"
-						( ( map1.z > map2.z ) && ( map1.z > zmin ) && ( map2.z < zmax - dz ) ) || ( ( ( map1.id >= 431 && map1.id <= 432 ) ||  	// 3) lineofsight cuts a mountain
-						( map1.id >= 467 && map1.id <= 475 ) || ( map1.id >= 543 && map1.id <= 560 ) || ( map1.id >= 1754 && map1.id <= 1757 ) || ( map1.id >= 1787 && map1.id <= 1789 ) || ( map1.id >= 1821 && map1.id <= 1824 ) || ( map1.id >= 1851 && map1.id <= 1854 ) || ( map1.id >= 1881 && map1.id <= 1884 ) ) && ( posHigherThanMap ) && ( msi.atEnd() ) ) ) // mountains cut only if we are not beneath them
-					{
-						//Console::instance()->send( QString( "map1:%1,map2:%2\n" ).arg( map1.z ).arg( map2.z ) );
-						blocked = true;
-						break;
-					}
-				}
-
-				//Console::instance()->send( QString( "after map\n" ) );
-
-				// Statics
-				tile_st tile;
-				while ( !msi.atEnd() )
-				{
-					tile = TileCache::instance()->getTile( msi->itemid );
-					//if it is in our way
-					//Console::instance()->send( QString( "tilepos:%1,zmax:%2" ).arg( msi->zoff ).arg( zmax ) );
-					//Console::instance()->send( QString( "zmin:%3\n" ).arg( zmin ) );
-					if ( ( zmax >= msi->zoff ) && ( zmin <= ( msi->zoff + tile.height ) ) )
-					{
-						//Console::instance()->send( QString( "statictile, id: %1\n" ).arg( msi->itemid ) );
-						if ( tile.isNoShoot() )
-						{
-							blocked = true;
-							break;
-						}
-					}
-
-					++msi;
-				}
-				if ( blocked )
-				{
-					break;
-				}
-
-				//Console::instance()->send( QString( "after statics\n" ) );
-				// Items
-				RegionIterator4Items rj( ( *pit ), 0 );
-				for ( rj.Begin(); !rj.atEnd(); rj++ )
-				{
-					P_ITEM pi = rj.GetData();
-					if ( pi && pi->id() < 0x4000 )
-					{
-						tile = TileCache::instance()->getTile( pi->id() );
-						if ( ( zmax >= pi->pos().z ) && ( zmin <= ( pi->pos().z + tile.height ) ) && ( pi->visible() == 0 ) )
-						{
-							//Console::instance()->send( QString( "item, id: %1" ).arg( pi->id() ) );
-							if ( tile.isNoShoot() )
-							{
-								blocked = true;
-								break;
-							}
-						}
-					}
-				}
-				if ( blocked )
-				{
-					break;
-				}
-
-				//Console::instance()->send( QString( "after items\n" ) );
-				// Multis
-				QPtrListIterator<cItem> mit( multis );
-				P_ITEM pi;
-				while ( ( pi = mit.current() ) )
-				{
-					MultiDefinition* def = MultiCache::instance()->getMulti( pi->id() - 0x4000 );
-					if ( !def )
-						continue;
-					QValueVector<multiItem_st> multi = def->getEntries();
-					for ( unsigned int j = 0; j < multi.size(); ++j )
-					{
-						if ( ( multi[j].visible ) && ( pi->pos().x + multi[j].x == ( *pit ).x ) && ( pi->pos().y + multi[j].y == ( *pit ).y ) )
-						{
-							tile = TileCache::instance()->getTile( multi[j].tile );
-							if ( ( zmax >= pi->pos().z + multi[j].z ) && ( zmin <= pi->pos().z + multi[j].z + tile.height ) )
-							{
-								if ( tile.isNoShoot() )
-								{
-									blocked = true;
-									break;
-								}
-							}
-						}
-					}
-					++mit;
-				}
-				//Console::instance()->send( QString( "after multis\n" ) );
-				++pit;
-			}
-
-			if ( !blocked )
-				return true;
-		}
-		//there was no line to see through
-		return false;
-	}
-	//now touch=true
-	else
-	{
-		//Console::instance()->send( "touch\n" );
-		double dz_up, dz_down;
-		double gradient;
-		double offset;
-		if ( ( sgn_x == 0 ) && ( sgn_y == 0 ) )
-		{
-			dz_up = ( ( double ) targetheight + ( double ) target.z ) - ( double ) z;
-			dz_down = ( double ) target.z - ( ( double ) z - ( double ) 15 );
-			gradient = 1; //only to prevent problems, isnt used
-			offset = 1;
-		}
-		else
-		{
-			//Console::instance()->send( QString( "xdiff:%1,ydiff:%2\n" ).arg( (double)target.x - (double)x ).arg( (double)target.y - (double)y ) );
-			dz_up = ( ( ( double ) targetheight + ( double ) target.z ) - ( double ) z ) / sqrt( ( ( double ) target.x - ( double ) x ) * ( ( double ) target.x - ( double ) x ) + ( ( double ) target.y - ( double ) y ) * ( ( double ) target.y - ( double ) y ) );
-			dz_down = ( ( double ) target.z - ( ( double ) z - ( double ) 15 ) ) / sqrt( ( ( double ) target.x - ( double ) x ) * ( ( double ) target.x - ( double ) x ) + ( ( double ) target.y - ( double ) y ) * ( ( double ) target.y - ( double ) y ) );
-			gradient = ( double ) m / ( double ) n;
-			offset = 0.5 * ( ( double ) y + ( double ) target.y - gradient * ( x + target.x ) );
-		}
-
-		map_st map1, map2;
-
-		bool posHigherThanMap;
-		map1 = Maps::instance()->seekMap( ( *this ) );
-		if ( map1.z > z )
-		{
-			posHigherThanMap = false;
-		}
-		else
-		{
-			posHigherThanMap = true;
-		}
-
-		//Console::instance()->send( QString( "after first things\n" ) );
-		QValueList<Coord_cl>::iterator pit = collisions.begin();
-		while ( pit != collisions.end() )
-		{
-			//Console::instance()->send( QString( "coordinate:%1,%2\n" ).arg( (*pit).x ).arg( (*pit).y ) );
-			//lets see what z-coordinates we have to test
-			//anmerkung: touch kommt nur fr chars vor, gr�se von chars ist 15
-			//SI08 zmin = (SI08)floor(  (double)z - (double)sourceheight + dz_down*sqrt( ((double)target.x - (double)(*pit).x)*((double)target.x - (double)(*pit).x) + ((double)target.y - (double)(*pit).y)*((double)target.y - (double)(*pit).y) ) );
-			//SI08 zmax = (SI08)floor(  (double)z + dz_up*sqrt( ((double)target.x - (double)(*pit).x)*((double)target.x - (double)(*pit).x) + ((double)target.y - (double)(*pit).y)*((double)target.y - (double)(*pit).y) ) );
-			SI08 zmin, zmax;
-			double z1_up = -300;
-			double z2_up = -300;
-			double z1_down = -300;
-			double z2_down = -300;
-			bool targetpos = false;
-			//Console::instance()->send( QString( "dz_down:%3,dz_up:%4\n" ).arg( dz_down ).arg( dz_up ) );
-
-			if ( ( sgn_x == 0 ) && ( sgn_y == 0 ) )
-			{
-				if ( dz_up > 0 )
-				{
-					zmin = z + 1;
-					zmax = target.z;
-				}
-				else
-				{
-					zmin = target.z + 1;
-					zmax = z;
-				}
-				targetpos = true;
-				if ( ( dz_up >= 0 ) && ( dz_down >= 0 ) )
-				{
-					if ( zmin < target.z )
-					{
-						zmax = target.z - 1;
-					}
-					else
-					{
-						//we ignore this coordinate
-						++pit;
-						continue;
-					}
-				}
-				else if ( ( dz_up <= 0 ) && ( dz_down <= 0 ) )
-				{
-					if ( zmax > target.z + targetheight + 1 )
-					{
-						zmin = target.z + targetheight + 2;
-					}
-					else
-					{
-						++pit;
-						continue;
-					}
-				}
-				else
-				{
-					//we may have to split the test into two if we would do it exactly
-					//but i think we can throw away the test from down in this case
-					if ( zmax > target.z + targetheight + 1 )
-					{
-						zmin = target.z + targetheight + 2;
-					}
-					else if ( zmin < target.z )
-					{
-						zmax = target.z - 1;
-					}
-					else
-					{
-						++pit;
-						continue;
-					}
-				}
-			}
-			else if ( sgn_x == 0 )
-			{
-				z1_up = target.z + targetheight - dz_up * ( fabs( ( double ) target.y - ( double ) ( ( *pit ).y ) ) - 0.5 );
-				z2_up = target.z + targetheight - dz_up * ( fabs( ( double ) target.y - ( double ) ( ( *pit ).y ) ) + 0.5 );
-
-				z1_down = target.z - dz_down * ( fabs( ( double ) target.y - ( double ) ( ( *pit ).y ) ) - 0.5 );
-				z2_down = target.z - dz_down * ( fabs( ( double ) target.y - ( double ) ( ( *pit ).y ) ) + 0.5 );
-
-				//Console::instance()->send( QString( "ty:%2,cy:%3\n" ).arg( target.y ).arg( (*pit).y ) );
-				//Console::instance()->send( QString( "z1_up:%1,z2_up:%2,z1_down:%3,z2_down:%4\n" ).arg( z1_up ).arg( z2_up ).arg( z1_down ).arg( z2_down ) );
-
-				zmax = ( signed char ) QMAX( ceil( z1_up ), ceil( z2_up ) );
-				zmin = ( signed char ) QMIN( floor( z1_down ), floor( z2_down ) );
-
-				//Console::instance()->send( QString( "y:zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
-
-				if ( dz_up > 0 )
-				{
-					zmax = QMIN( zmax, target.z + targetheight );
-				}
-				else
-				{
-					zmax = QMIN( zmax, z );
-				}
-
-				//Console::instance()->send( QString( "y2:zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
-
-				if ( dz_down > 0 )
-				{
-					zmin = QMAX( zmin, z - 14 );
-				}
-				else
-				{
-					zmin = QMAX( zmin, target.z + 1 );
-				}
-
-				//Console::instance()->send( QString( "y3:zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
-
-				if ( ( *pit ).y == target.y )
-				{
-					targetpos = true;
-					if ( ( dz_up >= 0 ) && ( dz_down >= 0 ) )
-					{
-						if ( zmin < target.z )
-						{
-							zmax = target.z - 1;
-						}
-						else
-						{
-							//we ignore this coordinate
-							++pit;
-							continue;
-						}
-					}
-					else if ( ( dz_up <= 0 ) && ( dz_down <= 0 ) )
-					{
-						if ( zmax > target.z + targetheight + 1 )
-						{
-							zmin = target.z + targetheight + 2;
-						}
-						else
-						{
-							++pit;
-							continue;
-						}
-					}
-					else
-					{
-						//we may have to split the test into two if we would do it exactly
-						//but i think we can throw away the test from down in this case
-						if ( zmax > target.z + targetheight + 1 )
-						{
-							zmin = target.z + targetheight + 2;
-						}
-						else if ( zmin < target.z )
-						{
-							zmax = target.z - 1;
-						}
-						else
-						{
-							++pit;
-							continue;
-						}
-					}
-					//Console::instance()->send( QString( "y4:zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
-				}
-			}
-			else if ( sgn_y == 0 )
-			{
-				z1_up = target.z + targetheight - dz_up * ( fabs( ( double ) target.x - ( double ) ( ( *pit ).x ) ) - 0.5 );
-				z2_up = target.z + targetheight - dz_up * ( fabs( ( double ) target.x - ( double ) ( ( *pit ).x ) ) + 0.5 );
-
-				z1_down = target.z - dz_down * ( fabs( ( double ) target.x - ( double ) ( ( *pit ).x ) ) - 0.5 );
-				z2_down = target.z - dz_down * ( fabs( ( double ) target.x - ( double ) ( ( *pit ).x ) ) + 0.5 );
-
-				//Console::instance()->send( QString( "tx:%2,cx:%3\n" ).arg( target.x ).arg( (*pit).x ) );
-				//Console::instance()->send( QString( "z1_up:%1,z2_up:%2,z1_down:%3,z2_down:%4\n" ).arg( z1_up ).arg( z2_up ).arg( z1_down ).arg( z2_down ) );
-
-				zmax = ( signed char ) QMAX( ceil( z1_up ), ceil( z2_up ) );
-				zmin = ( signed char ) QMIN( floor( z1_down ), floor( z2_down ) );
-
-				if ( dz_up > 0 )
-				{
-					zmax = QMIN( zmax, target.z + targetheight );
-				}
-				else
-				{
-					zmax = QMIN( zmax, z );
-				}
-
-				if ( dz_down > 0 )
-				{
-					zmin = QMAX( zmin, z - 14 );
-				}
-				else
-				{
-					zmin = QMAX( zmin, target.z + 1 );
-				}
-
-				if ( ( *pit ).x == target.x )
-				{
-					targetpos = true;
-					if ( ( dz_up >= 0 ) && ( dz_down >= 0 ) )
-					{
-						if ( zmin < target.z )
-						{
-							zmax = target.z - 1;
-						}
-						else
-						{
-							//we ignore this coordinate
-							++pit;
-							continue;
-						}
-					}
-					else if ( ( dz_up <= 0 ) && ( dz_down <= 0 ) )
-					{
-						if ( zmax > target.z + targetheight + 1 )
-						{
-							zmin = target.z + targetheight + 2;
-						}
-						else
-						{
-							++pit;
-							continue;
-						}
-					}
-					else
-					{
-						//we may have to split the test into two if we would do it exactly
-						//but i think we can throw away the test from down in this case
-						if ( zmax > target.z + targetheight + 1 )
-						{
-							zmin = target.z + targetheight + 2;
-						}
-						else if ( zmin < target.z )
-						{
-							zmax = target.z - 1;
-						}
-						else
-						{
-							++pit;
-							continue;
-						}
-					}
-				}
-			}
-			else
-			{
-				double gradx_up = ( ( double ) target.y*( double ) z - ( double ) y*( double ) ( target.z + targetheight ) ) / ( ( double ) target.y*( double ) x - ( double ) y*( double ) target.x );
-				double grady_up = ( ( double ) target.x*( double ) z - ( double ) x*( double ) ( target.z + targetheight ) ) / ( ( double ) y*( double ) target.x - ( double ) target.y*( double ) x );
-				double gradx_down = ( ( double ) target.y*( double ) ( z - 15 ) - ( double ) y*( double ) ( target.z ) ) / ( ( double ) target.y*( double ) x - ( double ) y*( double ) target.x );
-				double grady_down = ( ( double ) target.x*( double ) ( z - 15 ) - ( double ) x*( double ) ( target.z ) ) / ( ( double ) y*( double ) target.x - ( double ) target.y*( double ) x );
-
-				//Console::instance()->send( QString( "gradx_up:%1,grady_up:%2,gradx_down:%3,grady_down:%4\n" ).arg( gradx_up ).arg( grady_up ).arg( gradx_down ).arg( grady_down ) );
-				//Console::instance()->send( QString( "Gradient:%1,Offset:%2\n" ).arg( gradient ).arg( offset ) );
-
-				double temp = specialFloor( gradient*( ( double ) ( ( *pit ).x ) - 0.5 ) + offset );
-				//Console::instance()->send( QString( "temp1:%1\n" ).arg( temp ) );
-				if ( ( temp >= ( ( double ) ( ( *pit ).y ) - 0.5 ) ) && ( temp <= ( ( double ) ( ( *pit ).y ) + 0.5 ) ) )
-				{
-					if ( z1_up > -300 )
-					{
-						z2_up = gradx_up * ( ( double ) ( ( *pit ).x ) - 0.5 ) + grady_up * temp;
-						z2_down = gradx_down * ( ( double ) ( ( *pit ).x ) - 0.5 ) + grady_down * temp;
-					}
-					else
-					{
-						z1_up = gradx_up * ( ( double ) ( ( *pit ).x ) - 0.5 ) + grady_up * temp;
-						z1_down = gradx_down * ( ( double ) ( ( *pit ).x ) - 0.5 ) + grady_down * temp;
-					}
-					//Console::instance()->send( QString( "tx:%1,ty:%2,cy:%3,cy:%4\n" ).arg( target.x ).arg( target.y ).arg( (*pit).x ).arg( (*pit).y ) );
-					//Console::instance()->send( QString( "z1_up:%1,z1_down:%2,z2_up:%3,z2_down:%4\n" ).arg( z1_up ).arg( z1_down ).arg( z2_up ).arg( z2_down ) );
-				}
-				temp = specialFloor( gradient * ( ( double ) ( ( *pit ).x ) + 0.5 ) + offset );
-				//Console::instance()->send( QString( "temp2:%1\n" ).arg( temp ) );
-				if ( ( temp >= ( ( double ) ( ( *pit ).y ) - 0.5 ) ) && ( temp <= ( ( double ) ( ( *pit ).y ) + 0.5 ) ) )
-				{
-					if ( z1_up > -300 )
-					{
-						z2_up = gradx_up * ( ( double ) ( ( *pit ).x ) + 0.5 ) + grady_up * temp;
-						z2_down = gradx_down * ( ( double ) ( ( *pit ).x ) + 0.5 ) + grady_down * temp;
-					}
-					else
-					{
-						z1_up = gradx_up * ( ( double ) ( ( *pit ).x ) + 0.5 ) + grady_up * temp;
-						z1_down = gradx_down * ( ( double ) ( ( *pit ).x ) + 0.5 ) + grady_down * temp;
-					}
-					//Console::instance()->send( QString( "tx:%1,ty:%2,cy:%3,cy:%4\n" ).arg( target.x ).arg( target.y ).arg( (*pit).x ).arg( (*pit).y ) );
-					//Console::instance()->send( QString( "z1_up:%1,z1_down:%2,z2_up:%3,z2_down:%4\n" ).arg( z1_up ).arg( z1_down ).arg( z2_up ).arg( z2_down ) );
-				}
-				temp = specialFloor( ( double ) ( ( *pit ).y ) - 0.5 - offset ) / gradient;
-				//Console::instance()->send( QString( "temp3:%1\n" ).arg( temp ) );
-				if ( ( temp > ( ( double ) ( ( *pit ).x ) - 0.5 ) ) && ( temp < ( ( double ) ( ( *pit ).x ) + 0.5 ) ) )
-				{
-					if ( z1_up > -300 )
-					{
-						z2_up = gradx_up * temp + grady_up * ( ( double ) ( ( *pit ).y ) - 0.5 );
-						z2_down = gradx_down * temp + grady_down * ( ( double ) ( ( *pit ).y ) - 0.5 );
-					}
-					else
-					{
-						z1_up = gradx_up * temp + grady_up * ( ( double ) ( ( *pit ).y ) - 0.5 );
-						z1_down = gradx_down * temp + grady_down * ( ( double ) ( ( *pit ).y ) - 0.5 );
-					}
-					//Console::instance()->send( QString( "tx:%1,ty:%2,cy:%3,cy:%4\n" ).arg( target.x ).arg( target.y ).arg( (*pit).x ).arg( (*pit).y ) );
-					//Console::instance()->send( QString( "z1_up:%1,z1_down:%2,z2_up:%3,z2_down:%4\n" ).arg( z1_up ).arg( z1_down ).arg( z2_up ).arg( z2_down ) );
-				}
-				temp = specialFloor( ( double ) ( ( *pit ).y ) + 0.5 - offset ) / gradient;
-				//Console::instance()->send( QString( "temp4:%1\n" ).arg( temp ) );
-				if ( ( temp > ( ( double ) ( ( *pit ).x ) - 0.5 ) ) && ( temp < ( ( double ) ( ( *pit ).x ) + 0.5 ) ) )
-				{
-					if ( z1_up > -300 )
-					{
-						z2_up = gradx_up * temp + grady_up * ( ( double ) ( ( *pit ).y ) + 0.5 );
-						z2_down = gradx_down * temp + grady_down * ( ( double ) ( ( *pit ).y ) + 0.5 );
-					}
-					else
-					{
-						z1_up = gradx_up * temp + grady_up * ( ( double ) ( ( *pit ).y ) + 0.5 );
-						z1_down = gradx_down * temp + grady_down * ( ( double ) ( ( *pit ).y ) + 0.5 );
-					}
-					//Console::instance()->send( QString( "tx:%1,ty:%2,cy:%3,cy:%4\n" ).arg( target.x ).arg( target.y ).arg( (*pit).x ).arg( (*pit).y ) );
-					//Console::instance()->send( QString( "z1_up:%1,z1_down:%2,z2_up:%3,z2_down:%4\n" ).arg( z1_up ).arg( z1_down ).arg( z2_up ).arg( z2_down ) );
-				}
-
-				//Console::instance()->send( QString( "ergebnis: z1_up:%1,z1_down:%2,z2_up:%3,z2_down:%4\n" ).arg( z1_up ).arg( z1_down ).arg( z2_up ).arg( z2_down ) );
-
-				if ( z2_up == -300 )
-				{
-					zmin = ( signed char ) floor( z1_down );
-					zmax = ( signed char ) ceil( z1_up );
-				}
-				else
-				{
-					zmin = ( signed char ) QMIN( floor( z1_down ), floor( z2_down ) );
-					zmax = ( signed char ) QMAX( ceil( z1_up ), ceil( z2_up ) );
-				}
-
-				//Console::instance()->send( QString( "zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
-
-				if ( dz_up > 0 )
-				{
-					zmax = QMIN( zmax, target.z + targetheight );
-				}
-				else
-				{
-					zmax = QMIN( zmax, z );
-				}
-
-				if ( dz_down > 0 )
-				{
-					zmin = QMAX( zmin, z - 14 );
-				}
-				else
-				{
-					zmin = QMAX( zmin, target.z + 1 );
-				}
-
-				//Console::instance()->send( QString( "zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
-
-				if ( ( ( *pit ).x == target.x ) && ( ( *pit ).y == target.y ) )
-				{
-					targetpos = true;
-					if ( ( dz_up >= 0 ) && ( dz_down >= 0 ) )
-					{
-						if ( zmin < target.z )
-						{
-							zmax = target.z - 1;
-						}
-						else
-						{
-							//we ignore this coordinate
-							++pit;
-							continue;
-						}
-					}
-					else if ( ( dz_up <= 0 ) && ( dz_down <= 0 ) )
-					{
-						if ( zmax > target.z + targetheight + 1 )
-						{
-							zmin = target.z + targetheight + 2;
-						}
-						else
-						{
-							++pit;
-							continue;
-						}
-					}
-					else
-					{
-						//we may have to split the test into two if we would do it exactly
-						//but i think we can throw away the test from down in this case
-						if ( zmax > target.z + targetheight + 1 )
-						{
-							zmin = target.z + targetheight + 2;
-						}
-						else if ( zmin < target.z )
-						{
-							zmax = target.z - 1;
-						}
-						else
-						{
-							++pit;
-							continue;
-						}
-					}
-				}
-			}
-			//Console::instance()->send( QString( "zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
-
-			// Texture mapping
-			map1 = Maps::instance()->seekMap( *pit );
-			map2 = Maps::instance()->seekMap( Coord_cl( ( *pit ).x + sgn_x, ( *pit ).y + sgn_y, ( *pit ).z, map ) );
-
-			//Console::instance()->send( QString( "try2" ) );
-			StaticsIterator msi = Maps::instance()->staticsIterator( *pit );
-			RegionIterator4Items rj( ( *pit ), 0 );
-			if ( ( map1.id != 2 ) && ( map2.id != 2 ) )
-			{
-				if ( ( map1.z > zmin ) && ( map1.z < zmax ) )
-				{
-					//its just in our way
-					//Console::instance()->send( QString( "map cut 1\n" ) );
-					return false;
-				}
-
-				//now we have to test, if this tile is under our line and the next above or
-				//vice verse
-				//in this case, both dont cut our line, but the mapconnection between them
-				//should do
-				land_st tile = TileCache::instance()->getLand( map1.id );
-				if ( ( ( map1.z < map2.z ) && ( map1.z < zmin ) && ( map2.z > zmax + dz_down ) && !targetpos ) ||  						// 1) lineofsight collides with a map "wall"
-					( ( map1.z > map2.z ) && ( map1.z > zmin ) && ( map2.z < zmin + dz_down ) && !targetpos ) || ( tile.isBlocking() && posHigherThanMap && msi.atEnd() && rj.atEnd() ) )
-				{
-					//Console::instance()->send( QString( "map1:%1,map2:%2,map1id:%3\n" ).arg( map1.z ).arg( map2.z ).arg( map1.id ) );
-					if ( ( map1.z < map2.z ) && ( map1.z < zmin ) && ( map2.z > zmax + dz_down ) )
-					{
-						//Console::instance()->send( QString( "mapcut1\n" ) );
-					}
-					else if ( ( map1.z > map2.z ) && ( map1.z > zmin ) && ( map2.z < zmin + dz_down ) )
-					{
-						//Console::instance()->send( QString( "mapcut2\n" ) );
-					}
-					else if ( tile.isBlocking() && posHigherThanMap && msi.atEnd() && rj.atEnd() )
-					{
-						//Console::instance()->send( QString( "mapcut3\n" ) );
-					}
-					else
-					{
-						//Console::instance()->send( QString( "mapcut: this isnt possible\n" ) );
-					}
-					return false;
-				}
-			}
-
-			//Console::instance()->send( QString( "after map\n" ) );
-
-			// Statics
-			tile_st tile;
-			while ( !msi.atEnd() )
-			{
-				tile = TileCache::instance()->getTile( msi->itemid );
-				//Console::instance()->send( QString( "statictilepos:%1,zmax:%2,zmin:%3\n" ).arg( msi->zoff ).arg( zmax ).arg( zmin ) );
-				//if it is in our way
-				if ( ( zmax >= msi->zoff ) && ( zmin <= ( msi->zoff + tile.height ) ) )
-				{
-					if ( !( ( ( *pit ).x == target.x ) && ( ( *pit ).y == target.y ) && ( msi->zoff <= target.z ) && ( msi->zoff + tile.height >= target.z ) ) )
-					{
-						if ( tile.isBlocking() || tile.isRoofOrFloorTile() )
-						{
-							//Console::instance()->send( QString( "statictilepos:%1,%2,%3, Target:%4, Height: %5\n" ).arg( (*pit).x ).arg( (*pit).y ).arg( msi->zoff ).arg( target.z ).arg( tile.height ) );
-							return false;
-						}
-					}
-				}
-
-				++msi;
-			}
-
-			//Console::instance()->send( QString( "after statics\n" ) );
-			// Items
-			//Console::instance()->send( QString( "Items at: %1,%2,%3,%4\n" ).arg( (*pit).x ).arg( (*pit).y ).arg( (*pit).z ).arg( (*pit).map ) );
-			for ( rj.Begin(); !rj.atEnd(); rj++ )
-			{
-				//Console::instance()->send( QString( "foritem\n" ) );
-				P_ITEM pi = rj.GetData();
-				if ( pi && pi->id() < 0x4000 )
-				{
-					tile = TileCache::instance()->getTile( pi->id() );
-					//Console::instance()->send( QString( "itemtilepos:%1,zmax:%2,zmin:%3\n" ).arg( pi->pos().z ).arg( zmax ).arg( zmin ) );
-					if ( ( zmax >= pi->pos().z ) && ( zmin <= ( pi->pos().z + tile.height ) ) && ( pi->visible() == 0 ) )
-					{
-						if ( tile.isBlocking() || tile.isRoofOrFloorTile() )
-						{
-							//Console::instance()->send( QString( "Item:%1,Z:%2,Height:%3\n" ).arg( pi->id() ).arg( pi->pos().z ).arg( tile.height ) );
-							return false;
-						}
-					}
-				}
-			}
-
-			//Console::instance()->send( QString( "after items\n" ) );
-			// Multis
-			QPtrListIterator<cItem> mit( multis );
-			P_ITEM pi;
-			while ( ( pi = mit.current() ) )
-			{
-				MultiDefinition* def = MultiCache::instance()->getMulti( pi->id() - 0x4000 );
-				if ( !def )
-				{
-					++mit;
-					continue;
-				}
-				QValueVector<multiItem_st> multi = def->getEntries();
-				for ( unsigned int j = 0; j < multi.size(); ++j )
-				{
-					if ( ( multi[j].visible ) && ( pi->pos().x + multi[j].x == ( *pit ).x ) && ( pi->pos().y + multi[j].y == ( *pit ).y ) )
-					{
-						tile = TileCache::instance()->getTile( multi[j].tile );
-						if ( ( zmax >= pi->pos().z + multi[j].z ) && ( zmin <= pi->pos().z + multi[j].z + tile.height ) )
-						{
-							if ( tile.isBlocking() || tile.isRoofOrFloorTile() )
-							{
-								return false;
-							}
-						}
-					}
-				}
-				++mit;
-			}
-			//Console::instance()->send( QString( "after multis\n" ) );
-			++pit;
-		}
-		return true;
+	} else if (pChar) {
+		return pChar->pos().losCharPoint();
+	} else {
+		return Coord_cl(target->x(), target->y(), target->z(), map);
 	}
 }

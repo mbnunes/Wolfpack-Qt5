@@ -27,6 +27,7 @@
 
 #include "engine.h"
 
+#include "target.h"
 #include "../territories.h"
 #include "../skills.h"
 #include "../party.h"
@@ -1978,15 +1979,14 @@ static PyObject* wpChar_notoriety( wpChar* self, PyObject* args )
 	\method char.canreach
 	\description Check if the character can reach the given object or coordinate and if he is in
 	within a given range.
-	\param target The object the character wants to reach. This can either be an item, a character or a
-	coordinate object.
-	\param range The range the character needs to be within.
+	\param target The object the character wants to reach. This can either be an item, a character, a
+	coordinate or a target object.
+	\param range The range the character needs to be within. If this is -1 the target needs to be in the
+	characters posessions.
 	\return True if the character can reach the given object, false otherwise.
 */
-static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
-{
-	Q_UNUSED( args );
-	if ( self->pChar->free || ( !checkArgObject( 0 ) && !checkArgCoord( 0 ) ) || !checkArgInt( 1 ) )
+static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
+	if (self->pChar->free)
 		Py_RETURN_FALSE;
 
 	P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( self->pChar );
@@ -1994,77 +1994,97 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 	if ( pPlayer && pPlayer->isGM() )
 		Py_RETURN_TRUE;
 
-	Coord_cl pos;
+	PyObject *target;
+	int range;
+	int debug = 0;
 
-	P_ITEM pItem = 0;
-	P_CHAR pChar = 0;
-
-	// Parameter 1: Coordinate
-	if ( checkArgCoord( 0 ) )
-	{
-		pos = getArgCoord( 0 );
-
-		// Parameter1: Item/Char
+	if (!PyArg_ParseTuple(args, "Oi|i:char.canreach(target, range)", &target, &range, &debug)) {
+		return 0;
 	}
-	else
-	{
-		pChar = getArgChar( 0 );
 
-		if ( !pChar )
-		{
-			pItem = getArgItem( 0 );
-			if ( !pItem )
-			{
-				Py_INCREF( Py_False );
-				return Py_False;
+	Coord_cl targetPos;
+
+	if (checkWpCoord(target)) {
+		if (range == -1) {
+			Py_RETURN_FALSE;
+		}
+
+		targetPos = getWpCoord(target).losMapPoint();
+	} else if (checkWpItem(target)) {
+		P_ITEM pItem = getWpItem(target);
+
+		// Range -1 means that the item has to be on the char
+		if (range == -1 && pItem->getOutmostChar() != self->pChar) {
+			Py_RETURN_FALSE;
+		}
+
+		targetPos = pItem->pos().losItemPoint(pItem->id());
+	} else if (checkWpChar(target)) {
+		if (range == -1) {
+			Py_RETURN_FALSE;
+		}
+
+		P_CHAR pChar = getWpChar(target);
+		targetPos = pChar->pos().losCharPoint(false);
+	} else if (target->ob_type == &wpTargetType) {
+		SERIAL object = ((wpTarget*)target)->object;
+		Coord_cl pos = ((wpTarget*)target)->pos;
+		unsigned short model = ((wpTarget*)target)->model;
+
+		P_ITEM pItem = dynamic_cast<P_ITEM>(World::instance()->findItem(object));
+
+		if (pItem) {
+			pItem = pItem->getOutmostItem();	
+
+			if (pItem->container() && pItem->container()->isChar()) {
+				if (range == -1) {
+					Py_RETURN_TRUE;
+				}
+
+				targetPos = pItem->container()->pos().losCharPoint();
+			} else {
+				if (range == -1) {
+					Py_RETURN_FALSE;
+				}
+				
+				targetPos = pItem->pos().losItemPoint(pItem->id());
+			}
+		} else {
+			if (range == -1) {
+				Py_RETURN_FALSE;
 			}
 
-			if ( pItem->getOutmostChar() == self->pChar )
-			{
-				Py_INCREF( Py_True );
-				return Py_True;
+			P_CHAR pChar = dynamic_cast<P_CHAR>(World::instance()->findChar(object));
+			if (pChar) {
+				targetPos = pChar->pos().losCharPoint();
+			} else {
+				if (model != 0) {
+					targetPos = pos.losItemPoint(model);
+				} else {
+					targetPos = pos.losMapPoint();
+				}
 			}
-
-			pos = pItem->pos();
 		}
-		else
-		{
-			pos = pChar->pos();
-		}
+	} else {
+		PyErr_SetString(PyExc_TypeError, "Unknown target type for char.canreach()");
+		return 0;
 	}
 
-	Q_UINT32 range = getArgInt( 1 );
+	// Now that we have the target position, measure the distance.
+	Coord_cl pos = self->pChar->pos().losCharPoint(true);
 
-	if ( self->pChar->pos().map != pos.map )
+	if (pos.map != targetPos.map) {
 		Py_RETURN_FALSE;
+	}
 
-	if ( self->pChar->pos().distance( pos ) > range )
+	if (pos.distance(targetPos) > range) {
 		Py_RETURN_FALSE;
+	}
 
-	if ( pItem )
-	{
-		if ( !self->pChar->lineOfSight( pItem, true ) )
-		{
-			Py_INCREF( Py_False );
-			return Py_False;
-		}
+	if (!pos.lineOfSight(targetPos, debug != 0)) {
+		Py_RETURN_FALSE;
 	}
-	else if ( pChar )
-	{
-		if ( !self->pChar->lineOfSight( pChar, true ) )
-		{
-			Py_INCREF( Py_False );
-			return Py_False;
-		}
-	}
-	else
-	{
-		if ( !self->pChar->lineOfSight( pos, true ) )
-		{
-			Py_INCREF( Py_False );
-			return Py_False;
-		}
-	}
+
 	Py_RETURN_TRUE;
 }
 

@@ -3243,12 +3243,12 @@ void cBaseChar::poll( unsigned int time, unsigned int events )
 			// Ranged weapons don't need a touch, all other weapons need it.
 			if ( weapon && ( weapon->type() == 1006 || weapon->type() == 1007 ) )
 			{
-				if ( !lineOfSight( attackTarget_, false ) )
+				if ( !lineOfSight( attackTarget_ ) )
 				{
 					return;
 				}
 			}
-			else if ( !lineOfSight( attackTarget_, true ) )
+			else if ( !lineOfSight( attackTarget_ ) )
 			{
 				return;
 			}
@@ -3279,30 +3279,38 @@ void cBaseChar::refreshMaximumValues()
 	maxMana_ = ( int ) QMAX( 1, intelligence_ + manaBonus_ );
 }
 
-bool cBaseChar::lineOfSight( P_CHAR target, bool touch )
+bool cBaseChar::lineOfSight( P_CHAR target, bool debug )
 {
-	if ( target == this )
-	{
+	if (target == this) {
 		return true;
 	}
 
-	Coord_cl eyes = pos_ + Coord_cl( 0, 0, 15 );
-	return eyes.lineOfSight( target->pos(), 15, touch );
+    // From us (eye) to target (no eye)
+	return pos_.losCharPoint(true).lineOfSight(target->pos().losCharPoint(), debug);
 }
 
-bool cBaseChar::lineOfSight( P_ITEM target, bool touch )
+bool cBaseChar::lineOfSight( P_ITEM target, bool debug )
 {
-	tile_st tile = TileCache::instance()->getTile( target->id() );
-	Coord_cl eyes = pos_ + Coord_cl( 0, 0, 15 );
+	target = target->getOutmostItem();
+	Coord_cl pos;
 
-	return eyes.lineOfSight( target->pos(), tile.height, touch );
+	if (target->container() && target->container()->isChar()) {
+		pos = target->container()->pos().losCharPoint(false);
+	} else {
+		pos = target->pos().losItemPoint(target->id());
+	}
+
+	return pos_.losCharPoint(true).lineOfSight(pos, debug);
 }
 
-bool cBaseChar::lineOfSight( const Coord_cl& target, bool touch )
-{
-	Coord_cl eyes = pos_ + Coord_cl( 0, 0, 15 );
+bool cBaseChar::lineOfSight( const Coord_cl& target, bool debug )
+{	
+	return pos_.losCharPoint(true).lineOfSight(target.losMapPoint(), debug);
+}
 
-	return eyes.lineOfSight( target, 0, touch );
+bool cBaseChar::lineOfSight( const Coord_cl& target, unsigned short id, bool debug )
+{
+	return pos_.losCharPoint(true).lineOfSight(target.losItemPoint(id), debug);
 }
 
 double cBaseChar::getHitpointRate()

@@ -399,6 +399,30 @@ uint cMaps::mapTileWidth( uint id ) const
 	return it.data()->width;
 }
 
+void cMaps::mapTileSpan(const Coord_cl &pos, unsigned short &id, int &bottom, int &top) const {
+	int topZ, bottomZ, leftZ, rightZ;
+
+	// Get the elevation of the tile itself
+	map_st tile = seekMap(pos.map, pos.x, pos.y);
+	topZ = tile.z;
+	id = tile.id;
+
+	// Get the elevation of the tile on the lower left
+	leftZ = seekMap(pos.map, pos.x, pos.y + 1).z;
+
+	// Get the elevation of the tile on the lower right
+	rightZ = seekMap(pos.map, pos.x + 1, pos.y).z;
+
+	// Get the elevation of the tile below
+	bottomZ = seekMap(pos.map, pos.x + 1, pos.y + 1).z;
+
+	// Get the smallest of the z values
+	bottom = QMIN( QMIN( QMIN(topZ, leftZ), rightZ), bottomZ);
+    
+	// Get the highest of the z values
+	top = QMAX( QMAX( QMAX(topZ, leftZ), rightZ), bottomZ);
+}
+
 /*!
 	Returns the average elevation (z) of coordinates \a p and it's
 	neighbor tiles.
