@@ -604,6 +604,7 @@ PyObject* cAccount::getProperty( const QString& name ) {
 	PY_PROPERTY("name", login());
 	PY_PROPERTY("multigems", isMultiGems() );
 	PY_PROPERTY("password", password());
+	PY_PROPERTY("rawpassword", password());
 	PY_PROPERTY("flags", flags());
 	/*
 		\rproperty account.characters A list of <object id="CHAR">char</object> objects.
@@ -649,6 +650,15 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value ) {
 	*/
 	else if (name == "password") {
 		setPassword(value.toString());
+		return 0;
+	}
+	/*
+		\property account.rawpassword If you use MD5 hashing this property is the hashed password and no 
+		conversions will be done automatically if you set this property. If you don't use MD5 hashing, 
+		this property is equivalent to the password property.
+	*/
+	else if (name == "rawpassword") {
+		password_ = value.toString();
 		return 0;
 	}
 	/*
