@@ -154,7 +154,11 @@ class Spell:
 		elif mode == MODE_CMD:
 			source = 'command'
 
-		char.log(LOG_MESSAGE, "Casting spell %u (%s) from %s.\n" % (self.spellid, self.__class__.__name__, source))
+		if type(self.spellid) == int:
+			char.log(LOG_MESSAGE, "Casting spell %u (%s) from %s.\n" % (self.spellid, self.__class__.__name__, source))
+		else:
+			char.log(LOG_MESSAGE, "Casting spell %s from %s.\n" % (self.__class__.__name__, source))
+			
 		char.addtimer(self.calcdelay(), 'magic.spell.callback', [self, mode, args, target, item], 0, 0, "cast_delay")
 		return 1
 
