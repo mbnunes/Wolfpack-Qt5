@@ -511,6 +511,12 @@ void cBaseChar::updateHealth( void )
 
 void cBaseChar::action( unsigned char id, unsigned char speed, bool reverse )
 {
+	if (isAntiBlink()) {
+		if (id == ANIM_CAST_DIR) {
+			id = ANIM_CAST_AREA;
+		}
+	}
+
 	bool mounted = atLayer( Mount ) != 0;
 
 	// Bow + Area Cast
@@ -1978,6 +1984,16 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	This value is not saved between server downs.
 	*/
 	PY_PROPERTY( "stepstaken", stepsTaken() )
+	/*
+		\rproperty char.bodytype The type of this characters bodies.
+		<code>0 - Unknown
+		1 Monster
+		2 Sea
+		3 Animal
+		4 Human
+		5 Equipment</code>
+	*/
+	PY_PROPERTY( "bodytype", bodytype() )
 	PY_PROPERTY( "orgname", orgName_ )
 	PY_PROPERTY( "direction", direction_ )
 	PY_PROPERTY( "baseid", baseid() )

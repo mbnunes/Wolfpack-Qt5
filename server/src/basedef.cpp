@@ -288,6 +288,18 @@ void cCharBaseDefs::loadBodyInfo() {
 					bodyinfo.flags = 0;
 				}
 
+				// The offset for sounds this creature is using
+				QString bodytype = hex2dec(element.attribute("type"));
+				if (!bodytype.isNull()) {
+					bodyinfo.type = bodytype.toUShort(&ok);
+					if (!ok) {
+						Console::instance()->log(LOG_WARNING, QString("Invalid bodytype in bodyinfo file: %1.\n").arg(bodytype));
+						continue;
+					}
+				} else {
+					bodyinfo.type = 0;
+				}
+
 				if (bodyinfo.body < 0x400) {
 					this->bodyinfo[bodyinfo.body] = bodyinfo;
 				}

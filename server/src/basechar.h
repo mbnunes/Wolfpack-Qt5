@@ -546,6 +546,11 @@ public:
 		return basedef_ ? basedef_->bindmenu() : 0;
 	}
 
+	inline unsigned char bodytype()
+	{
+		return CharBaseDefs::instance()->getBodyInfo(body()).type;
+	}
+
 	inline unsigned char soundmode()
 	{
 		unsigned char result = basedef_ ? basedef_->soundmode() : 0;

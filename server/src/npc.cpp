@@ -901,12 +901,16 @@ PyObject* cNPC::getProperty( const QString& name )
 Coord_cl cNPC::nextMove()
 {
 	Coord_cl ret;
-	if ( !path_.empty() )
+	std::deque<Coord_cl>::const_iterator it = path_.begin();
+
+	if (it != path_.end())
 	{
-		ret = path_.front();
+		ret = *it;
 	}
 	else
+	{
 		ret = Coord_cl( 0xFFFF, 0xFFFF, (SI08) 0xFF, 0 );
+	}
 
 	return ret;
 }
@@ -933,11 +937,13 @@ void cNPC::clearPath( void )
 
 bool cNPC::hasPath( void )
 {
-	return !path_.empty();
+	std::deque<Coord_cl>::const_iterator it = path_.begin();
+	return it != path_.end();
 }
 
 Coord_cl cNPC::pathDestination( void ) const
 {
+	
 	if ( path_.empty() )
 		return Coord_cl( 0xFFFF, 0xFFFF, (SI08) 0xFF, 0 );
 	else

@@ -194,12 +194,20 @@ public:
 	}
 };
 
+#define BODY_UNKNOWN 0
+#define BODY_MONSTER 1
+#define BODY_SEA 2
+#define BODY_ANIMAL 3
+#define BODY_HUMAN 4
+#define BODY_EQUIPMENT 5
+
 struct stBodyInfo {
 	unsigned short body;
 	unsigned short basesound;
 	unsigned short figurine;
 	unsigned char flags;
 	unsigned char soundmode;
+	unsigned char type;
 };
 
 class cCharBaseDefs

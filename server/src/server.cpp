@@ -154,20 +154,17 @@ void cServer::pollQueuedActions()
 	if ( !d->actionQueue.empty() )
 	{
 		d->actionMutex.lock();
-		while ( d->actionQueue.begin() != d->actionQueue.end() )
-		{
-			cAction *action = *(d->actionQueue.begin());
-			d->actionQueue.erase(d->actionQueue.begin());
-
-			try {
-				action->execute();
-			} catch ( wpException e ) {
-				Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
-			}			
-
-			delete action;
-		}
+		cAction *action = *(d->actionQueue.begin());
+		d->actionQueue.erase(d->actionQueue.begin());
 		d->actionMutex.unlock();
+
+		try {
+			action->execute();
+		} catch ( wpException e ) {
+			Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
+		}
+
+		delete action;
 	}
 }
 

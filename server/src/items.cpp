@@ -859,11 +859,13 @@ void cItem::processContainerNode( const cElement* tag )
 			if ( element->hasAttribute( "id" ) )
 			{
 				cItem* nItem = cItem::createFromScript( element->getAttribute( "id" ) );
-				addItem( nItem );
-				for ( unsigned int j = 0; j < element->childCount(); ++j )
-					nItem->processNode( element->getChild( j ) );
-				if ( this->layer() == cBaseChar::BuyRestockContainer )
-					nItem->setRestock( nItem->amount() );
+				if (nItem) {
+					addItem( nItem );
+					for ( unsigned int j = 0; j < element->childCount(); ++j )
+						nItem->processNode( element->getChild( j ) );
+					if ( this->layer() == cBaseChar::BuyRestockContainer )
+						nItem->setRestock( nItem->amount() );
+				}
 			}
 			else if ( element->hasAttribute( "list" ) )
 			{
