@@ -370,9 +370,9 @@ class cSkRepairItem : public cTargetRequest
 {
 	Q_OBJECT
 private:
-	cMakeSection* makesection_;
+	cDoCodeAction* makesection_;
 public:
-	cSkRepairItem( cMakeSection* makesection = NULL ) : cTargetRequest(), makesection_( makesection ) {}
+	cSkRepairItem( cDoCodeAction* makesection = NULL ) : cTargetRequest(), makesection_( makesection ) {}
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 

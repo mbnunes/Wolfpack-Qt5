@@ -122,9 +122,9 @@ private:
 	SERIAL serial_;
 	SERIAL multis_;
 	cCustomTags tags_;
-	bool changed_;
 
 protected:
+	bool changed_;
 	// Things for building the SQL string
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 	
@@ -173,7 +173,7 @@ public:
 	virtual ~cUObject() {};
 //	virtual QString objectID() const = 0;
 
-	void changed( UINT32 );
+	void changed( UI32 );
 	void moveTo( const Coord_cl& );
 	unsigned int dist(cUObject* d) const;
 	QString bindmenu() const	{ return bindmenu_; }

@@ -689,7 +689,7 @@ void cUObject::sendTooltip( cUOSocket* mSock )
 	delete( tooltip );
 }
 
-void cUObject::changed( UINT32 state )
+void cUObject::changed( UI32 state )
 {
 	if( state & SAVE ) changed_ = true;
 	if( state & TOOLTIP ) tooltip_ = 0xFFFFFFFF;

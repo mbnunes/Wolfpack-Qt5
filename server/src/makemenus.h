@@ -131,26 +131,40 @@ public:
 	// implements cDefinable
 	virtual void processNode( const QDomElement &Tag );
 
-	struct makenpcprops_st
-	{
-		QString			name;
-		QString			section;
-	};
-
 	// Getters
-	QPtrList< cMakeItem >		makeitems()		const { return makeitems_; }
-	QPtrList< cUseItem >		useitems()		const { return useitems_; }
-	QPtrList< cSkillCheck >		skillchecks()	const { return skillchecks_; }
 	QString						name()			const { return name_; }
 	cMakeAction*				baseAction()	const { return baseaction_; }
-	makenpcprops_st				makenpc()		const { return makenpc_; }
 
 	// Setters
 	void		setName( const QString& data )			{ name_ = data; }
+
+	virtual void	execute( cUOSocket* const socket );
+
+protected:
+
+	QString						name_;
+	cMakeAction*				baseaction_;
+};
+
+class cMakeCustomSection : public cMakeSection
+{
+	Q_OBJECT
+public:
+	cMakeCustomSection( const QString &name, cMakeAction* baseaction = NULL );
+	cMakeCustomSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+	~cMakeCustomSection();
+
+	// implements cDefinable
+	virtual void processNode( const QDomElement &Tag );
+
+	QPtrList< cMakeItem >		makeitems()		const { return makeitems_; }
+	QPtrList< cUseItem >		useitems()		const { return useitems_; }
+	QPtrList< cSkillCheck >		skillchecks()	const { return skillchecks_; }
+
+	virtual void	execute( cUOSocket* const socket );
+
 	void		appendMakeItem( const cMakeItem* pmi )	{ makeitems_.append( pmi ); }
 	void		appendUseItem( const cUseItem* pui )	{ useitems_.append( pui ); }
-
-	void		execute( cUOSocket* const socket );
 
 	// execute helper methods
 	bool	hasEnough( cItem* pBackpack );
@@ -160,10 +174,33 @@ public:
 	// calcRank checks the skill and may raise it! (==0) => failed, (>0) => success
 	UINT32	calcRank( cChar* pChar );
 
-	// action type specific methods
-	void	setMakeItemAmounts( UINT16 amount );
-	void	addMakeItemSectionPrefixes( const QString& prefix );
-	void	applySkillMod( float skillmod );
+protected:
+	QPtrList< cMakeItem >		makeitems_;
+	QPtrList< cUseItem >		useitems_;
+	QPtrList< cSkillCheck >		skillchecks_;
+};
+
+class cMakeNpcSection : public cMakeSection
+{
+	Q_OBJECT
+public:
+	cMakeNpcSection( const QString &name, cMakeAction* baseaction = NULL );
+	cMakeNpcSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+	~cMakeNpcSection();
+
+	// implements cDefinable
+	virtual void processNode( const QDomElement &Tag );
+
+	virtual void	execute( cUOSocket* const socket );
+
+	struct makenpcprops_st
+	{
+		QString			name;
+		QString			section;
+	};
+
+	makenpcprops_st				makenpc()		const { return makenpc_; }
+
 	void	setNpcProperties( const QString &name, const QString &section )
 	{
 		makenpc_.name = name;
@@ -171,13 +208,82 @@ public:
 	}
 
 private:
-	QPtrList< cMakeItem >		makeitems_;
-	QPtrList< cUseItem >		useitems_;
-	QPtrList< cSkillCheck >		skillchecks_;
 	makenpcprops_st				makenpc_;
 
-	QString						name_;
-	cMakeAction*				baseaction_;
+};
+
+class cMakeResourceSection : public cMakeCustomSection
+{
+	Q_OBJECT
+public:
+	cMakeResourceSection( const QString &name, cMakeAction* baseaction = NULL );
+	cMakeResourceSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+
+	// implements cDefinable
+	virtual void processNode( const QDomElement &Tag );
+
+	virtual void	execute( cUOSocket* const socket );
+
+	void	addMakeItemSectionPrefixes( const QString& prefix );
+	void	applySkillMod( float skillmod );
+};
+
+class cMakeAmountSection : public cMakeCustomSection
+{
+	Q_OBJECT
+public:
+	cMakeAmountSection( const QString &name, cMakeAction* baseaction = NULL );
+	cMakeAmountSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+
+	// implements cDefinable
+	virtual void processNode( const QDomElement &Tag );
+
+	virtual void	execute( cUOSocket* const socket );
+
+	// action type specific methods
+	void	setMakeItemAmounts( UINT16 amount );
+};
+
+class cMakeDelayedSection : public cMakeSection
+{
+	Q_OBJECT
+public:
+	cMakeDelayedSection( const QString &name, cMakeAction* baseaction = NULL );
+	cMakeDelayedSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+	~cMakeDelayedSection();
+
+	// implements cDefinable
+	virtual void processNode( const QDomElement &Tag );
+
+	virtual void	execute( cUOSocket* const socket );
+};
+
+class cDoCodeAction : public cMakeSection
+{
+	Q_OBJECT
+public:
+	cDoCodeAction( const QString &name, cMakeAction* baseaction = NULL );
+	cDoCodeAction( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+	~cDoCodeAction();
+
+	// implements cDefinable
+	virtual void processNode( const QDomElement &Tag );
+
+	virtual void	execute( cUOSocket* const socket );
+};
+
+class cDoScriptAction : public cMakeSection
+{
+	Q_OBJECT
+public:
+	cDoScriptAction( const QString &name, cMakeAction* baseaction = NULL );
+	cDoScriptAction( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+	~cDoScriptAction();
+
+	// implements cDefinable
+	virtual void processNode( const QDomElement &Tag );
+
+	virtual void	execute( cUOSocket* const socket );
 };
 
 class cMakeAction : public cDefinable

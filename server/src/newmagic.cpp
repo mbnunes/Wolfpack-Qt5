@@ -200,26 +200,7 @@ void cEndCasting::Expire()
 	stNewSpell *sInfo = NewMagic->findSpell( spell );
 	if( !sInfo->targets )
 	{
-		if( ( !pMage->isGM() && !NewMagic->checkReagents( pMage, spell ) ) || !NewMagic->useMana( pMage, spell ) )
-		{
-			pMage->setCasting( false );
-			return;
-		}
-		if( !pMage->isGM() )
-			NewMagic->useReagents( pMage, spell );
-		
-		if( !NewMagic->checkSkill( pMage, spell, false ) )
-		{
-			NewMagic->disturb( pMage, true, -1 );
-			return;
-		}
-		
-		// Call the Spell Effect for this Spell
-		if( sInfo->script )
-			sInfo->script->onSpellSuccess( pMage, spell, type, 0 );
-		
-		// End Casting
-		pMage->setCasting( false );
+		NewMagic->execSpell( pMage, spell, type );
 	}
 	else
 		pMage->socket()->attachTarget( new cSpellTarget( pMage, spell, type ) );
@@ -554,6 +535,32 @@ bool cNewMagic::checkSkill( P_CHAR pMage, UINT8 spell, bool scroll )
 	return true;
 }
 
+void cNewMagic::execSpell( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* target )
+{
+	stNewSpell *sInfo = findSpell( spell );
+
+	if( ( !pMage->isGM() && !checkReagents( pMage, spell ) ) || !useMana( pMage, spell ) )
+	{
+		pMage->setCasting( false );
+		return;
+	}
+	if( !pMage->isGM() )
+		useReagents( pMage, spell );
+	
+	if( !checkSkill( pMage, spell, false ) )
+	{
+		disturb( pMage, true, -1 );
+		return;
+	}
+	
+	// Call the Spell Effect for this Spell
+	if( sInfo->script )
+		sInfo->script->onSpellSuccess( pMage, spell, type, target );
+	
+	// End Casting
+	pMage->setCasting( false );
+}
+
 void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 {
 	if( !pMage || !pMage->socket() )
@@ -684,7 +691,7 @@ bool cNewMagic::checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *tar
 		}
 	
 		// Line of Sight check
-		if( !lineOfSight( pos, socket->player()->pos(), WALLS_CHIMNEYS|TREES_BUSHES|ROOFING_SLANTED|LAVA_WATER|DOORS ) )
+		if( !lineOfSight( pos, socket->player()->pos()+Coord_cl( 0, 0, 13 ), WALLS_CHIMNEYS|TREES_BUSHES|ROOFING_SLANTED|LAVA_WATER|DOORS ) )
 		{
 			socket->sysMessage( tr( "You can't see the target." ) );
 			return false;

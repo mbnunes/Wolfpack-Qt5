@@ -192,6 +192,13 @@ PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 	}
 	else if( !strcmp( name, "lastlogin" ) )
 		return PyString_FromString( self->account->lastLogin().toString().latin1() );
+	else if( !strcmp( name, "blockuntil" ) )
+	{
+		if( self->account->blockedUntil() > QDateTime::currentDateTime() )
+			return PyString_FromString( self->account->blockedUntil().toString().latin1() );
+		else
+			return PyString_FromString( "" );
+	}
 	else
 		return Py_FindMethod( wpAccountMethods, (PyObject*)self, name );
 }
@@ -204,6 +211,14 @@ int wpAccount_setAttr( wpAccount *self, char *name, PyObject *value )
 		self->account->setPassword( PyString_AsString( value ) );
 	else if( !strcmp( name, "flags" ) && PyInt_Check( value ) )
 		self->account->setFlags( PyInt_AsLong( value ) );
+	else if( !strcmp( name, "blockuntil" ) && PyString_Check( value ) )
+	{
+		QDateTime datetime = QDateTime::fromString( PyString_AsString( value ), Qt::ISODate );
+		if( datetime > QDateTime::currentDateTime() )
+		{
+			self->account->setBlockUntil( datetime );
+		}
+	}
 
 	return 0;
 }

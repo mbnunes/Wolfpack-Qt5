@@ -64,6 +64,10 @@ void AccountRecord::Serialize( ISerialization& archive )
 		if( !temp.isNull() && !temp.isEmpty() && temp != "0" )
 			lastLogin_ = QDateTime::fromString( temp, Qt::ISODate );
 
+		archive.read("blockuntil", temp);
+		if( !temp.isNull() && !temp.isEmpty() && temp != "0" )
+			blockUntil = QDateTime::fromString( temp, Qt::ISODate );
+
 		refreshAcl(); // Reload our ACL
 	}
 	else // Writting
@@ -77,6 +81,10 @@ void AccountRecord::Serialize( ISerialization& archive )
 			archive.write( "lastlogin", lastLogin_.toString( Qt::ISODate ) );
 		else
 			archive.write( "lastlogin", QString( "0" ) );
+		if( blockUntil.isValid() )
+			archive.write( "blockuntil", blockUntil.toString( Qt::ISODate ) );
+		else
+			archive.write( "blockuntil", QString( "0" ) );
 	}
 	cSerializable::Serialize( archive );
 }

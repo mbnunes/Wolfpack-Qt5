@@ -89,8 +89,6 @@ the line of sight.
 	if( (source.x == target.x) && (source.y == target.y) && (source.z == target.z) )
 		return not_blocked;		// if source and target are on the same position
 
-//	target.z += 15; // standard eye height of most bodies
-
 	SI32 n = ( target.x - source.x ), m = ( target.y - source.y ), i = 0;
 	SI08 sgn_x = ( source.x <= target.x ) ? 1 : (-1); // signum for x
 	SI08 sgn_y = ( source.y <= target.y ) ? 1 : (-1); // signum for y
@@ -101,8 +99,6 @@ the line of sight.
 		sgn_y = 0;
 	if( source.z == target.z )
 		sgn_z = 0;
-
-//	line3D lineofsight = line3D( vector3D( kox1, koy1, koz1 ), vector3D( (koxn-kox1), (koym-koy1), (koz2-koz1) ) );
 
 	UI32 distance = source.distance( target );
 

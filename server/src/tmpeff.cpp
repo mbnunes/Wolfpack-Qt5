@@ -479,6 +479,9 @@ void cTempEffects::check()
 	cTempEffect *tEffect = NULL;
 	if( !teffects.empty() )
 		tEffect = *teffects.begin();
+
+	if( !tEffect)
+		return;
 	
 	while( tEffect && tEffect->expiretime <= uiCurrentTime )
 	{
@@ -496,6 +499,8 @@ void cTempEffects::check()
 
 		if( !teffects.empty() )
 			tEffect = *teffects.begin();
+		else
+			break;
 	}
 
 }

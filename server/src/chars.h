@@ -70,7 +70,7 @@ class cChar : public cUObject
 private:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 
-	bool changed_;
+//	bool changed_;
 
 // Public Types
 public:

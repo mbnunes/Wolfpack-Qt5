@@ -97,10 +97,12 @@ public:
 	QString acl() const;
 	QDateTime lastLogin() const;
 	void setLastLogin( const QDateTime& );
+	void setBlockUntil( const QDateTime &d );
 	void refreshAcl();
 	void setInUse( bool data );
 	void setFlags( UINT32 data );
 	UINT32 flags() const;
+	QDateTime blockedUntil() const { return blockUntil; }
 		
 	void Serialize( ISerialization& );
 	QString	objectID( void ) const;
@@ -211,6 +213,11 @@ inline bool AccountRecord::inUse() const
 inline void AccountRecord::setInUse( bool data )
 {
 	inUse_ = data;
+}
+
+inline void AccountRecord::setBlockUntil( const QDateTime &d )
+{
+	blockUntil = d;
 }
 
 inline void AccountRecord::setFlags( UINT32 data )

@@ -316,14 +316,6 @@ void cSkillCheck::applySkillMod( float skillmod )
 
 cMakeSection::~cMakeSection() 
 {
-	makeitems_.setAutoDelete( true );
-	makeitems_.clear();
-
-	useitems_.setAutoDelete( true );
-	useitems_.clear();
-
-	skillchecks_.setAutoDelete( true );
-	skillchecks_.clear();
 }
 
 cMakeSection::cMakeSection( const QString &name, cMakeAction* baseaction )
@@ -348,15 +340,48 @@ void cMakeSection::processNode( const QDomElement &Tag )
 {
 	QString TagName = Tag.nodeName();
 	QString Value = getNodeValue( Tag );
-	cMakeAction::WPACTIONTYPE type = baseAction()->type();
+	
+	if( TagName == "name" )
+		name_ = Value;
+}
 
-	if( TagName == "makeitem" && ( type == cMakeAction::CUSTOM_SECTIONS || type == cMakeAction::AMOUNT_SECTIONS || type == cMakeAction::RESOURCE_SECTIONS ) )
+void cMakeSection::execute( cUOSocket* const socket )
+{
+}
+
+
+cMakeCustomSection::~cMakeCustomSection()
+{
+	makeitems_.setAutoDelete( true );
+	makeitems_.clear();
+
+	useitems_.setAutoDelete( true );
+	useitems_.clear();
+
+	skillchecks_.setAutoDelete( true );
+	skillchecks_.clear();
+}
+
+cMakeCustomSection::cMakeCustomSection( const QString &name, cMakeAction* baseaction ) : cMakeSection( name, baseaction )
+{
+}
+
+cMakeCustomSection::cMakeCustomSection( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
+{
+}
+
+void cMakeCustomSection::processNode( const QDomElement &Tag )
+{
+	QString TagName = Tag.nodeName();
+	QString Value = getNodeValue( Tag );
+
+	if( TagName == "makeitem" )
 	{
 		cMakeItem* pMakeItem = new cMakeItem( Tag );
 		makeitems_.append( pMakeItem );
 	}
 
-	else if( TagName == "useitem" && ( type == cMakeAction::CUSTOM_SECTIONS || type == cMakeAction::AMOUNT_SECTIONS ) )
+	else if( TagName == "useitem" )
 	{
 		cUseItem* pUseItem = new cUseItem( Tag );
 		useitems_.append( pUseItem );
@@ -368,17 +393,11 @@ void cMakeSection::processNode( const QDomElement &Tag )
 		skillchecks_.append( pSkillCheck );
 	}
 
-	else if( TagName == "name" && ( type == cMakeAction::CUSTOM_SECTIONS || type == cMakeAction::NPC_SECTION || type == cMakeAction::RESOURCE_SECTIONS || type == cMakeAction::CODE_ACTION || type == cMakeAction::SCRIPT_ACTION ) )
-		name_ = Value;
-
-	else if( TagName == "makenpc" && type == cMakeAction::NPC_SECTION )
-	{
-		makenpc_.name = Tag.attribute( "name" );
-		makenpc_.section = Tag.attribute( "id" );
-	}
+	else
+		cMakeSection::processNode( Tag );
 }
 
-bool	cMakeSection::hasEnough( cItem* pBackpack )
+bool	cMakeCustomSection::hasEnough( cItem* pBackpack )
 {
 	bool hasEnough = true;
 	QPtrList< cUseItem > useitems = useitems_;
@@ -399,7 +418,7 @@ bool	cMakeSection::hasEnough( cItem* pBackpack )
 	return hasEnough;
 }
 
-void	cMakeSection::useResources( cItem* pBackpack )
+void	cMakeCustomSection::useResources( cItem* pBackpack )
 {
 	QPtrList< cUseItem > useitems = useitems_;
 	QPtrListIterator< cUseItem > uiit( useitems );
@@ -438,7 +457,7 @@ void	cMakeSection::useResources( cItem* pBackpack )
 }
 
 // if any of foreach(skill) : skill < min => false
-bool	cMakeSection::skilledEnough( cChar* pChar )
+bool	cMakeCustomSection::skilledEnough( cChar* pChar )
 {
 	bool skilledEnough = true;
 	QPtrListIterator< cSkillCheck > skit( skillchecks_ );
@@ -451,7 +470,7 @@ bool	cMakeSection::skilledEnough( cChar* pChar )
 }
 
 // calcRank checks the skill and may raise it! (==0) => failed, (>0) => success
-UINT32	cMakeSection::calcRank( cChar* pChar )
+UINT32	cMakeCustomSection::calcRank( cChar* pChar )
 {
 	bool hasSuccess = true;
 	UINT32 ranksum = 1;
@@ -478,24 +497,13 @@ UINT32	cMakeSection::calcRank( cChar* pChar )
 		return ranksum;
 }
 
-void cMakeSection::execute( cUOSocket* const socket )
+void cMakeCustomSection::execute( cUOSocket* const socket )
 {
 	P_CHAR pChar	 = socket->player();
 	P_ITEM pBackpack = pChar->getBackpack();
 
 	if( !socket || !pChar || !baseaction_ )
 		return;
-
-	if( baseaction_->type() == cMakeAction::CODE_ACTION )
-	{
-		if( name_ == "repair" )
-		{
-			socket->sysMessage( tr("Choose item to repair!") );
-			cSkRepairItem* pTargetRequest = new cSkRepairItem( this );
-			socket->attachTarget( pTargetRequest );
-		}
-		return;
-	}
 
 	// first check for necessary items
 	if( !hasEnough( pBackpack ) )
@@ -575,10 +583,6 @@ void cMakeSection::execute( cUOSocket* const socket )
 		++miit;
 	}
 
-	// npcs:
-	if( !makenpc_.section.isEmpty() )
-		socket->attachTarget( new cAddNpcTarget( makenpc_.section ) );
-
 	if( baseaction_->charAction() > 0 )
 		pChar->action( baseaction_->charAction() );
 
@@ -631,17 +635,65 @@ void cMakeSection::execute( cUOSocket* const socket )
 	}
 }
 
-void cMakeSection::setMakeItemAmounts( UINT16 amount )
+
+cMakeNpcSection::~cMakeNpcSection()
 {
-	QPtrListIterator< cMakeItem > it( makeitems_ );
-	while( it.current() )
-	{
-		it.current()->setAmount( amount );
-		++it;
-	}
 }
 
-void cMakeSection::addMakeItemSectionPrefixes( const QString& prefix )
+cMakeNpcSection::cMakeNpcSection( const QString &name, cMakeAction* baseaction ) : cMakeSection( name, baseaction )
+{
+}
+
+cMakeNpcSection::cMakeNpcSection( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
+{
+}
+
+void cMakeNpcSection::processNode( const QDomElement &Tag )
+{
+	QString TagName = Tag.nodeName();
+	QString Value = getNodeValue( Tag );
+
+	if( TagName == "makenpc" )
+	{
+		makenpc_.name = Tag.attribute( "name" );
+		makenpc_.section = Tag.attribute( "id" );
+	}
+
+	else
+		cMakeSection::processNode( Tag );
+}
+
+void cMakeNpcSection::execute( cUOSocket* const socket )
+{
+	P_CHAR pChar	 = socket->player();
+	P_ITEM pBackpack = pChar->getBackpack();
+
+	if( !socket || !pChar || !baseaction_ )
+		return;
+
+	// npcs:
+	if( !makenpc_.section.isEmpty() )
+		socket->attachTarget( new cAddNpcTarget( makenpc_.section ) );
+
+	if( baseaction_->charAction() > 0 )
+		pChar->action( baseaction_->charAction() );
+}
+
+
+cMakeResourceSection::cMakeResourceSection( const QString &name, cMakeAction* baseaction ) : cMakeCustomSection( name, baseaction )
+{
+}
+
+cMakeResourceSection::cMakeResourceSection( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeCustomSection( Tag, baseaction )
+{
+}
+
+void cMakeResourceSection::processNode( const QDomElement &Tag )
+{
+	cMakeCustomSection::processNode( Tag );
+}
+
+void cMakeResourceSection::addMakeItemSectionPrefixes( const QString& prefix )
 {
 	QPtrListIterator< cMakeItem > it( makeitems_ );
 	while( it.current() )
@@ -651,7 +703,7 @@ void cMakeSection::addMakeItemSectionPrefixes( const QString& prefix )
 	}
 }
 
-void cMakeSection::applySkillMod( float skillmod )
+void cMakeResourceSection::applySkillMod( float skillmod )
 {
 	QPtrListIterator< cSkillCheck > it( skillchecks_ );
 	while( it.current() )
@@ -660,6 +712,111 @@ void cMakeSection::applySkillMod( float skillmod )
 		++it;
 	}
 }
+
+void cMakeResourceSection::execute( cUOSocket* const socket )
+{
+	cMakeCustomSection::execute( socket );
+}
+
+
+cMakeAmountSection::cMakeAmountSection( const QString &name, cMakeAction* baseaction ) : cMakeCustomSection( name, baseaction )
+{
+}
+
+cMakeAmountSection::cMakeAmountSection( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeCustomSection( Tag, baseaction )
+{
+}
+
+void cMakeAmountSection::processNode( const QDomElement &Tag )
+{
+	cMakeCustomSection::processNode( Tag );
+}
+
+void cMakeAmountSection::setMakeItemAmounts( UINT16 amount )
+{
+	QPtrListIterator< cMakeItem > it( makeitems_ );
+	while( it.current() )
+	{
+		it.current()->setAmount( amount );
+		++it;
+	}
+}
+
+void cMakeAmountSection::execute( cUOSocket* const socket )
+{
+	cMakeCustomSection::execute( socket );
+}
+
+
+cDoCodeAction::~cDoCodeAction()
+{
+}
+
+cDoCodeAction::cDoCodeAction( const QString &name, cMakeAction* baseaction ) : cMakeSection( name, baseaction )
+{
+}
+
+cDoCodeAction::cDoCodeAction( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
+{
+}
+
+void cDoCodeAction::processNode( const QDomElement &Tag )
+{
+	QString TagName = Tag.nodeName();
+	QString Value = getNodeValue( Tag );
+
+	cMakeSection::processNode( Tag );
+}
+
+void cDoCodeAction::execute( cUOSocket* const socket )
+{
+	P_CHAR pChar	 = socket->player();
+	P_ITEM pBackpack = pChar->getBackpack();
+
+	if( !socket || !pChar || !baseaction_ )
+		return;
+
+	if( name_ == "repair" )
+	{
+		socket->sysMessage( tr("Choose item to repair!") );
+		cSkRepairItem* pTargetRequest = new cSkRepairItem( this );
+		socket->attachTarget( pTargetRequest );
+		return;
+	}
+}
+
+
+cDoScriptAction::~cDoScriptAction()
+{
+}
+
+cDoScriptAction::cDoScriptAction( const QString &name, cMakeAction* baseaction ) : cMakeSection( name, baseaction )
+{
+}
+
+cDoScriptAction::cDoScriptAction( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
+{
+}
+
+void cDoScriptAction::processNode( const QDomElement &Tag )
+{
+	QString TagName = Tag.nodeName();
+	QString Value = getNodeValue( Tag );
+
+	cMakeSection::processNode( Tag );
+}
+
+void cDoScriptAction::execute( cUOSocket* const socket )
+{
+	P_CHAR pChar	 = socket->player();
+	P_ITEM pBackpack = pChar->getBackpack();
+
+	if( !socket || !pChar || !baseaction_ )
+		return;
+
+	// TODO: script call
+}
+
 
 cMakeAction::cMakeAction( const QString &name, UINT16 model, const QString &description, WPACTIONTYPE type, cMakeMenu *basemenu )
 {
@@ -716,11 +873,32 @@ void cMakeAction::processNode( const QDomElement &Tag )
 	QString TagName = Tag.nodeName();
 	QString Value = getNodeValue( Tag );
 
-	if( TagName == "make" )
+	if( TagName == "do" )
 	{
-		if( type_ == CUSTOM_SECTIONS || type_ == NPC_SECTION || type_ == CODE_ACTION || type_ == SCRIPT_ACTION )
+		if( type_ == CODE_ACTION )
 		{
-			cMakeSection* pMakeSection = new cMakeSection( Tag, this );
+			cDoCodeAction* pMakeSection = new cDoCodeAction( Tag, this );
+			if( pMakeSection )
+				makesections_.push_back( pMakeSection );
+		}
+		else if( type_ == SCRIPT_ACTION )
+		{
+			cDoScriptAction* pMakeSection = new cDoScriptAction( Tag, this );
+			if( pMakeSection )
+				makesections_.push_back( pMakeSection );
+		}
+	}
+	else if( TagName == "make" )
+	{
+		if( type_ == CUSTOM_SECTIONS )
+		{
+			cMakeCustomSection* pMakeSection = new cMakeCustomSection( Tag, this );
+			if( pMakeSection )
+				makesections_.push_back( pMakeSection );
+		}
+		else if( type_ == NPC_SECTION )
+		{
+			cMakeNpcSection* pMakeSection = new cMakeNpcSection( Tag, this );
 			if( pMakeSection )
 				makesections_.push_back( pMakeSection );
 		}
@@ -733,7 +911,7 @@ void cMakeAction::processNode( const QDomElement &Tag )
 			{
 				if( (*it).toUShort() > 0 )
 				{
-					cMakeSection* pMakeSection = new cMakeSection( Tag, this );
+					cMakeAmountSection* pMakeSection = new cMakeAmountSection( Tag, this );
 					if( pMakeSection )
 					{
 						pMakeSection->setMakeItemAmounts( (*it).toUShort() );
@@ -806,7 +984,7 @@ void cMakeAction::processNode( const QDomElement &Tag )
 							childNode = childNode.nextSibling();
 						}
 
-						cMakeSection* pMakeSection = new cMakeSection( Tag, this );
+						cMakeResourceSection* pMakeSection = new cMakeResourceSection( Tag, this );
 						if( pMakeSection->name().isEmpty() )
 							name = pResource->name();
 						else
@@ -845,6 +1023,10 @@ void cMakeAction::processNode( const QDomElement &Tag )
 					}
 				}
 			}
+		}
+		else if( type_ == SCRIPT_ACTION && Tag.hasAttribute( "script" ) )
+		{
+
 		}
 	}
 
@@ -1133,10 +1315,24 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 
 	while( it != makesections.end() )
 	{
-		if( pChar && pBackpack && (*it)->hasEnough( pBackpack ) && (*it)->skilledEnough( pChar ) )
+		if( pChar && pBackpack )
 		{
-			sections.push_back( (*it) );
-			offsets.push_back( i );
+			if( action->type() == cMakeAction::CUSTOM_SECTIONS || 
+				action->type() == cMakeAction::AMOUNT_SECTIONS ||
+				action->type() == cMakeAction::RESOURCE_SECTIONS )
+			{
+				cMakeCustomSection* pMCS = dynamic_cast< cMakeCustomSection* >( *it );
+				if( pMCS->hasEnough( pBackpack ) && pMCS->skilledEnough( pChar ) )
+				{
+					sections.push_back( (*it) );
+					offsets.push_back( i );
+				}
+			}
+			else
+			{
+				sections.push_back( (*it) );
+				offsets.push_back( i );
+			}
 		}
 		++i;
 		++it;
@@ -1171,28 +1367,31 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 		addButton( 375, 387, 4005, 4007, (*button) );
 		addHtmlGump( 410, 389, 95, 18, htmlmask.arg( tr("MAKE NOW") ) );
 
-		content = "";
-		QPtrList< cSkillCheck > skillchecks = (*it)->skillchecks();
-		QPtrListIterator< cSkillCheck > sit( skillchecks );
-		while( sit.current() )
+		cMakeCustomSection* pMCS = NULL;
+		if( pMCS = dynamic_cast< cMakeCustomSection* >( *it ) )
 		{
-			content += QString("%2% %1<br>").arg( Skills->getSkillName( sit.current()->skillid() ) ).arg( QString::number( (double)sit.current()->minimum() / 10.0f, 'f', 1 ).lower() );
-			++sit;
-		}
-		content = htmlmask.arg( content );
-		addHtmlGump( 170, 132, 345, 76, content, false, (skillchecks.count() > 4) );
+			content = "";
+			QPtrList< cSkillCheck > skillchecks = pMCS->skillchecks();
+			QPtrListIterator< cSkillCheck > sit( skillchecks );
+			while( sit.current() )
+			{
+				content += QString("%2% %1<br>").arg( Skills->getSkillName( sit.current()->skillid() ) ).arg( QString::number( (double)sit.current()->minimum() / 10.0f, 'f', 1 ).lower() );
+				++sit;
+			}
+			content = htmlmask.arg( content );
+			addHtmlGump( 170, 132, 345, 76, content, false, (skillchecks.count() > 4) );
 
-		content = "";
-		QPtrList< cUseItem > useitems = (*it)->useitems();
-		QPtrListIterator< cUseItem > uit( useitems );
-		while( uit.current() )
-		{
-			content += QString("%2 %1<br>").arg( uit.current()->name() ).arg( uit.current()->amount() );
-			++uit;
+			content = "";
+			QPtrList< cUseItem > useitems = pMCS->useitems();
+			QPtrListIterator< cUseItem > uit( useitems );
+			while( uit.current() )
+			{
+				content += QString("%2 %1<br>").arg( uit.current()->name() ).arg( uit.current()->amount() );
+				++uit;
+			}
+			content = htmlmask.arg( content );
+			addHtmlGump( 170, 217, 345, 76, content, false, (useitems.count() > 4) );
 		}
-		content = htmlmask.arg( content );
-		addHtmlGump( 170, 217, 345, 76, content, false, (useitems.count() > 4) );
-
 
 		++page;
 		++button;
@@ -1204,10 +1403,12 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	{
 		startPage( page );
 		addHtmlGump( 245, 39, 270, 20, htmlmask.arg( action->name() ) );
-		if( makesections.size() > 0 )
+
+		cMakeCustomSection* pMCS = NULL;
+		if( ( makesections.size() > 0 ) && ( pMCS = dynamic_cast< cMakeCustomSection* >( makesections[0] ) ) )
 		{
 			QString content = "";
-			QPtrList< cSkillCheck > skillchecks = makesections[0]->skillchecks();
+			QPtrList< cSkillCheck > skillchecks = pMCS->skillchecks();
 			QPtrListIterator< cSkillCheck > sit( skillchecks );
 			while( sit.current() )
 			{
@@ -1222,7 +1423,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 			addHtmlGump( 170, 132, 345, 76, content, false, (skillchecks.count() > 4) );
 
 			content = "";
-			QPtrList< cUseItem > useitems = makesections[0]->useitems();
+			QPtrList< cUseItem > useitems = pMCS->useitems();
 			QPtrListIterator< cUseItem > uit( useitems );
 			while( uit.current() )
 			{
@@ -1293,30 +1494,43 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		if( !pChar )
 			return;
 		cItem* pBackpack = pChar->getBackpack();
+		cMakeCustomSection* pMCS = NULL;
 		cMakeAction::SectionContainer sections = actions[ choice.button - submenus.size() - 4 ]->makesections();
 		if( sections.empty() )
 		{
 			socket->send( new cMakeMenuGump( menu_, socket, tr("There is nothing to make") ) );
 		}
-		else if( sections[0]->hasEnough( pBackpack ) )
+		else if( pMCS = dynamic_cast< cMakeCustomSection* >( sections[0] ) )
 		{
-			if( sections[0]->skilledEnough( pChar ) )
+			if( pMCS->hasEnough( pBackpack ) )
 			{
-				cMakeAction* action = actions[ choice.button - submenus.size() - 4 ];
-				cMakeAction::SectionContainer makesections = action->makesections();
-				cMakeSection* section = makesections[0];
-				cMakeMenu* basemenu = menu_->baseMenu();
-				pChar->setLastSection( basemenu, section );
-				section->execute( socket );
+				if( pMCS->skilledEnough( pChar ) )
+				{
+					cMakeAction* action = actions[ choice.button - submenus.size() - 4 ];
+					cMakeAction::SectionContainer makesections = action->makesections();
+					cMakeSection* section = makesections[0];
+					cMakeMenu* basemenu = menu_->baseMenu();
+					pChar->setLastSection( basemenu, section );
+					section->execute( socket );
+				}
+				else
+				{
+					socket->send( new cMakeMenuGump( menu_, socket, tr("You are not skilled enough to make this item") ) );
+				}
 			}
 			else
 			{
-				socket->send( new cMakeMenuGump( menu_, socket, tr("You are not skilled enough to make this item") ) );
+				socket->send( new cMakeMenuGump( menu_, socket, tr("You do not have enough resources to make this item") ) );
 			}
 		}
 		else
 		{
-			socket->send( new cMakeMenuGump( menu_, socket, tr("You do not have enough resources to make this item") ) );
+			cMakeAction* action = actions[ choice.button - submenus.size() - 4 ];
+			cMakeAction::SectionContainer makesections = action->makesections();
+			cMakeSection* section = makesections[0];
+			cMakeMenu* basemenu = menu_->baseMenu();
+			pChar->setLastSection( basemenu, section );
+			section->execute( socket );
 		}
 	}
 	else if( choice.button < (actions.size()+submenus.size()+4+1000) )
@@ -1436,7 +1650,8 @@ void cLastTenGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		if( !pChar )
 			return;
 		cItem* pBackpack = pChar->getBackpack();
-		if( section && section->hasEnough( pBackpack ) )
+		cMakeCustomSection* pMCS = NULL;
+		if( section && ( pMCS = dynamic_cast< cMakeCustomSection* >( section ) ) && pMCS->hasEnough( pBackpack ) )
 		{
 			section->execute( socket );
 		}
@@ -1690,7 +1905,7 @@ void cAllMakeMenus::load()
 								if( pItem )
 								{
 									currentBaseMenu->addAction( pItem );
-									cMakeSection* pMakeSection = new cMakeSection( "", pItem );
+									cMakeCustomSection* pMakeSection = new cMakeCustomSection( "", pItem );
 									if( pMakeSection )
 									{
 										pItem->appendSection( pMakeSection );
@@ -1801,7 +2016,7 @@ void cAllMakeMenus::load()
 								if( pNpc )
 								{
 									currentBaseMenu->addAction( pNpc );
-									cMakeSection* pMakeSection = new cMakeSection( "", pNpc );
+									cMakeNpcSection* pMakeSection = new cMakeNpcSection( "", pNpc );
 									if( pMakeSection )
 									{
 										pNpc->appendSection( pMakeSection );
@@ -1855,7 +2070,7 @@ void cAllMakeMenus::load()
 								QValueVector< UINT16 >::iterator ait = amounts.begin();
 								while( ait != amounts.end() )
 								{
-									cMakeSection* pMakeSection = new cMakeSection( "("+QString::number( (*ait) )+")", pMakeAction );
+									cMakeCustomSection* pMakeSection = new cMakeCustomSection( "("+QString::number( (*ait) )+")", pMakeAction );
 									if( pMakeSection )
 									{
 										pMakeAction->appendSection( pMakeSection );

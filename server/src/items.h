@@ -532,7 +532,7 @@ protected:
 	QMap< ushort, short > reflect_;
 
 private:
-	bool changed_;
+//	bool changed_;
 };
 
 

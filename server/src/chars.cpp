@@ -1020,7 +1020,7 @@ void cChar::save()
 		
 		addField( "serial", serial() );
 		addStrField( "name", incognito() ? name() : orgname() );	
-		addStrField( "title", title_ );
+		addStrField( "title", title() );
 		
 		if( account_ )
 			addStrField( "account", account_->login() );

@@ -959,17 +959,11 @@ bool cSkRepairItem::responsed( cUOSocket *socket, cUORxTarget *target )
 	bool hasSuccess = true;
 	short dmg=4;	// damage to maxhp
 
-	if( makesection_ && (dmg = 10 - makesection_->calcRank( pc )) <= 0 )
-		hasSuccess = false;
-
-	if( !makesection_ )
-	{
-		short smithing = pc->skillValue( BLACKSMITHING );
-		if		((smithing>=900)) dmg=1;
-		else if ((smithing>=700)) dmg=2;
-		else if ((smithing>=500)) dmg=3;
-		hasSuccess = pc->checkSkill(BLACKSMITHING, 0, 1000);
-	}
+	short smithing = pc->skillValue( BLACKSMITHING );
+	if		((smithing>=900)) dmg=1;
+	else if ((smithing>=700)) dmg=2;
+	else if ((smithing>=500)) dmg=3;
+	hasSuccess = pc->checkSkill(BLACKSMITHING, 0, 1000);
 
 	if( hasSuccess )
 	{
@@ -1486,26 +1480,7 @@ bool cSpellTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	// out for now.
 	
 	// The Target is correct, let us do our spellcheck now and consume mana + reagents.
-	if( ( !socket->player()->isGM() && !NewMagic->checkReagents( socket->player(), spell ) ) || !NewMagic->useMana( socket->player(), spell ) )
-	{
-		socket->player()->setCasting( false );
-		return true;
-	}
-	if( !socket->player()->isGM() )
-		NewMagic->useReagents( socket->player(), spell );
-	
-	if( !NewMagic->checkSkill( socket->player(), spell, false ) )
-	{
-		NewMagic->disturb( socket->player(), true, -1 );
-		return true;
-	}
-	
-	// Call the Spell Effect for this Spell
-	if( sInfo->script )
-		sInfo->script->onSpellSuccess( socket->player(), spell, type, target );
-	
-	// End Casting
-	socket->player()->setCasting( false );
+	NewMagic->execSpell( socket->player(), spell, type, target );
 	
 	return true;
 }

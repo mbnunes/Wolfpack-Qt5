@@ -129,6 +129,7 @@ public:
 
 	// Public functions
 	void castSpell( P_CHAR pMage, UINT8 spell );
+	void execSpell( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* target = NULL );
 	void useWand( P_CHAR pMage, P_ITEM pWand );
 	void useScroll( P_CHAR pMage, P_ITEM pScroll );
 	bool checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *target );
