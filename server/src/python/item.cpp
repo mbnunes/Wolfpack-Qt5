@@ -555,7 +555,7 @@ PyObject* wpItem_getname( wpItem* self  )
 	if( !self->pItem )
 		return false;
 
-	QString name = self->pItem->getName();
+	QString name = self->pItem->getName( true );
 	return PyString_FromString( name.latin1() );
 }
 
