@@ -142,15 +142,14 @@ def parseTxt( file, map ):
 		line = line.replace( "\r", "" )
 		line = line.replace( "\n", "" )
 
-		( baseid, id, x, y, z, map, color ) = line.split( ' ' )
+		( id, x, y, z, color ) = line.split( ' ' )
 
-		baseid = baseid
 		id = hex2dec( id )
+		baseid = '%x' % id
 		color = hex2dec( color )
 		x = int( x )
 		y = int( y )
 		z = int( z )
-		map = int( map )
 
 		step2 = wolfpack.tickcount()
 		newitem = wolfpack.additem( '%s' % baseid ) # Generate a new serial for us
