@@ -88,7 +88,7 @@ void Human_Stablemaster::registerInFactory()
 #ifndef __VC6
 	AIFactory::instance()->registerType( "Human_Stablemaster", productCreatorFunctor<Human_Stablemaster> );
 #else
-	AIFactory::instance()->registerType( "Human_Vendor", productCreatorFunctor_Human_Stablemaster );
+	AIFactory::instance()->registerType( "Human_Stablemaster", productCreatorFunctor_Human_Stablemaster );
 #endif
 }
 
