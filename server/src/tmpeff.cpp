@@ -1359,7 +1359,7 @@ void cDelayedHideChar::Serialize( ISerialization &archive )
 void cDelayedHideChar::Expire()
 {
 	P_CHAR pc = FindCharBySerial( character );
-	if( !pc )
+	if( !pc || pc->socket() ) // break if the char has relogged in the meantime
 		return;
 
 	pc->setHidden( 1 );
