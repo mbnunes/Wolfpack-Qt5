@@ -371,6 +371,9 @@ UINT8 cNPC::notority( P_CHAR pChar ) // Gets the notority toward another char
 	if( ai_ && ai_->notorityOverride() )
 		return ai_->notorityOverride();
 
+	if( !pChar )
+		return 3;
+
 	if( pChar->kills() > SrvParams->maxkills() )
 		result = 0x06; // 6 = Red -> Murderer
 	

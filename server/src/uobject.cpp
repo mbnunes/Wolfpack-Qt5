@@ -438,8 +438,13 @@ void cUObject::processNode( const cElement *Tag )
 	QString TagName = Tag->name();
 	QString Value = Tag->getValue();
 
+	if( TagName == "name" )
+	{
+		name_ = Value;
+	}
+
 	//<direction>SE</direction>
-	if( TagName == "direction" )
+	else if( TagName == "direction" )
 	{
 		if( Value == "NE" )
 			this->dir_ = 1;

@@ -92,7 +92,7 @@ public:
 	virtual void update( bool excludeself = false ); 
 	virtual void resend( bool clean = true, bool excludeself = false ); 
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
-	virtual UINT8 notority( P_CHAR pChar );
+	virtual UINT8 notority( P_CHAR pChar = NULL );
 	virtual void kill();
 	virtual void showName( cUOSocket *socket );
 	virtual void fight(P_CHAR pOpponent);
@@ -105,6 +105,7 @@ public:
 	void log( const QString &string );
 	void awardFame( short amount );
 	void awardKarma( P_CHAR pKilled, short amount );
+	virtual bool isInnocent();
 
 	// other public methods
 	virtual stError *setProperty( const QString &name, const cVariant &value );
@@ -589,5 +590,9 @@ inline void cNPC::setWanderDestination(const Coord_cl &data)
 	wanderType_.destination = data;
 }
 
+inline bool cNPC::isInnocent()
+{
+	return notority() != 1;
+}
 
 #endif /* CNPC_H_HEADER_INCLUDED */

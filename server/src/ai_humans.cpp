@@ -38,6 +38,8 @@
 #include "srvparams.h"
 #include "globals.h"
 #include "sectors.h"
+#include "world.h"
+#include "basics.h"
 
 // library includes
 #include <math.h>
@@ -95,6 +97,7 @@ void Human_Vendor::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 
 Human_Stablemaster::Human_Stablemaster( P_NPC npc ) : AbstractAI( npc ) 
 {
+	notorityOverride_ = 1;
 	m_actions.append( new Action_Wander( npc, this ) );
 	m_actions.append( new Action_FleeAttacker( npc, this ) );
 }
@@ -220,3 +223,119 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget *target
 	m_npc->talk( tr("Say release to get your pet back!") );
 }
 
+static AbstractAI* productCreator_HG()
+{
+	return new Human_Guard( NULL );
+}
+
+void Human_Guard::registerInFactory()
+{
+	AIFactory::instance()->registerType("Human_Guard", productCreator_HG);
+}
+
+Human_Guard::Human_Guard( P_NPC npc ) : AbstractAI( npc )
+{
+	notorityOverride_ = 1;
+	m_actions.append( new Human_Guard_Fight( npc, this ) );
+	m_actions.append( new Human_Guard_TeleToTarget( npc, this ) );
+	m_actions.append( new Human_Guard_Disappear( npc, this ) );
+}
+
+void Human_Guard::init( P_NPC npc )
+{
+	npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime() );
+	AbstractAI::init( npc );
+}
+
+void Human_Guard_Fight::execute()
+{
+	// talk only in about every 10th check
+	switch( RandomNum( 0, 20 ) )
+	{
+		case 0:		m_npc->talk( tr( "Thou shalt regret thine actions, swine!" ), -1, 0, true );	break;
+		case 1:		m_npc->talk( tr( "Death to all Evil!" ), -1, 0, true );						break;
+	}
+
+	m_npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime() );
+
+	// Fighting is handled within combat..
+}
+
+float Human_Guard_Fight::preCondition()
+{
+	if( m_npc->combatTarget() == INVALID_SERIAL )
+		return 0.0f;
+
+	P_CHAR pTarget = World::instance()->findChar( m_npc->combatTarget() );
+	if( !pTarget || pTarget->isDead() )
+		return 0.0f;
+
+	if( pTarget && m_npc->dist( pTarget ) < 2 )
+		return 1.0f;
+	else
+		return 0.0f;
+}
+
+float Human_Guard_Fight::postCondition()
+{
+	return 1.0f - preCondition();
+}
+
+void Human_Guard_TeleToTarget::execute()
+{
+	m_npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime() );
+
+	// Teleports the guard towards the target
+	P_CHAR pTarget = World::instance()->findChar( m_npc->combatTarget() );
+	if( pTarget )
+	{
+		m_npc->moveTo( pTarget->pos() );
+		m_npc->soundEffect( 0x1FE );
+		m_npc->effect( 0x372A, 0x09, 0x06 );
+
+		m_npc->resend( false );
+	}
+}
+
+float Human_Guard_TeleToTarget::preCondition()
+{
+	if( m_npc->combatTarget() == INVALID_SERIAL )
+		return 0.0f;
+
+	P_CHAR pTarget = World::instance()->findChar( m_npc->combatTarget() );
+	if( !pTarget || pTarget->isDead() )
+		return 0.0f;
+
+	if( pTarget && m_npc->dist( pTarget ) >= 2 )
+		return 1.0f;
+	else
+		return 0.0f;
+}
+
+float Human_Guard_TeleToTarget::postCondition()
+{
+	return 1.0f - preCondition();
+}
+
+void Human_Guard_Disappear::execute()
+{
+	// nothing to do
+}
+
+float Human_Guard_Disappear::preCondition()
+{
+	if( m_npc->combatTarget() == INVALID_SERIAL )
+		return 1.0f;
+
+	P_CHAR pTarget = World::instance()->findChar( m_npc->combatTarget() );
+	if( !pTarget || pTarget->isDead() )
+		return 1.0f;
+
+	return 0.0f;
+}
+
+float Human_Guard_Disappear::postCondition()
+{
+	// not really needed in this case, but necessary for the system ;)
+	return 1.0f - preCondition();
+}

@@ -469,6 +469,7 @@ int main( int argc, char *argv[] )
 	Monster_Aggressive_L1::registerInFactory();
 	Human_Vendor::registerInFactory();
 	Human_Stablemaster::registerInFactory();
+	Human_Guard::registerInFactory();
 	Animal_Wild::registerInFactory();
 	Animal_Domestic::registerInFactory();
 	// Script NPC AI types
@@ -537,8 +538,6 @@ int main( int argc, char *argv[] )
 			case 5: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(40); else niceLevel.wait(5000); break;
 			default: niceLevel.wait(10); break;
 		}
-
-		uiCurrentTime = getNormalizedTime();
 
 		// Python threading - end
 		PyEval_RestoreThread( _save );

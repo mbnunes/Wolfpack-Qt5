@@ -1929,11 +1929,6 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 			_player->makeCriminal();
 			pc_i->callGuards();
 		}
-		else if( pc_i->objectType() == enNPC )//&& pc_i->npcaitype() == 4 )
-		{
-			_player->makeCriminal();
-			pc_i->fight( _player );
-		}
 		else if ((pc_i->objectType() == enNPC || pc_i->isTamed()) && !pc_i->isAtWar() )//&& pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
 		{
 			P_NPC pn = dynamic_cast<P_NPC>(pc_i);

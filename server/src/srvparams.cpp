@@ -108,6 +108,7 @@ void cSrvParams::readData()
 	// AI
 	checkAITime_			=		getDouble( "AI", "Default AI Check Time", 1.2, true );
 	animalWildFleeRange_	=		getNumber( "AI", "Wild animals flee range", 8, true );
+	guardDispelTime_		=		getNumber( "AI", "Guard dispel time (sec)", 25, true );
 
 	// Persistency
 	databasePassword_		= getString("Database", "password", "", true);

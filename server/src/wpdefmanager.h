@@ -144,9 +144,12 @@ public:
 
 	//const QDomElement*	getSection( eDefCategory Type, const QString& Section ) const;
 	QStringList			getSections( eDefCategory Type ) const;
-	QString				getRandomListEntry( const QString& ListSection ) const;
-	QStringList			getList( const QString& ListSection ) const;
+	QString				getRandomListEntry( const QString& ListSection );
+	QStringList			getList( const QString& ListSection );
 	QString				getText( const QString& TextSection ) const;
+
+protected:
+	QMap< QString, QStringList >	listcache_;
 };
 
 #endif // __WPDEFMANAGER_H__

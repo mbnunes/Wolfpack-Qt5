@@ -262,7 +262,7 @@ protected:
 class Monster_Aggressive_L1 : public Monster_Aggressive
 {
 protected:
-	Monster_Aggressive_L1() : Monster_Aggressive(){}
+	Monster_Aggressive_L1() : Monster_Aggressive() {}
 
 public:
 	Monster_Aggressive_L1( P_NPC npc ) : Monster_Aggressive( npc ) 
@@ -341,6 +341,8 @@ protected:
 	AnimalAI() : AbstractAI() {}
 
 public:
+	AnimalAI( P_NPC npc ) : AbstractAI( npc ) {}
+
 	virtual void onSpeechInput( P_PLAYER pTalker, const QString &comm );
 };
 
@@ -350,7 +352,7 @@ protected:
 	Animal_Wild() : AnimalAI() {}
 
 public:
-	Animal_Wild( P_NPC npc )	
+	Animal_Wild( P_NPC npc ) : AnimalAI( npc )	
 	{
 		m_actions.append( new Action_Wander( npc, this ) );
 		m_actions.append( new Action_FleeAttacker( npc, this ) );
@@ -368,7 +370,7 @@ protected:
 	Animal_Domestic() : AnimalAI() {}
 
 public:
-	Animal_Domestic( P_NPC npc )	
+	Animal_Domestic( P_NPC npc ) : AnimalAI( npc )	
 	{
 		m_actions.append( new Action_Wander( npc, this ) );
 		m_actions.append( new Action_FleeAttacker( npc, this ) );
@@ -422,6 +424,55 @@ public:
 protected:
 	QString m_name;
 	QString onspeech;
+};
+
+class Human_Guard_Fight : public AbstractAction
+{
+protected:
+	Human_Guard_Fight() : AbstractAction() {}
+public:
+	Human_Guard_Fight( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ) {}
+	virtual void execute();
+	virtual float preCondition();
+	virtual float postCondition();
+};
+
+class Human_Guard_TeleToTarget : public AbstractAction
+{
+protected:
+	Human_Guard_TeleToTarget() : AbstractAction() {}
+public:
+	Human_Guard_TeleToTarget( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ) {}
+	virtual void execute();
+	virtual float preCondition();
+	virtual float postCondition();
+};
+
+class Human_Guard_Disappear : public AbstractAction
+{
+protected:
+	Human_Guard_Disappear() : AbstractAction() {}
+public:
+	Human_Guard_Disappear( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ) {}
+	virtual void execute();
+	virtual float preCondition();
+	virtual float postCondition();
+};
+
+class Human_Guard : public AbstractAI
+{
+protected:
+	Human_Guard() : AbstractAI()
+	{
+		 notorityOverride_ = 1;
+	}
+
+public:
+	Human_Guard( P_NPC npc );
+	virtual void	init( P_NPC npc );
+
+	static void registerInFactory();
+	virtual QString name() { return "Human_Guard"; }
 };
 
 

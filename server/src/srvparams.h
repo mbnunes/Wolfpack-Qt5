@@ -129,6 +129,7 @@ protected:
 	// AI
 	float checkAITime_;
 	unsigned int animalWildFleeRange_;
+	unsigned int guardDispelTime_;
 
 	// Regenerate
 	unsigned int hitpointrate_;
@@ -285,6 +286,9 @@ public:
 	int pathfindFollowRadius() const;
 	float pathfindFollowMinCost() const;
 	int pathfindFleeRadius() const;
+
+	// AI
+	unsigned int guardDispelTime() const;
 
 private:
 	void setDefaultStartLocation();
@@ -697,6 +701,11 @@ inline QString cSrvParams::logPath() const
 inline int cSrvParams::pathfindMaxIterations() const
 {
 	return pathfindMaxIterations_;
+}
+
+inline unsigned int cSrvParams::guardDispelTime() const
+{
+	return guardDispelTime_;
 }
 
 #endif //__SRVPARAMS_H___

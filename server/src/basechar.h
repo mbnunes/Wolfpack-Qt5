@@ -128,7 +128,7 @@ public:
 	bool isHuman() const;
 	bool isMurderer() const;
 	bool isCriminal() const;
-	bool isInnocent() const;
+	virtual bool isInnocent();
 	void unhide();
 	int  CountItems(short ID, short col= -1);
 	int  CountGold();
@@ -1315,7 +1315,7 @@ inline bool cBaseChar::isHuman() const
 	return (bodyID_ == 0x190 || bodyID_ == 0x191); 
 }
 
-inline bool cBaseChar::isInnocent() const
+inline bool cBaseChar::isInnocent()
 {
 	return !isMurderer() && !isCriminal();
 }

@@ -267,6 +267,8 @@ void WPDefManager::unload( void )
 	impl->imports.clear();
 
 	BaseDefManager::instance()->unload();
+
+	listcache_.clear();
 }
 
 void WPDefManager::reload( void )
@@ -292,6 +294,45 @@ void WPDefManager::load( void )
 
 	Console::instance()->ProgressDone();
 
+	// create a list cache, because reading all the lists on the fly
+	// means wasting time
+	QMap< QString, cElement* >::iterator it = impl->unique[ WPDT_LIST ].begin();
+
+	while( it != impl->unique[ WPDT_LIST ].end() )
+	{
+		cElement *DefSection = it.data();
+
+		QStringList list;
+		QString data;
+		for( unsigned int i = 0; i < DefSection->childCount(); ++i )
+		{
+			const cElement *childTag = DefSection->getChild( i );
+
+			// Using the nodename is a very very bad habit
+			// if the name of the node is "item" then
+			// use the node value instead
+		
+			if( childTag->name() == "item" )
+				data = childTag->text();
+			else
+				data = childTag->name();
+
+			int mult = childTag->getAttribute( "mult" ).toInt();
+			if( mult <= 0 )
+				mult = 1;
+			int i = 0;
+			while( i < mult )
+			{
+				list.push_back( data );
+				++i;
+			}
+		}
+
+		listcache_.insert( it.key(), list );
+
+		++it;
+	}
+
 	Commands::instance()->loadACLs();
 	BaseDefManager::instance()->load();
 }
@@ -313,47 +354,27 @@ QStringList WPDefManager::getSections( eDefCategory Type ) const
 	return result;
 }
 
-QString	WPDefManager::getRandomListEntry( const QString& ListSection ) const
+QString	WPDefManager::getRandomListEntry( const QString& ListSection )
 {
-	QStringList list = this->getList( ListSection );
-	if( list.isEmpty() )
+	QStringList *list = NULL;
+
+	QMap< QString, QStringList >::iterator it = listcache_.find( ListSection );
+	if( it != listcache_.end() )
+		list = &(it.data());
+
+	if( !list || list->isEmpty() )
 		return QString();
 	else
-		return list[ RandomNum( 0, list.size()-1 ) ];
+		return (*list)[ RandomNum( 0, list->size()-1 ) ];
 }
 
-QStringList	WPDefManager::getList( const QString& ListSection ) const
+QStringList	WPDefManager::getList( const QString& ListSection )
 {
-	const cElement* DefSection = getDefinition( WPDT_LIST, ListSection );
 	QStringList list;
-	QString data;
 
-	if( !DefSection )
-		return list;
-
-	for( unsigned int i = 0; i < DefSection->childCount(); ++i )
-	{
-		const cElement *childTag = DefSection->getChild( i );
-
-		// Using the nodename is a very very bad habit
-		// if the name of the node is "item" then
-		// use the node value instead
-	
-		if( childTag->name() == "item" )
-			data = childTag->text();
-		else
-			data = childTag->name();
-
-		int mult = childTag->getAttribute( "mult" ).toInt();
-		if( mult <= 0 )
-			mult = 1;
-		int i = 0;
-		while( i < mult )
-		{
-			list.push_back( data );
-			++i;
-		}
-	}
+	QMap< QString, QStringList >::iterator it = listcache_.find( ListSection );
+	if( it != listcache_.end() )
+		list = it.data();
 
 	return list;
 }

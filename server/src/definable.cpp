@@ -34,12 +34,16 @@
 #include "globals.h"
 #include "basics.h"
 
+//#include "console.h"
+
 // Qt Includes
 #include <qdom.h>
 #include <qstringlist.h>
 
 void cDefinable::applyDefinition( const cElement* sectionNode )
 {
+	//unsigned int starttime = getNormalizedTime();
+
 	if( sectionNode->hasAttribute( "inherit" ) )
 	{
 		eDefCategory wpType = WPDT_ITEM;
@@ -73,6 +77,10 @@ void cDefinable::applyDefinition( const cElement* sectionNode )
 
 	for( unsigned int i = 0; i < sectionNode->childCount(); ++i )
 		processNode( sectionNode->getChild( i ) );
+
+	//unsigned int endtime = getNormalizedTime();
+
+	//Console::instance()->send( QString( "applyDefinition took %1 ms\n" ).arg( (float)(endtime - starttime) / MY_CLOCKS_PER_SEC * 1000.0f ) );
 }
 
 void cDefinable::processModifierNode( const cElement *Tag )

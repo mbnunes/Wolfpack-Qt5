@@ -949,20 +949,6 @@ namespace Combat
 		// Our target finally died.
 		if( pDefender->isDead() ) // Highlight // Repsys
 		{
-#pragma message("reimplement with new npc ai sys")
-/*			if( ( pAttacker->npcaitype() == 4 || pAttacker->npcaitype() == 9 ) && pDefender->isNpc() )
-			{
-				pDefender->action( 0x15 );					
-				pDefender->playDeathSound();
-				cCharStuff::DeleteChar( pDefender ); // Guards, don't give body
-			}
-			else
-			{
-
-				pAttacker->setSwingTarget( -1 );
-			}
-			*/
-				
 			// murder count \/				
 			if( ( pAttacker->objectType() == enPlayer ) && ( pDefender->objectType() == enPlayer ) ) //Player vs Player
 			{
@@ -1288,20 +1274,12 @@ namespace Combat
 			pGuard->setCombatTarget(pOffender->serial());
 			pGuard->toggleCombat();
 			pGuard->setNextMoveTime();
-			pGuard->setSummonTime( ( uiCurrentTime + (MY_CLOCKS_PER_SEC*25) ) );
 			
 			pGuard->soundEffect( 0x1FE );
 			pGuard->effect( 0x372A, 0x09, 0x06 );
 
 			// Send guard to surrounding Players
 			pGuard->resend( false );
-
-			// 50% talk chance
-			switch( RandomNum( 0, 4 ) )
-			{
-				case 0:		pGuard->talk( tr( "Thou shalt regret thine actions, swine!" ), -1, 0, true );	break;
-				case 1:		pGuard->talk( tr( "Death to all Evil!" ), -1, 0, true );						break;
-			}
 		}
 	}
 }
