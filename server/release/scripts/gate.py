@@ -32,6 +32,8 @@ def onCollide(player, item):
 	pos.x = target[0]
 	pos.y = target[1]
 	pos.z = target[2]
+	if len(target) > 3:
+		pos.map = target[3]
 	player.removefromview()
 	player.moveto(pos)
 	player.update(0)
