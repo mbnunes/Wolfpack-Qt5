@@ -38,15 +38,38 @@
 
 class QFile;
 class QDomDocument;
+class QXmlInputSource;
+class QXmlSimpleReader;
 
 
+#include <qxml.h>
 #include <qdom.h>
+
+class cObjectParser : public QXmlDefaultHandler
+{
+public:
+	cObjectParser() : doc_(NULL), objectlevel_(0) {}
+	~cObjectParser() {}
+/*    bool startDocument()	{ doc_ = new QDomDocument(); return true; }
+	bool endDocument()		{ delete doc_; return true; }*/
+    bool startElement( const QString& namespaceURI, const QString& localName, const QString& qName,
+                       const QXmlAttributes& att );
+	bool characters( const QString& ch );
+    bool endElement( const QString&, const QString& localName, const QString& );
+
+	QDomDocument*	document()	{ return doc_; }
+private:
+	Q_UINT32	objectlevel_;
+	QDomDocument*	doc_;
+	QDomElement		currtag_;
+};
+
 
 /*!
 CLASS
     
 
-    This class provides an implementation for Binary file serialization implementation.
+    This class provides an implementation for XML file serialization implementation.
 
 
 USAGE
@@ -58,13 +81,17 @@ class serXmlFile : public ISerialization
 {
 protected:
 	QFile* file;
+	QXmlInputSource* source;
+	cObjectParser* handler;
+	QXmlSimpleReader* reader;
 	QDomDocument* document;
+
 	QDomElement node;
 	QDomElement root;
 	unsigned int _version;
 	unsigned int _count;
 public:
-	serXmlFile() : _version(0), _count(0), file(0), document(0) {}
+	serXmlFile() : _version(0), _count(0), file(0), source(0), reader(0), document(0) {}
 	virtual ~serXmlFile();
 
 	virtual void prepareReading(std::string ident, int bLevel = 0);

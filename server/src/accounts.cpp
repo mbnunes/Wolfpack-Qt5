@@ -64,7 +64,8 @@ void AccountRecord::Serialize( ISerialization& archive )
 		archive.write( "password", password_ );
 		archive.write( "blocked", blocked_ );
 		archive.write( "acl", aclName_ );
-		archive.write( "lastlogin", lastLogin_.toString( Qt::ISODate ) );
+		QString temp = lastLogin_.toString( Qt::ISODate );
+		archive.write( "lastlogin", temp );
 	}
 	cSerializable::Serialize( archive );
 }

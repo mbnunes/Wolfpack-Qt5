@@ -42,8 +42,79 @@
 #include "qstring.h"
 #include "qfile.h"
 #include "qtextstream.h"
+#include "qxml.h"
 
 const unsigned int backuplevel = 4;
+
+bool cObjectParser::startElement( const QString& namespaceURI, const QString& localName, const QString& qName,
+                       const QXmlAttributes& att )
+{
+	if( !doc_ )
+	{
+		doc_ = new QDomDocument( qName );
+		QDomElement docelem_ = doc_->createElement( qName );
+		doc_->appendChild( docelem_ );
+		currtag_ = doc_->documentElement();
+		
+		Q_UINT32 i = 0;
+		QDomAttr attribute;
+		QString name;
+		QString value;
+		while( i < att.count() )
+		{
+			name = QString( att.qName( i ) );
+			value = QString( att.value( i ) );
+			attribute = doc_->createAttribute( name );
+			attribute.setValue( value );
+			docelem_.setAttributeNode( attribute );
+			i++;
+		}
+
+		return true;
+	}
+	else if( objectlevel_ == 0 )
+	{
+		currtag_ = doc_->documentElement();
+	}
+
+	QDomElement tag = doc_->createElement( qName );
+	Q_UINT32 i = 0;
+	while( i < att.count() )
+	{
+		QString name = att.qName( i );
+		QString value = att.value( i );
+		tag.setAttribute( name, value );
+		i++;
+	}
+
+	currtag_.appendChild( tag );
+
+	if( qName == "objectID" )
+	{
+		currtag_ = tag;
+		this->objectlevel_ += 1;
+	}
+
+	return true;
+}
+
+bool cObjectParser::characters( const QString& ch )
+{
+	currtag_.setNodeValue( ch );
+	return true;
+}
+
+bool cObjectParser::endElement( const QString & namespaceURI, const QString & localName, const QString & qName )
+{
+
+	if( qName == "objectID" )
+	{
+		currtag_ = currtag_.parentNode().toElement();
+		this->objectlevel_ -= 1;
+	}
+
+	return (objectlevel_ != 0 );
+}
 
 serXmlFile::~serXmlFile()
 {
@@ -52,7 +123,9 @@ serXmlFile::~serXmlFile()
 		file->close();
 		delete file;
 	}
-	delete document;
+	delete reader;
+	delete source;
+	delete handler;
 }
 
 void serXmlFile::setVersion(unsigned int __version)
@@ -91,15 +164,19 @@ void serXmlFile::prepareReading(std::string ident, int bLevel)
 
 	if ( !file->open( IO_ReadOnly ) )
 	{
-		qWarning("Failled to open file %s", fileName.latin1());
+		qWarning("Failed to open file %s", fileName.latin1());
 	}
 	
+	source = new QXmlInputSource( file );
+	reader = new QXmlSimpleReader();
+	handler = new cObjectParser();
+	reader->setContentHandler( handler );
+
 	QString errorMsg;
 	int errorLine = 0, errorColumn = 0;
 
-	document = new QDomDocument(ident.c_str());
-	if (!document->setContent( file, &errorMsg, &errorLine, &errorColumn))
-		qWarning("Error parsing xml file");
+	reader->parse( source, true );
+	document = handler->document();
 
 	root = document->documentElement();
 	_version = root.attribute("version", "0").toUInt();
@@ -273,7 +350,13 @@ void serXmlFile::done()
 	{
 		QDomNode parent = node.parentNode();
 		parent.removeChild( node );
-		node = parent.toElement();
+		if( parent.toElement() == document->documentElement() )
+		{
+			reader->parse( source );
+			node = document->documentElement();
+		}
+		else
+			node = parent.toElement();
 	}
 }
 
