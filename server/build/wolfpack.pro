@@ -30,7 +30,7 @@ win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c
 win32-borland:TMAKE_CXXFLAGS =  -K -6 -q -x -WM -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
 win32-borland:LIBS = ws2_32.lib ../lib/ZThread/lib/ZThread.lib ../lib/wrl/lib/wrl.lib
 
-HEADERS         = client.h \
+HEADERS         = \
 		  SndPkg.h \
 		  Timing.h \
 		  TmpEff.h \
@@ -46,7 +46,6 @@ HEADERS         = client.h \
 		  coord.h \
 		  combat.h \
 		  commands.h \
-		  cweather.h \
 		  dbl_single_click.h \
 		  debug.h \
 		  definable.h \
@@ -55,8 +54,6 @@ HEADERS         = client.h \
 		  globals.h \
 		  guildstones.h \
 		  gumps.h \
-		  hCache.h \
-		  im.h \
 		  inlines.h \
                   iserialization.h \
 		  itemid.h \
@@ -65,7 +62,6 @@ HEADERS         = client.h \
 		  junk.h \
                   magic.h \
 		  makemenus.h \
-		  mapstuff.h \
 		  multis.h \
 		  msgboard.h \
 		  netsys.h \
@@ -110,7 +106,7 @@ HEADERS         = client.h \
 		  corpse.h \
 		  python/content.h
 		  
-SOURCES         = client.cpp \
+SOURCES         = \
 		  LoS.cpp \
 		  corpse.cpp \
 		  SkiTarg.cpp \
@@ -131,7 +127,6 @@ SOURCES         = client.cpp \
 		  coord.cpp \
 		  tilecache.cpp \
 		  customtags.cpp \
-		  cWeather.cpp \
 		  dbl_single_click.cpp \
 		  debug.cpp \
 		  definable.cpp \
@@ -142,14 +137,14 @@ SOURCES         = client.cpp \
 		  gumps.cpp \
 		  house.cpp \
 		  html.cpp \
-		  im.cpp \
                   iserialization.cpp \
 		  itemid.cpp \
 		  items.cpp \
                   itemsmgr.cpp \
 		  magic.cpp \
 		  makemenus.cpp \
-		  mapstuff.cpp \
+		  maps.cpp \
+		  mapobjects.cpp \
 		  multis.cpp \
 		  msgboard.cpp \
 		  necro.cpp \
@@ -158,10 +153,8 @@ SOURCES         = client.cpp \
 		  npcs.cpp \
 		  p_ai.cpp \
                   pfactory.cpp \
-		  regions.cpp \
 		  remadmin.cpp \
 		  resources.cpp \
-		  scripts.cpp \
                   serxmlfile.cpp \
                   serbinfile.cpp \
 		  skills.cpp \
