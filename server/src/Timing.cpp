@@ -161,7 +161,7 @@ void restockNPC(unsigned int currenttime, P_CHAR pc_i)
 							if (pic->restock)
 							{
 								int tmp=min(pic->restock, (pic->restock/2)+1);
-								pic->amount += tmp;
+								pic->setAmount( pic->amount() + tmp );
 								pic->restock -= tmp;
 							}
 							// MAgius(CHE): All items in shopkeeper need a new randomvaluerate.

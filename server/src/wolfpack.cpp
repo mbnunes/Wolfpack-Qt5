@@ -1092,10 +1092,11 @@ void deathstuff(P_CHAR pc_player)
 
 //    if(pc_player->isNpc() || pc_player->isPlayer())
 
-	ele=pi_c->amount=pc_player->xid; // Amount == corpse type
+	ele = pc_player->xid; // Amount == corpse type
+	pi_c->setAmount( ele );
 	pi_c->morey = ishuman(pc_player);//is human?? - AntiChrist
 	pi_c->carve=pc_player->carve();//store carve section - AntiChrist
-	pi_c->name2 = pc_player->name;
+	pi_c->setName2( pc_player->name.c_str() );
 
 	pi_c->type=1;
 	pi_c->moveTo(pc_player->pos);
@@ -1266,7 +1267,7 @@ int GetBankCount( P_CHAR pc, unsigned short itemid, unsigned short color )
 							if( pi->id() == itemid )
 							{
 								if( pi->color() == color )
-									goldCount += pi->amount;
+									goldCount += pi->amount();
 							}
 						}
 					}
@@ -1307,14 +1308,14 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 							{
 								if( pi->color() == color )
 								{
-									if( total >= pi->amount )
+									if( total >= pi->amount() )
 									{
-										total -= pi->amount;
+										total -= pi->amount();
 										Items->DeleItem( pi );
 									}
 									else
 									{
-										pi->amount -= total;
+										pi->ReduceAmount( total );
 										total = 0;
 										RefreshItem( pi );
 									}
@@ -3824,7 +3825,7 @@ int getsubamount(int serial, short id)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->id()==id) total+=pi->amount;
+		if (pi->id()==id) total+=pi->amount();
 		if (pi->type==1) total+=getsubamount(pi->serial, id);
 	}
 	return total;
@@ -4242,9 +4243,9 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 	if (pc_p->id1>=1 && pc_p->id2>90 && pc_p->onhorse==0)
 		npcaction( pc_p, 0x22);
 	//empty bottle after drinking - Tauriel
-	if (pi->amount!=1)
+	if (pi->amount()!=1)
 	{
-		pi->amount--;
+		pi->ReduceAmount( 1 );
 	}
 	//empty bottle after drinking - Tauriel
 	pi->SetContSerial(-1);

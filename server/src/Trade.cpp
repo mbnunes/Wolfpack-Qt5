@@ -103,7 +103,7 @@ void cTrade::buyaction(int s)
 		{
 			if (buyit[i] != NULL)
 			{
-				if (buyit[i]->amount < amount[i])
+				if (buyit[i]->amount() < amount[i])
 				{
 					soldout = 1;
 				}
@@ -151,7 +151,7 @@ void cTrade::buyaction(int s)
 				P_ITEM pi = buyit[i];
 				if (pi != NULL)
 				{
-					if (pi->amount>amount[i])
+					if (pi->amount()>amount[i])
 					{
 						if (pi->pileable)
 						{
@@ -164,8 +164,8 @@ void cTrade::buyaction(int s)
 								Commands->DupeItem(s, buyit[i], 1);
 							}
 						}
-						pi->amount-=amount[i];
-						pi->restock+=amount[i];
+						pi->ReduceAmount( amount[i] );
+						pi->restock += amount[i];
 					}
 					else
 					{
@@ -183,8 +183,8 @@ void cTrade::buyaction(int s)
 									Commands->DupeItem(s, buyit[i], 1);
 								}
 							}
-							pi->amount=pi->amount-amount[i];
-							pi->restock=pi->restock+amount[i];
+							pi->ReduceAmount( amount[i] );
+							pi->restock += amount[i];
 							break;
 						case 0x1B:
 							if (pi->pileable)
@@ -199,7 +199,7 @@ void cTrade::buyaction(int s)
 									Commands->DupeItem(s, buyit[i], 1);
 								}
 								pi->SetContSerial(pi_pack->serial);
-								pi->amount = 1;
+								pi->setAmount( 1 );
 								RefreshItem(buyit[i]);//AntiChrist
 							}
 							break;
@@ -253,7 +253,7 @@ void cTrade::restock(int s)
 					{
 						if (s)
 						{
-							pi->amount += pi->restock;
+							pi->setAmount( pi->amount() + pi->restock );
 							pi->restock = 0;
 						}
 						else
@@ -261,7 +261,7 @@ void cTrade::restock(int s)
 							if (pi->restock > 0)
 							{
 								a = min(pi->restock, (pi->restock/2)+1);
-								pi->amount+=a;
+								pi->setAmount( pi->amount() + a );
 								pi->restock-=a;
 							}
 						}
@@ -334,7 +334,7 @@ void cTrade::sellaction(int s)
 			amt=ShortFromCharPtr(buffer[s]+9+(6*i)+4);
 			
 			// player may have taken items out of his bp while the sell menu was up ;-)
-			if (pSell->amount<amt)
+			if( pSell->amount() < amt )
 			{
 				npctalkall(pc_n, "Cheating scum! Leave now, before I call the guards!",0);
 				return;
@@ -372,7 +372,7 @@ void cTrade::sellaction(int s)
 
 			if (join != NULL)	// The item goes to the container with restockable items
 			{
-				join->amount+=amt;
+				join->setAmount( join->amount() + amt );
 				join->restock-=amt;
 				pSell->ReduceAmount(amt);
 			}
@@ -380,8 +380,8 @@ void cTrade::sellaction(int s)
 			{
 				pSell->SetContSerial(pNoRestock->serial);
 				SndRemoveitem(pSell->serial);
-				if (pSell->amount!=amt)
-					Commands->DupeItem(s, pSell, pSell->amount-amt);
+				if( pSell->amount() != amt )
+					Commands->DupeItem( s, pSell, pSell->amount() - amt );
 			}
 		}
 		addgold(s, totgold);

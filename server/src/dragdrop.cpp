@@ -288,12 +288,12 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 				pi->layer = 0;
 				if (!pi->isInWorld())
 					soundeffect(s, 0x00, 0x57);
-				if (pi->amount>1)
+				if ( pi->amount() > 1 )
 				{
 					amount = (buffer[s][5] << 8) + buffer[s][6];
-					if (amount>pi->amount)
-						amount = pi->amount;
-					if (amount < pi->amount)
+					if (amount > pi->amount())
+						amount = pi->amount();
+					if (amount < pi->amount())
 					{
 						P_ITEM pi_c = new cItem(*pi);
 						//	pi_c->Init(0);
@@ -301,7 +301,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 						//memcpy(pi_c, pi, sizeof(cItem));  // Tauriel reduce code faster too
 						pi_c->SetSerial(cItemsManager::getInstance()->getUnusedSerial());
 
-						pi_c->amount = pi->amount - amount;
+						pi_c->setAmount( pi->amount() - amount );
 						pi_c->SetContSerial(pi_c->contserial);
 						pi_c->SetOwnSerial(pi_c->ownserial);
 						pi_c->SetSpawnSerial(pi_c->spawnserial);
@@ -318,7 +318,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 								update = 1;
 					}
 					
-					pi->amount = amount;
+					pi->setAmount( amount );
 					
 				}
 				
@@ -667,7 +667,7 @@ static bool ItemDroppedOnBeggar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	}
 	sprintf((char*)temp,"Thank you %s for the %i gold!",pc_currchar->name.c_str(), pi->amount);
 	npctalk(s,target,(char*)temp,0);
-	if(pi->amount<=100)
+	if( pi->amount() <= 100 )
 	{
 		pc_currchar->karma += 10;
 		sysmessage(s,"You have gain a little karma!");
@@ -729,7 +729,7 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	P_CHAR pc_currchar = ps->getPlayer();
 	P_CHAR target = FindCharBySerial(pp->Tserial);
 	P_ITEM bankbox = pc_currchar->GetBankBox();
-	int amt = pi->amount;
+	int amt = pi->amount();
 	int value = pi->value;
 	
 	if (pi->id() == 0x14F0 && pi->type == 1000)
@@ -787,9 +787,9 @@ static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		int sum = pc_currchar->getSkillSum();
 		int delta = pc_t->getTeachingDelta(pc_currchar, sk, sum);
 
-		if(pi->amount>delta) // Paid too much
+		if(pi->amount()>delta) // Paid too much
 		{
-			pi->amount-=delta;
+			pi->setAmount( pi->amount()  - delta );
 			Sndbounce5(s);
 			if (ps->IsDragging())
 			{
@@ -799,8 +799,8 @@ static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		}
 		else
 		{
-			if(pi->amount < delta)		// Gave less gold
-				delta = pi->amount;		// so adjust skillgain
+			if(pi->amount() < delta)		// Gave less gold
+				delta = pi->amount();		// so adjust skillgain
 			Items->DeleItem(pi);
 		}
 		pc_currchar->baseskill[sk]+=delta;
@@ -1299,16 +1299,16 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		else  // - Pileable
 			if (pCont->pileable && pItem->pileable && pCont->id()==pItem->id())
 			{		
-				if ((pCont->amount+pItem->amount) > 65535)
+				if ( pCont->amount()+pItem->amount() > 65535 )
 				{
-					pItem->amount -= (65535-pCont->amount);
-					Commands->DupeItem(s, pCont, pItem->amount);
-					pCont->amount = 65535;
+					pItem->setAmount( pItem->amount() - (65535 - pCont->amount() ));
+					Commands->DupeItem(s, pCont, pItem->amount());
+					pCont->setAmount( 65535 );
 					Items->DeleItem(pItem);
 				}
 				else
 				{
-					pCont->amount=pCont->amount+pItem->amount;
+					pCont->setAmount(pCont->amount()+pItem->amount());
 					itemsfx(s, pItem->id());
 					Items->DeleItem(pItem);
 				}

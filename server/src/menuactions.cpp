@@ -235,9 +235,9 @@ UI32 consumeResources( P_ITEM Container, UI32 Amount, const vector< UI16 > &Matc
 		// The Item matches our criterias
 
 		// We have less in the pile than we need to have
-		if( Item->amount < Amount )
+		if( Item->amount() < Amount )
 		{
-			Amount -= Item->amount;
+			Amount -= Item->amount();
 			Items->DeleItem( Item );
 		}
 		// The Item stack is bigger than the amount
@@ -331,7 +331,7 @@ UI32 countResources( P_ITEM Container, const vector< UI16 > &MatchingIDs, const 
 		if( CheckName && ( Item->name.c_str() != MatchingName ) )
 				continue;			
 
-		Amount += Item->amount;
+		Amount += Item->amount();
 	}
 
 	return Amount;

@@ -489,13 +489,17 @@ void monstergate(P_CHAR pc_s, int x)
 				hivalue=str2num(gettokenstr);
 				if (hivalue==0)
 				{
-					if (lovalue/2!=0) pRetitem->amount=lovalue/2 + (rand()%(lovalue/2));
-					else pRetitem->amount=lovalue/2;
+					if (lovalue/2!=0) 
+						pRetitem->setAmount( lovalue/2 + (rand()%(lovalue/2)) );
+					else 
+						pRetitem->setAmount( lovalue/2 );
 				}
 				else
 				{
-					if ((hivalue-lovalue)!=0) pRetitem->amount=lovalue + (rand()%(hivalue-lovalue));
-					else pRetitem->amount=lovalue;
+					if ((hivalue-lovalue)!=0) 
+						pRetitem->setAmount( lovalue + (rand()%(hivalue-lovalue)) );
+					else 
+						pRetitem->setAmount( lovalue );
 				}
 				
 			}

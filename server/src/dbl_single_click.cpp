@@ -1517,7 +1517,7 @@ void singleclick(UOXSOCKET s)
 	
 	if (pc_currchar->getPriv()&8)
 	{
-		if (pi->amount > 1)
+		if (pi->amount() > 1)
 			sprintf((char*)temp, "%s [%x]: %i", itemname, pi->serial, pi->amount);
 		else
 			sprintf((char*)temp, "%s [%x]", itemname, pi->serial);
@@ -1547,7 +1547,7 @@ void singleclick(UOXSOCKET s)
 	
 	// From now on, we will build the message into temp, and let itemname with just the name info
 	// Add amount info.
-	if (!pi->pileable || pi->amount == 1)
+	if (!pi->pileable || pi->amount() == 1)
 		strncpy((char*)temp, itemname, 100);
 	else 
 		if (itemname[strlen(itemname) - 1] != 's') // avoid iron ingotss : x
@@ -1561,7 +1561,7 @@ void singleclick(UOXSOCKET s)
 	
 	if (pi->type == 15) // Fraz
 	{
-		if (pi->name2 == pi->name)
+		if (pi->name2() == pi->name.c_str())
 		{
 			sprintf((char*)temp, "%s %i charge", temp, pi->morez);
 			if (pi->morez != 1)
@@ -1570,7 +1570,7 @@ void singleclick(UOXSOCKET s)
 	}
 	else if (pi->type == 404 || pi->type == 181)
 	{
-			if (pi->name2 == pi->name)
+			if (pi->name2() == pi->name.c_str())
 			{
 			sprintf((char*)temp, "%s %i charge", temp, pi->morex);
 			if (pi->morex != 1)

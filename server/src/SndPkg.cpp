@@ -624,8 +624,8 @@ void backpack(UOXSOCKET s, SERIAL serial) // Send Backpack (with items)
 		//end fix
 		LongToCharPtr(pi->serial, &bpitem[0]);
 		ShortToCharPtr(pi->id(),bpitem+4);
-		bpitem[7]=pi->amount>>8;
-		bpitem[8]=pi->amount%256;
+		bpitem[7]=pi->amount()>>8;
+		bpitem[8]=pi->amount()%256;
 		bpitem[9]=pi->pos.x>>8;
 		bpitem[10]=pi->pos.x%256;
 		bpitem[11]=pi->pos.y>>8;
@@ -689,8 +689,8 @@ void backpack2(int s, SERIAL serial) // Send corpse stuff
 		{
 			LongToCharPtr(pi->serial, &bpitem[0]);
 			ShortToCharPtr(pi->id(),bpitem+4);
-			bpitem[7]=pi->amount>>8;
-			bpitem[8]=pi->amount%256;
+			bpitem[7]=pi->amount()>>8;
+			bpitem[8]=pi->amount()%256;
 			bpitem[9]=pi->pos.x>>8;
 			bpitem[10]=pi->pos.x%256;
 			bpitem[11]=pi->pos.y>>8;
@@ -725,8 +725,8 @@ void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 	{//else like a normal item
 		ShortToCharPtr(pi->id(),bpitem+4);
 	}
-	bpitem[7]=pi->amount>>8;
-	bpitem[8]=pi->amount%256;
+	bpitem[7]=pi->amount()>>8;
+	bpitem[8]=pi->amount()%256;
 	bpitem[9]=pi->pos.x>>8;
 	bpitem[10]=pi->pos.x%256;
 	bpitem[11]=pi->pos.y>>8;
@@ -860,8 +860,8 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 			ShortToCharPtr(pi->id(),itmput+7);
 		}
 
-		itmput[9]=pi->amount>>8;
-		itmput[10]=pi->amount%256;
+		itmput[9]=pi->amount()>>8;
+		itmput[10]=pi->amount()%256;
 		itmput[11]=pi->pos.x>>8;
 		itmput[12]=pi->pos.x%256;
 		itmput[13]=(pi->pos.y>>8)+0xC0; // Enable Dye and Move
@@ -949,8 +949,8 @@ void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y,
 	{
 		LongToCharPtr(pi->serial | 0x80000000, &itmput[3]);
 		ShortToCharPtr(pi->id(),itmput+7);
-		itmput[9]=pi->amount>>8;
-		itmput[10]=pi->amount%256;
+		itmput[9]=pi->amount()>>8;
+		itmput[10]=pi->amount()%256;
 		itmput[11]=x>>8;
 		itmput[12]=x%256;
 		itmput[13]=(y>>8)+0xC0; // Enable Dye and Move
@@ -2795,8 +2795,8 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 				LongToCharPtr(pi_j->serial,m1+m1t+0);//Item serial number
 				ShortToCharPtr(pi_j->id(),m1+m1t+4);
 				m1[m1t+6]=0;			//Always zero
-				m1[m1t+7]=pi_j->amount>>8;//Amount for sale
-				m1[m1t+8]=pi_j->amount%256;//Amount for sale
+				m1[m1t+7]=pi_j->amount()>>8;//Amount for sale
+				m1[m1t+8]=pi_j->amount()%256;//Amount for sale
 				m1[m1t+9]=ci;//pi_j->pos.x>>8; //Item x position
 				m1[m1t+10]=ci;//pi_j->pos.x%256;//Item x position
 				//m1[m1t+11]=pi_j->pos.y>>8;//Item y position
@@ -2913,7 +2913,7 @@ int sellstuff(int s, P_CHAR pc)
 							LongToCharPtr(pi_j->serial,m1+m1t+0);
 							ShortToCharPtr(pi_j->id(),m1+m1t+4);
 							ShortToCharPtr(pi_j->color(),m1+m1t+6);
-							ShortToCharPtr(pi_j->amount,m1+m1t+8);
+							ShortToCharPtr(pi_j->amount(),m1+m1t+8);
 							value=pi_q->value;
 							value=calcValue(pi_j, value);
 							if (SrvParams->trade_system()==1) value=calcGoodValue(pc, pi_j, value, 1); // by Magius(CHE)

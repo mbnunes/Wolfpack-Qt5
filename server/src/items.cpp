@@ -54,7 +54,7 @@
 cItem::cItem( cItem &src )
 {
 	this->name = src.name;
-	this->name2 = src.name2; 
+	this->name2_ = src.name2_;
 	this->creator = src.creator;
 	this->incognito = src.incognito;
 	this->madewith = src.madewith;
@@ -87,8 +87,8 @@ cItem::cItem( cItem &src )
 	this->morex = src.morex;
 	this->morey = src.morey;;
 	this->morez = src.morez;
-	this->amount = src.amount;
-	this->amount2 = src.amount2;
+	this->amount_ = src.amount_;
+	this->amount2_ = src.amount2_;
 	this->doordir = src.doordir;
 	this->dooropen = src.dooropen;
 	this->pileable = src.pileable;
@@ -165,15 +165,15 @@ void cItem::startDecay()
 long cItem::ReduceAmount(const short amt)
 {
 	long rest=0;
-	if( amount > amt )
+	if( amount_ > amt )
 	{
-		amount-=amt;
+		amount_ -= amt;
 		RefreshItem(this);
 	}
 	else
 	{
 		Items->DeleItem(this);
-		rest=amt-amount;
+		rest = amt - amount_;
 	}
 	return rest;
 }
@@ -336,18 +336,18 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 		this->color == pItem->color ))
 		return false;	//cannot stack.
 
-	if (this->amount+pItem->amount>65535)
+	if (this->amount() + pItem->amount() > 65535)
 	{
 		pItem->pos.x=this->pos.x;
 		pItem->pos.y=this->pos.y;
 		pItem->pos.z=9;
-		pItem->amount=(this->amount+pItem->amount)-65535;
-		this->amount=65535;
+		pItem->setAmount( (this->amount()+pItem->amount()) - 65535 );
+		this->setAmount( 65535 );
 		RefreshItem(pItem);
 	}
 	else
 	{
-		this->amount+=pItem->amount;
+		this->setAmount( this->amount()  + pItem->amount() );
 		Items->DeleItem(pItem);
 	}
 	RefreshItem(this);
@@ -434,7 +434,7 @@ void cItem::Serialize(ISerialization &archive)
 	{
 		unsigned short temp;
 		archive.read("id",			temp);			setId(temp);
-		archive.read("name2",		name2);
+		archive.read("name2",		name2_);
 		archive.read("creator",		creator);
 		archive.read("sk_name",		madewith);
 		archive.read("color",		color_);
@@ -455,7 +455,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("morex",		morex);
 		archive.read("morey",		morey);
 		archive.read("morez",		morez);
-		archive.read("amount",		amount);
+		archive.read("amount",		amount_);
 		archive.read("pileable",	pileable);
 		archive.read("doordir",		doordir);
 		archive.read("dye",			dye);
@@ -507,7 +507,7 @@ void cItem::Serialize(ISerialization &archive)
 	else if ( archive.isWritting())
 	{
 		archive.write("id",			id());
-		archive.write("name2",		name2);
+		archive.write("name2",		name2_);
 		archive.write("creator",	creator);
 		archive.write("sk_name",	madewith);
 		archive.write("color",		color());
@@ -604,8 +604,8 @@ static int getname(P_ITEM pi, char* itemname)
 		else if ((tile.name[j]=='%')&&(mode!=0)) mode=0;
 		else if ((tile.name[j]=='/')&&(mode==2)) mode=1;
 		else if (mode==0) ok=1;
-		else if ((mode==1)&&(pi->amount==1)) ok=1;
-		else if ((mode==2)&&(pi->amount>1)) ok=1;
+		else if ( ( mode == 1 ) && ( pi->amount() == 1 ) ) ok = 1;
+		else if ( ( mode == 2 ) && ( pi->amount() > 1 ) ) ok = 1;
 		if (ok)
 		{
 			itemname[namLen++] = tile.name[j];
@@ -683,7 +683,7 @@ void cItem::Init(bool mkser)
 	}
 
 	this->name = "#";
-	this->name2 = "#";
+	this->name2_ = "#";
 	this->incognito=false;//AntiChrist - incognito
 	this->madewith=0; // Added by Magius(CHE)
 	this->rank=0; // Magius(CHE)
@@ -716,8 +716,8 @@ void cItem::Init(bool mkser)
 	this->morex=0;
 	this->morey=0;
 	this->morez=0;
-	this->amount=1; // Amount of items in pile
-	this->amount2=0; //Used to track things like number of yards left in a roll of cloth
+	this->amount_ = 1; // Amount of items in pile
+	this->amount2_ = 0; //Used to track things like number of yards left in a roll of cloth
 	this->doordir=0; // Reserved for doors
 	this->dooropen=0;
 	this->pileable=false; // Can item be piled
@@ -874,7 +874,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 			{
 				case 'A':
 				case 'a':
-					if (!strcmp("AMOUNT", (char*)script1))		pi->amount = str2num(script2);
+					if (!strcmp("AMOUNT", (char*)script1))		pi->setAmount( str2num(script2) );
 					else if (!strcmp("ATT", (char*)script1)) 	pi->att = getstatskillvalue((char*)script2);
 					break;
 					
@@ -1008,7 +1008,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					else if (!strcmp("NAME", (char*)script1))
 						pi->name = (char*)script2;
 					else if (!strcmp("NAME2", (char*)script1))
-						pi->name2 = (char*)script2;
+						pi->setName2( (char*)script2 );
 					break;
 					
 				case 'O':
@@ -1335,9 +1335,9 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 			P_ITEM pSt = FindItemBySerial(vecContainer[ci]);
 			if (pSt->id() == id && !pSt->free && pSt->color() == color)
 			{
-				if (pSt->amount+nAmount > 65535)	// if it would create an overflow (amount is ushort!),
+				if (pSt->amount() + nAmount > 65535)	// if it would create an overflow (amount is ushort!),
 					continue;						// let's search for another pile to add to
-				pSt->amount += nAmount;
+				pSt->setAmount( pSt->amount() + nAmount );
 				RefreshItem(pSt);
 				return pSt;
 			}
@@ -1352,7 +1352,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 		pi->name = cName;
 	pi->setId(id);
 	pi->setColor( color );
-	pi->amount=nAmount;
+	pi->setAmount( nAmount );
 	pi->pileable=pile;
 	pi->att=5;
 	pi->priv |= 0x01;
@@ -1424,7 +1424,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 				{
 				case 'A':
 				case 'a':
-					if (!(strcmp("AMOUNT",(char*)script1))) pi->amount = str2num(script2); // -Fraz- moved from Case C
+					if (!(strcmp("AMOUNT",(char*)script1))) pi->setAmount( str2num(script2) ); // -Fraz- moved from Case C
 				case 'C':
 				case 'c':
  					if (!(strcmp("CREATOR", (char*)script1))) pi->creator = script2; // by Magius(CHE)
@@ -1501,7 +1501,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 				case 'O':
 				case 'o':
 					if (!(strcmp("NAME",(char*)script1))) pi->name = script2;
-					else if (!(strcmp("NAME2",(char*)script1))) pi->name2 = script2;
+					else if (!(strcmp("NAME2",(char*)script1))) pi->setName2( script2 );
 					else if (!(strcmp("NEWBIE",(char*)script1))) pi->priv |= 0x02;
 					else if (!(strcmp("OFFSPELL",(char*)script1))) pi->offspell=str2num(script2);
 
@@ -1737,7 +1737,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 		return;
 	if (pi->free) return;
 
-	for(c=0;c<pi->amount;c++)
+	for(c=0;c<pi->amount();c++)
 	{
 		if(pi->gatetime+(c*pi->morez*MY_CLOCKS_PER_SEC)<=currenttime)// && chars[i].hp<=chars[i].st)
 		{
@@ -1796,7 +1796,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 						}
 				}
 
-				if (k<pi->amount)
+				if (k<pi->amount())
 				{
 					if (pi->gatetime==0)
 					{
@@ -1826,7 +1826,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 						m++;
 					}
 				}
-				if(m<pi->amount)
+				if(m<pi->amount())
 				{
 					if (pi->gatetime==0)
 					{
@@ -1976,11 +1976,11 @@ void cAllItems::applyItemSection( P_ITEM Item, QString Section )
 
 		// <identified>my magic item</identified>
 		else if( TagName == "identified" )
-			Item->name2 = Value.latin1();
+			Item->setName2( Value.latin1() );
 
 		// <amount>120</amount>
 		else if( TagName == "amount" )
-			Item->amount = Value.toULong();
+			Item->setAmount( Value.toULong() );
 
 		// <color>480</color>
 		else if( TagName == "color" )

@@ -84,15 +84,16 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 		{
 			if (CheckInPack(s,pi_bolts))
 			{
-			if (pi_bolts->amount>1)
-				amt1=(pi_bolts->amount*50);//-Frazurbluu- changed to reflect current OSI 
+			if ( pi_bolts->amount() > 1 )
+				amt1 = ( pi_bolts->amount() * 50 );//-Frazurbluu- changed to reflect current OSI 
 			else
-				amt1=50; 
+				amt1 = 50; 
+
 			Items->DeleItem(pi_bolts); //-Fraz- delete the bolts when ready 
 			const P_ITEM npi = Items->SpawnItem(s, pc_currchar, 1, "cut cloth", 0, 0x17, 0x66, col1, 1, 1);
 			if(npi == NULL) return;// crash check
 			npi->weight = 10;
-			npi->amount = amt1;
+			npi->setAmount( amt1 );
 			npi->pileable = true;
 			RefreshItem(npi);
 			Items->DeleItem(pi_bolts);
@@ -368,8 +369,8 @@ void cSkills::TasteIDTarget(int s)
 			
 			// Identify Item by Antichrist // Changed by MagiusCHE)
 			if (CheckSkill(pc_currchar, TASTEID, 250, 500))
-				if (pi->name2 != "#")
-					pi->name = pi->name2; // Item identified! -- by Magius(CHE)
+				if (pi->name2() != "#")
+					pi->name = pi->name2().ascii(); // Item identified! -- by Magius(CHE)
 				
 				// ANTICHRIST -- FOR THE "#" BUG -- now you see the real name
 				if(pi->name == "#") 
@@ -823,7 +824,7 @@ void cSkills::TreeTarget(int s)
 			
 			P_ITEM pi_c = Items->SpawnItem(s, pc, 10, "#", 1, 0x1B, 0xE0, 0, 1, 1);
 			if(pi_c == NULL) return;//AntiChrist to prevent crashes
-			if (pi_c->amount > 10) sysmessage(s, tr("You place more logs in your pack.") );
+			if (pi_c->amount() > 10) sysmessage(s, tr("You place more logs in your pack.") );
 			else sysmessage(s, tr("You place some logs in your pack.") );
 			
 			lumber=1;
@@ -973,7 +974,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 	}
 	if(!Skills->CheckSkill(pc_currchar, MINING, 0, 1000))
 	{
-		if (pi->amount==1)
+		if( pi->amount() == 1 )
 		{
 			sysmessage(s, tr("Your hand slips and the last of your materials are destroyed.") );
 			Items->DeleItem(pi);
@@ -981,14 +982,14 @@ static void SmeltOre2(	int s,					// current char's socket #
 		else
 		{
 			sysmessage(s, tr("Your hand slips and some of your materials are destroyed.") );
-			pi->amount=pi->amount/2;
+			pi->setAmount( pi->amount() / 2 );
 			RefreshItem(pi);					// tell the client item has been changed
 		}
 	}
 	else
 	{
 		char tmp[100];
-		int numore=pi->amount*2;			// one ore gives two ingots
+		int numore = pi->amount() * 2;			// one ore gives two ingots
 		sprintf(tmp,"%s Ingot",orename);
 		
 		cItem* Ingot = Items->SpawnItem(pc_currchar, numore, tmp, 1, id, color, 1);
@@ -1080,13 +1081,13 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 			{
 				pti->name = "#";
 				pti->setId(0x0E1D);
-				pti->amount=pti->amount*3;
+				pti->setAmount( pti->amount() * 3 );
 			}
 			else if (mat==THREAD)
 			{
 				pti->name = "#";
 				pti->setId(0x0FA0);
-				pti->amount=pti->amount*3;
+				pti->setAmount( pti->amount() * 3 );
 			}
 
 			pti->priv |= 0x01;
@@ -1114,19 +1115,24 @@ void cSkills::Loom(int s)
 				const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem);	// on error return
 				if (pti == NULL)
 					return;
-				if(pti->amount<5)
+				if( pti->amount() < 5 )
 				{
 					sysmessage(s, tr("You do not have enough material to make anything!") );
 					return;
 				}
+
 				if (!Skills->CheckSkill(pc_currchar,TAILORING, 300, 1000)) 
 				{
 					sysmessage(s, tr("You failed to make cloth.") );
 					sysmessage(s, tr("You have broken and lost some material!") );
-					if (pti->amount!=0) pti->amount -= 1+(rand() % (pti->amount)); else pti->amount --; 
-					if (pti->amount <=0) Items->DeleItem(pti);
-					else
-						RefreshItem(pti);
+					
+					if ( pti->amount() != 0 ) 
+						pti->ReduceAmount( 1 + ( rand() % ( pti->amount() ) ) );
+					else 
+						pti->ReduceAmount( 1 );
+
+					// It's auto-deleted
+					RefreshItem(pti);
 					return;
 				}
 				
@@ -1137,7 +1143,7 @@ void cSkills::Loom(int s)
 					pti->name = "#";
 					pti->setId(0x175D);
 					pti->priv |= 0x01;
-					pti->amount=static_cast<unsigned short> (pti->amount*0.25);
+					pti->setAmount( static_cast<unsigned short> ( pti->amount() * 0.25 ) );
 				}
 				else if( pti->id()==0x0FA0 || pti->id()==0x0FA1 )	// thread
 				{
@@ -1146,9 +1152,9 @@ void cSkills::Loom(int s)
 					pti->name = "#";
 					pti->setId(0x0F95);
 					pti->priv |= 1;
-					pti->amount=static_cast<unsigned short> (pti->amount*0.25);
+					pti->setAmount( static_cast<unsigned short> ( pti->amount() * 0.25 ) );
 				}
-				RefreshItem(pti);//AntiChrist
+				RefreshItem( pti );//AntiChrist
 				tailme=1;
 			}
 		}
@@ -1181,12 +1187,12 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 					if (!Skills->CheckSkill(pc_currchar,COOKING, 0, 1000)) 
 					{
 						sysmessage(s, tr("You failed to cook the %1 and drop some into the ashes.").arg(matname) );
-						piRaw->ReduceAmount(1+(rand() %(piRaw->amount)));
+						piRaw->ReduceAmount( 1 + ( rand() % (piRaw->amount()) ) );
 					}
 					else
 					{
 						sysmessage(s, tr("You have cooked the %1, and it smells great.").arg(matname) );
-						P_ITEM pi_c = Items->SpawnItem(s, pc_currchar,piRaw->amount,"#",1,id1,id2,0,1,1);
+						P_ITEM pi_c = Items->SpawnItem(s, pc_currchar, piRaw->amount(),"#",1,id1,id2,0,1,1);
 						if(pi_c == NULL) return;
 						pi_c->type = 14;
 						RefreshItem(pi_c);
@@ -1224,7 +1230,7 @@ void cSkills::MakeDough(int s)
 				
 				pti->setId(0x103D);
 				pti->priv |= 0x01;
-				pti->amount *= 2;
+				pti->setAmount( pti->amount() * 2 );
 				
 				RefreshItem(pti);
 				tailme = true;
@@ -1263,7 +1269,7 @@ void cSkills::MakePizza(int s)
 				
 				pti->setId(0x1083);
 				pti->priv |= 0x01;
-				pti->amount *= 2;
+				pti->setAmount( pti->amount() * 2 );
 				
 				RefreshItem(pti);
 				tailme = 1;
@@ -1552,7 +1558,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 
 		if ((IsCloth(pi->id()) && (IsCutCloth(pi->id()))))
 		{
-			amt=pi->amount;  //-Frazurbluu- changed to reflect current OSI 
+			amt = pi->amount();  //-Frazurbluu- changed to reflect current OSI 
 			soundeffect(s,0x02,0x48);
 			sysmessage(s, tr("You cut some cloth into bandages, and put it in your backpack") );
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,amt,"#",0,0x0E,0x21,col1,1,1);
@@ -1561,7 +1567,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			pi_c->weight=10;
 			pi_c->pileable=true;
 			pi_c->att=9;
-			pi_c->amount=amt;
+			pi_c->setAmount( amt );
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
 			Weight->NewCalc(pc_currchar);
@@ -1570,8 +1576,8 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 		}	
 		if( IsBoltOfCloth(pi->id()) )
 		{
-			if (pi->amount>1)
-				amt=(pi->amount*50);//-Frazurbluu- changed to reflect current OSI 
+			if (pi->amount()>1)
+				amt=(pi->amount()*50);//-Frazurbluu- changed to reflect current OSI 
 			else
 				amt=50;
 			soundeffect(s,0x02,0x48);
@@ -1579,7 +1585,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			if(pi_c == NULL) return;
 			pi_c->weight=10;
 			pi_c->pileable=true;
-			pi_c->amount=amt;
+			pi_c->setAmount( amt );
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
 			Weight->NewCalc(pc_currchar);
@@ -1588,13 +1594,13 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 		}
 		if( IsHide(pi->id()) )
 		{
-			amt=pi->amount;
+			amt = pi->amount();
 			soundeffect(s,0x02,0x48);
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"leather piece",0,0x10,0x67,col1,1,1);
 			if(pi_c == NULL) return;
 			pi_c->weight=100;
 			pi_c->pileable=true;
-			pi_c->amount=amt;
+			pi_c->setAmount( amt );
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
 			Weight->NewCalc(pc_currchar);
@@ -1862,8 +1868,8 @@ void cSkills::ItemIdTarget(int s)
 
 			// Identify Item by Antichrist // Changed by MagiusCHE)
 			if (CheckSkill(pc_currchar, ITEMID, 250, 500))
-				if (pi->name2 == "#") 
-					pi->name = pi->name2; // Item identified! -- by Magius(CHE)
+				if (pi->name2() == "#") 
+					pi->name = pi->name2().ascii(); // Item identified! -- by Magius(CHE)
 
 			if(pi->name == "#") 
 				pi->getName(temp2);
@@ -2280,23 +2286,25 @@ void cSkills::BeggingTarget(int s)
 						{
 							if (pi_j->id()==0x0EED )
 							{
-								gold+=pi_j->amount; // calc total gold in pack
+								gold += pi_j->amount(); // calc total gold in pack
 								
-								int k = pi_j->amount;
+								int k = pi_j->amount();
 								if(k>=y) // enough money in that pile in pack to satisfy pre-aclculated amount
 								{
-									pi_j->amount-=y;
-									realgold+=y; // calc gold actually given to player
-									if (pi_j->amount<=0) 
-										Items->DeleItem(pi_j); // delete pile if its totaly gone afteer subtracting gold
-									RefreshItem(pi_j); // resend new amount
+									pi_j->ReduceAmount( y );
+									realgold += y; // calc gold actually given to player
+
+									// This does not end in a crash !??
+									//if( pi_j != NULL ) // Only if we still have an item
+										RefreshItem(pi_j); // resend new amount
+
 									abort = 1;
 								}
 								else // not enough money in this pile -> only delete it
 								{
-									Items->DeleItem(pi_j);
-									RefreshItem(pi_j); // Refresh a deleted item?
-									realgold += pi_j->amount;
+									Items->DeleItem( pi_j );
+									RefreshItem( pi_j ); // Refresh a deleted item?
+									realgold += pi_j->amount();
 								}
 							}
 						} // end of if j!=-1
@@ -2493,7 +2501,8 @@ void cSkills::LockPick(int s)
 			{ //Make sure it isn't an item that has a key (i.e. player house, chest..etc)
 				//if(addmitem[s]==-1) 
 				
-				if(piPick->amount==0xFFFFFFFF)
+				// How should that work?!?!!
+				if( piPick->amount() == 0xFFFFFFFF )
 				{
 					if (currentSpellType[s] !=2)			// not a wand cast
 					{
@@ -2534,7 +2543,7 @@ void cSkills::LockPick(int s)
 						if((rand()%100)>50) 
 						{
 							sysmessage(s, tr("You broke your lockpick!") );
-							if(piPick->amount>1)
+							if( piPick->amount() > 1 )
 							{
 								piPick->ReduceAmount(1);
 							}

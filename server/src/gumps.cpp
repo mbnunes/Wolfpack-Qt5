@@ -309,7 +309,7 @@ void cGump::Input(int s)
 		case 8:		k = str2num( text );	pj->type = k;		break;	 // Type
 		case 9:		k = str2num( text );	pj->itmhand = k;	break;	// Itemhand - added by Xuri
 		case 10:	k = str2num( text );	pj->layer = k;		break;	// Layer
-		case 11:	k = str2num( text );	pj->amount = k;		break;	// Amount
+		case 11:	k = str2num( text );	pj->setAmount( k );		break;	// Amount
 		case 12:	k = hex2num( text );	// More
 					pj->more1 = (unsigned char)(k>>24);
 					pj->more2 = (unsigned char)(k>>16);

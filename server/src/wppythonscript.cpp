@@ -491,10 +491,10 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	getStrProperty( "name", Item->name.c_str() )
 	else getIntProperty( "id", Item->id() )
 	else getStrProperty( "name", Item->name.c_str() )
-	else getStrProperty( "name2", Item->name2.c_str() )
+	else getStrProperty( "name2", Item->name2().ascii() )
 	else getIntProperty( "color", Item->color() )
-	else getIntProperty( "amount", Item->amount )
-	else getIntProperty( "amount2", Item->amount2 )
+	else getIntProperty( "amount", Item->amount() )
+	else getIntProperty( "amount2", Item->amount2() )
 	else getIntProperty( "serial", Item->serial )
 	else getIntProperty( "x", Item->pos.x )
 	else getIntProperty( "y", Item->pos.y )
@@ -596,13 +596,19 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 		self->Item->setId( PyInt_AS_LONG( value ) );
 
 	else setStrProperty( "name", Item->name )
-	else setStrProperty( "name2", Item->name2 )
+
+	else if( !strcmp( "name2", name ) )
+		self->Item->setName2( PyString_AS_STRING( value ) );
 	
 	else if( !strcmp( "color", name ) )
 		self->Item->setColor( PyInt_AS_LONG( value ) );
 
-	else setIntProperty( "amount", Item->amount )
-	else setIntProperty( "amount2", Item->amount2 )
+	else if( !strcmp( "amount", name ) )
+		self->Item->setAmount( PyInt_AS_LONG( value ) );
+
+	else if( !strcmp( "amount2", name ) )
+		self->Item->setAmount2( PyInt_AS_LONG( value ) );
+
 	else setIntProperty( "serial", Item->serial )
 	else setIntProperty( "x", Item->pos.x )
 	else setIntProperty( "y", Item->pos.y )

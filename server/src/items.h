@@ -46,29 +46,35 @@ class cItem : public cUObject
 protected:
 	UI16 id_;
 	UI16 color_;
+	UI16 amount_; 
+	UI16 amount2_; 
+	QString name2_;
 
 public:
 	// Getters
-	UI16	id() const { return id_; };
-	UI16	color() const { return color_; };
+	UI16			id()		const { return id_; };
+	UI16			color()		const { return color_; };
+	UI16			amount()	const { return amount_; }; // Amount of items in pile
+	UI16			amount2()	const { return amount2_; }; //Used to track things like number of yards left in a roll of cloth
+	const QString	&name2()	const { return name2_; };
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
 	void	setColor( UI16 nValue ) { color_ = nValue; };
+	void	setAmount( UI16 nValue ) { amount_ = nValue; }; // Amount of items in pile
+	void	setAmount2( UI16 nValue ) { amount2_ = nValue; }; //Used to track things like number of yards left in a roll of cloth
+	void	setName2( const QString nValue ) { name2_ = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
 	virtual ~cItem() {}
 	virtual void Serialize( ISerialization &archive );
 	virtual string objectID();
-	unsigned short amount; // Amount of items in pile
-	unsigned short amount2; //Used to track things like number of yards left in a roll of cloth
 	struct						// Attention, this is a bit field
 	{
 		bool isBeeingDragged;	// true while the item hangs on the mouse cursor
 	} flags;
 	
-	string name2;
 	SERIAL contserial;
 	signed char layer; // Layer if equipped on paperdoll
 	int itmhand; // ITEMHAND system - AntiChrist

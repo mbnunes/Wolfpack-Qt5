@@ -946,7 +946,7 @@ void cCommands::DupeItem(int s, P_ITEM pi_target, int amount)
 	pi_c->SetOwnSerial(pi_target->ownserial);
 	pi_c->SetSpawnSerial(pi_target->spawnserial);
 	pi_c->layer=0;	// it's created in a backpack
-	pi_c->amount=amount;
+	pi_c->setAmount( amount );
 	
 	RefreshItem(pi_c);//AntiChrist
 }

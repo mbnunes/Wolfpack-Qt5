@@ -354,8 +354,8 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			return;	//invalid script item
 		} 
 		// Starting Rank System Addon, Identify Item and Store the Creator Name- by Magius(CHE)
-		if (pi->name2 != "#") 
-			pi->name = pi->name2; // Item identified! - }
+		if (pi->name2() != "#") 
+			pi->name = pi->name2().ascii(); // Item identified! - }
 		//if (SrvParams->rank_system()==1) rank=CalcRank(s,skill);
 		//else if (SrvParams->rank_system()==0) rank=10;
 		rank = 10;
@@ -2268,7 +2268,7 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 		LogError("switch reached default");
 		return 0;
 	}
-	pi->name2 = string("of ") + string (spn) + string(" with");
+	pi->setName2( QString( "of %s with" ).arg( spn ) );
 	return 1;
 }
 

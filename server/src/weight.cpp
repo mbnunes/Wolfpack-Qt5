@@ -113,9 +113,9 @@ float cWeight::RecursePacks(P_ITEM bp)
 		}
 		
 		if (pi->id() == 0x0EED)
-			totalweight += (pi->amount*SrvParams->goldWeight());
+			totalweight += ( pi->amount() * SrvParams->goldWeight() );
 		else
-			totalweight += (float)((itemsweight*pi->amount)/100.0f);
+			totalweight += (float)((itemsweight * pi->amount())/100.0f);
 	}
 	return totalweight;
 }
@@ -173,7 +173,7 @@ float cWeight::LockeddownWeight(P_ITEM pItem, int *total, int *total2 )
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
 		int itemsweight=pi->getWeight();
-		total2=total2+pi->amount;
+		total2=total2+pi->amount();
 		*total=*total+1;
 		if (pi->type==1 || pi->type==63 || pi->type==65 || pi->type==87) //item is another container
 		{
@@ -182,17 +182,17 @@ float cWeight::LockeddownWeight(P_ITEM pItem, int *total, int *total2 )
 		}
 		
 		if ( pi->id() == 0x0EED )
-			totalweight+=(pi->amount*SrvParams->goldWeight());
+			totalweight+=(pi->amount()*SrvParams->goldWeight());
 		else
-			totalweight+=(float)((itemsweight*pi->amount)/100.0f); //((pi->weight*pi->amount)/100);  // Ison 2-21-99
+			totalweight+=(float)((itemsweight*pi->amount())/100.0f); //((pi->weight*pi->amount)/100);  // Ison 2-21-99
 	}
 
 	if (*total==0) 
 	{ 
-		*total=pItem->amount;
+		*total=pItem->amount();
 		*total=*total*-1; // Indicate that not a pack ! on osi servers in that case weigt/items count isnt shown
 		                  // thus i set it negative, if you want to show it anyway, add something like if (weight<0) weight*=-1; 
-		return ((((float)pItem->getWeight())/100)*pItem->amount); // if no pack return single item weight*/        		
+		return ((((float)pItem->getWeight())/100)*pItem->amount()); // if no pack return single item weight*/        		
 		
 	}
 	else

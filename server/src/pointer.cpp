@@ -123,7 +123,7 @@ int ContainerCountItems(const int serial, short id, short color)
 		}
 		if (pi->id()==id &&
 			(color==-1 || pi->color() == color))
-			total += pi->amount;
+			total += pi->amount();
 	}
 	return total;
 }

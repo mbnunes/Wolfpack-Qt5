@@ -264,7 +264,7 @@ public:
 	void ItemSpecific()
 	{
 		if(addx[s]==1) //rename2 //New -- Zippy
-			pi->name2 = xtext[s];
+			pi->setName2( xtext[s] );
 		else
 			pi->name = xtext[s];
 	}
@@ -609,7 +609,7 @@ void cTargets::IstatsTarget(int s)
 				(co&0x000000FF) );
 			sprintf((char*)temp, "Item [Dynamic] Ser [%8x] ID [%4x] Name [%s] Name2 [%s] Color [%4x] Cont %s Layer [%x] Type [%d] Magic [%x] More [%x %x %x %x] Position [%i %i %i] Amount [%i] Priv [%x]",
 				pi->serial, pi->id(),
-				pi->name.c_str(),pi->name2.c_str(),pi->color,
+				pi->name.c_str(),pi->name2().ascii(),pi->color,
 				contstr,
 				pi->layer,pi->type,pi->magic,
 				pi->more1,pi->more2,pi->more3,pi->more4,
@@ -634,8 +634,8 @@ void cTargets::TargIdTarget(int s) // Fraz
 		{
 			if (pi && !pi->isLockedDown())
 			{
-				if (pi->name2 != "#")
-					pi->name = pi->name2;
+				if (pi->name2() != "#")
+					pi->name = pi->name2().ascii();
 				if (pi->name == "#")
 					pi->getName(temp2);
 				else 
@@ -880,7 +880,7 @@ public:
 			sysmessage(s, "No amounts over 64k in a pile!");
 			return;
 		}
-		this->pi->amount=addx[s];
+		this->pi->setAmount( addx[s] );
 		RefreshItem(pi);
 	}
 };
@@ -1576,7 +1576,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		sysmessage(s,"You have lost some karma!");
 		criminal( pc_currchar );
 		//create the Head
-		sprintf((char*)temp,"the head of %s",pi3->name2.c_str());
+		sprintf((char*)temp,"the head of %s",pi3->name2().ascii());
 		P_ITEM pi = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA0,0,0,0);
 		if(pi == NULL) return;
 		pi->SetContSerial(pi3->serial);
@@ -1588,7 +1588,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pi->setOwnSerialOnly(pi3->ownserial);
 
 		//create the Body
-		sprintf((char*)temp,"the heart of %s",pi3->name2.c_str());
+		sprintf((char*)temp,"the heart of %s",pi3->name2().ascii());
 		P_ITEM pi4 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1C,0xED,0,0,0);
 		if(pi4 == NULL) return;
 		pi4->SetContSerial(pi3->serial);
@@ -1597,7 +1597,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pi4->setOwnSerialOnly(pi3->ownserial);	// see above
 
 		//create the Heart
-		sprintf((char*)temp,"the body of %s",pi3->name2.c_str());
+		sprintf((char*)temp,"the body of %s",pi3->name2().ascii());
 		P_ITEM pi5 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xAD,0,0,0);
 		if(pi5 == NULL) return;
 		pi5->SetContSerial(pi3->serial);
@@ -1606,7 +1606,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pi5->setOwnSerialOnly(pi3->ownserial);	// see above
 
 		//create the Left Arm
-		sprintf((char*)temp,"the left arm of %s",pi3->name2.c_str());
+		sprintf((char*)temp,"the left arm of %s",pi3->name2().ascii());
 		P_ITEM pi6 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA1,0,0,0);
 		if(pi6==NULL) return;
 		pi6->SetContSerial(pi3->serial);
@@ -1615,7 +1615,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pi6->setOwnSerialOnly(pi3->ownserial);	// see above
 
 		//create the Right Arm
-		sprintf((char*)temp,"the right arm of %s",pi3->name2.c_str());
+		sprintf((char*)temp,"the right arm of %s",pi3->name2().ascii());
 		P_ITEM pi7 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA2,0,0,0);
 		if(pi7==NULL) return;//AntiChrist to preview crashes
 		pi7->SetContSerial(pi3->serial);
@@ -1624,7 +1624,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pi7->setOwnSerialOnly(pi3->ownserial);	// see above
 
 		//create the Left Leg
-		sprintf((char*)temp,"the left leg of %s",pi3->name2.c_str());
+		sprintf((char*)temp,"the left leg of %s",pi3->name2().ascii());
 		P_ITEM pi8 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA3,0,0,0);
 		if(pi8 == NULL) return;//AntiChrist to preview crashes
 		pi8->SetContSerial(pi3->serial);
@@ -1633,7 +1633,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pi8->setOwnSerialOnly(pi3->ownserial);	// see above
 
 		//create the Rigth Leg
-		sprintf((char*)temp,"the right leg of %s",pi3->name2.c_str());
+		sprintf((char*)temp,"the right leg of %s",pi3->name2().ascii());
 		P_ITEM pi9=Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA4,0,0,0);
 		if(pi9==NULL) return;
 		
@@ -1728,7 +1728,7 @@ static void CorpseTarget(const P_CLIENT pC)
 				}
 				else
 				{// else use standard carving
-					switch (pi->amount)
+					switch (pi->amount())
 					{
 						case 0x01: 
 							CarveTarget(s, 0, 2, 0, 0, 0, 0);
@@ -2436,7 +2436,7 @@ static void CorpseTarget(const P_CLIENT pC)
 							// case 0x0351-case 0x03F5: break; //-NULL-
 							// case 0x03E6: break; //Kirin (another one) (not working! why??)
 						default:
-							LogErrorVar("Fallout of switch statement, value <%i>", pi->amount);
+							LogErrorVar("Fallout of switch statement, value <%i>", pi->amount());
 					}// switch
 				}// if morey || carve>-1
 			}
@@ -2469,8 +2469,8 @@ static void BladeTarget(P_CLIENT pC, PKGx6C *pp)
 		const P_ITEM rpi=FindItemBySerial(pp->Tserial);
 		short int amt=0;
 		if (!rpi) return;
-		if (rpi->amount>1)
-			amt=(rpi->amount*4);
+		if (rpi->amount()>1)
+			amt=(rpi->amount()*4);
 		else
 			amt=4; 
 		soundeffect(s,0x00,0x50);
@@ -4022,7 +4022,7 @@ static void ItemTarget(P_CLIENT ps, PKGx6C *pt)
 			sysmessage(s, "No amounts over 64k in a pile!");
 			return;
 		}
-		pi->amount2=addx[s];
+		pi->setAmount2( addx[s] );
 		RefreshItem(pi);
 		break;
 	case 133://SetWipeTarget

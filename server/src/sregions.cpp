@@ -636,7 +636,7 @@ void cRespawn::Continue()
 				}
 			}
 
-			if (k < pi->amount)	// lord binary, adds spawn amount checking
+			if (k < pi->amount())	// lord binary, adds spawn amount checking
 			{
 				Npcs->AddNPC(-1, pi, pi->morex);
 				pi->gatetime=0;

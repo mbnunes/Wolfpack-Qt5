@@ -471,8 +471,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 									{
 										sprintf(tempstr, "Your %s was too old and it has been destroyed!", tempname);
 										sysmessage(ts, tempstr);
-										if (pi->amount>1)
-											pi->amount--;
+										if (pi->amount()>1)
+											pi->ReduceAmount( 1 );
 										else // -Frazurbluu- may need check here for new trigger if can be done while equipped
 											Items->DeleItem(pi);
 									}
@@ -547,8 +547,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 									{
 										sprintf(tempstr, "Your %s was too old and it has been destroyed!", tempname2);
 										sysmessage(ts, tempstr);
-										if (pi_evti->amount>1)
-											pi_evti->amount--;
+										if (pi_evti->amount()>1)
+											pi_evti->ReduceAmount( 1 );
 										else 
 											Items->DeleItem(pi_evti);
 									}
@@ -603,8 +603,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 									{
 										sprintf(tempstr, "Your %s was too old and it has been destroyed!", tempname2);
 										sysmessage(ts, tempstr);
-										if (pi_evti->amount>1)
-											pi_evti->amount--;
+										if (pi_evti->amount()>1)
+											pi_evti->ReduceAmount( 1 );
 										else 
 											Items->DeleItem(pi_evti);
 									}
@@ -1069,8 +1069,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 										{
 											sprintf(tempstr, "Your %s was too old and it has been destoryed!", tempname);
 											sysmessage(ts, tempstr);
-											if (pi->amount>1)
-												pi->amount--;
+											if (pi->amount()>1)
+												pi->ReduceAmount( 1 );
 											else 
 												Items->DeleItem(pi);
 										}
@@ -1372,8 +1372,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 										{
 											sprintf(tempstr, "Your %s was too old and it has been destroyed!", tempname3);
 											sysmessage(ts, tempstr);
-											if (pi_needitem->amount>1)
-												pi_needitem->amount--;
+											if (pi_needitem->amount()>1)
+												pi_needitem->ReduceAmount( 1 );
 											else 
 												Items->DeleItem(pi_needitem);
 										}
@@ -1427,8 +1427,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 										{
 											sprintf(tempstr, "Your %s was too old and it has been destoryed!", tempname3);
 											sysmessage(ts, tempstr);
-											if (pi_needitem->amount>1)
-												pi_needitem->amount--;
+											if (pi_needitem->amount()>1)
+												pi_needitem->ReduceAmount( 1 );
 											else 
 												Items->DeleItem(pi_needitem);
 										}
@@ -1747,9 +1747,9 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						{
 							if (pi!=NULL)
 							{
-								if (pi->amount>1)
+								if (pi->amount()>1)
 								{
-									pi->amount--;
+									pi->ReduceAmount( 1 );
 								}
 								else 
 								{
@@ -2015,8 +2015,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							}
 							else
 							{
-								if (pi_needitem->amount>1)
-									pi_needitem->amount--;
+								if (pi_needitem->amount()>1)
+									pi_needitem->ReduceAmount( 1 );
 								else
 									Items->DeleItem(pi_needitem);
 							}
@@ -2227,8 +2227,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 									if (pi_evti->hp <= 0)
 									{
 										sysmessage(ts, "Your %s was too old and it has been destroyed!", tempname2);
-										if (pi_evti->amount>1)
-											pi_evti->amount--;
+										if (pi_evti->amount()>1)
+											pi_evti->ReduceAmount( 1 );
 										else 
 											Items->DeleItem(pi_evti);
 									}
@@ -2301,8 +2301,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 									if (pi_evti->maxhp <= 0)
 									{
 										sysmessage(ts, "Your %s was too old and it has been destroyed!", tempname2);
-										if (pi_evti->amount>1)
-											pi_evti->amount--;
+										if (pi_evti->amount()>1)
+											pi_evti->ReduceAmount( 1 );
 										else 
 											Items->DeleItem(pi_evti);
 									}
@@ -3112,8 +3112,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							}
 							else 
 							{
-								if (pi_needitem->amount>1)
-									pi_needitem->amount--;
+								if (pi_needitem->amount()>1)
+									pi_needitem->ReduceAmount( 1 );
 								else
 									Items->DeleItem(pi_needitem);
 							}
