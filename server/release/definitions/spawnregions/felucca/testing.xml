@@ -3,17 +3,12 @@
 
 	<spawnregion id="felucca_testing_1">
 		<maxnpcamount>10</maxnpcamount>
-		<maxitemamount>10</maxitemamount>
 		<mintime>2</mintime>
 		<maxtime>5</maxtime>
 		<npcs>
 			<npc>headless</npc>
 		</npcs>
-		<items>
-			<item inherit="eed"><amount>100</amount></item>
-		</items>
 		<npcspercycle>1</npcspercycle>
-		<itemspercycle>1</itemspercycle>
 		<rectangle x1="1377" x2="1387" y1="3808" y2="3822" map="0" />
 	</spawnregion>
 
