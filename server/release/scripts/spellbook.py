@@ -55,6 +55,19 @@ def onCommand( socket, command, arguments ):
 			
 		socket.sysmessage( 'Select the spellbook you want to remove the spell from.' )
 		socket.attachtarget( "spellbook.removespelltarget", [ spell ] )
+		
+# Does the Spellbook have a specific spell?
+def hasspell( item, spell ):
+	if item and 'spellbook' in items.events:	
+		circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
+		spell = spell % 8
+		
+		if item.hastag( 'circle' + str( circle ) ):
+			spells = int( item.gettag( 'circle' + str( circle ) ) )
+			
+			return spells & ( 0x01 << spell )		
+		
+	return 0	
 
 # Adds the specified spell to the specified spellbook
 def addspell( item, spell ):
