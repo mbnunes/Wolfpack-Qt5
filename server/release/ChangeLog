@@ -160,6 +160,9 @@ Wolfpack 12.9.13 Beta (SVN)
  * Misc. Changes:
   - FAQ Updates.
   - Now compiling with the KDE Cygwin QT version on Windows. (http://kde-cygwin.sf.net)
+  - Updated the gm tool a little. It now has support for the samurai empire maps. 
+  	In addition to fixing some bugs, it also has an experimental region rectangle generator
+  	on the settings tab.
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
   - Spawn regions are incomplete.
