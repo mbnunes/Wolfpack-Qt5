@@ -56,6 +56,8 @@
 		
 		<intproperty name="hit_poison_level" value="5" />
 		<basescript>npc.poison</basescript>
+		
+		<intproperty name="poison_immunity" value="2" />
 	</npc>
 
 </definitions>
