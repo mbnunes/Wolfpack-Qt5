@@ -729,7 +729,7 @@ bool cUObject::onCreate( const QString &definition )
 	{
 		PyObject *args = Py_BuildValue( "O&s", PyGetObjectObject, this, definition.latin1() );
 
-		result = cPythonScript::callChainedEventHandler( EVENT_SHOWTOOLTIP, scriptChain, args );
+		result = cPythonScript::callChainedEventHandler( EVENT_CREATE, scriptChain, args );
 
 		if( !result && global )
 			result = global->callEventHandler( EVENT_CREATE, args );
