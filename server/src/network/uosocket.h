@@ -278,20 +278,35 @@ private:
 private:
 	QValueVector<cUORxWalkRequest> packetQueue;
 
-	QSocketDevice* _socket;
-	unsigned int _rxBytes, _txBytes, _uniqueId, _lastActivity;
+	unsigned int _uniqueId;
+	unsigned int _lastActivity;
+
+
+
+	Q_UINT8 _walkSequence;
+	Q_UINT8 lastPacket;
+	eSocketState _state;
+	QString _lang;
+	cTargetRequest* targetRequest;
 	cAccount* _account;
 	P_PLAYER _player;
-	eSocketState _state;
-	Q_UINT8 lastPacket, _viewRange, _walkSequence;
-	cTargetRequest* targetRequest;
-	QString _lang, _version;
+
+	unsigned int _rxBytes;
+	unsigned int _txBytes;
+	QSocketDevice* _socket;
+	unsigned short _screenWidth;
+	unsigned short _screenHeight;
+
+
+
+	Q_UINT8 _viewRange;
+
+	QString _version;
 	cCustomTags tags_;
 	QString _ip; // IP used to connect
 	QBitArray* tooltipscache_;
 	QPtrList<cContextMenu> contextMenu_;
 	QMap<SERIAL, cGump*> gumps;
-	unsigned short _screenWidth, _screenHeight;
 
 	bool authenticate( const QString& username, const QString& password );
 

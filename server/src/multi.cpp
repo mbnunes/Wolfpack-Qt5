@@ -242,7 +242,7 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, QPtrList<cUObje
 
 			// Check every tile of the multi at the current position
 			// The following algorithm is more or less a ripoff of RunUOs idea.
-			for ( int i = 0; i < multiItems.size(); ++i )
+			for ( unsigned int i = 0; i < multiItems.size(); ++i )
 			{
 				multiItem_st multiItem = multiItems[i];
 				tile_st tile = TileCache::instance()->getTile( multiItem.tile );

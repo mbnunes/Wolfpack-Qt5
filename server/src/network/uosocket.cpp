@@ -316,93 +316,124 @@ void cUOSocket::recieve()
 	// Relay it to the handler functions
 	switch ( packetId )
 	{
-	case 0x00:
-		handleCreateChar( dynamic_cast<cUORxCreateChar*>( packet ) ); break;
-	case 0x01:
-		// Disconnect Notification recieved, should NEVER happen as it's unused now
-		disconnect(); break;
-	case 0x02:
-		// just want to walk a little.
-		handleWalkRequest( dynamic_cast<cUORxWalkRequest*>( packet ) );
-		break;
-	case 0x05:
-		handleRequestAttack( dynamic_cast<cUORxRequestAttack*>( packet ) );
-		break;
-	case 0x06:
-		handleDoubleClick( dynamic_cast<cUORxDoubleClick*>( packet ) );
-		break;
-	case 0x07:
-		DragAndDrop::grabItem( this, dynamic_cast<cUORxDragItem*>( packet ) ); break;
-	case 0x08:
-		DragAndDrop::dropItem( this, dynamic_cast<cUORxDropItem*>( packet ) ); break;
-	case 0x09:
-		handleRequestLook( dynamic_cast<cUORxRequestLook*>( packet ) ); break;
-	case 0x12:
-		handleAction( dynamic_cast<cUORxAction*>( packet ) ); break;
-	case 0x13:
-		DragAndDrop::equipItem( this, dynamic_cast<cUORxWearItem*>( packet ) ); break;
-	case 0x22:
-		resync(); break;
-	case 0x2C:
-		handleResurrectionMenu( dynamic_cast<cUORxResurrectionMenu*>( packet ) ); break;
-	case 0x34:
-		handleQuery( dynamic_cast<cUORxQuery*>( packet ) ); break;
-	case 0x3A:
-		handleSkillLock( dynamic_cast<cUORxSkillLock*>( packet ) ); break;
-	case 0x3B:
-		handleBuy( dynamic_cast<cUORxBuy*>( packet ) ); break;
-	case 0x5D:
-		handlePlayCharacter( dynamic_cast<cUORxPlayCharacter*>( packet ) ); break;
-	case 0x6c:
-		handleTarget( dynamic_cast<cUORxTarget*>( packet ) ); break;
-	case 0x6F:
-		handleSecureTrading( dynamic_cast<cUORxSecureTrading*>( packet ) ); break;
-	case 0x72:
-		handleChangeWarmode( dynamic_cast<cUORxChangeWarmode*>( packet ) ); break;
-	case 0x73:
-		break; // Pings are handeled
-	case 0x75:
-		handleRename( dynamic_cast<cUORxRename*>( packet ) ); break;
-	case 0x80:
-		handleLoginRequest( dynamic_cast<cUORxLoginRequest*>( packet ) ); break;
-	case 0x83:
-		handleDeleteCharacter( dynamic_cast<cUORxDeleteCharacter*>( packet ) ); break;
-	case 0x91:
-		handleServerAttach( dynamic_cast<cUORxServerAttach*>( packet ) ); break;
-	case 0x98:
-		handleAllNames( dynamic_cast<cUORxAllNames*>( packet ) ); break;
-	case 0x9B:
-		handleHelpRequest( dynamic_cast<cUORxHelpRequest*>( packet ) ); break;
-	case 0x9F:
-		handleSell( dynamic_cast<cUORxSell*>( packet ) ); break;
-	case 0xA0:
-		handleSelectShard( dynamic_cast<cUORxSelectShard*>( packet ) ); break;
-	case 0xA4:
-		handleHardwareInfo( dynamic_cast<cUORxHardwareInfo*>( packet ) ); break;
-	case 0xA7:
-		handleGetTip( dynamic_cast<cUORxGetTip*>( packet ) ); break;
-	case 0xAD:
-		handleSpeechRequest( dynamic_cast<cUORxSpeechRequest*>( packet ) ); break;
-	case 0xB1:
-		handleGumpResponse( dynamic_cast<cUORxGumpResponse*>( packet ) ); break;
-	case 0xB5:
-		handleChat( packet ); break;
-	case 0xB8:
-		handleProfile( dynamic_cast<cUORxProfile*>( packet ) ); break;
-	case 0xBD:
-		_version = dynamic_cast<cUORxSetVersion*>( packet )->version(); break;
-	case 0xBF:
-		handleMultiPurpose( dynamic_cast<cUORxMultiPurpose*>( packet ) ); break;
-	case 0xC8:
-		handleUpdateRange( dynamic_cast<cUORxUpdateRange*>( packet ) ); break;
-	case 0xD7:
-		handleAosMultiPurpose( dynamic_cast<cUORxAosMultiPurpose*>( packet ) ); break;
-	case 0xB6:
-		break; // Completely ignore the packet.
-	default:
-		Console::instance()->send( packet->dump( packet->uncompressed() ) );
-		delete packet;
-		return;
+		case 0x00:
+			handleCreateChar( dynamic_cast<cUORxCreateChar*>( packet ) );
+			break;
+		case 0x01:
+			// Disconnect Notification recieved, should NEVER happen as it's unused now
+			disconnect();
+			break;
+		case 0x02:
+			// just want to walk a little.
+			handleWalkRequest( dynamic_cast<cUORxWalkRequest*>( packet ) );
+			break;
+		case 0x05:
+			handleRequestAttack( dynamic_cast<cUORxRequestAttack*>( packet ) );
+			break;
+		case 0x06:
+			handleDoubleClick( dynamic_cast<cUORxDoubleClick*>( packet ) );
+			break;
+		case 0x07:
+			DragAndDrop::grabItem( this, dynamic_cast<cUORxDragItem*>( packet ) );
+			break;
+		case 0x08:
+			DragAndDrop::dropItem( this, dynamic_cast<cUORxDropItem*>( packet ) );
+			break;
+		case 0x09:
+			handleRequestLook( dynamic_cast<cUORxRequestLook*>( packet ) );
+			break;
+		case 0x12:
+			handleAction( dynamic_cast<cUORxAction*>( packet ) );
+			break;
+		case 0x13:
+			DragAndDrop::equipItem( this, dynamic_cast<cUORxWearItem*>( packet ) );
+			break;
+		case 0x22:
+			resync();
+			break;
+		case 0x2C:
+			handleResurrectionMenu( dynamic_cast<cUORxResurrectionMenu*>( packet ) ); break;
+		case 0x34:
+			handleQuery( dynamic_cast<cUORxQuery*>( packet ) );
+			break;
+		case 0x3A:
+			handleSkillLock( dynamic_cast<cUORxSkillLock*>( packet ) );
+			break;
+		case 0x3B:
+			handleBuy( dynamic_cast<cUORxBuy*>( packet ) );
+			break;
+		case 0x5D:
+			handlePlayCharacter( dynamic_cast<cUORxPlayCharacter*>( packet ) );
+			break;
+		case 0x6c:
+			handleTarget( dynamic_cast<cUORxTarget*>( packet ) );
+			break;
+		case 0x6F:
+			handleSecureTrading( dynamic_cast<cUORxSecureTrading*>( packet ) );
+			break;
+		case 0x72:
+			handleChangeWarmode( dynamic_cast<cUORxChangeWarmode*>( packet ) );
+			break;
+		case 0x73:
+			break; // Pings are handeled
+		case 0x75:
+			handleRename( dynamic_cast<cUORxRename*>( packet ) );
+			break;
+		case 0x80:
+			handleLoginRequest( dynamic_cast<cUORxLoginRequest*>( packet ) );
+			break;
+		case 0x83:
+			handleDeleteCharacter( dynamic_cast<cUORxDeleteCharacter*>( packet ) );
+			break;
+		case 0x91:
+			handleServerAttach( dynamic_cast<cUORxServerAttach*>( packet ) );
+			break;
+		case 0x98:
+			handleAllNames( dynamic_cast<cUORxAllNames*>( packet ) );
+			break;
+		case 0x9B:
+			handleHelpRequest( dynamic_cast<cUORxHelpRequest*>( packet ) );
+			break;
+		case 0x9F:
+			handleSell( dynamic_cast<cUORxSell*>( packet ) ); break;
+		case 0xA0:
+			handleSelectShard( dynamic_cast<cUORxSelectShard*>( packet ) );
+			break;
+		case 0xA4:
+			handleHardwareInfo( dynamic_cast<cUORxHardwareInfo*>( packet ) );
+			break;
+		case 0xA7:
+			handleGetTip( dynamic_cast<cUORxGetTip*>( packet ) );
+			break;
+		case 0xAD:
+			handleSpeechRequest( dynamic_cast<cUORxSpeechRequest*>( packet ) );
+			break;
+		case 0xB1:
+			handleGumpResponse( dynamic_cast<cUORxGumpResponse*>( packet ) );
+			break;
+		case 0xB5:
+			handleChat( packet ); break;
+		case 0xB8:
+			handleProfile( dynamic_cast<cUORxProfile*>( packet ) );
+			break;
+		case 0xBD:
+			_version = dynamic_cast<cUORxSetVersion*>( packet )->version();
+			break;
+		case 0xBF:
+			handleMultiPurpose( dynamic_cast<cUORxMultiPurpose*>( packet ) );
+			break;
+		case 0xC8:
+			handleUpdateRange( dynamic_cast<cUORxUpdateRange*>( packet ) );
+			break;
+		case 0xD7:
+			handleAosMultiPurpose( dynamic_cast<cUORxAosMultiPurpose*>( packet ) );
+			break;
+		case 0xB6:
+			break; // Completely ignore the packet.
+		default:
+			Console::instance()->send( packet->dump( packet->uncompressed() ) );
+			delete packet;
+			return;
 	}
 
 	// We received a packet we know
@@ -861,33 +892,41 @@ bool cUOSocket::authenticate( const QString& username, const QString& password )
 
 		switch ( error )
 		{
-		case cAccounts::LoginNotFound:
-			if ( Config::instance()->autoAccountCreate() )
+			case cAccounts::LoginNotFound:
 			{
-				authRet = Accounts::instance()->createAccount( username, password );
-				_account = authRet;
+				if ( Config::instance()->autoAccountCreate() )
+				{
+					authRet = Accounts::instance()->createAccount( username, password );
+					_account = authRet;
 
-				log( tr( "Automatically created account '%1'.\n" ).arg( username ) );
-				return true;
+					log( tr( "Automatically created account '%1'.\n" ).arg( username ) );
+					return true;
+				}
+				else
+				{
+					denyPacket.setReason( cUOTxDenyLogin::DL_NOACCOUNT );
+				}
+				break;
 			}
-			else
-				denyPacket.setReason( cUOTxDenyLogin::DL_NOACCOUNT );
-			break;
-		case cAccounts::BadPassword:
-			log( tr( "Failed to log in as '%1', wrong password\n" ).arg( username ) );
-			denyPacket.setReason( cUOTxDenyLogin::DL_BADPASSWORD );
-			break;
-		case cAccounts::Wipped:
-		case cAccounts::Banned:
-			log( tr( "Failed to log in as '%1', Wipped/Banned account\n" ).arg( username ) );
-			denyPacket.setReason( cUOTxDenyLogin::DL_BLOCKED );
-			break;
-		case cAccounts::AlreadyInUse:
-			log( tr( "Failed to log in as '%1', account is already in use\n" ).arg( username ) );
-			denyPacket.setReason( cUOTxDenyLogin::DL_INUSE );
-			break;
-		case cAccounts::NoError:
-			break;
+			case cAccounts::BadPassword:
+			{
+				log( tr( "Failed to log in as '%1', wrong password\n" ).arg( username ) );
+				denyPacket.setReason( cUOTxDenyLogin::DL_BADPASSWORD );
+				break;
+			}
+			case cAccounts::Wipped:
+			case cAccounts::Banned:
+				log( tr( "Failed to log in as '%1', Wipped/Banned account\n" ).arg( username ) );
+				denyPacket.setReason( cUOTxDenyLogin::DL_BLOCKED );
+				break;
+			case cAccounts::AlreadyInUse:
+				log( tr( "Failed to log in as '%1', account is already in use\n" ).arg( username ) );
+				denyPacket.setReason( cUOTxDenyLogin::DL_INUSE );
+				break;
+			case cAccounts::NoError:
+				break;
+			default:
+				break;
 		};
 
 		log( tr( "Failed to log in as '%1'.\n" ).arg( username ) );
@@ -1262,60 +1301,76 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose* packet )
 	switch ( packet->subCommand() )
 	{
 		// Screen Size
-	case cUORxMultiPurpose::screenSize:
-		if ( packet->size() >= 13 )
-		{
-			_screenWidth = packet->getShort( 7 );
-			_screenHeight = packet->getShort( 9 );
-		}
-		return;
+		case cUORxMultiPurpose::screenSize:
+			if ( packet->size() >= 13 )
+			{
+				_screenWidth = packet->getShort( 7 );
+				_screenHeight = packet->getShort( 9 );
+			}
+			return;
+			break;
 
-	case 0x0e:
-		return;
+		case 0x0e:
+			return;
+			break;
 
-		// Ignore this packet (Unknown Login Info)
-	case cUORxMultiPurpose::unknownLoginInfo:
-		return;
+			// Ignore this packet (Unknown Login Info)
+		case cUORxMultiPurpose::unknownLoginInfo:
+			return;
+			break;
 
-		// Ignore this packet (Status gump closed)
-	case cUORxMultiPurpose::closedStatusGump:
-		return;
+			// Ignore this packet (Status gump closed)
+		case cUORxMultiPurpose::closedStatusGump:
+			return;
+			break;
 
-	case cUORxMultiPurpose::setLanguage:
-		handleSetLanguage( dynamic_cast<cUORxSetLanguage*>( packet ) );
-		return;
+		case cUORxMultiPurpose::setLanguage:
+			handleSetLanguage( dynamic_cast<cUORxSetLanguage*>( packet ) );
+			return;
+			break;
 
-	case cUORxMultiPurpose::contextMenuRequest:
-		handleContextMenuRequest( dynamic_cast<cUORxContextMenuRequest*>( packet ) );
-		return;
+		case cUORxMultiPurpose::contextMenuRequest:
+			handleContextMenuRequest( dynamic_cast<cUORxContextMenuRequest*>( packet ) );
+			return;
+			break;
 
-	case cUORxMultiPurpose::contextMenuSelection:
-		handleContextMenuSelection( dynamic_cast<cUORxContextMenuSelection*>( packet ) );
-		return;
+		case cUORxMultiPurpose::contextMenuSelection:
+			handleContextMenuSelection( dynamic_cast<cUORxContextMenuSelection*>( packet ) );
+			return;
+			break;
 
-	case cUORxMultiPurpose::castSpell:
-		handleCastSpell( dynamic_cast<cUORxCastSpell*>( packet ) );
-		return;
+		case cUORxMultiPurpose::castSpell:
+			handleCastSpell( dynamic_cast<cUORxCastSpell*>( packet ) );
+			return;
+			break;
 
-	case cUORxMultiPurpose::toolTip:
-		handleToolTip( dynamic_cast<cUORxRequestToolTip*>( packet ) );
-		return;
+		case cUORxMultiPurpose::toolTip:
+			handleToolTip( dynamic_cast<cUORxRequestToolTip*>( packet ) );
+			return;
+			break;
 
-	case cUORxMultiPurpose::customHouseRequest:
-		handleCustomHouseRequest( dynamic_cast<cUORxCustomHouseRequest*>( packet ) );
-		return;
+		case cUORxMultiPurpose::customHouseRequest:
+			handleCustomHouseRequest( dynamic_cast<cUORxCustomHouseRequest*>( packet ) );
+			return;
+			break;
 
-	case cUORxMultiPurpose::extendedStats:
-		handleExtendedStats( dynamic_cast<cUORxExtendedStats*>( packet ) );
-		return;
+		case cUORxMultiPurpose::extendedStats:
+			handleExtendedStats( dynamic_cast<cUORxExtendedStats*>( packet ) );
+			return;
+			break;
 
-	case cUORxMultiPurpose::partySystem:
-		handleParty( packet );
-		return;
+		case cUORxMultiPurpose::partySystem:
+			handleParty( packet );
+			return;
+			break;
 
-		// Unknown Packet
-	case 0x24:
-		return;
+			// Unknown Packet
+		case 0x24:
+			return;
+			break;
+
+		default:
+			break;
 	};
 
 	QString message;
@@ -1335,39 +1390,51 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose* packet )
 
 	switch ( packet->subCommand() )
 	{
-	case cUORxAosMultiPurpose::CHBackup:
-		handleCHBackup( packet ); break;
-	case cUORxAosMultiPurpose::CHRestore:
-		handleCHRestore( packet ); break;
-	case cUORxAosMultiPurpose::CHCommit:
-		handleCHCommit( packet ); break;
-	case cUORxAosMultiPurpose::CHDelete:
-		handleCHDelete( dynamic_cast<cUORxCHDelete*>( packet ) ); break;
-	case cUORxAosMultiPurpose::CHAddElement:
-		handleCHAddElement( dynamic_cast<cUORxCHAddElement*>( packet ) ); break;
-	case cUORxAosMultiPurpose::CHClose:
-		handleCHClose( packet ); break;
-	case cUORxAosMultiPurpose::CHStairs:
-		handleCHStairs( dynamic_cast<cUORxCHStairs*>( packet ) ); break;
-	case cUORxAosMultiPurpose::CHSync:
-		handleCHSync( packet ); break;
-	case cUORxAosMultiPurpose::CHClear:
-		handleCHClear( packet ); break;
-	case cUORxAosMultiPurpose::CHLevel:
-		handleCHLevel( dynamic_cast<cUORxCHLevel*>( packet ) ); break;
-	case cUORxAosMultiPurpose::CHRevert:
-		handleCHRevert( packet ); break;
-	case cUORxAosMultiPurpose::GuildButton:
-		{
-			PyObject *args = Py_BuildValue( "(N)", _player->getPyObject() );
-			_player->callEventHandler( EVENT_GUILDBUTTON, args );
-			Py_DECREF( args );
-		}
-		break;
-		/*		case cUORxAosMultiPurpose::AbilitySelect:
-								handleAbilitySelect( dynamic_cast< */
-	default:
-		Console::instance()->log( LOG_WARNING, packet->dump( packet->uncompressed() ) );
+		case cUORxAosMultiPurpose::CHBackup:
+			handleCHBackup( packet );
+			break;
+		case cUORxAosMultiPurpose::CHRestore:
+			handleCHRestore( packet );
+			break;
+		case cUORxAosMultiPurpose::CHCommit:
+			handleCHCommit( packet );
+			break;
+		case cUORxAosMultiPurpose::CHDelete:
+			handleCHDelete( dynamic_cast<cUORxCHDelete*>( packet ) );
+			break;
+		case cUORxAosMultiPurpose::CHAddElement:
+			handleCHAddElement( dynamic_cast<cUORxCHAddElement*>( packet ) );
+			break;
+		case cUORxAosMultiPurpose::CHClose:
+			handleCHClose( packet );
+			break;
+		case cUORxAosMultiPurpose::CHStairs:
+			handleCHStairs( dynamic_cast<cUORxCHStairs*>( packet ) );
+			break;
+		case cUORxAosMultiPurpose::CHSync:
+			handleCHSync( packet );
+			break;
+		case cUORxAosMultiPurpose::CHClear:
+			handleCHClear( packet );
+			break;
+		case cUORxAosMultiPurpose::CHLevel:
+			handleCHLevel( dynamic_cast<cUORxCHLevel*>( packet ) );
+			break;
+		case cUORxAosMultiPurpose::CHRevert:
+			handleCHRevert( packet );
+			break;
+		case cUORxAosMultiPurpose::GuildButton:
+			{
+				PyObject *args = Py_BuildValue( "(N)", _player->getPyObject() );
+				_player->callEventHandler( EVENT_GUILDBUTTON, args );
+				Py_DECREF( args );
+			}
+			break;
+			/*		case cUORxAosMultiPurpose::AbilitySelect:
+									handleAbilitySelect( dynamic_cast< */
+		default:
+			Console::instance()->log( LOG_WARNING, packet->dump( packet->uncompressed() ) );
+			break;
 	};
 }
 #pragma message(Reminder "Implement Custom House subcommands here")
@@ -1928,155 +1995,128 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 
 	switch ( pCont->id() )
 	{
-	case 0x0E75:
-		// Backpack
-	case 0x0E79:
-		// Box/Pouch
-		gump = 0x3C; break;
+		case 0x0E75: // Backpack
+		case 0x0E79: // Box/Pouch
+			gump = 0x3C;
+			break;
 
-	case 0x0E76:
-		// Leather Bag
-		gump = 0x3D; break;
+		case 0x0E76: // Leather Bag
+			gump = 0x3D;
+			break;
 
-	case 0x0E77:
-		// Barrel
-	case 0x0E7F:
-		// Keg
-	case 0xFAE:
-		gump = 0x3E; break;
+		case 0x0E77: // Barrel
+		case 0x0E7F: // Keg
+		case 0xFAE:
+			gump = 0x3E;
+			break;
 
-	case 0x0E7A:
-		// Picknick Basket
-		gump = 0x3F; break;
+		case 0x0E7A: // Picknick Basket
+			gump = 0x3F;
+			break;
 
-	case 0x0E7C:
-		// Silver Chest
-		gump = 0x4A; break;
+		case 0x0E7C: // Silver Chest
+			gump = 0x4A;
+			break;
 
-	case 0x0E7D:
-		// Wooden Box
-		gump = 0x43; break;
+		case 0x0E7D: // Wooden Box
+			gump = 0x43;
+			break;
 
-	case 0x0E3D:
-		// Large Wooden Crate
-	case 0x0E3C:
-		// Large Wooden Crate
-	case 0x0E3F:
-		// Small Wooden Crate
-	case 0x0E3E:
-		// Small Wooden Crate
-	case 0x0E7E:
-		// Wooden Crate
-		gump = 0x44; break;
+		case 0x0E3D: // Large Wooden Crate
+		case 0x0E3C: // Large Wooden Crate
+		case 0x0E3F: // Small Wooden Crate
+		case 0x0E3E: // Small Wooden Crate
+		case 0x0E7E: // Wooden Crate
+			gump = 0x44;
+			break;
 
-	case 0x0E80:
-		// Brass Box
-		gump = 0x4B; break;
+		case 0x0E80: // Brass Box
+			gump = 0x4B;
+			break;
 
-	case 0x0E40:
-		// Metal & Gold Chest
-	case 0x0E41:
-		// Metal & Gold Chest
-		gump = 0x42; break;
+		case 0x0E40: // Metal & Gold Chest
+		case 0x0E41: // Metal & Gold Chest
+			gump = 0x42;
+			break;
 
-	case 0x0E43:
-		// Wooden & Gold chest
-	case 0x0E42:
-		// Wooden & Gold Chest
-		gump = 0x49; break;
+		case 0x0E43: // Wooden & Gold chest
+		case 0x0E42: // Wooden & Gold Chest
+			gump = 0x49;
+			break;
 
-	case 0x0990:
-		// Round Basket
-	case 0x9AC:
-	case 0x9B1:
-		gump = 0x41; break;
+		case 0x0990: // Round Basket
+		case 0x9AC:
+		case 0x9B1:
+			gump = 0x41;
+			break;
 
-	case 0x09B2:
-		// Backpack 2
-		gump = 0x3C; break;
+		case 0x09B2: // Backpack 2
+			gump = 0x3C;
+			break;
 
-	case 0x09AA:
-		// Wooden Box
-		gump = 0x43; break;
+		case 0x09AA: // Wooden Box
+			gump = 0x43;
+			break;
 
-	case 0x09A8:
-		// Metal Box
-		gump = 0x40; break;
+		case 0x09A8: // Metal Box
+			gump = 0x40;
+			break;
 
-	case 0x09AB:
-		// Metal/Silver Chest
-		gump = 0x4A; break;
+		case 0x09AB: // Metal/Silver Chest
+			gump = 0x4A;
+			break;
 
-	case 0x09A9:
-		// Small Wooden Crate
-		gump = 0x44; break;
+		case 0x09A9: // Small Wooden Crate
+			gump = 0x44;
+			break;
 
-	case 0x2006:
-		// Coffin
-		gump = 0x09; break;
+		case 0x2006: // Coffin
+			gump = 0x09;
+			break;
 
-	case 0x0A97:
-		// Bookcase
-	case 0x0A98:
-		// Bookcase
-	case 0x0A99:
-		// Bookcase
-	case 0x0A9a:
-		// Bookcase
-	case 0x0A9b:
-		// Bookcase
-	case 0x0A9c:
-		// Bookcase
-	case 0x0A9d:
-		// Bookcase
-	case 0x0A9e:
-		// Bookcase
-		gump = 0x4d; break;
+		case 0x0A97: // Bookcase
+		case 0x0A98: // Bookcase
+		case 0x0A99: // Bookcase
+		case 0x0A9a: // Bookcase
+		case 0x0A9b: // Bookcase
+		case 0x0A9c: // Bookcase
+		case 0x0A9d: // Bookcase
+		case 0x0A9e: // Bookcase
+			gump = 0x4d;
+			break;
 
-	case 0x0A4d:
-		// Fancy Armoire
-	case 0x0A51:
-		// Fancy Armoire
-	case 0x0A4c:
-		// Fancy Armoire
-	case 0x0A50:
-		// Fancy Armoire
-		gump = 0x4e; break;
+		case 0x0A4d: // Fancy Armoire
+		case 0x0A51: // Fancy Armoire
+		case 0x0A4c: // Fancy Armoire
+		case 0x0A50: // Fancy Armoire
+			gump = 0x4e;
+			break;
 
-	case 0x0A4f:
-		// Wooden Armoire
-	case 0x0A53:
-		// Wooden Armoire
-	case 0x0A4e:
-		// Wooden Armoire
-	case 0x0A52:
-		// Wooden Armoire
-		gump = 0x4f; break;
+		case 0x0A4f: // Wooden Armoire
+		case 0x0A53: // Wooden Armoire
+		case 0x0A4e: // Wooden Armoire
+		case 0x0A52: // Wooden Armoire
+			gump = 0x4f;
+			break;
 
-	case 0x0A30:
-		// chest of drawers (fancy)
-	case 0x0A38:
-		// chest of drawers (fancy)
-		gump = 0x48; break;
+		case 0x0A30: // chest of drawers (fancy)
+		case 0x0A38: // chest of drawers (fancy)
+			gump = 0x48;
+			break;
 
-	case 0x0A2c:
-		// chest of drawers (wood)
-	case 0x0A34:
-		// chest of drawers (wood)
-	case 0x0A3c:
-		// Dresser
-	case 0x0A3d:
-		// Dresser
-	case 0x0A44:
-		// Dresser
-	case 0x0A35:
-		// Dresser
-		gump = 0x51; break;
+		case 0x0A2c: // chest of drawers (wood)
+		case 0x0A34: // chest of drawers (wood)
+		case 0x0A3c: // Dresser
+		case 0x0A3d: // Dresser
+		case 0x0A44: // Dresser
+		case 0x0A35: // Dresser
+			gump = 0x51;
+			break;
 
-	default:
-		if ( ( ( pCont->id() & 0xFF00 ) >> 8 ) == 0x3E )
-			gump = 0x4C;
-		break;
+		default:
+			if ( ( ( pCont->id() & 0xFF00 ) >> 8 ) == 0x3E )
+				gump = 0x4C;
+			break;
 	}
 
 	// If its one of the "invisible" layers send an equip item packet first
@@ -2521,7 +2561,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setDexterity( _player->dexterity() );
 		sendStats.setIntelligence( _player->intelligence() );
 		sendStats.setWeight( ( short unsigned int ) _player->weight() );
-		
+
 		// use a different method of counting gold here. (not recursive)
 		unsigned int gold = 0;
 		ContainerIterator it(_player->getBackpack());
@@ -2531,7 +2571,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 			}
 			++it;
 		}
-	
+
 		sendStats.setGold(gold);
 		sendStats.setSex( _player->gender() );
 		sendStats.setPets( _player->controlslots() );
@@ -2618,14 +2658,18 @@ void cUOSocket::handleAction( cUORxAction* packet )
 	switch ( packet->type() )
 	{
 		// Skill use
-	case 0x24:
-		{
-			QStringList skillParts = QStringList::split( " ", packet->action() );
-			if ( skillParts.count() > 1 )
-				Skills::instance()->SkillUse( this, skillParts[0].toInt() );
-		}
-		break;
+		case 0x24:
+			{
+				QStringList skillParts = QStringList::split( " ", packet->action() );
+				if ( skillParts.count() > 1 )
+					Skills::instance()->SkillUse( this, skillParts[0].toInt() );
+			}
+			break;
+
+		default:
+			break;
 	}
+	return;
 }
 
 void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
@@ -2774,7 +2818,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 
 	// If the next restock interval has been reached or if the last restock time is in the future (server restart)
 	// restock the vendor
-	if ( lastRestockTime + restockInterval <Server::instance()->time() || lastRestockTime> Server::instance()->time() )
+	if ( lastRestockTime + restockInterval < Server::instance()->time() || lastRestockTime > Server::instance()->time() )
 	{
 		pStock->setTag( "last_restock_time", Server::instance()->time() ); // Set the last restock time
 
@@ -2837,7 +2881,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 
 		// Remove the item from the vendors inventory if its there for more than one hour or if it has been
 		// bought in the future.
-		if ( buy_time + inventoryDecay <Server::instance()->time() || buy_time> Server::instance()->time() )
+		if ( buy_time + inventoryDecay < Server::instance()->time() || buy_time > Server::instance()->time() )
 		{
 			( *it2 )->remove();
 			continue;
@@ -3293,21 +3337,21 @@ void cUOSocket::handleExtendedStats( cUORxExtendedStats* packet )
 
 	switch ( stat )
 	{
-	case 0:
-		_player->setStrengthLock( lock );
-		break;
+		case 0:
+			_player->setStrengthLock( lock );
+			break;
 
-	case 1:
-		_player->setDexterityLock( lock );
-		break;
+		case 1:
+			_player->setDexterityLock( lock );
+			break;
 
-	case 2:
-		_player->setIntelligenceLock( lock );
-		break;
+		case 2:
+			_player->setIntelligenceLock( lock );
+			break;
 
-	default:
-		log( LOG_WARNING, tr( "Wrong stat value for extended stats packet: %1\n" ).arg( stat ) );
-		break;
+		default:
+			log( LOG_WARNING, tr( "Wrong stat value for extended stats packet: %1\n" ).arg( stat ) );
+			break;
 	}
 }
 
@@ -3448,7 +3492,7 @@ bool cUOSocket::useItem( P_ITEM item )
 	// Check item behaviour by it's tpye
 	switch ( item->type() )
 	{
-	case 1:
+		case 1:
 		// normal containers
 		{
 			_player->setObjectDelay( 0 );	// no delay for opening containers
@@ -3534,41 +3578,35 @@ bool cUOSocket::useItem( P_ITEM item )
 			return false;
 		}
 
-	case 16:
-		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
-		if ( _player->isDead() )
-		{
-			if ( _player->resurrect( item ) )
+		case 16:
+			// Check for 'resurrect item type' this is the ONLY type one can use if dead.
+			if ( _player->isDead() )
 			{
-				sysMessage( tr( "You have been resurrected." ) );
+				if ( _player->resurrect( item ) )
+				{
+					sysMessage( tr( "You have been resurrected." ) );
+				}
 			}
-		}
-		else
-		{
-			sysMessage( tr( "You are already living!" ) );
-		}
-		return true;
+			else
+			{
+				sysMessage( tr( "You are already living!" ) );
+			}
+			return true;
+			break;
 
-		// 1001: Sword Weapons (Swordsmanship)
-	case 1001:
-		// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
-	case 1002:
-		// 1005: Fencing
-	case 1005:
-		// 1003: Macefighting (Staffs)
-	case 1003:
-		// 1004: Macefighting (Maces/WarHammer)
-	case 1004:
-		// 1006: Bows
-	case 1006:
-		// 1007: Crossbows
-	case 1007:
-		// 1008: Shields
-	case 1008:
-		break;
 
-	default:
-		break;
+		case 1001: // 1001: Sword Weapons (Swordsmanship)
+		case 1002: // 1002: Axe Weapons (Swordsmanship + Lumberjacking)
+		case 1005: // 1005: Fencing
+		case 1003: // 1003: Macefighting (Staffs)
+		case 1004: // 1004: Macefighting (Maces/WarHammer)
+		case 1006: // 1006: Bows
+		case 1007: // 1007: Crossbows
+		case 1008: // 1008: Shields
+			break;
+
+		default:
+			break;
 	}
 
 	sysMessage( tr( "You can't think of a way to use that item." ) );

@@ -542,6 +542,7 @@ float Action_Wander::postCondition()
 	case enWanderSpawnregion:
 	case enHalt:
 		return 1.0f;
+		break;
 
 	case enDestination:
 		if ( m_npc->wanderDestination() == m_npc->pos() )
@@ -551,6 +552,10 @@ float Action_Wander::postCondition()
 	case enFollowTarget:
 		if ( m_npc->inRange( m_npc->wanderFollowTarget(), Config::instance()->pathfindFollowRadius() ) )
 			return 1.0f;
+		break;
+
+	default:
+		return 0.0f;
 		break;
 	};
 	return 0.0f;
@@ -575,7 +580,7 @@ void Action_Wander::execute()
 
 	switch ( m_npc->wanderType() )
 	{
-	case enWanderSpawnregion:
+		case enWanderSpawnregion:
 		{
 			// Only try to walk if we're not already out of the spawnregion
 			// Otherwise fall trough to enFreely
@@ -646,7 +651,7 @@ void Action_Wander::execute()
 			}
 		}
 
-	case enFreely:
+		case enFreely:
 		{
 			Q_UINT8 dir = m_npc->direction();
 			if ( RandomNum( 0, 100 ) < 20 )
@@ -656,7 +661,7 @@ void Action_Wander::execute()
 			break;
 		}
 
-	case enRectangle:
+		case enRectangle:
 		{
 			// get any point out of the rectangle and calculate the direction to it
 			Q_UINT16 rndx = RandomNum( m_npc->wanderX1(), m_npc->wanderX2() );
@@ -666,7 +671,7 @@ void Action_Wander::execute()
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
 		}
-	case enCircle:
+		case enCircle:
 		{
 			Coord pos = m_npc->pos();
 			pos.x = m_npc->wanderX1();
@@ -689,7 +694,7 @@ void Action_Wander::execute()
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
 		}
-	case enFollowTarget:
+		case enFollowTarget:
 		{
 			if ( Config::instance()->pathfind4Follow() )
 			{
@@ -716,7 +721,7 @@ void Action_Wander::execute()
 			}
 			break;
 		}
-	case enDestination:
+		case enDestination:
 		{
 			if ( m_npc->pos().distance( m_npc->wanderDestination() ) < 6 )
 			{
@@ -728,7 +733,12 @@ void Action_Wander::execute()
 			}
 			break;
 		}
+		default:
+		{
+			break;
+		}
 	}
+	return;
 }
 
 bool Action_Wander::moveTo( const Coord& pos, bool run )
@@ -867,7 +877,7 @@ float Action_MoveToTarget::preCondition()
 
 	P_CHAR currentVictim = m_ai->currentVictim();
 
-	if ( !currentVictim || !validTarget( m_npc, currentVictim ) ) 
+	if ( !currentVictim || !validTarget( m_npc, currentVictim ) )
 	{
 		return 0.0f;
 	}
@@ -1200,7 +1210,7 @@ P_CHAR Action_Defend::findAttacker()
 		m_ai->setcurrentVictimSer( attacker->serial() );
 		return attacker;
 	}
-	
+
 	// check our current victim
 	attacker = m_ai->currentVictim();
 	if ( !attacker )
@@ -1221,7 +1231,7 @@ P_CHAR Action_Defend::findAttacker()
 		// Don't switch if we can hit it...
 		if ( !attacker || attacker->dist( m_npc ) > 1 )
 		{
-			
+
 			// Search for attackers in our list of current fights
 			QPtrList<cFightInfo> fights = m_npc->fights();
 			for ( cFightInfo*info = fights.first(); info; info = fights.next() )
@@ -1246,7 +1256,7 @@ P_CHAR Action_Defend::findAttacker()
 					}
 				}
 			}
-			
+
 			// we found someone attacking us, so let's defend!
 			if ( attacker )
 			{

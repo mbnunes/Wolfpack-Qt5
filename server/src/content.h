@@ -274,8 +274,8 @@ public:
 class ContainerIterator
 {
 private:
-	size_t pos; // Position within the items array
 	const ContainerContent &content;
+	size_t pos; // Position within the items array
 public:
 	/*
 		Iterate over the content of an item.

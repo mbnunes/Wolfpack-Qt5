@@ -369,8 +369,8 @@ public:
 		else
 		{
 			float scale = m_npc->skillValue( MAGERY ) * 0.003;
-			unsigned int minDelay = 6000 - ( scale * 750 );
-			unsigned int maxDelay = 6000 - ( scale * 1250 );
+			unsigned int minDelay = (unsigned int)( 6000 - ( scale * 750 ) );
+			unsigned int maxDelay = (unsigned int)( 6000 - ( scale * 1250 ) );
 			nextSpellTime = Server::instance()->time() + RandomNum( minDelay, maxDelay );
 		}
 	}
