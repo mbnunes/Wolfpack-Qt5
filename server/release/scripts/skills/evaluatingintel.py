@@ -74,5 +74,4 @@ def response( char, args, target ):
 	return 1
 
 def onLoad():
-	skills.register( EVALUATINGINTEL, evaluatingintel )
-	
+	skills.register(EVALUATINGINTEL, evaluatingintel)

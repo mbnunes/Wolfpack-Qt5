@@ -16,5 +16,10 @@
 	<item id="2006">
 		<id>0x2006</id>
 	</item>
-
+	
+	<!-- Spawngem -->
+	<item id="spawngem" inherit="1f13">
+		<invisible />
+		<events>spawngem</events>
+	</item>
 </definitions>
