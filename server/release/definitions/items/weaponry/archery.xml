@@ -2,83 +2,101 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: sereg	                        |
-|   )).-' {{ ;'`   | Revised by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: 	                        |
 |  ( (  ;._ \\ ctr | Last Modification: created	                |
 =================================================================
 -->
 <definitions>
-
-	<!-- Bow left -->
-	<item id="13b1">
-		<id>0x13b1</id>
-		<category>Weapons\Bows\Bow (W/E)</category>
-		<type>1006</type>
-		<twohanded />
-		<weight>7.0</weight>
-		<buyprice>70</buyprice>
-		<sellprice>35</sellprice>
-
-		<!-- Weapon Properties -->
-		<requires type="str">20</requires>
-		<attack min="9" max="41" />
-		<speed>20</speed>
-		<durability><random min="31" max="60" /></durability>
-	</item>
-
 	<!-- Bow right -->
 	<item id="13b2">
-		<inherit id="13b1" />
 		<id>0x13b2</id>
-		<category>Weapons\Bows\Bow (N/S)</category>		
+		<name>bow</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>18</sellprice>
+		<buyprice>36</buyprice>
+		<attack min="16" max="18" />
+		<durability><random min="30" max="50" /></durability>
+		<speed>25</speed>
+		<weight>7.0</weight>
+		<requires type="str">30</requires>
+		<type>1006</type>
+		<category>Weapons\Bows\Bow</category>		
 	</item>
 
 	<!-- Cross Bow left -->
 	<item id="f4f">
-		<inherit id="archery_base" />
+		<bindmenu id="item_menu"/>
 		<id>0xf4f</id>
-		<category>Weapons\Bows\Crossbow (W/E)</category>
-		<type>1007</type>
+		<name>crossbow</name>
 		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>23</sellprice>
+		<buyprice>46</buyprice>
+		<attack min="18" max="20" />
+		<durability><random min="30" max="51" /></durability>
+		<speed>24</speed>
 		<weight>7.0</weight>
-		<buyprice>70</buyprice>
-		<sellprice>35</sellprice>
-
-		<!-- Weapon Properties -->
-		<requires type="str">30</requires>
-		<attack min="8" max="43" />
-		<speed>18</speed>
-		<durability><random min="31" max="80" /></durability>
-	</item>
-
-	<!-- Cross Bow right -->
-	<item id="f50">
-		<inherit id="f4f" />
-		<id>0xf50</id>
-		<category>Weapons\Bows\Crossbow (N/S)</category>
+		<requires type="str">35</requires>
+		<type>1007</type>
+		<category>Weapons\Bows\Crossbow</category>		
 	</item>
 
 	<!-- Heavy Cross Bow left -->
 	<item id="13fc">
-		<inherit id="archery_base" />
+		<name>heavy crossbow</name>
+		<bindmenu id="item_menu"/>
 		<id>0x13fc</id>
-		<category>Weapons\Bows\Heavy Crossbow (W/E)</category>
-		<type>1007</type>
 		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>26</sellprice>
+		<buyprice>53</buyprice>
+		<attack min="19" max="20" />
+		<durability><random min="30" max="55" /></durability>
+		<speed>22</speed>
 		<weight>9.0</weight>
-		<buyprice>116</buyprice>
-		<sellprice>58</sellprice>
-
-		<!-- Weapon Properties -->
-		<requires type="str">40</requires>
-		<attack min="11" max="56" />
-		<speed>10</speed>
-		<durability><random min="31" max="100" /></durability>
+		<requires type="str">80</requires>
+		<type>1007</type>
+		<category>Weapons\Bows\Heavy Crossbow</category>
 	</item>
 
-	<!-- Heavy Cross Bow right -->
-	<item id="13fd">
-		<inherit id="13fc" />
-		<id>0x13fd</id>
-		<category>Weapons\Bows\Heavy Crossbow (N/S)</category>		
+	<item id="26c2">
+		<name>composite bow</name>
+		<bindmenu id="item_menu"/>
+		<id>0x26c2</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>28</sellprice>
+		<buyprice>56</buyprice>
+		<attack min="15" max="17" />
+		<durability><random min="30" max="70" /></durability>
+		<speed>25</speed>
+		<weight>7.0</weight>
+		<requires type="str">45</requires>
+		<type>1006</type>
+		<category>Weapons\Bows\Composite Bow</category>
 	</item>
+
+	<item id="26c3">
+		<name>repeating crossbow</name>
+		<bindmenu id="item_menu"/>
+		<id>0x26c3</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>25</sellprice>
+		<buyprice>50</buyprice>
+		<attack min="10" max="12" />
+		<durability><random min="30" max="49" /></durability>
+		<speed>41</speed>
+		<weight>7.0</weight>
+		<requires type="str">80</requires>
+		<type>1007</type>
+		<category>Weapons\Bows\Repeating Crossbow</category>
+	</item>
+
 </definitions>
