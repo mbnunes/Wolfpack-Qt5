@@ -925,7 +925,7 @@ void cPlayer::makeCriminal()
 		 this->setCriminalTime((SrvParams->crimtime()*MY_CLOCKS_PER_SEC)+uiCurrentTime);
 
 		 if( socket_ )
-			 socket_->sysMessage( tr( "You are now a criminal!" ) );
+			 socket_->clilocMessage(500167);
 
 		 changed_ = true;
 	}

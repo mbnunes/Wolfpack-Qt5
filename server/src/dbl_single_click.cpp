@@ -202,14 +202,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 					return;
 				}
 				
-				if( pi->corpse() )
-				{
-					if( pc_currchar->isHuman() )
-						pc_currchar->action( 0x20 );
-
-					pc_currchar->emote( tr( "*%1 loots the body of %2*" ).arg( pc_currchar->name() ).arg( pi->getTag( "name" ).toString() ), 0x26 );
-				}
-				
 				socket->sendContainer( pi );
 				return;
 			}

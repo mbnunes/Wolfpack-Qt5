@@ -220,13 +220,13 @@ class Monster_Aggressive : public AbstractAI
 protected:
 	Monster_Aggressive() : AbstractAI(), m_currentVictim( NULL )
 	{
-		 notorityOverride_ = 6;
+		 notorityOverride_ = 3;
 	}
 
 public:
 	Monster_Aggressive( P_NPC npc ) : AbstractAI( npc ), m_currentVictim( NULL )
 	{
-		notorityOverride_ = 6;
+		notorityOverride_ = 3;
 	}
 
 	virtual void check();
