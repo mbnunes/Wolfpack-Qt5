@@ -385,10 +385,6 @@ void cTimers::load()
 		{
 			effect = new cPythonEffect;
 		}
-		else if ( objectId == "cDelayedHideChar" )
-		{
-			effect = new cDelayedHideChar;
-		}
 		else
 		{
 			throw QString( "Unknown TempEffect Type: %1" ).arg( objectId );
@@ -435,35 +431,6 @@ int cTimers::countSerializables()
 	return count;
 }
 
-
-// cDelayedHideChar
-cDelayedHideChar::cDelayedHideChar( SERIAL serial )
-{
-	if ( !isCharSerial( serial ) || !FindCharBySerial( serial ) )
-	{
-		destSer = INVALID_SERIAL;
-		return;
-	}
-
-	destSer = serial;
-	setSerializable( true );
-}
-
-cDelayedHideChar::cDelayedHideChar()
-{
-	setSerializable( true );
-}
-
-void cDelayedHideChar::Expire()
-{
-	P_PLAYER pc = dynamic_cast<P_PLAYER>( FindCharBySerial( destSer ) );
-	if ( !pc || pc->socket() ) // break if the char has relogged in the meantime
-		return;
-
-	pc->setHidden( 1 );
-	pc->resend( true );
-}
-
 cDelayedOnCreateCall::cDelayedOnCreateCall( cUObject* obj, const QString& definition ) :
 	obj_(obj), def_(definition)
 {
@@ -507,4 +474,45 @@ void cTimers::erase( cTimer* pT )
 			std::make_heap( teffects.begin(), teffects.end(), cTimers::ComparePredicate() );
 		}
 	}
+}
+
+void cTimer::load(cBufferedReader &reader, unsigned int version) {
+	serializable = true;
+	expiretime = Server::instance()->time() + reader.readInt();
+	dispellable = reader.readBool();
+	sourSer = reader.readInt();
+	destSer = reader.readInt();
+}
+
+void cTimer::save(cBufferedWriter &writer, unsigned int version) {	
+	writer.writeInt(expiretime - Server::instance()->time());
+	writer.writeBool(dispellable);
+	writer.writeInt(sourSer);
+	writer.writeInt(destSer);
+}
+
+void cTimers::save(cBufferedWriter &writer) {
+	std::vector<cTimer*>::iterator it;
+	for (it = teffects.begin(); it != teffects.end(); ++it) {
+		if ((*it)->isSerializable()) {
+			writer.writeByte(0xFC);
+			writer.writeAscii((*it)->objectID().latin1());
+			(*it)->save(writer, writer.version());			
+		}
+	}
+}
+
+void cTimers::load(cBufferedReader &reader) {
+	QCString objectId = reader.readAscii();
+
+	cTimer *timer = 0;
+
+	if (objectId == "cPythonEffect") {
+		timer = new cPythonEffect;
+	} else {
+		throw QString("Unknown TempEffect Type: %1").arg(objectId);
+	}
+
+	timer->load(reader, reader.version());
+	insert(timer);
 }

@@ -40,6 +40,8 @@
 class cTimer;
 class cScriptTimer;
 class cTimers;
+class cBufferedReader;
+class cBufferedWriter;
 
 // Wolfpack includes
 #include "typedefs.h"
@@ -83,7 +85,9 @@ public:
 	bool loadChar( unsigned int id, const QString& key, P_CHAR& character );
 	bool loadItem( unsigned int id, const QString& key, P_ITEM& item );
 
-public:
+	virtual void load(cBufferedReader &reader, unsigned int version);
+	virtual void save(cBufferedWriter &writer, unsigned int version);
+
 	//	cTimer() { serializable = true; }
 	cTimer( cTimer* left_ = NULL, cTimer* right_ = NULL, cTimer* father_ = NULL, cTimer* son_ = NULL, int rank_ = 0, bool marker_ = false )
 	{
@@ -148,18 +152,6 @@ public:
 	std::vector< cTimer* > asVector();
 };
 
-class cDelayedHideChar : public cTimer
-{
-public:
-	cDelayedHideChar( SERIAL serial );
-	cDelayedHideChar();
-	void Expire();
-	QString objectID() const
-	{
-		return "cDelayedHideChar";
-	}
-};
-
 class cDelayedOnCreateCall : public cTimer
 {
 	cUObject* obj_;
@@ -191,6 +183,8 @@ public:
 
 	void load();
 	void save();
+	void save(cBufferedWriter &writer);
+	void load(cBufferedReader &reader);
 
 	void check();
 	void dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent = false );

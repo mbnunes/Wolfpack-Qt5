@@ -465,6 +465,16 @@ void cWorld::load()
 					}
 					// Special Type for Tags
 				}
+				else if ( type == 0xFB )
+				{
+					QString name = reader.readUtf8();
+					QString value = reader.readUtf8();
+					setOption(name, value);
+				}
+				else if ( type == 0xFC )
+				{
+					Timers::instance()->load(reader);
+				}
 				else if ( type == 0xFD )
 				{
 					cGuild *guild = 0;
@@ -520,7 +530,7 @@ void cWorld::load()
 				// create default settings
 				if ( !strcmp( tableInfo[i].name, "settings" ) )
 				{
-					setOption( "db_version", WP_DATABASE_VERSION, false );
+					setOption("db_version", WP_DATABASE_VERSION);
 				}
 			}
 
@@ -581,6 +591,13 @@ void cWorld::load()
 
 		// Load Temporary Effects
 		Timers::instance()->load();
+
+		// Load Options
+		cDBResult oresult = PersistentBroker::instance()->query("SELECT option,value FROM settings;");
+		while (oresult.fetchrow()) {
+			setOption(oresult.getString(0), oresult.getString(1));
+		}
+		oresult.free();
 
 		// It's not possible to use cItemIterator during postprocessing because it skips lingering items
 		ItemMap::iterator iter;
@@ -733,9 +750,9 @@ void cWorld::load()
 
 			cSpawnRegion *region = SpawnRegions::instance()->region( spawnregion );
 			cUObject *object = findObject( serial );
-			if ( object && region )
+			if (object && region)
 			{
-				object->setSpawnregion( region );
+				object->setSpawnregion(region);
 			}
 		}
 
@@ -746,7 +763,7 @@ void cWorld::load()
 		// load server time from db
 		QString db_time;
 		QString default_time = Config::instance()->getString( "General", "UO Time", "", true );
-		getOption( "worldtime", db_time, default_time, false );
+		getOption( "worldtime", db_time, default_time );
 		UoTime::instance()->setMinutes( db_time.toInt() );
 
 		PersistentBroker::instance()->disconnect();
@@ -756,10 +773,11 @@ void cWorld::load()
 	cComponent::load();
 }
 
-void cWorld::save()
-{
+void cWorld::save() {
+	// Broadcast a message to all connected clients
+	Network::instance()->broadcast(tr("Worldsave Initialized"));
+
 	Console::instance()->send( "Saving World..." );
-	Timing::instance()->setLastWorldsave( getNormalizedTime() );
 
 	// Send a nice status gump to all sockets if enabled
 	bool fancy = Config::instance()->getBool( "General", "Fancy Worldsave Status", true, true );
@@ -788,9 +806,12 @@ void cWorld::save()
 		}
 	}
 
+	unsigned int startTime = getNormalizedTime();
+
 	try
 	{
-		unsigned int startTime = getNormalizedTime();
+		// Save the Current Time
+		setOption("worldtime", QString::number( UoTime::instance()->getMinutes() ));
 
 		if (Config::instance()->databaseDriver() == "binary") {
 			// Save in binary format
@@ -817,6 +838,17 @@ void cWorld::save()
 			cGuilds::iterator git;
 			for (git = Guilds::instance()->begin(); git != Guilds::instance()->end(); ++git) {
 				(*git)->save(writer, writer.version());
+			}
+
+			// Write Temporary Effects
+			Timers::instance()->save(writer);
+
+			// Write Options
+			QMap<QString, QString>::iterator oit;
+			for (oit = options.begin(); oit != options.end(); ++oit) {
+				writer.writeByte(0xFB);
+				writer.writeUtf8(oit.key());
+				writer.writeUtf8(oit.data());
 			}
 
 			writer.writeByte( 0xFF ); // Terminator Type
@@ -888,16 +920,24 @@ void cWorld::save()
 
 			Guilds::instance()->save();
 
-			PersistentBroker::instance()->commitTransaction();
+            PersistentBroker::instance()->commitTransaction();
 
-			// Save the Current Time
-			setOption( "worldtime", QString::number( UoTime::instance()->getMinutes() ), false );
+			// Write Options
+			PersistentBroker::instance()->executeQuery("DELETE FROM settings;");
 
-			// Save the accounts
-			Accounts::instance()->save();
+			QMap<QString, QString>::iterator oit;
+			for (oit = options.begin(); oit != options.end(); ++oit) {
+				QString sql = QString("INSERT INTO settings VALUES('%1','%2');")
+					.arg(PersistentBroker::instance()->quoteString(oit.key()))
+					.arg(PersistentBroker::instance()->quoteString(oit.data()));
+				PersistentBroker::instance()->executeQuery(sql);
+			}
 
 			PersistentBroker::instance()->disconnect();
 		}
+
+		// Save the accounts
+		Accounts::instance()->save();
 
 		Server::instance()->refreshTime();
 
@@ -918,6 +958,9 @@ void cWorld::save()
 		Console::instance()->log( LOG_ERROR, "Saving failed: " + e );
 	}
 
+	// Broadcast a message to all connected clients
+	Network::instance()->broadcast(tr("Worldsave Completed In %1ms").arg(Server::instance()->time() - startTime));
+
 	if ( fancy )
 	{
 		cUOTxCloseGump close;
@@ -928,86 +971,29 @@ void cWorld::save()
 			socket->send( &close );
 		}
 	}
+
+	Timing::instance()->setLastWorldsave( getNormalizedTime() );
 }
 
 /*
  * Gets a value from the settings table and returns the value
  */
-void cWorld::getOption( const QString& name, QString& value, const QString fallback, bool newconnection )
+void cWorld::getOption( const QString& name, QString& value, const QString fallback )
 {
-	if ( newconnection )
-	{
-		if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
-		{
-			Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
-			return;
-		}
-
-		try
-		{
-			PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() );
-		}
-		catch ( QString& e )
-		{
-			Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
-			return;
-		}
-	}
-
-	cDBResult res = PersistentBroker::instance()->query( QString( "SELECT option,value FROM settings WHERE option='%1' LIMIT 1;" ).arg( PersistentBroker::instance()->quoteString( name ) ) );
-
-	if ( !res.fetchrow() )
-	{
+	QMap<QString, QString>::iterator it = options.find(name);	
+	if (it == options.end()) {
 		value = fallback;
-	}
-	else
-	{
-		value = res.getString( 1 );
-	}
-	res.free();
-
-	if ( newconnection )
-	{
-		PersistentBroker::instance()->disconnect();
+	} else {
+		value = it.data();
 	}
 }
 
 /*
  * Sets a value in the settings table.
  */
-void cWorld::setOption( const QString& name, const QString& value, bool newconnection )
+void cWorld::setOption( const QString& name, const QString& value )
 {
-	if ( newconnection )
-	{
-		if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
-		{
-			Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
-			return;
-		}
-
-		try
-		{
-			if ( !PersistentBroker::instance()->driver() )
-			{
-				PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() );
-			}
-		}
-		catch ( QString& e )
-		{
-			Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
-			return;
-		}
-	}
-
-	// check if the option already exists
-	PersistentBroker::instance()->addToDeleteQueue( "settings", QString( "option = '%1'" ).arg( name ) );
-
-	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO settings VALUES( '%1', '%2' );" ).arg( PersistentBroker::instance()->quoteString( name ), PersistentBroker::instance()->quoteString( value ) ) );
-
-	if ( newconnection )
-	{
-		PersistentBroker::instance()->disconnect();
-	}
+	options.insert(name, value, true);
 }
 
 void cWorld::registerObject( cUObject* object )

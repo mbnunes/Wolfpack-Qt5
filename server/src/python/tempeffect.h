@@ -31,6 +31,8 @@
 #include "engine.h"
 #include "utilities.h"
 
+#include "../coord.h"
+#include "../basics.h"
 #include "../timers.h"
 #include "../persistentbroker.h"
 
@@ -177,6 +179,83 @@ public:
 		}
 
 		Py_DECREF( args );
+	}
+
+	void save(cBufferedWriter &writer, unsigned int version) {
+		cTimer::save(writer, version);
+
+		writer.writeUtf8(functionName);
+		writer.writeUtf8(dispelFunc_);
+		writer.writeUtf8(dispelId_);
+
+		int count = PyTuple_Size(args);
+		writer.writeInt(count);
+
+		for (int i = 0; i < count; ++i) {
+			PyObject *object = PyTuple_GetItem(args, i);
+
+			if ( PyInt_Check( object ) ) {
+				cVariant(PyInt_AsLong(object)).serialize(writer, version);
+			} else if ( PyString_Check( object ) || PyUnicode_Check( object ) ) {
+				cVariant(Python2QString(object)).serialize(writer, version);
+			} else if ( PyFloat_Check( object ) ) {
+				cVariant(PyFloat_AsDouble(object)).serialize(writer, version);
+			} else if ( checkWpChar( object ) ) {
+				cVariant(getWpChar(object)).serialize(writer, version);
+			} else if ( checkWpItem( object ) ) {
+				cVariant(getWpItem(object)).serialize(writer, version);
+			} else if ( checkWpCoord( object ) ) {
+				cVariant(getWpCoord(object)).serialize(writer, version);
+			}
+		}
+	}
+
+	void load(cBufferedReader &reader, unsigned int version) {
+		cTimer::load(reader, version);
+
+		functionName = reader.readUtf8();
+		dispelFunc_ = reader.readUtf8();
+		dispelId_ = reader.readUtf8();
+		int count = reader.readInt();
+
+		for(int i = 0; i < count; ++i) {
+			cVariant variant;
+			PyObject *object = 0;
+
+			variant.serialize(reader, version);
+			switch (variant.type()) {
+				case cVariant::Int:
+					object = PyInt_FromLong(variant.asInt());
+					break;
+                
+				case cVariant::String:
+					object = QString2Python(variant.asString());
+					break;
+                
+				case cVariant::Double:
+					object = PyFloat_FromDouble(variant.asDouble());
+					break;
+
+				case cVariant::BaseChar:
+					object = PyGetCharObject(variant.toChar());
+					break;
+
+				case cVariant::Item:
+					object = PyGetItemObject(variant.toItem());
+					break;
+
+				case cVariant::Coord:
+					object = PyGetCoordObject(variant.toCoord());
+					break;
+			}
+
+			if (!object) {
+				Py_INCREF(Py_None);
+				object = Py_None;
+			}
+
+			PyTuple_SetItem(args, i, object);
+		}
 	}
 
 	void save( unsigned int id )

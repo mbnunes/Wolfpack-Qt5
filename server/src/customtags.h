@@ -53,8 +53,7 @@ public:
 	// Static NULL instance
 	static const cVariant null;
 
-	enum Type
-	{
+	enum Type {
 		Invalid			= 0,
 		String,
 		Int,

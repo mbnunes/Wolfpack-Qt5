@@ -34,6 +34,7 @@
 
 // Library Includes
 #include <qvaluevector.h>
+#include <qmap.h>
 #include "server.h"
 
 class cBufferedReader;
@@ -77,6 +78,7 @@ private:
 	SERIAL _lastCharSerial, _lastItemSerial;
 	unsigned int _playerCount, _npcCount;
 	void loadTag( cBufferedReader& reader, unsigned int version );
+	QMap<QString, QString> options;
 
 public:
 	// Constructor/Destructor
@@ -89,8 +91,8 @@ public:
 	void save();
 
 	// For the "settings" table
-	void getOption( const QString& name, QString& value, const QString fallback, bool newconnection = true );
-	void setOption( const QString& name, const QString& value, bool newconnection = true );
+	void getOption( const QString& name, QString& value, const QString fallback );
+	void setOption( const QString& name, const QString& value );
 
 	// Book-keeping functions
 	void registerObject( cUObject* object );
