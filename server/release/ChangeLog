@@ -53,6 +53,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added Leather Dyes.
   - Added Rune and Special Dyes.
   - Added a bankself command.
+  - Rewrite the inscription menu.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

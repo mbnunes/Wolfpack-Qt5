@@ -48,6 +48,17 @@ def onShowTooltip(player, runebook, tooltip):
 		if len(description) > 0:
 			tooltip.add(1042971, description)
 
+	# Exceptional item?
+	if runebook.hastag('exceptional'):
+		# I think crafted by is ok, but showing the Exceptional mark sucks
+		#tooltip.add(1060636, '')
+
+		# 1050043: Crafted by ~param~
+		serial = int(runebook.gettag('exceptional'))
+		crafter = wolfpack.findchar(serial)
+		if crafter:
+			tooltip.add(1050043, crafter.name)
+
 #
 # Convert this runebook by moving all the old runes out of it
 #

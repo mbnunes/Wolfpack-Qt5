@@ -170,7 +170,10 @@ class MakeItemAction(MakeAction):
 		gump.addTiledGump(10, 300, 150, 22, 2624)
 		gump.addCheckerTrans(10, 10, 510, 397)
 
-		gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
+		if type(self.title) == int:
+			gump.addXmfHtmlGump(10, 12, 510, 20, self.title, False, False, 0xFFFFFF)
+		else:
+			gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
 		if self.itemid != 0:
 			gump.addTilePic(15, 42, self.itemid)
 		gump.addHtmlGump(10, 132, 150, 20, centerhtml % tr("SKILLS"))
@@ -183,7 +186,10 @@ class MakeItemAction(MakeAction):
 		gump.addText(410, 389, tr("Make Now"), 0x480)
 
 		# Item Name
-		gump.addText(245, 39, self.title, 0x480)
+		if type(self.title) == int:
+			gump.addXmfHtmlGump(245, 39, 285, 20, self.title, False, False, 0xFFFFFF)
+		else:
+			gump.addText(245, 39, self.title, 0x480)
 
 		# Scrollable Skill List
 		gump.addHtmlGump(170, 132, 345, 76, whitehtml % self.skillshtml, 0, self.skillshtml.count('<br>') > 4)
@@ -922,7 +928,12 @@ class MakeMenu:
 						gump.addButton(220, yoffset, 4005, 4007, 0x10000000 | j)
 						if menu.subactions[action].hasdetails:
 							gump.addButton(480, yoffset, 4011, 4012, 0x08000000 | j)
-						gump.addText(255, yoffset + 3, menu.subactions[action].title, 0x480)
+
+						# Item Name
+						if type(menu.subactions[action].title) == int:
+							gump.addXmfHtmlGump(255, yoffset + 3, 275, 20, menu.subactions[action].title, False, False, 0xFFFFFF)
+						else:
+							gump.addText(255, yoffset + 3, menu.subactions[action].title, 0x480)
 						yoffset += 20
 				j += 1 # Always increase to keep in sync
 
@@ -1645,9 +1656,16 @@ class MakeMenu:
 						gump.addButton(220, yoffset, 4005, 4007, 0x40000000 | (menus + j))
 						if self.subactions[menus + j].hasdetails:
 							gump.addButton(480, yoffset, 4011, 4012, 0x20000000 | (menus + j))
-						gump.addText(255, yoffset+3, self.subactions[menus + j].title, 0x480)
+							
+						if type(self.subactions[menus + j].title) == int:
+							gump.addXmfHtmlGump(255, yoffset+3, 275, 20, self.subactions[menus + j].title, False, False, 0xFFFFFF)
+						else:
+							gump.addText(255, yoffset+3, self.subactions[menus + j].title, 0x480)
 					else:
-						gump.addText(255, yoffset+3, self.subactions[menus + j].title, 0x3b1)
+						if type(self.subactions[menus + j].title) == int:
+							gump.addXmfHtmlGump(255, yoffset+3, 275, 20, self.subactions[menus + j].title, False, False, 0xDDDDDD)
+						else:
+							gump.addText(255, yoffset+3, self.subactions[menus + j].title, 0x3b1)
 			menus += 9
 
 			# Add a back button
