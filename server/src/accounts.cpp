@@ -349,12 +349,12 @@ void cAccounts::load()
 	// Load all Accounts
 	try
 	{
+		persistentBroker->connect( SrvParams->accountsHost(), SrvParams->accountsName(), SrvParams->accountsUsername(), SrvParams->accountsPassword() );
+
 		if( !persistentBroker->tableExists( "accounts" ) )
 		{
 			persistentBroker->executeQuery( createSql );
 		}
-
-		persistentBroker->connect( SrvParams->accountsHost(), SrvParams->accountsName(), SrvParams->accountsUsername(), SrvParams->accountsPassword() );
 
 		cDBResult result = persistentBroker->query( "SELECT accounts.login,accounts.password,accounts.flags,accounts.acl,accounts.lastlogin,accounts.blockuntil FROM accounts;" );
 
