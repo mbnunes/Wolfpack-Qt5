@@ -34,7 +34,7 @@ def onUse(char, item):
 	if not item.isitem():
 		return False
 	
-	if item.container and item.container.container == char and item.container.layer == LAYER_TRADING:
+	if item.container and item.container.isitem() and item.container.container == char and item.container.layer == LAYER_TRADING:
 		return True
 	else:
 		return False

@@ -57,7 +57,7 @@ def doheal( char, args, target ):
 		char.socket.sysmessage( 'That was not a valid character!', GRAY )
 	elif target.char:
 		target.char.hitpoints = int( target.char.maxhitpoints )
-		target.char.updatestats()
+		target.char.updatehealth()
 		target.char.effect(0x376A, 9, 32)
 		target.char.soundeffect(0x202)
 		char.log( LOG_MESSAGE, "Healed 0x%x.\n" % target.char.serial )
