@@ -8,32 +8,17 @@
 -->
 <definitions>
 
-	<!-- ACLs -->
-	<include file="definitions/access.xml"/>
+	<!-- System Index: ACLS, Encryption, Skills, Spells, Start Items, Etc. -->
+	<include file="definitions/system/index.xml"/>
+
+	<!-- Python Scripts -->
+	<include file="definitions/scripts.xml"/>
 
 	<!-- Lists Index -->
 	<include file="definitions/lists/index.xml"/>
 
-	<!-- Skills -->
-	<include file="definitions/skills.xml"/>
-
 	<!-- Locations -->
 	<include file="definitions/locations/index.xml"/>
-
-	<!-- Creatures -->
-	<include file="definitions/creatures.xml"/>
-
-	<!-- Newbie Items -->
-	<include file="definitions/startitems.xml"/>
-
-	<!-- Encryption Keys -->
-	<include file="definitions/encryption.xml" />
-
-	<!-- Scripts -->
-	<include file="definitions/scripts.xml"/>
-
-	<!-- Spells -->
-	<include file="definitions/spells.xml"/>
 
 	<!-- Regions -->
 	<include file="definitions/regions/index.xml"/>
@@ -72,6 +57,8 @@
 	<include file="definitions/multis/index.xml"/>
 
 	<!-- NPCs -->
+		<!-- Creatures -->
+		<include file="definitions/npcs/creatures.xml"/>
 		<!-- NPC Base Stats -->
 		<include file="definitions/npcs/animals/base.xml"/>
 		<include file="definitions/npcs/monsters/base.xml"/>

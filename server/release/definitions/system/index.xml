@@ -1,0 +1,10 @@
+<!--
+	System Definitions: ACLS, Encryption, Skills, Spells, Starting Items, Etc.
+-->
+<definitions>
+	<include file="definitions/system/access.xml"/>
+	<include file="definitions/system/encryption.xml"/>
+	<include file="definitions/system/skills.xml"/>
+	<include file="definitions/system/spells.xml"/>
+	<include file="definitions/system/startitems.xml"/>
+</definitions>
