@@ -30,6 +30,7 @@
 //==================================================================================
 
 #include "customtags.h"
+#include "wolfpack.h"
 #include "chars.h"
 #include "items.h"
 #include "persistentbroker.h"
@@ -652,6 +653,12 @@ bool cVariant::operator!=( const cVariant &v ) const
 /*****************************************************************************
   cCustomTags member functions
  *****************************************************************************/
+
+cCustomTags::cCustomTags( const cCustomTags& d )
+{
+	tags_ = d.tags_;
+	changed = true;
+}
 
 cCustomTags& cCustomTags::operator=( const cCustomTags& tags)
 {

@@ -35,6 +35,7 @@
 #include "wolfpack.h"
 #include "wptargetrequests.h"
 #include "items.h"
+#include "gumps.h"
 
 class cAddItemTarget: public cTargetRequest
 {

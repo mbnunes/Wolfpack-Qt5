@@ -143,8 +143,8 @@ inline bool cVariant::isValid() const
 class cCustomTags : public PersistentObject
 {
 public:
-	cCustomTags(): changed( false ) {;}
-	~cCustomTags() {;}
+	cCustomTags(): changed( false ) {}
+	cCustomTags( const cCustomTags& );
 
 	void del( SERIAL key );
 	void save( SERIAL key );

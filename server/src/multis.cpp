@@ -41,6 +41,9 @@
 #include "targetrequests.h"
 #include "accounts.h"
 
+// Library Includes
+#include <qdom.h>
+
 // System Includes
 #include <math.h>
 #include <algorithm>

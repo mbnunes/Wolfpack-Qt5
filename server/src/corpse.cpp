@@ -40,6 +40,8 @@
 #include <algorithm>
 #include <map>
 
+#include <qdom.h>
+
 static cUObject* productCreator()
 {
 	return new cCorpse;

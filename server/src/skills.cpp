@@ -53,6 +53,7 @@
 #include "magic.h"
 #include "targetrequests.h"
 #include "territories.h"
+#include "makemenus.h"
 
 // System Includes
 #include <math.h>

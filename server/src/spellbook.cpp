@@ -36,6 +36,9 @@
 #include "newmagic.h"
 #include "persistentbroker.h"
 
+// Library Includes
+#include <qdom.h>
+
 void cSpellBook::Init( bool mkser )
 {
 	cItem::Init( mkser );
