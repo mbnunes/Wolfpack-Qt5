@@ -705,7 +705,7 @@
 		<action type="resource">
 			<name>Candelabra</name>
 			<model>0x0b1d</model>
-			<description>a candelabra</description>
+			<description>a candelabra</description>			
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="4" />
 				<makeitem section="b1d" amount="1" />
