@@ -45,6 +45,7 @@
 #include "territories.h"
 #include "scriptc.h"
 #include "network/uosocket.h"
+#include "pagesystem.h"
 
 // Library Includes
 #include "qdatetime.h"
@@ -117,7 +118,8 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 	// Paging a GM
 	case cChar::enPageGM:
 		{
-			gmpages[ pChar->playercallnum() ].reason = speech;
+			cPage* pPage = new cPage( pChar->serial, PT_GM, speech, pChar->pos );
+			cPagesManager::getInstance()->push_back( pPage );
 			notification = tr( "GM Page from %1: %2" ).arg( pChar->name.c_str() ).arg( speech );
 			
 			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
@@ -136,11 +138,12 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 	// Paging a Counselor
 	case cChar::enPageCouns:
 		{
-			counspages[ pChar->playercallnum() ].reason = speech;
+			cPage* pPage = new cPage( pChar->serial, PT_COUNSELOR, speech, pChar->pos );
+			cPagesManager::getInstance()->push_back( pPage );
 			notification = tr( "Counselor Page from %1: %2" ).arg( pChar->name.c_str() ).arg( speech );
 			
 			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
-				if( mSock->player() && socket->player()->isCounselor() )
+				if( mSock->player() && (socket->player()->isCounselor() || socket->player()->isGM()) )
 					mSock->sysMessage( notification );
 				
 				if( cNetwork::instance()->count() > 0 )

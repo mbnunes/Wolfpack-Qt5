@@ -1966,7 +1966,6 @@ int main( int argc, char *argv[] )
 	clConsole.ProgressDone();
 
 	clConsole.PrepareProgress( "Initializing GM Pages" );
-	initque();
 	clConsole.ProgressDone();
 
 	clConsole.PrepareProgress( "Loading custom tiles" );
@@ -2627,25 +2626,9 @@ void delequan(P_CHAR pc, short id, int amount, int *not_deleted)
 		*not_deleted = nd;
 }
 
+/*
 void initque() // Initilizes the gmpages[] and counspages[] arrays and also jails
 {
-	int i;
-	for(i=1;i<MAXPAGES;i++)
-	{
-		gmpages[i].name.erase();
-		gmpages[i].reason.erase();
-		gmpages[i].serial = 0;
-		gmpages[i].timeofcall[0]=0;
-		gmpages[i].handled=1;
-	}
-	for(i=1;i<MAXPAGES;i++)
-	{
-		counspages[i].name.erase();
-		counspages[i].reason.erase();
-		counspages[i].serial = 0;
-		counspages[i].timeofcall[0]=0;
-		counspages[i].handled=1;
-	}
 	jails[1].pos = Coord_cl(5276, 1164, 0); // Jail1
 	jails[1].occupied = false;
 
@@ -2676,36 +2659,7 @@ void initque() // Initilizes the gmpages[] and counspages[] arrays and also jail
 	jails[10].pos = Coord_cl(5304, 1184, 0); // Jail10
 	jails[10].occupied = false;
 }
-
-void donewithcall(int s, int type)
-{
-	P_CHAR pc_currchar = currchar[s];
-	int cn = pc_currchar->callnum();
-	if(cn!=0) //Player is on a call
-	{
-		if(type==1) //Player is a GM
-		{
-			gmpages[cn].handled=1;
-			gmpages[cn].name.erase();
-			gmpages[cn].reason.erase();
-			gmpages[cn].serial = 0;
-			sysmessage(s,"Call removed from the GM queue.");
-		}
-		else //Player is a counselor
-		{
-			counspages[cn].handled=1;
-			counspages[cn].name.erase();
-			counspages[cn].reason.erase();
-			counspages[cn].serial = 0;
-			sysmessage(s,"Call removed from the Counselor queue.");
-		}
-		pc_currchar->setCallNum( 0 );
-	}
-	else
-	{
-		sysmessage(s,"You are currently not on a call");
-	}
-}
+*/
 
 P_ITEM GetOutmostCont(P_ITEM pItem, short rec)
 {

@@ -670,7 +670,7 @@ inline bool  cChar::isPlayer() const		{return (!this->npc);}
 inline bool  cChar::isNpc()	const			{return (this->npc);}
 inline bool  cChar::isHuman() const			{return (this->id() == 0x190 || this->id() == 0x191);} 
 inline bool  cChar::isTrueGM() const		{return (priv&0x01);} 
-inline bool  cChar::isGM() const			{return ((priv&0x01 && (!gmrestrict_ || region==gmrestrict_))) || account == 0 || account()->acl() == "admin" || account()->acl() == "gm";} 
+inline bool  cChar::isGM() const			{return ((priv&0x01 && (!gmrestrict_ || region==gmrestrict_))) || account_ == 0 || account()->acl() == "admin" || account()->acl() == "gm";} 
 inline bool  cChar::isCounselor() const		{return (priv&0x80 || account()->acl() == "counselor");} 
 inline bool  cChar::isGMorCounselor() const	{return (priv&0x81 || account()->acl() == "admin" || account()->acl() == "gm" || account()->acl() == "counselor");} 
 inline bool  cChar::isInvul() const			{return (priv&0x04 ?true:false);}

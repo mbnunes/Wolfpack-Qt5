@@ -138,8 +138,6 @@ void weather(int s, unsigned char bolt);
 int getamount(P_CHAR pc, short id);
 void delequan(P_CHAR pc, short id, int amount, int *not_deleted = NULL);
 void gettokennum(char * s, int num);
-void donewithcall(int s, int type);
-void initque();
 void MenuChoice( UOXSOCKET Socket );
 void mounthorse(UOXSOCKET s, P_CHAR pc_mount);
 char *title1(P_CHAR pc);

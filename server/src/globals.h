@@ -264,8 +264,6 @@ extern std::list<SERIAL> guilds;
 extern int gatex[MAXGATES][2],gatey[MAXGATES][2];
 extern signed char gatez[MAXGATES][2];
 extern unitile_st xyblock[XYMAX];
-extern gmpage_st gmpages[MAXPAGES];
-extern gmpage_st counspages[MAXPAGES];
 extern skill_st skill[SKILLS+1];
 extern unsigned short int doorbase[DOORTYPES];
 extern char skillname[SKILLS+1][20];
