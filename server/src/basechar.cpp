@@ -29,6 +29,7 @@
 //==================================================================================
 
 // wolfpack includes
+#include "accounts.h"
 #include "basechar.h"
 #include "basedef.h"
 #include "corpse.h"
@@ -2249,27 +2250,51 @@ bool cBaseChar::canSee(cUObject *object, bool lineOfSight) {
 	return false;
 }
 
-bool cBaseChar::canSeeChar(P_CHAR character, bool lineOfSight) {
-	if (character != this) {
-		if (!character || character->free) {
+bool cBaseChar::canSeeChar(P_CHAR character, bool lineOfSight) 
+{
+	if (character != this) 
+	{
+		if (!character || character->free)
+		{
 			return false;
 		}
 
-		if (character->isInvisible() || character->isHidden()) {
+		if (character->isInvisible() || character->isHidden())
+		{
 			return false;
 		}
 
-		if (character->isDead()) {
+		if (character->isDead())
+		{
 			// Only NPCs with spiritspeak >= 1000 can see dead people
 			// or if the AI overrides it
-			if (!character->isAtWar() && skillValue(SPIRITSPEAK) < 1000) {
+			if (!character->isAtWar() && skillValue(SPIRITSPEAK) < 1000)
+			{
 				return false;
 			}
 		}
 
 		// Check distance
-		if (pos_.distance(character->pos()) > VISRANGE) {
+		if (pos_.distance(character->pos()) > VISRANGE) 
+		{
 			return false;
+		}
+
+		// Check rank
+		if( character->objectType() == enPlayer )
+		{
+			P_PLAYER own_player = dynamic_cast<P_PLAYER>( this );
+			P_PLAYER other_player = dynamic_cast<P_PLAYER>( character );
+
+			if (other_player->account()->rank() > own_player->account()->rank())
+			{
+				return false;
+			}
+
+			if (!own_player->account()->authorized( "multi", "see_same_rank" ) && (other_player->account()->rank() != own_player->account()->rank()))
+			{
+				return false;
+			}
 		}
 	}
 
