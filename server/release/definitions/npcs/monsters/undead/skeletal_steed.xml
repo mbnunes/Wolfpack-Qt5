@@ -12,34 +12,34 @@
 	<npc id="skeletal_steed" inherit="monster_base">
 		<name>skeletal steed</name>
 		<id>793</id>
-		<karma></karma>
-		<fame></fame>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
 		<!-- Stats -->
-		<str><random min="" max=""/></str>
-		<dex><random min="" max=""/></dex>
-		<int><random min="" max=""/></int>
-		<maxhitpoints><random min="" max=""/></maxhitpoints>
+		<str><random min="91" max="100"/></str>
+		<dex><random min="46" max="55"/></dex>
+		<int><random min="46" max="60"/></int>
+		<maxhitpoints><random min="41" max="50"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="" max=""/></magicresistance>
-		<tactics><random min="" max=""/></tactics>
-		<wrestling><random min="" max=""/></wrestling>
+		<magicresistance><random min="951" max="100"/></magicresistance>
+		<tactics><random min="500" max="500"/></tactics>
+		<wrestling><random min="701" max="800"/></wrestling>
 		<anatomy>0</anatomy>
 		<!-- Damage -->
-		<mindamage></mindamage>
-		<maxdamage></maxdamage>
+		<mindamage>8</mindamage>
+		<maxdamage>19</maxdamage>
 		<!-- Damage Properties -->
+		<tag name="dmg_cold" value="50" type="int" />
 		<!--
 		<tag name="dmg_fire" value="0" type="int" />
-		<tag name="dmg_cold" value="0" type="int" />
 		<tag name="dmg_poison" value="0" type="int" />
 		<tag name="dmg_energy" value="0" type="int" />
 		-->
 		<!-- Resist Properties -->
-		<tag name="res_physical" value="35,45" type="int" />
-		<tag name="res_fire" value="20,30" type="int" />
-		<tag name="res_cold" value="50,60" type="int" />
-		<tag name="res_poison" value="20,30" type="int" />
-		<tag name="res_energy" value="30,40" type="int" />
+		<tag name="res_physical" value="50,60" type="int" />
+		<tag name="res_fire" value="0,0" type="int" />
+		<tag name="res_cold" value="90,95" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->

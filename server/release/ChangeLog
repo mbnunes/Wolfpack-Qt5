@@ -63,6 +63,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Changed the color of shrink potions.
   - Added Tokuno includes for regions and spawnregions.
   - Removed the "Pink Spawn" from decoration.
+  - Fixed skeletal steeds stats and skills.
  * Python Script Changes:
   - Fixed bug #0000369. (Equip possible although item.movable = 3)
   - Fixed bug #0000361. (Pets don't follow trough gate)
