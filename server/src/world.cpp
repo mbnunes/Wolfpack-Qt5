@@ -216,16 +216,16 @@ void cWorld::loadFlatstore( const QString &prefix )
 
 void cWorld::load( QString basepath, QString prefix, QString module )
 {
-	clConsole.send( tr("Loading World...")+"\n" );
+	clConsole.send( tr("Loading World...") );
 
 	if( module == QString::null )
-		module = SrvParams->getString( "Worldsaves", "Loader", "sql", true );
+		module = SrvParams->saveModule();
 
 	if( prefix == QString::null )
-		prefix = SrvParams->getString( "Worldsaves", "Prefix", "", true );
+		prefix = SrvParams->savePrefix();
 
 	if( basepath == QString::null )
-		basepath = SrvParams->getString( "Worldsaves", "Path", "", true );
+		basepath = SrvParams->savePath();
 
 	prefix.prepend( basepath );
 
@@ -346,7 +346,7 @@ void cWorld::saveFlatstore( const QString &prefix )
 
 void cWorld::save( QString basepath, QString prefix, QString module )
 {
-	clConsole.send( tr("Saving World...")+"\n" );
+	clConsole.send( tr("Saving World...") );
 
 	if( module == QString::null )
 		module = SrvParams->getString( "Worldsaves", "Saver", "sql", true );

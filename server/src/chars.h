@@ -161,7 +161,6 @@ protected:
 	int						callnum_; //GM Paging
 	int						playercallnum_; //GM Paging
 
-	unsigned int			fishingtimer_; // Timer used to delay the catching of fish
 	int						poison_; // used for poison skill 
 	unsigned int			poisoned_; // type of poison
 	unsigned int			poisontime_; // poison damage timer
@@ -378,7 +377,6 @@ public:
 	int						npcaitype() const { return npcaitype_;}
 	int						callnum() const { return callnum_; }
 	int						playercallnum() const { return playercallnum_; }
-	unsigned int			fishingtimer() const {return fishingtimer_;}
 	int						poison() const { return poison_;}
 	unsigned int			poisoned() const { return poisoned_; }
 	unsigned int			poisontime() const { return poisontime_;}
@@ -503,10 +501,10 @@ public:
 	void					setAccount( AccountRecord* data, bool moveFromAccToAcc = true ); // changed to signed, lb
 	void					setIncognito ( bool d) { incognito_ = d; changed( SAVE );} 
 	void					setPolymorph ( bool d) { polymorph_ = d; changed( SAVE );}
-	void					setHairColor ( unsigned short d) { haircolor_ = d; changed( SAVE );}
-	void					setHairStyle ( unsigned short d) { hairstyle_ = d; changed( SAVE );}
-	void					setBeardColor( unsigned short d) { beardcolor_ = d; changed( SAVE );}
-	void					setBeardStyle( unsigned short d) { beardstyle_ = d; changed( SAVE );}
+	void					setHairColor ( unsigned short d);
+	void					setHairStyle ( unsigned short d);
+	void					setBeardColor( unsigned short d);
+	void					setBeardStyle( unsigned short d);
 	void					setSkin( unsigned short d) { skin_ = d; changed( SAVE );}
 	void					setOrgSkin( unsigned short d) { orgskin_ = d; changed( SAVE );}
 	void					setXSkin( unsigned short d) { xskin_ = d; changed( SAVE );}
@@ -553,7 +551,6 @@ public:
 	void					setCallNum ( int d ) { callnum_ = d; changed( SAVE );}
 	void					setPlayerCallNum ( int d ) { playercallnum_ = d; changed( SAVE );}
 
-	void					setFishingtimer( unsigned int d ) { fishingtimer_ = d; changed( SAVE );}
 	void					setPoison( int d ) { poison_ = d; changed( SAVE );}
 	void					setPoisoned( unsigned int d ) {poisoned_ = d; changed( SAVE );}
 	void					setPoisontime( unsigned int d ) { poisontime_ = d; changed( SAVE );}

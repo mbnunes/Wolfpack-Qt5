@@ -2083,7 +2083,7 @@ void cUOSocket::handleBookPage( cUORxBookPage* packet )
 		else if( pBook->writeable() )
 		{
 			// page write request
-			QMap<int, QString> content_ = pBook->content();
+			QStringList content_ = pBook->content();
 			QStringList lines = packet->lines();
 			
 			QString toInsert = QString();
@@ -2095,6 +2095,8 @@ void cUOSocket::handleBookPage( cUORxBookPage* packet )
 			}
 
 			UINT16 n = packet->page();
+			while( content_.size() <= n )
+				content_.push_back( "" );
 			content_[ n - 1 ] = toInsert;
 			pBook->setContent( content_ );
 		}

@@ -365,10 +365,6 @@ SOURCE=.\walking.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\weight.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\wolfpack.cpp
 # End Source File
 # Begin Source File
@@ -1199,10 +1195,6 @@ SOURCE=.\verinfo.h
 # Begin Source File
 
 SOURCE=.\walking.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\weight.h
 # End Source File
 # Begin Source File
 

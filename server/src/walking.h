@@ -65,7 +65,6 @@ public:
 	bool canLandMonsterMoveHere( const Coord_cl& ) const;
 private:
 	inline bool isValidDirection( Q_UINT8 dir );
-	inline bool isOverloaded( P_CHAR );
 
 	bool CanGMWalk(unitile_st xyb);
 	bool CanPlayerWalk(unitile_st xyb);

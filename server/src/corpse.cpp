@@ -235,10 +235,10 @@ cCorpse::cCorpse( bool init )
 stError *cCorpse::setProperty( const QString &name, const cVariant &value )
 {
 	SET_INT_PROPERTY( "bodyid", bodyId_ )
-	SET_INT_PROPERTY( "hairstyle", hairStyle_ )
-	SET_INT_PROPERTY( "haircolor", hairColor_ )
-	SET_INT_PROPERTY( "beardstyle", beardStyle_ )
-	SET_INT_PROPERTY( "beardcolor", beardColor_ )
+	else SET_INT_PROPERTY( "hairstyle", hairStyle_ )
+	else SET_INT_PROPERTY( "haircolor", hairColor_ )
+	else SET_INT_PROPERTY( "beardstyle", beardStyle_ )
+	else SET_INT_PROPERTY( "beardcolor", beardColor_ )
 
 	return cItem::setProperty( name, value );
 }

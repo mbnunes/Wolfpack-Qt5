@@ -75,7 +75,6 @@
 #include "corpse.h"
 #include "house.h"
 #include "boats.h"
-#include "weight.h"
 #include "multiscache.h"
 #include "Trade.h"
 #include "network/uotxpackets.h"
@@ -858,7 +857,6 @@ static void startClasses()
 	Items			 = 0;
 	Map				 = 0;
 	Skills			 = 0;
-	Weight			 = 0;
 	Magic			 = 0;
 	ScriptManager	 = 0;
 	DefManager		 = 0;
@@ -870,7 +868,6 @@ static void startClasses()
 	Items			 = new cAllItems;
 	Map				 = new Maps ( SrvParams->mulPath() );
 	Skills			 = new cSkills;
-	Weight			 = new cWeight;
 	Magic			 = new cMagic;
 	ScriptManager	 = new WPScriptManager;
 	DefManager		 = new WPDefManager;
@@ -887,7 +884,6 @@ static void freeClasses( void )
 	delete Items;
 	delete Map;
 	delete Skills;
-	delete Weight;
 	delete Magic;
 	delete ScriptManager;
 	delete DefManager;

@@ -35,6 +35,7 @@
 #include "../wpscriptmanager.h"
 #include "../itemid.h"
 #include "../spellbook.h"
+#include "../books.h"
 
 extern cAllItems *Items;
 
@@ -776,7 +777,23 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 {
 	// Special Python things
 	if( !strcmp( "content", name ) )
-	{		
+	{	
+		cBook* pBook = dynamic_cast< cBook* >(self->pItem);
+		if( pBook )
+		{
+			QStringList content = pBook->content();
+			QStringList::iterator it = content.begin();
+			PyObject *list = PyList_New( content.size() );
+			UINT32 i = 0;
+			while( it != content.end() )
+			{
+				PyList_SetItem( list, i, PyString_FromString( *it ) );
+				++it;
+				++i;
+			}
+			return list;
+		}
+
 		cItem::ContainerContent content = self->pItem->content();
 		PyObject *list = PyList_New( content.size() );
 		for( INT32 i = 0; i < content.size(); ++i )
@@ -890,6 +907,30 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 		{
 			self->pItem->removeFromCont();
 			self->pItem->moveTo( self->pItem->pos() );
+		}
+	}
+	else if( !strcmp( "content", name ) )
+	{
+		cBook* pBook = dynamic_cast< cBook* >( self->pItem );
+		if( pBook && PyList_Check( value ) )
+		{
+			QStringList content;
+			UINT32 i;
+			for( i = 0; i < PyList_Size( value ); ++i )
+			{
+				if( !PyString_Check( PyList_GetItem( value, i ) ) )
+				{
+					content.push_back("");
+					continue;
+				}
+
+				content.push_back( PyString_AsString( PyList_GetItem( value, i ) ) );
+			}
+		}
+		else
+		{
+			PyErr_BadArgument();
+			return -1;
 		}
 	}
 	else

@@ -160,6 +160,9 @@ protected:
 	int accountsBlockTime_;
 	QString accountsArchiver_;
 	bool categoryTagAddMenu_;
+	QString saveModule_;
+	QString savePath_;
+	QString savePrefix_;
 
 
 	// Remote Admin
@@ -211,10 +214,6 @@ protected:
 	unsigned int maxtargets_;
 	unsigned int basetimer_;
 	unsigned int redisplaytime_;
-
-	// Fishing
-	unsigned int basetime_;
-	unsigned int randomtime_;
 
 	// Message Board
 	QString msgboardPath_;
@@ -395,10 +394,6 @@ public:
 	unsigned int basetimer() const;
 	unsigned int redisplaytime() const;
 
-	// Fishing
-	unsigned int basetime() const;
-	unsigned int randomtime() const;
-
 	// MessageBoard
 	QString msgboardPath() const;
 	int  msgboardPostAccess() const;
@@ -422,6 +417,11 @@ public:
 	unsigned short gamePort() const;
 	bool enableLogin() const;
 	bool enableGame() const;
+
+	// Worldsave
+	QString savePath() const;
+	QString saveModule() const;
+	QString savePrefix() const;
 
 private:
 	void setDefaultStartLocation();
@@ -958,16 +958,6 @@ inline unsigned int cSrvParams::redisplaytime() const
 	return redisplaytime_;
 }
 
-inline unsigned int cSrvParams::basetime() const
-{
-	return basetime_;
-}
-
-inline unsigned int cSrvParams::randomtime() const
-{
-	return randomtime_;
-}
-
 inline unsigned int cSrvParams::spiritspeaktimer() const
 {
 	return spiritspeaktimer_;
@@ -1146,6 +1136,21 @@ inline unsigned short cSrvParams::loginPort() const
 inline bool cSrvParams::addMenuByCategoryTag() const
 {
 	return categoryTagAddMenu_;
+}
+
+inline QString cSrvParams::saveModule() const
+{
+	return saveModule_;
+}
+
+inline QString cSrvParams::savePrefix() const
+{
+	return savePrefix_;
+}
+
+inline QString cSrvParams::savePath() const
+{
+	return savePath_;
 }
 
 #endif //__SRVPARAMS_H___

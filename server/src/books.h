@@ -63,7 +63,7 @@ public:
 	// setters/getters
 	QString		title( void )	const;
 	QString		author( void )	const;
-	QMap<int, QString>	content( void )	const;
+	QStringList	content( void )	const;
 	UINT16		pages( void )	const;		
 	bool		predefined( void )	const;
 	bool		readonly( void )	const;
@@ -72,7 +72,7 @@ public:
 
 	void		setAuthor( const QString& data );
 	void		setTitle( const QString& data );
-	void		setContent( const QMap<int, QString>& data );
+	void		setContent( const QStringList& data );
 	void		setPredefined( bool data );
 	void		setSection( const QString& data );
 	void		setPages( UINT16 data );
@@ -83,6 +83,9 @@ public:
 
 	// methods for predefined books
 	void		refresh( void );
+
+	stError		*setProperty( const QString &name, const cVariant &value );
+	stError		*getProperty( const QString &name, cVariant &value ) const;
 private:
 	bool		predefined_;
 	bool		readonly_;
@@ -91,7 +94,7 @@ private:
 
 	QString		title_;
 	QString		author_;
-	QMap<int, QString>	content_;
+	QStringList	content_;
 
 	UINT16		pages_;
 	bool		changed_;
@@ -100,7 +103,7 @@ private:
 // Inline methods
 inline QString cBook::title( void )			const	{ return title_; }
 inline QString cBook::author( void )		const	{ return author_; }
-inline QMap<int, QString> cBook::content( void )	const	{ return content_; }
+inline QStringList cBook::content( void )	const	{ return content_; }
 inline UINT16 cBook::pages( void )			const		
 { 
 	if( predefined_ )
@@ -115,7 +118,7 @@ inline QString cBook::section( void )		const	{ return section_; }
 
 inline void cBook::setAuthor( const QString& data )			{ this->author_ = data; changed( SAVE+TOOLTIP ); }
 inline void cBook::setTitle( const QString& data )			{ this->title_ = data; changed( SAVE+TOOLTIP );  }
-inline void cBook::setContent( const QMap<int, QString>& data )	{ this->content_ = data; changed( SAVE ); }
+inline void cBook::setContent( const QStringList& data )	{ this->content_ = data; changed( SAVE ); }
 inline void cBook::setPredefined( bool data )				{ this->predefined_ = data; changed( SAVE ); } 
 inline void cBook::setSection( const QString& data )		{ this->section_ = data; changed( SAVE ); }
 inline void cBook::setPages( UINT16 data )					{ this->pages_ = data; changed( SAVE+TOOLTIP ); }

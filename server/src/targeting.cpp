@@ -48,7 +48,6 @@
 #include "network.h"
 #include "skills.h"
 #include "multis.h"
-#include "weight.h"
 #include "house.h"
 
 #undef DBGFILE

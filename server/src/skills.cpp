@@ -49,7 +49,6 @@
 #include "network.h"
 #include "maps.h"
 #include "network/uosocket.h"
-#include "weight.h"
 #include "magic.h"
 #include "targetrequests.h"
 #include "territories.h"

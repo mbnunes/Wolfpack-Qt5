@@ -159,14 +159,11 @@ extern termios termstate ;
 
 // Forward declarations
 class cSrvParams;
-class CWorldMain;
 class cBoat;
 class cAccount;
 class cAllItems;
 class Maps;
 class cSkills;
-class cFishing;
-class cWeight;
 class cTargets;
 class cMagic;
 class cMovement;
@@ -178,12 +175,9 @@ class PersistentBroker;
 
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cSrvParams				*SrvParams;
-extern CWorldMain				*cwmWorldState;
 extern cAllItems				*Items;
 extern Maps						*Map;
 extern cSkills					*Skills;
-extern cFishing					*Fishing;
-extern cWeight					*Weight;
 extern cMagic					*Magic;
 extern cSpeech					*Speech;
 extern cTrade					*Trade;

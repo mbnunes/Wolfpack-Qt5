@@ -47,7 +47,6 @@
 #include "network/uosocket.h"
 #include "multiscache.h"
 #include "tilecache.h"
-#include "weight.h"
 #include "multis.h"
 
 // Library Includes
@@ -1555,19 +1554,6 @@ bool cMovement::checkBoundingCircle(const Coord_cl pos, int fx1, int fy1, int ra
 inline bool cMovement::isValidDirection( Q_UINT8 dir ) 
 {
 	return ( dir == ( dir & 0x87 ) );
-}
-
-/*!
-	Checks if the character is overloaded
-	this function is deprecataed and will
-	most likely be removed soon.
-*/
-inline bool cMovement::isOverloaded( P_CHAR pc )
-{
-	if ( !pc->dead() && !pc->isNpc() && !pc->isGMorCounselor() )
-		if( !Weight->CheckWeight( pc ) || ( pc->stm() < 3 ) )
-			return true;
-	return false;	
 }
 
 /*!

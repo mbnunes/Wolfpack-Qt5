@@ -262,10 +262,6 @@ void cSrvParams::readData()
 	basetimer_			    = getNumber("Tracking", "Base Tracking Time", 5, true);
 	redisplaytime_			= getNumber("Tracking", "Tracking Message Redisplay Time", 5, true);
 
-	// Fishing
-	basetime_			    = getNumber("Fishing", "Base Fishing Time", 10, true);
-	randomtime_			    = getNumber("Fishing", "Random Fishing Time", 5, true);
-
 	// Message Board
 	msgboardPath_			= getString("MessageBoard", "Path", "./", true);
 	msgboardPostAccess_     = getNumber("MessageBoard", "Post Access", 1, true);
@@ -280,9 +276,14 @@ void cSrvParams::readData()
 	season_		            = getNumber("Light", "Set Season", 0, true);
 
 	// Magic
-	cutScrollReq_			= getBool( "Cut Scroll Requirements", false, true );
-	walkDisturbsCast_		= getBool( "Walking Disturbs Casting", true, true );
-	precasting_				= getBool( "Precasting", true, true );
+	cutScrollReq_			= getBool( "Magic", "Cut Scroll Requirements", false, true );
+	walkDisturbsCast_		= getBool( "Magic", "Walking Disturbs Casting", true, true );
+	precasting_				= getBool( "Magic", "Precasting", true, true );
+
+	// Worldsave
+	saveModule_ = SrvParams->getString( "Worldsaves", "Loader", "sql", true );
+	savePrefix_ = SrvParams->getString( "Worldsaves", "Prefix", "", true );
+	savePath_	= SrvParams->getString( "Worldsaves", "Path", "", true );
 }
 
 void cSrvParams::reload()

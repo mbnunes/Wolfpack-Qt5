@@ -170,7 +170,6 @@ cChar::cChar( const P_CHAR mob )
 	this->npcaitype_ = mob->npcaitype();
 	this->callnum_ = mob->callnum();
 	this->playercallnum_ = mob->playercallnum();
-	this->fishingtimer_ = mob->fishingtimer();
 	this->poison_ = mob->poison();
 	this->poisoned_ = mob->poisoned();
 	this->poisontime_ = mob->poisontime();
@@ -443,7 +442,6 @@ void cChar::Init( bool createSerial )
 	this->summontimer_ = 0; //Timer for summoned creatures.
 	this->trackingTimer_ = 0; // Timer used for the duration of tracking
 	this->trackingTarget_ = INVALID_SERIAL;
-	this->setFishingtimer(0); // Timer used to delay the catching of fish
 
 	this->setPoison(0); // used for poison skill 
 	this->setPoisoned(0); // type of poison
@@ -4016,73 +4014,106 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 {
 	changed( SAVE|TOOLTIP );
 	SET_INT_PROPERTY( "guildtype", GuildType )
-	SET_INT_PROPERTY( "guildtraitor", GuildTraitor )
-	SET_STR_PROPERTY( "orgname", orgname_ )
-	SET_STR_PROPERTY( "title", title_ )
-	SET_INT_PROPERTY( "unicode", unicode_ )
-	if( name == "account" )
+	else SET_INT_PROPERTY( "guildtraitor", GuildTraitor )
+	else SET_STR_PROPERTY( "orgname", orgname_ )
+	else SET_STR_PROPERTY( "title", title_ )
+	else SET_INT_PROPERTY( "unicode", unicode_ )
+	else if( name == "account" )
 	{
 		setAccount( Accounts::instance()->getRecord( value.toString() ) );
 		npc_ = ( account() == 0 );
 		return 0;
 	}
-
-	SET_INT_PROPERTY( "incognito", incognito_ )
-	SET_INT_PROPERTY( "polymorph", polymorph_ )
-	SET_INT_PROPERTY( "haircolor", haircolor_ )
-	SET_INT_PROPERTY( "hairstyle", hairstyle_ )
-	SET_INT_PROPERTY( "beardcolor", beardcolor_ )
-	SET_INT_PROPERTY( "beardstyle", beardstyle_ )
-	SET_INT_PROPERTY( "skin", skin_ )
-	SET_INT_PROPERTY( "orgskin", orgskin_ )
-	SET_INT_PROPERTY( "xskin", xskin_ )
-	SET_INT_PROPERTY( "trackingtarget", trackingTarget_ )
-	SET_INT_PROPERTY( "creationday", creationday_ )
-	SET_INT_PROPERTY( "stealth", stealth_ )
-	SET_INT_PROPERTY( "running", running_ )
-	SET_INT_PROPERTY( "logout", logout_ )
-	SET_INT_PROPERTY( "clientidletime", clientidletime_ )
-	SET_INT_PROPERTY( "swingtarget", swingtarg_ )
-	SET_INT_PROPERTY( "holdgold", holdg_ )
-	SET_INT_PROPERTY( "flysteps", fly_steps_ )
-	SET_INT_PROPERTY( "tamed", tamed_ )
-	SET_INT_PROPERTY( "antispamtimer", antispamtimer_ )
-	SET_INT_PROPERTY( "antiguardstimer", antiguardstimer_ )
-	SET_CHAR_PROPERTY( "guarding", guarding_ )
-	SET_STR_PROPERTY( "carve", carve_ )
-	SET_INT_PROPERTY( "hair", hairserial_ )
-	SET_INT_PROPERTY( "beard", beardserial_ )
-	SET_INT_PROPERTY( "murderer", murdererSer_ )
-	SET_STR_PROPERTY( "spawnregion", spawnregion_ )
-	SET_INT_PROPERTY( "stablemaster", stablemaster_serial_ )
-	SET_INT_PROPERTY( "npctype", npc_type_ )
-	SET_INT_PROPERTY( "timeunused", time_unused_ )
-	SET_INT_PROPERTY( "timeusedlast", timeused_last_ )
-	SET_INT_PROPERTY( "casting", casting_ )
-	SET_INT_PROPERTY( "spawn", spawnserial_ )
-	SET_INT_PROPERTY( "hidden", hidden_ )
-	SET_INT_PROPERTY( "invistimeout", invistimeout_ )
-	SET_INT_PROPERTY( "attackfirst", attackfirst_ )
-	SET_INT_PROPERTY( "hunger", hunger_ )
-	SET_INT_PROPERTY( "hungertime", hungertime_ )
-	SET_INT_PROPERTY( "npcaitype", npcaitype_ )
-	SET_INT_PROPERTY( "poison", poison_ )
-	SET_INT_PROPERTY( "poisoned", poisoned_ )
-	SET_INT_PROPERTY( "poisontime", poisontime_ )
-	SET_INT_PROPERTY( "poisontxt", poisontxt_ )
-	SET_INT_PROPERTY( "poisonwearofftime", poisonwearofftime_ )
-	SET_INT_PROPERTY( "fleeat", fleeat_ )
-	SET_INT_PROPERTY( "reattackat", reattackat_ )
-	SET_INT_PROPERTY( "split", split_ )
-	SET_INT_PROPERTY( "splitchance", splitchnc_ )
-	SET_INT_PROPERTY( "ra", ra_ )
-	SET_INT_PROPERTY( "trainer", trainer_ )
-	SET_INT_PROPERTY( "trainingplayerin", trainingplayerin_ )
-	SET_INT_PROPERTY( "cantrain", cantrain_ )
-	SET_INT_PROPERTY( "guildtoggle", guildtoggle_ )
-	SET_INT_PROPERTY( "guildtitle", guildtitle_ )
-	SET_INT_PROPERTY( "guildfealty", guildfealty_ )
-	if( name == "guildstone" )
+	else SET_INT_PROPERTY( "incognito", incognito_ )
+	else SET_INT_PROPERTY( "polymorph", polymorph_ )
+	else if( name == "haircolor" )
+	{
+		bool ok;
+		INT32 data = value.toInt( &ok );
+		if( !ok )
+			PROPERTY_ERROR( -2, "Integer expected" )
+		setHairColor( data );
+		return 0;
+	}
+	else if( name == "hairstyle" )
+	{
+		bool ok;
+		INT32 data = value.toInt( &ok );
+		if( !ok )
+			PROPERTY_ERROR( -2, "Integer expected" )
+		setHairStyle( data );
+		return 0;
+	}
+	else if( name == "beardcolor" )
+	{
+		bool ok;
+		INT32 data = value.toInt( &ok );
+		if( !ok )
+			PROPERTY_ERROR( -2, "Integer expected" )
+		setBeardColor( data );
+		return 0;
+	}
+	else if( name == "beardstyle" )
+	{
+		bool ok;
+		INT32 data = value.toInt( &ok );
+		if( !ok )
+			PROPERTY_ERROR( -2, "Integer expected" )
+		setBeardStyle( data );
+		return 0;
+	}
+	else SET_INT_PROPERTY( "skin", skin_ )
+	else SET_INT_PROPERTY( "orgskin", orgskin_ )
+	else SET_INT_PROPERTY( "xskin", xskin_ )
+	else SET_INT_PROPERTY( "trackingtarget", trackingTarget_ )
+	else SET_INT_PROPERTY( "creationday", creationday_ )
+	else SET_INT_PROPERTY( "stealth", stealth_ )
+	else SET_INT_PROPERTY( "running", running_ )
+	else SET_INT_PROPERTY( "logout", logout_ )
+	else SET_INT_PROPERTY( "clientidletime", clientidletime_ )
+	else SET_INT_PROPERTY( "swingtarget", swingtarg_ )
+	else SET_INT_PROPERTY( "holdgold", holdg_ )
+	else SET_INT_PROPERTY( "flysteps", fly_steps_ )
+	else SET_INT_PROPERTY( "tamed", tamed_ )
+	else SET_INT_PROPERTY( "antispamtimer", antispamtimer_ )
+	else SET_INT_PROPERTY( "antiguardstimer", antiguardstimer_ )
+	else SET_CHAR_PROPERTY( "guarding", guarding_ )
+	else SET_STR_PROPERTY( "carve", carve_ )
+	else SET_INT_PROPERTY( "hair", hairserial_ )
+	else SET_INT_PROPERTY( "beard", beardserial_ )
+	else SET_INT_PROPERTY( "murderer", murdererSer_ )
+	else SET_STR_PROPERTY( "spawnregion", spawnregion_ )
+	else SET_INT_PROPERTY( "stablemaster", stablemaster_serial_ )
+	else SET_INT_PROPERTY( "npctype", npc_type_ )
+	else SET_INT_PROPERTY( "timeunused", time_unused_ )
+	else SET_INT_PROPERTY( "timeusedlast", timeused_last_ )
+	else SET_INT_PROPERTY( "casting", casting_ )
+	else SET_INT_PROPERTY( "spawn", spawnserial_ )
+	else SET_INT_PROPERTY( "hidden", hidden_ )
+	else SET_INT_PROPERTY( "invistimeout", invistimeout_ )
+	else SET_INT_PROPERTY( "attackfirst", attackfirst_ )
+	else SET_INT_PROPERTY( "hunger", hunger_ )
+	else SET_INT_PROPERTY( "hungertime", hungertime_ )
+	else SET_INT_PROPERTY( "npcaitype", npcaitype_ )
+	else SET_INT_PROPERTY( "poison", poison_ )
+	else SET_INT_PROPERTY( "poisoned", poisoned_ )
+	else SET_INT_PROPERTY( "poisontime", poisontime_ )
+	else SET_INT_PROPERTY( "poisontxt", poisontxt_ )
+	else SET_INT_PROPERTY( "poisonwearofftime", poisonwearofftime_ )
+	else SET_INT_PROPERTY( "fleeat", fleeat_ )
+	else SET_INT_PROPERTY( "reattackat", reattackat_ )
+	else SET_INT_PROPERTY( "disabled", disabled_ )
+	else SET_STR_PROPERTY( "disabledmsg", disabledmsg_ )
+	else SET_INT_PROPERTY( "split", split_ )
+	else SET_INT_PROPERTY( "splitchance", splitchnc_ )
+	else SET_INT_PROPERTY( "ra", ra_ )
+	else SET_INT_PROPERTY( "trainer", trainer_ )
+	else SET_INT_PROPERTY( "trainingplayerin", trainingplayerin_ )
+	else SET_INT_PROPERTY( "cantrain", cantrain_ )
+	else SET_INT_PROPERTY( "guildtoggle", guildtoggle_ )
+	else SET_INT_PROPERTY( "guildtitle", guildtitle_ )
+	else SET_INT_PROPERTY( "guildfealty", guildfealty_ )
+	else if( name == "guildstone" )
 	{
 		P_ITEM pItem = value.toItem();
 		// Remove from Current Guild
@@ -4105,95 +4136,96 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 		else
 			return 0;
 	}
-	SET_INT_PROPERTY( "flag", flag_ )
-	SET_INT_PROPERTY( "flagwearofftime", tempflagtime_ )
-	SET_INT_PROPERTY( "murderrate", murderrate_ )
-	SET_INT_PROPERTY( "crimflag", crimflag_ )
-	SET_INT_PROPERTY( "squelched", squelched_ )
-	SET_INT_PROPERTY( "mutetime", mutetime_ )
-	SET_INT_PROPERTY( "meditating", med_ )
-	SET_INT_PROPERTY( "weight", weight_ )
-	if( name == "stones" )
+	else SET_INT_PROPERTY( "flag", flag_ )
+	else SET_INT_PROPERTY( "flagwearofftime", tempflagtime_ )
+	else SET_INT_PROPERTY( "murderrate", murderrate_ )
+	else SET_INT_PROPERTY( "crimflag", crimflag_ )
+	else SET_INT_PROPERTY( "squelched", squelched_ )
+	else SET_INT_PROPERTY( "mutetime", mutetime_ )
+	else SET_INT_PROPERTY( "meditating", med_ )
+	else SET_INT_PROPERTY( "weight", weight_ )
+	else if( name == "stones" )
 	{
 		weight_ = value.toInt() * 10;
 		return 0;
 	}
-	SET_STR_PROPERTY( "lootlist", loot_ )
-	SET_INT_PROPERTY( "font", fonttype_ )
-	SET_INT_PROPERTY( "saycolor", saycolor_ )
-	SET_INT_PROPERTY( "emotecolor", emotecolor_ )
-	SET_INT_PROPERTY( "strength", st_ )
-	SET_INT_PROPERTY( "dexterity", dx )
-	SET_INT_PROPERTY( "intelligence", in_ )
-	SET_INT_PROPERTY( "strength2", st2_ )
-	SET_INT_PROPERTY( "dexterity2", dx2 )
-	SET_INT_PROPERTY( "intelligence2", in2_ )
-	SET_INT_PROPERTY( "maylevitate", may_levitate_ )
-	SET_INT_PROPERTY( "direction", dir_ )
-	SET_INT_PROPERTY( "xid", xid_ )
-	SET_INT_PROPERTY( "priv", priv )
-	SET_INT_PROPERTY( "priv2", priv2_ )
-	SET_INT_PROPERTY( "health", hp_ )
-	SET_INT_PROPERTY( "stamina", stm_ )
-	SET_INT_PROPERTY( "mana", mn_ )
-	SET_INT_PROPERTY( "mana2", mn2_ )
-	SET_INT_PROPERTY( "hidamage", hidamage_ )
-	SET_INT_PROPERTY( "lodamage", lodamage_ )
-	SET_INT_PROPERTY( "npc", npc_ )
-	SET_INT_PROPERTY( "shop", shop_ )
-	SET_INT_PROPERTY( "cell", cell_ )
-	SET_INT_PROPERTY( "jailtimer", jailtimer_ )
-	SET_INT_PROPERTY( "jailsecs", jailsecs_ )
-	SET_INT_PROPERTY( "karma", karma_ )
-	SET_INT_PROPERTY( "fame", fame_ )
-	SET_INT_PROPERTY( "kills", kills_ )
-	SET_INT_PROPERTY( "deaths", deaths_ )
-	SET_INT_PROPERTY( "dead", dead_ )
-	SET_INT_PROPERTY( "lightbonus", fixedlight_ )
-	SET_INT_PROPERTY( "defense", def_ )
-	SET_INT_PROPERTY( "war", war_ )
-	SET_INT_PROPERTY( "target", targ_ )
-	SET_INT_PROPERTY( "nextswing", timeout_ )
-	SET_INT_PROPERTY( "regenhealth", regen_ )
-	SET_INT_PROPERTY( "regenstamina", regen2_ )
-	SET_INT_PROPERTY( "regenmana", regen3_ )
+	else SET_STR_PROPERTY( "lootlist", loot_ )
+	else SET_INT_PROPERTY( "font", fonttype_ )
+	else SET_INT_PROPERTY( "saycolor", saycolor_ )
+	else SET_INT_PROPERTY( "emotecolor", emotecolor_ )
+	else SET_INT_PROPERTY( "strength", st_ )
+	else SET_INT_PROPERTY( "dexterity", dx )
+	else SET_INT_PROPERTY( "intelligence", in_ )
+	else SET_INT_PROPERTY( "strength2", st2_ )
+	else SET_INT_PROPERTY( "dexterity2", dx2 )
+	else SET_INT_PROPERTY( "intelligence2", in2_ )
+	else SET_INT_PROPERTY( "maylevitate", may_levitate_ )
+	else SET_INT_PROPERTY( "direction", dir_ )
+	else SET_INT_PROPERTY( "xid", xid_ )
+	else SET_INT_PROPERTY( "priv", priv )
+	else SET_INT_PROPERTY( "priv2", priv2_ )
+	else SET_INT_PROPERTY( "health", hp_ )
+	else SET_INT_PROPERTY( "stamina", stm_ )
+	else SET_INT_PROPERTY( "mana", mn_ )
+	else SET_INT_PROPERTY( "mana2", mn2_ )
+	else SET_INT_PROPERTY( "hidamage", hidamage_ )
+	else SET_INT_PROPERTY( "lodamage", lodamage_ )
+	else SET_INT_PROPERTY( "npc", npc_ )
+	else SET_INT_PROPERTY( "shop", shop_ )
+	else SET_INT_PROPERTY( "cell", cell_ )
+	else SET_INT_PROPERTY( "jailtimer", jailtimer_ )
+	else SET_INT_PROPERTY( "jailsecs", jailsecs_ )
+	else SET_INT_PROPERTY( "karma", karma_ )
+	else SET_INT_PROPERTY( "fame", fame_ )
+	else SET_INT_PROPERTY( "kills", kills_ )
+	else SET_INT_PROPERTY( "deaths", deaths_ )
+	else SET_INT_PROPERTY( "dead", dead_ )
+	else SET_INT_PROPERTY( "lightbonus", fixedlight_ )
+	else SET_INT_PROPERTY( "defense", def_ )
+	else SET_INT_PROPERTY( "war", war_ )
+	else SET_INT_PROPERTY( "target", targ_ )
+	else SET_INT_PROPERTY( "nextswing", timeout_ )
+	else SET_INT_PROPERTY( "regenhealth", regen_ )
+	else SET_INT_PROPERTY( "regenstamina", regen2_ )
+	else SET_INT_PROPERTY( "regenmana", regen3_ )
 	else if( name == "inputmode" )
 	{
 		inputmode_ = (enInputMode)value.toInt();
 		return 0;
 	}
-	SET_INT_PROPERTY( "inputitem", inputitem_ )
-	SET_INT_PROPERTY( "attacker", attacker_ )
-	SET_INT_PROPERTY( "npcmovetime", npcmovetime_ )
-	SET_INT_PROPERTY( "npcwander", npcWander_ )
-	SET_INT_PROPERTY( "oldnpcwander", oldnpcWander_ )
-	SET_INT_PROPERTY( "following", ftarg_ )
+	else SET_INT_PROPERTY( "inputitem", inputitem_ )
+	else SET_INT_PROPERTY( "attacker", attacker_ )
+	else SET_INT_PROPERTY( "npcmovetime", npcmovetime_ )
+	else SET_INT_PROPERTY( "npcwander", npcWander_ )
+	else SET_INT_PROPERTY( "oldnpcwander", oldnpcWander_ )
+	else SET_INT_PROPERTY( "following", ftarg_ )
 	else if( name == "destination" )
 	{
 		ptarg_ = value.toCoord();
 		return 0;
 	}
+	
 	SET_INT_PROPERTY( "fx1", fx1_ )
-	SET_INT_PROPERTY( "fx2", fx2_ )
-	SET_INT_PROPERTY( "fy1", fy1_ )
-	SET_INT_PROPERTY( "fy2", fy2_ )
-	SET_INT_PROPERTY( "fz1", fz1_ )
-	SET_INT_PROPERTY( "skilldelay", skilldelay_ )
-	SET_INT_PROPERTY( "objectdelay", objectdelay_ )
-	SET_INT_PROPERTY( "making", making_ )
-	SET_INT_PROPERTY( "lasttarget", lastTarget_  )
-	SET_INT_PROPERTY( "direction2", dir2_ )
-	SET_INT_PROPERTY( "totame", taming_ )
-	SET_INT_PROPERTY( "summontimer", summontimer_) 
-	SET_INT_PROPERTY( "visrange", VisRange_ )
-	SET_INT_PROPERTY( "food", food_ )
-	SET_CHAR_PROPERTY( "owner", owner_ )
-	SET_STR_PROPERTY( "profile", profile_ )
-	SET_INT_PROPERTY( "sex", sex_ )
-	SET_INT_PROPERTY( "id", id_ )
+	else SET_INT_PROPERTY( "fx2", fx2_ )
+	else SET_INT_PROPERTY( "fy1", fy1_ )
+	else SET_INT_PROPERTY( "fy2", fy2_ )
+	else SET_INT_PROPERTY( "fz1", fz1_ )
+	else SET_INT_PROPERTY( "skilldelay", skilldelay_ )
+	else SET_INT_PROPERTY( "objectdelay", objectdelay_ )
+	else SET_INT_PROPERTY( "making", making_ )
+	else SET_INT_PROPERTY( "lasttarget", lastTarget_  )
+	else SET_INT_PROPERTY( "direction2", dir2_ )
+	else SET_INT_PROPERTY( "totame", taming_ )
+	else SET_INT_PROPERTY( "summontimer", summontimer_) 
+	else SET_INT_PROPERTY( "visrange", VisRange_ )
+	else SET_INT_PROPERTY( "food", food_ )
+	else SET_CHAR_PROPERTY( "owner", owner_ )
+	else SET_STR_PROPERTY( "profile", profile_ )
+	else SET_INT_PROPERTY( "sex", sex_ )
+	else SET_INT_PROPERTY( "id", id_ )
 
 	// skill.
-	if( name.left( 6 ) == "skill." )
+	else if( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
 		INT16 skillId = Skills->findSkillByDef( skill );
@@ -4481,4 +4513,76 @@ QString cChar::onShowPaperdollName( P_CHAR pOrigin )
 	}
 
 	return (char*)0;
+}
+
+void cChar::setHairColor( unsigned short d)	
+{ 
+	haircolor_ = d; 
+	changed( SAVE );
+	cItem* pHair = GetItemOnLayer( 11 );
+	if( pHair )
+		pHair->setColor( d );
+	pHair->update();
+	resend();
+}
+
+void cChar::setHairStyle( unsigned short d)	
+{ 
+	if( !isHair( d ) )
+		return;
+	hairstyle_ = d; 
+	changed( SAVE );
+	cItem* pHair = GetItemOnLayer( 11 );
+	if( pHair )
+	{
+		pHair->setId( d );
+	}
+	else
+	{
+		pHair = new cItem;
+		pHair->Init();
+
+		pHair->setDye(1);
+		pHair->setNewbie( true );
+		pHair->setId( d );
+		pHair->setColor( haircolor_ );
+		addItem( cChar::Hair, pHair );
+	}
+	pHair->update();
+	resend();
+}
+
+void cChar::setBeardColor( unsigned short d)	
+{ 
+	beardcolor_ = d; 
+	changed( SAVE );
+	cItem* pBeard = GetItemOnLayer( 16 );
+	if( pBeard )
+		pBeard->setColor( d );
+	pBeard->update();
+	resend();
+}
+
+void cChar::setBeardStyle( unsigned short d)	
+{ 
+	if( !isBeard( d ) )
+		return;
+	beardstyle_ = d; 
+	changed( SAVE );
+	cItem* pBeard = GetItemOnLayer( 16 );
+	if( pBeard )
+		pBeard->setId( d );
+	else
+	{
+		pBeard = new cItem;
+		pBeard->Init();
+
+		pBeard->setDye(1);
+		pBeard->setNewbie( true );
+		pBeard->setId( d );
+		pBeard->setColor( beardcolor_ );
+		addItem( cChar::FacialHair, pBeard );
+	}
+	pBeard->update();
+	resend();
 }

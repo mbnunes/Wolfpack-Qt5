@@ -68,7 +68,7 @@ cBook::cBook()
 	this->title_ = QString::null;
 	this->author_ = QString::null;
 	this->section_ = QString::null;
-	this->pages_ = 0;
+	this->pages_ = 16;
 	this->changed( SAVE|TOOLTIP );
 }
 
@@ -94,7 +94,11 @@ void cBook::load( char **result, UINT16 &offset )
 	cDBResult res = persistentBroker->query( QString( "SELECT page,text FROM bookpages WHERE serial = '%1'" ).arg( serial() ) );
 
 	while( res.fetchrow() )
-		content_.insert( res.getInt( 0 ), res.getString( 1 ) );
+	{
+		while( content_.size() <= res.getInt( 0 ) )
+			content_.push_back( "" );
+		content_[ res.getInt( 0 ) ] = res.getString( 1 );
+	}
 
 	res.free();
 	changed_ = false;
@@ -123,8 +127,12 @@ void cBook::save()
 		if( isPersistent )
 			persistentBroker->executeQuery( QString( "DELETE FROM bookpages WHERE serial = '%1'" ).arg( serial() ) );
 	
-		for ( QMap<int, QString>::iterator it = content_.begin(); it != content_.end(); ++it )
-			persistentBroker->executeQuery( QString( "INSERT INTO bookpages SET serial = '%1', page = '%2', text = '%3'" ).arg( serial() ).arg( it.key() ).arg( __escapeReservedCharacters( it.data() ) ) );
+		UINT32 i = 0;
+		for ( QStringList::iterator it = content_.begin(); it != content_.end(); ++it )
+		{
+			persistentBroker->executeQuery( QString( "INSERT INTO bookpages SET serial = '%1', page = '%2', text = '%3'" ).arg( serial() ).arg( i ).arg( __escapeReservedCharacters( *it ) ) );
+			++i;
+		}
 	}
 	cItem::save();
 	changed_ = false;
@@ -275,11 +283,12 @@ void cBook::processNode( const QDomElement &Tag )
 				if( childTag.attributes().contains("no") )
 				{
 					UINT32 n = childTag.attribute( "no" ).toShort();
-
+					while( content_.size() <= n )
+						content_.push_back( "" );
 					content_[ n - 1 ] = text;
 				}
 				else
-					content_.insert( content_.size() + 1, text );
+					content_.push_back( text );
 			}
 			childNode = childNode.nextSibling();
 		}
@@ -339,7 +348,7 @@ void cBook::refresh( void )
 				//	</content>
 				else if( TagName == "content" )
 				{
-					QMap<int, QString> content;
+					QStringList content;
 					QDomNode chchildNode = Tag.firstChild();
 					while( !chchildNode.isNull() )
 					{
@@ -356,11 +365,13 @@ void cBook::refresh( void )
 							if( chchildTag.attributes().contains("no") )
 							{
 								UINT32 n = chchildTag.attribute( "no" ).toShort();
+								while( content.size() <= n )
+									content.push_back( "" );
 
 								content[ n - 1 ] = text;
 							}
 							else
-								content.insert( content.size() + 1, text );
+								content.push_back( text );
 						}
 						chchildNode = chchildNode.nextSibling();
 					}
@@ -453,3 +464,27 @@ void cBook::readPage( cUOSocket *socket, UINT32 page )
 	socket->send( &readBook );
 }
 
+stError *cBook::setProperty( const QString &name, const cVariant &value )
+{
+	changed( SAVE|TOOLTIP );
+	SET_BOOL_PROPERTY( "readonly", readonly_ )
+	else SET_BOOL_PROPERTY( "predefined", predefined_ )
+	else SET_STR_PROPERTY( "section", section_ )
+	else SET_STR_PROPERTY( "title", title_ )
+	else SET_STR_PROPERTY( "author", author_ )
+	else SET_INT_PROPERTY( "pages", pages_ )
+
+	return cItem::setProperty( name, value );
+}
+
+stError *cBook::getProperty( const QString &name, cVariant &value ) const
+{
+	GET_PROPERTY( "readonly", readonly_ )
+	else GET_PROPERTY( "predefined", predefined_ )
+	else GET_PROPERTY( "section", predefined_ )
+	else GET_PROPERTY( "title", predefined_ )
+	else GET_PROPERTY( "author", predefined_ )
+	else GET_PROPERTY( "pages", pages_ )
+
+	return cItem::getProperty( name, value );
+}

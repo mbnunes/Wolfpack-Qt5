@@ -86,7 +86,6 @@ HEADERS         = \
 		  uobject.h \
 		  utilsys.h \
 		  verinfo.h \
-		  weight.h \
 		  whitespace.h \
 		  wolfpack.h \
 		  wpconsole.h \
@@ -168,7 +167,6 @@ SOURCES         = \
 		  uobject.cpp \
 		  uobject_flatstore.cpp \
 		  utilsys.cpp \
-		  weight.cpp \
 		  wolfpack.cpp \
 		  wpconsole.cpp \
 		  walking.cpp \
