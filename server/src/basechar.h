@@ -44,6 +44,7 @@
 #include "uobject.h"
 #include "TmpEff.h"
 #include "territories.h"
+#include "log.h"
 
 class cUOTxTooltipList;
 
