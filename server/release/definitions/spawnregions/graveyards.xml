@@ -7,7 +7,7 @@
 =================================================================
 -->
 <definitions>
-	<spawnregion id="britain_graveyard">
+	<spawnregion id="britain_graveyard_fel">
 		<maxnpcamount>5</maxnpcamount>
 		<mintime>10</mintime>
 		<maxtime>30</maxtime>
@@ -18,6 +18,19 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1337" x2="1374" y1="1493" y2="1509" />
+		<rectangle x1="1337" x2="1374" y1="1493" y2="1509" map="0" />
+	</spawnregion>
+	<spawnregion id="britain_graveyard_tram">
+		<maxnpcamount>5</maxnpcamount>
+		<mintime>10</mintime>
+		<maxtime>30</maxtime>
+		<!-- 3/4 headless, 1/4 skeleton -->
+		<npcs>
+			<npc mult="3">orc_weak</npc>
+			<npc mult="1">orc_medium</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1337" x2="1374" y1="1493" y2="1509" map="1" />
 	</spawnregion>
 </definitions>

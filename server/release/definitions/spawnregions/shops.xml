@@ -1,0 +1,43 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper	                        |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="britain_bank_fel1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>banker_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1425" x2="1428" y1="1687" y2="1690" map="0" />
+	</spawnregion>
+	<spawnregion id="britain_bank_fel2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>banker_female</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1434" x2="1440" y1="1683" y2="1687" map="0" />
+	</spawnregion>
+	<spawnregion id="britain_bank_fel3">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>banker_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1425" x2="1428" y1="1677" y2="1679" map="0" />
+	</spawnregion>
+</definitions>
