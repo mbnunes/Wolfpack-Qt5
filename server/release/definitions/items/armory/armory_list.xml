@@ -20,6 +20,25 @@
 	<include file="definitions/items/armory/chain/chain_leggings.xml"/>
 	<include file="definitions/items/armory/chain/chain_tunic.xml"/>
 
+	<!-- Hats -->
+	<include file="definitions/items/armory/hats/bandana.xml" />
+	<include file="definitions/items/armory/hats/bear_mask.xml" />
+	<include file="definitions/items/armory/hats/bonnet.xml" />
+	<include file="definitions/items/armory/hats/cap.xml" />
+	<include file="definitions/items/armory/hats/deer_mask.xml" />
+	<include file="definitions/items/armory/hats/feathered_hat.xml" />
+	<include file="definitions/items/armory/hats/floppy_hat.xml" />
+	<include file="definitions/items/armory/hats/jester_hat.xml" />
+	<include file="definitions/items/armory/hats/jesters_cap.xml" />
+	<include file="definitions/items/armory/hats/orc_masks.xml" />
+	<include file="definitions/items/armory/hats/skull_cap.xml" />
+	<include file="definitions/items/armory/hats/straw_hat.xml" />
+	<include file="definitions/items/armory/hats/tall_straw_hat.xml" />
+	<include file="definitions/items/armory/hats/tribal_masks.xml" />
+	<include file="definitions/items/armory/hats/tricorne_hat.xml" />
+	<include file="definitions/items/armory/hats/wide-brim_hat.xml" />
+	<include file="definitions/items/armory/hats/wizards_hat.xml" />
+
 	<!-- Helmets -->
 	<include file="definitions/items/armory/helmets/bascinet.xml"/>
 	<include file="definitions/items/armory/helmets/close_helmet.xml"/>
