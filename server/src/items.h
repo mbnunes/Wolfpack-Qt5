@@ -455,7 +455,7 @@ protected:
 	void processModifierNode( const cElement* Tag );
 
 	unsigned short id_; // Display id of the item
-	unsigned short color_ : 12; // Color of this item (Note: only colors up to 0xBFF available -> 12 bit)
+	unsigned short color_; // Color of this item (Note: only colors up to 0xBFF available -> 12 bit)
 	unsigned short amount_; // Amount of this item
 
 	unsigned char layer_ : 5; // The layer this item is equipped on /*BASEDEF*/ (for now -> 5 bit)
