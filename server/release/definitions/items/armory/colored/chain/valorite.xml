@@ -10,41 +10,41 @@
 
 	<!-- chainmail armor -->
 	<!-- chainmail coif -->
-	<item id="valorite_armor_chain_coif">
-		<inherit id="13bb" />
+	<item id="valorite_armor_chain_coif"  inherit="13bb">
 		<valorite_armor />
+		<baseid>13bb</baseid>
 		<category>Armor\Valorite\Chainmail\Coif (N/S)</category>
 	</item>
 
-	<item id="valorite_armor_chain_coif_2">
-		<inherit id="13c0" />
+	<item id="valorite_armor_chain_coif_2"  inherit="13c0">
 		<valorite_armor />
+		<baseid>13c0</baseid>
 		<category>Armor\Valorite\Chainmail\Coif (E/W)</category>
 	</item>
 
 	<!-- chainmail leggings -->
-	<item id="valorite_armor_chain_leggings">
-		<inherit id="13be" />
+	<item id="valorite_armor_chain_leggings" inherit="13be">
 		<valorite_armor />
+		<baseid>13be</baseid>
 		<category>Armor\Valorite\Chainmail\Leggings (N/S)</category>
 	</item>
 
-	<item id="valorite_armor_chain_leggings_2">
-		<inherit id="13c3" />
+	<item id="valorite_armor_chain_leggings_2" inherit="13c3">
 		<valorite_armor />
+		<baseid>13c3</baseid>
 		<category>Armor\Valorite\Chainmail\Leggings (E/W)</category>
 	</item>
 
 	<!-- chainmail tunic -->
-	<item id="valorite_armor_chain_tunic">
-		<inherit id="13bf" />
+	<item id="valorite_armor_chain_tunic" inherit="13bf">
 		<valorite_armor />
+		<baseid>13bf</baseid>
 		<category>Armor\Valorite\Chainmail\Tunic (N/S)</category>
 	</item>
 
-	<item id="valorite_armor_chain_tunic_2">
-		<inherit id="13c4" />
+	<item id="valorite_armor_chain_tunic_2" inherit="13c4">
 		<valorite_armor />
+		<baseid>13c4</baseid>
 		<category>Armor\Valorite\Chainmail\Tunic (E/W)</category>
 	</item>
 

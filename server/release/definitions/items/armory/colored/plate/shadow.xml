@@ -10,88 +10,88 @@
 
 	<!-- plate armor -->
 	<!-- female plate armor -->
-	<item id="shadow_armor_plate_female">
-		<inherit id="1c04" />
+	<item id="shadow_armor_plate_female" inherit="1c04">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Female Armor (N/S)</category>
+		<baseid>1c04</baseid>
+		<category>Armor\Shadow Iron\Platemail\Female Armor (N/S)</category>
 	</item>
 
-	<item id="shadow_armor_plate_female_2">
-		<inherit id="1c05" />
+	<item id="shadow_armor_plate_female_2" inherit="1c05">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Female Armor (E/W)</category>
+		<baseid>1c05</baseid>
+		<category>Armor\Shadow Iron\Platemail\Female Armor (E/W)</category>
 	</item>
 
 	<!-- male plate armor -->
-	<item id="shadow_armor_plate_male">
-		<inherit id="1415" />
+	<item id="shadow_armor_plate_male" inherit="1415">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Male Armor (N/S)</category>
+		<baseid>1415</baseid>
+		<category>Armor\Shadow Iron\Platemail\Male Armor (N/S)</category>
 	</item>
 
-	<item id="shadow_armor_plate_male_2">
-		<inherit id="1416" />
+	<item id="shadow_armor_plate_male_2" inherit="1416">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Male Armor (E/W)</category>
+		<baseid>1416</baseid>
+		<category>Armor\Shadow Iron\Platemail\Male Armor (E/W)</category>
 	</item>
 
 	<!-- plate arms -->
-	<item id="shadow_armor_plate_arms">
-		<inherit id="1410" />
+	<item id="shadow_armor_plate_arms" inherit="1410">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Arms (N/S)</category>
+		<baseid>1410</baseid>
+		<category>Armor\Shadow Iron\Platemail\Arms (N/S)</category>
 	</item>
 
-	<item id="shadow_armor_plate_arms_2">
-		<inherit id="1417" />
+	<item id="shadow_armor_plate_arms_2" inherit="1417">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Arms (E/W)</category>
+		<baseid>1417</baseid>
+		<category>Armor\Shadow Iron\Platemail\Arms (E/W)</category>
 	</item>
 
 	<!-- plate gloves -->
-	<item id="shadow_armor_plate_gloves">
-		<inherit id="1414" />
+	<item id="shadow_armor_plate_gloves" inherit="1414">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Gloves (N/S)</category>
+		<baseid>1414</baseid>
+		<category>Armor\Shadow Iron\Platemail\Gloves (N/S)</category>
 	</item>
 
-	<item id="shadow_armor_plate_gloves_2">
-		<inherit id="1418" />
+	<item id="shadow_armor_plate_gloves_2" inherit="1418">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Gloves (E/W)</category>
+		<baseid>1418</baseid>
+		<category>Armor\Shadow Iron\Platemail\Gloves (E/W)</category>
 	</item>
 
 	<!-- plate gorget -->
-	<item id="shadow_armor_plate_gorget">
-		<inherit id="1413" />
+	<item id="shadow_armor_plate_gorget" inherit="1413">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Gorget</category>
+		<baseid>1413</baseid>
+		<category>Armor\Shadow Iron\Platemail\Gorget</category>
 	</item>
 
 	<!-- plate helmet -->
-	<item id="shadow_armor_plate_helmet">
-		<inherit id="1412" />
+	<item id="shadow_armor_plate_helmet" inherit="1412">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Helm (N/S)</category>
+		<baseid>1412</baseid>
+		<category>Armor\Shadow Iron\Platemail\Helm (N/S)</category>
 	</item>
 
-	<item id="shadow_armor_plate_helmet_2">
-		<inherit id="1419" />
+	<item id="shadow_armor_plate_helmet_2" inherit="1419">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Helm (E/W)</category>
+		<baseid>1419</baseid>
+		<category>Armor\Shadow Iron\Platemail\Helm (E/W)</category>
 	</item>
 
 	<!-- plate leggings -->
-	<item id="shadow_armor_plate_leggings">
-		<inherit id="1411" />
+	<item id="shadow_armor_plate_leggings" inherit="1411">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Legs (N/S)</category>
+		<baseid>1411</baseid>
+		<category>Armor\Shadow Iron\Platemail\Legs (N/S)</category>
 	</item>
 
-	<item id="shadow_armor_plate_leggings_2">
-		<inherit id="141a" />
+	<item id="shadow_armor_plate_leggings_2" inherit="141a">
 		<shadow_armor />
-		<category>Armor\Shadow\Platemail\Legs (E/W)</category>
+		<baseid>141a</baseid>
+		<category>Armor\Shadow Iron\Platemail\Legs (E/W)</category>
 	</item>
 
 </definitions>

@@ -10,55 +10,55 @@
 
 	<!-- ring armor -->
 	<!-- ring gloves -->
-	<item id="shadow_armor_ring_gloves">
-		<inherit id="13eb" />
+	<item id="shadow_armor_ring_gloves" inherit="13eb">
 		<shadow_armor />
-		<category>Armor\Shadow\Ringmail\Gloves (N/S)</category>
+		<baseid>13eb</baseid>
+		<category>Armor\Shadow Iron\Ringmail\Gloves (N/S)</category>
 	</item>
 
-	<item id="shadow_armor_ring_gloves_2">
-		<inherit id="13f2" />
+	<item id="shadow_armor_ring_gloves_2" inherit="13f2">
 		<shadow_armor />
-		<category>Armor\Shadow\Ringmail\Gloves (E/W)</category>
+		<baseid>13f2</baseid>
+		<category>Armor\Shadow Iron\Ringmail\Gloves (E/W)</category>
 	</item>
 
 	<!-- ring leggings -->
-	<item id="shadow_armor_ring_leggings">
-		<inherit id="13f0" />
+	<item id="shadow_armor_ring_leggings" inherit="13f0">
 		<shadow_armor />
-		<category>Armor\Shadow\Ringmail\Leggings (N/S)</category>
+		<baseid>13f0</baseid>
+		<category>Armor\Shadow Iron\Ringmail\Leggings (N/S)</category>
 	</item>
 
-	<item id="shadow_armor_ring_leggings_2">
-		<inherit id="13f1" />
+	<item id="shadow_armor_ring_leggings_2" inherit="13f1">
 		<shadow_armor />
-		<category>Armor\Shadow\Ringmail\Leggings (E/W)</category>
+		<baseid>13f1</baseid>
+		<category>Armor\Shadow Iron\Ringmail\Leggings (E/W)</category>
 	</item>
 
 	<!-- ring sleeves -->
-	<item id="shadow_armor_ring_sleeves">
-		<inherit id="13ee" />
+	<item id="shadow_armor_ring_sleeves" inherit="13ee">
 		<shadow_armor />
-		<category>Armor\Shadow\Ringmail\Sleeves (N/S)</category>
+		<baseid>13ee</baseid>
+		<category>Armor\Shadow Iron\Ringmail\Sleeves (N/S)</category>
 	</item>
 
-	<item id="shadow_armor_ring_sleeves_2">
-		<inherit id="13ef" />
+	<item id="shadow_armor_ring_sleeves_2" inherit="13ef">
 		<shadow_armor />
-		<category>Armor\Shadow\Ringmail\Sleeves (E/W)</category>
+		<baseid>13ef</baseid>
+		<category>Armor\Shadow Iron\Ringmail\Sleeves (E/W)</category>
 	</item>
 
 	<!-- ring tunic -->
-	<item id="shadow_armor_ring_tunic">
-		<inherit id="13ec" />
+	<item id="shadow_armor_ring_tunic" inherit="13ec">
 		<shadow_armor />
-		<category>Armor\Shadow\Ringmail\Tunic (N/S)</category>
+		<baseid>13ec</baseid>
+		<category>Armor\Shadow Iron\Ringmail\Tunic (N/S)</category>
 	</item>
 
-	<item id="shadow_armor_ring_tunic_2">
-		<inherit id="13ed" />
+	<item id="shadow_armor_ring_tunic_2" inherit="13ed">
 		<shadow_armor />
-		<category>Armor\Shadow\Ringmail\Tunic (E/W)</category>
+		<baseid>13ed</baseid>
+		<category>Armor\Shadow Iron\Ringmail\Tunic (E/W)</category>
 	</item>
 
 </definitions>

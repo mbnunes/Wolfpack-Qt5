@@ -10,54 +10,54 @@
 
 	<!-- ring armor -->
 	<!-- ring gloves -->
-	<item id="dull_copper_armor_ring_gloves">
-		<inherit id="13eb" />
+	<item id="dull_copper_armor_ring_gloves" inherit="13eb">
 		<dull_copper_armor />
+		<baseid>13eb</baseid>
 		<category>Armor\Dull Copper\Ringmail\Gloves (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_ring_gloves_2">
-		<inherit id="13f2" />
+	<item id="dull_copper_armor_ring_gloves_2" inherit="13f2">
 		<dull_copper_armor />
+		<baseid>13f2</baseid>
 		<category>Armor\Dull Copper\Ringmail\Gloves (E/W)</category>
 	</item>
 
 	<!-- ring leggings -->
-	<item id="dull_copper_armor_ring_leggings">
-		<inherit id="13f0" />
+	<item id="dull_copper_armor_ring_leggings" inherit="13f0">
 		<dull_copper_armor />
+		<baseid>13f0</baseid>
 		<category>Armor\Dull Copper\Ringmail\Leggings (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_ring_leggings_2">
-		<inherit id="13f1" />
+	<item id="dull_copper_armor_ring_leggings_2" inherit="13f1">
 		<dull_copper_armor />
+		<baseid>13f1</baseid>
 		<category>Armor\Dull Copper\Ringmail\Leggings (E/W)</category>
 	</item>
 
 	<!-- ring sleeves -->
-	<item id="dull_copper_armor_ring_sleeves">
-		<inherit id="13ee" />
+	<item id="dull_copper_armor_ring_sleeves" inherit="13ee">
 		<dull_copper_armor />
+		<baseid>13ee</baseid>
 		<category>Armor\Dull Copper\Ringmail\Sleeves (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_ring_sleeves_2">
-		<inherit id="13ef" />
+	<item id="dull_copper_armor_ring_sleeves_2" inherit="13ef">
 		<dull_copper_armor />
+		<baseid>13ef</baseid>
 		<category>Armor\Dull Copper\Ringmail\Sleeves (E/W)</category>
 	</item>
 
 	<!-- ring tunic -->
-	<item id="dull_copper_armor_ring_tunic">
-		<inherit id="13ec" />
+	<item id="dull_copper_armor_ring_tunic" inherit="13ec">
 		<dull_copper_armor />
+		<baseid>13ec</baseid>
 		<category>Armor\Dull Copper\Ringmail\Tunic (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_ring_tunic_2">
-		<inherit id="13ed" />
+	<item id="dull_copper_armor_ring_tunic_2" inherit="13ed">
 		<dull_copper_armor />
+		<baseid>13ed</baseid>
 		<category>Armor\Dull Copper\Ringmail\Tunic (E/W)</category>
 	</item>
 

@@ -13,6 +13,7 @@
 	<item id="gold_shields_buckler">
 		<inherit id="1b73" />
 		<gold_armor />
+		<baseid>1b73</baseid>
 		<category>Armor\Gold\Shields\Buckler</category>
 	</item>
 
@@ -20,6 +21,7 @@
 	<item id="gold_shields_bronze_shield">
 		<inherit id="1b72" />
 		<gold_armor />
+		<baseid>1b72</baseid>
 		<category>Armor\Gold\Shields\Bronze</category>
 	</item>
 
@@ -27,12 +29,14 @@
 	<item id="gold_shields_heater_shield">
 		<inherit id="1b76" />
 		<gold_armor />
+		<baseid>1b76</baseid>
 		<category>Armor\Gold\Shields\Heater (N/S)</category>
 	</item>
 
 	<item id="gold_shields_heater_shield_2">
 		<inherit id="1b77" />
 		<gold_armor />
+		<baseid>1b77</baseid>
 		<category>Armor\Gold\Shields\Heater (E/W)</category>
 	</item>
 
@@ -40,12 +44,14 @@
 	<item id="gold_shields_metal_shield">
 		<inherit id="1b7b" />
 		<gold_armor />
+		<baseid>1b7b</baseid>
 		<category>Armor\Gold\Shields\Metal Shield</category>
 	</item>
 
 	<!-- metal kite shield -->
 	<item id="gold_shields_metal_kite_shield">
 		<inherit id="1b74" />
+		<baseid>1b74</baseid>
 		<gold_armor />
 		<category>Armor\Gold\Shields\Metal Kite (N/S)</category>
 	</item>
@@ -53,6 +59,7 @@
 	<item id="gold_shields_metal_kite_shield_2">
 		<inherit id="1b75" />
 		<gold_armor />
+		<baseid>1b75</baseid>
 		<category>Armor\Gold\Shields\Metal Kite (E/W)</category>
 	</item>
 
@@ -60,12 +67,14 @@
 	<item id="gold_shields_wooden_kite_shield">
 		<inherit id="1b78" />
 		<gold_armor />
+		<baseid>1b78</baseid>
 		<category>Armor\Gold\Shields\Wooden Kite (N/S)</category>
 	</item>
 
 	<item id="gold_shields_wooden_kite_shield_2">
 		<inherit id="1b79" />
 		<gold_armor />
+		<baseid>1b79</baseid>
 		<category>Armor\Gold\Shields\Wooden Kite (E/W)</category>
 	</item>
 
@@ -73,6 +82,7 @@
 	<item id="gold_shields_chaos_shield">
 		<inherit id="1bc3" />
 		<gold_armor />
+		<baseid>1bc3</baseid>
 		<category>Armor\Gold\Shields\Chaos Shield</category>
 	</item>
 
@@ -80,12 +90,14 @@
 	<item id="gold_shields_order_shield">
 		<inherit id="1bc4" />
 		<gold_armor />
+		<baseid>1bc4</baseid>
 		<category>Armor\Gold\Shields\Order Shield (N/S)</category>
 	</item>
 
 	<item id="gold_shields_order_shield_2">
 		<inherit id="1bc5" />
 		<gold_armor />
+		<baseid>1bc5</baseid>
 		<category>Armor\Gold\Shields\Order Shield (E/W)</category>
 	</item>
 

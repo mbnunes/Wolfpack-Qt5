@@ -10,54 +10,54 @@
 
 	<!-- helmets -->
 	<!-- bascinet helmet -->
-	<item id="copper_helmets_bascinet">
-		<inherit id="140d" />
+	<item id="copper_helmets_bascinet" inherit="140d">
 		<copper_armor />
+		<baseid>140d</baseid>
 		<category>Armor\Copper\Helmets\Bascinet (N/S)</category>
 	</item>
 
-	<item id="copper_helmets_bascinet_2">
-		<inherit id="140c" />
+	<item id="copper_helmets_bascinet_2" inherit="140c">
 		<copper_armor />
+		<baseid>140c</baseid>
 		<category>Armor\Copper\Helmets\Bascinet (E/W)</category>
 	</item>
 
 	<!-- nose helmet -->
-	<item id="copper_helmets_nose">
-		<inherit id="140f" />
+	<item id="copper_helmets_nose" inherit="140f">
 		<copper_armor />
+		<baseid>140f</baseid>
 		<category>Armor\Copper\Helmets\Nose (N/S)</category>
 	</item>
 
-	<item id="copper_helmets_nose_2">
-		<inherit id="140e" />
+	<item id="copper_helmets_nose_2" inherit="140e">
 		<copper_armor />
+		<baseid>140e</baseid>
 		<category>Armor\Copper\Helmets\Nose (E/W)</category>
 	</item>
 
 	<!-- normal helmet -->
-	<item id="copper_helmets_helmet">
-		<inherit id="140b" />
+	<item id="copper_helmets_helmet" inherit="140b">
 		<copper_armor />
+		<baseid>140b</baseid>
 		<category>Armor\Copper\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="copper_helmets_helmet_2">
-		<inherit id="140a" />
+	<item id="copper_helmets_helmet_2" inherit="140a">
 		<copper_armor />
+		<baseid>140a</baseid>
 		<category>Armor\Copper\Helmets\Helmet (E/W)</category>
 	</item>
 
 	<!-- close helmet -->
-	<item id="copper_helmets_close">
-		<inherit id="1409" />
+	<item id="copper_helmets_close" inherit="1409">
 		<copper_armor />
+		<baseid>1409</baseid>
 		<category>Armor\Copper\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="copper_helmets_close_2">
-		<inherit id="1408" />
+	<item id="copper_helmets_close_2" inherit="1408">
 		<copper_armor />
+		<baseid>1408</baseid>
 		<category>Armor\Copper\Helmets\Close Helm (E/W)</category>
 	</item>
 

@@ -12,33 +12,39 @@
 	<!-- chainmail coif -->
 	<item id="agapite_armor_chain_coif"  inherit="13bb">
 		<agapite_armor />
+		<baseid>13bb</baseid>
 		<category>Armor\Agapite\Chainmail\Coif (N/S)</category>
 	</item>
 
 	<item id="agapite_armor_chain_coif_2"  inherit="13c0">
 		<agapite_armor />
+		<baseid>13c0</baseid>
 		<category>Armor\Agapite\Chainmail\Coif (E/W)</category>
 	</item>
 
 	<!-- chainmail leggings -->
 	<item id="agapite_armor_chain_leggings" inherit="13be">
 		<agapite_armor />
+		<baseid>13be</baseid>
 		<category>Armor\Agapite\Chainmail\Leggings (N/S)</category>
 	</item>
 
 	<item id="agapite_armor_chain_leggings_2" inherit="13c3">
 		<agapite_armor />
+		<baseid>13c3</baseid>
 		<category>Armor\Agapite\Chainmail\Leggings (E/W)</category>
 	</item>
 
 	<!-- chainmail tunic -->
 	<item id="agapite_armor_chain_tunic" inherit="13bf">
 		<agapite_armor />
+		<baseid>13bf</baseid>
 		<category>Armor\Agapite\Chainmail\Tunic (N/S)</category>
 	</item>
 
 	<item id="agapite_armor_chain_tunic_2" inherit="13c4">
 		<agapite_armor />
+		<baseid>13c4</baseid>
 		<category>Armor\Agapite\Chainmail\Tunic (E/W)</category>
 	</item>
 

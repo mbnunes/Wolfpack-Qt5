@@ -12,72 +12,85 @@
 	<!-- female plate armor -->
 	<item id="copper_armor_plate_female" inherit="1c04">
 		<copper_armor />
+		<baseid>1c04</baseid>
 		<category>Armor\Copper\Platemail\Female Armor (N/S)</category>
 	</item>
 
 	<item id="copper_armor_plate_female_2" inherit="1c05">
 		<copper_armor />
+		<baseid>1c05</baseid>
 		<category>Armor\Copper\Platemail\Female Armor (E/W)</category>
 	</item>
 
 	<!-- male plate armor -->
 	<item id="copper_armor_plate_male" inherit="1415">
 		<copper_armor />
+		<baseid>1415</baseid>
 		<category>Armor\Copper\Platemail\Male Armor (N/S)</category>
 	</item>
 
 	<item id="copper_armor_plate_male_2" inherit="1416">
 		<copper_armor />
+		<baseid>1416</baseid>
 		<category>Armor\Copper\Platemail\Male Armor (E/W)</category>
 	</item>
 
 	<!-- plate arms -->
 	<item id="copper_armor_plate_arms" inherit="1410">
 		<copper_armor />
+		<baseid>1410</baseid>
 		<category>Armor\Copper\Platemail\Arms (N/S)</category>
 	</item>
 
 	<item id="copper_armor_plate_arms_2" inherit="1417">
 		<copper_armor />
+		<baseid>1417</baseid>
 		<category>Armor\Copper\Platemail\Arms (E/W)</category>
 	</item>
 
 	<!-- plate gloves -->
 	<item id="copper_armor_plate_gloves" inherit="1414">
 		<copper_armor />
+		<baseid>1414</baseid>
 		<category>Armor\Copper\Platemail\Gloves (N/S)</category>
 	</item>
 
 	<item id="copper_armor_plate_gloves_2" inherit="1418">
 		<copper_armor />
+		<baseid>1418</baseid>
 		<category>Armor\Copper\Platemail\Gloves (E/W)</category>
 	</item>
 
 	<!-- plate gorget -->
 	<item id="copper_armor_plate_gorget" inherit="1413">
 		<copper_armor />
+		<baseid>1413</baseid>
 		<category>Armor\Copper\Platemail\Gorget</category>
 	</item>
 
 	<!-- plate helmet -->
 	<item id="copper_armor_plate_helmet" inherit="1412">
 		<copper_armor />
+		<baseid>1412</baseid>
 		<category>Armor\Copper\Platemail\Helm (N/S)</category>
 	</item>
 
 	<item id="copper_armor_plate_helmet_2" inherit="1419">
 		<copper_armor />
+		<baseid>1419</baseid>
 		<category>Armor\Copper\Platemail\Helm (E/W)</category>
 	</item>
 
 	<!-- plate leggings -->
 	<item id="copper_armor_plate_leggings" inherit="1411">
 		<copper_armor />
+		<baseid>1411</baseid>
 		<category>Armor\Copper\Platemail\Legs (N/S)</category>
 	</item>
 
 	<item id="copper_armor_plate_leggings_2" inherit="141a">
 		<copper_armor />
+		<baseid>141a</baseid>
 		<category>Armor\Copper\Platemail\Legs (E/W)</category>
 	</item>
 

@@ -10,41 +10,41 @@
 
 	<!-- chainmail armor -->
 	<!-- chainmail coif -->
-	<item id="dull_copper_armor_chain_coif">
-		<inherit id="13bb" />
+	<item id="dull_copper_armor_chain_coif"  inherit="13bb">
 		<dull_copper_armor />
+		<baseid>13bb</baseid>
 		<category>Armor\Dull Copper\Chainmail\Coif (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_chain_coif_2">
-		<inherit id="13c0" />
+	<item id="dull_copper_armor_chain_coif_2"  inherit="13c0">
 		<dull_copper_armor />
+		<baseid>13c0</baseid>
 		<category>Armor\Dull Copper\Chainmail\Coif (E/W)</category>
 	</item>
 
 	<!-- chainmail leggings -->
-	<item id="dull_copper_armor_chain_leggings">
-		<inherit id="13be" />
+	<item id="dull_copper_armor_chain_leggings" inherit="13be">
 		<dull_copper_armor />
+		<baseid>13be</baseid>
 		<category>Armor\Dull Copper\Chainmail\Leggings (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_chain_leggings_2">
-		<inherit id="13c3" />
+	<item id="dull_copper_armor_chain_leggings_2" inherit="13c3">
 		<dull_copper_armor />
+		<baseid>13c3</baseid>
 		<category>Armor\Dull Copper\Chainmail\Leggings (E/W)</category>
 	</item>
 
 	<!-- chainmail tunic -->
-	<item id="dull_copper_armor_chain_tunic">
-		<inherit id="13bf" />
+	<item id="dull_copper_armor_chain_tunic" inherit="13bf">
 		<dull_copper_armor />
+		<baseid>13bf</baseid>
 		<category>Armor\Dull Copper\Chainmail\Tunic (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_chain_tunic_2">
-		<inherit id="13c4" />
+	<item id="dull_copper_armor_chain_tunic_2" inherit="13c4">
 		<dull_copper_armor />
+		<baseid>13c4</baseid>
 		<category>Armor\Dull Copper\Chainmail\Tunic (E/W)</category>
 	</item>
 

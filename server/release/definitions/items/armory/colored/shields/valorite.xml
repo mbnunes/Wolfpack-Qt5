@@ -13,6 +13,7 @@
 	<item id="valorite_shields_buckler">
 		<inherit id="1b73" />
 		<valorite_armor />
+		<baseid>1b73</baseid>
 		<category>Armor\Valorite\Shields\Buckler</category>
 	</item>
 
@@ -20,6 +21,7 @@
 	<item id="valorite_shields_bronze_shield">
 		<inherit id="1b72" />
 		<valorite_armor />
+		<baseid>1b72</baseid>
 		<category>Armor\Valorite\Shields\Bronze</category>
 	</item>
 
@@ -27,12 +29,14 @@
 	<item id="valorite_shields_heater_shield">
 		<inherit id="1b76" />
 		<valorite_armor />
+		<baseid>1b76</baseid>
 		<category>Armor\Valorite\Shields\Heater (N/S)</category>
 	</item>
 
 	<item id="valorite_shields_heater_shield_2">
 		<inherit id="1b77" />
 		<valorite_armor />
+		<baseid>1b77</baseid>
 		<category>Armor\Valorite\Shields\Heater (E/W)</category>
 	</item>
 
@@ -40,12 +44,14 @@
 	<item id="valorite_shields_metal_shield">
 		<inherit id="1b7b" />
 		<valorite_armor />
+		<baseid>1b7b</baseid>
 		<category>Armor\Valorite\Shields\Metal Shield</category>
 	</item>
 
 	<!-- metal kite shield -->
 	<item id="valorite_shields_metal_kite_shield">
 		<inherit id="1b74" />
+		<baseid>1b74</baseid>
 		<valorite_armor />
 		<category>Armor\Valorite\Shields\Metal Kite (N/S)</category>
 	</item>
@@ -53,6 +59,7 @@
 	<item id="valorite_shields_metal_kite_shield_2">
 		<inherit id="1b75" />
 		<valorite_armor />
+		<baseid>1b75</baseid>
 		<category>Armor\Valorite\Shields\Metal Kite (E/W)</category>
 	</item>
 
@@ -60,12 +67,14 @@
 	<item id="valorite_shields_wooden_kite_shield">
 		<inherit id="1b78" />
 		<valorite_armor />
+		<baseid>1b78</baseid>
 		<category>Armor\Valorite\Shields\Wooden Kite (N/S)</category>
 	</item>
 
 	<item id="valorite_shields_wooden_kite_shield_2">
 		<inherit id="1b79" />
 		<valorite_armor />
+		<baseid>1b79</baseid>
 		<category>Armor\Valorite\Shields\Wooden Kite (E/W)</category>
 	</item>
 
@@ -73,6 +82,7 @@
 	<item id="valorite_shields_chaos_shield">
 		<inherit id="1bc3" />
 		<valorite_armor />
+		<baseid>1bc3</baseid>
 		<category>Armor\Valorite\Shields\Chaos Shield</category>
 	</item>
 
@@ -80,12 +90,14 @@
 	<item id="valorite_shields_order_shield">
 		<inherit id="1bc4" />
 		<valorite_armor />
+		<baseid>1bc4</baseid>
 		<category>Armor\Valorite\Shields\Order Shield (N/S)</category>
 	</item>
 
 	<item id="valorite_shields_order_shield_2">
 		<inherit id="1bc5" />
 		<valorite_armor />
+		<baseid>1bc5</baseid>
 		<category>Armor\Valorite\Shields\Order Shield (E/W)</category>
 	</item>
 
