@@ -210,7 +210,7 @@ def onSkillGain(char, skill, lower, higher, success):
 		return
 
 	# No gain for effortless or futile attempts
-	if value < lower or value >= higher:
+	if value >= higher:
 		return
 
 	chance = (value - lower) / (higher - lower)
