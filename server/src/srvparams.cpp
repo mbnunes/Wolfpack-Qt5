@@ -5,6 +5,7 @@
 #include "preferences.h"
 #include "qstring.h"
 #include "qstringlist.h"
+#include "qhostaddress.h"
 
 const char preferencesFileVersion[] = "1.0";
 
