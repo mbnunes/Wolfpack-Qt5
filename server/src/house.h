@@ -55,7 +55,7 @@ public:
 	cHouse() {}
 	virtual ~cHouse() {}
 	virtual void Serialize( ISerialization &archive );
-	virtual std::string objectID();
+	virtual QString objectID() const;
 	
 	bool isBanned(P_CHAR pc);
 	void addBan(P_CHAR pc);

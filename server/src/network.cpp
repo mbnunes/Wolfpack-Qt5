@@ -1122,7 +1122,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 			// Lets assure the data is valid, this stops server freezes caused by receiving nonsense data
 			// (remark: useres that dont use ignition do that)
-			if (firstpacket[s] && packet != 0x80 && packet !=0x91 )
+			if (firstpacket[s] && packet != 0x80 && packet != 0x91 )
 			{
 				Disconnect(s);
 				clConsole.send("received garbage from a client, disconnected it to prevent bad things.\n User probably didnt use ignition\n");

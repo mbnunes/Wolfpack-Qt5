@@ -69,7 +69,7 @@ public:
 	virtual void setVersion(unsigned int);
 
 	// Write Methods
-	virtual void writeObjectID(std::string data);
+	virtual void writeObjectID(QString &data);
 
 	virtual void write(const char* Key, std::string &data);
 	virtual void write(const char* Key, unsigned int data);

@@ -74,7 +74,7 @@ public:
 	cGuildStone() {}
 	virtual ~cGuildStone() {}
 	virtual void Serialize( ISerialization &archive );
-	virtual std::string objectID();
+	virtual QString objectID() const;
 	
 	void addMember(P_CHAR);
 	bool isMember(P_CHAR);
@@ -95,9 +95,9 @@ public:
 	void Broadcast(char *text);
 };
 
-inline std::string cGuildStone::objectID()
+inline QString cGuildStone::objectID() const
 {
-	return std::string("GUILDSTONE");
+	return "GUILDSTONE";
 }
 
 int CheckValidPlace(UOXSOCKET s);

@@ -276,7 +276,7 @@ public:
 	cChar();
 	virtual ~cChar() {}
 	virtual void Serialize(ISerialization &archive);
-	virtual string objectID();
+	virtual QString objectID() const;
 
 	// Getters
 	short					guildType() const;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild

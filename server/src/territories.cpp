@@ -233,10 +233,10 @@ void cAllTerritories::load( void )
 	QStringList DefSections = DefManager->getSections( WPDT_REGION );
 	clConsole.PrepareProgress( "Loading regions..." );
 
-	if( DefSections.size() == 0 )
+	if( DefSections.isEmpty() )
 	{
 		clConsole.ProgressFail();
-		clConsole.error( "no regions defined! you need one region at last!" );
+		clConsole.error( "no regions defined! you need one region at least!" );
 		error = 1;
 		return;
 	}

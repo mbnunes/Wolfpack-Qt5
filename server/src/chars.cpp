@@ -56,11 +56,11 @@
 
 // Inline members
 
-bool cChar::Owns(P_ITEM pi)			{	return (serial==pi->ownserial);		}
+bool cChar::Owns(P_ITEM pi)				{	return (serial==pi->ownserial);		}
 bool cChar::Wears(P_ITEM pi)			{	return (serial == pi->contserial);	}
-unsigned int cChar::dist(cChar* pc)	{	return pos.distance(pc->pos);		}
-unsigned int cChar::dist(cItem* pi)	{	return pos.distance(pi->pos);		}
-string cChar::objectID()				{	return string("CHARACTER");			}
+unsigned int cChar::dist(cChar* pc)		{	return pos.distance(pc->pos);		}
+unsigned int cChar::dist(cItem* pi)		{	return pos.distance(pi->pos);		}
+QString cChar::objectID() const			{	return "CHARACTER";					}
 
 void cChar::setSerial(SERIAL ser)
 {

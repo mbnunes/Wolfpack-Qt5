@@ -38,7 +38,6 @@
 #include "iserialization.h"
 #include "definable.h"
 #include "customtags.h"
-//#include "WPDefaultScript.h"
 
 // System includes
 #include <string>
@@ -92,9 +91,9 @@ protected:
 public:
 	cUObject();
 	cUObject( cUObject& ); // Copy constructor
-	virtual ~cUObject() = 0;
+	virtual ~cUObject() {};
 	virtual void Serialize(ISerialization &archive);
-	virtual std::string objectID();
+	virtual QString objectID() const = 0;
 	void moveTo( const Coord_cl& );
 };
 

@@ -2527,7 +2527,7 @@ void cSkills::PickPocketTarget(int s) // PickPocket dip`s..Ripper
 
 void cSkills::LockPick(int s)
 {
-	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+ 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
 	if (pi && !pi->isLockedDown()) // Ripper
 	{

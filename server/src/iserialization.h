@@ -39,14 +39,24 @@
 // Forward class declarations
 class ISerialization;
 
+/*!
+CLASS
+    
+
+    This class provides the interface for persistent classes...
+
+
+USAGE
+	Classes who require persistance should inherit off from cSerializable and reimplement
+	\sa objectID and \sa Serializable methods.
+*/
 class cSerializable
 {
 public:
-	//virtual cSerializable();
-	virtual ~cSerializable() {;}
+	virtual ~cSerializable() {}
 
 	virtual void		Serialize( ISerialization &archive );
-	virtual std::string objectID( void ) = 0;
+	virtual QString		objectID( void ) const = 0;
 };
 
 /*!
@@ -87,7 +97,7 @@ public:
 	virtual void writeObject( cSerializable * );
 
 	// Write Methods
-	virtual void writeObjectID(std::string) = 0;
+	virtual void writeObjectID(QString&) = 0;
 	virtual void write(const char* Key, std::string &data) = 0;
 	virtual void write(const char* Key, unsigned int data) = 0;
 	virtual void write(const char* Key, signed int data) = 0;

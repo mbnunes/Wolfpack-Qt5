@@ -129,10 +129,10 @@ void serBinFile::close()
 	file.close();
 }
 
-void serBinFile::writeObjectID(string data)
+void serBinFile::writeObjectID(QString& data)
 {
 	write("objectID", data);
-	_count++;
+	++_count;
 }
 
 void serBinFile::write(const char* Key, std::string &data)

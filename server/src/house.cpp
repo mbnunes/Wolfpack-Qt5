@@ -740,9 +740,9 @@ void cHouse::Serialize(ISerialization &archive)
 	cItem::Serialize(archive); // Call base class method too.
 }
 
-inline string cHouse::objectID()
+inline QString cHouse::objectID() const
 {
-	return string("HOUSE");
+	return "HOUSE";
 }
 
 // This function is horrible.

@@ -64,10 +64,6 @@ cUObject::cUObject( cUObject &src )
 	this->free = src.free;
 }
 
-cUObject::~cUObject()
-{
-}
-
 void cUObject::init()
 {
 	this->serial = INVALID_SERIAL;
@@ -89,7 +85,7 @@ void cUObject::moveTo( const Coord_cl& newpos )
 }
 
 /*!
- * Provides persistence for instances of UOBject
+ * Provides persistence for instances of UObject
  *
  * @param &archive : an ISerialization descendent.
  *
@@ -132,11 +128,6 @@ void cUObject::Serialize(ISerialization &archive)
 
 	}
 	cSerializable::Serialize( archive );
-}
-
-inline string cUObject::objectID()
-{
-	return string("UOBJECT");
 }
 
 // Method for setting a list of WPDefaultScripts

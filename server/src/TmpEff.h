@@ -58,27 +58,27 @@ class cTempEffect : public cSerializable
 protected:
 	SERIAL		sourSer;
 	SERIAL		destSer;
-	std::string objectid;
+	QString		objectid;
 	bool		serializable;
 public:
 	unsigned int expiretime;
 	unsigned char dispellable;
 public:
-				cTempEffect() { serializable = true; };
-	virtual		~cTempEffect() {}
-	void		setExpiretime_s(int seconds);
-	void		setExpiretime_ms(float milliseconds);
-	void		setDest(int ser);
-	int			getDest();
-	void		setSour(int ser);
-	int			getSour();
-	void		On(P_CHAR pc) {;}
-	void		Off(P_CHAR pc) {;}
-	virtual void Expire() = 0;
+						cTempEffect() { serializable = true; };
+	virtual				~cTempEffect() {}
+	void				setExpiretime_s(int seconds);
+	void				setExpiretime_ms(float milliseconds);
+	void				setDest(int ser);
+	int					getDest();
+	void				setSour(int ser);
+	int					getSour();
+	void				On(P_CHAR pc) {;}
+	void				Off(P_CHAR pc) {;}
+	virtual void		Expire() = 0;
 	virtual void		Serialize(ISerialization &archive);
-	virtual std::string objectID() { return objectid;}
-	bool		isSerializable( void ) { return serializable; }
-	void		setSerializable( bool data ) { serializable = data; }
+	virtual QString		objectID() const  { return objectid;}
+	bool				isSerializable( void ) { return serializable; }
+	void				setSerializable( bool data ) { serializable = data; }
 };
 
 class cTmpEff : public cTempEffect

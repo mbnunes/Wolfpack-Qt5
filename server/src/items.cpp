@@ -207,9 +207,9 @@ cItem::cItem( cItem &src )
 	this->tags = src.tags;
 }
 
-inline string cItem::objectID()
+inline QString cItem::objectID() const
 {
-	return string("ITEM");
+	return "ITEM";
 }
 
 void cItem::startDecay()			

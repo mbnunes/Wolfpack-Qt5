@@ -147,12 +147,12 @@ void WPScriptManager::load( void )
 		QDomNode *NodePtr = DefManager->getSection( WPDT_SCRIPT, SectionList[ i ] );
 		QDomElement Node = NodePtr->toElement();
 
-		WPDefaultScript *Script;
-
 		if( !Node.attributes().contains( QString( "type" ) ) )
 			continue;
 
 		QString ScriptType = Node.attributes().namedItem( QString( "type" ) ).nodeValue();
+
+		WPDefaultScript *Script = 0;
 
 		// Decide upon the Constructor based on the script-type
 		if( ScriptType == "default" )

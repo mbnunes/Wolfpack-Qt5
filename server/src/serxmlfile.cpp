@@ -181,10 +181,10 @@ void serXmlFile::close()
 	document = 0;
 }
 
-void serXmlFile::writeObjectID(std::string data)
+void serXmlFile::writeObjectID(QString &data)
 {
 	node = document->createElement("objectID");
-	node.setAttribute("value", data.c_str());
+	node.setAttribute("value", data);
 	++_count;
 }
 
@@ -360,3 +360,4 @@ void serXmlFile::read(const char* Key, double &data)
 	}
 
 }
+

@@ -142,7 +142,7 @@ public:
 	cItem( cItem& src); // Copy constructor
 	virtual ~cItem() {}
 	virtual void Serialize( ISerialization &archive );
-	virtual string objectID();
+	virtual QString objectID() const;
 	
 	P_ITEM	getCorpse( void ); // Get the corpse this item is in
 	void	toBackpack( P_CHAR pChar );
