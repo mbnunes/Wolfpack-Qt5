@@ -194,19 +194,6 @@ void cCommands::loadACLs( void )
 }
 
 /*
-	\command kill
-	\description Kills the selected character.
-	\notes You cannot kill invulnerable characters this way.
-*/
-void commandKill( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( args );
-	Q_UNUSED( command );
-	socket->sysMessage( tr( "Please select a target to kill" ) );
-	socket->attachTarget( new cKillTarget );
-}
-
-/*
 	\command fix
 	\description Resend the player information.
 */
@@ -764,28 +751,6 @@ void commandBroadcast( cUOSocket* socket, const QString& command, const QStringL
 }
 
 /*
-	\command invis
-	\description Toggle invisibility.
-*/
-void commandInvis( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( command );
-	socket->player()->removeFromView();
-
-	if ( socket->player()->isInvisible() || ( args.count() > 0 && args[0].toInt() == 0 ) )
-	{
-		socket->player()->setInvisible( false );
-		socket->sysMessage( tr( "Invisible is now '0'." ) );
-	}
-	else if ( !socket->player()->isInvisible() || ( args.count() > 0 && args[0].toInt() == 1 ) )
-	{
-		socket->player()->setInvisible( true );
-		socket->sysMessage( tr( "Invisible is now '1'." ) );
-	}
-
-	socket->player()->resend( false );
-}
-/*
 	\command pagenotify
 	\description Toggle notification about new support tickets.
 	\notes If you opt to turn this flag on, you will be notified about incoming pages.
@@ -1075,8 +1040,6 @@ stCommand cCommands::commands[] =
 	{ "DOORGEN", commandDoorGenerator },
 	{ "FIX", commandFix },
 	{ "GMTALK", commandGmtalk },
-	{ "INVIS", commandInvis },
-	{ "KILL", commandKill },
 	{ "MOVE", commandMove },
 	{ "PAGES", commandPages },
 	{ "PAGENOTIFY", commandPageNotify },
