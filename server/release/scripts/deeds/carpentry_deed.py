@@ -18,9 +18,9 @@ deeds = {
 	'large_bed_e':[ 1015126, 0, "a73", "a70", "a72", "a71" ],
 	'dart_board_e':[ 1015128, 0, "1e2f" ],
 	'dart_board_s':[ 1015127, 0, "1e2e" ],
-	#'ballot_box':[ 1015129, ],
+	'ballot_box':[ 1015129, 0, "9a8" ],
 	'pentagram':[ 1015130, 0, "fe6", "fe7", "fe8", "fe9", "fea", "feb", "fec", "fed", "fee" ],
-	#'abbatoir':[ 1015131, ],
+	'abattoir':[ 1015131, 0, "120e", "120f", "1210", "1211", "1212", "1213", "1214", "1215", "1216" ],
 	'small_forge':[ 1015133, 0, "fb1" ],
 	'large_forge_e':[ 1015134, 2, "197a", "197e", "1982" ],
 	'large_forge_s':[ 1015135, 1, "1986", "198a", "198e" ],
@@ -39,7 +39,8 @@ deeds = {
 	'flour_mill_e':[ 1015151, 2, "1921", "1923" ],
 	'flour_mill_s':[ 1015152, 1, "192d", "192f" ],
 	'water_trough_e':[ 1015153, 2, "b43", "b44" ],
-	'water_trough_s':[ 1015154, 1, "b41", "b42" ] }
+	'water_trough_s':[ 1015154, 1, "b41", "b42" ]
+}
 
 def onShowToolTip( sender, target, tooltip ):
 	# name in tooltip
@@ -60,11 +61,11 @@ def onUse( char, item ):
 	# check if this char is in it's own house
 	if char.multi == -1:
 		# msg
-		return
+		return 1
 	multi = wolfpack.finditem( char.multi )
 	if not multi or multi.ownserial != char.serial:
 		# msg
-		return
+		return 1
 	# send target cursor
 	char.socket.clilocmessage( 0xF55DA, "", 0x3b2, 3 )
 	char.socket.attachtarget( "deeds.carpentry_deed.response", [ item ] )

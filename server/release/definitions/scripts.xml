@@ -88,6 +88,7 @@
 	<script>commands.travel</script>
 	<script>commands.serverinfo</script>
 	<script>commands.restore</script>
+	<script>commands.turnitem</script>
 
 	<!-- Magic -->
 	<script>magic</script>

@@ -8,49 +8,230 @@
 -->
 <definitions>
 
-	<!-- house deed -->
+	<!-- blank deed -->
 	<item id="blank_deed">
 		<id>0x14ef</id>
 		<newbie />
 		<category>Misc\Deeds\Blank Deed</category>
 	</item>
 
-	<!-- house deed -->
-	<item id="carpentry_deed">
-		<id>0x14ef</id>
-		<newbie />
-		<category>Misc\Deeds\Carpentry Deed</category>
+	<!-- Carpentry Deeds -->
+	<!-- small bed deeds -->
+	<item id="ballot_box_deed" inherit="blank_deed">
+		<name>Ballot Box Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="ballot_box" />
+		<category>Misc\Deeds\Carpentry\Ballot Box Deed</category>
 	</item>
 
+	<!-- small bed deeds -->
+	<item id="small_bed_s_deed" inherit="blank_deed">
+		<name>Small Bed South Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="small_bed_s" />
+		<category>Misc\Deeds\Carpentry\Small Bed South Deed</category>
+	</item>
+
+	<item id="small_bed_e_deed" inherit="small_bed_s_deed">
+		<name>Small Bed East Deed</name>
+		<tag name="carpentry_type" value="small_bed_e" />
+		<category>Misc\Deeds\Carpentry\Large Bed East Deed</category>
+	</item>
+
+	<!-- large bed deeds -->
+	<item id="large_bed_s_deed" inherit="blank_deed">
+		<name>Large Bed South Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="large_bed_s" />
+		<category>Misc\Deeds\Carpentry\Small Bed South Deed</category>
+	</item>
+
+	<item id="large_bed_e_deed" inherit="large_bed_s_deed">
+		<name>Large Bed East Deed</name>
+		<tag name="carpentry_type" value="large_bed_e" />
+		<category>Misc\Deeds\Carpentry\Large Bed East Deed</category>
+	</item>
+
+	<!-- dart board deeds -->
+	<item id="dart_board_s_deed" inherit="blank_deed">
+		<name>Dart Board South Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="dart_board_s" />
+		<category>Misc\Deeds\Carpentry\Dart Board South Deed</category>
+	</item>
+
+	<item id="dart_board_e_deed" inherit="dart_board_s_deed">
+		<name>Dart Board East Deed</name>
+		<tag name="carpentry_type" value="dart_board_e" />
+		<category>Misc\Deeds\Carpentry\Dart Board East Deed</category>
+	</item>
+
+	<!-- pentagram deed -->
+	<item id="pentagram_deed" inherit="blank_deed">
+		<name>Pentagram Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="pentagram" />
+		<category>Misc\Deeds\Carpentry\Pentagram Deed</category>
+	</item>
+
+	<!-- arbattoir deed -->
+	<item id="arbattoir_deed" inherit="blank_deed">
+		<name>Arbattoir Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="arbattoir" />
+		<category>Misc\Deeds\Carpentry\Arbattoir Deed</category>
+	</item>
+
+	<!-- anvil deeds -->
+	<item id="anvil_s_deed" inherit="blank_deed">
+		<name>Anvil South Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="anvil_s" />
+		<category>Misc\Deeds\Carpentry\Anvil South Deed</category>
+	</item>
+
+	<item id="anvil_e_deed" inherit="anvil_s_deed">
+		<name>Anvil East Deed</name>
+		<tag name="carpentry_type" value="anvil_e" />
+		<category>Misc\Deeds\Carpentry\Anvil East Deed</category>
+	</item>
+
+	<!-- small forge deed -->
+	<item id="small_forge_deed" inherit="blank_deed">
+		<name>Small Forge Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="small_forge" />
+		<category>Misc\Deeds\Carpentry\Small Forge Deed</category>
+	</item>
+
+	<!-- large forge deeds -->
+	<item id="large_forge_s_deed" inherit="blank_deed">
+		<name>Large Forge South Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="large_forge_s" />
+		<category>Misc\Deeds\Carpentry\Large Forge South Deed</category>
+	</item>
+
+	<item id="large_forge_e_deed" inherit="large_forge_s_deed">
+		<name>Large Forge East Deed</name>
+		<tag name="carpentry_type" value="large_forge_e" />
+		<category>Misc\Deeds\Carpentry\Large Forge East Deed</category>
+	</item>
+
+	<!-- training dummy deeds -->
+	<item id="training_dummy_s_deed" inherit="blank_deed">
+		<name>Training Dummy South Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="training_dummy_s" />
+		<category>Misc\Deeds\Carpentry\Training Dummy South Deed</category>
+	</item>
+
+	<item id="training_dummy_e_deed" inherit="training_dummy_s_deed">
+		<name>Training Dummy East Deed</name>
+		<tag name="carpentry_type" value="training_dummy_e" />
+		<category>Misc\Deeds\Carpentry\Training Dummy East Deed</category>
+	</item>
+
+	<!-- pickpocket dip deed -->
+	<item id="pickpocket_dip_e_deed" inherit="blank_deed">
+		<name>Pickpocket Dip Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="pickpocket_dip_e" />
+		<category>Misc\Deeds\Carpentry\Pickpocket Dip Deed</category>
+	</item>
+
+	<!-- spinning wheel deeds -->
+	<item id="spinning_wheel_s_deed" inherit="blank_deed">
+		<name>Spinning Wheel South Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="spinning_wheel_s" />
+		<category>Misc\Deeds\Carpentry\Spinning Wheel South Deed</category>
+	</item>
+
+	<item id="spinning_wheel_e_deed" inherit="spinning_wheel_s_deed">
+		<name>Spinning Wheel East Deed</name>
+		<tag name="carpentry_type" value="spinning_wheel_e" />
+		<category>Misc\Deeds\Carpentry\Spinning Wheel East Deed</category>
+	</item>
+
+	<!-- loom deeds -->
+	<item id="loom_s_deed" inherit="blank_deed">
+		<name>Loom South Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="loom_s" />
+		<category>Misc\Deeds\Carpentry\Loom South Deed</category>
+	</item>
+
+	<item id="loom_e_deed" inherit="loom_s_deed">
+		<name>Loom East Deed</name>
+		<tag name="carpentry_type" value="loom_e" />
+		<category>Misc\Deeds\Carpentry\Loom East Deed</category>
+	</item>
+
+	<!-- stone oven deeds -->
+	<item id="stone_oven_s_deed" inherit="blank_deed">
+		<name>Stone Oven South Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="stone_oven_s" />
+		<category>Misc\Deeds\Carpentry\Stone Oven South Deed</category>
+	</item>
+
+	<item id="stone_oven_e_deed" inherit="stone_oven_s_deed">
+		<name>Stone Oven East Deed</name>
+		<tag name="carpentry_type" value="stone_oven_e" />
+		<category>Misc\Deeds\Carpentry\Stone Oven East Deed</category>
+	</item>
+
+	<!-- flour mill deeds -->
+	<item id="flour_mill_s_deed" inherit="blank_deed">
+		<name>Flour Mill South Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="flour_mill_s" />
+		<category>Misc\Deeds\Carpentry\Flour Mill South Deed</category>
+	</item>
+
+	<item id="flour_mill_e_deed" inherit="flour_mill_s_deed">
+		<name>Flour Mill East Deed</name>
+		<tag name="carpentry_type" value="flour_mill_e" />
+		<category>Misc\Deeds\Carpentry\Flour Mill East Deed</category>
+	</item>
+
+	<!-- water trough deeds -->
+	<item id="water_trough_s_deed" inherit="blank_deed">
+		<name>Water Trough South Deed</name>
+		<events>deeds.carpentry_deed</events>
+		<tag name="carpentry_type" value="water_trough_s" />
+		<category>Misc\Deeds\Carpentry\Water Trough South Deed</category>
+	</item>
+
+	<item id="water_trough_e_deed" inherit="water_trough_s_deed">
+		<name>Water Trough East Deed</name>
+		<tag name="carpentry_type" value="water_trough_e" />
+		<category>Misc\Deeds\Carpentry\Water Trough East Deed</category>
+	</item>
+
+	<!-- Other Deeds -->
 	<!-- house deed -->
-	<item id="house">
-		<id>0x14ef</id>
+	<item id="house" inherit="blank_deed">
 		<events>deeds.multideed</events>
 		<category>Buildings\House deed (Classic and Custom)</category>
 	</item>
 
-	<item id="commodity_deed">
-		<id>0x14f0</id>
+	<item id="commodity_deed" inherit="blank_deed">
 		<color>0x47</color>
-		<newbie />
 		<buyprice>5</buyprice>
 		<events>deeds.commoditydeed</events>
 	</item>
 
-	<item id="item_bless_deed">
-		<id>0x14f0</id>
-		<newbie />
+	<item id="item_bless_deed" inherit="blank_deed">
 		<events>deeds.item_bless_deed</events>
 	</item>
 
-	<item id="clothing_bless_deed">
-		<id>0x14f0</id>
-		<newbie />
+	<item id="clothing_bless_deed" inherit="blank_deed">
 		<events>deeds.clothing_bless_deed</events>
 	</item>
 
-	<item id="guildstone_deed">
-		<id>0x14f0</id>
+	<item id="guildstone_deed" inherit="blank_deed">
 		<name>Guildstone Deed</name>
 		<color>0x3c</color>
 		<events>guilds.deed</events>
