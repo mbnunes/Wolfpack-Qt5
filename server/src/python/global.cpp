@@ -35,6 +35,7 @@
 #include "../network/uotxpackets.h"
 #include "../wpconsole.h"
 #include "../TmpEff.h"
+#include "../newmagic.h"
 #include "../mapobjects.h"
 #include "../territories.h"
 #include "../maps.h"
@@ -454,6 +455,50 @@ PyObject *wpTiledata( PyObject* self, PyObject* args )
 }
 
 /*!
+	Returns information about a certain spell
+*/
+PyObject *wpSpell( PyObject* self, PyObject* args )
+{
+	if( !checkArgInt( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	stNewSpell *sInfo = NewMagic->findSpell( getArgInt( 0 ) );
+
+	if( !sInfo )
+		return PyFalse;
+
+	PyObject *dict = PyDict_New();
+	PyDict_SetItemString( dict, "name", PyString_FromString( sInfo->name ) );
+	PyDict_SetItemString( dict, "mantra", PyString_FromString( sInfo->mantra ) );
+	PyDict_SetItemString( dict, "target", PyString_FromString( sInfo->target ) );
+	PyDict_SetItemString( dict, "booklow", PyInt_FromLong( sInfo->booklow ) );
+	PyDict_SetItemString( dict, "bookhigh", PyInt_FromLong( sInfo->bookhigh ) );
+	PyDict_SetItemString( dict, "scrolllow", PyInt_FromLong( sInfo->scrolllow ) );
+	PyDict_SetItemString( dict, "scrollhigh", PyInt_FromLong( sInfo->scrollhigh ) );
+	PyDict_SetItemString( dict, "delay", PyInt_FromLong( sInfo->delay ) );
+	PyDict_SetItemString( dict, "scroll", PyInt_FromLong( sInfo->scroll ) );
+	PyDict_SetItemString( dict, "action", PyInt_FromLong( sInfo->action ) );
+	PyDict_SetItemString( dict, "targets", PyInt_FromLong( sInfo->targets ) );
+	PyDict_SetItemString( dict, "flags", PyInt_FromLong( sInfo->flags ) );
+	PyDict_SetItemString( dict, "mana", PyInt_FromLong( sInfo->mana ) );
+
+	// Reagents
+	PyDict_SetItemString( dict, "ginseng", PyInt_FromLong( sInfo->reagents.ginseng ) );
+	PyDict_SetItemString( dict, "bloodmoss", PyInt_FromLong( sInfo->reagents.bloodmoss ) );
+	PyDict_SetItemString( dict, "mandrake", PyInt_FromLong( sInfo->reagents.mandrake ) );
+	PyDict_SetItemString( dict, "blackpearl", PyInt_FromLong( sInfo->reagents.blackpearl ) );
+	PyDict_SetItemString( dict, "spidersilk", PyInt_FromLong( sInfo->reagents.spidersilk ) );
+	PyDict_SetItemString( dict, "sulfurash", PyInt_FromLong( sInfo->reagents.sulfurash ) );
+	PyDict_SetItemString( dict, "garlic", PyInt_FromLong( sInfo->reagents.garlic ) );
+	PyDict_SetItemString( dict, "nightshade", PyInt_FromLong( sInfo->reagents.nightshade ) );
+
+	return dict;
+}
+
+/*!
 	wolfpack
 	Initializes wolfpack
 */
@@ -470,6 +515,7 @@ static PyMethodDef wpGlobal[] =
 	{ "map",			wpMap,			METH_VARARGS, "Retruns a dictionary with information about a given map tile" },
 	{ "items",			wpItems,		METH_VARARGS, "Returns a list of items in a specific sector." },
 	{ "tiledata",		wpTiledata,		METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
+	{ "spell",			wpSpell,		METH_VARARGS, "Returns information about a certain spell." },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 

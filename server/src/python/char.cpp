@@ -1121,6 +1121,41 @@ PyObject* wpChar_maywalk( wpChar* self, PyObject* args )
 		return PyTrue;
 }
 
+/*!
+	Are we criminal.
+*/
+PyObject* wpChar_iscriminal( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	return self->pChar->crimflag() ? PyTrue : PyFalse;
+}
+
+/*!
+	Are we a murderer.
+*/
+PyObject* wpChar_ismurderer( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	return self->pChar->isMurderer() ? PyTrue : PyFalse;
+}
+
+/*!
+	Make this character criminal.
+*/
+PyObject* wpChar_criminal( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	criminal( self->pChar );
+
+	return PyTrue;
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto, METH_VARARGS, "Moves the character to the specified location." },
@@ -1176,6 +1211,11 @@ static PyMethodDef wpCharMethods[] =
 	{ "settag",			(getattrofunc)wpChar_settag, METH_VARARGS, "Sets a tag assigned to a specific char." },
 	{ "hastag",			(getattrofunc)wpChar_hastag, METH_VARARGS, "Checks if a certain char has the specified tag." },
 	{ "deltag",			(getattrofunc)wpChar_deltag, METH_VARARGS, "Deletes the specified tag." },
+
+	// Reputation System
+	{ "iscriminal",		(getattrofunc)wpChar_iscriminal, METH_VARARGS, "Is this character criminal.." },
+	{ "ismurderer",		(getattrofunc)wpChar_ismurderer, METH_VARARGS, "Is this character a murderer." },
+	{ "criminal",		(getattrofunc)wpChar_criminal, METH_VARARGS, "Make this character criminal." },
 
 	// Is*? Functions
 	{ "isitem",			(getattrofunc)wpChar_isitem, METH_VARARGS, "Is this an item." },
@@ -1260,12 +1300,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	
 	// Target
 	else if( !strcmp( "target", name ) )
-	{
-		if( isItemSerial( self->pChar->targ() ) )
-			return PyGetItemObject( FindItemBySerial( self->pChar->targ() ) );
-		else if( isCharSerial( self->pChar->targ() ) )
-			return PyGetCharObject( FindCharBySerial( self->pChar->targ() ) );
-	}
+		return PyGetCharObject( FindCharBySerial( self->pChar->targ() ) );
 
 	else if( !strcmp( "npcwander", name ) )
 		return PyInt_FromLong( self->pChar->npcWander() );
@@ -1346,6 +1381,9 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		return rVal;
 	}
 
+	else if( !strcmp( name, "guildstone" ) )
+		return PyGetItemObject( FindItemBySerial( self->pChar->guildstone() ) );
+
 	// If no property is found search for a method
 	return Py_FindMethod( wpCharMethods, (PyObject*)self, name );
 }
@@ -1390,6 +1428,10 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 		self->pChar->setObjectDelay( PyInt_AS_LONG( value ) );
 	else if( !strcmp( name, "pos" ) && checkWpCoord( value ) )
 		self->pChar->moveTo( getWpCoord( value ) );
+	else if( !strcmp( name, "karma" ) )
+		self->pChar->setKarma( PyInt_AS_LONG( value ) );
+	else if( !strcmp( name, "fame" ) )
+		self->pChar->setFame( PyInt_AS_LONG( value ) );
 
 	return 0;
 }

@@ -187,6 +187,20 @@ void cNewMagic::load()
 			}				
 			else if( node.nodeName() == "flags" )
 			{
+				QDomNodeList nList = node.childNodes();
+
+				for( INT32 i = 0; i < nList.count(); ++i )
+				{
+					QDomElement sNode = nList.item( i ).toElement();
+
+					if( !sNode.isNull() )
+					{
+						if( sNode.nodeName() == "agressive" )
+							spells[id].flags |= SPELL_AGRESSIVE;
+						else if( sNode.nodeName() == "reflectable" )
+							spells[id].flags |= SPELL_REFLECTABLE;
+					}
+				}
 			}
 			else if( node.nodeName() == "mana" )
 				spells[id].mana = node.text().toInt();
