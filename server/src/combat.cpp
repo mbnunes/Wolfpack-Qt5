@@ -141,9 +141,9 @@ void cCombat::CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime)
 	if ( pDefender == NULL ) return;
 	UOXSOCKET s1=calcSocketFromChar(pAttacker);
 
-	unsigned short los=line_of_sight(s1,pAttacker->pos, pDefender->pos,	WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING);
+	UINT16 los = lineOfSight( pAttacker->pos, pDefender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING );
 
-	CombatHit(pAttacker, pDefender, currenttime, los);
+	CombatHit( pAttacker, pDefender, currenttime, los );
 }
 
 // CombatHit now expects that LineOfSight has been checked before (Duke, 10.7.2001)
@@ -801,7 +801,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 				}
 				if (Combat->TimerOk(pc_attacker))
 				{
-					int los = line_of_sight(-1, pc_attacker->pos, pc_defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING);
+					int los = lineOfSight( pc_attacker->pos, pc_defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING );
 					UOXSOCKET s1 = calcSocketFromChar(pc_attacker);
 					int fightskill=Skills->GetCombatSkill(pc_attacker);
 					x=0;

@@ -230,7 +230,7 @@ int checkenvoke(char eid1, char eid2);  //trigger.scp
 inline int calcserial(unsigned char a1,unsigned char a2,unsigned char a3,unsigned char a4) {return (static_cast<int>((a1<<24))|static_cast<int>((a2<<16)) | static_cast<int>((a3<<8)) | static_cast<int>(a4));}
 
 //void possess(int s); //Not done
-int line_of_sight(int s, const Coord_cl&, const Coord_cl&, int checkfor);
+int lineOfSight( const Coord_cl&, const Coord_cl&, int checkfor );
 
 // Dupois message board prototype
 // Proto for handling the different message type for message 0x71

@@ -2747,7 +2747,9 @@ void npcattacktarget(P_CHAR attacker, P_CHAR defender)
 	if (defender->dispz > (attacker->dispz +10)) return;//FRAZAI
 	if (defender->dispz < (attacker->dispz -10)) return;//FRAZAI
 
-	if (!(line_of_sight(-1,attacker->pos, defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) return; //From Leviathan - Morrolan
+	if( !lineOfSight( attacker->pos, defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
+		return;
+
 	playmonstersound(defender, defender->id(), SND_STARTATTACK);
 	int i;
 	unsigned int cdist=0 ;

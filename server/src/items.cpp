@@ -1938,9 +1938,72 @@ void cItem::showName( cUOSocket *socket )
 	}
 }
 
+// This either sends a ground-item or a backpack item
 void cItem::update()
 {
-	// TODO: INSERT CODE
+	// Items on Ground
+	if( isInWorld() )
+	{
+		cUOTxSendItem sendItem;
+		sendItem.setSerial( serial );
+		sendItem.setId( id() );
+		sendItem.setAmount( amount() );
+		sendItem.setColor( color() );
+		sendItem.setCoord( pos );
+		sendItem.setDirection( dir );
+
+		for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
+		{
+			P_CHAR pChar = socket->player();
+
+			// Only send to sockets in range
+			if( !pChar || ( pChar->pos.distance( pos ) > pChar->VisRange ) )
+				continue;
+
+			// Completely invisible
+			if( ( visible == 2 ) && !pChar->isGM() )
+				continue;
+
+			// Visible to owners and GMs only
+			else if( ( visible == 1 ) && !pChar->Owns( this ) && !pChar->isGM() )
+				continue;
+            
+			if( isAllMovable() )
+				sendItem.setFlags( 0x20 );
+			else if( pChar->canMoveAll() )
+				sendItem.setFlags( 0x20 );
+			else if( ( isOwnerMovable() || isLockedDown() ) && pChar->Owns( this ) )
+				sendItem.setFlags( 0x20 );
+
+			if( ( visible > 0 ) && !pChar->Owns( this ) )
+				sendItem.setFlags( sendItem.flags() | 0x80 );
+
+			// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
+
+			socket->send( &sendItem );
+		}
+	}
+	// equipped items
+	else if( isCharSerial( contserial ) )
+	{
+		cUOTxCharEquipment equipItem;
+		equipItem.fromItem( this );
+
+		for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
+		{
+			P_CHAR pChar = socket->player();
+
+			// Only send to sockets in range
+			if( !pChar || ( pChar->pos.distance( pos ) > pChar->VisRange ) )
+				continue;
+
+			socket->send( &equipItem );
+		}
+	}
+	// items in containers
+	else if( isItemSerial( contserial ) )
+	{
+	}
 }
 
 P_ITEM cItem::dupe()

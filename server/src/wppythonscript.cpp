@@ -1013,7 +1013,7 @@ PyObject* Py_WPChar_lineofsight( Py_WPChar* self, PyObject* args )
 	else
 		return PyFalse;
 
-	if( line_of_sight( -1, source, destination, 1|2|4|8|16|32 ) )
+	if( lineOfSight( source, destination, 1|2|4|8|16|32 ) )
 		return PyTrue;
 	else 
 		return PyFalse;

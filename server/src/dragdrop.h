@@ -38,17 +38,22 @@
 
 #include "client.h"
 
+class cUOSocket;
+class cUORxDropItem;
+class cUORxDragItem;
+class cUORxWearItem;
+
 class cDragItems
 {
 public:
-	void	grabItem( P_CLIENT client );
-	void	equipItem( P_CLIENT client );
-	void	dropItem( P_CLIENT client );
+	void	grabItem( cUOSocket*, cUORxDragItem* );
+	void	equipItem( cUOSocket*, cUORxWearItem* );
+	void	dropItem( cUOSocket*, cUORxDropItem* );
 
 	// Sub-drop Functions
-	void	dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos );
-	void	dropOnChar( P_CLIENT client, P_ITEM pItem, P_CHAR pOtherChar );
-	void	dropOnGround( P_CLIENT client, P_ITEM pItem, const Coord_cl &pos );
+	void	dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos );
+	void	dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar );
+	void	dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &pos );
 
 	// Drop-on-char subfunctions
 	void	dropOnPet( P_CLIENT client, P_ITEM pItem, P_CHAR pPet );

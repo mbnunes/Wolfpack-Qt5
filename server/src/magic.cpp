@@ -2093,7 +2093,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			
 			if(pi)
 			{
-				if( !pi->isInWorld() || line_of_sight( s, pc_currchar->pos, pi->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) || pc_currchar->isGM() ) // bugfix LB
+				if( !pi->isInWorld() || lineOfSight( pc_currchar->pos, pi->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) || pc_currchar->isGM() ) // bugfix LB
 				{
 					if ((pi->type()==50))
 					{
@@ -2228,7 +2228,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					sysmessage( s, "You can't cast on someone that far away!" );
 					return;
 				}
-				if ((line_of_sight( s, pc_currchar->pos, pc_defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+				if ((lineOfSight( pc_currchar->pos, pc_defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 					(pc_currchar->isGM())))
 				{
 					if( aggressiveSpell( curSpell ) )
@@ -2541,7 +2541,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			{
 				//Coord_cl clTemp1(x,y,z);
 				
-				if ((line_of_sight( s, pc_currchar->pos, targetLocation,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+				if ((lineOfSight( pc_currchar->pos, targetLocation,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 					(pc_currchar->isGM())))
 				{
 					if( fieldSpell( curSpell ) )
@@ -2649,7 +2649,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
 								(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
 								{
-									if ((line_of_sight(s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+									if ((lineOfSight( pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
 									{
 										cMagic::doStaticEffect(mapchar, 25);										
@@ -2682,7 +2682,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								( mapchar->pos.y >= y1 && mapchar->pos.y <= y2 ) /*&&
 								( chars[ii].pos.z >= z1 && chars[ii].pos.z <= z2 )*/)
 								{
-									if(( line_of_sight( s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+									if(( lineOfSight( pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										( pc_currchar->isGM() )))
 									{
 										playSound( mapchar, curSpell );
@@ -2727,7 +2727,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 							if (pi)
 							{
-								if ((line_of_sight(s, pc_currchar->pos, pi->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+								if ((lineOfSight( pc_currchar->pos, pi->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 									(pc_currchar->isGM())))
 								{
 									if (pi->priv&5 || pi->priv&4) Items->DeleItem( pi );
@@ -2773,7 +2773,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
 								(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
 								{
-									if ((line_of_sight(s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+									if ((lineOfSight( pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
 									{
 										if (mapchar->npcaitype() == 17) // Ripper 11-14-99
@@ -2818,7 +2818,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					case 48:
 						if (terrain_selected || item_selected) { sysmessage(s, "This spell can be used only on characters");  return; }
 						
-						if ((line_of_sight(s, pc_currchar->pos, clTemp2, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+						if ((lineOfSight( pc_currchar->pos, clTemp2, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 							(pc_currchar->isGM())))
 						{
 							j=pc_currchar->skill(MAGERY);
@@ -2877,7 +2877,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
 								(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
 								{
-									if ((line_of_sight(s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+									if ((lineOfSight( pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
 									{
 										if (mapchar->npcaitype() == 17) // Ripper 11-14-99
@@ -2953,7 +2953,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
 									(mapchar->pos.z>=z1&&mapchar->pos.z<=z2)*/)
 								{
-									if ((line_of_sight(s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+									if ((lineOfSight( pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
 									{
 										if(CheckResist(pc_currchar, mapchar, 7) && rand()%2==0 ) // cant be 100% resisted , LB, osi
@@ -2988,7 +2988,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
 								(mapchar->pos.z>=z1&&mapchar->pos.z<=z2)*/)
 								{
-									if ((line_of_sight(s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+									if ((lineOfSight( pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
 									{
 										if (mapchar->npcaitype() == 17) // Ripper 11-14-99
@@ -3073,7 +3073,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 			if(pi)
 			{
-				if ((line_of_sight( s, pc_currchar->pos, pi->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+				if ((lineOfSight( pc_currchar->pos, pi->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 					(pc_currchar->isGM())))
 				{
 					playSound( pc_currchar, curSpell );

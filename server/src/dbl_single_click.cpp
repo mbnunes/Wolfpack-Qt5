@@ -319,10 +319,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	}
 	// Begin checking objects that we force an object delay for (std objects)
 	// taken from 6904t2(5/10/99) - AntiChrist
-	else if (s >= 0)
+	else if( socket )
 	{
 		// start trigger stuff
-		if (pi->trigger > 0)
+		if( pi->trigger > 0 )
 		{
 			if (pi->trigtype == 0)
 			{

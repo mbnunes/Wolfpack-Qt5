@@ -48,6 +48,9 @@
 #include "classes.h"
 #include "mapstuff.h"
 #include "network.h"
+#include "network/uosocket.h"
+#include "network/uorxpackets.h"
+#include "network/uotxpackets.h"
 
 #undef  DBGFILE
 #define DBGFILE "dragdrop.cpp"
@@ -78,29 +81,28 @@
 } */
 
 // New Class implementation
-void cDragItems::grabItem( P_CLIENT client )
+void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 {
 	// Get our character
-	P_CHAR pChar = client->player();
-	if( pChar == NULL )
+	P_CHAR pChar = socket->player();
+	if( !pChar )
 		return;
 
 	// Fetch the grab information
-	SERIAL iSerial = LongFromCharPtr( &buffer[ client->socket() ][ 1 ] );
-	UI16 amount = ShortFromCharPtr( &buffer[ client->socket() ][ 5 ] );
+	UI16 amount = packet->amount();
+	P_ITEM pItem = FindItemBySerial( packet->serial() );
 
-	P_ITEM pItem = FindItemBySerial( iSerial );
-
+	// If it's an invalid pointer we can't even bounce
 	if( !pItem )
 		return;
 
 	// Are we already dragging an item ?
 	// Bounce it and reject the move
 	// (Logged out while dragging an item)
-	if( client->dragging() )
+	if( socket->dragging() )
 	{
-		bounceItem( client, client->dragging() );
-		bounceItem( client, pItem, true );
+		// TODO: Reason for dropping the item
+		socket->bounceItem( socket->dragging(), BR_ALREADY_DRAGGING );
 		return;
 	}
 
@@ -114,28 +116,26 @@ void cDragItems::grabItem( P_CLIENT client )
 	// Try to pick something out of another characters posessions
 	if( itemOwner && ( itemOwner != pChar ) && ( !pChar->Owns( itemOwner ) ) )
 	{
-		client->sysMessage( QString( "You have to steal the %1 out of %2's posessions." ).arg( pItem->getName() ).arg( itemOwner->name.c_str() ) );
-		bounceItem( client, pItem, true );
+		socket->bounceItem( pItem, BR_BELONGS_TO_SOMEONE_ELSE );
 		return;
 	}
 
 	// Check if the user can grab the item
 	if( !pChar->canPickUp( pItem ) )
 	{
-		client->sysMessage( "You cannot pick that up." );
-		bounceItem( client, pItem, true );
+		socket->bounceItem( pItem, BR_CANNOT_PICK_THAT_UP );
 		return;
 	}
 
 	// The user can't see the item
-	// Basically thats impossible as the client should deny moving the item
+	// Basically thats impossible as the socket should deny moving the item
 	// if it's not in line of sight but to prevent exploits
-	if( !line_of_sight( client->socket(), pChar->pos, pItem->pos, TREES_BUSHES|WALLS_CHIMNEYS|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
+	/*if( !line_of_sight( socket->socket(), pChar->pos, pItem->pos, TREES_BUSHES|WALLS_CHIMNEYS|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
 	{
-		client->sysMessage( "You can't see the item." );
-		bounceItem( client, pItem, true );
+		socket->sysMessage( "You can't see the item." );
+		bounceItem( socket, pItem, true );
 		return;
-	}
+	}*/
 
 	P_ITEM outmostCont = GetOutmostCont( pItem, 64 );  
 
@@ -166,7 +166,7 @@ void cDragItems::grabItem( P_CLIENT client )
 		{
 			pChar->karma -= 5;
 			criminal( pChar );
-			client->sysMessage( "You lost some karma." );
+			socket->sysMessage( "You lost some karma." );
 		}
 	}
 
@@ -189,7 +189,7 @@ void cDragItems::grabItem( P_CLIENT client )
 	// Send the user a pickup sound if we're picking it up
 	// From a container/paperdoll
 	if( !pItem->isInWorld() )
-		soundeffect( client->socket(), 0x00, 0x57 );
+		socket->soundEffect( 0x57, pItem );
 	
 	// If we're picking up a specific amount of what we got
 	// Take that into account
@@ -237,7 +237,7 @@ void cDragItems::grabItem( P_CLIENT client )
 	if( ( itemOwner != pChar ) || !inBank )
 	{
 		pChar->weight += pItem->getWeight();	
-		statwindow( client->socket(), pChar );
+		//statwindow( socket->socket(), pChar );
 	}
 }
 
@@ -305,33 +305,29 @@ void cDragItems::bounceItem( P_CLIENT client, P_ITEM pItem, bool denyMove )
 		soundeffect( client->socket(), 0x00, 0x57 );
 }
 
-void cDragItems::equipItem( P_CLIENT client )
+void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 {
-	// Get the packet information
-	SERIAL itemId = LongFromCharPtr( &buffer[ client->socket() ][ 1 ] );
-	SERIAL playerId = LongFromCharPtr( &buffer[ client->socket() ][ 6 ] );
-
-	P_ITEM pItem = FindItemBySerial( itemId );
-	P_CHAR pWearer = FindCharBySerial( playerId );
+	P_ITEM pItem = FindItemBySerial( packet->serial() );
+	P_CHAR pWearer = FindCharBySerial( packet->wearer() );
 
 	if( !pItem || !pWearer )
 		return;
 
-	P_CHAR pChar = client->player();
+	P_CHAR pChar = socket->player();
 
 	// We're dead and can't do that
 	if( pChar->dead )
 	{
-		client->sysMessage( "You are dead and can't do that." );
-		bounceItem( client, pItem );
+		socket->sysMessage( tr( "You are dead and can't do that." ) );
+		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
 
 	// Our target is dead
 	if( ( pWearer != pChar ) && pWearer->dead )
 	{
-		client->sysMessage( "You can't equip dead players." );
-		bounceItem( client, pItem );
+		socket->sysMessage( tr( "You can't equip dead players." ) );
+		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
 
@@ -342,8 +338,8 @@ void cDragItems::equipItem( P_CLIENT client )
 	// Multis are not wearable are they :o)
 	if( pTile.layer == 0 || !( pTile.flag3 & 0x40 ) || pItem->isMulti() )
 	{
-		client->sysMessage( "This item cannot be equipped." );
-		bounceItem( client, pItem );
+		socket->sysMessage( tr( "This item cannot be equipped." ) );
+		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
 
@@ -351,11 +347,11 @@ void cDragItems::equipItem( P_CLIENT client )
 	if( pItem->st > pWearer->st )
 	{
 		if( pWearer == pChar )
-			client->sysMessage( "You cannot wear that item, you seem not strong enough" );
+			socket->sysMessage( tr( "You cannot wear that item, you seem not strong enough" ) );
 		else
-			client->sysMessage( "This person can't wear that armor, it seems not strong enough" );
+			socket->sysMessage( tr( "This person can't wear that item, it seems not strong enough" ) );
 
-		bounceItem( client, pItem );
+		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
 
@@ -363,11 +359,11 @@ void cDragItems::equipItem( P_CLIENT client )
 	if( pItem->dx > pWearer->effDex() )
 	{
 		if( pWearer == pChar )
-			client->sysMessage( "You cannot wear that item, you seem not agile enough" );
+			socket->sysMessage( tr( "You cannot wear that item, you seem not agile enough" ) );
 		else
-			client->sysMessage( "This person can't wear that armor, it seems not agile enough" );
+			socket->sysMessage( tr( "This person can't wear that item, it seems not agile enough" ) );
 
-		bounceItem( client, pItem );
+		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
 	
@@ -375,19 +371,19 @@ void cDragItems::equipItem( P_CLIENT client )
 	if( pItem->in > pWearer->in )
 	{
 		if( pWearer == pChar )
-			client->sysMessage( "You cannot wear that item, you seem not smart enough" );
+			socket->sysMessage( tr( "You cannot wear that item, you seem not smart enough" ) );
 		else
-			client->sysMessage( "This person can't wear that armor, it seems not smart enough" );
+			socket->sysMessage( tr( "This person can't wear that item, it seems not smart enough" ) );
 
-		bounceItem( client, pItem );
+		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
 
 	// Males can't wear female armor
 	if( ( pChar->id() == 0x0190 ) && ( pItem->id() >= 0x1C00 ) && ( pItem->id() <= 0x1C0D ) )
 	{
-		client->sysMessage( "You cannot wear female armor." );
-		bounceItem( client, pItem );
+		socket->sysMessage( tr( "You cannot wear female armor." ) );
+		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
 
@@ -423,15 +419,15 @@ void cDragItems::equipItem( P_CLIENT client )
 			// If it's still on the char: cancel equipment
 			if( pEquip->contserial == pWearer->serial )
 			{
-				client->sysMessage( "You already have an item on that layer." );
-				bounceItem( client, pItem );
+				socket->sysMessage( tr( "You already have an item on that layer." ) );
+				socket->bounceItem( pItem, BR_NO_REASON );
 				return;
 			}
 		}
 	}
 
 	// At this point we're certain that we can wear the item
-	pItem->setContSerial( playerId );
+	pItem->setContSerial( packet->wearer() );
 	pItem->setLayer( pTile.layer ); // Don't trust the user input on this one
 
 	// Handle the weight if the item is leaving our "body"
@@ -440,9 +436,9 @@ void cDragItems::equipItem( P_CLIENT client )
 		pChar->weight -= pItem->getWeight();
 		pWearer->weight += pItem->getWeight();
 
-		// Update the status-windows
-		statwindow( client->socket(), pChar );
-		statwindow( calcSocketFromChar( pWearer ), pWearer );
+		// TODO: Update the status-windows
+		/*statwindow( client->socket(), pChar );
+		statwindow( calcSocketFromChar( pWearer ), pWearer );*/
 	}
 
 	if( pTile.layer == 0x19 )
@@ -482,49 +478,53 @@ void cDragItems::equipItem( P_CLIENT client )
 	}
 }
 
-void cDragItems::dropItem( P_CLIENT client )
+void cDragItems::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 {
-	P_CHAR pChar = client->player();
+	P_CHAR pChar = socket->player();
+
+	if( !pChar )
+		return;
 
 	// Get the data
-	SERIAL itemId = LongFromCharPtr( &buffer[ client->socket() ][ 1 ] );
-	SERIAL contId = LongFromCharPtr( &buffer[ client->socket() ][ 10 ] );
+	SERIAL contId = packet->cont();
 
-	Coord_cl dropPos = pChar->pos; // plane+map
-	dropPos.x = ShortFromCharPtr( &buffer[ client->socket() ][ 5 ] );
-	dropPos.y = ShortFromCharPtr( &buffer[ client->socket() ][ 7 ] );
-	dropPos.z = buffer[ client->socket() ][ 9 ];
+	Coord_cl dropPos = pChar->pos; // plane
+	dropPos.x = packet->x();
+	dropPos.y = packet->y();
+	dropPos.z = packet->z();
 
 	// Get possible containers
-	P_ITEM pItem = FindItemBySerial( itemId );
+	P_ITEM pItem = FindItemBySerial( packet->serial() );
 	
 	if( !pItem )
 		return;
 
-	P_ITEM iCont = FindItemBySerial( contId );
-	P_CHAR cCont = FindCharBySerial( contId );
+	P_ITEM iCont = FindItemBySerial( packet->cont() );
+	P_CHAR cCont = FindCharBySerial( packet->cont() );
 
-	/* >> SEE LORD BINARIES DROPFIXBUGFIXBUG << */
+	// >> SEE LORD BINARIES DROPFIXBUGFIXBUG <<
 
 	// A completely invalid Drop packet
 	if( !iCont && !cCont && ( dropPos.x == 0xFFFF ) && ( dropPos.y == 0xFFFF ) && ( dropPos.z == 0xFF ) )
 	{
-		bounceItem( client, pItem );
+		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
 
 	// Item dropped on Ground
 	if( !iCont && !cCont )
-		dropOnGround( client, pItem, dropPos );
+		dropOnGround( socket, pItem, dropPos );
+
 	// Item dropped on another item
 	else if( iCont )
-		dropOnItem( client, pItem, iCont, dropPos );
+		dropOnItem( socket, pItem, iCont, dropPos );
+
 	// Item dropped on char
 	else if( cCont )
-		dropOnChar( client, pItem, cCont );
+		dropOnChar( socket, pItem, cCont );
 }
 
-void cDragItems::dropOnChar( P_CLIENT client, P_ITEM pItem, P_CHAR pOtherChar )
+void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar )
 {
 	// Three possibilities:
 	// If we're dropping it on ourself: packintobackpack
@@ -532,13 +532,11 @@ void cDragItems::dropOnChar( P_CLIENT client, P_ITEM pItem, P_CHAR pOtherChar )
 	// If we're dropping it on some NPC: checkBehaviours
 	// If not handeled: Equip the item if the NPC is owned by us
 	
-	P_CHAR pChar = client->player();
+	P_CHAR pChar = socket->player();
 
 	// Dropped on ourself
 	if( pChar == pOtherChar )
 	{
-		pItem->setLayer( 0 );
-		pItem->setContSerial( INVALID_SERIAL );
 		pItem->toBackpack( pChar );
 		return;
 	}
@@ -546,16 +544,14 @@ void cDragItems::dropOnChar( P_CLIENT client, P_ITEM pItem, P_CHAR pOtherChar )
 	// Are we in range of our target
 	if( !inrange1p( pChar, pOtherChar ) )
 	{
-		client->sysMessage( "You are too far away from that character." );
-		bounceItem( client, pItem );
+		socket->bounceItem( pItem, BR_OUT_OF_REACH );
 		return;
 	}
 
 	// Can wee see our target
-	if( !line_of_sight( client->socket(), pChar->pos, pOtherChar->pos, TREES_BUSHES|WALLS_CHIMNEYS|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
+	if( lineOfSight( pChar->pos, pOtherChar->pos, TREES_BUSHES|WALLS_CHIMNEYS|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
 	{
-		client->sysMessage( "You can't see this character" );
-		bounceItem( client, pItem );
+		socket->bounceItem( pItem, BR_OUT_OF_SIGHT );
 		return;
 	}
 
@@ -583,8 +579,11 @@ void cDragItems::dropOnChar( P_CLIENT client, P_ITEM pItem, P_CHAR pOtherChar )
 			}
 		}
 
-		if( !tradeWindow )
-			tradeWindow = Trade->tradestart( client->socket(), pOtherChar );
+		//if( !tradeWindow )
+		//	tradeWindow = Trade->tradestart( client->socket(), pOtherChar );
+		socket->bounceItem( pItem, BR_NO_REASON );
+		socket->sysMessage( "Trading is disabled" );
+		return;
 
 		pItem->setContSerial( tradeWindow->serial);
 		pItem->pos.x = rand() % 60;
@@ -597,14 +596,14 @@ void cDragItems::dropOnChar( P_CLIENT client, P_ITEM pItem, P_CHAR pOtherChar )
 	}
 
 	// For our hirelings we have a special function
-	if( pChar->Owns( pOtherChar ) )
+	/*if( pChar->Owns( pOtherChar ) )
 	{
 		dropOnPet( client, pItem, pOtherChar );
 		return;
-	}
+	}*/
 
 	// Dropping based on AI Type
-	switch( pOtherChar->npcaitype() )
+	/*switch( pOtherChar->npcaitype() )
 	{
 	case 4:
 		dropOnGuard( client, pItem, pOtherChar );
@@ -625,37 +624,37 @@ void cDragItems::dropOnChar( P_CLIENT client, P_ITEM pItem, P_CHAR pOtherChar )
 		if( pChar->trainer() == pOtherChar->serial )
 			dropOnTrainer( client, pItem, pOtherChar );
 		else
-			pOtherChar->talk( "You need to tell me what you want to learn first" );
+			pOtherChar->talk( "You need to tell me what you want to learn first" );*/
 
-	bounceItem( client, pItem );
+	socket->sysMessage( "Dropping on other characters is disabled" );
+	socket->bounceItem( pItem, BR_NO_REASON );
 	return;
 }
 
-void cDragItems::dropOnGround( P_CLIENT client, P_ITEM pItem, const Coord_cl &pos )
+void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &pos )
 {
-	P_CHAR pChar = client->player();
+	P_CHAR pChar = socket->player();
 
 	// Check if the destination is in line of sight
-	if( !line_of_sight( client->socket(), pChar->pos, pos, TREES_BUSHES|WALLS_CHIMNEYS|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
+	if( !lineOfSight( pChar->pos, pos, WALLS_CHIMNEYS|DOORS|LAVA_WATER ) )
 	{
-		client->sysMessage( "You cannot see the target." );
-		bounceItem( client, pItem );
+		socket->bounceItem( pItem, BR_OUT_OF_SIGHT );
 		return;
 	}
 
 	if( !pChar->canPickUp( pItem ) )
 	{
-		bounceItem( client, pItem );
+		socket->bounceItem( pItem, BR_CANNOT_PICK_THAT_UP );
 		return;
 	}
 
 	pItem->setContSerial( INVALID_SERIAL );
 	pItem->moveTo( pos );	
 	pItem->setLayer( 0 );
-	RefreshItem( pItem ); // Send it to all clients in range
+	pItem->update();
 
-	pChar->weight -= pItem->getWeight();
-	statwindow( client->socket(), pChar ); // Update our weight-stats
+	pChar->weight -= pItem->getWeight(); // We're dropping
+	//statwindow( client->socket(), pChar ); // Update our weight-stats
 
 	if( pItem->glow != INVALID_SERIAL )
 	{
@@ -676,14 +675,17 @@ void cDragItems::dropOnGround( P_CLIENT client, P_ITEM pItem, const Coord_cl &po
 	}
 }
 
-void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos )
+void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos )
 {
-	P_CHAR pChar = client->player();
+	P_CHAR pChar = socket->player();
 	
 	if( pItem->isMulti() )
 	{
-		client->sysMessage( "You cannot put houses in containers" );
-		bounceItem( client, pItem );
+		socket->sysMessage( tr( "You cannot put houses in containers" ) );
+		Items->DeleItem( pItem );
+		cUOTxBounceItem bounce;
+		bounce.setReason( BR_NO_REASON );
+		socket->send( &bounce );
 		return;
 	}
 	
@@ -691,7 +693,7 @@ void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const 
 	// It needs to be our vendor or else it's denied
 	P_CHAR packOwner = GetPackOwner( pCont );
 
-	if( ( packOwner != NULL ) && ( packOwner != pChar ) )
+	if( ( packOwner ) && ( packOwner != pChar ) )
 	{
 		// For each item someone puts into there 
 		// He needs to do a snoop-check
@@ -700,16 +702,16 @@ void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const 
 			if( !Skills->CheckSkill( pChar, SNOOPING, 0, 1000 ) )
 			{
 
-				client->sysMessage( QString( "You fail to put that into %1's pack" ).arg( packOwner->name.c_str() ) );
-				bounceItem( client, pItem );
+				socket->sysMessage( tr( "You fail to put that into %1's pack" ).arg( packOwner->name.c_str() ) );
+				socket->bounceItem( pItem, BR_NO_REASON );
 				return;
 			}
 		}
 
 		if( !packOwner->isNpc() || ( packOwner->npcaitype() != 17 ) || !pChar->Owns( packOwner ) )
 		{
-			client->sysMessage( "You cannot put that into the belongings of another player" );
-			bounceItem( client, pItem );
+			socket->sysMessage( "You cannot put that into the belongings of another player" );
+			socket->bounceItem( pItem, BR_NO_REASON );
 			return;
 		}
 	}
@@ -732,7 +734,7 @@ void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const 
 	
 	if( !pChar->canPickUp( pItem ) )
 	{
-		bounceItem( client, pItem );
+		socket->bounceItem( pItem, BR_CANNOT_PICK_THAT_UP );
 		return;
 	}
 
@@ -740,7 +742,7 @@ void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const 
 	if( pCont->type()==87 )
 	{
 		Items->DeleItem( pItem );
-		client->sysMessage( "As you let go of the item it disappears." );
+		socket->sysMessage( tr( "As you let go of the item it disappears." ) );
 		return;
 	}
 
@@ -751,15 +753,15 @@ void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const 
 
 		if( spellId < 0 )
 		{
-			client->sysMessage( "You can only put scrolls into a spellbook" );
-			bounceItem( client, pItem );
+			socket->sysMessage( tr( "You can only put scrolls into a spellbook" ) );
+			socket->bounceItem( pItem, BR_NO_REASON );
 			return;
 		}		
 
 		if( Magic->hasSpell( pCont, spellId )  )
 		{
-			client->sysMessage( "That spellbook already contains this spell" );
-			bounceItem( client, pItem );
+			socket->sysMessage( tr( "That spellbook already contains this spell" ) );
+			socket->bounceItem( pItem, BR_NO_REASON );
 			return;
 		}
 	}
@@ -767,8 +769,8 @@ void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const 
 	// We drop something on the belongings of one of our playervendors
 	if( ( packOwner != NULL ) && ( packOwner->npcaitype() == 17 ) && pChar->Owns( packOwner ) )
 	{
-		client->sysMessage( "You drop something into your playervendor" );
-		bounceItem( client, pItem );
+		socket->sysMessage( tr( "You drop something into your playervendor (unimplemented)" ) );
+		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
 
@@ -793,18 +795,14 @@ void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const 
 	// Spellbooks are containers for us as well
 	if( pCont->type() == 9 || pCont->type() == 1 || pCont->type() == 8 || pCont->type() == 63 || pCont->type() == 65 || pCont->type() == 66 )
 	{
-		pItem->setContSerial( pCont->serial );
-		pItem->setLayer( 0 ); // Remove it from our drag-layer
-
-		// Huh ? - Make that random will you!
-		pItem->pos = dropPos;
-		
-		SndRemoveitem( pItem->serial );
-		RefreshItem( pItem );
+		// If we're dropping it onto the closed container
+		if( dropPos.distance( pCont->pos ) == 0 )
+			pCont->AddItem( pItem );
+		else
+			pCont->AddItem( pItem, dropPos.x, dropPos.y );
 		
 		// Dropped on another Container/in another Container
-		soundeffect2( pChar, 0x57 );
-
+		pChar->soundEffect( 0x57 );
 		return;
 	}
 	// Item matching needs to be extended !!! at least Color! (for certain types)
@@ -815,14 +813,14 @@ void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const 
 			pCont->setAmount( pCont->amount() + pItem->amount() );
 			Items->DeleItem( pItem );
 
-			RefreshItem( pCont ); // Need to update the amount
+			pCont->update(); // Need to update the amount
 			return;
 		}
 		// We have to *keep* our current item
 		else
 		{
 			pCont->setAmount( 65535 ); // Max out the amount
-			RefreshItem( pCont );
+			pCont->update();
 
 			// The delta between 65535 and pCont->amount() sub our Amount is the
 			// new amount
@@ -832,17 +830,17 @@ void cDragItems::dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const 
 
 	// We dropped the item NOT on a container
 	// And were *un*able to stack it (!)
-	// >> Set it to the location of the item we dropped it on and stack it up by 1
+	// >> Set it to the location of the item we dropped it on and stack it up by 2
 	pItem->moveTo( pCont->pos );
-	pItem->pos.z++; // Increase z by 1
-	pItem->pos.y++; // To get it visualized do that with y as well
+	pItem->pos.z += 2; // Increase z by 2
 	pItem->setLayer( 0 );
 	pItem->setContSerial( pCont->contserial );
-	RefreshItem( pItem );
+	pItem->update();
 				
 	// This needs to be checked
 	// It annoyingly shows the spellbook
 	// whenever you add a scroll
+	// << could it be that addItemToContainer is enough?? >>
 	if( pCont->type() == 9 )
 		Magic->openSpellBook( pChar, pCont );
 

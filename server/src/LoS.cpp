@@ -121,7 +121,7 @@ bool isLavaWater(int id)
 		return false;
 }
 
-int line_of_sight(int s, const Coord_cl &source, const Coord_cl &target, int checkfor)
+int lineOfSight( const Coord_cl &source, const Coord_cl &target, int checkfor )
 {
 /*
 Char (source.x, source.y, source.z) is the char(pc/npc), Target (target.x, target.y, target.z) is the target.
@@ -139,7 +139,7 @@ Look at uox3.h to see options. Works like npc magic.
 Just or (|) the values for the diff things together to get what to search for.
 So put in place of the paramater checkfor for example
 	
-if (line_of_sight(s, source.x, source.y, source.z, target.x, target.y, target.z, WALLS_CHIMNEYS | DOORS | ROOFING_SLANTED))
+if (lineOfSight( source.x, source.y, source.z, target.x, target.y, target.z, WALLS_CHIMNEYS | DOORS | ROOFING_SLANTED))
 	  
 		
 This whole thing is based on the Pythagorean Theorem.  What I have done is

@@ -298,7 +298,7 @@ static void TeleTarget(int s, PKGx6C *pp)
 	int y=pp->TyLoc; 
 	signed char z=pp->TzLoc; 
 	Coord_cl clTemp3(x,y,z) ;
-	if ((pc_currchar->isGM()) || (line_of_sight( s, pc_currchar->pos, clTemp3,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) 
+	if ((pc_currchar->isGM()) || (lineOfSight( pc_currchar->pos, clTemp3,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) 
 	{ 
 		doGmMoveEff(s); 
 		
@@ -1366,7 +1366,7 @@ static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it
 	clTemp4.x = pp->TxLoc;
 	clTemp4.y = pp->TyLoc;
 	clTemp4.z = pp->TzLoc;
-	if(line_of_sight(s, pc_currchar->pos, clTemp4, WALLS_CHIMNEYS + DOORS + ROOFING_SLANTED))
+	if(lineOfSight( pc_currchar->pos, clTemp4, WALLS_CHIMNEYS + DOORS + ROOFING_SLANTED))
 	{
 		P_ITEM pi = FindItemBySerial(calcserial(addid1[s],addid2[s],addid3[s],addid4[s]));
 		if (pi != NULL) // crashfix LB

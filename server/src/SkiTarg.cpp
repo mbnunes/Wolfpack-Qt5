@@ -2088,7 +2088,7 @@ void cSkills::TameTarget(int s)
 	if ( pc == NULL ) return;
 	P_CHAR pc_currchar = currchar[s];
 
-	if(line_of_sight(-1, pc_currchar->pos, pc->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)==0)
+	if( !lineOfSight( pc_currchar->pos, pc->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
 	return;
 
 	if(buffer[s][7]==0xFF) return;
