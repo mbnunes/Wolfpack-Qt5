@@ -146,10 +146,18 @@ print_usage ()
 
 	        --static                   Static linking.
 
+	enforcement options:
+
+	        --force-python *           Disable Python version check.
+	        --force-qt *               Disable Qt version check.
+	        --force-stlport            Enforce usage of stlport.
+
+	        --force-all                Enforce all options marked with *.
+
 	options for developers:
 
 	        --enable-debug             Enable debugging.
-	        --cscriptdebug      Debug into ${0}.
+	        --cscriptdebug             Debug into ${0}.
 
 	EOF
 	exit 1;
@@ -193,7 +201,11 @@ do
 		ITEM="$(echo "$ITEM"|sed -e 's/^\([^-]\+-\).*$/\1lib/')";
 	fi;
 
-	YES_NO="$(echo "$1"|grep -q '^--\(enable-\|[^-]*$\)' && echo 'y' || echo 'n')"
+	YES_NO="$(echo "$1"|grep -q '^--\(enable-\|[^-]*$\)' && echo 'y' || echo 'n')";
+
+	FORCE="";
+	FORCE="$(echo "$1"|grep -q '^--force-' && echo 'y' || echo 'n')";
+	[ "$FORCE" = "y" ] && ITEM="${1#--}";
 
 	case "$ITEM" in
 		cscriptdebug)		_CONFIGURE_DEBUG="$YES_NO";;
@@ -205,6 +217,13 @@ do
 		python-lib)		_PYTHON_LIB="$CUR_LIB";;
 		qt-path)		_QT_PATH="$CUR_PATH";;
 		static)			_STATIC="$YES_NO";;
+		force-python)		_FORCE_PYTHON="$FORCE";;
+		force-qt)		_FORCE_QT="$FORCE";;
+		force-stlport)		_FORCE_STLPORT="$FORCE";;
+		force-all)
+					_FORCE_PYTHON="$FORCE";
+					_FORCE_QT="$FORCE";
+					;;
 		*)
 			echo "Unknown option \"$1\"!" >&2;
 			print_usage >&2;
@@ -345,7 +364,7 @@ else
 	fi;
 fi;
 
-check_version "python-inc" "${PYTHON_INC}";
+[ "${_FORCE_PYTHON}" != "y" ] && check_version "python-inc" "${PYTHON_INC}";
 
 echo -n "Searching for Python library.... ";
 
@@ -406,7 +425,7 @@ else
 	fi;
 fi;
 
-check_version "python-lib" "${PYTHON_LIB}";
+[ "${_FORCE_PYTHON}" != "y" ] && check_version "python-lib" "${PYTHON_LIB}";
 PYTHON_LIB="-L$PYTHON_LIB -lpython2.3";
 # </python>
 
@@ -419,7 +438,7 @@ CC="$(which g++)";
 
 CC_VERSION="$(eval "$CC -dumpversion")";
 
-if [ "$(echo "$CC_VERSION"|cut -d. -f1)" -ge "3" ];
+if [ "${_FORCE_STLPORT}" != "y" ] && [ "$(echo "$CC_VERSION"|cut -d. -f1)" -ge "3" ];
 then
 	echo -n "no";
 else
@@ -454,7 +473,7 @@ fi;
 
 if [ -x "$QMAKE_BIN" ];
 then
-	check_version "qt" "$QMAKE_BIN";
+	[ "${_FORCE_QT}" != "y" ] && check_version "qt" "$QMAKE_BIN";
 
 	QMAKE_OUTPUT="$(eval "$QMAKE_BIN -o Makefile $PASSED_VARIABLES wolfpack.pro" 2>&1)";
 	if [ "$?" -gt "0" ];
@@ -476,9 +495,11 @@ then
 	To compile qt multi threaded, use -thread there as a ./configure option.
 	EOF
 
-	rm -f Makefile;
-
-	exit 1;
+	if [ "${_FORCE_QT}" != "y" ];
+	then
+		rm -f Makefile;
+		exit 1;
+	fi;
 fi;
 
 echo "done.";
