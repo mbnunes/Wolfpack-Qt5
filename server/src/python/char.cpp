@@ -2013,8 +2013,14 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
 	} else if (checkWpItem(target)) {
 		P_ITEM pItem = getWpItem(target);
 
+		P_CHAR pOutmost = pItem->getOutmostChar();
+
+		if (pOutmost == self->pChar) {
+			Py_RETURN_TRUE;
+		}
+
 		// Range -1 means that the item has to be on the char
-		if (range == -1 && pItem->getOutmostChar() != self->pChar) {
+		if (range == -1 && pOutmost != self->pChar) {
 			Py_RETURN_FALSE;
 		}
 
