@@ -1256,7 +1256,7 @@ void cNPC::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 
 	// Append NPC titles
 	if (!title_.isEmpty()) {
-		affix.append(title_);
+		affix.append(", " + title_);
 	}
 
 	// Append the (frozen) tag

@@ -61,6 +61,12 @@ void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 	if( !pc_k )
 		return;
 
+	// Cancel any ongoing fight.
+	QPtrList<cFightInfo> fights = pc_k->fights();
+	for (cFightInfo *info = fights.first(); info; info = fights.next()) {
+		delete info;
+	}	
+
 	// Call the onDelete event.
 	PyObject *args = Py_BuildValue("(O&)", PyGetCharObject, pc_k);
 	cPythonScript::callChainedEventHandler(EVENT_DELETE, pc_k->getEvents(), args);

@@ -365,6 +365,8 @@ void cUOSocket::recieve()
 		handleAosMultiPurpose( dynamic_cast< cUORxAosMultiPurpose* >( packet ) ); break;
 	case 0xD4:
 		handleUpdateBook( dynamic_cast< cUORxBookInfo* >( packet ) ); break;
+	case 0xB6:
+		break; // Completely ignore the packet.
 	default:
 		Console::instance()->send( packet->dump( packet->uncompressed() ) );
 		delete packet;
