@@ -38,6 +38,7 @@ using namespace std ;
 #include "network.h"
 #include "walking2.h"
 #include "books.h"
+#include "srvparams.h"
 
 #define PACKET_LEN_DYNAMIC	0x0000
 #define PACKET_LEN_NONE		0xffff
@@ -182,7 +183,7 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 	if (SrvParms->server_log) savelog((char*)temp,"server.log");
 
 
-	if (perm[s] && (currchar[s]->account==acctno[s])&&(SrvParms->partmsg))
+	if (perm[s] && (currchar[s]->account==acctno[s])&&(SrvParams->partMsg()))
 		if (currchar[s]->isPlayer()) // bugfix lb, removes lamas that leave the realm :)
 		{
 			sprintf((char*)temp,"%s has left the realm",currchar[s]->name.c_str());
@@ -301,7 +302,7 @@ void cNetworkStuff::LoginMain(int s)
 			Xsend(s, acctblock, 2);	
 			return;
 		case LOGIN_NOT_FOUND:
-			if( !SrvParms->auto_a_create )
+			if( !SrvParams->autoAccountCreate() )
 			{
 				Xsend(s, noaccount, 2);		
 				return;
@@ -346,7 +347,9 @@ void cNetworkStuff::Login2(int s)
 
 	if (SrvParms->server_log)
 		savelog((char*)temp,"server.log");
-		
+
+	vector<ServerList_st>& serv = SrvParams->serverList();
+
 	tlen=6+(serv.size()*40);
 	newlist1[1]=tlen>>8;
 	newlist1[2]=tlen%256;
@@ -354,13 +357,14 @@ void cNetworkStuff::Login2(int s)
 	newlist1[5]=serv.size()%256;
 	Xsend(s, newlist1, 6);
 
-	for (i=0;i<serv.size();i++)
+	vector<ServerList_st>::iterator it = serv.begin();
+	for (i = 0; it != serv.end(); ++i,++it)
 	{
 		newlist2[0]=(unsigned char) ((i+1)>>8);
 		newlist2[1]=(unsigned char) ((i+1)%256);
 
-		strcpy((char*)&newlist2[2], serv[i].sServer.c_str());
-		ip = inet_addr(serv[i].sIP.c_str());
+		strcpy((char*)&newlist2[2], (*it).sServer.c_str());
+		ip = inet_addr((*it).sIP.c_str());
 		newlist2[39]=(unsigned char) (ip>>24);
 		newlist2[38]=(unsigned char) (ip>>16);
 		newlist2[37]=(unsigned char) (ip>>8);
@@ -372,15 +376,15 @@ void cNetworkStuff::Login2(int s)
 void cNetworkStuff::Relay(int s) // Relay player to a certain IP
 {
 	unsigned long int ip;
-	
-	ip=inet_addr(serv[buffer[s][2]-1].sIP.c_str());
+	ServerList_st serv = SrvParams->serverList()[buffer[s][2]-1];
+	ip = inet_addr(serv.sIP.c_str());
 
 	login03[4]=(unsigned char) (ip>>24);
 	login03[3]=(unsigned char) (ip>>16);
 	login03[2]=(unsigned char) (ip>>8);
 	login03[1]=(unsigned char) (ip%256);
-	login03[5] = serv[buffer[s][2]-1].uiPort>>8;
-	login03[6] = serv[buffer[s][2]-1].uiPort%256;
+	login03[5] = serv.uiPort>>8;
+	login03[6] = serv.uiPort%256;
 	srand(ip+acctno[s]+now+uiCurrentTime); // Perform randomize
 	login03[7]=127;
 	login03[8]=0;
@@ -395,7 +399,8 @@ void cNetworkStuff::GoodAuth(int s)
 	unsigned int i, j;
 	unsigned char login04b[61] = {0,};
 	
-	tlen=4+(5*60)+1+(startcount*63);
+	vector<StartLocation_st>& start = SrvParams->startLocation();
+	tlen=4+(5*60)+1+(start.size()*63);
 	login04a[1]=tlen>>8;
 	login04a[2]=tlen%256;
 
@@ -440,14 +445,15 @@ void cNetworkStuff::GoodAuth(int s)
 		Xsend(s, login04b, 60);
 	}
 
-	buffer[s][0]=startcount;
+	buffer[s][0] = start.size();
 	Xsend(s, buffer[s], 1);
 
-	for ( i = 0; i < startcount; i++ )
+	for ( i = 0; i < start.size(); ++i )
 	{
 		login04d[0] = static_cast<unsigned char>(i);
-		for (j=0;j<=strlen(start[i][0]);j++) login04d[j+1]=start[i][0][j];
-		for (j=0;j<=strlen(start[i][1]);j++) login04d[j+32]=start[i][1][j];
+		strncpy( (char*)&login04d[1], start[i].name.latin1(), 30 );
+		strncpy( (char*)&login04d[32], start[i].name.latin1(), 30 );
+		login04d[31] = login04d[61] = 0;
 		Xsend(s, login04d, 63);
 	}
 
@@ -480,7 +486,7 @@ void cNetworkStuff::CharList(int s) // Gameserver login and character listing
 			Xsend(s, acctblock, 2);	
 			return;
 		case LOGIN_NOT_FOUND:
-			if( !SrvParms->auto_a_create )
+			if( !SrvParams->autoAccountCreate() )
 			{
 				Xsend(s, noaccount, 2);		
 				return;
@@ -614,7 +620,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	/// you can change 0x37 to your liking, but not to 0
 	/////////////////////////////////////////////////////////////////////
 
-	sysmessage(s, 0x37, "Welcome to %s !", serv[0].sServer.c_str());
+	sysmessage(s, 0x37, "Welcome to %s !", SrvParams->serverList()[0].sServer.c_str());
 	sysmessage(s, 0x37, "Running on %s %s %s ", wp_version.productstring.c_str() , wp_version.betareleasestring.c_str() , wp_version.verstring.c_str() );
 	sysmessage(s, 0x37, "Current developers: %s",wp_version.codersstring.c_str() );
 
@@ -639,7 +645,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	setseason[1] = season;
 	Xsend(s,setseason,3);
 
-	if (SrvParms->joinmsg)
+	if (SrvParams->joinMsg())
 	{
 		if (pc_currchar->name == "pty Slot --")
 			pc_currchar->name = "A new Character";

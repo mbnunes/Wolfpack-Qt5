@@ -268,7 +268,7 @@ void Writeslot(LPSTR lpszMessage);
 
 // DasRaetsels' stuff down, don't touch ;)
 
-#define DEFAULTWEBPAGE "http://wpdev.sf.net/"  //this URL doesn't exist, changed to wpdev.sf.net ;)
+#define DEFAULTWEBPAGE "http://www.wpdev.org/"  //this URL doesn't exist, changed to www.wpdev.org ;)
 
 #define MAXTRACKINGTARGETS 20   // maximum number of trackable targets
 

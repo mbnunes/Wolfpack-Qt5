@@ -52,6 +52,7 @@
 #include "rcvpkg.h"
 #include "SndPkg.h"
 #include "worldmain.h"
+#include "srvparams.h"
 
 #include <iostream>
 
@@ -310,7 +311,7 @@ void racRcv(int s)
 				racProcessInput(s); 
 			}
 			if (status[s] == RACST_STDIN)
-				racPrintf(s, "%s $", serv[0].sServer.c_str());
+				racPrintf(s, "%s $", SrvParams->serverList()[0].sServer.c_str());
 			
 			break;
 		}
@@ -386,9 +387,9 @@ void racProcessInput(int s)
 		else 
 		{
 			status[s] = RACST_STDIN;
-			racPrintf(s, "\r\n", serv[0].sServer.c_str());
+			racPrintf(s, "\r\n", SrvParams->serverList()[0].sServer.c_str());
 			racPrintf(s, "\r\n------------------------------------------------------------------------\n\r");
-			racPrintf(s, "Welcome to the %s administration console\n\r", serv[0].sServer.c_str());
+			racPrintf(s, "Welcome to the %s administration console\n\r", SrvParams->serverList()[0].sServer.c_str());
 			racPrintf(s, "\r\nType HELP to receive help on commands.\r\n");
 			racPrintf(s, "\n\r");
 			return;

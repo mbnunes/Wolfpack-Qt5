@@ -36,6 +36,7 @@
 #include "trigger.h"
 #include "dbl_single_click.h"
 #include "guildstones.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
@@ -153,7 +154,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		return;
 	}
 	else
-		pc_currchar->objectdelay = SrvParms->objectdelay * MY_CLOCKS_PER_SEC + uiCurrentTime;
+		pc_currchar->objectdelay = SrvParams->objectDelay() * MY_CLOCKS_PER_SEC + uiCurrentTime;
 	
 	
 	P_ITEM pi = FindItemBySerial(serial);
@@ -214,7 +215,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	}
 	else if (!pc_currchar->isGM() && pi->layer != 0 && !pc_currchar->Wears(pi))
 	{// can't use other people's things!
-		if (!(pi->layer == 0x15  && SrvParms->rogue == 1)) // bugfix for snooping not working, LB
+		if (!(pi->layer == 0x15  && SrvParams->stealingEnabled())) // bugfix for snooping not working, LB
 		{
 			sysmessage(s, "You cannot use items equipped by other players.");
 			return;

@@ -38,6 +38,7 @@
 #include "TmpEff.h"
 #include "combat.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "Timing.cpp"
@@ -388,12 +389,12 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		}
 	}
 
-	if(SrvParms->bg_sounds>=1)
+	if(SrvParams->bgSound()>=1)
 	{
-		if(SrvParms->bg_sounds>10) SrvParms->bg_sounds=10;
-		timer=SrvParms->bg_sounds*100;
-		if (timer==0) timer=1;
-		if( online(pc) && pc->isPlayer() && !pc->dead && ((rand()%(timer))==(timer/2))) bgsound(pc); //lb, bgsound uses array positions not sockets !
+		timer = SrvParams->bgSound() * 100;
+		if ( timer == 0 ) timer = 1;
+		if( online(pc) && pc->isPlayer() && !pc->dead && ( (rand()%(timer) ) == (timer/2))) 
+			bgsound(pc);
 	}
 	if( pc->spiritspeaktimer > 0 && pc->spiritspeaktimer <= uiCurrentTime)
 		pc->spiritspeaktimer = 0;
@@ -1072,10 +1073,10 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		freeUnusedMemory = currenttime + MY_CLOCKS_PER_SEC*60*40; // check only each 40 minutes
 	}
 
-	if(checknpcs<=currenttime) checknpcs=(unsigned int)((double)(speed.npctime*MY_CLOCKS_PER_SEC+currenttime)); //lb
-	if(checktamednpcs<=currenttime) checktamednpcs=(unsigned int)((double) currenttime+(speed.tamednpctime*MY_CLOCKS_PER_SEC)); //AntiChrist
-	if(checknpcfollow<=currenttime) checknpcfollow=(unsigned int)((double) currenttime+(speed.npcfollowtime*MY_CLOCKS_PER_SEC)); //Ripper
-	if(checkitemstime<=currenttime) checkitemstime=(unsigned int)((double)(speed.itemtime*MY_CLOCKS_PER_SEC+currenttime)); //lb
+	if(checknpcs<=currenttime) checknpcs=(unsigned int)((double)(SrvParams->checkNPCTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
+	if(checktamednpcs<=currenttime) checktamednpcs=(unsigned int)((double) currenttime+(SrvParams->checkTammedTime()*MY_CLOCKS_PER_SEC)); //AntiChrist
+	if(checknpcfollow<=currenttime) checknpcfollow=(unsigned int)((double) currenttime+(SrvParams->checkFollowTime()*MY_CLOCKS_PER_SEC)); //Ripper
+	if(checkitemstime<=currenttime) checkitemstime=(unsigned int)((double)(SrvParams->checkItemTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
 	//if(shoprestocktime<=currenttime) shoprestocktime=currenttime+(shoprestockrate*60*MY_CLOCKS_PER_SEC);
 	if(SrvParms->shoprestock==1 && shoprestocktime<=currenttime)
 	{
@@ -1083,12 +1084,12 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		Trade->restock(0);
 	}
 	if (nextnpcaitime <= currenttime)
-		nextnpcaitime = (unsigned int)((double) currenttime + (speed.npcaitime*MY_CLOCKS_PER_SEC)); // lb
+		nextnpcaitime = (unsigned int)((double) currenttime + (SrvParams->checkAITime()*MY_CLOCKS_PER_SEC)); // lb
 	if (nextfieldeffecttime <= currenttime)
 		nextfieldeffecttime = (unsigned int)((double) currenttime + (0.5*MY_CLOCKS_PER_SEC));
 	if (nextdecaytime <= currenttime)
 		nextdecaytime = currenttime + (15*MY_CLOCKS_PER_SEC); // lb ...
-	if (SrvParms->auto_a_reload > 0 && Accounts->lasttimecheck + (SrvParms->auto_a_reload*60*MY_CLOCKS_PER_SEC) <= currenttime)
+	if (SrvParams->autoAccountReload() > 0 && Accounts->lasttimecheck + (SrvParams->autoAccountReload()*60*MY_CLOCKS_PER_SEC) <= currenttime)
 		Accounts->CheckAccountFile();
 
 	// Do Eclipse stuff.. /blackwind 

@@ -52,6 +52,7 @@
 #include "worldmain.h"
 #include "debug.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "cmdtable.cpp"
@@ -2014,15 +2015,14 @@ void command_noinvul(UOXSOCKET s)
 void command_guardson(UOXSOCKET s)
 // Activates town guards.
 {
-	SrvParms->guardsactive=1;
+	SrvParams->guardsActive(true);
 	sysbroadcast("Guards have been reactivated.");
-	
 }
 
 void command_guardsoff(UOXSOCKET s)
 // Deactivates town guards.
 {
-	SrvParms->guardsactive=0;
+	SrvParams->guardsActive(false);
 	sysbroadcast("Warning: Guards have been deactivated globally.");
 	
 }
@@ -2030,8 +2030,8 @@ void command_guardsoff(UOXSOCKET s)
 void command_announceon(UOXSOCKET s)
 // Enable announcement of world saves.
 {
-	SrvParms->announceworldsaves=1;
-	cwmWorldState->announce(SrvParms->announceworldsaves);
+	SrvParams->announceWorldSaves(true);
+	cwmWorldState->announce(true);
 	sysbroadcast("WorldStat Saves will be displayed.");
 	
 }
@@ -2039,8 +2039,8 @@ void command_announceon(UOXSOCKET s)
 void command_announceoff(UOXSOCKET s)
 // Disable announcement of world saves.
 {
-	SrvParms->announceworldsaves = 0;
-	cwmWorldState->announce( SrvParms->announceworldsaves );
+	SrvParams->announceWorldSaves( false );
+	cwmWorldState->announce( false );
 	sysbroadcast("WorldStat Saves will not be displayed.");
 	
 }

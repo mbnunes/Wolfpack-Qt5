@@ -42,6 +42,7 @@
 #include "trigger.h"
 #include "books.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
@@ -146,7 +147,7 @@ inline string cItem::objectID()
 
 void cItem::startDecay()			
 {
-	this->decaytime = SrvParms->decaytimer*MY_CLOCKS_PER_SEC+uiCurrentTime;
+	this->decaytime = SrvParams->decayTime()*MY_CLOCKS_PER_SEC+uiCurrentTime;
 }
 
 

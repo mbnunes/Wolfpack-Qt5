@@ -33,6 +33,7 @@
 #include "SndPkg.h"
 #include "guildstones.h"
 #include "combat.h"
+#include "srvparams.h"
 
 #undef DBGFILE
 #define DBGFILE "rcvpkg.cpp"
@@ -115,7 +116,7 @@ void RcvAttack(P_CLIENT ps)
 			}
 		}
 
-		if (pc_i->inGuardedArea() && SrvParms->guardsactive)
+		if (pc_i->inGuardedArea() && SrvParams->guardsActive())
 		{
 			if (pc_i->isPlayer() && pc_i->isInnocent() && GuildCompare( pc_currchar, pc_i )==0) //REPSYS
 			{

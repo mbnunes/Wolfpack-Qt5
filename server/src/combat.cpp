@@ -41,6 +41,7 @@
 #include "utilsys.h"
 #include "guildstones.h"
 #include "combat.h"
+#include "srvparams.h"
 
 #include "debug.h"
 #undef  DBGFILE
@@ -500,7 +501,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					  pBlood->priv = 1;
 					  pBlood->setGMMovable(); //Moveable by GM
 					  RefreshItem(pBlood);
-					  pBlood->decaytime = (SrvParms->decaytimer/2)*MY_CLOCKS_PER_SEC+uiCurrentTime;
+					  pBlood->decaytime = (SrvParams->decayTime()/2)*MY_CLOCKS_PER_SEC+uiCurrentTime;
 				   }
 				}
 
@@ -1231,7 +1232,7 @@ void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, sig
 	if (pc_offender->dead || pc_caller->dead)
 		return; // AntiChrist
 	
-	if (SrvParms->guardsactive && !pc_offender->isInvul())
+	if (SrvParams->guardsActive() && !pc_offender->isInvul())
 	{
         t = region[pc_caller->region].guardnum[(rand()%10)];
 		P_CHAR pc_guard = Npcs->AddNPCxyz(calcSocketFromChar(pc_offender), t, 0, x, y, z);

@@ -178,10 +178,6 @@ int now;
 
 FILE *scpfile, *lstfile, *wscfile, *mapfile, *sidxfile, *statfile, *verfile, *tilefile, *multifile, *midxfile;
 
-unsigned int startcount;
-
-int cmemcheck;
-unsigned char cmemover;
 unsigned char xcounter;
 unsigned char ycounter;
 int secure; // Secure mode
@@ -274,6 +270,7 @@ int escortRegions = 0;
 unsigned int hungerdamagetimer=0; // For hunger damage
 
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
+cSrvParams		*SrvParams;
 CWorldMain		*cwmWorldState;
 cRegion			*mapRegions;
 cAdmin			*Admin;
@@ -397,8 +394,6 @@ list<SERIAL> guilds;
  gmpage_st gmpages[MAXPAGES];
  gmpage_st counspages[MAXPAGES];
  std::multimap <int, tele_locations_st> tele_locations; // can't use a map here, so using a multimap with x as the key :(
- vector<ServerList_st> serv; // Servers list
- char start[MAXSTART][5][30]; // Startpoints list
  title_st title[ALLSKILLS+1];
  unsigned char *comm[CMAX];
  int layers[MAXLAYERS];

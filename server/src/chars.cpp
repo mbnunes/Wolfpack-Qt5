@@ -46,6 +46,7 @@
 #include "wolfpack.h"
 #include "iserialization.h"
 #include "regions.h"
+#include "srvparams.h"
 
 // Inline members
 
@@ -660,8 +661,8 @@ int cChar::getTeachingDelta(cChar* pPlayer, int skill, int sum)
 	if (delta <= 0)
 		return 0;
 
-	if (sum+delta >= SrvParms->skillcap * 10)			// would new skill value be above cap ?
-		delta = (SrvParms->skillcap * 10) - sum;		// yes, so reduce it
+	if (sum+delta >= SrvParams->skillcap() * 10)			// would new skill value be above cap ?
+		delta = (SrvParams->skillcap() * 10) - sum;		// yes, so reduce it
 	return delta;
 }
 

@@ -40,6 +40,7 @@
 #include "TmpEff.h"
 #include "guildstones.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
@@ -1072,7 +1073,7 @@ void CWorldMain::SaveChar( P_CHAR pc )
 
 	if (!pc->free)
 		valid=1;
-	if (!SrvParms->savespawns && pc->spawnregion>0) valid=0;
+	if (!SrvParams->saveSpawns() && pc->spawnregion>0) valid=0;
 	if (valid)
 	{
 			fprintf(cWsc, "SECTION CHARACTER\n");
@@ -1450,7 +1451,7 @@ void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 	}
 
 	char sectbuf[4000];
-	if (!SrvParms->savespawns && pi->spawnregion>0) // if it was spawned by spawregions AND save spawnregions set to 0,
+	if (!SrvParams->saveSpawns() && pi->spawnregion > 0) // if it was spawned by spawregions AND save spawnregions set to 0,
 		return;		// dont save
 	if (pi->flags.isBeeingDragged == true)	// dragged items need to be saved at OLD position
 	{

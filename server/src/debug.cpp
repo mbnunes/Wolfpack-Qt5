@@ -55,32 +55,14 @@ void MessageReady(char *OutputMessage, char type)
 	char b1[16],b2[16],b3[16],b4[16];	
 	FILE *er_log;	
 
-	unsigned long int ip = inet_addr(serv[0].sIP.c_str());
-	char i1,i2,i3,i4;
-
-	i1=(char) (ip>>24);
-	i2=(char) (ip>>16);
-	i3=(char) (ip>>8);
-	i4=(char) (ip%256);
-
-	numtostr(i4 , b1);
-	numtostr(i3 , b2);
-	numtostr(i2, b3);
-	numtostr(i1, b4);
-
     switch (type)
 	{
-	   case 'E': { strcpy(file_name,"errors_log_");          entries_e++; break; }
-	   case 'C': { strcpy(file_name,"critical_errors_log_"); entries_c++; break; }
-	   case 'W': { strcpy(file_name,"warnings_log_");        entries_w++; break; }
-	   case 'M': { strcpy(file_name,"messages_log_");        entries_m++; break; }
+	   case 'E': { strcpy(file_name,"errors_log.txt");          entries_e++; break; }
+	   case 'C': { strcpy(file_name,"critical_errors_log.txt"); entries_c++; break; }
+	   case 'W': { strcpy(file_name,"warnings_log.txt");        entries_w++; break; }
+	   case 'M': { strcpy(file_name,"messages_log.txt");        entries_m++; break; }
 	} 
 	
-    strcat(file_name,b1);strcat(file_name,"_");
-    strcat(file_name,b2);strcat(file_name,"_");
-    strcat(file_name,b3);strcat(file_name,"_");
-    strcat(file_name,b4);strcat(file_name,".txt");
-
 	er_log=fopen(file_name,"a");
 
 	if (er_log==NULL)

@@ -41,6 +41,7 @@
 #include "guildstones.h"
 #include "combat.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef DBGFILE
 #define DBGFILE "skills.cpp"
@@ -1158,9 +1159,9 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 		}
 		ges=ges/10;
 
-		if (ges>SrvParms->skillcap && c==0) // skill capped and no skill is marked as fall down.
+		if (ges > SrvParams->skillcap() && c==0) // skill capped and no skill is marked as fall down.
 		{
-			sprintf((char*)temp,"You have reached the skill-cap of %i and no skill can fall!", SrvParms->skillcap);
+			sprintf((char*)temp,"You have reached the skill-cap of %i and no skill can fall!", SrvParams->skillcap());
 			sysmessage(calcSocketFromChar(pc), (char*)temp);
 			return 0;
 		}
@@ -1180,8 +1181,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 		incval=(wpadvance[i+skill[sk].advance_index].failure)*10;
 
 	retval=0;
-	//if (incval>rand()%1000)
-	if (incval>rand()%SrvParms->skilladvancemodifier)
+	if (incval>rand()%SrvParams->skillAdvanceModifier())
 	{
 		retval=1;
 		pc->baseskill[sk]++;			
@@ -1190,7 +1190,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 	if (retval)
 	{
 		// no atrophy for gm's !! 
-		if (ges>SrvParms->skillcap) // atrophy only if cap is reached !!!
+		if (ges > SrvParams->skillcap()) // atrophy only if cap is reached !!!
 		// if we are above the skill cap -> we have to let the atrophy candidates fall
 		// important: we have to let 2 skills fall, or we'll never go down to cap
 		// (especially if we are far above the cap from previous verisons)
@@ -1297,7 +1297,7 @@ void cSkills::AdvanceStats(P_CHAR pc, int sk)
 		atCap = true;
 	
 	i=skill[sk].advance_index;
-	int mod=SrvParms->statsadvancemodifier;
+	int mod = SrvParams->statsAdvanceModifier();
 	
 	if (skill[sk].st>rand()%mod)
 		if (AdvanceOneStat(sk, i, &(pc->st), &(pc->st2), &update, isGM) && atCap && !isGM)
@@ -1325,7 +1325,7 @@ void cSkills::AdvanceStats(P_CHAR pc, int sk)
 		}
 		if (atCap && !isGM)
 		{
-			sprintf((char*)temp,"You have reached the stat-cap of %i!" ,SrvParms->statcap);
+			sprintf((char*)temp,"You have reached the stat-cap of %i!" ,SrvParams->statcap());
 			sysmessage(so,(char*)temp);
 		}
 	}
@@ -1461,7 +1461,7 @@ void cSkills::SkillUse(int s, int x) // Skill is clicked on the skill list
 		SetSkillDelay(pc_currchar);
 		return;
 	case STEALING:
-		if (SrvParms->rogue)
+		if (SrvParams->stealingEnabled())
 		{
 			target(s,0,1,0,205, "What do you wish to steal?");
 			SetSkillDelay(pc_currchar);
@@ -2702,7 +2702,7 @@ void cSkills::Snooping(P_CHAR player, P_ITEM container)
 		// Karma(currchar[s],-1,-2000);//AntiChrist
 		// criminal(currchar[s]);//AntiChrist
 	}
-	SetTimerSec(&player->objectdelay, SrvParms->objectdelay+SrvParms->snoopdelay);//adds a delay - solarin
+	SetTimerSec(&player->objectdelay, SrvParams->objectDelay()+SrvParms->snoopdelay);//adds a delay - solarin
 }
 
 

@@ -87,13 +87,13 @@ cMapStuff::~cMapStuff()
 {
 	if (versionCache) delete [] versionCache;
 	
-	if( mapfile )   delete mapfile;
-	if( sidxfile )  delete sidxfile;
-	if( statfile )  delete statfile;
-	if( verfile )   delete verfile;
-	if( tilefile )  delete tilefile;
-	if( multifile ) delete multifile;
-	if( midxfile )  delete midxfile;
+	delete mapfile;
+	delete sidxfile;
+	delete statfile;
+	delete verfile;
+	delete tilefile;
+	delete multifile;
+	delete midxfile;
 }
 
 void cMapStuff::Load()
@@ -128,12 +128,14 @@ void cMapStuff::Load()
 	}
 	clConsole.send("	%s\n", vername);
 	verfile= new UOXFile(vername,"rb");
-	if (verfile==NULL || !verfile->ready())
+	if (verfile == NULL || !verfile->ready() )
     {
-		sprintf((char*)temp,"WARNING: Version File %s not found...\n",vername);
-		LogCritical((char*)temp);
+	//	sprintf((char*)temp,"WARNING: Version File %s not found...\n",vername);
+	//	LogCritical((char*)temp);
 	//	keeprun=0;
 	//	return;
+		delete verfile; // Normal behavior if UO:LBR
+		verfile = 0; 
     }
 	clConsole.send("	%s\n", tilename);
 	tilefile= new UOXFile(tilename,"rb");

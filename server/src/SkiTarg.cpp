@@ -40,6 +40,7 @@
 #include "guildstones.h"
 #include "combat.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef DBGFILE
 #define DBGFILE "skiTarg.cpp"
@@ -1731,7 +1732,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 				sysmessage(s,"You apply the bandages and the creature looks a bit healthier.");
 			}
 		}
-		SetTimerSec(&ph->objectdelay,SrvParms->objectdelay+SrvParms->bandagedelay);
+		SetTimerSec(&ph->objectdelay,SrvParams->objectDelay() + SrvParms->bandagedelay);
 		pib->ReduceAmount(1);
 	}
 }

@@ -38,6 +38,7 @@
 #include "trigger.h"
 #include "guildstones.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"
@@ -292,7 +293,7 @@ bool UnStableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
     ////////////////////////////////////////////////////////////
 
 	/// calc fee
-	float f_fee = ( (p_pet->time_unused) / 600.0f) * SrvParms->stablingfee ; // (fee per 10 minutes) * number of 10 minute blocks
+	float f_fee = ( (p_pet->time_unused) / 600.0f) * SrvParams->stablingFee() ; // (fee per 10 minutes) * number of 10 minute blocks
 	int fee = ( (int) f_fee) + 5; // 5 basefee
 
 	sprintf((char*)temp,"That's %i gold pieces",fee);
@@ -635,7 +636,7 @@ bool TrainerSpeech(cChar* pTrainer, string& comm, cChar* pPlayer, UOXSOCKET s)
 			else
 			{
 				unsigned int sum = pPlayer->getSkillSum();
-				if (sum >= SrvParms->skillcap * 10)
+				if (sum >= SrvParams->skillcap() * 10)
 					strcat(temp, " I can teach thee no more. Thou already knowest too much!");
 				else
 				{
@@ -1120,7 +1121,7 @@ void cSpeech::talking(int s, string& speech) // PC speech
 	// AntiChrist
 	pc_currchar->unhide();
 		
-	if (nonuni[0] == SrvParms->commandPrefix )
+	if (nonuni[0] == SrvParams->commandPrefix() )
 	{
 		Commands->Command(s, speech);
 		return;

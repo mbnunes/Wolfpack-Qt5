@@ -49,14 +49,10 @@ class cAdmin
 {
 public:
 	cAdmin();
+	~cAdmin();
 	void ReadIni();
 	short int port;
-private:
-	void ReadString();
-
-private:
-	FILE *infile;
-} ;
+};
 
 #endif 
 

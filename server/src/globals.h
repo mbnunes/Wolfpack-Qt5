@@ -124,10 +124,7 @@ extern int now;
 
 
 extern FILE *scpfile, *lstfile, *wscfile, *mapfile, *sidxfile, *statfile, *verfile, *tilefile, *multifile, *midxfile;
-extern unsigned int startcount;
 
-extern int cmemcheck;        //stores point to freecharmem no. that stores last delete char memory
-extern unsigned char cmemover;        // 0 means freecharmem buffer has not been overflowed, 1 means overflowed
 extern unsigned char xcounter;
 extern unsigned char ycounter;        //x&y counter used for placing deleted items and chars
 extern int secure; // Secure mode
@@ -316,8 +313,6 @@ extern skill_st skill[SKILLS+1];
 extern unsigned short int doorbase[DOORTYPES];
 extern char skillname[SKILLS+1][20];
 extern  std::multimap <int, tele_locations_st> tele_locations; // can't use a map here :(
-extern vector<ServerList_st> serv; // Servers list
-extern char start[MAXSTART][5][30]; // Startpoints list
 extern title_st title[ALLSKILLS+1];
 extern unsigned char *comm[CMAX];
 extern int layers[MAXLAYERS];

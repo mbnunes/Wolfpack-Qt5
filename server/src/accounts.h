@@ -56,9 +56,6 @@ class cAccount;
 // Wolfpack Includes
 
 #include "typedefs.h"
-#include "debug.h"
-
-
 
 // Authenticate return codes
 

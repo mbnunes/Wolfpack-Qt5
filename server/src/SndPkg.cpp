@@ -47,6 +47,7 @@
 #include "guildstones.h"
 #include "combat.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "SndPkg.cpp"
@@ -1242,7 +1243,7 @@ void chardel (UOXSOCKET s) // Deletion of character
 		}
 		if (toDelete != NULL)
 		{
-			if (!SrvParms->checkcharage)
+			if (!SrvParams->checkCharAge())
 				Npcs->DeleteChar(toDelete);
 			else
 				if ((toDelete->creationday+7) < getPlatformDay())
@@ -1256,8 +1257,9 @@ void chardel (UOXSOCKET s) // Deletion of character
 		}
 
 		{
-			tlen=4+(5*60)+1+(startcount*63);
-	
+			vector<StartLocation_st>& start = SrvParams->startLocation();
+			tlen=4+(5*60)+1+(start.size()*63);
+
 			login04a[1]=tlen>>8;
 			login04a[2]=tlen%256;
 			if (j>=1) login04a[3]=j--; else login04a[3]=0;
@@ -1265,7 +1267,7 @@ void chardel (UOXSOCKET s) // Deletion of character
 			Xsend(s, login04a, 4);
 			j=0;
 			AllCharsIterator it;
-			for (it.Begin(); !it.atEnd(); it++)
+			for (it.Begin(); !it.atEnd(); ++it)
 			{
 				P_CHAR pc = it.GetData();
 				if ( pc->account == acctno[s] && !pc->free)
@@ -1282,13 +1284,14 @@ void chardel (UOXSOCKET s) // Deletion of character
 				Xsend(s, login04b, 60);
 			}
 
-			buffer[s][0]=startcount;
+			buffer[s][0] = start.size();
 			Xsend(s, buffer[s], 1);
-			for (i=0;i<startcount;i++)
+			for ( i = 0; i < start.size(); ++i )
 			{
-				login04d[0]=i;
-				for (j=0;j<=strlen(start[i][0]);j++) login04d[j+1]=start[i][0][j];
-				for (j=0;j<=strlen(start[i][1]);j++) login04d[j+32]=start[i][1][j];
+				login04d[0] = static_cast<unsigned char>(i);
+				strncpy( (char*)&login04d[1], start[i].name.latin1(), 30 );
+				strncpy( (char*)&login04d[32], start[i].name.latin1(), 30 );
+				login04d[31] = login04d[61] = 0;
 				Xsend(s, login04d, 63);
 			}
 		}

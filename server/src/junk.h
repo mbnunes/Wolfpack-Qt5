@@ -66,6 +66,7 @@ struct statcap_st
 #define DBGFILE "junk.h"
 
 // Forward declarations
+class cSrvParams;
 class CWorldMain;
 class cBoat;
 class cAccount;
@@ -93,6 +94,7 @@ class cBounty;
 class cRegion;
 
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
+extern cSrvParams		*SrvParams;
 extern cBoat			*Boats;
 extern CWorldMain		*cwmWorldState;
 extern cAccount			*Accounts;

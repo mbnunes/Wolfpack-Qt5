@@ -39,6 +39,7 @@ History: None
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "debug.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "fishing.cpp"
@@ -51,7 +52,7 @@ int SpawnFishingMonster(UOXSOCKET s, char* cScript, char* cList, char* cNpcID)
 
 	P_CHAR pc_currchar = currchar[s];
 
-	if (pc_currchar->inGuardedArea() && SrvParms->guardsactive) //guarded
+	if (pc_currchar->inGuardedArea() && SrvParams->guardsActive()) //guarded
 		return -1;
 
 	char sect[512];

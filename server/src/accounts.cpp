@@ -29,8 +29,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-
-
 #include "accounts.h"
 #include "prototypes.h"
 #include "globals.h"
@@ -39,6 +37,7 @@
 
 #include <ctime>
 
+#include "debug.h"
 #undef DBGFILE
 #define DBGFILE "accounts.cpp"
 

@@ -32,6 +32,7 @@
 #include "wolfpack.h"
 #include "verinfo.h"
 #include "utilsys.h"
+#include "srvparams.h"
 #include "debug.h"
 #undef  DBGFILE
 #define DBGFILE "html.cpp"
@@ -199,7 +200,8 @@ void updatehtml()//HTML
 		else if(!(strcmp((char*)script1,"IP")))
 		{
 			//ip=inet_addr(serv[str2num(script2)-1][1]);
-			fprintf(html, serv[str2num(script2)-1].sIP.c_str());
+			vector<ServerList_st>::iterator it = SrvParams->serverList().begin();
+			fprintf(html, (*(it + str2num(script2) - 1)).sIP.c_str());
 		}
 		else if(!(strcmp((char*)script1,"GMNUM")))
 		{

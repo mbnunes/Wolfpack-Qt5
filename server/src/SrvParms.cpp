@@ -93,21 +93,12 @@ void loadserverdefaults(void)
 	server_data.poisontimer=180; // lb
 	//server_data.repairworldtimer=REPAIRWORLDTIMER; //Ripper
 
-	server_data.decaytimer=DECAYTIMER;
 	// Should we check character age for delete?
-	server_data.checkcharage = 0 ;
-
-	server_data.skillcap=999999;	// default=no cap
-	server_data.statcap=999;		// default=no cap
-
 	server_data.packetsendstyle=PSS_UOX3;
 
 	//taken from 6904t2(5/10/99) - AntiChrist
 	server_data.playercorpsedecaymultiplier=3;	// Player's corpse decays 3x the normal decay rate
 	server_data.lootdecayswithcorpse=1;			// JM - 0 Loot disappears with corpse, 1 loot gets left when corpse decays
-	
-	server_data.auto_a_create = 0;                     // for auto accounts
-	server_data.auto_a_reload = 0;
 	
 	server_data.invisibiliytimer=INVISTIMER;
 	server_data.hungerrate=HUNGERRATE;
@@ -115,15 +106,12 @@ void loadserverdefaults(void)
 	server_data.snoopdelay=7;
 	server_data.hungerdamage=2;
 	server_data.skilldelay=SKILLDELAY;
-	server_data.objectdelay=1;					// in seconds
 	server_data.bandagedelay=6;					// in seconds
 	server_data.bandageincombat=1;				// 0=no, 1=yes; can use bandages while healer and/or patient are in combat ?
 	server_data.inactivitytimeout=300;			// seconds of inactivity until player will be disconnected
 	server_data.hitpointrate=REGENRATE1;
 	server_data.staminarate=REGENRATE2;
 	server_data.manarate=REGENRATE3;
-	server_data.skilladvancemodifier=1000;		// Default Modulo val for skill advance
-    server_data.statsadvancemodifier=500;		// Default Modulo val for stats advance
 	server_data.gatetimer=GATETIMER;
 	server_data.minecheck=2;
 	server_data.showdeathanim=1;				// 1 = yes/true
@@ -141,21 +129,13 @@ void loadserverdefaults(void)
 	server_data.sellmaxitem=5;		// Set maximum amount of items that one player can sell at one time (5 is standard OSI) --- Magius(CHE)
 	server_data.npcdamage=2;
 	server_data.rank_system=1;		// Rank system to make various type of a single intem based on the creator's skill! - Magius(CHE)
-	server_data.guardsactive=1;
 	server_data.errors_to_console=0;
-	server_data.bg_sounds=2;
-	server_data.announceworldsaves=1;
-	server_data.joinmsg=1;
-	server_data.partmsg=1;
-	server_data.stablingfee=0.25;
-	server_data.savespawns=1;
 
 	server_data.gm_log=0;
 	server_data.pvp_log=0;
 	server_data.speech_log=0;
 	server_data.server_log=0;
 
-	server_data.rogue=1;
 	server_data.quittime=300;//Instalog
 
 	server_data.msgboardpath[0] = 0;	   // Dupois - Added Dec 20, 1999 for message boards (current dir)
@@ -187,7 +167,6 @@ void loadserverdefaults(void)
 	server_data.tamed_disappear=1; // Ripper
 	server_data.houseintown=0; // Ripper
 	server_data.shoprestock=1; //Ripper
-	server_data.commandPrefix = '#'; //Ripper
 
 	server_data.CheckBank = 2000; // Ripper..2000 default
 	server_data.VendorGreet = 1; // Ripper..do greet by default.
@@ -207,13 +186,6 @@ void loadserverdefaults(void)
 	cwmWorldState->SetLoopSaveAmt(-1);
 		
 	speed.srtime=30;
-	speed.itemtime=(float)1.5;
-	speed.npctime=(float)1.0; // lb, why -1 zippy ??????
-    speed.npcaitime=(float)1.2;
-	speed.tamednpctime=(float)0.9;//AntiChrist
-	speed.npcfollowtime=(float)0.5; //Ripper
-	speed.nice=2;
-	speed.checkmem=3000000;
 	
 	resource.logs=3;
 	resource.logtime=600;
@@ -253,15 +225,7 @@ void loadspeed()//Lag Fix -- Zippy -- NEW FUNCTION
 	{
 		readw2();
 		
-        if(!(strcmp((char*)script1,"NICE"))) speed.nice=str2num(script2);
-		else if(!(strcmp((char*)script1,"CHECK_ITEMS"))) speed.itemtime=atof((char*)script2);
-		else if(!(strcmp((char*)script1,"CHECK_SPAWNREGIONS"))) speed.srtime=str2num(script2);
-		else if(!(strcmp((char*)script1,"CHECK_NPCS"))) speed.npctime=atof((char*)script2);
-        else if(!(strcmp((char*)script1,"CHECK_NPCAI"))) speed.npcaitime=atof((char*)script2);
-        else if(!(strcmp((char*)script1,"CHECK_TAMEDNPCS"))) speed.tamednpctime=atof((char*)script2);//AntiChrist
-		else if(!(strcmp((char*)script1,"CHECK_NPCFOLLOW"))) speed.npcfollowtime=atof((char*)script2);//Ripper
-		//else if(!(strcmp(script1,"LORDB_LAG_FIX"))) server_data.lordblagfix=str2num(script2);
-		else if(!(strcmp((char*)script1,"CHECKMEM"))) speed.checkmem=str2num(script2);
+		if(!(strcmp((char*)script1,"CHECK_SPAWNREGIONS"))) speed.srtime=str2num(script2);
 		else if(!(strcmp((char*)script1,"CACHE_MUL"))) Map->Cache = atoi((char*)script2);	
 	}
 	while (  (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
@@ -396,21 +360,7 @@ void loadserver()
 		readw2();
 	
 
-		if(!(strcmp((char*)script1,"SKILLCAP"))) server_data.skillcap=str2num(script2);
-		else if(!(strcmp((char*)script1,"STATCAP"))) server_data.statcap=str2num(script2);
-
-		else if(!(strcmp((char*)script1,"SKILLADVANCEMODIFIER")))
-		{
-            int mod=str2num(script2);
-            server_data.skilladvancemodifier=(mod>=1 ? mod : 1);    // must be nonzero && positive
-		}
-        else if(!(strcmp((char*)script1,"STATSADVANCEMODIFIER")))
-		{
-            int mod=str2num(script2);
-            server_data.statsadvancemodifier=(mod>=1 ? mod : 1);    // must be nonzero && positive
-		}
-
-		else if(!(strcmp((char*)script1,"USESPECIALBANK"))) server_data.usespecialbank=str2num(script2); //AntiChrist - Special Bank
+		if(!(strcmp((char*)script1,"USESPECIALBANK"))) server_data.usespecialbank=str2num(script2); //AntiChrist - Special Bank
 		else if(!(strcmp((char*)script1,"SPECIALBANKTRIGGER")))  //AntiChrist - Special Bank
 		{
 			strcpy(server_data.specialbanktrigger,script2);
@@ -421,8 +371,6 @@ void loadserver()
 		//AntiChrist
 		else if(!(strcmp((char*)script1,"GOLDWEIGHT"))) server_data.goldweight=atof((char*)script2);
 
-		else if(!(strcmp((char*)script1,"DECAYTIMER"))) server_data.decaytimer=str2num(script2);
-		
 		//taken from 6904t2(5/10/99) - AntiChrist
 		else if(!(strcmp((char*)script1,"PLAYERCORPSEDECAYMULTIPLIER"))) server_data.playercorpsedecaymultiplier=str2num(script2);//JM
 		else if(!(strcmp((char*)script1,"LOOTDECAYSWITHCORPSE"))) server_data.lootdecayswithcorpse=str2num(script2);
@@ -433,15 +381,11 @@ void loadserver()
 			server_data.skilllevel=str2num(script2); //MAgius(CHE)
 			if (server_data.skilllevel<1 || server_data.skilllevel>10) server_data.skilllevel=5;
 		}
-		else if(!(strcmp((char*)script1,"OBJECTDELAY"))) server_data.objectdelay=str2num(script2);
 		else if(!(strcmp((char*)script1,"BANDAGEDELAY"))) server_data.bandagedelay=str2num(script2);
 		else if(!(strcmp((char*)script1,"BANDAGEINCOMBAT"))) server_data.bandageincombat=str2num(script2);
 		else if(!(strcmp((char*)script1,"INACTIVITYTIMEOUT"))) server_data.inactivitytimeout=str2num(script2);
 		else if(!(strcmp((char*)script1,"GATETIMER"))) server_data.gatetimer=str2num(script2);
 		else if(!(strcmp((char*)script1,"SHOWDEATHANIM"))) server_data.showdeathanim=str2num(script2);
-		else if(!(strcmp((char*)script1,"GUARDSACTIVE"))) server_data.guardsactive=str2num(script2);	
-		else if(!(strcmp((char*)script1,"ANNOUNCE_WORLDSAVES"))) server_data.announceworldsaves=str2num(script2);	
-		else if(!(strcmp((char*)script1,"BG_SOUNDS"))) server_data.bg_sounds=str2num(script2);
 		else if(!(strcmp((char*)script1,"ARCHIVEPATH"))) strcpy(server_data.archivepath,(char*)script2);
 		else if(!(strcmp((char*)script1,"BACKUP_SAVE_RATIO"))) { //LB
 			server_data.backup_save_ratio=str2num(script2);
@@ -449,32 +393,22 @@ void loadserver()
 		}
         else if(!(strcmp((char*)script1,"POISONTIMER"))) server_data.poisontimer=str2num(script2); // lb
 		//if(!(strcmp(script1,"REPAIRWORLDTIMER"))) server_data.repairworldtimer=str2num(script2); //Ripper
-		else if(!(strcmp((char*)script1,"JOINMSG"))) server_data.joinmsg=str2num(script2);
-		else if(!(strcmp((char*)script1,"PARTMSG"))) server_data.partmsg=str2num(script2);
 
 		else if(!(strcmp((char*)script1,"SERVER_LOG"))) server_data.server_log=str2num(script2);
 		else if(!(strcmp((char*)script1,"SPEECH_LOG"))) server_data.speech_log=str2num(script2);
 		else if(!(strcmp((char*)script1,"PVP_LOG"))) server_data.pvp_log=str2num(script2);
 		else if(!(strcmp((char*)script1,"GM_LOG"))) server_data.gm_log=str2num(script2);		
 
-		else if(!(strcmp((char*)script1,"SAVESPAWNREGIONS"))) server_data.savespawns=str2num(script2);	
 
-
-		else if(!(strcmp((char*)script1,"ROGUE"))) server_data.rogue = str2num(script2);
 		else if(!(strcmp((char*)script1,"CHAR_TIME_OUT"))) server_data.quittime = str2num(script2);//Instalog
 		else if(!(strcmp((char*)script1,"MAXSTEALTHSTEPS"))) server_data.maxstealthsteps = str2num(script2);//AntiChrist
 		else if(!(strcmp((char*)script1,"RUNNINGSTAMINASTEPS"))) server_data.runningstaminasteps=str2num(script2);//AntiChrist
         else if(!(strcmp((char*)script1,"BOAT_SPEED"))) server_data.boatspeed = atof((char*)script2);//Boats
-		else if(!(strcmp((char*)script1,"STABLING_FEE"))) server_data.stablingfee = atof((char*)script2);//Boats
 
 		else if(!(strcmp((char*)script1,"HTML"))) server_data.html=str2num(script2);//HTML
         else if(!(strcmp((char*)script1,"CUT_SCROLL_REQUIREMENTS"))) server_data.cutscrollreq=str2num(script2);//AntiChrist
         else if(!(strcmp((char*)script1,"PERSECUTION"))) server_data.persecute=str2num(script2);//AntiChrist
 	
-		else if( !strcmp( (char*)script1, "AUTO_CREATE_ACCTS" ) ) server_data.auto_a_create = str2num( script2 );
-		else if( !strcmp( (char*)script1, "CHECKCHARAGE" ) )  server_data.checkcharage = str2num( script2 );
-		else if( !strcmp( (char*)script1, "AUTO_RELOAD_ACCTS" ) ) server_data.auto_a_reload = str2num( script2 );
-
 		else if(!(strcmp((char*)script1,"MSGBOARDPATH"))) strcpy(server_data.msgboardpath,(char*)script2);               // Dupois - Added Dec 20, 1999 for message boards
 		else if(!(strcmp((char*)script1,"MSGPOSTACCESS"))) server_data.msgpostaccess=str2num(script2);            // Dupois - Added Dec 20, 1999 for message boards
 		else if(!(strcmp((char*)script1,"MSGPOSTREMOVE"))) server_data.msgpostremove=str2num(script2);            // Dupois - Added Dec 20, 1999 for message boards
@@ -490,7 +424,6 @@ void loadserver()
 		else if(!(strcmp((char*)script1,"TAMED_DISAPPEAR"))) server_data.tamed_disappear=str2num(script2); // Ripper
 		else if(!(strcmp((char*)script1,"HOUSEINTOWN"))) server_data.houseintown=str2num(script2); // Ripper
 		else if(!(strcmp((char*)script1,"SHOPRESTOCK"))) server_data.shoprestock=str2num(script2); // Ripper
-		else if(!(strcmp((char*)script1, "COMMANDPREFIX" ) ) ) server_data.commandPrefix=script2[0]; //Ripper
 	 
 		else if(!(strcmp((char*)script1,"LOOPSAVE"))) cwmWorldState->SetLoopSaveAmt( str2num( script2 ) );
 
@@ -710,14 +643,9 @@ void saveserverscript(void)
 		break;
 	}
 
-	fprintf(file, "SKILLCAP %i\n",server_data.skillcap);
-	fprintf(file, "STATCAP %i\n",server_data.statcap);
-	fprintf(file, "SKILLADVANCEMODIFIER %i\n",server_data.skilladvancemodifier);
-    fprintf(file, "STATSADVANCEMODIFIER %i\n",server_data.statsadvancemodifier);
 	fprintf(file, "USESPECIALBANK %i\n",server_data.usespecialbank);	//AntiChrist - specialbank
 	fprintf(file, "SPECIALBANKTRIGGER %s\n",server_data.specialbanktrigger);
 	fprintf(file, "GOLDWEIGHT %f\n",server_data.goldweight);//AntiChrist - gold weight
-	fprintf(file, "DECAYTIMER %i\n",server_data.decaytimer);
 
 	//taken from 6904t2(5/10/99) - AntiChrist
 	fprintf(file, "PLAYERCORPSEDECAYMULTIPLIER %i\n", server_data.playercorpsedecaymultiplier);
@@ -726,42 +654,29 @@ void saveserverscript(void)
 	fprintf(file, "INVISTIMER %i\n",server_data.invisibiliytimer);
 	fprintf(file, "SKILLDELAY %i\n",server_data.skilldelay);
 	fprintf(file, "SKILLLEVEL %i\n",server_data.skilllevel); // By Magius(CHE)
-	fprintf(file, "OBJECTDELAY %i\n",server_data.objectdelay);
 	fprintf(file, "BANDAGEDELAY %i\n",server_data.bandagedelay);
 	fprintf(file, "BANDAGEINCOMBAT %i\n",server_data.bandageincombat);
 	fprintf(file, "INACTIVITYTIMEOUT %i\n",server_data.inactivitytimeout);
 	fprintf(file, "GATETIMER %i\n",server_data.gatetimer);
 	fprintf(file, "SHOWDEATHANIM %i\n",server_data.showdeathanim);
-	fprintf(file, "GUARDSACTIVE %i\n",server_data.guardsactive);
-	fprintf(file, "ANNOUNCE_WORLDSAVES %i\n",server_data.announceworldsaves);
-	fprintf(file, "BG_SOUNDS %i\n",server_data.bg_sounds);
 	fprintf(file, "ARCHIVEPATH %s\n",server_data.archivepath);
 	fprintf(file, "BACKUP_SAVE_RATIO %i\n",server_data.backup_save_ratio);//LB
 	fprintf(file, "POISONTIMER %i\n",server_data.poisontimer); // lb
 	//fprintf(file,"REPAIRWORLDTIMER %i\n",server_data.repairworldtimer); //Ripper
-	fprintf(file, "JOINMSG %i\n",server_data.joinmsg);
-	fprintf(file, "PARTMSG %i\n",server_data.partmsg);
- 	fprintf(file, "SAVESPAWNREGIONS %i\n",server_data.savespawns);
- 
 
 	fprintf(file, "SERVER_LOG %i\n",server_data.server_log); //Lb, splitt log to those 4
 	fprintf(file, "SPEECH_LOG %i\n",server_data.speech_log);
 	fprintf(file, "PVP_LOG %i\n",server_data.pvp_log);
 	fprintf(file, "GM_LOG %i\n",server_data.gm_log);
 	
-	fprintf(file, "ROGUE %i\n",server_data.rogue);
 	fprintf(file, "CHAR_TIME_OUT %i\n",server_data.quittime);//Instalog
 	fprintf(file, "MAXSTEALTHSTEPS %i\n",server_data.maxstealthsteps);//Instalog
 	fprintf(file, "RUNNINGSTAMINASTEPS %i\n",server_data.runningstaminasteps);//Instalog
     fprintf(file, "BOAT_SPEED %f\n",server_data.boatspeed);//Boats
-	fprintf(file, "STABLING_FEE %f\n",server_data.stablingfee);//Boats
 
     fprintf(file, "HTML %i\n",server_data.html);
     fprintf(file, "CUT_SCROLL_REQUIREMENTS %i\n",server_data.cutscrollreq);//AntiChrist
     fprintf(file, "PERSECUTION %i\n",server_data.persecute);//AntiChrist
-	fprintf(file, "AUTO_CREATE_ACCTS %i\n", server_data.auto_a_create);
-	fprintf(file, "CHECKCHARAGE %i\n", server_data.checkcharage) ;
-	fprintf(file, "AUTO_RELOAD_ACCTS %i\n", server_data.auto_a_reload);
     
 	fprintf(file, "MSGBOARDPATH %s\n",server_data.msgboardpath);              // Dupois - Added Dec 20, 1999 for msgboard.cpp
 	fprintf(file, "MSGPOSTACCESS %i\n",server_data.msgpostaccess);            // Dupois - Added Dec 20, 1999 for msgboard.cpp
@@ -778,7 +693,6 @@ void saveserverscript(void)
 	fprintf(file, "TAMED_DISAPPEAR %i\n",server_data.tamed_disappear); // Ripper
 	fprintf(file, "HOUSEINTOWN %i\n",server_data.houseintown); // Ripper
 	fprintf(file, "SHOPRESTOCK %i\n",server_data.shoprestock); // Ripper
-	fprintf(file, "COMMANDPREFIX %c\n", server_data.commandPrefix ); // Ripper
 	fprintf(file, "LOOPSAVE %i\n",cwmWorldState->LoopSaveAmt());  
 	fprintf(file, "ERRORS_TO_CONSOLE %i\n",server_data.errors_to_console);
 	fprintf(file, "HOUSEDECAY_SECS %i\n",server_data.housedecay_secs);
@@ -802,15 +716,7 @@ void saveserverscript(void)
 
 	fprintf(file, "SECTION SPEED\n"); //Lag Fix -- Zippy
 	fprintf(file, "{\n");
-    fprintf(file, "NICE %i\n",speed.nice);
-	//fprintf(file,"LORDB_LAG_FIX %i\n",server_data.lordblagfix);
-	fprintf(file, "CHECK_ITEMS %f\n",speed.itemtime);
-	fprintf(file, "CHECK_NPCS %f\n",speed.npctime);
-	fprintf(file, "CHECK_TAMEDNPCS %f\n",speed.tamednpctime);//AntiChrist
-	fprintf(file, "CHECK_NPCFOLLOW %f\n",speed.npcfollowtime);//Ripper
-	fprintf(file, "CHECK_NPCAI %f\n",speed.npcaitime);
 	fprintf(file, "CHECK_SPAWNREGIONS %i\n",speed.srtime);
-	fprintf(file, "CHECKMEM %i\n", speed.checkmem);
 	fprintf(file, "CACHE_MUL %i\n",Map->Cache);
 	fprintf(file, "}\n\n");
 	

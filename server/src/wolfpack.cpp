@@ -60,6 +60,7 @@
 #include "guildstones.h"
 #include "combat.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef DBGFILE
 #define DBGFILE "wolfpack.cpp"
@@ -1829,7 +1830,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 			pc->priv3[i] = metagm[2][i]; // player defaults is 2
 	}
 
-	pc->MoveTo(str2num(start[buffer[s][0x5B]][2]), str2num(start[buffer[s][0x5B]][3]), str2num(start[buffer[s][0x5B]][4]));
+	pc->moveTo(SrvParams->startLocation()[buffer[s][0x5B]].pos);
 
 	pc->dir=4;
 
@@ -2320,7 +2321,7 @@ void callguards( P_CHAR pc_player )
 		pc_player->antiguardstimer=uiCurrentTime+(MY_CLOCKS_PER_SEC*10);
 	} else return;
 
-	if (!pc_player->inGuardedArea() || !SrvParms->guardsactive )
+	if (!pc_player->inGuardedArea() || !SrvParams->guardsActive() )
 		return;
 
 	cRegion::RegionIterator4Chars ri(pc_player->pos);
@@ -2992,7 +2993,7 @@ int main(int argc, char *argv[])
 	Network->Initialize();
 	clConsole.send(" Done.\n");
 
-	cwmWorldState->announce(SrvParms->announceworldsaves);
+	cwmWorldState->announce(SrvParams->announceWorldSaves());
 
 	clConsole.send("Initializing sounds... ");
 	init_creatures(); //lb, initilises the creatures array (with soudfiles and other creatures infos)
@@ -3111,7 +3112,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 		checkkey();
 		#endif
 
-		switch(speed.nice)
+		switch(SrvParams->niceLevel())
 		{
 			case 0: break;	// very unnice - hog all cpu time
 			case 1: if (now!=0) Sleep(10); else Sleep(100); break;
@@ -5194,7 +5195,7 @@ void criminal(P_CHAR pc)//Repsys ....Ripper
 		 //printw(" Seeting Crimflag to %d \n",chars[c].crimflag) ;
 		 sysmessage(calcSocketFromChar(pc),"You are now a criminal!");
 		 setcharflag(pc);
-		 if(pc->inGuardedArea() && SrvParms->guardsactive)//guarded
+		 if(pc->inGuardedArea() && SrvParams->guardsActive())//guarded
 			Combat->SpawnGuard( pc, pc, pc->pos.x,pc->pos.y,pc->pos.z); // LB bugfix
 	}
 }
@@ -5382,8 +5383,6 @@ void SetGlobalVars()
 	now=0;
 	secure=1;
 	wtype=0;
-	cmemover=0;
-	cmemcheck=-1;
 	xcounter=0;
 	ycounter=0;
 	globallight=0;
@@ -5393,7 +5392,6 @@ void SetGlobalVars()
 	dosavewarning = 0;
 	
 	
-	server_data.decaytimer  = DECAYTIMER ;
     server_data.invisibiliytimer = INVISTIMER ;
     server_data.hungerrate = HUNGERRATE ;
     server_data.skilldelay = SKILLDELAY ;
@@ -5499,6 +5497,7 @@ void StartClasses(void)
 	clConsole.send("Initializing classes...");
 
 // NULL Classes out first....
+	SrvParams = NULL;
 	cwmWorldState = NULL;
 	mapRegions = NULL;
 	Accounts=NULL;
@@ -5523,6 +5522,7 @@ void StartClasses(void)
 	BankerAI=NULL;
 
 	// Classes nulled now, lets get them set up :)
+	SrvParams = new cSrvParams("wolfpack.xml", "Wolfpack", "1.0");
 	cwmWorldState=new CWorldMain;
 	mapRegions = new cRegion;
 	Accounts = new cAccount;
@@ -5553,6 +5553,7 @@ void StartClasses(void)
 void DeleteClasses(void)
 {
 	//Weather->kill();
+	delete SrvParams;
 	delete cwmWorldState;
 	delete mapRegions;
 	delete Accounts;

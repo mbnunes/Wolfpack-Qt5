@@ -72,16 +72,8 @@ struct server_st
 	unsigned int eclipsemode;
 	//##ModelId=3C5D92CD0399
 	unsigned int eclipsetimer;
-	//##ModelId=3C5D92CD03AD
-	unsigned int checkcharage ;
 	//##ModelId=3C5D92CD03C1
 	unsigned int poisontimer;
-	//##ModelId=3C5D92CD03D5
-	unsigned int joinmsg;
-	//##ModelId=3C5D92CD03DF
-	unsigned int partmsg;
-	//##ModelId=3C5D92CE000B
-	unsigned int decaytimer;
 
  //taken from 6904t2(5/10/99) - AntiChrist
 	//##ModelId=3C5D92CE001F
@@ -89,21 +81,12 @@ struct server_st
 	//##ModelId=3C5D92CE0033
 	unsigned int lootdecayswithcorpse;
 
-	//##ModelId=3C5D92CE0047
 	unsigned int invisibiliytimer;
-	//##ModelId=3C5D92CE005C
 	unsigned int hungerrate;
-	//##ModelId=3C5D92CE0066
 	unsigned int skilldelay;
-	//##ModelId=3C5D92CE007A
 	unsigned int snoopdelay;
-	//##ModelId=3C5D92CE008E
-	unsigned int objectdelay;
-	//##ModelId=3C5D92CE00A2
 	unsigned int bandagedelay;					// in seconds, on top of objectdelay
-	//##ModelId=3C5D92CE00B6
 	unsigned int bandageincombat;				// 0=no, 1=yes; can use bandages while healer and/or patient are in combat ?
-	//##ModelId=3C5D92CE00C0
 	unsigned int inactivitytimeout;			// seconds of inactivity until player will be disconnected (duke)
 			// LB: if no packet received from client in that time period, disconnection ! (except idle packet)
 			// thats necessary, cauz in case of client/OS crashes or IP changes on the fly players didnt get disconnected
@@ -115,10 +98,6 @@ struct server_st
 	//##ModelId=3C5D92CE0106
 	unsigned int manarate;
 	//##ModelId=3C5D92CE0110
-	unsigned int skilladvancemodifier;
-	//##ModelId=3C5D92CE0142
-	unsigned int statsadvancemodifier;
-	//##ModelId=3C5D92CE014C
 	unsigned int gatetimer;
 	//##ModelId=3C5D92CE0160
 	unsigned int minecheck;
@@ -142,12 +121,6 @@ struct server_st
 	unsigned int houseintown; // Ripper
 	//##ModelId=3C5D92CE0214
 	unsigned int shoprestock; // Ripper 
-	//##ModelId=3C5D92CE0228
-	unsigned char guardsactive;
-	//##ModelId=3C5D92CE023C
-	unsigned char bg_sounds;
-	//##ModelId=3C5D92CE0250
-	unsigned char commandPrefix; //Ripper
 
 	//##ModelId=3C5D92CE0264
 	char archivepath[256];
@@ -177,16 +150,7 @@ struct server_st
 	//##ModelId=3C5D92CE035F
 	char armoraffectmana; // Should armor slow mana regen ?
 		
-	//##ModelId=3C5D92CE0373
-	char announceworldsaves;
-		
-	//##ModelId=3C5D92CE0387
-	unsigned char auto_a_create; //Create accounts when people log in with unknown name/password
-	//##ModelId=3C5D92CE0391
-	unsigned int  auto_a_reload; //Auto reload accounts if file was touched, this stores the time interval in minutes.
-		  
-	//##ModelId=3C5D92CE03A5
-	unsigned int rogue;
+
 	//##ModelId=3C5D92CE03B9
 	signed int maxstealthsteps;//AntiChrist - max number of steps allowed with stealth skill at 100.0
 	//##ModelId=3C5D92CE03CD
@@ -198,20 +162,8 @@ struct server_st
 	//##ModelId=3C5D92CF0017
 	float boatspeed;
 
-	//##ModelId=3C5D92CF002B
-	unsigned int savespawns;
-
-
-	//##ModelId=3C5D92CF003F
-	float stablingfee;
-
 	//##ModelId=3C5D92CF0053
 	int attackstamina;	// AntiChrist (6) - for ATTACKSTAMINA
-
-	//##ModelId=3C5D92CF005D
-	unsigned int skillcap;//LB skill cap
-	//##ModelId=3C5D92CF0071
-	unsigned int statcap;//AntiChrist stat cap
 
 	//##ModelId=3C5D92CF0085
 	char specialbanktrigger[50]; //special bank trigger - AntiChrist
