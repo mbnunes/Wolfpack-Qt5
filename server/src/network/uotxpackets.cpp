@@ -143,7 +143,7 @@ void cUOTxSendSkills::addSkill( Q_UINT16 skillId, Q_UINT16 skill, Q_UINT16 realS
 void cUOTxDrawChar::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color )
 {
 	// Overwrite the last 4 bytes (terminator) and readd them later
-	Q_INT32 offset = count() - 5;
+	Q_INT32 offset = count() - 4;
 	resize( count() + 9 );
 	setShort( 1, count() );
 

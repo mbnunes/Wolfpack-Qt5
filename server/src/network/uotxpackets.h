@@ -462,8 +462,8 @@ public:
 class cUOTxDrawChar: public cUOPacket
 {
 public:
-	cUOTxDrawChar(): cUOPacket( 0x78, 24 ) {
-		setShort( 1, 24 );
+	cUOTxDrawChar(): cUOPacket( 0x78, 23 ) {
+		setShort( 1, 23 );
 		setInt( 19, 0 );
 	}
 	
