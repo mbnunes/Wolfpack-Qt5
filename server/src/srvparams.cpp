@@ -104,7 +104,6 @@ void cSrvParams::readData()
 	secondsPerUOMinute_     = getNumber("Game Speed", "Seconds Per UO Minute", 5, true);
 	beggingTime_            = getNumber("Game Speed", "Begging Time", 120, true);
 	checkTammedTime_		= getDouble("Game Speed", "Tamed Check Time", 1.0, true);
-	gumpTimeOut_			= getNumber("Game Speed", "Gump Response Time Out", 120, true );
     
 	// General Group
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);

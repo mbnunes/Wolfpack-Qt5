@@ -65,7 +65,6 @@ private:
 	QString _lang,_version;
 
 	std::map< SERIAL, cGump* > gumps;
-	std::stack< SERIAL > free_serials;
 
 	bool authenticate( const QString &username, const QString &password );
 	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );

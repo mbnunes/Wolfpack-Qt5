@@ -123,14 +123,7 @@ void cUOSocket::send( cUOPacket *packet )
 */
 void cUOSocket::send( cGump *gump )
 {
-	if( free_serials.size() > 0 )
-	{
-		gump->setSerial( free_serials.top() );
-		free_serials.pop();
-	}
-	else
-		gump->setSerial( gumps.size() + 1 );
-
+	gump->setSerial( gumps.size() + 1 );
 	gumps.insert( make_pair< SERIAL, cGump* >( gump->serial(), gump ) );
 
 	QString layout = gump->layout().join( "" );
@@ -1848,7 +1841,6 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 	
 	if( pGump )
 	{
-		free_serials.push( it->first );
 		gumps.erase( it );
 		pGump->handleResponse( this, packet->choice() );
 		delete pGump;

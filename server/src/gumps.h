@@ -50,7 +50,6 @@ protected:
 	Q_INT32 x_,y_;
 	QStringList layout_, text_;
 	bool noMove_, noClose_, noDispose_;
-	Q_UINT32 timeout_;
 public:
 	cGump();
 	virtual ~cGump() {}
@@ -59,7 +58,6 @@ public:
 	SERIAL type( void )	const;
 	Q_UINT32 x( void ) const;
 	Q_UINT32 y( void ) const;
-	Q_UINT32 timeout( void ) const;
 	QStringList layout( void ) const;
 	QStringList text( void ) const;
 	bool noMove( void )	const;
@@ -140,11 +138,6 @@ inline Q_UINT32 cGump::y( void ) const
 	return y_; 
 }
 
-inline Q_UINT32 cGump::timeout( void ) const
-{
-	return timeout_;
-}
-
 inline QStringList cGump::layout( void ) const
 { 
 	return layout_; 
@@ -188,11 +181,6 @@ inline void cGump::setX( Q_UINT32 data )
 inline void cGump::setY( Q_UINT32 data ) 
 { 
 	y_ = data; 
-}
-
-inline void cGump::setTimeOut( Q_UINT32 data )
-{
-	timeout_ = data;
 }
 
 inline void cGump::setNoMove( bool data ) 
