@@ -4036,29 +4036,32 @@ void cTargets::MoveToBagTarget(int s)
 
 void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with the targetting cursor
 {
-//	if(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF)
-//		return; // do nothing if user cancels, avoids CRASH! - Morrolan
-// Duke: Nonsens !! this also happens when you target the backpack on the paperdoll !
+	UOXSOCKET s = ps->socket();
+	targetok[ s ] = 0;
 
-	UOXSOCKET s=ps->socket();
-	targetok[s]=0;
-
-	PKGx6C tbuf, *pt=&tbuf;
-	pt->Tnum=buffer[s][5];
-	pt->Tserial=LongFromCharPtr(buffer[s]+7);
-	pt->TxLoc=ShortFromCharPtr(buffer[s]+11);
-	pt->TyLoc=ShortFromCharPtr(buffer[s]+13);
-	pt->TzLoc=buffer[s][16];
-	pt->model=ShortFromCharPtr(buffer[s]+17);
+	PKGx6C tbuf, *pt = &tbuf;
+	UI32 tSerial = LongFromCharPtr( buffer[s]+2 );
+	pt->Tnum = buffer[s][5];
+	pt->Tserial = LongFromCharPtr(buffer[s]+7);
+	pt->TxLoc = ShortFromCharPtr(buffer[s]+11);
+	pt->TyLoc = ShortFromCharPtr(buffer[s]+13);
+	pt->TzLoc = buffer[s][16];
+	pt->model = ShortFromCharPtr(buffer[s]+17);
 
 	// targetRequest
-	if( ( buffer[s][2] == 0 ) && ( buffer[s][3] == 0 ) && ( buffer[s][4] == 0 ) && ( buffer[s][5] == 1 ) )
+	if( buffer[s][2] == 0xFE )
 	{
 		// Unrequested Target info
 		if( targetRequests.find( s ) == targetRequests.end() )
 		{
 			// Should not happen too often
 			sysmessage( s, "Unrequested target info" );
+			return;
+		}
+
+		if( targetRequests[ s ]->targetId() != tSerial )
+		{
+			sysmessage( s, "Wrong target info" );
 			return;
 		}
 
@@ -4070,6 +4073,8 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 
 		delete targetRequests[ s ];
 		targetRequests.erase( targetRequests.find( s ) );
+
+		return; // No further processing
 	}
 
 	if (pt->TxLoc==-1 && pt->TyLoc==-1) // do nothing if user cancelled

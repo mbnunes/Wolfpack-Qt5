@@ -51,8 +51,6 @@ using namespace std ;
 #define PACKET_LEN_DYNAMIC	0x0000
 #define PACKET_LEN_NONE		0xffff
 
-
-
 #undef  DBGFILE
 #define DBGFILE "Network.cpp"
 
@@ -595,6 +593,8 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	sysmessage(s, 0x37, tr(QString("Running on %1 %2 %3 ").arg(wp_version.productstring.c_str()).arg(wp_version.betareleasestring.c_str()).arg(wp_version.verstring.c_str())) );
 	sysmessage(s, 0x37, tr(QString("Current developers: %1").arg(wp_version.codersstring.c_str())) );*/
 	
+	// Send a house-build packet just for fun
+
 	pc_currchar->region=255;
 	cAllTerritories::getInstance()->check(pc_currchar);
 	//Tauriel set packitem at login

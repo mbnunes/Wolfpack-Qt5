@@ -44,6 +44,7 @@ class cTargetRequest
 {
 protected:
 	UI32 timeout_; // Timeout in MS
+	UI32 targetId_; // Target id so no overlapping targets are processed
 
 public:
 	cTargetRequest( void ) { timeout_ = 0; }; // Never times out
@@ -52,13 +53,17 @@ public:
 	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo ) {}; // Request has been answered
 	virtual void timedout( UOXSOCKET socket ) {}; // Request is overwritten
 
+	UI32 targetId( void ) { return targetId_; }
+	void setTargetId( UI32 data ) { targetId_ = data; }
+
 	UI32 timeout( void ) { return timeout_; }; // Get the timeout-value
 	void setTimeout( UI32 data ) { timeout_ = data; }; // Set the timeout-value
 };
 
 // Several public functions
 void checkTimedOutTargets( void );
-void attachTargetRequest( UOXSOCKET socket, cTargetRequest *targetRequest );
+void attachTargetRequest( UOXSOCKET socket, cTargetRequest *targetRequest, bool allowMapTarget = true );
+void attachPlaceRequest( UOXSOCKET socket, cTargetRequest *targetRequest, UI16 houseId );
 
 // We have that as only one targetting request is possible per socket
 extern std::map< UOXSOCKET, cTargetRequest* > targetRequests;
