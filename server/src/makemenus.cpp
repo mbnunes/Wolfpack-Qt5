@@ -784,7 +784,7 @@ void cDoCodeAction::execute( cUOSocket* const socket )
 	}
 	else if ( name_ == "go" )
 	{
-		void commandGo( cUOSocket *socket, const QString &command, QStringList &args ) throw();
+		void commandGo( cUOSocket *socket, const QString &command, const QStringList &args ) throw();
 		commandGo( socket, "go", QStringList::split(" ", params) );
 	}
 }

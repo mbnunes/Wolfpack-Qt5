@@ -89,7 +89,7 @@ void cCommands::process( cUOSocket *socket, const QString &command )
 }
 
 // Selects the right command Stub
-bool cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList &arguments )
+bool cCommands::dispatch( cUOSocket *socket, const QString &command, const QStringList &arguments )
 {
 	// Just in case we have been called directly
 	if( !socket || !socket->player() )
@@ -116,7 +116,7 @@ bool cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList
 		return true;
 	}	
 
-	for( UINT32 index = 0; commands[index].command; ++index )
+	for( uint index = 0; commands[index].command; ++index )
 		if( command == commands[index].name )
 		{
 			(commands[index].command)( socket, command, arguments );
@@ -199,7 +199,7 @@ void cCommands::loadACLs( void )
 // .go >> Gump with possible targets
 // .go x,y,z,[map] >> Go to those coordinates
 // .go placename >> Go to that specific place
-void commandGo( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandGo( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	P_CHAR pChar = socket->player();
@@ -252,7 +252,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args ) t
 	socket->sysMessage( tr( "Usage: go [location|x,y,z,[map]]" ) );
 }
 
-void commandResurrect( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandResurrect( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
 	Q_UNUSED(command);
@@ -260,7 +260,7 @@ void commandResurrect( cUOSocket *socket, const QString &command, QStringList &a
 	socket->attachTarget( new cResurectTarget );
 }
 
-void commandKill( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandKill( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
 	Q_UNUSED(command);
@@ -268,7 +268,7 @@ void commandKill( cUOSocket *socket, const QString &command, QStringList &args )
 	socket->attachTarget( new cKillTarget );
 }
 
-void commandFix( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandFix( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
 	Q_UNUSED(command);
@@ -276,7 +276,7 @@ void commandFix( cUOSocket *socket, const QString &command, QStringList &args ) 
 	socket->resendPlayer();
 }
 
-void commandAddItem( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandAddItem( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	QString param = args.join( " " ).stripWhiteSpace();
@@ -292,7 +292,7 @@ void commandAddItem( cUOSocket *socket, const QString &command, QStringList &arg
 	return;
 }
 
-void commandAddNpc( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandAddNpc( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	QString param = args.join( " " ).stripWhiteSpace();
@@ -308,7 +308,7 @@ void commandAddNpc( cUOSocket *socket, const QString &command, QStringList &args
 	return;
 }
 
-void commandAdd( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandAdd( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	// Bring up the Add-menu
@@ -340,7 +340,7 @@ void commandAdd( cUOSocket *socket, const QString &command, QStringList &args ) 
 	return;
 }
 
-void commandSet( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandSet( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( args.size() < 1 )
@@ -350,14 +350,14 @@ void commandSet( cUOSocket *socket, const QString &command, QStringList &args ) 
 	}	
 
     QString key = args[0];
-	args.erase( args.begin() );
     QString value = args.join( " " );
+	value = value.right( value.length() - key.length() - 1); // -1 because of the join() separator character
 
 	socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( key ).arg( value ) );
 	socket->attachTarget( new cSetTarget( key, value ) );
 }
 
-void commandResend( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandResend( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
 	Q_UNUSED(command);
@@ -366,7 +366,7 @@ void commandResend( cUOSocket *socket, const QString &command, QStringList &args
 }
 
 
-void commandRemove( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandRemove( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(socket);
 	Q_UNUSED(command);
@@ -374,7 +374,7 @@ void commandRemove( cUOSocket *socket, const QString &command, QStringList &args
 	socket->attachTarget( new cRemoveTarget );
 }
 
-void commandAccount( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandAccount( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	// Account Create User Pass
@@ -562,7 +562,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 }
 
 
-void commandTele( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandTele( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(socket);
 	Q_UNUSED(command);
@@ -570,7 +570,7 @@ void commandTele( cUOSocket *socket, const QString &command, QStringList &args )
 	socket->attachTarget( new cTeleTarget );
 }
 
-void commandSave( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandSave( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
 	Q_UNUSED(socket);
@@ -578,21 +578,21 @@ void commandSave( cUOSocket *socket, const QString &command, QStringList &args )
 	World::instance()->save();
 }
 
-void commandServerTime( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandServerTime( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
 	Q_UNUSED(command);
 	socket->sysMessage( tr( "Server time: %1" ).arg( uiCurrentTime ) );
 }
 
-void commandShow( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandShow( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	socket->sysMessage( tr( "Please select a target" ) );
 	socket->attachTarget( new cShowTarget( args.join( " " ) ) );
 }
 
-void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandSpawnRegion( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	// Spawnregion respawn region_name
@@ -737,7 +737,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 	}
 }
 
-void commandTags( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandTags( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	// Tags set		<key> <value>	(as string/value)
@@ -803,7 +803,7 @@ void commandTags( cUOSocket *socket, const QString &command, QStringList &args )
 	}
 }
 
-void commandWho( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandWho( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
 	Q_UNUSED(command);
@@ -812,7 +812,7 @@ void commandWho( cUOSocket *socket, const QString &command, QStringList &args ) 
 	socket->send( pGump );
 }
 
-void commandPages( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandPages( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
 	Q_UNUSED(command);
@@ -831,7 +831,7 @@ void commandPages( cUOSocket *socket, const QString &command, QStringList &args 
 	}
 }
 
-void commandShutDown( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandShutDown( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(socket);
 	Q_UNUSED(command);
@@ -841,7 +841,7 @@ void commandShutDown( cUOSocket *socket, const QString &command, QStringList &ar
 		keeprun = 0;
 }
 
-void commandStaff( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandStaff( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( socket->account()->isStaff() || ( args.count() > 0 && args[0].toInt() == 0 ) )
@@ -856,7 +856,7 @@ void commandStaff( cUOSocket *socket, const QString &command, QStringList &args 
 	}
 }
 
-void commandReload( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandReload( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	// Reload accounts
@@ -946,7 +946,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 	}
 }
 
-void commandMakeMenu( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandMakeMenu( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	// Makemenu <menusection>
@@ -960,7 +960,7 @@ void commandMakeMenu( cUOSocket *socket, const QString &command, QStringList &ar
 	MakeMenus::instance()->callMakeMenu( socket, args[0] );
 }
 
-void commandAddEvent( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandAddEvent( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( args.size() < 1 )
@@ -982,7 +982,7 @@ void commandAddEvent( cUOSocket *socket, const QString &command, QStringList &ar
 	socket->attachTarget( new cAddEventTarget( event ) );
 }
 
-void commandRemoveEvent( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandRemoveEvent( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( args.size() < 1 )
@@ -997,7 +997,7 @@ void commandRemoveEvent( cUOSocket *socket, const QString &command, QStringList 
 	socket->attachTarget( new cRemoveEventTarget( event ) );
 }
 
-void commandMove( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandMove( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( args.size() < 1 )
@@ -1029,7 +1029,7 @@ void commandMove( cUOSocket *socket, const QString &command, QStringList &args )
 	socket->attachTarget( new cMoveTarget( x, y, z ) );
 }
 
-void commandTile( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandTile( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( args.count() < 2 )
@@ -1055,7 +1055,7 @@ void commandTile( cUOSocket *socket, const QString &command, QStringList &args )
 	socket->attachTarget( new cTileTarget( z, ids ) );
 }
 
-void commandAllShow( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandAllShow( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( !socket->player() || !socket->player()->account() )
@@ -1076,7 +1076,7 @@ void commandAllShow( cUOSocket *socket, const QString &command, QStringList &arg
 	socket->resendWorld( true );
 }
 
-void commandAllMove( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandAllMove( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( !socket->player() || !socket->player()->account() )
@@ -1090,15 +1090,15 @@ void commandAllMove( cUOSocket *socket, const QString &command, QStringList &arg
 		socket->player()->account()->setAllMove( args[0].toInt() != 0 );
 
 	if( socket->player()->account()->isAllMove() )
-		socket->sysMessage( tr( "AllMove = '1'" ) );
+		socket->sysMessage( tr( "AllMove is [enabled]" ) );
 	else
-		socket->sysMessage( tr( "AllMove = '0'" ) );
+		socket->sysMessage( tr( "AllMove is [disabled]" ) );
 
 	// Resend the world to us
 	socket->resendWorld( true );
 }
 
-void commandShowSerials( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandShowSerials( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( !socket->player() || !socket->player()->account() )
@@ -1117,7 +1117,7 @@ void commandShowSerials( cUOSocket *socket, const QString &command, QStringList 
 		socket->sysMessage( tr( "ShowSerials = '0'" ) );	
 }
 
-void commandRestock( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandRestock( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
 	Q_UNUSED(command);
@@ -1125,7 +1125,7 @@ void commandRestock( cUOSocket *socket, const QString &command, QStringList &arg
 	socket->attachTarget( new cRestockTarget );
 }
 
-void commandAllSkills( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandAllSkills( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( args.count() < 1 )
@@ -1150,14 +1150,14 @@ void commandAllSkills( cUOSocket *socket, const QString &command, QStringList &a
 	}
 }
 
-void commandBroadcast( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandBroadcast( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(socket);
 	Q_UNUSED(command);
 	cNetwork::instance()->broadcast( args.join( " " ).latin1() );
 }
 
-void commandInvis( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandInvis( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	socket->player()->removeFromView();
@@ -1176,7 +1176,7 @@ void commandInvis( cUOSocket *socket, const QString &command, QStringList &args 
 	socket->player()->resend( false, false );
 }
 
-void commandPageNotify( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandPageNotify( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( socket->account()->isPageNotify() || ( args.count() > 0 && args[0].toInt() == 0 ) )
@@ -1192,7 +1192,7 @@ void commandPageNotify( cUOSocket *socket, const QString &command, QStringList &
 }
 
 // Change password for current account
-void commandPassword( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandPassword( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( args.count() < 1 )
@@ -1212,7 +1212,7 @@ void commandPassword( cUOSocket *socket, const QString &command, QStringList &ar
 	socket->sysMessage( tr( "Your password has been changed." ) );
 }
 
-void commandGmtalk( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+void commandGmtalk( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(command);
 	if( args.count() < 1 )

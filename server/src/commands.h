@@ -45,7 +45,7 @@ class cUOSocket;
 struct stCommand
 {
 	const char *name;
-	void (*command)( cUOSocket*, const QString&, QStringList& );
+	void (*command)( cUOSocket*, const QString&, const QStringList& );
 };
 
 class cAcl
@@ -66,7 +66,7 @@ private:
 public:
 	// Command processing system
 	void process( cUOSocket *socket, const QString &command );
-	bool dispatch( cUOSocket *socket, const QString &command, QStringList &arguments );
+	bool dispatch( cUOSocket *socket, const QString &command, const QStringList &arguments );
 
 	QMap< QString, cAcl* >::const_iterator aclbegin() const { return _acls.begin(); }
 	QMap< QString, cAcl* >::const_iterator aclend() const { return _acls.end(); }
