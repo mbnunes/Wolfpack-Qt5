@@ -439,11 +439,11 @@ void cWorld::load()
 			unsigned int lastpercent = 0;
 			unsigned int percent = 0;
 			unsigned int loadStart = getNormalizedTime();
+			QPtrList<PersistentObject> objects;
 
 			do
 			{
 				type = reader.readByte();
-
 				if ( typemap.contains( type ) )
 				{
 					PersistentObject *object = PersistentFactory::instance()->createObject( typemap[type] );
@@ -451,6 +451,7 @@ void cWorld::load()
 					if (object) {
 						try {
 							object->load( reader );
+							objects.append(object);
 						} catch (wpException e) {
 							Console::instance()->log( LOG_WARNING, e.error() + "\n" );
 						}
@@ -520,6 +521,12 @@ void cWorld::load()
 			}
 			while ( type != 0xFF );
 			reader.close();
+
+			QPtrList<PersistentObject>::const_iterator cit(objects.begin());
+			while (cit != objects.end()) {
+				(*cit)->postload(reader.version());
+				++cit;
+			}
 
 			unsigned int duration = getNormalizedTime() - loadStart;
 
