@@ -29,14 +29,14 @@
 //==================================================================================
 
 #include "ai.h"
-#include "npc.h"
-#include "player.h"
-#include "srvparams.h"
-#include "globals.h"
-#include "sectors.h"
-#include "basics.h"
-#include "targetrequests.h"
-#include "chars.h"
+#include "../npc.h"
+#include "../player.h"
+#include "../srvparams.h"
+#include "../globals.h"
+#include "../sectors.h"
+#include "../basics.h"
+#include "../targetrequests.h"
+#include "../chars.h"
 
 // library includes
 #include <math.h>

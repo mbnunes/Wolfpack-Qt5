@@ -139,21 +139,6 @@
 				RelativePath=".\accounts.h">
 			</File>
 			<File
-				RelativePath=".\ai.cpp">
-			</File>
-			<File
-				RelativePath=".\ai.h">
-			</File>
-			<File
-				RelativePath=".\ai_animals.cpp">
-			</File>
-			<File
-				RelativePath=".\ai_humans.cpp">
-			</File>
-			<File
-				RelativePath=".\ai_monsters.cpp">
-			</File>
-			<File
 				RelativePath=".\basechar.cpp">
 			</File>
 			<File
@@ -762,6 +747,25 @@
 			</File>
 			<File
 				RelativePath=".\tileflags.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="AI"
+			Filter="">
+			<File
+				RelativePath=".\ai\ai.cpp">
+			</File>
+			<File
+				RelativePath=".\ai\ai.h">
+			</File>
+			<File
+				RelativePath=".\ai\ai_animals.cpp">
+			</File>
+			<File
+				RelativePath=".\ai\ai_humans.cpp">
+			</File>
+			<File
+				RelativePath=".\ai\ai_monsters.cpp">
 			</File>
 		</Filter>
 	</Files>

@@ -29,17 +29,17 @@
 //==================================================================================
 
 #include "ai.h"
-#include "npc.h"
-#include "player.h"
-#include "network/uosocket.h"
-#include "speech.h"
-#include "targetrequests.h"
-#include "TmpEff.h"
-#include "srvparams.h"
-#include "globals.h"
-#include "sectors.h"
-#include "world.h"
-#include "basics.h"
+#include "../npc.h"
+#include "../player.h"
+#include "../network/uosocket.h"
+#include "../speech.h"
+#include "../targetrequests.h"
+#include "../TmpEff.h"
+#include "../srvparams.h"
+#include "../globals.h"
+#include "../sectors.h"
+#include "../world.h"
+#include "../basics.h"
 
 // library includes
 #include <math.h>

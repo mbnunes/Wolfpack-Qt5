@@ -28,20 +28,20 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "python/utilities.h"
+#include "../python/utilities.h"
 
 #include "ai.h"
-#include "npc.h"
-#include "sectors.h"
-#include "player.h"
-#include "srvparams.h"
-#include "globals.h"
-#include "basics.h"
-#include "walking.h"
-#include "itemid.h"
-#include "items.h"
-#include "console.h"
-#include "world.h"
+#include "../npc.h"
+#include "../sectors.h"
+#include "../player.h"
+#include "../srvparams.h"
+#include "../globals.h"
+#include "../basics.h"
+#include "../walking.h"
+#include "../itemid.h"
+#include "../items.h"
+#include "../console.h"
+#include "../world.h"
 
 // library includes
 #include <math.h>

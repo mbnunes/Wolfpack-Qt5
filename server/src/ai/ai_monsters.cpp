@@ -29,15 +29,15 @@
 //==================================================================================
 
 #include "ai.h"
-#include "npc.h"
-#include "factory.h"
-#include "sectors.h"
-#include "player.h"
-#include "srvparams.h"
-#include "globals.h"
-#include "basics.h"
-#include "itemid.h"
-#include "items.h"
+#include "../npc.h"
+#include "../factory.h"
+#include "../sectors.h"
+#include "../player.h"
+#include "../srvparams.h"
+#include "../globals.h"
+#include "../basics.h"
+#include "../itemid.h"
+#include "../items.h"
 
 // library includes
 #include <math.h>
