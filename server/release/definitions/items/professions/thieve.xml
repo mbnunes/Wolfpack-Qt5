@@ -12,6 +12,7 @@
 	<item id="14fb">
 		<id>0x14fb</id>
 		<category>Professions\Thieve\Lockpick (W/E)</category>
+    <events>lockpick</events>
 	</item>
 
 	<item id="14fc">
@@ -23,9 +24,11 @@
 	<item id="14fd">
 		<id>0x14fd</id>
 		<category>Professions\Thieve\Lockpicks (W/E)</category>
+    <events>lockpick</events>
 	</item>
 
 	<item id="14fe">
+    <inherit id="14fd" />
 		<id>0x14fe</id>
 		<category>Professions\Thieve\Lockpicks (N/S)</category>
 	</item>
