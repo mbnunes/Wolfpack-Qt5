@@ -17,9 +17,9 @@
 
 	<!-- Potion Keg -->
 	<item id="potion_keg">
-		<id>0x1940</id>
+		<id value="0x1940" />
 		<weight>10.0</weight>
-		<movable>1</movable>
+		<movable />
 		<tag name="kegfill" value="0" type="int" />
 		<basescripts>potionkeg</basescripts>
 	</item>
@@ -163,7 +163,7 @@
 		<category>Equipment\Potions\Agility</category>
 		<intproperty name="potiontype" value="7" />
 		<!-- Pricing information -->
-		<buyprice>15</buyprice>
+		<buyprice value="15" />
 		<sellprice>7</sellprice>
 	</item>
 
