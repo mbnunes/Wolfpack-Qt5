@@ -1585,7 +1585,7 @@ class MakeMenu:
 	#
 	def generate(self, arguments):
 		gump = cGump()
-		gump.callback = "system.makemenus.MakeMenuResponse"
+		gump.callback = MakeMenuResponse
 		gump.setArgs([self.id] + arguments)
 		gump.setType(self.gumptype)
 		gump.startPage(0)
