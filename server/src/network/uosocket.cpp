@@ -955,6 +955,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 		pChar->applyDefinition( playerDefinition );
 
 	pChar->setName( packet->name() );
+	pChar->setOrgName( packet->name() );
 
 	pChar->setSkin( packet->skinColor() );
 	pChar->setOrgSkin( packet->skinColor() );

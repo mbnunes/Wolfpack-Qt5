@@ -6,6 +6,7 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Added an onResurrection event.
 	- Hopefully fixed crashbug for NPC pathfinding.
 	- Fix bug #0000342 ( "Show Npc Titles" treated as numeric value, instead of boolean )
+	- Fix bug # 0000341 ( set char.orgname on char creation )
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.
