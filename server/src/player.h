@@ -162,6 +162,7 @@ public:
 	bool maySnoop() const;
 	bool mayBroadcast() const;
 	bool showSerials() const;
+	bool karmaLock() const;
 	// advanced getters for data structures
 	// pets
 	CharContainer pets() const;
@@ -188,6 +189,7 @@ public:
 	void setMaySnoop( bool data );
 	void setMayBroadcast( bool data );
 	void setShowSerials( bool data );
+	void setKarmaLock( bool data );
 	void setParty( cParty* data );
 	void setGuild( cGuild* data );
 
@@ -263,6 +265,7 @@ protected:
 	// 02 - may snoop, cOldChar::priv Bit 7
 	// 03 - may broadcast, cOldChar::priv Bit 2
 	// 04 - show serials, cOldChar::priv Bit 4
+	// 05 - lock karma (0x10)
 	Q_UINT32 additionalFlags_;
 
 	// The pets that follow the char.
@@ -443,6 +446,11 @@ inline bool cPlayer::showSerials() const
 	return additionalFlags_ & 0x0008;
 }
 
+inline bool cPlayer::karmaLock() const
+{
+	return additionalFlags_ & 0x0010;
+}
+
 inline void cPlayer::setMaySnoop( bool data )
 {
 	if ( data )
@@ -467,6 +475,15 @@ inline void cPlayer::setShowSerials( bool data )
 		additionalFlags_ |= 0x0008;
 	else
 		additionalFlags_ &= ~0x0008;
+	changed_ = true;
+}
+
+inline void cPlayer::setKarmaLock( bool data )
+{
+	if ( data )
+		additionalFlags_ |= 0x0010;
+	else
+		additionalFlags_ &= ~0x0010;
 	changed_ = true;
 }
 

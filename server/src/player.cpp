@@ -1174,6 +1174,16 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 		*/
 	else
 		SET_INT_PROPERTY( "intelligencelock", intelligenceLock_ )
+
+	/*
+	\property char.karmalock If this property is True, the karma of this player won't raise anymore. If it's False,
+	the normal karma raising occurs.
+	*/
+	else if ( name == "karmalock" ) {
+		setKarmaLock(value.toInt() != 0);
+		return 0;
+	}
+
 	else if ( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
@@ -1240,6 +1250,7 @@ PyObject* cPlayer::getProperty( const QString& name )
 	PY_PROPERTY( "dexteritylock", dexterityLock_ )
 	PY_PROPERTY( "intelligencelock", intelligenceLock_ )
 	PY_PROPERTY( "maxcontrolslots", maxControlSlots_ )
+	PY_PROPERTY( "karmalock", karmaLock() )
 
 	// Forward the property to the account
 	if ( name.startsWith( "account." ) && account_ )
@@ -1319,6 +1330,10 @@ void cPlayer::awardFame( short amount )
 
 void cPlayer::awardKarma( P_CHAR pKilled, short amount )
 {
+	if (amount > 0 && karmaLock()) {
+		return; // Don't award karma if the karma is locked
+	}
+
 	int nCurKarma = 0, nChange = 0, nEffect = 0;
 
 	nCurKarma = karma();

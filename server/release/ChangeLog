@@ -81,6 +81,8 @@ Wolfpack 12.9.13 Beta (SVN)
   - Corrected the NINJITSU and BUSHIDO skill ids.
   - Small cleanup to wolfpack.xml: Database options follow the same option
     names are are given in account options. 
+  - Implemented a "karmalock" property to player objects. If it's True, the player will not
+    gain any positive karma anymore.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheep.
@@ -152,6 +154,7 @@ Wolfpack 12.9.13 Beta (SVN)
   - Implemented the Splash Damage item properties.
   - Implemented the On Hit spell effect item properties.
   - Implemented support for dispel difficulty/dispel focus (see playguide).
+  - Enabled tithing of gold, resurrection and karma locking at ankhs.
  * Misc. Changes:
   - FAQ Updates.
  * Known Issues, Bugs, and Missing Features:
