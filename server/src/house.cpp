@@ -83,7 +83,8 @@ void buildhouse(int s, int i)
 	int hdeed=0;//deed id #		
 	int norealmulti=0,nokey=0,othername=0;
 	char name[512];
-	
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+
 	if(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return; // do nothing if user cancels, avoids CRASH!
 	
 	hitem[0]=0;//avoid problems if there are no HOUSE_ITEMs by initializing the first one as 0
@@ -181,9 +182,9 @@ void buildhouse(int s, int i)
 	if(looptimes)
 	{
 		looptimes=0;
-		if(!chars[currchar[s]].isGM() && SrvParms->houseintown==0)
+		if(!pc_currchar->isGM() && SrvParms->houseintown==0)
 		{
-		    if (chars[currchar[s]].inGuardedArea() && ishouse(id1, id2) ) // popy
+		    if (pc_currchar->inGuardedArea() && ishouse(id1, id2) ) // popy
 			{
 			    sysmessage(s," You cannot build houses in town!");
 			    return;
@@ -216,8 +217,8 @@ void buildhouse(int s, int i)
 		{
 			for (l=-sy;l<sy;l++)
 			{
-				if ( ( !Movement->CanCharWalk( currchar[s], x+k, y+l, z ) )&&
-					((chars[currchar[s]].pos.x!=x+k)&&(chars[currchar[s]].pos.y!=y+l)))
+				if ( ( !Movement->CanCharWalk( pc_currchar, x+k, y+l, z ) )&&
+					((pc_currchar->pos.x!=x+k)&&(pc_currchar->pos.y!=y+l)))
 					/*This will take the char making the house out of the space check, be careful 
 					you don't build a house on top of your self..... this had to be done So you 
 					could extra space around houses, (12+) and they would still be buildable.*/
@@ -237,27 +238,27 @@ void buildhouse(int s, int i)
 		}
 		
 		//Boats ->
-		if(id2>=18) sprintf((char*)temp,"%s's house",chars[currchar[s]].name);//This will make the little deed item you see when you have showhs on say the person's name, thought it might be helpful for GMs.
+		if(id2>=18) sprintf((char*)temp,"%s's house",pc_currchar->name);//This will make the little deed item you see when you have showhs on say the person's name, thought it might be helpful for GMs.
 		else strcpy((char*)temp, "a mast");
 		if(norealmulti) strcpy((char*)temp, name);
 		//--^
 		
 		if (othername) strcpy((char*)temp,name);
 		
-		P_ITEM pHouse=Items->SpawnItem(currchar[s], 1,(char*)temp,0,(id1<<8)+id2,0,0);
+		P_ITEM pHouse=Items->SpawnItem(DEREF_P_CHAR(pc_currchar), 1,(char*)temp,0,(id1<<8)+id2,0,0);
 		if (!pHouse) return;		
 		
 		
-		chars[currchar[s]].making=0;
+		pc_currchar->making=0;
 		
 		pHouse->MoveTo(x,y,z);
 		pHouse->priv=0;
 		pHouse->more4 = itemsdecay; // set to 1 to make items in houses decay
 		pHouse->morex=hdeed; // crackerjack 8/9/99 - for converting back *into* deeds
-		pHouse->SetOwnSerial(chars[currchar[s]].serial);
+		pHouse->SetOwnSerial(pc_currchar->serial);
 		if (!hitem[0] && !boat)
 		{
-			teleport(currchar[s]);
+			teleport(DEREF_P_CHAR(pc_currchar));
 			all_items(s);
 			return;//If there's no extra items, we don't really need a key, or anything else do we? ;-)
 		}
@@ -272,16 +273,16 @@ void buildhouse(int s, int i)
 		}
 		
 		if (i)//Boats->.. Moved from up there ^
-			Items->DeleItem(chars[currchar[s]].fx1); // this will del the deed no matter where it is
+			Items->DeleItem(pc_currchar->fx1); // this will del the deed no matter where it is
 		
-		chars[currchar[s]].fx1=-1; //reset fx1 so it does not interfere
+		pc_currchar->fx1=-1; //reset fx1 so it does not interfere
 		// bugfix LB ... was too early reseted 
 		
 		//Key...
 		
-		if (id2>=112&&id2<=115) key=Items->SpawnItem(s, currchar[s], 1, "a tent key", 0, 0x10, 0x10,0, 0,1,1);//iron key for tents
-		else if(id2<=0x18) key=Items->SpawnItem(s,currchar[s],1,"a ship key",0,0x10,0x13,0,0,1,1);//Boats -Rusty Iron Key
-		else key=Items->SpawnItem(s, currchar[s], 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else;
+		if (id2>=112&&id2<=115) key=Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a tent key", 0, 0x10, 0x10,0, 0,1,1);//iron key for tents
+		else if(id2<=0x18) key=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"a ship key",0,0x10,0x13,0,0,1,1);//Boats -Rusty Iron Key
+		else key=Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else;
 		
 		items[key].more1=pHouse->ser1;//use the house's serial for the more on the key to keep it unique
 		items[key].more2=pHouse->ser2;
@@ -290,8 +291,8 @@ void buildhouse(int s, int i)
 		items[key].type=7;
 		items[key].priv=2; // Newbify key..Ripper
         
-		ITEM key2=Items->SpawnItem(s, currchar[s], 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);
-		P_ITEM bankbox = chars[currchar[s]].GetBankBox();
+		ITEM key2=Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);
+		P_ITEM bankbox = pc_currchar->GetBankBox();
 		P_ITEM p_key=MAKE_ITEMREF_LR(key2);
 		p_key->more1=pHouse->ser1;
 		p_key->more2=pHouse->ser2;
@@ -336,7 +337,7 @@ void buildhouse(int s, int i)
 							items[l].pos.x=x;
 							items[l].pos.y=y;
 							items[l].pos.z=z;
-							items[l].SetOwnSerial(chars[currchar[s]].serial);
+							items[l].SetOwnSerial(pc_currchar->serial);
 						}
 						if (!(strcmp((char*)script1,"DECAY")))
 						{
@@ -348,7 +349,7 @@ void buildhouse(int s, int i)
 						}
 						if (!(strcmp((char*)script1,"PACK")))//put the item in the Builder's Backpack
 						{
-							items[l].SetContSerial(items[packitem(currchar[s])].serial);
+							items[l].SetContSerial(items[packitem(DEREF_P_CHAR(pc_currchar))].serial);
 							items[l].pos.x=rand()%90+31;
 							items[l].pos.y=rand()%90+31;
 							items[l].pos.z=9;
@@ -389,11 +390,11 @@ void buildhouse(int s, int i)
 
 		if (!(norealmulti))
 		{
-			chars[currchar[s]].pos.x=x+cx; //move char inside house
-			chars[currchar[s]].pos.y=y+cy;
-			chars[currchar[s]].dispz=chars[currchar[s]].pos.z=z+cz;
-			//clConsole.send("Z: %i Offset: %i Char: %i Total: %i\n",z,cz,chars[currchar[s]].pos.z,z+cz);
-			teleport(currchar[s]);
+			pc_currchar->pos.x=x+cx; //move char inside house
+			pc_currchar->pos.y=y+cy;
+			pc_currchar->dispz=pc_currchar->pos.z=z+cz;
+			//clConsole.send("Z: %i Offset: %i Char: %i Total: %i\n",z,cz,pc_currchar->pos.z,z+cz);
+			teleport(DEREF_P_CHAR(pc_currchar));
 		}
 	}
 }
@@ -410,7 +411,7 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 	int playerCont;
 	if( i == -1 ) return;
 	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
-	playerCont = packitem( currchar[s] );
+	playerCont = packitem( DEREF_P_CHAR(pc) );
 	int mapitemptr,mapitem,mapchar,a,checkgrid,increment,StartGrid,getcell,ab;		
 	if(pc->Owns(&items[i]) || pc->isGM())
 	{
@@ -453,7 +454,7 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 							if( mapchar->npcaitype == 17 ) // player vendor in right place
 							{
 								sprintf( (char*)temp, "A vendor deed for %s", mapchar->name );
-								P_ITEM pPvDeed = Items->SpawnItem(currchar[s], 1, (char*)temp, 0, 0x14F0, 0, 1);
+								P_ITEM pPvDeed = Items->SpawnItem(DEREF_P_CHAR(pc), 1, (char*)temp, 0, 0x14F0, 0, 1);
 								pPvDeed->type = 217;
 								pPvDeed->value = 2000;
 								RefreshItem( pPvDeed );
@@ -477,7 +478,7 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 		sysmessage(s,"All house items and keys removed.");
 		
 		pc->pos.z = pc->dispz = Map->MapElevation(pc->pos.x, pc->pos.y);
-		teleport(currchar[s]);
+		teleport(DEREF_P_CHAR(pc));
 		return;
 	}
 }
@@ -778,13 +779,14 @@ int del_hlist(int c, int h)
 void house_speech(int s, char *msg)	// msg must already be capitalized
 {
 	int fr;
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 //	char msg[512];
 	if(s<0 || s>MAXCLIENT) return;
-	P_ITEM pi_multi = findmulti(chars[currchar[s]].pos);
+	P_ITEM pi_multi = findmulti(pc_currchar->pos);
 	if(pi_multi == NULL) return; // not in a house, so we don't care.
-	fr=on_hlist(DEREF_P_ITEM(pi_multi), chars[currchar[s]].ser1, chars[currchar[s]].ser2,
-		chars[currchar[s]].ser3, chars[currchar[s]].ser4, NULL);
-	if(fr!=H_FRIEND && !chars[currchar[s]].Owns(pi_multi) )
+	fr=on_hlist(DEREF_P_ITEM(pi_multi), pc_currchar->ser1, pc_currchar->ser2,
+		pc_currchar->ser3, pc_currchar->ser4, NULL);
+	if(fr!=H_FRIEND && !pc_currchar->Owns(pi_multi) )
 		return; // not a friend or owner, so we don't care.
 
 	if(strstr(msg, "I BAN THEE")) { // house ban
@@ -803,7 +805,7 @@ void house_speech(int s, char *msg)	// msg must already be capitalized
 		target(s, 0, 1, 0, 228, "Select person to eject from house.");
 		return;
 	}
-	//if ((chars[currchar[s]].serial==items[i].ownserial) || (fr==H_FRIEND)) // strictly owner only as ripper demanded :-) !!!
+	//if ((pc_currchar->serial==items[i].ownserial) || (fr==H_FRIEND)) // strictly owner only as ripper demanded :-) !!!
 	//{
 	   if (strstr(msg,"I WISH TO LOCK THIS DOWN")) 
 	   { // lock down code AB/LB

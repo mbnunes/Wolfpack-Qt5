@@ -106,7 +106,7 @@
 **
 */
 
-void cMovement::Walking(CHARACTER c, int dir, int sequence)
+void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 {
 	// Here it used to check if dir was -1 and return. We need to make sure that we
 	// don't have any unexpected values, otherwise how can we eliminate dir as a potential
@@ -115,27 +115,25 @@ void cMovement::Walking(CHARACTER c, int dir, int sequence)
 	// sometimes the NPC movement code comes up with -1, for example, if we are following someone
 	// and we are directly on top of them
 
-	P_CHAR pc = MAKE_CHAR_REF(c);
-
 	if ( ! isValidDirection(dir) )
 	{
 #if DEBUG_WALK_ERROR
-		printf("%s (cMovement::Walking) caught bad direction = %s %d 0x%x\n", DBGFILE, chars[c].name, dir, dir);
+		printf("%s (cMovement::Walking) caught bad direction = %s %d 0x%x\n", DBGFILE, pc->name, dir, dir);
 #endif
-		chars[c].pathnum += PATHNUM;
+		pc->pathnum += PATHNUM;
 		return;
 	}
 
     UOXSOCKET socket = calcSocketFromChar(DEREF_P_CHAR(pc));
     
-    if (!VerifySequence(DEREF_P_CHAR(pc), socket, sequence))
+    if (!VerifySequence(pc, socket, sequence))
         return;
 
 	// If checking for weight is more expensive, shouldn't we check for frozen first?
-	if ( isFrozen(DEREF_P_CHAR(pc), socket, sequence) )
+	if ( isFrozen(pc, socket, sequence) )
 		return;
 
-    if ( isOverloaded(DEREF_P_CHAR(pc), socket, sequence) )
+    if ( isOverloaded(pc, socket, sequence) )
         return;
     
 	// save our original location before we even think about moving
@@ -144,7 +142,7 @@ void cMovement::Walking(CHARACTER c, int dir, int sequence)
 	const signed char oldz = pc->pos.z;
 	
 	// this if assumes that chars[s].dir has no high-bits just lets make sure of it
-	// assert((chars[c].dir & 0xFFF0) == 0);
+	// assert((pc->dir & 0xFFF0) == 0);
 	// this assertion is failing, so either my assumption about it is wrong or there
 	// is a bugaboo
 	
@@ -152,18 +150,18 @@ void cMovement::Walking(CHARACTER c, int dir, int sequence)
 	const bool amTurning = ((dir&0x07) != pc->dir);
 	if (!amTurning)
 	{
-		if (!CheckForRunning(DEREF_P_CHAR(pc), socket, dir))
+		if (!CheckForRunning(pc, socket, dir))
 			return;
 		
-		if (!CheckForStealth(DEREF_P_CHAR(pc), socket))
+		if (!CheckForStealth(pc, socket))
 			return;
 		
 		/* this is already done in the cNetwork method that calls this, so its redundant here
         ** i'm leaving this in because it might make more sense to have it here because we can
         * call it only in the case of actual movement
-        if (chars[c].med) //Morrolan - Meditation
+        if (pc->med) //Morrolan - Meditation
         {
-            chars[c].med=0; 
+            pc->med=0; 
             sysmessage(c, "You break your concentration.");
         }
 		*/
@@ -172,15 +170,15 @@ void cMovement::Walking(CHARACTER c, int dir, int sequence)
 		// this seems to be an usual place within this function to reset this
 		// i guess they can turn a whole lot this way
 		// Thyme: Already reset in NPCMovement (which calls this function, and NPCWalk)
-		//if (chars[c].npc) 
+		//if (pc->npc) 
 		//{
-		//	chars[c].npcmovetime=(unsigned int)(uiCurrentTime+(double)(NPCSPEED*CLOCKS_PER_SEC)); //reset move timer
+		//	pc->npcmovetime=(unsigned int)(uiCurrentTime+(double)(NPCSPEED*CLOCKS_PER_SEC)); //reset move timer
 		//}
 
 		signed char myz = illegal_z;
 		short int myx = GetXfromDir(dir, pc->pos.x);
 		short int myy = GetYfromDir(dir, pc->pos.y);
-		if ( ! CanCharMove(DEREF_P_CHAR(pc), pc->pos.x, pc->pos.y, myz, dir) )
+		if ( ! CanCharMove(pc, pc->pos.x, pc->pos.y, myz, dir) )
 		{
 #if DEBUG_WALK
 			printf("%s (cMovement::Walking) Character Walk Failed for %s\n", DBGFILE, pc->name);
@@ -201,17 +199,17 @@ void cMovement::Walking(CHARACTER c, int dir, int sequence)
 		printf("%s (cMovement::Walking) dx (%d) dy (%d) dz (%d)\n", DBGFILE, myx, myy, myz);
 #endif
 
-		if ( pc->npc && CheckForCharacterAtXYZ(DEREF_P_CHAR(pc), myx, myy, myz) )
+		if ( pc->npc && CheckForCharacterAtXYZ(pc, myx, myy, myz) )
 		{
 			pc->pathnum += P_PF_MRV;
 			return;
 		}
 
-		MoveCharForDirection(DEREF_P_CHAR(pc), dir);
+		MoveCharForDirection(pc, dir);
 		
 		// i actually moved this for now after the z =  illegal_z, in the end of CrazyXYBlockStuff()
 		// can't see how that would hurt anything
-		if (!CheckForHouseBan(DEREF_P_CHAR(pc), socket))
+		if (!CheckForHouseBan(pc, socket))
 			return;
 		
 		/*
@@ -225,7 +223,7 @@ void cMovement::Walking(CHARACTER c, int dir, int sequence)
 //  			playTileSound( socket );
 		
 		// since we actually moved, update the regions code
-		HandleRegionStuffAfterMove(DEREF_P_CHAR(pc), oldx, oldy);            
+		HandleRegionStuffAfterMove(pc, oldx, oldy);            
 	}
 	else
 	{
@@ -246,7 +244,7 @@ void cMovement::Walking(CHARACTER c, int dir, int sequence)
 	// keep on checking this even if we just turned, because if you are taking damage
 	// for standing here, lets keep on dishing it out. if we pass whether we actually
 	// moved or not we can optimize things some
-	HandleItemCollision(DEREF_P_CHAR(pc), socket, amTurning);
+	HandleItemCollision(pc, socket, amTurning);
 	
 	// i'm going ahead and optimizing this, if you haven't really moved, should be
 	// no need to check for teleporters and the weather shouldn't change
@@ -267,7 +265,7 @@ void cMovement::Walking(CHARACTER c, int dir, int sequence)
 	// again, don't know if we need to check when turning or not
 	if( !amTurning )
 		checkregion(DEREF_P_CHAR(pc)); // doesn't change physical coords, so no point in making a change
-	//if (socket==-1) printf("checkregion called for %s region#: %i region-name:%s \n",chars[c].name,chars[c].region,region[chars[c].region].name);
+	//if (socket==-1) printf("checkregion called for %s region#: %i region-name:%s \n",pc->name,pc->region,region[pc->region].name);
 
 }
 
@@ -305,30 +303,30 @@ bool cMovement::isValidDirection(int dir)
 // end of the spell cast. With this new check, we don't even need to set the frozen bit when
 // casting a spell!
 
-bool cMovement::isFrozen(CHARACTER c, UOXSOCKET socket, int sequence)
+bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 {
 
-	if ( chars[c].casting )
+	if ( pc->casting )
 	{
 		if ( socket != INVALID_UOXSOCKET )
 		{
 			sysmessage(socket, "You cannot move while casting.");
-			deny(socket, c, sequence);  
+			deny(socket, DEREF_P_CHAR(pc), sequence);  
 		}
 #if DEBUG_WALK
-		printf("%s (cMovement::isFrozen) casting char %s\n", DBGFILE, chars[c].name);
+		printf("%s (cMovement::isFrozen) casting char %s\n", DBGFILE, pc->name);
 #endif
 		return true;
 	}
-	if ( chars[c].priv2 & P_C_PRIV2_FROZEN )
+	if ( pc->priv2 & P_C_PRIV2_FROZEN )
 	{
 		if (socket != INVALID_UOXSOCKET)
 		{
 			sysmessage(socket, "You are frozen and cannot move.");
-			deny(socket, c, sequence);  
+			deny(socket, DEREF_P_CHAR(pc), sequence);  
 		}
 #if DEBUG_WALK
-		printf("%s (cMovement::isFrozen) frozen char %s\n", DBGFILE, chars[c].name);
+		printf("%s (cMovement::isFrozen) frozen char %s\n", DBGFILE, pc->name);
 #endif
 		return true;
 	} 
@@ -351,22 +349,22 @@ bool cMovement::isFrozen(CHARACTER c, UOXSOCKET socket, int sequence)
 
 // Rewrote to deny the client... We'll see if it works.
 
-bool cMovement::isOverloaded(CHARACTER c, UOXSOCKET socket, int sequence)
+bool cMovement::isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence)
 {
 	// Who are we going to check for weight restrictions?
-	if ( !chars[c].dead &&							// If they're not dead
-		 !chars[c].npc &&							// they're not an npc
-		 !chars[c].isGMorCounselor());			// they're not a GM
+	if ( !pc->dead &&							// If they're not dead
+		 !pc->npc &&							// they're not an npc
+		 !pc->isGMorCounselor());			// they're not a GM
 	{
 		// Can probably put this in the above check, but I'll keep it here for now.
 		if ( socket != INVALID_UOXSOCKET )
 		{
-			if (!Weight->CheckWeight(c, socket) || (chars[c].stm<3))
+			if (!Weight->CheckWeight(DEREF_P_CHAR(pc), socket) || (pc->stm<3))
 			{
-				sysmessage(socket, "You are too fatigued to move, you are carrying %d stones.", chars[c].weight);
-				deny(socket, c, sequence);
+				sysmessage(socket, "You are too fatigued to move, you are carrying %d stones.", pc->weight);
+				deny(socket, DEREF_P_CHAR(pc), sequence);
 #if DEBUG_WALK
-				printf("%s (cMovement::Walking) overloaded char %s\n", DBGFILE, chars[c].name);
+				printf("%s (cMovement::Walking) overloaded char %s\n", DBGFILE, pc->name);
 #endif
 				return true;
 			}
@@ -387,20 +385,20 @@ bool cMovement::isOverloaded(CHARACTER c, UOXSOCKET socket, int sequence)
 // I left a gap between Player and NPC because someone may want to implement race
 // restrictions... 
 
-short int cMovement::CheckMovementType(CHARACTER c)
+short int cMovement::CheckMovementType(P_CHAR pc)
 {
 	// Am I a GM Body?
-	if ( IsGMBody(c) )
+	if ( IsGMBody(pc) )
 		return P_C_IS_GM_BODY;
 
 	// Am I a player?
-	if (!chars[c].npc)
+	if (!pc->npc)
 		return P_C_IS_PLAYER;
 
 	// Change this to a flag in NPC.scp
 
 	short int retval = P_C_IS_NPC;
-	switch ( ( chars[c].id1 >> 8 ) + chars[c].id2 )
+	switch ( pc->id() )
 	{
 	case 0x0010 : // Water Elemental
 		retval = P_C_IS_FISH;
@@ -417,7 +415,7 @@ short int cMovement::CheckMovementType(CHARACTER c)
 }
 
 
-bool cMovement::CheckForCharacterAtXYZ(CHARACTER c, short int cx, short int cy, signed char cz)
+bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, signed char cz)
 {
 	unsigned int StartGrid=mapRegions->StartGrid(cx, cy);
 	unsigned int getcell=mapRegions->GetCell(cx,cy);
@@ -432,7 +430,7 @@ bool cMovement::CheckForCharacterAtXYZ(CHARACTER c, short int cx, short int cy, 
 				CHARACTER i = calcCharFromSer(vecEntries[k]);
 				if (i != -1)
 				{
-					if (i!=c && (online(i) || chars[i].npc))
+					if (i!=DEREF_P_CHAR(pc) && (online(i) || chars[i].npc))
 					{
 						// x=x,y=y, and distance btw z's <= MAX STEP
 						if ((chars[i].pos.x==cx) && (chars[i].pos.y==cy) && (abs(chars[i].pos.z-cz) <= P_M_MAX_Z_CLIMB))
@@ -607,20 +605,20 @@ bool cMovement::CanBirdWalk(unitile_st xyb)
 
 // if we have a valid socket, see if we need to deny the movement request because of
 // something to do with the walk sequence being out of sync.
-bool cMovement::VerifySequence(CHARACTER c, UOXSOCKET socket, int sequence)
+bool cMovement::VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence)
 {
     if (socket != INVALID_UOXSOCKET)
     {
         if ((walksequence[socket] + 1 != sequence) && (sequence != 256))
         {
-            deny(socket, c, sequence);  
+            deny(socket, DEREF_P_CHAR(pc), sequence);  
             return false;
         }
     }
     return true;
 }
 
-bool cMovement::CheckForRunning(CHARACTER c, UOXSOCKET socket, int dir)
+bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 // New need for return
 // returns true if updatechar required, or false if not
 // PARAM WARNING: unreferenced paramater socket
@@ -629,78 +627,78 @@ bool cMovement::CheckForRunning(CHARACTER c, UOXSOCKET socket, int dir)
 	if (dir&0x80)
 	{ //AntiChrist -- if running
 		// if we are using stealth
-		if (chars[c].stealth!=-1) { //AntiChrist - Stealth - stop hiding if player runs
-			chars[c].stealth=-1;
-			chars[c].hidden=0;
-			updatechar(c);
+		if (pc->stealth!=-1) { //AntiChrist - Stealth - stop hiding if player runs
+			pc->stealth=-1;
+			pc->hidden=0;
+			updatechar(DEREF_P_CHAR(pc));
 		}
 
 
 //Don't regenerate stamina while running
-		chars[c].regen2=uiCurrentTime+(server_data.staminarate*CLOCKS_PER_SEC);
-		chars[c].running++;
+		pc->regen2=uiCurrentTime+(server_data.staminarate*CLOCKS_PER_SEC);
+		pc->running++;
 		// if all these things
-		if(!chars[c].dead && !chars[c].onhorse && chars[c].running>(server_data.runningstaminasteps)*2)
+		if(!pc->dead && !pc->onhorse && pc->running>(server_data.runningstaminasteps)*2)
 		{
 			//The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
-			chars[c].running=0;
-			chars[c].stm--;
-			updatestats(c,2);
+			pc->running=0;
+			pc->stm--;
+			updatestats(DEREF_P_CHAR(pc),2);
 		}
-		if( chars[c].war && chars[c].targ != -1 )
+		if( pc->war && pc->targ != -1 )
 		{
-			chars[c].timeout=uiCurrentTime+CLOCKS_PER_SEC*2;
+			pc->timeout=uiCurrentTime+CLOCKS_PER_SEC*2;
 		}
 
 	} else {
-		chars[c].running=0;
+		pc->running=0;
 	}                                           
 	return true;
 }
 
-bool cMovement::CheckForStealth(CHARACTER c, UOXSOCKET socket)
+bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 // PARAM WARNING: unreferenced paramater socket
 {
-	if ((chars[c].hidden)&&(!(chars[c].priv2&8)))
+	if ((pc->hidden)&&(!(pc->priv2&8)))
 	{
-		if(chars[c].stealth!=-1)
+		if(pc->stealth!=-1)
 		{ //AntiChrist - Stealth
-			chars[c].stealth++;
-			if(chars[c].stealth>((server_data.maxstealthsteps*chars[c].skill[STEALTH])/1000))
+			pc->stealth++;
+			if(pc->stealth>((server_data.maxstealthsteps*pc->skill[STEALTH])/1000))
 			{
-				chars[c].stealth=-1;
-				chars[c].hidden=0;
-				updatechar( c );
+				pc->stealth=-1;
+				pc->hidden=0;
+				updatechar( DEREF_P_CHAR(pc) );
 			}
 		}
 		else
 		{
-			chars[c].hidden=0;
-			updatechar( c );
+			pc->hidden=0;
+			updatechar( DEREF_P_CHAR(pc) );
 		}
 	}
 	return true;
 }
 
 // see if a player has tried to move into a house they were banned from
-bool cMovement::CheckForHouseBan(CHARACTER c, UOXSOCKET socket)
+bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
 {
-    if ( !chars[c].npc ) // this code is also called from npcs-walking code, so only check for players to cut down lag!
+    if ( !pc->npc ) // this code is also called from npcs-walking code, so only check for players to cut down lag!
     {
         // check if player is banned from a house - crackerjack 8/12/99
-        P_ITEM pi = findmulti(chars[c].pos);
+        P_ITEM pi = findmulti(pc->pos);
 		int i = DEREF_P_ITEM(pi);
         if ( i!=-1 ) 
         {
-			chars[c].SetMultiSerial(items[i].serial); //Set them inside the multi!
-            int j=on_hlist(i, chars[c].ser1, chars[c].ser2, chars[c].ser3, chars[c].ser4, NULL);
+			pc->SetMultiSerial(items[i].serial); //Set them inside the multi!
+            int j=on_hlist(i, pc->ser1, pc->ser2, pc->ser3, pc->ser4, NULL);
             if(j==H_BAN) 
             {
                 int sx, sy, ex, ey;
                 Map->MultiArea(i,&sx,&sy,&ex,&ey);
-                chars[c].pos.x = ex;
-                chars[c].pos.y = ey+1;
-                teleport(c);
+                pc->pos.x = ex;
+                pc->pos.y = ey+1;
+                teleport(DEREF_P_CHAR(pc));
                 if (socket!=INVALID_UOXSOCKET)
 				{
 					sysmessage(socket, "You are banned from that location.");
@@ -719,10 +717,10 @@ bool cMovement::CheckForHouseBan(CHARACTER c, UOXSOCKET socket)
 // directions. Oh, and since I we already have the GetX/YfromDir functions (and we need those) why don't we just
 // use them here?
 
-void cMovement::MoveCharForDirection(CHARACTER c, int dir)
+void cMovement::MoveCharForDirection(P_CHAR pc, int dir)
 {
-	chars[c].pos.x = GetXfromDir(dir, chars[c].pos.x);
-	chars[c].pos.y = GetYfromDir(dir, chars[c].pos.y);
+	pc->pos.x = GetXfromDir(dir, pc->pos.x);
+	pc->pos.y = GetYfromDir(dir, pc->pos.y);
 }
 
 
@@ -863,10 +861,9 @@ void cMovement::FillXYBlockStuff(short int x, short int y, unitile_st *xyblock, 
 
 // so we are going to move, lets update the regions
 // FYI, Items equal to or greater than 1000000 are considered characters...
-void cMovement::HandleRegionStuffAfterMove(CHARACTER c, short int oldx, short int oldy)
+void cMovement::HandleRegionStuffAfterMove(P_CHAR pc, short int oldx, short int oldy)
 {
 	// save where we were moving to
-	P_CHAR pc = MAKE_CHAR_REF(c);
 	const short int nowx = pc->pos.x;
 	const short int nowy = pc->pos.y;
 
@@ -926,7 +923,7 @@ void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence
 void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short int oldy)
 {
 	// lets cache these vars in advance
-	const int visibleRange = VISRANGE;//Races->getVisRange( chars[c].race );
+	const int visibleRange = VISRANGE;//Races->getVisRange( pc->race );
 	const int newx=pc->pos.x;
 	const int newy=pc->pos.y;
 
@@ -967,7 +964,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				int guild, race;
 				//chars[i].flag=0x04;       // everyone should be blue on default
 				guild=Guilds->Compare( DEREF_P_CHAR(pc), currchar[i] );
-				race = 0; //Races->Compare( c, currchar[i] );
+				race = 0; //Races->Compare( DEREF_P_CHAR(pc), currchar[i] );
 				if( pc->kills > repsys.maxkills ) extmove[16]=6;
 				else if (guild==1 || race==2)//Same guild (Green)
 					extmove[16]=2;
@@ -1075,7 +1072,7 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 
 // Umm... we need to split this up...
 
-void cMovement::HandleItemCollision(CHARACTER c, UOXSOCKET socket, bool amTurning)
+void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 {
 	// apparently we don't want NPCs to be affected by any of this stuff,
 	// i'm not sure i agree with that yet
@@ -1087,11 +1084,11 @@ void cMovement::HandleItemCollision(CHARACTER c, UOXSOCKET socket, bool amTurnin
 		return;
 
 	// lets cache these vars in advance
-	const int visibleRange = VISRANGE;//Races->getVisRange( chars[c].race );
-	const short int newx = chars[c].pos.x;
-	const short int newy = chars[c].pos.y;
-	const short int oldx = GetXfromDir(chars[c].dir + 4, newx);
-	const short int oldy = GetYfromDir(chars[c].dir + 4, newy);
+	const int visibleRange = VISRANGE;//Races->getVisRange( pc->race );
+	const short int newx = pc->pos.x;
+	const short int newy = pc->pos.y;
+	const short int oldx = GetXfromDir(pc->dir + 4, newx);
+	const short int oldy = GetYfromDir(pc->dir + 4, newy);
 
 	
 	// - Tauriel's region stuff 3/6/99
@@ -1121,42 +1118,42 @@ void cMovement::HandleItemCollision(CHARACTER c, UOXSOCKET socket, bool amTurnin
 // Thyme 2000.09.15
 // At the request of Abaddon
 // Thyme BEGIN
-//						if ((items[mapitem].pos.x == newx) && (items[mapitem].pos.y == newy) && (items[mapitem].pos.z==chars[c].pos.z))
+//						if ((items[mapitem].pos.x == newx) && (items[mapitem].pos.y == newy) && (items[mapitem].pos.z==pc->pos.z))
 						if ( ( items[mapitem].pos.x == newx ) &&
 							 ( items[mapitem].pos.y == newy ) &&
-							 ( chars[c].pos.z >= items[mapitem].pos.z ) &&
-							 ( chars[c].pos.z <= ( items[mapitem].pos.z + 5 ) ) )
+							 ( pc->pos.z >= items[mapitem].pos.z ) &&
+							 ( pc->pos.z <= ( items[mapitem].pos.z + 5 ) ) )
 // Thyme END
 						{
-							if (!Magic->CheckResist(-1, c, 4))
+							if (!Magic->CheckResist(-1, DEREF_P_CHAR(pc), 4))
 							{                                               
-								Magic->MagicDamage(c, items[mapitem].morex/300);
+								Magic->MagicDamage(DEREF_P_CHAR(pc), items[mapitem].morex/300);
 							}
-							soundeffect2(c, 2, 8);
+							soundeffect2(DEREF_P_CHAR(pc), 2, 8);
 						}
 					}
 					
 					if ((items[mapitem].id1==0x39 && (items[mapitem].id2==0x15 || items[mapitem].id2==0x20)))
 					{//Poison field
-						if ((items[mapitem].pos.x == newx) && (items[mapitem].pos.y == newy) && (items[mapitem].pos.z==chars[c].pos.z))
+						if ((items[mapitem].pos.x == newx) && (items[mapitem].pos.y == newy) && (items[mapitem].pos.z==pc->pos.z))
 						{
-							if (!Magic->CheckResist(-1, c, 5))
+							if (!Magic->CheckResist(-1, DEREF_P_CHAR(pc), 5))
 							{                                               
-								Magic->PoisonDamage(c,1);
+								Magic->PoisonDamage(DEREF_P_CHAR(pc),1);
 							}
-							soundeffect2(c, 2, 8);
+							soundeffect2(DEREF_P_CHAR(pc), 2, 8);
 						}
 					}
 					
 					else if ((items[mapitem].id1==0x39 && (items[mapitem].id2==0x79 || items[mapitem].id2==0x67)))
 					{//Para Field
-						if ((items[mapitem].pos.x == newx) && (items[mapitem].pos.y == newy) && (items[mapitem].pos.z==chars[c].pos.z))
+						if ((items[mapitem].pos.x == newx) && (items[mapitem].pos.y == newy) && (items[mapitem].pos.z==pc->pos.z))
 						{
-							if (!Magic->CheckResist(-1, c, 6))
+							if (!Magic->CheckResist(-1, DEREF_P_CHAR(pc), 6))
 							{
-								tempeffect(c, c, 1, 0, 0, 0);
+								tempeffect(DEREF_P_CHAR(pc), DEREF_P_CHAR(pc), 1, 0, 0, 0);
 							}
-							soundeffect2(c, 0x02, 0x04);
+							soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x04);
 						}
 					}
 					else if (items[mapitem].id1<0x40)
@@ -1166,7 +1163,7 @@ void cMovement::HandleItemCollision(CHARACTER c, UOXSOCKET socket, bool amTurnin
 						{
 							if (items[mapitem].trigger!=0)
 							{
-								if ((items[mapitem].trigtype==1)&&(!chars[c].dead))
+								if ((items[mapitem].trigtype==1)&&(!pc->dead))
 								{
 									if (!items[mapitem].disabled)
 									{
@@ -1233,7 +1230,7 @@ void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, short int oldx, s
 	// well, we wouldn't be in Walking() if we weren't trying to move!
 	if ((pc->pos.x!=oldx)||(pc->pos.y!=oldy))
 	{
-		//    /*if (!(chars[c].dead))*/ objTeleporters(c); //morrolan
+		//    /*if (!(pc->dead))*/ objTeleporters(DEREF_P_CHAR(pc)); //morrolan
 		if ( pc->npc==0)
 			objTeleporters( DEREF_P_CHAR(pc) );   // ripper
 		teleporters( DEREF_P_CHAR(pc) );
@@ -1297,13 +1294,13 @@ void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
 }
 
 // return whether someone is a GM Body
-bool cMovement::IsGMBody(CHARACTER c)
+bool cMovement::IsGMBody(P_CHAR pc)
 {
 	if (
-		((chars[c].isGM())) || // I got GM privs
-        ((chars[c].id1==0x03)&&(chars[c].id2==0xDB)) ||//Gm
-        ((chars[c].id1==0x01)&&(chars[c].id2==0x92)) ||//Ghosts
-        ((chars[c].id1==0x01)&&(chars[c].id2==0x93))
+		((pc->isGM())) || // I got GM privs
+        ((pc->id1==0x03)&&(pc->id2==0xDB)) ||//Gm
+        ((pc->id1==0x01)&&(pc->id2==0x92)) ||//Ghosts
+        ((pc->id1==0x01)&&(pc->id2==0x93))
         ) 
         return true;
     return false;
@@ -1369,33 +1366,33 @@ void cMovement::CombatWalk(int s) // Only for switching to combat mode
 }
 
 
-void cMovement::NpcWalk(CHARACTER i, int j, int type)   //type is npcwalk mode (0 for normal, 1 for box, 2 for circle)
+void cMovement::NpcWalk(P_CHAR pc_i, int j, int type)   //type is npcwalk mode (0 for normal, 1 for box, 2 for circle)
 {
 	// sometimes the NPC movement code comes up with -1, for example, if we are following someone
 	// and we are directly on top of them
 	if (-1 == j) return;
 
-    const short int x = chars[i].pos.x;
-    const short int y = chars[i].pos.y;
-    const signed char z = chars[i].pos.z;
+    const short int x = pc_i->pos.x;
+    const short int y = pc_i->pos.y;
+    const signed char z = pc_i->pos.z;
 
     // if we are walking in an area, and the area is not properly defined, just don't bother with the area anymore
-    if( ((1 == type) && ( chars[i].fx1 == -1 || chars[i].fx2 == -1 || chars[i].fy1 == -1 || chars[i].fy2 == -1 ) ) ||
-        ((2 == type) && ( chars[i].fx1 == -1 || chars[i].fx2 == -1 || chars[i].fy1 == -1)))
+    if( ((1 == type) && ( pc_i->fx1 == -1 || pc_i->fx2 == -1 || pc_i->fy1 == -1 || pc_i->fy2 == -1 ) ) ||
+        ((2 == type) && ( pc_i->fx1 == -1 || pc_i->fx2 == -1 || pc_i->fy1 == -1)))
         // circle's don't use fy2, so don't require them! fur 10/30/1999
     {
         //printf("Rect/circle error!\n" );
-        chars[i].npcWander = 2; // Wander freely from now on
+        pc_i->npcWander = 2; // Wander freely from now on
         type = 0;
     }
 
     //Bug Fix -- Zippy
-    if (chars[i].priv2&2)
+    if (pc_i->priv2&2)
 		return;//Frozen - Don't send them al the way to walking to check this, just do it here.
 
 // Thyme New Stuff 2000.09.21
 
-//	if ( ( chars[i].dir & 0x07 ) == ( j & 0x07 ) )
+//	if ( ( pc_i->dir & 0x07 ) == ( j & 0x07 ) )
 //	{
 		short int newx = GetXfromDir(j, x);
 		short int newy = GetYfromDir(j, y);
@@ -1403,10 +1400,10 @@ void cMovement::NpcWalk(CHARACTER i, int j, int type)   //type is npcwalk mode (
 // check it twice? Just walk! Normal walking code will do the rest.
 		if (
 		    (!type)||
-		    ((type==1)&&(checkBoundingBox(newx, newy, chars[i].fx1, chars[i].fy1, chars[i].fz1, chars[i].fx2, chars[i].fy2)))||
-		    ((type==2)&&(checkBoundingCircle(newx, newy, chars[i].fx1, chars[i].fy1, chars[i].fz1, chars[i].fx2)))
+		    ((type==1)&&(checkBoundingBox(newx, newy, pc_i->fx1, pc_i->fy1, pc_i->fz1, pc_i->fx2, pc_i->fy2)))||
+		    ((type==2)&&(checkBoundingCircle(newx, newy, pc_i->fx1, pc_i->fy1, pc_i->fz1, pc_i->fx2)))
 		   )
-			Walking(i, j & 0x07, 256); // arm code
+			Walking(pc_i, j & 0x07, 256); // arm code
 //	}
 
 // need to add diagonal move checks to CanCharWalk...
@@ -1486,26 +1483,26 @@ unsigned short cMovement::GetXfromDir(int dir, unsigned short x)
 // save memory.
 
 
-void cMovement::PathFind(CHARACTER c, unsigned short gx, unsigned short gy)
+void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 {
 
 	// Make sure this is a valid character before proceeding
-	if ( c < 0 || c >= cmem ) return;
+	if ( pc == NULL ) return;
 
 	// Make sure the character has taken used all of their previously saved steps
-	if ( chars[c].pathnum < P_PF_MRV ) return;
+	if ( pc->pathnum < P_PF_MRV ) return;
     
 
 	// Thyme 2000.09.21
 	// initial rewrite of pathfinding...
 
-	const signed char z = chars[c].pos.z;
+	const signed char z = pc->pos.z;
 	signed int newx, newy;
 	signed char newz;
-	signed int oldx = chars[c].pos.x;
-	signed int oldy = chars[c].pos.y;
+	signed int oldx = pc->pos.x;
+	signed int oldy = pc->pos.y;
 	path_st newpath[P_PF_MIR];
-	chars[c].pathnum=0;
+	pc->pathnum=0;
 
 	for ( int pn = 0 ; pn < P_PF_MRV ; pn++ )
 	{
@@ -1518,9 +1515,9 @@ void cMovement::PathFind(CHARACTER c, unsigned short gx, unsigned short gy)
 			pf_dir += ( i * pf_neg );
 			newx = GetXfromDir(pf_dir, oldx);
 			newy = GetYfromDir(pf_dir, oldy);
-			if (CanCharMove(c, oldx, oldy, newz, pf_dir))
+			if (CanCharMove(pc, oldx, oldy, newz, pf_dir))
 			{
-				if ( ( pn < P_PF_MRV ) && CheckForCharacterAtXYZ(c, newx, newy, newz) )
+				if ( ( pn < P_PF_MRV ) && CheckForCharacterAtXYZ(pc, newx, newy, newz) )
 					continue;
 
 				newpath[pn].x = oldx = newx;
@@ -1530,7 +1527,7 @@ void cMovement::PathFind(CHARACTER c, unsigned short gx, unsigned short gy)
 		}
 		if ( ( newpath[pn].x == 0 ) && ( newpath[pn].y == 0 ) )
 		{
-			chars[c].pathnum = P_PF_MRV;
+			pc->pathnum = P_PF_MRV;
 			break;
 #if DEBUG_PATHFIND
 printf("Character stuck!\n");
@@ -1540,10 +1537,10 @@ printf("Character stuck!\n");
 
 	for ( int i = 0 ; i < P_PF_MRV ; i++ )
 	{
-		chars[c].path[i].x = newpath[i].x;
-		chars[c].path[i].y = newpath[i].y;
+		pc->path[i].x = newpath[i].x;
+		pc->path[i].y = newpath[i].y;
 #if DEBUG_PATHFIND
-		printf("PFDump: %s - %i) %ix, %iy\n",chars[c].name, i+1, chars[c].path[i].pos.x, chars[c].path[i].pos.y);
+		printf("PFDump: %s - %i) %ix, %iy\n",pc->name, i+1, pc->path[i].pos.x, pc->path[i].pos.y);
 #endif
 	}
 
@@ -1551,7 +1548,7 @@ printf("Character stuck!\n");
 
 
 //NEW NPCMOVEMENT ZIPPY CODE STARTS HERE -- AntiChrist meging codes --
-void cMovement::NpcMovement(unsigned int currenttime, int i)//Lag fix
+void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 {
     register int k;
     
@@ -1560,56 +1557,56 @@ void cMovement::NpcMovement(unsigned int currenttime, int i)//Lag fix
 	int j = rand() % 40;
 
     int dnpctime=0;
-    if (chars[i].npc && (chars[i].npcmovetime<=currenttime||(overflow)))
+    if (pc_i->npc && (pc_i->npcmovetime<=currenttime||(overflow)))
     {
 #if DEBUG_NPCWALK
-		printf("ENTER (%s): %d AI %d WAR %d J\n", chars[i].name, chars[i].npcWander, chars[i].war, j);
+		printf("ENTER (%s): %d AI %d WAR %d J\n", pc_i->name, pc_i->npcWander, pc_i->war, j);
 #endif
-		if (chars[i].war && chars[i].npcWander != 5)
+		if (pc_i->war && pc_i->npcWander != 5)
         {
-            l=chars[i].attacker;
+            l=pc_i->attacker;
             if (l!=-1)
             {
-                if ( chardist(i, l) > 1 /* || chardir(i, l)!=chars[i].dir // by Thyme: causes problems, will fix */)
+                if ( chardist(DEREF_P_CHAR(pc_i), l) > 1 /* || chardir(i, l)!=chars[i].dir // by Thyme: causes problems, will fix */)
                 {
                     if ( online( l ) || chars[l].npc )
                     {
-						PathFind(i,chars[l].pos.x,chars[l].pos.y);
-                        j = chardirxyz(i,chars[i].path[chars[i].pathnum].x,chars[i].path[chars[i].pathnum].y);
-                        if ( ( chars[i].dir & 0x07 ) == ( j & 0x07 ) ) chars[i].pathnum++;
-                        Walking(i,j,256);
+						PathFind(pc_i, chars[l].pos.x, chars[l].pos.y);
+                        j = chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
+                        if ( ( pc_i->dir & 0x07 ) == ( j & 0x07 ) ) pc_i->pathnum++;
+                        Walking(pc_i, j, 256);
                     }
                 }
 				else
 				{ // if I'm within distance, clear my path... for attacking only.
-					chars[i].pathnum += P_PF_MRV;
+					pc_i->pathnum += P_PF_MRV;
 				}
 	        }
         } // end of if l!=-1
         else
         {
-            switch(chars[i].npcWander)
+            switch(pc_i->npcWander)
             {
             case 0: // No movement
                 break;
             case 1: // Follow the follow target
-                k=(chars[i].ftarg);
+                k=(pc_i->ftarg);
                 if (k < 0 || k>=(int)cmem) return;
                 if ( online(k) || chars[k].npc )
                 {
-                    if ( chardist(i, k) > 1 /* || chardir(i, k)!=chars[i].dir // by THyme: causes problems, will fix */)
+                    if ( chardist(DEREF_P_CHAR(pc_i), k) > 1 /* || chardir(i, k)!=chars[i].dir // by THyme: causes problems, will fix */)
                     {
-                        PathFind(i,chars[k].pos.x,chars[k].pos.y);
-                        j=chardirxyz(i,chars[i].path[chars[i].pathnum].x,chars[i].path[chars[i].pathnum].y);
-                        chars[i].pathnum++;
-                        Walking(i,j,256);
+                        PathFind(pc_i,chars[k].pos.x,chars[k].pos.y);
+                        j=chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
+                        pc_i->pathnum++;
+                        Walking(pc_i,j,256);
                     }
 					// Dupois - Added April 4, 1999
 					// Has the Escortee reached the destination ??
-					if( ( chars[i].ftarg != -1 ) && ( !chars[k].dead ) && ( chars[i].questDestRegion == chars[i].region ) )
+					if( ( pc_i->ftarg != -1 ) && ( !chars[k].dead ) && ( pc_i->questDestRegion == pc_i->region ) )
 					{
 						// Pay the Escortee and free the NPC
-						MsgBoardQuestEscortArrive( i, calcSocketFromChar( k ) );
+						MsgBoardQuestEscortArrive( DEREF_P_CHAR(pc_i), calcSocketFromChar( k ) );
 					}
 					// End - Dupois
                 }
@@ -1617,46 +1614,46 @@ void cMovement::NpcMovement(unsigned int currenttime, int i)//Lag fix
             case 2: // Wander freely, avoiding obstacles.
                 if (j<8 || j>32) dnpctime=5;
                 if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-                    j=chars[i].dir;
-                NpcWalk(i,j,0);
+                    j=pc_i->dir;
+                NpcWalk(pc_i,j,0);
                 break;
             case 3: // Wander freely, within a defined box
                 if (j<8 || j>32) dnpctime=5;
                 if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-                    j=chars[i].dir;
+                    j=pc_i->dir;
                 
-                NpcWalk(i,j,1);
+                NpcWalk(pc_i,j,1);
                 break;
             case 4: // Wander freely, within a defined circle
                 if (j<8 || j>32) dnpctime=5;
                 if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-                    j=chars[i].dir;
-                NpcWalk(i,j,2);
+                    j=pc_i->dir;
+                NpcWalk(pc_i,j,2);
                 break;
             case 5: //FLEE!!!!!!
             {
-                k=chars[i].targ;
+                k=pc_i->targ;
                 if (k < 0 || k>=(int)cmem) return;
 
-		if ( chardist(i, k) < P_PF_MFD )
+		if ( chardist(DEREF_P_CHAR(pc_i), k) < P_PF_MFD )
 		{
 			// calculate a x,y to flee towards
-			int mydist = P_PF_MFD - chardist(i, k) + 1;
-			j=chardirxyz(i, chars[k].pos.x, chars[k].pos.y);
-			short int myx = GetXfromDir(j, chars[i].pos.x);
-			short int myy = GetYfromDir(j, chars[i].pos.y);
+			int mydist = P_PF_MFD - chardist(DEREF_P_CHAR(pc_i), k) + 1;
+			j=chardirxyz(DEREF_P_CHAR(pc_i), chars[k].pos.x, chars[k].pos.y);
+			short int myx = GetXfromDir(j, pc_i->pos.x);
+			short int myy = GetYfromDir(j, pc_i->pos.y);
 
 			short int xfactor = 0;
 			short int yfactor = 0;
 
-			if ( myx != chars[i].pos.x )
-				if ( myx < chars[i].pos.x )
+			if ( myx != pc_i->pos.x )
+				if ( myx < pc_i->pos.x )
 					xfactor = -1;
 				else
 					xfactor = 1;
 
-			if ( myy != chars[i].pos.y )
-				if ( myy < chars[i].pos.y )
+			if ( myy != pc_i->pos.y )
+				if ( myy < pc_i->pos.y )
 					yfactor = -1;
 				else
 					yfactor = 1;
@@ -1666,18 +1663,18 @@ void cMovement::NpcMovement(unsigned int currenttime, int i)//Lag fix
 
 			// now, got myx, myy... lets go.
 
-                        PathFind(i, myx, myy);
-                        j=chardirxyz(i,chars[i].path[chars[i].pathnum].x,chars[i].path[chars[i].pathnum].y);
-                        chars[i].pathnum++;
-			Walking(i,j,256);
+                        PathFind(pc_i, myx, myy);
+                        j=chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
+                        pc_i->pathnum++;
+			Walking(pc_i,j,256);
 		}
 		else
 		{ // wander freely... don't just stop because I'm out of range.
                 	j=rand()%40;
                 	if (j<8 || j>32) dnpctime=5;
                 	if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-        	            j=chars[i].dir;
-	                NpcWalk(i,j,0);
+        	            j=pc_i->dir;
+	                NpcWalk(pc_i,j,0);
 		}
                 break;
             default:
@@ -1686,8 +1683,8 @@ void cMovement::NpcMovement(unsigned int currenttime, int i)//Lag fix
             } // break; //Morrolan unnecessary ?
             }
         }
-        chars[i].npcmovetime=(unsigned int)(currenttime+double(NPCSPEED*CLOCKS_PER_SEC)); //reset move timer
-        //chars[i].npcmovetime=(unsigned int)(currenttime+double(NPCSPEED*CLOCKS_PER_SEC*(1+dnpctime))); //reset move timer
+        pc_i->npcmovetime=(unsigned int)(currenttime+double(NPCSPEED*CLOCKS_PER_SEC)); //reset move timer
+        //pc_i->npcmovetime=(unsigned int)(currenttime+double(NPCSPEED*CLOCKS_PER_SEC*(1+dnpctime))); //reset move timer
     }
 }
 
@@ -1740,12 +1737,12 @@ short int cMovement::Direction(short int sx, short int sy, short int dx, short i
 	return dir;
 }
 
-bool cMovement::CanCharWalk(CHARACTER c, short int x, short int y, signed char &z)
+bool cMovement::CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z)
 {
 
-	const signed char oldZ = chars[c].pos.z;
+	const signed char oldZ = pc->pos.z;
 	signed char nNewZ = illegal_z;
-	short int MoveType = CheckMovementType(c);
+	short int MoveType = CheckMovementType(pc);
 	bool blocked = false;
 
 	for ( int cnt = 0; cnt < 3 ; cnt++ )
@@ -1802,7 +1799,7 @@ bool cMovement::CanCharWalk(CHARACTER c, short int x, short int y, signed char &
 		}
 
 #if DEBUG_WALK
-		printf( "CheckWalkable calculate Z=%s %d\n", chars[c].name, nNewZ );
+		printf( "CheckWalkable calculate Z=%s %d\n", pc->name, nNewZ );
 #endif
 
 		// now the new Z-cordinate of creature is known, 
@@ -1862,19 +1859,19 @@ bool cMovement::CanCharWalk(CHARACTER c, short int x, short int y, signed char &
 // Purpose       : Check if a character can walk to a from x,y to dir direction
 // Method        : This handles the funky diagonal moves.
 
-bool cMovement::CanCharMove(CHARACTER c, short int x, short int y, signed char &z, int dir)
+bool cMovement::CanCharMove(P_CHAR pc, short int x, short int y, signed char &z, int dir)
 {
 	z = illegal_z;
 
 	if ( ( dir & 0x07 ) % 2 )
 	{ // check three ways.
-		if ( ! CanCharWalk(c, GetXfromDir(dir - 1, x), GetYfromDir(dir - 1, y), z) )
+		if ( ! CanCharWalk(pc, GetXfromDir(dir - 1, x), GetYfromDir(dir - 1, y), z) )
 			return false;
-		if ( ! CanCharWalk(c, GetXfromDir(dir + 1, x), GetYfromDir(dir + 1, y), z) )
+		if ( ! CanCharWalk(pc, GetXfromDir(dir + 1, x), GetYfromDir(dir + 1, y), z) )
 			return false;
 	}
 
-	return CanCharWalk(c, GetXfromDir(dir, x), GetYfromDir(dir, y), z);
+	return CanCharWalk(pc, GetXfromDir(dir, x), GetYfromDir(dir, y), z);
 }
 
 
@@ -1978,14 +1975,14 @@ inline int calcTileHeight( int h )
     invalid_z == -128, if walk is blocked
 
 ********************************************************/
-int cMovement::calc_walk(CHARACTER c, unsigned int x, unsigned int y, unsigned int oldx, unsigned int oldy, bool justask )
+int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int oldx, unsigned int oldy, bool justask )
 {
-	const signed int oldz = chars[c].pos.z;
-	bool may_levitate = chars[c].may_levitate;
+	const signed int oldz = pc->pos.z;
+	bool may_levitate = pc->may_levitate;
 	bool on_ladder = false;
 	bool climbing = false;
 	signed int newz = illegal_z;
-	short int MoveType = CheckMovementType( c );
+	short int MoveType = CheckMovementType( pc );
 	bool blocked = false;
 	int ontype = 0;
 
@@ -2061,7 +2058,7 @@ int cMovement::calc_walk(CHARACTER c, unsigned int x, unsigned int y, unsigned i
 		// (npc's walking on ocean bug)
 		// now the new Z-cordinate of creature is known, 
 		// check if it hits it's head against something (blocking in other words)
-		bool isGM = IsGMBody( c );
+		bool isGM = IsGMBody( pc );
 		for(i = 0; i < xycount; i++)
 		{
 			unitile_st *thisblock = &xyblock[i]; 
@@ -2073,7 +2070,7 @@ int cMovement::calc_walk(CHARACTER c, unsigned int x, unsigned int y, unsigned i
 		if( ( (flag1 & 0x40) ||                                                  // a normal blocking tile      
 			((flag2 & 0x02) && (nItemTop > newz))                                // staircases don't have blocking set, so very guy's could walk into them without this check.
 			) &&                                                                 //   but one can walk upon them!   
-			!( ( isGM || chars[c].dead ) && ((flag2 & 0x10) || (flag4 & 0x20))   // ghosts can walk through doors
+			!( ( isGM || pc->dead ) && ((flag2 & 0x10) || (flag4 & 0x20))   // ghosts can walk through doors
 			) 
 			) {                                                                    // blocking
 				if ((nItemTop > newz) && (thisblock->basez <= item_influence ) ||
@@ -2103,7 +2100,7 @@ int cMovement::calc_walk(CHARACTER c, unsigned int x, unsigned int y, unsigned i
 #endif
 	if( (newz > illegal_z) && (!justask)) {
 		// save information if we have climbed on last move.
-		chars[c].may_levitate = on_ladder;
+		pc->may_levitate = on_ladder;
 	}
 	return newz;
 }
