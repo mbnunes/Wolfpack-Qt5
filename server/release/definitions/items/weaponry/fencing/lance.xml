@@ -4,16 +4,11 @@
 	<!-- Lance -->
 	<item id="26ca">
 		<id>0x26ca</id>
-		<name>lance</name>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>19</sellprice>
-		<buyprice>38</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="17" />
-		<tag name="maxdamage" type="int" value="18" />
-		<tag name="speed" type="int" value="24" />
+		<buyprice>38</buyprice> />
 		<durability><random min="50" max="81" /></durability>
 		<weight>12.0</weight>
 		<tag name="req_str" value="95" type="int" />

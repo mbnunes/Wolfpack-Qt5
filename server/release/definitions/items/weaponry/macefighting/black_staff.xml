@@ -4,15 +4,10 @@
 	<!-- Black Staff -->
 	<item id="df1">
 		<id>0xdf1</id>
-		<name>black staff</name>
 		<decay />
 		<nodye />
 		<sellprice>9</sellprice>
 		<buyprice>18</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="13" />
-		<tag name="maxdamage" type="int" value="16" />
-		<tag name="speed" type="int" value="39" />
 		<durability><random min="30" max="39" /></durability>
 		<weight>6.0</weight>
 		<tag name="req_str" value="35" type="int" />

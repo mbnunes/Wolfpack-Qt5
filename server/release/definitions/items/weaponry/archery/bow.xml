@@ -9,10 +9,6 @@
 		<nodye />
 		<sellprice>18</sellprice>
 		<buyprice>36</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="16" />
-		<tag name="maxdamage" type="int" value="18" />
-		<tag name="speed" type="int" value="25" />
 		<tag name="req_str" value="30" type="int" />
 		<tag name="resname" value="plainwood" />
 		<durability><random min="30" max="50" /></durability>

@@ -12,11 +12,10 @@
 		<karma>0</karma>
 		<fame>300</fame>
 		<!-- Damage -->
-		<tag name="mindamage" value="1" />
-		<tag name="maxdamage" value="5" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="1" type="int" />
+		<tag name="maxdamage" value="5" type="int" />
 		<!-- Defense -->
-		<tag name="res_physical" value="5,15" />
+		<tag name="res_physical" value="5,15" type="int" />
 		<!-- Stats -->
 		<str>30</str>
 		<dex>15</dex>

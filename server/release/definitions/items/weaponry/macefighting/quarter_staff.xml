@@ -4,15 +4,10 @@
 	<!-- Quarter Staff -->
 	<item id="e89">
 		<id>0xe89</id>
-		<name>quarter staff</name>
 		<decay />
 		<nodye />
 		<sellprice>11</sellprice>
 		<buyprice>22</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="11" />
-		<tag name="maxdamage" type="int" value="14" />
-		<tag name="speed" type="int" value="48" />
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
 		<tag name="req_str" value="30" type="int" />

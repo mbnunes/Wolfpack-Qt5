@@ -4,16 +4,11 @@
 	<!-- Kryss -->
 	<item id="1401">
 		<id>0x1401</id>
-		<name>kryss</name>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>16</sellprice>
 		<buyprice>37</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="10" />
-		<tag name="maxdamage" type="int" value="12" />
-		<tag name="speed" type="int" value="53" />
 		<durability><random min="50" max="85" /></durability>
 		<weight>1.0</weight>
 		<tag name="req_str" value="10" type="int" />

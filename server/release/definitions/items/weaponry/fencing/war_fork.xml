@@ -4,16 +4,11 @@
 	<!-- War Fork -->
 	<item id="1405">
 		<id>0x1405</id>
-		<name>war fork</name>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>13</sellprice>
 		<buyprice>27</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="12" />
-		<tag name="maxdamage" type="int" value="13" />
-		<tag name="speed" type="int" value="43" />
 		<durability><random min="30" max="39" /></durability>
 		<weight>1.0</weight>
 		<tag name="req_str" value="35" type="int" />

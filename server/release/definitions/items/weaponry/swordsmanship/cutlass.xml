@@ -4,16 +4,11 @@
 	<!-- Cutlass -->
 	<item id="1441">
 		<id>0x1441</id>
-		<name>cutlass</name>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>10</sellprice>
 		<buyprice>21</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="11" />
-		<tag name="maxdamage" type="int" value="13" />
-		<tag name="speed" type="int" value="44" />
 		<durability><random min="30" max="70" /></durability>
 		<weight>8.0</weight>
 		<tag name="req_str" value="25" type="int" />

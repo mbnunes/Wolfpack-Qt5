@@ -4,16 +4,11 @@
 	<!-- Crescent Blade-->
 	<item id="26cb">
 		<id>0x26cb</id>
-		<name>crescent blade</name>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>20</sellprice>
 		<buyprice>41</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="11" />
-		<tag name="maxdamage" type="int" value="14" />
-		<tag name="speed" type="int" value="47" />
 		<durability><random min="30" max="75" /></durability>
 		<weight>8.0</weight>
 		<tag name="req_str" value="55" type="int" />

@@ -3,7 +3,6 @@
 
 	<!-- Heavy Cross Bow left -->
 	<item id="13fd">
-		<name>heavy crossbow</name>
 		<bindmenu id="item_menu"/>
 		<id>0x13fd</id>
 		<twohanded />
@@ -11,10 +10,6 @@
 		<nodye />
 		<sellprice>26</sellprice>
 		<buyprice>53</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="19" />
-		<tag name="maxdamage" type="int" value="20" />
-		<tag name="speed" type="int" value="22" />
 		<tag name="req_str" value="80" type="int" />
 		<tag name="resname" value="plainwood" />
 		<durability><random min="30" max="55" /></durability>

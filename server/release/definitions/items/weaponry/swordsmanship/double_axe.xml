@@ -4,16 +4,11 @@
 	<!-- Double Axe -->
 	<item id="f4b">
 		<id>0xf4b</id>
-		<name>double axe</name>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>28</sellprice>
 		<buyprice>57</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="15" />
-		<tag name="maxdamage" type="int" value="17" />
-		<tag name="speed" type="int" value="33" />
 		<durability><random min="50" max="95" /></durability>
 		<weight>3.0</weight>
 		<tag name="req_str" value="45" type="int" />

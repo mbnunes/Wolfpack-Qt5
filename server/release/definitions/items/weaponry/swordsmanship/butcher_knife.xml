@@ -4,16 +4,11 @@
 	<!-- Butcher Knife -->
 	<item id="13f6">
 		<id>0x13f6</id>
-		<name>butcher knife</name>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>13</sellprice>
 		<buyprice>21</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="9" />
-		<tag name="maxdamage" type="int" value="11" />
-		<tag name="speed" type="int" value="49" />
 		<durability><random min="30" max="50" /></durability>
 		<weight>1.0</weight>
 		<tag name="req_str" value="5" type="int" />

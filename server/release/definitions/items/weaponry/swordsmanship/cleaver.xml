@@ -4,16 +4,11 @@
 	<!-- Cleaver -->
 	<item id="ec3">
 		<id>0xec3</id>
-		<name>cleaver</name>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>12</sellprice>
 		<buyprice>24</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="11" />
-		<tag name="maxdamage" type="int" value="13" />
-		<tag name="speed" type="int" value="46" />
 		<durability><random min="30" max="46" /></durability>
 		<weight>1.0</weight>
 		<tag name="req_str" value="10" type="int" />

@@ -4,16 +4,11 @@
 	<!-- Executioners Axe -->
 	<item id="f45">
 		<id>0x0f45</id>
-		<name>executioner's axe</name>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>16</sellprice>
 		<buyprice>27</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="15" />
-		<tag name="maxdamage" type="int" value="17" />
-		<tag name="speed" type="int" value="33" />
 		<durability><random min="30" max="46" /></durability>
 		<weight>3.0</weight>
 		<tag name="req_str" value="40" type="int" />

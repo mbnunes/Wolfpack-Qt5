@@ -4,16 +4,11 @@
 	<!-- Club -->
 	<item id="13b4">
 		<id>0x13b4</id>
-		<name>club</name>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>8</sellprice>
 		<buyprice>16</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="11" />
-		<tag name="maxdamage" type="int" value="13" />
-		<tag name="speed" type="int" value="44" />
 		<durability><random min="30" max="40" /></durability>
 		<weight>14.0</weight>
 		<tag name="req_str" value="40" type="int" />

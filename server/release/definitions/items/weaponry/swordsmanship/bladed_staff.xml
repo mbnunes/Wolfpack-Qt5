@@ -4,16 +4,11 @@
 	<!-- Bladed Staff -->
 	<item id="26c7">
 		<id>0x26c7</id>
-		<name>bladed staff</name>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>23</sellprice>
 		<buyprice>46</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="14" />
-		<tag name="maxdamage" type="int" value="16" />
-		<tag name="speed" type="int" value="37" />
 		<durability><random min="50" max="102" /></durability>
 		<weight>12.0</weight>
 		<tag name="req_str" value="40" type="int" />

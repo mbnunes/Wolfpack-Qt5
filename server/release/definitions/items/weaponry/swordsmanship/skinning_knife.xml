@@ -4,16 +4,11 @@
 	<!-- Skinning Knive -->
 	<item id="ec4">
 		<id>0xec4</id>
-		<name>skinning knife</name>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>6</sellprice>
 		<buyprice>13</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="9" />
-		<tag name="maxdamage" type="int" value="11" />
-		<tag name="speed" type="int" value="49" />
 		<durability><random min="30" max="35" /></durability>
 		<weight>1.0</weight>
 		<tag name="req_str" value="5" type="int" />

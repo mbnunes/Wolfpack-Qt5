@@ -4,16 +4,11 @@
 	<!-- Large Battle Axe -->
 	<item id="13fb">
 		<id>0x13fb</id>
-		<name>large battle axe</name>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>18</sellprice>
 		<buyprice>36</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="16" />
-		<tag name="maxdamage" type="int" value="17" />
-		<tag name="speed" type="int" value="29" />
 		<durability><random min="30" max="64" /></durability>
 		<weight>6.0</weight>
 		<tag name="req_str" value="80" type="int" />

@@ -3,17 +3,12 @@
 
 	<!-- Mace -->
 	<item id="f5c">
-		<id>0x0f5c</id>
-		<name>mace</name>
+		<id>0xf5c</id>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>15</sellprice>
 		<buyprice>30</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="12" />
-		<tag name="maxdamage" type="int" value="14" />
-		<tag name="speed" type="int" value="40" />
 		<durability><random min="30" max="64" /></durability>
 		<weight>14.0</weight>
 		<tag name="req_str" value="45" type="int" />

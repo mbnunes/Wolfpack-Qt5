@@ -4,16 +4,11 @@
 	<!-- Longsword -->
 	<item id="f61">
 		<id>0xf61</id>
-		<name>longsword</name>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>26</sellprice>
 		<buyprice>53</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="15" />
-		<tag name="maxdamage" type="int" value="16" />
-		<tag name="speed" type="int" value="30" />
 		<durability><random min="30" max="67" /></durability>
 		<weight>7.0</weight>
 		<tag name="req_str" value="35" type="int" />

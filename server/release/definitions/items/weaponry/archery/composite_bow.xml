@@ -4,17 +4,12 @@
 	<!-- Composite Bow -->
 	<item id="26c2">
 		<id>0x26c2</id>
-		<name>composite bow</name>
 		<bindmenu id="item_menu"/>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>28</sellprice>
 		<buyprice>56</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="15" />
-		<tag name="maxdamage" type="int" value="17" />
-		<tag name="speed" type="int" value="25" />
 		<tag name="req_str" value="45" type="int" />
 		<tag name="resname" value="plainwood" />
 		<durability><random min="30" max="70" /></durability>

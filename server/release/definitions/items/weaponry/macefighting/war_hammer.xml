@@ -4,16 +4,11 @@
 	<!-- War Hammer -->
 	<item id="1439">
 		<id>0x1439</id>
-		<name>war hammer</name>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>12</sellprice>
 		<buyprice>23</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="17" />
-		<tag name="maxdamage" type="int" value="18" />
-		<tag name="speed" type="int" value="28" />
 		<durability><random min="30" max="59" /></durability>
 		<weight>10.0</weight>
 		<tag name="req_str" value="95" type="int" />

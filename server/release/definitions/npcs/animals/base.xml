@@ -14,8 +14,8 @@
 		<bindmenu>tame_menu</bindmenu>
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="18" /></direction>
-		<tag name="mindamage" value="1" />
-		<tag name="maxdamage" value="3" />
+		<tag name="mindamage" value="1" type="int" />
+		<tag name="maxdamage" value="3" type="int" />
 	</npc>
 
 </definitions>

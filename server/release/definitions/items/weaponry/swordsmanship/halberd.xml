@@ -4,16 +4,11 @@
 	<!-- Halberd -->
 	<item id="143f">
 		<id>0x143f</id>
-		<name>halberd</name>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>19</sellprice>
 		<buyprice>38</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="18" />
-		<tag name="maxdamage" type="int" value="19" />
-		<tag name="speed" type="int" value="25" />
 		<durability><random min="30" max="60" /></durability>
 		<weight>16.0</weight>
 		<tag name="req_str" value="95" type="int" />

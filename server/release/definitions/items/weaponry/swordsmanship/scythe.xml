@@ -4,16 +4,11 @@
 	<!-- Scythe -->
 	<item id="26c4">
 		<id>0x26c4</id>
-		<name>scythe</name>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>21</sellprice>
 		<buyprice>42</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="15" />
-		<tag name="maxdamage" type="int" value="18" />
-		<tag name="speed" type="int" value="32" />
 		<durability><random min="30" max="89" /></durability>
 		<weight>10.0</weight>
 		<tag name="req_str" value="45" type="int" />

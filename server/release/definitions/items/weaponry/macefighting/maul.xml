@@ -4,16 +4,11 @@
 	<!-- Maul -->
 	<item id="143b">
 		<id>0x143b</id>
-		<name>maul</name>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>11</sellprice>
 		<buyprice>22</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="14" />
-		<tag name="maxdamage" type="int" value="16" />
-		<tag name="speed" type="int" value="32" />
 		<durability><random min="30" max="58" /></durability>
 		<weight>14.0</weight>
 		<tag name="req_str" value="45" type="int" />

@@ -4,16 +4,11 @@
 	<!-- Dagger -->
 	<item id="f51">
 		<id>0xf51</id>
-		<name>dagger</name>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>10</sellprice>
 		<buyprice>21</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="10" />
-		<tag name="maxdamage" type="int" value="11" />
-		<tag name="speed" type="int" value="49" />
 		<tag name="req_str" value="10" type="int" />
 		<tag name="resname" value="iron" />
 		<durability><random min="30" max="39" /></durability>

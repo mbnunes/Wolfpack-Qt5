@@ -5,16 +5,11 @@
 	<item id="f4f">
 		<bindmenu id="item_menu"/>
 		<id>0xf4f</id>
-		<name>crossbow</name>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>23</sellprice>
 		<buyprice>46</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="18" />
-		<tag name="maxdamage" type="int" value="20" />
-		<tag name="speed" type="int" value="24" />
 		<tag name="req_str" value="35" type="int" />
 		<tag name="resname" value="plainwood" />
 		<durability><random min="30" max="51" /></durability>

@@ -3,17 +3,12 @@
 
 	<!-- Axe -->
 	<item id="f49">
-		<id>0x0f49</id>
-		<name>axe</name>
+		<id>0xf49</id>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>120</sellprice>
 		<buyprice>40</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="14" />
-		<tag name="maxdamage" type="int" value="16" />
-		<tag name="speed" type="int" value="37" />
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
 		<tag name="req_str" value="35" type="int" />

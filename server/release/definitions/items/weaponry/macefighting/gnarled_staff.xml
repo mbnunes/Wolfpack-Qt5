@@ -4,15 +4,10 @@
 	<!-- Gnarled Staff -->
 	<item id="13f8">
 		<id>0x13f8</id>
-		<name>gnarled staff</name>
 		<decay />
 		<nodye />
 		<sellprice>9</sellprice>
 		<buyprice>18</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="15" />
-		<tag name="maxdamage" type="int" value="17" />
-		<tag name="speed" type="int" value="33" />
 		<durability><random min="30" max="49" /></durability>
 		<weight>3.0</weight>
 		<tag name="req_str" value="20" type="int" />

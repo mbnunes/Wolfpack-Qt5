@@ -4,16 +4,11 @@
 	<!-- Hatchet -->
 	<item id="f43">
 		<id>0xf43</id>
-		<name>hatchet</name>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>18</sellprice>
 		<buyprice>36</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="13" />
-		<tag name="maxdamage" type="int" value="15" />
-		<tag name="speed" type="int" value="41" />
 		<durability><random min="30" max="46" /></durability>
 		<weight>4.0</weight>
 		<tag name="req_str" value="20" type="int" />
@@ -24,7 +19,7 @@
 		<type>1002</type>
 	</item>
 
-	<item id="">
+	<item id="f44">
 		<inherit id="f43" />
 		<id>0xf44</id>
 		<category>Weapons\Axes\Hatchet (E/W)</category>

@@ -3,7 +3,6 @@
 
 	<!-- Repeating Crossbow -->
 	<item id="26cd">
-		<name>repeating crossbow</name>
 		<bindmenu id="item_menu"/>
 		<id>0x26cd</id>
 		<twohanded />
@@ -11,10 +10,6 @@
 		<nodye />
 		<sellprice>25</sellprice>
 		<buyprice>50</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="30" />
-		<tag name="maxdamage" type="int" value="49" />
-		<tag name="speed" type="int" value="41" />
 		<tag name="req_str" value="30" type="int" />
 		<tag name="resname" value="plainwood" />
 		<durability><random min="30" max="49" /></durability>

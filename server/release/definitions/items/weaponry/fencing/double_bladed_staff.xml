@@ -4,16 +4,11 @@
 	<!-- Double Bladed Staff -->
 	<item id="26c9">
 		<id>0x26c9</id>
-		<name>double bladed staff</name>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>9</sellprice>
 		<buyprice>18</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="12" />
-		<tag name="maxdamage" type="int" value="13" />
-		<tag name="speed" type="int" value="49" />
 		<durability><random min="30" max="40" /></durability>
 		<weight>7.0</weight>
 		<tag name="req_str" value="50" type="int" />

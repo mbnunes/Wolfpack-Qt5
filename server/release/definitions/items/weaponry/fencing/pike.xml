@@ -2,18 +2,13 @@
 <definitions>
 
 	<!-- Pike -->
-	<item id="26c8">
+	<item id="26be">
 		<id>0x26be</id>
-		<name>pike</name>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>16</sellprice>
 		<buyprice>33</buyprice>
-		<tag name="dmg_physical" type="int" value="100" />
-		<tag name="mindamage" type="int" value="14" />
-		<tag name="maxdamage" type="int" value="16" />
-		<tag name="speed" type="int" value="37" />
 		<durability><random min="30" max="38" /></durability>
 		<weight>10.0</weight>
 		<tag name="req_str" value="50" type="int" />
@@ -23,9 +18,9 @@
 		<category>Weapons\Fencing\Pike (N/S)</category>
 	</item>
 
-	<item id="26be">
-		<inherit id="26c8" />
-		<id>0x26be</id>
+	<item id="26c8">
+		<inherit id="26be" />
+		<id>0x26c8</id>
 		<category>Weapons\Fencing\Pike (E/W)</category>
 	</item>
 
