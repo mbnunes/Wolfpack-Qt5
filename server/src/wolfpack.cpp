@@ -1072,38 +1072,38 @@ void Fame( P_CHAR pChar, int nFame )
 	if( !nChange || !pc_toChange->socket() )
 		return;
 
-	QString message;
+	uint message;
 
 	if( nChange <= 25 )
 	{
 		if( gain )
-			message = tr( "You have gained a little fame.", 0, "Fame Messages" );
+			message = 1019051; //"You have gained a little fame."
 		else
-			message = tr( "You have lost a little fame.", 0, "Fame Messages" );
+			message = 1019055; //"You have lost a little fame."
 	}
 	else if( nChange <= 75 )
 	{
 		if( gain )
-			message = tr( "You have gained some fame.", 0, "Fame Messages" );
+			message = 1019052; //"You have gained some fame."
 		else
-			message = tr( "You have lost some fame.", 0, "Fame Messages" );
+			message = 1019056; //"You have lost some fame."
 	}
 	else if( nChange <= 100 )
 	{
 		if( gain )
-			message = tr( "You have gained alot of fame.", 0, "Fame Messages" );
+			message = 1019053; // You have gained a good amount of fame.
 		else
-			message = tr( "You have lost alot of fame.", 0, "Fame Messages" );
+			message = 1019057; // You have lost a good amount of fame.
 	}
 	else if( nChange > 100 )
 	{
 		if( gain )
-			message = tr( "You have gained a huge amount of fame.", 0, "Fame Messages" );
+			message = 1019054; //"You have gained alot of fame."
 		else
-			message = tr( "You have lost a huge amount of fame.", 0, "Fame Messages" );
+			message = 1019058; //"You have lost alot of fame."
 	}
 
-	pc_toChange->socket()->sysMessage( message );
+	pc_toChange->socket()->clilocMessage( message );
 }
 
 /*!
