@@ -127,7 +127,7 @@ void clearscreen( void )
 
 	unsigned long int y;
 
-	#ifndef __unix__
+#ifndef __unix__
 	COORD xy;
 
 	xy.X=0;
@@ -135,7 +135,7 @@ void clearscreen( void )
 	FillConsoleOutputAttribute(hco, (FOREGROUND_RED)/*( BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED | BACKGROUND_INTENSITY)*/, csbi.dwSize.X*csbi.dwSize.Y, xy, &y);
 	FillConsoleOutputCharacter(hco, ' ', csbi.dwSize.X*csbi.dwSize.Y, xy, &y);
 	SetConsoleCursorPosition(hco, xy);
-	#endif
+#endif
 }
 
 void constart( void )
@@ -5912,7 +5912,6 @@ void StartClasses(void)
 	cwmWorldState	= NULL;
 	mapRegions		= NULL;
 	Accounts		= NULL;
-	Boats			= NULL;
 	Combat			= NULL;
 	Commands		= NULL;
 	Items			= NULL;
@@ -5937,7 +5936,6 @@ void StartClasses(void)
 	cwmWorldState	= new CWorldMain;
 	mapRegions		= new cRegion;
 	Accounts		= new cAccount;
-	Boats			= new cBoat;
 	Combat			= new cCombat;
 	Commands		= new cCommands;
 	Items			= new cAllItems;
@@ -5970,7 +5968,6 @@ void DeleteClasses(void)
 	delete cwmWorldState;
 	delete mapRegions;
 	delete Accounts;
-	delete Boats;
 	delete Combat;
 	delete Commands;
 	delete Items;

@@ -1235,10 +1235,19 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 	//if (strstr(SpeechUpr, "GUARDS"))
 	if (SpeechUpr.find("GUARDS") != string::npos)
 		callguards(currchar[s]);
-	
-	if (Boats->Speech(s, SpeechUpr))
-		return;
-	
+
+	cRegion::RegionIterator4Items rj( currchar[s]->pos );
+	for (rj.Begin(); !rj.atEnd(); rj++)
+	{
+		P_ITEM pi = rj.GetData();
+		if( pi->type() == 117 && pi->type2() == 1 )
+		{
+			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial(pi->tags.get("boatserial").toUInt()));
+			if( pBoat != NULL )
+				pBoat->speechInput( s, QString("%1").arg(SpeechUpr.c_str()) );
+		}
+	}
+
 	house_speech(s, SpeechUpr); // houses crackerjack 8/12/99			
 	
 	int i, j;

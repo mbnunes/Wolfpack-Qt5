@@ -1160,7 +1160,7 @@ void WalkingHandleRainSnow(UOXSOCKET s, CHARACTER c)
 
 	// dynamics-check
 	int x=Map->DynamicElevation(pc->pos.x,pc->pos.y,pc->pos.z);
-	if (x!=-127) if (Boats->GetBoat(y)!=-1) x=-127; // check for dynamic buildings except boats
+	if (x!=-127) x=-127; // check for dynamic buildings
 	if (x==1 || x==0) x=-127; // 1 seems to be the multi-borders
 	// bugfix LB
 	

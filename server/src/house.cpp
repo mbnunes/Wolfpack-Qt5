@@ -155,8 +155,8 @@ void cHouse::processNode( const QDomElement &Tag )
 		}
 	}
 
-	// <housedeed>deedsection</housedeed> (any item section)
-	else if( TagName == "housedeed" )
+	// <deed>deedsection</deed> (any item section)
+	else if( TagName == "deed" )
 		this->deedsection_ = Value;
 
 	// <nokey />
@@ -185,7 +185,8 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 	this->MoveTo( posx, posy, posz );
 	if( !this->onValidPlace() )
 	{
-		sysmessage(s,"Can not build a house at that location!");
+		if( s != -1 )
+			sysmessage(s,"Can not build a house at that location!");
 		cItemsManager::getInstance()->unregisterItem( this );
 		cItemsManager::getInstance()->deleteItem( this );
 		return;

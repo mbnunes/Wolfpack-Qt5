@@ -1039,15 +1039,9 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 								(mapitem->type2()==1 || mapitem->type2()==2)&&
 								(mapitem->gatetime<=currenttime||overflow))
 							{
-								if (mapitem->type2()==1) 
-									Boats->Move(i, mapitem->dir, mapitem);
-								else 
-								{
-									int dir = mapitem->dir+4;
-									if (dir>7) dir-=8; // LB, BUGKILLING !!!
-									Boats->Move(i, dir, mapitem);
-								}
-								mapitem->gatetime=(unsigned int)(currenttime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC));
+								cBoat* pBoat = dynamic_cast< cBoat* >(mapitem);
+								pBoat->move();
+								pBoat->gatetime=(unsigned int)(currenttime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC));
 							}	
 						}
 					}

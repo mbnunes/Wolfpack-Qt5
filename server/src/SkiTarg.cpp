@@ -2032,7 +2032,7 @@ void cSkills::AnatomyTarget(int s)
 	if (pc == NULL || pc_currchar == NULL)
 		return;
 
-	if( dist(pc->pos, pc_currchar->pos) >= 10 )
+	if( pc->pos.distance( pc_currchar->pos ) >= 10 )
 	{
 		sysmessage( s, tr("You need to be closer to find out more about them" ) );
 		return;

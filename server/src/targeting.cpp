@@ -583,10 +583,14 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 			}
 
 			//Boats ->
-			else if( pi->type() == 117 && pi->type2() == 3 )
+			else if( pi->type() == 117 && ( pi->type2() == 3 || pi->type2() == 2 ) )
 			{
-				Boats->OpenPlank(pi);
-				RefreshItem(pi);
+				cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial(pi->tags.get("boatserial").toUInt()));
+				if( pBoat != NULL )
+				{
+					pBoat->switchPlankState( pi );
+					RefreshItem(pi);
+				}
 			}
 			//End Boats --^
 		}//else if

@@ -98,6 +98,10 @@ void cBuildMultiTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 	}
 	else if( DefSection->attribute( "type" ) == "boat" )
 	{
+		cBoat* pBoat = new cBoat;
+		cItemsManager::getInstance()->registerItem( pBoat );
+
+		pBoat->build( *DefSection, targetInfo.TxLoc, targetInfo.TyLoc, targetInfo.TzLoc, senderserial_, deedserial_ );
 	}
 };
 

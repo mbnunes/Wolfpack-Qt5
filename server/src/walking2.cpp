@@ -1380,8 +1380,7 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 			// dynamics-check
 			int x = Map->DynamicElevation(pc->pos);
 			if (x!=illegal_z)
-				if (Boats->GetBoat(pc) != NULL)
-					x=illegal_z; // check for dynamic buildings except boats
+				x=illegal_z; // check for dynamic buildings
 			if (x==1)
 				x = illegal_z; // 1 seems to be the multi-borders
 			

@@ -387,23 +387,26 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			return;
 		}
 		
-	case 117:// backpacks - snooping a la Zippy - add check for SrvParms->rogue later- Morrolan
+	case 117:
 		
 		// Boats ->
 		if (pi->type2() == 3)
 		{
 			if (iteminrange(s, pi, 3))
 			{
-				if (pi->id() == 0x3E84 || pi->id() == 0x3ED5 || pi->id() == 0x3ED4 || pi->id() == 0x3E89)
-					Boats->PlankStuff(s, pi);
+				if (pi->tags.get("boatserial").isValid())
+				{
+					cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags.get("boatserial").toUInt() ) );
+					pBoat->handlePlankClick( s, pi );
+				}
 				else 
 					sysmessage(s, "That is locked.");
 			}
 			else 
 				sysmessage(s, "You can't reach that!");
-			return;
 		}
 		// End Boats --^
+		return;
 		
 	case 1: // normal containers
 	case 63:

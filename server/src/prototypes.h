@@ -43,13 +43,15 @@ void endScrn() ;
 void updatehtml();
 void offlinehtml();
 
+/*
 //Boats --Fucntions in Boats.cpp
-void sendinrange(P_ITEM pi);
 int dist(int,int,int);
 unsigned int dist(Coord_cl&, Coord_cl&); // Distance between position a and b
+//End Boat functions
+*/
+void sendinrange(P_ITEM pi);
 P_ITEM findmulti(Coord_cl);
 bool inmulti(Coord_cl, P_ITEM);
-//End Boat functions
 
 extern void init_creatures(void);
 

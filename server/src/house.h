@@ -82,9 +82,6 @@ public:
 	cHouse() {}
 	virtual ~cHouse() {}
 	virtual void Serialize( ISerialization &archive );
-
-	virtual void processNode( const QDomElement &Tag );
-
 	virtual QString objectID() const;
 
 	bool isBanned(P_CHAR pc);
@@ -107,6 +104,8 @@ public:
 	bool	itemsdecay( void ) { return itemsdecay_; }
 
 protected:
+	virtual void processNode( const QDomElement &Tag );
+
 	QString deedsection_;
 	int lockdownamount_;
 	int secureamount_;

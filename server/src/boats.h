@@ -35,58 +35,165 @@
 // Platform specifics
 #include "platform.h"
 
-
-// System Includes
-
-#include <iostream>
-#include <cmath>
-
-using namespace std;
-
+#include "uobject.h"
+#include "items.h"
 
 // Forward class Declaration
-
 class cBoat;
+class QString;
 
-// Wolfpack files
-#include "wolfpack.h"
-#include "SndPkg.h"
+#define X 0
+#define Y 1
 
-//For iSizeShipOffsets->
+//itemoffsets
 #define PORT_PLANK 0
 #define STARB_PLANK 1
 #define HOLD 2
 #define TILLER 3
 
-//For iShipItems->
+//itemids
 #define PORT_P_C 0//Port Plank Closed
 #define PORT_P_O 1//Port Planl Opened
 #define STAR_P_C 2//Starboard Plank Closed
 #define STAR_P_O 3//Starb Plank Open
-#define TILLERID 5//Tiller
-#define HOLDID 4//Hold
+#define HOLD_ID 4//Hold
+#define TILLER_ID 5//Tiller
 
-extern signed short int iSmallShipOffsets[4][4][2];
-extern signed short int iMediumShipOffsets[4][4][2];
-extern signed short int iLargeShipOffsets[4][4][2];
-extern unsigned char cShipItems[4][6];
 
-class cBoat 
+// this class had been more likely a namespace than a class. i decided to make it derival of cItem
+// like the house multis. so it needs the processNode and the objectID methods!
+// be aware when changing things in here!
+// - sereg
+
+class cBoat : public cItem
 {
-	private:
-		void LeaveBoat(int, P_ITEM);		
-		bool Block(P_ITEM, short int, short int,int);
-		void TurnStuff(P_ITEM pBoat, P_CHAR pc_i, int dir);
-		void TurnStuff(P_ITEM pBoat, P_ITEM pi, int dir);
+public:
+	cBoat();
+	virtual ~cBoat() {;}
 
-	public:
-		P_ITEM GetBoat(P_CHAR);
-		char Speech(int, string& );
-		void OpenPlank(P_ITEM);
-		void PlankStuff(UOXSOCKET, P_ITEM);
-		bool Build(int, P_ITEM pBoat, char);
-		void Move(int, int, P_ITEM pBoat);
-		void Turn(P_ITEM pBoat, int);
+	virtual void Serialize( ISerialization &archive )
+	{
+		if( archive.isReading() )
+		{
+			archive.read( "boat.autosail", autosail_ );
+			archive.read( "boat.dir", boatdir );
+			int i,j,k;
+			for( i = 0; i < 8; i++ )
+			{
+				int currid = 0;
+				archive.read( "boat.multiid", currid );
+				this->multiids_.push_back( currid );
+			}
+			for( i = 0; i < 4; i++ )
+			{
+				for( j = 0; j < 4; j++ )
+				{
+					for( k = 0; k < 2; k++ )
+					{
+						signed short curroffset = 0;
+						archive.read( (char*)QString("boat.itemoffset.%1.%2.%3").arg(i).arg(j).arg(k).latin1(), curroffset );
+						this->itemoffsets[i][j][k] = curroffset;
+					}
+				}
+			}
+			for( i = 0; i < 4; i ++ )
+			{
+				for( j = 0; j < 6; j++ )
+				{
+					unsigned short currid = 0;
+					archive.read( (char*)QString("boat.itemid.%1.%2").arg(i).arg(j).latin1(), currid );
+					this->itemids[i][j] = currid;
+				}
+			}
+		}
+		else
+		{
+			archive.write( "boat.autosail", autosail_ );
+			archive.write( "boat.dir", boatdir );
+			int i, j, k;
+			for( i = 0; i < 8; i++ )
+			{
+				int currid = this->multiids_[i];
+				archive.write( "boat.multiid", currid );
+			}
+			for( i = 0; i < 3; i++ )
+			{
+				for( j = 0; j < 3; j++ )
+				{
+					for( k = 0; k < 1; k++ )
+					{
+						archive.write( (char*)QString("boat.itemoffset.%1.%2.%3").arg(i).arg(j).arg(k).latin1(), this->itemoffsets[i][j][k] );
+					}
+				}
+			}
+			for( i = 0; i < 4; i ++ )
+			{
+				for( j = 0; j < 6; j++ )
+				{
+					archive.write( (char*)QString("boat.itemid.%1.%2").arg(i).arg(j).latin1(), this->itemids[i][j] );
+				}
+			}
+		}
+		cItem::Serialize( archive );
+	}
+	virtual QString objectID( void ) const { return "BOAT"; }
+
+	void handlePlankClick( UOXSOCKET s, P_ITEM pplank );
+	void switchPlankState( P_ITEM pplank );
+
+	void build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );
+	bool move( void );
+	void turn( SI08 turn );
+
+	char speechInput( UOXSOCKET s, const QString &input );
+
+	void toDeed( UOXSOCKET s );
+
+	//void setAutoSail( UOXSOCKET s, P_ITEM pMap );
+	bool doesAutoSail( void ) { return autosail_ > 0; }
+
+	QString deedSection( void ) { return deedsection_; }
+	UI08	boatDir( void ) { return boatdir; }
+
+protected:
+	virtual void processNode( const QDomElement &Tag );
+	void	processSpecialItemNode( const QDomElement &Tag, UI08 item );
+
+	bool leave( UOXSOCKET s, P_ITEM pplank );
+
+	bool isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir );
+
+protected:
+	UI08	boatdir;
+	UI08	autosail_;
+	std::vector< UI16 > multiids_;
+	signed short itemoffsets[4][4][2];
+	unsigned short itemids[4][6];
+	SERIAL itemserials[4];
+	QString deedsection_;
+
+
+/*
+autosail_ :		a boolean which defines if the boat is autosailing (using a map) or not
+
+multiids_ :		the multi's ids where the index in the vector marks the boatdirection
+				DEFINABLE in the xml definition of the boat multi
+
+itemoffsets :	3 dimensional array which holds the item's x/y offsets for each boatdirection
+				[4]=boatdirection of ship
+				[4]=Which Item (PT Plank, SB Plank, Hatch, TMan)
+				[2]=Coord (x,y) offsets
+				DEFINABLE in the xml definition of the boat multi
+
+itemids :		2 dimension array which holds the item's ids for each boatdirection
+				[4] = boatdirection
+				[6] = Which Item (PT Plank Up,PT Plank Down, SB Plank Up, SB Plank Down, Hatch, TMan)
+				DEFINABLE in the xml definition of the boat multi
+
+deedsection_ :	the script section in one of the xml definition files for the deed
+				which will be created when turning the boat into a deed (toDeed)
+				DEFINABLE in the xml definition of the boat multi
+*/
 };
 #endif
 
