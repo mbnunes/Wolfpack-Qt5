@@ -161,6 +161,10 @@ SOURCE=.\dragdrop.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\encryption.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\globals.cpp
 # End Source File
 # Begin Source File
@@ -258,10 +262,6 @@ SOURCE=.\pfactory.cpp
 # Begin Source File
 
 SOURCE=.\preferences.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\remadmin.cpp
 # End Source File
 # Begin Source File
 
@@ -905,10 +905,6 @@ SOURCE=.\preferences.h
 # Begin Source File
 
 SOURCE=.\prototypes.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\remadmin.h
 # End Source File
 # Begin Source File
 
