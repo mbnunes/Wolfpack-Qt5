@@ -872,7 +872,7 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 
 	if( args.count() == 0 )
 	{
-		socket->sysMessage( tr( "Usage: reload <accounts|scripts|all>" ) );
+		socket->sysMessage( tr( "Usage: reload <accounts|scripts|python|all>" ) );
 		return;
 	}
 
@@ -882,19 +882,16 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 	if( subCommand == "accounts" )
 	{
 		Accounts::instance()->reload();
-		socket->sysMessage( tr("Accounts reloaded") );
+		socket->sysMessage("The accounts have been reloaded.");
 	}
 	if( subCommand == "python" )
 	{
-		Console::instance()->send( "Reloading python scripts\n" );
 		ScriptManager::instance()->reload();
 		ContextMenus::instance()->reload();
-		Console::instance()->send( "Python scripts reloaded\n" );
+    socket->sysMessage("The python scripts have been reloaded.");
 	}
 	if( subCommand == "scripts" )
 	{
-		Console::instance()->send( "Reloading definitions, scripts and wolfpack.xml\n" );
-
 		SrvParams->reload(); // Reload wolfpack.xml
 
 		QStringList oldAISections = DefManager->getSections( WPDT_AI );
@@ -920,7 +917,7 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 		}
 
 		cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
-		socket->sysMessage( tr("Definitions, scripts and wolfpack.xml reloaded") );
+		socket->sysMessage("The configuration, definitions and python scripts have been reloaded.");
 	}
 	if( subCommand == "all" )
 	{		
@@ -950,7 +947,7 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 		}
 
 		cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
-		socket->sysMessage( tr("Accounts, definitions, scripts and wolfpack.xml reloaded") );
+		socket->sysMessage("The accounts, configuration, definitions and python scripts have been reloaded.");
 	}
 }
 
