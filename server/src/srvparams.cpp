@@ -178,6 +178,7 @@ void cSrvParams::readData()
 	enableLogin_			=	getBool( "Network",		"Enable Loginserver", true, true );
 	enableGame_				=	getBool( "Network",		"Enable Gameserver", true, true );
 	allowUnencryptedClients_ =	getBool( "Network",		"Allow Unencrypted Clients", true, true );
+	allowStatRequest_ =	getBool( "Network",		"Allow Stat Request", true, true );
 
 	// Combat
 	attackstamina_	        = getNumber("Combat", "Attack Stamina", -2, true );
