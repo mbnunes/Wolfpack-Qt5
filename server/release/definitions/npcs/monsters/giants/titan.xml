@@ -12,21 +12,23 @@
 	<npc id="titan" inherit="monster_base">
 		<name>titan</name>
 		<id>27</id>
-		<karma>-11500</karma>
-		<fame>11500</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="556" max="585"/></str>
 		<dex><random min="126" max="145"/></dex>
 		<int><random min="281" max="305"/></int>
+		<maxhitpoints><random min="322" max="351"/></maxhitpoints>
 		<!-- Skills -->
 		<evaluatingintel><random min="851" max="1000"/></evaluatingintel>
 		<magery><random min="851" max="1000"/></magery>
 		<magicresistance><random min="802" max="1100"/></magicresistance>
 		<tactics><random min="601" max="800"/></tactics>
 		<wrestling><random min="401" max="500"/></wrestling>
+		<meditation>0</meditation>
 		<!-- Damage -->
-		<mindamage>13</mindamage>
-		<maxdamage>16</maxdamage>
+		<mindamage>41</mindamage>
+		<maxdamage>50</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />

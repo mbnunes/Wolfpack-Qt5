@@ -11,20 +11,21 @@
 	<!-- a troll -->
 	<npc id="troll" inherit="monster_base">
 		<name>troll</name>
-		<id>53</id>
-		<karma>-3500</karma>
-		<fame>3500</fame>
+		<id><random list="NPCIDS_TROLL" /></id>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="176" max="205"/></str>
 		<dex><random min="46" max="65"/></dex>
 		<int><random min="46" max="70"/></int>
+		<maxhitpoints><random min="106" max="123" /></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="451" max="600"/></magicresistance>
 		<tactics><random min="501" max="700"/></tactics>
 		<wrestling><random min="501" max="700"/></wrestling>
 		<!-- Damage -->
-		<mindamage>8</mindamage>
-		<maxdamage>14</maxdamage>
+		<mindamage>16</mindamage>
+		<maxdamage>28</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="15,25" type="int" />
 		<tag name="res_energy" value="5,15" type="int" />
@@ -34,7 +35,12 @@
 		<!-- Misc. -->
 		<desc>These creatures are perhaps the least human of all the humanoid races of the land. They are treacherously clever, but utterly devoid of civilized impulse. It is said that they can heal themselves from wounds at an unnatural rate.</desc>
 		<carve>carve_troll</carve>
-		<category>Monsters\Giants\Troll</category>
+		<category>Monsters\Giants\Troll (Random)</category>
+	</npc>
+
+	<npc id="troll_1" inherit="troll">
+	  <id>53</id>
+	  <category>Monsters\Giants\Troll (With Maul)</category>
 	</npc>
 
 	<npc id="troll_2" inherit="troll">

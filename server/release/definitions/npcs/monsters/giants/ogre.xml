@@ -12,19 +12,20 @@
 	<npc id="ogre" inherit="monster_base">
 		<name>ogre</name>
 		<id>1</id>
-		<karma>-3000</karma>
-		<fame>3000</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="166" max="195"/></str>
 		<dex><random min="46" max="65"/></dex>
 		<int><random min="46" max="70"/></int>
+		<maxhitpoints><random min="100" max="117"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="551" max="700"/></magicresistance>
 		<tactics><random min="601" max="700"/></tactics>
 		<wrestling><random min="701" max="800"/></wrestling>
 		<!-- Damage -->
-		<mindamage>9</mindamage>
-		<maxdamage>11</maxdamage>
+		<mindamage>18</mindamage>
+		<maxdamage>22</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="15,25" type="int" />
 		<tag name="res_energy" value="25" type="int" />

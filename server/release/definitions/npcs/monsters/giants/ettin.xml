@@ -10,21 +10,22 @@
 
 	<!-- an ettin -->
 	<npc id="ettin" inherit="monster_base">
-		<name>an ettin</name>
-		<id>2</id>
-		<karma>-3000</karma>
-		<fame>3000</fame>
+		<name>ettin</name>
+		<id><random list="NPCIDS_ETTIN" /></id>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="136" max="165"/></str>
 		<dex><random min="56" max="75"/></dex>
 		<int><random min="31" max="55"/></int>
+		<maxhitpoints><random min="82" max="99"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="401" max="550"/></magicresistance>
 		<tactics><random min="501" max="700"/></tactics>
 		<wrestling><random min="501" max="600"/></wrestling>
 		<!-- Damage -->
-		<mindamage>7</mindamage>
-		<maxdamage>17</maxdamage>
+		<mindamage>13</mindamage>
+		<maxdamage>35</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />
 		<tag name="res_energy" value="15,25" type="int" />
@@ -34,12 +35,17 @@
 		<!-- Misc. -->
 		<desc>Ettins are the largest of Britannia's humanoid races by far, but their great size is less remarkable than their two heads. It is said that the heads of an Ettin often quarrel together, but this may be a fancy. Ettins live together in family groups, and are most numerous along the Serpent Spine mountains. They are stupid and vicious creatures, buthave some degree of reason and speak a debased dialect of Britannian. Ettins are common brigands, who slay travelers for their gold, which they love dearly and hoard whenever they may. (Some of the wilder tribes hew gold directly from the ground in crude mines.) They are most notorious for their cowardly habit of hurling boulders of greatsize down on travelers in the high mountain passes.</desc>
 		<carve>carve_ettin</carve>
-		<category>Monsters\Giants\Ettin</category>
+		<category>Monsters\Giants\Ettin (Random)</category>
 	</npc>
 
-  <npc id="ettin_2" inherit="ettin">
-    <id>18</id>
-    <category>Monsters\Giants\Ettin (With Axe)</category>
-  </npc>
+	<npc id="ettin_1" inherit="ettin">
+		<id>2</id>
+		<category>Monsters\Giants\Ettin (Without Axe)</category>
+	</npc>
+
+	<npc id="ettin_2" inherit="ettin">
+		<id>18</id>
+		<category>Monsters\Giants\Ettin (With Axe)</category>
+	</npc>
 
 </definitions>
