@@ -324,6 +324,13 @@ void DragAndDrop::equipItem( cUOSocket* socket, cUORxWearItem* packet )
 
 	P_PLAYER pChar = socket->player();
 
+	// If the item is not dragged by us, dont even bother
+	if ( pItem->container() != pChar )
+	{
+		socket->bounceItem( pItem, BR_NO_REASON );
+		return;
+	}
+
 	// We're dead and can't do that
 	if ( pChar->isDead() )
 	{
