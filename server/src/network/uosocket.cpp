@@ -2646,15 +2646,16 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	sortedList.sort();
 
 	bool restockNow = false;
-	if ( pItem->layer() == cBaseChar::BuyRestockContainer )
-	{
+	if (pItem->layer() == cBaseChar::BuyRestockContainer) {
 		if ( pItem->hasTag( "last_restock_time" ) )
 		{
-			if ( uint( pItem->getTag( "last_restock_time" ).toInt() ) + Config::instance()->shopRestock() * 60 * MY_CLOCKS_PER_SEC < Server::instance()->time() )
+			if ( uint( pItem->getTag( "last_restock_time" ).toInt() ) + Config::instance()->shopRestock() * 60 * MY_CLOCKS_PER_SEC < Server::instance()->time() ) {
 				restockNow = true;
-		}
-		else
+				pItem->setTag( "last_restock_time", cVariant( int( Server::instance()->time() ) ) );
+			}
+		} else {
 			pItem->setTag( "last_restock_time", cVariant( int( Server::instance()->time() ) ) );
+		}
 	}
 
 	unsigned int i = 0;

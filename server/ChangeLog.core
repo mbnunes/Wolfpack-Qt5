@@ -14,6 +14,7 @@ Wolfpack 12.9.13 Beta (CVS)
 	  owner of the object.
 	- Implemented onSnooping that is called for the owner and for the player trying to
 	  open a container.
+	- Fixed shop restock.
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error
