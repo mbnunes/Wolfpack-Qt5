@@ -268,6 +268,7 @@ void WPDefManager::reload( void )
 void WPDefManager::load( void )
 {
 	ImportSections( "definitions.xml" );
+	cCommands::instance()->loadACLs();
 }
 
 // Returns one Section

@@ -217,9 +217,6 @@ void cAccounts::save()
 
 void cAccounts::load()
 {
-	// This is important
-	cCommands::instance()->loadACLs();
-
 	clConsole.PrepareProgress( "Loading Accounts" );
 
 	ISerialization* archive = cPluginFactory::serializationArchiver( SrvParams->accountsArchiver());
