@@ -1,7 +1,7 @@
 <definitions>
 	<!-- Cloak n/s -->
 	<item id="1515">
-		<category>Clothes\Accessories</category>
+		<category>Clothes\Accessories\Cloak (N/S)</category>
 		<id>0x1515</id>
 		<dye />
 		<decay />
@@ -10,7 +10,7 @@
 
 	<!-- Skirt n/s -->
 	<item id="1516">
-		<category>Clothes\Legs</category>
+		<category>Clothes\Legs\Skirt (N/S)</category>
 		<id>0x1516</id>
 		<dye />
 		<decay />
@@ -20,7 +20,7 @@
 
 	<!-- Plain Shirt n/s -->
 	<item id="1517">
-		<category>Clothes\Torso</category>
+		<category>Clothes\Torso\Plain Shirt (N/S)</category>
 		<id>0x1517</id>
 		<dye />
 		<decay />
@@ -29,7 +29,7 @@
 
 	<!-- Plain Shirt w/e -->
 	<item id="1518">
-		<category>Clothes\Torso</category>
+		<category>Clothes\Torso\Plain Shirt (W/E)</category>
 		<id>0x1518</id>
 		<dye />
 		<decay />
@@ -38,7 +38,7 @@
 
 	<!-- Short Pants n/s -->
 	<item id="152e">
-		<category>Clothes\Legs</category>
+		<category>Clothes\Legs\Short Pants (N/S)</category>
 		<id>0x152e</id>
 		<dye />
 		<decay />
@@ -47,7 +47,7 @@
 
 	<!-- Short Pants w/e -->
 	<item id="152f">
-		<category>Clothes\Legs</category>
+		<category>Clothes\Legs\Short Pants (W/E)</category>
 		<id>0x152f</id>
 		<dye />
 		<decay />
@@ -56,7 +56,7 @@
 
 	<!-- Cloak w/e-->
 	<item id="1530">
-		<category>Clothes\Accessories</category>
+		<category>Clothes\Accessories\Cloak (W/E)</category>
 		<id>0x1530</id>
 		<dye />
 		<decay />
@@ -65,7 +65,7 @@
 
 	<!-- Skirt w/e -->
 	<item id="1531">
-		<category>Clothes\Legs</category>
+		<category>Clothes\Legs\Skirt (W/E)</category>
 		<id>0x1531</id>
 		<dye />
 		<decay />
@@ -75,20 +75,20 @@
 	<!-- Gold Belt n/s -->
 	<!-- Can't be equipped -->
 	<item id="1535">
-		<category>Clothes\Accessories</category>
+		<category>Clothes\Accessories\Gold Belt (N/S)</category>
 		<id>0x1535</id>
 	</item>
 
 	<!-- Gold Belt w/e -->
 	<!-- Can't be equipped -->
 	<item id="1536">
-		<category>Clothes\Accessories</category>
+		<category>Clothes\Accessories\Gold Belt (N/S)</category>
 		<id>0x1536</id>
 	</item>
 
 	<!-- Kilt n/s -->
 	<item id="1537">
-		<category>Clothes\Legs</category>
+		<category>Clothes\Legs\Kilt (N/S)</category>
 		<id>0x1537</id>
 		<dye />
 		<decay />
@@ -97,7 +97,7 @@
 
 	<!-- Kilt w/e -->
 	<item id="1538">
-		<category>Clothes\Legs</category>
+		<category>Clothes\Legs\Kilt (W/E)</category>
 		<id>0x1538</id>
 		<dye />
 		<decay />
@@ -106,7 +106,7 @@
 
 	<!-- Long Pants n/s -->
 	<item id="1539">
-		<category>Clothes\Legs</category>
+		<category>Clothes\Legs\Long Pants (N/S)</category>
 		<id>0x1539</id>
 		<dye />
 		<decay />
@@ -115,7 +115,7 @@
 
 	<!-- Long Pants w/e -->
 	<item id="153a">
-		<category>Clothes\Legs</category>
+		<category>Clothes\Legs\Long Pants (W/E)</category>
 		<id>0x153a</id>
 		<dye />
 		<decay />
@@ -124,7 +124,7 @@
 
 	<!-- Half Apron n/s -->
 	<item id="153b">
-		<category>Clothes\Accessories</category>
+		<category>Clothes\Accessories\Half Apron (N/S)</category>
 		<id>0x153b</id>
 		<dye />
 		<decay />
@@ -133,7 +133,7 @@
 
 	<!-- Half Apron w/e -->
 	<item id="153c">
-		<category>Clothes\Accessories</category>
+		<category>Clothes\Accessories\Half Apron (W/E)</category>
 		<id>0x153c</id>
 		<dye />
 		<decay />
@@ -142,7 +142,7 @@
 
 	<!-- Full Apron n/s -->
 	<item id="153d">
-		<category>Clothes\Accessories</category>
+		<category>Clothes\Accessories\Full Apron (N/S)</category>
 		<id>0x153d</id>
 		<dye />
 		<decay />
@@ -151,7 +151,7 @@
 
 	<!-- Full Apron w/e -->
 	<item id="153e">
-		<category>Clothes\Accessories</category>
+		<category>Clothes\Accessories\Full Apron (W/E)</category>
 		<id>0x153e</id>
 		<dye />
 		<decay />
@@ -160,7 +160,7 @@
 
 	<!-- Bandana n/s -->
 	<item id="153f">
-		<category>Clothes\Headwear</category>
+		<category>Clothes\Headwear\Bandana (N/S)</category>
 		<id>0x153f</id>
 		<dye />
 		<decay />
@@ -169,7 +169,7 @@
 
 	<!-- Bandana w/e -->
 	<item id="1540">
-		<category>Clothes\Headwear</category>
+		<category>Clothes\Headwear\Bandana (W/E)</category>
 		<id>0x1540</id>
 		<dye />
 		<decay />
@@ -178,7 +178,7 @@
 
 	<!-- Body Sash n/s -->
 	<item id="1541">
-		<category>Clothes\Accessories</category>
+		<category>Clothes\Accessories\Body Sash (N/S)</category>
 		<id>0x1541</id>
 		<dye />
 		<decay />
@@ -187,7 +187,7 @@
 
 	<!-- Body Sash w/e -->
 	<item id="1542">
-		<category>Clothes\Accessories</category>
+		<category>Clothes\Accessories\Body Sash (W/E)</category>
 		<id>0x1542</id>
 		<dye />
 		<decay />
@@ -196,7 +196,7 @@
 
 	<!-- Skullcap n/s -->
 	<item id="1543">
-		<category>Clothes\Headwear</category>
+		<category>Clothes\Headwear\Skull Cap (N/S)</category>
 		<id>0x1543</id>
 		<dye />
 		<decay />
@@ -205,7 +205,7 @@
 
 	<!-- Skullcap w/e -->
 	<item id="1544">
-		<category>Clothes\Headwear</category>
+		<category>Clothes\Headwear\Skull Cap (W/E)</category>
 		<id>0x1544</id>
 		<dye />
 		<decay />
@@ -214,7 +214,7 @@
 
 	<!-- Bear Mask n/s -->
 	<item id="1545">
-		<category>Clothes\Headwear</category>
+		<category>Clothes\Headwear\Bear Mask (N/S)</category>
 		<id>0x1545</id>
 		<dye />
 		<decay />
@@ -223,7 +223,7 @@
 
 	<!-- Bear Mask w/e -->
 	<item id="1546">
-		<category>Clothes\Headwear</category>
+		<category>Clothes\Headwear\Bear Mask (W/E)</category>
 		<id>0x1546</id>
 		<dye />
 		<decay />
@@ -232,7 +232,7 @@
 
 	<!-- Deer Mask n/s -->
 	<item id="1547">
-		<category>Clothes\Headwear</category>
+		<category>Clothes\Headwear\Deer Mask (N/S)</category>
 		<id>0x1547</id>
 		<dye />
 		<decay />
@@ -241,7 +241,7 @@
 
 	<!-- Deer Mask w/e -->
 	<item id="1548">
-		<category>Clothes\Headwear</category>
+		<category>Clothes\Headwear\Deer Mask (W/E)</category>
 		<id>0x1548</id>
 		<dye />
 		<decay />
@@ -250,7 +250,7 @@
 
 	<!-- Tribal Mask n/s -->
 	<item id="1549">
-		<category>Clothes\Headwear</category>
+		<category>Clothes\Headwear\Tribal Mask (N/S)</category>
 		<id>0x1549</id>
 		<dye />
 		<decay />
@@ -259,7 +259,7 @@
 
 	<!-- Tribal Mask w/e -->
 	<item id="154a">
-		<category>Clothes\Headwear</category>
+		<category>Clothes\Headwear\Tribal Mask (W/E)</category>
 		<id>0x154a</id>
 		<dye />
 		<decay />
@@ -268,7 +268,7 @@
 
 	<!-- Tribal Mask 2 n/s -->
 	<item id="154b">
-		<category>Clothes\Headwear</category>
+		<category>Clothes\Headwear\Tribal Mask 2 (N/S)</category>
 		<id>0x154b</id>
 		<dye />
 		<decay />
@@ -277,10 +277,186 @@
 
 	<!-- Tribal Mask 2 w/e -->
 	<item id="154c">
-		<category>Clothes\Headwear</category>
+		<category>Clothes\Headwear\Tribal Mask 2 (W/E)</category>
 		<id>0x154c</id>
 		<dye />
 		<decay />
 		<value>40</value>
-	</item>	
+	</item>
+
+	<!-- Necklace 1 -->
+	<item id="1085">
+		<category>Clothes\Accessories\Necklace 1</category>
+		<id>0x1085</id>
+		<decay />
+		<value>45</value>
+	</item>
+
+	<!-- Bracelet -->
+	<item id="1086">
+		<category>Clothes\Accessories\Bracelet</category>
+		<id>0x1086</id>
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Earrings -->
+	<item id="1087">
+		<category>Clothes\Accessories\Earrings</category>
+		<id>0x1087</id>
+		<decay />
+		<value>45</value>
+	</item>
+
+	<!-- Necklace -->	
+	<item id="1088">
+		<category>Clothes\Accessories\Necklace 2</category>
+		<id>0x1088</id>
+		<decay />
+		<value>45</value>
+	</item>
+
+	<!-- Necklace -->
+	<item id="1089">
+		<category>Clothes\Accessories\Necklace 3</category>
+		<id>0x1089</id>
+		<decay />
+		<value>45</value>
+	</item>
+
+	<!-- Ring -->
+	<item id="108a">
+		<category>Clothes\Accessories\Ring</category>
+		<id>0x108a</id>
+		<decay />
+		<value>35</value>
+	</item>
+
+	<!-- Boots n/s -->
+	<item id="170b">
+		<category>Clothes\Footwear\Boots (W/E)</category>
+		<id>0x170b</id>
+		<dye />
+		<decay />
+		<value>30</value>
+	</item>
+
+	<!-- Boots w/e -->
+	<item id="170c">
+		<inherit id="170b" />
+		<category>Clothes\Footwear\Boots (W/E)</category>
+		<id>0x170c</id>
+	</item>
+
+	<!-- Sandals n/s -->
+	<item id="170d">
+		<category>Clothes\Footwear\Sandals (N/S)</category>
+		<id>0x170d</id>
+		<decay />
+		<value>20</value>
+	</item>
+
+	<!-- Sandals w/e -->
+	<item id="170e">
+		<inherit id="170d" />
+		<category>Clothes\Footwear\Sandals (W/E)</category>
+		<id>0x170e</id>
+	</item>
+
+	<!-- Shoes n/s -->
+	<item id="170f">
+		<category>Clothes\Footwear\Shoes (N/S)</category>
+		<id>0x170f</id>
+		<decay />
+		<dye />
+		<value>15</value>
+	</item>
+
+	<!-- Shoes (w/e)
+	<item id="1710">
+		<inherit id="170f" />
+		<category>Clothes\Footwear\Shoes (W/E)</category>
+		<id>0x1710</id>
+	</item>
+
+	<!-- Thigh Boots (n/s) -->
+	<item id="1711">
+		<category>Clothes\Footwear\Thigh Boots (N/S)</category>
+		<id>0x1711</id>
+		<decay />
+		<dye />
+		<value>55</value>
+	</item>
+
+	<!-- Thigh Boots (w/e) -->
+	<item id="1712">
+		<inherit id="1711" />
+		<category>Clothes\Footwear\Thigh Boots (W/E)</category>
+		<id>0x1712</id>
+	</item>
+
+	<!-- Floppy Hat -->
+	<item id="1713">
+		<category>Clothes\Headwear\Floppy Hat</category>
+		<id>0x1713</id>
+		<decay />
+		<dye />
+		<value>35</value>
+	</item>
+
+	<!-- Wide-brim Hat -->
+	<item id="1714">
+		<category>Clothes\Headwear\Wide-brim Hat</category>
+		<id>0x1714</id>
+		<decay />
+		<dye />
+		<value>40</value>
+	</item>
+
+	<!-- Cap -->
+	<item id="1715">
+		<category>Clothes\Headwear\Wide-brim Hat</category>
+		<id>0x1715</id>
+		<decay />
+		<dye />
+		<value>30</value>
+	</item>
+
+	<!-- Tall Straw Hat -->
+	<item id="1716">
+		<category>Clothes\Headwear\Tall Straw Hat</category>
+		<id>0x1716</id>
+		<decay />
+		<dye />
+		<value>35</value>
+	</item>
+
+	<!-- Straw Hat -->
+	<item id="1717">
+		<category>Clothes\Headwear\Straw Hat</category>
+		<id>0x1717</id>
+		<decay />
+		<dye />
+		<value>35</value>
+	</item>
+
+	<item id="1718">
+		<id>0x1718</id>
+	</item>
+
+	<item id="1719">
+		<id>0x1719</id>
+	</item>
+
+	<item id="171a">
+		<id>0x171a</id>
+	</item>
+
+	<item id="171b">
+		<id>0x171b</id>
+	</item>
+
+	<item id="171c">
+		<id>0x171c</id>
+	</item>
 </definitions>
