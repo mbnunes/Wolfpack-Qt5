@@ -747,8 +747,8 @@ def charinfo_response( player, args, choice ):
 
 	if choice.button == 1:
 		charinfo( socket, char )
-		char.update()
-
+		
+	char.update()
 	return 1
 
 def iteminfo( socket, item ):

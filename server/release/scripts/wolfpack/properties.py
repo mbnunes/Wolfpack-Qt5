@@ -117,7 +117,7 @@ def fromitem(item, property):
 			if not wolfpack.weaponinfo.WEAPONINFO.has_key(item.baseid):
 				return info[1]
 			else:
-				return info[1]	
+				return wolfpack.weaponinfo.WEAPONINFO[item.baseid][property]
 	
 		# Get the base property from the item
 		if type(info[1]) == int:

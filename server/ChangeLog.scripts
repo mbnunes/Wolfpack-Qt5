@@ -7,6 +7,7 @@ Wolfpack 12.9.11 Beta (CVS)
 	* Python Script Changes:
 		- Removed weight from the info menu.
 		- The info command now correctly resends the changed players.
+		- Fixed bug #0000287 (weaponinfo.py values not being used)
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
