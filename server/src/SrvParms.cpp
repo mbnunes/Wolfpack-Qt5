@@ -137,9 +137,6 @@ void loadserverdefaults(void)
 	server_data.bountysexpire=0;           // Dupois - Added July 18, 2000 for bountys (0-Never - in days)
 	
 	
-	server_data.maxstealthsteps=10;// AntiChrist - stealth=100.0 --> 10 steps allowed
-	server_data.runningstaminasteps=15;// AntiChrist - how often ( in steps ) stamina decreases while running
-	
 	server_data.boatspeed=0.75;//Boats
 
 	server_data.cutscrollreq=1;//AntiChrist
@@ -364,8 +361,6 @@ void loadserver()
 
 
 		else if(!(strcmp((char*)script1,"CHAR_TIME_OUT"))) server_data.quittime = str2num(script2);//Instalog
-		else if(!(strcmp((char*)script1,"MAXSTEALTHSTEPS"))) server_data.maxstealthsteps = str2num(script2);//AntiChrist
-		else if(!(strcmp((char*)script1,"RUNNINGSTAMINASTEPS"))) server_data.runningstaminasteps=str2num(script2);//AntiChrist
         else if(!(strcmp((char*)script1,"BOAT_SPEED"))) server_data.boatspeed = atof((char*)script2);//Boats
 
 		else if(!(strcmp((char*)script1,"HTML"))) server_data.html=str2num(script2);//HTML
@@ -611,8 +606,6 @@ void saveserverscript(void)
 	fprintf(file, "GM_LOG %i\n",server_data.gm_log);
 	
 	fprintf(file, "CHAR_TIME_OUT %i\n",server_data.quittime);//Instalog
-	fprintf(file, "MAXSTEALTHSTEPS %i\n",server_data.maxstealthsteps);//Instalog
-	fprintf(file, "RUNNINGSTAMINASTEPS %i\n",server_data.runningstaminasteps);//Instalog
     fprintf(file, "BOAT_SPEED %f\n",server_data.boatspeed);//Boats
 
     fprintf(file, "HTML %i\n",server_data.html);

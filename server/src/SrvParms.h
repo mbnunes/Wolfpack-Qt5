@@ -92,8 +92,6 @@ struct server_st
 	unsigned char hungerdamage;
 	unsigned int hungerdamagerate;
 	char armoraffectmana; // Should armor slow mana regen ?
-	signed int maxstealthsteps;//AntiChrist - max number of steps allowed with stealth skill at 100.0
-	unsigned int runningstaminasteps;//AntiChrist - max number of steps allowed with stealth skill at 100.0
 	unsigned short int quittime;//Instalog
 	int html;//HTML
 	float boatspeed;
@@ -117,7 +115,6 @@ struct server_st
 	unsigned char showCVCS; // Show client verification stuff at login ? (blackwind) 
 	unsigned int default_jail_time; // Default jail time (86400) 
 	unsigned char attack_distance; // Attack distance bugfix (blackwind) 
-	float goldweight;//AntiChrist - configurable gold weight
 	char msgboardpath[256];   // Dupois - Added April 4, 1999 for msgboard.cpp - path to store BB* files (ie C:\POSTS\)
 	int  msgpostaccess;       // Dupois - Added April 4, 1999 for msgboard.cpp - who gets to post messages (0=GM only, 1 = everyone)
 	int  msgpostremove;       // Dupois - Added April 4, 1999 for msgboard.cpp - who gets to remove post messages (0=GM only, 1 = everyone)

@@ -69,6 +69,8 @@ protected:
 	unsigned int inactivityTimeout_;
 	unsigned int showDeathAnim_;
 	unsigned int poisonTimer_;
+	signed int maxStealthSteps_;
+	unsigned int runningStamSteps_;
 public:
     cSrvParams( const QString& filename, const QString& format, const QString& version );
 	std::vector<ServerList_st>& serverList(); // read-only
@@ -114,6 +116,8 @@ public:
 	unsigned int inactivityTimeout() const;
 	unsigned int showDeathAnim() const;
 	unsigned int poisonTimer() const;
+	signed int maxStealthSteps() const;
+	unsigned int runningStamSteps() const;
 };
 
 // inline members
@@ -313,6 +317,16 @@ inline unsigned int cSrvParams::showDeathAnim() const
 inline unsigned int cSrvParams::poisonTimer() const
 {
 	return poisonTimer_;
+}
+
+inline signed int cSrvParams::maxStealthSteps() const
+{
+	return maxStealthSteps_;
+}
+
+inline unsigned int cSrvParams::runningStamSteps() const
+{
+	return runningStamSteps_;
 }
 
 #endif __SRVPARAMS_H___

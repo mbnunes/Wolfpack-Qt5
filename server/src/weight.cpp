@@ -35,6 +35,7 @@
  ****************************************************/
 
 #include "weight.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "weight.cpp"
@@ -112,7 +113,7 @@ float cWeight::RecursePacks(P_ITEM bp)
 		}
 		
 		if (pi->id() == 0x0EED)
-			totalweight += (pi->amount*SrvParms->goldweight);
+			totalweight += (pi->amount*SrvParams->goldWeight());
 		else
 			totalweight += (float)((itemsweight*pi->amount)/100.0f);
 	}
@@ -181,7 +182,7 @@ float cWeight::LockeddownWeight(P_ITEM pItem, int *total, int *total2 )
 		}
 		
 		if ( pi->id() == 0x0EED )
-			totalweight+=(pi->amount*SrvParms->goldweight);
+			totalweight+=(pi->amount*SrvParams->goldWeight());
 		else
 			totalweight+=(float)((itemsweight*pi->amount)/100.0f); //((pi->weight*pi->amount)/100);  // Ison 2-21-99
 	}

@@ -728,7 +728,7 @@ void cSkills::Stealth(int s)//AntiChrist
 		pc_currchar->unhide();
 		return;
 	}
-	sprintf((char*)temp,"You can move %i steps unseen.", SrvParms->maxstealthsteps);
+	sprintf((char*)temp,"You can move %i steps unseen.", SrvParams->maxStealthSteps());
 	sysmessage(s,(char*)temp);
 	pc_currchar->hidden=1;
 	pc_currchar->stealth=0; //AntiChrist -- init. steps already done

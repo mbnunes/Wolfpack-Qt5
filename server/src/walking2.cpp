@@ -39,6 +39,7 @@
 #include "debug.h"
 #include "guildstones.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "SrvParms.cpp"
@@ -687,7 +688,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 		pc->regen2=uiCurrentTime+(server_data.staminarate*MY_CLOCKS_PER_SEC);
 		pc->running++;
 		// if all these things
-		if(!pc->dead && !pc->onhorse && pc->running>(server_data.runningstaminasteps)*2)
+		if(!pc->dead && !pc->onhorse && pc->running>(SrvParams->runningStamSteps())*2)
 		{
 			//The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
 			pc->running=0;
@@ -713,7 +714,7 @@ bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 		if(pc->stealth!=-1)
 		{ //AntiChrist - Stealth
 			pc->stealth++;
-			if(pc->stealth>((server_data.maxstealthsteps*pc->skill[STEALTH])/1000))
+			if(pc->stealth>((SrvParams->maxStealthSteps()*pc->skill[STEALTH])/1000))
 			{
 				pc->stealth=-1;
 				pc->hidden=0;

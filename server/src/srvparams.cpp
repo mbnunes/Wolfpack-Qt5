@@ -47,6 +47,8 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	inactivityTimeout_		= getNumber("General",  "Inactivity Timeout", 300, true);
 	showDeathAnim_		    = getNumber("General",  "Show Death Animation", 1, true);
 	poisonTimer_		    = getNumber("General",  "PoisonTimer", 180, true);
+	maxStealthSteps_		= getNumber("Game Speed",  "Max Stealth Steps", 10, true);
+	runningStamSteps_		= getNumber("Game Speed", "Running Stamina Steps", 15, true);
 
 	flush(); // if any key created, save it.
 }
