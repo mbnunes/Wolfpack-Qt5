@@ -40,6 +40,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Added defense and hit bonus properties for items.
 		- Fixed loot random amount problems.
 		- Fixed NPC damage.
+		- Fixed crafting of stackable bowcrafting items.
 	* Misc. Changes:
 		- Fixed configure.py for FreeBSD 5
 	* Known Issues, Bugs, and Missing Features:

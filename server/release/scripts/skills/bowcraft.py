@@ -90,6 +90,15 @@ class FletchItemAction(CraftItemAction):
     # chance range 0.00 - 1.00
     chance = chance * .01
     return chance
+  
+  #
+  # Don't consume any material if the item is marked as stackable.
+  #  
+  def consumematerial(self, player, arguments, half = 0):
+  	if self.stackable:
+  		return True
+  	else:
+  		return CraftItemAction.consumematerial(player, arguments, half)
 
   #
   # For bowcraft we simply consume the maximum material available.
@@ -100,13 +109,13 @@ class FletchItemAction(CraftItemAction):
     if self.stackable:
       backpack = player.getbackpack()
       count = -1
-      for (materials, amount) in self.materials:
+      for (materials, amount, name) in self.materials:
         items = backpack.countitems(materials)
         if count == -1:
           count = items / amount
         else:
           count = min(count, items / amount)
-      for (materials, amount) in self.materials:
+      for (materials, amount, name) in self.materials:
         backpack.removeitems( materials, count )
       if count != -1:
         item.amount += count

@@ -161,7 +161,7 @@ class MakeItemAction(MakeAction):
 		gump.addTiledGump(10, 130, 150, 22, 2624)
 		gump.addTiledGump(10, 215, 150, 22, 2624)
 		gump.addTiledGump(10, 300, 150, 22, 2624)
-#		gump.addCheckerTrans(10, 10, 510, 397)
+		gump.addCheckerTrans(10, 10, 510, 397)
 
 		gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
 		if self.itemid != 0:

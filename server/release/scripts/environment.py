@@ -198,7 +198,7 @@ def hairdye_callback( char, args, response ):
 
 # Dying Tub
 def dyingtub( char, item ):
-	if not char.canreach( item, 2 ):
+	if not char.canreach( item, 2 ) or item.getoutmostchar():
 		char.socket.sysmessage( localemsg( 6 ) )
 		return 1
 
