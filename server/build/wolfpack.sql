@@ -4,56 +4,6 @@ CREATE TABLE `settings` (
 	PRIMARY KEY (`option`)
 );
 
-CREATE TABLE `boats` (
-	`serial` int(11) NOT NULL default '0',
-	`autosail` tinyint(1) NOT NULL default '0',
-	`boatdir` tinyint(1) NOT NULL default '0',
-	`itemserial1` int(11) NOT NULL default '-1',
-	`itemserial2` int(11) NOT NULL default '-1',
-	`itemserial3` int(11) NOT NULL default '-1',
-	`itemserial4` int(11) NOT NULL default '-1',
-	`multi1` smallint(6) default '0',
-	`multi2` smallint(6) default '0',
-	`multi3` smallint(6) default '0',
-	`multi4` smallint(6) default '0',
-	PRIMARY KEY (`serial`)
-);
-
-CREATE TABLE `boats_itemids` (
-	`serial` int(11) NOT NULL default '0',
-	`a` tinyint(1)  NOT NULL default '0',
-	`b` tinyint(1)  NOT NULL default '0',
-	`id` smallint(6)  default '0',
-	PRIMARY KEY (`serial`)
-);
-
-CREATE TABLE `boats_itemoffsets` (
-	`serial` int(11) NOT NULL default '0',
-	`a` tinyint(1)  NOT NULL default '0',
-	`b` tinyint(1)  NOT NULL default '0',
-	`c` tinyint(1)  NOT NULL default '0',
-	`offset` smallint(6) default '0',
-	PRIMARY KEY (`serial`)
-);
-
-CREATE TABLE `bookpages` (
-	`serial` int(11) NOT NULL default '0',
-	`page` tinyint(3) NOT NULL default '0',
-	`text` varchar(255) NOT NULL default '',
-	PRIMARY KEY (`serial`,`page`)
-);
-
-CREATE TABLE `books` (
-	`serial` int(11) NOT NULL default '0',
-	`title` varchar(255) NOT NULL default '',
-	`author` varchar(255) NOT NULL default '',
-	`readonly` tinyint(1) NOT NULL default '0',
-	`predefined` tinyint(1) NOT NULL default '0',
-	`section` varchar(255)  NOT NULL default '',
-	`pages` smallint(5)  NOT NULL default '0',
-	PRIMARY KEY (`serial`)
-);
-
 CREATE TABLE `characters` (
 	`serial` int(11) NOT NULL default '0',
 	`name` varchar(255) default NULL,
@@ -97,6 +47,7 @@ CREATE TABLE `characters` (
 	`intcap` tinyint(4)  NOT NULL default '125',
 	`statcap` tinyint(4)  NOT NULL default '225',
 	`baseid` varchar(64) NOT NULL default '',
+	`direction` char(1) NOT NULL default '0',
 	PRIMARY KEY (`serial`)
 );
 
@@ -107,6 +58,10 @@ CREATE TABLE `corpses` (
 	`haircolor` smallint(6)  NOT NULL default '0',
 	`beardstyle` smallint(6)  NOT NULL default '0',
 	`beardcolor` smallint(6)  NOT NULL default '0',
+	`direction` char(1) NOT NULL default '0',
+	`charbaseid` varchar(64) NOT NULL default '',
+	`murderer` int(11) NOT NULL default '-1',
+	`murdertime` int(11) NOT NULL default '0',
 	PRIMARY KEY (`serial`)
 );
 
@@ -117,15 +72,6 @@ CREATE TABLE `corpses_equipment` (
 	PRIMARY KEY (`serial`,`layer`)
 );
 
-CREATE TABLE `houses` (
-	`serial` int(11) NOT NULL default '0',
-	`nokey` tinyint(1) NOT NULL default '0',
-	`charpos_x` smallint(6) NOT NULL default '0',
-	`charpos_y` smallint(6) NOT NULL default '0',
-	`charpos_z` smallint(6) NOT NULL default '0',
-	PRIMARY KEY (`serial`)
-);
-
 CREATE TABLE `items` (
 	`serial` int(11) NOT NULL default '0',
 	`id` smallint(5)  NOT NULL default '0',
@@ -133,7 +79,6 @@ CREATE TABLE `items` (
 	`cont` int(11) NOT NULL default '-1',
 	`layer` tinyint(3)  NOT NULL default '0',
 	`amount` smallint(5)  NOT NULL default '0',
-	`decaytime` int(10)  NOT NULL default '0',
 	`hp` smallint(6) NOT NULL default '0',
 	`maxhp` smallint(6) NOT NULL default '0',
 	`magic` tinyint(3)  NOT NULL default '0',
@@ -143,25 +88,6 @@ CREATE TABLE `items` (
 	`priv` tinyint(3)  NOT NULL default '0',
 	`baseid` varchar(64) NOT NULL default '',
 	PRIMARY KEY (`serial`)
-);
-
-CREATE TABLE `multis` (
-	`serial` int(11) NOT NULL default '0',
-	`coowner` int(11) NOT NULL default '-1',
-	`deedsection` varchar(255) NOT NULL default '',
-	PRIMARY KEY (`serial`)
-);
-
-CREATE TABLE `multis_bans` (
-	`serial` int(11) NOT NULL default '0',
-	`ban` int(11) NOT NULL default '-1',
-	PRIMARY KEY (`serial`,`ban`)
-);
-
-CREATE TABLE `multis_friends` (
-	`serial` int(11) NOT NULL default '0',
-	`friend` int(11) NOT NULL default '-1',
-	PRIMARY KEY (`serial`,`friend`)
 );
 
 CREATE TABLE `npcs` (
@@ -215,7 +141,6 @@ CREATE TABLE `uobject` (
 	`name` varchar(255) default NULL,
 	`serial` int(11) NOT NULL default '0',
 	`multis` int(11) NOT NULL default '-1',
-	`direction` char(1) NOT NULL default '0',
 	`pos_x` smallint(6)  NOT NULL default '0',
 	`pos_y` smallint(6)  NOT NULL default '0',
 	`pos_z` smallint(6) NOT NULL default '0',
