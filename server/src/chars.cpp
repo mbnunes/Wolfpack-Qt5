@@ -524,7 +524,6 @@ P_ITEM cChar::getBackpack()
 		backpack = Items->SpawnItem( this, 1, "#", false, 0xE75, 0x0000, false );
 		if( backpack )
 		{
-			backpack->setLayer( 0x15 );
 			backpack->setOwner( this );
 			this->addItem( Backpack, backpack );
 			backpack->setType( 1 );
@@ -927,8 +926,8 @@ bool cChar::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->executeQuery( QString( "DELETE FROM characters WHERE `serial`= '%1'" ).arg( serial ) );
-	persistentBroker->executeQuery( QString( "DELETE FROM skills WHERE `serial`= '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "characters", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "skills", QString( "serial = '%1'" ).arg( serial ) );
 	return cUObject::del();
 }
 
@@ -1113,7 +1112,6 @@ void cChar::processNode( const QDomElement &Tag )
 			pBackpack->pos.y = 0;
 			pBackpack->pos.z = 0;
 			this->addItem( Backpack, pBackpack );
-			pBackpack->setLayer( 0x15 );
 			pBackpack->setType( 1 );
 			pBackpack->dye=1;
 
@@ -1483,19 +1481,22 @@ void cChar::processNode( const QDomElement &Tag )
 
 			nItem->applyDefinition( tItem );
 
+			UINT8 mLayer = nItem->layer();
+			nItem->setLayer( 0 );
+
 			// Instead of deleting try to get a valid layer instead
-			if( nItem->layer() == 0 )
+			if( !mLayer )
 			{
 				tile_st tInfo = cTileCache::instance()->getTile( nItem->id() );
 				if( tInfo.layer > 0 )
-					nItem->setLayer( tInfo.layer );
+					mLayer = tInfo.layer;
 			}
 				
 			// Recheck
 			if( !nItem->layer() )
 				Items->DeleItem( nItem );
 			else
-				this->addItem( static_cast<cChar::enLayer>(nItem->layer()), nItem ); // not sure about this one.
+				this->addItem( static_cast<cChar::enLayer>(mLayer), nItem ); // not sure about this one.
 
 			++iter;
 		}
@@ -1915,10 +1916,9 @@ void cChar::makeShop( void )
 		
 		if( pItem )
 		{
-			pItem->setLayer( layer );
 			pItem->setType( 1 );
 			pItem->priv |= 0x02;
-			this->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
+			this->addItem( static_cast<cChar::enLayer>(layer), pItem );
 		}
 	}
 }
@@ -2348,7 +2348,7 @@ void cChar::kill()
 		{
 			robe_ = pItem->serial;
 //			pItem->setContSerial( serial );
-			pItem->setLayer( 0x16 );
+//			pItem->setLayer( 0x16 );
 			this->addItem( cChar::OuterTorso, pItem );
 			pItem->update();
 		}
@@ -2420,7 +2420,6 @@ void cChar::resurrect()
 	pRobe->setColor( 0 );
 	pRobe->setHp( 1 );
 	pRobe->setMaxhp( 1 );
-	pRobe->setLayer( 0x16 );
 	this->addItem( cChar::OuterTorso, pRobe );
 	pRobe->update();
 
@@ -2805,18 +2804,21 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				{
 					pItem->applyDefinition( node );
 					pItem->priv |= 0x02; // make it newbie
-					if( pItem->layer() == 0 )
+
+					UINT16 mLayer = pItem->layer();
+					pItem->setLayer( 0 );
+					if( !mLayer )
 					{
 						tile_st tile = cTileCache::instance()->getTile( pItem->id() );
-						pItem->setLayer( tile.layer );
+						mLayer = tile.layer;
 					}
 
-					if( pItem->id() <= 1 || pItem->layer() == 0 )
+					if( pItem->id() <= 1 || mLayer )
 						Items->DeleItem( pItem );
 					else
 					{
 						// Put it onto the char
-						this->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
+						this->addItem( static_cast<cChar::enLayer>( mLayer ), pItem );
 						giveItemBonus( pItem );
 					}
 				}

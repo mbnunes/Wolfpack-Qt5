@@ -34,14 +34,22 @@
 #include <qsqldatabase.h>
 #include <typeinfo>
 #include <qregexp.h>
+#include <vector>
 
 class PersistentObject;
 class cDBDriver;
 class cDBResult;
 
+struct stDeleteItem
+{
+	QString tables;
+	QString conditions;
+};
+
 class PersistentBroker
 {
 	cDBDriver* connection;
+	std::vector< stDeleteItem > deleteQueue;
 
 public:
 	PersistentBroker();
@@ -50,6 +58,8 @@ public:
 	bool connect( const QString& host, const QString& db, const QString& username, const QString& password );
 	bool executeQuery( const QString& query );
 	cDBResult query( const QString& query );
+	void flushDeleteQueue();
+	void addToDeleteQueue( const QString &tables, const QString &conditions );
 
 	bool saveObject( PersistentObject* );
 	bool deleteObject( PersistentObject* );

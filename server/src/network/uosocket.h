@@ -138,6 +138,7 @@ public:
 	void handleGumpResponse( cUORxGumpResponse* packet );
 	void handleHelpRequest( cUORxHelpRequest* packet );
 	void handleSkillLock( cUORxSkillLock* packet );
+	void handleDye( cUORxDye* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );

@@ -333,7 +333,7 @@ void cTrade::sellaction(int s)
 
 P_ITEM cTrade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
 {
-	if( !pChar || !pChar->socket() || !pPlayer || !pPlayer->socket() )
+/*	if( !pChar || !pChar->socket() || !pPlayer || !pPlayer->socket() )
 		return NULL;
 
 	// Create a trade-container for both players
@@ -378,7 +378,8 @@ P_ITEM cTrade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
 	trade.setName( pPlayer->name.latin1() );
 	pChar->socket()->send( &trade );
 
-	return FindItemBySerial( box1 );
+	return FindItemBySerial( box1 );*/
+	return 0;
 }
 
 P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)

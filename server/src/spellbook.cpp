@@ -219,7 +219,7 @@ bool cSpellBook::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->executeQuery( QString( "DELETE FROM spellbooks WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "spellbooks", QString( "serial = '%1'" ).arg( serial ) );
 
 	return cItem::del();
 }

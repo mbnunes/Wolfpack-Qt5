@@ -130,8 +130,8 @@ bool cBook::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->executeQuery( QString( "DELETE FROM books WHERE serial = '%1'" ).arg( serial ) );
-	persistentBroker->executeQuery( QString( "DELETE FROM bookpages WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "books", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "bookpages", QString( "serial = '%1'" ).arg( serial ) );
 
 	return cItem::del();
 }

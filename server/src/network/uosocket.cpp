@@ -278,6 +278,8 @@ void cUOSocket::recieve()
 		handleMultiPurpose( dynamic_cast< cUORxMultiPurpose* >( packet ) ); break;
 	case 0xC8:
 		handleUpdateRange( dynamic_cast< cUORxUpdateRange* >( packet ) ); break;
+	case 0x95:
+		handleDye( dynamic_cast< cUORxDye* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -714,7 +716,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 
 	// Shirt
 	pItem->setId( 0x1517 );
-	pItem->setLayer( 0x05 );
 	pItem->setColor( packet->shirtColor() );
 	pChar->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
 	pItem->dye = 1;
@@ -726,7 +727,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 
 	// Skirt or Pants
 	pItem->setId( ( packet->gender() != 0 ) ? 0x1516 : 0x152E );
-	pItem->setLayer( 0x04 );
 	pItem->setColor( packet->pantsColor() );
 	pChar->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
 	pItem->dye = 1;
@@ -742,7 +742,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		pItem->dye = 1;
 		pItem->priv |= 0x02;
 		pItem->setId( packet->hairStyle() );
-		pItem->setLayer( 11 );
 		pItem->setColor( packet->hairColor() );
 		pChar->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
 		ItemsManager::instance()->registerItem( pItem );
@@ -755,7 +754,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 
 		pItem->setId( packet->beardStyle() );
 		pItem->priv |= 0x02;
-		pItem->setLayer( 16 );
 		pItem->setColor( packet->beardColor() );
 		pChar->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
 		ItemsManager::instance()->registerItem( pItem );
@@ -2089,4 +2087,65 @@ void cUOSocket::updateLightLevel( UINT8 level )
 
 		send( &pLight );
 	}
+}
+
+/*!
+	Class for handling a dye request (for dying dye-tubs).
+*/
+class cDyeTubDyeTarget: public cTargetRequest
+{
+private:
+	UINT16 _color;
+public:
+	cDyeTubDyeTarget( UINT16 color ) { _color = color; }
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		if( !socket->player() )
+			return true;
+
+		P_ITEM pItem = FindItemBySerial( target->serial() );
+
+		if( !pItem )
+			return true;
+
+		if( pItem->getOutmostChar() != socket->player() && !( pItem->isInWorld() && pItem->inRange( socket->player(), 4 ) ) )
+		{
+			socket->sysMessage( tr( "You can't reach this object to dye it." ) );
+			return true;
+		}
+
+		if( pItem->type() != 406 )
+		{
+			socket->sysMessage( tr( "You can only dye dye tubs with this." ) );
+			return true;
+		}
+
+		pItem->setColor( _color );
+		pItem->update();
+
+		return true;
+	}
+};
+
+void cUOSocket::handleDye( cUORxDye* packet )
+{
+	if( !_player )
+		return;
+
+	P_ITEM pItem = FindItemBySerial( packet->serial() );
+	
+	if( !pItem || pItem->type() != 405 )
+		return;
+
+	// Check if there is someone cheating
+	if( packet->color() < 2 && packet->color() > 0x3E9 )
+	{
+		sysMessage( tr( "You can't dye in this kind of color." ) );
+		return;
+	}
+
+	// Ok, now show the client a target to select the dye-tub we want
+	// to dye.
+	attachTarget( new cDyeTubDyeTarget( packet->color() ) );
 }

@@ -346,7 +346,7 @@ bool cHouse::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->executeQuery( QString( "DELETE FROM houses WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "houses", QString( "serial = '%1'" ).arg( serial ) );
 
 	return cMulti::del();
 }

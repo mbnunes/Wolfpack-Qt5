@@ -113,8 +113,8 @@ bool cCorpse::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->executeQuery( QString( "DELETE FROM corpses WHERE serial = '%1'" ).arg( serial ) );
-	persistentBroker->executeQuery( QString( "DELETE FROM corpses_equipment WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "corpses", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "corpses_equipment", QString( "serial = '%1'" ).arg( serial ) );
 
 	return cItem::del();
 }

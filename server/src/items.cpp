@@ -548,7 +548,7 @@ bool cItem::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->executeQuery( QString( "DELETE FROM items WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( serial ) );
 	return cUObject::del();
 }
 

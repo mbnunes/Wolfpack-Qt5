@@ -1395,9 +1395,9 @@ bool cBoat::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->executeQuery( QString( "DELETE FROM boats WHERE serial = '%1'" ).arg( serial ) );
-	persistentBroker->executeQuery( QString( "DELETE FROM boats_itemoffsets WHERE serial = '%1'" ).arg( serial ) );
-	persistentBroker->executeQuery( QString( "DELETE FROM boats_itemids WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "boats", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "boats_itemoffsets", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "boats_itemids", QString( "serial = '%1'" ).arg( serial ) );
 
 	return cMulti::del();
 }

@@ -820,7 +820,8 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				item_->setWeight( hex2dec( it->second ).toShort() );
 				break;
 			case 9:
-				item_->setLayer( hex2dec( it->second ).toShort() );
+				socket->sysMessage( "Setting layers is disabled." );
+				//item_->setLayer( hex2dec( it->second ).toShort() );
 				break;
 			case 10:
 				item_->good = hex2dec( it->second ).toInt();

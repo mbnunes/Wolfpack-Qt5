@@ -129,3 +129,25 @@ cDBResult PersistentBroker::query( const QString& query )
 
 	return connection->query( query );
 }
+
+void PersistentBroker::flushDeleteQueue()
+{
+	std::vector< stDeleteItem >::iterator iter;
+	for( iter = deleteQueue.begin(); iter != deleteQueue.end(); ++iter )
+	{
+		QString tables = (*iter).tables;
+		QString conditions = (*iter).conditions;
+		QString sql = QString( "DELETE FROM %1 WHERE %2" ).arg( tables ).arg( conditions );
+		executeQuery( sql );
+	}
+
+	deleteQueue.clear();
+}
+
+void PersistentBroker::addToDeleteQueue( const QString &tables, const QString &conditions )
+{
+	stDeleteItem dItem;
+	dItem.tables = tables;
+	dItem.conditions = conditions;
+	deleteQueue.push_back( dItem );
+}

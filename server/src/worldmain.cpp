@@ -227,6 +227,9 @@ void CWorldMain::savenewworld(QString module)
 	SrvParams->flush();
 	if (SrvParams->serverLog()) savelog("Server data save\n","server.log");
 
+	// Flush old items
+	persistentBroker->flushDeleteQueue();
+
 	try
 	{
 		AllItemsIterator iterItems;

@@ -135,9 +135,9 @@ bool cMulti::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->executeQuery( QString( "DELETE FROM multis WHERE serial = '%1'" ).arg( serial ) );
-	persistentBroker->executeQuery( QString( "DELETE FROM multis_bans WHERE serial = '%1'" ).arg( serial ) );
-	persistentBroker->executeQuery( QString( "DELETE FROM multis_friends WHERE serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "multis", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "multis_bans", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "multis_friends", QString( "serial = '%1'" ).arg( serial ) );
 
 	return cItem::del();
 }

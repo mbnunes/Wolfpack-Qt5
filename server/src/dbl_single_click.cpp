@@ -860,6 +860,23 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				}
 				return;
 			}
+
+		// Dyes
+		case 405:
+			{
+				cUOTxDyeTub dyetub;
+				dyetub.setSerial( pi->serial );
+				dyetub.setModel( 0xFAB );
+				socket->send( &dyetub );
+			}
+			return;
+
+		// Dying tub
+		case 406:
+			socket->sysMessage( tr( "What do you want to dye?" ) );
+			socket->attachTarget( new cDyeTarget( pi->color() ) );
+			return;
+
 		case 1000: // Ripper...bank checks
 			{
 				socket->sysMessage(tr("To cash this, you need to drop it on a banker."));
@@ -899,10 +916,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		{
 			switch (pi->id())
 			{	
-				case 0x0FA9:// dye
-//					dyeall[s] = 0;
-//					target(s, 0, 1, 0, 31, "Which dye vat will you use this on?");
-					return;// dye
 				case 0x0FAF:
 				case 0x0FB0: // Anvils
 					if( !pc_currchar->inRange( pi, 3 ) )
@@ -926,11 +939,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					}
 //					target(s, 0, 1, 0, 237, "What item would you like to Smelt?");
 					return; // Ripper..Smelting items.
-				case 0x0FAB:// dye vat
-					addid1[s] = static_cast<unsigned char>(pi->color()>>8);
-					addid2[s] = static_cast<unsigned char>(pi->color()%256);
-//					target(s, 0, 1, 0, 32, "Select the clothing to use this on.");
-					return;// dye vat
 				case 0x14F0:// deeds
 					if ((pi->type() != 103) &&(pi->type() != 202))
 					{  
