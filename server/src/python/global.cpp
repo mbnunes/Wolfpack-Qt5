@@ -531,7 +531,7 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 		return NULL;
 	}
 
-	UINT32 expiretime = getArgInt( 0 );
+	Q_UINT32 expiretime = getArgInt( 0 );
 	QString function = getArgStr( 1 );
 	PyObject* py_args = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
 
@@ -619,8 +619,8 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 	StaticsIterator iter = Maps::instance()->staticsIterator( Coord_cl( x, y, 0, map ), exact );
 
 	PyObject* list = PyList_New( 0 );
-	UINT32 xBlock = x / 8;
-	UINT32 yBlock = y / 8;
+	Q_UINT32 xBlock = x / 8;
+	Q_UINT32 yBlock = y / 8;
 
 	for ( ; !iter.atEnd(); ++iter )
 	{

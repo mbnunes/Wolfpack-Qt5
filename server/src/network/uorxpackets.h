@@ -395,7 +395,7 @@ public:
 	{
 		return getShort( 0x87 );
 	}
-	INT32 timezoneBias( void ) const
+	int timezoneBias( void ) const
 	{
 		return getInt( 0x8C );
 	}
@@ -875,7 +875,7 @@ public:
 	{
 		return ( *this )[15];
 	}
-	INT8 z() const
+	signed char z() const
 	{
 		return ( *this )[16];
 	}
@@ -955,7 +955,7 @@ public:
 	{
 		return getShort( 7 );
 	}
-	INT8 z() const
+	signed char z() const
 	{
 		return ( *this )[9];
 	}

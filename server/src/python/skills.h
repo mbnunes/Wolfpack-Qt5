@@ -70,7 +70,7 @@ PyObject* wpSkills_set( wpSkills* self, int skill, PyObject* pValue )
 		return 0;
 	}
 
-	UINT16 value = PyInt_AsLong( pValue );
+	Q_UINT16 value = PyInt_AsLong( pValue );
 
 	if ( self->type == 0 )
 		self->pChar->setSkillValue( skill, value );

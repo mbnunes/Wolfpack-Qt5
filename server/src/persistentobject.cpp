@@ -38,7 +38,7 @@ bool PersistentObject::del()
 	return true;
 }
 
-void PersistentObject::load( char** result, UINT16& offset )
+void PersistentObject::load( char** result, ushort& offset )
 {
 	Q_UNUSED( result );
 	Q_UNUSED( offset );

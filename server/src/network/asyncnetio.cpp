@@ -130,7 +130,7 @@ public:
 	bool consumeReadBuf( Q_ULONG nbytes, char* sink );
 
 	bool login; // false = GameServer Protocol, true = LoginServer Protocol
-	UINT32 seed;
+	Q_UINT32 seed;
 	cClientEncryption* encryption;
 };
 

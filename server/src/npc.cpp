@@ -66,7 +66,7 @@ cNPC::cNPC()
 	wanderType_ = stWanderType();
 	aiid_ = "Monster_Aggressive_L1";
 	ai_ = new Monster_Aggressive_L1( this );
-	aiCheckInterval_ = ( UINT16 ) floor( Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC );
+	aiCheckInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC );
 	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_;
 }
 
@@ -157,7 +157,7 @@ void cNPC::save( cBufferedWriter& writer, unsigned int version )
 	writer.writeShort( wanderRadius() );
 }
 
-void cNPC::load( char** result, UINT16& offset )
+void cNPC::load( char** result, Q_UINT16& offset )
 {
 	cBaseChar::load( result, offset );
 	SERIAL ser;
@@ -380,7 +380,7 @@ void cNPC::talk( const QString& message, UI16 color, UINT8 type, bool autospam, 
 	}
 }
 
-void cNPC::talk( const UINT32 MsgID, const QString& params /*= 0*/, const QString& affix /*= 0*/, bool prepend /*= false*/, UI16 color /*= 0xFFFF*/, cUOSocket* socket /*= 0*/ )
+void cNPC::talk( const Q_UINT32 MsgID, const QString& params /*= 0*/, const QString& affix /*= 0*/, bool prepend /*= false*/, UI16 color /*= 0xFFFF*/, cUOSocket* socket /*= 0*/ )
 {
 	if ( color == 0xFFFF )
 		color = saycolor_;
@@ -598,12 +598,12 @@ void cNPC::giveGold( Q_UINT32 amount, bool inBank )
 	}
 }
 
-UINT32 cNPC::takeGold( UINT32 amount, bool inBank )
+Q_UINT32 cNPC::takeGold( Q_UINT32 amount, bool inBank )
 {
 	Q_UNUSED( inBank );
 	P_ITEM pPack = getBackpack();
 
-	UINT32 dAmount = 0;
+	Q_UINT32 dAmount = 0;
 
 	if ( pPack )
 		dAmount = pPack->deleteAmount( amount, 0xEED, 0 );

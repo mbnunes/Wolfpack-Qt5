@@ -47,7 +47,7 @@
 // System Includes
 #include <math.h>
 
-void cSkills::SkillUse( cUOSocket* socket, UINT16 id ) // Skill is clicked on the skill list
+void cSkills::SkillUse( cUOSocket* socket, Q_UINT16 id ) // Skill is clicked on the skill list
 {
 	P_PLAYER pChar = socket->player();
 
@@ -157,7 +157,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 	// 1000 Skill == 100 Weight == 10 Stones
 
 	QPtrList<cItem> containment = pBackpack->getContainment();
-	UINT32 chance = containment.count();
+	Q_UINT32 chance = containment.count();
 
 	P_ITEM pItem = containment.first();
 	P_ITEM pToSteal = 0;
@@ -325,7 +325,7 @@ void cSkills::load()
 	skillRanks.clear();
 
 	// Try to get all skills first
-	UINT32 i;
+	Q_UINT32 i;
 
 	for ( i = 0; i < ALLSKILLS; ++i )
 	{
@@ -404,7 +404,7 @@ QString cSkills::getSkillTitle( P_CHAR pChar ) const
 	return skillTitle;
 }
 
-const QString& cSkills::getSkillName( UINT16 skill ) const
+const QString& cSkills::getSkillName( Q_UINT16 skill ) const
 {
 	if ( skill >= skills.size() )
 	{
@@ -428,7 +428,7 @@ INT16 cSkills::findSkillByDef( const QString& defname ) const
 	return -1;
 }
 
-const QString& cSkills::getSkillDef( UINT16 skill ) const
+const QString& cSkills::getSkillDef( Q_UINT16 skill ) const
 {
 	if ( skill >= skills.size() )
 	{

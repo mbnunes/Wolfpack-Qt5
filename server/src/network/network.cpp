@@ -214,7 +214,7 @@ void cNetwork::unload()
 	cComponent::unload();
 }
 
-void cNetwork::broadcast( const QString& message, UINT16 color, UINT16 font )
+void cNetwork::broadcast( const QString& message, Q_UINT16 color, Q_UINT16 font )
 {
 	for ( cUOSocket*socket = uoSockets.first(); socket; socket = uoSockets.next() )
 	{

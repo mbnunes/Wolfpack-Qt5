@@ -106,8 +106,8 @@ public:
 		addResizeGump( 10, 10, 0xA3C, 420, 75 );
 		addResizeGump( 10, 85, 0xBB8, 420, 50 );
 
-		UINT32 pCount = 0;
-		UINT32 pAmount = 0;
+		Q_UINT32 pCount = 0;
+		Q_UINT32 pAmount = 0;
 
 		// 1: Animals
 		// 2: Monsters

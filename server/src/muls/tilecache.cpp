@@ -88,7 +88,7 @@ void cTileCache::load()
 		throw wpException( QString( "Error opening file %1 for reading." ).arg( path + "tiledata.mul" ) );
 
 	// Begin reading in the Land-Tiles
-	UINT32 i, j;
+	Q_UINT32 i, j;
 
 	for ( i = 0; i < 512; ++i )
 	{
@@ -98,7 +98,7 @@ void cTileCache::load()
 		// Read all 32 blocks
 		for ( j = 0; j < 32; ++j )
 		{
-			UINT16 tileId = ( i * 32 ) + j;
+			Q_UINT16 tileId = ( i * 32 ) + j;
 			land_st landTile;
 			input.readBlock( ( char * ) &landTile, 26 );
 
@@ -113,7 +113,7 @@ void cTileCache::load()
 	// Repeat the same procedure for static tiles
 	// NOTE: We are only interested in the REAL static tiles, nothing of
 	// that ALHPA crap above it
-	UINT32 skipLand = 512 * ( 4 + ( 32 * 26 ) );
+	Q_UINT32 skipLand = 512 * ( 4 + ( 32 * 26 ) );
 
 	for ( i = 0; i < 512; ++i )
 	{
@@ -123,7 +123,7 @@ void cTileCache::load()
 		// Read all 32 blocks
 		for ( j = 0; j < 32; ++j )
 		{
-			UINT16 tileId = ( i * 32 ) + j;
+			Q_UINT16 tileId = ( i * 32 ) + j;
 			tile_st staticTile;
 			input.readBlock( ( char * ) &staticTile, 37 ); // Length of one record: 37
 
@@ -140,19 +140,19 @@ void cTileCache::load()
 	input.setName( path + "verdata.mul" );
 	if ( input.open( IO_ReadOnly ) )
 	{
-		UINT32 patches;
+		Q_UINT32 patches;
 		QDataStream verdata( &input );
 		verdata.setByteOrder( QDataStream::LittleEndian );
 
 		verdata >> patches;
 
 		// Seek trough all patches
-		for ( UINT32 patchId = 0; patchId < patches; ++patchId )
+		for ( Q_UINT32 patchId = 0; patchId < patches; ++patchId )
 		{
 			verdata.device()->at( 4 + ( patchId * 21 ) );
 
 			// Read the patch
-			UINT32 fileId, blockId, offset, length, extra;
+			Q_UINT32 fileId, blockId, offset, length, extra;
 			verdata >> fileId >> blockId >> offset >> length >> extra;
 
 			if ( fileId != VERFILE_TILEDATA )
@@ -165,7 +165,7 @@ void cTileCache::load()
 				blockId -= 512;
 				for ( i = 0; i < 32; ++i )
 				{
-					UINT16 tileId = ( blockId * 32 ) + i;
+					Q_UINT16 tileId = ( blockId * 32 ) + i;
 					tile_st tile;
 					verdata.device()->readBlock( ( char * ) &tile, sizeof( tile_st ) );
 
@@ -179,7 +179,7 @@ void cTileCache::load()
 			{
 				for ( i = 0; i < 32; ++i )
 				{
-					UINT16 tileId = ( blockId * 32 ) + i;
+					Q_UINT16 tileId = ( blockId * 32 ) + i;
 					land_st tile;
 					verdata.device()->readBlock( ( char * ) &tile, sizeof( land_st ) );
 
@@ -197,7 +197,7 @@ void cTileCache::load()
 }
 
 // Get's a land-tile out of the cache
-land_st cTileCache::getLand( UINT16 tileId )
+land_st cTileCache::getLand( Q_UINT16 tileId )
 {
 	if ( landTiles.find( tileId ) == landTiles.end() )
 		return emptyLandTile;
@@ -206,7 +206,7 @@ land_st cTileCache::getLand( UINT16 tileId )
 }
 
 // The same for static-tiles
-tile_st cTileCache::getTile( UINT16 tileId )
+tile_st cTileCache::getTile( Q_UINT16 tileId )
 {
 	if ( staticTiles.find( tileId ) == staticTiles.end() )
 		return emptyStaticTile;

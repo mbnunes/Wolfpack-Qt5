@@ -70,7 +70,7 @@ public:
 	};
 
 	// implementation of interfaces
-	void load( char**, UINT16& );
+	void load( char**, Q_UINT16& );
 	void save();
 	bool del();
 	void load( cBufferedReader& reader, unsigned int version );
@@ -84,9 +84,9 @@ public:
 	virtual void talk( const QString& message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	virtual UINT8 notoriety( P_CHAR pChar );
 	virtual void showName( cUOSocket* socket );
-	virtual void soundEffect( UI16 soundId, bool hearAll = true );
-	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
-	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
+	virtual void soundEffect( ushort soundId, bool hearAll = true );
+	virtual void giveGold( uint amount, bool inBank = false );
+	virtual uint takeGold( uint amount, bool useBank = false );
 	virtual void flagUnchanged();
 	virtual bool message( const QString& message, unsigned short color = 0x3b2, cUObject* source = 0, unsigned short font = 0x03, unsigned char mode = 0x00 );
 	virtual bool sysmessage( const QString& message, unsigned short color = 0x3b2, unsigned short font = 0x03 );
@@ -129,10 +129,10 @@ public:
 
 	// getters
 	cAccount* account() const;
-	UINT32 additionalFlags() const;
-	UINT32 logoutTime() const;
-	UINT32 objectDelay() const;
-	UINT32 trackingTime() const;
+	Q_UINT32 additionalFlags() const;
+	Q_UINT32 logoutTime() const;
+	Q_UINT32 objectDelay() const;
+	Q_UINT32 trackingTime() const;
 	cUOSocket* socket() const;
 	enInputMode inputMode() const
 	{
@@ -155,10 +155,10 @@ public:
 
 	// setters
 	void setAccount( cAccount* data, bool moveFromAccToAcc = true );
-	void setAdditionalFlags( UINT32 data );
-	void setLogoutTime( UINT32 data );
-	void setObjectDelay( UINT32 data );
-	void setTrackingTime( UINT32 data );
+	void setAdditionalFlags( Q_UINT32 data );
+	void setLogoutTime( Q_UINT32 data );
+	void setObjectDelay( Q_UINT32 data );
+	void setTrackingTime( Q_UINT32 data );
 	void setSocket( cUOSocket* data );
 	void setInputMode( enInputMode data )
 	{
@@ -232,10 +232,10 @@ protected:
 
 	// time till char will be logged out
 	// cOldChar::logout_
-	UINT32 logoutTime_;
+	Q_UINT32 logoutTime_;
 
 	// Time till the player can use another object.
-	UINT32 objectDelay_;
+	Q_UINT32 objectDelay_;
 
 	// Additional property flags.
 	//
@@ -243,7 +243,7 @@ protected:
 	// 02 - may snoop, cOldChar::priv Bit 7
 	// 03 - may broadcast, cOldChar::priv Bit 2
 	// 04 - show serials, cOldChar::priv Bit 4
-	UINT32 additionalFlags_;
+	Q_UINT32 additionalFlags_;
 
 	// The pets that follow the char.
 	CharContainer pets_;
@@ -253,7 +253,7 @@ protected:
 	unsigned char intelligenceLock_;
 
 	// Time till the quest arrow for tracking disappears.
-	UINT32 trackingTime_;
+	Q_UINT32 trackingTime_;
 
 	// Network socket of the player.
 	cUOSocket* socket_;
@@ -301,44 +301,44 @@ inline void cPlayer::flagUnchanged()
 	cBaseChar::flagUnchanged();
 }
 
-inline UINT32 cPlayer::additionalFlags() const
+inline uint cPlayer::additionalFlags() const
 {
 	return additionalFlags_;
 }
 
-inline void cPlayer::setAdditionalFlags( UINT32 data )
+inline void cPlayer::setAdditionalFlags( uint data )
 {
 	additionalFlags_ = data;
 	changed_ = true;
 }
 
-inline UINT32 cPlayer::logoutTime() const
+inline Q_UINT32 cPlayer::logoutTime() const
 {
 	return logoutTime_;
 }
 
-inline void cPlayer::setLogoutTime( UINT32 data )
+inline void cPlayer::setLogoutTime( Q_UINT32 data )
 {
 	logoutTime_ = data;
 	changed_ = true;
 }
 
-inline UINT32 cPlayer::objectDelay() const
+inline Q_UINT32 cPlayer::objectDelay() const
 {
 	return objectDelay_;
 }
 
-inline void cPlayer::setObjectDelay( UINT32 data )
+inline void cPlayer::setObjectDelay( Q_UINT32 data )
 {
 	objectDelay_ = data;
 }
 
-inline UINT32 cPlayer::trackingTime() const
+inline Q_UINT32 cPlayer::trackingTime() const
 {
 	return trackingTime_;
 }
 
-inline void cPlayer::setTrackingTime( UINT32 data )
+inline void cPlayer::setTrackingTime( Q_UINT32 data )
 {
 	trackingTime_ = data;
 }

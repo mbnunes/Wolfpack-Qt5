@@ -292,7 +292,7 @@ void cBaseChar::save( cBufferedWriter& writer, unsigned int version )
 	}
 }
 
-void cBaseChar::load( char** result, UINT16& offset )
+void cBaseChar::load( char** result, Q_UINT16& offset )
 {
 	cUObject::load( result, offset );
 
@@ -360,10 +360,10 @@ void cBaseChar::load( char** result, UINT16& offset )
 		// row[1] = value
 		// row[2] = locktype
 		// row[3] = cap (unused!)
-		UINT16 skill = res.getInt( 0 );
-		UINT16 value = res.getInt( 1 );
+		Q_UINT16 skill = res.getInt( 0 );
+		Q_UINT16 value = res.getInt( 1 );
 		UINT8 lockType = res.getInt( 2 );
-		UINT16 cap = res.getInt( 3 );
+		Q_UINT16 cap = res.getInt( 3 );
 
 		if ( lockType > 2 )
 			lockType = 0;
@@ -675,7 +675,7 @@ P_ITEM cBaseChar::getShield() const
 	return NULL;
 }
 
-void cBaseChar::setHairColor( UINT16 d )
+void cBaseChar::setHairColor( Q_UINT16 d )
 {
 	changed_ = true;
 	cItem* pHair = getItemOnLayer( 11 );
@@ -684,7 +684,7 @@ void cBaseChar::setHairColor( UINT16 d )
 	pHair->update();
 }
 
-void cBaseChar::setHairStyle( UINT16 d )
+void cBaseChar::setHairStyle( Q_UINT16 d )
 {
 	if ( !isHair( d ) )
 		return;
@@ -707,7 +707,7 @@ void cBaseChar::setHairStyle( UINT16 d )
 	pHair->update();
 }
 
-void cBaseChar::setBeardColor( UINT16 d )
+void cBaseChar::setBeardColor( Q_UINT16 d )
 {
 	changed_ = true;
 	cItem* pBeard = getItemOnLayer( 16 );
@@ -716,7 +716,7 @@ void cBaseChar::setBeardColor( UINT16 d )
 	pBeard->update();
 }
 
-void cBaseChar::setBeardStyle( UINT16 d )
+void cBaseChar::setBeardStyle( Q_UINT16 d )
 {
 	if ( !isBeard( d ) )
 		return;
@@ -813,9 +813,9 @@ void cBaseChar::resurrect()
 	setBody( orgBody_ );
 	setSkin( orgSkin_ );
 	setDead( false );
-	hitpoints_ = QMAX( 1, ( UINT16 ) ( 0.1 * maxHitpoints_ ) );
-	stamina_ = ( UINT16 ) ( 0.1 * maxStamina_ );
-	mana_ = ( UINT16 ) ( 0.1 * maxMana_ );
+	hitpoints_ = QMAX( 1, ( Q_UINT16 ) ( 0.1 * maxHitpoints_ ) );
+	stamina_ = ( Q_UINT16 ) ( 0.1 * maxStamina_ );
+	mana_ = ( Q_UINT16 ) ( 0.1 * maxMana_ );
 	fight( 0 );
 	P_ITEM backpack = getBackpack(); // Make sure he has a backpack
 
@@ -975,7 +975,7 @@ void cBaseChar::unhide()
 int cBaseChar::countItems( short ID, short col )
 {
 	// Dont you think it's better to search the char's equipment as well?
-	UINT32 number = 0;
+	Q_UINT32 number = 0;
 	ItemContainer::const_iterator it(content_.begin());
 	ItemContainer::const_iterator end(content_.end());
 
@@ -2167,19 +2167,19 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	return cUObject::getProperty( name );
 }
 
-void cBaseChar::setSkillValue( UINT16 skill, UINT16 value )
+void cBaseChar::setSkillValue( Q_UINT16 skill, Q_UINT16 value )
 {
 	skills_[skill].value = value;
 	skills_[skill].changed = true;
 }
 
-void cBaseChar::setSkillCap( UINT16 skill, UINT16 cap )
+void cBaseChar::setSkillCap( Q_UINT16 skill, Q_UINT16 cap )
 {
 	skills_[skill].cap = cap;
 	skills_[skill].changed = true;
 }
 
-void cBaseChar::setSkillLock( UINT16 skill, UINT8 lock )
+void cBaseChar::setSkillLock( Q_UINT16 skill, UINT8 lock )
 {
 	if ( lock > 2 )
 		lock = 0;
@@ -2188,17 +2188,17 @@ void cBaseChar::setSkillLock( UINT16 skill, UINT8 lock )
 	skills_[skill].changed = true;
 }
 
-UINT16 cBaseChar::skillValue( UINT16 skill ) const
+Q_UINT16 cBaseChar::skillValue( Q_UINT16 skill ) const
 {
 	return skills_[skill].value;
 }
 
-UINT16 cBaseChar::skillCap( UINT16 skill ) const
+Q_UINT16 cBaseChar::skillCap( Q_UINT16 skill ) const
 {
 	return skills_[skill].cap;
 }
 
-UINT8 cBaseChar::skillLock( UINT16 skill ) const
+UINT8 cBaseChar::skillLock( Q_UINT16 skill ) const
 {
 	return skills_[skill].lock;
 }

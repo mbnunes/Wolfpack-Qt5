@@ -105,7 +105,7 @@ public:
 		\params message The message you want to log.
 		\params timestamp Should the message be timestamped.
 	*/
-	void log( UINT8 logLevel, const QString& message, bool timestamp = true );
+	void log( uchar logLevel, const QString& message, bool timestamp = true );
 
 	/*!
 		\brief Give the console time to start.

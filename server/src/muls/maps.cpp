@@ -620,7 +620,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 	uint indexPos = ( baseX* mapRecord->height + baseY ) * 12;
 	assert( indexPos < 0x8000000 ); // dam, breaks our assumption
 
-	UINT32 cachePos;
+	Q_UINT32 cachePos;
 	if ( exact )
 		cachePos = ( x * y ) | 0x80000000;
 	else

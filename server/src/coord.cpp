@@ -120,7 +120,7 @@ Coord_cl Coord_cl::operator-( const Coord_cl& src ) const
 	return Coord_cl( this->x - src.x, this->y - src.y, this->z - src.z, this->map );
 }
 
-void Coord_cl::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT16 renderMode )
+void Coord_cl::effect( Q_UINT16 id, UINT8 speed, UINT8 duration, Q_UINT16 hue, Q_UINT16 renderMode )
 {
 	cUOTxEffect effect;
 	effect.setType( ET_STAYSOURCEPOS );

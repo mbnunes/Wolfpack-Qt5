@@ -40,7 +40,7 @@ typedef struct
 {
 	PyObject_HEAD;
 	Coord_cl pos;
-	UINT16 model;
+	Q_UINT16 model;
 	SERIAL object;
 } wpTarget;
 

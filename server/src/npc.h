@@ -65,28 +65,28 @@ public:
 		stWanderType( enWanderTypes type_ ) : type( type_ )
 		{
 		}
-		stWanderType( UINT16 x1_, UINT16 x2_, UINT16 y1_, UINT16 y2_ ) : type( enRectangle ), x1( x1_ ), x2( x2_ ), y1( y1_ ), y2( y2_ )
+		stWanderType( Q_UINT16 x1_, Q_UINT16 x2_, Q_UINT16 y1_, Q_UINT16 y2_ ) : type( enRectangle ), x1( x1_ ), x2( x2_ ), y1( y1_ ), y2( y2_ )
 		{
 		}
-		stWanderType( UINT16 x_, UINT16 y_, UINT16 radius_ ) : type( enCircle ), x1( x_ ), y1( y_ ), radius( radius_ )
+		stWanderType( Q_UINT16 x_, Q_UINT16 y_, Q_UINT16 radius_ ) : type( enCircle ), x1( x_ ), y1( y_ ), radius( radius_ )
 		{
 		}
 
 		// attributes
 		enWanderTypes type;
 		// rectangles and circles
-		UINT16 x1;
-		UINT16 x2;
-		UINT16 y1;
-		UINT16 y2;
-		UINT16 radius;
+		Q_UINT16 x1;
+		Q_UINT16 x2;
+		Q_UINT16 y1;
+		Q_UINT16 y2;
+		Q_UINT16 radius;
 
 		P_CHAR followTarget;
 		Coord_cl destination;
 	};
 
 	// implementation of interfaces
-	void load( char**, UINT16& );
+	void load( char**, Q_UINT16& );
 	void save();
 	bool del();
 	void load( cBufferedReader& reader, unsigned int version );
@@ -98,13 +98,13 @@ public:
 	virtual void update( bool excludeself = false );
 	virtual void resend( bool clean = true );
 	virtual void talk( const QString& message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
-	void talk( const UINT32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
+	void talk( const Q_UINT32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
 	virtual UINT8 notoriety( P_CHAR pChar = 0 );
 	virtual void showName( cUOSocket* socket );
 	virtual void soundEffect( UI16 soundId, bool hearAll = true );
 	virtual bool inWorld();
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
-	virtual UINT32 takeGold( UINT32 amount, bool inBank = false );
+	virtual Q_UINT32 takeGold( Q_UINT32 amount, bool inBank = false );
 	virtual void applyDefinition( const cElement* );
 	virtual void flagUnchanged()
 	{
@@ -129,17 +129,17 @@ public:
 	void makeShop();
 
 	// getters
-	UINT32 additionalFlags() const;
-	UINT32 nextBeggingTime() const;
-	UINT32 nextGuardCallTime() const;
-	UINT32 nextMoveTime() const;
-	UINT32 nextMsgTime() const;
-	UINT32 summonTime() const;
+	Q_UINT32 additionalFlags() const;
+	Q_UINT32 nextBeggingTime() const;
+	Q_UINT32 nextGuardCallTime() const;
+	Q_UINT32 nextMoveTime() const;
+	Q_UINT32 nextMsgTime() const;
+	Q_UINT32 summonTime() const;
 	P_PLAYER owner() const;
 	SERIAL stablemasterSerial() const;
 	AbstractAI* ai() const;
-	UINT32 aiCheckTime() const;
-	UINT16 aiCheckInterval() const;
+	Q_UINT32 aiCheckTime() const;
+	Q_UINT16 aiCheckInterval() const;
 	bool summoned() const;
 	// advanced getters for data structures
 	// path finding
@@ -149,28 +149,28 @@ public:
 	float pathHeuristic( const Coord_cl& source, const Coord_cl& destination );
 	// wander type
 	enWanderTypes wanderType() const;
-	UINT16 wanderX1() const;
-	UINT16 wanderX2() const;
-	UINT16 wanderY1() const;
-	UINT16 wanderY2() const;
-	UINT16 wanderRadius() const;
+	Q_UINT16 wanderX1() const;
+	Q_UINT16 wanderX2() const;
+	Q_UINT16 wanderY1() const;
+	Q_UINT16 wanderY2() const;
+	Q_UINT16 wanderRadius() const;
 	P_CHAR wanderFollowTarget() const;
 	Coord_cl wanderDestination() const;
 
 	// setters
-	void setAdditionalFlags( UINT32 data );
-	void setNextBeggingTime( UINT32 data );
-	void setNextGuardCallTime( UINT32 data );
-	void setNextMoveTime( UINT32 data );
-	void setNextMsgTime( UINT32 data );
-	void setSummonTime( UINT32 data );
+	void setAdditionalFlags( Q_UINT32 data );
+	void setNextBeggingTime( Q_UINT32 data );
+	void setNextGuardCallTime( Q_UINT32 data );
+	void setNextMoveTime( Q_UINT32 data );
+	void setNextMsgTime( Q_UINT32 data );
+	void setSummonTime( Q_UINT32 data );
 	void setOwner( P_PLAYER data, bool nochecks = false );
 	void setSummoned( bool data );
 	void setStablemasterSerial( SERIAL data );
 	void setGuarding( P_PLAYER data );
 	void setAI( AbstractAI* ai );
-	void setAICheckTime( UINT32 data );
-	void setAICheckInterval( UINT16 data );
+	void setAICheckTime( Q_UINT32 data );
+	void setAICheckInterval( Q_UINT16 data );
 
 	// advanced setters for data structures
 	// AI
@@ -183,11 +183,11 @@ public:
 	void findPath( const Coord_cl& goal, float sufficient_cost = 0.0f );
 	// wander type
 	void setWanderType( enWanderTypes data );
-	void setWanderX1( UINT16 data );
-	void setWanderX2( UINT16 data );
-	void setWanderY1( UINT16 data );
-	void setWanderY2( UINT16 data );
-	void setWanderRadius( UINT16 data );
+	void setWanderX1( Q_UINT16 data );
+	void setWanderX2( Q_UINT16 data );
+	void setWanderY1( Q_UINT16 data );
+	void setWanderY2( Q_UINT16 data );
+	void setWanderRadius( Q_UINT16 data );
 	void setWanderFollowTarget( P_CHAR data );
 	void setWanderDestination( const Coord_cl& data );
 
@@ -216,19 +216,19 @@ protected:
 
 	// Time till NPC talks again.
 	// cOldChar::antispamtimer_
-	UINT32 nextMsgTime_;
+	Q_UINT32 nextMsgTime_;
 
 	// Time till the NPC calls another guard.
 	// cOldChar::antiguardstimer_
-	UINT32 nextGuardCallTime_;
+	Q_UINT32 nextGuardCallTime_;
 
 	// Time till the NPC handles another begging attempt.
 	// cOldChar::begging_timer_
-	UINT32 nextBeggingTime_;
+	Q_UINT32 nextBeggingTime_;
 
 	// Time till npc moves next.
 	// cOldChar::npcmovetime_
-	UINT32 nextMoveTime_;
+	Q_UINT32 nextMoveTime_;
 
 	// Stores information about how the npc wanders. uses the struct
 	// stWanderType with attributes for rectangles, circles and more...
@@ -239,13 +239,13 @@ protected:
 
 	// Time till summoned creature disappears.
 	// cOldChar::summontimer_
-	UINT32 summonTime_;
+	Q_UINT32 summonTime_;
 
 	// Additional property flags
 	//
 	// Bits:
 	// 0x00000001 Creature is summoned
-	UINT32 additionalFlags_;
+	Q_UINT32 additionalFlags_;
 
 	// Owner of this NPC.
 	P_PLAYER owner_;
@@ -263,71 +263,71 @@ protected:
 	QString aiid_;
 
 	// NPC AI check timer
-	UINT32 aiCheckTime_;
+	Q_UINT32 aiCheckTime_;
 
 	// NPC AI check time intervall in msec
-	UINT16 aiCheckInterval_;
+	Q_UINT16 aiCheckInterval_;
 };
 
-inline UINT32 cNPC::additionalFlags() const
+inline Q_UINT32 cNPC::additionalFlags() const
 {
 	return additionalFlags_;
 }
 
-inline void cNPC::setAdditionalFlags( UINT32 data )
+inline void cNPC::setAdditionalFlags( Q_UINT32 data )
 {
 	additionalFlags_ = data;
 	changed_ = true;
 }
 
-inline UINT32 cNPC::nextBeggingTime() const
+inline Q_UINT32 cNPC::nextBeggingTime() const
 {
 	return nextBeggingTime_;
 }
 
-inline void cNPC::setNextBeggingTime( UINT32 data )
+inline void cNPC::setNextBeggingTime( Q_UINT32 data )
 {
 	nextBeggingTime_ = data;
 	changed_ = true;
 }
 
-inline UINT32 cNPC::nextGuardCallTime() const
+inline Q_UINT32 cNPC::nextGuardCallTime() const
 {
 	return nextGuardCallTime_;
 }
 
-inline void cNPC::setNextGuardCallTime( UINT32 data )
+inline void cNPC::setNextGuardCallTime( Q_UINT32 data )
 {
 	nextGuardCallTime_ = data;
 	changed_ = true;
 }
 
-inline UINT32 cNPC::nextMoveTime() const
+inline Q_UINT32 cNPC::nextMoveTime() const
 {
 	return nextMoveTime_;
 }
 
-inline void cNPC::setNextMoveTime( UINT32 data )
+inline void cNPC::setNextMoveTime( Q_UINT32 data )
 {
 	nextMoveTime_ = data;
 }
 
-inline UINT32 cNPC::nextMsgTime() const
+inline Q_UINT32 cNPC::nextMsgTime() const
 {
 	return nextMsgTime_;
 }
 
-inline void cNPC::setNextMsgTime( UINT32 data )
+inline void cNPC::setNextMsgTime( Q_UINT32 data )
 {
 	nextMsgTime_ = data;
 }
 
-inline UINT32 cNPC::summonTime() const
+inline Q_UINT32 cNPC::summonTime() const
 {
 	return summonTime_;
 }
 
-inline void cNPC::setSummonTime( UINT32 data )
+inline void cNPC::setSummonTime( Q_UINT32 data )
 {
 	summonTime_ = data;
 	changed_ = true;
@@ -354,22 +354,22 @@ inline void cNPC::setAI( AbstractAI* ai )
 	changed_ = true;
 }
 
-inline UINT32 cNPC::aiCheckTime() const
+inline Q_UINT32 cNPC::aiCheckTime() const
 {
 	return aiCheckTime_;
 }
 
-inline void cNPC::setAICheckTime( UINT32 data )
+inline void cNPC::setAICheckTime( Q_UINT32 data )
 {
 	aiCheckTime_ = data;
 }
 
-inline UINT16 cNPC::aiCheckInterval() const
+inline Q_UINT16 cNPC::aiCheckInterval() const
 {
 	return aiCheckInterval_;
 }
 
-inline void cNPC::setAICheckInterval( UINT16 data )
+inline void cNPC::setAICheckInterval( Q_UINT16 data )
 {
 	aiCheckInterval_ = data;
 	changed_ = true;
@@ -385,27 +385,27 @@ inline enWanderTypes cNPC::wanderType() const
 	return wanderType_.type;
 }
 
-inline UINT16 cNPC::wanderX1() const
+inline Q_UINT16 cNPC::wanderX1() const
 {
 	return wanderType_.x1;
 }
 
-inline UINT16 cNPC::wanderX2() const
+inline Q_UINT16 cNPC::wanderX2() const
 {
 	return wanderType_.x2;
 }
 
-inline UINT16 cNPC::wanderY1() const
+inline Q_UINT16 cNPC::wanderY1() const
 {
 	return wanderType_.y1;
 }
 
-inline UINT16 cNPC::wanderY2() const
+inline Q_UINT16 cNPC::wanderY2() const
 {
 	return wanderType_.y2;
 }
 
-inline UINT16 cNPC::wanderRadius() const
+inline Q_UINT16 cNPC::wanderRadius() const
 {
 	return wanderType_.radius;
 }
@@ -425,27 +425,27 @@ inline void cNPC::setWanderType( enWanderTypes data )
 	wanderType_.type = data;
 }
 
-inline void cNPC::setWanderX1( UINT16 data )
+inline void cNPC::setWanderX1( Q_UINT16 data )
 {
 	wanderType_.x1 = data;
 }
 
-inline void cNPC::setWanderX2( UINT16 data )
+inline void cNPC::setWanderX2( Q_UINT16 data )
 {
 	wanderType_.x2 = data;
 }
 
-inline void cNPC::setWanderY1( UINT16 data )
+inline void cNPC::setWanderY1( Q_UINT16 data )
 {
 	wanderType_.y1 = data;
 }
 
-inline void cNPC::setWanderY2( UINT16 data )
+inline void cNPC::setWanderY2( Q_UINT16 data )
 {
 	wanderType_.y2 = data;
 }
 
-inline void cNPC::setWanderRadius( UINT16 data )
+inline void cNPC::setWanderRadius( Q_UINT16 data )
 {
 	wanderType_.radius = data;
 }

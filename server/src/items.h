@@ -200,8 +200,8 @@ public:
 
 	bool isInLockedItem();
 	virtual void talk( const QString& message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
-	virtual void talk( const UINT32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
-	void load( char**, UINT16& );
+	virtual void talk( const Q_UINT32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
+	void load( char**, Q_UINT16& );
 	void save();
 	bool del();
 
@@ -212,7 +212,7 @@ public:
 	void processContainerNode( const cElement* Tag );
 	virtual void update( cUOSocket* mSock = NULL );
 	P_ITEM dupe();
-	void soundEffect( UINT16 sound );
+	void soundEffect( Q_UINT16 sound );
 
 	// Returns Zero if the item shouldn't decay
 	virtual unsigned int decayDelay();
@@ -460,7 +460,7 @@ public:
 	{
 		return type() == 1008;
 	}
-	UINT16 getWeaponSkill();
+	Q_UINT16 getWeaponSkill();
 
 	void moveTo( const Coord_cl& pos, bool noremove = false );
 	long reduceAmount( short amount = 1 );

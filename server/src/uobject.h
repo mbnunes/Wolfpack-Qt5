@@ -122,7 +122,7 @@ public:
 	}
 
 	// Serialization Methods
-	void load( char**, UINT16& );
+	void load( char**, Q_UINT16& );
 	void save();
 	bool del();
 
@@ -136,11 +136,11 @@ public:
 	void postload( unsigned int version ) = 0;
 
 	// Utility Methods
-	void effect( UINT16 id, UINT8 speed = 10, UINT8 duration = 5, UINT16 hue = 0, UINT16 renderMode = 0 ); // Moving with this character
-	void effect( UINT16 id, cUObject* target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
-	void effect( UINT16 id, const Coord_cl& target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
+	void effect( Q_UINT16 id, UINT8 speed = 10, UINT8 duration = 5, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 ); // Moving with this character
+	void effect( Q_UINT16 id, cUObject* target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
+	void effect( Q_UINT16 id, const Coord_cl& target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
 	void lightning( unsigned short hue = 0 );
-	bool inRange( cUObject* object, UINT32 range ) const;
+	bool inRange( cUObject* object, Q_UINT32 range ) const;
 	void removeFromView( bool clean = true );
 	virtual void sendTooltip( cUOSocket* mSock );
 	bool isItem() const
@@ -188,7 +188,7 @@ public:
 	{
 		return serial_;
 	}
-	UINT32 getTooltip() const
+	Q_UINT32 getTooltip() const
 	{
 		return tooltip_;
 	}
@@ -218,7 +218,7 @@ public:
 		serial_ = d; changed_ = true;
 	}
 
-	void setTooltip( const UINT32 d )
+	void setTooltip( const Q_UINT32 d )
 	{
 		tooltip_ = d;
 	}

@@ -552,8 +552,8 @@ void Action_Wander::execute()
 	case enRectangle:
 		{
 			// get any point out of the rectangle and calculate the direction to it
-			UINT16 rndx = RandomNum( m_npc->wanderX1(), m_npc->wanderX2() );
-			UINT16 rndy = RandomNum( m_npc->wanderY1(), m_npc->wanderY2() );
+			Q_UINT16 rndx = RandomNum( m_npc->wanderX1(), m_npc->wanderX2() );
+			Q_UINT16 rndy = RandomNum( m_npc->wanderY1(), m_npc->wanderY2() );
 
 			UINT8 dir = m_npc->pos().direction( Coord_cl( rndx, rndy ) );
 			m_npc->setDirection( dir );

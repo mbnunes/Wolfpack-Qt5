@@ -148,12 +148,12 @@ public:
 	}
 
 	// HTML Stuff
-	void addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString& html, bool hasBack = false, bool canScroll = false );
-	void addXmfHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, UINT32 clilocid, bool hasBack = false, bool canScroll = false );
+	void addHtmlGump( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, const QString& html, bool hasBack = false, bool canScroll = false );
+	void addXmfHtmlGump( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, Q_UINT32 clilocid, bool hasBack = false, bool canScroll = false );
 	// void addXmfHtmlColorGump( );
 
 	// CheckerTrans
-	void addCheckertrans( INT32 x, INT32 y, INT32 width, INT32 height );
+	void addCheckertrans( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height );
 };
 
 /*****************************************************************************
@@ -254,13 +254,13 @@ public:
 class cPagesGump : public cGump
 {
 private:
-	UINT32 page_;
+	uint page_;
 	WPPAGE_TYPE ptype_;
 
 	std::vector<cPage*> pagequeue_;
 
 public:
-	cPagesGump( UINT32 page, WPPAGE_TYPE ptype );
+	cPagesGump( uint page, WPPAGE_TYPE ptype );
 
 	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };

@@ -173,8 +173,8 @@ QString cUORxSpeechRequest::message()
 	if ( type() & 0xc0 )
 	{
 		// Skip the keywords
-		UINT16 skipCount = ( keywordCount() + 1 ) * 12; // We have 12 Bits for the count as well
-		UINT16 skipBytes = static_cast<UINT16>( skipCount / 8 );
+		Q_UINT16 skipCount = ( keywordCount() + 1 ) * 12; // We have 12 Bits for the count as well
+		Q_UINT16 skipBytes = static_cast<Q_UINT16>( skipCount / 8 );
 		if ( skipCount % 8 > 0 ) // Round up
 			skipBytes++;
 
@@ -193,18 +193,18 @@ gumpChoice_st cUORxGumpResponse::choice()
 {
 	gumpChoice_st choice;
 	choice.button = getInt( 11 );
-	UINT32 numSwitches = getInt( 15 );
-	UINT32 i;
+	Q_UINT32 numSwitches = getInt( 15 );
+	Q_UINT32 i;
 	for ( i = 0; i < numSwitches; i++ )
 	{
 		choice.switches.push_back( getInt( 19 + 4 * i ) );
 	}
-	UINT32 numTextEntries = getInt( 19 + 4 * numSwitches );
-	UINT32 offset = 0;
+	Q_UINT32 numTextEntries = getInt( 19 + 4 * numSwitches );
+	Q_UINT32 offset = 0;
 	for ( i = 0; i < numTextEntries; i++ )
 	{
-		UINT16 textLength = getShort( 25 + 4 * numSwitches + offset );
-		choice.textentries.insert( make_pair<UINT16, QString>( getShort( 23 + 4 * numSwitches + offset ), getUnicodeString( 27 + 4 * numSwitches + offset, textLength * 2 ) ) );
+		Q_UINT16 textLength = getShort( 25 + 4 * numSwitches + offset );
+		choice.textentries.insert( make_pair<Q_UINT16, QString>( getShort( 23 + 4 * numSwitches + offset ), getUnicodeString( 27 + 4 * numSwitches + offset, textLength * 2 ) ) );
 
 		offset += 4 + textLength * 2;
 	}
@@ -212,20 +212,20 @@ gumpChoice_st cUORxGumpResponse::choice()
 	return choice;
 }
 
-QValueVector< UINT16 > cUORxSpeechRequest::keywords()
+QValueVector< Q_UINT16 > cUORxSpeechRequest::keywords()
 {
-	QValueVector<UINT16> keywords;
+	QValueVector<Q_UINT16> keywords;
 
-	UINT16 count = keywordCount();
-	UINT16 offset = 13; // Skip the count
+	ushort count = keywordCount();
+	ushort offset = 13; // Skip the count
 
-	for ( UINT16 i = 0; i < count; ++i )
+	for ( ushort i = 0; i < count; ++i )
 	{
 		// Invalid Packet size
 		if ( offset + 2U > size() )
 			return keywords;
 
-		UINT16 value;
+		ushort value;
 
 		// The second, fourth, etc. keyword always
 		// has the *first* 12 bits of a short

@@ -263,7 +263,7 @@ void cItem::toBackpack( P_CHAR pChar )
  */
 long cItem::reduceAmount( const short amt )
 {
-	UINT16 rest = 0;
+	Q_UINT16 rest = 0;
 	if ( amount_ > amt )
 	{
 		setAmount( amount_ - amt );
@@ -1235,7 +1235,7 @@ P_ITEM cItem::dupe()
 	return nItem;
 }
 
-void cItem::soundEffect( UINT16 sound )
+void cItem::soundEffect( Q_UINT16 sound )
 {
 	for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		if ( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
@@ -1328,7 +1328,7 @@ void cItem::talk( const QString& message, UI16 color, UINT8 type, bool autospam,
 	}
 }
 
-void cItem::talk( const UINT32 MsgID, const QString& params, const QString& affix, bool prepend, UI16 color, cUOSocket* socket )
+void cItem::talk( const Q_UINT32 MsgID, const QString& params, const QString& affix, bool prepend, UI16 color, cUOSocket* socket )
 {
 	if ( color == 0xFFFF )
 		color = 0x3b2;
@@ -1436,7 +1436,7 @@ unsigned char cItem::classid;
 
 static FactoryRegistration<cItem> registration("cItem");
 
-void cItem::load( char** result, UINT16& offset )
+void cItem::load( char** result, Q_UINT16& offset )
 {
 	cUObject::load( result, offset ); // Load the items we inherit from first
 
@@ -1671,7 +1671,7 @@ void cItem::setAmount( UI16 nValue )
 	flagChanged();
 }
 
-UINT16 cItem::getWeaponSkill()
+Q_UINT16 cItem::getWeaponSkill()
 {
 	switch ( type() )
 	{

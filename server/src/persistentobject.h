@@ -51,7 +51,7 @@ public:
 	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 	virtual bool del();
 
-	virtual void load( char**, UINT16& );
+	virtual void load( char**, ushort& );
 	virtual void save();
 
 	// Wrapper

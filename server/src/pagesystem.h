@@ -49,7 +49,7 @@ private:
 	QString pagetime_;
 	Coord_cl pagepos_;
 	QString content_;
-	UINT32 pagecateg_;
+	Q_UINT32 pagecateg_;
 public:
 	cPage( SERIAL charserial, WPPAGE_TYPE pagetype, const QString& content, const Coord_cl& pagepos )
 	{
@@ -89,7 +89,7 @@ public:
 	{
 		return content_;
 	}
-	UINT32 pageCategory() const
+	Q_UINT32 pageCategory() const
 	{
 		return pagecateg_;
 	}
@@ -118,7 +118,7 @@ public:
 	{
 		content_ = data;
 	}
-	void setPageCategory( UINT32 data )
+	void setPageCategory( Q_UINT32 data )
 	{
 		pagecateg_ = data;
 	}

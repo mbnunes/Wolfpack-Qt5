@@ -229,7 +229,7 @@ private:
 private:
 	QString midilist_; // midilist to play
 
-	UINT16 flags_; // flags like guarded, mark allowed, etc. (see getters)
+	Q_UINT16 flags_; // flags like guarded, mark allowed, etc. (see getters)
 
 	QString guardowner_;
 	UI08 snowchance_;

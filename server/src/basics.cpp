@@ -106,11 +106,11 @@ bool parseCoordinates( const QString& input, Coord_cl& coord )
 
 	bool ok = false;
 
-	UINT16 x = coords[0].toULong( &ok );
+	Q_UINT16 x = coords[0].toULong( &ok );
 	if ( !ok )
 		return false;
 
-	UINT16 y = coords[1].toULong( &ok );
+	Q_UINT16 y = coords[1].toULong( &ok );
 	if ( !ok )
 		return false;
 

@@ -85,7 +85,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		return;
 	}
 
-	UINT32 itemCount = packet->itemCount();
+	Q_UINT32 itemCount = packet->itemCount();
 
 	if ( itemCount >= 256 )
 	{
@@ -105,9 +105,9 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 	if ( pBought )
 		bContent = pBought->content();
 
-	UINT32 totalValue = 0;
-	UINT32 i;
-	map<SERIAL, UINT16> items;
+	Q_UINT32 totalValue = 0;
+	Q_UINT32 i;
+	map<SERIAL, Q_UINT16> items;
 
 	for ( i = 0; i < itemCount; ++i )
 	{
@@ -120,7 +120,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 			return;
 		}
 
-		UINT16 amount = packet->iAmount( i );
+		Q_UINT16 amount = packet->iAmount( i );
 		UINT8 layer = packet->iLayer( i );
 
 		// First check: is the item on the vendor in the specified layer
@@ -171,8 +171,8 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 	}
 
 	// Get our total gold at once
-	UINT32 bankGold = pChar->countBankGold();
-	UINT32 packGold = pChar->countGold();
+	Q_UINT32 bankGold = pChar->countBankGold();
+	Q_UINT32 packGold = pChar->countGold();
 	bool fromBank;
 
 	if ( !pChar->isGM() )
@@ -197,10 +197,10 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 	}
 
 	// Sanity checks all passed here
-	for ( map<SERIAL, UINT16>::iterator iter = items.begin(); iter != items.end(); ++iter )
+	for ( map<SERIAL, Q_UINT16>::iterator iter = items.begin(); iter != items.end(); ++iter )
 	{
 		P_ITEM pItem = FindItemBySerial( iter->first );
-		UINT16 amount = QMIN( iter->second, pItem->restock() );
+		Q_UINT16 amount = QMIN( iter->second, pItem->restock() );
 
 		pItem->setRestock( pItem->restock() - amount ); // Reduce the items in stock
 		P_ITEM pSold;
@@ -216,7 +216,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		}
 		else
 		{
-			for ( UINT16 j = 0; j < amount; ++j )
+			for ( Q_UINT16 j = 0; j < amount; ++j )
 			{
 				pSold = pItem->dupe();
 				pSold->removeTag( "restock" ); // Remove the restock tag;
@@ -270,7 +270,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 		return;
 	}
 
-	UINT32 itemCount = packet->itemCount();
+	Q_UINT32 itemCount = packet->itemCount();
 
 	if ( itemCount >= 256 )
 	{
@@ -288,9 +288,9 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 	cItem::ContainerContent sContent;
 	cItem::ContainerContent::const_iterator it;
 
-	UINT32 totalValue = 0;
-	UINT32 i;
-	map<SERIAL, UINT16> items;
+	Q_UINT32 totalValue = 0;
+	Q_UINT32 i;
+	map<SERIAL, Q_UINT16> items;
 
 	for ( i = 0; i < itemCount; ++i )
 	{
@@ -303,7 +303,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 			return;
 		}
 
-		UINT16 amount = packet->iAmount( i );
+		Q_UINT16 amount = packet->iAmount( i );
 
 		// First an equal item with higher amount must be in the vendors sell container!
 		sContent = pPurchase->content();
@@ -348,10 +348,10 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 	P_ITEM pBought = pVendor->atLayer( cBaseChar::BuyNoRestockContainer );
 	if ( pBought )
 	{
-		for ( map<SERIAL, UINT16>::iterator iter = items.begin(); iter != items.end(); ++iter )
+		for ( map<SERIAL, Q_UINT16>::iterator iter = items.begin(); iter != items.end(); ++iter )
 		{
 			P_ITEM pItem = FindItemBySerial( iter->first );
-			UINT16 amount = iter->second;
+			Q_UINT16 amount = iter->second;
 
 			if ( pItem->isPileable() )
 			{

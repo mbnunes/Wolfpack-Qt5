@@ -105,8 +105,8 @@ void cLoginEncryption::serverEncrypt( char* buffer, unsigned int length )
 */
 void cLoginEncryption::clientDecrypt( char* buffer, unsigned int length )
 {
-	register UINT32 eax, ecx, edx, esi;
-	for ( UINT32 i = 0; i < length; ++i )
+	register Q_UINT32 eax, ecx, edx, esi;
+	for ( Q_UINT32 i = 0; i < length; ++i )
 	{
 		buffer[i] = buffer[i] ^ ( UINT8 ) ( table1 & 0xFF );
 		edx = table2;

@@ -57,7 +57,7 @@ cConsole::~cConsole()
 	// Clean up any terminal settings
 }
 
-void cConsole::log( UINT8 logLevel, const QString& message, bool timestamp )
+void cConsole::log( uchar logLevel, const QString& message, bool timestamp )
 {
 	// Legacy Code
 	QString msg = message;

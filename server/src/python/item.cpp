@@ -306,14 +306,14 @@ static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 		return NULL;
 	}
 
-	UINT16 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-	UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
-	UINT16 color = 0;
+	Q_UINT16 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	Q_UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+	Q_UINT16 color = 0;
 
 	if ( PyTuple_Size( args ) > 2 && PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
 		color = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
 
-	UINT16 deleted = 0;
+	Q_UINT16 deleted = 0;
 	deleted = self->pItem->deleteAmount( amount, id, color );
 
 	return PyInt_FromLong( deleted );
@@ -338,7 +338,7 @@ static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 		return NULL;
 	}
 
-	UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	Q_UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
 	INT16 color = -1;
 
 	if ( PyTuple_Size( args ) > 1 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
@@ -517,7 +517,7 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 		return NULL;
 	}
 
-	UINT16 id = getArgInt( 0 );
+	Q_UINT16 id = getArgInt( 0 );
 
 	cUObject* object = getArgChar( 1 );
 	if ( !object )
@@ -532,8 +532,8 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 	bool fixedDirection = true;
 	bool explodes = false;
 	UINT8 speed = 10;
-	UINT16 hue = 0;
-	UINT16 renderMode = 0;
+	Q_UINT16 hue = 0;
+	Q_UINT16 renderMode = 0;
 
 	if ( checkArgInt( 2 ) )
 		fixedDirection = getArgInt( 2 ) != 0;
@@ -578,7 +578,7 @@ static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 		return NULL;
 	}
 
-	UINT32 expiretime = getArgInt( 0 );
+	Q_UINT32 expiretime = getArgInt( 0 );
 	QString function = getArgStr( 1 );
 	PyObject* py_args = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
 
@@ -1047,12 +1047,12 @@ static PyObject* wpItem_callevent( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_effect( wpItem* self, PyObject* args )
 {
-	UINT16 id;
+	Q_UINT16 id;
 	// Optional Arguments
 	UINT8 speed = 5;
 	UINT8 duration = 10;
-	UINT16 hue = 0;
-	UINT16 renderMode = 0;
+	Q_UINT16 hue = 0;
+	Q_UINT16 renderMode = 0;
 
 	if ( !PyArg_ParseTuple( args, "H|BBHH:char.effect(id, [speed], [duration], [hue], [rendermode])", &id, &speed, &duration, &hue, &renderMode ) )
 	{

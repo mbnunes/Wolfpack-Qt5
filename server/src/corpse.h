@@ -46,11 +46,11 @@ private:
 	static unsigned char classid;
 
 protected:
-	UINT16 bodyId_; // Body id of the corpse
-	UINT16 hairStyle_; // Style of the hair
-	UINT16 hairColor_; // Color of the hair
-	UINT16 beardStyle_; // Beardstyle
-	UINT16 beardColor_; // Color of the beard
+	Q_UINT16 bodyId_; // Body id of the corpse
+	Q_UINT16 hairStyle_; // Style of the hair
+	Q_UINT16 hairColor_; // Color of the hair
+	Q_UINT16 beardStyle_; // Beardstyle
+	Q_UINT16 beardColor_; // Color of the beard
 	unsigned char direction_; // Direction the corpse is facing.
 	uint murdertime_; // When the people has been killed
 	SERIAL murderer_; // Who was the murderer
@@ -72,11 +72,11 @@ public:
 	}
 
 	cCorpse( bool init = false );
-	void setBodyId( UINT16 data );
-	void setHairStyle( UINT16 data );
-	void setHairColor( UINT16 data );
-	void setBeardStyle( UINT16 data );
-	void setBeardColor( UINT16 data );
+	void setBodyId( Q_UINT16 data );
+	void setHairStyle( Q_UINT16 data );
+	void setHairColor( Q_UINT16 data );
+	void setBeardStyle( Q_UINT16 data );
+	void setBeardColor( Q_UINT16 data );
 	void setMurderer( SERIAL data );
 	void setMurderTime( uint data );
 
@@ -89,11 +89,11 @@ public:
 
 	unsigned int decayDelay();
 
-	UINT16 bodyId() const;
-	UINT16 hairStyle() const;
-	UINT16 hairColor() const;
-	UINT16 beardStyle() const;
-	UINT16 beardColor() const;
+	Q_UINT16 bodyId() const;
+	Q_UINT16 hairStyle() const;
+	Q_UINT16 hairColor() const;
+	Q_UINT16 beardStyle() const;
+	Q_UINT16 beardColor() const;
 	unsigned char direction() const;
 	const QCString& charBaseid() const;
 	SERIAL murderer() const;
@@ -113,7 +113,7 @@ public:
 	}
 
 	// DB Serialization
-	void load( char**, UINT16& );
+	void load( char**, Q_UINT16& );
 	void save();
 	bool del();
 	void load( cBufferedReader& reader, unsigned int version );
@@ -131,27 +131,27 @@ public:
 };
 
 // Inline members
-inline void cCorpse::setBodyId( UINT16 data )
+inline void cCorpse::setBodyId( Q_UINT16 data )
 {
 	bodyId_ = data; changed_ = true;
 }
 
-inline void cCorpse::setHairStyle( UINT16 data )
+inline void cCorpse::setHairStyle( Q_UINT16 data )
 {
 	hairStyle_ = data; changed_ = true;
 }
 
-inline void cCorpse::setHairColor( UINT16 data )
+inline void cCorpse::setHairColor( Q_UINT16 data )
 {
 	hairColor_ = data; changed_ = true;
 }
 
-inline void cCorpse::setBeardStyle( UINT16 data )
+inline void cCorpse::setBeardStyle( Q_UINT16 data )
 {
 	beardStyle_ = data; changed_ = true;
 }
 
-inline void cCorpse::setBeardColor( UINT16 data )
+inline void cCorpse::setBeardColor( Q_UINT16 data )
 {
 	beardColor_ = data; changed_ = true;
 }
@@ -176,27 +176,27 @@ inline void cCorpse::setCharBaseid( const QCString& baseid )
 	charbaseid_ = baseid;
 }
 
-inline UINT16 cCorpse::bodyId() const
+inline Q_UINT16 cCorpse::bodyId() const
 {
 	return bodyId_;
 }
 
-inline UINT16 cCorpse::hairStyle() const
+inline Q_UINT16 cCorpse::hairStyle() const
 {
 	return hairStyle_;
 }
 
-inline UINT16 cCorpse::hairColor() const
+inline Q_UINT16 cCorpse::hairColor() const
 {
 	return hairColor_;
 }
 
-inline UINT16 cCorpse::beardStyle() const
+inline Q_UINT16 cCorpse::beardStyle() const
 {
 	return beardStyle_;
 }
 
-inline UINT16 cCorpse::beardColor() const
+inline Q_UINT16 cCorpse::beardColor() const
 {
 	return beardColor_;
 }

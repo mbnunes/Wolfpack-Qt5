@@ -1050,7 +1050,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
   This method sends a system \a message at the botton of the screen
   \sa cUOTxUnicodeSpeech
 */
-void cUOSocket::sysMessage( const QString& message, Q_UINT16 color, UINT16 font ) const
+void cUOSocket::sysMessage( const QString& message, Q_UINT16 color, Q_UINT16 font ) const
 {
 	if ( message.isEmpty() )
 		return;
@@ -1663,12 +1663,12 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 	// Check if it's a command, then dispatch it to the command system
 	// if it's normal speech send it to the normal speech dispatcher
 	QString speech = packet->message();
-	QValueVector<UINT16> keywords;
+	QValueVector<Q_UINT16> keywords;
 	if ( packet->type() & 0xc0 )
 		keywords = packet->keywords();
-	UINT16 color = packet->color();
-	UINT16 font = packet->font();
-	UINT16 type = packet->type() & 0x3f; // Pad out the Tokenized speech flag
+	Q_UINT16 color = packet->color();
+	Q_UINT16 font = packet->font();
+	Q_UINT16 type = packet->type() & 0x3f; // Pad out the Tokenized speech flag
 
 	// There is one special case. if the user has the body 0x3db and the first char
 	// of the speech is = then it's always a command
@@ -1781,7 +1781,7 @@ void cUOSocket::playMusic()
 		return;
 
 	cTerritory* Region = _player->region();
-	UINT32 midi = 0;
+	Q_UINT32 midi = 0;
 
 	if ( _player->isAtWar() )
 		midi = Definitions::instance()->getRandomListEntry( "MIDI_COMBAT" ).toInt();
@@ -1802,7 +1802,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		return;
 
 	// Get the container gump
-	UINT16 gump = 0x3D;
+	Q_UINT16 gump = 0x3D;
 
 	switch ( pCont->id() )
 	{
@@ -2113,7 +2113,7 @@ void cUOSocket::attachTarget( cTargetRequest* request )
 	send( &target );
 }
 
-void cUOSocket::attachTarget( cTargetRequest* request, UINT16 multiid )
+void cUOSocket::attachTarget( cTargetRequest* request, Q_UINT16 multiid )
 {
 	if ( multiid < 0x4000 )
 		return;
@@ -2171,7 +2171,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	_player->fight( World::instance()->findChar( packet->serial() ) );
 }
 
-void cUOSocket::soundEffect( UINT16 soundId, cUObject* source )
+void cUOSocket::soundEffect( Q_UINT16 soundId, cUObject* source )
 {
 	if ( !_player )
 		return;
@@ -2282,7 +2282,7 @@ void cUOSocket::updateStamina( P_CHAR pChar )
 	else
 	{
 		update.setMaximum( 100 );
-		update.setCurrent( ( UINT16 ) ( ( pChar->stamina() / pChar->dexterity() ) * 100 ) );
+		update.setCurrent( ( Q_UINT16 ) ( ( pChar->stamina() / pChar->dexterity() ) * 100 ) );
 	}
 
 	send( &update );
@@ -2313,7 +2313,7 @@ void cUOSocket::updateMana( P_CHAR pChar )
 	else
 	{
 		update.setMaximum( 100 );
-		update.setCurrent( ( UINT16 ) ( ( pChar->mana() / pChar->intelligence() ) * 100 ) );
+		update.setCurrent( ( Q_UINT16 ) ( ( pChar->mana() / pChar->intelligence() ) * 100 ) );
 	}
 
 	send( &update );
@@ -2455,7 +2455,7 @@ void cUOSocket::handleSecureTrading( cUORxSecureTrading* packet )
 	this->player()->onTrade( packet->type(), packet->buttonstate(), packet->itemserial() );
 }
 
-void cUOSocket::sendSkill( UINT16 skill )
+void cUOSocket::sendSkill( Q_UINT16 skill )
 {
 	if ( !_player )
 		return;
@@ -2708,7 +2708,7 @@ void cUOSocket::handleSell( cUORxSell* packet )
 /*
 thanks to codex
 */
-void cUOSocket::clilocMessage( const UINT32 MsgID, const QString& params, const Q_UINT16 color, const Q_UINT16 font, cUObject* object, bool system )
+void cUOSocket::clilocMessage( const Q_UINT32 MsgID, const QString& params, const Q_UINT16 color, const Q_UINT16 font, cUObject* object, bool system )
 {
 	cUOTxClilocMsg msg;
 
@@ -2754,7 +2754,7 @@ void cUOSocket::clilocMessage( const UINT32 MsgID, const QString& params, const 
 	send( &msg );
 }
 
-void cUOSocket::clilocMessageAffix( const UINT32 MsgID, const QString& params, const QString& affix, const Q_UINT16 color, const Q_UINT16 font, cUObject* object, bool dontMove, bool prepend, bool system )
+void cUOSocket::clilocMessageAffix( const Q_UINT32 MsgID, const QString& params, const QString& affix, const Q_UINT16 color, const Q_UINT16 font, cUObject* object, bool dontMove, bool prepend, bool system )
 {
 	cUOTxClilocMsgAffix msg;
 
@@ -2886,7 +2886,7 @@ void cUOSocket::handleRename( cUORxRename* packet )
 	}
 }
 
-void cUOSocket::sendQuestArrow( bool show, UINT16 x, UINT16 y )
+void cUOSocket::sendQuestArrow( bool show, Q_UINT16 x, Q_UINT16 y )
 {
 	cUOTxQuestArrow qArrow;
 	qArrow.setActive( show ? 1 : 0 );
@@ -2894,7 +2894,7 @@ void cUOSocket::sendQuestArrow( bool show, UINT16 x, UINT16 y )
 	send( &qArrow );
 }
 
-void cUOSocket::closeGump( UINT32 type, UINT32 returnCode )
+void cUOSocket::closeGump( Q_UINT32 type, Q_UINT32 returnCode )
 {
 	cUOTxCloseGump closegump;
 	closegump.setButton( returnCode );
@@ -2902,7 +2902,7 @@ void cUOSocket::closeGump( UINT32 type, UINT32 returnCode )
 	send( &closegump );
 }
 
-void cUOSocket::addTooltip( UINT32 data )
+void cUOSocket::addTooltip( Q_UINT32 data )
 {
 	if ( data >= tooltipscache_->size() )
 		tooltipscache_->resize( data + 2 );

@@ -88,7 +88,7 @@ public:
 	{
 		return uoSockets.next();
 	}
-	UINT32 count()
+	Q_UINT32 count()
 	{
 		return uoSockets.count();
 	}
@@ -97,7 +97,7 @@ public:
 		return QPtrListIterator<cUOSocket>( uoSockets );
 	}
 
-	void broadcast( const QString& message, UINT16 color = 0x84d, UINT16 font = 0 );
+	void broadcast( const QString& message, Q_UINT16 color = 0x84d, Q_UINT16 font = 0 );
 };
 
 typedef SingletonHolder<cNetwork> Network;

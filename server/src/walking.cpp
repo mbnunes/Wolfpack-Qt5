@@ -118,7 +118,7 @@ struct stBlockItem
 
 // Keep in mind that this only get's called when
 // the tile we're walking on is impassable
-bool checkWalkable( P_CHAR pChar, UINT16 tileId )
+bool checkWalkable( P_CHAR pChar, Q_UINT16 tileId )
 {
 	Q_UNUSED( pChar );
 	Q_UNUSED( tileId );
@@ -280,7 +280,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 	// If we find a tile to walk on
 	vector<stBlockItem> blockList = getBlockingItems( pChar, pos );
 	bool found = false;
-	UINT32 i;
+	Q_UINT32 i;
 	bool priviledged = false;
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
@@ -758,7 +758,7 @@ bool cMovement::checkObstacles( P_CHAR pChar, const Coord_cl& newPos, bool runni
 	return true;
 }
 
-UINT16 DynTile( const Coord_cl& pos )
+Q_UINT16 DynTile( const Coord_cl& pos )
 {
 	RegionIterator4Items ri( pos );
 	for ( ri.Begin(); !ri.atEnd(); ri++ )
@@ -772,7 +772,7 @@ UINT16 DynTile( const Coord_cl& pos )
 				if ( !def )
 					return 0;
 				QValueVector<multiItem_st> multi = def->getEntries();
-				for ( UINT32 j = 0; j < multi.size(); ++j )
+				for ( Q_UINT32 j = 0; j < multi.size(); ++j )
 				{
 					if ( ( multi[j].visible && ( mapitem->pos().x + multi[j].x == pos.x ) && ( mapitem->pos().y + multi[j].y == pos.y ) && ( abs( mapitem->pos().z + multi[j].z - pos.z ) <= 1 ) ) )
 					{
@@ -784,7 +784,7 @@ UINT16 DynTile( const Coord_cl& pos )
 				return mapitem->id();
 		}
 	}
-	return ( UINT16 ) - 1;
+	return ( Q_UINT16 ) - 1;
 }
 
 bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const

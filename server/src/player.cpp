@@ -134,7 +134,7 @@ void cPlayer::save( cBufferedWriter& writer, unsigned int version )
 	writer.writeByte( intelligenceLock_ );
 }
 
-void cPlayer::load( char** result, UINT16& offset )
+void cPlayer::load( char** result, Q_UINT16& offset )
 {
 	cBaseChar::load( result, offset );
 
@@ -325,7 +325,7 @@ void cPlayer::talk( const QString& message, UI16 color, UINT8 type, bool autospa
 	// Generate the ghost-speech *ONCE*
 	if ( isDead() )
 	{
-		for ( UINT32 gI = 0; gI < message.length(); ++gI )
+		for ( Q_UINT32 gI = 0; gI < message.length(); ++gI )
 		{
 			if ( message.at( gI ) == " " )
 				ghostSpeech.append( " " );
@@ -750,11 +750,11 @@ void cPlayer::giveGold( Q_UINT32 amount, bool inBank )
 	and returns the amount reduced. If it was successfull, it will return
 	the same value passed on \a amount parameter.
 */
-UINT32 cPlayer::takeGold( UINT32 amount, bool useBank )
+Q_UINT32 cPlayer::takeGold( Q_UINT32 amount, bool useBank )
 {
 	P_ITEM pPack = getBackpack();
 
-	UINT32 dAmount = 0;
+	Q_UINT32 dAmount = 0;
 
 	if ( pPack )
 		dAmount = pPack->deleteAmount( amount, 0xEED, 0 );
@@ -1363,7 +1363,7 @@ void cPlayer::awardKarma( P_CHAR pKilled, short amount )
 	if ( !nChange || !socket() )
 		return;
 
-	UINT32 message = 0xF8CB3;
+	Q_UINT32 message = 0xF8CB3;
 
 	if ( nChange <= 25 )
 	{

@@ -178,8 +178,8 @@ public:
 	void free(); // Call this to free the query
 	char** data() const; // Get the data for the current row
 	bool fetchrow(); // Fetchs a new row, returns false if there is no new row
-	INT32 getInt( UINT32 offset ) const; // Get an integer with a specific offset
-	QString getString( UINT32 offset ) const; // Get a string with a specific offset
+	INT32 getInt( Q_UINT32 offset ) const; // Get an integer with a specific offset
+	QString getString( Q_UINT32 offset ) const; // Get a string with a specific offset
 
 	bool isValid() const
 	{

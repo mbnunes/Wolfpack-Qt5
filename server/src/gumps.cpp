@@ -80,7 +80,7 @@ void cGump::addTiledGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_INT32 width, Q_INT32 h
 	layout_.push_back( QString( "{gumppictiled %1 %2 %4 %5 %3%6}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ).arg( ( hue != -1 ) ? QString( " hue=%1" ).arg( hue ) : QString( "" ) ) );
 }
 
-void cGump::addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString& html, bool hasBack, bool canScroll )
+void cGump::addHtmlGump( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, const QString& html, bool hasBack, bool canScroll )
 {
 	QString layout( "{htmlgump %1 %2 %3 %4 %5 %6 %7}" );
 	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
@@ -88,7 +88,7 @@ void cGump::addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QStr
 	layout_.push_back( layout );
 }
 
-void cGump::addXmfHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, UINT32 clilocid, bool hasBack, bool canScroll )
+void cGump::addXmfHtmlGump( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, Q_UINT32 clilocid, bool hasBack, bool canScroll )
 {
 	QString layout( "{xmfhtmlgump %1 %2 %3 %4 %5 %6 %7}" );
 	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
@@ -96,7 +96,7 @@ void cGump::addXmfHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, UINT32 
 	layout_.push_back( layout );
 }
 
-void cGump::addCheckertrans( INT32 x, INT32 y, INT32 width, INT32 height )
+void cGump::addCheckertrans( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height )
 {
 	QString layout( "{checkertrans %1 %2 %3 %4}" );
 	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
@@ -125,9 +125,9 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 	{
 		QStringList allrectangles = region->rectangles();
 
-		UINT32 page_ = 0;
-		UINT32 numrects = allrectangles.size();
-		UINT32 pages = ( ( UINT32 ) ceil( ( double ) numrects / 10.0f ) );
+		uint page_ = 0;
+		uint numrects = allrectangles.size();
+		uint pages = ( ( uint ) ceil( ( double ) numrects / 10.0f ) );
 
 		startPage();
 		// Basic .INFO Header
@@ -149,9 +149,9 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 		{
 			startPage( page_ );
 
-			UINT32 i;
-			UINT32 right = page_ * 10 - 1;
-			UINT32 left = page_ * 10 - 10;
+			uint i;
+			uint right = page_ * 10 - 1;
+			uint left = page_ * 10 - 10;
 			if ( numrects <= right )
 				right = numrects - 1;
 
@@ -162,7 +162,7 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 				rectangles.push_back( ( *it ) );
 				it++;
 			}
-			UINT32 thisrects = rectangles.size();
+			uint thisrects = rectangles.size();
 
 			for ( i = 0; i < thisrects; i++ )
 			{
@@ -191,7 +191,7 @@ void cSpawnRegionInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_s
 	}
 }
 
-cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
+cPagesGump::cPagesGump( uint page, WPPAGE_TYPE ptype )
 {
 	if ( page == 0 )
 		return;
@@ -202,8 +202,8 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 	QStringList pageTimes;
 	QStringList pageCategories;
 	std::vector<WPPAGE_TYPE> pageTypes;
-	std::vector<UINT32> offsets;
-	UINT32 offset = 0;
+	std::vector<uint> offsets;
+	uint offset = 0;
 
 	QStringList categories = cPagesManager::getInstance()->categories();
 
@@ -226,8 +226,8 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 		offset++;
 	}
 
-	UINT32 numsocks = charNames.size();
-	UINT32 pages = ( ( UINT32 ) ceil( ( double ) numsocks / 10.0f ) );
+	uint numsocks = charNames.size();
+	uint pages = ( ( uint ) ceil( ( double ) numsocks / 10.0f ) );
 
 	startPage();
 	addBackground( 0xE10, 480, 360 ); //Background
@@ -241,12 +241,12 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 
 	startPage( 1 );
 
-	INT32 right = page_ * 10 - 1;
-	INT32 left = page_ * 10 - 10;
+	int right = page_ * 10 - 1;
+	int left = page_ * 10 - 10;
 	if ( ( signed int ) numsocks <= ( signed int ) right )
 		right = numsocks - 1;
 
-	INT32 i = left;
+	int i = left;
 	while ( i <= right )
 	{
 		addButton( 20, 60 + ( i - left ) * 22, 0xFA5, 0xFA7, offsets[i] + 3 );
@@ -329,7 +329,7 @@ cPageInfoGump::cPageInfoGump( cPage* page )
 
 		startPage( 1 );
 
-		UINT16 hue = 0x834;
+		Q_UINT16 hue = 0x834;
 
 		addText( 50, 60, tr( "Char name:" ), hue );
 		addText( 200, 60, QString( "%1" ).arg( pChar->name() ), hue );
@@ -432,7 +432,7 @@ void cPageInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choi
 			break;
 		case 4:
 			{
-				std::map<UINT16, QString>::const_iterator it = choice.textentries.find( 1 );
+				std::map<Q_UINT16, QString>::const_iterator it = choice.textentries.find( 1 );
 				if ( it != choice.textentries.end() )
 					socket_->sysMessage( it->second );
 
@@ -463,7 +463,7 @@ cHelpGump::cHelpGump( SERIAL charSerial )
 	QStringList categories = cPagesManager::getInstance()->categories();
 	cPage* pPage = cPagesManager::getInstance()->find( pChar->serial() );
 
-	UINT32 category = 0;
+	uint category = 0;
 	QStringList lines;
 	if ( pPage )
 	{
@@ -481,7 +481,7 @@ cHelpGump::cHelpGump( SERIAL charSerial )
 	if ( category > categories.count() )
 		category = 0;
 
-	UINT32 heightmod = ( ( UINT32 ) ( categories.count() / 2 ) + ( ( pPage ) ? 2 : 0 ) );
+	uint heightmod = ( ( uint ) ( categories.count() / 2 ) + ( ( pPage ) ? 2 : 0 ) );
 
 	startPage();
 	addResizeGump( 0, 40, 0xA28, 450, 330 + 20 * heightmod ); //Background
@@ -506,8 +506,8 @@ cHelpGump::cHelpGump( SERIAL charSerial )
 	addRadioButton( 250, 230, 0xD0, 0xD1, 2, ( ( pPage ) ? ( pPage->pageType() == PT_COUNSELOR ) : false ) );
 	addText( 280, 230, tr( "Counselor Page" ), 0x849 );
 
-	UINT32 i = 0; // categories[0] == none.. should not be option!
-	UINT32 offset = 0;
+	uint i = 0; // categories[0] == none.. should not be option!
+	uint offset = 0;
 	startGroup( 2 );
 	addText( 50, 270, tr( "Categories:" ), 0x834 );
 	while ( i < categories.count() )
@@ -564,7 +564,7 @@ void cHelpGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 			return;
 
 		QStringList lines;
-		std::map<UINT16, QString>::const_iterator it = choice.textentries.begin();
+		std::map<Q_UINT16, QString>::const_iterator it = choice.textentries.begin();
 		while ( it != choice.textentries.end() )
 		{
 			lines.push_back( it->second );

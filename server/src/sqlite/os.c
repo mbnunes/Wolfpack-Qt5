@@ -1373,7 +1373,7 @@ int sqliteOsReadLock(OsFile *id){
     params.ioParam.ioPosOffset = FIRST_LOCKBYTE;
     params.ioParam.ioReqCount = 1;
     while( cnt-->0 && (res = PBLockRangeSync(&params))!=noErr ){
-      UInt32 finalTicks;
+      Q_UINT32 finalTicks;
       Delay(1, &finalTicks); /* 1/60 sec */
     }
     if( res == noErr ){
@@ -1479,7 +1479,7 @@ int sqliteOsWriteLock(OsFile *id){
     params.ioParam.ioPosOffset = FIRST_LOCKBYTE;
     params.ioParam.ioReqCount = 1;
     while( cnt-->0 && (res = PBLockRangeSync(&params))!=noErr ){
-      UInt32 finalTicks;
+      Q_UINT32 finalTicks;
       Delay(1, &finalTicks); /* 1/60 sec */
     }
     if( res == noErr ){
@@ -1658,8 +1658,8 @@ int sqliteOsSleep(int ms){
   return ms;
 #endif
 #if OS_MAC
-  UInt32 finalTicks;
-  UInt32 ticks = (((UInt32)ms+16)*3)/50;  /* 1/60 sec per tick */
+  Q_UINT32 finalTicks;
+  Q_UINT32 ticks = (((Q_UINT32)ms+16)*3)/50;  /* 1/60 sec per tick */
   Delay(ticks, &finalTicks);
   return (int)((ticks*50)/3);
 #endif

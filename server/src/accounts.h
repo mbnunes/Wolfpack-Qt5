@@ -65,7 +65,7 @@ private:
 	// 0x00000010 pagenotify
 	// 0x00000020 staff - gm mode on/off
 	// 0x00000040 multigems on/off
-	UINT32 flags_;
+	Q_UINT32 flags_;
 	int attempts_;
 	bool inUse_;
 
@@ -102,9 +102,9 @@ public:
 	void setBlockUntil( const QDateTime& d );
 	void refreshAcl();
 	void setInUse( bool data );
-	void setFlags( UINT32 data );
+	void setFlags( Q_UINT32 data );
 	void setPassword( const QString& );
-	UINT32 flags() const;
+	Q_UINT32 flags() const;
 	QDateTime blockedUntil() const
 	{
 		return blockUntil;
@@ -207,7 +207,7 @@ inline QDateTime cAccount::lastLogin() const
 	return lastLogin_;
 }
 
-inline UINT32 cAccount::flags() const
+inline Q_UINT32 cAccount::flags() const
 {
 	return flags_;
 }
@@ -232,7 +232,7 @@ inline void cAccount::setBlockUntil( const QDateTime& d )
 	blockUntil = d;
 }
 
-inline void cAccount::setFlags( UINT32 data )
+inline void cAccount::setFlags( Q_UINT32 data )
 {
 	flags_ = data;
 }

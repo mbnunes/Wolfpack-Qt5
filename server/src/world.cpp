@@ -565,7 +565,7 @@ void cWorld::load()
 				throw PersistentBroker::instance()->lastError();
 
 			res.fetchrow();
-			UINT32 count = res.getInt( 0 );
+			Q_UINT32 count = res.getInt( 0 );
 			res.free();
 
 			if ( count == 0 )
@@ -579,7 +579,7 @@ void cWorld::load()
 			if ( !res.isValid() )
 				throw PersistentBroker::instance()->lastError();
 
-			//UINT32 sTime = getNormalizedTime();
+			//Q_UINT32 sTime = getNormalizedTime();
 			PersistentObject* object;
 			progress_display progress( count );
 

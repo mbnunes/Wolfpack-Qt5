@@ -55,11 +55,11 @@ class cContextMenu;
 
 struct stTargetItem
 {
-	UINT16 id;
+	Q_UINT16 id;
 	INT16 xOffset;
 	INT16 yOffset;
 	INT16 zOffset;
-	UINT16 hue;
+	Q_UINT16 hue;
 };
 
 class cUOSocket
@@ -141,15 +141,15 @@ public:
 	{
 		return tooltipscache_;
 	}
-	bool haveTooltip( UINT32 data ) const
+	bool haveTooltip( Q_UINT32 data ) const
 	{
 		return tooltipscache_->testBit( data );
 	}
-	void delTooltip( UINT32 data )
+	void delTooltip( Q_UINT32 data )
 	{
 		tooltipscache_->setBit( data, false );
 	}
-	void addTooltip( UINT32 );
+	void addTooltip( Q_UINT32 );
 
 	cUOSocket( QSocketDevice* sDevice );
 	virtual ~cUOSocket( void );
@@ -248,7 +248,7 @@ public:
 	void updateChar( P_CHAR pChar );
 	void sendChar( P_CHAR pChar );
 	void showSpeech( const cUObject* object, const QString& message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, UINT8 speechType = 0x00 ) const;
-	void sysMessage( const QString& message, Q_UINT16 color = 0x3b2, UINT16 font = 3 ) const;
+	void sysMessage( const QString& message, Q_UINT16 color = 0x3b2, Q_UINT16 font = 3 ) const;
 	void sendCharList();
 	void removeObject( cUObject* object );
 	void setPlayer( P_PLAYER pChar = NULL ); // Updates the current player
@@ -264,9 +264,9 @@ public:
 	void updatePlayer();
 	void resendPlayer( bool quick = true );
 	void poll();
-	void soundEffect( UINT16 soundId, cUObject* source = NULL );
+	void soundEffect( Q_UINT16 soundId, cUObject* source = NULL );
 	void attachTarget( cTargetRequest* request );
-	void attachTarget( cTargetRequest* request, UINT16 multiid );
+	void attachTarget( cTargetRequest* request, Q_UINT16 multiid );
 	void attachTarget( cTargetRequest* request, std::vector<stTargetItem>& items, INT16 xOffset = 0, INT16 yOffset = 0, INT16 zOffset = 0 );
 	void cancelTarget();
 	void resendWorld( bool clean = true );
@@ -276,15 +276,15 @@ public:
 	void updateHealth( P_CHAR pChar = NULL );
 	void sendStatWindow( P_CHAR pChar = NULL );
 	bool inRange( cUOSocket* ) const;
-	void sendSkill( UINT16 skill );
+	void sendSkill( Q_UINT16 skill );
 	void sendBuyWindow( P_NPC pVendor );
 	void sendSellWindow( P_NPC pVendor, P_CHAR pSeller );
 	void sendVendorCont( P_ITEM pItem );
-	void clilocMessage( const UINT32 MsgID, const QString& params = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool system = false );
-	void clilocMessageAffix( const UINT32 MsgID, const QString& params = 0, const QString& affix = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool dontMove = false, bool prepend = false, bool system = false );
+	void clilocMessage( const Q_UINT32 MsgID, const QString& params = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool system = false );
+	void clilocMessageAffix( const Q_UINT32 MsgID, const QString& params = 0, const QString& affix = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool dontMove = false, bool prepend = false, bool system = false );
 	void updateLightLevel();
-	void sendQuestArrow( bool show, UINT16 x, UINT16 y );
-	void closeGump( UINT32 type, UINT32 returnCode );
+	void sendQuestArrow( bool show, Q_UINT16 x, Q_UINT16 y );
+	void closeGump( Q_UINT32 type, Q_UINT32 returnCode );
 	void log( eLogLevel loglevel, const QString& message );
 	void log( const QString& message );
 

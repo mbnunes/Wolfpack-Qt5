@@ -537,15 +537,15 @@ static PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 		return NULL;
 	}
 
-	UINT16 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-	UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
-	UINT16 color = 0;
+	Q_UINT16 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	Q_UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+	Q_UINT16 color = 0;
 
 	if ( PyTuple_Size( args ) > 2 && PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
 		color = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
 
 	P_ITEM pPack = self->pChar->getBackpack();
-	UINT16 deleted = 0;
+	Q_UINT16 deleted = 0;
 
 	if ( pPack )
 		deleted = amount - pPack->deleteAmount( amount, id, color );
@@ -733,7 +733,7 @@ static PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 		return NULL;
 	}
 
-	UINT16 id = getArgInt( 0 );
+	Q_UINT16 id = getArgInt( 0 );
 	INT16 color = -1;
 
 	if ( PyTuple_Size( args ) > 1 && checkArgInt( 1 ) )
@@ -1324,13 +1324,13 @@ static PyObject* wpChar_effect( wpChar* self, PyObject* args )
 		return NULL;
 	}
 
-	UINT16 id = getArgInt( 0 );
+	Q_UINT16 id = getArgInt( 0 );
 
 	// Optional Arguments
 	UINT8 speed = 5;
 	UINT8 duration = 10;
-	UINT16 hue = 0;
-	UINT16 renderMode = 0;
+	Q_UINT16 hue = 0;
+	Q_UINT16 renderMode = 0;
 
 	if ( !PyArg_ParseTuple( args, "H|BBHH:char.effect(id, [speed], [duration], [hue], [rendermode])", &id, &speed, &duration, &hue, &renderMode ) )
 	{
@@ -1498,7 +1498,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 		return NULL;
 	}
 
-	UINT32 expiretime = getArgInt( 0 );
+	Q_UINT32 expiretime = getArgInt( 0 );
 	QString function = getArgStr( 1 );
 	PyObject* py_args = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
 
@@ -1860,7 +1860,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 		}
 	}
 
-	UINT32 range = getArgInt( 1 );
+	Q_UINT32 range = getArgInt( 1 );
 
 	if ( self->pChar->pos().map != pos.map )
 		Py_RETURN_FALSE;

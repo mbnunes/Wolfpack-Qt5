@@ -65,7 +65,7 @@ public:
 
 	static void buildSqlString(const char *objectid, QStringList &fields, QStringList &tables, QStringList &conditions);
 	/*
-	void load( char **, UINT16& );
+	void load( char **, Q_UINT16& );
 	void save();
 	bool del();*/
 	void save( cBufferedWriter& writer );

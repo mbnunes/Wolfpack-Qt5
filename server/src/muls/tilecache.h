@@ -154,15 +154,15 @@ class cTileCache : public cComponent
 {
 private:
 	QString path;
-	std::map<UINT16, tile_st> staticTiles;
+	std::map<Q_UINT16, tile_st> staticTiles;
 	tile_st emptyStaticTile;
 
-	std::map<UINT16, land_st> landTiles;
+	std::map<Q_UINT16, land_st> landTiles;
 	land_st emptyLandTile;
 public:
 
-	land_st getLand( UINT16 tileId );
-	tile_st getTile( UINT16 tileId );
+	land_st getLand( Q_UINT16 tileId );
+	tile_st getTile( Q_UINT16 tileId );
 	signed char tileHeight( ushort tileId );
 	static signed char tileHeight( const tile_st& );
 
