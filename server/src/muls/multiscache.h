@@ -46,10 +46,38 @@ class MultiDefinition
 {
 protected:
 	QValueVector<multiItem_st> entries; // sorted list of items
-	uint width;
-	uint height;
+	int left, right, top, bottom;
+	unsigned int height, width;
+
+	QValueVector< QValueVector<multiItem_st> > grid;
 public:
 	MultiDefinition();
+
+	const QValueVector<multiItem_st> &itemsAt(int x, int y);
+
+	unsigned int getHeight() {
+		return height;
+	}
+
+	unsigned int getWidth() {
+		return width;
+	}
+
+	int getLeft() {
+		return left;
+	}
+
+	int getRight() {
+		return right;
+	}
+
+	int getBottom() {
+		return bottom;
+	}
+
+	int getTop() {
+		return top;
+	}
 
 	void setItems( const QValueVector<multiItem_st>& items );
 	bool inMulti( short x, short y );

@@ -47,16 +47,20 @@
 #include <sys/time.h>
 #endif
 
+#include "mersennetwister.h"
+
+static MTRand mtrand;
+
 /*!
   Returns a random number between \a nLowNum
   and \a nHighNum.
 */
-int RandomNum( int nLowNum, int nHighNum )
-{
-	if ( nHighNum - nLowNum + 1 )
-		return ( ( rand() % ( nHighNum - nLowNum + 1 ) ) + nLowNum );
-	else
-		return nLowNum;
+int RandomNum(int nLowNum, int nHighNum) {
+	if (nLowNum > nHighNum) {
+		std::swap(nLowNum, nHighNum);
+	}
+	int diff = (nHighNum - nLowNum) + 1;
+	return nLowNum + (mtrand.randInt() % diff);
 }
 
 /*!
@@ -65,15 +69,8 @@ int RandomNum( int nLowNum, int nHighNum )
 */
 float RandomFloatNum( float nLowNum, float nHighNum )
 {
-	if ( nHighNum - nLowNum + 1 )
-	{
-		float number = nLowNum;
-		number += rand() % static_cast<int>( ceil( nHighNum ) - ceil( nLowNum ) + 1 ); // Integer part
-		number += ( float ) rand() / ( float ) 0x7FFFFFFF;
-		return number;
-	}
-	else
-		return nLowNum;
+	float diff = nHighNum - nLowNum;
+	return nLowNum + mtrand.rand() * diff;
 }
 
 /*!

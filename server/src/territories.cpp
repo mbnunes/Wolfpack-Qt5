@@ -159,6 +159,8 @@ void cTerritory::processNode( const cElement* Tag )
 				setNoGuardMessage( true );
 			else if ( childNode->name() == "noentermessage" )
 				setNoEnterMessage( true );
+			else if ( childNode->name() == "nohousing" )
+				setNoHousing( true );
 		}
 	}
 

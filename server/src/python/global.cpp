@@ -43,6 +43,7 @@
 #include "../commands.h"
 #include "../multi.h"
 #include "../scriptmanager.h"
+#include "../muls/multiscache.h"
 #include "../definitions.h"
 #include "../pythonscript.h"
 #include "../verinfo.h"
@@ -622,12 +623,25 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	// Minimum is x, y, map
-	uint x = 0,
+	int x = 0,
 	y = 0,
 	map = 0;
 	uchar exact = 0;
 	if ( !PyArg_ParseTuple( args, "iii|b:wolfpack.statics", &x, &y, &map, &exact ) )
 		return 0;
+
+	if (!Maps::instance()->hasMap(map)) {
+		PyErr_Format(PyExc_RuntimeError, "Unable to access unknown map %u.", map);
+	}
+
+	if (x < 0)
+		x = 0;
+	if (x >= Maps::instance()->mapTileWidth(map))
+		x = Maps::instance()->mapTileWidth(map) - 1;
+	if (y < 0)
+		y = 0;
+	if (y >= Maps::instance()->mapTileHeight(map))
+		y = Maps::instance()->mapTileHeight(map) - 1;
 
 	StaticsIterator iter = Maps::instance()->staticsIterator( Coord_cl( x, y, 0, map ), exact );
 
@@ -752,6 +766,45 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 	delete iter;
 
 	return list;
+}
+
+/*
+	\function wolfpack.canplace
+	\param pos The position.
+	\param id The display id of the multi (0x0000 to 0x4000).
+	\param yard The size of the multis yard.
+	\return True if the given multi can be placed by a player at the given location.
+	\description This function checks if a multi can be placed at a certain location by players.
+*/
+static PyObject *wpCanPlace( PyObject* self, PyObject *args ) {
+	Coord_cl pos;
+	unsigned short multiid;
+	unsigned short yard;	
+	if (!PyArg_ParseTuple(args, "O&hh:wolfpack.canplace(id, yard)", &PyConvertCoord, &pos, &multiid, &yard)) {
+		return 0;
+	}
+
+	QPtrList<cUObject> moveOut; // List of objects to move out
+
+	PyObject *result = PyTuple_New(2);
+    
+	if (cMulti::canPlace(pos, multiid, moveOut, yard)) {
+		Py_INCREF(Py_True);
+		PyTuple_SET_ITEM(result, 0, Py_True);
+		
+		PyObject *list = PyTuple_New(moveOut.count());
+		int i = 0;
+		for (cUObject *obj = moveOut.first(); obj; obj = moveOut.next()) {
+			PyTuple_SET_ITEM(list, i++, obj->getPyObject());
+		}
+		PyTuple_SET_ITEM(result, 1, list);
+	} else {
+		Py_INCREF(Py_True);
+		PyTuple_SET_ITEM(result, 0, Py_False);
+		PyTuple_SET_ITEM(result, 1, PyTuple_New(0));
+	}
+
+	return result;
 }
 
 /*
@@ -1863,6 +1916,7 @@ static PyMethodDef wpGlobal[] =
 { "findmulti",			wpFindmulti,					METH_VARARGS, "Tries to find a multi based on it's position" },
 { "addtimer",			wpAddtimer,						METH_VARARGS, "Adds a timed effect" },
 { "effect",				wpEffect,						METH_VARARGS, "Shows a graphical effect." },
+{ "canplace",			wpCanPlace,						METH_VARARGS, 0 },
 { "region",				wpRegion,						METH_VARARGS, "Gets the region at a specific position" },
 { "spawnregion",		wpSpawnregion,					METH_VARARGS, 0 },
 { "currenttime",		wpCurrenttime,					METH_NOARGS, "Time in ms since server-start" },

@@ -36,7 +36,7 @@
 // Library Includes
 #include <qstring.h>
 
-class wpException : public std::exception
+class WPEXPORT wpException : public std::exception
 {
 private:
 	QString mError;

@@ -115,6 +115,10 @@ public:
 	{
 		return flags_ & 0x1000;
 	}
+	bool isNoHousing( void ) const
+	{
+		return flags_ & 0x2000;
+	}
 	QString guardOwner( void ) const
 	{
 		return guardowner_;
@@ -140,6 +144,7 @@ private:
 		else
 			flags_ &= ~0x0001;
 	}
+
 	void setNoMark( bool data )
 	{
 		if ( data )
@@ -223,6 +228,13 @@ private:
 			flags_ |= 0x1000;
 		else
 			flags_ &= ~0x1000;
+	}
+	void setNoHousing( bool data )
+	{
+		if ( data )
+			flags_ |= 0x2000;
+		else
+			flags_ &= ~0x2000;
 	}
 
 	virtual void processNode( const cElement* Tag );

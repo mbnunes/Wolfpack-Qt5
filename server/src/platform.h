@@ -94,4 +94,10 @@ typedef signed char SI08;
 typedef float RF32;
 typedef double RF64;
 
+#if defined WPIMPORT
+#define WPEXPORT __declspec(dllimport)
+#else
+#define WPEXPORT __declspec(dllexport)
+#endif
+
 #endif // __PLATFORM_H__

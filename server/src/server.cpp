@@ -492,7 +492,6 @@ void cServer::load()
 	}
 
 	d->time = getNormalizedTime();
-	srand( d->time );
 }
 
 void cServer::unload()

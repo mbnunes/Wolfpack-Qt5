@@ -60,7 +60,7 @@ struct staticrecord
 };
 #pragma pack()
 
-class StaticsIterator
+class WPEXPORT StaticsIterator
 {
 public:
 	/*
@@ -100,7 +100,7 @@ public:
 	const staticrecord& operator*() const;
 };
 
-class cMaps : public cComponent
+class WPEXPORT cMaps : public cComponent
 {
 	QMap<uint, MapsPrivate*> d;
 	QString basePath;

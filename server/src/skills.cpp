@@ -208,7 +208,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		if ( !pToSteal->free )
 			pToSteal->update();
 
-		caught = pChar->skillValue( STEALING ) < rand() % 1001;
+		caught = pChar->skillValue( STEALING ) < RandomNum(0, 1000);
 	}
 	else
 	{

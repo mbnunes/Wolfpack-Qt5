@@ -62,6 +62,8 @@ public:
 	cMulti();
 	virtual ~cMulti();
 
+	// This static function can be used to check if the given multi can be placed at the given position
+	static bool canPlace(const Coord_cl &pos, unsigned short multiid, QPtrList<cUObject> &moveOut, unsigned short yard = 5);
 
 	static void buildSqlString(const char *objectid, QStringList &fields, QStringList &tables, QStringList &conditions);
 	/*

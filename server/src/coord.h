@@ -34,7 +34,7 @@
 
 class cUORxTarget;
 
-class Coord_cl
+class WPEXPORT Coord_cl
 {
 public:
 	Coord_cl( void );

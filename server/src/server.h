@@ -57,7 +57,7 @@ enum enActionType
 /*!
 	\brief A server component.
 */
-class cComponent
+class WPEXPORT cComponent
 {
 private:
 	QString depends;

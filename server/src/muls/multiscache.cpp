@@ -38,7 +38,7 @@
 
 #include <algorithm>
 
-MultiDefinition::MultiDefinition() : width( 0 ), height( 0 )
+MultiDefinition::MultiDefinition() : width( 0 ), height( 0 ), left(0), top(0), right(0), bottom(0)
 {
 }
 
@@ -48,23 +48,44 @@ void MultiDefinition::setItems( const QValueVector<multiItem_st>& items )
 	if ( items.empty() )
 		return;
 	unsigned int i = 0;
-	int max_X = 0, max_Y = 0, min_X = 0, min_Y = 0;
 	for ( ; i < items.size(); ++i )
 	{
-		if ( items[max_X].x < items[i].x )
-			max_X = i;
-		if ( items[max_Y].y < items[i].y )
-			max_Y = i;
-		if ( items[min_X].x > items[i].x )
-			min_X = i;
-		if ( items[min_Y].y > items[i].y )
-			min_Y = i;
+		if ( items[i].x < left )
+			left = items[i].x;
+		else if ( items[i].x > right )
+			right = items[i].x;
+
+		if ( items[i].y < top )
+			top = items[i].y;
+		else if ( items[i].y > bottom )
+			bottom = items[i].y;		
 	}
 
 	// by now we have the dimensions.
-	this->width = items[max_X].x + abs( items[min_X].x );
-	this->height = items[max_Y].y + abs( items[min_Y].y );
+	this->width = abs(right - left) + 1;
+	this->height = abs(bottom - top) + 1;
+
+	// copy into grid
+	grid.resize(width * height);
+	for ( i = 0; i < items.size(); ++i) {
+		unsigned int index = (items[i].y - top) * width + (items[i].x - left);
+		if (index >= 0 && index < grid.size()) {
+			grid[index].append(items[i]);
+		}
+	}
+
 	entries = items;
+}
+
+const QValueVector<multiItem_st> &MultiDefinition::itemsAt(int x, int y) {
+	unsigned int index = (x - left) + (y - top)  * width;
+	static QValueVector<multiItem_st> emptyGrid;
+
+	if (index < 0 || index >= grid.size()) {
+		return emptyGrid;
+	} else {
+		return grid[index];
+	}
 }
 
 /*!
@@ -232,3 +253,5 @@ MultiDefinition* cMultiCache::getMulti( ushort id )
 	else
 		return 0;
 }
+
+

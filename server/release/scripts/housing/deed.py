@@ -70,7 +70,7 @@ def onUse(player, item):
 		return True
 	
 	player.socket.clilocmessage(1010433)
-	player.socket.attachmultitarget("housing.deed.placement", dispid - 0x4000, [item.serial], xoffset, yoffset, zoffset)
+	player.socket.attachmultitarget("housing.deed.placement", dispid - 0x4000, [item.serial, dispid, xoffset, yoffset, zoffset], xoffset, yoffset, zoffset)
 	return True
 
 #
@@ -78,17 +78,30 @@ def onUse(player, item):
 #
 def placement(player, arguments, target):
 	deed = wolfpack.finditem(arguments[0])
+	(dispid, xoffset, yoffset, zoffset) = arguments[1:] # Get the rest of the arguments
+	
 	if not checkDeed(player, deed):
-		return
+		return	
 
 	if not player.canreach(target.pos, 20):
 		player.socket.sysmessage('You can\'t reach that.')
 		return
 		
+	(canplace, moveout) = wolfpack.canplace(target.pos, dispid - 0x4000, 4)
+	
+	if not canplace:
+		player.socket.sysmessage('CANT PLACE THERE')
+		return
+	
 	house = wolfpack.addmulti(str(deed.gettag('section')))
 	house.owner = player
 	house.moveto(target.pos)
 	house.update()
-	
 	housing.registerHouse(house)
 
+	for obj in moveout:
+		obj.removefromview()
+		obj.moveto(player.pos)
+		obj.update()
+		if obj.ischar() and obj.socket:
+			obj.socket.resendworld()
