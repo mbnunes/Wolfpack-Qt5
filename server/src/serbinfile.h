@@ -69,28 +69,28 @@ public:
 	// Write Methods
 	virtual void writeObjectID(std::string data);
 
-	virtual void write(std::string Key, std::string &data);
-	virtual void write(std::string Key, unsigned int data);
-	virtual void write(std::string Key, signed int data);
-	virtual void write(std::string Key, signed short data);
-	virtual void write(std::string Key, unsigned short data);
-	virtual void write(std::string Key, unsigned char data);
-	virtual void write(std::string Key, signed char data);
-	virtual void write(std::string Key, bool data);
+	virtual void write(const char* Key, std::string &data);
+	virtual void write(const char* Key, unsigned int data);
+	virtual void write(const char* Key, signed int data);
+	virtual void write(const char* Key, signed short data);
+	virtual void write(const char* Key, unsigned short data);
+	virtual void write(const char* Key, unsigned char data);
+	virtual void write(const char* Key, signed char data);
+	virtual void write(const char* Key, bool data);
 
 	virtual void doneWritting();
 
 	// Read Methods
 	virtual void readObjectID(std::string &data);
 
-	virtual void read(std::string Key, std::string    &data);
-	virtual void read(std::string Key, unsigned int   &data);
-	virtual void read(std::string Key, signed   int   &data);
-	virtual void read(std::string Key, unsigned short &data);
-	virtual void read(std::string Key, signed short   &data);
-	virtual void read(std::string Key, unsigned char  &data);
-	virtual void read(std::string Key, signed   char  &data);
-	virtual void read(std::string Key, bool           &data);
+	virtual void read(const char* Key, std::string    &data);
+	virtual void read(const char* Key, unsigned int   &data);
+	virtual void read(const char* Key, signed   int   &data);
+	virtual void read(const char* Key, unsigned short &data);
+	virtual void read(const char* Key, signed short   &data);
+	virtual void read(const char* Key, unsigned char  &data);
+	virtual void read(const char* Key, signed   char  &data);
+	virtual void read(const char* Key, bool           &data);
 };
 
 #endif // __SERBINFILE_H__

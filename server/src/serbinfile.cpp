@@ -87,7 +87,7 @@ void serBinFile::writeObjectID(string data)
 	_count++;
 }
 
-void serBinFile::write(std::string Key, std::string &data)
+void serBinFile::write(const char* Key, std::string &data)
 {
 	UI32 uiSize = data.size();
 	file.write((char*)&uiSize, 4);
@@ -95,37 +95,37 @@ void serBinFile::write(std::string Key, std::string &data)
 		file.write((char*)data.c_str(), uiSize);
 }
 
-void serBinFile::write(std::string Key, unsigned int data)
+void serBinFile::write(const char* Key, unsigned int data)
 {
 	file.write((char*)&data, 4);
 }
 
-void serBinFile::write(std::string Key, signed int data)
+void serBinFile::write(const char* Key, signed int data)
 {
 	file.write((char*)&data, 4);
 }
 
-void serBinFile::write(std::string Key, signed short data)
+void serBinFile::write(const char* Key, signed short data)
 {
 	file.write((char*)&data, 2);
 }
 
-void serBinFile::write(std::string Key, unsigned short data)
+void serBinFile::write(const char* Key, unsigned short data)
 {
 	file.write((char*)&data, 2);
 }
 
-void serBinFile::write(std::string Key, unsigned char data)
+void serBinFile::write(const char* Key, unsigned char data)
 {
 	file.write((char*)&data, 1);
 }
 
-void serBinFile::write(std::string Key, signed char data)
+void serBinFile::write(const char* Key, signed char data)
 {
 	file.write((char*)&data, 1);
 }
 
-void serBinFile::write(std::string Key, bool data)
+void serBinFile::write(const char* Key, bool data)
 {
 	file.write((char*)&data, 1);
 }
@@ -140,7 +140,7 @@ void serBinFile::readObjectID(string &data)
 	read("objectID", data);
 }
 
-void serBinFile::read(std::string Key, string& data)
+void serBinFile::read(const char* Key, string& data)
 {
 	UI32 uiSize = 0;
 	file.read((char*)&uiSize, 4);
@@ -159,37 +159,37 @@ void serBinFile::read(std::string Key, string& data)
 		data = "";
 }
 
-void serBinFile::read(std::string Key, unsigned int  &data)
+void serBinFile::read(const char* Key, unsigned int  &data)
 {
 	file.read((char*)&data, 4);
 }
 
-void serBinFile::read(std::string Key, signed   int  &data)
+void serBinFile::read(const char* Key, signed   int  &data)
 {
 	file.read((char*)&data, 4);
 }
 
-void serBinFile::read(std::string Key, signed short &data)
+void serBinFile::read(const char* Key, signed short &data)
 {
 	file.read((char*)&data, 2);
 }
 
-void serBinFile::read(std::string Key, unsigned short &data)
+void serBinFile::read(const char* Key, unsigned short &data)
 {
 	file.read((char*)&data, 2);
 }
 
-void serBinFile::read(std::string Key, unsigned char &data)
+void serBinFile::read(const char* Key, unsigned char &data)
 {
 	file.read((char*)&data, 1);
 }
 
-void serBinFile::read(std::string Key, signed   char &data)
+void serBinFile::read(const char* Key, signed   char &data)
 {
 	file.read((char*)&data, 1);
 }
 
-void serBinFile::read(std::string Key, bool &data)
+void serBinFile::read(const char* Key, bool &data)
 {
 	file.read((char*)&data, 1);
 }

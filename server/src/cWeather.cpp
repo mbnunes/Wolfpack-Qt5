@@ -35,7 +35,7 @@
 #include "wolfpack.h"
 #include "cweather.h"
 
-using namespace ZThread;
+//using namespace ZThread;
 
 //##ModelId=3C5D92F502C4
 void cWeather::DoWeather(int s)
@@ -168,14 +168,14 @@ void cWeather::run() throw()
 { 
 	while ( keeprun )
 	{
-		try
+//		try
 		{
-			Thread::sleep( 200 );
+//			Thread::sleep( 200 );
 
 			WTimer();
 			CTimer();
 		}
-	    catch(Synchronization_Exception&) 
+//	    catch(Synchronization_Exception&) 
 	    {
 		}
 	}
@@ -185,5 +185,5 @@ void cWeather::run() throw()
 void cWeather::kill() throw()
 {
 	keeprun = false;
-	Thread::kill();
+//	Thread::kill();
 }

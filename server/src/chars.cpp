@@ -810,9 +810,9 @@ void cChar::Serialize(ISerialization &archive)
 			char t[256] = {0,};
 			numtostr(j, t);
 			string temp = string("skill") + string(t);
-			archive.read(temp, baseskill[j]);
+			archive.read(temp.c_str(), baseskill[j]);
 			temp = string("skl") + string(t);
-			archive.read(temp, lockSkill[j] );
+			archive.read(temp.c_str(), lockSkill[j] );
 		}
 		archive.read("cantrain", cantrain);
 		
@@ -959,9 +959,9 @@ void cChar::Serialize(ISerialization &archive)
 			char t[256] = {0,};
 			numtostr(j, t);
 			string temp = string("skill") + string(t);
-			archive.write(temp, baseskill[j]);
+			archive.write(temp.c_str(), baseskill[j]);
 			temp = string("skl") + string(t);
-			archive.write(temp, lockSkill[j] );
+			archive.write(temp.c_str(), lockSkill[j] );
 		}
 		archive.write("cantrain", cantrain);
 		
