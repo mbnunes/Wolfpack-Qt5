@@ -314,6 +314,20 @@ class Spell:
 		if not self.checkrequirements(char, mode, args, target, item):
 			fizzle(char)
 			return 0
+			
+		# Check Skill
+		if self.skill != None:
+			if mode == MODE_BOOK:
+				circle = self.circle
+			else:
+				circle = self.circle - 2
+			minskill = max(0, int((1000 / 7) * circle - 200))
+			maxskill = min(1200, int((1000 / 7) * circle + 200))
+
+			if not char.checkskill(self.skill, minskill, maxskill):
+				char.message(502632)
+				fizzle(char)
+				return 0
 
 		# Consume Mana
 		if mode == MODE_BOOK:
@@ -346,20 +360,6 @@ class Spell:
 		# No requirements at all
 		elif mode == MODE_WAND:
 			pass
-
-		# Check Skill
-		if self.skill != None:
-			if mode == MODE_BOOK:
-				circle = self.circle
-			else:
-				circle = self.circle - 2
-			minskill = max(0, int((1000 / 7) * circle - 200))
-			maxskill = min(1200, int((1000 / 7) * circle + 200))
-
-			if not char.checkskill(self.skill, minskill, maxskill):
-				char.message(502632)
-				fizzle(char)
-				return 0
 
 		# Set the next spell delay
 		self.setspelldelay(char, mode)

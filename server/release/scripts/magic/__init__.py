@@ -174,6 +174,20 @@ def onDamage(char, type, amount, source):
 	return amount
 
 def onWalk( char, direction, sequence ):
+	if char.npc or char.gm:
+		return False # No processing for NPCs
+		
+	# Disallow movement for players
+	packet = wolfpack.packet(0x21, 8)
+	packet.setbyte(1, sequence)
+	packet.setshort(2, char.pos.x)
+	packet.setshort(4, char.pos.y)
+	packet.setbyte(6, char.direction)
+	packet.setbyte(7, char.pos.z)
+	packet.send(char.socket)
+	char.socket.walksequence = 0
+	return True
+
 	running = direction & 0x80
 	direction &= 0x7F
 

@@ -73,6 +73,8 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed hunger for players.
 		- Fixed a bug in trainmenus (training above skillcap)
 		- Invis GMs are not shown on server status anymore.
+		- Fixed bug #0000359. (Mana consumption on fizzle)
+		- Fixed bug #0000349. (No movement during casting)
 		- Victims of harmfull spells will now defend themself.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
