@@ -55,16 +55,11 @@ struct wpItem
 };
 
 // Note: Must be of a different type to cause more then 1 template instanciation
-class cItemObjectCache : public cObjectCache< wpItem, 50>
+class cItemObjectCache : public cObjectCache<wpItem, 50>
 {
 };
 
 typedef SingletonHolder< cItemObjectCache > ItemCache;
-
-static void FreeItemObject( PyObject *obj )
-{
-	ItemCache::instance()->freeObj( obj );
-}
 
 // Forward Declarations
 static PyObject *wpItem_getAttr( wpItem *self, char *name );
@@ -83,7 +78,6 @@ static PyTypeObject wpItemType = {
     "wpitem",
     sizeof(wpItemType),
     0,
-    //FreeItemObject,
 	wpDealloc,
     0,
     (getattrfunc)wpItem_getAttr,

@@ -35,6 +35,18 @@
 #include "../globals.h"
 #include "../log.h"
 
+#include <qvaluevector.h>
+
+QValueVector<fnCleanupHandler> cleanupHandler;
+
+CleanupAutoRegister::CleanupAutoRegister(fnCleanupHandler handler) {
+	registerCleanupHandler(handler);
+}
+
+void registerCleanupHandler(fnCleanupHandler handler) {
+	cleanupHandler.append(handler);
+}
+
 // Library includes
 #include <qdom.h>
 #include <qstring.h>
@@ -56,6 +68,11 @@ void stopPython() {
 
 	// We have to be sure that all memory
 	// is freed here.
+	// Call all cleanup handlers
+	QValueVector<fnCleanupHandler>::iterator it;
+	for (it = cleanupHandler.begin(); it != cleanupHandler.end(); ++it) {
+		(*it)();
+	}
 
 	Py_Finalize();
 }

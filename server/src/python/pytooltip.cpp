@@ -43,13 +43,13 @@ typedef struct {
 
 // Note: Must be of a different type to cause more then 1 template instanciation
 class cTooltipCache : public cObjectCache<wpTooltip, 50> {
-};
+} tooltipCache;
 
-typedef SingletonHolder<cTooltipCache> TooltipCache;
-
-static void FreeTooltipObject(PyObject *obj) {
-	TooltipCache::instance()->freeObj(obj);
+void clearTooltipCache() {
+	tooltipCache.clear();
 }
+
+static CleanupAutoRegister reg(clearTooltipCache);
 
 // Forward Declarations
 static PyObject *wpTooltip_getAttr( wpTooltip *self, char *name );
@@ -64,8 +64,8 @@ static PyTypeObject wpTooltipType = {
     "wpTooltip",
     sizeof(wpTooltipType),
     0,
-    FreeTooltipObject,				
-    0,								
+    wpDealloc,
+    0,
     (getattrfunc)wpTooltip_getAttr,
     (setattrfunc)wpTooltip_setAttr,
 };
@@ -103,7 +103,7 @@ PyObject* PyGetTooltipObject( cUOTxTooltipList *tooltip )
 		return Py_None;
 	}
 
-	wpTooltip *object = TooltipCache::instance()->allocObj(&wpTooltipType);	
+	wpTooltip *object = tooltipCache.allocObj(&wpTooltipType);	
 	object->list = tooltip;
     return (PyObject*)object;
 }

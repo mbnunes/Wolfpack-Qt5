@@ -64,18 +64,6 @@ typedef struct {
 	P_CHAR pChar;
 } wpChar;
 
-// Note: Must be of a different type to cause more then 1 template instanciation
-class cCharObjectCache : public cObjectCache< wpChar, 50 >
-{
-};
-
-typedef SingletonHolder< cCharObjectCache > CharCache;
-
-static void FreeCharObject( PyObject *obj )
-{
-	CharCache::instance()->freeObj( obj );
-}
-
 PyObject *wpChar_getAttr( wpChar *self, char *name );
 int wpChar_setAttr( wpChar *self, char *name, PyObject *value );
 int wpChar_compare( PyObject*, PyObject* );

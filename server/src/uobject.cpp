@@ -867,7 +867,7 @@ bool cUObject::onShowTooltip(P_PLAYER sender, cUOTxTooltipList* tooltip) {
 	bool result = false;
 
 	if(scriptChain) {
-		PyObject *args = Py_BuildValue("NNN", PyGetCharObject(sender), PyGetObjectObject(this), PyGetTooltipObject(tooltip));
+		PyObject *args = Py_BuildValue("NNN", PyGetCharObject(sender), getPyObject(), PyGetTooltipObject(tooltip));
 		result = cPythonScript::callChainedEventHandler(EVENT_SHOWTOOLTIP, scriptChain, args);
 		Py_DECREF( args );
 	}

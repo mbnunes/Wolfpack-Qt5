@@ -73,37 +73,54 @@ public:
 	
 };
 
-template< class T, unsigned int MAXSIZE >
-class cObjectCache
-{
+template<class T, unsigned int MAXSIZE>
+class cObjectCache {
 private:
-	FixedSizePtrStack< PyObject, MAXSIZE > stack;
-	
+	QPtrList<PyObject> objects;
+
+	// Search for an object for which only we
+	// hold a reference count. The reference count
+	// is increased for the object.
+	PyObject *findFreeObject() {
+        PyObject *obj;
+		for (obj = objects.first(); obj; obj = objects.next()) {
+			if (obj->ob_refcnt == 1) {
+				Py_INCREF(obj);
+				return obj;
+			}
+		}
+		return 0;
+	}
+
 public:
-	
-	virtual ~cObjectCache()
-	{
-		while ( !stack.isEmpty() )
-			PyObject_Del( stack.pop() );
+	virtual ~cObjectCache() {
+		clear();
+	}
+
+	void clear() {
+		PyObject *obj;
+		for (obj = objects.first(); obj; obj = objects.next()) {
+			Py_DECREF(obj);
+		}
+		objects.clear();
+	}
+
+	cObjectCache() {
+		objects.setAutoDelete(false);
 	}
 	
-	T *allocObj( PyTypeObject *type )
-	{
-		if( !stack.isEmpty() )
-			return (T*)stack.pop();
-		
-		return PyObject_New( T, type );
-	}
-	
-	void freeObj( PyObject *obj )
-	{
-		if( stack.size() >= MAXSIZE )
-		{
-			PyObject_Del( obj );
-			return;
+	T *allocObj(PyTypeObject *type) {
+		T *obj = (T*)findFreeObject();
+
+		if (!obj) {
+			obj = PyObject_New(T, type);
+			if (objects.count() < MAXSIZE) {
+				Py_INCREF(obj);
+				objects.append((PyObject*)obj);
+			}
 		}
 		
-		stack.push( obj );
+		return obj;
 	}
 };
 

@@ -50,6 +50,14 @@
 #endif
 #define slots
 
+typedef void (*fnCleanupHandler)();
+
+class CleanupAutoRegister{
+public:
+	CleanupAutoRegister(fnCleanupHandler);
+};
+
+void registerCleanupHandler(fnCleanupHandler);
 void reloadPython();
 void stopPython();
 void startPython(int argc, char* argv[]);

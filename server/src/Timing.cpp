@@ -325,10 +325,12 @@ void cTiming::checkPlayer(P_PLAYER player, unsigned int time)
 		if (player->kills() > 0)
 			player->setKills(player->kills() - 1);
 
-		if ( player->kills() <= SrvParams->maxkills() && SrvParams->maxkills() > 0 )
+		if ( player->kills() <= SrvParams->maxkills() && SrvParams->maxkills() > 0 ) {
 			socket->sysMessage( tr( "You are no longer a murderer." ) );
-		else
+			player->setMurdererTime(0);
+		} else {
 			player->setMurdererTime(time + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC);
+		}
 	}
 
 	// All food related things are disabled for gms
