@@ -40,6 +40,7 @@ struct sqlite_vm;
 #include <qstring.h>
 #include <map>
 #include "defines.h"
+#include "pythonscript.h"
 
 class cDBResult;
 class cSQLiteResult;
@@ -124,8 +125,7 @@ public:
 	cDBResult query( const QString &query );
 };
 
-class cDBResult
-{
+class cDBResult : cPythonScriptable {
 public:
 	char **_row;
 	void *_result;
@@ -143,6 +143,10 @@ public:
 	QString getString( UINT32 offset ) const; // Get a string with a specific offset
 
 	bool isValid() const { return ( _result != 0 ); }
+
+	PyObject *getPyObject();
+	bool implements(const QString &name);
+	const char *className() const;
 };
 
 #undef MYSQL_RES

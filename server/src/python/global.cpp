@@ -1665,6 +1665,118 @@ static PyMethodDef wpOptions[] =
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 
+static PyObject *wpQuery(PyObject *self, PyObject *args) {
+	char *query;
+
+	if (!PyArg_ParseTuple(args, "es:wolfpack.database.query(query)", "utf-8", &query)) {
+		return 0;
+	}
+
+	cDBResult result;
+	
+	try {
+		result = persistentBroker->query(query);
+	} catch (QString e) {
+		PyMem_Free(query);
+		PyErr_SetString(PyExc_RuntimeError, e.latin1());
+		return 0;
+	} catch(...) {
+		PyMem_Free(query);
+		PyErr_SetString(PyExc_RuntimeError, "An error occured while querying the database.");
+		return 0;
+	}
+	
+	PyMem_Free(query);
+	
+	return (new cDBResult(result))->getPyObject();
+}
+
+static PyObject *wpExecute(PyObject *self, PyObject *args) {
+	char *query;
+
+	if (!PyArg_ParseTuple(args, "es:wolfpack.database.execute(query)", "utf-8", &query)) {
+		return 0;
+	}
+
+	try {
+		persistentBroker->executeQuery(query);
+	} catch (QString e) {
+		PyMem_Free(query);
+		PyErr_SetString(PyExc_RuntimeError, e.latin1());
+		return 0;
+	} catch(...) {
+		PyMem_Free(query);
+		PyErr_SetString(PyExc_RuntimeError, "An error occured while querying the database.");
+		return 0;
+	}
+
+	PyMem_Free(query);
+	return PyTrue;
+}
+
+static PyObject *wpDriver(PyObject *self, PyObject *args) {
+	unsigned int database;
+
+	if (!PyArg_ParseTuple(args, "I:wolfpack.database.driver(database)", &database)) {
+		return 0;
+	}
+
+	QString driver = "unknown";
+
+	if (database == 1) {
+		driver = SrvParams->accountsDriver();
+	} else if (database == 2) {
+		driver = SrvParams->databaseDriver();
+	}
+
+	return PyString_FromString(driver.latin1());
+}
+
+static PyObject *wpClose(PyObject *self, PyObject *args) {
+	try {
+		persistentBroker->disconnect();
+	} catch (...) {
+		PyErr_SetString(PyExc_RuntimeError, "Error while disconnecting from the database.");
+		return 0;
+	}
+
+	return PyTrue;
+}
+
+static PyObject *wpOpen(PyObject *self, PyObject *args) {
+	unsigned int database;
+
+	if (!PyArg_ParseTuple(args, "I:wolfpack.database.open(database)", &database)) {
+		return 0;
+	}
+
+	try {
+		if (database == 1) {
+			persistentBroker->connect(SrvParams->accountsHost(), SrvParams->accountsName(), 
+				SrvParams->accountsUsername(), SrvParams->accountsPassword());
+		} else if (database == 2) {
+			persistentBroker->connect(SrvParams->databaseHost(), SrvParams->databaseName(), 
+				SrvParams->databaseUsername(), SrvParams->databasePassword());
+		}
+	} catch (QString e) {
+		PyErr_SetString(PyExc_RuntimeError, e.latin1());
+		return 0;
+	} catch (...) {
+		PyErr_SetString(PyExc_RuntimeError, "Error while connecting to the database.");
+		return 0;
+	}
+
+	return PyTrue;
+}
+
+static PyMethodDef wpDatabase[] = {
+	{ "query",				wpQuery,	METH_VARARGS, "Executes a sql query and returns the result." },
+	{ "execute",			wpExecute,	METH_VARARGS, "Executes a sql query and dont return a result." },
+	{ "driver",				wpDriver,	METH_VARARGS, "Returns the name of the database driver used." },
+	{ "close",				wpClose,	METH_VARARGS, "Closes the database." },
+	{ "open",				wpOpen,		METH_VARARGS, "Opens the database." },
+	{ 0, 0, 0, 0 }
+};
 
 /*!
 	This initializes the _wolfpack namespace and it's sub extensions
@@ -1690,6 +1802,9 @@ void init_wolfpack_globals()
 	
 	PyObject *mOptions = Py_InitModule( "_wolfpack.options", wpOptions );
 	PyObject_SetAttrString( wpNamespace, "options", mOptions );
+
+	PyObject *mDatabase = Py_InitModule( "_wolfpack.database", wpDatabase );
+	PyObject_SetAttrString( wpNamespace, "database", mDatabase );
 
 	// Try to import the wolfpack module and add some integer constants
 	/*PyObject *module;

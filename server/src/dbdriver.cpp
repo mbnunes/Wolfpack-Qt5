@@ -157,6 +157,95 @@ QString cDBResult::getString( UINT32 offset ) const
 	return QString::fromUtf8(_row[offset]);
 }
 
+struct wpDbResult {
+    PyObject_HEAD;
+	cDBResult *result;
+};
+
+static void wpDeallocDbResult(PyObject *object) {
+	wpDbResult *result = (wpDbResult*)object;
+	delete result->result;
+    PyObject_Del(object);
+}
+
+static PyObject *wpDbResult_getAttr(wpDbResult *self, char *name);
+
+PyTypeObject wpDbResultType = {
+    PyObject_HEAD_INIT(NULL)
+    0,
+    "dbresult",
+    sizeof(wpDbResultType),
+    0,
+    wpDeallocDbResult,
+    0,
+    (getattrfunc)wpDbResult_getAttr
+};
+
+static PyObject *wpDbResult_free(wpDbResult *self, PyObject *args) {
+	self->result->free();
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+static PyObject *wpDbResult_fetchrow(wpDbResult *self, PyObject *args) {
+	bool result = self->result->fetchrow();
+
+	if (result) {
+		return PyTrue;
+	} else {
+		return PyFalse;
+	}
+}
+
+static PyObject *wpDbResult_getint(wpDbResult *self, PyObject *args) {
+	unsigned int pos;
+	if (!PyArg_ParseTuple(args, "I:dbresult.getint(position)", &pos)) {
+		return 0;
+	}
+	return PyInt_FromLong(self->result->getInt(pos));
+}
+
+static PyObject *wpDbResult_getstring(wpDbResult *self, PyObject *args) {
+	unsigned int pos;
+	if (!PyArg_ParseTuple(args, "I:dbresult.getstring(position)", &pos)) {
+		return 0;
+	}
+
+	QString value = self->result->getString(pos);
+
+	return PyUnicode_FromUnicode((Py_UNICODE*)value.ucs2(), value.length());
+}
+
+static PyMethodDef wpDbResultMethods[] = {
+	{"free", (getattrofunc)wpDbResult_free, METH_VARARGS, 0},
+	{"fetchrow", (getattrofunc)wpDbResult_fetchrow, METH_VARARGS, 0},
+	{"getint", (getattrofunc)wpDbResult_getint, METH_VARARGS, 0},
+	{"getstring", (getattrofunc)wpDbResult_getstring, METH_VARARGS, 0},
+	{0, 0, 0, 0}
+};
+
+static PyObject *wpDbResult_getAttr(wpDbResult *self, char *name) {
+	return Py_FindMethod(wpDbResultMethods, (PyObject*)self, name);
+}
+
+PyObject *cDBResult::getPyObject() {
+	wpDbResult *returnVal = PyObject_New(wpDbResult, &wpDbResultType);
+	returnVal->result = this;
+	return (PyObject*)returnVal;
+}
+
+bool cDBResult::implements(const QString &name) {
+	if (name == "dbresult") {
+		return true;
+	} else {
+		return cPythonScriptable::implements(name);
+	}
+}
+
+const char *cDBResult::className() const {
+	return "dbresult";
+}
+
 /*****************************************************************************
   cSQLiteDriver member functions
  *****************************************************************************/
