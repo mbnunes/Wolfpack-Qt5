@@ -685,6 +685,48 @@ static bool ItemDroppedOnBeggar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	    return true;
 }
 
+static bool DeedDroppedOnBroker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
+{
+	UOXSOCKET s=ps->GetSocket();
+	P_CHAR pc_currchar = ps->getPlayer();
+	P_CHAR target = FindCharBySerial(pp->Tserial);
+	P_ITEM bankbox = pc_currchar->GetBankBox();
+	int value = pi->value/1.25;
+	int total = pi->value/1.25;
+	
+	if ((pi->morex >= 1 && pi->morex <= 14) || (pi->morex >= 16 && pi->morex <= 17) || (pi->morex >= 26 && pi->morex <= 32))
+	{
+		while ( value > 65000)
+		{
+			const P_ITEM pi_gold = Items->SpawnItem(s, pc_currchar, 65000, "#", 1, 0x0E, 0xED, 0, 0, 0);
+		    if(pi_gold == NULL) return false;
+			bankbox->AddItem(pi_gold);
+			value -= 65000;
+		}
+		const P_ITEM pi_gold = Items->SpawnItem(s, pc_currchar, value, "#", 1, 0x0E, 0xED, 0, 0, 0);
+	    if(pi_gold == NULL) return false;
+		bankbox->AddItem( pi_gold );
+		Items->DeleItem( pi ); // deed is consumed.
+		sprintf((char*)temp,"%s thank you for your patronage, I have deposited %i gold into your bank account.",pc_currchar->name.c_str(), total);
+		npctalk(s,target,(char*)temp,0);
+	    statwindow(s, pc_currchar);
+		return true;
+	}
+    else
+	{
+		  sprintf((char*)temp,"Sorry %s i can only accept house deeds.",pc_currchar->name.c_str());
+		  npctalk(s,target,(char*)temp,0);
+		  Sndbounce5(s);
+		  if (ps->IsDragging())
+		  {
+			 ps->ResetDragging();
+			 item_bounce5(s,pi);
+			 return true;
+		  }
+	}
+	return true;
+}
+
 static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
 	UOXSOCKET s=ps->GetSocket();
@@ -860,6 +902,19 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				if ( pTC->npcaitype == 5 )
 				{
 					if (!ItemDroppedOnBeggar( ps, pp, pi))
+					{
+						Sndbounce5(s);
+						if (ps->IsDragging())
+						{
+							ps->ResetDragging();
+							item_bounce5(s,pi);
+						}
+					}
+					return true;
+				}
+				if ( pTC->npcaitype == 19 )
+				{
+					if (!DeedDroppedOnBroker( ps, pp, pi))
 					{
 						Sndbounce5(s);
 						if (ps->IsDragging())

@@ -403,6 +403,8 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			}
 		}
 		break;
+		case 19:
+			break; // real estate broker...Ripper
 		case 32: // Pets Guarding..Ripper
 			if (pc_i->isNpc() && pc_i->tamed)
 			{
