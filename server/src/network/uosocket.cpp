@@ -2529,6 +2529,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 			if ((*it)->id() == 0xeed && (*it)->color() == 0) {
 				gold += (*it)->amount();
 			}
+			++it;
 		}
 	
 		sendStats.setGold(gold);
