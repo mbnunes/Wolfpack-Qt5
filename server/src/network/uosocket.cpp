@@ -533,9 +533,25 @@ void cUOSocket::playChar( P_CHAR pChar )
 	confirmLogin.setUnknown5( "\x60\x00\x00\x00\x00\x00\x00" );
 	send( &confirmLogin );
 
+	// Which map are we on
+	cUOTxChangeMap changeMap;
+	changeMap.setMap( pChar->pos.map );
+	send( &changeMap );
+
 	// Send us our player and send the rest to us as well.
 	pChar->resend();
 	resendWorld( false );
+
+	cUOTxWarmode warmode;
+	warmode.setStatus( pChar->war() );
+	send( &warmode );
+
+	if( pChar->targ() != INVALID_SERIAL )
+	{
+		cUOTxAttackResponse attack;
+		attack.setSerial( pChar->targ() );
+		send( &attack );
+	}
 
 	// Start the game!
 	cUOTxStartGame startGame;
