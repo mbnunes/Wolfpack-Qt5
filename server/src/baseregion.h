@@ -185,8 +185,7 @@ public:
 
 class cAllBaseRegions {
 public:
-	virtual ~cAllBaseRegions()
-	{
+	virtual ~cAllBaseRegions() {
 		QMap<uint, cBaseRegion*>::const_iterator it( topregions.begin() );
 		for ( ; it != topregions.end(); ++it )
 			delete it.data();

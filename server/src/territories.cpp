@@ -293,6 +293,7 @@ bool cTerritory::findTeleporterSpot( Coord_cl& d ) const
 
 void cTerritories::unload() {
 	topregions.clear();
+	cComponent::unload();
 }
 
 void cTerritories::load()

@@ -489,9 +489,10 @@ void cAllSpawnRegions::reload() {
 }
 
 void cAllSpawnRegions::unload() {
-	QMap<uint, cBaseRegion*>::iterator it( topregions.begin() );
+	QMap<uint, cBaseRegion*>::const_iterator it( topregions.begin() );
 	for ( ; it != topregions.end(); ++it )
 		delete it.data();
 
+	topregions.clear();
 	cComponent::unload();
 }
