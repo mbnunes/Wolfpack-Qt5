@@ -980,7 +980,7 @@ struct pathnode_coordComparePredicate : public std::binary_function<pathnode_cl,
 */
 float cNPC::pathHeuristic( const Coord_cl& source, const Coord_cl& destination )
 {
-	return ( float ) ( sqrt( pow( source.x - destination.x, 2 ) + pow( source.y - destination.y, 2 ) + pow( ( source.z - destination.z ) / 5.0f, 2 ) ) );
+	return ( float ) ( sqrt( pow( (float)(source.x - destination.x), 2 ) + pow( (float)(source.y - destination.y), 2 ) + pow( ( source.z - destination.z ) / 5.0f, 2 ) ) );
 }
 
 /*!
