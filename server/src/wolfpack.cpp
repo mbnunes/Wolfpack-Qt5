@@ -1695,21 +1695,16 @@ int main( int argc, char *argv[] )
 		{
 			CheckClientIdle=((SrvParams->inactivityTimeout()/2)*MY_CLOCKS_PER_SEC)+uiCurrentTime;
 
-			for (r=0;r<now;r++)
+			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 			{
-				if ((!currchar[r] && perm[r]) && !currchar[r]->free
-					&& !currchar[r]->isGM()
-					&& currchar[r]->clientidletime()<uiCurrentTime
-					
-					)
+				P_CHAR player = mSock->player();
+				if ( player && !player->isGM() && player->clientidletime() < uiCurrentTime )
 				{
-					clConsole.send("Player %s disconnected due to inactivity !\n", currchar[r]->name.latin1());
-					//sysmessage(r,"you have been idle for too long and have been disconnected!");
-					char msg[3];
-					msg[0]=0x53;
-					msg[1]=0x07;
-					Xsend(r, msg, 2);
-					//cNetwork::instance()->Disconnect(r);
+					clConsole.send("Player %s disconnected due to inactivity !\n", player->name.latin1());
+					cUOTxMessageWarning packet;
+					packet.setReason( cUOTxMessageWarning::Idle );
+					mSock->send( &packet );
+					mSock->disconnect();
 				}
 
 			}

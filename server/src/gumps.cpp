@@ -1184,7 +1184,7 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		return;
 
 	bool contains = false;
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock && !contains; mSock = cNetwork::instance()->next() )
 	{
 		if( mSock = socket_ )
 			contains = true;

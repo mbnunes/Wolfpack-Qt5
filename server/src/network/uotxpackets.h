@@ -1112,4 +1112,13 @@ public:
 	void set3dAdditional2Id( UINT16 data ) { setShort( 47, data ); }
 };
 
+// 0x53 Idle Warning
+class cUOTxMessageWarning : public cUOPacket
+{
+public:
+	enum enReason { NoCharacter = 0x01, CharExists, CannotConnect, CannotConnect2, AlreadyInWorld, LoginProblem, Idle, CannotConnect3 };
+	cUOTxMessageWarning() : cUOPacket(0x53, 2) {}
+	void setReason( enReason reason ) { (*this)[1] = (Q_UINT8) reason; }
+};
+
 #endif // __UO_TXPACKETS__
