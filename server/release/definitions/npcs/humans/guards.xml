@@ -11,7 +11,7 @@
 	<npc id="base_guard">
 		<name><random list="NAMES_MALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
-		<ai>4</ai>
+		<ai>Human_Guard</ai>
 		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
 		<totame>1100</totame>
 		<npcwander type="circle" radius="20" />

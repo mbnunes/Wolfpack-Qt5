@@ -278,7 +278,7 @@
 		<item>Zejron</item>
 		<item>Zunrek</item>
 	</list>
-	<list id="NAMES_FEMALE">
+	<list id="NAMES_MALE">
 		<item>Aaron</item>
 		<item>Aasin</item>
 		<item>Abbot</item>
@@ -3064,7 +3064,7 @@
 		<item>Ytssysh</item>
 		<item>Ytsthih</item>
 	</list>
-	<list id="NAMES_MALE">
+	<list id="NAMES_FEMALE">
 		<item>Aba</item>
 		<item>Abby</item>
 		<item>Abella</item>
