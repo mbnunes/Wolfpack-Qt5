@@ -1158,7 +1158,7 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 			return result;
 	}
 
-	return (char*)0;
+	return QString::null;
 }
 
 bool cBaseChar::onDeath()

@@ -212,7 +212,7 @@ public:
 	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setWipe( bool nValue ) { ( nValue ) ? priv_ &= 0x10 : priv_ |= 0xEF; flagChanged();};
-	void	setNoDecay( bool nValue ) { ( nValue ) ? priv_ &= 0x01 : priv_ |= 0xFE; flagChanged(); };
+	void	setNoDecay( bool nValue ) { ( nValue ) ? priv_ |= 0x01 : priv_ &= ~0x01; flagChanged(); };
 	void	setWeight( SI16 nValue );
 	void	setHp( SI16 nValue ) { hp_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; flagChanged(); changed( TOOLTIP );};

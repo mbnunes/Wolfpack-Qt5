@@ -128,6 +128,40 @@ public:
 	// But as soon as the flag-system is introduced for python-script 
 	// It shouldn't be that much.
 	bool onCastSpell( cPlayer *player, unsigned int spell );
+
+	// Method Calling Macro!
+	inline bool PyEvalMethod( char* a, PyObject* tuple )
+	{
+		PyObject* method = PyObject_GetAttrString( codeModule, a ); 
+		if ( !method )
+		{
+			Py_XDECREF( tuple );
+			return false;
+		}
+		
+		PyObject *returnValue = PyObject_CallObject( method, tuple );
+		
+		Py_XDECREF( tuple );
+		Py_DECREF( method );
+		if( PyErr_Occurred() )
+		{
+			PyErr_Print();
+			PyErr_Clear();
+		}
+
+		if( !returnValue ) 
+			return false;
+		int isTrue = PyObject_IsTrue( returnValue );
+		Py_DECREF( returnValue );
+		switch ( isTrue )
+		{
+		case -1:
+		case 0: return false;
+		case 1:
+		default: return true;
+		}
+	}
+
 };
 
 #endif // __WPPYTHONSCRIPT_H__

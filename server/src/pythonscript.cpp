@@ -86,21 +86,33 @@ bool cPythonScript::canHandleSpeech( const QString &text, const QValueVector< UI
 
 void cPythonScript::unload( void )
 {
-	if( codeModule == NULL )
+	if( !codeModule )
 		return;
 
-	if( PyObject_HasAttr( codeModule, PyString_FromString( "onUnload" ) ) ) 
+	PyObject* method = PyObject_GetAttrString( codeModule, "onUnload" ); 
+		
+	if( !method )
 	{
-		PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onUnload" ) ); 
-		
-		if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) 
-			return; 
-		
-		PyObject_CallObject( method, NULL ); 
-		PyReportError();
+		PyErr_Clear();
+		Py_DECREF( codeModule );
+		codeModule = 0;
+		return;
 	}
 
+	if ( !PyCallable_Check( method ) )
+	{
+		Py_DECREF( method );
+		Py_DECREF( codeModule );
+		codeModule = 0;
+	}
+		
+	PyObject* result = PyObject_CallObject( method, NULL );
+	PyReportError();
+	Py_XDECREF( result ); // void
+	Py_DECREF( method );
+	Py_DECREF( codeModule );
 	codeModule = 0;
+
 }
 
 // Find our module name
@@ -112,7 +124,7 @@ bool cPythonScript::load( const cElement *element )
 
 	QString name = element->text();
 
-	if( name == QString::null )
+	if( name.isNull() )
 		return false;
 
 	setName( name );
@@ -122,13 +134,9 @@ bool cPythonScript::load( const cElement *element )
 	if( moduleName.isNull() || moduleName.isEmpty() )
 		return false;
 
-	// Compile the codemodule
-	char moduleNameStr[1024]; // Just to be sure
-	strcpy( &moduleNameStr[ 0 ], moduleName.latin1() );
+	codeModule = PyImport_ImportModule( const_cast<char*>(moduleName.latin1()) );
 
-	codeModule = PyImport_ImportModule( moduleNameStr );
-
-	if( codeModule == NULL )
+	if( !codeModule )
 	{
 		clConsole.ProgressFail();
 
@@ -141,18 +149,20 @@ bool cPythonScript::load( const cElement *element )
 	}
 
 	// Call the load Function
-	if( PyObject_HasAttr( codeModule, PyString_FromString( "onLoad" ) ) ) 
+	PyObject* method = PyObject_GetAttrString( codeModule, "onLoad" ); 
+		
+	if ( method )
 	{
-		PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onLoad" ) ); 
-		
-		if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) 
-			return true; 
-		
-		PyObject_CallObject( method, NULL ); 
-		PyReportError();
+		if ( PyCallable_Check( method ) )
+		{
+			PyObject* result = PyObject_CallObject( method, NULL );
+			PyReportError();
+			Py_XDECREF( result );
+		}
+		Py_DECREF( method );
 	}
-
-	handleSpeech_ = PyObject_HasAttr( codeModule, PyString_FromString( "onSpeech" ) );
+		
+	handleSpeech_ = PyObject_HasAttrString( codeModule, "onSpeech" );
 	return true;
 }
 
@@ -160,10 +170,7 @@ bool cPythonScript::load( const cElement *element )
 bool cPythonScript::onServerstart()
 {
 	PyHasMethod( "onServerstart" )
-
-	PyObject *tuple = PyTuple_New( 0 );
-
-	PyEvalMethod( "onServerstart" )
+	return PyEvalMethod( "onServerstart", PyTuple_New( 0 ) );
 }
 
 bool cPythonScript::onUse( P_CHAR User, P_ITEM Used )
@@ -175,7 +182,7 @@ bool cPythonScript::onUse( P_CHAR User, P_ITEM Used )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( User ) );
 	PyTuple_SetItem( tuple, 1, PyGetItemObject( Used ) );
 
-	PyEvalMethod( "onUse" )
+	return PyEvalMethod( "onUse", tuple );
 }
 
 bool cPythonScript::onSingleClick( P_ITEM Item, P_CHAR Viewer )
@@ -186,7 +193,7 @@ bool cPythonScript::onSingleClick( P_ITEM Item, P_CHAR Viewer )
 	PyTuple_SetItem( tuple, 0, PyGetItemObject( Item ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Viewer ) );
 
-	PyEvalMethod( "onSingleClick" )
+	return PyEvalMethod( "onSingleClick", tuple );
 }
 
 bool cPythonScript::onSingleClick( P_CHAR Character, P_CHAR Viewer )
@@ -197,7 +204,7 @@ bool cPythonScript::onSingleClick( P_CHAR Character, P_CHAR Viewer )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Viewer ) );
 	
-	PyEvalMethod( "onSingleClick" )
+	return PyEvalMethod( "onSingleClick", tuple );
 }
 
 bool cPythonScript::onLogout( P_CHAR Character )
@@ -207,7 +214,7 @@ bool cPythonScript::onLogout( P_CHAR Character )
 	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 
-	PyEvalMethod( "onLogout" )
+	return PyEvalMethod( "onLogout", tuple );
 }
 
 bool cPythonScript::onLogin( P_CHAR Character )
@@ -217,7 +224,7 @@ bool cPythonScript::onLogin( P_CHAR Character )
 	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 
-	PyEvalMethod( "onLogin" )
+	return PyEvalMethod( "onLogin", tuple );
 }
 
 bool cPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )
@@ -228,7 +235,7 @@ bool cPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyGetItemObject( Obstacle ) );
 
-	PyEvalMethod( "onCollideItem" )
+	return PyEvalMethod( "onCollideItem", tuple );
 }
 
 bool cPythonScript::onCollideChar( P_CHAR Character, P_CHAR Obstacle )
@@ -239,7 +246,7 @@ bool cPythonScript::onCollideChar( P_CHAR Character, P_CHAR Obstacle )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Obstacle ) );
 
-	PyEvalMethod( "onCollideChar" )
+	return PyEvalMethod( "onCollideChar", tuple );
 }
 
 bool cPythonScript::onWalk( P_CHAR Character, UINT8 Direction, UINT8 Sequence )
@@ -251,7 +258,7 @@ bool cPythonScript::onWalk( P_CHAR Character, UINT8 Direction, UINT8 Sequence )
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( Direction ) );
 	PyTuple_SetItem( tuple, 2, PyInt_FromLong( Sequence ) );
 
-	PyEvalMethod( "onWalk" )
+	return PyEvalMethod( "onWalk", tuple );
 }
 
 // if this events returns true (handeled) then we should not display the text
@@ -267,7 +274,7 @@ bool cPythonScript::onTalk( P_CHAR Character, char speechType, UINT16 speechColo
 	PyTuple_SetItem( tuple, 4, PyString_FromString( Text.ascii() ) );
 	PyTuple_SetItem( tuple, 5, PyString_FromString( Lang.ascii() ) );
 	
-	PyEvalMethod( "onTalk" )
+	return PyEvalMethod( "onTalk", tuple );
 }
 
 bool cPythonScript::onWarModeToggle( P_CHAR Character, bool War )
@@ -278,7 +285,7 @@ bool cPythonScript::onWarModeToggle( P_CHAR Character, bool War )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, ( War ? PyInt_FromLong( 1 ) : PyInt_FromLong( 0 ) ) );
 
-	PyEvalMethod( "onWarModeToggle" )
+	return PyEvalMethod( "onWarModeToggle", tuple );
 }
 
 bool cPythonScript::onHelp( P_CHAR Character )
@@ -288,7 +295,7 @@ bool cPythonScript::onHelp( P_CHAR Character )
 	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 
-	PyEvalMethod( "onHelp" )
+	return PyEvalMethod( "onHelp", tuple );
 }
 
 
@@ -299,7 +306,7 @@ bool cPythonScript::onChat( P_CHAR Character )
 	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 
-	PyEvalMethod( "onChat" )
+	return PyEvalMethod( "onChat", tuple );
 }
 
 
@@ -311,7 +318,7 @@ bool cPythonScript::onSkillUse( P_CHAR Character, UINT8 Skill )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( Skill ) );
 
-	PyEvalMethod( "onSkillUse" )
+	return PyEvalMethod( "onSkillUse", tuple );
 }
 
 bool cPythonScript::onSkillGain( P_CHAR Character, UINT8 Skill, INT32 min, INT32 max, bool success )
@@ -325,7 +332,7 @@ bool cPythonScript::onSkillGain( P_CHAR Character, UINT8 Skill, INT32 min, INT32
 	PyTuple_SetItem( tuple, 3, PyInt_FromLong( max ) );
 	PyTuple_SetItem( tuple, 4, PyInt_FromLong( success ) );
 
-	PyEvalMethod( "onSkillGain" )
+	return PyEvalMethod( "onSkillGain", tuple );
 }
 
 bool cPythonScript::onStatGain( P_CHAR Character, UINT8 stat, INT8 amount )
@@ -337,7 +344,7 @@ bool cPythonScript::onStatGain( P_CHAR Character, UINT8 stat, INT8 amount )
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( stat ) );
 	PyTuple_SetItem( tuple, 2, PyInt_FromLong( amount ) );
 
-	PyEvalMethod( "onStatGain" )
+	return PyEvalMethod( "onStatGain", tuple );
 }
 
 bool cPythonScript::onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id )
@@ -354,7 +361,7 @@ bool cPythonScript::onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id )
 
 	PyTuple_SetItem( tuple, 2, PyInt_FromLong( id ) );
 
-	PyEvalMethod( "onContextEntry" )
+	return PyEvalMethod( "onContextEntry", tuple );
 }
 
 bool cPythonScript::onShowContextMenu( P_CHAR pChar, cUObject *pObject )
@@ -369,7 +376,7 @@ bool cPythonScript::onShowContextMenu( P_CHAR pChar, cUObject *pObject )
 	else if( isCharSerial( pObject->serial() ) )
 		PyTuple_SetItem( tuple, 1, PyGetCharObject( (P_CHAR)pObject ) );
 
-	PyEvalMethod( "onShowContextMenu" )
+	return PyEvalMethod( "onShowContextMenu", tuple );
 }
 
 bool cPythonScript::onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxTooltipList* tooltip )
@@ -386,18 +393,24 @@ bool cPythonScript::onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxTooltip
 
 	PyTuple_SetItem( tuple, 2, PyGetTooltipObject( tooltip ) );
 
-	PyEvalMethod( "onShowToolTip" )
+	return PyEvalMethod( "onShowToolTip", tuple );
 }
 
 unsigned int cPythonScript::onDamage( P_CHAR pChar, unsigned char type, unsigned int amount, cUObject *source )
 {
-	if( !codeModule || !PyObject_HasAttr( codeModule, PyString_FromString( "onDamage" ) ) )
+	if( !codeModule )
 		return amount;
 
-	PyObject *method = PyObject_GetAttr( codeModule, PyString_FromString( "onDamage" ) );
+	PyObject *method = PyObject_GetAttrString( codeModule, "onDamage" );
 	
-	if( !method || !PyCallable_Check( method ) )
+	if( !method )
 		return amount;
+
+	if ( !PyCallable_Check( method ) )
+	{
+		Py_DECREF( method );
+		return amount;
+	}
 
 	PyObject *args = PyTuple_New( 4 );
 	
@@ -413,12 +426,21 @@ unsigned int cPythonScript::onDamage( P_CHAR pChar, unsigned char type, unsigned
 
 	PyObject *returnValue = PyObject_CallObject( method, args ); 
 	
-	PyReportError(); 
+	PyReportError();
+	Py_DECREF( args );
+	Py_DECREF( method );
 	
-	if( !returnValue || !PyInt_Check( returnValue ) ) 
+	if( !returnValue ) 
 		return amount; 
+	if ( !PyInt_Check( returnValue ) )
+	{
+		Py_DECREF( returnValue );
+		return amount;
+	}
 
-	return PyInt_AsLong( returnValue );	
+	amount = PyInt_AsLong( returnValue );
+	Py_DECREF( returnValue );
+	return amount;	
 }
 
 bool cPythonScript::onCastSpell( cPlayer *player, unsigned int spell )
@@ -429,7 +451,7 @@ bool cPythonScript::onCastSpell( cPlayer *player, unsigned int spell )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( player) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
 
-	PyEvalMethod( "onCastSpell" )
+	return PyEvalMethod( "onCastSpell", tuple );
 }
 
 bool cPythonScript::onCreate( cUObject *object, const QString &definition )
@@ -445,7 +467,7 @@ bool cPythonScript::onCreate( cUObject *object, const QString &definition )
 
 	PyTuple_SetItem( tuple, 1, PyString_FromString( definition.latin1() ) );
 	
-	PyEvalMethod( "onCreate" )
+	return PyEvalMethod( "onCreate", tuple );
 }
 
 bool cPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString &text, const QValueVector< UINT16 >& keywords )
@@ -468,7 +490,7 @@ bool cPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString &
 
 	PyTuple_SetItem( tuple, 3, list );
 
-	PyEvalMethod( "onSpeech" )
+	return PyEvalMethod( "onSpeech", tuple );
 }
 
 bool cPythonScript::onDropOnChar( P_CHAR pChar, P_ITEM pItem )
@@ -479,7 +501,7 @@ bool cPythonScript::onDropOnChar( P_CHAR pChar, P_ITEM pItem )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
 	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
 
-	PyEvalMethod( "onDropOnChar" )
+	return PyEvalMethod( "onDropOnChar", tuple );
 }
 
 bool cPythonScript::onDropOnItem( P_ITEM pCont, P_ITEM pItem )
@@ -490,7 +512,7 @@ bool cPythonScript::onDropOnItem( P_ITEM pCont, P_ITEM pItem )
 	PyTuple_SetItem( tuple, 0, PyGetItemObject( pCont ) );
 	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
 
-	PyEvalMethod( "onDropOnItem" )
+	return PyEvalMethod( "onDropOnItem", tuple );
 }
 
 bool cPythonScript::onDropOnGround( P_ITEM pItem, const Coord_cl &pos )
@@ -501,7 +523,7 @@ bool cPythonScript::onDropOnGround( P_ITEM pItem, const Coord_cl &pos )
 	PyTuple_SetItem( tuple, 0, PyGetItemObject( pItem ) );
 	PyTuple_SetItem( tuple, 1, PyGetCoordObject( pos ) );
 
-	PyEvalMethod( "onDropOnGround" )
+	return PyEvalMethod( "onDropOnGround", tuple );
 }
 
 bool cPythonScript::onPickup( P_CHAR pChar, P_ITEM pItem )
@@ -512,7 +534,7 @@ bool cPythonScript::onPickup( P_CHAR pChar, P_ITEM pItem )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
 	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
 
-	PyEvalMethod( "onPickup" )
+	return PyEvalMethod( "onPickup", tuple );
 }
 
 bool cPythonScript::onCommand( cUOSocket *socket, const QString &name, const QString &args )
@@ -525,7 +547,7 @@ bool cPythonScript::onCommand( cUOSocket *socket, const QString &name, const QSt
 	PyTuple_SetItem( tuple, 1, PyString_FromString( name.latin1() ) );
 	PyTuple_SetItem( tuple, 2, PyString_FromString( args.latin1() ) );
 
-	PyEvalMethod( "onCommand" )
+	return PyEvalMethod( "onCommand", tuple );
 }
 
 bool cPythonScript::onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin )
@@ -537,7 +559,7 @@ bool cPythonScript::onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( pOrigin ) );
 
-	PyEvalMethod( "onShowPaperdoll" )
+	return PyEvalMethod( "onShowPaperdoll", tuple );
 }
 
 bool cPythonScript::onDeath( P_CHAR pChar )
@@ -547,7 +569,7 @@ bool cPythonScript::onDeath( P_CHAR pChar )
 	// Create our args for the python function
 	PyObject *tuple = PyTuple_New( 1 );
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	PyEvalMethod( "onDeath" )
+	return PyEvalMethod( "onDeath", tuple );
 }
 
 bool cPythonScript::onShowSkillGump( P_CHAR pChar )
@@ -558,33 +580,46 @@ bool cPythonScript::onShowSkillGump( P_CHAR pChar )
 	PyObject *tuple = PyTuple_New( 1 );
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
 
-	PyEvalMethod( "onShowSkillGump" )
+	return PyEvalMethod( "onShowSkillGump", tuple );
 }
 
 QString cPythonScript::onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin )
 {
-	if( codeModule == NULL ) 
-		return (char*)0; 
-	if( !PyObject_HasAttr( codeModule, PyString_FromString( "onShowPaperdollName" ) ) ) 
-		return (char*)0;
+	if( !codeModule ) 
+		return QString::null; 
+
+	PyObject* method = PyObject_GetAttrString( codeModule, "onShowPaperdollName" ); 
+	
+	if ( !method )
+		return QString::null;
+	
+	if( !PyCallable_Check( method ) ) 
+	{
+		Py_DECREF( method );
+		return QString::null; 
+	}
 
 	// Create our args for the python function
 	PyObject *tuple = PyTuple_New( 2 );
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( pOrigin ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onShowPaperdollName" ) ); 
-	if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) 
-		return (char*)0; 
-	
 	PyObject *returnValue = PyObject_CallObject( method, tuple ); 
-	PyReportError(); 
-	if( returnValue == NULL ) 
-		return (char*)0; 
+	PyReportError();
+	Py_DECREF( tuple );
+	Py_DECREF( method );
+
+	if( !returnValue ) 
+		return QString::null; 
 	if( !PyString_Check( returnValue ) ) 
-		return (char*)0; 
+	{
+		Py_DECREF( returnValue );
+		return QString::null;
+	}
 	
-	return PyString_AsString( returnValue );
+	QString result = PyString_AsString( returnValue );
+	Py_DECREF( returnValue );
+	return result;
 }
 
 

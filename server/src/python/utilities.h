@@ -55,10 +55,7 @@ typedef cMulti* P_MULTI;
 */
 #define PyFalse PyInt_FromLong( 0 )
 #define PyTrue PyInt_FromLong( 1 )
-#define PyHasMethod(a) if( codeModule == NULL ) return false; if( !PyObject_HasAttr( codeModule, PyString_FromString( a ) ) ) return false;
-
-// Method Calling Macro!
-#define PyEvalMethod(a) PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( a ) ); if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) return false; PyObject *returnValue = PyObject_CallObject( method, tuple ); PyReportError(); if( returnValue == NULL ) return false; if( !PyInt_Check( returnValue ) ) return false; if( PyInt_AsLong( returnValue ) == 1 ) return true; else return false;
+#define PyHasMethod(a) if( codeModule == NULL ) return false; if( !PyObject_HasAttrString( codeModule, a ) ) return false;
 
 // Setting and getting item/char properties
 #define setIntProperty( identifier, property ) if( !strcmp( name, identifier ) ) self->property = PyInt_AS_LONG( value );
