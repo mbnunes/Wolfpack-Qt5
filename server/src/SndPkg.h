@@ -139,7 +139,6 @@ void SndShopgumpopen(UOXSOCKET s, int serial);
 void soundeffect(int s, unsigned char a, unsigned char b); // Play sound effect for player
 void soundeffect2(P_CHAR pc, short sound);
 void soundeffect2(P_CHAR pc, unsigned char a, unsigned char b);
-void soundeffect3(P_ITEM pi, short sound);
 void soundeffect4(P_ITEM pi, UOXSOCKET s, unsigned char a, unsigned char b);
 void soundeffect5(UOXSOCKET s, unsigned char a, unsigned char b);
 void action(int s, int x); // Character does a certain action

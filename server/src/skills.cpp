@@ -41,6 +41,7 @@
 #include "guildstones.h"
 #include "tilecache.h"
 #include "combat.h"
+#include "targetrequests.h"
 #include "regions.h"
 #include "srvparams.h"
 #include "wpscriptmanager.h"
@@ -89,6 +90,203 @@ inline void SetSkillDelay(P_CHAR pc)
 { 	
 	SetTimerSec(&pc->skilldelay,SrvParams->skillDelay());
 }
+
+// This is the target-request for ArmsLore
+class cSkArmsLore: public cTargetRequest
+{
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		P_ITEM pItem = FindItemBySerial( target->serial() );
+		P_CHAR pChar = socket->player();
+
+		if( !pChar )
+			return;
+
+		if( !pItem || !target->serial() )
+		{
+			socket->sysMessage( tr( "You need to target an item" ) );
+			return;
+		}
+
+		if( ( ( pItem->lodamage() == 0 ) && ( pItem->hidamage() == 0 ) ) && !pItem->def )
+		{
+			socket->sysMessage( tr( "This does not appear to be a weapon" ) );
+			return;
+		}
+
+		if( pChar->isGM() )
+		{
+			socket->sysMessage( tr("Attack [%1] Defense [%2] Lodamage [%3] Hidamage [%4]").arg( pItem->att ).arg( pItem->def ).arg( pItem->lodamage() ).arg( pItem->hidamage() ) );
+			return;
+		}
+
+		if( !Skills->CheckSkill( pChar, ARMSLORE, 0, 250 ) )
+		{
+			socket->sysMessage( tr( "You are not certain..." ) );
+			return;
+		}
+
+		QStringList mParts;
+
+		// You get the HP Status between 0 and 25%
+		if( pItem->maxhp() )
+		{
+			float totalHp = (float)( pItem->hp() / pItem->maxhp() );
+			QString status;
+			
+			if      (totalHp>0.9) status = tr( "is brand new" ); 
+			else if (totalHp>0.8) status = tr( "is almost new" );
+			else if (totalHp>0.7) status = tr( "is barely used, with a few nicks and scrapes" );
+			else if (totalHp>0.6) status = tr( "is in fairly good condition" );
+			else if (totalHp>0.5) status = tr( "suffered some wear and tear" );
+			else if (totalHp>0.4) status = tr( "is well used [%1%%" );
+			else if (totalHp>0.3) status = tr( "is rather battered." );
+			else if (totalHp>0.2) status = tr( "is somewhat badly damaged." );
+			else if (totalHp>0.1) status = tr( "is flimsy and not trustworthy." );
+			else                  status = tr( "is falling apart." );
+
+			mParts.push_back( tr( "%1 [%2%%]" ).arg( status ).arg( totalHp*100, 0, 'f', 0 ) );
+		}
+
+		// You get the Damage status between 25% and 51%
+		if( Skills->CheckSkill( pChar, ARMSLORE, 250, 510 ) )
+		{
+			if( pItem->hidamage() && pItem->lodamage() )
+			{
+				UINT32 mid = (UINT32)( ( pItem->hidamage() + pItem->lodamage() ) / 2 );
+				QString status;
+				if      ( mid > 26 ) status = tr( "would be extraordinarily deadly" );
+				else if ( mid > 21 ) status = tr( "would be a superior weapon" );
+				else if ( mid > 16 ) status = tr( "would inflict quite a lot of damage and pain" ); 
+				else if ( mid > 11 ) status = tr( "would probably hurt your opponent a fair amount" );
+				else if ( mid > 6 )  status = tr( "would do some damage" );
+				else if ( mid > 3 )  status = tr( "would do minimal damage" );
+				else                 status = tr( "might scratch your opponent slightly" );
+
+				mParts.push_back( status );
+
+				// The weapon speed is displayed between 50% and 100%
+				if( Skills->CheckSkill( pChar, ARMSLORE, 500, 1000 ) )
+				{
+					if( pItem->speed() > 32 )		status = tr( "is very fast" );
+					else if( pItem->speed() > 25 )	status = tr( "is fast" );
+					else if( pItem->speed() > 15 )	status = tr( "is slow" );
+					else							status = tr( "is very slow ");
+					mParts.push_back( status );
+				}
+			}
+			// Armor ratings
+			else if( pItem->def )
+			{
+				QString status;
+
+				if      ( pItem->def > 12) status = tr( "is superbly crafted to provide maximum protection" );
+				else if ( pItem->def > 10) status = tr( "offers excellent protection" );
+				else if ( pItem->def > 8 ) status = tr( "is a superior defense against attack" );
+				else if ( pItem->def > 6 ) status = tr( "serves as a sturdy protection" );
+				else if ( pItem->def > 4 ) status = tr( "offers some protection against blows" );
+				else if ( pItem->def > 2 ) status = tr( "provides very little protection" );
+				else if ( pItem->def > 0 ) status = tr( "provides almost no protection" );
+				else                  status = tr( "offers no defense against attackers" );
+
+				mParts.push_back( status );
+			}
+		}
+	
+		if( mParts.count() == 0 )
+		{
+			socket->sysMessage( tr( "You are not sure..." ) );
+			return;
+		}
+
+		// Build a human readable sentence
+		if( mParts.count() < 3 )
+			socket->sysMessage( tr( "The item %1." ).arg( mParts.join( tr( " and " ) ) ) );
+		else
+		{
+			QString lastPart = mParts.last();
+			mParts.remove( mParts.back() );
+			socket->sysMessage( tr( "The item %1 and %2" ).arg( mParts.join( ", " ) ).arg( lastPart ) );
+		}
+
+		// Display the rank if there is one (Between 25% and 50%)
+		if( ( pItem->rank > 0 ) && ( pItem->rank < 11 ) && SrvParams->rank_system() && Skills->CheckSkill( pChar, ARMSLORE, 250, 500 ) )
+		{
+			switch( pItem->rank )
+			{
+				case 1: socket->sysMessage( tr("It seems an item with no quality.") );				break;
+				case 2: socket->sysMessage( tr("It seems an item very below standard quality.") );	break;
+				case 3: socket->sysMessage( tr("It seems an item below standard quality.") );		break;
+				case 4: socket->sysMessage( tr("It seems a weak quality item.") );					break;
+				case 5: socket->sysMessage( tr("It seems a standard quality item.") );				break;
+				case 6: socket->sysMessage( tr("It seems a nice quality item.") );					break;
+				case 7: socket->sysMessage( tr("It seems a good quality item.") );					break;
+				case 8: socket->sysMessage( tr("It seems a great quality item.") );					break;
+				case 9: socket->sysMessage( tr("It seems a beautiful quality item.") );				break;
+				case 10:socket->sysMessage( tr("It seems a perfect quality item.") );				break;
+			}
+		}
+	}
+};
+
+// Detecting hidden
+class cSkDetectHidden: public cTargetRequest
+{
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		P_CHAR pChar = socket->player();
+
+		if( !pChar )
+			return;
+
+		Coord_cl dPos = pChar->pos;
+		dPos.x = target->x();
+		dPos.y = target->y();
+		dPos.z = target->z();
+
+		// If its out of the characters visrange cancel (How could he've clicked there??)
+		if( dPos.distance( pChar->pos ) > pChar->VisRange )
+			return;
+        
+		UINT16 dSkill = pChar->skill( DETECTINGHIDDEN );		
+		double range = ( dSkill * dSkill / 1.0E6 ) * VISRANGE; // this seems like an ok formula
+		
+		cRegion::RegionIterator4Chars ri( dPos );
+        bool found = false;
+
+		for( ri.Begin(); !ri.atEnd(); ri++ )
+		{
+			P_CHAR hChar = ri.GetData();
+			if( hChar )
+			{
+				if( hChar->hidden() && !hChar->isHiddenPermanently() ) // do not detect invis people only hidden ones
+				{
+					UINT16 dx = abs( hChar->pos.x - dPos.x );
+					UINT16 dy = abs( hChar->pos.y - dPos.y );
+					double c = hypot( dx, dy );
+
+					INT16 low = (UINT16)( hChar->skill(HIDING) * hChar->skill(HIDING) / 1E3 - ( range * 50 / VISRANGE ) * ( range - c ) / range );
+					if( low < 0 ) 
+						low = 0;
+					else if( low > 1000 )
+						low = 1000;
+					
+					if( ( Skills->CheckSkill( pChar, DETECTINGHIDDEN, low, 1000 ) ) && ( c <= range ) )
+					{
+						hChar->unhide();
+						hChar->message( tr( "You have been revealed!" ) );
+						found = true;
+					}
+				}
+			}
+		}
+
+		if( !found )
+			socket->sysMessage( tr( "You didn't find anything hidden" ) );
+	}
+};
 
 //////////////////////////
 // Function:	CalcRank
@@ -1445,144 +1643,154 @@ int cSkills::GetCombatSkill(P_CHAR pc)
 	return(skillused);
 }
 
-void cSkills::SkillUse(int s, int x) // Skill is clicked on the skill list
+void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the skill list
 {
-//	int cc=currchar[s];
-	P_CHAR pc_currchar = currchar[s];
-	if (pc_currchar->cell>0)
-	{
-		sysmessage(s,"you are in jail and cant gain skills here!");
-		return;
-	}
-	if (pc_currchar->dead)
-	{
-		sysmessage(s,"You cannot do that as a ghost.");
-		return;
-	}
-	if (x!=STEALTH)
-		pc_currchar->unhide();
+	P_CHAR pChar = socket->player();
 
-	pc_currchar->disturbMed(); // Meditation
+	// No Char no Skill use
+	if( !pChar )
+		return;
 
-	if( pc_currchar->casting() )
+	if( pChar->cell > 0 )
 	{
-		sysmessage( s, "You can't do that while you are casting" );
+		socket->sysMessage( tr( "You are in jail and cant gain skills here!" ) );
 		return;
 	}
-	if(pc_currchar->skilldelay<=uiCurrentTime || pc_currchar->isGM())
-		switch(x)
+
+	if( pChar->dead )
+	{
+		socket->sysMessage( tr( "You cannot do that as a ghost." ) );
+		return;
+	}
+
+	pChar->unhide(); // Unhide if we're stealthing or hiding too!
+	pChar->disturbMed(); // Disturb meditation if we're using a skill
+
+	if( pChar->casting() )
+	{
+		socket->sysMessage( tr( "You can't do that while you are casting." ) );
+		return;
+	}
+
+	if( pChar->skilldelay > uiCurrentTime && !pChar->isGM() )
+	{
+		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
+		return;
+	}
+
+	cTargetRequest *targetRequest = NULL;
+	QString message;
+	int s = -1;
+
+	switch( id )
 	{
 	case ARMSLORE:
-		target(s, 0, 1, 0, 29, "What item do you wish to get information about?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "What item do you wish to get information about?";
+		targetRequest = new cSkArmsLore;
+		break;
 	case ANATOMY:
-		target(s, 0, 1, 0, 37, "Whom shall I examine?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "Whom shall I examine?";
+		//target(s, 0, 1, 0, 37, );
+		break;
 	case ITEMID:
-		target(s, 0, 1, 0, 40, "What do you wish to appraise and identify?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "What do you wish to appraise and identify?";
+		//target(s, 0, 1, 0, 40, );
+		break;
 	case EVALUATINGINTEL:
-		target(s, 0, 1, 0, 41, "What would you like to evaluate?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "What would you like to evaluate?";
+		//target(s, 0, 1, 0, 41, );
+		break;
 	case TAMING:
-		target(s, 0, 1, 0, 42, "Tame which animal?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "Tame which animal?";
+		//target(s, 0, 1, 0, 42, );
+		break;
 	case HIDING:
 		Skills->Hide(s);
-		SetSkillDelay(pc_currchar);
-		return;
+		break;
 	case STEALTH:
 		Skills->Stealth(s);
-		SetSkillDelay(pc_currchar);
-		return;
+		break;
 	case DETECTINGHIDDEN:
-		target(s, 0, 1, 0, 77, "Where do you wish to search for hidden characters?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "Where do you wish to search for hidden characters?";
+		//target(s, 0, 1, 0, 77, );
+		break;
 	case PEACEMAKING:
 		Skills->PeaceMaking(s);
-		SetSkillDelay(pc_currchar);
-		return;
+		break;
 	case PROVOCATION:
-		target(s, 0, 1, 0, 79, "Whom do you wish to incite?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "Whom do you wish to incite?";
+		//target(s, 0, 1, 0, 79, );
+		break;
 	case ENTICEMENT:
-		target(s, 0, 1, 0, 81, "Whom do you wish to entice?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "Whom do you wish to entice?";
+		//target(s, 0, 1, 0, 81, );
+		break;
 	case SPIRITSPEAK:
 		Skills->SpiritSpeak(s);
-		SetSkillDelay(pc_currchar);
-		return;
+		break;
 	case STEALING:
-		if (SrvParams->stealingEnabled())
+		if( !SrvParams->stealingEnabled() )
 		{
-			target(s,0,1,0,205, "What do you wish to steal?");
-			SetSkillDelay(pc_currchar);
-			return;
-		} else {
-			sysmessage(s, "That skill has been disabled.");
+			socket->sysMessage( tr( "That skill has been disabled." ) );
 			return;
 		}
+		
+		message = "What do you wish to steal?";
+		//target(s,0,1,0,205, );
+		break;
 	case INSCRIPTION:
-		target(s, 0, 1, 0, 160, "What do you wish to place a spell on?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "What do you wish to place a spell on?";
+		//target(s, 0, 1, 0, 160, );
+		break;
 	case TRACKING:
 		Skills->TrackingMenu(s,TRACKINGMENUOFFSET);
-		SetSkillDelay(pc_currchar);
-		return;
+		break;
 	case BEGGING:
-		target(s, 0, 1, 0, 152, "Whom do you wish to annoy?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "Whom do you wish to annoy?";
+		//target(s, 0, 1, 0, 152, );
+		break;
 	case ANIMALLORE:
-		target(s, 0, 1, 0, 153, "What animal do you wish to get information about?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "What animal do you wish to get information about?";
+		//target(s, 0, 1, 0, 153, );
+		break;
 	case FORENSICS:
-		target(s, 0, 1, 0, 154, "What corpse do you want to examine?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "What corpse do you want to examine?";
+		//target(s, 0, 1, 0, 154, );
+		break;
 	case POISONING:
-		target(s, 0, 1, 0, 155, "What poison do you want to apply?");
-		SetSkillDelay(pc_currchar);
-		return;
+		message = "What poison do you want to apply?";
+		//target(s, 0, 1, 0, 155, );
+		break;
 
 	case TASTEID:
-         target(s, 0, 1, 0, 70, "What do you want to taste?");
-         SetSkillDelay(pc_currchar);
-         return;
+		message = "What do you want to taste?";
+        //target(s, 0, 1, 0, 70, );
+        break;
 
-	case MEDITATION:  //Morrolan - Meditation
-		if(SrvParams->armoraffectmana())
+	case MEDITATION:
+		if( !SrvParams->armoraffectmana() )
 		{
-			Skills->Meditation(s);
-			SetSkillDelay(pc_currchar);
+			socket->sysMessage( tr( "Meditation is disabled." ) );
+			return;
 		}
-		else sysmessage(s, "Meditation is turned off.  Tell your GM to enable ARMOR_AFFECT_MANA_REGEN in server.scp to enable it.");
-		return;
-/*
-	By Polygon:
-	Added support for cartography skill
-*/
+        
+		Skills->Meditation( s );
+		break;
 	case CARTOGRAPHY:
 		Skills->Cartography(s);
-		SetSkillDelay(pc_currchar);
-		return;
-//	END OF: By Polygon
+		break;
 	default:
-		sysmessage(s, "That skill has not been implemented yet.");
+		socket->sysMessage( tr( "That skill has not been implemented yet." ) );
 		return;
 	}
-	else
-		sysmessage(s, "You must wait a few moments before using another skill.");
+
+	if( targetRequest )
+		socket->attachTarget( targetRequest );
+	
+	if( message )
+		pChar->message( message );
+
+	SetSkillDelay( pChar );
 }
 
 void cSkills::RandomSteal(int s)

@@ -1251,7 +1251,7 @@ void explodeitem(int s, P_ITEM pi)
 	else
 	{
 		staticeffect2(pi, (unsigned char)0x36, (unsigned char)0xB0, (unsigned char)0x10, (unsigned char)0x80, (unsigned char)0x00);
-		soundeffect3(pi, 0x0207);
+		pi->soundEffect( 0x207 );
 	}
 
 	len=pi->morex/250; //4 square max damage at 100 alchemy
@@ -1340,8 +1340,6 @@ void explodeitem(int s, P_ITEM pi)
 	Items->DeleItem(pi);
 }
 
-// Dupois - added doorsfx() to be used with dooruse()
-// Added Oct 8, 1998
 // Plays the proper door sfx for doors/gates/secretdoors
 static void doorsfx(P_ITEM pi, int x, int y)
 {
@@ -1358,49 +1356,50 @@ static void doorsfx(P_ITEM pi, int x, int y)
 	{
 		if (((x>=0x0695)&&(x<0x06C5))|| // Open wooden / ratan door
 			((x>=0x06D5)&&(x<=0x06F4)))
-			soundeffect3(pi,OPENWOOD);
+			pi->soundEffect( OPENWOOD );
 
 		else if (((x>=0x0839)&&(x<=0x0848))|| // Open gate
 			((x>=0x084C)&&(x<=0x085B))||
 			((x>=0x0866)&&(x<=0x0875)))
-			soundeffect3(pi,OPENGATE);
+			pi->soundEffect( OPENGATE );
 
 		else if (((x>=0x0675)&&(x<0x0695))|| // Open metal
 			((x>=0x06C5)&&(x<0x06D5)))
-			soundeffect3(pi,OPENSTEEL);
+			pi->soundEffect( OPENSTEEL );
 
 		else if ((x>=0x0314)&&(x<=0x0365)) // Open secret
-			soundeffect3(pi,OPENSECRET);
+			pi->soundEffect( OPENSECRET );
 	}
 	else if (y==1) // Request close door sfx
 	{
 		if (((x>=0x0695)&&(x<0x06C5))|| // close wooden / ratan door
 			((x>=0x06D5)&&(x<=0x06F4)))
-			soundeffect3(pi,CLOSEWOOD);
+			pi->soundEffect( CLOSEWOOD );
 
 		else if (((x>=0x0839)&&(x<=0x0848))|| // close gate
 			((x>=0x084C)&&(x<=0x085B))||
 			((x>=0x0866)&&(x<=0x0875)))
-			soundeffect3(pi,CLOSEGATE);
+			pi->soundEffect( CLOSEGATE );
 
 		else if (((x>=0x0675)&&(x<0x0695))|| // close metal
 			((x>=0x06C5)&&(x<0x06D5)))
-			soundeffect3(pi,CLOSESTEEL);
+			pi->soundEffect( CLOSESTEEL );
 
 		else if ((x>=0x0314)&&(x<=0x0365)) // close secret
-			soundeffect3(pi,CLOSESECRET);
+			pi->soundEffect( CLOSESECRET );
 	}
-} // doorsfx() END
-
+}
 
 void dooruse( cUOSocket *socket, P_ITEM pi )
 {
 	if( !pi )
 		return;
 
-	if( socket && socket->player() )
-		if( !socket->player()->inRange( pi, 2 ) )
-			socket->sysMessage( tr( "You cannot reach the handle from here." ) );
+	if( socket && socket->player() && !socket->player()->inRange( pi, 2 ) )
+	{
+		socket->sysMessage( tr( "You cannot reach the handle from here." ) );
+		return;
+	}
 
 	UINT16 x = pi->id();
 	UINT16 db;

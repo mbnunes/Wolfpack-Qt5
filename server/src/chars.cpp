@@ -383,12 +383,12 @@ P_ITEM cChar::getBankBox( void )
 
 void cChar::disturbMed()
 {
-	if (this->med()) //Meditation
+	if( med() ) //Meditation
 	{
 		this->setMed( false );
 
 		if( socket_ )
-			socket_->sysMessage( tr ( "You loose your concentration" ) );
+			socket_->sysMessage( tr( "You loose your concentration" ) );
 	}
 }
 
@@ -399,12 +399,17 @@ void cChar::disturbMed()
 
 void cChar::unhide()
 {
-	if (this->isHidden() && !(this->priv2&8))	//if hidden but not permanently
+	//if hidden but not permanently
+	if( isHidden() && !( priv2 & 8 ) )
 	{
-		this->setStealth(-1);
-		this->setHidden(0);
-		updatechar(this);	// LB, necassary for client 1.26.2
-		if (this->isGM())
+		setStealth( -1 );
+		setHidden( 0 );
+		resend( false ); // They cant see us anyway
+		
+		if( socket() )
+			socket()->updatePlayer();
+
+		if( isGM() )
 			tempeffect(this, this, 34, 3, 0, 0); 
 	}
 }

@@ -4118,7 +4118,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 26: Targ->AddItem( s ); break;
 		case 27: Targ->NpcMenuTarget(s); break;
 		case 28: ItemTarget(ps,pt); break;//MovableTarget
-		case 29: Skills->ArmsLoreTarget(s); break;
 		case 30: if (Cready) OwnerTarget(ps,pc); else if (Iready) OwnerTarget(ps,pi); break;
 		case 31: ItemTarget(ps,pt); break;//ColorsTarget
 		case 32: Targ->DvatTarget(s); break;

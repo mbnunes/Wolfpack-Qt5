@@ -78,6 +78,7 @@ public:
 	void	processContainerNode( const QDomElement &Tag );
 	void	update();
 	P_ITEM	dupe();
+	void	soundEffect( UINT16 sound );
 
 	// Getters
 	UI16			id()			const { return id_; }			// The graphical id of the item

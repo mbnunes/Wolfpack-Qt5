@@ -152,20 +152,6 @@ void soundeffect2(P_CHAR pc, unsigned char a, unsigned char b)
 		}
 }
 
-void soundeffect3(P_ITEM pi, short sound)
-{
-	int j;
-
-	ShortToCharPtr(sound,sfx+2);
-	ShortToCharPtr(pi->pos.x,sfx+6);
-	ShortToCharPtr(pi->pos.y,sfx+8);
-	for (j=0;j<now;j++)
-		if (perm[j] && inrange2(j,pi) )
-		{
-			Xsend(j, sfx, 12);
-		}
-}
-
 void soundeffect4(P_ITEM pi, UOXSOCKET s, unsigned char a, unsigned char b)
 {
 	if (pi == NULL)

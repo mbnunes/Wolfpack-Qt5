@@ -42,6 +42,15 @@
 
 cUOPacket *getUOPacket( const QByteArray &data );
 
+// 0x12: Action
+class cUORxAction: public cUOPacket
+{
+public:
+	cUORxAction( const QByteArray &data ): cUOPacket( data ) {}
+	UINT8 type() { return rawPacket[3]; }
+	QString action() { return &rawPacket.data()[4]; }
+};
+
 // 0x34: Query
 class cUORxQuery: public cUOPacket
 {

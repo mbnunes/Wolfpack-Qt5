@@ -2730,8 +2730,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								if ((lineOfSight( pc_currchar->pos, pi->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 									(pc_currchar->isGM())))
 								{
+									pi->soundEffect( 0x201 );
 									if (pi->priv&5 || pi->priv&4) Items->DeleItem( pi );
-									soundeffect3(pi,0x0201);
 								}
 								else
 								{
@@ -3088,7 +3088,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							pi->setMoreb1( 1 );
 							pi->setMoreb2( pc_currchar->skill( MAGERY ) / 20 );
 							pi->setMoreb3( pc_currchar->skill( MAGERY ) / 10 );
-							soundeffect3( pi, 0x01F0 );
+							pi->soundEffect( 0x1F0 );
 							cMagic::itemParticles(13,pi);
 							sysmessage(s,"It's trapped!");
 						}
@@ -3107,7 +3107,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									pi->setMoreb1( 0 );
 									pi->setMoreb2( 0 );
 									pi->setMoreb3( 0 );
-									soundeffect3(pi, 0x01F1);
+									pi->soundEffect( 0x1F1 );
 									cMagic::itemParticles( 14, pi );
 									sysmessage( s, tr("You successfully untrap this item!") );
 								}
@@ -3131,7 +3131,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								clConsole.send("ERROR: Fallout of switch statement without default. magic.cpp, magiclocktarget()/n"); //Morrolan
 								break;
 							}
-							soundeffect3(pi, 0x0200);
+							pi->soundEffect( 0x200 );
 							cMagic::itemParticles(19,pi);
 							sysmessage(s,"It's locked!");
 						}
@@ -3154,7 +3154,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									//LogError("switch reached default");
 									return;
 								}
-								soundeffect3(pi,0x01FF);
+								pi->soundEffect( 0x1FF );
 								cMagic::itemParticles(23,pi);
 								sysmessage(s, "You manage to pick the lock.");
 							}

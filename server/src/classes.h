@@ -132,7 +132,7 @@ public:
 	void AnatomyTarget(int s);
 	void TameTarget(int s);
 	int GetCombatSkill(P_CHAR pc);
-	void SkillUse(int s, int x);
+	void SkillUse( cUOSocket*, UINT16 );
 	void StealingTarget(int s);
 	void PickPocketTarget(int s);
 	void CreateTrackingMenu(int s, int m);

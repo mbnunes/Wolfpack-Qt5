@@ -203,6 +203,8 @@ void cUOSocket::recieve()
 		handleBookPage( dynamic_cast< cUORxBookPage* >( packet ) ); break;
 	case 0x93:
 		handleUpdateBook( dynamic_cast< cUORxUpdateBook* >( packet ) ); break;
+	case 0x12:
+		handleAction( dynamic_cast< cUORxAction* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -1461,6 +1463,48 @@ void cUOSocket::resendWorld( bool clean )
 		return;
 
 	cUOTxRemoveObject rObject;
+	cUOTxSendItem sendItem;
+
+	RegionIterator4Items itIterator( _player->pos );
+	for( itIterator.Begin(); !itIterator.atEnd(); itIterator++ )
+	{
+		P_ITEM pItem = itIterator.GetData();
+
+		if( !pItem || !_player->inRange( pItem, _player->VisRange ) )
+			continue;
+
+		if( clean )
+		{
+			rObject.setSerial( pItem->serial );
+			send( &rObject );
+		}
+
+		if( ( pItem->visible == 2 ) && !_player->isGM() )
+			continue;
+
+		// Visible to owners and GMs only
+		else if( ( pItem->visible == 1 ) && !_player->Owns( pItem ) && !_player->isGM() )
+			continue;
+
+		if( pItem->isAllMovable() )
+			sendItem.setFlags( 0x20 );
+		else if( _player->canMoveAll() )
+			sendItem.setFlags( 0x20 );
+		else if( ( pItem->isOwnerMovable() || pItem->isLockedDown() ) && _player->Owns( pItem ) )
+			sendItem.setFlags( 0x20 );
+
+		if( ( pItem->visible > 0 ) && !_player->Owns( pItem ) )
+			sendItem.setFlags( sendItem.flags() | 0x80 );
+
+		sendItem.setSerial( pItem->serial );
+		sendItem.setId( pItem->id() );
+		sendItem.setAmount( pItem->amount() );
+		sendItem.setColor( pItem->color() );
+		sendItem.setCoord( pItem->pos );
+		sendItem.setDirection( pItem->dir );
+
+		send( &sendItem );
+	}
 
 	RegionIterator4Chars chIterator( _player->pos );
 	for( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
@@ -1698,8 +1742,23 @@ void cUOSocket::sendSkill( UINT16 skill )
 		return;
 
 	cUOTxUpdateSkill pUpdate;
-	pUpdate.setId( skill+1 );
+	pUpdate.setId( skill );
 	pUpdate.setValue( _player->skill( skill ) );
 	pUpdate.setRealValue( _player->baseSkill( skill ) );
 	send( &pUpdate );
+}
+
+void cUOSocket::handleAction( cUORxAction *packet )
+{
+	switch( packet->type() )
+	{
+	// Skill use
+	case 0x24:
+		{
+			QStringList skillParts = QStringList::split( " ", packet->action() );
+			if( skillParts.count() > 1 )
+				Skills->SkillUse( this, skillParts[0].toInt() );
+		}
+		break;
+	}
 }

@@ -1340,51 +1340,7 @@ void cSkills::MakePizza(int s)
 
 void cSkills::DetectHidden(UOXSOCKET s)
 {
-	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return;
-	P_CHAR pc_currchar = currchar[s];
-	
-	//unsigned int i;
-	int x,y,z,dx,dy,j,low;
-	double c,range;		//int is too restricting
-	
-	x=(buffer[s][11]<<8)+buffer[s][12];
-	y=(buffer[s][13]<<8)+buffer[s][14];
-	z=buffer[s][16];
-	
-	j=pc_currchar->skill(DETECTINGHIDDEN);
-	
-	range = (j*j/1.0E6)*VISRANGE;	// this seems like an ok formula
-	
-	cRegion::RegionIterator4Chars ri(pc_currchar->pos);
-	for (ri.Begin(); !ri.atEnd(); ri++)
-	{
-		P_CHAR pc = ri.GetData();
-		if (pc != NULL)
-		{
-			if (pc->hidden()==1&&(!(pc->priv2&8))) // do not detect invis people only hidden ones
-			{//do not reveal permanently hidden chars - AntiChrist
-				dx=abs(pc->pos.x-x);
-				dy=abs(pc->pos.y-y);
 
-				c=hypot(dx, dy);
-				low = (int)(pc->skill(HIDING)*pc->skill(HIDING)/1E3 - (range*50/VISRANGE)*(range-c)/range);
-				if (low<0) low=0;
-				else if (low>1000) low=1000;
-				
-				if ((Skills->CheckSkill(pc_currchar,DETECTINGHIDDEN,low,1000))&&(c<=range))
-				{
-					pc->unhide();
-				
-					UOXSOCKET tempsock = calcSocketFromChar(pc);
-					if (tempsock!=-1)
-						if (perm[tempsock]) 
-							sysmessage(tempsock, tr("You have been revealed!") );
-				}
-				else 
-					sysmessage(s, tr("You fail to find anyone.") );
-			}
-		}//if mapitem
-	}
 }
 
 void cSkills::ProvocationTarget1(UOXSOCKET s)
@@ -1783,110 +1739,6 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 
 void cSkills::ArmsLoreTarget(int s)
 {
-	int total;
-	float totalhp;
-	char p2[100];
-	P_CHAR pc_currchar = currchar[s];
-	
-	P_ITEM pi = FindItemBySerPtr(buffer[s]+7);
-	if (!pi) return;
-
-	if ( (pi->def == 0 || pi->isPileable() )
-		&& ((pi->lodamage() == 0 && pi->hidamage() == 0) && (pi->rank<1 || pi->rank>9)))
-	{
-		sysmessage(s, tr("That does not appear to be a weapon.") );
-		return;
-	}
-	if(pc_currchar->isGM())
-	{
-		sysmessage(s, tr("Attack [%1] Defense [%2] Lodamage [%3] Hidamage [%4]").arg(pi->att).arg(pi->def).arg(pi->lodamage()).arg(pi->hidamage()) );
-		return;
-	}
-	
-	if (!CheckSkill(pc_currchar,ARMSLORE, 0, 250))
-		sysmessage(s, tr("You are not certain...") );
-	else
-	{
-		if( pi->maxhp()==0)
-			sysmessage(s, tr("Sorry this is a old item and it doesn't have maximum hp") );
-		else
-		{
-			totalhp = (float)pi->hp() / pi->maxhp();
-			strcpy((char*)temp, tr("This item ") );
-			if      (totalhp>0.9) strcpy((char*)p2, tr("is brand new.") ); 
-			else if (totalhp>0.8) strcpy((char*)p2, tr("is almost new.") );
-			else if (totalhp>0.7) strcpy((char*)p2, tr("is barely used, with a few nicks and scrapes.") );
-			else if (totalhp>0.6) strcpy((char*)p2, tr("is in fairly good condition.") );
-			else if (totalhp>0.5) strcpy((char*)p2, tr("suffered some wear and tear.") );
-			else if (totalhp>0.4) strcpy((char*)p2, tr("is well used.") );
-			else if (totalhp>0.3) strcpy((char*)p2, tr("is rather battered.") );
-			else if (totalhp>0.2) strcpy((char*)p2, tr("is somewhat badly damaged.") );
-			else if (totalhp>0.1) strcpy((char*)p2, tr("is flimsy and not trustworthy.") );
-			else                  strcpy((char*)p2, tr("is falling apart.") );
-			strcat((char*)temp,p2);
-			char temp2[33];
-			sprintf(temp2," [%.1f %%]",totalhp*100);
-			strcat((char*)temp,temp2);	// Magius(CHE) §
-		}
-		if (CheckSkill(pc_currchar,ARMSLORE, 250, 510))
-		{
-			if (pi->hidamage())
-			{
-				total = (pi->hidamage() + pi->lodamage())/2;
-				if      ( total > 26) strcpy((char*)p2, tr(" Would be extraordinarily deadly.") );
-				else if ( total > 21) strcpy((char*)p2, tr(" Would be a superior weapon.") );
-				else if ( total > 16) strcpy((char*)p2, tr(" Would inflict quite a lot of damage and pain.") ); 
-				else if ( total > 11) strcpy((char*)p2, tr(" Would probably hurt your opponent a fair amount.") );
-				else if ( total > 6)  strcpy((char*)p2, tr(" Would do some damage.") );
-				else if ( total > 3)  strcpy((char*)p2, tr(" Would do minimal damage.") );
-				else                  strcpy((char*)p2, tr(" Might scratch your opponent slightly.") );
-				strcat((char*)temp,p2);
-				
-				if (Skills->CheckSkill(pc_currchar, ARMSLORE, 500, 1000))
-				{
-					if      (pi->speed() > 35) strcpy((char*)p2, tr(" And is very fast.") );
-					else if (pi->speed() > 25) strcpy((char*)p2, tr(" And is fast.") );
-					else if (pi->speed() > 15) strcpy((char*)p2, tr(" And is slow.") );
-					else                   strcpy((char*)p2, tr(" And is very slow.") );
-					strcat((char*)temp,p2);
-				}
-			}
-			else
-			{
-				if      (pi->def> 12) strcpy((char*)p2, tr(" Is superbly crafted to provide maximum protection.") );
-				else if (pi->def> 10) strcpy((char*)p2, tr(" Offers excellent protection.") );
-				else if (pi->def> 8 ) strcpy((char*)p2, tr(" Is a superior defense against attack.") );
-				else if (pi->def> 6 ) strcpy((char*)p2, tr(" Serves as a sturdy protection.") );
-				else if (pi->def> 4 ) strcpy((char*)p2, tr(" Offers some protection against blows.") );
-				else if (pi->def> 2 ) strcpy((char*)p2, tr(" Provides very little protection.") );
-				else if (pi->def> 0 ) strcpy((char*)p2, tr(" Provides almost no protection.") );
-				else                  strcpy((char*)p2, tr(" Offers no defense against attackers.") );
-				strcat((char*)temp,p2);
-			}
-		}
-		sysmessage(s, (char*)temp);
-
-		if (!(pi->rank<1 || pi->rank>10 || SrvParams->rank_system()==0))
-		{
-			if (Skills->CheckSkill(pc_currchar,ARMSLORE, 250, 500))
-			{
-				switch(pi->rank)
-				{
-					case 1: strcpy((char*)p2, tr("It seems an item with no quality!") );				break;
-					case 2: strcpy((char*)p2, tr("It seems an item very below standard quality!") );	break;
-					case 3: strcpy((char*)p2, tr("It seems an item below standard quality!") );			break;
-					case 4: strcpy((char*)p2, tr("It seems a weak quality item!") );					break;
-					case 5: strcpy((char*)p2, tr("It seems a standard quality item!") );				break;
-					case 6: strcpy((char*)p2, tr("It seems a nice quality item!") );					break;
-					case 7: strcpy((char*)p2, tr("It seems a good quality item!") );					break;
-					case 8: strcpy((char*)p2, tr("It seems a great quality item!") );					break;
-					case 9: strcpy((char*)p2, tr("It seems a beautiful quality item!") );				break;
-					case 10:strcpy((char*)p2, tr("It seems a perfect quality item!") );					break;
-				}
-				sysmessage(s,p2);
-			}
-		}
-	}
 }
 
 void cSkills::ItemIdTarget(int s)
@@ -2552,8 +2404,7 @@ void cSkills::LockPick(int s)
 						LogError("switch reached default");
 						return;
 					}
-					soundeffect3(pi, 0x0241);
-					sysmessage(s, tr("You manage to pick the lock.") );
+					pi->soundEffect( 0x241 );
 				} 
 				else
 				{

@@ -2055,3 +2055,10 @@ P_ITEM cItem::dupe()
 
 	return nItem;
 }
+
+void cItem::soundEffect( UINT16 sound )
+{
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange ) )
+			mSock->soundEffect( sound, this );
+}
