@@ -195,9 +195,9 @@ public:
 			PyObject *object = PyTuple_GetItem(args, i);
 
 			if ( PyInt_Check( object ) ) {
-				cVariant(PyInt_AsLong(object)).serialize(writer, version);
+				cVariant((int)PyInt_AsLong(object)).serialize(writer, version);
 			} else if ( PyString_Check( object ) || PyUnicode_Check( object ) ) {
-				cVariant(Python2QString(object)).serialize(writer, version);
+				cVariant((QString)Python2QString(object)).serialize(writer, version);
 			} else if ( PyFloat_Check( object ) ) {
 				cVariant(PyFloat_AsDouble(object)).serialize(writer, version);
 			} else if ( checkWpChar( object ) ) {

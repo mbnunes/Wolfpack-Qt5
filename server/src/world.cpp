@@ -493,7 +493,8 @@ void cWorld::load()
 				}
 				else if ( type != 0xFF )
 				{
-					throw wpException( QString( "Invalid worldfile, unknown and unskippable type %1." ).arg( type ) );
+					Console::instance()->log(LOG_ERROR, QString( "Invalid worldfile, unknown and unskippable type %1." ).arg( type ) );
+					return;
 				}
 			}
 			while ( type != 0xFF );
