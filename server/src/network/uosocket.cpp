@@ -1213,7 +1213,7 @@ void cUOSocket::playMusic()
 	if( !_player );
 		return;
 
-	cTerritory* Region = cAllTerritories::getInstance()->region( _player->region );
+	cTerritory* Region = _player->region;
 	UINT32 midi = 0;
 
 	if( _player->war )

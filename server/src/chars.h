@@ -52,6 +52,7 @@
 class QString;
 class cUOSocket;
 class cGuildStone;
+class cTerritory;
 
 #undef  DBGFILE
 #define DBGFILE "chars.h"
@@ -112,7 +113,7 @@ public:
 	signed char				fz1; //NPC Wander Point 1 z
 	//int pagegm; //GM Paging
 	//char region;
-	QString					region;
+	cTerritory*				region;
 	unsigned int			skilldelay;
 	unsigned int			objectdelay;
 	int						combathitmessage;

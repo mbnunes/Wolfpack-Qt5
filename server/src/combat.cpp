@@ -1401,7 +1401,7 @@ void cCombat::SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, const Coord_cl &
 	if (pc_offender->dead || pc_caller->dead)
 		return; // AntiChrist
 
-	cTerritory* Region = cAllTerritories::getInstance()->region( pc_caller->region );
+	cTerritory* Region = pc_caller->region;
 
 	if( Region == NULL )
 		return;

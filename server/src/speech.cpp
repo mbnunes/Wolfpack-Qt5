@@ -383,7 +383,7 @@ bool QuestionSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pChar, const QStr
 
 	if( comm.contains( "LOCATION" ) )
 	{
-		cTerritory* Region = cAllTerritories::getInstance()->region( pPlayer->region );
+		cTerritory* Region = pPlayer->region;
 		
 		if( Region )
 			pChar->talk( tr( "You are in %1" ).arg( Region->name() ) );

@@ -634,7 +634,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	
 	// Region object
 	else if( !strcmp( "region", name ) )
-		return PyGetRegionObject( cAllTerritories::getInstance()->region( self->pChar->region ) );
+		return PyGetRegionObject( self->pChar->region );
 
 	else pGetInt( "skilldelay", skilldelay )
 	else pGetInt( "objectdelay", objectdelay )

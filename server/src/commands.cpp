@@ -208,6 +208,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 				// only from the sockets in range and then resend it to only the new sockets in range
 				pChar->removeFromView( false );
 				pChar->moveTo( newPos );
+				cAllTerritories::getInstance()->check( pChar );
 				pChar->resend( false );
 				socket->resendPlayer();
 				socket->resendWorld();
@@ -222,6 +223,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 		{
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
+			cAllTerritories::getInstance()->check( pChar );
 			pChar->resend( false );
 			socket->resendPlayer();
 			socket->resendWorld();
@@ -835,6 +837,8 @@ public:
 		newPos.y = target->y();
 		newPos.z = target->z();
 		socket->player()->moveTo( newPos );
+
+		cAllTerritories::getInstance()->check( socket->player() );
 
 		socket->player()->resend( false );
 		socket->resendWorld();

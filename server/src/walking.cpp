@@ -1440,11 +1440,11 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 				}
 
 				// Has the Escortee reached the destination ??
-				if( !pc_target->dead && ( pc_i->questDestRegion() == pc_i->region ) )
+/*				if( !pc_target->dead && ( pc_i->questDestRegion() == pc_i->region ) )
 				{
 					// Pay the Escortee and free the NPC
 					MsgBoardQuestEscortArrive( pc_i, calcSocketFromChar( pc_target ) );
-				}
+				}*/
 	        }
 		}
         break;

@@ -37,6 +37,7 @@
 #include "mapstuff.h"
 #include "srvparams.h"
 #include "network/uosocket.h"
+#include "territories.h"
 
 #include "classes.h" // only for the illegal_z!
 
@@ -548,6 +549,8 @@ void cBoat::turn( SI08 turn )
 			}
 			pc->MoveTo( newx, newy, pos.z );
 
+			cAllTerritories::getInstance()->check( pc );
+
 			cUOTxDrawChar* drawChar = new cUOTxDrawChar();
 			drawChar->fromChar( pc );
 
@@ -773,6 +776,8 @@ bool cBoat::move( void )
 		if( pc )
 		{
 			pc->MoveTo( pc->pos.x + dx, pc->pos.y + dy, pc->pos.z );
+
+			cAllTerritories::getInstance()->check( pc );
 
 			cUOTxDrawChar* drawChar = new cUOTxDrawChar();
 			drawChar->fromChar( pc );

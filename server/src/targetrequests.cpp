@@ -118,11 +118,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	newPos.z = target->z() + Map->TileHeight( target->model() ); // Model Could be a NPC as well i dont like the idea...
 	pChar->moveTo( newPos );
 
-	cTerritory* Region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
-	if( Region != NULL )
-		pChar->region = Region->name();
-	else
-		pChar->region = QString();
+	pChar->region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
 
 	if( node )
 	{

@@ -159,7 +159,9 @@ void cQuadNode::remove( UI16 srcx, UI16 srcy, SERIAL serial )
 	if( srcx == x_ && srcy == y_ )
 	{
 		// delete serial 
-		objectserials.erase( find( objectserials.begin(), objectserials.end(), serial ) );
+		std::vector< SERIAL >::iterator it = find( objectserials.begin(), objectserials.end(), serial );
+		if( it != objectserials.end() )
+			objectserials.erase( it );
 		if( objectserials.empty() )
 		{
 			// delete node

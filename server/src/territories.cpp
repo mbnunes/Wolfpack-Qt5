@@ -258,6 +258,14 @@ void cAllTerritories::load( void )
 		clConsole.error( QString("WARNING: found more than 1 top level region! check your scripts! (found %1)\n").arg( DefSections.size() ).latin1() );
 	}
 
+	AllCharsIterator iterChars;
+	for (iterChars.Begin(); !iterChars.atEnd(); ++iterChars)
+	{
+		P_CHAR pc = iterChars.GetData();
+		if( pc )
+			pc->region = region( pc->pos.x, pc->pos.y );
+	}
+
 	clConsole.send( QString( "Loaded %1 regions in %2 sec.\n" ).arg( this->count() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ) );
 }
 
@@ -265,10 +273,16 @@ void cAllTerritories::check( P_CHAR pc )
 {
 	cUOSocket *socket = pc->socket();
 	cTerritory* currRegion = this->region( pc->pos.x, pc->pos.y );
-	cTerritory* lastRegion = this->region( pc->region );
+	cTerritory* lastRegion = pc->region;
 
-	if( !currRegion || !lastRegion )
+	if( !currRegion )
 		return;
+
+	if( !lastRegion )
+	{
+		pc->region = currRegion;
+		return;
+	}
 
 	if( currRegion != lastRegion )
 	{
@@ -301,8 +315,8 @@ void cAllTerritories::check( P_CHAR pc )
 			}
 		}
 
-		pc->region = currRegion->name();
-		
+		pc->region = currRegion;
+
 		if( socket )
 			socket->playMusic();
 	}

@@ -155,9 +155,7 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		pc->setPriv2(pc->priv2() & 0xBF);
 		pc->SetSpawnSerial( pc->spawnSerial() );
 
-		cTerritory* Region = cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y );
-		if( Region != NULL )
-			pc->region = Region->name();
+		pc->region = cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y );
 
 		pc->setAntispamtimer( 0 );   //LB - AntiSpam -
 		pc->setAntiguardstimer( 0 ); //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn

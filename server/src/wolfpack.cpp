@@ -3005,24 +3005,20 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 		return;
 	if (pi->good<0) return;
 
+	cTerritory* Region = NULL;
 	if (tmpreg == "none" )
 	{
 		P_ITEM pio=GetOutmostCont(pi);
 		if (!pio) return;
-		cTerritory* Region;
 		if (pio->isInWorld())
 		{
 			Region = cAllTerritories::getInstance()->region( pio->pos.x, pio->pos.y );
-			if( Region != NULL )
-				tmpreg = Region->name();
 		}
 		else
 		{
 			P_CHAR pc=FindCharBySerial(pio->contserial);
 			if (!pc) return;
 			Region = cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y );
-			if( Region != NULL )
-				tmpreg = Region->name();
 		}
 		return;
 	}
@@ -3030,7 +3026,11 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 	if( pi->good<0 || pi->good>255 ) 
 		return;
 
-	cTerritory* Region = cAllTerritories::getInstance()->region( tmpreg );
+	if( !Region )
+		Region = cAllTerritories::getInstance()->region( tmpreg );
+
+	if( !Region )
+		return;
 
 	min=Region->tradesystem_[pi->good].rndmin;
 	max=Region->tradesystem_[pi->good].rndmax;

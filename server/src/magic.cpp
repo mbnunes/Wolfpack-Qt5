@@ -390,8 +390,8 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 	// Casting agressive spells is not allowed in guarded towns
 	if( spell->agressive() && !caster->isGM() )
 	{
-		cTerritory* Region = cAllTerritories::getInstance()->region( caster->region );
-		if( Region != NULL && Region->allowsMagic() )
+		cTerritory* Region = caster->region;
+		if( Region && Region->allowsMagic() )
 		{
 			sysmessage( calcSocketFromChar( caster ), "You may not cast agressive spells in a guarded area." );
 			return false;
@@ -1259,7 +1259,7 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 		if (s != -1) sysmessage(s, "You are no longer frozen.");
 	}
 
-	cTerritory* Region = cAllTerritories::getInstance()->region( pc->region );
+	cTerritory* Region = pc->region;
 	
 	if ( Region != NULL && !pc->isInvul() && Region->allowsMagicDamage() ) // LB magic-region change
 	{
@@ -1295,7 +1295,7 @@ void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 			sysmessage(s, "You are no longer frozen.");
 	}
 
-	cTerritory* Region = cAllTerritories::getInstance()->region( pc->region );
+	cTerritory* Region = pc->region;
 	
 	if ( Region != NULL && !pc->isInvul() && Region->allowsMagicDamage() ) // LB magic-region change
 	{

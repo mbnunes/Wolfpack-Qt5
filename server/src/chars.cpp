@@ -222,7 +222,7 @@ void cChar::Init(bool ser)
 	this->setNpcAIType(0); // NPC ai
 	this->setCallNum(-1); //GM Paging
 	this->setPlayerCallNum(-1); //GM Paging
-	this->region="";
+	this->region=NULL;
 	this->skilldelay=0;
 	this->objectdelay=0;
 	this->combathitmessage=0;

@@ -644,7 +644,8 @@ int MsgBoardGetMaxMsgSN( int msgType, int autoPost=0 )
 		// set the Message Board fileName to the proper region number
 		if ( autoPost )
 		{
-			sprintf( (char*)temp, "region_%s.bbi", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region.latin1() );
+			;
+//			sprintf( (char*)temp, "region_%s.bbi", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region.latin1() );
 		}
 		else
 		{
@@ -1017,7 +1018,8 @@ int MsgBoardPost( int s, int msgType, int autoPost )
 		// set the Message Board fileName to the proper region number
 		if ( autoPost )
 		{
-			sprintf( (char*)temp, "region_%s.bbp", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region.latin1());
+			;
+//			sprintf( (char*)temp, "region_%s.bbp", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region.latin1());
 		}
 		else
 		{
@@ -2201,7 +2203,7 @@ void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 	// Choose a random region as a destination for the escort quest (except for the same region as the NPC was spawned in)
 	unsigned long loopexit=0;
 	if ( pc_npc == NULL ) return;
-	do 
+/*	do 
 	{
 		if ( escortRegions )
 		{
@@ -2221,14 +2223,14 @@ void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 			break;
 		}
 	} while ( (pc_npc->questDestRegion() == pc_npc->region) && (++loopexit < MAXLOOPS)  );
-	
+*/	
 	// Set quest type to escort
 	pc_npc->setQuestType(ESCORTQUEST);
 	
 	// Make sure they don't move until an player accepts the quest
 	pc_npc->npcWander       = 0;                // Don't want our escort quest object to wander off.
 	pc_npc->setNpcAIType( 18 );                // set to escort speech so they can yell to all.
-	pc_npc->setQuestOrigRegion(pc_npc->region.toInt());  // Store this in order to remeber where the original message was posted
+	pc_npc->setQuestOrigRegion(pc_npc->region->name().toInt());  // Store this in order to remeber where the original message was posted
 	
 	// Set the expirey time on the NPC if no body accepts the quest
 	if ( SrvParams->escortinitexpire() )
