@@ -20,13 +20,13 @@
 		<int><random min="126" max="150"/></int>
 		<maxhitpoints><random min="296" max="372"/></maxhitpoints>
 		<!-- Skills -->
-		<evaluatingintelligence><random min="703" max="1000"/></evaluatingintelligence>
-		<magery><random min="703" max="1000"/></magery>
-		<poisoning><random min="601" max="800"/></poisoning>
-		<magicresistance><random min="651" max="800"/></magicresistance>
-		<tactics><random min="901" max="1000"/></tactics>
-		<wrestling><random min="901" max="1000"/></wrestling>
-		<meditation>0</meditation>
+		<skill id="evaluatingintelligence"><random min="703" max="1000"/></skill>
+		<skill id="magery"><random min="703" max="1000"/></skill>
+		<skill id="poisoning"><random min="601" max="800"/></skill>
+		<skill id="magicresistance"><random min="651" max="800"/></skill>
+		<skill id="tactics"><random min="901" max="1000"/></skill>
+		<skill id="wrestling"><random min="901" max="1000"/></skill>
+		<skill id="meditation">0</skill>
 		<!-- Damage -->
 		<mindamage>59</mindamage>
 		<maxdamage>77</maxdamage>
@@ -44,7 +44,6 @@
 		<category>Monsters\Terathan\Terathan Avenger</category>
 		<strproperty name="slayer_group" value="terathans" />
 		<intproperty name="carve_meat" value="2" />
-		
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="3" />
 	</npc>

@@ -9,9 +9,9 @@
 <definitions>
 
 	<!-- Terathan -->
-	<include file="definitions/npcs/monsters/terathen/terathen_avenger.xml"/>
-	<include file="definitions/npcs/monsters/terathen/terathen_drone.xml"/>
-	<include file="definitions/npcs/monsters/terathen/terathen_matriarch.xml"/>
-	<include file="definitions/npcs/monsters/terathen/terathen_warrior.xml"/>
+	<include file="definitions/npcs/monsters/terathan/terathan_avenger.xml"/>
+	<include file="definitions/npcs/monsters/terathan/terathan_drone.xml"/>
+	<include file="definitions/npcs/monsters/terathan/terathan_matriarch.xml"/>
+	<include file="definitions/npcs/monsters/terathan/terathan_warrior.xml"/>
 
 </definitions>
