@@ -154,6 +154,7 @@ void cAccounts::clear()
 	iterator it = accounts.begin();
 	for (; it != accounts.end(); ++it)
 		delete it.data();
+	
 }
 
 AccountRecord* cAccounts::authenticate(const QString& login, const QString& password, enErrorCode* error) const
@@ -216,6 +217,9 @@ void cAccounts::save()
 
 void cAccounts::load()
 {
+	// This is important
+	cCommands::instance()->loadACLs();
+
 	clConsole.PrepareProgress( "Loading Accounts" );
 
 	ISerialization* archive = cPluginFactory::serializationArchiver( SrvParams->accountsArchiver());

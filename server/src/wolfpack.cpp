@@ -147,7 +147,6 @@ void signal_handler(int signal)
                 cAllTerritories::getInstance()->reload();
                 Resources::instance()->reload();
                 MakeMenus::instance()->reload();
-                cCommands::instance()->loadACLs();
                 ScriptManager->reload();
 				ContextMenus::instance()->reload();
 				NewMagic->load();
@@ -1064,7 +1063,6 @@ void interpretCommand( const QString &command )
 				cAllTerritories::getInstance()->reload();
 				Resources::instance()->reload();
 				MakeMenus::instance()->reload();
-				cCommands::instance()->loadACLs();
 				ScriptManager->reload(); // Reload Scripts
 				ContextMenus::instance()->reload();
 				NewMagic->load();
@@ -1267,8 +1265,6 @@ int main( int argc, char *argv[] )
 	loadskills();
 	clConsole.ProgressDone();
 
-	// Need to load the ACLs before we load any account
-	cCommands::instance()->loadACLs();
 	Accounts::instance()->load();
 
 	keeprun = 1;

@@ -106,8 +106,6 @@ void cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList
 
 void cCommands::loadACLs( void )
 {
-	clConsole.PrepareProgress( tr("Loading Access Control Lists") );
-
 	// make sure it's clean
 	QMap< QString, cAcl* >::iterator itA (_acls.begin());
 	for ( ; itA != _acls.end(); ++itA )
@@ -118,7 +116,6 @@ void cCommands::loadACLs( void )
 	
 	if( ScriptSections.isEmpty() )
 	{
-		clConsole.ProgressFail();
 		clConsole.ChangeColor( WPC_RED );
 		clConsole.send( tr("WARNING: No ACLs for players, counselors, gms and admins defined!\n") );
 		clConsole.ChangeColor( WPC_NORMAL );
@@ -188,7 +185,6 @@ void cCommands::loadACLs( void )
 		_acls.insert( ACLname, acl );	
 	}
 	DefManager->unload( WPDT_PRIVLEVEL );
-	clConsole.ProgressDone();
 }
 
 // COMMAND IMPLEMENTATION
@@ -951,7 +947,6 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		cAllTerritories::getInstance()->reload();
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
-		cCommands::instance()->loadACLs();
 		ScriptManager->reload(); // Reload Scripts
 		NewMagic->load();
 		ContextMenus::instance()->reload();
@@ -983,7 +978,6 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		cAllTerritories::getInstance()->reload();
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
-		cCommands::instance()->loadACLs();
 		ScriptManager->reload(); // Reload Scripts
 		ContextMenus::instance()->reload();
 		NewMagic->load();
