@@ -127,7 +127,7 @@ def main():
 	config.write("INCLUDEPATH += %s" % ( py_incpath ) )
 	# Build LIBS
 	LIBS = ""
-	if sys.platform == win32:
+	if sys.platform == "win32":
 		LIBS = os.path.join( py_libpath, py_libfile )
 	else:
 		LIBS = "-l%s -L%s" % ( py_libfile, py_libpath )
