@@ -80,7 +80,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 		return;
 	} else {
 		if((pc_currchar->isTrueGM() && !pc_currchar->isGM()) ||		// a restricted GM outside his region(s)
-			(pc_currchar->account!=0)&&(command_table[y].cmd_priv_m!=255)&&
+			(pc_currchar->account()!=0)&&(command_table[y].cmd_priv_m!=255)&&
 			(!(pc_currchar->priv3[command_table[y].cmd_priv_m]&
 			(0-0xFFFFFFFF<<command_table[y].cmd_priv_b))))
 		{
@@ -837,7 +837,7 @@ void cCommands::WhoCommand(int s, int type,int buttonnum)
 	textlines=0;
 	line=0;
 	
-	sprintf(menuarray1[linecount1++], "User %i selected (account %i)",buttonnum,pc_c->account);
+	sprintf(menuarray1[linecount1++], "User %i selected (account %i)",buttonnum,pc_c->account());
 	sprintf(menuarray1[linecount1++], "Name: %s",pc_c->name.c_str());   
 	sprintf(menuarray1[linecount1++], "Goto Character:");
 	sprintf(menuarray1[linecount1++], "Get Character:");

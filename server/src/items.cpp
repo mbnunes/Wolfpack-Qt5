@@ -332,7 +332,7 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 	if (!(this->pileable && pItem->pileable &&
 		this->serial!=pItem->serial &&
 		this->id()==pItem->id() &&
-		this->color == pItem->color ))
+		this->color() == pItem->color() ))
 		return false;	//cannot stack.
 
 	if (this->amount() + pItem->amount() > 65535)
@@ -365,7 +365,7 @@ bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the contai
 			contsp.remove( this->serial, vecContainer[ci] ); // remove invalid entrie
 			continue; // skip to next.
 		}
-		if (pi->id() == pItem->id() && !pi->free && pi->color == pItem->color)
+		if (pi->id() == pItem->id() && !pi->free && pi->color() == pItem->color())
 			if (pi->PileItem(pItem))
 				return true;
 	}

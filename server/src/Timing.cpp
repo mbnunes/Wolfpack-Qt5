@@ -417,7 +417,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				{			
 					sysmessage(s, tr("You're not in jail already ? Please report to GM") );
 					pc->jailtimer=0;
-					sprintf((char*)temp,"%i cause bug in jail system.",pc->account);
+					sprintf((char*)temp,"%i cause bug in jail system.",pc->account());
 					savelog((char*)temp,"server.log");
 				}
 				else

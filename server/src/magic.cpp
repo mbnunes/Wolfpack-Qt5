@@ -2848,7 +2848,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							{
 								if(pc->isInnocent()) criminal(currchar[s]);
 								
-								if (!pc->isGM() && pc->account!=0)
+								if (!pc->isGM() && pc->account()!=0)
 									dmgmod = min(distx,disty);
 								dmgmod = -(dmgmod - 7);
 								pc->hp -=  dmg+dmgmod;

@@ -609,11 +609,11 @@ void cTargets::IstatsTarget(int s)
 				(co&0x000000FF) );
 			sprintf((char*)temp, "Item [Dynamic] Ser [%8x] ID [%4x] Name [%s] Name2 [%s] Color [%4x] Cont %s Layer [%x] Type [%d] Magic [%x] More [%x %x %x %x] Position [%i %i %i] Amount [%i] Priv [%x]",
 				pi->serial, pi->id(),
-				pi->name().ascii(),pi->name2().ascii(),pi->color,
+				pi->name().ascii(),pi->name2().ascii(),pi->color(),
 				contstr,
 				pi->layer(),pi->type,pi->magic,
 				pi->more1,pi->more2,pi->more3,pi->more4,
-				pi->pos.x,pi->pos.y,pi->pos.z,pi->amount, pi->priv);
+				pi->pos.x,pi->pos.y,pi->pos.z,pi->amount(), pi->priv);
 			sysmessage(s, (char*)temp);
 			sprintf((char*)temp,"STR [%d] HP/MAX [%d/%d] Damage [%d-%d] Defence [%d] Rank [%d] Smelt [%d] SecureIt [%d] MoreXYZ [%i %i %i] Poisoned [%i] RaceHate [%i] Weight [%d] Owner [%x] Creator [%s] MadeValue [%i] Value [%i] Decaytime[%i] Decay [%i] GoodType[%i] RandomValueRate[%i]",
 				pi->st, pi->hp,pi->maxhp, pi->lodamage, pi->hidamage,pi->def,pi->rank,pi->smelt,pi->secureIt,
@@ -669,14 +669,14 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 
 	sprintf((char*)temp, "Ser [%8x] ID [%2x] Name [%s] Skin [%x] Account [%x] Priv [%x %x] Position [%i %i %i] CTimeout [%i] Fame [%i] Karma [%i] Deaths [%i] Kills [%i] NPCAI [%x] NPCWANDER [%d] WEIGHT [%.2f]",
 		pc->serial,pc->id(),
-		pc->name.c_str(),pc->skin,
-		pc->account,pc->getPriv(),pc->priv2,
+		pc->name.c_str(),pc->skin(),
+		pc->account(),pc->getPriv(),pc->priv2,
 		pc->pos.x,pc->pos.y,pc->pos.z, pc->timeout,
 		pc->fame,pc->karma,pc->deaths,pc->kills,
 		pc->npcaitype, pc->npcWander, (float)pc->weight);
 	sysmessage(s, (char*)temp);
 	sprintf((char*)temp, "Other Info: Poisoned [%i] Poison [%i] Hunger [%i] Attacker Serial [%x] Target Serial [%x] Carve[%i]", //Changed by Magius(CHE)
-		pc->poisoned,pc->poison,pc->hunger,pc->attacker,pc->targ,pc->carve); //Changed by Magius(CHE)
+		pc->poisoned,pc->poison,pc->hunger,pc->attacker,pc->targ,pc->carve()); //Changed by Magius(CHE)
 	sysmessage(s, (char*)temp);
 	Gumps->Open(s, pc, 0, 8);
 	statwindow(s, pc);
@@ -754,7 +754,7 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	for (i = 0; i < 7; i++) // this overwrites all previous settings !
 	{
 		//pc->menupriv=1;
-		if (pc->account == 0) 
+		if (pc->account() == 0) 
 			pc->priv3[i]=0xffffffff;
 		else
 			pc->priv3[i]=metagm[0][i]; // gm defaults is 0
@@ -812,7 +812,7 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 	{
 		pc->priv3[u]=metagm[1][u]; // counselor defaults
 		//pc->menupriv=4;
-		if (pc->account==0) pc->priv3[u]=0xffffffff;
+		if (pc->account()==0) pc->priv3[u]=0xffffffff;
 	}
 	MoveBelongingsToBp(pc, pc);
 }

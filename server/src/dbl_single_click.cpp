@@ -1518,7 +1518,7 @@ void singleclick(UOXSOCKET s)
 	if (pc_currchar->getPriv()&8)
 	{
 		if (pi->amount() > 1)
-			sprintf((char*)temp, "%s [%x]: %i", itemname, pi->serial, pi->amount);
+			sprintf((char*)temp, "%s [%x]: %i", itemname, pi->serial, pi->amount());
 		else
 			sprintf((char*)temp, "%s [%x]", itemname, pi->serial);
 		itemmessage(s, (char*)temp, serial);
@@ -1551,9 +1551,9 @@ void singleclick(UOXSOCKET s)
 		strncpy((char*)temp, itemname, 100);
 	else 
 		if (itemname[strlen(itemname) - 1] != 's') // avoid iron ingotss : x
-			sprintf((char*)temp, "%ss : %i", itemname, pi->amount);
+			sprintf((char*)temp, "%ss : %i", itemname, pi->amount());
 		else
-			sprintf((char*)temp, "%s : %i", itemname, pi->amount);
+			sprintf((char*)temp, "%s : %i", itemname, pi->amount());
 		
 	// Add creator's mark (if any)			
 	if (pi->creator.size() > 0 && pi->madewith > 0)

@@ -649,11 +649,11 @@ char *complete_title(P_CHAR pc) // generates the ENTIRE title plus criminal stuf
 	char tempstr[1024];
 	if (pc == NULL) return "error";
 
-	if (pc->account==0 && pc->isGM()) // Ripper..special titles for admins :)
+	if (pc->account()==0 && pc->isGM()) // Ripper..special titles for admins :)
 	{
 		sprintf(tempstr, "%s %s %s", title[6].other, pc->name.c_str(), pc->title().latin1());
 	}
-	else if (pc->isGM() && pc->account!=0)
+	else if (pc->isGM() && pc->account()!=0)
 	{//GM.
 		sprintf(tempstr, "%s %s", pc->name.c_str(), pc->title().latin1());
 	}

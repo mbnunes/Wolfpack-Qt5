@@ -441,7 +441,7 @@ void command_bounty(UOXSOCKET s)
 		return;
 	}
 	
-	if( pc_cs->murdererSer == 0 )
+	if( pc_cs->murdererSer() == INVALID_SERIAL )
 	{
 		sysmessage(s, tr("You can only place a bounty once after someone has murdered you."));
 		return;

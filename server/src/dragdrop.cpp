@@ -631,7 +631,7 @@ static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				// Now thank them for their hard work
 				sprintf((char*) temp, "Excellent work! You have brought us the head of %s. Here is your reward of %d gold coins.",
 					pCharIdx->name.c_str(),
-					pCharIdx->questBountyReward );
+					pCharIdx->questBountyReward() );
 				npctalk( s, target, (char*)temp, 0);
 				
 				// Delete the Bounty from the bulletin board
@@ -662,7 +662,7 @@ static bool ItemDroppedOnBeggar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		npctalk(s,target,(char*)temp,0);
 		return false;
 	}
-	sprintf((char*)temp,"Thank you %s for the %i gold!",pc_currchar->name.c_str(), pi->amount);
+	sprintf((char*)temp,"Thank you %s for the %i gold!",pc_currchar->name.c_str(), pi->amount());
 	npctalk(s,target,(char*)temp,0);
 	if( pi->amount() <= 100 )
 	{
@@ -685,7 +685,7 @@ static bool DeedDroppedOnBroker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	P_CHAR target = FindCharBySerial(pp->Tserial);
 	P_ITEM bankbox = pc_currchar->GetBankBox();
 	int value = pi->value/1.25;
-	int total = pi->value/1.25;
+	int total = value;
 	
 	if ((pi->morex >= 1 && pi->morex <= 14) || (pi->morex >= 16 && pi->morex <= 17) || (pi->morex >= 26 && pi->morex <= 32))
 	{

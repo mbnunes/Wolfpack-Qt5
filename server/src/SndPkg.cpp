@@ -1305,8 +1305,8 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 
 	strcat(name2,name);//AntiChrist
 
-	if (pc->isInvul() && pc->account!=0)		{  if (title[11].other[0] != 0) sprintf((char*)temp, " [%s]",title[11].other); else temp[0] = 0; strcat(name2,(char*)temp); } // ripper
-	if (pc->account==0 && pc->isGM())			{  if (title[12].other[0] != 0) sprintf((char*)temp, " [%s]",title[12].other); else temp[0] = 0; strcat(name2,(char*)temp); } // ripper
+	if (pc->isInvul() && pc->account()!=0)		{  if (title[11].other[0] != 0) sprintf((char*)temp, " [%s]",title[11].other); else temp[0] = 0; strcat(name2,(char*)temp); } // ripper
+	if (pc->account()==0 && pc->isGM())			{  if (title[12].other[0] != 0) sprintf((char*)temp, " [%s]",title[12].other); else temp[0] = 0; strcat(name2,(char*)temp); } // ripper
 	if (pc->priv2&2)							{  if (title[13].other[0] != 0) sprintf((char*)temp, " [%s]",title[13].other); else temp[0] = 0; strcat(name2,(char*)temp); }
 	if (pc->guarded())							{  if (title[14].other[0] != 0) sprintf((char*)temp, " [%s]",title[14].other); else temp[0] = 0; strcat(name2,(char*)temp); } // Ripper
 	if (pc->tamed() && pc->npcaitype==32 
@@ -1339,7 +1339,7 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 		talk[10]=0x00;
 		talk[11]=0x30;
 	}
-	else if( pc->isGM() && pc->account==0 )
+	else if( pc->isGM() && pc->account()==0 )
 	{
 		talk[10]=0x00;
 		talk[11]=0x35;//Admin & GM get yellow names ..Ripper
@@ -2788,7 +2788,7 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 		P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);
 		if (pi_j != NULL)
 			if ((pi_j->contserial==serial) &&
-				(m2[7]!=255) && (pi_j->amount!=0) ) // 255 items max per shop container
+				(m2[7]!=255) && (pi_j->amount()!=0) ) // 255 items max per shop container
 			{
 				if (m2t>6000 || m1t>6000) break;
 

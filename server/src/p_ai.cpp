@@ -185,12 +185,12 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 						npctalkall(pc_i, "In Vas Mani", 0);
 						Magic->NPCHeal(pc_i);
 					}
-					if (pc_i->poisoned)
+					else if (pc_i->poisoned)
 					{
 						npctalkall(pc_i, "An Nox", 0);
 						Magic->NPCCure(pc_i);
 					}
-					if ( Victim->priv2&0x20 )
+					else if ( Victim && Victim->priv2&0x20 )
 					{
 						npctalkall(pc_i, "An Ort", 0);
 						Magic->NPCDispel(pc_i, Victim);

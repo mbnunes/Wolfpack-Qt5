@@ -2086,7 +2086,7 @@ int MsgBoardPostQuest( int serial, int questType )
 					{
 						char szBounty[32] = "";
 
-						sprintf(szBounty,"%d", FindCharBySerial( serial )->questBountyReward) ;
+						sprintf(szBounty,"%d", FindCharBySerial( serial )->questBountyReward());
 						strcpy( flagPos, szBounty ); 
 						strcat( (char*)temp, tempString );
 						break;
@@ -2317,7 +2317,7 @@ void MsgBoardQuestEscortRemovePost( P_CHAR pc_npc )
 	char fileName[256] = "";
 	
 	// REGIONAL post file
-	sprintf( (char*)temp, "region%d.bbi", pc_npc->questOrigRegion );
+	sprintf( (char*)temp, "region%d.bbi", pc_npc->questOrigRegion() );
 	
 	// If a MSBBOARDPATH has been define in the SERVER.SCP file, then use it
 	if (!SrvParams->msgboardPath().isEmpty())

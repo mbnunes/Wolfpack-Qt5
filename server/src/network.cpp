@@ -692,7 +692,7 @@ char cNetworkStuff::LogOut(int s)//Instalog
 		}
 	}
 	//GM always have no logout time - AntiChrist
-	if (pc_currchar->isGMorCounselor() || pc_currchar->account==0) valid=1;
+	if (pc_currchar->isGMorCounselor() || pc_currchar->account()==0) valid=1;
 	if (pc_currchar->dead)
 		valid = 1; // They ain't going to die again ;)
 

@@ -1119,7 +1119,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "ID");
 		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x (%i)", pj->id(), pj->id());
 		line--; if( line == 0 ) strcpy( (char*)script1, "Hue");
-		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x (%i)", pj->color, pj->color);
+		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x (%i)", pj->color(), pj->color());
 		line--; if( line == 0 ) strcpy( (char*)script1, "X");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i (0x%x)", pj->pos.x, pj->pos.x);
 		line--; if( line == 0 ) strcpy( (char*)script1, "Y");
@@ -1133,7 +1133,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "Layer");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i (0x%x)", pj->layer, pj->layer);
 		line--; if( line == 0 ) strcpy( (char*)script1, "Amount");
-		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->amount);
+		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->amount());
 		line--; if( line == 0 ) strcpy( (char*)script1, "More");
 		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x", (pj->more1<<24)+(pj->more2<<16)+(pj->more3<<8)+pj->more4);
 		line--; if( line == 0 ) strcpy( (char*)script1, "MoreB");
@@ -1192,7 +1192,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "Body" );
 		line--; if( line == 0 ) sprintf((char*) script1,"(0x%x) %i", pc_j->id(), pc_j->id() );
 		line--; if( line == 0 ) strcpy((char*) script1, "Skin" );
-		line--; if( line == 0 ) sprintf( (char*)script1, "(0x%x) %i", pc_j->skin, pc_j->skin );
+		line--; if( line == 0 ) sprintf( (char*)script1, "(0x%x) %i", pc_j->skin(), pc_j->skin() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Defence" );
 		line--; if( line == 0 ) sprintf((char*) script1,"%i", pc_j->def );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Hunger" );

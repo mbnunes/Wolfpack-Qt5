@@ -174,7 +174,7 @@ bool StableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 		p_pet = ri.GetData();
 		if (pPlayer->dist(p_pet) <= 8)
 		{
-			if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial==0) //owner of the pet ? and not already stabled ?
+			if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial()==INVALID_SERIAL) //owner of the pet ? and not already stabled ?
 			{
 				//char pntmp[150];
 				//strcpy(pntmp, p_pet->name.c_str());
@@ -266,7 +266,7 @@ bool UnStableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 		p_pet = FindCharBySerial(pets[ci]);
 		if (p_pet != NULL)
 		{
-			 if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial!=0) // already stabled and owned by claimer ?
+			 if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial()!=INVALID_SERIAL) // already stabled and owned by claimer ?
 			 {
 			 	string search3 =p_pet->name ;
 				 transform(search3.begin(), search3.end(), search3.begin(), ::toupper);
@@ -830,7 +830,7 @@ void PlVGetgold(int s, cChar* pVendor)//PlayerVendors
 		}
 		if (give)
 			Items->SpawnItem(s, currchar[s],give,"#",1,0x0E,0xED,0,1,1);
-		sprintf((char*)temp, "Today's purchases total %i gold. I am keeping %i gold for my self. Here is the remaining %i gold. Have a nice day.",pVendor->holdg,pay,give);
+		sprintf((char*)temp, "Today's purchases total %i gold. I am keeping %i gold for my self. Here is the remaining %i gold. Have a nice day.",pVendor->holdg(),pay,give);
 		npctalk(s,pVendor,(char*)temp,0);
 		pVendor->setHoldg(t);
 	}
@@ -1162,7 +1162,7 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 	{
 		char temp2[512];
 		sprintf(temp2, "%s.speech_log", pc_currchar->name.c_str());
-		sprintf((char*)temp, "%s [%x] [%i] said:\n%s\n", pc_currchar->name.c_str(), pc_currchar->serial, pc_currchar->account, nonuni);
+		sprintf((char*)temp, "%s [%x] [%i] said:\n%s\n", pc_currchar->name.c_str(), pc_currchar->serial, pc_currchar->account(), nonuni);
 		savelog((char*)temp, (char*)temp2);
 	}
 	
