@@ -96,7 +96,8 @@ cItem::cItem( const cItem& src ) : cUObject(src), totalweight_( 0 ), container_(
 	this->visible_ = src.visible_;
 	this->basedef_ = src.basedef_;
 	this->totalweight_ = amount_ * weight();
-	moveTo( src.pos_ );
+	this->multi_ = 0;
+	moveTo( src.pos_, true );
 }
 
 P_CHAR cItem::owner( void ) const

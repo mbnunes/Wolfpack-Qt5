@@ -742,23 +742,26 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 	}
 	else if ( pCont->canStack( pItem ) )
 	{
-		if ( pCont->amount() + pItem->amount() <= 60000 )
+		if ( pCont->amount() + pItem->amount() <= 65535 )
 		{
 			pCont->setAmount( pCont->amount() + pItem->amount() );
 
 			pItem->remove();
 			pCont->update(); // Need to update the amount
+			pCont->resendTooltip();
+			return;
 		}
 		else
 		{
-			// The delta between 60000 and pCont->amount() sub our Amount is the
+			// The delta between 65535 and pCont->amount() sub our Amount is the
 			// new amount
-			pItem->setAmount( pItem->amount() - ( 60000 - pCont->amount() ) );
+			pItem->setAmount( pItem->amount() - ( 65535 - pCont->amount() ) );
+			pItem->resendTooltip();
 
-			pCont->setAmount( 60000 ); // Max out the amount
+			pCont->setAmount( 65535 ); // Max out the amount
 			pCont->update();
+			pCont->resendTooltip();
 		}
-		return;
 	}
 
 	// We dropped the item NOT on a container
@@ -780,6 +783,7 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 	}
 	else
 	{
+		pItem->removeFromCont();
 		pItem->moveTo( pCont->pos() + Coord_cl( 0, 0, 2 ) );
 	}
 

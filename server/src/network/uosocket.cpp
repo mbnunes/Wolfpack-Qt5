@@ -660,6 +660,15 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// c) Start the Game
 	// d) Set the Game Time
 
+	if (!Maps::instance()->hasMap(pChar->pos().map)) {
+		Coord_cl pos;
+		pos.x = 0;
+		pos.y = 0;
+		pos.z = 0;
+		pos.map = 0;
+		pChar->moveTo(pos);
+	}
+
 	// We're now playing this char
 	pChar->setLogoutTime( 0 );
 	setPlayer( pChar );
@@ -676,9 +685,15 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// Enable Sta+Map Diffs
 	cUOTxMapDiffs diffs;
 	diffs.addEntry( Maps::instance()->mapPatches( 0 ), Maps::instance()->staticPatches( 0 ) );
-	diffs.addEntry( Maps::instance()->mapPatches( 1 ), Maps::instance()->staticPatches( 1 ) );
-	diffs.addEntry( Maps::instance()->mapPatches( 2 ), Maps::instance()->staticPatches( 2 ) );
-	diffs.addEntry( Maps::instance()->mapPatches( 3 ), Maps::instance()->staticPatches( 3 ) );
+	if (Maps::instance()->hasMap(1)) {
+		diffs.addEntry( Maps::instance()->mapPatches( 1 ), Maps::instance()->staticPatches( 1 ) );
+		if (Maps::instance()->hasMap(2)) {
+			diffs.addEntry( Maps::instance()->mapPatches( 2 ), Maps::instance()->staticPatches( 2 ) );
+			if (Maps::instance()->hasMap(3)) {
+				diffs.addEntry( Maps::instance()->mapPatches( 3 ), Maps::instance()->staticPatches( 3 ) );
+			}
+		}		
+	}
 	send( &diffs );
 
 	// Which map are we on
