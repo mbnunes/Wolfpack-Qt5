@@ -10,26 +10,35 @@
 
 	<!-- Giant Beetle -->
 	<npc id="giant_beetle" inherit="monster_base">
-		<name>a giant beetle</name>
+		<name>giant beetle</name>
 		<id>791</id>
-		<category>Animals\Mounts\Giant Beetle</category>
-		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<karma>-4000</karma>
 		<fame>4000</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="18" type="int" />
-		<tag name="maxdamage" value="25" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="30,40" type="int" />
 		<!-- Stats -->
 		<str>300</str>
 		<dex>100</dex>
 		<int>500</int>
+		<!-- Status -->
+		<maxhitpoints>200</maxhitpoints>
+		<!-- Damage -->
+		<mindamage>18</mindamage>
+		<maxdamage>51</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="30,40" type="int" />
+		<tag name="res_fire" value="20,30" type="int" />
+		<tag name="res_cold" value="20,30" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
+		<tag name="res_energy" value="20,30" type="int" />
+		<!-- Skills -->
 		<wrestling>1000</wrestling>
 		<tactics>1000</tactics>
 		<magicresistance>800</magicresistance>
+		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>291</totame>
 		<food>1</food>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mounts\Giant Beetle</category>
 	</npc>
 
 </definitions>

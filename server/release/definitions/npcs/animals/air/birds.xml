@@ -13,27 +13,32 @@
 		<name><random list="NAMES_BIRDS" /></name>
 		<ai>Animal_Wild</ai>
 		<id>6</id>
-		<category>Animals\Birds\Random Bird</category>
 		<skin><random list="SKINS_BIRD" /></skin>
 		<karma>0</karma>
 		<fame>150</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="1" type="int" />
-		<tag name="maxdamage" value="3" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="0,3" type="int" />
 		<!-- Stats -->
 		<str><random min="1" max="4" /></str>
 		<dex>25</dex>
 		<int><random min="1" max="4" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="1" max="3" /></maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Skills -->
 		<wrestling>50</wrestling>
 		<tactics>50</tactics>
 		<magicresistance>50</magicresistance>
 		<anatomy>0</anatomy>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>3</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="0,3" type="int" />
+		<!-- Misc. -->
 		<totame>0</totame>
 		<food>3</food>
 		<carve>carve_bird</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Birds\Random Bird</category>
 	</npc>
 
 </definitions>

@@ -10,31 +10,36 @@
 
 	<!-- Brown Bear -->
 	<npc id="brown_bear" inherit="animal_base">
-		<name>a brown bear</name>
+		<name>brown bear</name>
 		<id>167</id>
 		<ai>Animal_Wild</ai>
-		<category>Animals\Bears\Brown Bear</category>
 		<karma>0</karma>
 		<fame>450</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="9" type="int" />
-		<tag name="maxdamage" value="19" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="20,30" type="int" />
-		<tag name="res_cold" value="15,20" type="int" />
-		<tag name="res_poison" value="10,15" type="int" />
 		<!-- Stats -->
 		<str><random min="76" max="100" /></str>
 		<dex><random min="26" max="46" /></dex>
 		<int><random min="23" max="47" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="50" max="64" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>9</mindamage>
+		<maxdamage>19</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="20,30" type="int" />
+		<tag name="res_cold" value="15,20" type="int" />
+		<tag name="res_poison" value="10,15" type="int" />
 		<!-- Skills -->
 		<wrestling><random min="401" max="600" /></wrestling>
 		<tactics><random min="401" max="600" /></tactics>
 		<magicresistance><random min="251" max="350" /></magicresistance>
 		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>411</totame>
 		<food>1</food>
-		<carve>carve_bear_d_brown</carve>
+		<carve>carve_brown_bear</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Bears\Brown Bear</category>
 	</npc>
 
 </definitions>

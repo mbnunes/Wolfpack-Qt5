@@ -8,49 +8,60 @@
 -->
 <definitions>
 
-	<npc id="WAR_HORSE_STATS" inherit="animal_base">
-		<name>a war horse</name>
+	<npc id="war_horse" inherit="animal_base">
+		<name>war horse</name>
+		<id><random list="NPCIDS_WARHORSE" /></id>
 		<ai>Animal_Wild</ai>
 		<karma>0</karma>
 		<fame>0</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="12" type="int" />
-		<tag name="maxdamage" value="20" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="40,50" type="int" />
 		<!-- Stats -->
 		<str>400</str>
 		<dex>125</dex>
 		<int><random min="51" max="55" /></int>
+		<!-- Status -->
+		<maxhitpoints>240</maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>12</mindamage>
+		<maxdamage>20</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="40,50" type="int" />
+		<!-- Skills -->
 		<wrestling><random min="393" max="463" /></wrestling>
 		<tactics><random min="259" max="422" /></tactics>
 		<magicresistance><random min="255" max="297" /></magicresistance>
+		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>291</totame>
 		<food>5</food>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mounts\War Horses\Warhorse (Random)</category>
 	</npc>
 
 	<!-- Britannian Warhorse -->
-	<npc id="britannian_war_horse" inherit="WAR_HORSE_STATS">
+	<npc id="britannian_war_horse" inherit="war_horse">
 		<id>118</id>
 		<category>Animals\Mounts\War Horses\Britannian Warhorse</category>
 	</npc>
 
 	<!-- Council of Mages Warhorse -->
-	<npc id="magecouncil_war_horse" inherit="WAR_HORSE_STATS">
+	<npc id="magecouncil_war_horse" inherit="war_horse">
 		<id>119</id>
 		<category>Animals\Mounts\War Horses\Council of Mages Warhorse</category>
 	</npc>
 
+	<!-- Followers of Minax Warhorse -->
+	<npc id="minax_war_horse" inherit="war_horse">
+		<id>120</id>
+		<category>Animals\Mounts\War Horses\Minax Warhorse</category>
+	</npc>
+
 	<!-- Shadowlords Warhorse -->
-	<npc id="shadowlord_war_horse" inherit="WAR_HORSE_STATS">
+	<npc id="shadowlord_war_horse" inherit="war_horse">
 		<id>121</id>
 		<category>Animals\Mounts\War Horses\Shadowlord Warhorse</category>
 	</npc>
 
-	<!-- Followers of Minax Warhorse -->
-	<npc id="minax_war_horse" inherit="WAR_HORSE_STATS">
-		<id>120</id>
-		<category>Animals\Mounts\War Horses\Minax Warhorse</category>
-	</npc>
+
 
 </definitions>

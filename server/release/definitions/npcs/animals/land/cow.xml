@@ -8,38 +8,48 @@
 -->
 <definitions>
 
-	<!-- Cow (black & white) -->
-	<npc id="cow_black" inherit="animal_base">
-		<name>a cow</name>
-		<id>231</id>
+	<!-- Random Cow -->
+	<npc id="cow" inherit="animal_base">
+		<name>cow</name>
+		<id><random list="NPCIDS_COW" /></id>
 		<ai>Animal_Domestic</ai>
-		<category>Animals\Land\Cow (black and white)</category>
-		<skin>0</skin>
 		<karma>0</karma>
 		<fame>300</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="1" type="int" />
-		<tag name="maxdamage" value="4" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="5,15" type="int" />
 		<!-- Stats -->
 		<str>30</str>
 		<dex>15</dex>
 		<int>5</int>
+		<!-- Status -->
+		<maxhitpoints>18</maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>4</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="5,15" type="int" />
 		<!-- Skills -->
 		<wrestling>55</wrestling>
 		<tactics>55</tactics>
 		<magicresistance>55</magicresistance>
 		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>111</totame>
 		<food>6</food>
-		<carve>carve_cow_black</carve>
+		<carve>carve_cow</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Land\Cow (Random)</category>
+	</npc>
+
+	<!-- Cow (black & white) -->
+	<npc id="cow_black" inherit="cow">
+		<id>231</id>
+		<category>Animals\Land\Cow (Black)</category>
 	</npc>
 
 	<!-- Cow (brown) -->
-	<npc id="cow_brown" inherit="cow_black">
+	<npc id="cow_brown" inherit="cow">
 		<id>216</id>
-		<category>Animals\Land\Cow (brown)</category>
+		<category>Animals\Land\Cow (Brown)</category>
 	</npc>
 
 </definitions>

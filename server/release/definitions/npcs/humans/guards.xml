@@ -7,9 +7,10 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- Male Guard Base -->
 	<npc id="base_male_guard">
-	        <id>0x190</id>
+		<id>400</id>
 		<name><random list="NAMES_MALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
 		<ai>Human_Guard</ai>
@@ -21,7 +22,7 @@
 
  	<!-- Female Guard Base -->
 	<npc id="base_female_guard">
-	        <id>0x191</id>
+		<id>401</id>
 		<name><random list="NAMES_FEMALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
 		<ai>Human_Guard</ai>
@@ -31,29 +32,39 @@
 		<notrain />
  	</npc>
 
- 	<npc id="male_guard">
+ 	<npc id="male_guard" inherit="base_male_guard">
 		<!-- The Equipment of a male_guard -->
-		<inherit>base_male_guard</inherit>
-
+		<title>the guard</title>
 		<fame>10000</fame>
 		<karma>10000</karma>
-		<defense>1000</defense>
-		<attack>1000</attack>
 		<priv1>4</priv1>
-		<str><random min="1000" max="1500" /></str>
-		<dex><random min="1000" max="1500" /></dex>
-		<int><random min="1000" max="1500" /></int>
-
-		<parrying>990</parrying>
-		<magicresistance>990</magicresistance>
-		<tactics>1000</tactics>
-		<wrestling>990</wrestling>
-
-		<hidamage>1000</hidamage>
-		<lodamage>1000</lodamage>
-
-		<title>the guard</title>
-
+		<!-- Stats -->
+		<str>1500</str>
+		<dex>1500</dex>
+		<int>1500</int>
+		<!-- Damage -->
+		<mindamage>1000</mindamage>
+		<maxdamage>1000</maxdamage>
+		<tag name="dmg_fire" value="20" type="int" />
+		<tag name="dmg_cold" value="20" type="int" />
+		<tag name="dmg_poison" value="20" type="int" />
+		<tag name="dmg_energy" value="20" type="int" />
+		<!-- Defense -->
+		<tag name="res_physical" value="100" type="int" />
+		<tag name="res_fire" value="100" type="int" />
+		<tag name="res_cold" value="100" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<tag name="res_energy" value="100" type="int" />
+		<!-- Skills -->
+		<parrying>1200</parrying>
+		<magicresistance>1200</magicresistance>
+		<tactics>1200</tactics>
+		<wrestling>1200</wrestling>
+		<swordsmanship>1200</swordsmanship>
+		<fencing>1200</fencing>
+		<macefighting>1200</macefighting>
+		<archery>1200</archery>
+		<!-- Equiped -->
 		<equipped>
 			<item list="HAIR" />
 			<item id="e75" /> <!-- Backpack -->
@@ -64,29 +75,39 @@
 		</equipped>
 	</npc>
 
-	<npc id="female_guard">
+	<npc id="female_guard" inherit="base_female_guard">
+		<title>the guard</title>
 		<!-- The Equipment of a female_guard -->
-		<inherit>base_female_guard</inherit>
-
 		<fame>10000</fame>
 		<karma>10000</karma>
-		<defense>1000</defense>
-		<attack>1000</attack>
 		<priv1>4</priv1>
-		<str><random min="1000" max="1500" /></str>
-		<dex><random min="1000" max="1500" /></dex>
-		<int><random min="1000" max="1500" /></int>
-
-		<parrying>990</parrying>
-		<magicresistance>990</magicresistance>
-		<tactics>1000</tactics>
-		<wrestling>990</wrestling>
-
-		<hidamage>1000</hidamage>
-		<lodamage>1000</lodamage>
-
-		<title>the guard</title>
-
+		<!-- Stats -->
+		<str>1500</str>
+		<dex>1500</dex>
+		<int>1500</int>
+		<!-- Damage -->
+		<mindamage>1000</mindamage>
+		<maxdamage>1000</maxdamage>
+		<tag name="dmg_fire" value="20" type="int" />
+		<tag name="dmg_cold" value="20" type="int" />
+		<tag name="dmg_poison" value="20" type="int" />
+		<tag name="dmg_energy" value="20" type="int" />
+		<!-- Defense -->
+		<tag name="res_physical" value="100" type="int" />
+		<tag name="res_fire" value="100" type="int" />
+		<tag name="res_cold" value="100" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<tag name="res_energy" value="100" type="int" />
+		<!-- Skills -->
+		<parrying>1200</parrying>
+		<magicresistance>1200</magicresistance>
+		<tactics>1200</tactics>
+		<wrestling>1200</wrestling>
+		<swordsmanship>1200</swordsmanship>
+		<fencing>1200</fencing>
+		<macefighting>1200</macefighting>
+		<archery>1200</archery>
+		<!-- Equiped -->
 		<equipped>
 			<item list="HAIR_FEMALE" />
 			<item id="e75" /> <!-- Backpack -->
@@ -95,13 +116,11 @@
 		</equipped>
 	</npc>
 
-	<npc id="male_teleguard">
-		<inherit>male_guard</inherit>
+	<npc id="male_teleguard" inherit="male_guard">
 		<ai>Human_Guard_Called</ai>
 	</npc>
 
-	<npc id="female_teleguard">
-		<inherit>female_guard</inherit>
+	<npc id="female_teleguard" inherit="female_guard">
 		<ai>Human_Guard_Called</ai>
 	</npc>
 

@@ -10,28 +10,39 @@
 
 	<!-- Pack Horse -->
 	<npc id="pack_horse" inherit="animal_base">
-		<name>a horse</name>
+		<name>pack horse</name>
 		<id>291</id>
 		<ai>Animal_Domestic</ai>
-		<category>Animals\Pack\Pack Horse</category>
 		<karma><random min="0" max="624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="7" type="int" />
-		<tag name="maxdamage" value="16" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="20,25" type="int" />
 		<!-- Stats -->
 		<str><random min="44" max="120" /></str>
 		<dex><random min="36" max="55" /></dex>
 		<int><random min="6" max="10" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="61" max="80" /></maxhitpoints>
+		<maxstamina><random min="81" max="100" /></maxstamina>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>7</mindamage>
+		<maxdamage>16</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_fire" value="10,15" type="int" />
+		<tag name="res_cold" value="20,25" type="int" />
+		<tag name="res_poison" value="10,15" type="int" />
+		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
 		<wrestling><random min="293" max="440" /></wrestling>
 		<tactics><random min="293" max="440" /></tactics>
 		<magicresistance><random min="251" max="300" /></magicresistance>
+		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>291</totame>
 		<food>3</food>
 		<carve>carve_horse_pack</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Pack\Pack Horse</category>
 	</npc>
 
 </definitions>

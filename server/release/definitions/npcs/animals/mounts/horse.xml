@@ -8,44 +8,57 @@
 -->
 <definitions>
 
-	<!-- Gray Horses -->
-	<npc id="horse_1" inherit="animal_base">
-		<name>a horse</name>
-		<id>226</id>
-		<category>Animals\Mounts\Horse 1 (Gray)</category>
+	<!-- Random Horse -->
+	<npc id="horse" inherit="animal_base">
+		<name>horse</name>
+		<id><random list="NPCIDS_HORSE" /></id>
 		<ai>Animal_Wild</ai>
 		<karma>300</karma>
 		<fame>300</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="4" type="int" />
-		<tag name="maxdamage" value="6" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="15,20" type="int" />
 		<!-- Stats -->
 		<str><random min="22" max="98" /></str>
 		<dex><random min="56" max="75" /></dex>
 		<int><random min="6" max="10" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="28" max="45" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>4</mindamage>
+		<maxdamage>6</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="15,20" type="int" />
+		<!-- Skills -->
 		<wrestling><random min="293" max="440" /></wrestling>
 		<tactics><random min="293" max="440" /></tactics>
 		<magicresistance><random min="251" max="300" /></magicresistance>
+		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>291</totame>
 		<food>5</food>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mounts\Horse (Random)</category>
+	</npc>
+
+	<!-- Gray Horses -->
+	<npc id="horse_1" inherit="horse">
+		<id>226</id>
+		<category>Animals\Mounts\Horse 1 (Gray)</category>
 	</npc>
 
 	<!-- Gray Brown Horses -->
-	<npc id="horse_2" inherit="horse_1">
+	<npc id="horse_2" inherit="horse">
 		<id>200</id>
 		<category>Animals\Mounts\Horse 2 (Gray/Brown)</category>
 	</npc>
 
 	<!-- Light Brown Horses -->
-	<npc id="horse_3" inherit="horse_1">
+	<npc id="horse_3" inherit="horse">
 		<id>228</id>
 		<category>Animals\Mounts\Horse 3 (Light Brown)</category>
 	</npc>
 
 	<!-- Brown Horses -->
-	<npc id="horse_4" inherit="horse_1">
+	<npc id="horse_4" inherit="horse">
 		<id>204</id>
 		<category>Animals\Mounts\Horse 4 (Brown)</category>
 	</npc>

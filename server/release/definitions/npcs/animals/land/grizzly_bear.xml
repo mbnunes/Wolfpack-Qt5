@@ -10,28 +10,37 @@
 
 	<!-- Grizzly Bear -->
 	<npc id="grizzly_bear" inherit="animal_base">
-		<name>a grizzly bear</name>
+		<name>grizzly bear</name>
 		<id>212</id>
-		<!-- <ai>Animal_Aggressive</ai> -->
-		<category>Animals\Bears\Grizzly Bear</category>
+		<ai>Animal_Wild</ai>
 		<karma>0</karma>
 		<fame>1000</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="16" type="int" />
-		<tag name="maxdamage" value="26" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="25,35" type="int" />
 		<!-- Stats -->
 		<str><random min="126" max="155" /></str>
 		<dex><random min="81" max="105" /></dex>
 		<int><random min="16" max="40" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="76" max="93" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>16</mindamage>
+		<maxdamage>26</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="25,35" type="int" />
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
 		<!-- Skills -->
 		<wrestling><random min="451" max="700" /></wrestling>
 		<tactics><random min="701" max="1000" /></tactics>
 		<magicresistance><random min="251" max="400" /></magicresistance>
+		<anatomy>0</anatomy>
+		<!-- MIsc. -->
 		<totame>591</totame>
 		<food>1</food>
-		<carve>carve_bear_l_brown</carve>
+		<carve>carve_grizzly_bear</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Bears\Grizzly Bear</category>
 	</npc>
 
 </definitions>

@@ -10,12 +10,12 @@
 
 	<!-- animal_base -->
 	<npc id="animal_base">
-		<name>an unknown animal</name>
-		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<name>unknown animal</name>
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="18" /></direction>
-		<tag name="mindamage" value="1" type="int" />
-		<tag name="maxdamage" value="3" type="int" />
+		<mindamage>1</mindamage>
+		<maxdamage>3</maxdamage>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
 	</npc>
 
 </definitions>

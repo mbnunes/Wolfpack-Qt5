@@ -10,52 +10,68 @@
 
 	<!-- Goat -->
 	<npc id="goat" inherit="animal_base">
-		<name>a goat</name>
+		<name>goat</name>
 		<id>209</id>
 		<ai>Animal_Domestic</ai>
 		<karma>0</karma>
 		<fame>150</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="3" type="int" />
-		<tag name="maxdamage" value="4" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="5,15" type="int" />
 		<!-- Stats -->
 		<str>19</str>
 		<dex>15</dex>
 		<int>5</int>
+		<!-- Status -->
+		<maxhitpoints>12</maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>3</mindamage>
+		<maxdamage>4</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="5,15" type="int" />
 		<!-- Skills -->
 		<wrestling>50</wrestling>
 		<tactics>50</tactics>
 		<magicresistance>50</magicresistance>
 		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>111</totame>
 		<food>0</food>
 		<carve>carve_goat</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Land\Goat</category>
 	</npc>
 
 	<!-- Mountain Goat -->
 	<npc id="mountain_goat" inherit="animal_base">
 		<ai>Animal_Wild</ai>
-		<name>a mountain goat</name>
+		<name>mountain goat</name>
 		<id>88</id>
-		<category>Animals\Land\Mountain Goat</category>
 		<karma>0</karma>
 		<fame>300</fame>
-		<defense><random min="10" max="20" /></defense>
-		<lodamage>4</lodamage>
-		<hidamage>9</hidamage>
 		<!-- Stats -->
 		<str><random min="22" max="64" /></str>
 		<dex><random min="56" max="75" /></dex>
 		<int><random min="16" max="30" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="20" max="33" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>4</mindamage>
+		<maxdamage>9</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="10,20" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_poison" value="10,15" type="int" />
+		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
 		<wrestling><random min="293" max="440" /></wrestling>
 		<tactics><random min="293" max="440" /></tactics>
 		<magicresistance><random min="251" max="300" /></magicresistance>
 		<totame>0</totame>
 		<food>1</food>
-		<carve></carve>
+		<carve>carve_goat</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Land\Mountain Goat</category>
 	</npc>
 
 </definitions>

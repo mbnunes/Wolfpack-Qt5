@@ -10,30 +10,35 @@
 
 	<!-- Dog -->
 	<npc id="dog" inherit="animal_base">
-		<name>a dog</name>
+		<name>dog</name>
 		<id>217</id>
 		<ai>Animal_Domestic</ai>
-		<category>Animals\Canine\Dog</category>
 		<skin><random list="SKINS_ANIMAL" /></skin>
 		<karma>300</karma>
 		<fame>0</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="9" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="10,15" type="int" />
 		<!-- Stats -->
 		<str><random min="27" max="37" /></str>
 		<dex><random min="28" max="43" /></dex>
 		<int><random min="29" max="37" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="17" max="22" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>5</mindamage>
+		<maxdamage>9</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="10,15" type="int" />
 		<!-- Skills -->
 		<wrestling><random min="192" max="310" /></wrestling>
 		<tactics><random min="192" max="310" /></tactics>
 		<magicresistance><random min="221" max="470" /></magicresistance>
 		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>0</totame>
 		<food>0</food>
 		<carve>carve_dog</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Canine\Dog</category>
 	</npc>
 
 </definitions>

@@ -10,32 +10,47 @@
 
 	<!-- Snow Leopard -->
 	<npc id="snow_leopard" inherit="animal_base">
-		<name>a snow leopard</name>
-		<id>64</id>
+		<name>snow leopard</name>
+		<id><random list="NPCIDS_SNOWLEOPARD" /></id>
 		<ai>Animal_Wild</ai>
-		<category>Animals\Feline\Snow Leopard</category>
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="4" type="int" />
-		<tag name="maxdamage" value="14" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="20,25" type="int" />
 		<!-- Stats -->
 		<str><random min="56" max="80" /></str>
 		<dex><random min="66" max="85" /></dex>
 		<int><random min="26" max="50" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="34" max="48" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>4</mindamage>
+		<maxdamage>14</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
+		<tag name="res_energy" value="20,30" type="int" />
 		<!-- Skills -->
 		<wrestling><random min="401" max="500" /></wrestling>
 		<tactics><random min="451" max="600" /></tactics>
 		<magicresistance><random min="251" max="350" /></magicresistance>
+		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>531</totame>
 		<food>1</food>
-		<carve />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Feline\Snow Leopard (Random)</category>
 	</npc>
 
-	<npc id="snow_leopard_2" inherit="snow_leopard">->
+	<npc id="snow_leopard_2" inherit="snow_leopard">
+		<id>64</id>
+		<category>Animals\Feline\Snow Leopard 1</category>
+	</npc>
+
+	<npc id="snow_leopard_2" inherit="snow_leopard">
 		<id>65</id>
+		<category>Animals\Feline\Snow Leopard 2</category>
 	</npc>
 
 </definitions>

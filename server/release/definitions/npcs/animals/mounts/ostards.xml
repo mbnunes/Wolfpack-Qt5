@@ -10,78 +10,100 @@
 
 	<!-- Desert Ostards -->
 	<npc id="ostard_desert" inherit="animal_base">
-		<name>a desert ostard</name>
+		<name>desert ostard</name>
 		<id>210</id>
 		<ai>Animal_Wild</ai>
-		<category>Animals\Mounts\Desert Ostard </category>
 		<karma>0</karma>
 		<fame>450</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="8" type="int" />
-		<tag name="maxdamage" value="18" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="15,20" type="int" />
 		<!-- Stats -->
 		<str><random min="94" max="170" /></str>
 		<dex><random min="56" max="75" /></dex>
 		<int><random min="6" max="10" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="71" max="88" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>8</mindamage>
+		<maxdamage>18</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_fire" value="5,15" type="int" />
+		<!-- Skills -->
 		<wrestling><random min="293" max="440" /></wrestling>
 		<tactics><random min="253" max="400" /></tactics>
 		<magicresistance><random min="251" max="300" /></magicresistance>
+		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>291</totame>
 		<food>5</food>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mounts\Desert Ostard</category>
 	</npc>
 
 	<!-- Forest Ostards -->
 	<npc id="ostard_forest" inherit="animal_base">
-		<name>a forest ostard</name>
+		<name>forest ostard</name>
 		<id>218</id>
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_BIRD" /></skin>
-		<category>Animals\Mounts\Forest Ostard (Weak)</category>
 		<karma>0</karma>
 		<fame>450</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="13" type="int" />
-		<tag name="maxdamage" value="23" type="int" />
-		<tag name="dmg_physical" value="100" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="15,20" type="int" />
 		<!-- Stats -->
 		<str><random min="94" max="170" /></str>
 		<dex><random min="56" max="75" /></dex>
 		<int><random min="6" max="10" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="71" max="88" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>13</mindamage>
+		<maxdamage>23</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="15,20" type="int" />
+		<!-- Skills -->
 		<wrestling><random min="293" max="440" /></wrestling>
 		<tactics><random min="293" max="440" /></tactics>
 		<magicresistance><random min="271" max="320" /></magicresistance>
+		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>291</totame>
 		<food>5</food>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mounts\Forest Ostard</category>
 	</npc>
 
 	<!-- Frenzied Ostard -->
 	<npc id="ostard_frenzied" inherit="monster_base">
-		<name>a frenzied ostard</name>
+		<name>frenzied ostard</name>
 		<id>219</id>
 		<skin><random list="SKINS_BIRD" /></skin>
-		<category>Animals\Mounts\Frenzied Ostard (Weak)</category>
-		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<karma>-1500</karma>
 		<fame>1500</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="25" type="int" />
-		<tag name="maxdamage" value="35" type="int" />
-		<tag name="dmg_physical" value="100" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="25,30" type="int" />
 		<!-- Stats -->
 		<str><random min="94" max="170" /></str>
 		<dex><random min="96" max="115" /></dex>
 		<int><random min="6" max="10" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="71" max="110" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>25</mindamage>
+		<maxdamage>35</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="25,30" type="int" />
+		<tag name="res_fire" value="10,15" type="int" />
+		<tag name="res_poison" value="20,25" type="int" />
+		<tag name="res_energy" value="20,25" type="int" />
+		<!-- Skills -->
 		<wrestling><random min="793" max="940" /></wrestling>
 		<tactics><random min="793" max="940" /></tactics>
 		<magicresistance><random min="751" max="800" /></magicresistance>
+		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>771</totame>
 		<food>1</food>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mounts\Frenzied Ostard</category>
 	</npc>
 
 </definitions>

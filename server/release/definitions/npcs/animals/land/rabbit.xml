@@ -10,29 +10,35 @@
 
 	<!-- Rabbit -->
 	<npc id="rabbit" inherit="animal_base">
-		<name>a rabbit</name>
+		<name>rabbit</name>
 		<id>205</id>
 		<ai>Animal_Wild</ai>
-		<category>Animals\Rabbits\Rabbit</category>
 		<skin><random list="SKINS_ANIMAL" /></skin>
 		<karma>-150</karma>
 		<fame>150</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="1" type="int" />
-		<tag name="maxdamage" value="2" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="5,10" type="int" />
 		<!-- Stats -->
 		<str><random min="6" max="10" /></str>
 		<dex><random min="26" max="38" /></dex>
 		<int><random min="6" max="14" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="4" max="6" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>1</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="5,10" type="int" />
 		<!-- Skills -->
 		<wrestling>50</wrestling>
 		<tactics>50</tactics>
 		<magicresistance>50</magicresistance>
+		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>0</totame>
 		<food>0</food>
 		<carve>carve_bunny</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Rabbits\Rabbit</category>
 	</npc>
 
 </definitions>

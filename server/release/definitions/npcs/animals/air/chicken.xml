@@ -10,56 +10,59 @@
 
 	<!-- Chicken -->
 	<npc id="chicken" inherit="animal_base">
-		<name>a chicken</name>
+		<name>chicken</name>
 		<ai>Animal_Domestic</ai>
 		<id>208</id>
-		<category>Animals\Birds\Chicken</category>
 		<karma>0</karma>
 		<fame><random min="0" max="150" /></fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="1" type="int" />
-		<tag name="maxdamage" value="3" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="0,3" type="int" />
 		<!-- Stats -->
 		<str>5</str>
 		<dex>15</dex>
 		<int>5</int>
+		<!-- Status -->
+		<maxhitpoints>5</maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Skills -->
 		<wrestling>50</wrestling>
 		<tactics>50</tactics>
 		<magicresistance>40</magicresistance>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>1</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="0,5" type="int" />
+		<!-- Misc -->
 		<totame>0</totame>
 		<food>3</food>
 		<carve>carve_chicken</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Birds\Chicken</category>
 	</npc>
 
 	<!-- Super Chicken -->
-	<npc id="super_chicken">
-		<name>a chicken</name>
-		<ai>Animal_Domestic</ai>
-		<id>208</id>
-		<category>Animals\Birds\Super Chicken</category>
-		<inherit id="animal_base" />
+	<npc id="super_chicken" import="chicken">
 		<karma>0</karma>
 		<fame><random min="0" max="150" /></fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="3" type="int" />
-		<tag name="maxdamage" value="9" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="5,15" type="int" />
 		<!-- Stats -->
 		<str>25</str>
 		<dex>35</dex>
 		<int>15</int>
+		<!-- Status -->
+		<maxhitpoints>30</maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>3</mindamage>
+		<maxdamage>9</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="5,15" type="int" />
 		<!-- Skills -->
 		<wrestling>350</wrestling>
 		<tactics>350</tactics>
 		<magicresistance>400</magicresistance>
 		<totame>250</totame>
-		<food>3</food>
-		<carve>carve_chicken</carve>
+		<!-- Misc -->
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Birds\Chicken (Strong)</category>
 	</npc>
-
 
 </definitions>

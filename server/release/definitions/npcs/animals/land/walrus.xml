@@ -10,28 +10,38 @@
 
 	<!-- Walrus -->
 	<npc id="walrus" inherit="animal_base">
-		<name>a walrus</name>
+		<name>walrus</name>
 		<id>221</id>
 		<ai>Animal_Wild</ai>
-		<category>Animals\Land\Walrus</category>
 		<karma>0</karma>
 		<fame>150</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="12" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="20,25" type="int" />
 		<!-- Stats -->
 		<str><random min="21" max="29" /></str>
 		<dex><random min="46" max="55" /></dex>
 		<int><random min="16" max="20" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="14" max="17" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>5</mindamage>
+		<maxdamage>12</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_cold" value="20,25" type="int" />
+		<tag name="res_poison" value="5,10" type="int" />
+		<tag name="res_energy" value="5,10" type="int" />
 		<!-- Skills -->
 		<wrestling><random min="192" max="290" /></wrestling>
 		<tactics><random min="192" max="290" /></tactics>
 		<magicresistance><random min="151" max="200" /></magicresistance>
+		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>351</totame>
 		<food>2</food>
 		<carve>carve_walrus</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Land\Walrus</category>
 	</npc>
 
 </definitions>

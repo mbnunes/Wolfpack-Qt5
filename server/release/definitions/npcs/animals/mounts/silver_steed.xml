@@ -9,7 +9,7 @@
 <definitions>
 
 	<!-- Silver Steeds -->
-	<npc id="steed_silver" inherit="nightmare_1">
+	<npc id="steed_silver" inherit="nightmare">
 		<name>silver steed</name>
 		<ai>Animal_Wild</ai>
 		<id>117</id>

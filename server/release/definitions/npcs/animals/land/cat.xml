@@ -10,30 +10,35 @@
 
 	<!-- Cat -->
 	<npc id="cat" inherit="animal_base">
-		<name>a cat</name>
+		<name>cat</name>
 		<id>201</id>
 		<ai>Animal_Domestic</ai>
-		<category>Animals\Feline\Cat</category>
 		<skin><random list="SKINS_ANIMAL" /></skin>
 		<karma>150</karma>
 		<fame>0</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="1" type="int" />
-		<tag name="maxdamage" value="1" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="5,10" type="int" />
 		<!-- Stats -->
 		<str>9</str>
 		<dex>35</dex>
 		<int>5</int>
+		<!-- Status -->
+		<maxhitpoints>6</maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>1</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="5,10" type="int" />
 		<!-- Skills -->
 		<wrestling>50</wrestling>
 		<tactics>40</tactics>
 		<magicresistance>50</magicresistance>
 		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>0</totame>
 		<food>0</food>
 		<carve>carve_cat</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Feline\Cat</category>
 	</npc>
 
 </definitions>

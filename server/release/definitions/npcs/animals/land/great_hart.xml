@@ -10,28 +10,34 @@
 
 	<!-- Great Hart -->
 	<npc id="great_hart" inherit="animal_base">
-		<name>a great hart</name>
+		<name>great hart</name>
 		<id>234</id>
 		<ai>Animal_Wild</ai>
-		<category>Animals\Land\Great Hart</category>
 		<karma>0</karma>
 		<fame>300</fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="7" type="int" />
-		<tag name="maxdamage" value="13" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="20,25" type="int" />
 		<!-- Stats -->
 		<str><random min="41" max="71" /></str>
 		<dex><random min="47" max="77" /></dex>
 		<int><random min="27" max="57" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="27" max="41" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>7</mindamage>
+		<maxdamage>13</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_cold" value="5,10" type="int" />
 		<!-- Skills -->
 		<wrestling><random min="298" max="475" /></wrestling>
 		<tactics><random min="298" max="475" /></tactics>
 		<magicresistance><random min="268" max="445" /></magicresistance>
+		<!-- Misc. -->
 		<totame>591</totame>
 		<food>0</food>
 		<carve>carve_hart_great</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Land\Great Hart</category>
 	</npc>
 
 </definitions>

@@ -9,33 +9,38 @@
 <definitions>
 	<!-- eagle -->
 	<npc id="eagle" inherit="animal_base">
-		<name>an eagle</name>
+		<name>eagle</name>
 		<ai>Animal_Wild</ai>
 		<id>5</id>
-		<category>Animals\Birds\Eagle</category>
 		<karma>0</karma>
 		<fame>300</fame>
+		<!-- Stats -->
+		<str><random min="31" max="47" /></str>
+		<dex><random min="36" max="60" /></dex>
+		<int><random min="8" max="20" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="20" max="27" /></maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Damage -->
-		<tag name="mindamage" value="6" type="int" />
-		<tag name="maxdamage" value="13" type="int" />
+		<mindamage>6</mindamage>
+		<maxdamage>13</maxdamage>
 		<!-- Defense -->
 		<tag name="res_physical" value="20,25" type="int" />
 		<tag name="res_fire" value="10,15" type="int" />
 		<tag name="res_cold" value="20,25" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
 		<tag name="res_energy" value="5,10" type="int" />
-		<!-- Stats -->
-		<str><random min="31" max="47" /></str>
-		<dex><random min="36" max="60" /></dex>
-		<int><random min="8" max="20" /></int>
 		<!-- Skills -->
 		<wrestling><random min="201" max="300" /></wrestling>
 		<tactics><random min="181" max="370" /></tactics>
 		<magicresistance><random min="153" max="300" /></magicresistance>
 		<anatomy>0</anatomy>
+		<!-- Misc -->
 		<totame>171</totame>
 		<food>1</food>
 		<carve>carve_eagle</carve>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Birds\Eagle</category>
 	</npc>
 
 </definitions>

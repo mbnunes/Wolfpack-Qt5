@@ -8,35 +8,52 @@
 -->
 <definitions>
 
-
 	<!-- White Wolf -->
 	<npc id="white_wolf" inherit="animal_base">
-		<name>a white wolf</name>
-		<id>34</id>
-		<category>Animals\Canine\White Wolf</category>
+		<name>white wolf</name>
+		<id><random list="NPCIDS_WHITEWOLF" /></id>
 		<ai>Animal_Wild</ai>
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
-		<!-- Damage -->
-		<tag name="mindamage" value="4" type="int" />
-		<tag name="maxdamage" value="10" type="int" />
-		<!-- Defense -->
-		<tag name="res_physical" value="15,20" type="int" />
 		<!-- Stats -->
 		<str><random min="56" max="80" /></str>
 		<dex><random min="56" max="75" /></dex>
 		<int><random min="31" max="55" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="34" max="48" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>4</mindamage>
+		<maxdamage>10</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_fire" value="10,15" type="int" />
+		<tag name="res_cold" value="20,25" type="int" />
+		<tag name="res_poison" value="10,15" type="int" />
+		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
 		<wrestling><random min="451" max="600" /></wrestling>
 		<tactics><random min="451" max="600" /></tactics>
 		<magicresistance><random min="201" max="350" /></magicresistance>
+		<anatomy>0</anatomy>
+		<!-- Misc. -->
 		<totame>651</totame>
 		<food>1</food>
-		<carve></carve>
+		<!--<carve></carve>-->
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Canine\White Wolf (Random)</category>
+	</npc>
+
+	<npc id="white_wolf_1" inherit="white_wolf">
+		<baseid>white_wolf</baseid>
+		<id>34</id>
+		<category>Animals\Canine\White Wolf 1</category>
 	</npc>
 
 	<npc id="white_wolf_2" inherit="white_wolf">
+		<baseid>white_wolf</baseid>
 		<id>37</id>
+		<category>Animals\Canine\White Wolf 2</category>
 	</npc>
 
 </definitions>
