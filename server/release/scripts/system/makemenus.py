@@ -6,6 +6,7 @@ import math
 from wolfpack import console, properties, tr
 from wolfpack.consts import *
 import random
+from wolfpack.utilities import hex2dec
 
 # Known menus
 menus = {}
@@ -194,6 +195,12 @@ class MakeItemAction(MakeAction):
 		gump.addHtmlGump(170, 302, 345, 76, whitehtml % self.otherhtml, 0, 1)
 
 		gump.send(player)
+		
+	#
+	# Process a craft node for this item and use its properties to initialize this
+	#
+	def processnode(self, node, menu):
+		pass
 
 #
 # Action for crafting an item.
@@ -210,6 +217,57 @@ class CraftItemAction(MakeItemAction):
 		# Sysmessage sent if you don't have enough material.
 		# Integer or String allowed
 		self.lackmaterial = tr("You don't have enough material to make that.")
+
+	#
+	# Process an XML node
+	#
+	def processnode(self, node, menu):
+		# Define several common names for submaterial1
+		submaterial1names = ['leather', 'ingots']
+		submaterial2names = ['scales']
+		
+		if node.name in submaterial1names:
+			self.submaterial1 = hex2dec(node.getattribute('amount', '0'))
+			
+		elif node.name in submaterial2names:		
+			self.submaterial2 = hex2dec(node.getattribute('amount', '0'))
+		
+		# Normal Material
+		elif node.name == 'material':
+			if not node.hasattribute('id'):
+				console.log(LOG_ERROR, "Material element without id list in menu %s.\n" % menu.id)
+				return
+			else:
+				ids = node.getattribute('id').split(';')
+				try:
+					amount = hex2dec(node.getattribute('amount', '1'))
+					materialname = node.getattribute('name', 'Unknown')
+				except:
+					console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
+					return
+				self.materials.append([ids, amount, materialname])
+
+		# Skill requirement
+		elif node.name in skillnamesids:
+			skill = skillnamesids[node.name]
+			try:
+				minimum = hex2dec(node.getattribute('min', '0'))
+			except:
+				console.log(LOG_ERROR, "%s element with invalid min value in menu %s.\n" % (node.name, menu.id))
+				return
+
+			try:
+				maximum = hex2dec(node.getattribute('max', '1200'))
+			except:
+				console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (node.name, menu.id))
+				return
+
+			try:
+				penalty = hex2dec(node.getattribute('penalty','0'))
+			except:
+				console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (node.name, menu.id))
+
+			self.skills[skill] = [minimum, maximum, penalty]
 
 	#
 	# Make invisible if we dont have the minimum
@@ -520,6 +578,19 @@ class CraftItemAction(MakeItemAction):
 		MakeItemAction.details(self, player, arguments)
 
 	#
+	# Get the main skill used by this action
+	# -1 if there isn't any
+	#
+	def getmainskill(self):
+		cmaxv = 0 # Current maximum skill value
+		cskill = -1 # Current maximum skill
+		for (skill, values) in self.skills.items():
+			if values[1] >= cmaxv:
+				cskill = skill
+				cmaxv = values[1]
+		return cskill			
+
+	#
 	# Check if we did an exceptional job.
 	#
 	def getexceptionalchance(self, player, arguments):
@@ -551,6 +622,11 @@ class CraftItemAction(MakeItemAction):
 	# Try to make the item and consume the resources.
 	#
 	def make(self, player, arguments, nodelay=0):
+		# Check the tool
+		if self.parent and self.parent.requiretool:
+			if not self.parent.checktool(player, wolfpack.finditem(arguments[0])):
+				return False
+
 		# See if we have enough skills to attempt
 		if not self.checkskills(player, arguments):
 			player.socket.clilocmessage(1044153)
@@ -597,6 +673,11 @@ class CraftItemAction(MakeItemAction):
 			self.fail(player, arguments, lostmaterials)
 			self.parent.send(player, arguments)
 		else:
+			# Check the tool
+			if self.parent and self.parent.requiretool:
+				if not self.parent.checktool(player, wolfpack.finditem(arguments[0]), True):
+					return False
+
 			self.consumematerial(player, arguments, 0)
 
 			# Calculate if we did an exceptional job
@@ -713,6 +794,9 @@ class MakeMenu:
 		self.gumptype = 0
 		self.name_makelast = tr("Make Last")
 		self.delay = 0 # Delay in ms until item is crafted.
+		self.requiretool = False # Don't check for a craft tool in arguments[0] by default
+		
+		self.repairsound = 0 # The soundeffect played for repairing an item
 
 		# Display a repair item button on the makemenu
 		self.allowrepair = 0
@@ -755,6 +839,15 @@ class MakeMenu:
 		for action in self.subactions:
 			if not isinstance(menu, MakeAction):
 				raise TypeError, "MakeMenu %s has an invalid subaction of type %s." % (self.id, type(action).__name__)
+
+	#
+	# Get topmost menu
+	#
+	def topmostmenu(self):
+		if self.parent:
+			return self.parent.topmostmenu()
+		else:
+			return self
 
 	#
 	# Try to find a craftitem for a certain definition id
@@ -867,10 +960,126 @@ class MakeMenu:
 		gump.send(player)
 
 	#
+	# This function is used as a callback by the makemenus to reduce the durability
+	# of the crafting tool used
+	#
+	def checktool(self, player, item, wearout = False):
+		if not self.requiretool:
+			return True
+
+		if not item:
+			return False
+
+		# Has to be in our posession
+		if item.getoutmostchar() != player:
+			player.socket.clilocmessage(500364)
+			return False
+
+		# We do not allow "invulnerable" tools.
+		if not item.hastag('remaining_uses'):
+			player.socket.clilocmessage(1044038)
+			item.delete()
+			return False
+
+		# See if we have another tool equipped
+		equipped = player.itemonlayer(LAYER_RIGHTHAND)
+		if equipped and equipped != item:
+			player.socket.clilocmessage(1048146)
+			return False
+
+		if wearout:
+			uses = int(item.gettag('remaining_uses'))
+			if uses <= 1:
+				player.socket.clilocmessage(1044038)
+				item.delete()
+				return False
+			else:
+				item.settag('remaining_uses', uses - 1)
+				item.resendtooltip()
+
+		return True
+
+	#
 	# Repair an item.
+	# This is a generic repair function that should work for any subclass.
 	#
 	def repair(self, player, arguments, target):
-		pass
+		if self.requiretool and not self.checktool(player, wolfpack.finditem(arguments[0])):
+			return
+		
+		if not target.item:
+			player.socket.clilocmessage(500426)
+			return
+
+		if not player.canreach(target.item, -1):
+			player.socket.clilocmessage(1044275)
+			return
+
+		item = target.item
+		weapon = properties.itemcheck(item, ITEM_WEAPON)
+		shield = properties.itemcheck(item, ITEM_SHIELD)
+		armor = properties.itemcheck(item, ITEM_ARMOR)
+
+		if weapon or armor or shield:
+			# Item in full repair
+			if item.maxhealth <= 0 or item.health >= item.maxhealth:
+				player.socket.clilocmessage(500423)
+				return False # Fully repaired
+
+			action = self.topmostmenu().findcraftitem(item.baseid)
+			
+			if action:
+				mainskill = action.getmainskill()
+			else:
+				mainskill = -1
+
+			# We can't craft it, so we can't repair it.
+			if mainskill == -1:
+				player.socket.clilocmessage(1044277)
+				return False # Can't craft the item
+
+			skill = player.skill[mainskill]
+			if skill >= 900:
+				weaken = 1
+			elif skill >= 700:
+				weaken = 2
+			else:
+				weaken = 3				
+
+			# We will either destroy or repair it from here on
+			# So we can play the craft effect.
+			if self.repairsound != 0:
+				player.soundeffect(self.repairsound)
+
+			if item.maxhealth <= weaken:
+				player.socket.clilocmessage(500424)
+				player.log(LOG_MESSAGE, "Tries to repair item %s (0x%x) and destroys it.\n" % (item.baseid, item.serial))
+				item.delete()
+			elif player.checkskill(mainskill, 0, 1000):
+				player.socket.clilocmessage(1044279)
+				item.maxhealth -= weaken
+				item.health = item.maxhealth				
+				item.resendtooltip()
+				player.log(LOG_MESSAGE, "Repairs item %s (0x%x) and weakens it by %u points.\n" % (item.baseid, item.serial, weaken))
+			else:
+				player.socket.clilocmessage(1044280)
+				item.maxhealth -= weaken
+				item.health = max(0, item.health - weaken)
+				item.resendtooltip()
+				player.log(LOG_MESSAGE, "Fails to repair item %s (0x%x) and weakens it by %u points.\n" % (item.baseid, item.serial, weaken))
+
+			# Consume one use of the tool
+			if self.requiretool:
+				self.checktool(player, wolfpack.finditem(arguments[0]), True)
+
+			# Warn the user if we'll break the item next time
+			if item.maxhealth <= weaken:
+				player.socket.clilocmessage(1044278)
+
+			return True # Repaired the item
+
+		player.socket.clilocmessage(1044277)
+		return False # Cannot repair this
 
 	#
 	# Smelt an item.
@@ -882,6 +1091,9 @@ class MakeMenu:
 	# Enhance an item.
 	#
 	def enhance(self, player, arguments, target):
+		if self.requiretool and not self.checktool(player, wolfpack.finditem(args[0])):
+			return		
+		
 		if not target.item:
 			self.send(player, arguments)
 			return
@@ -1203,6 +1415,9 @@ class MakeMenu:
 	# Handle a response to this makemenu.
 	#
 	def response(self, player, response, arguments):
+		if self.requiretool and not self.checktool(player, wolfpack.finditem(arguments[0])):
+			return
+		
 		# Show a gump with the last 10 items the player made.
 		if response.button == 1:
 			self.makehistory(player, arguments)
@@ -1393,6 +1608,9 @@ class MakeMenu:
 	# passed on between gump calls.
 	#
 	def send(self, player, args = []):
+		if self.requiretool and not self.checktool(player, wolfpack.finditem(args[0])):
+			return
+		
 		# Close gumps of the same type
 		if self.gumptype != 0:
 			player.socket.closegump(self.gumptype, 0xFFFF)

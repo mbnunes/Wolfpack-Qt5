@@ -5,7 +5,7 @@
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
-from wolfpack import console
+from wolfpack import console, tr
 from wolfpack.consts import *
 import math
 import wolfpack
@@ -22,46 +22,37 @@ LEATHERS = [
 		['Barbed Leather', 	TAILORING, 990, ['barbed_leather_cut', 'barbed_leather_hides'], 0x1c1, 'barbed_leather'],
 ]
 
-#
-# Check if the character is using the right tool
-#
-def checktool(char, item, wearout = False):
-	if not item:
-		return False
-
-	# Has to be in our posession
-	if item.getoutmostchar() != char:
-		char.socket.clilocmessage(500364)
-		return False
-
-	# We do not allow "invulnerable" tools.
-	if not item.hastag('remaining_uses'):
-		char.socket.clilocmessage(1044038)
-		item.delete()
-		return False
-
-	if wearout:
-		uses = int(item.gettag('remaining_uses'))
-		if uses <= 1:
-			char.socket.clilocmessage(1044038)
-			item.delete()
-			return False
-		else:
-			item.settag('remaining_uses', uses - 1)
-			item.resendtooltip()
-	return True
+# Baseids used for clothing
+CLOTH = ['175d', '175e', '175f', '1760', '1761', '1762', '1763', '1764', '1765', '1766', '1767', '1768']
 
 #
 # Bring up the tailoring menu
 #
 def onUse(char, item):
-	if not checktool(char, item):
-		return True
-
 	menu = findmenu('TAILORING')
 	if menu:
 		menu.send(char, [item.serial])
 	return True
+
+#
+# Response for the cloth select target
+#
+def ClothSelectResponse(player, arguments, target):
+	global CLOTH
+	action = arguments[0]
+	args = list(arguments[1:])
+	
+	if not target.item:
+		player.socket.clilocmessage(1046439) # That is not a valid target
+		action.parent.send(player, args)
+	elif target.item.baseid not in CLOTH:
+		player.socket.clilocmessage(1046439) # That is not a valid target
+		action.parent.send(player, args)
+	elif target.item.container != player.getbackpack():
+		player.socket.clilocmessage(1060640) # The item must be in your backpack to use it
+		action.parent.send(player, args)
+	else:
+		action.make(player, args, False, target.item)
 
 #
 # Tailor an item.
@@ -70,6 +61,108 @@ class TailorItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
 		self.markable = 1 # All tailoring items are markable
+		self.cloth = 0 # How many cloth this part is using (Special processing because of color)
+		self.requiretool = True
+
+	#
+	# This check is here to make sure that we only use one kind of 
+	# cloth to make the item
+	# Resource is the item used to statisfy the cloth needs.
+	#
+	def make(self, player, arguments, nodelay=0, clothitem = None):
+		global CLOTH
+
+		# We have not been passed a cloth reference.
+		# Try to statisfy it automatically
+		if self.cloth > 0:
+			if not clothitem:
+				backpack = player.getbackpack()
+				count = 0 # Valid piles of cloth
+				for item in backpack.content:
+					if item.baseid in CLOTH and item.amount >= self.cloth:
+						clothitem = item
+						count += 1
+	
+				# This makes the user select a pile of cloth
+				if count > 1:
+					player.socket.clilocmessage(502928) # Which material would you like to work ...
+					player.socket.attachtarget('skills.tailoring.ClothSelectResponse', [self, arguments])
+					return
+				elif count < 1:
+					player.socket.clilocmessage(1044456) # You don't have any ready cloth
+					return
+
+			# Pass the clothitem on to the next function as an argument
+			if len(arguments) < 2:
+				arguments.append(clothitem.serial)
+			else:
+				arguments[1] = clothitem.serial
+
+		return CraftItemAction.make(self, player, arguments, nodelay)
+
+	#
+	# Checkmaterial checks that the selected cloth is actually in the backpack
+	# of the player
+	#
+	def checkmaterial(self, player, arguments, silent = 0):
+		result = CraftItemAction.checkmaterial(self, player, arguments, silent)
+		
+		# Check for cloth
+		if result and self.cloth > 0:
+			assert(len(arguments) >= 2)
+			cloth = wolfpack.finditem(arguments[1])
+			if not player.canreach(cloth, -1):
+				player.socket.clilocmessage(1044456) # You don't have any ready cloth...
+				return False
+			elif cloth.amount < self.cloth:
+				player.socket.clilocmessage(1044287) # You don't have enough...
+				return False
+		
+		return result
+		
+	#
+	# Consume material
+	#
+	def consumematerial(self, player, arguments, half = 0):
+		result = CraftItemAction.consumematerial(self, player, arguments, half)
+		
+		if result and self.cloth > 0:			
+			if half:
+				needed = int(math.ceil(self.cloth / 2))
+			else:
+				needed = self.cloth
+		
+			assert(len(arguments) >= 2)
+			cloth = wolfpack.finditem(arguments[1])
+			if not player.canreach(cloth, -1):
+				player.socket.clilocmessage(1044456) # You don't have any ready cloth...
+				return False
+			elif cloth.amount < needed:
+				player.socket.clilocmessage(1044287) # You don't have enough...
+				return False
+
+			# Replace the second argument with the color of the cloth
+			arguments[1] = cloth.color
+
+			if needed == cloth.amount:
+				cloth.delete()
+			else:
+				cloth.amount -= needed
+				cloth.update()
+
+		return result
+
+	#
+	# Process additional XML nodes for this action type
+	#
+	def processnode(self, node, menu):
+		global CLOTH
+		if node.name == 'cloth':
+			amount = hex2dec(node.getattribute('amount', '1'))
+			if amount > 0:
+				self.cloth = amount
+		else:
+			CraftItemAction.processnode(self, node, menu)
 
 	#
 	# Check if we did an exceptional job.
@@ -86,9 +179,25 @@ class TailorItemAction(CraftItemAction):
 		return chance
 
 	#
+	# Add our cloth to the materials list
+	#
+	def getmaterialshtml(self, player, arguments):
+		materialshtml = CraftItemAction.getmaterialshtml(self, player, arguments)
+		
+		if self.cloth > 0:
+			materialshtml += "%s: %u<br>" % (tr('Cloth'), self.cloth)
+
+		return materialshtml
+
+	#
 	# Apply resname and color to the item.
 	#
 	def applyproperties(self, player, arguments, item, exceptional):
+		# Get the color of the cloth this item has been crafted with
+		if self.cloth > 0:
+			assert(len(arguments) >= 2)
+			item.color = arguments[1]		
+		
 		# All tailoring items crafted out of leather gain the special color
 		if self.submaterial1 > 0:
 			material = self.parent.getsubmaterial1used(player, arguments)
@@ -112,20 +221,6 @@ class TailorItemAction(CraftItemAction):
 				item.settag('res_energy', fromitem(item, RESISTANCE_ENERGY) + boni[3])
 				item.settag('res_poison', fromitem(item, RESISTANCE_POISON) + boni[4])
 
-		# Reduce the uses remain count
-		checktool(player, wolfpack.finditem(arguments[0]), True)
-
-	#
-	# Check for the used tool.
-	#
-	def make(self, player, arguments, nodelay=0):
-		assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
-
-		if not checktool(player, wolfpack.finditem(arguments[0])):
-			return False
-
-		return CraftItemAction.make(self, player, arguments, nodelay)
-
 	#
 	# Play a simple soundeffect
 	#
@@ -145,73 +240,7 @@ class TailoringMenu(MakeMenu):
 		self.submaterial1missing = 1044463
 		self.submaterial1noskill = 1049311
 		self.gumptype = 0x4f1ba411 # This should be unique
-
-	#
-	# Repair an item
-	#
-	def repair(self, player, arguments, target):
-		if not checktool(player, wolfpack.finditem(arguments[0])):
-			return
-
-		if not target.item:
-			player.socket.clilocmessage(500426)
-			return
-
-		if target.item.container != player.getbackpack():
-			player.socket.clilocmessage(1044275)
-			return
-
-		item = target.item
-		weapon = itemcheck(item, ITEM_WEAPON)
-		shield = itemcheck(item, ITEM_SHIELD)
-		armor = itemcheck(item, ITEM_ARMOR)
-
-		if weapon or armor or shield:
-			# Item in full repair
-			if item.maxhealth <= 0 or item.health >= item.maxhealth:
-				player.socket.clilocmessage(500423)
-				return
-
-			skill = player.skill[TAILORING]
-			if skill >= 900:
-				weaken = 1
-			elif skill >= 700:
-				weaken = 2
-			else:
-				weaken = 3
-
-			action = self.findcraftitem(item.baseid)
-
-			# We can't craft it, so we can't repair it.
-			if not action:
-				player.socket.clilocmessage(1044277)
-				return
-
-			# We will either destroy or repair it from here on
-			# So we can play the craft effect.
-			player.soundeffect(0x248)
-
-			if item.maxhealth <= weaken:
-				player.socket.clilocmessage(500424)
-				item.delete()
-			elif player.checkskill(TAILORING, 0, 1000):
-				player.socket.clilocmessage(1044279)
-				item.maxhealth -= weaken
-				item.health = item.maxhealth
-				item.resendtooltip()
-			else:
-				player.socket.clilocmessage(1044280)
-				item.maxhealth -= weaken
-				item.health = max(0, item.health - weaken)
-				item.resendtooltip()
-
-			# Warn the user if we'll break the item next time
-			if item.maxhealth <= weaken:
-				player.socket.clilocmessage(1044278)
-
-			return
-
-		player.socket.clilocmessage(1044277)
+		self.repairsound = 0x248 # Repair soundeffect
 
 	#
 	# Get the material used by the character from the tags
@@ -283,40 +312,8 @@ def loadMenu(id, parent = None):
 				# Process subitems
 				for j in range(0, child.childcount):
 					subchild = child.getchild(j)
-
-					# How much of the primary resource should be consumed
-					if subchild.name == 'leather':
-						action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
-
-					# Normal Material
-					elif subchild.name == 'material':
-						if not subchild.hasattribute('id'):
-							console.log(LOG_ERROR, "Material element without id list in menu %s.\n" % menu.id)
-							break
-						else:
-							ids = subchild.getattribute('id').split(';')
-							try:
-								amount = hex2dec(subchild.getattribute('amount', '1'))
-								materialname = subchild.getattribute('name', 'Unknown')
-							except:
-								console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
-								break
-							action.materials.append([ids, amount, materialname])
-
-					# Skill requirement
-					elif subchild.name in skillnamesids:
-						skill = skillnamesids[subchild.name]
-						try:
-							minimum = hex2dec(subchild.getattribute('min', '0'))
-						except:
-							console.log(LOG_ERROR, "%s element with invalid min value in menu %s.\n" % (subchild.name, menu.id))
-
-						try:
-							maximum = hex2dec(subchild.getattribute('max', '1200'))
-						except:
-							console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (subchild.name, menu.id))
-						action.skills[skill] = [minimum, maximum]
-
+					action.processnode(subchild, menu)
+					
 	# Sort the menu. This is important for the makehistory to make.
 	menu.sort()
 
