@@ -4,7 +4,7 @@ from wolfpack.consts import *
 import combat.properties
 import combat.utilities
 import random
-from math import floor
+from math import floor, ceil
 
 #
 # Check if a certain chance can be met using the skill
@@ -249,11 +249,46 @@ def hit(attacker, defender, weapon, time):
   if defender.socket:
     defender.socket.sysmessage('TAKEN: %u,%u,%u' % (mindamage, maxdamage, damage))
   
-  # Get the damage distribution of the attackers weapon
-  (physical, fire, cold, poison, energy) = damagetypes(attacker)
-  
   # Give the defender a chance to absorb damage
   damage = absorbdamage(defender, damage)
+
+  # Get the damage distribution of the attackers weapon
+  (physical, fire, cold, poison, energy) = damagetypes(attacker)
+
+  # Distribute the damage values
+  physical = ceil(physical * damage / 100)
+  fire = ceil(fire * damage / 100)
+  cold = ceil(cold * damage / 100)
+  poison = ceil(poison * damage / 100)
+  energy = ceil(energy * damage / 100)
+
+  attacker.log(LOG_MESSAGE, "Damage distribution b4 resistances: ph: %u, fi: %u, co: %u, po: %u, en: %u\n" % (physical, fire, cold, poison, energy))
+
+  # Reduce the individual damage by the defenders resistances
+  if physical > 0:
+    resistance = 100 - min(100, combat.properties.fromchar(defender, RESISTANCE_PHYSICAL))
+    physical = ceil(physical * resistance / 100)
+
+  if fire > 0:
+    resistance = 100 - min(100, combat.properties.fromchar(defender, RESISTANCE_FIRE))
+    fire = ceil(fire * resistance / 100)
+
+  if cold > 0:
+    resistance = 100 - min(100, combat.properties.fromchar(defender, RESISTANCE_COLD))
+    cold = ceil(cold * resistance / 100)
+
+  if poison > 0:
+    resistance = 100 - min(100, combat.properties.fromchar(defender, RESISTANCE_POISON))
+    poison = ceil(poison * resistance / 100)
+
+  if energy > 0:
+    resistance = 100 - min(100, combat.properties.fromchar(defender, RESISTANCE_ENERGY))
+    energy = ceil(energy * resistance / 100)
+
+  attacker.log(LOG_MESSAGE, "Damage distribution after resistances: ph: %u, fi: %u, co: %u, po: %u, en: %u\n" % (physical, fire, cold, poison, energy))
+
+  # Recalculate the total damage value, min. damage: 1
+  damage = max(1, physical + fire + cold + poison + energy)
 
   defender.damage(DAMAGE_PHYSICAL, damage, attacker)
 

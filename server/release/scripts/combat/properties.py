@@ -55,6 +55,8 @@ PROPERTIES = {
   SPEED: ['speed', 50, 0],
   HITSOUND: ['hitsound', [0x135, 0x137, 0x13b], 0],
   MISSSOUND: ['misssound', [0x238, 0x23a], 0],
+  AMMUNITION: ['ammunition', 0, 0],
+  PROJECTILE: ['projectile', 0, 0],
 }
 
 #
@@ -101,6 +103,11 @@ def fromchar(char, property):
   info = PROPERTIES[property]
 
   value = 0 # Default
+
+  # See if the character is a npc and has the value
+  # Then it overrides any items
+  if char.hastag(info[0]):
+    return int(char.gettag(info[0]))
 
   for layer in range(LAYER_RIGHTHAND, LAYER_MOUNT):
     item = char.itemonlayer(layer)
