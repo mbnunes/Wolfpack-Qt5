@@ -1,5 +1,6 @@
 
 import wolfpack
+import random
 import wolfpack.time
 
 def onTimeChange( player ):
@@ -8,8 +9,6 @@ def onTimeChange( player ):
 			player.hunger -= 1
 			player.socket.sysmessage( "Your stomach growls..." )
 		elif player.hunger == 0:
-			player.hitpoints -= 1
-			player.update()
+			player.damage( 3, random.randint( 0, 3 ) )
 			player.socket.sysmessage( "Your stomach hurts from the lack of food..." )
-	
 	return False
