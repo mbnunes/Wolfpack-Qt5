@@ -319,7 +319,7 @@ bool mayWalk( P_CHAR pChar, Coord& pos )
 
 		// If we found something to step on and the next tile
 		// below would block us, use the good one instead
-		if ( found && ( itemTop > pos.z - P_M_MAX_Z_BLOCKS && !item.walkable ) )
+		if ( found && ( itemTop > pos.z - P_M_MAX_Z_BLOCKS || !item.walkable ) )
 		{
 			break;
 		}
