@@ -578,6 +578,7 @@ void cItem::remove()
 void cItem::startDecay()
 {
 	if (container_ || nodecay()) {
+		decaytime_ = 0;
 		return;
 	}
 
@@ -603,8 +604,7 @@ void cItem::decay( unsigned int currenttime )
 		return;
 
 	// Start decaying
-	if( !decaytime() )
-	{
+	if (!decaytime_) {
 		startDecay();
 		return;
 	}
@@ -1486,7 +1486,7 @@ void cItem::load( char **result, UINT16 &offset )
 	baseid_ = result[offset++];
 
 	// Their own weight should already be set.
-	totalweight_ = ceilf( amount_ * weight_ * 100 ) / 100;
+	totalweight_ = amount_ * weight_;
 
 	//  Warning, ugly optimization ahead, if you have a better idea, we want to hear it.
 	//  For load speed and memory conservation, we will store the SERIAL of the container

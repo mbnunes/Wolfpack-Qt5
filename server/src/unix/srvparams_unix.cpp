@@ -85,3 +85,4 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 	}
 	return serverList_;
 }
+

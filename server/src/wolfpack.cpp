@@ -241,7 +241,7 @@ int main( int argc, char **argv )
 	QApplication app( argc, argv, false ); // we need one instance
 	QTranslator translator( 0 ); // must be valid thru app life.
 
-	serverState = STARTUP;
+	changeServerState(STARTUP);
 
 	Console::instance()->setAttributes( true, false, true, 60, 140, 70, 12, FONT_NOSERIF );
 	Console::instance()->send(QString( "\n%1 %2 %3\n\n" ).arg(productString(), productBeta(), productVersion()));
@@ -480,7 +480,7 @@ int main( int argc, char **argv )
 
 	ScriptManager::instance()->onServerStart();
 
-	serverState = RUNNING;
+	changeServerState(RUNNING);
 
 	Console::instance()->start(); // Startup Console
 
@@ -566,7 +566,7 @@ int main( int argc, char **argv )
 	}
 
 	unlockDataMutex();
-	serverState = SHUTDOWN;
+	changeServerState(SHUTDOWN);
 
 	ScriptManager::instance()->onServerStop();
 
@@ -589,3 +589,9 @@ int main( int argc, char **argv )
 
 	return 0;
 }
+
+void changeServerState(enServerState state) {
+	Console::instance()->notifyServerState(state);
+	serverState = state;
+}
+

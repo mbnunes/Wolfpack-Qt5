@@ -33,13 +33,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#include <shellapi.h>
-#include <richedit.h>
-#include <commctrl.h>
-#include <qthread.h>
-
 // Wolfpack Includes
 #include "../accounts.h"
 #include "../console.h"
@@ -48,6 +41,15 @@
 #include "../network.h"
 #include "../player.h"
 #include "../wolfpack.h"
+
+#define _WIN32_IE 0x0500
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <shellapi.h>
+#include <strsafe.h>
+#include <richedit.h>
+#include <commctrl.h>
+#include <qthread.h>
 
 /*
 	This file includes the Windows GUI implementation of our Console.
@@ -60,12 +62,15 @@ extern int main( int argc, char **argv );
 // Variables important for this GUI implementation
 #define CONTROL_LOGWINDOW 0x10
 #define CONTROL_INPUT 0x11
+#define WM_TRAY_NOTIFY WM_USER + 1
 
 CHARFORMAT cf;
+NOTIFYICONDATA icondata;
 HMENU hmMainMenu;
 HICON iconRed = 0, iconGreen = 0;
 HBITMAP hLogo = 0;
 HWND lblUptime = 0, bmpLogo;
+HWND tooltip = 0;
 HBRUSH hbSeparator = 0, hbBackground = 0;
 DWORD guiThread;
 HWND statusIcon = 0;
@@ -245,6 +250,26 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 
 	switch( msg )
 	{
+	case WM_TRAY_NOTIFY:
+		switch (lparam) {
+			// Show a context menu (?)
+			case WM_RBUTTONDOWN:
+				break;
+
+			// Show/Hide the main window
+			case WM_LBUTTONUP:
+				if (IsWindowVisible(mainWindow)) {
+					ShowWindow(mainWindow, SW_HIDE);
+					UpdateWindow(mainWindow);
+				} else {
+					ShowWindow(mainWindow, SW_NORMAL);
+					UpdateWindow(mainWindow);
+				}				
+				break;
+		}
+
+		return TRUE;
+
 	case WM_CTLCOLORSTATIC:
 		if ((HWND)lparam == lblUptime) {
 			dc = (HDC)wparam;
@@ -502,6 +527,11 @@ protected:
 
 int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd )
 {
+	INITCOMMONCONTROLSEX initex;
+	initex.dwICC = ICC_WIN95_CLASSES;
+	initex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+	InitCommonControlsEx(&initex);
+
 	appInstance = hInstance;
 	guiThread = GetCurrentThreadId();
 
@@ -549,6 +579,32 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	}
 
 	ShowWindow( mainWindow, SW_NORMAL );
+
+	// Create the System Tray Icon
+	ZeroMemory(&icondata, sizeof(icondata));
+	icondata.cbSize = sizeof(icondata);
+	icondata.hWnd = mainWindow;
+	icondata.uID = 0;
+	icondata.uFlags = NIF_MESSAGE|NIF_ICON;
+	icondata.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
+	icondata.uCallbackMessage = WM_TRAY_NOTIFY;
+
+	// This is "ported" from MFC
+	tooltip = CreateWindowEx(WS_EX_TOPMOST, TOOLTIPS_CLASS, NULL, WS_POPUP|TTS_NOPREFIX|TTS_ALWAYSTIP|TTS_BALLOON,
+		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, mainWindow, NULL, hInstance, NULL);
+	
+	if (tooltip) {
+		TOOLINFO info;
+		info.cbSize = sizeof(info);
+		info.uFlags = TTF_TRANSPARENT|TTF_CENTERTIP;
+		info.hwnd = mainWindow;
+		info.uId = 0;
+		info.hinst = 0;
+		info.lpszText = LPSTR_TEXTCALLBACK;
+		GetClientRect(mainWindow, &info.rect);
+		SendMessage(tooltip, TTM_ADDTOOL, 0, (LPARAM)&info);
+	}
+	Shell_NotifyIcon(NIM_ADD, &icondata);
 
 	cServerThread serverThread(lpCmdLine);
 	serverThread.start();
@@ -603,6 +659,8 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		TranslateMessage( &msg );
 		DispatchMessage( &msg );
 	}
+
+	Shell_NotifyIcon(NIM_DELETE, &icondata);
 
 	keeprun = 0; // We quit, so let's quit the server too
 
@@ -813,3 +871,40 @@ void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned 
 	SendMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
 }
 
+// Notify the tray area about our state change.
+void cConsole::notifyServerState(enServerState newstate) {
+	#define ARRAYSIZE(a) (sizeof(a)/sizeof(a[0]))
+	StringCchCopy(icondata.szInfoTitle, ARRAYSIZE(icondata.szInfoTitle), TEXT("Wolfpack Server Status"));
+	icondata.uFlags = NIF_ICON;
+	
+	if (newstate == RUNNING) {
+		icondata.hIcon = iconGreen;
+	} else {
+		icondata.hIcon = iconRed;
+	}
+
+	// Startup has finished
+	if (serverState == STARTUP && newstate == RUNNING) {
+		icondata.uFlags |= NIF_INFO;
+		icondata.uTimeout = 2500;
+		icondata.dwInfoFlags = NIIF_INFO;
+		StringCchCopy(icondata.szInfo, ARRAYSIZE(icondata.szInfo), TEXT("Wolfpack has started up and is now ready to use."));		
+	} else if (serverState == RUNNING && newstate == SCRIPTRELOAD) {
+		icondata.uFlags |= NIF_INFO;
+		icondata.uTimeout = 2500;
+		icondata.dwInfoFlags = NIIF_INFO;
+		StringCchCopy(icondata.szInfo, ARRAYSIZE(icondata.szInfo), TEXT("Reloading scripts."));
+	} else if (serverState == SCRIPTRELOAD && newstate == RUNNING) {
+		icondata.uFlags |= NIF_INFO;
+		icondata.uTimeout = 2500;
+		icondata.dwInfoFlags = NIIF_INFO;
+		StringCchCopy(icondata.szInfo, ARRAYSIZE(icondata.szInfo), TEXT("Wolfpack has finished reloading and is now ready to use again."));
+	} else if (newstate == SHUTDOWN) {
+		icondata.uFlags |= NIF_INFO;
+		icondata.uTimeout = 2500;
+		icondata.dwInfoFlags = NIIF_INFO;
+		StringCchCopy(icondata.szInfo, ARRAYSIZE(icondata.szInfo), TEXT("Wolfpack is now shutting down."));
+	}
+
+	Shell_NotifyIcon(NIM_MODIFY, &icondata);
+}

@@ -574,7 +574,7 @@ void cWorld::load()
 		P_ITEM pi = iter->second;
 		SERIAL contserial = reinterpret_cast<SERIAL>(pi->container());
 
-		if (contserial == INVALID_SERIAL) {
+		if (!contserial) {
 			pi->setUnprocessed(false); // This is for safety reasons
 			int max_x = Map->mapTileWidth(pi->pos().map) * 8;
 			int max_y = Map->mapTileHeight(pi->pos().map) * 8;

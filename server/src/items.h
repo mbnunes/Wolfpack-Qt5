@@ -90,7 +90,7 @@ public:
 	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
 	SI16			maxhp()			const { return maxhp_; }		// Maximum number of hitpoints an item has
 	bool			dye()			const { return priv_&0x80; }	// Can the item be dyed
-	virtual bool			corpse()		const { return false; }		// Is the item a corpse
+	virtual bool	corpse()		const { return false; }		// Is the item a corpse
 	bool			newbie()		const { return priv_&0x02; }		// Is the Item Newbie
 	bool			unprocessed()	const { return priv_&0x40; }
 	bool			nodecay()		const { return priv_&0x01; }		// Is the item protected from decaying

@@ -33,6 +33,7 @@
 
 // Platform specifics
 #include "platform.h"
+#include "typedefs.h"
 
 // System Includes
 #include <qstringlist.h>
@@ -94,6 +95,7 @@ public:
 	void ProgressFail( void );
 	void ProgressSkip( void );
 
+	void notifyServerState(enServerState newstate);
 	virtual void ChangeColor( WPC_ColorKeys Color );
 	virtual void setConsoleTitle( const QString& data );
 	QStringList linebuffer() const { return linebuffer_; }

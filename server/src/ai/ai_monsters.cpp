@@ -88,15 +88,14 @@ void Monster_Aggressive_L0::selectVictim()
 		RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
 		for( ri.Begin(); !ri.atEnd(); ri++ )
 		{
-			P_CHAR pChar = ri.GetData();
-			if( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
-			{
-				P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
-				if( pPlayer && pPlayer->isGMorCounselor() )
-					continue;			
-
-				m_currentVictim = pChar;
-				break;
+			// For now we will limit ourselves to Players
+			P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(ri.GetData());
+			if(pPlayer && !pPlayer->isInvulnerable() && !pPlayer->isDead() && m_npc->canSee(pPlayer)) {
+				// Make sure that we can really see our victim
+				if (m_npc->lineOfSight(pPlayer, true)) {
+					m_currentVictim = pPlayer;
+					break;
+				}
 			}
 		}
 
@@ -139,6 +138,9 @@ void Monster_Aggressive_L1::selectVictim()
 			m_currentVictim = NULL;
 		else if( !m_npc->inRange( m_currentVictim, SrvParams->attack_distance() ) )
 			m_currentVictim = NULL;
+		else if (!m_npc->canSee(m_currentVictim)) {
+			m_currentVictim = NULL;
+		}
 	}
 	
 	int currentPriority = -0x00DDDDDD;
@@ -154,16 +156,18 @@ void Monster_Aggressive_L1::selectVictim()
 	RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
-		P_CHAR pChar = ri.GetData();
-		if( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
-		{
-			P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
-
-			int priority = 0 - pChar->dist( m_npc ) - pChar->hitpoints();
-			if( priority > currentPriority )
-			{
-				newVictim = pChar;
-				currentPriority = priority;
+		// As long as there is no way to distinguish between
+		// attackable npcs and not attackable npcs i prefer
+		// to attack players only.
+		P_PLAYER pChar = dynamic_cast<P_PLAYER>(ri.GetData());
+		if (pChar && !pChar->isInvulnerable() && !pChar->isDead() && m_npc->canSee(pChar)) {
+			if (m_npc->lineOfSight(pChar, true)) {
+				int priority = 0 - pChar->dist( m_npc ) - pChar->hitpoints();
+				if (priority > currentPriority)
+				{
+					newVictim = pChar;
+					currentPriority = priority;
+				}
 			}
 		}
 	}

@@ -2650,8 +2650,17 @@ void cBaseChar::poll(unsigned int time, unsigned int events)
 				return;
 
 			// Can we see our target?
-			if (!canSee(attackTarget_) || (range > 1 && !lineOfSight(attackTarget_, false)))
+			if (!canSee(attackTarget_))
 				return;
+
+			// Ranged weapons don't need a touch, all other weapons need it.
+			if (weapon && (weapon->type() == 1006 || weapon->type() == 1007)) {
+				if (!lineOfSight(attackTarget_, false)) {
+					return;
+				}
+			} else if (!lineOfSight(attackTarget_, true)) {
+				return;
+			}
 	
 			cPythonScript *global = ScriptManager::instance()->getGlobalHook(EVENT_SWING);
 

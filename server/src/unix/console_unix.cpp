@@ -227,3 +227,5 @@ void cConsole::setAttributes( bool bold, bool italic, bool, unsigned char r, uns
 {
 }
 
+void cConsole::notifyServerState(enServerState newstate) {
+}

@@ -39,6 +39,7 @@
 #include "../contextmenu.h"
 #include "python/engine.h"
 #include "network/uosocket.h"
+#include "wolfpack.h"
 
 // Library Includes
 #include <qstring.h>
@@ -72,7 +73,7 @@ cPythonScript* cScriptManager::find( const QCString &name )
 
 void cScriptManager::reload( void )
 {
-	serverState = SCRIPTRELOAD;
+	changeServerState(SCRIPTRELOAD);
 	
 	// First unload, then reload
 	unload();
@@ -98,7 +99,7 @@ void cScriptManager::reload( void )
 
 	ContextMenus::instance()->reload();
 
-	serverState = RUNNING;
+	changeServerState(RUNNING);
 }
 
 // Unload all scripts

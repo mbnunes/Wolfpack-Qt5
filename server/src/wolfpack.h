@@ -55,4 +55,13 @@ void lockDataMutex();
 */
 void unlockDataMutex();
 
+/*!
+	\brief Call this function to change the server status. 
+	It's wiser to call this than to change the status directly
+	because this is able to notify other parts of the system
+	about the change.
+	\params state The new server status.
+*/
+void changeServerState(enServerState state);
+
 #endif
