@@ -266,11 +266,11 @@ def absorbdamage(defender, damage):
 		tobackpack(armor, defender)
 		armor.update()
 		if defender.socket:
-					defender.socket.clilocmessage(500645)
+			defender.socket.clilocmessage(500645)
 		armor = None
 
 	# Only players can parry using a shield or a weapon
-	if defender.player:
+	if defender.player or defender.skill[PARRYING] > 0:
 		shield = defender.itemonlayer(LAYER_LEFTHAND)
 		weapon = defender.getweapon()
 		blocked = 0
@@ -292,7 +292,7 @@ def absorbdamage(defender, damage):
 		# Otherwise just use the parry skill as a chance value
 		# we can't gain it using a weapon as a shield.
 		# Note: no ranged weapons
-		elif weapon:
+		elif weapon and weapon.twohanded:
 			# There is a 0.15% chance to block for each skill point
 			chance = defender.skill[PARRYING] * 0.00015
 			blocked = chance >= random.random()
