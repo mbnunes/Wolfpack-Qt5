@@ -59,7 +59,6 @@ HEADERS =	Client.h \
 		junk.h \
 		mapstuff.h \
 		msgboard.h \
-		mstring.h \
 		netsys.h \
 		network.h \
 		pfactory.h \
@@ -138,7 +137,6 @@ SOURCES =	Client.cpp \
 		magic.cpp \
 		mapstuff.cpp \
 		msgboard.cpp \
-		mstring.cpp \
 		necro.cpp \
 		netsys.cpp \
 		network.cpp \
@@ -216,7 +214,6 @@ OBJECTS =	Client.o \
 		magic.o \
 		mapstuff.o \
 		msgboard.o \
-		mstring.o \
 		necro.o \
 		netsys.o \
 		network.o \
@@ -354,7 +351,6 @@ LoS.o: LoS.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -409,7 +405,7 @@ SkiTarg.o: SkiTarg.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -468,7 +464,6 @@ SndPkg.o: SndPkg.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -527,7 +522,6 @@ Timing.o: Timing.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -576,7 +570,6 @@ TmpEff.o: TmpEff.cpp \
 		start_pack.h \
 		end_pack.h \
 		uobject.h \
-		mstring.h \
 		whitespace.h \
 		stream.h \
 		items.h \
@@ -644,7 +637,6 @@ Trade.o: Trade.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -702,7 +694,6 @@ accounts.o: accounts.cpp \
 		house.h \
 		items.h \
 		uobject.h \
-		mstring.h \
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -753,7 +744,7 @@ admin.o: admin.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -808,7 +799,7 @@ archive.o: archive.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -865,7 +856,7 @@ boats.o: boats.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -922,7 +913,7 @@ books.o: books.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -977,7 +968,7 @@ bounty.o: bounty.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1030,7 +1021,7 @@ cache.o: cache.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1073,7 +1064,7 @@ chars.o: chars.cpp \
 		start_pack.h \
 		end_pack.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		charsmgr.h \
@@ -1132,7 +1123,7 @@ charsmgr.o: charsmgr.cpp \
 		start_pack.h \
 		end_pack.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h
 
@@ -1160,7 +1151,7 @@ cmdtable.o: cmdtable.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1217,7 +1208,7 @@ combat.o: combat.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1275,7 +1266,7 @@ commands.o: commands.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1335,7 +1326,7 @@ cWeather.o: cWeather.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1390,7 +1381,7 @@ dbl_single_click.o: dbl_single_click.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1448,7 +1439,7 @@ debug.o: debug.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1505,7 +1496,7 @@ dragdrop.o: dragdrop.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1561,7 +1552,7 @@ fishing.o: fishing.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1616,7 +1607,7 @@ globals.o: globals.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1660,7 +1651,7 @@ guildstones.o: guildstones.cpp \
 		typedefs.h \
 		coord.h \
 		wpconsole.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		defines.h \
@@ -1733,7 +1724,7 @@ gumps.o: gumps.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1793,7 +1784,7 @@ house.o: house.cpp \
 		itemsmgr.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		exceptions.h \
@@ -1849,7 +1840,7 @@ html.o: html.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1904,7 +1895,7 @@ im.o: im.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -1942,7 +1933,7 @@ iserialization.o: iserialization.cpp \
 		typedefs.h \
 		coord.h \
 		wpconsole.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h
 
@@ -1975,7 +1966,7 @@ items.o: items.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2020,7 +2011,7 @@ itemsmgr.o: itemsmgr.cpp \
 		typedefs.h \
 		coord.h \
 		wpconsole.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		defines.h \
@@ -2050,7 +2041,7 @@ magic.o: magic.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2108,7 +2099,7 @@ mapstuff.o: mapstuff.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2162,7 +2153,7 @@ msgboard.o: msgboard.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2194,7 +2185,7 @@ msgboard.o: msgboard.cpp \
 		srvparams.h
 
 mstring.o: mstring.cpp \
-		mstring.h \
+
 		platform.h \
 		whitespace.h \
 		stream.h
@@ -2223,7 +2214,7 @@ necro.o: necro.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2283,7 +2274,7 @@ network.o: network.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2338,7 +2329,7 @@ newbie.o: newbie.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2392,7 +2383,7 @@ npcs.o: npcs.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2448,7 +2439,7 @@ p_ai.o: p_ai.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2510,7 +2501,7 @@ pointer.o: pointer.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2564,7 +2555,7 @@ qsf.o: qsf.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2618,7 +2609,7 @@ rcvpkg.o: rcvpkg.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2675,7 +2666,7 @@ regions.o: regions.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2730,7 +2721,7 @@ remadmin.o: remadmin.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2786,7 +2777,7 @@ scriptc.o: scriptc.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2840,7 +2831,7 @@ scripts.o: scripts.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2904,7 +2895,7 @@ skills.o: skills.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -2965,7 +2956,7 @@ speech.o: speech.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -3024,7 +3015,7 @@ sregions.o: sregions.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -3100,7 +3091,7 @@ targeting.o: targeting.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -3160,7 +3151,7 @@ telport.o: telport.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -3216,7 +3207,7 @@ trigger.o: trigger.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -3253,7 +3244,7 @@ uobject.o: uobject.cpp \
 		wpconsole.h \
 		uobject.h \
 		typedefs.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		iserialization.h \
@@ -3333,7 +3324,7 @@ weight.o: weight.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -3388,7 +3379,7 @@ wip.o: wip.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -3443,7 +3434,7 @@ wolfpack.o: wolfpack.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -3502,7 +3493,7 @@ worldmain.o: worldmain.cpp \
 		items.h \
 		uobject.h \
 		coord.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		defines.h \
@@ -3559,7 +3550,7 @@ tilecache.o: tilecache.cpp \
 		tilecache.h \
 		platform.h \
 		wpconsole.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		mulstructs.h \
@@ -3592,7 +3583,7 @@ walking2.o: walking2.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -3654,7 +3645,7 @@ wpdefmanager.o: wpdefmanager.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -3716,7 +3707,7 @@ wppythonscript.o: wppythonscript.cpp \
 		house.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -3766,7 +3757,7 @@ wpscriptmanager.o: wpscriptmanager.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \
@@ -3825,7 +3816,7 @@ menuactions.o: menuactions.cpp \
 		storage.h \
 		items.h \
 		uobject.h \
-		mstring.h \
+
 		whitespace.h \
 		stream.h \
 		itemsmgr.h \

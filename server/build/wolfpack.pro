@@ -65,7 +65,6 @@ HEADERS         = Client.h \
 		  junk.h \
 		  mapstuff.h \
 		  msgboard.h \
-		  mstring.h \
 		  netsys.h \
 		  network.h \
                   pfactory.h \
@@ -145,7 +144,6 @@ SOURCES         = Client.cpp \
 		  magic.cpp \
 		  mapstuff.cpp \
 		  msgboard.cpp \
-		  mstring.cpp \
 		  necro.cpp \
 		  netsys.cpp \
 		  network.cpp \
