@@ -5,22 +5,31 @@
 	<npc id="plague_beast">
 		<name>a plague beast</name>
 		<id>0x307</id>
-		<category>Monsters\Giant Animals\Plague Beast</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-5000" max="-9999" /></karma>
-		<fame><random min="5000" max="9999" /></fame>
-		<defense><random min="45" max="55" /></defense>
-		<lodamage>56</lodamage>
-		<hidamage>75</hidamage>
+		<karma>-13000</karma>
+		<fame>13000</fame>
 		<!-- Stats -->
-		<str><random min="302" max="500" /></str>
+		<str><random min="302" max="500"/></str>
 		<dex>80</dex>
-		<int><random min="16" max="20" /></int>
+		<int><random min="16" max="20"/></int>
 		<!-- Skills -->
-		<wrestling>1000</wrestling>
-		<tactics>1000</tactics>
 		<magicresistance>350</magicresistance>
+		<tactics>1000</tactics>
+		<wrestling>1000</wrestling>
+		<!-- Damage -->
+		<lodamage>20</lodamage>
+		<hidamage>24</hidamage>
+		<physicaldamage>60</physicaldamage>
+		<poisondamage>40</poisondamage>
+		<!-- Resists -->
+		<defense><random min="45" max="55" /></defense>
+		<coldresist><random min="25" max="35"/></coldresist>
+		<energyresist><random min="25" max="35"/></energyresist>
+		<fireresist><random min="40" max="50"/></fireresist>
+		<physicalresist><random min="45" max="55"/></physicalresist>
+		<poisonresist><random min="65" max="75"/></poisonresist>
+		<!-- Misc. -->
+		<category>Monsters\Beasts\Plague Beast</category>
 	</npc>
 
 </definitions>

@@ -5,23 +5,33 @@
 	<npc id="bog_thing">
 		<name>a bog thing</name>
 		<id>0x30c</id>
-		<category>Monsters\Giants\Bog Thing</category>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="30" max="40"/></defense>
-		<lodamage>40</lodamage>
-		<hidamage>95</hidamage>
+		<karma>-8000</karma>
+		<fame>8000</fame>
 		<gold><random min="50" max="100"/></gold>
 		<!-- Stats -->
 		<str><random min="801" max="900"/></str>
 		<dex><random min="46" max="65"/></dex>
 		<int><random min="36" max="50"/></int>
 		<!-- Skills -->
-		<wrestling><random min="651" max="800"/></wrestling>
-		<tactics><random min="701" max="850"/></tactics>
 		<magicresistance><random min="901" max="950"/></magicresistance>
-		<carve></carve>
+		<tactics><random min="701" max="850"/></tactics>
+		<wrestling><random min="651" max="800"/></wrestling>
+		<!-- Damage -->
+		<lodamage>10</lodamage>
+		<hidamage>23</hidamage>
+		<physicaldamage>60</physicaldamage>
+		<poisondamage>40</poisondamage>
+		<!-- Resists -->
+		<defense><random min="30" max="40"/></defense>
+		<coldresist><random min="10" max="15"/></coldresist>
+		<energyresist><random min="20" max="25"/></energyresist>
+		<fireresist><random min="20" max="25"/></fireresist>
+		<physicalresist><random min="30" max="40"/></physicalresist>
+		<poisonresist><random min="40" max="50"/></poisonresist>
+		<!-- Misc. -->
+		<desc>The Bog Thing is best described as a shambling mound of plants, muck, and vermin. Most bog things are about twice the size of a man and resemble a large mound with two or more arms and a hole in the middle of its chest that resembles a mouth. The creature is entirely formed from plant growth. While they demonstrate no known means ofcommunication, they are able to coordinate their boglings during battle. They are very aggressive and territorial, and will attack any human that ventures too close to their land.</desc>
+		<category>Monsters\Beasts\Bog Thing</category>
 	</npc>
 
 </definitions>

@@ -5,21 +5,31 @@
 	<npc id="plague_beast_lord">
 		<name>a plague beast lord</name>
 		<id>0x307</id>
-		<category>Monsters\Giant Animals\Plague Beast Lord</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
-		<defense><random min="45" max="55" /></defense>
-		<lodamage>66</lodamage>
-		<hidamage>78</hidamage>
+		<karma>-2000</karma>
+		<fame>2000</fame>
 		<!-- Stats -->
 		<str>500</str>
 		<dex>100</dex>
 		<int>30</int>
 		<!-- Skills -->
-		<wrestling>1000</wrestling>
 		<tactics>1000</tactics>
+		<wrestling>1000</wrestling>
+		<!-- Damage -->
+		<lodamage>20</lodamage>
+		<hidamage>25</hidamage>
+		<firedamage>25</firedamage>
+		<physicaldamage>50</physicaldamage>
+		<poisondamage>25</poisondamage>
+		<!-- Resists -->
+		<defense><random min="45" max="55" /></defense>
+		<coldresist><random min="25" max="35"/></coldresist>
+		<energyresist><random min="25" max="35"/></energyresist>
+		<fireresist><random min="40" max="50"/></fireresist>
+		<physicalresist><random min="45" max="55"/></physicalresist>
+		<poisonresist><random min="75" max="85"/></poisonresist>
+		<!-- Misc. -->
+		<category>Monsters\Beasts\Plague Beast Lord</category>
 	</npc>
 
 </definitions>
