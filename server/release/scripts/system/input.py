@@ -11,6 +11,8 @@
 """
 
 import wolfpack
+from wolfpack import console
+from wolfpack.consts import *
 
 #
 # Send an input line request to the client
@@ -26,11 +28,19 @@ def request(player, item, id):
 
 def callEvent(item, event, args):
 	scripts = item.scripts + item.basescripts.split(',') # Build the scriptlist
+	
 	for script in scripts:
-		if not wolfpack.hasnamedevent(script, event):
+		if len(script) == 0:
 			continue
 	
-		result = wolfpack.callnamedevent(script, event, args)
+		try:
+			if not wolfpack.hasnamedevent(script, event):
+				continue
+		
+			result = wolfpack.callnamedevent(script, event, args)
+		except:
+			console.log(LOG_ERROR, "Error processing script %s.\n" % script)			
+			raise
 		
 		if result:
 			return True

@@ -669,6 +669,7 @@ def shrinktarget(player, arguments, target):
 	figurine.newbie = True
 	figurine.addscript('figurine')
 	figurine.settag('pet', target.char.serial)
+	figurine.color = target.char.skin
 	figurine.name = target.char.name
 	figurine.update()
 	player.getbackpack().additem(figurine, True, False) # Random pos, no auto stacking

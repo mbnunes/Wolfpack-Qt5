@@ -35,6 +35,7 @@ def checktool(char, item, wearout = 0):
 			return False
 		else:
 			item.settag('remaining_uses', uses - 1)
+			item.resendtooltip()
 
 	return True
 
