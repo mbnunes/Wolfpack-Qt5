@@ -76,9 +76,19 @@ def checkPython(options):
 							 "/usr/local/lib/[Pp]ython*/config/libpython*.so"]
 		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython*/Python.h", \
 							 "/usr/include/[Pp]ython*/Python.h"]
+	elif sys.platform == "freebsd4":
+		PYTHONLIBSEARCHPATH = [ "/usr/local/lib/libpython*.so", \
+							 "/usr/local/lib/[Pp]ython*/libpython*.so", \
+							 "/usr/lib/libpython*.so", \
+							 "/usr/lib/[Pp]ython*/libpython*.so", \
+							 "/usr/lib/[Pp]ython*/config/libpython*.so", \
+							 "/usr/local/lib/[Pp]ython*/config/libpython*.so"]
+		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython*/Python.h", \
+							 "/usr/include/[Pp]ython*/Python.h"]
 
 	else:
 		sys.stdout.write("ERROR: Unknown platform %s to checkPython()" % sys.platform )
+		sys.exit()
 
 	# if it was overiden...
 	if options.py_incpath:
