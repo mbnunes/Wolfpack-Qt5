@@ -40,7 +40,7 @@
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Farm\Sheep (Sheered)</category>
 		
-		<intproperty name="carve_meat" value="3" />
+		<intproperty name="carve_meat" value="4" />
 		<strproperty name="carve_meat_type" value="lambleg" />
 	</npc>
 
@@ -50,11 +50,11 @@
 		<carve>carve_sheep_unsheered</carve>
 		<category>Animals\Land\Sheep (Unsheered)</category>
 
-		<intproperty name="carve_meat" value="3" />		
+		<intproperty name="carve_meat" value="4" />		
 		<strproperty name="carve_meat_type" value="lambleg" />
 		
 		<!-- Carve -->
-		<intproperty name="carve_wool" value="3" />
+		<intproperty name="carve_wool" value="1" />
 	</npc>
 
 </definitions>
