@@ -3,8 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -78,7 +77,7 @@ cResource::cResource( const cElement *Tag ) : amountmin_( 0 ), amountmax_( 0 ), 
 void cResource::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	// <amount>20</amount>
 	// <amount min="10" max="20" />
@@ -131,7 +130,7 @@ void cResource::processNode( const cElement *Tag )
 		{
 			const cElement *childTag = Tag->getChild( i );
 			QString chTagName = childTag->name();
-			QString chValue = childTag->getValue();
+			QString chValue = childTag->value();
 
 			if( chTagName == "name" )
 				item.name = chValue;
@@ -161,7 +160,7 @@ void cResource::processNode( const cElement *Tag )
 				{
 					const cElement *chchTag = childTag->getChild( j );
 					QString chchTagName = chchTag->name();
-					QString chchValue = chchTag->getValue();
+					QString chchValue = chchTag->value();
 					if( chchTagName == "getlist" && chchTag->hasAttribute( "id" ) )
 					{
 						QStringList list = DefManager->getList( chchTag->getAttribute( "id" ) );
@@ -210,7 +209,7 @@ void cResource::processNode( const cElement *Tag )
 				{
 					const cElement *chchTag = childTag->getChild( j );
 					QString chchTagName = chchTag->name();
-					QString chchValue = chchTag->getValue();
+					QString chchValue = chchTag->value();
 					if( chchTagName == "getlist" && chchTag->hasAttribute( "id" ) )
 					{
 						QStringList list = DefManager->getList( chchTag->getAttribute( "id" ) );
@@ -259,7 +258,7 @@ void cResource::processNode( const cElement *Tag )
 				{
 					const cElement *chchTag = childTag->getChild( j );
 					QString chchTagName = chchTag->name();
-					QString chchValue = chchTag->getValue();
+					QString chchValue = chchTag->value();
 					if( chchTagName == "getlist" && chchTag->hasAttribute( "id" ) )
 					{
 						QStringList list = DefManager->getList( chchTag->getAttribute( "id" ) );
@@ -308,7 +307,7 @@ void cResource::processNode( const cElement *Tag )
 				{
 					const cElement *chchTag = childTag->getChild( j );
 					QString chchTagName = chchTag->name();
-					QString chchValue = chchTag->getValue();
+					QString chchValue = chchTag->value();
 					if( chchTagName == "getlist" && chchTag->hasAttribute( "id" ) )
 					{
 						QStringList list = DefManager->getList( chchTag->getAttribute( "id" ) );
@@ -470,7 +469,7 @@ void cResource::processNode( const cElement *Tag )
 		{
 			const cElement *chTag = Tag->getChild( j );
 			QString chTagName = chTag->name();
-			QString chValue = chTag->getValue();
+			QString chValue = chTag->value();
 			if( chTagName == "getlist" && chTag->hasAttribute( "id" ) )
 			{
 				QStringList list = DefManager->getList( chTag->getAttribute( "id" ) );
@@ -520,7 +519,7 @@ void cResource::processNode( const cElement *Tag )
 		{
 			const cElement *chTag = Tag->getChild( j );
 			QString chTagName = chTag->name();
-			QString chValue = chTag->getValue();
+			QString chValue = chTag->value();
 			if( chTagName == "getlist" && chTag->hasAttribute( "id" ) )
 			{
 				QStringList list = DefManager->getList( chTag->getAttribute( "id" ) );

@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -39,8 +39,6 @@
 
 // Library Includes
 #include <qstring.h>
-#include <qregexp.h>
-#include <qvaluevector.h>
 
 // Script Based Events
 enum ePythonEvent
@@ -89,7 +87,6 @@ enum ePythonEvent
 };
 
 class cElement;
-class cUOTxTooltipList;
 
 class cPythonScript  
 {

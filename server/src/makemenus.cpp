@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -77,7 +77,7 @@ cMakeItem::cMakeItem( const cElement *Tag )
 void cMakeItem::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	if( TagName == "name" )
 		name_ = Value;
@@ -145,7 +145,7 @@ amount_(amount), colors_(colors), id_(ids), name_(name)
 void cUseItem::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	if( TagName == "name" )
 		name_ = Value;
@@ -192,7 +192,7 @@ void cUseItem::processNode( const cElement *Tag )
 		{
 			const cElement *chTag = Tag->getChild( i );
 			QString chTagName = chTag->name();
-			QString chValue = chTag->getValue();
+			QString chValue = chTag->value();
 
 			if( chTagName == "getlist" && chTag->hasAttribute( "id" ) )
 			{
@@ -278,7 +278,7 @@ cSkillCheck::cSkillCheck( const cElement *Tag )
 void cSkillCheck::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	if( TagName == "skillid" )
 		skillid_ = Value.toUShort();
@@ -337,7 +337,7 @@ cMakeSection::cMakeSection( const cElement *Tag, cMakeAction* baseaction )
 void cMakeSection::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 	
 	if( TagName == "name" )
 		name_ = Value;
@@ -371,7 +371,7 @@ cMakeCustomSection::cMakeCustomSection( const cElement *Tag, cMakeAction* baseac
 void cMakeCustomSection::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	if( TagName == "makeitem" )
 	{
@@ -648,7 +648,7 @@ cMakeNpcSection::cMakeNpcSection( const cElement *Tag, cMakeAction* baseaction )
 void cMakeNpcSection::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	if( TagName == "makenpc" )
 	{
@@ -760,7 +760,7 @@ cDoCodeAction::cDoCodeAction( const cElement *Tag, cMakeAction* baseaction ) : c
 void cDoCodeAction::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 	if ( TagName == "params" )
 		params = Value;
 
@@ -807,7 +807,7 @@ cDoScriptAction::cDoScriptAction( const cElement *Tag, cMakeAction* baseaction )
 void cDoScriptAction::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	if( TagName == "script" )
 		functionName = Value;
@@ -904,7 +904,7 @@ void cMakeAction::processNode( const cElement *Tag )
 {
 	// CAUTION: the base tag attributes are evaluated in the constructor!!
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	if( TagName == "do" )
 	{
@@ -1147,7 +1147,7 @@ void cMakeMenu::processNode( const cElement *Tag )
 {
 	// CAUTION: the base tag attributes are evaluated in the constructor!!
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	bool recurse = link_.isNull();
 
@@ -1720,7 +1720,7 @@ UINT16 cAllMakeMenus::getModel( const cElement *Tag )
 		const cElement *childTag = Tag->getChild( i );
 		
 		if( childTag->name() == "id" )
-			model = childTag->getValue().toUShort();
+			model = childTag->value().toUShort();
 	}
 	
 	return model;
@@ -1733,8 +1733,6 @@ void cAllMakeMenus::parseLocationNode( cMakeMenu* pGoMenu, const cElement* defSe
 
 	QString category    = defSection->getAttribute("category");
 	QString description = defSection->getAttribute("category");
-	
-	Console::instance()->send( category + "\n" );
 
 	if( !category.isEmpty() )
 	{
@@ -1869,7 +1867,7 @@ void cAllMakeMenus::load()
 						}
 						else if( childTag->name() == "id" )
 						{
-							model = childTag->getValue().toUShort();
+							model = childTag->value().toUShort();
 						}
 						else if( childTag->name() == "inherit" )
 						{
@@ -1981,7 +1979,7 @@ void cAllMakeMenus::load()
 						}
 						else if( childTag->name() == "id" )
 						{
-							model = childTag->getValue().toUShort();
+							model = childTag->value().toUShort();
 						}
 						else if( childTag->name() == "inherit" )
 						{

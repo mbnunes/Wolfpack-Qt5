@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -61,7 +61,7 @@ void cTerritory::init( void )
 void cTerritory::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	//<guards>
 	//  <npc mult="2">npcsection</npc> (mult inserts 2 same sections into the list so the probability rises!
@@ -81,7 +81,7 @@ void cTerritory::processNode( const cElement *Tag )
 					mult = 1;
 
 				for( UI32 i = 0; i < mult; i++ )
-					this->guardSections_.push_back( childNode->getValue() );
+					this->guardSections_.push_back( childNode->value() );
 			}
 			else if( childNode->name() == "list" && childNode->hasAttribute( "id" ) )
 			{
@@ -177,7 +177,7 @@ void cTerritory::processNode( const cElement *Tag )
 				{
 					const cElement *chchildNode = childNode->getChild( j );
 
-					QString childValue = chchildNode->getValue();
+					QString childValue = chchildNode->value();
 					
 					if( chchildNode->name() == "buyable" )
 						goods.buyable = childValue.toInt();

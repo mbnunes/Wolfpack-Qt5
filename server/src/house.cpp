@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -82,7 +82,7 @@ void cHouse::processHouseItemNode( const cElement *Tag )
 			const cElement *childTag = Tag->getChild( i );
 
 			QString TagName = childTag->name();
-			QString Value = childTag->getValue();
+			QString Value = childTag->value();
 
 			// <pack />
 			if( TagName == "pack" && pOwner )
@@ -174,7 +174,7 @@ bool cHouse::onValidPlace()
 void cHouse::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	// <id>16572</id>
 	if( TagName == "id" )

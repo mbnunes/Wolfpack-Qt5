@@ -46,7 +46,7 @@ void cContextMenu::processNode( const cElement *Tag )
 	
 	if( TagName == "events" )
 	{
-		scripts_ = Tag->getValue();
+		scripts_ = Tag->value();
 	}
 	else if ( TagName == "option" )
 	{

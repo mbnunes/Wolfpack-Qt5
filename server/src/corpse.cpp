@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -134,7 +134,7 @@ bool cCorpse::del()
 void cCorpse::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	if( TagName == "bodyid" )
 		bodyId_ = Value.toUShort();

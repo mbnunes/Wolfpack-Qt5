@@ -3,8 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -247,7 +246,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 void cBoat::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	// <ids north="0x4021" east=".." south=".." west=".." />
 	if( TagName == "ids" )

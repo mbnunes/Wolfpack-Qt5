@@ -3,8 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -1027,7 +1026,7 @@ void cItem::processNode( const cElement *Tag )
 	flagChanged();
 	// we do this as we're going to modify the element
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	const cElement *section = DefManager->getDefinition( WPDT_DEFINE, TagName );
 
@@ -1190,7 +1189,7 @@ void cItem::processNode( const cElement *Tag )
 void cItem::processModifierNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	// <name>magic %1</name>
 	if( TagName == "name" )

@@ -3,8 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -191,7 +190,7 @@ public:
 				{
 					QString tagId = element->getAttribute( "id" );
 
-					if( tagId != QString::null )
+					if( !tagId.isEmpty() )
 					{
 						// <script id="XXXX">...</script>
 						impl->unique[ categories[i].key ].insert( tagId, element );
@@ -249,11 +248,9 @@ bool WPDefManager::ImportSections( const QString& FileName )
 	QXmlSimpleReader reader;
 	reader.setFeature( "http://trolltech.com/xml/features/report-whitespace-only-CharData", false );
 
-	cXmlHandler *handler = new cXmlHandler( impl, FileName );
-	reader.setContentHandler( handler );
+	cXmlHandler handler( impl, FileName );
+	reader.setContentHandler( &handler );
 	reader.parse( &input, false );
-
-	delete handler;
 
     File.close();
 	return true;
@@ -656,7 +653,7 @@ unsigned int cElement::childCount() const
 	return childCount_;
 }
 
-QString cElement::getValue() const
+QString cElement::value() const
 {
 	QString Value = text_;
 

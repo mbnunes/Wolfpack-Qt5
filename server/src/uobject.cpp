@@ -381,7 +381,7 @@ void cUObject::recreateEvents()
 void cUObject::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
-	QString Value = Tag->getValue();
+	QString Value = Tag->value();
 
 	if( TagName == "name" )
 	{

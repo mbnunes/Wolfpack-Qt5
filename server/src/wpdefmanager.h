@@ -3,8 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -33,7 +32,6 @@
 #define __WPDEFMANAGER_H__
 
 // Library Includes
-#include <qdom.h>
 #include <qmap.h>
 #include <qstring.h>
 #include <qvaluevector.h>
@@ -41,9 +39,7 @@
 // Foward declarations
 class QStringList;
 class QXmlAttributes;
-
-// Typedefs
-typedef QMap< QString, QDomElement > DefSections;
+class cDefManagerPrivate;
 
 enum eDefCategory 
 {
@@ -73,8 +69,6 @@ enum eDefCategory
 	WPDT_CHARBASE,
 	WPDT_COUNT
 };
-
-class cDefManagerPrivate;
 
 class cElement
 {
@@ -122,7 +116,7 @@ public:
 	void setParent( cElement *parent );
 	const cElement *parent() const;
 
-	QString getValue() const;
+	QString value() const;
 
 	const cElement *getTopmostParent() const;
 };
@@ -144,7 +138,6 @@ public:
 	const cElement*		getDefinition( eDefCategory Type, const QString& id ) const;
 	const QValueVector< cElement* > &getDefinitions( eDefCategory Type ) const;
 
-	//const QDomElement*	getSection( eDefCategory Type, const QString& Section ) const;
 	QStringList			getSections( eDefCategory Type ) const;
 	QString				getRandomListEntry( const QString& ListSection );
 	QStringList			getList( const QString& ListSection );
