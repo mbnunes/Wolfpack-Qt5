@@ -460,8 +460,9 @@ public:
 class cUOTxDrawChar: public cUOPacket
 {
 public:
-	cUOTxDrawChar(): cUOPacket( 0x78, 23 ) {
-		setShort( 1, 24 );
+	cUOTxDrawChar(): cUOPacket( 0x78, 26 ) {
+		setShort( 1, 26 );
+		setInt( 22, 0 );
 	}
 	
 	void setSerial( Q_UINT32 data ) { setInt( 3, data ); }

@@ -2086,8 +2086,6 @@ UINT8 cChar::notority( P_CHAR pChar ) // Gets the notority toward another char
 
 	if( npcaitype() == 0x02 )
 		return 0x06; // 6 = Red -> Monster
-	else
-		result = 0x01; // 1 = Blue -> Innocent
 
 	if( pChar->kills() > SrvParams->maxkills() )
 		result = 0x06; // 6 = Red -> Murderer
@@ -2101,7 +2099,11 @@ UINT8 cChar::notority( P_CHAR pChar ) // Gets the notority toward another char
 		case 0x04: result = 0x01; break; // If a good, show as blue.
 		case 0x08: result = 0x02; break; // green (guilds)
 		case 0x10: result = 0x05; break; // orange (guilds)
-		default:   result = 0x03; break; // grey
+		default:   
+			if( npcaitype() > 0 || !isNpc() )
+				return 0x01; // 1 = Blue -> Innocent
+			else
+				return 0x03; // grey
 	}
 
 	return result;
