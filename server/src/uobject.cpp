@@ -42,6 +42,7 @@
 #include "defines.h"
 #include "wpdefaultscript.h"
 #include "wpscriptmanager.h"
+#include "wpdefmanager.h"
 
 // Debug includes and defines
 #undef  DBGFILE
@@ -314,9 +315,12 @@ QString cUObject::getNodeValue( const QDomElement &Tag )
 			QDomElement childTag = childNode.toElement();
 			if( childTag.nodeName() == "namelist" )
 			{
-				// Get the namelist and select a random name!
-				// ...
-				QString selectedName = Tag.text();
+				QString selectedName;
+				QDomElement* DefSection = DefManager->getSection( WPDT_NAMELIST, childTag.nodeValue() );
+				if( DefSection->isNull() )
+					selectedName = Tag.text();
+				else
+					selectedName = childTag.childNodes().item( RandomNum( 0, childTag.childNodes().count()-1 ) ).nodeName();
 				Value += selectedName;
 			}
 			else if( childTag.nodeName() == "random" )
