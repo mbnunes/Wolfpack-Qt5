@@ -695,7 +695,7 @@ namespace Combat
 					splitnum = RandomNum( 1, pDefender->split() );
 				
 				for( UI08 splitcount = 0; splitcount < splitnum; splitcount++ )
-					Npcs->Split( pDefender );
+					cCharStuff::Split( pDefender );
 			}
 		}
 
@@ -910,7 +910,7 @@ namespace Combat
 					{
 						pDefender->action( 0x15 );					
 						PlayDeathSound( pDefender );					
-						Npcs->DeleteChar( pDefender ); //Guards, don't give body
+						cCharStuff::DeleteChar( pDefender ); //Guards, don't give body
 					}
 					else
 					{
@@ -1275,7 +1275,7 @@ namespace Combat
 		
 		if( pRegion->isGuarded() && SrvParams->guardsActive() && !pOffender->isInvul() )
 		{
-			P_CHAR pGuard = Npcs->createScriptNpc( pRegion->getGuardSect(), pos );
+			P_CHAR pGuard = cCharStuff::createScriptNpc( pRegion->getGuardSect(), pos );
 			
 			if ( !pGuard ) 
 				return;

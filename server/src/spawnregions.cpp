@@ -249,7 +249,7 @@ void cSpawnRegion::reSpawn( void )
 			if( this->findValidSpot( pos ) )
 			{
 				QString NpcSect = this->npcSections_[ RandomNum( 1, this->npcSections_.size() ) - 1 ];
-				P_CHAR pc = Npcs->createScriptNpc( -1, NULL, NpcSect, pos.x, pos.y, pos.z );
+				P_CHAR pc = cCharStuff::createScriptNpc( -1, NULL, NpcSect, pos.x, pos.y, pos.z );
 				if( pc != NULL )
 				{
 					this->npcSerials_.push_back( pc->serial );
@@ -295,7 +295,7 @@ void cSpawnRegion::reSpawnToMax( void )
 		if( this->findValidSpot( pos ) )
 		{
 			QString NpcSect = this->npcSections_[ RandomNum( 1, this->npcSections_.size() ) - 1 ];
-			P_CHAR pc = Npcs->createScriptNpc( -1, NULL, NpcSect, pos.x, pos.y, pos.z );
+			P_CHAR pc = cCharStuff::createScriptNpc( -1, NULL, NpcSect, pos.x, pos.y, pos.z );
 			if( pc != NULL )
 			{
 				this->npcSerials_.push_back( pc->serial );
@@ -332,7 +332,7 @@ void cSpawnRegion::deSpawn( void )
 
 	while( it != this->npcSerials_.end() )
 	{
-		Npcs->DeleteChar( FindCharBySerial( *it ) );
+		cCharStuff::DeleteChar( FindCharBySerial( *it ) );
 		it++;
 	}
 	npcSerials_.erase( npcSerials_.begin(), npcSerials_.end() );

@@ -735,7 +735,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				
 					if (los)
 					{
-						P_CHAR pc_vendor = Npcs->createScriptNpc(-1, NULL, "2117", pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
+						P_CHAR pc_vendor = cCharStuff::createScriptNpc(-1, NULL, "2117", pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
 						
 						if (pc_vendor == NULL) 
 						{

@@ -1175,7 +1175,7 @@ void cChar::processNode( const QDomElement &Tag )
 			P_ITEM pBackpack = Items->SpawnItem( -1, this, 1, "Backpack", 0, 0x0E,0x75,0,0,0);
 			if( pBackpack == NULL )
 			{
-				Npcs->DeleteChar( this );
+				cCharStuff::DeleteChar( this );
 				return;
 			}
 			
@@ -2469,7 +2469,7 @@ void cChar::kill()
 	// St00pid -> spawned chars shoudl become invis so they keep their stats
 	// and information
 	if( isNpc() )
-		Npcs->DeleteChar( this );
+		cCharStuff::DeleteChar( this );
 
 	// Wtf ?? Summoned Creatures -> should be flag
 	// if( ele == 65535 )

@@ -874,7 +874,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	{
 	case 0x0000:	// summon monster
  		soundeffect( s, 0x02, 0x15 );
-		pc_monster = Npcs->createScriptNpc( s, NULL, DefManager->getRandomListEntry( "10000" ));
+		pc_monster = cCharStuff::createScriptNpc( s, NULL, DefManager->getRandomListEntry( "10000" ));
  		if( pc_monster == NULL )
  		{
  			sysmessage( s, "Contact your shard op to setup the summon list!" );
@@ -892,7 +892,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		if (color1==0x00 && color2==0x75)
 		{
 			soundeffect(s, 0x02, 0x12); // EV
-			pc_monster = Npcs->createScriptNpc(s,NULL,"295",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+			pc_monster = cCharStuff::createScriptNpc(s,NULL,"295",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			if( pc_monster == NULL )
 				return;
             pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
@@ -902,7 +902,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		else
 		{
 			soundeffect(s, 0x02, 0x17); // AE
-			pc_monster = Npcs->createScriptNpc(s,NULL,"291",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+			pc_monster = cCharStuff::createScriptNpc(s,NULL,"291",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			if( pc_monster == NULL )
 				return;
 			pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
@@ -911,7 +911,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x000A: // Daemon
 		soundeffect(s, 0x02, 0x16);
-		pc_monster = Npcs->createScriptNpc(s,NULL,"290",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		pc_monster = cCharStuff::createScriptNpc(s,NULL,"290",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
@@ -919,7 +919,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x000E: //Earth
 		soundeffect(s, 0x02, 0x17);
-		pc_monster = Npcs->createScriptNpc(s,NULL,"292",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		pc_monster = cCharStuff::createScriptNpc(s,NULL,"292",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
@@ -927,7 +927,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x000F: //Fire
 		soundeffect(s, 0x02, 0x17);
-		pc_monster = Npcs->createScriptNpc(s,NULL,"293",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		pc_monster = cCharStuff::createScriptNpc(s,NULL,"293",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
@@ -935,7 +935,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x0010: //Water
 		soundeffect(s, 0x02, 0x17);
-		pc_monster = Npcs->createScriptNpc(s,NULL,"294",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		pc_monster = cCharStuff::createScriptNpc(s,NULL,"294",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
@@ -943,7 +943,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x023E: //Blade Spirits
 		soundeffect(s, 0x02, 0x12); // I don't know if this is the right effect...	
-		pc_monster = Npcs->createScriptNpc(s,NULL,"296",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		pc_monster = cCharStuff::createScriptNpc(s,NULL,"296",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
@@ -952,7 +952,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x03e2: // Dupre The Hero
 		soundeffect(s, 0x02, 0x46);
-		pc_monster = Npcs->MemCharFree ();
+		pc_monster = new cChar;
 		pc_monster->Init();
 		pc_monster->setDef(50);
 		pc_monster->setLoDamage(50);
@@ -975,7 +975,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x000B: // Black Night
 		soundeffect(s, 0x02, 0x16);
-		pc_monster = Npcs->MemCharFree ();
+		pc_monster = new cChar;
 		pc_monster->Init();
 		pc_monster->setDef(50);
 		pc_monster->setLoDamage(50);
@@ -996,7 +996,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x0190: // Death Knight
 		soundeffect(s, 0x02, 0x46);
-		pc_monster = Npcs->MemCharFree ();
+		pc_monster = new cChar;
 		pc_monster->Init();
 		pc_monster->setDef(20);
 		pc_monster->setLoDamage(10);
@@ -1647,7 +1647,7 @@ void cMagic::NPCDispel(P_CHAR pc_s, P_CHAR pc_i)
 			SubtractMana(pc_s,20);
 			tileeffect(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z, 0x37, 0x2A, 0x00, 0x00);
 			if (pc_i->isNpc())
-				Npcs->DeleteChar(pc_i);
+				cCharStuff::DeleteChar(pc_i);
 			else pc_i->kill();
 		}
 	}
@@ -2426,7 +2426,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						{
 							tileeffect(pc_defender->pos.x,pc_defender->pos.y,pc_defender->pos.z, 0x37, 0x2A, 0x00, 0x00);
 							if (pc_defender->isNpc())
-								Npcs->DeleteChar(pc_defender);
+								cCharStuff::DeleteChar(pc_defender);
 							else
 								pc_defender->kill();
 						}

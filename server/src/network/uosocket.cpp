@@ -460,7 +460,6 @@ void cUOSocket::sendCharList()
   This method handles cUORxDeleteCharacter packet types.
   It will also resend the updated character list
   \sa cUORxDeleteCharacter
-  \todo Implement delete code to cUOSocket::handleDeleteCharacter
 */
 void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 {
@@ -478,7 +477,7 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 
 	if( pChar )
 	{
-		Npcs->DeleteChar( pChar ); // Does everything for us
+		cCharStuff::DeleteChar( pChar ); // Does everything for us
 		_account->removeCharacter( pChar );
 	}
 

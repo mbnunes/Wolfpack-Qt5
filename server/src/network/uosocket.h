@@ -70,6 +70,10 @@ private:
 //	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
 
 public:
+
+	cUOSocket( QSocketDevice *sDevice );
+	virtual ~cUOSocket( void );
+
 	// Temporary stuff, should be replaced by a tag-like system later
 	void setTempInt( UINT32 data );
 	UINT32 tempInt() const;
@@ -77,8 +81,6 @@ public:
 	Q_UINT8 walkSequence( void ) const;
 	void setWalkSequence( Q_UINT8 data );
 
-	cUOSocket( QSocketDevice *sDevice );
-	virtual ~cUOSocket( void );
 
 	QSocketDevice *socket( void ) const;
 	void setSocket( QSocketDevice *data );
@@ -145,9 +147,7 @@ public:
 	void sendCharList();
 	void removeObject( cUObject *object );
 	void setPlayer( P_CHAR pChar = NULL ); // Updates the current player
-	void updateCharList();
 	void disconnect( void ); // Call this whenever the socket should disconnect
-	void playChar( P_CHAR player ); // Play a character
 	bool isT2A()	{ return true; } // ???
 	void sendPaperdoll( P_CHAR pChar );
 	void playMusic( void );
@@ -173,6 +173,10 @@ public:
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );
+
+private: // Private methods
+	void updateCharList();
+	void playChar( P_CHAR player ); // Play a character
 };
 
 // Inline members

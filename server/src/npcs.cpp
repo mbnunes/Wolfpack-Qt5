@@ -52,9 +52,6 @@
 #undef  DBGFILE
 #define DBGFILE "npcs.cpp"
 
-#define CHAR_RESERVE 100	// minimum of free slots that should be left in the array.
-							// otherwise, more memory will be allocated in the mainloop (Duke)
-
 void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 {
 	if( !pc_k )
@@ -94,12 +91,6 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 
 	pc_k->free = true;
 	cCharsManager::getInstance()->deleteChar( pc_k );
-}
-
-P_CHAR cCharStuff::MemCharFree()			// Find a free char slot
-{
-	P_CHAR pc = new cChar;
-	return pc;
 }
 
 void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
@@ -177,7 +168,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	short postype;				// determines how xyz of the new NPC are set, see below
 	unsigned long loopexit=0;
 
-	P_CHAR nChar = MemCharFree();
+	P_CHAR nChar = new cChar;
 	nChar->Init( true );
 	cCharsManager::getInstance()->registerChar( nChar );
 

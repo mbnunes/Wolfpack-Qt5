@@ -795,9 +795,8 @@ protected:
 	void applyStartItemDefinition( const QDomElement &Tag );
 };
 
-class cCharStuff
+namespace cCharStuff
 {
-public:
 	void DeleteChar(P_CHAR pc_k);
 	P_CHAR MemCharFree();
 	void Split(P_CHAR pc_k);

@@ -1316,7 +1316,7 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 			// Is there anything to be spawned
 			if( amount < pItem->amount() )
 			{
-				P_CHAR pSpawned = Npcs->createScriptNpc( pItem->carve(), pItem->pos );
+				P_CHAR pSpawned = cCharStuff::createScriptNpc( pItem->carve(), pItem->pos );
 				if( pSpawned )
 					pSpawned->SetSpawnSerial( pItem->serial );
 			}

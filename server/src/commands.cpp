@@ -617,7 +617,7 @@ public:
 
 			if( pChar->account() )
 				pChar->account()->removeCharacter( pChar );
-			Npcs->DeleteChar( pChar );
+			cCharStuff::DeleteChar( pChar );
 		}
 		else if( pItem )
 		{
@@ -686,7 +686,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 			UINT32 i = 0;
 			for(; i < characters.size(); ++i )
 				if( characters[i] )
-					Npcs->DeleteChar( characters[i] );
+					cCharStuff::DeleteChar( characters[i] );
 			
 			socket->sysMessage( tr( "Account '%1' and %2 characters have been removed" ).arg( args[1].left( 30 ) ).arg( i+1 ) );
 		}

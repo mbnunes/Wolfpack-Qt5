@@ -209,7 +209,6 @@ cSrvParams		*SrvParams;
 CWorldMain		*cwmWorldState;
 cAllItems		*Items;
 cMapStuff		*Map;
-cCharStuff		*Npcs;
 cSkills			*Skills;
 cFishing        *Fishing;
 cWeight			*Weight;

@@ -40,8 +40,6 @@
 #include "../skills.h"
 #include "../combat.h"
 
-extern cCharStuff *Npcs;
-
 /*!
 	Struct for WP Python Chars
 */

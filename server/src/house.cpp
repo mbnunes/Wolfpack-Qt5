@@ -260,7 +260,7 @@ void cHouse::remove( void )
 	{
 		P_CHAR pc = ri.GetData();
 		if(pc->npcaitype() == 17 && pc->multis == this->serial)
-			Npcs->DeleteChar(pc);
+			cCharStuff::DeleteChar(pc);
 	}
 	RegionIterator4Items rii(this->pos);
 	for(rii.Begin(); !rii.atEnd(); rii++)

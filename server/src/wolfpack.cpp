@@ -4268,7 +4268,6 @@ void StartClasses(void)
 	Accounts		= NULL;
 	Items			= NULL;
 	Map				= NULL;
-	Npcs			= NULL;
 	Skills			= NULL;
 	Weight			= NULL;
 	Targ			= NULL;
@@ -4287,7 +4286,6 @@ void StartClasses(void)
 	Accounts		= new cAccounts;
 	Items			= new cAllItems;
 	Map				= new cMapStuff ( SrvParams->mulPath());
-	Npcs			= new cCharStuff;
 	Skills			= new cSkills;
 	Weight			= new cWeight;
 	Targ			= new cTargets;
@@ -4314,7 +4312,6 @@ void DeleteClasses()
 	delete Accounts;
 	delete Items;
 	delete Map;
-	delete Npcs;
 	delete Skills;
 	delete Weight;
 	delete Targ;

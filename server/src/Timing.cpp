@@ -537,7 +537,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	int pcalc;
 	char t[120];
 
-	Npcs->CheckAI( currenttime, pc );
+	cCharStuff::CheckAI( currenttime, pc );
 	Movement->NpcMovement( currenttime, pc );
     setcharflag( pc );
 
@@ -578,7 +578,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 
 			pc->soundEffect( 0x01FE );
 			pc->setDead( true );
-			Npcs->DeleteChar(pc);
+			cCharStuff::DeleteChar(pc);
 			return;
 		}
 	}
@@ -712,7 +712,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 
 					pc->soundEffect( 0x01FE );
 					if( SrvParams->tamedDisappear() == 1 )
-						Npcs->DeleteChar(pc);
+						cCharStuff::DeleteChar(pc);
 				}
 				break;
 			}

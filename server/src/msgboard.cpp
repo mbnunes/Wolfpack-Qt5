@@ -2240,7 +2240,7 @@ void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 	if ( !pc_npc->questDestRegion() )
 	{
 		clConsole.send("WOLFPACK: MsgBoardQuestEscortCreate() No valid regions defined for escort quests\n");
-		Npcs->DeleteChar( pc_npc );
+		cCharStuff::DeleteChar( pc_npc );
 		//deletechar( npcIndex );
 		return;
 	}
@@ -2250,7 +2250,7 @@ void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 	{
 		clConsole.send( "WOLFPACK: MsgBoardQuestEscortCreate() Failed to add quest post for %s\n", pc_npc->name.c_str() );
 		clConsole.send( "WOLFPACK: MsgBoardQuestEscortCreate() Deleting NPC %s\n", pc_npc->name.c_str() );
-		Npcs->DeleteChar( pc_npc );
+		cCharStuff::DeleteChar( pc_npc );
 		//deletechar( npcIndex );
 		return;
 	}
@@ -2326,7 +2326,7 @@ void MsgBoardQuestEscortDelete( P_CHAR pc_npc )
 {
 	if ( pc_npc == NULL ) return;
 	pc_npc->setDead( true );
-	Npcs->DeleteChar(pc_npc);
+	cCharStuff::DeleteChar(pc_npc);
 	return;
 }
 
