@@ -158,7 +158,7 @@ the line of sight.
 	double a2_incrament= a1_incrament;
 	double c1_incrament, c2_incrament;	// c/a_divide, this give the length incrament along c
 	double b1_incrament, b2_incrament, aplus=0, bplus=0, a2plus=0, b2plus=0;	// the length of b1 at a1,c1
-	int checkcount, dyncount;
+	int checkcount;
 	char blocked=0;					// could potentially replace returning a char with a bool... you either see it or you don't (Abaddon)
 	char not_blocked=1;
 	double a2, b2, c2;
