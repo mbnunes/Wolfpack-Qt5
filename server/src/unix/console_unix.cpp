@@ -187,6 +187,7 @@ void cConsole::stop()
 
 void cConsole::setConsoleTitle( const QString& data )
 {
+	Q_UNUSED(data);
 }
 
 //=========================================================================================
@@ -230,7 +231,7 @@ void cConsole::send( const QString& sMessage )
 	{
 		QString temp = progress;
 		progress = QString::null;
-		for ( int i = 0; i < temp.length() + 4; ++i )
+		for ( uint i = 0; i < temp.length() + 4; ++i )
 		{
 			fprintf( stdout, "\b" );
 		}
@@ -267,8 +268,14 @@ void cConsole::send( const QString& sMessage )
 
 void cConsole::setAttributes( bool bold, bool italic, bool, unsigned char r, unsigned char g, unsigned char b, unsigned char, enFontType )
 {
+	Q_UNUSED(bold);
+	Q_UNUSED(italic);
+	Q_UNUSED(r);
+	Q_UNUSED(g);
+	Q_UNUSED(b);
 }
 
 void cConsole::notifyServerState( enServerState newstate )
 {
+	Q_UNUSED(newstate);
 }
