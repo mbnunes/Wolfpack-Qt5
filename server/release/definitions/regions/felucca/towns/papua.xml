@@ -1,0 +1,19 @@
+
+<definitions>
+
+	<!-- Papua -->
+	<region id="felucca_papua">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+			<guardowner>the city</guardowner>
+		</guards>
+		<snowchance><random min="10" max="30" /></snowchance>
+		<rainchance><random min="30" max="50" /></rainchance>
+		<rectangle x1="5644" y1="3115" x2="5853" y2="3320" map="0" />
+	</region>
+
+</definitions>

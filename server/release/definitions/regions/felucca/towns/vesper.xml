@@ -1,0 +1,21 @@
+
+<definitions>
+
+	<!-- Vesper -->
+	<region id="felucca_vesper">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+			<guardowner>the city</guardowner>
+		</guards>
+		<rainchance><random min="35" max="50" /></rainchance>
+		<snowchance><random min="10" max="30" /></snowchance>
+		<rectangle x1="2725" y1="895" x2="2800" y2="1000" map="0" />
+		<rectangle x1="2825" y1="600" x2="3035" y2="815" map="0" />
+		<rectangle x1="2800" y1="815" x2="3010" y2="1010" map="0" />
+	</region>
+
+</definitions>

@@ -1,0 +1,19 @@
+
+<definitions>
+
+	<!-- Cove -->
+	<region id="trammel_cove">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+		</guards>
+		<guardowner>the city</guardowner>
+		<rainchance><random min="40" max="60" /></rainchance>
+		<snowchance><random min="35" max="50" /></snowchance>
+		<rectangle x1="2205" y1="1120" x2="2290" y2="1245" map="1" />
+	</region>
+
+</definitions>

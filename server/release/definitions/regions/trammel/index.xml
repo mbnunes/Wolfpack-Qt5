@@ -1,0 +1,37 @@
+
+<definitions>
+
+	<!--
+	<region id="facet_trammel">
+		<rectangle x1="1" y1="1" x2="6144" y2="4096" map="1" />
+	</region>
+	-->
+
+	<!-- Towns -->
+	<include file="definitions/regions/trammel/britain.xml" />
+	<include file="definitions/regions/trammel/cove.xml" />
+	<include file="definitions/regions/trammel/delucia.xml" />
+	<include file="definitions/regions/trammel/minoc.xml" />
+	<include file="definitions/regions/trammel/moonglow.xml" />
+	<include file="definitions/regions/trammel/papua.xml" />
+	<include file="definitions/regions/trammel/skara_brae.xml" />
+	<include file="definitions/regions/trammel/trinsic.xml" />
+	<include file="definitions/regions/trammel/vesper.xml" />
+	<include file="definitions/regions/trammel/yew.xml" />
+	<!-- Dungeons -->
+	<!--
+	<include file="definitions/regions/trammel/" />
+	<include file="definitions/regions/trammel/" />
+	<include file="definitions/regions/trammel/" />
+	<include file="definitions/regions/trammel/" />
+	<include file="definitions/regions/trammel/" />
+	<include file="definitions/regions/trammel/" />
+	<include file="definitions/regions/trammel/" />
+	<include file="definitions/regions/trammel/" />
+	<include file="definitions/regions/trammel/" />
+	<include file="definitions/regions/trammel/" />
+	-->
+	<!-- Misc. -->
+	<include file="definitions/regions/trammel/britain_graveyard.xml" />
+
+</definitions>

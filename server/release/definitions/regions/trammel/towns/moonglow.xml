@@ -1,0 +1,20 @@
+
+<definitions>
+
+	<!-- Moonglow -->
+	<region id="trammel_moonglow">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+			<guardowner>the city</guardowner>
+		</guards>
+		<snowchance><random min="5" max="15" /></snowchance>
+		<rainchance><random min="45" max="85" /></rainchance>
+		<rectangle x1="4380" y1="1045" x2="4500" y2="1235" map="1" />
+		<rectangle x1="4280" y1="920" x2="4345" y2="1020" map="1" />
+	</region>
+
+</definitions>

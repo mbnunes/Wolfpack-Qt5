@@ -1,0 +1,21 @@
+
+<definitions>
+
+	<!-- Yew -->
+	<region id="trammel_yew">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+		</guards>
+		<escortregion />
+		<guardowner>the city</guardowner>
+		<rainchance><random min="45" max="60" /></rainchance>
+		<snowchance><random min="55" max="70" /></snowchance>
+		<rectangle x1="504" y1="951" x2="711" y2="1070" map="1" />
+		<rectangle x1="604" y1="1070" x2="666" y2="1116" map="1" />
+	</region>
+
+</definitions>

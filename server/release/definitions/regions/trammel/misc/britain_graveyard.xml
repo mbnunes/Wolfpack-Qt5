@@ -1,0 +1,10 @@
+
+<definitions>
+
+	<!-- Britain Graveyard -->
+	<region id="trammel_britain_graveyard">
+		<rectangle x1="1336" y1="1443" x2="1391" y2="1494" map="1" />
+		<rectangle x1="1336" y1="1494" x2="1376" y2="1511" map="1" />
+	</region>
+
+</definitions>

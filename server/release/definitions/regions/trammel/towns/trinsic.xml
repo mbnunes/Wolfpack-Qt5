@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Trinsic -->
+	<region id="trammel_trinsic">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+			<guardowner>the city</guardowner>
+		</guards>
+		<rainchance><random min="45" max="50" /></rainchance>
+		<snowchance><random min="5" max="15" /></snowchance>
+		<rectangle x1="1792" y1="2692" x2="1811" y2="2765" map="1" />
+		<rectangle x1="1811" y1="2660" x2="1850" y2="2765" map="1" />
+		<rectangle x1="1850" y1="2632" x2="1939" y2="2765" map="1" />
+		<rectangle x1="1796" y1="2765" x2="1811" y2="2874" map="1" />
+		<rectangle x1="1811" y1="2765" x2="1858" y2="2890" map="1" />
+		<rectangle x1="1939" y1="2660" x2="1974" y2="2874" map="1" />
+		<rectangle x1="1858" y1="2765" x2="1939" y2="2896" map="1" />
+		<rectangle x1="1974" y1="2680" x2="2050" y2="2940" map="1" />
+		<rectangle x1="2050" y1="2745" x2="2080" y2="2900" map="1" />
+	</region>
+
+</definitions>

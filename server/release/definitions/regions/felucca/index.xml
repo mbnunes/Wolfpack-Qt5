@@ -1,0 +1,37 @@
+
+<definitions>
+	<!--
+	<region id="facet_felucca">
+		<rectangle x1="1" y1="1" x2="6144" y2="4096" map="0" />
+	</region>
+	-->
+	<!-- I was looking for a way to do includes inside this region, but until then I'll branch like usual -->
+	<!-- Towns -->
+	<include file="definitions/regions/felucca/britain.xml" />
+	<include file="definitions/regions/felucca/cove.xml" />
+	<include file="definitions/regions/felucca/delucia.xml" />
+	<include file="definitions/regions/felucca/minoc.xml" />
+	<include file="definitions/regions/felucca/moonglow.xml" />
+	<include file="definitions/regions/felucca/papua.xml" />
+	<include file="definitions/regions/felucca/skara_brae.xml" />
+	<include file="definitions/regions/felucca/trinsic.xml" />
+	<include file="definitions/regions/felucca/vesper.xml" />
+	<include file="definitions/regions/felucca/yew.xml" />
+	<!-- Dungeons -->
+	<!--
+	<include file="definitions/regions/felucca/" />
+	<include file="definitions/regions/felucca/" />
+	<include file="definitions/regions/felucca/" />
+	<include file="definitions/regions/felucca/" />
+	<include file="definitions/regions/felucca/" />
+	<include file="definitions/regions/felucca/" />
+	<include file="definitions/regions/felucca/" />
+	<include file="definitions/regions/felucca/" />
+	<include file="definitions/regions/felucca/" />
+	<include file="definitions/regions/felucca/" />
+	-->
+	<!-- Misc. -->
+	<include file="definitions/regions/felucca/britain_graveyard.xml" />
+
+
+</definitions>

@@ -1,0 +1,24 @@
+
+<definitions>
+
+	<!-- Minoc -->
+	<region id="trammel_minoc">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+			<guardowner>the city</guardowner>
+		</guards>
+		<snowchance><random min="45" max="70" /></snowchance>
+		<rainchance><random min="40" max="60" /></rainchance>
+		<rectangle x1="2395" y1="430" x2="2555" y2="573" map="1" />
+		<rectangle x1="2420" y1="352" x2="2555" y2="430" map="1" />
+		<rectangle x1="2555" y1="450" x2="2635" y2="550" map="1" />
+		<rectangle x1="2460" y1="573" x2="2590" y2="650" map="1" />
+		<rectangle x1="2590" y1="595" x2="2635" y2="655" map="1" />
+		<rectangle x1="2485" y1="650" x2="2575" y2="695" map="1" />
+	</region>
+
+</definitions>

@@ -1,0 +1,19 @@
+
+<definitions>
+
+	<!-- Delucia -->
+	<region id="trammel_delucia">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+			<guardowner>the city</guardowner>
+		</guards>
+		<snowchance><random min="1" max="10" /></snowchance>
+		<rainchance><random min="55" max="70" /></rainchance>
+		<rectangle x1="5159" y1="3908" x2="5315" y2="4079" map="1" />
+	</region>
+
+</definitions>

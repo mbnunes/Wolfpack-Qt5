@@ -1,0 +1,73 @@
+
+<definitions>
+	<!-- Britain -->
+	<region id="trammel_britain">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+			<guards>
+			<list id="standard_guards" />
+		</guards>
+		<escortregion />
+		<guardowner>the city</guardowner>
+		<rainchance><random min="30" max="40" /></rainchance>
+		<snowchance><random min="45" max="55" /></snowchance>
+		<rectangle x1="1410" y1="1517" x2="1691" y2="1778" map="1" />
+		<rectangle x1="1522" y1="1778" x2="1641" y2="1798" map="1" />
+		<rectangle x1="1436" y1="1494" x2="1670" y2="1517" map="1" />
+		<rectangle x1="1691" y1="1532" x2="1721" y2="1595" map="1" />
+		<rectangle x1="1388" y1="1697" x2="1410" y2="1766" map="1" />
+	</region>
+
+	<!-- Britain's Farmlands -->
+	<region id="trammel_britain_farmlands">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+		</guards>
+		<guardowner>Lord British's</guardowner>
+		<rainchance><random min="30" max="40" /></rainchance>
+		<snowchance><random min="45" max="55" /></snowchance>
+		<rectangle x1="1085" y1="1530" x2="1200" y2="1695" map="1" />
+		<rectangle x1="1200" y1="1555" x2="1295" y2="1695" map="1" />
+		<rectangle x1="1295" y1="1695" x2="1330" y2="1850" map="1" />
+		<rectangle x1="1100" y1="1695" x2="1295" y2="1915" map="1" />
+	</region>
+
+	<!-- Lord British's castle -->
+	<region id="trammel_lord_british_castle">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<escortregion />
+		<guards>
+			<list id="standard_guards" />
+		</guards>
+		<guardowner>Lord British's Personal</guardowner>
+		<rainchance><random min="30" max="40" /></rainchance>
+		<snowchance><random min="45" max="55" /></snowchance>
+		<rectangle x1="1295" y1="1559" x2="1407" y2="1695" map="1" />
+	</region>
+
+	<!-- Lord Blackthorne's castle -->
+	<region id="trammel_lord_blackthorne_castle">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<escortregion />
+		<guards>
+			<list id="standard_guards" />
+		</guards>
+		<guardowner>Lord Blackthorne's Personal</guardowner>
+		<rainchance><random min="30" max="40" /></rainchance>
+		<snowchance><random min="45" max="55" /></snowchance>
+		<rectangle x1="1490" y1="1400" x2="1545" y2="1505" map="1" />
+	</region>
+
+</definitions>

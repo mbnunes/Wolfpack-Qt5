@@ -1,0 +1,24 @@
+
+<definitions>
+
+	<!-- Skara Brae -->
+	<region id="felucca_skara_brae">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+		</guards>
+		<escortregion />
+		<guardowner>the city</guardowner>
+		<rainchance><random min="45" max="60" /></rainchance>
+		<snowchance><random min="10" max="20" /></snowchance>
+		<rectangle x1="520" y1="2100" x2="690" y2="2225" map="0" />
+		<rectangle x1="520" y1="2225" x2="635" y2="2300" map="0" />
+		<rectangle x1="710" y1="2130" x2="840" y2="2300" map="0" />
+		<rectangle x1="725" y1="2300" x2="885" y2="2370" map="0" />
+		<rectangle x1="860" y1="2370" x2="915" y2="2425" map="0" />
+	</region>
+
+</definitions
