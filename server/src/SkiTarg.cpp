@@ -76,138 +76,6 @@ bool CheckInPack(UOXSOCKET s, PC_ITEM pi)
 	return true;
 }
 
-void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
-{
-/*	const P_ITEM pi_bolts = FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = currchar[s];
-	if (pi_bolts == NULL) return; 
-	short int amt=0;
-	short int amt1=0;
-	unsigned short col1 = pi_bolts->color(); //-Frazurbluu- added color retention for tailoring from cloth
-
-	if (pi_bolts && !pi_bolts->isLockedDown()) // Ripper
-	{
-		if (IsBoltOfCloth(pi_bolts->id()))
-		{
-			if (CheckInPack(s,pi_bolts))
-			{
-			if ( pi_bolts->amount() > 1 )
-				amt1 = ( pi_bolts->amount() * 50 );//-Frazurbluu- changed to reflect current OSI 
-			else
-				amt1 = 50; 
-
-			Items->DeleItem(pi_bolts); //-Fraz- delete the bolts when ready 
-			const P_ITEM npi = Items->SpawnItem(s, pc_currchar, 1, "cut cloth", 0, 0x17, 0x66, col1, 1, 1);
-			if(npi == NULL) return;// crash check
-			npi->setWeight( 10 );
-			npi->setAmount( amt1 );
-			npi->update();
-			Items->DeleItem(pi_bolts);
-			Weight->NewCalc(pc_currchar);
-			statwindow(s, pc_currchar);
-			if (!npi) return;
-			amt=itemmake[s].has=getamount(pc_currchar, npi->id());
-				if(amt<1)
-				{ 
-					sysmessage(s,tr("You don't have enough material to make anything.") );
-					return;
-				}
-			itemmake[s].Mat1id=npi->id();
-			itemmake[s].newcolor = npi->color();
-			MakeMenu(s,30,TAILORING);
-			}
-			return;
-		}
-		else if ( IsCloth(pi_bolts->id()) || IsCutLeather(pi_bolts->id()) || IsCutCloth(pi_bolts->id()) || IsHide(pi_bolts->id()))  
-		{
-			if (CheckInPack(s,pi_bolts))
-			{
-				int amt=itemmake[s].has = getamount(pc_currchar, pi_bolts->id());
-				if(amt<1)
-				{ 
-					sysmessage(s,tr("You don't have enough material to make anything.") );
-					return;
-				}
-				itemmake[s].Mat1id=pi_bolts->id();
-				itemmake[s].newcolor = pi_bolts->color();
-				if ( IsCutLeather(pi_bolts->id()) || IsHide(pi_bolts->id()) )
-					MakeMenu(s,40,TAILORING);
-				else
-					MakeMenu(s,30,TAILORING);
-			}
-			return;
-		}
-		sysmessage(s,tr("You cannot use that material for tailoring.") );
-	}*/
-}
-
-void cSkills::Fletching(int s)
-{
-/*	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = currchar[s];
-	if (pi && !pi->isLockedDown()) // Ripper
-	{
-		if (( IsShaft(itemmake[s].Mat1id) && IsFeather(pi->id()) ) ||	// first clicked shaft and now feather
-			( IsFeather(itemmake[s].Mat1id) && IsShaft(pi->id()) ))		// or vice versa
-		{
-			if (CheckInPack(s,pi))
-			{
-				itemmake[s].Mat2id=pi->id();	// 2nd material
-				itemmake[s].has=getamount(pc_currchar, itemmake[s].Mat1id);		// count both materials
-				itemmake[s].has2=getamount(pc_currchar, itemmake[s].Mat2id);
-				MakeMenu(s,60,BOWCRAFT);
-			}
-			return;
-		}
-	}
-	sysmessage(s,tr("You cannot use that for fletching.") );*/
-}
-
-void cSkills::BowCraft(int s)
-{
-
-/*	P_CHAR pc_currchar = currchar[s];
-
-	action(s,pc_currchar->onHorse() ? 0x1C : 0x0D);
-	
-	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && !pi->isLockedDown()) // Ripper
-	{
-		short id = pi->id();
-		if( IsLog(id) || IsBoard(id) )
-		{
-			if (CheckInPack(s,pi))
-			{
-				if((itemmake[s].has=getamount(pc_currchar, pi->id())) < 2)
-				sysmessage(s,tr("You don't have enough material to make anything.") );
-				else 
-				{
-					itemmake[s].Mat1id=pi->id();
-					MakeMenu(s,65,BOWCRAFT);
-				}
-			}
-		} 
-	}*/
-}
-
-////////////////////
-// name:	Carpentry()
-// history:	unknown, Duke, 25.05.2000, rewritten for 13.x sereg, 16.08.2002
-// purpose:	sets up appropriate Makemenu when player dclick on carpentry tool
-//			
-
-void cSkills::Carpentry( cUOSocket* socket )
-{
-	cMakeMenu* pMenu = cAllMakeMenus::getInstance()->getMenu( "CRAFTMENU_CARPENTRY" );
-	if( pMenu )
-	{
-		cMakeMenuGump* pGump = new cMakeMenuGump( pMenu, socket );
-		socket->send( pGump );
-	}
-	else
-		clConsole.send( "WARNING: Missing carpentry menu definition!" );
-}
-
 static bool ForgeInRange(int s)
 {
 /*	P_CHAR pc = currchar[s];
@@ -278,7 +146,7 @@ static void AnvilTarget2(int s,				// socket #
 						 char* matname)		// name of the metal
 {
 /*	if (!AnvilInRange(s))
-		sysmessage(s, tr("The anvil is too far away.") );
+		
 	else
 	{
 		P_CHAR pc_currchar = currchar[s];
@@ -308,37 +176,6 @@ static void AnvilTarget2(int s,				// socket #
 //
 extern int ingottype;
 
-void cSkills::Smith(int s)
-{
-/*	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && !pi->isLockedDown()) // Ripper
-	{
-		itemmake[s].Mat1id = pi->id();
-
-		if (!CheckInPack(s,pi)) return;
-
-		short id = pi->id();
-
-		if (id==0x1BEF || id==0x1BF2)	// is it an ingot ?
-		{
-		switch(pi->color())		// AnvilTarget2 args: socket #, item, minimum amount, makemenu #, name of metal
-			{
-			case 0x0961:	ingottype=1;	AnvilTarget2(s, pi, 3,  1, "iron");		return;
-			case 0x0466:	ingottype=2;	AnvilTarget2(s, pi, 1, 50, "golden");	return;
-			case 0x0150:	ingottype=3;	AnvilTarget2(s, pi, 1,806, "agapite");	return;
-			case 0x0386:	ingottype=4;	AnvilTarget2(s, pi, 1,800, "shadow");	return;
-			case 0x0191:	ingottype=5;	AnvilTarget2(s, pi, 1,803, "mythril");	return;
-			case 0x02E7:	ingottype=6;	AnvilTarget2(s, pi, 1,801, "bronze");	return;
-			case 0x022F:	ingottype=7;	AnvilTarget2(s, pi, 1,802, "verite");	return;
-			case 0x02C3:	ingottype=8;	AnvilTarget2(s, pi, 1,804, "merkite");	return;
-			case 0x046E:	ingottype=9;	AnvilTarget2(s, pi, 1,814, "copper");	return;
-			case 0x0000:	ingottype=10;	AnvilTarget2(s, pi, 1,813, "silver");	return;
-			}
-		}
-		itemmake[s].Mat1id = 0;
-	}
-	sysmessage(s, tr("You cannot use that material for blacksmithing") );*/
-}
 
 void cSkills::TasteIDTarget(int s)
 {
@@ -1325,7 +1162,7 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 	if( pc == NULL ) return;
 
 	P_CHAR pc_currchar = currchar[s];
-	P_ITEM inst = GetInstrument(s);
+	P_ITEM inst = GetInstrument( pc->socket() );
 	if (inst == NULL) 
 	{
 		sysmessage(s, tr("You do not have an instrument to play on!") );
@@ -1365,7 +1202,7 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
 	if( pc == NULL ) return;
 	P_CHAR pc_currchar = currchar[s];
-	P_ITEM inst = GetInstrument(s);
+	P_ITEM inst = GetInstrument( pc->socket() );
 	if (inst == NULL) 
 	{
 		sysmessage(s, tr("You do not have an instrument to play on!") );
@@ -1768,47 +1605,6 @@ void cSkills::LockPick(int s)
 			}
 		}
 	}
-}
-
-void cSkills::Tinkering(int s)
-{
-	/*
-	P_CHAR pc_currchar = currchar[s];
-	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && !pi->isLockedDown()) // Ripper
-	{
-		if(pi->id()==0x1BEF || pi->id()==0x1BF2 || IsLog(pi->id()) ) 
-		{
-			if (CheckInPack(s,pi))
-			{
-				int amt;
-				itemmake[s].has = amt = pc_currchar->CountItems( pi->id(), pi->color() );
-				if(amt<2)
-				{ 
-					sysmessage(s, tr("You don't have enough ingots to make anything.") );
-					return;
-				}
-				itemmake[s].Mat1id=pi->id();
-				if ( IsLog(pi->id()) )
-				{
-					if (amt<4)
-					{
-						sysmessage(s, tr("You don't have enough log's to make anything.") );
-						return;
-					} 
-					else Skills->MakeMenu(s,70,TINKERING);
-				}
-				else
-				{
-					itemmake[s].Mat1color = pi->color();	// only if ingots are used
-					Skills->MakeMenu(s,80,TINKERING);
-				}
-			}
-			return;
-		}
-	}
-	sysmessage(s, tr("You cannot use that material for tinkering.") );
-	*/
 }
 
 //////////////////////////////////

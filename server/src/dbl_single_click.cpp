@@ -1081,8 +1081,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x13E4:
 				case 0x0FB4:// sledge hammers
 				case 0x0FB5:
-					if (!Item_ToolWearOut(s, pi))
-						target(s, 0, 1, 0, 50, "Select material to use.");
+					Skills->Blacksmithing( socket );
 					return; // Smithy
 					
 				case 0x1026:// Chisels
@@ -1419,7 +1418,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						socket->sysMessage(tr("you fail to create the sextant."));
 					return;
 				case 0x1EBC: // tinker's tools
-					target(s, 0, 1, 0, 180, "Select material to use.");
+					Skills->Tinkering( socket );
 					return;
 				default:
 					//	clConsole.send("Unhandled item id for item: %s with id: %X.",pi->name, itemids); //check for unused items - Morrolan

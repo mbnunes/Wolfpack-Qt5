@@ -62,16 +62,19 @@ public:
 	void PlayInstrumentWell(cUOSocket*, P_ITEM pi);
 	void PlayInstrumentPoor(cUOSocket*, P_ITEM pi);
 	P_ITEM GetInstrument( cUOSocket* );
-	P_ITEM GetInstrument( UOXSOCKET );
 	void TellScroll(char *menu_name, int player, long item_param);
 	void CollectAmmo(int s, int a, int b);
 	void Meditation(cUOSocket* s);
-	void ApplyRank(int s, P_ITEM pi,int rank); // by Magius(CHE)
-	void Zero_Itemmake(int s); // by Magius(CHE)
 public:
-	// Moved here by Storm
-	UI08 CalcRank( UOXSOCKET Socket, UI16 SkillValue, UI16 MinSkill, UI16 MaxSkill );
+	// skills with crafting menu
+	void Blacksmithing( cUOSocket* socket );
+	void Carpentry( cUOSocket* socket );
+	void Cartography( cUOSocket* socket );
+	void Fletching( cUOSocket* socket );
+	void Tailoring( cUOSocket* socket );
+	void Tinkering( cUOSocket* socket );
 
+	
 	static void RandomSteal( cUOSocket*, SERIAL );	
 	void RepairTarget(UOXSOCKET s); // Ripper
 	void SmeltItemTarget(UOXSOCKET s); // Ripper
@@ -87,11 +90,6 @@ public:
 	void MakePizza(int s);
 	void Track(P_CHAR pc_i);
 	void DoPotion(int s, int type, int sub, P_ITEM mortar);
-	void Tailoring(int s);
-	void Fletching(int s);
-	void BowCraft(int s);
-	void Carpentry( cUOSocket* socket );
-	void Smith(int s);
 	void Mine(int s);
 	void GraveDig(int s);
 	void SmeltOre(int s);
@@ -120,11 +118,7 @@ public:
 	int EngraveAction(int s, P_ITEM pi, int cir, int spl);
 	void updateSkillLevel(P_CHAR pc, int s);
 	void LockPick(int s);
-	void Tinkering(int s);
 	void Persecute(cUOSocket*);//AntiChrist persecute stuff
-	void Cartography(int s); // By Polygon - opens the cartography skillmenu
-	bool HasEmptyMap(P_CHAR pc); // By Polygon - checks if player has an empty map
-	bool DelEmptyMap(P_CHAR pc); // By Polygon - deletes an empty map from the player's pack
 	void Decipher(P_ITEM tmap, int s); // By Polygon - attempt to decipher a tattered treasure map
 	int GetAntiMagicalArmorDefence(P_CHAR pc); // blackwind meditation armor stuff
 	void Snooping(P_CHAR, P_ITEM);

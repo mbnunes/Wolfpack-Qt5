@@ -1176,113 +1176,6 @@ public:
 	
 };
 
-
-
-//////////////////////////
-// Function:	CalcRank
-// History:		24 Agoust 1999 created by Magius(CHE)
-//				16.9.2000 revamped a bit (Duke)
-//				31.3.2002 modified by darkstorm
-//
-// Purpose:		calculate item rank based on player' skill.
-//
-UI08 cSkills::CalcRank( UOXSOCKET Socket, UI16 SkillValue, UI16 MinSkill, UI16 MaxSkill )
-{
-	return 10;
-
-	/*int rk_range,rank;
-	float sk_range,randnum,randnum1;
-
-	rk_range=itemmake[s].maxrank-itemmake[Socket].minrank;
-	sk_range=(float) 50.00 + currchar[s]->skill[skill]-itemmake[s].minskill;
-	if (sk_range<=0)
-		rank=itemmake[s].minrank;
-	else if (sk_range>=1000)
-		rank=itemmake[s].maxrank;
-
-	randnum = static_cast<float>(rand()%1000);
-	if (randnum <= sk_range)
-		rank = itemmake[s].maxrank;
-	else
-	{
-		if (SrvParams->skillLevel()==11)
-			randnum1=(float) (rand()%1000);
-		else
-			randnum1=(float) (rand()%1000)-((randnum-sk_range)/(11-SrvParams->skillLevel()));
-
-		rank=(int) (randnum1*rk_range)/1000;
-		rank+=itemmake[s].minrank-1;
-		if (rank>itemmake[s].maxrank) rank=itemmake[s].maxrank;
-		if (rank<itemmake[s].minrank) rank=itemmake[s].minrank;
-	}
-	return rank;*/
-}
-
-//////////////////////////
-// Function:	ApplyRank
-// History:		24 Agoust 1999 created by Magius(CHE)
-//				16.9.2000 removed array access and revamped a bit (Duke)
-//
-// Purpose:		modify variables base on item's rank.
-//
-void cSkills::ApplyRank( int s, P_ITEM pi, int rank )
-{
-	char tmpmsg[512];
-	*tmpmsg='\0';
-	if( SrvParams->rank_system() == 0 ) return;
-	if ( pi == NULL )
-		return;
-
-	if( SrvParams->rank_system() == 1 )
-	{
-		pi->rank=rank;
-		// Variables to change: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
-		if (pi->lodamage()>0) pi->setLodamage((rank*pi->lodamage())/10);
-		if (pi->hidamage()>0) pi->setHidamage((rank*pi->hidamage())/10);
-		if (pi->att>0) pi->att=(rank*pi->att)/10;
-		if (pi->def>0) pi->def=(rank*pi->def)/10;
-		if (pi->hp()>0) pi->setHp( (rank*pi->hp())/10 );
-		if (pi->maxhp()>0) pi->setHp( (rank*pi->maxhp())/10 );
-		switch(rank)
-		{
-			case 1: sysmessage(s,"You made an item with no quality!"); break;
-			case 2: sysmessage(s,"You made an item very below standard quality!");break;
-			case 3: sysmessage(s,"You made an item below standard quality!");break;
-			case 4: sysmessage(s,"You made a weak quality item!");break;
-			case 5: sysmessage(s,"You made a standard quality item!");break;
-			case 6: sysmessage(s,"You made a nice quality item!");break;
-			case 7: sysmessage(s,"You made a good quality item!");break;
-			case 8: sysmessage(s,"You made a great quality item!");break;
-			case 9: sysmessage(s,"You made a beautiful quality item!");break;
-			case 10: sysmessage(s,"You made a perfect quality item!");break;
-		}
-		sysmessage(s,tmpmsg);
-	}
-	else
-		pi->rank=rank;
-}
-
-////////////////
-// name:	cSkills::Zero_Itemmake(int s)
-// history:	by Magius(CHE),24 Agoust 1999
-// Purpose:	Resets all values into itemmake[s].
-//
-void cSkills::Zero_Itemmake(int s)
-{
-	itemmake[s].has=0;
-	itemmake[s].has2=0;
-	itemmake[s].needs=0;
-	itemmake[s].minskill=0;
-	itemmake[s].maxskill=0;
-	itemmake[s].Mat1id=0;		// id of material used to make item
-	itemmake[s].Mat1color=-1;	// color of material doesn't matter by default (Duke)
-	itemmake[s].Mat2id=0;		// id of second material used to make item		(vagrant)
-	itemmake[s].Mat2color=-1;	// color of material doesn't matter by default
-	itemmake[s].minrank=10; // value of minum rank level of the item to create! - Magius(CHE)
-	itemmake[s].maxrank=10; // value of maximum rank level of the item to create! - Magius(CHE)
-	itemmake[s].number=0; // scp number of the item - used to regognize the item selected and apply Magius(CHE) rank!
-}
-
 void cSkills::Hide( cUOSocket *socket ) 
 { 
 	P_CHAR pChar = socket->player();
@@ -1438,11 +1331,6 @@ P_ITEM cSkills::GetInstrument(cUOSocket* socket)
 		}
 	}
 	return NULL;
-}
-
-P_ITEM cSkills::GetInstrument( UOXSOCKET s )
-{
-	return GetInstrument(currchar[s]->socket());
 }
 
 //////////////////////////////
@@ -2136,7 +2024,22 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		Skills->Meditation( socket );
 		break;
 	case CARTOGRAPHY:
-		Skills->Cartography(s);
+		Skills->Cartography( socket );
+		break;
+	case CARPENTRY:
+		Skills->Carpentry( socket );
+		break;
+	case BLACKSMITHING:
+		Skills->Blacksmithing( socket );
+		break;
+	case BOWCRAFT:
+		Skills->Fletching( socket );
+		break;
+	case TAILORING:
+		Skills->Tailoring( socket );
+		break;
+	case TINKERING:
+		Skills->Tinkering( socket );
 		break;
 	default:
 		socket->sysMessage( tr( "That skill has not been implemented yet." ) );
@@ -3010,80 +2913,10 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 	SetTimerSec(&player->objectdelay, SrvParams->objectDelay()+SrvParams->snoopdelay());
 }
 
-
-/*
-	By Polygon:
-	Function is called when clicked on the "Cartography button
-	Builds the cartography menu
-*/
-
-void cSkills::Cartography(int s)
+void cSkills::Cartography( cUOSocket* socket )
 {
-	if (HasEmptyMap(currchar[s]))
-	{
-		itemmake[s].has = 1;
-//		MakeMenu(s, 1200, CARTOGRAPHY);
-	}
-	else
-		sysmessage(s, "You don't have an empty map to draw on");
+	cAllMakeMenus::getInstance()->callMakeMenu( socket, "CRAFTMENU_CARTOGRAPHY" );
 }
-
-// END OF: By Polygon
-
-/*
-	By Polygon:
-	Two functions that are needed for the cartography skill to
-	determine if the correct map type is in pack
-*/
-
-bool cSkills::HasEmptyMap(P_CHAR pc)	// Check if the player carries an empty map
-{
-	P_ITEM pack;	// Variable that stores the backpack
-	pack = Packitem(pc);	// Get the packitem
-	if (pack == NULL)	// Does he have a backpack?
-		return false;	// No? Then no cartography
-	unsigned int ci;
-	vector<SERIAL> vecContainer = contsp.getData(pack->serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
-	{
-		P_ITEM cand = FindItemBySerial(vecContainer[ci]);
-		if (cand->id() == 0x14EB && !cand->free)
-		{
-			if (cand->type() == 300)	// Is it the right type
-				return true;	// Yay, go on with carto
-		}
-	}
-	return false;	// Search lasted too long, abort
-}
-
-bool cSkills::DelEmptyMap(P_CHAR pc)	// Delete an empty map from the player's backpack, use HasEmptyMap before!
-{
-	P_ITEM pack;	// Variable that stores the backpack
-	pack = Packitem(pc);	// Get the packitem
-	if (pack == NULL)	// Does he have a backpack?
-	{
-		// No? Very strange... Give out an error message
-		LogError("No backpack found in DelEmptyMap. No HasEmptyMap performed before or serious bug occured");
-		return false;	// abort the opeation if you get this
-	}
-	unsigned int ci;
-	vector<SERIAL> vecContainer = contsp.getData(pack->serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
-	{
-		P_ITEM cand = FindItemBySerial(vecContainer[ci]);
-		if (cand->id()==0x14EB && !cand->free)
-		{
-			if (cand->type() == 300)	// Is it the right type
-			{
-				Items->DeleItem(cand);	// Delete it
-				return true;		// Go on with cartography
-			}
-		}
-	}
-	return false;	// Search lasted too long, abort (shouldn't happen, abort if ya get this)
-}
-
-//	END OF: By Polygon
 
 /*
 	By Polygon:
@@ -3204,6 +3037,51 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 */
 }
 
-// END OF: By Polygon
+////////////////////
+// name:	Carpentry()
+// history:	unknown, Duke, 25.05.2000, rewritten for 13.x sereg, 16.08.2002
+// purpose:	sets up appropriate Makemenu when player dclick on carpentry tool
+//			
+
+void cSkills::Carpentry( cUOSocket* socket )
+{
+	cAllMakeMenus::getInstance()->callMakeMenu( socket, "CRAFTMENU_CARPENTRY" );
+}
+
+
+void cSkills::Fletching( cUOSocket* socket )
+{
+	cAllMakeMenus::getInstance()->callMakeMenu( socket, "CRAFTMENU_FLETCHING" );
+}
+
+void cSkills::Tailoring( cUOSocket* socket )
+{
+	cAllMakeMenus::getInstance()->callMakeMenu( socket, "CRAFTMENU_TAILORING" );
+}
+
+void cSkills::Blacksmithing( cUOSocket* socket )
+{
+	P_CHAR pc = socket->player();
+	bool foundAnvil = false;
+	AllItemsIterator iterItems;
+	for (iterItems.Begin(); !iterItems.atEnd() && !foundAnvil;iterItems++)
+	{
+		P_ITEM pi = iterItems.GetData();
+		foundAnvil = ( pi && IsAnvil( pi->id() ) && pc->inRange( pi, 3 ) );
+	}
+	if( !foundAnvil )
+	{
+		socket->sysMessage( tr("You must stand in range of an anvil!") );
+		return;
+	}
+
+	cAllMakeMenus::getInstance()->callMakeMenu( socket, "CRAFTMENU_BLACKSMITHING" );
+}
+
+void cSkills::Tinkering( cUOSocket* socket )
+{
+	cAllMakeMenus::getInstance()->callMakeMenu( socket, "CRAFTMENU_TINKERING" );
+}
+
 
 

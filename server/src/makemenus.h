@@ -376,6 +376,8 @@ public:
 		return pMakeMenu;
 	}
 
+	void	callMakeMenu( cUOSocket* socket, QString section );
+
 private:
 	std::map< QString, cMakeMenu* >		menus_;
 };

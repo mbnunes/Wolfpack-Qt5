@@ -1103,5 +1103,17 @@ void cAllMakeMenus::reload()
 	load();
 }
 
+void cAllMakeMenus::callMakeMenu( cUOSocket* socket, QString section )
+{
+	cMakeMenu* pMenu = getMenu( section );
+	if(	pMenu )
+	{
+		cMakeMenuGump* pGump = new cMakeMenuGump( pMenu, socket );
+		socket->send( pGump );
+	}
+	else
+		clConsole.send( tr("WARNING: Missing %1 menu definition!").arg(section) );
+}
+
 
 

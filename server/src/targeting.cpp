@@ -2452,7 +2452,7 @@ void cTargets::SwordTarget(const P_CLIENT pC, PKGx6C *pp)
 		sysmessage(s, "You hack at the tree and produce some kindling.");
 	}
 	else if( IsLog(pp->model) || IsBoard(pp->model) )
-		Skills->BowCraft(s);
+		Skills->Fletching( pC->player()->socket() );
 	else
 		BladeTarget(pC,pp);
 }
@@ -4067,7 +4067,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 47: if (Cready) pc->setTitle( xtext[s] ); break;//TitleTarget
 		case 48: Targ->ShowAccountCommentTarget(s); break;
 		case 49: Skills->CookOnFire(s,0x09,0x7B,"fish steaks"); break;
-		case 50: Skills->Smith(s); break;
+//		case 50: Skills->Smith(s); break;
 		case 51: Skills->Mine(s); break;
 		case 52: Skills->SmeltOre(s); break;
 		case 53: npcact(s); break;
@@ -4155,10 +4155,10 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 164: Skills->Wheel(s, YARN); break;
 		case 165: Skills->Loom(s); break;
 		case 166: Skills->Wheel(s, THREAD); break;
-		case 167: Skills->Tailoring(s); break;
+//		case 167: Skills->Tailoring(s); break;
 
 		case 170: Targ->LoadCannon(s); break;
-		case 172: Skills->Fletching(s); break;
+//		case 172: Skills->Fletching(s); break;
 		case 173: Skills->MakeDough(s); break;
 		case 174: Skills->MakePizza(s); break;
 		case 175: Targ->SetPoisonTarget(s); break;
@@ -4166,7 +4166,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 177: Targ->SetSpaDelayTarget(s); break;
 		case 178: Targ->SetAdvObjTarget(s); break;
 		case 179: if (Cready) SetInvulFlag(ps,pc); break;
-		case 180: Skills->Tinkering(s); break;
+//		case 180: Skills->Tinkering(s); break;
 //		case 181: Skills->PoisoningTarget(s); break;
 
 		case 183: Skills->TinkerAxel(s); break;
