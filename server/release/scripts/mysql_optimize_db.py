@@ -27,7 +27,7 @@ log = wolfpack.console.log
 accountsdriver = database.driver( database.ACCOUNTS )
 worlddriver = database.driver( database.WORLD )
 
-time = 4 * 3600000 # Value * Hours
+time = 24 * 3600000 # Value * Hours
 
 #optimizequery = "OPTIMIZE TABLE `accounts` , `boats` , `boats_itemids` , `boats_itemoffsets` , `bookpages` , `books` , `characters` , `corpses` , `corpses_equipment` , `effects` , `effects_properties` , `guilds` , `guilds_canidates` , `guilds_members` , `houses` , `items` , `multis` , `multis_bans` , `multis_friends` , `npcs` , `players` , `settings` , `skills` , `tags` , `uobject` , `uobjectmap` "
 
