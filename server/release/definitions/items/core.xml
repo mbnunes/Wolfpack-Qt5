@@ -57,6 +57,20 @@
 		<weight>0</weight>
 	</item>
 
+        <!-- Dagger -->
+	<item id="f51">
+		<bindmenu id="ITEM_MENU"/>
+		<id>0xf51</id>
+		<layer>1</layer>
+		<itemhand>1</itemhand>
+		<decay />
+		<value>15</value>
+		<attack min="3" max="15" />
+		<durability>35</durability>
+		<speed>55</speed>
+		<weight>1.0</weight>
+	</item>
+
 	<!-- Bow -->
 	<item id="13b1">
 		<bindmenu id="ITEM_MENU"/>
@@ -123,6 +137,19 @@
 		<value>10</value>
 		<speed>30</speed>
 		<weight>2.0</weight>
+	</item>
+
+        <!-- Wooden Shield -->
+	<item id="1b7a">
+		<id>0x1b7a</id>
+		<itemhand>3</itemhand>
+		<durability>20</durability>
+		<decay />
+		<requires type="str">5</requires>
+		<defense>2</defense>
+		<layer>2</layer>
+		<value>39</value>
+		<weight>5.0</weight>
 	</item>
 
 	<!-- Gold -->
@@ -372,6 +399,55 @@
 		<morey>3</morey>
 		<morez>1</morez>
 		<value>15</value>
+	</item>
+	
+	<!-- Drum -->
+	<item id="e9c">
+		<id>0xe9c</id>
+		<decay/>
+		<value>25</value>
+	</item>
+	
+	<!-- Tamberine -->
+	<item id="e9d">
+		<id>0xe9d</id>
+		<decay/>
+		<value>25</value>
+	</item>
+	
+	<!-- Tamberine with Ribbon -->
+	<item id="e9e">
+		<id>0xe9e</id>
+		<decay/>
+		<value>25</value>
+	</item>
+	
+	<!-- Standing Harp -->
+	<item id="eb1">
+		<id>0xeb1</id>
+		<decay/>
+		<value>25</value>
+	</item>
+	
+	<!-- Harp -->
+	<item id="eb2">
+		<id>0xeb2</id>
+		<decay/>
+		<value>25</value>
+	</item>
+	
+	<!-- Lute -->
+	<item id="eb3">
+		<id>0xeb3</id>
+		<decay/>
+		<value>25</value>
+	</item>
+	
+	<!-- Lute -->
+	<item id="eb4">
+		<id>0xeb4</id>
+		<decay/>
+		<value>25</value>
 	</item>
 
 	<!-- Hair -->

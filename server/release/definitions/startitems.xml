@@ -9,8 +9,8 @@
 <definitions>
 	<!--  default -->
 	<startitems id="default">
-		<!--gold --><gold>100</gold>
-		<!--bread --><item id="103c"><type>14</type><amount>2</amount></item>
+		<!--gold --><gold>1000</gold>
+		<!--Dagger --><item id="f51"></item>
 		<!--candle --><item id="a0f"></item>
 		<!--book --><item id="ff1"></item>
 	</startitems>
@@ -20,15 +20,11 @@
 	        <inherit id="default" />
 	        <!--Robe --><equipment id="1f03"></equipment>
 		<!--Mortar & pestle --><item id="e9b"></item>
-		<!--Bottle --><item id="f0e"><amount>5</amount></item>
-		<!--Black Pearl --><item id="f7a"><amount>3</amount></item>
-		<!--Bloodmoss --><item id="f7b"><amount>3</amount></item>
-		<!--Garlic --><item id="f84"><amount>3</amount></item>
-		<!--Gensing --><item id="f85"><amount>3</amount></item>
-		<!--Mandrake Root --><item id="f86"><amount>3</amount></item>
-		<!--Nightshade --><item id="f88"><amount>3</amount></item>
-		<!--Sulfurous Ash --><item id="f8c"><amount>3</amount></item>
-		<!--Spider Silk --><item id="f8d"><amount>3</amount></item>
+		<!--Bottle --><item id="f0e"><amount>4</amount></item>
+		<!--Random Reagents--><item><inherit><random list="REAGENTS" /></inherit><amount>3</amount></item>
+	        <!--Random Reagents--><item><inherit><random list="REAGENTS" /></inherit><amount>3</amount></item>
+	        <!--Random Reagents--><item><inherit><random list="REAGENTS" /></inherit><amount>3</amount></item>
+	        <!--Random Reagents--><item><inherit><random list="REAGENTS" /></inherit><amount>3</amount></item>
 	</startitems>
 
 	<!--  Anatomy -->
@@ -49,9 +45,6 @@
 	<startitems id="itemid">
 	        <inherit id="default" />
 	        <!--Gnarled Staff --><equipment id="13f9"></equipment>
-	        <!--Random Potions--><item><inherit><random list="POTIONS" /></inherit></item>
-	        <!--Random Potions--><item><inherit><random list="POTIONS" /></inherit></item>
-	        <!--Random Potions--><item><inherit><random list="POTIONS" /></inherit></item>
 	</startitems>
 
 	<!--  Armslore -->
@@ -62,16 +55,22 @@
 	<!--  Parrying -->
 	<startitems id="parrying">
 	        <inherit id="default" />
+	        <!--Wooden Shield --><equipment id="1b7a"></equipment>
 	</startitems>
 
 	<!--  Begging -->
 	<startitems id="begging">
 	        <inherit id="default" />
+	        <!--Gnarled Staff --><equipment id="13f9"></equipment>
 	</startitems>
 
 	<!--  Blacksmithing -->
 	<startitems id="blacksmithing">
 	        <inherit id="default" />
+	        <!--Half Apron --><equipment id="153b"></equipment>
+	        <!--Ingots --><item id="1bf2"><amount>50</amount></item>
+	        <!--Random Mining Tool--><item><inherit><random list="MININGTOOLS" /></inherit></item>
+	        <!--Random Blacksmith Tool--><item><inherit><random list="BLACKSMITHTOOLS" /></inherit></item>
 	</startitems>
 
 	<!--  Bowcraft -->
@@ -82,6 +81,7 @@
 	<!--  Peacemaking -->
 	<startitems id="peacemaking">
 	        <inherit id="default" />
+	        <!--Random Instrument--><item><inherit><random list="INSTRUMENTS" /></inherit></item>
 	</startitems>
 
 	<!--  Camping -->
@@ -112,6 +112,7 @@
 	<!--  Enticement -->
 	<startitems id="enticement">
 	        <inherit id="default" />
+	        <!--Random Instrument--><item><inherit><random list="INSTRUMENTS" /></inherit></item>
 	</startitems>
 
 	<!--  Evaluating Intelligence -->
@@ -182,6 +183,7 @@
 	<!--  Musicianship -->
 	<startitems id="musicianship">
 	        <inherit id="default" />
+	        <!--Random Instrument--><item><inherit><random list="INSTRUMENTS" /></inherit></item>
 	</startitems>
 
 	<!--  Poisoning -->

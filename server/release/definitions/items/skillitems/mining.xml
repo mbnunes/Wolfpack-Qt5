@@ -12,6 +12,8 @@
 		<name>pickaxe</name>
 		<id>0x0E85</id>
 		<durability>50</durability>
+		<value>25</value>
+		<decay/>
 	</item>
 	
 	<!-- forge -->
@@ -19,5 +21,14 @@
 		<name>forge</name>
 		<id>0x0FB1</id>
 		<nodecay />
+	</item>
+
+        <!-- Shovel -->
+	<item id="f39">
+		<name>shovel</name>
+		<id>0x0f39</id>
+		<durability>30</durability>
+		<value>15</value>
+		<decay/>
 	</item>
 </definitions>
