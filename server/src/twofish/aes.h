@@ -76,8 +76,8 @@ INCLUDE IMPLEMENTATION SPECIFIC INFORMATION.
 	parameters at the bottom of the structs as appropriate.
 */
 
-typedef unsigned char BYTE;
-typedef	unsigned long DWORD;		/* 32-bit unsigned quantity */
+#define BYTE unsigned char
+#define DWORD unsigned long
 typedef DWORD fullSbox[4][256];
 
 /* The structure for key information */
