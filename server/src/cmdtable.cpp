@@ -783,7 +783,6 @@ void command_where(UOXSOCKET s)
 }
 
 void command_q(UOXSOCKET s)
-// Shows the GM or Counsellor queue.
 {
 	P_CHAR pc_cs = currchar[s];
 	
