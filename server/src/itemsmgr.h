@@ -49,6 +49,7 @@ class cItemsManager : public std::map<SERIAL, cItem*>
 protected:
 	// Data members
 	std::list<cItem*> deletedItems;
+	SERIAL lastUsedSerial;
 protected:
 	cItemsManager() {} // Unallow anyone to instantiate.
 	cItemsManager(cItemsManager& _it) {} // Unallow copy constructor
