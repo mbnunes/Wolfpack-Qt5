@@ -97,6 +97,7 @@ public:
 		std::list< cUObject* >::const_iterator it;
 		for( it = pendingObjects.begin(); it != pendingObjects.end(); ++it )
 		{	
+			World::instance()->unregisterObject( *it );
 			delete *it;
 		}
 
@@ -508,6 +509,8 @@ void cWorld::saveSql()
 	// Flush old items
 	persistentBroker->flushDeleteQueue();
 	
+	p->purgePendingObjects();
+
 //	try
 //	{
 		cItemIterator iItems;
@@ -530,8 +533,6 @@ void cWorld::saveSql()
 		clConsole.send( ": Unhandled Exception\n" );
 	}
 */
-	p->purgePendingObjects();
-
 	ISerialization *archive = cPluginFactory::serializationArchiver( "xml" );
 	archive->prepareWritting( "effects" );
 	TempEffects::instance()->serialize( *archive );
