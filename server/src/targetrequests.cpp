@@ -128,10 +128,11 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		pChar->name = "Character";
 		pChar->setId( hex2dec( npc_ ).toULong() );
-		pChar->setXid(pChar->id());
+		pChar->setXid( pChar->id() );
 	}
 
 	// Send the char to it's surroundings
+	setcharflag( pChar );
 	pChar->resend( false ); // It's new so no need to remove it first
 
 	return true;

@@ -326,7 +326,14 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 	const uint indexPos = (baseX * mapRecord->height + baseY ) * 12;
 	assert ( indexPos < 0x8000000 ); // dam, breaks our assumption
 
-	QValueVector<staticrecord>* p = mapRecord->staticsCache.find( exact ? indexPos | 0x8000000 : indexPos );
+	UINT32 cachePos;
+	if( exact )
+		cachePos = ( x * y ) | 0x80000000;
+	else
+		cachePos = baseX * baseY;
+
+	QValueVector<staticrecord>* p = mapRecord->staticsCache.find( cachePos );
+	
 	if ( !p )
 	{ // Well, unfortunally we will be forced to read the file :(
 		struct 
@@ -370,7 +377,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 		
 		// update cache;
 		QValueVector<staticrecord>* temp = new QValueVector<staticrecord>(staticArray);
-		if ( !mapRecord->staticsCache.insert( exact ? indexPos | 0x8000000 : indexPos, temp ) )
+		if ( !mapRecord->staticsCache.insert( cachePos, temp ) )
 			delete temp;
 	}
 	else

@@ -518,7 +518,6 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	Movement::instance()->NpcMovement( currenttime, pc );
     setcharflag( pc );
 
-
 	if( !pc->dead() && pc->swingtarg() == -1 && pc->war() )
 		Combat::combat( pc );
 	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout() <= currenttime ) )

@@ -136,7 +136,7 @@ struct compareTiles : public std::binary_function<stBlockItem, stBlockItem, bool
 {
 	bool operator()(stBlockItem a, stBlockItem b)
 	{
-		return ( (a.height+a.z) < (b.height+b.z) );
+		return ( (a.height+a.z) > (b.height+b.z) );
 	}
 };
 
@@ -167,12 +167,9 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 	push_heap( blockList.begin(), blockList.end(), compareTiles() );
 
     // Now for the static-items
-	StaticsIterator staIter = Map->staticsIterator( pos, false );
+	StaticsIterator staIter = Map->staticsIterator( pos, true );
 	for( ; !staIter.atEnd(); ++staIter )
 	{
-		if( ( staIter->xoff != pos.x % 8 ) || ( staIter->yoff != pos.y % 8 ) )
-			continue;
-
 		tile_st tTile = cTileCache::instance()->getTile( staIter->itemid );
 
 		// Here is decided if the tile is needed
@@ -280,7 +277,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 	vector< stBlockItem > blockList = getBlockingItems( pChar, pos );
 	bool found = false;
 	UINT32 i;
-
+	
 	for( i = 0; i < blockList.size(); ++i )
 	{
 		stBlockItem item = blockList[i];
