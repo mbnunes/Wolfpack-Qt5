@@ -1880,7 +1880,10 @@ void cChar::resend( bool clean )
 		if( clean )
 			pChar->socket()->removeObject( this );
 
-		if( ( isHidden() || ( dead_ && !war_ ) ) && !pChar->account()->isAllShow() )
+		if( !isNpc() && !socket_ && !pChar->account()->isAllShow() )
+			continue;
+
+		if( ( isHidden() || ( dead_ && !war_ ) ) && !pChar->isGMorCounselor() )
 			continue;
 
 		drawChar.setHighlight( notority( pChar ) );

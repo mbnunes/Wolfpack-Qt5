@@ -259,7 +259,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	if( pChar->war() )
 		setFlag( 0x40 );
 
-	if( pChar->hidden() )
+	if( pChar->hidden() || ( pChar->account() && !pChar->socket() ) )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->dead() && !pChar->war() )

@@ -1730,7 +1730,12 @@ void cUOSocket::resendWorld( bool clean )
 			send( &rObject );
 		}
 		
-		if( ( pChar->isHidden() || ( pChar->dead() && !pChar->war() ) ) && !_player->account()->isAllShow() )
+		// Hidden
+		if( pChar->isHidden() && !_player->isGMorCounselor() )
+			continue;
+
+		// Logged out
+		if( pChar->account() && !pChar->socket() && !_player->account()->isAllShow() )
 			continue;
 
 		cUOTxDrawChar drawChar;
@@ -1870,7 +1875,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	cUOTxSendStats sendStats;
 
 	// TODO: extended packet information
-	sendStats.setFullMode( pChar == _player, _version.left(1).toInt() == 3 );
+	sendStats.setFullMode( pChar == _player, true /*_version.left(1).toInt() == 3*/ );
 
 	// Dont allow rename-self
 	sendStats.setAllowRename( ( ( pChar->owner() == _player && !pChar->isHuman() ) || _player->isGM() ) && ( _player != pChar ) );
@@ -1896,12 +1901,12 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
 		sendStats.setSex( true );
 		
-		if( sendStats[2] == 0x46 )
-		{
+	//	if( sendStats[2] == 0x46 )
+	//	{
 			sendStats.setPets( _player->followers().size() );
 			sendStats.setMaxPets( 0xFF );
 			sendStats.setStatCap( SrvParams->statcap() );
-		}
+	//	}
 	}
 
 	send( &sendStats );
