@@ -15,8 +15,8 @@
 		<decay />
 		<requires type="str">5</requires>
 		<defense>2</defense>
-		<layer>2</layer>
-		<value>39</value>
+		<buyprice>39</buyprice>
+		<sellprice>19</sellprice>
 		<weight>5.0</weight>
 	</item>
 
@@ -32,7 +32,8 @@
 		<restock>10</restock>
 		<smelt>8</smelt>
 		<weight>5</weight>
-		<value>66</value>
+		<buyprice>66</buyprice>
+		<sellprice>33</sellprice>
 		<category>Armor\Non Magical\Shields\buckler</category>
 	</item>
 
@@ -47,7 +48,8 @@
 		<requires type='str'>5</requires> 
 		<restock>10</restock>
 		<weight>5</weight>
-		<value>64</value>
+		<buyprice>64</buyprice>
+		<sellprice>32</sellprice>
 		<category>Armor\Non Magical\Shields\wooden shield</category>
 	</item>
 
@@ -63,7 +65,8 @@
 		<restock>10</restock>
 		<smelt>11</smelt>
 		<weight>6</weight>
-		<value>98</value>
+		<buyprice>98</buyprice>
+		<sellprice>49</sellprice>
 		<category>Armor\Non Magical\Shields\metal shield</category>
 	</item>
 
@@ -79,7 +82,8 @@
 		<restock>10</restock>
 		<smelt>4</smelt>
 		<weight>27</weight>
-		<value>100</value>
+		<buyprice>100</buyprice>
+		<sellprice>50</sellprice>
 		<category>Armor\Non Magical\Shields\bronze shield</category>
 	</item>
 
@@ -95,7 +99,8 @@
 		<restock>10</restock>
 		<smelt>6</smelt>
 		<weight>7</weight>
-		<value>121</value>
+		<buyprice>121</buyprice>
+		<sellprice>60</sellprice>
 		<category>Armor\Non Magical\Shields\wooden kite</category>
 	</item>
 
@@ -111,7 +116,8 @@
 		<restock>10</restock>
 		<smelt>13</smelt>
 		<weight>5</weight>
-		<value>135</value>
+		<buyprice>135</buyprice>
+		<sellprice>67</sellprice>
 		<category>Armor\Non Magical\Shields\metal kite</category>
 	</item>
 
@@ -127,7 +133,8 @@
 		<restock>10</restock>
 		<smelt>14</smelt>
 		<weight>8</weight>
-		<value>175</value>
+		<buyprice>175</buyprice>
+		<sellprice>87</sellprice>
 		<category>Armor\Non Magical\Shields\heater</category>
 	</item>
 
@@ -142,7 +149,8 @@
 		<requires type='str'>0</requires> 
 		<restock>0</restock>
 		<weight>5</weight>
-		<value>0</value>
+		<buyprice>0</buyprice>
+		<sellprice>0</sellprice>
 		<category>Armor\Non Magical\Shields\order shield</category>
 	</item>
 
@@ -157,7 +165,8 @@
 		<requires type='str'>0</requires> 
 		<restock>0</restock>
 		<weight>5</weight>
-		<value>0</value>
+		<buyprice>0</buyprice>
+		<sellprice>0</sellprice>
 		<category>Armor\Non Magical\Shields\chaos shield</category>
 	</item>
 </definitions>

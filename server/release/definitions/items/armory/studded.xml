@@ -1,0 +1,120 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Viper                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+|Studded Leather Armors                                         |
+=================================================================
+-->
+
+<definitions>
+<!-- Studded -->
+	<item id="13d4">
+		<id>0x13d4</id>
+  		<name>studded sleeves</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">25</requires> 
+  		<defense>2.4</defense> 
+  		<durability>40</durability> 
+  		<restock>10</restock> 
+  		<weight>4.0</weight> 
+  		<buyprice>87</buyprice>
+		<sellprice>43</sellprice>
+		<category>Armor\Studded Leather\Sleeves</category>
+	</item>
+
+	<item id="13d5">
+		<id>0x13d5</id>
+  		<name>studded gloves</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">25</requires> 
+  		<defense>1.1</defense> 
+  		<durability>40</durability> 
+  		<restock>10</restock> 
+  		<weight>1.0</weight> 
+  		<buyprice>79</buyprice>
+		<sellprice>39</sellprice>
+		<category>Armor\Studded Leather\Gloves</category>
+	</item>
+
+	<item id="13d6">
+		<id>0x13d6</id>
+  		<name>studded gorget</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">25</requires> 
+  		<defense>1.1</defense> 
+  		<durability>40</durability> 
+  		<restock>10</restock> 
+  		<weight>1.0</weight> 
+  		<buyprice>73</buyprice>
+		<sellprice>36</sellprice>
+		<category>Armor\Studded Leather\Gorget</category>
+	</item>
+
+	<item id="13da">
+		<id>0x13da</id>
+  		<name>studded leggings</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">35</requires> 
+  		<defense>3.5</defense> 
+  		<durability>40</durability> 
+  		<restock>10</restock> 
+  		<weight>3.0</weight> 
+  		<buyprice>103</buyprice>
+		<sellprice>51</sellprice>
+		<category>Armor\Studded Leather\Leggings</category>
+	</item>
+
+	<item id="13db">
+		<id>0x13db</id>
+  		<name>studded tunic</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">35</requires> 
+  		<defense>5.7</defense> 
+  		<durability>40</durability> 
+  		<restock>10</restock> 
+  		<weight>5.0</weight> 
+  		<buyprice>128</buyprice>
+		<sellprice>64</sellprice>
+		<category>Armor\Studded Leather\Tunic</category>
+	</item>
+
+<!-- Female Studded -->
+
+	<item id="1c02">
+		<id>0x1c02</id>
+  		<name>studded armor</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">35</requires> 
+  		<defense>5.7</defense> 
+  		<durability>40</durability> 
+  		<restock>10</restock> 
+  		<weight>6.0</weight> 
+  		<buyprice>142</buyprice>
+		<sellprice>71</sellprice>
+		<category>Armor\Studded Leather\Female Armor</category>
+	</item>
+
+	<item id="1c0c">
+		<id>0x1c0c</id>
+  		<name>studded bustier</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">25</requires> 
+  		<defense>5.7</defense> 
+  		<durability>108</durability> 
+  		<restock>10</restock> 
+  		<weight>1.0</weight> 
+  		<buyprice>120</buyprice>
+		<sellprice>60</sellprice>
+		<category>Armor\Studded Leather\Bustier</category>
+	</item>
+</definitions>
