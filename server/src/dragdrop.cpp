@@ -239,7 +239,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 
 	// Remove it from the World if it is in world, otherwise remove it from it's current container
 	if( pItem->isInWorld() )
-		cMapObjects::getInstance()->remove( pItem );
+		MapObjects::instance()->remove( pItem );
 	else
 		pItem->removeFromCont( true );
 

@@ -32,8 +32,6 @@
 #define __PERSISTENTOBJECT_H__
 
 #include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
 
 class PersistentObject : public QObject
 {

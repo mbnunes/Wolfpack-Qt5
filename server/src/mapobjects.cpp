@@ -32,10 +32,12 @@
 // MapObjects class, replaces cRegion stuff
 // - sereg, 09/13/02
 
-#include "wolfpack.h"
 #include "mapobjects.h"
 #include "debug.h"
 #include "maps.h"
+#include "uobject.h"
+#include "junk.h"
+#include "globals.h"
 
 #include <math.h>
 #include <algorithm>
@@ -45,16 +47,71 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "mapobjects.cpp"
 
+
+/*
+ * Internal Classes
+*/
+
+/*!
+	\internal
+	\class cQuadNode mapobjects.cpp
+
+	\brief The cQuadNode class implements a QuadTree node.
+
+	cQuadNode is a QuadTree node. QuadTrees are trees with 4
+	childs. It's used by Wolfpack to easily index objects
+	according to it's map positions, relatively to each other.
+*/
+
+class cQuadNode
+{
+public:
+	cQuadNode( UI16 x, UI16 y, cQuadNode* parent_ = NULL );
+	~cQuadNode();
+
+	enum enQuadrants { northeast = 0, northwest, southwest, southeast, enNumberOfChilds };
+
+	UI16	x()	const { return x_; }
+	UI16	y()	const { return y_; }
+	UI32	distance( UI16 srcx, UI16 srcy );
+	enQuadrants	compare( UI16 srcx, UI16 srcy );
+	bool	inRange( UI16 srcx, UI16 srcy, UI32 distance );
+	bool	overlap( UI16 left, UI16 right, UI16 top, UI16 bottom, UI16 srcx, UI16 srcy, UI32 distance );
+
+	void	setParent( cQuadNode* node )	{ parent_ = node; }
+
+	cQuadNode* parent()			{ return parent_; }
+
+	cQuadNode* childs[enNumberOfChilds];
+
+
+	void	search( UI16 left, UI16 right, UI16 top, UI16 bottom, UI16 srcx, UI16 srcy, UI32 distance, std::vector< cMapObjects::type > &serials );
+
+	bool	contains( cMapObjects::type serial );
+	void	add( UI16 srcx, UI16 srcy, cMapObjects::type serial );
+	bool	remove( UI16 srcx, UI16 srcy, cMapObjects::type serial );
+	void	pushdown( cQuadNode* node );
+
+	std::vector< cMapObjects::type >	objectserials;
+private:
+	UI16 x_;
+	UI16 y_;
+	cQuadNode*	parent_;
+};
+
+
+/*****************************************************************************
+  cQuadNode member functions
+ *****************************************************************************/
+
 cQuadNode::cQuadNode( UI16 x, UI16 y, cQuadNode* parent ) : x_( x ), y_( y ), parent_( parent )
 {
-	objectserials.clear();
-	for( register int i = 0; i < enNumberOfChilds; ++i )
-		childs[i] = NULL;
+	memset(&childs[0], 0, enNumberOfChilds);
 }
 
 cQuadNode::~cQuadNode()
 {
-	for( register int i = 0; i < enNumberOfChilds; ++i )
+	for( int i = 0; i < enNumberOfChilds; ++i )
 		delete childs[i];
 }
 
@@ -93,7 +150,7 @@ bool cQuadNode::overlap( UI16 left, UI16 right, UI16 bottom, UI16 top, UI16 srcx
 			 bottom <= (srcy + distance) && top >= (srcy - distance) );
 }
 
-void cQuadNode::search( UI16 left, UI16 right, UI16 bottom, UI16 top, UI16 srcx, UI16 srcy, UI32 distance, std::vector< SERIAL > &serials )
+void cQuadNode::search( UI16 left, UI16 right, UI16 bottom, UI16 top, UI16 srcx, UI16 srcy, UI32 distance, std::vector< cMapObjects::type > &serials )
 {
 	if( inRange( srcx, srcy, distance ) )
 		serials.insert( serials.end(), objectserials.begin(), objectserials.end() );
@@ -111,7 +168,7 @@ void cQuadNode::search( UI16 left, UI16 right, UI16 bottom, UI16 top, UI16 srcx,
 		childs[ southeast ]->search( x_, right, bottom, y_, srcx, srcy, distance, serials );
 }
 
-bool cQuadNode::contains( SERIAL serial )
+bool cQuadNode::contains( cMapObjects::type serial )
 {
 	return binary_search( objectserials.begin(), objectserials.end(), serial );
 }
@@ -134,7 +191,7 @@ void cQuadNode::pushdown( cQuadNode* node )
 
 		if( x_ == node->x() && y_ == node->y() )
 		{
-			clConsole.send( tr("Warning: two nodes on same positions found!\n") );
+			qWarning( "Warning: two nodes on same positions found!\n" );
 			delete node;
 			return;
 		}
@@ -150,7 +207,7 @@ void cQuadNode::pushdown( cQuadNode* node )
 	}
 }
 
-void cQuadNode::add( UI16 srcx, UI16 srcy, SERIAL serial )
+void cQuadNode::add( UI16 srcx, UI16 srcy, cMapObjects::type serial )
 {
 	if( srcx == x_ && srcy == y_ )
 	{
@@ -172,12 +229,12 @@ void cQuadNode::add( UI16 srcx, UI16 srcy, SERIAL serial )
 	}
 }
 
-bool cQuadNode::remove( UI16 srcx, UI16 srcy, SERIAL serial )
+bool cQuadNode::remove( UI16 srcx, UI16 srcy, cMapObjects::type serial )
 {
 	if( srcx == x_ && srcy == y_ )
 	{
 		// delete serial 
-		std::vector< SERIAL >::iterator it = find( objectserials.begin(), objectserials.end(), serial );
+		std::vector< cMapObjects::type >::iterator it = find( objectserials.begin(), objectserials.end(), serial );
 		if( it != objectserials.end() )
 			objectserials.erase( it );
 		if( objectserials.empty() )
@@ -223,7 +280,6 @@ bool cQuadNode::remove( UI16 srcx, UI16 srcy, SERIAL serial )
 					childs[ child ] = NULL;
 					++child;
 				}
-
 				return true;
 			}
 		}
@@ -239,9 +295,13 @@ bool cQuadNode::remove( UI16 srcx, UI16 srcy, SERIAL serial )
 	return false;
 }
 
+/*****************************************************************************
+  cMapObjects member functions
+ *****************************************************************************/
+
 cMapObjects::cMapObjects()
 {
-	rootmap_.insert( 0, new cQuadNode( 3072, 2048 ) );
+//	rootmap_.insert( 0, new cQuadNode( 3072, 2048 ) ); // unnecessary, see add()
 }
 
 cMapObjects::~cMapObjects()
@@ -254,11 +314,11 @@ cMapObjects::~cMapObjects()
 	}
 }
 
-void cMapObjects::search( const Coord_cl &pos, UI32 distance, std::vector< SERIAL > &serials )
+void cMapObjects::search( const Coord_cl &pos, UI32 distance, std::vector< cMapObjects::type > &serials )
 {
 	QMap< UI08, cQuadNode* >::iterator nit = rootmap_.find( pos.map );
 	if( nit != rootmap_.end() )
-		nit.data()->search( 0, 6144, 0, 4096, pos.x, pos.y, distance, serials );
+		nit.data()->search( 0,  Map->mapTileWidth( pos.map ) * 8, 0, Map->mapTileHeight( pos.map ) * 8, pos.x, pos.y, distance, serials );
 	else
 		return;
 }
@@ -270,7 +330,8 @@ void cMapObjects::add( cUObject* object )
 		it.data()->add( object->pos.x, object->pos.y, object->serial );
 	else
 	{
-		cQuadNode* root = new cQuadNode( object->pos.x, object->pos.y );
+		// root node in center of map.
+		cQuadNode* root = new cQuadNode( Map->mapTileWidth( object->pos.map ) * 4, Map->mapTileHeight( object->pos.map ) * 4 );
 		rootmap_.insert( object->pos.map, root );
 		root->add( object->pos.x, object->pos.y, object->serial );
 	}
@@ -285,18 +346,22 @@ void cMapObjects::remove( cUObject* object )
 	}
 }
 
+/*****************************************************************************
+  RegionIterator4Items member functions
+ *****************************************************************************/
+
 RegionIterator4Items::RegionIterator4Items( const Coord_cl &pos, UI32 distance )
 {
 	position_ = pos;
 	distance_ = distance;
-	cMapObjects::getInstance()->search( pos, distance, this->serials );
+	MapObjects::instance()->search( pos, distance, this->serials );
 }
 
 RegionIterator4Items& RegionIterator4Items::operator=( const Coord_cl &pos )
 {
 	position_ = pos;
 	serials.clear();
-	cMapObjects::getInstance()->search( pos, distance_, this->serials );
+	MapObjects::instance()->search( pos, distance_, this->serials );
 	Begin();
 	return *this;
 }
@@ -305,7 +370,7 @@ void RegionIterator4Items::Begin()
 {
 	currentIterator = serials.begin();
 	while( currentIterator != serials.end() && !isItemSerial( *currentIterator ) )
-		currentIterator++;
+		++currentIterator;
 }
 
 bool RegionIterator4Items::atEnd() const
@@ -313,11 +378,20 @@ bool RegionIterator4Items::atEnd() const
 	return currentIterator == serials.end();
 }
 
+void RegionIterator4Items::reset( const Coord_cl &pos, UI32 distance )
+{
+	position_ = pos;
+	distance_ = distance;
+	serials.clear();
+	MapObjects::instance()->search( pos, distance, this->serials );
+	Begin();
+}
+
 RegionIterator4Items& RegionIterator4Items::operator++ ( int )
 {
-	currentIterator++;
+	++currentIterator;
 	while( currentIterator != serials.end() && !isItemSerial( *currentIterator ) )
-		currentIterator++;
+		++currentIterator;
 	return *this;
 }
 
@@ -329,18 +403,22 @@ P_ITEM RegionIterator4Items::GetData()
 	return pi;
 }
 
+/*****************************************************************************
+  RegionIterator4Chars member functions
+ *****************************************************************************/
+
 RegionIterator4Chars::RegionIterator4Chars( const Coord_cl &pos, UI32 distance )
 {
 	position_ = pos;
 	distance_ = distance;
-	cMapObjects::getInstance()->search( pos, distance, this->serials );
+	MapObjects::instance()->search( pos, distance, this->serials );
 }
 
 RegionIterator4Chars& RegionIterator4Chars::operator=( const Coord_cl &pos )
 {
 	position_ = pos;
 	serials.clear();
-	cMapObjects::getInstance()->search( pos, distance_, this->serials );
+	MapObjects::instance()->search( pos, distance_, this->serials );
 	Begin();
 	return *this;
 }
@@ -349,7 +427,7 @@ void RegionIterator4Chars::Begin()
 {
 	currentIterator = serials.begin();
 	while( currentIterator != serials.end() && !isCharSerial( *currentIterator ) )
-		currentIterator++;
+		++currentIterator;
 }
 
 bool RegionIterator4Chars::atEnd() const
@@ -357,11 +435,21 @@ bool RegionIterator4Chars::atEnd() const
 	return currentIterator == serials.end();
 }
 
+void RegionIterator4Chars::reset( const Coord_cl &pos, UI32 distance )
+{
+	position_ = pos;
+	distance_ = distance;
+	serials.clear();
+	MapObjects::instance()->search( pos, distance, this->serials );
+	Begin();
+}
+
+
 RegionIterator4Chars& RegionIterator4Chars::operator++ ( int )
 {
-	currentIterator++;
+	++currentIterator;
 	while( currentIterator != serials.end() && !isCharSerial( *currentIterator ) )
-		currentIterator++;
+		++currentIterator;
 	return *this;
 }
 
@@ -372,6 +460,3 @@ P_CHAR RegionIterator4Chars::GetData()
 		(*this)++;
 	return pc;
 }
-
-// Singleton
-cMapObjects cMapObjects::instance;

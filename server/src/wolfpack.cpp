@@ -430,7 +430,7 @@ static void item_char_test()
 					p_pet->setStablemaster_serial(INVALID_SERIAL);
 					p_pet->setTimeused_last(getNormalizedTime());
 					p_pet->setTime_unused(0);
-					cMapObjects::getInstance()->add(p_pet);
+					MapObjects::instance()->add(p_pet);
 					LogMessage("Stabled animal got freed because stablemaster died");
 					clConsole.send("stabled animal got freed because stablemaster died");
 				}
@@ -1370,7 +1370,7 @@ int main( int argc, char *argv[] )
 				deleteItems.append( pi );
 			}
 			else
-				cMapObjects::getInstance()->add(pi);
+				MapObjects::instance()->add(pi);
 			continue;
 		}
 

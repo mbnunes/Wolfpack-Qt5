@@ -35,64 +35,29 @@
 // Platform specifics
 #include "platform.h"
 
-// Wolfpack Includes
-#include "coord.h"
-
 // Library Includes
 #include <vector>
 #include <qmap.h>
+
+// wolfpack includes
+#include "typedefs.h"
+#include "singleton.h"
+#include "coord.h"
 
 // Forward class definition
 class cUObject;
 class RegionIterator4Chars;
 class RegionIterator4Items;
-
-// wolfpack includes
-#include "typedefs.h"
-
-class cQuadNode
-{
-public:
-	cQuadNode( UI16 x, UI16 y, cQuadNode* parent_ = NULL );
-	~cQuadNode();
-
-	enum enQuadrants { northeast = 0, northwest, southwest, southeast, enNumberOfChilds };
-
-	UI16	x()	const { return x_; }
-	UI16	y()	const { return y_; }
-	UI32	distance( UI16 srcx, UI16 srcy );
-	enQuadrants	compare( UI16 srcx, UI16 srcy );
-	bool	inRange( UI16 srcx, UI16 srcy, UI32 distance );
-	bool	overlap( UI16 left, UI16 right, UI16 top, UI16 bottom, UI16 srcx, UI16 srcy, UI32 distance );
-
-	void	setParent( cQuadNode* node )	{ parent_ = node; }
-
-	cQuadNode* parent()			{ return parent_; }
-
-	cQuadNode* childs[enNumberOfChilds];
-
-
-	void	search( UI16 left, UI16 right, UI16 top, UI16 bottom, UI16 srcx, UI16 srcy, UI32 distance, std::vector< SERIAL > &serials );
-
-	bool	contains( SERIAL serial );
-	void	add( UI16 srcx, UI16 srcy, SERIAL serial );
-	bool	remove( UI16 srcx, UI16 srcy, SERIAL serial );
-	void	pushdown( cQuadNode* node );
-
-	std::vector< SERIAL >	objectserials;
-private:
-	UI16 x_;
-	UI16 y_;
-	cQuadNode*	parent_;
-};
+class cQuadNode;
 
 class cMapObjects
 {
 public:
+	
+	typedef SERIAL type;
+
 	cMapObjects();
 	~cMapObjects();
-
-	static cMapObjects *getInstance( void ) { return &instance; }
 
 	friend class RegionIterator4Chars;
 	friend class RegionIterator4Items;
@@ -101,12 +66,13 @@ public:
 	void	remove( cUObject* object );
 
 protected:
-	void	search( const Coord_cl &pos, UI32 distance, std::vector< SERIAL > &serials );
+	void	search( const Coord_cl &pos, UI32 distance, std::vector<type> &serials );
 
 protected:
 	QMap< UI08, cQuadNode* > rootmap_;
-	static cMapObjects instance;
 };
+
+typedef SingletonHolder<cMapObjects> MapObjects;
 
 class RegionIterator4Chars
 {
@@ -115,21 +81,14 @@ public:
 	void		Begin( void );
 	bool		atEnd( void ) const;
 	P_CHAR		GetData( void );
-	void		reset( const Coord_cl &pos, UI32 distance = 18 )
-	{
-		position_ = pos;
-		distance_ = distance;
-		serials.clear();
-		cMapObjects::getInstance()->search( pos, distance, this->serials );
-		Begin();
-	}
+	void		reset( const Coord_cl &pos, UI32 distance = 18 );
 
 	// Operators
 	RegionIterator4Chars& operator++( int );
 	RegionIterator4Chars& operator=( const Coord_cl &pos );
 protected:
-	std::vector< SERIAL > serials;
-	std::vector< SERIAL >::iterator	currentIterator;
+	std::vector< cMapObjects::type > serials;
+	std::vector< cMapObjects::type >::iterator	currentIterator;
 
 	Coord_cl	position_;
 	UI32		distance_;
@@ -142,21 +101,14 @@ public:
 	void		Begin( void );
 	bool		atEnd( void ) const;
 	P_ITEM		GetData( void );
-	void		reset( const Coord_cl &pos, UI32 distance = 18 )
-	{
-		position_ = pos;
-		distance_ = distance;
-		serials.clear();
-		cMapObjects::getInstance()->search( pos, distance, this->serials );
-		Begin();
-	}
+	void		reset( const Coord_cl &pos, UI32 distance = 18 );
 
 	// Operators
 	RegionIterator4Items& operator++( int );
 	RegionIterator4Items& operator=( const Coord_cl &pos );
 protected:
-	std::vector< SERIAL > serials;
-	std::vector< SERIAL >::iterator	currentIterator;
+	std::vector< cMapObjects::type > serials;
+	std::vector< cMapObjects::type >::iterator	currentIterator;
 
 	Coord_cl	position_;
 	UI32		distance_;

@@ -1349,7 +1349,7 @@ bool cTileTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 					pItem->pos.y = y;
 					pItem->pos.z = z;
 					pItem->pos.map = socket->player()->pos.map;
-					cMapObjects::getInstance()->add( pItem );
+					MapObjects::instance()->add( pItem );
 					pItem->update();
 					dCount++;
 				}

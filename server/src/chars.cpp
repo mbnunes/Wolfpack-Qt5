@@ -771,12 +771,12 @@ void cChar::MoveTo(short newx, short newy, signed char newz)
 	if (newx < 1 || newy < 1)
 		return;
 
-	cMapObjects::getInstance()->remove(this);
+	MapObjects::instance()->remove(this);
 	pos.x = newx;
 	pos.y = newy;
 	setDispz( newz );
 	pos.z = dispz_;
-	cMapObjects::getInstance()->add(this);
+	MapObjects::instance()->add(this);
 }
 
 unsigned int cChar::getSkillSum()
@@ -2957,7 +2957,7 @@ void cChar::mount( P_CHAR pMount )
 		pMount->removeFromView( true );
 		
 		pMount->setId(0);
-		cMapObjects::getInstance()->remove( pMount );
+		MapObjects::instance()->remove( pMount );
 		pMount->pos = Coord_cl(0, 0, 0);
 		
 		pMount->setWar( false );
@@ -3560,7 +3560,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 	
 	if( pc->stablemaster_serial() == INVALID_SERIAL )
 	{ 
-		cMapObjects::getInstance()->add(pc); 
+		MapObjects::instance()->add(pc); 
 	} 
 	else
 		stablesp.insert(pc->stablemaster_serial(), pc->serial);

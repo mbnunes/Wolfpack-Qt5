@@ -76,9 +76,9 @@ void cUObject::init()
 
 void cUObject::moveTo( const Coord_cl& newpos )
 {
-	cMapObjects::getInstance()->remove( this );
+	MapObjects::instance()->remove( this );
 	pos = newpos;
-	cMapObjects::getInstance()->add( this );
+	MapObjects::instance()->add( this );
 }
 
 unsigned int cUObject::dist(cUObject* d) const

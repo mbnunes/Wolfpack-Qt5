@@ -4407,7 +4407,7 @@ void cMagic::Gate(UOXSOCKET s)
 					//clConsole.send("GATETIME:%i UICURRENTTIME:%d GETCLOCK:%d\n",SrvParms->gatetimer,uiCurrentTime,getclock());
 					pi_c->setGateNumber(gatecount);
 					pi_c->dir=1;
-					cMapObjects::getInstance()->add(pi_c);	//add gate to list of items in the region
+					MapObjects::instance()->add(pi_c);	//add gate to list of items in the region
 					pi_c->update();//AntiChrist
 				}
 				if (n==1)

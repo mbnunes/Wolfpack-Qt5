@@ -276,11 +276,11 @@ void cItem::SetMultiSerial(long mulser)
 
 void cItem::MoveTo(int newx, int newy, signed char newz)
 {
-	cMapObjects::getInstance()->remove(this);
+	MapObjects::instance()->remove(this);
 	pos.x=newx;
 	pos.y=newy;
 	pos.z=newz;
-	cMapObjects::getInstance()->add(this);
+	MapObjects::instance()->add(this);
 }
 
 // author: LB purpose: returns the type of pack
@@ -716,7 +716,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 
 		// - remove from cMapObjects::getInstance() if a world item
 		if( pi->isInWorld() ) 
-			cMapObjects::getInstance()->remove(pi);
+			MapObjects::instance()->remove(pi);
 		else
 			pi->removeFromCont();
 
@@ -2717,7 +2717,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 				pos = pCont->pos;
 
 			removeFromCont();
-			cMapObjects::getInstance()->add( this );
+			MapObjects::instance()->add( this );
 		}
 	}
 

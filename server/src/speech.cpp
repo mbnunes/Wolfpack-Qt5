@@ -220,7 +220,7 @@ bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QStr
 	pPlayer->setWar(false);
 	pPlayer->setTarg( INVALID_SERIAL );
 
-	cMapObjects::getInstance()->remove( p_pet );
+	MapObjects::instance()->remove( p_pet );
 	p_pet->setStablemaster_serial( pMaster->serial );
 
 	// set timer for fee calculation
@@ -296,8 +296,8 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 	pPet->setTimeused_last(getNormalizedTime());
 	pPet->setTime_unused(0);
 
-	cMapObjects::getInstance()->remove( pPet );
-	cMapObjects::getInstance()->add( pPet );
+	MapObjects::instance()->remove( pPet );
+	MapObjects::instance()->add( pPet );
 	pPet->resend( false ); // Resend
 		
 	pMaster->talk( tr( "Here's your pet. Treat it well." ) );

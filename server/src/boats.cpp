@@ -584,7 +584,7 @@ void cBoat::turn( SI08 turn )
 		}
 
 		SI08 dx = 0, dy = 0;
-		cMapObjects::getInstance()->remove( pi );
+		MapObjects::instance()->remove( pi );
 		dx = pi->pos.x - this->pos.x;
 		dy = pi->pos.y - this->pos.y;
 
@@ -598,7 +598,7 @@ void cBoat::turn( SI08 turn )
 			pi->pos.x += dy;
 			pi->pos.y += dx * (-1);
 		}
-		cMapObjects::getInstance()->add( pi );
+		MapObjects::instance()->add( pi );
 
 		QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 		while( iter_sock.current() )

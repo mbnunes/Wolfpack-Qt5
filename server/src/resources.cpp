@@ -795,7 +795,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 				pResItem->serial = ItemsManager::instance()->getUnusedSerial();
 				ItemsManager::instance()->registerItem( pResItem );
 				pResItem->pos = pos;
-				cMapObjects::getInstance()->add( pResItem );
+				MapObjects::instance()->add( pResItem );
 				pResItem->update();
 			}
 		}
