@@ -224,18 +224,18 @@
 	<body id="0xbc" basesound="0x365" figurine="0x25b2" type="3" mountid="0x3eb8" /> <!-- Savage Ridgeback -->
 	<body id="0xbd" basesound="0x45a" figurine="0x25b0" type="1" />
 	
-	<!-- be type=3 mountid="0x3e9e" --> <!-- Fire Steed -->
-	<!-- bf type=3 mountid="0x3e9c" --> <!-- Kirin -->
-	<!-- c0 type=3 mountid="0x3e9b" --> <!-- Unicorn -->
-	<!-- c1 type=3 mountid="0x3e9a" --> <!-- Ridgeback -->
-	<!-- c2 type=3 mountid="0x3e98" --> <!-- Swamp Dragon -->
-	<!-- c3 type=3 mountid="0x3e97" --> <!-- Beetle -->
+	<body id="0xbe" basesound="0xa8" figurine="0x2124" type="3" mountid="0x3e9e" /> <!-- Fire Steed -->
+	<body id="0xbf" basesound="0x3c5" figurine="0x25a0" type="3" mountid="0x3e9c" /> <!-- Kirin -->
+	<body id="0xc0" basesound="0x4bc" figurine="0x25ce" type="3" mountid="0x3e9b" /> <!-- Unicorn -->
+	<body id="0xc1" basesound="0x365" figurine="0x25b2" type="1" mountid="0x3e9a" /> <!-- Ridgeback -->
+	<body id="0xc2" basesound="0x16a" figurine="0x2593" flags="0x1" type="3" mountid="0x3e98" /> <!-- Swamp Dragon -->
+	<body id="0xc3" basesound="0x2bd" figurine="0x25c3" type="3" mountid="0x3e97" /> <!-- Beetle -->
 	
-	<body id="0xc8" basesound="0xa8" figurine="0x211f" type="3" mountid="0x3e9f" />
+	<body id="0xc8" basesound="0xa8" figurine="0x2124" type="3" mountid="0x3e9f" />
 	<body id="0xc9" basesound="0x69" figurine="0x211b" flags="0x2" type="3" />
 	<body id="0xca" basesound="0x5a" figurine="0x20da" type="3" />
 	<body id="0xcb" basesound="0xc4" figurine="0x2101" type="3" />
-	<body id="0xcc" basesound="0xa8" figurine="0x2121" type="3" />
+	<body id="0xcc" basesound="0xa8" figurine="0x2121" type="3" mountid="0x3ea2" />
 	<body id="0xcd" basesound="0xc9" figurine="0x2125" soundmode="2" type="3" />
 	
 	<!-- ce type=1 -->
@@ -259,7 +259,7 @@
 	<body id="0xdd" basesound="0xe0" figurine="0x20ff" type="3" />
 	<body id="0xdf" basesound="0xd8" figurine="0x20e6" soundmode="2" type="3" />
 	<body id="0xe1" basesound="0xe5" figurine="0x20ea" flags="0x2" type="3" />
-	<body id="0xe2" basesound="0xa8" figurine="0x2124" type="3" mountid="0x3ea0" />
+	<body id="0xe2" basesound="0xa8" figurine="0x211f" type="3" mountid="0x3ea0" />
 	<body id="0xe4" basesound="0xa8" figurine="0x2120" type="3"  mountid="0x3ea1" />
 	<body id="0xe7" basesound="0x78" figurine="0x20f0" flags="0x2" type="3" />
 	<body id="0xe8" basesound="0x64" figurine="0x20ef" flags="0x2" type="3" />
