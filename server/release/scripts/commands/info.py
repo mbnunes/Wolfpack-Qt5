@@ -354,9 +354,9 @@ def charinfo( socket, char ):
 		gump.addResizeGump( 280, 380, 0xBB8, 215, 20 )
 		gump.addInputField( 284, 380, 200, 16, 0x834, 38, unicode( char.owner ) )
 		# 39
-		gump.addText( 113, 400, "Spawn Region:", 0x834 )
-		gump.addResizeGump( 280, 400, 0xBB8, 215, 20 )
-		gump.addInputField( 284, 400, 200, 16, 0x834, 39, unicode( char.spawnregion ) )
+		#gump.addText( 113, 400, "Spawn Region:", 0x834 )
+		#gump.addResizeGump( 280, 400, 0xBB8, 215, 20 )
+		#gump.addInputField( 284, 400, 200, 16, 0x834, 39, unicode( char.spawnregion ) )
 
 	if not char.npc:
 		gump.addText( 415, 450, "Page 3 of 4", 0x834 )
@@ -421,98 +421,110 @@ def charinfo( socket, char ):
 
 	elif char.npc:
 		# 40
-		gump.addText( 113, 160, "Carve:", 0x834 )
-		gump.addResizeGump( 280, 160, 0xBB8, 215, 20 )
-		gump.addInputField( 284, 160, 200, 16, 0x834, 40, char.carve)
+		#gump.addText( 113, 160, "Carve:", 0x834 )
+		#gump.addResizeGump( 280, 160, 0xBB8, 215, 20 )
+		#gump.addInputField( 284, 160, 200, 16, 0x834, 40, char.carve)
 		# 41
-		gump.addText( 113, 180, "Loot List:", 0x834 )
-		gump.addResizeGump( 280, 180, 0xBB8, 215, 20 )
-		gump.addInputField( 284, 180, 200, 16, 0x834, 41, char.lootpacks)
-		# 45
-		gump.addText( 113, 260, "Physical Damage:", 0x834 )
-		gump.addResizeGump( 280, 260, 0xBB8, 215, 20 )
-		if char.hastag('dmg_physical'):
-			gump.addInputField( 284, 260, 200, 16, 0x834, 45, unicode( char.gettag('dmg_physical') ) )
-		else:
-			gump.addInputField( 284, 260, 200, 16, 0x834, 45, '' )
-		# 46
-		gump.addText( 113, 280, "Fire Damage:", 0x834 )
-		gump.addResizeGump( 280, 280, 0xBB8, 215, 20 )
+		#gump.addText( 113, 180, "Loot List:", 0x834 )
+		#gump.addResizeGump( 280, 180, 0xBB8, 215, 20 )
+		#gump.addInputField( 284, 180, 200, 16, 0x834, 41, char.lootpacks)
+		# 43
+		gump.addText( 113, 180, "Mindamage:", 0x834 )
+		#gump.addResizeGump( 280, 180, 0xBB8, 215, 20 )
+		gump.addText( 284, 180, unicode( char.mindamage ), 0x834 )
+		# 44
+		gump.addText( 113, 200, "Maxdamage:", 0x834 )
+		#gump.addResizeGump( 280, 200, 0xBB8, 215, 20 )
+		gump.addText( 284, 200, unicode( char.maxdamage ), 0x834 )
+		# 45 Passed
+		gump.addText( 113, 220, "Physical Damage:", 0x834 )
+		#gump.addResizeGump( 280, 220, 0xBB8, 215, 20 )
+		physicaltotal = 100
 		if char.hastag('dmg_fire'):
-			gump.addInputField( 284, 280, 200, 16, 0x834, 46, unicode( char.gettag('dmg_fire') ) )
-		else:
-			gump.addInputField( 284, 280, 200, 16, 0x834, 46, '' )
-		# 47
-		gump.addText( 113, 300, "Cold Damage:", 0x834 )
-		gump.addResizeGump( 280, 300, 0xBB8, 215, 20 )
+			physicaltotal -= char.gettag('dmg_fire')
 		if char.hastag('dmg_cold'):
-			gump.addInputField( 284, 300, 200, 16, 0x834, 47, unicode( char.gettag('dmg_cold') ) )
-		else:
-			gump.addInputField( 284, 300, 200, 16, 0x834, 47, '' )
-		# 48
-		gump.addText( 113, 320, "Poison Damage:", 0x834 )
-		gump.addResizeGump( 280, 320, 0xBB8, 215, 20 )
+			physicaltotal -= char.gettag('dmg_cold')
 		if char.hastag('dmg_poison'):
-			gump.addInputField( 284, 320, 200, 16, 0x834, 48, unicode( char.gettag('dmg_poison') ) )
-		else:
-			gump.addInputField( 284, 320, 200, 16, 0x834, 48, '' )
-		# 49
-		gump.addText( 113, 340, "Energy Damage:", 0x834 )
-		gump.addResizeGump( 280, 340, 0xBB8, 215, 20 )
+			physicaltotal -= char.gettag('dmg_poison')
 		if char.hastag('dmg_energy'):
-			gump.addInputField( 284, 340, 200, 16, 0x834, 49, unicode( char.gettag('dmg_energy') ) )
+			physicaltotal -= char.gettag('dmg_energy')
+		gump.addText( 284, 220, unicode( physicaltotal ), 0x834 )
+		# 46
+		gump.addText( 113, 240, "Fire Damage:", 0x834 )
+		gump.addResizeGump( 280, 240, 0xBB8, 215, 20 )
+		if char.hastag('dmg_fire'):
+			gump.addInputField( 284, 240, 200, 16, 0x834, 46, unicode( char.gettag('dmg_fire') ) )
 		else:
-			gump.addInputField( 284, 340, 200, 16, 0x834, 48, '' )
+			gump.addInputField( 284, 240, 200, 16, 0x834, 46, '0' )
+		# 47
+		gump.addText( 113, 260, "Cold Damage:", 0x834 )
+		gump.addResizeGump( 280, 260, 0xBB8, 215, 20 )
+		if char.hastag('dmg_cold'):
+			gump.addInputField( 284, 260, 200, 16, 0x834, 47, unicode( char.gettag('dmg_cold') ) )
+		else:
+			gump.addInputField( 284, 260, 200, 16, 0x834, 47, '0' )
+		# 48
+		gump.addText( 113, 280, "Poison Damage:", 0x834 )
+		gump.addResizeGump( 280, 280, 0xBB8, 215, 20 )
+		if char.hastag('dmg_poison'):
+			gump.addInputField( 284, 280, 200, 16, 0x834, 48, unicode( char.gettag('dmg_poison') ) )
+		else:
+			gump.addInputField( 284, 280, 200, 16, 0x834, 48, '0' )
+		# 49
+		gump.addText( 113, 300, "Energy Damage:", 0x834 )
+		gump.addResizeGump( 280, 300, 0xBB8, 215, 20 )
+		if char.hastag('dmg_energy'):
+			gump.addInputField( 284, 300, 200, 16, 0x834, 49, unicode( char.gettag('dmg_energy') ) )
+		else:
+			gump.addInputField( 284, 300, 200, 16, 0x834, 49, '0' )
 		# 50
-		gump.addText( 113, 360, "Physical Resist:", 0x834 )
-		gump.addResizeGump( 280, 360, 0xBB8, 215, 20 )
+		gump.addText( 113, 320, "Physical Resist:", 0x834 )
+		gump.addResizeGump( 280, 320, 0xBB8, 215, 20 )
 		if char.hastag('res_physical'):
-			gump.addInputField( 284, 360, 200, 16, 0x834, 50, unicode( char.gettag('res_physical') ) )
+			gump.addInputField( 284, 320, 200, 16, 0x834, 50, unicode( char.gettag('res_physical') ) )
 		else:
-			gump.addInputField( 284, 360, 200, 16, 0x834, 50, '' )
+			gump.addInputField( 284, 320, 200, 16, 0x834, 50, '0' )
 		# 51
-		gump.addText( 113, 380, "Fire Resist:", 0x834 )
-		gump.addResizeGump( 280, 380, 0xBB8, 215, 20 )
+		gump.addText( 113, 340, "Fire Resist:", 0x834 )
+		gump.addResizeGump( 280, 340, 0xBB8, 215, 20 )
 		if char.hastag('res_fire'):
-			gump.addInputField( 284, 380, 200, 16, 0x834, 51, unicode( char.gettag('res_fire') ) )
+			gump.addInputField( 284, 340, 200, 16, 0x834, 51, unicode( char.gettag('res_fire') ) )
 		else:
-			gump.addInputField( 284, 380, 200, 16, 0x834, 51, '' )
+			gump.addInputField( 284, 340, 200, 16, 0x834, 51, '0' )
 		#52
-		gump.addText( 113, 400, "Cold Resist:", 0x834 )
-		gump.addResizeGump( 280, 400, 0xBB8, 215, 20 )
+		gump.addText( 113, 360, "Cold Resist:", 0x834 )
+		gump.addResizeGump( 280, 360, 0xBB8, 215, 20 )
 		if char.hastag('res_cold'):
-			gump.addInputField( 284, 400, 200, 16, 0x834, 52, unicode( char.gettag('res_cold') ) )
+			gump.addInputField( 284, 360, 200, 16, 0x834, 52, unicode( char.gettag('res_cold') ) )
 		else:
-			gump.addInputField( 284, 400, 200, 16, 0x834, 52, '' )
+			gump.addInputField( 284, 360, 200, 16, 0x834, 52, '0' )
+		#53
+		gump.addText( 113, 380, "Poison Resist:", 0x834 )
+		gump.addResizeGump( 280, 380, 0xBB8, 215, 20 )
+		if char.hastag('res_poison'):
+			gump.addInputField( 284, 380, 200, 16, 0x834, 53, unicode( char.gettag('res_poison') ) )
+		else:
+			gump.addInputField( 284, 380, 200, 16, 0x834, 53, '0' )
+		# 54
+		gump.addText( 113, 400, "Energy Resist:", 0x834 )
+		gump.addResizeGump( 280, 400, 0xBB8, 215, 20 )
+		if char.hastag('res_energy'):
+			gump.addInputField( 284, 400, 200, 16, 0x834, 54, unicode( char.gettag('res_energy') ) )
+		else:
+			gump.addInputField( 284, 400, 200, 16, 0x834, 54, '0' )
 
-		gump.addText( 415, 450, "Page 4 of 5", 0x834 )
+		gump.addText( 415, 450, "Page 4 of 4", 0x834 )
 		# next page
-		gump.addPageButton( 390, 450, 0x0FA, 0x0FA, 5 )
+		#gump.addPageButton( 390, 450, 0x0FA, 0x0FA, 5 )
 		# prev page
 		gump.addPageButton( 370, 450, 0x0FC, 0x0FC, 3 )
 
-		gump.startPage( 5 )
-
-		#53
-		gump.addText( 113, 160, "Poison Resist:", 0x834 )
-		gump.addResizeGump( 280, 160, 0xBB8, 215, 20 )
-		if char.hastag('res_poison'):
-			gump.addInputField( 284, 160, 200, 16, 0x834, 53, unicode( char.gettag('res_poison') ) )
-		else:
-			gump.addInputField( 284, 160, 200, 16, 0x834, 53, '' )
-		# 54
-		gump.addText( 113, 180, "Energy Resist:", 0x834 )
-		gump.addResizeGump( 280, 180, 0xBB8, 215, 20 )
-		if char.hastag('res_energy'):
-			gump.addInputField( 284, 180, 200, 16, 0x834, 54, unicode( char.gettag('res_energy') ) )
-		else:
-			gump.addInputField( 284, 180, 200, 16, 0x834, 54, '' )
-
-		gump.addText( 415, 450, "Page 5 of 5", 0x834 )
+		#gump.startPage( 5 )
+		#gump.addText( 415, 450, "Page 5 of 5", 0x834 )
 		# next page
 		#gump.addPageButton( 390, 450, 0x0FA, 0x0FA, 6 )
 		# prev page
-		gump.addPageButton( 370, 450, 0x0FC, 0x0FC, 4 )
+		#gump.addPageButton( 370, 450, 0x0FC, 0x0FC, 4 )
 
 	gump.send( socket )
 	return
@@ -627,13 +639,13 @@ def charinfo_response( player, args, choice ):
 		elif key == 39:
 			if not char.npc:
 				char.visrange = int( textentries[ key ] )
-			else:
-				char.spawnregion = ( textentries[ key ] )
+			#else:
+			#	char.spawnregion = ( textentries[ key ] )
 		elif key == 40:
 			if not char.npc:
 				char.lightbonus = int( textentries[ key ] )
-			else:
-				char.carve = ( textentries[ key ] )
+			#else:
+			#	char.carve = ( textentries[ key ] )
 		elif key == 41:
 			if not char.npc:
 				char.profile = textentries[ key ]
@@ -651,12 +663,9 @@ def charinfo_response( player, args, choice ):
 						char.deltag( 'notoriety' )
 				else:
 					char.settag( 'notoriety', int( textentries[ key ] ) )
-			elif char.npc:
-				if (textentries[ key ]) == '':
-					if char.hastag( 'mindamage' ):
-						char.deltag( 'mindamage' )
-				else:
-					char.settag( 'mindamage', int( textentries[ key ] ) )
+			#elif char.npc:
+			#	if not textentries[ key ] == '':
+			#		char.mindamage = int( textentries[ key ] )
 		elif key == 44:
 			if not char.npc:
 				if (textentries[ key ]) == '':
@@ -664,81 +673,71 @@ def charinfo_response( player, args, choice ):
 						char.deltag( 'poisoned' )
 				else:
 					char.settag( 'poisoned', int( textentries[ key ] ) )
-			elif char.npc:
-				if (textentries[ key ]) == '':
-					if char.hastag( 'maxdamage' ):
-						char.deltag( 'maxdamage' )
-				else:
-					char.settag( 'maxdamage', int( textentries[ key ] ) )
-		elif key == 45:
-			if char.npc:
-				if (textentries[ key ]) == '':
-					if char.hastag( 'dmg_physical' ):
-						char.deltag( 'dmg_physical' )
-				else:
-					char.settag( 'dmg_physical', int( textentries[ key ] ) )
+			#elif char.npc:
+			#	if not textentries[ key ] == '':
+			#		char.maxdamage = int( textentries[ key ] )
 		elif key == 46:
 			if char.npc:
-				if (textentries[ key ]) == '':
+				if textentries[ key ] == '' or int(textentries[ key ]) <= 0:
 					if char.hastag( 'dmg_fire' ):
 						char.deltag( 'dmg_fire' )
-				else:
+				elif int( textentries[ key ] ) <= 100:
 					char.settag( 'dmg_fire', int( textentries[ key ] ) )
 		elif key == 47:
 			if char.npc:
-				if (textentries[ key ]) == '':
+				if textentries[ key ] == '' or int(textentries[ key ]) <= 0:
 					if char.hastag( 'dmg_cold' ):
 						char.deltag( 'dmg_cold' )
-				else:
+				elif int( textentries[ key ] ) <= 100:
 					char.settag( 'dmg_cold', int( textentries[ key ] ) )
 		elif key == 48:
 			if char.npc:
-				if (textentries[ key ]) == '':
+				if textentries[ key ] == '' or int(textentries[ key ]) <= 0:
 					if char.hastag( 'dmg_poison' ):
 						char.deltag( 'dmg_poison' )
-				else:
+				elif int( textentries[ key ] ) <= 100:
 					char.settag( 'dmg_poison', int( textentries[ key ] ) )
 		elif key == 49:
 			if char.npc:
-				if (textentries[ key ]) == '':
+				if textentries[ key ] == '' or int(textentries[ key ]) <= 0:
 					if char.hastag( 'dmg_energy' ):
 						char.deltag( 'dmg_energy' )
-				else:
+				elif int( textentries[ key ] ) <= 100:
 					char.settag( 'dmg_energy', int( textentries[ key ] ) )
 		elif key == 50:
 			if char.npc:
-				if (textentries[ key ]) == '':
+				if (textentries[ key ]) == '' or int(textentries[ key ]) == 0:
 					if char.hastag( 'res_physical' ):
 						char.deltag( 'res_physical' )
 				else:
 					char.settag( 'res_physical', int( textentries[ key ] ) )
 		elif key == 51:
 			if char.npc:
-				if (textentries[ key ]) == '':
+				if (textentries[ key ]) == '' or int(textentries[ key ]) == 0:
 					if char.hastag( 'res_fire' ):
 						char.deltag( 'res_fire' )
-				else:
+				elif int( textentries[ key ] ) <= 100:
 					char.settag( 'res_fire', int( textentries[ key ] ) )
 		elif key == 52:
 			if char.npc:
-				if (textentries[ key ]) == '':
+				if (textentries[ key ]) == '' or int(textentries[ key ]) == 0:
 					if char.hastag( 'res_cold' ):
 						char.deltag( 'res_cold' )
-				else:
+				elif int( textentries[ key ] ) <= 100:
 					char.settag( 'res_cold', int( textentries[ key ] ) )
 		elif key == 53:
 			if char.npc:
-				if (textentries[ key ]) == '':
+				if (textentries[ key ]) == '' or int(textentries[ key ]) == 0:
 					if char.hastag( 'res_poison' ):
 						char.deltag( 'res_poison' )
-				else:
+				elif int( textentries[ key ] ) <= 100:
 					char.settag( 'res_poison', int( textentries[ key ] ) )
 		elif key == 54:
 			if char.npc:
-				if (textentries[ key ]) == '':
+				if (textentries[ key ]) == '' or int(textentries[ key ]) == 0:
 					if char.hastag( 'res_energy' ):
 						char.deltag( 'res_energy' )
-				else:
+				elif int( textentries[ key ] ) <= 100:
 					char.settag( 'res_energy', int( textentries[ key ] ) )
 
 	if choice.button == 1:
