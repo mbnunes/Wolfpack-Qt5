@@ -39,6 +39,7 @@
 
 #include <qstring.h>
 #include <mysql.h>
+#include <stdlib.h>
 
 static MYSQL *mysql = 0;
 
