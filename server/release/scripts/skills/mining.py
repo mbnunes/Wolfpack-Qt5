@@ -6,19 +6,19 @@
 #################################################################
 
 from wolfpack.consts import *
-import whrandom
 import wolfpack
 import skills
 from wolfpack.time import *
 from wolfpack.utilities import *
+import random
 from random import randint
 
 #mining calling from pickaxe.py and shovel.py
 
 #in seconds
 miningdelay = 1000
-orerespawndelay = randint( MINING_MIN_REFILLTIME, MINING_MAX_REFILLTIME )
-orespawnamount = randint( MINING_MIN_ORE, MINING_MAX_ORE )
+orerespawndelay = randint(MINING_MIN_REFILLTIME, MINING_MAX_REFILLTIME)
+orespawnamount = randint(MINING_MIN_ORE, MINING_MAX_ORE)
 
 # 0x19b7, 0x19b8, 0x19ba give 1 ingot.
 # 0x19b9 gives 2 ingots.
@@ -30,19 +30,17 @@ REQSKILL = 0
 MINSKILL = 1
 SUCCESSCLILOC = 2
 COLORID = 3
-RESOURCENAME = 4
 # resname, reqSkill, minSkill, successClilocId, color, 'ore name'
-oretable = \
-{
-	'iron':			[ 0, -250, 1007072, 0x0, 'iron ore' ],
-	'dullcopper':	[ 650, 325, 1007073, 0x973, 'dull copper ore' ],
-	'shadowiron':	[ 700, 350, 1007074, 0x966, 'shadow iron ore' ],
-	'copper':		[ 750, 375, 1007075, 0x96d, 'copper ore' ],
-	'bronze':		[ 800, 400, 1007076, 0x972, 'bronze ore' ],
-	'gold':			[ 850, 425, 1007077, 0x8a5, 'gold ore' ],
-	'agapite':		[ 900, 450, 1007078, 0x979, 'agapite ore' ],
-	'verite':			[ 950, 475, 1007079, 0x89f, 'verite ore' ],
-	'valorite':		[ 990, 495, 1007080, 0x8ab, 'valorite ore' ]
+oretable = {
+	'iron': [0, -250, 1007072, 0x0],
+	'dullcopper': [650, 325, 1007073, 0x973],
+	'shadowiron': [700, 350, 1007074, 0x966],
+	'copper': [750, 375, 1007075, 0x96d],
+	'bronze': [800, 400, 1007076, 0x972],
+	'gold': [850, 425, 1007077, 0x8a5],
+	'agapite': [900, 450, 1007078, 0x979],
+	'verite': [950, 475, 1007079, 0x89f],
+	'valorite': [990, 495, 1007080, 0x8ab]
 }
 
 def mining( char, pos, tool ):
@@ -54,26 +52,26 @@ def mining( char, pos, tool ):
 
 def createoregem( pos ):
 	gem = wolfpack.additem( 'ore_gem' )
-	gem.settag( 'resourcecount', orespawnamount ) # 10 - 34 ore
-	gem.settag( 'resname', 'iron' ) # All veins should default to iron ore.
+	gem.settag('resourcecount', orespawnamount) # 10 - 34 ore
+	gem.settag('resname', 'iron') # All veins should default to iron ore.
 	# This will give it a chance to be a random ore type, this can change later.
-	colorchance = randint( 0, 100 )
+	colorchance = randint(0, 100)
 	if colorchance >= 100 and colorchance <= 99: # 2% chance for valorite (99 - 100)
-		gem.settag( 'resname2', 'valorite' )
+		gem.settag('resname2', 'valorite')
 	elif colorchance >= 96 and colorchance <= 98: # 3% chance for verite (96 - 98)
-		gem.settag( 'resname2', 'verite')
+		gem.settag('resname2', 'verite')
 	elif colorchance >= 92 and colorchance <= 95: # 4% chance for agapite (92 - 95)
-		gem.settag( 'resname2', 'agapite')
+		gem.settag('resname2', 'agapite')
 	elif colorchance >= 86 and colorchance <= 91: # 6% chance for gold (87 - 91)
-		gem.settag( 'resname2', 'gold')
+		gem.settag('resname2', 'gold')
 	elif colorchance >= 79 and colorchance <= 85: # 7% chance for bronze (81 - 86)
-		gem.settag( 'resname2', 'bronze')
+		gem.settag('resname2', 'bronze')
 	elif colorchance >= 71 and colorchance <= 78: # 8% chance for copper (73 - 80)
-		gem.settag( 'resname2', 'copper')
+		gem.settag('resname2', 'copper')
 	elif colorchance >= 61 and colorchance <= 70: # 10% chance for shadow iron (63 - 72)
-		gem.settag( 'resname2', 'shadowiron')
+		gem.settag('resname2', 'shadowiron')
 	elif colorchance >= 50 and colorchance <= 60: # 11% chance for dull copper (51 - 62)
-		gem.settag( 'resname2', 'dullcopper')
+		gem.settag('resname2', 'dullcopper')
 	gem.moveto( pos )
 	gem.visible = 0
 	gem.update()
@@ -168,31 +166,23 @@ def domining( time, args ):
 	if not veingem:
 		veingem = createoregem( pos )
 
-	if not veingem.hastag( 'resname' ) or not veingem.hastag( 'resourcecount' ):
+	if not veingem.hastag('resname') or not veingem.hastag('resourcecount'):
 		return OOPS
 
-	if veingem.hastag( 'resname2' ):
-		chance = randint( 1, 10 )
-		if chance >= 6: # 50% chance to dig up whatever colored ore may exist.
-			resname = veingem.gettag( 'resname2' )
-		else: # Default to the iron if failed to find color.
-			resname = veingem.gettag( 'resname' )
+	# 50% chance to dig up iron even if the vein has something else
+	if veingem.hastag('resname2') and random.random() >= 0.50:
+		resname = veingem.gettag('resname2')
+	else:
+		resname = veingem.gettag('resname')
 
-	elif not veingem.hastag( 'resname2' ) and veingem.hastag( 'resname' ):
-		resname = veingem.gettag( 'resname' )
-
-	resourcecount = veingem.gettag( 'resourcecount' )
-	reqskill = oretable[ resname ][ REQSKILL ]
-	chance = int( ( char.skill[ MINING ] - oretable[ resname ][ MINSKILL ] ) / 10 )
-	if chance > 100:
-		chance = 100
-	elif chance < 0:
-		chance = 0
-
+	resourcecount = veingem.gettag('resourcecount')
+	reqskill = oretable[resname][REQSKILL]
+	
+	chance = min(100, max(0, (char.skill[MINING] - oretable[resname][MINSKILL]) / 10))
 	success = 0
 
-	if char.pos.map != pos.map or char.pos.distance( pos ) > MINING_MAX_DISTANCE:
-		char.socket.clilocmessage( 501867, '', GRAY )
+	if char.pos.map != pos.map or char.pos.distance(pos) > MINING_MAX_DISTANCE:
+		char.socket.clilocmessage(501867, '', GRAY)
 		return OOPS
 
 	# Are you skilled enough ? And here is ore ?
@@ -209,9 +199,10 @@ def domining( time, args ):
 				successmining( char, veingem, oretable, resname, 1, oredefs[randint( 1, 2 )] )
 			elif resourcecount == 1 or resourcecount == 2: # Smallest ore only
 				successmining( char, veingem, oretable, resname, 1, oredefs[0] )
+
 			# tool durability drain
-			if not tool.hastag( 'remaining_uses' ):
-				tool.settag( 'remaining_uses', tool.health )
+			if not tool.hastag('remaining_uses'):
+				tool.settag('remaining_uses', tool.health)
 			else:
 				if int( tool.gettag( 'remaining_uses' ) ) > 1:
 					tool.settag( 'remaining_uses', int( int( tool.gettag( 'remaining_uses' ) ) - 1 ) )
@@ -225,11 +216,12 @@ def domining( time, args ):
 		else:
 			success = 0
 
+	# The ore is respawning
 	elif resourcecount == 0:
-		socket.sysmessage( "There is no metal here to mine.", GRAY )
-		if not veingem.hastag( 'resource_empty' ):
-			wolfpack.addtimer( orerespawndelay, "skills.mining.respawnvein", [ veingem ], 1 )
-			veingem.settag( 'resource_empty', 'true' )
+		socket.sysmessage("There is no ore here to mine.", GRAY)
+		if not veingem.hastag('resource_empty'):
+			wolfpack.addtimer(orerespawndelay, "skills.mining.respawnvein", [veingem], 1)
+			veingem.settag('resource_empty', 1)
 		# veingem
 		success = 1
 
@@ -260,10 +252,9 @@ def successmining( char, gem, table, resname, amount, ore ):
 
 	gem.settag( 'resourcecount', ( gem.gettag( 'resourcecount' ) - amount ) )
 
-	if gem.gettag( 'resourcecount' ) == 0:
-		if not gem.hastag ( 'resource_empty' ) and gem.gettag( 'resourcecount' ) == 0:
-			gem.settag( 'resource_empty', 'true' )
-			wolfpack.addtimer( orerespawndelay, "skills.mining.respawnvein", [ gem ], 1 )
+	if not gem.hastag('resource_empty') and gem.gettag('resourcecount') == 0:
+		gem.settag('resource_empty', 1)
+		wolfpack.addtimer(orerespawndelay, "skills.mining.respawnvein", [gem], 1)
 
 	if not wolfpack.utilities.tocontainer( resourceitem, backpack ):
 		resourceitem.update()
