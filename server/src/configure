@@ -455,13 +455,14 @@ PYTHON_LIB="-L$PYTHON_LIB -lpython2.3";
 # <stlport>
 echo -n "Checking if we need to add stlport... ";
 
-CC="";
-CC="$(which g++)";
-[ ! "$CC" ] && CC="$(which c++)";
+# this check is currently disabled.
+#CC="";
+#CC="$(which g++)";
+#[ ! "$CC" ] && CC="$(which c++)";
 
-CC_VERSION="$(eval "$CC -dumpversion")";
+#CC_VERSION="$(eval "$CC -dumpversion")";
 
-if [ "${_FORCE_STLPORT}" != "y" ] && [ "$(echo "$CC_VERSION"|cut -d. -f1)" -ge "3" ];
+if [ "${_FORCE_STLPORT}" != "y" ] #&& [ "$(echo "$CC_VERSION"|cut -d. -f1)" -ge "3" ];
 then
 	echo -n "no";
 else
