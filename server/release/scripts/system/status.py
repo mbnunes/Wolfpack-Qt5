@@ -17,7 +17,7 @@ htmltemplate = 'web/status_template.html'
 outputfile = 'web/status.html'
 processthread = None
 templatemodule = None
-		
+
 #
 # The processing thread
 #
@@ -28,7 +28,7 @@ class ProcessThread(Thread):
 		self.stopped = Event() # Cancel Event
 		self.mutex = Lock()
 		self.data = None
-	
+
 	# Threaded code
 	def run(self):
 		while not self.stopped.isSet():
@@ -39,7 +39,7 @@ class ProcessThread(Thread):
 				data = self.data
 				self.data = None
 			self.mutex.release()
-			
+
 			if data:
 				global outputfile
 				try:
@@ -48,7 +48,7 @@ class ProcessThread(Thread):
 					fp.close()
 				except Exception, e:
 					console.log(LOG_PYTHON, "Couldn't write status to '%s': %s.\n" % (outputfile, str(e)))
-			
+
 			self.stopped.wait(0.5)
 
 #
@@ -60,9 +60,9 @@ def generate(object, arguments):
 	# The script has been reloaded
 	if arguments[0] != magic:
 		return
-	
+
 	global templatemodule
-	
+
 	if not templatemodule:
 		global htmltemplate
 		try:
@@ -73,18 +73,18 @@ def generate(object, arguments):
 		except Exception, e:
 			console.log(LOG_PYTHON, "Couldn't load status template from '%s': %s.\n" % (htmltemplate, str(e)))
 			return
-	
+
 		# Search for python codeblocks <%= %>
 		length = len(template)
 		blocks = ''
 		current = ''
 		inlineprint = 0
-		
+
 		# PROLOG
 		try:
 			for i in range(0, length):
 				if template[i:i + 3] == "<%\n":
-					# Dump previous string					
+					# Dump previous string
 					if current != '':
 						if inlineprint:
 							blocks += '+ ' + repr(current)
@@ -96,7 +96,7 @@ def generate(object, arguments):
 				elif template[i - 1:i+1] == "%>":
 					# Gather code
 					current = current[1:-1].strip("%")
-					
+
 					if inlineprint:
 						blocks += " + unicode(%s)" % current[1:]
 					else:
@@ -120,7 +120,7 @@ def generate(object, arguments):
 			else:
 				blocks += 'print ' + repr(current)
 			blocks += "\n"
-			
+
 		except Exception, e:
 			console.log(LOG_PYTHON, "Unable to parse python template file: %s\n" % str(e))
 			return
@@ -131,7 +131,7 @@ def generate(object, arguments):
 		except Exception, e:
 			console.log(LOG_PYTHON, "Unable to compile python template file: %s\n" % str(e))
 			templatemodule = None
-			return			
+			return
 
 	# Try to execute the code
 	savedstdout = sys.stdout
@@ -139,20 +139,20 @@ def generate(object, arguments):
 	output = sys.stdout
 	exec templatemodule
 	sys.stdout = savedstdout
-	
+
 	text = output.getvalue()
 	output.close()
 
 	# Collect data and pass it to the processing thread
 	global processthread
-	
+
 	if processthread:
 		processthread.mutex.acquire()
 		processthread.data = text
 		processthread.mutex.release()
 
 	# Re-execute after interval miliseconds
-	wolfpack.addtimer(interval, "system.status.generate", [magic])
+	wolfpack.addtimer(interval, generate, [magic])
 
 #
 # Initialization
@@ -166,8 +166,8 @@ def onLoad():
 	processthread = ProcessThread()
 	processthread.start()
 
-	wolfpack.addtimer(interval, "system.status.generate", [magic])
-		
+	wolfpack.addtimer(interval, generate, [magic])
+
 #
 # Stop the thread
 #
