@@ -9,12 +9,42 @@
 <definitions>
 	<!--  default -->
 	<startitems id="default">
-		<!--  gold --><gold>100</gold>
-		<!--  bread --><item id="103c"><type>14</type><amount>2</amount></item>
-		<!--  candle --><item id="a0f"></item>
-		<!--  book --><item id="ff1"></item>
-	</startitems>	
-	
+		<!--gold --><gold>100</gold>
+		<!--bread --><item id="103c"><type>14</type><amount>2</amount></item>
+		<!--candle --><item id="a0f"></item>
+		<!--book --><item id="ff1"></item>
+	</startitems>
+
+	<!--  Alchemy -->
+	<startitems id="alchemy">
+	        <inherit id="default" />
+	        <!--Robe --><equipment id="1f03"></equipment>
+		<!--Mortar & pestle --><item id="e9b"></item>
+		<!--Bottle --><item id="f0e"><amount>5</amount></item>
+		<!--Black Pearl --><item id="f7a"><amount>3</amount></item>
+		<!--Bloodmoss --><item id="f7b"><amount>3</amount></item>
+		<!--Garlic --><item id="f84"><amount>3</amount></item>
+		<!--Gensing --><item id="f85"><amount>3</amount></item>
+		<!--Mandrake Root --><item id="f86"><amount>3</amount></item>
+		<!--Nightshade --><item id="f88"><amount>3</amount></item>
+		<!--Sulfurous Ash --><item id="f8c"><amount>3</amount></item>
+		<!--Spider Silk --><item id="f8d"><amount>3</amount></item>
+	</startitems>
+
+	<!--  Anatomy -->
+	<startitems id="anatomy">
+	        <inherit id="default" />
+	        <!--Robe --><equipment id="1f03"></equipment>
+	        <!--Bandages --><item id="1f03"><amount>3</amount></item>
+	</startitems>
+
+	<!--  Animallore -->
+	<startitems id="animallore">
+	        <inherit id="default" />
+	        <!--Robe --><equipment id="1f03"></equipment>
+	        <!--Sheperd crook --><equipment id="e81"></equipment>
+	</startitems>
+
 	<!--  Itemid -->
 	<startitems id="itemid">
 	        <inherit id="default" />
@@ -22,5 +52,216 @@
 	        <!--Random Potions--><item><inherit><random list="POTIONS" /></inherit></item>
 	        <!--Random Potions--><item><inherit><random list="POTIONS" /></inherit></item>
 	        <!--Random Potions--><item><inherit><random list="POTIONS" /></inherit></item>
-	</startitems>	
+	</startitems>
+
+	<!--  Armslore -->
+	<startitems id="armslore">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Parrying -->
+	<startitems id="parrying">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Begging -->
+	<startitems id="begging">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Blacksmithing -->
+	<startitems id="blacksmithing">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Bowcraft -->
+	<startitems id="bowcraft">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Peacemaking -->
+	<startitems id="peacemaking">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Camping -->
+	<startitems id="camping">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Carpentry -->
+	<startitems id="carpentry">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Cartography -->
+	<startitems id="cartography">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Cooking -->
+	<startitems id="cooking">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Detecting Hidden -->
+	<startitems id="detectinghidden">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Enticement -->
+	<startitems id="enticement">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Evaluating Intelligence -->
+	<startitems id="evaluatingintel">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Healing -->
+	<startitems id="healing">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Fishing -->
+	<startitems id="fishing">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Forensics -->
+	<startitems id="forensics">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Herding -->
+	<startitems id="herding">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Hiding -->
+	<startitems id="hiding">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Provocation -->
+	<startitems id="provocation">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Inscription -->
+	<startitems id="inscription">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Lockpicking -->
+	<startitems id="lockpicking">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Magery -->
+	<startitems id="magery">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Magic Resistance -->
+	<startitems id="magicresistance">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Tactics -->
+	<startitems id="tactics">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Snooping -->
+	<startitems id="snooping">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Musicianship -->
+	<startitems id="musicianship">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Poisoning -->
+	<startitems id="poisoning">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Archery -->
+	<startitems id="archery">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Spiritspeak -->
+	<startitems id="spiritspeak">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Stealing -->
+	<startitems id="stealing">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Tailoring -->
+	<startitems id="tailoring">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Taming -->
+	<startitems id="taming">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Tasteid -->
+	<startitems id="tasteid">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Tinkering -->
+	<startitems id="tinkering">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Tracking -->
+	<startitems id="tracking">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Veterinary -->
+	<startitems id="veterinary">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Swordsmanship -->
+	<startitems id="swordsmanship">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Macefighting -->
+	<startitems id="macefighting">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Fencing -->
+	<startitems id="fencing">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Wrestling -->
+	<startitems id="wrestling">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Lumberjacking -->
+	<startitems id="lumberjacking">
+	        <inherit id="default" />
+	</startitems>
+
+	<!--  Mining -->
+	<startitems id="mining">
+	        <inherit id="default" />
+	</startitems>
+
 </definitions>

@@ -536,5 +536,11 @@
 
 	<item id="9fa">
 		<id>0x09fa</id>
-	</item>		
+	</item>
+	
+	<!-- loaf of Bread -->
+	<item id="103c">
+		<id>0x103c</id>
+		<type>14</type>
+	</item>	
 </definitions>

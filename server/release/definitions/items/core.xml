@@ -7,95 +7,6 @@
 =================================================================
 -->
 <definitions>
-	<!-- Black potion -->
-	<item id="f06">
-		<id>0xf06</id>
-		<type>19</type>
-		<name>black potion</name>
-		<name2>nightsight potion</name2>
-		<decay/>
-		<morex>2</morex>
-		<morey>5</morey>
-		<morez>1</morez>
-		<value>15</value>
-	</item>
-	
-	<!-- Orange potion -->
-	<item id="f07">
-		<id>0xf07</id>
-		<type>19</type>
-		<name>orange potion</name>
-		<name2>cure potion</name2>
-		<decay/>
-		<morex>2</morex>
-		<morey>2</morey>
-		<morez>1</morez>
-		<value>15</value>
-	</item>
-	
-	<!-- Blue potion -->
-	<item id="f08">
-		<id>0xf08</id>
-		<type>19</type>
-		<name>blue potion</name>
-		<name2>agility potion</name2>
-		<decay/>
-		<morex>2</morex>
-		<morey>1</morey>
-		<morez>1</morez>
-		<value>15</value>
-	</item>
-	
-	<!-- White potion -->
-	<item id="f09">
-		<id>0xf09</id>
-		<type>19</type>
-		<name>white potion</name>
-		<name2>strength potion</name2>
-		<decay/>
-		<morex>2</morex>
-		<morey>8</morey>
-		<morez>1</morez>
-		<value>15</value>
-	</item>
-
-	<!-- poison potion -->
-	<item id="f0a">
-		<id>0xf0a</id>
-		<type>19</type>
-		<name>poison potion</name>
-		<decay/>
-		<morex>4</morex>
-		<morey>6</morey>
-		<morez>1</morez>
-		<value>15</value>
-	</item>
-	
-	<!-- Energy potion -->
-	<item id="f0b">
-		<id>0xf0b</id>
-		<type>19</type>
-		<name>energy potion</name>
-		<decay/>
-		<morex>3</morex>
-		<morey>7</morey>
-		<morez>1</morez>
-		<value>15</value>
-	</item>
-
-	<!-- Yellow potion -->
-	<item id="f0c">
-		<id>0xf0c</id>
-		<type>19</type>
-		<name>yellow potion</name>
-		<name2>lesser heal potion</name2>
-		<decay/>
-		<morex>1</morex>
-		<morey>4</morey>
-		<morez>1</morez>
-		<value>15</value>
-	</item>
-
 	<!-- wooden sign N/S -->
 	<item id="bcf">
 		<name>wooden sign</name>
@@ -113,26 +24,26 @@
 		<name>brass sign</name>
 		<id>0xbd1</id>
 	</item>
-	
+
 	<!-- brass sign E/W -->
 	<item id="bd2">
 		<name>brass sign</name>
 		<id>0xbd2</id>
 	</item>
-	
+
 	<!-- door -->
 	<item id="6c5">
 		<name>door</name>
 		<id>0x6c5</id>
 		<type>12</type> <!-- Door type -->
 	</item>
-	
+
 	<!-- deed -->
 	<item id="14f0">
 		<name>deed</name>
 		<id>0x14F0</id>
 	</item>
-	
+
 	<!-- key -->
 	<item id="100f">
 		<name>key</name>
@@ -148,13 +59,13 @@
 
 	<!-- Bow -->
 	<item id="13b1">
-		<bindmenu id="ITEM_MENU"/>	
+		<bindmenu id="ITEM_MENU"/>
 		<id>0x13b1</id>
 		<twohanded />
 		<decay />
 		<value>65</value>
 		<attack min="9" max="41" />
-		<durability>35</durability>		
+		<durability>35</durability>
 		<speed>20</speed>
 		<weight>3.0</weight>
 		<requires type="dex">50</requires>
@@ -188,6 +99,32 @@
 		<weight>3.0</weight>
 	</item>
 
+	<!-- Sheperd Crook -->
+	<item id="e81">
+		<id>0xe81</id>
+		<itemhand>2</itemhand>
+		<attack min="2" max="8" />
+		<durability>10</durability>
+		<decay />
+		<layer>2</layer>
+		<value>10</value>
+		<speed>30</speed>
+		<weight>2.0</weight>
+	</item>
+
+	<!-- Gnarled Staff -->
+	<item id="13f9">
+		<id>0x13f9</id>
+		<itemhand>2</itemhand>
+		<attack min="2" max="8" />
+		<durability>10</durability>
+		<decay />
+		<layer>2</layer>
+		<value>10</value>
+		<speed>30</speed>
+		<weight>2.0</weight>
+	</item>
+
 	<!-- Gold -->
 	<item id="eed">
 		<name>gold</name>
@@ -200,6 +137,23 @@
 		<durability>1</durability>
 	</item>
 
+	<!-- Robe -->
+	<item id="1f03">
+		<id>0x1f03</id>
+		<durability>1</durability>
+		<color><random list="COLORS_MISC" /></color>
+		<layer>22</layer>
+		<decay/>
+		<value>35</value>
+	</item>
+
+	<!-- Bandages -->
+	<item id="e21">
+		<id>0xe21</id>
+		<decay/>
+		<value>6</value>
+	</item>
+
 	<!-- Fancy Shirt -->
 	<item id="1efd">
 		<id>0x1efd</id>
@@ -210,12 +164,12 @@
 	<item id="170b">
 		<id>0x170b</id>
 	</item>
-	
+
 	<!-- Shoes -->
 	<item id="170f">
 		<id>0x170f</id>
-	</item>	
-	
+	</item>
+
 	<!-- Thigh Boots -->
 	<item id="1711">
 		<id>0x1711</id>
@@ -225,17 +179,199 @@
 	<item id="152e">
 		<id>0x152e</id>
 		<color><random list="COLORS_MISC" /></color>
-	</item>	
+	</item>
 
 	<!-- Long Pants -->
 	<item id="1539">
 		<id>0x1539</id>
 		<color><random list="COLORS_MISC" /></color>
-	</item>		
+	</item>
 
 	<!-- Backpack -->
 	<item id="e75">
 		<id>0xE75</id>
+	</item>
+
+	<!-- Candle -->
+	<item id="a0f">
+		<id>0xa0f</id>
+		<dir>2</dir>
+	</item>
+
+	<!-- Mortar & pestle -->
+	<item id="e9b">
+		<id>0xe9b</id>
+	</item>
+
+	<!-- Bottle -->
+	<item id="f0e">
+		<id>0xf0e</id>
+	</item>
+
+	<!-- Black Pearl -->
+	<item id="f7a">
+		<id>0xf7a</id>
+		<decay/>
+		<value>12</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Bloodmoss -->
+	<item id="f7b">
+		<id>0xf7b</id>
+		<decay/>
+		<value>6</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Garlic -->
+	<item id="f84">
+		<id>0xf84</id>
+		<decay/>
+		<value>3</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Gensing -->
+	<item id="f85">
+		<id>0xf7a</id>
+		<decay/>
+		<value>3</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Mandrake Root -->
+	<item id="f86">
+		<id>0xf86</id>
+		<decay/>
+		<value>3</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Nightshade -->
+	<item id="f88">
+		<id>0xf88</id>
+		<decay/>
+		<value>3</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Sulfurous Ash -->
+	<item id="f8c">
+		<id>0xf8c</id>
+		<decay/>
+		<value>4</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Spider Silk -->
+	<item id="f8d">
+		<id>0xf8d</id>
+		<decay/>
+		<value>3</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Black potion -->
+	<item id="f06">
+		<id>0xf06</id>
+		<type>19</type>
+		<name>black potion</name>
+		<name2>nightsight potion</name2>
+		<decay/>
+		<morex>2</morex>
+		<morey>5</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- Orange potion -->
+	<item id="f07">
+		<id>0xf07</id>
+		<type>19</type>
+		<name>orange potion</name>
+		<name2>cure potion</name2>
+		<decay/>
+		<morex>2</morex>
+		<morey>2</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- Blue potion -->
+	<item id="f08">
+		<id>0xf08</id>
+		<type>19</type>
+		<name>blue potion</name>
+		<name2>agility potion</name2>
+		<decay/>
+		<morex>2</morex>
+		<morey>1</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- White potion -->
+	<item id="f09">
+		<id>0xf09</id>
+		<type>19</type>
+		<name>white potion</name>
+		<name2>strength potion</name2>
+		<decay/>
+		<morex>2</morex>
+		<morey>8</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- poison potion -->
+	<item id="f0a">
+		<id>0xf0a</id>
+		<type>19</type>
+		<name>poison potion</name>
+		<decay/>
+		<morex>4</morex>
+		<morey>6</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- Energy potion -->
+	<item id="f0b">
+		<id>0xf0b</id>
+		<type>19</type>
+		<name>energy potion</name>
+		<decay/>
+		<morex>3</morex>
+		<morey>7</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- Yellow potion -->
+	<item id="f0c">
+		<id>0xf0c</id>
+		<type>19</type>
+		<name>yellow potion</name>
+		<name2>lesser heal potion</name2>
+		<decay/>
+		<morex>1</morex>
+		<morey>4</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- Purple potion -->
+	<item id="f0d">
+		<id>0xf0d</id>
+		<type>19</type>
+		<name>purple potion</name>
+		<name2>lesser explosion potion</name2>
+		<decay/>
+		<morex>300</morex>
+		<morey>3</morey>
+		<morez>1</morez>
+		<value>15</value>
 	</item>
 
 	<!-- Hair -->
@@ -243,12 +379,12 @@
 		<id>0x203b</id>
 		<color><random list="HAIRCOLOR" /></color>
 	</item>
-	
+
 	<item id="203c">
 		<id>0x203c</id>
 		<color><random list="HAIRCOLOR" /></color>
 	</item>
-	
+
 	<item id="203d">
 		<id>0x203d</id>
 		<color><random list="HAIRCOLOR" /></color>
