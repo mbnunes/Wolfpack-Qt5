@@ -1550,7 +1550,7 @@ static void doorsfx(P_ITEM pi, int x, int y)
 			soundeffect3(pi,CLOSEWOOD);
 
 		else if (((x>=0x0839)&&(x<=0x0848))|| // close gate
-			(b(x>=0x084C)&&(x<=0x085B))||
+			((x>=0x084C)&&(x<=0x085B))||
 			((x>=0x0866)&&(x<=0x0875)))
 			soundeffect3(pi,CLOSEGATE);
 
