@@ -22,6 +22,7 @@
 
 	<!-- Context menu scripts -->
 	<script id="daggermenu" type="python" module="daggermenu" />
+	<script id="bankermenu" type="python" module="bankermenu" />
 
 	<!-- Speech Scripts -->
 	<script id="speech_pets" type="python" module="speech.pets" />

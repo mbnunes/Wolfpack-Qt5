@@ -12,6 +12,7 @@
 		<inherit>base_male</inherit>
 		<title>the Banker</title>
 		<events>speech_banker</events>
+		<bindmenu>banker_menu</bindmenu>
 
 		<swordsmanship><random min="150" max="380" /></swordsmanship>
 		<itemid><random min="500" max="700" /></itemid>
@@ -24,6 +25,7 @@
 		<inherit>base_female</inherit>
 		<title>the Banker</title>
 		<events>speech_banker</events>
+		<bindmenu>banker_menu</bindmenu>
 
 		<swordsmanship><random min="150" max="380" /></swordsmanship>
 		<itemid><random min="500" max="700" /></itemid>
@@ -1034,6 +1036,17 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\herbalist (Female)</category>
+	</npc>
+	
+	<npc id="stablemaster_male">
+		<inherit>base_male</inherit>
+		<title>the Stablemaster</title>
+		<shopkeeper>
+			<restockable>
+				<item
+			</restockable>
+			
+		</shopkeeper>
 	</npc>
 	
 </definitions>

@@ -6,6 +6,21 @@
 ==============================================================-->
 
 <definitions>
+	<contextmenu id="banker_menu">
+	    <events>bankermenu</events>
+	    <access acl="admin">
+		<option tag="1" intlocid="6" msgid="105"/>
+		<option tag="2" intlocid="6" msgid="124"/>
+	    </access>
+	    <access acl="player">
+		<option tag="1" intlocid="6" msgid="105"/>
+		<option tag="2" intlocid="6" msgid="124"/>
+	    </access>
+	    <access acl="counselor">
+		<option tag="1" intlocid="6" msgid="105"/>
+		<option tag="2" intlocid="6" msgid="124"/>
+	    </access>
+	</contextmenu>
 	<contextmenu id="ITEM_MENU">
 		<events>daggermenu</events>
 		<access acl="admin">
