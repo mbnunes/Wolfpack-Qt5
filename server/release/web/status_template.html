@@ -1,0 +1,145 @@
+<%
+import sys
+import wolfpack
+import wolfpack.sockets
+import wolfpack.accounts
+import wolfpack.time
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Wolfpack Status</title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #FFFFFF;
+}
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+.maintitle {
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 16px;
+	font-weight: bold;
+	color: #336633;
+}
+
+.smalltext {
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 10px;
+	color: #999999;
+}
+
+.sectiontitle {
+
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 14px;
+	font-weight: bold;
+	color: #666666;
+}
+
+.text {
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 12px;
+}
+
+img {
+	border: 0;
+}
+
+a {
+	color: #0000FF;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #FF0000;
+}
+
+-->
+</style></head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+	<td bgcolor="#004026"><img src="top_logo.jpg" width="586" height="87" /></td>
+  </tr>
+  <tr>
+	<td bgcolor="#DDDDDD" height="2"><img src="spacer.gif" width="1" height="2" /></td>
+  </tr>
+</table>
+<div align="center"><br />
+<span class="maintitle">SERVERSTATUS</span>  </div>
+<table width="530"  border="0" align="center" cellpadding="5" cellspacing="0">
+  <tr>
+	<td width="520"><strong>Connected Accounts:</strong> <%=wolfpack.sockets.count()%> of <%=wolfpack.accounts.count()%><br />
+	  <br />
+	  <strong>Player Characters:</strong> <%=wolfpack.playercount()%> <br />
+	  <strong>NPCs:</strong> <%=wolfpack.npccount()%> <br />
+	  <strong>Items:</strong> <%=wolfpack.itemcount()%> <br />
+	  <strong>Ingame Time:</strong> Day <%=wolfpack.time.days()%>, <%=wolfpack.time.hour()%>:<%="%02u" % wolfpack.time.minute()%> <br /> <br />
+	  <strong>Connected Players:</strong><br>
+	  <table width="100%" border="0" cellspacing="1" cellpadding="0">
+<%
+socket = wolfpack.sockets.first()
+nextsocket = wolfpack.sockets.next()
+while socket:
+	if socket.player:
+		%>
+		<tr>
+		<%
+		notoriety = socket.player.notoriety()
+		NOTOCOLORS = {
+			1: "#0000DD",
+			2: "#10d010",
+			3: "#d0d0d0",
+			4: "#d0d0d0",
+			5: "#ff9900",
+			6: "#d01010",
+		}
+		
+		BODYIMGS = {
+			0x190: 'gender_male.gif',
+			0x191: 'gender_female.gif',
+			0x192: 'gender_male.gif',
+			0x193: 'gender_female.gif',			
+		}
+		
+		print '<td width="16" valign="middle">'
+		if BODYIMGS.has_key(socket.player.id):
+			print '<div align="center"><img src="%s"></div>' % BODYIMGS[socket.player.id]
+		else:
+			print '<img src="spacer.gif" width="14">'
+		print '</td><td valign="middle">'
+		
+		if NOTOCOLORS.has_key(notoriety):
+			print '<font color="%s" face="Georgia"><b>%s</b></font>' % (NOTOCOLORS[notoriety], socket.player.name)
+		else:
+			print '<b>%s</b>' % socket.player.name
+
+	  	if socket.player.region and len(socket.player.region.name) > 0:
+	  		print ' (%s)' % socket.player.region.name
+	  		
+	  	print '</td></tr>'
+		%></tr>
+<%
+		if nextsocket and nextsocket.player:
+			%>
+		<tr><td colspan="2" bgcolor="#DDDDDD"><img src="spacer.gif" width="1" height="1"></td></tr>
+			
+<%
+	socket = nextsocket
+	nextsocket = wolfpack.sockets.next()
+%>
+		</table>
+	  </td>
+  </tr>
+</table>
+</body>
+</html>

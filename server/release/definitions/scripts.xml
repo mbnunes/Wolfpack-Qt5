@@ -164,6 +164,7 @@
 
 	<!-- System Scripts -->
 	<script>system.hardwareinfo</script>
+	<script>system.status</script>
 	<script>system.hunger</script>
 	<script>system.loot</script>
 	<script>system.macro_opendoor</script>
