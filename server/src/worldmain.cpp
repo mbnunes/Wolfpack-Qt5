@@ -28,7 +28,7 @@
 //
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
-
+#include <qdatetime.h>
 #include "worldmain.h"
 #include "progress.h"
 #include "charsmgr.h"
@@ -156,19 +156,18 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 		progress_display progress( count );
 
 		// Fetch row-by-row
+		persistentBroker->driver()->setActiveConnection( CONN_SECOND );
 		while( res.fetchrow() )
 		{
 			char **row = res.data();
-
 			// do something with data
 			object = UObjectFactory::instance()->createObject( type );
 			offset = 2; // Skip the first two fields
 			object->load( row, offset );
-
 			++progress;
 		}
-
 		res.free();
+		persistentBroker->driver()->setActiveConnection();
 
 		clConsole.send( tr("Loaded %1 objects in %2 msecs\n\n").arg(progress.count()).arg(getNormalizedTime() - sTime) );
 	}

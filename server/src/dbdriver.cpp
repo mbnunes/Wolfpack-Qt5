@@ -69,7 +69,7 @@ cDBDriver::~cDBDriver()
 /*!
 	Opens the connection between wolfpack and the database
 */
-bool cDBDriver::open() 
+bool cDBDriver::open( int id ) 
 {
 	if ( connection )
 		return true;
@@ -100,6 +100,7 @@ bool cDBDriver::open()
 			}
 		}
 	}
+	connections[ id ] = connection;
 
 	return true;
 }
@@ -167,6 +168,19 @@ QString cDBDriver::error()
 	else
 	{
 		return QString::null;
+	}
+}
+
+void cDBDriver::setActiveConnection( int id )
+{
+	if( connections.find( id ) == connections.end() )
+	{
+		connection = NULL;
+		open( id );		
+	}
+	else
+	{
+		connection = connections[ id ];
 	}
 }
 

@@ -42,6 +42,7 @@
 #include "structs.h"
 #include "defines.h"
 #include "uobject.h"
+#include "dbdriver.h"
 #include "makemenus.h"
 #include "network/uotxpackets.h"
 

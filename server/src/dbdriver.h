@@ -36,6 +36,8 @@ struct st_mysql;
 struct st_mysql_res;
 
 #include <qstring.h>
+#include <map>
+#include "defines.h"
 
 class cDBResult;
 
@@ -43,6 +45,7 @@ class cDBDriver
 {
 	friend class cDBResult;
 private:
+	std::map< int, st_mysql* > connections;
 	st_mysql *connection;
 	QString _host, _dbname, _username, _password;
 	QString lasterror_;
@@ -53,7 +56,7 @@ public:
 	cDBDriver() : connection(0) {}
 	virtual ~cDBDriver();
 
-	bool open();
+	bool open( int id = CONN_MAIN );
 	void close();
 	bool exec( const QString &query ) const; // Just execute some SQL code, no return!	
 	cDBResult query( const QString &query ); // Executes a query
@@ -62,6 +65,7 @@ public:
 	QString error(); // Returns an error (if there is one), uses the current connection
 	
 	// Setters + Getters
+	void setActiveConnection( int id = CONN_MAIN );
 	void setUserName( const QString &data ) { _username = data; }
 	void setPassword( const QString &data ) { _password = data; }
 	void setHostName( const QString &data ) { _host = data; }

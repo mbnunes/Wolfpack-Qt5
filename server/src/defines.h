@@ -289,6 +289,9 @@ enum enDirection
 #define INVALID_SERIAL -1
 #define INVALID_UOXSOCKET -1
 
+#define CONN_MAIN 1
+#define CONN_SECOND 2
+
 #endif
 ///////////////////////  End Defines
 
