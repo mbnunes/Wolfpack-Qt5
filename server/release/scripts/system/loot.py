@@ -1,9 +1,9 @@
 
 import wolfpack
 from wolfpack.consts import *
+from system.lootlists import *
 from wolfpack import console, utilities
 import random
-from system.lootlists import *
 
 # Indices
 PACK_CHANCE = 0
@@ -463,27 +463,34 @@ def dropitem(item, char, container):
 def createpack(char, killer, corpse, pack):
 	# A pack is actually a list of lists
 	for item in pack:
-		if item[PACK_CHANCE] >= random.random():
-			if type(item[PACK_AMOUNT]) == str:
-				amount = utilities.rolldice(item[PACK_AMOUNT])
+		packchance = item[ PACK_CHANCE ]
+		packstackable = item[ PACK_STACKABLE ]
+		packamount = item[ PACK_AMOUNT ]
+		packitem = item[ PACK_ITEM ]
+
+
+		if packchance >= random.random():
+			if type( packamount ) == str:
+				amount = utilities.rolldice( packamount )
 			else:
-				amount = int(item[PACK_AMOUNT])
+				amount = int( packamount )
 
-			if item[PACK_STACKABLE]:
-				if type(item[PACK_ITEM]) == list:
-					itemid = random.choice(item[PACK_ITEM])
-				else:
-					itemid = str(item[PACK_ITEM])
+			if packstackable == True:
+				if type( packitem ) == list:
+					itemid = random.choice( packitem )
+				elif type( packitem ) == str:
+					itemid = str( packitem )
 
-				item = wolfpack.additem(itemid)
+				item = wolfpack.additem( itemid )
 				item.amount = amount
 				dropitem(item, char, corpse)
+
 			else:
 				for i in range(0, amount):
-					if type(item[PACK_ITEM]) == list:
-						itemid = random.choice(item[PACK_ITEM])
-					else:
-						itemid = str(item[PACK_ITEM])
+					if type( packitem ) == list:
+						itemid = random.choice( packitem )
+					elif type( packitem ) == str:
+						itemid = str( packitem )
 
 					item = wolfpack.additem(itemid)
 					dropitem(item, char, corpse)
@@ -504,11 +511,10 @@ def onDeath(char, killer, corpse):
 
 	# Create the items for each pack
 	for pack in packs:
-		if not PACKS.has_key(pack):
+		if not PACKS.has_key( pack ):
 			console.log(LOG_ERROR, "Trying to create an unknown loot pack %s.\n" % pack)
 			continue
-
-		createpack(char, killer, corpse, PACKS[pack])
+		createpack( char, killer, corpse, PACKS[ pack ] )
 
 #
 # Register global onDeath event
