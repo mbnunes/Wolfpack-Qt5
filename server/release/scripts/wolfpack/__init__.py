@@ -79,6 +79,12 @@ def chars( x, y, map, range=1 ):
 	else:
 		return _wolfpack.chars( x, y, map, range )
 
+def itemiterator():
+	return _wolfpack.itemiterator()
+
+def chariterator():
+	return _wolfpack.chariterator()
+
 def allitemsserials():
 	return _wolfpack.allitemsserials()
 
