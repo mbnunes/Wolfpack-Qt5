@@ -288,12 +288,25 @@ void cTargets::IstatsTarget(int s)
 				pi->more1(),pi->more2(),pi->more3(),pi->more4(),
 				pi->pos.x,pi->pos.y,pi->pos.z,pi->amount(), pi->priv);
 			sysmessage(s, (char*)temp);
-			sprintf((char*)temp,"STR [%d] HP/MAX [%d/%d] Damage [%d-%d] Defence [%d] Rank [%d] SecureIt [%d] MoreXYZ [%i %i %i] Poisoned [%i] Weight [%d] Owner [%x] Creator [%s] MadeValue [%i] Value [%i] Decaytime[%i] Decay [%i] GoodType[%i] RandomValueRate[%i]",
-				pi->st, pi->hp(),pi->maxhp(), pi->lodamage(), pi->hidamage(),pi->def,pi->rank,( pi->secured() ) ? 1 : 0,
-				pi->morex(), pi->morey(), pi->morez(),pi->poisoned,
-				pi->weight(), pi->ownserial, // Ison 2-20-99
-				pi->creator.latin1(),pi->madewith,pi->value,int(double(int(pi->decaytime-uiCurrentTime)/MY_CLOCKS_PER_SEC)),(pi->priv)&0x01,pi->good,pi->rndvaluerate); // Magius(CHE) (2)
-				sysmessage(s,(char*)temp); // Ison 2-20-99
+			sprintf((char*)temp, "STR [%d] HP/MAX [%d/%d] Damage [%d-%d] Defence [%d] Rank [%d] SecureIt [%d] MoreXYZ [%i %i %i] Poisoned [%i] Weight [%d] Owner [%x] Creator [%s] MadeValue [%i] Value [%i] Decaytime[%i] Decay [%i] GoodType[%i] RandomValueRate[%i]",
+				pi->st(),
+				pi->hp(), pi->maxhp(),
+				pi->lodamage(), pi->hidamage(),
+				pi->def(),
+				pi->rank,
+				( pi->secured() ) ? 1 : 0,
+				pi->morex(), pi->morey(), pi->morez(),
+				pi->poisoned,
+				pi->weight(),
+				pi->ownserial, // Ison 2-20-99
+				pi->creator.latin1(),
+				pi->madewith,
+				pi->value,
+				int(double(int(pi->decaytime-uiCurrentTime)/MY_CLOCKS_PER_SEC)),
+				(pi->priv)&0x01,
+				pi->good,
+				pi->rndvaluerate); // Magius(CHE) (2)
+			sysmessage(s,(char*)temp); // Ison 2-20-99
 			// End Modified lines
 		}
 	}
