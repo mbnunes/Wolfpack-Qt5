@@ -47,7 +47,7 @@
 #endif
 */
 #if defined(__unix__)
-typedef unsigned char BYTE ;
+#define BYTE unsigned char;
 #define SOCKET_ERROR -1
 //#ifndef max
 //#define max(a,b)            (((a) > (b)) ? (a) : (b))
