@@ -10,7 +10,7 @@
 
 	<!-- plate armor -->
 	<!-- female plate armor -->
-	<item id="1c04_agapite" inherit="1c04">
+	<item id="1c04_bronze" inherit="1c04">
 		<baseid>1c04</baseid>
 		<bronze_armor />
 		<category>Armor\Bronze\Platemail\Female Armor (N/S)</category>
