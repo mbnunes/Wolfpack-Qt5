@@ -42,7 +42,7 @@
 		<!-- Missing: Skull of Greed -->
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_filthy_rich;gems</lootpacks>
 		<!-- Misc. -->
-		<category>Monsters\Champions\</category>
+		<category>Monsters\Champions\Baracoon The Piper</category>
 	</npc>
 
 </definitions>

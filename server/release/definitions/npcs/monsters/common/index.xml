@@ -18,6 +18,7 @@
 	<include file="definitions/npcs/monsters/common/gibberling.xml" />
 	<include file="definitions/npcs/monsters/common/mound_of_maggots.xml" />
 	<include file="definitions/npcs/monsters/common/phoenix.xml" />
+	<include file="definitions/npcs/monsters/common/pixie.xml" />
 	<include file="definitions/npcs/monsters/common/reaper.xml" />
 	<include file="definitions/npcs/monsters/common/sewer_rat.xml" />
 	<include file="definitions/npcs/monsters/common/shadow_wisp.xml" />

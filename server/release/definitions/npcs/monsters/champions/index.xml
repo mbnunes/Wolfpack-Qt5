@@ -8,6 +8,16 @@
 -->
 <definitions>
 
-
-
+	<!-- Champions -->
+	<include file="definitions/npcs/monsters/champions/barracoon_the_piper.xml" />
+	<include file="definitions/npcs/monsters/champions/impaler.xml" />	
+	<include file="definitions/npcs/monsters/champions/lord_oaks.xml" />
+	<include file="definitions/npcs/monsters/champions/mephitis.xml" />
+	<include file="definitions/npcs/monsters/champions/neira_the_necromancer.xml" />
+	<include file="definitions/npcs/monsters/champions/rikktor.xml" />
+	<include file="definitions/npcs/monsters/champions/silvani.xml" />
+	<include file="definitions/npcs/monsters/champions/semidar.xml" />	
+	<include file="definitions/npcs/monsters/champions/the_harrower.xml" />
+	<include file="definitions/npcs/monsters/champions/the_true_harrower.xml" />
+	
 </definitions>

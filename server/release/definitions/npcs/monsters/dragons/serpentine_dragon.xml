@@ -11,7 +11,7 @@
 	<!-- serpentine dragon -->
 	<npc id="serpentine_dragon" inherit="monster_base">
 		<name>serpentine dragon</name>
-		<id>172</id>
+		<id>103</id>
 		<karma><random list="KARMA_L5" /></karma>
 		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->

@@ -11,21 +11,25 @@
 	<!-- The Harrower -->
 	<npc id="the_harrower" inherit="monster_base">
 		<name>The Harrower</name>
-		<id></id>
+		<id>146</id>
 		<karma>-25000</karma>
 		<fame>25000</fame>
 		<!-- Stats -->
-		<str><random min="" max=""/></str>
-		<dex><random min="" max=""/></dex>
-		<int><random min="" max=""/></int>
-		<maxhitpoints><random min="" max=""/></maxhitpoints>
+		<str><random min="901" max="1000"/></str>
+		<dex><random min="126" max="140"/></dex>
+		<int><random min="1001" max="1200"/></int>
+		<maxhitpoints><random min="39000" max="39000"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="" max=""/></magicresistance>
-		<tactics><random min="" max=""/></tactics>
-		<wrestling><random min="" max=""/></wrestling>
+		<magicresistance><random min="1202" max="1600"/></magicresistance>
+		<tactics><random min="902" max="1100"/></tactics>
+		<wrestling><random min="901" max="1000"/></wrestling>
+		<magery><random min="1200" max="1200"/></magery>
+		<evaluatingintel><random min="1200" max="1200"/></evaluatingintel>
+		<meditation><random min="1200" max="1200" /></meditation>
+		<anatomy>0</anatomy>
 		<!-- Damage -->
-		<mindamage></mindamage>
-		<maxdamage></maxdamage>
+		<mindamage>135</mindamage>
+		<maxdamage>181</maxdamage>
 		<!-- Damage Properties -->
 		<!--
 		<tag name="dmg_fire" value="0" type="int" />
@@ -34,15 +38,15 @@
 		<tag name="dmg_energy" value="0" type="int" />
 		-->
 		<!-- Resist Properties -->
-		<tag name="res_physical" value="35,45" type="int" />
-		<tag name="res_fire" value="20,30" type="int" />
-		<tag name="res_cold" value="50,60" type="int" />
-		<tag name="res_poison" value="20,30" type="int" />
-		<tag name="res_energy" value="30,40" type="int" />
+		<tag name="res_physical" value="55,65" type="int" />
+		<tag name="res_fire" value="60,80" type="int" />
+		<tag name="res_cold" value="60,80" type="int" />
+		<tag name="res_poison" value="60,80" type="int" />
+		<tag name="res_energy" value="60,80" type="int" />
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
-		<category>Monsters\AoS\</category>
+		<category>Monsters\AoS\The Harrower</category>
 	</npc>
 
 </definitions>

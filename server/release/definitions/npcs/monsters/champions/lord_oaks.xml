@@ -11,21 +11,25 @@
 	<!-- Lord Oaks -->
 	<npc id="lord_oaks" inherit="monster_base">
 		<name>Lord Oaks</name>
-		<id></id>
+		<id>175</id>
 		<karma>25000</karma>
 		<fame>25000</fame>
 		<!-- Stats -->
-		<str><random min="" max=""/></str>
-		<dex><random min="" max=""/></dex>
-		<int><random min="" max=""/></int>
+		<str><random min="403" max="850"/></str>
+		<dex><random min="101" max="150"/></dex>
+		<int><random min="503" max="800"/></int>
 		<maxhitpoints><random min="" max=""/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="" max=""/></magicresistance>
-		<tactics><random min="" max=""/></tactics>
-		<wrestling><random min="" max=""/></wrestling>
+		<wrestling><random min="1000" max="1000"/></wrestling>
+		<tactics><random min="1000" max="1000"/></tactics>
+		<magicresistance><random min="1005" max="1500"/></magicresistance>
+		<anatomy><random min="751" max="1000"/></anatomy>
+		<magery><random min="1200" max="1200"/></magery>
+		<evaluatingintel><random min="1201" max="1300"/></evaluatingintel>
+		<meditation><random min="1201" max="1300" /></meditation>
 		<!-- Damage -->
-		<mindamage></mindamage>
-		<maxdamage></maxdamage>
+		<mindamage>71</mindamage>
+		<maxdamage>157</maxdamage>
 		<!-- Damage Properties -->
 		<!--
 		<tag name="dmg_fire" value="0" type="int" />
@@ -34,16 +38,16 @@
 		<tag name="dmg_energy" value="0" type="int" />
 		-->
 		<!-- Resist Properties -->
-		<tag name="res_physical" value="35,45" type="int" />
-		<tag name="res_fire" value="20,30" type="int" />
-		<tag name="res_cold" value="50,60" type="int" />
-		<tag name="res_poison" value="20,30" type="int" />
-		<tag name="res_energy" value="30,40" type="int" />
+		<tag name="res_physical" value="85,90" type="int" />
+		<tag name="res_fire" value="60,70" type="int" />
+		<tag name="res_cold" value="60,70" type="int" />
+		<tag name="res_poison" value="80,90" type="int" />
+		<tag name="res_energy" value="80,90" type="int" />
 		<!-- Loot Packs -->
 		<!-- Missing: Skull of Enlightenment -->
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;gems</lootpacks>
 		<!-- Misc. -->
-		<category>Monsters\Champions\</category>
+		<category>Monsters\Champions\Lord Oaks</category>
 	</npc>
 
 </definitions>

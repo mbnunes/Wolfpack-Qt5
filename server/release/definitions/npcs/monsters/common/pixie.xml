@@ -1,0 +1,47 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- pixie -->
+	<npc id="pixie" inherit="monster_base">
+		<name><random list="NAMES_PIXIE" /></name>
+		<id>128</id>
+		<karma>0</karma>
+		<fame><random list="FAME_L3" /></fame>
+		<!-- Stats -->
+		<str><random min="21" max="30"/></str>
+		<dex><random min="301" max="400"/></dex>
+		<int><random min="201" max="250" /></int>
+		<maxhitpoints><random min="13" max="18" /></maxhitpoints>
+		<!-- Skills -->
+		<wrestling><random min="101" max="125"/></wrestling>
+		<tactics><random min="101" max="200"/></tactics>
+		<magicresistance><random min="1005" max="1500"/></magicresistance>
+		<anatomy>0</anatomy>
+		<magery><random min="901" max="1000"/></magery>
+		<evaluatingintel><random min="901" max="1000"/></evaluatingintel>
+		<meditation><random min="901" max="1000" /></meditation>
+		<!-- Damage -->
+		<mindamage>11</mindamage>
+		<maxdamage>17</maxdamage>
+		<tag name="dmg_energy" value="50" type="int" />
+		<!-- Resists -->
+		<tag name="res_physical" value="80,90" type="int" />
+		<tag name="res_fire" value="40,50" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="40,50" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<!-- Misc. -->
+		<desc>Wisps have no corporeal bodies, yet I am assured by the wise that they are not spirits, but are somehow formed of living light. I am also told that they are wise creatures, perhaps wiser than humans. Certainly it lies beyond my wisdom to comprehend the nature of such alien creatures. They seem curious about the affairs of humans, but I have never known a wisp to harm anyone who did not first threaten it somehow.</desc>
+		<!-- Missing:  -->
+		<lootpacks>lootpack_rich;lootpack_average</lootpacks>
+		<category>Monsters\Common\Pixie</category>
+	</npc>
+
+</definitions>
