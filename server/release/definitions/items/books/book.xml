@@ -1,0 +1,32 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.x.x Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definition>
+	<item id="first_book" type="book">
+		<value>1000</value>
+		<name>a book</name>
+		<identified>the First Book</identified>
+		<decay />
+		<id>0xFF1</id>
+		<weight>10</weight>
+		<title>The First Wolfpack 13.0.0 Book</title>
+		<author>sereg</author>
+		<content>
+			<page no="1">
+well, i do not expect the line>
+<breaks to work :))
+
+but...
+			</page>
+			<page no="2">
+...this one should be on the second page!
+			</page>
+			
+		</content>
+	</item>
+</definition>
