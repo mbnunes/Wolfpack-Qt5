@@ -48,30 +48,240 @@
 	<!-- Potion Bag -->
 	<item id="potionbag" inherit="e76">
 		<name>Potion Bag</name>
-		<category>GM Items\Potion Bag (500)</category>
+		<category>GM Items\Potion Bag (100)</category>
 		<color>0x594</color>
 		<newbie />
 		<content>
-			<item id="potion_nightsight"><amount>500</amount></item>
-			<item id="potion_lesserheal"><amount>500</amount></item>
-			<item id="potion_heal"><amount>500</amount></item>
-			<item id="potion_greaterheal"><amount>500</amount></item>
-			<item id="potion_lessercure"><amount>500</amount></item>
-			<item id="potion_cure"><amount>500</amount></item>
-			<item id="potion_greatercure"><amount>500</amount></item>
-			<item id="potion_agility"><amount>500</amount></item>
-			<item id="potion_greateragility"><amount>500</amount></item>
-			<item id="potion_strength"><amount>500</amount></item>
-			<item id="potion_greaterstrength"><amount>500</amount></item>
-			<item id="potion_lesserexplosion"><amount>500</amount></item>
-			<item id="potion_explosion"><amount>500</amount></item>
-			<item id="potion_greaterexplosion"><amount>500</amount></item>
-			<item id="potion_lesserpoison"><amount>500</amount></item>
-			<item id="potion_poison"><amount>500</amount></item>
-			<item id="potion_greaterpoison"><amount>500</amount></item>
-			<item id="potion_deadlypoison"><amount>500</amount></item>
-			<item id="potion_refresh"><amount>500</amount></item>
-			<item id="potion_totalrefresh"><amount>500</amount></item>
+			<item id="e76">
+				<name>Nightsight Potions</name>
+				<color>0x8A5</color>
+				<tag name="itemdef" value="potion_nightsight" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>
+			<item id="e76">
+				<name>Lesser Heal Potions</name>
+				<color>0x8A5</color>
+				<tag name="itemdef" value="potion_lesserheal" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>			
+			<item id="e76">
+				<name>Heal Potions</name>
+				<color>0x8A5</color>
+				<tag name="itemdef" value="potion_heal" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>					
+			<item id="e76">
+				<name>Greater Heal Potions</name>
+				<color>0x8A5</color>
+				<tag name="itemdef" value="potion_greaterheal" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>					
+			<item id="e76">
+				<name>Lesser Cure Potions</name>
+				<color>0x2C</color>
+				<tag name="itemdef" value="potion_lessercure" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>					
+			<item id="e76">
+				<name>Cure Potions</name>
+				<color>0x2C</color>
+				<tag name="itemdef" value="potion_cure" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>								
+			<item id="e76">
+				<name>Greater Cure Potions</name>
+				<color>0x2C</color>
+				<tag name="itemdef" value="potion_greatercure" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>								
+			<item id="e76">
+				<name>Agility Potions</name>
+				<color>0xC4</color>
+				<tag name="itemdef" value="potion_agility" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>
+			<item id="e76">
+				<name>Greater Agility Potions</name>
+				<color>0xC4</color>
+				<tag name="itemdef" value="potion_greateragility" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>
+			<item id="e76">
+				<name>Strength Potions</name>
+				<color>0x835</color>
+				<tag name="itemdef" value="potion_strength" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>			
+			<item id="e76">
+				<name>Greater Strength Potions</name>
+				<color>0x835</color>
+				<tag name="itemdef" value="potion_greaterstrength" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>			
+			<item id="e76">
+				<name>Lesser Explosion Potions</name>
+				<color>0x79</color>
+				<tag name="itemdef" value="potion_lesserexplosion" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>
+			<item id="e76">
+				<name>Explosion Potions</name>
+				<color>0x79</color>
+				<tag name="itemdef" value="potion_explosion" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>			
+			<item id="e76">
+				<name>Greater Explosion Potions</name>
+				<color>0x79</color>
+				<tag name="itemdef" value="potion_greaterexplosion" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>			
+			<item id="e76">
+				<color>0x44</color>
+				<name>Lesser Poison Potions</name>
+				<tag name="itemdef" value="potion_lesserpoison" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>
+			<item id="e76">
+				<color>0x44</color>
+				<name>Poison Potions</name>
+				<tag name="itemdef" value="potion_poison" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>						
+			<item id="e76">
+				<color>0x44</color>
+				<name>Greater Poison Potions</name>
+				<tag name="itemdef" value="potion_greaterpoison" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>
+			<item id="e76">
+				<color>0x44</color>
+				<name>Deadly Poison Potions</name>
+				<tag name="itemdef" value="potion_deadlypoison" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>
+			<item id="e76">			
+				<color>0x21</color>
+				<name>Refresh Potions</name>				
+				<tag name="itemdef" value="potion_refresh" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>
+			<item id="e76">
+				<color>0x21</color>
+				<name>Total Refresh Potions</name>
+				<tag name="itemdef" value="potion_totalrefresh" />
+				<tag name="itemamount" value="100" />
+				<events>testing.multibag</events>
+			</item>
 		</content>
 	</item>
+	
+	<!-- Weapon Bag -->
+	<item id="weaponbag" inherit="e76">
+		<name>Weapon Bag</name>
+		<category>GM Items\Weapon Bag</category>
+		<newbie />
+		<content>
+			<!-- Arrows + Bolts -->
+			<item id="f3f"><amount>1000</amount></item>
+			<item id="1bfb"><amount>1000</amount></item>						
+		
+			<!-- Archery Weapons -->
+			<item id="e76">
+				<name>Archery Weapons</name>
+				<content>
+					<item id="26c2" /> <!-- Composite Bow -->
+					<item id="13b1" /> <!-- Bow -->
+					<item id="26cd" /> <!-- Repeating Crossbow -->
+					<item id="f4f" />  <!-- Crossbow -->
+					<item id="13fd" /> <!-- Heavy Crossbow -->
+				</content>
+			</item>			
+			<!-- Fencing Weapons -->
+			<item id="e76">
+				<name>Fencing Weapons</name>
+				<content>
+					<item id="1405" /> <!-- War Fork -->
+					<item id="f51" /> <!-- Dagger -->
+					<item id="26c9" /> <!-- Double Bladed Staff -->
+					<item id="1401" /> <!-- Kryss -->
+					<item id="26ca" /> <!-- Lance -->
+					<item id="26be" /> <!-- Pike -->
+					<item id="e87" /> <!-- Pitchfork -->
+					<item id="f62" /> <!-- Spear -->
+					<item id="1403" /> <!-- Short Spear -->
+				</content>
+			</item>			
+			<!-- Macefighting Weapons -->
+			<item id="e76">
+				<name>Macefighting Weapons</name>
+				<content>
+					<item id="1407" /> <!-- War Mace -->
+					<item id="df1" /> <!-- Black Staff -->
+					<item id="13b4" /> <!-- Club -->
+					<item id="13f8" /> <!-- Gnarled Staff -->
+					<item id="143d" /> <!-- Hammer Pick -->
+					<item id="f5c" /> <!-- Mace -->
+					<item id="143b" /> <!-- Maul -->
+					<item id="e89" /> <!-- Quarter Staff -->
+					<item id="26c6" /> <!-- Scepter -->
+					<item id="13f5" /> <!-- Shepherds Crook -->
+					<item id="fb4" /> <!-- Sledge Hammer -->
+					<item id="13e3" /> <!-- Smithing Hammer -->
+					<item id="13b0" /> <!-- War Axe -->
+					<item id="1439" /> <!-- War Hammer -->
+				</content>
+			</item>					
+			<!-- Macefighting Weapons -->
+			<item id="e76">
+				<name>Swordsmanship Weapons</name>
+				<content>
+					<item id="13b9" /> <!-- Viking Sword -->
+					<item id="f49" /> <!-- Axe -->
+					<item id="f4d" /> <!-- Bardiche -->
+					<item id="f47" /> <!-- Battle Axe -->
+					<item id="26c7" /> <!-- Bladed Staff -->
+					<item id="26c5" /> <!-- Bone Harvester -->
+					<item id="f5e" /> <!-- Broadswoard -->
+					<item id="13f6" /> <!-- Butcher Knife -->
+					<item id="ec3" /> <!-- Cleaver -->
+					<item id="26cb" /> <!-- Crescent Blade -->
+					<item id="1441" /> <!-- Cutlass -->
+					<item id="f4b" /> <!-- Double Axe -->
+					<item id="f45" /> <!-- Executioners Axe -->
+					<item id="143f" /> <!-- Halberd -->
+					<item id="f43" /> <!-- Hatchet -->
+					<item id="13ff" /> <!-- Katana -->
+					<item id="13fb" /> <!-- Large Battle Axe -->
+					<item id="13b8" /> <!-- Long Sword -->
+					<item id="f61" /> <!-- LongSword -->
+					<item id="26cf" /> <!-- Paladin Sword -->
+					<item id="e86" /> <!-- Pickaxe -->
+					<item id="13b6" /> <!-- Scimitar -->					
+					<item id="26c4" /> <!-- Scythe -->
+					<item id="ec4" /> <!-- Skinning Knife -->
+					<item id="1443" /> <!-- Two Handed Axe -->
+				</content>
+			</item>				
+		</content>
+	</item>	
 </definitions>
