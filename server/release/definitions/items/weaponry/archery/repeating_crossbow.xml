@@ -3,6 +3,7 @@
 
 	<!-- Repeating Crossbow -->
 	<item id="26cd">
+		<name>repeating crossbow</name>
 		<bindmenu id="item_menu"/>
 		<id>0x26cd</id>
 		<twohanded />
@@ -19,8 +20,7 @@
 		<category>Weapons\Bows\Repeating Crossbow (N/S)</category>
 	</item>
 
-	<item id="26c3">
-		<inherit id="26cd" />
+	<item id="26c3" inherit="26cd">
 		<id>0x26c3</id>
 		<category>Weapons\Bows\Repeating Crossbow (E/W)</category>
 	</item>

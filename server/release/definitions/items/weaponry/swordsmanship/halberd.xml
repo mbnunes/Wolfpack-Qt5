@@ -3,6 +3,7 @@
 
 	<!-- Halberd -->
 	<item id="143f">
+		<name>halberd</name>
 		<id>0x143f</id>
 		<twohanded />
 		<decay />
@@ -19,8 +20,7 @@
 		<category>Weapons\Swords\Halberd (N/S)</category>
 	</item>
 
-	<item id="143e">
-		<inherit id="143f" />
+	<item id="143e" inherit="143f">
 		<id>0x143e</id>
 		<category>Weapons\Swords\Halberd (E/W)</category>
 	</item>

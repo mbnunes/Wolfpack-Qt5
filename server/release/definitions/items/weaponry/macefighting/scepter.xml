@@ -3,6 +3,7 @@
 
 	<!-- Scepter -->
 	<item id="26c6">
+		<name>scepter</name>
 		<id>0x26c6</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Maces\Scepter (N/S)</category>
 	</item>
 
-	<item id="26bc">
-		<inherit id="26c6" />
+	<item id="26bc" inherit="26c6">
 		<id>0x26bc</id>
 		<category>Weapons\Maces\Scepter (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- Shepherd's Crook -->
 	<item id="13f5">
+		<name>shepherd's crook</name>
 		<id>0x13f5</id>
 		<decay />
 		<nodye />
@@ -18,8 +19,7 @@
 		<category>Weapons\Staves\Crook (N/S)</category>
 	</item>
 
-	<item id="13f4">
-		<inherit id="13f5" />
+	<item id="13f4" inherit="13f5">
 		<id>0x13f4</id>
 		<category>Weapons\Staves\Crook (E/W)</category>
 	</item>

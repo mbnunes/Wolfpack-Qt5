@@ -3,6 +3,7 @@
 
 	<!-- Large Battle Axe -->
 	<item id="13fb">
+		<name>large battle axe</name>
 		<id>0x13fb</id>
 		<twohanded />
 		<decay />
@@ -19,8 +20,7 @@
 		<type>1002</type>
 	</item>
 
-	<item id="13fa">
-		<inherit id="13fb" />
+	<item id="13fa" inherit="13fb">
 		<id>0x13fa</id>
 		<category>Weapons\Axes\Large Battle Axe (E/W)</category>
 	</item>

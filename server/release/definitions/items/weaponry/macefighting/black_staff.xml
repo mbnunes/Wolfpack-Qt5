@@ -3,6 +3,7 @@
 
 	<!-- Black Staff -->
 	<item id="df1">
+		<name>black staff</name>
 		<id>0xdf1</id>
 		<decay />
 		<nodye />
@@ -18,8 +19,7 @@
 		<category>Weapons\Staves\Black Staff (N/S)</category>
 	</item>
 
-	<item id="df0">
-		<inherit id="df1" />
+	<item id="df0" inherit="df1">
 		<id>0xdf0</id>
 		<category>Weapons\Staves\Black Staff (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- Crescent Blade-->
 	<item id="26cb">
+		<name>crescent blade</name>
 		<id>0x26cb</id>
 		<twohanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Swords\Crescent Blade (N/S)</category>
 	</item>
 
-	<item id="26c1">
-		<inherit id="26cb" />
+	<item id="26c1" inherit="26cb">
 		<id>0x26c1</id>
 		<category>Weapons\Swords\Crescent Blade (E/W)</category>
 	</item>

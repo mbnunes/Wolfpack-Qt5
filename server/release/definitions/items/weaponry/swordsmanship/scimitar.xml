@@ -1,8 +1,9 @@
 
 <definitions>
 
-	<!-- Scomitar -->
+	<!-- Scimitar -->
 	<item id="13b6">
+		<name>scimitar</name>
 		<id>0x13b6</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Swords\Scimitar (N/S)</category>
 	</item>
 
-	<item id="13b5">
-		<inherit id="13b6" />
+	<item id="13b5" inherit="13b6">
 		<id>0x13b5</id>
 		<category>Weapons\Swords\Scimitar (E/W)</category>
 	</item>

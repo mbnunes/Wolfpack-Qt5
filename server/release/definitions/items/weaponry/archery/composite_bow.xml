@@ -3,6 +3,7 @@
 
 	<!-- Composite Bow -->
 	<item id="26c2">
+		<name>composite bow</name>
 		<id>0x26c2</id>
 		<bindmenu id="item_menu"/>
 		<twohanded />
@@ -19,8 +20,7 @@
 		<category>Weapons\Bows\Composite Bow (N/S)</category>
 	</item>
 
-	<item id="26cc">
-		<inherit id="26c2" />
+	<item id="26cc" inherit="26c2">
 		<id>0x26cc</id>
 		<category>Weapons\Bows\Composite Bow (E/W)</category>
 	</item>

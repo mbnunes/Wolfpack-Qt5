@@ -3,6 +3,7 @@
 
 	<!-- Pickaxe -->
 	<item id="e86">
+		<name>pickaxe</name>
 		<id>0xe86</id>
 		<onehanded />
 		<decay />
@@ -20,8 +21,7 @@
 		<category>Professions\Miner\Tools\Pickaxe (N/S)</category>
 	</item>
 
-	<item id="e85">
-		<inherit id="e86" />
+	<item id="e85" inherit="e86">
 		<id>0xe85</id>
 		<category>Weapons\Swords\Pickaxe (E/W)</category>
 		<category>Professions\Miner\Tools\Pickaxe (E/W)</category>

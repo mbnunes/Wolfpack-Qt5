@@ -3,6 +3,7 @@
 
 	<!-- Viking Sword -->
 	<item id="13b9">
+		<name>viking sword</name>
 		<id>0x13b9</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Swords\Viking Sword (N/S)</category>
 	</item>
 
-	<item id="13ba">
-		<inherit id="14b9" />
+	<item id="13ba" inherit="14b9">
 		<id>0x13ba</id>
 		<category>Weapons\Swords\Viking Sword (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- War Hammer -->
 	<item id="1439">
+		<name>war hammer</name>
 		<id>0x1439</id>
 		<twohanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Maces\War Hammer (N/S)</category>
 	</item>
 
-	<item id="1438">
-		<inherit id="1439" />
+	<item id="1438" inherit="1439">
 		<id>0x1438</id>
 		<category>Weapons\Maces\War Hammer (E/W)</category>
 	</item>

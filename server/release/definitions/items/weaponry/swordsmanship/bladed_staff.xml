@@ -3,6 +3,7 @@
 
 	<!-- Bladed Staff -->
 	<item id="26c7">
+		<name>bladed staff</name>
 		<id>0x26c7</id>
 		<twohanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Swords\Bladed Staff (N/S)</category>
 	</item>
 
-	<item id="26bd">
-		<inherit id="26c7" />
+	<item id="26bd" inherit="26c7">
 		<id>0x26bd</id>
 		<category>Weapons\Swords\Bladed Staff (E/W)</category>
 	</item>

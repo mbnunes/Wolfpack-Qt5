@@ -3,6 +3,7 @@
 
 	<!-- Cross Bow left -->
 	<item id="f4f">
+		<name>crossbow</name>
 		<bindmenu id="item_menu"/>
 		<id>0xf4f</id>
 		<twohanded />
@@ -19,8 +20,7 @@
 		<category>Weapons\Bows\Crossbow (N/S)</category>
 	</item>
 
-	<item id="f50">
-		<inherit id="f4f" />
+	<item id="f50" inherit="f4f">
 		<id>0xf50</id>
 		<category>Weapons\Bows\Crossbow (E/W)</category>
 	</item>

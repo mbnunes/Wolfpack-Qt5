@@ -3,6 +3,7 @@
 
 	<!-- Spear -->
 	<item id="f62">
+		<name>spear</name>
 		<id>0xf62</id>
 		<twohanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Fencing\Spear (N/S)</category>
 	</item>
 
-	<item id="f63">
-		<inherit id="f62" />
+	<item id="f63" inherit="f62">
 		<id>0xf63</id>
 		<category>Weapons\Fencing\Spear (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- Quarter Staff -->
 	<item id="e89">
+		<name>quarter staff</name>
 		<id>0xe89</id>
 		<decay />
 		<nodye />
@@ -18,8 +19,7 @@
 		<category>Weapons\Staves\Quarter Staff (N/S)</category>
 	</item>
 
-	<item id="e8a">
-		<inherit id="e89" />
+	<item id="e8a" inherit="e89">
 		<id>0xe8a</id>
 		<category>Weapons\Staves\Quarter Staff (E/W)</category>
 	</item>

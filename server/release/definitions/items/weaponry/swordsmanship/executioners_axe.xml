@@ -3,6 +3,7 @@
 
 	<!-- Executioners Axe -->
 	<item id="f45">
+		<name>executioner's axe</name>
 		<id>0x0f45</id>
 		<twohanded />
 		<decay />
@@ -19,8 +20,7 @@
 		<type>1002</type>
 	</item>
 
-	<item id="f46">
-		<inherit id="f45" />
+	<item id="f46" inherit="f45">
 		<id>0xf46</id>
 		<category>Weapons\Axes\Executioner's Axe (E/W)</category>
 	</item>

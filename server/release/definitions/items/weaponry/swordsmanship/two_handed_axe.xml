@@ -3,6 +3,7 @@
 
 	<!-- Two Handed Axe -->
 	<item id="1443">
+		<name>two handed axe</name>
 		<id>0x1443</id>
 		<twohanded />
 		<decay />
@@ -19,8 +20,7 @@
 		<type>1002</type>
 	</item>
 
-	<item id="1442">
-		<inherit id="1443" />
+	<item id="1442" inherit="1443">
 		<id>0x1442</id>
 		<category>Weapons\Axes\Two Handed Axe (E/W)</category>
 	</item>

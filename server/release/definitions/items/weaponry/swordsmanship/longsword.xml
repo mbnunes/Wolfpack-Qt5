@@ -3,6 +3,7 @@
 
 	<!-- Longsword -->
 	<item id="f61">
+		<name>longsword</name>
 		<id>0xf61</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Swords\Longsword (N/S)</category>
 	</item>
 
-	<item id="f60">
-		<inherit id="f61" />
+	<item id="f60" inherit="f61">
 		<id>0xf60</id>
 		<category>Weapons\Swords\Longsword (E/W)</category>
 	</item>

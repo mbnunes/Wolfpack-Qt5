@@ -3,6 +3,7 @@
 
 	<!-- Heavy Cross Bow left -->
 	<item id="13fd">
+		<name>heavy crossbow</name>
 		<bindmenu id="item_menu"/>
 		<id>0x13fd</id>
 		<twohanded />
@@ -20,8 +21,7 @@
 		<category>Weapons\Bows\Heavy Crossbow (N/S)</category>
 	</item>
 
-	<item id="13fc">
-		<inherit id="13fd" />
+	<item id="13fc" inherit="13fd">
 		<id>0x13fc</id>
 		<category>Weapons\Bows\Heavy Crossbow (E/W)</category>
 	</item>

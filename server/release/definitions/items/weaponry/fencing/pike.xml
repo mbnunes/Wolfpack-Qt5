@@ -3,6 +3,7 @@
 
 	<!-- Pike -->
 	<item id="26be">
+		<name>pike</name>
 		<id>0x26be</id>
 		<twohanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Fencing\Pike (N/S)</category>
 	</item>
 
-	<item id="26c8">
-		<inherit id="26be" />
+	<item id="26c8" inherit="26be">
 		<id>0x26c8</id>
 		<category>Weapons\Fencing\Pike (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- Bone Harvester -->
 	<item id="26c5">
+		<name>bone harvester</name>
 		<id>0x26c5</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Swords\Bone Harvester (N/S)</category>
 	</item>
 
-	<item id="26bb">
-		<inherit id="26c5" />
+	<item id="26bb" inherit="26c5">
 		<id>0x26bb</id>
 		<category>Weapons\Swords\Bone Harvester (E/W)</category>
 	</item>

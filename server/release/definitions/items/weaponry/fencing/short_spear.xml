@@ -3,6 +3,7 @@
 
 	<!-- Short Spear -->
 	<item id="1403">
+		<name>short spear</name>
 		<id>0x1403</id>
 		<name>short spear</name>
 		<twohanded />
@@ -19,8 +20,7 @@
 		<category>Weapons\Fencing\Short Spear (N/S)</category>
 	</item>
 
-	<item id="1402">
-		<inherit id="1403" />
+	<item id="1402" inherit="1403">
 		<id>0x1402</id>
 		<category>Weapons\Fencing\Short Spear (E/W)</category>
 	</item>

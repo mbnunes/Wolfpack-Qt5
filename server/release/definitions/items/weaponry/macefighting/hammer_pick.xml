@@ -3,6 +3,7 @@
 
 	<!-- Hammer Pick -->
 	<item id="143d">
+		<name>hammer pick</name>
 		<id>0x143d</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Maces\Hammer Pick (N/S)</category>
 	</item>
 
-	<item id="143c">
-		<inherit id="143d" />
+	<item id="143c" inherit="143d">
 		<id>0x143c</id>
 		<category>Weapons\Maces\Hammer Pick (E/W)</category>
 	</item>

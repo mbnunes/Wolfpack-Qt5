@@ -1,8 +1,9 @@
 
 <definitions>
 
-	<!-- Skinning Knive -->
+	<!-- Skinning Knife -->
 	<item id="ec4">
+		<name>skinning knife</name>
 		<id>0xec4</id>
 		<onehanded />
 		<decay />
@@ -15,13 +16,12 @@
 		<tag name="resname" value="iron" />
 		<type>1001</type>
 		<events>equipment,weapons.blades</events>
-		<category>Weapons\Swords\Skinning Knive (N/S)</category>
+		<category>Weapons\Swords\Skinning Knife (N/S)</category>
 	</item>
 
-	<item id="ec5">
-		<inherit id="ec4" />
+	<item id="ec5" inherit="ec4">
 		<id>0xec5</id>
-		<category>Weapons\Swords\Skinning Knive (E/W)</category>
+		<category>Weapons\Swords\Skinning Knife (E/W)</category>
 	</item>
 
 </definitions>

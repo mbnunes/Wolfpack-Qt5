@@ -3,6 +3,7 @@
 
 	<!-- Scythe -->
 	<item id="26c4">
+		<name>scythe</name>
 		<id>0x26c4</id>
 		<twohanded />
 		<decay />
@@ -19,8 +20,7 @@
 		<category>Weapons\Swords\Scythe (N/S)</category>
 	</item>
 
-	<item id="26ba">
-		<inherit id="26c4" />
+	<item id="26ba" inherit="26c4">
 		<id>0x26ba</id>
 		<category>Weapons\Swords\Scythe (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- Paladin Sword -->
 	<item id="26cf">
+		<name>paladin sword</name>
 		<id>0x26cf</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Swords\Paladin Sword (N/S)</category>
 	</item>
 
-	<item id="26ce">
-		<inherit id="26cf" />
+	<item id="26ce" inherit="26cf">
 		<id>0x26ce</id>
 		<category>Weapons\Swords\Paladin Sword (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- War Axe -->
 	<item id="13b0">
+		<name>war axe</name>
 		<id>0x13b0</id>
 		<onehanded />
 		<decay />
@@ -19,8 +20,7 @@
 		<category>Weapons\Axes\War Axe (N/S)</category>
 	</item>
 
-	<item id="13af">
-		<inherit id="13b0" />
+	<item id="13af" inherit="13b0">
 		<id>0x13af</id>
 		<category>Weapons\Axes\War Axe (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- Lance -->
 	<item id="26ca">
+		<name>lance</name>
 		<id>0x26ca</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Fencing\Lance (N/S)</category>
 	</item>
 
-	<item id="26c0">
-		<inherit id="26ca" />
+	<item id="26c0" inherit="26ca">
 		<id>0x26c0</id>
 		<category>Weapons\Fencing\Lance (E/W)</category>
 	</item>

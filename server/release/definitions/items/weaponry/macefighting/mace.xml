@@ -3,6 +3,7 @@
 
 	<!-- Mace -->
 	<item id="f5c">
+		<name>mace</name>
 		<id>0xf5c</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Maces\Mace (N/S)</category>
 	</item>
 
-	<item id="f5d">
-		<inherit id="f5c" />
+	<item id="f5d" inherit="f5c">
 		<id>0xf5d</id>
 		<category>Weapons\Maces\Mace (E/W)</category>
 	</item>

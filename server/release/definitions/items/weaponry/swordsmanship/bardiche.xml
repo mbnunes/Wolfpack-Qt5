@@ -3,6 +3,7 @@
 
 	<!-- Bardiche -->
 	<item id="f4d">
+		<name>bardiche</name>
 		<id>0xf4d</id>
 		<twohanded />
 		<decay />
@@ -19,8 +20,7 @@
 		<category>Weapons\Swords\Bardiche (N/S)</category>
 	</item>
 
-	<item id="f4e">
-		<inherit id="f4d" />
+	<item id="f4e" inherit="f4d">
 		<id>0xf4e</id>
 		<category>Weapons\Swords\Bardiche (E/W)</category>
 	</item>

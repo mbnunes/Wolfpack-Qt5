@@ -3,6 +3,7 @@
 
 	<!-- Bow right -->
 	<item id="13b1">
+		<name>bow</name>
 		<id>0x13b1</id>
 		<twohanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Bows\Bow (N/S)</category>
 	</item>
 
-	<item id="13b2">
-		<inherit id="13b1" />
+	<item id="13b2" inherit="13b1">
 		<id>0x13b2</id>
 		<category>Weapons\Bows\Bow (E/W)</category>
 	</item>

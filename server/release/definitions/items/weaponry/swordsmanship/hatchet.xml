@@ -3,6 +3,7 @@
 
 	<!-- Hatchet -->
 	<item id="f43">
+		<name>hatchet</name>
 		<id>0xf43</id>
 		<twohanded />
 		<decay />
@@ -19,8 +20,7 @@
 		<type>1002</type>
 	</item>
 
-	<item id="f44">
-		<inherit id="f43" />
+	<item id="f44" inherit="f43">
 		<id>0xf44</id>
 		<category>Weapons\Axes\Hatchet (E/W)</category>
 	</item>

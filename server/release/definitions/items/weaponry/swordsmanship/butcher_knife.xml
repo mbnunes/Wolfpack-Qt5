@@ -3,6 +3,7 @@
 
 	<!-- Butcher Knife -->
 	<item id="13f6">
+		<name>butcher knife</name>
 		<id>0x13f6</id>
 		<onehanded />
 		<decay />

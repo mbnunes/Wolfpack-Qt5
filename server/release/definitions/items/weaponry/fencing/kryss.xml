@@ -3,6 +3,7 @@
 
 	<!-- Kryss -->
 	<item id="1401">
+		<name>kryss</name>
 		<id>0x1401</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Fencing\Kryss (N/S)</category>
 	</item>
 
-	<item id="1400">
-		<inherit id="1401" />
+	<item id="1400" inherit="1401">
 		<id>0x1400</id>
 		<category>Weapons\Fencing\Kryss (E/W)</category>
 	</item>

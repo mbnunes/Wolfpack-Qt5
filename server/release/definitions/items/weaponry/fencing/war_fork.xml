@@ -3,6 +3,7 @@
 
 	<!-- War Fork -->
 	<item id="1405">
+		<name>war fork</name>
 		<id>0x1405</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Fencing\War Fork (N/S)</category>
 	</item>
 
-	<item id="1404">
-		<inherit id="1405" />
+	<item id="1404" inherit="1405">
 		<id>0x1404</id>
 		<category>Weapons\Fencing\War Fork (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- Katana -->
 	<item id="13ff">
+		<name>katana</name>
 		<id>0x13ff</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Swords\Katana (N/S)</category>
 	</item>
 
-	<item id="13fe">
-		<inherit id="13ff" />
+	<item id="13fe" inherit="13ff">
 		<id>0x13fe</id>
 		<category>Weapons\Swords\Katana (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- Maul -->
 	<item id="143b">
+		<name>maul</name>
 		<id>0x143b</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Maces\Maul (N/S)</category>
 	</item>
 
-	<item id="143a">
-		<inherit id="143b" />
+	<item id="143a" inherit="143b">
 		<id>0x143a</id>
 		<category>Weapons\Maces\Mau (E/W)</category>
 	</item>

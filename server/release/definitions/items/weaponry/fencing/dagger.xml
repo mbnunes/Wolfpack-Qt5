@@ -3,6 +3,7 @@
 
 	<!-- Dagger -->
 	<item id="f51">
+		<name>dagger</name>
 		<id>0xf51</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Fencing\Dagger (N/S)</category>
 	</item>
 
-	<item id="f52">
-		<inherit id="f51" />
+	<item id="f52" inherit="f51">
 		<id>0xf52</id>
 		<category>Weapons\Fencing\Dagger (E/W)</category>
 	</item>

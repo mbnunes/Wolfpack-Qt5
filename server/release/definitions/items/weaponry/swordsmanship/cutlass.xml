@@ -3,6 +3,7 @@
 
 	<!-- Cutlass -->
 	<item id="1441">
+		<name>cutlass</name>
 		<id>0x1441</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Swords\Cutlass (N/S)</category>
 	</item>
 
-	<item id="1440">
-		<inherit id="1441" />
+	<item id="1440" inherit="1441">
 		<id>0x1440</id>
 		<category>Weapons\Swords\Cutlass (E/W)</category>
 	</item>

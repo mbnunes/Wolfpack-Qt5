@@ -3,6 +3,7 @@
 
 	<!-- Gnarled Staff -->
 	<item id="13f8">
+		<name>gnarled staff</name>
 		<id>0x13f8</id>
 		<decay />
 		<nodye />
@@ -18,8 +19,7 @@
 		<category>Weapons\Staves\Grarled Staff (N/S)</category>
 	</item>
 
-	<item id="13f9">
-		<inherit id="13f8" />
+	<item id="13f9" inherit="13f8">
 		<id>0x13f9</id>
 		<category>Weapons\Staves\Grarled Staff (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- Cleaver -->
 	<item id="ec3">
+		<name>cleaver</name>
 		<id>0xec3</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Swords\Cleaver (N/S)</category>
 	</item>
 
-	<item id="ec2">
-		<inherit id="ec3" />
+	<item id="ec2" inherit="ec3">
 		<id>0xec2</id>
 		<category>Weapons\Swords\Cleaver (E/W)</category>
 	</item>

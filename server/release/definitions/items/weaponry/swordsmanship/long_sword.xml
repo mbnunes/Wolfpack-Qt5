@@ -3,6 +3,7 @@
 
 	<!-- Long Sword -->
 	<item id="13b8">
+		<name>long sword</name>
 		<id>0x13b8</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Swords\Long Sword (N/S)</category>
 	</item>
 
-	<item id="13b7">
-		<inherit id="13b8" />
+	<item id="13b7" inherit="13b8">
 		<id>0x13b7</id>
 		<category>Weapons\Swords\Long Sword (E/W)</category>
 	</item>

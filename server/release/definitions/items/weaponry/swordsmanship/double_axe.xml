@@ -3,6 +3,7 @@
 
 	<!-- Double Axe -->
 	<item id="f4b">
+		<name>double axe</name>
 		<id>0xf4b</id>
 		<twohanded />
 		<decay />
@@ -19,8 +20,7 @@
 		<category>Weapons\Axes\Double Axe (N/S)</category>
 	</item>
 
-	<item id="f4c">
-		<inherit id="f4b" />
+	<item id="f4c" inherit="f4b">
 		<id>0xf4c</id>
 		<category>Weapons\Axes\Double Axe (E/W)</category>
 	</item>

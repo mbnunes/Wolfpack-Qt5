@@ -3,6 +3,7 @@
 
 	<!-- Double Bladed Staff -->
 	<item id="26c9">
+		<name>double bladed staff</name>
 		<id>0x26c9</id>
 		<twohanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Fencing\Double Bladed Staff (N/S)</category>
 	</item>
 
-	<item id="26bf">
-		<inherit id="26c9" />
+	<item id="26bf" inherit="26c9">
 		<id>0x26bf</id>
 		<category>Weapons\Fencing\Double Bladed Staff (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- Broad Sword -->
 	<item id="f5e">
+		<name>broad sword</name>
 		<id>0xf5e</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Swords\Broadsword (N/S)</category>
 	</item>
 
-	<item id="f5f">
-		<inherit id="f5e" />
+	<item id="f5f" inherit="f5e">
 		<id>0xf5f</id>
 		<category>Weapons\Swords\Broadsword (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- Axe -->
 	<item id="f49">
+		<name>axe</name>
 		<id>0xf49</id>
 		<twohanded />
 		<decay />
@@ -19,8 +20,7 @@
 		<category>Weapons\Axes\Axe (N/S)</category>
 	</item>
 
-	<item id="f4a">
-		<inherit id="f49" />
+	<item id="f4a" inherit="f49">
 		<id>0xf4a</id>
 		<category>Weapons\Axes\Axe (E/W)</category>
 	</item>

@@ -3,6 +3,7 @@
 
 	<!-- War Mace -->
 	<item id="1407">
+		<name>war mace</name>
 		<id>0x1407</id>
 		<onehanded />
 		<decay />
@@ -18,8 +19,7 @@
 		<category>Weapons\Maces\War Mace (N/S)</category>
 	</item>
 
-	<item id="1406">
-		<inherit id="1407" />
+	<item id="1406" inherit="1407">
 		<id>0x1406</id>
 		<category>Weapons\Maces\War Mace (E/W)</category>
 	</item>
