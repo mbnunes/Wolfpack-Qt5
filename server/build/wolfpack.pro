@@ -8,29 +8,112 @@
 PROJECT = wolfpack
 TARGET = wolfpack
 TEMPLATE = app
-CONFIG += qt thread exceptions rtti
+
+CONFIG += qt thread exceptions rtti debug
 
 unix {
-
-	# Common unix settings
-	# Lets try to figure some paths
+	debug {
+		message( "Debugging is enabled!" )
+		DEFINES +=_DEBUG _AIDEBUG
+	}
+	QMAKE_LIBDIR_FLAGS = -L/usr/lib -L/usr/local/lib
+	LIBS = -ldl -lutil
 
 	CONFIG += console
 
-	# MySQL
-	LIBS += $$MYSQL_LIB
-	INCLUDEPATH += $$MYSQL_INC
+	# Common unix settings
+	# Lets try to figure some paths
+	# Checking in /usr first, then /usr/local
+	# This will use custom installs over package installs.
+
+	# MySQL Checks
+	isEmpty( MYSQL_INCDIR ) {
+		message( "Warning: MYSQL_INCDIR was not defined!" )
+		exists( /usr/local/include/mysql/mysql.h ) {
+			message( "MySQL included found in: /usr/local/include/mysql" )
+			MYSQL_INCDIR = /usr/local/include/mysql
+		}
+		else:exists( /usr/include/mysql/mysql.h ) {
+			message( "MySQL included found in: /usr/include/mysql" )
+			MYSQL_INCDIR = /usr/include/mysql
+		}
+	}
+	isEmpty( MYSQL_LIBDIR ) {
+		message( "Warning: MYSQL_LIBDIR was not defined!" )
+		exists( /usr/local/lib/mysql/libmysqlclient.so ) {
+			message( "Found libmysqlclient.so in: /usr/local/lib/mysql" )
+			MYSQL_LIBDIR = -L/usr/local/lib/mysql -lmysqlclient
+		}
+		else:exists( /usr/lib/mysql/libmysqlclient.so ) {
+			message( "Found libmysqlclient.so in: /usr/lib/mysql" )
+			MYSQL_LIBDIR = -L/usr/lib/mysql -lmysqlclient
+		}
+
+	}
+
+	# SQLite Checks
+	isEmpty( SQLITE_INCDIR ) {
+		message( "Warning: SQLITE_INCDIR was not defined!" )
+		SQLITE_INCDIR = sqlite
+	}
+	isEmpty( SQLITE_LIBDIR ) {
+		message( "Warning: SQLITE_LIBDIR was not defined!" )
+		SQLITE_LIBDIR = -Lsqlite
+	}
 
 	# Python includes. Run configure script to initialize it.
-	LIBS  += $$PYTHON_LIB
-	INCLUDEPATH += $$PYTHON_INC
+	isEmpty( PY_INCDIR ) {
+		message( "Warinng: PY_INCDIR was not defined!" )
+		exists( /usr/local/include/python2.3/Python.h ) {
+			message( "Python includes found in: /usr/local/include/python2.3" )
+			PY_INCDIR = /usr/local/include/python2.3
+		}
+		else:exists( /usr/local/include/Python2.3/Python.h ) {
+			message( "Python includes found in: /usr/local/include/Python2.3" )
+			PY_INCDIR = /usr/local/include/Python2.3
+		}
+		else:exists( /usr/include/python2.3/Python.h ) {
+			message( "Python includes found in: /usr/include/python2.3" )
+			PY_INCDIR = /usr/include/python2.3
+		}
+		else:exists( /usr/include/Python2.3/Python.h ) {
+			message( "Python includes found in: /usr/include/Python2.3" )
+			PY_INCDIR = /usr/include/Python2.3
+		}
 
-	LIBS += $$STLPORT_LIB
-	INCLUDEPATH += $$STLPORT_INC
+	}
+	isEmpty( PY_LIBDIR ) {
+		message( "Warinng: PY_LIBDIR was not defined!" )
+		shared {
+			message( "Using Shared Python Configuration..." )
+			exists( /usr/local/lib/python2.3/config/libpython2.3.a ) {
+				message( "Found libpython2.3.a in /usr/local/lib/python2.3/config" )
+				PY_LIBDIR = -L/usr/local/lib/python2.3/config -lpython2.3
+			}
+			else:exists( /usr/lib/python2.3/config/libpython2.3.a ) {
+				message( "Found libpython2.3.a in /usr/lib/python2.3/config" )
+				PY_LIBDIR = -L/usr/lib/python2.3/config -lpython2.3
+			}
 
-	LIBS  += -L/usr/local/lib -L/usr/lib -ldl -lutil
+		}
+		else {
+			message( "Using Static Python Configuration..." )
+			exists( /usr/local/lib/libpython2.3.so ) {
+				message( "Found libpython2.3.so in /usr/local/lib" )
+				PY_LIBDIR = -lpython2.3
+			}
+			exists( /usr/lib/libpython2.3.so ) {
+				message( "Found libpython2.3.so in /usr/lib" )
+				PY_LIBDIR = -lpython2.3
+			}
 
-	# we dont use those.
+		}
+	}
+
+	INCLUDEPATH += $$PY_INCDIR $$MYSQL_INCDIR $$SQLITE_INCDIR
+	LIBS += $$PY_LIBDIR $$MYSQL_LIBDIR $$SQLITE_LIBDIR
+
+	# We need to remove these to be safe
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 }
 
@@ -38,7 +121,7 @@ RC_FILE = res.rc
 OBJECTS_DIR = obj
 MOC_DIR = obj
 
-INCLUDEPATH += sqlite
+win32:INCLUDEPATH += sqlite
 win32:DEFINES -= UNICODE
 
 # Include configure's settings
@@ -287,3 +370,7 @@ win32:SOURCES += \
 DISTFILES += \
 	data/AUTHORS.txt \
 	LICENSE.GPL
+
+unix {
+	INCPATH -= /usr/include/python2.2
+}

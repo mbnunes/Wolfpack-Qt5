@@ -51,7 +51,7 @@ def checkQt():
 		sys.exit();
 	sys.stdout.write( "Searching for qmake..." )
 	temp = ""
-	
+
 	QMAKESEARCHPATH = [ os.path.join(os.path.join(os.environ["QTDIR"], "bin"), QMAKE_EXECUTABLE) ]
 	for dir in string.split( os.environ["PATH"], os.path.pathsep ):
 		QMAKESEARCHPATH.append( os.path.join(dir, QMAKE_EXECUTABLE) )
@@ -60,7 +60,7 @@ def checkQt():
 	global qt_qmake;
 	qt_qmake = os.path.join(qmake_path, qmake_file)
 	sys.stdout.write( "%s\n" % qt_qmake )
-	
+
 	return True
 
 def checkPython(options):
@@ -68,35 +68,35 @@ def checkPython(options):
 		PYTHONLIBSEARCHPATH = [ sys.prefix + "\Libs\python*.lib" ]
 		PYTHONINCSEARCHPATH = [ sys.prefix + "\include\Python.h" ]
 	elif sys.platform == "linux2":
-		PYTHONLIBSEARCHPATH = [ "/usr/local/lib/libpython*.so", \
-					 "/usr/local/lib/[Pp]ython*/libpython*.so", \
-					 "/usr/lib/libpython*.so", \
-					 "/usr/lib/[Pp]ython*/libpython*.so", \
-					 "/usr/lib/[Pp]ython*/config/libpython*.so", \
-					 "/usr/local/lib/[Pp]ython*/config/libpython*.so"]
-		PYTHONLIBSTATICSEARCHPATH = [ "/usr/local/lib/libpython*.a", \
-					 "/usr/local/lib/[Pp]ython*/libpython*.a", \
-					 "/usr/lib/libpython*.a", \
-					 "/usr/lib/[Pp]ython*/libpython*.a", \
-					 "/usr/lib/[Pp]ython*/config/libpython*.a", \
-					 "/usr/local/lib/[Pp]ython*/config/libpython*.a"]
-		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython*/Python.h", \
-					 "/usr/include/[Pp]ython*/Python.h"]
+		PYTHONLIBSEARCHPATH = [ "/usr/local/lib/libpython2.3*.so", \
+					 "/usr/local/lib/[Pp]ython*/libpython2.3*.so", \
+					 "/usr/lib/libpython2.3*.so", \
+					 "/usr/lib/[Pp]ython*/libpython2.3*.so", \
+					 "/usr/lib/[Pp]ython*/config/libpython2.3*.so", \
+					 "/usr/local/lib/[Pp]ython*/config/libpython2.3*.so"]
+		PYTHONLIBSTATICSEARCHPATH = [ "/usr/local/lib/libpython2.3*.a", \
+					 "/usr/local/lib/[Pp]ython2.3*/libpython2.3*.a", \
+					 "/usr/lib/libpython2.3*.a", \
+					 "/usr/lib/[Pp]ython2.3*/libpython2.3*.a", \
+					 "/usr/lib/[Pp]ython2.3*/config/libpython2.3*.a", \
+					 "/usr/local/lib/[Pp]ython2.3*/config/libpython2.3*.a"]
+		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython2.3*/Python.h", \
+					 "/usr/include/[Pp]ython2.3*/Python.h"]
 	elif sys.platform == "freebsd4":
-		PYTHONLIBSEARCHPATH = [ "/usr/local/lib/libpython*.so", \
-					 "/usr/local/lib/[Pp]ython*/libpython*.so", \
-					 "/usr/lib/libpython*.so", \
-					 "/usr/lib/[Pp]ython*/libpython*.so", \
-					 "/usr/lib/[Pp]ython*/config/libpython*.so", \
-					 "/usr/local/lib/[Pp]ython*/config/libpython*.so"]
-		PYTHONLIBSTATICSEARCHPATH = [ "/usr/local/lib/libpython*.a", \
-					 "/usr/local/lib/[Pp]ython*/libpython*.a", \
-					 "/usr/lib/libpython*.a", \
-					 "/usr/lib/[Pp]ython*/libpython*.a", \
-					 "/usr/lib/[Pp]ython*/config/libpython*.a", \
-					 "/usr/local/lib/[Pp]ython*/config/libpython*.a"]
-		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython*/Python.h", \
-					 "/usr/include/[Pp]ython*/Python.h"]
+		PYTHONLIBSEARCHPATH = [ "/usr/local/lib/libpython2.3*.so", \
+					 "/usr/local/lib/[Pp]ython2.3*/libpython2.3*.so", \
+					 "/usr/lib/libpython2.3*.so", \
+					 "/usr/lib/[Pp]ython2.3*/libpython2.3*.so", \
+					 "/usr/lib/[Pp]ython2.3*/config/libpython2.3*.so", \
+					 "/usr/local/lib/[Pp]ython2.3*/config/libpython2.3*.so"]
+		PYTHONLIBSTATICSEARCHPATH = [ "/usr/local/lib/libpython2.3*.a", \
+					 "/usr/local/lib/[Pp]ython2.3*/libpython2.3*.a", \
+					 "/usr/lib/libpython2.3*.a", \
+					 "/usr/lib/[Pp]ython2.3*/libpython2.3*.a", \
+					 "/usr/lib/[Pp]ython2.3*/config/libpython2.3*.a", \
+					 "/usr/local/lib/[Pp]ython2.3*/config/libpython2.3*.a"]
+		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython2.3*/Python.h", \
+					 "/usr/include/[Pp]ython2.3*/Python.h"]
 
 	else:
 		sys.stdout.write("ERROR: Unknown platform %s to checkPython()" % sys.platform )
@@ -111,7 +111,7 @@ def checkPython(options):
 		PYTHONINCSEARCHPATH = [ options.py_incpath ]
 	if options.py_libpath:
 		PYTHONLIBSEARCHPATH = [ options.py_libpath ]
-	
+
 	sys.stdout.write( "Checking Python version... " )
 	if sys.hexversion >= 0x020300F0:
 		sys.stdout.write("ok\n")
@@ -132,9 +132,9 @@ def checkPython(options):
         if sys.byteorder != 'little':
                 sys.stdout.write("\nError: Wolfpack currently only supports little endian systems\n" )
                 sys.exit();
-        
+
 	sys.stdout.write( "Searching for Python library... " )
-	
+
 	global py_libpath
 	global py_libfile
 
@@ -154,7 +154,7 @@ def checkPython(options):
 	else:
 		sys.stdout.write("Not Found!\n")
 		sys.exit()
-	
+
 	return True
 
 # Entry point
@@ -168,7 +168,7 @@ def main():
 	parser.add_option("--qt-directory", dest="qt_dir", help="Base directory of Qt")
         parser.add_option("--static", action="store_true", dest="staticlink", help="Build wokfpack using static libraries")
 	(options, args) = parser.parse_args()
-	
+
 	checkPython(options)
 	checkQt()
 
@@ -177,11 +177,11 @@ def main():
 	global py_libfile
 	global py_incpath
 	global qt_qmake
-		
+
 	config = file("config.pri", "w")
 	config.write("# WARNING: This file was automatically generated by configure.py\n ")
 	config.write("#          any changes to this file will be lost!\n")
-	
+
 	config.write("INCLUDEPATH += %s\n" % ( py_incpath ) )
 	# Build LIBS
 	LIBS = ""
@@ -189,10 +189,10 @@ def main():
 		LIBS = os.path.join( py_libpath, py_libfile )
 	else:
 		LIBS = "-l%s -L%s" % ( py_libfile, py_libpath )
-	
+
 	config.write("LIBS += %s\n" % LIBS)
 	config.close()
-	
+
 	sys.stdout.write("Generating makefile...\n")
 	os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro"])
 	if options.dsp:
@@ -200,6 +200,6 @@ def main():
 		os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro", "-t vcapp"])
 	sys.stdout.write("Done\n")
 	sys.stdout.write("Configure finished. Please run make now.\n")
-	
+
 if __name__ == "__main__":
     main()
