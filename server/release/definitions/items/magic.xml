@@ -1,0 +1,39 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Magic tools like recall runes/scrolls etc.                    |
+=================================================================
+-->
+<definitions>
+	<!-- Recall Runes -->
+	<item id="1f14">
+		<category>Equipment\Magic Tools\Recall Rune (1)</category>
+		<id>0x1f14</id>
+		<weight>1</weight>
+		<newbie />
+		<events>recall_rune</events>
+		<bindmenu id="rune_menu" />
+	</item>
+
+	<item id="1f15">
+		<inherit id="1f14" />
+		<id>0x1f15</id>
+		<category>Equipment\Magic Tools\Recall Rune (2)</category>
+	</item>
+
+	<item id="1f16">
+		<inherit id="1f14" />
+		<id>0x1f16</id>
+		<category>Equipment\Magic Tools\Recall Rune (3)</category>
+	</item>
+
+	<item id="1f17">
+		<inherit id="1f14" />
+		<id>0x1f17</id>
+		<category>Equipment\Magic Tools\Recall Rune (4)</category>
+	</item>
+</definitions>
