@@ -18,12 +18,12 @@ def onShowToolTip( sender, target, tooltip ):
 	tooltip.add( 1038021, "" )
 	tooltip.send( sender )
 	return 1
-	
+
 
 def onUse( char, item ):
 
 	char.socket.clilocmessage( 0x7A31A, "", 0x3b2, 3 )
-	char.socket.attachtarget( "item_bless_deed.response", [item] )
+	char.socket.attachtarget( "deeds.item_bless_deed.response", [item] )
 
 	return 1
 
@@ -55,4 +55,3 @@ def response( char, args, target ):
 	char.socket.sendcontainer( backpack )
 
 	return 1
-	

@@ -16,12 +16,12 @@ def onShowToolTip( sender, target, tooltip ):
 	tooltip.add( 1038021, "" )
 	tooltip.send( sender )
 	return 1
-	
+
 
 def onUse( char, item ):
 
 	char.socket.clilocmessage( 0xF55DA, "", 0x3b2, 3 )
-	char.socket.attachtarget( "clothing_bless_deed.response", [item] )
+	char.socket.attachtarget( "deeds.clothing_bless_deed.response", [item] )
 
 	return 1
 
@@ -42,7 +42,7 @@ def response( char, args, target ):
 	target.item.settag( "blessed", 1 )
 	target.item.newbie = 1
 	item.delete()
-	
+
 	return 1
 
-	
+

@@ -11,7 +11,7 @@ from wolfpack.consts import *
 import re
 
 def onShowToolTip( sender, target, tooltip ):
-	
+
 	if target.gettag( 'filled' ) == 1:
 		filled( target, tooltip )
 	else:
@@ -43,7 +43,7 @@ def onUse ( char, item ):
 
 	if not item.hastag ( "filled" ):
 		char.socket.clilocmessage( 0xFF9F5, "", 0x3b2, 3 )
-		char.socket.attachtarget( "commoditydeed.response", [item] )
+		char.socket.attachtarget( "deeds.commoditydeed.response", [item] )
 		return 1
 
 	amount = item.gettag( "amount" )
@@ -66,7 +66,7 @@ def response ( char, args, target ):
 	bank = char.getbankbox()
 	deed = args[0]
 
-	# "0x1761", "0x1762", "0x1763", "0x1764" possible? 
+	# "0x1761", "0x1762", "0x1763", "0x1764" possible?
 	commodities = [ 0x1bf2, 0x1bfb, 0x1bd7, 0x1766, 0x1768, 0x1081, 0x1078, \
 			0x1079, 0xf3f, 0x1bd4, 0x1be0, 0xf7a, 0xf7b, 0x784, 0x785, \
 			0x786, 0x788, 0x78c, 0x78d ]
@@ -88,7 +88,7 @@ def response ( char, args, target ):
 	color = target.item.color
 	cname = target.item.getname()
 	commodity = commodityid[num]
-	
+
 	deed.settag( "filled", 1 )
 	deed.settag( "cname", cname )
 	deed.settag( "commodity", commodity )
@@ -98,5 +98,5 @@ def response ( char, args, target ):
 	target.item.delete()
 	char.socket.clilocmessage( 0xFF9F0, "", 0x3b2, 3 )
 	deed.update()
-	
+
 	return 1

@@ -24,10 +24,6 @@
 	<script>potions</script>
 	<script>spawngem</script>
 	<script>shrink</script>
-	<script>commoditydeed</script>
-	<script>clothing_bless_deed</script>
-	<script>item_bless_deed</script>
-	<script>carpentry_deed</script>
 	<script>environment</script>
 	<script>door</script>
 	<script>lock</script>
@@ -46,6 +42,13 @@
 	<script>figurine</script>
 	<script>pickaxe</script>
 
+	<!-- Deeds -->
+	<script>deeds.hairstyle</script>
+	<script>deeds.commoditydeed</script>
+	<script>deeds.clothing_bless_deed</script>
+	<script>deeds.item_bless_deed</script>
+	<script>deeds.carpentry_deed</script>
+
 	<!-- Combat -->
 	<script>combat</script>
 
@@ -55,9 +58,6 @@
 	<script>guilds.deed</script>
 	<script>guilds.member</script>
 	<script>guilds.stone</script>
-
-	<!-- Deeds -->
-	<script>deeds.hairstyle</script>
 
 	<!-- Commands -->
 	<script>commands</script>
@@ -95,7 +95,7 @@
 	<script>magic.nightsight</script>
 	<script>magic.rune</script>
 	<script>magic.runebook</script>
-	<script>magic.scroll</script>	
+	<script>magic.scroll</script>
 	<script>magic.spell</script>
 	<script>magic.circle1</script>
 	<script>magic.circle2</script>
@@ -111,7 +111,7 @@
 	<script>magic.trap</script>
 
 	<!-- Multis -->
-	<script>multideed</script>
+	<script>deeds.multideed</script>
 	<script>signpost</script>
 
 	<!-- Moongate -->

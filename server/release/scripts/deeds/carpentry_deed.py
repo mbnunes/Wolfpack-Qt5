@@ -11,7 +11,8 @@ from wolfpack.consts import *
 
 # { name:[ tooltip id, direction, item1[, item2, ... ]], ... }
 # direction 0 : no dir / 1 : ns / 2 : we
-deeds = { 'small_bed_s':[ 1015123, 1, "a5e", "a5f" ],
+deeds = {
+	'small_bed_s':[ 1015123, 1, "a5e", "a5f" ],
 	'small_bed_e':[ 1015124, 2, "a60", "a61" ],
 	'large_bed_s':[ 1015125, 0, "a77", "a76", "a74", "a75" ],
 	'large_bed_e':[ 1015126, 0, "a73", "a70", "a72", "a71" ],
@@ -66,7 +67,7 @@ def onUse( char, item ):
 		return
 	# send target cursor
 	char.socket.clilocmessage( 0xF55DA, "", 0x3b2, 3 )
-	char.socket.attachtarget( "carpentry_deed.response", [ item ] )
+	char.socket.attachtarget( "deeds.carpentry_deed.response", [ item ] )
 
 def response( char, args, target ):
 	item = args[0]
