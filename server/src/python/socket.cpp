@@ -99,7 +99,7 @@ PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 	if( !self->pSock )
 		return PyFalse;
 
-	if( PyTuple_Size( args ) < 1 || checkArgStr( 0 ) )
+	if( !checkArgStr( 0 ) )
 	{
 		clConsole.send( "Minimum argument count for socket.sysmessage is 1" );
 		return PyFalse;

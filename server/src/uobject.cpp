@@ -96,6 +96,9 @@ void cUObject::load( char **result, UINT16 &offset )
 	eventList_ = QStringList::split( ",", result[offset++] );
 	bindmenu_ = result[offset++];
 
+	// Get our events
+	recreateEvents();
+
 	PersistentObject::load( result, offset );
 }
 
