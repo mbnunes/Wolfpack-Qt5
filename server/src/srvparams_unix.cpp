@@ -34,6 +34,8 @@
 
 // Qt Includes
 #include <qhostaddress.h>
+#include <qdir.h>
+#include <qstringlist.h>
 
 Q_INT32 resolveName( const QString& data ); // declared in srvparams.cpp
 
