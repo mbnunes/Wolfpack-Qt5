@@ -51,7 +51,6 @@ cNPC::cNPC()
 	spawnregion_			= (char*)0;
 	stablemasterSerial_	= INVALID_SERIAL;
 	loot_				= (char*)0;
-    guarding_			= NULL;
 }
 
 cNPC::cNPC(const cNPC& right)
@@ -77,7 +76,7 @@ void cNPC::buildSqlString( QStringList &fields, QStringList &tables, QStringList
 	fields.push_back( "npcs.mindamage,npcs.maxdamage,npcs.tamingminskill" );
 	fields.push_back( "npcs.summontime,npcs.additionalflags,npcs.owner" );
 	fields.push_back( "npcs.carve,npcs.spawnregion,npcs.stablemaster" );
-	fields.push_back( "npcs.lootlist,npcs.guarding" );
+	fields.push_back( "npcs.lootlist" );
 	tables.push_back( "npcs" );
 	conditions.push_back( "uobjectmap.serial = npcs.serial" );
 }
@@ -102,8 +101,6 @@ void cNPC::load( char **result, UINT16 &offset )
 	spawnregion_ = result[offset++];
 	stablemasterSerial_ = atoi( result[offset++] );
 	lootList_ = result[offset++];
-	ser = atoi( result[offset++] );
-	guarding_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
 
 	npcRegisterAfterLoading( this );
 	changed_ = false;
@@ -127,7 +124,6 @@ void cNPC::save()
 		addStrField( "spawnregion", spawnregion_);
 		addField( "stablemaster", stablemasterSerial_ );
 		addStrField( "lootlist", lootList_);
-		addField( "guarding", guarding_ ? guarding_->serial() : INVALID_SERIAL );
 		
 		addCondition( "serial", serial() );
 		saveFields;

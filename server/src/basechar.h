@@ -61,7 +61,7 @@ public:
 
 	// type definitions
 	typedef QMap<ushort, cItem*> ItemContainer;
-	typedef QValueVector< cChar* > CharContainer;
+	typedef QValueVector< cBaseChar* > CharContainer;
 	typedef QValueVector< cTempEffect* > EffectContainer;
 	enum enLayer { TradeWindow, SingleHandedWeapon, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
 	Ring, Neck = 0xA, Hair, Waist, InnerTorso, Bracelet, FacialHair = 0x10,  MiddleTorso, 
@@ -112,8 +112,6 @@ public:
 	bool isMurderer() const;
 	bool isCriminal() const;
 	bool isInnocent() const;
-	bool isMurderer() const;
-	bool isCriminal() const;
 	void unhide();
 	int  CountItems(short ID, short col= -1);
 	int  CountGold();
@@ -165,6 +163,7 @@ public:
     INT16			fame() const;
     UINT8			flag() const;
     bool			gender() const;
+    P_CHAR			guarding() const;
     INT16			hitpoints() const;
     INT32			hunger() const;
     UINT32			hungerTime() const;
@@ -245,6 +244,7 @@ public:
     void setFame(INT16 data);
     void setFlag(UINT8 data);
     void setGender(bool data);
+	void setGuarding(P_CHAR data);
     void setHitpoints(INT16 data);
     void setHunger(INT32 data);
     void setHungerTime(UINT32 data);
@@ -306,8 +306,8 @@ public:
 	void addEffect( cTempEffect *effect );
 	void removeEffect( cTempEffect *effect );
 	// guards
-	void addGuard( P_NPC pPet, bool noGuardingChange = false );
-	void removeGuard( P_NPC pPet, bool noGuardingChange = false );
+	void addGuard( P_CHAR pPet, bool noGuardingChange = false );
+	void removeGuard( P_CHAR pPet, bool noGuardingChange = false );
 	// content
 	void addItem( enLayer layer, cItem*, bool handleWeight = true, bool noRemove = false );
 	void removeItem( enLayer layer, bool handleWeight = true );
@@ -544,7 +544,29 @@ protected:
 	// cOldChar::regen3_
 	UINT32 regenManaTime_;
 
+    // Char which the character guards.
+    P_CHAR guarding_;
 };
+
+inline P_CHAR cBaseChar::guarding() const
+{
+    return guarding_;
+}
+
+inline void cBaseChar::setGuarding(P_CHAR data)
+{
+	if( data == guarding_ )
+		return;
+
+	if( guarding_ )
+		guarding_->removeGuard( this );
+
+	guarding_ = data;
+	changed( SAVE|TOOLTIP );
+
+	if( guarding_ )
+		guarding_->addGuard( this );		
+}
 
 inline UINT16 cBaseChar::bodyArmor() const
 {
@@ -1270,17 +1292,7 @@ inline void cBaseChar::setInvulnerable(bool data)
 
 inline bool cBaseChar::isHuman() const 
 { 
-	return (this->bodyID() == 0x190 || this->bodyID() == 0x191); 
-}
-
-inline bool cBaseChar::isMurderer() const		
-{
-	return flag_&0x01 ? true:false;
-}
-
-inline bool cBaseChar::isCriminal() const		
-{
-	return flag_ & 0x02 ? true : false;
+	return (bodyID_ == 0x190 || bodyID_ == 0x191); 
 }
 
 inline bool cBaseChar::isInnocent() const
@@ -1288,11 +1300,10 @@ inline bool cBaseChar::isInnocent() const
 	return !isMurderer() && !isCriminal();
 }
 
-/*
 inline bool cBaseChar::isSameAs(P_CHAR pc)
 {
 	return ( pc && pc->serial() == serial() );
-}*/
+}
 
 inline P_ITEM cBaseChar::rightHandItem() const
 {

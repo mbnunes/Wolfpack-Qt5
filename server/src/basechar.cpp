@@ -44,6 +44,9 @@
 #include "network.h"
 #include "combat.h"
 #include "items.h"
+#include "itemid.h"
+#include "basics.h"
+#include "tilecache.h"
 
 cBaseChar::cBaseChar()
 {
@@ -98,6 +101,7 @@ cBaseChar::cBaseChar()
     combatTarget_		= INVALID_SERIAL;
     swingTarget_		= INVALID_SERIAL;
     murdererSerial_		= INVALID_SERIAL;
+    guarding_			= NULL;
 	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );
 	skills_.resize( ALLSKILLS );
 }
@@ -131,6 +135,7 @@ void cBaseChar::buildSqlString( QStringList &fields, QStringList &tables, QStrin
 	fields.push_back( "characters.murderertime,characters.criminaltime,characters.nutriment" );
 	fields.push_back( "characters.stealthsteps,characters.gender,characters.propertyflags" );
 	fields.push_back( "characters.attacker,characters.combattarget,characters.murderer" );
+	fields.push_back( "characters.guarding" );
 	tables.push_back( "characters" );
 	conditions.push_back( "uobjectmap.serial = characters.serial" );
 }
@@ -144,6 +149,8 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	// Broken Serial?
 	if( !isCharSerial( serial() ) )
 		throw QString( "Character has invalid char serial: 0x%1" ).arg( serial(), 0, 16 );
+
+	SERIAL ser;
 
 	orgName_ = result[offset++];
 	title_ = result[offset++];
@@ -184,6 +191,8 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	attackerSerial_ = atoi( result[offset++] );
 	combatTarget_ = atoi( result[offset++] );
 	murdererSerial_ = atoi( result[offset++] );	
+	ser = atoi( result[offset++] );
+	guarding_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
 	
 	// Query the Skills for this character
 	QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'";
@@ -267,6 +276,7 @@ void cBaseChar::save()
 		addField( "attacker", attackerSerial_ );
 		addField( "combattarget", combatTarget_ );
 		addField( "murderer", murdererSerial_ );
+		addField( "guarding", guarding_ ? guarding_->serial() : INVALID_SERIAL );
 		addCondition( "serial", serial() );
 		saveFields;
 		
@@ -450,7 +460,7 @@ void cBaseChar::setHairStyle( UINT16 d)
 		pHair->setDye(1);
 		pHair->setNewbie( true );
 		pHair->setId( d );
-		addItem( cChar::Hair, pHair );
+		addItem( cBaseChar::Hair, pHair );
 	}
 	pHair->update();
 	resend();
@@ -482,7 +492,7 @@ void cBaseChar::setBeardStyle( UINT16 d)
 		pBeard->setDye(1);
 		pBeard->setNewbie( true );
 		pBeard->setId( d );
-		addItem( cChar::FacialHair, pBeard );
+		addItem( cBaseChar::FacialHair, pBeard );
 	}
 	pBeard->update();
 	resend();
@@ -490,10 +500,10 @@ void cBaseChar::setBeardStyle( UINT16 d)
 
 void cBaseChar::playDeathSound()
 {
-	if( !xid_ )
-		xid_ = id_;
+	if( !orgBodyID_ )
+		orgBodyID_ = bodyID_;
 
-	if( xid_ == 0x0191 )
+	if( orgBodyID_ == 0x0191 )
 	{
 		switch( RandomNum(0, 3) )
 		{
@@ -503,7 +513,7 @@ void cBaseChar::playDeathSound()
 		case 3:		soundEffect( 0x0153 );	break;// Female Death
 		}
 	}
-	else if( xid_ == 0x0190 )
+	else if( orgBodyID_ == 0x0190 )
 	{
 		switch( RandomNum(0, 3) )
 		{
@@ -515,7 +525,7 @@ void cBaseChar::playDeathSound()
 	}
 	else
 	{
-		playmonstersound( this, xid_, SND_DIE );
+		playmonstersound( this, orgBodyID_, SND_DIE );
 	}
 }
 
@@ -524,22 +534,20 @@ void cBaseChar::playDeathSound()
 // just resurrecting
 void cBaseChar::resurrect()
 {
-	if ( !dead_ )
+	if ( !isDead() )
 		return;
 
 	changed( SAVE|TOOLTIP );
 	Fame( this, 0 );
 	soundEffect( 0x0214 );
-	setId( xid_ );
-	setSkin( xskin() );
-	dead_ = false;
-	hp_ = QMAX( 1, (UINT16)( 0.1 * st_ ) );
-	stm_ = (UINT16)( 0.1 * effDex() );
-	mn_ = (UINT16)( 0.1 * in_ );
-	attacker_ = INVALID_SERIAL;
-	resetAttackFirst();
-	war_ = false;
-
+	setBodyID( orgBodyID_ );
+	setSkin( orgSkin_ );
+	setDead( false );
+	hitpoints_ = QMAX( 1, (UINT16)( 0.1 * maxHitpoints_ ) );
+	stamina_ = (UINT16)( 0.1 * maxStamina_ );
+	mana_ = (UINT16)( 0.1 * maxMana_ );
+	attackerSerial_ = INVALID_SERIAL;
+	setAtWar( false );
 	getBackpack(); // Make sure he has a backpack
 
 	// Delete what the user wears on layer 0x16 (Should be death shroud)
@@ -556,7 +564,7 @@ void cBaseChar::resurrect()
 	pRobe->setColor( 0 );
 	pRobe->setHp( 1 );
 	pRobe->setMaxhp( 1 );
-	this->addItem( cChar::OuterTorso, pRobe );
+	this->addItem( cBaseChar::OuterTorso, pRobe );
 	pRobe->update();
 
 	removeFromView( false );
@@ -588,10 +596,10 @@ void cBaseChar::turnTo( const Coord_cl &pos )
 	else 
 		return;
 
-	if( nDir != dir_ )
+	if( nDir != direction_ )
 	{
 		changed( SAVE );
-		dir_ = nDir;
+		direction_ = nDir;
 		
 		update( true );
 	}
@@ -622,13 +630,13 @@ void cBaseChar::wear( P_ITEM pi )
 	if( !layer )
 		return;
 
-	this->addItem( static_cast<cChar::enLayer>(layer), pi );
+	this->addItem( static_cast<cBaseChar::enLayer>(layer), pi );
 	cUOTxCharEquipment packet;
 	packet.setWearer( this->serial() );
 	packet.setSerial( pi->serial() );
 	packet.fromItem( pi );
 	for ( cUOSocket* socket = cNetwork::instance()->first(); socket != 0; socket = cNetwork::instance()->next() )
-		if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange() ) ) 
+		if( socket->player() && socket->player()->inRange( this, socket->player()->visualRange() ) ) 
 			socket->send( &packet );
 }
 
@@ -647,9 +655,9 @@ int cBaseChar::CountItems( short ID, short col )
 {
 	// Dont you think it's better to search the char's equipment as well?
 	UINT32 number = 0;
-	ContainerContent container = this->content();
-	ContainerContent::const_iterator it  = container.begin();
-	ContainerContent::const_iterator end = container.end();
+	ItemContainer container = content_;
+	ItemContainer::const_iterator it  = container.begin();
+	ItemContainer::const_iterator end = container.end();
 
 	for( ; it != end; ++it )
 	{
@@ -739,8 +747,8 @@ unsigned int cBaseChar::getSkillSum()
 {
 	unsigned int sum = 0;
 
-	QValueVector< stSkillValue >::const_iterator it = skills.begin();
-	for( ; it != skills.end(); ++it )
+	QValueVector< stSkillValue >::const_iterator it = skills_.begin();
+	for( ; it != skills_.end(); ++it )
 		sum += (*it).value;
 
 	return sum;		// this *includes* the decimal digit ie. xxx.y
@@ -783,11 +791,11 @@ bool cBaseChar::inGuardedArea()
 void cBaseChar::emote( const QString &emote, UI16 color )
 {
 	if( color == 0xFFFF )
-		color = emotecolor_;
+		color = emoteColor_;
 
 	cUOTxUnicodeSpeech textSpeech;
 	textSpeech.setSource( serial() );
-	textSpeech.setModel( id() );
+	textSpeech.setModel( bodyID_ );
 	textSpeech.setFont( 3 ); // Default Font
 	textSpeech.setType( cUOTxUnicodeSpeech::Emote );
 	textSpeech.setName( name() );
@@ -795,14 +803,14 @@ void cBaseChar::emote( const QString &emote, UI16 color )
 	textSpeech.setText( emote );
 	
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange() ) )
+		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			mSock->send( &textSpeech );
 }
 
 UI16 cBaseChar::calcDefense( enBodyParts bodypart, bool wearout )
 {
 	P_ITEM pHitItem = NULL; 
-	UI16 total = def(); // the body armor is base value
+	UI16 total = bodyArmor_; // the body armor is base value
 
 	if( bodypart == ALLBODYPARTS )
 	{
@@ -817,7 +825,7 @@ UI16 cBaseChar::calcDefense( enBodyParts bodypart, bool wearout )
 		total += 5; // gm parry bonus. 
 
 	P_ITEM pi; 
-	ContainerContent::const_iterator it = content_.begin();
+	ItemContainer::const_iterator it = content_.begin();
 
 	while( it != content_.end() )
 	{
@@ -951,7 +959,7 @@ bool cBaseChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 
 cItem* cBaseChar::atLayer( cBaseChar::enLayer layer ) const
 {
-	ContainerContent::const_iterator it = content_.find(layer);
+	ItemContainer::const_iterator it = content_.find(layer);
 	if ( it != content_.end() )
 		return it.data();
 	return 0;
@@ -965,10 +973,10 @@ bool cBaseChar::Owns( P_ITEM pItem ) const
 	return ( pItem->owner() == this );
 }
 
-void cBaseChar::addGuard( P_NPC pPet, bool noGuardingChange )
+void cBaseChar::addGuard( P_CHAR pPet, bool noGuardingChange )
 {
 	// Check if already existing in the guard list
-	for( Followers::iterator iter = guardedby_.begin(); iter != guardedby_.end(); ++iter )
+	for( CharContainer::iterator iter = guardedby_.begin(); iter != guardedby_.end(); ++iter )
 		if( *iter == pPet )
 			return;
 
@@ -977,15 +985,15 @@ void cBaseChar::addGuard( P_NPC pPet, bool noGuardingChange )
 		if( pPet->guarding() )
 			pPet->guarding()->removeGuard( pPet );
 
-		pPet->setGuardingOnly( this );
+		pPet->setGuarding( this );
 	}
 
 	guardedby_.push_back( pPet );
 }
 
-void cBaseChar::removeGuard( P_NPC pPet, bool noGuardingChange )
+void cBaseChar::removeGuard( P_CHAR pPet, bool noGuardingChange )
 {
-	for( Followers::iterator iter = guardedby_.begin(); iter != guardedby_.end(); ++iter )
+	for( CharContainer::iterator iter = guardedby_.begin(); iter != guardedby_.end(); ++iter )
 		if( *iter == pPet )
 		{
 			guardedby_.erase( iter );
@@ -993,7 +1001,7 @@ void cBaseChar::removeGuard( P_NPC pPet, bool noGuardingChange )
 		}
 
 	if( !noGuardingChange )
-		pPet->setGuardingOnly( 0 );
+		pPet->setGuarding( 0 );
 }
 
 void cBaseChar::addEffect( cTempEffect *effect )
@@ -1003,7 +1011,7 @@ void cBaseChar::addEffect( cTempEffect *effect )
 
 void cBaseChar::removeEffect( cTempEffect *effect )
 {
-	Effects::iterator iter = effects_.begin();
+	EffectContainer::iterator iter = effects_.begin();
 	while( iter != effects_.end() )
 	{
 		if( (*iter) == effect )
