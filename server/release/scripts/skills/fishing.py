@@ -8,6 +8,7 @@
 from wolfpack.consts import *
 import wolfpack
 import wolfpack.time
+import skills
 import wolfpack.utilities
 import wolfpack.console
 from math import floor
