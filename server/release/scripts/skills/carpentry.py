@@ -1,11 +1,13 @@
-from wolfpack import console, properties
+from wolfpack import console
 from wolfpack.consts import *
+from wolfpack import properties
 import math
 import wolfpack
 from system.makemenus import CraftItemAction, MakeMenu, findmenu
 from wolfpack.utilities import hex2dec, tobackpack
 import random
 from skills.blacksmithing import METALS
+
 
 #
 # Check if the character is using the right tool
@@ -55,7 +57,7 @@ def onUse(char, item):
 class CarpItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
-		self.markable = 0 # All carpentry items are not markable
+		self.markable = 1 # All carpentry items are not markable
 
 	#
 	# Check if we did an exceptional job.
@@ -76,31 +78,31 @@ class CarpItemAction(CraftItemAction):
 	#
 	def applyproperties(self, player, arguments, item, exceptional):
 		# All carpentry items crafted out of ingots keep a resname
-		if self.submaterial2 > 0:
-			material = self.parent.getsubmaterial2used(player, arguments)
-			material = self.parent.submaterials2[material]
-			#item.color = material[4]
+		if self.submaterial1 > 0:
+			material = self.parent.getsubmaterial1used(player, arguments)
+			material = self.parent.submaterials1[material]
+			item.color = material[4]
 			item.settag('resname', material[5])
 
 		# Distribute another 6 points randomly between the resistances an armor alread
 		# has. There are no tailored weapons.
 		if exceptional:
-			if itemcheck(item, ITEM_SHIELD):
+			if properties.itemcheck(item, ITEM_SHIELD):
 				# Copy all the values to tags
 				boni = [0, 0, 0, 0, 0]
 
 				for i in range(0, 6):
 					boni[random.randint(0,4)] += 1
 
-				item.settag('res_physical', fromitem(item, RESISTANCE_PHYSICAL) + boni[0])
-				item.settag('res_fire', fromitem(item, RESISTANCE_FIRE) + boni[1])
-				item.settag('res_cold', fromitem(item, RESISTANCE_COLD) + boni[2])
-				item.settag('res_energy', fromitem(item, RESISTANCE_ENERGY) + boni[3])
-				item.settag('res_poison', fromitem(item, RESISTANCE_POISON) + boni[4])
+				item.settag('res_physical', properties.fromitem(item, RESISTANCE_PHYSICAL) + boni[0])
+				item.settag('res_fire', properties.fromitem(item, RESISTANCE_FIRE) + boni[1])
+				item.settag('res_cold', properties.fromitem(item, RESISTANCE_COLD) + boni[2])
+				item.settag('res_energy', properties.fromitem(item, RESISTANCE_ENERGY) + boni[3])
+				item.settag('res_poison', properties.fromitem(item, RESISTANCE_POISON) + boni[4])
 
-			elif itemcheck(item, ITEM_WEAPON):
+			elif properties.itemcheck(item, ITEM_WEAPON):
 				# Increase the damage bonus by 20%
-				bonus = fromitem(item, DAMAGEBONUS)
+				bonus = properties.fromitem(item, DAMAGEBONUS)
 				bonus += 20
 				item.settag('aos_boni_damage', bonus)
 
@@ -136,14 +138,29 @@ class CarpentryMenu(MakeMenu):
 		MakeMenu.__init__(self, id, parent, title)
 		self.allowmark = 1
 		#self.allowrepair = 1
-		self.submaterials2 = METALS
-		self.submaterial2missing = 1042081 # Ingots
-		#self.submaterial1missing = 1041524 # Wood
-		#self.submaterial2missing = 1042598 # Boards
-		#self.submaterial3missing = 1042081 # Ingots
-		#self.submaterial4missing = 1042081 # Cloth
-		self.submaterial2noskill = 500586
+		self.submaterials1 = METALS
+		self.submaterial1missing = 1042081 # Ingots
+		self.submaterial1noskill = 500586
 		self.gumptype = 0x4f6ba469 # This should be unique
+
+	#
+	# Get the material used by the character from the tags
+	#
+	def getsubmaterial1used(self, player, arguments):
+		if not player.hastag('blacksmithing_ore'):
+			return 0
+		else:
+			material = int(player.gettag('blacksmithing_ore'))
+			if material < len(self.submaterials1):
+				return material
+			else:
+				return 0
+
+	#
+	# Save the material preferred by the user in a tag
+	#
+	def setsubmaterial1used(self, player, arguments, material):
+		player.settag('blacksmithing_ore', material)
 
 #
 # Load a menu with a given id and
@@ -199,10 +216,10 @@ def loadMenu(id, parent = None):
 
 					# How much of the primary resource should be consumed
 					if subchild.name == 'ingots':
-						action.submaterial2 = hex2dec(subchild.getattribute('amount', '0'))
+						action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
 
 					# Normal Material
-					elif subchild.name == 'material':
+					if subchild.name == 'boards' or subchild.name == 'wood' or subchild.name == 'cloth':
 						if not subchild.hasattribute('id'):
 							console.log(LOG_ERROR, "Material element without id list in menu %s.\n" % menu.id)
 							break
