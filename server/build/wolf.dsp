@@ -50,7 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib ws2_32.lib kernel32.lib user32.lib advapi32.lib wrl.lib /nologo /subsystem:console /incremental:yes /map /machine:I386 /nodefaultlib /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib" /libpath:"lib\Python\lib"
+# ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib ws2_32.lib kernel32.lib user32.lib advapi32.lib wrl.lib /nologo /subsystem:console /incremental:yes /map /machine:I386 /nodefaultlib /libpath:"..\lib\ZThread\lib" /libpath:"..\lib\wrl\lib" /libpath:"..\lib\Python\lib"
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
 
@@ -744,13 +744,6 @@ SOURCE=.\icon2.ico
 # Begin Source File
 
 SOURCE=.\res.rc
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-!ENDIF 
-
 # End Source File
 # End Group
 # Begin Group "Network"

@@ -149,7 +149,10 @@ Q_LONG cAsyncNetIOPrivate::writeBlock( const char *data, Q_ULONG len )
 {
 	// Invalid Socket -> Disconnected
 	if( !socket->isValid() )
+	{
+		socket->close();
 		return 0;
+	}
 
     if ( len == 0 )
 		return 0;
@@ -331,6 +334,10 @@ void cAsyncNetIO::run() throw()
 			}
 			if( d->skippedUOHeader )
 			{
+				if( nread == 0 )
+				{
+					d->socket->close();
+				}
 				buildUOPackets( d );
 			}
 			else if ( d->rsize >= 4 )
@@ -344,7 +351,7 @@ void cAsyncNetIO::run() throw()
 			flushWriteBuffer( d );
 		}
 		mapsMutex.release();		
-		//if ( buffers.empty() )
+		//if( buffers.empty() )
 		// Disconnecting doesnt work for now
 		sleep(40); // we've done our job, let's relax for a while.
 	}
@@ -392,6 +399,8 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 					QByteArray packetData(length);
 					d->readBlock( packetData.data(), length );
 					cUOPacket* packet = getUOPacket( packetData );
+					if( !packet )
+						d->socket->close();
 					d->packets->add( packet );
 				}
 				else
@@ -421,6 +430,8 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 				QByteArray packetData( length );
 				d->readBlock( packetData.data(), length );
 				cUOPacket* packet = getUOPacket( packetData );
+				if( !packet )
+					d->socket->close();
 				d->packets->add( packet );
 			}
 		}
