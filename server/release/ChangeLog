@@ -1,8 +1,10 @@
 Wolfpack 12.9.14 Beta (SVN)
  * Core Changes:
  * Definition Changes:
+  - Bench (0x1049) which was crafted was "unusable"
  * Python Script Changes:
  	- Added a follow command.
+ 	- Tinkers can now choose a second material
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
