@@ -78,6 +78,16 @@ public:
 	UI32 distance( const Coord_cl &src) const;
 	static UI32 distance ( const Coord_cl &a, const Coord_cl &b );
 
+	/*!
+		Displays an effect staying at this position.
+	*/
+	void effect( UI16 id, UI08 speed = 10, UI08 duration = 5, UI16 hue = 0, UI16 renderMode = 0 );
+	
+	/*!
+		Displays a lightning bolt at this position.
+	*/
+	void lightning( UI08 speed = 10, UI08 duration = 5, UI16 hue = 0, UI16 renderMode = 0 );
+
 public:
 	UI16 	x;
 	UI16 	y;

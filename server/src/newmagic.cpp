@@ -21,7 +21,7 @@ class cEndCasting;
 /*!
 	Returns the spell struct with the specified id
 */
-stSpell *cNewMagic::findSpell( UINT8 id )
+stNewSpell *cNewMagic::findSpell( UINT8 id )
 {
 	if( id >= 64 )
 		return 0;
@@ -228,7 +228,7 @@ public:
 		if( !socket->player() )
 			return true;
 
-		stSpell *sInfo = NewMagic->findSpell( spell );
+		stNewSpell *sInfo = NewMagic->findSpell( spell );
 
 		if( !sInfo )
 		{
@@ -350,7 +350,7 @@ bool cNewMagic::useMana( P_CHAR pMage, UINT8 spell )
 	if( pMage->priv2() & 0x10 )
 		return true;
 
-	stSpell *sInfo = findSpell( spell );
+	stNewSpell *sInfo = findSpell( spell );
 
 	if( !sInfo )
 		return false;
@@ -388,7 +388,7 @@ bool cNewMagic::checkSkill( P_CHAR pMage, UINT8 spell, bool scroll )
 {
 	UINT16 lowSkill, highSkill;
 
-	stSpell *sInfo = findSpell( spell );
+	stNewSpell *sInfo = findSpell( spell );
 
 	if( !sInfo )
 		return false;
@@ -421,7 +421,7 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 	if( !pMage || !pMage->socket() )
 		return;
 
-	stSpell *sInfo = findSpell( spell );
+	stNewSpell *sInfo = findSpell( spell );
 
 	if( !sInfo )
 	{
@@ -480,7 +480,7 @@ void cNewMagic::useScroll( P_CHAR pMage, P_ITEM pScroll )
 {
 }
 
-bool cNewMagic::checkTarget( P_CHAR pCaster, stSpell *sInfo, cUORxTarget *target )
+bool cNewMagic::checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *target )
 {
 	cUOSocket *socket = pCaster->socket();
 

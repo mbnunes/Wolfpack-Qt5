@@ -218,6 +218,7 @@ public:
 	void serialize(ISerialization &archive);
 //	bool Exists( P_CHAR pc_source, P_CHAR pc_dest, int num );
 	void dispel( P_CHAR pc_dest );
+	void dispel( P_CHAR pc_dest, const QString &type, bool onlyDispellable = true );
 
 	void insert( cTempEffect* pT )
 	{

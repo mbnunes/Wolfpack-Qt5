@@ -34,6 +34,8 @@
 
 #include "coord.h"
 #include "debug.h"
+#include "network/uotxpackets.h"
+#include "network/uosocket.h"
 
 #undef  DBGFILE
 #define DBGFILE "coord.cpp"
@@ -108,3 +110,39 @@ Coord_cl Coord_cl::operator+ (const Coord_cl& src) const
 	return Coord_cl(this->x + src.x, this->y + src.y, this->z + src.z);
 }
 
+void Coord_cl::lightning( UINT8 speed, UINT8 duration, UINT16 hue, UINT16 renderMode )
+{
+	cUOTxEffect effect;
+	effect.setType( ET_LIGHTNING );
+	effect.setSourcePos( (*this) );
+    effect.setSpeed( speed );
+	effect.setDuration( duration );
+	effect.setHue( hue );
+	effect.setRenderMode( renderMode );
+
+	cUOSocket *mSock = 0;
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( mSock->player() && ( mSock->player()->pos.distance( (*this) ) <= mSock->player()->VisRange ) )
+			mSock->send( &effect );
+	}
+}
+
+void Coord_cl::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT16 renderMode )
+{
+	cUOTxEffect effect;
+	effect.setType( ET_STAYSOURCEPOS );
+	effect.setSourcePos( (*this) );
+	effect.setId( id );
+    effect.setSpeed( speed );
+	effect.setDuration( duration );
+	effect.setHue( hue );
+	effect.setRenderMode( renderMode );
+
+	cUOSocket *mSock = 0;
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( mSock->player() && ( mSock->player()->pos.distance( (*this) ) <= mSock->player()->VisRange ) )
+			mSock->send( &effect );
+	}
+}

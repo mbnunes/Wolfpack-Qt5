@@ -116,7 +116,6 @@ protected:
 	unsigned char hungerDamage_;
 	float boatSpeed_;
 	int html_;
-	int cutScrollReq_;
 	int persecute_;
 	unsigned int tamedDisappear_;
 	unsigned int houseInTown_;
@@ -222,6 +221,11 @@ protected:
 	unsigned char dungeonLightLevel_;
 	unsigned char worldCurrentLevel_;
 
+	// Magic
+	bool precasting_;
+	bool walkDisturbsCast_;
+	bool cutScrollReq_;
+
 public:
     cSrvParams( const QString& filename, const QString& format, const QString& version );
 
@@ -282,7 +286,9 @@ public:
 	unsigned char hungerDamage() const;
 	float boatSpeed() const;
 	int html() const;
-	int cutScrollReq() const;
+	bool cutScrollReq() const;
+	bool precasting() const;
+	bool walkDisturbsCast() const;
 	int persecute() const;
 	unsigned int tamedDisappear() const;
 	unsigned int houseInTown() const;
@@ -665,9 +671,19 @@ inline int cSrvParams::html() const
 	return html_;
 }
 
-inline int cSrvParams::cutScrollReq() const
+inline bool cSrvParams::cutScrollReq() const
 {
 	return cutScrollReq_;
+}
+
+inline bool cSrvParams::precasting() const
+{
+	return precasting_;
+}
+
+inline bool cSrvParams::walkDisturbsCast() const
+{
+	return walkDisturbsCast_;
 }
 
 inline int cSrvParams::persecute() const

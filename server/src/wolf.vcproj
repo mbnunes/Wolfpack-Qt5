@@ -165,9 +165,6 @@
 				RelativePath=".\bounty.cpp">
 			</File>
 			<File
-				RelativePath=".\cache.cpp">
-			</File>
-			<File
 				RelativePath=".\chars.cpp">
 			</File>
 			<File
@@ -190,9 +187,6 @@
 			</File>
 			<File
 				RelativePath=".\customtags.cpp">
-			</File>
-			<File
-				RelativePath=".\cweather.cpp">
 			</File>
 			<File
 				RelativePath=".\dbl_single_click.cpp">
@@ -225,9 +219,6 @@
 				RelativePath=".\html.cpp">
 			</File>
 			<File
-				RelativePath=".\im.cpp">
-			</File>
-			<File
 				RelativePath=".\iserialization.cpp">
 			</File>
 			<File
@@ -249,13 +240,16 @@
 				RelativePath=".\mapobjects.cpp">
 			</File>
 			<File
-				RelativePath=".\mapstuff.cpp">
+				RelativePath="maps.cpp">
 			</File>
 			<File
 				RelativePath=".\msgboard.cpp">
 			</File>
 			<File
 				RelativePath=".\multis.cpp">
+			</File>
+			<File
+				RelativePath="multiscache.cpp">
 			</File>
 			<File
 				RelativePath=".\necro.cpp">
@@ -265,6 +259,9 @@
 			</File>
 			<File
 				RelativePath=".\network.cpp">
+			</File>
+			<File
+				RelativePath="newmagic.cpp">
 			</File>
 			<File
 				RelativePath=".\npcs.cpp">
@@ -283,9 +280,6 @@
 			</File>
 			<File
 				RelativePath=".\resources.cpp">
-			</File>
-			<File
-				RelativePath=".\scripts.cpp">
 			</File>
 			<File
 				RelativePath=".\serbinfile.cpp">

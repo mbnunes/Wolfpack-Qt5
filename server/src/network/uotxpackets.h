@@ -513,8 +513,10 @@ public:
 		Broadcast,
 		Emote,
 		System = 0x06,
+		Emphasis = 0x07,
 		Whisper = 0x08,
-		Yell = 0x09
+		Yell = 0x09,
+		Spell = 0x0a
 	};
 
 	void setSource( SERIAL data )	{ setInt( 3, data ); }
@@ -961,42 +963,6 @@ public:
 	void setExplodes( bool data )	{ (*this)[27] = data ? 1 : 0; }
 };
 
-// 0xC0 Graphical Effect
-class cUOTxEffect: public cUOPacket
-{
-public:
-	enum Type
-	{
-		sourceToDest = 0,
-		lightning,
-		stayXYZ,
-		staySerial,
-	};
-
-	cUOTxEffect(): cUOPacket( 0xC0, 36 ) {}
-	void setType( UINT8 data )		{ (*this)[1] = data; }
-	void setSource( SERIAL data )	{ setInt( 2, data ); }
-	void setTarget( SERIAL data )	{ setInt( 6, data ); }
-	void setId( UINT16 data )		{ setShort( 10, data ); }
-	void setSource( const Coord_cl &pos ) {
-		setShort( 12, pos.x );
-		setShort( 14, pos.y );
-		(*this)[16] = pos.z;
-	}
-	void setTarget( const Coord_cl &pos ) {
-		setShort( 17, pos.x );
-		setShort( 19, pos.y );
-		(*this)[21] = pos.z;
-	}
-	void setSpeed( UINT8 data )		{ (*this)[22] = data; }
-	void setDuration( UINT8 data )	{ (*this)[23] = data; }
-	void setUnknown( UINT16 data )	{ setShort( 24, data ); }
-	void setFixedDirection( bool data ) { (*this)[26] = data ? 1 : 0; }
-	void setExplodes( bool data )	{ (*this)[27] = data ? 1 : 0; }
-	void setHue( UINT32 data )		{ setInt( 28, data ); }
-	void setRendermode( UINT32 data ) { setInt( 32, data ); }
-};
-
 // 0xBF Close Gump
 class cUOTxCloseGump: public cUOPacket
 {
@@ -1063,5 +1029,87 @@ public:
 		}
 	}
 }; 
+
+enum eEffectType
+{
+	ET_MOVING = 0,
+	ET_LIGHTNING,
+	ET_STAYSOURCEPOS,
+	ET_STAYSOURCESER
+};
+
+// 0xC0 Effect
+class cUOTxEffect: public cUOPacket
+{
+public:
+	cUOTxEffect(): cUOPacket( 0xC0, 36 ) {}
+
+	void setType( eEffectType data ) { (*this)[1] = data; }
+	void setSource( SERIAL data ) { setInt( 2, data ); }
+	void setTarget( SERIAL data ) { setInt( 6, data ); }
+	void setId( UINT16 data ) { setShort( 10, data ); }
+	void setSourcePos( const Coord_cl &pos )
+	{
+		setShort( 12, pos.x );
+		setShort( 14, pos.y );
+		(*this)[16] = pos.z;
+	}
+
+	void setTargetPos( const Coord_cl &pos ) 
+	{
+		setShort( 17, pos.x );
+		setShort( 19, pos.y );
+		(*this)[21] = pos.z;
+	}
+
+	void setSpeed( UINT8 data ) { (*this)[22] = data; }
+	void setDuration( UINT8 data ) { (*this)[23] = data; }
+	void setUnknown1( UINT16 data ) { setShort( 24, data ); }
+	void setFixedDirection( bool data ) { (*this)[26] = data ? 1 : 0; }
+	void setExplodes( bool data ) { (*this)[27] = data ? 1 : 0; }
+	void setHue( UINT32 data ) { setInt( 28, data ); }
+	void setRenderMode( UINT32 data ) { setInt( 32, data ); }
+};
+
+// 0xC7 3d Particle Effect (also send to 2d clients)
+class cUOTxParticleEffect: public cUOPacket
+{
+public:
+	cUOTxParticleEffect(): cUOPacket( 0xC7, 49 ) {}
+
+	void setType( eEffectType data ) { (*this)[1] = data; }
+	void setSource( SERIAL data ) { setInt( 2, data ); }
+	void setTarget( SERIAL data ) { setInt( 6, data ); }
+	void setId( UINT16 data ) { setShort( 10, data ); }
+	void setSourcePos( const Coord_cl &pos )
+	{
+		setShort( 12, pos.x );
+		setShort( 14, pos.y );
+		(*this)[16] = pos.z;
+	}
+
+	void setTargetPos( const Coord_cl &pos ) 
+	{
+		setShort( 17, pos.x );
+		setShort( 19, pos.y );
+		(*this)[21] = pos.z;
+	}
+
+	void setSpeed( UINT8 data ) { (*this)[22] = data; }
+	void setDuration( UINT8 data ) { (*this)[23] = data; }
+	void setUnknown1( UINT16 data ) { setShort( 24, data ); }
+	void setFixedDirection( bool data ) { (*this)[26] = data ? 1 : 0; }
+	void setExplodes( bool data ) { (*this)[27] = data ? 1 : 0; }
+	void setHue( UINT32 data ) { setInt( 28, data ); }
+	void setRenderMode( UINT32 data ) { setInt( 32, data ); }
+	
+	// 3d Specific Stuff
+	void set3dEffectId( UINT16 data ) { setShort( 36, data ); }
+	void set3dExplosionId( UINT16 data ) { setShort( 38, data ); }
+	void set3dAdditionalId( UINT16 data ) { setShort( 40, data ); }
+	void set3dSource( SERIAL data ) { setInt( 42, data ); }
+	void set3dSourceLayer( UINT8 data ) { (*this)[ 46 ] = data; }
+	void set3dAdditional2Id( UINT16 data ) { setShort( 47, data ); }
+};
 
 #endif // __UO_TXPACKETS__

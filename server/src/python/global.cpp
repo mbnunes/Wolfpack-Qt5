@@ -292,128 +292,6 @@ PyObject* wpAddtimer( PyObject* self, PyObject* args )
 }
 
 /*!
-	Adds a static effect
-*/
-PyObject* wpStaticeffect( PyObject* self, PyObject* args )
-{
-	// This adds an effect
-	// The first parameter specifies the location of the effect
-	// This is either a coordinate (it stays there)
-	// Or an object (it moves with the object)
-	if( PyTuple_Size( args ) < 2 )
-	{
-		clConsole.send( "Minimum argument count for static effect is 2" );
-		return PyFalse;
-	}
-
-	cUOTxEffect effect;
-	Coord_cl pos;
-
-	if( checkArgObject( 0 ) )
-	{
-		cUObject *object = 0;
-
-		object = getWpChar( PyTuple_GetItem( args, 0 ) );
-
-		if( !object )
-			object = getWpItem( PyTuple_GetItem( args, 0 ) );
-
-		if( object )
-		{
-			pos = object->pos;
-			effect.setSource( object->serial );
-			effect.setType( 3 );
-		}
-	}
-	else if( checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
-	{
-		pos = getWpCoord( PyTuple_GetItem( args, 0 ) );
-		effect.setType( 2 );
-	}
-
-	effect.setSource( pos );
-
-	if( checkArgInt( 2 ) )
-		effect.setSpeed( getArgInt( 2 ) );
-	else
-		effect.setSpeed( 8 );
-
-    // Send it to all users in range
-	RegionIterator4Chars iter( pos );
-	for( iter.Begin(); !iter.atEnd(); iter++ )
-	{
-		P_CHAR pChar = iter.GetData();
-
-		if( pChar && pChar->socket() && pChar->pos.distance( pos ) <= pChar->VisRange )
-			pChar->socket()->send( &effect );
-	}
-
-	return PyTrue;
-}
-
-/*!
-	Adds a flying object
-*/
-PyObject* wpMovingeffect( PyObject* self, PyObject* args )
-{
-	// What we need is: Source + Target + ID 
-	if( PyTuple_Size( args ) < 3 || !checkArgInt( 0 ) )
-	{
-		clConsole.send( "Minimum argument count for wolfpack.movingeffect is 3\n" );
-		return PyFalse;
-	}
-
-	SERIAL source = INVALID_SERIAL;
-	SERIAL target = INVALID_SERIAL;
-
-	// Source
-	if( getWpItem( PyTuple_GetItem( args, 1 ) ) )
-		source = getWpItem( PyTuple_GetItem( args, 1 ) )->serial;
-	else if( getWpChar( PyTuple_GetItem( args, 1 ) ) )
-		source = getWpChar( PyTuple_GetItem( args, 1 ) )->serial;
-
-	// Target
-	if( getWpItem( PyTuple_GetItem( args, 2 ) ) )
-		target = getWpItem( PyTuple_GetItem( args, 2 ) )->serial;
-	else if( getWpChar( PyTuple_GetItem( args, 2 ) ) )
-		target = getWpChar( PyTuple_GetItem( args, 2 ) )->serial;
-
-	if( source == INVALID_SERIAL || target == INVALID_SERIAL )
-		return PyFalse;
-
-	cUObject *pSource = FindItemBySerial( source );
-
-	if( !pSource )
-		pSource = FindCharBySerial( source );
-
-	if( !pSource )
-		return PyFalse;
-
-	cUObject *pTarget = FindItemBySerial( target );
-
-	if( !pTarget )
-		pTarget = FindCharBySerial( target );
-
-	if( !pTarget )
-		return PyFalse;
-
-	cUOTxOldEffect effect;
-	effect.setId( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) );
-	effect.setSource( source );
-	effect.setSource( pSource->pos );
-	effect.setTarget( target );
-	effect.setTarget( pTarget->pos );
-	effect.setType( cUOTxEffect::sourceToDest );
-	effect.setSpeed( 8 );
-
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		if( mSock && mSock->player() && mSock->player()->inRange( pSource, mSock->player()->VisRange ) )
-			mSock->send( &effect );
-
-	return PyTrue;
-}
-
-/*!
 	Returns the time in ms since the last server-start
 	used for object-delays and others
 */
@@ -433,8 +311,6 @@ static PyMethodDef wpGlobal[] =
 	{ "finditem",		wpFinditem,		METH_VARARGS, "Tries to find an item based on it's serial" },
 	{ "findchar",		wpFindchar,		METH_VARARGS, "Tries to find a char based on it's serial" },
 	{ "addtimer",		wpAddtimer,		METH_VARARGS, "Adds a timed effect" },
-	{ "movingeffect",	wpMovingeffect, METH_VARARGS, "Displays a moving item-efect" },
-	{ "staticeffect",	wpStaticeffect, METH_VARARGS, "Displays a static effect in at a given location" },
 	{ "currenttime",	wpCurrenttime,	METH_VARARGS, "Time in ms since server-start" },
     { NULL, NULL, 0, NULL } // Terminator
 };

@@ -179,8 +179,7 @@ void cSrvParams::readData()
 	gmLog_		            = getBool("General",	"GM Log", false, true);
 	backupSaveRatio_		= getNumber("General",  "Backup Save Ratio", 1, true);
 	hungerDamage_			= getNumber("General",  "Hunger Damage", 0, true);
-	html_			        = getNumber("General",  "Html", -1, true);
-	cutScrollReq_			= getNumber("General",  "Cut Scroll Requirements.", 1, true);
+	html_			        = getNumber("General",  "Html", -1, true);	
 	persecute_              = getNumber("General",  "Persecution", 1, true);
 	tamedDisappear_         = getNumber("General",  "Tamed Disappear", 0, true);
 	houseInTown_            = getNumber("General",  "House In Town", 0, true);
@@ -264,6 +263,11 @@ void cSrvParams::readData()
 	worldDarkLevel_			= getNumber("Light", "World Dark Level", 18, true);
 	dungeonLightLevel_		= getNumber("Light", "Dungeon Level", 18, true);
 	season_		            = getNumber("Light", "Set Season", 0, true);
+
+	// Magic
+	cutScrollReq_			= getBool( "Cut Scroll Requirements", false, true );
+	walkDisturbsCast_		= getBool( "Walking Disturbs Casting", true, true );
+	precasting_				= getBool( "Precasting", true, true );
 }
 
 void cSrvParams::reload()

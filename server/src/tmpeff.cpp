@@ -1298,6 +1298,23 @@ void cTempEffects::serialize(ISerialization &archive)
 	}
 }
 
+/*!
+	Dispels all TempEffects lasting on pc_dest of a given type.
+	If only Dispellable is false then all effects on this character
+	of the specified type are reverted.
+*/
+void cTempEffects::dispel( P_CHAR pc_dest, const QString &type, bool onlyDispellable )
+{
+	std::vector< cTempEffect* > teffects_ = teffects.asVector();
+	std::vector< cTempEffect* >::iterator i = teffects_.begin();
+	for( i = teffects_.begin(); i != teffects_.end(); i++ )
+		if( i != NULL && (*i) != NULL && ( !onlyDispellable || (*i)->dispellable ) && (*i)->getDest() == pc_dest->serial && (*i)->objectID() == type )
+		{
+			(*i)->Off( pc_dest );
+			teffects.erase( (*i) );
+		}
+}
+
 void cTempEffects::dispel( P_CHAR pc_dest )
 {
 	std::vector< cTempEffect* > teffects_ = teffects.asVector();

@@ -1,13 +1,13 @@
 Microsoft Visual Studio Solution File, Format Version 7.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZTHREAD_2_2_9_static", "lib\ZThread\ZTHREAD_static.vcproj", "{127539E0-38FA-41AA-8072-69BC9BE6F7BD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "moc", "lib\wrl\src\moc\moc.vcproj", "{2F8A03F4-036B-47F2-A741-DE85B3C4203F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pythoncore", "lib\Python\PCbuild\pythoncore.vcproj", "{4A8B79CB-95D2-415B-BD65-570736DCB816}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wolf", "wolf.vcproj", "{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wrl", "lib\wrl\src\wrl.vcproj", "{4D292A75-C82A-44E8-BD1C-442F5507978F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "moc", "lib\wrl\src\moc\moc.vcproj", "{321C6C0D-A464-4B7A-93BD-B310F7160492}"
 EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
@@ -17,9 +17,8 @@ Global
 		ConfigName.3 = Release
 	EndGlobalSection
 	GlobalSection(ProjectDependencies) = postSolution
-		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.0 = {127539E0-38FA-41AA-8072-69BC9BE6F7BD}
-		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.1 = {4A8B79CB-95D2-415B-BD65-570736DCB816}
-		{4D292A75-C82A-44E8-BD1C-442F5507978F}.0 = {2F8A03F4-036B-47F2-A741-DE85B3C4203F}
+		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.0 = {4A8B79CB-95D2-415B-BD65-570736DCB816}
+		{EA4FB0A7-C7E7-4754-8234-1E3808FB92D5}.1 = {127539E0-38FA-41AA-8072-69BC9BE6F7BD}
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
 		{127539E0-38FA-41AA-8072-69BC9BE6F7BD}.Alpha Debug.ActiveCfg = Debug|Win32
@@ -30,14 +29,6 @@ Global
 		{127539E0-38FA-41AA-8072-69BC9BE6F7BD}.Debug.Build.0 = Debug|Win32
 		{127539E0-38FA-41AA-8072-69BC9BE6F7BD}.Release.ActiveCfg = Release|Win32
 		{127539E0-38FA-41AA-8072-69BC9BE6F7BD}.Release.Build.0 = Release|Win32
-		{2F8A03F4-036B-47F2-A741-DE85B3C4203F}.Alpha Debug.ActiveCfg = Debug|Win32
-		{2F8A03F4-036B-47F2-A741-DE85B3C4203F}.Alpha Debug.Build.0 = Debug|Win32
-		{2F8A03F4-036B-47F2-A741-DE85B3C4203F}.Alpha Release.ActiveCfg = Release|Win32
-		{2F8A03F4-036B-47F2-A741-DE85B3C4203F}.Alpha Release.Build.0 = Release|Win32
-		{2F8A03F4-036B-47F2-A741-DE85B3C4203F}.Debug.ActiveCfg = Debug|Win32
-		{2F8A03F4-036B-47F2-A741-DE85B3C4203F}.Debug.Build.0 = Debug|Win32
-		{2F8A03F4-036B-47F2-A741-DE85B3C4203F}.Release.ActiveCfg = Release|Win32
-		{2F8A03F4-036B-47F2-A741-DE85B3C4203F}.Release.Build.0 = Release|Win32
 		{4A8B79CB-95D2-415B-BD65-570736DCB816}.Alpha Debug.ActiveCfg = Alpha Debug|Win32
 		{4A8B79CB-95D2-415B-BD65-570736DCB816}.Alpha Debug.Build.0 = Alpha Debug|Win32
 		{4A8B79CB-95D2-415B-BD65-570736DCB816}.Alpha Release.ActiveCfg = Alpha Release|Win32
@@ -62,6 +53,14 @@ Global
 		{4D292A75-C82A-44E8-BD1C-442F5507978F}.Debug.Build.0 = Debug|Win32
 		{4D292A75-C82A-44E8-BD1C-442F5507978F}.Release.ActiveCfg = Release|Win32
 		{4D292A75-C82A-44E8-BD1C-442F5507978F}.Release.Build.0 = Release|Win32
+		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Alpha Debug.ActiveCfg = Debug|Win32
+		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Alpha Debug.Build.0 = Debug|Win32
+		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Alpha Release.ActiveCfg = Release|Win32
+		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Alpha Release.Build.0 = Release|Win32
+		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Debug.ActiveCfg = Debug|Win32
+		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Debug.Build.0 = Debug|Win32
+		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Release.ActiveCfg = Release|Win32
+		{321C6C0D-A464-4B7A-93BD-B310F7160492}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

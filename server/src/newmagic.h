@@ -70,7 +70,7 @@ struct stReagents
 	UINT8 ginseng, bloodmoss, mandrake, blackpearl, spidersilk, sulfurash, garlic, nightshade;
 };
 
-struct stSpell
+struct stNewSpell
 {
 	QString name, mantra, target;
 	UINT16 booklow, bookhigh, scrolllow, scrollhigh, actiondelay, delay;
@@ -89,7 +89,7 @@ class cNewMagic
 {
 private:
 	static stSpellStub spellStubs[];
-	stSpell spells[64];
+	stNewSpell spells[64];
 public:
 	cNewMagic() {}
 	virtual ~cNewMagic() {}
@@ -98,13 +98,13 @@ public:
 	void castSpell( P_CHAR pMage, UINT8 spell );
 	void useWand( P_CHAR pMage, P_ITEM pWand );
 	void useScroll( P_CHAR pMage, P_ITEM pScroll );
-	bool checkTarget( P_CHAR pCaster, stSpell *sInfo, cUORxTarget *target );
+	bool checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *target );
 
 	void load();
 	void unload();
 	
 	stSpellStub *findSpellStub( UINT8 id );
-	stSpell	*findSpell( UINT8 id );
+	stNewSpell	*findSpell( UINT8 id );
 
     void failSpell( P_CHAR pMage, bool fizzle = true );
 	bool useMana( P_CHAR pMage, UINT8 spell );

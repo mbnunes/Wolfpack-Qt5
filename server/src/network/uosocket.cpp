@@ -60,6 +60,7 @@
 #include "../skills.h"
 #include "../contextmenu.h"
 #include "../TmpEff.h"
+#include "../newmagic.h"
 
 //#include <conio.h>
 #include <iostream>
