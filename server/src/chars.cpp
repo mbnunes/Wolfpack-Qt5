@@ -150,12 +150,12 @@ void cChar::Init(bool ser)
 	this->dx=50; //  Dexterity
 	this->dx2=0; // Reserved for calculation
 	this->tmpDex=0; // Reserved for calculation
-	this->in=50; // Intelligence
-	this->in2=0; // Reserved for calculation
-	this->hp=50; // Hitpoints
-	this->stm=50; // Stamina
-	this->mn=50; // Mana
-	this->mn2=0; // Reserved for calculation
+	this->in_=50; // Intelligence
+	this->in2_=0; // Reserved for calculation
+	this->hp_=50; // Hitpoints
+	this->stm_=50; // Stamina
+	this->mn_=50; // Mana
+	this->mn2_=0; // Reserved for calculation
 	this->hidamage=0; //NPC Damage
 	this->lodamage=0; //NPC Damage
 	this->jailtimer=0; //blackwinds jail system 
@@ -735,7 +735,7 @@ void cChar::removeItemBonus(cItem* pi)
 //	this->st -= pi->st2;
 	this->setSt( ( this->st() ) - pi->st2);
 	this->chgDex(-1 * pi->dx2);
-	this->in -= pi->in2;
+	this->in_ -= pi->in2;
 }
 
 ////////////
@@ -798,12 +798,12 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("strength2",		st2_);
 		archive.read("dexterity",		dx);
 		archive.read("dexterity2",		dx2);
-		archive.read("intelligence",	in);
-		archive.read("intelligence2",	in2);
-		archive.read("hitpoints",		hp);
+		archive.read("intelligence",	in_);
+		archive.read("intelligence2",	in2_);
+		archive.read("hitpoints",		hp_);
 		archive.read("spawnregion",		spawnregion_);
-		archive.read("stamina",			stm);
-		archive.read("mana",			mn);
+		archive.read("stamina",			stm_);
+		archive.read("mana",			mn_);
 		archive.read("npc",				npc);
 		archive.read("holdgold",		holdg_);
 		archive.read("shop",			shop);
@@ -942,12 +942,12 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("strength2",		st2_);
 		archive.write("dexterity",		dx);
 		archive.write("dexterity2",		dx2);
-		archive.write("intelligence",	in);
-		archive.write("intelligence2",	in2);
-		archive.write("hitpoints",		hp);
+		archive.write("intelligence",	in_);
+		archive.write("intelligence2",	in2_);
+		archive.write("hitpoints",		hp_);
 		archive.write("spawnregion",	spawnregion_);
-		archive.write("stamina",		stm);
-		archive.write("mana",			mn);
+		archive.write("stamina",		stm_);
+		archive.write("mana",			mn_);
 		archive.write("npc",			npc);
 		archive.write("holdgold",		holdg_);
 		archive.write("shop",			shop);
@@ -1248,17 +1248,17 @@ void cChar::processNode( const QDomElement &Tag )
 			if( statType == "str" )
 			{
 				this->st_ = Value.toLong();
-				this->hp = this->st_;
+				this->hp_ = this->st_;
 			}
 			else if( statType == "dex" )
 			{
 				this->setDex( Value.toLong() );
-				this->stm = this->realDex();
+				this->stm_ = this->realDex();
 			}
 			else if( statType == "int" )
 			{
-				this->in = Value.toLong();
-				this->mn = this->in;
+				this->in_ = Value.toLong();
+				this->mn_ = this->in_;
 			}
 
 			for( UINT8 i = 0; i < ALLSKILLS; ++i )
@@ -1270,7 +1270,7 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "str" )
 	{
 		st_ = Value.toLong();
-		hp = st_;
+		hp_ = st_;
 		
 		for( UINT8 i = 0; i < ALLSKILLS; ++i )
 			Skills->updateSkillLevel( this, i );
@@ -1279,7 +1279,7 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "dex" )
 	{
 		setDex( Value.toLong() );
-		stm = realDex();
+		stm_ = realDex();
 
 		for( UINT8 i = 0; i < ALLSKILLS; ++i )
 			Skills->updateSkillLevel( this, i );
@@ -1287,8 +1287,8 @@ void cChar::processNode( const QDomElement &Tag )
 	
 	else if( TagName == "int" )
 	{
-		in = Value.toLong();
-		mn = in;
+		in_ = Value.toLong();
+		mn_ = in_;
 
 		for( UINT8 i = 0; i < ALLSKILLS; ++i )
 			Skills->updateSkillLevel( this, i );
@@ -1767,7 +1767,7 @@ void cChar::giveItemBonus(cItem* pi)
 {
 	st_ += pi->st2;
 	chgDex( pi->dx2 );
-	in += pi->in2;
+	in_ += pi->in2;
 }
 
 void cChar::showName( cUOSocket *socket )
@@ -2243,7 +2243,7 @@ void cChar::kill()
 
 	setSkin( 0x0000 ); // Undyed
 	dead = true; // Dead
-	hp = 0; // With no hp left
+	hp_ = 0; // With no hp left
 	
 	// Reset poison
 	setPoisoned(0);
@@ -2487,9 +2487,9 @@ void cChar::resurrect()
 	setId( xid_ );
 	setSkin( xskin() );
 	dead = false;
-	hp = QMAX( 1, (UINT16)( 0.1 * st_ ) );
-	stm = (UINT16)( 0.1 * effDex() );
-	mn = (UINT16)( 0.1 * in );
+	hp_ = QMAX( 1, (UINT16)( 0.1 * st_ ) );
+	stm_ = (UINT16)( 0.1 * effDex() );
+	mn_ = (UINT16)( 0.1 * in_ );
 	attacker = INVALID_SERIAL;
 	resetAttackFirst();
 	war = false;

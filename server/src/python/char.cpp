@@ -438,6 +438,8 @@ PyObject* wpChar_kill( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_damage( wpChar* self, PyObject* args )
 {
+	signed short tempshort; 
+
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
@@ -447,9 +449,11 @@ PyObject* wpChar_damage( wpChar* self, PyObject* args )
 		return PyFalse;
 	}
 
-	self->pChar->hp -= getArgInt( 0 );
+//	self->pChar->hp -= getArgInt( 0 );
+	tempshort = self->pChar->hp();
+	self->pChar->setHp( tempshort - getArgInt( 0 ) );
 
-	if( self->pChar->hp <= 0 )
+	if( self->pChar->hp() <= 0 )
 		self->pChar->kill();
 
 	return PyTrue;
@@ -562,16 +566,26 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else if( !strcmp( name, "str" ) ) 
 		return PyInt_FromLong( self->pChar->st() );
 	else pGetInt( "dex", effDex() )
-	else pGetInt( "int", in )
+//	else pGetInt( "int", in )
+	else if( !strcmp( name, "int" ) )
+		return PyInt_FromLong( self->pChar->in() );
 
 	else if ( !strcmp( name, "str2" ) )
 		return PyInt_FromLong( self->pChar->st2() );
 	else pGetInt( "dex2", decDex() )
-	else pGetInt( "int2", in2 )
+//	else pGetInt( "int2", in2 )
+	else if( !strcmp( name, "int2" ) )
+		return PyInt_FromLong( self->pChar->in2() );
 
-	else pGetInt( "health", hp )
-	else pGetInt( "stamina", stm )
-	else pGetInt( "mana", mn )
+//	else pGetInt( "health", hp )
+	else if ( !strcmp( name, "health" ) )
+		return PyInt_FromLong( self->pChar->hp() );
+//	else pGetInt( "stamina", stm )
+	else if ( !strcmp( name, "stamina" ) )
+		return PyInt_FromLong( self->pChar->stm() );
+//	else pGetInt( "mana", mn )
+	else if ( !strcmp( name, "mana" ) )
+		return PyInt_FromLong( self->pChar->mn() );
 
 	else pGetInt( "hidamage", hidamage )
 	else pGetInt( "lodamage", lodamage )
@@ -743,16 +757,25 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 	else if ( !strcmp( "xskin", name ) )
 		self->pChar->setXSkin( PyInt_AS_LONG(value ) );
 	
-	else setIntProperty( "health", pChar->hp )
-	else setIntProperty( "stamina", pChar->stm )
-	else setIntProperty( "mana", pChar->mn )
+//	else setIntProperty( "health", pChar->hp )
+	else if ( !strcmp( "health", name ) )
+		self->pChar->setHp( PyInt_AS_LONG( value ) );
+		
+//	else setIntProperty( "stamina", pChar->stm() )
+	else if ( !strcmp( "stamina", name ) )
+		self->pChar->setStm( PyInt_AS_LONG( value ) );
+//	else setIntProperty( "mana", pChar->mn() )
+	else if ( !strcmp( "mana", name ) )
+		self->pChar->setMn( PyInt_AS_LONG( value ) );
 
-	else if ( !strcmp("str", name) )
+	else if ( !strcmp( "str", name ) )
 		self->pChar->setSt( PyInt_AS_LONG( value ) );
-	else if( !strcmp( "dex", name ) )
+	else if ( !strcmp( "dex", name ) )
 		self->pChar->setDex( PyInt_AS_LONG( value ) );
 	
-	else setIntProperty( "int", pChar->in )
+//	else setIntProperty( "int", pChar->in() )
+	else if ( !strcmp( "int", name ) )
+		self->pChar->setIn( PyInt_AS_LONG( value ) );
 //	else setIntProperty( "direction", pChar->dir() )
 	else if( !strcmp("direction", name ) )
 		self->pChar->setDir( PyInt_AS_LONG( value ) );

@@ -78,12 +78,7 @@ public:
 	bool	viewHouseIcons( void ) { return priv2_&0x04; }	
 	bool	isHiddenPermanently( void ) { return priv2_&0x08; }
 
-	signed short			in; // Intelligence
-	signed short			in2; // Reserved for calculation
-	signed short			hp; // Hitpoints
-	signed short			stm; // Stamina
-	signed short			mn; // Mana
-	signed short			mn2; // Reserved for calculation
+	
 	int						hidamage; //NPC Damage
 	int						lodamage; //NPC Damage
 	bool					npc;	// true = Character is an NPC
@@ -295,7 +290,13 @@ protected:
 	unsigned short			xid_; // Backup of body type for ghosts
 	unsigned char			priv2_;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
 	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
-
+	
+	signed short			in_; // Intelligence
+	signed short			in2_; // Reserved for calculation
+	signed short			hp_; // Hitpoints
+	signed short			stm_; // Stamina
+	signed short			mn_; // Mana
+	signed short			mn2_; // Reserved for calculation
 //END ADDED FROM PUBLIC ******************************************
 	std::map< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 
@@ -445,7 +446,12 @@ public:
 	unsigned char			dir() const { return dir_; }
 	unsigned short			xid() const { return xid_; }
 	unsigned char			priv2() const { return priv2_; }
-
+	signed short			in() const { return in_; }
+	signed short			in2() const { return in2_; }
+	signed short			hp() const { return hp_; }
+	signed short			stm() const { return stm_; }
+	signed short			mn() const { return mn_; }
+	signed short			mn2() const { return mn2_; }
 
 //END ADDED GETTERS***********************************************
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu )
@@ -596,7 +602,12 @@ public:
 	void					setDir( unsigned char data ) { dir_ = data; }
 	void					setXid( unsigned short data ) { xid_ = data; }
 	void					setPriv2( unsigned char data ) { priv2_ = data; }
-
+	void					setIn( signed short data ) { in_ = data; }
+	void					setIn2( signed short data ) { in2_ = data; }
+	void					setHp( signed short data ) { hp_ = data; }
+	void					setStm( signed short data ) { stm_ = data; }
+	void					setMn( signed short data ) { mn_ = data; }
+	void					setMn2( signed short data ) { mn2_ = data; }
 //END SETTERS********************************************************
 	void					setLastSection( cMakeMenu* basemenu, cMakeSection* data )
 	{

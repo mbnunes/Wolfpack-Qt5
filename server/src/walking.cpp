@@ -765,6 +765,8 @@ bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw()
 // This only gets called when running
 void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 {
+	signed short tempshort;
+	
 	// Running automatically stops stealthing
 	if( pChar->stealth() != -1 ) 
 	{
@@ -784,7 +786,9 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 		// The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
 		// ^^ WTF?
 		pChar->setRunning( 0 );
-		pChar->stm--;
+//		pChar->stm--;
+		tempshort = pChar->stm();
+		pChar->setStm( --tempshort );
 		socket->updateStamina();
 	}
 
@@ -974,6 +978,7 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 		return;
 
 	const int visibleRange = VISRANGE;
+	signed short tempshort;
 
 	cRegion::RegionIterator4Chars ri( pChar->pos );
 	for( ri.Begin(); !ri.atEnd(); ri++ )
@@ -1002,7 +1007,7 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 			if( socket )
 				socket->sysMessage( tr( "Being perfectly rested, you shoved something invisible out of the way." ) );
 
-		    pChar->stm = QMAX( pChar->stm - 4, 0 );
+		    pChar->setStm( QMAX( pChar->stm() - 4, 0 ) );
 			updatestats( pChar, 2 );
 		}
 		else if( !mapChar->isHidden() && !mapChar->dead && (!(mapChar->isInvul())) &&(!(mapChar->isGM()))) // ripper..GMs and ghosts dont get shoved.)
@@ -1010,7 +1015,7 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 			if( socket )
 				socket->sysMessage( tr( "Being perfectly rested, you shove %1 out of the way." ).arg( mapChar->name.c_str() ) );
 			
-			pChar->stm = QMAX( pChar->stm - 4, 0 );
+			pChar->setStm( QMAX( ( tempshort = pChar->stm() ) - 4, 0 ) );
 			updatestats( pChar, 2 );
 		}
 		else if( !mapChar->isGMorCounselor() && !mapChar->isInvul() ) //A normal player (No priv1(Not a gm))
@@ -1018,7 +1023,7 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 			if( socket )
 				socket->sysMessage( "Being perfectly rested, you shove something invisible out of the way." );
 
-			pChar->stm = QMAX( pChar->stm - 4, 0 );
+			pChar->setStm( QMAX( pChar->stm() - 4, 0 ) );
 			updatestats( pChar, 2 );
 		}
 	}
@@ -1648,7 +1653,7 @@ inline bool cMovement::isValidDirection( Q_UINT8 dir )
 inline bool cMovement::isOverloaded( P_CHAR pc )
 {
 	if ( !pc->dead && !pc->isNpc() && !pc->isGMorCounselor() )
-		if( !Weight->CheckWeight( pc ) || ( pc->stm < 3 ) )
+		if( !Weight->CheckWeight( pc ) || ( pc->stm() < 3 ) )
 			return true;
 
 	return false;	
@@ -1718,7 +1723,7 @@ bool cMovement::consumeStamina( cUOSocket *socket, P_CHAR pChar, bool running )
 
 	INT32 requiredStamina = (INT32)((double)( (double)overweight * 0.10f ) * (double)pChar->weight());
 	
-	if( pChar->stm < requiredStamina ) 
+	if( pChar->stm() < requiredStamina ) 
 	{
 		pChar->talk( tr( "You are too exhausted to move" ) );
 		return false;

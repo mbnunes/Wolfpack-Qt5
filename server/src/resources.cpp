@@ -836,11 +836,13 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		spawnamount = item.minamount_per_attempt;
 
 	if( staminamax_ > staminamin_ )
-		pc->stm -= RandomNum( staminamin_, staminamax_ );
+//		pc->stm -= RandomNum( staminamin_, staminamax_ );
+		pc->setStm(pc->stm() - RandomNum( staminamin_, staminamax_ ) );
 	else
-		pc->stm -= staminamin_;
-	if( pc->stm < 0 )
-		pc->stm = 0;
+//		pc->stm -= staminamin_;
+		pc->setStm( pc->stm() - staminamin_ );	
+	if( pc->stm() < 0 )
+		pc->setStm(0);
 
 	if( !Skills->CheckSkill( pc, skillid_, item.minskill, item.maxskill ) )
 	{
@@ -1041,11 +1043,13 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 	UINT32 spawnamount = (UINT32)ceil((float)pSource->amount() * item.conversion.rate);
 
 	if( staminamax_ > staminamin_ )
-		pc->stm -= RandomNum( staminamin_, staminamax_ );
+//		pc->stm -= RandomNum( staminamin_, staminamax_ );
+		pc->setStm(pc->stm() - RandomNum( staminamin_, staminamax_ ) );
 	else
-		pc->stm -= staminamin_;
-	if( pc->stm < 0 )
-		pc->stm = 0;
+//		pc->stm -= staminamin_;
+		pc->setStm( pc->stm() - staminamin_ );
+	if( pc->stm() < 0 )
+		pc->setStm(0);
 
 	if( !Skills->CheckSkill( pc, skillid_, item.minskill, item.maxskill ) )
 	{

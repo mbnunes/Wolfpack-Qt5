@@ -84,7 +84,7 @@ void cCombat::ItemCastSpell( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pItem )
 		return;
 
 	UINT16 spellnum = ( ( pItem->morex * 8 ) - 8 ) + pItem->morey;
-	UINT16 tempmana = pAttacker->mn; //Save their mana so we can give it back.
+	UINT16 tempmana = pAttacker->mn(); //Save their mana so we can give it back.
 	UINT16 tempmage = pAttacker->skill( MAGERY ); //Easier than writing new functions for all these spells
 
 	if( pItem->type() != 15 || pItem->morez <= 0 )
@@ -111,11 +111,11 @@ void cCombat::ItemCastSpell( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pItem )
 		break;
 	}
 
-	pAttacker->mn += tempmana;
+	pAttacker->setMn(pAttacker->mn() + tempmana);
 	pAttacker->setSkill( MAGERY, tempmage );
 	
-	if( pAttacker->in < pAttacker->mn )
-		pAttacker->mn = pAttacker->in;
+	if( pAttacker->in() < pAttacker->mn() )
+		pAttacker->setMn( pAttacker->in() );
 	
 	pItem->morez--;
 
@@ -495,9 +495,11 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 					// Its said 80% deflected 10% to attacker / 10% defender gotta check special effects
 					int damage1;
 					damage1=(int)( damage*(pc_defender->skill(MAGERY)/2000.0));
-					pc_defender->hp -= damage - damage1;
+//					pc_defender->hp -= damage - damage1;
+					pc_defender->setHp( pc_defender->hp() - damage - damage1 );
 					if (pc_defender->isNpc()) damage1 = damage1 * SrvParams->npcdamage();
-					pc_attacker->hp -= damage1;  // Remove damage from attacker
+//					pc_attacker->hp -= damage1;  // Remove damage from attacker
+					pc_attacker->setHp( pc_attacker->hp() - damage1 );
 					staticeffect(pc_defender, 0x37, 0x4A, 0, 15); //RA effect
 					
 					if ((fightskill==MACEFIGHTING) && (IsSpecialMace(pWeapon->id()))) // Stamina Loss
@@ -522,11 +524,12 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 				else 
 				{	
 					//===== DEAL DAMAGE (!)
-					pc_defender->hp -= damage; // Remove damage from defender only apply special hits to non-npc's
-					
+//					pc_defender->hp -= damage; // Remove damage from defender only apply special hits to non-npc's
+					pc_defender->setHp( pc_defender->hp() - damage );
 					if ((fightskill==MACEFIGHTING) && (IsSpecialMace(pWeapon->id())) && (pc_defender->isPlayer()))// Stamina Loss -Fraz-
 					{ 
-						pc_defender->stm-=3+(rand()%3);
+//						pc_defender->stm-=3+(rand()%3);
+						pc_defender->setStm( pc_defender->stm() - 3+(rand()%3) );
 					}
 
 					if ((fightskill==FENCING) && (IsFencing2H(pWeapon->id())) && (pc_defender->isPlayer()))// Paralyzing
@@ -574,7 +577,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 				}
 
 				//===== SPLITTING NPCS
-				if ((pc_defender->split()>0)&&(pc_defender->hp>=1))
+				if ((pc_defender->split()>0)&&(pc_defender->hp()>=1))
 				{
 					if (rand()%100<=pc_defender->splitchnc())
 					{
@@ -595,8 +598,8 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 			to complete and *then* deal the damage if the user is 
 			still in range (srvparams option!)
 		*/
-		pc_defender->hp = QMAX( 0, pc_defender->hp );
-
+//		pc_defender->hp = QMAX( 0, pc_defender->hp );
+		pc_defender->setHp( QMAX( 0, pc_defender->hp() ) );
 		//===== RESEND HEALTH BAR(S)
 		pc_defender->updateHealth();
 
@@ -628,91 +631,91 @@ static void NpcSpellAttack( P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int
 				switch(whichbit(pc_attacker->spattack, spattackbit))
 				{
 				case 1:
-					if (pc_attacker->mn>=4)
+					if (pc_attacker->mn()>=4)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->MagicArrow(pc_attacker, pc_defender);
 					}
 					break; 
 				case 2:
-					if (pc_attacker->mn>=6)
+					if (pc_attacker->mn()>=6)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->HarmSpell(pc_attacker, pc_defender);
 					}
 					break; //lb
 				case 3:
-					if (pc_attacker->mn>=4)
+					if (pc_attacker->mn()>=4)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->ClumsySpell(pc_attacker, pc_defender);										
 					}
 					break; //LB
 				case 4:
-					if (pc_attacker->mn>=4)
+					if (pc_attacker->mn()>=4)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->FeebleMindSpell(pc_attacker, pc_defender);
 					}
 					break; //LB
 				case 5:
-					if (pc_attacker->mn>=4)
+					if (pc_attacker->mn()>=4)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->WeakenSpell(pc_attacker, pc_defender);
 					}
 					break; //LB
 				case 6:
-					if (pc_attacker->mn>=9)
+					if (pc_attacker->mn()>=9)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->FireballSpell(pc_attacker, pc_defender);
 					}
 					break; //LB
 				case 7:
-					if (pc_attacker->mn>=11)
+					if (pc_attacker->mn()>=11)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->CurseSpell(pc_attacker, pc_defender);
 					}
 					break; //LB
 				case 8:
-					if (pc_attacker->mn>=11)
+					if (pc_attacker->mn()>=11)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->LightningSpell(pc_attacker, pc_defender);
 					}
 					break; //lb
 				case 9:
-					if (pc_attacker->mn>=14)
+					if (pc_attacker->mn()>=14)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->ParalyzeSpell(pc_attacker, pc_defender);
 					}
 					break; //lb
 				case 10:
-					if (pc_attacker->mn>=14)
+					if (pc_attacker->mn()>=14)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->MindBlastSpell(pc_attacker, pc_defender);
 					}
 					break;
 				case 11:
-					if (pc_attacker->mn>=20)
+					if (pc_attacker->mn()>=20)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->EnergyBoltSpell(pc_attacker, pc_defender);
 					}
 					break;
 				case 12:
-					if (pc_attacker->mn>=20)
+					if (pc_attacker->mn()>=20)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->ExplosionSpell(pc_attacker, pc_defender);
 					}
 					break;
 				case 13:
-					if (pc_attacker->mn>=40)
+					if (pc_attacker->mn()>=40)
 					{
 						npcaction(pc_attacker, 6);
 						Magic->FlameStrikeSpell(pc_attacker, pc_defender);
@@ -936,7 +939,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 						// - Do stamina maths -
 						if( abs( SrvParams->attackstamina() ) > 0 && !pc_attacker->isGM() )
 						{
-							if( (SrvParams->attackstamina() < 0 ) && ( pc_attacker->stm < abs( SrvParams->attackstamina() ) ) )
+							if( (SrvParams->attackstamina() < 0 ) && ( pc_attacker->stm() < abs( SrvParams->attackstamina() ) ) )
 							{
 								if( pc_attacker->socket() )
 									pc_attacker->socket()->sysMessage( tr( "You are too tired to attack." ) );
@@ -945,12 +948,13 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 								return;
 							}
 
-							pc_attacker->stm += SrvParams->attackstamina();
-							if( pc_attacker->stm > pc_attacker->effDex() )
-								pc_attacker->stm = pc_attacker->effDex();
+//							pc_attacker->stm += SrvParams->attackstamina();
+							pc_attacker->setStm( pc_attacker->stm() + SrvParams->attackstamina() );
+							if( pc_attacker->stm() > pc_attacker->effDex() )
+								pc_attacker->setStm( pc_attacker->effDex() );
 							
-							if( pc_attacker->stm < 0 )
-								pc_attacker->stm = 0;
+							if( pc_attacker->stm() < 0 )
+								pc_attacker->setStm(0);
 
 							// Send the changed stamina
 							if( pc_attacker->socket() )
@@ -994,7 +998,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 			}			
 
 			// Our target finally died.
-			if( pc_defender->hp < 1 ) //Highlight //Repsys
+			if( pc_defender->hp() < 1 ) //Highlight //Repsys
 			{
 				if((pc_attacker->npcaitype() == 4 || pc_attacker->npcaitype() == 9) && pc_defender->isNpc())
 				{

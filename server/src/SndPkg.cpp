@@ -1109,15 +1109,15 @@ void updatestats( P_CHAR pc, char x )
 	{
 	case 0:
 		a=pc->st();
-		b=pc->hp;
+		b=pc->hp();
 		break;
 	case 1:
-		a=pc->in;
-		b=pc->mn;
+		a=pc->in();
+		b=pc->mn();
 		break;
 	case 2:
 		a=pc->effDex();
-		b=pc->stm;
+		b=pc->stm();
 		break;
 	}
 	

@@ -915,6 +915,7 @@ void explodeitem(int s, P_ITEM pi)
 {
 	unsigned int dmg=0,len=0;
 	unsigned int dx,dy,dz;
+	signed short tempshort;
 //	int cc=currchar[s];
 
 	if (pi == NULL)
@@ -966,9 +967,12 @@ void explodeitem(int s, P_ITEM pi)
 			dz=abs(pc->pos.z-pi->pos.z);
 			if ((dx<=len)&&(dy<=len)&&(dz<=len))
 			{
-				pc->hp-=dmg+(2-QMIN(dx,dy));
+//				pc->hp-=dmg+(2-QMIN(dx,dy));
+				tempshort = pc->hp();
+				tempshort -= dmg+(2-QMIN(dx,dy));
+				pc->setHp( tempshort );
 				updatestats(pc, 0);
-				if (pc->hp<=0)
+				if (pc->hp()<=0)
 				{
 					pc->kill();
 				}
@@ -1452,8 +1456,8 @@ void mounthorse(cUOSocket* socket, P_CHAR pc_mount) // Remove horse char and giv
 		// AntiChrist bugfixes - 11/10/99
 		pi->setMoreb2( pc_mount->st() );
 		pi->setMoreb3( pc_mount->realDex() );
-		pi->setMoreb4( pc_mount->in );
-		pi->setHp( pc_mount->hp );
+		pi->setMoreb4( pc_mount->in() );
+		pi->setHp( pc_mount->hp() );
 		pi->setLodamage( pc_mount->fame );
 		pi->setHidamage( pc_mount->karma );
 		pi->poisoned = pc_mount->poisoned();
@@ -2668,7 +2672,8 @@ void addgold(UOXSOCKET s, int totgold)
 void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 {
 	int x;
-
+	signed short tempshort;
+		
 	if ( pc_p == NULL ) return;
 	UOXSOCKET s = calcSocketFromChar(pc_p);
 	P_CHAR pc_currchar = currchar[s];
@@ -2780,15 +2785,21 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 		switch(pi->morez)
 		{
 		case 1:
-			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+5+RandomNum(1,5)+pc_p->skill(17)/100), pc_p->st());
+//			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+5+RandomNum(1,5)+pc_p->skill(17)/100), pc_p->st());
+			tempshort = pc_p->hp();
+			pc_p->setHp( QMIN(static_cast<signed short>(tempshort+5+RandomNum(1,5)+pc_p->skill(17)/100), pc_p->st()) );
 			sysmessage(s, tr("You feel better!"));
 			break;
 		case 2:
-			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+15+RandomNum(1,10)+pc_p->skill(17)/50), pc_p->st());
+//			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+15+RandomNum(1,10)+pc_p->skill(17)/50), pc_p->st());
+			tempshort = pc_p->hp();
+			pc_p->setHp( QMIN(static_cast<signed short>(tempshort+15+RandomNum(1,10)+pc_p->skill(17)/50), pc_p->st()) );
 			sysmessage(s, tr("You feel more healty!"));
 			break;
 		case 3:
-			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+20+RandomNum(1,20)+pc_p->skill(17)/40), pc_p->st());
+//			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+20+RandomNum(1,20)+pc_p->skill(17)/40), pc_p->st());
+			tempshort = pc_p->hp();
+			pc_p->setHp( QMIN(static_cast<signed short>(tempshort+20+RandomNum(1,20)+pc_p->skill(17)/40), pc_p->st()) );
 			sysmessage(s, tr("You feel much more healty!"));
 			break;
 		default:
@@ -2818,11 +2829,15 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 		switch(pi->morez)
 		{
 		case 1:
-			pc_p->stm=QMIN(pc_p->stm+20+RandomNum(1,10), (int)pc_p->effDex());
+//			pc_p->stm=QMIN(pc_p->stm+20+RandomNum(1,10), (int)pc_p->effDex());
+			tempshort = pc_p->stm();
+			pc_p->setStm( QMIN(tempshort+20+RandomNum(1,10), (int)pc_p->effDex()) );
 			sysmessage(s, tr("You feel more energetic!"));
 			break;
 		case 2:
-			pc_p->stm=QMIN(pc_p->stm+40+RandomNum(1,30), (int)pc_p->effDex());
+//			pc_p->stm=QMIN(pc_p->stm+40+RandomNum(1,30), (int)pc_p->effDex());
+			tempshort = pc_p->stm();
+			pc_p->setStm( QMIN(tempshort+40+RandomNum(1,30), (int)pc_p->effDex()) );
 			sysmessage(s, tr("You feel much more energetic!"));
 			break;
 		default:
@@ -2858,12 +2873,16 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 		{
 		case 1:
 		
-			pc_p->mn=QMIN(pc_p->mn+10+pi->morex/100, (unsigned)pc_p->in);
+//			pc_p->mn=QMIN(pc_p->mn+10+pi->morex/100, (unsigned)pc_p->in);
+			tempshort = pc_p->mn();
+			pc_p->setMn( QMIN(tempshort+10+pi->morex/100, (unsigned)pc_p->in()) );
 		
 			break;
 		case 2:
 		
-			pc_p->mn=QMIN(pc_p->mn+20+pi->morex/50, (unsigned)pc_p->in);
+//			pc_p->mn=QMIN(pc_p->mn+20+pi->morex/50, (unsigned)pc_p->in);
+			tempshort = pc_p->mn();
+			pc_p->setMn( QMIN(tempshort+20+pi->morex/50, (unsigned)pc_p->in()) );
 		
 			break;
 		default:

@@ -496,17 +496,17 @@ public:
 			socket->sysMessage( tr("It looks smarter than a rock, but dumber than a piece of wood.") );
 		else
 		{
-			if		(pc->in <= 10)	socket->sysMessage( tr("That person looks slightly less intelligent than a rock.") );
-			else if (pc->in <= 20)	socket->sysMessage( tr("That person looks fairly stupid.") );
-			else if (pc->in <= 30)	socket->sysMessage( tr("That person looks not the brightest.") );
-			else if (pc->in <= 40)	socket->sysMessage( tr("That person looks about average.") );
-			else if (pc->in <= 50)	socket->sysMessage( tr("That person looks moderately intelligent.") );
-			else if (pc->in <= 60)	socket->sysMessage( tr("That person looks very intelligent.") );
-			else if (pc->in <= 70)	socket->sysMessage( tr("That person looks extremely intelligent.") );
-			else if (pc->in <= 80)	socket->sysMessage( tr("That person looks extraordinarily intelligent.") );
-			else if (pc->in <= 90)	socket->sysMessage( tr("That person looks like a formidable intellect, well beyond the ordinary.") );
-			else if (pc->in <= 99)	socket->sysMessage( tr("That person looks like a definite genius.") );
-			else if (pc->in >=100)  socket->sysMessage( tr("That person looks superhumanly intelligent in a manner you cannot comprehend.") );
+			if		(pc->in() <= 10)	socket->sysMessage( tr("That person looks slightly less intelligent than a rock.") );
+			else if (pc->in() <= 20)	socket->sysMessage( tr("That person looks fairly stupid.") );
+			else if (pc->in() <= 30)	socket->sysMessage( tr("That person looks not the brightest.") );
+			else if (pc->in() <= 40)	socket->sysMessage( tr("That person looks about average.") );
+			else if (pc->in() <= 50)	socket->sysMessage( tr("That person looks moderately intelligent.") );
+			else if (pc->in() <= 60)	socket->sysMessage( tr("That person looks very intelligent.") );
+			else if (pc->in() <= 70)	socket->sysMessage( tr("That person looks extremely intelligent.") );
+			else if (pc->in() <= 80)	socket->sysMessage( tr("That person looks extraordinarily intelligent.") );
+			else if (pc->in() <= 90)	socket->sysMessage( tr("That person looks like a formidable intellect, well beyond the ordinary.") );
+			else if (pc->in() <= 99)	socket->sysMessage( tr("That person looks like a definite genius.") );
+			else if (pc->in() >=100)  socket->sysMessage( tr("That person looks superhumanly intelligent in a manner you cannot comprehend.") );
 		}
 		return true;
 	}
@@ -741,7 +741,7 @@ public:
 		{
 			if (Skills->CheckSkill(pc_currchar, ANIMALLORE, 0, 1000))
 			{
-				pc->talk( tr("Attack [%1] Defense [%2] Taming [%3] Hit Points [%4]").arg(pc->att).arg(pc->def).arg(pc->taming/10).arg(pc->hp) );
+				pc->talk( tr("Attack [%1] Defense [%2] Taming [%3] Hit Points [%4]").arg(pc->att).arg(pc->def).arg(pc->taming/10).arg(pc->hp()) );
 				return true;
 			}
 			else
@@ -851,7 +851,7 @@ public:
 				}
 				for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
 				{
-					if( mSock != socket && inrange1p( pc_currchar, mSock->player() ) && (rand()%10+10==17|| (rand()%2==1 && mSock->player()->in >= pc_currchar->in))) 
+					if( mSock != socket && inrange1p( pc_currchar, mSock->player() ) && (rand()%10+10==17|| (rand()%2==1 && mSock->player()->in() >= pc_currchar->in()))) 
 						mSock->sysMessage(temp2);
 				}
 			}
@@ -1791,7 +1791,7 @@ void cSkills::AdvanceStats( P_CHAR pChar, UINT16 skillId )
 {
 	bool update = false;
 	bool atCap = false;
-
+	signed short temp1,temp2;
 	if ( !pChar ) 
 		return;
 	
@@ -1799,13 +1799,14 @@ void cSkills::AdvanceStats( P_CHAR pChar, UINT16 skillId )
 	INT32 mod = SrvParams->statsAdvanceModifier();
 	
 	// Strength advancement
-	signed short temp1,temp2;
+	
 	if( skill[skillId].st > rand() % mod )
 		if( AdvanceOneStat( skillId, i, &( temp1 = pChar->st()), &( temp2 = pChar->st2()), &update, pChar->isGM() ) && atCap && !pChar->isGM() )
 			if( rand() % 2 ) 
 				pChar->chgRealDex(-1); 
 			else 
-				pChar->in-=1;
+//				pChar->in-=1;
+				pChar->setIn(pChar->in() - 1);
 	
 	if( skill[skillId].dx > rand() % mod )
 		if( pChar->incDecDex( calcStatIncrement( skillId, i, pChar->realDex() ) ) )
@@ -1815,11 +1816,12 @@ void cSkills::AdvanceStats( P_CHAR pChar, UINT16 skillId )
 				if( rand() % 2 )
 					pChar->setSt( ( pChar->st() ) - 1 );
 				else 
-					pChar->in -= 1;
+//					pChar->in -= 1;
+					pChar->setIn(pChar->in() - 1);
 		}
 	
 	if( skill[skillId].in > rand() % mod )
-		if( AdvanceOneStat( skillId, i, &( pChar->in ), &(pChar->in2), &update, pChar->isGM() ) && atCap && !pChar->isGM() )
+		if( AdvanceOneStat( skillId, i, &( temp1 = pChar->in() ), &(temp2 = pChar->in2()), &update, pChar->isGM() ) && atCap && !pChar->isGM() )
 			if( rand()%2 ) 
 				pChar->chgRealDex(-1); 
 			else 
@@ -2155,7 +2157,7 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 			socket->sysMessage( (char*)temp); // bugfix, LB
 			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
 			{
-				if( mSock != socket && inrange1p( pc_currchar, mSock->player() ) && (rand()%10+10==17|| (rand()%2==1 && mSock->player()->in >= pc_currchar->in))) 
+				if( mSock != socket && inrange1p( pc_currchar, mSock->player() ) && (rand()%10+10==17|| (rand()%2==1 && mSock->player()->in() >= pc_currchar->in() ))) 
 					mSock->sysMessage(temp2);
 			}
 		}
@@ -2491,7 +2493,7 @@ void cSkills::updateSkillLevel(P_CHAR pc, int s)
 {
 	int temp = (((skill[s].st * pc->st()) / 100 +
 		(skill[s].dx * pc->effDex()) / 100 +
-		(skill[s].in * pc->in) / 100)
+		(skill[s].in * pc->in()) / 100)
 		*(1000-pc->baseSkill(s)))/1000+pc->baseSkill(s);
 	
 		
@@ -2715,16 +2717,17 @@ void cSkills::Persecute ( cUOSocket* socket )
 	if( target->isGM() )
 		return;
 
-	int decrease = ( pc_currchar->in / 10 ) + 3;
+	int decrease = ( pc_currchar->in() / 10 ) + 3;
 
 	if((pc_currchar->skilldelay<=uiCurrentTime) || pc_currchar->isGM())
 	{
-		if(((rand()%20)+pc_currchar->in)>45) //not always
+		if(((rand()%20)+pc_currchar->in())>45) //not always
 		{
-			if( target->mn <= decrease )
-				target->mn = 0;
+			if( target->mn() <= decrease )
+				target->setMn(0);
 			else 
-				target->mn-=decrease;//decrease mana
+//				target->mn-=decrease;//decrease mana
+				target->setMn(target->mn() - decrease);
 			updatestats(target,1);//update
 			socket->sysMessage(tr("Your spiritual forces disturb the enemy!"));
 			if ( target->socket() )

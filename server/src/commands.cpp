@@ -492,7 +492,7 @@ public:
 		else if( key == "int" )
 			if( pChar )
 			{
-				pChar->in = hex2dec( value ).toInt();
+				pChar->setIn( hex2dec( value ).toInt() );
 				for( UINT8 i = 0; i < ALLSKILLS; ++i )
 					Skills->updateSkillLevel( pChar, i );
 			}
@@ -511,16 +511,16 @@ public:
 		else if( key == "hp" || key == "health" || key == "hitpoints" )
 		{
 			if( pChar )
-				pChar->hp = hex2dec( value ).toInt();
+				pChar->setHp( hex2dec( value ).toInt() );
 			else 
 				pItem->setHp( hex2dec( value ).toInt() );
 		}
 
 		else if( key == "stamina" && pChar )
-			pChar->stm = hex2dec( value ).toInt();
+			pChar->setStm( hex2dec( value ).toInt() );
 
 		else if( key == "mana" && pChar )
-			pChar->mn = hex2dec( value ).toInt();
+			pChar->setMn( hex2dec( value ).toInt() );
 
 		else if( key == "morex" && pItem )
 			pItem->morex = hex2dec( value ).toInt();
@@ -1077,7 +1077,7 @@ public:
 
 		else if( ( key == "int" ) )
 			if( pChar )
-				result = QString( "%1" ).arg( pChar->in );
+				result = QString( "%1" ).arg( pChar->in() );
 			else 
 				result = QString( "%1" ).arg( pItem->in );
 
@@ -1116,16 +1116,16 @@ public:
 		else if( key == "hp" || key == "health" || key == "hitpoints" )
 		{
 			if( pChar )
-				result = QString( "%1" ).arg( pChar->hp );
+				result = QString( "%1" ).arg( pChar->hp() );
 			else 
 				result = QString( "%1" ).arg( pItem->hp() );
 		}
 
 		else if( key == "stamina" && pChar )
-			result = QString( "%1" ).arg( pChar->stm );
+			result = QString( "%1" ).arg( pChar->stm() );
 
 		else if( key == "mana" && pChar )
-			result = QString( "%1" ).arg( pChar->mn );
+			result = QString( "%1" ).arg( pChar->mn() );
 
 		// Check if key was a skillname
 		else 

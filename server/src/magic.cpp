@@ -229,19 +229,19 @@ bool cMagic::checkStats( P_CHAR caster, cSpell *spell )
 	if( caster->isGM() )
 		return true;
 
-	if( ( caster->mn < spell->mana() ) && !( caster->priv2() & 0x10 ) )
+	if( ( caster->mn() < spell->mana() ) && !( caster->priv2() & 0x10 ) )
 	{
 		sysmessage( calcSocketFromChar( caster ), "You have insufficient mana to cast that spell.");
 		return false;
 	}
 
-	if( caster->stm < spell->stamina() )
+	if( caster->stm() < spell->stamina() )
 	{
 		sysmessage( calcSocketFromChar( caster ), "You have insufficient stamina to cast that spell.");
 		return false;
 	}
 
-	if( caster->hp < spell->health() )
+	if( caster->hp() < spell->health() )
 	{
 		sysmessage( calcSocketFromChar( caster ), "You have insufficient health to cast that spell.");
 		return false;
@@ -972,10 +972,12 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->setBaseSkill(SWORDSMANSHIP, 1000);
 		pc_monster->setBaseSkill(PARRYING, 1000);
 		pc_monster->setSkill(MAGICRESISTANCE, 650);
-		pc_monster->setSt( pc_monster->hp=600 );
+		pc_monster->setHp(600);
+		pc_monster->setSt( pc_monster->hp() );
 		pc_monster->setDex(70);
-		pc_monster->stm=70;
-		pc_monster->in=pc_monster->mn=100;
+		pc_monster->setStm(70);
+		pc_monster->setMn(100);
+		pc_monster->setIn( pc_monster->mn() );
 		pc_monster->fame=10000;
 		pc_monster->karma=10000;
 		break;
@@ -993,10 +995,12 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->setBaseSkill(SWORDSMANSHIP, 1000);
 		pc_monster->setBaseSkill(PARRYING, 1000);
 		pc_monster->setSkill(MAGICRESISTANCE, 1000);
-		pc_monster->setSt( pc_monster->hp=600 );
+		pc_monster->setHp(600);
+		pc_monster->setSt( pc_monster->hp() );
 		pc_monster->setDex(70);
-		pc_monster->stm=70;
-		pc_monster->in=pc_monster->mn=100;
+		pc_monster->setStm(70);
+		pc_monster->setMn(100);
+		pc_monster->setIn(pc_monster->mn() );
 		break;
 	case 0x0190: // Death Knight
 		soundeffect(s, 0x02, 0x46);
@@ -1012,10 +1016,12 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->setBaseSkill(SWORDSMANSHIP, 1000);
 		pc_monster->setBaseSkill(PARRYING, 1000);
 		pc_monster->setSkill(MAGICRESISTANCE, 650);
-		pc_monster->setSt( pc_monster->hp=600 );
+		pc_monster->setHp(600);
+		pc_monster->setSt( pc_monster->hp() );
 		pc_monster->setDex(70);
-		pc_monster->stm=70;
-		pc_monster->in=pc_monster->mn=100;
+		pc_monster->setStm(70);
+		pc_monster->setMn(100);
+		pc_monster->setIn( pc_monster->mn() );
 		pc_monster->fame=-10000;
 		pc_monster->karma=-10000;
 		break;
@@ -1143,7 +1149,7 @@ char cMagic::CheckMana(P_CHAR pc, int num)
 	if (pc->priv2()&0x10)
 		return 1;
 
-	if (pc->mn >= spells[num].mana)
+	if (pc->mn() >= spells[num].mana)
 		return 1;
 	else
 	{
@@ -1170,10 +1176,10 @@ char cMagic::SubtractMana(P_CHAR pc, int mana)
 	if (pc->priv2()&0x10)
 		return 1;
 
-	if (pc->mn >= mana)
-		pc->mn-=mana;
+	if (pc->mn() >= mana)
+		pc->setMn( pc->mn() - mana );
 	else
-		pc->mn = 0;
+		pc->setMn(0);
 
 	updatestats((pc), 1);//AntiChrist - bugfix
 	return 1;
@@ -1266,9 +1272,10 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 	if ( Region != NULL && !pc->isInvul() && Region->allowsMagicDamage() ) // LB magic-region change
 	{
 		if (pc->isNpc()) amount *= 2;			// double damage against non-players
-		pc->hp = QMAX(0, pc->hp-amount);
+//		pc->hp = QMAX(0, pc->hp-amount);
+		pc->setHp( QMAX(0, pc->hp() - amount ) );
 		updatestats((pc), 0);
-		if (pc->hp <= 0)
+		if (pc->hp() <= 0)
 		{
 			pc->kill();
 		}
@@ -1507,7 +1514,7 @@ void cMagic::PFireballTarget(P_CHAR pc_i, P_CHAR pc, int j) //j = % dammage
 	pc_i->soundEffect( 0x015E );
 	// do we have to calculate attacker hp percentage,
 	// or defender hp percentage?!?!?!
-	dmg=(int)(((float)pc->hp/100) * j);
+	dmg=(int)(((float)pc->hp()/100) * j);
 	MagicDamage(pc, dmg);
 }
 
@@ -1590,8 +1597,8 @@ void cMagic::NPCHeal(P_CHAR pc)
 	if (CheckMana(pc,10))
 	{
 		SubtractMana(pc, 10);
-		int j=pc->hp+(pc->skill(MAGERY)/30+RandomNum(1,12));
-		pc->hp = QMIN(pc->st(), static_cast<signed short>(j));
+		int j=pc->hp()+(pc->skill(MAGERY)/30+RandomNum(1,12));
+		pc->setHp( QMIN(pc->st(), static_cast<signed short>(j)) );
 		doStaticEffect(pc, 4);
 		updatestats(pc, 0);
 	}
@@ -1894,26 +1901,26 @@ void cMagic::MindBlastSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana
 
 	doStaticEffect(pc_target, 37);
 	pc_target->soundEffect( 0x0213 );
-	if (pc_attacker->in>pc_target->in)
+	if (pc_attacker->in()>pc_target->in())
 	{
 		if (CheckResist(pc_attacker, pc_target, 5))
 		{
-			MagicDamage(pc_target, (pc_attacker->in-pc_target->in)/4);
+			MagicDamage(pc_target, (pc_attacker->in()-pc_target->in())/4);
 		}
 		else
 		{
-			MagicDamage(pc_target, (pc_attacker->in-pc_target->in)/2);
+			MagicDamage(pc_target, (pc_attacker->in()-pc_target->in())/2);
 		}
 	}
 	else
 	{
 		if (CheckResist(pc_defender, pc_target, 5))
 		{
-			MagicDamage(pc_attacker, (pc_target->in-pc_attacker->in)/4);
+			MagicDamage(pc_attacker, (pc_target->in()-pc_attacker->in())/4);
 		}
 		else
 		{
-			MagicDamage(pc_attacker, (pc_target->in-pc_attacker->in)/2);
+			MagicDamage(pc_attacker, (pc_target->in()-pc_attacker->in())/2);
 		}
 	}
 	return;
@@ -2278,7 +2285,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										if (m>=400) h=6;
 										if (h>2) h+=rand()%3;
 										
-										pc_defender->hp=pc_defender->hp+h;
+										pc_defender->setHp(pc_defender->hp()+h);
 										updatestats((pc_defender), 0);
 										
 										break;
@@ -2376,8 +2383,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								criminal(pc_currchar);
 							}
 						}
-						j=pc_defender->hp+(pc_currchar->skill(MAGERY)/30+RandomNum(1,12));
-						pc_defender->hp=QMIN(pc_defender->st(), static_cast<signed short>(j));
+						j=pc_defender->hp()+(pc_currchar->skill(MAGERY)/30+RandomNum(1,12));
+						pc_defender->setHp(QMIN(pc_defender->st(), static_cast<signed short>(j)) );
 						updatestats((pc_defender), 0);
 						break;
 						//////////// (30) LIGHTNING /////////////
@@ -2392,26 +2399,27 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					case 31:
 						if(!CheckResist(pc_currchar, pc_defender, 4))
 						{
-							pc_defender->mn-=pc_currchar->skill(MAGERY)/35;
-							if (pc_defender->mn<0) pc_defender->mn=0;
+//							pc_defender->mn-=pc_currchar->skill(MAGERY)/35;
+							pc_defender->setMn(pc_defender->mn() - pc_currchar->skill(MAGERY)/35);
+							if (pc_defender->mn()<0) pc_defender->setMn(0);
 							updatestats((pc_defender), 1);
 						}
 						break;
 						//////////// (37) MIND BLAST ////////////
 					case 37:
-						if (pc_currchar->in>pc_defender->in)
+						if (pc_currchar->in()>pc_defender->in())
 						{
 							if (CheckResist(pc_currchar, pc_defender, 5))
-								MagicDamage(pc_defender, (pc_currchar->in-pc_defender->in)/4);
+								MagicDamage(pc_defender, (pc_currchar->in()-pc_defender->in())/4);
 							else
-								MagicDamage(pc_defender, (pc_currchar->in-pc_defender->in)/2);
+								MagicDamage(pc_defender, (pc_currchar->in()-pc_defender->in())/2);
 						}
 						else
 						{
 							if (CheckResist(pc_currchar, pc_currchar, 5))
-								MagicDamage(pc_currchar, (pc_defender->in-pc_currchar->in)/4);
+								MagicDamage(pc_currchar, (pc_defender->in()-pc_currchar->in())/4);
 							else
-								MagicDamage(pc_currchar, (pc_defender->in-pc_currchar->in)/2);
+								MagicDamage(pc_currchar, (pc_defender->in()-pc_currchar->in())/2);
 						}
 						cMagic::afterParticles(37, pc_currchar);
 						break;
@@ -2466,15 +2474,18 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					case 53:
 						if(!CheckResist(pc_currchar, pc_defender, 7))
 						{
-							if (pc_defender->mn<40)
+							if (pc_defender->mn()<40)
 							{
-								pc_currchar->mn += pc_defender->mn;
-								pc_defender->mn=0;
+//								pc_currchar->mn += pc_defender->mn;
+								pc_currchar->setMn(pc_currchar->mn() + pc_defender->mn());
+								pc_defender->setMn(0);
 							}
 							else
 							{
-								pc_defender->mn-=40;
-								pc_currchar->mn+=40;
+//								pc_defender->mn-=40;
+								pc_defender->setMn(pc_defender->mn() - 40);
+//								pc_currchar->mn+=40;
+								pc_currchar->setMn(pc_currchar->mn() + 40);
 							}
 							updatestats(pc_defender, 1);
 							updatestats(pc_currchar, 1);
@@ -3265,11 +3276,12 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								if (!pc->isGM() && pc->account()!=0)
 									dmgmod = QMIN(distx,disty);
 								dmgmod = -(dmgmod - 7);
-								pc->hp -=  dmg+dmgmod;
-								pc->stm -= rand()%10+5;
-								
-								if(pc->stm<0)  pc->stm=0;
-								if(pc->hp<0) pc->hp=0;						 							
+//								pc->hp -=  dmg+dmgmod;
+								pc->setHp(pc->hp() - dmg+dmgmod);
+//								pc->stm -= rand()%10+5;
+								pc->setStm(pc->stm() - rand()%10+5);									
+								if(pc->stm()<0)  pc->setStm(0);
+								if(pc->hp()<0) pc->setHp(0);						 							
 								
 								if (pc->isPlayer() && online(pc))
 								{
@@ -3281,7 +3293,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								}	
 								else
 								{
-									if (pc->hp<=0)
+									if (pc->hp()<=0)
 										pc->kill();
 									else
 									{
@@ -4298,7 +4310,7 @@ void cMagic::Heal(UOXSOCKET s)
 	{
 		playSound( pc_currchar, 4);
 		doStaticEffect(pc_defender, 4);
-		pc_defender->hp = pc_defender->st();
+		pc_defender->setHp( pc_defender->st() );
 		updatestats((pc_defender), 0);
 	} else
 		sysmessage(s,"Not a valid heal target");

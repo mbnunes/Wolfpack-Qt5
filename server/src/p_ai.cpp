@@ -185,7 +185,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 
 				if (pc_i->baseSkill(MAGERY)>400)
 				{
-					if (pc_i->hp <(pc_i->st()/2))
+					if (pc_i->hp() <(pc_i->st()/2))
 					{
 						pc_i->talk( tr("In Vas Mani"), -1, 0 );
 						Magic->NPCHeal(pc_i);
@@ -609,7 +609,7 @@ void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, unsigned int currenttime)
 		{
 			Magic->NPCCure(pc_i);
 		}
-		else if (pc_i->hp < (pc_i->st()/2))
+		else if (pc_i->hp() < (pc_i->st()/2))
 		{
 			Magic->NPCHeal(pc_i);
 		}

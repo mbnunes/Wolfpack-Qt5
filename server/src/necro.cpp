@@ -75,7 +75,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 			
 			if( Victim->isSameAs(Player) )
 			{
-				if(Victim->hp<=10)
+				if(Victim->hp()<=10)
 				{
 					sysmessage(nSocket,"You are too wounded to continue.");
 					return;
@@ -105,7 +105,8 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 				}
 				Karma(Player,Victim,(0-(Victim->karma)));
 			}
-			Victim->hp -= (rand()%6)+2;
+//			Victim->hp -= (rand()%6)+2;
+			Victim->setHp(Victim->hp() - (rand()%6)+2);
 			MakeNecroReg(nSocket,Vial,0x0E24);
 		}
 	}

@@ -7,6 +7,8 @@
 bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	
+	signed short tempshort;
+
 	P_ITEM pib = FindItemBySerial( bandageSerial );	// item index of bandage
 	
 	P_CHAR pp = FindCharBySerial( target->serial() ); // pointer to patient
@@ -105,7 +107,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 			return true;
 		}
 		
-		if(pp->hp == pp->st() )
+		if(pp->hp() == pp->st() )
 		{
 			socket->sysMessage( tr("That being is not damaged") );
 			return true;
@@ -116,7 +118,9 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 			if (!Skills->CheckSkill((ph),HEALING,0,1000))
 			{
 				socket->sysMessage( tr("You apply the bandages, but they barely help!") );
-				pp->hp++;
+//				pp->hp++;
+				tempshort = pp->hp();
+				pp->setHp(++tempshort);
 			}
 			else
 			{
@@ -124,8 +128,8 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				int healmax = (((ph->skill(HEALING)/5)+(ph->skill(ANATOMY)/2))+10); //OSI's formula for max amount healed (Skyfire)
 				int j=RandomNum(healmin,healmax);
 				//int iMore1 = min(pp->st, j+pp->hp)-pp->hp;
-				if(j>(pp->st() -pp->hp))
-					j=(pp->st() -pp->hp);
+				if(j>(pp->st() -pp->hp()))
+					j=(pp->st() -pp->hp());
 				if(pp->serial==ph->serial)
 					tempeffect(ph, ph, 35, j, 0, 15, 0);//allow a delay
 				else 
@@ -142,7 +146,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				int healmax = (((ph->skill(HEALING)/5)+(ph->skill(VETERINARY)/2))+10); //OSI's formula for max amount healed (Skyfire)
 				int j = RandomNum(healmin, healmax);
 				// khpae
-				pp->hp = (pp->st() > (pp->hp + j)) ? (pp->hp + j) : pp->st();
+				pp->setHp( (pp->st() > (pp->hp() + j)) ? (pp->hp() + j) : pp->st() );
 				updatestats(pp, 0);
 				socket->sysMessage( tr("You apply the bandages and the creature looks a bit healthier.") );
 			}

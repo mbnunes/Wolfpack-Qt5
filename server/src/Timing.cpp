@@ -99,23 +99,25 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 {
 	if( !pc )
 		return;
-	
+
+	signed short tempshort;
+
 	if( !pc->dead )
 	{
-		if( pc->hp > pc->st() )
+		if( pc->hp() > pc->st() )
 		{
-			pc->hp = pc->st();
+			pc->setHp( pc->st() );
 			pc->updateHealth();
 		}
 
-		if( pc->stm > pc->effDex() )
+		if( pc->stm() > pc->effDex() )
 		{
-			pc->stm = pc->effDex();
+			pc->setStm( pc->effDex() );
 			pc->socket()->updateStamina();
 		}
-		if (pc->mn>pc->in)
+		if (pc->mn()>pc->in())
 		{
-			pc->mn = pc->in;
+			pc->setMn( pc->in() );
 			pc->socket()->updateMana();
 		}
 
@@ -125,22 +127,29 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 			UINT32 interval = SrvParams->hitpointrate() * MY_CLOCKS_PER_SEC;
 
 			// If it's not disabled hunger affects our health regeneration
-			if( pc->hp < pc->st() && pc->hunger() > 3 || SrvParams->hungerRate() == 0 )
+			if( pc->hp() < pc->st() && pc->hunger() > 3 || SrvParams->hungerRate() == 0 )
 			{
 				for( UINT16 c = 0; c < pc->st() + 1; ++c )
 				{
-					if( pc->regen + ( c * interval ) <= currenttime && pc->hp <= pc->st() )
+					if( pc->regen + ( c * interval ) <= currenttime && pc->hp() <= pc->st() )
 					{
 						if( pc->skill( HEALING ) < 500 )
-							pc->hp++;
+//							pc->hp++;
+						{	
+							tempshort = pc->hp();
+							pc->setHp( ++tempshort );
+						}
+					
 						else if (pc->skill( HEALING ) < 800)
-							pc->hp += 2;
+//							pc->hp += 2;
+							pc->setHp( pc->hp() + 2 );
 						else 
-							pc->hp += 3;
+//							pc->hp += 3;
+							pc->setHp( pc->hp() + 3 );
 
-						if( pc->hp > pc->st() )
+						if( pc->hp() > pc->st() )
 						{
-							pc->hp = pc->st();
+							pc->setHp( pc->st() );
 							break;
 						}
 					}
@@ -157,12 +166,14 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 			UINT32 interval = SrvParams->staminarate()*MY_CLOCKS_PER_SEC;
 			for( UINT16 c = 0; c < pc->effDex() + 1; ++c )
 			{
-				if (pc->regen2 + (c*interval) <= currenttime && pc->stm <= pc->effDex())
+				if (pc->regen2 + (c*interval) <= currenttime && pc->stm() <= pc->effDex())
 				{
-					pc->stm++;
-					if (pc->stm>pc->effDex())
+//					pc->stm++;
+					tempshort = pc->stm();
+					pc->setStm(++tempshort);
+					if (pc->stm()>pc->effDex())
 					{
-						pc->stm = pc->effDex();
+						pc->setStm(pc->effDex());
 						break;
 					}
 					pc->socket()->updateStamina();
@@ -176,21 +187,24 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 		if( pc->regen3 <= currenttime )
 		{
 			unsigned int interval = SrvParams->manarate()*MY_CLOCKS_PER_SEC;
-			for( UINT16 c = 0; c < pc->in + 1 ; ++c )
+			for( UINT16 c = 0; c < pc->in() + 1 ; ++c )
 			{
-				if (pc->regen3 + (c*interval) <= currenttime && pc->mn <= pc->in)
+				if (pc->regen3 + (c*interval) <= currenttime && pc->mn() <= pc->in())
 				{
-				pc->mn++;
-				if (pc->med() && pc->mn <= pc->mn2)
-						pc->mn += 5;
-					if (pc->mn>pc->in)
+//				pc->mn++;
+				tempshort = pc->mn();
+				pc->setMn(++tempshort);
+				if (pc->med() && pc->mn() <= pc->mn2())
+//						pc->mn += 5;
+						
+					if (pc->mn()>pc->in())
 					{
 						if (pc->med())
 						{
 							pc->socket()->sysMessage( tr("You are at peace." ) );
 							pc->setMed( false );
 						}
-						pc->mn = pc->in;
+						pc->setMn( pc->in() );
 						break;
 					}
 					pc->socket()->updateMana();
@@ -202,7 +216,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 				// 100 = Maximum skill (GM)
 				// 50 = int affects mana regen (%50)
 				int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(pc) + 1) / SrvParams->manarate());
-				int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skill(MEDITATION) + 1)/10) + ((pc->in + 1) / 2)) / ratio));
+				int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skill(MEDITATION) + 1)/10) + ((pc->in() + 1) / 2)) / ratio));
 				if (pc->med())
 				{
 					pc->regen3 = currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC);
@@ -225,7 +239,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 	}
 
 	// Check if the character died
-	if( pc->hp <= 0 && !pc->dead )
+	if( pc->hp() <= 0 && !pc->dead )
 		pc->kill();
 }
 
@@ -236,7 +250,8 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 	// We are not logged in so dont check anything at all.
 	if( !socket )
 		return;
-
+	
+	signed short tempshort;
 	int y,x, timer;//, valid=0;
 	char t[120];
 
@@ -387,12 +402,13 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 	if( ( hungerdamagetimer <= currenttime ) && SrvParams->hungerDamage() )
 	{
 		hungerdamagetimer=currenttime+(SrvParams->hungerDamageRate()*MY_CLOCKS_PER_SEC); /** set new hungertime **/
-		if( pc->hp > 0 && pc->hunger()<2 && !pc->isGMorCounselor() && !pc->dead )
+		if( pc->hp() > 0 && pc->hunger()<2 && !pc->isGMorCounselor() && !pc->dead )
 		{
 			socket->sysMessage( tr( "You are starving." ) );
-			pc->hp -= SrvParams->hungerDamage();
+//			pc->hp -= SrvParams->hungerDamage();
+			pc->setHp( pc->hp() - SrvParams->hungerDamage() );
 			
-			if( pc->hp <=0 )
+			if( pc->hp() <=0 )
 			{
 				socket->sysMessage( tr( "You have died of starvation." ) );
 				pc->kill();
@@ -418,8 +434,10 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 						pc->emote( tr( "*%1 looks a bit nauseous!*" ).arg( pc->name.c_str() ), 0x26 );
 					}
 				 
-					pc->hp -= QMAX(((pc->hp)*RandomNum(5,15))/100, RandomNum(0,1) ); // between 0% and 10% of player's hp 
- 
+//					pc->hp -= QMAX(((pc->hp)*RandomNum(5,15))/100, RandomNum(0,1) ); // between 0% and 10% of player's hp 
+					tempshort = pc->hp();
+					tempshort -= QMAX(((tempshort)*RandomNum(5,15))/100, RandomNum(0,1) );
+					pc->setHp( tempshort );
 					updatestats(pc, 0);
 					break;
 				case 2:
@@ -430,7 +448,10 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 						pc->emote( tr( "*%1 looks disoriented and nauseous!*" ).arg( pc->name.c_str() ), 0x26 );
 					}
 					
-					pc->hp -= QMAX(((pc->hp)*RandomNum(10,20))/100, RandomNum(0,1)); //between 10% and 20% of player's hp
+//					pc->hp -= QMAX(((pc->hp)*RandomNum(10,20))/100, RandomNum(0,1)); //between 10% and 20% of player's hp
+					tempshort = pc->hp();
+					tempshort -= QMAX(((tempshort)*RandomNum(10,20))/100, RandomNum(0,1));
+					pc->setHp( tempshort );
 					pc->updateHealth();
 					break;
 				case 3:
@@ -442,7 +463,10 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 						pc->emote( tr( "*%1 is in severe pain!*" ).arg( pc->name.c_str() ), 0x26 );
 					}
 					
-					pc->hp -= QMAX( ( pc->hp * RandomNum( 20, 30 ) ) / 100, RandomNum( 0, 1 ) ); // between 20% and 30% of player's hp 
+//					pc->hp -= QMAX( ( pc->hp * RandomNum( 20, 30 ) ) / 100, RandomNum( 0, 1 ) ); // between 20% and 30% of player's hp 
+					tempshort = pc->hp();
+					tempshort -= QMAX( ( tempshort * RandomNum( 20, 30 ) ) / 100, RandomNum( 0, 1 ) );
+					pc->setHp( tempshort );
 					pc->updateHealth();
 					break;
 				case 4:
@@ -454,7 +478,10 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 						pc->emote( tr( "*%1 looks extremely sick*" ).arg( pc->name.c_str() ), 0x26 );
 					}
 				
-					pc->hp -= QMAX( ( pc->hp * RandomNum( 30, 40 ) ) / 100, 1 ); //between 30% and 40% of player's hp 
+//					pc->hp -= QMAX( ( pc->hp * RandomNum( 30, 40 ) ) / 100, 1 ); //between 30% and 40% of player's hp
+					tempshort = pc->hp();
+					tempshort -= QMAX( ( tempshort * RandomNum( 30, 40 ) ) / 100, 1 );
+					pc->setHp( tempshort );
 					updatestats(pc, 0);
 					break;
 
@@ -464,7 +491,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 					return;
 				}
 
-				if( pc->hp < 1 )
+				if( pc->hp() < 1 )
 				{
 					socket->sysMessage( tr( "The poison killed you.") );
 					pc->kill();
@@ -554,7 +581,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	}
 
 	// Character is not fleeing but reached the border
-	if( pc->npcWander != 5 && pc->hp < pc->st()*pc->fleeat() / 100 )
+	if( pc->npcWander != 5 && pc->hp() < pc->st()*pc->fleeat() / 100 )
 	{
 		pc->oldnpcWander = pc->npcWander;
 		pc->npcWander=5;
@@ -562,7 +589,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	}
 
     // Character is fleeing and has regenerated
-	if( pc->npcWander == 5 && pc->hp > pc->st()*pc->reattackat() / 100 )
+	if( pc->npcWander == 5 && pc->hp() > pc->st()*pc->reattackat() / 100 )
 	{
 		pc->npcWander = pc->oldnpcWander;
 		pc->setNextMoveTime();
@@ -587,7 +614,8 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 						pc->setEmoteColor( 0x0026 );//buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
-					pc->hp -= RandomNum(1,2);
+//					pc->hp -= RandomNum(1,2);
+					pc->setHp( pc->hp() - RandomNum(1,2) );
 					updatestats(pc, 0);
 					break;
 				case 2:
@@ -600,8 +628,10 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 						npcemoteall(pc,t,1);
 					}
 
-					pcalc = ( ( pc->hp * RandomNum(2,5) ) / 100) + RandomNum(0,2); // damage: 1..2..5% of hp's+ 1..2 constant
-					pc->hp -= pcalc;
+					pcalc = ( ( pc->hp() * RandomNum(2,5) ) / 100) + RandomNum(0,2); // damage: 1..2..5% of hp's+ 1..2 constant
+					
+//					pc->hp -= pcalc;
+					pc->setHp( pc->hp() - pcalc);
 					updatestats(pc, 0);
 					break;
 				case 3:
@@ -613,8 +643,9 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 						pc->setEmoteColor( 0x0026 );//buffer[s][4];
 						npcemoteall(pc,t,1);
 					}
-					pcalc=( ( pc->hp * RandomNum(5,10) ) / 100 ) + RandomNum(1,3); // damage: 5..10% of hp's+ 1..2 constant
-					pc->hp -= pcalc;
+					pcalc=( ( pc->hp() * RandomNum(5,10) ) / 100 ) + RandomNum(1,3); // damage: 5..10% of hp's+ 1..2 constant
+//					pc->hp -= pcalc;
+					pc->setHp( pc->hp() - pcalc);
 					updatestats(pc, 0);
 					break; // lb !!!
 				case 4:
@@ -627,8 +658,9 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 						npcemoteall(pc,t,1);
 					}
 
-					pcalc=( (pc->hp * RandomNum(10,15) ) / 100 ) + RandomNum(3,6); // damage:10 to 15% of hp's+ 3..6 constant, quite deadly <g>
-					pc->hp -= pcalc;
+					pcalc=( (pc->hp() * RandomNum(10,15) ) / 100 ) + RandomNum(3,6); // damage:10 to 15% of hp's+ 3..6 constant, quite deadly <g>
+//					pc->hp -= pcalc;
+					pc->setHp(pc->hp() - pcalc);
 					updatestats(pc, 0);
 					break;
 				default:
@@ -636,7 +668,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					pc->setPoisoned(0);
 					return;
 				}
-				if( pc->hp < 1 )
+				if( pc->hp() < 1 )
 				{
 					pc->kill();
 				}

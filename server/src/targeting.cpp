@@ -703,13 +703,13 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	// All stats to 100
 	pc->setSt( 100 );
 	pc->setSt2( 100 );
-	pc->hp  = 100;
-	pc->stm = 100;
-	pc->in  = 100;
-	pc->in2 = 100;
-	pc->mn  = 100;
-	pc->mn2 = 100;
-	pc->setDex(100);
+	pc->setHp( 100 );
+	pc->setStm( 100 );
+	pc->setIn( 100 );
+	pc->setIn2( 100 );
+	pc->setMn( 100 );
+	pc->setMn2( 100 );
+	pc->setDex( 100 );
 	
 	if (strncmp(pc->name.c_str(), "GM", 2))
 	{
@@ -2385,7 +2385,7 @@ void cTargets::StaminaTarget(int s)
 	{
 		pc->soundEffect( 0x01F2 );
 		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
-		pc->stm = pc->effDex();
+		pc->setStm( pc->effDex() );
 		updatestats(pc, 2);
 		return;
 	}
@@ -2400,7 +2400,7 @@ void cTargets::ManaTarget(int s)
 	{
 		pc->soundEffect( 0x01F2 );
 		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
-		pc->mn = pc->in;
+		pc->setMn( pc->in() );
 		updatestats(pc, 1);
 		return;
 	}
@@ -2694,9 +2694,9 @@ void cTargets::FullStatsTarget(int s)
 	{
 		pc->soundEffect( 0x01F2 );
 		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
-		pc->mn=pc->in;
-		pc->hp=pc->st();
-		pc->stm=pc->effDex();
+		pc->setMn( pc->in() );
+		pc->setHp( pc->st() );
+		pc->setStm(pc->effDex() );
 		updatestats(pc, 0);
 		updatestats(pc, 1);
 		updatestats(pc, 2);

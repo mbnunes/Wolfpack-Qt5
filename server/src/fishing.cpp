@@ -233,15 +233,15 @@ void cFishing::Fish(P_CHAR pc_i)
 		return;
 	}
 
-	if(pc_i->stm<=0)
+	if(pc_i->stm()<=0)
 	{
-		pc_i->stm=0;
+		pc_i->setStm(0);
 		sysmessage(s, "You are too tired to fish, you need to rest!");
 		return;
 	}
 
-	pc_i->stm-=2; // lose 2 stamina each cast.
-
+//	pc_i->stm-=2; // lose 2 stamina each cast.
+	pc_i->setStm( pc_i->stm() - 2 );
 	// New Random fishing up treasures and monsters...Ripper
 	unsigned short skill=pc_i->skill(FISHING);
 	int fishup=(RandomNum(0,100));

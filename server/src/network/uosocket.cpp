@@ -657,13 +657,13 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->setXid( pChar->id() );
 
 	pChar->setSt( packet->strength() );
-	pChar->hp = pChar->st();
+	pChar->setHp( pChar->st() );
 
 	pChar->setDex( packet->dexterity() );
-	pChar->stm = pChar->effDex();
+	pChar->setStm( pChar->effDex() );
 
-	pChar->in = packet->intelligence();
-	pChar->mn = pChar->in;
+	pChar->setIn( packet->intelligence() );
+	pChar->setMn( pChar->in() );
 
 	pChar->setBaseSkill( packet->skillId1(), packet->skillValue1()*10 );
 	pChar->setBaseSkill( packet->skillId2(), packet->skillValue2()*10 );
@@ -1520,7 +1520,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	}
 
 	// Attacking ghosts is not possible
-	if( pc_i->dead || pc_i->hp <= 0 )
+	if( pc_i->dead || pc_i->hp() <= 0 )
 	{
 		sysMessage( tr( "That person is already dead!" ) );
 		send( &attack );
@@ -1748,12 +1748,12 @@ void cUOSocket::updateStamina( P_CHAR pChar )
 	if( pChar == _player )
 	{
 		update.setMaximum( pChar->effDex() );
-		update.setCurrent( pChar->stm );
+		update.setCurrent( pChar->stm() );
 	}
 	else
 	{
 		update.setMaximum( 100 );
-		update.setCurrent( (UINT16)((pChar->stm/pChar->effDex())*100) );
+		update.setCurrent( (UINT16)((pChar->stm()/pChar->effDex())*100) );
 	}
 
 	send( &update );
@@ -1771,13 +1771,13 @@ void cUOSocket::updateMana( P_CHAR pChar )
 	
 	if( pChar == _player )
 	{
-		update.setMaximum( pChar->in );
-		update.setCurrent( pChar->mn );
+		update.setMaximum( pChar->in() );
+		update.setCurrent( pChar->mn() );
 	}
 	else
 	{
 		update.setMaximum( 100 );
-		update.setCurrent( (UINT16)((pChar->mn/pChar->in)*100) );
+		update.setCurrent( (UINT16)((pChar->mn()/pChar->in())*100) );
 	}
 
 	send( &update );
@@ -1796,12 +1796,12 @@ void cUOSocket::updateHealth( P_CHAR pChar )
 	if( pChar == _player )
 	{
 		update.setMaximum( pChar->st() );
-		update.setCurrent( pChar->hp );
+		update.setCurrent( pChar->hp() );
 	}
 	else
 	{
 		update.setMaximum( 100 );
-		update.setCurrent( (UINT16)((pChar->hp/pChar->st())*100) );
+		update.setCurrent( (UINT16)((pChar->hp()/pChar->st())*100) );
 	}
 
 	send( &update );
@@ -1820,7 +1820,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	sendStats.setAllowRename( _player->Owns( pChar ) || _player->isGM() );
 	
 	sendStats.setMaxHp( pChar->st() );
-	sendStats.setHp( pChar->hp );
+	sendStats.setHp( pChar->hp() );
 
 	sendStats.setName( pChar->name.c_str() );
 	sendStats.setSerial( pChar->serial );
@@ -1830,13 +1830,13 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	// Set the rest - and reset if nec.
 	if( pChar == _player )
 	{
-		sendStats.setStamina( pChar->stm );
+		sendStats.setStamina( pChar->stm() );
 		sendStats.setMaxStamina( pChar->effDex() );
-		sendStats.setMana( pChar->mn );
-		sendStats.setMaxMana( pChar->in );
+		sendStats.setMana( pChar->mn() );
+		sendStats.setMaxMana( pChar->in() );
 		sendStats.setStrength( pChar->st() );
 		sendStats.setDexterity( pChar->effDex() );
-		sendStats.setIntelligence( pChar->in );
+		sendStats.setIntelligence( pChar->in() );
 		sendStats.setWeight( pChar->weight() );
 		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
 		sendStats.setArmor( Combat->CalcDef( pChar, 0 ) ); // TODO: Inaccurate	

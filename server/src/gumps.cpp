@@ -272,13 +272,13 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 220, tr( "Dexterity:" ), 0x834 );
 		addInputField( 200, 220, 200, 16,  6, QString( "%1" ).arg( pChar->realDex() ), 0x834 );
 		addText( 50, 240, tr( "Intelligence:" ), 0x834 );
-		addInputField( 200, 240, 200, 16,  7, QString( "%1" ).arg( pChar->in ), 0x834 );
+		addInputField( 200, 240, 200, 16,  7, QString( "%1" ).arg( pChar->in() ), 0x834 );
 		addText( 50, 260, tr( "Hitpoints:" ), 0x834 );
-		addInputField( 200, 260, 200, 16,  8, QString( "%1" ).arg( pChar->hp ), 0x834 );
+		addInputField( 200, 260, 200, 16,  8, QString( "%1" ).arg( pChar->hp() ), 0x834 );
 		addText( 50, 280, tr( "Stamina:" ), 0x834 );
-		addInputField( 200, 280, 200, 16,  9, QString( "%1" ).arg( pChar->stm ), 0x834 );
+		addInputField( 200, 280, 200, 16,  9, QString( "%1" ).arg( pChar->stm() ), 0x834 );
 		addText( 50, 300, tr( "Mana:" ), 0x834 );
-		addInputField( 200, 300, 200, 16, 10, QString( "%1" ).arg( pChar->mn ), 0x834 );
+		addInputField( 200, 300, 200, 16, 10, QString( "%1" ).arg( pChar->mn() ), 0x834 );
 
 		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		// next page
@@ -358,7 +358,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 280, tr( "Dexterity modifier:" ), 0x834 );
 		addInputField( 200, 280, 200, 16, 29, QString( "%1" ).arg( pChar->decDex() ), 0x834 );
 		addText( 50, 300, tr( "Intelligence modifier:" ), 0x834 );
-		addInputField( 200, 300, 200, 16, 30, QString( "%1" ).arg( pChar->in2 ), 0x834 );
+		addInputField( 200, 300, 200, 16, 30, QString( "%1" ).arg( pChar->in2() ), 0x834 );
 
 		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		// prev page
@@ -423,16 +423,16 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setDex( hex2dec( it->second ).toShort() );
 				break;
 			case 7:
-				char_->in = hex2dec( it->second ).toShort();
+				char_->setIn( hex2dec( it->second ).toShort() );
 				break;
 			case 8:
-				char_->hp = hex2dec( it->second ).toShort();
+				char_->setHp( hex2dec( it->second ).toShort() );
 				break;
 			case 9:
-				char_->stm = hex2dec( it->second ).toShort();
+				char_->setStm( hex2dec( it->second ).toShort() );
 				break;
 			case 10:
-				char_->mn = hex2dec( it->second ).toShort();
+				char_->setMn( hex2dec( it->second ).toShort() );
 				break;
 			case 11:
 				char_->setSpawnregion( it->second );
@@ -516,7 +516,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setDecDex( hex2dec( it->second ).toShort() );
 				break;
 			case 30:
-				char_->in2 = hex2dec( it->second ).toShort();
+				char_->setIn2( hex2dec( it->second ).toShort() );
 				break;
 			case 31:
 				char_->setSayColor( hex2dec( it->second ).toUShort() );

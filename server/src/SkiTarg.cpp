@@ -966,6 +966,8 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 
 void cSkills::HealingSkillTarget(UOXSOCKET s)
 {
+	signed short tempshort;
+
 	P_ITEM pib = FindItemBySerial(addmitem[s]);	// item index of bandage
 	
 	P_CHAR pp = FindCharBySerPtr(buffer[s]+7); // pointer to patient
@@ -1065,7 +1067,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 			return;
 		}
 
-		if(pp->hp == pp->st() )
+		if(pp->hp() == pp->st() )
 		{
 			sysmessage(s, tr("That being is not damaged") );
 			return;
@@ -1076,7 +1078,9 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 			if (!CheckSkill((ph),HEALING,0,1000))
 			{
 				sysmessage(s, tr("You apply the bandages, but they barely help!") );
-				pp->hp++;
+//				pp->hp++;
+				tempshort = pp->hp();
+				pp->setHp( ++tempshort );
 			}
 			else
 			{
@@ -1084,8 +1088,8 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 				int healmax = (((ph->skill(HEALING)/5)+(ph->skill(ANATOMY)/2))+10); //OSI's formula for max amount healed (Skyfire)
 				int j=RandomNum(healmin,healmax);
 				//int iMore1 = min(pp->st, j+pp->hp)-pp->hp;
-				if(j>(pp->st() -pp->hp))
-					j=(pp->st() -pp->hp);
+				if(j>(pp->st() -pp->hp()))
+					j=(pp->st() -pp->hp());
 				if(pp->serial==ph->serial)
 					tempeffect(ph, ph, 35, j, 0, 15, 0);//allow a delay
 				else 
@@ -1102,7 +1106,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 				int healmax = (((ph->skill(HEALING)/5)+(ph->skill(VETERINARY)/2))+10); //OSI's formula for max amount healed (Skyfire)
 				int j = RandomNum(healmin, healmax);
 				// khpae
-				pp->hp = (pp->st() > (pp->hp + j)) ? (pp->hp + j) : pp->st();
+				pp->setHp((pp->st() > (pp->hp() + j)) ? (pp->hp() + j) : pp->st());
 				updatestats(pp, 0);
 				sysmessage(s, tr("You apply the bandages and the creature looks a bit healthier.") );
 			}
