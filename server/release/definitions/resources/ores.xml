@@ -21,7 +21,7 @@
 		<succmsg>You have found</succmsg>
 		<emptymsg>It seems as if no resources were left!</emptymsg>
 		<item>
-			<name>Iron ore</name>
+			<name>iron</name>
 			<amount min="1" max="5" />
 			<definition>19ba</definition>
 			<id>0x19BA</id>
@@ -31,7 +31,7 @@
 			<quota>630</quota>
 		</item>
 		<item>
-			<name>Shadow ore</name>
+			<name>shadow</name>
 			<amount min="1" max="4" />
 			<definition>19ba</definition>
 			<id>0x19BA</id>
@@ -41,7 +41,7 @@
 			<quota>126</quota>
 		</item>
 		<item>
-			<name>Merkite ore</name>
+			<name>merkite</name>
 			<definition>19ba</definition>
 			<amount min="1" max="4" />
 			<id>0x19BA</id>
@@ -51,7 +51,7 @@
 			<quota>112</quota>
 		</item>
 		<item>
-			<name>Copper ore</name>
+			<name>copper</name>
 			<definition>19ba</definition>
 			<amount min="1" max="4" />
 			<id>0x19BA</id>
@@ -61,7 +61,7 @@
 			<quota>98</quota>
 		</item>
 		<item>
-			<name>Silver ore</name>
+			<name>silver</name>
 			<definition>19ba</definition>
 			<amount min="1" max="3" />
 			<id>0x19BA</id>
@@ -71,7 +71,7 @@
 			<quota>84</quota>
 		</item>
 		<item>
-			<name>Bronze ore</name>
+			<name>bronze</name>
 			<definition>19ba</definition>
 			<amount min="1" max="3" />
 			<id>0x19BA</id>
@@ -81,7 +81,7 @@
 			<quota>70</quota>
 		</item>
 		<item>
-			<name>Golden ore</name>
+			<name>golden</name>
 			<definition>19ba</definition>
 			<amount min="1" max="2" />
 			<id>0x19BA</id>
@@ -91,7 +91,7 @@
 			<quota>56</quota>
 		</item>
 		<item>
-			<name>Agapite ore</name>
+			<name>agapite</name>
 			<definition>19ba</definition>
 			<amount min="1" max="2" />
 			<id>0x19BA</id>
@@ -101,7 +101,7 @@
 			<quota>42</quota>
 		</item>	
 		<item>
-			<name>Verite ore</name>
+			<name>verite</name>
 			<definition>19ba</definition>
 			<amount min="1" max="2" />
 			<id>0x19BA</id>
@@ -111,7 +111,7 @@
 			<quota>28</quota>
 		</item>	
 		<item>
-			<name>Mythril ore</name>
+			<name>mythril</name>
 			<definition>19ba</definition>
 			<amount>1</amount>
 			<id>0x19BA</id>
