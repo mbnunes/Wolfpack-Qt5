@@ -44,8 +44,8 @@
 
 // DB AutoCreation
 const char *createSql = "CREATE TABLE accounts (\
-	login varchar(255) NOT NULL default '',\
-	password varchar(255) NOT NULL default '',\
+	login varchar(16) NOT NULL default '',\
+	password varchar(32) NOT NULL default '',\
 	flags int NOT NULL default '0',\
 	acl varchar(255) NOT NULL default 'player',\
 	lastlogin int NOT NULL default '',\
@@ -224,7 +224,7 @@ void cAccount::setStaff( bool data )
 		flags_ &= 0xFFFFFFDF;
 }
 
-unsigned int cAccount::rank() const 
+unsigned int cAccount::rank() const
 {
 	if (acl_)
 		return acl_->rank;
@@ -277,7 +277,7 @@ cAccount* cAccounts::authenticate(const QString& login, const QString& password,
 			authorized = it.data()->password() == cMd5::fastDigest(password);
 		} else {
 			authorized = it.data()->password() == password;
-		}		
+		}
 
 		// Ok, lets continue.
 		if(authorized) {
@@ -407,7 +407,7 @@ void cAccounts::load()
 			if( result.getInt( 5 ) != 0 )
 				account->blockUntil.setTime_t( result.getInt( 5  ) );
 
-			// See if the password can and should be hashed, 
+			// See if the password can and should be hashed,
 			// Md5 hashes are 32 characters long.
 			if (SrvParams->hashAccountPasswords() && account->password_.length() != 32) {
 				if (SrvParams->convertUnhashedPasswords()) {
