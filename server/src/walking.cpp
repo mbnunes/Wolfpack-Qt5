@@ -1181,15 +1181,15 @@ void WalkingHandleGlowingItems(P_CHAR pc)
 	{
 		int serial,serhash,ci;
 		serial=pc->serial;
-		serhash=serial%HASHMAX;
-		for (ci=0;ci<glowsp[serhash].max;ci++)
+		vector<SERIAL> glowItems = glowsp.getData(pc->serial);
+		for (ci = 0; ci < glowItems.size(); ci++)
 		{
-			i=glowsp[serhash].pointer[ci];
-			if (i!=-1)
+			P_ITEM pi = FindItemBySerial(glowItems[ci]);
+			if (pi != NULL)
 			{
-				if (items[i].free==0)
+				if (pi->free==0)
 				{
-					pc->glowHalo(&items[i]);
+					pc->glowHalo(pi);
 				}
 			}
 		}

@@ -1302,16 +1302,15 @@ void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
 	// i guess things only glow if you are online, i dunno what that means        
 	if( online( DEREF_P_CHAR(pc) ))
 	{
-		const int serial = pc->serial;
-		const int serhash = serial%HASHMAX;
-		for( int ci = 0; ci < glowsp[serhash].max; ci++ )
+		vector<SERIAL> vecGlowItems = glowsp.getData(pc->serial);
+		for( unsigned int ci = 0; ci < vecGlowItems.size(); ci++ )
 		{
-			const int i = glowsp[serhash].pointer[ci];
-			if( i != -1 )
+			P_ITEM pi = FindItemBySerial(vecGlowItems[ci]);
+			if( pi != NULL )
 			{
-				if( items[i].free == 0 )
+				if( pi->free == 0 )
 				{
-					pc->glowHalo(&items[i]);
+					pc->glowHalo(pi);
 				}
 			}
 		}

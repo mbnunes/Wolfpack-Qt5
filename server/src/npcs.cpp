@@ -912,8 +912,7 @@ int cCharStuff::AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed ch
 
 int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 {
-	int tmp, z,c, lovalue, hivalue, mypack;
-	int storeval, shoppack1, shoppack2, shoppack3;
+	int tmp, z,c, lovalue, hivalue;
 	int k=0, xos=0, yos=0, lb;
 	char sect[512];
 	int haircolor; //(we need this to remember the haircolor)
@@ -934,12 +933,11 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 		return -1;
 	}
 
-	mypack=-1;
+	P_ITEM pBackpack = NULL;
 	P_ITEM retitem = NULL;
-	storeval=-1;
-	shoppack1=-1;
-	shoppack2=-1;
-	shoppack3=-1;
+	P_ITEM shoppack1 = NULL;
+	P_ITEM shoppack2 = NULL;
+	P_ITEM shoppack3 = NULL;
 	//
 	// First things first...lets find out what NPC# we should spawn
 	//
@@ -1029,10 +1027,10 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			case 'b':
 			if (!strcmp("BACKPACK", (char*)script1))
 			{
-				if (mypack==-1)
+				if (pBackpack == NULL)
 				{
 					scpMark m=pScp->Suspend();
-					P_ITEM pBackpack = MAKE_ITEM_REF(Items->SpawnItem(-1,DEREF_P_CHAR(pc_c),1,"Backpack",0,0x0E,0x75,0,0,0,0));
+					pBackpack = MAKE_ITEM_REF(Items->SpawnItem(-1,DEREF_P_CHAR(pc_c),1,"Backpack",0,0x0E,0x75,0,0,0,0));
 					if(pBackpack == NULL)
 					{
 						Npcs->DeleteChar(DEREF_P_CHAR(pc_c));
@@ -1046,7 +1044,6 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 					pBackpack->layer=0x15;
 					pBackpack->type=1;
 					pBackpack->dye=1;
-					mypack=DEREF_P_ITEM(pBackpack);
 					
 					retitem = pBackpack;
 					pScp->Resume(m);
@@ -1085,7 +1082,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			else if (!strcmp("COLORLIST",(char*)script1))
 			{
 				scpMark m=pScp->Suspend();
-				storeval=addrandomcolor(DEREF_P_CHAR(pc_c), (char*)script2);
+				int storeval = addrandomcolor(DEREF_P_CHAR(pc_c), (char*)script2);
 				if (retitem != NULL)
 				{
 					retitem->color1=(storeval)>>8;
@@ -1160,7 +1157,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 
 			if (!strcmp("GOLD", (char*)script1))
 			{
-				if (mypack!=-1)
+				if (pBackpack != NULL)
 				{ 
 					scpMark m=pScp->Suspend();
 					P_ITEM pGold=Items->SpawnItem(DEREF_P_CHAR(pc_c),1,"#",1,0x0EED,0,1);
@@ -1219,15 +1216,17 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			case 'I':
 			case 'i':
 
-			if (!strcmp("ID",(char*)script1)) {
+			if (!strcmp("ID",(char*)script1)) 
+			{
 				tmp=hex2num(script2);
 				pc_c->id1=tmp>>8;
 				pc_c->id2=tmp%256;
 				pc_c->xid1=pc_c->id1;
 				pc_c->xid2=pc_c->id2;
 			}
-			else if (!strcmp("ITEM",(char*)script1)) {
-				storeval=str2num(script2);
+			else if (!strcmp("ITEM",(char*)script1)) 
+			{
+				int storeval=str2num(script2);
 
 				scpMark m=pScp->Suspend();
 				retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
@@ -1263,10 +1262,10 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 
 			if (!strcmp("LOOT",(char*)script1))
 			{
-				if (mypack!=-1)
+				if (pBackpack != NULL)
 				{
 					scpMark m=pScp->Suspend();
-					retitem = MAKE_ITEM_REF(Npcs->AddRandomLoot(mypack, script2));
+					retitem = MAKE_ITEM_REF(Npcs->AddRandomLoot(DEREF_P_ITEM(pBackpack), script2));
 					pScp->Resume(m);
 
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
@@ -1322,8 +1321,9 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			else if ((!(strcmp("POISONING",(char*)script1)))||(!(strcmp("SKILL30",(char*)script1)))) pc_c->baseskill[POISONING] = getstatskillvalue((char*)script2);
 			else if (!(strcmp("PACKITEM",(char*)script1)))
 			{
-				if (mypack!=-1) {
-					storeval=str2num(script2);
+				if (pBackpack != NULL) 
+				{
+					int storeval=str2num(script2);
 
 					scpMark m=pScp->Suspend();
 					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
@@ -1331,7 +1331,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 
 					if (retitem != NULL)
 					{
-						retitem->SetContSerial(items[mypack].serial);
+						retitem->SetContSerial(pBackpack->serial);
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
@@ -1351,16 +1351,18 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			else if ((!(strcmp("REMOVETRAPS",(char*)script1)))||(!(strcmp("SKILL48",(char*)script1)))) pc_c->baseskill[REMOVETRAPS] = getstatskillvalue((char*)script2);
 			else if (!(strcmp("RSHOPITEM",(char*)script1)))
 			{
-				if (shoppack1==-1)
+				if ( shoppack1 == NULL)
 				{
-					for(z=0;z<itemcount;z++)
+					AllItemsIterator iterItems;
+					for(iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)
 					{
-						if (!items[z].free)
+						P_ITEM pz = iterItems.GetData();
+						if (!pz->free)
 						{
-							if (pc_c->Wears(&items[z]) &&
-								items[z].layer==0x1A)
+							if (pc_c->Wears(pz) &&
+								pz->layer==0x1A)
 							{
-								shoppack1=z;
+								shoppack1 = pz;
 								break;
 							}
 						}
@@ -1368,9 +1370,9 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 					//if (shoppack1 == -1)
 					  //LogError("Error creating shoppack1\n");
 				}
-				if (shoppack1!=-1)
+				if ( shoppack1 != NULL )
 				{
-					storeval=str2num(script2);
+					int storeval=str2num(script2);
 
 					scpMark m=pScp->Suspend();
 					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
@@ -1378,7 +1380,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 
 					if (retitem != NULL)
 					{
-						retitem->SetContSerial(items[shoppack1].serial);
+						retitem->SetContSerial(shoppack1->serial);
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
@@ -1395,30 +1397,37 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			case 'S':
 			case 's':
 
-			if (!(strcmp("SKIN",(char*)script1))) {
+			if (!(strcmp("SKIN",(char*)script1))) 
+			{
 				pc_c->skin = pc_c->xskin = hex2num(script2);
 			}
-			else if (!(strcmp("SHOPKEEPER", (char*)script1))) {
+			else if (!(strcmp("SHOPKEEPER", (char*)script1))) 
+			{
 				scpMark m=pScp->Suspend();
 				Commands->MakeShop(DEREF_P_CHAR(pc_c)); 
 				pScp->Resume(m);
 			}
-			else if (!(strcmp("SELLITEM",(char*)script1))) {
-				if (shoppack3==-1) {
-					for(z=0;z<itemcount;z++) {
-						if (!items[z].free)
+			else if (!(strcmp("SELLITEM",(char*)script1))) 
+			{
+				if (shoppack3 == NULL) 
+				{
+					AllItemsIterator iterItems;
+					for(iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++) 
+					{
+						P_ITEM pz = iterItems.GetData();
+						if (!pz->free)
 						{
-							if (pc_c->Wears(&items[z]) &&
-								items[z].layer==0x1C)
+							if (pc_c->Wears(pz) && pz->layer==0x1C)
 							{
-								shoppack3=z;
+								shoppack3 = pz;
 								break;
 							}
 						}
 					}
 				}
-				if (shoppack3!=-1) {
-					storeval=str2num(script2);
+				if ( shoppack3 != NULL ) 
+				{
+					int storeval=str2num(script2);
 
 					scpMark m=pScp->Suspend();
 					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
@@ -1426,12 +1435,13 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 
 					if (retitem != NULL)
 					{
-						retitem->SetContSerial(items[shoppack3].serial);
+						retitem->SetContSerial(shoppack3->serial);
 						retitem->value=retitem->value/2;
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
-						if (retitem->name2 && (strcmp(retitem->name2,"#"))) strcpy(retitem->name,retitem->name2); // Item identified! -- by Magius(CHE)					}
+						if (retitem->name2 && (strcmp(retitem->name2,"#"))) 
+							strcpy(retitem->name,retitem->name2); // Item identified! -- by Magius(CHE)					}
 					}
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				} else
@@ -1441,31 +1451,33 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			}
 			else if (!(strcmp("SHOPITEM",(char*)script1)))
 			{
-				if (shoppack2==-1)
+				if ( shoppack2 == NULL )
 				{
-					for(z=0;z<itemcount;z++)
+					AllItemsIterator iterItems;
+					for(iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)
 					{
-						if (!items[z].free)
+						P_ITEM pz = iterItems.GetData();
+						if (!pz->free)
 						{
-							if (pc_c->Wears(&items[z]) && items[z].layer==0x1B)
+							if (pc_c->Wears(pz) && pz->layer==0x1B)
 							{
-								shoppack2=z;
+								shoppack2 = pz;
 								break;
 							}
 						}
 					}
 				}
-				if (shoppack2!=-1)
+				if (shoppack2 != NULL)
 				{
-					storeval=str2num(script2);
+					int storeval = str2num(script2);
 
-					scpMark m=pScp->Suspend();
+					scpMark m = pScp->Suspend();
 					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
 					pScp->Resume(m);
 
 					if ( retitem != NULL)
 					{
-						retitem->SetContSerial(items[shoppack2].serial);
+						retitem->SetContSerial(shoppack2->serial);
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
@@ -1886,12 +1898,12 @@ int cChar::CountBankGold()
 //
 void cChar::addHalo(P_ITEM pi)
 {
-	setptr(&glowsp[this->serial%HASHMAX],DEREF_P_ITEM(pi));
+	glowsp.insert(this->serial, pi->serial);
 }
 
 void cChar::removeHalo(P_ITEM pi)
 {
-	removefromptr(&glowsp[this->serial%HASHMAX],DEREF_P_ITEM(pi));
+	glowsp.remove(this->serial, pi->serial);
 }
 
 void cChar::glowHalo(P_ITEM pi)

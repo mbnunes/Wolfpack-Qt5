@@ -56,12 +56,13 @@ void newcalcweight(int);
 void cWeight::NewCalc(int p)
 {
 	float totalweight=0.0;
+	P_CHAR pc = MAKE_CHAR_REF(p);
 
 	//get weight for items on players
 	int ci=0;
 	P_ITEM pi;
 	unsigned long loopexit=0;
-	vector<SERIAL> vecContainer = contsp.getData(chars[p].serial);
+	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
@@ -75,10 +76,10 @@ void cWeight::NewCalc(int p)
 	}
 
 	// Items in players pack
-	int bp=packitem(p);
-	if (bp!=-1) totalweight+=RecursePacks(bp); //LB
+	P_ITEM pBackpack = Packitem(pc);
+	if (pBackpack != NULL) totalweight += RecursePacks(pBackpack); //LB
 
-	chars[p].weight=(int)totalweight;
+	pc->weight = (int)totalweight;
 
 	return;
 }
@@ -89,30 +90,28 @@ void cWeight::NewCalc(int p)
 // History:	Ison 2-20-99  - rewrote by Tauriel 3/20/99
 //			rewritten by Duke 4.11.2k
 //
-float cWeight::RecursePacks(int bp)
+float cWeight::RecursePacks(P_ITEM bp)
 {
 	float totalweight=0.0;
 
-	if (bp<=-1) return 0.0;
+	if (bp == NULL) return 0.0f;
 	
-	int ci=0;
-	P_ITEM pi;
-	unsigned long loopexit=0;
-	vector<SERIAL> vecContainer = contsp.getData(items[bp].serial);
+	unsigned int ci = 0;
+	vector<SERIAL> vecContainer = contsp.getData(bp->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
-		pi = FindItemBySerial(vecContainer[ci]);
+		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 		int itemsweight=pi->getWeight();
 		if (pi->type==1) //item is another container
 		{
-			totalweight+=(itemsweight/100.0f);		// the weight of container itself
-			totalweight+=RecursePacks(DEREF_P_ITEM(pi)); //find the item's weight within this container
+			totalweight += (itemsweight/100.0f);		// the weight of container itself
+			totalweight += RecursePacks(pi);			//find the item's weight within this container
 		}
 		
-		if (pi->id()==0x0EED)
-			totalweight+=(pi->amount*SrvParms->goldweight);
+		if (pi->id() == 0x0EED)
+			totalweight += (pi->amount*SrvParms->goldweight);
 		else
-			totalweight+=(float)((itemsweight*pi->amount)/100.0);
+			totalweight += (float)((itemsweight*pi->amount)/100.0f);
 	}
 	return totalweight;
 }

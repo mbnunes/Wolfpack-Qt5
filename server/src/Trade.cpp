@@ -577,9 +577,11 @@ void dotrade(int cont1, int cont2)
 		if (i!=-1)
 			if ((items[i].contserial==serial))
 			{
-				if (items[i].glow>0) removefromptr(&glowsp[chars[currchar[s2]].serial%HASHMAX],i); // lb, glowing stuff
+				if (items[i].glow != INVALID_SERIAL) 
+					glowsp.remove(chars[currchar[s2]].serial, items[i].serial); // lb, glowing stuff
 				items[i].SetContSerial(items[bp2].serial);
-				if (items[i].glow>0) setptr(&glowsp[chars[currchar[s1]].serial%HASHMAX],i);
+				if (items[i].glow != INVALID_SERIAL) 
+					glowsp.insert(chars[currchar[s1]].serial, items[i].serial);
 				items[i].pos.x=50+(rand()%80);
 				items[i].pos.y=50+(rand()%80);
 				items[i].pos.z=9;
@@ -599,11 +601,11 @@ void dotrade(int cont1, int cont2)
 		if (pi != NULL)
 			if ((pi->contserial==serial))
 			{
-				if (pi->glow>0) 
-					removefromptr(&glowsp[chars[currchar[s2]].serial%HASHMAX], DEREF_P_ITEM(pi)); // lb, glowing stuff
+				if (pi->glow != INVALID_SERIAL) 
+					glowsp.remove(chars[currchar[s2]].serial, pi->serial); // lb, glowing stuff
 				pi->SetContSerial(items[bp1].serial);
-				if (pi->glow>0) 
-					setptr(&glowsp[chars[currchar[s1]].serial%HASHMAX],DEREF_P_ITEM(pi));
+				if (pi->glow != INVALID_SERIAL) 
+					glowsp.insert(chars[currchar[s1]].serial, pi->serial);
 				pi->pos.x=50+(rand()%80);
 				pi->pos.y=50+(rand()%80);
 				pi->pos.z=9;

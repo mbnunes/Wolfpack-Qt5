@@ -401,9 +401,8 @@ char firstpacket[MAXCLIENT+1];
 // - item's serial, owner's serial, char's serial, and container's serial
  lookuptr_st itemsp[HASHMAX];
  lookuptr_st charsp[HASHMAX], cownsp[HASHMAX];
- lookuptr_st glowsp[HASHMAX];
 
-Container_cl stablesp, imultisp, cmultisp, contsp, ownsp, cspawnsp, spawnsp;
+Container_cl stablesp, imultisp, cmultisp, contsp, ownsp, cspawnsp, spawnsp, glowsp;
 
 /******************************************************/
 

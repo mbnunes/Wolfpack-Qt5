@@ -1535,57 +1535,54 @@ void cSkills::SkillUse(int s, int x) // Skill is clicked on the skill list
 
 void cSkills::RandomSteal(int s)
 {
-	int p, i, skill, item;
+	int i, skill;
 	char temp2[512];
 	tile_st tile;
-	int cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);	
-	int cansteal = max(1,pc_currchar->baseskill[STEALING]/10);
+	int cansteal = max(1, pc_currchar->baseskill[STEALING]/10);
 	cansteal = cansteal * 10;
 	
 	P_CHAR pc_npc = FindCharBySerPtr(buffer[s]+7);
 	if (pc_npc == NULL) 
 		return;
 
-	p = packitem(DEREF_P_CHAR(pc_npc));
-	if (p==-1) {sysmessage(s,"bad luck, your victim doesnt have a backpack"); return; } //LB
+	P_ITEM pBackpack = Packitem(pc_npc);
+	if (pBackpack == NULL) {sysmessage(s,"bad luck, your victim doesnt have a backpack"); return; } //LB
 	
 	i=0;
-	vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
+	P_ITEM item = NULL;
+	vector<SERIAL> vecContainer = contsp.getData(pBackpack->serial);
 	if (vecContainer.size() != 0)
-		item = calcItemFromSer(vecContainer[rand()%vecContainer.size()]);
-	else 
-		item = -1;
+		item = FindItemBySerial(vecContainer[rand()%vecContainer.size()]);
 
 	if (pc_npc == pc_currchar) {
 		sysmessage(s,"You catch yourself red handed.");
 		return;
 	}
 	
-	if (pc_npc->npcaitype==17)
+	if (pc_npc->npcaitype == 17)
 	{
 		sysmessage(s, "You cannot steal that.");
 		return;
 	}
 
 	// Lb, crashfix, happens if pack=empty i guess
-	if (item<0 || item>=imem) 
+	if (item == NULL) 
 	{ 
 		sysmessage(s,"your victim doesnt have posessions");
 		return;
 	}
 
-	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name, items[item].name);
+	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name, item->name);
 	sysmessage(s, (char*)temp);
 	if (npcinrange(s,DEREF_P_CHAR(pc_npc),1))
 	{
-		if ((items[item].weight>cansteal) && (items[item].type!=1 && items[item].type!=63 &&
-			items[item].type!=65 && items[item].type!=87))//Containers
+		if ((item->weight>cansteal) && (item->type!=1 && item->type!=63 &&
+			item->type!=65 && item->type!=87))//Containers
 		{
 			sysmessage(s,"That is too heavy.");
 			return;
-		} else if((items[item].type==1 || items[item].type==63 || // lb bugfix, was &&
-			items[item].type==65 || items[item].type==87) && (Weight->RecursePacks(item)>cansteal))
+		} else if((item->type == 1 || item->type == 63 || item->type == 65 || item->type == 87) && (Weight->RecursePacks(item) > cansteal))
 		{
 			sysmessage(s,"That is too heavy.");
 			return;
@@ -1595,7 +1592,7 @@ void cSkills::RandomSteal(int s)
 			sysmessage(s, "You can't steal from gods.");
 			return;
 		}
-		if(items[item].priv & 0x02)//newbie
+		if(item->priv & 0x02)//newbie
 		{
 			sysmessage(s,"That item has no value to you.");
 			return;
@@ -1605,7 +1602,7 @@ void cSkills::RandomSteal(int s)
 		if (skill)
 		{
 			//pack=packitem(DEREF_P_CHAR(pc_currchar));
-			items[item].SetContSerial(items[packitem(DEREF_P_CHAR(pc_currchar))].serial);
+			item->SetContSerial(items[packitem(DEREF_P_CHAR(pc_currchar))].serial);
 			sysmessage(s,"You successfully steal that item.");
 			all_items(s);
 		} else sysmessage(s, "You failed to steal that item.");
@@ -1619,12 +1616,12 @@ void cSkills::RandomSteal(int s)
 			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_npc))==0)//AntiChrist
 				criminal(DEREF_P_CHAR(pc_currchar));//Blue and not attacker and not guild
 			
-			if (items[item].name[0] != '#')
+			if (item->name[0] != '#')
 			{
-				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name,items[item].name);
-				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name,items[item].name,pc_npc->name);
+				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name,item->name);
+				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name,item->name,pc_npc->name);
 			} else {
-				Map->SeekTile(items[item].id(),&tile);
+				Map->SeekTile(item->id(),&tile);
 				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name, tile.name);
 				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name,tile.name,pc_npc->name);
 			}

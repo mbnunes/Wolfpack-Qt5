@@ -3165,7 +3165,6 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 
 	RefreshItem(i);
 	RefreshItem(c);
-	//setptr(&glowsp[pc_currchar->serial%HASHMAX],i);
 
 	impowncreate(s,cc,0); // if equipped send new color too
 }

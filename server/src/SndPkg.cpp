@@ -3033,7 +3033,7 @@ void sendshopinfo(int s, int c, P_ITEM pi)
 int sellstuff(int s, int i)
 {
 	char itemname[256];
-	int p=-1, m1t, pack, z, value;
+	int m1t, pack, z, value;
 	int serial,serhash,ci,serial1,serhash1,ci1;
 	unsigned char m1[2048];
 	unsigned char m2[2];
@@ -3042,8 +3042,9 @@ int sellstuff(int s, int i)
 
     P_CHAR pc = MAKE_CHARREF_LRV(i, 0);
 
+	P_ITEM sellcont = NULL;
+
 	serial=pc->serial;
-	serhash=serial%HASHMAX;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
@@ -3052,11 +3053,11 @@ int sellstuff(int s, int i)
 			if ((pi->contserial==serial) &&
 				(pi->layer==0x1C))
 			{
-				p = DEREF_P_ITEM(pi);
+				sellcont = pi;
 				break;
 			}
 	}
-	if (p==-1) return 0;
+	if (sellcont == NULL) return 0;
 
 	m2[0]=0x33;
 	m2[1]=0x01;
@@ -3076,8 +3077,7 @@ int sellstuff(int s, int i)
 	m1[8]=0; // Num items
 	m1t=9;
 
-	serial=items[p].serial;
-	serhash=serial%HASHMAX;
+	serial = sellcont->serial;
 	vecContainer.clear();
 	vecContainer = contsp.getData(serial);
 	for (ci = 0; ci < vecContainer.size(); ci++)
@@ -3088,7 +3088,6 @@ int sellstuff(int s, int i)
 			if ((pi_q->contserial==serial))
 			{
 				serial1=items[pack].serial;
-				serhash1=serial1%HASHMAX;
 				vector<SERIAL> vecContainer2 = contsp.getData(serial1);
 				for ( ci1 = 0; ci1 < vecContainer2.size(); ci1++)
 				{
@@ -3250,9 +3249,11 @@ void endtrade(int b1, int b2, int b3, int b4)
 		if (pi != NULL)
 			if ((pi->contserial==pi_cont1->serial))
 			{
-				if (pi->glow > 0) removefromptr(&glowsp[pc2->serial%HASHMAX],DEREF_P_ITEM(pi)); // lb, glowing stuff
+				if (pi->glow != INVALID_SERIAL) 
+					glowsp.remove(pc2->serial, pi->serial); // lb, glowing stuff
 				pi->SetContSerial(pi_bp1->serial);
-				if (pi->glow > 0) setptr(&glowsp[pc1->serial%HASHMAX],DEREF_P_ITEM(pi));
+				if (pi->glow != INVALID_SERIAL) 
+					glowsp.insert(pc1->serial, pi->serial);
 				pi->pos.x = RandomNum(50, 130);
 				pi->pos.y = RandomNum(50, 130);
 				pi->pos.z=9;
@@ -3268,9 +3269,11 @@ void endtrade(int b1, int b2, int b3, int b4)
 		if (pi != NULL)
 			if ((pi->contserial==pi_cont2->serial))
 			{
-				if (pi->glow>0) removefromptr(&glowsp[pc2->serial%HASHMAX],DEREF_P_ITEM(pi)); // lb, glowing stuff
+				if (pi->glow != INVALID_SERIAL) 
+					glowsp.remove(pc2->serial, pi->serial); // lb, glowing stuff
 				pi->SetContSerial(pi_bp2->serial);
-				if (pi->glow>0) setptr(&glowsp[pc1->serial%HASHMAX],DEREF_P_ITEM(pi));
+				if (pi->glow != INVALID_SERIAL) 
+					glowsp.insert(pc1->serial, pi->serial);
 				pi->pos.x=50+(rand()%80);
 				pi->pos.y=50+(rand()%80);
 				pi->pos.z=9;

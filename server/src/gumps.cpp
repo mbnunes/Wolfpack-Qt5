@@ -297,62 +297,62 @@ void cGump::Input(int s)
 
 	if (type == 1 && (pc_currchar->isGM()))//AntiChrist
 	{
-		j = calcItemFromSer( serial );
-		if ( j == -1 ) return; //lb
+		P_ITEM pj = FindItemBySerial( serial );
+		if ( pj == NULL ) return; //lb
 		if (buffer[s][9]==0)
 		{
-			tweakmenu(s, items[j].serial);
+			tweakmenu(s, pj->serial);
 			return;
 		}
 		switch( index )
 		{
-		case 2:		strcpy( items[j].name, (char*)text );	break;	 // Name
+		case 2:		strcpy( pj->name, (char*)text );	break;	 // Name
 		case 3:		k = hex2num( text );	
-					items[j].setId(k);
+					pj->setId(k);
 					break;	 // ID
 		case 4:		k = hex2num( text );	
-					items[j].color1 = (unsigned char)(k>>8);
-					items[j].color2 = (unsigned char)(k%256); 
+					pj->color1 = (unsigned char)(k>>8);
+					pj->color2 = (unsigned char)(k%256); 
 					break;	// Hue
-		case 5:		k = str2num( text );	items[j].pos.x = k;	break;	// X
-		case 6:		k = str2num( text );	items[j].pos.y = k;	break;	// Y
-		case 7:		k = str2num( text );	items[j].pos.z = k;	break;	// Z
-		case 8:		k = str2num( text );	items[j].type = k;	break;	 // Type
-		case 9:		k = str2num( text );	items[j].itmhand = k;	break;	// Itemhand - added by Xuri
-		case 10:	k = str2num( text );	items[j].layer = k;	break;	// Layer
-		case 11:	k = str2num( text );	items[j].amount = k;	break;	// Amount
+		case 5:		k = str2num( text );	pj->pos.x = k;		break;	// X
+		case 6:		k = str2num( text );	pj->pos.y = k;		break;	// Y
+		case 7:		k = str2num( text );	pj->pos.z = k;		break;	// Z
+		case 8:		k = str2num( text );	pj->type = k;		break;	 // Type
+		case 9:		k = str2num( text );	pj->itmhand = k;	break;	// Itemhand - added by Xuri
+		case 10:	k = str2num( text );	pj->layer = k;		break;	// Layer
+		case 11:	k = str2num( text );	pj->amount = k;		break;	// Amount
 		case 12:	k = hex2num( text );	// More
-					items[j].more1 = (unsigned char)(k>>24);
-					items[j].more2 = (unsigned char)(k>>16);
-					items[j].more3 = (unsigned char)(k>>8);
-					items[j].more4 = (unsigned char)(k%256);
+					pj->more1 = (unsigned char)(k>>24);
+					pj->more2 = (unsigned char)(k>>16);
+					pj->more3 = (unsigned char)(k>>8);
+					pj->more4 = (unsigned char)(k%256);
 					break;
 		case 13: 	k = hex2num( text );	// MoreB
-					items[j].moreb1 = (unsigned char)(k>>24);
-					items[j].moreb2 = (unsigned char)(k>>16);
-					items[j].moreb3 = (unsigned char)(k>>8);
-					items[j].moreb4 = (unsigned char)(k%256);
+					pj->moreb1 = (unsigned char)(k>>24);
+					pj->moreb2 = (unsigned char)(k>>16);
+					pj->moreb3 = (unsigned char)(k>>8);
+					pj->moreb4 = (unsigned char)(k%256);
 					break;
-		case 14: 	k = str2num( text );	items[j].pileable = k;	break;	// Pileable
-		case 15:	k = str2num( text );	items[j].dye = k;		break;	// Dye
-		case 16:	k = str2num( text );	items[j].corpse = k;	break;	// Corpse
-		case 17:	k = str2num( text );	items[j].lodamage = k;	break;	// LoDamage
-		case 18:	k = str2num( text );	items[j].hidamage = k;	break;	// HiDamage
-		case 19:	k = str2num( text );	items[j].def = k;		break;	// Def
-		case 20:	k = str2num( text );	items[j].magic = k;		break;	// Magic
-		case 21:	k = str2num( text );	items[j].visible = k;	break;	// Visible
-		case 22:	k = str2num( text );	items[j].hp = k;		break;	// Current Hitpoints
-		case 23:	k = str2num( text );	items[j].maxhp = k;		break;	// MAX Hitpoints
-		case 24:	k = str2num( text );	items[j].spd = k;		break;	// Speed (for Combat)
-		case 25:	k = str2num( text );	items[j].rank = k;		break;	// Rank
-		case 26:	k = str2num( text );	items[j].value = k;		break;	// Value
-		case 27:	k = str2num( text );	items[j].good = k;		break;	// Good(for Adv.Trade system)
-		case 28:	k = str2num( text );	items[j].madewith = k;	break;	// Made Skill
-		case 29:	strcpy( items[j].creator, (char*)text );				break;	// Creator
+		case 14: 	k = str2num( text );	pj->pileable = k;	break;	// Pileable
+		case 15:	k = str2num( text );	pj->dye = k;		break;	// Dye
+		case 16:	k = str2num( text );	pj->corpse = k;		break;	// Corpse
+		case 17:	k = str2num( text );	pj->lodamage = k;	break;	// LoDamage
+		case 18:	k = str2num( text );	pj->hidamage = k;	break;	// HiDamage
+		case 19:	k = str2num( text );	pj->def = k;		break;	// Def
+		case 20:	k = str2num( text );	pj->magic = k;		break;	// Magic
+		case 21:	k = str2num( text );	pj->visible = k;	break;	// Visible
+		case 22:	k = str2num( text );	pj->hp = k;			break;	// Current Hitpoints
+		case 23:	k = str2num( text );	pj->maxhp = k;		break;	// MAX Hitpoints
+		case 24:	k = str2num( text );	pj->spd = k;		break;	// Speed (for Combat)
+		case 25:	k = str2num( text );	pj->rank = k;		break;	// Rank
+		case 26:	k = str2num( text );	pj->value = k;		break;	// Value
+		case 27:	k = str2num( text );	pj->good = k;		break;	// Good(for Adv.Trade system)
+		case 28:	k = str2num( text );	pj->madewith = k;	break;	// Made Skill
+		case 29:	strcpy( pj->creator, (char*)text );			break;	// Creator
 		}
 	
-		RefreshItem(j);//AntiChrist
-		tweakmenu(s, items[j].serial);
+		RefreshItem(pj); //AntiChrist
+		tweakmenu(s, pj->serial);
  }
  //if (type==2 && (pc_currchar->priv|1))//uhm?? what was that |1?! i think it should be &1...AntiChrist
  if (type==2 && (pc_currchar->isGM()))//AntiChrist

@@ -1290,30 +1290,29 @@ int GetBankCount( CHARACTER p, unsigned short itemid, unsigned short color )
 	unsigned char cid1 = (char)(color>>8);
 	unsigned char cid2 = (char)(color%256);
 	SERIAL serial = chars[p].serial;
-	int serhash = serial%HASHMAX;
 	long int goldCount = 0;
 	int counter2 = 0;
 	int j, i, ci;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
 	for( ci = 0; ci < vecOwn.size(); ci++ )
 	{
-		j = calcItemFromSer(vecOwn[ci]);
-		if( j != -1 )
+		P_ITEM pj =FindItemBySerial(vecOwn[ci]);
+		if( pj != NULL )
 		{
-			if( items[j].ownserial == serial && items[j].type == 1 && items[j].morex == 1 )
+			if( pj->ownserial == serial && pj->type == 1 && pj->morex == 1 )
 			{
-				vector<SERIAL> vecContainer = contsp.getData(items[j].serial);
+				vector<SERIAL> vecContainer = contsp.getData(pj->serial);
 				for( counter2 = 0; counter2 < vecContainer.size(); counter2++ )
 				{
-					i = calcItemFromSer(vecContainer[counter2]);
-					if( i != -1 )
+					P_ITEM pi = FindItemBySerial(vecContainer[counter2]);
+					if( pi != NULL )
 					{
-						if( items[i].contserial == items[j].serial )
+						if( pi->contserial == pj->serial )
 						{
-							if( items[i].id() == itemid )
+							if( pi->id() == itemid )
 							{
-								if( items[i].color1 == cid1 && items[i].color2 == cid2 )
-									goldCount += items[i].amount;
+								if( pi->color1 == cid1 && pi->color2 == cid2 )
+									goldCount += pi->amount;
 							}
 						}
 					}
@@ -5536,13 +5535,11 @@ void BuildPointerArray()
 		itemsp[i].pointer = NULL;
 		charsp[i].pointer = NULL;
 		cownsp[i].pointer = NULL;
-		glowsp[i].pointer = NULL;
 
 		// init them
 			if(( itemsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( charsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( cownsp[i].pointer = new int[25]) == NULL) memerrflg=1;
-			if(( glowsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 
 		if (memerrflg)
 		{
@@ -5550,8 +5547,8 @@ void BuildPointerArray()
 			Network->kr=0;
 			return;
 		}
-		itemsp[i].max=cownsp[i].max=charsp[i].max=glowsp[i].max=25;
-		for (int j=0;j<25;j++) itemsp[i].pointer[j]=cownsp[i].pointer[j]=charsp[i].pointer[j]=glowsp[i].pointer[j]=-1;
+		itemsp[i].max=cownsp[i].max=charsp[i].max=25;
+		for (int j=0;j<25;j++) itemsp[i].pointer[j]=cownsp[i].pointer[j]=charsp[i].pointer[j]=-1;
 	}
 }
 

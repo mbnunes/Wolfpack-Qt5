@@ -1275,7 +1275,6 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			{
 				int p=GetPackOwner(DEREF_P_ITEM(pCont)); 
 				pc_currchar->removeHalo(pItem); // if gm put glowing object in another pack, handle glowsp correctly !
-				//removefromptr(&glowsp[pc_currchar->serial%HASHMAX],nItem);
 				if (p!=-1) 
 				{
 					chars[p].addHalo(pItem);

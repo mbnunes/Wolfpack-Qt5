@@ -229,7 +229,7 @@ class cWeight
 {
 public:
 	int CheckWeight(int s, int k);
-	float RecursePacks(int bp);
+	float RecursePacks(P_ITEM bp);
 	int CheckWeight2(int s);
 	void NewCalc(int p);
 	float LockeddownWeight(P_ITEM pItem, int *total, int *total2 );
