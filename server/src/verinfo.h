@@ -149,13 +149,13 @@ struct wp_version_info
            vernumber = to_32bitver(verstruct);		   
 		  
 		   /// code for auto generation of verstring, productstring and betareleasestring coming soon (LB) ...
-		   verstring = "Pre Alpha-12.9.1";  // Wolfpack version 
+		   verstring = "12.9.1";  // Wolfpack version 
 		   productstring = "Wolfpack"; // selfexplainatory, isnt't it :)
-		   betareleasestring = "Alpha"; // release status
+		   betareleasestring = "Beta"; // release status
 
 		   //////////////////////////////////////////////////
 
-		   clientsupportedstring = "3.0.8q";
+		   clientsupportedstring = "3.0.8z";
 
 		   // SUPPORTED_CLIENT is part of the client version control system.
            // this is NOT necassairily the lastest client.

@@ -240,14 +240,9 @@ namespace Combat
 
 		switch( pi->type() )
 		{
-			case 1006:
-				return BOW;
-
-			case 1007:
-				return XBOW;
-
-			default:
-				return INVALID_BOWTYPE;
+			case 1006:				return BOW;
+			case 1007:				return XBOW;
+			default:				return INVALID_BOWTYPE;
 		}
 	}
 
@@ -564,47 +559,47 @@ namespace Combat
 		// Define all messages for hit-areas
 
 		static const char* hitLegs[] = {
-			"%1 hits you in the left thigh!",		"You hit %1 in the left thigh!",
-			"%1 hits you in the right thigh!",	"You hit %1 in the right thigh!",
-			"%1 hits you in the groin!",			"You hit %1 in the groin!"
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in the left thigh!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the left thigh!"),
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in the right thigh!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the right thigh!"),
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in the groin!"),			QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the groin!")
 		};
 
 		static const char* hitBody[] = {
-			"%1 hits you in your chest!",			"You hit %1 in the chest!",
-			"%1 lands a blow to your stomach!",		"You land a blow to %1's stomach!",
-			"%1 hits you in your ribs!",			"You hit %1 in the ribs!"
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in your chest!"),			QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the chest!"),
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 lands a blow to your stomach!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You land a blow to %1's stomach!"),
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in your ribs!"),			QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the ribs!")
 		};
 
 		static const char* hitBodyHard[] = {
-			"%1 lands a terrible blow to your chest!",	"You land a terrible blow to %1's chest!",
-			"%1 knocks the wind out of you!",			"You knock the wind out of %1!",
-			"%1 has broken your rib!",					"It sounds as if you have broken one of %1's ribs!"
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 lands a terrible blow to your chest!"),	QT_TRANSLATE_NOOP("CombatHitMessages", "You land a terrible blow to %1's chest!"),
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 knocks the wind out of you!"),			QT_TRANSLATE_NOOP("CombatHitMessages", "You knock the wind out of %1!"),
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 has broken your rib!"),					QT_TRANSLATE_NOOP("CombatHitMessages", "It sounds as if you have broken one of %1's ribs!")
 		};
 
 		static const char* hitArms[] = {
-			"%1 hits you in your left arm!",	"You hit %1 in the left arm!",
-			"%1 hits you in your right arm!",	"You hit %1 in the right arm!"
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in your left arm!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the left arm!"),
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in your right arm!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the right arm!")
 		};
 
 		static const char* hitHands[] = {
-			"%1 hits you at your left hand!",	"You hit %1 at the left hand!",
-			"%1 hits you at your right hand!",	"You hit %1 at the right hand!"
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you at your left hand!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 at the left hand!"),
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you at your right hand!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 at the right hand!")
 		};
 
 		static const char* hitNeck[] = {
-			"%1 hits you at the throat!",	"You hit %1 at the throat!",
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you at the throat!"),			QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 at the throat!"),
 		};
 
 		static const char* hitHead[] = {
-			"%1 hits you straight in the face!",	"You hit %1 straight in the face!",
-			"%1 hits you at the head!",				"You hit %1 at the head!",			
-			"%1 hits you square in the jaw!",	"You hit %1 square in the jaw!"
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you straight in the face!"),	QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 straight in the face!"),
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you at the head!"),				QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 at the head!"),
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you square in the jaw!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 square in the jaw!")
 		};
 
 		static const char* hitHeadHard[] = {
-			"%1 lands a stunning blow to your head!",	"You land a stunning blow to %1's head!",
-			"%1 smashed a blow across your face!",		"You smash a blow across %1's face!",
-			"%1 lands a terrible hit to your temple!",	"You land a terrible hit at %1's temple!"
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 lands a stunning blow to your head!"),	QT_TRANSLATE_NOOP("CombatHitMessages", "You land a stunning blow to %1's head!"),
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 smashed a blow across your face!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You smash a blow across %1's face!"),
+			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 lands a terrible hit to your temple!"),	QT_TRANSLATE_NOOP("CombatHitMessages", "You land a terrible hit at %1's temple!")
 		};
 
 		// Check if it has been a "hard" hit
@@ -661,10 +656,10 @@ namespace Combat
 		}
 
 		if( pAttacker->socket() )
-			pAttacker->socket()->sysMessage( attMessage.arg( pDefender->name() ) );
+			pAttacker->socket()->sysMessage( qApp->translate("CombatHitMessages", attMessage.arg( pDefender->name() ) ) );
 
 		if( pDefender->socket() )
-			pDefender->socket()->sysMessage( defMessage.arg( pAttacker->name() ) );
+			pDefender->socket()->sysMessage( qApp->translate("CombatHitMessages", defMessage.arg( pAttacker->name() ) ) );
 
 		// Macefighting Weapons (2handed only) 
 		// Deal Stamina loss
@@ -1032,7 +1027,7 @@ namespace Combat
 			else if( pAttacker->skill(WRESTLING) > 600 ) j = 45;
 			else if( pAttacker->skill(WRESTLING) > 800 ) j = 50;
 			else j = 30;
-			x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->effDex()+100) * j);
+			x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->stm()+100) * j);
 		}
 		pAttacker->setTimeOut(uiCurrentTime + x);
 	}

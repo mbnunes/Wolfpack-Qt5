@@ -1105,7 +1105,7 @@ static void quickdelete( P_ITEM pi )
 int main( int argc, char *argv[] )
 {
 #if defined(_DEBUG)
-//	InstallCrashHandler( HANDLER_CONSOLE, GSTSO_PARAMS | GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE );
+//	InstallCrashHandler( HANDLE_HTTPREPORT, GSTSO_PARAMS | GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE );
 //	SetCustomMessage("A crash occurred. Please send this bug report to developers\n");
 #endif
 
@@ -1114,7 +1114,7 @@ int main( int argc, char *argv[] )
 	// Parse our arguments
 	if (argc > 1)
 	{
-		for (int index=1; index < argc ; index++)
+		for (int index=1; index < argc; ++index)
 		{
 			QString param( argv[ index ] );
 			checkparm( param );
