@@ -95,6 +95,7 @@
 		<id>0xfa7</id>
 		<category>Professions\Barkeeper\Dice and Cup</category>
 		<buyprice>2</buyprice>
+		<basescripts>dicecup</basescripts>
 	</item>
 
 	<item id="fa8">
