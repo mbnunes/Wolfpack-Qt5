@@ -12,6 +12,8 @@
 #define PyReturnCheck(a) if( a == NULL ) return false; if( !PyInt_Check( a ) ) return false; if( PyInt_AsLong( a ) == 1 ) return true; else return false;
 #define PyMethodCheck(a) if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) return false;
 #define PyMethodCheckVoid(a) if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) return;
+#define PyHasMethod(a) if( !PyObject_HasAttr( codeModule, PyString_FromString( a ) ) ) return false;
+#define PyHasMethodVoid(a) if( !PyObject_HasAttr( codeModule, PyString_FromString( a ) ) ) return;
 
 // If an error occured, report it
 inline void PyReportError( void )
@@ -88,6 +90,8 @@ void WPPythonScript::load( const QDomElement &Data )
 //========================== OVERRIDDEN DEFAULT EVENTS
 bool WPPythonScript::onUse( P_CHAR User, P_ITEM Used )
 {
+	PyHasMethod( "onUse" )
+
 	// Create our args for the python function
 	PyObject *tuple = PyTuple_New( 2 );
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( User ) );
@@ -105,6 +109,8 @@ bool WPPythonScript::onUse( P_CHAR User, P_ITEM Used )
 
 bool WPPythonScript::onShowItemName( P_ITEM Item, P_CHAR Viewer )
 {
+	PyHasMethod( "onShowItemName" )
+	
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetItemObject( Item ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Viewer ) );
@@ -121,6 +127,8 @@ bool WPPythonScript::onShowItemName( P_ITEM Item, P_CHAR Viewer )
 
 bool WPPythonScript::onShowCharName( P_CHAR Character, P_CHAR Viewer )
 {
+	PyHasMethod( "onShowCharName" )
+
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Viewer ) );
@@ -137,6 +145,8 @@ bool WPPythonScript::onShowCharName( P_CHAR Character, P_CHAR Viewer )
 
 void WPPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )
 {
+	PyHasMethodVoid( "onCollideItem" )
+
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyGetItemObject( Obstacle ) );
@@ -150,6 +160,8 @@ void WPPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )
 
 void WPPythonScript::onCollideChar( P_CHAR Character, P_CHAR Obstacle )
 {
+	PyHasMethodVoid( "onCollideChar" )
+
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Obstacle ) );
@@ -164,6 +176,8 @@ void WPPythonScript::onCollideChar( P_CHAR Character, P_CHAR Obstacle )
 
 bool WPPythonScript::onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence )
 {
+	PyHasMethod( "onWalk" )
+
 	PyObject *tuple = PyTuple_New( 3 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( Direction ) );
@@ -183,6 +197,8 @@ bool WPPythonScript::onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence )
 // if this events returns true (handeled) then we should not display the text
 bool WPPythonScript::onTalk( P_CHAR Character, QString Text )
 {
+	PyHasMethod( "onTalk" )
+
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyString_FromString( Text.ascii() ) );
@@ -200,6 +216,8 @@ bool WPPythonScript::onTalk( P_CHAR Character, QString Text )
 
 void WPPythonScript::onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text )
 {
+	PyHasMethodVoid( "onTalkToNPC" )
+
 	PyObject *tuple = PyTuple_New( 3 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Talker ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Character ) );
@@ -215,6 +233,8 @@ void WPPythonScript::onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString
 
 void WPPythonScript::onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text )
 {
+	PyHasMethodVoid( "onTalkToItem" )
+
 	PyObject *tuple = PyTuple_New( 3 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Talker ) );
 	PyTuple_SetItem( tuple, 1, PyGetItemObject( Item ) );
@@ -231,6 +251,8 @@ void WPPythonScript::onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Te
 
 void WPPythonScript::onWarModeToggle( P_CHAR Character, bool War )
 {
+	PyHasMethodVoid( "onWarModeToggle" )
+
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, ( War ? PyInt_FromLong( 1 ) : PyInt_FromLong( 0 ) ) );
@@ -262,6 +284,8 @@ bool WPPythonScript::onDisconnect( UOXSOCKET Socket, QString IP )
 
 void WPPythonScript::onEnterWorld( P_CHAR Character )
 {
+	PyHasMethodVoid( "onEnterWorld" )
+
 	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 
@@ -276,6 +300,8 @@ void WPPythonScript::onEnterWorld( P_CHAR Character )
 
 bool WPPythonScript::onHelp( P_CHAR Character )
 {
+	PyHasMethod( "onHelp" )
+
 	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 
@@ -292,6 +318,8 @@ bool WPPythonScript::onHelp( P_CHAR Character )
 
 bool WPPythonScript::onChat( P_CHAR Character )
 {
+	PyHasMethod( "onChat" )
+
 	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 
@@ -308,6 +336,8 @@ bool WPPythonScript::onChat( P_CHAR Character )
 
 bool WPPythonScript::onSkillUse( P_CHAR Character, UI08 Skill )
 {
+	PyHasMethod( "onSkillUse" )
+
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( Skill ) );
@@ -516,12 +546,29 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else if( !strcmp( name, "serial" ) )
 		return PyInt_FromLong( self->Item->serial );
 
+	else if( !strcmp( name, "amount" ) )
+		return PyInt_FromLong( self->Item->amount );
+
+
+
 	// If no property is found search for a method
 	return Py_FindMethod( Py_WPItemMethods, (PyObject*)self, name );
 }
 
+#define setIntProperty( property ) if( !strcmp ( name, "property" ) ) self->Item->property = PyInt_AS_LONG( value );
+#define setStrProperty( property ) if( !strcmp ( name, "property" ) ) self->Item->property = PyString_AS_STRING( value );
+
 int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 {
+
+	if( !strcmp( name, "id" ) )
+		self->Item->setId( PyInt_AS_LONG( value ) );
+
+	else setStrProperty( name )
+	else setIntProperty( serial )
+	else setIntProperty( color )
+	else setIntProperty( amount )
+
 	return 0;
 }
 
