@@ -107,18 +107,21 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 		if( pc->hp() > pc->st() )
 		{
 			pc->setHp( pc->st() );
-			pc->updateHealth();
+			if( pc->socket() )
+				pc->updateHealth();
 		}
 
 		if( pc->stm() > pc->effDex() )
 		{
 			pc->setStm( pc->effDex() );
-			pc->socket()->updateStamina();
+			if( pc->socket() )
+				pc->socket()->updateStamina();
 		}
 		if (pc->mn()>pc->in())
 		{
 			pc->setMn( pc->in() );
-			pc->socket()->updateMana();
+			if( pc->socket() )
+				pc->socket()->updateMana();
 		}
 
 		// Health regeneration
@@ -154,6 +157,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 						}
 					}
 				}
+
 				pc->updateHealth();
 			}
 
@@ -207,7 +211,8 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 						pc->setMn( pc->in() );
 						break;
 					}
-					pc->socket()->updateMana();
+					if( pc->socket() )
+						pc->socket()->updateMana();
 				}
 			}
 			if (SrvParams->armoraffectmana())

@@ -35,6 +35,7 @@
 #include "defines.h"
 #include "globals.h"
 #include "typedefs.h"
+#include "wptargetrequests.h"
 
 // Forward Declaration
 class cUOSocket;
@@ -77,7 +78,6 @@ public:
 	static void RandomSteal( cUOSocket*, SERIAL );	
 	void RepairTarget(UOXSOCKET s); // Ripper
 	void SmeltItemTarget(UOXSOCKET s); // Ripper
-	void TasteIDTarget(int s);
 	int TrackingDirection(UOXSOCKET s, P_CHAR pc_i);
 	void CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar);
 	char AdvanceSkill(P_CHAR pc, int sk, char skillused);
@@ -90,11 +90,9 @@ public:
 	void Track(P_CHAR pc_i);
 	void DoPotion(int s, int type, int sub, P_ITEM mortar);
 	void GraveDig(int s);
-	void SmeltOre(int s);
 	void Wheel(int s, int mat);
 	void Loom(int s);
 	void CookOnFire(int s, short id1, short id2, char* matname);
-	void TreeTarget(int s);
 	void EnticementTarget1(UOXSOCKET s);
 	void EnticementTarget2(UOXSOCKET s);
 	void AlchemyTarget(int s);
@@ -117,6 +115,16 @@ public:
 	void Decipher(P_ITEM tmap, int s); // By Polygon - attempt to decipher a tattered treasure map
 	int GetAntiMagicalArmorDefence(P_CHAR pc); // blackwind meditation armor stuff
 	void Snooping(P_CHAR, P_ITEM);
+};
+
+// Repair Item
+class cSkRepairItem : public cTargetRequest
+{
+private:
+	cMakeSection* makesection_;
+public:
+	cSkRepairItem( cMakeSection* makesection = NULL ) : cTargetRequest(), makesection_( makesection ) {}
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
 #endif

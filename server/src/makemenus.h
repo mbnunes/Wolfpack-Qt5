@@ -192,7 +192,9 @@ public:
 		RESOURCE_SECTIONS,	// define makesections by a resource's types (ores, woods)
 		AMOUNT_SECTIONS,	// define makesections by a list of amounts
 		NPC_SECTION,		// define a makesection by an npc section
-		DELAYED_SECTIONS,	// define a makesection by several actions to be executed in a delayed action queue (alchemy, repair)
+		DELAYED_SECTIONS,	// define a makesection by several actions to be executed in a delayed action queue (alchemy)
+		CODE_ACTION,		// run a code segment
+		SCRIPT_ACTION		// run a script
 	};
 
 	cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu = NULL );

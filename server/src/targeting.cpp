@@ -2209,14 +2209,6 @@ void cTargets::SwordTarget(const P_CLIENT pC, PKGx6C *pp)
 		BladeTarget(pC,pp);
 }
 
-static void AxeTarget(P_CLIENT pC, PKGx6C *pp)
-{
-	if (IsTree(pp->model))
-		Skills->TreeTarget( pC->socket() );
-	else
-		BladeTarget(pC,pp);
-}
-
 void cTargets::NpcTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -3814,7 +3806,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 45: Fishing->FishTarget(ps); break;
 		case 47: if (Cready) pc->setTitle( xtext[s] ); break;//TitleTarget
 		case 48: Targ->ShowAccountCommentTarget(s); break;
-		case 52: Skills->SmeltOre(s); break;
 		case 53: npcact(s); break;
 		case 56: Targ->NpcTarget(s); break;
 		case 57: Targ->NpcTarget2(s); break;
@@ -3827,11 +3818,9 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 65: //MoreZTarget
 		case 66: ItemTarget(ps,pt); break;//MoreXYZTarget
 		case 67: Targ->NpcRectTarget(s); break;
-		case 70: Skills->TasteIDTarget(s); break;
 		case 71: if (Iready) ContainerEmptyTarget1(ps,pi); break;
 		case 72: if (Iready) ContainerEmptyTarget2(ps,pi); break;
 		case 75: Targ->TargIdTarget(s); break;
-//		case 76: AxeTarget(ps,pt); break;
 
 //		case 79: Skills->ProvocationTarget1(s); break;
 //		case 80: Skills->ProvocationTarget2(s); break;
@@ -3937,17 +3926,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 222: TeleStuff(s,pt); break;
 		case 223: Targ->SquelchTarg(s); break;//Squelch
 		case 224: Targ->PlVBuy(s); break;//PlayerVendors
-		case 227: Targ->HouseOwnerTarget(s); break; // cj aug11/99
-		case 228: Targ->HouseEjectTarget(s); break; // cj aug11/99
-		case 229: Targ->HouseBanTarget(s); break; // cj aug12/99
-		case 230: Targ->HouseFriendTarget(s); break; // cj aug 12/99
-		case 231: Targ->HouseUnBanTarget(s); break; // cj aug 12/99
-		case 232: Targ->HouseLockdown( s ); break; // Abaddon 17th December 1999
-		case 233: Targ->HouseRelease( s ); break; // Abaddon 17th December 1999
-		case 234: Targ->HouseSecureDown( s ); break; // Ripper
-		case 236: Skills->RepairTarget(s); break; //Ripper..Repairing item
-		case 237: Skills->SmeltItemTarget(s); break; //Ripper..Smelting item
-		//taken from 6904t2(5/10/99) - AntiChrist
 		case 240: Targ->SetMurderCount( s ); break; // Abaddon 13 Sept 1999
 
 		case 245: 

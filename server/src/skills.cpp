@@ -1176,6 +1176,92 @@ public:
 	
 };
 
+// Repair Item
+bool cSkRepairItem::responsed( cUOSocket *socket, cUORxTarget *target )
+{
+	if( !socket )
+		return true;
+
+	P_CHAR pc = socket->player();
+	if( !pc )
+		return true;
+
+	P_ITEM pi = FindItemBySerial( target->serial() );
+	if( !pi || pi->isLockedDown() )
+	{
+		socket->sysMessage( tr("You can't repair that!") );
+		return false;
+	}
+	else if( pc->packitem != INVALID_SERIAL && pi->contserial != pc->packitem )
+	{
+		socket->sysMessage( tr("The item must be in your backpack to get repaired!") );
+		return true;
+	}
+	else if( pi->hp() == 0 )
+	{
+		socket->sysMessage( tr("That item can't be repaired.") );
+		return true;
+	}
+	else if( pi->hp() >= pi->maxhp() )
+	{
+		socket->sysMessage( tr("That item is of top quality.") );
+		return true;
+	}
+	else
+	{
+		bool anvilinrange = false;
+		RegionIterator4Items ri( pc->pos, 2 );
+		for( ri.Begin(); !ri.atEnd(); ri++ )
+		{
+			P_ITEM pri = ri.GetData();
+			if( pri && IsAnvil( pri->id() ) )
+			{
+				anvilinrange = true;
+				break;
+			}
+		}
+		if( !anvilinrange )
+		{
+			socket->sysMessage( tr("You must stand in range of an anvil!" ) );
+			return true;
+		}
+	}
+
+	bool hasSuccess = true;
+	short dmg=4;	// damage to maxhp
+
+	if( makesection_ && (dmg = 10 - makesection_->calcRank( pc )) <= 0 )
+		hasSuccess = false;
+
+	if( !makesection_ )
+	{
+		short smithing = pc->baseSkill( BLACKSMITHING );
+		if		((smithing>=900)) dmg=1;
+		else if ((smithing>=700)) dmg=2;
+		else if ((smithing>=500)) dmg=3;
+		hasSuccess = Skills->CheckSkill((pc),BLACKSMITHING, 0, 1000);
+	}
+
+	if( hasSuccess )
+	{
+		pi->setMaxhp( pi->maxhp() - dmg );
+		pi->setHp( pi->maxhp() );
+		socket->sysMessage( tr("* the item has been repaired.*") );
+	}
+	else
+	{
+		pi->setHp( pi->hp() - 2 );
+		pi->setMaxhp( pi->maxhp() - 1 );
+		socket->sysMessage( tr("* You fail to repair the item. *") );
+		socket->sysMessage( tr("* You weaken the item.*") );
+	}
+
+	if( makesection_ && makesection_->baseAction() )
+		pc->soundEffect( makesection_->baseAction()->sound() );
+
+	return true;
+}
+
 void cSkills::Hide( cUOSocket *socket ) 
 { 
 	P_CHAR pChar = socket->player();

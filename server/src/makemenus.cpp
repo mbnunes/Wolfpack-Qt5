@@ -323,7 +323,7 @@ void cMakeSection::processNode( const QDomElement &Tag )
 		skillchecks_.append( pSkillCheck );
 	}
 
-	else if( TagName == "name" && ( type == cMakeAction::CUSTOM_SECTIONS || type == cMakeAction::NPC_SECTION || type == cMakeAction::RESOURCE_SECTIONS ) )
+	else if( TagName == "name" && ( type == cMakeAction::CUSTOM_SECTIONS || type == cMakeAction::NPC_SECTION || type == cMakeAction::RESOURCE_SECTIONS || type == cMakeAction::CODE_ACTION || type == cMakeAction::SCRIPT_ACTION ) )
 		name_ = Value;
 
 	else if( TagName == "makenpc" && type == cMakeAction::NPC_SECTION )
@@ -440,6 +440,16 @@ void cMakeSection::execute( cUOSocket* socket )
 
 	if( !socket || !pChar || !baseaction_ )
 		return;
+
+	if( baseaction_->type() == cMakeAction::CODE_ACTION )
+	{
+		if( name_ == "repair" )
+		{
+			cSkRepairItem* pTargetRequest = new cSkRepairItem( this );
+			socket->attachTarget( pTargetRequest );
+		}
+		return;
+	}
 
 	// first check for necessary items
 	if( !hasEnough( pBackpack ) )
@@ -618,6 +628,10 @@ cMakeAction::cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu )
 			type_ = NPC_SECTION;
 		else if( Value == "delayed" || Value.toUShort() == 4 )
 			type_ = DELAYED_SECTIONS;
+		else if( Value == "code" || Value.toUShort() == 5 )
+			type_ = CODE_ACTION;
+		else if( Value == "script" || Value.toUShort() == 6 )
+			type_ = SCRIPT_ACTION;
 	}
 	if( Tag.hasAttribute( "inherit" ) )
 	{
@@ -635,7 +649,7 @@ void cMakeAction::processNode( const QDomElement &Tag )
 
 	if( TagName == "make" )
 	{
-		if( type_ == CUSTOM_SECTIONS || type_ == NPC_SECTION )
+		if( type_ == CUSTOM_SECTIONS || type_ == NPC_SECTION || type_ == CODE_ACTION || type_ == SCRIPT_ACTION )
 		{
 			cMakeSection* pMakeSection = new cMakeSection( Tag, this );
 			if( pMakeSection )
