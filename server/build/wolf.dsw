@@ -3,7 +3,7 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "ZTHREAD_2_2_9_static"=..\lib\ZThread\ZTHREAD_static.dsp - Package Owner=<4>
+Project: "ZTHREAD_2_2_9_static"=.\lib\ZThread\ZTHREAD_static.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -15,7 +15,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "moc"=..\lib\wrl\src\moc\moc.dsp - Package Owner=<4>
+Project: "moc"=.\lib\wrl\src\moc\moc.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
