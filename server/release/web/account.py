@@ -54,6 +54,14 @@ if save == 1:
 	# Only continue if we didn't fail already
 	if not message:
 		record.acl = form.getvalue( 'acl', 'player' ) # If error = default to playor ;)
+		if form.getvalue( 'block', 'false' ) == 'true': 
+			record.block()
+		else:
+			record.unblock()
+		
+		if form.getvalue( 'blockuntil', '' ) != '':
+			record.blockuntil = form.getvalue( 'blockuntil', '' )
+			
 		message = "The record has been updated successfully."
 
 content = """
@@ -89,6 +97,16 @@ for acl in wolfpack.accounts.acls():
 content += '</select></td></tr>'
 
 content += '<tr><td>Last Login</td><td>%s</td></tr>' % record.lastlogin
+
+select0 = 'selected'
+select1 = ''
+
+if record.flags & 0x00000001:
+	select0 = ''
+	select1 = 'selected'
+	
+content += '<tr><td>Blocked</td><td><select name="block"><option '+select0+'>false</option><option '+select1+'>true</option></select></td></tr>'
+content += '<tr><td>until</td><td><input type="text" name="blockuntil" value="%s"</td></tr>' % record.blockuntil
 
 # Submit Button
 content += '<tr><td colspan="2"><br />'

@@ -108,8 +108,8 @@ for account in wolfpack.accounts.list():
 accounts.sort( lambda a, b: cmp( a.lower(), b.lower() ) )
 
 content += '<table width="350" border="0" cellspacing="0" cellpadding="3">'
-content += '<tr><td><b>Username</b></td><td>ACL</td></tr>'
-content += '<tr><td colspan="2" height="1"><img src="line_green.png" height="1" width="340"/></td></tr>'
+content += '<tr><td><b>Username</b></td><td>ACL</td><td>blocked</td><td>until</td></tr>'
+content += '<tr><td colspan="4" height="1"><img src="line_green.png" height="1" width="340"/></td></tr>'
 
 for account in accounts:
 	record = wolfpack.accounts.find( account )
@@ -117,10 +117,14 @@ for account in accounts:
 	if record == None:
 		continue
 
+	blocked = 'false'
+	if record.flags & 0x00000001: blocked = 'true'
 	content += '<tr>'
 	content += '<td><a href="account.py?session=%(session)s&username=%(username)s&letter=%(letter)s">%(account)s</a></td>' % { 'username': quote( account ), 'account': account, 'session': session_id, 'letter': quote( letter ) }
 	content += '<td>%(acl)s</td>' % { 'acl': record.acl }
-	content += '</td>'
+	content += '<td>%s</td>' % blocked
+	content += '<td>%s</td>' % record.blockuntil
+	content += '</tr>'
 
 content += '</table><br /><br />'
 
