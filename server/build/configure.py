@@ -22,9 +22,9 @@ except:
     from optparse import OptionParser
 
 try:
-    osHasPathDotSep = sys.path.sep
+    osHasPathDotSep = os.path.sep
 except:
-    sys.path.sep = '/'
+    os.path.sep = '/'
 
 # These are the variables we are trying to figure out
 py_libpath = ""
@@ -306,7 +306,7 @@ def main():
 	checkQt()
 
         if options.disable_translation:
-                DEFINES += "QT_NO_TRANSLATION "
+            DEFINES += "QT_NO_TRANSLATION "
 
 	# Create config.pri
 	global py_libpath
