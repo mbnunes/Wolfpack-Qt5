@@ -11,6 +11,7 @@
 	<!-- Sheep (sheered) -->
 	<npc id="sheep_sheered" inherit="animal_base">
 		<baseid>sheep</baseid>
+		<name>sheep</name>
 		<id>223</id>
 		<ai>Animal_Domestic</ai>
 		<inherit id="KARMA_L0" />
@@ -44,7 +45,7 @@
 
 	<!-- Sheep (unsheered) -->
 	<npc id="sheep_unsheered" inherit="sheep_sheered">
-		<baseid>sheep</baseid>
+		<baseid>sheep_unsheered</baseid>
 		<id>207</id>
 		<carve>carve_sheep_unsheered</carve>
 		<category>Animals\Land\Sheep (Unsheered)</category>
