@@ -10,8 +10,6 @@
 
 	<!-- Wide-brim Hat -->
 	<item id="1714">
-		<category>Clothes\Headwear\Wide-brim Hat</category>
-		<category>Armor\Headwear\Wide-brim Hat</category>
 		<id>0x1714</id>
 		<dye />
 		<durability><random min="20" max="25" /></durability>
@@ -27,6 +25,9 @@
 		<intproperty name="res_poison" value="5" />
 		<intproperty name="res_energy" value="5" />
 		<allowmeditation />
+		<category>Clothes\Headwear\Wide-brim Hat</category>
+		<category>Armor\Headwear\Wide-brim Hat</category>
+		<category>Base Armor\Headwear\Wide-brim Hat</category>
 	</item>
 
 </definitions>

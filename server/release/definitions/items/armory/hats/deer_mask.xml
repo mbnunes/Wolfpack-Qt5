@@ -10,8 +10,6 @@
 
 	<!-- Deer Mask n/s -->
 	<item id="1547">
-		<category>Clothes\Headwear\Deer Mask (N/S)</category>
-		<category>Armor\Headwear\Deer Mask (N/S)</category>
 		<id>0x1547</id>
 		<nodye />
 		<durability><random min="20" max="25" /></durability>
@@ -26,14 +24,18 @@
 		<intproperty name="res_poison" value="1" />
 		<intproperty name="res_energy" value="7" />
 		<allowmeditation />
+		<category>Clothes\Headwear\Deer Mask (N/S)</category>
+		<category>Armor\Headwear\Deer Mask (N/S)</category>
+		<category>Base Armor\Headwear\Deer Mask (N/S)</category>
 	</item>
 
 	<!-- Deer Mask w/e -->
 	<item id="1548" inherit="1547">
-		<category>Clothes\Headwear\Deer Mask (W/E)</category>
-		<category>Armor\Headwear\Deer Mask (W/E)</category>
 		<id>0x1548</id>
 		<baseid>1547</baseid>
+		<category>Clothes\Headwear\Deer Mask (W/E)</category>
+		<category>Armor\Headwear\Deer Mask (W/E)</category>
+		<category>Base Armor\Headwear\Deer Mask (W/E)</category>
 	</item>
 
 </definitions>

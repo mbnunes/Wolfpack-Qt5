@@ -10,8 +10,6 @@
 
 	<!-- Tricorne Hat -->
 	<item id="171b">
-		<category>Clothes\Headwear\Tricorne Hat</category>
-		<category>Armor\Headwear\Tricorne Hat</category>
 		<id>0x171b</id>
 		<dye />
 		<durability><random min="20" max="25" /></durability>
@@ -27,6 +25,9 @@
 		<intproperty name="res_poison" value="5" />
 		<intproperty name="res_energy" value="5" />
 		<allowmeditation />
+		<category>Clothes\Headwear\Tricorne Hat</category>
+		<category>Armor\Headwear\Tricorne Hat</category>
+		<category>Base Armor\Headwear\Tricorne Hat</category>
 	</item>
 
 </definitions>

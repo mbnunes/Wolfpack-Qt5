@@ -10,8 +10,6 @@
 
 	<!-- Jester Hat -->
 	<item id="172e">
-		<category>Clothes\Headwear\Jester Hat</category>
-		<category>Armor\Headwear\Jester Hat</category>
 		<id>0x172e</id>
 		<dye />
 		<durability><random min="20" max="25" /></durability>
@@ -24,6 +22,9 @@
 		<intproperty name="res_poison" value="5" />
 		<intproperty name="res_energy" value="5" />
 		<allowmeditation />
+		<category>Clothes\Headwear\Jester Hat</category>
+		<category>Armor\Headwear\Jester Hat</category>
+		<category>Base Armor\Headwear\Jester Hat</category>
 	</item>
 
 </definitions>

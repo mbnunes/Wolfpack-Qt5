@@ -10,8 +10,6 @@
 
 	<!-- Bear Mask n/s -->
 	<item id="1545">
-		<category>Clothes\Headwear\Bear Mask (N/S)</category>
-		<category>Armor\Headwear\Bear Mask (N/S)</category>
 		<id>0x1545</id>
 		<nodye />
 		<durability><random min="20" max="25" /></durability>
@@ -27,6 +25,9 @@
 		<intproperty name="res_poison" value="4" />
 		<intproperty name="res_energy" value="4" />
 		<allowmeditation />
+		<category>Clothes\Headwear\Bear Mask (N/S)</category>
+		<category>Armor\Headwear\Bear Mask (N/S)</category>
+		<category>Base Armor\Headwear\Bear Mask (N/S)</category>
 	</item>
 
 	<!-- Bear Mask w/e -->

@@ -3,8 +3,6 @@
 
 	<!-- Skullcap n/s -->
 	<item id="1543">
-		<category>Clothes\Headwear\Skull Cap (N/S)</category>
-		<category>Armor\Headwear\Skull Cap (N/S)</category>
 		<id>0x1543</id>
 		<dye />
 		<color><random list="COLORS_RANDOM" /></color>
@@ -21,14 +19,18 @@
 		<intproperty name="res_poison" value="8" />
 		<intproperty name="res_energy" value="8" />
 		<allowmeditation />
+		<category>Clothes\Headwear\Skull Cap (N/S)</category>
+		<category>Armor\Headwear\Skull Cap (N/S)</category>
+		<category>Base Armor\Headwear\Skull Cap (N/S)</category>
 	</item>
 
 	<!-- Skullcap w/e -->
 	<item id="1544" inherit="1543">
-		<category>Clothes\Headwear\Skull Cap (W/E)</category>
-		<category>Armor\Headwear\Skull Cap (W/E)</category>
 		<id>0x1544</id>
 		<baseid>1543</baseid>
+		<category>Clothes\Headwear\Skull Cap (W/E)</category>
+		<category>Armor\Headwear\Skull Cap (W/E)</category>
+		<category>Base Armor\Headwear\Skull Cap (W/E)</category>
 	</item>
 
 </definitions>

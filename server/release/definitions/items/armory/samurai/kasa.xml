@@ -10,8 +10,6 @@
 
 	<!-- Kasa -->
 	<item id="2798">
-		<category>Clothes\Samurai\Headwear\Kasa</category>
-		<category>Armor\Samurai\Headwear\Kasa</category>
 		<id>0x2798</id>
 		<dye />
 		<durability><random min="20" max="25" /></durability>
@@ -27,13 +25,17 @@
 		<intproperty name="res_poison" value="5" />
 		<intproperty name="res_energy" value="5" />
 		<allowmeditation />
+		<category>Clothes\Headwear\Samurai\Kasa</category>
+		<category>Armor\Headwear\Samurai\Kasa</category>
+		<category>Base Armor\Headwear\Samurai\Kasa</category>
 	</item>
 
 	<item id="27e3" inherit="2798">
 		<id>0x27e3</id>
 		<baseid>2798</baseid>
-		<category>Clothes\Samurai\Headwear\Kasa 2</category>
-		<category>Armor\Samurai\Headwear\Kasa 2</category>
+		<category>Clothes\Headwear\Samurai\Kasa 2</category>
+		<category>Armor\Headwear\Samurai\Kasa 2</category>
+		<category>Base Armor\Headwear\Samurai\Kasa 2</category>
 	</item>
 
 </definitions>

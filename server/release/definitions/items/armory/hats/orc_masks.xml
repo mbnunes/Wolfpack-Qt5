@@ -12,8 +12,6 @@
 	<item id="141b">
 		<id>0x141b</id>
 		<durability><random min="20" max="25" /></durability>
-		<category>Clothes\Headwear\Orc Mask (N/S)</category>
-		<category>Armor\Headwear\Orc Mask (N/S)</category>
 		<weight>4.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
@@ -25,6 +23,9 @@
 		<intproperty name="res_poison" value="7" />
 		<intproperty name="res_energy" value="8" />
 		<allowmeditation />
+		<category>Clothes\Headwear\Orc Mask (N/S)</category>
+		<category>Armor\Headwear\Orc Mask (N/S)</category>
+		<category>Base Armor\Headwear\Orc Mask (N/S)</category>
 	</item>
 
 	<!-- Orc Mask 1 w/e -->
@@ -33,6 +34,7 @@
 		<baseid>141b</baseid>
 		<category>Clothes\Headwear\Orc Mask (W/E)</category>
 		<category>Armor\Headwear\Orc Mask (W/E)</category>
+		<category>Base Armor\Headwear\Orc Mask (W/E)</category>
 	</item>
 
 </definitions>

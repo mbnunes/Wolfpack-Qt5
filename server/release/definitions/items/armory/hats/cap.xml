@@ -10,8 +10,6 @@
 
 	<!-- Cap -->
 	<item id="1715">
-		<category>Clothes\Headwear\Cap</category>
-		<category>Armor\Headwear\Cap</category>
 		<id>0x1715</id>
 		<dye />
 		<durability><random min="20" max="25" /></durability>
@@ -21,6 +19,9 @@
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<allowmeditation />
+		<category>Clothes\Headwear\Cap</category>
+		<category>Armor\Headwear\Cap</category>
+		<category>Base Armor\Headwear\Cap</category>
 	</item>
 
 </definitions>

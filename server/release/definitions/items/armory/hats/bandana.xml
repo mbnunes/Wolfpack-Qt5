@@ -10,8 +10,6 @@
 
 	<!-- Bandana n/s -->
 	<item id="153f">
-		<category>Armor\Headwear\Bandana (N/S)</category>
-		<category>Clothes\Headwear\Bandana (N/S)</category>
 		<id>0x153f</id>
 		<dye />
 		<color><random list="COLORS_RANDOM" /></color>
@@ -28,6 +26,9 @@
 		<intproperty name="res_poison" value="8" />
 		<intproperty name="res_energy" value="8" />
 		<allowmeditation />
+		<category>Armor\Headwear\Bandana (N/S)</category>
+		<category>Base Armor\Headwear\Bandana (N/S)</category>
+		<category>Clothes\Headwear\Bandana (N/S)</category>
 	</item>
 
 	<!-- Bandana w/e -->
@@ -36,6 +37,7 @@
 		<baseid>153f</baseid>
 		<category>Clothes\Headwear\Bandana (W/E)</category>
 		<category>Armor\Headwear\Bandana (W/E)</category>
+		<category>Base Armor\Headwear\Bandana (W/E)</category>
 	</item>
 
 </definitions>

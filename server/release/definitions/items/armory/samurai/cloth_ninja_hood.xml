@@ -18,7 +18,6 @@
 		<weight>10.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Base Armor\Samurai\Headwear\Cloth\Nina Hood</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="95" />
@@ -27,12 +26,19 @@
 		<intproperty name="res_cold" value="3" />
 		<intproperty name="res_poison" value="3" />
 		<intproperty name="res_energy" value="3" />
+		<category>Base Armor\Samurai\Headwear\Cloth\Nina Hood</category>
+		<category>Base Armor\Headwear\Nina Hood</category>
+		<category>Armor\Headwear\Nina Hood</category>
+		<category>Clothes\Headwear\Nina Hood</category>
 	</item>
 
 	<item id="27da" inherit="278f">
 		<id>0x27da</id>
 		<baseid>278f</baseid>
 		<category>Base Armor\Samurai\Headwear\Cloth\Nina Hood 2</category>
+		<category>Base Armor\Headwear\Nina Hood 2</category>
+		<category>Armor\Headwear\Nina Hood 2</category>
+		<category>Clothes\Headwear\Nina Hood 2</category>
 	</item>
 
 </definitions>

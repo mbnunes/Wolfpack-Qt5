@@ -10,8 +10,6 @@
 
 	<!-- Jesters Cap -->
 	<item id="171c">
-		<category>Clothes\Headwear\Jesters Cap</category>
-		<category>Armor\Headwear\Jesters Cap</category>
 		<id>0x171c</id>
 		<dye />
 		<durability><random min="20" max="25" /></durability>
@@ -27,6 +25,9 @@
 		<intproperty name="res_poison" value="5" />
 		<intproperty name="res_energy" value="5" />
 		<allowmeditation />
+		<category>Clothes\Headwear\Jesters Cap</category>
+		<category>Armor\Headwear\Jesters Cap</category>
+		<category>Base Armor\Headwear\Jesters Cap</category>
 	</item>
 
 </definitions>
