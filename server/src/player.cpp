@@ -791,12 +791,6 @@ void cPlayer::applyStartItemDefinition( const cElement* element )
 			}
 		}
 
-		// Add gold to the players backpack
-		else if ( node->name() == "gold" )
-		{
-			giveGold( node->value().toUInt() );
-		}
-
 		// Item related nodes
 		else
 		{

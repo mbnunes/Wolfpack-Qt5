@@ -1172,12 +1172,6 @@ void cBaseChar::processNode(const cElement* Tag) {
 		mana_ = maxMana_;
 	}
 
-	//<gold>100</gold>
-	else if ( TagName == "gold" )
-	{
-		giveGold( Value.toInt(), false );
-	}
-
 	//<skill type="alchemy">100</skill>
 	//<skill type="1">100</skill>
 	else if ( TagName == "skill" && Tag->hasAttribute( "type" ) )
