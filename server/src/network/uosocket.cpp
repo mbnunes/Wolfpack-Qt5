@@ -1865,7 +1865,7 @@ void cUOSocket::bounceItem( P_ITEM pItem, eBounceReason reason )
 		if( pItem->isInWorld() )
 			pItem->soundEffect( 0x42 );
 		else
-			soundEffect( 0x57, pItem );
+			soundEffect( 0x57 );
 	}
 }
 

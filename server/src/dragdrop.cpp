@@ -530,7 +530,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 
 	P_CHAR pChar = socket->player();
 
-	if( pItem->onDropOnChar( pChar ) )
+	if( pItem->onDropOnChar( pOtherChar ) )
 	{
 		// Still dragging? Bounce!
 		if( socket->dragging() == pItem )
@@ -539,7 +539,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 		return;
 	}
 
-	if( pChar->onDropOnChar( pItem ) )
+	if( pOtherChar->onDropOnChar( pItem ) )
 	{
 		// Still dragging? Bounce!
 		if( socket->dragging() == pItem )
@@ -622,7 +622,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 		return;
 	}
 
-	socket->sysMessage( "Dropping on other characters is disabled" );
+	socket->sysMessage( "The character does not seem to want the item." );
 	socket->bounceItem( pItem, BR_NO_REASON );
 	return;
 }
@@ -732,7 +732,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	}
 
 	// Spell Book
-	if( pCont->type() == 9 )
+	if( pCont->type() == 9 && pItem->type() == 1105 )
 	{
 		cSpellBook *pBook = dynamic_cast< cSpellBook* >( pCont );
 
@@ -1032,36 +1032,6 @@ void cDragItems::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker )
 
 void cDragItems::dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker )
 {
-	P_CHAR pChar = socket->player();
-
-	// No cheque ? >> Put into bank
-	if( ( pItem->id() != 0x14F0 ) && ( pItem->type() != 1000 ) )
-	{
-		P_ITEM bankBox = pChar->getBankBox();
-
-		if( bankBox )
-			bankBox->addItem( pItem );
-		else
-			bounceItem( socket, pItem );
-
-		pBanker->talk( tr( "The %1 is now in thy bank box" ).arg( pItem->getName() ) );
-		return;
-	}
-
-	// No Value ?!
-	if( !pItem->value )
-	{
-		pBanker->talk( tr("This cheque does not have any value!") );
-		bounceItem( socket, pItem );
-		return;
-	}
-
-	pChar->giveGold( pItem->value, true );
-	pBanker->talk( tr( "%1 I have cashed thy cheque and deposited %2 gold." ).arg( pChar->name.latin1() ).arg( pItem->amount() ) );
-
-	pItem->ReduceAmount();
-	//if( pItem->ReduceAmount() > 0 )
-	//	socket->bounce( pItem, BR_NO_REASON );
 }
 
 void cDragItems::dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer )

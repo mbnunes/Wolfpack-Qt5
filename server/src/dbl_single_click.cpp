@@ -1003,9 +1003,14 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		case 1104:
 			if( !pi->wearOut() )
 			{
-				socket->sysMessage( tr("Where do you want to dig?") );
+				socket->sysMessage( tr( "Where do you want to dig?" ) );
 				socket->attachTarget( new cFindResource( "RESOURCE_ORE" ) );
 			}
+			return;
+
+		// 1105: Spell Scroll
+		case 1105:
+			socket->sysMessage( tr( "Casting from scrolls is currently not supported." ) );
 			return;
 
 		default:						

@@ -186,11 +186,14 @@ void cItem::toBackpack( P_CHAR pChar )
 	{
 		removeFromCont();
 		moveTo( pChar->pos );
-		update();
 	}
 	// Or to the backpack
 	else
+	{
 		pPack->addItem( this );
+	}
+
+	update();
 }
 
 // Gets the corpse an item is in
