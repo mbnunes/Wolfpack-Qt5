@@ -37,7 +37,7 @@
 				<item id="fb5">
 					<amount>10</amount>
 				</item>
-				<item id="1bf2">
+				<item id="iron_ingot">
 					<amount>10</amount>
 				</item>
 				<item id="e85">
@@ -121,6 +121,7 @@
 				<item id="fb4"/>
 				<item id="fb5"/>
 				<item id="1bf2"/>
+				<item id="iron_ingot"/>
 				<item id="e85"/>
 				<item id="f39"/>
 				<item id="13bb"/>
@@ -185,7 +186,7 @@
 				<item id="fb5">
 					<amount>10</amount>
 				</item>
-				<item id="1bf2">
+				<item id="iron_ingot">
 					<amount>10</amount>
 				</item>
 				<item id="e85">
@@ -269,6 +270,7 @@
 				<item id="fb4"/>
 				<item id="fb5"/>
 				<item id="1bf2"/>
+				<item id="iron_ingot"/>
 				<item id="e85"/>
 				<item id="f39"/>
 				<item id="13bb"/>
