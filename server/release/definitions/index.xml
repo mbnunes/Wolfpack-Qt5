@@ -14,6 +14,9 @@
 	<!-- Python Scripts -->
 	<include file="definitions/scripts.xml"/>
 
+	<!-- Defines Index -->
+	<include file="definitions/defines/index.xml"/>
+
 	<!-- Lists Index -->
 	<include file="definitions/lists/index.xml"/>
 
