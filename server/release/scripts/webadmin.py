@@ -151,7 +151,7 @@ def onLoad():
 
 	# Start the Thread
 	global thread
-	thread = WebserverThread( WEBSERVER_THREAD )
+	thread = WebserverThread( REMOTEADMIN_PORT )
 	thread.start()
 
 def onUnload():
