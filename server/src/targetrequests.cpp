@@ -1486,11 +1486,13 @@ bool cSpellTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	// out for now.
 	
 	// The Target is correct, let us do our spellcheck now and consume mana + reagents.
-	if( !NewMagic->useMana( socket->player(), spell ) || !NewMagic->useReagents( socket->player(), spell ) )
+	if( ( !socket->player()->isGM() && !NewMagic->checkReagents( socket->player(), spell ) ) || !NewMagic->useMana( socket->player(), spell ) )
 	{
 		socket->player()->setCasting( false );
 		return true;
 	}
+	if( !socket->player()->isGM() )
+		NewMagic->useReagents( socket->player(), spell );
 	
 	if( !NewMagic->checkSkill( socket->player(), spell, false ) )
 	{

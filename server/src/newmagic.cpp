@@ -197,7 +197,32 @@ void cEndCasting::Expire()
 		return;
 
 	// Show a target cursor *or* cast directly
-	pMage->socket()->attachTarget( new cSpellTarget( pMage, spell, type ) );
+	stNewSpell *sInfo = NewMagic->findSpell( spell );
+	if( !sInfo->targets )
+	{
+		if( ( !pMage->isGM() && !NewMagic->checkReagents( pMage, spell ) ) || !NewMagic->useMana( pMage, spell ) )
+		{
+			pMage->setCasting( false );
+			return;
+		}
+		if( !pMage->isGM() )
+			NewMagic->useReagents( pMage, spell );
+		
+		if( !NewMagic->checkSkill( pMage, spell, false ) )
+		{
+			NewMagic->disturb( pMage, true, -1 );
+			return;
+		}
+		
+		// Call the Spell Effect for this Spell
+		if( sInfo->script )
+			sInfo->script->onSpellSuccess( pMage, spell, type, 0 );
+		
+		// End Casting
+		pMage->setCasting( false );
+	}
+	else
+		pMage->socket()->attachTarget( new cSpellTarget( pMage, spell, type ) );
 }
 
 /*!
@@ -343,6 +368,9 @@ bool cNewMagic::checkMana( P_CHAR pMage, UINT8 spell )
 */
 bool cNewMagic::useReagents( P_CHAR pMage, UINT8 spell )
 {
+	if( pMage->isGM() )
+		return true;
+
 	// Check for each reagent.
 	// So we dont need to loop trough all items over and over again we'll use ONE loop (will be a bit less clean)
 	P_ITEM pPack = pMage->getBackpack();
@@ -553,7 +581,7 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 		return;
 	}
 	
-	if( !checkReagents( pMage, spell ) )
+	if( !pMage->isGM() && !checkReagents( pMage, spell ) )
 		return;
 
 	if( pMage->casting() )
@@ -707,9 +735,9 @@ static bool cont_has_spell( P_ITEM pCont, UINT8 spell )
 bool cNewMagic::hasSpell( P_CHAR pMage, UINT8 spell )
 {
 	// Check for SpellBooks
-	if( pMage->GetItemOnLayer(0x01) )
+	if( pMage->GetItemOnLayer(0x01) && cont_has_spell( pMage->GetItemOnLayer(0x01), spell ) )
 	{
-		return cont_has_spell( pMage->GetItemOnLayer(0x01), spell );
+		return true;
 	}
 	else
 	{
