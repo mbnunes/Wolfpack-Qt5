@@ -32,6 +32,13 @@
 #ifndef __SKILLS_H
 #define __SKILLS_H
 
+#include "defines.h"
+#include "globals.h"
+#include "typedefs.h"
+
+// Forward Declaration
+class cUOSocket;
+
 class cSkills
 {
 private:
