@@ -80,7 +80,7 @@ void WPDefManager::ProcessNode( QDomElement Node )
 		Spells.insert( NodeID, Node );
 	else if( NodeName == "list" )
 		StringLists.insert( NodeID, Node );
-	else if( NodeName == "privlevel" )
+	else if( NodeName == "acl" )
 		PrivLevels.insert( NodeID, Node );
 	else if( NodeName == "spawnregion" )
 		SpawnRegions.insert( NodeID, Node );
@@ -195,7 +195,7 @@ void WPDefManager::load( void )
 		clConsole.send( QString("Item Sections:           %1\n").arg( Items.size() ) );
 		clConsole.send( QString("Npc Sections:            %1\n").arg( NPCs.size() ) );
 		clConsole.send( QString("Menu Sections:           %1\n").arg( Menus.size() ) );
-		clConsole.send( QString("PrivLevel Sections:      %1\n").arg( PrivLevels.size() ) );
+		clConsole.send( QString("ACL Sections:		      %1\n").arg( PrivLevels.size() ) );
 		clConsole.send( QString("Spell Sections:          %1\n").arg( Spells.size() ) );
 		clConsole.send( QString("List Sections:           %1\n").arg( StringLists.size() ) );
 		clConsole.send( QString("Multi Sections:          %1\n").arg( Multis.size() ) );
