@@ -97,6 +97,10 @@ SOURCE=.\ai.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\ai_monsters.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\basechar.cpp
 # End Source File
 # Begin Source File

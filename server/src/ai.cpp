@@ -118,15 +118,18 @@ void Actions::wanderFreely( P_NPC npc )
 	}
 	case enCircle:
 	{
+		Coord_cl pos = npc->pos();
+		pos.x = npc->wanderX1();
+		pos.y = npc->wanderY1();
 		// get any point within the circle and calculate the direction to it
 		// first a random distance which can be max. the length of the radius
 		float rnddist = (float)RandomNum( 1, npc->wanderRadius() );
 		// now get a point on this circle around the npc
 		float rndphi = (float)RandomNum( 0, 100 ) / 100.0f * 2.0f * 3.14159265358979323846f;
-		UINT16 x = (UINT16)floor( cos( rndphi ) * rnddist );
-		UINT16 y = (UINT16)floor( sin( rndphi ) * rnddist );
+		pos.x = pos.x + (INT16)floor( cos( rndphi ) * rnddist );
+		pos.y = pos.y + (INT16)floor( sin( rndphi ) * rnddist );
 
-		UINT8 dir = chardirxyz( npc, x, y );
+		UINT8 dir = chardirxyz( npc, pos.x, pos.y );
 		npc->setDirection( dir );
 		Movement::instance()->Walking( npc, dir, 0xFF );
 		break;	
@@ -193,6 +196,7 @@ void Actions::movePath( P_NPC npc, const Coord_cl &pos )
 		UINT8 dir = chardirxyz( npc, nextmove.x, nextmove.y );
 		npc->setDirection( dir );
 		Movement::instance()->Walking( npc, dir, 0xFF );
+		npc->popMove();
 		return;
 	}
 	else
@@ -203,136 +207,16 @@ void Actions::movePath( P_NPC npc, const Coord_cl &pos )
 	}
 }
 
-static cNPC_AI* productCreator_MAL0()
+/*
+Precondition: npc has path!
+*/
+void Actions::movePath( P_NPC npc )
 {
-	return new Monster_Aggressive_L0();
-}
-
-void Monster_Aggressive_L0::registerInFactory()
-{
-	AIFactory::instance()->registerType("Monster_Aggressive_L0", productCreator_MAL0);
-
-	// register its states
-	Monster_Aggr_L0_Wander::registerInFactory();
-	Monster_Aggr_L0_Combat::registerInFactory();
-}
-
-Monster_Aggressive_L0::Monster_Aggressive_L0( P_NPC currnpc )
-{ 
-	npc = currnpc; 
-	currentState = new Monster_Aggr_L0_Wander( this );
-}
-
-void Monster_Aggressive_L0::eventHandler()
-{
-	currentState->nextState = currentState;
-	if( !npc->isDead() )
-	{
-		P_CHAR pAttacker = World::instance()->findChar( npc->attackerSerial() );
-		if( pAttacker && pAttacker->inRange( npc, VISRANGE ) )
-			currentState->attacked();
-		else
-		{
-			// get the first best character and attack it
-			RegionIterator4Chars ri( npc->pos(), VISRANGE );
-			for( ri.Begin(); !ri.atEnd(); ri++ )
-			{
-				P_CHAR pChar = ri.GetData();
-				if( pChar && pChar != npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
-				{
-					P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
-					if( pPlayer && pPlayer->isGMorCounselor() )
-						continue;
-
-					npc->setCombatTarget( pChar->serial() );
-					currentState->foundVictim();
-					break;
-				}
-			}
-		}
-
-		P_CHAR pVictim = World::instance()->findChar( npc->combatTarget() );
-		if( !pVictim )
-			currentState->won();
-		else if( !pVictim->inRange( npc, VISRANGE ) )
-			currentState->combatCancelled();
-
-		updateState();
-		currentState->execute();
-	}
-}
-
-static AbstractState* productCreator_MAL0_Wander()
-{
-	return new Monster_Aggr_L0_Wander();
-}
-
-void Monster_Aggr_L0_Wander::registerInFactory()
-{
-	StateFactory::instance()->registerType("Monster_Aggr_L0_Wander", productCreator_MAL0_Wander);
-}
-
-void Monster_Aggr_L0_Wander::attacked()
-{
-	reattack( m_interface->npc );
-	nextState = new Monster_Aggr_L0_Combat( m_interface );
-}
-
-void Monster_Aggr_L0_Wander::foundVictim()
-{
-	attack( m_interface->npc );
-	nextState = new Monster_Aggr_L0_Combat( m_interface );
-}
-
-void Monster_Aggr_L0_Wander::execute()
-{
-	// wander freely
-	wanderFreely( m_interface->npc );
-}
-
-static AbstractState* productCreator_MAL0_Combat()
-{
-	return new Monster_Aggr_L0_Combat();
-}
-
-void Monster_Aggr_L0_Combat::registerInFactory()
-{
-	StateFactory::instance()->registerType("Monster_Aggr_L0_Combat", productCreator_MAL0_Combat);
-}
-
-void Monster_Aggr_L0_Combat::won()
-{
-	m_interface->npc->setAttackerSerial( INVALID_SERIAL );
-	m_interface->npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L0_Wander( m_interface );
-}
-
-void Monster_Aggr_L0_Combat::combatCancelled()
-{
-	m_interface->npc->setAttackerSerial( INVALID_SERIAL );
-	m_interface->npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L0_Wander( m_interface );
-}
-
-void Monster_Aggr_L0_Combat::execute()
-{
-	P_CHAR pTarget = World::instance()->findChar( m_interface->npc->combatTarget() );
-	if( !pTarget )
-	{
-		won();
-		return;
-	}
-
-	UINT8 range = 1;
-	if( m_interface->npc->rightHandItem() && IsBowType( m_interface->npc->rightHandItem()->id() ) )
-		range = ARCHERY_RANGE;
-
-	if( !m_interface->npc->inRange( pTarget, range ) )
-	{ // move towards the target
-		if( SrvParams->pathfind4Combat() )
-			movePath( m_interface->npc, pTarget->pos() );
-		else
-			moveTo( m_interface->npc, pTarget->pos() );
-	}
+	Coord_cl nextmove = npc->nextMove();
+	UINT8 dir = chardirxyz( npc, nextmove.x, nextmove.y );
+	npc->setDirection( dir );
+	Movement::instance()->Walking( npc, dir, 0xFF );
+	npc->popMove();
+	return;
 }
 

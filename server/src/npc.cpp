@@ -1129,6 +1129,11 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 			return 0;
 		}
 	}
+	else if( name == "ai" )
+	{
+		setAI( value.toString() );
+		return 0;
+	}
 	
 	return cBaseChar::setProperty( name, value );
 }
@@ -1165,6 +1170,7 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "summontime", (int)summonTime_) 
 	else GET_PROPERTY( "summontimer", (int)summonTime_) 
 	else GET_PROPERTY( "owner", owner_ )
+	else GET_PROPERTY( "ai", ai_ ? ai_->AIType() : "" )
 
 	return cBaseChar::getProperty( name, value );
 }
@@ -1436,6 +1442,9 @@ void cNPC::setAI( const QString &data )
 {
 	QStringList temp = QStringList::split( ",", data );
 	cNPC_AI* ai = AIFactory::instance()->createObject( temp[0] );
+	if( !ai )
+		return;
+
 	ai->npc = this;
 
 	QString tempstate = temp[1];
@@ -1444,6 +1453,9 @@ void cNPC::setAI( const QString &data )
 		AbstractState* state = StateFactory::instance()->createObject( tempstate );
 		ai->updateState( state );
 	}
+
+	if( ai_ )
+		delete ai_;
 
 	setAI( ai );
 }

@@ -960,6 +960,7 @@ int main( int argc, char *argv[] )
 
 	// NPC AI types
 	Monster_Aggressive_L0::registerInFactory();
+	Monster_Aggressive_L1::registerInFactory();
 
 	try
 	{

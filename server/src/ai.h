@@ -86,18 +86,6 @@ public:
 	}
 };
 
-class Monster_Aggressive_L0 : public cNPC_AI
-{
-public:
-	Monster_Aggressive_L0() { npc = NULL; }
-	Monster_Aggressive_L0( P_NPC currnpc );
-
-	virtual void eventHandler();
-
-	virtual QString AIType() { return "Monster_Aggressive_L0"; }
-	static void registerInFactory();
-};
-
 class Actions
 {
 public:
@@ -115,6 +103,7 @@ protected:
 	virtual void callGuards() {}
 	virtual void wanderFreely( P_NPC npc );
 	virtual void moveTo( P_NPC npc, const Coord_cl &pos );
+	virtual void movePath( P_NPC npc );
 	virtual void movePath( P_NPC npc, const Coord_cl &pos );
 
 	UINT8 waitForPathCalculation;
@@ -134,7 +123,7 @@ public:
 	virtual void speechInput() {}
 	virtual void targetCursorInput() {}
 	virtual void pay() {}
-	virtual void foundVictim() {}
+	virtual void foundVictim( P_CHAR pVictim ) {}
 };
 
 class AbstractState : public Actions, public Events
@@ -155,6 +144,27 @@ protected:
 	cNPC_AI*	m_interface;
 };
 
+/*
+Basic Monster AI
+includes:
+- Aggressive Monster Level 0: 
+		attacks anything attackable nearby until victory or defeat
+- Aggressive Monster Level 1:
+		attacks any target nearby, can flee and finds new target if not reachable
+*/
+
+class Monster_Aggressive_L0 : public cNPC_AI
+{
+public:
+	Monster_Aggressive_L0();
+	Monster_Aggressive_L0( P_NPC currnpc );
+
+	virtual void eventHandler();
+
+	virtual QString AIType() { return "Monster_Aggressive_L0"; }
+	static void registerInFactory();
+};
+
 class Monster_Aggr_L0_Wander : public AbstractState
 {
 public:
@@ -168,7 +178,7 @@ public:
 
 	// events handled
 	virtual void attacked();
-	virtual void foundVictim();
+	virtual void foundVictim( P_CHAR pVictim );
 };
 
 class Monster_Aggr_L0_Combat : public AbstractState
@@ -186,5 +196,68 @@ public:
 	virtual void won();
 	virtual void combatCancelled();
 };
+
+class Monster_Aggressive_L1 : public cNPC_AI
+{
+public:
+	Monster_Aggressive_L1();
+	Monster_Aggressive_L1( P_NPC currnpc );
+
+	virtual void eventHandler();
+
+	virtual QString AIType() { return "Monster_Aggressive_L1"; }
+	static void registerInFactory();
+};
+
+class Monster_Aggr_L1_Wander : public AbstractState
+{
+public:
+	Monster_Aggr_L1_Wander() { m_interface = NULL; }
+	Monster_Aggr_L1_Wander( cNPC_AI* interface_ ) { m_interface = interface_; }
+	~Monster_Aggr_L1_Wander() {}
+
+	virtual QString stateType() { return "Monster_Aggr_L1_Wander"; }
+	virtual void execute();
+	static void registerInFactory();
+
+	// events handled
+	virtual void attacked();
+	virtual void foundVictim( P_CHAR pVictim );
+};
+
+class Monster_Aggr_L1_Combat : public AbstractState
+{
+public:
+	Monster_Aggr_L1_Combat() { m_interface = NULL; }
+	Monster_Aggr_L1_Combat( cNPC_AI* interface_ ) { m_interface = interface_; }
+	~Monster_Aggr_L1_Combat() {}
+
+	virtual QString stateType() { return "Monster_Aggr_L1_Combat"; }
+	virtual void execute();
+	static void registerInFactory();
+
+	// events handled
+	virtual void won();
+	virtual void combatCancelled();
+	virtual void hitpointsCritical();
+};
+
+class Monster_Aggr_L1_Flee : public AbstractState
+{
+public:
+	Monster_Aggr_L1_Flee() { m_interface = NULL; }
+	Monster_Aggr_L1_Flee( cNPC_AI* interface_ ) { m_interface = interface_; }
+	~Monster_Aggr_L1_Flee() {}
+
+	virtual QString stateType() { return "Monster_Aggr_L1_Flee"; }
+	virtual void execute();
+	static void registerInFactory();
+
+	// events handled
+	virtual void won();
+	virtual void combatCancelled();
+	virtual void hitpointsRestored();
+};
+
 
 #endif /* AI_H_HEADER_INCLUDED */
