@@ -132,10 +132,8 @@ CREATE TABLE `items` (
 	`color` smallint(5)  NOT NULL default '0',
 	`cont` int(11) NOT NULL default '-1',
 	`layer` tinyint(3)  NOT NULL default '0',
-	`type` smallint(5)  NOT NULL default '0',
 	`amount` smallint(5)  NOT NULL default '0',
 	`decaytime` int(10)  NOT NULL default '0',
-	`weight` float NOT NULL default '0',
 	`hp` smallint(6) NOT NULL default '0',
 	`maxhp` smallint(6) NOT NULL default '0',
 	`magic` tinyint(3)  NOT NULL default '0',
@@ -143,9 +141,6 @@ CREATE TABLE `items` (
 	`visible` tinyint(3)  NOT NULL default '0',
 	`spawnregion` varchar(255) default NULL,
 	`priv` tinyint(3)  NOT NULL default '0',
-	`sellprice` int(11) NOT NULL default '0',
-	`buyprice` int(11) NOT NULL default '0',
-	`restock` smallint(5)  NOT NULL default '0',
 	`baseid` varchar(64) NOT NULL default '',
 	PRIMARY KEY (`serial`)
 );
@@ -177,10 +172,8 @@ CREATE TABLE `npcs` (
 	`summontime` int(11)  NOT NULL default '0',
 	`additionalflags` int(11)  NOT NULL default '0',
 	`owner` int(11) NOT NULL default '-1',
-	`carve` varchar(255) default NULL,
 	`spawnregion` varchar(255) default NULL,
 	`stablemaster` int(11) NOT NULL default '-1',
-	`lootlist` varchar(255) default NULL,
 	`ai` varchar(255) default NULL,
 	`wandertype` smallint(3) NOT NULL default '0',
 	`wanderx1` smallint(6) NOT NULL default '0',
@@ -188,10 +181,6 @@ CREATE TABLE `npcs` (
 	`wandery1` smallint(6) NOT NULL default '0',
 	`wandery2` smallint(6) NOT NULL default '0',
 	`wanderradius` smallint(6) NOT NULL default '0',
-	`fleeat` smallint(3)  NOT NULL default '10',
-	`spellslow` int(11)  NOT NULL default '0',
-	`spellshigh` int(11)  NOT NULL default '0',
-	`controlslots` tinyint NOT NULL default '1',
 	PRIMARY KEY (`serial`)
 );
 
@@ -235,7 +224,6 @@ CREATE TABLE `uobject` (
 	`pos_z` smallint(6) NOT NULL default '0',
 	`pos_map` tinyint(4) NOT NULL default '0',
 	`events` varchar(255) default NULL,
-	`bindmenu` varchar(255) default NULL,
 	`havetags` tinyint(1) NOT NULL default '0',
 	PRIMARY KEY (`serial`)
 );
