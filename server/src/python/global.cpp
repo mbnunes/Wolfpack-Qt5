@@ -51,7 +51,8 @@
 // Library Includes
 #include <qdatetime.h>
 
-#include <zthread/fastmutex.h>
+//#include <zthread/fastmutex.h>
+#include "zthread/FastMutex.h"
 /*!
 	Sends a string to the wolfpack console.
 */
