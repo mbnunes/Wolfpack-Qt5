@@ -38,8 +38,8 @@ protected:
 	cCharBaseDef *chardefs[0x400]; // 0x400 entries in anim.idx
 
 public:
-	cBaseDefManager() {}
-	virtual ~cBaseDefManager() {}
+	cBaseDefManager();
+	virtual ~cBaseDefManager();
 
 	cCharBaseDef *getCharBaseDef( unsigned short id );
 

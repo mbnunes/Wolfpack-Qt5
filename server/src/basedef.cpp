@@ -44,3 +44,13 @@ void cBaseDefManager::unload()
 
 	memset( &chardefs, 0, 0x400 * sizeof( cCharBaseDef* ) );
 }
+
+cBaseDefManager::cBaseDefManager()
+{
+	memset( &chardefs, 0, 0x400 * sizeof( cCharBaseDef* ) );
+}
+
+cBaseDefManager::~cBaseDefManager()
+{
+	unload();
+}
