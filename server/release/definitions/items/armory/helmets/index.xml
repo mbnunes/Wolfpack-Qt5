@@ -1,0 +1,19 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
+<definitions>
+
+	<!-- Helmets -->
+	<include file="definitions/items/armory/helmets/bascinet.xml"/>
+	<include file="definitions/items/armory/helmets/close_helmet.xml"/>
+	<include file="definitions/items/armory/helmets/helmet.xml"/>
+	<include file="definitions/items/armory/helmets/kabuto.xml"/>
+	<include file="definitions/items/armory/helmets/nose_helm.xml"/>
+	<include file="definitions/items/armory/helmets/orc_helm.xml"/>
+
+</definitions>

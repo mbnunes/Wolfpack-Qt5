@@ -1,0 +1,20 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
+<definitions>
+
+	<!-- Platemail Armor -->
+	<include file="definitions/items/armory/plate/female_plate_armor.xml"/>
+	<include file="definitions/items/armory/plate/plate_helm.xml"/>
+	<include file="definitions/items/armory/plate/platemail.xml"/>
+	<include file="definitions/items/armory/plate/platemail_arms.xml"/>
+	<include file="definitions/items/armory/plate/platemail_gloves.xml"/>
+	<include file="definitions/items/armory/plate/platemail_gorget.xml"/>
+	<include file="definitions/items/armory/plate/platemail_legs.xml"/>
+
+</definitions>

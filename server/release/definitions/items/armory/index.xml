@@ -1,0 +1,48 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
+<definitions>
+
+	<!-- Hats -->
+	<include file="definitions/items/armory/hats/index.xml"/>
+
+	<!-- Bone Armor -->
+	<include file="definitions/items/armory/bone/index.xml"/>
+
+	<!-- Chainmail Armor -->
+	<include file="definitions/items/armory/chain/index.xml"/>
+
+	<!-- Helmets -->
+	<include file="definitions/items/armory/helmets/index.xml"/>
+
+	<!-- Leather Armor -->
+	<include file="definitions/items/armory/leather/index.xml"/>
+
+	<!-- Platemail Armor -->
+	<include file="definitions/items/armory/plate/index.xml"/>
+
+	<!-- Ringmail Armor -->
+	<include file="definitions/items/armory/ring/index.xml"/>
+
+	<!-- Shields -->
+	<include file="definitions/items/armory/shields/index.xml"/>
+
+	<!-- Studded Leather -->
+	<include file="definitions/items/armory/studded/index.xml"/>
+
+	<!-- Dragon Amor -->
+	<include file="definitions/items/armory/dragon/index.xml"/>
+
+	<!-- Samurai Armor -->
+	<include file="definitions/items/armory/samurai/index.xml" />
+
+	<!-- Colored Armor -->
+	<include file="definitions/items/armory/colored/color_defines.xml"/>
+	<include file="definitions/items/armory/colored/colored_list.xml"/>
+
+</definitions>

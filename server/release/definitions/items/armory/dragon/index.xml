@@ -1,0 +1,18 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
+<definitions>
+
+	<!-- Dragon Amor -->
+	<include file="definitions/items/armory/dragon/dragon_breastplate.xml"/>
+	<include file="definitions/items/armory/dragon/dragon_gloves.xml"/>
+	<include file="definitions/items/armory/dragon/dragon_helm.xml"/>
+	<include file="definitions/items/armory/dragon/dragon_leggings.xml"/>
+	<include file="definitions/items/armory/dragon/dragon_sleeves.xml"/>
+
+</definitions>

@@ -1,0 +1,22 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
+<definitions>
+
+	<!-- Shields -->
+	<include file="definitions/items/armory/shields/bronze_shield.xml"/>
+	<include file="definitions/items/armory/shields/buckler.xml"/>
+	<include file="definitions/items/armory/shields/chaos_shield.xml"/>
+	<include file="definitions/items/armory/shields/heater_shield.xml"/>
+	<include file="definitions/items/armory/shields/metal_kite_shield.xml"/>
+	<include file="definitions/items/armory/shields/metal_shield.xml"/>
+	<include file="definitions/items/armory/shields/order_shield.xml"/>
+	<include file="definitions/items/armory/shields/wooden_kite_shield.xml"/>
+	<include file="definitions/items/armory/shields/wooden_shield.xml"/>
+
+</definitions>
