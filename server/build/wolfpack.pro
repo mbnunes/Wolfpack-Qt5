@@ -9,7 +9,6 @@ PROJECT = wolfpack
 TARGET = wolfpack
 TEMPLATE = app
 CONFIG += qt console thread exceptions rtti
-#MAKEFILE_GENERATOR = MINGW
 
 unix {
 
@@ -47,7 +46,7 @@ RC_FILE = res.rc
 OBJECTS_DIR = obj
 MOC_DIR = obj
 
-INCLUDEPATH += sqlite network
+INCLUDEPATH += sqlite 
 win32:DEFINES -= UNICODE
 
 # Common files
@@ -285,6 +284,5 @@ win32:SOURCES += \
 	win/getopts_win.cpp
 
 DISTFILES += \
-	AUTHORS.txt \
-	COPYING.txt \
+	data/AUTHORS.txt \
 	LICENSE.GPL
