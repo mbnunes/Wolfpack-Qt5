@@ -169,6 +169,18 @@ void cCharBaseDef::processNode( const cElement* node )
 	{
 		lootPacks_ = node->text();
 	}
+	else if ( node->name() == "inherit" )
+	{
+		QString inheritID;
+		if ( node->hasAttribute( "id" ) )
+			inheritID = node ->getAttribute( "id" );
+		else
+			inheritID = node->value();
+
+		const cElement* element = Definitions::instance()->getDefinition( WPDT_NPC, inheritID );
+		if ( element )
+			applyDefinition( element );
+	}
 	else
 	{
 		cBaseDef::processNode(node);
@@ -397,6 +409,18 @@ void cItemBaseDef::processNode( const cElement* node )
 	else if ( node->name() == "watersource" )
 	{
 		setWaterSource( node->value().toUInt() != 0 );
+	}
+	else if ( node->name() == "inherit" )
+	{
+		QString inheritID;
+		if ( node->hasAttribute( "id" ) )
+			inheritID = node ->getAttribute( "id" );
+		else
+			inheritID = node->value();
+
+		const cElement* element = Definitions::instance()->getDefinition( WPDT_ITEM, inheritID );
+		if ( element )
+			applyDefinition( element );
 	}
 	else 
 	{
