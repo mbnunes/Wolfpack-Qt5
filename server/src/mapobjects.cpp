@@ -154,7 +154,7 @@ void cQuadNode::add( UI16 srcx, UI16 srcy, SERIAL serial )
 	}
 }
 
-void cQuadNode::remove( UI16 srcx, UI16 srcy, SERIAL serial )
+bool cQuadNode::remove( UI16 srcx, UI16 srcy, SERIAL serial )
 {
 	if( srcx == x_ && srcy == y_ )
 	{
@@ -175,7 +175,7 @@ void cQuadNode::remove( UI16 srcx, UI16 srcy, SERIAL serial )
 					++pchild;
 				}
 				if( pchild == enNumberOfChilds )
-					return;
+					return true;
 
 				register int child = 0;
 				while( child < enNumberOfChilds )
@@ -187,8 +187,7 @@ void cQuadNode::remove( UI16 srcx, UI16 srcy, SERIAL serial )
 				if( child == enNumberOfChilds )
 				{
 					parent_->childs[ pchild ] = NULL;
-					delete this;
-					return;
+					return true;
 				}
 				
 				parent_->childs[ pchild ] = childs[ child ];
@@ -207,16 +206,19 @@ void cQuadNode::remove( UI16 srcx, UI16 srcy, SERIAL serial )
 					++child;
 				}
 
-				delete this;
-				return;
+				return true;
 			}
 		}
-		return;
+		return false;
 	}
 
 	enQuadrants child = compare( srcx, srcy );
-	if( childs[ child ] )
-		childs[ child ]->remove( srcx, srcy, serial );
+	cQuadNode* currchild = childs[ child ];
+	if( currchild && currchild->remove( srcx, srcy, serial ) )
+	{
+		delete currchild;
+	}
+	return false;
 }
 
 cMapObjects::cMapObjects()

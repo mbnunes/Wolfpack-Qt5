@@ -73,7 +73,7 @@ public:
 
 	bool	contains( SERIAL serial );
 	void	add( UI16 srcx, UI16 srcy, SERIAL serial );
-	void	remove( UI16 srcx, UI16 srcy, SERIAL serial );
+	bool	remove( UI16 srcx, UI16 srcy, SERIAL serial );
 	void	pushdown( cQuadNode* node );
 
 	std::vector< SERIAL >	objectserials;

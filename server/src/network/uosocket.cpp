@@ -1647,7 +1647,6 @@ void cUOSocket::resendWorld( bool clean )
 	}
 
 	RegionIterator4Chars chIterator( _player->pos );
-	cUOTxDrawChar drawChar;
 
 	for( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
 	{
@@ -1664,6 +1663,7 @@ void cUOSocket::resendWorld( bool clean )
 			send( &rObject );
 		}
 		
+		cUOTxDrawChar drawChar;
 		drawChar.fromChar( pChar );
 		drawChar.setHighlight( pChar->notority( _player ) );
 		send( &drawChar );

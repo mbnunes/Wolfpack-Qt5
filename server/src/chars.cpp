@@ -2807,7 +2807,7 @@ void cChar::mount( P_CHAR pMount )
 
 void cChar::giveNewbieItems( Q_UINT8 skill ) 
 {
-	QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : QString::number( skill ) );
+	QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : QString( skillname[ skill ] ).lower() );
 
 	// No Items defined
 	if( !startItems || startItems->isNull() )
@@ -2818,67 +2818,61 @@ void cChar::giveNewbieItems( Q_UINT8 skill )
 	}
 
 	// Just one type of node: item
-	QDomElement node = startItems->firstChild().toElement();
+	QDomNode childNode = startItems->firstChild();
 
-	while( !node.isNull() )
+	while( !childNode.isNull() )
 	{
-		if( node.nodeName() == "item" )
+		QDomElement node = childNode.toElement();
+		if( !node.isNull() )
 		{
-			P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
-
-			if( pItem )
+			if( node.nodeName() == "item" )
 			{
-				pItem->applyDefinition( node );
-				// Put it into the backpack
-				P_ITEM backpack = getBackpack();
-				if( backpack )
-					backpack->AddItem( pItem );
-				else
-					Items->DeleItem( pItem );
+				P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
+
+				if( pItem )
+				{
+					pItem->applyDefinition( node );
+					// Put it into the backpack
+					P_ITEM backpack = getBackpack();
+					if( backpack )
+						backpack->AddItem( pItem );
+					else
+						Items->DeleItem( pItem );
+				}
+			}
+			else if( node.nodeName() == "bankitem" )
+			{
+				P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
+
+				if( pItem )
+				{
+					pItem->applyDefinition( node );
+					// Put it into the bankbox
+					P_ITEM bankbox = getBankBox();
+					if( bankbox )
+						bankbox->AddItem( pItem );
+					else
+						Items->DeleItem( pItem );
+				}
+			}
+			else if( node.nodeName() == "equipment" )
+			{
+				P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
+
+				if( pItem )
+				{
+					pItem->applyDefinition( node );
+					// Put it onto the char
+					pItem->setContSerial( serial );
+					giveItemBonus( pItem );
+				}
+			}
+			else if( node.nodeName() == "gold" )
+			{
+				giveGold( node.text().toUInt() );
 			}
 		}
-		else if( node.nodeName() == "bankitem" )
-		{
-			P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
-
-			if( pItem )
-			{
-				pItem->applyDefinition( node );
-				// Put it into the bankbox
-				P_ITEM bankbox = getBankBox();
-				if( bankbox )
-					bankbox->AddItem( pItem );
-				else
-					Items->DeleItem( pItem );
-			}
-		}
-		else if( node.nodeName() == "equipment" )
-		{
-			P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
-
-			if( pItem )
-			{
-				pItem->applyDefinition( node );
-				// Put it onto the char
-				pItem->setContSerial( serial );
-				giveItemBonus( pItem );
-			}
-		}
-		else if( node.nodeName() == "gold" )
-		{
-			P_ITEM pItem = Items->createScriptItem( "eed" );
-			if( pItem )
-			{
-				pItem->setAmount( node.text().toUInt() );
-				P_ITEM backpack = getBackpack();
-				if( backpack )
-					backpack->AddItem( pItem );
-				else
-					Items->DeleItem( pItem );
-			}
-		}
-
-		node = node.nextSibling().toElement();
+		childNode = childNode.nextSibling();
 	}
 }
 

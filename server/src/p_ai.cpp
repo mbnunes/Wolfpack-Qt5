@@ -204,7 +204,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 				}
 
 				// We found a victim
-				if( Victim != NULL )
+				if( Victim && !Victim->isGMorCounselor() )
 					npcattacktarget(pc_i, Victim);
 
 				return;
