@@ -3,6 +3,8 @@
 
 from wolfpack.consts import *
 from wolfpack.utilities import tobackpack
+from wolfpack.gumps import cGump
+from math import floor
 import wolfpack
 import time
 import random
@@ -90,7 +92,104 @@ def lute( char, item ):
 		char.soundeffect( 0x4c )
 	else:
 		char.soundeffect( 0x4d )
+
+hairdye_groups = 	[
+						#  Starting Hue, Count
+						[ 1601, 26 ],
+						[ 1627, 27 ],
+						[ 1501, 32 ],
+						[ 1301, 32 ],
+						[ 1401, 32 ],
+						[ 1201, 24 ],
+						[ 2401, 29 ],
+						[ 2212, 6 ],
+						[ 1101, 8 ],
+						[ 1109, 8 ],
+						[ 1117, 16 ],
+						[ 1133, 16 ]
+					]
+
+def hairdye( char, item ):
+	if item.container != char.getbackpack():
+		char.message( 'This item has to be in your backpack to use it.' )
+		return 1
+
+	gump = cGump( x=50, y=50, callback="environment.hairdye_callback" )
 	
+	# First Page (visible everywhere)
+	gump.startPage( 0 )
+	
+	gump.addBackground( 0xa28, 350, 355 )
+	gump.addResizeGump( 10, 44, 0x13EC, 110, 270 )
+	
+	gump.addXmfHtmlGump( 0, 16, 350, 35, 0xF6D45 ) # Gump Title (Hair Color Selection...)
+	
+	# Ok Button
+	gump.addButton( 50, 318, 0xFA5, 0xFA7, 1 )
+	gump.addXmfHtmlGump( 95, 319, 250, 35, 0xF6D46 )
+	
+	# Add Hairdye Groups (visible on every page)
+	i = 0
+	
+	for dye_group in hairdye_groups:
+		gump.addPageButton( 87, 50 + ( i * 22 ), 0x1468, 0x1468, i + 1 )
+		gump.addText( 20, 49 + ( i * 22 ), '*****', dye_group[0] )
+		i += 1
+		
+	i = 0
+		
+	for dye_group in hairdye_groups:
+		gump.startPage( i + 1 )
+
+		for j in range( 0, dye_group[1] ):
+			gump.addText( 178 + ( floor( j / 16 ) * 80 ), 42 + ( ( j % 16 ) * 17 ), '*****', dye_group[0] + j )
+			gump.addRadioButton( 156 + ( floor( j / 16 ) * 80 ), 42 + ( ( j % 16 ) * 17 ), 0xD2, 0xD3, dye_group[0] + j )
+				
+		i += 1
+	
+	gump.setArgs( [ item.serial ] )
+	
+	gump.send( char )
+	
+	return 1
+	
+def hairdye_callback( char, args, response ):
+	if response.button != 1:
+		return
+
+	# Check the item first
+	item = wolfpack.finditem( args[0] )
+	
+	if not item or item.container != char.getbackpack():
+		char.message( 'The item has to be in your backpack to use it.' )
+		return
+	
+	# Check if it's a valid color
+	if len( response.switches ) != 1:
+		char.message( 'You have to choose a hair color.' )
+		return
+		
+	color = response.switches[0]
+	
+	# Find the color
+	for dye_group in hairdye_groups:
+		if color >= dye_group[0] and color < dye_group[0] + dye_group[1]:
+			item.delete()
+			
+			hair = char.itemonlayer( LAYER_HAIR )
+			beard = char.itemonlayer( LAYER_BEARD )
+			
+			if beard:
+				beard.color = color
+				beard.update()
+				
+			if hair:
+				hair.color = color
+				hair.update()
+			
+			return
+		
+	char.message( 'Thats an invalid color' )	
 
 # Table of IDs mapped to handler functions
 actions =  {
@@ -117,7 +216,11 @@ actions =  {
 			0xeb1: harp,
 			0xeb2: harp,
 			0xeb3: lute,
-			0xeb4: lute
+			0xeb4: lute,
+			
+			# Hair Dyes
+			0xe27: hairdye,
+			0xeff: hairdye
 		   }
 
 def onUse( char, item ):

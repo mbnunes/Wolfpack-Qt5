@@ -26,7 +26,9 @@
 
 	<item id="e27">
 		<id>0x0e27</id>
-		<category>Professions\Alchemist\Bottle 3</category>
+		<name>hair dye</name>
+		<category>Professions\Alchemist\Hair Dye 1</category>
+		<events>environment</events>
 	</item>
 
 	<item id="e28">
@@ -136,7 +138,9 @@
 
 	<item id="eff">
 		<id>0x0eff</id>
-		<category>Professions\Alchemist\Bottle 13</category>
+		<name>hair dye</name>
+		<category>Professions\Alchemist\Hair Dye 2</category>
+		<events>environment</events>
 	</item>
 
 	<item id="f00">
