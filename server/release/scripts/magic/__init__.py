@@ -90,23 +90,23 @@ def target_response( char, args, target ):
 		if target.char.invulnerable and spell.harmful:
 			if char.socket:
 				char.socket.clilocmessage(1061621)
-			return
+			return False
 		if target.char.dead and not spell.affectdead:
 			if char.socket:
 				char.socket.clilocmessage(501857)
-			return
+			return False
 		if not char.cansee(target.char):
 			if char.socket:
 				char.socket.clilocmessage(500237)
-			return
+			return False
 		if char.distanceto(target.char) > spell.range:
 			if char.socket:
 				char.socket.clilocmessage(500446)
-			return
+			return False
 		if not char.canreach(target.char, spell.range):
 			if char.socket:
 				char.socket.clilocmessage(500237)
-			return
+			return False
 
 		if type(spell.spellid) == int:
 			message = "Casting spell %u (%s) on character %s (0x%x).\n"  % (spell.spellid, spell.__class__.__name__, target.char.name, target.char.serial)
@@ -120,11 +120,11 @@ def target_response( char, args, target ):
 		if not char.cansee(target.item):
 			if char.socket:
 				char.socket.clilocmessage(500237)
-			return
+			return False
 		if not char.canreach(target.item, spell.range):
 			if char.socket:
 				char.socket.clilocmessage(500237)
-			return
+			return False
 			
 		message = u"Casting spell %u (%s) on item %s (0x%x).\n"  % (spell.spellid, spell.__class__.__name__, target.item.getname(), target.item.serial)
 		char.log(LOG_MESSAGE, message)
@@ -146,11 +146,11 @@ def target_response( char, args, target ):
 		if char.distanceto(pos) > spell.range:
 			if char.socket:
 				char.socket.clilocmessage(500446)
-			return
+			return False
 		if not char.canreach(target.pos, spell.range, target.model):
 			if char.socket:
 				char.socket.clilocmessage(500237)
-			return
+			return False
 
 		if type(spell.spellid) == int:
 			message = "Casting spell %u (%s) on coordinate %s.\n"  % (spell.spellid, spell.__class__.__name__, str(pos))
@@ -161,6 +161,7 @@ def target_response( char, args, target ):
 
 	else:
 		char.socket.clilocmessage(501857)
+		return False
 
 def onCastSpell(char, spell, mode = 0, args = [], target = None, item = None):
 	castSpell(char, spell, mode, args, target, item)
