@@ -268,7 +268,7 @@
 	<body id="233" basesound="0x78" figurine="0x2103" flags="0x2" type="3" /> <!-- TODO: Unknown -->
 	<body id="234" basesound="0x82" figurine="0x20d4" soundmode="2" type="3" /> <!-- TODO: Unknown -->
 	<body id="237" basesound="0x82" figurine="0x20d4" soundmode="2" type="3" /> <!-- TODO: Unknown -->
-	<body id="238" basesound="204" figurine="0x2123" type="3"  mountid="16034" /> <!-- Sewer Rat -->
+	<body id="238" basesound="204" figurine="0x2123" type="3" /> <!-- Sewer Rat -->
 	
 	<!-- <body id="210" mountid="16035" /> -->
 	
