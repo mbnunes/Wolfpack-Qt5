@@ -7,6 +7,7 @@
 
 from wolfpack.consts import *
 import wolfpack
+import re
 
 # Register as a global script
 def onLoad():
@@ -14,13 +15,19 @@ def onLoad():
    wolfpack.registerglobal( HOOK_ITEM, EVENT_SHOWTOOLTIP, "tooltip" )
 
 def onShowToolTip( sender, target, tooltip ):  
+   rex = re.compile( "\Aa ",re.IGNORECASE )
    if( target.isitem() ):
+      name = target.getname()
+      name = rex.sub( "", name )
       if( target.amount > 1 ):
-         multiitem( target, tooltip )
+         multiitem( target, tooltip, name )
       else:
-         tooltip.add( 1050045, " \t" + target.getname() + "\t " )
+         tooltip.add( 1050045, " \t" + name + "\t " )
    else:
-      tooltip.add( 1050045, " \t" + target.name + "\t " ) 
+      name = target.name
+      name = rex.sub( "", name )
+      tooltip.add( 1050045, " \t" + name + "\t " )
+	 
 
    tooltip.send( sender )
 
@@ -36,8 +43,8 @@ def armor( target, tooltip ):
    tooltip.add( 1061170, "40" )               #Strength Requirement
    tooltip.add( 1060639, "46\t46" )           #Durability
     
-def multiitem( target, tooltip ):
-   tooltip.add( 1050039, str( target.amount ) + "\t" + target.getname() ) #$amount $name
+def multiitem( target, tooltip, name ):
+   tooltip.add( 1050039, str( target.amount ) + "\t" + name ) #$amount $name
 
 def container( target, tooltip ):
    tooltip.add( 1050045, "Bag" )
