@@ -598,7 +598,7 @@ void cPlayer::showName( cUOSocket* socket )
 		cUOTxAsciiSpeech speech;
 		speech.setId(body_);
 		speech.setSerial(serial_);
-		speech.setMessage(charName + affix);
+		speech.setMessage(charName + " " + affix);
 		speech.setColor(speechColor);
 		speech.setFont(3);
 		speech.setType(6); // Object Speech
