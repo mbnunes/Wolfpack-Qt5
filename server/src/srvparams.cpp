@@ -343,8 +343,7 @@ void cSrvParams::setDefaultStartLocation()
 
 void cSrvParams::setDefaultServerList()
 {
-	setBool("LoginServer", "enabled", true);
-	setString("LoginServer", "Shard 1", "Default=127.0.0.1,2593");
+	setString("LoginServer", "Shard 1", "Default=127.0.0.1,2592");
 	flush(); // save.
 }
 
