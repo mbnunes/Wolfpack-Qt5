@@ -43,7 +43,6 @@
 #include "../console.h"
 #include "../world.h"
 #include "../network/uosocket.h"
-#include "../chars.h"
 #include "../targetrequests.h"
 
 // library includes
@@ -838,7 +837,7 @@ void AbstractAI::onSpeechInput( P_PLAYER pTalker, const QString &comm ) {
 		m_npc->bark(cBaseChar::Bark_Attacking);
 		if (SrvParams->tamedDisappear()) {
 			m_npc->soundEffect(0x01Fe);
-			cCharStuff::DeleteChar(m_npc);
+			m_npc->remove();
 		}
 	}
 }

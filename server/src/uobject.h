@@ -57,6 +57,7 @@ class cUOSocket;
 class QSqlQuery;
 class cItem;
 class cUOTxTooltipList;
+class cMulti;
 
 class cUObject : public PersistentObject, public cDefinable, public cPythonScriptable 
 {
@@ -70,7 +71,7 @@ protected:
 	QString name_;
 	Coord_cl pos_;
 	SERIAL serial_;
-	SERIAL multis_;	
+	cMulti *multi_; // If we're in a Multi
 	uchar dir_;
 
 	// Things for building the SQL string
@@ -144,20 +145,19 @@ public:
 	cUObject( const cUObject& ); // Copy constructor
 	virtual ~cUObject() {};
 
+	virtual void remove();
 	virtual void moveTo( const Coord_cl&, bool noRemove = false );
 	unsigned int	dist(cUObject* d) const;
 	QString			bindmenu()		const { return bindmenu_; }
 	QString			name()			const { return name_;		}
 	Coord_cl		pos()			const { return pos_;		}
 	SERIAL			serial()		const { return serial_;	}
-	SERIAL			multis()		const { return multis_;	}
 	UINT32			getTooltip()	const { return tooltip_; }
 	uchar			direction()		const { return dir_;  }
 
 	void setBindmenu( const QString& d )	{ bindmenu_ = d; changed_ = true;	}
 	void setName( const QString& d )		{ name_ = d; changed_ = true; changed( TOOLTIP );		}	
 	void setPos( const Coord_cl& d )		{ pos_ = d;	changed_ = true;		}
-	void setMultis( const SERIAL d )		{ multis_ = d; changed_ = true;		}
 	virtual void setSerial( SERIAL d )		{ serial_ = d; changed_ = true;	}
 	void setTooltip( const UINT32 d )		{ tooltip_ = d; }
 	void	setDirection( uchar d )			{ dir_ = d; changed_ = true;}
@@ -176,6 +176,15 @@ public:
 	void resendTooltip();
 
 	char direction( cUObject* ) const;
+
+	inline cMulti *multi() const {
+		return multi_;
+	}
+
+	inline void setMulti(cMulti *multi) {
+		changed_ = true;
+		multi_ = multi;
+	}
 
 protected:
 	cPythonScript **scriptChain;	// NULL Terminated Array

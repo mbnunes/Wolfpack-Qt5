@@ -47,6 +47,7 @@
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "basechar.h"
+#include "multi.h"
 #include "sectors.h"
 #include "player.h"
 #include "basics.h"
@@ -58,7 +59,7 @@
 
 cUObject::cUObject() :
 	serial_( INVALID_SERIAL ),
-	multis_( INVALID_SERIAL ),
+	multi_( 0 ),
 	free( false ),
 	bindmenu_( QString::null ),
 	changed_(true),
@@ -74,7 +75,9 @@ cUObject::cUObject( const cUObject &src ) {
 	scriptChain = 0;
 	eventList_ = src.eventList_;
 	recreateEvents();
-	this->multis_ = src.multis_;
+	if (src.multi_) {
+		src.multi_->addObject(this);
+	}
 	this->name_ = src.name_;
 	this->pos_  = src.pos_;
 	this->tags_ = src.tags_;
@@ -85,22 +88,33 @@ void cUObject::init()
 {
 }
 
-void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
-{
+void cUObject::moveTo(const Coord_cl& newpos, bool noRemove) {
 	// See if the map is valid
 	if (!Map->hasMap(newpos.map)) {
 		return;
 	}
 
-	if( !noRemove ) {
-		MapObjects::instance()->remove( this );
+	// Position Changed
+	cMulti *multi = cMulti::find(newpos);
+	if (multi_ != multi) {
+		if (multi_) {
+			multi_->removeObject(this);
+		}
+
+		if (multi) {
+			multi->addObject(this);
+		}
+
+		multi_ = multi;
+	}
+
+	if (!noRemove)  {
+		MapObjects::instance()->remove(this);
 	}
 
 	pos_ = newpos;
-
-	MapObjects::instance()->add( this );
-
 	changed_ = true;
+	MapObjects::instance()->add( this );
 }
 
 /*!
@@ -122,7 +136,7 @@ void cUObject::load( char **result, UINT16 &offset )
 	name_ = ( result[offset] == 0 ) ? QString::null : QString::fromUtf8( result[offset] );
 	offset++;
 	serial_ = atoi(result[offset++]);
-	multis_ = atoi(result[offset++]);
+	multi_ = reinterpret_cast<cMulti*>(atoi(result[offset++]));
 	dir_ = atoi( result[offset++] );
 	pos_.x = atoi(result[offset++]);
 	pos_.y = atoi(result[offset++]);
@@ -170,7 +184,7 @@ void cUObject::save()
 		setTable( "uobject" );
 		addStrField( "name", name_ );
 		addField( "serial", serial_ );
-		addField( "multis", multis_ );
+		addField( "multis", multi_ ? multi_->serial() : INVALID_SERIAL );
 		addField( "direction", dir_);
 		addField( "pos_x", pos_.x );
 		addField( "pos_y", pos_.y );
@@ -670,10 +684,8 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 	changed_ = true;
 	// \property object.bindmenu This string property contains a comma separated list of context menu ids for this object.
 	SET_STR_PROPERTY( "bindmenu", bindmenu_ )
-	// \rproperty object.serial This integer property contains the serial for this object. Read Only
-	else SET_INT_PROPERTY( "serial", serial_ )
-	// \property object.multi This integer property contains the serial of the multi object this object is in.
-	else SET_INT_PROPERTY( "multi", multis_ )
+	// \rproperty object.serial This integer property contains the serial for this object.
+	else SET_INT_PROPERTY( "serial", serial_ )	
 	// \property object.direction This is the integer direction of this object.
 	else SET_INT_PROPERTY( "direction", dir_ )
 	// \property object.free This boolean property indicates that the object has been freed and is awaiting deletion.
@@ -713,12 +725,13 @@ stError *cUObject::getProperty( const QString &name, cVariant &value ) const
 {
 	GET_PROPERTY( "bindmenu", bindmenu_ )
 	else GET_PROPERTY( "serial", serial_ )
-	else GET_PROPERTY( "multi", FindItemBySerial( multis_ ) )
 	else GET_PROPERTY( "free", free ? 1 : 0 )
 	else GET_PROPERTY( "name", this->name() )
 	else GET_PROPERTY( "pos", pos() )
 	else GET_PROPERTY( "eventlist", eventList_ == QString::null ? QString( "" ) : eventList_ )
 	else GET_PROPERTY( "direction", dir_ )
+	// \rproperty object.multi This item property contains the multi this object is contained in.
+	else GET_PROPERTY( "multi", multi_ )
 
 	return cPythonScriptable::getProperty(name, value);
 }
@@ -869,4 +882,9 @@ void cUObject::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 
 	tooltip.setSerial(serial_);
 	tooltip.setId(tooltip_);
+}
+
+void cUObject::remove() {
+	// Queue up for deletion from worldfile	
+	World::instance()->deleteObject(this);
 }

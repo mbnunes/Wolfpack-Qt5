@@ -45,10 +45,10 @@
 #include "sectors.h"
 #include "srvparams.h"
 #include "log.h"
+#include "console.h"
 #include "spawnregions.h"
 #include "corpse.h"
 #include "wpdefmanager.h"
-#include "chars.h"
 #include "combat.h"
 #include "walking.h"
 #include "skills.h"
@@ -1414,4 +1414,57 @@ void cNPC::setStablemasterSerial(SERIAL data)
 	} else {
 		MapObjects::instance()->remove(this);
 	}
+}
+
+cNPC *cNPC::createFromScript(const QString &section, const Coord_cl &pos) {
+	if( section.isNull() || section.isEmpty() )
+		return NULL;
+
+	const cElement* DefSection = DefManager->getDefinition( WPDT_NPC, section );
+
+	if( !DefSection )
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Unable to create unscripted npc: %1\n" ).arg( section ) );
+		return NULL;
+	}
+
+	P_NPC pChar = new cNPC;
+	pChar->Init();
+
+	pChar->setMinDamage(1);
+	pChar->setMaxDamage(1);
+
+	pChar->moveTo( pos );
+
+	pChar->setRegion( AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map ) );
+
+	pChar->applyDefinition( DefSection );
+
+	// OrgBody and OrgSkin are often not set in the scripts
+	pChar->setOrgBody(pChar->body());
+	pChar->setOrgSkin(pChar->skin());
+
+	// Now we call onCreate
+	pChar->onCreate( section );
+
+	pChar->resend( false );
+
+	return pChar;
+}
+
+void cNPC::remove() {
+	// If a player is mounted on us, unmount him.
+	if (stablemasterSerial_ != INVALID_SERIAL) {
+		P_PLAYER player = dynamic_cast<P_PLAYER>(World::instance()->findChar(stablemasterSerial_));
+		if (player) {
+			P_ITEM mount = player->atLayer(cBaseChar::Mount);
+
+			if (mount && mount->getTag("pet").toInt() == serial_) {
+				mount->remove();
+			}
+		}
+	}
+
+	setOwner(0);
+	cBaseChar::remove();
 }

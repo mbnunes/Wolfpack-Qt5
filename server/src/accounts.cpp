@@ -161,6 +161,19 @@ bool cAccount::isAllShow() const
 	return flags_&0x00000004;
 }
 
+bool cAccount::isMultiGems() const
+{
+	return flags_&0x00000040;
+}
+
+void cAccount::setMultiGems(bool data) {
+	if (data) {
+		flags_ |= 0x40;
+	} else {
+		flags_ &= ~ 0x40;
+	}
+}
+
 bool cAccount::isShowSerials() const
 {
 	return flags_&0x00000008;

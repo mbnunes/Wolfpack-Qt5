@@ -123,10 +123,6 @@ SOURCE=.\basics.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\boats.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\chars.cpp
 # End Source File
 # Begin Source File
@@ -203,10 +199,6 @@ SOURCE=.\gumps.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\house.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\itemid.cpp
 # End Source File
 # Begin Source File
@@ -231,7 +223,7 @@ SOURCE=.\md5.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\multis.cpp
+SOURCE=.\multi.cpp
 # End Source File
 # Begin Source File
 
@@ -388,11 +380,6 @@ SOURCE=.\basics.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\boats.h
-# PROP Ignore_Default_Tool 1
-# End Source File
-# Begin Source File
-
 SOURCE=.\chars.h
 # PROP Ignore_Default_Tool 1
 # End Source File
@@ -478,11 +465,6 @@ SOURCE=.\gumps.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\house.h
-# PROP Ignore_Default_Tool 1
-# End Source File
-# Begin Source File
-
 SOURCE=.\inlines.h
 # End Source File
 # Begin Source File
@@ -513,7 +495,7 @@ SOURCE=.\mulstructs.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\multis.h
+SOURCE=.\multi.h
 # PROP Ignore_Default_Tool 1
 # End Source File
 # Begin Source File
@@ -793,10 +775,6 @@ SOURCE=.\python\gump.h
 # Begin Source File
 
 SOURCE=.\python\item.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\python\multi.cpp
 # End Source File
 # Begin Source File
 

@@ -44,53 +44,6 @@
 #include "npc.h"
 #include "ai/ai.h"
 
-class cBuildMultiTarget: public cTargetRequest
-{
-	QString multisection_;
-	SERIAL	deedserial_;
-	SERIAL	senderserial_;
-public:
-	cBuildMultiTarget( const QString &multisection, SERIAL senderserial, SERIAL deedserial ) : 
-	  multisection_(multisection), deedserial_(deedserial), senderserial_(senderserial) 
-	{
-
-	}
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
-
-class cSetMultiOwnerTarget: public cTargetRequest
-{
-	
-	SERIAL multi_;
-	bool coowner_;
-public:
-	cSetMultiOwnerTarget( SERIAL multiserial, bool coowner = false ) : multi_(multiserial), coowner_(coowner) {}
-
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
-
-class cMultiAddToListTarget: public cTargetRequest
-{
-	
-	SERIAL	multi_;
-	bool	banlist_;
-public:
-	cMultiAddToListTarget( SERIAL multiserial, bool banlist = false ) : multi_(multiserial), banlist_(banlist) {}
-
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
-
-class cMultiChangeLockTarget: public cTargetRequest
-{
-	
-private:
-	SERIAL multi_;
-public:
-	cMultiChangeLockTarget( SERIAL multiserial ) { multi_ = multiserial; }
-
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
-
 // Stealing
 class cSkStealing: public cTargetRequest
 {

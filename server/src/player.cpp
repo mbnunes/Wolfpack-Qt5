@@ -32,7 +32,6 @@
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "globals.h"
-#include "chars.h"
 #include "guilds.h"
 #include "console.h"
 #include "network.h"
@@ -44,7 +43,9 @@
 #include "world.h"
 #include "wpdefmanager.h"
 #include "corpse.h"
+#include "multi.h"
 #include "sectors.h"
+#include "party.h"
 #include "npc.h"
 #include "combat.h"
 #include "tilecache.h"
@@ -1465,7 +1466,13 @@ bool cPlayer::canSeeItem(P_ITEM item) {
 			return canSeeChar(character);
 		}		
 	} else {
-		if (pos_.distance(item->pos()) > visualRange()) {
+		cMulti *multi = dynamic_cast<cMulti*>(item);
+
+		if (multi) {
+			if (pos_.distance(item->pos()) > BUILDRANGE)
+				return false;
+		} else {
+			if (pos_.distance(item->pos()) > VISRANGE)
 				return false;
 		}
 	}
@@ -1616,4 +1623,26 @@ void cPlayer::moveTo(const Coord_cl &pos, bool noremove) {
 	if (socket_ && oldpos.map != pos_.map) {
 		socket_->resendPlayer(false);
 	}
+}
+
+void cPlayer::remove() {
+	if (socket_) {
+		socket_->disconnect();
+	}
+
+	if (account_) {
+		account_->removeCharacter(this);
+	}
+
+	if (party_) {
+		party_->removeMember(this);
+	} else {
+		TempEffects::instance()->dispel(this, 0, "cancelpartyinvitation", false, false);
+	}
+
+	if (guild_) {
+		guild_->removeMember(this);
+	}
+
+    cBaseChar::remove();
 }

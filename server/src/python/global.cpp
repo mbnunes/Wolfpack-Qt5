@@ -44,6 +44,7 @@
 #include "../tilecache.h"
 #include "../accounts.h"
 #include "../commands.h"
+#include "../multi.h"
 #include "../scriptmanager.h"
 #include "../wpdefmanager.h"
 #include "../pythonscript.h"
@@ -51,11 +52,7 @@
 #include "../globals.h"
 #include "../items.h"
 #include "../network.h"
-#include "../multis.h"
-#include "../house.h"
-#include "../boats.h"
 #include "../srvparams.h"
-#include "../chars.h"
 #include "../basechar.h"
 #include "../player.h"
 #include "../npc.h"
@@ -360,7 +357,7 @@ static PyObject* wpAddnpc( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	P_CHAR pChar = cCharStuff::createScriptNpc( getArgStr( 0 ), pos );
+	P_CHAR pChar = cNPC::createFromScript(getArgStr(0), pos);
 
 	return PyGetCharObject( pChar ); 
 }
@@ -431,29 +428,23 @@ static PyObject* wpFindchar( PyObject* self, PyObject* args )
 }
 
 /*!
-	Creates a multi object based on the passed pos
+	Find a multi based on its position.
  */
-static PyObject* wpFindmulti( PyObject* self, PyObject* args )
-{
-	Q_UNUSED( self );
-	if( PyTuple_Size( args ) < 1 )
-	{
-		PyErr_BadArgument();
-		return NULL;
-	}
-	P_MULTI pMulti = NULL;
-	if(  !checkArgCoord( 0 ) )
-		if( !checkArgInt( 0 ) )
-		{
-			PyErr_BadArgument();
-			return NULL;
-		}
-		else
-			pMulti = dynamic_cast< cMulti* >( FindItemBySerial( getArgInt( 0 ) ) );
-	else
-		pMulti = cMulti::findMulti( getArgCoord( 0 ) );
+static PyObject* wpFindmulti( PyObject* self, PyObject* args ) {
+	Coord_cl coord;
 
-	return PyGetMultiObject( pMulti );
+	if (!PyArg_ParseTuple(args, "O&:wolfpack.findmulti(pos)", &PyConvertCoord, &coord)) {
+		return 0;
+	}
+
+	cMulti *multi = cMulti::find(coord);
+
+	if (!multi) {
+		Py_INCREF(Py_None);
+		return Py_None;
+	} else {
+		return multi->getPyObject();
+	}
 }
 
 /*!
@@ -910,32 +901,21 @@ static PyObject *wpCoord( PyObject* self, PyObject* args )
 	return PyGetCoordObject( pos );
 }
 
-/*!
-	Multi object creation
-*/
-static PyObject *wpMulti( PyObject* self, PyObject* args )
-{
-	Q_UNUSED( self);
+static PyObject *wpAddMulti(PyObject* self, PyObject* args) {
+	char *definition;
 
-	uint type = 0;
-	if( !PyArg_ParseTuple( args, "i:wolfpack.multi", &type ) )
+	if (!PyArg_ParseTuple(args, "s:wolfpack.addmulti(def)", &definition)) {
 		return 0;
-
-	P_MULTI pMulti = NULL;
-
-	switch( type )
-	{
-		case CUSTOMHOUSE: pMulti = dynamic_cast< cMulti* >( new cHouse( true ) );  // Custom house have serial for caching purposes
-			break;
-		case HOUSE: pMulti = dynamic_cast< cMulti* >( new cHouse() );  // Common house
-			break;
-		case BOAT: pMulti = dynamic_cast< cMulti* >( new cBoat() );
-			break;
-		default:
-			break;
 	}
 
-	return PyGetMultiObject( pMulti );
+	cMulti *multi = cMulti::createFromScript(definition);
+	
+	if (multi) {
+		return multi->getPyObject();
+	} else {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
 }
 
 /*!
@@ -1411,7 +1391,7 @@ static PyMethodDef wpGlobal[] =
 	{ "landdata",			wpLanddata,						METH_VARARGS, "Returns the landdata information for a given tile stored on the server." },
 	{ "tiledata",			wpTiledata,						METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
 	{ "coord",				wpCoord,						METH_VARARGS, "Creates a coordinate object from the given parameters (x,y,z,map)." },
-	{ "multi",				wpMulti,						METH_VARARGS, "Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT." },
+	{ "addmulti",			wpAddMulti,						METH_VARARGS, "Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT." },
 	{ "list",				wpList,							METH_VARARGS, "Returns a list defined in the definitions as a Python List" },
 	{ "registerglobal",		wpRegisterGlobal,				METH_VARARGS, "Registers a global script hook." },
 	{ "registerpackethook", wpRegisterPacketHook,			METH_VARARGS, "Registers a packet hook." },

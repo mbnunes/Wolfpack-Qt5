@@ -174,18 +174,6 @@
 				RelativePath=".\basics.h">
 			</File>
 			<File
-				RelativePath=".\boats.cpp">
-			</File>
-			<File
-				RelativePath=".\boats.h">
-			</File>
-			<File
-				RelativePath=".\chars.cpp">
-			</File>
-			<File
-				RelativePath=".\chars.h">
-			</File>
-			<File
 				RelativePath=".\combat.cpp">
 			</File>
 			<File
@@ -291,12 +279,6 @@
 				RelativePath=".\gumps.h">
 			</File>
 			<File
-				RelativePath=".\house.cpp">
-			</File>
-			<File
-				RelativePath=".\house.h">
-			</File>
-			<File
 				RelativePath=".\inlines.h">
 			</File>
 			<File
@@ -330,10 +312,22 @@
 				RelativePath=".\md5.h">
 			</File>
 			<File
-				RelativePath=".\multis.cpp">
+				RelativePath=".\multi.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\multis.h">
+				RelativePath=".\multi.h">
 			</File>
 			<File
 				RelativePath=".\network.cpp">
@@ -614,9 +608,6 @@
 			</File>
 			<File
 				RelativePath=".\python\item.cpp">
-			</File>
-			<File
-				RelativePath=".\python\multi.cpp">
 			</File>
 			<File
 				RelativePath=".\python\objectcache.h">

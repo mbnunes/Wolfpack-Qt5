@@ -162,13 +162,12 @@ public:
 	void setOwnSerialOnly(int ownser);
 	void SetOwnSerial(int ownser);
 	int ownSerial() const			{return ownserial_;}
-	
-	void SetMultiSerial(long mulser);
-	
+		
 	bool isShield() const { return type_ == 1008; }
 	UINT16 getWeaponSkill();
 
 	void MoveTo( int newx, int newy, signed char newz );
+	void moveTo(const Coord_cl &pos, bool noremove = false);
 	long reduceAmount( short amount = 1 );
 	short GetContGumpType();
 	void SetRandPosInCont(cItem* pCont);

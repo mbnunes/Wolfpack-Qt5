@@ -58,7 +58,7 @@
 // Objects ( => Factory later on )
 #include "uobject.h"
 #include "items.h"
-#include "multis.h"
+#include "multi.h"
 
 // Python Includes
 #include "python/utilities.h"
@@ -459,11 +459,8 @@ static void quickdelete( P_ITEM pi ) throw()
 		quickdelete( *it );
 
 	// if it is within a multi, delete it from the multis vector
-	if( pi->multis() != INVALID_SERIAL )
-	{
-		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
-		if( pMulti )
-			pMulti->removeItem( pi );
+	if (pi->multi()) {
+		pi->multi()->removeObject(pi);
 	}
 
 	MapObjects::instance()->remove( pi );
@@ -612,22 +609,13 @@ void cWorld::load()
 			pi->setUnprocessed(false);
 		}
 
-		// If this item has a multiserial then add it to the multi
-		if (isItemSerial(pi->multis())) {
-			cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
-
-			if( pMulti )
-				pMulti->addItem( pi );
+		SERIAL multiserial = (SERIAL)(pi->multi());
+		cMulti *multi = dynamic_cast<cMulti*>(findItem(multiserial));
+		pi->setMulti(multi);
+		if (multi) {
+			multi->addObject(pi);
 		}
 
-/*		// effect on dex ? like plate eg.
-		if( pi->dx2() && pi->container() && pi->container()->isChar() )
-		{
-			P_CHAR pChar = dynamic_cast< P_CHAR >( pi->container() );
-
-			if( pChar )
-				pChar->setDexterity( pChar->dexterity + pi->dx2() );
-		}*/
 		pi->flagUnchanged(); // We've just loaded, nothing changes.
 	}
 
@@ -665,17 +653,15 @@ void cWorld::load()
 			}
 		}
 
-		if( isItemSerial( pChar->multis() ) )
-		{
-			cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis() ) );
-
-			if (pMulti) {
-				pMulti->addChar(pChar);
-			}
-		}
-
 		cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 		pChar->setRegion(region);
+
+		SERIAL multiserial = (SERIAL)(pChar->multi());
+		cMulti *multi = dynamic_cast<cMulti*>(findItem(multiserial));
+		pChar->setMulti(multi);
+		if (multi) {
+			multi->addObject(pChar);
+		}
 
 		pChar->flagUnchanged(); // We've just loaded, nothing changes
 	}

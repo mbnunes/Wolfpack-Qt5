@@ -36,7 +36,6 @@
 #include "../party.h"
 #include "../combat.h"
 #include "../srvparams.h"
-#include "../chars.h"
 #include "../walking.h"
 #include "../commands.h"
 #include "../scriptmanager.h"
@@ -1607,7 +1606,7 @@ static PyObject* wpChar_delete( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	
-	cCharStuff::DeleteChar(self->pChar);
+	self->pChar->remove();
 
 	Py_INCREF(Py_None);
 	return Py_None;

@@ -687,6 +687,8 @@ static PyObject *wpSocket_getAttr( wpSocket *self, char *name )
 		return PyInt_FromLong(self->pSock->screenHeight());
 	} else if (!strcmp(name, "walksequence")) {
 		return PyInt_FromLong(self->pSock->walkSequence());
+	} else if (!strcmp(name, "account")) {
+		return PyGetAccountObject(self->pSock->account());
 	} else {
 		return Py_FindMethod( wpSocketMethods, (PyObject*)self, name );
 	}

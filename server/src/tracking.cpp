@@ -30,7 +30,6 @@
 
 #include "tracking.h"
 #include "network/uosocket.h"
-#include "chars.h"
 #include "items.h"
 #include "skills.h"
 #include "globals.h"

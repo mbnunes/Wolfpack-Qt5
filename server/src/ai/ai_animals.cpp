@@ -36,7 +36,6 @@
 #include "../sectors.h"
 #include "../basics.h"
 #include "../targetrequests.h"
-#include "../chars.h"
 
 // library includes
 #include <math.h>
@@ -148,7 +147,7 @@ void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 		if( SrvParams->tamedDisappear() )
 		{
 			m_npc->soundEffect(0x01Fe);
-			cCharStuff::DeleteChar(m_npc);
+			m_npc->remove();
 		}
 	}
 }

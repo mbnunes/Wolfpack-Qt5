@@ -42,7 +42,8 @@
 #include "network/uosocket.h"
 #include "multiscache.h"
 #include "tilecache.h"
-#include "multis.h"
+#include "items.h"
+#include "multi.h"
 #include "basechar.h"
 #include "npc.h"
 #include "player.h"
@@ -370,17 +371,9 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 {
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
-//	teleporters( pChar );
 
-	RegionIterator4Items iter( pChar->pos() );
-	for( iter.Begin(); !iter.atEnd(); iter++ )
-	{
-		// Check if the item got newly in range
-		P_ITEM pItem = iter.GetData();
-
-		if( !pItem )
-			continue;
-
+	cItemSectorIterator *iter = SectorMaps::instance()->findItems(pChar->pos(), BUILDRANGE);
+	for (cItem *pItem = iter->first(); pItem; pItem = iter->next()) {
 		// Check for item collisions here.
 		if (pChar->pos().x == pItem->pos().x && pChar->pos().y == pItem->pos().y) {
 			if (pItem->pos().z >= pChar->pos().z - 15 && pItem->pos().z <= pChar->pos().z + 15) {
@@ -391,15 +384,19 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 		}
 		
 		// If we are a connected player then send new items
-		if( player && player->socket() )
-		{
+		if (player && player->socket()) {
 			UI32 oldDist = oldpos.distance( pItem->pos() );
 			UI32 newDist = pChar->pos().distance( pItem->pos() );
 
 			// Was out of range before and now is in range
-			if( ( oldDist >= player->visualRange() ) && ( newDist < player->visualRange() ) )
-			{
-				pItem->update( player->socket() );
+			if (pItem->isMulti()) {
+				if ((oldDist >= BUILDRANGE) && (newDist < BUILDRANGE)) {
+					pItem->update(player->socket());
+				}
+			} else {				
+				if ((oldDist >= player->visualRange()) && (newDist < player->visualRange())) {
+					pItem->update(player->socket());
+				}
 			}
 		}		
 	}
@@ -493,18 +490,6 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 			return;
 		}
 
-		// Lets check if we entered or left a multi
-		cMulti* pOldMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis() ) );
-		cMulti* pNewMulti = cMulti::findMulti( newCoord );
-		if( pOldMulti != pNewMulti )
-		{
-			if( pOldMulti )
-				pOldMulti->removeChar( pChar );
-
-			if( pNewMulti )
-				pNewMulti->addChar( pChar );
-		}
-
 		// We moved so let's update our location
 		pChar->moveTo(newCoord);
 		pChar->setLastMovement(uiCurrentTime);		
@@ -549,40 +534,9 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 	// If we really moved handle teleporters and new items
 	if (!turning) {
-		handleItems( pChar, oldpos );
-		HandleTeleporters( pChar, oldpos );
+		handleItems(pChar, oldpos);
+		handleTeleporters(pChar, oldpos);
 	}
-}
-
-short int cMovement::CheckMovementType(P_CHAR pc)
-{
-	if( pc->objectType() == enPlayer )
-	{
-		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
-		// Am I a GM Body?
-		if( pp->isGMorCounselor() || pc->isDead() )
-			return P_C_IS_GM_BODY;
-		// Am I a player?
-		else
-			return P_C_IS_PLAYER;
-	}
-	// Change this to a flag in NPC definition
-
-	short int retval = P_C_IS_NPC;
-	switch ( pc->body() )
-	{
-	case 0x0010 : // Water Elemental
-		retval = P_C_IS_FISH;
-		break;
-	case 0x005F : // Kraken
-	case 0x0096 : // Dolphin
-	case 0x0097 : // Sea Serpent
-		retval = P_C_IS_FISH;
-		break;
-	default : // Regular NPC
-		break;
-	}
-	return retval;
 }
 
 bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos )
@@ -604,88 +558,6 @@ bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos )
 		}
 	}
 	return false;
-}
-
-// GMs can go *EVERYWHERE*
-bool cMovement::CanGMWalk( unitile_st xyb )
-{
-	return true;
-}
-
-bool cMovement::CanNPCWalk(unitile_st xyb)
-{
-	unsigned short int blockid = xyb.id;
-
-	tile_st newTile = TileCache::instance()->getTile( blockid );
-
-	// khpae : blocking tile !!
-	if (xyb.flag1 & 0x40) {
-		return false;
-	}
-	if ( newTile.isRoofOrFloorTile() )
-		return true;
-	
-	if ( xyb.type == 0 )
-		return true;
-
-	if ( xyb.flag2 & 0x06 )
-		return true;
-
-	return false;
-}
-
-bool cMovement::CanPlayerWalk(unitile_st xyb)
-{
-	unsigned short int blockid = xyb.id;
-
-	tile_st newTile = TileCache::instance()->getTile( blockid );
-
-	if (xyb.flag1 & 0x40 || xyb.flag2 & 0x06 || xyb.type == 0 ) 
-	{
-		return false;
-	}
-	if ( newTile.isRoofOrFloorTile() )
-		return true;
-
-	return false;
-}
-
-bool cMovement::CanFishWalk(unitile_st xyb)
-{
-	unsigned short int blockid = xyb.id;
-	
-	if ( TileCache::instance()->getTile(blockid).isWet() )
-		return true;
-
-	// Can they walk/swim on water tiles?
-	if ( blockid > 0x00A7 && blockid < 0x00AC )
-		return true;
-	if ( blockid > 0x1796 && blockid < 0x179D )
-		return true;
-	if ( blockid > 0x346D && blockid < 0x3486 )
-		return true;
-	if ( blockid > 0x3493 && blockid < 0x34AC )
-		return true;
-	if ( blockid > 0x34B7 && blockid < 0x34CB )
-		return true;
-
-	// Can they walk/swim on water ripples and splashes?
-	if ( blockid > 0x34D0 && blockid < 0x34D6 )
-		return true;
-	if ( blockid > 0x352C && blockid < 0x3531 )
-		return true;
-
-	// Can they walk/swim on/up waterfalls?
-	if ( blockid > 0x34EC && blockid < 0x3529 )
-		return true;
-
-	return false;
-}
-
-// needs testing... not totally accurate, but something to hold place.
-bool cMovement::CanBirdWalk(unitile_st xyb)
-{
-	return ( CanNPCWalk(xyb) || CanFishWalk(xyb) );
 }
 
 // if we have a valid socket, see if we need to deny the movement request because of
@@ -761,104 +633,7 @@ void cMovement::checkStealth( P_CHAR pChar )
 	}
 }
 
-void cMovement::GetBlockingMap( const Coord_cl pos, unitile_st *xyblock, int &xycount)
-{
-	int mapid = 0;
-	signed char mapz = Map->mapElevation(pos);  //Map->AverageMapElevation(x, y, mapid);
-	if (mapz != ILLEGAL_Z)
-	{
-		land_st land = TileCache::instance()->getLand( mapid );
-	
-		xyblock[xycount].type=0;
-		xyblock[xycount].basez = mapz;
-		xyblock[xycount].id = mapid;
-		xyblock[xycount].flag1=land.flag1;
-		xyblock[xycount].flag2=land.flag2;
-		xyblock[xycount].flag3=land.flag3;
-		xyblock[xycount].flag4=land.flag4;
-		xyblock[xycount].height=0;
-		xyblock[xycount].weight=255;
-		xycount++;
-	}
-}
-
-void cMovement::GetBlockingStatics(const Coord_cl pos, unitile_st *xyblock, int &xycount)
-{
-	StaticsIterator msi = Map->staticsIterator(pos);
- 	while (!msi.atEnd())
-	{
-		tile_st tile = TileCache::instance()->getTile( msi->itemid );
-		xyblock[xycount].type	= 2;
-		xyblock[xycount].basez	= msi->zoff;
-		xyblock[xycount].id		= msi->itemid;
-		xyblock[xycount].flag1	= tile.flag1;
-		xyblock[xycount].flag2	= tile.flag2;
-		xyblock[xycount].flag3	= tile.flag3;
-		xyblock[xycount].flag4	= tile.flag4;
-		xyblock[xycount].height	= tile.height;
-		xyblock[xycount].weight = 255;
-		++xycount;
-		++msi;
-	}
-}
-
-void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock, int &xycount)
-{
-	RegionIterator4Items ri(position);
-	for (ri.Begin(); !ri.atEnd(); ri++)
-	{
-		P_ITEM mapitem = ri.GetData();
-		if (mapitem != NULL)
-		{
-			if( !mapitem->isMulti() )
-			{
-				if ((mapitem->pos().x == position.x) && (mapitem->pos().y == position.y))
-				{
-					tile_st tile = TileCache::instance()->getTile( mapitem->id() );
-					xyblock[xycount].type=1;
-					xyblock[xycount].basez=mapitem->pos().z;
-					xyblock[xycount].id=mapitem->id();
-					xyblock[xycount].flag1=tile.flag1;
-					xyblock[xycount].flag2=tile.flag2;
-					xyblock[xycount].flag3=tile.flag3;
-					xyblock[xycount].flag4=tile.flag4;
-					xyblock[xycount].height=tile.height;
-					xyblock[xycount].weight=tile.weight;
-					xycount++;
-				}
-			}
-			else if (
-				(abs(mapitem->pos().x - position.x)<=BUILDRANGE)&&
-				(abs(mapitem->pos().y - position.y)<=BUILDRANGE)
-				)
-			{
-				MultiDefinition* def = MultiCache::instance()->getMulti( mapitem->id() - 0x4000 );
-				if ( !def )
-					continue;
-				QValueVector<multiItem_st> multi = def->getEntries();
-				for (uint j = 0; j < multi.size(); ++j)
-				{
-					if (multi[j].visible && (mapitem->pos().x+multi[j].x == position.x) && (mapitem->pos().y+multi[j].y == position.y))
-					{
-						tile_st tile = TileCache::instance()->getTile( multi[j].tile );
-						xyblock[xycount].type = 2;
-						xyblock[xycount].basez = multi[j].z + mapitem->pos().z;
-						xyblock[xycount].id = multi[j].tile;
-						xyblock[xycount].flag1 = tile.flag1;
-						xyblock[xycount].flag2 = tile.flag2;
-						xyblock[xycount].flag3 = tile.flag3;
-						xyblock[xycount].flag4 = tile.flag4;
-						xyblock[xycount].height = tile.height;
-						xyblock[xycount].weight = 255;
-						++xycount;
-					}
-				}
-			}
-		}
-	}
-} //- end of itemcount for loop
-
-void cMovement::HandleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
+void cMovement::handleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
 {
 	cTerritory* territory = pc->region();
 
@@ -884,14 +659,6 @@ void cMovement::HandleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
 			}
 		}
 	}
-}
-
-/*! 
-	Checks if the direction we're moving to is valid.
-*/
-inline bool cMovement::isValidDirection( Q_UINT8 dir ) 
-{
-	return ( dir == ( dir & 0x87 ) );
 }
 
 /*!

@@ -66,6 +66,7 @@ private:
 	// 0x00000008 showserials
 	// 0x00000010 pagenotify
 	// 0x00000020 staff - gm mode on/off
+	// 0x00000040 multigems on/off
 	UINT32 flags_;
 	int attempts_;
 	bool inUse_;
@@ -106,6 +107,7 @@ public:
 	bool isShowSerials() const;
 	bool isPageNotify() const;
 	bool isStaff() const;
+	bool isMultiGems() const;
 
 	void setBlocked( bool data );
 	void setAllMove( bool data );
@@ -113,6 +115,7 @@ public:
 	void setShowSerials( bool data );
 	void setPageNotify( bool data );
 	void setStaff( bool data );
+	void setMultiGems(bool data);
 };
 
 

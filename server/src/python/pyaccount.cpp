@@ -35,7 +35,6 @@
 #include "engine.h"
 #include "utilities.h"
 #include "../accounts.h"
-#include "../chars.h"
 #include "../basechar.h"
 #include "../md5.h"
 #include "../srvparams.h"
@@ -80,7 +79,7 @@ static PyObject *wpAccount_delete( wpAccount *self, PyObject *args )
 
 	QValueVector< P_PLAYER > chars = self->account->caracterList();
 	for( uint i = 0; i < chars.size(); ++i )
-		cCharStuff::DeleteChar( chars[i] );
+		chars[i]->remove();
 
 	self->account->remove();
 	self->account = 0;
@@ -197,6 +196,15 @@ static PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 		return PyString_FromString( self->account->acl().latin1() );
 	else if( !strcmp( name, "name" ) )
 		return PyString_FromString( self->account->login().latin1() );
+	else if (!strcmp(name, "multigems")) {
+		if (self->account->isMultiGems()) {
+			Py_INCREF(Py_True);
+			return Py_True;
+		} else {
+			Py_INCREF(Py_False);
+			return Py_False;
+		}
+	}
 	else if( !strcmp( name, "password" ) )
 		return PyString_FromString( self->account->password().latin1() );
 	else if( !strcmp( name, "flags" ) )
@@ -242,6 +250,13 @@ static int wpAccount_setAttr( wpAccount *self, char *name, PyObject *value )
 {
 	if( !strcmp( name, "acl" ) && PyString_Check( value ) )
 		self->account->setAcl( PyString_AsString( value ) );
+	else if (!strcmp( name, "multigems" )) {
+		if (PyObject_IsTrue(value)) {
+			self->account->setMultiGems(true);
+		} else {
+			self->account->setMultiGems(false);
+		}
+	}
 	else if( !strcmp( name, "password" ) && PyString_Check( value ) )
 		self->account->setPassword( PyString_AsString( value ) );
 	else if( !strcmp( name, "flags" ) && PyInt_Check( value ) )

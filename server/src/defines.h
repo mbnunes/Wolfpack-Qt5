@@ -49,7 +49,7 @@
 #define ILLEGAL_Z	127
 
 #define VISRANGE 18 // Visibility for normal items
-#define BUILDRANGE 31 // Visibility for castles and keeps
+#define BUILDRANGE 22 // Visibility for castles and keeps
 
 // Verdata Settings
 #define VERFILE_MAP 0x00

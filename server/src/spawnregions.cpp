@@ -43,7 +43,6 @@ II. make sure to hold the map up to date !
 #include "maps.h"
 #include "walking.h"
 #include "log.h"
-#include "chars.h"
 #include "npc.h"
 #include "world.h"
 #include "basics.h"
@@ -245,7 +244,7 @@ void cSpawnRegion::reSpawn( void )
 			if( this->findValidSpot( pos ) )
 			{
 				QString NpcSect = this->npcSections_[ RandomNum( 1, this->npcSections_.size() ) - 1 ];
-				P_NPC pc = cCharStuff::createScriptNpc( NpcSect, pos );
+				P_NPC pc = cNPC::createFromScript(NpcSect, pos);
 				if( pc != NULL )
 				{
 					this->npcSerials_.push_back( pc->serial() );
@@ -291,7 +290,7 @@ void cSpawnRegion::reSpawnToMax( void )
 		if( this->findValidSpot( pos ) )
 		{
 			QString NpcSect = this->npcSections_[ RandomNum( 1, static_cast<uint>(this->npcSections_.size()) ) - 1 ];
-			P_NPC pc = cCharStuff::createScriptNpc( NpcSect, pos );
+			P_NPC pc = cNPC::createFromScript( NpcSect, pos );
 			if( pc != NULL )
 			{
 				this->npcSerials_.push_back( pc->serial() );
@@ -329,7 +328,10 @@ void cSpawnRegion::deSpawn( void )
 
 	while( it != this->npcSerials_.end() )
 	{
-		cCharStuff::DeleteChar( FindCharBySerial( *it ) );
+		P_CHAR pChar = FindCharBySerial(*it);
+		if (pChar) {
+			pChar->remove();
+		}
 		it++;
 	}
 	npcSerials_.erase( npcSerials_.begin(), npcSerials_.end() );

@@ -64,25 +64,6 @@ public:
 	bool CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos );
 	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords );
 private:
-	inline bool isValidDirection( Q_UINT8 dir );
-
-	bool CanGMWalk(unitile_st xyb);
-	bool CanPlayerWalk(unitile_st xyb);
-	bool CanNPCWalk(unitile_st xyb);
-	bool CanFishWalk(unitile_st xyb);
-	bool CanBirdWalk(unitile_st xyb);
-
-	void FillXYBlockStuff(short int x, short int y, unitile_st *xyblock, int &xycount);
-	void GetBlockingMap(const Coord_cl, unitile_st *xyblock, int &xycount);
-	void GetBlockingStatics(const Coord_cl, unitile_st *xyblock, int &xycount);
-	void GetBlockingDynamics(const Coord_cl, unitile_st *xyblock, int &xycount);
-
-	short int Direction(short int sx, short int sy, short int dx, short int dy);
-
-	short int CheckMovementType(P_CHAR pc);
-
-	void randomNpcWalk( P_NPC pChar, Q_UINT8 dir, Q_UINT8 type );
-
 	bool consumeStamina( P_PLAYER pChar, bool running );
 	bool checkObstacles( P_CHAR pChar, const Coord_cl &newPos, bool running );
 	bool verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw();
@@ -91,13 +72,7 @@ private:
 	void sendWalkToOther( P_PLAYER pChar, P_CHAR pWalker, const Coord_cl& oldpos );
 
 	void handleItemCollision( P_CHAR pChar );
-	void HandleTeleporters(P_CHAR pc, const Coord_cl& oldpos);
-	void HandleWeatherChanges(P_CHAR pc, cUOSocket* socket);
-	
-	void FillXYBlockStuff(P_CHAR pc, unitile_st *xyblock, int &xycount, unsigned short oldx, unsigned short oldy );
-
-	static bool checkBoundingBox(const Coord_cl pos, int fx1, int fy1, int fx2, int fy2);
-	static bool checkBoundingCircle(const Coord_cl pos, int fx1, int fy1, int radius);
+	void handleTeleporters(P_CHAR pc, const Coord_cl &oldpos);
 
 };
 

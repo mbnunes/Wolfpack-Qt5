@@ -133,7 +133,7 @@ public:
 	UINT8					visualRange() const;
 	QString					profile() const;
     UINT8					fixedLightLevel() const;
-
+	
 	// bit flag getters
 	bool					maySnoop() const;
 	bool					mayBroadcast() const;
@@ -180,6 +180,7 @@ public:
 	// makemenus
 	void setLastSection( cMakeMenu* basemenu, cMakeSection* data );
 	void clearLastSelections( void );
+	void remove();
 	// pets
 	void addPet( P_NPC pPet, bool noOwnerChange = false );	
 	void removePet( P_NPC pPet, bool noOwnerChange = false );

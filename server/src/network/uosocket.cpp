@@ -45,6 +45,7 @@
 #include "../territories.h"
 #include "../sectors.h"
 #include "../structs.h"
+#include "../multi.h"
 #include "../maps.h"
 #include "../speech.h"
 #include "../commands.h"
@@ -62,9 +63,7 @@
 #include "../Trade.h"
 #include "../uobject.h"
 #include "../player.h"
-#include "../multis.h"
 #include "../basechar.h"
-#include "../chars.h"
 #include "../npc.h"
 #include "../log.h"
 #include "../ai/ai.h"
@@ -554,8 +553,7 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 
 	if( pChar )
 	{
-		cCharStuff::DeleteChar( pChar ); // Does everything for us
-		_account->removeCharacter( pChar );
+		pChar->remove();
 	}
 
 	updateCharList();
@@ -1266,9 +1264,9 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet )
 } 
 void cUOSocket::handleCustomHouseRequest( cUORxCustomHouseRequest *packet )
 {
-	SERIAL serial = packet->serial();
+/*	SERIAL serial = packet->serial();
 	cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( serial ) );
-	pMulti->sendCH( this );
+	pMulti->sendCH( this );*/
 }
 
 void cUOSocket::handleToolTip(cUORxRequestToolTip *packet) {

@@ -43,14 +43,11 @@
 #include "spawnregions.h"
 #include "territories.h"
 #include "skills.h"
-#include "boats.h"
-#include "house.h"
 #include "typedefs.h"
 #include "itemid.h"
 #include "basechar.h"
 #include "npc.h"
 #include "player.h"
-#include "chars.h"
 #include "ai/ai.h"
 #include "inlines.h"
 #include "walking.h"
@@ -166,12 +163,14 @@ void cTiming::poll() {
 					todelete.append(info);
 				}
 			} else {
-				if (info->attacker()) {
-					info->attacker()->poll(time, cBaseChar::EventCombat);
-				}
+				P_CHAR attacker = info->attacker();
+				P_CHAR victim = info->victim();
 
-				if (info->victim()) {
-					info->victim()->poll(time, cBaseChar::EventCombat);
+				if (attacker && !victim->free) {
+					attacker->poll(time, cBaseChar::EventCombat);
+				}
+				if (victim && !victim->free) {
+					victim->poll(time, cBaseChar::EventCombat);
 				}
 			}
 		}
@@ -227,37 +226,6 @@ void cTiming::poll() {
 
 		if (nextNpcCheck <= time) 
 			nextNpcCheck = time + SrvParams->checkNPCTime() * MY_CLOCKS_PER_SEC;
-	}
-
-	// Change all worlditems
-	if (nextItemCheck <= time) 
-	{
-		cItemIterator itemiter;
-		for (P_ITEM item = itemiter.first(); item; item = itemiter.next()) 
-		{
-			item->decay(time);
-
-			switch(item->type()) 
-			{
-				// Move Boats
-				case 117:
-				{
-					bool ok = false;
-					if (item->getTag( "tiller" ).isValid() && item->getTag("gatetime").toInt(&ok) <= time && ok) 
-					{
-						cBoat* pBoat = dynamic_cast<cBoat*>(FindItemBySerial(item->getTag("boatserial").toInt()));
-						if (pBoat) 
-						{
-							pBoat->move();
-							item->setTag("gatetime", time + SrvParams->boatSpeed() * MY_CLOCKS_PER_SEC);
-						}
-					}
-					break;
-				}
-			}
-		}
-
-		nextItemCheck = time + SrvParams->checkItemTime() * MY_CLOCKS_PER_SEC;
 	}
 
 	// Check the TempEffects
@@ -374,7 +342,7 @@ void cTiming::checkNpc(P_NPC npc, unsigned int time)
 		// Make pooofff and sheeesh
 		npc->soundEffect(0x1fe);
 		npc->pos().effect(0x3735, 10, 30);
-		cCharStuff::DeleteChar(npc);
+		npc->remove();
 		return;
 	}
 
@@ -423,7 +391,7 @@ void cTiming::checkNpc(P_NPC npc, unsigned int time)
 			if (SrvParams->tamedDisappear() == 1) 
 			{
 				npc->soundEffect(0x1FE);
-				cCharStuff::DeleteChar(npc);
+				npc->remove();
 			}
 			break;
 		}

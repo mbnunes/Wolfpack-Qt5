@@ -43,8 +43,8 @@
 #include "console.h"
 #include "maps.h"
 #include "inlines.h"
-#include "chars.h"
 #include "sectors.h"
+#include "multi.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
 #include "network.h"
@@ -341,7 +341,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 	// only > max_x and > max_y are invalid
 	if( pc->pos().x >= max_x || pc->pos().y >= max_y )
 	{
-		cCharStuff::DeleteChar( pc );
+		pc->remove();
 		return;
 	}
 }
@@ -863,11 +863,6 @@ P_ITEM cBaseChar::getBackpack()
 	return backpack;
 }
 
-void cBaseChar::SetMultiSerial(long mulser)
-{
-	this->setMultis( mulser );
-}
-
 void cBaseChar::setSerial( const SERIAL ser )
 {
 	// This is not allowed
@@ -882,11 +877,7 @@ void cBaseChar::setSerial( const SERIAL ser )
 	World::instance()->registerObject( this );
 }
 
-void cBaseChar::MoveTo(short newx, short newy, signed char newz)
-{
-	// Avoid crash if go to 0,0 ??
-	if (newx < 1 || newy < 1)
-		return;
+void cBaseChar::MoveTo(short newx, short newy, signed char newz) {
 	cUObject::moveTo( Coord_cl(newx, newy, newz, pos().map) );
 }
 
@@ -1276,6 +1267,14 @@ void cBaseChar::processNode( const cElement *Tag )
 
 void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight, bool noRemove )
 {
+	if (pi->multi()) {
+		// Ignore the pseudo-pointer if uninitialized
+		if (!pi->unprocessed()) {
+			pi->multi()->removeObject(pi);
+		}
+		pi->setMulti(0);
+	}
+
 	if (atLayer(layer) != 0) {
 		log(LOG_ERROR, QString("Trying to put item 0x%1 on layer %2 which is already occupied.\n").arg(pi->serial(), 0, 16).arg(layer));
 		pi->container_ = 0;
@@ -1308,7 +1307,7 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 		// Dragging doesnt count as Equipping
 		if( layer != Dragging )
 			pi->onEquip( this, layer );
-	}	
+	}
 }
 
 void cBaseChar::removeItem( cBaseChar::enLayer layer, bool handleWeight )
@@ -1422,6 +1421,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		\property char.skin This integer property contains the skin color of the character.
 	*/
 	else SET_INT_PROPERTY( "skin", skin_ )
+
 	/*
 		\property char.maxhitpoints This integer property contains the maximum hitpoints for the character.
 		Please note that the maximum hitpoints are constantly recalculated. Please see hitpointsbonus for
@@ -2583,7 +2583,7 @@ bool cBaseChar::kill(cUObject *source) {
 		pos_.effect(0x3735, 10, 30);
 
 		onDeath(source, 0);
-		cCharStuff::DeleteChar(this);
+		remove();
 		return true;
 	}
 
@@ -2612,8 +2612,9 @@ bool cBaseChar::kill(cUObject *source) {
 
 	onDeath(source, corpse);
 
-	if (npc)
-		cCharStuff::DeleteChar(this);
+	if (npc) {
+		remove();
+	}
 
 	if (player) 
 	{
@@ -2721,8 +2722,15 @@ bool cBaseChar::canSeeItem(P_ITEM item)
 		return canSee(item->container());
 	else 
 	{
-		if (pos_.distance(item->pos()) > VISRANGE) 
-			return false;
+		cMulti *multi = dynamic_cast<cMulti*>(item);
+
+		if (multi) {
+			if (pos_.distance(item->pos()) > BUILDRANGE)
+				return false;
+		} else {
+			if (pos_.distance(item->pos()) > VISRANGE)
+				return false;
+		}		
 	}
 
 	return true;
@@ -3140,4 +3148,45 @@ double cBaseChar::getManaRate() {
 void cBaseChar::moveTo(const Coord_cl &pos, bool noremove) {
 	cUObject::moveTo(pos, noremove);
 	AllTerritories::instance()->check(this);
+}
+
+void cBaseChar::remove() {
+	// Cancel any ongoing fight.
+	QPtrList<cFightInfo> fights(this->fights());
+	fights.setAutoDelete(false);
+	for (cFightInfo *info = fights.first(); info; info = fights.next()) {
+		delete info;
+	}
+
+	// Call the onDelete event.
+	PyObject *args = Py_BuildValue("(N)", getPyObject());
+	cPythonScript::callChainedEventHandler(EVENT_DELETE, scriptChain, args);
+	Py_DECREF(args);
+
+	removeFromView(false);
+
+	free = true;
+	
+	setGuarding(0);
+
+	// We need to remove the equipment here.
+	cBaseChar::ItemContainer container(content());
+	cBaseChar::ItemContainer::const_iterator it (container.begin());
+	cBaseChar::ItemContainer::const_iterator end(container.end());
+	for (; it != end; ++it )
+	{
+		P_ITEM pItem = *it;
+		if( !pItem )
+			continue;
+
+		pItem->remove();
+	}
+	
+	if (multi_) {
+		multi_->removeObject(this);
+		multi_ = 0;
+	}
+
+	MapObjects::instance()->remove(this);
+	cUObject::remove();
 }

@@ -33,8 +33,8 @@
 #include "../items.h"
 #include "../tilecache.h"
 #include "../scriptmanager.h"
+#include "../multi.h"
 #include "../itemid.h"
-#include "../multis.h"
 #include "../basechar.h"
 #include "../singleton.h"
 
@@ -771,14 +771,16 @@ static PyObject* wpItem_countItem( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_multi( wpItem* self, PyObject* args )
 {
-	Q_UNUSED(args);
+/*	Q_UNUSED(args);
 	if( self->pItem->free )
 	{
 		Py_INCREF( Py_None );
 		return Py_None;
 	}
 
-	return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) ) );
+	return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) ) */
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*
@@ -1075,8 +1077,27 @@ static PyObject *wpItem_getAttr( wpItem *self, char *name )
 		}
 
 		return list;
-	} else if( !strcmp( "events", name ) )
-	{
+	/*
+		\rproperty item.objects If the item is a multi object, this is a list of objects that are within
+		the multi. If it's not a multi, this property is None.
+	*/
+	} else if (!strcmp("objects", name)) {
+		cMulti *multi = dynamic_cast<cMulti*>(self->pItem);
+
+		if (!multi) {
+			Py_INCREF(Py_None);
+			return Py_None;
+		}
+
+        const QPtrList<cUObject> &objects = multi->getObjects();
+        PyObject *tuple = PyTuple_New(objects.count());
+		QPtrList<cUObject>::const_iterator it(objects.begin());
+		unsigned int i = 0;
+		for (; it != objects.end(); ++it) {
+			PyTuple_SetItem(tuple, i++, (*it)->getPyObject());
+		}
+		return tuple;
+	} else if( !strcmp( "events", name ) ) {
 		QStringList events = QStringList::split( ",", self->pItem->eventList() );
 		PyObject *list = PyList_New( events.count() );
 		for( uint i = 0; i < events.count(); ++i )

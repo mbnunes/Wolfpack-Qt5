@@ -33,6 +33,7 @@
 #include "npc.h"
 #include "world.h"
 #include "network/uosocket.h"
+#include "network/uotxpackets.h"
 
 cParty::cParty (P_PLAYER leader) 
 {

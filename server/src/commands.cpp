@@ -41,7 +41,6 @@
 #include "targetrequests.h"
 #include "territories.h"
 #include "tilecache.h"
-#include "chars.h"
 #include "console.h"
 #include "wpdefmanager.h"
 #include "scriptmanager.h"
@@ -409,7 +408,7 @@ void commandAccount( cUOSocket *socket, const QString &command, const QStringLis
 			UINT32 i = 0;
 			for(; i < characters.size(); ++i )
 				if( characters[i] )
-					cCharStuff::DeleteChar( characters[i] );
+					characters[i]->remove();
 
 			socket->sysMessage( tr( "Account '%1' and %2 characters have been removed" ).arg( args[1].left( 30 ) ).arg( i+1 ) );
 		}

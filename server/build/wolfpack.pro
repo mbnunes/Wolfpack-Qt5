@@ -69,7 +69,6 @@ HEADERS         = \
 			basics.h \
 			basechar.h \
 			basedef.h \
-			boats.h \
 			coord.h \
 			combat.h \
 			commands.h \
@@ -85,13 +84,12 @@ HEADERS         = \
 			globals.h \
       guilds.h \
 			gumps.h \
-			house.h \
 			inlines.h \
 			itemid.h \
 			items.h \
 			log.h \
 			makemenus.h \
-			multis.h \
+			multi.h \
 			network.h \
 			npc.h \
 			platform.h \
@@ -129,8 +127,6 @@ SOURCES         = \
 		basechar.cpp \
 		basedef.cpp \
 		basics.cpp \
-		boats.cpp \
-		chars.cpp \
 		combat.cpp \
 		commands.cpp \
 		console.cpp \
@@ -146,13 +142,12 @@ SOURCES         = \
 		globals.cpp \
 		gumps.cpp \
     guilds.cpp \
-		house.cpp \
 		itemid.cpp \
 		items.cpp \
 		log.cpp \
 		makemenus.cpp \
 		maps.cpp \
-		multis.cpp \
+		multi.cpp \
 		multiscache.cpp \
 		network.cpp \
 		npc.cpp \
@@ -217,7 +212,6 @@ SOURCES		+= python/char.cpp \
 		   python/engine.cpp \
 		   python/global.cpp \
 		   python/item.cpp \
-	  	   python/multi.cpp \
 		   python/pyaccount.cpp \
 		   python/pyai.cpp \
 		   python/pycoord.cpp \

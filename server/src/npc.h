@@ -106,6 +106,8 @@ public:
 	void awardFame( short amount );
 	void awardKarma( P_CHAR pKilled, short amount );
 	void vendorBuy( P_PLAYER player );
+	static cNPC *createFromScript(const QString &id, const Coord_cl &pos);
+	void remove();
 	void vendorSell( P_PLAYER player );
 	virtual bool isInnocent();
 	void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);

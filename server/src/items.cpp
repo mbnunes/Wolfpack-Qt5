@@ -43,8 +43,8 @@
 #include "maps.h"
 #include "network.h"
 #include "log.h"
-#include "multis.h"
 #include "persistentbroker.h"
+#include "multi.h"
 #include "guilds.h"
 #include "dbdriver.h"
 #include "world.h"
@@ -83,10 +83,8 @@ buyprice_( 0 ), restock_( 1 ), baseid_(QString::null) {
 	// Copy Events
 	scriptChain = 0;
 	eventList_ = src.eventList_;
-	recreateEvents();
-	this->multis_ = src.multis_;
+	recreateEvents();	
 	this->name_ = src.name_;
-	this->pos_  = src.pos_;
 	this->tags_ = src.tags_;
 	//cItem properties setting
 	this->serial_ = INVALID_SERIAL; // IMPORTANT
@@ -111,6 +109,7 @@ buyprice_( 0 ), restock_( 1 ), baseid_(QString::null) {
 	this->weight_ = src.weight_;
 	this->baseid_ = src.baseid_;
 	this->totalweight_ = ceilf( amount_ * weight_ * 100 ) / 100;
+	moveTo(src.pos_);
 }
 
 P_CHAR cItem::owner( void ) const
@@ -188,12 +187,6 @@ void cItem::SetOwnSerial(int ownser)
 {
 	flagChanged();
 	setOwnSerialOnly(ownser);
-}
-
-void cItem::SetMultiSerial(long mulser)
-{
-	flagChanged();
-	this->setMultis(mulser);
 }
 
 void cItem::MoveTo(int newx, int newy, signed char newz)
@@ -498,9 +491,7 @@ void cItem::Init( bool createSerial )
 	if( createSerial )
 		this->setSerial( World::instance()->findItemSerial() );
 
-	this->container_ = 0;
-
-	this->setMultis( INVALID_SERIAL ); //Multi serial
+	this->container_ = 0;	
 	this->free = false;
 	this->setId( 0x0001 ); // Item visuals as stored in the client
 	this->setPos( Coord_cl(100, 100, 0) );
@@ -535,19 +526,16 @@ void cItem::remove()
 	}
 
 	free = false;
-
 	clearEvents();
-
 	removeFromView(false); // Remove it from all clients in range
+	free = true;
 
 	// Update Top Objects
 	setSpawnRegion(QString::null);
 	SetOwnSerial(-1);
 
-	// Check if this item is registered as a guildstone and remove it
-	// from the container if neccesary.
-	for ( cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it )
-	{
+	// Check if this item is registered as a guildstone and remove it from the guild
+	for (cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it) {
 		cGuild *guild = it.data();
 		if (guild->guildstone() == this)
 			guild->setGuildstone(0);
@@ -555,13 +543,16 @@ void cItem::remove()
 
 	// Remove from the sector map if its a world item
 	// Otherwise check if there is a top container
-	if (container() && !container()->free)
-	{
+	if (container() && !container()->free) {
 		removeFromCont();
-	}
-	else
-	{
+	} else {
 		SectorMaps::instance()->remove(this);
+
+		// Remove us from a possilbe multi container too
+		if (multi_) {
+			multi_->removeObject(this);
+			multi_ = 0;			
+		}
 	}
 
 	// Create a copy of the content so we don't accidently change our working copy
@@ -570,22 +561,12 @@ void cItem::remove()
 	for (it2 = container.begin(); it2 != container.end(); ++it2)
 		(*it2)->remove();
 
-	// Remove us from a multi container
-	if ( multis() != INVALID_SERIAL )
-	{
-		cMulti *pMulti = dynamic_cast<cMulti*>(World::instance()->findItem(multis()));
-
-		if (pMulti)
-			pMulti->removeItem(this);
-	}
-
-	// Queue up for deletion from worldfile
-	World::instance()->deleteObject(this);
+	cUObject::remove();
 }
 
 void cItem::startDecay()
 {
-	if (container_ || nodecay()) {
+	if (container_ || nodecay() || multi_) {
 		decaytime_ = 0;
 		return;
 	}
@@ -608,7 +589,7 @@ void cItem::decay( unsigned int currenttime )
 	// Locked Down Items, NoDecay Items and Items in Containers can never decay
 	// And ofcourse items in multis cannot
 	// Static/Nevermovable items can't decay too
-	if (container() || nodecay() || isLockedDown() || multis() != INVALID_SERIAL || magic_ >= 2)
+	if (container() || nodecay() || isLockedDown() || magic_ >= 2 || multi_)
 		return;
 
 	// Start decaying
@@ -1091,6 +1072,10 @@ void cItem::update(cUOSocket *singlesocket)
 					unsigned char flags = 0;
 					cUOTxSendItem packetCopy(sendItem);
 
+					if (socket->account()->isMultiGems() && isMulti()) {
+						packetCopy.setId(0x1ea7);
+					}
+
 					// Always Movable Flag
 					if (isAllMovable())
 					{
@@ -1139,6 +1124,10 @@ void cItem::update(cUOSocket *singlesocket)
 			if (visible_ != 0)
 			{
 				flags |= 0x80;
+			}
+			
+			if (singlesocket->account()->isMultiGems() && isMulti()) {
+				sendItem.setId(0x1ea7);
 			}
 
 			sendItem.setFlags(flags);
@@ -1482,6 +1471,13 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 	{
 		Console::instance()->log( LOG_WARNING, QString( "Rejected putting an item into itself (%1)" ).arg( serial_, 0, 16 ) );
 		return;
+	}
+
+	if (pItem->multi()) {
+		if (!pItem->unprocessed()) {
+			pItem->multi()->removeObject(this);
+		}
+		pItem->setMulti(0);
 	}
 
 	if (!noRemove) {
@@ -2197,4 +2193,18 @@ unsigned int cItem::removeItems(const QStringList &baseids, unsigned int amount)
 	}
 
 	return amount;
+}
+
+void cItem::moveTo(const Coord_cl &newpos, bool noremove) {
+	// See if the map is valid
+	if (!Map->hasMap(newpos.map)) {
+		return;
+	}
+
+	if (container_) {
+		pos_ = newpos;
+		changed_ = true;
+	} else {
+		cUObject::moveTo(newpos, noremove);
+	}
 }

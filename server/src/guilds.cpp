@@ -33,6 +33,7 @@
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "world.h"
+#include "items.h"
 
 cGuilds::~cGuilds() {
 	for (iterator it = begin(); it != end(); ++it) {

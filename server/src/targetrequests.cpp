@@ -41,49 +41,15 @@
 #include "combat.h"
 #include "scriptmanager.h"
 #include "pythonscript.h"
-#include "house.h"
-#include "boats.h"
 #include "accounts.h"
 #include "makemenus.h"
 #include "itemid.h"
 #include "npc.h"
-#include "chars.h"
 #include "basics.h"
 #include "network.h"
 
 // System Includes
 #include <math.h>
-
-bool cBuildMultiTarget::responsed( cUOSocket *socket, cUORxTarget *target )
-{
-	if( target->x() == 0xFFFF || target->y() == 0xFFFF || target->z() == 0xFF )
-	{
-		socket->sysMessage( "Invalid target." );
-		return true;
-	}
-	
-	const cElement* DefSection = DefManager->getDefinition( WPDT_MULTI, multisection_ );
-	
-	if( !DefSection )
-	{
-		socket->sysMessage( "Invalid multisection." );
-		return true;
-	}
-
-	if( DefSection->getAttribute( "type" ) == "house" )
-	{
-		cHouse* pHouse = new cHouse();
-		
-		pHouse->build( DefSection, target->x(), target->y(), target->z(), senderserial_, deedserial_ );
-	}
-	else if( DefSection->getAttribute( "type" ) == "boat" )
-	{
-		cBoat* pBoat = new cBoat();
-
-		pBoat->build( DefSection, target->x(), target->y(), target->z(), senderserial_, deedserial_ );
-	}
-	return true;
-};
 
 bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 {
@@ -324,22 +290,7 @@ bool cRemoveTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	
 	if( pChar )
 	{
-		if( pChar->objectType() == enPlayer )
-		{
-			P_PLAYER pp = dynamic_cast<P_PLAYER>(pChar);
-			if( pp->socket() )
-			{
-				pp->socket()->sysMessage( tr("You cannot delete logged in characters") );
-				return true;
-			}
-
-			if( pp->account() )
-				pp->account()->removeCharacter( pp );
-
-			cCharStuff::DeleteChar( pChar );
-		}
-		else
-			cCharStuff::DeleteChar( pChar );
+		pChar->remove();
 	}
 	else if( pItem )
 	{
@@ -383,99 +334,6 @@ bool cAddEventTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	
 	pObject->addEvent( script );
 	return true;
-}
-
-bool cSetMultiOwnerTarget::responsed( cUOSocket *socket, cUORxTarget *target )
-{
-	cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multi_ ) );
-	if( !pMulti || !socket->player() )
-	{
-		socket->sysMessage( tr( "An error occured! Send a bug report to the staff, please!" ) );
-		return true;
-	}
-	
-	if( target->x() == 0xFFFF && target->y() == 0xFFFF && target->z() == (INT8)0xFF )
-		return true;
-	
-	P_PLAYER pc = dynamic_cast<P_PLAYER>(FindCharBySerial( target->serial() ));
-	if( !pc )
-	{
-		socket->sysMessage( tr( "This is not a valid target!" ) );
-		return false;
-	}
-	
-	if( coowner_ )
-	{
-		pMulti->setCoOwner( pc );
-		socket->sysMessage( tr("You have made %1 to the new co-owner of %2").arg( pc->name() ).arg( pMulti->name() ) );
-		pc->socket()->sysMessage( tr("%1 has made you to the new co-owner of %2").arg( socket->player()->name() ).arg( pMulti->name() ) );
-	}
-	else
-	{
-		pMulti->setOwner( pc );
-		socket->sysMessage( tr("You have made %1 to the new owner of %2").arg( pc->name() ).arg( pMulti->name() ) );
-		pc->socket()->sysMessage( tr("%1 has made you to the new owner of %2").arg( socket->player()->name() ).arg( pMulti->name() ) );
-	}
-	return true;
-}
-
-bool cMultiAddToListTarget::responsed( cUOSocket *socket, cUORxTarget *target )
-{
-	cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multi_ ) );
-	if( !pMulti || !socket->player() )
-	{
-		socket->sysMessage( tr( "An error occured! Send a bug report to the staff, please!" ) );
-		return true;
-	}
-	
-	if( target->x() == 0xFFFF && target->y() == 0xFFFF && target->z() == (INT8)0xFF )
-		return true;
-	
-	P_PLAYER pc = dynamic_cast<P_PLAYER>(FindCharBySerial( target->serial() ));
-	if( !pc )
-	{
-		socket->sysMessage( tr( "This is not a valid target!" ) );
-		return false;
-	}
-	
-	if( banlist_ )
-	{
-		pMulti->addBan( pc );
-	}
-	else
-	{
-		pMulti->addFriend( pc );
-	}
-	socket->sysMessage( tr("Select another char to add to the %1!").arg( banlist_ ? tr("list of banned") : tr("list of friends") ) );
-	return false;
-}
-
-bool cMultiChangeLockTarget::responsed( cUOSocket *socket, cUORxTarget *target )
-{
-	cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multi_ ) );
-	if( !pMulti || !socket->player() )
-	{
-		socket->sysMessage( tr( "An error occured! Send a bug report to the staff, please!" ) );
-		return true;
-	}
-	
-	if( target->x() == 0xFFFF && target->y() == 0xFFFF && target->z() == (INT8)0xFF )
-		return true;
-	
-	P_ITEM pi = FindItemBySerial( target->serial() );
-	if( !pi )
-	{
-		socket->sysMessage( tr( "This is not a valid target!" ) );
-		return false;
-	}
-	
-	if( pi->multis() == pMulti->serial() && pi->type() != 117 )
-	{
-		pi->setMagic((pi->magic() == 4 && pi->type() != 222) ? 0 : 4);
-		pi->update();
-	}
-	socket->sysMessage( tr("Select another item to lock/unlock!") );
-	return false;
 }
 
 bool cShowTarget::responsed( cUOSocket *socket, cUORxTarget *target )

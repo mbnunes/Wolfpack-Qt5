@@ -43,9 +43,6 @@
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
 #include "resources.h"
-#include "multis.h"
-#include "boats.h"
-#include "chars.h"
 #include "npc.h"
 #include "itemid.h"
 #include "basics.h"
@@ -278,17 +275,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		pc_currchar->message( "Gulp!" );
 		return;
 
-	case 222:	// player clicks on a house item (sign) to set ban/friendlists, rename
-		{
-			cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
-			if( pMulti && ( pMulti->owner() == pc_currchar || pMulti->coOwner() == pc_currchar || pc_currchar->isGM() ) && socket )
-			{
-				cMultiGump* pGump = new cMultiGump( pc_currchar->serial(), pMulti->serial() );
-				socket->send( pGump );
-			}
-		}
-		return;
-
 	// 1001: Sword Weapons (Swordsmanship)
 	case 1001: 
 	// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
@@ -311,71 +297,5 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		break;
 	}
 
-	// END Check items by type
-	
-	// Begin checking objects by ID
-	if (!pi->isLockedDown()) // Ripper
-	{
-		switch (pi->id())
-		{	
-			case 0x14F0:// deeds
-				if ((pi->type() != 103) &&(pi->type() != 202))
-				{  
-					const cElement *section = DefManager->getDefinition( WPDT_MULTI, pi->getTag( "multisection" ).toString() );
-					
-					if( section )
-					{
-						UI32 houseid = 0;
-						
-						unsigned int i = 0;
-						while( i < section->childCount() && !houseid )
-						{
-							const cElement *childNode = section->getChild( i++ );
-
-							if( childNode->name() == "id" )
-								houseid = hex2dec( childNode->text() ).toUInt();
-							else if( childNode->name() == "ids" )
-								houseid = hex2dec( childNode->getAttribute( "north" ) ).toUInt();
-						}
-
-						if( houseid != 0 )
-							socket->attachTarget( new cBuildMultiTarget( pi->getTag( "multisection" ).toString() , pc_currchar->serial(), pi->serial() ), houseid );
-					}
-				}
-				return;// deeds
-			
-			case 0x0FA0:
-			case 0x0FA1: // thread to Bolt
-			case 0x0E1D:
-			case 0x0E1F:
-			case 0x0E1E:  // yarn to cloth
-//					pc_currchar->setTailItem(  pi->serial() );
-//					target(s, 0, 1, 0, 165, "Select loom to make your cloth");
-				return;
-				return;
-			case 0x0E73: // cannon ball
-//					target(s, 0, 1, 0, 170, "Select cannon to load."); 
-				pi->remove();
-				return;
-			case 0x0FF8:
-			case 0x0FF9: // pitcher of water to flour
-//					pc_currchar->setTailItem( pi->serial() );
-//					target(s, 0, 1, 0, 173, "Select flour to pour this on.");  
-				return;
-			case 0x09C0:
-			case 0x09C1: // sausages to dough
-//					pc_currchar->setTailItem( pi->serial() );
-//					target(s, 0, 1, 0, 174, "Select dough to put this on.");  
-				return;
-			case 0x0DF8: // wool to yarn 
-//					pc_currchar->setTailItem( pi->serial() );
-//					target(s, 0, 1, 0, 164, "Select your spin wheel to spin wool.");      
-				return;
-			default:
-				break;
-		}
-	}
-
-	// END Check items by ID
 	socket->sysMessage( tr( "You can't think of a way to use that item." ) );
 }

@@ -30,13 +30,11 @@
 #include "ai/ai.h"
 #include "basedef.h"
 #include "basics.h"
-#include "boats.h"
 #include "commands.h"
 #include "console.h"
 #include "getopts.h"
 #include "contextmenu.h"
 #include "corpse.h"
-#include "house.h"
 #include "inlines.h"
 #include "log.h"
 #include "makemenus.h"
@@ -59,6 +57,7 @@
 #include "wolfpack.h"
 #include "world.h"
 #include "wpdefmanager.h"
+#include "multi.h"
 
 #include "python/engine.h"
 #include "python/utilities.h"
@@ -174,22 +173,6 @@ void SetGlobalVars()
 {
 	keeprun = 1;
 	secure = 1;
-}
-
-static void InitMultis()
-{
-	cItemIterator iter_items;
-	P_ITEM pItem;
-
-	for( pItem = iter_items.first(); pItem; pItem = iter_items.next() )
-	{
-		cMulti *pMulti = dynamic_cast< cMulti* >( pItem );
-		if( pMulti )
-		{
-			pMulti->checkChars();
-			pMulti->checkItems();
-		}
-	}
 }
 
 QMutex actionMutex;
@@ -404,11 +387,10 @@ int main( int argc, char **argv )
 
 	// Registers our Built-in types into factory.
 	cPlayer::registerInFactory();
+	cMulti::registerInFactory();
 	cNPC::registerInFactory();
 	cItem::registerInFactory();
 	cCorpse::registerInFactory();
-	cBoat::registerInFactory();
-	cHouse::registerInFactory();
 	cResourceItem::registerInFactory();
 
 	// NPC AI types
@@ -449,8 +431,6 @@ int main( int argc, char **argv )
 		return 1;
 	}
 #endif
-
-	InitMultis();
 
 	uiCurrentTime = getNormalizedTime();
 
@@ -559,7 +539,7 @@ int main( int argc, char **argv )
 		lockDataMutex();
 		cNetwork::instance()->poll();
 		Timing::instance()->poll();
-        unlockDataMutex();
+		unlockDataMutex();
 	}
 
 	changeServerState(SHUTDOWN);

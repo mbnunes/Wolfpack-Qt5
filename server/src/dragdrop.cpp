@@ -40,10 +40,10 @@
 #include "network/uosocket.h"
 #include "network/uorxpackets.h"
 #include "network/uotxpackets.h"
-#include "multis.h"
 #include "dragdrop.h"
 #include "player.h"
 #include "npc.h"
+#include "items.h"
 #include "world.h"
 #include "inlines.h"
 
@@ -209,18 +209,11 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		}
 	}
 
-	// The item was in a multi
-	if( pItem->multis() != INVALID_SERIAL )
-	{
-		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pItem->multis() ) );
-		if( pMulti )
-			pMulti->removeItem( pItem );
-	}
-	
-	pChar->addItem( cBaseChar::Dragging, pItem );
+	pChar->addItem(cBaseChar::Dragging, pItem);
 
-	if( weight != pChar->weight() )
+	if (weight != pChar->weight()) {
 		socket->sendStatWindow();
+	}
 }
 
 // Tries to equip an item
@@ -620,14 +613,6 @@ void DragAndDrop::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl 
 	pItem->removeFromCont();
 	pItem->moveTo( pos );
 	pItem->update();
-
-	// Multi handling
-	// Has it been dropped into a multi
-	cMulti* pMulti = cMulti::findMulti( pos );
-	if( pMulti )
-	{
-		pMulti->addItem( pItem );
-	}
 }
 
 inline char calcSpellId( cItem *item )

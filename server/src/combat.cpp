@@ -48,7 +48,6 @@
 #include "log.h"
 #include "player.h"
 #include "npc.h"
-#include "chars.h"
 #include "basedef.h"
 #include "items.h"
 #include "inlines.h"
@@ -957,7 +956,7 @@ void cCombat::spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl &pos 
 	{
 		QString guardsect = pRegion->getGuardSect();
 
-		P_NPC pGuard = ( guardsect.isNull() ? NULL : cCharStuff::createScriptNpc( guardsect, pos ) );
+		P_NPC pGuard = ( guardsect.isNull() ? NULL : cNPC::createFromScript(guardsect, pos));
 		
 		if ( !pGuard ) 
 			return;

@@ -43,13 +43,11 @@
 #include "network/uosocket.h"
 #include "pagesystem.h"
 #include "skills.h"
-#include "house.h"
-#include "boats.h"
 #include "pythonscript.h"
+#include "items.h"
 #include "itemid.h"
 #include "player.h"
 #include "npc.h"
-#include "chars.h"
 #include "ai/ai.h"
 #include "world.h"
 #include "inlines.h"
@@ -566,67 +564,6 @@ bool VendorChkName( P_CHAR pVendor, const QString& comm )
 		return false;
 }
 
-// Handles house commands from friends of the house.
-// msg must already be capitalized
-void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
-{
-	Q_UNUSED(socket);
-	Q_UNUSED(msg);
-	// Not inside a multi
-	if( pPlayer->multis() == INVALID_SERIAL )
-		return; 
-
-	P_ITEM pMulti = FindItemBySerial( pPlayer->multis() );
-
-	if( !pMulti )
-	{
-		Console::instance()->send( tr( "Player %1 [0x%2] has bad multi serial [0x%1]" ).arg( pPlayer->name() ).arg( pPlayer->serial(), 8, 16 ).arg( pPlayer->multis() ) );
-		pPlayer->setMultis( INVALID_SERIAL );
-		return;
-	}
-
-	if ( pMulti && IsHouse( pMulti->id() ) )
-	{
-		cHouse* pHouse = dynamic_cast< cHouse* >( pMulti );
-
-		// Only the owner or a friend of the house can control it
-		if( !( pPlayer->Owns( pHouse ) || pHouse->isFriend( pPlayer ) ) )
-			return;
-	}
-	else
-		return;
-
-	// >> LEGACY
-	/*if(msg.contains("I BAN THEE")) 
-	{ // house ban
-		addid1[s] = pMulti->serial()>>24;
-		addid2[s] = pMulti->serial()>>16;
-		addid3[s] = pMulti->serial()>>8;
-		addid4[s] = pMulti->serial()%256;
-		target(s, 0, 1, 0, 229, "Select person to ban from house.");
-	}
-	else if(msg.contains("REMOVE THYSELF")) 
-	{ // kick out of house
-		addid1[s] = pMulti->serial()>>24;
-		addid2[s] = pMulti->serial()>>16;
-		addid3[s] = pMulti->serial()>>8;
-		addid4[s] = pMulti->serial()%256;
-		target(s, 0, 1, 0, 228, "Select person to eject from house.");
-	}
-	else if (msg.contains("I WISH TO LOCK THIS DOWN")) 
-	{ // lock down code AB/LB
-         target(s, 0, 1, 0, 232, "Select item to lock down");
-	}
-	else if (msg.contains("I WISH TO RELEASE THIS")) 
-	{ // lock down code AB/LB
-          target(s, 0, 1, 0, 233, "Select item to release");
-	}
-	else if (msg.contains("I WISH TO SECURE THIS")) 
-	{ // lock down code AB/LB
-		target(s, 0, 1, 0, 234, "Select item to secure"); 
-	}*/
-}
-
 /////////////////
 // name:	response
 // purpose:	tries to get a response from an npc standing around
@@ -747,38 +684,6 @@ void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speec
 			pChar->callGuards();
 	}
 	
-	// well,i had a strange problem with duplicate speech input
-	// its quite easy to understand....
-	// the former loop searched for the tiller man and when it
-	// was found, the speechInput method of that boat was called.
-	// in this method the tiller had been removed from the mapregion
-	// and appended to the end of the cell vector... hence, the
-	// tiller was found twice...
-	// therefore we produce a QPtrList of cBoat* pointers and 
-	// then go through it for applying speech --- sereg
-	RegionIterator4Items rj( pChar->pos() );
-	QPtrList< cBoat >	pboats;
-	for( rj.Begin(); !rj.atEnd(); rj++ )
-	{
-		P_ITEM pi = rj.GetData();
-
-		if( !pi )
-			continue;
-
-		if( pi->type() == 117 && pi->getTag( "tiller" ).toInt() == 1 )
-		{
-			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->getTag("boatserial").toInt() ));
-			if( pBoat )
-				pboats.append( pBoat );
-		}
-	}
-	QPtrListIterator< cBoat >	pit( pboats );
-	while( pit.current() )
-	{
-		pit.current()->speechInput( socket, speechUpr );
-		++pit;
-	}
-
 	// this makes it so npcs do not respond to isDead people - HEALERS ??
 	if( pChar->isDead() )
 		return;
