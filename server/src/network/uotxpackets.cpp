@@ -438,7 +438,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 			position = 5;
 		}
 
-		position = (position * 5) + std::min(4, pChar->fame() / 2500);
+		position = (position * 5) + QMIN(4, pChar->fame() / 2500);
 
 		if (position < titles.size()) {
 			QString prefix = titles[position];

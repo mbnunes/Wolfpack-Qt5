@@ -302,11 +302,11 @@ void cAccounts::save()
 
 		if( !persistentBroker->tableExists( "accounts" ) )
 		{
-			Console::instance()->send("Accounts database didn't exist! Creating one");
+			Console::instance()->send("Accounts database didn't exist! Creating one\n");
 			persistentBroker->executeQuery( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
 			account->setAcl( "admin" );
-			Console::instance()->send("Created default admin account: Login = admin, Password = admin");
+			Console::instance()->send("Created default admin account: Login = admin, Password = admin\n");
 		}
 
 		persistentBroker->executeQuery( "BEGIN;" );
@@ -358,11 +358,11 @@ void cAccounts::load()
 
 		if( !persistentBroker->tableExists( "accounts" ) )
 		{
-			Console::instance()->send("Accounts database didn't exist! Creating one");
+			Console::instance()->send("Accounts database didn't exist! Creating one\n");
 			persistentBroker->executeQuery( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
 			account->setAcl( "admin" );
-			Console::instance()->send("Created default admin account: Login = admin, Password = admin");
+			Console::instance()->send("Created default admin account: Login = admin, Password = admin\n");
 		}
 
 		cDBResult result = persistentBroker->query( "SELECT accounts.login,accounts.password,accounts.flags,accounts.acl,accounts.lastlogin,accounts.blockuntil FROM accounts;" );

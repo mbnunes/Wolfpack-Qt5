@@ -291,6 +291,9 @@ void cUObject::addEvent( cPythonScript *Event )
 	changed_ = true;
 }
 
+/*!
+	Removes an event handler from the object
+*/
 void cUObject::removeEvent( const QString& name )
 {
 	if( scriptChain && hasEvent( name ) )
@@ -710,9 +713,9 @@ const cVariant &cUObject::getTag( const QString& key ) const
 	return tags_.get( key );
 }
 
-bool cUObject::hasTag( const QString& key )
+bool cUObject::hasTag( const QString& key ) const
 {
-	changed_ = true;
+//	changed_ = true;
 	return tags_.has( key );
 }
 

@@ -1145,7 +1145,10 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 		{
 			if ( (*it)->checkVisible() )
 				if ( !menu->onCheckVisible( this->player(), clicked, entryCount ) )
+				{
+					++i;
 					continue;
+				}
 			bool enabled = true;
 			if ( (*it)->checkEnabled() )
 				if ( !menu->onCheckEnabled( this->player(), clicked, entryCount ) )

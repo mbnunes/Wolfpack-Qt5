@@ -100,7 +100,7 @@ public:
 
 	// Forwarder for the tags
 	const cVariant &getTag( const QString& key ) const;
-	bool hasTag( const QString& key );
+	bool hasTag( const QString& key ) const;
 	void setTag( const QString& key, const cVariant& value );
 	void removeTag( const QString& key );
 	void clearTags();
