@@ -1,7 +1,9 @@
 from xml.dom.minidom import *
 
-import Tkinter
+import sys
+sys.path[:0] = ['../python-lib/']
 import Pmw
+import Tkinter
 
 class Option:
 	def __init__(self,name,defvalue, choices):
@@ -16,7 +18,7 @@ class ConfigGroup:
 		tag_font = Pmw.logicalfont('Helvetica', 4),
 		)
 		self.y = y
-		self.height = 10
+		self.height = 20
 		for op in options:
 			if len( op.choices ) > 0:
 				entry = Pmw.ComboBox(self.gr.interior(),
