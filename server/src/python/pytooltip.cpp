@@ -70,15 +70,6 @@ static PyTypeObject wpTooltipType = {
     (setattrfunc)wpTooltip_setAttr,
 };
 
-static PyObject *wpTooltip_add( wpTooltip *self, PyObject *args );
-static PyObject *wpTooltip_send( wpTooltip *self, PyObject *args );
-
-static PyMethodDef wpTooltipMethods[] = 
-{
-	{"add", (getattrofunc)wpTooltip_add, METH_VARARGS, "Adds new line to tooltip packet."},
-    { NULL, NULL, 0, NULL }
-};
-
 static PyObject *wpTooltip_add(wpTooltip *self, PyObject *args) {
 	char *params;
 	unsigned int id;
@@ -91,6 +82,19 @@ static PyObject *wpTooltip_add(wpTooltip *self, PyObject *args) {
 	PyMem_Free(params);
 	return PyTrue;
 }
+
+static PyObject *wpTooltip_reset(wpTooltip *self, PyObject *args) {
+	self->list->resize(19);
+	self->list->setShort(1, 19);
+	return PyTrue;
+}
+
+static PyMethodDef wpTooltipMethods[] = 
+{
+	{"reset", (getattrofunc)wpTooltip_reset, METH_VARARGS, "Resets the tooltip packet."},
+	{"add", (getattrofunc)wpTooltip_add, METH_VARARGS, "Adds new line to tooltip packet."},
+    { NULL, NULL, 0, NULL }
+};
 
 PyObject* PyGetTooltipObject( cUOTxTooltipList *tooltip )
 {

@@ -235,32 +235,36 @@ void commandSet( cUOSocket *socket, const QString &command, const QStringList &a
 	}
 
 	QString key = args[0];
+	QStringList realargs(args);
+	realargs.remove(realargs.begin());
+	QString value;
+	if (realargs.size() == 0) 
+	{
+		value = "";
+	}
+	else
+	{
+		value = realargs.join(" ");
+	}
+
 	// Alias for speed sake on setting stats.
 	if( key == "str" )
 	{
-		QString value = args.join( " " );
-		value = value.right( value.length() - key.length() - 1); // -1 because of the join() separator character
 		socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( "strength" ).arg( value ) );
 		socket->attachTarget( new cSetTarget( "strength", value ) );
 	}
 	else if( key == "dex" )
 	{
-		QString value = args.join( " " );
-		value = value.right( value.length() - key.length() - 1); // -1 because of the join() separator character
 		socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( "dexterity" ).arg( value ) );
 		socket->attachTarget( new cSetTarget( "dexterity", value ) );
 	}
 	else if( key == "int" )
 	{
-		QString value = args.join( " " );
-		value = value.right( value.length() - key.length() - 1); // -1 because of the join() separator character
 		socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( "intelligence" ).arg( value ) );
 		socket->attachTarget( new cSetTarget( "intelligence", value ) );
 	}
 	else
 	{
-		QString value = args.join( " " );
-		value = value.right( value.length() - key.length() - 1); // -1 because of the join() separator character
 		socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( key ).arg( value ) );
 		socket->attachTarget( new cSetTarget( key, value ) );
 	}
