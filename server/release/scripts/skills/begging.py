@@ -17,6 +17,8 @@ import wolfpack
 # 5. If your karma gets too low, there is a chance the NPC will refuse to give you any gold at all. Where "low" means negative karma. All karma my GM Beggar had was the little he could acquire from wrestling rats in town.
 
 GOLD_COIN = "eed"
+GOLD_COIN1 = "eee"
+GOLD_COIN2 = "eef"
 BEGGING_RANGE = 3
 
 def onLoad():
@@ -53,7 +55,7 @@ def response( char, args, target ):
 
 	# town cryer : I feel sorry for thee... Thou dost not look trustworthy... no gold for thee today! : 500405 + 500406
 	gold = npc.countresource( GOLD_COIN )
-	if not gold:
+	if not gold or gold < 10:
 		# Thou dost not look trustworthy... no gold for thee today!
 		char.socket.clilocmessage( 500406, "", 0x3b2, 3, npc )
 		return
@@ -65,8 +67,17 @@ def response( char, args, target ):
 		gold_beg = gold / 10
 	else:
 		gold_beg = 10
+
+	if gold_beg == 1:
+		gold_coins = GOLD_COIN
+	elif gold_beg < 4:
+		gold_coins = GOLD_COIN1
+	else:
+		gold_coins = GOLD_COIN2
+
 	# success msg : I feel sorry for thee... here have a gold coin : 500405 + 1010012
 	# fail msg : They seem unwilling to give you any money : 500404
+
 	if success:
 		char.socket.clilocmessage( 500405, "", 0x3b2, 3, npc )
 		char.socket.clilocmessage( 1010012, "", 0x3b2, 3, npc )
@@ -74,10 +85,12 @@ def response( char, args, target ):
 		backpack = char.getbackpack()
 		if not backpack:
 			return
-		# can we add a amount of gold coin at once ?
-		# it's too much work to add 10 gold coin one by one ;)
-		for i in range( 0, gold_beg ):
-			backpack.additem( GOLD_COIN )
+		coins = wolfpack.additem( gold_coins )
+		if not coins:
+			return
+		coins.amount = gold_beg
+		backpack.additem( coins )
+		coins.update()
 	else:
 		char.socket.clilocmessage( 500404, "", 0x3b2, 3, npc )
 
