@@ -4715,11 +4715,11 @@ struct pathnode_coordComparePredicate : public std::binary_function<pathnode_cl,
 
 /*!
 	Heuristic function for A*
-	We use simple 3-dim. euclid distance: d = sqrt( |x1-x2|² + |y1-y2|² + |z1-z2|² )
+	We use simple 3-dim. euclid distance: d = sqrt( (x1-x2)² + (y1-y2)² + (z1-z2)² )
 */
 float cChar::pathHeuristic( const Coord_cl &source, const Coord_cl &destination )
 {
-	return (float)( sqrt( pow( abs(source.x - destination.x), 2 ) + pow( abs(source.y - destination.y), 2 ) + pow( abs(source.z - destination.z) / 5, 2 ) ) );
+	return (float)( sqrt( pow( source.x - destination.x, 2 ) + pow( source.y - destination.y, 2 ) + pow( (source.z - destination.z) / 5.0f, 2 ) ) );
 }
 
 /*!
