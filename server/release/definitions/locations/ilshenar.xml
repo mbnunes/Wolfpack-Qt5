@@ -1,0 +1,54 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Raptor                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+
+	<location id="unnamed1" category="Ilshenar\Cities\Ancient Citadel\Entrance">1518,568,-14,2</location>
+	<location id="unnamed2" category="Ilshenar\Cities\Gargoyle City\Bank">852,602,-40,2</location>
+	<location id="unnamed3" category="Ilshenar\Cities\Gargoyle City\Central Area">836,641,-20,2</location>
+	<location id="ilshenar lakeshire center" category="Ilshenar\Cities\LakeShire\Central Area">1203,1124,-25,2</location>
+	<location id="ilshenar mistas center" category="Ilshenar\Cities\Mistas\Central Area">820,1073,-30,2</location>
+	<location id="ilshenar montor center" category="Ilshenar\Cities\Montor\Central Area">1643,310,48,2</location>
+	<location id="ilshenar reg volon center" category="Ilshenar\Cities\Req Volon\Central Area">1362,10733,-13,2</location>
+	<location id="ilshenar savage camp center" category="Ilshenar\Cities\Savage Camp\Central Area">1251,743,-80,2</location>
+	<location id="ilshenar terort skitas entrance" category="Ilshenar\Cities\Terort Skitas\Entrance">567,437,21,2</location>
+	<location id="ilshenar ankh entrance" category="Ilshenar\Dungeons\Ankh\Entrance">576,1150,-100,2</location>
+	<location id="ilshenar ankh 1" category="Ilshenar\Dungeons\Ankh\Level 1">155,1482,-28,2</location>
+	<location id="ilshenar ankh kirin pass" category="Ilshenar\Dungeons\Ankh\Kirin Passage">11,874,-28,2</location>
+	<location id="ilshenar ankh serpentine pass" category="Ilshenar\Dungeons\Ankh\Serpentine Passage">396,1578,-28,2</location>
+	
+	<location id="ilshenar blood entrance" category="Ilshenar\Dungeons\Blood\Entrance">1747,1228,-1,2</location>
+	<location id="ilshenar blood 1" category="Ilshenar\Dungeons\Blood\Level 1">2114,834,-28,2</location>
+	
+	<location id="ilshenar exodus entrance" category="Ilshenar\Dungeons\Exodus\Entrance">835,777,-80,2</location>
+	<location id="ilshenar exodus 1" category="Ilshenar\Dungeons\Exodus\Level 1">1974,115,-28,2</location>
+
+	<location id="ilshenar rock entrance" category="Ilshenar\Dungeons\Rock\Entrance">1788,573,70,2</location>
+	<location id="ilshenar rock 1" category="Ilshenar\Dungeons\Rock\Level 1">2188,318,-7,2</location>
+	<location id="ilshenar rock 2" category="Ilshenar\Dungeons\Rock\Level 2">2188.28.-27,2</location>
+	
+	<location id="ilshenar sorcerers entrance" category="Ilshenar\Dungeons\Sorcerers\Entrance">548,462,-53,2</location>
+	<location id="ilshenar sorcerers 1" category="Ilshenar\Dungeons\Sorcerers\Level 1">428,109,-28,2</location>
+	<location id="ilshenar sorcerers 2" category="Ilshenar\Dungeons\Sorcerers\Level 2">240,23,-18,2</location>
+	<location id="ilshenar sorcerers 3" category="Ilshenar\Dungeons\Sorcerers\Level 3">272,136,-28,2</location>
+	<location id="ilshenar sorcerers 4" category="Ilshenar\Dungeons\Sorcerers\Level 4">132,124,-28,2</location>
+	<location id="ilshenar sorcerers 5" category="Ilshenar\Dungeons\Sorcerers\Level 5">236,121,-28,2</location>
+	
+	<location id="ilshenar spectre entrance" category="Ilshenar\Dungeons\Spectre\Entrance">1363,1033,-8,2</location>
+	<location id="ilshenar spectre 1" category="Ilshenar\Dungeons\Spectre\Level 1">1982,1103,-28,2</location>
+	
+	<location id="ilshenar wisp entrance" category="Ilshenar\Dungeons\Wisp\Entrance">651,1302,-58,2</location>
+	<location id="ilshenar wisp 1" category="Ilshenar\Dungeons\Wisp\Level 1">627,1525,-28,2</location>
+	<location id="ilshenar wisp 2" category="Ilshenar\Dungeons\Wisp\Level 2">718,1492,-28,2</location>
+	<location id="ilshenar wisp 3" category="Ilshenar\Dungeons\Wisp\Level 3">832,1551,-28,2</location>
+	<location id="ilshenar wisp 4" category="Ilshenar\Dungeons\Wisp\Level 4">960,1428,-28,2</location>
+	<location id="ilshenar wisp 5" category="Ilshenar\Dungeons\Wisp\Level 5">942.1465,-33,2</location>
+	<location id="ilshenar wisp 6" category="Ilshenar\Dungeons\Wisp\Level 6">866,1434,-28,2</location>
+	<location id="ilshenar wisp 7" category="Ilshenar\Dungeons\Wisp\Level 7">807,1548,-28,2</location>
+	<location id="ilshenar wisp 8" category="Ilshenar\Dungeons\Wisp\Level 8">754,1479,-28,2</location>
+</definitions>
