@@ -98,7 +98,7 @@
 			<description>Craft a broad sword with this option. You can select different materials for this item if you are skilled enough and have the necessary resources!</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="5" />
-				<makeitem section="WEAPONS_SWORDS_broad" amount="1" />
+				<makeitem section="weapons_swords_broad" amount="1" />
 				<skillcheck skillid="7" min="350" max="850" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
@@ -109,7 +109,7 @@
 			<description>Craft a viking sword with this option.</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="6" />
-				<makeitem section="WEAPONS_SWORDS_viking" amount="1" name="iron viking sword" />
+				<makeitem section="weapons_swords_viking" amount="1" name="iron viking sword" />
 				<skillcheck skillid="7" min="400" max="850" />
 				<skillcheck skillid="4" min="200" max="500" />
 			</make>
