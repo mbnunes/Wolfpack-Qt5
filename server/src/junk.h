@@ -129,7 +129,6 @@ P_ITEM FindItemBySerial(int serial);
 P_ITEM FindItemBySerPtr(unsigned char *p);
 P_CHAR FindCharBySerial(int serial);
 P_CHAR FindCharBySerPtr(unsigned char *p);
-P_ITEM Packitem(P_CHAR pc); // Find packitem
 
 
 P_ITEM GetOutmostCont(P_ITEM pItem, short rec = 10);

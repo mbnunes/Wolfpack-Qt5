@@ -723,9 +723,6 @@ public:
 	P_ITEM getBankBox( void );
 	void openBank( UOXSOCKET socket = -1 );
 	int  CountBankGold();
-	void addHalo(P_ITEM pi);
-	void removeHalo(P_ITEM pi);
-	void glowHalo(P_ITEM pi);
 	bool hasWeapon();
 	bool hasShield();
 	P_ITEM getBackpack();

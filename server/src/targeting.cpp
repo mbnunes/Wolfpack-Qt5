@@ -64,7 +64,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	if (pc->free) return;
 	P_CHAR pc_currchar = currchar[s];
 
-	P_ITEM pBackpack = Packitem(pc_currchar);
+	P_ITEM pBackpack = pc_currchar->getBackpack();
 	if (!pBackpack) {sysmessage(s,"Time to buy a backpack"); return; } //LB
 
 	int serial=LongFromCharPtr(buffer[s]+7);
@@ -1570,127 +1570,6 @@ void cTargets::SetMurderCount( int s )
 	}
 }
 
-void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
-{
-	int c;
-
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	if( serial == INVALID_SERIAL) return;
-	P_ITEM pi1 = FindItemBySerial(serial);
-	if (pi1 == NULL)
-	{
-		sysmessage(s,"Item not found.");
-		return;
-	}
-
-	P_CHAR pc_currchar = currchar[s];
-	if (!pi1->isInWorld())
-	{
-		P_ITEM pj = dynamic_cast<P_ITEM>(pi1->container()); // in bp ?
-		P_CHAR pc_l = dynamic_cast<P_CHAR>(pi1->container()); // equipped ?
-		P_CHAR pc_k = NULL;
-		if (pc_l == NULL) 
-			pc_k = GetPackOwner(pj); 
-		else 
-			pc_k = pc_l;
-		if (pc_k != currchar[s])	// creation only allowed in the creators pack/char otherwise things could go wrong
-		{
-			sysmessage(s,"you can't unglow items in other persons packs or hands");
-			return;
-		}
-	}
-
-	if (pi1->glow != INVALID_SERIAL)
-	{
-		sysmessage(s,"that object already glows!\n");
-		return;
-	}
-
-	c=0x99;
-	pi1->glow_color = pi1->color(); // backup old colors
-
-	pi1->setColor( c );
-
-	P_ITEM pi2 = Items->SpawnItem(s, pc_currchar,1,"glower",0,0x16,0x47,0,0,1); // new client 1.26.2 glower object
-
-	if(pi2 == NULL) return;
-	pi2->dir=29; // set light radius maximal
-	pi2->visible=0;
-
-	pi2->setOwnerMovable();
-
-	cMapObjects::getInstance()->remove(pi2); // remove if add in spawnitem
-	pi2->setLayer( pi1->layer() );
-	if( pi2->layer() == 0 ) // if not equipped -> coords of the light-object = coords of the
-	{
-		pi2->moveTo( pi1->pos );
-	} 
-	else // if equipped -> place lightsource at player ( height= approx hand level )
-	{
-		pi2->pos.x=pc_currchar->pos.x;
-		pi2->pos.y=pc_currchar->pos.y;
-		pi2->pos.z=pc_currchar->pos.z+4;
-	}
-
-	pi2->priv=0; // doesnt decay
-
-	pi1->glow=pi2->serial; // set glow-identifier
-
-
-	pi1->update();
-	pi2->update();
-
-	impowncreate(s, pc_currchar, 0); // if equipped send new color too
-}
-
-void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from items
-{
-	int c;
-	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (!pi)
-	{
-		sysmessage(s,"no item found");
-		return;
-	}
-
-	if (!pi->isInWorld())
-	{
-		P_ITEM pj = dynamic_cast<P_ITEM>(pi->container()); // in bp ?
-		P_CHAR pc_l = dynamic_cast<P_CHAR>(pi->container()); // equipped ?
-		P_CHAR pc_k = NULL;
-		if (pc_l == NULL) 
-			pc_k = GetPackOwner(pj); 
-		else 
-			pc_k = pc_l;
-		if (pc_k != currchar[s])	// creation only allowed in the creators pack/char otherwise things could go wrong
-		{
-			sysmessage(s,"you can't unglow items in other persons packs or hands");
-			return;
-		}
-	}
-
-	c = pi->glow;
-	if(c == INVALID_SERIAL) return;
-	P_ITEM pj = FindItemBySerial(c);
-
-	if (pi->glow==0 || pj == NULL )
-	{
-		sysmessage(s,"that object doesnt glow!\n");
-		return;
-	}
-
-	pi->setColor( pi->glow_color );
-
-	Items->DeleItem(pj); // delete glowing object
-
-	pi->glow = INVALID_SERIAL; // remove glow-identifier
-	pi->update();
-
-	impowncreate(s, currchar[s], 0); // if equipped send new old color too
-
-	currchar[s]->removeHalo(pi);
-}
-
 void cTargets::FetchTarget(UOXSOCKET s) // Ripper
 {
 	sysmessage(s,"Fetch is not available at this time.");
@@ -1958,12 +1837,10 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 			break;
 //		case 247: Targ->ShowSkillTarget(s);break; //showskill target
 //		case 248: Targ->MenuPrivTarg(s);break; // menupriv target
-		case 249: Targ->UnglowTaget(s);break; // unglow
 		case 251: Targ->NewXTarget(s); break; // NEWX
 		case 252: Targ->NewYTarget(s); break; // NEWY
 		case 253: Targ->IncXTarget(s); break; // INCX
 		case 254: Targ->IncYTarget(s); break; // INCY
-		case 255: Targ->GlowTarget(s); break; // glow
 		case 259: Targ->HouseUnFriendTarget(s); break;
 
 		default:

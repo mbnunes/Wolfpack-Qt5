@@ -1272,30 +1272,6 @@ void checkkey ()
 	}
 }
 #endif
-void start_glow(void)	// better to make an extra function cauze in loaditem it could be the case that the
-{						// glower is loaded before the pack
-	AllItemsIterator it;
-	for (it.Begin(); !it.atEnd();it++)
-	{
-		const P_ITEM pi = it.GetData();	// on error return
-		if (pi->glow>0 && !pi->free)
-		{
-			if (!pi->isInWorld())
-			{
-				P_ITEM pj = FindItemBySerial(pi->contserial); // find glowing item in backpack
-				P_CHAR pc_l = FindCharBySerial(pi->contserial); // find equipped glowing items
-				P_CHAR pc;
-				if (pc_l == NULL) pc = GetPackOwner(pj); else pc = pc_l;
-				if (pc != NULL)
-				{
-					pc->addHalo(pi);
-					pc->glowHalo(pi);
-				}
-			}
-		}
-	}
-}
-
 
 #if defined(__unix__)
 	bool bDeamon = false; //true ;
@@ -1533,10 +1509,6 @@ int main( int argc, char *argv[] )
 	starttime=uiCurrentTime;
 	endtime=0;
 	lclock=0;
-
-	clConsole.PrepareProgress( "Start glowing items" );
-	start_glow();
-	clConsole.ProgressDone();
 
 	clConsole.PrepareProgress( "Initializing GM Pages" );
 	clConsole.ProgressDone();
@@ -2011,7 +1983,7 @@ int getamount(P_CHAR pc, short id)
 {
 	if (pc == NULL)
 		return 0;
-	P_ITEM pi=Packitem(pc);
+	P_ITEM pi=pc->getBackpack();
 	if (pi==NULL)
 		return 0;
 	else
@@ -2028,7 +2000,7 @@ void delequan(P_CHAR pc, short id, int amount, int *not_deleted)
 	if ( pc == NULL )
 		return;
 
-	P_ITEM pi=Packitem(pc);
+	P_ITEM pi=pc->getBackpack();
 	if (pi == NULL)
 	{
 		if (not_deleted != NULL)

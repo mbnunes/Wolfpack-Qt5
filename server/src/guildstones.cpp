@@ -563,7 +563,7 @@ static void RemoveShields(P_CHAR pc)
 {
 	cwmWorldState->RemoveItemsFromCharBody(pc->serial,0x1B, 0xC3);
 	cwmWorldState->RemoveItemsFromCharBody(pc->serial,0x1B, 0xC4);
-	P_ITEM pPack = Packitem(pc);
+	P_ITEM pPack = pc->getBackpack();
 	if (pPack)
 	{
 		pPack->DeleteAmount(666,0x1BC3);	// hope they don't have more than 666 shields ;-) (Duke)

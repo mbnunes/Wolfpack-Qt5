@@ -386,8 +386,8 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	P_CHAR pc_currchar = currchar[s];
 	unsigned char msg[90];
 
-	P_ITEM pi_bps = Packitem(pc_currchar);
-	P_ITEM pi_bpi = Packitem(pc_i);
+	P_ITEM pi_bps = pc_currchar->getBackpack();
+	P_ITEM pi_bpi = pc_i->getBackpack();
 	UOXSOCKET s2 = calcSocketFromChar(pc_i);
 
 	if (pi_bps == NULL) //LB
@@ -568,11 +568,7 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 		if (pi != NULL)
 			if ((pi->contserial==serial))
 			{
-				if (pi->glow != INVALID_SERIAL)
-					glowsp.remove(p2->serial, pi->serial); // lb, glowing stuff
 				bp2->addItem(pi);
-				if (pi->glow != INVALID_SERIAL)
-					glowsp.insert(p1->serial, pi->serial);
 				if (s1!=-1)
 					pi->update();//AntiChrist
 				if (s2!=-1) sendbpitem(s2, pi);
@@ -588,11 +584,7 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 		if (pi != NULL)
 			if ((pi->contserial==serial))
 			{
-				if (pi->glow != INVALID_SERIAL)
-					glowsp.remove(p2->serial, pi->serial); // lb, glowing stuff
 				bp1->addItem(pi);
-				if (pi->glow != INVALID_SERIAL)
-					glowsp.insert(currchar[s1]->serial, pi->serial);
 				if (s2 != INVALID_UOXSOCKET)
 					pi->update();//AntiChrist
 				if (s1 != INVALID_UOXSOCKET) sendbpitem(s1, pi);

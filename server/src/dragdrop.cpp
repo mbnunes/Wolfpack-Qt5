@@ -457,14 +457,6 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 			mSock->send( &soundEffect );
 		}
 	}
-
-	// Lord Binaries Glow stuff
-	if( pItem->glow != INVALID_SERIAL )
-	{
-		pChar->removeHalo( pItem );
-		pWearer->addHalo( pItem );
-		pWearer->glowHalo( pItem );
-	}
 }
 
 void cDragItems::dropItem( cUOSocket *socket, cUORxDropItem *packet )
@@ -647,12 +639,6 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 	pItem->update();
 	if( pItem->priv & 0x01 )
 		pItem->startDecay();
-
-	if( pItem->glow != INVALID_SERIAL )
-	{
-		pChar->removeHalo( pItem );
-		pChar->glowHalo( pItem );
-	}
 
 	// Multi handling
 	cMulti* pMulti = cMulti::findMulti( pos );
@@ -846,18 +832,6 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	// << could it be that addItemToContainer is enough?? >>
 	if( pCont->type() == 9 )
 		Magic->openSpellBook( pChar, pCont );
-
-	// Glowing Objects moved between chars
-	if( pItem->glow != INVALID_SERIAL )
-	{
-		pChar->removeHalo( pItem );
-				
-		if( packOwner != NULL )
-		{
-			packOwner->addHalo(pItem);
-			packOwner->glowHalo(pItem);
-		}
-	}
 }
 
 // Food was dropped on a pet

@@ -498,52 +498,6 @@ void cChar::openBank( UOXSOCKET socket )
 	}
 }
 
-///////////////////////
-// Name:	CountItems
-// history:	by Duke, 13.5.2001
-// Purpose:	assigns the halo of the given item to a character
-
-void cChar::addHalo(P_ITEM pi)
-{
-	glowsp.insert(this->serial, pi->serial);
-}
-
-void cChar::removeHalo(P_ITEM pi)
-{
-	glowsp.remove(this->serial, pi->serial);
-}
-
-void cChar::glowHalo(P_ITEM pi)
-{
-	if (pi->glow != INVALID_SERIAL)
-	{
-		P_ITEM pHalo=FindItemBySerial(pi->glow);
-		if (!pHalo) return;
-		
-		pHalo->setLayer( pi->layer() ); // copy layer information of the glowing item to the invisible light emitting object
-		
-		if(pHalo->layer()==0 && pi->isInWorld()) // unequipped -> light source coords = item coords
-		{
-			pHalo->dir=29;
-			pHalo->moveTo( pi->pos );
-		} else if (pHalo->layer() == 0 && !pi->isInWorld()) // euqipped -> light source coords = players coords
-		{
-			pHalo->pos.x=this->pos.x;
-			pHalo->pos.y=this->pos.y;
-			pHalo->pos.z=this->pos.z+4;
-			pHalo->dir=99; // gives no light in backpacks
-		} else
-		{
-			pHalo->pos.x=this->pos.x;
-			pHalo->pos.y=this->pos.y;
-			pHalo->pos.z=this->pos.z+4;
-			pHalo->dir=29;
-		}
-
-		pHalo->update();//AntiChrist
-	}
-}
-
 bool cChar::hasWeapon()
 {
 	P_ITEM pi = atLayer( SingleHandedWeapon );
@@ -564,11 +518,6 @@ bool cChar::hasShield()
 		return true;
 	else
 		return false;
-}
-
-P_ITEM Packitem(P_CHAR pc) // Find packitem
-{
-	return pc->atLayer( cChar::Backpack );
 }
 
 P_ITEM cChar::getBackpack()	

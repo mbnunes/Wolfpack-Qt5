@@ -146,8 +146,6 @@ private:
 	void HouseFriendTarget(int s);
 	void HouseUnBanTarget(int s);
 	void HouseUnFriendTarget(int s);
-	void GlowTarget(int s);
-    void UnglowTaget(int s); 
 	void TargetsMenuPrivTarg(int s);
 	void ResurrectionTarget( UOXSOCKET s );
 	//taken from 6904t2(5/10/99) - AntiChrist

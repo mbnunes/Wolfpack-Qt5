@@ -188,9 +188,6 @@ cItem::cItem( cItem &src )
 	this->poisoned=src.poisoned;
 	this->murderer_ = src.murderer_;
  	this->murdertime=src.murdertime;
-    this->glow=src.glow;
-    this->glow_effect=src.glow_effect;
-    this->glow_color = src.glow_color;
 	this->time_unused=src.time_unused;
 	this->timeused_last=getNormalizedTime();
 	this->setSpawnRegion( src.spawnregion() );
@@ -534,9 +531,6 @@ void cItem::save( const QString& s/* = QString::null  */ )
 	savePersistentIntValue("disabled",		disabled);
 	savePersistentStrValue("spawnregion",	spawnregion_);
 	savePersistentIntValue("good",			good);
-	savePersistentIntValue("glow",			glow);
-	savePersistentIntValue("glow_color",	glow_color);
-	savePersistentIntValue("glowtype",		glow_effect);
 	savePersistentStrValue("desc",			desc);
 	savePersistentStrValue("carve",			carve_);
 	savePersistentIntValue("accuracy",		accuracy_);
@@ -611,9 +605,6 @@ void cItem::load( const QString& s/* = QString::null  */ )
 		loadPersistentUIntValue("disabled",		disabled);
 		loadPersistentIntValue("spawnregion",	spawnregion_);
 		loadPersistentIntValue("good",			good);
-		loadPersistentIntValue("glow",			glow);
-		loadPersistentIntValue("glow_color",	glow_color);
-		loadPersistentIntValue("glowtype",		glow_effect);
 		loadPersistentStrValue("desc",			desc);
 		loadPersistentStrValue("carve",			carve_);
 		loadPersistentIntValue("accuracy",		accuracy_);
@@ -784,9 +775,6 @@ void cItem::Init( bool mkser )
 	this->disabledmsg = ""; //Item disabled message. -- by Magius(CHE) §
 	this->poisoned = 0; //AntiChrist -- for poisoning skill
  	this->murdertime = 0; //AntiChrist -- for corpse -- when the people has been killed
-    this->glow = INVALID_SERIAL;
-    this->glow_effect = 0;
-    this->glow_color = 0;
 	this->time_unused = 0;
 	this->timeused_last=getNormalizedTime();
 	this->spawnregion_ = "";
@@ -807,12 +795,6 @@ void cAllItems::DeleItem(P_ITEM pi)
 	{
 		// Remove it from view
 		pi->removeFromView( true );
-
-		if (pi->glow != INVALID_SERIAL) 
-		{  
-			P_ITEM pj = FindItemBySerial( pi->glow );
-			if (pj != NULL) Items->DeleItem(pj); // lb glow stuff, deletes the glower of an glowing stuff automatically
-		}
 
 		pi->SetSpawnSerial(-1);
 		pi->SetOwnSerial(-1);
@@ -938,7 +920,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 	if (pc_ch == NULL) 
 		return NULL;
 
-	P_ITEM pPack=Packitem(pc_ch);
+	P_ITEM pPack = pc_ch->getBackpack();
 	bool pile = false;
 	
 	if (pileable)
@@ -1024,7 +1006,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging) // Added by Genesis 11-5-98
 {
 	P_CHAR pc_currchar = currchar[s];
-	P_ITEM backpack = Packitem(pc_currchar);
+	P_ITEM backpack = pc_currchar->getBackpack();
 	
 	P_ITEM pi = createScriptItem(s, nItem, 1);
 	if (pi == NULL || backpack == NULL)
@@ -2582,9 +2564,6 @@ void cItem::load( char **result, UINT16 &offset )
 	disabled = atoi( result[offset++] );
 	spawnregion_ = result[offset++];
 	good = atoi( result[offset++] );
-	glow = atoi( result[offset++] );
-	glow_color = atoi( result[offset++] );
-	glow_effect = atoi( result[offset++] );
 	desc = result[offset++];
 	carve_ = result[offset++];
 	accuracy_ = atoi( result[offset++] );
@@ -2645,9 +2624,6 @@ void cItem::load( char **result, UINT16 &offset )
 	disabled	= result->value( offset++ ).toUInt();
 	spawnregion_ = result->value( offset++ ).toString();
 	good		= result->value( offset++ ).toInt();
-	glow		= result->value( offset++ ).toInt();
-	glow_color	= result->value( offset++ ).toInt();
-	glow_effect = result->value( offset++ ).toInt();
 	desc		= result->value( offset++ ).toString();
 	carve_		= result->value( offset++ ).toString();
 	accuracy_	= result->value( offset++ ).toInt();*/
@@ -2658,7 +2634,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.moreb1,items.moreb2,items.moreb3,items.moreb4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.value,items.restock,items.disabled,items.spawnregion,items.good,items.glow,items.glow_color,items.glowtype,items.desc,items.carve,items.accuracy" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.moreb1,items.moreb2,items.moreb3,items.moreb4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.value,items.restock,items.disabled,items.spawnregion,items.good,items.desc,items.carve,items.accuracy" ); // for now! later on we should specify each field
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }

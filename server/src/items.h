@@ -270,11 +270,6 @@ public:
 	//       you click on the item appear its name and the name of the
 	//       creator. A Negative value if the player is not enought
 	//       skilled!
-	
-	SERIAL glow; // LB identifies glowing objects
-	unsigned short glow_color; // for backup of old color
-	unsigned char glow_effect; 
-	
 	QString desc;
 	
 	bool incognito; //AntiChrist - for items under incognito effect

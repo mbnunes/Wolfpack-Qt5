@@ -620,7 +620,7 @@ public:
 				if (y>25) y=25;
 				// pre-calculate the random amout of gold that is "targeted"
 				
-				P_ITEM pi_p = Packitem(pc);
+				P_ITEM pi_p = pc->getBackpack();
 				gold=0;
 				realgold=0;
 				abort=0;
@@ -813,7 +813,7 @@ public:
 		{
 			if (skill)
 			{
-				P_ITEM pi_pack = Packitem(pc_currchar);
+				P_ITEM pi_pack = pc_currchar->getBackpack();
 				if (pi_pack == NULL) 
 					return true;
 				pi_pack->addItem(pi);
@@ -2065,7 +2065,7 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 	if (pc_npc == NULL) 
 		return;
 
-	P_ITEM pBackpack = Packitem(pc_npc);
+	P_ITEM pBackpack = pc_npc->getBackpack();
 	if (pBackpack == NULL) 
 	{
 		socket->sysMessage( tr("bad luck, your victim doesnt have a backpack") ); 

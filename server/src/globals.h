@@ -206,7 +206,7 @@ extern unsigned char targetok[MAXCLIENT];
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
 
-extern Container_cl stablesp, ownsp, cspawnsp, spawnsp, glowsp, cownsp;
+extern Container_cl stablesp, ownsp, cspawnsp, spawnsp, cownsp;
 extern std::list<SERIAL> guilds;
 
 /******************************************************/

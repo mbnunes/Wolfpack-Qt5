@@ -580,10 +580,6 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// keep on checking this even if we just turned, because if you are taking damage
 	// for standing here, lets keep on dishing it out. if we pass whether we actually
 	// moved or not we can optimize things some
-	/*
-		
-	// i'm afraid i don't know what this does really, do you need to do it when turning??
-	HandleGlowItems(pChar, socket);*/
 }
 
 // Thyme 07/28/00
@@ -1183,27 +1179,6 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 		}
 	}
 */
-}
-
-void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
-// PARAM WARNING: unreferenced paramater socket
-{
-	// i guess things only glow if you are online, i dunno what that means
-	if( online( pc ))
-	{
-		vector<SERIAL> vecGlowItems = glowsp.getData(pc->serial);
-		for( unsigned int ci = 0; ci < vecGlowItems.size(); ci++ )
-		{
-			P_ITEM pi = FindItemBySerial(vecGlowItems[ci]);
-			if( pi != NULL )
-			{
-				if( !pi->free )
-				{
-					pc->glowHalo(pi);
-				}
-			}
-		}
-	}
 }
 
 void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode

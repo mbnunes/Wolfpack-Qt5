@@ -133,7 +133,20 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		return;
 	}
 
+	// Error checking
 	mysql_query( &mysql, UObjectFactory::instance()->findSqlQuery( "cItem" ).latin1() );
+	
+	// Did an error occur?
+	if( mysql_error( &mysql ) )
+	{
+		QString error = mysql_error( &mysql );
+		clConsole.ChangeColor( WPC_RED );
+		clConsole.send( "\nERROR" );
+		clConsole.ChangeColor( WPC_NORMAL );
+		clConsole.send( ": " + error + "\n" );
+		return;
+	}
+
 	MYSQL_RES *result = mysql_use_result( &mysql );
 	MYSQL_ROW row;
 

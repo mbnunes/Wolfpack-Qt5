@@ -714,7 +714,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					if ( !IsHouse( pi_multi->id() ) )
 						return;
 					int los = 0;
-					const P_ITEM pi_p = Packitem(pc_currchar);
+					const P_ITEM pi_p = pc_currchar->getBackpack();
 					if( pi_p )
 					{
 						los = 0;
@@ -849,7 +849,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			}
 		case 404: // Fraz'z ID wand
 			{
-				P_ITEM pBackpack = Packitem(pc_currchar);
+				P_ITEM pBackpack = pc_currchar->getBackpack();
 				if ( pBackpack != NULL )
 				{
 					if ((pi->container() == pBackpack) || pc_currchar->Wears(pi) &&(pi->layer() == 1))
@@ -1007,7 +1007,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return; // mining
 				case 0x0E24: // empty vial
 					{
-					P_ITEM pBackpack = Packitem(pc_currchar);
+					P_ITEM pBackpack = pc_currchar->getBackpack();
 					if (pBackpack != NULL)
 						if (pi->container() == pBackpack)
 						{
