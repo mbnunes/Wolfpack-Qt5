@@ -16,7 +16,7 @@ import random
 
 # Leather types used by tailoring.
 LEATHERS = [
-		['Leather',					TAILORING, 0, ['leather_cut', 'leather_hides'], 0x0, 'leather'],
+		['Leather',			TAILORING, 0, 	['leather_cut', 'leather_hides'], 				0x0,   'leather'],
 		['Spined Leather', 	TAILORING, 650, ['spined_leather_cut', 'spined_leather_hides'], 0x283, 'spined_leather'],
 		['Horned Leather', 	TAILORING, 800, ['horned_leather_cut', 'horned_leather_hides'], 0x227, 'horned_leather'],
 		['Barbed Leather', 	TAILORING, 990, ['barbed_leather_cut', 'barbed_leather_hides'], 0x1c1, 'barbed_leather'],

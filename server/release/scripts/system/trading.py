@@ -14,8 +14,8 @@ def onLoad():
 	wolfpack.registerglobal( EVENT_TRADE, 'system.trading' )
 
 def onLogout( player ):
-	if player.hastag( 'partner' ):
-		partner = wolfpack.findchar( player.gettag( 'partner' ) )
+	if player.hastag( 'trade_partner' ):
+		partner = wolfpack.findchar( player.gettag( 'trade_partner' ) )
 		box2 = partner.itemonlayer( LAYER_TRADING )
 		box1 = player.itemonlayer( LAYER_TRADING )
 		closetrade( player, partner, box1, box2 )
@@ -40,28 +40,52 @@ def onTradeRemove( player, item ):
 
 	return True
 
+#
+# This event is called if an item is dropped on another character and
+# he is a logged in player.
+#
 def onTradeStart( player1, player2, firstitem ):
+	# If we are trading with someone else right now,
+	# trading should be denied
+	if player2.hastag('trade_partner'):
+		partner = wolfpack.findchar(int(player2.gettag('trade_partner')))
+		if partner and partner != player1:
+			player1.socket.sysmessage('Your trading partner is currently busy.')
+			if not wolfpack.utilities.tobackpack(firstitem, player1):
+				firstitem.update()
+			return False
+			
+	if player1.hastag('trade_partner'):
+		partner = wolfpack.findchar(int(player1.gettag('trade_partner')))
+		if partner and partner != player2:
+			player1.socket.sysmessage('You are trading with someone else right now.')
+			if not wolfpack.utilities.tobackpack(firstitem, player1):
+				firstitem.update()
+			return False
+	
 	#player1 : I am
 	#player2 : Partner
 
-	#Creating trade container for me
+	# Creating trade container for me
 	box1 = player1.itemonlayer( LAYER_TRADING )
 	if not box1:
 		box1 = wolfpack.additem( "e75" )
-		box1.owner = player1.serial
+		box1.owner = player1
 		player1.additem( LAYER_TRADING, box1 )
 		box1.update()
 
-
-	#Same operation for partner
+	# Same operation for partner
 	box2 = player2.itemonlayer( LAYER_TRADING )
 	if not box2:
 		box2 = wolfpack.additem("e75")
-		box2.owner = player2.serial
+		box2.owner = player2
 		player2.additem( LAYER_TRADING, box2 )
 		box2.update()
 
+	# Unable to create trade containers
 	if not box1 or not box2:
+		if not wolfpack.utilities.tobackpack(firstitem, player1):
+			firstitem.update()
 		return False
 
 	#onLogout event should be executed for tradewindow disposing
@@ -69,12 +93,12 @@ def onTradeStart( player1, player2, firstitem ):
 	player2.addscript( 'system.trading' )
 
 	#We want to know serial of partner in future
-	player1.settag( 'partner', player2.serial )
-	player2.settag( 'partner', player1.serial )
+	player1.settag( 'trade_partner', player2.serial )
+	player2.settag( 'trade_partner', player1.serial )
 
 	#We need to store button state of each player
-	player1.settag( 'button', 0 )
-	player2.settag( 'button', 0 )
+	player1.settag( 'trade_button', 0 )
+	player2.settag( 'trade_button', 0 )
 
 	#Send trade window to both players
 	#To me
@@ -93,6 +117,9 @@ def onTradeStart( player1, player2, firstitem ):
 
 	return True
 
+#
+# This is called on trade events
+#
 def onTrade( player, type, buttonstate, itemserial ):
 	#Receiving button state, close request etc...
 	#itemserial == tradecontainer.serial of player
@@ -103,8 +130,8 @@ def onTrade( player, type, buttonstate, itemserial ):
 	handler = { 1 : closetrade, 2 : pressbutton }
 
 	#Check if we have a partner
-	if player.hastag( 'partner' ):
-		partner = wolfpack.findchar( player.gettag( 'partner' ) )
+	if player.hastag( 'trade_partner' ):
+		partner = wolfpack.findchar( player.gettag( 'trade_partner' ) )
 		if not partner:
 			return False
 	else:
@@ -120,7 +147,7 @@ def onTrade( player, type, buttonstate, itemserial ):
 
 	#Button pressed ?
 	if buttonstate == 1:
-		player.settag( 'button', 1 )
+		player.settag( 'trade_button', 1 )
 
 	#Execute handler of specified type
 	handler[type]( player, partner, box1, box2 )
@@ -133,8 +160,8 @@ def closetrade( player, partner, box1, box2 ):
 	#copying items from tradecontainers to chars backpacks
 	#Close partner tradewindow
 	for p in [player, partner]:
-		p.deltag( 'partner' )
-		p.deltag( 'button' )
+		p.deltag( 'trade_partner' )
+		p.deltag( 'trade_button' )
 
 	if box1:
 		back1 = player.getbackpack()
@@ -151,13 +178,15 @@ def closetrade( player, partner, box1, box2 ):
 
 def pressbutton( player, partner, box1, box2 ):
 	#Switch buttons on trade gump
-	button1 = player.gettag( 'button' )
-	button2 = partner.gettag( 'button' )
+	button1 = player.gettag( 'trade_button' )
+	button2 = partner.gettag( 'trade_button' )
 	sendtradepacket( player.socket, 2, box1.serial, button1, button2, "" )
 	sendtradepacket( partner.socket, 2, box2.serial, button2, button1, "" )
 
 	#To far away for trading ?
 	if player.distanceto( partner ) > 2:
+		player.socket.sysmessage('You are too far away to do that.')
+		partner.socket.sysmessage('You are too far away to do that.')
 		closetrade( player, partner, box1, box2 )
 		return True
 
