@@ -229,7 +229,7 @@ class CraftItemAction(MakeItemAction):
 	#
 	def processnode(self, node, menu):
 		# Define several common names for submaterial1
-		submaterial1names = ['leather', 'ingots']
+		submaterial1names = ['leather', 'ingots', 'granite']
 		submaterial2names = ['scales']
 		
 		if node.name in submaterial1names:
@@ -252,7 +252,16 @@ class CraftItemAction(MakeItemAction):
 					console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
 					return
 				self.materials.append([ids, amount, materialname])
-				
+		
+		# success rate per percent (e.g. for masonry)
+		elif node.name == 'percentage':
+			try:
+				maximum = hex2dec(node.getattribute('value', '100'))
+			except:
+				console.log(LOG_ERROR, "%s element with invalid value in menu %s.\n" % (node.name, menu.id))
+				return
+			self.percentage = maximum
+			
 		# Skill requirement
 		elif node.name in skillnamesids:
 			skill = skillnamesids[node.name]
