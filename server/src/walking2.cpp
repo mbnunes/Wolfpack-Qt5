@@ -993,7 +993,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, int dir, short int 
 			if( us->dead && !pc->war ) extmove[15] = extmove[15]|0x80; // Ripper
 			if(us->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
 			//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
-			int guild, race;
+			int guild;
 			//chars[i].flag=0x04;       // everyone should be blue on default
 			guild = GuildCompare( pc, us );
 			if( us->kills > SrvParams->maxkills() ) extmove[16]=6;
