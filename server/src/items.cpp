@@ -446,7 +446,7 @@ bool cItem::del()
 
 QString cItem::getName( bool shortName )
 {
-	if ( !name_.isNull() )
+	if ( !name_.isEmpty() && !name_.startsWith("#") )
 		return name_;
 
 	tile_st tile = TileCache::instance()->getTile( id_ );
@@ -1161,7 +1161,7 @@ void cItem::talk( const QString& message, UI16 color, Q_UINT8 type, bool autospa
 	textSpeech->setFont( 3 ); // Default Font
 	textSpeech->setType( speechType );
 	textSpeech->setLanguage( "" );
-	textSpeech->setName( name() );
+	textSpeech->setName( getName(true) );
 	textSpeech->setColor( color );
 	textSpeech->setText( message );
 
