@@ -1318,12 +1318,12 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 						if( nextmove.x != 0xFFFF )
 						{
 							int dir = chardirxyz( pc_i, nextmove.x, nextmove.y );
-							if( pc_i->dir() == dir )
-							{
-								// only delete the move if the dirs are equal,
-								// because walking checks this !
-								pc_i->popMove();
-							}
+							pc_i->setDir( dir );
+
+							if( pc_i->dist( pc_target ) > ( SrvParams->pathfindFollowRadius() / 2 ) )
+								dir |= 0x80;
+
+							pc_i->popMove();
 							Walking( pc_i, dir, 0xFF );
 						}
 						else
@@ -1410,12 +1410,8 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 				pc_i->findPath( fleeCoord, 2 );
 				Coord_cl nextmove = pc_i->nextMove();
 				int dir = chardirxyz( pc_i, nextmove.x, nextmove.y );
-				if( pc_i->dir() == dir )
-				{
-					// only delete the move if the dirs are equal,
-					// because walking checks this !
-					pc_i->popMove();
-				}
+				pc_i->setDir( dir );
+				pc_i->popMove();
 				Walking( pc_i, dir, 0xFF );
 			}
 			else

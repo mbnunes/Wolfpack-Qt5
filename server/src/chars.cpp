@@ -4831,7 +4831,7 @@ void cChar::findPath( const Coord_cl &goal, float sufficient_cost = 0.0f )
 		{
 			pos = *nit;
 			// this should change z coordinates also if there are stairs
-			if( mayWalk( this, pos ) )
+			if( mayWalk( this, pos ) && !Movement::instance()->CheckForCharacterAtXYZ( this, pos ) )
 			{
 				// push a path node into the priority queue
 				newNode = new pathnode_cl( pos.x, pos.y, pos.z, currentNode->step + 1, pathHeuristic( pos, goal ) );
