@@ -28,8 +28,8 @@ RES_HEALING = 800
 # delay for res a char
 RES_DELAY = 10000
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.healing" )
+#def onLoad():
+#	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.healing" )
 
 # healing using the bandages
 def onUse( char, item ):

@@ -13,8 +13,8 @@ from wolfpack.consts import *
 # reagents
 ids = [ 0x0f85, 0x0f84, 0x0f86, 0x0f7b, 0x0f7a, 0x0f8d, 0x0f8f, 0x0f88 ]
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.alchemy" )
+#def onLoad():
+#	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.alchemy" )
 
 def onUse( char, item ):
 	# Needs to be on ourself

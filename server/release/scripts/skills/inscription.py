@@ -27,7 +27,7 @@ def onLoad():
 def onSkillUse( char, skill ):
 	if skill != INSCRIPTION:
 		return 0
-	char.socket.sysmessage( "not implemented yet" )
+	char.socket.sysmessage( "copying a book is not implemented yet" )
 	return 1
 
 # skill is used via a scribe's pen

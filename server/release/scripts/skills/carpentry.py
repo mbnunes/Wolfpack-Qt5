@@ -27,8 +27,8 @@ skills = { 'small_bed':[ { CARPENTRY:[ 947, 1000], TAILORING:[ 750, 900 ] }, { 0
 	'flourmill':[ { CARPENTRY:[ 947, 1200 ], TINKERING:[ 500, 600 ] }, { 0x1bd7:100, 0x1bf2:50 } ],
 	'watertrough':[ { CARPENTRY:[ 736, 850 ] }, { 0x1bd7:150 } ] }
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.carpentry" )
+#def onLoad():
+#	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.carpentry" )
 
 # skill is used via a tool
 def onUse( char, item ):

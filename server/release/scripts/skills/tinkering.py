@@ -20,8 +20,8 @@ gems = { 0xf0f:'star sapphire', 0xf10:'emerald', 0xf11:'sapphire',
 	0xf2c:'citrine', 0xf2d:'tourmaline', 0xf2e:'amethyst', 0xf2f:'emerald',
 	0xf30:'diamond' }
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.tinkering" )
+#def onLoad():
+#	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.tinkering" )
 
 # skill is used via a tool
 def onUse( char, item ):

@@ -34,8 +34,8 @@ campfire = range( 0x0de3, 0x0de8 )
 firefield = [ 0x398c, 0x3996 ]
 fires = ovens1 + ovens2 + ovens3 + ovens4 + campfire, firefield
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.cooking" )
+#def onLoad():
+#	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.cooking" )
 
 def onUse( char, item ):
 	# Needs to be on ourself
@@ -97,16 +97,10 @@ def makedough( char ):
 		return
 	# if we have no water in backpack, check around
 	if not water:
-		for i in ( -WATER_RANGE, WATER_RANGE ):
-			for j in ( -WATER_RANGE, WATER_RANGE ):
-				items = wolfpack.items( char.pos.x + i, char.pos.y + j, char.pos.map )
-				for item in items:
-					if item.id in waters2:
-						water = item
-						break
-				if water:
-					break
-			if water:
+		items = wolfpack.items( char.pos.x + i, char.pos.y + j, char.pos.map, WATER_RANGE )
+		for item in items:
+			if item.id in waters2:
+				water = item
 				break
 	# we don't have any water
 	if not water:
@@ -279,30 +273,18 @@ def makepizza_( char, name ):
 
 def checkmill( pos ):
 	found = 0
-	for i in range( -MILL_RANGE, MILL_RANGE ):
-		for j in range( -MILL_RANGE, MILL_RANGE ):
-			items = wolfpack.items( pos.x + i, pos.y + j, pos.map )
-			for item in items:
-				if item.id in flour_mill:
-					found = 1
-					break
-			if found:
-				break
-		if found:
+	items = wolfpack.items( pos.x + i, pos.y + j, pos.map, MILL_RANGE )
+	for item in items:
+		if item.id in flour_mill:
+			found = 1
 			break
 	return found
 
 def checkfire( pos ):
 	found_fire = 0
-	for i in range( -FIRE_RANGE, FIRE_RANGE ):
-		for j in range( -FIRE_RANGE, FIRE_RANGE ):
-			items = wolfpack.items( pos.x + i, pos.y + j, pos.map )
-			for item in items:
-				if item.id in fires:
-					found_fire = 1
-					break
-			if found_fire:
-				break
-		if found_fire:
+	items = wolfpack.items( pos.x + i, pos.y + j, pos.map, FIRE_RANGE )
+	for item in items:
+		if item.id in fires:
+			found_fire = 1
 			break
 	return found_fire

@@ -18,8 +18,8 @@ from math import *
 # arrow : "f3f - f41", 0x0f40, 0x0f41
 # bolt : "1bfb - 1bfd"
 
-def onLoad():
-	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.bowcraft" )
+#def onLoad():
+#	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.bowcraft" )
 
 def onUse( char, item ):
 	# Needs to be on ourself
