@@ -28,15 +28,15 @@
 // Wolfpack Includes
 #include "accounts.h"
 #include "serverconfig.h"
-#include "network/uosocket.h"
 #include "dbdriver.h"
 #include "console.h"
 #include "commands.h"
 #include "player.h"
-#include "network/network.h"
 #include "persistentbroker.h"
 #include "world.h"
 #include "md5.h"
+#include "network/network.h"
+#include "network/uosocket.h"
 
 // DB AutoCreation
 const char* createSql = "CREATE TABLE accounts (\

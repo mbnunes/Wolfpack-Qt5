@@ -258,6 +258,18 @@ bool cServer::run( int argc, char** argv )
 	QApplication app( argc, argv, false );
 	QTranslator translator( 0 );
 
+	// Load wolfpack.xml
+	Config::instance()->load();
+	if ( !Config::instance()->fileState() )
+	{
+		Console::instance()->log( LOG_WARNING, "Your configuration file [wolfpack.xml] have just been created with default settings.\n");
+#if !defined(Q_OS_WIN32)
+		// We can only detect mul path under Windows.
+		Console::instance()->log( LOG_ERROR, "Please setup the path to the *.mul files before continuing\n");
+		return false;
+#endif
+	}
+
 	// Start Python
 	PythonEngine::instance()->load();
 
@@ -291,13 +303,13 @@ bool cServer::run( int argc, char** argv )
 		// Open the Worldsave and Account Database drivers.
 		if ( Config::instance()->databaseDriver() != "binary" && !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
+			Console::instance()->log( LOG_ERROR, tr( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
 			return 1;
 		}
 
 		if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
+			Console::instance()->log( LOG_ERROR, tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
 			return 1;
 		}
 
@@ -399,10 +411,7 @@ void cServer::setupConsole()
 	Console::instance()->send( "Wolfpack Homepage: http://www.wpdev.org/\n" );
 	Console::instance()->send( "By using this software you agree to the license accompanying this release.\n" );
 	Console::instance()->send( "Compiled on " __DATE__ " " __TIME__ "\n" );
-	Console::instance()->send( "Compiled for QT " QT_VERSION_STR " (Using: " );
-	Console::instance()->send( qVersion() );
-	Console::instance()->send( qSharedBuild() ? " Shared" : " Static" );
-	Console::instance()->send( ")\n" );
+	Console::instance()->send( tr("Compiled for Qt %1 (Using: %2 %3)\n").arg(QT_VERSION_STR, qVersion(), qSharedBuild() ? " Shared" : " Static" ) );
 	QString pythonBuild = Py_GetVersion();
 	pythonBuild = pythonBuild.left( pythonBuild.find( ' ' ) );
 
@@ -412,11 +421,15 @@ void cServer::setupConsole()
 	pythonBuild += " Static";
 #endif
 
-	Console::instance()->send( "Compiled for Python " PY_VERSION " (Using: " );
-	Console::instance()->send( pythonBuild + ")\n" );
+#if defined(Py_UNICODE_WIDE)
+	QString UnicodeType("UCS-4");
+#else
+	QString UnicodeType("UCS-2");
+#endif
+	Console::instance()->send( tr("Compiled for Python %1 %2 (Using: %3 )\n").arg(PY_VERSION, UnicodeType, pythonBuild) );
 	Console::instance()->send( "Compiled with SQLite " SQLITE_VERSION "\n" );
 #if defined (MYSQL_DRIVER)
-	Console::instance()->send( QString( "Compiled for MySQL " MYSQL_SERVER_VERSION " (Using: %1)\n" ).arg( mysql_get_client_info() ) );
+	Console::instance()->send( tr( "Compiled for MySQL %1 (Using: %2)\n" ).arg( MYSQL_SERVER_VERSION, mysql_get_client_info() ) );
 #else
 	Console::instance()->send( "MySQL Support: disabled\n" );
 #endif
@@ -521,7 +534,7 @@ void cServer::load( const QString& name )
 
 	if ( !component->isSilent() )
 	{
-		Console::instance()->sendProgress( QString( "Loading %1" ).arg( component->getName() ) );
+		Console::instance()->sendProgress( tr( "Loading %1" ).arg( component->getName() ) );
 	}
 
 	component->load();
@@ -570,7 +583,7 @@ void cServer::unload( const QString& name )
 
 	if ( !component->isSilent() )
 	{
-		Console::instance()->sendProgress( QString( "Unloading %1" ).arg( component->getName() ) );
+		Console::instance()->sendProgress( tr( "Unloading %1" ).arg( component->getName() ) );
 	}
 
 	component->unload();
@@ -596,7 +609,7 @@ void cServer::reload( const QString& name )
 	{
 		if ( !component->isSilent() )
 		{
-			Console::instance()->sendProgress( QString( "Reloading %1" ).arg( component->getName() ) );
+			Console::instance()->sendProgress( tr( "Reloading %1" ).arg( component->getName() ) );
 		}
 
 		component->reload();

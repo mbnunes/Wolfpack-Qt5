@@ -42,19 +42,11 @@ class cUOPacket;
 
 // Typedefs
 
-typedef int GUILDID;
-typedef unsigned int TIMERVAL;
-typedef unsigned char LIGHTLEVEL;
-typedef unsigned char SECONDS;
 typedef unsigned int SERIAL;
 typedef cItem* P_ITEM;
-typedef const cItem* PC_ITEM;
 typedef cBaseChar* P_CHAR;
-typedef const cBaseChar* PC_CHAR;
 typedef cNPC* P_NPC;
-typedef const cNPC* PC_NPC;
 typedef cPlayer* P_PLAYER;
-typedef const cPlayer* PC_PLAYER;
 typedef cUObject* P_OBJECT;
 
 enum WPPAGE_TYPE

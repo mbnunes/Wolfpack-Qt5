@@ -195,53 +195,6 @@ void cUOPacket::compress( void )
 	//	return;
 
 	QByteArray temp( rawPacket.size() * 2 ); // worst case scenario for memory size
-	//#define OLDCOMPRESS
-#ifdef OLDCOMPRESS
-	unsigned char * pIn = ( unsigned char * ) rawPacket.data();
-	unsigned char * pOut = ( unsigned char * ) temp.data();
-
-	int actByte = 0;
-	int bitByte = 0;
-	int nrBits;
-	unsigned int value;
-	unsigned int len = rawPacket.size();
-
-	while ( len-- )
-	{
-		nrBits = bitTable[*pIn].size;
-		value = bitTable[*pIn++].code;
-
-		while ( nrBits-- )
-		{
-			pOut[actByte] = ( pOut[actByte] << 1 ) | ( unsigned char ) ( ( value >> nrBits ) & 0x1 );
-			bitByte = ( bitByte + 1 ) & 0x07;
-			if ( !bitByte )
-				++actByte;
-		}
-	}
-
-	nrBits = bitTable[256].size;
-	value = bitTable[256].code;
-
-	while ( nrBits-- )
-	{
-		pOut[actByte] = ( pOut[actByte] << 1 ) | ( unsigned char ) ( ( value >> nrBits ) & 0x1 );
-
-		bitByte = ( bitByte + 1 ) & 0x07;
-		if ( !bitByte )
-			++actByte;
-	}
-
-	if ( bitByte )
-	{
-		while ( bitByte < 8 )
-		{
-			pOut[actByte] <<= 1;
-			++bitByte;
-		}
-		++actByte;
-	}
-#else
 	int bufferSize = 0; // 32 bits buffer size (bits)
 	Q_INT32 buffer32 = 0; // 32 bits buffer to store the compressed data until it's larger than 1 byte
 	int codeSize = 0; // Size (in bits) of the Huffman code
@@ -278,7 +231,6 @@ void cUOPacket::compress( void )
 	{
 		temp[actByte++] = ( unsigned char ) ( buffer32 << 8 - bufferSize ) & 0xFF;//& 31;
 	}
-#endif
 	compressedBuffer.duplicate( temp.data(), actByte );
 }
 

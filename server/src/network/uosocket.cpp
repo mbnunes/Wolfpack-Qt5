@@ -815,35 +815,35 @@ bool cUOSocket::authenticate( const QString& username, const QString& password )
 				authRet = Accounts::instance()->createAccount( username, password );
 				_account = authRet;
 
-				log( QString( "Automatically created account '%1'.\n" ).arg( username ) );
+				log( tr( "Automatically created account '%1'.\n" ).arg( username ) );
 				return true;
 			}
 			else
 				denyPacket.setReason( cUOTxDenyLogin::DL_NOACCOUNT );
 			break;
 		case cAccounts::BadPassword:
-			log( QString( "Failed to log in as '%1', wrong password\n" ).arg( username ) );
+			log( tr( "Failed to log in as '%1', wrong password\n" ).arg( username ) );
 			denyPacket.setReason( cUOTxDenyLogin::DL_BADPASSWORD );
 			break;
 		case cAccounts::Wipped:
 		case cAccounts::Banned:
-			log( QString( "Failed to log in as '%1', Wipped/Banned account\n" ).arg( username ) );
+			log( tr( "Failed to log in as '%1', Wipped/Banned account\n" ).arg( username ) );
 			denyPacket.setReason( cUOTxDenyLogin::DL_BLOCKED );
 			break;
 		case cAccounts::AlreadyInUse:
-			log( QString( "Failed to log in as '%1', account is already in use\n" ).arg( username ) );
+			log( tr( "Failed to log in as '%1', account is already in use\n" ).arg( username ) );
 			denyPacket.setReason( cUOTxDenyLogin::DL_INUSE );
 			break;
 		case cAccounts::NoError:
 			break;
 		};
 
-		log( QString( "Failed to log in as '%1'.\n" ).arg( username ) );
+		log( tr( "Failed to log in as '%1'.\n" ).arg( username ) );
 		send( &denyPacket );
 	}
 	else if ( error == cAccounts::NoError )
 	{
-		log( QString( "Logged in as '%1'.\n" ).arg( username ) );
+		log( tr( "Logged in as '%1'.\n" ).arg( username ) );
 	}
 
 	_account = authRet;

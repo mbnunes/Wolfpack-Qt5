@@ -37,8 +37,10 @@
 #include "../resource.h"
 #include "../python/engine.h"
 #include "../network/network.h"
+#include "../network/uosocket.h"
 #include "../player.h"
 #include "../server.h"
+#include "../inlines.h"
 
 #define _WIN32_IE 0x0500
 #define WIN32_LEAN_AND_MEAN
@@ -219,22 +221,22 @@ LRESULT CALLBACK AboutDialog( HWND hwnd, unsigned int msg, WPARAM wparam, LPARAM
 			cf.crTextColor = RGB( 0, 0, 0 );
 
 			QString credits;
-			credits += "Compiled: " __DATE__ " " __TIME__ "\n";
-			credits += QString( "QT: %1 %2 (Compiled: %3)\n" ).arg( qVersion() ).arg( qSharedBuild() ? "Shared" : "Static" ).arg( QT_VERSION_STR );
+			credits += tr("Compiled: %1 %2\n").arg( __DATE__, __TIME__ );
+			credits += tr( "Qt: %1 %2 (Compiled: %3)\n" ).arg( qVersion() ).arg( qSharedBuild() ? "Shared" : "Static" ).arg( QT_VERSION_STR );
 
 			QString pythonBuild = Py_GetVersion();
 			pythonBuild = pythonBuild.left( pythonBuild.find( ' ' ) );
 
 #if defined(Py_ENABLE_SHARED)
-			credits += QString( "Python: %1 Shared (Compiled: %2)\n" ).arg( pythonBuild ).arg( PY_VERSION );
+			credits += tr( "Python: %1 Shared (Compiled: %2)\n" ).arg( pythonBuild ).arg( PY_VERSION );
 #else
-			credits += QString( "Python: %1 Static (Compiled: %2)\n" ).arg( pythonBuild ).arg( PY_VERSION );
+			credits += tr( "Python: %1 Static (Compiled: %2)\n" ).arg( pythonBuild ).arg( PY_VERSION );
 #endif
-			credits += "Compiled with SQLite " SQLITE_VERSION "\n";
+			credits += tr( "Compiled with SQLite %1\n" ).arg(SQLITE_VERSION);
 #if defined (MYSQL_DRIVER)
-			credits += QString( "Compiled for MySQL " MYSQL_SERVER_VERSION " (Using: %1)\n" ).arg( mysql_get_client_info() );
+			credits += tr( "Compiled for MySQL %1 (Using: %2)\n" ).arg( MYSQL_SERVER_VERSION, mysql_get_client_info() );
 #else
-			credits += "MySQL Support: disabled\n";
+			credits += tr("MySQL Support: disabled\n");
 #endif
 
 			cr.cpMin = GetWindowTextLength( richtext );
@@ -243,7 +245,7 @@ LRESULT CALLBACK AboutDialog( HWND hwnd, unsigned int msg, WPARAM wparam, LPARAM
 			SendMessage( richtext, EM_SETCHARFORMAT, SCF_SELECTION, ( LPARAM ) & cf );
 			SendMessage( richtext, EM_REPLACESEL, FALSE, ( LPARAM ) credits.latin1() );
 
-			credits = "\nThis is an unsorted and not neccesarily complete list of people who contributed to Wolfpack:\n\n";
+			credits = tr("\nThis is an unsorted and not neccesarily complete list of people who contributed to Wolfpack:\n\n");
 
 			cr.cpMin = GetWindowTextLength( richtext );
 			cr.cpMax = cr.cpMin;
@@ -587,11 +589,11 @@ protected:
 		argv[0] = appFileName;
 
 		/*
-						Parse the Windows command line string.  If an argument begins with a
-						double quote, then spaces are considered part of the argument until the
-						next double quote.  The argument terminates at the second quote. Note
-						that this is different from the usual Unix semantics.
-					*/
+			Parse the Windows command line string.  If an argument begins with a
+			double quote, then spaces are considered part of the argument until the
+			next double quote.  The argument terminates at the second quote. Note
+			that this is different from the usual Unix semantics.
+		*/
 
 		char* p = cmdLine;
 		char* p_end = p + strlen( p );
@@ -640,7 +642,7 @@ protected:
 
 		if ( returnValue_ != 0 )
 		{
-			Console::instance()->send( "\nThe server has been shut down. You can close this window now.\n" );
+			Console::instance()->send( tr("\nThe server has been shut down. You can close this window now.\n") );
 			canClose = true;
 		}
 		else

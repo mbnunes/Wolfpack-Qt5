@@ -29,7 +29,6 @@
 #define __NETWORK_H__
 
 // Library Includes
-#include <qmutex.h>
 #include <qptrlist.h>
 
 // Wolfpack Includes
@@ -39,20 +38,14 @@
 #include "uosocket.h"
 
 //Forward class Declaration
-class cNetworkStuff;
 class cAsyncNetIO;
 class cListener;
 class QHostAddress;
 
 class cNetwork : public cComponent
 {
-	QPtrList<cUOSocket> uoSockets;
-	QPtrList<cUOSocket> loginSockets;
-	cAsyncNetIO* netIo_;
-	cListener* loginServer_;
-	cListener* gameServer_;
-	QMutex mutex;
-
+	class cNetworkPrivate;
+	cNetworkPrivate* d;
 public:
 	cNetwork();
 	~cNetwork();
@@ -68,34 +61,13 @@ public:
 
 	void poll( void ); // called by the main loop
 
-	void lock()
-	{
-		mutex.lock();
-	}
-	void unlock()
-	{
-		mutex.unlock();
-	}
-	cAsyncNetIO* netIo()
-	{
-		return netIo_;
-	}
-	cUOSocket* first()
-	{
-		return uoSockets.first();
-	}
-	cUOSocket* next()
-	{
-		return uoSockets.next();
-	}
-	Q_UINT32 count()
-	{
-		return uoSockets.count();
-	}
-	QPtrListIterator<cUOSocket> getIterator()
-	{
-		return QPtrListIterator<cUOSocket>( uoSockets );
-	}
+	void lock();
+	void unlock();
+	cAsyncNetIO* netIo();
+	cUOSocket* first();
+	cUOSocket* next();
+	Q_UINT32 count();
+	QPtrListIterator<cUOSocket> getIterator();
 
 	void broadcast( const QString& message, Q_UINT16 color = 0x84d, Q_UINT16 font = 0 );
 };

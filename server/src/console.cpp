@@ -33,6 +33,7 @@
 
 #include "world.h"
 #include "network/network.h"
+#include "network/uosocket.h"
 #include "serverconfig.h"
 #include "player.h"
 #include "accounts.h"
@@ -147,7 +148,7 @@ bool cConsole::handleCommand( const QString& command )
 		break;
 
 	case 'W':
-		Console::instance()->send( "Current Users in the World:\n" );
+		Console::instance()->send( tr("Current Users in the World:\n") );
 
 		mSock = Network::instance()->first();
 		i = 0;

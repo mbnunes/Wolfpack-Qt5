@@ -1932,7 +1932,7 @@ void cItem::sendTooltip( cUOSocket* mSock )
 	// Exceptions are noted above and containers
 	if ( tile.weight == 255 && !isAllMovable() )
 	{
-		if ( tile.flag3 & 0x20 == 0 )
+		if ( ( tile.flag3 & 0x20 ) == 0 )
 			return;
 	}
 
