@@ -5,11 +5,12 @@
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
-from wolfpack.consts import *
 import wolfpack
+from wolfpack.consts import *
 
-def onContextEntry( char, healer, tag  ):
-	if( tag == 1 ):
+def onContextEntry( char, healer, tag ):
+	if( int( tag ) == 1 ):
+		healer.say("Hold still!")
 		if not char or not healer:
 			return False
 
@@ -26,4 +27,7 @@ def onContextEntry( char, healer, tag  ):
 			char.socket.clilocmessage( 1060197, "", YELLOW, NORMAL ) # You are not dead, and thus cannot be resurrected!
 			return False
 
+		return True
+	else:
+		char.say("A HEALER! RESURRECT ME!")
 		return True

@@ -17,6 +17,7 @@ import wolfpack
 from wolfpack import properties
 from wolfpack.consts import *
 import random
+import string
 from types import *
 
 """
@@ -108,6 +109,24 @@ def itemsmatch(a, b):
 def tobackpack(item, char):
 	backpack = char.getbackpack()
 	return tocontainer(item, backpack)
+
+"""
+	\function wolfpack.utilities.booleantoggle
+	\param boolean
+	\return Boolean
+	\description Takes a boolean property and toggles it.
+"""
+
+def booleantoggle( boolean ):
+	if boolean == 1:
+		boolean = 0
+	elif boolean == 0:
+		boolean = 1
+	elif boolean.lower() == "true":
+		boolean = "false"
+	elif boolean.lower() == "false":
+		boolean = "true"
+	return boolean
 
 """
 	\function wolfpack.utilities.tocontainer
@@ -447,7 +466,7 @@ def isdirt( tile ):
 	\param container The container you want to search in.
 	\param baseid The baseid of the resource you are looking for.
 	\param amount The amount that is required of the given resource.
-	\return 0 if all the required resources have been found. Otherwise the remaining amount of 
+	\return 0 if all the required resources have been found. Otherwise the remaining amount of
 	the resource that has not been found.
 	\description Recursively searches for items with a given baseid in a container and checks if a
 	given amount can be found.
@@ -501,17 +520,17 @@ def consumeresources(container, baseid, amount):
 	\param target The target that is taking damage. Only characters are allowed.
 	\param source The source of the damage. May be None.
 	\param amount The amount of damage dealt.
-	\param physical Defaults to 0. 
+	\param physical Defaults to 0.
 	The physical fraction of the damage. This is an integer value ranging from 0 to 100.
-	\param fire Defaults to 0. 
+	\param fire Defaults to 0.
 	The fire fraction of the damage. This is an integer value ranging from 0 to 100.
-	\param cold Defaults to 0. 
+	\param cold Defaults to 0.
 	The cold fraction of the damage. This is an integer value ranging from 0 to 100.
 	\param poison Defaults to 0.
 	The poison fraction of the damage. This is an integer value ranging from 0 to 100.
 	\param energy Defaults to 0.
 	The energy fraction of the damage. This is an integer value ranging from 0 to 100.
-	\param noreflect Defaults to 0. If this parameter is 1, no physical damage will be reflected back to 
+	\param noreflect Defaults to 0. If this parameter is 1, no physical damage will be reflected back to
 	the source.
 	\param damagetype Defaults to DAMAGE_MAGICAL. This is the damagetype passed on to the internal damage function.
 	You can ignore this most of the time.
