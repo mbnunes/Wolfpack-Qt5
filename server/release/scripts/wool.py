@@ -69,7 +69,7 @@ def response( char, args, target ):
 
 		wheel = wolfpack.finditem( target.item.serial )
 		processtime = 5000 # 5 Seconds
-		char.addtimer( processtime, "wool.ProcessTimer", [wheel, color] )
+		char.addtimer( processtime, "wool.ProcessTimer", [wheel.serial, color] )
 
 	elif target.item.id in animids:
 		# That spinning wheel is being used.
@@ -82,7 +82,7 @@ def response( char, args, target ):
 		return True
 
 def ProcessTimer( char, args ):
-	wheel = args[0]
+	wheel = wolfpack.finditem(args[0])
 	color = args[1]
 	GetYarn( char, wheel, color )
 	return True

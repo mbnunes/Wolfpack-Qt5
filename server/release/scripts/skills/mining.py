@@ -44,7 +44,7 @@ ORES = {
 }
 
 def mining( char, pos, tool ):
-	char.addtimer( 1300, "skills.mining.domining", [ tool, pos ] )
+	char.addtimer( 1300, "skills.mining.domining", [ tool.serial, pos ] )
 	char.socket.settag( 'is_mining', ( wolfpack.time.currenttime() + miningdelay ) )
 	char.turnto( pos )
 	char.action( ANIM_ATTACK3 )
@@ -138,7 +138,7 @@ def response( char, args, target ):
 #Sound effect
 def domining(char, args):
 	char.soundeffect( SOUND_MINING )
-	tool = args[0]
+	tool = wolfpack.finditem(args[0])
 	pos = args[1]
 	socket = char.socket
 	socket.deltag( 'is_mining' )

@@ -99,7 +99,7 @@ def totalstats( char ):
 	return char.strength + char.dexterity + char.intelligence
 
 def cleartag( self, args ):
-	char = args[0]
+	char = wolfpack.findchar(args[0])
 	tagname = args[1]
 	self.deltag( tagname )
 	return True
@@ -115,7 +115,7 @@ def antimacrocheck( char, skillid, object ):
 		elif count > ANTIMACROALLOWANCE + 1:
 			return False
 		else:
-			object.addtimer( ANTIMACRODELAY, "skills.cleartag", [char, tagname] )
+			object.addtimer( ANTIMACRODELAY, "skills.cleartag", [char.serial, tagname] )
 			return False
 	else:
 		object.settag( tagname, "1" )

@@ -143,7 +143,7 @@ def hack_logs( char, target, tool, resource ):
 	char.soundeffect( 0x13e )
 	char.addtimer( 2000, "skills.lumberjacking.chop_tree", [pos] )
 	char.addtimer( 3500, "skills.lumberjacking.chop_tree", [pos] )
-	char.addtimer( 4000, "skills.lumberjacking.successlumberjacking", [pos, resource, amount, tool, resname, woodtable ] )
+	char.addtimer( 4000, "skills.lumberjacking.successlumberjacking", [pos, resource.serial, amount, tool.serial, resname, woodtable ] )
 	return
 
 # HACK KINDLINGS
@@ -175,9 +175,9 @@ def hack_kindling( char, pos ):
 def successlumberjacking( char, args ):
 	socket = char.socket
 	pos = args[0] # Target POS
-	resource = args[1]
+	resource = wolfpack.finditem(args[1])
 	amount = args[2]
-	tool = args[3]
+	tool = wolfpack.finditem(args[3])
 	resname = args[4]
 	table = args[5]
 
