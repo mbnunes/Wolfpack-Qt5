@@ -14,74 +14,83 @@ import skills
 
 SPSPEAK_DELAY = 5000
 
-def spiritspeak( char, skill ):
-	if skill != SPIRITSPEAK:
-		return 0
-
+def spiritspeak(char, skill):
 	socket = char.socket
+	
+	if socket.hastag('spiritspeaking'):
+		socket.clilocmessage(500118)
+		return 1
 
-	if char.socket.hastag( 'skill_delay' ):
+	if socket.hastag('skill_delay'):
 		cur_time = servertime()
-		if cur_time < char.socket.gettag( 'skill_delay' ):
-			socket.clilocmessage( 500118, "", 0x3b2, 3 )
+		if cur_time < socket.gettag( 'skill_delay' ):
+			socket.clilocmessage(500118)
 			return 1
 		else:
-			char.socket.deltag( 'skill_delay' )
+			socket.deltag('skill_delay')
+			
+	if char.health >= char.maxhitpoints:
+		char.socket.clilocmessage(1061288)
+		return 1
 
-	socket.clilocmessage( 0x1034BA, "", 0x3b2, 3, char )
-	char.action( 0x11 )
-	char.addtimer( 1000, "skills.spiritspeak.effect", [ skill ] )
+	char.say("Anh Mi Sah Ko")
+	char.soundeffect(0x24a)
+	char.action(ANIM_CASTAREA)	
+	char.addtimer(1000, "skills.spiritspeak.effect", [skill])
+	socket.settag('spiritspeaking', 1)
+	return 1
 
-def effect( char, args ):
+def effect(char, args):
+	# Delete the spiritspeaking flag and set the
+	# skill delay for this client.
+	socket = char.socket
+	socket.deltag('spiritspeaking')
+	socket.settag('skill_delay', servertime() + SPSPEAK_DELAY)
 
-	cur_time = servertime()
-	char.socket.settag( 'skill_delay', ( cur_time + SPSPEAK_DELAY ) )
+	# Check for skill usage success
+	if not char.checkskill(SPIRITSPEAK, 0, 1000):
+		char.socket.clilocmessage(502443)
+		return
 
-	if not char.checkskill( SPIRITSPEAK, 0, 1000 ):
-		char.socket.clilocmessage( 0x7AAAB, "", 0x3b2, 3 )
-		return 0
-
+	# Find corpses around the user of this skill
+	# 3 tiles range.
 	pos = char.pos
-	x = pos.x
-	y = pos.y
-	map = pos.map
-
-	items = wolfpack.items( x, y, map, 2 )
+	items = wolfpack.items(pos.x, pos.y, pos.map, 3)
 	corpses = []
 	for item in items:
-		if item.id == 0x2006:
-			if not item.hastag( 'drained' ):
-				corpses.append( item )
+		if item.id == 0x2006 and not item.hastag('drained'):
+			corpses.append(item)
 
+	# There was an undrained corpse near the player using
+	# the skill.
 	if len(corpses) > 0:
-		corpse = random.choice( corpses )
-		min = floor ( char.fame / 50 ) + 1
-		max = floor ( char.skill[ SPIRITSPEAK ] / 20 )
-		if min > max:
-				min = max
-		corpse.color = 0x3da
-		char.health += random.randint( min, max )
-		char.action( 0x11 )
-		char.effect( 0x375a )
-		char.socket.clilocmessage( 0x1031A7, "", 0x3b2, 3 )
-		corpse.settag( 'drained', 1 )
+		# Select a random corpse.
+		corpse = random.choice(corpses)
+
+		# Change the color of the corpse and set the "drained" flag for it.
+		corpse.color = 0x835
+		corpse.settag('drained', 1)
 		corpse.update()
-		return 1
+				
+		char.socket.clilocmessage(1061287)
 	else:
-		max = floor ( char.skill[ SPIRITSPEAK ] / 100 ) + 4
-		min = floor( max / 2 )
-
-		if not char.mana > 10:
-			char.socket.clilocmessage( 0x1031A5, "", 0x3b2, 3 )
-			return 0
-
-		char.health += random.randint( min, max )
+		if char.mana < 10:
+			char.socket.clilocmessage(1061285)
+			return
+			
 		char.mana -= 10
-		char.effect( 0x375a )
-		char.socket.clilocmessage( 0x1031A6, "", 0x3b2, 3 )
-		char.updatehealth()
 		char.updatemana()
-		return 1
+
+		char.socket.clilocmessage(1061286)
+
+	# Show a nice effect.
+	char.effect(0x375a, 1, 15)
+	
+	# The amount of damage healed is based on the spirit speaking value.
+	minval = 1 + floor(char.skill[SPIRITSPEAK] * 0.025)
+	maxval = minval + 4
+	char.health = min(char.maxhitpoints, char.health + random.randint(minval, maxval))
+	char.updatehealth()		
 
 def onLoad():
-	skills.register( SPIRITSPEAK, spiritspeak )
+	skills.register(SPIRITSPEAK, spiritspeak)
