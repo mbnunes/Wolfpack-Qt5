@@ -1496,7 +1496,7 @@ void singleclick(UOXSOCKET s)
 	if (pi->type == 1000) // Ripper...used for bank checks.
 	{
 		int goldcount = pi->value;
-		sprintf((char*)temp, "%i gold", goldcount);
+		sprintf((char*)temp, "value : %i", goldcount);
 		itemmessage(s, (char*)temp, serial,0x0481);
 	}
 
