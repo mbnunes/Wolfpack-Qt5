@@ -890,6 +890,7 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 		Console::instance()->send( "Reloading python scripts\n" );
 		ScriptManager::instance()->reload();
 		ContextMenus::instance()->reload();
+		Console::instance()->send( "Python scripts reloaded\n" );
 	}
 	if( subCommand == "scripts" )
 	{
