@@ -95,8 +95,8 @@ public:
 			void talk( const UINT32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
 	virtual UINT8 notoriety( P_CHAR pChar = NULL );
 	virtual void showName( cUOSocket *socket );
-	virtual void fight(P_CHAR pOpponent);
 	virtual void soundEffect( UI16 soundId, bool hearAll = true );
+	virtual bool inWorld();
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
 	virtual void applyDefinition( const cElement* );

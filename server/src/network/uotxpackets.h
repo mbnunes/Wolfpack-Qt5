@@ -560,9 +560,9 @@ public:
 	{ 
 		if(extended)
 		{
-			resize(0x46);
-			setShort(1, 0x46);
-			(*this)[42] = 0x03;
+			resize(0x58);
+			setShort(1, 0x58);
+			(*this)[42] = 0x04;
 		}
 		else if(mode)
 		{

@@ -188,7 +188,6 @@ struct {
 	poisoned int(10)  NOT NULL default '0',\
 	murderertime int(11)  NOT NULL default '0',\
 	criminaltime int(11)  NOT NULL default '0',\
-	nutriment int(10)  NOT NULL default '0',\
 	gender tinyint(1)  NOT NULL default '0',\
 	propertyflags int(11)  NOT NULL default '0',\
 	murderer int(11) NOT NULL default '-1',\
@@ -229,16 +228,11 @@ struct {
 	cont int(11) NOT NULL default '-1',\
 	layer tinyint(3)  NOT NULL default '0',\
 	type smallint(5)  NOT NULL default '0',\
-	type2 smallint(5)  NOT NULL default '0',\
 	amount smallint(5)  NOT NULL default '0',\
 	decaytime int(10)  NOT NULL default '0',\
-	def int(10)  NOT NULL default '0',\
-	hidamage smallint(6) NOT NULL default '0',\
-	lodamage smallint(6) NOT NULL default '0',\
 	weight float NOT NULL default '0',\
 	hp smallint(6) NOT NULL default '0',\
 	maxhp smallint(6) NOT NULL default '0',\
-	speed int(11) NOT NULL default '0',\
 	magic tinyint(3)  NOT NULL default '0',\
 	owner int(11) NOT NULL default '-1',\
 	visible tinyint(3)  NOT NULL default '0',\

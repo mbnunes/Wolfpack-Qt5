@@ -108,6 +108,21 @@ public:
 	virtual bool canSeeItem(P_ITEM item, bool lineOfSight = false);
 
 	/*!
+		\brief This enumeration contains values that specify what events should be processed
+			for the given character.
+	*/
+	enum TimingEvents {
+		EventCombat = 1
+	};
+
+	/*!
+		\brief This function give this character time to process timing events.
+		\param time The current servertime.
+		\param events A bitfield of \a TimingEvents values to determine what exactly should be checked.
+	*/
+	virtual void poll(unsigned int time, unsigned int events);
+
+	/*!
 		\brief Kills the character.
 		\returns True if the character was really killed and false if nothing changed.
 	*/
@@ -120,8 +135,75 @@ public:
 	*/
 	cFightInfo *findFight(P_CHAR enemy);
 
-	virtual void showName( cUOSocket *socket ) = 0;
-	virtual void fight(P_CHAR pOpponent) = 0;
+	/*!
+		\brief Enumeration of fight status codes that are returned by the fight functions.
+	*/
+	enum FightStatus {
+		FightDenied = 0x00,
+		FightStarted,
+		FightContinued
+	};
+
+	/*!
+		\brief Let this creature fight another creature or cancel an ongoing fight.
+		\param enemy The enemy this creature should fight. May be null to cancel a fight.
+		\returns A returncode of the \a eFightStatus enumeration.
+	*/
+	virtual FightStatus fight(P_CHAR enemy);
+
+	/*!
+		\brief Sends a system message to this character. The message is only sent to logged
+			in players.
+		\param message The text of the message.
+		\param color The color of the sysmessage. The default is 0x3b2.
+		\param font The font for the sysmessage. The default is 0x03.
+		\returns True if the message was really sent. False otherwise.
+	*/
+	bool sysmessage(const QString &message, unsigned short color = 0x3b2, unsigned short font = 0x03);
+
+	/*!
+		\brief Sends a localized system message to this character. The message is only sent to logged
+			in players.
+		\param message The id of the localized message.
+		\param params Parameters to parse into the localized message. May be QString::null if no parameters
+			should be parsed in.
+		\param color The color of the sysmessage. The default is 0x3b2.
+		\param font The font for the sysmessage. The default is 0x03.
+		\returns True if the message was really sent. False otherwise.
+	*/
+	bool sysmessage(unsigned int message, const QString &params = QString::null, unsigned short color = 0x3b2, unsigned short font = 0x03);
+
+	/*!
+		\brief Send this character an overhead message. This does nothing for logged out characters
+			or npcs.
+		\param message The text of message to send to this character.
+		\param color The color of the message.
+		\param source The object the message should be displayed on.
+		\param font The font to show this message in. Default is 0x03.
+		\param mode The speech mode of the message. 0x00 is default and means regular speech.
+		\returns True if the message was sent or False otherwise.
+	*/
+	bool message(const QString &message, 
+				 unsigned short color = 0x3b2, 
+				 cUObject *source = 0, 
+				 unsigned short font = 0x03, 
+				 unsigned char mode = 0x00);
+
+	/*!
+		\brief Sends this character a packet if he is a player and logged in.
+		Does nothing for npcs and logged out characters.
+		\param packet The packet you want to send to this character.
+		\returns True if the packet was sent, False otherwise.
+	*/
+	virtual bool send(cUOPacket *packet);
+
+	/*!
+		\brief Checks if the character is available in world to take action.
+		\returns True if the character is in the world or False if otherwise.
+	*/
+	virtual bool inWorld() = 0;
+
+	virtual void showName( cUOSocket *socket ) = 0;	
 	virtual void soundEffect( UI16 soundId, bool hearAll = true ) = 0;
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false ) = 0;
 	virtual uint takeGold( uint amount, bool useBank = false ) = 0;
@@ -165,7 +247,6 @@ public:
 	bool isSameAs(P_CHAR pc);
 	bool inGuardedArea();
 	void emote( const QString &emote, UI16 color = 0xFFFF );
-	UI16 calcDefense( enBodyParts bodypart, bool wearout = false );
 	P_ITEM rightHandItem() const;
 	P_ITEM leftHandItem() const;
 	void bark( enBark );	// Play a body dependant sound
@@ -194,10 +275,26 @@ public:
 	virtual bool onSkillGain( unsigned char skill, unsigned short min, unsigned short max, bool success );
 	virtual bool onStatGain( unsigned char stat );
 
+	// Combat
+	inline P_CHAR attackTarget() const {
+		return attackTarget_;
+	}
+
+	inline void setAttackTarget(P_CHAR target) {
+		attackTarget_ = target;
+	}
+	
+	inline unsigned int nextSwing() const {
+		return nextSwing_;
+	}
+
+	inline void setNextSwing(unsigned int data) {
+		nextSwing_ = data;
+	}
+
 	// getters
     ushort			bodyArmor() const;
-    ushort			bodyID() const;
-    SERIAL			combatTarget() const;
+    ushort			bodyID() const;    
     QDateTime		creationDate() const;
     uint			criminalTime() const;
     ushort			deaths() const;
@@ -221,8 +318,6 @@ public:
     ushort			maxStamina() const;
     SERIAL			murdererSerial() const;
     uint			murdererTime() const;
-    uint			nextHitTime() const;
-    uint			nutriment() const;
     short			orgBodyID() const;
     QString			orgName() const;
     ushort			orgSkin() const;
@@ -243,7 +338,6 @@ public:
     int				stealthedSteps() const;
     short			strength() const;
     short			strengthMod() const;
-    SERIAL			swingTarget() const;
     QString			title() const;
     float			weight() const;
 	// bit flag getters
@@ -275,7 +369,6 @@ public:
 	// setters
 	void setBodyArmor(ushort data);
     void setBodyID(ushort data);
-    void setCombatTarget(SERIAL data);
     void setCreationDate(const QDateTime &data);
     void setCriminalTime(uint data);
     void setDeaths(ushort data);
@@ -299,8 +392,6 @@ public:
     void setMaxStamina(ushort data);
     void setMurdererSerial(SERIAL data);
     void setMurdererTime(uint data);
-    void setNextHitTime(uint data);
-    void setNutriment(uint data);
     void setOrgBodyID(short data);
     void setOrgName(const QString &data);
     void setOrgSkin(ushort data);
@@ -321,7 +412,6 @@ public:
     void setStealthedSteps(int data);
     void setStrength(short data);
     void setStrengthMod(short data);
-    void setSwingTarget(SERIAL data);
     void setTitle(const QString &data);
     void setWeight(float data);
 	// bit flag setters
@@ -363,6 +453,16 @@ private:
 	bool changed_;
 
 protected:
+	/*!
+		\brief The target we are currently attacking.
+	*/
+	P_CHAR attackTarget_;
+
+	/*!
+		\brief This indicates the time when the character will be able to swing for the next time.
+	*/
+	unsigned int nextSwing_;
+
 	/*!
 		\brief Collection of information about ongoing fights.
 	*/
@@ -485,10 +585,6 @@ protected:
     // cOldChar::hungertime_
     uint hungerTime_;
 
-    // the type of food the char can eat to decrease hunger
-    // cOldChar::food_
-    uint nutriment_;
-
     // Ingame name-color flag.
     // Bits:
     // 01 - red
@@ -516,9 +612,6 @@ protected:
 
     // Time, till criminal flag wears off. value -1 indicates not criminal!
     uint criminalTime_;
-
-    // Time till a combat hit times out.
-    uint nextHitTime_;
 
     // time till next skill usage is possible
     uint skillDelay_;
@@ -559,10 +652,6 @@ protected:
 
     // Color hue the char speeks with.
     ushort saycolor_;
-
-    // Serial of the char, which the character is currently fighting with.
-    // cOldChar::targ_
-    SERIAL combatTarget_;
 
     // Target the char is going to hit after it swang
     SERIAL swingTarget_;
@@ -870,28 +959,6 @@ inline void cBaseChar::setMurdererTime(uint data)
 	changed_ = true;
 }
 
-inline uint cBaseChar::nextHitTime() const
-{
-    return nextHitTime_;
-}
-
-inline void cBaseChar::setNextHitTime(uint data)
-{
-    nextHitTime_ = data;
-	changed_ = true;
-}
-
-inline uint cBaseChar::nutriment() const
-{
-    return nutriment_;
-}
-
-inline void cBaseChar::setNutriment(uint data)
-{
-    nutriment_ = data;
-	changed_ = true;
-}
-
 inline short cBaseChar::orgBodyID() const
 {
     return orgBodyID_;
@@ -1038,17 +1105,6 @@ inline void cBaseChar::setWeight(float data)
 	changed_ = true;
 }
 
-inline SERIAL cBaseChar::combatTarget() const
-{
-    return combatTarget_;
-}
-
-inline void cBaseChar::setCombatTarget(SERIAL data)
-{
-    combatTarget_ = data;
-	changed_ = true;
-}
-
 inline SERIAL cBaseChar::murdererSerial() const
 {
     return murdererSerial_;
@@ -1101,16 +1157,6 @@ inline void cBaseChar::setSkin(ushort data)
 {
     skin_ = data;
 	changed_ = true;
-}
-
-inline SERIAL cBaseChar::swingTarget() const
-{
-    return swingTarget_;
-}
-
-inline void cBaseChar::setSwingTarget(SERIAL data)
-{
-    swingTarget_ = data;
 }
 
 inline QString cBaseChar::title() const

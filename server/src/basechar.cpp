@@ -61,6 +61,8 @@
 
 cBaseChar::cBaseChar()
 {
+	attackTarget_		= 0;
+	nextSwing_			= 0;
 	bodyID_				= 0x190;
 	orgBodyID_			= 0x190;
 	gender_				= 0;
@@ -86,7 +88,6 @@ cBaseChar::cBaseChar()
 	deaths_				= 0;
 	hunger_				= 6;
 	hungerTime_			= 0;
-	nutriment_			= 0;
 	flag_				= 0x02;
 	emoteColor_			= 0x23;
 	creationDate_		= QDateTime::currentDateTime();
@@ -94,7 +95,6 @@ cBaseChar::cBaseChar()
 	runningSteps_		= 0;
 	murdererTime_		= 0;
 	criminalTime_		= 0;
-	nextHitTime_		= 0;
 	skillDelay_			= 0;
 	poison_				= 0;
 	poisoned_			= 0;
@@ -106,8 +106,6 @@ cBaseChar::cBaseChar()
     skin_				= 0;
     region_				= NULL;
     saycolor_			= 0x1700;
-    combatTarget_		= INVALID_SERIAL;
-    swingTarget_		= INVALID_SERIAL;
     murdererSerial_		= INVALID_SERIAL;
     guarding_			= NULL;
 	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );
@@ -146,9 +144,9 @@ void cBaseChar::buildSqlString( QStringList &fields, QStringList &tables, QStrin
 	fields.push_back( "characters.kills,characters.deaths" );
 	fields.push_back( "characters.def,characters.hunger" );
 	fields.push_back( "characters.poison,characters.poisoned" );
-	fields.push_back( "characters.murderertime,characters.criminaltime,characters.nutriment" );
+	fields.push_back( "characters.murderertime,characters.criminaltime" );
 	fields.push_back( "characters.gender,characters.propertyflags" );
-	fields.push_back( "characters.attacker,characters.combattarget,characters.murderer" );
+	fields.push_back( "characters.murderer" );
 	fields.push_back( "characters.guarding" );
 	tables.push_back( "characters" );
 	conditions.push_back( "uobjectmap.serial = characters.serial" );
@@ -197,7 +195,6 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	poisoned_ = atoi( result[offset++] );
 	murdererTime_ = atoi( result[offset++] ) + uiCurrentTime;
 	criminalTime_ = atoi( result[offset++] ) + uiCurrentTime;
-	nutriment_ = atoi( result[offset++] );
 	gender_ = atoi( result[offset++] );
 	propertyFlags_ = atoi( result[offset++] );
 	murdererSerial_ = atoi( result[offset++] );
@@ -279,7 +276,6 @@ void cBaseChar::save()
 		addField( "poisoned", poisoned_);
 		addField( "murderertime", murdererTime_ ? murdererTime_ - uiCurrentTime : 0);
 		addField( "criminaltime", criminalTime_ ? criminalTime_ - uiCurrentTime : 0);
-		addField( "nutriment", nutriment_);
 		addField( "gender", gender_ );
 		addField( "propertyflags", propertyFlags_ );
 		addField( "murderer", murdererSerial_ );
@@ -781,124 +777,6 @@ void cBaseChar::emote( const QString &emote, UI16 color )
 			mSock->send( &textSpeech );
 }
 
-UI16 cBaseChar::calcDefense( enBodyParts bodypart, bool wearout )
-{
-	P_ITEM pHitItem = NULL;
-	UI16 total = bodyArmor_; // the body armor is base value
-
-	if( bodypart == ALLBODYPARTS )
-	{
-		P_ITEM pShield = leftHandItem();
-
-		// Displayed AR = ((Parrying Skill * Base AR of Shield) �200) + 1
-		if( pShield && IsShield( pShield->id() ) )
-			total += ( (UI16)( (float)( skillValue( PARRYING ) * pShield->def() ) / 200.0f ) + 1 );
-	}
-
-	if( skillValue( PARRYING ) >= 1000 )
-		total += 5; // gm parry bonus.
-
-	P_ITEM pi;
-	ItemContainer::const_iterator it = content_.begin();
-
-	while( it != content_.end() )
-	{
-		pi = *it;
-		if( pi && pi->layer() > 1 && pi->layer() < 25 )
-		{
-			//blackwinds new stuff
-			UI16 effdef = 0;
-			if( pi->maxhp() > 0 )
-				effdef = (UI16)( (float)pi->hp() / (float)pi->maxhp() * (float)pi->def() );
-
-			if( bodypart == ALLBODYPARTS )
-			{
-				if( effdef > 0 )
-				{
-					total += effdef;
-					if( wearout )
-						pi->wearOut();
-				}
-			}
-			else
-			{
-				switch( pi->layer() )
-				{
-				case 5:
-				case 13:
-				case 17:
-				case 20:
-				case 22:
-					if( bodypart == BODY )
-					{
-						total += effdef;
-						pHitItem = pi;
-					}
-					break;
-				case 19:
-					if( bodypart == ARMS )
-					{
-						total += effdef;
-						pHitItem = pi;
-					}
-					break;
-				case 6:
-					if( bodypart == HEAD )
-					{
-						total += effdef;
-						pHitItem = pi;
-					}
-					break;
-				case 3:
-				case 4:
-				case 12:
-				case 23:
-				case 24:
-					if( bodypart == LEGS )
-					{
-						total += effdef;
-						pHitItem = pi;
-					}
-					break;
-				case 10:
-					if( bodypart == NECK )
-					{
-						total += effdef;
-						pHitItem = pi;
-					}
-					break;
-				case 7:
-					if( bodypart == HANDS )
-					{
-						total += effdef;
-						pHitItem = pi;
-					}
-					break;
-				default:
-					break;
-				}
-			}
-		}
-		++it;
-	}
-
-	if( pHitItem )
-	{
-		// don't damage hairs, beard and backpack
-		// important! this sometimes cause backpack destroy!
-		if( pHitItem->layer() != 0x0B && pHitItem->layer() != 0x10 && pHitItem->layer() != 0x15 )
-		{
-			pHitItem->wearOut();
-		}
-	}
-
-	// Base AR ?
-	/*if( total < 2 && bodypart == ALLBODYPARTS )
-		total = 2;*/
-
-	return total;
-}
-
 bool cBaseChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 {
 	bool success = false;
@@ -1394,14 +1272,12 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		setAtWar( value.toInt() );
 		return 0;
 	}
-	else SET_INT_PROPERTY( "target", combatTarget_ )
-	else SET_INT_PROPERTY( "nextswing", nextHitTime_ )
+	else SET_CHAR_PROPERTY( "attacktarget", attackTarget_ )
+	else SET_INT_PROPERTY( "nextswing", nextSwing_ )
 	else SET_INT_PROPERTY( "regenhealth", regenHitpointsTime_ )
 	else SET_INT_PROPERTY( "regenstamina", regenStaminaTime_ )
 	else SET_INT_PROPERTY( "regenmana", regenManaTime_ )
 	else SET_INT_PROPERTY( "skilldelay", skillDelay_ )
-	else SET_INT_PROPERTY( "nutriment", nutriment_ )
-	else SET_INT_PROPERTY( "food", nutriment_ )
 	else SET_INT_PROPERTY( "sex", gender_ )
 	else SET_INT_PROPERTY( "gender", gender_ )
 	else SET_INT_PROPERTY( "id", bodyID_ )
@@ -1480,15 +1356,13 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "dead", isDead() )
 	else GET_PROPERTY( "defense", (int)bodyArmor_ )
 	else GET_PROPERTY( "war", isAtWar() )
-	else GET_PROPERTY( "target", FindCharBySerial( combatTarget_ ) )
-	else GET_PROPERTY( "nextswing", (int)nextHitTime_ )
+	else GET_PROPERTY( "attacktarget", attackTarget_ )
+	else GET_PROPERTY( "nextswing", (int)nextSwing_ )
 	else GET_PROPERTY( "regenhealth", (int)regenHitpointsTime_ )
 	else GET_PROPERTY( "regenstamina", (int)regenStaminaTime_ )
 	else GET_PROPERTY( "regenmana", (int)regenManaTime_ )
 	else GET_PROPERTY( "region", ( region_ != 0 ) ? region_->name() : QString( "" ) )
 	else GET_PROPERTY( "skilldelay", (int)skillDelay_ )
-	else GET_PROPERTY( "nutriment", (int)nutriment_ )
-	else GET_PROPERTY( "food", (int)nutriment_ )
 	else GET_PROPERTY( "gender", gender_ )
 	else GET_PROPERTY( "sex", gender_ )
 	else GET_PROPERTY( "id", bodyID_ )
@@ -2434,4 +2308,270 @@ cFightInfo *cBaseChar::findFight(P_CHAR enemy) {
 	}
 
 	return 0;
+}
+
+cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy) {
+	FightStatus result = FightDenied;
+
+	if (!inWorld()) {
+		return result;
+	}
+
+	// Ghosts can't fight
+	if (isDead()) {
+		sysmessage(500949);
+		return result;
+	}
+
+	// If we dont set any serial the attack is rejected
+	cUOTxAttackResponse attack;
+	attack.setSerial(INVALID_SERIAL);
+
+	if (enemy) {
+		// Invisible or hidden creatures cannot be fought
+		if (!canSeeChar(enemy)) {
+			sysmessage(500950);
+			enemy = 0;
+		} else if (enemy->isDead()) {
+			sysmessage("You cannot fight dead creatures.");
+			enemy = 0;
+		} else if (enemy->isInvulnerable()) {
+			sysmessage(1061621);
+			enemy = 0;
+		}
+	}
+	
+	// If we are fighting someone and our target is null,
+	// stop fighting.
+	if (!enemy) {
+		// Update only if neccesary
+		if (attackTarget_) {
+			attackTarget_ = 0;
+			send(&attack);
+		}
+		return result;
+	}
+
+	// If there already is an ongoing fight with our target,
+	// simply return. Otherwise create the structure and fill it.
+	cFightInfo *fight = findFight(enemy);
+	
+	if (fight) {
+		// There certainly is a reason to renew this fight
+		fight->refresh();
+		result = FightContinued;
+	} else {
+		// Check if it is legitimate to attack the enemy
+		bool legitimate = enemy->notoriety(this) != 0x01;
+		fight = new cFightInfo(this, enemy, legitimate);
+		
+		// Display a message to the victim if our target changed to him
+		if (attackTarget() != enemy) {
+			P_PLAYER player = dynamic_cast<P_PLAYER>(enemy);
+			if (player && player->socket()) {
+				player->socket()->showSpeech(this, tr("*You see %1 attacking you.*").arg(name()), 0x26, 3, cUOTxUnicodeSpeech::Emote);
+			}
+		}
+		result = FightStarted;
+	}
+
+	// Take care of the details
+	attackTarget_ = enemy;
+	unhide();
+
+	// Accept the attack
+	attack.setSerial(enemy->serial());
+	send(&attack);
+
+	// Turn to our enemy
+	turnTo(enemy);
+
+	// See if we need to change our warmode status
+	if (!isAtWar()) {
+		cUOTxWarmode warmode;
+		warmode.setStatus(1);
+		send(&warmode);
+		setAtWar(true);
+		update();
+	}
+
+	return result;
+}
+
+//void cPlayer::fight(P_CHAR enemy) {
+/*
+	// The person being attacked is guarded by pets ?
+	cBaseChar::CharContainer guards = pc_i->guardedby();
+	for( cBaseChar::CharContainer::iterator iter = guards.begin(); iter != guards.end(); ++iter )
+	{
+		P_NPC pPet = dynamic_cast<P_NPC>(*iter);
+		if( pPet->combatTarget() == INVALID_SERIAL && pPet->inRange( _player, SrvParams->attack_distance() ) ) // is it on screen?
+		{
+			pPet->fight( pc_i );
+
+			// Show the You see XXX attacking YYY messages
+			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name() ).arg( pc_i->name() );
+			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+				if( mSock->player() && mSock->player() != pc_i && mSock->player()->inRange( pPet, mSock->player()->visualRange() ) )
+					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+			
+			if( pc_i->objectType() == enPlayer )
+			{
+				P_PLAYER pp = dynamic_cast<P_PLAYER>(pc_i);
+				if( pp->socket() )
+					pp->socket()->showSpeech( pPet, tr( "*You see %1 attacking you*" ).arg( pPet->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+			}
+		}
+	}
+
+	if( pc_i->inGuardedArea() && SrvParams->guardsActive() )
+	{
+		if( pc_i->objectType() == enPlayer && pc_i->isInnocent() ) //REPSYS
+		{
+			_player->makeCriminal();
+			Combat::instance()->spawnGuard( _player, pc_i, _player->pos() );
+		}
+		else if( pc_i->objectType() == enNPC && pc_i->isInnocent() && !pc_i->isHuman() )//&& pc_i->npcaitype() != 4 )
+		{
+			_player->makeCriminal();
+			Combat::instance()->spawnGuard( _player, pc_i, _player->pos() );
+		}
+		else if( pc_i->objectType() == enNPC && pc_i->isInnocent() && pc_i->isHuman() )//&& pc_i->npcaitype() != 4 )
+		{
+			pc_i->talk( tr("Help! Guards! I've been attacked!") );
+			_player->makeCriminal();
+			pc_i->callGuards();
+		}
+		else if ((pc_i->objectType() == enNPC || pc_i->isTamed()) && !pc_i->isAtWar() )//&& pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
+		{
+			P_NPC pn = dynamic_cast<P_NPC>(pc_i);
+			pn->setNextMoveTime();
+		}
+		else if( pc_i->objectType() == enNPC )
+		{
+			dynamic_cast<P_NPC>(pc_i)->setNextMoveTime();
+		}
+	}
+	else // not a guarded area
+	{
+		if( pc_i->isInnocent() )
+		{
+			if( pc_i->objectType() == enPlayer )
+			{
+				_player->makeCriminal();
+			}
+			else if( pc_i->objectType() == enNPC )
+			{
+				_player->makeCriminal();
+
+				if( pc_i->combatTarget() == INVALID_SERIAL )
+					pc_i->fight( _player );
+
+				if( !pc_i->isTamed() && pc_i->isHuman() )
+					pc_i->talk( tr( "Help! Guards! Tis a murder being commited!" ) );
+			}
+		}
+	}
+
+	// Send the "You see %1 attacking %2" string to all surrounding sockets
+	// Except the one being attacked
+	QString message = tr( "*You see %1 attacking %2*" ).arg(_player->name()).arg(pc_i->name());
+	for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
+		if( s->player() && s != this && s->player()->inRange( _player, s->player()->visualRange() ) && s->player() != pc_i )
+			s->showSpeech( _player, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+
+	// Send an extra message to the victim
+	if( pc_i->objectType() == enPlayer )
+	{
+		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc_i);
+		if( pp->socket() )
+			pp->socket()->showSpeech( _player, tr( "*You see %1 attacking you*" ).arg( _player->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+	}*/
+
+	// I am already fighting this character.
+/*	if( isAtWar() && combatTarget() == other->serial() )
+		return;
+
+	// Store the current Warmode
+	bool oldwar = isAtWar();
+
+	this->combatTarget_ = other->serial();
+	this->unhide();
+	this->disturbMed();	// Meditation
+	this->attackerSerial_ = other->serial();
+	this->setAtWar( true );
+
+	if( socket_ )
+	{
+		// Send warmode status
+		cUOTxWarmode warmode;
+		warmode.setStatus( true );
+		socket_->send( &warmode );
+
+		// Send Attack target
+		cUOTxAttackResponse attack;
+		attack.setSerial( other->serial() );
+		socket_->send( &attack );
+
+		// Resend the Character (a changed warmode results in not walking but really just updating)
+		if (oldwar != isAtWar()) {
+			update( true );
+		}
+	}*/
+//}
+
+bool cBaseChar::sysmessage(const QString &message, unsigned short color, unsigned short font) {
+	return false;
+}
+
+bool cBaseChar::sysmessage(unsigned int message, const QString &params, unsigned short color, unsigned short font) {
+	return false;
+}
+
+bool cBaseChar::message(const QString &message, unsigned short color, cUObject *source, unsigned short font, unsigned char mode) {
+	return false;
+}
+
+bool cBaseChar::send(cUOPacket *packet) {
+	return false;
+}
+
+void cBaseChar::poll(unsigned int time, unsigned int events) {
+	if (events & EventCombat) {
+		if (attackTarget_ && nextSwing_ <= time) {
+			P_CHAR target = attackTarget_;
+
+			// Invulnerable or Dead target. Stop fighting.
+			if (isDead() || target->isInvulnerable() || target->isDead()) {
+				fight(0);
+				return;
+			}
+
+			// Check weapon range
+			unsigned char range = 1;
+			P_ITEM weapon = getWeapon();
+
+			if (weapon && weapon->hasTag("range")) {
+				range = weapon->getTag("range").toInt();
+			}
+
+			// We are out of range
+			if (pos().distance(target->pos()) > range) {
+				return;
+			}
+
+			// Can we see our target?
+			if (!canSee(attackTarget_, true)) {
+				return;
+			}
+	
+			cPythonScript *global = ScriptManager::instance()->getGlobalHook(EVENT_SWING);
+
+			if (global) {
+				PyObject *args = Py_BuildValue("O&O&i", PyGetCharObject, this, PyGetCharObject, attackTarget_, time);
+				global->callEvent(EVENT_SWING, args);
+				Py_DECREF(args);
+			}
+		}
+	}
 }

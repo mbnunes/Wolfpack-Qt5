@@ -163,7 +163,7 @@ float Animal_Wild_Flee::preCondition()
 	 *
 	 */
 
-	if( m_npc->combatTarget() != INVALID_SERIAL )
+	if( m_npc->attackTarget() )
 		return 0.0f;
 
 	RegionIterator4Chars ri( m_npc->pos(), SrvParams->animalWildFleeRange() );
@@ -194,7 +194,7 @@ float Animal_Wild_Flee::postCondition()
 	 *
 	 */
 
-	if( m_npc->combatTarget() != INVALID_SERIAL )
+	if( m_npc->attackTarget() )
 		return 1.0f;
 
 	RegionIterator4Chars ri( m_npc->pos(), SrvParams->animalWildFleeRange() );

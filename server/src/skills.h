@@ -106,8 +106,6 @@ public:
 	void SkillUse( cUOSocket*, UINT16 );
 	void CreateTrackingMenu(int s, int m);
 	void TrackingMenu(int s, int gmindex);
-	void Persecute(cUOSocket*);//AntiChrist persecute stuff
-	int GetAntiMagicalArmorDefence(P_CHAR pc); // blackwind meditation armor stuff
 	void Snooping(P_PLAYER, P_ITEM);
 };
 

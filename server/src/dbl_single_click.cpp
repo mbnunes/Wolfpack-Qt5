@@ -280,348 +280,261 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 			socket->sysMessage( tr( "You are already living!" ) );
 			return;
 		}
-		
-	case 117:		
-		// Boats ->
-		if (pi->type2() == 3)
+	
+	// Drinks
+	case 105:  
+		pc_currchar->soundEffect( 0x30 + RandomNum( 0, 1 ) );			
+		pi->reduceAmount( 1 ); // Remove a drink
+		pc_currchar->message( "Gulp!" );
+		return;
+
+	case 222:	// player clicks on a house item (sign) to set ban/friendlists, rename
 		{
-			if( pc_currchar->inRange( pi, 3 ) )
-			{
-				if (pi->getTag("boatserial").isValid())
-				{
-					cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->getTag("boatserial").toInt() ) );
-					pBoat->handlePlankClick( socket, pi );
-				}
-				else 
-					socket->sysMessage(tr("That is locked."));
-			}
-			else
-				socket->clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
-		}
-		else if( pi->type2() == 222 )
-		{
-			cMulti* pMulti = dynamic_cast< cMulti* >( pi );
+			cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
 			if( pMulti && ( pMulti->owner() == pc_currchar || pMulti->coOwner() == pc_currchar || pc_currchar->isGM() ) && socket )
 			{
 				cMultiGump* pGump = new cMultiGump( pc_currchar->serial(), pMulti->serial() );
 				socket->send( pGump );
 			}
 		}
-		// End Boats --^
+		return;
+	
+	case 402: // Blackwinds Reputation ball 
+		{ 
+			pc_currchar->soundEffect( 0x01ec ); // Play sound effect for player 
+            socket->sysMessage(tr("Your karma is %1").arg(pc_currchar->karma())); 
+            socket->sysMessage(tr("Your fame is %1").arg(pc_currchar->fame())); 
+            socket->sysMessage(tr("Your Kill count is %1 ").arg(pc_currchar->kills())); 
+            socket->sysMessage(tr("You died %1 times.").arg(pc_currchar->deaths()));
+			pc_currchar->effect( 0x372A, 0x09, 0x06 );
+			socket->sysMessage(tr("*The crystal ball seems to have vanished*"));
+            pi->reduceAmount(1); 
+            return; 
+		}
+	
+	// Dyes
+	case 405:
+		{
+			cUOTxDyeTub dyetub;
+			dyetub.setSerial( pi->serial() );
+			dyetub.setModel( 0xFAB );
+			socket->send( &dyetub );
+		}
 		return;
 
-	// Food, OSI style
-	case 14:
-		pc_currchar->setObjectDelay( 0 );
-		
-		if( pi->isLockedDown() )
-			return; // Ripper..cant eat locked down food :)
-		
-		if( pi->container() && pi->getOutmostChar() != pc_currchar )
-		{
-			socket->clilocMessage( 0x7A482 ); // You can't eat that, it belongs to someone else.
-		}
+	// 1001: Sword Weapons (Swordsmanship)
+	case 1001: 
+	// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
+	case 1002: 
+	// 1005: Fencing
+	case 1005:
+	// 1003: Macefighting (Staffs)
+	case 1003:
+	// 1004: Macefighting (Maces/WarHammer)
+	case 1004:
+	// 1006: Bows
+	case 1006:
+	// 1007: Crossbows
+	case 1007:
+	// 1008: Shields
+	case 1008:
+		break;
 
-		if( pc_currchar->hunger() < 0 )
-			pc_currchar->setHunger( 0 );
+	/* Skill related types */
+	// 1100: Blacksmithing Tools
+	case 1100:
+		Skills->Blacksmithing( socket );
+		return;
 
-		if( pc_currchar->hunger() >= 6 )
-		{
-			socket->clilocMessage( 0x7A483 ); // You are simply too full to eat any more!
-			return;
-		}
-
-		if( pi->type2() == COOKEDMEAT || pi->type2() == COOKEDFISH || pi->type2() == PASTRIES || pi->type2() == FRUIT || pi->type2() == OTHER || pi->type2() == VEGETABLES )
-		{
-			pc_currchar->soundEffect( 0x3A + RandomNum( 0, 2 ) );
-			
-			switch( pc_currchar->hunger() )
-			{
-			case 0:
-			case 1:
-				socket->clilocMessage( 0x7A484 ); // You eat the food, but are still extremely hungry.
-				break;
-
-			case 2:
-				socket->clilocMessage( 0x7A486 ); // After eating the food, you feel much less hungry.
-				break;
-
-			case 3:
-				socket->clilocMessage( 0x7A485 ); // You eat the food, and begin to feel more satiated.
-				break;
-
-			case 4:
-				socket->clilocMessage( 0x7A487 ); // You feel quite full after consuming the food.
-				break;
-
-			case 5:
-				socket->clilocMessage( 0x7A488 ); // You manage to eat the food, but you are stuffed!
-				break;
-			}
-
-			pi->reduceAmount( 1 );	// Remove a food item
-			pc_currchar->setHunger( pc_currchar->hunger() + 1 );
-		}
+	// 1101: Anvil
+	case 1101:
+		if( !pc_currchar->inRange( pi, 3 ) )
+			socket->sysMessage( tr( "Must be closer to use this!" ) );
 		else
+			socket->sysMessage( "Select item to be repaired." );
+			// TODO: Reimplement repairing items.
+		return;
+
+	// 1102: Ore
+	case 1102:
+		socket->sysMessage( "Where do you want to smelt the ore?" );
+		socket->attachTarget( new cConvertResource( QString("RESOURCE_INGOT"), pi ) );
+		return;
+
+	// 1103: Carpentry Tools
+	case 1103:
+		Skills->Carpentry( socket );
+		return;
+
+	// 1104: Mining Tools
+	case 1104:
+		if( !pi->wearOut() )
 		{
-			socket->sysMessage( tr( "You can't eat that!" ) );
+			socket->sysMessage( tr( "Where do you want to dig?" ) );
+			socket->attachTarget( new cFindResource( "RESOURCE_ORE" ) );
 		}
 		return;
-		
-		// Drinks
-		case 105:  
-			pc_currchar->soundEffect( 0x30 + RandomNum( 0, 1 ) );			
-			pi->reduceAmount( 1 ); // Remove a drink
-			pc_currchar->message( "Gulp!" );
-			return;
 
-		case 222:	// player clicks on a house item (sign) to set ban/friendlists, rename
-			{
-				cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
-				if( pMulti && ( pMulti->owner() == pc_currchar || pMulti->coOwner() == pc_currchar || pc_currchar->isGM() ) && socket )
-				{
-					cMultiGump* pGump = new cMultiGump( pc_currchar->serial(), pMulti->serial() );
-					socket->send( pGump );
-				}
-			}
-			return;
-		
-	    case 402: // Blackwinds Reputation ball 
-			{ 
-				pc_currchar->soundEffect( 0x01ec ); // Play sound effect for player 
-                socket->sysMessage(tr("Your karma is %1").arg(pc_currchar->karma())); 
-                socket->sysMessage(tr("Your fame is %1").arg(pc_currchar->fame())); 
-                socket->sysMessage(tr("Your Kill count is %1 ").arg(pc_currchar->kills())); 
-                socket->sysMessage(tr("You died %1 times.").arg(pc_currchar->deaths()));
-				pc_currchar->effect( 0x372A, 0x09, 0x06 );
-				socket->sysMessage(tr("*The crystal ball seems to have vanished*"));
-                pi->reduceAmount(1); 
-                return; 
-			}
-		
-		// Dyes
-		case 405:
-			{
-				cUOTxDyeTub dyetub;
-				dyetub.setSerial( pi->serial() );
-				dyetub.setModel( 0xFAB );
-				socket->send( &dyetub );
-			}
-			return;
+	// 1105: Spell Scroll
+	case 1105:
+		socket->sysMessage( tr( "Casting from scrolls is currently not supported." ) );
+		return;
 
-		// 1001: Sword Weapons (Swordsmanship)
-		case 1001: 
-		// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
-		case 1002: 
-		// 1005: Fencing
-		case 1005:
-		// 1003: Macefighting (Staffs)
-		case 1003:
-		// 1004: Macefighting (Maces/WarHammer)
-		case 1004:
-		// 1006: Bows
-		case 1006:
-		// 1007: Crossbows
-		case 1007:
-		// 1008: Shields
-		case 1008:
-			break;
+	// 1106: Tailoring Tools
+	case 1106:
+		Skills->Tailoring( socket );
+		return;
 
-		/* Skill related types */
-		// 1100: Blacksmithing Tools
-		case 1100:
-			Skills->Blacksmithing( socket );
-			return;
+	// 1107: Alchemy Tools
+	case 1107:
+		MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_ALCHEMY" );
+		return;
 
-		// 1101: Anvil
-		case 1101:
-			if( !pc_currchar->inRange( pi, 3 ) )
-				socket->sysMessage( tr( "Must be closer to use this!" ) );
-			else
-				socket->sysMessage( "Select item to be repaired." );
-				// TODO: Reimplement repairing items.
-			return;
+	// 1108: Tailoring Tools
+	case 1108:
+		Skills->Fletching( socket );
+		return;
 
-		// 1102: Ore
-		case 1102:
-			socket->sysMessage( "Where do you want to smelt the ore?" );
-			socket->attachTarget( new cConvertResource( QString("RESOURCE_INGOT"), pi ) );
-			return;
+	default:						
+		break;
+	}
 
-		// 1103: Carpentry Tools
-		case 1103:
-			Skills->Carpentry( socket );
-			return;
-
-		// 1104: Mining Tools
-		case 1104:
-			if( !pi->wearOut() )
-			{
-				socket->sysMessage( tr( "Where do you want to dig?" ) );
-				socket->attachTarget( new cFindResource( "RESOURCE_ORE" ) );
-			}
-			return;
-
-		// 1105: Spell Scroll
-		case 1105:
-			socket->sysMessage( tr( "Casting from scrolls is currently not supported." ) );
-			return;
-
-		// 1106: Tailoring Tools
-		case 1106:
-			Skills->Tailoring( socket );
-			return;
-
-		// 1107: Alchemy Tools
-		case 1107:
-			MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_ALCHEMY" );
-			return;
-
-		// 1108: Tailoring Tools
-		case 1108:
-			Skills->Fletching( socket );
-			return;
-
-		default:						
-			break;
-		}
-
-		// END Check items by type
-		
-		// Begin checking objects by ID
-		if (!pi->isLockedDown()) // Ripper
-		{
-			switch (pi->id())
-			{	
-				case 0x14F0:// deeds
-					if ((pi->type() != 103) &&(pi->type() != 202))
-					{  
-						const cElement *section = DefManager->getDefinition( WPDT_MULTI, pi->getTag( "multisection" ).toString() );
-						
-						if( section )
-						{
-							UI32 houseid = 0;
-							
-							unsigned int i = 0;
-							while( i < section->childCount() && !houseid )
-							{
-								const cElement *childNode = section->getChild( i++ );
-
-								if( childNode->name() == "id" )
-									houseid = hex2dec( childNode->text() ).toUInt();
-								else if( childNode->name() == "ids" )
-									houseid = hex2dec( childNode->getAttribute( "north" ) ).toUInt();
-							}
-
-							if( houseid != 0 )
-								socket->attachTarget( new cBuildMultiTarget( pi->getTag( "multisection" ).toString() , pc_currchar->serial(), pi->serial() ), houseid );
-						}
-					}
-					return;// deeds
-				
-				case 0x0E24: // empty vial
+	// END Check items by type
+	
+	// Begin checking objects by ID
+	if (!pi->isLockedDown()) // Ripper
+	{
+		switch (pi->id())
+		{	
+			case 0x14F0:// deeds
+				if ((pi->type() != 103) &&(pi->type() != 202))
+				{  
+					const cElement *section = DefManager->getDefinition( WPDT_MULTI, pi->getTag( "multisection" ).toString() );
+					
+					if( section )
 					{
-					P_ITEM pBackpack = pc_currchar->getBackpack();
-					if (pBackpack != NULL)
-						if (pi->container() == pBackpack)
+						UI32 houseid = 0;
+						
+						unsigned int i = 0;
+						while( i < section->childCount() && !houseid )
 						{
+							const cElement *childNode = section->getChild( i++ );
+
+							if( childNode->name() == "id" )
+								houseid = hex2dec( childNode->text() ).toUInt();
+							else if( childNode->name() == "ids" )
+								houseid = hex2dec( childNode->getAttribute( "north" ) ).toUInt();
+						}
+
+						if( houseid != 0 )
+							socket->attachTarget( new cBuildMultiTarget( pi->getTag( "multisection" ).toString() , pc_currchar->serial(), pi->serial() ), houseid );
+					}
+				}
+				return;// deeds
+			
+			case 0x0E24: // empty vial
+				{
+				P_ITEM pBackpack = pc_currchar->getBackpack();
+				if (pBackpack != NULL)
+					if (pi->container() == pBackpack)
+					{
 //							addmitem[s] = pi->serial(); // save the vials number, LB
 //							target(s, 0, 1, 0, 186, "What do you want to fill the vial with?");
-						}
-						else 
-							socket->sysMessage(tr("The vial is not in your pack"));
-						return;
 					}
-				case 0x0FA0:
-				case 0x0FA1: // thread to Bolt
-				case 0x0E1D:
-				case 0x0E1F:
-				case 0x0E1E:  // yarn to cloth
+					else 
+						socket->sysMessage(tr("The vial is not in your pack"));
+					return;
+				}
+			case 0x0FA0:
+			case 0x0FA1: // thread to Bolt
+			case 0x0E1D:
+			case 0x0E1F:
+			case 0x0E1E:  // yarn to cloth
 //					pc_currchar->setTailItem(  pi->serial() );
 //					target(s, 0, 1, 0, 165, "Select loom to make your cloth");
-					return;
-				case 0x1BD1:
-				case 0x1BD2:
-				case 0x1BD3:
-				case 0x1BD4:
-				case 0x1BD5:
-				case 0x1BD6:	// make shafts
+				return;
+			case 0x1BD1:
+			case 0x1BD2:
+			case 0x1BD3:
+			case 0x1BD4:
+			case 0x1BD5:
+			case 0x1BD6:	// make shafts
 //					itemmake[s].Mat1id = pi->id();
 //					target(s, 0, 1, 0, 172, "What would you like to use this with?"); 
-					return;
-				case 0x0E73: // cannon ball
+				return;
+			case 0x0E73: // cannon ball
 //					target(s, 0, 1, 0, 170, "Select cannon to load."); 
-					pi->remove();
-					return;
-				case 0x0FF8:
-				case 0x0FF9: // pitcher of water to flour
+				pi->remove();
+				return;
+			case 0x0FF8:
+			case 0x0FF9: // pitcher of water to flour
 //					pc_currchar->setTailItem( pi->serial() );
 //					target(s, 0, 1, 0, 173, "Select flour to pour this on.");  
-					return;
-				case 0x09C0:
-				case 0x09C1: // sausages to dough
+				return;
+			case 0x09C0:
+			case 0x09C1: // sausages to dough
 //					pc_currchar->setTailItem( pi->serial() );
 //					target(s, 0, 1, 0, 174, "Select dough to put this on.");  
-					return;
-				case 0x0DF8: // wool to yarn 
+				return;
+			case 0x0DF8: // wool to yarn 
 //					pc_currchar->setTailItem( pi->serial() );
 //					target(s, 0, 1, 0, 164, "Select your spin wheel to spin wool.");      
-					return;
-				case 0x0F9D: // sewing kit for tailoring
+				return;
+			case 0x0F9D: // sewing kit for tailoring
 //					target(s, 0, 1, 0, 167, "Select material to use.");
-					return;
-				case 0x1508: // magic statue?
-					if( pc_currchar->checkSkill( ITEMID, 0, 10))
-					{
-						pi->setId(0x1509);
-						pi->setType( 45 );
-						pi->update();// AntiChrist
-					}
-					else
-					{
-						socket->sysMessage(tr("You failed to use this statue."));
-					}
-					return;
-				case 0x1509:
-					if( pc_currchar->checkSkill( ITEMID, 0, 10))
-					{
-						pi->setId(0x1508);
-						pi->setType( 45 );
-						pi->update();// AntiChrist
-					}
-					else
-					{
-						socket->sysMessage(tr("You failed to use this statue."));
-					}
-					return;
+				return;
+			case 0x1508: // magic statue?
+				if( pc_currchar->checkSkill( ITEMID, 0, 10))
+				{
+					pi->setId(0x1509);
+					pi->setType( 45 );
+					pi->update();// AntiChrist
+				}
+				else
+				{
+					socket->sysMessage(tr("You failed to use this statue."));
+				}
+				return;
+			case 0x1509:
+				if( pc_currchar->checkSkill( ITEMID, 0, 10))
+				{
+					pi->setId(0x1508);
+					pi->setType( 45 );
+					pi->update();// AntiChrist
+				}
+				else
+				{
+					socket->sysMessage(tr("You failed to use this statue."));
+				}
+				return;
 
-				//case 0x0DBF:
-				//case 0x0DC0:// fishing
+			//case 0x0DBF:
+			//case 0x0DC0:// fishing
 //					target(s, 0, 1, 0, 45, "Fish where?");
-				//	return;
-				//case 0x0E9B: // Mortar for Alchemy
-				//	if (pi->type() == 17)
-				//	{
-				//		addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
-			//			addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
-			//			addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
-			//			addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
+			//	return;
+			//case 0x0E9B: // Mortar for Alchemy
+			//	if (pi->type() == 17)
+			//	{
+			//		addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
+		//			addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
+		//			addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
+		//			addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
 //						target(s, 0, 1, 0, 109, "Where is an empty bottle for your potion?");
-			//		}
-			//		else
-			//		{
-			///			addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
-			//			addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
-			//			addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
-			//			addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
+		//		}
+		//		else
+		//		{
+		///			addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
+		//			addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
+		//			addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
+		//			addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
 //						target(s, 0, 1, 0, 108, "What do you wish to grind with your mortar and pestle?");
-			//		}
-			//		return; // alchemy
-				default:
-					break;
-			}
+		//		}
+		//		return; // alchemy
+			default:
+				break;
 		}
+	}
 
-		// END Check items by ID
-		socket->sysMessage( tr( "You can't think of a way to use that item." ) );
+	// END Check items by ID
+	socket->sysMessage( tr( "You can't think of a way to use that item." ) );
 }

@@ -85,14 +85,17 @@ static char *eventNames[] =
 	"onTradeStart",
 	"onBulletinBoard",
 	"onDelete",
+	"onSwing",
+	"onShowStatus",
 	0
 };
 
 cPythonScript::cPythonScript() : loaded(false)
 {
 	codeModule = 0;
-	for( unsigned int i = 0; i < EVENT_COUNT; ++i )
+	for (unsigned int i = 0; i < EVENT_COUNT; ++i) {
 		events[i] = 0;
+	}
 }
 
 cPythonScript::~cPythonScript()
@@ -104,68 +107,64 @@ cPythonScript::~cPythonScript()
 void cPythonScript::unload( void )
 {
 	loaded = false;
+	
 	// Free Cached Events
-	for( unsigned int i = 0; i < EVENT_COUNT; ++i )
-	{
-		if( events[ i ] )
-		{
-			Py_XDECREF( events[ i ] );
-			events[ i ] = 0;
+	for (unsigned int i = 0; i < EVENT_COUNT; ++i) {
+		if (events[i]) {
+			Py_XDECREF(events[i]);
+			events[i] = 0;
 		}
 	}
 
-	callEventHandler( "onUnload" );	
-
-	Py_XDECREF( codeModule );
+	callEventHandler("onUnload");
+	
+	Py_XDECREF(codeModule);
 	codeModule = 0;
 }
 
 // Find our module name
 bool cPythonScript::load(const QString &name)
 {
-	if( name.isEmpty() )
+	if (name.isEmpty()) {
 		return false;
+	}
 
-	setName( name );
+	setName(name);
 
-	codeModule = PyImport_ImportModule( const_cast< char* >( name.latin1() ) );
+	codeModule = PyImport_ImportModule(const_cast<char*>(name.latin1()));
 
-	if( !codeModule )
-	{
+	if(!codeModule) {
 		Console::instance()->ProgressFail();
-		reportPythonError( name );
-		Console::instance()->PrepareProgress( "Continuing loading" );
+		reportPythonError(name);
+		Console::instance()->PrepareProgress("Continuing loading");
 		return false;
 	}
 
 	// Call the onLoad event
-	callEventHandler( "onLoad", 0, true );
+	callEventHandler("onLoad", 0, true);
 
-	if( PyErr_Occurred() )
-	{
+	if (PyErr_Occurred()) {
 		Console::instance()->ProgressFail();
-		reportPythonError( name_ );
-		Console::instance()->PrepareProgress( "Continuing loading" );
+		reportPythonError(name_);
+		Console::instance()->PrepareProgress("Continuing loading");
 	}
 
 	// Cache Event Functions
-	for( unsigned int i = 0; i < EVENT_COUNT; ++i )
-	{
-		if( !PyObject_HasAttrString( codeModule, eventNames[ i ] ) )
-			continue;
+	for (unsigned int i = 0; i < EVENT_COUNT; ++i) {
+		if (PyObject_HasAttrString(codeModule, eventNames[i])) {
+			events[i] = PyObject_GetAttrString(codeModule, eventNames[i]);
 
-		events[i] = PyObject_GetAttrString( codeModule, eventNames[ i ] );
+			if (events[i] && !PyCallable_Check(events[i])) {
+				Console::instance()->ProgressFail();
+				Console::instance()->log( LOG_ERROR, QString( "Script %1 has non callable event: %1" ).arg( eventNames[ i ] ) );
+				Console::instance()->PrepareProgress( "Continuing loading" );
 
-		if( events[i] && !PyCallable_Check( events[i] ) )
-		{
-			Console::instance()->ProgressFail();
-			Console::instance()->log( LOG_ERROR, QString( "Script %1 has non callable event: %1" ).arg( eventNames[ i ] ) );
-			Console::instance()->PrepareProgress( "Continuing loading" );
-
-			Py_DECREF( events[i] );
-			events[i] = 0;
+				Py_DECREF(events[i]);
+				events[i] = 0;
+			}
 		}
 	}
+
 	loaded = true;
 	return true;
 }

@@ -44,6 +44,7 @@ private:
 	unsigned int nextItemCheck;
 	unsigned int nextShopRestock;
 	unsigned int nextHungerCheck;
+	unsigned int nextCombatCheck;
 
 protected:
 	unsigned int lastWorldsave_;

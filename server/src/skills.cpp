@@ -495,13 +495,7 @@ void cSkills::Meditation( cUOSocket *socket )
 		socket->sysMessage( tr("Your mind is too busy with the war thoughts.") );
 		return;
 	}
-	if (Skills->GetAntiMagicalArmorDefence(pc_currchar)>15) // blackwind armor affect fix
-	{
-		socket->sysMessage( tr("Regenerative forces cannot penetrate your armor."));
-		pc_currchar->setMeditating(false);
-		return;
-	}
-	else if (pc_currchar->getWeapon() || pc_currchar->getShield())
+	if (pc_currchar->getWeapon() || pc_currchar->getShield())
 	{
 		socket->sysMessage( tr("You cannot meditate with a weapon or shield equipped!"));
 		pc_currchar->setMeditating( false );
@@ -526,88 +520,6 @@ void cSkills::Meditation( cUOSocket *socket )
 		pc_currchar->soundEffect(0x00f9, false);
 		return;
 	}
-}
-
-// If you are a ghost and attack a player, you can PERSECUTE him
-// and his mana decreases each time you try to persecute him
-// decrease=3+(your int/10)
-void cSkills::Persecute ( cUOSocket* socket )
-{
-	P_PLAYER pc_currchar = socket->player();
-
-	if( !pc_currchar )
-		return;
-
-	P_CHAR target = FindCharBySerial(pc_currchar->combatTarget());
-	P_PLAYER pt = dynamic_cast<P_PLAYER>(target);
-
-	if( pt && pt->isGM() )
-		return;
-
-	int decrease = ( pc_currchar->intelligence() / 10 ) + 3;
-
-	if((pc_currchar->skillDelay()<=uiCurrentTime) || pc_currchar->isGM())
-	{
-		if(((rand()%20)+pc_currchar->intelligence())>45) //not always
-		{
-			if( target->mana() <= decrease )
-				target->setMana(0);
-			else 
-				target->setMana(target->mana() - decrease);
-			socket->sysMessage(tr("Your spiritual forces disturb the enemy!"));
-
-			if ( pt && pt->socket() )
-			{
-				pt->socket()->updateMana( target );
-				pt->socket()->sysMessage( tr( "A damned soul is disturbing your mind!" ) );
-			}
-
-			pc_currchar->setSkillDelay( uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC );
-
-			QString message = tr( "*You see %1 is being persecuted by a ghost*" ).arg( target->name() );
-			cUOSocket* ptsocket = pt ? pt->socket() : NULL;
-							
-			for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
-			{
-				if( socket->inRange( s ) && s != socket && ptsocket != socket ) 
-					socket->showSpeech( target, message, 0x26, 3, 0x02 );
-			}
-		} 
-		else
-		{
-			socket->sysMessage( tr( "Your mind is not strong enough to disturb the enemy." ) );
-		}
-	} 
-	else
-	{
-		socket->sysMessage( tr( "You are unable to persecute him now...rest a little..." ) );
-	}
-}
-
-int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
-{
-	int ar = 0;
-
-	if ( pc->isHuman() )
-	{
-		
-		unsigned int ci = 0;
-		P_ITEM pi;
-		cBaseChar::ItemContainer container(pc->content());
-		cBaseChar::ItemContainer::const_iterator it (container.begin());
-		cBaseChar::ItemContainer::const_iterator end(container.end());
-		for (; it != end; ++it )
-		{
-			pi = *it;
-			if (pi->layer() > 1 && pi->layer() < 25)
-			{
-				if (!(pi->name().contains("leather") || pi->name().contains("magic") ||
-					  pi->name().contains("boot")    || pi->name().contains("mask")  ))
-					ar += pi->def();
-			}
-		}
-	}
-	return ar;
 }
 
 void cSkills::Snooping( P_PLAYER player, P_ITEM container )

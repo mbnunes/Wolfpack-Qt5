@@ -93,12 +93,9 @@ cItem::cItem( const cItem &src ) {
 	this->changed( TOOLTIP );
 	this->color_ = src.color_;
 	this->decaytime_ = src.decaytime_;
-	this->def_ = src.def_;
 	this->flagChanged();
 	this->free = false;
-	this->hidamage_=src.hidamage_;
 	this->hp_ = src.hp_;
-	this->lodamage_=src.lodamage_;
 	this->magic_ = src.magic_;
 	this->maxhp_ = src.maxhp_;
 	this->priv_=src.priv_;
@@ -107,8 +104,6 @@ cItem::cItem( const cItem &src ) {
 	this->setId(src.id());
 	this->setOwnSerialOnly(src.ownSerial());
 	this->spawnregion_=src.spawnregion_;
-	this->speed_=src.speed_;
-	this->type2_ = src.type2_;
 	this->type_ = src.type_;
 	this->visible_=src.visible_;
 	this->weight_ = src.weight_;
@@ -412,16 +407,11 @@ void cItem::save()
 		addField("cont",			contserial);
 		addField("layer",			layer_);
 		addField("type",			type_);
-		addField("type2",			type2_);
 		addField("amount",			amount_);
 		addField("decaytime",		(decaytime_ > uiCurrentTime) ? decaytime_ - uiCurrentTime : 0	);
-		addField("def",				def_);
-		addField("hidamage",		hidamage_);
-		addField("lodamage",		lodamage_);
 		addField("weight",			( ceilf( weight_ * 100 ) / 100 ) );
 		addField("hp",				hp_ );
 		addField("maxhp",			maxhp_ );
-		addField("speed",			speed_ );
 		addField("magic",			magic_ );
 		addField("owner",			ownserial_ );
 		addField("visible",			visible_ );
@@ -515,15 +505,10 @@ void cItem::Init( bool createSerial )
 	this->color_ = 0x00; // Hue
 	this->layer_ = 0; // Layer if equipped on paperdoll
 	this->type_=0; // For things that do special things on doubleclicking
-	this->type2_=0;
 	this->weight_ = 0;
 	this->amount_ = 1; // Amount of items in pile
-	this->def_=0; // Item defense
-	this->lodamage_=0; //Minimum Damage weapon inflicts
-	this->hidamage_=0; //Maximum damage weapon inflicts
 	this->hp_=0; //Number of hit points an item has.
 	this->maxhp_=0; // Max number of hit points an item can have.
-	this->speed_=0; //The speed of the weapon
 	this->magic_ = 0; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable.
 	this->decaytime_ = 0;
 	this->setOwnSerialOnly(-1);
@@ -641,180 +626,6 @@ void cItem::decay( unsigned int currenttime )
 
 		remove();
 	}
-}
-
-void cItem::respawn( unsigned int currenttime )
-{
-/*void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
-{
-	if( !pItem || pItem->free )
-		return;
-
-	// Not ready to respawn yet
-	if( pItem->gatetime() > currenttime )
-		return;
-
-	switch( pItem->type() )
-	{
-	// Item Spawner
-	case 61:
-		{
-			// Check if it's worth respawning
-			vector< SERIAL > spawned = spawnsp.getData( pItem->serial() );
-			UINT32 amount = spawned.size();
-
-			// Do a sanity check
-			for( UINT32 i = 0; i < spawned.size(); ++i )
-			{
-				P_ITEM pSpawned = FindItemBySerial( spawned[i] );
-
-				// Item has been deleted
-				if( !pSpawned )
-				{
-					--amount;
-
-				}
-				// Item has been moved
-				else if( ( pSpawned->free ) || ( pSpawned->pos() != pItem->pos() ) )
-				{
-					pSpawned->SetSpawnSerial( INVALID_SERIAL );
-					--amount;
-				}
-			}
-
-			// Respawn the item
-			// morex = min Time in secs till next respawn
-			// morey = max Time in secs till next respawn
-			// carve = item-section
-			if( amount < pItem->amount() )
-			{
-				// Create the spawned item @ our position
-				P_ITEM pSpawned = cItem::createFromScript( pItem->carve() );
-
-				if( !pSpawned )
-				{
-					Console::instance()->send( tr( "Unable to spawn unscripted item: %1" ).arg( pItem->carve() ) );
-					break;
-				}
-
-				pSpawned->moveTo( pItem->pos() );
-				pSpawned->SetSpawnSerial( pItem->serial() );
-				pSpawned->update();
-			}
-		}
-		break;
-	// NPC Spawner
-	case 62:
-		{
-			// Check if it's worth respawning
-			vector< SERIAL > spawned = spawnsp.getData( pItem->serial() );
-			UINT32 amount = spawned.size();
-
-			// Do a sanity check
-			for( UINT32 i = 0; i < spawned.size(); ++i )
-			{
-				P_CHAR pSpawned = FindCharBySerial( spawned[i] );
-
-				// Char has been deleted
-				if( !pSpawned )
-				{
-					spawnsp.remove( pItem->serial(), pSpawned->serial() );
-					--amount;
-				}
-				// Char has been tamed/changed owner
-				else if( pSpawned->tamed() )
-				{
-					--amount;
-				}
-			}
-
-			// Is there anything to be spawned
-			if( amount < pItem->amount() )
-			{
-				P_CHAR pSpawned = cCharStuff::createScriptNpc( pItem->carve(), pItem->pos() );
-				if( pSpawned )
-					pSpawned->SetSpawnSerial( pItem->serial() );
-			}
-		}
-		break;
-	};
-
-	pItem->setGateTime(currenttime + ( RandomNum( pItem->morex(), pItem->morey() ) * MY_CLOCKS_PER_SEC ));
-
-	*//*
-
-	// Chest spawner
-			else if ((pi->type()==63)||(pi->type()==64)||(pi->type()==65)||(pi->type()==66)||(pi->type()==8))
-			{
-				serial=pi->serial();
-				unsigned int j;
-				vector<SERIAL> vecContainer = contsp.getData(pi->serial());
-				for (j=0;j<vecContainer.size();j++)
-				{
-					P_ITEM pi_ci = FindItemBySerial(vecContainer[j]);
-					if (pi_ci != NULL)
-					if (pi_ci->contserial == pi->serial() && !pi_ci->free)
-					{
-						m++;
-					}
-				}
-				if(m<pi->amount())
-				{
-					if (pi->gatetime==0)
-					{
-						pi->gatetime=(rand()%((int)(1+((pi->morez-pi->morey)*(MY_CLOCKS_PER_SEC*60))))) +
-							(pi->morey*MY_CLOCKS_PER_SEC*60)+uiCurrentTime;
-					}
-					if ((pi->gatetime<=currenttime ||(overflow)) && pi->morex!=0)
-					{
-						if(pi->type()==63)
-							pi->setType( 64 ); //Lock the container
-						//numtostr(pi->morex,m); //ilist); //LB, makes chest spawners using random Itemlist items instead of a single type, LB
-						if(pi->morex)
-							Items->AddRespawnItem(pi, QString("%1").arg(pi->morex), true);//If the item contains an item list then it will randomly choose one from the list, JM
-						else
-						{
-							QString itemSect = DefManager->getRandomListEntry( "70" );
-							Items->AddRespawnItem(pi, itemSect, true);
-						}
-						pi->gatetime=0;
-					}
-				}
-			}
-		}//If time
-	}//for
-}*/
-/*
-void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem )
-{
-	if (pItem == NULL)
-		return;
-
-	P_ITEM pi = cItem::createFromScript( itemSect ); // lb, bugfix
-	if (pi == NULL) return;
-
-	if( !spawnInItem )
-	{
-		pi->moveTo(pItem->pos()); //add spawned item to map cell if not in a container
-	}
-	else
-	{
-		pItem->addItem(pi);
-	}
-	pi->SetSpawnSerial(pItem->serial());
-
-	if(spawnInItem)
-	{
-		P_ITEM pChest = NULL;
-		if (pi->spawnserial!=-1)
-			pChest=FindItemBySerial(pi->spawnserial);
-		if (pChest)
-		{
-			pi->SetRandPosInCont(pChest);
-		}
-	}
-	pi->update();//AntiChrist
-}*/
 }
 
 bool cItem::onSingleClick( P_PLAYER Viewer )
@@ -1040,28 +851,6 @@ void cItem::processNode( const cElement *Tag )
 			setBindmenu(Value);
 	}
 
-	// <attack min="1" max="2"/>
-	else if( TagName == "attack" )
-	{
-		if( Tag->hasAttribute( "min" ) )
-			this->setLodamage( Tag->getAttribute( "min" ).toInt() );
-
-		if( Tag->hasAttribute( "max" ) )
-			this->setHidamage( Tag->getAttribute( "max" ).toInt() );
-
-		// Better...
-		if( this->lodamage() > this->hidamage() )
-			this->setHidamage( this->lodamage() );
-	}
-
-	// for convenience
-	// <food>1</food>
-	else if( TagName == "food" )
-	{
-		setType( 14 );
-		setType2( Value.toUInt() );
-	}
-
 	// <amount>10</amount>
 	else if ( TagName == "amount" )
 		this->setAmount( Value.toUShort() );
@@ -1076,10 +865,6 @@ void cItem::processNode( const cElement *Tag )
 		this->setMaxhp( Value.toLong() );
 		this->setHp( this->maxhp() );
 	}
-
-	// <speed>10</speed>
-	else if( TagName == "speed" )
-		this->setSpeed( Value.toLong() );
 
 	// <lightsource>10</lightsource>
 	else if( TagName == "lightsource" )
@@ -1218,41 +1003,6 @@ void cItem::processModifierNode( const cElement *Tag )
 		}
 	}
 
-	// <attack min="-1" max="+2"/>
-	else if( TagName == "attack" )
-	{
-		if( Tag->hasAttribute( "min" ) )
-		{
-			Value = Tag->getAttribute("min");
-			if( Value.contains(".") || Value.contains(",") )
-				setLodamage( (UINT16)ceil((float)lodamage() * Value.toFloat()) );
-			else
-				setLodamage( lodamage() + Value.toInt() );
-		}
-
-		if( Tag->hasAttribute( "max" ) )
-		{
-			Value = Tag->getAttribute("max");
-			if( Value.contains(".") || Value.contains(",") )
-				setHidamage( (UINT16)ceil((float)hidamage() * Value.toFloat()) );
-			else
-				setHidamage( hidamage() + Value.toInt() );
-		}
-
-		// Better...
-		if( lodamage() > hidamage() )
-			setHidamage( lodamage() );
-	}
-
-	// <defense>+10</defense>
-	else if( TagName == "defense" )
-	{
-		if( Value.contains(".") || Value.contains(",") )
-			def_ = (UINT32)ceil((float)def_ * Value.toFloat());
-		else
-			def_ += Value.toUInt();
-	}
-
 	// <weight>-10</weight>
 	else if( TagName == "weight" )
 	{
@@ -1288,15 +1038,6 @@ void cItem::processModifierNode( const cElement *Tag )
 		else
 			setMaxhp( maxhp() + Value.toLong() );
 		setHp( maxhp() );
-	}
-
-	// <speed>-10</speed>
-	else if( TagName == "speed" )
-	{
-		if( Value.contains(".") || Value.contains(",") )
-			setSpeed( (INT32)ceil((float)speed() * Value.toFloat()) );
-		else
-			setSpeed( speed() + Value.toLong() );
 	}
 
 	else
@@ -1778,18 +1519,13 @@ void cItem::load( char **result, UINT16 &offset )
 
 	layer_ = atoi( result[offset++] );
 	type_ = atoi( result[offset++] );
-	type2_ = atoi( result[offset++] );
 	amount_ = atoi( result[offset++] );
 	decaytime_ = atoi( result[offset++] );
 	if( decaytime_ > 0 )
 		decaytime_ += uiCurrentTime;
-	def_ = atoi( result[offset++] );
-	hidamage_ = atoi( result[offset++] );
-	lodamage_ = atoi( result[offset++] );
 	weight_ = (float)atof( result[offset++] );
 	hp_ = atoi( result[offset++] );
 	maxhp_ = atoi( result[offset++] );
-	speed_ = atoi( result[offset++] );
 	magic_ = atoi( result[offset++] );
 	ownserial_ = atoi( result[offset++] );
 	visible_ = atoi( result[offset++] );
@@ -1815,7 +1551,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.type2,items.amount,items.decaytime,items.def,items.hidamage,items.lodamage,items.weight,items.hp,items.maxhp,items.speed,items.magic,items.owner,items.visible,items.spawnregion,items.priv,items.sellprice,items.buyprice,items.restock,items.baseid" );
+	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.amount,items.decaytime,items.weight,items.hp,items.maxhp,items.magic,items.owner,items.visible,items.spawnregion,items.priv,items.sellprice,items.buyprice,items.restock,items.baseid" );
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2015,10 +1751,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 
 	else SET_INT_PROPERTY( "layer", layer_ )
 	else SET_INT_PROPERTY( "type", type_ )
-	else SET_INT_PROPERTY( "type2", type2_ )
-	else SET_INT_PROPERTY( "speed", speed_ )
-	else SET_INT_PROPERTY( "lodamage", lodamage_ )
-	else SET_INT_PROPERTY( "hidamage", hidamage_ )
 	else SET_FLOAT_PROPERTY( "weight", weight_ )
 	else SET_INT_PROPERTY( "health", hp_ )
 	else SET_INT_PROPERTY( "maxhealth", maxhp_ )
@@ -2062,7 +1794,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		}
 	}
 
-	else SET_INT_PROPERTY( "defense", def_ )
 	else SET_INT_PROPERTY( "decaytime", decaytime_ )
 
 	else if( name == "visible" )
@@ -2165,10 +1896,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "amount", amount_ )
 	else GET_PROPERTY( "layer", layer_ )
 	else GET_PROPERTY( "type", type_ )
-	else GET_PROPERTY( "type2", type2_ )
-	else GET_PROPERTY( "speed", speed_ )
-	else GET_PROPERTY( "lodamage", lodamage_ )
-	else GET_PROPERTY( "hidamage", hidamage_ )
 	else GET_PROPERTY( "weight", weight_ )
 	else GET_PROPERTY( "health", hp_ )
 	else GET_PROPERTY( "maxhealth", maxhp_ )
@@ -2188,7 +1915,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 		return 0;
 	}
 
-	else GET_PROPERTY( "defense", (int)def_ )
 	else GET_PROPERTY( "decaytime", (int)decaytime_ )
 
 	// Visible

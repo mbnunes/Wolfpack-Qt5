@@ -147,7 +147,7 @@ void Monster_Aggressive_L1::selectVictim()
 	// so it cant be overwritten that easy.
 	// This shall reduce "target hopping".
 	if( m_currentVictim )
-		currentPriority = (0 - m_currentVictim->dist( m_npc ) - m_currentVictim->hitpoints() - m_currentVictim->calcDefense(ALLBODYPARTS)) / 2;
+		currentPriority = 0 - m_currentVictim->dist( m_npc ) - m_currentVictim->hitpoints();
 
 	// Get the attackable char which has the highest priority.
 	// The priority is calculated by *distance* and *strength*.
@@ -159,7 +159,7 @@ void Monster_Aggressive_L1::selectVictim()
 		{
 			P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
 
-			int priority = 0 - pChar->dist( m_npc ) - pChar->hitpoints() - pChar->calcDefense( ALLBODYPARTS );
+			int priority = 0 - pChar->dist( m_npc ) - pChar->hitpoints();
 			if( priority > currentPriority )
 			{
 				newVictim = pChar;

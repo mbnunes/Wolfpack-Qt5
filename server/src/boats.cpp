@@ -112,7 +112,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 	}
 
 	type_ = 117;//Boat type
-	type2_ = 222;
+	//type2_ = 222;
 	name_ = tr("a mast");
 	boatdir = 0; // starting with north boatdirection
 
@@ -167,7 +167,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 	else
 	{
 		pPlankR->setType( 117 );
-		pPlankR->setType2( 2 );
+		//pPlankR->setType2( 2 );
 		pPlankR->MoveTo( this->pos().x + itemoffsets[0][ PORT_PLANK ][X], this->pos().y + itemoffsets[0][ PORT_PLANK ][Y], this->pos().z );
 		pPlankR->setPriv( 0 );
 		pPlankR->setTag( "boatserial", this->serial() );
@@ -180,7 +180,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 	else
 	{
 		pPlankL->setType( 117 );//Boat type
-		pPlankL->setType2( 3 );//Plank sub type
+		//pPlankL->setType2( 3 );//Plank sub type
 		pPlankL->MoveTo( this->pos().x + itemoffsets[0][ STARB_PLANK ][X], this->pos().y + itemoffsets[0][ STARB_PLANK ][Y], this->pos().z );
 		pPlankL->setPriv( 0 );
 		pPlankL->setTag( "boatserial", this->serial() );

@@ -238,12 +238,9 @@ void Human_Guard_Called_Fight::execute()
 	// Fighting is handled within combat..
 }
 
-float Human_Guard_Called_Fight::preCondition()
-{
-	if( m_npc->combatTarget() == INVALID_SERIAL )
-		return 0.0f;
+float Human_Guard_Called_Fight::preCondition() {
+	P_CHAR pTarget = m_npc->attackTarget();
 
-	P_CHAR pTarget = World::instance()->findChar( m_npc->combatTarget() );
 	if( !pTarget || pTarget->isDead() || pTarget->isInnocent() || pTarget->region() != m_npc->region() )
 		return 0.0f;
 
@@ -258,12 +255,11 @@ float Human_Guard_Called_Fight::postCondition()
 	return 1.0f - preCondition();
 }
 
-void Human_Guard_Called_TeleToTarget::execute()
-{
-	m_npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime() );
+void Human_Guard_Called_TeleToTarget::execute() {
+	m_npc->setSummonTime(uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime());
 
 	// Teleports the guard towards the target
-	P_CHAR pTarget = World::instance()->findChar( m_npc->combatTarget() );
+	P_CHAR pTarget = m_npc->attackTarget();
 	if( pTarget )
 	{
 		m_npc->moveTo( pTarget->pos() );
@@ -274,12 +270,8 @@ void Human_Guard_Called_TeleToTarget::execute()
 	}
 }
 
-float Human_Guard_Called_TeleToTarget::preCondition()
-{
-	if( m_npc->combatTarget() == INVALID_SERIAL )
-		return 0.0f;
-
-	P_CHAR pTarget = World::instance()->findChar( m_npc->combatTarget() );
+float Human_Guard_Called_TeleToTarget::preCondition() {
+	P_CHAR pTarget = m_npc->attackTarget();
 	if( !pTarget || pTarget->isDead() || pTarget->isInnocent() || pTarget->region() != m_npc->region() )
 		return 0.0f;
 
@@ -299,12 +291,8 @@ void Human_Guard_Called_Disappear::execute()
 	// nothing to do
 }
 
-float Human_Guard_Called_Disappear::preCondition()
-{
-	if( m_npc->combatTarget() == INVALID_SERIAL )
-		return 1.0f;
-
-	P_CHAR pTarget = World::instance()->findChar( m_npc->combatTarget() );
+float Human_Guard_Called_Disappear::preCondition() {	
+	P_CHAR pTarget = m_npc->attackTarget();
 	if( !pTarget || pTarget->isDead() || pTarget->isInnocent() || pTarget->region() != m_npc->region() )
 		return 1.0f;
 
@@ -386,13 +374,6 @@ void Human_Guard_Fight::execute()
 	{
 		case 0:		m_npc->talk( tr( "Thou shalt regret thine actions, swine!" ), -1, 0, true );	break;
 		case 1:		m_npc->talk( tr( "Death to all Evil!" ), -1, 0, true );						break;
-	}
-
-	Human_Guard *guard = dynamic_cast<Human_Guard*>(m_ai);
-	
-	// Make sure the guard is fighting our current victim
-	if (guard) {
-		m_npc->fight(guard->currentVictim());
 	}
 }
 

@@ -84,11 +84,7 @@ public:
 	uchar			layer()			const { return layer_; }		// Layer if equipped on paperdoll
 	bool			twohanded()		const { return priv_&0x20; }		// Is the weapon twohanded ?
 	UI32			type()			const { return type_; }			// Used for hardcoded behaviour
-	UI32			type2()			const { return type2_; }
 	bool			secured()		const { return priv_&0x08; }		// Is the container secured (houses)
-	SI16			speed()			const { return speed_; }		// Weapon speed
-	SI16			lodamage()		const { return lodamage_; }		// Minimum damage weapon inflicts
-	SI16			hidamage()		const { return hidamage_; }		// Maximum damage weapon inflicts
 	bool			wipe()			const { return priv_&0x10; }		// Should the item be wiped when affected by /WIPE
 	float			weight()		const { return ( ceilf( weight_ * 100 ) / 100 ); }
 	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
@@ -103,7 +99,6 @@ public:
 	int				sellprice()		const { return sellprice_; } // Price this item is being bought at by normal vendors
 	int				buyprice()		const { return buyprice_; } // Price this item is being sold at by normal vendors
 
-	uint			def()			const { return def_; }
 	uchar			magic()			const { return magic_; }
 	uint			decaytime()		const { return decaytime_; }
 	uchar			visible()		const { return visible_;}
@@ -122,11 +117,7 @@ public:
 	void	setTwohanded( bool nValue ) { nValue ? priv_ |= 0x20 : priv_ &= 0xDF; flagChanged(); changed( TOOLTIP );};
 	void	setDye( bool nValue ) {  nValue ? priv_ |= 0x80 : priv_ &= 0x7F; flagChanged();}
 	void	setType( UI32 nValue ) { type_ = nValue; flagChanged();};
-	void	setType2( UI32 nValue ) { type2_ = nValue; flagChanged();};	
 	void	setSecured( bool nValue ) { ( nValue ) ? priv_ |= 0x08 : priv_ &= 0xF7; flagChanged(); changed( TOOLTIP );};
-	void	setSpeed( SI16 nValue ) { speed_ = nValue; flagChanged(); changed( TOOLTIP );};
-	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; flagChanged(); changed( TOOLTIP );};
-	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setWipe( bool nValue ) { ( nValue ) ? priv_ &= 0x10 : priv_ |= 0xEF; flagChanged();};
 	void	setNoDecay( bool nValue ) { ( nValue ) ? priv_ |= 0x01 : priv_ &= ~0x01; flagChanged(); };
 	void	setWeight( float nValue );
@@ -147,7 +138,6 @@ public:
 	void	toBackpack( P_CHAR pChar );
 	void	showName( cUOSocket *socket );
 
-	void	setDef( uint data ) { def_ = data; 	flagChanged(); changed( TOOLTIP );}
 	void	setMagic( uchar data ) { magic_ = data; flagChanged(); changed( TOOLTIP );}
 	void	setDecayTime( uint data ) { decaytime_ = data; }
 	void	setBuyprice( int data ) { buyprice_ = data; flagChanged(); changed( TOOLTIP );}
@@ -226,7 +216,6 @@ public:
 	static P_ITEM createFromScript( const QString &section );
 	static P_ITEM createFromList( const QString &list );
 	static P_ITEM createFromId( unsigned short id );	
-	void respawn( unsigned int currenttime );
 	void decay( unsigned int currenttime );
 	void remove();
 
@@ -275,13 +264,8 @@ protected:
 	unsigned char priv_;
 
 	ushort		restock_;
-	SI16		lodamage_; 
-	SI16		hidamage_; 
 	ushort		type_;
-	ushort		type2_;
-	SI16		speed_;
 	float		weight_;
-	uint		def_;
 	int			sellprice_;
 	int			buyprice_;
 };

@@ -246,7 +246,7 @@ cCombat::enBowTypes cCombat::bowType( P_ITEM pi )
 */
 void cCombat::checkandhit( P_CHAR pAttacker )
 {
-	P_CHAR pDefender = FindCharBySerial( pAttacker->swingTarget() );
+/*	P_CHAR pDefender = FindCharBySerial( pAttacker->swingTarget() );
 	
 	// We made our swing, so reset the target.
 	pAttacker->setSwingTarget( INVALID_SERIAL );
@@ -274,7 +274,7 @@ void cCombat::checkandhit( P_CHAR pAttacker )
 
 	// Can we see our target. 
 	bool los = pAttacker->pos().lineOfSight( pDefender->pos(), true );
-	hit( pAttacker, pDefender, los );
+	hit( pAttacker, pDefender, los );*/
 }
 
 /*!
@@ -285,7 +285,7 @@ void cCombat::checkandhit( P_CHAR pAttacker )
 */
 void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 {
-	UINT16 oldStm = pDefender->stamina();
+	/*UINT16 oldStm = pDefender->stamina();
 
 	// Get the weapon the attacker is wearing.
 	P_ITEM pWeapon = pAttacker->getWeapon();
@@ -398,24 +398,6 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	// Check if we missed
 	if( RandomNum( 1, 100 ) > hitChance )
 	{
-		// Display a message to both players that the 
-		// swing didn't hit
-		// NOTE: There should be a random chance that this
-		// message appears *or* a flag to set
-		if( pAttacker->objectType() == enPlayer )
-		{
-			P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
-			if( pp->socket() )
-				pp->socket()->sysMessage( tr( "You miss %1" ).arg( pDefender->name() ) );
-		}
-
-		if( pDefender->objectType() == enPlayer )
-		{
-			P_PLAYER pp = dynamic_cast<P_PLAYER>(pDefender);
-			if( pp->socket() )
-				pp->socket()->sysMessage( tr( "%1 misses you" ).arg( pAttacker->name() ) );
-		}
-
 		// If we missed using a Bow or Crossbow we 
 		// could leave the ammunition at the feets of 
 		// our target. 
@@ -433,19 +415,6 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 
 		return;
 	}
-
-	// If we used a poisoned Weapon to deal 
-	// damage, apply the poison here
-	/*
-	We currently do not support poisoned weapons
-	if( pWeapon && ( pWeapon->poisoned() > 0 ) )
-	{
-			pDefender->setPoisoned( pWeapon->poisoned() );
-
-			// a lev.1 poison takes effect after 40 secs, a isDeadly pois.(lev.4) takes 40/4 secs
-			pDefender->setPoisonTime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pDefender->poisoned() ) ) );
-			pDefender->setPoisonWearOffTime( pDefender->poisonTime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
-	}*/
 
 	// If we item we used was enchantet using 
 	// some kind of spell, it's now time to
@@ -563,21 +532,6 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	if( pWeapon && ( pWeapon->type() == 1003 || pWeapon->type() == 1004 ) && pWeapon->twohanded() )
 		pDefender->setStamina( QMAX( 0, pDefender->stamina() - RandomNum( 3, 6 ) ) );
 
-	// Paralyzing + Concussion Hit are disabled for now
-	/*
-	// Paralyzing
-	if( ( fightskill == FENCING ) && ( IsFencing2H( pItem->id() ) ) && pDefender->isPlayer() )
-	{ 
-		tempeffect( pAttacker, pDefender, 44, 0, 0, 0 );
-		if( pAttacker->socket() )
-			pAttacker->socket()->sysMessage( tr( "You delivered a paralyzing blow" ) );
-	}
-
-	// Concussion Hit
-	if( ( fightskill == SWORDSMANSHIP ) && ( IsAxe( pItem->id() ) ) && pDefender->isPlayer() )
-		tempeffect( pAttacker, pDefender, 45, 0, 0, 0 );
-	*/
-
 	// We hit our target,
 	// So let's play a soundeffect for our hit
 	playSoundEffect( pAttacker, wSkill, pWeapon );
@@ -591,21 +545,6 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 //		if( ( pDefender->effDex() > 0 ) )
 //			pDefender->setPriv2( pDefender->priv2() & 0xFD );
 
-	// when hitten and damage >1, defender fails if casting a spell!
-	// Thats not really good, better make a check versus int+magic
-	/*if( damage > 1 && pDefender->isPlayer() )//only if damage>1 and against a player
-	{
-		// TODO: Implement spell apruption
-		//if(pc_defender->casting() && currentSpellType[s2]==0 )
-		//{//if casting a normal spell (scroll: no concentration loosen)
-		//	Magic->SpellFail(s2);
-	//		currentSpellType[s2]=0;
-	//		pc_defender->setSpell(-1);
-	//		pc_defender->setCasting(false);
-	//		pc_defender->setSpelltime(0);
-	//		pc_defender->priv2 &= 0xfd; // unfreeze, bugfix LB
-	//	}
-	}*/
 
 	// Finally deal the damage
 	damage = QMAX( 0, damage );
@@ -623,7 +562,7 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 		P_PLAYER pp = dynamic_cast<P_PLAYER>(pDefender);
 		if( pp->socket() )
 			pp->socket()->sendStatWindow();
-	}
+	}*/
 }
 
 /*!
@@ -633,7 +572,7 @@ void cCombat::hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 void cCombat::combat( P_CHAR pAttacker )
 {
 	// We are either not fighting or dont have a target
-	if( !pAttacker || pAttacker->free || pAttacker->isDead() || !pAttacker->isAtWar() || pAttacker->combatTarget() == INVALID_SERIAL )
+/*	if( !pAttacker || pAttacker->free || pAttacker->isDead() || !pAttacker->isAtWar() || pAttacker->combatTarget() == INVALID_SERIAL )
 		return;
 
 	P_CHAR pDefender = FindCharBySerial( pAttacker->combatTarget() );
@@ -661,10 +600,6 @@ void cCombat::combat( P_CHAR pAttacker )
 		// Only shot if our "head" can see the opponent
 		if( pAttacker->pos().lineOfSight( pDefender->pos() ) )
 		{
-			/*
-				This function get's hammerd
-				Maybe a 100 ms delay would be appropiate
-			*/
 			mayAttack = true;
 		}
 	}
@@ -709,16 +644,6 @@ void cCombat::combat( P_CHAR pAttacker )
 	// Show the Combat Animations
 	doCombatAnimations( pAttacker, pDefender, pWeapon );
 
-	// If we are no guard, our target should re-attack us.
-	// (DarkStorm): But only if our Target is not fighting someone else
-	/*if( pAttacker->npcaitype() != 4 && pDefender->combatTarget() == INVALID_SERIAL )
-	{
-		pDefender->fight( pAttacker );
-		pDefender->setAttackFirstrength();
-		pAttacker->fight( pDefender );
-		pAttacker->setAttackFirst( false );
-	}*/
-
 	// A tempeffect is needed here eventually
 	// An Arrow doesnt hit its target immedeately..
 	if( pWeapon && pWeapon->getWeaponSkill() == ARCHERY )
@@ -758,7 +683,7 @@ void cCombat::combat( P_CHAR pAttacker )
 
 		Log::instance()->print( LOG_NOTICE, QString( "%1 was killed by %2\n" ).arg( pDefender->name() ).arg( pAttacker->name() ) );
 		pAttacker->fight(0);
-	}
+	}*/
 }
 
 // Formulas take from OSI's combat formulas
@@ -766,7 +691,7 @@ void cCombat::combat( P_CHAR pAttacker )
 // attack speed = 15000 / ((DEX+100) * weapon speed)
 void cCombat::setWeaponTimeout( P_CHAR pAttacker, P_ITEM pWeapon )
 {
-	UI32 x,j;
+/*	UI32 x,j;
 	
 	if( pWeapon ) 
 	{ 
@@ -785,12 +710,12 @@ void cCombat::setWeaponTimeout( P_CHAR pAttacker, P_ITEM pWeapon )
 		else j = 30;
 		x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->stamina()+100) * j);
 	}
-	pAttacker->setNextHitTime(uiCurrentTime + x);
+	pAttacker->setNextHitTime(uiCurrentTime + x);*/
 }
 
 void cCombat::doCombatAnimations( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pWeapon )
 {
-	// make sure attacker is facing the right direction
+	/*// make sure attacker is facing the right direction
 	pAttacker->turnTo( pDefender );
 
 	UINT16 id = pAttacker->bodyID();
@@ -827,35 +752,16 @@ void cCombat::doCombatAnimations( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pWe
 	{
 		doFootCombatAnimation( pAttacker );	// determines weapon in hand and runs animation kolours
 	}
-
-	// Show flying arrows if archery was used
-/*	if( fightskill == ARCHERY )
-	{
-		if( los )
-		{
-			if( bowtype == BOW )
-			{
-				P_ITEM pBackpack = pAttacker->getBackpack();
-				pBackpack->DeleteAmount( 1, 0x0F3F );
-				movingeffect3( pAttacker, pDefender, 0x0F, 0x42, 0x08, 0x00, 0x00,0,0,0,0 );
-			}
-			else
-			{
-				P_ITEM pBackpack = pAttacker->getBackpack();
-				pBackpack->DeleteAmount( 1, 0x1BFB );
-				movingeffect3( pAttacker, pDefender, 0x1B, 0xFE, 0x08, 0x00, 0x00,0,0,0,0 );
-			}
-		}
-	}*/
+*/
 }
 
 bool cCombat::isTimerOk( P_CHAR pc )
 {
-	if( !pc )
+	/*if( !pc )
 		return false;
 
 	if( pc->nextHitTime() < uiCurrentTime ) 
-		return true;
+		return true;*/
 
 	return false;
 }
@@ -863,7 +769,7 @@ bool cCombat::isTimerOk( P_CHAR pc )
 // play animation for weapon in hand during combat on a horse
 void cCombat::doHorseCombatAnimation( P_CHAR pc )
 {
-	if( !pc ) 
+/*	if( !pc ) 
 		return;
 
 	P_ITEM pWeapon = pc->rightHandItem();
@@ -920,13 +826,13 @@ void cCombat::doHorseCombatAnimation( P_CHAR pc )
 	else
 	{
 		pc->action( 0x1A );
-	}
+	}*/
 }
 
 // play animation for weapon in hand for combat on foot
 void cCombat::doFootCombatAnimation( P_CHAR pc )
 {
-	if( !pc )
+/*	if( !pc )
 		return;
 
 	P_ITEM pWeapon = pc->rightHandItem();
@@ -1005,21 +911,21 @@ void cCombat::doFootCombatAnimation( P_CHAR pc )
 		case 1:		pc->action( 0x0A );	return; //fist straight-punch
 		case 2:		pc->action( 0x09 );	return; //fist top-down
 		case 3:		pc->action( 0x1F );	return; //fist over-head
-	}
+	}*/
 }
 
 // play the get hit animation
 void cCombat::playGetHitAnimation( P_CHAR pChar )
 {
 	// When we are not currently doing a swing against a target
-	if( pChar->swingTarget() == INVALID_SERIAL )
-		pChar->action( 0x14 );
+	/*if( pChar->swingTarget() == INVALID_SERIAL )
+		pChar->action( 0x14 );*/
 }
 
 // play the "MISSED" sound effect
 void cCombat::playMissedSoundEffect( P_CHAR pChar )
 {
-	UI16 soundId = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_MISSED" ) ).toUShort();
+/*	UI16 soundId = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_MISSED" ) ).toUShort();
 	if( soundId == 0 )
 	{
 		switch( RandomNum( 1, 3 ) )
@@ -1030,7 +936,7 @@ void cCombat::playMissedSoundEffect( P_CHAR pChar )
 		};
 	}
 
-	pChar->soundEffect( soundId );
+	pChar->soundEffect( soundId );*/
 }
 
 void cCombat::spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl &pos )
@@ -1046,7 +952,7 @@ void cCombat::spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl &pos 
 	if( pRegion == NULL )
 		return;
 	
-	if( pRegion->isGuarded() && SrvParams->guardsActive() /*&& !pOffender->isInvulnerable()*/ )
+	if( pRegion->isGuarded() && SrvParams->guardsActive() )
 	{
 		QString guardsect = pRegion->getGuardSect();
 

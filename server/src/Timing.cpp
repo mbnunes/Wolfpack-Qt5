@@ -72,6 +72,7 @@ cTiming::cTiming() {
 	nextShopRestock = time + 20 * 60 * MY_CLOCKS_PER_SEC; // Every 20 minutes
 	nextLightCheck = time + 30 * MY_CLOCKS_PER_SEC; // Every 30 seconds
 	nextHungerCheck = time + SrvParams->hungerDamageRate();
+	nextCombatCheck = time + 250; // Every 100 ms
 }
 
 void cTiming::poll() {
@@ -116,6 +117,13 @@ void cTiming::poll() {
 		nextLightCheck = time + 30 * MY_CLOCKS_PER_SEC;
 	}
 
+	unsigned int events = 0;
+
+	if (nextCombatCheck <= time) {
+		events |= cBaseChar::EventCombat;
+		nextCombatCheck = time + 250;
+	}
+
 	// Save the positions of connected players
 	QValueVector<Coord_cl> positions;
 
@@ -125,6 +133,7 @@ void cTiming::poll() {
 			continue;
 		}
 
+		socket->player()->poll(time, events);
 		checkRegeneration(socket->player(), time);
 		checkPlayer(socket->player(), time);
 		positions.append(socket->player()->pos());
@@ -144,6 +153,7 @@ void cTiming::poll() {
 					// all other npcs are accounted as inactive
 					for (QValueVector<Coord_cl>::const_iterator it = positions.begin(); it != positions.end(); ++it) {
 						if ((*it).distance(npc->pos()) <= 24) {
+							npc->poll(time, events);
 							checkNpc(npc, time);
 							break;
 						}
@@ -177,7 +187,6 @@ void cTiming::poll() {
 	if (nextItemCheck <= time) {
 		cItemIterator itemiter;
 		for (P_ITEM item = itemiter.first(); item; item = itemiter.next()) {
-			item->respawn(time);
 			item->decay(time);
 
 			switch(item->type()) {
@@ -282,21 +291,8 @@ void cTiming::checkRegeneration(P_CHAR character, unsigned int time) {
 			}
 		}
 
-		if (SrvParams->armoraffectmana()) {
-			int ratio = (150 / SrvParams->manarate());
-			// 100 = Maximum skill (GM)
-			// 50 = int affects mana regen (%50)
-			int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(character) + 1) / SrvParams->manarate());
-			int charsmeditsecs = (1 + SrvParams->manarate() - ((((character->skillValue(MEDITATION) + 1)/10) + ((character->intelligence() + 1) / 2)) / ratio));
-			if (character->isMeditating()) {
-				character->setRegenManaTime(time + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC));
-			} else {
-				character->setRegenManaTime(time + ((armorhandicap + charsmeditsecs)* MY_CLOCKS_PER_SEC));
-			}
-		}
-		else 
-			character->setRegenManaTime( time + interval );
-		}
+		character->setRegenManaTime( time + interval );
+	}
 
 	if (character->hitpoints() > character->maxHitpoints()) {
 		character->setHitpoints(character->maxHitpoints());
@@ -330,21 +326,6 @@ void cTiming::checkRegeneration(P_CHAR character, unsigned int time) {
 
 void cTiming::checkPlayer(P_PLAYER player, unsigned int time) {
 	cUOSocket *socket = player->socket();
-
-	unsigned int tempuint;
-	signed short tempshort;
-	int timer;//, valid=0;
-	
-	// We are not swinging 
-	// So set up a swing target and start swinging
-	if (!player->isDead() && player->swingTarget() == INVALID_SERIAL) {
-		Combat::instance()->combat(player);
-	}
-
-	// We are swinging and completed swinging
-	else if (!player->isDead() && (player->swingTarget() >= 0 && player->nextHitTime() <= time)) {
-		Combat::instance()->checkandhit(player);
-	}
 
 	// Criminal Flagging
 	if (player->criminalTime() > 0 && player->criminalTime() <= time) {
@@ -386,6 +367,12 @@ void cTiming::checkPlayer(P_PLAYER player, unsigned int time) {
 }
 
 void cTiming::checkNpc(P_NPC npc, unsigned int time) {
+	// Remove summoned npcs
+	if (npc->summonTime() && npc->summonTime() <= time) {
+		npc->kill(0);
+		return;
+	}
+
 	// We are stabled and don't receive events
 	if (npc->stablemasterSerial() != INVALID_SERIAL) {
 		return;
@@ -398,21 +385,6 @@ void cTiming::checkNpc(P_NPC npc, unsigned int time) {
 		if (npc->ai()) {
 			npc->ai()->check();
 		}
-	}
-
-	// We are at war and want to prepare a new swing
-	if (!npc->isDead() && npc->swingTarget() == INVALID_SERIAL && npc->isAtWar()) {
-		Combat::instance()->combat(npc);
-	
-	// We completed the swing
-	} else if (!npc->isDead() && npc->swingTarget() != INVALID_SERIAL && npc->nextHitTime() <= time) {
-		Combat::instance()->checkandhit(npc);
-	}
-
-	// Remove summoned npcs
-	if (npc->summonTime() && npc->summonTime() <= time) {
-		npc->kill(0);
-		return;
 	}
 
 	// Hunger for npcs

@@ -722,9 +722,6 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 		pChar->setStamina( pChar->stamina() - 1 );
 		socket->updateStamina();
 	}
-
-	if( pChar->isAtWar() && pChar->combatTarget() != INVALID_SERIAL )
-		pChar->setNextHitTime(uiCurrentTime + ( MY_CLOCKS_PER_SEC * 2 ) ); // 2 Second timeout
 }
 
 void cMovement::checkStealth( P_CHAR pChar )

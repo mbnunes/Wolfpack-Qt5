@@ -51,7 +51,6 @@ namespace DragAndDrop
 	void	dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &pos );
 
 	// Drop-on-char subfunctions
-	void	dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar );
 	void	dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar );
 	void	dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker );
 	void	dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker );

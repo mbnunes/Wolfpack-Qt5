@@ -1380,28 +1380,23 @@ static PyObject* wpChar_isdead( wpChar* self, PyObject* args )
 	return self->pChar->isDead() ? PyTrue : PyFalse;
 }
 
-/*!
-	Let's this character attack someone else.
-*/
-static PyObject* wpChar_attack( wpChar* self, PyObject* args )
-{
-	if( !self->pChar || self->pChar->free )
-		return PyFalse;
-
-	if( !checkArgChar( 0 ) )
-	{
+static PyObject* wpChar_fight( wpChar* self, PyObject* args ) {
+	if (!checkArgChar(0)) {
 		PyErr_BadArgument();
 		return 0;
 	}
 
-	P_CHAR pChar = getArgChar( 0 );
+	P_CHAR pChar = getArgChar(0);
 
-	if( !pChar || self->pChar == pChar )
+	if (self->pChar == pChar) {
 		return PyFalse;
+	}
 
-	self->pChar->fight( pChar );
-
-	return PyTrue;
+	if (self->pChar->fight(pChar)) {
+		return PyTrue;
+	} else {
+		return PyFalse;
+	}
 }
 
 /*!
@@ -1768,7 +1763,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "isdead",			(getattrofunc)wpChar_isdead,			METH_VARARGS, "Checks if the character is alive or not."},
 	
 	// Mostly NPC functions
-	{ "attack",			(getattrofunc)wpChar_attack,			METH_VARARGS, "Let's the character attack someone else." },
+	{ "fight",			(getattrofunc)wpChar_fight,			METH_VARARGS, "Let's the character attack someone else." },
 	{ "goto",			(getattrofunc)wpChar_goto,				METH_VARARGS, "The character should go to a coordinate." },
 	{ "follow",			(getattrofunc)wpChar_follow,			METH_VARARGS, "The character should follow someone else." },
 	{ "vendorbuy",		(getattrofunc)wpChar_vendorbuy,			METH_VARARGS, 0 },

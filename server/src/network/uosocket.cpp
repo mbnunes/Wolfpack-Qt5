@@ -612,12 +612,8 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	unknown.setOption(3);
 //	send( &unknown );
 
-	if( pChar->combatTarget() != INVALID_SERIAL )
-	{
-		cUOTxAttackResponse attack;
-		attack.setSerial( pChar->combatTarget() );
-		send( &attack );
-	}
+	// Reset combat information
+	pChar->setAttackTarget(0);
 
 	// This is required to display strength requirements correctly etc.
 	sendStatWindow();
@@ -2065,20 +2061,28 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	// Set the rest - and reset if nec.
 	if( pChar == _player )
 	{
-		sendStats.setStamina( pChar->stamina() );
-		sendStats.setMaxStamina( pChar->maxStamina() );
-		sendStats.setMana( pChar->mana() );
-		sendStats.setMaxMana( pChar->maxMana() );
-		sendStats.setStrength( pChar->strength() );
-		sendStats.setDexterity( pChar->dexterity() );
-		sendStats.setIntelligence( pChar->intelligence() );
-		sendStats.setWeight( pChar->weight() );
-		sendStats.setGold( _player->CountBankGold() + pChar->CountGold() );
-		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
-		sendStats.setSex( pChar->gender() );
+		sendStats.setStamina( _player->stamina() );
+		sendStats.setMaxStamina( _player->maxStamina() );
+		sendStats.setMana( _player->mana() );
+		sendStats.setMaxMana( _player->maxMana() );
+		sendStats.setStrength( _player->strength() );
+		sendStats.setDexterity( _player->dexterity() );
+		sendStats.setIntelligence( _player->intelligence() );
+		sendStats.setWeight( _player->weight() );
+		sendStats.setGold( _player->CountBankGold() + _player->CountGold() );
+		sendStats.setSex( _player->gender() );
 		sendStats.setPets( _player->pets().size() );
 		sendStats.setMaxPets( 5 );
 		sendStats.setStatCap( SrvParams->statcap() );
+
+		// Call the callback to insert additional aos combat related info
+		cPythonScript *global = ScriptManager::instance()->getGlobalHook(EVENT_SHOWSTATUS);
+
+		if (global) {
+			PyObject *args = Py_BuildValue("NN", PyGetCharObject(_player), CreatePyPacket(&sendStats));
+			global->callEvent(EVENT_SHOWSTATUS, args);
+			Py_DECREF(args);
+		}
 	}
 
 	send( &sendStats );

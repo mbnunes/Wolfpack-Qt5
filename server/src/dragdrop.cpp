@@ -581,13 +581,6 @@ void DragAndDrop::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar
 		else
 			pOtherChar->talk( "You need to tell me what you want to learn first" );*/
 
-	// Finally lets check if it is simple food
-	if( pItem->type() == 14 )
-	{
-		dropFoodOnChar( socket, pItem, pOtherChar );
-		return;
-	}
-
 	socket->sysMessage( tr("The character does not seem to want the item.") );
 	socket->bounceItem( pItem, BR_NO_REASON );
 	return;
@@ -810,39 +803,6 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 	// << could it be that addItemToContainer is enough?? >>
 	if( pCont->type() == 9 )
 		Magic->openSpellBook( pChar, pCont );*/
-}
-
-// Food was dropped on a pet
-void DragAndDrop::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
-{
-	// Feed our pets
-	if( pChar->hunger() >= 6 || !(pChar->nutriment() & (1 << (pItem->type2() - 1))) )
-	{
-		socket->sysMessage(tr("It doesn't seem to want your item."));
-		bounceItem(socket, pItem);
-		return;
-	}
-
-	// We have three different eating-sounds (I don't like the idea as they sound too human)
-	pChar->soundEffect( 0x3A + RandomNum( 1, 3 ) );
-
-	// *You see Snowwhite eating some poisoned apples*
-	// Color: 0x0026
-	pChar->emote(tr("*You see %1 eating %2*").arg(pChar->name()).arg(pItem->getName()));
-
-	// We try to feed it more than it needs
-	if( pChar->hunger() + pItem->amount() > 6 )
-	{
-		pItem->setAmount( pItem->amount() - ( 6 - pChar->hunger() ) );
-		pChar->setHunger( 6 );
-
-		// Pack the rest into his backpack
-		bounceItem( socket, pItem );
-		return;
-	}
-
-	pChar->setHunger( pChar->hunger() + pItem->amount() );
-	pItem->remove();
 }
 
 void DragAndDrop::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
