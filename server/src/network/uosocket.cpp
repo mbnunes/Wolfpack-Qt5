@@ -840,35 +840,35 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	// Every stat needs to be below 60 && the sum lower/equal than 80
 	if ( statSum > 80 || ( packet->strength() > 60 ) || ( packet->dexterity() > 60 ) || ( packet->intelligence() > 60 ) )
 	{
-		log( QString( "Submitted invalid stats during char creation (%1,%2,%3).\n" ).arg( packet->strength() ).arg( packet->dexterity() ).arg( packet->intelligence() ) );
+		log( tr( "Submitted invalid stats during char creation (%1,%2,%3).\n" ).arg( packet->strength() ).arg( packet->dexterity() ).arg( packet->intelligence() ) );
 		cancelCreate( tr( "Invalid Character stats" ) )
 	}
 
 	// Check the skills
 	if ( ( packet->skillId1() >= ALLSKILLS ) || ( packet->skillValue1() > 50 ) || ( packet->skillId2() >= ALLSKILLS ) || ( packet->skillValue2() > 50 ) || ( packet->skillId3() >= ALLSKILLS ) || ( packet->skillValue3() > 50 ) || ( packet->skillValue1() + packet->skillValue2() + packet->skillValue3() > 100 ) )
 	{
-		log( QString( "Submitted invalid skills during char creation (%1=%2,%3=%4,%5=%6).\n" ).arg( packet->skillId1() ).arg( packet->skillValue1() ).arg( packet->skillId2() ).arg( packet->skillValue2() ).arg( packet->skillId3() ).arg( packet->skillValue3() ) );
+		log( tr( "Submitted invalid skills during char creation (%1=%2,%3=%4,%5=%6).\n" ).arg( packet->skillId1() ).arg( packet->skillValue1() ).arg( packet->skillId2() ).arg( packet->skillValue2() ).arg( packet->skillId3() ).arg( packet->skillValue3() ) );
 		cancelCreate( tr( "Invalid Character skills" ) )
 	}
 
 	// Check Hair
 	if ( packet->hairStyle() && ( !isHair( packet->hairStyle() ) || !isHairColor( packet->hairColor() ) ) )
 	{
-		log( QString( "Submitted wrong hair style (%1) or wrong hair color (%2) during char creation.\n" ).arg( packet->hairStyle() ).arg( packet->hairColor() ) );
+		log( tr( "Submitted wrong hair style (%1) or wrong hair color (%2) during char creation.\n" ).arg( packet->hairStyle() ).arg( packet->hairColor() ) );
 		cancelCreate( tr( "Invalid hair" ) )
 	}
 
 	// Check Beard
 	if ( packet->beardStyle() && ( !isBeard( packet->beardStyle() ) || !isHairColor( packet->beardColor() ) ) )
 	{
-		log( QString( "Submitted wrong beard style (%1) or wrong beard color (%2) during char creation.\n" ).arg( packet->beardStyle() ).arg( packet->beardColor() ) );
+		log( tr( "Submitted wrong beard style (%1) or wrong beard color (%2) during char creation.\n" ).arg( packet->beardStyle() ).arg( packet->beardColor() ) );
 		cancelCreate( tr( "Invalid beard" ) )
 	}
 
 	// Check color for pants and shirt
 	if ( !isNormalColor( packet->shirtColor() ) || !isNormalColor( packet->pantsColor() ) )
 	{
-		log( QString( "Submitted wrong shirt (%1) or pant (%2) color during char creation.\n" ).arg( packet->shirtColor() ).arg( packet->pantsColor() ) );
+		log( tr( "Submitted wrong shirt (%1) or pant (%2) color during char creation.\n" ).arg( packet->shirtColor() ).arg( packet->pantsColor() ) );
 		cancelCreate( tr( "Invalid shirt or pant color" ) )
 	}
 
@@ -877,38 +877,43 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 
 	if ( packet->startTown() >= startLocations.size() )
 	{
-		log( QString( "Submitted wrong starting location (%1) during char creation.\n" ).arg( packet->startTown() ) );
+		log( tr( "Submitted wrong starting location (%1) during char creation.\n" ).arg( packet->startTown() ) );
 		cancelCreate( tr( "Invalid start location" ) )
 	}
 
 	// Finally check the skin
 	if ( !isSkinColor( packet->skinColor() ) )
 	{
-		log( QString( "Submitted a wrong skin color (%1) during char creation.\n" ).arg( packet->skinColor() ) );
+		log( tr( "Submitted a wrong skin color (%1) during char creation.\n" ).arg( packet->skinColor() ) );
 		cancelCreate( tr( "Invalid skin color" ) )
 	}
 
 	// FINALLY create the char
 	P_PLAYER pChar = new cPlayer;
 	pChar->Init();
-
 	pChar->setGender( packet->gender() );
 
+	const cElement* playerDefinition = 0;
+	if ( packet->gender() == 1 )
+	{
+		pChar->setBaseid( "player_female" );
+		playerDefinition = Definitions::instance()->getDefinition( WPDT_NPC, "player_female" );
+	}
+	else
+	{
+		pChar->setBaseid( "player_male" );
+		playerDefinition = Definitions::instance()->getDefinition( WPDT_NPC, "player_male" );
+	}
+
+	if ( playerDefinition )
+		pChar->applyDefinition( playerDefinition );
+	
 	pChar->setName( packet->name() );
 
 	pChar->setSkin( packet->skinColor() );
 	pChar->setOrgSkin( packet->skinColor() );
 
 	pChar->setBody( ( packet->gender() == 1 ) ? 0x191 : 0x190 );
-
-	if ( packet->gender() == 1 )
-	{
-		pChar->setBaseid( "player_female" );
-	}
-	else
-	{
-		pChar->setBaseid( "player_male" );
-	}
 
 	pChar->setOrgBody( pChar->body() );
 

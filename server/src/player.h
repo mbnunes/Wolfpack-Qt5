@@ -205,7 +205,6 @@ private:
 protected:
 	// interface implementation
 	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
-	virtual void processNode( const cElement* Tag );
 
 	// Reference to a guild this character is in
 	cGuild* guild_;

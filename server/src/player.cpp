@@ -1096,11 +1096,6 @@ bool cPlayer::onUse( P_ITEM pItem )
 	return result;
 }
 
-void cPlayer::processNode( const cElement* Tag )
-{
-	return;
-}
-
 void cPlayer::setStamina( INT16 data, bool notify /* = true */ )
 {
 	bool update = false;
