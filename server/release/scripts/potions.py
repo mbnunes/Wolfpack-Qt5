@@ -2,7 +2,7 @@ import wolfpack
 from random import randint
 from wolfpack.time import *
 from wolfpack.consts import *
-from wolfpack.utilities import hex2dec, throwobject
+from wolfpack.utilities import hex2dec, throwobject, energydamage
 
 HEAL_POT_DELAY = 10000 # 10 Seconds
 AGILITY_TIME = 120000  # 2 minutes
@@ -129,6 +129,15 @@ def potionregion( args ):
 
 def potiondamage( char, target, potion ):
 	target.say("Ouch!")
+	if potion.gettag('potiontype') == 11:
+		damage = randint(1, 5)
+	elif potion.gettag('potiontype') == 12:
+		damage = randint(6, 10)
+	elif potion.gettag('potiontype') == 13:
+		damage = randint(11, 20)
+	else:
+		damage = randint(1, 20)
+	energydamage(target, char, damage, fire=100)
 	return
 
 # Check what kind of potion we use, drink or throw
