@@ -10,11 +10,10 @@
 
 	<!-- Tribal Mask Horned n/s -->
 	<item id="1549">
-		<id value="0x1549" />
-		<color list="COLORS_RANDOM" />
-		<durability min="20" max="25" />
-		<weight value="4.0" />
-		<type value="1009" />
+		<durability><random min="20" max="25" /></durability>
+		<id>0x1549</id>
+		<weight>4.0</weight>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="10" />
@@ -30,8 +29,8 @@
 
 	<!-- Tribal Mask Horned w/e -->
 	<item id="154a" inherit="1549">
-		<id value="0x154a" />
-		<baseid value="1549" />
+		<id>0x154a</id>
+		<baseid>1549</baseid>
 		<category>Clothes\Headwear\Tribal Mask, Horned (W/E)</category>
 		<category>Armor\Headwear\Tribal Mask, Horned (W/E)</category>
 		<category>Base Armor\Headwear\Tribal Mask, Horned (W/E)</category>
@@ -39,9 +38,9 @@
 
 	<!-- Tribal Mask Red n/s -->
 	<item id="154b">
-		<id value="0x154b" />
-		<weight value="4.0" />
-		<type value="1009" />
+		<id>0x154b</id>
+		<weight>4.0</weight>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="10" />
@@ -50,7 +49,7 @@
 		<intproperty name="res_poison" value="10" />
 		<intproperty name="res_energy" value="5" />
 		<allowmeditation />
-		<durability min="20" max="25" />
+		<durability><random min="20" max="25" /></durability>
 		<category>Clothes\Headwear\Tribal Mask, Red (N/S)</category>
 		<category>Armor\Headwear\Tribal Mask, Red (N/S)</category>
 		<category>Base Armor\Headwear\Tribal Mask, Red (N/S)</category>
@@ -58,8 +57,8 @@
 
 	<!-- Tribal Mask Red w/e -->
 	<item id="154c" inherit="154b">
-		<id value="0x154c" />
-		<baseid value="154b" />
+		<id>0x154c</id>
+		<baseid>154b</baseid>
 		<category>Clothes\Headwear\Tribal Mask, Red (W/E)</category>
 		<category>Armor\Headwear\Tribal Mask, Red (W/E)</category>
 		<category>Base Armor\Headwear\Tribal Mask, Red (W/E)</category>

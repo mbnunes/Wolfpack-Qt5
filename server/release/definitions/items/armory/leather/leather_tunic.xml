@@ -10,15 +10,15 @@
 
 	<!-- Leather Tunic -->
 	<item id="13cc">
-		<id value="0x13cc" />
+		<id>0x13cc</id>
 		<decay />
 		<nodye />
-		<durability min="31" max="37" />
-		<restock value="10" />
-		<weight value="2.0" />
-		<buyprice value="101" />
-		<sellprice value="52" />
-		<type value="1009" />
+		<durability><random min="31" max="37" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<buyprice>101</buyprice>
+		<sellprice>52</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Leather\Tunic (N/S)</category>
 		<!-- Properties -->
@@ -33,8 +33,8 @@
 	</item>
 
 	<item id="13d3" inherit="13cc">
-		<id value="0x13d3" />
-		<baseid value="13cc" />
+		<id>0x13d3</id>
+		<baseid>13cc</baseid>
 		<category>Base Armor\Leather\Tunic (E/W)</category>
 	</item>
 

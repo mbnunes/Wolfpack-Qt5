@@ -10,15 +10,17 @@
 
 	<!-- Bone Arms North-South -->
 	<item id="144e">
-		<id value="0x144e" />
+		<id>0x144e</id>
 		<decay />
 		<nodye />
-		<durability min="25" max="30" />
-		<restock value="10" />
-		<weight value="2.0" />
-		<value value="0" />
-		<sellprice value="15" />
-		<type value="1009" />
+		<durability><random min="25" max="30" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<value>0</value>
+		<sellprice>15</sellprice>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Bone\Bone Arms (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="55" />
@@ -27,15 +29,12 @@
 		<intproperty name="res_cold" value="4" />
 		<intproperty name="res_poison" value="2" />
 		<intproperty name="res_energy" value="4" />
-		<!-- Misc. -->
-		<basescripts>equipment</basescripts>
-		<category>Base Armor\Bone\Bone Arms (N/S)</category>
 	</item>
 
 	<!-- Bone Arms East-West -->
 	<item id="1453" inherit="144e">
-		<id value="0x1453" />
-		<baseid value="144e" />
+		<id>0x1453</id>
+		<baseid>144e</baseid>
 		<category>Base Armor\Bone\Bone Arms (E/W)</category>
 	</item>
 

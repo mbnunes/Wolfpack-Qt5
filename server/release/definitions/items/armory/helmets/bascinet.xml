@@ -10,16 +10,16 @@
 
 	<!-- Bascinet Helmet North-South -->
 	<item id="140d">
-		<id value="0x140d" />
+		<id>0x140d</id>
 		<decay />
 		<nodye />
-		<durability min="40" max="50" />
-		<restock value="10" />
-		<smelt value="12" />
-		<weight value="5.0" />
-		<buyprice value="127" />
-		<sellprice value="63" />
-		<type value="1009" />
+		<durability><random min="40" max="50" /></durability>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>5.0</weight>
+		<buyprice>127</buyprice>
+		<sellprice>63</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Helmets\Bascinet (N/S)</category>
 		<!-- Properties -->
@@ -34,8 +34,8 @@
 
 	<!-- Bascinet Helmet East-West-->
 	<item id="140c" inherit="140d">
-		<id value="0x140c" />
-		<baseid value="140d" />
+		<id>0x140c</id>
+		<baseid>140d</baseid>
 		<category>Base Armor\Helmets\Bascinet (E/W)</category>
 	</item>
 

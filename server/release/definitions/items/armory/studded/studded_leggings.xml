@@ -10,15 +10,15 @@
 
 	<!-- Studded Leggings -->
 	<item id="13da">
-		<id value="0x13da" />
+		<id>0x13da</id>
 		<decay />
 		<nodye />
-		<durability min="35" max="45" />
-		<restock value="10" />
-		<weight value="3" />
-		<buyprice value="103" />
-		<sellprice value="51" />
-		<type value="1009" />
+		<durability><random min="35" max="45" /></durability>
+		<restock>10</restock>
+		<weight>3.0</weight>
+		<buyprice>103</buyprice>
+		<sellprice>51</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Studded Leather\Leggings (N/S)</category>
 		<!-- Properties -->
@@ -32,8 +32,8 @@
 	</item>
 
 	<item id="13e1" inherit="13da">
-		<id value="0x13e1" />
-		<baseid value="13da" />
+		<id>0x13e1</id>
+		<baseid>13da</baseid>
 		<category>Base Armor\Studded Leather\Leggings (E/W)</category>
 	</item>
 

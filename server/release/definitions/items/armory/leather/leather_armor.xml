@@ -10,15 +10,15 @@
 
 	<!-- Female Tunic -->
 	<item id="1c06">
-		<id value="0x1c06" />
+		<id>0x1c06</id>
 		<decay />
 		<nodye />
-		<durability min="30" max="40" />
-		<restock value="10" />
-		<weight value="1.0" />
-		<buyprice value="116" />
-		<sellprice value="58" />
-		<type value="1009" />
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>1.0</weight>
+		<buyprice>116</buyprice>
+		<sellprice>58</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Leather\Female Leather Armor (N/S)</category>
 		<!-- Properties -->
@@ -33,8 +33,8 @@
 	</item>
 
 	<item id="1c07" inherit="1c06">
-		<id value="0x1c07" />
-		<baseid value="1c06" />
+		<id>0x1c07</id>
+		<baseid>1c06</baseid>
 		<category>Base Armor\Leather\Female Leather Armor (E/W)</category>
 	</item>
 

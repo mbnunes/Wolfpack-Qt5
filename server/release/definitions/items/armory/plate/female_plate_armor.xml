@@ -10,16 +10,16 @@
 
 <!-- Female Plate Armor -->
 	<item id="1c04">
-		<id value="0x1c04" />
+		<id>0x1c04</id>
 		<decay />
 		<nodye />
-		<durability min="51" max="65" />
-		<restock value="10" />
-		<smelt value="16" />
-		<weight value="4.0" />
-		<buyprice value="245" />
-		<sellprice value="122" />
-		<type value="1009" />
+		<durability><random min="51" max="65" /></durability>
+		<restock>10</restock>
+		<smelt>16</smelt>
+		<weight>4.0</weight>
+		<buyprice>245</buyprice>
+		<sellprice>122</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Platemail\Female Armor (N/S)</category>
 		<!-- Properties -->
@@ -34,8 +34,8 @@
 
 	<!-- Female Plate Armor -->
 	<item id="1c05" inherit="1c04">
-		<id value="0x1c05" />
-		<baseid value="1c04" />
+		<id>0x1c05</id>
+		<baseid>1c04</baseid>
 		<category>Base Armor\Platemail\Female Armor (E/W)</category>
 	</item>
 

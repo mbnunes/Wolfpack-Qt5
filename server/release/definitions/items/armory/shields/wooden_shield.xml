@@ -10,15 +10,15 @@
 
 	<!-- Wooden shield -->
 	<item id="1b7a">
-		<id value="0x1b7a" />
+		<id>0x1b7a</id>
 		<decay />
 		<nodye />
-		<durability min="20" max="25" />
-		<restock value="10" />
-		<weight value="5" />
-		<buyprice value="64" />
-		<sellprice value="32" />
-		<type value="1008" />
+		<durability><random min="20" max="25" /></durability>
+		<restock>10</restock>
+		<weight>5</weight>
+		<buyprice>64</buyprice>
+		<sellprice>32</sellprice>
+		<type>1008</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Shields\Wooden Shield</category>
 		<!-- Properties -->

@@ -10,15 +10,17 @@
 
 	<!-- Bone Gloves North-South -->
 	<item id="1450">
-		<id value="0x1450" />
+		<id>0x1450</id>
 		<decay />
 		<nodye />
-		<durability min="25" max="30" />
-		<restock value="10" />
-		<weight value="2.0" />
-		<value value="0 " />
-		<sellprice value="15" />
-		<type value="1009" />
+		<durability><random min="25" max="30" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<value>0</value>
+		<sellprice>15</sellprice>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Bone\Bone Gloves (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="55" />
@@ -27,15 +29,12 @@
 		<intproperty name="res_cold" value="4" />
 		<intproperty name="res_poison" value="2" />
 		<intproperty name="res_energy" value="4" />
-		<!-- Misc. -->
-		<basescripts>equipment</basescripts>
-		<category>Base Armor\Bone\Bone Gloves (N/S)</category>
 	</item>
 
 	<!-- Bone Gloves East-West -->
 	<item id="1455" inherit="1450">
-		<id value="0x1455" />
-		<baseid value="1450" />
+		<id>0x1455</id>
+		<baseid>1450</baseid>
 		<category>Base Armor\Bone\Bone Gloves (E/W)</category>
 	</item>
 

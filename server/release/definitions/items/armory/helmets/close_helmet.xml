@@ -10,16 +10,17 @@
 
 	<!-- Close Helmet North-South -->
 	<item id="1408">
-		<id value="0x1408" />
+		<id>0x1408</id>
+		<name>close helmet</name>
 		<decay />
 		<nodye />
-		<durability min="45" max="60" />
-		<restock value="10" />
-		<smelt value="12" />
-		<weight value="5.0" />
-		<buyprice value="145" />
-		<sellprice value="72" />
-		<type value="1009" />
+		<durability><random min="45" max="60" /></durability>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>5.0</weight>
+		<buyprice>145</buyprice>
+		<sellprice>72</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Helmets\Close Helm (N/S)</category>
 		<!-- Properties -->
@@ -34,8 +35,8 @@
 
 	<!-- Close Helmet East-West -->
 	<item id="1409" inherit="1408">
-		<id value="0x1409" />
-		<baseid value="1408" />
+		<id>0x1409</id>
+		<baseid>1408</baseid>
 		<category>Base Armor\Helmets\Close Helm (E/W)</category>
 	</item>
 

@@ -10,14 +10,13 @@
 
 	<!-- Bonnet -->
 	<item id="1719">
-		<id value="0x1719" />
+		<id>0x1719</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<durability min="20" max="25" />
-		<buyprice value="26" />
-		<sellprice value="13" />
-		<weight value="1.0" />
-		<type value="1009" />
+		<durability><random min="20" max="25" /></durability>
+		<buyprice>26</buyprice>
+		<sellprice>13</sellprice>
+		<weight>1.0</weight>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="10" />

@@ -10,13 +10,13 @@
 
 	<!-- dragon helm -->
 	<item id="2645">
-		<id value="0x2645" />
+		<id>0x2645</id>
 		<decay />
 		<nodye />
-		<durability min="50" max="65" />
-		<smelt value="12" />
-		<weight value="7.0" />
-		<type value="1009" />
+		<durability><random min="50" max="65" /></durability>
+		<smelt>12</smelt>
+		<weight>7.0</weight>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Dragon\Dragon Helm 1</category>
 		<!-- Properties -->
@@ -31,8 +31,8 @@
 
 	<!-- dragon helm -->
 	<item id="2646" inherit="2645">
-		<id value="0x2646" />
-		<baseid value="2645" />
+		<id>0x2646</id>
+		<baseid>2645</baseid>
 		<category>Base Armor\Dragon\Dragon Helm 2</category>
 	</item>\
 

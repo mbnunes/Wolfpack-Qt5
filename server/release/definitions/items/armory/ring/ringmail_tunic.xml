@@ -10,16 +10,16 @@
 
 	<!-- Ring Tunic -->
 	<item id="13ec">
-		<id value="0x13ec" />
+		<id>0x13ec</id>
 		<decay />
 		<nodye />
-		<durability min="40" max="50" />
-		<restock value="10" />
-		<smelt value="11" />
-		<weight value="15.0" />
-		<buyprice value="218" />
-		<sellprice value="84" />
-		<type value="1009" />
+		<durability><random min="40" max="50" /></durability>
+		<restock>10</restock>
+		<smelt>11</smelt>
+		<weight>15.0</weight>
+		<buyprice>218</buyprice>
+		<sellprice>84</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Ringmail\Tunic (N/S)</category>
 		<!-- Properties -->
@@ -33,8 +33,8 @@
 	</item>
 
 	<item id="13ed" inherit="13ec">
-		<id value="0x13ed" />
-		<baseid value="13ec" />
+		<id>0x13ed</id>
+		<baseid>13ec</baseid>
 		<category>Base Armor\Ringmail\Tunic (E/W)</category>
 	</item>
 

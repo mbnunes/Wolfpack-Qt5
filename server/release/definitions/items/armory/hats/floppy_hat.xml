@@ -10,14 +10,13 @@
 
 	<!-- Floppy Hat -->
 	<item id="1713">
-		<id value="0x1713" />
+		<id>0x1713</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<durability min="20" max="25" />
-		<buyprice value="25" />
-		<sellprice value="12" />
-		<weight value="1.0" />
-		<type value="1009" />
+		<durability><random min="20" max="25" /></durability>
+		<buyprice>25</buyprice>
+		<sellprice>12</sellprice>
+		<weight>1.0</weight>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="10" />

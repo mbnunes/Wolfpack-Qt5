@@ -10,15 +10,15 @@
 
 	<!-- Studded Gloves -->
 	<item id="13d5">
-		<id value="0x13d5" />
+		<id>0x13d5</id>
 		<decay />
 		<nodye />
-		<durability min="35" max="45" />
-		<restock value="10" />
-		<weight value="1" />
-		<buyprice value="79" />
-		<sellprice value="39" />
-		<type value="1009" />
+		<durability><random min="35" max="45" /></durability>
+		<restock>10</restock>
+		<weight>1.0</weight>
+		<buyprice>79</buyprice>
+		<sellprice>39</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Studded Leather\Gloves (N/S)</category>
 		<!-- Properties -->
@@ -32,8 +32,8 @@
 	</item>
 
 	<item id="13dd" inherit="13d5">
-		<id value="0x13dd" />
-		<baseid value="13d5" />
+		<id>0x13dd</id>
+		<baseid>13d5</baseid>
 		<category>Base Armor\Studded Leather\Gloves (E/W)</category>
 	</item>
 

@@ -10,16 +10,17 @@
 
 	<!-- Plate Arms NS -->
 	<item id="1410">
-		<id value="0x1410" />
+		<id>0x1410</id>
 		<decay />
 		<nodye />
-		<durability min="60" max="100" />
-		<restock value="10" />
-		<smelt value="14" />
-		<weight value="5.0" />
-		<buyprice value="181" />
-		<sellprice value="90" />
-		<type value="1009" />
+		<durability><random min="60" max="100" /></durability>
+		<tag name="resname" value="iron" />
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>5.0</weight>
+		<buyprice>181</buyprice>
+		<sellprice>90</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Platemail\Arms (N/S)</category>
 		<!-- Properties -->
@@ -34,8 +35,8 @@
 
 	<!-- Plate Arms EW -->
 	<item id="1417" inherit="1410">
-		<id value="0x1417" />
-		<baseid value="1410" />
+		<id>0x1417</id>
+		<baseid>1410</baseid>
 		<category>Base Armor\Platemail\Arms (E/W)</category>
 	</item>
 

@@ -10,15 +10,15 @@
 
 	<!-- Leather Bustier -->
 	<item id="1c0a">
-		<id value="0x1c0a" />
+		<id>0x1c0a</id>
 		<decay />
 		<nodye />
-		<durability min="30" max="40" />
-		<restock value="10" />
-		<weight value="2.0" />
-		<buyprice value="97" />
-		<sellprice value="48" />
-		<type value="1009" />
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<buyprice>97</buyprice>
+		<sellprice>48</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Leather\Bustier (N/S)</category>
 		<!-- Properties -->
@@ -33,8 +33,8 @@
 	</item>
 
 	<item id="1c0b" inherit="1c0a">
-		<id value="0x1c0b" />
-		<baseid value="1c0a" />
+		<id>0x1c0b</id>
+		<baseid>1c0a</baseid>
 		<category>Base Armor\Leather\Bustier (E/W)</category>
 	</item>
 

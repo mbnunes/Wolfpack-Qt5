@@ -10,104 +10,104 @@
 
 	<!-- Flower Garland -->
 	<item id="2305">
-		<id value="0x2305" />
+		<id>0x2305</id>
 		<dye />
 		<category>Clothes\Accessories\Flower Garland (N/S)</category>
-		<weight value="1" />
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="2306" inherit="2305">
-		<baseid value="2305" />
-		<id value="0x2306" />
+		<baseid>2305</baseid>
+		<id>0x2306</id>
 		<category>Clothes\Accessories\Flower Garland (W/E)</category>
 	</item>
 
 	<!-- Gilded Dress -->
 	<item id="230d">
-		<id value="0x230d" />
+		<id>0x230d</id>
 		<dye />
 		<category>Clothes\Torso\Gilded Dress (W/E)</category>
-		<weight value="3" />
+		<weight>3.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="230e" inherit="230d">
-		<baseid value="230d" />
-		<id value="0x230e" />
+		<baseid>230d</baseid>
+		<id>0x230e</id>
 		<category>Clothes\Torso\Gilded Dress (N/S)</category>
 	</item>
 
 	<!-- Fur Cape -->
 	<item id="2309">
-		<id value="0x2309" />
+		<id>0x2309</id>
 		<dye />
 		<category>Clothes\Accessories\Fur Cape (W/E)</category>
-		<weight value="4" />
+		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="230a" inherit="2309">
-		<baseid value="2309" />
-		<id value="0x230a" />
+		<baseid>2309</baseid>
+		<id>0x230a</id>
 		<category>Clothes\Accessories\Fur Cape (N/S)</category>
 	</item>
 
 	<!-- Fur Sarong -->
 	<item id="230b">
-		<id value="0x230b" />
+		<id>0x230b</id>
 		<dye />
 		<category>Clothes\Accessories\Fur Sarong (W/E)</category>
-		<weight value="3" />
+		<weight>3.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="230c" inherit="230b">
-		<baseid value="230b" />
-		<id value="0x230c" />
+		<baseid>230b</baseid>
+		<id>0x230c</id>
 		<category>Clothes\Accessories\Fur Sarong (N/S)</category>
 	</item>
 
 	<!-- Formal Shirt -->
 	<item id="230f">
-		<id value="0x230F" />
+		<id>0x230F</id>
 		<category>Clothes\Torso\Formal Shirt (W/E)</category>
-		<weight value="1" />
+		<weight>1.0</weight>
 		<dye />
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="2310" inherit="230f">
-		<baseid value="230f" />
-		<id value="0x2310" />
+		<baseid>230f</baseid>
+		<id>0x2310</id>
 		<category>Clothes\Accessories\Formal Shirt (N/S)</category>
 	</item>
 
 	<!-- Cloak n/s -->
 	<item id="1515">
 		<category>Clothes\Accessories\Cloak (N/S)</category>
-		<id value="0x1515" />
+		<id>0x1515</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<buyprice value="43" />
-		<sellprice value="21" />
-		<weight value="5" />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>43</buyprice>
+		<sellprice>21</sellprice>
+		<weight>5.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Cloak w/e-->
 	<item id="1530" inherit="1515">
-		<baseid value="1515" />
+		<baseid>1515</baseid>
 		<category>Clothes\Accessories\Cloak (W/E)</category>
-		<id value="0x1530" />
+		<id>0x1530</id>
 	</item>
 
 	<!-- Beads -->
 	<item id="108b">
-		<id value="0x108b" />
-		<buyprice value="31" />
-		<sellprice value="15" />
-		<weight value="1" />
+		<id>0x108b</id>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1.0</weight>
 		<category>Clothes\Accessories\Beads</category>
 		<basescripts>equipment</basescripts>
 	</item>
@@ -115,257 +115,257 @@
 	<!-- Skirt w/e -->
 	<item id="1531">
 		<category>Clothes\Legs\Skirt (W/E)</category>
-		<id value="0x1531" />
+		<id>0x1531</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<buyprice value="33" />
-		<sellprice value="16" />
-		<weight value="4" />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>33</buyprice>
+		<sellprice>16</sellprice>
+		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Skirt n/s -->
 	<item id="1516" inherit="1531">
-		<baseid value="1531" />
+		<baseid>1531</baseid>
 		<category>Clothes\Legs\Skirt (N/S)</category>
-		<id value="0x1516" />
+		<id>0x1516</id>
 	</item>
 
 	<!-- Plain Shirt n/s -->
 	<item id="1517">
 		<category>Clothes\Torso\Plain Shirt (N/S)</category>
-		<id value="0x1517" />
+		<id>0x1517</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<buyprice value="37" />
-		<sellprice value="18" />
-		<weight value="2" />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>37</buyprice>
+		<sellprice>18</sellprice>
+		<weight>2.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Plain Shirt w/e -->
 	<item id="1518" inherit="1517">
-		<baseid value="1517" />
+		<baseid>1517</baseid>
 		<category>Clothes\Torso\Plain Shirt (W/E)</category>
-		<id value="0x1518" />
+		<id>0x1518</id>
 	</item>
 
 	<!-- Short Pants n/s -->
 	<item id="152e">
 		<category>Clothes\Legs\Short Pants (N/S)</category>
-		<id value="0x152e" />
+		<id>0x152e</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<buyprice value="24" />
-		<sellprice value="12" />
-		<weight value="2" />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>24</buyprice>
+		<sellprice>12</sellprice>
+		<weight>2.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Short Pants w/e -->
 	<item id="152f" inherit="152e">
-		<baseid value="152e" />
+		<baseid>152e</baseid>
 		<category>Clothes\Legs\Short Pants (W/E)</category>
-		<id value="0x152f" />
+		<id>0x152f</id>
 	</item>
 
 	<!-- Gold Belt n/s -->
 	<!-- Can't be equipped -->
 	<item id="1535">
 		<category>Clothes\Accessories\Gold Belt (N/S)</category>
-		<id value="0x1535" />
+		<id>0x1535</id>
 	</item>
 
 	<!-- Gold Belt w/e -->
 	<!-- Can't be equipped -->
 	<item id="1536" inherit="1535">
-		<baseid value="1535" />
+		<baseid>1535</baseid>
 		<category>Clothes\Accessories\Gold Belt (N/S)</category>
-		<id value="0x1536" />
+		<id>0x1536</id>
 	</item>
 
 	<!-- Kilt n/s -->
 	<item id="1537">
 		<category>Clothes\Legs\Kilt (N/S)</category>
-		<id value="0x1537" />
+		<id>0x1537</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<buyprice value="31" />
-		<sellprice value="15" />
-		<weight value="2" />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>2.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Kilt w/e -->
 	<item id="1538" inherit="1537">
-		<baseid value="1537" />
+		<baseid>1537</baseid>
 		<category>Clothes\Legs\Kilt (W/E)</category>
-		<id value="0x1538" />
+		<id>0x1538</id>
 	</item>
 
 	<!-- Long Pants n/s -->
 	<item id="1539">
 		<category>Clothes\Legs\Long Pants (N/S)</category>
-		<id value="0x1539" />
+		<id>0x1539</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<buyprice value="34" />
-		<sellprice value="17" />
-		<weight value="2" />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>34</buyprice>
+		<sellprice>17</sellprice>
+		<weight>2.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Long Pants w/e -->
 	<item id="153a" inherit="1539">
-		<baseid value="1539" />
+		<baseid>1539</baseid>
 		<category>Clothes\Legs\Long Pants (W/E)</category>
-		<id value="0x153a" />
+		<id>0x153a</id>
 	</item>
 
 	<!-- Half Apron n/s -->
 	<item id="153b">
 		<category>Clothes\Accessories\Half Apron (N/S)</category>
-		<id value="0x153b" />
+		<id>0x153b</id>
 		<dye />
-		<buyprice value="26" />
-		<sellprice value="13" />
-		<weight value="2" />
+		<buyprice>26</buyprice>
+		<sellprice>13</sellprice>
+		<weight>2.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Half Apron w/e -->
 	<item id="153c" inherit="153b">
-		<baseid value="153b" />
+		<baseid>153b</baseid>
 		<category>Clothes\Accessories\Half Apron (W/E)</category>
-		<id value="0x153c" />
+		<id>0x153c</id>
 	</item>
 
 	<!-- Full Apron n/s -->
 	<item id="153d">
 		<category>Clothes\Accessories\Full Apron (N/S)</category>
-		<id value="0x153d" />
+		<id>0x153d</id>
 		<dye />
-		<buyprice value="26" />
-		<sellprice value="13" />
-		<weight value="4" />
+		<buyprice>26</buyprice>
+		<sellprice>13</sellprice>
+		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Full Apron w/e -->
 	<item id="153e" inherit="153d">
-		<baseid value="153d" />
+		<baseid>153d</baseid>
 		<category>Clothes\Accessories\Full Apron (W/E)</category>
-		<id value="0x153e" />
+		<id>0x153e</id>
 	</item>
 
 	<!-- Body Sash n/s -->
 	<item id="1541">
 		<category>Clothes\Accessories\Body Sash (N/S)</category>
-		<id value="0x1541" />
-		<color list="COLORS_RANDOM" />
+		<id>0x1541</id>
+		<color><random list="COLORS_RANDOM" /></color>
 		<dye />
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Body Sash w/e -->
 	<item id="1542" inherit="1541">
-		<baseid value="1541" />
+		<baseid>1541</baseid>
 		<category>Clothes\Accessories\Body Sash (W/E)</category>
-		<id value="0x1542" />
+		<id>0x1542</id>
 	</item>
 
 	<!-- Necklace 1 -->
 	<item id="1085">
 		<category>Clothes\Accessories\Necklace (S-Shape)</category>
-		<id value="0x1085" />
-		<buyprice value="38" />
-		<sellprice value="19" />
-		<weight value="1" />
+		<id>0x1085</id>
+		<buyprice>38</buyprice>
+		<sellprice>19</sellprice>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Bracelet -->
 	<item id="1086">
 		<category>Clothes\Accessories\Bracelet 1</category>
-		<id value="0x1086" />
-		<buyprice value="31" />
-		<sellprice value="15" />
-		<weight value="1" />
+		<id>0x1086</id>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Earrings -->
 	<item id="1087">
 		<category>Clothes\Accessories\Earrings 1</category>
-		<id value="0x1087" />
-		<buyprice value="38" />
-		<sellprice value="19" />
-		<weight value="1" />
+		<id>0x1087</id>
+		<buyprice>38</buyprice>
+		<sellprice>19</sellprice>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Necklace -->
 	<item id="1088">
 		<category>Clothes\Accessories\Necklace (Round)</category>
-		<id value="0x1088" />
-		<buyprice value="31" />
-		<sellprice value="15" />
-		<weight value="1" />
+		<id>0x1088</id>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Necklace -->
 	<item id="1089">
 		<category>Clothes\Accessories\Necklace (Long)</category>
-		<id value="0x1089" />
-		<buyprice value="31" />
-		<sellprice value="15" />
-		<weight value="1" />
+		<id>0x1089</id>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Ring -->
 	<item id="108a">
 		<category>Clothes\Accessories\Ring 1</category>
-		<id value="0x108a" />
-		<buyprice value="38" />
-		<sellprice value="19" />
-		<weight value="1" />
+		<id>0x108a</id>
+		<buyprice>38</buyprice>
+		<sellprice>19</sellprice>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f05">
-		<id value="0x1f05" />
+		<id>0x1f05</id>
 		<category>Clothes\Accessories\Bead Necklace</category>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f06">
-		<id value="0x1f06" />
+		<id>0x1f06</id>
 		<category>Clothes\Accessories\Bracelet 2</category>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f07">
-		<id value="0x1f07" />
+		<id>0x1f07</id>
 		<category>Clothes\Accessories\Earrings 2</category>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f08">
-		<id value="0x1f08" />
+		<id>0x1f08</id>
 		<category>Clothes\Accessories\Necklace 4</category>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f09">
-		<id value="0x1f09" />
+		<id>0x1f09</id>
 		<category>Clothes\Accessories\Ring 2</category>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f0a">
-		<id value="0x1f0a" />
+		<id>0x1f0a</id>
 		<category>Clothes\Accessories\Necklace 5</category>
 		<basescripts>equipment</basescripts>
 	</item>
@@ -373,268 +373,268 @@
 	<!-- Boots n/s -->
 	<item id="170b">
 		<category>Clothes\Footwear\Boots (W/E)</category>
-		<id value="0x170b" />
+		<id>0x170b</id>
 		<dye />
-		<buyprice value="45" />
-		<sellprice value="22" />
-		<weight value="3" />
+		<buyprice>45</buyprice>
+		<sellprice>22</sellprice>
+		<weight>3.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Boots w/e -->
 	<item id="170c" inherit="170b">
-		<baseid value="170b" />
+		<baseid>170b</baseid>
 		<category>Clothes\Footwear\Boots (W/E)</category>
-		<id value="0x170c" />
+		<id>0x170c</id>
 	</item>
 
 	<!-- Sandals n/s -->
 	<item id="170d">
 		<category>Clothes\Footwear\Sandals (N/S)</category>
-		<id value="0x170d" />
-		<buyprice value="24" />
-		<sellprice value="12" />
-		<weight value="1" />
+		<id>0x170d</id>
+		<buyprice>24</buyprice>
+		<sellprice>12</sellprice>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Sandals w/e -->
 	<item id="170e" inherit="170d">
-		<baseid value="170d" />
+		<baseid>170d</baseid>
 		<category>Clothes\Footwear\Sandals (W/E)</category>
-		<id value="0x170e" />
+		<id>0x170e</id>
 	</item>
 
 	<!-- Fur Boots -->
 	<item id="2307">
 		<category>Clothes\Footwear\Fur Boots (W/E)</category>
-		<id value="0x2307" />
-		<weight value="3" />
+		<id>0x2307</id>
+		<weight>3.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="2308" inherit="2307">
-		<baseid value="2307" />
+		<baseid>2307</baseid>
 		<category>Clothes\Footwear\Fur Boots (N/S)</category>
-		<id value="0x2308" />
+		<id>0x2308</id>
   </item>
 
 	<!-- Shoes n/s -->
 	<item id="170f">
 		<category>Clothes\Footwear\Shoes (N/S)</category>
-		<id value="0x170f" />
+		<id>0x170f</id>
 		<dye />
-		<buyprice value="27" />
-		<sellprice value="13" />
-		<weight value="2" />
+		<buyprice>27</buyprice>
+		<sellprice>13</sellprice>
+		<weight>2.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Shoes (w/e)-->
 	<item id="1710" inherit="170f">
-		<baseid value="170f" />
+		<baseid>170f</baseid>
 		<category>Clothes\Footwear\Shoes (W/E)</category>
-		<id value="0x1710" />
+		<id>0x1710</id>
 	</item>
 
 	<!-- Thigh Boots (n/s) -->
 	<item id="1711">
 		<category>Clothes\Footwear\Thigh Boots (N/S)</category>
-		<id value="0x1711" />
+		<id>0x1711</id>
 		<dye />
-		<buyprice value="56" />
-		<sellprice value="28" />
-		<weight value="4" />
+		<buyprice>56</buyprice>
+		<sellprice>28</sellprice>
+		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Thigh Boots (w/e) -->
 	<item id="1712" inherit="1711">
-		<baseid value="1711" />
+		<baseid>1711</baseid>
 		<category>Clothes\Footwear\Thigh Boots (W/E)</category>
-		<id value="0x1712" />
+		<id>0x1712</id>
 	</item>
 
 	<!-- Fancy Shirt n/s -->
 	<item id="1efd">
-		<id value="0x1efd" />
+		<id>0x1efd</id>
 		<category>Clothes\Torso\Fancy Shirt (N/S)</category>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<buyprice value="55" />
-		<sellprice value="27" />
-		<weight value="2" />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>55</buyprice>
+		<sellprice>27</sellprice>
+		<weight>2.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Fancy Shirt w/e -->
 	<item id="1efe" inherit="1efd">
-		<baseid value="1efd" />
+		<baseid>1efd</baseid>
 		<category>Clothes\Torso\Fancy Shirt (W/E)</category>
-		<id value="0x1efe" />
+		<id>0x1efe</id>
 	</item>
 
 	<!-- Fancy Dress w/e -->
 	<item id="1eff">
 		<category>Clothes\Torso\Fancy Dress (W/E)</category>
-		<id value="0x1eff" />
+		<id>0x1eff</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<buyprice value="25" />
-		<sellprice value="12" />
-		<weight value="3" />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>25</buyprice>
+		<sellprice>12</sellprice>
+		<weight>3.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Fancy Dress n/s -->
 	<item id="1f00" inherit="1eff">
-		<baseid value="1eff" />
+		<baseid>1eff</baseid>
 		<category>Clothes\Torso\Fancy Dress (N/S)</category>
-		<id value="0x1f00" />
+		<id>0x1f00</id>
 	</item>
 
 	<!-- Plain Dress n/s -->
 	<item id="1f01">
 		<category>Clothes\Torso\Plain Dress (N/S)</category>
-		<id value="0x1f01" />
+		<id>0x1f01</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<buyprice value="56" />
-		<sellprice value="28" />
-		<weight value="2" />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>56</buyprice>
+		<sellprice>28</sellprice>
+		<weight>2.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Plain Dress w/e -->
 	<item id="1f02" inherit="1f01">
-		<baseid value="1f01" />
+		<baseid>1f01</baseid>
 		<category>Clothes\Torso\Plain Dress (W/E)</category>
-		<id value="0x1f02" />
+		<id>0x1f02</id>
 	</item>
 
 	<!-- Robe n/s -->
 	<item id="1f03">
 		<category>Clothes\Torso\Robe (N/S)</category>
-		<id value="0x1f03" />
+		<id>0x1f03</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<buyprice value="68" />
-		<sellprice value="34" />
-		<weight value="3" />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>68</buyprice>
+		<sellprice>34</sellprice>
+		<weight>3.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Robe w/e -->
 	<item id="1f04" inherit="1f03">
-		<baseid value="1f03" />
+		<baseid>1f03</baseid>
 		<category>Clothes\Torso\Robe (W/E)</category>
-		<id value="0x1f04" />
+		<id>0x1f04</id>
 	</item>
 
 	<!-- Jester Suit n/s -->
 	<item id="1f9f">
 		<category>Clothes\Torso\Jester Suit (N/S)</category>
-		<id value="0x1f9f" />
+		<id>0x1f9f</id>
 		<dye />
-		<buyprice value="51" />
-		<sellprice value="25" />
-		<weight value="4" />
+		<buyprice>51</buyprice>
+		<sellprice>25</sellprice>
+		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Jester Suit w/e -->
 	<item id="1fa0" inherit="1f9f">
-		<baseid value="1f9f" />
+		<baseid>1f9f</baseid>
 		<category>Clothes\Torso\Jester Suit (W/E)</category>
-		<id value="0x1fa0" />
+		<id>0x1fa0</id>
 	</item>
 
 	<!-- Tunic n/s -->
 	<item id="1fa1">
 		<category>Clothes\Torso\Tunic (N/S)</category>
-		<id value="0x1fa1" />
+		<id>0x1fa1</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<buyprice value="33" />
-		<sellprice value="16" />
-		<weight value="5" />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>33</buyprice>
+		<sellprice>16</sellprice>
+		<weight>5.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Tunic w/e -->
 	<item id="1fa2" inherit="1fa1">
-		<baseid value="1fa1" />
+		<baseid>1fa1</baseid>
 		<category>Clothes\Torso\Tunic (W/E)</category>
-		<id value="0x1fa2" />
+		<id>0x1fa2</id>
 	</item>
 
 	<!-- Doublet n/s -->
 	<item id="1f7b">
 		<category>Clothes\Torso\Doublet (N/S)</category>
-		<id value="0x1f7b" />
+		<id>0x1f7b</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<buyprice value="25" />
-		<sellprice value="12" />
-		<weight value="2" />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>25</buyprice>
+		<sellprice>12</sellprice>
+		<weight>2.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Doublet w/e -->
 	<item id="1f7c" inherit="1f7b">
-		<baseid value="1f7c" />
+		<baseid>1f7c</baseid>
 		<category>Clothes\Torso\Doublet (W/E)</category>
-		<id value="0x1f7c" />
+		<id>0x1f7c</id>
 	</item>
 
 	<!-- Surcoat n/s -->
 	<item id="1ffd">
 		<category>Clothes\Torso\Surcoat (N/S)</category>
-		<id value="0x1ffd" />
+		<id>0x1ffd</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
+		<color><random list="COLORS_RANDOM" /></color>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Surcoat w/e -->
 	<item id="1ffe" inherit="1ffd">
-		<baseid value="1ffd" />
+		<baseid>1ffd</baseid>
 		<category>Clothes\Torso\Surcoat (W/E)</category>
-		<id value="0x1ffe" />
+		<id>0x1ffe</id>
 	</item>
 
 	<!-- Lord British -->
 	<item id="2042">
 		<category>Clothes\Special\Lord British</category>
-		<id value="0x2042" />
+		<id>0x2042</id>
 		<newbie />
 	</item>
 
 	<!-- Lord Blackthorne -->
 	<item id="2043">
 		<category>Clothes\Special\Lord Blackthorne</category>
-		<id value="0x2043" />
+		<id>0x2043</id>
 		<newbie />
 	</item>
 
 	<!-- Death Shroud -->
 	<item id="204e">
 		<category>Clothes\Special\Death Shroud</category>
-		<id value="0x204e" />
+		<id>0x204e</id>
 		<newbie />
 	</item>
 
 	<!-- GM Robe -->
 	<item id="204f">
 		<category>Clothes\Special\GM Robe</category>
-		<id value="0x204f" />
+		<id>0x204f</id>
 		<newbie />
 	</item>
 
 	 <!-- Dupre -->
 	<item id="2050">
 		<category>Clothes\Special\Dupre</category>
-		<id value="0x2050" />
+		<id>0x2050</id>
 		<newbie />
 	</item>
 
@@ -643,81 +643,81 @@
 	<!-- Male Kimono -->
 	<item id="2782">
 		<category>Clothes\Samurai\Male Kimono</category>
-		<id value="0x2782" />
+		<id>0x2782</id>
 	</item>
 	<item id="27cd" inherit="2782">
-		<id value="0x27cd" />
-		<baseid value="2782" />
+		<id>0x27cd</id>
+		<baseid>2782</baseid>
 	</item>
 
 	<!-- Female Kimono -->
 	<item id="2783">
 		<category>Clothes\Samurai\Female Kimono</category>
-		<id value="0x2783" />
+		<id>0x2783</id>
 	</item>
 	<item id="27ce" inherit="2783">
-		<id value="0x27ce" />
-		<baseid value="2783" />
+		<id>0x27ce</id>
+		<baseid>2783</baseid>
 	</item>
 
 	<!-- Kamishimo -->
 	<item id="2799">
 		<category>Clothes\Samurai\Kamishimo</category>
-		<id value="0x2799" />
+		<id>0x2799</id>
 	</item>
 	<item id="27e4" inherit="2799">
-		<id value="0x27e4" />
-		<baseid value="2799" />
+		<id>0x27e4</id>
+		<baseid>2799</baseid>
 	</item>
 
 	<!-- Hakama -->
 	<item id="279a">
 		<category>Clothes\Samurai\Hakama</category>
-		<id value="0x279a" />
+		<id>0x279a</id>
 	</item>
 	<item id="27e5" inherit="279a">
-		<id value="0x27e5" />
-		<baseid value="279a" />
+		<id>0x27e5</id>
+		<baseid>279a</baseid>
 	</item>
 
 	<!-- Tattsuke-Hakama -->
 	<item id="279b">
 		<category>Clothes\Samurai\Tattsuke-Hakama</category>
-		<id value="0x279b" />
+		<id>0x279b</id>
 	</item>
 	<item id="27e6" inherit="279b">
-		<id value="0x27e6" />
-		<baseid value="279b" />
+		<id>0x27e6</id>
+		<baseid>279b</baseid>
 	</item>
 
 	<!-- Tattsuke-Shita -->
 	<item id="279c">
 		<category>Clothes\Samurai\Tattsuke-Shita</category>
-		<id value="0x279c" />
+		<id>0x279c</id>
 	</item>
 	<item id="27e7" inherit="279c">
-		<id value="0x27e7" />
-		<baseid value="279c" />
+		<id>0x27e7</id>
+		<baseid>279c</baseid>
 	</item>
 
 	<!-- Obi -->
 	<item id="27a0">
 		<category>Clothes\Samurai\Obi</category>
-		<id value="0x27a0" />
+		<id>0x27a0</id>
 	</item>
 	<item id="27eb" inherit="27a0">
-		<id value="0x27eb" />
-		<baseid value="27a0" />
+		<id>0x27eb</id>
+		<baseid>27a0</baseid>
 	</item>
 
 	<!-- Jin-Baori -->
 	<item id="27a1">
 		<category>Clothes\Samurai\Jin-Baori</category>
-		<id value="0x27a1" />
+		<id>0x27a1</id>
 	</item>
 	<item id="27ec" inherit="27a1">
-		<id value="0x27ec" />
-		<baseid value="27a1" />
+		<id>0x27ec</id>
+		<baseid>27a1</baseid>
 	</item>
 
 </definitions>

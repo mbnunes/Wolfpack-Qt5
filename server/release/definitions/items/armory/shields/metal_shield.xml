@@ -10,16 +10,16 @@
 
 	<!-- metal shield -->
 	<item id="1b7b">
-		<id value="0x1b7b" />
+		<id>0x1b7b</id>
 		<decay />
 		<nodye />
-		<durability min="50" max="65" />
-		<restock value="10" />
-		<smelt value="11" />
-		<weight value="6" />
-		<buyprice value="98" />
-		<sellprice value="49" />
-		<type value="1008" />
+		<durability><random min="50" max="65" /></durability>
+		<restock>10</restock>
+		<smelt>11</smelt>
+		<weight>6</weight>
+		<buyprice>98</buyprice>
+		<sellprice>49</sellprice>
+		<type>1008</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Shields\Metal Shield</category>
 		<!-- Properties -->

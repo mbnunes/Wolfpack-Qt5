@@ -10,15 +10,15 @@
 
 	<!-- Studded Sleeves -->
 	<item id="13d4">
-		<id value="0x13d4" />
+		<id>0x13d4</id>
 		<decay />
 		<nodye />
-		<durability min="35" max="44" />
-		<restock value="10" />
-		<weight value="4" />
-		<buyprice value="87" />
-		<sellprice value="43" />
-		<type value="1009" />
+		<durability><random min="35" max="44" /></durability>
+		<restock>10</restock>
+		<weight>4.0</weight>
+		<buyprice>87</buyprice>
+		<sellprice>43</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Studded Leather\Sleeves (N/S)</category>
 		<!-- Properties -->
@@ -32,8 +32,8 @@
 	</item>
 
 	<item id="13dc" inherit="13d4">
-		<id value="0x13dc" />
-		<baseid value="13d4" />
+		<id>0x13dc</id>
+		<baseid>13d4</baseid>
 		<category>Base Armor\Studded Leather\Sleeves (E/W)</category>
 	</item>
 

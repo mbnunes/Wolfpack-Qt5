@@ -10,16 +10,16 @@
 
 	<!-- Plate Gloves NS -->
 	<item id="1414">
-		<id value="0x1414" />
+		<id>0x1414</id>
 		<decay />
 		<nodye />
-		<durability min="60" max="100" />
-		<restock value="10" />
-		<smelt value="9" />
-		<weight value="2.0" />
-		<buyprice value="145" />
-		<sellprice value="72" />
-		<type value="1009" />
+		<durability><random min="60" max="100" /></durability>
+		<restock>10</restock>
+		<smelt>9</smelt>
+		<weight>2.0</weight>
+		<buyprice>145</buyprice>
+		<sellprice>72</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Platemail\Gloves (N/S)</category>
 		<!-- Properties -->
@@ -34,8 +34,7 @@
 
 	<!-- Plate Gloves EW -->
 	<item id="1418" inherit="1414">
-		<id value="0x1418" />
-		<baseid value="1414" />
+		<id>0x1418</id>
 		<category>Base Armor\Platemail\Gloves (E/W)</category>
 	</item>
 

@@ -41,12 +41,12 @@ Food subtypes:
 		<id>0x976</id>
 		<category>Equipment\Food\Slab of Bacon (N/S)</category>
 		<basescripts>food</basescripts>
-		<weight value="0.2" />
+		<weight>0.2</weight>
 	</item>
 
 	<!-- Slab of Bacon w/e -->
 	<item id="977" inherit="976">
-		<baseid value="976" />
+		<baseid>976</baseid>
 		<id>0x977</id>
 		<category>Equipment\Food\Slab of Bacon (W/E)</category>
 	</item>
@@ -56,14 +56,14 @@ Food subtypes:
 		<category>Equipment\Food\Slice of Bacon (N/S)</category>
 		<id>0x978</id>
 		<basescripts>food</basescripts>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="0.1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
 	</item>
 
 	<!-- Slice of Bacon w/e -->
 	<item id="979" inherit="978">
-		<baseid value="978" />
+		<baseid>978</baseid>
 		<id>0x979</id>
 		<category>Equipment\Food\Slice of Bacon (W/E)</category>
 	</item>
@@ -71,9 +71,9 @@ Food subtypes:
 	<!-- Raw Fish Steak -->
 	<item id="97a">
 		<id>0x97a</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="0.1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
 		<basescripts>cooking</basescripts>
 		<category>Equipment\Food\Raw Fish Steak</category>
 	</item>
@@ -81,7 +81,7 @@ Food subtypes:
 	<!-- Dough -->
 	<item id="103d">
 		<id>0x103d</id>
-		<weight value="0.2" />
+		<weight>0.2</weight>
 		<basescripts>cooking</basescripts>
 		<category>Equipment\Food\Dough</category>
 	</item>
@@ -90,7 +90,7 @@ Food subtypes:
 	<item id="97b">
 		<id>0x97b</id>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 		<category>Equipment\Food\Fish Steak</category>
 	</item>
 
@@ -98,7 +98,7 @@ Food subtypes:
 	<item id="97c">
 		<id>0x97c</id>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 		<category>Equipment\Food\Wedge of Cheese (small)</category>
 	</item>
 
@@ -106,7 +106,7 @@ Food subtypes:
 	<item id="97d">
 		<id>0x97d</id>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 		<category>Equipment\Food\Wedge of Cheese (big)</category>
 	</item>
 
@@ -114,9 +114,9 @@ Food subtypes:
 	<item id="97e">
 		<id>0x97e</id>
 		<basescripts>food</basescripts>
-		<buyprice value="25" />
-		<sellprice value="12" />
-		<weight value="0.1" />
+		<buyprice>25</buyprice>
+		<sellprice>12</sellprice>
+		<weight>0.1</weight>
 		<category>Equipment\Food\Wheel of Cheese</category>
 	</item>
 
@@ -124,9 +124,9 @@ Food subtypes:
 	<item id="98c">
 		<id>0x98c</id>
 		<basescripts>food</basescripts>
-		<buyprice value="6" />
-		<sellprice value="3" />
-		<weight value="0.2" />
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
+		<weight>0.2</weight>
 		<category>Equipment\Food\French Bread</category>
 	</item>
 
@@ -134,22 +134,22 @@ Food subtypes:
 	<item id="993">
 		<category>Equipment\Food\Fruit Basket</category>
 		<id>0x993</id>
-		<weight value="1.5" />
+		<weight>1.5</weight>
 	</item>
 
 	<!-- Pear -->
 	<item id="994">
 		<category>Equipment\Food\Pear 1</category>
 		<id>0x994</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="11" />
-		<weight value="0.1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>11</weight>
+		<weight>0.1</weight>
 		<basescripts>food</basescripts>
 	</item>
 
 	<item id="172d" inherit="994">
-		<baseid value="994" />
+		<baseid>994</baseid>
 		<id>0x172d</id>
 		<category>Equipment\Food\Pear 2</category>
 	</item>
@@ -157,9 +157,9 @@ Food subtypes:
 	<!-- Eggs -->
 	<item id="9b5">
 		<id>0x9b5</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="0.1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Eggs</category>
 	</item>
@@ -167,9 +167,9 @@ Food subtypes:
 	<!-- Fried Eggs -->
 	<item id="9b6">
 		<id>0x9b6</id>
-		<buyprice value="8" />
-		<sellprice value="4" />
-		<weight value="0.1" />
+		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
+		<weight>0.1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Fried Eggs</category>
 	</item>
@@ -177,16 +177,16 @@ Food subtypes:
 	<!-- Cooked bird w/e -->
 	<item id="9b7">
 		<id>0x9b7</id>
-		<buyprice value="17" />
-		<sellprice value="12" />
-		<weight value="1" />
+		<buyprice>17</buyprice>
+		<sellprice>12</sellprice>
+		<weight>1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Cooked Bird (W/E)</category>
 	</item>
 
 	<!-- Cooked bird n/s -->
 	<item id="9b8" inherit="9b7">
-		<baseid value="9b7" />
+		<baseid>9b7</baseid>
 		<id>0x9b8</id>
 		<category>Equipment\Food\Cooked Bird (N/S)</category>
 	</item>
@@ -195,15 +195,15 @@ Food subtypes:
 	<item id="9b9">
 		<category>Equipment\Food\Raw Bird (W/E)</category>
 		<id>0x9b9</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1</weight>
 		<basescripts>cooking</basescripts>
 	</item>
 
 	<!-- Raw bird n/s -->
 	<item id="9ba" inherit="9b9">
-		<baseid value="9b9" />
+		<baseid>9b9</baseid>
 		<id>0x9ba</id>
 		<category>Equipment\Food\Uncooked\Raw Bird (N/S)</category>
 	</item>
@@ -211,16 +211,16 @@ Food subtypes:
 	<!-- Roast pig w/e -->
 	<item id="9bb">
 		<id>0x9bb</id>
-		<buyprice value="128" />
-		<sellprice value="64" />
+		<buyprice>128</buyprice>
+		<sellprice>64</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="4.5" />
+		<weight>4.5</weight>
 		<category>Equipment\Food\Roast Pig (W/E)</category>
 	</item>
 
 	<!-- Roast pig n/s -->
 	<item id="9bc" inherit="9bb">
-		<baseid value="9bb" />
+		<baseid>9bb</baseid>
 		<id>0x9bc</id>
 		<category>Equipment\Food\Roast Pig (N/S)</category>
 	</item>
@@ -228,16 +228,16 @@ Food subtypes:
 	<!-- Sausage w/e -->
 	<item id="9c0">
 		<id>0x9c0</id>
-		<buyprice value="17" />
-		<sellprice value="8" />
+		<buyprice>17</buyprice>
+		<sellprice>8</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="0.2" />
+		<weight>0.2</weight>
 		<category>Equipment\Food\Sausage (W/E)</category>
 	</item>
 
 	<!-- Sausage n/s -->
 	<item id="9c1" inherit="9c0">
-		<baseid value="9c0" />
+		<baseid>9c0</baseid>
 		<id>0x9c1</id>
 		<category>Equipment\Food\Sausage (N/S)</category>
 	</item>
@@ -246,15 +246,15 @@ Food subtypes:
 	<item id="9c9">
 		<id>0x9c9</id>
 		<category>Equipment\Food\Ham (E/W)</category>
-		<buyprice value="20" />
-		<sellprice value="10" />
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 	</item>
 
 	<!-- Ham n/s -->
 	<item id="9d3" inherit="9c9">
-		<baseid value="9c9" />
+		<baseid>9c9</baseid>
 		<id>0x9d3</id>
 		<category>Equipment\Food\Ham (N/S)</category>
 	</item>
@@ -263,26 +263,26 @@ Food subtypes:
 	<item id="9cc">
 		<category>Equipment\Food\Fish 1</category>
 		<id>0x9cc</id>
-		<weight value="1" />
+		<weight>1</weight>
 	</item>
 
 	<!-- Fish 2 -->
 	<item id="9cd" inherit="9cc">
-		<baseid value="9cc" />
+		<baseid>9cc</baseid>
 		<id>0x9cd</id>
 		<category>Equipment\Food\Fish 2</category>
 	</item>
 
 	<!-- Fish 3 -->
 	<item id="9ce" inherit="9cc">
-		<baseid value="9cc" />
+		<baseid>9cc</baseid>
 		<id>0x9ce</id>
 		<category>Equipment\Food\Fish 3</category>
 	</item>
 
 	<!-- Fish 4 -->
 	<item id="9cf" inherit="9cc">
-		<baseid value="9cc" />
+		<baseid>9cc</baseid>
 		<id>0x9cf</id>
 		<category>Equipment\Food\Fish 4</category>
 	</item>
@@ -291,19 +291,19 @@ Food subtypes:
 	<item id="9d0">
 		<id>0x9d0</id>
 		<category>Equipment\Food\Apple</category>
-		<buyprice value="3" />
-		<sellprice value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="1" />
+		<weight>1</weight>
 	</item>
 
 	<!-- Grape bunch -->
 	<item id="9d1">
 		<category>Equipment\Food\Grape Bunch 1</category>
 		<id>0x9d1</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1</weight>
 		<basescripts>food</basescripts>
 	</item>
 
@@ -311,15 +311,15 @@ Food subtypes:
 	<item id="9d2">
 		<category>Equipment\Food\Peach 1</category>
 		<id>0x9d2</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 	</item>
 
 	<!-- Peach 2 -->
 	<item id="172c" inherit="9d2">
-		<baseid value="9d2" />
+		<baseid>9d2</baseid>
 		<id>0x172c</id>
 		<category>Equipment\Food\Peach 2</category>
 	</item>
@@ -328,10 +328,10 @@ Food subtypes:
 	<item id="9e9">
 		<category>Equipment\Food\Cake</category>
 		<id>0x9e9</id>
-		<buyprice value="11" />
-		<sellprice value="5" />
+		<buyprice>11</buyprice>
+		<sellprice>5</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="1" />
+		<weight>1</weight>
 
 	</item>
 
@@ -339,10 +339,10 @@ Food subtypes:
 	<item id="9ea">
 		<category>Equipment\Food\Muffin</category>
 		<id>0x9ea</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 	</item>
 
 	<!-- Muffins 1 -->
@@ -361,10 +361,10 @@ Food subtypes:
 	<item id="9ec">
 		<category>Equipment\Food\Jar of Honey</category>
 		<id>0x9ec</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="2" />
+		<weight>2</weight>
 	</item>
 
 	<!-- Kettle -->
@@ -377,23 +377,23 @@ Food subtypes:
 	<item id="9ee" inherit="drinks_base">
 		<category>Equipment\Food\Mug of Ale 1</category>
 		<id>0x9ee</id>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 	</item>
 
 	<!-- Mug of Ale 2 -->
 	<item id="9ef" inherit="drinks_base">
 		<category>Equipment\Food\Mug of Ale 2</category>
 		<id>0x9ef</id>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 	</item>
 
 	<!-- Cut of Raw Rips -->
 	<item id="9f1">
 		<category>Equipment\Food\Cut of Raw Ribs</category>
 		<id>0x9f1</id>
-		<buyprice value="7" />
-		<sellprice value="3" />
-		<weight value="0.2" />
+		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
+		<weight>0.2</weight>
 		<basescripts>cooking</basescripts>
 	</item>
 
@@ -402,7 +402,7 @@ Food subtypes:
 		<category>Equipment\Food\Cut of Ribs</category>
 		<id>0x9f2</id>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 	</item>
 
 
@@ -410,15 +410,15 @@ Food subtypes:
 	<item id="c5c">
 		<id>0xc5c</id>
 		<category>Equipment\Food\Watermelon 1</category>
-		<buyprice value="8" />
-		<sellprice value="4" />
+		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="5" />
+		<weight>5</weight>
 	</item>
 
 	<!-- Watermelon -->
 	<item id="c5d" inherit="c5c">
-		<baseid value="c5c" />
+		<baseid>c5c</baseid>
 		<id>0xc5d</id>
 		<category>Equipment\Food\Watermelon 2</category>
 	</item>
@@ -427,10 +427,10 @@ Food subtypes:
 	<item id="c61">
 		<category>Equipment\Food\Turnip 1</category>
 		<id>0xc61</id>
-		<buyprice value="7" />
-		<sellprice value="3" />
+		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="1" />
+		<weight>1</weight>
 
 	</item>
 
@@ -458,10 +458,10 @@ Food subtypes:
 	<item id="c64">
 		<category>Equipment\Food\Gourd 1</category>
 		<id>0xc64</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="1" />
+		<weight>1</weight>
 
 	</item>
 
@@ -483,10 +483,10 @@ Food subtypes:
 	<!-- Pumpkins -->
 	<item id="c6a">
 		<id>0xc6a</id>
-		<buyprice value="13" />
-		<sellprice value="6" />
+		<buyprice>13</buyprice>
+		<sellprice>6</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="1" />
+		<weight>1</weight>
 		<category>Equipment\Food\Pumpkin 1</category>
 
 	</item>
@@ -505,10 +505,10 @@ Food subtypes:
 	<item id="c6d">
 		<category>Equipment\Food\Onion 1</category>
 		<id>0xc6d</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="1" />
+		<weight>1</weight>
 
 	</item>
 
@@ -521,7 +521,7 @@ Food subtypes:
 	<item id="c70">
 		<id>0xc70</id>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 		<category>Equipment\Food\Head of Lettuce 1</category>
 
 	</item>
@@ -533,10 +533,10 @@ Food subtypes:
 
 	<!-- Squash -->
 	<item id="c72">
-		<buyprice value="3" />
-		<sellprice value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="1" />
+		<weight>1</weight>
 		<id>0xc72</id>
 		<category>Equipment\Food\Squash 1</category>
 
@@ -549,10 +549,10 @@ Food subtypes:
 
 	<!-- Honeydew Melon -->
 	<item id="c74">
-		<buyprice value="3" />
-		<sellprice value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="1" />
+		<weight>1</weight>
 		<id>0xc74</id>
 		<category>Equipment\Food\Honeydew Melon 1</category>
 
@@ -565,10 +565,10 @@ Food subtypes:
 
 	<!-- Carrots -->
 	<item id="c77">
-		<buyprice value="3" />
-		<sellprice value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="1" />
+		<weight>1</weight>
 		<id>0xc77</id>
 		<category>Equipment\Food\Carrots 1</category>
 
@@ -581,10 +581,10 @@ Food subtypes:
 
 	<!-- Canteloupe -->
 	<item id="c79">
-		<buyprice value="7" />
-		<sellprice value="3" />
+		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="1" />
+		<weight>1</weight>
 		<id>0xc79</id>
 		<category>Equipment\Food\Canteloupe 1</category>
 
@@ -597,10 +597,10 @@ Food subtypes:
 
 	<!-- Heads of Cabbage -->
 	<item id="c7b">
-		<buyprice value="6" />
-		<sellprice value="3" />
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 		<id>0xc7b</id>
 		<category>Equipment\Food\Head of Cabbage 1</category>
 
@@ -613,10 +613,10 @@ Food subtypes:
 
 	<!-- Ears of Corn -->
 	<item id="c7f">
-		<buyprice value="3" />
-		<sellprice value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 		<id>0xc7f</id>
 		<category>Equipment\Food\Ear of Corn 1</category>
 
@@ -646,9 +646,9 @@ Food subtypes:
 	<!-- Bread -->
 	<item id="103b">
 		<id>0x103b</id>
-		<buyprice value="7" />
-		<sellprice value="3" />
-		<weight value="0.2" />
+		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
+		<weight>0.2</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bread 1</category>
 	</item>
@@ -660,9 +660,9 @@ Food subtypes:
 
 	<item id="1040">
 		<id>0x1040</id>
-		<buyprice value="9" />
-		<sellprice value="4" />
-		<weight value="1" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
+		<weight>1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Pizza</category>
 	</item>
@@ -670,16 +670,16 @@ Food subtypes:
 	<item id="1041">
 		<id>0x1041</id>
 		<basescripts>food</basescripts>
-		<weight value="1" />
+		<weight>1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Baked Pie</category>
 	</item>
 
 	<item id="15f9">
 		<id>0x15f9</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bowl of Carrots 1</category>
 	</item>
@@ -691,9 +691,9 @@ Food subtypes:
 
 	<item id="15fa">
 		<id>0x15fa</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bowl of Corn 1</category>
 	</item>
@@ -705,9 +705,9 @@ Food subtypes:
 
 	<item id="15fb">
 		<id>0x15fb</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bowl of Lettuce 1</category>
 	</item>
@@ -719,9 +719,9 @@ Food subtypes:
 
 	<item id="15fc">
 		<id>0x15fc</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bowl of Peas 1</category>
 	</item>
@@ -733,36 +733,36 @@ Food subtypes:
 
 	<item id="1602">
 		<id>0x1602</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bowl of Potatoes</category>
 	</item>
 
 	<item id="1604">
 		<id>0x1604</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bowl of Stew</category>
 	</item>
 
 	<item id="1606">
 		<id>0x1606</id>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Tomato Soup</category>
 	</item>
 
 	<item id="1608">
 		<id>0x1608</id>
-		<buyprice value="6" />
-		<sellprice value="3" />
-		<weight value="0.2" />
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
+		<weight>0.2</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Chicken Leg</category>
 	</item>
@@ -770,15 +770,15 @@ Food subtypes:
 	<item id="160a">
 		<id>0x160a</id>
 		<basescripts>food</basescripts>
-		<weight value="0.2" />
+		<weight>0.2</weight>
 		<category>Equipment\Food\Leg of Lamb</category>
-		<buyprice value="8" />
+		<buyprice>8</buyprice>
 	</item>
 
 	<item id="160b">
 		<id>0x160b</id>
-		<buyprice value="6" />
-		<sellprice value="3" />
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Pan of Cookies</category>
 	</item>
@@ -791,27 +791,27 @@ Food subtypes:
 
 	<item id="171d">
 		<id>0x171d</id>
-		<buyprice value="2" />
-		<sellprice value="1" />
-		<weight value="0.1" />
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Banana 1 (N/S)</category>
 	</item>
 
 	<item id="171e" inherit="171d">
-		<baseid value="171d" />
+		<baseid>171d</baseid>
 		<id>0x171e</id>
 		<category>Equipment\Food\Banana 1 (W/E)</category>
 	</item>
 
 	<item id="171f" inherit="171d">
-		<baseid value="171d" />
+		<baseid>171d</baseid>
 		<id>0x171f</id>
 		<category>Equipment\Food\Banana 2 (N/S)</category>
 	</item>
 
 	<item id="1720" inherit="171d">
-		<baseid value="171d" />
+		<baseid>171d</baseid>
 		<id>0x1720</id>
 		<category>Equipment\Food\Banana 2 (W/E)</category>
 	</item>
@@ -822,7 +822,7 @@ Food subtypes:
 	</item>
 
 	<item id="1722" inherit="171d">
-		<baseid value="171d" />
+		<baseid>171d</baseid>
 		<id>0x1722</id>
 		<category>Equipment\Food\Banana 3 (N/S)</category>
 	</item>
@@ -830,31 +830,31 @@ Food subtypes:
 	<item id="1723">
 		<id>0x1723</id>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 		<category>Equipment\Food\Coconut 1 (W/E)</category>
 	</item>
 
 	<item id="1724" inherit="1723">
-		<baseid value="1723" />
+		<baseid>1723</baseid>
 		<id>0x1724</id>
 		<category>Equipment\Food\Coconut 1 (N/S)</category>
 	</item>
 
 	<item id="1725" inherit="1723">
-		<baseid value="1723" />
+		<baseid>1723</baseid>
 		<id>0x1725</id>
 		<category>Equipment\Food\Coconut 2</category>
 	</item>
 
 	<item id="1726" inherit="1723">
-		<baseid value="1723" />
+		<baseid>1723</baseid>
 		<id>0x1726</id>
 		<category>Equipment\Food\Coconut 3</category>
 	</item>
 
 	<item id="1727">
 		<id>0x1727</id>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bunch of Dates</category>
 	</item>
@@ -862,55 +862,55 @@ Food subtypes:
 	<item id="1728">
 		<id>0x1728</id>
 		<basescripts>food</basescripts>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="0.1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
 		<category>Equipment\Food\Lemon</category>
 	</item>
 
 	<item id="1729" inherit="1728">
 		<id>0x1729</id>
-		<weight value="0.2" />
+		<weight>0.2</weight>
 		<category>Equipment\Food\Lemons</category>
 	</item>
 
 	<item id="172a">
 		<id>0x172a</id>
 		<basescripts>food</basescripts>
-		<buyprice value="3" />
-		<sellprice value="1" />
-		<weight value="0.1" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
 		<category>Equipment\Food\Lime</category>
 	</item>
 
 	<item id="172b" inherit="172a">
 		<id>0x172b</id>
-		<weight value="0.2" />
+		<weight>0.2</weight>
 		<category>Equipment\Food\Limes</category>
 	</item>
 
 	<item id="1ad3">
 		<id>0x1ad3</id>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 		<category>Equipment\Food\Donuts</category>
 	</item>
 
 	<item id="1e1c">
 		<id>0x1e1c</id>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 		<category>Equipment\Food\Cooked Fish 1</category>
 	</item>
 
 	<item id="1e1d" inherit="1e1c">
-		<baseid value="1e1c" />
+		<baseid>1e1c</baseid>
 		<id>0x1e1d</id>
 		<category>Equipment\Food\Cooked Fish 2</category>
 	</item>
 
 	<item id="1e1e" inherit="1e1c">
-		<baseid value="1e1c" />
+		<baseid>1e1c</baseid>
 		<id>0x1e1e</id>
 		<category>Equipment\Food\Cooked Fish 3</category>
 	</item>
@@ -918,7 +918,7 @@ Food subtypes:
 	<item id="1e1f">
 		<id>0x1e1f</id>
 		<basescripts>food</basescripts>
-		<weight value="0.1" />
+		<weight>0.1</weight>
 		<category>Equipment\Food\Sliced Ham</category>
 	</item>
 
@@ -932,7 +932,7 @@ Food subtypes:
 		<id>0x9f2</id>
 		<name>#1027856</name>
 		<color>0x762</color>
-		<weight value="0.2" />
+		<weight>0.2</weight>
 		<category>Equipment\Food\Misc\Burned Rib</category>
 	</item>
 

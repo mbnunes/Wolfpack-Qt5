@@ -10,16 +10,16 @@
 
 	<!-- Male Plate Armor North-South -->
 	<item id="1415">
-		<id value="0x1415" />
+		<id>0x1415</id>
 		<decay />
 		<nodye />
-		<durability min="60" max="100" />
-		<restock value="10" />
-		<smelt value="20" />
-		<weight value="10.0" />
-		<buyprice value="273" />
-		<sellprice value="136" />
-		<type value="1009" />
+		<durability><random min="60" max="100" /></durability>
+		<restock>10</restock>
+		<smelt>20</smelt>
+		<weight>10.0</weight>
+		<buyprice>273</buyprice>
+		<sellprice>136</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Platemail\Male Armor (N/S)</category>
 		<!-- Properties -->
@@ -34,8 +34,8 @@
 
 	<!-- Male Plate Armor East-West -->
 	<item id="1416" inherit="1415">
-		<id value="0x1416" />
-		<baseid value="1415" />
+		<id>0x1416</id>
+		<baseid>1415</baseid>
 		<category>Base Armor\Platemail\Male Armor (E/W)</category>
 	</item>
 

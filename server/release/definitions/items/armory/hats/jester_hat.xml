@@ -10,11 +10,10 @@
 
 	<!-- Jester Hat -->
 	<item id="172e">
-		<id value="0x172e" />
+		<id>0x172e</id>
 		<dye />
-		<color list="COLORS_RANDOM" />
-		<durability min="20" max="25" />
-		<type value="1009" />
+		<durability><random min="20" max="25" /></durability>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="10" />

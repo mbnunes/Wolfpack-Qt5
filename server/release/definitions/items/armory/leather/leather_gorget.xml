@@ -10,15 +10,15 @@
 
 	<!-- Leather Gorget -->
 	<item id="13c7">
-		<id value="0x13c7" />
+		<id>0x13c7</id>
 		<decay />
 		<nodye />
-		<durability min="31" max="37" />
-		<restock value="10" />
-		<weight value="2.0" />
-		<buyprice value="74" />
-		<sellprice value="37" />
-		<type value="1009" />
+		<durability><random min="31" max="37" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<buyprice>74</buyprice>
+		<sellprice>37</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Leather\Gorget</category>
 		<!-- Properties -->

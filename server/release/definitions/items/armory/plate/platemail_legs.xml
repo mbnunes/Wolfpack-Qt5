@@ -10,16 +10,16 @@
 
 	<!-- Plate Leggings NS -->
 	<item id="1411">
-		<id value="0x1411" />
+		<id>0x1411</id>
 		<decay />
 		<nodye />
-		<durability min="60" max="100" />
-		<restock value="10" />
-		<smelt value="16" />
-		<weight value="7.0" />
-		<buyprice value="218" />
-		<sellprice value="109" />
-		<type value="1009" />
+		<durability><random min="60" max="100" /></durability>
+		<restock>10</restock>
+		<smelt>16</smelt>
+		<weight>7.0</weight>
+		<buyprice>218</buyprice>
+		<sellprice>109</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Platemail\Legs (N/S)</category>
 		<!-- Properties -->
@@ -34,8 +34,8 @@
 
 	<!-- Plate Leggings EW -->
 	<item id="141a" inherit="1411">
-		<id value="0x141a" />
-		<baseid value="1411" />
+		<id>0x141a</id>
+		<baseid>1411</baseid>
 		<category>Base Armor\Platemail\Legs (E/W)</category>
 	</item>
 

@@ -10,10 +10,10 @@
 
 	<!-- Orc Mask 1 n/s -->
 	<item id="141b">
-		<id value="0x141b" />
-		<durability min="20" max="25" />
-		<weight value="4.0" />
-		<type value="1009" />
+		<id>0x141b</id>
+		<durability><random min="20" max="25" /></durability>
+		<weight>4.0</weight>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="10" />
@@ -30,8 +30,8 @@
 
 	<!-- Orc Mask 1 w/e -->
 	<item id="141c" inherit="141b">
-		<id value="0x141c" />
-		<baseid value="141b" />
+		<id>0x141c</id>
+		<baseid>141b</baseid>
 		<category>Clothes\Headwear\Orc Mask (W/E)</category>
 		<category>Armor\Headwear\Orc Mask (W/E)</category>
 		<category>Base Armor\Headwear\Orc Mask (W/E)</category>

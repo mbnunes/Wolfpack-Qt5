@@ -10,15 +10,15 @@
 
 	<!-- chaos shield -->
 	<item id="1bc3">
-		<id value="0x1bc3" />
+		<id>0x1bc3</id>
 		<decay />
 		<nodye />
-		<durability min="100" max="125" />
-		<restock value="0" />
-		<weight value="5" />
-		<buyprice value="0" />
-		<sellprice value="0" />
-		<type value="1008" />
+		<durability><random min="100" max="125" /></durability>
+		<restock>0</restock>
+		<weight>5</weight>
+		<buyprice>0</buyprice>
+		<sellprice>0</sellprice>
+		<type>1008</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Shields\Chaos Shield</category>
 		<!-- Properties -->

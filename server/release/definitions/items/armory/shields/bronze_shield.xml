@@ -10,16 +10,16 @@
 
 	<!-- bronze shield -->
 	<item id="1b72">
-		<id value="0x1b72" />
+		<id>0x1b72</id>
 		<decay />
 		<nodye />
-		<durability min="25" max="30" />
-		<restock value="10" />
-		<smelt value="4" />
-		<weight value="6" />
-		<buyprice value="100" />
-		<sellprice value="50" />
-		<type value="1008" />
+		<durability><random min="25" max="30" /></durability>
+		<restock>10</restock>
+		<smelt>4</smelt>
+		<weight>6</weight>
+		<buyprice>100</buyprice>
+		<sellprice>50</sellprice>
+		<type>1008</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Shields\Bronze Shield</category>
 		<!-- Properties -->

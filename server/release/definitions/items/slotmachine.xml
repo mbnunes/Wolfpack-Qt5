@@ -12,50 +12,50 @@
 	<!-- The slotmachine itself -->
 	<item id="slotmachine">
 		<id>0x1ea8</id>
-		<color value="386" />
+		<color>386</color>
 		<name>a slotmachine</name>
 		<basescripts>slotmachine</basescripts>
 	</item>
 
 	<!-- The Prizes -->
 	<item id="slot_prize_1" inherit="eed">
-		<baseid value="eed" />
-		<amount value="1" />
+		<baseid>eed</baseid>
+		<amount>1</amount>
 	</item>
 
 	<item id="slot_prize_2" inherit="eed">
-		<baseid value="eed" />
-		<amount value="3" />
+		<baseid>eed</baseid>
+		<amount>3</amount>
 	</item>
 
 	<item id="slot_prize_3" inherit="eed">
-		<baseid value="eed" />
-		<amount value="6" />
+		<baseid>eed</baseid>
+		<amount>6</amount>
 	</item>
 
 	<item id="slot_prize_4" inherit="eed">
-		<baseid value="eed" />
-		<amount value="96" />
+		<baseid>eed</baseid>
+		<amount>96</amount>
 	</item>
 
 	<item id="slot_prize_5" inherit="eed">
-		<baseid value="eed" />
-		<amount value="151" />
+		<baseid>eed</baseid>
+		<amount>151</amount>
 	</item>
 
 	<item id="slot_prize_6" inherit="eed">
-		<baseid value="eed" />
-		<amount value="204" />
+		<baseid>eed</baseid>
+		<amount>204</amount>
 	</item>
 
 	<item id="slot_prize_7" inherit="eed">
-		<baseid value="eed" />
-		<amount value="462" />
+		<baseid>eed</baseid>
+		<amount>462</amount>
 	</item>
 
 	<item id="slot_prize_8" inherit="eed">
-		<baseid value="eed" />
-		<amount value="812" />
+		<baseid>eed</baseid>
+		<amount>812</amount>
 	</item>
 
 </definitions>

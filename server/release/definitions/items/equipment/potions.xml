@@ -11,14 +11,14 @@
 <definitions>
 
 	<item id="potion_base">
-		<weight value="1.0" />
+		<weight>1.0</weight>
 		<basescripts>potions</basescripts>
 	</item>
 
 	<!-- Potion Keg -->
 	<item id="potion_keg">
 		<id value="0x1940" />
-		<weight value="10.0" />
+		<weight>10.0</weight>
 		<movable />
 		<tag name="kegfill" value="0" type="int" />
 		<basescripts>potionkeg</basescripts>
@@ -27,7 +27,7 @@
 	<!-- Empty Potion Keg -->
 	<item id="potion_keg_empty" inherit="potion_keg">
 		<name>#1041641</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<basescripts>potionkeg</basescripts>
 	</item>
 
@@ -38,16 +38,16 @@
 		<category>Equipment\Potions\Nightsight</category>
 		<intproperty name="potiontype" value="0" />
 		<!-- Pricing information -->
-		<buyprice value="15" />
-		<sellprice value="7" />
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<item id="potion_keg_nightsight" inherit="potion_keg_empty">
 		<name>#1041620</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="0" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x3a0" />
+		<color>0x3a0</color>
 	</item>
 
 	<!-- Lesser Heal -->
@@ -57,16 +57,16 @@
 		<category>Equipment\Potions\Heal (lesser)</category>
 		<intproperty name="potiontype" value="1" />
 		<!-- Pricing information -->
-		<buyprice value="15" />
-		<sellprice value="7" />
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<item id="potion_keg_lesserheal" inherit="potion_keg_empty">
 		<name>#1041634</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="1" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x8a5" />
+		<color>0x8a5</color>
 	</item>
 
 	<!-- Heal -->
@@ -80,10 +80,10 @@
 
 	<item id="potion_keg_heal" inherit="potion_keg_empty">
 		<name>#1041635</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="2" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x8a5" />
+		<color>0x8a5</color>
 	</item>
 
 	<!-- Greater Heal -->
@@ -97,10 +97,10 @@
 
 	<item id="potion_keg_greaterheal" inherit="potion_keg_empty">
 		<name>#1041636</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="3" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x8a5" />
+		<color>0x8a5</color>
 	</item>
 
 	<!-- Lesser Cure -->
@@ -110,16 +110,16 @@
 		<category>Equipment\Potions\Cure (lesser)</category>
 		<intproperty name="potiontype" value="4" />
 		<!-- Pricing information -->
-		<buyprice value="15" />
-		<sellprice value="7" />
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<item id="potion_keg_lessercure" inherit="potion_keg_empty">
 		<name>#1041621</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="4" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x2c" />
+		<color>0x2c</color>
 	</item>
 
 	<!-- Cure -->
@@ -133,10 +133,10 @@
 
 	<item id="potion_keg_cure" inherit="potion_keg_empty">
 		<name>#1041622</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="5" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x2c" />
+		<color>0x2c</color>
 	</item>
 
 	<!-- Greater Cure -->
@@ -150,10 +150,10 @@
 
 	<item id="potion_keg_greatercure" inherit="potion_keg_empty">
 		<name>#1041623</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="6" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x2c" />
+		<color>0x2c</color>
 	</item>
 
 	<!-- Agility -->
@@ -164,15 +164,15 @@
 		<intproperty name="potiontype" value="7" />
 		<!-- Pricing information -->
 		<buyprice value="15" />
-		<sellprice value="7" />
+		<sellprice>7</sellprice>
 	</item>
 
 	<item id="potion_keg_agility" inherit="potion_keg_empty">
 		<name>#1041624</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="7" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0xc4" />
+		<color>0xc4</color>
 	</item>
 
 	<!-- Greater Agility -->
@@ -186,10 +186,10 @@
 
 	<item id="potion_keg_greateragility" inherit="potion_keg_empty">
 		<name>#1041625</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="8" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0xc4" />
+		<color>0xc4</color>
 	</item>
 
 	<!-- Strength -->
@@ -199,16 +199,16 @@
 		<category>Equipment\Potions\Strength</category>
 		<intproperty name="potiontype" value="9" />
 		<!-- Pricing information -->
-		<buyprice value="15" />
-		<sellprice value="7" />
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<item id="potion_keg_strength" inherit="potion_keg_empty">
 		<name>#1041626</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="9" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x835" />
+		<color>0x835</color>
 	</item>
 
 	<!-- Greater Strength -->
@@ -224,7 +224,7 @@
 		<name>#1041627</name>
 		<tag name="potiontype" value="10" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x835" />
+		<color>0x835</color>
 	</item>
 
 	<!-- Lesser Explosion -->
@@ -234,16 +234,16 @@
 		<category>Equipment\Potions\Explosion (lesser)</category>
 		<intproperty name="potiontype" value="11" />
 		<!-- Pricing information -->
-		<buyprice value="21" />
-		<sellprice value="10" />
+		<buyprice>21</buyprice>
+		<sellprice>10</sellprice>
 	</item>
 
 	<item id="potion_keg_lesserexplosion" inherit="potion_keg_empty">
 		<name>#1041637</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="11" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x79" />
+		<color>0x79</color>
 	</item>
 
 	<!-- Explosion -->
@@ -257,10 +257,10 @@
 
 	<item id="potion_keg_explosion" inherit="potion_keg_empty">
 		<name>#1041638</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="12" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x79" />
+		<color>0x79</color>
 	</item>
 
 	<!-- Greater Explosion -->
@@ -273,11 +273,11 @@
 	</item>
 
 	<item id="potion_keg_greaterexplosion" inherit="potion_keg_empty">
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<name>#1041639</name>
 		<tag name="potiontype" value="13" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x79" />
+		<color>0x79</color>
 	</item>
 
 	<!-- Lesser Poison -->
@@ -287,16 +287,16 @@
 		<category>Equipment\Potions\Poison (lesser)</category>
 		<intproperty name="potiontype" value="14" />
 		<!-- Pricing information -->
-		<buyprice value="15" />
-		<sellprice value="7" />
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<item id="potion_keg_lesserpoison" inherit="potion_keg_empty">
 		<name>#1041628</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="14" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x44" />
+		<color>0x44</color>
 	</item>
 
 	<!-- Poison -->
@@ -310,10 +310,10 @@
 
 	<item id="potion_keg_poison" inherit="potion_keg_empty">
 		<name>#1041629</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="15" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x44" />
+		<color>0x44</color>
 	</item>
 
 	<!-- Greater Poison -->
@@ -327,10 +327,10 @@
 
 	<item id="potion_keg_greaterpoison" inherit="potion_keg_empty">
 		<name>#1041630</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="16" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x44" />
+		<color>0x44</color>
 	</item>
 
 	<!-- Deadly Poison -->
@@ -344,10 +344,10 @@
 
 	<item id="potion_keg_deadlypoison" inherit="potion_keg_empty">
 		<name>#1041631</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="17" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x44" />
+		<color>0x44</color>
 	</item>
 
 	<!-- Refresh -->
@@ -357,16 +357,16 @@
 		<category>Equipment\Potions\Refresh</category>
 		<intproperty name="potiontype" value="18" />
 		<!-- Pricing information -->
-		<buyprice value="15" />
-		<sellprice value="7" />
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<item id="potion_keg_refresh" inherit="potion_keg_empty">
 		<name>#1041632</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="18" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x21" />
+		<color>0x21</color>
 	</item>
 
 	<!-- Total Refresh -->
@@ -380,16 +380,16 @@
 
 	<item id="potion_keg_totalrefresh" inherit="potion_keg_empty">
 		<name>#1041633</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="19" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x21" />
+		<color>0x21</color>
 	</item>
 
 	<!-- Shrink -->
 	<item id="potion_shrink" inherit="potion_base">
 		<id>0xf0b</id>
-		<color value="0x763" />
+		<color>0x763</color>
 		<name>a Shrink Potion</name>
 		<category>Equipment\Potions\Shrink</category>
 		<intproperty name="potiontype" value="25" />
@@ -398,10 +398,10 @@
 
 	<item id="potion_keg_shrink" inherit="potion_keg_empty">
 		<name>A keg of Shrink potions</name>
-		<baseid value="potion_keg" />
+		<baseid>potion_keg</baseid>
 		<tag name="potiontype" value="25" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color value="0x763" />
+		<color>0x763</color>
 	</item>
 
 </definitions>

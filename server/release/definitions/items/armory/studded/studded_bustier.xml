@@ -10,15 +10,15 @@
 
 	<!-- Studded Bustier -->
 	<item id="1c0c">
-		<id value="0x1c0c" />
+		<id>0x1c0c</id>
 		<decay />
 		<nodye />
-		<durability min="35" max="45" />
-		<restock value="10" />
-		<weight value="1" />
-		<buyprice value="120" />
-		<sellprice value="60" />
-		<type value="1009" />
+		<durability><random min="35" max="45" /></durability>
+		<restock>10</restock>
+		<weight>1.0</weight>
+		<buyprice>120</buyprice>
+		<sellprice>60</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Studded Leather\Bustier (N/S)</category>
 		<!-- Properties -->
@@ -32,8 +32,8 @@
 	</item>
 
 	<item id="1c0d" inherit="1c0c">
-		<id value="0x1c0d" />
-		<baseid value="1c0c" />
+		<id>0x1c0d</id>
+		<baseid>1c0c</baseid>
 		<category>Base Armor\Studded Leather\Bustier (E/W)</category>
 	</item>
 

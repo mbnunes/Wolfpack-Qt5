@@ -10,15 +10,15 @@
 
 	<!-- Studded Gorget -->
 	<item id="13d6">
-		<id value="0x13d6" />
+		<id>0x13d6</id>
 		<decay />
 		<nodye />
-		<durability min="35" max="45" />
-		<restock value="10" />
-		<weight value="1" />
-		<buyprice value="73" />
-		<sellprice value="36" />
-		<type value="1009" />
+		<durability><random min="35" max="45" /></durability>
+		<restock>10</restock>
+		<weight>1.0</weight>
+		<buyprice>73</buyprice>
+		<sellprice>36</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Studded Leather\Gorget</category>
 		<!-- Properties -->

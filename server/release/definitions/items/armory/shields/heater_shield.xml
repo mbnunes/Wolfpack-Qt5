@@ -10,16 +10,16 @@
 
 	<!-- heater -->
 	<item id="1b76">
-		<id value="0x1b76" />
+		<id>0x1b76</id>
 		<decay />
 		<nodye />
-		<durability min="50" max="65" />
-		<restock value="10" />
-		<smelt value="14" />
-		<weight value="8" />
-		<buyprice value="175" />
-		<sellprice value="87" />
-		<type value="1008" />
+		<durability><random min="50" max="65" /></durability>
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>8</weight>
+		<buyprice>175</buyprice>
+		<sellprice>87</sellprice>
+		<type>1008</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Shields\Heater (N/S)</category>
 		<!-- Properties -->
@@ -29,8 +29,8 @@
 	</item>
 
 	<item id="1b77" inherit="1b76">
-		<id value="0x1b77" />
-		<baseid value="1b76" />
+		<id>0x1b77</id>
+		<baseid>1b76</baseid>
 		<category>Base Armor\Shields\Heater (E/W)</category>
 	</item>
 

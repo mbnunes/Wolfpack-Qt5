@@ -10,16 +10,16 @@
 
 	<!--  Chainmail Leggings North-South-->
 	<item id="13be">
-		<id value="0x13be" />
+		<id>0x13be</id>
 		<decay />
 		<nodye />
-		<durability min="45" max="60" />
-		<restock value="10" />
-		<smelt value="14" />
-		<weight value="7.0" />
-		<buyprice value="166" />
-		<sellprice value="107" />
-		<type value="1009" />
+		<durability><random min="45" max="60" /></durability>
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>7.0</weight>
+		<buyprice>166</buyprice>
+		<sellprice>107</sellprice>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Chainmail\Leggings (N/S)</category>
 		<!-- Properties -->
@@ -34,8 +34,8 @@
 
 	<!--  Chainmail Leggings East-West -->
 	<item id="13c3" inherit="13be">
-		<id value="0x13c3" />
-		<baseid value="13be" />
+		<id>0x13c3</id>
+		<baseid>13be</baseid>
 		<category>Base Armor\Chainmail\Leggings (E/W)</category>
 	</item>
 

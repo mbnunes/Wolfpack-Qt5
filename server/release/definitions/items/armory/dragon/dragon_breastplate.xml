@@ -10,13 +10,13 @@
 
 	<!-- dragon breastplate -->
 	<item id="2641">
-		<id value="0x2641" />
+		<id>0x2641</id>
 		<decay />
 		<nodye />
-		<durability min="60" max="100" />
-		<smelt value="20" />
-		<weight value="10.0" />
-		<type value="1009" />
+		<durability><random min="60" max="100" /></durability>
+		<smelt>20</smelt>
+		<weight>10.0</weight>
+		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Dragon\Dragon Breastplate 1</category>
 		<!-- Properties -->
@@ -31,8 +31,8 @@
 
 	<!-- dragon breastplate -->
 	<item id="2642" inherit="2641">
-		<id value="0x2642" />
-		<baseid value="2641" />
+		<id>0x2642</id>
+		<baseid>2641</baseid>
 		<category>Base Armor\Dragon\Dragon Breastplate 2</category>
 	</item>
 
