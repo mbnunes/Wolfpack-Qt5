@@ -16,6 +16,7 @@ Wolfpack 12.9.7 Beta (CVS)
 			- Numerous compile warning cleanups.
 			- Support for Client 4.0.3a.
 			- Support for 6th character slot.
+			- Support for the new All Names macro. (CTRL + SHIFT).
 	* Definition Changes:
 		* Item Updates:
 			- Colored platemail baseid mapping. This was overlooked and should fix armor bugs.
@@ -47,9 +48,11 @@ Wolfpack 12.9.7 Beta (CVS)
 		* System:
 			- SQLite database optimization added.
 			- Script system.debugging created to set different debugging options.
+			- Support for the Open Door Macro
 	* Misc. Changes:
 		- FAQ.html included in the documentaiton.
 		- ChangeLog.wolfpack included in the documentaiton.
+		- Massive Documentation Update
 	* Known Issues, Bugs, and Missing Features.
 		- Spawn regions are incomplete.
 		- Town/World regions are incomplete.
