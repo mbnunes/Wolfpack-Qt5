@@ -129,7 +129,7 @@ class Protection(Spell):
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_GINSENG: 1, REAGENT_SULFURASH: 1}
 		self.mantra = 'Uus Sanct'
 
-	def cast(self, char, mode, args=[]):
+	def cast(self, char, mode, args=[], target=None, item=None):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
 

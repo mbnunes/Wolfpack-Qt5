@@ -97,7 +97,7 @@ class Mark (Spell):
 		self.mantra = 'Kal Por Ylem'
 		self.validtarget = TARGET_ITEM
 
-	def cast(self, char, mode, args=[]):
+	def cast(self, char, mode, args=[], target=None, item=None):
 		# No Mark Region
 		if not char.region or char.region.nomark:
 			if char.socket:

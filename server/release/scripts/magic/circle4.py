@@ -108,7 +108,7 @@ class Recall (Spell):
 		self.validtarget = TARGET_ITEM
 		self.casttime = 2250
 
-	def cast(self, char, mode, args=[]):
+	def cast(self, char, mode, args=[], target=None, item=None):
 		if not char.gm:
 			if char.iscriminal():
 				if char.socket:

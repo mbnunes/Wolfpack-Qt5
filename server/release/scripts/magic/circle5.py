@@ -13,7 +13,7 @@ class BladeSpirits (Spell):
 		self.mantra = 'In Jux Hur Ylem'
 		self.validtarget = TARGET_GROUND
 
-	def cast(self, char, mode, args=[]):
+	def cast(self, char, mode, args=[], target=None, item=None):
 		if char.player and char.controlslots >= 5:
 			char.socket.clilocmessage(1049645)
 			return
@@ -100,7 +100,7 @@ class Incognito (Spell):
 		self.reagents = {REAGENT_NIGHTSHADE: 1, REAGENT_BLOODMOSS: 1, REAGENT_GARLIC: 1}
 		self.mantra = 'Kal In Ex'
 
-	def cast(self, char, mode, args=[]):
+	def cast(self, char, mode, args=[], target=None, item=None):
 		if char.incognito or char.polymorph:
 			char.socket.clilocmessage(1005559)
 			return
@@ -176,7 +176,7 @@ class MagicReflect(Spell):
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1}
 		self.mantra = 'In Jux Sanct'
 
-	def cast(self, char, mode, args=[]):
+	def cast(self, char, mode, args=[], target=None, item=None):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
@@ -320,7 +320,7 @@ class SummonCreature (Spell):
 		self.mantra = 'Kal Xen'
 		self.validtarget = TARGET_GROUND
 
-	def cast(self, char, mode, args=[]):
+	def cast(self, char, mode, args=[], target=None, item=None):
 		if char.player and char.controlslots + 2 > 5:
 			if char.socket:
 				char.socket.clilocmessage(1049645)

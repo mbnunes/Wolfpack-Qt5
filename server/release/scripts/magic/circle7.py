@@ -121,7 +121,7 @@ class GateTravel (Spell):
 		self.mantra = 'Vas Rel Por'
 		self.validtarget = TARGET_ITEM
 
-	def cast(self, char, mode, args=[]):
+	def cast(self, char, mode, args=[], target=None, item=None):
 		if not char.gm:
 			if char.iscriminal():
 				if char.socket:
