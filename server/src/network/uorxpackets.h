@@ -348,5 +348,36 @@ public:
 	UINT8 sequence() { return rawPacket[1]; }
 };
 
+// 0x07 Drag Items
+class cUORxDragItem: public cUOPacket
+{
+public:
+	cUORxDragItem( const QByteArray &data ): cUOPacket( data ) {}
+	UINT16 amount() { return getShort( 5 ); }
+	UINT32 serial() { return getInt( 1 ); }
+};
+
+// 0x08 Drop Items
+class cUORxDropItem: public cUOPacket
+{
+public:
+	cUORxDropItem( const QByteArray &data ): cUOPacket( data ) {}
+	UINT32 serial() { return getInt( 1 ); }
+	UINT16 x() { return getShort( 5 ); }
+	UINT16 y() { return getShort( 7 ); }
+	INT8 z() { return rawPacket[9]; }
+	UINT32 cont() { return getInt( 10 ); }
+};
+
+// 0x13 Wear Item
+class cUORxWearItem: public cUOPacket
+{
+public:
+	cUORxWearItem( const QByteArray &data ): cUOPacket( data ) {}
+	UINT32 serial() { return getInt( 1 ); }
+	UINT8 layer() { return rawPacket[5]; }
+	UINT32 wearer() { return getInt( 6 ); }
+};
+
 #endif
 

@@ -136,6 +136,7 @@ public:
 	void sendPaperdoll( P_CHAR pChar, bool detailed = false );
 	void playMusic( void );
 	void sendContainer( P_ITEM pCont );
+	void bounceItem( P_ITEM pItem, eBounceReason reason );
 	void updatePlayer();
 	void poll();
 	void soundEffect( UINT16 soundId, cUObject *source = NULL ); 

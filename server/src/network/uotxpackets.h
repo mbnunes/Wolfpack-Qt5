@@ -458,7 +458,7 @@ public:
 class cUOTxDrawChar: public cUOPacket
 {
 public:
-	cUOTxDrawChar(): cUOPacket( 0x78, 24 ) {
+	cUOTxDrawChar(): cUOPacket( 0x78, 23 ) {
 		setShort( 1, 24 );
 	}
 	
@@ -634,24 +634,24 @@ public:
 	void setSerial( UINT32 data ) { setInt( 1, data ); }
 };
 
-// 0x1A CharInfo
-class cUOTxCharInfo: public cUOPacket
+// 0x1A SendItem
+class cUOTxSendItem: public cUOPacket
 {
 public:
-	cUOTxCharInfo(): cUOPacket( 0x1A, 18 ) { setShort( 1, 18 ); }
-	void setSerial( UINT32 data ) { setInt( 3, data ); }
-	void setBody( UINT16 data ) { setShort( 7, data ); }
+	cUOTxSendItem(): cUOPacket( 0x1A, 20 ) { setShort( 1, 20 ); }
+	void setSerial( UINT32 data ) { setInt( 3, data | 0x80000000 ); }
+	void setId( UINT16 data ) { setShort( 7, data ); }
+	void setAmount( UINT16 data ) { setShort( 9, data ); }
 	void setCoord( const Coord_cl &coord )
 	{
-		setShort( 9, coord.x | 0x8000 );
-		setShort( 11, coord.y | 0xC000 );
-		rawPacket[14] = coord.z;
+		setShort( 11, coord.x | 0x8000 );
+		setShort( 13, coord.y | 0xC000 );
+		rawPacket[16] = coord.z;
 	}
-	void setDirection( UINT8 data ) { rawPacket[13] = data; }
-	void setColor( UINT16 data ) { setShort( 15, data ); }
-	void setFlags( UINT8 data ) { rawPacket[17] = data; }
-
-	void fromChar( P_CHAR pChar );
+	void setDirection( UINT8 data ) { rawPacket[15] = data; }
+	void setColor( UINT16 data ) { setShort( 17, data ); }
+	void setFlags( UINT8 data ) { rawPacket[19] = data; }
+	UINT8 flags() { return rawPacket[19]; }
 };
 
 // 0x6C Target
@@ -676,6 +676,48 @@ public:
 		setShort( 8, coord.y );
 		setShort( 10, coord.z );
 	}
+};
+
+// 0xBF.0x14
+class cUOTxPopupMenu: public cUOPacket
+{
+public:
+	cUOTxPopupMenu(): cUOPacket( 0xBF, 12 ) { 
+		setShort( 1, 7 ); // p length
+		setShort( 3, 0x14 ); // subcommand 
+		setShort( 5, 0x01 ); // unknown bytes
+	}
+
+	void setSerial( UINT32 data ) { setInt( 7, data ); }
+	void addEntry( UINT16 entryId, UINT16 stringId, bool flagged = false );
+};
+
+// 0x27 BounceItem
+/*
+Information provided by Krrios:
+Byte 1 is a reason:
+0: "You can not pick that up.",
+1: "That is too far away.",
+2: "That is out of sight.",
+3: "That item dose not belong to you. You'll have to steal it.",
+4: "You are already holding an item."
+5: no reason
+*/
+enum eBounceReason
+{
+	BR_CANNOT_PICK_THAT_UP = 0,
+	BR_OUT_OF_REACH,
+	BR_OUT_OF_SIGHT,
+	BR_BELONGS_TO_SOMEONE_ELSE,
+	BR_ALREADY_DRAGGING,
+	BR_NO_REASON
+};
+
+class cUOTxBounceItem: public cUOPacket
+{
+public:
+	cUOTxBounceItem(): cUOPacket( 0x27, 2 ) {}
+	void setReason( eBounceReason reason ) { rawPacket[1] = reason; }
 };
 
 #endif

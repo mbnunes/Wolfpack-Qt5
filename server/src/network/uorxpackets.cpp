@@ -68,6 +68,9 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	case 0x72:		return new cUORxChangeWarmode( data );
 	case 0x6C:		return new cUORxTarget( data );
 	case 0x22:		return new cUORxResyncWalk( data );
+	case 0x07:		return new cUORxDragItem( data );
+	case 0x08:		return new cUORxDropItem( data );
+	case 0x13:		return new cUORxWearItem( data );
 	default:		return new cUOPacket( data );
 	};	
 }

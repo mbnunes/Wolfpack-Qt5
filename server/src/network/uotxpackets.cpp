@@ -141,7 +141,7 @@ void cUOTxDrawChar::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer
 	setShort( 1, rawPacket.count() );
 
 	setInt( offset, serial );
-	setShort( offset+4, (model|0x8000) );
+	setShort( offset+4, model );
 	rawPacket[offset+6] = layer;
 	setShort( offset+7, color );
 	setInt( offset+9, 0 ); // Terminator
@@ -272,7 +272,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	setFlags( 0 ); // NEED TO SET FLAGS
 	setHightlight( 0 ); // NEED TO SET HIGHLIGHT
 
-	// Add our equipment
+	// Add our equipment - This does not seem to work !?
 	vector< SERIAL > equipment = contsp.getData( pChar->serial );
 	bool layers[0x19] = {0,};
 
@@ -340,12 +340,18 @@ void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 	setColor( pItem->color() );
 }
 
-void cUOTxCharInfo::fromChar( P_CHAR pChar )
+void cUOTxPopupMenu::addEntry( UINT16 entryId, UINT16 stringId, bool flagged )
 {
-	setSerial( pChar->serial );
-	setBody( pChar->id() );
-	setCoord( pChar->pos );
-	setDirection( pChar->dir );
-	setColor( pChar->skin() );
-	// Flags
+	rawPacket[ 11 ]++;
+
+	UINT32 offset = rawPacket.size();
+	rawPacket.resize( rawPacket.size() + ( flagged ? 8 : 6 ) );
+
+	setShort( offset, entryId );
+	setShort( offset+2, stringId );
+	setShort( offset+4, flagged ? 0x20 : 0x00 );
+	if( flagged )
+		setShort( offset+6, 0xFFFF );
+
+	setShort( 1, rawPacket.count() );
 }

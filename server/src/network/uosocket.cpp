@@ -184,6 +184,12 @@ void cUOSocket::recieve()
 		handleTarget( dynamic_cast< cUORxTarget* >( packet ) ); break;
 	case 0x22:
 		resync(); break;
+	case 0x07:
+		cDragItems::getInstance()->grabItem( this, dynamic_cast< cUORxDragItem* >( packet ) ); break;
+	case 0x08:
+		cDragItems::getInstance()->dropItem( this, dynamic_cast< cUORxDropItem* >( packet ) ); break;
+	case 0x13:
+		cDragItems::getInstance()->equipItem( this, dynamic_cast< cUORxWearItem* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -762,6 +768,14 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 */
 void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
 {
+	/*cUOTxPopupMenu popup;
+	popup.setSerial( packet->serial() );
+	popup.addEntry( 0, 1, true );
+	popup.addEntry( 1, 2, false );
+	popup.addEntry( 2, 3, false );
+	send( &popup );
+	return;*/
+
 	// Check if it's a singleclick on items or chars
 	if( isCharSerial( packet->serial() ) )
 	{
@@ -1322,3 +1336,25 @@ P_ITEM cUOSocket::dragging() const
 	return 0;
 }
 
+void cUOSocket::bounceItem( P_ITEM pItem, eBounceReason reason )
+{
+	cUOTxBounceItem bounce;
+	bounce.setReason( reason );
+	send( &bounce );
+
+	// Only bounce it back if it's on the hand of the char
+	if( dragging() == pItem )
+	{
+		pItem->toBackpack( player() );
+		
+		if( pItem->isInWorld() )
+		{
+			// TODO: Send a drop-soundeffect if we were forced to drop it to ground
+			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+				mSock->soundEffect( 0x42, pItem );
+		}
+		else
+			soundEffect( 0x57, pItem );
+
+	}
+}
