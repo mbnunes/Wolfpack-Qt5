@@ -22,13 +22,14 @@ from wolfpack import console
 		yew places a yew tree.
 		jungle[1-7] places a jungle tree.
 		random places a random normal tree.
+		log[1-2] places a fallen log
 	\notes Green leaves will be added ontop of the tree.
 """
 # Please leave the grayed out indexes for future reference incase itemtarget works better with multiple items.
 
 jungletreeindex = [ 'jungle1', 'jungle2', 'jungle3', 'jungle4', 'jungle5', 'jungle6', 'jungle7' ]
-
 treeindex = ['cca','ccb','ccc','ccd','cd0','cd3','cd6','cd8','cda','cdd','ce0','ce3','ce6','cf8','cfe','d01','d94','d98','d9c','da0','da4','da8']
+logindex = [ 'log1', 'log2'] #added by Jim 20040814
 forestlist = ['ccd','cd0','cd3','cd6','cd8','cda','cdd','ce0','ce3','ce6']
 swamplist = ['cf8','cfe','d01']
 fruitlist = ['d94', 'd98', 'd9c', 'da0', 'da4', 'da8']
@@ -57,6 +58,12 @@ trees = \
 	'da0': [ 'da0', 'da1' ], # Peach
 	'da4': [ 'da4', 'da5' ], # Pear
 	'da8': [ 'da8', 'da9' ] # Pear
+}
+
+logs = \
+{
+	'log1': [ 'cf3', 'cf4' ], # Y + 1
+	'log2': [ 'cf5', 'cf6', 'cf7' ] # X + 1
 }
 
 TREE = 0
@@ -245,6 +252,30 @@ def createyewtree( player, arguments, target):
 
 	return
 
+def createlog(player, arguments, target):
+    #added by Jim 20040814
+	logtype = arguments[0]
+	#something is wrong with my arguments variable I think... I should have read the docs on some of this stuff.. and I should probably learn some python =P
+
+	if logtype == 'log1':
+		log1 = wolfpack.additem( 'cf3' )
+		log1.moveto( target.pos )
+		log2 = wolfpack.additem( 'cf4' )
+		log2.pos = "%i,%i,%i,%i" % ( log1.pos.x , log1.pos.y + 1, log1.pos.z, log1.pos.map )
+		log1.update()
+		log2.update()
+	if logtype == 'log2':
+		log1 = wolfpack.additem( 'cf6' )
+		log1.moveto( target.pos )
+		log2 = wolfpack.additem( 'cf5' )
+		log2.pos = "%i,%i,%i,%i" % ( log1.pos.x - 1, log1.pos.y, log1.pos.z, log1.pos.map )
+		log3 = wolfpack.additem( 'cf7' )
+		log3.pos = "%i,%i,%i,%i" % ( log1.pos.x + 1, log1.pos.y, log1.pos.z, log1.pos.map )
+		log1.update()
+		log2.update()
+		log3.update()
+	return
+
 def addtree(socket, command, arguments):
 	if len(arguments) > 0:
 		item = str( arguments.strip() )
@@ -300,6 +331,10 @@ def addtree(socket, command, arguments):
 			socket.sysmessage( "Where do you want to place the yew tree?" )
 			socket.attachitemtarget( 'commands.addtree.createyewtree', yewindex, 0, 0, 0, [] )
 			return
+		elif item in logindex: #added by Jim 20040814
+			socket.sysmessage( "Where do you want to place the fallen log [%s]?" % ( item ) )
+			socket.attachtarget( 'commands.addtree.createlog', [ item ] )
+			return
 		elif item in trees and not item in jungletreeindex:
 			if wolfpack.getdefinition( WPDT_ITEM, trees[item][TREE] ) and wolfpack.getdefinition( WPDT_ITEM, trees[item][LEAVES] ):
 				socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES]) )
@@ -309,9 +344,9 @@ def addtree(socket, command, arguments):
 			socket.attachtarget(  'commands.addtree.createjungletree', [ item ] )
 			return
 		else:
-			socket.sysmessage( "Usage: addtree [ id, yew, jungle[1-7], random, forest, fruit, swamp ]" )
+			socket.sysmessage( "Usage: addtree [ id, yew, jungle[1-7], random, forest, fruit, swamp, log[1-2] ]" )
 	else:
-		socket.sysmessage( "Usage: addtree [ id, yew, jungle[1-7], random, forest, fruit, swamp ]" )
+		socket.sysmessage( "Usage: addtree [ id, yew, jungle[1-7], random, forest, fruit, swamp, log[1-2] ]" )
 
 def onLoad():
 	wolfpack.registercommand( 'addtree', addtree )
