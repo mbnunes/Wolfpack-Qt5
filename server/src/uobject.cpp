@@ -691,6 +691,6 @@ void cUObject::sendTooltip( cUOSocket* mSock )
 
 void cUObject::changed( UINT32 state )
 {
-	if( state & eChanged::SAVE ) changed_ = true;
-	if( state & eChanged::TOOLTIP ) tooltip_ = 0xFFFFFFFF;
+	if( state & SAVE ) changed_ = true;
+	if( state & TOOLTIP ) tooltip_ = 0xFFFFFFFF;
 }
