@@ -1115,7 +1115,13 @@ PyObject* wpChar_maywalk( wpChar* self, PyObject* args )
 		return 0;
 	}
 
-	if( !mayWalk( self->pChar, Coord_cl( getArgInt( 0 ), getArgInt( 1 ), getArgInt( 2 ), getArgInt( 3 ) ) ) )
+	//if( !mayWalk( self->pChar, Coord_cl( getArgInt( 0 ), getArgInt( 1 ), getArgInt( 2 ), getArgInt( 3 ) ) ) )
+	int argx = getArgInt( 0 );
+	int argy = getArgInt( 1 );
+	int argz = getArgInt( 2 );
+	int argmap = getArgInt( 3 );
+	Coord_cl argcoord( argx, argy, argz, argmap );
+	if( !mayWalk( self->pChar, argcoord ) )
 		return PyFalse;
 	else
 		return PyTrue;
