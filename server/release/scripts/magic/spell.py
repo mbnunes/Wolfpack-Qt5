@@ -10,7 +10,7 @@ from wolfpack.consts import MAGICRESISTANCE, EVALUATINGINTEL, INSCRIPTION, \
 # Recursive Function for counting reagents
 def countReagents(item, items):
 	for key in items.keys():
-		if key == item.id and item.color == 0:
+		if( key == item.baseid ):
 			items[ key ] = max(0, items[ key ] - item.amount)
 			return items # Reagents normally dont have content
 
@@ -23,8 +23,8 @@ def countReagents(item, items):
 # Recursive Function for removing reagents
 def consumeReagents(item, items):
 	for (key, value) in items.items():
-		if key == item.id and item.color == 0:
-			if item.amount <= value:
+		if( key == item.baseid ):
+			if( item.amount <= value ):
 				items[ key ] -= item.amount
 				item.delete()
 			else:
