@@ -21,6 +21,9 @@ def findchar( serial ):
 	else:
 		return _wolfpack.findchar( int( serial ) )
 
+def findmulti( arg ):
+	return _wolfpack.findmulti( arg )
+
 def additem( definition ):
 	if not type( definition ) is StringType:
 		raise TypeError, "You need to provide a valid definition string"
