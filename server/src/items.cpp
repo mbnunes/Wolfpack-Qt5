@@ -68,9 +68,6 @@ void cItem::registerInFactory()
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
 	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
-
-	qWarning( sqlString );
-	
 	UObjectFactory::instance()->registerType("cItem", productCreator);
 	UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
 }

@@ -131,14 +131,22 @@ void CWorldMain::loadnewworld(QString module) // Load world
 	{
 		QString type = types[j];
 
-		QSqlQuery query( UObjectFactory::instance()->findSqlQuery( type ) );
-	
-		while( query.isActive() && query.next() )
+		QSqlQuery query;
+		uint limit = 0;
+		do
 		{
-			cUObject *object = UObjectFactory::instance()->createObject( type );
-			UINT16 offset = 2; // Skip the first two fields
-			object->load( &query, offset );
+			query.exec( UObjectFactory::instance()->findSqlQuery( type ) + QString(" LIMIT %1, %2").arg(limit).arg(limit+10000) );
+			while( query.isActive() && query.next() )
+			{
+				cUObject *object = UObjectFactory::instance()->createObject( type );
+				UINT16 offset = 2; // Skip the first two fields
+				object->load( &query, offset );
+			}
+			limit += 10000;
+			qWarning(QString::number(query.numRowsAffected()));
 		}
+		while ( query.numRowsAffected() == limit ); // it accumulates.
+
 	}
 	
 	printf( " done in %0.02fs\n", startTime.msecsTo( QTime::currentTime() ) / 1000 );	
