@@ -1935,7 +1935,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 			pn->toggleCombat();
 			pn->setNextMoveTime();
 		}
-		else
+		else if( pc_i->objectType() == enNPC )
 		{
 			dynamic_cast<P_NPC>(pc_i)->setNextMoveTime();
 		}

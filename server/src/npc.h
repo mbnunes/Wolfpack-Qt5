@@ -592,7 +592,7 @@ inline void cNPC::setWanderDestination(const Coord_cl &data)
 
 inline bool cNPC::isInnocent()
 {
-	return notority() != 1;
+	return notority() == 1;
 }
 
 #endif /* CNPC_H_HEADER_INCLUDED */
