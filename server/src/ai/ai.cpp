@@ -28,6 +28,7 @@
 #include "../python/utilities.h"
 
 #include "ai.h"
+#include "../combat.h"
 #include "../npc.h"
 #include "../player.h"
 #include "../mapobjects.h"
@@ -508,6 +509,9 @@ float Action_Wander::preCondition()
 	if ( m_npc->attackTarget() )
 		return 0.0f;
 
+	if ( m_ai && m_ai->currentVictim() )
+		return 0.0f;
+
 	if ( m_npc->wanderType() == enHalt )
 		return 0.0f;
 
@@ -845,6 +849,148 @@ bool Action_Wander::movePath( const Coord& pos, bool run )
 	}
 }
 
+float Action_MoveToTarget::preCondition()
+{
+	/*
+	 * Moving to the target has the following preconditions:
+	 * - A target has been set.
+	 * - The NPC is not in combat range.
+	 *
+	 * Here we take the fuzzy logic into account.
+	 * If the npc is injured, the chance of fighting will decrease.
+	 */
+
+	if ( !m_ai )
+	{
+		return 0.0f;
+	}
+
+	P_CHAR currentVictim = m_ai->currentVictim();
+
+	if ( !currentVictim || !validTarget( m_npc, currentVictim ) ) 
+	{
+		return 0.0f;
+	}
+
+	Q_UINT8 range = 1;
+	P_ITEM weapon = m_npc->getWeapon();
+
+	if ( weapon )
+	{
+		if ( weapon->hasTag( "range" ) )
+		{
+			range = weapon->getTag( "range" ).toInt();
+		}
+		else if ( weapon->basedef() )
+		{
+			range = weapon->basedef()->getIntProperty( "range", 1 );
+		}
+	}
+
+	if ( m_npc->inRange( currentVictim, range ) )
+		return 0.0f;
+
+	// 1.0 = Full Health, 0.0 = Dead
+	float diff = 1.0 - wpMax<float>( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
+
+	if ( diff <= m_npc->criticalHealth() / 100.0 )
+	{
+		return 0.0;
+	}
+
+	return 1.0;
+}
+
+float Action_MoveToTarget::postCondition()
+{
+	/*
+	 * Moving to the target has the following postconditions:
+	 * - The target is not set anymore.
+	 * - The NPC is within fight range.
+	 * - The NPC is not injured above the critical line.
+	 */
+
+	if ( !m_ai )
+	{
+		return 1.0f;
+	}
+
+	P_CHAR currentVictim = m_ai->currentVictim();
+
+	if ( !currentVictim || !validTarget( m_npc, currentVictim ) )
+		return 1.0f;
+
+	Q_UINT8 range = 1;
+	P_ITEM weapon = m_npc->getWeapon();
+	if ( weapon )
+	{
+		if ( weapon->hasTag( "range" ) )
+		{
+			range = weapon->getTag( "range" ).toInt();
+		}
+		else if ( weapon->basedef() )
+		{
+			range = weapon->basedef()->getIntProperty( "range", 1 );
+		}
+	}
+
+	if ( m_npc->inRange( currentVictim, range ) )
+		return 1.0f;
+
+	// 1.0 = Full Health, 0.0 = Dead
+	float diff = 1.0 - wpMax<float>( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
+
+	if ( diff <= m_npc->criticalHealth() / 100.0 )
+	{
+		return 1.0;
+	}
+
+	return 0.0;
+}
+
+void Action_MoveToTarget::execute()
+{
+	// We failed several times to reach the target so we wait
+	if ( nextTry > Server::instance()->time() || m_npc->nextMoveTime() > Server::instance()->time() )
+	{
+		return;
+	}
+
+	m_npc->setNextMoveTime();
+
+	if ( !m_ai )
+	{
+		return;
+	}
+
+	P_CHAR currentVictim = m_ai->currentVictim();
+
+	if ( !currentVictim )
+	{
+		return;
+	}
+
+	// Even if the victim is zero, thats correct.
+	if ( !m_npc->attackTarget() )
+	{
+		m_npc->fight( currentVictim );
+	}
+
+	bool run = m_npc->dist( currentVictim ) > 3;
+
+	if ( Config::instance()->pathfind4Combat() && m_npc->dist( currentVictim ) < 5 )
+	{
+		if ( !movePath( currentVictim->pos(), run ) )
+		{
+			nextTry = Server::instance()->time() + RandomNum( 1250, 2250 );
+		}
+	}
+	else
+	{
+		moveTo( currentVictim->pos(), run );
+	}
+}
+
 void Action_Flee::execute()
 {
 	P_CHAR pFleeFrom = World::instance()->findChar( pFleeFromSer );
@@ -955,9 +1101,11 @@ float Action_Defend::preCondition()
 	 *		  increases to flee.
 	 */
 
-	P_CHAR pAttacker = m_npc->attackTarget();
-	if ( !pAttacker || pAttacker->isDead() )
+	P_CHAR pAttacker = findAttacker();
+	if ( !pAttacker )
+	{
 		return 0.0f;
+	}
 
 	if ( m_npc->hitpoints() < m_npc->criticalHealth() )
 		return 0.0f;
@@ -1032,6 +1180,85 @@ float Action_Defend::postCondition()
 void Action_Defend::execute()
 {
 	// combat is handled somewhere else
+}
+
+// check if something is attacking us
+P_CHAR Action_Defend::findAttacker()
+{
+
+	if ( !m_ai )
+	{
+		return 0;
+	}
+
+	P_CHAR attacker = m_npc->attackTarget();
+	unsigned int distance = ~0;
+
+	// check our current target
+	if ( attacker && validTarget( m_npc, attacker ) )
+	{
+		m_ai->setcurrentVictimSer( attacker->serial() );
+		return attacker;
+	}
+	
+	// check our current victim
+	attacker = m_ai->currentVictim();
+	if ( !attacker )
+	{
+		m_ai->setcurrentVictimSer( INVALID_SERIAL );
+	}
+
+	// is it still valid?
+	if ( attacker && invalidTarget( m_npc, attacker ) )
+	{
+		attacker = 0;
+		m_ai->setcurrentVictimSer( INVALID_SERIAL );
+		m_npc->fight( 0 );
+	}
+
+	if ( m_ai->getnextVictimCheck() < Server::instance()->time() )
+	{
+		// Don't switch if we can hit it...
+		if ( !attacker || attacker->dist( m_npc ) > 1 )
+		{
+			
+			// Search for attackers in our list of current fights
+			QPtrList<cFightInfo> fights = m_npc->fights();
+			for ( cFightInfo*info = fights.first(); info; info = fights.next() )
+			{
+
+				//are they attacking us?
+				P_CHAR victim = info->victim();
+				if ( victim == m_npc )
+				{
+					victim = info->attacker();
+				}
+
+				// We don't already attack the target, right?
+				if ( victim != attacker  )
+				{
+					// See if it's a target we want
+					unsigned int dist = m_npc->dist( victim );
+					if ( dist < distance && validTarget( m_npc, victim, dist ) )
+					{
+						attacker = victim;
+						distance = dist;
+					}
+				}
+			}
+			
+			// we found someone attacking us, so let's defend!
+			if ( attacker )
+			{
+				m_ai->setcurrentVictimSer( attacker->serial() );
+				m_npc->fight( attacker );
+			}
+		}
+
+		m_ai->setnextVictimCheck( Server::instance()->time() + 1500 );
+	}
+
+	return attacker;
 }
 
 static AbstractAI* productCreator_NB()

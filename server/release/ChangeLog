@@ -58,6 +58,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Fixed bug #0000363. (Pets don't attack a target if it's already fighting)
   - Added support for value="" in many simple definition tags.
     Examples: <mintaming value="555" /> <controlslots value="3" />
+  - Fixed animals not moving to target when attacked with ranged weapons.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.

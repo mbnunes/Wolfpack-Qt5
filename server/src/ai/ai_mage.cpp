@@ -37,15 +37,15 @@
 	The additional mage code does:
 	- Meditate while wandering to get more mana back.
 */
-class Monster_Mage_Wander : public Monster_Aggr_Wander
+class Monster_Mage_Wander : public Action_Wander
 {
 protected:
-	Monster_Mage_Wander() : Monster_Aggr_Wander()
+	Monster_Mage_Wander() : Action_Wander()
 	{
 	}
 
 public:
-	Monster_Mage_Wander( P_NPC npc, AbstractAI* ai ) : Monster_Aggr_Wander( npc, ai )
+	Monster_Mage_Wander( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai )
 	{
 	}
 
@@ -71,7 +71,7 @@ public:
 		// we need check for it here.
 		if ( m_npc->wanderType() != enHalt && ( m_npc->wanderType() != enDestination || m_npc->wanderDestination() != m_npc->pos() ) && ( m_npc->wanderType() != enFollowTarget || m_npc->inRange( m_npc->wanderFollowTarget(), Config::instance()->pathfindFollowRadius() ) ) )
 		{
-			Monster_Aggr_Wander::execute();
+			Action_Wander::execute();
 		}
 
 		// Should we heal ourself?
@@ -390,15 +390,15 @@ public:
 	The additional mage code does:
 	- Run away from the current target if we are casting a spell.
 */
-class Monster_Mage_MoveToTarget : public Monster_Aggr_Wander
+class Monster_Mage_MoveToTarget : public Action_Wander
 {
 protected:
-	Monster_Mage_MoveToTarget() : Monster_Aggr_Wander()
+	Monster_Mage_MoveToTarget() : Action_Wander()
 	{
 	}
 
 public:
-	Monster_Mage_MoveToTarget( P_NPC npc, AbstractAI* ai ) : Monster_Aggr_Wander( npc, ai )
+	Monster_Mage_MoveToTarget( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai )
 	{
 	}
 

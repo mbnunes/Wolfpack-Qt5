@@ -112,15 +112,17 @@ protected:
 class AbstractAI
 {
 protected:
-	AbstractAI() : m_npc( NULL ), m_currentAction( NULL ), notorietyOverride_( 0 )
+	AbstractAI() : m_npc( NULL ), m_currentAction( NULL ), notorietyOverride_( 0 ), m_currentVictimSer( INVALID_SERIAL )
 	{
 		m_actions.setAutoDelete( true );
+		nextVictimCheck = 0;
 	}
 
 public:
-	AbstractAI( P_NPC npc ) : m_npc( npc ), m_currentAction( NULL ), notorietyOverride_( 0 )
+	AbstractAI( P_NPC npc ) : m_npc( npc ), m_currentAction( NULL ), notorietyOverride_( 0 ), m_currentVictimSer( INVALID_SERIAL )
 	{
 		m_actions.setAutoDelete( true );
+		nextVictimCheck = 0;
 	}
 	virtual ~AbstractAI()
 	{
@@ -167,12 +169,34 @@ public:
 			action->setNPC( npc );
 		}
 	}
+	
+	P_CHAR currentVictim() const
+	{
+		return World::instance()->findChar( m_currentVictimSer );
+	}
+
+	void setcurrentVictimSer( SERIAL value )
+	{
+		m_currentVictimSer = value;
+	}
+
+	unsigned int getnextVictimCheck() const
+	{
+		return nextVictimCheck;
+	}
+
+	void setnextVictimCheck( unsigned int value )
+	{
+		nextVictimCheck = value;
+	}
 
 protected:
 	P_NPC m_npc;
 	AbstractAction* m_currentAction;
 	QPtrList<AbstractAction> m_actions;
 	unsigned char notorietyOverride_;
+	unsigned int nextVictimCheck;
+	SERIAL m_currentVictimSer;
 };
 
 class cAIFactory : public Factory<AbstractAI, QString>
@@ -269,37 +293,21 @@ public:
 	{
 		return "Action_Defend";
 	}
+private:
+	P_CHAR findAttacker();
 };
 
-class Monster_Aggr_Wander : public Action_Wander
-{
-protected:
-	Monster_Aggr_Wander() : Action_Wander()
-	{
-	}
-public:
-	Monster_Aggr_Wander( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai )
-	{
-	}
-	virtual float preCondition();
-
-	virtual const char* name()
-	{
-		return "Monster_Aggr_Wander";
-	}
-};
-
-class Monster_Aggr_MoveToTarget : public Action_Wander
+class Action_MoveToTarget : public Action_Wander
 {
 protected:
 	unsigned int nextTry;
 
-	Monster_Aggr_MoveToTarget() : Action_Wander()
+	Action_MoveToTarget() : Action_Wander()
 	{
 		nextTry = 0;
 	}
 public:
-	Monster_Aggr_MoveToTarget( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai )
+	Action_MoveToTarget( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai )
 	{
 		nextTry = 0;
 	}
@@ -347,29 +355,21 @@ public:
 class Monster_Aggressive : public AbstractAI
 {
 protected:
-	Monster_Aggressive() : AbstractAI(), m_currentVictimSer( INVALID_SERIAL )
+	Monster_Aggressive() : AbstractAI()
 	{
 		notorietyOverride_ = 3;
-		nextVictimCheck = 0;
 	}
 
 public:
-	Monster_Aggressive( P_NPC npc ) : AbstractAI( npc ), m_currentVictimSer( INVALID_SERIAL )
+	Monster_Aggressive( P_NPC npc ) : AbstractAI( npc )
 	{
 		notorietyOverride_ = 3;
-		nextVictimCheck = 0;
 	}
 
 	virtual void check();
 
-	P_CHAR currentVictim() const
-	{
-		return World::instance()->findChar( m_currentVictimSer );
-	}
 protected:
 	virtual void selectVictim() = 0;
-	unsigned int nextVictimCheck;
-	SERIAL m_currentVictimSer;
 };
 
 class Monster_Aggressive_L0 : public Monster_Aggressive
@@ -382,8 +382,8 @@ protected:
 public:
 	Monster_Aggressive_L0( P_NPC npc ) : Monster_Aggressive( npc )
 	{
-		m_actions.append( new Monster_Aggr_Wander( npc, this ) );
-		m_actions.append( new Monster_Aggr_MoveToTarget( npc, this ) );
+		m_actions.append( new Action_Wander( npc, this ) );
+		m_actions.append( new Action_MoveToTarget( npc, this ) );
 		m_actions.append( new Monster_Aggr_Fight( npc, this ) );
 	}
 
@@ -407,9 +407,9 @@ protected:
 public:
 	Monster_Aggressive_L1( P_NPC npc ) : Monster_Aggressive( npc )
 	{
-		m_actions.append( new Monster_Aggr_Wander( npc, this ) );
+		m_actions.append( new Action_Wander( npc, this ) );
 		m_actions.append( new Action_FleeAttacker( npc, this ) );
-		m_actions.append( new Monster_Aggr_MoveToTarget( npc, this ) );
+		m_actions.append( new Action_MoveToTarget( npc, this ) );
 		m_actions.append( new Monster_Aggr_Fight( npc, this ) );
 	}
 
@@ -569,7 +569,7 @@ public:
 		m_actions.append( new Action_FleeAttacker( npc, this ) );
 		m_actions.append( new Action_Defend( npc, this ) );
 		m_actions.append( new Animal_Wild_Flee( npc, this ) );
-		m_actions.append( new Monster_Aggr_MoveToTarget( npc, this ) );
+		m_actions.append( new Action_MoveToTarget( npc, this ) );
 	}
 
 	static void registerInFactory();
@@ -592,6 +592,7 @@ public:
 		m_actions.append( new Action_Wander( npc, this ) );
 		m_actions.append( new Action_FleeAttacker( npc, this ) );
 		m_actions.append( new Action_Defend( npc, this ) );
+		m_actions.append( new Action_MoveToTarget( npc, this ) );
 	}
 
 	static void registerInFactory();
