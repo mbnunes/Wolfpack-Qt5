@@ -54,9 +54,9 @@
 #undef  DBGFILE
 #define DBGFILE "uobject.cpp"
 
-cUObject::cUObject()
+cUObject::cUObject() :
+	serial( INVALID_SERIAL ), multis( INVALID_SERIAL ), free( false ), bindmenu_( QString::null )
 {
-	init();
 }
 
 cUObject::cUObject( cUObject &src )
@@ -72,10 +72,6 @@ cUObject::cUObject( cUObject &src )
 
 void cUObject::init()
 {
-	this->serial = INVALID_SERIAL;
-	this->multis = INVALID_SERIAL;
-	this->free = false;
-	this->bindmenu_ = QString::null;
 }
 
 void cUObject::moveTo( const Coord_cl& newpos )
