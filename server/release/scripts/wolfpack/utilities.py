@@ -660,7 +660,7 @@ def checkLoS( object1, object2, rangecheck=10 ):
 		item = wolfpack.finditem(object2.serial)
 		if not char.cansee(item):
 			return 0
-		if char.distanceto(item) > rangecheck:
+		if (char.distanceto(item) > rangecheck) or (item.distanceto(char) > rangecheck):
 			return 0
 		if not char.canreach(item, rangecheck):
 			return 0

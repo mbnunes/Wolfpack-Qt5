@@ -186,6 +186,7 @@ def potionregion( args ):
 	char = args[0]
 	potion = args[1]
 	bonus = args[2]
+	explodables = [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]
 	if potion.gettag('potiontype') == 11:
 		outradius = 1
 	elif potion.gettag('potiontype') == 12:
@@ -236,24 +237,15 @@ def potionregion( args ):
 		chainregion = wolfpack.itemregion( x1, y1, x2, y2, potion.pos.map )
 		chainbomb= chainregion.first
 		while chainbomb:
-			if chainbomb.baseid in [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]:
-				if checkLoS( potion, chainbomb, outradius ):
-					if not chainbomb.hastag('exploding'):
-						chainbomb.settag('exploding', 'true')
-						wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 0, chainbomb.amount] )
-						chainbomb = chainregion.next
-					else:
-						chainbomb = chainregion.next
-				else:
+			if checkLoS( potion, chainbomb, outradius ) and not chainbomb.hastag('exploding'):
+				if chainbomb.baseid in explodables:
+					chainbomb.settag('exploding', 'true')
+					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 0, chainbomb.amount] )
 					chainbomb = chainregion.next
-			# Potion Kegs
-			elif chainbomb.hastag('kegfill') and chainbomb.hastag('potiontype'):
-				if checkLoS( potion, chainbomb, outradius ):
-					if chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1:
-						wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
-						chainbomb = chainregion.next
-					else:
-						chainbomb = chainregion.next
+				# Potion Kegs
+				elif (chainbomb.hastag('kegfill') and chainbomb.hastag('potiontype')) and ( chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1 ):
+					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
+					chainbomb = chainregion.next
 				else:
 					chainbomb = chainregion.next
 			else:
@@ -279,32 +271,19 @@ def potionregion( args ):
 		chainregion = wolfpack.itemregion( x1, y1, x2, y2, char.pos.map )
 		chainbomb = chainregion.first
 		while chainbomb:
-			if chainbomb.baseid in [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]:
-				if checkLoS( potion, chainbomb, outradius ):
-					if not chainbomb.hastag('exploding'):
-						chainbomb.settag('exploding', 'true')
-						wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 0] )
-						chainbomb = chainregion.next
-					elif chainbomb.hastag('kegfill') and chanbomb.hastag('potiontype'):
-						if chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1:
-							wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
-							chainbomb = chainregion.next
-					else:
-						chainbomb = chainregion.next
-				else:
+			if checkLoS( char, chainbomb, outradius ) and not chainbomb.hastag('exploding'):
+				if chainbomb.baseid in explodables:
+					chainbomb.settag('exploding', 'true')
+					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 0, chainbomb.amount] )
 					chainbomb = chainregion.next
-			# Potion Kegs
-			elif chainbomb.hastag('kegfill') and chainbomb.hastag('potiontype'):
-				if checkLoS( potion, chainbomb, outradius ):
-					if chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1:
-						wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
-						chainbomb = chainregion.next
-					else:
-						chainbomb = chainregion.next
+				elif ( chainbomb.hastag('kegfill') and chainbomb.hastag('potiontype') ) and ( chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1 ):
+					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
+					chainbomb = chainregion.next
 				else:
 					chainbomb = chainregion.next
 			else:
 				chainbomb = chainregion.next
+			# Potion Kegs
 		return
 
 # Explosion Potion Function
