@@ -618,7 +618,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>Joined: </source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation>Beigetreten:</translation>
+        <translation type="unfinished">Beitritt:</translation>
     </message>
     <message>
         <source>Title: %s</source>
@@ -823,47 +823,47 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>Modify the general properties of this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ändere die Eigenschaften dieser Gilde.</translation>
     </message>
     <message>
         <source>View information about this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zeige die Eigenschaften dieser Gilde.</translation>
     </message>
     <message>
         <source>Manage the members of this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Verwalte die Mitglieder dieser Gilde.</translation>
     </message>
     <message>
         <source>View the members of this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zeige die Mitglieder dieser Gilde.</translation>
     </message>
     <message>
         <source>Manage the canidates of this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Verwalte die Anwärter dieser Gilde.</translation>
     </message>
     <message>
         <source>View the canidates of this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zeige die Anwärter dieser Gilde.</translation>
     </message>
     <message>
         <source>View the diplomatic relations of this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zeige die diplomatischen Beziehungen dieser Gilde.</translation>
     </message>
     <message>
         <source>Membership options.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mitgliedsoptionen.</translation>
     </message>
     <message>
         <source>Disband this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Löse diese Gilde auf.</translation>
     </message>
     <message>
         <source>%st
@@ -884,37 +884,37 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>Members: %u</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mitglieder: %u</translation>
     </message>
     <message>
         <source>Canidates: %u</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Anwärter: %u</translation>
     </message>
     <message>
         <source>Leader: %s</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Leiter: %s</translation>
     </message>
     <message>
         <source>Leader: None</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Leiter: Niemand</translation>
     </message>
     <message>
         <source>Abandoned</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Aufgegeben</translation>
     </message>
     <message>
         <source>The guild you try to manage has already been disbanded.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Die Gilde die du zu verwalten versuchst wurde bereits aufgelöst.</translation>
     </message>
     <message>
         <source>The character has already left this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Der Spieler hat die Gilde bereits verlassen.</translation>
     </message>
     <message>
         <source>Original Switches: %x</source>
@@ -924,17 +924,17 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>The permissions for %s have been modified.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Die Befugnisse von %s wurden geändert.</translation>
     </message>
     <message>
         <source>The guildtitle for %s has been changed.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Der Gildentitel für %s wurde geändert.</translation>
     </message>
     <message>
         <source>Your message to %s has been sent.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Deine Nachricht an %s wurde gesendet.</translation>
     </message>
     <message>
         <source>%s: %s</source>
@@ -944,227 +944,227 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>Your message has been queued up. You may edit your message on the guildstone until the recipient logs in.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Deine Nachricht wurde in die Warteschlange eingefügt. Du kannst sie am Gildenstein ändern bis der Empfänger wieder ins Spiel kommt.</translation>
     </message>
     <message>
         <source>You lack the permission to kick members out of this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du hast nicht die Befugnis Mitglieder aus der Gilde zu werfen.</translation>
     </message>
     <message>
         <source>You have been removed from your guild by %s.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du wurdest von %s aus deiner Gilde entfernt.</translation>
     </message>
     <message>
         <source>%s has been removed from your guild by %s.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>%s wurde von %s aus deiner Gilde entfernt.</translation>
     </message>
     <message>
         <source>%s has withdrawn the vote for your leadership position.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>%s hat seine Stimme für deine Gildenleitung zurückgezogen.</translation>
     </message>
     <message>
         <source>You place your vote for %s.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du stimmts für %s.</translation>
     </message>
     <message>
         <source>%s has voted for your leadership position.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>%s hat für deine Gildenleitung gestimmt.</translation>
     </message>
     <message>
         <source>You place your vote for yourself.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du stimmts für dich selbst.</translation>
     </message>
     <message>
         <source>You withdraw your vote for %s.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du ziehst deine Stimme für %s zurück.</translation>
     </message>
     <message>
         <source>You withdraw your vote for yourself.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du ziehst deine Stimme für dich selbst zurück.</translation>
     </message>
     <message>
         <source>%s has been elected as the new leader of your guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>%s wurde zum neuen Leiter deiner Gilde gewählt.</translation>
     </message>
     <message>
         <source>You have been elected as the new leader of your guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du wurdest zum neuen Leiter deiner Gilde gewählt.</translation>
     </message>
     <message>
         <source>You have enough votes to become the new leader of your guild. To accept this result, please vote for yourself at your guildstone.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du hast genug Stimmen um zum Leiter deiner Gilde gewählt zu werden. Gehe zum Gildenstein und stimme für dich selbst um die Wahl anzunehmen.</translation>
     </message>
     <message>
         <source> [%s]</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>[%s]</translation>
     </message>
     <message>
         <source>Member</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mitglied</translation>
     </message>
     <message>
         <source>Leader</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Leiter</translation>
     </message>
     <message>
         <source>Shows Guildsign: Yes</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zeigt Gildenzeichen: Ja</translation>
     </message>
     <message>
         <source>Shows Guildsign: No</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zeigt Gildenzeichen: Nein</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Online:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Online:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>%s&lt;br&gt;</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>%s&lt;br&gt;</translation>
     </message>
     <message>
         <source>&lt;br&gt;</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Offline:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Offline:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>There are currently no known canidates for a membership in this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Es befinden sich momentan keine Anwärter in dieser Gilde.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;br&gt;</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source> (Leader)</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>(Leiter)</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Responsible For Recruitment:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Verantwortlich für Rekrutierung:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>There is currently no one responsible for recruiting canidates.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Es gibt momentan niemanden der für die Rekrutierung zuständig ist.</translation>
     </message>
     <message>
         <source>You are not allowed to recruit canidates for this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dir fehlt die Befugnis zum rekrutieren neuer Anwärter.</translation>
     </message>
     <message>
         <source>You can only recruit players for your guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst nur Spieler rekrutieren.</translation>
     </message>
     <message>
         <source>That character is already in a guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Spieler befindet sich bereits in einer Gilde.</translation>
     </message>
     <message>
         <source>You have been recruited as a canidate for %s by %s.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du wurdest in %s als Kanidat von %s aufgenommen.</translation>
     </message>
     <message>
         <source>The selected player is not a canidate of this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Spieler ist kein Anwärter dieser Gilde.</translation>
     </message>
     <message>
         <source>You are not allowed to expel canidates in this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dir fehlt die Befugnis Anwärter aus der Gilde zu entfernen.</translation>
     </message>
     <message>
         <source>You are not allowed to promote canidates in this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Es fehlt dir die Befugnis Anwärter zu vollen Mitgliedern zu ernennen.</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Website:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;&lt;a href=&quot;%s&quot;&gt;%s&lt;/a&gt;&lt;br&gt;&lt;br&gt;</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Webseite:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;&lt;a href=&quot;%s&quot;&gt;%s&lt;/a&gt;&lt;br&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Website:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;This guild has no website.&lt;br&gt;&lt;br&gt;</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Webseite:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;Diese Gilde hat keine Webseite.&lt;br&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Charta:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;%s</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Charta:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;%s</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Charta:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;This guild has not defined a charta yet.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Charta:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;Diese Gilde hat bisher keine Charta festgelegt.</translation>
     </message>
     <message>
         <source>You decide not to show your guildsign any longer.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du entscheidest dich dein Gildenzeichen abzulegen.</translation>
     </message>
     <message>
         <source>You decide to show your guildsign from now on.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du entscheidest dich dein Gildenzeichen wieder anzulegen.</translation>
     </message>
     <message>
         <source>You have resigned from your guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du hast deine Gilde verlassen.</translation>
     </message>
     <message>
         <source>You have resigned from your position as the leader of this guild.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du hast die Position des Gildenleiters abgegeben.</translation>
     </message>
     <message>
         <source>You need to be the leader of this guild or a gamemaster to disband it.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du musst der Leiter der Gilde oder ein Spielleiter sein um diese Gilde aufzulösen.</translation>
     </message>
     <message>
         <source>This guildstone is abandoned.</source>
         <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Gildenstein ist aufgegeben.</translation>
     </message>
     <message>
         <source>You renamed the key to &apos;%s&apos;</source>
         <comment>../scripts/key.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du benennst den Schlüssel in &apos;%s&apos; um</translation>
     </message>
     <message>
         <source>Changing lock of key 0x%x from &apos;%s&apos; to &apos;%s&apos;.
@@ -1175,57 +1175,57 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>Unlocks: </source>
         <comment>../scripts/key.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Öffnet:</translation>
     </message>
     <message>
         <source>Lock: </source>
         <comment>../scripts/key.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Schloss: </translation>
     </message>
     <message>
         <source>This key is blank</source>
         <comment>../scripts/key.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dies ist ein Rohling</translation>
     </message>
     <message>
         <source>This key now unlocks: </source>
         <comment>../scripts/key.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Schlüssel öffnet nun:</translation>
     </message>
     <message>
         <source>You erase the lock information from the key.</source>
         <comment>../scripts/key.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du machst den Schlüssel zu einem Rohling.</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Manage Key&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;This dialog will help you to manage or rename this key.</source>
         <comment>../scripts/key.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Schlüssel verwalten&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;Dieser Dialog hilft dir den Schlüssel zu verändern.</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Manage Key&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;This dialog will help you to rename this key.</source>
         <comment>../scripts/key.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Schlüssel benennen&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;Dieser Dialog wird dir helfen den Schlüssel zu benennen.</translation>
     </message>
     <message>
         <source>The name of this key:</source>
         <comment>../scripts/key.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Der Name dieses Schlüssels:</translation>
     </message>
     <message>
         <source>The lock id of this key:</source>
         <comment>../scripts/key.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Die ID dieses Schlüssels:</translation>
     </message>
     <message>
         <source>Modify key</source>
         <comment>../scripts/key.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Schlüssel ändern</translation>
     </message>
     <message>
         <source>Cancel</source>
         <comment>../scripts/key.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Accessed locked object 0x%x.
@@ -1297,17 +1297,17 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>Alas you don&apos;t have any money in your bank.</source>
         <comment>C:/Wolfpack/scripts/speech/banker.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ihr habt leider kein Geld in eurem Bankfach.</translation>
     </message>
     <message>
         <source>You have %i gold in your bank.</source>
         <comment>C:/Wolfpack/scripts/speech/banker.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ihr habt %i Goldmünzen in eurem Bankfach.</translation>
     </message>
     <message>
         <source>Here is your bank box, %s.</source>
         <comment>C:/Wolfpack/scripts/speech/banker.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hier ist euer Bankfach, %s.</translation>
     </message>
 </context>
 <context>
