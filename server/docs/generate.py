@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 import time
 import os
@@ -25,19 +26,19 @@ def examine(path):
 	global objectsmethods
 	global objectsproperties
 	global functions
-	
+
 	#print "Examining %s..." % path
 	files = glob(path + '/*.py')
-	
+
 	for file in files:
 		if os.path.isfile(file):
 			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions) = parsepython(file)
 			commands += newcommands
 			events += newevents
 			functions += newfunctions
-			
+
 	files = glob(path + '/*.cpp')
-	
+
 	for file in files:
 		if os.path.isfile(file):
 			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions) = parsecpp(file)
@@ -47,9 +48,9 @@ def examine(path):
 			objectsmethods += newobjectsmethods
 			objectsproperties += newobjectsproperties
 			functions += newfunctions
-			
+
 	files = glob(path + '/*.h')
-	
+
 	for file in files:
 		if os.path.isfile(file):
 			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions) = parsecpp(file)
@@ -57,15 +58,15 @@ def examine(path):
 			events += newevents
 			objects += newobjects
 			objectsmethods += newobjectsmethods
-			objectsproperties += newobjectsproperties			
+			objectsproperties += newobjectsproperties
 			functions += newfunctions
-	
+
 	# Get subdirectories and process them
 	entries = glob(path + '/*')
 	for entry in entries:
 		if os.path.isdir(entry):
 			examine(entry)
-					
+
 for path in paths:
 	examine(path)
 
@@ -92,12 +93,12 @@ for event in events:
 for object in objects:
 	# Copy methods and properties from inherited object types
 	for method in objectsmethods:
-	
+
 		if method['object'] in object['inherit']:
 			method = dict(method)
 			method['object'] = object['object']
 			objectsmethods.append(method)
-			
+
 	for property in objectsproperties:
 		if property['object'] in object['inherit']:
 			property = dict(property)
@@ -105,7 +106,7 @@ for object in objects:
 			objectsproperties.append(property)
 
 	print "REPLACE INTO documentation_objects VALUES('%s', '%s');" % (quote(object['object']), quote(object['description']))
-	
+
 for method in objectsmethods:
 	print "REPLACE INTO documentation_objects_methods VALUES('%s', '%s', '%s', '%s', '%s', '%s');" % (quote(method['object']), quote(method['method']), quote(method['prototype']), quote(method['parameters']), quote(method['returnvalue']), quote(method['description']))
 

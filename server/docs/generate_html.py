@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 import re
 import math
@@ -30,10 +31,10 @@ def examine(path):
 	global objectsproperties
 	global functions
 	global constants
-	
+
 	#print "Examining %s..." % path
 	files = glob(path + '/*.py')
-	
+
 	for file in files:
 		if os.path.isfile(file):
 			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions, newconstants) = parsepython(file)
@@ -41,9 +42,9 @@ def examine(path):
 			events += newevents
 			functions += newfunctions
 			constants += newconstants
-			
+
 	files = glob(path + '/*.cpp')
-	
+
 	for file in files:
 		if os.path.isfile(file):
 			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions, newconstants) = parsecpp(file)
@@ -53,9 +54,9 @@ def examine(path):
 			objectsmethods += newobjectsmethods
 			objectsproperties += newobjectsproperties
 			functions += newfunctions
-			
+
 	files = glob(path + '/*.h')
-	
+
 	for file in files:
 		if os.path.isfile(file):
 			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions, newconstants) = parsecpp(file)
@@ -63,18 +64,18 @@ def examine(path):
 			events += newevents
 			objects += newobjects
 			objectsmethods += newobjectsmethods
-			objectsproperties += newobjectsproperties			
+			objectsproperties += newobjectsproperties
 			functions += newfunctions
-	
+
 	# Get subdirectories and process them
 	entries = glob(path + '/*')
 	for entry in entries:
 		if os.path.isdir(entry):
 			examine(entry)
-					
+
 for path in paths:
 	examine(path)
-	
+
 def quote(text):
 	return text.replace("'", "\\'")
 
@@ -102,7 +103,7 @@ for row in range(0, rows):
 		else:
 			overview += "<td>&nbsp;</td>\n";
 
-	overview += "</tr>\n" 	
+	overview += "</tr>\n"
 
 # Write an index file for the events.
 template = open('templates/commands.html')
@@ -116,7 +117,7 @@ text = text.replace('{OVERVIEW}', overview)
 output = open('webroot/commands.html', "wt")
 output.write(text)
 output.close()
-	
+
 for command in commands:
 	template = open('templates/command.html')
 	text = template.read()
@@ -164,7 +165,7 @@ for row in range(0, rows):
 		else:
 			overview += "<td>&nbsp;</td>\n";
 
-	overview += "</tr>\n" 	
+	overview += "</tr>\n"
 
 # Write an index file for the events.
 template = open('templates/events.html')
@@ -178,7 +179,7 @@ text = text.replace('{VERSION}', version)
 output = open('webroot/events.html', "wt")
 output.write(text)
 output.close()
-	
+
 for event in events:
 	template = open('templates/event.html')
 	text = template.read()
@@ -194,20 +195,20 @@ for event in events:
 	text = text.replace('{OTHEREVENTS}', overview)
 	text = text.replace('{GENERATED}', generated)
 	text = text.replace('{VERSION}', version)
-	
+
 	output = open('webroot/event_%s.html' % event['name'].lower(), "wt")
 	output.write(text)
 	output.close()
 
 def objectcmp(a, b):
 	return cmp(a['object'], b['object'])
-	
+
 def methodcmp(a, b):
-	return cmp(a['method'], b['method'])	
-	
+	return cmp(a['method'], b['method'])
+
 def propertycmp(a, b):
-	return cmp(a['property'], b['property'])	
-	
+	return cmp(a['property'], b['property'])
+
 objects.sort(objectcmp)
 
 # Compile an event overview
@@ -226,7 +227,7 @@ for row in range(0, rows):
 		else:
 			overview += "<td>&nbsp;</td>\n";
 
-	overview += "</tr>\n" 	
+	overview += "</tr>\n"
 
 # Write an index file for the objects.
 template = open('templates/objects.html')
@@ -240,11 +241,11 @@ text = text.replace('{VERSION}', version)
 output = open('webroot/objects.html', "wt")
 output.write(text)
 output.close()
-	
+
 for object in objects:
 	# Compile a list of objects we inherit from (complete, recursive)
 	inherited = object['inherit'][:] # Create a copy
-	
+
 	for i in range(0, len(objects)):
 		o = objects[i]
 		if o['object'] in inherited:
@@ -262,7 +263,7 @@ for object in objects:
 	for property in objectsproperties:
 		if property['object'] in inherited or property['object'] == object['object']:
 			properties.append(property)
-	
+
 	properties.sort(propertycmp)
 	methods.sort(methodcmp)
 
@@ -270,18 +271,18 @@ for object in objects:
 	template = open('templates/object.html')
 	text = template.read()
 	template.close()
-	
+
 	text = text.replace('{GENERATED}', generated)
-	text = text.replace('{VERSION}', version)	
-		
-	# Compile an overview 	
+	text = text.replace('{VERSION}', version)
+
+	# Compile an overview
 	overview = ''
 	cols = 7
 	rows = int(math.ceil(len(methods) / 7.0))
-	
+
 	for row in range(0, rows):
 		overview += "<tr>\n"
-	
+
 		for col in range(0, cols):
 			id = col * rows + row
 			if id < len(methods):
@@ -289,19 +290,19 @@ for object in objects:
 				overview += '<td width="15%%">-&#160;<a href="#meth_%s">%s</a></td>' % (method['method'].lower(), method['method'])
 			else:
 				overview += "<td width=\"15%\">&nbsp;</td>\n";
-	
+
 		overview += "</tr>\n"
-		
+
 	text = text.replace('{METHODOVERVIEW}', overview)
-	
-	# Compile an overview 	
+
+	# Compile an overview
 	overview = ''
 	cols = 7
 	rows = int(math.ceil(len(properties) / 7.0))
-	
+
 	for row in range(0, rows):
 		overview += "<tr>\n"
-	
+
 		for col in range(0, cols):
 			id = col * rows + row
 			if id < len(properties):
@@ -309,28 +310,28 @@ for object in objects:
 				overview += '<td width="15%%">-&#160;<a href="#prop_%s">%s</a></td>' % (property['property'].lower(), property['property'])
 			else:
 				overview += "<td width=\"15%\">&nbsp;</td>\n";
-	
+
 		overview += "</tr>\n"
-		
+
 	text = text.replace('{PROPERTYOVERVIEW}', overview)
-	
+
 	# Generate a list of methods
 	overview = ''
 	for i in range(0, len(methods)):
 		method = methods[i]
-		
+
 		parameters = ''
 		if len(method['parameters']) > 0:
 			parameters = "%s<br/><br/>\n" % method['parameters']
-			
+
 		returnvalue = ''
 		if len(method['returnvalue']) > 0:
 			returnvalue = "<span class=\"style2\">Return Value:</span><br/>%s<br/><br/>\n" % method['returnvalue']
-		
+
 		description = ''
 		if len(method['description']) > 0:
 			description = "<span class=\"style2\">Description:</span><br />%s<br />\n" % method['description']
-		
+
 		overview += "<a name=\"meth_%(lowername)s\"></a> \
 					<b><code style=\"font-size: 12px\">%(prototype)s</code></b><br />\
 					<br/>%(parameters)s\n\
@@ -344,10 +345,10 @@ for object in objects:
 							'returnvalue': returnvalue,
 							'description': description
 						}
-						
+
 		if i != len(methods) - 1:
 			overview += '<hr size="1">'
-						
+
 	text = text.replace('{OBJECTMETHODS}', overview)
 
 	# Generate a list of properties
@@ -362,7 +363,7 @@ for object in objects:
 		readonly = ''
 		if property['readonly'] == '1':
 			readonly = ' (read only)'
-		
+
 		overview += """<a name="prop_%(lowername)s"></a>\
 		<b><code style="font-size: 12px">%(name)s</code></b>%(readonly)s<br /><br />\
 		%(description)s
@@ -375,7 +376,7 @@ for object in objects:
 
 		if i != len(properties) - 1:
 			overview += '<hr size="1">'
-						
+
 	text = text.replace('{OBJECTPROPERTIES}', overview)
 
 	# Replace Tokens
@@ -384,7 +385,7 @@ for object in objects:
 		text = text.replace('{DESCRIPTION}', '<strong>Description:</strong><br>%s<br><br>' % object['description'])
 	else:
 		text = text.replace('{DESCRIPTION}', '')
-	
+
 	output = open('webroot/object_%s.html' % object['object'].lower(), "wt")
 	output.write(text)
 	output.close()
@@ -400,11 +401,11 @@ for function in functions:
 		if current != '':
 			current += '.' + module
 		else:
-			current = module		
-			
+			current = module
+
 		if current not in modules:
 			modules.append(current)
-			
+
 for constant in constants:
 	module = constant['module']
 	current = ''
@@ -413,10 +414,10 @@ for constant in constants:
 		if current != '':
 			current += '.' + module
 		else:
-			current = module		
-			
+			current = module
+
 		if current not in modules:
-			modules.append(current)			
+			modules.append(current)
 
 # Create an overview
 # Compile a command overview
@@ -436,7 +437,7 @@ for row in range(0, rows):
 		else:
 			overview += "<td>&nbsp;</td>\n";
 
-	overview += "</tr>\n" 	
+	overview += "</tr>\n"
 
 # Write an index file for the objects.
 template = open('templates/modules.html')
@@ -459,16 +460,16 @@ for module in modules:
 	for function in functions:
 		if function['module'] == module:
 			localfunctions.append(function)
-			
+
 	localconstants = []
 	for constant in constants:
 		if constant['module'] == module:
 			localconstants.append(constant)
-			
+
 	template = open('templates/module.html')
 	text = template.read()
 	template.close()
-	
+
 	text = text.replace('{GENERATED}', generated)
 	text = text.replace('{VERSION}', version)
 
@@ -476,12 +477,12 @@ for module in modules:
 	overview = ''
 	cols = 7
 	rows = int(math.ceil(len(localfunctions) / 7.0))
-	
+
 	localfunctions.sort(namesort)
-	
+
 	for row in range(0, rows):
 		overview += "<tr>\n"
-	
+
 		for col in range(0, cols):
 			id = col * rows + row
 			if id < len(localfunctions):
@@ -489,32 +490,32 @@ for module in modules:
 				overview += '<td width="15%%">-&#160;<a href="#func_%s">%s</a></td>' % (function['name'].lower(), function['name'])
 			else:
 				overview += "<td width=\"15%\">&nbsp;</td>\n";
-	
+
 		overview += "</tr>\n"
-		
+
 	text = text.replace('{FUNCTIONOVERVIEW}', overview)
-		
+
 	# Generate a list of methods
 	overview = ''
 	if len(localfunctions) > 0:
 		overview += """<p><span class="sectiontitle">MODULE FUNCTIONS</span><br>
 			<br>"""
-	
+
 	for i in range(0, len(localfunctions)):
 		function = localfunctions[i]
-		
+
 		parameters = ''
 		if len(function['parameters']) > 0:
 			parameters = "%s<br/><br/>\n" % function['parameters']
-			
+
 		returnvalue = ''
 		if len(function['returnvalue']) > 0:
 			returnvalue = "<span class=\"style2\">Return Value:</span><br/>%s<br/><br/>\n" % function['returnvalue']
-		
+
 		description = ''
 		if len(function['description']) > 0:
 			description = "<span class=\"style2\">Description:</span><br />%s<br />\n" % function['description']
-		
+
 		overview += "<a name=\"func_%(lowername)s\"></a> \
 					<b><code style=\"font-size: 12px\">%(prototype)s</code></b><br />\
 					<br/>%(parameters)s\n\
@@ -528,27 +529,27 @@ for module in modules:
 							'returnvalue': returnvalue,
 							'description': description
 						}
-						
+
 		if i != len(localfunctions) - 1:
 			overview += '<hr size="1">'
-	
+
 	text = text.replace('{MODULEFUNCTIONS}', overview)
-			
+
 	# Create a function overview first
 	overview = ''
 	cols = 4
 	rows = int(math.ceil(len(localconstants) / 4.0))
-	
+
 	localconstants.sort(namesort)
-	
+
 	for row in range(0, rows):
 		if row == 0:
 			overview += """
 			<br><strong>Constants:</strong>
 			<table width="100%"  border="0" cellspacing="0" cellpadding="2">"""
-		
+
 		overview += "<tr>\n"
-	
+
 		for col in range(0, cols):
 			id = col * rows + row
 			if id < len(localconstants):
@@ -556,27 +557,27 @@ for module in modules:
 				overview += '<td width="25%%">-&#160;<a href="#const_%s">%s</a></td>' % (urllib.quote(constant['name'].lower()), constant['name'])
 			else:
 				overview += "<td width=\"25%\">&nbsp;</td>\n";
-	
+
 		overview += "</tr>\n"
-	
+
 		if row == rows - 1:
 			overview += "</table>"
-		
-	text = text.replace('{CONSTANTSOVERVIEW}', overview)			
-			
+
+	text = text.replace('{CONSTANTSOVERVIEW}', overview)
+
 	# Generate a list of constants
 	overview = ''
-	
+
 	if len(localconstants) > 0:
 		overview += """<p><span class="sectiontitle">MODULE CONSTANTS</span><br>
 			<br>"""
-	
+
 	for i in range(0, len(localconstants)):
 		constant = localconstants[i]
 		consttext = ''
-				
+
 		for const in constant['constants']:
-			# If this constant is for a number, 
+			# If this constant is for a number,
 			# color it red, otherwise color it grey
 			quotecolor = re.compile('((?<!\\\\)".*?(?<!\\\\)")')
 			curpos = 0
@@ -588,7 +589,7 @@ for module in modules:
 				curpos = len(newconst)
 				newconst += const[result.end():]
 				const = newconst
-				
+
 			quotecolor = re.compile('\\#.*')
 			curpos = 0
 			while 1:
@@ -598,13 +599,13 @@ for module in modules:
 				newconst = const[:result.start()] + '<font color="#008000">%s</font>' % result.group(0)
 				curpos = len(newconst)
 				newconst += const[result.end():]
-				const = newconst				
-				
+				const = newconst
+
 			consttext += const
 			consttext += "<br>\n"
 
 		if len(constant['description']) > 0:
-			constant['description'] += '<br>'		
+			constant['description'] += '<br>'
 
 		overview += "<a name=\"const_%(anchor)s\"></a><b><code style=\"font-size: 12px\">%(name)s</code></b><br />\
 					%(description)s<br/><code>%(constants)s</code>\n\
@@ -614,12 +615,12 @@ for module in modules:
 							'anchor': urllib.quote(constant['name'].lower()),
 							'constants': consttext
 						}
-						
+
 		if i != len(localconstants) - 1:
-			overview += '<hr size="1">'			
-						
+			overview += '<hr size="1">'
+
 	text = text.replace('{MODULECONSTANTS}', overview)
-	
+
 	output = open('webroot/module_%s.html' % module.replace('.', '_').lower(), "wt")
 	output.write(text)
 	output.close()
