@@ -123,6 +123,9 @@ bool cSectorMap::removeItem( unsigned short x, unsigned short y, cUObject *objec
 			
 			memcpy( newData, grid[block]->data, sizeof( cUObject* ) * i );
 			memcpy( newData + ( i * sizeof( cUObject* ) ), grid[block]->data + sizeof( cUObject* ) * i, sizeof( cUObject* ) * ( grid[block]->count - ++i ) );
+			
+			delete [] grid[block]->data;
+			grid[block]->data = newData;
 			grid[block]->count--;
 		}
 	}
@@ -130,7 +133,7 @@ bool cSectorMap::removeItem( unsigned short x, unsigned short y, cUObject *objec
 	// Check if the block can be freed
 	if( !grid[block]->count )
 	{
-		delete grid[block]->data;
+		delete [] grid[block]->data;
 		delete grid[block];
 		grid[block] = 0; // This makes *sure* it gets resetted to 0
 	}
