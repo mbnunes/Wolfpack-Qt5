@@ -32,19 +32,20 @@
 #if !defined(__LISTENER_H__)
 #define __LISTENER_H__
 
-#include "zthread/Thread.h"
-#include "zthread/LockedQueue.h"
-#include "zthread/FastMutex.h"
+#include <qsocketdevice.h>
+#include <qthread.h>
 
-#include "qsocketdevice.h"
+#include <deque>
 
-class cListener : public ZThread::Thread
+class cListener : public QThread
 {
 private:
-	QSocketDevice listenningSocket;
-	ZThread::LockedQueue<QSocketDevice*, ZThread::FastMutex> readyConnections;
-	Q_UINT16 _port;
-	virtual void run() throw();
+	QSocketDevice				listenningSocket;
+	std::deque<QSocketDevice*>	readyConnections;
+	QMutex						readyConnectionsMutex;
+	Q_UINT16 					_port;
+	bool volatile				_canceled;
+	QWaitCondition				waitCondition;
 
 public:
 	cListener(Q_UINT16 port);
@@ -53,6 +54,12 @@ public:
 
 	QSocketDevice* getNewConnection();
 	bool haveNewConnection();
+	bool canceled() const { return _canceled;	}
+	void cancel() { _canceled = true; waitCondition.wakeAll();	}
+
+protected:
+	virtual void run() throw();
+
 };
 
 #endif //__LISTENER_H__

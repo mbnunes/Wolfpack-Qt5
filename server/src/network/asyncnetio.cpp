@@ -92,14 +92,14 @@ const Q_UINT16 packetLengths[256] =
   cAsyncNetIOPrivate member functions
  *****************************************************************************/
 
-using namespace ZThread;
-
 enum eEncryption
 {
 	E_NONE = 0,
 	E_LOGIN,
 	E_GAME
 };
+
+#include <deque>
 
 class cAsyncNetIOPrivate
 {
@@ -113,11 +113,12 @@ public:
     QPtrList<QByteArray> rba, wba;		// list of read/write bufs
     Q_ULONG			rsize, wsize;		// read/write total buf size
     Q_ULONG			rindex, windex;		// read/write index
-	FastMutex		wmutex;				// write mutex
+	QMutex			wmutex;				// write mutex
 	bool			skippedUOHeader;		// Skip crypt key junk
 
-	LockedQueue<cUOPacket*, FastMutex>* packets; // Complete UOPackets
-	FastMutex cryptMutex;
+	std::deque<cUOPacket*>* packets; // Complete UOPackets
+	QMutex			packetsMutex;
+	QMutex			cryptMutex;
 
 	int getch();
 	int ungetch( int ch );
@@ -137,7 +138,7 @@ cAsyncNetIOPrivate::cAsyncNetIOPrivate()
 {
     rba.setAutoDelete( TRUE );
     wba.setAutoDelete( TRUE );
-	packets = new ZThread::LockedQueue<cUOPacket*, ZThread::FastMutex>;
+	packets = new std::deque<cUOPacket*>;
 	
 	// Encryption
 	encryption = 0;
@@ -147,7 +148,9 @@ cAsyncNetIOPrivate::~cAsyncNetIOPrivate()
 {
 	for ( int i = 0; i < packets->size(); ++i )
 	{
-		delete packets->next();
+		QMutexLocker lock( &packetsMutex );
+		delete packets->front();
+		packets->pop_front();
 	}
 	delete packets;
 
@@ -352,12 +355,11 @@ bool cAsyncNetIOPrivate::consumeReadBuf( Q_ULONG nbytes, char *sink )
 */
 bool cAsyncNetIO::registerSocket( QSocketDevice* socket, bool login )
 {
-	mapsMutex.acquire();
+	QMutexLocker lock(&mapsMutex);
 	cAsyncNetIOPrivate* d = new cAsyncNetIOPrivate;
 	d->login = login;
 	d->socket = socket;
 	buffers.insert( socket, d );
-	mapsMutex.release();
 	return true;
 }
 
@@ -367,14 +369,13 @@ bool cAsyncNetIO::registerSocket( QSocketDevice* socket, bool login )
 */
 bool cAsyncNetIO::unregisterSocket( QSocketDevice* socket )
 {
-	mapsMutex.acquire();
+	QMutexLocker lock(&mapsMutex);
 	iterator it = buffers.find( socket );
 	if( it != buffers.end() )
 	{
 		delete it.data();
 		buffers.remove( it );
 	}
-	mapsMutex.release();
 	return true;
 }
 
@@ -386,8 +387,8 @@ void cAsyncNetIO::run() throw()
 {
 	while ( !canceled() )
 	{
-		mapsMutex.acquire(); // do not disturb me here.
-		for ( iterator it = buffers.begin(); it != buffers.end(); ++it )
+		mapsMutex.lock(); // do not disturb me here.
+		for ( const_iterator it = buffers.begin(); it != buffers.end(); ++it )
 		{
 			// Read all avaliable data.
 			char buf[4096];
@@ -548,14 +549,10 @@ void cAsyncNetIO::run() throw()
 			// Write data to socket
 			flushWriteBuffer( d );
 		}
-		mapsMutex.release();		
+		mapsMutex.unlock();		
 		//if( buffers.empty() )
 		// Disconnecting doesnt work for now
-		try {
-		sleep(40); // we've done our job, let's relax for a while.
-		} catch ( ZThread::Interrupted_Exception& e )
-		{ // Looks like we are going to finish this thread.
-		}
+		waitCondition.wait(40); // let's rest for a while
 	}
 }
 
@@ -603,7 +600,8 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 					cUOPacket* packet = getUOPacket( packetData );
 					if( !packet )
 						d->socket->close();
-					d->packets->add( packet );
+					QMutexLocker lock(&d->packetsMutex);
+					d->packets->push_back( packet );
 				}
 				else
 					keepExtracting = false; // we have to wait some more.
@@ -634,7 +632,8 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 				cUOPacket* packet = getUOPacket( packetData );
 				if( !packet )
 					d->socket->close();
-				d->packets->add( packet );
+				QMutexLocker lock(&d->packetsMutex);
+				d->packets->push_back( packet );
 			}
 		}
 		else
@@ -659,7 +658,7 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 		return;
 
 	// Before we continue, we should guarantee no one writes packets to the buffer.
-	d->wmutex.acquire();
+	QMutexLocker lock(&d->wmutex);
 	while ( !osBufferFull && d->wsize > 0 )
 	{
 		QByteArray* a = d->wba.first();
@@ -712,7 +711,6 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 		if ( nwritten < i )
 			osBufferFull = TRUE;
 	}
-	d->wmutex.release(); // release this record
 }
 
 /*!
@@ -725,7 +723,12 @@ cUOPacket* cAsyncNetIO::recvPacket( QSocketDevice* socket )
 {
 	iterator it = buffers.find( socket );
 	if ( it.data()->packets->size() )
-		return it.data()->packets->next();
+	{
+		QMutexLocker lock(&(it.data()->packetsMutex));
+		cUOPacket* p = it.data()->packets->front();
+		it.data()->packets->pop_front();
+		return p;
+	}
 	else
 		return 0;
 }
@@ -737,7 +740,7 @@ cUOPacket* cAsyncNetIO::recvPacket( QSocketDevice* socket )
 void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet, bool compress )
 {
 	iterator it = buffers.find( socket );
-	it.data()->wmutex.acquire();
+	QMutexLocker lock(&it.data()->wmutex);
 	if( compress )
 	{
 		QByteArray data = packet->compressed();
@@ -747,7 +750,6 @@ void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet, bool com
 	{
 		it.data()->writeBlock( packet->uncompressed() );
 	}
-	it.data()->wmutex.release();
 }
 
 /*!

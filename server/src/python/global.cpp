@@ -64,9 +64,9 @@
 
 // Library Includes
 #include <qdatetime.h>
+#include <qmutex.h>
 
-//#include <zthread/fastmutex.h>
-#include "zthread/FastMutex.h"
+
 /*!
 	Sends a string to the wolfpack console.
 */
@@ -154,12 +154,13 @@ PyObject* wpConsole_getbuffer( PyObject* self )
 }
 
 extern QStringList commandQueue;
-extern ZThread :: FastMutex commandMutex;
+extern QMutex commandMutex;
 PyObject* wpConsole_reloadScripts( PyObject* self )
 {
 	Q_UNUSED(self);
 	// Temporary implementation while thread comunication is not done
-	commandMutex.acquire();
+	QMutexLocker lock(&commandMutex);
+
 	if ( !secure )
 		commandQueue.push_back( "R" );
 	else
@@ -168,7 +169,6 @@ PyObject* wpConsole_reloadScripts( PyObject* self )
 		commandQueue.push_back("R");
 		commandQueue.push_back("S");
 	}
-	commandMutex.release();
 	
 	return PyInt_FromLong( 1 );
 }

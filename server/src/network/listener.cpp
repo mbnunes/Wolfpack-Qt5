@@ -56,8 +56,8 @@
 */
 
 cListener::cListener( Q_UINT16 port )
+	: _port(port), _canceled(false)
 {
-	_port = port;
 }
 
 cListener::~cListener() throw()
@@ -77,17 +77,12 @@ void cListener::run() throw()
 		{
 			QSocketDevice* socket = new QSocketDevice(fd, QSocketDevice::Stream);
 			socket->setBlocking( false );
-			readyConnections.add( socket );
+			QMutexLocker lock(&readyConnectionsMutex);
+			readyConnections.push_back( socket );
 		}
 		else
 		{ 
-			try
-			{
-				sleep(2000); // if nothing interesting happen take a nap
-			}
-			catch( ZThread::Interrupted_Exception& e )
-			{ // Looks like we are about to exit from this thread
-			}
+			waitCondition.wait(2000); // if nothing interesting happen take a nap
 		}
 	}
 
@@ -99,7 +94,10 @@ void cListener::run() throw()
 */
 QSocketDevice* cListener::getNewConnection()
 {
-	return readyConnections.next();
+	QMutexLocker lock(&readyConnectionsMutex);
+	QSocketDevice* s = readyConnections.front();
+	readyConnections.pop_front();
+	return s;
 }
 
 /*!
@@ -108,6 +106,7 @@ QSocketDevice* cListener::getNewConnection()
 */
 bool cListener::haveNewConnection()
 {
+	QMutexLocker lock(&readyConnectionsMutex);
 	return !readyConnections.empty();
 }
 

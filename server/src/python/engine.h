@@ -38,6 +38,8 @@
 
 #include <qglobal.h>
 
+//#define DEBUG_PYTHON
+
 #if defined(_DEBUG) && defined(Q_CC_MSVC) && !defined(DEBUG_PYTHON)
 #	undef _DEBUG
 #	include <Python.h>

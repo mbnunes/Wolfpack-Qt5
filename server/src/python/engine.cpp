@@ -37,7 +37,7 @@
 #include <qdom.h>
 #include <qstring.h>
 #include <qfile.h>
-#include <zthread/Thread.h>
+#include <qwaitcondition.h>
 
 // Forward declaration for wolfpack extension function
 void init_wolfpack_globals();
@@ -48,10 +48,10 @@ void init_wolfpack_globals();
 void stopPython( void )
 {
 	// Give the Python Threads time to finalize
-	PyThreadState *save = PyEval_SaveThread();
-	ZThread::Thread::sleep( 100 );
-	PyEval_RestoreThread( save );
-
+	Py_BEGIN_ALLOW_THREADS
+		QWaitCondition waitCondition;
+		waitCondition.wait(100);
+	Py_END_ALLOW_THREADS
 	Py_Finalize();
 }
 

@@ -89,19 +89,19 @@ cNetwork::~cNetwork( void )
 	if( loginServer_ )
 	{
 		loginServer_->cancel();
-		loginServer_->join();
+		loginServer_->wait();
 		delete loginServer_;
 	}
 
 	if( gameServer_ )
 	{
 		gameServer_->cancel();
-		gameServer_->join();
+		gameServer_->wait();
 		delete gameServer_;
 	}
 
 	netIo_->cancel();
-	netIo_->join();
+	netIo_->wait();
 	delete netIo_;
 }
 

@@ -31,9 +31,8 @@
 #if !defined(__ASYNCNETIO_H__)
 #define __ASYNCNETIO_H__
 
-#include "zthread/FastMutex.h"
-#include "zthread/Thread.h"
-#include "zthread/LockedQueue.h"
+#include <qthread.h>
+#include <qmutex.h>
 
 #include <qmap.h>
 
@@ -41,29 +40,35 @@ class QSocketDevice;
 class cAsyncNetIOPrivate;
 class cUOPacket;
 
-class cAsyncNetIO : public ZThread::Thread
+class cAsyncNetIO : public QThread
 {
 	QMap<QSocketDevice*, cAsyncNetIOPrivate*> buffers;
 
 	typedef QMap<QSocketDevice*, cAsyncNetIOPrivate*>::iterator			iterator;
 	typedef QMap<QSocketDevice*, cAsyncNetIOPrivate*>::const_iterator	const_iterator;
 
-	ZThread::FastMutex mapsMutex;
+	QMutex mapsMutex;
+	QWaitCondition waitCondition;
+
+	bool volatile canceled_;
 
 public:
-	
+	cAsyncNetIO() : canceled_(false) {}
 	~cAsyncNetIO() throw() {}	
 
 	bool registerSocket(QSocketDevice*, bool loginSocket);
 	bool unregisterSocket(QSocketDevice*);
 	Q_ULONG	bytesAvailable(QSocketDevice*) const;
 
-	virtual void run() throw();
-
 	cUOPacket* recvPacket( QSocketDevice* );
 	void sendPacket(QSocketDevice*, cUOPacket*, bool);
 
 	void flush( QSocketDevice* );
+	bool canceled() const { return canceled_;	}
+	void cancel() {	canceled_ = true; waitCondition.wakeAll(); }
+
+protected:
+	virtual void run() throw();
 
 private:
 	void buildUOPackets( cAsyncNetIOPrivate* );

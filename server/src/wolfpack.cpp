@@ -29,14 +29,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-// Platform Includes
-#ifndef __unix__
-#include <conio.h>
-#endif
-
-#if defined(__unix__)
-#include <signal.h>
-#endif
 
 #include "wolfpack.h"
 #include "world.h"
@@ -88,9 +80,18 @@
 #include <qstring.h>
 #include <qlibrary.h>
 #include <qdatetime.h>
-#include <zthread/Thread.h>
-#include <zthread/FastMutex.h>
+#include <qfile.h>
+#include <qmutex.h>
+#include <qthread.h>
 #include <fstream>
+
+
+#if defined(Q_OS_UNIX)
+#	include <signal.h>
+#else
+#	include <conio.h>
+#endif
+
 
 using namespace std;
 
@@ -507,16 +508,24 @@ void reloadScripts()
 }
 
 
-ZThread::FastMutex commandMutex;
+QMutex commandMutex;
 QStringList commandQueue;
 
-class cConsoleThread: public ZThread::Thread
+class cConsoleThread: public QThread
 {
+	QWaitCondition waitCondition;
 public:
 	~cConsoleThread() throw() {
-		join(); // wait for it to stop
+		cancel();
+		wait(); // wait for it to stop
 	}
 
+	void cancel()
+	{
+		waitCondition.wakeAll();
+	}
+
+protected:
 	virtual void run() throw()
 	{
 		#if !defined(__unix__)
@@ -534,16 +543,11 @@ public:
 	
 					if( key != 0 )
 					{
-						try {
-							commandMutex.acquire();
-							commandQueue.push_back( QString( "%1" ).arg( key ) );
-							commandMutex.release();
-						} catch ( ZThread::Synchronization_Exception &e ) {
-							commandMutex.release();
-						}
+						QMutexLocker lock( &commandMutex ); // Exception safe
+						commandQueue.push_back( QString( "%1" ).arg( key ) );
 					}
 				}
-				this->sleep(10);
+				waitCondition.wait(10);
 			}			
 		}
 		catch( ... )
@@ -672,8 +676,6 @@ void interpretCommand( const QString &command )
 		}
 	}
 }
-
-#include <qfile.h>
 
 static void parseParameter( const QString &param )
 {
@@ -1021,6 +1023,7 @@ int main( int argc, char *argv[] )
 
 	serverState = RUNNING;
 
+	QWaitCondition niceLevel;
 	// This is our main loop
 	while( keeprun )
 	{		
@@ -1030,12 +1033,12 @@ int main( int argc, char *argv[] )
 		switch( SrvParams->niceLevel() )
 		{
 			case 0: break;	// very unnice - hog all cpu time
-			case 1: if ( cNetwork::instance()->count() != 0) ZThread::Thread::sleep(10); else ZThread::Thread::sleep(100); break;
-			case 2: ZThread::Thread::sleep(10); break;
-			case 3: ZThread::Thread::sleep(40); break;// very nice
-			case 4: if ( cNetwork::instance()->count() != 0 ) ZThread::Thread::sleep(10); else ZThread::Thread::sleep(4000); break; // anti busy waiting
-			case 5: if ( cNetwork::instance()->count() != 0 ) ZThread::Thread::sleep(40); else ZThread::Thread::sleep(5000); break;
-			default: ZThread::Thread::sleep(10); break;
+			case 1: if ( cNetwork::instance()->count() != 0) niceLevel.wait(10); else niceLevel.wait(100); break;
+			case 2: niceLevel.wait(10); break;
+			case 3: niceLevel.wait(40); break;// very nice
+			case 4: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(10); else niceLevel.wait(4000); break; // anti busy waiting
+			case 5: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(40); else niceLevel.wait(5000); break;
+			default: niceLevel.wait(10); break;
 		}
 
 		// Python threading - end
@@ -1046,14 +1049,13 @@ int main( int argc, char *argv[] )
 		#if !defined( __unix__ )
 		if( loopTimeCount % 25 == 0 )
 		{
-			commandMutex.acquire();
+			QMutexLocker lock(&commandMutex);
 			if( commandQueue.count() > 0 )
 			{				
 				// Interpret Command
 				interpretCommand( commandQueue[0] );
 				commandQueue.erase( commandQueue.begin() );
 			}
-			commandMutex.release();
 		}
 		#endif
 
