@@ -160,7 +160,7 @@ vector<mapcache_st> MapCache_cl::get(UI16 uiX, UI16 uiY)
 
 	// First determine the BLOCK of we need
 
-	UI32 uiBlock = ((uiX/8) * 512) + (uiY/8) ;
+	UI32 uiBlock = ((uiX/8) * 512) + (uiY/8);
 
 	// Determine the xOffset
 	UI16 uiXIndex = uiX%8 ;
@@ -178,7 +178,7 @@ vector<mapcache_st> MapCache_cl::get(UI16 uiX, UI16 uiY)
 	} PACK ;
 	#include "end_pack.h"
 
-	tempmap_st stMapInput[64] ;
+	tempmap_st stMapInput[64];
 
 	#include "start_pack.h"
 	struct tempidx_st
@@ -218,7 +218,7 @@ vector<mapcache_st> MapCache_cl::get(UI16 uiX, UI16 uiY)
 	if (mapVerdataMap.end() == iterVerdata)
 	{
 		// Not in the verdata
-		fMap.open(sMap.c_str(),ios::in|ios::binary) ;
+		fMap.open(sMap.c_str(), ios::in|ios::binary);
 		if (fMap.is_open())
 		{
 			fMap.seekg((uiBlock*196 ) +4,ios::beg) ;
@@ -282,11 +282,11 @@ vector<mapcache_st> MapCache_cl::get(UI16 uiX, UI16 uiY)
    		}
 		else
 		{
-			fStatic.read((char*) ptrStadata,uiAmountRead)  ;
-			fStatic.close() ;
+			fStatic.read((char*) ptrStadata,uiAmountRead);
+			fStatic.close();
 		}
 		// convert the amount from bytes to records ;
-		uiAmountRead = uiAmountRead/7 ;
+		uiAmountRead = uiAmountRead/7;
 	}
 
 	// We need to find all the stuff here for this why
@@ -295,12 +295,12 @@ vector<mapcache_st> MapCache_cl::get(UI16 uiX, UI16 uiY)
 	stRecord.uiTileId = (stMapInput[uiXIndex + (uiYIndex*8)]).uiTileId ;
 	stRecord.siZAxis =  (stMapInput[uiXIndex + (uiYIndex*8)]).siZAxis ;
 	// we get the two tiledata from the lookup
-	landtile_st stLand ;
-	stLand = clTiledata.getLandTile(stRecord.uiTileId) ;
-	stRecord.uiFlag = stLand.uiFlag ;
-	stRecord.siHeight = 0 ;
-		// push this on the vector
-	vecReturn.push_back(stRecord) ;
+	landtile_st stLand;
+	stLand = clTiledata.getLandTile(stRecord.uiTileId);
+	stRecord.uiFlag = stLand.uiFlag;
+	stRecord.siHeight = 0;
+	// push this on the vector
+	vecReturn.push_back(stRecord);
 	// We now have to scan throught all the statics, and see what we need
 	for (UI32 ii=0; ii < uiAmountRead; ii++)
 	{
@@ -350,7 +350,7 @@ vector<mapcache_st> MapCache_cl::get(UI16 uiX, UI16 uiY)
 		cerr << "Error finding X coord : " << uiX << " in map cache" <<endl;
   	}
 */
-	return vecReturn ;
+	return vecReturn;
 }
 
 //========================================================================================

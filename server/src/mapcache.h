@@ -51,7 +51,7 @@ using namespace std;
 
 //Forward class declaration
 
-class MapCache ;
+class MapCache;
 
 //Wolfpack Includes
 
@@ -116,7 +116,7 @@ public:
 	bool cacheData() ;
 
 	// get a land tile data
-	vector<mapcache_st> get(UI16 uiX, UI16 uiY) ;
+	vector<mapcache_st> get(UI16 uiX, UI16 uiY);
 
 
 
@@ -146,16 +146,11 @@ private:
 
 
 	// We read in the verdatamul for each file type, a great room for speed improvment on startup later
-	map<SI32,verdata_st>  mapVerdataMap ;
-	map<SI32,verdata_st>  mapVerdataStatics ;
-	map<SI32,verdata_st>  mapVerdataStaIdx ;
+	map<SI32,verdata_st>  mapVerdataMap;
+	map<SI32,verdata_st>  mapVerdataStatics;
+	map<SI32,verdata_st>  mapVerdataStaIdx;
 
-	map<SI32,verdata_st>::iterator iterVerdata ;
-
-
-
-
-
+	map<SI32,verdata_st>::iterator iterVerdata;
 
 };
 //==========================================================================================

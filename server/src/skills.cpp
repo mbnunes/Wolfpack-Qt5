@@ -1633,13 +1633,13 @@ void cSkills::RandomSteal(int s)
 
 void cSkills::Tracking(int s,int selection)
 {
-	int i=currchar[s];
-	chars[i].trackingtarget=chars[i].trackingtargets[selection]; // sets trackingtarget that was selected in the gump
-	SetTimerSec(&chars[i].trackingtimer,(((tracking_data.basetimer*chars[i].skill[TRACKING])/1000)+1)); // tracking time in seconds ... gm tracker -> basetimer+1 seconds, 0 tracking -> 1 sec, new calc by LB
-	SetTimerSec(&chars[i].trackingdisplaytimer,tracking_data.redisplaytime);
-	sprintf((char*)temp,"You are now tracking %s.",chars[chars[i].trackingtarget].name);
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	pc_currchar->trackingtarget = pc_currchar->trackingtargets[selection]; // sets trackingtarget that was selected in the gump
+	SetTimerSec(&pc_currchar->trackingtimer,(((tracking_data.basetimer*pc_currchar->skill[TRACKING])/1000)+1)); // tracking time in seconds ... gm tracker -> basetimer+1 seconds, 0 tracking -> 1 sec, new calc by LB
+	SetTimerSec(&pc_currchar->trackingdisplaytimer,tracking_data.redisplaytime);
+	sprintf((char*)temp,"You are now tracking %s.",chars[pc_currchar->trackingtarget].name);
 	sysmessage(s,(char*)temp);
-	Skills->Track(i);
+	Skills->Track(DEREF_P_CHAR(pc_currchar));
 }
 
 void cSkills::CreateTrackingMenu(int s,int m)
@@ -1660,7 +1660,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 
 	char type[40]="You see no signs of any animals.";
 	unsigned int MaxTrackingTargets=0;
-	unsigned int distance=tracking_data.baserange+chars[currchar[s]].skill[TRACKING]/50;
+	unsigned int distance=tracking_data.baserange + pc_currchar->skill[TRACKING]/50;
 
 	if(m==(2+TRACKINGMENUOFFSET))
 	{
@@ -1700,16 +1700,15 @@ void cSkills::CreateTrackingMenu(int s,int m)
 		P_CHAR mapchar = ri.GetData();
 		if (mapchar != NULL)
 		{
-			i = DEREF_P_CHAR(mapchar);
-			d=chardist(i,currchar[s]);
+			d = chardist(DEREF_P_CHAR(mapchar), currchar[s]);
 			
-			id = chars[i].id();
-			if((d<=distance)&&(!chars[i].dead)&&(id>=id1&&id<=id2)&&calcSocketFromChar(i)!=s&&(online(i)||chars[i].isNpc()))
+			id = mapchar->id();
+			if((d<=distance)&&(!mapchar->dead)&&(id>=id1&&id<=id2)&&calcSocketFromChar(DEREF_P_CHAR(mapchar))!=s&&(online(DEREF_P_CHAR(mapchar))||mapchar->isNpc()))
 			{
-				pc_currchar->trackingtargets[MaxTrackingTargets]=i;
+				pc_currchar->trackingtargets[MaxTrackingTargets] = DEREF_P_CHAR(mapchar);
 				MaxTrackingTargets++;
 				if (MaxTrackingTargets>=MAXTRACKINGTARGETS) break; // lb crashfix
-				switch(Skills->TrackingDirection(s,i))
+				switch(Skills->TrackingDirection(s,DEREF_P_CHAR(mapchar)))
 				{
 				case NORTH:
 					strcpy((char*)temp,"to the North");
@@ -1739,8 +1738,8 @@ void cSkills::CreateTrackingMenu(int s,int m)
 					strcpy((char*)temp,"right next to you");
 					break;
 				}//switch
-				sprintf(gmtext[MaxTrackingTargets], "%s %s",chars[i].name,temp);						
-				gmid[MaxTrackingTargets]=creatures[(chars[i].id1<<8)+chars[i].id2].icon; // placing correct icon, LB
+				sprintf(gmtext[MaxTrackingTargets], "%s %s",mapchar->name,temp);						
+				gmid[MaxTrackingTargets]=creatures[mapchar->id()].icon; // placing correct icon, LB
 			}
 		}//if mapitem
 	}

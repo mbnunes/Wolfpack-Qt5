@@ -50,7 +50,7 @@ void sendinrange(int);
 int dist(int,int,int);
 unsigned int dist(Coord_cl&, Coord_cl&); // Distance between position a and b
 int findmulti(Coord_cl);
-int inmulti(Coord_cl, int m);
+bool inmulti(Coord_cl, P_ITEM);
 //End Boat functions
 
 extern void init_creatures(void);

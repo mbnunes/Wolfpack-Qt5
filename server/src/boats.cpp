@@ -144,7 +144,7 @@ int findmulti(Coord_cl pos) //Sortta like getboat() only more general... use thi
 						if (ret<=lastdist)
 						{
 							lastdist=ret;
-							if (inmulti(pos, DEREF_P_ITEM(mapitem)))
+							if (inmulti(pos, mapitem))
 								multi = DEREF_P_ITEM(mapitem);
 						}
 					}
@@ -155,32 +155,31 @@ int findmulti(Coord_cl pos) //Sortta like getboat() only more general... use thi
 	return multi;
 }
 
-int inmulti(Coord_cl pos, ITEM m)//see if they are in the multi at these chords (Z is NOT checked right now)
-// PARAM WARNING: z is unreferenced
+bool inmulti(Coord_cl pos, P_ITEM pi)//see if they are in the multi at these chords (Z is NOT checked right now)
 {
 	int j;
 	SI32 length;			// signed long int on Intel
 	st_multi multi;
 	UOXFile *mfile;
-	Map->SeekMulti(items[m].id()-0x4000, &mfile, &length);
+	Map->SeekMulti(pi->id()-0x4000, &mfile, &length);
 	length=length/sizeof(st_multi);
 	if (length == -1 || length>=17000000)//Too big...
 	{
-		sprintf((char*)temp,"inmulti() - Bad length in multi file. Avoiding stall. (Item Name: %s)\n", items[m].name );
+		sprintf((char*)temp,"inmulti() - Bad length in multi file. Avoiding stall. (Item Name: %s)\n", pi->name );
 		LogError( (char*)temp ); // changed by Magius(CHE) (1)
 		length = 0;
 	}
 	for (j=0;j<length;j++)
 	{
-	        mfile->get_st_multi(&multi);
+		mfile->get_st_multi(&multi);
 		/*clConsole.send("DEBUG: Multi { vis=%i - (%i,%i) } check(%i,%i,%i)   -   total(%i,%i)\n",
 		multi.visible,multi.x,multi.y,x,y,z,multi.x+items[m].x,items[m].y+multi.y);*/
-		if ((multi.visible)&&(items[m].pos.x+multi.x == pos.x) && (items[m].pos.y+multi.y == pos.y))
+		if ((multi.visible)&&(pi->pos.x+multi.x == pos.x) && (pi->pos.y+multi.y == pos.y))
 		{
-			return 1;
+			return true;
 		}
 	}
-	return 0;
+	return false;
 }
 
 
@@ -515,15 +514,17 @@ int cBoat::GetBoat(UOXSOCKET s)//get the closest boat to the player and check to
 	}
 
 	ITEM boat=-1;
-	
+	P_ITEM pi_boat = NULL;
+
     if (pcc_cs->multis>0) return calcItemFromSer( pcc_cs->multis );
     else if (pcc_cs->multis==-1) return -1;
 	else 
 	{
 		boat = findmulti(pcc_cs->pos);
-		if (boat!=-1)//if we found a boat, make sure they are in it
-			if(!inmulti(pcc_cs->pos, boat)) 
-				boat=-1;
+		pi_boat = MAKE_ITEM_REF(boat);
+		if (pi_boat != NULL)//if we found a boat, make sure they are in it
+			if(!inmulti(pcc_cs->pos, pi_boat)) 
+				boat = -1;
 
 		return boat;
 	}

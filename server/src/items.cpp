@@ -1240,8 +1240,12 @@ P_ITEM cAllItems::SpawnItemBank(CHARACTER ch, int nItem)
 
 P_ITEM cAllItems::SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable, short id, short color, short nPack)
 {
-	if (ch < 0) return NULL;
-	P_ITEM pPack=Packitem(&chars[ch]);
+	if (ch < 0) 
+		return NULL;
+
+	P_CHAR pc_ch = MAKE_CHAR_REF(ch);
+
+	P_ITEM pPack=Packitem(pc_ch);
 	char pile = 0;
 	
 	if (pileable==1)
@@ -1301,13 +1305,13 @@ P_ITEM cAllItems::SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable
 		}
 		else
 		{// LB place it at players feet if he hasnt got backpack
-			pi->MoveTo(chars[ch].pos.x,chars[ch].pos.y,chars[ch].pos.z);
+			pi->MoveTo(pc_ch->pos.x, pc_ch->pos.y, pc_ch->pos.z);
 		}
 	}
 	
 	//clConsole.send("Adding Harditems settings in items.cpp:spawnitem\n");
 	GetScriptItemSetting(pi); // Added by Magius(CHE) (2)
-	chars[ch].making=i;
+	pc_ch->making=i;
 	RefreshItem(pi);
 	return pi;
 }
@@ -1358,7 +1362,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 				{
 				case 'A':
 				case 'a':
-					if (!(strcmp("AMOUNT",(char*)script1))) pi->amount=str2num(script2); // -Fraz- moved from Case C
+					if (!(strcmp("AMOUNT",(char*)script1))) pi->amount = str2num(script2); // -Fraz- moved from Case C
 				case 'C':
 				case 'c':
  					if (!(strcmp("CREATOR", (char*)script1))) strcpy(pi->creator, script2); // by Magius(CHE)
