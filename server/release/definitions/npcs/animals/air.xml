@@ -1,20 +1,20 @@
 <definitions>
         <!-- Chicken -->
         <npc id="chicken">
-                <name>chicken</name>
+                <name>a chicken</name>
                 <id>0x00D0</id>
                 <category>Animals\Air\Chicken</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
-                <karma><random min="0" max="624" /></karma>
-                <fame><random min="0" max="1249" /></fame>
+                <karma><random min="0" max="0" /></karma>
+                <fame><random min="0" max="150" /></fame>
                 <defense>2</defense>
                 <lodamage>1</lodamage>
-                <hidamage>3</hidamage>
+                <hidamage>1</hidamage>
                 <!-- Stats -->
-                <str><random min="10" max="10" /></str>
+                <str><random min="5" max="5" /></str>
                 <dex><random min="15" max="15" /></dex>
-                <int><random min="10" max="10" /></int>
+                <int><random min="5" max="5" /></int>
                 <!-- Skills -->
                 <wrestling><random min="55" max="55" /></wrestling>
                 <tactics><random min="50" max="50" /></tactics>
@@ -26,24 +26,24 @@
 
         <!-- bird -->
         <npc id="bird">
-                <name>bird</name>
+                <name><random list="NAMES_BIRD" /></name>
                 <id>0x0006</id>
                 <category>Animals\Air\Bird</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
-                <karma><random min="0" max="624" /></karma>
-                <fame><random min="0" max="1249" /></fame>
+                <karma>0</karma>
+                <fame>150</fame>
                 <defense><random min="0" max="6" /></defense>
                 <lodamage>1</lodamage>
                 <hidamage>3</hidamage>
                 <!-- Stats -->
-                <str><random min="10" max="10" /></str>
+                <str><random min="1" max="4" /></str>
                 <dex><random min="25" max="35" /></dex>
-                <int><random min="10" max="10" /></int>
+                <int><random min="1" max="3" /></int>
                 <!-- Skills -->
-                <wrestling><random min="42" max="64" /></wrestling>
-                <tactics><random min="40" max="60" /></tactics>
-                <magicresistance><random min="40" max="50" /></magicresistance>
+                <wrestling><random min="50" max="50" /></wrestling>
+                <tactics><random min="50" max="50" /></tactics>
+                <magicresistance><random min="50" max="50" /></magicresistance>
                 <totame>0</totame>
                 <food>3</food>
                 <carve>carve_bird</carve>
@@ -51,53 +51,28 @@
 
         <!-- eagle -->
         <npc id="eagle">
-                <name>eagle</name>
+                <name>an eagle</name>
                 <id>0x5</id>
                 <category>Animals\Air\Eagle</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
-                <karma><random min="0" max="624" /></karma>
-                <fame><random min="0" max="1249" /></fame>
+                <karma>0</karma>
+                <fame>300</fame>
                 <defense>22</defense>
-                <lodamage>2</lodamage>
-                <hidamage>6</hidamage>
+                <lodamage>5</lodamage>
+                <hidamage>10</hidamage>
                 <!-- Stats -->
-                <str><random min="32" max="46" /></str>
+                <str><random min="31" max="47" /></str>
                 <dex><random min="36" max="60" /></dex>
-                <int><random min="10" max="10" /></int>
+                <int><random min="8" max="20" /></int>
                 <!-- Skills -->
-                <wrestling>300</wrestling>
-                <tactics>370</tactics>
-                <magicresistance>300</magicresistance>
+                <wrestling><random min="201" max="300" /></wrestling>
+                <tactics><random min="181" max="370" /></tactics>
+                <magicresistance><random min="153" max="300" /></magicresistance>
                 <totame>171</totame>
-             	<food>3</food>
+             	<food>1</food>
              	<carve>carve_eagle</carve>
         </npc>
 
-        <!-- pixie -->
-        <npc id="pixie">
-                <name><random list="NAMES_PIXIE" /></name>
-                <id>0x80</id>
-                <category>Animals\Air\Pixie</category>
-                <skin>0</skin>
-                <inherit id="animal_base" />
-                <karma><random min="2500" max="4999" /></karma>
-                <fame><random min="2500" max="2499" /></fame>
-                <defense><random min="100" max="100" /></defense>
-                <lodamage>1</lodamage>
-                <hidamage>2</hidamage>
-                <!-- Stats -->
-                <str><random min="21" max="30" /></str>
-                <dex><random min="302" max="400" /></dex>
-                <int><random min="201" max="250" /></int>
-                <!-- Skills -->
-                <wrestling><random min="145" max="178" /></wrestling>
-                <tactics><random min="101" max="200" /></tactics>
-                <magicresistance><random min="1103" max="1407" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<magery><random min="915" max="1000" /></magery>
-		<evaluatingintel><random min="901" max="998" /></evaluatingintel>
-		<meditation><random min="902" max="1000" /></meditation>
-        </npc>
 
 </definitions>
