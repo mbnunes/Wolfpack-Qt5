@@ -103,7 +103,9 @@ HEADERS         = Client.h \
 		  worldmain.h \
 		  wpconsole.h \
 		  tilecache.h \
-		  walking2.h
+		  walking2.h \
+		  packlen.h \
+		  extract.h
 
 SOURCES         = Client.cpp \
 		  LoS.cpp \
@@ -179,6 +181,7 @@ SOURCES         = Client.cpp \
 		  worldmain.cpp \
 		  wpconsole.cpp \
 		  tilecache.cpp \
-		  walking2.cpp
+		  walking2.cpp \
+		  packlen.cpp
 INTERFACES	=
  

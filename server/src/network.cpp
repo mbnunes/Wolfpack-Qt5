@@ -59,19 +59,6 @@ static int m_packetLen[256];
 //##ModelId=3C5D92D703BC
 cNetworkStuff::cNetworkStuff() // Initialize sockets
 {
-//    sockInit();
-
-	//////////////////////////////////
-	// Client 2.0.2 Packet lengths
-	// taken directly from client.exe !
-    // dont mess with it unless you know 
-	// how to get it with tools like a disassembler.
-	// LB, 4'th-OCT 2000
-    //
-	// 23'th dec 2000 -> update for client 2.0.4a (compatible with old ones !)
-	// 10'th dec 2001 -> update for client 2.0.4d
-	// 22'th feb 2001 -> no change, but checked 2.0.7 compatibitity -> still ok.
-	// 28'th aug 2001 -> update for 2.0.3a.
 
 #ifndef __unix__
 	wVersionRequested=0x0002;
@@ -91,7 +78,7 @@ cNetworkStuff::cNetworkStuff() // Initialize sockets
 	kr = 1; // Let's continue
 
 	int a;
-	for (a=0;a<256;a++) m_packetLen[a]=0xffff;
+	for (a=0;a<256;a++) m_packetLen[a]=PACKET_LEN_NONE;
 
    	m_packetLen[0x00] = 0x68;	m_packetLen[0x01] = 0x05;	m_packetLen[0x02] = 0x07;	m_packetLen[0x03] = 0x00;	m_packetLen[0x04] = 0x02;	m_packetLen[0x05] = 0x05;	m_packetLen[0x06] = 0x05;	m_packetLen[0x07] = 0x07;
 	m_packetLen[0x08] = 0x0E;	m_packetLen[0x09] = 0x05;	m_packetLen[0x0A] = 0x0B;	m_packetLen[0x0B] = 0x10A;	m_packetLen[0x0C] = 0x00;	m_packetLen[0x0D] = 0x03;	m_packetLen[0x0E] = 0x00;	m_packetLen[0x0F] = 0x3D;
@@ -124,7 +111,7 @@ cNetworkStuff::cNetworkStuff() // Initialize sockets
 }
 
 void cNetworkStuff::DoStreamCode(UOXSOCKET s)
-{ 
+{
 	int status ;
 	int len = Pack(outbuffer[s],  xoutbuffer, boutlength[s]);
 	if ((status = send(client[s], xoutbuffer, len, MSG_NOSIGNAL)) == SOCKET_ERROR)
@@ -224,11 +211,11 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 	if (SrvParms->server_log) savelog((char*)temp,"server.log");
 
 
-	if (perm[s] && (currchar[s]->account==acctno[s])&&(SrvParms->partmsg)) 
+	if (perm[s] && (currchar[s]->account==acctno[s])&&(SrvParms->partmsg))
 		if (currchar[s]->isPlayer()) // bugfix lb, removes lamas that leave the realm :)
 		{
 			sprintf((char*)temp,"%s has left the realm",currchar[s]->name.c_str());
-			sysbroadcast((char*)temp);//message upon leaving a server 
+			sysbroadcast((char*)temp);//message upon leaving a server
 		}
 
 	if (acctno[s]!=-1) Accounts->SetOffline(acctno[s]); //Bug clearing logged in accounts!
@@ -238,7 +225,7 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 	char val=0;
 	if (currchar[s] != NULL && perm[s])
 	{
-		if (!currchar[s]->free && online(currchar[s])) 
+		if (!currchar[s]->free && online(currchar[s]))
 			val=LogOut(s);
 	}
 
@@ -277,12 +264,12 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 		firstpacket[j]=firstpacket[j+1];
 		clientDimension[j]=clientDimension[j+1];
 
-		int MB = MAXBUFFER_REAL;	    
+		int MB = MAXBUFFER_REAL;	
 	    if (server_data.packetsendstyle==PSS_UOX3) MB = MAXBUFFER_ASYNCH;
 
 		memcpy(&buffer[j], &buffer[j+1], MB);       // probably not nec.
 		memcpy(&outbuffer[j], &outbuffer[j+1], MB); // very important
-		memcpy(&xtext[j], &xtext[j+1], 31); 
+		memcpy(&xtext[j], &xtext[j+1], 31);
 		
 		addid1[j]=addid1[j+1];
 		addid2[j]=addid2[j+1];
@@ -304,7 +291,7 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 		addx2[j]=addx2[j+1];
 		addy2[j]=addy2[j+1];
 		addz[j]=addz[j+1];
-		addmitem[j]=addmitem[j+1];        
+		addmitem[j]=addmitem[j+1];
 		clickx[j]=clickx[j+1];
 		clicky[j]=clicky[j+1];
 		targetok[j]=targetok[j+1];
@@ -364,10 +351,10 @@ void cNetworkStuff::LoginMain(int s)
 	}
 
 	if (Accounts->IsOnline(acctno[s]))
-	{		 
+	{		
 	  //acctinuse[acctno[s]]=0;
 	  //acctno[s]=-1;
-	  Xsend(s, acctused, 2);		  
+	  Xsend(s, acctused, 2);		
 	  return;
 	}
 	if (acctno[s]!=-1)
@@ -388,7 +375,7 @@ void cNetworkStuff::Login2(int s)
 	unsigned char newlist2[41]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x01\x7F\x00\x00\x01";
     sprintf((char*)temp,"Client [%s] connected [first] using Account '%s'.\n", sock_ntop(client_addr).c_str(), &buffer[s][1]);
 
-	if (SrvParms->server_log) 
+	if (SrvParms->server_log)
 		savelog((char*)temp,"server.log");
 		
 	tlen=6+(serv.size()*40);
@@ -402,7 +389,7 @@ void cNetworkStuff::Login2(int s)
 	{
 		newlist2[0]=(unsigned char) ((i+1)>>8);
 		newlist2[1]=(unsigned char) ((i+1)%256);
-           
+
 		strcpy((char*)&newlist2[2], serv[i].sServer.c_str());
 		ip = inet_addr(serv[i].sIP.c_str());
 		newlist2[39]=(unsigned char) (ip>>24);
@@ -417,9 +404,9 @@ void cNetworkStuff::Login2(int s)
 void cNetworkStuff::Relay(int s) // Relay player to a certain IP
 {
 	unsigned long int ip;
-	 
+	
 	ip=inet_addr(serv[buffer[s][2]-1].sIP.c_str());
-  
+
 	login03[4]=(unsigned char) (ip>>24);
 	login03[3]=(unsigned char) (ip>>16);
 	login03[2]=(unsigned char) (ip>>8);
@@ -577,7 +564,7 @@ void cNetworkStuff::charplay (int s) // After hitting "Play Character" button //
 		{
 			if (Accounts->GetInWorld(acctno[s]) != INVALID_SERIAL) //JM's crashfix
 			{
-				if ((pc_selected->logout<=getPlatformTime() || overflow)) 
+				if ((pc_selected->logout<=getPlatformTime() || overflow))
 					Accounts->SetOffline(acctno[s]);
 			} else Accounts->SetOffline(acctno[s]);
 
@@ -611,14 +598,14 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	unsigned char startup[38]="\x1B\x00\x05\xA8\x90\x00\x00\x00\x00\x01\x90\x06\x08\x06\x49\x00\x0A\x04\x00\x00\x00\x7F\x00\x00\x00\x00\x00\x07\x80\x09\x60\x00\x00\x00\x00\x00\x00";
 	unsigned char setseason[4]="\xBC\x00\x01";
 	unsigned char world[7]="\xBF\x00\x06\x00\x08\x00";
-    
+
 	if (MapTileHeight<300) world[5]=0x02;
 	Xsend(s, world, 6);
 
 	int i,serial;
 
 	perm[s]=1;
-	targetok[s]=0;	    
+	targetok[s]=0;	
 
 	P_CHAR pc_currchar = currchar[s];
 
@@ -650,14 +637,14 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 
 	////////////////////////////////////////
 	/// "UNKOWNDIMENSION sysmessages"
-	//// using color (!=0) is essential within entire function 
+	//// using color (!=0) is essential within entire function
 	///  if not 3d clients >=3.0.6g die
 	///  sysmessage(s, "xxx") does use color 0 !
 	/// you can change 0x37 to your liking, but not to 0
 	/////////////////////////////////////////////////////////////////////
 
-	sysmessage(s, 0x37, "Welcome to %s !", serv[0].sServer.c_str()); 
-	sysmessage(s, 0x37, "Running on %s %s %s ", wp_version.productstring.c_str() , wp_version.betareleasestring.c_str() , wp_version.verstring.c_str() ); 
+	sysmessage(s, 0x37, "Welcome to %s !", serv[0].sServer.c_str());
+	sysmessage(s, 0x37, "Running on %s %s %s ", wp_version.productstring.c_str() , wp_version.betareleasestring.c_str() , wp_version.verstring.c_str() );
 	sysmessage(s, 0x37, "Current developers: %s",wp_version.codersstring.c_str() );
 
 	pc_currchar->region=255;
@@ -683,7 +670,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 
 	if (SrvParms->joinmsg)
 	{
-		if (pc_currchar->name == "pty Slot --") 
+		if (pc_currchar->name == "pty Slot --")
 			pc_currchar->name = "A new Character";
 		sprintf((char*)temp,"%s entered the realm", pc_currchar->name.c_str());//message upon entering a server
 		sysbroadcast((char*)temp);//message upon entering a server
@@ -696,12 +683,12 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 
 	updates(s);
 
-	if (SrvParms->showCVCS || pc_currchar->isGM()) 
+	if (SrvParms->showCVCS || pc_currchar->isGM())
 	{
-		const char * t;   
-		std::vector < std::string>::const_iterator vis; 
+		const char * t;
+		std::vector < std::string>::const_iterator vis;
 		
-		vis = clientsAllowed.begin();    
+		vis = clientsAllowed.begin();
 		t = (*vis).c_str();
 		strcpy(temp, t);
 
@@ -718,9 +705,9 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 			return;
 		}
 		else
-		{	  
-			sprintf(idname, "This shard requires client version[s] %s", temp);       
-		}    
+		{	
+			sprintf(idname, "This shard requires client version[s] %s", temp);
+		}
 		
 		// remark: although it doesn't look good [without], don't add /n's
 		// the (2-d) client doesn't like them
@@ -730,8 +717,8 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 		for (; vis != clientsAllowed.end(); ++vis)
 		{
 			t = (*vis).c_str();
-			strcpy(temp, t);	   
-			strcat(temp2, " or "); 
+			strcpy(temp, t);	
+			strcat(temp2, " or ");
 			strcat(temp2, temp);
 		}
 		
@@ -768,7 +755,7 @@ char cNetworkStuff::LogOut(int s)//Instalog
 
 	if (pc_currchar->multis==-1)
 		pi_multi = findmulti(pc_currchar->pos);
-	else 
+	else
 		pi_multi = FindItemBySerial( pc_currchar->multis );
 	
 	if (pi_multi != NULL && !valid)//It they are in a multi... and it's not already valid (if it is why bother checking?)
@@ -795,14 +782,14 @@ char cNetworkStuff::LogOut(int s)//Instalog
 		Accounts->SetOffline(pc_currchar->account);
 		pc_currchar->logout = 0; // LB bugfix, was timeout
 	} else {
-		if (perm[s]) 
+		if (perm[s])
 		{
 			Accounts->SetOffline(pc_currchar->account);  // Allows next login.
 		    pc_currchar->logout=uiCurrentTime+SrvParms->quittime*MY_CLOCKS_PER_SEC;
 		}
 	}
 
-	for (i=0;i<now;i++) 
+	for (i=0;i<now;i++)
 	{
 		if(perm[i] && i!=s && inrange1p(currchar[i], pc_currchar))
 			impowncreate(i, pc_currchar, 0);
@@ -817,7 +804,7 @@ char cNetworkStuff::LogOut(int s)//Instalog
 //            : a = buffer offset
 
 int cNetworkStuff::Receive(int s, int x, int a) // Old socket receive function (To be replaced soon)
-{   
+{
 	int count,loopexit=0;
 	
 	if ( (x+a) >= MAXBUFFER_ASYNCH) return 0;
@@ -882,7 +869,7 @@ void cNetworkStuff::sockInit()
 	stLinger.l_onoff = 0 ;
 	stLinger.l_linger = 0 ;
 	setsockopt(a_socket,SOL_SOCKET,SO_LINGER,&stLinger,sizeof(stLinger)) ;
-	setsockopt(a_socket,SOL_SOCKET,SO_REUSEADDR,&setreuse,sizeof(setreuse)) ;   
+	setsockopt(a_socket,SOL_SOCKET,SO_REUSEADDR,&setreuse,sizeof(setreuse)) ;
 	#endif
 	bcode = bind(a_socket, (struct sockaddr *)&connection, len_connection_addr);
 
@@ -895,7 +882,7 @@ void cNetworkStuff::sockInit()
 		faul=1;
 		return;
 	}
-    
+
 	bcode = listen(a_socket, MAXCLIENT);
 
 	if (bcode!=0)
@@ -907,7 +894,7 @@ void cNetworkStuff::sockInit()
 		faul=1;
 		return;
 	}
-	// Ok, we need to set this socket (or listening one as non blocking).  The reason is we d a 
+	// Ok, we need to set this socket (or listening one as non blocking).  The reason is we d a
 	// select, and then do an accept.  However, if the client has terminated the connection between the small
 	// time from the select and accept, we would block (accept is blocking).  So, set it non blocking
 	
@@ -954,7 +941,7 @@ void cNetworkStuff::CheckConn() // Check for connection requests
 		if (s>0)
 		{	
 			len = sizeof(struct sockaddr_in);
-			client[now] = accept(a_socket, (struct sockaddr *)&client_addr, &len); 
+			client[now] = accept(a_socket, (struct sockaddr *)&client_addr, &len);
 			if ((client[now]<0))
 			{
 				clConsole.send("ERROR: Error at client connection!\n");
@@ -1017,8 +1004,8 @@ void cNetworkStuff::CheckConn() // Check for connection requests
 			}
 			return;
 
-		} 
-		else if (s<0) 
+		}
+		else if (s<0)
 		{
 			clConsole.send("ERROR: Select (Conn) failed!\n");
 			keeprun=1;
@@ -1060,7 +1047,7 @@ void cNetworkStuff::CheckMessage() // Check for messages from the clients
 			if ((FD_ISSET(client[i],&all))&&(oldnow==now))
 			{
 				GetMsg(i);
-				if (executebatch) batchcheck(i); 
+				if (executebatch) batchcheck(i);
 				                                 				
 			}
 
@@ -1073,38 +1060,38 @@ void cNetworkStuff::CheckMessage() // Check for messages from the clients
 
 static unsigned int bit_table[257][2] =
 {
-	{0x02, 0x00}, 	{0x05, 0x1F}, 	{0x06, 0x22}, 	{0x07, 0x34}, 	{0x07, 0x75}, 	{0x06, 0x28}, 	{0x06, 0x3B}, 	{0x07, 0x32}, 
-	{0x08, 0xE0}, 	{0x08, 0x62}, 	{0x07, 0x56}, 	{0x08, 0x79}, 	{0x09, 0x19D},	{0x08, 0x97}, 	{0x06, 0x2A}, 	{0x07, 0x57}, 
-	{0x08, 0x71}, 	{0x08, 0x5B}, 	{0x09, 0x1CC},	{0x08, 0xA7}, 	{0x07, 0x25}, 	{0x07, 0x4F}, 	{0x08, 0x66}, 	{0x08, 0x7D}, 
-	{0x09, 0x191},	{0x09, 0x1CE}, 	{0x07, 0x3F}, 	{0x09, 0x90}, 	{0x08, 0x59}, 	{0x08, 0x7B}, 	{0x08, 0x91}, 	{0x08, 0xC6}, 
-	{0x06, 0x2D}, 	{0x09, 0x186}, 	{0x08, 0x6F}, 	{0x09, 0x93}, 	{0x0A, 0x1CC},	{0x08, 0x5A}, 	{0x0A, 0x1AE},	{0x0A, 0x1C0}, 
-	{0x09, 0x148},	{0x09, 0x14A}, 	{0x09, 0x82}, 	{0x0A, 0x19F}, 	{0x09, 0x171},	{0x09, 0x120}, 	{0x09, 0xE7}, 	{0x0A, 0x1F3}, 
-	{0x09, 0x14B},	{0x09, 0x100},	{0x09, 0x190},	{0x06, 0x13}, 	{0x09, 0x161},	{0x09, 0x125},	{0x09, 0x133},	{0x09, 0x195}, 
-	{0x09, 0x173},	{0x09, 0x1CA},	{0x09, 0x86}, 	{0x09, 0x1E9}, 	{0x09, 0xDB}, 	{0x09, 0x1EC},	{0x09, 0x8B}, 	{0x09, 0x85}, 
-	{0x05, 0x0A}, 	{0x08, 0x96}, 	{0x08, 0x9C}, 	{0x09, 0x1C3}, 	{0x09, 0x19C},	{0x09, 0x8F}, 	{0x09, 0x18F},	{0x09, 0x91}, 
-	{0x09, 0x87}, 	{0x09, 0xC6}, 	{0x09, 0x177},	{0x09, 0x89}, 	{0x09, 0xD6}, 	{0x09, 0x8C}, 	{0x09, 0x1EE},	{0x09, 0x1EB}, 
-	{0x09, 0x84}, 	{0x09, 0x164}, 	{0x09, 0x175},	{0x09, 0x1CD}, 	{0x08, 0x5E}, 	{0x09, 0x88}, 	{0x09, 0x12B},	{0x09, 0x172}, 
-	{0x09, 0x10A},	{0x09, 0x8D}, 	{0x09, 0x13A},	{0x09, 0x11C}, 	{0x0A, 0x1E1},	{0x0A, 0x1E0}, 	{0x09, 0x187},	{0x0A, 0x1DC}, 
-	{0x0A, 0x1DF},	{0x07, 0x74}, 	{0x09, 0x19F},	{0x08, 0x8D},	{0x08, 0xE4}, 	{0x07, 0x79}, 	{0x09, 0xEA}, 	{0x09, 0xE1}, 
-	{0x08, 0x40}, 	{0x07, 0x41}, 	{0x09, 0x10B},	{0x09, 0xB0}, 	{0x08, 0x6A}, 	{0x08, 0xC1}, 	{0x07, 0x71}, 	{0x07, 0x78}, 
-	{0x08, 0xB1}, 	{0x09, 0x14C}, 	{0x07, 0x43}, 	{0x08, 0x76}, 	{0x07, 0x66}, 	{0x07, 0x4D}, 	{0x09, 0x8A}, 	{0x06, 0x2F}, 
-	{0x08, 0xC9},	{0x09, 0xCE}, 	{0x09, 0x149},	{0x09, 0x160}, 	{0x0A, 0x1BA}, 	{0x0A, 0x19E}, 	{0x0A, 0x39F}, 	{0x09, 0xE5}, 
-	{0x09, 0x194}, 	{0x09, 0x184}, 	{0x09, 0x126}, 	{0x07, 0x30}, 	{0x08, 0x6C}, 	{0x09, 0x121}, 	{0x09, 0x1E8}, 	{0x0A, 0x1C1}, 
-	{0x0A, 0x11D}, 	{0x0A, 0x163}, 	{0x0A, 0x385}, 	{0x0A, 0x3DB}, 	{0x0A, 0x17D}, 	{0x0A, 0x106}, 	{0x0A, 0x397}, 	{0x0A, 0x24E}, 
-	{0x07, 0x2E}, 	{0x08, 0x98}, 	{0x0A, 0x33C}, 	{0x0A, 0x32E}, 	{0x0A, 0x1E9}, 	{0x09, 0xBF}, 	{0x0A, 0x3DF}, 	{0x0A, 0x1DD}, 
-	{0x0A, 0x32D}, 	{0x0A, 0x2ED}, 	{0x0A, 0x30B}, 	{0x0A, 0x107}, 	{0x0A, 0x2E8}, 	{0x0A, 0x3DE}, 	{0x0A, 0x125}, 	{0x0A, 0x1E8}, 
-	{0x09, 0xE9}, 	{0x0A, 0x1CD}, 	{0x0A, 0x1B5}, 	{0x09, 0x165}, 	{0x0A, 0x232}, 	{0x0A, 0x2E1}, 	{0x0B, 0x3AE}, 	{0x0B, 0x3C6}, 
-	{0x0B, 0x3E2}, 	{0x0A, 0x205}, 	{0x0A, 0x29A}, 	{0x0A, 0x248}, 	{0x0A, 0x2CD}, 	{0x0A, 0x23B}, 	{0x0B, 0x3C5}, 	{0x0A, 0x251}, 
-	{0x0A, 0x2E9}, 	{0x0A, 0x252}, 	{0x09, 0x1EA}, 	{0x0B, 0x3A0}, 	{0x0B, 0x391}, 	{0x0A, 0x23C}, 	{0x0B, 0x392}, 	{0x0B, 0x3D5}, 
-	{0x0A, 0x233}, 	{0x0A, 0x2CC}, 	{0x0B, 0x390}, 	{0x0A, 0x1BB}, 	{0x0B, 0x3A1}, 	{0x0B, 0x3C4}, 	{0x0A, 0x211}, 	{0x0A, 0x203}, 
-	{0x09, 0x12A}, 	{0x0A, 0x231}, 	{0x0B, 0x3E0}, 	{0x0A, 0x29B}, 	{0x0B, 0x3D7}, 	{0x0A, 0x202}, 	{0x0B, 0x3AD}, 	{0x0A, 0x213}, 
-	{0x0A, 0x253}, 	{0x0A, 0x32C}, 	{0x0A, 0x23D}, 	{0x0A, 0x23F}, 	{0x0A, 0x32F}, 	{0x0A, 0x11C}, 	{0x0A, 0x384}, 	{0x0A, 0x31C}, 
-	{0x0A, 0x17C}, 	{0x0A, 0x30A}, 	{0x0A, 0x2E0}, 	{0x0A, 0x276}, 	{0x0A, 0x250}, 	{0x0B, 0x3E3}, 	{0x0A, 0x396}, 	{0x0A, 0x18F}, 
-	{0x0A, 0x204}, 	{0x0A, 0x206}, 	{0x0A, 0x230}, 	{0x0A, 0x265}, 	{0x0A, 0x212}, 	{0x0A, 0x23E}, 	{0x0B, 0x3AC}, 	{0x0B, 0x393}, 
-	{0x0B, 0x3E1}, 	{0x0A, 0x1DE}, 	{0x0B, 0x3D6}, 	{0x0A, 0x31D}, 	{0x0B, 0x3E5}, 	{0x0B, 0x3E4}, 	{0x0A, 0x207}, 	{0x0B, 0x3C7}, 
-	{0x0A, 0x277}, 	{0x0B, 0x3D4}, 	{0x08, 0xC0},	{0x0A, 0x162}, 	{0x0A, 0x3DA}, 	{0x0A, 0x124}, 	{0x0A, 0x1B4}, 	{0x0A, 0x264}, 
-	{0x0A, 0x33D}, 	{0x0A, 0x1D1}, 	{0x0A, 0x1AF}, 	{0x0A, 0x39E}, 	{0x0A, 0x24F}, 	{0x0B, 0x373}, 	{0x0A, 0x249}, 	{0x0B, 0x372}, 
-	{0x09, 0x167}, 	{0x0A, 0x210}, 	{0x0A, 0x23A}, 	{0x0A, 0x1B8}, 	{0x0B, 0x3AF}, 	{0x0A, 0x18E}, 	{0x0A, 0x2EC}, 	{0x07, 0x62}, 
+	{0x02, 0x00}, 	{0x05, 0x1F}, 	{0x06, 0x22}, 	{0x07, 0x34}, 	{0x07, 0x75}, 	{0x06, 0x28}, 	{0x06, 0x3B}, 	{0x07, 0x32},
+	{0x08, 0xE0}, 	{0x08, 0x62}, 	{0x07, 0x56}, 	{0x08, 0x79}, 	{0x09, 0x19D},	{0x08, 0x97}, 	{0x06, 0x2A}, 	{0x07, 0x57},
+	{0x08, 0x71}, 	{0x08, 0x5B}, 	{0x09, 0x1CC},	{0x08, 0xA7}, 	{0x07, 0x25}, 	{0x07, 0x4F}, 	{0x08, 0x66}, 	{0x08, 0x7D},
+	{0x09, 0x191},	{0x09, 0x1CE}, 	{0x07, 0x3F}, 	{0x09, 0x90}, 	{0x08, 0x59}, 	{0x08, 0x7B}, 	{0x08, 0x91}, 	{0x08, 0xC6},
+	{0x06, 0x2D}, 	{0x09, 0x186}, 	{0x08, 0x6F}, 	{0x09, 0x93}, 	{0x0A, 0x1CC},	{0x08, 0x5A}, 	{0x0A, 0x1AE},	{0x0A, 0x1C0},
+	{0x09, 0x148},	{0x09, 0x14A}, 	{0x09, 0x82}, 	{0x0A, 0x19F}, 	{0x09, 0x171},	{0x09, 0x120}, 	{0x09, 0xE7}, 	{0x0A, 0x1F3},
+	{0x09, 0x14B},	{0x09, 0x100},	{0x09, 0x190},	{0x06, 0x13}, 	{0x09, 0x161},	{0x09, 0x125},	{0x09, 0x133},	{0x09, 0x195},
+	{0x09, 0x173},	{0x09, 0x1CA},	{0x09, 0x86}, 	{0x09, 0x1E9}, 	{0x09, 0xDB}, 	{0x09, 0x1EC},	{0x09, 0x8B}, 	{0x09, 0x85},
+	{0x05, 0x0A}, 	{0x08, 0x96}, 	{0x08, 0x9C}, 	{0x09, 0x1C3}, 	{0x09, 0x19C},	{0x09, 0x8F}, 	{0x09, 0x18F},	{0x09, 0x91},
+	{0x09, 0x87}, 	{0x09, 0xC6}, 	{0x09, 0x177},	{0x09, 0x89}, 	{0x09, 0xD6}, 	{0x09, 0x8C}, 	{0x09, 0x1EE},	{0x09, 0x1EB},
+	{0x09, 0x84}, 	{0x09, 0x164}, 	{0x09, 0x175},	{0x09, 0x1CD}, 	{0x08, 0x5E}, 	{0x09, 0x88}, 	{0x09, 0x12B},	{0x09, 0x172},
+	{0x09, 0x10A},	{0x09, 0x8D}, 	{0x09, 0x13A},	{0x09, 0x11C}, 	{0x0A, 0x1E1},	{0x0A, 0x1E0}, 	{0x09, 0x187},	{0x0A, 0x1DC},
+	{0x0A, 0x1DF},	{0x07, 0x74}, 	{0x09, 0x19F},	{0x08, 0x8D},	{0x08, 0xE4}, 	{0x07, 0x79}, 	{0x09, 0xEA}, 	{0x09, 0xE1},
+	{0x08, 0x40}, 	{0x07, 0x41}, 	{0x09, 0x10B},	{0x09, 0xB0}, 	{0x08, 0x6A}, 	{0x08, 0xC1}, 	{0x07, 0x71}, 	{0x07, 0x78},
+	{0x08, 0xB1}, 	{0x09, 0x14C}, 	{0x07, 0x43}, 	{0x08, 0x76}, 	{0x07, 0x66}, 	{0x07, 0x4D}, 	{0x09, 0x8A}, 	{0x06, 0x2F},
+	{0x08, 0xC9},	{0x09, 0xCE}, 	{0x09, 0x149},	{0x09, 0x160}, 	{0x0A, 0x1BA}, 	{0x0A, 0x19E}, 	{0x0A, 0x39F}, 	{0x09, 0xE5},
+	{0x09, 0x194}, 	{0x09, 0x184}, 	{0x09, 0x126}, 	{0x07, 0x30}, 	{0x08, 0x6C}, 	{0x09, 0x121}, 	{0x09, 0x1E8}, 	{0x0A, 0x1C1},
+	{0x0A, 0x11D}, 	{0x0A, 0x163}, 	{0x0A, 0x385}, 	{0x0A, 0x3DB}, 	{0x0A, 0x17D}, 	{0x0A, 0x106}, 	{0x0A, 0x397}, 	{0x0A, 0x24E},
+	{0x07, 0x2E}, 	{0x08, 0x98}, 	{0x0A, 0x33C}, 	{0x0A, 0x32E}, 	{0x0A, 0x1E9}, 	{0x09, 0xBF}, 	{0x0A, 0x3DF}, 	{0x0A, 0x1DD},
+	{0x0A, 0x32D}, 	{0x0A, 0x2ED}, 	{0x0A, 0x30B}, 	{0x0A, 0x107}, 	{0x0A, 0x2E8}, 	{0x0A, 0x3DE}, 	{0x0A, 0x125}, 	{0x0A, 0x1E8},
+	{0x09, 0xE9}, 	{0x0A, 0x1CD}, 	{0x0A, 0x1B5}, 	{0x09, 0x165}, 	{0x0A, 0x232}, 	{0x0A, 0x2E1}, 	{0x0B, 0x3AE}, 	{0x0B, 0x3C6},
+	{0x0B, 0x3E2}, 	{0x0A, 0x205}, 	{0x0A, 0x29A}, 	{0x0A, 0x248}, 	{0x0A, 0x2CD}, 	{0x0A, 0x23B}, 	{0x0B, 0x3C5}, 	{0x0A, 0x251},
+	{0x0A, 0x2E9}, 	{0x0A, 0x252}, 	{0x09, 0x1EA}, 	{0x0B, 0x3A0}, 	{0x0B, 0x391}, 	{0x0A, 0x23C}, 	{0x0B, 0x392}, 	{0x0B, 0x3D5},
+	{0x0A, 0x233}, 	{0x0A, 0x2CC}, 	{0x0B, 0x390}, 	{0x0A, 0x1BB}, 	{0x0B, 0x3A1}, 	{0x0B, 0x3C4}, 	{0x0A, 0x211}, 	{0x0A, 0x203},
+	{0x09, 0x12A}, 	{0x0A, 0x231}, 	{0x0B, 0x3E0}, 	{0x0A, 0x29B}, 	{0x0B, 0x3D7}, 	{0x0A, 0x202}, 	{0x0B, 0x3AD}, 	{0x0A, 0x213},
+	{0x0A, 0x253}, 	{0x0A, 0x32C}, 	{0x0A, 0x23D}, 	{0x0A, 0x23F}, 	{0x0A, 0x32F}, 	{0x0A, 0x11C}, 	{0x0A, 0x384}, 	{0x0A, 0x31C},
+	{0x0A, 0x17C}, 	{0x0A, 0x30A}, 	{0x0A, 0x2E0}, 	{0x0A, 0x276}, 	{0x0A, 0x250}, 	{0x0B, 0x3E3}, 	{0x0A, 0x396}, 	{0x0A, 0x18F},
+	{0x0A, 0x204}, 	{0x0A, 0x206}, 	{0x0A, 0x230}, 	{0x0A, 0x265}, 	{0x0A, 0x212}, 	{0x0A, 0x23E}, 	{0x0B, 0x3AC}, 	{0x0B, 0x393},
+	{0x0B, 0x3E1}, 	{0x0A, 0x1DE}, 	{0x0B, 0x3D6}, 	{0x0A, 0x31D}, 	{0x0B, 0x3E5}, 	{0x0B, 0x3E4}, 	{0x0A, 0x207}, 	{0x0B, 0x3C7},
+	{0x0A, 0x277}, 	{0x0B, 0x3D4}, 	{0x08, 0xC0},	{0x0A, 0x162}, 	{0x0A, 0x3DA}, 	{0x0A, 0x124}, 	{0x0A, 0x1B4}, 	{0x0A, 0x264},
+	{0x0A, 0x33D}, 	{0x0A, 0x1D1}, 	{0x0A, 0x1AF}, 	{0x0A, 0x39E}, 	{0x0A, 0x24F}, 	{0x0B, 0x373}, 	{0x0A, 0x249}, 	{0x0B, 0x372},
+	{0x09, 0x167}, 	{0x0A, 0x210}, 	{0x0A, 0x23A}, 	{0x0A, 0x1B8}, 	{0x0B, 0x3AF}, 	{0x0A, 0x18E}, 	{0x0A, 0x2EC}, 	{0x07, 0x62},
 	{0x04, 0x0D}
 
 };
@@ -1120,7 +1107,7 @@ int cNetworkStuff::Pack(void *pvIn, void *pvOut, int len)
 	int nrBits;
 	unsigned int value;
 
-	if (len <= 0 || pIn == NULL || pvOut == NULL) return 0; // Server crash fix 
+	if (len <= 0 || pIn == NULL || pvOut == NULL) return 0; // Server crash fix
 
 	while(len--)
 	{
@@ -1161,7 +1148,7 @@ int cNetworkStuff::Pack(void *pvIn, void *pvOut, int len)
 	return actByte;
 }
 
-void cNetworkStuff::GetMsg(int s) // Receive message from client 
+void cNetworkStuff::GetMsg(int s) // Receive message from client
 {
 	int count, j, serial, length, dyn_length, loopexit=0, fb;
 	unsigned char nonuni[512];
@@ -1233,7 +1220,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 				{
 					dyn_length = (int) (  ( (int) buffer[s][1]<<8) + (int) buffer[s][2] );				
 					// clConsole.send("dyn-length: %i\n",dyn_length);
-					readstat = Receive(s, dyn_length-3, 3) ;				  
+					readstat = Receive(s, dyn_length-3, 3) ;				
 				}
 
 
@@ -1259,22 +1246,22 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 				case 0x04:
 					// Expermintal for God clent
-                    if (pc_currchar->isGM()) 
-					{ 
-						char packet[] = "\x2B\x01"; 
+                    if (pc_currchar->isGM())
+					{
+						char packet[] = "\x2B\x01";
 						Xsend(s, packet, 2);
-                        //clConsole.send("%s connected in with God Client!\n", pc_currchar->name); 
-                    } 
-					else 
-					{ 
-						sysmessage(s, "Access Denied!!!"); 
-                        Disconnect(s); 
-						clConsole.send("%s tried connecting in with God Client but has no priviledges!\n", pc_currchar->name.c_str()); 
-                    } 
+                        //clConsole.send("%s connected in with God Client!\n", pc_currchar->name);
+                    }
+					else
+					{
+						sysmessage(s, "Access Denied!!!");
+                        Disconnect(s);
+						clConsole.send("%s tried connecting in with God Client but has no priviledges!\n", pc_currchar->name.c_str());
+                    }
 					break;
 
-				case 0x01:// Main Menu on the character select screen 
-				// remark LB : no longer send :( 
+				case 0x01:// Main Menu on the character select screen
+				// remark LB : no longer send :(
 					Disconnect(s);
 					break;
 
@@ -1338,7 +1325,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					if ( (buffer[s][3]) >=0xc0 )
 					{			
 						// Get the trigger
-						                  
+						
 						buffer[s][3] = buffer[s][3] & 0x0F ; // set to normal (cutting off the ascii indicator since we are converting back to unicode)					
 
 						int num_words,/*idx=0,*/ num_unknown;				
@@ -1353,7 +1340,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						// trigger word index in/from speech.mul, not required [yet]
 						/*idx = ( (static_cast<int>(buffer[s][13])) << 24 ) + ( (static_cast<int>(buffer[s][14])) << 16);
 						idx = idx & 0x0fff0000;
-						idx = ( (idx << 4) >> 20) ;*/						                       
+						idx = ( (idx << 4) >> 20) ;*/						
 						//cout << "#keywords was " << hex << num_words << "\n" << hex << static_cast<int>(buffer[s][12]) << " " << hex << static_cast<int> (buffer[s][13]) << " " << static_cast<int> (buffer[s][14]) << " " << static_cast<int> (buffer[s][15]) << endl ;
 						// cout << "idx: " << idx << endl;
 						/*************************************/
@@ -1404,7 +1391,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					strncpy((char*)nonuni, temp, ((buffer[s][1]<<8)+buffer[s][2])/2);
 					punt = (char*) nonuni ;
 					Speech->talking(s, punt);
-					break;    
+					break;
 
 				case 0x06:// Doubleclick			
 					doubleclick(s);
@@ -1450,9 +1437,9 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					switch (static_cast<unsigned char>(buffer[s][3]))
 					{
 					
-					case 0xC7: 
+					case 0xC7:
 					// Action
-						if (!pc_currchar->onhorse) 
+						if (!pc_currchar->onhorse)
 						{
 							if (!(strcmp((char*)&buffer[s][4],"bow"))) action(s, 0x20);
 							if (!(strcmp((char*)&buffer[s][4],"salute"))) action(s, 0x21);
@@ -1502,7 +1489,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							{
 								P_ITEM ci = FindItemBySerial(vecContainer[i]);
 								if ( ci != NULL ) //lb
-									if ((ci->contserial==serial) && (ci->layer==1)) 
+									if ((ci->contserial==serial) && (ci->layer==1))
 									{
 										pj = ci;
 									}
@@ -1512,7 +1499,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						if (pj != NULL)
 						{
 							book=buffer[s][4]-0x30;
-							if (buffer[s][5]>0x20) 
+							if (buffer[s][5]>0x20)
 							{
 								book=(book*10)+(buffer[s][5]-0x30);
 							}
@@ -1534,9 +1521,9 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 								Magic->newSelectSpell2Cast( s, book );
 							}
 					
-					//	else 
+					//	else
 					//	{
-					//		sysmessage(s, "You don't have that spell."); 
+					//		sysmessage(s, "You don't have that spell.");
 					//	}
 					}
 						break;
@@ -1599,7 +1586,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							{
 								Books->pagebuffer[s][j-13]=buffer[s][j];
 							}
-							Books->readbook_writeable(s,pBook,(buffer[s][9]<<8)+buffer[s][10],(buffer[s][11]<<8)+buffer[s][12] ); 
+							Books->readbook_writeable(s,pBook,(buffer[s][9]<<8)+buffer[s][10],(buffer[s][11]<<8)+buffer[s][12] );
 						}
 						if (pBook->morex==999) Books->readbook_readonly(s,pBook,(buffer[s][9]<<8)+buffer[s][10]); // new books readonly
 					}
@@ -1612,7 +1599,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 					int serial,j;
 					char author[31],title[61],ch;
-	         
+	
 					serial=calcserial(buffer[s][1],buffer[s][2],buffer[s][3],buffer[s][4]);
 					pi_target = FindItemBySerial( serial );
 					if (pi_target == NULL) return;				
@@ -1640,7 +1627,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 
 				case 0x3a: // client 1.26.2b+ skill managment packet
-                     
+
                		// -> 0,1,2,3 -> ignore them
                		// -> 4 = skill number
                		// -> 5 = 0 raising (up), 1 falling=candidate for atrophy, 2 = locked
@@ -1668,7 +1655,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 				case 0x2C:// Resurrect menu choice			
 					if(buffer[s][1]==0x02)
 					{
-						if( ( pc_currchar->murdererSer > 0 ) && SrvParms->bountysactive ) 
+						if( ( pc_currchar->murdererSer > 0 ) && SrvParms->bountysactive )
 						{
 							sprintf( (char*)temp, "To place a bounty on %s, use the command BOUNTY <Amount>.",
 						        FindCharBySerial(pc_currchar->murdererSer)->name.c_str() );
@@ -1717,11 +1704,11 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							PACKET0xB8[2] = (unsigned char) tlen;
 							Xsend(s, PACKET0xB8, tlen);
 						}
-					} 
+					}
 					else if (buffer[s][3] == 1) // Write request
 					{
-					} 
-					else 
+					}
+					else
 						clConsole.send("Unkown packet 0xB8 request");
 					break;
 
@@ -1731,7 +1718,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 				// Dupois - End
 								
-				case 0xBB: 
+				case 0xBB:
            			break;
 
 				// Client version packet ... OSI clients always send that one on login.			
@@ -1762,7 +1749,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					{
 				   		cpps.assign(temp3);				
 				   		viter = find(clientsAllowed.begin(), clientsAllowed.end(), cpps);
-				   		if (viter != clientsAllowed.end() ) break; else 
+				   		if (viter != clientsAllowed.end() ) break; else
 						{
 							clConsole.send("Client %i disconnected by Client Version Control System\n", s);
 							Disconnect(s);
@@ -1779,38 +1766,38 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 					subcommand = static_cast<int> ( (static_cast<int> (buffer[s][3]) << 8 ) + buffer[s][4] );			
 
-				// please don't remove the // unknowns ... want to have them as dokumentation 
+				// please don't remove the // unknowns ... want to have them as dokumentation
 					switch (subcommand)
 					{
 						case 5: break; // unknown, sent once on login
 
-				   		case 6: 
-					    
+				   		case 6:
+					
 					     		subsubcommand = buffer[s][5];  // party system
 							 // .... party system implemation (call) goes here :)
 							 // ....
-							 // .... 
+							 // ....
 							 break;
 
 						case 11: // client language, might be used for server localisation
 
-						// please no strcpy or memcpy optimization here, because the input ain't 0-termianted and memcpy might be overkill					   
+						// please no strcpy or memcpy optimization here, because the input ain't 0-termianted and memcpy might be overkill					
 						   	client_lang[0]=buffer[s][5];
                        		client_lang[1]=buffer[s][6];
 							client_lang[2]=buffer[s][7];
-							client_lang[3]=0;					   
+							client_lang[3]=0;					
 						   // do dometihng with language information from client
 						   // ...
-						   	break; 
-				   
+						   	break;
+				
 						case 12: break; // close gumps, client message
 
 				   		case 14: // UO:3D menus
-					  		action(s, buffer[s][8]);					  
+					  		action(s, buffer[s][8]);					
 					  		break;
 
 						case 15: break; // unknown, sent once on login
-					   
+					
 				   		default: break;
 
 					}
@@ -1827,7 +1814,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 				Disconnect(s) ; // Error on a read
   		} // end if recv >0
   		else								
-  		{	 
+  		{	
 	  //clConsole.send("FB: %i perm: %i\n",fb,perm[s]);
 		  Disconnect(s); // extremly important (and tricky too ;-) !!!
 	  // osi client closes socket AFTRER the first 4 bytes and re-opens it afterward.
@@ -1886,11 +1873,11 @@ void cNetworkStuff::LoadHosts_deny(void)
 				ip_address = inet_addr(sToken1.c_str()) ;
 				if (ip_address != INADDR_NONE)
 					ip_block.mask = ip_address;
-				else 
+				else
 					ip_block.mask = ~0; // mask is not required. (fills all bits with 1's)
 			}
 			else
-				ip_block.mask = ~0 ; 
+				ip_block.mask = ~0 ;
 				
 			hosts_deny.push_back(ip_block);
 			
@@ -1944,7 +1931,7 @@ void cNetworkStuff::CountPackets(UOXSOCKET s, int &numpackets, long int & offset
 {
 	int buff_len = boutlength[s];
 
-	int ctr = 0; 
+	int ctr = 0;
 	int pl, dyn_length;	
 	unsigned char packet;
 	bool er;
@@ -1966,8 +1953,8 @@ void cNetworkStuff::CountPackets(UOXSOCKET s, int &numpackets, long int & offset
 		{
 			dataerror = true;
 			break;
-		} 
-		else if (pl==PACKET_LEN_DYNAMIC) 
+		}
+		else if (pl==PACKET_LEN_DYNAMIC)
 		{
 			dyn_length = (int) (  ( (int) outbuffer[s][ctr+1]<<8) + (int) outbuffer[s][ctr+2] );				
 		}
@@ -2005,13 +1992,13 @@ void cNetworkStuff::CountPackets(UOXSOCKET s, int &numpackets, long int & offset
 		ctr+=pl;		
 
 	}
-  
+
 }
 
 bool cNetworkStuff::CheckPacket(UOXSOCKET s, unsigned char packetnumber, int length, unsigned long int offset)
 {
 	bool ok=true;
-  
+
 	switch(packetnumber)
 	{
 	    case 0x7E:
@@ -2033,9 +2020,9 @@ bool cNetworkStuff::CheckPacket(UOXSOCKET s, unsigned char packetnumber, int len
 
 // when we have erros in send, i.g synch error, lets try to fire an error message to client before disconnecting
 // of course xsend can't be used, because it's called for erorrs IN xsend.
- 
+
 //##ModelId=3C5D92D901F3
 void cNetworkStuff::SendGoodByeMessageRaw(UOXSOCKET s)
 {
-  
+
 }
