@@ -267,7 +267,7 @@ class CraftItemAction(MakeItemAction):
 
 			# Check the required amount of the material
 			count = backpack.countitems(material[3])
-			if count < self.submaterial1:
+			if count < self.submaterial2:
 				if not silent:
 					if self.parent.submaterial2missing != 0:
 						player.socket.clilocmessage(self.parent.submaterial2missing)
