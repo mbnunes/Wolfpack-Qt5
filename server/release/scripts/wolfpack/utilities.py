@@ -15,25 +15,6 @@ from math import floor
 import whrandom
 from types import *
 
-def agression( source, target, spell ):
-	spellinfo = wolfpack.spell( spell )
-	
-	# Spell is agressive
-	if spellinfo[ 'flags' ] & 0x02:
-		# Murderers or Criminals may be attacked freely
-		if target.iscriminal() or target.ismurderer():
-			return
-		
-		# If Enemy Guild then return
-		if source.guildcompare( target ) == 2:
-			return
-
-		return
-
-	# If it's not agressive, it's beneficial
-	else:
-		return		
-
 def magicdamage( basedamage, spell, mage, defender ):
 	#DIRECT DAMAGE SPELLS:	
 	# Information found on uo.stratics.com

@@ -26,11 +26,11 @@ def additem( definition ):
 	else:
 		return _wolfpack.additem( definition )
 
-def addnpc( definition ):
+def addnpc( definition, pos ):
 	if not type( definition ) is StringType:
 		raise TypeError, "You need to provide a valid definition string"
 	else:
-		return _wolfpack.addnpc( definition )
+		return _wolfpack.addnpc( definition, pos )
 
 def region( x, y, map ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType:

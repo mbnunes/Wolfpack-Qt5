@@ -7,6 +7,9 @@
 # Constants used in Python scripts                              #
 #===============================================================#
 
+# Spell Settings
+CLUMSY_DURATION = 60000
+
 # Lumberjacking Settings
 LUMBERJACKING_MIN_LOGS = 10
 LUMBERJACKING_MAX_LOGS = 15
