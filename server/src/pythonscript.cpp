@@ -133,15 +133,18 @@ trigger this event. They wouldn't have a script to call anyway.
 
 /*
 \event onLogin
-\param player The player who logged in.
+\param player The player that is entering the world.
 \condition Triggered when a player enters the world.
+\notes onLogin isn't called if the character was lingering (as the character didn't
+really leave the world). See onConnect.
 */
 "onLogin",
 
 /*
 \event onLogout
-\param player The player who disconnected.
+\param player The player that is leaving the world.
 \condition Triggered when a player leaves the world.
+\notes onLogout takes the char timeout into consideration. See onDisconnect.
 */
 "onLogout",
 
@@ -599,6 +602,23 @@ container that is being snooped into.
 \notes This even is called for the using player, then for the current owner of the item.
 */
 "onRemoteUse",
+
+/*
+\event onConnect
+\param player The player that connected.
+\param reconnecting True if the player is reconnecting to an online character.
+\condition Triggered when a player logs in with a character (even if the character was still online).
+\notes If the character wasn't online, onLogin is called before onConnect.
+*/
+"onConnect",
+
+/*
+\event onDisconnect
+\param player The player that disconnected.
+\condition Triggered when a player disconnects.
+\notes If the character was in a safe-logout zone, onLogout is called immediately after onDisconnect.
+*/
+"onDisconnect",
 
 0
 };

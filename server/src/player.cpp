@@ -933,11 +933,12 @@ bool cPlayer::onPickup( P_ITEM pItem )
 
 bool cPlayer::onLogin()
 {
+	// move the char from the offline to the online chars structure
 	MapObjects::instance()->updateOnlineStatus( this, true );
 
 	// trigger the script event
 	bool result = false;
-	if ( canHandleEvent( EVENT_LOGIN ) )
+	if( canHandleEvent( EVENT_LOGIN ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 		result = callEventHandler( EVENT_LOGIN, args );
@@ -946,19 +947,38 @@ bool cPlayer::onLogin()
 	return result;
 }
 
+bool cPlayer::onConnect( bool reconnecting )
+{
+	bool result = false;
+	if( canHandleEvent( EVENT_CONNECT ) )
+	{
+		PyObject* args = Py_BuildValue( "(O&i)", PyGetCharObject, this, reconnecting );
+		result = callEventHandler( EVENT_CONNECT, args );
+		Py_DECREF( args );
+	}
+	return result;
+}
+
 bool cPlayer::onDisconnect()
 {
-	// TODO: trigger a script event here
-	return true;
+	bool result = false;
+	if( canHandleEvent( EVENT_DISCONNECT ) )
+	{
+		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
+		result = callEventHandler( EVENT_DISCONNECT, args );
+		Py_DECREF( args );
+	}
+	return result;
 }
 
 bool cPlayer::onLogout()
 {
+	// move the char from the online to the offline chars structure
 	MapObjects::instance()->updateOnlineStatus( this, false );
 
 	// trigger the script event
 	bool result = false;
-	if ( canHandleEvent( EVENT_LOGOUT ) )
+	if( canHandleEvent( EVENT_LOGOUT ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 		result = callEventHandler( EVENT_LOGOUT, args );

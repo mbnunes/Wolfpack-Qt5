@@ -24,7 +24,7 @@ Wolfpack 12.9.13 Beta (CVS)
 	- The SectorMaps singleton has been renamed to MapObjects.
 	- The deprecated RegionIterators have been removed.
 	- The SectorIterators have also been replaced with a much faster iterator.
-	- The new iterators don't allocate/copy memory anymore. 
+	- The new iterators don't allocate/copy memory anymore.
 	- The "range" lookup now looks for items within a real circle.
 	- Multis now have their own structure, and are now separate from items.
 	- Region calls now list online and offline chars in seperate lists.
@@ -38,6 +38,10 @@ Wolfpack 12.9.13 Beta (CVS)
 	- Added .reload muls and added a broadcast message to the reload commands.
 	- Fixed handling of a fixed z value for spawnregions.
 	- Fixed an exploit (dropping without dragging first)
+	- Changed the semantics of onLogin/onLogout (character entering/leaving the world).
+	- Added onConnect/onDisconnect (socket attaching/detaching to/from a player).
+	- It's no longer possible to login with a char if another char in the same account is still online.
+	- Fixed a bug that would cause onLogout not to be called.
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error

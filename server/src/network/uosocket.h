@@ -66,6 +66,7 @@ struct stTargetItem
 class cUOSocket
 {
 	OBJECTDEF(cUOSocket)
+
 public:
 	enum eSocketState
 	{
@@ -74,32 +75,6 @@ public:
 		LoggedIn,
 		InGame
 	};
-
-private:
-	QValueVector<cUORxWalkRequest> packetQueue;
-
-	QSocketDevice* _socket;
-	unsigned int _rxBytes, _txBytes, _uniqueId, _lastActivity;
-	cAccount* _account;
-	P_PLAYER _player;
-	eSocketState _state;
-	Q_UINT8 lastPacket, _viewRange, _walkSequence;
-	cTargetRequest* targetRequest;
-	QString _lang, _version;
-	cCustomTags tags_;
-	QString _ip; // IP used to connect
-	QBitArray* tooltipscache_;
-	QPtrList<cContextMenu> contextMenu_;
-	QMap<SERIAL, cGump*> gumps;
-	unsigned short _screenWidth, _screenHeight;
-
-	bool authenticate( const QString& username, const QString& password );
-
-	/*!
-		\brief This array contains all registered packet handlers known
-		to all sockets.
-	*/
-	static PyObject* handlers[255];
 
 public:
 	/*!
@@ -172,15 +147,16 @@ public:
 
 	P_PLAYER player( void ) const;
 	P_ITEM dragging() const;
+
 	cAccount* account( void ) const
 	{
 		return _account;
 	}
+
 	void setAccount( cAccount* data )
 	{
 		_account = data;
 	}
-
 
 	unsigned int lastActivity() const;
 	unsigned int rxBytes() const;
@@ -253,12 +229,7 @@ public:
 	void sysMessage( const QString& message, Q_UINT16 color = 0x3b2, Q_UINT16 font = 3 ) const;
 	void sendCharList();
 	void removeObject( cUObject* object );
-	void setPlayer( P_PLAYER pChar = NULL ); // Updates the current player
-	void disconnect( void ); // Call this whenever the socket should disconnect
-	bool isT2A()
-	{
-		return true;
-	} // ???
+	void disconnect(); // Call this whenever the socket should disconnect
 	void sendPaperdoll( P_CHAR pChar );
 	void playMusic( void );
 	void sendContainer( P_ITEM pCont );
@@ -298,9 +269,36 @@ public:
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );
 
-private: // Private methods
+private:
 	void updateCharList();
-	void playChar( P_PLAYER player ); // Play a character
+	void setPlayer( P_PLAYER player );
+	void playChar( P_PLAYER player );
+
+private:
+	QValueVector<cUORxWalkRequest> packetQueue;
+
+	QSocketDevice* _socket;
+	unsigned int _rxBytes, _txBytes, _uniqueId, _lastActivity;
+	cAccount* _account;
+	P_PLAYER _player;
+	eSocketState _state;
+	Q_UINT8 lastPacket, _viewRange, _walkSequence;
+	cTargetRequest* targetRequest;
+	QString _lang, _version;
+	cCustomTags tags_;
+	QString _ip; // IP used to connect
+	QBitArray* tooltipscache_;
+	QPtrList<cContextMenu> contextMenu_;
+	QMap<SERIAL, cGump*> gumps;
+	unsigned short _screenWidth, _screenHeight;
+
+	bool authenticate( const QString& username, const QString& password );
+
+	/*!
+		\brief This array contains all registered packet handlers known
+		to all sockets.
+	*/
+	static PyObject* handlers[255];
 };
 
 // Inline members

@@ -471,15 +471,15 @@ void cUOSocket::handleHardwareInfo( cUORxHardwareInfo* packet )
   This method provides a way of interrupting the client's connection
   to this server.
 */
-void cUOSocket::disconnect( void )
+void cUOSocket::disconnect()
 {
-	if ( _account )
+	if( _account )
 		_account->setInUse( false );
 
-	if ( _player )
+	if( _player )
 	{
 		_player->onDisconnect();
-		_player->setSocket( NULL );
+		_player->setSocket( 0 );
 
 		// Remove the player from it's party
 		if ( _player->party() )
@@ -495,11 +495,11 @@ void cUOSocket::disconnect( void )
 	Network::instance()->netIo()->flush( _socket );
 	_socket->close();
 
-	if ( _player )
+	if( _player )
 	{
 		_player->removeFromView( true );
 
-		// is the player allowed to logout instantly?
+		// is the player allowed to logoff instantly?
 		if( _player->isGMorCounselor() || ( _player->region() && _player->region()->isGuarded() ) )
 		{
 			_player->onLogout();
@@ -641,7 +641,7 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 	// Check the character the user wants to play
 	QValueVector<P_PLAYER> characters = _account->caracterList();
 
-	if ( packet->slot() >= characters.size() )
+	if( packet->slot() >= characters.size() )
 	{
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
@@ -649,7 +649,7 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 		return;
 	}
 
-	if ( _account->inUse() )
+	if( _account->inUse() )
 	{
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( cUOTxDenyLogin::DL_INUSE );
@@ -657,18 +657,45 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 		return;
 	}
 
-	_account->setInUse( true );
-	
-	P_PLAYER pChar = characters.at(packet->slot());	
-	log(LOG_MESSAGE, tr("Selected character '%1' (0x%2).\n").arg(pChar->name()).arg(pChar->serial(), 0, 16));
+	// the char we want to login with
+	P_PLAYER pChar = characters.at( packet->slot() );
+
+	// check if any other account character is still online (lingering)
+	for( QValueVector<P_PLAYER>::const_iterator it = characters.begin(); it != characters.end(); ++it )
+	{
+		P_PLAYER otherChar = *it;
+		if( pChar == otherChar )
+			continue;
+
+		if( otherChar->isOnline() )
+		{
+			cUOTxMessageWarning message;
+			message.setReason( cUOTxMessageWarning::AlreadyInWorld );
+			send( &message );
+			return;
+		}
+	}
+
+	log( LOG_MESSAGE, tr( "Selected character '%1' (0x%2).\n" ).arg( pChar->name() ).arg( pChar->serial(), 0, 16 ) );
 	playChar( pChar );
-	_player->onLogin();
+
+	// if this char was lingering, cancel the auto-logoff and don't send the onLogin() event
+	if( pChar->logoutTime() )
+	{
+		pChar->onConnect( true );
+		pChar->setLogoutTime( 0 );
+	}
+	else
+	{
+		pChar->onLogin();
+		pChar->onConnect( false );
+	}
 }
 
-// Set up the neccesary stuff to play
+// Set up the necessary stuff to play
 void cUOSocket::playChar( P_PLAYER pChar )
 {
-	if ( !pChar )
+	if( !pChar )
 		pChar = _player;
 
 	// Minimum Requirements for log in
@@ -677,17 +704,17 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// c) Start the Game
 	// d) Set the Game Time
 
-	if (!Maps::instance()->hasMap(pChar->pos().map)) {
+	if( !Maps::instance()->hasMap( pChar->pos().map ) )
+	{
 		Coord pos;
 		pos.x = 0;
 		pos.y = 0;
 		pos.z = 0;
 		pos.map = 0;
-		pChar->moveTo(pos);
+		pChar->moveTo( pos );
 	}
 
-	// We're now playing this char
-	pChar->setLogoutTime( 0 );
+	// We're now playing this char.
 	setPlayer( pChar );
 	pChar->account()->setInUse( true );
 
@@ -890,6 +917,19 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 		cancelCreate( tr( "You already have more than %1 characters" ).arg( maxChars ) )
 	}
 
+	// If another character in the account is still online (lingering)
+	for( QValueVector<P_PLAYER>::const_iterator it = characters.begin(); it != characters.end(); ++it )
+	{
+		P_PLAYER otherChar = *it;
+		if( otherChar->isOnline() )
+		{
+			cUOTxMessageWarning message;
+			message.setReason( cUOTxMessageWarning::AlreadyInWorld );
+			send( &message );
+			return;
+		}
+	}
+
 	// Check the stats
 	Q_UINT16 statSum = ( packet->strength() + packet->dexterity() + packet->intelligence() );
 
@@ -974,7 +1014,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 
 	pChar->setOrgBody( pChar->body() );
 
-	pChar->moveTo( startLocations[packet->startTown()].pos );
+	pChar->moveTo( startLocations[packet->startTown()].pos, true );
 	pChar->setDirection( 4 );
 
 	pChar->setStrength( packet->strength() );
@@ -1082,8 +1122,9 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 
 	// Start the game with the newly created char -- OR RELAY HIM !!
 	playChar( pChar );
-	pChar->onCreate(pChar->baseid()); // Call onCreate before onLogin
+	pChar->onCreate( pChar->baseid() ); // Call onCreate before onLogin
 	pChar->onLogin();
+	pChar->onConnect( false );
 #undef cancelCreate
 }
 
@@ -1682,21 +1723,22 @@ void cUOSocket::handleSetLanguage( cUORxSetLanguage* packet )
 
 void cUOSocket::setPlayer( P_PLAYER pChar )
 {
-	// If we're already playing a char and chaning reset the socket status of that
-	// player
-	if ( !pChar && !_player )
+	// If we're already playing a char and changing reset the socket status of that player
+	if( !pChar && !_player )
 		return;
 
 	// If the player is changing
-	if ( pChar && ( pChar != _player ) )
+	if( pChar && ( pChar != _player ) )
 	{
-		if ( _player )
+		if( _player )
 		{
+			// This should never happen, we should deny logins while there's a lingering
+			// char; but just in case, as this may avoid problems:
+			_player->onLogout();
 			_player->removeFromView( true );
 			_player->setSocket( 0 );
 			_player->setLogoutTime( 0 );
 			_player->resend( false );
-			//MapObjects::instance()->remove( _player );
 		}
 
 		_player = pChar;

@@ -28,6 +28,7 @@ Wolfpack 12.9.13 Beta (CVS)
 		- Fixed the color of shrunken pets.
 		- Implemented shrink command.
 		- Implemented telem command.
+		- Added onConnect to system.players
 	* Misc. Changes:
 		- FAQ Updates.
 	* Known Issues, Bugs, and Missing Features:

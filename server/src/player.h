@@ -129,8 +129,9 @@ public:
 
 	// Wrapper events
 	virtual bool onLogin(); // The character enters the world
-	virtual bool onDisconnect(); // The socket has disconnected
-	virtual bool onLogout(); // The character exits the world
+	virtual bool onConnect( bool reconnecting ); // A socket attaches to a character
+	virtual bool onDisconnect(); // A socket detaches from a character
+	virtual bool onLogout(); // The character leaves the world
 	virtual bool onHelp(); // The character wants help
 	virtual bool onChat(); // The character wants to chat
 	virtual bool onCastSpell( unsigned int spell );
