@@ -22,12 +22,6 @@ def isrune( item ):
 		return 0
 
 def onUse( char, item ):
-	newitem = wolfpack.additem( "1f14" )
-	newitem.moveto( item.pos.x, item.pos.y, item.pos.z, item.pos.map )
-	newitem.update()
-
-	return 1
-
 	# We are only handling runes
 	if not isrune( item ):
 		return 0
