@@ -6,26 +6,24 @@
 
 PROJECT         = wolfpack
 TARGET          = wolfpack
-TEMPLATE       += app
-CONFIG         += qt console thread exceptions rtti
-#INCLUDEPATH    += lib/ZThread/include lib/Python/include
-INCLUDEPATH		+= lib/Python/include
-#DEFINES        += REENTRANT ZTHREAD_STATIC WP_DONT_USE_HASH_MAP
-#DEFINES			+= REENTRANT WP_DONT_USE_HASH_MAP
+TEMPLATE       	+= app
+CONFIG        	+= qt console thread exceptions rtti
+INCLUDEPATH	+= lib/Python/include
 
 unix {
 
 # Common unix settings
 	INCLUDEPATH += /usr/local/include/stlport lib/Python /usr/include/mysql /usr/local/lib/mysql/include/mysql lib/Python/Include network
-	LIBS  = -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.2 -lmysqlclient -lutil -lstlport_gcc
+	LIBS  += -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.2 -lmysqlclient -lutil
 	
 # Optional compile modes	
 	
 	release {
 		CONFIG += warn_off
 		linux {
-			QMAKE_CXXFLAGS -= -O2
-			QMAKE_CXXFLAGS += -march=pentium3 -O3 -pipe -fomit-frame-pointer -fsched-spec-load -frerun-loop-opt -fprefetch-loop-arrays -ffast-math
+			QMAKE_CXXFLAGS -= -O3
+			QMAKE_CXXFLAGS += -march=athlon-xp -O3 -pipe -fomit-frame-pointer -falign-functions=16 -falign-labels=8 -falign-loops=8 -falign-jumps=8 -fsched-spec-load -frerun-loop-opt -finline-limit=800 -funroll-loops -fprefetch-loop-arrays -ffast-math -mfpmath=sse -msse -m3dnow -fschedule-insns2 -fexpensive-optimizations -fmove-all-movables -fdelete-null-pointer-checks
+			
 		}
 	}
 	debug {
@@ -45,7 +43,6 @@ OBJECTS_DIR = obj
 win32:DEFINES  += WIN32 
 win32-msvc:DEFINES +=  _CONSOLE _MBCS
 win32:INCLUDEPATH += lib/Python/PC C:/mysql/include/
-win32-g++:TMAKE_CXXFLAGS = -funsigned-char -O3 -pipe -fomit-frame-pointer -march=athlon-xp -fsched-spec-load -frerun-loop-opt -fprefetch-loop-arrays -ffast-math
 win32-g++:LIBS= -lwsock32
 win32-msvc:LIBS      = kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comdlg32.lib ws2_32.lib ZThread.lib
 win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c

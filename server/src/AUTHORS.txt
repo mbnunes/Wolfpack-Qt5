@@ -1,8 +1,12 @@
--- Not a complete list, in Alphabetic order --
+-- Not a complete list, in Alphabetic (nickname) order --
 
-Thiago Correa (Correa)
-Sebastian Hartte (DarkStorm)
-... ... (Codex)
-... ... (Khpae)
-... ... (Punt)
-Jörg Stückler (Sereg)
+Real Name		aka
+----------------------------------------
+
+Anton Meshkov 		(Codex)
+Thiago Correa 		(Correa)
+Sebastian Hartte 	(DarkStorm)
+Ki Hong Pae 		(Khpae)
+Charles Kerr 		(Punt)
+Fred Robinson 		(Ripper)
+Jörg Stückler 		(Sereg)
