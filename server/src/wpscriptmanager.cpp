@@ -38,9 +38,11 @@
 // Library Includes
 #include "qstring.h"
 
+using namespace std;
+
 WPScriptManager::~WPScriptManager()
 {
-	std::map< QString, WPDefaultScript* >::iterator ScriptIterator;
+	map< QString, WPDefaultScript* >::iterator ScriptIterator;
 
 	for( ScriptIterator = Scripts.begin(); ScriptIterator != Scripts.end(); ++ScriptIterator )
 	{
@@ -64,7 +66,7 @@ void WPScriptManager::add( const QString& Name, WPDefaultScript *Script )
 
 	Script->setName( Name );
 
-	Scripts[ Name ] = Script;
+	Scripts.insert( make_pair(Name, Script) );
 }
 
 void WPScriptManager::remove( const QString& Name )

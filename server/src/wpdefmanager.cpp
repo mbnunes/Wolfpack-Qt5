@@ -29,10 +29,14 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#include "wolfpack.h"
 #include "wpdefmanager.h"
-#include <qdom.h>
-#include <qfile.h>
+#include "globals.h"
+#include "prototypes.h"
+#include "basics.h"
+
+// Library Includes
+#include "qdom.h"
+#include "qfile.h"
 
 // Method for processing one node
 void WPDefManager::ProcessNode( QDomElement Node )
@@ -46,7 +50,7 @@ void WPDefManager::ProcessNode( QDomElement Node )
 	{
 		// Try to get the filename
 		// <include file="data\npcs.xml" \>
-		if( !Node.attributes().contains( QString( "file" ) ) )
+		if( !Node.attributes().contains( "file" ) )
 			return;
 
 		// Get the filename and import it
@@ -55,7 +59,7 @@ void WPDefManager::ProcessNode( QDomElement Node )
 	}
 
 	// Get the Node ID
-	if( !Node.attributes().contains( QString( "id" ) ) )
+	if( !Node.attributes().contains( "id" ) )
 		return;
 
 	QString NodeID = Node.attribute("id");
@@ -107,7 +111,7 @@ bool WPDefManager::ImportSections( const QString& FileName )
 		return false;
 	}
 
-    	File.close();
+    File.close();
 
 	// Get the first document node and start to process it
 	QDomElement Definitions = Document.documentElement();
