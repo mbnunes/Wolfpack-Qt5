@@ -48,6 +48,10 @@
 		
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="5" />
+		
+		<backpack>
+			<item id="potion_lesserpoison" />
+		</backpack>
 	</npc>
 
 </definitions>
