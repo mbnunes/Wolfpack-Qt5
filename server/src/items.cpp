@@ -699,7 +699,7 @@ void cItem::Init(bool mkser)
 	this->contserial = INVALID_SERIAL; // Container that this item is found in
 	this->oldcontserial=INVALID_SERIAL;
 	this->layer_ = this->oldlayer = 0; // Layer if equipped on paperdoll
-	this->itemhand = 0; // Layer if equipped on paperdoll
+	this->itemhand_ = 0; // Layer if equipped on paperdoll
 	this->type=0; // For things that do special things on doubleclicking
 	this->type2=0;
 	this->offspell=0;
@@ -958,7 +958,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					else if (!strcmp("INTADD", (char*)script1))
 						pi->in2 = str2num(script2);
 					else if (!strcmp("ITEMHAND", (char*)script1))
-						pi->itmhand = str2num(script2);
+						pi->setItemhand( str2num(script2) );
 					break;
 					
 				case 'L':

@@ -82,10 +82,6 @@ public:
 	virtual ~cItem() {}
 	virtual void Serialize( ISerialization &archive );
 	virtual string objectID();
-	struct						// Attention, this is a bit field
-	{
-		bool isBeeingDragged;	// true while the item hangs on the mouse cursor
-	} flags;
 	
 	SERIAL contserial;
 	//int itmhand; // ITEMHAND system - AntiChrist

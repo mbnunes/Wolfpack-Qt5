@@ -104,7 +104,6 @@ static void item_bounce3(const P_ITEM pi)
 	pi->SetContSerial(pi->oldcontserial);
 	pi->pos = pi->oldpos;
 	pi->setLayer( pi->oldlayer );
-	pi->flags.isBeeingDragged=false;
 	P_CHAR pc = FindCharBySerial(pi->oldcontserial);
 
 	if (pi->layer() > 0 && pc != NULL)
@@ -368,7 +367,6 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 				pi->pos.y = 0;
 				pi->pos.z = 0;
 				
-				pi->flags.isBeeingDragged=true;
 				pi->SetContSerial(-1);
 			
 			
@@ -395,7 +393,6 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 	
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+1);
 	if (pi == NULL) return;
-	pi->flags.isBeeingDragged=false;
 
 	Map->SeekTile(pi->id(), &tile);
 		
@@ -1025,7 +1022,6 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 
 	Weight->NewCalc(pc_currchar);
 	statwindow(s, pc_currchar);
-	pi->flags.isBeeingDragged = false;
 	
 	//Ripper...so order/chaos shields disappear when on ground.
 	if( pi->id() == 0x1BC3 || pi->id() == 0x1BC4 )
@@ -1109,7 +1105,6 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	}
 	
 	if (pItem == NULL || pCont == NULL) return; //LB
-	pItem->flags.isBeeingDragged = false;
 
 	if( pItem->isMulti() )
 	{
