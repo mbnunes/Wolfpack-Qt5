@@ -1197,7 +1197,7 @@ void cPlayer::applyStartItemDefinition( const cElement *element )
 				else
 				{
 					pItem->remove();
-					Console::instance()->log( LOG_ERROR, QString( "Unrecognized startitem tag '%1' in definition '%2'.").arg( node->name(), element->getAttribute( "id" ) ) );
+					Console::instance()->log( LOG_ERROR, QString( "Unrecognized startitem tag '%1' in definition '%2'.").arg( node->name() ).arg( element->getAttribute( "id" ) ) );
 				}
 			}
 		}

@@ -1363,7 +1363,7 @@ void cItem::processContainerNode( const cElement *tag )
 		}
 		else
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Unknown content element '%1' in item definition '%1'." ).arg( element->name(), element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
+			Console::instance()->log( LOG_ERROR, QString( "Unknown content element '%1' in item definition '%2'." ).arg( element->name() ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
 		}
 	}
 }
