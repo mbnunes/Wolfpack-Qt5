@@ -550,6 +550,15 @@ PyObject* wpItem_getoutmostchar( wpItem* self, PyObject* args )
 	return PyGetCharObject( self->pItem->getOutmostChar() );
 }
 
+PyObject* wpItem_getname( wpItem* self  )
+{
+	if( !self->pItem )
+		return false;
+
+	QString name = self->pItem->getName();
+	return PyString_FromString( name.latin1() );
+}
+
 /*!
 	Adds an item to this container.
 */
@@ -619,6 +628,7 @@ static PyMethodDef wpItemMethods[] =
 	{ "addtimer",			(getattrofunc)wpItem_addtimer, METH_VARARGS, "Attaches a timer to this object." },
 	{ "getoutmostchar",		(getattrofunc)wpItem_getoutmostchar, METH_VARARGS, "Get the outmost character." },
 	{ "getoutmostitem",		(getattrofunc)wpItem_getoutmostitem, METH_VARARGS, "Get the outmost item." },
+	{ "getname",			(getattrofunc)wpItem_getname, METH_VARARGS, "Get item name." },
 	
 	// Effects
 	{ "movingeffect",		(getattrofunc)wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
