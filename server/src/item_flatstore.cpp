@@ -6,6 +6,7 @@
 #include "globals.h"
 #include "wpconsole.h"
 #include "world.h"
+#include "mapobjects.h"
 
 static cUObject* productCreator()
 {
@@ -540,6 +541,10 @@ bool cItem::postload() throw()
 
 			pItem->addItem( pItem, false, true, true );
 		}
+	}
+	else
+	{
+		MapObjects::instance()->add( this );
 	}
 
 	return cUObject::postload(); 

@@ -6,6 +6,7 @@
 #include "flatstore/flatstore.h"
 #include "flatstore_keys.h"
 #include "territories.h"
+#include "mapobjects.h"
 
 static cUObject* productCreator()
 {
@@ -585,7 +586,9 @@ bool cChar::postload() throw()
 {
 	// if we are not bound to a stablemaster, register us with the map objects
 	cTerritory *region = cAllTerritories::getInstance()->region( pos_.x, pos_.y, pos_.map );
-	setRegion( region );	
+	setRegion( region );
+
+	MapObjects::instance()->add( this );
 
 	return cUObject::postload();
 }
