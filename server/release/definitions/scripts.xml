@@ -72,6 +72,9 @@
 	<script>webadmin</script>
 	<script>tooltip</script>
 
+	<!-- Tools -->
+	<script>tools.pickaxe</script>
+
 	<!-- Skills -->
 	<script>skills</script>
 	<script>skills.anatomy</script>
