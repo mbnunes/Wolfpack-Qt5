@@ -155,7 +155,6 @@ void cCommands::loadACLs( void )
 		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
 			const cElement *childTag = Tag->getChild( i );
-
 			if( childTag->name() == "group" )
 			{
 				groupName = childTag->getAttribute( "name" );
@@ -163,7 +162,7 @@ void cCommands::loadACLs( void )
 				for( unsigned int j = 0; j < childTag->childCount(); ++j )
 				{
 					const cElement *groupTag = childTag->getChild( j );
-					
+
 					if( groupTag->name() == "action" )
 					{
 						QString name = groupTag->getAttribute( "name", "any" );
@@ -179,7 +178,6 @@ void cCommands::loadACLs( void )
 				}
 			}
 		}
-
 		_acls.insert( ACLname, acl );	
 	}
 }

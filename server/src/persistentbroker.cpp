@@ -102,6 +102,7 @@ bool PersistentBroker::connect( const QString& host, const QString& db, const QS
 		connection->exec( "PRAGMA default_synchronous = OFF;" );
 		connection->exec( "PRAGMA full_column_names = OFF;" );
 		connection->exec( "PRAGMA show_datatypes = OFF;" );
+		connection->exec( "PRAGMA parser_trace = OFF;" );
 	}
 
 	return true;

@@ -183,7 +183,6 @@ SOURCES         = \
 		uobject.cpp \
 		utilsys.cpp \
 		wolfpack.cpp \
-		wpconsole.cpp \
 		walking.cpp \
 		world.cpp \
 		wpdefmanager.cpp \
@@ -276,6 +275,9 @@ TRANSLATIONS    = \
                   languages/wolfpack_fr.ts \
                   languages/wolfpack_ge.ts
 
-unix:SOURCES  += srvparams_unix.cpp
-win32:SOURCES += srvparams_win.cpp
+unix:SOURCES  += srvparams_unix.cpp \
+		 console_unix.cpp
+
+win32:SOURCES += srvparams_win.cpp \ 
+		 console_win.cpp
 

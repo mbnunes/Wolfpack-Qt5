@@ -1,3 +1,32 @@
+//==================================================================================
+//
+//      Wolfpack Emu (WP)
+//	UO Server Emulation Program
+//
+//  Copyright 2001-2003 by holders identified in authors.txt
+//	This program is free software; you can redistribute it and/or modify
+//	it under the terms of the GNU General Public License as published by
+//	the Free Software Foundation; either version 2 of the License, or
+//	(at your option) any later version.
+//
+//	This program is distributed in the hope that it will be useful,
+//	but WITHOUT ANY WARRANTY; without even the implied warranty of
+//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+//	GNU General Public License for more details.
+//
+//	You should have received a copy of the GNU General Public License
+//	along with this program; if not, write to the Free Software
+//	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+//
+//	* In addition to that license, if you are running this program or modified
+//	* versions of it on a public system you HAVE TO make the complete source of
+//	* the version used by you available or provide people with a location to
+//	* download it.
+//
+//
+//
+//	Wolfpack Homepage: http://wpdev.sf.net/
+//==================================================================================
 
 // System Includes
 #include <stdio.h>
@@ -70,8 +99,14 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 
 		// Set up the fonts we need        
 		ZeroMemory( &lfont, sizeof( LOGFONT ) );
-		qstrcpy( lfont.lfFaceName, "Courier" );
+		qstrcpy( lfont.lfFaceName, "Fixedsys" );
 		font = CreateFontIndirect( &lfont );
+		if ( !font )
+		{
+			ZeroMemory( &lfont, sizeof( LOGFONT ) );
+			qstrcpy( lfont.lfFaceName, "Courier" );
+			font = CreateFontIndirect( &lfont );
+		}
            
 		// Set the font of our logwindow
 		SendMessage( logWindow, WM_SETFONT, (WPARAM)font, 0 );
@@ -84,11 +119,11 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
         cf.crTextColor = RGB( 0xAF,0xAF,0xAF ); 
 
 		SendMessage( logWindow, EM_SETCHARFORMAT, SCF_DEFAULT, (LPARAM)&cf );
-		SendMessage( logWindow, EM_AUTOURLDETECT, 1, 0 );
+		SendMessage( logWindow, EM_AUTOURLDETECT, TRUE, 0 );
 		SendMessage( logWindow, EM_SETEVENTMASK, 0, ENM_LINK|ENM_MOUSEEVENTS|ENM_KEYEVENTS );
 
 		// Create InputWindow
-		inputWindow = CreateWindow( "EDIT", 0, ES_LEFT|ES_AUTOHSCROLL|WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP, 0, 0, 10, 10, hwnd, 0, appInstance, 0 );
+		inputWindow = CreateWindow( "EDIT", 0, ES_LEFT|ES_AUTOHSCROLL|ES_AUTOVSCROLL|ES_NOHIDESEL|WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP, 0, 0, 10, 10, hwnd, 0, appInstance, 0 );
 
 		return 0;
 	
@@ -164,23 +199,74 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 
 class cGuiThread : public QThread
 {
+	LPSTR cmdLine;
+	int returnValue_;
+
+public:
+
+	cGuiThread( LPSTR lpCmdLine ) : cmdLine( lpCmdLine ) {}
+
+	int returnValue() { return returnValue_; }
+
 protected:
-	virtual void run()
+
+	void run()
 	{
-		char **argv = (char**)malloc( 1 * sizeof( char* ) );
-		argv[0] = "wolfpack.exe";
+		QMemArray<pchar> argv( 8 );
+		/*	 
+			Since Windows programs don't get passed the command name as the	 
+			first argument, we need to fetch it explicitly.	 
+		*/
+		static char appFileName[256];
+		GetModuleFileNameA( 0, appFileName, sizeof(appFileName) );
 		int argc = 1;
+		argv[0] = appFileName;
 
-		main( argc, argv );	
+		/* 
+			Parse the Windows command line string.  If an argument begins with a	
+			double quote, then spaces are considered part of the argument until the	
+			next double quote.  The argument terminates at the second quote. Note	 
+			that this is different from the usual Unix semantics.	 
+		*/
 
-		free( argv[0] );
-		free( argv );
+		char *p = cmdLine;
+		char *p_end = p + strlen(p);
+	
+		while ( *p && p < p_end ) 
+		{
+			while ( isspace( (uchar)*p ) )			// skip whitespace
+				p++;
 
-		PostQuitMessage( 0 );
+		    if (*p == '\0')
+				break;	 
+			
+			if (*p == '"') 
+			{	 
+				p++;
+				if ( argc >= (int)argv.size()-1 )
+					argv.resize( argv.size()*2 );
+				argv[argc++] = p;	 
+				while ( (*p != '\0') && (*p != '"') ) 
+					p++;	 
+			} else {	 
+				if ( argc >= (int)argv.size()-1 )
+					argv.resize( argv.size()*2 );
+				argv[argc++] = p;	 
+				while (*p != '\0' && !isspace( (uchar)*p ) )
+					p++;	 
+			}	 
+			if (*p != '\0') {	 
+				*p = '\0';	 
+				p++;	 
+			}	 
+		}				
+		argv[argc] = 0;
+
+		returnValue_ = main( argc, argv.data() );	
+
+		PostQuitMessage( returnValue_ );
 	}
 };
-
-cGuiThread *guiThread = 0;
 
 int WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd )
 {
@@ -222,8 +308,8 @@ int WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int 
 
 	ShowWindow( mainWindow, SW_NORMAL );
 
-	guiThread = new cGuiThread;
-	guiThread->start();
+	cGuiThread guiThread( lpCmdLine );
+	guiThread.start();
 
 	MSG msg;
 
@@ -235,10 +321,10 @@ int WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int 
 
 	keeprun = 0; // We quit, so let's quit the server too
 
-	guiThread->wait();
-	delete guiThread;
-
-	return 0;
+	guiThread.wait();
+	FreeLibrary( hRiched );
+	
+	return guiThread.returnValue();
 }
 
 void cConsole::start()
@@ -256,6 +342,31 @@ void cConsole::stop()
 void cConsole::send(const QString &sMessage)
 {
 	// process \b properly
+	if ( sMessage.contains("\b") )
+	{
+		// Split the message
+		uint pos = sMessage.find("\b");
+		if ( pos > 0 )
+			send( sMessage.right(pos));
+		else
+		{
+			CHARRANGE range;
+			SendMessage( logWindow, EM_EXGETSEL, 0, (LPARAM)&range );
+			range.cpMin -= 1;
+			SendMessage( logWindow, EM_EXSETSEL, 0, (LPARAM)&range );
+			SendMessage( logWindow, EM_REPLACESEL, FALSE, 0 );
+			send( sMessage.left( sMessage.length() - 1 ) );
+			return;
+		}
+	}
+	// Make sure we append, so move to last character.
+	int nLines = SendMessage(logWindow, EM_GETLINECOUNT, 0, 0);
+	LONG nLastChar = SendMessage(logWindow, EM_LINEINDEX, nLines, 0);
+	CHARRANGE range;
+	range.cpMin = nLastChar;
+	range.cpMax = nLastChar;
+	SendMessage( logWindow, EM_EXSETSEL, 0, (LPARAM) &range);
+	// Now it will get right, even if the user had selected sth.
 	SendMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)sMessage.latin1() );
 }
 

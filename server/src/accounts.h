@@ -59,8 +59,8 @@ class AccountRecord : public cSerializable
 private:
 	QString login_;
 	QString password_;
-	cAcl *acl_;
-	QString aclName_;
+	mutable cAcl *acl_;
+	mutable QString aclName_;
 	QValueVector<P_PLAYER> characters_;
 	QDateTime lastLogin_;
 	QDateTime blockUntil;

@@ -130,8 +130,17 @@ bool AccountRecord::authorized( const QString& group, const QString& value ) con
 {
 	// No Valid ACL specified
 	if( !acl_ )
-		return false;
-
+	{// Let's try harder get one.
+		acl_ = cCommands::instance()->getACL( aclName_ ); // loads if there was any specified.
+		if ( !acl_ )
+		{
+			acl_ = cCommands::instance()->getACL( "player" );
+			if ( acl_ )
+				aclName_ = "player";
+			else
+				return false;
+		}
+	}
 	// No group? No Access!
 	QMap< QString, QMap< QString, bool > >::iterator groupIter = acl_->groups.find( group );
 	if( groupIter == acl_->groups.end() )
@@ -147,7 +156,6 @@ bool AccountRecord::authorized( const QString& group, const QString& value ) con
 	if( aGroup.find( "any" ) != aGroup.end() )
 		return aGroup[ "any" ];
 
-	// TODO: Implement Group any here
 	return false;
 }
 

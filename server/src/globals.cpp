@@ -77,7 +77,7 @@ int dosavewarning=0;
 bool heartbeat;
 
 int err, error;
-int keeprun;
+volatile int keeprun;
 
 //int now;
 

@@ -74,7 +74,7 @@ extern unsigned int nextnpcaitime;
 
 extern int autosaved, dosavewarning;
 extern int err, error;
-extern int keeprun;
+extern volatile int keeprun;
 //extern int now;
 extern int secure; // Secure mode
 
