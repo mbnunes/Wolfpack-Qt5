@@ -333,7 +333,7 @@ bool handleMenuSelect( unsigned int id )
 
 		Network::instance()->unlock();
 
-		Console::instance()->send( QString( "Total Users Online: %1\n" ).arg( i ) );
+		Console::instance()->send( tr( "Total Users Online: %1\n" ).arg( i ) );
 
 		break;
 
@@ -642,7 +642,7 @@ protected:
 
 		if ( returnValue_ != 0 )
 		{
-			Console::instance()->send( ("\nThe server has been shut down. You can close this window now.\n") );
+			Console::instance()->send( tr("\nThe server has been shut down. You can close this window now.\n") );
 			canClose = true;
 		}
 		else

@@ -208,27 +208,27 @@ cServer::cServer()
 	d->app = 0;
 
 	// Register Components
-	registerComponent( Config::instance(), "configuration", true, false );
+	registerComponent( Config::instance(), QT_TR_NOOP("configuration"), true, false );
 
 	// We want to start this independently
 	//registerComponent(PythonEngine::instance(), "python", false, true, "configuration");
 
-	registerComponent( Definitions::instance(), "definitions", true, false, "configuration" );
-	registerComponent( ScriptManager::instance(), "scripts", true, false, "definitions" );
-	registerComponent( ContextMenus::instance(), "contextmenus", true, false, "scripts" );
-	registerComponent( SpawnRegions::instance(), "spawnregions", true, false, "definitions" );
-	registerComponent( Territories::instance(), "territories", true, false, "definitions" );
+	registerComponent( Definitions::instance(), QT_TR_NOOP("definitions"), true, false, "configuration" );
+	registerComponent( ScriptManager::instance(), QT_TR_NOOP("scripts"), true, false, "definitions" );
+	registerComponent( ContextMenus::instance(), QT_TR_NOOP("contextmenus"), true, false, "scripts" );
+	registerComponent( SpawnRegions::instance(), QT_TR_NOOP("spawnregions"), true, false, "definitions" );
+	registerComponent( Territories::instance(), QT_TR_NOOP("territories"), true, false, "definitions" );
 
-	registerComponent( Maps::instance(), "maps", true, false, "configuration" );
-	registerComponent( SectorMaps::instance(), "sectormaps", false, true, "maps" );
-	registerComponent( TileCache::instance(), "tiledata", true, false, "configuration" );
-	registerComponent( MultiCache::instance(), "multis", true, false, "configuration" );
+	registerComponent( Maps::instance(), QT_TR_NOOP("maps"), true, false, "configuration" );
+	registerComponent( SectorMaps::instance(), QT_TR_NOOP("sectormaps"), false, true, "maps" );
+	registerComponent( TileCache::instance(), QT_TR_NOOP("tiledata"), true, false, "configuration" );
+	registerComponent( MultiCache::instance(), QT_TR_NOOP("multis"), true, false, "configuration" );
 
 	// Accounts come before world
-	registerComponent( Accounts::instance(), "accounts", true, false );
-	registerComponent( World::instance(), "world", false, true );
+	registerComponent( Accounts::instance(), QT_TR_NOOP("accounts"), true, false );
+	registerComponent( World::instance(), QT_TR_NOOP("world"), false, true );
 
-	registerComponent( Network::instance(), "network", true, false );
+	registerComponent( Network::instance(), QT_TR_NOOP("network"), true, false );
 }
 
 cServer::~cServer()
@@ -273,15 +273,6 @@ bool cServer::run( int argc, char** argv )
 		Console::instance()->log( LOG_WARNING, "You might have to change it accordingly before running again\n");
 	}
 
-	// Start Python
-	PythonEngine::instance()->load();
-
-	// Parse the parameters.
-	Getopts::instance()->parse_options( argc, argv );
-
-	// Print a header and useful version informations
-	setupConsole();
-
 #if !defined( QT_NO_TRANSLATION )
 	// Start the QT translator
 	QString languageFile = Config::instance()->getString( "General", "Language File", QString("wolfpack_") + QTextCodec::locale(), true );
@@ -299,6 +290,15 @@ bool cServer::run( int argc, char** argv )
 		}
 	}
 #endif
+
+	// Start Python
+	PythonEngine::instance()->load();
+
+	// Parse the parameters.
+	Getopts::instance()->parse_options( argc, argv );
+
+	// Print a header and useful version informations
+	setupConsole();
 
 	// Load all subcomponents
 	try 
@@ -622,7 +622,7 @@ void cServer::reload( const QString& name )
 	{
 		if ( !component->isSilent() )
 		{
-			Console::instance()->sendProgress( tr( "Reloading %1" ).arg( component->getName() ) );
+			Console::instance()->sendProgress( tr( "Reloading %1" ).arg( tr(component->getName()) ) );
 		}
 
 		component->reload();

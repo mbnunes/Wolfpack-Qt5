@@ -35,6 +35,7 @@
 #include "../platform.h"
 #include "../singleton.h"
 #include "../typedefs.h"
+#include "../objectdef.h"
 #include "uosocket.h"
 
 //Forward class Declaration
@@ -44,6 +45,7 @@ class QHostAddress;
 
 class cNetwork : public cComponent
 {
+	OBJECTDEF(cNetwork)
 	class cNetworkPrivate;
 	cNetworkPrivate* d;
 public:

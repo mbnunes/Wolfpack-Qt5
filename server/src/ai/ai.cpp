@@ -216,7 +216,7 @@ void ScriptAI::processNode( const cElement* Tag )
 			m_actions.append( action );
 		}
 		else
-			Console::instance()->send( "Action tag in ai definition must contain attributes for pre-,postcondition and execute at least\n" );
+			Console::instance()->send( tr("Action tag in ai definition must contain attributes for pre-,postcondition and execute at least\n") );
 	}
 	else if ( TagName == "onspeech" )
 	{
@@ -942,10 +942,8 @@ void AbstractAI::onSpeechInput( P_PLAYER pTalker, const QString& comm )
 	}
 	else if ( ( comm.contains( " FETCH" ) ) || ( comm.contains( " GET" ) ) )
 	{
-		//pPlayer->setGuarded(false);
-		// >> LEGACY
-		//addx[s]=pPet->serial();
-		//target(s, 0, 1, 0, 124, "Click on the object to fetch.");
+#pragma note( Implement me )
+		pTalker->message( tr( "Sorry, not implemented yet :(" ) );
 	}
 	else if ( comm.contains( " COME" ) )
 	{

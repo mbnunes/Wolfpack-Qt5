@@ -102,7 +102,7 @@ cMulti* cMulti::createFromScript( const QString& id )
 	}
 	else
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Unable to create unscripted item: %1\n" ).arg( id ) );
+		Console::instance()->log( LOG_ERROR, tr( "Unable to create unscripted item: %1\n" ).arg( id ) );
 	}
 
 	return multi;

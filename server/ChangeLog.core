@@ -55,6 +55,8 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Fixed the emotecolor property not being set on speech.
 	- Fixed a gump response vulnerability.
 	- Fixed console bugs.
+	- Added translation support to Python scripts.
+	- Fixed stablemaster speech handling ( Stablemasters are also vendors )
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.

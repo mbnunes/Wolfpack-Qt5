@@ -198,3 +198,8 @@ DISTFILES += \
 	data/AUTHORS.txt \
 	LICENSE.GPL
 
+# used by tools/translationupdate, our own version of lupdate
+# WPDEFINITIONS is the folder where xml definitons are.
+# WPSCRIPTS is the folder where Python scripts are.
+WPDEFINITIONS = ../definitions
+WPSCRIPTS = ../scripts

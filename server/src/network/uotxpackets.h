@@ -34,6 +34,7 @@
 #include "qstringlist.h"
 #include "../typedefs.h"
 #include "../coord.h"
+#include "../objectdef.h"
 
 #include <vector>
 #include "uopacket.h"
@@ -1238,6 +1239,7 @@ public:
 // 0x88 Open Paperdoll
 class cUOTxOpenPaperdoll : public cUOPacket
 {
+	OBJECTDEF(cUOTxOpenPaperdoll)
 public:
 	cUOTxOpenPaperdoll() : cUOPacket( 0x88, 66 )
 	{

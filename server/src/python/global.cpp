@@ -1793,6 +1793,23 @@ static PyObject *wpItemBase(PyObject*, PyObject *args) {
 	}
 }
 
+/*
+\function wolfpack.tr
+\param message The message to be translated.
+\return The translated message into the current server's language.
+\description Get a message in English and translates it into the current server's language.
+*/
+static PyObject* wpTr(PyObject*, PyObject *args) 
+{
+	char* message = 0;
+	if ( !PyArg_ParseTuple( args, "s:wolfpack.tr(message)", &message ) )
+	{
+		return 0;
+	}
+	return QString2Python( qApp->translate( "@pythonscript", message ) );
+}
+
+
 static PyMethodDef wpGlobal[] =
 {
 { "npccount",			wpNpcCount,						METH_VARARGS, 0 },
@@ -1852,6 +1869,7 @@ static PyMethodDef wpGlobal[] =
 { "queuecode",			wpQueueCode,					METH_VARARGS, NULL },
 { "charcount",			wpCharCount,					METH_NOARGS,  "Returns the number of chars in the world" },
 { "itemcount",			wpItemCount,					METH_NOARGS,  "Returns the number of items in the world" },
+{ "tr",					wpTr,							METH_VARARGS, NULL },
 { NULL, NULL, 0, NULL } // Terminator
 
 };

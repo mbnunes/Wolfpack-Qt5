@@ -72,7 +72,7 @@ void Human_Vendor::onSpeechInput( P_PLAYER pTalker, const QString& comm )
 	}
 }
 
-Human_Stablemaster::Human_Stablemaster( P_NPC npc ) : AbstractAI( npc )
+Human_Stablemaster::Human_Stablemaster( P_NPC npc ) : Human_Vendor( npc )
 {
 	notorietyOverride_ = 1;
 	m_actions.append( new Action_Wander( npc, this ) );
@@ -96,9 +96,9 @@ void Human_Stablemaster::registerInFactory()
 
 void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message )
 {
+	Human_Vendor::onSpeechInput( pTalker, message );
 	if ( !pTalker->socket() )
 		return;
-
 	if ( m_npc->inRange( pTalker, 4 ) && ( VendorChkName( m_npc, message ) || message.contains( tr( "STABLEMASTER" ) ) ) )
 	{
 		if ( message.contains( tr( " STABLE" ) ) )

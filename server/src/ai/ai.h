@@ -442,6 +442,7 @@ public:
 
 class Human_Vendor : public AbstractAI
 {
+	OBJECTDEF(Human_Vendor)
 protected:
 	Human_Vendor() : AbstractAI()
 	{
@@ -467,10 +468,11 @@ public:
 
 class cUORxTarget;
 
-class Human_Stablemaster : public AbstractAI
+class Human_Stablemaster : public Human_Vendor
 {
+	OBJECTDEF(Human_Stablemaster)
 protected:
-	Human_Stablemaster() : AbstractAI()
+	Human_Stablemaster()
 	{
 		notorietyOverride_ = 1;
 	}
@@ -646,6 +648,7 @@ protected:
 
 class Human_Guard_Called_Fight : public AbstractAction
 {
+	OBJECTDEF(Human_Guard_Called_Fight)
 protected:
 	Human_Guard_Called_Fight() : AbstractAction()
 	{
@@ -768,6 +771,7 @@ public:
 
 class Human_Guard_Fight : public AbstractAction
 {
+	OBJECTDEF(Human_Guard_Fight)
 protected:
 	Human_Guard_Fight() : AbstractAction()
 	{

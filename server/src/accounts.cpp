@@ -343,7 +343,7 @@ void cAccounts::save()
 	// Open the Account Driver
 	if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
+		Console::instance()->log( LOG_ERROR, tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
 		return;
 	}
 
@@ -356,11 +356,11 @@ void cAccounts::save()
 
 		if ( !PersistentBroker::instance()->tableExists( "accounts" ) )
 		{
-			Console::instance()->send( "Accounts database didn't exist! Creating one\n" );
+			Console::instance()->send( tr("Accounts database didn't exist! Creating one\n") );
 			PersistentBroker::instance()->executeQuery( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
 			account->setAcl( "admin" );
-			Console::instance()->send( "Created default admin account: Login = admin, Password = admin\n" );
+			Console::instance()->send( tr("Created default admin account: Login = admin, Password = admin\n") );
 		}
 
 		// Lock the table
@@ -394,13 +394,13 @@ void cAccounts::save()
 	{
 		if ( connected )
 			PersistentBroker::instance()->executeQuery( "ROLLBACK;" );
-		Console::instance()->log( LOG_ERROR, QString( "Error while saving Accounts: %1." ).arg( error ) );
+		Console::instance()->log( LOG_ERROR, tr( "Error while saving Accounts: %1." ).arg( error ) );
 	}
 	catch ( ... )
 	{
 		if ( connected )
 			PersistentBroker::instance()->executeQuery( "ROLLBACK;" );
-		Console::instance()->log( LOG_ERROR, "Unknown error while saving Accounts." );
+		Console::instance()->log( LOG_ERROR, tr("Unknown error while saving Accounts.") );
 	}
 }
 
@@ -409,7 +409,7 @@ void cAccounts::load()
 	// Open the Account Driver
 	if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
 	{
-		throw wpException( QString( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
+		throw wpException( tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
 	}
 
 	// Load all Accounts
@@ -419,11 +419,11 @@ void cAccounts::load()
 
 		if ( !PersistentBroker::instance()->tableExists( "accounts" ) )
 		{
-			Console::instance()->send( "Accounts database didn't exist! Creating one\n" );
+			Console::instance()->send( tr("Accounts database didn't exist! Creating one\n") );
 			PersistentBroker::instance()->executeQuery( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
 			account->setAcl( "admin" );
-			Console::instance()->send( "Created default admin account: Login = admin, Password = admin\n" );
+			Console::instance()->send( tr("Created default admin account: Login = admin, Password = admin\n") );
 		}
 
 		PersistentBroker::instance()->lockTable( "accounts" );
@@ -456,11 +456,11 @@ void cAccounts::load()
 				if ( Config::instance()->convertUnhashedPasswords() )
 				{
 					account->password_ = cMd5::fastDigest( account->password_ );
-					Console::instance()->log( LOG_NOTICE, QString( "Hashed account password for '%1'.\n" ).arg( account->login_ ) );
+					Console::instance()->log( LOG_NOTICE, tr( "Hashed account password for '%1'.\n" ).arg( account->login_ ) );
 				}
 				else
 				{
-					Console::instance()->log( LOG_NOTICE, QString( "Account '%1' has an unhashed password.\n" ).arg( account->login_ ) );
+					Console::instance()->log( LOG_NOTICE, tr( "Account '%1' has an unhashed password.\n" ).arg( account->login_ ) );
 				}
 			}
 
@@ -472,11 +472,11 @@ void cAccounts::load()
 	}
 	catch ( QString& error )
 	{
-		throw wpException( QString( "Error while loading Accounts: %1" ).arg( error ) );
+		throw wpException( tr( "Error while loading Accounts: %1" ).arg( error ) );
 	}
 	catch ( ... )
 	{
-		throw wpException( "Unknown error while loading Accounts" );
+		throw wpException( tr("Unknown error while loading Accounts") );
 	}
 
 	cComponent::load();
