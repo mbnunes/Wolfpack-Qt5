@@ -23,8 +23,6 @@
 //	* the version used by you available or provide people with a location to
 //	* download it.
 //
-//
-//
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 

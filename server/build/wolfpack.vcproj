@@ -321,6 +321,12 @@
 				RelativePath=".\makemenus.h">
 			</File>
 			<File
+				RelativePath=".\md5.cpp">
+			</File>
+			<File
+				RelativePath=".\md5.h">
+			</File>
+			<File
 				RelativePath=".\network.cpp">
 			</File>
 			<File
