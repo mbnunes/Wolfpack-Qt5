@@ -199,7 +199,7 @@ the line of sight.
 
 	map_st map1, map2;
 	std::set< UI16 > itemids;
-	SI32 length, j, k;
+	SI32 j;
 
 	QValueList< Coord_cl >::iterator pit = collisions.begin();
 	while( pit != collisions.end() )
@@ -261,7 +261,7 @@ the line of sight.
 		// Multis
 		QPtrListIterator< cItem > mit( multis );
 		P_ITEM pi;
-		while( pi = mit.current() )
+		while( ( pi = mit.current() ) )
 		{
 			MultiDefinition* def = MultiCache::instance()->getMulti( pi->id() - 0x4000 );
 			if ( !def )

@@ -675,7 +675,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	static unsigned int lighttime = 0;
 	static unsigned int htmltime = 0;
 	static unsigned int housedecaytimer = 0;
-	static unsigned int freeUnusedMemory = 0;
 
 	if( shoprestocktime == 0 )
 		shoprestocktime = currenttime + MY_CLOCKS_PER_SEC * 60 * 20;
@@ -803,7 +802,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	}
 
 	// Check Spawners
-	static UINT32 respawntime = 0;
+	//static UINT32 respawntime = 0;
 
     //if( respawntime <= currenttime )
 	//{

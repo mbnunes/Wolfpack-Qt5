@@ -4455,7 +4455,7 @@ void cChar::setSkillCap( UINT16 skill, UINT16 cap )
 	skills[ skill ].cap = cap;
 
 	// Check if we can delete the current skill
-	const stSkillValue &skValue = skills[ skill ];
+//	const stSkillValue &skValue = skills[ skill ];
 
 //	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
 //		skills.remove( skill );

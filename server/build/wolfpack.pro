@@ -6,11 +6,24 @@
 
 PROJECT         = wolfpack
 TARGET          = wolfpack
-TEMPLATE        = app
-CONFIG         += qt console debug thread exceptions rtti
-INCLUDEPATH     = lib/ZThread/include lib/Python/include
+TEMPLATE       += app
+CONFIG         += qt console thread exceptions rtti
+INCLUDEPATH    += lib/ZThread/include lib/Python/include
 DEFINES        += REENTRANT ZTHREAD_STATIC WP_DONT_USE_HASH_MAP
 
+unix {
+	release {
+		CONFIG += warn_off
+		linux {
+			QMAKE_CXXFLAGS -= -O2
+			QMAKE_CXXFLAGS += -mcpu=athlon-xp -O3 -pipe -fomit-frame-pointer -fsched-spec-load -frerun-loop-opt -fprefetch-loop-arrays -ffast-math
+	}
+	debug {
+		CONFIG += warn_on
+	}
+}
+
+RC_FILE = res.rc
 
 win32:DEFINES  += WIN32 
 win32:OBJECTS_DIR = obj
@@ -26,7 +39,6 @@ win32-borland:LIBS = ws2_32.lib lib/ZThread/lib/ZThread.lib
 
 unix:INCLUDEPATH += /usr/local/include/stlport lib/Python/Include lib/ZThread/include lib/Python /usr/include/mysql
 unix:LIBS  = -L/usr/local/lib -Llib/ZThread/lib -Llib/Python -L/usr/lib/mysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil 
-unix:TMAKE_CXXFLAGS = -funsigned-char -w -O2
 
 HEADERS         = \
 		  Timing.h \
@@ -181,7 +193,6 @@ SOURCES         = \
 # Twofish Module
 HEADERS		+= twofish/twofish.h
 
-
 SOURCES		+= twofish/twofish.cpp
 
 # Network Module
@@ -200,7 +211,7 @@ SOURCES		+= python/char.cpp \
 		   python/engine.cpp \
 		   python/global.cpp \
 		   python/item.cpp \
-			python/multi.cpp \
+	  	   python/multi.cpp \
 		   python/pyaccount.cpp \
 		   python/pycoord.cpp \
 		   python/pyregion.cpp \
@@ -217,8 +228,8 @@ HEADERS	+= flatstore/exceptions.h \
 			flatstore/version.h
 
 SOURCES	+= flatstore/exceptions.cpp \
-			flatstore/flatstore.cpp \
-			flatstore/flatstore_c.cpp
+	   flatstore/flatstore.cpp \
+	   flatstore/flatstore_c.cpp
 
 INTERFACES	=
 TRANSLATIONS    = \
@@ -230,5 +241,6 @@ TRANSLATIONS    = \
                   languages/wolfpack_fr.ts \
                   languages/wolfpack_ge.ts
 
-unix:SOURCES += srvparams_unix.cpp
+unix:SOURCES  += srvparams_unix.cpp
 win32:SOURCES += srvparams_win.cpp
+

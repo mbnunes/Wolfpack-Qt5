@@ -242,7 +242,7 @@ inline QSocketDevice* cUOSocket::socket( void ) const
 	return _socket; 
 }
 
-void inline cUOSocket::setSocket( QSocketDevice *data ) 
+inline void cUOSocket::setSocket( QSocketDevice *data ) 
 { 
 	_socket = data; 
 }

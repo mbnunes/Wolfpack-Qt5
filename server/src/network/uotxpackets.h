@@ -121,7 +121,7 @@ protected:
 	Q_UINT32 flags;
 	Q_INT16 charLimit;
 public:
-	cUOTxCharTownList(): charLimit( -1 ), cUOPacket( 9 ), flags( 0x8 ) {}
+	cUOTxCharTownList(): cUOPacket( 9 ), flags( 0x8 ), charLimit( -1 ) {}
 
 	virtual void addCharacter( QString name );
 	virtual void addTown( Q_UINT8 index, const QString &name, const QString &area );
