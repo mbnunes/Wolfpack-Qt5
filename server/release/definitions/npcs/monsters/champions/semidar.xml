@@ -9,7 +9,7 @@
 <definitions>
 
 	<!-- Semidar -->
-	<npc id="semidar" inherit="monster_base">
+	<npc id="semidar" inherit="monster_base_magi">
 		<name>Semidar</name>
 		<title>the Succubus</title>
 		<id>174</id>
@@ -21,13 +21,12 @@
 		<int><random min="601" max="750"/></int>
 		<maxhitpoints><random min="1500" max="1500"/></maxhitpoints>
 		<!-- Skills -->
-		<wrestling><random min="901" max="1050"/></wrestling>
-		<tactics><random min="901" max="1050"/></tactics>
-		<magicresistance><random min="1202" max="1400"/></magicresistance>
-		<anatomy>0</anatomy>
-		<magery><random min="900" max="1050"/></magery>
-		<evaluatingintelligence><random min="951" max="1000"/></evaluatingintelligence>
-		<meditation><random min="951" max="1000" /></meditation>
+		<skill id="wrestling"><random min="901" max="1050"/></skill>
+		<skill id="tactics"><random min="901" max="1050"/></skill>
+		<skill id="magicresist"><random min="1202" max="1400"/></skill>
+		<skill id="magery"><random min="900" max="1050"/></skill>
+		<skill id="evaluatingintelligence"><random min="951" max="1000"/></skill>
+		<skill id="meditation"><random min="951" max="1000" /></skill>
 		<!-- Damage -->
 		<mindamage>92</mindamage>
 		<maxdamage>123</maxdamage>

@@ -21,10 +21,10 @@
 		<int><random min="51" max="100"/></int>
 		<maxhitpoints><random min="3000" max="3000"/></maxhitpoints>
 		<!-- Skills -->
-		<wrestling><random min="0" max="0"/></wrestling>
-		<tactics><random min="1000" max="1000"/></tactics>
-		<magicresistance><random min="1402" max="1600"/></magicresistance>
-		<anatomy><random min="1000" max="1000"/></anatomy>
+		<skill id="wrestling"><random min="0" max="0"/></skill>
+		<skill id="tactics"><random min="1000" max="1000"/></skill>
+		<skill id="magicresist"><random min="1402" max="1600"/></skill>
+		<skill id="anatomy"><random min="1000" max="1000"/></skill>
 		<!-- Damage -->
 		<mindamage>124</mindamage>
 		<maxdamage>272</maxdamage>
@@ -46,7 +46,6 @@
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;gems</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Rikktor</category>
-
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="20" />
 		<strproperty name="carve_scales_type" value="all" />

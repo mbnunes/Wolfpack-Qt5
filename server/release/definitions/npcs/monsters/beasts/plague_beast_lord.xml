@@ -20,10 +20,8 @@
 		<int>30</int>
 		<maxhitpoints>1800</maxhitpoints>
 		<!-- Skills -->
-		<tactics>1000</tactics>
-		<wrestling>1000</wrestling>
-		<anatomy>0</anatomy>
-		<magicresistance>0</magicresistance>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling">1000</skill>
 		<!-- Damage -->
 		<mindamage>66</mindamage>
 		<maxdamage>78</maxdamage>

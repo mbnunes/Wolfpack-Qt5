@@ -11,7 +11,7 @@
 	<!-- Random Bull -->
 	<npc id="bull" inherit="animal_base">
 		<name>bull</name>
-		<id><random list="NPCIDS_BULL" /></id>
+		<id><random valuelist="233,232" /></id>
 		<ai>Animal_Domestic</ai>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />

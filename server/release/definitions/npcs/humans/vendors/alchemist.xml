@@ -77,4 +77,9 @@
 		<category>Vendors\Alchemist (Female)</category>
 	</npc>
 
+	<npc id="alchemist">
+		<inherit><random valuelist="alchemist_male,alchemist_female" /></inherit>
+		<category>Vendors\Alchemist (Random)</category>
+	</npc>
+
 </definitions>

@@ -11,6 +11,7 @@
 
 	<!-- a dragon, random -->
 	<npc id="dragon_base" inherit="monster_base">
+		<id><random valuelist="12,59" /></id>
 		<name>dragon</name>
 		<inherit id="KARMA_L5" />
 		<inherit id="FAME_L5" />
@@ -20,11 +21,11 @@
 		<int><random min="436" max="475"/></int>
 		<maxhitpoints><random min="478" max="495" /></maxhitpoints>
 		<!-- Skills -->
-		<evaluatingintelligence><random min="301" max="400"/></evaluatingintelligence>
-		<magery><random min="301" max="400"/></magery>
-		<magicresistance><random min="991" max="1000"/></magicresistance>
-		<tactics><random min="976" max="1000"/></tactics>
-		<wrestling><random min="901" max="925"/></wrestling>
+		<skill id="evaluatingintelligence"><random min="301" max="400"/></skill>
+		<skill id="magery"><random min="301" max="400"/></skill>
+		<skill id="magicresist"><random min="991" max="1000"/></skill>
+		<skill id="tactics"><random min="976" max="1000"/></skill>
+		<skill id="wrestling"><random min="901" max="925"/></skill>
 		<!-- Damage -->
 		<mindamage>65</mindamage>
 		<maxdamage>90</maxdamage>
@@ -48,8 +49,6 @@
 	<npc id="dragon_gray" inherit="dragon_base">
 		<id>12</id>
 		<category>Monsters\Dragons\Dragon (Gray)</category>
-		<baseid>dragon_gray</baseid>
-
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="7" />
 		<strproperty name="carve_scales_type" value="yellow" />
@@ -62,8 +61,6 @@
 	<npc id="dragon_red" inherit="dragon_base">
 		<id>59</id>
 		<category>Monsters\Dragons\Dragon (Red)</category>
-		<baseid>dragon_red</baseid>
-
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="7" />
 		<strproperty name="carve_scales_type" value="red" />
@@ -72,16 +69,10 @@
 		<intproperty name="carve_meat" value="19" />
 	</npc>
 
-	<list id="dragon_ids">
-		<item>dragon_gray</item>
-		<item>dragon_red</item>
-	</list>
-
 	<!-- random dragon -->
-	<npc id="dragon">
-		<id>12</id>
+	<npc id="dragon" inherit="dragon_base">
+		<inherit><random valuelist="dragon_gray,dragon_red" /></inherit>
 		<category>Monsters\Dragons\Dragon (Random)</category>
-		<inherit><random list="dragon_ids" /></inherit>
 	</npc>
 
 </definitions>

@@ -40,4 +40,16 @@
 		<strproperty name="bloodcolor" value="1401,1447" />
 	</npc>
 
+	<npc id="monster_base_magi" inherit="monster_base">
+		<skill id="meditation">0</skill>
+		<skill id="evaluatingintelligence">0</skill>
+		<skill id="magery">0</skill>
+	</npc>
+
+	<npc id="undead_base_magi" inherit="undead_base">
+		<skill id="meditation">0</skill>
+		<skill id="evaluatingintelligence">0</skill>
+		<skill id="magery">0</skill>
+	</npc>
+
 </definitions>

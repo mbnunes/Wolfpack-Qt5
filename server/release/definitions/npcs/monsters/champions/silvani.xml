@@ -9,7 +9,7 @@
 <definitions>
 
 	<!-- Silvani -->
-	<npc id="silvani" inherit="monster_base">
+	<npc id="silvani" inherit="monster_base_magi">
 		<name>Silvani</name>
 		<title>the Sprite Queen</title>
 		<id>176</id>
@@ -21,13 +21,12 @@
 		<int><random min="503" max="800"/></int>
 		<maxhitpoints><random min="600" max="600"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="1005" max="1500"/></magicresistance>
-		<tactics><random min="976" max="1000"/></tactics>
-		<wrestling><random min="976" max="1000"/></wrestling>
-		<magery><random min="976" max="1075"/></magery>
-		<evaluatingintelligence><random min="1000" max="1000"/></evaluatingintelligence>
-		<meditation><random min="1000" max="1000" /></meditation>
-		<anatomy>0</anatomy>
+		<skill id="magicresist"><random min="1005" max="1500"/></skill>
+		<skill id="tactics"><random min="976" max="1000"/></skill>
+		<skill id="wrestling"><random min="976" max="1000"/></skill>
+		<skill id="magery"><random min="976" max="1075"/></skill>
+		<skill id="evaluatingintelligence"><random min="1000" max="1000"/></skill>
+		<skill id="meditation"><random min="1000" max="1000" /></skill>
 		<!-- Damage -->
 		<mindamage>67</mindamage>
 		<maxdamage>109</maxdamage>

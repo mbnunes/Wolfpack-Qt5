@@ -19,9 +19,9 @@
 		<dex><random min="91" max="115"/></dex>
 		<int><random min="21" max="45"/></int>
 		<!-- Skills -->
-		<magicresistance><random min="751" max="1000"/></magicresistance>
-		<tactics><random min="551" max="800"/></tactics>
-		<wrestling><random min="551" max="750"/></wrestling>
+		<skill id="magicresist"><random min="751" max="1000"/></skill>
+		<skill id="tactics"><random min="551" max="800"/></skill>
+		<skill id="wrestling"><random min="551" max="750"/></skill>
 		<!-- Damage -->
 		<mindamage>5</mindamage>
 		<maxdamage>7</maxdamage>
@@ -35,7 +35,6 @@
 		<!-- Missing: Plain Seed, 4 Log -->
 		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Beasts\Bogling</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />
 		<intproperty name="carve_meat" value="1" />

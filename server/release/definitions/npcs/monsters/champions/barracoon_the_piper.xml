@@ -9,7 +9,7 @@
 <definitions>
 
 	<!-- Baracoon The Piper -->
-	<npc id="barracoon_the_piper" inherit="monster_base">
+	<npc id="barracoon_the_piper" inherit="monster_base_magi">
 		<name>Baracoon</name>
 		<title>the piper</title>
 		<id>400</id>
@@ -22,13 +22,9 @@
 		<maxhitpoints>42000</maxhitpoints>
 		<maxstamina><random min="102" max="300" /></maxstamina>
 		<!-- Skills -->
-		<magicresistance>1000</magicresistance>
-		<tactics><random min="976" max="1000"/></tactics>
-		<wrestling><random min="976" max="1000"/></wrestling>
-		<meditation>0</meditation>
-		<evaluatingintelligence>0</evaluatingintelligence>
-		<magery>0</magery>
-		<anatomy>0</anatomy>
+		<skill id="magicresist">1000</skill>
+		<skill id="tactics"><random min="976" max="1000"/></skill>
+		<skill id="wrestling"><random min="976" max="1000"/></skill>
 		<!-- Damage -->
 		<mindamage>66</mindamage>
 		<maxdamage>104</maxdamage>

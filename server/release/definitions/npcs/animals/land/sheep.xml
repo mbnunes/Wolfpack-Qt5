@@ -55,7 +55,7 @@
 	</npc>
 
 	<npc id="sheep">
-		<inherit><random list="SHEEP_LIST" /></inherit>
+		<inherit><random valuelist="sheep_unsheered,sheep_sheered" /></inherit>
 		<category>Animals\Land\Sheep (Random)</category>
 	</npc>
 

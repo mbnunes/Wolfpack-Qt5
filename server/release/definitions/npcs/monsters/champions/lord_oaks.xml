@@ -9,7 +9,7 @@
 <definitions>
 
 	<!-- Lord Oaks -->
-	<npc id="lord_oaks" inherit="monster_base">
+	<npc id="lord_oaks" inherit="monster_base_magi">
 		<name>Lord Oaks</name>
 		<id>175</id>
 		<karma>25000</karma>
@@ -20,13 +20,13 @@
 		<int><random min="503" max="800"/></int>
 		<maxhitpoints>3000</maxhitpoints>
 		<!-- Skills -->
-		<wrestling><random min="1000" max="1000"/></wrestling>
-		<tactics><random min="1000" max="1000"/></tactics>
-		<magicresistance><random min="1005" max="1500"/></magicresistance>
-		<anatomy><random min="751" max="1000"/></anatomy>
-		<magery><random min="1200" max="1200"/></magery>
-		<evaluatingintelligence><random min="1201" max="1300"/></evaluatingintelligence>
-		<meditation><random min="1201" max="1300" /></meditation>
+		<skill id="wrestling"><random min="1000" max="1000"/></skill>
+		<skill id="tactics"><random min="1000" max="1000"/></skill>
+		<skill id="magicresist"><random min="1005" max="1500"/></skill>
+		<skill id="anatomy"><random min="751" max="1000"/></skill>
+		<skill id="magery"><random min="1200" max="1200"/></skill>
+		<skill id="evaluatingintelligence"><random min="1201" max="1300"/></skill>
+		<skill id="meditation"><random min="1201" max="1300" /></skill>
 		<!-- Damage -->
 		<mindamage>71</mindamage>
 		<maxdamage>157</maxdamage>

@@ -26,4 +26,10 @@
 		<skill id="anatomy">0</skill>
 	</npc>
 
+	<npc id="animal_base_magi" inherit="animal_base">
+		<skill id="meditation">0</skill>
+		<skill id="evaluatingintelligence">0</skill>
+		<skill id="magery">0</skill>
+	</npc>
+
 </definitions>

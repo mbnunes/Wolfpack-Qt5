@@ -9,7 +9,7 @@
 <definitions>
 
 	<!-- Neira -->
-	<npc id="neira" inherit="monster_base">
+	<npc id="neira" inherit="monster_base_magi">
 		<name>Neira</name>
 		<title>The Necromancer</title>
 		<id>401</id>
@@ -21,13 +21,12 @@
 		<int><random min="505" max="750"/></int>
 		<maxhitpoints><random min="4800" max="4800"/></maxhitpoints>
 		<!-- Skills -->
-		<wrestling><random min="976" max="1000"/></wrestling>
-		<tactics><random min="976" max="1000"/></tactics>
-		<magicresistance><random min="1500" max="1500"/></magicresistance>
-		<anatomy>0</anatomy>
-		<magery><random min="1200" max="1200"/></magery>
-		<evaluatingintelligence><random min="1200" max="1200"/></evaluatingintelligence>
-		<meditation><random min="1200" max="1200" /></meditation>
+		<skill id="wrestling"><random min="976" max="1000"/></skill>
+		<skill id="tactics"><random min="976" max="1000"/></skill>
+		<skill id="magicresist"><random min="1500" max="1500"/></skill>
+		<skill id="magery"><random min="1200" max="1200"/></skill>
+		<skill id="evaluatingintelligence"><random min="1200" max="1200"/></skill>
+		<skill id="meditation"><random min="1200" max="1200" /></skill>
 		<!-- Damage -->
 		<mindamage>66</mindamage>
 		<maxdamage>104</maxdamage>

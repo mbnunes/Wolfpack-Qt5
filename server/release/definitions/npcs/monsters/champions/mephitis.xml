@@ -21,14 +21,13 @@
 		<int><random min="402" max="600"/></int>
 		<maxhitpoints><random min="68" max="154"/></maxhitpoints>
 		<!-- Skills -->
-		<wrestling><random min="976" max="1000"/></wrestling>
-		<tactics><random min="976" max="1000"/></tactics>
-		<magicresistance><random min="707" max="1400"/></magicresistance>
-		<anatomy>0</anatomy>
-		<poisoning>0</poisoning>
+		<skill id="wrestling"><random min="976" max="1000"/></skill>
+		<skill id="tactics"><random min="976" max="1000"/></skill>
+		<skill id="magicresistance"><random min="707" max="1400"/></skill>
+		<skill id="poisoning">0</skill>
 		<!-- Damage -->
-		<mindamage></mindamage>
-		<maxdamage></maxdamage>
+		<mindamage>1</mindamage>
+		<maxdamage>2</maxdamage>
 		<!-- Damage Properties -->
 		<!--
 		<tag name="dmg_fire" value="0" type="int" />
@@ -49,7 +48,7 @@
 		<category>Monsters\Champions\Mephitis</category>
 		<strproperty name="slayer_group" value="spiders" />
 		<inherit id="speed_veryfast" />
-		
+
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="4" />
 	</npc>

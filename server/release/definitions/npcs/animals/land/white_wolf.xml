@@ -11,7 +11,7 @@
 	<!-- White Wolf -->
 	<npc id="white_wolf" inherit="animal_base">
 		<name>white wolf</name>
-		<id><random list="NPCIDS_WHITEWOLF" /></id>
+		<id><random valuelist="34,37" /></id>
 		<ai>Animal_Wild</ai>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />

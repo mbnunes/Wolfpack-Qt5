@@ -16,7 +16,6 @@
 		<ai>Human_Guard</ai>
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
-		<mintaming>1100</mintaming>
 		<notrain />
  	</npc>
 
@@ -28,7 +27,6 @@
 		<ai>Human_Guard</ai>
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
-		<mintaming>1100</mintaming>
 		<notrain />
  	</npc>
 
@@ -114,6 +112,16 @@
 			<item id="143f" /> <!-- Halberd -->
 			<item id="1c04" /> <!-- Female Plate -->
 		</equipped>
+	</npc>
+
+	<npc id="guard">
+		<inherit><random valuelist="male_guard,female_guard" /></inherit>
+		<category>Guards\Random Guard</category>
+	</npc>
+
+	<npc id="tele_guard">
+		<inherit><random valuelist="male_teleguard,female_teleguard" /></inherit>
+		<category>Guards\Random Teleguard</category>
 	</npc>
 
 	<npc id="male_teleguard" inherit="male_guard">

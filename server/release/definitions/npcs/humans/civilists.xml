@@ -19,14 +19,6 @@
 		</equipped>
 	</npc>
 
-	<!-- Inheriting from this yields a 75% chance of getting a beard -->
-	<list id="NPC_BEARD_CHANCE">
-		<item>npc_empty</item>
-		<item>npc_with_beard</item>
-		<item>npc_with_beard</item>
-		<item>npc_with_beard</item>
-	</list>
-
 	<!-- Male Base -->
 	<npc id="base_male">
 		<id>0x190</id>
@@ -47,7 +39,8 @@
 			<item list="SHOES" /> <!-- Random Shoes -->
 		</equipped>
 
-		<inherit><random list="NPC_BEARD_CHANCE"/></inherit>
+		<!-- 75% chance for beards -->
+		<inherit><random valuelist="npc_empty,npc_with_beard,npc_with_beard,npc_with_beard"/></inherit>
 		<haircolor><random list="HAIRCOLOR" /></haircolor>
 
 		<str><random min="71" max="85" /></str>
@@ -69,6 +62,7 @@
 		<skill id="necromancy">0</skill>
 		<skill id="focus">0</skill>
 		<basescripts>speech.pets</basescripts>
+		<mintaming>2000</mintaming>
 	</npc>
 
 	<!-- Female Base -->
@@ -90,9 +84,7 @@
 			<item list="PANTS" /> 		<!-- Random Pants -->
 			<item list="SHOES" /> 		<!-- Random Shoes -->
 		</equipped>
-
 		<haircolor><random list="HAIRCOLOR" /></haircolor>
-
 		<str><random min="71" max="85" /></str>
 		<dex><random min="66" max="80" /></dex>
 		<int><random min="66" max="80" /></int>
@@ -112,6 +104,7 @@
 		<skill id="necromancy">0</skill>
 		<skill id="focus">0</skill>
 		<basescripts>speech.pets</basescripts>
+		<mintaming>2000</mintaming>
 	</npc>
 
 	<!-- Pirate -->
