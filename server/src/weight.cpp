@@ -100,6 +100,11 @@ float cWeight::RecursePacks(P_ITEM bp)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+		if ( pi == NULL ) // Should never happen, but...
+		{
+			contsp.remove( bp->serial, vecContainer[ci]); // Remove the invalid Entrie.
+			continue; // let's pick up next.
+		}
 		int itemsweight=pi->getWeight();
 		if (pi->type==1) //item is another container
 		{

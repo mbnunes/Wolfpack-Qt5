@@ -38,7 +38,7 @@ public:
 		_count = _next_tic_count = _tic = 0;
 		_expected_count = expected_count;
 
-		clConsole.send("\n0%   10   20   30   40   50   60   70   80   90   100%\n");
+		clConsole.send("\n0%%   10   20   30   40   50   60   70   80   90   100%%\n");
 		clConsole.send("|----|----|----|----|----|----|----|----|----|----|\n");
 		if ( !_expected_count ) 
 		_expected_count = 1;  // prevent divide by zero

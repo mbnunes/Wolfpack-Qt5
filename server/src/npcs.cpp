@@ -246,9 +246,7 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 		mapRegions->Remove(pc_k); // taking it out of mapregions BEFORE x,y changed, LB
 	
 	pc_k->free = true;
-	cCharsManager::getInstance()->unregisterChar( pc_k );
-	delete pc_k;
-	pc_k = NULL;
+	cCharsManager::getInstance()->deleteChar( pc_k );
 }
 
 //##ModelId=3C5D932A0086
