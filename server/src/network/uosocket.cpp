@@ -550,7 +550,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 
 	// Send the gametime
 	cUOTxGameTime gameTime;
-	gameTime.setTime( 12, 19, 3 );
+	gameTime.setTime( uoTime.time().hour(), uoTime.time().minute(), uoTime.time().second() );
 	send( &gameTime );
 
 	// We're now playing this char:
@@ -1680,6 +1680,10 @@ void cUOSocket::resendWorld( bool clean )
 {
 	if( !_player )
 		return;
+
+	cUOTxChangeMap changeMap; // Make sure we switch client when this changes
+	changeMap.setMap( _player->pos.map );
+	send( &changeMap );
 
 	RegionIterator4Items itIterator( _player->pos );
 	for( itIterator.Begin(); !itIterator.atEnd(); itIterator++ )

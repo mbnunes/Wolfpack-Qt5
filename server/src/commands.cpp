@@ -201,23 +201,22 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 	else
 	{
 		Coord_cl newPos = pChar->pos;
-		for( QStringList::const_iterator i = args.begin(); i != args.end(); ++i )
-			if( parseCoordinates( (*i), newPos ) )
-			{
-				// This is a bandwith saving method
-				// Before we're moving the character anywhere we remove it
-				// only from the sockets in range and then resend it to only the new sockets in range
-				pChar->removeFromView( false );
-				pChar->moveTo( newPos );
-				pChar->resend( false );
-				socket->resendPlayer();
-				socket->resendWorld();
-				return;
-			}
+		QString argument = args.join(" ");
+		if( parseCoordinates( argument, newPos ) )
+		{
+			// This is a bandwith saving method
+			// Before we're moving the character anywhere we remove it
+			// only from the sockets in range and then resend it to only the new sockets in range
+			pChar->removeFromView( false );
+			pChar->moveTo( newPos );
+			pChar->resend( false );
+			socket->resendPlayer();
+			socket->resendWorld();
+			return;
+		}
 
 		// When we reached this point it's clear that we didn't find any valid coordinates in our arguments
-		QString location = args.join( " " );
-		QDomElement *node = DefManager->getSection( WPDT_LOCATION, location );
+		QDomElement *node = DefManager->getSection( WPDT_LOCATION, argument );
 
 		if( !node->isNull() && parseCoordinates( node->text(), newPos ) )
 		{
