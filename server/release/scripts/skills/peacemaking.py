@@ -68,6 +68,11 @@ def response( char, args, target ):
 	if not instrument:
 		return 0
 
+	if skills.skilltable[ PEACEMAKING ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	char.socket.deltag( 'peacemaking_instrument' )
 	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + PEACE_DELAY ) )
 

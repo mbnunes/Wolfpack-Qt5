@@ -45,6 +45,14 @@ def onUse( char, item ):
 	return True
 
 def response( char, args, target ):
+	if not char:
+		return False
+
+	if skills.skilltable[ HEALING ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	if not target.char:
 		char.socket.clilocmessage( 500970, "", 0x3b2, 3 )
 		return True

@@ -130,7 +130,7 @@ def hack_logs( char, target, tool, resource ):
 		resource.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", [], True )
 		socket.clilocmessage( 500488, '', GRAY )
 		return False
-	
+
 	# Check if there's already a timer
 	elif resource.hastag( 'resource_empty' ):
 		socket.clilocmessage( 500488, '', GRAY )
@@ -177,6 +177,14 @@ def hack_kindling( char, pos ):
 	char.socket.clilocmessage( 0x7A30B ) # You put some kindlings in your pack
 
 def successlumberjacking( char, args ):
+	if not char:
+		return False
+
+	if skills.skilltable[ LUMBERJACKING ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	socket = char.socket
 	pos = args[0] # Target POS
 	resource = wolfpack.finditem(args[1])
@@ -184,7 +192,8 @@ def successlumberjacking( char, args ):
 	tool = wolfpack.finditem(args[3])
 	resname = args[4]
 	table = args[5]
-	
+
+
 	if not tool:
 		return False
 
@@ -210,7 +219,7 @@ def successlumberjacking( char, args ):
 		return False
 	else:
 		# Skill Check against LUMBERJACKING
-		char.checkskill(LUMBERJACKING, 0, 1200) # Just do a static skillcheck here		
+		char.checkskill(LUMBERJACKING, 0, 1200) # Just do a static skillcheck here
 		if chance < random():
 			socket.clilocmessage(500495)
 			success = 0
@@ -247,7 +256,7 @@ def successlumberjacking( char, args ):
 
 		if resource.gettag( 'resourcecount' ) >= 1:
 			resource.settag( 'resourcecount', int( amount - 1 ) )
-		
+
 		#
 		# you don't get so far, look lines 127 ff.
 		#
@@ -255,7 +264,7 @@ def successlumberjacking( char, args ):
 		#	if not resource.hastag ('resource_empty') and int( resource.gettag( 'resourcecount' ) ) == 0:
 		#		resource.settag( 'resource_empty', 'true' )
 		#		resource.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", [], True )
-		
+
 		return True
 
 def respawnvein( vein, args ):

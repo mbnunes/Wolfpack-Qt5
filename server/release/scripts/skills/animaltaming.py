@@ -40,8 +40,12 @@ def animaltaming( char, skill ):
 	return True
 
 def response(char, args, target):
-    dotame(char, target.char)
-    return True
+	if skills.skilltable[ TAMING ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+	dotame(char, target.char)
+	return True
 
 def dotame(char, totame):
 	socket = char.socket
@@ -191,7 +195,7 @@ def callback( char, args ):
 			if totame.hastag( 'num_tamed' ):
 				num_tamed = totame.gettag( 'num_tamed' ) + 1
 			totame.settag( 'num_tamed', num_tamed )
-			
+
 			# remove "Tame" context menu
 			totame.addscript('speech.pets') # Only adds if it doesnt exist yet.
 

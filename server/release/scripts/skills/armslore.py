@@ -35,6 +35,11 @@ def armslore( char, skill ):
 
 def response( char, args, target ):
 
+	if skills.skilltable[ ARMSLORE ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	backpack = char.getbackpack()
 	item = target.item
 

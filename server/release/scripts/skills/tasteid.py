@@ -30,6 +30,11 @@ def tasteid(char, skill):
 def response(char, args, target):
 	socket = char.socket
 
+	if skills.skilltable[ TASTEID ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	socket.settag('skill_delay', int( wolfpack.time.currenttime() + TASTEID_DELAY ) )
 
 	if target.item:

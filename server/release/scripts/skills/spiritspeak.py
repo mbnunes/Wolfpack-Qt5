@@ -32,6 +32,11 @@ def spiritspeak(char, skill):
 		char.socket.clilocmessage(1061288)
 		return 1
 
+	if skills.skilltable[ SPIRITSPEAK ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	char.say("Anh Mi Sah Ko")
 	char.soundeffect(0x24a)
 	char.action(ANIM_CASTAREA)

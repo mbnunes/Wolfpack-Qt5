@@ -46,7 +46,7 @@ def selectpotion(char, args, target):
 	char.socket.clilocmessage( 502142 )
 	char.socket.attachtarget( "skills.poisoning.selecttarget", [ potion.serial ] )
 	return 1
-	
+
 # Check for the following weapons: Butchers Knife, Cleaver, Dagger, Double Bladed Staff, Pike, Kryss
 ALLOWED = [ 0x13f6, 0x13f7, 0xec2, 0xec3, 0xf51, 0xf52, 0x26bf, 0x26c9, 0x26be, 0x26c8, 0x1400, 0x1401 ]
 
@@ -63,12 +63,17 @@ def selecttarget( char, args, target ):
 	if not target.item:
 		char.socket.clilocmessage( 502145 )
 		return
-		
+
 	global ALLOWED
 	if not target.item.id in ALLOWED and not target.item.hasscript('food'):
 		char.socket.clilocmessage(1060204)
 		return
-	
+
+	if skills.skilltable[ POISONING ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	# sound / effect
 	char.soundeffect( 0x4F )
 	# apply poison to the item
@@ -143,3 +148,4 @@ def wearoff( item ):
 
 def onLoad():
 	skills.register( POISONING, poisoning )
+

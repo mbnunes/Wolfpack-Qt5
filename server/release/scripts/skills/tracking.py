@@ -58,6 +58,11 @@ def tracking( char, skill ):
 
 	socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + STEALTH_DELAY ) )
 
+	if skills.skilltable[ TRACKING ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	return True
 
 def trackWhatResponse( char, args, target ):

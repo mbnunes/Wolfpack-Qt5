@@ -144,10 +144,10 @@ def domining(char, args):
 	pos = args[1]
 	socket = char.socket
 	socket.deltag( 'is_mining' )
-	
+
 	if not tool:
 		return False
-		
+
 	# Recheck distance
 	#if not char.canreach(pos, MINING_MAX_DISTANCE):
 	#	socket.clilocmessage(501867)
@@ -217,6 +217,14 @@ def domining(char, args):
 	return True
 
 def successmining(char, gem, resname, size):
+	if not char:
+		return False
+
+	if skills.skilltable[ MINING ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	# Create the ore and put it into the players backpack
 	if size == 1:
 		item = wolfpack.additem("19b7")
@@ -237,7 +245,7 @@ def successmining(char, gem, resname, size):
 
 	if not tobackpack(item, char):
 		item.update()
-		
+
 	# Resend weight
 	char.socket.resendstatus()
 
@@ -252,10 +260,10 @@ def successmining(char, gem, resname, size):
 
 	message = ORES[resname][SUCCESSMESSAGE]
 	# You dig some %s and put it in your backpack.
-	if type(message) == int:
-		char.socket.clilocmessage(message, "", GRAY)
+	if type( message ) == int:
+		char.socket.clilocmessage( message, "", GRAY )
 	else:
-		char.socket.sysmessage(unicode(message))
+		char.socket.sysmessage( unicode( message ) )
 	return True
 
 def respawnvein( vein, args ):

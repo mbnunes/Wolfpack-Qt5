@@ -44,6 +44,11 @@ def response( char, args, target ):
 	if not char:
 		return
 
+	if skills.skilltable[ DETECTHIDDEN ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	# if we are in our house : reveal all hidden chars in this house
 	# w/o checking skill
 	house = wolfpack.findmulti( char.pos )
@@ -52,10 +57,10 @@ def response( char, args, target ):
 		# get all chars in this house
 		chars = house.chars()
 		# set visible to the chars
-		for char in chars:
-			if char.hidden:
-				char.hidden = 0
-				char.update()
+		for echar in chars:
+			if echar.hidden and echar.serial != char.serial:
+				echar.hidden = 0
+				echar.update()
 		# do we need to checkskill ?
 		return
 

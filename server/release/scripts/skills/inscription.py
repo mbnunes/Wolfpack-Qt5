@@ -229,6 +229,10 @@ class InsItemAction(CraftItemAction):
 		return True
 
 	def make(self, player, args, nodelay=0):
+		if skills.skilltable[ INSCRIPTION ][ skills.UNHIDE ] and player.hidden:
+			player.removefromview()
+			player.hidden = False
+			player.update()
 		if not checktool(player, wolfpack.finditem(args[0]), 0):
 			return False
 		# spell scrolls

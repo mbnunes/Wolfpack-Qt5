@@ -24,8 +24,16 @@ sounds = {
 	}
 
 def onUse( char, item ):
+	if not char:
+		return False
+
 	if not isinstrument( item ):
 		return 0
+
+	if skills.skilltable[ MUSICIANSHIP ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
 
 	# first introduction of GGS
 	success = 0

@@ -10,7 +10,6 @@ from wolfpack.utilities import *
 import wolfpack
 import wolfpack.time
 import skills
-
 # from UO Stratics:
 # 1. Initially, your skill affects ONLY your success in begging. Meaning, it determines whether you will be given some money or not. It does NOT determine the amount of gold you receive. If you manage to get beyond 90 skill, shopkeepers will begin to give you gold and things change a bit.
 # 2. If an NPC has 100 gold or more in its pack, it will give you 10 gold after each successful beg. Note, even if that NPC has more than 200 gold in its pack, it will still give only 10 gold pieces.
@@ -49,6 +48,11 @@ def response( char, args, target ):
 	# you can only try to npc
 	if not target.char or not target.char.npc:
 		return
+
+	if skills.skilltable[ BEGGING ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
 
 	npc = target.char
 	# check if this npc is a 'human' ?

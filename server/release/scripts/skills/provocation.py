@@ -122,6 +122,11 @@ def response2( char, args, target ):
 		socket.clilocmessage( 0x7A75F, "", 0x3b2, 3 ) # Your music fails to incite enough anger.
 		return False
 
+	if skills.skilltable[ PROVOCATION ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	playinstrument( char, instrument, "success" )
 	creature1.war = 1
 	creature1.target = target.char

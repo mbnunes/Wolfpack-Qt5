@@ -92,6 +92,11 @@ def response( char, args, target ):
 	socket = char.socket
 	pos = target.pos
 
+	if skills.skilltable[ FISHING ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	# First: Check Distance (easiest)
 	if char.pos.map != pos.map or char.pos.distance( pos ) > FISHING_MAX_DISTANCE:
 		socket.clilocmessage( 0x7a4f0, "", 0x3b2, 3, char ) # You need to be closer to the water to fish!
@@ -313,9 +318,9 @@ def itemtimer( char, args ):
 			item.update()
 
 		#wear out the fishing pole
-		tool = wolfpack.finditem( args[2] )	
+		tool = wolfpack.finditem( args[2] )
 		checktool( char, tool, True )
-		
+
 		#resend weight
 		socket.resendstatus()
 
@@ -325,6 +330,6 @@ def itemtimer( char, args ):
 	else:
 		socket.clilocmessage( 0xf61fd, "", 0x3b2, 3, None, str(itemname) ) # You pull out an item along with a monster :
 
-def resourceDecayTimer( resource, args ):	
+def resourceDecayTimer( resource, args ):
 	resource.delete()
 	return

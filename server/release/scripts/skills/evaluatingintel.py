@@ -30,12 +30,19 @@ def evaluatingintel( char, skill ):
 	return True
 
 def response( char, args, target ):
+	if not char:
+		return False
+
+	if skills.skilltable[ EVALUATINGINTEL ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
 
 	if target.item:
 		# It looks smarter than a rock, but dumber than a piece of wood
 		char.socket.clilocmessage( 0x7A4AC, "", 0x3b2, 3, target.item )
 		return False
-		
+
 	if not target.char:
 		return False
 
@@ -71,7 +78,7 @@ def response( char, args, target ):
 	msgId2 = int( 0xFD77A + ManaId )
 
 	char.socket.clilocmessage( msgId, "", 0x3b2, 3, target.char, "", True )
-	
+
 	if char.skill[EVALUATINGINTEL] >= 760:
 		char.socket.clilocmessage( msgId2, "", 0x3b2, 3, target.char, "", True )
 

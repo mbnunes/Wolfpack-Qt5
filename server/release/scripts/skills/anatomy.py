@@ -35,6 +35,11 @@ def anatomy( char, skill ):
 	return True
 
 def response( char, args, target ):
+	if skills.skilltable[ ANATOMY ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	socket = char.socket
 	# Check for a valid target
 	if not target.char:
@@ -74,7 +79,7 @@ def response( char, args, target ):
 	msgId2 = int( 0xFD7DF + StamId )
 
 	socket.clilocmessage( msgId, "", 0x3b2, 3, target.char, "", True )
-	
+
 	if char.skill[ANATOMY] >= 650:
 		socket.clilocmessage( msgId2, "", 0x3b2, 3, target.char, "", True )
 

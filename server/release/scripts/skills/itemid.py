@@ -28,6 +28,14 @@ def itemid(char, skill):
 	return 1
 
 def response(char, args, target):
+	if not char:
+		return False
+
+	if skills.skilltable[ ITEMID ][ skills.UNHIDE ] and char.hidden:
+		char.removefromview()
+		char.hidden = False
+		char.update()
+
 	socket = char.socket
 	socket.settag('skill_delay', int( wolfpack.time.currenttime() + ITEMID_DELAY ) )
 
