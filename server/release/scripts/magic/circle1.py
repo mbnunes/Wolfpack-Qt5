@@ -83,35 +83,30 @@ class Heal ( CharEffectSpell ):
     target.soundeffect( 0x1f2 )
 
 class NightSight ( CharEffectSpell ):
-        def __init__( self ):
-                CharEffectSpell.__init__( self, 1 )
-                self.reagents = { REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1 }
-                self.mantra = 'In Lor'
+	def __init__( self ):
+		CharEffectSpell.__init__( self, 1 )
+		self.reagents = { REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1 }
+		self.mantra = 'In Lor'
+	
+	def effect( self, char, target ):
+		target.soundeffect(0x1e4)
+		target.effect(0x373a)
+		target.disturb()
 
-        def effect( self, char, target ):
-                if not target:
-                    return
-                if target.skill[ MAGERY ] < 100:
-                    char.socket.sysmessage( "Target must have at least 10 points of magery skill." )
-                    return;
-                target.soundeffect( 0x1e4 )
-                target.effect( 0x373a )
-                target.disturb()
-
-                duration = 60000 + char.skill[ MAGERY ]
-                target.settag( "nightsight", 1 )
-                target.fixedlight = 0
-                target.addtimer( duration, "magic.circle1.nightsightrestore", [] )
-
+		if not target.player or target.hastag('nightsight'):
+			return
+		
+		duration = 60000 + char.skill[MAGERY]
+		target.settag("nightsight", 1)
+		target.lightbonus += 5
+		target.addtimer(duration, "magic.circle1.nightsightrestore", [])
 
 def nightsightrestore( char, args ):
     if not char:
         return
     if char.hastag("nightsight"):
         char.deltag("nightsight")
-        char.fixedlight = 255
-        
-                
+        char.lightbonus -= 5
     
 class MagicArrow ( DelayedDamageSpell ):
   def __init__( self ):

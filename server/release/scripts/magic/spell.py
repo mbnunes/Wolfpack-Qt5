@@ -105,8 +105,6 @@ class Spell:
 		minskill = max(0, int((1000 / 7) * self.circle - 200))
 		maxskill = min(1200, int((1000 / 7) * self.circle + 200))
 		
-		char.message('Min: %u, Max: %u' % (minskill, maxskill))
-		
 		if not char.checkskill(MAGERY, minskill, maxskill):
 			char.message(502632)
 			fizzle(char)			
