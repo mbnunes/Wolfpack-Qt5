@@ -295,6 +295,10 @@ SOURCE=.\scripts.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\serbinfile.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\sertextfile.cpp
 # End Source File
 # Begin Source File
@@ -580,6 +584,10 @@ SOURCE=.\resource.h
 # Begin Source File
 
 SOURCE=.\scriptc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\serbinfile.h
 # End Source File
 # Begin Source File
 
