@@ -12,23 +12,32 @@
 		<category>Clothes\Accessories\Cloak (N/S)</category>
 		<id>0x1515</id>
 		<dye />
-		<decay />
-		<value>40</value>
+		<buyprice>43</buyprice>
+		<sellprice>21</sellprice>
+		<weight>5.0</weight>
 	</item>
 
+	<!-- Cloak w/e-->
+	<item id="1530">
+		<inherit id="1515" />
+		<category>Clothes\Accessories\Cloak (W/E)</category>
+		<id>0x1530</id>
+	</item>
+	
+	<!-- Beads -->
 	<item id="108b">
 		<id>0x108b</id>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1.0</weight>
 		<category>Clothes\Accessories\Beads</category>
 	</item>
 
 	<!-- Skirt n/s -->
 	<item id="1516">
+		<inherit id="1531" />
 		<category>Clothes\Legs\Skirt (N/S)</category>
 		<id>0x1516</id>
-		<dye />
-		<decay />
-		<value>40</value>
-		
 	</item>
 
 	<!-- Plain Shirt n/s -->
@@ -36,17 +45,16 @@
 		<category>Clothes\Torso\Plain Shirt (N/S)</category>
 		<id>0x1517</id>
 		<dye />
-		<decay />
-		<value>30</value>
+		<buyprice>37</buyprice>
+		<sellprice>18</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<!-- Plain Shirt w/e -->
 	<item id="1518">
+		<inherit id="1517" />
 		<category>Clothes\Torso\Plain Shirt (W/E)</category>
 		<id>0x1518</id>
-		<dye />
-		<decay />
-		<value>30</value>
 	</item>
 
 	<!-- Short Pants n/s -->
@@ -54,26 +62,16 @@
 		<category>Clothes\Legs\Short Pants (N/S)</category>
 		<id>0x152e</id>
 		<dye />
-		<decay />
-		<value>35</value>
+		<buyprice>24</buyprice>
+		<sellprice>12</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<!-- Short Pants w/e -->
 	<item id="152f">
+		<inherit id="152e" />
 		<category>Clothes\Legs\Short Pants (W/E)</category>
 		<id>0x152f</id>
-		<dye />
-		<decay />
-		<value>35</value>
-	</item>
-
-	<!-- Cloak w/e-->
-	<item id="1530">
-		<category>Clothes\Accessories\Cloak (W/E)</category>
-		<id>0x1530</id>
-		<dye />
-		<decay />
-		<value>40</value>		
 	</item>
 
 	<!-- Skirt w/e -->
@@ -81,8 +79,9 @@
 		<category>Clothes\Legs\Skirt (W/E)</category>
 		<id>0x1531</id>
 		<dye />
-		<decay />
-		<value>40</value>
+		<buyprice>33</buyprice>
+		<sellprice>16</sellprice>
+		<weight>4.0</weight>
 	</item>
 	
 	<!-- Gold Belt n/s -->
@@ -104,17 +103,16 @@
 		<category>Clothes\Legs\Kilt (N/S)</category>
 		<id>0x1537</id>
 		<dye />
-		<decay />
-		<value>35</value>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<!-- Kilt w/e -->
 	<item id="1538">
+		<inherit id="1537" />
 		<category>Clothes\Legs\Kilt (W/E)</category>
 		<id>0x1538</id>
-		<dye />
-		<decay />
-		<value>35</value>
 	</item>
 
 	<!-- Long Pants n/s -->
@@ -122,17 +120,16 @@
 		<category>Clothes\Legs\Long Pants (N/S)</category>
 		<id>0x1539</id>
 		<dye />
-		<decay />
-		<value>40</value>
+		<buyprice>34</buyprice>
+		<sellprice>17</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<!-- Long Pants w/e -->
 	<item id="153a">
+		<inherit id="1539" />
 		<category>Clothes\Legs\Long Pants (W/E)</category>
 		<id>0x153a</id>
-		<dye />
-		<decay />
-		<value>40</value>
 	</item>
 
 	<!-- Half Apron n/s -->
@@ -140,17 +137,16 @@
 		<category>Clothes\Accessories\Half Apron (N/S)</category>
 		<id>0x153b</id>
 		<dye />
-		<decay />
-		<value>40</value>
+		<buyprice>26</buyprice>
+		<sellprice>13</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<!-- Half Apron w/e -->
 	<item id="153c">
+		<inherit id="153b" />
 		<category>Clothes\Accessories\Half Apron (W/E)</category>
 		<id>0x153c</id>
-		<dye />
-		<decay />
-		<value>40</value>
 	</item>
 
 	<!-- Full Apron n/s -->
@@ -158,17 +154,16 @@
 		<category>Clothes\Accessories\Full Apron (N/S)</category>
 		<id>0x153d</id>
 		<dye />
-		<decay />
-		<value>60</value>
+		<buyprice>26</buyprice>
+		<sellprice>13</sellprice>
+		<weight>4.0</weight>
 	</item>
 
 	<!-- Full Apron w/e -->
 	<item id="153e">
+		<inherit id="153d" />
 		<category>Clothes\Accessories\Full Apron (W/E)</category>
 		<id>0x153e</id>
-		<dye />
-		<decay />
-		<value>60</value>
 	</item>
 
 	<!-- Bandana n/s -->
@@ -176,17 +171,16 @@
 		<category>Clothes\Headwear\Bandana (N/S)</category>
 		<id>0x153f</id>
 		<dye />
-		<decay />
-		<value>20</value>
+		<buyprice>14</buyprice>
+		<sellprice>6</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Bandana w/e -->
 	<item id="1540">
-		<category>Clothes\Headwear\Bandana (W/E)</category>
+		<inherit id="153f" />
 		<id>0x1540</id>
-		<dye />
-		<decay />
-		<value>20</value>
+		<category>Clothes\Headwear\Bandana (W/E)</category>
 	</item>
 
 	<!-- Body Sash n/s -->
@@ -194,17 +188,13 @@
 		<category>Clothes\Accessories\Body Sash (N/S)</category>
 		<id>0x1541</id>
 		<dye />
-		<decay />
-		<value>30</value>
 	</item>
 
 	<!-- Body Sash w/e -->
 	<item id="1542">
+		<inherit id="1541" />
 		<category>Clothes\Accessories\Body Sash (W/E)</category>
 		<id>0x1542</id>
-		<dye />
-		<decay />
-		<value>30</value>
 	</item>
 
 	<!-- Skullcap n/s -->
@@ -212,17 +202,16 @@
 		<category>Clothes\Headwear\Skull Cap (N/S)</category>
 		<id>0x1543</id>
 		<dye />
-		<decay />
-		<value>30</value>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Skullcap w/e -->
 	<item id="1544">
+		<inherit id="1543" />
 		<category>Clothes\Headwear\Skull Cap (W/E)</category>
 		<id>0x1544</id>
-		<dye />
-		<decay />
-		<value>30</value>
 	</item>
 
 	<!-- Bear Mask n/s -->
@@ -248,59 +237,49 @@
 		<category>Clothes\Headwear\Deer Mask (N/S)</category>
 		<id>0x1547</id>
 		<dye />
-		<decay />
-		<value>40</value>
+		<weight>4.0</weight>
 	</item>
 
 	<!-- Deer Mask w/e -->
 	<item id="1548">
+		<inherit id="1547" />
 		<category>Clothes\Headwear\Deer Mask (W/E)</category>
 		<id>0x1548</id>
-		<dye />
-		<decay />
-		<value>40</value>
 	</item>
 
 	<!-- Tribal Mask n/s -->
 	<item id="1549">
 		<category>Clothes\Headwear\Tribal Mask (N/S)</category>
 		<id>0x1549</id>
-		<dye />
-		<decay />
-		<value>40</value>
+		<weight>4.0</weight>
 	</item>
 
 	<!-- Tribal Mask w/e -->
 	<item id="154a">
+		<inherit id="1549" />
 		<category>Clothes\Headwear\Tribal Mask (W/E)</category>
 		<id>0x154a</id>
-		<dye />
-		<decay />
-		<value>40</value>
 	</item>
 
 	<!-- Tribal Mask 2 n/s -->
 	<item id="154b">
 		<category>Clothes\Headwear\Tribal Mask 2 (N/S)</category>
 		<id>0x154b</id>
-		<dye />
-		<decay />
-		<value>40</value>
+		<weight>4.0</weight>
 	</item>
 
 	<!-- Tribal Mask 2 w/e -->
 	<item id="154c">
+		<inherit id="154b" />
 		<category>Clothes\Headwear\Tribal Mask 2 (W/E)</category>
 		<id>0x154c</id>
-		<dye />
-		<decay />
-		<value>40</value>
 	</item>
 
 	<!-- Orc Mask 1 n/s -->
 	<item id="141b">
 		<id>0x141b</id>
 		<category>Clothes\Headwear\Orc Mask (N/S)</category>
+		<weight>4.0</weight>
 	</item>
 
 	<!-- Orc Mask 1 w/e -->
@@ -312,50 +291,56 @@
 
 	<!-- Necklace 1 -->
 	<item id="1085">
-		<category>Clothes\Accessories\Necklace 1</category>
+		<category>Clothes\Accessories\Necklace (S-Shape)</category>
 		<id>0x1085</id>
-		<decay />
-		<value>45</value>
+		<buyprice>38</buyprice>
+		<sellprice>19</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Bracelet -->
 	<item id="1086">
 		<category>Clothes\Accessories\Bracelet 1</category>
 		<id>0x1086</id>
-		<decay />
-		<value>40</value>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1</weight>
 	</item>
 
 	<!-- Earrings -->
 	<item id="1087">
 		<category>Clothes\Accessories\Earrings 1</category>
 		<id>0x1087</id>
-		<decay />
-		<value>45</value>
+		<buyprice>38</buyprice>
+		<sellprice>19</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Necklace -->	
 	<item id="1088">
-		<category>Clothes\Accessories\Necklace 2</category>
+		<category>Clothes\Accessories\Necklace (Round)</category>
 		<id>0x1088</id>
-		<decay />
-		<value>45</value>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Necklace -->
 	<item id="1089">
-		<category>Clothes\Accessories\Necklace 3</category>
+		<category>Clothes\Accessories\Necklace (Long)</category>
 		<id>0x1089</id>
-		<decay />
-		<value>45</value>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Ring -->
 	<item id="108a">
 		<category>Clothes\Accessories\Ring 1</category>
 		<id>0x108a</id>
-		<decay />
-		<value>35</value>
+		<buyprice>38</buyprice>
+		<sellprice>19</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1f05">
@@ -404,8 +389,9 @@
 		<category>Clothes\Footwear\Boots (W/E)</category>
 		<id>0x170b</id>
 		<dye />
-		<decay />
-		<value>30</value>
+		<buyprice>45</buyprice>
+		<sellprice>22</sellprice>
+		<weight>3.0</weight>
 	</item>
 
 	<!-- Boots w/e -->
@@ -419,8 +405,9 @@
 	<item id="170d">
 		<category>Clothes\Footwear\Sandals (N/S)</category>
 		<id>0x170d</id>
-		<decay />
-		<value>20</value>
+		<buyprice>24</buyprice>
+		<sellprice>12</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Sandals w/e -->
@@ -434,9 +421,10 @@
 	<item id="170f">
 		<category>Clothes\Footwear\Shoes (N/S)</category>
 		<id>0x170f</id>
-		<decay />
 		<dye />
-		<value>15</value>
+		<buyprice>27</buyprice>
+		<sellprice>13</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<!-- Shoes (w/e)-->
@@ -450,9 +438,10 @@
 	<item id="1711">
 		<category>Clothes\Footwear\Thigh Boots (N/S)</category>
 		<id>0x1711</id>
-		<decay />
 		<dye />
-		<value>55</value>
+		<buyprice>56</buyprice>
+		<sellprice>28</sellprice>
+		<weight>4.0</weight>
 	</item>
 
 	<!-- Thigh Boots (w/e) -->
@@ -466,108 +455,117 @@
 	<item id="1713">
 		<category>Clothes\Headwear\Floppy Hat</category>
 		<id>0x1713</id>
-		<decay />
 		<dye />
-		<value>35</value>
+		<buyprice>25</buyprice>
+		<sellprice>12</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Wide-brim Hat -->
 	<item id="1714">
 		<category>Clothes\Headwear\Wide-brim Hat</category>
 		<id>0x1714</id>
-		<decay />
 		<dye />
-		<value>40</value>
+		<buyprice>26</buyprice>
+		<sellprice>13</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Cap -->
 	<item id="1715">
-		<category>Clothes\Headwear\Wide-brim Hat</category>
+		<category>Clothes\Headwear\Cap</category>
 		<id>0x1715</id>
-		<decay />
 		<dye />
-		<value>30</value>
+		<buyprice>27</buyprice>
+		<sellprice>13</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Tall Straw Hat -->
 	<item id="1716">
 		<category>Clothes\Headwear\Tall Straw Hat</category>
 		<id>0x1716</id>
-		<decay />
 		<dye />
-		<value>35</value>
+		<buyprice>26</buyprice>
+		<sellprice>13</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Straw Hat -->
 	<item id="1717">
 		<category>Clothes\Headwear\Straw Hat</category>
 		<id>0x1717</id>
-		<decay />
 		<dye />
-		<value>35</value>
+		<buyprice>25</buyprice>
+		<sellprice>12</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Wizard's Hat -->
 	<item id="1718">
 		<category>Clothes\Headwear\Wizard's Hat</category>
 		<id>0x1718</id>
-		<decay />
 		<dye />
-		<value>30</value>
+		<buyprice>30</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Bonnet -->
 	<item id="1719">
 		<category>Clothes\Headwear\Bonnet</category>
 		<id>0x1719</id>
-		<decay />
 		<dye />
-		<value>40</value>
+		<buyprice>26</buyprice>
+		<sellprice>13</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Feathered Hat -->
 	<item id="171a">
 		<category>Clothes\Headwear\Feathered Hat</category>
 		<id>0x171a</id>
-		<decay />
 		<dye />
-		<value>35</value>
+		<buyprice>27</buyprice>
+		<sellprice>13</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Tricorne Hat -->
 	<item id="171b">
 		<category>Clothes\Headwear\Tricorne Hat</category>
 		<id>0x171b</id>
-		<decay />
 		<dye />
-		<value>35</value>
+		<buyprice>26</buyprice>
+		<sellprice>13</sellprice>
+		<weight>1.0</weight>
 	</item>
 
-	<!-- Jester Hat -->
+	<!-- Jesters Cap -->
 	<item id="171c">
-		<category>Clothes\Headwear\Jester Hat</category>
+		<category>Clothes\Headwear\Jesters Cap</category>
 		<id>0x171c</id>
-		<decay />
 		<dye />
-		<value>40</value>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1.0</weight>
 	</item>
 	
 	<!-- Jester Hat -->
 	<item id="172e">
 		<category>Clothes\Headwear\Jester Hat</category>
 		<id>0x172e</id>
-		<decay />
 		<dye />
-		<value>40</value>
 	</item>	
 	
 	<!-- Fancy Shirt n/s -->
 	<item id="1efd">
 		<id>0x1efd</id>
 		<category>Clothes\Torso\Fancy Shirt (N/S)</category>
-		<decay />
 		<dye />
-		<value>40</value>		
+		<buyprice>55</buyprice>
+		<sellprice>27</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<!-- Fancy Shirt w/e -->
@@ -581,9 +579,10 @@
 	<item id="1eff">
 		<category>Clothes\Torso\Fancy Dress (W/E)</category>
 		<id>0x1eff</id>
-		<value>70</value>
-		<decay />
 		<dye />
+		<buyprice>25</buyprice>
+		<sellprice>12</sellprice>
+		<weight>3.0</weight>
 	</item>
 
 	<!-- Fancy Dress n/s -->
@@ -597,9 +596,10 @@
 	<item id="1f01">
 		<category>Clothes\Torso\Plain Dress (N/S)</category>
 		<id>0x1f01</id>
-		<value>55</value>
-		<decay />
 		<dye />
+		<buyprice>56</buyprice>
+		<sellprice>28</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<!-- Plain Dress w/e -->
@@ -613,9 +613,10 @@
 	<item id="1f03">
 		<category>Clothes\Torso\Robe (N/S)</category>
 		<id>0x1f03</id>
-		<value>35</value>
-		<decay />
 		<dye />
+		<buyprice>68</buyprice>
+		<sellprice>34</sellprice>
+		<weight>3.0</weight>
 	</item>
 	
 	<!-- Robe w/e -->
@@ -629,9 +630,10 @@
 	<item id="1f9f">
 		<category>Clothes\Torso\Jester Suit (N/S)</category>
 		<id>0x1f9f</id>
-		<value>50</value>
-		<decay />
 		<dye />
+		<buyprice>51</buyprice>
+		<sellprice>25</sellprice>
+		<weight>4.0</weight>
 	</item>
 
 	<!-- Jester Suit w/e -->
@@ -645,9 +647,10 @@
 	<item id="1fa1">
 		<category>Clothes\Torso\Tunic (N/S)</category>
 		<id>0x1fa1</id>
-		<value>45</value>
-		<decay />
 		<dye />
+		<buyprice>33</buyprice>
+		<sellprice>16</sellprice>
+		<weight>5.0</weight>
 	</item>
 
 	<!-- Tunic w/e -->
@@ -661,9 +664,10 @@
 	<item id="1f7b">
 		<category>Clothes\Torso\Doublet (N/S)</category>
 		<id>0x1f7b</id>
-		<value>35</value>
-		<decay />
 		<dye />	
+		<buyprice>25</buyprice>
+		<sellprice>12</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<!-- Doublet w/e -->
@@ -677,9 +681,7 @@
 	<item id="1ffd">
 		<category>Clothes\Torso\Surcoat (N/S)</category>
 		<id>0x1ffd</id>
-		<value>45</value>
-		<decay />
-		<dye />			
+		<dye />
 	</item>
 
 	<!-- Surcoat w/e -->

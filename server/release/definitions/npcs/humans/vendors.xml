@@ -685,8 +685,12 @@
 		<inherit>base_male</inherit>
 		<title>the Tailor</title>
 		<shopkeeper>
-			<restockable>
-
+			<restockable>				
+				<item inherit="153f"><amount>10</amount></item> <!-- Bandana -->
+				<item inherit="1515"><amount>10</amount></item> <!-- Cloak -->
+				<item inherit="108b"><amount>10</amount></item> <!-- Beads -->
+				<item inherit="1516"><amount>10</amount></item> <!-- Skirt -->
+				<item inherit="1517"><amount>10</amount></item> <!-- Plain Shirt -->
 			</restockable>
 		</shopkeeper>
 		<category>Vendors\Tailor (Male)</category>
