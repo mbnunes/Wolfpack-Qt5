@@ -493,14 +493,7 @@ def loadMenu(id, parent = None):
 							console.log(LOG_ERROR, "Material element without id list in menu %s.\n" % menu.id)
 							break
 						else:
-							try:
-								ids = subchild.getattribute('id').split(';')
-								for i in range(0, len(ids)):
-									ids[i] = hex2dec(ids[i])
-							except:
-								console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
-								break
-
+							ids = subchild.getattribute('id').split(';')
 							try:
 								amount = hex2dec(subchild.getattribute('amount', '1'))
 							except:

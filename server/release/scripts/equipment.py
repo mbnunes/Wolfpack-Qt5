@@ -7,6 +7,13 @@ from combat.utilities import weaponskill
 from math import ceil
 
 #
+# Table for miscellaneous resource prefixes
+#
+RESNAME2PREFIX = {
+	'sapphire': 
+}
+
+#
 # Show certain modifiers stored in tags.
 #
 def modifiers(object, tooltip):
@@ -47,7 +54,7 @@ def onShowTooltip(viewer, object, tooltip):
 
 	if (armor or weapon or shield) and object.amount == 1:
 		# Reinsert the name if we need an ore prefix
-		prefix1 = None		
+		prefix1 = None
 		if object.hastag('resname'):
 			resname = str(object.gettag('resname'))
 			if armor and properties.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):

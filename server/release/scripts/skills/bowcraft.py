@@ -276,7 +276,6 @@ def loadMenu(id, parent = None):
               break
             else:
               ids = subchild.getattribute('id').split(';')
-
               try:
                 amount = hex2dec(subchild.getattribute('amount', '1'))
               except:

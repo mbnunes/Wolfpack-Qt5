@@ -67,6 +67,9 @@ def import_command( socket, command, arguments ):
 	
 	gump.addRadioButton( x=250, y=160, off=0x25f8, on=0x25fb, id=3 )
 	gump.addText( x=285, y=165, text='Text', hue=0x835 )
+	
+	gump.addRadioButton( x=20, y=120, off=0x25f8, on=0x25fb, id=4 )
+	gump.addText( x=55, y=125, text='Sphere 51a', hue=0x835 )	
 
 	# InputField
 	gump.addResizeGump( x=20, y=210, id=0xBB8, width=310, height=25 )
@@ -172,10 +175,50 @@ def parseTxt( file, map ):
 
 	return ( count, warnings )
 		
+def parseSphere(file, map):
+	itemid = -1
+	props = {}
+	count = 0
+	warnings = ''
+	
+	while 1:
+		line = file.readline()
+		if not line:
+			break
+		line = line.strip()
+		
+		if line.startswith('[WORLDITEM ') and line.endswith(']'):
+			itemid = int(line[11:len(line)-1], 16)
+		elif itemid != -1 and "=" in line:
+			(key, value) = line.split('=', 1)
+			props[key.lower()] = value
+		elif itemid != -1 and len(line) == 0:
+			if props.has_key('p'):
+				(x, y, z) = props['p'].split(',')
+				x = int(x)
+				y = int(y)
+				z = int(z)
+				if props.has_key('color'):
+			 		color = int(props['color'], 16)
+			 	else:
+			 		color = 0
+				
+				item = wolfpack.newitem(1)
+				item.decay = 0
+				item.magic = 2
+				item.id = itemid
+				item.color = color
+				item.moveto(x, y, z, map, 1)
+				item.update()
+				count += 1
+				
+			itemid = -1
+			props = {}
+			
+	return (count, warnings)
+		
 """
-
 	Parses a .wsc file and imports the items into our world.
-
 """
 def parseWsc( file, map ):
 	warnings = ''
@@ -288,7 +331,7 @@ def callback( char, args, choice ):
 	if len( filename ) == 0:
 		char.socket.sysmessage( "You have to specify a filename." )
 	
-	file = open( filename, 'rt' ) # We know it's \r\n
+	file = open( filename, 'rtu' ) # We know it's \r\n
 		
 	format = choice.switches[0]
 
@@ -296,6 +339,8 @@ def callback( char, args, choice ):
 		( count, warnings ) = parseMulti( file, char.pos )
 	elif format == 2: #WSC
 		( count, warnings ) = parseWsc( file, char.pos.map )
+	elif format == 4: #sphere
+		(count, warnings) = parseSphere(file, char.pos.map)
 	else: # Text
 		( count, warnings ) = parseTxt( file, char.pos.map )
 			

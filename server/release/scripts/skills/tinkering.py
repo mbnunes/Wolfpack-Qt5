@@ -1,114 +1,277 @@
+
 #################################################################
-#   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
-#  ((    _/{  "-;  # Created by: khpae                          #
-#   )).-' {{ ;'`   # Revised by:                                #
-#  ( (  ;._ \\ ctr # Last Modification: Created                 #
+#	 )			(\_		 # WOLFPACK 13.0.0 Scripts										#
+#	((		_/{	"-;	# Created by: DarkStorm											#
+#	 )).-' {{ ;'`	 # Revised by:																#
+#	( (	;._ \\ ctr # Last Modification: Created								 #
 #################################################################
 
+from wolfpack import console
 from wolfpack.consts import *
-from wolfpack.utilities import *
+import math
 import wolfpack
+from system.makemenus import CraftItemAction, MakeMenu, findmenu
+from wolfpack.utilities import hex2dec, tobackpack
+from wolfpack.properties import itemcheck, fromitem
+import random
+from skills import blacksmithing
 
-gems = { 
-	0xf0f:'star sapphire', 0xf10:'emerald', 0xf11:'sapphire',
-	0xf12:'sapphire', 0xf13:'ruby', 0xf14:'ruby', 0xf15:'citrine',
-	0xf16:'amethyst', 0xf17:'amethyst', 0xf18:'tourmaline', 0xf19:'sapphire',
-	0xf1a:'ruby', 0xf1b:'star sapphire', 0xf1c:'rubby', 0xf1d:'ruby',
-	0xf1e:'tourmaline', 0xf1f:'sapphire', 0xf20:'tourmaline',
-	0xf21:'star sapphire', 0xf22:'amethyst', 0xf23:'citrine',
-	0xf24:'citrine', 0xf25:'amber', 0xf26:'diamond', 0xf27:'diamond',
-	0xf28:'diamond', 0xf29:'diamond', 0xf2a:'ruby', 0xf2b:'ruby',
-	0xf2c:'citrine', 0xf2d:'tourmaline', 0xf2e:'amethyst', 0xf2f:'emerald',
-	0xf30:'diamond' 
-	}
+#
+# Check if the character is using the right tool
+#
+def checktool(char, item, wearout = 0):
+	if not item:
+		return 0
 
-#def onLoad():
-#	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.tinkering" )
-
-# skill is used via a tool
-def onUse( char, item ):
+	# Has to be in our posession
 	if item.getoutmostchar() != char:
-		return 1
-	# send makemenu
-	char.sendmakemenu( "CRAFTMENU_TINKERING" )
+		char.socket.clilocmessage(500364)
+		return 0
+
+	# We do not allow "invulnerable" tools.
+	if not item.hastag('remaining_uses'):
+		char.socket.clilocmessage(1044038)
+		item.delete()
+		return 0
+
+	if wearout:
+		uses = int(item.gettag('remaining_uses'))
+		if uses <= 1:
+			char.socket.clilocmessage(1044038)
+			item.delete()
+			return 0
+		else:
+			item.settag('remaining_uses', uses - 1)
+
 	return 1
 
-def makering( char ):
-	if not char:
-		return
-	cleartinkertags( char )
-	char.socket.settag( 'tinkering', 'ring' )
-	char.socket.settag( 'tinkeritem', '108a' )
-	sendgemtarget( char.socket )
+#
+# Bring up the tinkering menu
+#
+def onUse(char, item):
+	if not checktool(char, item):
+		return 1
 
-#def makesilvernecklace( char ):
+	menu = findmenu('TINKERING')
+	if menu:
+		menu.send(char, [item.serial])
+	return 1
 
-#def makegoldennecklace( char ):
+class TinkerItemAction(CraftItemAction):
+	def __init__(self, parent, title, itemid, definition):
+		CraftItemAction.__init__(self, parent, title, itemid, definition)
+		self.markable = 1
+		self.retaincolor = 0
 
-def makenecklace( char ):
-	if not char:
-		return
-	cleartinkertags( char )
-	char.socket.settag( 'tinkering', "necklace" )
-	char.socket.settag( 'tinkeritem', "1089" )
-	sendgemtarget( char.socket )
+	#
+	# Check if we did an exceptional job.
+	#
+	def getexceptionalchance(self, player, arguments):
+		if not self.markable:
+			return 0
+	
+		if not self.skills.has_key(TINKERING):
+			return 0
 
-def makeearring( char ):
-	if not char:
-		return
-	cleartinkertags( char )
-	char.socket.settag( 'tinkering', "ear ring" )
-	char.socket.settag( 'tinkeritem', "1087" )
-	sendgemtarget( char.socket )
+		minskill = self.skills[TINKERING][0]
+		maxskill = self.skills[TINKERING][1]
+		penalty = self.skills[TINKERING][2]
 
-def makebracelet( char ):
-	if not char:
-		return
-	cleartinkertags( char )
-	char.socket.settag( 'tinkering', "bracelet" )
-	char.socket.settag( 'tinkeritem', "1086" )
-	sendgemtarget( char.socket )
+		if not penalty:
+			penalty = 250
 
-def sendgemtarget( socket ):
-	socket.clilocmessage( 502934, "", 0x3b2, 3 )
-	socket.attachtarget( 'skills.tinkering.response' )
+		minskill += penalty
+		maxskill += penalty
 
-def cleartinkertags( char ):
-	if char.socket.hastag( 'tinkering' ):
-		char.socket.deltag( 'tinkering' )
-	if char.socket.hastag( 'tinkeritem' ):
-		char.socket.deltag( 'tinkeritem' )
+		chance = ( player.skill[TINKERING] - minskill ) / 10
 
-def response( char, args, target ):
-	if not char.socket.hastag( 'tinkering' ) or not char.socket.hastag( 'tinkeritem' ):
+		# chance = 0 - 100
+		if chance > 100:
+			chance = 100
+		elif chance < 0:
+			chance = chance * -1
+
+		# chance range 0.00 - 1.00
+		chance = chance * .01
+		return chance
+
+	#
+	# Apply resname and color to the item.
+	#
+	def applyproperties(self, player, arguments, item, exceptional):
+		item.decay = 1
+	
+		# See if this item 
+		if self.retaincolor and self.submaterial1 > 0:
+			material = self.parent.getsubmaterial1used(player, arguments)
+			material = self.parent.submaterials1[material]
+			item.color = material[4]
+			item.settag('resname', material[5])
+
+		# Apply one-time boni
+		healthbonus = fromitem(item, DURABILITYBONUS)
+		if healthbonus != 0:
+			bonus = int(math.ceil(item.maxhealth * (healthbonus / 100.0)))
+			item.maxhealth = max(1, item.maxhealth + bonus)
+			item.health = item.maxhealth
+
+		weightbonus = fromitem(item, WEIGHTBONUS)
+		if weightbonus != 0:
+			bonus = int(math.ceil(item.weight * (weightbonus / 100.0)))
+			item.weight = max(0, item.weight + bonus)
+
+		# Reduce the uses remain count
+		checktool(player, wolfpack.finditem(arguments[0]), 1)
+
+	#
+	# First check if we are near an anvil and forge.
+	#
+	def make(self, player, arguments):
+		assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
+
+		if not checktool(player, wolfpack.finditem(arguments[0])):
+			return 0
+
+		return CraftItemAction.make(self, player, arguments)
+
+	#
+	# Play a simple soundeffect
+	#
+	def playcrafteffect(self, player, arguments):
+		player.soundeffect(0x2a)
+
+class TinkeringMenu(MakeMenu):
+	def __init__(self, id, parent, title):
+		MakeMenu.__init__(self, id, parent, title)
+		self.allowmark = 1
+		#self.allowrepair = 1
+		self.submaterials1 = blacksmithing.METALS
+		self.submaterial1missing = 1044037
+		self.submaterial1noskill = 1044268
+		self.gumptype = 0x41afb410 # This should be unique
+
+	#
+	# Get the material used by the character from the tags
+	#
+	def getsubmaterial1used(self, player, arguments):
+		if not player.hastag('blacksmithing_ore'):
+			return 0
+		else:
+			material = int(player.gettag('blacksmithing_ore'))
+			if material < len(self.submaterials1):
+				return material
+			else:
+				return 0
+
+	#
+	# Save the material preferred by the user in a tag
+	#
+	def setsubmaterial1used(self, player, arguments, material):
+		player.settag('blacksmithing_ore', material)
+
+#
+# Load a menu with a given id and
+# append it to the parents submenus.
+#
+def loadMenu(id, parent = None):
+	definition = wolfpack.getdefinition(WPDT_MENU, id)
+	if not definition:
+		if parent:
+			console.log(LOG_ERROR, "Unknown submenu %s in menu %s.\n" % (id, parent.id))
+		else:
+			console.log(LOG_ERROR, "Unknown menu: %s.\n" % id)
 		return
-	backpack = char.getbackpack()
-	if not backpack:
-		return
-	if not target.item:
-		return
-	gem = target.item
-	if not gem.getoutmostchar() == char:
-		char.socket.clilocmessage( 1042265, "", 0x3b2, 3 )
-		return
-	# is it a valid gem ?
-	if not gems.haskey( gem.id ):
-		return
-	# check ingot
-	if backpack.countresource( 0x1bf2, 0x0961 ) < 2:
-		return
-	# use ingot
-	backpack.useresource( 2, 0x1bf2, 0x0961 )
-	# use the gem
-	backpack.useresource( gem.id )
-	# skill check
-	success = char.checkskill( TINKERING, 40, 50 )
-	if not success:
-		return
-	item = char.socket.gettag( 'tinkeritem' )
-	# make item, name it, add in the backpack
-	jewelry = wolfpack.additem( item )
-	jewelry.name = "a %s %s" % ( gems[ gem.id], char.socket.gettag( 'tinkering' ) )
-	backpack.additem( jewelry )
-	jewelry.update()
-	cleartinkertags( char )
+
+	name = definition.getattribute('name', '')
+	menu = TinkeringMenu(id, parent, name)
+
+	# See if we have any submenus
+	for i in range(0, definition.childcount):
+		child = definition.getchild(i)
+		# Submenu
+		if child.name == 'menu':
+			if not child.hasattribute('id'):
+				console.log(LOG_ERROR, "Submenu with missing id attribute in menu %s.\n" % menu.id)
+			else:
+				loadMenu(child.getattribute('id'), menu)
+
+		# Craft an item
+		elif child.name == 'tinker':
+			if not child.hasattribute('definition') or not child.hasattribute('name'):
+				console.log(LOG_ERROR, "Tinker action without definition or name in menu %s.\n" % menu.id)
+			else:
+				itemdef = child.getattribute('definition')
+				name = child.getattribute('name')
+				try:
+					# See if we can find an item id if it's not given
+					if not child.hasattribute('itemid'):
+						item = wolfpack.getdefinition(WPDT_ITEM, itemdef)
+						itemid = 0
+						if item:
+							itemchild = item.findchild('id')
+							if itemchild:
+								itemid = itemchild.value
+					else:
+						itemid = hex2dec(child.getattribute('itemid', '0'))
+					action = TinkerItemAction(menu, name, int(itemid), itemdef)
+				except:
+					console.log(LOG_ERROR, "Tinker action with invalid item id in menu %s.\n" % menu.id)
+
+				# Process subitems
+				for j in range(0, child.childcount):
+					subchild = child.getchild(j)
+
+					# How much of the primary resource should be consumed
+					if subchild.name == 'ingots':
+						action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
+	
+					# Standard material
+					elif subchild.name == 'logs':
+						amount = hex2dec(subchild.getattribute('amount', '0'))
+						action.materials.append([['1bdd','1be0','1bd7','1bda'], amount])
+						
+					elif subchild.name == 'nomark':
+						action.markable = 0
+						
+					elif subchild.name == 'retaincolor':
+						action.retaincolor = 1
+
+					# Normal Material
+					elif subchild.name == 'material':
+						if not subchild.hasattribute('id'):
+							console.log(LOG_ERROR, "Material element without id list in menu %s.\n" % menu.id)
+							break
+						else:
+							ids = subchild.getattribute('id').split(';')
+							try:
+								amount = hex2dec(subchild.getattribute('amount', '1'))
+							except:
+								console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
+								break
+							action.materials.append([ids, amount])
+
+					# Skill requirement
+					elif subchild.name in skillnamesids:
+						skill = skillnamesids[subchild.name]
+						try:
+							minimum = hex2dec(subchild.getattribute('min', '0'))
+						except:
+							console.log(LOG_ERROR, "%s element with invalid min value in menu %s.\n" % (subchild.name, menu.id))
+
+						try:
+							maximum = hex2dec(subchild.getattribute('max', '1200'))
+						except:
+							console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (subchild.name, menu.id))
+
+						try:
+							penalty = hex2dec(subchild.getattribute('penalty','0'))
+						except:
+							console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (subchild.name, menu.id))
+
+						action.skills[skill] = [minimum, maximum, penalty]
+
+	# Sort the menu. This is important for the makehistory to make.
+	menu.sort()
+
+def onLoad():
+	loadMenu('TINKERING')
