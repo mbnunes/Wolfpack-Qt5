@@ -368,7 +368,7 @@ def nightsightPotion( char, potion ):
 		char.lightbonus = max(0, char.lightbonus - bonus)
 
 	# With 100% magery you gain a 18 light level bonus (min. 5)
-	bonus = max(6, min(18, math.floor(18 * (char.skill[MAGERY] / 1000.0))))
+	bonus = max(8, min(18, math.floor(18 * (char.skill[MAGERY] / 1000.0))))
 
 	char.addscript('magic.nightsight')
 	char.settag('nightsight', bonus)
