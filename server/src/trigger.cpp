@@ -72,7 +72,7 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype,
 	splitline();
 	unsigned int ItemNum = makenumber(0);
 	unsigned int InBackpack = makenumber(1);
-	CHARACTER cc = currchar[ts];
+//	CHARACTER cc = currchar[ts];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[ts]);
 	
 	switch (pc_currchar->dir)
@@ -121,7 +121,7 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype,
 	// first create the item on the ground
 	int i = Targ->AddMenuTarget(ts, 1, str2num(script2));
 	triggerx = 0;
-	int pack = packitem(cc);
+	int pack = packitem(DEREF_P_CHAR(pc_currchar));
 	
 	if (pack!=-1 && i!=-1)
 	{
@@ -130,8 +130,8 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype,
 		{
 			// and item has to be added in player's backpack
 			items[pack].AddItem(&items[i]);
-			Weight->NewCalc(cc);
-			statwindow(ts, cc);
+			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+			statwindow(ts, DEREF_P_CHAR(pc_currchar));
 		}
 	}// if player has backpack
 	// else leave it where it is (on the ground)
@@ -2220,8 +2220,8 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						unsigned int baseskill = pc_ts->baseskill[skill];
 						if (i > baseskill)
 						{
-							Skills->AdvanceSkill(currchar[ts], skill, 0);
-							Skills->updateSkillLevel(currchar[ts], skill);
+							Skills->AdvanceSkill(DEREF_P_CHAR(pc_ts), skill, 0);
+							Skills->updateSkillLevel(DEREF_P_CHAR(pc_ts), skill);
 							updateskill(ts, skill);
 							if (strlen(fmsg))
 								sysmessage(ts, fmsg); // by Magius(CHE) §
@@ -2332,7 +2332,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						strcpy(sect, (char*)script2);
 						for (i = 0; i < now; i++)
 						{
-							if (inrange1p(currchar[ts], currchar[i]) && perm[i])
+							if (inrange1p(DEREF_P_CHAR(pc_ts), currchar[i]) && perm[i])
 							{
 								tl = 44 + strlen(sect) + 1;
 								talk[1] = tl >> 8;
@@ -2461,14 +2461,14 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							
 							if ((j < 0) &&(pc_ts->hp < abs(j)) &&(!(pc_ts->isInvul())))
 							{
-								deathstuff(currchar[ts]);
+								deathstuff(DEREF_P_CHAR(pc_ts));
 								closescript();
 								return;
 							}
 							pc_ts->hp += j;
 							if (pc_ts->hp>pc_ts->st)
 								pc_ts->hp = pc_ts->st;
-							updatestats(currchar[ts], 0);
+							updatestats(DEREF_P_CHAR(pc_ts), 0);
 						}
 						else if (!(strcmp("HUNGER", (char*)script1)))  // Do math on players hunger from 0 to 6 - Magius(CHE)
 						{
@@ -2633,13 +2633,13 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							cline = &script2[0];
 							splitline();
 							// c=memitemfree();
-							p = packitem(currchar[ts]);
+							p = packitem(DEREF_P_CHAR(pc_ts));
 							if (p==-1)
 								p = 0;
 							// Antichrist
 							pos = ftell(scpfile);
 							closescript();
-							c = Items->SpawnItem(ts, currchar[ts], 1, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1);
+							c = Items->SpawnItem(ts, DEREF_P_CHAR(pc_ts), 1, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1);
 							if (c==-1)
 								return;// AntiChrist to preview crashes
 							// Added colormem token here! by Magius(CHE) §
@@ -2696,7 +2696,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 								effect[27] = 0x00; // This value is used for moving effects that explode on impact.
 								for (j = 0; j < now; j++)
 								{
-									if ((inrange1p(currchar[j], currchar[ts])) &&(perm[j]))
+									if ((inrange1p(currchar[j], DEREF_P_CHAR(pc_ts))) &&(perm[j]))
 									{
 										Xsend(j, effect, 28);
 									}
@@ -2771,8 +2771,8 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							cline = &script2[0];
 							splitline();
 							itemmake[ts].Mat1id = ((hexnumber(2)) << 8) + hexnumber(3);
-							itemmake[ts].has = getamount(currchar[ts], itemmake[ts].Mat1id); 
-							itemmake[ts].has2 = getamount(currchar[ts], itemmake[ts].Mat2id);
+							itemmake[ts].has = getamount(DEREF_P_CHAR(pc_ts), itemmake[ts].Mat1id); 
+							itemmake[ts].has2 = getamount(DEREF_P_CHAR(pc_ts), itemmake[ts].Mat2id);
 							itemmake[ts].coloring = coloring; // Magius(CHE) §
 							if (coloring>-1)
 							{
@@ -2792,9 +2792,9 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						else if (!(strcmp("MISC", (char*)script1)))  // Perform a miscellaneous function
 						{
 							if (!(strcmp("bank", strlwr((char*)script2))))
-								openbank(ts, currchar[ts]);
+								openbank(ts, DEREF_P_CHAR(pc_ts));
 							if (!(strcmp("ware", strlwr((char*)script2))))
-								openspecialbank(ts, currchar[ts]);// AntiChrist
+								openspecialbank(ts, DEREF_P_CHAR(pc_ts));// AntiChrist
 							if (!(strcmp("balance", strlwr((char*)script2))))
 							{
 								sprintf(sect, "You have %i gp in your bank account!", pc_ts->CountBankGold());
@@ -2821,7 +2821,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							pc_ts->mn += j;
 							if (pc_ts->mn>pc_ts->in)
 								pc_ts->mn = pc_ts->in;
-							updatestats(currchar[ts], 1);
+							updatestats(DEREF_P_CHAR(pc_ts), 1);
 						}
 						else if (!(strcmp("MEMCOLOR", (char*)script1)))  // Store the item color in memory by Magius(CHE) §
 						{
@@ -2895,13 +2895,13 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						{
 							if (itemnum>-1)
 							{// item
-								p = currchar[ts];
-								items[itemnum].SetOwnSerial(chars[p].serial);
+								p = DEREF_P_CHAR(pc_ts);
+								items[itemnum].SetOwnSerial(pc_ts->serial);
 							}
 							if (npcnum>-1)
 							{// char
-								p = currchar[ts];
-								chars[npcnum].SetOwnSerial(chars[p].serial);
+								p = DEREF_P_CHAR(pc_ts);
+								chars[npcnum].SetOwnSerial(pc_ts->serial);
 							}
 						}
 						else if (!(strcmp("NEEDCOLOR", (char*)script1)))  // Set the color check on NEEDED item by Magius(CHE) §
@@ -2937,7 +2937,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						}
 						else if (!(strcmp("NEED", (char*)script1)))  // The item here is required and will be removed
 						{
-							p = packitem(currchar[ts]);
+							p = packitem(DEREF_P_CHAR(pc_ts));
 							for (i = 0; i < itemcount; i++)
 							{
 								if (p!=-1)
@@ -3029,7 +3029,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							pc_ts->pos.x = makenumber(0);
 							pc_ts->pos.y = makenumber(1);
 							pc_ts->pos.z = makenumber(2);
-							teleport(currchar[ts]);
+							teleport(DEREF_P_CHAR(pc_ts));
 						}
 						break;
 					case 'R':
@@ -3152,7 +3152,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							pc_ts->stm += j;
 							if (pc_ts->stm>pc_ts->effDex())
 								pc_ts->stm = pc_ts->effDex();
-							updatestats(currchar[ts], 2);
+							updatestats(DEREF_P_CHAR(pc_ts), 2);
 						}
 						else if (!(strcmp("STR", (char*)script1)))  // Do math on players strength
 						{
@@ -3192,15 +3192,15 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							}
 							else 
 							{
-								Skills->AdvanceSkill(currchar[ts], p, 1);
+								Skills->AdvanceSkill(DEREF_P_CHAR(pc_ts), p, 1);
 							}
 						}
 						else if (!(strcmp("SETOWNER", (char*)script1)))  // Set ownership of NPC
 						{
 							if (ti>-1)
 							{
-								p = currchar[ts];
-								chars[ti].SetOwnSerial(chars[p].serial);
+//								p = currchar[ts];
+								chars[ti].SetOwnSerial(pc_ts->serial);
 							}
 						}
 						break;
@@ -3214,7 +3214,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 					case 'U':
 						if (!(strcmp("USEUP", (char*)script1)))  // The item here is required and will be removed
 						{
-							p = packitem(currchar[ts]);
+							p = packitem(DEREF_P_CHAR(pc_ts));
 							if (p!=-1) // lb
 								if (needitem < 0)
 								{

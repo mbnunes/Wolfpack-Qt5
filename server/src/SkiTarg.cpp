@@ -1111,7 +1111,7 @@ void cSkills::Loom(int s)
 					sysmessage(s,"You do not have enough material to make anything!");
 					return;
 				}
-				if (!Skills->CheckSkill(currchar[s],TAILORING, 300, 1000)) 
+				if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),TAILORING, 300, 1000)) 
 				{
 					sysmessage(s,"You failed to make cloth.");
 					sysmessage(s,"You have broken and lost some material!");
@@ -1157,6 +1157,7 @@ void cSkills::Loom(int s)
 void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	if (pi && pi->magic!=4) // Ripper
 	{
 		P_ITEM piRaw=MAKE_ITEMREF_LR(addmitem[s]);
@@ -1168,7 +1169,7 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 				{
 					char tmpmsg[250];
 					soundeffect(s,0x01,0xDD);	// cooking sound
-					if (!Skills->CheckSkill(currchar[s],COOKING, 0, 1000)) 
+					if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),COOKING, 0, 1000)) 
 					{
 						sprintf(tmpmsg,"You failed to cook the %s and drop some into the ashes.",matname);
 						piRaw->ReduceAmount(1+(rand() %(piRaw->amount)));
@@ -1176,7 +1177,7 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 					else
 					{
 						sprintf(tmpmsg,"You have cooked the %s,and it smells great.",matname);
-						int c=Items->SpawnItem(s,currchar[s],piRaw->amount,"#",1,id1,id2,0,0,1,1);
+						int c=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),piRaw->amount,"#",1,id1,id2,0,0,1,1);
 						if(c==-1) return;
 						items[c].type=14;
 						RefreshItem(c);
@@ -1201,7 +1202,7 @@ void cSkills::MakeDough(int s)
 		{
 			if(iteminrange(s,pi,3))
 			{
-				if (!Skills->CheckSkill(currchar[s],COOKING, 0, 1000)) 
+				if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),COOKING, 0, 1000)) 
 				{
 					sysmessage(s,"You failed to mix, and spilt your water.");
 					return;
@@ -1237,7 +1238,7 @@ void cSkills::MakePizza(int s)
 		{
 			if(iteminrange(s,pi,3))
 			{
-				if (!Skills->CheckSkill(currchar[s],COOKING, 0, 1000)) 
+				if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),COOKING, 0, 1000)) 
 				{
 					sysmessage(s,"You failed to mix.");
 					Items->DeleItem(pi);
@@ -1306,7 +1307,7 @@ void cSkills::DetectHidden(UOXSOCKET s)
 				if (low<0) low=0;
 				else if (low>1000) low=1000;
 				
-				if ((Skills->CheckSkill(currchar[s],DETECTINGHIDDEN,low,1000))&&(c<=range))
+				if ((Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),DETECTINGHIDDEN,low,1000))&&(c<=range))
 				{
 					pc->unhide();
 				
@@ -1412,16 +1413,15 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 	CHARACTER ftarg = calcCharFromPtr(buffer[s]+7);
 	if( ftarg == -1 ) return;
 	P_CHAR pc = MAKE_CHARREF_LR(ftarg);
-
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	ITEM inst = Skills->GetInstrument(s);
 	if (inst==-1) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
 	}
-	int cc=currchar[s];
-	int res1 = CheckSkill(cc, ENTICEMENT, 0, 1000);
-	int res2 = CheckSkill(cc, MUSICIANSHIP, 0, 1000);
+	int res1 = CheckSkill(DEREF_P_CHAR(pc_currchar), ENTICEMENT, 0, 1000);
+	int res2 = CheckSkill(DEREF_P_CHAR(pc_currchar), MUSICIANSHIP, 0, 1000);
 	if (res1 && res2)
 	{
 		CHARACTER target = calcCharFromSer(addid1[s], addid2[s], addid3[s], addid4[s]);
@@ -1444,11 +1444,10 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 	if (!Victim2)
 		return;
 
-	CHARACTER cc=currchar[s];
-	cChar* Player = MAKE_CHARREF_LR(cc);
+	P_CHAR Player = MAKE_CHARREF_LR(currchar[s]);
 
 	int target=calcCharFromSer(addid1[s], addid2[s], addid3[s], addid4[s]);
-	cChar* Victim1 = MAKE_CHARREF_LR(target);
+	P_CHAR Victim1 = MAKE_CHARREF_LR(target);
 
 	if (Victim2->inGuardedArea())
 	{
@@ -1467,13 +1466,13 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
 	}
-	if (CheckSkill(cc, MUSICIANSHIP, 0, 1000))
+	if (CheckSkill(DEREF_P_CHAR(Player), MUSICIANSHIP, 0, 1000))
 	{
 		PlayInstrumentWell(s, inst);
-		if (CheckSkill(cc, PROVOCATION, 0, 1000))
+		if (CheckSkill(DEREF_P_CHAR(Player), PROVOCATION, 0, 1000))
 		{
 			if (Player->inGuardedArea())
-				Combat->SpawnGuard(cc,cc,Player->pos.x+1,Player->pos.y,Player->pos.z); //ripper
+				Combat->SpawnGuard(DEREF_P_CHAR(Player), DEREF_P_CHAR(Player), Player->pos.x+1,Player->pos.y,Player->pos.z); //ripper
 			sysmessage(s, "Your music succeeds as you start a fight.");
 		}
 		else 
@@ -1634,7 +1633,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		{
 	       if ((pp->crimflag>0) ||(pp->isMurderer()))
 		   {
-		       criminal(currchar[s]);
+		       criminal(DEREF_P_CHAR(ph));
 		   }
 		}
 		
@@ -1644,7 +1643,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 				sysmessage(s,"You are not skilled enough to resurrect");
 			else
 			{
-				int reschance=((ph->baseskill[HEALING]+ph->baseskill[ANATOMY])*0.17);
+				int reschance = static_cast<int>((ph->baseskill[HEALING]+ph->baseskill[ANATOMY])*0.17);
 				int rescheck=RandomNum(1,100);
 				CheckSkill(DEREF_P_CHAR(ph),HEALING,800,1000);
 				CheckSkill(DEREF_P_CHAR(ph),ANATOMY,800,1000);
@@ -1669,7 +1668,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 			}
 			else
 			{
-				int curechance=((ph->baseskill[HEALING]+ph->baseskill[ANATOMY])*0.67);
+				int curechance = static_cast<int>((ph->baseskill[HEALING]+ph->baseskill[ANATOMY])*0.67);
 				int curecheck=RandomNum(1,100);
 				CheckSkill(DEREF_P_CHAR(ph),HEALING,600,1000);
 				CheckSkill(DEREF_P_CHAR(ph),ANATOMY,600,1000);
@@ -2379,8 +2378,8 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 
 void cSkills::PoisoningTarget(int s) //AntiChrist
 {
-	CHARACTER cc=currchar[s];
-	P_CHAR pc = MAKE_CHARREF_LR(cc);
+//	CHARACTER cc=currchar[s];
+	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
 
 	P_ITEM pPoi=FindItemBySerial(pc->poisonserial);
 	if (!pPoi) return;
@@ -2398,24 +2397,24 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		int success=0;
 		switch(pPoi->morez)
 		{
-		case 1:	success=Skills->CheckSkill(cc, POISONING, 0, 500);		break;//lesser poison
-		case 2:	success=Skills->CheckSkill(cc, POISONING, 151, 651);	break;//poison
-		case 3:	success=Skills->CheckSkill(cc, POISONING, 551, 1051);	break;//greater poison
-		case 4:	success=Skills->CheckSkill(cc, POISONING, 901, 1401);	break;//deadly poison
+		case 1:	success=Skills->CheckSkill(DEREF_P_CHAR(pc), POISONING, 0, 500);		break;//lesser poison
+		case 2:	success=Skills->CheckSkill(DEREF_P_CHAR(pc), POISONING, 151, 651);		break;//poison
+		case 3:	success=Skills->CheckSkill(DEREF_P_CHAR(pc), POISONING, 551, 1051);		break;//greater poison
+		case 4:	success=Skills->CheckSkill(DEREF_P_CHAR(pc), POISONING, 901, 1401);		break;//deadly poison
 		default:
 			LogError("switch reached default");
 			return;
 		}
 		if(success)
 		{
-			soundeffect2(cc, 0x02, 0x47); //poisoning effect
+			soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x47); //poisoning effect
 			//-Frazurbluu-  adding the weapons that may be posioned here..
 			// also need to adjust poisoning damages..
 			if(pi->poisoned<pPoi->morez) pi->poisoned=pPoi->morez;
 			sysmessage(s,"You successfully poison that item.");
 		} else
 		{
-			soundeffect2(cc, 0x02, 0x47); //poisoning effect
+			soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x47); //poisoning effect
 			sysmessage(s,"You fail to apply the poison.");
 		}
 		
@@ -2895,7 +2894,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 			LogError("switch reached default");
 			return;
 		}
-		cItem* Ingot=Items->SpawnItem(cc,a,Name,1,0x1BF2,Color,1);
+		cItem* Ingot = Items->SpawnItem(cc,a,Name,1,0x1BF2,Color,1);
 		if (Ingot)
 		{
 			Ingot->weight = 20;	// that is 0.2 stone

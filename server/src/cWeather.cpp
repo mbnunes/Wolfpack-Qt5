@@ -30,7 +30,7 @@
 //========================================================================================
 
 #undef  DBGFILE
-#define DBGFILE "cWeather.cpp"
+#define DBGFILE "cweather.cpp"
 
 #include "wolfpack.h"
 #include "cweather.h"

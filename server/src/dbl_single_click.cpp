@@ -162,14 +162,14 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	{// Cant use stuff that isn't in your pack.
 		p = GetPackOwner(calcItemFromSer(pi->contserial));
 		if (p!=-1)
-			if (p != currchar[s])
+			if (p != DEREF_P_CHAR(pc_currchar))
 				return;
 	}
 	else if (isCharSerial(pi->contserial) && pi->type!=-1 && !pi->isInWorld())
 	{// in a character.
 		p = calcCharFromSer(pi->contserial);
 		if (p!=-1)
-			if (p != currchar[s] && pi->layer != 15 && pi->type != 1)
+			if (p != DEREF_P_CHAR(pc_currchar) && pi->layer != 15 && pi->type != 1)
 				return;
 	}
 	
@@ -224,7 +224,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	// SWEET, since I have the inBACKPACK working I should make a trigger function detailing object location for firing -Fraz-
 	else if ((IsSpellScroll(pi->id())) && (pi->magic != 4))
 	{
-		k = packitem(currchar[s]);
+		k = packitem(DEREF_P_CHAR(pc_currchar));
 		if (k!=-1)
 			if ((pi->contserial == items[k].serial))
 			{
@@ -291,7 +291,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
 		if (pc_currchar->dead)
 		{
-			Targ->NpcResurrectTarget(currchar[s]);
+			Targ->NpcResurrectTarget(DEREF_P_CHAR(pc_currchar));
 			sysmessage(s, "You have been resurrected.");
 			return;
 		} 
@@ -322,7 +322,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	case 1: // normal containers
 	case 63:
 		if (pi->moreb1)
-			Magic->MagicTrap(currchar[s], pi); // added by AntiChrist
+			Magic->MagicTrap(DEREF_P_CHAR(pc_currchar), pi); // added by AntiChrist
 		// only 1 and 63 can be trapped, so pleaz leave it here :) - Anti
 	case 65: // nodecay item spawner..Ripper
 	case 66: // decaying item spawner..Ripper
@@ -434,7 +434,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		// Added traps effects by AntiChrist
 		pc_currchar->objectdelay = 0;
 		if (pi->moreb1)
-			Magic->MagicTrap(currchar[s], pi);
+			Magic->MagicTrap(DEREF_P_CHAR(pc_currchar), pi);
 		sysmessage(s, "This item is locked.");
 		return;// case 8/64 (locked container)
 	case 9: // spellbook

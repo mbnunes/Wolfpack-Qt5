@@ -32,7 +32,17 @@
 #if !defined(__RACES_H__)
 #define __RACES_H__
 
+// Platform Specifics
+#include "platform.h"
+
+// System Includes
+#include <vector>
+#include <algorithm>
+
+// Our own includes
 #include "wolfpack.h"
+
+using namespace std;
 
 class cRace
 {
@@ -55,7 +65,7 @@ public:
 		NoHair = false;
 		NoBeard = false;
 		BaseAR = 0;
-		BestFightSkill=SWORDSMANSHIP; // defaults to swords
+		BestFightSkill = SWORDSMANSHIP; // defaults to swords
 		startpos.x=0;
 		startpos.y=0;
 		startpos.z=0;
