@@ -4121,7 +4121,7 @@ void cMagic::Action4Spell( UOXSOCKET s, int num )
 
 void cMagic::AfterSpellDelay(UOXSOCKET s, P_CHAR pc)
 {
-	if( Magic->requireTarget( pc->spell() ) )
+/*	if( Magic->requireTarget( pc->spell() ) )
 	{
 //		target(s,0,1,0,100, spells[pc->spell()].strToSay );
 	}
@@ -4130,7 +4130,8 @@ void cMagic::AfterSpellDelay(UOXSOCKET s, P_CHAR pc)
 		Magic->NewCastSpell( s );
 	}
 	pc->setCasting(false);
-	pc->setSpelltime(0);
+//	pc->setSpelltime(0);
 //	pc->priv2 &= 0xfd; // unfreeze, bugfix LB
 	pc->setPriv2(pc->priv2() & 0xfd);
+	*/
 }

@@ -183,13 +183,15 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 			}
 			// end Mana regeneration
 			
-			// only if not permanently hidden
+/* should be a temporal effect!
+		// only if not permanently hidden
 			if( ( pc->hidden() == 2 ) && ( pc->invistimeout() <= currenttime ) && !pc->isHiddenPermanently() )
 			{
 				pc->setHidden( 0 );
 				pc->setStealth(-1);
 				pc->resend( false );
 			}
+*/
 	}
 
 	// Check if the character died
@@ -321,6 +323,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 		setcharflag( pc );
 	}
 
+/* still needed !?
 	if( pc->isPlayer() && pc->casting() )//PC casting a spell
 	{
 		pc->setNextact( pc->nextact() - 1 );
@@ -335,6 +338,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 			pc->action( pc->spellaction() );
 		}
 	}
+*/
 
 	if( SrvParams->bgSound() >= 1 )
 	{
@@ -716,14 +720,12 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		if(SrvParams->housedecay_secs() != -1)
 			check_house_decay();
 
+/*	TODO: rewrite STABLEMASTER with python
 		////////////////////
 		// check stabling
 		///////////////////
-
 		unsigned long int diff;
-
 		cCharIterator iter_char;
-
 		for( P_CHAR pc = iter_char.first(); pc; pc = iter_char.next() )
 		{
 			if( pc->npc_type() == 1 )
@@ -741,6 +743,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 				}
 			}
 		}
+*/
 		housedecaytimer=uiCurrentTime+MY_CLOCKS_PER_SEC*60*30; // check only each 30 minutes
 	}
 

@@ -98,9 +98,6 @@ int tnum;
 
 unsigned int starttime, endtime, lclock;
 
-unsigned int fly_p=18; // flying probability = 1/fly_p each step (if it doesnt fly)
-unsigned char fly_steps_max=27;
-
 unsigned int shoprestocktime=0;
 
 //int *spawnedguards;

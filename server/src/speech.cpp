@@ -170,6 +170,7 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 
 bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QString &speech )
 {
+/* redo with python..
 	// is it a stablemaster ?
 	if( pMaster->npc_type() != 1 )
 		return false;
@@ -232,11 +233,13 @@ bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QStr
 	stablesp.insert( pMaster->serial(), p_pet->serial() );
 
 	pMaster->talk( tr( "Your pet is now stabled, say retrieve or claim %1 to claim your pet" ).arg( p_pet->name() ) );
-	return true;
+	*/
+	return false;
 }
 
 bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QString &comm )
 {
+/* redo with python
 	// is it a stablemaster ?
 	if( pMaster->npc_type() != 1 )	
 		return false;
@@ -303,7 +306,8 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 	pPet->resend( false ); // Resend
 		
 	pMaster->talk( tr( "Here's your pet. Treat it well." ) );
-	return true;
+*/
+	return false;
 }
 
 bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QString& comm )
@@ -652,6 +656,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 //PlayerVendors
 void PlVGetgold( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor )
 {
+/*
 	if( pVendor->owner() != pPlayer )
 	{
 		pVendor->talk( tr( "I don't work for you!" ) );
@@ -676,6 +681,7 @@ void PlVGetgold( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor )
 
 	pVendor->talk( tr( "Today's purchases total %1 gold. I am keeping %2 gold for my self. Here is the remaining %3 gold. Have a nice day." ).arg( goldKeeping + goldSalary ).arg( goldSalary ).arg( goldKeeping ) );
 	pVendor->setHoldg( 0 );
+*/
 }
 
 bool VendorChkName( P_CHAR pVendor, const QString& comm )

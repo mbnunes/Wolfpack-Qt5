@@ -98,7 +98,7 @@ protected:
 	P_CHAR					owner_;
 
 	SERIAL					trackingTarget_;
-	bool					animated;
+//	bool					animated;
 	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
 	bool					GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
 	QString					orgname_;//original name - for Incognito
@@ -123,50 +123,33 @@ protected:
 	unsigned int			logout_; //unsigned int logout;//Time till logout for this char -1 means in the world or already logged out //Instalog
 	unsigned int			clientidletime_; // LB
 	SERIAL					swingtarg_; //Tagret they are going to hit after they swing
-	unsigned int			holdg_; // Gold a player vendor is holding for Owner
-	unsigned char			fly_steps_; // number of step the creatures flies if it can fly
 	bool					tamed_;
 	bool					casting_; // 0/1 is the cast casting a spell?
-    unsigned int			smoketimer_; // LB
-	unsigned int			smokedisplaytimer_;
 	unsigned int			antispamtimer_;
 	unsigned int			antiguardstimer_;//AntiChrist - anti "GUARDS" spawn
 	P_CHAR					guarding_; // is guarding this.	
 	QString					carve_; // carve system
-	int						hairserial_;//there are needed for incognito stuff
-	int						beardserial_;
 	unsigned int			begging_timer_;
-	int						postType_;
 	SERIAL					murdererSer_;            // Serial number of last person that murdered this char
 	Coord_cl				prevPos_;
-	unsigned char			commandLevel_;             // 0 = player, 1 = counselor, 2 = GM
 	QString					spawnregion_; 
 	SERIAL					stablemaster_serial_; 
-	unsigned char			npc_type_;		// currently only used for stabling, (type==1 -> stablemaster)
-	// can be used for other npc types too of course
-	unsigned int			time_unused_;     
-	unsigned int			timeused_last_;
 	SERIAL					spawnserial_; // Spawned by
 	unsigned char			hidden_; // 0 = not hidden, 1 = hidden, 2 = invisible spell
-	unsigned int			invistimeout_;
 	bool					attackfirst_; // 0 = defending, 1 = attacked first
 	int						hunger_;  // Level of hungerness, 6 = full, 0 = "empty"
 	unsigned int			hungertime_; // Timer used for hunger, one point is dropped every 20 min
 	SERIAL					tailitem_;
 	int						npcaitype_; // NPC ai
-	int						callnum_; //GM Paging
-	int						playercallnum_; //GM Paging
 
 	int						poison_; // used for poison skill 
 	unsigned int			poisoned_; // type of poison
 	unsigned int			poisontime_; // poison damage timer
-	unsigned int			poisontxt_; // poision text timer
+	unsigned int			poisontxt_; // poison emote msg timer
 	unsigned int			poisonwearofftime_; // LB, makes poision wear off ...
 	short					fleeat_;
 	short					reattackat_;
-	unsigned int			disabled_; //Character is disabled, cant trigger.
 	QString					disabledmsg_; //Character is disabled, so dysplay this message. -- added by Magius(CHE) §
-	unsigned short			envokeid_;  //ID1 of item user envoked
 	SERIAL					envokeitem_;
 	unsigned char			split_;
 	unsigned char			splitchnc_;
@@ -180,15 +163,10 @@ protected:
 	SERIAL					guildfealty_;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
 	SERIAL					guildstone_;			// Number of guild player is in (0=no guild)			(DasRaetsel)
 	char					flag_; //1=red 2=grey 4=Blue 8=green 10=Orange
-	unsigned int			tempflagtime_;
 	UINT32					trackingTimer_;
 	// End of Guild Related Character information
 	unsigned int			murderrate_; //#of ticks until one murder decays //REPSYS 
 	long int				crimflag_; //Time when No longer criminal -1=Not Criminal
-	unsigned int			spelltime_; //Time when they are done casting....
-	int						spell_; //current spell they are casting....
-	int						spellaction_; //Action of the current spell....
-	int						nextact_; //time to next spell action....
 	SERIAL					poisonserial_; //AntiChrist -- poisoning skill
 	int						squelched_; // zippy  - squelching
 	unsigned int			mutetime_; //Time till they are UN-Squelched.
@@ -302,7 +280,7 @@ public:
 	// Change coordinates for the char
 	// Resend( clean = false )
 	// This saves bandwith and CPU time !
-	void setAnimated( bool d ) { animated = d; }
+//	void setAnimated( bool d ) { animated = d; }
 	void update( bool excludeself = false ); // This is called when flags/name have been changed
 	void resend( bool clean = true, bool excludeself = false ); // this is called when the char is being created or anything like that
 	void makeShop( void );
@@ -340,46 +318,31 @@ public:
 	unsigned int			logout() const {return logout_;} 
 	unsigned int			clientidletime() const {return clientidletime_;}
 	SERIAL					swingtarg() const { return swingtarg_; }
-	unsigned int			holdg() const {return holdg_;}
-	unsigned char			fly_steps() const {return fly_steps_;} // number of step the creatures flies if it can fly
 	bool					tamed() const {return tamed_;}
-    unsigned int			smoketimer() const {return smoketimer_;}
-	unsigned int			smokedisplaytimer() const {return smokedisplaytimer_;}
 	unsigned int			antispamtimer() const { return antispamtimer_;}
 	unsigned int			antiguardstimer() const { return antiguardstimer_;}
 	P_CHAR					guarding() const { return guarding_; }
 	QString					carve() const {return carve_;}
-	SERIAL					hairserial() const {return hairserial_;}
-	SERIAL					beardserial() const { return beardserial_;}
 	unsigned int			begging_timer() const {return begging_timer_;}
-	int						postType() const {return postType_;}
 	SERIAL					murdererSer() const {return murdererSer_;}
 	Coord_cl				prevPos() const { return prevPos_; }
-	unsigned char			commandLevel() const { return commandLevel_;}             // 0 = player, 1 = counselor, 2 = GM
 	QString					spawnregion() const {return spawnregion_;} 
 	SERIAL					stablemaster_serial() const {return stablemaster_serial_;} 
-	unsigned char			npc_type() const {return npc_type_;}
-	unsigned int			time_unused() const { return time_unused_;}
-	unsigned int			timeused_last() const { return timeused_last_;}
 	bool					casting() const { return casting_;	}
 	SERIAL					spawnSerial() const { return spawnserial_;}
 	unsigned char			hidden() const { return hidden_; } // 0 = not hidden, 1 = hidden, 2 = invisible spell
-	unsigned int			invistimeout() const { return invistimeout_;}
 	bool					attackfirst() const { return attackfirst_; }
 	int						hunger() const { return hunger_; }
 	unsigned int			hungertime() const { return hungertime_;}
 	SERIAL					tailitem() const { return tailitem_; }
 	int						npcaitype() const { return npcaitype_;}
-	int						callnum() const { return callnum_; }
-	int						playercallnum() const { return playercallnum_; }
 	int						poison() const { return poison_;}
 	unsigned int			poisoned() const { return poisoned_; }
 	unsigned int			poisontime() const { return poisontime_;}
-	unsigned int			poisontxt() const { return poisontxt_;}
 	unsigned int			poisonwearofftime() const { return poisonwearofftime_;}
+	unsigned int			poisontxt() const { return poisontxt_; }
 	short					fleeat() const { return fleeat_;}
 	short					reattackat() const { return reattackat_; }
-	unsigned short			envokeid() const { return envokeid_;}
 	SERIAL					envokeitem() const { return envokeitem_;}
 	unsigned char			split() const { return split_;}
 	unsigned char			splitchnc() const { return splitchnc_;}
@@ -393,13 +356,8 @@ public:
 	cGuildStone*			getGuildstone();
 	SERIAL					guildstone() const { return guildstone_; }
 	char					flag() const { return flag_;}
-	unsigned int			tempflagtime() const { return tempflagtime_; }
 	unsigned int			murderrate() const { return murderrate_;}
 	long int				crimflag() const { return crimflag_;}
-	unsigned int			spelltime() const { return spelltime_;}
-	int						spell() const { return spell_;}
-	int						spellaction() const { return spellaction_;}
-	int						nextact() const { return nextact_;}
 	SERIAL					poisonserial() const { return poisonserial_;}
 	int						squelched() const { return squelched_;}
 	int						mutetime() const { return mutetime_; }
@@ -505,46 +463,31 @@ public:
 	void					setLogout(unsigned int d) {logout_ = d; changed( SAVE );}
 	void					setClientIdleTime( unsigned int d ) { clientidletime_ = d; changed( SAVE );}
 	void					setSwingTarg( SERIAL d ) { swingtarg_ = d; changed( SAVE );}
-	void					setHoldg( unsigned int d ) {holdg_ = d; changed( SAVE );}
-	void					setFlySteps( unsigned char d) {fly_steps_ = d; changed( SAVE );}
 	void					setTamed( bool d ) { tamed_ = d; changed( SAVE+TOOLTIP );}
-    void					setSmokeTimer( unsigned int d ) { smoketimer_ = d; changed( SAVE );}
-	void					setSmokeDisplayTimer ( unsigned int d ) { smokedisplaytimer_ = d; changed( SAVE );}
 	void					setAntispamtimer ( unsigned int d ) { antispamtimer_ = d; changed( SAVE );}
 	void					setAntiguardstimer( unsigned int d ) { antiguardstimer_ = d; changed( SAVE );}
 	void					setCarve( const QString& d ) { carve_ = d; changed( SAVE );}
-	void					setHairSerial( SERIAL d ) { hairserial_ = d; changed( SAVE );}
-	void					setBeardSerial( SERIAL d ) {beardserial_ = d; changed( SAVE );}
 	void 					setBegging_timer( unsigned int d ) { begging_timer_ = d; changed( SAVE );}
-	void					setPostType( int d ) { postType_ = d; changed( SAVE );}
 	void					setMurdererSer( SERIAL d ) { murdererSer_ = d; changed( SAVE );}
 	void					setPrevPos( const Coord_cl& d ) { prevPos_ = d; changed( SAVE );}
-	void					setCommandLevel( unsigned char d ) { commandLevel_ = d; changed( SAVE );}
 	void					setSpawnregion ( QString d ) { spawnregion_ = d; changed( SAVE );}
 	void					setStablemaster_serial (SERIAL d ) { stablemaster_serial_ = d; changed( SAVE );}  
-	void					setNpc_type( unsigned char d ) { npc_type_ = d; changed( SAVE );}
-	void					setTime_unused ( unsigned int d ) { time_unused_ = d; changed( SAVE );}
-	void					setTimeused_last( unsigned int d ) { timeused_last_ = d; changed( SAVE );}
 	void					setCasting( bool d ) { casting_ = d; changed( SAVE );}
 	void					setSpawnSerial( SERIAL d ) { spawnserial_ = d; changed( SAVE );}
 	void					setHidden ( unsigned char d ) { hidden_ = d; changed( SAVE );}
-	void					setInvisTimeout ( unsigned int d ) { invistimeout_ = d; changed( SAVE );}
 	void					setAttackFirst ( bool d ) { attackfirst_ = d; changed( SAVE );}
 	void					setHunger ( int d ) { hunger_ = d; changed( SAVE );}
 	void					setHungerTime ( unsigned int d ) { hungertime_ = d; changed( SAVE );}
 	void					setTailItem ( SERIAL d ) { tailitem_ = d; changed( SAVE );}
 	void					setNpcAIType( int d ) { npcaitype_ = d; changed( SAVE );}
-	void					setCallNum ( int d ) { callnum_ = d; changed( SAVE );}
-	void					setPlayerCallNum ( int d ) { playercallnum_ = d; changed( SAVE );}
 
 	void					setPoison( int d ) { poison_ = d; changed( SAVE );}
 	void					setPoisoned( unsigned int d ) {poisoned_ = d; changed( SAVE );}
 	void					setPoisontime( unsigned int d ) { poisontime_ = d; changed( SAVE );}
-	void					setPoisontxt( unsigned int d ) { poisontxt_ = d; changed( SAVE );}
 	void					setPoisonwearofftime( unsigned int d ) {poisonwearofftime_ = d; changed( SAVE );}
+	void					setPoisontxt( unsigned int d ) { poisontxt_ = d; }
 	void					setFleeat( short d ) { fleeat_ = d; changed( SAVE );}
 	void					setReattackat(short d) { reattackat_ = d; changed( SAVE );}
-	void					setEnvokeid( unsigned short d ) { envokeid_ = d; changed( SAVE );}
 	void					setEnvokeitem( SERIAL d ) { envokeitem_ = d; changed( SAVE );}
 	void					setSplit(unsigned char d) {split_ = d; changed( SAVE );}
 	void					setSplitchnc(unsigned char d) {splitchnc_ = d; changed( SAVE );}
@@ -557,13 +500,8 @@ public:
 	void					setGuildfealty( SERIAL d ) { guildfealty_ = d; changed( SAVE );}
 	void					setGuildstone( SERIAL d ) { guildstone_ = d; changed( SAVE );}
 	void					setFlag( char d ) { flag_ = d; changed( SAVE );}
-	void					setTempflagtime( unsigned int d ) { tempflagtime_ = d; changed( SAVE );}
 	void					setMurderrate( unsigned int d ) { murderrate_ = d; changed( SAVE );}
 	void					setCrimflag( unsigned int d ) { crimflag_ = d; changed( SAVE );}
-	void					setSpelltime( unsigned int d ) { spelltime_ = d; changed( SAVE );}
-	void					setSpell( int d ) { spell_ = d; changed( SAVE );}
-	void					setSpellaction( int d ) { spellaction_ = d; changed( SAVE );} 
-	void					setNextact( int d ) { nextact_ = d; changed( SAVE );}
 	void					setPoisonserial( SERIAL d ) {poisonserial_ = d; changed( SAVE );}
 	void					setSquelched( int d) { squelched_ = d; changed( SAVE );}
 	void					setMutetime( int d ) { mutetime_ = d; changed( SAVE );}

@@ -154,12 +154,6 @@ void cChar::save( FlatStore::OutputFile *output, bool first ) throw()
 	if( stablemaster_serial() != INVALID_SERIAL )
 		output->chunkData( CHAR_STABLEMASTER, (unsigned int)stablemaster_serial() );
 
-	if( npc_type() )
-		output->chunkData( CHAR_NPCTYPE, (unsigned char)npc_type() );
-
-	// Crappy Value, replace asap
-	output->chunkData( CHAR_TIMEUNUSED, (unsigned int)time_unused() );
-
 	if( fonttype() != 3 )
 		output->chunkData( CHAR_FONT, (unsigned char)fonttype() );
 
@@ -198,9 +192,6 @@ void cChar::save( FlatStore::OutputFile *output, bool first ) throw()
 
 	if( mn() != 50 )
 		output->chunkData( CHAR_MANA, (short)mn() );
-
-	if( holdg() )
-		output->chunkData( CHAR_HOLDGOLD, (unsigned int)holdg() );
 
 	if( shop() )
 		output->startChunk( CHAR_SHOP );
@@ -420,14 +411,6 @@ bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 		input->readUInt( (unsigned int&)stablemaster_serial_ );
 		break;
 
-	case CHAR_NPCTYPE:
-		input->readUChar( npc_type_ );
-		break;
-
-	case CHAR_TIMEUNUSED:
-		input->readUInt( time_unused_ );
-		break;
-
 	case CHAR_FONT:
 		input->readUChar( fonttype_ );
 		break;
@@ -478,10 +461,6 @@ bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 
 	case CHAR_MANA:
 		input->readShort( mn_ );
-		break;
-
-	case CHAR_HOLDGOLD:
-		input->readUInt( holdg_ );
 		break;
 
 	case CHAR_SHOP:

@@ -120,45 +120,29 @@ cChar::cChar( const P_CHAR mob )
 	this->logout_ = mob->logout();
 	this->clientidletime_ = mob->clientidletime();
 	this->swingtarg_ = mob->swingtarg();
-	this->holdg_ = mob->holdg();
-	this->fly_steps_ = mob->fly_steps();
 	this->tamed_ = mob->tamed();
 	this->casting_ = mob->casting();
-	this->smoketimer_ = mob->smoketimer();
-	this->smokedisplaytimer_ = mob->smokedisplaytimer();
 	this->antispamtimer_ = mob->antispamtimer();
 	this->guarding_ = new cChar( mob->guarding() );
 	this->carve_ = mob->carve();
-	this->hairserial_ = mob->hairserial();
-	this->beardserial_ = mob->beardserial();
 	this->begging_timer_ = mob->begging_timer();
-	this->postType_ = mob->postType();
 	this->murdererSer_ = mob->murdererSer();
 	this->prevPos_ = mob->prevPos();
-	this->commandLevel_ = mob->commandLevel();
 	this->spawnregion_ = mob->spawnregion();
 	this->stablemaster_serial_ = mob->stablemaster_serial();
-	this->npc_type_ = mob->npc_type();
-	this->time_unused_ = mob->time_unused();
-	this->timeused_last_ = mob->timeused_last();
 	this->spawnserial_ = mob->spawnSerial();
 	this->hidden_ = mob->hidden();
-	this->invistimeout_ = mob->invistimeout();
 	this->attackfirst_ = mob->attackfirst();
 	this->hunger_ = mob->hunger();
 	this->hungertime_ = mob->hungertime();
 	this->tailitem_ = mob->tailitem();
 	this->npcaitype_ = mob->npcaitype();
-	this->callnum_ = mob->callnum();
-	this->playercallnum_ = mob->playercallnum();
 	this->poison_ = mob->poison();
 	this->poisoned_ = mob->poisoned();
 	this->poisontime_ = mob->poisontime();
-	this->poisontxt_ = mob->poisontxt();
 	this->poisonwearofftime_ = mob->poisonwearofftime();
 	this->fleeat_ = mob->fleeat();
 	this->reattackat_ = mob->reattackat();
-	this->envokeid_ = mob->envokeid();
 	this->envokeitem_ = mob->envokeitem();
 	this->split_ = mob->split();
 	this->splitchnc_ = mob->splitchnc();
@@ -171,14 +155,9 @@ cChar::cChar( const P_CHAR mob )
 	this->guildfealty_ = mob->guildfealty();
 	this->guildstone_ = mob->guildstone();
 	this->flag_ = mob->flag();
-	this->tempflagtime_ = mob->tempflagtime();
 	this->trackingTimer_ = mob->trackingTimer();
 	this->murderrate_ = mob->murderrate();
 	this->crimflag_ = mob->crimflag();
-	this->spelltime_ = mob->spelltime();
-	this->spell_ = mob->spell();
-	this->spellaction_ = mob->spellaction();
-	this->nextact_ = mob->nextact();
 	this->poisonserial_ = mob->poisonserial();
 	this->squelched_ = mob->squelched();
 	this->mutetime_ = mob->mutetime();
@@ -316,7 +295,7 @@ void cChar::Init( bool createSerial )
 	if( createSerial )
 		this->setSerial( World::instance()->findCharSerial() );
 
-	this->animated = false;
+//	this->animated = false;
 	this->setMultis( INVALID_SERIAL );//Multi serial
 	this->free = false;
 	this->setName("Man");
@@ -393,14 +372,11 @@ void cChar::Init( bool createSerial )
 	this->fz1_ = 0; //NPC Wander Point 1 z
 	this->setSpawnSerial( INVALID_SERIAL ); // Spawned by
 	this->setHidden(0); // 0 = not hidden, 1 = hidden, 2 = invisible spell
-	this->setInvisTimeout(0);
 	this->resetAttackFirst(); // 0 = defending, 1 = attacked first
 	this->setHunger(6);  // Level of hungerness, 6 = full, 0 = "empty"
 	this->setHungerTime(0); // Timer used for hunger, one point is dropped every 20 min
 	this->setTailItem( INVALID_SERIAL );
 	this->setNpcAIType(0); // NPC ai
-	this->setCallNum(-1); //GM Paging
-	this->setPlayerCallNum(-1); //GM Paging
 	this->region_= NULL;
 	this->skilldelay_ = 0;
 	this->objectdelay_ = 0;
@@ -419,12 +395,11 @@ void cChar::Init( bool createSerial )
 	this->setPoison(0); // used for poison skill 
 	this->setPoisoned(0); // type of poison
 	this->setPoisontime(0); // poison damage timer
-	this->setPoisontxt(0); // poision text timer
 	this->setPoisonwearofftime(0); // LB, makes poision wear off ...
+	this->setPoisontxt(0);
 	
 	this->setFleeat(SrvParams->npc_base_fleeat());
 	this->setReattackat(SrvParams->npc_base_reattackat());
-	this->setEnvokeid(0x00); //ID of item user envoked
 	this->setEnvokeitem(INVALID_SERIAL);
 	this->setSplit(0);
 	this->setSplitchnc(0);
@@ -439,15 +414,10 @@ void cChar::Init( bool createSerial )
 	this->GuildTraitor=false; 
 	//this->flag=0x04; //1=red 2=grey 4=Blue 8=green 10=Orange
 	setcharflag( this );
-	this->setTempflagtime(0);
 	// End of Guild Related Character information
 	this->setMurderrate(0); //# of ticks till murder decays.
 	this->setCrimflag(0); // time when no longer criminal -1 = not criminal
 	this->setCasting(false); // 0/1 is the cast casting a spell?
-	this->setSpelltime(0); //Time when they are done casting....
-	this->setSpell(0); //current spell they are casting....
-	this->setSpellaction(0); //Action of the current spell....
-	this->setNextact(0); //time to next spell action....
 	this->setPoisonserial(INVALID_SERIAL); //AntiChrist -- poisoning skill
 	
 	this->setSquelched(0); // zippy  - squelching
@@ -457,19 +427,12 @@ void cChar::Init( bool createSerial )
 	this->setRunning(0); //AntiChrist - Stamina Loose while running
 	this->setLogout(0);//Time till logout for this char -1 means in the world or already logged out //Instalog
 	this->setSwingTarg(-1); //Tagret they are going to hit after they swing
-	this->setHoldg(0); // Gold a player vendor is holding for Owner
-	this->setFlySteps(0); //LB -> used for flyging creatures
-	this->setSmokeTimer(0);
-	this->setSmokeDisplayTimer(0);
 	this->setAntiguardstimer(0); // AntiChrist - for "GUARDS" call-spawn
 	this->setPolymorph(false);//polymorph - AntiChrist
 	this->setIncognito(false);//incognito - AntiChrist
     this->setMurdererSer(INVALID_SERIAL);
     this->setSpawnregion(0);
-    this->setNpc_type(0);
     this->setStablemaster_serial(INVALID_SERIAL);
-	this->setTimeused_last(getNormalizedTime());
-	this->setTime_unused(0);
 	this->GuildType = 0;
 	this->setFood( 0 );
 
@@ -796,7 +759,7 @@ void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	fields.push_back( "characters.guildtype,characters.guildtraitor,characters.cell" );
 	fields.push_back( "characters.dir,characters.body,characters.xbody,characters.skin" );
 	fields.push_back( "characters.xskin,characters.priv,characters.stablemaster,characters.npctype" );
-	fields.push_back( "characters.time_unused,characters.allmove,characters.font,characters.say" );
+	fields.push_back( "characters.allmove,characters.font,characters.say" );
 	fields.push_back( "characters.emote,characters.strength,characters.strength2,characters.dexterity" );
 	fields.push_back( "characters.dexterity2,characters.intelligence,characters.intelligence2" );
 	fields.push_back( "characters.hitpoints,characters.spawnregion,characters.stamina" );
@@ -841,8 +804,6 @@ void cChar::load( char **result, UINT16 &offset )
 	xskin_ = atoi( result[offset++] );
 	priv = atoi( result[offset++] );
 	stablemaster_serial_ = atoi( result[offset++] );
-	npc_type_ = atoi( result[offset++] );
-	time_unused_ = atoi( result[offset++] );
 	priv2_ = atoi( result[offset++] );
 	fonttype_ = atoi( result[offset++] );
 	saycolor_ = atoi( result[offset++] );
@@ -858,7 +819,6 @@ void cChar::load( char **result, UINT16 &offset )
 	stm_ = atoi( result[offset++] );
 	mn_ = atoi( result[offset++] );
 	npc_ = atoi( result[offset++] );
-	holdg_ = atoi( result[offset++] );
 	shop_ = atoi( result[offset++] );
 
 	//  Warning, ugly optimization ahead, if you have a better idea, we want to hear it. 
@@ -992,8 +952,6 @@ void cChar::save()
 		addField( "xskin", xskin_ );
 		addField( "priv", priv );
 		addField( "stablemaster", stablemaster_serial_ );
-		addField( "npctype", npc_type_ );
-		addField( "time_unused", time_unused_ );
 		
 		addField( "allmove", priv2_);
 		addField( "font", fonttype_);
@@ -1010,7 +968,6 @@ void cChar::save()
 		addField( "stamina", stm_);
 		addField( "mana", mn_);
 		addField( "npc", npc_);
-		addField( "holdgold", holdg_);
 		addField( "shop", shop_);
 		
 		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
@@ -1623,10 +1580,6 @@ void cChar::processNode( const QDomElement &Tag )
 	//<spadelay>3</spadelay>
 	else if( TagName == "spadelay" )
 		this->spadelay_ = Value.toInt();
-
-	//<stablemaster />
-	else if( TagName == "stablemaster" )
-		this->setNpc_type(1);
 
 	//<title>the king</title>
 	else if( TagName == "title" )
@@ -2273,6 +2226,7 @@ void cChar::updateHealth( void )
 	}
 }
 
+/*
 class cResetAnimated: public cTempEffect
 {
 public:
@@ -2292,6 +2246,7 @@ public:
 			pChar->setAnimated( false );
 	}
 };
+*/
 
 void cChar::action( UINT8 id )
 {
@@ -3076,10 +3031,6 @@ void cChar::mount( P_CHAR pMount )
 		
 		pMount->setWar( false );
 		pMount->setAttacker(INVALID_SERIAL);
-		
-		// set timer
-		pMount->setTime_unused( 0 );
-		pMount->setTimeused_last( getNormalizedTime() );
 	}
 	else
 		socket->sysMessage( tr("You dont own that creature.") );
@@ -4029,25 +3980,17 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "logout", logout_ )
 	else SET_INT_PROPERTY( "clientidletime", clientidletime_ )
 	else SET_INT_PROPERTY( "swingtarget", swingtarg_ )
-	else SET_INT_PROPERTY( "holdgold", holdg_ )
-	else SET_INT_PROPERTY( "flysteps", fly_steps_ )
 	else SET_INT_PROPERTY( "tamed", tamed_ )
 	else SET_INT_PROPERTY( "antispamtimer", antispamtimer_ )
 	else SET_INT_PROPERTY( "antiguardstimer", antiguardstimer_ )
 	else SET_CHAR_PROPERTY( "guarding", guarding_ )
 	else SET_STR_PROPERTY( "carve", carve_ )
-	else SET_INT_PROPERTY( "hair", hairserial_ )
-	else SET_INT_PROPERTY( "beard", beardserial_ )
 	else SET_INT_PROPERTY( "murderer", murdererSer_ )
 	else SET_STR_PROPERTY( "spawnregion", spawnregion_ )
 	else SET_INT_PROPERTY( "stablemaster", stablemaster_serial_ )
-	else SET_INT_PROPERTY( "npctype", npc_type_ )
-	else SET_INT_PROPERTY( "timeunused", time_unused_ )
-	else SET_INT_PROPERTY( "timeusedlast", timeused_last_ )
 	else SET_INT_PROPERTY( "casting", casting_ )
 	else SET_INT_PROPERTY( "spawn", spawnserial_ )
 	else SET_INT_PROPERTY( "hidden", hidden_ )
-	else SET_INT_PROPERTY( "invistimeout", invistimeout_ )
 	else SET_INT_PROPERTY( "attackfirst", attackfirst_ )
 	else SET_INT_PROPERTY( "hunger", hunger_ )
 	else SET_INT_PROPERTY( "hungertime", hungertime_ )
@@ -4055,11 +3998,9 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "poison", poison_ )
 	else SET_INT_PROPERTY( "poisoned", poisoned_ )
 	else SET_INT_PROPERTY( "poisontime", poisontime_ )
-	else SET_INT_PROPERTY( "poisontxt", poisontxt_ )
 	else SET_INT_PROPERTY( "poisonwearofftime", poisonwearofftime_ )
 	else SET_INT_PROPERTY( "fleeat", fleeat_ )
 	else SET_INT_PROPERTY( "reattackat", reattackat_ )
-	else SET_INT_PROPERTY( "disabled", disabled_ )
 	else SET_STR_PROPERTY( "disabledmsg", disabledmsg_ )
 	else SET_INT_PROPERTY( "split", split_ )
 	else SET_INT_PROPERTY( "splitchance", splitchnc_ )
@@ -4094,7 +4035,6 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 			return 0;
 	}
 	else SET_INT_PROPERTY( "flag", flag_ )
-	else SET_INT_PROPERTY( "flagwearofftime", tempflagtime_ )
 	else SET_INT_PROPERTY( "murderrate", murderrate_ )
 	else SET_INT_PROPERTY( "crimflag", crimflag_ )
 	else SET_INT_PROPERTY( "squelched", squelched_ )
@@ -4223,25 +4163,17 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "logout", (int)logout_ )
 	GET_PROPERTY( "clientidletime", (int)clientidletime_ )
 	GET_PROPERTY( "swingtarget", FindCharBySerial( swingtarg_ ) )
-	GET_PROPERTY( "holdgold", (int)holdg_ )
-	GET_PROPERTY( "flysteps", fly_steps_ )
 	GET_PROPERTY( "tamed", tamed_ )
 	GET_PROPERTY( "antispamtimer", (int)antispamtimer_ )
 	GET_PROPERTY( "antiguardstimer", (int)antiguardstimer_ )
 	GET_PROPERTY( "guarding", guarding_ )
 	GET_PROPERTY( "carve", carve_ )
-	GET_PROPERTY( "hair", FindItemBySerial( hairserial_ ) )
-	GET_PROPERTY( "beard", FindItemBySerial( beardserial_ ) )
 	GET_PROPERTY( "murderer", FindCharBySerial( murdererSer_ ) )
 	GET_PROPERTY( "spawnregion", spawnregion_ )
 	GET_PROPERTY( "stablemaster", FindCharBySerial( stablemaster_serial_ ) )
-	GET_PROPERTY( "npctype", npc_type_ )
-	GET_PROPERTY( "timeunused", (int)time_unused_ )
-	GET_PROPERTY( "timeusedlast", (int)timeused_last_ )
 	GET_PROPERTY( "casting", casting_ )
 	GET_PROPERTY( "spawn", FindItemBySerial( spawnserial_ ) )
 	GET_PROPERTY( "hidden", hidden_ )
-	GET_PROPERTY( "invistimeout", (int)invistimeout_ )
 	GET_PROPERTY( "attackfirst", attackfirst_ )
 	GET_PROPERTY( "hunger", hunger_ )
 	GET_PROPERTY( "hungertime", (int)hungertime_ )
@@ -4249,7 +4181,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "poison", poison_ )
 	GET_PROPERTY( "poisoned", (int)poisoned_ )
 	GET_PROPERTY( "poisontime", (int)poisontime_ )
-	GET_PROPERTY( "poisontxt", (int)poisontxt_ )
 	GET_PROPERTY( "poisonwearofftime", (int)poisonwearofftime_ )
 	GET_PROPERTY( "fleeat", fleeat_ )
 	GET_PROPERTY( "reattackat", reattackat_ )
@@ -4264,7 +4195,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "guildfealty", guildfealty_ )
 	GET_PROPERTY( "guildstone", FindItemBySerial( guildstone_ ) )
 	GET_PROPERTY( "flag", flag_ )
-	GET_PROPERTY( "flagwearofftime", (int)tempflagtime_ )
 	GET_PROPERTY( "murderrate", (int)murderrate_ )
 	GET_PROPERTY( "crimflag", crimflag_ )
 	GET_PROPERTY( "squelched", squelched_ )

@@ -71,9 +71,6 @@ extern unsigned int raindroptime;
 extern unsigned int polyduration;
 //extern wp_version_info wp_version;
 
-extern unsigned int fly_p; // flying probability = 1/fly_p each step (if it doesnt fly)
-extern unsigned char fly_steps_max;
-
 //Time variables
 extern QDateTime uoTime;
 extern int uotickcount;
