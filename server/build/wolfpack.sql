@@ -109,7 +109,6 @@ CREATE TABLE characters (
   taming int(11) NOT NULL default '0',
   summontimer int(10) unsigned NOT NULL default '0',
   summonremainingseconds smallint(5) unsigned NOT NULL default '0',
-  advobj int(11) NOT NULL default '0',
   poison int(11) NOT NULL default '0',
   poisoned int(10) unsigned NOT NULL default '0',
   fleeat smallint(6) NOT NULL default '0',
@@ -117,7 +116,7 @@ CREATE TABLE characters (
   split tinyint(3) unsigned NOT NULL default '0',
   splitchance tinyint(3) unsigned NOT NULL default '0',
   guildtoggle tinyint(1) unsigned NOT NULL default '0',
-  guildstone int(11) NOT NULL default '0',
+  guildstone int(11) NOT NULL default '-1',
   guildtitle varchar(255) default NULL,
   guildfealty int(11) NOT NULL default '0',
   murderrate int(10) unsigned NOT NULL default '0',
@@ -134,6 +133,7 @@ CREATE TABLE characters (
   say smallint(5) unsigned default NULL,
   mana smallint(6) default NULL,
   profile longtext NULL,
+  guarding int(11) NOT NULL default '-1',
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='cChar';
