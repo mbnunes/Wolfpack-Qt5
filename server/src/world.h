@@ -86,8 +86,8 @@ public:
 	void save();
 
 	// For the "settings" table
-	void getOption( const QString name, QString& value, const QString fallback, bool newconnection = true );
-	void setOption( const QString name, const QString value, bool newconnection = true );
+	void getOption( const QString& name, QString& value, const QString fallback, bool newconnection = true );
+	void setOption( const QString& name, const QString& value, bool newconnection = true );
 
 	// Book-keeping functions
 	void registerObject( cUObject* object );

@@ -401,7 +401,7 @@ void cAsyncNetIO::run() throw()
 	while ( !canceled() )
 	{
 		mapsMutex.lock(); // do not disturb me here.
-		for ( const_iterator it = buffers.begin(); it != buffers.end(); ++it )
+		for ( const_iterator it(buffers.begin()); it != buffers.end(); ++it )
 		{
 			// Read all avaliable data.
 			char buf[4096];

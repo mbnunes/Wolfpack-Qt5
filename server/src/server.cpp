@@ -106,7 +106,7 @@ public:
 	QMutex actionMutex;
 	unsigned int time;
 	QValueVector<enActionType> actionQueue;
-	Private() : running( true ), secure( true ), state( STARTUP ), time( 0 )
+	Private() : running( true ), state( STARTUP ), secure( true ), time( 0 )
 	{
 	}
 };
@@ -462,11 +462,10 @@ void cServer::load()
 
 	// Script NPC AI types
 	QStringList aiSections = Definitions::instance()->getSections( WPDT_AI );
-	QStringList::const_iterator aiit = aiSections.begin();
-	while ( aiit != aiSections.end() )
+	QStringList::const_iterator aiit(aiSections.begin());
+	for ( ;aiit != aiSections.end(); ++aiit )
 	{
 		ScriptAI::registerInFactory( *aiit );
-		++aiit;
 	}
 
 	QPtrList<cComponent>::iterator it( d->components.begin() );

@@ -81,8 +81,8 @@ void cSpawnRegion::remove(cUObject *object)
 
 void cSpawnRegion::processNode( const cElement* Tag )
 {
-	QString TagName = Tag->name();
-	QString Value = Tag->value();
+	QString TagName(Tag->name());
+	QString Value(Tag->value());
 
 	//<npcs>
 	//  <npc mult="2">npcsection</npc> (mult inserts 2 same sections into the list so the probability rises!
@@ -113,12 +113,9 @@ void cSpawnRegion::processNode( const cElement* Tag )
 					listSect = childNode->value();
 
 				QStringList NpcList = Definitions::instance()->getList( listSect );
-				QStringList::iterator it = NpcList.begin();
-				while ( it != NpcList.end() )
-				{
+				QStringList::const_iterator it(NpcList.begin());
+				for ( ; it != NpcList.end(); ++it )
 					this->npcSections_.push_back( *it );
-					it++;
-				}
 			}
 		}
 	}
@@ -152,12 +149,9 @@ void cSpawnRegion::processNode( const cElement* Tag )
 					listSect = childNode->value();
 
 				QStringList itemList = Definitions::instance()->getList( listSect );
-				QStringList::iterator it = itemList.begin();
-				while ( it != itemList.end() )
-				{
+				QStringList::const_iterator it(itemList.begin());
+				for ( ; it != itemList.end(); ++it )
 					this->itemSections_.push_back( *it );
-					it++;
-				}
 			}
 		}
 	}

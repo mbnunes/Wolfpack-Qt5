@@ -1122,7 +1122,7 @@ public:
 	{
 		( *this )[1] = data;
 	}
-	void setCoord( Coord_cl coord );
+	void setCoord( const Coord_cl& coord );
 	void setDirection( unsigned char data )
 	{
 		( *this )[6] = data;
@@ -2327,7 +2327,7 @@ public:
 		setInt( 9, data );
 	}
 	void addTile( unsigned short id, short x, short y, short z );
-	void addTile( unsigned short id, Coord_cl coords )
+	void addTile( unsigned short id, const Coord_cl& coords )
 	{
 		addTile( id, coords.x, coords.y, coords.z );
 	}

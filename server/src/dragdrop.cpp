@@ -160,10 +160,9 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 			// Add tags to the splitted item
 			QStringList keys = pItem->getTags();
 			QStringList::const_iterator it = keys.begin();
-			while ( it != keys.end() )
+			for ( ; it != keys.end(); ++it )
 			{
 				splitItem->setTag( *it, pItem->getTag( *it ) );
-				it++;
 			}
 
 			P_ITEM pContainer = dynamic_cast<P_ITEM>( pItem->container() );

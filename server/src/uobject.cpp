@@ -407,8 +407,8 @@ void cUObject::removeEvent( const QString& name )
 
 void cUObject::processNode( const cElement* Tag )
 {
-	QString TagName = Tag->name();
-	QString Value = Tag->value();
+	QString TagName(Tag->name());
+	QString Value(Tag->value());
 
 	if ( TagName == "name" )
 	{
@@ -694,7 +694,7 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 	{
 		clearEvents();
 		QStringList list = QStringList::split( ",", value.toString() );
-		for ( QStringList::const_iterator it = list.begin(); it != list.end(); ++it )
+		for ( QStringList::const_iterator it(list.begin()); it != list.end(); ++it )
 		{
 			cPythonScript* script = ScriptManager::instance()->find( ( *it ).latin1() );
 			if ( script )
@@ -719,7 +719,7 @@ PyObject* cUObject::getProperty(const QString& name) {
 		\rproperty object.spawnregion The name of the spawnregion this object was spawned in. This is an empty string 
 		if the object wasn't spawned or removed from the spawnregion.
 	*/
-	PY_PROPERTY( "spawnregion", spawnregion_ ? spawnregion_->name() : "" )
+	PY_PROPERTY( "spawnregion", spawnregion_ ? spawnregion_->name() : QString() )
 	PY_PROPERTY( "serial", serial_ )
 	PY_PROPERTY( "free", free ? 1 : 0 )
 	PY_PROPERTY( "name", this->name() )

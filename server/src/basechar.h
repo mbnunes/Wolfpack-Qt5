@@ -258,8 +258,8 @@ public:
 	double getManaRate();
 	void resurrect();
 
-	void turnTo( cUObject* object );
-	void turnTo( const Coord_cl& pos );
+	virtual void turnTo( cUObject* object );
+	virtual void turnTo( const Coord_cl& pos );
 	void wear( P_ITEM );
 	bool isHuman() const;
 	bool isMurderer() const;

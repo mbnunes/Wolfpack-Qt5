@@ -82,7 +82,7 @@ void cGump::addTiledGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_INT32 width, Q_INT32 h
 
 void cGump::addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString& html, bool hasBack, bool canScroll )
 {
-	QString layout = "{htmlgump %1 %2 %3 %4 %5 %6 %7}";
+	QString layout("{htmlgump %1 %2 %3 %4 %5 %6 %7}");
 	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
 	layout = layout.arg( addRawText( html ) ).arg( hasBack ? 1 : 0 ).arg( canScroll ? 1 : 0 );
 	layout_.push_back( layout );
@@ -90,7 +90,7 @@ void cGump::addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QStr
 
 void cGump::addXmfHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, UINT32 clilocid, bool hasBack, bool canScroll )
 {
-	QString layout = "{xmfhtmlgump %1 %2 %3 %4 %5 %6 %7}";
+	QString layout("{xmfhtmlgump %1 %2 %3 %4 %5 %6 %7}");
 	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
 	layout = layout.arg( clilocid ).arg( hasBack ? 1 : 0 ).arg( canScroll ? 1 : 0 );
 	layout_.push_back( layout );
@@ -98,14 +98,14 @@ void cGump::addXmfHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, UINT32 
 
 void cGump::addCheckertrans( INT32 x, INT32 y, INT32 width, INT32 height )
 {
-	QString layout = "{checkertrans %1 %2 %3 %4}";
+	QString layout("{checkertrans %1 %2 %3 %4}");
 	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
 	layout_.push_back( layout );
 }
 
 void cGump::addCroppedText( Q_INT32 textX, Q_INT32 textY, Q_UINT32 width, Q_UINT32 height, const QString& data, Q_UINT16 hue )
 {
-	QString layout = "{croppedtext %1 %2 %3 %4 %5 %6}";
+	QString layout("{croppedtext %1 %2 %3 %4 %5 %6}");
 	layout = layout.arg( textX ).arg( textY ).arg( width ).arg( height ).arg( hue ).arg( addRawText( data ) );
 	layout_.push_back( layout );
 }
@@ -155,7 +155,7 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 			if ( numrects <= right )
 				right = numrects - 1;
 
-			QStringList rectangles = QStringList();
+			QStringList rectangles;
 			QStringList::const_iterator it = allrectangles.at( left );
 			while ( it != allrectangles.at( right + 1 ) )
 			{

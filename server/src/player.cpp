@@ -242,7 +242,7 @@ void cPlayer::resend( bool clean )
 				sendTooltip( socket );
 
 				// Send equipment tooltips to other players as well
-				for ( ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it )
+				for ( ItemContainer::const_iterator it(content_.begin()); it != content_.end(); ++it )
 				{
 					it.data()->sendTooltip( socket );
 				}
@@ -569,7 +569,7 @@ void cPlayer::showName( cUOSocket* socket )
 	if ( !isIncognito() && fame_ >= 10000 )
 		charName.prepend( gender_ ? tr( "Lady " ) : tr( "Lord " ) );
 
-	QString affix = "";
+	QString affix("");
 
 	if ( !isIncognito() && guild_ && !guild_->abbreviation().isEmpty() )
 	{
@@ -1623,7 +1623,7 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 {
 	cUObject::createTooltip( tooltip, player );
 
-	QString affix = " ";
+	QString affix(" ");
 
 	// Append the (frozen) tag
 	if ( isFrozen() )

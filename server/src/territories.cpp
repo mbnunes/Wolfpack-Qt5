@@ -82,8 +82,8 @@ void cTerritory::init( void )
 
 void cTerritory::processNode( const cElement* Tag )
 {
-	QString TagName = Tag->name();
-	QString Value = Tag->value();
+	QString TagName(Tag->name());
+	QString Value(Tag->value());
 
 	//<guards>
 	//  <npc mult="2">npcsection</npc> (mult inserts 2 same sections into the list so the probability rises!
@@ -108,12 +108,9 @@ void cTerritory::processNode( const cElement* Tag )
 			else if ( childNode->name() == "list" && childNode->hasAttribute( "id" ) )
 			{
 				QStringList NpcList = Definitions::instance()->getList( childNode->getAttribute( "id" ) );
-				QStringList::iterator it = NpcList.begin();
-				while ( it != NpcList.end() )
-				{
+				QStringList::const_iterator it(NpcList.begin());
+				for ( ; it != NpcList.end(); ++it )
 					this->guardSections_.push_back( *it );
-					it++;
-				}
 			}
 		}
 	}
@@ -278,7 +275,7 @@ QString cTerritory::getGuardSect( void ) const
 	if ( guardSections_.count() > 0 )
 		return this->guardSections_[RandomNum( 0, this->guardSections_.size() - 1 )];
 	else
-		return ( char * ) 0;
+		return QString();
 }
 
 bool cTerritory::haveTeleporters() const

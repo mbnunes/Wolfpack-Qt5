@@ -2057,7 +2057,7 @@ void cUOSocket::poll()
 	}
 }
 
-void cUOSocket::attachTarget( cTargetRequest* request, std::vector<stTargetItem> items, INT16 xOffset, INT16 yOffset, INT16 zOffset )
+void cUOSocket::attachTarget( cTargetRequest* request, std::vector<stTargetItem>& items, INT16 xOffset, INT16 yOffset, INT16 zOffset )
 {
 	// Let the old one time out
 	if ( targetRequest && targetRequest != request )
@@ -2509,10 +2509,10 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 
 struct buyitem_st
 {
-	buyitem_st() : buyprice( 0 ), name( "" )
+	buyitem_st() : buyprice( 0 )
 	{
 	}
-	buyitem_st( int bi, QString n ) : buyprice( bi ), name( n )
+	buyitem_st( int bi, const QString& n ) : buyprice( bi ), name( n )
 	{
 	}
 	int buyprice;

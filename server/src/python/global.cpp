@@ -620,7 +620,7 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 	UINT32 xBlock = x / 8;
 	UINT32 yBlock = y / 8;
 
-	while ( !iter.atEnd() )
+	for ( ; !iter.atEnd(); ++iter )
 	{
 		// Create a Dictionary
 		PyObject* dict = PyDict_New();
@@ -631,7 +631,6 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 		PyDict_SetItemString( dict, "z", PyInt_FromLong( iter->zoff ) );
 
 		PyList_Append( list, dict );
-		iter++;
 	}
 
 	return list;
@@ -1924,12 +1923,11 @@ static PyObject* wpAccountsAcls( PyObject* self, PyObject* args )
 	PyObject* list = PyList_New( 0 );
 
 	QMap<QString, cAcl*>::const_iterator it = Commands::instance()->aclbegin();
-	while ( it != Commands::instance()->aclend() )
+	for ( ; it != Commands::instance()->aclend(); ++it )
 	{
 		QString name = it.key();
 		if ( !name.isEmpty() )
 			PyList_Append( list, PyString_FromString( name ) );
-		++it;
 	}
 
 	return list;
@@ -2320,7 +2318,7 @@ static PyObject* wpDriver( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "I:wolfpack.database.driver(database)", &database ) )
 		return 0;
 
-	QString driver = "unknown";
+	QString driver("unknown");
 
 	if ( database == 1 )
 		driver = Config::instance()->accountsDriver();

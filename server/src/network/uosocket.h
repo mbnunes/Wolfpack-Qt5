@@ -267,7 +267,7 @@ public:
 	void soundEffect( UINT16 soundId, cUObject* source = NULL );
 	void attachTarget( cTargetRequest* request );
 	void attachTarget( cTargetRequest* request, UINT16 multiid );
-	void attachTarget( cTargetRequest* request, std::vector<stTargetItem> items, INT16 xOffset = 0, INT16 yOffset = 0, INT16 zOffset = 0 );
+	void attachTarget( cTargetRequest* request, std::vector<stTargetItem>& items, INT16 xOffset = 0, INT16 yOffset = 0, INT16 zOffset = 0 );
 	void cancelTarget();
 	void resendWorld( bool clean = true );
 	void resync();

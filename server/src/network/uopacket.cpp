@@ -497,7 +497,8 @@ char& cUOPacket::operator[]( unsigned int index )
 */
 cUOPacket& cUOPacket::operator=( cUOPacket& p )
 {
-	assign( p );
+	if ( &p != this )
+		assign( p );
 	return *this;
 }
 

@@ -126,7 +126,7 @@ void cSkills::SkillUse( cUOSocket* socket, UINT16 id ) // Skill is clicked on th
 	if ( targetRequest )
 		socket->attachTarget( targetRequest );
 
-	if ( message )
+	if ( !message.isEmpty() )
 		pChar->message( message );
 
 	pChar->setSkillDelay( Server::instance()->time() + Config::instance()->skillDelay() * MY_CLOCKS_PER_SEC );

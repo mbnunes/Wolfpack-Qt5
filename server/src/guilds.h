@@ -60,11 +60,8 @@ public:
 		QDateTime joined_;
 
 	public:
-		MemberInfo()
+		MemberInfo() : showSign_(true), guildTitle_(QString::null), joined_(QDateTime::currentDateTime())
 		{
-			showSign_ = true;
-			guildTitle_ = QString::null;
-			joined_ = QDateTime::currentDateTime();
 		}
 
 		/*!

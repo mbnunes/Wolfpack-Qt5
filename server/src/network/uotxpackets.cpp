@@ -236,7 +236,7 @@ void cUOTxContextMenu::addEntry( unsigned short RetVal, unsigned short msgID, un
 	setShort( size + 4, flags );
 }
 
-void cUOTxDenyMove::setCoord( Coord_cl coord )
+void cUOTxDenyMove::setCoord( const Coord_cl& coord )
 {
 	setShort( 2, coord.x );
 	setShort( 4, coord.y );

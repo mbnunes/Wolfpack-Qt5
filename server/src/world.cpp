@@ -799,7 +799,7 @@ void cWorld::save()
 /*
  * Gets a value from the settings table and returns the value
  */
-void cWorld::getOption( const QString name, QString& value, const QString fallback, bool newconnection )
+void cWorld::getOption( const QString& name, QString& value, const QString fallback, bool newconnection )
 {
 	if ( newconnection )
 	{
@@ -841,7 +841,7 @@ void cWorld::getOption( const QString name, QString& value, const QString fallba
 /*
  * Sets a value in the settings table.
  */
-void cWorld::setOption( const QString name, const QString value, bool newconnection )
+void cWorld::setOption( const QString& name, const QString& value, bool newconnection )
 {
 	if ( newconnection )
 	{

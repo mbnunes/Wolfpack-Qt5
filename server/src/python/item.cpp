@@ -439,7 +439,7 @@ static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "s:item.hastag( key )", &pKey ) )
 		return 0;
 
-	QString key = pKey;
+	QString key(pKey);
 
 	return self->pItem->getTag( key ).isValid() ? PyTrue() : PyFalse();
 }

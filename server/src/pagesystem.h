@@ -224,14 +224,13 @@ public:
 	void moveOnTop( cPage* page )
 	{
 		cPagesManager::iterator it = begin();
-		while ( it != end() )
+		for ( ; it != end(); ++it )
 		{
 			if ( ( *it ) == page )
 			{
 				erase( it );
 				break;
 			}
-			it++;
 		}
 		push_front( page );
 	}
