@@ -66,9 +66,9 @@ def magicdamage( basedamage, spell, mage, defender ):
 	# If your resistance is lower than your opponents evaluate intelligence, then the equation is:
 	#(1 + (Attackers_EI - Your_resistance) / 500 )
 	if( defender.baseskill[ MAGICRESISTANCE ] > mage.baseskill[ EVALUATINGINTEL ] ):
-		damage = damage * ( 1 + ( mage.baseskill[ EVALUATINGINTEL ] - defender.baseskill[ MAGICRESISTANCE ] ) / 200 ) )
+		damage = damage * ( 1 + ( mage.baseskill[ EVALUATINGINTEL ] - defender.baseskill[ MAGICRESISTANCE ] ) / 200 )
 	else:
-		damage = damage * ( 1 + ( mage.baseskill[ EVALUATINGINTEL ] - defender.baseskill[ MAGICRESISTANCE ] ) / 500 ) )
+		damage = damage * ( 1 + ( mage.baseskill[ EVALUATINGINTEL ] - defender.baseskill[ MAGICRESISTANCE ] ) / 500 )
 
 	return damage
 

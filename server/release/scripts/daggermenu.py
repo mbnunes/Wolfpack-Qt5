@@ -6,11 +6,10 @@ GumpLength = 178
 GumpHeight = 108
 centerX = scrLength/2
 centerY = scrHeight/2
-LeftGumpX = centerX - gumpLength/2
-TopGumpY = centerY - gumpHeight/2
+LeftGumpX = centerX - GumpLength/2
+TopGumpY = centerY - GumpHeight/2
 
 def onContextEntry( char, item, tag  ):
-    if( 	
     if( tag == 4 ):
 	char.message( "'info " + str( item.serial )  )
     if( tag == 3 ):
