@@ -261,9 +261,9 @@ void cGuild::removeMember(P_PLAYER member) {
 	member->setGuild(0);
 	memberinfo_.remove(member);
 
-  if (leader_ == member) {
-    leader_ = 0;
-  }
+	if (leader_ == member) {
+		leader_ = 0;
+	}
 }
 
 void cGuild::addCanidate(P_PLAYER canidate) {
@@ -296,7 +296,7 @@ bool cGuild::implements(const QString &name) const {
 	The python object structure for a guild.
 */
 struct wpGuild {
-    PyObject_HEAD;
+	PyObject_HEAD;
 	cGuild *guild;
 };
 
@@ -308,15 +308,15 @@ static int wpGuild_compare(PyObject *a, PyObject *b);
 	The python type object for the guild type.
 */
 PyTypeObject wpGuildType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "guild",
-    sizeof(wpGuildType),
-    0,
-    wpDealloc,
-    0,
-    (getattrfunc)wpGuild_getAttr,
-    (setattrfunc)wpGuild_setAttr,
+	PyObject_HEAD_INIT(NULL)
+	0,
+	"guild",
+	sizeof(wpGuildType),
+	0,
+	wpDealloc,
+	0,
+	(getattrfunc)wpGuild_getAttr,
+	(setattrfunc)wpGuild_setAttr,
 	wpGuild_compare,
 };
 

@@ -36,7 +36,6 @@
 #include <qfile.h>
 #include <qdatastream.h>
 
-
 using namespace std;
 
 /*bool tile_st::isRoofOrFloorTile() const
@@ -65,7 +64,6 @@ using namespace std;
 void cTileCache::unload() {
 	staticTiles.clear();
 	landTiles.clear();
-
 	cComponent::unload();
 }
 
@@ -191,7 +189,7 @@ void cTileCache::load() {
 		}
 	}
 	input.close();
-	
+
 	cComponent::load();
 }
 

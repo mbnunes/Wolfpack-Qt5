@@ -57,13 +57,13 @@ class cBaseChar : public cUObject
 public:
 	const char *objectID() const
 	{
-        return "cBaseChar";
+		return "cBaseChar";
 	}
 
 	// con-/destructors
-    cBaseChar();
-    cBaseChar(const cBaseChar& right);
-    virtual ~cBaseChar();
+	cBaseChar();
+	cBaseChar(const cBaseChar& right);
+	virtual ~cBaseChar();
 
 	// operators
     cBaseChar& operator=(const cBaseChar& right);
@@ -298,72 +298,72 @@ public:
 	void refreshMaximumValues();
 
 	// getters
-    ushort			body() const;
-    QDateTime		creationDate() const;
-    uint			criminalTime() const;
-    ushort			deaths() const;
-    short			dexterityMod() const;
-    short			dexterity() const;
-    ushort			emoteColor() const;
-    short			fame() const;
-    uchar			flag() const;
-    bool			gender() const;
-    P_CHAR			guarding() const;
-    short			hitpoints() const;
-    int				hunger() const;
-    uint			hungerTime() const;
-    short			intelligence() const;
-    short			intelligenceMod() const;
-    short			karma() const;
-    ushort			kills() const;
-    short			mana() const;
-    ushort			maxHitpoints() const;
-    ushort			maxMana() const;
-    ushort			maxStamina() const;
-    SERIAL			murdererSerial() const;
-    uint			murdererTime() const;
-    short			orgBody() const;
-    QString			orgName() const;
-    ushort			orgSkin() const;
-    signed char poison() const;
-    uint			propertyFlags() const;
-	uint			regenHitpointsTime() const;
-	uint			regenStaminaTime() const;
-	uint			regenManaTime() const;
-    cTerritory*		region() const;
-    uint			runningSteps() const;
-    ushort			saycolor() const;
-    uint			skillDelay() const;
-    ushort			skin() const;
-    short			stamina() const;
-    int				stealthedSteps() const;
-    short			strength() const;
-    short			strengthMod() const;
-	unsigned int	lastMovement() const;
-    QString			title() const;
-    float			weight() const;
-	short			hitpointsBonus() const;
-	short			staminaBonus() const;
-	short			manaBonus() const;
+	ushort body() const;
+	QDateTime creationDate() const;
+	uint criminalTime() const;
+	ushort deaths() const;
+	short dexterityMod() const;
+	short dexterity() const;
+	ushort emoteColor() const;
+	short fame() const;
+	uchar flag() const;
+	bool gender() const;
+	P_CHAR guarding() const;
+	short hitpoints() const;
+	int hunger() const;
+	uint hungerTime() const;
+	short intelligence() const;
+	short intelligenceMod() const;
+	short karma() const;
+	ushort kills() const;
+	short mana() const;
+	ushort maxHitpoints() const;
+	ushort maxMana() const;
+	ushort maxStamina() const;
+	SERIAL murdererSerial() const;
+	uint murdererTime() const;
+	short orgBody() const;
+	QString orgName() const;
+	ushort orgSkin() const;
+	signed char poison() const;
+	uint propertyFlags() const;
+	uint regenHitpointsTime() const;
+	uint regenStaminaTime() const;
+	uint regenManaTime() const;
+	cTerritory* region() const;
+	uint runningSteps() const;
+	ushort saycolor() const;
+	uint skillDelay() const;
+	ushort skin() const;
+	short stamina() const;
+	int stealthedSteps() const;
+	short strength() const;
+	short strengthMod() const;
+	unsigned int lastMovement() const;
+	QString title() const;
+	float weight() const;
+	short hitpointsBonus() const;
+	short staminaBonus() const;
+	short manaBonus() const;
 	// bit flag getters
-	bool			isIncognito() const;
-	bool			isPolymorphed() const;
-	bool			isTamed() const;
-	bool			isCasting() const;
-	bool			isHidden() const;
-	bool			isInvisible() const;
-	bool			isMeditating() const;
-	bool			isFrozen() const;
-	bool			showSkillTitles() const;
-	bool			isDead() const;
-	bool			isAtWar() const;
-	bool			isInvulnerable() const;
+	bool isIncognito() const;
+	bool isPolymorphed() const;
+	bool isTamed() const;
+	bool isCasting() const;
+	bool isHidden() const;
+	bool isInvisible() const;
+	bool isMeditating() const;
+	bool isFrozen() const;
+	bool showSkillTitles() const;
+	bool isDead() const;
+	bool isAtWar() const;
+	bool isInvulnerable() const;
 	// advanced getters for data structures
 	// skills
-	ushort			skillValue( ushort skill ) const;
-	ushort			skillCap( ushort skill ) const;
-	uchar			skillLock( ushort skill ) const;
-	
+	ushort skillValue( ushort skill ) const;
+	ushort skillCap( ushort skill ) const;
+	uchar skillLock( ushort skill ) const;
+
 	// effects
 	TimerContainer	timers() const;
 	// guards
@@ -374,50 +374,50 @@ public:
 	void remove();
 
 	// setters
-    void setBody(ushort data);
-    void setCreationDate(const QDateTime &data);
-    void setCriminalTime(uint data);
-    void setDeaths(ushort data);
-    void setDexterityMod(short data);
-    void setDexterity(short data);
-    void setEmoteColor(ushort data);
-    void setFame(short data);
-    void setFlag(uchar data);
-    void setGender(bool data);
+	void setBody(ushort data);
+	void setCreationDate(const QDateTime &data);
+	void setCriminalTime(uint data);
+	void setDeaths(ushort data);
+	void setDexterityMod(short data);
+	void setDexterity(short data);
+	void setEmoteColor(ushort data);
+	void setFame(short data);
+	void setFlag(uchar data);
+	void setGender(bool data);
 	void setGuarding(P_CHAR data);
-    void setHitpoints(short data);
-    void setHunger(int data);
-    void setHungerTime(uint data);
-    void setIntelligence(short data);
-    void setIntelligenceMod(short data);
-    void setKarma(short data);
-    void setKills(ushort data);
-    void setMana(short data);
-    void setMaxHitpoints(ushort data);
-    void setMaxMana(ushort data);
-    void setMaxStamina(ushort data);
-    void setMurdererSerial(SERIAL data);
-    void setMurdererTime(uint data);
-    void setOrgBody(short data);
-    void setOrgName(const QString &data);
-    void setOrgSkin(ushort data);
+	void setHitpoints(short data);
+	void setHunger(int data);
+	void setHungerTime(uint data);
+	void setIntelligence(short data);
+	void setIntelligenceMod(short data);
+	void setKarma(short data);
+	void setKills(ushort data);
+	void setMana(short data);
+	void setMaxHitpoints(ushort data);
+	void setMaxMana(ushort data);
+	void setMaxStamina(ushort data);
+	void setMurdererSerial(SERIAL data);
+	void setMurdererTime(uint data);
+	void setOrgBody(short data);
+	void setOrgName(const QString &data);
+	void setOrgSkin(ushort data);
 	void setLastMovement(unsigned int data);
-    void setPoison(signed char data);
-    void setPropertyFlags(uint data);
+	void setPoison(signed char data);
+	void setPropertyFlags(uint data);
 	void setRegenHitpointsTime(uint data);
 	void setRegenStaminaTime(uint data);
 	void setRegenManaTime(uint data);
-    void setRegion(cTerritory* data);
-    void setRunningSteps(uint data);
-    void setSaycolor(ushort data);
-    void setSkillDelay(uint data);
-    void setSkin(ushort data);
-    virtual void setStamina(short data, bool notify = true );
-    void setStealthedSteps(int data);
-    void setStrength(short data);
-    void setStrengthMod(short data);
-    void setTitle(const QString &data);
-    void setWeight(float data);
+	void setRegion(cTerritory* data);
+	void setRunningSteps(uint data);
+	void setSaycolor(ushort data);
+	void setSkillDelay(uint data);
+	void setSkin(ushort data);
+	virtual void setStamina(short data, bool notify = true );
+	void setStealthedSteps(int data);
+	void setStrength(short data);
+	void setStrengthMod(short data);
+	void setTitle(const QString &data);
+	void setWeight(float data);
 	// bit flag setters
 	void setIncognito(bool data);
 	void setPolymorphed(bool data);
@@ -453,7 +453,7 @@ public:
 	void setSkillValue( ushort skill, ushort value );
 	void setSkillCap( ushort skill, ushort cap );
 	void setSkillLock( ushort skill, uchar lock );
-	
+
 	// Timers
 	void addTimer(cTimer *timer);
 	void removeTimer(cTimer *timer);
@@ -504,183 +504,183 @@ protected:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 	virtual void processNode( const cElement *Tag );
 
-    // The body ID for this character. cOldChar::id_
-    ushort body_;
+	// The body ID for this character. cOldChar::id_
+	ushort body_;
 
-    // The original body id, when the char is affected by magic.
-    ushort orgBody_;
+	// The original body id, when the char is affected by magic.
+	ushort orgBody_;
 
 	// The last time this character moved
 	unsigned int lastMovement_;
 
-    // The gender of the character. cOldChar::sex_
-    bool gender_;
+	// The gender of the character. cOldChar::sex_
+	bool gender_;
 
-    // The original skin color hue of the char. Is needed after applying
-    // magical/temporal effects which change skin color.
-    // cOldChar::xskin_
-    ushort orgSkin_;
+	// The original skin color hue of the char. Is needed after applying
+	// magical/temporal effects which change skin color.
+	// cOldChar::xskin_
+	ushort orgSkin_;
 
-    // Flag storage for magical/temporal/skill effects like incognito,
-    // polymorph, ... .
-    // Bits:
-    // 01 - incognito. cOldChar::incognito_
-    // 02 - polymorph. cOldChar::polymorph_
-    // 03 - tamed, cOldChar::tamed_
-    // 04 - casting, cOldChar::casting_
-    // 05 - hidden, cOldChar::hidden_, Bit 1 & 2
-    // 06 - invisible, cOldChar::invisible_, Bit 3
-    // 07 - dontuse
-    // 08 - meditating, cOldChar::med_
-    // 09 - frozen, cOldChar::priv2_, Bit 2
-    // 10 - show skill titles, cOldChar::priv2, Bit 4
-    // 11 - dead, cOldChar::dead
-    // 12 - war, cOldChar::war
-		// 13 - invulnerable, cOldChar::priv2 Bit 3
-		// UPPER WORD:
-		// 17 - ReactiveArmor (0x20000)
-		// 18 - Protection (0x40000)
-		// 19 - Magic Reflect (0x8000)
-		// 20 - Mana Drain (0x100000)
-    uint propertyFlags_;
+	// Flag storage for magical/temporal/skill effects like incognito,
+	// polymorph, ... .
+	// Bits:
+	// 01 - incognito. cOldChar::incognito_
+	// 02 - polymorph. cOldChar::polymorph_
+	// 03 - tamed, cOldChar::tamed_
+	// 04 - casting, cOldChar::casting_
+	// 05 - hidden, cOldChar::hidden_, Bit 1 & 2
+	// 06 - invisible, cOldChar::invisible_, Bit 3
+	// 07 - dontuse
+	// 08 - meditating, cOldChar::med_
+	// 09 - frozen, cOldChar::priv2_, Bit 2
+	// 10 - show skill titles, cOldChar::priv2, Bit 4
+	// 11 - dead, cOldChar::dead
+	// 12 - war, cOldChar::war
+	// 13 - invulnerable, cOldChar::priv2 Bit 3
+	// UPPER WORD:
+	// 17 - ReactiveArmor (0x20000)
+	// 18 - Protection (0x40000)
+	// 19 - Magic Reflect (0x8000)
+	// 20 - Mana Drain (0x100000)
+	uint propertyFlags_;
 
-    // Weight of the char, including worn items.
-    float weight_;
+	// Weight of the char, including worn items.
+	float weight_;
 
 	// Bonus values for stamina, health and mana (maximum values)
 	short hitpointsBonus_;
 	short staminaBonus_;
 	short manaBonus_;
 
-    // Dexterity of the char
-    // cOldChar::dx
-    short dexterity_;
+	// Dexterity of the char
+	// cOldChar::dx
+	short dexterity_;
 
-    // dex modifier for influencing equipped items.
-    // cOldChar::dx2
-    short dexterityMod_;
+	// dex modifier for influencing equipped items.
+	// cOldChar::dx2
+	short dexterityMod_;
 
-    // maximum stamina the character can fill up
-    ushort maxStamina_;
+	// maximum stamina the character can fill up
+	ushort maxStamina_;
 
-    // current stamina of the char.
-    // cOldChar::stm_
-    short stamina_;
+	// current stamina of the char.
+	// cOldChar::stm_
+	short stamina_;
 
-    // strength of the char
-    // cOldChar::st_
-    short strength_;
+	// strength of the char
+	// cOldChar::st_
+	short strength_;
 
-    // temporal strength addons.
-    // cOldChar::st2_
-    short strengthMod_;
+	// temporal strength addons.
+	// cOldChar::st2_
+	short strengthMod_;
 
-    // Maximum hitpoints the char can fill up to.
-    ushort maxHitpoints_;
+	// Maximum hitpoints the char can fill up to.
+	ushort maxHitpoints_;
 
-    // current hitpoints of the char.
-    // cOldChar::hp_
-    short hitpoints_;
+	// current hitpoints of the char.
+	// cOldChar::hp_
+	short hitpoints_;
 
-    // Intelligence of the char.
-    // cOldChar::in_
-    short intelligence_;
+	// Intelligence of the char.
+	// cOldChar::in_
+	short intelligence_;
 
-    // Modifier for intelligence. cOldChar::in2_
-    short intelligenceMod_;
+	// Modifier for intelligence. cOldChar::in2_
+	short intelligenceMod_;
 
-    // Maximum mana the char can fill up.
-    ushort maxMana_;
+	// Maximum mana the char can fill up.
+	ushort maxMana_;
 
-    // current mana of the char.
-    // cOldChar::mn_
-    short mana_;
+	// current mana of the char.
+	// cOldChar::mn_
+	short mana_;
 
-    // Karma of the char.
-    short karma_;
+	// Karma of the char.
+	short karma_;
 
-    // Fame of the char.
-    short fame_;
+	// Fame of the char.
+	short fame_;
 
-    // Kills the char has made
-    ushort kills_;
+	// Kills the char has made
+	ushort kills_;
 
-    // Times the char has died.
-    ushort deaths_;
+	// Times the char has died.
+	ushort deaths_;
 
-    // The hunger value of the char. 6 means not hungry, 0 means starving.
-    // cOldChar::hunger_
-    int hunger_;
+	// The hunger value of the char. 6 means not hungry, 0 means starving.
+	// cOldChar::hunger_
+	int hunger_;
 
-    // Server clocks when next hunger check will be made.
-    // cOldChar::hungertime_
-    uint hungerTime_;
+	// Server clocks when next hunger check will be made.
+	// cOldChar::hungertime_
+	uint hungerTime_;
 
-    // Ingame name-color flag.
-    // Bits:
-    // 01 - red
-    // 02 - grey
-    // 03 - blue
-    // 04 - green
-    // 05 - orange
-    uchar flag_;
+	// Ingame name-color flag.
+	// Bits:
+	// 01 - red
+	// 02 - grey
+	// 03 - blue
+	// 04 - green
+	// 05 - orange
+	uchar flag_;
 
-    // Color for emote messages.
-    ushort emoteColor_;
+	// Color for emote messages.
+	ushort emoteColor_;
 
-    // Saves the date of creation. cOldChar::creationday_
-    QDateTime creationDate_;
+	// Saves the date of creation. cOldChar::creationday_
+	QDateTime creationDate_;
 
-    // Saves the number of steps that were stealthed. value -1 indicates that
-    // the char will be revealed
-    int stealthedSteps_;
+	// Saves the number of steps that were stealthed. value -1 indicates that
+	// the char will be revealed
+	int stealthedSteps_;
 
-    // Saves the number of steps the char ran.
-    uint runningSteps_;
+	// Saves the number of steps the char ran.
+	uint runningSteps_;
 
-    // Time, till murderer flag disappears. cOldChar::murderrate_
-    uint murdererTime_;
+	// Time, till murderer flag disappears. cOldChar::murderrate_
+	uint murdererTime_;
 
-    // Time, till criminal flag wears off. value -1 indicates not criminal!
-    uint criminalTime_;
+	// Time, till criminal flag wears off. value -1 indicates not criminal!
+	uint criminalTime_;
 
-    // time till next skill usage is possible
-    uint skillDelay_;
+	// time till next skill usage is possible
+	uint skillDelay_;
 
-    // Poison level applied to this character. -1 for none.
-    signed char poison_;
+	// Poison level applied to this character. -1 for none.
+	signed char poison_;
 
-    // Title of the char.
-    QString title_;
+	// Title of the char.
+	QString title_;
 
-    // Original name of the char.
-    // cOldChar::orgname_
-    QString orgName_;
+	// Original name of the char.
+	// cOldChar::orgname_
+	QString orgName_;
 
-    // Skin color hue of the char.
-    ushort skin_;
+	// Skin color hue of the char.
+	ushort skin_;
 
-    // Timers that affect this character.
-    TimerContainer timers_;
+	// Timers that affect this character.
+	TimerContainer timers_;
 
-    // Item contents of the char (i.e. equipment).
-    ItemContainer content_;
+	// Item contents of the char (i.e. equipment).
+	ItemContainer content_;
 
-    // Skill properties of this char.
-    QValueVector< stSkillValue > skills_;
+	// Skill properties of this char.
+	QValueVector< stSkillValue > skills_;
 
-    // Region the char is in.
-    cTerritory* region_;
+	// Region the char is in.
+	cTerritory* region_;
 
-    // Color hue the char speeks with.
-    ushort saycolor_;
+	// Color hue the char speeks with.
+	ushort saycolor_;
 
-    // Serial of the last char which murdered this character.
-    // cOldChar::murdererSer_
-    SERIAL murdererSerial_;
+	// Serial of the last char which murdered this character.
+	// cOldChar::murdererSer_
+	SERIAL murdererSerial_;
 
-    // Chars that guard this character.
-    CharContainer guardedby_;
+	// Chars that guard this character.
+	CharContainer guardedby_;
 
 	// Time, when next hitpoint will be regenerated.
 	// cOldChar::regen_
@@ -694,8 +694,8 @@ protected:
 	// cOldChar::regen3_
 	uint regenManaTime_;
 
-    // Char which the character guards.
-    P_CHAR guarding_;
+	// Char which the character guards.
+	P_CHAR guarding_;
 };
 
 inline void cBaseChar::flagUnchanged()
@@ -706,7 +706,7 @@ inline void cBaseChar::flagUnchanged()
 
 inline P_CHAR cBaseChar::guarding() const
 {
-    return guarding_;
+	return guarding_;
 }
 
 inline void cBaseChar::setGuarding(P_CHAR data)
@@ -727,12 +727,12 @@ inline void cBaseChar::setGuarding(P_CHAR data)
 
 inline ushort cBaseChar::body() const
 {
-    return body_;
+	return body_;
 }
 
 inline void cBaseChar::setBody(ushort data)
 {
-    body_ = data;
+	body_ = data;
 
 	if (data == 0x190) {
 		gender_ = 0;
@@ -745,344 +745,344 @@ inline void cBaseChar::setBody(ushort data)
 
 inline QDateTime cBaseChar::creationDate() const
 {
-    return creationDate_;
+	return creationDate_;
 }
 
 inline void cBaseChar::setCreationDate(const QDateTime &data)
 {
-    creationDate_ = data;
+	creationDate_ = data;
 	changed_ = true;
 }
 
 inline uint cBaseChar::criminalTime() const
 {
-    return criminalTime_;
+	return criminalTime_;
 }
 
 inline void cBaseChar::setCriminalTime(uint data)
 {
-    criminalTime_ = data;
+	criminalTime_ = data;
 	changed_ = true;
 }
 
 inline ushort cBaseChar::deaths() const
 {
-    return deaths_;
+	return deaths_;
 }
 
 inline void cBaseChar::setDeaths(ushort data)
 {
-    deaths_ = data;
+	deaths_ = data;
 	changed_ = true;
 }
 
 inline short cBaseChar::dexterityMod() const
 {
-    return dexterityMod_;
+	return dexterityMod_;
 }
 
 inline void cBaseChar::setDexterityMod(short data)
 {
-    dexterityMod_ = data;
+	dexterityMod_ = data;
 	changed_ = true;
 	refreshMaximumValues();
 }
 
 inline short cBaseChar::dexterity() const
 {
-    return dexterity_;
+	return dexterity_;
 }
 
 inline void cBaseChar::setDexterity(short data)
 {
-    dexterity_ = data;
+	dexterity_ = data;
 	changed_ = true;
 	refreshMaximumValues();
 }
 
 inline ushort cBaseChar::emoteColor() const
 {
-    return emoteColor_;
+	return emoteColor_;
 }
 
 inline void cBaseChar::setEmoteColor(ushort data)
 {
-    emoteColor_ = data;
+	emoteColor_ = data;
 	changed_ = true;
 }
 
 inline short cBaseChar::fame() const
 {
-    return fame_;
+	return fame_;
 }
 
 inline void cBaseChar::setFame(short data)
 {
-    fame_ = data;
+	fame_ = data;
 	changed_ = true;
 }
 
 inline uchar cBaseChar::flag() const
 {
-    return flag_;
+	return flag_;
 }
 
 inline void cBaseChar::setFlag(uchar data)
 {
-    flag_ = data;
+	flag_ = data;
 	changed_ = true;
 }
 
 inline bool cBaseChar::gender() const
 {
-    return gender_;
+	return gender_;
 }
 
 inline void cBaseChar::setGender(bool data)
 {
-    gender_ = data;
+	gender_ = data;
 	changed_ = true;
 }
 
 inline short cBaseChar::hitpoints() const
 {
-    return hitpoints_;
+	return hitpoints_;
 }
 
 inline void cBaseChar::setHitpoints(short data)
 {
-    hitpoints_ = data;
+	hitpoints_ = data;
 	changed_ = true;
 }
 
 inline int cBaseChar::hunger() const
 {
-    return hunger_;
+	return hunger_;
 }
 
 inline void cBaseChar::setHunger(int data)
 {
-    hunger_ = data;
+	hunger_ = data;
 	changed_ = true;
 }
 
 inline uint cBaseChar::hungerTime() const
 {
-    return hungerTime_;
+	return hungerTime_;
 }
 
 inline void cBaseChar::setHungerTime(uint data)
 {
-    hungerTime_ = data;
+	hungerTime_ = data;
 }
 
 inline short cBaseChar::intelligence() const
 {
-    return intelligence_;
+	return intelligence_;
 }
 
 inline void cBaseChar::setIntelligence(short data)
 {
-    intelligence_ = data;
+	intelligence_ = data;
 	changed_ = true;
 	refreshMaximumValues();
 }
 
 inline short cBaseChar::intelligenceMod() const
 {
-    return intelligenceMod_;
+	return intelligenceMod_;
 }
 
 inline void cBaseChar::setIntelligenceMod(short data)
 {
-    intelligenceMod_ = data;
+	intelligenceMod_ = data;
 	changed_ = true;
 	refreshMaximumValues();
 }
 
 inline short cBaseChar::karma() const
 {
-    return karma_;
+	return karma_;
 }
 
 inline void cBaseChar::setKarma(short data)
 {
-    karma_ = data;
+	karma_ = data;
 	changed_ = true;
 }
 
 inline ushort cBaseChar::kills() const
 {
-    return kills_;
+	return kills_;
 }
 
 inline void cBaseChar::setKills(ushort data)
 {
-    kills_ = data;
+	kills_ = data;
 	changed_ = true;
 }
 
 inline short cBaseChar::mana() const
 {
-    return mana_;
+	return mana_;
 }
 
 inline void cBaseChar::setMana(short data)
 {
-    mana_ = data;
+	mana_ = data;
 	changed_ = true;
 }
 
 inline ushort cBaseChar::maxHitpoints() const
 {
-    return maxHitpoints_;
+	return maxHitpoints_;
 }
 
 inline void cBaseChar::setMaxHitpoints(ushort data)
 {
-    maxHitpoints_ = data;
+	maxHitpoints_ = data;
 	changed_ = true;
 }
 
 inline ushort cBaseChar::maxMana() const
 {
-    return maxMana_;
+	return maxMana_;
 }
 
 inline void cBaseChar::setMaxMana(ushort data)
 {
-    maxMana_ = data;
+	maxMana_ = data;
 	changed_ = true;
 }
 
 inline ushort cBaseChar::maxStamina() const
 {
-    return maxStamina_;
+	return maxStamina_;
 }
 
 inline void cBaseChar::setMaxStamina(ushort data)
 {
-    maxStamina_ = data;
+	maxStamina_ = data;
 	changed_ = true;
 }
 
 inline uint cBaseChar::murdererTime() const
 {
-    return murdererTime_;
+	return murdererTime_;
 }
 
 inline void cBaseChar::setMurdererTime(uint data)
 {
-    murdererTime_ = data;
+	murdererTime_ = data;
 	changed_ = true;
 }
 
 inline short cBaseChar::orgBody() const
 {
-    return orgBody_;
+	return orgBody_;
 }
 
 inline void cBaseChar::setOrgBody(short data)
 {
-    orgBody_ = data;
+	orgBody_ = data;
 	changed_ = true;
 }
 
 inline ushort cBaseChar::orgSkin() const
 {
-    return orgSkin_;
+	return orgSkin_;
 }
 
 inline void cBaseChar::setOrgSkin(ushort data)
 {
-    orgSkin_ = data;
+	orgSkin_ = data;
 	changed_ = true;
 }
 
 inline signed char cBaseChar::poison() const
 {
-    return poison_;
+	return poison_;
 }
 
 inline void cBaseChar::setPoison(signed char data)
 {
-  poison_ = data;
+	poison_ = data;
 	changed_ = true;
 }
 
 inline uint cBaseChar::propertyFlags() const
 {
-    return propertyFlags_;
+	return propertyFlags_;
 }
 
 inline void cBaseChar::setPropertyFlags(uint data)
 {
-    propertyFlags_ = data;
+	propertyFlags_ = data;
 	changed_ = true;
 }
 
 inline uint cBaseChar::runningSteps() const
 {
-    return runningSteps_;
+	return runningSteps_;
 }
 
 inline void cBaseChar::setRunningSteps(uint data)
 {
-    runningSteps_ = data;
+	runningSteps_ = data;
 }
 
 inline uint cBaseChar::skillDelay() const
 {
-    return skillDelay_;
+	return skillDelay_;
 }
 
 inline void cBaseChar::setSkillDelay(uint data)
 {
-    skillDelay_ = data;
+	skillDelay_ = data;
 }
 
 inline short cBaseChar::stamina() const
 {
-    return stamina_;
+	return stamina_;
 }
 
 inline int cBaseChar::stealthedSteps() const
 {
-    return stealthedSteps_;
+	return stealthedSteps_;
 }
 
 inline void cBaseChar::setStealthedSteps(int data)
 {
-    stealthedSteps_ = data;
+	stealthedSteps_ = data;
 }
 
 inline short cBaseChar::strength() const
 {
-    return strength_;
+	return strength_;
 }
 
 inline void cBaseChar::setStrength(short data)
 {
-    strength_ = data;
+	strength_ = data;
 	changed_ = true;
 	refreshMaximumValues();
 }
 
 inline short cBaseChar::strengthMod() const
 {
-    return strengthMod_;
+	return strengthMod_;
 }
 
 inline void cBaseChar::setStrengthMod(short data)
 {
-    strengthMod_ = data;
+	strengthMod_ = data;
 	changed_ = true;
 	refreshMaximumValues();
 }
 
 inline float cBaseChar::weight() const
 {
-    return ( ceilf( weight_ * 100 ) / 100 );
+	return ( ceilf( weight_ * 100 ) / 100 );
 }
 
 inline void cBaseChar::setWeight(float data)
@@ -1092,34 +1092,34 @@ inline void cBaseChar::setWeight(float data)
 
 inline SERIAL cBaseChar::murdererSerial() const
 {
-    return murdererSerial_;
+	return murdererSerial_;
 }
 
 inline void cBaseChar::setMurdererSerial(SERIAL data)
 {
-    murdererSerial_ = data;
+	murdererSerial_ = data;
 	changed_ = true;
 }
 
 inline QString cBaseChar::orgName() const
 {
-    return orgName_;
+	return orgName_;
 }
 
 inline void cBaseChar::setOrgName(const QString &data)
 {
-    orgName_ = data;
+	orgName_ = data;
 	changed_ = true;
 }
 
 inline cTerritory* cBaseChar::region() const
 {
-    return region_;
+	return region_;
 }
 
 inline void cBaseChar::setRegion(cTerritory* data)
 {
-    region_ = data;
+	region_ = data;
 }
 
 inline ushort cBaseChar::saycolor() const
@@ -1129,60 +1129,60 @@ inline ushort cBaseChar::saycolor() const
 
 inline void cBaseChar::setSaycolor(ushort data)
 {
-    saycolor_ = data;
+	saycolor_ = data;
 	changed_ = true;
 }
 
 inline ushort cBaseChar::skin() const
 {
-    return skin_;
+	return skin_;
 }
 
 inline void cBaseChar::setSkin(ushort data)
 {
-    skin_ = data;
+	skin_ = data;
 	changed_ = true;
 }
 
 inline QString cBaseChar::title() const
 {
-    return title_;
+	return title_;
 }
 
 inline void cBaseChar::setTitle(const QString &data)
 {
-    title_ = data;
+	title_ = data;
 	changed_ = true;
 }
 
 inline uint cBaseChar::regenHitpointsTime() const
 {
-    return regenHitpointsTime_;
+	return regenHitpointsTime_;
 }
 
 inline void cBaseChar::setRegenHitpointsTime(uint data)
 {
-    regenHitpointsTime_ = data;
+	regenHitpointsTime_ = data;
 }
 
 inline uint cBaseChar::regenStaminaTime() const
 {
-    return regenStaminaTime_;
+	return regenStaminaTime_;
 }
 
 inline void cBaseChar::setRegenStaminaTime(uint data)
 {
-    regenStaminaTime_ = data;
+	regenStaminaTime_ = data;
 }
 
 inline uint cBaseChar::regenManaTime() const
 {
-    return regenManaTime_;
+	return regenManaTime_;
 }
 
 inline void cBaseChar::setRegenManaTime(uint data)
 {
-    regenManaTime_ = data;
+	regenManaTime_ = data;
 }
 
 inline bool cBaseChar::isIncognito() const

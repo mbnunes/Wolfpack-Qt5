@@ -55,20 +55,20 @@
 
 cPlayer::cPlayer()
 {
-	account_			= NULL;
-	logoutTime_			= 0;
-	objectDelay_		= 0;
-	additionalFlags_	= 0;
-	trackingTime_		= 0;
-	socket_				= NULL;
-	visualRange_		= VISRANGE;
-	profile_			= (char*)0;
-	fixedLightLevel_	= 0;
-	party_				= 0;
-	guild_				= 0;
-	strengthLock_		= 0;
-	dexterityLock_		= 0;
-	intelligenceLock_	= 0;
+	account_ = NULL;
+	logoutTime_ = 0;
+	objectDelay_ = 0;
+	additionalFlags_ = 0;
+	trackingTime_ = 0;
+	socket_ = NULL;
+	visualRange_ = VISRANGE;
+	profile_ = (char*)0;
+	fixedLightLevel_ = 0;
+	party_ = 0;
+	guild_ = 0;
+	strengthLock_ = 0;
+	dexterityLock_ = 0;
+	intelligenceLock_ = 0;
 }
 
 cPlayer::cPlayer(const cPlayer& right)
@@ -258,13 +258,13 @@ void cPlayer::talk( const QString &message, UI16 color, UINT8 type, bool autospa
 
 	switch( type )
 	{
-	case 0x01:		speechType = cUOTxUnicodeSpeech::Broadcast;		break;
-	case 0x06:		speechType = cUOTxUnicodeSpeech::System;		break;
-	case 0x09:		speechType = cUOTxUnicodeSpeech::Yell;			break;
-	case 0x02:		speechType = cUOTxUnicodeSpeech::Emote;			break;
-	case 0x08:		speechType = cUOTxUnicodeSpeech::Whisper;		break;
-	case 0x0A:		speechType = cUOTxUnicodeSpeech::Spell;			break;
-	default:		speechType = cUOTxUnicodeSpeech::Regular;		break;
+		case 0x01: speechType = cUOTxUnicodeSpeech::Broadcast; break;
+		case 0x06: speechType = cUOTxUnicodeSpeech::System; break;
+		case 0x09: speechType = cUOTxUnicodeSpeech::Yell; break;
+		case 0x02: speechType = cUOTxUnicodeSpeech::Emote; break;
+		case 0x08: speechType = cUOTxUnicodeSpeech::Whisper; break;
+		case 0x0A: speechType = cUOTxUnicodeSpeech::Spell; break;
+		default: speechType = cUOTxUnicodeSpeech::Regular; break;
 	};
 
 	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
@@ -289,7 +289,6 @@ void cPlayer::talk( const QString &message, UI16 color, UINT8 type, bool autospa
 			else
 				ghostSpeech.append( ( RandomNum( 0, 1 ) == 0 ) ? "o" : "O" );
 		}
-
 	}
 
 	if( socket )
@@ -533,12 +532,12 @@ void cPlayer::showName( cUOSocket *socket )
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
 	switch( notoriety( socket->player() ) )
 	{
-		case 0x01:	speechColor = 0x59;		break; //blue
-		case 0x02:	speechColor = 0x3F;		break; //green
-		case 0x03:	speechColor = 0x3B2;	break; //grey
-		case 0x05:	speechColor = 0x90;		break; //orange
-		case 0x06:	speechColor = 0x22;		break; //red
-		default:	speechColor = 0x3B2;	break; // grey
+		case 0x01: speechColor = 0x59; break; //blue
+		case 0x02: speechColor = 0x3F; break; //green
+		case 0x03: speechColor = 0x3B2; break; //grey
+		case 0x05: speechColor = 0x90; break; //orange
+		case 0x06: speechColor = 0x22; break; //red
+		default: speechColor = 0x3B2; break; // grey
 	}
 
 	if (isInvulnerable()) {
@@ -562,7 +561,6 @@ void cPlayer::makeCriminal() {
 			if (socket_ && !isCriminal()) {
 				socket_->clilocMessage(500167);
 			}
-
 			setCriminalTime(Server::instance()->time() + Config::instance()->crimtime() * MY_CLOCKS_PER_SEC);
 			changed_ = true;
 		}
@@ -1036,7 +1034,6 @@ void cPlayer::setStamina( INT16 data, bool notify /* = true */ )
 	cBaseChar::setStamina( data );
 	if ( update && socket() )
 		socket()->updateStamina( this );
-
 }
 
 // Simple setting and getting of properties for scripts and the set command.

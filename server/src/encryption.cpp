@@ -105,25 +105,25 @@ void cLoginEncryption::serverEncrypt( char *buffer, unsigned int length )
 */
 void cLoginEncryption::clientDecrypt( char *buffer, unsigned int length )
 {
-   register UINT32 eax, ecx, edx, esi;
-   for( UINT32 i = 0; i < length; ++i )
-   {
-      buffer[i] = buffer[i] ^ (UINT8)( table1 & 0xFF );
-      edx = table2;
-      esi = table1 << 31;
-      eax = table2 >> 1;
-      eax |= esi;
-      eax ^= key1 - 1;
-      edx <<= 31;
-      eax >>= 1;
-      ecx = table1 >> 1;
-      eax |= esi;
-      ecx |= edx;
-      eax ^= key1;
-      ecx ^= key2;
-      table1 = ecx;
-      table2 = eax;
-   }
+	register UINT32 eax, ecx, edx, esi;
+	for( UINT32 i = 0; i < length; ++i )
+	{
+		buffer[i] = buffer[i] ^ (UINT8)( table1 & 0xFF );
+		edx = table2;
+		esi = table1 << 31;
+		eax = table2 >> 1;
+		eax |= esi;
+		eax ^= key1 - 1;
+		edx <<= 31;
+		eax >>= 1;
+		ecx = table1 >> 1;
+		eax |= esi;
+		ecx |= edx;
+		eax ^= key1;
+		ecx ^= key2;
+		table1 = ecx;
+		table2 = eax;
+	}
 }
 
 /*!
@@ -131,8 +131,8 @@ void cLoginEncryption::clientDecrypt( char *buffer, unsigned int length )
 */
 void cGameEncryption::init( unsigned int seed )
 {
-    makeKey( &ki, DIR_DECRYPT, 0x80, NULL );
-    cipherInit( &ci, MODE_ECB, NULL );
+	makeKey( &ki, DIR_DECRYPT, 0x80, NULL );
+	cipherInit( &ci, MODE_ECB, NULL );
 
 	ki.key32[0] = ki.key32[1] = ki.key32[2] = ki.key32[3] = seed;
 	reKey( &ki );
@@ -222,7 +222,7 @@ void cKeyManager::load()
 			continue;
 		}
 
-        stLoginKey key;
+		stLoginKey key;
 
 		bool ok;
 
@@ -245,4 +245,3 @@ void cKeyManager::load()
 		keys.push_back( key );
 	}
 }
-

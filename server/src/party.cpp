@@ -440,7 +440,7 @@ void cParty::handlePacket(cUOSocket *socket, cUOPacket *packet)
 	The python object structure for a party.
 */
 struct wpParty {
-    PyObject_HEAD;
+	PyObject_HEAD;
 	cParty *party;
 };
 
@@ -452,15 +452,15 @@ static int wpParty_compare(PyObject *a, PyObject *b);
 	The python type object for the party type.
 */
 PyTypeObject wpPartyType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "party",
-    sizeof(wpPartyType),
-    0,
-    wpDealloc,
-    0,
-    (getattrfunc)wpParty_getAttr,
-    (setattrfunc)wpParty_setAttr,
+	PyObject_HEAD_INIT(NULL)
+	0,
+	"party",
+	sizeof(wpPartyType),
+	0,
+	wpDealloc,
+	0,
+	(getattrfunc)wpParty_getAttr,
+	(setattrfunc)wpParty_setAttr,
 	wpParty_compare,
 };
 

@@ -140,13 +140,13 @@ public:
 	void unload( void );
 
 	bool ImportSections( const QString& FileName );
-	const cElement*		getDefinition( eDefCategory Type, const QString& id ) const;
+	const cElement* getDefinition( eDefCategory Type, const QString& id ) const;
 	const QValueVector< cElement* > &getDefinitions( eDefCategory Type ) const;
 
-	QStringList			getSections( eDefCategory Type ) const;
-	QString				getRandomListEntry( const QString& ListSection );
-	QStringList			getList( const QString& ListSection );
-	QString				getText( const QString& TextSection ) const;
+	QStringList getSections( eDefCategory Type ) const;
+	QString getRandomListEntry( const QString& ListSection );
+	QStringList getList( const QString& ListSection );
+	QString getText( const QString& TextSection ) const;
 
 protected:
 	QMap< QString, QStringList >	listcache_;

@@ -90,7 +90,7 @@ public:
 			\param data The new state of this flag.
 		*/
 		inline void setShowSign(bool data) {
-            showSign_ = data;
+			showSign_ = data;
 		}
 
         /*!

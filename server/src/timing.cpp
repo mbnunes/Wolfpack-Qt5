@@ -156,7 +156,7 @@ void cTiming::poll() {
 
 		if (newLevel != currentLevel) {
 			events |= cBaseChar::EventLight;
-            currentLevel = newLevel;
+			currentLevel = newLevel;
 		}
 	}
 

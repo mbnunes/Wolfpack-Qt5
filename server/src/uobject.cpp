@@ -378,7 +378,7 @@ void cUObject::recreateEvents() {
 	} else {
 		QStringList events = QStringList::split(",", eventList_);
 		QString newevents;
-		
+
 		delete [] scriptChain;
 		scriptChain = new cPythonScript*[events.size() + 1];
 		unsigned int count = 0;
@@ -462,7 +462,7 @@ void cUObject::processNode( const cElement *Tag )
 				}
 			}
 
-            QString type = Tag->getAttribute("type", "string");
+			QString type = Tag->getAttribute("type", "string");
 
 			if (type == "int") {
 				// If the value is separated by a ,

@@ -86,7 +86,7 @@ protected:
 public:
 	const char *objectID() const
 	{
-        return "cUObject";
+		return "cUObject";
 	}
 
 	// EventHandling functions
@@ -144,20 +144,20 @@ public:
 
 	virtual void remove();
 	virtual void moveTo( const Coord_cl&, bool noRemove = false );
-	unsigned int	dist(cUObject* d) const;
-	QString			bindmenu()		const { return bindmenu_; }
-	QString			name()			const { return name_;		}
-	Coord_cl		pos()			const { return pos_;		}
-	SERIAL			serial()		const { return serial_;	}
-	UINT32			getTooltip()	const { return tooltip_; }
-	uchar			direction()		const { return dir_;  }
+	unsigned int dist(cUObject* d) const;
+	QString bindmenu() const { return bindmenu_; }
+	QString name() const { return name_;		}
+	Coord_cl pos() const { return pos_;		}
+	SERIAL serial() const { return serial_;	}
+	UINT32 getTooltip() const { return tooltip_; }
+	uchar direction() const { return dir_;  }
 
-	void setBindmenu( const QString& d )	{ bindmenu_ = d; changed_ = true;	}
-	void setName( const QString& d )		{ name_ = d; changed_ = true; changed( TOOLTIP );		}
-	void setPos( const Coord_cl& d )		{ pos_ = d;	changed_ = true;		}
-	virtual void setSerial( SERIAL d )		{ serial_ = d; changed_ = true;	}
-	void setTooltip( const UINT32 d )		{ tooltip_ = d; }
-	void	setDirection( uchar d )			{ dir_ = d; changed_ = true;}
+	void setBindmenu( const QString& d ) { bindmenu_ = d; changed_ = true;	 }
+	void setName( const QString& d ) { name_ = d; changed_ = true; changed( TOOLTIP ); }
+	void setPos( const Coord_cl& d ) { pos_ = d;	changed_ = true; }
+	virtual void setSerial( SERIAL d ) { serial_ = d; changed_ = true; }
+	void setTooltip( const UINT32 d ) { tooltip_ = d; }
+	void	setDirection( uchar d ) { dir_ = d; changed_ = true; }
 
 	virtual void sendTooltip( cUOSocket* mSock );
 

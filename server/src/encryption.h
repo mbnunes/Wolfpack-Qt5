@@ -88,8 +88,8 @@ private:
 	unsigned char sendPos; // Offset in our XOR Table (Send)
 	unsigned char cipherTable[0x100];
 
-    keyInstance ki;
-    cipherInstance ci;
+	keyInstance ki;
+	cipherInstance ci;
 
 	void decryptByte( unsigned char &byte );
 

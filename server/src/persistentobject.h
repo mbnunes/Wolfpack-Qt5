@@ -44,10 +44,9 @@ public:
 
 	virtual const char *objectID() const
 	{
-        return "PersistentObject";
+		return "PersistentObject";
 	}
 
 };
-
 
 #endif // __PERSISTENTOBJECT_H__

@@ -162,20 +162,20 @@ struct wpDbResult {
 static void wpDeallocDbResult(PyObject *object) {
 	wpDbResult *result = (wpDbResult*)object;
 	delete result->result;
-    PyObject_Del(object);
+	PyObject_Del(object);
 }
 
 static PyObject *wpDbResult_getAttr(wpDbResult *self, char *name);
 
 PyTypeObject wpDbResultType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dbresult",
-    sizeof(wpDbResultType),
-    0,
-    wpDeallocDbResult,
-    0,
-    (getattrfunc)wpDbResult_getAttr
+	PyObject_HEAD_INIT(NULL)
+	0,
+	"dbresult",
+	sizeof(wpDbResultType),
+	0,
+	wpDeallocDbResult,
+	0,
+	(getattrfunc)wpDbResult_getAttr
 };
 
 static PyObject *wpDbResult_free(wpDbResult *self, PyObject *args)
@@ -315,7 +315,6 @@ cDBResult cSQLiteDriver::query( const QString &query )
 {
 	char *error = NULL;
 	sqlite_vm *result;
-
 
 	// Compile a VM and pass it to cSQLiteResult
 	if( sqlite_compile( (sqlite*)connection, query.latin1(), NULL, &result, &error ) != SQLITE_OK )

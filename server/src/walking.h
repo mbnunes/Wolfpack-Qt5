@@ -70,10 +70,8 @@ private:
 
 	void handleItemCollision( P_CHAR pChar );
 	void handleTeleporters(P_CHAR pc, const Coord_cl &oldpos);
-
 };
 
 typedef SingletonHolder<cMovement> Movement;
 
 #endif // __WALKING2_H__
-

@@ -71,9 +71,9 @@ struct {
 	UINT uCallbackMessage;
 	HICON hIcon;
 #if (_WIN32_IE < 0x0500)
-	CHAR   szTip[64];
+	CHAR szTip[64];
 #else
-	CHAR   szTip[128];
+	CHAR szTip[128];
 #endif
 #if (_WIN32_IE >= 0x0500)
 	DWORD dwState;

@@ -69,10 +69,10 @@ private:
 	double specialFloor( const double value ) const;
 
 public:
-	UI16 	x;
-	UI16 	y;
-	SI08 	z;
-	UI08    map;
+	UI16 x;
+	UI16 y;
+	SI08 z;
+	UI08 map;
 };
 
 #endif // __COORD_H__

@@ -3,7 +3,7 @@
 //========================================================================
 //	Copyright (c) 2001 by Sheppard Norfleet and Charles Kerr
 //  All Rights Reserved
-// 
+//
 //	Redistribution and use in source and binary forms, with or without
 //	modification, are permitted provided the following conditions are met:
 //
@@ -15,7 +15,7 @@
 //
 //	Neither the name of the SWORDS  nor the names of its contributors may
 //	be used to endorse or promote products derived from this software
-//	without specific prior written permission. 
+//	without specific prior written permission.
 //
 //	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 //  `AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,14 +26,14 @@
 #define IN_PLATFORM_H
 //========================================================================
 enum enByteOrder{ littleEndian, bigEndian };
-#define BYTEORDER littleEndian 
+#define BYTEORDER littleEndian
 // We have to worry about Intel's compilier as well
 
 #if defined(_MSC_VER) | defined(__INTEL_COMPILER) | defined(__BORLANDC__)
 
 //PRAGMAS
 
-//#pragma pack(1) 
+//#pragma pack(1)
 #pragma pack(8)
 
 // no global pack  for windows !
@@ -55,7 +55,7 @@ enum enByteOrder{ littleEndian, bigEndian };
 #pragma warning(disable: 4702)
 
 // The intel compilier doesnt like this one
-#pragma warning(disable: 985) 
+#pragma warning(disable: 985)
 //#pragma optimize("y", off)
 #define OBSOLETETIME
 #define PACK
@@ -70,7 +70,7 @@ enum enByteOrder{ littleEndian, bigEndian };
 #endif
 
 #define PACK __attribute__((packed))
-#if __GNUC__ > 2 && !defined(WIN32) 
+#if __GNUC__ > 2 && !defined(WIN32)
 #undef OBSOLETESTREAM
 #else
 #if __GNUC_MINOR__ < 95
@@ -84,14 +84,14 @@ enum enByteOrder{ littleEndian, bigEndian };
 #endif
 
 //========================================================================
-typedef unsigned long	UI32;
-typedef unsigned short	UI16;
-typedef unsigned char	UI08;
-typedef signed long		SI32;
-typedef signed short	SI16;
-typedef signed char		SI08;
-typedef float			RF32;
-typedef double			RF64;
+typedef unsigned long UI32;
+typedef unsigned short UI16;
+typedef unsigned char UI08;
+typedef signed long SI32;
+typedef signed short SI16;
+typedef signed char SI08;
+typedef float RF32;
+typedef double RF64;
 //========================================================================
 //========================================================================
 //========================================================================
@@ -100,4 +100,3 @@ typedef double			RF64;
 //========================================================================
 
 #endif
-

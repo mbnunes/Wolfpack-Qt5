@@ -151,7 +151,7 @@ void cMultiCache::reload() {
 	Parses and loads multi definitions
 */
 void cMultiCache::load() {
-	QString basePath = Config::instance()->mulPath();	
+	QString basePath = Config::instance()->mulPath();
 
 	QFile indexFile( basePath + "multi.idx" );
 	if( !indexFile.open( IO_ReadOnly ) )
@@ -228,4 +228,3 @@ MultiDefinition* cMultiCache::getMulti( ushort id )
 	else
 		return 0;
 }
-

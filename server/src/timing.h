@@ -46,7 +46,7 @@ private:
 protected:
 	unsigned int lastWorldsave_;
 	void checkRegeneration(P_CHAR character, unsigned int time);
-    void checkPlayer(P_PLAYER player, unsigned int time);
+	void checkPlayer(P_PLAYER player, unsigned int time);
 	void checkNpc(P_NPC npc, unsigned int time);
 
 public:

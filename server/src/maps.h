@@ -60,11 +60,11 @@ struct staticrecord {
 class StaticsIterator
 {
 public:
-    /**
-     * Typedefs, STL conformance.
-     */
-    typedef std::bidirectional_iterator_tag  iterator_category;
-    typedef ptrdiff_t  difference_type;
+	/*
+	* Typedefs, STL conformance.
+	*/
+	typedef std::bidirectional_iterator_tag  iterator_category;
+	typedef ptrdiff_t  difference_type;
 
 private:
 	QValueVector<staticrecord> staticArray;
@@ -86,11 +86,11 @@ public:
 	const staticrecord& data() const;
 
 	// prefix Operators
-    StaticsIterator& operator++();
-    StaticsIterator& operator--();
+	StaticsIterator& operator++();
+	StaticsIterator& operator--();
 	// postfix Operators
-    StaticsIterator operator++(int);
-    StaticsIterator operator--(int);
+	StaticsIterator operator++(int);
+	StaticsIterator operator--(int);
 	const staticrecord*   operator->() const;
 	const staticrecord&   operator*() const;
 
@@ -185,4 +185,3 @@ inline const staticrecord& StaticsIterator::operator*() const
 typedef SingletonHolder<cMaps> Maps;
 
 #endif // __MAPS_H__
-

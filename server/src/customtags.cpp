@@ -101,8 +101,8 @@ cVariant::cVariant( const cVariant &v )
 */
 cVariant::cVariant( const QString& val )
 {
-    typ = String;
-    value.ptr = new QString( val );
+	typ = String;
+	value.ptr = new QString( val );
 }
 
 /*!
@@ -110,8 +110,8 @@ cVariant::cVariant( const QString& val )
 */
 cVariant::cVariant( int val )
 {
-    typ = Int;
-    value.i = val;
+	typ = Int;
+	value.i = val;
 }
 
 /*!
@@ -119,8 +119,8 @@ cVariant::cVariant( int val )
 */
 cVariant::cVariant( double val )
 {
-    typ = Double;
-    value.d = val;
+	typ = Double;
+	value.d = val;
 }
 
 cVariant::cVariant( long int val )
@@ -134,8 +134,8 @@ cVariant::cVariant( long int val )
 */
 cVariant::cVariant( cBaseChar *val )
 {
-    typ = BaseChar;
-    value.ptr = val;
+	typ = BaseChar;
+	value.ptr = val;
 }
 
 /*!
@@ -143,8 +143,8 @@ cVariant::cVariant( cBaseChar *val )
 */
 cVariant::cVariant( cItem *val )
 {
-    typ = Item;
-    value.ptr = val;
+	typ = Item;
+	value.ptr = val;
 }
 
 /*!
@@ -152,17 +152,17 @@ cVariant::cVariant( cItem *val )
 */
 cVariant::cVariant( Coord_cl val )
 {
-    typ = Coord;
-    value.ptr = new Coord_cl( val );
+	typ = Coord;
+	value.ptr = new Coord_cl( val );
 }
 
 /*!
-  Destroys the cVariant and the contained object.
+	Destroys the cVariant and the contained object.
 
-  Note that subclasses that reimplement clear() should reimplement
-  the destructor to call clear().  This destructor calls clear(), but
-  because it is the destructor, cVariant::clear() is called rather than
-  a subclass's clear().
+	Note that subclasses that reimplement clear() should reimplement
+	the destructor to call clear().  This destructor calls clear(), but
+	because it is the destructor, cVariant::clear() is called rather than
+	a subclass's clear().
 */
 cVariant::~cVariant()
 {
@@ -170,16 +170,15 @@ cVariant::~cVariant()
 }
 
 /*!
-    Assigns the value of the variant \a variant to this variant.
-
-    This is a deep copy of the variant.
+	Assigns the value of the variant \a variant to this variant.
+	This is a deep copy of the variant.
 */
 cVariant& cVariant::operator= ( const cVariant &v )
 {
 	typ = v.typ;
 
 	// For non pointer types we can simply use the union
-    switch( typ )
+	switch( typ )
 	{
 	case cVariant::String:
 	    value.ptr = new QString( v.toString() );
@@ -196,8 +195,8 @@ cVariant& cVariant::operator= ( const cVariant &v )
 }
 
 /*!
-    Compares this QVariant with \a v and returns TRUE if they are
-    equal; otherwise returns FALSE.
+	Compares this QVariant with \a v and returns TRUE if they are
+	equal; otherwise returns FALSE.
 */
 bool cVariant::operator==( const cVariant &v ) const
 {
@@ -226,8 +225,8 @@ bool cVariant::operator==( const cVariant &v ) const
 }
 
 /*!
-    Compares this QVariant with \a v and returns TRUE if they are not
-    equal; otherwise returns FALSE.
+	Compares this QVariant with \a v and returns TRUE if they are not
+	equal; otherwise returns FALSE.
 */
 bool cVariant::operator!=( const cVariant &v ) const
 {
@@ -235,98 +234,99 @@ bool cVariant::operator!=( const cVariant &v ) const
 }
 
 /*!
-  Returns the name of the type stored in the variant.
-  The returned strings describe the C++ datatype used to store the
-  data: for example, "QFont", "QString", or "QValueList<cVariant>".
-  An Invalid variant returns 0.
+	Returns the name of the type stored in the variant.
+	The returned strings describe the C++ datatype used to store the
+	data: for example, "QFont", "QString", or "QValueList<cVariant>".
+	An Invalid variant returns 0.
 */
 const char* cVariant::typeName() const
 {
     return typeToName( typ );
 }
 
-/*! Convert this variant to type Invalid and free up any resources
-  used.
+/*!
+	Convert this variant to type Invalid and free up any resources used.
 */
 void cVariant::clear()
 {
-    switch( typ )
+	switch( typ )
 	{
 	case cVariant::String:
-	    delete (QString*)value.ptr;
-	    break;
+		delete (QString*)value.ptr;
+		break;
 	case cVariant::Coord:
 		delete (Coord_cl*)value.ptr;
-	    break;
+		break;
 	default: break;
 	}
 
-    typ = cVariant::Invalid;
+	typ = cVariant::Invalid;
 }
 
 static const int ntypes = 7;
 static const char* const type_map[ntypes] =
 {
-    0,
-    "String",
-    "Int",
-    "Double",
+	0,
+	"String",
+	"Int",
+	"Double",
 	"BaseChar",
 	"Item",
 	"Coord"
 };
 
 /*!
-  Converts the enum representation of the storage type, \a typ, to its
-  string representation.
+	Converts the enum representation of the storage type, \a typ, to its
+	string representation.
 */
 const char* cVariant::typeToName( Type typ )
 {
-    if ( typ >= ntypes )
+	if ( typ >= ntypes )
 	return 0;
-    return type_map[typ];
+	return type_map[typ];
 }
 
 
 /*!
-  Converts the string representation of the storage type gven in \a
-  name, to its enum representation.
+	Converts the string representation of the storage type gven in \a
+	name, to its enum representation.
 
-  If the string representation cannot be converted to any enum
-  representation, the variant is set to \c Invalid.
+	If the string representation cannot be converted to any enum
+	representation, the variant is set to \c Invalid.
 */
 cVariant::Type cVariant::nameToType( const char* name )
 {
-    for ( int i = 0; i < ntypes; i++ ) {
-	if ( !qstrcmp( type_map[i], name ) )
-	    return (Type) i;
-    }
-    return Invalid;
+	for ( int i = 0; i < ntypes; i++ )
+	{
+		if ( !qstrcmp( type_map[i], name ) )
+			return (Type) i;
+	}
+	return Invalid;
 }
 
 /*! \fn Type cVariant::type() const
 
-  Returns the storage type of the value stored in the variant. Usually
-  it's best to test with canCast() whether the variant can deliver the
-  data type you are interested in.
+	Returns the storage type of the value stored in the variant. Usually
+	it's best to test with canCast() whether the variant can deliver the
+	data type you are interested in.
 */
 
 /*! \fn bool cVariant::isValid() const
 
-  Returns TRUE if the storage type of this variant is not
-  cVariant::Invalid; otherwise returns FALSE.
+	Returns TRUE if the storage type of this variant is not
+	cVariant::Invalid; otherwise returns FALSE.
 */
 
 /*!
-  Returns the variant as a QString if the variant has type()
-  String, CString, ByteArray, Int, Uint, Bool, Double, Date, Time, or DateTime,
-  or QString::null otherwise.
+	Returns the variant as a QString if the variant has type()
+	String, CString, ByteArray, Int, Uint, Bool, Double, Date, Time, or DateTime,
+	or QString::null otherwise.
 
-  \sa asString()
+	\sa asString()
 */
 const QString cVariant::toString() const
 {
-    if ( typ == Int )
+	if ( typ == Int )
 		return QString::number( value.i );
 
 	if ( typ == Long )
@@ -359,35 +359,36 @@ const QString cVariant::toString() const
 		return QString( "%1,%2,%3,%4" ).arg( pos->x ).arg( pos->y ).arg( pos->z ).arg( pos->map );
 	}
 
-    if ( typ != String )
+	if ( typ != String )
 		return QString::null;
-    return *((QString*)value.ptr);
+
+	return *((QString*)value.ptr);
 }
 
 /*!
-  Returns the variant as an int if the variant has type()
-  String, CString, Int, UInt, Double, Bool or KeySequence; or 0 otherwise.
+	Returns the variant as an int if the variant has type()
+	String, CString, Int, UInt, Double, Bool or KeySequence; or 0 otherwise.
 
-  If \a ok is non-null, \a *ok is set to TRUE if the value could be
-  converted to an int and FALSE otherwise.
+	If \a ok is non-null, \a *ok is set to TRUE if the value could be
+	converted to an int and FALSE otherwise.
 
-  \sa asInt() canCast()
+	\sa asInt() canCast()
 */
 int cVariant::toInt( bool * ok ) const
 {
-    if( typ == String )
+	if( typ == String )
 		return hex2dec( *( (QString*)value.ptr ) ).toInt( ok );
 
 	if ( ok )
 		*ok = canCast( Int );
 
-    if( typ == Int )
+	if( typ == Int )
 		return value.i;
 
 	if( typ == Long )
 		return value.d;
 
-    if ( typ == Double )
+	if ( typ == Double )
 		return (int)value.d;
 
 	if ( typ == BaseChar )
@@ -402,30 +403,30 @@ int cVariant::toInt( bool * ok ) const
 		return pItem ? pItem->serial() : INVALID_SERIAL;
 	}
 
-    return 0;
+	return 0;
 }
 
 /*!
-  Returns the variant as a double if the variant has type()
-  String, CString, Double, Int, UInt, or Bool; or 0.0 otherwise.
+	Returns the variant as a double if the variant has type()
+	String, CString, Double, Int, UInt, or Bool; or 0.0 otherwise.
 
-  If \a ok is non-null, \a *ok is set to TRUE if the value could be
-  converted to a double and FALSE otherwise.
+	If \a ok is non-null, \a *ok is set to TRUE if the value could be
+	converted to a double and FALSE otherwise.
 
-  \sa asDouble()
+	\sa asDouble()
 */
 double cVariant::toDouble( bool * ok ) const
 {
-    if( typ == String )
+	if( typ == String )
 		return ((QString*)value.ptr)->toDouble( ok );
 
 	if ( ok )
 		*ok = canCast( Double );
 
-    if ( typ == Double )
+	if ( typ == Double )
 		return value.d;
 
-    if ( typ == Int )
+	if ( typ == Int )
 		return (double)value.i;
 
 	if ( typ == Long )
@@ -443,14 +444,14 @@ double cVariant::toDouble( bool * ok ) const
 		return pItem ? (double)pItem->serial() : (double)INVALID_SERIAL;
 	}
 
-    return 0.0;
+	return 0.0;
 }
 
 /*!
-  Returns the variant as a Character if the variant has type()
-  String, Double, Int; or NULL otherwise.
+	Returns the variant as a Character if the variant has type()
+	String, Double, Int; or NULL otherwise.
 
-  \sa toChar()
+	\sa toChar()
 */
 cBaseChar *cVariant::toChar() const
 {
@@ -473,8 +474,8 @@ cBaseChar *cVariant::toChar() const
 }
 
 /*!
-  Returns the variant as an Item if the variant has type()
-  String, Double, Int; or NULL otherwise.
+	Returns the variant as an Item if the variant has type()
+	String, Double, Int; or NULL otherwise.
 */
 cItem *cVariant::toItem() const
 {
@@ -518,12 +519,12 @@ Coord_cl cVariant::toCoord() const
 
 /*! \fn QString& cVariant::asString()
 
-  Tries to convert the variant to hold a string value. If that
-  is not possible the variant is set to an empty string.
+	Tries to convert the variant to hold a string value. If that
+	is not possible the variant is set to an empty string.
 
-  Returns a reference to the stored string.
+	Returns a reference to the stored string.
 
-  \sa toString()
+	\sa toString()
 */
 QString& cVariant::asString()
 {
@@ -533,54 +534,54 @@ QString& cVariant::asString()
 }
 
 /*!
-  Returns the variant's value as int reference.
+	Returns the variant's value as int reference.
 */
 int& cVariant::asInt()
 {
-    if ( typ != Int ) {
-	int i = toInt();
-	clear();
- 	value.i = i;
-	typ = Int;
-    }
-    return value.i;
+	if ( typ != Int ) {
+		int i = toInt();
+		clear();
+		value.i = i;
+		typ = Int;
+	}
+	return value.i;
 }
 
 /*!
-  Returns the variant's value as double reference.
+	Returns the variant's value as double reference.
 */
 double& cVariant::asDouble()
 {
-    if ( typ != Double ) {
-	double dbl = toDouble();
-	clear();
-	value.d = dbl;
-	typ = Double;
-    }
-    return value.d;
+	if ( typ != Double ) {
+		double dbl = toDouble();
+		clear();
+		value.d = dbl;
+		typ = Double;
+	}
+	return value.d;
 }
 
 /*!
-  Returns TRUE if the variant's type can be cast to the requested
-  type, \a t. Such casting is done automatically when calling the
-  toInt(), toBool(), ... or asInt(), asBool(), ... methods.
+	Returns TRUE if the variant's type can be cast to the requested
+	type, \a t. Such casting is done automatically when calling the
+	toInt(), toBool(), ... or asInt(), asBool(), ... methods.
 
-  The following casts are done automatically:
-  \list
-  \i Double => String, Int
-  \i Int => String, Double
-  \i String => Int, Double
-  \endlist
+	The following casts are done automatically:
+	\list
+	\i Double => String, Int
+	\i Int => String, Double
+	\i String => Int, Double
+	\endlist
 */
 bool cVariant::canCast( Type t ) const
 {
-    if ( typ == t )
+	if ( typ == t )
 		return TRUE;
-    if ( t == Int && ( typ == Int || typ == Long || typ == BaseChar || typ == Item || typ == String || typ == Double ) )
+	if ( t == Int && ( typ == Int || typ == Long || typ == BaseChar || typ == Item || typ == String || typ == Double ) )
 		return TRUE;
-    if ( t == Double && ( typ == BaseChar || typ == Item || typ == Long || typ == String || typ == Int ) )
+	if ( t == Double && ( typ == BaseChar || typ == Item || typ == Long || typ == String || typ == Int ) )
 		return TRUE;
-    if ( t == String && ( typ == BaseChar || typ == Item || typ == Long || typ == Int || typ == Double ) )
+	if ( t == String && ( typ == BaseChar || typ == Item || typ == Long || typ == Int || typ == Double ) )
 		return TRUE;
 	if ( t == BaseChar && ( typ == BaseChar || typ == Int || typ == Double || typ == String || typ == Long ) )
 		return TRUE;
@@ -589,37 +590,37 @@ bool cVariant::canCast( Type t ) const
 	if ( t == Coord && ( typ == String || typ == Coord ) )
 		return TRUE;
 
-    return FALSE;
+	return FALSE;
 }
 
 /*!
-  Casts the variant to the requested type.  If the cast cannot be
-  done, the variant is set to the default value of the requested type
-  (e.g. an empty string if the requested type \a t is
-  cVariant::String, an empty point array if the requested type \a t is
-  cVariant::PointArray, etc).  Returns TRUE if the current type of the
-  variant was successfully casted; otherwise returns FALSE.
+	Casts the variant to the requested type.  If the cast cannot be
+	done, the variant is set to the default value of the requested type
+	(e.g. an empty string if the requested type \a t is
+	cVariant::String, an empty point array if the requested type \a t is
+	cVariant::PointArray, etc).  Returns TRUE if the current type of the
+	variant was successfully casted; otherwise returns FALSE.
 
-  \sa canCast()
+	\sa canCast()
 */
 
 bool cVariant::cast( Type t )
 {
-    switch ( t ) {
-    case cVariant::String:
-	asString();
-	break;
-    case cVariant::Int:
-	asInt();
-	break;
-    case cVariant::Double:
-	asDouble();
-	break;
-    default:
-    case cVariant::Invalid:
-	(*this) = cVariant();
-    }
-    return canCast( t );
+	switch( t ) {
+		case cVariant::String:
+			asString();
+			break;
+		case cVariant::Int:
+			asInt();
+			break;
+		case cVariant::Double:
+			asDouble();
+			break;
+		default:
+		case cVariant::Invalid:
+			(*this) = cVariant();
+	}
+	return canCast( t );
 }
 
 /*****************************************************************************
@@ -856,7 +857,7 @@ bool cCustomTags::operator==( const cCustomTags &cmp ) const {
 	QMap<QString, cVariant>::const_iterator cit;
 	for (it = tags_->begin(); it != tags_->end(); ++it) {
 		cit = cmp.tags_->find(it.key());
-		
+
 		if (cit == cmp.tags_->end()) {
 			return false;
 		}
@@ -869,7 +870,7 @@ bool cCustomTags::operator==( const cCustomTags &cmp ) const {
 	// Maybe the comparee has some tags we don't have.
 	for (it = cmp.tags_->begin(); it != cmp.tags_->end(); ++it) {
 		cit = tags_->find(it.key());
-		
+
 		if (cit == tags_->end()) {
 			return false;
 		}

@@ -117,15 +117,12 @@ enum eSkills {
 	WRESTLING,
 	LUMBERJACKING,
 	MINING,
-
 	MEDITATION,
 	STEALTH,
 	REMOVETRAPS,
-
 	NECROMANCY,
 	FOCUS,
 	CHIVALRY,
-
 	ALLSKILLS
 };
 
@@ -147,4 +144,3 @@ enum eSkills {
 
 #endif
 ///////////////////////  End Defines
-

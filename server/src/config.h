@@ -150,9 +150,9 @@ protected:
 	unsigned char attack_distance_;
 
 	//Repsys
-	long int		murderdecay_;
-	unsigned int	maxkills_;
-	int				crimtime_;
+	long int murderdecay_;
+	unsigned int maxkills_;
+	int crimtime_;
 
 	// Resources
 	unsigned int resourceitemdecaytime_;
@@ -165,16 +165,16 @@ protected:
 	unsigned char worldCurrentLevel_;
 
 	// Path Finding
-	int		pathfindMaxSteps_;
-	int		pathfindMaxIterations_;
-	bool	pathfind4Follow_;
-	bool	pathfind4Combat_;
-	int		pathfindFollowRadius_;
-	float	pathfindFollowMinCost_;
-	int		pathfindFleeRadius_;
+	int pathfindMaxSteps_;
+	int pathfindMaxIterations_;
+	bool pathfind4Follow_;
+	bool pathfind4Combat_;
+	int pathfindFollowRadius_;
+	float pathfindFollowMinCost_;
+	int pathfindFleeRadius_;
 
 public:
-    cConfig();
+	cConfig();
 
 	void load();
 	void unload();
@@ -262,9 +262,9 @@ public:
 	unsigned char attack_distance() const;
 
 	// Repsys
-	long int		murderdecay() const;
-	unsigned int	maxkills() const;
-	int				crimtime() const;
+	long int murderdecay() const;
+	unsigned int maxkills() const;
+	int crimtime() const;
 
 	// Resources
 	unsigned int resitemdecaytime() const;
@@ -327,7 +327,8 @@ inline unsigned int cConfig::statcap() const
 	return statcap_;
 }
 
-inline unsigned int cConfig::logMask() const {
+inline unsigned int cConfig::logMask() const
+{
 	return logMask_;
 }
 

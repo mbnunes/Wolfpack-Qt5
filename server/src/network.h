@@ -80,10 +80,10 @@ public:
 
 	void lock() { mutex.lock(); }
 	void unlock() { mutex.unlock(); }
-	cAsyncNetIO *netIo()	{ return netIo_; }
-	cUOSocket *first()		{ return uoSockets.first(); }
-	cUOSocket *next()		{ return uoSockets.next(); }
-	UINT32 count()			{ return uoSockets.count(); }
+	cAsyncNetIO *netIo() { return netIo_; }
+	cUOSocket *first() { return uoSockets.first(); }
+	cUOSocket *next() { return uoSockets.next(); }
+	UINT32 count() { return uoSockets.count(); }
 	QPtrListIterator<cUOSocket> getIterator() { return QPtrListIterator<cUOSocket>(uoSockets); }
 
 	void	broadcast( const QString &message, UINT16 color = 0x84d, UINT16 font = 0 );

@@ -45,19 +45,19 @@ class cPlayer : public cBaseChar
 public:
 	const char *objectID() const
 	{
-        return "cPlayer";
+	return "cPlayer";
 	}
 
 	// con-/destructors
-    cPlayer();
-    cPlayer(const cPlayer& right);
-    virtual ~cPlayer();
+	cPlayer();
+	cPlayer(const cPlayer& right);
+	virtual ~cPlayer();
 
 	// operators
-    cPlayer& operator=(const cPlayer& right);
+	cPlayer& operator=(const cPlayer& right);
 
 	// type definitions
-    enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
+	enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 
 	// implementation of interfaces
 	static void registerInFactory();
@@ -118,40 +118,40 @@ public:
 	bool onTradeStart( P_PLAYER partner, P_ITEM firstitem );
 
 	// getters
-    cAccount*			account() const;
-    UINT32					additionalFlags() const;
-    UINT32					logoutTime() const;
-    UINT32					objectDelay() const;
-	UINT32					trackingTime() const;
-	cUOSocket*				socket() const;
-	enInputMode				inputMode() const { return inputMode_; }
-	SERIAL					inputItem() const;
-	UINT8					visualRange() const;
-	QString					profile() const;
-    UINT8					fixedLightLevel() const;
+    cAccount* account() const;
+    UINT32 additionalFlags() const;
+    UINT32 logoutTime() const;
+    UINT32 objectDelay() const;
+	UINT32 trackingTime() const;
+	cUOSocket* socket() const;
+	enInputMode inputMode() const { return inputMode_; }
+	SERIAL inputItem() const;
+	UINT8 visualRange() const;
+	QString profile() const;
+    UINT8 fixedLightLevel() const;
 
 	// bit flag getters
-	bool					maySnoop() const;
-	bool					mayBroadcast() const;
-	bool					showSerials() const;
+	bool maySnoop() const;
+	bool mayBroadcast() const;
+	bool showSerials() const;
 	// advanced getters for data structures
 	// pets
-	CharContainer				pets() const;
-	cParty*						party() const;
-	cGuild*						guild() const;
+	CharContainer pets() const;
+	cParty* party() const;
+	cGuild* guild() const;
 
 	// setters
-    void setAccount(cAccount* data, bool moveFromAccToAcc = true);
-    void setAdditionalFlags(UINT32 data);
-    void setLogoutTime(UINT32 data);
-    void setObjectDelay(UINT32 data);
+	void setAccount(cAccount* data, bool moveFromAccToAcc = true);
+	void setAdditionalFlags(UINT32 data);
+	void setLogoutTime(UINT32 data);
+	void setObjectDelay(UINT32 data);
 	void setTrackingTime(UINT32 data);
 	void setSocket(cUOSocket* data);
 	void setInputMode(enInputMode data) { inputMode_ = data; }
 	void setInputItem(SERIAL data);
 	void setVisualRange(UINT8 data);
 	void setProfile(const QString &data);
-    void setFixedLightLevel(UINT8 data);
+	void setFixedLightLevel(UINT8 data);
 	// bit flag setters
 	void setMaySnoop(bool data);
 	void setMayBroadcast(bool data);
@@ -159,9 +159,9 @@ public:
 	void setParty(cParty *data);
 	void setGuild(cGuild *data);
 
-	unsigned char			strengthLock() const;
-	unsigned char			dexterityLock() const;
-	unsigned char			intelligenceLock() const;
+	unsigned char strengthLock() const;
+	unsigned char dexterityLock() const;
+	unsigned char intelligenceLock() const;
 
 	void setStrengthLock(unsigned char data);
 	void setDexterityLock(unsigned char data);
@@ -171,7 +171,7 @@ public:
 
 	void remove();
 
-	// advanced setters for data structures	
+	// advanced setters for data structures
 	// pets
 	void addPet( P_NPC pPet, bool noOwnerChange = false );
 	void removePet( P_NPC pPet, bool noOwnerChange = false );
@@ -200,20 +200,20 @@ protected:
 	// The party this player belongs to
 	cParty *party_;
 
-    // The account object including this char.
-    // cOldChar::account_
-    cAccount* account_;
+	// The account object including this char.
+	// cOldChar::account_
+	cAccount* account_;
 
-    // time till char will be logged out
-    // cOldChar::logout_
-    UINT32 logoutTime_;
+	// time till char will be logged out
+	// cOldChar::logout_
+	UINT32 logoutTime_;
 
-    // Time till the player can use another object.
-    UINT32 objectDelay_;
+	// Time till the player can use another object.
+	UINT32 objectDelay_;
 
-    // Additional property flags.
-    //
-    // Bits:
+	// Additional property flags.
+	//
+	// Bits:
 	// 02 - may snoop, cOldChar::priv Bit 7
 	// 03 - may broadcast, cOldChar::priv Bit 2
 	// 04 - show serials, cOldChar::priv Bit 4
@@ -246,14 +246,14 @@ protected:
 	// Paperdoll profile of the char
 	QString profile_;
 
-    // Fixed light level. is used in dungeons or for nightsight spell.
-    // cOldChar:fixedlight_
-    UINT8 fixedLightLevel_;
+	// Fixed light level. is used in dungeons or for nightsight spell.
+	// cOldChar:fixedlight_
+	UINT8 fixedLightLevel_;
 };
 
 inline cAccount* cPlayer::account() const
 {
-    return account_;
+	return account_;
 }
 
 inline void cPlayer::setAccount(cAccount* data, bool moveFromAccToAcc)
@@ -277,34 +277,34 @@ inline void cPlayer::flagUnchanged()
 
 inline UINT32 cPlayer::additionalFlags() const
 {
-    return additionalFlags_;
+	return additionalFlags_;
 }
 
 inline void cPlayer::setAdditionalFlags(UINT32 data)
 {
-    additionalFlags_ = data;
+	additionalFlags_ = data;
 	changed_ = true;
 }
 
 inline UINT32 cPlayer::logoutTime() const
 {
-    return logoutTime_;
+	return logoutTime_;
 }
 
 inline void cPlayer::setLogoutTime(UINT32 data)
 {
-    logoutTime_ = data;
+	logoutTime_ = data;
 	changed_ = true;
 }
 
 inline UINT32 cPlayer::objectDelay() const
 {
-    return objectDelay_;
+	return objectDelay_;
 }
 
 inline void cPlayer::setObjectDelay(UINT32 data)
 {
-    objectDelay_ = data;
+	objectDelay_ = data;
 }
 
 inline UINT32 cPlayer::trackingTime() const
@@ -314,7 +314,7 @@ inline UINT32 cPlayer::trackingTime() const
 
 inline void cPlayer::setTrackingTime(UINT32 data)
 {
-    trackingTime_ = data;
+	trackingTime_ = data;
 }
 
 inline cUOSocket* cPlayer::socket() const
@@ -324,7 +324,7 @@ inline cUOSocket* cPlayer::socket() const
 
 inline void cPlayer::setSocket(cUOSocket* data)
 {
-    socket_ = data;
+	socket_ = data;
 	changed_ = true;
 }
 
@@ -335,7 +335,7 @@ inline SERIAL cPlayer::inputItem() const
 
 inline void cPlayer::setInputItem(SERIAL data)
 {
-    inputItem_ = data;
+	inputItem_ = data;
 }
 
 inline UINT8 cPlayer::visualRange() const
@@ -345,7 +345,7 @@ inline UINT8 cPlayer::visualRange() const
 
 inline void cPlayer::setVisualRange(UINT8 data)
 {
-    visualRange_ = data;
+	visualRange_ = data;
 	changed_ = true;
 }
 
@@ -356,18 +356,18 @@ inline QString cPlayer::profile() const
 
 inline void cPlayer::setProfile(const QString &data)
 {
-    profile_ = data;
+	profile_ = data;
 	changed_ = true;
 }
 
 inline UINT8 cPlayer::fixedLightLevel() const
 {
-    return fixedLightLevel_;
+	return fixedLightLevel_;
 }
 
 inline void cPlayer::setFixedLightLevel(UINT8 data)
 {
-    fixedLightLevel_ = data;
+	fixedLightLevel_ = data;
 	changed_ = true;
 }
 

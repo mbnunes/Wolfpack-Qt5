@@ -44,41 +44,41 @@
 class cPage
 {
 private:
-	SERIAL		charserial_;
-	WPPAGE_TYPE	pagetype_;
-	QString		pagetime_;
-	Coord_cl	pagepos_;
-	QString		content_;
-	UINT32		pagecateg_;
+	SERIAL charserial_;
+	WPPAGE_TYPE pagetype_;
+	QString pagetime_;
+	Coord_cl pagepos_;
+	QString content_;
+	UINT32 pagecateg_;
 public:
 	cPage( SERIAL charserial, WPPAGE_TYPE pagetype, QString content, Coord_cl pagepos )
 	{
 		charserial_ = charserial;
-		pagetype_	= pagetype;
-		pagetime_	= QDateTime::currentDateTime().toString();
-		pagepos_	= pagepos;
-		content_	= content;
-		pagecateg_	= 0;
+		pagetype_ = pagetype;
+		pagetime_ = QDateTime::currentDateTime().toString();
+		pagepos_ = pagepos;
+		content_ = content;
+		pagecateg_ = 0;
 	}
 
 	cPage() {}
 
 	~cPage() {}
 
-	SERIAL		charSerial()	const { return charserial_; }
-	WPPAGE_TYPE	pageType()		const { return pagetype_; }
-	QString		pageTime()		const { return pagetime_; }
-	Coord_cl	pagePos()		const { return pagepos_; }
-	QString		content()		const { return content_; }
-	UINT32		pageCategory()	const { return pagecateg_; }
+	SERIAL charSerial() const { return charserial_; }
+	WPPAGE_TYPE pageType() const { return pagetype_; }
+	QString pageTime() const { return pagetime_; }
+	Coord_cl pagePos() const { return pagepos_; }
+	QString content() const { return content_; }
+	UINT32 pageCategory() const { return pagecateg_; }
 
-	void	setCharSerial( SERIAL data )	{ charserial_	= data; }
-	void	setPageType( WPPAGE_TYPE data ) { pagetype_		= data; }
-	void	setPagePos( Coord_cl data )		{ pagepos_		= data; }
-	void	setPageTime( void )				{ pagetime_		= QDateTime::currentDateTime().toString(); }
-	void	setPageTime( QString data )		{ pagetime_		= data; }
-	void	setContent( QString data )		{ content_		= data; }
-	void	setPageCategory( UINT32 data )	{ pagecateg_	= data; }
+	void setCharSerial( SERIAL data ) { charserial_ = data; }
+	void setPageType( WPPAGE_TYPE data ) { pagetype_ = data; }
+	void setPagePos( Coord_cl data ) { pagepos_ = data; }
+	void setPageTime( void ) { pagetime_ = QDateTime::currentDateTime().toString(); }
+	void setPageTime( QString data ) { pagetime_ = data; }
+	void setContent( QString data ) { content_ = data; }
+	void setPageCategory( UINT32 data ) { pagecateg_ = data; }
 };
 
 class cPagesManager : public std::deque< cPage* >
@@ -223,4 +223,3 @@ public:
 };
 
 #endif
-

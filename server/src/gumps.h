@@ -66,12 +66,12 @@ public:
 	virtual ~cGump() {}
 
 	SERIAL serial( void ) const;
-	SERIAL type( void )	const;
+	SERIAL type( void ) const;
 	int x( void ) const;
 	int y( void ) const;
 	QStringList layout( void ) const;
 	QStringList text( void ) const;
-	bool noMove( void )	const;
+	bool noMove( void ) const;
 	bool noDispose( void ) const;
 	bool noClose( void ) const;
 
@@ -290,4 +290,3 @@ public:
 };
 
 #endif
-

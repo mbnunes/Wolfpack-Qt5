@@ -25,7 +25,6 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-
 #include "maps.h"
 #include "tilecache.h"
 #include "sectors.h"
@@ -196,17 +195,17 @@ map_st MapsPrivate::seekMap(ushort x, ushort y)
 }
 
 /*****************************************************************************
-  cMaps member functions
+	cMaps member functions
  *****************************************************************************/
 
 /*!
-  \class cMaps maps.h
+	\class cMaps maps.h
 
-  \brief The cMaps class is responsable for handling Map queries
+	\brief The cMaps class is responsable for handling Map queries
 
-  \ingroup UO File Handlers
-  \ingroup mainclass
-  \sa cTileCache
+	\ingroup UO File Handlers
+	\ingroup mainclass
+	\sa cTileCache
 */
 
 /*!

@@ -25,7 +25,6 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-
 // Wolfpack Includes
 #include "log.h"
 
@@ -202,4 +201,3 @@ void cLog::print( eLogLevel loglevel, cUOSocket *sock, const QString &string, bo
 		Console::instance()->changeColor( WPC_NORMAL );
 	}
 }
-

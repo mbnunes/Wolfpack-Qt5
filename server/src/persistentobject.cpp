@@ -49,4 +49,3 @@ void PersistentObject::save()
 {
 	isPersistent = true;
 }
-

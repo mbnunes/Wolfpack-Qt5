@@ -728,7 +728,7 @@ bool cPythonScript::canChainHandleEvent( ePythonEvent event, cPythonScript **cha
 
 stError *cPythonScriptable::setProperty(const QString &name, const cVariant &value) {
 	// No settable properties are available for this class
-    PROPERTY_ERROR(-1, QString( "Property not found: '%1'" ).arg(name))
+	PROPERTY_ERROR(-1, QString( "Property not found: '%1'" ).arg(name))
 }
 
 stError *cPythonScriptable::getProperty(const QString &name, cVariant &value) const {

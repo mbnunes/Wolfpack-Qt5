@@ -45,15 +45,15 @@ class cNPC : public cBaseChar
 public:
 	const char *objectID() const
 	{
-        return "cNPC";
+		return "cNPC";
 	}
 
 	// con-/destructors
-    cNPC();
-    cNPC(const cNPC& right);
-    virtual ~cNPC();
+	cNPC();
+	cNPC(const cNPC& right);
+	virtual ~cNPC();
 	// operators
-    cNPC& operator=(const cNPC& right);
+	cNPC& operator=(const cNPC& right);
 
 	// type definitions
 	struct stWanderType
@@ -117,62 +117,62 @@ public:
 	void makeShop();
 
 	// getters
-	UINT32			additionalFlags() const;
-    UINT16			maxDamage() const;
-    UINT16			minDamage() const;
-    UINT32			nextBeggingTime() const;
-    UINT32			nextGuardCallTime() const;
-    UINT32			nextMoveTime() const;
-    UINT32			nextMsgTime() const;
-    UINT32			summonTime() const;
-    INT16			tamingMinSkill() const;
-	P_PLAYER		owner() const;
-	QString			carve() const;
-	QString			spawnregion() const;
-	SERIAL			stablemasterSerial() const;
-	QString			lootList() const;
-	AbstractAI*		ai() const;
-	UINT32			aiCheckTime() const;
-	UINT16			aiCheckInterval() const;
-	UINT8			criticalHealth() const;
-	bool			summoned() const;
+	UINT32 additionalFlags() const;
+	UINT16 maxDamage() const;
+	UINT16 minDamage() const;
+	UINT32 nextBeggingTime() const;
+	UINT32 nextGuardCallTime() const;
+	UINT32 nextMoveTime() const;
+	UINT32 nextMsgTime() const;
+	UINT32 summonTime() const;
+	INT16 tamingMinSkill() const;
+	P_PLAYER owner() const;
+	QString carve() const;
+	QString spawnregion() const;
+	SERIAL stablemasterSerial() const;
+	QString lootList() const;
+	AbstractAI* ai() const;
+	UINT32 aiCheckTime() const;
+	UINT16 aiCheckInterval() const;
+	UINT8 criticalHealth() const;
+	bool summoned() const;
 	// bit flag getters
-	bool			hasSpell( UINT8 spell ) const;
+	bool hasSpell( UINT8 spell ) const;
 	// advanced getters for data structures
 	// path finding
-	bool			hasPath( void );
-	Coord_cl		nextMove();
-	Coord_cl		pathDestination( void ) const;
-	float			pathHeuristic( const Coord_cl &source, const Coord_cl &destination );
+	bool hasPath( void );
+	Coord_cl nextMove();
+	Coord_cl pathDestination( void ) const;
+	float pathHeuristic( const Coord_cl &source, const Coord_cl &destination );
 	// wander type
-	enWanderTypes	wanderType() const;
-	UINT16			wanderX1() const;
-	UINT16			wanderX2() const;
-	UINT16			wanderY1() const;
-	UINT16			wanderY2() const;
-	UINT16			wanderRadius() const;
-	P_CHAR			wanderFollowTarget() const;
-	Coord_cl		wanderDestination() const;
-	unsigned char	controlSlots() const;
+	enWanderTypes wanderType() const;
+	UINT16 wanderX1() const;
+	UINT16 wanderX2() const;
+	UINT16 wanderY1() const;
+	UINT16 wanderY2() const;
+	UINT16 wanderRadius() const;
+	P_CHAR wanderFollowTarget() const;
+	Coord_cl wanderDestination() const;
+	unsigned char controlSlots() const;
 
 	// setters
 	void setControlSlots(unsigned char data);
-    void setMaxDamage(UINT16 data);
-    void setAdditionalFlags(UINT32 data);
-    void setMinDamage(UINT16 data);
-    void setNextBeggingTime(UINT32 data);
-    void setNextGuardCallTime(UINT32 data);
-    void setNextMoveTime(UINT32 data);
-    void setNextMsgTime(UINT32 data);
-    void setSummonTime(UINT32 data);
-    void setTamingMinSkill(INT16 data);
+	void setMaxDamage(UINT16 data);
+	void setAdditionalFlags(UINT32 data);
+	void setMinDamage(UINT16 data);
+	void setNextBeggingTime(UINT32 data);
+	void setNextGuardCallTime(UINT32 data);
+	void setNextMoveTime(UINT32 data);
+	void setNextMsgTime(UINT32 data);
+	void setSummonTime(UINT32 data);
+	void setTamingMinSkill(INT16 data);
 	void setOwner(P_PLAYER data, bool nochecks = false);
 	void setCarve(const QString &data);
 	void setSummoned(bool data);
 	void setSpawnregion(const QString &data);
 	void setStablemasterSerial(SERIAL data);
 	void setLootList(const QString &data);
-    void setGuarding(P_PLAYER data);
+	void setGuarding(P_PLAYER data);
 	void setAI( AbstractAI* ai );
 	void setAICheckTime( UINT32 data );
 	void setAICheckInterval( UINT16 data );
@@ -213,49 +213,49 @@ protected:
 
 	// other protected methods
 
-    // Minimum Damage when attacking without weapons.
-    // cOldChar::lodamage_
-    UINT16 minDamage_;
+	// Minimum Damage when attacking without weapons.
+	// cOldChar::lodamage_
+	UINT16 minDamage_;
 
-    // Max Damage value when attacking without weapons.
-    // cOldChar::hidamage_
-    UINT16 maxDamage_;
+	// Max Damage value when attacking without weapons.
+	// cOldChar::hidamage_
+	UINT16 maxDamage_;
 
-    // Time till NPC talks again.
-    // cOldChar::antispamtimer_
-    UINT32 nextMsgTime_;
+	// Time till NPC talks again.
+	// cOldChar::antispamtimer_
+	UINT32 nextMsgTime_;
 
-    // Time till the NPC calls another guard.
-    // cOldChar::antiguardstimer_
-    UINT32 nextGuardCallTime_;
+	// Time till the NPC calls another guard.
+	// cOldChar::antiguardstimer_
+	UINT32 nextGuardCallTime_;
 
-    // Time till the NPC handles another begging attempt.
-    // cOldChar::begging_timer_
-    UINT32 nextBeggingTime_;
+	// Time till the NPC handles another begging attempt.
+	// cOldChar::begging_timer_
+	UINT32 nextBeggingTime_;
 
-    // Time till npc moves next.
-    // cOldChar::npcmovetime_
-    UINT32 nextMoveTime_;
+	// Time till npc moves next.
+	// cOldChar::npcmovetime_
+	UINT32 nextMoveTime_;
 
-    // Stores information about how the npc wanders. uses the struct
-    // stWanderType with attributes for rectangles, circles and more...
-    //
-    // cOldChar::npcWander_
-    // cOldChar::fx1_ ...
-    stWanderType wanderType_;
+	// Stores information about how the npc wanders. uses the struct
+	// stWanderType with attributes for rectangles, circles and more...
+	//
+	// cOldChar::npcWander_
+	// cOldChar::fx1_ ...
+	stWanderType wanderType_;
 
-    // skill needed to tame this npc
-    INT16 tamingMinSkill_;
+	// skill needed to tame this npc
+	INT16 tamingMinSkill_;
 
-    // Time till summoned creature disappears.
-    // cOldChar::summontimer_
-    UINT32 summonTime_;
+	// Time till summoned creature disappears.
+	// cOldChar::summontimer_
+	UINT32 summonTime_;
 
-    // Additional property flags
-    //
-    // Bits:
+	// Additional property flags
+	//
+	// Bits:
 	// 0x00000001 Creature is summoned
-    UINT32 additionalFlags_;
+	UINT32 additionalFlags_;
 
 	// Owner of this NPC.
 	P_PLAYER owner_;
@@ -302,98 +302,98 @@ protected:
 
 inline UINT32 cNPC::additionalFlags() const
 {
-    return additionalFlags_;
+	return additionalFlags_;
 }
 
 inline void cNPC::setAdditionalFlags(UINT32 data)
 {
-    additionalFlags_ = data;
+	additionalFlags_ = data;
 	changed_ = true;
 }
 
 inline UINT16 cNPC::maxDamage() const
 {
-    return maxDamage_;
+	return maxDamage_;
 }
 
 inline void cNPC::setMaxDamage(UINT16 data)
 {
-    maxDamage_ = data;
+	maxDamage_ = data;
 	changed_ = true;
 }
 
 inline UINT16 cNPC::minDamage() const
 {
-    return minDamage_;
+	return minDamage_;
 }
 
 inline void cNPC::setMinDamage(UINT16 data)
 {
-    minDamage_ = data;
+	minDamage_ = data;
 	changed_ = true;
 }
 
 inline UINT32 cNPC::nextBeggingTime() const
 {
-    return nextBeggingTime_;
+	return nextBeggingTime_;
 }
 
 inline void cNPC::setNextBeggingTime(UINT32 data)
 {
-    nextBeggingTime_ = data;
+	nextBeggingTime_ = data;
 	changed_ = true;
 }
 
 inline UINT32 cNPC::nextGuardCallTime() const
 {
-    return nextGuardCallTime_;
+	return nextGuardCallTime_;
 }
 
 inline void cNPC::setNextGuardCallTime(UINT32 data)
 {
-    nextGuardCallTime_ = data;
+	nextGuardCallTime_ = data;
 	changed_ = true;
 }
 
 inline UINT32 cNPC::nextMoveTime() const
 {
-    return nextMoveTime_;
+	return nextMoveTime_;
 }
 
 inline void cNPC::setNextMoveTime(UINT32 data)
 {
-    nextMoveTime_ = data;
+	nextMoveTime_ = data;
 }
 
 inline UINT32 cNPC::nextMsgTime() const
 {
-    return nextMsgTime_;
+	return nextMsgTime_;
 }
 
 inline void cNPC::setNextMsgTime(UINT32 data)
 {
-    nextMsgTime_ = data;
+	nextMsgTime_ = data;
 }
 
 inline UINT32 cNPC::summonTime() const
 {
-    return summonTime_;
+	return summonTime_;
 }
 
 inline void cNPC::setSummonTime(UINT32 data)
 {
-    summonTime_ = data;
+	summonTime_ = data;
 	changed_ = true;
 }
 
 inline INT16 cNPC::tamingMinSkill() const
 {
-    return tamingMinSkill_;
+	return tamingMinSkill_;
 }
 
 inline void cNPC::setTamingMinSkill(INT16 data)
 {
-    tamingMinSkill_ = data;
+	tamingMinSkill_ = data;
 	changed_ = true;
 }
 

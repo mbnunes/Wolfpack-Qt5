@@ -60,7 +60,7 @@ Q_INT32 resolveName( const QString& data )
 	if ( data.isEmpty() )
 		return INADDR_NONE;
 
-	//	we do a dns lookup on this
+	// we do a dns lookup on this
 
 	Q_INT32 uiValue = inet_addr((char*)data.latin1()) ;
 	if (uiValue == INADDR_NONE)
@@ -73,7 +73,7 @@ Q_INT32 resolveName( const QString& data )
 			if(*ptrPtr != NULL)
 			{
 				//      I can think of no other way
-	            memcpy(&uiValue,*ptrPtr,sizeof(in_addr)) ;
+				memcpy(&uiValue,*ptrPtr,sizeof(in_addr)) ;
 		    }
 		}
 	}
@@ -89,113 +89,113 @@ void cConfig::readData() {
 	Preferences::readData();
 
 	// Account Group
-	autoAccountCreate_		= getBool("Accounts",	"Auto Create",		false, true );
-	accountsDriver_			= getString( "Accounts", "Database Driver", "sqlite", true );
-	accountsHost_			= getString( "Accounts", "Database Host", "", true );
-	accountsName_			= getString( "Accounts", "Database Name", "accounts.db", true );
-	accountsUsername_		= getString( "Accounts", "Database Username", "", true );
-	accountsPassword_		= getString( "Accounts", "Database Password", "", true );
-	hashAccountPasswords_   = getBool("Accounts", "Use MD5 Hashed Passwords", false, true);
+	autoAccountCreate_ = getBool("Accounts",	"Auto Create",		false, true );
+	accountsDriver_ = getString( "Accounts", "Database Driver", "sqlite", true );
+	accountsHost_ = getString( "Accounts", "Database Host", "", true );
+	accountsName_ = getString( "Accounts", "Database Name", "accounts.db", true );
+	accountsUsername_ = getString( "Accounts", "Database Username", "", true );
+	accountsPassword_ = getString( "Accounts", "Database Password", "", true );
+	hashAccountPasswords_ = getBool("Accounts", "Use MD5 Hashed Passwords", false, true);
 	convertUnhashedPasswords_ = getBool("Accounts", "Automatically Hash Loaded Passwords", false, true);
 
 	// AI
-	checkAITime_			=		getDouble( "AI", "Default AI Check Time", 0.5, true );
-	animalWildFleeRange_	=		getNumber( "AI", "Wild animals flee range", 8, true );
-	guardDispelTime_		=		getNumber( "AI", "Guard dispel time (sec)", 25, true );
+	checkAITime_ = getDouble( "AI", "Default AI Check Time", 0.5, true );
+	animalWildFleeRange_ = getNumber( "AI", "Wild animals flee range", 8, true );
+	guardDispelTime_ = getNumber( "AI", "Guard dispel time (sec)", 25, true );
 
 	// Persistency
-	databasePassword_		= getString("Database", "password", "", true);
-	databaseUsername_		= getString("Database", "username", "", true);
-	databaseHost_			= getString("Database", "host", "", true);
-	databaseDriver_			= getString("Database", "driver", "sqlite", true);
-	databaseName_			= getString("Database", "name", "world.db", true);
+	databasePassword_ = getString("Database", "password", "", true);
+	databaseUsername_ = getString("Database", "username", "", true);
+	databaseHost_ = getString("Database", "host", "", true);
+	databaseDriver_ = getString("Database", "driver", "sqlite", true);
+	databaseName_ = getString("Database", "name", "world.db", true);
 
 	// Repsys
-	murderdecay_		    = getNumber("Repsys", "Murder Decay", 28800, true);
-	maxkills_		        = getNumber("Repsys", "Max Kills", 5, true);
-	crimtime_		        = getNumber("Repsys", "Criminal Time", 120, true);
+	murderdecay_ = getNumber("Repsys", "Murder Decay", 28800, true);
+	maxkills_ = getNumber("Repsys", "Max Kills", 5, true);
+	crimtime_ = getNumber("Repsys", "Criminal Time", 120, true);
 
 	// Game Speed Group
-	objectDelay_			= getNumber("Game Speed", "ObjectDelay", 1, true);
-	checkItemTime_			= getDouble("Game Speed", "Items Check Time", 1.1, true);
-	checkNPCTime_			= getDouble("Game Speed", "NPCs Check Time", 0.8, true);
-	checkTamedTime_			= getDouble("Game Speed", "Tamed Check Time", 0.6, true);
-	niceLevel_				= getNumber("Game Speed", "Nice Level", 2, true);
-	skillDelay_			    = getNumber("Game Speed", "SkillDelay", 7, true);
-	skillLevel_				= getNumber("Game Speed", "SkillLevel", 3, true);
-	maxStealthSteps_		= getNumber("Game Speed", "Max Stealth Steps", 10, true);
-	runningStamSteps_		= getNumber("Game Speed", "Running Stamina Steps", 15, true);
-	hungerRate_				= getNumber("Game Speed", "Hunger Rate", 6000, true);
-	hungerDamageRate_		= getNumber("Game Speed", "Hunger Damage Rate", 10, true);
-	boatSpeed_              = getDouble("Game Speed", "Boat Speed", 0.750000, true);
-	snoopdelay_			    = getNumber("Game Speed", "Snoop Delay", 7, true);
-	housedecay_secs_	    = getNumber("Game Speed", "House Decay-Sec.", 604800, true);
-	spawnRegionCheckTime_   = getNumber("Game Speed", "SpawnRegion Check Time", 300, true);
-	itemDecayTime_			= getNumber("Game Speed", "Item Decay Time", 300, true);
-	corpseDecayTime_		= getNumber("Game Speed", "Corpse Decay Time", 600, true );
+	objectDelay_ = getNumber("Game Speed", "ObjectDelay", 1, true);
+	checkItemTime_ = getDouble("Game Speed", "Items Check Time", 1.1, true);
+	checkNPCTime_ = getDouble("Game Speed", "NPCs Check Time", 0.8, true);
+	checkTamedTime_ = getDouble("Game Speed", "Tamed Check Time", 0.6, true);
+	niceLevel_ = getNumber("Game Speed", "Nice Level", 2, true);
+	skillDelay_ = getNumber("Game Speed", "SkillDelay", 7, true);
+	skillLevel_ = getNumber("Game Speed", "SkillLevel", 3, true);
+	maxStealthSteps_ = getNumber("Game Speed", "Max Stealth Steps", 10, true);
+	runningStamSteps_ = getNumber("Game Speed", "Running Stamina Steps", 15, true);
+	hungerRate_ = getNumber("Game Speed", "Hunger Rate", 6000, true);
+	hungerDamageRate_ = getNumber("Game Speed", "Hunger Damage Rate", 10, true);
+	boatSpeed_ = getDouble("Game Speed", "Boat Speed", 0.750000, true);
+	snoopdelay_ = getNumber("Game Speed", "Snoop Delay", 7, true);
+	housedecay_secs_ = getNumber("Game Speed", "House Decay-Sec.", 604800, true);
+	spawnRegionCheckTime_ = getNumber("Game Speed", "SpawnRegion Check Time", 300, true);
+	itemDecayTime_ = getNumber("Game Speed", "Item Decay Time", 300, true);
+	corpseDecayTime_ = getNumber("Game Speed", "Corpse Decay Time", 600, true );
 
-	secondsPerUOMinute_     = getNumber("Game Speed", "Seconds Per UO Minute", 5, true);
-	npcMoveTime_			= getDouble("Game Speed", "NPC Move Time", 0.8, true );
-	tamedNpcMoveTime_		= getDouble("Game Speed", "Tamed NPC Move Time", 0.6, true );
+	secondsPerUOMinute_ = getNumber("Game Speed", "Seconds Per UO Minute", 5, true);
+	npcMoveTime_ = getDouble("Game Speed", "NPC Move Time", 0.8, true );
+	tamedNpcMoveTime_ = getDouble("Game Speed", "Tamed NPC Move Time", 0.6, true );
 
 	// General Group
-	showSkillTitles_		= getBool("General",	"ShowSkillTitles", true, true );
-	skillcap_				= getNumber("General",	"SkillCap",			700, true);
-	statcap_				= getNumber("General",	"StatsCap",			225, true);
-	commandPrefix_			= getString("General",	"Command Prefix",	"'", true);
-	skillAdvanceModifier_	= getNumber("General",	"Skill Advance Modifier", 1000, true);
-	statsAdvanceModifier_	= getNumber("General",	"Stats Advance Modifier", 500, true);
-	stealing_				= getBool("General",	"Stealing Enabled",	true, true);
-	guardsActive_			= getBool("General",	"Guards Enabled",	true, true);
-	saveSpawns_				= getBool("General",	"Save Spawned Regions", true, true);
-	lootdecayswithcorpse_   = getBool("General",    "Loot Decays With Corpse", true, true);
-	invisTimer_             = getDouble("General",  "InvisTimer", 60, true);
-	poisonTimer_		    = getNumber("General",  "PoisonTimer", 180, true);
-	hungerDamage_			= getNumber("General",  "Hunger Damage", 0, true);
-	tamedDisappear_         = getNumber("General",  "Tamed Disappear", 0, true);
-	houseInTown_            = getNumber("General",  "House In Town", 0, true);
-	shopRestock_            = getNumber("General",  "Shop Restock", 1, true);
-	quittime_               = getNumber("General",  "Char Time Out", 300, true);
-	cacheMulFiles_			= getBool  ("General",  "Cache Mul Files", true, true);
-	categoryTagAddMenu_		= getBool  ("General",	"Build AddMenu by Category Tags", true, true);
-	showNpcTitles_			= getNumber("General",  "Show Npc Titles", 1, true);
-	logMask_				= getNumber("General",  "Logging Mask", LOG_ALL, true);
-	overwriteDefinitions_   = getBool( "General", "Overwrite Definitions", false, true);
+	showSkillTitles_ = getBool("General", "ShowSkillTitles", true, true );
+	skillcap_ = getNumber("General", "SkillCap", 700, true);
+	statcap_ = getNumber("General", "StatsCap", 225, true);
+	commandPrefix_ = getString("General", "Command Prefix", "'", true);
+	skillAdvanceModifier_ = getNumber("General", "Skill Advance Modifier", 1000, true);
+	statsAdvanceModifier_ = getNumber("General", "Stats Advance Modifier", 500, true);
+	stealing_ = getBool("General", "Stealing Enabled", true, true);
+	guardsActive_ = getBool("General", "Guards Enabled", true, true);
+	saveSpawns_ = getBool("General", "Save Spawned Regions", true, true);
+	lootdecayswithcorpse_ = getBool("General", "Loot Decays With Corpse", true, true);
+	invisTimer_ = getDouble("General", "InvisTimer", 60, true);
+	poisonTimer_ = getNumber("General", "PoisonTimer", 180, true);
+	hungerDamage_ = getNumber("General", "Hunger Damage", 0, true);
+	tamedDisappear_ = getNumber("General", "Tamed Disappear", 0, true);
+	houseInTown_ = getNumber("General", "House In Town", 0, true);
+	shopRestock_ = getNumber("General", "Shop Restock", 1, true);
+	quittime_ = getNumber("General", "Char Time Out", 300, true);
+	cacheMulFiles_ = getBool  ("General", "Cache Mul Files", true, true);
+	categoryTagAddMenu_ = getBool  ("General", "Build AddMenu by Category Tags", true, true);
+	showNpcTitles_ = getNumber("General", "Show Npc Titles", 1, true);
+	logMask_ = getNumber("General", "Logging Mask", LOG_ALL, true);
+	overwriteDefinitions_ = getBool( "General", "Overwrite Definitions", false, true);
 
-	saveInterval_			= getNumber("General", "Save Interval", 900, true);
-	mulPath_				= QDir::convertSeparators( getString("General", "MulPath", "./muls/", true) );
-	logPath_				= QDir::convertSeparators( getString("General", "LogPath", "./logs/", true ) );
-	logRotate_				= getBool( "General", "LogRotate", true, true );
+	saveInterval_ = getNumber("General", "Save Interval", 900, true);
+	mulPath_ = QDir::convertSeparators( getString("General", "MulPath", "./muls/", true) );
+	logPath_ = QDir::convertSeparators( getString("General", "LogPath", "./logs/", true ) );
+	logRotate_ = getBool( "General", "LogRotate", true, true );
 
 	// Network
-	loginPort_				=	getNumber( "Network",		"Loginserver Port", 2593, true );
-	gamePort_               =	getNumber( "Network",		"Gameserver Port", 2592, true );
-	enableLogin_			=	getBool( "Network",		"Enable Loginserver", true, true );
-	enableGame_				=	getBool( "Network",		"Enable Gameserver", true, true );
-	allowUnencryptedClients_ =	getBool( "Network",		"Allow Unencrypted Clients", true, true );
-	allowStatRequest_ =	getBool( "Network",		"Allow Stat Request", true, true );
+	loginPort_ = getNumber( "Network", "Loginserver Port", 2593, true );
+	gamePort_ = getNumber( "Network", "Gameserver Port", 2592, true );
+	enableLogin_ = getBool( "Network", "Enable Loginserver", true, true );
+	enableGame_ = getBool( "Network", "Enable Gameserver", true, true );
+	allowUnencryptedClients_ = getBool( "Network", "Allow Unencrypted Clients", true, true );
+	allowStatRequest_ = getBool( "Network", "Allow Stat Request", true, true );
 
 	// Combat
-	attackstamina_	        = getNumber("Combat", "Attack Stamina", -2, true );
-	attack_distance_	    = getNumber("Combat", "Attack Distance", 13, true );
+	attackstamina_ = getNumber("Combat", "Attack Stamina", -2, true );
+	attack_distance_ = getNumber("Combat", "Attack Distance", 13, true );
 
-	// Resources
-	resourceitemdecaytime_	= getNumber("Resources", "ResourceItem Decay Time (not empty)", 60*60*12, true);
+	// Resources 60*60*12
+	resourceitemdecaytime_ = getNumber("Resources", "ResourceItem Decay Time (not empty)", 43200, true);
 
 	// Light
-	worldBrightLevel_       = getNumber("Light", "World Bright Level", 1, true);
-	worldFixedLevel_		= getNumber("Light", "World Fixed Level", 0, true);
-	worldDarkLevel_			= getNumber("Light", "World Dark Level", 18, true);
-	dungeonLightLevel_		= getNumber("Light", "Dungeon Level", 18, true);
+	worldBrightLevel_ = getNumber("Light", "World Bright Level", 1, true);
+	worldFixedLevel_ = getNumber("Light", "World Fixed Level", 0, true);
+	worldDarkLevel_ = getNumber("Light", "World Dark Level", 18, true);
+	dungeonLightLevel_ = getNumber("Light", "Dungeon Level", 18, true);
 
 	// Path Finding
-	pathfind4Follow_		= getBool( "Path Finding", "Activate for Following", true, true );
-	pathfind4Combat_		= getBool( "Path Finding", "Activate for Combat", false, true );
-	pathfindMaxIterations_	= getNumber( "Path Finding", "Maximum Iterations during Calculation", 100, true );
-	pathfindMaxSteps_		= getNumber( "Path Finding", "Maximum Steps for Calculation", 20, true );
-	pathfindFollowRadius_	= getNumber( "Path Finding", "Follow Radius", 10, true );
-	pathfindFollowMinCost_	= getDouble( "Path Finding", "Follow min. estimated Cost", 1.5, true );
-	pathfindFleeRadius_		= getNumber( "Path Finding", "Flee Radius", 10, true );
+	pathfind4Follow_ = getBool( "Path Finding", "Activate for Following", true, true );
+	pathfind4Combat_ = getBool( "Path Finding", "Activate for Combat", false, true );
+	pathfindMaxIterations_ = getNumber( "Path Finding", "Maximum Iterations during Calculation", 100, true );
+	pathfindMaxSteps_ = getNumber( "Path Finding", "Maximum Steps for Calculation", 20, true );
+	pathfindFollowRadius_ = getNumber( "Path Finding", "Follow Radius", 10, true );
+	pathfindFollowMinCost_ = getDouble( "Path Finding", "Follow min. estimated Cost", 1.5, true );
+	pathfindFleeRadius_ = getNumber( "Path Finding", "Flee Radius", 10, true );
 
 }
 

@@ -147,13 +147,13 @@ void cItem::toBackpack( P_CHAR pChar )
 }
 
 ///////////////
-// Name:	ReduceAmount
-// history:	by Duke, 4.06.2000
-//			added P_ITEM interface Duke, 3.10.2000
-//			made it the first member of cItem Duke, 23.12.2000
-// Purpose:	reduces the given item's amount by 'amt' and deletes it if
-//			necessary and returns 0. If the request could not be fully satisfied,
-//			the remainder is returned
+// Name: ReduceAmount
+// history: by Duke, 4.06.2000
+//		added P_ITEM interface Duke, 3.10.2000
+//		made it the first member of cItem Duke, 23.12.2000
+// Purpose: reduces the given item's amount by 'amt' and deletes it if
+//		necessary and returns 0. If the request could not be fully satisfied,
+//		the remainder is returned
 //
 long cItem::reduceAmount( const short amt )
 {
@@ -255,7 +255,7 @@ short cItem::GetContGumpType()
 	case 0x0e80: return 1;
 	case 0x0e83: return 4;
 
-	case 0x2006: return 5;	// a corpse/coffin
+	case 0x2006: return 5; // a corpse/coffin
 	default: return -1;
 	}
 }
@@ -274,10 +274,11 @@ bool cItem::PileItem(cItem* pItem) {
 		pItem->remove();
 		update();
 		return true; // Stacked
-	}	
+	}
 }
 
-bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the container to stack with
+// try to find an item in the container to stack with
+bool cItem::ContainerPileItem(cItem* pItem)
 {
 	cItem::ContainerContent::const_iterator it(content_.begin());
 	cItem::ContainerContent::const_iterator end(content_.end());
@@ -297,14 +298,25 @@ void cItem::SetRandPosInCont(cItem* pCont)
 
 	switch (k)
 	{
-	case 1: position.y = RandomNum(50, 100);	break;
-	case 2: position.y = RandomNum(30, 80);		break;
-	case 3: position.y = RandomNum(100, 140);	break;
-	case 4: position.y = RandomNum(60, 140);
-			position.x = RandomNum(60, 140);	break;
-	case 5: position.y = RandomNum(85, 160);
-			position.x = RandomNum(20, 70);		break;
-	default: position.y = RandomNum(30, 80);
+	case 1:
+		position.y = RandomNum(50, 100);
+		break;
+	case 2:
+		position.y = RandomNum(30, 80);
+		break;
+	case 3:
+		position.y = RandomNum(100, 140);
+		break;
+	case 4:
+		position.y = RandomNum(60, 140);
+		position.x = RandomNum(60, 140);
+		break;
+	case 5:
+		position.y = RandomNum(85, 160);
+		position.x = RandomNum(20, 70);
+		break;
+	default:
+		position.y = RandomNum(30, 80);
 	}
 	setPos( position );
 }
@@ -339,11 +351,11 @@ int cItem::CountItems(short ID, short col) const
 }
 
 ///////////////////////
-// Name:	DeleteAmount
-// history:	DeleQuan() by Duke, 16.11.2000
-//			moved to cItem (Duke,27.3.2001)
-// Purpose:	recurses through the container given by serial and deletes items of
-//			the given id and color(if given) until the given amount is reached
+// Name: DeleteAmount
+// history: DeleQuan() by Duke, 16.11.2000
+//		moved to cItem (Duke,27.3.2001)
+// Purpose: recurses through the container given by serial and deletes items of
+//		the given id and color(if given) until the given amount is reached
 //
 int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 {
@@ -351,7 +363,7 @@ int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 	P_ITEM pi;
 	cItem::ContainerContent container(this->content());
 	cItem::ContainerContent::const_iterator it ( container.begin() );
-	cItem::ContainerContent::const_iterator end( container.end()   );
+	cItem::ContainerContent::const_iterator end( container.end() );
 	for ( ; it != end; ++it )
 	{
 		pi = *it;
@@ -372,29 +384,29 @@ void cItem::save()
 		initSave;
 		setTable( "items" );
 
-		addField("serial",			serial() );
-		addField("id",				id() );
-		addField("color",			color() );
+		addField("serial", serial() );
+		addField("id", id() );
+		addField("color", color() );
 		SERIAL contserial = INVALID_SERIAL;
 		if ( container_ )
 			contserial = container_->serial();
-		addField("cont",			contserial);
-		addField("layer",			layer_);
-		addField("type",			type_);
-		addField("amount",			amount_);
-		addField("decaytime",		(decaytime_ > Server::instance()->time()) ? decaytime_ - Server::instance()->time() : 0	);
-		addField("weight",			weight_);
-		addField("hp",				hp_ );
-		addField("maxhp",			maxhp_ );
-		addField("magic",			magic_ );
-		addField("owner",			ownserial_ );
-		addField("visible",			visible_ );
-		addStrField("spawnregion",	spawnregion_ );
-		addField("priv",			priv_ );
-		addField("sellprice",		sellprice_ );
-		addField("buyprice",		buyprice_ );
-		addField("restock",			restock_ );
-		addStrField("baseid",		baseid_ );
+		addField("cont", contserial);
+		addField("layer", layer_);
+		addField("type", type_);
+		addField("amount", amount_);
+		addField("decaytime", (decaytime_ > Server::instance()->time()) ? decaytime_ - Server::instance()->time() : 0	);
+		addField("weight", weight_);
+		addField("hp", hp_ );
+		addField("maxhp", maxhp_ );
+		addField("magic", magic_ );
+		addField("owner", ownserial_ );
+		addField("visible", visible_ );
+		addStrField("spawnregion", spawnregion_ );
+		addField("priv", priv_ );
+		addField("sellprice", sellprice_ );
+		addField("buyprice", buyprice_ );
+		addField("restock", restock_ );
+		addStrField("baseid", baseid_ );
 
 		addCondition( "serial", serial() );
 		saveFields;
@@ -476,15 +488,15 @@ void cItem::Init( bool createSerial )
 	this->setPos( Coord_cl(100, 100, 0) );
 	this->color_ = 0x00; // Hue
 	this->layer_ = 0; // Layer if equipped on paperdoll
-	this->type_=0; // For things that do special things on doubleclicking
+	this->type_= 0; // For things that do special things on doubleclicking
 	this->weight_ = 0;
 	this->amount_ = 1; // Amount of items in pile
-	this->hp_=0; //Number of hit points an item has.
-	this->maxhp_=0; // Max number of hit points an item can have.
+	this->hp_= 0; //Number of hit points an item has.
+	this->maxhp_= 0; // Max number of hit points an item can have.
 	this->magic_ = 0; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable.
 	this->decaytime_ = 0;
 	this->setOwnSerialOnly(-1);
-	this->visible_=0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
+	this->visible_= 0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	this->priv_ = 0; // Bit 0, nodecay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
 }
 
@@ -1243,13 +1255,13 @@ void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 
 	switch( type )
 	{
-	case 0x01:		speechType = cUOTxUnicodeSpeech::Broadcast;		break;
-	case 0x06:		speechType = cUOTxUnicodeSpeech::System;		break;
-	case 0x09:		speechType = cUOTxUnicodeSpeech::Yell;			break;
-	case 0x02:		speechType = cUOTxUnicodeSpeech::Emote;			break;
-	case 0x08:		speechType = cUOTxUnicodeSpeech::Whisper;		break;
-	case 0x0A:		speechType = cUOTxUnicodeSpeech::Spell;			break;
-	default:		speechType = cUOTxUnicodeSpeech::Regular;		break;
+		case 0x01: speechType = cUOTxUnicodeSpeech::Broadcast; break;
+		case 0x06: speechType = cUOTxUnicodeSpeech::System; break;
+		case 0x09: speechType = cUOTxUnicodeSpeech::Yell; break;
+		case 0x02: speechType = cUOTxUnicodeSpeech::Emote; break;
+		case 0x08: speechType = cUOTxUnicodeSpeech::Whisper; break;
+		case 0x0A: speechType = cUOTxUnicodeSpeech::Spell; break;
+		default: speechType = cUOTxUnicodeSpeech::Regular; break;
 	};
 
 	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
@@ -1570,7 +1582,6 @@ bool cItem::contains( const cItem* pItem ) const
 {
 	ContainerContent::const_iterator it = std::find(content_.begin(), content_.end(), pItem);
 	return it != content_.end();
-
 }
 
 
@@ -2016,13 +2027,13 @@ void cItem::sendTooltip(cUOSocket* mSock)
 	unsigned short id = this->id();
 
 	// Mostly Signs (not movable but still have tooltips shown)
-	if(	( id >= 0xba3 && id <= 0xc0e ) ||	// House Signs
-		( id >= 0x1297 && id <= 0x129e ) ||	// Road Signs
-		( id >= 0x3e4a && id <= 0x3e55 ) ||	// Tillermen
-		( id >= 0xed4 && id <= 0xede ) ||	// Graves and Guildstones
-		( id >= 0x1165 && id <= 0x1184 ) ||	// More Gravestones
+	if( ( id >= 0xba3 && id <= 0xc0e ) || // House Signs
+		( id >= 0x1297 && id <= 0x129e ) || // Road Signs
+		( id >= 0x3e4a && id <= 0x3e55 ) || // Tillermen
+		( id >= 0xed4 && id <= 0xede ) || // Graves and Guildstones
+		( id >= 0x1165 && id <= 0x1184 ) || // More Gravestones
 		( id == 0x2006 ) ||
-		!name_.isEmpty()						// Non Default Name
+		!name_.isEmpty() // Non Default Name
 		)
 	{
 		cUObject::sendTooltip(mSock);
@@ -2155,7 +2166,7 @@ bool cItem::canStack(cItem *pItem) {
 
 	// Do some basic checks and see if the item is a
 	// container (they never stack).
-	if (id() != pItem->id() 
+	if (id() != pItem->id()
 		|| color() != pItem->color()
 		|| type() == 1
 		|| type() != pItem->type()
@@ -2236,8 +2247,8 @@ bool cItem::isInLockedItem() {
 		if (pCont->hasEvent("lock")) {
 			return true;
 		}
-		
-        return pCont->isInLockedItem();
+
+		return pCont->isInLockedItem();
 	}
 	else
 		return false;

@@ -51,7 +51,7 @@ public:
 	// Static NULL instance
 	static const cVariant null;
 
-    enum Type
+	enum Type
 	{
 		Invalid = 0,
 		String,
@@ -67,43 +67,43 @@ public:
 	~cVariant();
 
 	cVariant( const cVariant &v );
-    cVariant( const QString& );
+	cVariant( const QString& );
 	cVariant( int );
 	cVariant( cBaseChar* );
 	cVariant( cItem* );
 	cVariant( Coord_cl );
-    cVariant( double );
+	cVariant( double );
 	cVariant( long int );
 
-    Type type() const;
-    const char* typeName() const;
+	Type type() const;
+	const char* typeName() const;
 
-    bool canCast( Type ) const;
-    bool cast( Type );
+	bool canCast( Type ) const;
+	bool cast( Type );
 
-    bool isValid() const;
+	bool isValid() const;
 
-    void clear();
+	void clear();
 
-    const QString toString() const;
-    int toInt( bool * ok=0 ) const;
-    double toDouble( bool * ok=0 ) const;
+	const QString toString() const;
+	int toInt( bool * ok=0 ) const;
+	double toDouble( bool * ok=0 ) const;
 	cBaseChar *toChar() const;
 	cItem *toItem() const;
 	Coord_cl toCoord() const;
 
-    cVariant& operator= ( const cVariant& );
-    bool operator==( const cVariant& ) const;
-    bool operator!=( const cVariant& ) const;
+	cVariant& operator= ( const cVariant& );
+	bool operator==( const cVariant& ) const;
+	bool operator!=( const cVariant& ) const;
 
-    QString& asString();
-    int& asInt();
-    double& asDouble();
+	QString& asString();
+	int& asInt();
+	double& asDouble();
 
-    static const char* typeToName( Type typ );
-    static Type nameToType( const char* name );
+	static const char* typeToName( Type typ );
+	static Type nameToType( const char* name );
 
-	bool		isString();
+	bool isString();
 private:
 	Type typ;
 
@@ -117,12 +117,12 @@ private:
 // Inline methods
 inline cVariant::Type cVariant::type() const
 {
-    return typ;
+	return typ;
 }
 
 inline bool cVariant::isValid() const
 {
-    return (typ != Invalid);
+	return (typ != Invalid);
 }
 
 class cCustomTags
@@ -158,8 +158,8 @@ public:
 	}
 
 	cCustomTags& operator=( const cCustomTags& );
-    bool operator==( const cCustomTags& ) const;
-    bool operator!=( const cCustomTags& ) const;
+	bool operator==( const cCustomTags& ) const;
+	bool operator!=( const cCustomTags& ) const;
 
 
 private:

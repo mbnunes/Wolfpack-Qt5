@@ -226,9 +226,12 @@ cCombat::enBowTypes cCombat::bowType( P_ITEM pi )
 
 	switch( pi->type() )
 	{
-		case 1006:				return BOW;
-		case 1007:				return XBOW;
-		default:				return INVALID_BOWTYPE;
+		case 1006:
+			return BOW;
+		case 1007:
+			return XBOW;
+		default:
+			return INVALID_BOWTYPE;
 	}
 }
 

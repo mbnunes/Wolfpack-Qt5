@@ -143,7 +143,7 @@ void cNetwork::load() {
 	if (Config::instance()->enableLogin()) {
 		loginServer_ = new cListener(Config::instance()->loginPort());
 		loginServer_->start();
-        Console::instance()->send( QString( "LoginServer running on port %1\n" ).arg( Config::instance()->loginPort() ) );
+		Console::instance()->send( QString( "LoginServer running on port %1\n" ).arg( Config::instance()->loginPort() ) );
 		if (Config::instance()->serverList().size() < 1)
 			Console::instance()->log( LOG_WARNING, "LoginServer enabled but there no Game server entries found\n Check your wolfpack.xml settings" );
 	}

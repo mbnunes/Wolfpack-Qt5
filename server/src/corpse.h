@@ -51,8 +51,8 @@ private:
 	UINT16 hairColor_; // Color of the hair
 	UINT16 beardStyle_; // Beardstyle
 	UINT16 beardColor_; // Color of the beard
-	uint   murdertime_; // When the people has been killed
-	bool   changed_;
+	uint murdertime_; // When the people has been killed
+	bool changed_;
 
 	QString carve_;
 	QString murderer_;
@@ -77,9 +77,10 @@ public:
 	UINT16 hairColor() const;
 	UINT16 beardStyle() const;
 	UINT16 beardColor() const;
-	QString			carve()			const { return carve_; }
-	QString			murderer()		const { return murderer_; }		// If it's a corpse, this holds the name of the murderer
-	uint			murdertime()	const { return murdertime_; }
+	QString carve() const { return carve_; }
+	// If it's a corpse, this holds the name of the murderer
+	QString murderer() const { return murderer_; }
+	uint murdertime() const { return murdertime_; }
 
 
 	void addEquipment( UINT8 layer, SERIAL serial );
@@ -87,7 +88,7 @@ public:
 
 	const char *objectID() const
 	{
-        return "cCorpse";
+		return "cCorpse";
 	}
 
 	virtual void flagUnchanged() { cCorpse::changed_ = false; cItem::flagUnchanged();	}
@@ -174,6 +175,5 @@ inline UINT16 cCorpse::beardColor() const
 {
 	return beardColor_;
 }
-
 
 #endif // __CORPSE_H__

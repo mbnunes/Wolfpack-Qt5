@@ -83,4 +83,3 @@ std::vector<ServerList_st>& cConfig::serverList()
 	}
 	return serverList_;
 }
-

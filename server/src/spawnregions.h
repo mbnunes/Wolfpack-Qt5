@@ -45,24 +45,24 @@ public:
 		this->applyDefinition( Tag );
 	}
 
-	void	init( void );
-	void	add( UI32 serial );
+	void init( void );
+	void add( UI32 serial );
 
-	void	reSpawn( void );
-	void	deSpawn( void );
-	void	reSpawnToMax( void );
+	void reSpawn( void );
+	void deSpawn( void );
+	void reSpawnToMax( void );
 
-	void	checkForDeleted( void );
-	void	checkTimer( void );
+	void checkForDeleted( void );
+	void checkTimer( void );
 
-	bool	findValidSpot( Coord_cl &pos );
+	bool findValidSpot( Coord_cl &pos );
 
 	// Getters
-	QString name( void )		{ return name_; }
-	UI16	npcs( void )		{ return npcSerials_.size(); }
-	UI16	items( void )		{ return itemSerials_.size(); }
-	UI16	maxNpcs( void )		{ return maxNpcAmt_; }
-	UI16	maxItems( void )	{ return maxItemAmt_; }
+	QString name( void ) { return name_; }
+	UI16 npcs( void ) { return npcSerials_.size(); }
+	UI16 items( void ) { return itemSerials_.size(); }
+	UI16 maxNpcs( void ) { return maxNpcAmt_; }
+	UI16 maxItems( void ) { return maxItemAmt_; }
 
 	QStringList	rectangles( void )
 	{
@@ -80,23 +80,23 @@ private:
 	virtual void processNode( const cElement *Tag );
 
 private:
-	std::vector< SERIAL >		npcSerials_;	// serials of chars spawned by this area
-	std::vector< SERIAL >		itemSerials_;	// serials of items spawned by this area
+	std::vector< SERIAL > npcSerials_; // serials of chars spawned by this area
+	std::vector< SERIAL > itemSerials_; // serials of items spawned by this area
 
-	QStringList				npcSections_;	// list of npc's sections
-	QStringList				itemSections_;	// list of item's sections
+	QStringList npcSections_; // list of npc's sections
+	QStringList itemSections_; // list of item's sections
 
-	UI16					maxNpcAmt_;		// Max amount of characters to spawn
-	UI16					maxItemAmt_;	// Max amount of items to spawn
+	UI16 maxNpcAmt_; // Max amount of characters to spawn
+	UI16 maxItemAmt_; // Max amount of items to spawn
 
-	UI16					npcsPerCycle_;	// amount of characters to spawn per cycle
-	UI16					itemsPerCycle_;	// amount of items to spawn per cycle
+	UI16 npcsPerCycle_; // amount of characters to spawn per cycle
+	UI16 itemsPerCycle_; // amount of items to spawn per cycle
 
-	UI32					minTime_;		// Minimum spawn time in sec
-	UI32					maxTime_;		// Maximum spawn time in sec
-	UI32					nextTime_;		// Next time for this region to spawn
+	UI32 minTime_; // Minimum spawn time in sec
+	UI32 maxTime_; // Maximum spawn time in sec
+	UI32 nextTime_; // Next time for this region to spawn
 
-	std::vector< UI08 >		z_;				// Height, if not specified, z will be chosen
+	std::vector< UI08 > z_; // Height, if not specified, z will be chosen
 };
 
 class cAllSpawnRegions : public cAllBaseRegions, public std::map< QString, cSpawnRegion* >, public cComponent
@@ -111,11 +111,11 @@ public:
 	cSpawnRegion*	region( const QString& regName );
 	cSpawnRegion*	region( UI16 posx, UI16 posy, UI08 map );
 
-	void	reSpawn( void );
-	void	reSpawnToMax( void );
-	void	deSpawn( void );
+	void reSpawn( void );
+	void reSpawnToMax( void );
+	void deSpawn( void );
 
-	UI16	npcs( void )
+	UI16 npcs( void )
 	{
 		UI16 numNpcs = 0;
 		std::map< QString, cSpawnRegion* >::iterator it = this->begin();
@@ -127,7 +127,7 @@ public:
 		return numNpcs;
 	}
 
-	UI16	items( void )
+	UI16 items( void )
 	{
 		UI16 numItems = 0;
 		std::map< QString, cSpawnRegion* >::iterator it = this->begin();
@@ -139,7 +139,7 @@ public:
 		return numItems;
 	}
 
-	UI16	maxNpcs( void )
+	UI16 maxNpcs( void )
 	{
 		UI16 numNpcs = 0;
 		std::map< QString, cSpawnRegion* >::iterator it = this->begin();
@@ -151,7 +151,7 @@ public:
 		return numNpcs;
 	}
 
-	UI16	maxItems( void )
+	UI16 maxItems( void )
 	{
 		UI16 numItems = 0;
 		std::map< QString, cSpawnRegion* >::iterator it = this->begin();
@@ -167,4 +167,3 @@ public:
 typedef SingletonHolder<cAllSpawnRegions> SpawnRegions;
 
 #endif
-

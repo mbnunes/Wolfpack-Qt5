@@ -44,9 +44,9 @@
 #include <qmutex.h>
 
 #if defined(Q_OS_UNIX)
-     #include <sys/types.h>
-     #include <sys/time.h>
-     #include <unistd.h>
+	#include <sys/types.h>
+	#include <sys/time.h>
+	#include <unistd.h>
 #else
 
 #endif

@@ -119,4 +119,3 @@ private:
 typedef SingletonHolder<cAllContextMenus> ContextMenus;
 
 #endif // __CONTEXTMENU_H__
-

@@ -52,22 +52,22 @@ class cDBResult;
 class cTimer
 {
 protected:
-	SERIAL		sourSer;
-	SERIAL		destSer;
-	QString		objectid;
-	bool		serializable;
+	SERIAL sourSer;
+	SERIAL destSer;
+	QString objectid;
+	bool serializable;
 
 public:
 	unsigned int expiretime;
 	unsigned char dispellable;
 
 	// Fib Heap Node variables
-	cTimer*	left;
-	cTimer*	right;
-	cTimer*	father;
-	cTimer*	son;
-	unsigned int	rank;
-	bool			marker;
+	cTimer* left;
+	cTimer* right;
+	cTimer* father;
+	cTimer* son;
+	unsigned int rank;
+	bool marker;
 
 	/*
 	 * Provided for subclasses to save additional information.
@@ -107,20 +107,20 @@ public:
 		return expiretime < a.expiretime;
 	}
 
-	virtual				~cTimer() {}
-	void				setExpiretime_s(int seconds);
-	void				setExpiretime_ms(float milliseconds);
-	void				setDest(int ser);
-	int					getDest();
-	void				setSour(int ser);
-	int					getSour();
-	void				On(P_CHAR pc)  { Q_UNUSED(pc); }
-	void				Off(P_CHAR pc) { Q_UNUSED(pc); }
-	virtual void		Expire() = 0;
-	virtual void		Dispel( P_CHAR pSource, bool silent = false ) { Q_UNUSED(pSource); Q_UNUSED(silent); }
-	virtual QString		objectID() const  { return objectid;}
-	bool				isSerializable( void ) { return serializable; }
-	void				setSerializable( bool data ) { serializable = data; }
+	virtual ~cTimer() {}
+	void setExpiretime_s(int seconds);
+	void setExpiretime_ms(float milliseconds);
+	void setDest(int ser);
+	int getDest();
+	void setSour(int ser);
+	int getSour();
+	void On(P_CHAR pc) { Q_UNUSED(pc); }
+	void Off(P_CHAR pc) { Q_UNUSED(pc); }
+	virtual void Expire() = 0;
+	virtual void Dispel( P_CHAR pSource, bool silent = false ) { Q_UNUSED(pSource); Q_UNUSED(silent); }
+	virtual QString objectID() const  { return objectid;}
+	bool isSerializable( void ) { return serializable; }
+	void setSerializable( bool data ) { serializable = data; }
 
 	virtual void load( unsigned int id, const char **result );
 	virtual void save( unsigned int id );
@@ -169,7 +169,6 @@ public:
 	}
 
 	int countSerializables();
-
 };
 
 typedef SingletonHolder<cTimers> Timers;

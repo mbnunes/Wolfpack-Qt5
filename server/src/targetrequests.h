@@ -251,9 +251,9 @@ private:
 public:
 	cSetTagTarget( QString key, QString value, UINT8 type )
 	{
-		type_	= type;
-		key_	= key;
-		value_	= value;
+		type_ = type;
+		key_ = key;
+		value_ = value;
 	}
 
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
@@ -342,7 +342,7 @@ private:
 public:
 	cRemoveTagTarget( QString key )
 	{
-		key_	= key;
+		key_ = key;
 	}
 
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
@@ -611,6 +611,4 @@ public:
 	}
 };
 
-
 #endif
-

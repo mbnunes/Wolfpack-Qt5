@@ -240,4 +240,3 @@ void trackingMenu( cUOSocket *socket )
 	cTrackingMenu *gump = new cTrackingMenu;
 	socket->send( gump );
 }
-

@@ -37,22 +37,22 @@ class cUORxWearItem;
 
 namespace DragAndDrop
 {
-	void	grabItem( cUOSocket*, cUORxDragItem* );
-	void	equipItem( cUOSocket*, cUORxWearItem* );
-	void	dropItem( cUOSocket*, cUORxDropItem* );
+	void grabItem( cUOSocket*, cUORxDragItem* );
+	void equipItem( cUOSocket*, cUORxWearItem* );
+	void dropItem( cUOSocket*, cUORxDropItem* );
 
 	// Sub-drop Functions
-	void	dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos );
-	void	dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar );
-	void	dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &pos );
+	void dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos );
+	void dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar );
+	void dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &pos );
 
 	// Drop-on-char subfunctions
-	void	dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar );
-	void	dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker );
-	void	dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker );
-	void	dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer );
+	void dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar );
+	void dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker );
+	void dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker );
+	void dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer );
 
-	void	bounceItem( cUOSocket* socket, P_ITEM pi, bool denyMove = false );
+	void bounceItem( cUOSocket* socket, P_ITEM pi, bool denyMove = false );
 };
 
 void equipItem( P_CHAR wearer, P_ITEM item );

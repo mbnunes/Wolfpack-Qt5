@@ -74,4 +74,3 @@ typedef SingletonHolder< cLog > Log;
 #define DEBUG_LOG( value ) Log::instance()->log( LOG_DEBUG, QString( "%1 (%2:%3)" ).arg( value ).arg( __FILE__ ).arg( __LINE__ ) );
 
 #endif
-

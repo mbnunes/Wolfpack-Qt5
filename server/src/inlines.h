@@ -63,4 +63,3 @@ inline bool isHairColor( Q_UINT16 color )
 }
 
 #endif
-

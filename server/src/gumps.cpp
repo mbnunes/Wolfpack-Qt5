@@ -166,13 +166,10 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 			}
 			UINT32 thisrects = rectangles.size();
 
-
-
 			for( i = 0; i < thisrects; i++ )
 			{
 				addText( 50, 200 + i * 20, tr( "Rectangle %1: %2" ).arg( i+1+left ).arg( rectangles[i] ), 0x834 );
 			}
-
 
 			addText( 310, 410, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 			if( page_ > 1 ) // previous page
@@ -236,13 +233,10 @@ cTagsInfoGump::cTagsInfoGump( const cUObject* object ) : object_( const_cast<cUO
 			}
 			UINT32 thiskeys = keys.size();
 
-
-
 			for( i = 0; i < thiskeys; i++ )
 			{
 				addText( 50, 120 + i * 20, tr( "Tag \"%1\": %2" ).arg( keys[i] ).arg( object->getTag( keys[i] ).toString() ), 0x834 );
 			}
-
 
 			addText( 310, 410, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 			if( page_ > 1 ) // previous page
@@ -665,8 +659,7 @@ cPageInfoGump::cPageInfoGump( cPage* page )
 		addText( 200, 140, QString( "%1" ).arg( page->pageTime() ), hue );
 
 		addText( 50, 160, tr( "Message:" ), hue );
-		QString html =
-			QString("<body text=\"#0000FF\" leftmargin=\"0\" topmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">%1</body>").arg( page_->content() );
+		QString html = QString("<body text=\"#0000FF\" leftmargin=\"0\" topmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">%1</body>").arg( page_->content() );
 		addResizeGump( 45, 180, 0xBB8, 345, 84 );
 		addHtmlGump( 50, 180, 340, 80, html );
 
@@ -946,8 +939,3 @@ void cHelpGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 		}
 	}
 }
-
-
-
-
-

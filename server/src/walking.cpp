@@ -646,22 +646,14 @@ Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords )
 	// We're not switching the running flag
 	switch( dir&0x07 )
 	{
-	case 0x00:
-		newCoords.y--;                break;
-	case 0x01:
-		newCoords.y--; newCoords.x++; break;
-	case 0x02:
-		               newCoords.x++; break;
-	case 0x03:
-		newCoords.y++; newCoords.x++; break;
-	case 0x04:
-		newCoords.y++;                break;
-	case 0x05:
-		newCoords.y++; newCoords.x--; break;
-	case 0x06:
-		               newCoords.x--; break;
-	case 0x07:
-		newCoords.y--; newCoords.x--; break;
+		case 0x00: newCoords.y--; break;
+		case 0x01: newCoords.y--; newCoords.x++; break;
+		case 0x02: newCoords.x++; break;
+		case 0x03: newCoords.y++; newCoords.x++; break;
+		case 0x04: newCoords.y++; break;
+		case 0x05: newCoords.y++; newCoords.x--; break;
+		case 0x06: newCoords.x--; break;
+		case 0x07: newCoords.y--; newCoords.x--; break;
 	};
 
 	return newCoords;
@@ -709,8 +701,8 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 }
 
 /*!
-  This checks the new tile we're moving to
-  for Character we could eventually bump into.
+	This checks the new tile we're moving to
+	for Character we could eventually bump into.
 */
 bool cMovement::checkObstacles( P_CHAR pChar, const Coord_cl &newPos, bool running )
 {
@@ -743,9 +735,9 @@ UINT16 DynTile( const Coord_cl &pos )
 			}
 			else if ( mapitem->pos() == pos )
 				return mapitem->id();
-        }
+		}
 
-    }
+	}
 	return (UINT16)-1;
 }
 
@@ -754,27 +746,27 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 	if( pos.x >= ( Maps::instance()->mapTileWidth(pos.map) * 8 ) || pos.y >= ( Maps::instance()->mapTileHeight(pos.map) * 8 ) )
 		return false;
 
-    const signed char elev = Maps::instance()->mapElevation( pos );
+	const signed char elev = Maps::instance()->mapElevation( pos );
 	Coord_cl target = pos;
 	target.z = elev;
 	if (ILLEGAL_Z == elev)
 		return false;
 
-    // get the tile id of any dynamic tiles at this spot
+	// get the tile id of any dynamic tiles at this spot
 	Coord_cl mPos = pos;
 	mPos.z = elev;
-    const INT32 dt = DynTile( mPos );
+	const INT32 dt = DynTile( mPos );
 
-    // if there is a dynamic tile at this spot, check to see if its a blocker
-    // if it does block, might as well INT16-circuit and return right away
-    if ( dt >= 0 )
+	// if there is a dynamic tile at this spot, check to see if its a blocker
+	// if it does block, might as well INT16-circuit and return right away
+	if ( dt >= 0 )
 	{
 		tile_st tile = TileCache::instance()->getTile(dt);
 		if ( tile.isBlocking() || tile.isWet() )
 			return false;
 	}
 
-    // if there's a static block here in our way, return false
+	// if there's a static block here in our way, return false
 	StaticsIterator msi = Maps::instance()->staticsIterator( pos );
 	while (!msi.atEnd()) {
 		tile_st tile = TileCache::instance()->getTile( msi->itemid );
@@ -799,5 +791,5 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 		}
 	}
 
-    return true;
+	return true;
 }

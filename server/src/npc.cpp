@@ -55,26 +55,26 @@
 
 cNPC::cNPC()
 {
-	minDamage_			= 0;
-	maxDamage_			= 0;
-	nextMsgTime_		= 0;
-	nextGuardCallTime_	= 0;
-	nextBeggingTime_	= 0;
-	nextMoveTime_		= 0;
-	tamingMinSkill_		= 0;
-	summonTime_			= 0;
-	additionalFlags_	= 0;
-	owner_				= NULL;
-	stablemasterSerial_	= INVALID_SERIAL;
-	wanderType_			= stWanderType();
-	aiid_				= "Monster_Aggressive_L1";
-	ai_					= new Monster_Aggressive_L1( this );
-	aiCheckInterval_	= (UINT16)floor(Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC);
-	aiCheckTime_		= Server::instance()->time() + aiCheckInterval_;
-	criticalHealth_		= 10; // 10% !
-	spellsLow_			= 0;
-	spellsHigh_			= 0;
-	controlSlots_		= 1;
+	minDamage_ = 0;
+	maxDamage_ = 0;
+	nextMsgTime_ = 0;
+	nextGuardCallTime_ = 0;
+	nextBeggingTime_ = 0;
+	nextMoveTime_ = 0;
+	tamingMinSkill_ = 0;
+	summonTime_ = 0;
+	additionalFlags_ = 0;
+	owner_ = NULL;
+	stablemasterSerial_ = INVALID_SERIAL;
+	wanderType_ = stWanderType();
+	aiid_ = "Monster_Aggressive_L1";
+	ai_ = new Monster_Aggressive_L1( this );
+	aiCheckInterval_ = (UINT16)floor(Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC);
+	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_;
+	criticalHealth_ = 10; // 10% !
+	spellsLow_ = 0;
+	spellsHigh_ = 0;
+	controlSlots_ = 1;
 }
 
 cNPC::cNPC(const cNPC& right)
@@ -314,13 +314,13 @@ void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, 
 
 	switch( type )
 	{
-	case 0x01:		speechType = cUOTxUnicodeSpeech::Broadcast;		break;
-	case 0x06:		speechType = cUOTxUnicodeSpeech::System;		break;
-	case 0x09:		speechType = cUOTxUnicodeSpeech::Yell;			break;
-	case 0x02:		speechType = cUOTxUnicodeSpeech::Emote;			break;
-	case 0x08:		speechType = cUOTxUnicodeSpeech::Whisper;		break;
-	case 0x0A:		speechType = cUOTxUnicodeSpeech::Spell;			break;
-	default:		speechType = cUOTxUnicodeSpeech::Regular;		break;
+		case 0x01: speechType = cUOTxUnicodeSpeech::Broadcast; break;
+		case 0x06: speechType = cUOTxUnicodeSpeech::System; break;
+		case 0x09: speechType = cUOTxUnicodeSpeech::Yell; break;
+		case 0x02: speechType = cUOTxUnicodeSpeech::Emote; break;
+		case 0x08: speechType = cUOTxUnicodeSpeech::Whisper; break;
+		case 0x0A: speechType = cUOTxUnicodeSpeech::Spell; break;
+		default: speechType = cUOTxUnicodeSpeech::Regular; break;
 	};
 
 	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
@@ -508,12 +508,12 @@ void cNPC::showName( cUOSocket *socket )
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
 	switch( notoriety( socket->player() ) )
 	{
-		case 0x01:	speechColor = 0x59;		break; //blue
-		case 0x02:	speechColor = 0x3F;		break; //green
-		case 0x03:	speechColor = 0x3B2;	break; //grey
-		case 0x05:	speechColor = 0x90;		break; //orange
-		case 0x06:	speechColor = 0x22;		break; //red
-		default:	speechColor = 0x3B2;	break; // grey
+		case 0x01: speechColor = 0x59; break; //blue
+		case 0x02: speechColor = 0x3F; break; //green
+		case 0x03: speechColor = 0x3B2; break; //grey
+		case 0x05: speechColor = 0x90; break; //orange
+		case 0x06: speechColor = 0x22; break; //red
+		default: speechColor = 0x3B2; break; // grey
 	}
 
 	if (isInvulnerable()) {
@@ -1018,11 +1018,11 @@ class pathnode_cl
 public:
 	pathnode_cl( UI16 x_, UI16 y_, SI08 z_, UI16 step_, float cost_ ) : prev( NULL ), x( x_ ), y( y_ ), z( z_ ), step( step_ ), cost( cost_ ) {}
 	pathnode_cl() : prev( NULL ) {}
-	UI16	x;
-	UI16	y;
-	SI08	z;
-	UI16	step;
-	float	cost;
+	UI16 x;
+	UI16 y;
+	SI08 z;
+	UI16 step;
+	float cost;
 
 	pathnode_cl *prev;
 };
@@ -1077,18 +1077,18 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 		in a way, that the node with lowest cost lies always at the beginning.
 		I'll use std::vector combined with the stl heap functions for it.
 	*/
-	std::vector< pathnode_cl* >	unvisited_nodes;
-	std::vector< pathnode_cl* >	visited_nodes;
+	std::vector< pathnode_cl* > unvisited_nodes;
+	std::vector< pathnode_cl* > visited_nodes;
 	std::make_heap( unvisited_nodes.begin(), unvisited_nodes.end(), pathnode_comparePredicate() );
 
 	/*
 		We also need a vector for the calculated list.
 		And a temporary vector of neighbours.
 	*/
-	std::vector< pathnode_cl* >	allnodes;
-	std::vector< Coord_cl >		neighbours;
-	std::vector< pathnode_cl* >::iterator	pit;
-	std::vector< Coord_cl >::iterator		nit;
+	std::vector< pathnode_cl* > allnodes;
+	std::vector< Coord_cl > neighbours;
+	std::vector< pathnode_cl* >::iterator pit;
+	std::vector< Coord_cl >::iterator nit;
 
 	/*
 		So let's start :)

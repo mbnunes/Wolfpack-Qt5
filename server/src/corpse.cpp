@@ -310,6 +310,6 @@ void cCorpse::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	if (color.isEmpty()) {
 		tooltip.addLine(1050045, QString(" \tThe Remains Of %1\t ").arg(name_));
 	} else {
-        tooltip.addLine(1050045, QString("<basefont color=\"%1\"> \tThe Remains Of %2\t ").arg(color).arg(name_));
+		tooltip.addLine(1050045, QString("<basefont color=\"%1\"> \tThe Remains Of %2\t ").arg(color).arg(name_));
 	}
 }

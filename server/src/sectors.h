@@ -166,8 +166,8 @@ public:
 	RegionIterator4Chars( const Coord_cl &pos, unsigned int distance = 18 );
 	virtual ~RegionIterator4Chars();
 
-	void		Begin( void );
-	bool		atEnd( void ) const;
+	void Begin( void );
+	bool atEnd( void ) const;
 	cBaseChar	*GetData( void );
 	RegionIterator4Chars& operator++( int );
 };
@@ -180,9 +180,9 @@ public:
 	RegionIterator4Items( const Coord_cl &pos, unsigned int distance = 18 );
 	virtual ~RegionIterator4Items();
 
-	void		Begin( void );
-	bool		atEnd( void ) const;
-	cItem		*GetData( void );
+	void Begin( void );
+	bool atEnd( void ) const;
+	cItem *GetData( void );
 
 	// Operators
 	RegionIterator4Items& operator++( int );

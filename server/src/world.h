@@ -119,6 +119,4 @@ typedef SingletonHolder< cWorld > World;
 inline bool isItemSerial( SERIAL serial ) { return ( serial > 0x40000000 ) && ( serial < 0xFFFFFFFF ); };
 inline bool isCharSerial( SERIAL serial ) { return ( serial > 0x00000000 ) && ( serial < 0x40000000 ); };
 
-
 #endif
-

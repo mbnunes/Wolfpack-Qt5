@@ -42,7 +42,7 @@ protected:
 
 public:
 	const char *objectID() const {
-        return "cMulti";
+		return "cMulti";
 	}
 
 	cMulti();

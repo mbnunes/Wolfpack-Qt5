@@ -141,4 +141,3 @@ void SingletonHolder<T, LifetimePolicy>::destroySingleton()
 }
 
 #endif // __SINGLETONHOLDER_H__
-
