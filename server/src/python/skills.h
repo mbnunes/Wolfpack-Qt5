@@ -29,12 +29,12 @@
 //==================================================================================
 
 class cChar;
-typedef cChar* P_CHAR;
 
 #include "../defines.h"
 #include "../skills.h"
 #include "../globals.h"
 #include "../network/uosocket.h"
+#include "../typedefs.h"
 #include "utilities.h"
 
 typedef struct {

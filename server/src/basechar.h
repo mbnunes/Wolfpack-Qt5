@@ -112,6 +112,8 @@ public:
 	bool isMurderer() const;
 	bool isCriminal() const;
 	bool isInnocent() const;
+	bool isMurderer() const;
+	bool isCriminal() const;
 	void unhide();
 	int  CountItems(short ID, short col= -1);
 	int  CountGold();
@@ -1268,7 +1270,17 @@ inline void cBaseChar::setInvulnerable(bool data)
 
 inline bool cBaseChar::isHuman() const 
 { 
-	return (bodyID_ == 0x190 || bodyID_ == 0x191); 
+	return (this->bodyID() == 0x190 || this->bodyID() == 0x191); 
+}
+
+inline bool cBaseChar::isMurderer() const		
+{
+	return flag_&0x01 ? true:false;
+}
+
+inline bool cBaseChar::isCriminal() const		
+{
+	return flag_ & 0x02 ? true : false;
 }
 
 inline bool cBaseChar::isInnocent() const
@@ -1276,10 +1288,11 @@ inline bool cBaseChar::isInnocent() const
 	return !isMurderer() && !isCriminal();
 }
 
+/*
 inline bool cBaseChar::isSameAs(P_CHAR pc)
 {
 	return ( pc && pc->serial() == serial() );
-}
+}*/
 
 inline P_ITEM cBaseChar::rightHandItem() const
 {

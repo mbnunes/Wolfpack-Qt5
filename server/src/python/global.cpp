@@ -52,6 +52,7 @@
 #include "../multis.h"
 #include "../house.h"
 #include "../boats.h"
+#include "../srvparams.h"
 
 #include "utilities.h"
 #include "tempeffect.h"
@@ -102,9 +103,8 @@ PyObject* wpConsole_progress( PyObject* self, PyObject* args )
 /*!
 	Sends a [done] progress section to the console
 */
-PyObject* wpConsole_progressDone( PyObject* self, PyObject* args )
+PyObject* wpConsole_progressDone( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	clConsole.ProgressDone();
 	return PyInt_FromLong( 1 );
@@ -113,9 +113,8 @@ PyObject* wpConsole_progressDone( PyObject* self, PyObject* args )
 /*!
 	Sends a [fail] progress section to the console
 */
-PyObject* wpConsole_progressFail( PyObject* self, PyObject* args )
+PyObject* wpConsole_progressFail( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	clConsole.ProgressFail();
 	return PyInt_FromLong( 1 );
@@ -124,9 +123,8 @@ PyObject* wpConsole_progressFail( PyObject* self, PyObject* args )
 /*!
 	Sends a [skip] progress section to the console
 */
-PyObject* wpConsole_progressSkip( PyObject* self, PyObject* args )
+PyObject* wpConsole_progressSkip( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	clConsole.ProgressSkip();
 	return PyInt_FromLong( 1 );
@@ -135,9 +133,8 @@ PyObject* wpConsole_progressSkip( PyObject* self, PyObject* args )
 /*!
 	Returns a list of Strings (the linebuffer)
 */
-PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
+PyObject* wpConsole_getbuffer( PyObject* self )
 {	
-	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	QStringList linebuffer = clConsole.linebuffer();
 	PyObject *list = PyList_New( linebuffer.count() );
@@ -153,10 +150,9 @@ PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
 
 extern QStringList commandQueue;
 extern ZThread :: FastMutex commandMutex;
-PyObject* wpConsole_reloadScripts( PyObject* self, PyObject* args )
+PyObject* wpConsole_reloadScripts( PyObject* self )
 {
 	Q_UNUSED(self);
-	Q_UNUSED(args);
 	// Temporary implementation while thread comunication is not done
 	commandMutex.acquire();
 	if ( !secure )
@@ -178,22 +174,21 @@ PyObject* wpConsole_reloadScripts( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpConsole[] = 
 {
-    { "send",			wpConsole_send,			METH_VARARGS, "Prints something to the wolfpack console" },
-	{ "progress",		wpConsole_progress,		METH_VARARGS, "Prints a .....[xxxx] block" },
-	{ "progressDone",	wpConsole_progressDone,	METH_VARARGS, "Prints a [done] block" },
-	{ "progressFail",	wpConsole_progressFail,	METH_VARARGS, "Prints a [fail] block" },
-	{ "progressSkip",	wpConsole_progressSkip,	METH_VARARGS, "Prints a [skip] block" },
-	{ "getbuffer",		wpConsole_getbuffer,	METH_VARARGS, "Gets the linebuffer of the console" },
-	{ "reloadScripts",	wpConsole_reloadScripts,METH_VARARGS, "Reloads Scripts and Definitions"	},
+    { "send",			wpConsole_send,							METH_VARARGS, "Prints something to the wolfpack console" },
+	{ "progress",		wpConsole_progress,						METH_VARARGS, "Prints a .....[xxxx] block" },
+	{ "progressDone",	(PyCFunction)wpConsole_progressDone,	METH_NOARGS, "Prints a [done] block" },
+	{ "progressFail",	(PyCFunction)wpConsole_progressFail,	METH_NOARGS, "Prints a [fail] block" },
+	{ "progressSkip",	(PyCFunction)wpConsole_progressSkip,	METH_NOARGS, "Prints a [skip] block" },
+	{ "getbuffer",		(PyCFunction)wpConsole_getbuffer,		METH_NOARGS, "Gets the linebuffer of the console" },
+	{ "reloadScripts",	(PyCFunction)wpConsole_reloadScripts,	METH_NOARGS, "Reloads Scripts and Definitions"	},
     { NULL, NULL, 0, NULL } // Terminator
 };
 
-/*!0
+/*!
 	Gets the seconds of the current uo time
 */
-PyObject* wpTime_second( PyObject* self, PyObject* args )
+PyObject* wpTime_second( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.time().second() );
 }
@@ -201,9 +196,8 @@ PyObject* wpTime_second( PyObject* self, PyObject* args )
 /*!
 	Gets the minutes of the current uo time
 */
-PyObject* wpTime_minute( PyObject* self, PyObject* args )
+PyObject* wpTime_minute( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.time().minute() );
 }
@@ -211,9 +205,8 @@ PyObject* wpTime_minute( PyObject* self, PyObject* args )
 /*!
 	Gets the hours of the current uo time
 */
-PyObject* wpTime_hour( PyObject* self, PyObject* args )
+PyObject* wpTime_hour( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.time().hour() );
 }
@@ -221,9 +214,8 @@ PyObject* wpTime_hour( PyObject* self, PyObject* args )
 /*!
 	Gets the current day
 */
-PyObject* wpTime_day( PyObject* self, PyObject* args )
+PyObject* wpTime_day( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.date().day() );
 }
@@ -231,9 +223,8 @@ PyObject* wpTime_day( PyObject* self, PyObject* args )
 /*!
 	Gets the current month
 */
-PyObject* wpTime_month( PyObject* self, PyObject* args )
+PyObject* wpTime_month( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.date().month() );
 }
@@ -241,9 +232,8 @@ PyObject* wpTime_month( PyObject* self, PyObject* args )
 /*!
 	Gets the current year
 */
-PyObject* wpTime_year( PyObject* self, PyObject* args )
+PyObject* wpTime_year( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.date().year() );
 }
@@ -251,9 +241,8 @@ PyObject* wpTime_year( PyObject* self, PyObject* args )
 /*!
 	Gets a timestamp of the current uo time
 */
-PyObject* wpTime_timestamp( PyObject* self, PyObject* args )
+PyObject* wpTime_timestamp( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	return PyInt_FromLong( uoTime.time().elapsed() );
 }
@@ -263,13 +252,13 @@ PyObject* wpTime_timestamp( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpTime[] = 
 {
-	{ "second",			wpTime_second,		METH_VARARGS, "Returns the current time-seconds" },
-	{ "minute",			wpTime_minute,		METH_VARARGS, "Returns the current time-minutes" },
-	{ "hour",			wpTime_hour,		METH_VARARGS, "Returns the current time-hour" },
-	{ "day",			wpTime_day,			METH_VARARGS, "Returns the current date-day" },
-	{ "month",			wpTime_month,		METH_VARARGS, "Returns the current date-month" },
-	{ "year",			wpTime_year,		METH_VARARGS, "Returns the current date-year" },
-	{ "timestamp",		wpTime_timestamp,	METH_VARARGS, "Returns the current timestamp" },
+	{ "second",			(PyCFunction)wpTime_second,		METH_NOARGS, "Returns the current time-seconds" },
+	{ "minute",			(PyCFunction)wpTime_minute,		METH_NOARGS, "Returns the current time-minutes" },
+	{ "hour",			(PyCFunction)wpTime_hour,		METH_NOARGS, "Returns the current time-hour" },
+	{ "day",			(PyCFunction)wpTime_day,		METH_NOARGS, "Returns the current date-day" },
+	{ "month",			(PyCFunction)wpTime_month,		METH_NOARGS, "Returns the current date-month" },
+	{ "year",			(PyCFunction)wpTime_year,		METH_NOARGS, "Returns the current date-year" },
+	{ "timestamp",		(PyCFunction)wpTime_timestamp,	METH_NOARGS, "Returns the current timestamp" },
     { NULL, NULL, 0, NULL } // Terminator
 };
 
@@ -427,9 +416,8 @@ PyObject* wpRegion( PyObject* self, PyObject* args )
 	Returns the time in ms since the last server-start
 	used for object-delays and others
 */
-PyObject* wpCurrenttime( PyObject* self, PyObject* args )
+PyObject* wpCurrenttime( PyObject* self )
 {
-	Q_UNUSED(args);
 	Q_UNUSED(self);
 	return PyInt_FromLong( uiCurrentTime );
 }
@@ -781,39 +769,6 @@ PyObject *wpRegisterCommand( PyObject* self, PyObject* args )
 	return PyTrue;
 }
 
-PyObject *wpSocketsFirst( PyObject* self, PyObject* args )
-{
-	Q_UNUSED(args);
-	Q_UNUSED(self);
-	return PyGetSocketObject( cNetwork::instance()->first() );
-}
-
-PyObject *wpSocketsNext( PyObject* self, PyObject* args )
-{
-	Q_UNUSED(args);
-	Q_UNUSED(self);
-	return PyGetSocketObject( cNetwork::instance()->next() );  
-}
-
-PyObject *wpSocketsCount( PyObject* self, PyObject* args )
-{
-	Q_UNUSED(args);
-	Q_UNUSED(self);
-	return PyInt_FromLong( cNetwork::instance()->count() );
-}
-
-/*!
-	wolfpack.sockets
-	Socket iteration
-*/
-static PyMethodDef wpSockets[] = 
-{
-	{ "first",			wpSocketsFirst,	METH_VARARGS, "Returns the first connected socket." },
-	{ "next",			wpSocketsNext,	METH_VARARGS, "Returns the next connected socket." },
-	{ "count",			wpSocketsCount,	METH_VARARGS, "Returns the number of connected sockets." },
-	{ NULL, NULL, 0, NULL } // Terminator
-};
-
 /*!
 	Coord object creation
 */
@@ -869,9 +824,8 @@ PyObject *wpMulti( PyObject* self, PyObject* args )
 /*!
 	Returns uptime of server in seconds
 */
-PyObject* wpServerUptime( PyObject* self, PyObject* args )
+PyObject* wpServerUptime( PyObject* self )
 {
-	Q_UNUSED(args);
 	Q_UNUSED(self);
 	return PyInt_FromLong( uiCurrentTime / MY_CLOCKS_PER_SEC );
 }
@@ -879,9 +833,8 @@ PyObject* wpServerUptime( PyObject* self, PyObject* args )
 /*!
 	Returns the server version string
 */
-PyObject* wpServerVersion( PyObject* self, PyObject* args )
+PyObject* wpServerVersion( PyObject* self )
 {
-	Q_UNUSED(args);
 	Q_UNUSED(self);
 	wp_version_info wpversioninfo;
 	return PyString_FromString( QString("%1 %2 %3").arg( wpversioninfo.productstring.c_str() ).arg( wpversioninfo.betareleasestring.c_str() ).arg( wpversioninfo.verstring.c_str() ).latin1() );
@@ -890,9 +843,8 @@ PyObject* wpServerVersion( PyObject* self, PyObject* args )
 /*!
 	Returns the current real date/time
 */
-PyObject* wpCurrentdatetime( PyObject* self, PyObject* args )
+PyObject* wpCurrentdatetime( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	return PyString_FromString( QDateTime::currentDateTime().toString() );
 }
@@ -900,9 +852,8 @@ PyObject* wpCurrentdatetime( PyObject* self, PyObject* args )
 /*!
 	Returns if the server is in starting state
 */
-PyObject* wpIsStarting( PyObject* self, PyObject* args )
+PyObject* wpIsStarting( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);
 	if( serverState == STARTUP )
 		return PyTrue;
@@ -913,9 +864,8 @@ PyObject* wpIsStarting( PyObject* self, PyObject* args )
 /*!
 	Returns if the server is in running state
 */
-PyObject* wpIsRunning( PyObject* self, PyObject* args )
+PyObject* wpIsRunning( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);
 	if( serverState == RUNNING )
 		return PyTrue;
@@ -926,9 +876,8 @@ PyObject* wpIsRunning( PyObject* self, PyObject* args )
 /*!
 	Returns if the server is in reload state
 */
-PyObject* wpIsReloading( PyObject* self, PyObject* args )
+PyObject* wpIsReloading( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);
 	if( serverState == SCRIPTRELOAD )
 		return PyTrue;
@@ -939,9 +888,8 @@ PyObject* wpIsReloading( PyObject* self, PyObject* args )
 /*!
 	Returns if the server is in closing state
 */
-PyObject* wpIsClosing( PyObject* self, PyObject* args )
+PyObject* wpIsClosing( PyObject* self )
 {
-	Q_UNUSED(args);	
 	Q_UNUSED(self);
 	if( serverState == SHUTDOWN )
 		return PyTrue;
@@ -956,37 +904,68 @@ PyObject* wpIsClosing( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpGlobal[] = 
 {
-    { "additem",			wpAdditem,			METH_VARARGS, "Adds an item with the specified script-section" },
-	{ "addnpc",				wpAddnpc,			METH_VARARGS, "Adds a npc with the specified script-section" },
-	{ "finditem",			wpFinditem,			METH_VARARGS, "Tries to find an item based on it's serial" },
-	{ "findchar",			wpFindchar,			METH_VARARGS, "Tries to find a char based on it's serial" },
-	{ "findmulti",			wpFindmulti,		METH_VARARGS, "Tries to find a multi based on it's position" },
-	{ "addtimer",			wpAddtimer,			METH_VARARGS, "Adds a timed effect" },
-	{ "effect",				wpEffect,			METH_VARARGS, "Shows a graphical effect." },
-	{ "region",				wpRegion,			METH_VARARGS, "Gets the region at a specific position" },
-	{ "currenttime",		wpCurrenttime,		METH_VARARGS, "Time in ms since server-start" },
-	{ "statics",			wpStatics,			METH_VARARGS, "Returns a list of static-item at a given position" },
-	{ "map",				wpMap,				METH_VARARGS, "Retruns a dictionary with information about a given map tile" },
-	{ "items",				wpItems,			METH_VARARGS, "Returns a list of items in a specific sector." },
-	{ "chars",				wpChars,			METH_VARARGS, "Returns a list of chars in a specific sector." },
-	{ "allcharsserials",	wpAllCharsSerials,	METH_VARARGS, "Returns a list of all chars serials" },
-	{ "allitemsserials",	wpAllItemsSerials,	METH_VARARGS, "Returns a list of all items serials" },
-	{ "tiledata",			wpTiledata,			METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
-	{ "coord",				wpCoord,			METH_VARARGS, "Creates a coordinate object from the given parameters (x,y,z,map)." },
-	{ "multi",				wpMulti,			METH_VARARGS, "Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT." },
-	{ "spell",				wpSpell,			METH_VARARGS, "Returns information about a certain spell." },
-	{ "list",				wpList,				METH_VARARGS, "Returns a list defined in the definitions as a Python List" },
-	{ "registerglobal",		wpRegisterGlobal,	METH_VARARGS, "Registers a global script hook." },
-	{ "registercommand",	wpRegisterCommand,	METH_VARARGS, "Registers a global command hook." },
-	{ "serveruptime",		wpServerUptime,		METH_VARARGS, "Returns uptime of server in seconds." },
-	{ "serverversion",		wpServerVersion,	METH_VARARGS, "Returns the server version string." },
-	{ "currentdatetime",	wpCurrentdatetime,	METH_VARARGS, "Returns the current real date/time" },
-	{ "isstarting",			wpIsStarting,		METH_VARARGS, "Returns if the server is in starting state" },
-	{ "isrunning",			wpIsRunning,		METH_VARARGS, "Returns if the server is in running state" },
-	{ "isreloading",		wpIsReloading,		METH_VARARGS, "Returns if the server is in reload state" },
-	{ "isclosing",			wpIsClosing,		METH_VARARGS, "Returns if the server is in closing state" },
+    { "additem",			wpAdditem,						METH_VARARGS, "Adds an item with the specified script-section" },
+	{ "addnpc",				wpAddnpc,						METH_VARARGS, "Adds a npc with the specified script-section" },
+	{ "finditem",			wpFinditem,						METH_VARARGS, "Tries to find an item based on it's serial" },
+	{ "findchar",			wpFindchar,						METH_VARARGS, "Tries to find a char based on it's serial" },
+	{ "findmulti",			wpFindmulti,					METH_VARARGS, "Tries to find a multi based on it's position" },
+	{ "addtimer",			wpAddtimer,						METH_VARARGS, "Adds a timed effect" },
+	{ "effect",				wpEffect,						METH_VARARGS, "Shows a graphical effect." },
+	{ "region",				wpRegion,						METH_VARARGS, "Gets the region at a specific position" },
+	{ "currenttime",		(PyCFunction)wpCurrenttime,		METH_NOARGS, "Time in ms since server-start" },
+	{ "statics",			wpStatics,						METH_VARARGS, "Returns a list of static-item at a given position" },
+	{ "map",				wpMap,							METH_VARARGS, "Retruns a dictionary with information about a given map tile" },
+	{ "items",				wpItems,						METH_VARARGS, "Returns a list of items in a specific sector." },
+	{ "chars",				wpChars,						METH_VARARGS, "Returns a list of chars in a specific sector." },
+	{ "allcharsserials",	wpAllCharsSerials,				METH_VARARGS, "Returns a list of all chars serials" },
+	{ "allitemsserials",	wpAllItemsSerials,				METH_VARARGS, "Returns a list of all items serials" },
+	{ "tiledata",			wpTiledata,						METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
+	{ "coord",				wpCoord,						METH_VARARGS, "Creates a coordinate object from the given parameters (x,y,z,map)." },
+	{ "multi",				wpMulti,						METH_VARARGS, "Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT." },
+	{ "spell",				wpSpell,						METH_VARARGS, "Returns information about a certain spell." },
+	{ "list",				wpList,							METH_VARARGS, "Returns a list defined in the definitions as a Python List" },
+	{ "registerglobal",		wpRegisterGlobal,				METH_VARARGS, "Registers a global script hook." },
+	{ "registercommand",	wpRegisterCommand,				METH_VARARGS, "Registers a global command hook." },
+	{ "serveruptime",		(PyCFunction)wpServerUptime,	METH_NOARGS, "Returns uptime of server in seconds." },
+	{ "serverversion",		(PyCFunction)wpServerVersion,	METH_NOARGS, "Returns the server version string." },
+	{ "currentdatetime",	(PyCFunction)wpCurrentdatetime,	METH_NOARGS, "Returns the current real date/time" },
+	{ "isstarting",			(PyCFunction)wpIsStarting,		METH_NOARGS, "Returns if the server is in starting state" },
+	{ "isrunning",			(PyCFunction)wpIsRunning,		METH_NOARGS, "Returns if the server is in running state" },
+	{ "isreloading",		(PyCFunction)wpIsReloading,		METH_NOARGS, "Returns if the server is in reload state" },
+	{ "isclosing",			(PyCFunction)wpIsClosing,		METH_NOARGS, "Returns if the server is in closing state" },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
+
+PyObject *wpSocketsFirst( PyObject* self )
+{
+	Q_UNUSED(self);
+	return PyGetSocketObject( cNetwork::instance()->first() );
+}
+
+PyObject *wpSocketsNext( PyObject* self )
+{
+	Q_UNUSED(self);
+	return PyGetSocketObject( cNetwork::instance()->next() );  
+}
+
+PyObject *wpSocketsCount( PyObject* self )
+{
+	Q_UNUSED(self);
+	return PyInt_FromLong( cNetwork::instance()->count() );
+}
+
+/*!
+	wolfpack.sockets
+	Socket iteration
+*/
+static PyMethodDef wpSockets[] = 
+{
+	{ "first",			(PyCFunction)wpSocketsFirst,	METH_NOARGS, "Returns the first connected socket." },
+	{ "next",			(PyCFunction)wpSocketsNext,		METH_NOARGS, "Returns the next connected socket." },
+	{ "count",			(PyCFunction)wpSocketsCount,	METH_NOARGS, "Returns the number of connected sockets." },
+	{ NULL, NULL, 0, NULL } // Terminator
+};
+
 
 /*!
 	Adds a speech keyword to a wolfpack script object.
@@ -1120,9 +1099,8 @@ PyObject *wpAccountsFind( PyObject* self, PyObject* args )
 /*!
 	Gets a list of Account names.
  */
-PyObject *wpAccountsList( PyObject* self, PyObject* args )
+PyObject *wpAccountsList( PyObject* self )
 {
-	Q_UNUSED(args);
 	Q_UNUSED(self);
 	PyObject *list = PyList_New( 0 );
 
@@ -1141,9 +1119,8 @@ PyObject *wpAccountsList( PyObject* self, PyObject* args )
 /*!
 	Gets a list of ACL names.
  */
-PyObject *wpAccountsAcls( PyObject* self, PyObject* args )
+PyObject *wpAccountsAcls( PyObject* self )
 {
-	Q_UNUSED(args);
 	Q_UNUSED(self);
 	PyObject *list = PyList_New( 0 );
 
@@ -1218,9 +1195,8 @@ PyObject *wpAccountsAdd( PyObject* self, PyObject* args )
 /*!
 	Reload accounts.
  */
-PyObject *wpAccountsReload( PyObject* self, PyObject* args )
+PyObject *wpAccountsReload( PyObject* self )
 {
-	Q_UNUSED(args);
 	Q_UNUSED(self);
 	Accounts::instance()->reload();
 	return PyTrue;
@@ -1229,9 +1205,8 @@ PyObject *wpAccountsReload( PyObject* self, PyObject* args )
 /*!
 	Save accounts.
  */
-PyObject *wpAccountsSave( PyObject* self, PyObject* args )
+PyObject *wpAccountsSave( PyObject* self )
 {
-	Q_UNUSED(args);
 	Q_UNUSED(self);
 	Accounts::instance()->save();
 	return PyTrue;
@@ -1243,18 +1218,144 @@ PyObject *wpAccountsSave( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpAccounts[] = 
 {
-    { "find",		wpAccountsFind, METH_VARARGS, "Finds an account object." },
-	{ "list",		wpAccountsList, METH_VARARGS, "Gets a list of Account names." },
-	{ "acls",		wpAccountsAcls,	METH_VARARGS, "Gets a list of valid ACL names." },
-	{ "acl",		wpAccountsAcl,	METH_VARARGS, "Returns an acl as a double dictionary." },
-	{ "add",		wpAccountsAdd,	METH_VARARGS, "Creates an account." },
-	{ "save",		wpAccountsSave,	METH_VARARGS, "Save accounts." },
-	{ "reload",		wpAccountsReload,METH_VARARGS, "Reload accounts." },
+    { "find",		wpAccountsFind,					METH_VARARGS, "Finds an account object." },
+	{ "list",		(PyCFunction)wpAccountsList,	METH_NOARGS, "Gets a list of Account names." },
+	{ "acls",		(PyCFunction)wpAccountsAcls,	METH_NOARGS, "Gets a list of valid ACL names." },
+	{ "acl",		wpAccountsAcl,					METH_VARARGS, "Returns an acl as a double dictionary." },
+	{ "add",		wpAccountsAdd,					METH_VARARGS, "Creates an account." },
+	{ "save",		(PyCFunction)wpAccountsSave,	METH_NOARGS, "Save accounts." },
+	{ "reload",		(PyCFunction)wpAccountsReload,	METH_NOARGS, "Reload accounts." },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 
 /*!
-	This initializes the wolfpack.console extension
+	Reads a boolean value from wolfpack.xml
+ */
+PyObject *wpSettingsGetBool( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	if( !checkArgStr( 0 ) && !checkArgStr( 1 ) && !checkArgInt( 2 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	return PyInt_FromLong( SrvParams->getBool( getArgStr(0), getArgStr(1), getArgInt(2) ) );
+}
+
+/*!
+	Writes a boolean value to wolfpack.xml
+*/
+PyObject *wpSettingsSetBool( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	if ( !checkArgStr(0) && !checkArgStr( 1 ) && !checkArgInt( 2 ) )
+	{
+		PyErr_BadArgument();
+		return PyFalse;
+	}
+	SrvParams->setBool( getArgStr(0), getArgStr(1), getArgInt(2) );
+	return PyTrue;
+}
+
+/*!
+	Reads a numeric value from wolfpack.xml
+ */
+PyObject *wpSettingsGetNumber( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	if( !checkArgStr( 0 ) && !checkArgStr( 1 ) && !checkArgInt( 2 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+	return PyInt_FromLong( SrvParams->getNumber( getArgStr(0), getArgStr(1), getArgInt(2) ) );
+}
+
+/*!
+	Writes a boolean value to wolfpack.xml
+*/
+PyObject *wpSettingsSetNumber( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	if ( !checkArgStr(0) && !checkArgStr( 1 ) && !checkArgInt( 2 ) )
+	{
+		PyErr_BadArgument();
+		return PyFalse;
+	}
+	SrvParams->setNumber( getArgStr(0), getArgStr(1), getArgInt(2) );
+	return PyTrue;
+}
+
+/*!
+	Reads a numeric value from wolfpack.xml
+ */
+PyObject *wpSettingsGetString( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	if( !checkArgStr( 0 ) && !checkArgStr( 1 ) && !checkArgStr( 2 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+	return PyString_FromString( SrvParams->getString( getArgStr(0), getArgStr(1), getArgStr(2) ) );
+}
+
+/*!
+	Writes a boolean value to wolfpack.xml
+*/
+PyObject *wpSettingsSetString( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	if ( !checkArgStr(0) && !checkArgStr( 1 ) && !checkArgStr( 2 ) )
+	{
+		PyErr_BadArgument();
+		return PyFalse;
+	}
+	SrvParams->setString( getArgStr(0), getArgStr(1), getArgStr(2) );
+	return PyTrue;
+}
+
+/*!
+	Reloads wolfpack.xml
+*/
+PyObject* wpSettingsReload( PyObject* self )
+{
+	Q_UNUSED(self);
+	SrvParams->reload();
+	return PyTrue;
+}
+
+/*!
+	Saves wolfpack.xml
+*/
+PyObject* wpSettingsSave( PyObject* self )
+{
+	Q_UNUSED(self);
+	SrvParams->flush();
+	return PyTrue;
+}
+
+/*!
+	wolfpack.settings
+	wolfpack.xml config related functions
+*/
+static PyMethodDef wpSettings[] = 
+{
+    { "getBool",		wpSettingsGetBool,				METH_VARARGS, "Reads a boolean value from wolfpack.xml." },
+	{ "setBool",		wpSettingsSetBool,				METH_VARARGS, "Sets a boolean value to wolfpack.xml." },
+	{ "getNumber",		wpSettingsGetNumber,			METH_VARARGS, "Gets a numeric value from wolfpack.xml." },
+	{ "setNumber",		wpSettingsSetNumber,			METH_VARARGS, "Sets a numeric value to wolfpack.xml." },
+	{ "getString",		wpSettingsGetString,			METH_VARARGS, "Reads a string value from wolfpack.xml." },
+	{ "setString",		wpSettingsSetString,			METH_VARARGS, "Writes a string value to wolfpack.xml." },
+	{ "reload",			(PyCFunction)wpSettingsReload,	METH_NOARGS, "Reloads wolfpack.xml." },
+	{ "save",			(PyCFunction)wpSettingsSave,	METH_NOARGS, "Saves changes made to wolfpack.xml"	},
+	{ NULL, NULL, 0, NULL } // Terminator
+};
+
+
+/*!
+	This initializes the _wolfpack namespace and it's sub extensions
 */
 void init_wolfpack_globals()
 {
@@ -1274,4 +1375,7 @@ void init_wolfpack_globals()
 
 	PyObject *mTime = Py_InitModule( "_wolfpack.time", wpTime );
     PyObject_SetAttrString( wpNamespace, "time", mTime );
+
+	PyObject *mSettings = Py_InitModule( "_wolfpack.settings", wpSettings );
+	PyObject_SetAttrString( wpNamespace, "settings", mSettings );
 }

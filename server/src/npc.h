@@ -43,6 +43,7 @@
 // Class for Non Player Characters. Implements cBaseChar.
 class cNPC : public cBaseChar
 {
+	Q_OBJECT
 public:
 	// con-/destructors
     cNPC();
@@ -143,6 +144,7 @@ public:
     void setTamingMinSkill(INT16 data);
 	void setOwner(P_PLAYER data);
 	void setCarve(const QString &data);
+	void setGuarding(P_NPC data);
 	void setSpawnregion(const QString &data);
 	void setStablemasterSerial(SERIAL data);
 	void setLootList(const QString &data);
@@ -434,6 +436,21 @@ inline void cNPC::setAttackFirst(bool data)
 inline enCharTypes cNPC::objectType()
 {
 	return enNPC;
+}
+
+inline void cNPC::setGuarding(P_NPC data)
+{
+	if( data == guarding_ )
+		return;
+
+	if( guarding_ )
+		guarding_->removeGuard( this );
+
+	guarding_ = data;
+	changed( SAVE|TOOLTIP );
+
+	if( guarding_ )
+		guarding_->addGuard( this );		
 }
 
 

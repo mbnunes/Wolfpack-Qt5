@@ -219,25 +219,14 @@ PyObject* wpSocket_showspeech( wpSocket* self, PyObject* args )
 
 	switch( type )
 	{
-	case 1:
-		eType = cUOTxUnicodeSpeech::Broadcast;
-		break;
-	case 2:
-		eType = cUOTxUnicodeSpeech::Emote;
-		break;
-	case 6:
-		eType = cUOTxUnicodeSpeech::System;
-		break;
-	case 8:
-		eType = cUOTxUnicodeSpeech::Whisper;
-		break;
-	case 9:
-		eType = cUOTxUnicodeSpeech::Yell;
-		break;
+	case 1:		eType = cUOTxUnicodeSpeech::Broadcast;		break;
+	case 2:		eType = cUOTxUnicodeSpeech::Emote;			break;
+	case 6:		eType = cUOTxUnicodeSpeech::System;			break;
+	case 8:		eType = cUOTxUnicodeSpeech::Whisper;		break;
+	case 9:		eType = cUOTxUnicodeSpeech::Yell;			break;
 	case 0:
 	default:
-		eType = cUOTxUnicodeSpeech::Regular;
-		break;
+				eType = cUOTxUnicodeSpeech::Regular;		break;
 	};
 
 	self->pSock->showSpeech( object, speech, color, font, eType );

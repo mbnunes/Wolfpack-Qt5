@@ -28,7 +28,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#ifndef CPLAYER_H_HEADER_INCLUDED
+#if !defined (CPLAYER_H_HEADER_INCLUDED)
 #define CPLAYER_H_HEADER_INCLUDED
 
 // platform includes
@@ -47,6 +47,7 @@ class cUOTxTooltipList;
 // Class for player characters. Implements cBaseChar.
 class cPlayer : public cBaseChar
 {
+	Q_OBJECT
 public:
 	// con-/destructors
     cPlayer();

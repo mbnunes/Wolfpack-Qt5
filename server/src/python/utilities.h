@@ -34,6 +34,8 @@
 #include "Python.h"
 #include "pyerrors.h"
 
+#include "../typedefs.h"
+
 class cUOSocket;
 class cItem;
 class cChar;
@@ -44,7 +46,6 @@ class cUOTxTooltipList;
 class cMulti;
 
 typedef cItem* P_ITEM;
-typedef cChar* P_CHAR;
 typedef cMulti* P_MULTI;
 
 /*!
