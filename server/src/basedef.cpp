@@ -153,14 +153,10 @@ void cCharBaseDef::reset()
 
 void cCharBaseDef::processNode( const cElement* node )
 {
-	// <basesound value="0x12" />
 	// <basesound>0x12</basesound>
 	if ( node->name() == "basesound" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			basesound_ = node->getAttribute( "value" ).toInt();
-		else
-			basesound_ = node->value().toInt();
+		basesound_ = node->value().toInt();
 	}
 	// <attacksound>0x123,0x124</attacksound>
 	else if ( node->name() == "attacksound" )
@@ -214,55 +210,32 @@ void cCharBaseDef::processNode( const cElement* node )
 	}
 	else if ( node->name() == "figurine" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			figurine_ = node->getAttribute( "value" ).toInt();
-		else
-			figurine_ = node->value().toInt();
+		figurine_ = node->value().toInt();
 	}
-	// <mindamage value="3" />
 	// <mindamage>3</mindamage>
 	else if ( node->name() == "mindamage" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			minDamage_ = node->getAttribute( "value" ).toInt();
-		else
-			minDamage_ = node->value().toInt();
+		minDamage_ = node->value().toInt();
 	}
-	// <maxdamage value="10" />
 	// <maxdamage>10</maxdamage>
 	else if ( node->name() == "maxdamage" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			maxDamage_ = node->getAttribute( "value" ).toInt();
-		else
-			maxDamage_ = node->value().toInt();
+		maxDamage_ = node->value().toInt();
 	}
-	// <mintaming value="555" />
 	// <mintaming>555</mintaming>
 	else if ( node->name() == "mintaming" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			minTaming_ = node->getAttribute( "value" ).toInt();
-		else
-			minTaming_ = node->value().toInt();
+		minTaming_ = node->value().toInt();
 	}
-	// <controlslots value="3" />
 	// <controlslots>3</controlslots>
 	else if ( node->name() == "controlslots" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			controlSlots_ = node->getAttribute( "value" ).toInt();
-		else
-			controlSlots_ = node->value().toInt();
+		controlSlots_ = node->value().toInt();
 	}
-	// <criticalhealth value="12" />
 	// <criticalhealth>12</criticalhealth>
 	else if ( node->name() == "criticalhealth" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			criticalHealth_ = node->getAttribute( "value" ).toInt();
-		else
-			criticalHealth_ = node->value().toInt();
+		criticalHealth_ = node->value().toInt();
 	}
 	// <carve></carve>
 	else if ( node->name() == "carve" )
@@ -623,68 +596,40 @@ void cItemBaseDef::reset()
 
 void cItemBaseDef::processNode( const cElement* node )
 {
-	// <weight value="10.5" />
 	// <weight>10.5</weight>
 	if ( node->name() == "weight" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			weight_ = node->getAttribute( "value" ).toFloat();
-		else
-			weight_ = node->text().toFloat();
+		weight_ = node->text().toFloat();
 	}
-	// <buyprice value="10" />
 	// <buyprice>10</sellprice>
 	else if ( node->name() == "buyprice" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			buyprice_ = node->getAttribute( "value" ).toUInt();
-		else
-			buyprice_ = node->value().toUInt();
+		buyprice_ = node->value().toUInt();
 	}
-	// <sellprice value="10" />
 	// <sellprice>10</sellprice>
 	else if ( node->name() == "sellprice" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			sellprice_ = node->getAttribute( "value" ).toUInt();
-		else
-			sellprice_ = node->value().toUInt();
+		sellprice_ = node->value().toUInt();
 	}
-	// <type value="1" />
 	// <type>1</type>
 	else if ( node->name() == "type" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			type_ = node->getAttribute( "value" ).toUShort();
-		else
-			type_ = node->value().toUShort();
+		type_ = node->value().toUShort();
 	}
-	// <lightsource value="1" />
 	// </lightsource>1</lightsource>
 	else if ( node->name() == "lightsource" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			lightsource_ = node->getAttribute( "value" ).toUShort();
-		else
-			lightsource_ = node->value().toUShort();
+		lightsource_ = node->value().toUShort();
 	}
-	// <decaydelay value="120" />
 	// <decaydelay>120</decaydelay>
 	else if ( node->name() == "decaydelay" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			decaydelay_ = node->getAttribute( "value" ).toUInt();
-		else
-			decaydelay_ = node->value().toUInt();
+		decaydelay_ = node->value().toUInt();
 	}
-	// <watersource value="1" />
 	// <watersouce>1</watersource>
 	else if ( node->name() == "watersource" )
 	{
-		if ( node->hasAttribute( "value" ) )
-			setWaterSource( node->getAttribute( "value" ).toUInt() != 0 );
-		else
-			setWaterSource( node->value().toUInt() != 0 );
+		setWaterSource( node->value().toUInt() != 0 );
 	}
 	// <inherit id="axe" />
 	// <inherit>axe</inherit>

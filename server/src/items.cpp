@@ -745,29 +745,15 @@ void cItem::processNode( const cElement* Tag )
 
 	const cElement* section = Definitions::instance()->getDefinition( WPDT_DEFINE, TagName );
 
-	// <amount value="10" />
-	// <amount min="10" max="20" />
 	// <amount>10</amount>
 	if ( TagName == "amount" )
 	{
-		if ( Tag->hasAttribute( "value" ) )
-			this->setAmount( Tag->getAttribute( "value" ).toUShort() );
-		else if ( Tag->hasAttribute( "min" ) &&  Tag->hasAttribute( "max" ) )
-			this->setAmount( RandomNum( Tag->getAttribute( "min" ).toUShort(), Tag->getAttribute( "max" ).toUShort() ) );
-		else
-			this->setAmount( Value.toUShort() );
+		this->setAmount( Value.toUShort() );
 	}
-	// <durability value="10" />
-	// <durability min="10" max="20" />
 	// <durability>10</durabilty>
 	else if ( TagName == "durability" )
 	{
-		if ( Tag->hasAttribute( "value" ) )
-			this->setMaxhp( Tag->getAttribute( "value" ).toLong() );
-		else if ( Tag->hasAttribute( "min" ) &&  Tag->hasAttribute( "max" ) )
-			this->setMaxhp( RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() ) );
-		else
-			this->setMaxhp( Value.toLong() );
+		this->setMaxhp( Value.toLong() );
 		this->setHp( this->maxhp() );
 	}
 

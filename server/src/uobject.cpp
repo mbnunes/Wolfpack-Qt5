@@ -573,24 +573,8 @@ void cUObject::processNode( const cElement* Tag )
 	{
 		if ( Value.isEmpty() )
 		{
-			if ( Tag->hasAttribute( "value" ) )
-				Value = hex2dec( Tag->getAttribute( "value", "1" ) );
-			else if ( Tag->hasAttribute( "list" ) )
-				Value = Definitions::instance()->getRandomListEntry( Tag->getAttribute( "list" ) );
-			else if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
-			{
-				QString min = Tag->getAttribute( "min" );
-				QString max = Tag->getAttribute( "max" );
-
-				if ( min.contains( "." ) || max.contains( "." ) )
-					Value = QString::number( RandomNum( ( int ) min.toFloat(), ( int ) max.toFloat() ) );
-				else
-					Value = QString::number( RandomNum( min.toInt(), max.toInt() ) );
-			}
-			else
-				Value = "1";
+			Value = "1";
 		}
-
 		cVariant variant( Value );
 		setProperty( TagName, variant );
 	}

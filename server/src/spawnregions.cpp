@@ -300,48 +300,27 @@ void cSpawnRegion::processNode( const cElement* tag )
 	else if ( name == "nocheckfreespot" )
 		this->checkFreeSpot_ = false;
 
-	// <maxnpcamount value="10" />
 	// <maxnpcamount>10</maxnpcamount>
 	else if ( name == "maxnpcamount" )
 	{
-		if ( tag->hasAttribute( "value" ) )
-			this->maxNpcAmt_ = tag->getAttribute( "value" ).toUShort();
-		else
-			this->maxNpcAmt_ = value.toUShort();
+		this->maxNpcAmt_ = value.toUShort();
 	}
-
-	// <maxitemamount value="5" />
 	// <maxitemamount>5</maxitemamount>
 	else if ( name == "maxitemamount" )
 	{
-		if ( tag->hasAttribute( "value" ) )
-			this->maxItemAmt_ = tag->getAttribute( "value" ).toUShort();
-		else
-			this->maxItemAmt_ = value.toUShort();
+		this->maxItemAmt_ = value.toUShort();
 	}
-
-	// <npcspercycle value="3" />
 	// <npcspercycle>3</npcspercycle>
 	else if ( name == "npcspercycle" )
 	{
-		if ( tag->hasAttribute( "value" ) )
-			this->npcsPerCycle_ = tag->getAttribute( "value" ).toUShort();
-		else
-			this->npcsPerCycle_ = value.toUShort();
+		this->npcsPerCycle_ = value.toUShort();
 	}
-
-	// <itemspercycle value="3" />
 	// <itemspercycle>3</itemspercycle>
 	else if ( name == "itemspercycle" )
 	{
-		if ( tag->hasAttribute( "value" ) )
-			this->itemsPerCycle_ = tag->getAttribute( "value" ).toUShort();
-		else
-			this->itemsPerCycle_ = value.toUShort();
+		this->itemsPerCycle_ = value.toUShort();
 	}
-
 	// <delay min="5" max="10" />
-	// <delay value="5" />
 	// <delay>5</delay>
 	else if ( name == "delay" )
 	{
@@ -349,11 +328,6 @@ void cSpawnRegion::processNode( const cElement* tag )
 		{
 			minTime_ = tag->getAttribute( "min" ).toUInt();
 			maxTime_ = tag->getAttribute( "max" ).toUInt();
-		}
-		else if ( tag->hasAttribute( "value" ) )
-		{
-			minTime_ = tag->getAttribute( "value" ).toUInt();
-			maxTime_ = tag->getAttribute( "value" ).toUInt();
 		}
 		else
 		{
