@@ -1419,76 +1419,61 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 
 void cSkills::ProvocationTarget2(UOXSOCKET s)
 {
-	if( calcCharFromPtr(buffer[s]+7) == -1 ) return;
+	cChar* Victim2 = FindCharBySerPtr(buffer[s]+7);
+	if (!Victim2)
+		return;
 
-	int inst, target, target2, res1, res2;
-	unsigned int i;
 	CHARACTER cc=currchar[s];
-	P_CHAR pc = MAKE_CHARREF_LR(cc);
+	cChar* Player = MAKE_CHARREF_LR(cc);
 
-	inst = GetInstrument(s);
+	int target=calcCharFromSer(addid1[s], addid2[s], addid3[s], addid4[s]);
+	cChar* Victim1 = MAKE_CHARREF_LR(target);
+
+	if (Victim2->inGuardedArea())
+	{
+		sysmessage(s,"You cant do that in town!");
+		return;
+	}
+	if (Victim1->isSameAs(Victim2))
+	{
+		sysmessage(s, "Silly bard! You can't get something to attack itself.");
+		return;
+	}
+
+	int inst = GetInstrument(s);
 	if (inst==-1) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
 	}
-	target=calcCharFromSer(addid1[s], addid2[s], addid3[s], addid4[s]);
-	P_CHAR pc_target  = MAKE_CHARREF_LR(target);
-	target2=calcCharFromPtr(buffer[s]+7);
-	if (target2 == -1) return;
-	P_CHAR pc_target2 = MAKE_CHARREF_LR(target2);
-	if (pc_target2->inGuardedArea())
-	{
-		sysmessage(s,"You cant do that in town!");
-		return;
-	}
-	if (pc_target == pc_target2)
-	{
-		sysmessage(s, "Silly bard! You can't get something to attack itself.");
-		return;
-	}
-	res1 = CheckSkill(cc, PROVOCATION, 0, 1000);
-	res2 = CheckSkill(cc, MUSICIANSHIP, 0, 1000);
-	if (res2)
+	if (CheckSkill(cc, MUSICIANSHIP, 0, 1000))
 	{
 		PlayInstrumentWell(s, inst);
-		if (res1)
+		if (CheckSkill(cc, PROVOCATION, 0, 1000))
 		{
-			if (pc->inGuardedArea())
-				Combat->SpawnGuard(cc,cc,pc->pos.x+1,pc->pos.y,pc->pos.z); //ripper
+			if (Player->inGuardedArea())
+				Combat->SpawnGuard(cc,cc,Player->pos.x+1,Player->pos.y,Player->pos.z); //ripper
 			sysmessage(s, "Your music succeeds as you start a fight.");
-			pc_target->fight(pc_target2);
-			pc_target->setAttackFirst();
-
-			pc_target2->fight(pc_target);
-			pc_target2->resetAttackFirst();
-
-			sprintf((char*)temp, "* You see %s attacking %s *", pc_target->name, pc_target2->name);
-			for (i=0;i<now;i++)
-			{
-				if (inrange1p(currchar[i], DEREF_P_CHAR(pc_target))&&perm[i])
-				{
-					itemmessage(i, (char*)temp, pc_target->serial);
-				}
-			}
 		}
 		else 
 		{
 			sysmessage(s, "Your music fails to incite enough anger.");
-			target2=cc;
-			pc_target->fight(pc_target2);
-			pc_target->setAttackFirst();
+			Victim2 = Player;		// make the targeted one attack the Player
+		}
 
-			pc_target2->fight(pc_target);
-			pc_target2->resetAttackFirst();
-
-			sprintf((char*)temp, "* You see %s attacking %s *", pc_target->name, pc_target2->name);
-			for (i=0;i<now;i++)
+		Victim1->fight(Victim2);
+		Victim1->setAttackFirst();
+		
+		Victim2->fight(Victim1);
+		Victim2->resetAttackFirst();
+		
+		sprintf(temp, "* You see %s attacking %s *", Victim1->name, Victim2->name);
+		unsigned int i;
+		for (i=0;i<now;i++)
+		{
+			if (inrange1p(currchar[i], target)&&perm[i])
 			{
-				if (inrange1p(currchar[i], DEREF_P_CHAR(pc_target))&&perm[i])
-				{
-					itemmessage(i, (char*)temp, pc_target->serial);
-				}
+				itemmessage(i, temp, Victim1->serial);
 			}
 		}
 	}
