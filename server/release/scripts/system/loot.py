@@ -22,25 +22,47 @@ PACKS = {
 		[0.9, 'eed', '1d10', 1] # 1 - 10
 	],
 	'poor': [
-		[1.0, 'eed', '1d10+10', 1]
+		[1.0, 'eed', '1d10+10', 1] # 11 - 20
 	],
 	'meager': [
-		[1.0, 'eed', '3d10+20', 1]
+		[1.0, 'eed', '3d10+20', 1] # 23 - 50
 	],
 	'average': [
-		[1.0, 'eed', '5d10+50', 1]
+		[1.0, 'eed', '5d10+50', 1] # 55 - 100
 	],
 	'rich': [
-		[1.0, 'eed', '10d10+150', 1]
+		[1.0, 'eed', '10d10+150', 1] # 160 - 250
 	],
 	'filthyrich': [
-		[1.0, 'eed', '2d100+200', 1]
+		[1.0, 'eed', '2d100+200', 1] # 202 - 400
 	],
 	'ultrarich': [
-		[1.0, 'eed', '5d100+500', 1]
+		[1.0, 'eed', '5d100+500', 1] # 505 - 1000
 	],
 	'superboss': [
-		[1.0, 'eed', '5d100+500', 1]
+		[1.0, 'eed', '10d100+1000', 1] # 1010 - 2000
+	],
+	# Gem Packs
+	'gems_poor': [
+		[1.0, DEF_BASEGEMS, '1d2', 1] # 100%, 1 - 2
+	],
+	'gems_low': [
+		[1.0, DEF_BASEGEMS, '1d4+1', 1] # 100%, 2 - 5
+		[0.5, DEF_BASEGEMS, '1d4', 1] # 50%, 1 - 4
+	],
+	'gems_medium': [
+		[1.0, DEF_BASEGEMS, '1d6+2', 1] # 100%, 3 - 8
+		[0.5, DEF_BASEGEMS, '1d2', 1] # 50%, 1 - 2
+	],
+	'gems_high': [
+		[1.0, DEF_BASEGEMS, '1d8+5', 1] # 100%, 6 - 13
+		[0.66, DEF_BASEGEMS, '1d6+5', 1] # 66%, 6 - 11
+		[0.33, DEF_BASEGEMS, '1d4+5', 1] # 33%, 6 - 9
+	],
+	'gems_veryhigh': [
+		[1.0, DEF_BASEGEMS, '1d10+5', 1] # 100%, 6 - 15
+		[0.66, DEF_BASEGEMS, '1d10+8', 1] # 66%, 9 - 18
+		[0.33, DEF_BASEGEMS, '1d10+10', 1] # 33%, 11 - 20
 	],
 	# Instrument Packs
 	'instrument_spoor': [
@@ -65,6 +87,9 @@ PACKS = {
 	'weapons_axes': [
 		[1.0, DEF_WEAPONS_AXES, 1, 0]
 	],
+	'weapons_swordsmanship': [
+		[1.0, DEF_WEAPONS_SWORDSMANSHIP, 1, 0]
+	],
 	'weapons_maces': [
 		[1.0, DEF_WEAPONS_MACES, 1, 0]
 	],
@@ -82,6 +107,9 @@ PACKS = {
 	],
 	'weapons_high_axes': [
 		[0.75, DEF_WEAPONS_AXES, 1, 0]
+	],
+	'weapons_high_swordsmanship': [
+		[0.75, DEF_WEAPONS_SWORDSMANSHIP, 1, 0]
 	],
 	'weapons_high_maces': [
 		[0.75, DEF_WEAPONS_MACES, 1, 0]
@@ -101,6 +129,9 @@ PACKS = {
 	'weapons_med_axes': [
 		[0.5, DEF_WEAPONS_AXES, 1, 0]
 	],
+	'weapons_med_swordsmanship': [
+		[0.5, DEF_WEAPONS_SWORDSMANSHIP, 1, 0]
+	],
 	'weapons_med_maces': [
 		[0.5, DEF_WEAPONS_MACES, 1, 0]
 	],
@@ -119,6 +150,9 @@ PACKS = {
 	'weapons_low_axes': [
 		[0.25, DEF_WEAPONS_AXES, 1, 0]
 	],
+	'weapons_low_swordsmanship': [
+		[0.25, DEF_WEAPONS_SWORDSMANSHIP, 1, 0]
+	],
 	'weapons_low_maces': [
 		[0.25, DEF_WEAPONS_MACES, 1, 0]
 	],
@@ -129,7 +163,24 @@ PACKS = {
 		[0.25, DEF_WEAPONS_BOWS, 1, 0]
 	],
 	# Armor Packs
-
+	'armor_all_low': [
+		[0.33, DEF_ALLARMOR, 1, 0]
+	],
+	'armor_all_med': [
+		[0.66, DEF_ALLARMOR, 1, 0]
+	],
+	'armor_all_high': [
+		[0.99, DEF_ALLARMOR, 1, 0]
+	],
+	'armor_platemail_low': [
+		[0.33, DEF_PLATEMAIL, 1, 0]
+	],
+	'armor_platemail_med': [
+		[0.66, DEF_PLATEMAIL, 1, 0]
+	],
+	'armor_platemail_high': [
+		[0.99, DEF_PLATEMAIL, 1, 0]
+	],
 	# Reagent Packs
 
 	# Monster Packs
@@ -150,7 +201,28 @@ PACKS = {
 		[0.85, DEF_DRINKS_ALCOHOL, 1, 0],
 		[0.65, DEF_WEAPONS_SWORDSMANSHIP, 1, 0],
 		[0.75, DEF_ORCHEADGEAR, 1, 0]
+	],
+	# Food Packs
+	'foodpack_low': [
+		[0.33, DEF_FOOD_MEATS + DEF_FOOD_GREENS, 1, 0],
+	],
+	'foodpack_med': [
+		[0.66, DEF_FOOD_MEATS + DEF_FOOD_GREENS, 1, 0],
+	],
+	'foodpack_high': [
+		[0.99, DEF_FOOD_MEATS + DEF_FOOD_GREENS, 1, 0],
+	],
+	# Alcohol Drink Packs
+	'alcoholpack_low': [
+		[0.33, DEF_DRINKS_ALCOHOL, 1, 0],
+	],
+	'alcoholpack_med': [
+		[0.66, DEF_DRINKS_ALCOHOL, 1, 0],
+	],
+	'alcoholpack_high': [
+		[0.99, DEF_DRINKS_ALCOHOL, 1, 0],
 	]
+	#
 }
 
 #

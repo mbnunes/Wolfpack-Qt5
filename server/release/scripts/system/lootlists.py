@@ -81,3 +81,10 @@ DEF_ALLREGS = DEF_PLAINREGS + DEF_NECROREGS
 # Misc Stuff
 DEF_ORES = ['19b7', '19b8', '19ba', '19b9'] # Smallest -> Largest
 
+# Gems
+DEF_BASEGEMS = ['f0f', 'f11', 'f15', 'f16', 'f18', 'f13', 'f10', 'f25', 'f26']
+DEF_ALLGEMS = ['f1b', 'f21', 'f12', 'f19', 'f1f', 'f23', 'f24', 'f2c', 'f17', 'f22', 'f2e', 'f1e', 'f20', 'f2d', 'f14', 'f1a', 'f1c', 'f1d',
+	'f2a', 'f2b', 'f2f', 'f27', 'f28', 'f29', 'f30'] + DEF_BASEGEMS
+
+#
+
