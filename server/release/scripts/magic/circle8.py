@@ -100,11 +100,12 @@ class SummonElementBase(Spell):
 		self.validtarget = TARGET_GROUND
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1}
 		self.casttime = 6000
+		self.controlslots = 3
 
 	def target(self, char, mode, targettype, target, args=[]):
 		char.turnto(target)
 
-		if char.player and char.controlslots >= 5:
+		if char.player and char.controlslots + self.controlslots > 5:
 			char.socket.clilocmessage(1049645)
 			return
 
@@ -112,7 +113,8 @@ class SummonElementBase(Spell):
 			return
 
 		creature = wolfpack.addnpc(self.elementid, target)
-		creature.controlslots = 1
+		creature.controlslots = self.controlslots
+		creature.addevent('speech.pets')
 		creature.owner = char
 		creature.summontime = wolfpack.time.servertime() + 120000
 		creature.summoned = 1
@@ -154,3 +156,4 @@ class SummonDaemon(SummonElementBase):
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1}
 		self.elementid = 'daemon'
 		self.casttime = 6000
+		self.controlslots = 5

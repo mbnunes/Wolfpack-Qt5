@@ -349,6 +349,7 @@ class SummonCreature (Spell):
 
 		creature = wolfpack.addnpc(npcid, target)
 		creature.tamed = 1
+		creature.addevent('speech.pets')
 		creature.controlslots = 2
 		creature.owner = char
 		creature.summontime = wolfpack.time.servertime() + int(char.skill[MAGERY] * 400)

@@ -108,6 +108,9 @@ def transfer_target(char, arguments, target):
 		char.socket.sysmessage('You transfer your pet to %s.' % target.char.name)
 
 def transfer(char, pet):
+	if pet.summoned:
+		return
+
 	char.socket.sysmessage('Who do you want to transfer your pet to?')
 	char.socket.attachtarget("speech.pets.transfer_target", [pet.serial])
 	
@@ -137,6 +140,10 @@ def follow(char, pet, all=0):
 	char.socket.attachtarget("speech.pets.follow_target", [pet.serial, all])
 	
 def release(char, pet):
+	if pet.summoned:
+		pet.delete()
+		return
+
 	pet.owner = None
 	if pet.tamed:
 		pet.tamed = 0
