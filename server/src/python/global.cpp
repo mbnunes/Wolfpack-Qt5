@@ -957,6 +957,10 @@ static PyObject* wpNewPlayer( PyObject *self, PyObject *args )
 	return PyGetCharObject( pPlayer );
 }
 
+
+/*!
+	Returns the number of milliseconds since the server has started
+*/
 static PyObject* wpTickcount( PyObject* self )
 {
 	Q_UNUSED(self);
@@ -1008,19 +1012,22 @@ static PyMethodDef wpGlobal[] =
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 
-PyObject *wpSocketsFirst( PyObject* self )
+static PyObject *wpSocketsFirst( PyObject* self )
 {
 	Q_UNUSED(self);
 	return PyGetSocketObject( cNetwork::instance()->first() );
 }
 
-PyObject *wpSocketsNext( PyObject* self )
+static PyObject *wpSocketsNext( PyObject* self )
 {
 	Q_UNUSED(self);
 	return PyGetSocketObject( cNetwork::instance()->next() );  
 }
 
-PyObject *wpSocketsCount( PyObject* self )
+/*!
+	Retrieves the number of currently connected sockets
+*/
+static PyObject *wpSocketsCount( PyObject* self )
 {
 	Q_UNUSED(self);
 	return PyInt_FromLong( cNetwork::instance()->count() );
@@ -1042,7 +1049,7 @@ static PyMethodDef wpSockets[] =
 /*!
 	Adds a speech keyword to a wolfpack script object.
 */
-PyObject *wpSpeechAddKeyword( PyObject* self, PyObject* args )
+static PyObject *wpSpeechAddKeyword( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) || !checkArgInt( 1 ) )
@@ -1067,7 +1074,7 @@ PyObject *wpSpeechAddKeyword( PyObject* self, PyObject* args )
 /*!
 	Adds a speech trigger-word to a wolfpack script object.
 */
-PyObject *wpSpeechAddWord( PyObject* self, PyObject* args )
+static PyObject *wpSpeechAddWord( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
@@ -1092,7 +1099,7 @@ PyObject *wpSpeechAddWord( PyObject* self, PyObject* args )
 /*!
 	Adds a speech regular expression to a wolfpack script object.
 */
-PyObject *wpSpeechAddRegexp( PyObject* self, PyObject* args )
+static PyObject *wpSpeechAddRegexp( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
@@ -1117,7 +1124,7 @@ PyObject *wpSpeechAddRegexp( PyObject* self, PyObject* args )
 /*!
 	Specifies if a speech script should fetch all speech events and not just one case.
 */
-PyObject *wpSpeechSetCatchAll( PyObject* self, PyObject* args )
+static PyObject *wpSpeechSetCatchAll( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) || !checkArgInt( 1 ) )
@@ -1145,17 +1152,17 @@ PyObject *wpSpeechSetCatchAll( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpSpeech[] = 
 {
-    { "addKeyword",		wpSpeechAddKeyword, METH_VARARGS, "Adds a keyword to a specific speech script." },
-	{ "addWord",		wpSpeechAddWord,	METH_VARARGS, "Adds a triggerword to a specific speech script." },
-	{ "addRegexp",		wpSpeechAddRegexp, METH_VARARGS, "Adds a regular expression to a specific speech script." },
-	{ "setCatchAll",	wpSpeechSetCatchAll, METH_VARARGS, "Specifies if a speech script should fetch all speech events and not just one case." },
+    { "addKeyword",		wpSpeechAddKeyword,		METH_VARARGS, "Adds a keyword to a specific speech script." },
+	{ "addWord",		wpSpeechAddWord,		METH_VARARGS, "Adds a triggerword to a specific speech script." },
+	{ "addRegexp",		wpSpeechAddRegexp,		METH_VARARGS, "Adds a regular expression to a specific speech script." },
+	{ "setCatchAll",	wpSpeechSetCatchAll,	METH_VARARGS, "Specifies if a speech script should fetch all speech events and not just one case." },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 
 /*!
 	Finds an Account object.
  */
-PyObject *wpAccountsFind( PyObject* self, PyObject* args )
+static PyObject *wpAccountsFind( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) )
@@ -1171,7 +1178,7 @@ PyObject *wpAccountsFind( PyObject* self, PyObject* args )
 /*!
 	Gets a list of Account names.
  */
-PyObject *wpAccountsList( PyObject* self )
+static PyObject *wpAccountsList( PyObject* self )
 {
 	Q_UNUSED(self);
 	PyObject *list = PyList_New( 0 );
@@ -1191,7 +1198,7 @@ PyObject *wpAccountsList( PyObject* self )
 /*!
 	Gets a list of ACL names.
  */
-PyObject *wpAccountsAcls( PyObject* self )
+static PyObject *wpAccountsAcls( PyObject* self )
 {
 	Q_UNUSED(self);
 	PyObject *list = PyList_New( 0 );
@@ -1211,7 +1218,7 @@ PyObject *wpAccountsAcls( PyObject* self )
 /*!
 	Returns an ACL as a dictionary.
  */
-PyObject *wpAccountsAcl( PyObject* self, PyObject* args )
+static PyObject *wpAccountsAcl( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) )
@@ -1240,7 +1247,7 @@ PyObject *wpAccountsAcl( PyObject* self, PyObject* args )
 /*!
 	Creates an account (username + password is enough)
  */
-PyObject *wpAccountsAdd( PyObject* self, PyObject* args )
+static PyObject *wpAccountsAdd( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) && !checkArgStr( 1 ) )
@@ -1267,7 +1274,7 @@ PyObject *wpAccountsAdd( PyObject* self, PyObject* args )
 /*!
 	Reload accounts.
  */
-PyObject *wpAccountsReload( PyObject* self )
+static PyObject *wpAccountsReload( PyObject* self )
 {
 	Q_UNUSED(self);
 	Accounts::instance()->reload();
@@ -1277,7 +1284,7 @@ PyObject *wpAccountsReload( PyObject* self )
 /*!
 	Save accounts.
  */
-PyObject *wpAccountsSave( PyObject* self )
+static PyObject *wpAccountsSave( PyObject* self )
 {
 	Q_UNUSED(self);
 	Accounts::instance()->save();
@@ -1303,7 +1310,7 @@ static PyMethodDef wpAccounts[] =
 /*!
 	Reads a boolean value from wolfpack.xml
  */
-PyObject *wpSettingsGetBool( PyObject* self, PyObject* args )
+static PyObject *wpSettingsGetBool( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) && !checkArgStr( 1 ) && !checkArgInt( 2 ) )
@@ -1318,7 +1325,7 @@ PyObject *wpSettingsGetBool( PyObject* self, PyObject* args )
 /*!
 	Writes a boolean value to wolfpack.xml
 */
-PyObject *wpSettingsSetBool( PyObject* self, PyObject* args )
+static PyObject *wpSettingsSetBool( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if ( !checkArgStr(0) && !checkArgStr( 1 ) && !checkArgInt( 2 ) )
@@ -1333,7 +1340,7 @@ PyObject *wpSettingsSetBool( PyObject* self, PyObject* args )
 /*!
 	Reads a numeric value from wolfpack.xml
  */
-PyObject *wpSettingsGetNumber( PyObject* self, PyObject* args )
+static PyObject *wpSettingsGetNumber( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) && !checkArgStr( 1 ) && !checkArgInt( 2 ) )
@@ -1347,7 +1354,7 @@ PyObject *wpSettingsGetNumber( PyObject* self, PyObject* args )
 /*!
 	Writes a boolean value to wolfpack.xml
 */
-PyObject *wpSettingsSetNumber( PyObject* self, PyObject* args )
+static PyObject *wpSettingsSetNumber( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if ( !checkArgStr(0) && !checkArgStr( 1 ) && !checkArgInt( 2 ) )
@@ -1362,7 +1369,7 @@ PyObject *wpSettingsSetNumber( PyObject* self, PyObject* args )
 /*!
 	Reads a numeric value from wolfpack.xml
  */
-PyObject *wpSettingsGetString( PyObject* self, PyObject* args )
+static PyObject *wpSettingsGetString( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) && !checkArgStr( 1 ) && !checkArgStr( 2 ) )
@@ -1376,7 +1383,7 @@ PyObject *wpSettingsGetString( PyObject* self, PyObject* args )
 /*!
 	Writes a boolean value to wolfpack.xml
 */
-PyObject *wpSettingsSetString( PyObject* self, PyObject* args )
+static PyObject *wpSettingsSetString( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if ( !checkArgStr(0) && !checkArgStr( 1 ) && !checkArgStr( 2 ) )
@@ -1391,7 +1398,7 @@ PyObject *wpSettingsSetString( PyObject* self, PyObject* args )
 /*!
 	Reloads wolfpack.xml
 */
-PyObject* wpSettingsReload( PyObject* self )
+static PyObject* wpSettingsReload( PyObject* self )
 {
 	Q_UNUSED(self);
 	SrvParams->reload();
@@ -1401,7 +1408,7 @@ PyObject* wpSettingsReload( PyObject* self )
 /*!
 	Saves wolfpack.xml
 */
-PyObject* wpSettingsSave( PyObject* self )
+static PyObject* wpSettingsSave( PyObject* self )
 {
 	Q_UNUSED(self);
 	SrvParams->flush();
