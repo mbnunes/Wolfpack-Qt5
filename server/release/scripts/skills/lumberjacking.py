@@ -98,12 +98,11 @@ def createwoodgem( target, pos ):
 
 def getvein( socket, pos, target ):
 	#Check if we have wood_gems near ( range = 4)
-	gems = wolfpack.items( pos.x, pos.y, pos.map, 4 )
+	gems = wolfpack.items( pos.x, pos.y, pos.map, 0 )
 	for gem in gems:
-		if wolfpack.finditem( gem.serial ):
-			if gem.hastag('resource') and gem.gettag('resource') == 'wood' and gem.hastag('resname') and gem.id == hex2dec( 0x1ea7 ):
-				return gem
-				break
+		if gem.hastag('resource') and gem.gettag('resource') == 'wood' and gem.hastag('resname') and gem.id == 0x1ea7:
+			return gem
+			break
 	if not gems:
 		gem = createwoodgem(target, pos)
 		return gem
