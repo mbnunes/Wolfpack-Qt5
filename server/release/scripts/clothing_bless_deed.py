@@ -6,7 +6,7 @@
 #################################################################
 
 import wolfpack
-from wolfpack.utilities import isclothing
+from wolfpack.utilities import *
 from wolfpack.consts import *
 import re
 
@@ -43,7 +43,6 @@ def response( char, args, target ):
 	target.item.settag( "blessed", 1 )
 	target.item.newbie = 1
 	item.delete()
-	char.socket.sendcontainer( backpack )
 	
 	return 1
 
