@@ -528,8 +528,25 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 	rObject.setSerial( pItem->serial );
 	socket->send( &rObject );
 
-
 	P_CHAR pChar = socket->player();
+
+	if( pItem->onDropOnChar( pChar ) )
+	{
+		// Still dragging? Bounce!
+		if( socket->dragging() == pItem )
+			socket->bounceItem( pItem, BR_NO_REASON );
+
+		return;
+	}
+
+	if( pChar->onDropOnChar( pItem ) )
+	{
+		// Still dragging? Bounce!
+		if( socket->dragging() == pItem )
+			socket->bounceItem( pItem, BR_NO_REASON );
+
+		return;
+	}
 
 	// Dropped on ourself
 	if( pChar == pOtherChar )

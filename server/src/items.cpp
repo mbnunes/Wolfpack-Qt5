@@ -1331,6 +1331,19 @@ bool cItem::onSingleClick( P_CHAR Viewer )
 
 }
 
+bool cItem::onDropOnChar( P_CHAR pChar )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onDropOnChar( pChar, this ) )
+			return true;
+
+	return false;
+}
+
 void cItem::processNode( const QDomElement& Tag )
 {
 	// we do this as we're going to modify the element

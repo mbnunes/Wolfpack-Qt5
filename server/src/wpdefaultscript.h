@@ -110,6 +110,9 @@ public:
 	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id ) { return false; }
 	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject ) { return false; }
 
+	// Drop Events
+	virtual bool onDropOnChar( P_CHAR pChar, P_ITEM pItem ) { return false; }
+
 	// Speech Event
 	virtual bool onSpeech( cUObject *listener, P_CHAR talker, const QString &text, std::vector< UINT16 > keywords ) { return false; }
 

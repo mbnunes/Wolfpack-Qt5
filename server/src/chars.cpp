@@ -1090,6 +1090,19 @@ bool cChar::onCollideChar( P_CHAR Obstacle )
 	return false;
 }
 
+bool cChar::onDropOnChar( P_ITEM pItem )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onDropOnChar( this, pItem ) )
+			return true;
+
+	return false;
+}
+
 void cChar::processNode( const QDomElement &Tag )
 {
 	QString TagName = Tag.nodeName();

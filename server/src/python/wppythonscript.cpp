@@ -395,3 +395,14 @@ bool WPPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString 
 
 	PyEvalMethod( "onSpeech" )
 }
+
+bool WPPythonScript::onDropOnChar( P_CHAR pChar, P_ITEM pItem )
+{
+	PyHasMethod( "onDropOnChar" )
+	
+	PyObject *tuple = PyTuple_New( 2 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
+
+	PyEvalMethod( "onDropOnChar" )
+}

@@ -337,6 +337,7 @@ public:
 
 	// Public event wrappers added by darkstorm
 	virtual bool onSingleClick( P_CHAR Viewer );
+	bool onDropOnChar( P_CHAR pChar );
 	
 	QPtrList< cItem > getContainment() const;
 
