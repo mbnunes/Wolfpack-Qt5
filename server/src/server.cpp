@@ -284,6 +284,11 @@ bool cServer::run( int argc, char** argv )
 
 	d->app = new QApplication( argc, argv, false );
 
+	// Set the default conversion codec (This is was OSI is using)
+	// ISO-8859-15 (MIB: 111)
+	QTextCodec::setCodecForLocale( QTextCodec::codecForMib(111) );
+	QTextCodec::setCodecForCStrings( QTextCodec::codecForMib(111) );
+
 	/*	cItem *item1 = (cItem*)0;
 		cItem *item2 = (cItem*)1;
 		cItem *item3 = (cItem*)2;
