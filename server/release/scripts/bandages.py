@@ -112,7 +112,7 @@ def bandage_response( char, args, target ):
 	elif target.char and not validCharTarget( char, target.char ):
 		return
 	
-	else:
+	elif not target.char:
 		char.message( 'You have to target either a corpse or a creature.' )
 		return
 		

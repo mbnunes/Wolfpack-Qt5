@@ -634,6 +634,22 @@ public:
 0010: 7d 00 00 38 08 00 00 38 17 00 00 01 0c 00 00 01
 0020: 0c -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 */
+
+// 0xBF Sub 0x22 Damage
+class cUOTxDamage: public cUOPacket
+{
+public:
+	cUOTxDamage(): cUOPacket( 0xBF, 11 )
+	{
+		setShort( 1, 11 );
+		setShort( 3, 0x22 );
+	}
+
+	void setUnknown1( unsigned char data ) { (*this)[5] = data; }
+	void setSerial( unsigned int data ) { setInt( 6, data ); }
+	void setDamage( unsigned char data ) { (*this)[10] = data; }
+};
+
 // 0x21 DenyMove
 class cUOTxDenyMove: public cUOPacket
 {

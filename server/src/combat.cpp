@@ -763,16 +763,19 @@ namespace Combat
 		{
 			damage = pDefender->damage( DAMAGE_PHYSICAL, damage, pAttacker );
 			
-			if( !damage )
+			if( !damage || pDefender->isDead() )
 				return;
 
-			if( pAttacker->objectType() == enPlayer )
+			P_PLAYER pPlayer = dynamic_cast< P_PLAYER >( pAttacker );
+
+			if( pPlayer && pPlayer->socket() )
 			{
-				P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
-				
-				if( pp->socket() )
-					pp->socket()->showSpeech( pDefender, QString::number( damage ), 0x1F, 6 );
-			}
+				cUOTxDamage showdamage;
+				showdamage.setSerial( pDefender->serial() );
+				showdamage.setUnknown1( 1 ); // Always 1
+				showdamage.setDamage( damage );
+				pPlayer->socket()->send( &showdamage );
+			}			
 		}
 
 		// Create blood below the defender if severe
@@ -808,24 +811,6 @@ namespace Combat
 		   }
 		}*/
 
-		/*
-		//===== SPLITTING NPCS
-		UI08 splitnum = 0;
-		if( ( pDefender->split() > 0 ) && ( pDefender->hitpoints() >= 1 ) )
-		{
-			if( RandomNum( 0, 100 ) <= pDefender->splitchnc() )
-			{
-				if( pDefender->split() == 1 ) 
-					splitnum = 1;
-				else 
-					splitnum = RandomNum( 1, pDefender->split() );
-				
-				for( UI08 splitcount = 0; splitcount < splitnum; splitcount++ )
-					cCharStuff::Split( pDefender );
-			}
-		}
-*/
-
 		// We lost Stamina
 		if( pDefender->stamina() != oldStm && pDefender->objectType() == enPlayer )
 		{
@@ -833,10 +818,6 @@ namespace Combat
 			if( pp->socket() )
 				pp->socket()->sendStatWindow();
 		}
-
-		// Get Hit sound + Animation
-		playGetHitSoundEffect( pDefender );
-		// pDefender->action( );
 	}
 
 	/*!
