@@ -91,9 +91,12 @@ public:
 	void add( const QString& Name, WPDefaultScript *Script );
 	void remove( const QString& Name );
 
-	void load( bool serverstart = false );
+	void load( void );
 	void reload( void );
 	void unload( void );
+
+	void onServerStart(); // Call the onServerStart Event
+	void onServerStop(); // Call the onServerEnd Event
 
 	void addCommandHook( const QString &command, WPDefaultScript *script );
 	void addGlobalHook( UINT32 object, UINT32 event, WPDefaultScript *script );

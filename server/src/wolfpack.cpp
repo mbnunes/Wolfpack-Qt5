@@ -994,16 +994,18 @@ int main( int argc, char *argv[] )
 		exit( -1 );
 	}
 
+	// Load data
+	DefManager->load();
+	clConsole.send( "\n" );
+
+	// Scriptmanager can't be in the try{} block because it sometimes throws firstchance exceptions
+	// we don't like
+	ScriptManager->load();
+	clConsole.send( "\n" );
+
 	// Try to load several data files
 	try
 	{
-		// Load data
-		DefManager->load();
-		clConsole.send( "\n" );
-
-		ScriptManager->load( true );
-		clConsole.send( "\n" );
-
 		clConsole.send( "Loading skills...\n" );
 		Skills->load();
 
@@ -1293,6 +1295,8 @@ int main( int argc, char *argv[] )
 
 	PyThreadState *_save;
 
+	ScriptManager->onServerStart();
+
 	// Start the Console Input thread
 	cConsoleThread consoleThread;
 	consoleThread.start();
@@ -1412,6 +1416,8 @@ int main( int argc, char *argv[] )
 	serverState = SHUTDOWN;
 
 	consoleThread.cancel();
+
+	ScriptManager->onServerStop();
 
 	cNetwork::instance()->broadcast( tr( "The server is shutting down." ) );
 

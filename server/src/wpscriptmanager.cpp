@@ -128,7 +128,7 @@ void WPScriptManager::unload( void )
 	commandhooks.clear();
 }
 
-void WPScriptManager::load( bool serverstart )
+void WPScriptManager::load()
 {
 	clConsole.PrepareProgress( "Loading Script Manager" );
 
@@ -142,7 +142,7 @@ void WPScriptManager::load( bool serverstart )
 	{
 		const QDomElement *NodePtr = DefManager->getSection( WPDT_SCRIPT, SectionList[ i ] );
 
-		if( !NodePtr->attributes().contains( QString( "type" ) ) )
+		if( !NodePtr || NodePtr->isNull() || !NodePtr->attributes().contains( QString( "type" ) ) )
 			continue;
 
 		QString ScriptType = NodePtr->attributes().namedItem( QString( "type" ) ).nodeValue();
@@ -159,8 +159,6 @@ void WPScriptManager::load( bool serverstart )
 	
 		add( SectionList[ i ].latin1(), Script );
 		Script->load( *NodePtr );
-		if( serverstart )
-			Script->onServerstart();
 		++ScriptsLoaded;
 	}
 
@@ -201,4 +199,18 @@ WPDefaultScript *WPScriptManager::getCommandHook( const QString &command )
 const QValueVector< WPDefaultScript* > WPScriptManager::getGlobalHooks( UINT32 object, UINT32 event )
 {
 	return globalhooks[ object ][ event ];  
+}
+
+void WPScriptManager::onServerStart()
+{
+	map< QString, WPDefaultScript* >::iterator ScriptIterator;
+
+	for( ScriptIterator = Scripts.begin(); ScriptIterator != Scripts.end(); ++ScriptIterator )
+	{
+		ScriptIterator->second->onServerstart();
+	}	
+}
+
+void WPScriptManager::onServerStop()
+{
 }

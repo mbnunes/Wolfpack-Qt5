@@ -14,14 +14,8 @@
 		CHUNK_UOBJECT = 0x0000,
 		CHUNK_ITEM = 0x0001,
 		CHUNK_CHAR = 0x0002,
+		CHUNK_SKILLS = 0x0003,
 	};
 	
-	// Object-Type: 0x0002
-	// Character Chunk Keys, Maximum: 256
-	enum eCharKeys
-	{
-
-	};
-
 
 #endif

@@ -55,8 +55,11 @@
 #include <map>
 #include <list>
 
+// UNCOMMENT THIS IF YOU WANT TO USE A HASHMAP 
+#define WP_USE_HASHMAP
+
 // Important compile switch
-#if defined(WP_DONT_USE_HASH_MAP)
+#if !defined(WP_USE_HASHMAP)
 #include <map>
 typedef std::map< SERIAL, P_ITEM > ItemMap;
 typedef std::map< SERIAL, P_CHAR > CharMap;
@@ -384,7 +387,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 	// Check if the Serial really is correct
 	if( isItemSerial( serial ) )
 	{
-		std::map< SERIAL, P_ITEM >::iterator it = p->items.find( serial );
+		ItemMap::iterator it = p->items.find( serial );
 
 		if( it != p->items.end() )
 		{
@@ -409,7 +412,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 	}
 	else if( isCharSerial( serial ) )
 	{
-		std::map< SERIAL, P_CHAR >::iterator it = p->chars.find( serial );
+		CharMap::iterator it = p->chars.find( serial );
 
 		if( it != p->chars.end() )
 		{
@@ -454,7 +457,7 @@ void cWorld::unregisterObject( SERIAL serial )
 {
 	if( isItemSerial( serial ) )
 	{
-		std::map< SERIAL, P_ITEM >::iterator it = p->items.find( serial - 0x40000000 );
+		ItemMap::iterator it = p->items.find( serial - 0x40000000 );
 
 		if( it == p->items.end() )
 		{
@@ -470,7 +473,7 @@ void cWorld::unregisterObject( SERIAL serial )
 	}
 	else if( isCharSerial( serial ) )
 	{
-		std::map< SERIAL, P_CHAR >::iterator it = p->chars.find( serial );
+		CharMap::iterator it = p->chars.find( serial );
 
 		if( it == p->chars.end() )
 		{
@@ -493,7 +496,7 @@ void cWorld::unregisterObject( SERIAL serial )
 
 P_ITEM cWorld::findItem( SERIAL serial ) const
 {
-	std::map< SERIAL, P_ITEM >::const_iterator it = p->items.find( serial - 0x40000000 );
+	ItemMap::const_iterator it = p->items.find( serial - 0x40000000 );
 
 	if( it == p->items.end() )
 		return 0;
@@ -503,7 +506,7 @@ P_ITEM cWorld::findItem( SERIAL serial ) const
 
 P_CHAR cWorld::findChar( SERIAL serial ) const
 {
-	std::map< SERIAL, P_CHAR >::const_iterator it = p->chars.find( serial );
+	CharMap::const_iterator it = p->chars.find( serial );
 
 	if( it == p->chars.end() )
 		return 0;
