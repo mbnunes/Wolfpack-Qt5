@@ -213,17 +213,19 @@ def dyingtub_response( char, args, target ):
 		return
 		
 	# Valid Target?
-	if target.item.getoutmostchar() != char:
-		char.socket.sysmessage( "You have to have this in your belongings." )
-		return
-	
-	if not target.item.dye:
-		char.socket.sysmessage( "You cannot dye this." )
-		return
-	
+	if not char.gm:
+		if target.item.getoutmostchar() != char:
+			char.socket.sysmessage( "You have to have this in your belongings." )
+			return
+		
+		if not target.item.dye:
+			char.socket.sysmessage( "You cannot dye this." )
+			return
+		
+	char.socket.log( LOG_TRACE, "Dying item (%x,%x) using tub (%x,%x)\n" % ( target.item.serial, target.item.color, dyetub.serial, dyetub.color ) )
 	target.item.color = dyetub.color
 	target.item.update()
-	char.soundeffect( 0x023e )
+	char.soundeffect( 0x023e )	
 
 # Table of IDs mapped to handler functions
 actions =  {
