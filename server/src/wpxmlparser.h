@@ -39,15 +39,6 @@
 
 class IDefReader
 
-class cDefinable
-{
-public:
-	virtual ~cDefinable() {;}
-
-	virtual void		applyNode( IDefReader &defreader );
-	virtual std::string objectID( void ) = 0;
-};
-
 class IDefReader
 {
 public:
