@@ -139,8 +139,9 @@ void cSrvParams::readData()
 	specialBankTrigger_     = getString("General",  "Special Bank Trigger", "WARE", true).upper();
 	useSpecialBank_			= getBool  ("General",  "Special Bank", false, true);
 	beggingRange_           = getNumber("General",  "Begging Range", 3, true);
+	worldSaveModule_		= getString("General",  "WorldSave Module", "binary", true);
 	clientsAllowed_			= QStringList::split(",", getString("General", "Allowed Clients", "SERVER_DEFAULT", true));
-	uoTime.fromString( QString::number(FIRST_YEAR) + "-" + getString("General", "Initial Date/Time", "01-18T24:00:00", true), Qt::ISODate);
+	uoTime.fromString( QString::number(FIRST_YEAR) + "-" + getString("General", "Initial Date/Time", "01-18T00:00:00", true), Qt::ISODate);
 
 	// Combat
 	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );

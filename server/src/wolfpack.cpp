@@ -261,7 +261,7 @@ void signal_handler(int signal)
 		Accounts->LoadAccounts();
 		break ;
 	case SIGUSR2:
-		cwmWorldState->savenewworld();
+		cwmWorldState->savenewworld(SrvParams->worldSaveModule());
 		SrvParams->flush();
 		break ;
 	case SIGTERM:
@@ -2569,7 +2569,7 @@ void checkkey ()
 				if ( !cwmWorldState->Saving() )
 				{
 					clConsole.send( "Saving worldfile...");
-					cwmWorldState->savenewworld();
+					cwmWorldState->savenewworld(SrvParams->worldSaveModule());
 					SrvParams->flush();
 					clConsole.send( "Done!\n");
 				}
@@ -2956,7 +2956,7 @@ int main(int argc, char *argv[])
 
 	CIAO_IF_ERROR;
 
-	cwmWorldState->loadnewworld();
+	cwmWorldState->loadnewworld(SrvParams->worldSaveModule());
 
 	CIAO_IF_ERROR; // LB prevents file corruption
 
@@ -3236,14 +3236,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	gcollect();		// cleanup before saving, especially items of deleted chars (Duke, 10.1.2001)
 
 	clConsole.send(" Done.\n");
-	if ( !cwmWorldState->Saving() )
-	{
-		do 
-		{
-			cwmWorldState->savenewworld();
-		} 
-		while ( cwmWorldState->Saving() );
-	}
+	cwmWorldState->savenewworld(SrvParams->worldSaveModule());
 	clConsole.send("Saving Wolfpack.xml...\n");
 	SrvParams->flush();
 	clConsole.send("\n");

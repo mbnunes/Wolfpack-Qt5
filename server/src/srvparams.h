@@ -144,6 +144,7 @@ protected:
 	unsigned int beggingRange_;
 	unsigned int beggingTime_;
 	unsigned char season_;
+	QString worldSaveModule_;
 
 	// Remote Admin
 	unsigned int ra_port_;
@@ -311,6 +312,7 @@ public:
 	unsigned int beggingTime() const;
 	unsigned char season() const;
 	void setSeason( unsigned char );
+	QString worldSaveModule() const;
 
 
 	// Remote Admin
@@ -1070,6 +1072,11 @@ inline unsigned char cSrvParams::season() const
 inline void cSrvParams::setSeason( unsigned char data)
 {
 	season_ = data;
+}
+
+inline QString cSrvParams::worldSaveModule() const
+{
+	return worldSaveModule_;
 }
 
 #endif //__SRVPARAMS_H___

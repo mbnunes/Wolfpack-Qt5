@@ -65,8 +65,8 @@ class CWorldMain
 public:
 	virtual int announce();
 	virtual void announce(int choice);
-	virtual void loadnewworld( QString module = "binary" );
-	virtual void savenewworld( QString module = "binary" );
+	virtual void loadnewworld( QString module );
+	virtual void savenewworld( QString module );
 	CWorldMain();
 	virtual ~CWorldMain();
 

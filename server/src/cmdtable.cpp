@@ -1250,7 +1250,7 @@ void command_save(UOXSOCKET s)
 	if ( !Commands->GetAllParams().empty() )
 		cwmWorldState->savenewworld( Commands->GetAllParams().c_str() );
 	else
-		cwmWorldState->savenewworld();
+		cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
 	SrvParams->flush();
 	return;
 }

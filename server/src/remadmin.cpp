@@ -465,7 +465,7 @@ void racProcessInput(int s)
 			{
 				clConsole.send("Saving worldfile...");
 				racPrintf(s, "Saving worldfile...");
-				cwmWorldState->savenewworld();
+				cwmWorldState->savenewworld(SrvParams->worldSaveModule());
 				SrvParams->flush();
 				clConsole.send("Done!\n");
 				racPrintf(s, "[DONE]\r\n");
