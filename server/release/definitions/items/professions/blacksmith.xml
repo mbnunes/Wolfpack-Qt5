@@ -329,7 +329,7 @@
 		<baseid>13e3</baseid>
 		<id>0x13e3</id>
 		<category>Professions\Blacksmith\Smith's Hammer (W/E)</category>
-		<weight>8.0</weight>
+		<weight>8.0</weight>		
 	</item>
 
 	<item id="smiths_hammer_2" inherit="smiths_hammer">
@@ -391,5 +391,34 @@
 		<category>Professions\Blacksmith\Scales\Blue Scales</category>
 		<weight>0.2</weight>
 	</item>
-
+	
+	<!-- Rewards -->
+	<item id="ancient_smiths_hammer">
+		<id>0x13e3</id>
+		<weight>8.0</weight>
+		<color>0x482</color>
+		<name>#1045127</name>		
+		<tag name="remaining_uses" type="int" value="600" />
+		<basescripts>skills.blacksmithing,equipment</basescripts>
+	</item>
+	
+	<item id="ancient_smiths_hammer_10" inherit="ancient_smiths_hammer">
+		<category>Professions\Blacksmith\Rewards\Ancient Smiths Hammer (10)</category>
+		<tag name="skillbonus_0" value="7,100" />
+	</item>
+	
+	<item id="ancient_smiths_hammer_15" inherit="ancient_smiths_hammer">
+		<category>Professions\Blacksmith\Rewards\Ancient Smiths Hammer (15)</category>
+		<tag name="skillbonus_0" value="7,150" />
+	</item>
+	
+	<item id="ancient_smiths_hammer_30" inherit="ancient_smiths_hammer">
+		<category>Professions\Blacksmith\Rewards\Ancient Smiths Hammer (30)</category>
+		<tag name="skillbonus_0" value="7,300" />
+	</item>
+	
+	<item id="ancient_smiths_hammer_60" inherit="ancient_smiths_hammer">
+		<category>Professions\Blacksmith\Rewards\Ancient Smiths Hammer (60)</category>
+		<tag name="skillbonus_0" value="7,600" />
+	</item>
 </definitions>

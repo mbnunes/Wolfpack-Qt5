@@ -189,7 +189,7 @@ def generateMenu( id, parent = None ):
 	# gate travel scroll
 	action.materials.append([['1f60'], 1, 1044446])
 	# 8 runes
-	action.materials.append([['1f14'], 8, 1044447])
+	action.materials.append([['1f14', '1f15', '1f16', '1f17'], 8, 1044447])
 	# bulk order book : TODO : not yet defined in xml
 	#actionid = 1028793
 	#action = InsItemAction(menu, itemid, itemdef, actionid)

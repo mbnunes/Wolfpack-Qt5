@@ -353,7 +353,7 @@ def onShowTooltip(viewer, object, tooltip):
 					continue
 
 				# Add a Bonus for the skill
-				tooltip.add(1060451 + i, "#%u\t%0.01f%%" % (1044060 + skill, bonus / 10.0))
+				tooltip.add(1060451 + i, "#%u\t%u" % (1044060 + skill, int(bonus / 10)))
 			except:
 				object.deltag('skillbonus_%u' % i)
 				continue
@@ -475,8 +475,6 @@ def onEquip(char, item, layer):
 					continue
 
 				# Add a Bonus for the skill
-				if char.skill[skill] + bonus > char.skillcap[skill]:
-					bonus = max(0, char.skillcap[skill] - char.skill[skill])
 				if char.skill[skill] + bonus < 0:
 					bonus = - char.skill[skill]
 
@@ -585,8 +583,6 @@ def onUnequip(char, item, layer):
 
 				# If the bonus would add over the skill limit,
 				# make sure it doesnt
-				if bonus < 0 and char.skill[skill] - bonus > char.skillcap[skill]:
-					bonus = - (char.skillcap[skill] - char.skill[skill])
 				if char.skill[skill] - bonus < 0:
 					bonus = char.skill[skill]
 

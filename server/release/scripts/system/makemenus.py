@@ -3,10 +3,9 @@ import wolfpack
 from wolfpack.utilities import tobackpack, ObjectWrapper
 from wolfpack.gumps import cGump
 import math
-from wolfpack import console
+from wolfpack import console, properties, tr
 from wolfpack.consts import *
 import random
-from wolfpack import tr
 
 # Known menus
 menus = {}
@@ -759,8 +758,232 @@ class MakeMenu:
 	# Enhance an item.
 	#
 	def enhance(self, player, arguments, target):
-		pass
+		if not target.item:
+			self.send(player, arguments)
+			return
+		
+		if not player.canreach(target.item, -1):
+			player.socket.clilocmessage(1061005)
+			self.send(player, arguments)
+			return
+			
+		# Check if we have a special material selected (not the default one)
+		index = self.getsubmaterial1used(player, arguments)
+		if index == 0:
+			player.socket.clilocmessage(1061010)
+			self.send(player, arguments)
+			return
+			
+		# Check if we are skilled enough to use the material
+		minvalue = self.submaterials1[index][2]
+		skillid = self.submaterials1[index][1]
+		
+		if player.skill[skillid] < minvalue:
+			if self.submaterial1noskill != 0:
+				player.socket.clilocmessage(self.submaterial1noskill)
+			else:
+				player.socket.clilocmessage(1044153)
 
+		# Only armors and weapons and shields can be enhanced
+		item = target.item
+		shield = properties.itemcheck(item, ITEM_SHIELD)
+		armor = properties.itemcheck(item, ITEM_ARMOR)
+		weapon = properties.itemcheck(item, ITEM_WEAPON)
+		if not shield and not armor and not weapon:
+			player.socket.clilocmessage(1061011)
+			self.send(player, arguments)
+			return
+
+		# Try to find the craft action for the item
+		action = self.findcraftitem(item.baseid)
+
+		if not action or action.submaterial1 == 0:
+			player.socket.clilocmessage(1061011)
+			self.send(player, arguments)
+			return
+
+		# Do we meet the minimum skill requirements?
+		if not action.checkskills(player, arguments, False):
+			player.socket.clilocmessage(1044153)
+			self.send(player, arguments)
+			return
+
+		# Is the item already enhanced?
+		if item.hastag('resname'):
+			resname = str(item.gettag('resname'))
+			# Only the first would be allowed
+			if self.submaterials1[0][5] != resname:
+				player.socket.clilocmessage(1061012)
+				self.send(player, arguments)
+				return
+
+		# Do we have the required amount of resources?
+		if not action.checkmaterial(player, arguments):
+			self.send(player, arguments)
+			return 0
+
+		# Collect information about the important bonuses of the item.
+		physical = 0
+		fire = 0
+		cold = 0
+		poison = 0
+		energy = 0
+		durability = 0
+		luck = 0
+		lowerrequirements = 0
+		damageincrease = 0
+
+		# These are flags
+		physicalBonus = False
+		fireBonus = False
+		coldBonus = False
+		energyBonus = False
+		poisonBonus = False
+		durabilityBonus = False
+		luckBonus = False
+		lowerrequirementsBonus = False
+		damageincreaseBonus = False
+		
+		resname = self.submaterials1[index][5] # This resname is for the material used to enhance
+	
+		if weapon:
+			failChance = 20
+			durability = item.maxhealth
+			luck = properties.fromitem(item, LUCK)
+			damageincrease = properties.fromitem(item, DAMAGEBONUS)
+			lowerrequirements = properties.fromitem(item, LOWERREQS)
+			
+			fireBonus = properties.fromresource(resname, DAMAGE_FIRE, ITEM_WEAPON) > 0
+			coldBonus = properties.fromresource(resname, DAMAGE_COLD, ITEM_WEAPON) > 0
+			energyBonus = properties.fromresource(resname, DAMAGE_ENERGY, ITEM_WEAPON) > 0
+			poisonBonus = properties.fromresource(resname, DAMAGE_POISON, ITEM_WEAPON) > 0
+
+			durabilityBonus = properties.fromresource(resname, DURABILITYBONUS, ITEM_ARMOR) > 0
+			luckBonus = properties.fromresource(resname, LUCK, ITEM_ARMOR) > 0
+			lowerrequirementsBonus = properties.fromresource(resname, LOWERREQS, ITEM_ARMOR) > 0
+			damageincreaseBonus = damageincrease > 0
+			itemtype = ITEM_WEAPON
+		else:
+			failChance = 20
+			physical = properties.fromresource(resname, RESISTANCE_PHYSICAL, ITEM_ARMOR)
+			fire = properties.fromresource(resname, RESISTANCE_FIRE, ITEM_ARMOR)
+			cold = properties.fromresource(resname, RESISTANCE_COLD, ITEM_ARMOR)
+			poison = properties.fromresource(resname, RESISTANCE_POISON, ITEM_ARMOR)
+			energy = properties.fromresource(resname, RESISTANCE_ENERGY, ITEM_ARMOR)
+
+			durability = item.maxhealth
+			luck = properties.fromitem(item, LUCK)
+			lowerrequirements = properties.fromitem(item, LOWERREQS)
+			
+			physicalBonus = physical > 0
+			fireBonus = fire > 0
+			coldBonus = cold > 0
+			energyBonus = energy > 0
+			poisonBonus = poison > 0
+			durabilityBonus = properties.fromresource(resname, DURABILITYBONUS, ITEM_ARMOR) > 0
+			luckBonus = properties.fromresource(resname, LUCK, ITEM_ARMOR) > 0
+			lowerrequirementsBonus = properties.fromresource(resname, LOWERREQS, ITEM_ARMOR) > 0
+			damageincreaseBonus = False
+			itemtype = ITEM_ARMOR
+
+		# failChance = chance to fail
+		# Get the primary skill for crafting the item
+		primarySkill = -1
+		primarySkillValue = -1
+		
+		for (skill, value) in action.skills.items():
+			if value > primarySkillValue:
+				primarySkill = skill
+				primarySkillValue = value
+				
+		if primarySkill != -1:
+			if player.skill[primarySkill] >= 1000:
+				failChance -= (player.skill[primarySkill] - 900) / 100
+		
+		# Check for every property the item has.
+		result = 1		
+		if physicalBonus:
+			result = self.checkenhancement(result, failChance + physical, player)
+			
+		if fireBonus:
+			result = self.checkenhancement(result, failChance + fire, player)
+			
+		if coldBonus:
+			result = self.checkenhancement(result, failChance + cold, player)
+			
+		if poisonBonus:
+			result = self.checkenhancement(result, failChance + poison, player)
+			
+		if energyBonus:
+			result = self.checkenhancement(result, failChance + energy, player)
+			
+		if durabilityBonus:
+			result = self.checkenhancement(result, failChance + durability / 40, player)
+			
+		if luckBonus:
+			result = self.checkenhancement(result, failChance + 10 + luck / 2, player)
+			
+		if lowerrequirementsBonus:
+			result = self.checkenhancement(result, failChance + lowerrequirements / 4, player)
+			
+		if damageincreaseBonus:
+			result = self.checkenhancement(result, failChance + damageincrease / 5, player)
+	
+		# Broken
+		if result == -1:
+			action.consumematerial(player, arguments, True) # Consume half the material
+			item.delete() # Delete the item
+			player.socket.clilocmessage(1061080)
+		
+		# Failure
+		elif result == 0:
+			action.consumematerial(player, arguments, True) # Consume half the material
+			player.socket.clilocmessage(1061082)
+
+		# Success
+		else:
+			action.consumematerial(player, arguments, False) # Consume the material
+			player.socket.clilocmessage(1061008)
+			
+			# Attach the properties to the item
+			item.settag('resname', resname)
+			# Check for every property if the item had a tag already
+			for (key, info) in properties.PROPERTIES.items():
+				if item.hastag(info[0]): # See if the property is overriden
+					value = item.gettag(info[0]) # Get the overriden value
+					resvalue = properties.fromresource(resname, key, itemtype) # Get the bonus for the resource
+					if resvalue != info[1]: # See if the resource has a bonus
+						value = value + resvalue # Add the resources bonus
+						item.settag(info[0], value) # Save the new overriden value for the item
+
+			# Manually increase the durability bonus
+			healthbonus = properties.fromresource(resname, DURABILITYBONUS, itemtype)
+			if healthbonus != 0:
+				bonus = int(math.ceil(item.maxhealth * (healthbonus / 100.0)))
+				item.maxhealth = max(1, item.maxhealth + bonus)
+				item.health = item.maxhealth
+
+			item.color = self.submaterials1[index][4] # Change the color to the resources color
+			item.update()
+			item.resendtooltip()
+
+		self.send(player, arguments)
+		
+	#
+	# Check the enhancement result for a given property
+	# with a given fail chance.
+	#
+	def checkenhancement(self, result, chance, player):
+		if result: # Only calculate if we still have a chance to succeed
+			rnd = random.randrange(0, 100)
+			
+			if 10 > rnd: # 10% failure chance
+				result = 0
+			elif chance > rnd: # Rest break chance
+				result = -1
+
+		return result
+				
 	#
 	# Adds the neccesary buttons to a gump.
 	#
@@ -903,8 +1126,26 @@ class MakeMenu:
 
 		# Enhance Item
 		elif response.button == 11:
-			player.socket.clilocmessage(1061004)
-			player.socket.attachtarget("system.makemenus.MakeMenuTarget", [self.id, 2] + arguments)
+			# Check if we have a special material selected (not the default one)
+			index = self.getsubmaterial1used(player, arguments)
+			if index == 0:
+				player.socket.clilocmessage(1061010)				
+				self.send(player, arguments) # Resend menu
+			else:
+				# Check if we are skilled enough to use the material
+				minvalue = self.submaterials1[index][2]
+				skillid = self.submaterials1[index][1]
+
+				if player.skill[skillid] < minvalue:
+					if self.submaterial1noskill != 0:
+						player.socket.clilocmessage(self.submaterial1noskill)
+					else:
+						player.socket.clilocmessage(1044153)
+						
+					self.send(player, arguments) # Resend menu
+				else:
+					player.socket.clilocmessage(1061004)
+					player.socket.attachtarget("system.makemenus.MakeMenuTarget", [self.id, 2] + arguments)
 
 		# Smelt Item
 		elif response.button == 12:

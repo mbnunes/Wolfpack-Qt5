@@ -174,6 +174,34 @@ def fromitem(item, property):
 	return info[1]
 
 #
+# Get a property bonus from a given resource
+#
+def fromresource(resource, property, type):
+	if not PROPERTIES.has_key(property):
+		raise Exception, "Unknown property value %u" % property
+
+	info = PROPERTIES[property]
+	
+	if type == ITEM_ARMOR or type == ITEM_SHIELD:		
+		resboni = wolfpack.armorinfo.ARMOR_RESNAME_BONI
+	elif type == ITEM_WEAPON:
+		resboni = wolfpack.weaponinfo.WEAPON_RESNAME_BONI		
+	else:
+		return info[1]
+		
+	# Default value for unknown resources
+	if not resboni.has_key(resource):
+		return info[1]
+		
+	resboni = resboni[resource]
+	
+	# Unkown property for this resource
+	if not resboni.has_key(property):
+		return info[1]
+		
+	return resboni[property]
+
+#
 # Calculates a certain property for the character by
 # recursing trough all of his equipment.
 #

@@ -140,7 +140,7 @@ class TailoringMenu(MakeMenu):
 		MakeMenu.__init__(self, id, parent, title)
 		self.allowmark = 1
 		self.allowrepair = 1
-		#self.allowenhance = 1
+		self.allowenhance = True
 		self.submaterials1 = LEATHERS
 		self.submaterial1missing = 1044463
 		self.submaterial1noskill = 1049311

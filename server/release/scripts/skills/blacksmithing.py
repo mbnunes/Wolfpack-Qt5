@@ -111,6 +111,7 @@ def checktool(char, item, wearout = 0):
 			return False
 		else:
 			item.settag('remaining_uses', uses - 1)
+			item.resendtooltip()
 
 	return True
 
@@ -275,7 +276,7 @@ class BlacksmithingMenu(MakeMenu):
 			player.socket.clilocmessage(500426)
 			return
 
-		if target.item.container != player.getbackpack():
+		if not player.canreach(target.item, -1):
 			player.socket.clilocmessage(1044275)
 			return
 
