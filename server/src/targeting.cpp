@@ -135,7 +135,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	int v = addx[s];
 	P_CHAR pc = MAKE_CHARREF_LR(v);
 	if (pc->free) return;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	P_ITEM pBackpack = Packitem(pc_currchar);
 	if (!pBackpack) {sysmessage(s,"Time to buy a backpack"); return; } //LB
@@ -238,7 +238,7 @@ static void AddTarget(int s, PKGx6C *pp)
 	Map->SeekTile(id, &tile);
 	if (tile.flag2&0x08) pileable=1;
 
-	P_ITEM pi=Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0,0);
+	P_ITEM pi=Items->SpawnItem(DEREF_P_CHAR(currchar[s]), 1, "#", pileable, id, 0,0);
 	if(!pi) return;
 	pi->priv=0;	//Make them not decay
 	pi->MoveTo(pp->TxLoc,pp->TyLoc,pp->TzLoc+Map->TileHeight(pp->model));
@@ -268,7 +268,7 @@ public:
 static void TeleTarget(int s, PKGx6C *pp) 
 { 
 	if(pp->TxLoc==-1 || pp->TyLoc==-1) return; 
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]); 
+	P_CHAR pc_currchar = currchar[s]; 
 	int x=pp->TxLoc; 
 	int y=pp->TyLoc; 
 	signed char z=pp->TzLoc; 
@@ -421,7 +421,7 @@ void cTargets::IDtarget(int s)
 void cTargets::XTeleport(int s, int x)
 {
 	int i, serial = INVALID_SERIAL;
-	int cc = currchar[s];
+	P_CHAR pc_currchar = currchar[s];
 	switch (x)
 	{
 		case 0:
@@ -431,15 +431,15 @@ void cTargets::XTeleport(int s, int x)
 		case 2:
 			if (perm[makenumber(1)])
 			{
-				i = currchar[makenumber(1)];
+				i = DEREF_P_CHAR(currchar[makenumber(1)]);
 			}
 			else 
 				return;
 			break;
 		case 3:
-			i = chars[cc].making;
-			chars[currchar[i]].MoveTo(chars[cc].pos.x, chars[cc].pos.y, chars[cc].pos.z);
-			teleport(currchar[i]);
+			i = pc_currchar->making;
+			currchar[i]->MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
+			teleport(DEREF_P_CHAR(currchar[i]));
 			return;
 		case 5:
 			serial = calcserial(hexnumber(1), hexnumber(2), hexnumber(3), hexnumber(4));
@@ -449,14 +449,14 @@ void cTargets::XTeleport(int s, int x)
 	
 	if (i!=-1)
 	{
-		chars[i].MoveTo(chars[cc].pos.x, chars[cc].pos.y, chars[cc].pos.z);
+		chars[i].MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
 		updatechar(i);
 		return;// Zippy
 	}
 	P_ITEM pi = FindItemBySerial(serial);
 	if (pi != NULL)
 	{
-		pi->MoveTo(chars[cc].pos.x, chars[cc].pos.y, chars[cc].pos.z);
+		pi->MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
 		RefreshItem(pi);
 	}
 }
@@ -476,8 +476,8 @@ static void PrivTarget(int s, P_CHAR pc)
 {
 	if (SrvParms->gm_log)	//Logging
 	{
-		sprintf((char*)temp, "%s.gm_log",chars[currchar[s]].name);
-		sprintf((char*)temp2, "%s as given %s Priv [%x][%x]\n",chars[currchar[s]].name,pc->name,addid1[s],addid2[s]);
+		sprintf((char*)temp, "%s.gm_log", currchar[s]->name);
+		sprintf((char*)temp2, "%s as given %s Priv [%x][%x]\n", currchar[s]->name, pc->name, addid1[s],addid2[s]);
 		savelog((char*)temp2, (char*)temp);
 	}
 	pc->setPriv(addid1[s]);
@@ -493,7 +493,7 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 		{
 			if ( pi->type==7 && (iteminrange(s,pi,2) || (!pi->isInWorld()) ) )
 			{
-				if (!Skills->CheckSkill(currchar[s],TINKERING, 400, 1000))
+				if (!Skills->CheckSkill(DEREF_P_CHAR(currchar[s]),TINKERING, 400, 1000))
 				{
 					sysmessage(s,"You fail and destroy the key blank.");
 					Items->DeleItem(pi);
@@ -522,8 +522,8 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 			}
 			else if ((pi->type==7)&&(iteminrange(s,pi,2)))
 			{
-				chars[currchar[s]].inputitem = pi->serial;
-				chars[currchar[s]].inputmode = cChar::enDescription;
+				currchar[s]->inputitem = pi->serial;
+				currchar[s]->inputmode = cChar::enDescription;
 				sysmessage(s,"Enter new name for key.");//morrolan rename keys
 				return;
 			}
@@ -549,8 +549,8 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 			else if (pi->id()==0x0BD2)
 			{
 				sysmessage(s, "What do you wish the sign to say?");
-				chars[currchar[s]].inputitem = pi->serial; //Morrolan sign kludge
-				chars[currchar[s]].inputmode=cChar::enHouseSign;
+				currchar[s]->inputitem = pi->serial; //Morrolan sign kludge
+				currchar[s]->inputmode=cChar::enHouseSign;
 				return;
 			}
 
@@ -726,8 +726,8 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	int i;	
 	if (SrvParms->gm_log)
 	{
-		sprintf((char*)temp, "%s.gm_log",chars[currchar[s]].name);
-		sprintf((char*)temp2, "%s has made %s a GM.\n",chars[currchar[s]].name,pc->name);
+		sprintf((char*)temp, "%s.gm_log",currchar[s]->name);
+		sprintf((char*)temp2, "%s has made %s a GM.\n",currchar[s]->name,pc->name);
 		savelog((char*)temp2, (char*)temp);
 	}
 	unmounthorse(calcSocketFromChar(c));	//AntiChrist bugfix
@@ -783,8 +783,8 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 	if (SrvParms->gm_log)
 	{
 		// logging
-		sprintf((char*)temp, "%s.gm_log",chars[currchar[s]].name);
-		sprintf((char*)temp2, "%s has made %s a Counselor.\n",chars[currchar[s]].name,pc->name);
+		sprintf((char*)temp, "%s.gm_log",currchar[s]->name);
+		sprintf((char*)temp2, "%s has made %s a Counselor.\n",currchar[s]->name,pc->name);
 		savelog((char*)temp2, (char*)temp);
 	}
 	pc->id1=0x03;
@@ -831,7 +831,7 @@ void cTargets::GhostTarget(int s)
 	{
 		if(!pc->dead)
 		{
-			P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+			P_CHAR pc_currchar = currchar[s];
 			pc->attacker=pc_currchar->serial; //AntiChrist -- for forensics ev
 			bolteffect(DEREF_P_CHAR(pc), true);
 			soundeffect2(DEREF_P_CHAR(pc), 0x00, 0x29);
@@ -1006,8 +1006,8 @@ void cTargets::DvatTarget(int s)
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && pi->dye==1)//if dyeable
 	{
-		P_CHAR pc=GetPackOwner(pi);
-		if(DEREF_P_CHAR(pc)==currchar[s] || pi->isInWorld())
+		P_CHAR pc = GetPackOwner(pi);
+		if(pc == currchar[s] || pi->isInWorld())
 		{//if on ground or currchar is owning the item - AntiChrist
 			pi->color1=addid1[s];
 			pi->color2=addid2[s];
@@ -1248,7 +1248,7 @@ static void Tiling(int s, PKGx6C *pp) // Clicking the corners of tiling calls th
 	for (x=x1;x<=x2;x++)
 		for (y=y1;y<=y2;y++)
 		{
-			P_ITEM pi=Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0, 0);
+			P_ITEM pi = Items->SpawnItem(DEREF_P_CHAR(currchar[s]), 1, "#", pileable, id, 0, 0);
 			if(!pi) return;
 			pi->priv=0;	//Make them not decay
 			pi->MoveTo(x,y,pp->TzLoc+Map->TileHeight(pp->model));
@@ -1316,11 +1316,11 @@ static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it
 	x=pp->TxLoc;
 	y=pp->TyLoc;
 	z=pp->TzLoc;
-	int cc=currchar[s];
+	P_CHAR pc_currchar = currchar[s];
 
 	// ANTICHRIST -- CHECKS LINE OF SIGHT!
 	Coord_cl clTemp4(x,y,z);
-	if(line_of_sight(s, chars[cc].pos, clTemp4, WALLS_CHIMNEYS + DOORS + ROOFING_SLANTED))
+	if(line_of_sight(s, pc_currchar->pos, clTemp4, WALLS_CHIMNEYS + DOORS + ROOFING_SLANTED))
 	{
 		P_ITEM pi = FindItemBySerial(calcserial(addid1[s],addid2[s],addid3[s],addid4[s]));
 		if (pi != NULL) // crashfix LB
@@ -1328,7 +1328,7 @@ static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it
 			pi->MoveTo(x, y, z);
 			pi->SetContSerial(-1);
 			pi->magic=2; //make item unmovable once thrown
-			movingeffect2(cc, pi, 0x0F, 0x0D, 0x11, 0x00, 0x00);
+			movingeffect2(DEREF_P_CHAR(pc_currchar), pi, 0x0F, 0x0D, 0x11, 0x00, 0x00);
 			RefreshItem(pi);
 		}
 	}
@@ -1440,8 +1440,8 @@ static void TeleStuff(int s, PKGx6C *pp)
 
 void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bird)
 {
-	int cc = currchar[s];
-	P_ITEM pi1=Items->SpawnItem(cc,1,"#",0,0x122A,0,0);	//add the blood puddle
+	P_CHAR pc_currchar = currchar[s];
+	P_ITEM pi1=Items->SpawnItem(DEREF_P_CHAR(pc_currchar),1,"#",0,0x122A,0,0);	//add the blood puddle
 	P_ITEM pi2=FindItemBySerial(npcshape[0]);
 	if(!pi1) return;
 	pi1->pos.x=pi2->pos.x;
@@ -1454,27 +1454,27 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 //	int c;
 	if (feat)
 	{
-		P_ITEM pi = Items->SpawnItem(s,cc,feat,"feather",1,0x1B,0xD1,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),feat,"feather",1,0x1B,0xD1,0,0,1,1);
 		if(pi == NULL) return;
 		sysmessage(s,"You pluck the bird and get some feathers.");
 	}
 	if (ribs)
 	{
-		P_ITEM pi = Items->SpawnItem(s,cc,ribs,"raw rib",1,0x09,0xF1,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),ribs,"raw rib",1,0x09,0xF1,0,0,1,1);
 		if(pi == NULL) return;
 		sysmessage(s,"You carve away some meat.");
 	}
 
 	if (hides)
 	{
-		P_ITEM pi = Items->SpawnItem(s,cc,hides,"hide",1,0x10,0x78,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),hides,"hide",1,0x10,0x78,0,0,1,1);
 		if(pi == NULL) return;
 		sysmessage(s,"You skin the corpse and get the hides.");
 	}
 
 	if (fur)
 	{	// animals with fur now yield hides (OSI). Duke, 7/17/00
-		P_ITEM pi = Items->SpawnItem(s,cc,fur,"hide",1,0x10,0x78,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),fur,"hide",1,0x10,0x78,0,0,1,1);
 		if(pi == NULL) return;
 		sysmessage(s,"You skin the corpse and get the hides.");
 /*		c=Items->SpawnItem(s,fur,"fur",1,0x11,0xFA,0,0,1,1);
@@ -1484,17 +1484,17 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 
 	if (wool)
 	{
-		P_ITEM pi = Items->SpawnItem(s,cc,wool,"unspun wool",1,0x0D,0xF8,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),wool,"unspun wool",1,0x0D,0xF8,0,0,1,1);
 		if(pi == NULL) return;
 		sysmessage(s, "You skin the corpse and get some unspun wool.");
 	}
 	if (bird)
 	{
-		P_ITEM pi = Items->SpawnItem(s,cc,bird,"raw bird",1,0x09,0xB9,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),bird,"raw bird",1,0x09,0xB9,0,0,1,1);
 		if(pi == NULL) return;
 		sysmessage(s, "You carve away some raw bird.");
 	}
-	Weight->NewCalc(cc);
+	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
 }
 
 //AntiChrist - new carving system - 3/11/99
@@ -1502,13 +1502,13 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 //Scriptable carving product added
 static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 {
-	int cc = currchar[s];
+	P_CHAR pc_currchar = currchar[s];
 	bool deletecorpse=false;
 	int storeval;
 	char sect[512];
 	long int pos;
 
-	P_ITEM pi1=Items->SpawnItem(cc,1,"#",0,0x122A,0,0);	//add the blood puddle
+	P_ITEM pi1=Items->SpawnItem(DEREF_P_CHAR(pc_currchar),1,"#",0,0x122A,0,0);	//add the blood puddle
 	P_ITEM pi2=FindItemBySerial(npcshape[0]);
 	if (pi3 == NULL)
 		return;
@@ -1521,13 +1521,13 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 	if(pi3->morey)	//if it's a human corpse
 	{
-		chars[cc].fame-=100; // Ripper..lose fame and karma and criminal.
-		chars[cc].karma-=100;
+		pc_currchar->fame-=100; // Ripper..lose fame and karma and criminal.
+		pc_currchar->karma-=100;
 		sysmessage(s,"You lost some fame and karma!");
-		criminal(cc);
+		criminal(DEREF_P_CHAR(pc_currchar));
 		//create the Head
 		sprintf((char*)temp,"the head of %s",pi3->name2);
-		P_ITEM pi = Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA0,0,0,0,0);
+		P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1D,0xA0,0,0,0,0);
 		if(pi == NULL) return;
 		pi->SetContSerial(pi3->serial);
 		pi->layer=0x01;
@@ -1539,7 +1539,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 		//create the Body
 		sprintf((char*)temp,"the heart of %s",pi3->name2);
-		P_ITEM pi4 = Items->SpawnItem(s,cc,1,(char*)temp,0,0x1C,0xED,0,0,0,0);
+		P_ITEM pi4 = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1C,0xED,0,0,0,0);
 		if(pi4 == NULL) return;
 		pi4->SetContSerial(pi3->serial);
 		pi4->layer=0x01;
@@ -1548,7 +1548,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 		//create the Heart
 		sprintf((char*)temp,"the body of %s",pi3->name2);
-		P_ITEM pi5 = Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xAD,0,0,0,0);
+		P_ITEM pi5 = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1D,0xAD,0,0,0,0);
 		if(pi5 == NULL) return;
 		pi5->SetContSerial(pi3->serial);
 		pi5->layer=0x01;
@@ -1557,7 +1557,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 		//create the Left Arm
 		sprintf((char*)temp,"the left arm of %s",pi3->name2);
-		P_ITEM pi6 = Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA1,0,0,0,0);
+		P_ITEM pi6 = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1D,0xA1,0,0,0,0);
 		if(pi6==NULL) return;
 		pi6->SetContSerial(pi3->serial);
 		pi6->layer=0x01;
@@ -1566,7 +1566,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 		//create the Right Arm
 		sprintf((char*)temp,"the right arm of %s",pi3->name2);
-		P_ITEM pi7 = Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA2,0,0,0,0);
+		P_ITEM pi7 = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1D,0xA2,0,0,0,0);
 		if(pi7==NULL) return;//AntiChrist to preview crashes
 		pi7->SetContSerial(pi3->serial);
 		pi7->layer=0x01;
@@ -1575,7 +1575,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 		//create the Left Leg
 		sprintf((char*)temp,"the left leg of %s",pi3->name2);
-		P_ITEM pi8 = Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA3,0,0,0,0);
+		P_ITEM pi8 = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1D,0xA3,0,0,0,0);
 		if(pi8 == NULL) return;//AntiChrist to preview crashes
 		pi8->SetContSerial(pi3->serial);
 		pi8->layer=0x01;
@@ -1584,7 +1584,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 		//create the Rigth Leg
 		sprintf((char*)temp,"the right leg of %s",pi3->name2);
-		P_ITEM pi9=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA4,0,0,0,0);
+		P_ITEM pi9=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,(char*)temp,0,0x1D,0xA4,0,0,0,0);
 		if(pi9==NULL) return;
 		
 		pi9->SetContSerial(pi3->serial);
@@ -2244,7 +2244,7 @@ int cTargets::BuyShop(int s, int c)
 	sendshopinfo(s, c, pCont1); // Send normal shop items
 	sendshopinfo(s, c, pCont2); // Send items sold to shop by players
 	SndShopgumpopen(s,pc->serial);
-	statwindow(s,currchar[s]); // Make sure the gold total has been sent.
+	statwindow(s,DEREF_P_CHAR(currchar[s])); // Make sure the gold total has been sent.
 	return 1;
 }
 
@@ -2261,7 +2261,7 @@ void cTargets::permHideTarget(int s)
 		P_CHAR pc = MAKE_CHARREF_LR(i); 
 		if (pc->hidden == 1) 
 		{ 
-			if (i == currchar[s])
+			if (pc == currchar[s])
 				sysmessage(s, "You are already hiding."); 
 			else 
 				sysmessage(s, "He is already hiding."); 
@@ -2293,7 +2293,7 @@ void cTargets::unHideTarget(int s)
 		P_CHAR pc = MAKE_CHARREF_LR(i); 
 		if (pc->hidden == 0) 
 		{ 
-			if (i == currchar[s])
+			if (pc == currchar[s])
 				sysmessage(s, "You are not hiding."); 
 			else 
 				sysmessage(s, "He is not hiding."); 
@@ -2694,7 +2694,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	if ( pHouse == NULL )
 		return;
 	
-	if(pc->serial == chars[currchar[s]].serial)
+	if(pc->serial == currchar[s]->serial)
 	{
 		sysmessage(s, "you already own this house!");
 		return;
@@ -2709,7 +2709,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	os=-1;
 	for(i=0;i<now && os==-1;i++)
 	{
-		if(chars[currchar[i]].serial==pc->serial && perm[i]) os=i;
+		if( currchar[i]->serial == pc->serial && perm[i]) os=i;
 	}
 	
 	P_ITEM pi3=NULL;
@@ -2732,12 +2732,12 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	pi3->type=7;
 	
 	sysmessage(s, "You have transferred your house to %s.", pc->name);
-	sprintf((char*)temp, "%s has transferred a house to %s.", chars[currchar[s]].name, pc->name);
+	sprintf((char*)temp, "%s has transferred a house to %s.", currchar[s]->name, pc->name);
 
 	int k;
 	for(k=0;k<now;k++)
-		if(k!=s && ( (perm[k] && inrange1p(currchar[k],currchar[s]) )||
-			(chars[currchar[k]].serial==o_serial)))
+		if(k!=s && ( (perm[k] && inrange1p(DEREF_P_CHAR(currchar[k]), DEREF_P_CHAR(currchar[s])) )||
+			(currchar[k]->serial==o_serial)))
 			sysmessage(k, (char*)temp);
 }
 
@@ -2753,7 +2753,7 @@ void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out
 	{
 		int sx, sy, ex, ey;
 		Map->MultiArea(pHouse, &sx,&sy,&ex,&ey);
-		if(pc->serial == chars[currchar[s]].serial)
+		if(pc->serial == currchar[s]->serial)
 		{
 			sysmessage(s,"Do you really want to do that?!");
 			return;
@@ -2774,7 +2774,7 @@ void cTargets::HouseBanTarget(int s)
 	Targ->HouseEjectTarget(s);	// first, eject the player
 
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
-	P_CHAR pc_home = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_home = currchar[s];
 	if (!pc)
 		return;
 	int h=pc_home->MyHome();
@@ -2798,7 +2798,7 @@ void cTargets::HouseBanTarget(int s)
 void cTargets::HouseFriendTarget(int s) // crackerjack 8/12/99 - add somebody to friends list
 {
 	P_CHAR Friend = FindCharBySerPtr(buffer[s]+7);
-	P_CHAR pc_home = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_home = currchar[s];
 
 	int h=pc_home->MyHome();
 
@@ -2828,7 +2828,7 @@ void cTargets::HouseFriendTarget(int s) // crackerjack 8/12/99 - add somebody to
 void cTargets::HouseUnBanTarget(int s)
 {
 	P_CHAR pc_banned = FindCharBySerPtr(buffer[s]+7);
-	P_CHAR pc_owner  = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_owner  = currchar[s];
 	
 	int h=pc_owner->MyHome();
 
@@ -2859,7 +2859,7 @@ void cTargets::HouseUnBanTarget(int s)
 void cTargets::HouseUnFriendTarget(int s)
 {
 	P_CHAR pc_friend = FindCharBySerPtr(buffer[s]+7);
-	P_CHAR pc_owner  = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_owner  = currchar[s];
 	
 	int h=pc_owner->MyHome();
 
@@ -2935,7 +2935,7 @@ void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 			}
 			pi->magic = 4;	// LOCKED DOWN!
 			DRAGGED[s]=0;
-			pi->setOwnSerialOnly(chars[currchar[s]].serial);
+			pi->setOwnSerialOnly(currchar[s]->serial);
 			RefreshItem(pi);
 			return;
 		}
@@ -2983,7 +2983,7 @@ void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 		    pi->magic = 4;	// LOCKED DOWN!
 			pi->secureIt = 1;
 			DRAGGED[s]=0;
-			pi->setOwnSerialOnly(chars[currchar[s]].serial);
+			pi->setOwnSerialOnly(currchar[s]->serial);
 			RefreshItem(pi);
 			return;
 		}
@@ -3076,15 +3076,15 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 		return;
 	}
 
-	int cc=currchar[s];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+//	int cc=currchar[s];
+	P_CHAR pc_currchar = currchar[s];
 	if (!pi1->isInWorld())
 	{
 		P_ITEM pj = FindItemBySerial(pi1->contserial); // in bp ?
 		l=calcCharFromSer(pi1->contserial); // equipped ?
 		if (l==-1) k=DEREF_P_CHAR(GetPackOwner(pj)); else k=l;
 
-		if (k!=cc)	// creation only allowed in the creators pack/char otherwise things could go wrong
+		if (k!=DEREF_P_CHAR(pc_currchar))	// creation only allowed in the creators pack/char otherwise things could go wrong
 		{
 			sysmessage(s,"you can't create glowing items in other perons packs or hands");
 			return;
@@ -3104,7 +3104,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	pi1->color1=c<<8; // set new color to yellow
 	pi1->color2=c%256;
 
-	P_ITEM pi2 = Items->SpawnItem(s,cc,1,"glower",0,0x16,0x47,0,0,0,1); // new client 1.26.2 glower object
+	P_ITEM pi2 = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"glower",0,0x16,0x47,0,0,0,1); // new client 1.26.2 glower object
 
 	if(pi2 == NULL) return;
 	pi2->dir=29; // set light radius maximal
@@ -3136,7 +3136,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	RefreshItem(pi1);
 	RefreshItem(pi2);
 
-	impowncreate(s,cc,0); // if equipped send new color too
+	impowncreate(s,DEREF_P_CHAR(pc_currchar),0); // if equipped send new color too
 }
 
 void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from items
@@ -3156,7 +3156,7 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 		P_ITEM pj = FindItemBySerial(pi->contserial); // in bp ?
 		l=calcCharFromSer(pi->contserial); // equipped ?
 		if (l==-1) k = DEREF_P_CHAR(GetPackOwner(pj)); else k=l;
-		if (k!=currchar[s])	// creation only allowed in the creators pack/char otherwise things could go wrong
+		if (k!=DEREF_P_CHAR(currchar[s]))	// creation only allowed in the creators pack/char otherwise things could go wrong
 		{
 			sysmessage(s,"you can't unglow items in other perons packs or hands");
 			return;
@@ -3181,9 +3181,9 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 	pi->glow=0; // remove glow-identifier
 	RefreshItem(pi);
 
-	impowncreate(s,currchar[s],0); // if equipped send new old color too
+	impowncreate(s,DEREF_P_CHAR(currchar[s]),0); // if equipped send new old color too
 
-	chars[currchar[s]].removeHalo(pi);
+	currchar[s]->removeHalo(pi);
 }
 
 void cTargets::MenuPrivTarg(int s)//LB's menu privs
@@ -3200,7 +3200,7 @@ void cTargets::MenuPrivTarg(int s)//LB's menu privs
 		i=addid1[s];
 		sprintf(temp,"Setting Menupriv number %i",i);
 		sysmessage(s,temp);
-		sprintf(temp,"Menupriv %i set by %s",i,chars[currchar[s]].name);
+		sprintf(temp,"Menupriv %i set by %s",i,currchar[s]->name);
 		sysmessage(calcSocketFromChar(p),temp);
 		pc->menupriv=i;
 	}
@@ -3286,10 +3286,10 @@ void cTargets::GuardTarget( UOXSOCKET s )
 		return;
 	}
 	pPet->npcaitype = 32; // 32 is guard mode
-	pPet->ftarg=currchar[s];
+	pPet->ftarg = DEREF_P_CHAR(currchar[s]);
 	pPet->npcWander=1;
 	sysmessage(s, "Your pet is now guarding you.");
-	chars[currchar[s]].guarded = true;
+	currchar[s]->guarded = true;
 }
 
 void cTargets::ResurrectionTarget( UOXSOCKET s )
@@ -3528,7 +3528,7 @@ void cTargets::MoveToBagTarget(int s)
 	SERIAL serial=LongFromCharPtr(buffer[s]+7);
 	P_ITEM pi = FindItemBySerial(serial);
 	if (pi == NULL) return;
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	P_ITEM pBackpack = Packitem(pc_currchar);
 	if(pBackpack == NULL) return;
 	
@@ -3614,7 +3614,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 			{
 				SERIAL serial=LongFromCharPtr(buffer[s]+7);
 				P_ITEM pi = FindItemBySerial(serial);
-				P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+				P_CHAR pc_currchar = currchar[s];
 				if ( pi != NULL )
 				{
 					Trig->triggerwitem(s, pi, 0);
@@ -3670,7 +3670,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 55: Skills->CookOnFire(s,0x16,0x0A,"lamb"); break;
 		case 56: Targ->NpcTarget(s); break;
 		case 57: Targ->NpcTarget2(s); break;
-		case 58: Targ->NpcResurrectTarget(currchar[s]); break;
+		case 58: Targ->NpcResurrectTarget(DEREF_P_CHAR(currchar[s])); break;
 		case 59: Targ->NpcCircleTarget(s); break;
 		case 60: Targ->NpcWanderTarget(s); break;
 		case 61: Targ->VisibleTarget(s); break;
@@ -3727,8 +3727,8 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 128: Skills->CreateBandageTarget(s); break;
 		case 129: ItemTarget(ps,pt); break;//SetAmount2Target
 		case 130: Skills->HealingSkillTarget(s); break;
-		case 131: if (chars[currchar[s]].isGM()) Targ->permHideTarget(s); break; /* not used */
-		case 132: if (chars[currchar[s]].isGM()) Targ->unHideTarget(s); break; /* not used */
+		case 131: if (currchar[s]->isGM()) Targ->permHideTarget(s); break; /* not used */
+		case 132: if (currchar[s]->isGM()) Targ->unHideTarget(s); break; /* not used */
 		case 133: ItemTarget(ps,pt); break;//SetWipeTarget
 		case 134: Skills->Carpentry(s); break;
 		case 135: Targ->SetSpeechTarget(s); break;
@@ -3741,7 +3741,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 154: Skills->ForensicsTarget(s); break;
 		case 155:
 			{
-				chars[currchar[s]].poisonserial=LongFromCharPtr(buffer[s]+7);
+				currchar[s]->poisonserial=LongFromCharPtr(buffer[s]+7);
 				target(s, 0, 1, 0, 156, "What item do you want to poison?");
 				return;
 			}

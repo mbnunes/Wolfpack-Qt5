@@ -54,7 +54,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 	unsigned char nonuni[512];
 	int y,loopexit=0;
 
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if (pc_currchar->unicode)
 		cCommands::cmd_offset = 1;
@@ -322,7 +322,7 @@ void cCommands::NextCall(int s, int type)
 	int i, serial;
 	int x = 0;
 	
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	if (pc_currchar->callnum != 0)
 	{
@@ -535,7 +535,7 @@ void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call 
 	int i, a1, a2, a3, a4, x;
 	int x2=0;
 
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	x=0;
 	a1=pc_currchar->ser1;
@@ -574,7 +574,7 @@ void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call 
 			pc_currchar->inputmode = cChar::enNone;
 			sprintf((char*)temp, "Counselor Page from %s [%x %x %x %x]: %s", pc_currchar->name, a1, a2, a3, a4, reason);
 			for (i=0;i<now;i++)
-				if (chars[currchar[i]].isCounselor() && perm[i])
+				if (currchar[i]->isCounselor() && perm[i])
 				{
 					x=1;
 					sysmessage(i, (char*)temp);
@@ -601,7 +601,7 @@ void cCommands::GMPage(int s, char *reason)
 	int i, a1, a2, a3, a4, x=0;
 	int x2=0;
 	
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	a1=pc_currchar->ser1;
 	a2=pc_currchar->ser2;
@@ -639,7 +639,7 @@ void cCommands::GMPage(int s, char *reason)
 			pc_currchar->inputmode = cChar::enNone;
 			sprintf((char*)temp, "Page from %s [%x %x %x %x]: %s",
 				pc_currchar->name, a1, a2, a3, a4, reason);
-			for (i=0;i<now;i++) if (chars[currchar[i]].isGM() && perm[i])
+			for (i=0;i<now;i++) if (currchar[i]->isGM() && perm[i])
 			{
 				x=1;
 				sysmessage(i, (char*)temp);
@@ -697,7 +697,7 @@ void cCommands::DyeItem(int s) // Rehue an item
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+		P_CHAR pc_currchar = currchar[s];
 		if( !(pc_currchar->isGM() ) ) return; // Only gms dye characters
 		k=(buffer[s][7]<<8)+buffer[s][8];
 
@@ -771,10 +771,10 @@ void cCommands::AddHere(int s, char z)
 	Map->SeekTile(id, &tile);
 	if (tile.flag2&0x08) pileable=1;
 	
-	P_ITEM pi=Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0, 0);
+	P_ITEM pi=Items->SpawnItem(DEREF_P_CHAR(currchar[s]), 1, "#", pileable, id, 0, 0);
 	if(pi)
 	{
-		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+		P_CHAR pc_currchar = currchar[s];
 	
 		pi->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,z);
 		pi->doordir=0;
@@ -878,7 +878,7 @@ void cCommands::WhoCommand(int s, int type,int buttonnum)
 	sprintf(menuarray1[linecount1++], "Jail Character:");
 	sprintf(menuarray1[linecount1++], "Release Character:");
 	sprintf(menuarray1[linecount1++], "Kick Character:");
-	sprintf(menuarray1[linecount1++], "Serial#[%i %i %i %i]",pc_c->ser1,pc_c->ser2,chars[currchar[k]].ser3,pc_c->ser4);   
+	sprintf(menuarray1[linecount1++], "Serial#[%i %i %i %i]",pc_c->ser1,pc_c->ser2, pc_c->ser3, pc_c->ser4);   
 	
 	
 	for(line=0;line<linecount1;line++)
@@ -963,7 +963,7 @@ void cCommands::MakePlace(int s, int i) // Decode a teleport location number int
 
 void cCommands::DupeItem(int s, P_ITEM pi_target, int amount)
 {
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (pi_target->corpse) 
 		return;
 	P_ITEM pPack = Packitem(pc_currchar);
@@ -1057,7 +1057,7 @@ void cCommands::ShowGMQue(int s, int type) // Shows next unhandled call in the G
 
 void cCommands::Wipe(int s)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	clConsole.send("WOLFPACK: %s has initiated an item wipe\n",pc_currchar->name);
 	
@@ -1092,7 +1092,7 @@ void cCommands::Possess(int s)
 	}
 
 	unsigned char tmp;
-	P_CHAR pc_currchar  = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar  = currchar[s];
 
 	if( pPos->npc == 17 ) // Char's old body
 	{
@@ -1118,7 +1118,7 @@ void cCommands::Possess(int s)
 		pPos->npc = 0;
 		pc_currchar->npc = 1;
 		pc_currchar->account = -1;
-		currchar[s] = DEREF_P_CHAR(pPos);
+		currchar[s] = pPos;
 		Network->startchar( s );
 		sysmessage( s, "Welcome back to your old body." );
 	}
@@ -1147,7 +1147,7 @@ void cCommands::Possess(int s)
 		pPos->account = pc_currchar->account;
 		pc_currchar->npc = 17;
 		pc_currchar->npcWander = 0;
-		currchar[s] = DEREF_P_CHAR(pPos);
+		currchar[s] = pPos;
 		Network->startchar( s );
 		sprintf((char*)temp,"Welcome to %s's body!", pPos->name );
 		sysmessage(s, (char*)temp);
@@ -1155,10 +1155,3 @@ void cCommands::Possess(int s)
 	else
 		sysmessage( s, "Possession error %s." );
 }
-
-
-
-
-
-
-

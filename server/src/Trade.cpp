@@ -54,8 +54,8 @@ void cTrade::buyaction(int s)
 	int npc;
 	int soldout;
 	int tmpvalue=0; // Fixed for adv trade system -- Magius(CHE) §
-	CHARACTER cc=currchar[s];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+//	CHARACTER cc=currchar[s];
+	P_CHAR pc_currchar = currchar[s];
 	P_ITEM pi_pack = Packitem(pc_currchar);
 	if (pi_pack == NULL) 
 		return; //LB no player-pack - no buy action possible - and no crash too ;-)
@@ -320,7 +320,7 @@ void cTrade::sellaction(int s)
 		if (maxsell>SrvParms->sellmaxitem)
 		{
 			char tmpmsg[256];
-			sprintf(tmpmsg,"Sorry %s but i can buy only %i items at time!",chars[currchar[s]].name,SrvParms->sellmaxitem);
+			sprintf(tmpmsg,"Sorry %s but i can buy only %i items at time!",currchar[s]->name,SrvParms->sellmaxitem);
 			npctalkall(n, tmpmsg,0);
 			return;
 		}
@@ -400,7 +400,7 @@ void cTrade::sellaction(int s)
 
 P_ITEM cTrade::tradestart(int s, int i)
 {
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	P_CHAR pc_i        = MAKE_CHAR_REF(i);
 	unsigned char msg[90];
 
@@ -602,7 +602,7 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 					glowsp.remove(p2->serial, pi->serial); // lb, glowing stuff
 				bp1->AddItem(pi);
 				if (pi->glow != INVALID_SERIAL) 
-					glowsp.insert(chars[currchar[s1]].serial, pi->serial);
+					glowsp.insert(currchar[s1]->serial, pi->serial);
 				if (s2 != INVALID_UOXSOCKET)
 					RefreshItem(pi);//AntiChrist
 				if (s1 != INVALID_UOXSOCKET) sendbpitem(s1, pi);

@@ -93,7 +93,7 @@ void soundeffect(int s, unsigned char a, unsigned char b) // Play sound effect f
 {
 	int i;
 	
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	sfx[2] = a;
 	sfx[3] = b;
@@ -118,7 +118,7 @@ void soundeffect2(PC_CHAR pc, short sound)
 	sfx[8]=pc->pos.y>>8;
 	sfx[9]=pc->pos.y%256;
 	for (i=0;i<now;i++)
-		if ((perm[i])&&(inrange1p(pc, currchar[i])))
+		if ((perm[i])&&(inrange1p(pc, DEREF_P_CHAR(currchar[i]))))
 		{
 			Xsend(i, sfx, 12);
 		}
@@ -136,7 +136,7 @@ void soundeffect2(CHARACTER p, unsigned char a, unsigned char b)
 	sfx[8]=pc->pos.y>>8;
 	sfx[9]=pc->pos.y%256;
 	for (i=0;i<now;i++)
-		if ((perm[i])&&(inrange1p(p, currchar[i])))
+		if ((perm[i])&&(inrange1p(p, DEREF_P_CHAR(currchar[i]))))
 		{
 			Xsend(i, sfx, 12);
 		}
@@ -171,7 +171,7 @@ void soundeffect4(P_ITEM pi, UOXSOCKET s, unsigned char a, unsigned char b)
 
 void soundeffect5(UOXSOCKET s, unsigned char a, unsigned char b)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	sfx[2]=a;
 	sfx[3]=b;
@@ -186,7 +186,7 @@ void soundeffect5(UOXSOCKET s, unsigned char a, unsigned char b)
 void action(int s, int x) // Character does a certain action
 {
 	int i;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	LongToCharPtr(pc_currchar->serial, &doact[1]);
 	doact[5]=x>>8;
@@ -743,7 +743,7 @@ void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 	if (pi == NULL)
 		return;
 
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	bpitem[0]=pi->ser1;
 	bpitem[1]=pi->ser2;
@@ -802,7 +802,7 @@ void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 		Xsend(s, display3, 1);
 		Xsend(s, bpitem, 19);
 	}
-	Weight->NewCalc(currchar[s]);	// Ison 2-20-99
+	Weight->NewCalc(DEREF_P_CHAR(currchar[s]));	// Ison 2-20-99
 }
 
 
@@ -836,7 +836,7 @@ void tileeffect(int x, int y, int z, char eff1, char eff2, char speed, char loop
 	{
 		if (perm[j])
 		{
-			if(abs(chars[currchar[j]].pos.x-x)<=VISRANGE && abs(chars[currchar[j]].pos.y-y)<=VISRANGE) 
+			if(abs(currchar[j]->pos.x-x)<=VISRANGE && abs(currchar[j]->pos.y-y)<=VISRANGE) 
 				Xsend(j, effect, 28);
 		}
 	}
@@ -846,7 +846,7 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 {
 	int j,pack,serial;
 	unsigned char itmput[21]="\x1A\x00\x13\x40\x01\x02\x03\x20\x42\x00\x32\x06\x06\x06\x4A\x0A\x00\x00\x00";
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if ( pi->visible>=1 && !(pc_currchar->isGM()) )
 	return;
@@ -982,7 +982,7 @@ void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y,
 	unsigned char itmput[20]="\x1A\x00\x13\x40\x01\x02\x03\x20\x42\x00\x32\x06\x06\x06\x4A\x0A\x00\x00\x00";
 	if (pi == NULL)
 		return;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if ( pi->visible>=1 && !(pc_currchar->isGM()) ) return; // workaround for missing gm-check client side for visibity since client 1.26.2
 	// for lsd we dont need extra work for type 1 as in send_item
@@ -1071,11 +1071,11 @@ void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2)
 	P_CHAR pc = MAKE_CHARREF_LR(i)
 	if (s==-1) return;
 	int sendit;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if (pc_currchar->isGM()) sendit=1; else // gm ? -> yes, send everything :)
 	{ // no, -> dont show hidden & logged out chars
-		if (pc->isHidden() && i!=currchar[s]) sendit=0; else sendit=1; // dont show hidden persons, even lsd'ed
+		if (pc->isHidden() && pc != currchar[s]) sendit=0; else sendit=1; // dont show hidden persons, even lsd'ed
 		if ( (pc->isPlayer()) && !online(i)) sendit=0;
 	}
 
@@ -1210,7 +1210,7 @@ void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2)
 
 	Xsend(s, removeitem, 5);
 
-	if (currchar[s]==i)
+	if (currchar[s]==pc)
 	{
 		goxyz[0]=0x20;
 		goxyz[1]=pc->ser1;
@@ -1349,7 +1349,7 @@ void textflags (int s, int i, char *name)
 	a2=pc->ser2;
 	a3=pc->ser3;
 	a4=pc->ser4;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	*(name2)='\0';//AntiChrist
 
@@ -1394,7 +1394,7 @@ void textflags (int s, int i, char *name)
 	talk[7]=1;
 	talk[8]=1;
 	talk[9]=6; // Mode: "You see"
-	guild=Guilds->Compare(currchar[s],i);
+	guild=Guilds->Compare(DEREF_P_CHAR(currchar[s]),DEREF_P_CHAR(pc));
 	race = Races.CheckRelation(pc, pc_currchar);
 	if (guild == 1 || race == 1) //Same guild (Green)
 	{
@@ -1466,7 +1466,7 @@ void teleport(int s) // Teleports character to its current set coordinates
 		if (perm[i])
 		{
 		   Xsend(i, removeitem, 5);
-		   if (inrange1p(s, currchar[i])) 
+		   if (inrange1p(s, DEREF_P_CHAR(currchar[i]))) 
 			   impowncreate(i, DEREF_P_CHAR(pc), 1);
 		}
 	}
@@ -1550,7 +1550,7 @@ void teleport2(CHARACTER s) // used for /RESEND only - Morrolan, so people can f
 			 // Added Oct 08, 1998
 			if (perm[i])
 			{			 
-			   if (inrange1p(DEREF_P_CHAR(pc), currchar[i]))
+			   if (inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i])))
 			   {
 				 impowncreate(i, DEREF_P_CHAR(pc), 1);
 			   }
@@ -1588,7 +1588,7 @@ void updatechar(CHARACTER c) // If character status has been changed (Polymorph)
 			removeitem[3]=pc->ser3;
 			removeitem[4]=pc->ser4;
 			Xsend(i, removeitem, 5);
-			if (currchar[i]==c)
+			if (currchar[i]==pc)
 			{
 				goxyz[1]=pc->ser1;
 				goxyz[2]=pc->ser2;
@@ -1608,7 +1608,7 @@ void updatechar(CHARACTER c) // If character status has been changed (Polymorph)
 				Xsend(i, goxyz, 19);
 				walksequence[i]=-1;
 			}
-			if (inrange1p(c, currchar[i]))
+			if (inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i])))
 			{
 				impowncreate(i, DEREF_P_CHAR(pc), 0);			
 			}
@@ -1637,7 +1637,7 @@ void skillwindow(int s) // Opens the skills list, updated for client 1.26.2b by 
 	unsigned char skillend[3]="\x00\x00";
 	char x;
 
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	Xsend(s, skillstart, 4);
 	for (i=0;i<TRUESKILLS;i++)
@@ -1712,7 +1712,7 @@ void statwindow(int s, int i) // Opens the status window
 	if (s<0 || s>=MAXCLIENT || i<0 || i>cmem) return; // lb, fixes a few (too few) -1 crashes ...
 
 	P_CHAR pc = MAKE_CHARREF_LR(i);
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if ((pc->id1==0x01 && pc->id2==0x92) || (pc->id1==0x01 && pc->id2==0x93)) ghost = true; else ghost = false;
 
@@ -1735,11 +1735,11 @@ void statwindow(int s, int i) // Opens the status window
 	statstring[39]=pc->st>>8;
 	statstring[40]=pc->st%256;
 
-	if (((pc_currchar->isGM())|| pc_currchar->Owns(pc))&&(currchar[s]!=i))
+	if (((pc_currchar->isGM())|| pc_currchar->Owns(pc))&&(currchar[s]!=pc))
 	{
 		statstring[41]=0xFF;
 	} 
-	else if (pc_currchar->Owns(pc) && currchar[s]!=i ) //Morrolan - from Banter
+	else if (pc_currchar->Owns(pc) && currchar[s]!=pc ) //Morrolan - from Banter
 	{
 		statstring[41]=0xFF;
 	}
@@ -1938,7 +1938,7 @@ void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 {
 	int i,tl;
 	unsigned char nonuni[512];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if(pc_currchar->unicode)
 		for (i=13;i<(buffer[s][1]<<8)+buffer[s][2];i=i+2)
@@ -2035,7 +2035,7 @@ void npctalk(int s, int npc, char *txt,char antispam) // NPC speech
 	if (npc==-1 || s==-1) return; //lb
 
 	P_CHAR pc_npc      = MAKE_CHARREF_LR(npc);
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if (antispam)
 	{
@@ -2095,7 +2095,7 @@ void npctalkall(int npc, char *txt,char antispam) // NPC speech to all in range.
 	int i;
 
 	for (i=0;i<now;i++)
-		if (inrange1p(npc, currchar[i])&&perm[i])
+		if (inrange1p(npc, DEREF_P_CHAR(currchar[i]))&&perm[i])
 			npctalk(i, npc, txt,antispam);
 }
 
@@ -2153,7 +2153,7 @@ void npcemote(int s, int npc, char *txt, char antispam) // NPC speech
 	if (s==-1 || npc==-1) return;
 
 	P_CHAR pc_npc = MAKE_CHARREF_LR(npc);
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if (antispam)
 	{
@@ -2631,7 +2631,7 @@ void staticeffect3(UI16 x, UI16 y, SI08 z, unsigned char eff1, unsigned char eff
 	effect[27]=explode; // This value is used for moving effects that explode on impact.
 	for (j=0;j<now;j++)
 	{  // if inrange of effect and online send effect
-		if (inVisRange(x, y, chars[currchar[j]].pos.x, chars[currchar[j]].pos.y))
+		if (inVisRange(x, y, currchar[j]->pos.x, currchar[j]->pos.y))
 		{
 			Xsend(j, effect, 28);
 		}
@@ -2738,7 +2738,7 @@ void dolight(int s, char level)
 	char light[3]="\x4F\x00";
 
 	if ((s==-1)||(!perm[s])) return;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	light[1]=level;
 	if(Races[pc_currchar->race]->NightSight)
@@ -2754,7 +2754,7 @@ void dolight(int s, char level)
 		{
 			light[1]=pc_currchar->fixedlight;
 		} else {
-			if (indungeon(currchar[s]))
+			if (indungeon(DEREF_P_CHAR(currchar[s])))
 			{
 				light[1]=dungeonlightlevel;
 			}
@@ -2773,7 +2773,7 @@ void updateskill(int s, int skillnum) // updated for client 1.26.2b by LB
 	char update[11];
 	char x;
 	
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	update[0] = 0x3A; // Skill Update Message
 	update[1] = 0x00; // Length of message
@@ -2812,7 +2812,7 @@ void deathaction(int s, P_ITEM pi_x) // Character does a certain action
 	LongToCharPtr(pi_x->serial,deathact+5);
 	
 	for (i=0;i<now;i++) 
-		if ((inrange1p(s, currchar[i]))&&(perm[i]) && (currchar[i]!=s)) 
+		if ((inrange1p(s, DEREF_P_CHAR(currchar[i])))&&(perm[i]) && (currchar[i]!=pc)) 
 			Xsend(i, deathact, 13);
 	
 }
@@ -2838,14 +2838,14 @@ void impowncreate(int s, int i, int z) //socket, player to send
     P_CHAR pc = MAKE_CHARREF_LR(i);
 
 	if (s==-1) return; //lb
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if (pc->stablemaster_serial>0) return; // dont **show** stabled pets
 
 	int sendit;
-	if (pc->isHidden() && i!=currchar[s] && (pc_currchar->isGM())==0) sendit=0; else sendit=1;
+	if (pc->isHidden() && pc!=currchar[s] && (pc_currchar->isGM())==0) sendit=0; else sendit=1;
 
-	if (!online(i) && (pc->isPlayer()) && (pc_currchar->isGM())==0 ) 
+	if (!online(DEREF_P_CHAR(pc)) && (pc->isPlayer()) && (pc_currchar->isGM())==0 ) 
 	{
 		sendit=0;
 		removeitem[1]=pc->ser1;
@@ -2880,7 +2880,7 @@ void impowncreate(int s, int i, int z) //socket, player to send
 
 	k=19;
 	int guild,race;
-	guild=Guilds->Compare(currchar[s],i);
+	guild=Guilds->Compare(DEREF_P_CHAR(currchar[s]),DEREF_P_CHAR(pc));
 	race = Races.CheckRelation(pc_currchar, pc);
 	if (guild == 1 || race == 1)//Same guild (Green)
 		oc[18]=2;
@@ -3038,7 +3038,7 @@ int sellstuff(int s, int i)
 	char cinam2[256]; // By Magius(CHE)
 
     P_CHAR pc = MAKE_CHARREF_LRV(i, 0);
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	P_ITEM sellcont = NULL;
 
 	serial = pc->serial;
@@ -3284,7 +3284,7 @@ void endtrade(int b1, int b2, int b3, int b4)
 void tellmessage(int i, int s, char *txt)
 {
 	int tl;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	sprintf((char*)temp, "GM tells %s: %s", pc_currchar->name, txt);
 

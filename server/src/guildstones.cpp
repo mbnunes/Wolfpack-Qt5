@@ -56,7 +56,7 @@ void cGuilds::StonePlacement(int s)
 	int guildnumber;
 	//unsigned int k; // lb, msvc++ 5.0 didnt like the guild(int x,inty) ...
 	char stonename[60];
-	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc = currchar[s];
 	P_ITEM pDeed = FindItemBySerial(pc->fx1);
 	P_ITEM pStone=NULL;
 
@@ -80,7 +80,7 @@ void cGuilds::StonePlacement(int s)
 			return;
 		}
 		pc->guildnumber=guildnumber;
-		pStone=Items->SpawnItem(currchar[s],1,"Guildstone for an unnamed guild",0,0x0ED5,0,0);
+		pStone=Items->SpawnItem(DEREF_P_CHAR(currchar[s]),1,"Guildstone for an unnamed guild",0,0x0ED5,0,0);
 		if (!pStone)
 		{//AntiChrist - to prevent crashes
 			sysmessage(s,"Cannot create guildstone");
@@ -125,7 +125,7 @@ void cGuilds::StonePlacement(int s)
 			pc->isGM() )
 		{
 			sprintf(stonename, "Guildstone for %s", guilds[guildnumber].name);
-			pStone = Items->SpawnItem(currchar[s], 1, stonename, 0, 0x0ED5, 0, 0);
+			pStone = Items->SpawnItem(DEREF_P_CHAR(currchar[s]), 1, stonename, 0, 0x0ED5, 0, 0);
 			if (!pStone)
 			{
 				sysmessage(s,"Cannot create guildstone");
@@ -156,7 +156,7 @@ void cGuilds::Menu(int s, int page)
 	char guildfealty[60],guildt[16],toggle[6];
 	static char mygump[MAXMEMRECWAR][257];
 
-	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc = currchar[s];
 	P_ITEM stone = FindItemBySerial(pc->fx1);
 
 	int guildnumber=Guilds->SearchByStone(s);
@@ -506,7 +506,7 @@ void cGuilds::Menu(int s, int page)
 void cGuilds::Resign(int s)
 {
 
-	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc = currchar[s];
 
 	int guildnumber = pc->guildnumber;
 
@@ -516,7 +516,7 @@ void cGuilds::Resign(int s)
 		return;
 	}
 
-	Guilds->EraseMember(currchar[s]);
+	Guilds->EraseMember(DEREF_P_CHAR(currchar[s]));
 	sysmessage(s,"You are no longer in that guild.");
 	if ((guilds[guildnumber].master == pc->serial) && (guilds[guildnumber].members!=0))
 	{
@@ -620,7 +620,7 @@ void cGuilds::EraseMember(int c)
 void cGuilds::ToggleAbbreviation(int s)
 {
 
-	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc = currchar[s];
 	int guildnumber = pc->guildnumber;
 
 	if (guildnumber<0 || guildnumber>MAXGUILDS) 
@@ -775,7 +775,7 @@ void cGuilds::StoneMove(int s)
 
 	sprintf(stonename,"a guildstone teleporter for %s",guilds[guildnumber].name);
 															// Give it a name
-	newstone = Items->SpawnItem(s, currchar[s], 1, stonename, 0, 0x18, 0x69, 0, 0, 1, 1);	// Spawn the stone in the masters backpack
+	newstone = Items->SpawnItem(s, DEREF_P_CHAR(currchar[s]), 1, stonename, 0, 0x18, 0x69, 0, 0, 1, 1);	// Spawn the stone in the masters backpack
 	if (newstone == NULL) return; //AntiChrist
 	newstone->type=202;										// Set Guildstone to Type 'Guild Related'
 	guilds[guildnumber].stone=newstone->serial;				// Remember its serial number
@@ -852,7 +852,7 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 	int i,member, recruit, war, guild, counter, slot;
 	//int members[MAXGUILDMEMBERS];
 	//int recruits[MAXGUILDRECRUITS];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	char text[200];
 
 	int guildnumber=Guilds->SearchByStone(s);
@@ -1323,7 +1323,7 @@ void cGuilds::Broadcast(int guildnumber, char *text)
 int cGuilds::SearchByStone(int s)
 {
 	int guildnumber;
-	P_CHAR pc = MAKE_CHARREF_LRV(currchar[s], -1);
+	P_CHAR pc = currchar[s];
 
 	SERIAL stone = pc->fx1;
 
@@ -1600,7 +1600,7 @@ int cGuilds::CheckValidPlace(int x,int y)
 int cGuilds::CheckValidPlace(int s)
 {
 	int los;
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],0);
+	P_CHAR pc_currchar = currchar[s];
 	P_ITEM pi_multi = findmulti(pc_currchar->pos); 
 	if (pi_multi == NULL) 
 		return 0;

@@ -54,7 +54,7 @@ void checktimers() // Check shutdown timers
 
 void do_lsd(UOXSOCKET s)
 {
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (rand()%15==0)
 	{
 		int c1,c2,color,ctr=0,b,xx,yy,di,icnt=0;
@@ -975,7 +975,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	if(lighttime<=currenttime || (overflow))
 	{
 		doworldlight(); //Changes lighting, if it is currently time to.
-		for (i=0;i<now;i++) if (online(currchar[i])) dolight(i,worldcurlevel); // bandwidth fix, LB
+		for (i=0;i<now;i++) if (online(DEREF_P_CHAR(currchar[i]))) dolight(i,worldcurlevel); // bandwidth fix, LB
 		lighttime=currenttime+30*MY_CLOCKS_PER_SEC;
 	}
 	static unsigned int itemlooptime = 0;
@@ -1000,13 +1000,13 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	}
 	for(i=0;i<now;i++)
 	{
-		if (online(currchar[i]) && chars[currchar[i]].account==acctno[i])
+		if (online(DEREF_P_CHAR(currchar[i])) && currchar[i]->account==acctno[i])
 		{
 
-			genericCheck(currchar[i],currenttime);
-			checkPC(currchar[i],currenttime);
+			genericCheck(DEREF_P_CHAR(currchar[i]),currenttime);
+			checkPC(DEREF_P_CHAR(currchar[i]),currenttime);
 
-			int	StartGrid=mapRegions->StartGrid(chars[currchar[i]].pos.x,chars[currchar[i]].pos.y);
+			int	StartGrid=mapRegions->StartGrid(currchar[i]->pos.x, currchar[i]->pos.y);
 
 			unsigned int increment=0;
 			for (unsigned int checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
@@ -1028,7 +1028,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 							{
 								if (mapchar->isNpc()) 
 									genericCheck(DEREF_P_CHAR(mapchar),currenttime); // lb, lagfix
-								if (chardist(currchar[i], DEREF_P_CHAR(mapchar))<=24 && mapchar->isNpc()) //Morrolan tweak from 30 to 24 tiles
+								if (chardist(DEREF_P_CHAR(currchar[i]), DEREF_P_CHAR(mapchar))<=24 && mapchar->isNpc()) //Morrolan tweak from 30 to 24 tiles
 									checkNPC(mapchar, currenttime);
 								else if (mapchar->isPlayer() &&
 									Accounts->GetInWorld(mapchar->account) == DEREF_P_CHAR(mapchar) && mapchar->logout>0 &&
@@ -1054,7 +1054,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 							Items->DecayItem(currenttime, mapitem);
 							if (mapitem->type==88 && mapitem->morey<25 )
 							{
-								if (itemdist(currchar[i], mapitem)<=mapitem->morey)
+								if (itemdist(DEREF_P_CHAR(currchar[i]), mapitem)<=mapitem->morey)
 								{
 									if (RandomNum(1,100)<=mapitem->morez)
 										soundeffect4(mapitem,i, mapitem->morex>>8, mapitem->morex%256);

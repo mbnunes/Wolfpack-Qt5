@@ -85,7 +85,7 @@ void cHouseManager::AddHome(int s, int i)
 	int norealmulti=0,nokey=0,othername=0;
 	int lockamount=0, secureamount=0;
 	char name[512];
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return; // do nothing if user cancels, avoids CRASH!
 	
@@ -419,7 +419,7 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 	int x1, y1, x2, y2;
 	unsigned char ser1, ser2, ser3, ser4;
 	if( pHouse == NULL ) return;
-	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc = currchar[s];
 //	P_ITEM playerCont = Packitem( pc );
 	int a,checkgrid,increment,StartGrid,getcell,ab;		
 	if(pc->Owns(pHouse) || pc->isGM())
@@ -627,7 +627,7 @@ void house_speech(int s, char *msg)	// msg must already be capitalized
 	int h=-1;
 	int hf=-1;
 
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	h=HouseManager->GetHouseNum(pc_currchar);
 	if(h==-1)
@@ -961,6 +961,3 @@ bool cHouse::RemoveBan(P_CHAR pc)
 	else
 		return 0;
 }
-
-
-

@@ -72,7 +72,7 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype,
 	splitline();
 	unsigned int ItemNum = makenumber(0);
 	unsigned int InBackpack = makenumber(1);
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[ts]);
+	P_CHAR pc_currchar = currchar[ts];
 	
 	switch (pc_currchar->dir)
 	{
@@ -192,7 +192,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 	if (ts < 0)
 		return; // §Magius crash fix
 	
-	P_CHAR pc_ts = MAKE_CHARREF_LR(currchar[ts]);
+	P_CHAR pc_ts = currchar[ts];
 
 	if (ttype == 1)
 	{
@@ -391,8 +391,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						unsigned int baseskill = pc_ts->baseskill[skill];
 						if (i > baseskill)
 						{
-							Skills->AdvanceSkill(currchar[ts], skill, 0);
-							Skills->updateSkillLevel(currchar[ts], skill);
+							Skills->AdvanceSkill(DEREF_P_CHAR(currchar[ts]), skill, 0);
+							Skills->updateSkillLevel(DEREF_P_CHAR(currchar[ts]), skill);
 							updateskill(ts, skill);
 							if (strlen(fmsg))
 								sysmessage(ts, fmsg); // by Magius(CHE) §
@@ -627,7 +627,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						strcpy(sect, script2);
 						for (i = 0; i < now; i++)
 						{
-							if (inrange1p(currchar[ts], currchar[i]) && perm[i])
+							if (inrange1p(DEREF_P_CHAR(currchar[ts]), DEREF_P_CHAR(currchar[i])) && perm[i])
 							{
 								tl = 44 + strlen(sect) + 1;
 								talk[1] = tl >> 8;
@@ -729,14 +729,14 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							j = str2num(script2);
 							if ((j < 0) &&(pc_ts->hp < abs(j)) &&(!(pc_ts->isInvul())))
 							{
-								deathstuff(currchar[ts]);
+								deathstuff(DEREF_P_CHAR(currchar[ts]));
 								closescript();
 								return;
 							}
 							pc_ts->hp += j;
 							if (pc_ts->hp>pc_ts->st)
 								pc_ts->hp = pc_ts->st;
-							updatestats(currchar[ts], 0);
+							updatestats(DEREF_P_CHAR(currchar[ts]), 0);
 						}
 						break;
 					case 'I':
@@ -811,7 +811,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							// AntiChrist
 							pos = ftell(scpfile);
 							closescript();
-							pi_itemnum = Items->SpawnItem(ts,currchar[ts], r, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1);
+							pi_itemnum = Items->SpawnItem(ts,DEREF_P_CHAR(currchar[ts]), r, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1);
 							if (pi_itemnum == NULL)
 							{
 								closescript();
@@ -1111,7 +1111,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							pc_ts->mn += j;
 							if (pc_ts->mn>pc_ts->in)
 								pc_ts->mn = pc_ts->in;
-							updatestats(currchar[ts], 1);
+							updatestats(DEREF_P_CHAR(currchar[ts]), 1);
 						}
 						else if (!(strcmp("MAKE", (char*)script1)))  // Give user the make menu
 						{
@@ -1119,8 +1119,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							cline = &script2[0];
 							splitline();
 							itemmake[ts].Mat1id = ((hexnumber(2)) << 8) + hexnumber(3);
-							itemmake[ts].has = getamount(currchar[ts], itemmake[ts].Mat1id); 
-							itemmake[ts].has2 = getamount(currchar[ts], itemmake[ts].Mat2id);
+							itemmake[ts].has = getamount(DEREF_P_CHAR(currchar[ts]), itemmake[ts].Mat1id); 
+							itemmake[ts].has2 = getamount(DEREF_P_CHAR(currchar[ts]), itemmake[ts].Mat2id);
 							itemmake[ts].coloring = coloring; // Magius(CHE) §
 							if (coloring>-1)
 							{
@@ -1140,7 +1140,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						else if (!(strcmp("MISC", (char*)script1)))  // Perform a miscellaneous function
 						{
 							if (!(strcmp("bank", strlwr((char*)script2))))
-								openbank(ts, currchar[ts]);
+								openbank(ts, DEREF_P_CHAR(currchar[ts]));
 						}
 						else if (!(strcmp("MSG", (char*)script1)))  // Display a message when trigger is activated
 						{
@@ -1256,12 +1256,12 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							int p;
 							if (pi_itemnum != NULL)
 							{
-								p = currchar[ts];
+								p = DEREF_P_CHAR(currchar[ts]);
 								pi_itemnum->SetOwnSerial(chars[p].serial);
 							}
 							if (npcnum>-1)
 							{
-								p = currchar[ts];
+								p = DEREF_P_CHAR(currchar[ts]);
 								chars[npcnum].SetOwnSerial(chars[p].serial);
 								chars[npcnum].tamed = true;// AntiChrist FIX
 							}
@@ -1275,7 +1275,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						}
 						else if (!(strcmp("NEED", (char*)script1)))  // The item here is required and will be removed
 						{
-							P_CHAR ts_currchar = MAKE_CHAR_REF(currchar[ts]);
+							P_CHAR ts_currchar = currchar[ts];
 							P_ITEM pBackpack = Packitem(ts_currchar);
 							if (pBackpack != NULL)
 							{
@@ -1501,7 +1501,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								strcpy(sect, script2);
 								for (i = 0; i < now; i++)
 								{
-									if (inrange1p(currchar[ts], currchar[i]) && perm[i])
+									if (inrange1p(DEREF_P_CHAR(currchar[ts]), DEREF_P_CHAR(currchar[i])) && perm[i])
 									{
 										tl = 44 + strlen(sect) + 1;
 										talk[1] = tl >> 8;
@@ -1530,7 +1530,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								strcpy(sect, script2);
 								for (i = 0; i < now; i++)
 								{
-									if (inrange1p(currchar[ts], currchar[i]) && perm[i])
+									if (inrange1p(DEREF_P_CHAR(currchar[ts]), DEREF_P_CHAR(currchar[i])) && perm[i])
 									{
 										tl = 44 + strlen(sect) + 1;
 										talk[1] = tl >> 8;
@@ -1620,7 +1620,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 
 							pos = ftell(scpfile);	// teleport might open scripts
 							closescript();
-							teleport(currchar[ts]);
+							teleport(DEREF_P_CHAR(currchar[ts]));
 							if (ttype)
 								openscript("triggers.scp");
 							else 
@@ -1837,15 +1837,15 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 									pc_ts->baseskill[p] += j;
 									if (pc_ts->baseskill[p]>1000)
 										pc_ts->baseskill[p] = 1000;
-									Skills->AdvanceStats(currchar[ts], p);
-									Skills->updateSkillLevel(currchar[ts], p);
+									Skills->AdvanceStats(DEREF_P_CHAR(currchar[ts]), p);
+									Skills->updateSkillLevel(DEREF_P_CHAR(currchar[ts]), p);
 									updateskill(ts, p);
 								}
 							}
 							else 
 							{
-								Skills->AdvanceSkill(currchar[ts], p, 1);
-								Skills->updateSkillLevel(currchar[ts], p);
+								Skills->AdvanceSkill(DEREF_P_CHAR(currchar[ts]), p, 1);
+								Skills->updateSkillLevel(DEREF_P_CHAR(currchar[ts]), p);
 								updateskill(ts, p);
 							}
 						}
@@ -1868,7 +1868,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							pc_ts->stm += j;
 							if (pc_ts->stm>pc_ts->effDex())
 								pc_ts->stm = pc_ts->effDex();
-							updatestats(currchar[ts], 2);
+							updatestats(DEREF_P_CHAR(currchar[ts]), 2);
 						}
 						else if (!(strcmp("STR", (char*)script1)))  // Do math on players strength
 						{
@@ -1907,7 +1907,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						{
 							if (pi != NULL)
 							{
-								int p = currchar[ts];
+								int p = DEREF_P_CHAR(currchar[ts]);
 								pi->SetOwnSerial(chars[p].serial);
 							}
 						}
@@ -1947,7 +1947,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								if ((p>-1) && (p<49))
 								{
 									pc_ts->baseskill[p] -= j;
-									Skills->updateSkillLevel(currchar[ts], p);
+									Skills->updateSkillLevel(DEREF_P_CHAR(currchar[ts]), p);
 									updateskill(ts, p);
 									pi->trigon=0;
 								}
@@ -1980,7 +1980,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								if ((p>-1) && (p<49))
 								{
 									pc_ts->baseskill[p] += j;
-									Skills->updateSkillLevel(currchar[ts], p);
+									Skills->updateSkillLevel(DEREF_P_CHAR(currchar[ts]), p);
 									updateskill(ts, p);
 									pi->trigon=1;
 								}
@@ -2090,7 +2090,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 	if (ts < 0)
 		return; // §Magius crash fix
 
-	P_CHAR pc_ts = MAKE_CHARREF_LR(currchar[ts]);
+	P_CHAR pc_ts = currchar[ts];
 	
 	if (ttype == 1)
 	{
@@ -2270,7 +2270,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 						strcpy(sect, (char*)script2);
 						for (i = 0; i < now; i++)
 						{
-							if (inrange1p(DEREF_P_CHAR(pc_ts), currchar[i]) && perm[i])
+							if (inrange1p(DEREF_P_CHAR(pc_ts), DEREF_P_CHAR(currchar[i])) && perm[i])
 							{
 								tl = 44 + strlen(sect) + 1;
 								talk[1] = tl >> 8;
@@ -3118,7 +3118,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 						{
 							if (ti>-1)
 							{
-//								p = currchar[ts];
+//								p = DEREF_P_CHAR(currchar[ts]);
 								chars[ti].SetOwnSerial(pc_ts->serial);
 							}
 						}

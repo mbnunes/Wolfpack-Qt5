@@ -118,7 +118,7 @@ float cWeight::RecursePacks(P_ITEM bp)
 
 int cWeight::CheckWeight(int s, int k) // Check when player is walking if overloaded
 {
-	P_CHAR pc = FindCharBySerial(currchar[s]);
+	P_CHAR pc = currchar[s];
 	if (pc != NULL)
 	if ((pc->weight > (pc->st*WEIGHT_PER_STR)+30))
 	{
@@ -138,7 +138,7 @@ int cWeight::CheckWeight(int s, int k) // Check when player is walking if overlo
 
 int cWeight::CheckWeight2(int s) // Morrolan - Check when player is teleporting if overloaded
 {
-	P_CHAR pc = FindCharBySerial(currchar[s]);
+	P_CHAR pc = currchar[s];
 	if (pc != NULL)
 	if ((pc->weight > (pc->st*WEIGHT_PER_STR)+30))
 	{

@@ -1033,8 +1033,7 @@ P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket,
 	}
 	else
 	{
-		CHARACTER ch = currchar[nSocket];
-		return SpawnItem(nSocket, ch, nAmount, cName, nStackable, cItemId1, cItemId2, cColorId1, cColorId2, nPack, nSend);
+		return SpawnItem(nSocket, DEREF_P_CHAR(currchar[nSocket]), nAmount, cName, nStackable, cItemId1, cItemId2, cColorId1, cColorId2, nPack, nSend);
 	}
 }
 
@@ -1352,7 +1351,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 
 P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Added by Genesis 11-5-98
 {
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	P_ITEM backpack = Packitem(pc_currchar);
 	
 	P_ITEM pi = CreateScriptItem(s, nItem, 1);
@@ -1376,7 +1375,7 @@ P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Ad
 	backpack->AddItem(pi);
 	RefreshItem(pi);
 	
-	statwindow(s, currchar[s]);
+	statwindow(s, DEREF_P_CHAR(currchar[s]));
 	return pi;
 }
 
@@ -1697,7 +1696,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 			pi->MoveTo(pc_p->pos.x,pc_p->pos.y,pc_p->pos.z);
 			
 			for (int j=0;j<now;j++)
-				if (inrange1p(DEREF_P_CHAR(pc_p), currchar[j])&&perm[j])
+				if (inrange1p(DEREF_P_CHAR(pc_p), DEREF_P_CHAR(currchar[j]))&&perm[j])
 				{
 					wornitems(j, DEREF_P_CHAR(pc_p));
 					senditem(j, pi);

@@ -48,7 +48,7 @@ inline UOXSOCKET calcSocketFromChar(P_CHAR pc)
 	if (pc == NULL || pc->npc)
 		return -1;
 	for (j = 0; j < now; j++)
-		if (currchar[j] == DEREF_P_CHAR(pc) && perm[j]) return j;
+		if (currchar[j] == pc && perm[j]) return j;
 
 	return -1;
 }

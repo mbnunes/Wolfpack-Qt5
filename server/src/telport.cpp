@@ -119,11 +119,11 @@ int validtelepos(int s)
 	int z;
 
 	z=-1;
-	if ((chars[currchar[s]].pos.x>=1397)&&(chars[currchar[s]].pos.x<=1400)&&
-		(chars[currchar[s]].pos.y>=1622)&&(chars[currchar[s]].pos.y<=1630))
+	if ((currchar[s]->pos.x>=1397)&&(currchar[s]->pos.x<=1400)&&
+		(currchar[s]->pos.y>=1622)&&(currchar[s]->pos.y<=1630))
 		z=28;
-	if ((chars[currchar[s]].pos.x>=1510)&&(chars[currchar[s]].pos.x<=1537)&&
-		(chars[currchar[s]].pos.y>=1455)&&(chars[currchar[s]].pos.y<=1456))
+	if ((currchar[s]->pos.x>=1510)&&(currchar[s]->pos.x<=1537)&&
+		(currchar[s]->pos.y>=1455)&&(currchar[s]->pos.y<=1456))
 		z=15;
 	return z;
 }

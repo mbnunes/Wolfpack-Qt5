@@ -49,7 +49,7 @@ int SpawnFishingMonster(UOXSOCKET s, char* cScript, char* cList, char* cNpcID)
 	the script and list specified.
 	Npcs->AddRespawnNPC passing the new number*/
 
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],-1);
+	P_CHAR pc_currchar = currchar[s];
 
 	if (pc_currchar->inGuardedArea() && SrvParms->guardsactive) //guarded
 		return -1;

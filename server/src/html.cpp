@@ -118,9 +118,9 @@ void updatehtml()//HTML
 		else if(!(strcmp((char*)script1,"TIME"))) fprintf(html,"%s <BR>",(getRealTimeString()).c_str());
 		else if(!(strcmp((char*)script1,"NOW")))
 		{
-			if(online(currchar[n])) //bugfix LB
+			if(online(DEREF_P_CHAR(currchar[n]))) //bugfix LB
 			{
-				fprintf(html,chars[currchar[n]].name);
+				fprintf(html, currchar[n]->name);
 				n++;
 			}
 		}
@@ -129,10 +129,10 @@ void updatehtml()//HTML
 			a=0;
 			for (n=0;n<now;n++)
 			{ 
-				if (online(currchar[n])) // bugfix, LB
+				if (online(DEREF_P_CHAR(currchar[n]))) // bugfix, LB
 				{
 					a++;
-					fprintf(html,"%i) %s <BR>\n",a,chars[currchar[n]].name); // bugfix lb
+					fprintf(html,"%i) %s <BR>\n",a, currchar[n]->name); // bugfix lb
 				}
 			}
 		}
@@ -215,8 +215,8 @@ void updatehtml()//HTML
 			{
 				for(a=0;a<now;a++)
 				{
-					if(chars[currchar[a]].isGM() && perm[a]) gm++;
-					else if(chars[currchar[a]].isCounselor() && perm[a]) cns++; //bugfix LB
+					if(currchar[a]->isGM() && perm[a]) gm++;
+					else if(currchar[a]->isCounselor() && perm[a]) cns++; //bugfix LB
 				}
 			}
 			fprintf(html,"%i",gm);
@@ -227,8 +227,8 @@ void updatehtml()//HTML
 			{
 				for(a=0;a<now;a++)
 				{
-					if(chars[currchar[a]].isGM() && perm[a]) gm++;
-					else if(chars[currchar[a]].isCounselor() && perm[a]) cns++; //bugfix LB
+					if(currchar[a]->isGM() && perm[a]) gm++;
+					else if(currchar[a]->isCounselor() && perm[a]) cns++; //bugfix LB
 				}
 			}
 			fprintf(html,"%i",cns);

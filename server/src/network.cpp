@@ -217,10 +217,10 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 	if (SrvParms->server_log) savelog((char*)temp,"server.log");
 
 
-	if ((chars[currchar[s]].account==acctno[s])&&(SrvParms->partmsg)&& perm[s]) 
-		if (chars[currchar[s]].isPlayer()) // bugfix lb, removes lamas that leave the realm :)
+	if ((currchar[s]->account==acctno[s])&&(SrvParms->partmsg)&& perm[s]) 
+		if (currchar[s]->isPlayer()) // bugfix lb, removes lamas that leave the realm :)
 		{
-			sprintf((char*)temp,"%s has left the realm",chars[currchar[s]].name);
+			sprintf((char*)temp,"%s has left the realm",currchar[s]->name);
 			sysbroadcast((char*)temp);//message upon leaving a server 
 		}
 
@@ -229,17 +229,17 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 
 	//Instalog
 	char val=0;
-	if (!chars[currchar[s]].free && online(currchar[s])) val=LogOut(s);
+	if (!currchar[s]->free && online(DEREF_P_CHAR(currchar[s]))) val=LogOut(s);
 
 	if (val)
 	{
 	   for (i=0;i<now;i++)
 	   if ((i!=s)&&(perm[i]))
 	   {
-	      removeitem[1]=chars[currchar[s]].ser1;
-	      removeitem[2]=chars[currchar[s]].ser2;
-	      removeitem[3]=chars[currchar[s]].ser3;
-	      removeitem[4]=chars[currchar[s]].ser4;
+	      removeitem[1]=currchar[s]->ser1;
+	      removeitem[2]=currchar[s]->ser2;
+	      removeitem[3]=currchar[s]->ser3;
+	      removeitem[4]=currchar[s]->ser4;
 	      Xsend(i, removeitem, 5);
 	   }
 	}
@@ -571,7 +571,7 @@ void cNetworkStuff::charplay (int s) // After hitting "Play Character" button //
 			{
 				Accounts->SetOnline(acctno[s], DEREF_P_CHAR(pc_selected));
 				pc_selected->logout=-1;
-				currchar[s] = DEREF_P_CHAR(pc_selected);
+				currchar[s] = pc_selected;
 				startchar(s);
 			} else {
 #ifdef DEBUG
@@ -606,7 +606,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	perm[s]=1;
 	targetok[s]=0;	    
 
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	startup[1]=pc_currchar->ser1;
 	startup[2]=pc_currchar->ser2;
@@ -733,7 +733,9 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 //Boats->added multi checking to instalog.
 char cNetworkStuff::LogOut(int s)//Instalog
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],0);
+	P_CHAR pc_currchar = currchar[s];
+	if (pc_currchar == NULL)
+		return 0;
 	int i, a, valid=0;
 	int x = pc_currchar->pos.x, y = pc_currchar->pos.y;
 	P_ITEM pi_multi = NULL;
@@ -1230,7 +1232,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 		
 			if (readstat > SOCKET_ERROR)
 			{
-				P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+				P_CHAR pc_currchar = currchar[s];
 				if ( pc_currchar != NULL && packet !=0x73 && packet!=0x80 && packet!=0xA4 && packet!=0xA0 && packet!=0x90 && packet!=0x91 )
 					pc_currchar->clientidletime=SrvParms->inactivitytimeout*MY_CLOCKS_PER_SEC+uiCurrentTime;
         		    // LB, client activity-timestamp !!! to detect client crashes, ip changes etc and disconnect in that case
@@ -2008,4 +2010,3 @@ void cNetworkStuff::SendGoodByeMessageRaw(UOXSOCKET s)
 {
   
 }
-

@@ -155,7 +155,7 @@ bool inVisRange(int x1, int y1, int x2, int y2)
 int inrange1 (UOXSOCKET a, UOXSOCKET b) // Are players from sockets a and b in visual range
 {
 	if (!(a==b)
-		&& inVisRange(chars[currchar[a]].pos.x, chars[currchar[a]].pos.y, chars[currchar[b]].pos.x, chars[currchar[b]].pos.y))
+		&& inVisRange(currchar[a]->pos.x, currchar[a]->pos.y, currchar[b]->pos.x, currchar[b]->pos.y))
 		return 1;
 	return 0;
 }
@@ -189,7 +189,7 @@ inline bool inRange(int x1, int y1, int x2, int y2, int range)
 int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on socket s
 {
 	
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],0);
+	P_CHAR pc_currchar = currchar[s];
 	int vr=Races[pc_currchar->race]->VisRange;
 	if (pi == NULL) // blackwind Crash fix 
 		return 0; 
@@ -201,7 +201,7 @@ int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on
 
 bool iteminrange (const UOXSOCKET s, const P_ITEM pi, const int distance)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],false);
+	P_CHAR pc_currchar = currchar[s];
 	if (pc_currchar->isGM()) return 1;
 	return inRange(pc_currchar->pos.x,pc_currchar->pos.y,pi->pos.x,pi->pos.y,distance);
 }
@@ -209,7 +209,7 @@ bool iteminrange (const UOXSOCKET s, const P_ITEM pi, const int distance)
 unsigned char npcinrange (UOXSOCKET s, CHARACTER i, int distance)
 {
 	if (i<=-1) return 0;
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],0);
+	P_CHAR pc_currchar = currchar[s];
 	if (pc_currchar->isGM()) return 1;
 	return inRange(pc_currchar->pos.x,pc_currchar->pos.y,chars[i].pos.x,chars[i].pos.y,distance);
 }
@@ -329,7 +329,7 @@ bool online(CHARACTER c) // Is the player owning the character c online
 	else
 	{
 		for (i=0;i<now;i++)
-			if ((currchar[i] == c)&&(perm[i])) return true;
+			if ((DEREF_P_CHAR(currchar[i]) == c)&&(perm[i])) return true;
 	}
 	return false;
 }
@@ -922,7 +922,7 @@ void showcname (int s, int i, char b) // Singleclick text for a character
 	int c;
 	int x;
 
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
 
 	if (pc_i == NULL)
@@ -1210,7 +1210,7 @@ void deathstuff(int i)
 				clearmsg[6]=pc_player->ser4;
 				clearmsg[7]=0x00;
 				for (l=0;l<now;l++)
-					if (perm[l] && inrange1p(DEREF_P_CHAR(pc_player), currchar[l])) 
+					if (perm[l] && inrange1p(DEREF_P_CHAR(pc_player), DEREF_P_CHAR(currchar[l]))) 
 						Xsend(l, clearmsg, 8);
 			}//else if it's a normal item but ( not newbie and not bank items )
 			else if ((!(pi_j->priv&0x02)) && pi_j->layer!=0x1D)
@@ -1377,7 +1377,7 @@ void usehairdye(UOXSOCKET s, P_ITEM piDye)	// x is the hair dye bottle object nu
 		return;
 
 	P_ITEM pi;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	unsigned int ci = 0;
 	vector<SERIAL> vecContainer = contsp.getData(pc_currchar->serial);
@@ -1398,11 +1398,11 @@ void explodeitem(int s, P_ITEM pi)
 {
 	unsigned int dmg=0,len=0,c;
 	unsigned int dx,dy,dz;
-	int cc=currchar[s];
+//	int cc=currchar[s];
 
 	if (pi == NULL)
 		return;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	// - send the effect (visual and sound)
 	if (!pi->isInWorld()) //bugfix LB
@@ -1410,8 +1410,8 @@ void explodeitem(int s, P_ITEM pi)
 		pi->pos.x=pc_currchar->pos.x;
 		pi->pos.y=pc_currchar->pos.y;
 		pi->pos.z=pc_currchar->pos.z;
-		npcaction(cc,0x15);
-		soundeffect2(cc, 0x02, 0x07);
+		npcaction(DEREF_P_CHAR(pc_currchar),0x15);
+		soundeffect2(DEREF_P_CHAR(pc_currchar), 0x02, 0x07);
 	}
 	else
 	{
@@ -1458,7 +1458,7 @@ void explodeitem(int s, P_ITEM pi)
 				}
 				else
 				{
-					npcattacktarget(c, cc);
+					npcattacktarget(c, DEREF_P_CHAR(pc_currchar));
 					updatechar(c);
 				}
 			}
@@ -1494,7 +1494,7 @@ void explodeitem(int s, P_ITEM pi)
 							{
 								//chain=1; // maximum: one additional trigerred per check ..
 								if (rand()%2==1) chain=1; // LB - more aggressive - :)
-								tempeffect2(cc, piMap, 17, 0, 1, 0); // trigger ...
+								tempeffect2(DEREF_P_CHAR(pc_currchar), piMap, 17, 0, 1, 0); // trigger ...
 							}
 						}
 					}
@@ -1721,7 +1721,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 		// house refreshment when a house owner or friend of a houe opens the house door
 		int h=-1, hf=-1;
 		float ds=0;
-		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+		P_CHAR pc_currchar = currchar[s];
 
 		h=HouseManager->GetHouseNum(pc_currchar);
 		if(h>=0)
@@ -2001,7 +2001,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->priv |= 0x02; // Mark as a newbie item
 	}
 
-	currchar[s] = DEREF_P_CHAR(pc);
+	currchar[s] = pc;
 	newbieitems(DEREF_P_CHAR(pc));
 
 	perm[s]=1;
@@ -2016,10 +2016,10 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 int unmounthorse(int s) // Get off a horse (Remove horse item and spawn new horse) 
 { 
-	CHARACTER cc = currchar[s]; 
+//	CHARACTER cc = currchar[s]; 
 	unsigned int ci = 0;
 	P_ITEM pi; 
-	const P_CHAR p_petowner = MAKE_CHARREF_LRV(cc, -1); 
+	const P_CHAR p_petowner = currchar[s];
 
 	vector<SERIAL> vecContainer = contsp.getData(p_petowner->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -2178,7 +2178,7 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 	int total, ho, mi, se;
 	int tmp ;
 	int c;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	strupr((char*)script1);
 	strupr((char*)script2);
 
@@ -2372,7 +2372,7 @@ void npctalkall_runic(int npc, char *txt,char antispam)
 	int i;
 
 	for (i=0;i<now;i++)
-		if (inrange1p(npc, currchar[i])&&perm[i])
+		if (inrange1p(npc, DEREF_P_CHAR(currchar[i]))&&perm[i])
 			npctalk_runic(i, npc, txt,antispam);
 }
 
@@ -2383,7 +2383,7 @@ void npcemoteall(int npc, char *txt,unsigned char antispam) // NPC speech to all
 	if (npc==-1) return;
 
 	for (i=0;i<now;i++)
-		if (inrange1p(npc, currchar[i])&&perm[i])
+		if (inrange1p(npc, DEREF_P_CHAR(currchar[i]))&&perm[i])
 			npcemote(i, npc, txt,antispam);
 }
 
@@ -2424,7 +2424,7 @@ void mounthorse(int s, int x1) // Remove horse char and give player a horse item
 	int j; 
 //	int cc = currchar[s];
 	P_CHAR pc_mount = MAKE_CHARREF_LR(x1);
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	if (npcinrange(s, DEREF_P_CHAR(pc_mount), 2) == 0 && !pc_currchar->isGM())
 		return; 
@@ -2686,7 +2686,7 @@ void checkkey ()
 				{
 					if(perm[i]) //Keeps NPC's from appearing on the list
 					{
-						clConsole.send("%i) %s [%x %x %x %x]\n", j, chars[currchar[i]].name, chars[currchar[i]].ser1, chars[currchar[i]].ser2, chars[currchar[i]].ser3, chars[currchar[i]].ser4);
+						clConsole.send("%i) %s [%x]\n", j, currchar[i]->name, currchar[i]->serial);
 						j++;
 					}
 				}
@@ -3181,13 +3181,13 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 			for (r=0;r<now;r++)
 			{
-				if (!chars[currchar[r]].free
-					&& !chars[currchar[r]].isGM()
-					&& chars[currchar[r]].clientidletime<uiCurrentTime
+				if (!currchar[r]->free
+					&& !currchar[r]->isGM()
+					&& currchar[r]->clientidletime<uiCurrentTime
 					&& perm[r]
 					)
 				{
-					clConsole.send("Player %s disconnected due to inactivity !\n",chars[currchar[r]].name);
+					clConsole.send("Player %s disconnected due to inactivity !\n", currchar[r]->name);
 					//sysmessage(r,"you have been idle for too long and have been disconnected!");
 					char msg[3];
 					msg[0]=0x53;
@@ -3427,7 +3427,7 @@ void telltime( UOXSOCKET s )
 
 void impaction(int s, int act)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (pc_currchar->onhorse && (act==0x10 || act==0x11))
 	{
 		action(s, 0x1b);
@@ -3780,7 +3780,7 @@ void openbank(int s, int i)
 void openspecialbank(int s, int i)
 {
 	int serial,serhash,ci;
-	int cc=currchar[s];
+	P_CHAR pc_currchar = currchar[s];
 	serial=chars[i].serial;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
 	for (ci=0;ci<vecOwn.size();ci++)
@@ -3793,9 +3793,9 @@ void openspecialbank(int s, int i)
 				pj->morey!=123 )//specialbank and the current region - AntiChrist
 			{
 				if(pj->morez==0)//convert old banks into new banks
-					pj->morez=chars[cc].region;
+					pj->morez=pc_currchar->region;
 
-				if(pj->morez==chars[cc].region)
+				if(pj->morez==pc_currchar->region)
 				{
 					wearIt(s,pj);
 					backpack(s, pj->serial);
@@ -3813,7 +3813,7 @@ void openspecialbank(int s, int i)
 	pic->SetContSerial(chars[i].serial);
 	pic->morex=1;
 	pic->morey=0;//this's a all-items bank
-	pic->morez=chars[cc].region;//let's store the region
+	pic->morez=pc_currchar->region;//let's store the region
 	pic->type=1;
 	wearIt(s,pic);
 	backpack(s, pic->serial);
@@ -3918,7 +3918,7 @@ void initque() // Initilizes the gmpages[] and counspages[] arrays and also jail
 
 void donewithcall(int s, int type)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	int cn = pc_currchar->callnum;
 	if(cn!=0) //Player is on a call
 	{
@@ -4021,7 +4021,7 @@ void playmonstersound(int monster, int id1, int id2, int sfx)
 
 void addgold(int s, int totgold)
 {
-	Items->SpawnItem(s,currchar[s],totgold,"#",1,0x0E,0xED,0,0,1,1);
+	Items->SpawnItem(s, DEREF_P_CHAR(currchar[s]), totgold,"#",1,0x0E,0xED,0,0,1,1);
 }
 
 void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
@@ -4029,7 +4029,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 	int s, x;
 
 	s=calcSocketFromChar(p);
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	P_CHAR pc_p        = MAKE_CHARREF_LR(p);
 
 	//blackwinds fix for potion delay 
@@ -4051,11 +4051,11 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 		switch(pi->morez)
 		{
 		case 1:
-			tempeffect(currchar[s], p, 6, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
+			tempeffect(DEREF_P_CHAR(currchar[s]), p, 6, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
 			sysmessage(s, "You feel more agile!");
 			break;
 		case 2:
-			tempeffect(currchar[s], p, 6, 10+RandomNum(1,20), 0, 0, 120);
+			tempeffect(DEREF_P_CHAR(currchar[s]), p, 6, 10+RandomNum(1,20), 0, 0, 120);
 			sysmessage(s, "You feel much more agile!");
 			break;
 		default:
@@ -4119,10 +4119,10 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 		addid3[s]=pi->ser3;
 		addid4[s]=pi->ser4;
 		sysmessage(s, "Now would be a good time to throw it!");
-		tempeffect(currchar[s], currchar[s], 16, 0, 1, 3);
-		tempeffect(currchar[s], currchar[s], 16, 0, 2, 2);
-		tempeffect(currchar[s], currchar[s], 16, 0, 3, 1);
-		tempeffect2(currchar[s], pi, 17, 0, 4, 0);
+		tempeffect(DEREF_P_CHAR(currchar[s]), DEREF_P_CHAR(currchar[s]), 16, 0, 1, 3);
+		tempeffect(DEREF_P_CHAR(currchar[s]), DEREF_P_CHAR(currchar[s]), 16, 0, 2, 2);
+		tempeffect(DEREF_P_CHAR(currchar[s]), DEREF_P_CHAR(currchar[s]), 16, 0, 3, 1);
+		tempeffect2(DEREF_P_CHAR(currchar[s]), pi, 17, 0, 4, 0);
 		target(s,0,1,0,207,"*throw*");
 		return; // lb bugfix, break is wronh here because it would delete bottle
 
@@ -4151,7 +4151,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 		break;
 	case 5: // Night Sight Potion
 		staticeffect(p, 0x37, 0x6A, 0x09, 0x06);
-		tempeffect(currchar[s], p, 2, 0, 0, 0,(720*secondsperuominute*MY_CLOCKS_PER_SEC)); // should last for 12 UO-hours
+		tempeffect(DEREF_P_CHAR(currchar[s]), p, 2, 0, 0, 0,(720*secondsperuominute*MY_CLOCKS_PER_SEC)); // should last for 12 UO-hours
 		soundeffect2(p, 0x01, 0xE3);
 		break;
 	case 6: // Poison Potion
@@ -4186,11 +4186,11 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 		switch(pi->morez)
 		{
 		case 1:
-			tempeffect(currchar[s], p, 8, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
+			tempeffect(DEREF_P_CHAR(currchar[s]), p, 8, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
 			sysmessage(s, "You feel more strong!");
 			break;
 		case 2:
-			tempeffect(currchar[s], p, 8, 10+RandomNum(1,20), 0, 0, 120);
+			tempeffect(DEREF_P_CHAR(currchar[s]), p, 8, 10+RandomNum(1,20), 0, 0, 120);
 			sysmessage(s, "You feel much more strong!");
 			break;
 		default:
@@ -4462,7 +4462,7 @@ void dosocketmidi(int s)
 	//openscript("regions.scp");
 
 	char sect[512];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if (pc_currchar->war)
 	{
@@ -5654,7 +5654,7 @@ void doGmMoveEff(UOXSOCKET s)
 	if (s == -1) // Just to make sure ;)
 		return;
 	
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (!(pc_currchar->priv2 & 0x08))
 	{ 
 		switch (pc_currchar->gmMoveEff)

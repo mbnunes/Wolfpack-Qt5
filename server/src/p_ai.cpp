@@ -600,7 +600,7 @@ void cCharStuff::cDragonAI::DoneAI(int i, int currenttime)
 
 bool cCharStuff::cBankerAI::DoAI(int c, int i, char *comm)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c], false);
+	P_CHAR pc_currchar = currchar[c];
 	char search1[50], search2[50], search3[50], search4[50];
 	char *response1 = 0;
 	char *response2 = 0;
@@ -620,7 +620,7 @@ bool cCharStuff::cBankerAI::DoAI(int c, int i, char *comm)
 		response1 = (strstr(comm, search1));
 		if (response1 &&(!(pc_currchar->dead)))
 		{
-			openspecialbank(c, currchar[c]);
+			openspecialbank(c, DEREF_P_CHAR(currchar[c]));
 		}
 	}
     else if (response1 &&(!(pc_currchar->dead)))
@@ -645,13 +645,13 @@ bool cCharStuff::cBankerAI::DoAI(int c, int i, char *comm)
 
 void cCharStuff::cBankerAI::OpenBank(int c)
 {
-	openbank(c, currchar[c]);
+	openbank(c, DEREF_P_CHAR(currchar[c]));
 	return;
 }
 
 bool cCharStuff::cBankerAI::Balance(int c, int i)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c], false);
+	P_CHAR pc_currchar = currchar[c];
 	sprintf(temp, "%s's balance as of now is %i.", pc_currchar->name, pc_currchar->CountBankGold());
 	npctalk(c, i, temp, 1);
 	return true;
@@ -659,7 +659,7 @@ bool cCharStuff::cBankerAI::Balance(int c, int i)
 
 bool cCharStuff::cBankerAI::Withdraw(int c, int i, char *comm)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c], false);
+	P_CHAR pc_currchar = currchar[c];
 	int a = 0;
 	char value1[50]={' '};
 	char value2[50]={' '};
@@ -691,7 +691,7 @@ bool cCharStuff::cBankerAI::Withdraw(int c, int i, char *comm)
 
 bool cCharStuff::cBankerAI::BankCheck(int c, int i, char *comm)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c], false);
+	P_CHAR pc_currchar = currchar[c];
 	int a = 0;
 	char value1[50]={' '};
 	char value2[50]={' '};

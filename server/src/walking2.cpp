@@ -955,21 +955,21 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 	for (int i=0;i<now;i++)
 	{
 		// lets see, its much cheaper to call perm[i] first so i'm reordering this
-		if ((perm[i]) && (inrange1p(DEREF_P_CHAR(pc), currchar[i])))
+		if ((perm[i]) && (inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i]))))
 		{
 			/*if (
 				(((abs(newx-chars[currchar[i]].pos.x)==visibleRange )||(abs(newy-chars[currchar[i]].pos.y)== visibleRange )) &&
 				((abs(oldx-chars[currchar[i]].pos.x)>visibleRange )||(abs(oldy-chars[currchar[i]].pos.y)>visibleRange ))) ||
 				((abs(newx-chars[currchar[i]].pos.x)==visibleRange )&&(abs(newy-chars[currchar[i]].pos.y)==visibleRange ))
 				)*/
-			if ((abs(newx-chars[currchar[i]].pos.x)<Races[pc->race]->VisRange) && (abs(newy-chars[currchar[i]].pos.y)<Races[pc->race]->VisRange))
+			if ((abs(newx-currchar[i]->pos.x)<Races[pc->race]->VisRange) && (abs(newy-currchar[i]->pos.y)<Races[pc->race]->VisRange))
 			{
 				impowncreate(i, DEREF_P_CHAR(pc), 1);
 			}
 			else
 				//    if ((abs(newx-chars[currchar[i]].pos.x)<VISRANGE)||(abs(newy-chars[currchar[i]].pos.y)<VISRANGE))
 			{
-				P_CHAR pc_check = MAKE_CHAR_REF(currchar[i]);
+				P_CHAR pc_check = currchar[i];
 				LongToCharPtr(pc->serial, &extmove[1]);
 				ShortToCharPtr(pc->id(), &extmove[5]);
 				extmove[7]=pc->pos.x>>8;
@@ -992,7 +992,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
 				int guild, race;
 				//chars[i].flag=0x04;       // everyone should be blue on default
-				guild=Guilds->Compare( DEREF_P_CHAR(pc), currchar[i] );
+				guild=Guilds->Compare( DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i]) );
 				race = Races.CheckRelation(pc,pc_check);
 				if( pc->kills > repsys.maxkills ) extmove[16]=6;
 				else if (guild==1 || race==1)//Same guild (Green)
@@ -1010,7 +1010,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 					default:extmove[16]=3; break;//grey 
 					}
 				}
-				if (currchar[i] != DEREF_P_CHAR(pc) ) // fix from homey (NPCs will display right)
+				if (currchar[i] != pc ) // fix from homey (NPCs will display right)
 					Network->xSend(i, extmove, 17, 0);
 			}
 		}
@@ -1229,7 +1229,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 //							if ((abs(newx-mapitem->pos.x) == visibleRange ) || (abs(newy-mapitem->pos.y) == visibleRange ))
 							if (newd == visibleRange)
 							{
-								if( ( !mapitem->visible ) || ( ( mapitem->visible ) && ( chars[currchar[socket]].isGM() ) ) )// we're a GM, or not hidden
+								if( ( !mapitem->visible ) || ( ( mapitem->visible ) && ( currchar[socket]->isGM() ) ) )// we're a GM, or not hidden
 									senditem(socket, mapitem);
 							}
 							if ( ( oldd == visibleRange ) && ( newd == ( visibleRange + 1 ) ) )
@@ -1334,9 +1334,9 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
     for (unsigned int i=0;i<now;i++)
     {
 		// moved perm[i] first since its much faster
-        if ((perm[i]) && (inrange1p(DEREF_P_CHAR(pc), currchar[i])))
+        if ((perm[i]) && (inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i]))))
         {
-			P_CHAR pc_check = MAKE_CHAR_REF(currchar[i]);
+			P_CHAR pc_check = currchar[i];
             extmove[1] = pc->ser1;
             extmove[2] = pc->ser2;
             extmove[3] = pc->ser3;
@@ -1356,7 +1356,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             if (pc->war) extmove[15]=0x40; else extmove[15]=0x00;
             if (pc->hidden) extmove[15]=extmove[15]|0x80;
             if (pc->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
-            const int guild = Guilds->Compare( DEREF_P_CHAR(pc), currchar[i] );
+            const int guild = Guilds->Compare( DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i]) );
             const int race = Races.CheckRelation(pc,pc_check);
             if (pc->kills > repsys.maxkills ) extmove[16]=6; // ripper
             //if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;

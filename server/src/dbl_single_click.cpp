@@ -75,16 +75,16 @@ static bool Item_ToolWearOut(UOXSOCKET s, P_ITEM pi)
 //
 void slotmachine(UOXSOCKET s, P_ITEM pi)
 {
-	int cc=currchar[s];
+//	int cc = currchar[s];
 	if (pi == NULL)
 		return;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+	P_CHAR pc_currchar = currchar[s];
 	if(pc_currchar->dead)		// no ghosts playing :)
 	{
 		sysmessage(s,"ghosts cant do that!");
 		return;
 	}
-	if(itemdist(cc,pi)>3)	// within 3 to play.
+	if(itemdist(DEREF_P_CHAR(pc_currchar),pi)>3)	// within 3 to play.
 	{
 		sysmessage(s,"you need to be closer to play!");
 		return;
@@ -94,7 +94,7 @@ void slotmachine(UOXSOCKET s, P_ITEM pi)
 		sysmessage(s,"you dont have enough gold to play!");
 		return;
 	}
-	delequan(cc, 0x0EED, 5, NULL);	// if 5gp or more lets delete 5gp.
+	delequan(DEREF_P_CHAR(pc_currchar), 0x0EED, 5, NULL);	// if 5gp or more lets delete 5gp.
 	int spin=RandomNum( 0,100);	// now lets spin to win :)
 	switch(spin)
 	{
@@ -145,7 +145,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		return;
 	}
 
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	if (pc_currchar->objectdelay != 0 && !pc_currchar->isGM() && pc_currchar->objectdelay > 10 && pc_currchar->objectdelay >= uiCurrentTime || overflow)
 	{
@@ -542,9 +542,9 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		{
 			switch (RandomNum(0, 2))
 			{
-			case 0: soundeffect2(currchar[s], 0x00, 0x3A);		break;
-			case 1: soundeffect2(currchar[s], 0x00, 0x3B);		break;
-			case 2: soundeffect2(currchar[s], 0x00, 0x3C);		break;
+			case 0: soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x3A);		break;
+			case 1: soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x3B);		break;
+			case 2: soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x3C);		break;
 			}// switch(foodsnd)
 			
 			switch (pc_currchar->hunger)
@@ -562,11 +562,11 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			if ((pi->poisoned) &&(pc_currchar->poisoned < pi->poisoned)) 
 			{
 				sysmessage(s, "You have been poisoned!");
-				soundeffect2(currchar[s], 0x02, 0x46); // poison sound - SpaceDog
+				soundeffect2(DEREF_P_CHAR(currchar[s]), 0x02, 0x46); // poison sound - SpaceDog
 				pc_currchar->poisoned = pi->poisoned;
 				pc_currchar->poisontime = uiCurrentTime +(MY_CLOCKS_PER_SEC*(40/pc_currchar->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 				pc_currchar->poisonwearofftime = pc_currchar->poisontime +(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // wear off starts after poison takes effect - AntiChrist
-				impowncreate(s, currchar[s], 1); // Lb, sends the green bar ! 
+				impowncreate(s, DEREF_P_CHAR(currchar[s]), 1); // Lb, sends the green bar ! 
 			}
 			
 			pi->ReduceAmount(1);	// Remove a food item
@@ -616,7 +616,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		soundeffect(s, 0x01, 0xEC);
 		return;// case 18 (crystal ball?)
 		case 19: // potions
-			usepotion(currchar[s], pi);
+			usepotion(DEREF_P_CHAR(currchar[s]), pi);
 			return; // case 19 (potions)					
 			
 		case 50: // rune
@@ -647,7 +647,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			{
 				wx = (pc_currchar->pos.x +(rand()%11 - 5));
 				wy = (pc_currchar->pos.y +(rand()%11 - 5));
-				movingeffect3(currchar[s], (unsigned short)(wx), (unsigned short)(wy), pc_currchar->pos.z + 10, (unsigned char)(0x36), (unsigned char)(0xE4), 17, 0, rand()%2);
+				movingeffect3(DEREF_P_CHAR(currchar[s]), (unsigned short)(wx), (unsigned short)(wy), pc_currchar->pos.z + 10, (unsigned char)(0x36), (unsigned char)(0xE4), 17, 0, rand()%2);
 				switch (RandomNum(0, 4))
 				{
 				case 0:	staticeffect3(wx, wy, pc_currchar->pos.z + 10, 0x37, 0x3A, 0x09, 0, 0);	break;
@@ -706,13 +706,13 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			i = pi->morex;
 			pc_currchar->id1 = i >> 8; 
 			pc_currchar->id2 = i%256; 
-			teleport(currchar[s]);
+			teleport(DEREF_P_CHAR(currchar[s]));
 			pi->type = 102;
 			return; // case 101
 		case 102: //??
 			pc_currchar->id1 = pc_currchar->xid1; 
 			pc_currchar->id2 = pc_currchar->xid2; 
-			teleport(currchar[s]);
+			teleport(DEREF_P_CHAR(currchar[s]));
 			pi->type = 101;
 			return; // case 102
 		case 103: // Army enlistment
@@ -721,13 +721,13 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			return; // case 103 (army enlistment object)
 		case 104: // Teleport object
 			pc_currchar->MoveTo(pi->morex,pi->morey,pi->morez);
-			teleport(currchar[s]);
+			teleport(DEREF_P_CHAR(currchar[s]));
 			return; // case 104 (teleport object (again?))
 		case 105:  // For drinking
 			switch (RandomNum(0, 1))
 			{
-			case 0: soundeffect2(currchar[s], 0x00, 0x31);		break;
-			case 1: soundeffect2(currchar[s], 0x00, 0x30);		break; 
+			case 0: soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x31);		break;
+			case 1: soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x30);		break; 
 			}// switch(drinksnd)
 			
 			pi->ReduceAmount(1);	// Remove a drink
@@ -898,7 +898,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
             return;// End jailball
 	    case 402: // Blackwinds Reputation ball 
 			{ 
-                 soundeffect(currchar[s], 1, 0xec); // Play sound effect for player 
+                 soundeffect(DEREF_P_CHAR(currchar[s]), 1, 0xec); // Play sound effect for player 
                  sysmessage(s,"Your karma is %i",pc_currchar->karma); 
                  sysmessage(s,"Your fame is %i",pc_currchar->fame); 
                  sysmessage(s,"Your Kill count is %i ",pc_currchar->kills); 
@@ -994,31 +994,31 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					Skills->AButte(s, pi);
 					return;// archery butte
 				case 0x0E9C:
-					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
-						soundeffect2(currchar[s], 0x00, 0x38);
+					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), MUSICIANSHIP, 0, 1000))
+						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x38);
 					else 
-						soundeffect2(currchar[s], 0x00, 0x39);
+						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x39);
 					return;
 				case 0x0E9D:
 				case 0x0E9E:
-					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
-						soundeffect2(currchar[s], 0x00, 0x52);
+					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), MUSICIANSHIP, 0, 1000))
+						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x52);
 					else 
-						soundeffect2(currchar[s], 0x00, 0x53);
+						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x53);
 					return;
 				case 0x0EB1:
 				case 0x0EB2:
-					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
-						soundeffect2(currchar[s], 0x00, 0x45);
+					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), MUSICIANSHIP, 0, 1000))
+						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x45);
 					else 
-						soundeffect2(currchar[s], 0x00, 0x46);
+						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x46);
 					return;
 				case 0x0EB3:
 				case 0x0EB4:
-					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
-						soundeffect2(currchar[s], 0x00, 0x4C);
+					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), MUSICIANSHIP, 0, 1000))
+						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x4C);
 					else 
-						soundeffect2(currchar[s], 0x00, 0x4D);
+						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x4D);
 					return;
 				case 0x0F43:// Axe, Double Axe and Bardiche
 				case 0x0F44:
@@ -1180,9 +1180,9 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x0DE1:
 				case 0x0DE2: // camping
-					if (Skills->CheckSkill(currchar[s], CAMPING, 0, 500)) // Morrolan TODO: insert logout code for campfires here
+					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), CAMPING, 0, 500)) // Morrolan TODO: insert logout code for campfires here
 					{
-						P_ITEM pFire = Items->SpawnItem(currchar[s], 1, "#", 0, 0x0DE3, 0, 0);
+						P_ITEM pFire = Items->SpawnItem(DEREF_P_CHAR(currchar[s]), 1, "#", 0, 0x0DE3, 0, 0);
 						if (pFire)
 						{
 							pFire->type = 45;
@@ -1205,7 +1205,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					}
 					return; // camping
 				case 0x1508: // magic statue?
-					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
+					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), ITEMID, 0, 10))
 					{
 						pi->setId(0x1509);
 						pi->type = 45;					
@@ -1217,7 +1217,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					}
 					return;
 				case 0x1509:
-					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
+					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), ITEMID, 0, 10))
 					{
 						pi->setId(0x1508);
 						pi->type = 45;						
@@ -1230,7 +1230,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x1230:
 				case 0x1246: // guillotines?
-					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
+					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), ITEMID, 0, 10))
 					{
 						pi->setId(0x1245);
 						pi->type = 45;					
@@ -1242,7 +1242,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					}  
 					return;
 				case 0x1245: // Guillotine stop animation
-					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
+					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), ITEMID, 0, 10))
 					{
 						pi->setId(0x1230);
 						pi->type = 45;						
@@ -1255,7 +1255,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x1039:  // closed flour sack
 							  /*
-							  if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
+							  if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), ITEMID, 0, 10))
 							  {
 							  pi->id1 = 0x10;
 							  pi->id2 = 0x3A;
@@ -1270,7 +1270,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x103A: // open flour sack
 							 /*
-							 if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
+							 if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), ITEMID, 0, 10))
 							 {
 							 pi->id1 = 0x10;
 							 pi->id2 = 0x39;
@@ -1414,10 +1414,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x1059:
 				case 0x105A:// tinker sextant
-					if (Skills->CheckSkill(currchar[s], TINKERING, 500, 1000))
+					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), TINKERING, 500, 1000))
 					{
 						sysmessage(s, "You create the sextant.");
-						P_ITEM pi_sextant = Items->SpawnItem(s, currchar[s], 1, "a sextant", 0, 0x10, 0x57, 0, 0, 1, 1);
+						P_ITEM pi_sextant = Items->SpawnItem(s, DEREF_P_CHAR(currchar[s]), 1, "a sextant", 0, 0x10, 0x57, 0, 0, 1, 1);
 						if (pi_sextant != NULL)
 							pi_sextant->priv |= 0x01;
 						pi->ReduceAmount(1);
@@ -1461,7 +1461,7 @@ void singleclick(UOXSOCKET s)
 	unsigned char temp2[100];
 	
 	temp[0] = temp2[0] = itemname[0] = 0;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	serial = calcserial(buffer[s][1], buffer[s][2], buffer[s][3], buffer[s][4]);
 	// Begin chars/npcs section
 	
@@ -1604,7 +1604,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 	int keyboard;
 	unsigned char pdoll[256]="\x88\x00\x05\xA8\x90\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
 //	int cc=currchar[s];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	keyboard=buffer[s][1]&0x80;
 	
 //	CHARACTER x = calcCharFromSer( target_serial );
@@ -1700,4 +1700,3 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 		return;
 	}//char
 }
-

@@ -145,7 +145,7 @@ void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, do
 {
 	P_CHAR pc_cs,pc_b;
 
-	pc_cs=MAKE_CHARREF_LR(currchar[s]);
+	pc_cs = currchar[s];
 
 	int a;
 	P_ITEM boat = GetBoat(pc_cs);
@@ -202,7 +202,7 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 {
 	P_CHAR pc_cs,pc_b;
 	
-	pc_cs=MAKE_CHARREF_LR(currchar[s]);
+	pc_cs = currchar[s];
 
 	//long int pos, pos2, length;
 	int x,x2=pi_plank->pos.x;
@@ -235,7 +235,7 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 
 					if (pc_b != NULL) // never log -1's that indicate non existance !!!
 					{
-						if (pc_b->isNpc() && pc_cs->Owns(pc_b) && inrange1p(currchar[s], DEREF_P_CHAR(pc_b))<=15)
+						if (pc_b->isNpc() && pc_cs->Owns(pc_b) && inrange1p(DEREF_P_CHAR(currchar[s]), DEREF_P_CHAR(pc_b))<=15)
 						{
 							pc_b->MoveTo(x,y, typ ? sz : mz);
 							
@@ -289,7 +289,7 @@ void cBoat::OpenPlank(P_ITEM pi_p)//Open, or close the plank (called from keytar
 
 bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff NESSICARY for boats, called from buildhouse() )
 {
-	P_CHAR pc_cs=MAKE_CHARREF_LRV(currchar[s],false);
+	P_CHAR pc_cs = currchar[s];
 
 	int nid2=id2;
 	tile_st tile;
@@ -923,7 +923,7 @@ void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the p
 
 char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must already be capitalized
 {
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	P_ITEM boat = GetBoat(pc_currchar);
 	if(boat == NULL) 
 		return 0;

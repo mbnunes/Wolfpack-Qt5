@@ -59,8 +59,8 @@ cClient::cClient(int so)
 cClient::~cClient(){;}
 
 UOXSOCKET	cClient::GetSocket()	{return socket;}
-CHARACTER	cClient::GetCurrChar()	{return currchar[socket];}
-P_CHAR		cClient::getPlayer()	{return &chars[currchar[socket]];}
+CHARACTER	cClient::GetCurrChar()	{return DEREF_P_CHAR(currchar[socket]);}
+P_CHAR		cClient::getPlayer()	{return currchar[socket];}
 bool		cClient::IsDragging()	{return (DRAGGED[socket]>0);}
 void		cClient::SetDragging()	{DRAGGED[socket]=1;}
 void		cClient::ResetDragging(){DRAGGED[socket]=0;}

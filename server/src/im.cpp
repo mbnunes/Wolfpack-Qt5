@@ -190,10 +190,10 @@ int im_send( item_menu *menu, int player )
 		return -4;
 
 	/* Player's character's serial number */
-	menu->gump_message[3] = chars[currchar[player]].ser1;
-	menu->gump_message[4] = chars[currchar[player]].ser2;
-	menu->gump_message[5] = chars[currchar[player]].ser3;
-	menu->gump_message[6] = chars[currchar[player]].ser4;
+	menu->gump_message[3] = currchar[player]->ser1;
+	menu->gump_message[4] = currchar[player]->ser2;
+	menu->gump_message[5] = currchar[player]->ser3;
+	menu->gump_message[6] = currchar[player]->ser4;
 	/* Special code for IM_ menu, read by choice() */
 	menu->gump_message[7] = (unsigned char) ~ ( (WAIT_MAX-1) >> 8 ); 
 	/* Index for waiting table (internal) */
@@ -233,7 +233,7 @@ int im_choice( int player, int menu_code, int option )
 	{
 		/* User right-clicked, cancelling the menu. Right? */
 	
-		 chars[currchar[player]].lastTarget = INVALID_SERIAL;
+		 currchar[player]->lastTarget = INVALID_SERIAL;
 	     return 0; /** Lord binary **/
 	}
 

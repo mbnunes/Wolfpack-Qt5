@@ -93,7 +93,7 @@ void newbieitems(CHARACTER c)
 	int s;
 	for (s = 0; s < now; s++)
 	{
-		if (c == currchar[s])
+		if (c == DEREF_P_CHAR(currchar[s]))
 			break;
 	}
 

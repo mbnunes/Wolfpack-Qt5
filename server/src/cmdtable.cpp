@@ -420,8 +420,8 @@ void command_bounty(UOXSOCKET s)
 {
 	// Check if boountys are active
 	
-	P_CHAR pc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
-	if (err) return;
+	P_CHAR pc_cs = currchar[s];
+	if (pc_cs == NULL) return;
 	
 	if( !SrvParms->bountysactive )
 	{
@@ -525,8 +525,8 @@ void command_reloadcachedscripts(UOXSOCKET s)
 void command_post(UOXSOCKET s)
 {
 	int err;
-	P_CHAR pc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
-	if (err) return;
+	P_CHAR pc_cs = currchar[s];
+	if (pc_cs) return;
 	
 	strcpy( (char*)temp, "You are currently posting " );
 	
@@ -557,9 +557,8 @@ void command_post(UOXSOCKET s)
 // ALL bulletin boards will see the next message posted to any bulletin board
 void command_gpost(UOXSOCKET s)
 {
-	int err;
-	P_CHAR pc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
-	if (err) return;
+	P_CHAR pc_cs = currchar[s];
+	if (pc_cs == NULL) return;
 	
 	pc_cs->postType = GLOBALPOST;
 	sysmessage( s, "Now posting GLOBAL messages." );
@@ -572,9 +571,8 @@ void command_gpost(UOXSOCKET s)
 void command_rpost(UOXSOCKET s)
 {
 	
-	int err;
-	P_CHAR pc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
-	if (err) return;
+	P_CHAR pc_cs = currchar[s];
+	if (pc_cs == NULL) return;
 	
 	pc_cs->postType = REGIONALPOST;
 	sysmessage( s, "Now posting REGIONAL messages." );
@@ -585,9 +583,8 @@ void command_rpost(UOXSOCKET s)
 // Only this bulletin board will have this post
 void command_lpost(UOXSOCKET s)
 {
-	int err;
-	P_CHAR pc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
-	if (err) return;
+	P_CHAR pc_cs = currchar[s];
+	if (pc_cs == NULL) return;
 	
 	pc_cs->postType = REGIONALPOST;
 	sysmessage( s, "Now posting LOCAL messages." );
@@ -661,8 +658,8 @@ void command_showp(UOXSOCKET s)
 {
 	int i,err;
 	
-    PC_CHAR pcc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
-    if (err) return;
+    PC_CHAR pcc_cs = currchar[s];
+    if (pcc_cs == NULL) return;
 	
 	for (i=0;i<7;i++) 
 	{
@@ -692,8 +689,8 @@ void command_setpriv3(UOXSOCKET s)
 	unsigned int i;
 	unsigned long loopexit=0;
 	
-    PC_CHAR pcc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
-    if (err) return;
+    PC_CHAR pcc_cs = currchar[s];
+    if (pcc_cs) return;
 	
 	switch(tnum) {
 	case 7:
@@ -766,13 +763,13 @@ void command_resend(UOXSOCKET s)
 {
 	all_items(s);
 	LogMessage("ALERT: all_items() called in command_resend().\nThis function could cause a lot of lag!\n");
-	teleport(currchar[s]);
+	teleport(DEREF_P_CHAR(currchar[s]));
 	return;
 }
 
 void command_teleport(UOXSOCKET s)
 {
-	teleport(currchar[s]); 
+	teleport(DEREF_P_CHAR(currchar[s])); 
 	return;
 }
 
@@ -781,8 +778,8 @@ void command_where(UOXSOCKET s)
 // added region-name too, LB
 {
 	int err;
-	PC_CHAR pcc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
-    if (err) return;
+	PC_CHAR pcc_cs = currchar[s];
+    if (pcc_cs == NULL) return;
 	
 	if (strlen(region[pcc_cs->region].name)>0)
 		sprintf((char*)temp, "You are at: %s",region[pcc_cs->region].name); 
@@ -798,8 +795,7 @@ void command_q(UOXSOCKET s)
 // Shows the GM or Counsellor queue.
 {
     int err;
-	P_CHAR pc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
-    if (err) return;
+	P_CHAR pc_cs = currchar[s];
 	
 	if (!pc_cs->isGM()) //They are not a GM
 	{
@@ -814,9 +810,7 @@ void command_q(UOXSOCKET s)
 void command_next(UOXSOCKET s)
 // For Counselors or GM's, goes to next call in queue.
 {
-    int err;
-	P_CHAR pc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
-    if (err) return;
+	P_CHAR pc_cs = currchar[s];
 	
 	if (!pc_cs->isGM()) //They are not a GM
 	{
@@ -833,8 +827,7 @@ void command_clear(UOXSOCKET s)
 // For Counselor's and GM's, removes current call from queue.
 {
 	int err;
-	P_CHAR pc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
-    if (err) return;
+	P_CHAR pc_cs = currchar[s];
 	
 	if (!pc_cs->isGM()) //They are not a GM
 	{
@@ -851,8 +844,7 @@ void command_clear(UOXSOCKET s)
 void command_goplace(UOXSOCKET s) 
 // (d) Teleports you to a location from the LOCATIONS.SCP file. 
 { 
-	P_CHAR pc_cs=MAKE_CHARREF_LOGGED(currchar[s],err); 
-    if (err) return; 
+	P_CHAR pc_cs = currchar[s]; 
 	
 	if (tnum==2) 
 	{ 
@@ -864,7 +856,7 @@ void command_goplace(UOXSOCKET s)
 			doGmMoveEff(s); 
 			
 			pc_cs->MoveTo(addx[s],addy[s],addz[s]); 
-			teleport(currchar[s]); 
+			teleport(DEREF_P_CHAR(currchar[s])); 
 			
 			doGmMoveEff(s); 
 		} 
@@ -875,12 +867,8 @@ void command_goplace(UOXSOCKET s)
 void command_gochar(UOXSOCKET s) 
 // (h h h h) Teleports you to another character. 
 { 
-	int err; 
-	P_CHAR pc_cs = MAKE_CHARREF_LOGGED(currchar[s], err); 
+	P_CHAR pc_cs = currchar[s]; 
 	PC_CHAR pc_i; 
-	
-    if (err) 
-		return; 
 	
 	int i; 
 	if (tnum == 5) 
@@ -902,7 +890,7 @@ void command_gochar(UOXSOCKET s)
 					doGmMoveEff(s); 
 					
 					pc_cs->MoveTo(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z); 
-					teleport(currchar[s]); 
+					teleport(DEREF_P_CHAR(currchar[s])); 
 					
 					doGmMoveEff(s); 
 					
@@ -917,10 +905,8 @@ void command_gochar(UOXSOCKET s)
 		{ 
 			if (i == makenumber(1) && perm[i]) 
 			{ 
-				pc_i = MAKE_CHARREF_LOGGED(currchar[i], err); 
+				pc_i = currchar[i]; 
 				
-				if (!err) 
-				{ 
 					////////////////////////////////// 
 					// Adding the gmmove effects ...Aldur
 					// 
@@ -928,12 +914,11 @@ void command_gochar(UOXSOCKET s)
 					doGmMoveEff(s); 
 					
 					pc_cs->MoveTo(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z); 
-					teleport(currchar[s]); 
+					teleport(DEREF_P_CHAR(currchar[s])); 
 					
 					doGmMoveEff(s); 
 					
 					break; 
-				} 
 			} 
 		} 
 	} 
@@ -943,10 +928,7 @@ void command_gochar(UOXSOCKET s)
 void command_fix(UOXSOCKET s)
 // Try to compensate for messed up Z coordinates. Use this if you find yourself half-embedded in the ground.
 {
-	int err;
-	P_CHAR pc_cs = MAKE_CHARREF_LOGGED(currchar[s], err);
-	if (err)
-		return;
+	P_CHAR pc_cs = currchar[s];
 	
 	if (tnum == 2)
 	{
@@ -958,7 +940,7 @@ void command_fix(UOXSOCKET s)
 		{
 			pc_cs->dispz = pc_cs->pos.z = validtelepos(s);
 		}
-		teleport(currchar[s]);
+		teleport(DEREF_P_CHAR(currchar[s]));
 	}
 	return;
 }
@@ -981,7 +963,7 @@ void command_xgoplace(UOXSOCKET s)
 void command_showids(UOXSOCKET s)
 // Display the serial number of every item on your screen.
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	//Char mapRegions
 	int getcell=mapRegions->GetCell(pc_currchar->pos.x,pc_currchar->pos.y);
@@ -1005,7 +987,7 @@ void command_poly(UOXSOCKET s)
 	if (tnum==3)
 	{
 		int k,c1,b;
-		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+		P_CHAR pc_currchar = currchar[s];
 		k=(hexnumber(1)<<8)+hexnumber(2);
 		if (k>=0x000 && k<=0x3e1) // lord binary, body-values >0x3e crash the client
 			
@@ -1028,7 +1010,7 @@ void command_poly(UOXSOCKET s)
 		}
 	}
 	
-	teleport(currchar[s]);
+	teleport(DEREF_P_CHAR(currchar[s]));
 	return;
 	
 }
@@ -1040,7 +1022,7 @@ void command_skin(UOXSOCKET s)
 	{
 		int k, b, body;
 		
-		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+		P_CHAR pc_currchar = currchar[s];
 		
 		body = pc_currchar->id();
 		k = (hexnumber(1) << 8) + hexnumber(2);
@@ -1051,7 +1033,7 @@ void command_skin(UOXSOCKET s)
 		if (k != 0x8000)
 		{	
 			pc_currchar->skin = pc_currchar->xskin = k;
-			teleport(currchar[s]);
+			teleport(DEREF_P_CHAR(currchar[s]));
 		}
 	}
 	return;
@@ -1109,10 +1091,10 @@ void command_go(UOXSOCKET s)
 		if (x<6144 && y<4096 && z>-127 && z<128) 
 		{ 
 			doGmMoveEff(s); 	// Adding the gmmove effects ..Aldur
-			P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+			P_CHAR pc_currchar = currchar[s];
 			
 			pc_currchar->MoveTo(x,y,z); 
-			teleport(currchar[s]); 
+			teleport(DEREF_P_CHAR(currchar[s])); 
 			
 			doGmMoveEff(s); 
 		} 
@@ -1241,7 +1223,7 @@ void command_addx(UOXSOCKET s)
 	{
 		addid1[s] = (unsigned char) hexnumber(1);
 		addid2[s] = (unsigned char) hexnumber(2);
-		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+		P_CHAR pc_currchar = currchar[s];
 		Commands->AddHere(s, pc_currchar->pos.z);
 	}
 	if (tnum==4)
@@ -1306,7 +1288,7 @@ void command_wtrig(UOXSOCKET s)
 {
 	if (tnum>1)
 	{
-		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+		P_CHAR pc_currchar = currchar[s];
 		if(!(pc_currchar->unicode))
 			strcpy(xtext[s], &tbuffer[15]);
 		else
@@ -1613,9 +1595,9 @@ void command_gcollect(UOXSOCKET s)
 void command_allmoveon(UOXSOCKET s)
 // Enables GM ability to pick up all objects.
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->priv2 |= 0x01;
-	teleport(currchar[s]);
+	teleport(DEREF_P_CHAR(currchar[s]));
 	sysmessage(s, "ALLMOVE enabled."); // Crackerjack 07/25/99
 	return;
 	
@@ -1624,9 +1606,9 @@ void command_allmoveon(UOXSOCKET s)
 void command_allmoveoff(UOXSOCKET s)
 // Disables GM ability to pick up all objects.
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->priv2 &= (0xFF-0x01);
-	teleport(currchar[s]);
+	teleport(DEREF_P_CHAR(currchar[s]));
 	sysmessage(s, "ALLMOVE disabled."); // Crackerjack 07/25/99
 	return;
 	
@@ -1635,9 +1617,9 @@ void command_allmoveoff(UOXSOCKET s)
 void command_showhs(UOXSOCKET s)
 // Makes houses appear as deeds. (The walls disappear and there's a deed on the ground in their place.)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->priv2 |= 0x04;
-	teleport(currchar[s]);
+	teleport(DEREF_P_CHAR(currchar[s]));
 	sysmessage(s, "House icons visible. (Houses invisible)");
 	return;
 	
@@ -1646,9 +1628,9 @@ void command_showhs(UOXSOCKET s)
 void command_hidehs(UOXSOCKET s)
 // Makes houses appear as houses (opposite of /SHOWHS).
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->priv2 &= (0xFF-0x04);
-	teleport(currchar[s]);
+	teleport(DEREF_P_CHAR(currchar[s]));
 	sysmessage(s, "House icons hidden. (Houses visible)");
 	return;
 }
@@ -1884,7 +1866,7 @@ void command_midi(UOXSOCKET s)
 void command_gumpopen(UOXSOCKET s)
 // (h h) Opens the specified GUMP menu.
 {
-	if (tnum==3) Gumps->Open(s, currchar[s], hexnumber(1), hexnumber(2));
+	if (tnum==3) Gumps->Open(s, DEREF_P_CHAR(currchar[s]), hexnumber(1), hexnumber(2));
 	return;
 	
 }
@@ -1892,7 +1874,7 @@ void command_gumpopen(UOXSOCKET s)
 void command_respawn(UOXSOCKET s)
 // Forces a respawn.
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	sprintf((char*)temp,"Respawn command called by %s.\n", pc_currchar->name);//AntiChrist
 	sysbroadcast("World is now respawning, expect some lag!");
@@ -1907,7 +1889,7 @@ void command_regspawnmax(UOXSOCKET s)
 {
 	if (tnum==2)
 	{
-		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+		P_CHAR pc_currchar = currchar[s];
 		sprintf((char*)temp,"MAX Region Respawn command called by %s.\n", pc_currchar->name);//AntiChrist
 		LogMessage((char*)temp);
 		Commands->RegSpawnMax(s, makenumber(1));
@@ -1921,7 +1903,7 @@ void command_regspawn(UOXSOCKET s)
 {
 	if (tnum==3)
 	{
-		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+		P_CHAR pc_currchar = currchar[s];
 		sprintf((char*)temp,"Specific Region Respawn command called by %s.\n", pc_currchar->name);//AntiChrist
 		LogMessage((char*)temp);
 		Commands->RegSpawnNum(s, makenumber(1), makenumber(2));
@@ -2118,7 +2100,7 @@ void command_gy(UOXSOCKET s)
 	
 	int i;
 	short tl;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	sprintf(xtext[s], "(GM ONLY): %s", Commands->GetAllParams().c_str());//AntiChrist bugfix - cms_offset+4, not +7
 	tl=44+strlen(&xtext[s][0])+1;			
@@ -2138,7 +2120,7 @@ void command_gy(UOXSOCKET s)
 			 
 	for (i=0;i<now;i++)
 	{
-		if (perm[i] && chars[currchar[i]].isGM())
+		if (perm[i] && currchar[i]->isGM())
 		{
 			Xsend(i, talk, 14);
 			Xsend(i, pc_currchar->name, 30);
@@ -2236,7 +2218,7 @@ void command_gotocur(UOXSOCKET s)
 {
 	int i;
 	int x=0;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	if(pc_currchar->callnum==0)
 	{
@@ -2250,7 +2232,7 @@ void command_gotocur(UOXSOCKET s)
 		{
 			pc_currchar->MoveTo(chars[i].pos.x,chars[i].pos.y,chars[i].pos.z);
 			sysmessage(s,"Transporting to your current call.");
-			teleport(currchar[s]);
+			teleport(DEREF_P_CHAR(currchar[s]));
 			x++;
 		}  
 		if(x==0)
@@ -2262,7 +2244,7 @@ void command_gotocur(UOXSOCKET s)
 			{
 				pc_currchar->MoveTo(chars[i].pos.x,chars[i].pos.y,chars[i].pos.z);
 				sysmessage(s,"Transporting to your current call.");
-				teleport(currchar[s]);
+				teleport(DEREF_P_CHAR(currchar[s]));
 			}
 		}
 	}
@@ -2273,7 +2255,7 @@ void command_gmtransfer(UOXSOCKET s)
 {
 	int i;
 	int x2=0;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	if(pc_currchar->callnum!=0)
 	{
@@ -2332,7 +2314,7 @@ void command_who(UOXSOCKET s)
 		if(perm[i]) //Keeps NPC's from appearing on the list
 		{
 			j++;
-			sprintf((char*)temp, "%i) %s [%x %x %x %x]", (j-1), chars[currchar[i]].name, chars[currchar[i]].ser1, chars[currchar[i]].ser2, chars[currchar[i]].ser3, chars[currchar[i]].ser4);
+			sprintf((char*)temp, "%i) %s [%x %x %x %x]", (j-1), currchar[i]->name, currchar[i]->ser1, currchar[i]->ser2, currchar[i]->ser3, currchar[i]->ser4);
 			sysmessage(s, (char*)temp);
 		}
 	}
@@ -2347,10 +2329,10 @@ void command_gms(UOXSOCKET s)
 	sysmessage(s,"Current GMs and Counselors in the world:");
 	for (i=0;i<now;i++)
 	{
-		if(perm[i] && chars[currchar[i]].isCounselor()) //Keeps NPC's from appearing on the list
+		if(perm[i] && currchar[i]->isCounselor()) //Keeps NPC's from appearing on the list
 		{
 			j++;
-			sysmessage(s, chars[currchar[i]].name);
+			sysmessage(s, currchar[i]->name);
 		}
 	}
 	sprintf((char*)temp, "Total Staff Online: %d\n", j);
@@ -2386,7 +2368,7 @@ void command_regspawnall(UOXSOCKET s)
 void command_wipenpcs(UOXSOCKET s)
 {
 	int i,deleted = 0;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	
 	AllCharsIterator iter_char;
@@ -2398,7 +2380,7 @@ void command_wipenpcs(UOXSOCKET s)
 			LongToCharPtr(toCheck->serial, &removeitem[1]);
 			for (i=0;i<now;i++)
 			{
-				if (perm[i] && inrange1p(DEREF_P_CHAR(toCheck), currchar[i])) 
+				if (perm[i] && inrange1p(DEREF_P_CHAR(toCheck), DEREF_P_CHAR(currchar[i]))) 
 					Xsend(i, removeitem, 5);
 			}
 			
@@ -2553,7 +2535,7 @@ void command_jail(UOXSOCKET s)
 void command_setGmMoveEff(UOXSOCKET s) 
 // (h) set your movement effect. 
 { 
-	P_CHAR pc_cs = MAKE_CHARREF_LOGGED(currchar[s], err); 
+	P_CHAR pc_cs = currchar[s]; 
 	if (tnum == 2)
 		pc_cs->gmMoveEff = makenumber(1);
 	return; 
@@ -2564,7 +2546,7 @@ void command_password(UOXSOCKET s)
 {
 	if ( tnum > 1 )
 	{
-		P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+		P_CHAR pc_currchar = currchar[s];
 		char pwd[200] = {0,};
 		strncpy(pwd, &tbuffer[Commands->cmd_offset+9], 198);
 		if ((!isalpha(pwd[0]))&&(!isdigit(pwd[0]))) {

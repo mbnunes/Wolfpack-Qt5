@@ -66,7 +66,7 @@ int cCombat::GetBowType(int c)
 void cCombat::ItemCastSpell(UOXSOCKET s, CHARACTER c, P_ITEM pi)//S=Socket c=Char # Target i=Item //Itemid
 {
 	if(!pi) return;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	unsigned short int spellnum=((pi->morex*8)-8)+pi->morey;
 	unsigned short int tempmana=pc_currchar->mn;//Save their mana so we can give it back.
 	unsigned short int tempmage=pc_currchar->skill[MAGERY];//Easier than writing new functions for all these spells
@@ -1068,7 +1068,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 				sysmessage(k,(char*)temp);
 				Items->DeleItem(pj);		 
 			}
-			statwindow(k,currchar[k]);
+			statwindow(k, DEREF_P_CHAR(currchar[k]));
 		}
 	}
 	if (total < 2) total = 2;

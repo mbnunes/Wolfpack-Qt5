@@ -45,7 +45,7 @@
 void cGump::Button(int s, int button, SERIAL serial, char type)
 {
 	int i;
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
     // if ((button)==0 || (button==1)) clConsole.send("gump-menu, type# %i closed\n",type); // lord bin
 	if(button>10000) {
@@ -144,7 +144,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				doGmMoveEff(s); 	// have a flamestrike at origin and at player destination point 	//Aldur
 				
 				pc_currchar->MoveTo(pc_c->pos.x,pc_c->pos.y,pc_c->pos.z); 
-				teleport(currchar[s]); 
+				teleport(DEREF_P_CHAR(currchar[s])); 
 				
 				doGmMoveEff(s); 
 				break;
@@ -154,7 +154,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				
 				break;
 			case 202://jail char
-				if(currchar[s]==DEREF_P_CHAR(pc_c))
+				if(currchar[s]==pc_c)
 				{
 					sysmessage(s,"You cannot jail yourself!");					 
 					break;
@@ -169,7 +169,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				Targ->ReleaseTarget(s,pc_c->serial);
 				break;
 			case 204:
-				if(DEREF_P_CHAR(pc_c)==currchar[s])
+				if(pc_c==currchar[s])
 				{
 					sysmessage(s,"You cannot kick yourself");
 					break; // lb
@@ -268,7 +268,7 @@ void cGump::Input(int s)
 	index=buffer[s][8];
 	text=(char*)&buffer[s][12];
 	serial = LongFromCharPtr((unsigned char*)&buffer[s][3]);
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	Guilds->GumpInput(s,type,index,text);
 
@@ -412,7 +412,7 @@ void cGump::Menu(UOXSOCKET s, int m, P_ITEM it)
 	int is,ds;
 	char tt[255];
 	char tt2[255];
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	P_ITEM pj = NULL;
 
 	openscript("gumps.scp");
@@ -617,7 +617,7 @@ void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me 
 	unsigned int linecount1=0,pagenum=1,position=40,linenum=1,buttonnum=7;
 	
 	j=0;
-	for (k=0;k<now;k++) if(online(currchar[k])) j++;
+	for (k=0;k<now;k++) if(online(DEREF_P_CHAR(currchar[k]))) j++;
 			   
 		//--static pages
 		strcpy(menuarray[linecount++], "nomove");
@@ -691,9 +691,9 @@ void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me 
 
 		x=0;
 		for (i=0;i<now;i++)
-			if (i!=-1 && online(currchar[i])) {
-				sprintf(menuarray1[linecount1++], "Player %s [online]",chars[currchar[i]].name);
-				whomenudata[x++]=chars[currchar[i]].serial;
+			if (i!=-1 && online(DEREF_P_CHAR(currchar[i]))) {
+				sprintf(menuarray1[linecount1++], "Player %s [online]",currchar[i]->name);
+				whomenudata[x++]=currchar[i]->serial;
 			}
 
 		for(iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
@@ -768,7 +768,7 @@ void playermenu(int s, int type) //WhoList2 with offline players--By Ripper
 	unsigned int linecount1=0,pagenum=1,position=40,linenum=1,buttonnum=7;
 	
 	j=0;
-	for (k=0;k<now;k++) if(online(currchar[k])) j++;
+	for (k=0;k<now;k++) if(online(DEREF_P_CHAR(currchar[k]))) j++;
 			   
 		//--static pages
 		strcpy(menuarray[linecount++], "nomove");
@@ -783,7 +783,7 @@ void playermenu(int s, int type) //WhoList2 with offline players--By Ripper
 		k=0;
 		for(i=0;i<now;i++)
 		{
-			if ((chars[currchar[i]].account!=-1 && !chars[currchar[i]].free && online(currchar[i])))
+			if ((currchar[i]->account!=-1 && !currchar[i]->free && online(DEREF_P_CHAR(currchar[i]))))
 			{
 			  if(k>0 && (!(k%10)))
 			  {
@@ -840,9 +840,9 @@ void playermenu(int s, int type) //WhoList2 with offline players--By Ripper
 
 		x=0;
 		for (i=0;i<now;i++)
-			if (online(currchar[i])) { 
-				sprintf(menuarray1[linecount1++], "Player %s [online]",chars[currchar[i]].name);
-				whomenudata[x++]=chars[currchar[i]].serial;
+			if (online(DEREF_P_CHAR(currchar[i]))) { 
+				sprintf(menuarray1[linecount1++], "Player %s [online]",currchar[i]->name);
+				whomenudata[x++]=currchar[i]->serial;
 			}	
 		
 	
@@ -1328,7 +1328,7 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
 	int i;
 	char lscomm[512],lsnum[512];  // Magius(CHE) for Rank-System
 	Script *script;
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	main=(buffer[s][5]<<8)+buffer[s][6];
 	sub=(buffer[s][7]<<8)+buffer[s][8];
@@ -1382,7 +1382,7 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
 		if((main-TRACKINGMENUOFFSET)>=TRACKINGMENUOFFSET+1&&(main-TRACKINGMENUOFFSET)<=TRACKINGMENUOFFSET+3)
 		{
 			if(!sub) return;
-			if(!Skills->CheckSkill(currchar[s],TRACKING, 0, 1000))
+			if(!Skills->CheckSkill(DEREF_P_CHAR(currchar[s]),TRACKING, 0, 1000))
 			{
 				sysmessage(s,"You fail your attempt at tracking.");
 				return;
@@ -1489,7 +1489,7 @@ void gmmenu(int s, int m) // Open one of the gray GM Call menus
 	static char gmtext[2042][2044];
 	int gmnumber=0;
 	int gmindex,loopexit=0;
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	openscript("menus.scp");
 	sprintf(sect, "GMMENU %i", m);
@@ -1555,7 +1555,7 @@ void itemmenu(int s, int m) // Menus for item creation
 	int gmnumber=0;
 	int gmindex,loopexit=0;
 	
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	openscript("items.scp");
 	sprintf(sect, "ITEMMENU %i", m);

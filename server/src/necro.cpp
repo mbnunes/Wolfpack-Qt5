@@ -166,8 +166,8 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 //	int nTargetID=-1;
 	
 	
-	int cc = currchar[nSocket];
-	cChar* Player = MAKE_CHARREF_LR(currchar[nSocket]);
+//	int cc = currchar[nSocket];
+	cChar* Player = currchar[nSocket];
 
 	cItem* Weapon = Player->getWeapon(); // search for a dagger in the players hand
 	if (!Weapon || !IsDagger(Weapon->id()) )
@@ -218,7 +218,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 					sysmessage(calcSocketFromChar(vv),temp);
 					// flag criminal						
 				}
-				Karma(cc,vv,(0-(Victim->karma)));
+				Karma(DEREF_P_CHAR(Player),vv,(0-(Victim->karma)));
 			}
 			Victim->hp -= (rand()%6)+2;
 			MakeNecroReg(nSocket,Vial,0x0E24);
@@ -234,7 +234,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 		else
 		{
 			Vial->more1=Corpse->more1;
-			Karma(cc,-1,-1000);
+			Karma(DEREF_P_CHAR(Player),-1,-1000);
 			if (Corpse->more2<4)
 			{
 				sysmessage(nSocket,"You take a sample of blood from the corpse.");
@@ -250,7 +250,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 {
 	P_ITEM pItem = NULL;
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[nSocket]);
+	P_CHAR pc_currchar = currchar[nSocket];
 
 	if( id>=0x1B11 && id<=0x1B1C ) // Make bone powder.
 	{

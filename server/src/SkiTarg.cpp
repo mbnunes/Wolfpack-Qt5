@@ -40,7 +40,7 @@
 
 P_ITEM Check4Pack(UOXSOCKET s)
 {
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	P_ITEM pi_pack = Packitem(pc_currchar);
 	if (pi_pack == NULL)
 	{
@@ -64,7 +64,7 @@ bool CheckInPack(UOXSOCKET s, PC_ITEM pi)
 void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 {
 	const P_ITEM pi_bolts = FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (pi_bolts == NULL) return; 
 	short int amt=0;
 	short int amt1=0;
@@ -132,7 +132,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 void cSkills::Fletching(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (pi && pi->magic!=4) // Ripper
 	{
 		if (( IsShaft(itemmake[s].Mat1id) && IsFeather(pi->id()) ) ||	// first clicked shaft and now feather
@@ -153,7 +153,7 @@ void cSkills::Fletching(int s)
 
 void cSkills::BowCraft(int s)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	action(s,pc_currchar->onhorse ? 0x1C : 0x0D);
 	
@@ -189,7 +189,7 @@ void cSkills::BowCraft(int s)
 void cSkills::Carpentry(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (pi && pi->magic!=4)
 	{
 		short id = pi->id();
@@ -210,7 +210,7 @@ void cSkills::Carpentry(int s)
 
 static bool ForgeInRange(int s)
 {
-	P_CHAR pc = MAKE_CHARREF_LRV(currchar[s], false);
+	P_CHAR pc = currchar[s];
 	bool rc = false;
 
 	unsigned int StartGrid=mapRegions->StartGrid(pc->pos.x,pc->pos.y);
@@ -235,7 +235,7 @@ static bool ForgeInRange(int s)
 
 static bool AnvilInRange(int s)
 {
-	P_CHAR pc = MAKE_CHARREF_LRV(currchar[s], false);
+	P_CHAR pc = currchar[s];
 	bool rc = false;
 
 	unsigned int StartGrid=mapRegions->StartGrid(pc->pos.x,pc->pos.y);
@@ -275,7 +275,7 @@ static void AnvilTarget2(int s,				// socket #
 		sysmessage(s,"The anvil is too far away.");
 	else
 	{
-		P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+		P_CHAR pc_currchar = currchar[s];
 		P_ITEM pi_pack = Packitem(pc_currchar);
 		if (pi_pack == NULL) 
 			return;
@@ -338,7 +338,7 @@ void cSkills::Smith(int s)
 void cSkills::TasteIDTarget(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (pi && pi->magic!=4) // Ripper
 	{
 		if(!( pi->type==19 || pi->type==14))
@@ -492,8 +492,7 @@ void cSkills::Mine(int s)
 	land_st land;
 
 	if (s<0) return;
-	CHARACTER player=currchar[s];
-	P_CHAR pc = MAKE_CHARREF_LR(player);
+	P_CHAR pc = currchar[s];
 	if (pc->isHidden())
 	{
 		pc->unhide();
@@ -513,7 +512,7 @@ void cSkills::Mine(int s)
 	pc->stm+=resource.miningstamina;
 	if(pc->stm<0) pc->stm=0;
 	if(pc->stm>pc->effDex()) pc->stm=pc->effDex();
-	updatestats(player,2);
+	updatestats(DEREF_P_CHAR(pc),2);
 
 	if(resource.orearea<10) resource.orearea=10;
 	
@@ -634,7 +633,7 @@ void cSkills::Mine(int s)
 		action(s,0x0b);
 	soundeffect(s,0x01,0x25); 
 	
-	if(!Skills->CheckSkill(player,MINING, 0, 1000)) 
+	if(!Skills->CheckSkill(DEREF_P_CHAR(pc),MINING, 0, 1000)) 
 	{
 		sysmessage(s,"You sifted thru the dirt and rocks, but found nothing useable.");
 		if(oreamount[a][b]>0 && rand()%2==1) oreamount[a][b]--;//Randomly deplete resources even when they fail 1/2 chance you'll loose ore.
@@ -671,9 +670,9 @@ void cSkills::Mine(int s)
 			|| rand()%5)			// only a 20% chance of finding colored ore
 		{
 			if (!(rand()%20))			// a 5% chance for 5 small ores
-				Items->SpawnItem(s,player,5,"Iron Ore",1,'\x19','\xba', 0, 0,1,1);
+				Items->SpawnItem(s,DEREF_P_CHAR(pc),5,"Iron Ore",1,'\x19','\xba', 0, 0,1,1);
 			else
-				Items->SpawnItem(s,player,1,"Iron Ore",1,'\x19','\xb9', 0, 0,1,1);
+				Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"Iron Ore",1,'\x19','\xb9', 0, 0,1,1);
 			sysmessage(s,"You place some iron ore in your pack.");
 			return;
 		}
@@ -689,7 +688,7 @@ void cSkills::Mine(int s)
 
 			char tmp[100];
 			sprintf(tmp,"%s Ore",pOre->name);
-			Items->SpawnItem(s,player,1,tmp,1,0x19,0xB9, pOre->color>>8, pOre->color&0x00FF,1,1);
+			Items->SpawnItem(s,DEREF_P_CHAR(pc),1,tmp,1,0x19,0xB9, pOre->color>>8, pOre->color&0x00FF,1,1);
 
 			sysmessage(s,"You place some %c%s ore in your pack.",tolower(pOre->name[0]),pOre->name+1);
 		}
@@ -705,7 +704,7 @@ void cSkills::TreeTarget(int s)
 	static int logamount[max_res_x][max_res_y];
 	int a, b, c;
 	long int curtime=uiCurrentTime;
-	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc = currchar[s];
 
 	//AntiChrist
 	//Logging stamina
@@ -833,7 +832,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 	int	nAmount, nFame, nItemID;
 	char iID=0;
 	
-	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc = currchar[s];
 
 	Karma(DEREF_P_CHAR(pc),-1,-2000); // Karma loss no lower than the -2 pier
 	
@@ -956,7 +955,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 						short id,short color,	// item ID & color of ingot to be created
 						char *orename)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 //	int smi = pc_currchar->smeltitem;		// index of ore item
 	const P_ITEM pi = FindItemBySerial(pc_currchar->smeltitem);	// on error return
@@ -1016,7 +1015,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 //
 void cSkills::SmeltOre(int s)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && pi->magic!=4) // Ripper
@@ -1056,7 +1055,7 @@ void cSkills::SmeltOre(int s)
 void cSkills::Wheel(int s, int mat)//Spinning wheel
 {
 	int tailme=0;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (!pi) return;
@@ -1065,7 +1064,7 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 	{
 		if(iteminrange(s,pi,3))
 		{
-			if (!Skills->CheckSkill(currchar[s],TAILORING, 0, 1000)) 
+			if (!Skills->CheckSkill(DEREF_P_CHAR(currchar[s]),TAILORING, 0, 1000)) 
 			{
 				sysmessage(s,"You failed to spin your material.");
 				return;
@@ -1100,7 +1099,7 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 void cSkills::Loom(int s)
 {
 	int tailme=0;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && pi->magic!=4) // Ripper
@@ -1164,7 +1163,7 @@ void cSkills::Loom(int s)
 void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (pi && pi->magic!=4) // Ripper
 	{
 		P_ITEM piRaw = FindItemBySerial(addmitem[s]);
@@ -1200,7 +1199,7 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 void cSkills::MakeDough(int s)
 {
 	bool tailme = false;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && pi->magic!=4) // Ripper
@@ -1237,7 +1236,7 @@ void cSkills::MakeDough(int s)
 void cSkills::MakePizza(int s)
 {
 	int tailme=0;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && pi->magic!=4) // Ripper
@@ -1283,7 +1282,7 @@ void cSkills::MakePizza(int s)
 void cSkills::DetectHidden(UOXSOCKET s)
 {
 	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	//unsigned int i;
 	int x,y,z,dx,dy,j,low;
@@ -1419,7 +1418,7 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 	CHARACTER ftarg = calcCharFromPtr(buffer[s]+7);
 	if( ftarg == -1 ) return;
 	P_CHAR pc = MAKE_CHARREF_LR(ftarg);
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
 	{
@@ -1450,7 +1449,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 	if (!Victim2)
 		return;
 
-	P_CHAR Player = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR Player = currchar[s];
 
 	int target=calcCharFromSer(addid1[s], addid2[s], addid3[s], addid4[s]);
 	P_CHAR Victim1 = MAKE_CHARREF_LR(target);
@@ -1547,7 +1546,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 {
 	const P_ITEM pi = FindItemBySerPtr(buffer[s]+7);
 	short int amt=0;
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if (pi && pi->magic!=4) // Ripper
 	{
@@ -1620,7 +1619,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 	P_CHAR pp = FindCharBySerPtr(buffer[s]+7); // pointer to patient
 	if (pp != NULL)
 	{
-		P_CHAR ph = MAKE_CHARREF_LR(currchar[s]);	// points to the healer
+		P_CHAR ph = currchar[s];	// points to the healer
 		if (!SrvParms->bandageincombat && (pp->war || ph->war))
 		{
 			P_CHAR pc_attacker = FindCharBySerial(ph->attacker); // Ripper...cant heal while in a fight
@@ -1743,7 +1742,7 @@ void cSkills::ArmsLoreTarget(int s)
 	int total;
 	float totalhp;
 	char p2[100];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	
 	const PC_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (!pi) return;
@@ -1849,7 +1848,7 @@ void cSkills::ArmsLoreTarget(int s)
 
 void cSkills::ItemIdTarget(int s)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && pi->magic!=4) // Ripper
 	{
@@ -1931,11 +1930,11 @@ void cSkills::Evaluate_int_Target(UOXSOCKET s)
 {
 
 	P_CHAR pc = FindCharBySerPtr(buffer[s] + 7);
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if(pc == NULL || pc_currchar == NULL) 
 		return;
 
-	if (currchar[s] == DEREF_P_CHAR(pc_currchar))
+	if (pc == pc_currchar)
 	{ 
         sysmessage(s, "You cannot analyze yourself!"); 
         return; 
@@ -1982,7 +1981,7 @@ void cSkills::Evaluate_int_Target(UOXSOCKET s)
 void cSkills::AnatomyTarget(int s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if (pc == NULL || pc_currchar == NULL)
 		return;
@@ -2041,7 +2040,7 @@ void cSkills::TameTarget(int s)
 	CHARACTER i=calcCharFromPtr(buffer[s]+7);
 	if(i<0) return;
 	P_CHAR pc = MAKE_CHARREF_LR(i);
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if(line_of_sight(-1, pc_currchar->pos, pc->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)==0)
 	return;
@@ -2111,7 +2110,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 	int i, skill;
 	char temp2[512];
 	tile_st tile;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
     int cansteal = max(1,pc_currchar->baseskill[STEALING]/10);
 	cansteal = cansteal * 10;
 		
@@ -2202,7 +2201,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 				if (perm[i])
 				{
 
-				  if((i!=s)&&(inrange1p(DEREF_P_CHAR(pc_currchar), currchar[i]))&&(rand()%10+10==17||(rand()%2==1 && chars[currchar[i]].in>=pc_currchar->in))) sysmessage(s,temp2);
+				  if((i!=s)&&(inrange1p(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(currchar[i])))&&(rand()%10+10==17||(rand()%2==1 && currchar[i]->in>=pc_currchar->in))) sysmessage(s,temp2);
 				}
 			}
 
@@ -2214,7 +2213,7 @@ void cSkills::BeggingTarget(int s)
 {
 	int ci,gold,x,y,realgold;
 	char abort;
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	addid1[s]=buffer[s][7];
 	addid2[s]=buffer[s][8];
@@ -2319,7 +2318,7 @@ void cSkills::AnimalLoreTarget(int s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s] + 7);
 	if(pc == NULL) return;
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	// blackwind distance fix 
 	if( chardist( DEREF_P_CHAR(pc), DEREF_P_CHAR(pc_currchar) ) >= 10 ) 
@@ -2358,7 +2357,7 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 {
 	int curtim=uiCurrentTime;
 	const PC_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if (!pi || !(pi->corpse))
 	{
@@ -2392,7 +2391,7 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 void cSkills::PoisoningTarget(int s) //AntiChrist
 {
 //	CHARACTER cc=currchar[s];
-	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc = currchar[s];
 
 	P_ITEM pPoi=FindItemBySerial(pc->poisonserial);
 	if (!pPoi) return;
@@ -2463,7 +2462,7 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 
 void cSkills::PickPocketTarget(int s) // PickPocket dip`s..Ripper
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 
 	if (pc_currchar->skill[STEALING] < 300)
 	// check if under 30 in stealing
@@ -2482,7 +2481,7 @@ void cSkills::LockPick(int s)
 {
 	int success;
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (pi && pi->magic!=4) // Ripper
 	{
 		P_ITEM piPick = FindItemBySerial(addmitem[s]);
@@ -2567,7 +2566,7 @@ void cSkills::LockPick(int s)
 
 void cSkills::Tinkering(int s)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && pi->magic!=4) // Ripper
 	{
@@ -2676,7 +2675,7 @@ public:
 			sysmessage(s,"You can't combine these.");
 		else
 		{
-			P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+			P_CHAR pc_currchar = currchar[s];
 
 			if (pc_currchar->skill[TINKERING]<minskill)
 			{
@@ -2713,7 +2712,7 @@ public:
 	}
 	virtual void createIt(int s)
 	{
-		Items->SpawnItem(s,currchar[s],1,"an axle with gears",1,0x10,0x51,0,0,1,1);
+		Items->SpawnItem(s,DEREF_P_CHAR(currchar[s]),1,"an axle with gears",1,0x10,0x51,0,0,1,1);
 	}
 };
 
@@ -2744,7 +2743,7 @@ public:
 		//#else
 		//char *pn = (id2==0x4F) ? "clock parts" : "sextant parts";
 		//#endif
-		Items->SpawnItem(s,currchar[s],1,pn,1,0x10,id2,0,0,1,1);
+		Items->SpawnItem(s,DEREF_P_CHAR(currchar[s]),1,pn,1,0x10,id2,0,0,1,1);
 	}
 };
 
@@ -2760,7 +2759,7 @@ public:
 	virtual bool decide()   {minskill=600; return cTinkerCombine::decide();}
 	virtual void createIt(int s)
 	{
-		Items->SpawnItem(s,currchar[s],1,"clock",0,0x10,0x4B,0,0,1,1);
+		Items->SpawnItem(s,DEREF_P_CHAR(currchar[s]),1,"clock",0,0x10,0x4B,0,0,1,1);
 	}
 };
 
@@ -2800,8 +2799,8 @@ void cSkills::TinkerClock(int s)
 
 void cSkills::RepairTarget(UOXSOCKET s)
 { // Ripper..Repair items.
-	CHARACTER cc=currchar[s];
-	P_CHAR pc = MAKE_CHARREF_LR(cc);
+//	CHARACTER cc=currchar[s];
+	P_CHAR pc = currchar[s];
 
 	short smithing=pc->baseskill[BLACKSMITHING];
 
@@ -2836,7 +2835,7 @@ void cSkills::RepairTarget(UOXSOCKET s)
 		else if ((smithing>=700)) dmg=2;
 		else if ((smithing>=500)) dmg=3;
 
-		if (Skills->CheckSkill(cc,BLACKSMITHING, 0, 1000))
+		if (Skills->CheckSkill(DEREF_P_CHAR(pc),BLACKSMITHING, 0, 1000))
 		{
 			pi->maxhp-=dmg;
 			pi->hp=pi->maxhp;
@@ -2863,8 +2862,8 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 {
 	unsigned short int sk=MINING;
 
-	CHARACTER cc=currchar[s];
-	P_CHAR pc = MAKE_CHARREF_LR(cc);
+//	CHARACTER cc=currchar[s];
+	P_CHAR pc = currchar[s];
 
 	cItem* pi=FindItemBySerPtr(buffer[s]+7);
 	if (!pi) return; 
@@ -2887,7 +2886,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 		sysmessage(s,"You aren't skilled enough to even try that!");
 		return;
 	}
-	if (Skills->CheckSkill(cc,sk, 0, 1000))
+	if (Skills->CheckSkill(DEREF_P_CHAR(pc),sk, 0, 1000))
 	{
 		char* Name = NULL;
 		short Color = pi->color();
@@ -2907,7 +2906,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 			LogError("switch reached default");
 			return;
 		}
-		cItem* Ingot = Items->SpawnItem(cc,a,Name,1,0x1BF2,Color,1);
+		cItem* Ingot = Items->SpawnItem(DEREF_P_CHAR(pc),a,Name,1,0x1BF2,Color,1);
 		if (Ingot)
 		{
 			Ingot->weight = 20;	// that is 0.2 stone

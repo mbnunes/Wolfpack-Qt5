@@ -88,7 +88,7 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 				int x = 0;
 				for (i = 0; i < now; i++)
 				{
-					if ((chars[currchar[i]].isGM()) && perm[i])
+					if ((currchar[i]->isGM()) && perm[i])
 					{
 						x = 1;
 						sysmessage(i, temp);
@@ -108,7 +108,7 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 				int x = 0;
 				for (i = 0; i < now; i++)
 				{
-					if (chars[currchar[i]].isCounselor() && perm[i])
+					if (currchar[i]->isCounselor() && perm[i])
 					{
 						x = 1;
 						sysmessage(i, (char*)temp);
@@ -329,7 +329,7 @@ bool ShieldSpeech(cChar* pGuard, char* comm, cChar* pPlayer, UOXSOCKET s)
 				}
 				else
 				{
-					cwmWorldState->RemoveItemsFromCharBody(currchar[s],0x1B, 0xC3);
+					cwmWorldState->RemoveItemsFromCharBody(DEREF_P_CHAR(currchar[s]),0x1B, 0xC3);
 					// if they are wearing a chaos shield lets just delete it.
 					Items->SpawnItemBackpack2( s,28,1 );	// lets give them a new chaos shield.
 					npctalk(s,pGuard,"Hi fellow guild member,here is your new shield.",1);
@@ -361,7 +361,7 @@ bool ShieldSpeech(cChar* pGuard, char* comm, cChar* pPlayer, UOXSOCKET s)
 				}
 				else
 				{
-					cwmWorldState->RemoveItemsFromCharBody(currchar[s],0x1B, 0xC4);
+					cwmWorldState->RemoveItemsFromCharBody(DEREF_P_CHAR(currchar[s]),0x1B, 0xC4);
 					// if they are wearing a order shield lets just delete it.
 					Items->SpawnItemBackpack2( s,29,1 );	// lets give them a new order shield.
 					npctalk(s,pGuard,"Hi fellow guild member,here is your new shield.",1);
@@ -455,7 +455,7 @@ bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
 		{
 			if ( pEscortee->ftarg==-1 )
 			{
-				pEscortee->ftarg = currchar[s];		// Set the NPC to follow the PC
+				pEscortee->ftarg = DEREF_P_CHAR(currchar[s]);		// Set the NPC to follow the PC
 				pEscortee->npcWander = 1;			// Set the NPC to wander freely
 				pEscortee->npcaitype = 0;           // Set AI to 0
 				// Set the expire time if nobody excepts the quest
@@ -476,7 +476,7 @@ bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
 		// If this is a request to find out where a NPC wants to go and the PC is within range of the NPC and the NPC is waiting for an ESCORT
 		if (response2)
 		{
-			if ( pEscortee->ftarg == currchar[s] )
+			if ( pEscortee->ftarg == DEREF_P_CHAR(currchar[s]) )
 			{
 				// Send out the rant about accepting the escort
 				sprintf(temp, "Lead on to %s. I shall pay thee when we arrive.", region[pEscortee->questDestRegion].name);
@@ -620,7 +620,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		pPlayer->guarded = false;
 		if (strstr( comm, " ME"))	//if me is in
 		{
-			pPet->ftarg=currchar[s];
+			pPet->ftarg = DEREF_P_CHAR(currchar[s]);
 			pPet->npcWander=1;
 			playmonstersound(k, pPet->id1, pPet->id2, SND_STARTATTACK);
 		}
@@ -656,7 +656,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (strstr( comm, " COME"))
 	{
 		pPlayer->guarded = false;
-		pPet->ftarg=currchar[s];
+		pPet->ftarg = DEREF_P_CHAR(currchar[s]);
 		pPet->npcWander=1;
 		sysmessage(s, "Your pet begins following you.");
 		return 1;
@@ -717,7 +717,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 void PlVGetgold(int s, cChar* pVendor)//PlayerVendors
 {
 	unsigned int pay=0, give=pVendor->holdg, t=0;
-	P_CHAR pPlayer = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pPlayer = currchar[s];
 	
 	if (pPlayer->Owns(pVendor))
 	{
@@ -749,7 +749,7 @@ void PlVGetgold(int s, cChar* pVendor)//PlayerVendors
 			give=58981;
 		}
 		if (give)
-			Items->SpawnItem(s,currchar[s],give,"#",1,0x0E,0xED,0,0,1,1);
+			Items->SpawnItem(s,DEREF_P_CHAR(currchar[s]),give,"#",1,0x0E,0xED,0,0,1,1);
 		sprintf((char*)temp, "Today's purchases total %i gold. I am keeping %i gold for my self. Here is the remaining %i gold. Have a nice day.",pVendor->holdg,pay,give);
 		npctalk(s,pVendor,(char*)temp,0);
 		pVendor->holdg=t;
@@ -869,7 +869,7 @@ int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, char* SpeechUpr)
 {
 	char *comm=SpeechUpr;
 
-    if (strstr( comm, "#EMPTY") && online(currchar[s]) && !pPlayer->dead && pPlayer->isGM())
+    if (strstr( comm, "#EMPTY") && online(DEREF_P_CHAR(currchar[s])) && !pPlayer->dead && pPlayer->isGM())
 	{ // restricted to GMs for now. It's too powerful (Duke, 5.6.2001)
 		target(s, 0, 1, 0, 71, "Select container to empty:");
 		return 1;
@@ -968,7 +968,7 @@ void cSpeech::talking(int s, string speech) // PC speech
 	char lang[4];
 	char name[50] = {0,};	// it **IS** important to 0 out the remaining gaps
 	
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);	
+	P_CHAR pc_currchar = currchar[s];	
 	strcpy(nonuni, speech.c_str());
 
 	// len+font+color+type = same postion for non unicode and unicode speech packets
@@ -1080,7 +1080,7 @@ void cSpeech::talking(int s, string speech) // PC speech
 		return;  // Vendor responded already
 	
 	if (strstr(SpeechUpr, "GUARDS"))
-		callguards(currchar[s]);
+		callguards(DEREF_P_CHAR(currchar[s]));
 	
 	if (Boats->Speech(s, SpeechUpr))
 		return;
@@ -1096,9 +1096,9 @@ void cSpeech::talking(int s, string speech) // PC speech
 			Xsend(i, talk2, 18);
 			Xsend(i, name, 30);
 			if (pc_currchar->dead				// a ghost is talking
-				&& !chars[currchar[i]].dead		// Ghost can talk normally to other ghosts
-				&& !chars[currchar[i]].isGMorCounselor()// GM/Counselors can see ghosts talking always  Seers?
-				&& chars[currchar[i]].spiritspeaktimer == 0)
+				&& !currchar[i]->dead		// Ghost can talk normally to other ghosts
+				&& !currchar[i]->isGMorCounselor()// GM/Counselors can see ghosts talking always  Seers?
+				&& currchar[i]->spiritspeaktimer == 0)
 			{
 				unsigned char ghostspeech[512];
 				memcpy(&ghostspeech, &unicodetext, ucl);

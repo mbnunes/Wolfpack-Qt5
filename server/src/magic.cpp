@@ -120,8 +120,8 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 	if (pi == NULL)
 		return;
 	
-	CHARACTER cc=currchar[s];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+//	CHARACTER cc=currchar[s];
+	P_CHAR pc_currchar = currchar[s];
 	if (!pi && pc_currchar->packitem != INVALID_SERIAL)
 	{
 		unsigned int ci=0;
@@ -334,8 +334,8 @@ char cMagic::GateCollision(PLAYER s)
 void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, char * monstername, unsigned char color1, unsigned char color2, int x, int y, int z, int spellnum)
 {
 	CHARACTER c;
-	CHARACTER cc = currchar[s];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+//	CHARACTER cc = currchar[s];
+	P_CHAR pc_currchar = currchar[s];
 	P_CHAR pc_monster = NULL;
 	int id=(id1<<8)+id2;
 	UI16 color = (color1 << 8) + color2;
@@ -838,7 +838,7 @@ void cMagic::BoxSpell(UOXSOCKET s, int& x1, int& x2, int& y1, int& y2, int& z1, 
 	y=(buffer[s][13]<<8)+buffer[s][14];
 	z=buffer[s][16];
 
-	lenght=chars[currchar[s]].skill[MAGERY]/170; // increased max-range, LB
+	lenght=currchar[s]->skill[MAGERY]/170; // increased max-range, LB
 
 	x1=x-lenght;
 	x2=x+lenght;
@@ -960,7 +960,7 @@ void cMagic::PFireballTarget(int i, int k, int j) //j = % dammage
 //
 void cMagic::SpellFail(UOXSOCKET s)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	//Use Reagents on failure ( if casting from spellbook )
 	if (currentSpellType[s]==0) DelReagents( DEREF_P_CHAR(pc_currchar), spells[pc_currchar->spell].reagents );
 
@@ -1561,7 +1561,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	// Much reordering follows -Fraz-
 	int loskill, hiskill;
 	int type = currentSpellType[s];
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],false);
+	P_CHAR pc_currchar = currchar[s];
 //	int cc=currchar[s];
 	pc_currchar->spell=num;
 	int curSpell = pc_currchar->spell;
@@ -1728,7 +1728,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	unsigned int checkgrid;
 	
 	int loskill, hiskill;//AntiChrist moved here
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	int curSpell = pc_currchar->spell;
 	short xo,yo;
 	signed char zo;
@@ -2722,7 +2722,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						}
 						for( j=0; j<=j2; j++ )
 						{
-							P_ITEM pi=Items->SpawnItem(currchar[s],1,"#",0,(id1<<8)+id2,0,0);
+							P_ITEM pi=Items->SpawnItem(DEREF_P_CHAR(currchar[s]),1,"#",0,(id1<<8)+id2,0,0);
 							if(pi)
 							{
 								pi->priv |= 0x05;
@@ -2932,7 +2932,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							disty=abs(pc->pos.y - pc_currchar->pos.y);
 							if(distx<=15 && disty<=15 && (pc->isNpc() || online(ii)))
 							{
-								if(pc->isInnocent()) criminal(currchar[s]);
+								if(pc->isInnocent()) criminal(DEREF_P_CHAR(currchar[s]));
 								
 								if (!pc->isGM() && pc->account!=0)
 									dmgmod = min(distx,disty);
@@ -2959,7 +2959,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										if (pc->isNpc())
 										{
 											npcaction(ii, 0x2); 
-											npcattacktarget(currchar[s],ii); 
+											npcattacktarget(DEREF_P_CHAR(currchar[s]),ii); 
 										}
 									}
 								}	
@@ -3903,7 +3903,7 @@ void cMagic::PolymorphMenu(int s,int gmindex)
 	closescript();
 
 //	CHARACTER cc=currchar[s];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	total=9+1+lentext+1;
 	for (i=1;i<=gmnumber;i++) total+=4+1+strlen(gmtext[i]);
 	gmprefix[1]=total>>8;
@@ -3965,7 +3965,7 @@ void cMagic::Polymorph(int s, int gmindex, int creaturenumber)
 	id1=k>>8;
 	id2=k%256;
 //	int cc=currchar[s];
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	//	soundeffect2(DEREF_P_CHAR(pc_currchar), 0x02, 0x0F); Deleted by Paul77 - Polymorph doesn't have a sound
 	tempeffect(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_currchar),18,id1,id2,0);
 
@@ -3977,7 +3977,7 @@ void cMagic::Polymorph(int s, int gmindex, int creaturenumber)
 void cMagic::Heal(UOXSOCKET s)
 {
 //	int cc=currchar[s];
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	int defender=LongFromCharPtr(buffer[s]+7);
 	int i = calcCharFromSer( defender );
 	if (i!=-1)
@@ -3996,7 +3996,7 @@ void cMagic::Recall(UOXSOCKET s)
 {
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);	//Targeted item
 //	CHARACTER cc=currchar[s];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (pi)
 	{
 		if ( pi->morex<=200 && pi->morey<=200 )
@@ -4018,7 +4018,7 @@ void cMagic::Mark(UOXSOCKET s)
 {
 	//Targeted item
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (pi)
 	{
 		pi->morex=pc_currchar->pos.x;
@@ -4097,7 +4097,7 @@ void cMagic::Gate(UOXSOCKET s)
 		else
 		{
 //			CHARACTER cc = currchar[s];
-			P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+			P_CHAR pc_currchar = currchar[s];
 			gatex[gatecount][0]=pc_currchar->pos.x;	//create gate a player location
 			gatey[gatecount][0]=pc_currchar->pos.y;
 			gatez[gatecount][0]=pc_currchar->pos.z;

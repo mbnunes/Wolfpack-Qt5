@@ -349,7 +349,7 @@ char firstpacket[MAXCLIENT+1];
  short int walksequence[MAXCLIENT];
  signed char addid5[MAXCLIENT];
  int acctno[MAXCLIENT];
- CHARACTER currchar[MAXCLIENT];
+ P_CHAR currchar[MAXCLIENT];
  make_st itemmake[MAXCLIENT];
  int tempint[MAXCLIENT];
  unsigned char addid1[MAXCLIENT];

@@ -43,7 +43,7 @@ void cWeather::DoWeather(int s)
 	char snow[5]="\x65\x02\x46\xEC";
 	char dry[5]="\x65\x00\x00\x00";
 	int Region;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (pc_currchar != NULL)
 	{
 	    Region=pc_currchar->region;
@@ -72,7 +72,7 @@ void cWeather::CalcType(int s)
 	int rchance=0;
 	int schance=0;
 	int wchance=0;
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	P_CHAR pc_currchar = currchar[s];
 	if (pc_currchar != NULL)
 	rchance=RainChance[pc_currchar->region]; // chance % for it to rain in this region
 	schance=SnowChance[pc_currchar->region]; // chance % for it to snow in this region
@@ -145,10 +145,10 @@ void cWeather::CTimer()
 //	char dry[5]="\x65\x00\x00\x00"; //commented out - unused.
 	for(s=0;s<now_old;s++)
 	{	
-		player_index=currchar[s];
-		if ( online( player_index ) )  
+//		player_index=currchar[s];
+		if ( online( DEREF_P_CHAR(currchar[s]) ) )  
 		{		   
-		   r=chars[player_index].region;
+		   r=currchar[s]->region;
 		   /*if(noweather[s])
 		   {
 			   Network->xSend(s,dry,4,0);

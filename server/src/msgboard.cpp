@@ -75,7 +75,7 @@ unsigned char msg2Post[MAXBUFFER_ASYNCH] = "\x71\xFF\xFF\x05\x40\x00\x00\x19\x00
 //////////////////////////////////////////////////////////////////////////////
 void MsgBoardGetPostType( int s )
 {
-	int type = chars[currchar[s]].postType;
+	int type = currchar[s]->postType;
 	
 	switch ( type )
 	{
@@ -127,7 +127,7 @@ void MsgBoardGetPostType( int s )
 //////////////////////////////////////////////////////////////////////////////
 void MsgBoardSetPostType( int s, int Type )
 {
-	chars[currchar[s]].postType = Type;
+	currchar[s]->postType = Type;
 	
 	switch ( Type )
 	{
@@ -1127,7 +1127,7 @@ int MsgBoardPost( int s, int msgType, int autoPost )
 	// Get the Authors info and create msgAuthor packet
 	// if this was a user posting, get the characters name, other wise leave it blank
 	if ( !autoPost )
-		strncpy( &msgAuthor[1], chars[currchar[s]].name, (sizeof(msgAuthor)-1) );
+		strncpy( &msgAuthor[1], currchar[s]->name, (sizeof(msgAuthor)-1) );
 	msgAuthor[0] = strlen(&msgAuthor[1]) + 1;  // get the length of the name + 1 for null
 	
 	newMsgSize += (msgAuthor[0]+1);   // Update the new total length of the message
@@ -1740,8 +1740,8 @@ void MsgBoardEvent(int s)
 		{        //                 Reply just switches to the Post item.
 			
 			// Check privledge level against server.scp msgpostaccess
-			if ( (chars[currchar[s]].isGM()) || (SrvParms->msgpostaccess) )
-				MsgBoardPost( s, chars[currchar[s]].postType, 0 );
+			if ( (currchar[s]->isGM()) || (SrvParms->msgpostaccess) )
+				MsgBoardPost( s, currchar[s]->postType, 0 );
 			else
 				sysmessage( s, "Thou art not allowed to post messages." );
 			
@@ -1752,7 +1752,7 @@ void MsgBoardEvent(int s)
 		{
 			//             |p#|s1|s2|mt|b1|b2|b3|b4|m1|m2|m3|m4| 
 			// Client sends 71  0  c  6 40  0  0 18  1  0  0  4
-			if ( (chars[currchar[s]].isGM()) || (SrvParms->msgpostremove) )
+			if ( (currchar[s]->isGM()) || (SrvParms->msgpostremove) )
 				MsgBoardRemovePost( s );
 			break;
 		}
@@ -2242,7 +2242,7 @@ void MsgBoardQuestEscortArrive( int npcIndex, int pcIndex )
 	// If they have no money, well, oops!
 	if ( servicePay == 0 )
 	{
-		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Alas, I seem to be a little short on gold. I have nothing to pay you with.", chars[currchar[k]].name, region[pc_npc->questDestRegion].name );
+		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Alas, I seem to be a little short on gold. I have nothing to pay you with.", currchar[k]->name, region[pc_npc->questDestRegion].name );
 		npctalk( k, i, (char*)temp, 0 );
 	}
 	else // Otherwise pay the poor sod for his time
@@ -2251,7 +2251,7 @@ void MsgBoardQuestEscortArrive( int npcIndex, int pcIndex )
 		if ( servicePay < 75 ) servicePay += RandomNum(75, 100);
 		addgold( k, servicePay );
 		goldsfx( k, servicePay );
-		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", chars[currchar[k]].name, region[pc_npc->questDestRegion].name );
+		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", currchar[k]->name, region[pc_npc->questDestRegion].name );
 		npctalk( k, i, (char*)temp, 0 );
 	}
 	
@@ -2933,11 +2933,3 @@ std::vector<std::string> MsgBoardGetFile( char* pattern, char* path)
 
 }
 #endif
-
-
-
-
-
-
-
-

@@ -70,7 +70,7 @@ static bool CheckWhereItem( P_ITEM pack, P_ITEM pi, int s)
 	if (pi && pack && s!=-1) //LB
 	{
 		if (!( pi->contserial==pack->serial ||
-			chars[currchar[s]].Wears(pi)))
+			currchar[s]->Wears(pi)))
 			
 			return 1;
 		else
@@ -81,9 +81,9 @@ static bool CheckWhereItem( P_ITEM pack, P_ITEM pi, int s)
 
 void UpdateStatusWindow(UOXSOCKET s, P_ITEM pi)
 {
-	P_ITEM packnum = packitem(currchar[s]);
+	P_ITEM packnum = packitem(DEREF_P_CHAR(currchar[s]));
 	if (CheckWhereItem(packnum, pi, s))
-		statwindow(s,currchar[s]);
+		statwindow(s, DEREF_P_CHAR(currchar[s]));
 }
 
 static void Sndbounce5(UOXSOCKET s)
@@ -311,7 +311,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 					
 					if (pi->id() == 0x0EED) // gold coin
 					{
-						P_ITEM packnum = packitem(currchar[s]);
+						P_ITEM packnum = packitem(DEREF_P_CHAR(currchar[s]));
 						if (packnum != NULL) // lb
 							if (pi->contserial == packnum->serial)
 								update = 1;
@@ -557,7 +557,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 
 		for (j=0;j<now;j++)
 		{
-			if (perm[j] && inrange1p(k, currchar[j]) && (j!=s))//and to all inrange sockets (without re-sending to current socket)//AntiChrist
+			if (perm[j] && inrange1p(k, DEREF_P_CHAR(currchar[j])) && (j!=s))//and to all inrange sockets (without re-sending to current socket)//AntiChrist
 				wornitems(j, k);
 		}
 		

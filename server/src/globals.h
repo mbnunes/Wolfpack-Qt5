@@ -250,7 +250,7 @@ extern int client[MAXCLIENT];
 extern short int walksequence[MAXCLIENT];
 extern signed char addid5[MAXCLIENT];
 extern int acctno[MAXCLIENT];
-extern CHARACTER currchar[MAXCLIENT];
+extern P_CHAR currchar[MAXCLIENT];
 extern make_st itemmake[MAXCLIENT];
 extern int tempint[MAXCLIENT];
 extern unsigned char addid1[MAXCLIENT];

@@ -102,7 +102,7 @@ static void reverseIncognito(P_CHAR pc)
 			int j;
 			for (j=0;j<now;j++)
 			{//and to all inrange sockets (without re-sending to current socket)//AntiChrist
-				if (perm[j] && inrange1p(c, currchar[j]) && (j!=socket))
+				if (perm[j] && inrange1p(c, DEREF_P_CHAR(currchar[j])) && (j!=socket))
 					wornitems(j, c);
 			}
 		}
@@ -915,7 +915,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 
 		for (j=0;j<now;j++)
 		{//and to all inrange sockets (without re-sending to current socket)//AntiChrist
-			if (perm[j] && inrange1p(DEREF_P_CHAR(pc_dest), currchar[j]) && (j!=socket))
+			if (perm[j] && inrange1p(DEREF_P_CHAR(pc_dest), DEREF_P_CHAR(currchar[j])) && (j!=socket))
 				wornitems(j, DEREF_P_CHAR(pc_dest));
 		}
 
