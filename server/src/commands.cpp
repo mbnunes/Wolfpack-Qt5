@@ -1263,6 +1263,44 @@ void commandInvis( cUOSocket *socket, const QString &command, QStringList &args 
 	socket->player()->resend( false, false );
 }
 
+// Change password for current account
+void commandPassword( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( args.count() < 1 )
+	{
+		socket->sysMessage( tr( "Usage: password <newpassword>" ) );
+		return;
+	}
+
+	QString password = args.join( " " );
+	if( password.length() > 30 )
+	{
+		socket->sysMessage( tr( "Your password can have a maximum of 30 characters." ) );
+		return;
+	}
+
+	socket->account()->setPassword( password );
+	socket->sysMessage( tr( "Your password has been changed." ) );
+}
+
+void commandGmtalk( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( args.count() < 1 )
+	{
+		socket->sysMessage( tr( "Usage: gmtalk <message>" ) );
+		return;
+	}
+
+	QString message = "<" + socket->player()->name + ">: " + args.join( " " );
+
+	cUOSocket *mSock = 0;
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( mSock->player() && mSock->player()->isGM() )
+			mSock->sysMessage( message, 0x539 );
+	}
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1280,6 +1318,7 @@ stCommand cCommands::commands[] =
 	{ "BROADCAST",		commandBroadcast },
 	{ "FIX",			commandFix },
 	{ "GO",				commandGo },
+	{ "GMTALK",			commandGmtalk },
 	{ "INFO",			commandInfo },
 	{ "INVIS",			commandInvis },
 	{ "KILL",			commandKill },
@@ -1287,6 +1326,7 @@ stCommand cCommands::commands[] =
 	{ "MOVE",			commandMove },
 	{ "NUKE",			commandNuke },
 	{ "PAGES",			commandPages },
+	{ "PASSWORD",		commandPassword },
 	{ "RELOAD",			commandReload },
 	{ "REMOVE",			commandRemove },
 	{ "REMOVEEVENT",	commandRemoveEvent },

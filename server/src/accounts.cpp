@@ -160,19 +160,22 @@ void cAccounts::clear()
 AccountRecord* cAccounts::authenticate(const QString& login, const QString& password, enErrorCode* error) const
 {
 	const_iterator it = accounts.find(login);
-	*error = NoError;
+	if( error )
+		*error = NoError;
 	if ( it != accounts.end() )
 	{
 		// First we check for blocked account.
 		if ( it.data()->isBlocked() )
 		{	
-			*error = Banned;
+			if( error )
+				*error = Banned;
 			return 0;
 		}
 
 		if( it.data()->inUse() )
 		{
-			*error = AlreadyInUse;
+			if( error )
+				*error = AlreadyInUse;
 			return 0;
 		}
 
@@ -186,7 +189,8 @@ AccountRecord* cAccounts::authenticate(const QString& login, const QString& pass
 		else
 		{
 		//	it.data()->loginAttemped();
-			*error = BadPassword;
+			if( error )
+				*error = BadPassword;
 			// Now we check for the number of attempts;
 		//	if ( it.data()->loginAttempts() > SrvParams->MaxLoginAttempts() )
 		//	{
@@ -197,7 +201,8 @@ AccountRecord* cAccounts::authenticate(const QString& login, const QString& pass
 	}
 	else
 	{
-		*error = LoginNotFound;
+		if( error )
+			*error = LoginNotFound;
 		return 0;
 	}
 }

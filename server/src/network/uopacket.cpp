@@ -364,6 +364,7 @@ short cUOPacket::getShort( uint pos ) const
 	if ( rawPacket.size() < pos + 1 )
 	{
 		qWarning( "Warning: cUOPacket::getShort() called with params out of bounds" );
+		return 0;
 	}
 #endif
 	short value;

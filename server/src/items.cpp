@@ -1449,7 +1449,7 @@ void cItem::processNode( const QDomElement& Tag )
 
 	// <type2>10</type2>
 	else if( TagName == "type2" )
-		this->setType( Value.toUInt() );
+		this->setType2( Value.toUInt() );
 
 	// <weight>10</weight>
 	else if( TagName == "weight" )

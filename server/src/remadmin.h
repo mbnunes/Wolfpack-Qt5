@@ -58,6 +58,8 @@ private:
 	void tryCompleteCommand( PrivateSocket* );
 	void executeCommand( PrivateSocket* );
 	void sendPrompt( PrivateSocket* socket );
+
+	bool parseTelnetCommand( char command );
 };
 
 #endif //__REMADMIN_H__
