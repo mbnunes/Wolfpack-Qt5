@@ -1825,9 +1825,8 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 	/*
 		\property item.visible The visibile level of the object.
 		Values:
-		<code>0 - Everyone
-		1 - Owner
-		2 - Invisible
+		<code>0 - Invisible
+		1 - Visible
 		</code>
 		*/
 	else if ( name == "visible" )
