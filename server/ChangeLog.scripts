@@ -30,6 +30,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Added a goname <name> command to find players and npcs.
 		- Fixed magic resistance penalty for the protection spell.
 		- Fixed the mindamage/maxdamage for npcs.
+		- Added a say <text> command
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
