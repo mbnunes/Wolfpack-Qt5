@@ -29,14 +29,11 @@ def onUse( char, item ):
 	# Send BookOpen packet
 	# Author / Title
 	author = ''
-	title = ''
+	title = item.name
 	
 	if item.hastag( 'author' ):
 		author = str( item.gettag( 'author' ) )
-		
-	if item.hastag( 'title' ):
-		title = str( item.gettag( 'title' ) )
-	
+			
 	# Calculate Packet Length
 	packetlength = 15 + len( author ) + 1 + len( title ) + 1
 	
@@ -117,4 +114,4 @@ def onBookUpdateInfo( char, item, author, title ):
 		return
 		
 	item.settag( 'author', author )
-	item.settag( 'title', title )	
+	item.name = title
