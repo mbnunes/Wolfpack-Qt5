@@ -605,6 +605,7 @@ void Action_Wander::execute()
 					}
 				}				
 
+				// Change our current heading first.
 				if (m_npc->direction() != dir) {
 					Movement::instance()->Walking( m_npc, dir, 0xFF );
 				}

@@ -488,7 +488,8 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 
 	if ( !nameByScript.isNull() )
 	{
-		setName( nameByScript );
+		// Replace non displayable characters
+		setName( makeAscii(nameByScript) );
 	}
 	else
 	{
@@ -566,11 +567,11 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 				prefix.append( " " );
 			}
 
-			setName( prefix + pChar->name() + ( title.isEmpty() ? QString( "" ) : ", " + title ) );
+			setName( makeAscii( prefix + pChar->name() + ( title.isEmpty() ? QString( "" ) : ", " + title ) ) );
 		}
 		else
 		{
-			setName( pChar->name() + ( title.isEmpty() ? QString( "" ) : ", " + title ) );
+			setName( makeAscii( pChar->name() + ( title.isEmpty() ? QString( "" ) : ", " + title ) ) );
 		}
 	}
 

@@ -528,7 +528,7 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// Clear the running flag here (!)
 	// If the direction we're moving is already equal to our current direction
 	bool running = dir & 0x80;
-	dir = dir & 0x7F; // Remove the running flag
+	dir = dir & 0x7; // Remove all unneeded stuff
 
 	pChar->setRunning(running);
 

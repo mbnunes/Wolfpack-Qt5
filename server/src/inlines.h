@@ -76,4 +76,45 @@ inline bool isBetween(double n, int lower, int higher, double tolerance = 0.5) {
 	return (n > lower - tolerance) && (n < higher + tolerance);
 }
 
+inline QString makeAscii(const QString &input) {
+	QString result;
+	
+	for (int i = 0; i < input.length(); ++i) {
+		QChar c = input.at(i);
+
+		// German umlauts can be represented differently
+		switch (c) {
+			case 'ü':
+				result.append("ue");
+				continue;
+			case 'ä':
+				result.append("ae");
+				continue;
+			case 'ö':
+				result.append("oe");
+				continue;
+			case 'ß':
+				result.append("ss");
+				continue;
+			case 'Ü':
+				result.append("Ue");
+				continue;
+			case 'Ä':
+				result.append("Ae");
+				continue;
+			case 'Ö':
+				result.append("Oe");
+				continue;
+		}
+
+		// Other non representable char
+		if (c.latin1() < 1 || (c.latin1() > 122 && c.latin1() != 127)) {
+			continue;
+		}
+		result.append(c);
+	}
+
+	return result;
+}
+
 #endif

@@ -238,6 +238,7 @@ void cNPC::setOwner( P_PLAYER data, bool nochecks )
 	if ( !nochecks && owner_ )
 	{
 		owner_->removePet( this, true );
+
 	}
 
 	owner_ = data;

@@ -39,6 +39,7 @@
 #include "../basics.h"
 #include "../console.h"
 #include "../territories.h"
+#include "../inlines.h"
 #include "../sectors.h"
 #include "../multi.h"
 #include "../muls/maps.h"
@@ -2440,7 +2441,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	// Dont allow rename-self
 	sendStats.setAllowRename( ( ( pChar->objectType() == enNPC && dynamic_cast<P_NPC>( pChar )->owner() == _player && !pChar->isHuman() ) || _player->isGM() ) && ( _player != pChar ) );
 
-	sendStats.setName( pChar->name() );
+	sendStats.setName( makeAscii( pChar->name() ) );
 	sendStats.setSerial( pChar->serial() );
 
 	if ( pChar != _player )
