@@ -112,14 +112,12 @@ HEADERS         = \
 		  speech.h \
                   srvparams.h \
                   skills.h \
-		  stream.h \
 		  structs.h \
                   targetrequests.h \
                   territories.h \
                   tracking.h \
 		  typedefs.h \
 		  uobject.h \
-		  utilsys.h \
 		  verinfo.h \
 		  wolfpack.h \
 		  tilecache.h \
@@ -185,7 +183,6 @@ SOURCES         = \
 		tracking.cpp \
 		Trade.cpp \                  
 		uobject.cpp \
-		utilsys.cpp \
 		wolfpack.cpp \
 		walking.cpp \
 		world.cpp \
