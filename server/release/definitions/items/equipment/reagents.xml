@@ -3,7 +3,6 @@
 
 	<!-- Reagents -->
 	<item id="f78">
-		<name>batwing</name>
 		<id>0x0f78</id>
 		<buyprice>12</buyprice>
 		<sellprice>6</sellprice>
@@ -14,7 +13,6 @@
 	</item>
 
 	<item id="f79">
-		<name>blackmoor</name>
 		<id>0x0f79</id>
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
@@ -25,7 +23,6 @@
 	</item>
 
 	<item id="f7a">
-		<name>black pearl</name>
 		<id>0x0f7a</id>
 		<buyprice>6</buyprice>
 		<sellprice>3</sellprice>
@@ -36,7 +33,6 @@
 	</item>
 
 	<item id="f7b">
-		<name>blood moss</name>
 		<id>0x0f7b</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
@@ -47,7 +43,6 @@
 	</item>
 
 	<item id="f7c">
-		<name>bloodspawn</name>
 		<id>0x0f7c</id>
 		<buyprice>10</buyprice>
 		<sellprice>3</sellprice>
@@ -58,7 +53,6 @@
 	</item>
 
 	<item id="f7d">
-		<name>daemon blood</name>
 		<id>0x0f7d</id>
 		<buyprice>18</buyprice>
 		<sellprice>7</sellprice>
@@ -79,7 +73,6 @@
 	</item>
 
 	<item id="f7f">
-		<name>brimstone</name>
 		<id>0x0f7f</id>
 		<buyprice>13</buyprice>
 		<sellprice>5</sellprice>
@@ -90,7 +83,6 @@
 	</item>
 
 	<item id="f80">
-		<name>daemon bone</name>
 		<id>0x0f80</id>
 		<buyprice>19</buyprice>
 		<sellprice>6</sellprice>
@@ -101,7 +93,6 @@
 	</item>
 
 	<item id="f81">
-		<name>fertile dirt</name>
 		<id>0x0f81</id>
 		<buyprice>5</buyprice>
 		<sellprice>2</sellprice>
@@ -112,7 +103,6 @@
 	</item>
 
 	<item id="f82">
-		<name>dragon's blood</name>
 		<id>0x0f82</id>
 		<buyprice>21</buyprice>
 		<sellprice>9</sellprice>
@@ -123,7 +113,6 @@
 	</item>
 
 	<item id="f83">
-		<name>executioner's cap</name>
 		<id>0x0f83</id>
 		<buyprice>7</buyprice>
 		<sellprice>4</sellprice>
@@ -134,7 +123,6 @@
 	</item>
 
 	<item id="f84">
-		<name>garlic</name>
 		<id>0x0f84</id>
 		<buyprice>2</buyprice>
 		<sellprice>1</sellprice>
@@ -145,7 +133,6 @@
 	</item>
 
 	<item id="f85">
-		<name>ginseng</name>
 		<id>0x0f85</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
@@ -156,7 +143,6 @@
 	</item>
 
 	<item id="f86">
-		<name>mandrake root</name>
 		<id>0x0f86</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
@@ -167,7 +153,6 @@
 	</item>
 
 	<item id="f87">
-		<name>eye of newt</name>
 		<id>0x0f87</id>
 		<buyprice>8</buyprice>
 		<sellprice>3</sellprice>
@@ -178,7 +163,6 @@
 	</item>
 
 	<item id="f88">
-		<name>nightshade</name>
 		<id>0x0f88</id>
 		<buyprice>3</buyprice>
 		<sellprice>2</sellprice>
@@ -189,7 +173,6 @@
 	</item>
 
 	<item id="f89">
-		<name>obsidian</name>
 		<id>0x0f89</id>
 		<buyprice>14</buyprice>
 		<sellprice>7</sellprice>
@@ -200,7 +183,6 @@
 	</item>
 
 	<item id="f8a">
-		<name>pig iron</name>
 		<id>0x0f8a</id>
 		<buyprice>13</buyprice>
 		<sellprice>6</sellprice>
@@ -211,7 +193,6 @@
 	</item>
 
 	<item id="f8b">
-		<name>pumice</name>
 		<id>0x0f8b</id>
 		<buyprice>17</buyprice>
 		<sellprice>7</sellprice>
@@ -222,7 +203,6 @@
 	</item>
 
 	<item id="f8c">
-		<name>sulfurous ash</name>
 		<id>0x0f8c</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
@@ -233,7 +213,6 @@
 	</item>
 
 	<item id="f8d">
-		<name>spider's silk</name>
 		<id>0x0f8d</id>
 		<buyprice>2</buyprice>
 		<sellprice>1</sellprice>
@@ -244,7 +223,6 @@
 	</item>
 
 	<item id="f8e">
-		<name>nox crystal</name>
 		<id>0x0f8e</id>
 		<buyprice>16</buyprice>
 		<sellprice>8</sellprice>
@@ -255,7 +233,6 @@
 	</item>
 
 	<item id="f8f">
-		<name>grave dust</name>
 		<id>0x0f8f</id>
 		<buyprice>7</buyprice>
 		<sellprice>1</sellprice>
@@ -266,7 +243,6 @@
 	</item>
 
 	<item id="f90">
-		<name>dead wood</name>
 		<id>0x0f90</id>
 		<buyprice>8</buyprice>
 		<sellprice>3</sellprice>
@@ -277,7 +253,6 @@
 	</item>
 
 	<item id="f91">
-		<name>wyrm's heart</name>
 		<id>0x0f91</id>
 		<buyprice>30</buyprice>
 		<sellprice>15</sellprice>
