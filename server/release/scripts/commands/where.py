@@ -16,16 +16,12 @@ import wolfpack
 
 def where( socket, command, arguments ):
 	char = socket.player
-	region = char.region
 	pos = char.pos
+	region = wolfpack.region( pos.x, pos.y, pos.map )
 	name = None
 
-	while region:
-		if region.name and len( region.name ) > 0:
-			name = region.name
-			break
-
-		region = region.parent
+	if region and region.name and len( region.name ) > 0:
+		name = region.name
 
 	multi = char.multi
 
@@ -47,9 +43,9 @@ def where( socket, command, arguments ):
 		map = 'Map %d' % pos.map
 
 	if name:
-		char.message( "You are in %s at %d,%d,%d on %s" % ( name, pos.x, pos.y, pos.z, map ) )
+		socket.sysmessage( "You are in %s at %d,%d,%d on %s" % ( name, pos.x, pos.y, pos.z, map ) )
 	else:
-		char.message( "You are at %d,%d,%d on %s" % ( pos.x, pos.y, pos.z, map ) )
+		socket.sysmessage( "You are at %d,%d,%d on %s" % ( pos.x, pos.y, pos.z, map ) )
 
 def onLoad():
 	wolfpack.registercommand( "where", where )
